@@ -663,3 +663,602 @@ Published report: https://github.com/OVVO-Financial/RH_Lean/blob/agent-reports/r
 **D. Preregistered stress test and next step.** Preserve the actual current odd seats, strict square boundaries, least-prime owner, once-only historical prime, block of that historical occurrence, original seat weight, full complement and original compressed norm restoration. Test same-block collisions and the first range where a uniform pair-sign claim is legitimate; a first-bad-conditioned counterexample requires that actual premise and will not be inferred from an unconditional example. Then attempt to aggregate the proper-class inequality without spending a historical prime twice across blocks. Read current definitions before choosing the threshold. Any new proof is PAPER_PROOF / SELF_AUDIT pending independent review, not Lean certified.
 
 **Deployment and route record.** Current engine consumed; selected VF-LOW by actual last rotation VF-LOW / JOH / SAT. Next distinct route remains JOH. No local Lean, proof mutation, PR mutation, schedule change or other-agent launch. Shell clone was unavailable (HTTP tunnel 403); authenticated GitHub reads work, so this does not block research or publication.
+
+
+---
+
+## Scheduled Continuation Final Synthesis - Claim 20261103-owner-2
+
+**Invocation:** SCHEDULED, begun 2026-11-03 08:09:02 EST (-0500), RUN_ID_UNAVAILABLE. This continues the verified 08:09 checkpoint, not the earlier 00:09 SAT run.
+**Status:** PAPER_PROOF / SELF_AUDIT; FINITE_COMPUTATION with rational interval certificates; REFUTED at the stated unconditional supplier scopes. Independent Referee review and new Lean formalization: PENDING. **Net new endpoint gain: UNKNOWN; no improvement claimed.**
+
+### A. Most Important Mathematical Development
+
+**Ancestry alone has finite signed capacity, and genuine physical VF demand can exceed it even when every prime ancestor is available.** For infinitely many genuine primes q, construct distinct current composites n=m*q with m supported on {3,5,7}, in one actual dyadic square-root run. Every n is squareful but not a perfect square. Their positive original VF weight grows without bound; their entire prime-divisor ancestry is only {3,5,7,q}. A once-only allocation from negative historical prime divisors cannot pay this population, even after granting a full unit to each of those four primes. This is O4 below, not a counterexample to RH or to a first-bad-conditioned assertion.
+
+An exact finite witness uses q=1000000000039 and 118 constructed composites. Their total original weight lies in [4.31356094,4.31356095], exceeding the enlarged capacity 4. Primality, factor support, strict square boundaries and logarithmic weight intervals were checked using exact integer/rational arithmetic. No scan through the enormous endpoint was needed or claimed.
+
+The positive result is O1: for every run A<=r<B of at most floor(log_2(A))/3 blocks, A>=1024, the complete current large-prime composite population groups with one historical prime per label. Every nonempty grouped packet is < -799/4096 in VF-minus-prime sign, uniformly in all factor depths, including squareful cofactors. O2 proves a logarithmic horizon is the correct order for this particular once-only mechanism: an explicit prime family has packet limit c-1 when its run length is floor(c log q).
+
+O3 identifies the admission limitation: in the original final half-history, only cofactor-3 descendants have their prime tag present. Every cofactor >=5 requires opening the earlier anchor. The short-run result is therefore not free #915 capacity or a returned-cell theorem.
+
+### B. Current Authoritative Objective
+
+Main inspected: **8e5d64ae689b39dabd2a4f6eb33efe4d5d192015**. Authority hashes:
+
+| File | Blob SHA |
+| --- | --- |
+| AGENTS.md | 9fa5e9519e2fb6dde22217aa2a18982dafef373a |
+| CURRENT_PROOF_CONTRACT.md | 88cddd9cd98c3b55f0b013998541e9b4e9dc9f2a |
+| Task selector | d05c327ae694ea54b599dab0a21032a056b521f1 |
+| Broad-search policy | b5c063c51556ba57c4b25bcc380a606fa8daa207 |
+| Complete-return contract | 16838f7f3c8724b970f8b8ece0bceaab9418066d |
+| Persistent research engine | 6fce99c61efb5b2a73c0cb1f1464f09b351fcd55 |
+| Role prompts | 7366bb71e8a97fd11689a64311c7f590edeb1adf |
+| All-vector source directive | 0b8733cbb3eabeb0954df4a77cfccde25f54c4a0 |
+| Dynamic protocol | fe21d2824491fb001726311f736b9825a8f97eca |
+| Multirun policy | 643cfd596116720a8e5b1efc07a6124b55d70946 |
+
+The canonical objective remains
+
+~~~text
+exists C>=0, forall integer R>=2,
+  |pi(R^2)-VF_can(R^2)| <= C R log R.
+F_R=sum_(2<=r<R)(2r+1)/log(r^2+r+1/2),
+D_R=pi(R^2)-F_R,       D_can(R)=D_R-sqrt(2).
+~~~
+
+This run stays on actual-prime VF-LOW. It does not identify w_r-1_Prime(n) with mu(n), the hybrid mu*kappa field, or ideal-character coefficients. The canonical quadratic correction remains D_can^2=D_R^2-2sqrt(2)D_R+2. The canonical von Koch consumer retains its explicit classical-criterion interface.
+
+The first-lower-breach necessary condition P_R+S_R+K*((R+1)log(R+1)-R log R)<m_R, S_R=D_R+KR log R, is established infrastructure, not a new result here. Full #915 payment is audited as equivalent to no first bad, not an independently smaller supplier.
+
+Material original Lean definitions/theorems inspected at main:
+
+| File under research/ | Blob SHA | Scope used |
+| --- | --- | --- |
+| VF_MID_VON_KOCH_BRIDGE.lean | 32d4b0d74ecadc9780b9841d40357f6ff02369f0 | Original midpoint, mass and finished sum; definitions excerpt |
+| VF_MID_ODD_FRACTIONAL_CLUSTER.lean | 942badff45c03d2a9e97789b57d1bd8052232191 | Odd seats, exactly r seats, w_r=m_r/r |
+| VF_MID_SIGNED_SEAT_CHARGE.lean | 87a6654a4a4337b409fde69aa15d7264d8b721b6 | Literal signed charge, prime/composite cases |
+| VF_MID_FIRST_BAD_HISTORY_COMPRESSION.lean | d9cc97541f9713b6eec8df30885e9ca830478e59 | Historical anchor and run telescope |
+| VF_MID_915_EXACT_HISTORICAL_NNS_COMPRESSION.lean | 6cc6b2a9d25279dd44fb65cb222f5d6846a912d4 | Squared-denominator restoring price |
+| VF_MID_915_SOURCE_PAYMENT_CONTENT_AUDIT.lean | f7d046d8d94962e18f794deee7e33ce7508a0e74 | Two-number source and target equivalence |
+| VF_MID_THIRTY_FACTOR_RANGE_LOWER_GATE.lean | ab0f7d0adfb4b71c1b1e36447b2373a56b44ead4 | Existing near-wall necessity |
+| VF_MID_FIRST_BAD_WEIGHTED_OWNER_FUBINI.lean | 4679d7edae521dd4d9f0238aa4201445b1fdb9a9 | Squarefree active carrier; omitted/restoring terms |
+| VF_MID_FIRST_BAD_RESTORING_DECOMPOSITION.lean | 41ca385cb2bd0706db21007e19cd2b0b1aaa4b3e | Full normalized numerator D_(R+1)^2 |
+| VF_MID_HISTORICAL_PRIME_MULTIPLICITY.lean | 71197c4b3a72a286efe32018b74d1fc5aff46222 | Prior small-owner uniqueness/multiplicity |
+| VF_MID_OWNER_SIGNED_PAIR_BOUNDS.lean | f77418156653f1d93c0bcd4ca6587fc0987e3b95 | Prior restricted pair bounds |
+| VF_MID_SAME_TAG_SHARP_PACKET.lean | 9f69aa4f5eaa278d4cf176397abb5cabf4ae832f | Prior small-prime-owner packet limits |
+| VF_MID_SAME_TAG_DYADIC_FIBRE.lean | 2b72e43ae4de32b7fac44c4c559ca6597488db6d | Prior restricted prime-cofactor counts |
+| VF974_ORIGINAL_FIRSTBAD_GLOBAL_RESIDUAL_DOMINANCE_20261018.lean | 26fd4533e37390326b96740182f5900f9057b305 | Existing positive first-bad anchor obstruction |
+| VF_CANONICAL_SQRT_TWO_VON_KOCH.lean | 79030d70e8d3e0d08eef9bac53fef95c36eca2fb | Canonical target and classical interface |
+
+**Formal frontier, separate from this result.** Main includes merged #1070-#1072. Open #1073/#1074 remain draft; #1075/#1076 are non-draft and unmerged. Exact-head CI refreshed: #1073 9cbfce5295343bcb411e6d2cb159b59995cd985b, 13 successes; #1074 5f53bca7d728576efcbbf2762885b7720e89aef7, 7; #1075 c54bce957fa8c49ca944852b3a1b0e143f2d693b, 9; #1076 f676c9b13960f8c80b68bdf35a5f04b07370e228, 8. No workflow launched.
+
+PR #1073's strict Mertens file was retrieved at blob b33a4883e1ddb0551b0f11f062bce46680d87450, including unconditional native_mertens_uniform_strict_gap. PR #1076's endpoint file was retrieved at blob 115d2b19148fa37c329329f153eceea512ade377, including construction before quantified Mertens losses/prefixes. Existing independent acceptance belongs to 20261102-referee-3 and 20261103-referee-1; their standard-axiom/dependency audits and today's Lean evidence are carried forward. This run inspected terminal source/status, not that entire analytic proof independently. Programme gate: VERIFIED_ETA / PR_HEAD_ONLY at reviewed heads. Main and this VF claim receive no such upgrade. Protected portfolios remain.
+
+### C. Structural Hypotheses Investigated
+
+Resume point: Coordinator 20261103-coordinator-1, section H, requested a prime-side ancestry restriction with original historical/current weights. Previous VF-LOW claim 20261102-owner-2 was hybrid-Mobius work without that bridge; it is retained, not promoted.
+
+1. A short root run has enough once-only historical large-prime charge for all its descendants, including nonprime/squareful cofactors. This survives as O1.
+2. First-escape chronology or simple concatenation extends that capacity to long runs. Unconditional concatenation fails, with the logarithmically sharp O2 family. No actual first-bad instance is claimed.
+3. Other historical prime divisors can always repair the long-run deficit. This enlarged ancestry-only supplier fails by O4.
+
+The new content is not the old isolated semiprime gap, fixed-cofactor cut reassembly, or a renamed endpoint inequality: it is a growing short-run bound on all factor depths, its asymptotic horizon, and an all-prime-ancestor capacity obstruction on genuine squareful physical seats.
+
+### D. Mathematical Derivation
+
+#### O1. Uniform All-Depth Short-Run Signed Bound
+
+For A>=1024, k=floor(log_2 A), 1<=L<=floor(k/3), set B=A+L and retain
+
+~~~text
+C(A,B)={(r,n): A<=r<B, r^2<n<(r+1)^2, n odd},
+w_r=(2+1/r)/log(r^2+r+1/2), c(r,n)=w_r-1_Prime(n).
+E(A,B)={(r,n) in C(A,B): n composite, P+(n)>=B}.
+Q(A,B)={P+(n): (r,n) in E(A,B)}.
+E_q={(r,n) in E(A,B): P+(n)=q}, h_q=floor(sqrt q).
+P_q=w_(h_q)-1+sum_((r,n) in E_q)w_r.
+~~~
+
+Each n in E is uniquely n=a*q with a>=3 odd, a<q, and q occurring once: n<B^2<=q^2, and two primes >=B cannot divide n. The actual least-prime owner remains minFac(a); reindexing does not change that owner or create an occurrence. Cofactors need not be prime or squarefree.
+
+All tags are historical before root A: q<B^2/3<=16A^2/27<A^2, since k<=A and B<=4A/3. Thus h_q<A. Also q>=B>A>=1024 gives h_q>=32, so each q is a genuine prior odd-seat prime, not a square. Distinct tags are distinct historical integers.
+
+For fixed q,r there is at most one descendant: two odd multiples differ by at least 2q>=2(r+1), greater than the band's width 2r+1. Hence |E_q|<=L. This proves multiplicity without cloning history.
+
+Using log 2>2/3, for r>=A>=2^k,
+
+~~~text
+w_r < 3(2+1/1024)/(4k)=6147/(4096k).
+~~~
+
+For h_q>=32, log(h_q^2+h_q+1/2)>20/3 and 2+1/h_q<=65/32, giving w_(h_q)<39/128. Therefore
+
+~~~text
+P_q < -1+39/128+(k/3)*6147/(4096k)
+    = -799/4096 < -3/16,
+P(A,B):=sum_(q in Q)P_q <= -(799/4096)|Q|.             (66)
+~~~
+
+The aggregate includes empty Q and is strict for nonempty Q. Constants and factor-depth coverage are uniform in A,B,q. This is an actual-weight signed proper-class estimate, not an NNS half-bound.
+
+#### O2. Sharp Order Of The Logarithmic Horizon
+
+Let q be an odd prime, B=q, A=q-L, with L>=2, L<q/2 and L^2<2q. The COMPLETE q-descendant fibre is
+
+~~~text
+n_j=q(q-2j), j=1,...,L-1,
+floor(sqrt(n_j))=q-j-1.
+~~~
+
+Indeed n_j<(q-j)^2 and n_j-(q-j-1)^2=2q-(j+1)^2>0. Conversely every odd cofactor a<q is q-2j; n_j>A^2 is equivalent to j<=L-1 under L^2<2q. Thus
+
+~~~text
+P_q(q-L,q)=w_(floor(sqrt q))-1
+              +sum_(j=1..L-1)w_(q-j-1).               (67)
+~~~
+
+Fix c>0 before q and choose L=floor(c log q). The hypotheses hold eventually. Uniformly for r=q+O(log q), w_r log q ->1, and w_(floor(sqrt q))->0. Therefore along genuine primes
+
+~~~text
+P_q(q-floor(c log q),q) -> c-1.                       (68)
+~~~
+
+Only elementary weight asymptotics and infinitely many primes are used, not PNT or random signs. For c<1 the packet is eventually negative; for c>1 it is eventually positive. No sign assertion at c=1. O1's constant is not claimed optimal, but a universal greatest-prime-only nonpositive packet theorem cannot extend to all c>1 logarithmic lengths or all dyadic lengths.
+
+A coarse dyadic witness is q=2053, A=1026, B=2052. Exactly 770 odd cofactors satisfy A^2<a*q<B^2; all are <q. Since r<B<2^12, midpoint(r)<B^2 and w_r>1/12. Their packet is therefore >770/12-1=379/6.
+
+#### O3. Exact Final Half-History Admission
+
+Let R=B-1 and H=floor(R/2)+1=ceil(B/2), the original half-history starting root. In O1,
+
+~~~text
+h_q>=H iff the descendant cofactor a is 3.            (69)
+~~~
+
+If a>=5, q=n/a<B^2/5<H^2. Conversely 16k<=2^k<=A for k>=10, so L<=A/48. With A>=1024, H<=(B+1)/2<=25A/48 and 3H^2<A^2. Thus a=3 gives q=n/3>A^2/3>H^2. This covers every descendant, including repeated tags; a tag inside final half-history has only the a=3 descendant.
+
+All a>=5 tags are below the half-history anchor. Counting them as half-run cells is false before masks/clipping are considered. Composite a makes n->q a multi-step factor path, not the single first-owner edge n->n/minFac(n). Squareful a makes n absent from the squarefree active physical carrier in VF_MID_FIRST_BAD_WEIGHTED_OWNER_FUBINI, while its VF charge remains in the omitted/restoring population.
+
+This unconditional admission restriction also holds under a genuine first-bad premise. It neither excludes first bad nor proves masked returned-cell admission.
+
+#### O4. All Prime Ancestors Still Fail Long-Run Capacity
+
+The falsified unconditional supplier permits nonnegative allocations x_(n,p) only at prime divisors p|n, demands sum_p x_(n,p)>=w_(floor(sqrt n)), and spends each historical prime's negative charge at most once. Even enlarging each capacity to 1 cannot make this true on all legal raw populations.
+
+For prime q>=35^96 choose t with 35^(2t)<=q<35^(2(t+1)), so t>=48. For every 0<=b,c<=t put
+
+~~~text
+v=5^b 7^c, a=max{j>=0:3^j v<q},
+m_(b,c)=3^a v, n_(b,c)=q*m_(b,c),
+A=(q-1)/2, B=q-1.
+~~~
+
+Because v<=sqrt q and q>=81, a>=2. Maximality yields q/3<m<q. Unique factorization gives distinct m. Since q,m are odd and unequal, m<=q-2. Consequently
+
+~~~text
+A^2<q^2/3<n<=q(q-2)<(q-1)^2=B^2.
+~~~
+
+Every n is an actual odd composite with unique greatest prime q; q<A^2 is historical. Every n is divisible by 9 and is squareful, but q has exponent one, so n is not a square and no strict square boundary removes it. Its least-prime owner is 3. All prime-divisor ancestors belong to {3,5,7,q}, independently of t.
+
+For r=floor(sqrt n)<B, midpoint(r)<B^2 and w_r>1/log B>1/log q. Hence
+
+~~~text
+sum_(b,c)w_(floor(sqrt n_(b,c)))
+ > (t+1)^2/log q
+ > (t+1)/(2 log 35)
+ > (t+1)/12 >=49/12>4.                               (70)
+~~~
+
+Here log 35<6 follows from 35<2^6 and log 2<1. Summing any proposed allocations gives demand>4 but enlarged capacity<=4, a contradiction. This is a finite weighted-neighborhood obstruction, not an application of an unverified matching theorem. Demand tends to infinity along primes.
+
+The unit capacities deliberately favor the supplier. Actual negative VF prime charge max(0,1-w_(floor(sqrt p))) is <=1 where the seat exists. Prime 3 belongs to the initial prime-count anchor, not a fictitious r=1 VF seat; a unit is explicitly granted. Primes 5,7 have w_2>1, so their physical VF charges are positive, not negative. The proof does not obtain credit from them. Even adding the other fixed initial-anchor unit cannot repair the unbounded family.
+
+**Finite witness:** q=1000000000039. Use all b,c>=0 with 9*5^b*7^c<=q and the same maximal exponent a. There are 118 distinct cofactors, with total demand in [4.31356094,4.31356095]. Trial division by every prime <=1000000 certifies q's primality. Integer checks certify all factors and locations. This sparse witness does not claim a census up to B^2.
+
+#### O5. Complete Source And Quadratic Restoration
+
+For O1 set X=sum_E w_r, Y=sum_(q in Q)(1-w_(h_q)), and Z equal to the signed sum over EVERY current seat in C(A,B)\E, including primes, other composites and squareful seats. Then
+
+~~~text
+P=X-Y, C=-D_A+Y+Z,  -D_B=C+P.                        (71)
+~~~
+
+C means exactly the initial anchor -D_2=-2, all prior odd seats up to A except the selected primes Q, and the entire current complement. It is not an unspecified error. Main's physical historical telescope proves this reconstruction.
+
+All cross terms remain:
+
+~~~text
+D_B^2=C^2+P^2+2CP,
+P^2=sum_q P_q^2+2sum_(q<q')P_q P_q'.                  (72)
+~~~
+
+O1's cross-tag products in P^2 are positive, not orthogonal. At a first lower breach D_B<-K B log B, K>=0, the consequence is only
+
+~~~text
+C>K B log B+(799/4096)|Q|.                            (73)
+~~~
+
+This localizes the necessary pressure into the explicit complement; it does not exclude it. Prior lower safety gives -D_A<=K A log A but no new bound on Y+Z. No first-bad-conditioned counterexample was established.
+
+At the final production root R=B-1 retain
+
+~~~text
+Source=D_B=D_R+P_R-m_R,
+beta_R=m_R+(1-2w_R)P_R,
+TotalMass=(|D_R|+beta_R)^2.
+~~~
+
+Opening history into positive mass U and negative magnitude V requires the exact existing correction
+
+~~~text
+(U+V+beta_R)^2-(|U-V|+beta_R)^2
+ =4UV+2beta_R(U+V-|U-V|).                             (74)
+~~~
+
+Equations (71)-(74) return history, anchors, all current complements, squareful terms, and cross-owner/cross-generation interactions. O1 does not bound 2D_B^2-TotalMass or authorize a larger denominator. O4 is a concrete reason squarefree active estimates cannot silently dispose of physical squareful restoration.
+
+### E. Quantitative Consequence
+
+O1 gives a uniform negative mass >=799/4096 per distinct tag on the stated logarithmic run, including multiple real descendants and arbitrary factor depth. O2 identifies an order-sharp length obstruction for the same resource. O4 rejects even the all-prime-ancestor resource on a structured genuine squareful subfamily.
+
+These change the plausible suppliers, but improve no global upper bound for VF, Mertens, sharp shell energy, FINITE-AC, CORR4 or JOH. Concatenation repeats historical q; O2/O4 show why that loss is real. Returning C restores an unpaid signed global interaction.
+
+### F. Falsification And Circularity Review
+
+The early checkpoint registered complete factor-depth, history, collision and first-escape-scope tests. Fixed thin-run roots A=1024,1031,2048,4096 and boundary fixtures q=2053,4099 were chosen before their execution. The subsequently developed smooth-ancestry construction was tested at q=65537 and q=1000000000039; it was not called an upstream preregistered claim.
+
+| A | B | Tags | Descendants | Max multiplicity | Squareful descendants | Tags in half-history | Below anchor |
+| ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| 1024 | 1027 | 1793 | 1963 | 3 | 324 | 161 | 1632 |
+| 1031 | 1034 | 1773 | 1952 | 3 | 332 | 160 | 1613 |
+| 2048 | 2051 | 3609 | 3923 | 3 | 671 | 296 | 3313 |
+| 4096 | 4100 | 9415 | 10580 | 4 | 1826 | 706 | 8709 |
+
+Every current seat was directly factored; an independent enumeration of all candidate prime labels/odd cofactors reconstructed exactly E. Per-block uniqueness, multiplicity, (69), and symbolic coefficient-by-coefficient restoration (71) passed. The all-scale proof is separate from this table.
+
+Selected certified sign intervals for (67):
+
+| q | L | Descendants | Packet interval |
+| ---: | ---: | ---: | --- |
+| 2053 | 3 | 2 | [-0.47283502,-0.47283501] |
+| 2053 | 5 | 4 | [-0.21047960,-0.21047959] |
+| 2053 | 7 | 6 | [0.05190948,0.05190949] |
+| 2053 | 15 | 14 | [1.10180332,1.10180333] |
+| 4099 | 4 | 3 | [-0.39741417,-0.39741416] |
+| 4099 | 8 | 7 | [0.08358530,0.08358531] |
+
+The positive fixtures violate O1's length restriction, not O1. None is asserted first bad. The L=1 diagnostic has no current descendant and is not counted as a nonempty packet.
+
+Logarithm certificates use exact range reduction x=2^k y, 1<=y<2, and 40 terms of log y=2sum_(j>=0)u^(2j+1)/(2j+1), u=(y-1)/(y+1), with a geometric upper bound on the positive tail. Reciprocal bounds certify original weights. No floating sign or fitted exponent is used. Final reproducer SHA256: 8276b6de782055fe8542086a79eb451c3e53f14914792705dd76ed6220129acb. Full executed source follows. A scratch-output variable reuse was corrected and the complete script rerun before publication; no mathematical fixture changed.
+
+BLOCK R=549, JOH owner-3/two-owner reversals, SAT R=7 zero-layer activation, and original no-cloning/anchor constraints remain. They were not rerun or relabeled as first-bad witnesses. O4 is NOT a Mobius counterexample: its constructed seats have mu(n)=0 and strictly positive physical VF charge.
+
+### G. Conceptual Interpretation
+
+A historical prime has finite negative physical mass. Multiplication by several fixed small primes creates many distinct real composite occurrences, and their original VF weights can outweigh ALL prime-ancestor capacity. This is deterministic factor-depth/chronology dependence, not a probabilistic phenomenon.
+
+Short-run negativity survives because a large prime occurs at most once per square block and VF weights are logarithmically small. The resulting logarithmic lifetime does not last across long runs. In addition, all but cofactor-3 tags lie behind the compressed half-history anchor. A global argument requires genuinely nonlocal signed compensation, not a longer ancestry-only list or cloned history.
+
+### H. Competing Mechanisms
+
+- Uniform logarithmic-window raw packets: retain O1 as a proper-class lemma, review pending.
+- Unconditional greatest-prime capacity over long runs: abandon by O2.
+- Unconditional repair using all historical prime divisors: abandon by O4; first-bad-restricted variants were not refuted.
+- Direct admission of the whole packet into squarefree first-owner cells: reject without the missing multi-step/squareful source bridge.
+- Complete complementary signed interaction under first escape: open; no target-equivalent bound assumed.
+- JOH and SAT: preserve distinct committed derivations; JOH is the next protected turn.
+
+### I. Specialist Handoffs
+
+**Coordinator:** record O1 as a uniform raw signed restriction, O2/O4 as scoped obstructions. O4 is the strongest strategic development: even every prime ancestor cannot fund full-depth physical demand. This does not close/refute VF-LOW or justify narrowing the team.
+
+**Referee:** independently check O1's injectivity/constant, O2's complete fibre/c-1 limit, O3's half-history iff, O4's finite allocation contradiction and the 3/5/7 anchor qualifications. Audit (71)-(74) before any global reading. No acceptance or launch is claimed here.
+
+**Wheel:** a possible replacement incidence relation must be source-authorized, genuinely non-divisor or collectively signed, and retain once-only capacity plus squareful/anchor return. Divisor-only incidence cannot evade O4.
+
+**Census:** reproduce q=2053,L=7, then the sparse 118-seat q=1000000000039 witness. Exact trial division and rational log intervals suffice; no enormous endpoint sieve. Rival predictions are demand<=4 versus demand>4 with prime-divisor union {3,5,7,q}. The A=1024/B=1027 fixture checks O1/O3. No range extension requested.
+
+**Analytic:** no imported analytic bound is used here. O4 is invisible to squarefree-only mu fields. Any analytic transfer must retain physical squareful restoration and cannot turn an existing prefix gain into local-shell/VF control.
+
+**Lean:** no new proof task before independent review. If useful and accepted, O1/O3 are finite arithmetic/log bounds; O4 is a source-specific no-go. Existing strict-gap audit work has priority. Do not implement an unproved first-bad compensation or identify greatest-prime grouping with first-owner cells.
+
+### J. First Independently Missing Lemma
+
+The attempted next supplier was
+
+~~~text
+for every legal current subset F in the selected run,
+sum_(n in F)w_(floor(sqrt n))
+ <=sum_(p in primeDivisors(F))availableHistoricalNegativeCharge(p).
+~~~
+
+O4 refutes it even after enlarging the right side to the number of prime ancestors. It must be marked REFUTED, not retained as open.
+
+**No qualified independent replacement is obtained in this run.** For this partition the exact surviving quantitative gap is signed control of C+P in (71), with original compression and (74). Its target-size bound would merely restate the endpoint problem, and is not offered as a smaller lemma. A new mechanism must first exhibit a real non-divisor or collective signed interaction compensating the disclosed squareful family without reusing history. The first bridge to test is actual occurrence/mask/weight admission of that proposed interaction, including its squareful and anchor entries. No such theorem is assumed.
+
+This is a completed falsification, not a universal impossibility conclusion about first-escape-conditioned or nonlocal approaches.
+
+### K. Next-Run Resume Capsule
+
+~~~text
+MAIN: 8e5d64ae689b39dabd2a4f6eb33efe4d5d192015.
+RUN: scheduled 2026-11-03 08:09:02 EST; RUN_ID_UNAVAILABLE.
+CLAIM: 20261103-owner-2, O1-O5, equations (66)-(74).
+PRIMARY: VF-LOW, literal w_r-1_Prime(n), not hybrid mu.
+RESULT: uniform logarithmic-window signed bound; c-1 horizon;
+        half-history cofactor-3 classification; all-ancestor capacity no-go.
+STATUS: PAPER_PROOF / SELF_AUDIT; independent acceptance and Lean PENDING.
+TESTS: exact rational/integer; sparse 118-seat witness verified.
+NEW ENDPOINT GAIN: UNKNOWN; none asserted.
+PROJECT GATE: existing VERIFIED_ETA / PR_HEAD_ONLY; no narrowing.
+LATEST OWN ROUTES: JOH (20261102-owner-3), SAT (20261103-owner-1),
+                   VF-LOW (this run). NEXT: JOH.
+JOH RESUME: equations (48)-(49), chronology and unequal-count tails;
+            fixed nonnegative two-owner potentials already fail at roots 4,8.
+SAT RESUME: 20261103-owner-1 equation (63), growing-band prime error
+            with terminal return; do not repeat the zero-layer proof.
+VF-LOW RESUME: no unconditional ancestry-capacity revival; identify an
+               actual new signed/source-admitted interaction first.
+~~~
+
+Retrieved continuity and relevant findings/continuations read; not an independent audit of every upstream derivation:
+
+| Role | Nov 2 blob | Nov 3 intake blob |
+| --- | --- | --- |
+| Coordinator 00/90 | 1e932d4ce0eb0fd2c5f4507f6b111194d633eb32 | f9c04a1099048cd0b02fd5264b753e916cbcd521 |
+| Owner | abfe546d72b151f4cd200fc61de3197efe23a65c | 5c085d12ca455327b2a9ab42d7e55a1b6b2d631b |
+| Analytic | 8e48b59611aa1d0bfa3577ed0a4a3bc0d0fcae73 | 7a167a551ca047c0b5bccf6220f40152d78ea176 |
+| Wheel | abf8ac8c22a708886183849552c90dd62787ac8d | ae0ce9040b145c8b2ee04418e02a363d10b5da38 |
+| Census | 2cd84c57ab18d923e97368764f29f4ccd2ec3bb3 | 09ecf82c4a8d5d36b10ed6d64167d695e096ce03 |
+| Referee | 814af1684df66e6ac99b8df1f102cb592b316f89 | 226a5a6d971f347b45e016a046007bc4ceb368ee |
+| Lean | 02d19d792e26f072004cb5909f149538752626e9 | 579d19654925823b5fa2ef849366da2925d2c1b0 |
+
+TODAY=AVAILABLE for all roles; YESTERDAY=CARRY_FORWARD. Coordinator 00/90 blobs match. Latest Coordinator 20261103-coordinator-1 restores actual-prime VF-LOW and leaves JOH next. Analytic's NYMAN tail, Wheel's daughter restrictions, Census PC4/PC5 and Referee's prefix/support no-go were read as distinct-carrier context, not imported VF inequalities. External inbox 038018145c0fddb2f6306c0712373adf9cd1ea52 has no entry after October 18; EXT-20261018-PNT-1..3 and EXT-20261014-5 keep their scopes.
+
+Checkpoint commit c6911a223876821783e7595c6d78bfe1b6cfbea6 was inspected and read back exactly at blob 910c85c43c5157e1ea2029e0b2e27cd45769f769; only this daily report changed. Final receipt follows after commit/readback.
+
+Limitations: shell GitHub clone returned tunnel HTTP 403; connector reads/writes worked. One source fetch timed out and succeeded on retry. No local Lean, CI launch, proof-source edit, branch/PR mutation, other-report edit, agent launch, schedule change or merge occurred. Only this role's existing report is published.
+
+### Executed Reproducer
+
+Standard-library Python scratch code, embedded for reproduction rather than added to proof sources. SHA256 recorded above.
+
+
+~~~python
+"""Exact raw-VF packet tests; rational intervals certify displayed signs."""
+
+from collections import Counter, defaultdict
+from bisect import bisect_left, bisect_right
+from fractions import Fraction as F
+from functools import cache
+from math import isqrt
+import json
+
+
+def primes_up_to(n):
+    sieve = bytearray(b"\x01") * (n + 1)
+    sieve[:2] = b"\x00\x00"
+    for p in range(2, isqrt(n) + 1):
+        if sieve[p]:
+            sieve[p * p : n + 1 : p] = b"\x00" * ((n - p * p) // p + 1)
+    return [p for p in range(2, n + 1) if sieve[p]]
+
+
+def factor(n, primes):
+    ans = []
+    for p in primes:
+        if p * p > n:
+            break
+        if n % p == 0:
+            e = 0
+            while n % p == 0:
+                e += 1
+                n //= p
+            ans.append((p, e))
+    if n > 1:
+        ans.append((n, 1))
+    return ans
+
+
+def log_series(x, terms=40):
+    assert 1 <= x <= 2
+    u = (x - 1) / (x + 1)
+    total = F(0)
+    power = u
+    for j in range(terms):
+        total += 2 * power / (2 * j + 1)
+        power *= u * u
+    tail = 2 * power / ((2 * terms + 1) * (1 - u * u))
+    return total, total + tail
+
+
+LOG2 = log_series(F(2))
+
+
+@cache
+def weight(r):
+    assert r >= 2
+    x = F(2 * r * r + 2 * r + 1, 2)
+    k = x.numerator.bit_length() - x.denominator.bit_length()
+    while x < 2**k:
+        k -= 1
+    while x >= 2 ** (k + 1):
+        k += 1
+    low, high = log_series(x / 2**k)
+    low += k * LOG2[0]
+    high += k * LOG2[1]
+    numerator = F(2 * r + 1, r)
+    return numerator / high, numerator / low
+
+
+def packet_interval(q, roots):
+    lo, hi = weight(isqrt(q))
+    lo -= 1
+    hi -= 1
+    for r in roots:
+        wl, wh = weight(r)
+        lo += wl
+        hi += wh
+    return lo, hi
+
+
+def outward_decimal(interval, digits=8):
+    lo, hi = interval
+    scale = 10**digits
+    a = lo.numerator * scale // lo.denominator
+    b = -((-hi.numerator * scale) // hi.denominator)
+    return [str(F(a, scale)), str(F(b, scale))]
+
+
+FIXTURES = [1024, 1031, 2048, 4096]
+PRIMES = primes_up_to(max(FIXTURES) + 20)
+LABEL_PRIMES = primes_up_to((max(FIXTURES) + 10) ** 2 // 3)
+results = []
+for a in FIXTURES:
+    k = a.bit_length() - 1
+    length = k // 3
+    b = a + length
+    half_anchor = b // 2 + b % 2
+    by_q = defaultdict(list)
+    current = set()
+    prime_counts = Counter()
+    smooth_counts = Counter()
+    squareful_rough = 0
+    for r in range(a, b):
+        for n in range(r * r + 1, (r + 1) ** 2):
+            if n % 2 == 0:
+                continue
+            fac = factor(n, PRIMES)
+            if len(fac) == 1 and fac[0][1] == 1:
+                prime_counts[r] += 1
+                continue
+            q = fac[-1][0]
+            if q >= b:
+                assert fac[-1][1] == 1
+                assert q < a * a
+                assert n // q < q
+                assert r not in [v[0] for v in by_q[q]]
+                assert (isqrt(q) >= half_anchor) == (n // q == 3)
+                by_q[q].append((r, n, n // q))
+                assert n not in current
+                current.add(n)
+                squareful_rough += any(e > 1 for _, e in fac)
+            else:
+                smooth_counts[r] += 1
+
+    # Reconstruct independently using every odd cofactor of every candidate q.
+    reconstructed = set()
+    for q in LABEL_PRIMES[bisect_left(LABEL_PRIMES, b):bisect_right(LABEL_PRIMES, (b*b-1)//3)]:
+        start = max(3, a * a // q + 1)
+        start += (start % 2 == 0)
+        for cofactor in range(start, (b * b - 1) // q + 1, 2):
+            n = cofactor * q
+            if a * a < n < b * b:
+                assert isqrt(n) ** 2 != n
+                reconstructed.add(n)
+    assert reconstructed == current
+
+    # Symbolic identity: the packet plus its explicit complement is the
+    # original current run. Historical prime subtraction is restored once.
+    packet_coeff = Counter()
+    current_coeff = Counter()
+    for q, entries in by_q.items():
+        assert len(entries) <= length
+        packet_coeff[isqrt(q)] += 1
+        for r, _, _ in entries:
+            packet_coeff[r] += 1
+            current_coeff[r] += 1
+    complement_coeff = Counter()
+    for r in range(a, b):
+        complement_coeff[r] += r - current_coeff[r]
+    for q in by_q:
+        complement_coeff[isqrt(q)] -= 1
+    summed = {r: packet_coeff[r] + complement_coeff[r]
+              for r in packet_coeff.keys() | complement_coeff.keys()}
+    assert all(v == (r if a <= r < b else 0) for r, v in summed.items())
+    assert -len(by_q) + (len(by_q) - sum(prime_counts.values())) == -sum(prime_counts.values())
+    assert sum(prime_counts.values()) + sum(smooth_counts.values()) + len(current) == sum(range(a, b))
+
+    # The all-scale proof supplies a rational upper certificate. No floating
+    # logarithm is used to determine a sign or certify an all-scale statement.
+    uniform_upper = F(39, 128) - 1 + length * F(6147, 4096 * k)
+    assert uniform_upper <= -F(799, 4096) < -F(3, 16)
+    results.append({"A": a, "B": b, "labels": len(by_q), "current": len(current),
+                    "max_multiplicity": max(map(len, by_q.values()), default=0),
+                    "squareful_current": squareful_rough,
+                    "in_half_history": sum(isqrt(q) >= half_anchor for q in by_q),
+                    "pre_half_anchor": sum(isqrt(q) < half_anchor for q in by_q),
+                    "uniform_packet_upper": str(uniform_upper)})
+
+# Preregistered near-boundary family, not a first-bad-conditioned example.
+edge_results = []
+for q, lengths in [(2053, [1, 3, 5, 7, 9, 15]), (4099, [1, 4, 8, 16])]:
+    assert factor(q, PRIMES) == [(q, 1)]
+    for length in lengths:
+        a, b = q - length, q
+        assert length * length < 2 * q
+        direct = [(isqrt(m * q), m) for m in range(3, q, 2) if a * a < m * q < b * b]
+        expected = [(q - j - 1, q - 2 * j) for j in range(1, length)]
+        assert direct == sorted(expected, key=lambda t: t[1])
+        lo, hi = packet_interval(q, [r for r, _ in direct])
+        sign = "positive" if lo > 0 else "negative" if hi < 0 else "undecided"
+        edge_results.append({"q": q, "A": a, "B": b, "L": length,
+                             "occurrences": len(direct), "sign": sign,
+                             "packet_interval": outward_decimal((lo, hi))})
+
+q = 2053
+a, b = (q - 1) // 2, q - 1
+roots = [isqrt(m * q) for m in range(3, q, 2) if a * a < m * q < b * b]
+assert len(roots) == 770
+assert len(roots) == (q - 1) // 2 - ((a * a // q + 1) // 2)
+assert all(a <= r < b for r in roots)
+assert b < 2**12
+dyadic_lower = F(len(roots), 12) - 1
+assert dyadic_lower == F(379, 6)
+dyadic_result = {"q": q, "A": a, "B": b, "occurrences": len(roots),
+                 "strict_packet_lower_bound": str(dyadic_lower)}
+
+ancestor_results = []
+for q in [65537, 1000000000039]:
+    assert factor(q, primes_up_to(isqrt(q))) == [(q, 1)]
+    a, b = (q - 1) // 2, q - 1
+    cofactors = []
+    power5 = 1
+    while 9 * power5 <= q:
+        power7 = 1
+        while 9 * power5 * power7 <= q:
+            m = power5 * power7
+            exponent3 = 0
+            while 3 * m < q:
+                m *= 3
+                exponent3 += 1
+            assert exponent3 >= 2
+            assert q < 3 * m < 3 * q
+            cofactors.append(m)
+            power7 *= 7
+        power5 *= 5
+    assert len(set(cofactors)) == len(cofactors)
+    roots = [isqrt(m*q) for m in cofactors]
+    assert all(a*a < m*q < b*b and isqrt(m*q)**2 != m*q for m in cofactors)
+    lo = sum((weight(r)[0] for r in roots), F(0))
+    hi = sum((weight(r)[1] for r in roots), F(0))
+    # Give a whole unit to each of the four prime ancestors. This is a
+    # deliberately enlarged capacity, not a redefinition of VF weights.
+    ancestor_results.append({"q": q, "A": a, "B": b, "cofactors": len(cofactors),
+                             "demand_interval": outward_decimal((lo, hi)),
+                             "generous_ancestor_capacity": 4,
+                             "exceeds_generous_capacity": lo > 4})
+assert ancestor_results[-1]["exceeds_generous_capacity"]
+
+print(json.dumps({"thin_runs": results, "boundary_family": edge_results,
+                  "dyadic_falsifier": dyadic_result,
+                  "all_ancestor_falsifiers": ancestor_results,
+                  "log_interval_terms": 40, "arithmetic": "integer and exact Fraction"}, indent=2))
+
+~~~
+
+
+Execution closure: COMPLETE at 2026-11-03 08:40 EST (-0500). Final main refresh remained 0ac2bcccfc18d3f37d220b2758b29010a1b538c8. New mathematical results remain PAPER_PROOF / SELF_AUDIT and finite exact certificates; independent review and Lean are PENDING.
