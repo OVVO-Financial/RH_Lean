@@ -127,6 +127,10 @@ def main() -> None:
             if text.count('∃j s,LFunction') != 2:
                 raise ValueError('Unexpected complex zero-witness inventory')
             text = text.replace('∃j s,LFunction', '∃j, ∃s : ℂ,LFunction')
+            if text.count('a≤s.re ∧ s.re<a+e ∧ |s.im|') != 2:
+                raise ValueError('Unexpected complex projection inventory')
+            text = text.replace('a≤s.re ∧ s.re<a+e ∧ |s.im|',
+                'a≤Complex.re s ∧ Complex.re s<a+e ∧ |Complex.im s|')
             text = replace_once(text, "he he' (by linarith) le_rfl\n",
                 f"he he' (by linarith) (by linarith only [he, {UPPER}])\n",
                 'actual physical rows on anchored small contour')
