@@ -731,3 +731,578 @@ The prior checkpoint bytes were preserved. All A-M sections, the exact R=125 and
 **Preregistered tests:** derive the full joint {2,ell} lift kernel before estimating. Check nonnegativity and any proposed sector-to-complete homogeneous comparison on exact small roots, with ell=3,5,7 and strict admission transitions. Reject homogeneous payment upon an actual Q_R=0 with nonzero retained sector. Retain both index orientations, diagonal, all mixed terms, historical K_R and any omitted-lift corner. No new all-scale bound, finite-C theorem, or endpoint gain is claimed at this checkpoint.
 
 **deployment_ack:** current persistent engine consumed; NEXT-WHEEL follows the protected FINITE-AC rotation and the exact latest committed continuation rather than restarting CORR4. No Lean execution, source edit, branch/PR action, merge, schedule change, or agent launch is authorized or performed.
+
+
+## Scheduled Continuation Final Synthesis - Claim 20261103-wheel-2
+
+**Most important result:** the second-prime extension of the nonnegative parity packet is NOT nonnegative on the actual root-truncated source. For the joint {2,3} packet, every negative kernel value is exactly -1, and it occurs only when BOTH cores admit 1,2,3 but exclude 6, in precisely five product ranges. These are genuine moving-admission effects, not inadmissible completed-wheel examples. Common-factor dilation preserves the exact floors and admissions; actual nonzero Mobius coefficients realize both signs of the resulting contribution at arbitrarily large roots. More strongly, two explicit, disjoint proper subfamilies have coherent signed mass of opposite signs and linear order at every sufficiently large root.
+
+**Evidence:** PAPER_PROOF / SELF_AUDIT for F1-F4 and the all-scale localization; EXACT_FINITE_COUNTEREXAMPLE for F5, with a complete direct arithmetic proof. Independent Referee review: PENDING. New Lean declarations: NONE. No claim of external-literature novelty. New finite-C bound or endpoint gain: NOT ESTABLISHED / UNKNOWN.
+
+**Invocation:** continuation of the scheduled 2026-11-03 10:12:01 EST (-0500) run, RUN_ID_UNAVAILABLE, not another execution. The earlier CORR4 claim and checkpoint remain unchanged. Programme-level VERIFIED_ETA is inherited from the separately accepted strict Mertens theorem now on main; it is not credited to this report. Canonical VF, RH, finite A/C, and sharp local shell control remain open.
+
+### A. Most Important Structural Discovery
+
+The previous parity packet has a nonnegative weight. The tempting next step was to group a second prime and keep that positivity. The exact obstruction is the missing combined lift: cores u,v with 3u<R<=6u and 3v<R<=6v have the partial divisor set {1,2,3}, not the completed set {1,2,3,6}. Their kernel can equal -1 even when every original occurrence in the packet is genuinely admitted and squarefree.
+
+The uniform restriction proved below is stronger than a list of examples: negative weights are confined to N=floor((R^2-1)/(uv)) in {10,15,16,22,34}, and nowhere else. The exact examples (R,u,v)=(23,5,7) and (106,19,35) give signed packet contributions -1 and +1 respectively. Their common-factor families retain these signs. This rules out positivity-preserving iteration of the parity argument and sign cancellation along these common-factor families. It does NOT rule out cancellation among different families or a joint finite-C estimate.
+
+### B. Current Authoritative Objective And Continuity
+
+Main at intake and the 10:27 EST recheck: `3930d884282dd5315f0453e5dd88b356d187a8e0`. The canonical declaration remains `VFCanonicalSquareVonKochStatement`:
+
+```text
+exists C>=0, forall integer R>=2,
+  |pi(R^2)-VF_can(R^2)| <= C R log R.
+```
+
+The original fixed sqrt(2) phase and classical von Koch interface are unchanged. This run attacks the distinct original FINITE-AC carrier, not prime-indicator VF, ideal-character moments, or the CORR4 daughter source.
+
+Authority consumed: AGENTS `9fa5e9519e2fb6dde22217aa2a18982dafef373a`; contract `88cddd9cd98c3b55f0b013998541e9b4e9dc9f2a`; selector `d05c327ae694ea54b599dab0a21032a056b521f1`; breadth `b5c063c51556ba57c4b25bcc380a606fa8daa207`; complete-return `16838f7f3c8724b970f8b8ece0bceaab9418066d`; engine `6fce99c61efb5b2a73c0cb1f1464f09b351fcd55`; role prompts `7366bb71e8a97fd11689a64311c7f590edeb1adf`; dynamic protocol `fe21d2824491fb001726311f736b9825a8f97eca`. Relevant retained finite-C safeguards were checked in the prior AGENTS and all-vector directive.
+
+Reports were retrieved at `agent-reports@e4589479667a8622aad1e3a703b4eac2190d7002`; relevant claims, derivations, verdicts and resume sections were read. All named same-day stages are available. Yesterday is carry-forward evidence, not a claim of an additional execution.
+
+| Role | November 2 blob | November 3 intake blob |
+| --- | --- | --- |
+| Coordinator 00/90 | 1e932d4ce0eb0fd2c5f4507f6b111194d633eb32 | f9c04a1099048cd0b02fd5264b753e916cbcd521 |
+| Owner | abfe546d72b151f4cd200fc61de3197efe23a65c | 0688ba1d205ac2e846c3c3a55adfc267a6eb6a40 |
+| Analytic | 8e48b59611aa1d0bfa3577ed0a4a3bc0d0fcae73 | 79f5f11020d7038028f4ddfe92ff3f95d4bd0798 |
+| Wheel | abf8ac8c22a708886183849552c90dd62787ac8d | ae0ce9040b145c8b2ee04418e02a363d10b5da38 |
+| Census | 2cd84c57ab18d923e97368764f29f4ccd2ec3bb3 | 09ecf82c4a8d5d36b10ed6d64167d695e096ce03 |
+| Referee | 814af1684df66e6ac99b8df1f102cb592b316f89 | 226a5a6d971f347b45e016a046007bc4ceb368ee |
+| Lean | 02d19d792e26f072004cb5909f149538752626e9 | 579d19654925823b5fa2ef849366da2925d2c1b0 |
+
+Continuations consumed: `20261102-wheel-2`, accepted by `20261102-referee-2` and partly formalized in #1071; `20261102-wheel-3`, the sharp s^k coefficient radius, not a norm recurrence; today's `20261103-wheel-1`, still pending full independent review; and Coordinator `20261103-coordinator-1` section H, specifically the second-prime finite-C question. The preceding Wheel sequence was FINITE-AC, MU-LIFT, CORR4; this invocation supplies FINITE-AC and MU-LIFT is next.
+
+Cross-route safeguards consumed, not transferred as estimates: Owner's common-cutoff SAT obstruction and once-only VF ancestry capacity; Analytic's NYMAN tail/middle split and today's genuine R=376 simultaneous positive daughters; Census's R=18988 historical-envelope burst falsifier and today's scalar/maximal-fragment separation; Referee's scoped maximal-field and formal endpoint verdicts. The R=376 pair result is a new paper/finite input for the next CORR4 turn, not a finite-C theorem. The external inbox `038018145c0fddb2f6306c0712373adf9cd1ea52` has no entry after October 18. EXT-20261018-PNT-1/3 and EXT-20261017-XCOORD-1 remain source/endpoint safeguards; their old routing does not override today's protected rotation.
+
+Material original source inspected on main:
+
+| File | Blob SHA | Exact role |
+| --- | --- | --- |
+| research/EULER_HYBRID_ABEL_GRAM_20261027.lean | 2a94dd8fd56fc03e95f732fb44b778a8d4f83e26 | Literal Q_R and floor |
+| research/EULER_SELF_DUAL_FINITE_C_BRIDGE_20261027.lean | e97561ef330a9996fd807d8910369f0698147b01 | Exact coefficient/Fubini bridge |
+| research/EULER_SELF_DUAL_ENDPOINT_GATE_20261027.lean | e7ee8f77ffd59bccaa49dd6d74fbe0d7952c2d73 | Q_R=2M(R-1)-M(R^2-1), conditional finite-C consumer |
+| RHLean/Proof/SquareRootLegalAncestryGramReduction.lean | 1270d4d91c53b50b110d10014f223f427fb7a575 | Strict historical envelope |
+| RHLean/Proof/SquareRootMertensEndpointAmplification.lean | 7793d7bfd842348facf62a7ad856bc802ffcd15c | Finite-A endpoint interface |
+| research/EULER_ASYMMETRIC_CORNER_SIGNED_GRAM_20261028.lean | e501613434bccdc6183763a8aec8f8e62a5ff26d | Existing omitted-strip/corner bookkeeping |
+| research/FINITE_C_BINARY_PARITY_OBSTRUCTION_20261102.lean | 168e58512054ecd3fd6518331b086b9cca7cf9ed | Four parity sectors and R=5 no-go |
+| research/VF_CANONICAL_SQRT_TWO_VON_KOCH.lean | 79030d70e8d3e0d08eef9bac53fef95c36eca2fb | Canonical statement, inspected excerpt |
+
+**Formal-scope correction:** #1071 proves the original four-sector parity partition and R=5 witness. The stronger odd-core weight formula from `20261102-wheel-2` is accepted PAPER_PROOF, not a declaration in that file. This distinction corrects overly broad readings of "merged complete packet" without changing the accepted mathematics.
+
+**Updated inherited formal frontier:** #1073 was human-merged at 13:14:29Z. Its exact tested head is `9cbfce5295343bcb411e6d2cb159b59995cd985b`; all 13 attached workflows succeed. This run inspected main's `VF919NativeStrictMertens.lean`, blob `b33a4883e1ddb0551b0f11f062bce46680d87450`, the unconditional `native_mertens_uniform_strict_gap` and fixed-power types, and actual run `41554561404` / job `125650160501` logs showing the permitted terminal axioms and successful audit. Comparing that tested head to current main shows only added proof modules and a workflow edit, no modified existing Lean dependency. Independent acceptance is carried forward from `20261102-referee-3` and today's Referee/Lean reports, not re-created by this SELF_AUDIT. Thus the accepted strict-Mertens result is now ON_MAIN; historical prose still calling every below-7/8 bound open is superseded at that scope.
+
+#1075/#1076 were integrated through #1077 at 13:52:39Z. The #1076 head changed after the previously reviewed head, so this report does not silently extend that exact-head review to every later renamed declaration. #1078 merged at 14:37:17Z: its new moving-prime-window note, blob `c6b88c91b5d7b5a14e1c1c3d5a48ca1a60e7c839`, explicitly has IDENTITY_ONLY + FINITE_REGRESSION scope and an open uniform estimate. Current draft #1079 at `bdaf5c642b51c732a3e755b2e799c8c5ec628508` is unmerged and unused here.
+
+For #1071, all 12 workflows succeed at `3706efbef1e20b2c54709f8e80ea55d3c1d1cea9`; run `41500748946`, job `125467273524`, was read and confirms warning-fatal compilation, exact types and standard axioms. No new main-head build, local Lean execution, or independent review of today's new claim is asserted.
+
+### C. Structural Mechanism Investigated
+
+Three moves were considered. A second-prime nonnegative-kernel extension is directly falsifiable; completing all lifts first is not source-faithful without the omitted-lift correction; and a joint signed estimate must retain the interaction between distinct prime-free cores. The first move was developed through exact source reconstruction, complete classification of its failure, and arithmetic dilation families. The R=9 full-source test then challenges homogeneous sector payment after BOTH small primes have been grouped.
+
+No modulus was enlarged to improve a density count. The only small residue table below is an exact finite certificate for a quotient-period theorem, not a sieve approximation to primes or a claim of signed independence.
+
+### D. Exact Theorem Statements
+
+Throughout R>=2 is an integer, X=R^2-1, mu is the genuine Mobius function, M(t)=sum_(1<=n<=t)mu(n), and all core indices are positive. The actual historical quantity is
+
+```text
+K_R = max_(0<=y<R) (M(y)-1)^2/(y+1) >= 1.
+Q_R = sum_(1<=a,b<R) mu(a)mu(b) floor(X/(ab)).
+```
+
+The compiled consumer quantifies over every K>=0 satisfying `(M(y)-1)^2<=K(y+1)` for all y<R. Using the least K_R does not change that quantifier by monotonicity. K_R is NOT an activation term or a running maximum through R^2.
+
+**F1. Full two-prime packet, with partial admission.** For any odd prime ell, put P=2ell, D={1,2,ell,2ell}, and define
+
+```text
+D_R(u) = {d in D : d*u<R},
+W_(R,ell)(u,v) = sum_(d in D_R(u), e in D_R(v))
+                   mu(d)mu(e) floor(X/(d*e*u*v)).
+
+Q_R = sum_(u,v<R, gcd(u,P)=gcd(v,P)=1)
+        mu(u)mu(v) W_(R,ell)(u,v).                         (F1)
+```
+
+Equivalently, using the PREVIOUS accepted parity weight w_R,
+
+```text
+W_(R,ell)(u,v) = w_R(u,v)
+ - 1_(ell*u<R) w_R(ell*u,v)
+ - 1_(ell*v<R) w_R(u,ell*v)
+ + 1_(ell*u<R,ell*v<R) w_R(ell*u,ell*v).                  (F1a)
+```
+
+Each w on the right uses its OWN actual parity-lift cutoff; the factor 2ell is never assumed admitted just because ell is admitted.
+
+**F2. Complete negative-weight localization for ell=3.** For all u,v<R coprime to 6, let N=floor(X/(uv)). Then
+
+```text
+W_(R,3)(u,v) >= -1;
+W_(R,3)(u,v) = -1
+  iff 3u<R<=6u AND 3v<R<=6v
+      AND N in {10,15,16,22,34}.                          (F2)
+```
+
+All other weights are nonnegative. No squarefree hypothesis is needed for this kernel statement; zero-Mobius cores are simply zero coefficients in F1. The theorem covers all roots, including strict-admission equalities.
+
+**F3. Exact square-endpoint dilation.** For every integer s>=1,
+
+```text
+W_(sR,ell)(s*u,s*v) = W_(R,ell)(u,v).                    (F3)
+```
+
+For a nonzero source pair, if s is squarefree and gcd(s,2ell*u*v)=1, the two core coefficients also satisfy
+
+```text
+mu(su)mu(sv)=mu(u)mu(v).
+```
+
+Thus both the weight and the signed packet contribution are preserved. This maps a chosen original occurrence packet injectively into the larger source; it does NOT identify or exhaust the entire source at sR.
+
+**F4. Proper coherent subfamilies of both signs.** For fixed m define
+
+```text
+delta_m = product_(p|m)(1-1/p) * product_(p not dividing m)(1-1/p^2) > 0.
+```
+
+At every integer R, the following are genuine distinct-core pairs in F1 with ell=3:
+
+```text
+Negative family:
+  (u,v)=(5s,7s), mu(s)^2=1, gcd(s,210)=1,
+  2R/47 <= s <= R/23.
+  mu(u)mu(v) W_(R,3)(u,v) = -1.
+
+Positive family:
+  (u,v)=(19s,35s), mu(s)^2=1, gcd(s,3990)=1,
+  R/106 <= s < R/105.
+  mu(u)mu(v) W_(R,3)(u,v) = +1.                          (F4)
+```
+
+With ONE orientation u<v, their aggregate contributions are respectively
+
+```text
+ -delta_210 * R/1081 + O(sqrt(R)),
+ +delta_3990 * R/11130 + O(sqrt(R)).                      (F4a)
+```
+
+The constants are absolute for these two FIXED moduli. In Q_R both orientations occur, so each displayed contribution is doubled. The families are disjoint and no occurrence is spent twice. This is not a statement about the sign or size of their full complement.
+
+**F5. The fully grouped cross-core sector still cannot be paid homogeneously by Q_R.** Define
+
+```text
+Dcore_R = sum_(u<R, gcd(u,6)=1) mu(u)^2 W_(R,3)(u,u),
+Ocore_R = 2 sum_(u<v<R, gcd(u,6)=gcd(v,6)=1)
+                 mu(u)mu(v) W_(R,3)(u,v).
+Q_R = Dcore_R + Ocore_R.
+```
+
+At R=9, `(Q_R,Dcore_R,Ocore_R)=(0,14,-14)`. Hence no finite constant C can satisfy `|Ocore_R|<=C|Q_R|` for every R>=2, or the analogous Dcore or squared comparison. This is a falsifier of the stated ALL-root homogeneous shortcut only; it does not disprove an eventual comparison, an additive-budget inequality, or finite C itself.
+
+### E. Proof And Derivation
+
+**F1: exact occurrence map.** Every original index a with mu(a)!=0 uniquely has a=d*u, where d|2ell and gcd(u,2ell)=1. Unique prime factorization gives mu(a)=mu(d)mu(u). Conversely, every admitted d*u with a nonzero core coefficient is exactly one original nonzero occurrence. Apply this independently to a and b, retaining both orientations. Squareful original indices have coefficient zero and require no fabricated replacement. Formula F1a is the same grouping performed first at 2 and then at ell. No floor, endpoint, diagonal or high-product corner is changed.
+
+**F2: a finite-to-infinite proof, not extrapolation.** The only possible admitted divisor sets for ell=3 are the successive prefixes
+
+```text
+D1={1}, D2={1,2}, D3={1,2,3}, D4={1,2,3,6}.
+```
+
+For their corresponding lengths i,j let
+
+```text
+F_ij(N)=sum_(d in Di,e in Dj)mu(d)mu(e) floor(N/(de)).
+c_i=sum_(d in Di)mu(d)/d = 1,1/2,1/6,1/3.
+```
+
+Floor nesting gives W=F_ij(N). Every de divides 36, so EXACTLY
+
+```text
+F_ij(N+36)=F_ij(N)+36*c_i*c_j.                           (F6)
+```
+
+The following exhaustive remainder certificate follows by substituting r=0,...,35 into the displayed formula. Symmetry supplies j<i. The last column lists EVERY negative remainder, not selected examples; all negatives equal -1.
+
+| i,j | Increment in F6 | Minimum for 0<=r<36 | Negative r |
+| --- | ---: | ---: | --- |
+| 1,1 | 36 | 0 | none |
+| 1,2 | 18 | 0 | none |
+| 1,3 | 6 | 0 | none |
+| 1,4 | 12 | 0 | none |
+| 2,2 | 9 | 0 | none |
+| 2,3 | 3 | 0 | none |
+| 2,4 | 6 | 0 | none |
+| 3,3 | 1 | -1 | 3,4,6,10,15,16,22,34 |
+| 3,4 | 2 | -1 | 3,4 |
+| 4,4 | 4 | -1 | 3,4 |
+
+For example, the only potentially negative admitted case uses
+
+```text
+F_33(N)=N-2 floor(N/2)-2 floor(N/3)
+          +floor(N/4)+2 floor(N/6)+floor(N/9).
+```
+
+All F6 increments are positive integers; therefore no new negative value can occur once N>=36. Genuine admission also gives N>=d_i*d_j: the largest admitted lifts obey `(d_i*u)(d_j*v)<R^2`, hence their integral product is <=X. This excludes the negative r=3,4 in cases (3,4),(4,4). In case (3,3), N>=9 excludes 3,4,6. Its mask is exactly 3u<R<=6u,3v<R<=6v, which also implies N<=35. Precisely the five claimed possibilities remain. This proves F2 at every scale from an exact recurrence and a finite elementary table. The table is reproduced by the appended code; the proof is not a numerical fit or a Lean certificate.
+
+**F3: exact integer floor scaling.** For any positive integer m write R^2-1=k*m+r, 0<=r<m. Then
+
+```text
+(sR)^2-1 = k*s^2*m + [s^2*(r+1)-1],
+0 <= s^2*(r+1)-1 < s^2*m.
+```
+
+Thus `floor(((sR)^2-1)/(s^2*m))=floor((R^2-1)/m)`. Use m=d*e*u*v in every admitted summand; strict inequalities dsu<sR are equivalent to du<R. The signed assertion follows from multiplicativity and mu(s)^2=1. This familiar Mobius product identity is NOT claimed as new; its exact preservation of this truncated floor packet is the source-specific consequence.
+
+**F4: actual signs and counts.** At (23,5,7), both divisor masks are D3 and N=15. The four already-parity-completed weights in F1a are `4,3,3,1`, so W=4-3-3+1=-1. Both core signs are -1. At (106,19,35), both masks are again D3, N=16, and the same four weights occur; now mu(19)=-1 and mu(35)=+1, so the actual contribution is +1. All nine admitted original index pairs in either D3-by-D3 packet have their literal coefficients and floors retained.
+
+For the negative family, 23s<=R<=47s/2 implies the D3 masks and
+`15<=floor((R^2-1)/(35s^2))<16` (equivalently this floor equals 15). For the positive family, 105s<R<=106s implies the masks and floor((R^2-1)/(665s^2))=16. The coprimality conditions make all required Mobius values nonzero and preserve the displayed products. Distinct s give distinct core pairs and, by F1 uniqueness, disjoint original ordered-pair packets.
+
+For completeness, the counting ingredient is the elementary fixed-modulus theorem
+
+```text
+Z_m(T)=sum_(1<=s<=T,gcd(s,m)=1)mu(s)^2
+      =delta_m*T+O_m(sqrt(T)).
+```
+
+Indeed use mu(s)^2=sum_(d^2|s)mu(d) and count integers coprime to m by finite inclusion-exclusion. There are at most sqrt(T) small-square terms, each with O_m(1) error. Extending the absolutely convergent sum of mu(d)/d^2 costs O(sqrt(T)). Its Euler product is the displayed positive delta_m. No PNT, prime-in-short-interval theorem, or sign-distribution assumption is used. Subtract endpoint counts. The interval lengths are R*(1/23-2/47)=R/1081 and R*(1/105-1/106)=R/11130; endpoint rounding costs O(1). This proves F4a. The density lemma is existing elementary infrastructure, also recorded in the repository's October 11 multiplicative-Gram note, blob `25f96804928af68d3ca3506e8ea4c8f7685cedb7`; the new application is to these exact finite-C boundary packets.
+
+In particular scaling the two base witnesses by any prime outside the finite excluded set gives unbounded-root examples without invoking even this density estimate.
+
+**F5: entire source, not a selected model.** At R=9 the only cores coprime to 6 are 1,5,7. Their coefficient vector is (1,-1,-1), and the complete kernel matrix is
+
+```text
+      1  5  7
+1    10  5  4
+5     5  3  2
+7     4  2  1
+```
+
+Its core diagonal gives 10+3+1=14; the off-diagonal is 2*(-5-4+2)=-14. Independently, M(8)=-2 and M(80)=-4, so Q_9=2*(-2)-(-4)=0. This is the complete actual root source, with every parity and 3-lift restored.
+
+**Important diagonal distinction:** Dcore is NOT the original physical diagonal nor the historical Abel diagonal. In this example the physical diagonal sum mu(a)^2 floor(80/a^2) is 114. Same-core, distinct-lift interactions contribute -100, giving Dcore=14; the remaining distinct-core interactions contribute -14. Nothing is omitted or independently re-spent. At R=4, W(1,1)=-1 further shows that the grouped kernel need not be a positive-semidefinite Gram matrix; F3 propagates that negative diagonal to R=4s. This is an operator-structure obstruction, not an arbitrary-vector substitution for the actual Mobius source.
+
+### F. Structural Consequence
+
+The result confines every negative joint weight to the double partial-lift region R/6<=u,v<R/3 and five exact product bands. Completed lifts cannot be substituted there. Its sign after multiplication by mu(u)mu(v) is not predetermined: shared-factor dilation removes any hope of sign cancellation along the two explicit families. This extends the previous parity investigation rather than repeating its R=5 calculation.
+
+For the ell=3 negative-support indicator B_R(u,v) from F2, define Wplus=max(W,0). There is the exact, full-source decomposition
+
+```text
+Q_R = A_R - Bsum_R,
+A_R = sum_(u,v<R,coprime to 6) mu(u)mu(v) Wplus_R(u,v),
+Bsum_R = sum_(u,v<R,coprime to 6) mu(u)mu(v) B_R(u,v).
+```
+
+Here A_R is still signed despite its nonnegative kernel. The identities
+`Q_R^2=A_R^2+Bsum_R^2-2*A_R*Bsum_R` and
+`Q_R^2=Dcore_R^2+Ocore_R^2+2*Dcore_R*Ocore_R`
+retain every interaction. No separate smallness or favorable sign is asserted for any piece.
+
+### G. Signed And Quantitative Relevance
+
+F4a is an independent quantitative statement ONLY about two precisely specified proper subfamilies. Its O(R) amplitude is compatible with the finite-C budget R*sqrt(K_R), since K_R>=1. It cannot disprove that target, prove it, or establish a large full-source discrepancy. In particular, the negative family is not a reusable credit against every positive family.
+
+The original binding inequality remains
+
+```text
+exists C>=0, forall R>=2,
+ |sum_(u,v<R,coprime to 6) mu(u)mu(v)W_(R,3)(u,v)|
+   <= C*R*sqrt(K_R).
+```
+
+F1 identifies this exactly with the compiled finite-C obligation; it is TARGET_EQUIVALENT, not an independently known supplier. There is no newly proved global improvement from F1-F5. The inherited strict Mertens theorem gives an absolute prefix-growth rate; it does not supply this inequality relative to the actual lower-scale K_R or local shell energy.
+
+### H. Falsification, Novelty And Verification
+
+Exploration used small actual packets and simple divisor-mask tests. Toy negatives at N=3,4 were explicitly rejected when their advertised completed masks would force N>=18 or 36; they are NOT counted as source counterexamples. The actual R=23 and R=106 packets were independently reconstructed by trial factorization of every original lifted index, separate from the sieve used for bulk source checks.
+
+Frozen final validation: every R=2..256 for ell=3, R=2..80 for ell=5,7, and anchors R=317,1027 for ell=3. This is 415 root/prime cases. In every case the direct original double sum, endpoint formula, nested parity formula and joint-prime reconstruction agree. The classification F2 holds for every tested core pair, including zero-coefficient cores. Additional checks cover all ten 36-remainder tables, 8,715 exact dilation cases, 54 signed dilations, and 34 fixed-root coherent-interval cases. These are fixed-range validation checks after exploratory discovery, not a blinded experiment; the previously explored witnesses are not retroactively labeled held out. No statistical independence is claimed.
+
+| R | Q_R | Dcore_R | Ocore_R | K_R |
+| ---: | ---: | ---: | ---: | ---: |
+| 4 | -1 | -1 | 0 | 1 |
+| 5 | 0 | 0 | 0 | 1 |
+| 9 | 0 | 14 | -14 | 3/2 |
+| 14 | 0 | 28 | -28 | 3/2 |
+| 23 | -1 | 63 | -64 | 3/2 |
+| 106 | -9 | 1385 | -1394 | 3/2 |
+| 317 | 22 | 12246 | -12224 | 3/2 |
+| 1027 | -375 | 128355 | -128730 | 3/2 |
+
+The Python runtime actually reported 3.12.14. Final reproducer SHA256: `c8658944a9b6c20a946061cf6d15959288a5771dd64c2031d09fa9b910b7176b`. Ordered root-row JSON SHA256: `287853397a65362df6a5e988c0bc1058499f05e0104c1308686407286bff52c2`. The appended source is self-contained and uses exact integer/rational arithmetic. These checks are not independent Referee acceptance and not Lean-certified numerics.
+
+Novelty review inspected the live parity module, literal finite-C source/consumer, asymmetric-corner module, prior Wheel proof and Referee verdict, and the existing multiplicative-Gram note. Repository searches for `eulerSelfDualParitySector`, second-prime/packet candidates, `eulerSelfDual` with `dilation`, and the five-integer negative list found no equivalent stated localization or these packet witnesses. This was a scoped repository search, not a proof of literature novelty. Basic Mobius multiplicativity, squarefree density, finite Fubini and the quotient-period method are established inputs, not new discoveries claimed here.
+
+No RH-scale supplier, finite-C bound, prime-distribution premise, independent-sign model, or unproved global cancellation is used in F1-F5. The only infinitary counting step has the elementary proof above with FIXED moduli. No growing-modulus uniformity is inferred.
+
+### I. Conceptual Interpretation
+
+Positivity of the parity packet is not stable under another prime. The issue is not a shortage of local residue information: the arithmetic cutoff admits both single-prime lifts but can exclude their product. That exact missing face changes the sign. Shared factors then preserve the signed effect under dilation rather than randomizing it. A useful next mechanism must control the full interaction between such boundary families and their admitted complements.
+
+### J. Competing Hypotheses
+
+| Mechanism | Disposition |
+| --- | --- |
+| Iterated prime grouping preserves nonnegative packet weights | REFUTED on actual source, at unbounded roots |
+| The negative-kernel region always gives favorable signed contributions | REFUTED by (106,19,35) and F4's positive family |
+| Common-factor dilation creates cancellation within these families | REFUTED; products and floors are preserved |
+| Full cross-core sector is homogeneously bounded by complete Q_R for all R | REFUTED at R=9; eventual/additive variants not refuted |
+| Joint signed finite-C bound after restoring every family | OPEN; no circular supplier introduced |
+
+### K. Specialist Handoffs
+
+**Coordinator:** register F2-F4 as a source-specific uniform restriction and scoped no-go, not a finite-C payment. Retain inherited VERIFIED_ETA_ON_MAIN separately. The second-prime ticket is resolved at its positivity/homogeneous-payment scope; the next protected Wheel turn is MU-LIFT.
+
+**Owner Payment:** the dilation map is on two literal Mobius indices and their strict root cutoffs. It is not a prime-indicator or returned-cell map. Do not transfer either sign to the original VF weights without a new occurrence-preserving bridge.
+
+**Analytic Type II:** the new difficulty is the coupled moving-product boundary, not cancellation in the common-factor variable of these fixed shapes. F4 supplies exact coherent subfamilies of both signs, but only O(R) partial mass. Any proposed two-variable cancellation must preserve their complement and the historical envelope; no new analytic task is launched.
+
+**Prime Census:** a small independent audit should check the ten remainder rows, the N=15/16 physical packets, R=9's complete matrix, and strict equality at R=3u or 6u. Do not enlarge the previous R<=20000 scan; the all-scale claim rests on F6 and exact masks, not a large census.
+
+**Adversarial Referee:** independently check F2's table-plus-admission argument; F3's `s^2*(r+1)-1` remainder; both F4 interval endpoints and fixed-modulus constants; and the distinction between core and physical diagonals. Separate verdicts on localization, coherent-family asymptotics, and absence of a global consequence. This is a published request, not completed independent review.
+
+**Lean Verification:** only after independent acceptance and utility selection, F2's source-qualified finite classification or F3 plus the two physical witnesses are implementation-sized candidates. Reuse #1071 rather than duplicate its parity proof. Do not formalize an assumed finite-C supplier or open a proof task merely to increase theorem count. This report itself changes no Lean file or PR.
+
+### L. First Independently Missing Theorem
+
+The first unsupported inference in the attempted mechanism was that F1's second-prime packet remains nonnegative; F2-F4 disprove it. After removing that inference, the first quantitative gap is still a uniform estimate for the COMPLETE signed kernel at R*sqrt(K_R), with all mixed terms restored. This is the canonical finite-C input itself. No independently easier sufficient lemma was proved or identified by this run; renaming A_R-Bsum_R would not pay it.
+
+A future proper-class estimate would need to state its exact class, prove its relation to original pairs, and show how the complementary mixed interaction is paid. The linear F4 families alone neither force nor exclude such a theorem. Do not restart the known parity telescope or infer a theorem from the finite anchor ratios.
+
+### M. Next-Run Resume Capsule
+
+```text
+RUN: scheduled 2026-11-03 10:12:01 EST; RUN_ID_UNAVAILABLE.
+CLAIM: 20261103-wheel-2, F1-F6.
+MAIN: 3930d884282dd5315f0453e5dd88b356d187a8e0.
+ENGINE: 6fce99c61efb5b2a73c0cb1f1464f09b351fcd55.
+TASK: due FINITE-AC / Coordinator 20261103-coordinator-1 section H.
+ORIGINAL_SOURCE: eulerSelfDualBilinear; strict a,b<R; X=R^2-1.
+NEW: ell=3 negative-weight iff five product bands and both D3 masks;
+     exact floor/admission dilation; actual coherent strata of both signs.
+FAILURES: positivity under prime iteration; automatic favorable boundary sign;
+          all-root homogeneous cross-core payment at R=9.
+REVIEW: SELF_AUDIT only; independent Referee PENDING; no new Lean theorem.
+TESTS: 415 source cases; 8715 dilations; 54 signed scalings;
+       34 interval cases; ten complete residue tables; all passed.
+PROGRAMME_GATE: inherited VERIFIED_ETA_ON_MAIN from unchanged #1073 proof.
+NEW_ENDPOINT_GAIN: UNKNOWN / NONE ESTABLISHED.
+COMPLETE_RETURN: F1 and A-B / Dcore+Ocore squares retain all cross terms.
+FINITEC_OPEN: |Q_R|<=C R sqrt(K_R), every R and every valid historical K.
+ROLLING_COVERAGE: MU-LIFT (Nov2 run3), CORR4 (Nov3 run1), FINITE-AC (this run).
+NEXT_DISTINCT_ROUTE: MU-LIFT.
+MU_LIFT_RESUME: 20261102-wheel-3 sharp first omitted support s^k and
+  fresh-prime factorial coherence; next gap is the full signed summatory
+  recurrence with fixed r<k, paid subpower loss and whole-prefix coverage,
+  not another coefficient reconstruction radius.
+CORR4_CARRY: 20261103-wheel-1 W10; consume Analytic 20261103-analytic-2
+  R=376 and degree-normalized joint-credit interface after its review.
+FINITE_AC_NEXT: do not redo F1 or scan more wheel residues. A new candidate
+  must retain the missing product-lift face and exact coupled complement.
+OPEN: canonical actual-prime VF, RH, finite A/C, full local sharp-shell gain,
+      and subcritical MU-LIFT; strict below-7/8 Mertens itself is now inherited.
+```
+
+**Execution limitations and permissions:** direct terminal GitHub clone access returned a proxy 403; the authorized GitHub connector supplied all required source and publication access, so research was not blocked. No local Lean was run. No files outside this own-role report were written remotely. No proof branch, PR, issue, policy, workflow, schedule, merge, or other agent was changed or launched.
+
+**Early publication verified:** checkpoint commit `ea2fb2f465468d478910d5cd8538162159c960bf`, blob `c1741f7fb064281b3bcba1481a36d5e373155716`; all 51,486 characters matched on pinned readback. The final synthesis publication receipt is appended only after actual commit/readback.
+
+### Executed Exact Reproducer For 20261103-wheel-2
+
+The following is the executed final source, including its final newline, with the SHA256 recorded above. It performs no network request, uses no external numeric table, and writes no repository source. Run it with Python; the tests are finite validation of the paper proof, not its unbounded-scale premise.
+
+```python
+"""Exact checks for 20261103-wheel-2; no Lean or asymptotic fit.
+
+Exploration found the R=23 and R=106 packets. Validation below is frozen:
+all R=2..256 for p=3; R=2..80 for p=5,7; anchors 317,1027 for p=3.
+The all-scale theorem uses the displayed quotient-period and scaling proofs,
+not extrapolation from these finite tests.
+"""
+
+from fractions import Fraction
+from hashlib import sha256
+from itertools import product
+from math import gcd
+import json
+import platform
+
+
+def mobius_trial(n):
+    out, p = 1, 2
+    while p * p <= n:
+        if n % p == 0:
+            n //= p
+            out = -out
+            if n % p == 0:
+                return 0
+        p += 1
+    return -out if n > 1 else out
+
+
+def arithmetic(limit):
+    mu = [1] * (limit + 1)
+    mu[0] = 0
+    prime = [True] * (limit + 1)
+    for p in range(2, limit + 1):
+        if prime[p]:
+            for n in range(p, limit + 1, p):
+                prime[n] = False
+                mu[n] *= -1
+            for n in range(p * p, limit + 1, p * p):
+                mu[n] = 0
+    mertens = [0] * (limit + 1)
+    for n in range(1, limit + 1):
+        mertens[n] = mertens[n - 1] + mu[n]
+    for n in range(1, min(limit, 2048) + 1):
+        assert mu[n] == mobius_trial(n)
+    return mu, mertens
+
+
+def lifts(p):
+    return ((1, 1), (2, -1), (p, -1), (2 * p, 1))
+
+
+def weight(R, u, v, p=3):
+    return sum(a * b * ((R * R - 1) // (d * e * u * v))
+               for d, a in lifts(p) for e, b in lifts(p)
+               if d * u < R and e * v < R)
+
+
+def parity_weight(R, a, b):
+    n = (R * R - 1) // (a * b)
+    ea, eb = int(2 * a < R), int(2 * b < R)
+    return n - (ea + eb) * (n // 2) + ea * eb * (n // 4)
+
+
+def nested_weight(R, u, v, p):
+    out = parity_weight(R, u, v)
+    if p * u < R:
+        out -= parity_weight(R, p * u, v)
+    if p * v < R:
+        out -= parity_weight(R, u, p * v)
+    if p * u < R and p * v < R:
+        out += parity_weight(R, p * u, p * v)
+    return out
+
+
+def residue_weight(i, j, n):
+    return sum(a * b * (n // (d * e))
+               for d, a in lifts(3)[:i] for e, b in lifts(3)[:j])
+
+
+def residue_certificate():
+    result = []
+    for i in range(1, 5):
+        for j in range(i, 5):
+            vals = [residue_weight(i, j, n) for n in range(36)]
+            jump = sum(36 * a * b // (d * e)
+                       for d, a in lifts(3)[:i] for e, b in lifts(3)[:j])
+            assert jump > 0 and min(vals) >= -1
+            assert all(residue_weight(i, j, n + 36) == vals[n] + jump
+                       for n in range(36))
+            result.append([i, j, jump, min(vals),
+                           [n for n, w in enumerate(vals) if w < 0]])
+    return result
+
+
+def verify_root(R, p, mu, mertens):
+    x = R * R - 1
+    live = [a for a in range(1, R) if mu[a]]
+    direct = sum(mu[a] * mu[b] * (x // (a * b)) for a in live for b in live)
+    assert direct == 2 * mertens[R - 1] - mertens[x]
+    cores = [u for u in range(1, R) if gcd(u, 2 * p) == 1]
+    total = diagonal = neg_kernel_signed = neg_count = 0
+    for u in cores:
+        for v in cores:
+            w = weight(R, u, v, p)
+            assert w == nested_weight(R, u, v, p)
+            c = mu[u] * mu[v]
+            total += c * w
+            diagonal += c * w if u == v else 0
+            if p == 3:
+                n = x // (u * v)
+                bad = (3 * u < R <= 6 * u and 3 * v < R <= 6 * v
+                       and n in (10, 15, 16, 22, 34))
+                assert w >= -1 and (w < 0) == bad
+                if bad:
+                    assert w == -1
+                    neg_kernel_signed += c
+                    neg_count += 1
+    assert total == direct
+    k = max(Fraction((mertens[y] - 1) ** 2, y + 1) for y in range(R))
+    return [R, p, direct, diagonal, direct - diagonal,
+            neg_count, neg_kernel_signed, str(k)]
+
+
+def main():
+    mu, mertens = arithmetic(1027 * 1027 - 1)
+    certificate = residue_certificate()
+    rows = []
+    for R in range(2, 257):
+        rows.append(verify_root(R, 3, mu, mertens))
+    for p in (5, 7):
+        for R in range(2, 81):
+            rows.append(verify_root(R, p, mu, mertens))
+    for R in (317, 1027):
+        rows.append(verify_root(R, 3, mu, mertens))
+
+    r9 = [[weight(9, u, v) for v in (1, 5, 7)] for u in (1, 5, 7)]
+    assert r9 == [[10, 5, 4], [5, 3, 2], [4, 2, 1]]
+    # Trial factorization is independent of the sieve used above.
+    witnesses = []
+    for R, u, v, expected in ((23, 5, 7, -1), (106, 19, 35, 1)):
+        physical = sum(mobius_trial(d * u) * mobius_trial(e * v)
+                       * ((R * R - 1) // (d * e * u * v))
+                       for d, _ in lifts(3) for e, _ in lifts(3)
+                       if d * u < R and e * v < R)
+        assert physical == expected and weight(R, u, v) == -1
+        witnesses.append([R, u, v, physical])
+
+    scaling_cases = 0
+    for R, u, v, p, s in product(range(2, 18), range(1, 8), range(1, 8),
+                                  (3, 5, 7), (1, 2, 3, 5, 11)):
+        if u < R and v < R:
+            assert weight(s * R, s * u, s * v, p) == weight(R, u, v, p)
+            scaling_cases += 1
+    signed_scalings = 0
+    for s in range(1, 129):
+        if mu[s] and gcd(s, 3990) == 1:
+            for R, u, v, expected in ((23, 5, 7, -1), (106, 19, 35, 1)):
+                actual = mobius_trial(s * u) * mobius_trial(s * v)
+                actual *= weight(s * R, s * u, s * v)
+                assert actual == expected
+                signed_scalings += 1
+
+    interval_cases = 0
+    for R, s in product(range(2, 513), range(1, 129)):
+        if mu[s] and gcd(s, 210) == 1 and 23 * s <= R and 2 * R <= 47 * s:
+            assert weight(R, 5 * s, 7 * s) == -1
+            assert mobius_trial(5 * s) * mobius_trial(7 * s) == 1
+            interval_cases += 1
+        if mu[s] and gcd(s, 3990) == 1 and 105 * s < R <= 106 * s:
+            assert weight(R, 19 * s, 35 * s) == -1
+            assert mobius_trial(19 * s) * mobius_trial(35 * s) == -1
+            interval_cases += 1
+
+    payload = json.dumps(rows, separators=(",", ":"))
+    print(json.dumps({
+        "python": platform.python_version(), "root_prime_cases": len(rows),
+        "rows_sha256": sha256(payload.encode()).hexdigest(),
+        "period_certificate": certificate, "R9_matrix": r9,
+        "witnesses_trial_factored": witnesses,
+        "scaling_cases": scaling_cases, "signed_scalings": signed_scalings,
+        "coherent_interval_cases": interval_cases,
+        "selected_rows": [r for r in rows if r[1] == 3
+                          and r[0] in (4, 5, 9, 14, 23, 106, 317, 1027)],
+    }, indent=2))
+
+
+if __name__ == "__main__":
+    main()
+```
