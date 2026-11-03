@@ -124,6 +124,9 @@ def main() -> None:
             text = replace_once(text, 'open HeckeFamily HeckeInverseAmplification',
                 'open Complex\nopen HeckeFamily HeckeInverseAmplification',
                 'complex projection namespace for anchored HIGH tails')
+            if text.count('∃j s,LFunction') != 2:
+                raise ValueError('Unexpected complex zero-witness inventory')
+            text = text.replace('∃j s,LFunction', '∃j (s : ℂ),LFunction')
             text = replace_once(text, "he he' (by linarith) le_rfl\n",
                 f"he he' (by linarith) (by linarith only [he, {UPPER}])\n",
                 'actual physical rows on anchored small contour')
