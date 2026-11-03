@@ -60,7 +60,8 @@ theorem fractionalOwnerExponentIterate_bounds
           (1 - c / 2) *
             (fractionalOwnerExponentIterate c θ n - 1 / 2) ≤
           fractionalOwnerExponentIterate c θ n - 1 / 2 :=
-        (mul_le_iff_le_one_left hgap).mpr hv
+        by
+          simpa using (mul_le_mul_of_nonneg_right hv hgap)
       constructor
       · linarith only [hprod0]
       · linarith only [hprod1, ih.2]
