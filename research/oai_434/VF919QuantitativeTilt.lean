@@ -88,9 +88,11 @@ theorem native_beta_le_half_source_e
   have hmargin : 0 < gapMargin := lt_min homega D.sigma_pos
   have hmleft : gapMargin ≤ omega := min_le_left _ _
   have hmright : gapMargin ≤ D.sigma := min_le_right _ _
+  have hmleft_explicit :
+      gapMargin ≤ (HeckeZeroSupremum.beta - (7/8-tilt))/2 := hmleft
   obtain ⟨η,ρ,_hprimitive,hhalf,_hstrip,hpole,hzero,hnear⟩ :=
     HeckePrimitiveSupremum.exists_primitive_zero_near_beta hmargin
-      (by linarith only [hgt,htilt1])
+      (by linarith only [hgt,htilt1,hmleft_explicit])
   let χ := η.excludePrimes F.S F.exclusions.prime
   have hmask := excludePrimes_mask η F.S F.exclusions.prime
   have hχpole : ρ≠1 ∨ χ.residue≠1 := by
