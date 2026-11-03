@@ -132,7 +132,8 @@ theorem nat_cast_le_two_pow (n : ℕ) : (n : ℝ) ≤ (2 : ℝ) ^ n := by
   | succ n ih =>
       rw [pow_succ]
       push_cast
-      nlinarith only [ih, Nat.cast_nonneg (α := ℝ) n]
+      have hp : (1 : ℝ) ≤ (2 : ℝ) ^ n := one_le_pow₀ (by norm_num)
+      nlinarith only [ih, hp]
 
 /-- If the complete ORIGINAL signed owner loss is zero, the fixed positive
 slot seed and the compiled recurrence really do prove Mertens at exponent
