@@ -1,5 +1,8 @@
 # Documentation index
 
+**2026-11-03 live agent operating priority after human merge:** [Original OAI 1 -> 7/8 signed LOW source-first contract](RHLEAN_OAI_LOW_SOURCE_FIRST_AGENT_CONTRACT_20261103.md) routes all seven agents to *different* theorem-level tasks at the true LOW first-sign-loss interface, with NNS Co minus Div, original ideal tuple masks/weights and the complete principal/HIGH return. Use with the [stable selector](RHLEAN_NATIVE_SQUARE_CLOCK_AGENT_DIRECTIVE_20261029.md), [persistent engine](RHLEAN_SEVEN_AGENT_RESEARCH_ENGINE_20261101.md) and [complete Studio prompt templates](AGENT_STUDIO_20261024_SEVEN_PROMPTS.md). An exact source identity and draft #1083 are not independent power savings. The nine protected viable routes, canonical von Koch milestone and human-only merge remain intact.
+
+
 
 **2026-10-25 additions:** [proof-dependency DAG](PROOF_DEPENDENCY_DAG.md) (mathematical Layer A, generated from [proof-obligations.json](proof-obligations.json)) and [formalization milestones](FORMALIZATION_MILESTONES.md) (completed formal results, led by the von Koch (1901) / canonical VF reduction). Read them after the portfolio; they record statuses, not new theorems.
 
