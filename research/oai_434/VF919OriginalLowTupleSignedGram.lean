@@ -119,8 +119,80 @@ theorem actual_low_tuple_polynomial_sq_eq_signed_gram
     (actualUnselectedLowAtom eta S hS W0 W1 a0 b0 a1 b1
       slots J W P X Y T t)
 
+/-- LITERAL NNS UPM/Co source on a singleton original LOW probe
+row. Original ideal, character and Fourier weights remain in the atom. -/
+def actualLowNNSCo
+    {K : ℕ} (eta : HeckeFamily.Character)
+    (S : Finset Id) (hS : ∀ P ∈ S, P.IsMaximal)
+    (W0 W1 : ℝ → ℂ) (a0 b0 a1 b1 : ℝ)
+    (slots : Fin K → Finset O) (J : Finset (Fin K))
+    (W : Fin K → ℝ → ℂ) (P : Fin K → ℝ)
+    (X Y T t : ℝ) : ℝ :=
+  vf919WeightedPhiCoMass
+    (Finset.univ : Finset PUnit)
+    (Finset.univ : Finset (LowUnselectedTuple slots J))
+    (fun _ => 1)
+    (fun _ a =>
+      (stableFarComplexToRealPair
+        (actualUnselectedLowAtom eta S hS W0 W1 a0 b0 a1 b1
+          slots J W P X Y T t a)).1)
+    (fun _ a =>
+      (stableFarComplexToRealPair
+        (actualUnselectedLowAtom eta S hS W0 W1 a0 b0 a1 b1
+          slots J W P X Y T t a)).2)
+
+/-- LITERAL NNS LPM/Div source paired with the true Co field above. -/
+def actualLowNNSDiv
+    {K : ℕ} (eta : HeckeFamily.Character)
+    (S : Finset Id) (hS : ∀ P ∈ S, P.IsMaximal)
+    (W0 W1 : ℝ → ℂ) (a0 b0 a1 b1 : ℝ)
+    (slots : Fin K → Finset O) (J : Finset (Fin K))
+    (W : Fin K → ℝ → ℂ) (P : Fin K → ℝ)
+    (X Y T t : ℝ) : ℝ :=
+  vf919WeightedPhiDivMass
+    (Finset.univ : Finset PUnit)
+    (Finset.univ : Finset (LowUnselectedTuple slots J))
+    (fun _ => 1)
+    (fun _ a =>
+      (stableFarComplexToRealPair
+        (actualUnselectedLowAtom eta S hS W0 W1 a0 b0 a1 b1
+          slots J W P X Y T t a)).1)
+    (fun _ a =>
+      (stableFarComplexToRealPair
+        (actualUnselectedLowAtom eta S hS W0 W1 a0 b0 a1 b1
+          slots J W P X Y T t a)).2)
+
+/-- Actual OAI LOW polynomial source is EXACTLY NNS Co minus Div.
+This is a source-level equality, not a new signed estimate. -/
+theorem actual_low_NNS_co_minus_div_eq_normSq
+    {K : ℕ} (eta : HeckeFamily.Character)
+    (S : Finset Id) (hS : ∀ P ∈ S, P.IsMaximal)
+    (W0 W1 : ℝ → ℂ) (a0 b0 a1 b1 : ℝ)
+    (slots : Fin K → Finset O) (J : Finset (Fin K))
+    (W : Fin K → ℝ → ℂ) (P : Fin K → ℝ)
+    (X Y T t : ℝ) :
+    actualLowNNSCo eta S hS W0 W1 a0 b0 a1 b1 slots J W P X Y T t -
+      actualLowNNSDiv eta S hS W0 W1 a0 b0 a1 b1 slots J W P X Y T t =
+      ‖∑ a : LowUnselectedTuple slots J,
+        actualUnselectedLowAtom eta S hS W0 W1 a0 b0 a1 b1
+          slots J W P X Y T t a‖ ^ 2 := by
+  let f : PUnit → LowUnselectedTuple slots J → ℂ :=
+    fun _ a => actualUnselectedLowAtom eta S hS W0 W1
+      a0 b0 a1 b1 slots J W P X Y T t a
+  have hNNS := resonant_fiber_recombination_NNS_eq
+    (Finset.univ : Finset PUnit)
+    (Finset.univ : Finset (LowUnselectedTuple slots J))
+    (fun a : LowUnselectedTuple slots J => a) f (fun _ => 1)
+  have hGram := resonant_fiber_recombination_eq
+    (Finset.univ : Finset PUnit)
+    (Finset.univ : Finset (LowUnselectedTuple slots J))
+    (fun a : LowUnselectedTuple slots J => a) f (fun _ => 1)
+  rw [← hGram] at hNNS
+  simpa [actualLowNNSCo, actualLowNNSDiv, f] using hNNS
+
 #print axioms actual_low_tuple_polynomial_eq_sum_atoms
 #print axioms actual_low_tuple_polynomial_sq_eq_signed_gram
+#print axioms actual_low_NNS_co_minus_div_eq_normSq
 
 end SevenEighths.ProbePhysical
 end OAI
