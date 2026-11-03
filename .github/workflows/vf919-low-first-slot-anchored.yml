@@ -8,6 +8,7 @@ on:
       - 'research/oai_434/VF919LowFirstSlotAnchoredEndpoint.lean'
       - 'research/oai_434/VF919ActualSlotMinRetighten.lean'
       - 'research/oai_434/VF919NativeOwnerDiagonalThreeQuarter.lean'
+      - 'scripts/native_owner_diagonal_three_quarter_audit.cpp'
       - 'research/oai_434/VF919Anchored*.lean'
       - 'scripts/lean/slot_anchored/**'
       - '.github/workflows/vf919-low-first-slot-anchored.yml'
@@ -26,6 +27,13 @@ jobs:
     timeout-minutes: 150
     steps:
       - uses: actions/checkout@v4
+      - name: Exact Mobius and high-prime owner-Gamma regression through R=3500
+        shell: bash
+        run: |
+          set -euo pipefail
+          c++ -std=c++17 -O2 -Wall -Wextra -Werror \
+            scripts/native_owner_diagonal_three_quarter_audit.cpp -o /tmp/native_owner_three_quarter
+          /tmp/native_owner_three_quarter 3500
       - name: Verify the pinned Lean and Mathlib versions
         shell: bash
         run: |
