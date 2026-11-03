@@ -24,7 +24,7 @@ theorem native_slot_tilt_fixed_power :
       0 < slotTilt D ∧ MertensExponent.MertensPowerBound (7/8 - slotTilt D / 2) := by
   obtain ⟨D, hD, hgrowth⟩ := native_mertens_constructed_slot_tilt
   refine ⟨D, hD, ?_⟩
-  convert hgrowth (slotTilt D / 2) (by positivity) using 1 <;> ring
+  convert hgrowth (slotTilt D / 2) (by positivity) using 1; ring
 
 theorem native_slot_tilt_signed_pairs :
     ∃ D : Parameters.HighData (1/1000000 : ℝ),
@@ -66,7 +66,7 @@ theorem native_slot_tilt_signed_energy :
   rw [vf919_mertens_sq_eq_signedPair] at hsquare
   apply hsquare.trans_eq
   rw [mul_pow, ← Real.rpow_mul_natCast hxpos.le]
-  congr 2 <;> ring
+  congr 2; ring
 
 #check native_slot_tilt_growth_exponent
 #print axioms native_slot_tilt_growth_exponent
