@@ -200,3 +200,17 @@ Publication history: early checkpoint commit `a366fcf7f7d0bd06c98256223ea60baf3f
 ## Publication Receipt - 2026-11-03 05:39:16 EST
 
 **Publication:** PUBLISHED / READBACK_VERIFIED. Final synthesis commit `0fa090ef379c86c03ec7c0df1e3fbd77ae018e47`, report blob `ebeadc6b1ed6ca5030309b1dbd643c4bfe710dd4`, was fetched after publication and matched the submitted content byte for byte at 2026-11-03 10:39:16 UTC. This receipt is appended to that verified report; prior checkpoints, the failed run and the correction history remain present. The invocation is COMPLETE. #1075 and #1076 remain exact-head verified, ready for human review and unmerged. Canonical VF and RH remain open.
+
+## Scheduled Continuation Checkpoint - Claim 20261103-lean-2
+
+**Invocation:** SCHEDULED, 2026-11-03 13:14:01 EST (-0500), America/New_York; RUN_ID_UNAVAILABLE. This is a distinct actual run. Prior results, repair history and publication receipts remain unchanged.
+
+**Execution:** PARTIAL / IN_PROGRESS. Main at intake is `98b1a5a2082a46d9f46d2af191da090365582561`, human merge of #1079. AGENTS blob `9fa5e9519e2fb6dde22217aa2a18982dafef373a`; proof contract `88cddd9cd98c3b55f0b013998541e9b4e9dc9f2a`; research engine `6fce99c61efb5b2a73c0cb1f1464f09b351fcd55`. The canonical actual-prime VF bound and RH remain OPEN.
+
+**Continuity:** retrieved all seven roles' available November 2 and November 3 reports at reporting snapshot `75d76cdd0b19ce5c3e12ba4cb8e74fe28f44b131`, plus external inbox `038018145c0fddb2f6306c0712373adf9cd1ea52`. TODAY=AVAILABLE for all roles; YESTERDAY=CARRY_FORWARD. Relevant sections are being checked. The inbox has no entry after October 18; its historical routing does not override live main.
+
+**Queue and deployment_ack:** both GitHub search and the direct open-PR collection returned no open/draft PRs. The old finite-telescope bootstrap and #1075 repair have been completed in earlier work. The newer independent verdict `20261103-referee-5` accepts Coordinator `20261103-coordinator-1` C29-C30 and Analytic N4 with scope. Select ONE candidate: C29's finite Nyman high-coefficient annihilator and original weighted norm restriction. Inspect the genuine residue basis, Mobius/log divisor identity, endpoints and existing declarations; do not assume the RH-strength boundedness premise. N4 is a fallback with a larger analytic dependency burden. New NR1-NR7, Owner/CORR4/Census claims remain separate pending-review work.
+
+**Operational boundary:** this run's create_file/update_file connector schemas restrict remote file writes to `agent-reports` and dated Lean reports. Proof-source publication is therefore BLOCKED_WRITE_ACCESS through the authorized file-write interface. Lower-level Git tree/ref operations will not be used to evade that restriction. No Lean build has been run, and no new theorem is certified. Continue independent mathematical/source analysis and exact existing CI inspection; report the actionable proof gap and implementation handoff.
+
+**Gate:** prior independently accepted strict Mertens gain is reported as merged by today's Referee. Verify source and exact-head CI before carrying its precise scope forward. No new numerical gain, sharp-shell result, canonical VF bound or RH proof is asserted here.
