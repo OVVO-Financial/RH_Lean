@@ -4,6 +4,12 @@
 
 **Cadence clarification:** The separately user-authorized [multiple-daily agent invocation policy](RHLEAN_MULTIRUN_DAILY_AGENT_POLICY_20261031.md) supersedes the historical one-run/day ceiling. Broad coverage is measured over three **actual substantive invocations**, which can occur on the same day; neither increased run frequency nor a local positive eta permits team-wide narrowing.
 
+## 2026-11-03 original OAI signed LOW cross-source priority without route closure
+
+The [original OAI 1-to-7/8 source-first seven-agent contract](RHLEAN_OAI_LOW_SOURCE_FIRST_AGENT_CONTRACT_20261103.md) sets a coordinated *research comparison* axis, not a narrowed single-route campaign. Its goal is to explain the actual principal-minus-LOW exponent gap (beta-11/16)-3/16=beta-7/8 and to prove genuinely new signed arithmetic before OAI LowTupleGram's norm_sum_le over literal unselected prime-ideal tuples, with the full normalized LOW/HIGH return. All seven specialists receive different responsibilities, and Owner VF-LOW/SAT/JOH, Analytic CODIV/OAI-NNS/NYMAN and Wheel FINITE-AC/CORR4/MU-LIFT keep rolling three-invocation route coverage.
+
+A declaration of a positive finite-slot tilt (including reported PRs #1073/#1079) is examined at its exact formal and semantic scope, not silently an endlessly reusable improvement. Likewise a proposed #1083 exact Gram/NNS bridge is not a new signed inequality; it is an unmerged DRAFT until live status proves otherwise. The existing VERIFIED_ETA contract for a *new independent gain surviving the complete endpoint* remains binding. The goal now is an additional source-supported LOW saving, not another assumption on owner Gamma_R+ or a claim that the imported 7/8 bound improves itself.
+
 ## 1. Governing rule and precedence
 
 > Keep the research programme broad across RH_Lean's viable mathematical architectures. Do not converge the team on one preferred mechanism until a genuine uniform eta > 0, however small, has been proved and verified through its complete relevant source-to-endpoint argument.

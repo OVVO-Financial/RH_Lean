@@ -68,6 +68,46 @@ def main() -> None:
     complete = "RHLEAN_SOURCE_FAITHFUL_COMPLETE_RETURN_AGENT_CONTRACT_20261031.md"
     assert selector.index(breadth) < selector.index(complete) < selector.index(ENGINE)
     roles = ("COORDINATOR", "OWNER", "ANALYTIC", "WHEEL", "CENSUS", "REFEREE", "LEAN")
+    source_first_name = "RHLEAN_OAI_LOW_SOURCE_FIRST_AGENT_CONTRACT_20261103.md"
+    source_first = read("docs/" + source_first_name)
+    for label, doc in (
+        ("AGENTS", agent_policy),
+        ("DYNAMIC", dynamic),
+        ("SELECTOR", selector),
+        ("RESEARCH ENGINE", engine),
+        ("ROLE REFERENCES", role_prompts),
+        ("STUDIO TEMPLATES", prompts),
+        ("SOURCE RETURN", read("docs/RHLEAN_SOURCE_FAITHFUL_COMPLETE_RETURN_AGENT_CONTRACT_20261031.md")),
+        ("BREADTH", read("docs/RHLEAN_BROAD_SEARCH_UNTIL_ETA_20261031.md")),
+        ("ALL VECTOR", read("docs/RHLEAN_ALL_VECTOR_SYNTHESIS_AGENT_DIRECTIVE_20261030.md")),
+        ("PROOF CONTRACT", proof_contract),
+        ("STUDIO SETUP", setup),
+        ("PORTFOLIO", portfolio),
+    ):
+        assert source_first_name in doc, f"{label} misses source-first live directive"
+
+    for needle in (
+        "beta-11/16", "3/16", "beta-7/8",
+        "LowSelectedBound.lean", "LowPhysicalInverseBound.lean",
+        "LowSlotPolynomial.lean", "LowTupleGram.lean",
+        "LowCentralTuple.lean", "LowNormalized.lean",
+        "norm_sum_le", "sqrt(Q)", "actual", "Co minus Div",
+        "Gamma_R", "1+t/2", "1+t", "cstar",
+        "partial", "HIGH", "SOURCE_TO_ENDPOINT",
+        "human-only merge", "PR #1083",
+    ):
+        assert needle in source_first, f"source-first mathematical safeguard missing: {needle}"
+    for role in ("COORDINATOR", "OWNER", "ANALYTIC", "WHEEL",
+                 "CENSUS", "REFEREE", "LEAN"):
+        assert f"### NEXT-{role}:" in engine
+        assert f"NEXT-{role}" in role_prompts
+        assert f"SOURCE-FIRST NEXT-{role}" in prompts, f"saved role {role} not updated"
+    assert source_first.index("## 2. Actual OAI LOW") < source_first.index("## 3. Exact signed LOW")
+    assert "six non-lean" in agent_policy.lower()
+    assert "agent/lean-verification/" in prompts
+    assert "an unmerged" in source_first.lower() or "unmerged DRAFT" in source_first
+    assert "no mathematical" in read("docs/RH_PROOF_ATTACK_PORTFOLIO_20261024.md").lower()
+
     for role in roles:
         assert f"### NEXT-{role}:" in engine, f"missing next-run task for {role}"
         assert f"NEXT-{role}" in role_prompts, f"role reference missing {role}"
@@ -145,8 +185,9 @@ def main() -> None:
         "docs/RHLEAN_NATIVE_SQUARE_CLOCK_AGENT_DIRECTIVE_20261029.md",
     ):
         assert (chr(92) + chr(96)) not in read(path), f"escaped Markdown backtick in {path}"
-    print("PASS: 10 routes; 7 persistent roles and next-run tickets; multi-run cadence; "
-          "exact historical archives; proof DAG/von Koch safeguards; no mathematical gain asserted")
+    print("PASS: original OAI 1-to-7/8 LOW source-first contract; all seven distinct "
+          "Studio/role/engine tickets; nine viable routes and historical archives; "
+          "human-only merge, proof DAG/von Koch, no new arithmetic gain asserted")
 
 
 if __name__ == "__main__":

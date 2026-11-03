@@ -17,6 +17,14 @@ Two qualifications prevent wasting research:
 
 Do actual mathematics before updating a ledger: a proved lemma, a genuine counterexample, or a derivation reaching the exact first open inequality. A new name, coverage table, dependency inventory or wider unmotivated scan is not the principal deliverable.
 
+## 2026-11-03 mandatory OAI source-first case of this contract
+
+Every role must consult [the original OAI 1-to-7/8 signed LOW source-first contract](RHLEAN_OAI_LOW_SOURCE_FIRST_AGENT_CONTRACT_20261103.md) before promoting a new improvement based on OAI/NNS/owner/square-block correspondences. The original signal exponent beta-11/16 versus the *complete normalized* LOW 3/16 gives beta-7/8, which is the genuine historical gain. In original Detector/LowSlotPolynomial.lean, the compensated Hecke source is a signed sum of actual admitted unselected tuple atoms. In Detector/LowTupleGram.lean, applying norm_sum_le after exact Fubini discards literal ordered cross-tuple Hermitian terms. Preserve that same U_a source, its exact Co-minus-Div equality and the incomplete principal/HIGH/Gaussian/remote return before asking for an improvement.
+
+A uniform fixed saving nu in the **fully normalized LOW squared source** gives at most nu/2 in LOW amplitude. A nu on a selected inverse component may pay further losses. A marked-HIGH 1+t/2 retained estimate widened back to 1+t is a separate branch; without identifying the dominant HIGH count branch and reducing the binding LOW it cannot move the terminal crossing. Canonical -cstar/16 on another reflected completion family requires source-preserving transfer. A postulated owner Gamma_R+ bound or indefinitely recycled finite physical tilt is NOT an independent signed estimate.
+
+For a proposed source theorem require: actual original Hecke characters, slots J (empty/all/partial), W0/W1, masks, Fourier phase, conductor/bad primes, physical sqrt(Q), all exponent charges, moving supports and entire final LOW/HIGH/principal comparison. An EXACT_IDENTITY, a paper estimate and a verified endpoint gain must remain separate statuses. A protected alternate native route may prove its own independently sufficient bound without using this OAI consumer; do not impose an unproved OAI-Hecke identification on native Mobius sources.
+
 ## 2. Original-source certificate before estimation
 
 Identify the live declaration, file and SHA; route/coordinate ID; actual arithmetic coefficients; weights, normalizers and masks; strict/non-strict endpoints; full quantified parameter range; and the final consumer. Separate amplitude, energy, weighted norm, recurrence coefficient, root-scale exponent and final x-scale exponent.
