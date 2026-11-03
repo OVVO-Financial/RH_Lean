@@ -635,3 +635,14 @@ assert cohort + birth_coefficient == -Fraction(256, 385)
 print('cohort_birth_total_coefficients', cohort, birth_coefficient, cohort + birth_coefficient)
 
 ~~~
+
+
+### Publication Verification
+
+The early checkpoint was committed as 59ac3074afce52683b2d6e3d53a6ba2926e8bb47 and read back exactly at blob c2b3bf7de273d30457f1e26d90e66eee5345b3bb.
+
+The completed mathematical synthesis was committed as 442d25ff82f127be715a9021e275c81edd3ac552 at 2026-11-03T05:28:59Z. Readback returned blob 32cdd51ecfcbb8f4761b090c9b8cfc685902de6e and exactly matched the submitted 36,278 characters. Commit inspection confirmed that only research/agent_reports/2026-11-03/10-owner-payment.md changed. The report contains all A-K sections, claim 20261103-owner-1, equations (50)-(65), the exact witness, full signed reconstruction, current PR evidence and the executed reproducer. ASCII/control-character and balanced-code-fence checks passed.
+
+This receipt records publication only. It does not convert the new paper proof into independent Referee acceptance or Lean verification, and it adds no endpoint gain.
+
+Published report: https://github.com/OVVO-Financial/RH_Lean/blob/agent-reports/research/agent_reports/2026-11-03/10-owner-payment.md
