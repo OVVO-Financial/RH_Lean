@@ -153,6 +153,16 @@ def main() -> None:
         text = text.replace('∃j s,LFunction', '∃j, ∃s : ℂ,LFunction')
         text = text.replace('a≤s.re ∧ s.re<a+e ∧ |s.im|',
             'a ≤ Complex.re s ∧ Complex.re s<a+e ∧ |Complex.im s|')
+        # Ordinary real inequalities with no whitespace collide with the
+        # mathlib infix `≤s` notation for spanning subgraphs. In this proof
+        # it corrupted the 'hlarge' power-saving budget and its consumers.
+        expected_saving_comparisons = {
+            'VF919AnchoredHighTransport': 2,
+            'VF919AnchoredHighAssembly': 1,
+        }.get(name, 0)
+        if text.count('≤saving') != expected_saving_comparisons:
+            raise ValueError(f'{name}: unexpected real saving-bound inventory')
+        text = text.replace('≤saving', ' ≤ saving')
         text = pattern.sub(lambda match: mapping[match[0]], text)
         imports = {
             'VF919AnchoredSmallTail': imp('VF919NativeSevenEighthsReplay'),
