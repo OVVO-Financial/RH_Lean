@@ -196,3 +196,7 @@ For the parallel shell route, the actual signed frozen-field covariance rate and
 - Main/policy freshness and all source hashes must be rechecked at the next actual invocation. No agent, schedule, policy, other report, or main branch was changed.
 
 Publication history: early checkpoint commit `a366fcf7f7d0bd06c98256223ea60baf3f0c0adb` and milestone commit `d95f1ced39fa03b8f1a1f95a44bae313d0851c3f` were committed and read back. Timing correction: the milestone commit is 2026-11-03 10:26:15 UTC / 05:26:15 EST, so its earlier 05:27 heading is corrected to 05:26 in this append. No mathematical history is removed. Final synthesis publication/readback will be recorded in a separate receipt after the write succeeds.
+
+## Publication Receipt - 2026-11-03 05:39:16 EST
+
+**Publication:** PUBLISHED / READBACK_VERIFIED. Final synthesis commit `0fa090ef379c86c03ec7c0df1e3fbd77ae018e47`, report blob `ebeadc6b1ed6ca5030309b1dbd643c4bfe710dd4`, was fetched after publication and matched the submitted content byte for byte at 2026-11-03 10:39:16 UTC. This receipt is appended to that verified report; prior checkpoints, the failed run and the correction history remain present. The invocation is COMPLETE. #1075 and #1076 remain exact-head verified, ready for human review and unmerged. Canonical VF and RH remain open.
