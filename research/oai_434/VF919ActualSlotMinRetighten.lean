@@ -21,7 +21,7 @@ open scoped Classical BigOperators
 namespace SevenEighths.RHLeanActualSlotMin
 open Parameters RHLeanFullPhysicalTilt
 open RHLeanNativeSevenEighthsReplay
-open ProbeFinalAssembly
+open ProbeFinalAssembly ProbeFinalAssemblyCertifiedBands
 
 private theorem slotUniverse_nonempty {Delta : ℝ} (D : HighData Delta) :
     (Finset.univ : Finset (Fin D.N)).Nonempty := by
@@ -37,7 +37,7 @@ theorem leastSlotIndex_le {Delta : ℝ} (D : HighData Delta)
     (i : Fin D.N) : D.ell (leastSlotIndex D) ≤ D.ell i := by
   exact (Classical.choose_spec
     (Finset.exists_min_image (Finset.univ : Finset (Fin D.N))
-      D.ell (slotUniverse_nonempty D))).2.2 i (Finset.mem_univ i)
+      D.ell (slotUniverse_nonempty D))).2 i (Finset.mem_univ i)
 
 noncomputable def actualSlotMinimum {Delta : ℝ} (D : HighData Delta) : ℝ :=
   D.ell (leastSlotIndex D)
@@ -67,7 +67,6 @@ theorem trueMinimumRmin_exact {Delta : ℝ} (D : HighData Delta) :
     (7/8 : ℝ) * trueMinimumRmin D = actualSlotMinimum D := by
   unfold trueMinimumRmin
   field_simp
-  ring
 
 /-- Change only the scale certificate rmin.  In particular all original
 coefficients, selected slots, source scales, and analytic error allowances
@@ -86,7 +85,6 @@ noncomputable def sourceWithExactSlotMinimum {Delta : ℝ} (D : HighData Delta) 
     window_budget := ?_ }
   · intro i
     refine ⟨(D.slots_bounds i).1, ?_, (D.slots_bounds i).2.2⟩
-    change (7/8 : ℝ) * m ≤ D.ell i
     rw [hexact]
     exact leastSlotIndex_le D i
   · exact trueMinimumRmin_pos D
@@ -186,6 +184,7 @@ theorem native_beta_le_true_physical_slot_minimum :
 #print axioms native_beta_le_true_physical_slot_minimum
 
 end SevenEighths.RHLeanActualSlotMin
+end
 end OAI
 
 namespace RHLean.Analysis
