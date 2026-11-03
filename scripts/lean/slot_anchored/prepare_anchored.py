@@ -91,6 +91,9 @@ def main() -> None:
             s = s.replace('(D.e/48)', 'tilt').replace('htilt.le', 'htilt')
         s = re.sub(r'\bHeckeZeroSupremum\.beta\b', f'(7/8:{R})', s)
         if name == 'VF919AnchoredSmallTail':
+            s = replace_once(s, 'Fin K'+chr(8594)+'Finset PrimeIdeal',
+                'Fin K'+chr(8594)+'Finset HeckeInverseAmplification.PrimeIdeal',
+                'pinned small-tail prime-ideal carrier')
             s = replace_once(s, '(by linarith) le_rfl le_rfl S hS hmax hfirst',
                 f'(by linarith) (by linarith only [he, {UPPER}]) le_rfl S hS hmax hfirst',
                 'actual reciprocal bound on anchored small contour')
