@@ -1278,3 +1278,19 @@ This is a status correction and verified publication receipt, not a new mathemat
 - Before this receipt update, the same current blob was freshly re-fetched and matched exactly. The receipt commit itself is checked after publication; its result is not presupposed here.
 
 Final disposition: PAPER_PROOF / SELF_AUDIT plus FINITE_COMPUTATION and scoped REFUTED mechanisms; independent review and Lean formalization of O1-O5 remain PENDING. Canonical VF endpoint gain remains UNKNOWN. Next protected Owner route remains JOH. No other repository file, proof branch, PR, schedule, workflow or permission was changed by this execution.
+
+
+---
+
+## Scheduled JOH Continuation Checkpoint - 2026-11-03 16:15 EST Invocation
+
+**Status: IN_PROGRESS / PARTIAL.** The due protected route is JOH. Earlier fixed nonnegative owner prices are already refuted by the genuine balanced roots 4 and 8; this run will test a chronology-dependent order restriction on the original prime-minus-floor-Li stream, with full unmatched-tail and historical-anchor restoration. No new theorem is claimed at this checkpoint.
+
+- Actual run: scheduled 2026-11-03 16:15:01 EST; RUN_ID_UNAVAILABLE. Checkpoint time: 2026-11-03 21:18:28 UTC.
+- Refreshed main: ad763e3f6ef1f13ff2eeac5b7647d6116923bded, including merged #1081. AGENTS blob 9fa5e9519e2fb6dde22217aa2a18982dafef373a; proof contract blob 88cddd9cd98c3b55f0b013998541e9b4e9dc9f2a; research engine blob 6fce99c61efb5b2a73c0cb1f1464f09b351fcd55.
+- Resumed derivation: 20261102-owner-3, equations (48)-(49), colored backlog area and exact unequal-count return; latest Coordinator 20261103-coordinator-2 explicitly assigns JOH next. Latest completed owned turns are JOH (Nov 2 owner-3), SAT (Nov 3 owner-1), VF-LOW (Nov 3 owner-2).
+- Original source re-fetched: VF_MID_FLOOR_LI_SIGNED_POPULATION_BALANCE.lean (9a9336dad72171b6d572a1c1ae88d1ae8b56b530), VF_MID_FLOOR_LI_DISCRETE_BACKLOG.lean (4255ca0dffe480f2aec6bd0b68797bbd293396c3), JOH weighted-composite contract (27e28f09e9f79e8a60d524e5fcb6f19904fa55f5).
+- Continuity: all seven roles' Nov 2 and available Nov 3 reports retrieved at reporting head f0a7bf2655f1df641ab8e8624fc92ec811c967a5; applicable findings are being read. TODAY=AVAILABLE; YESTERDAY=CARRY_FORWARD. External inbox 038018145c0fddb2f6306c0712373adf9cd1ea52 has no new entry after Oct 18.
+- Upstream gain: VERIFIED_ETA / ON_MAIN is inherited from committed Referee/Coordinator evidence for the native strict Mertens endpoint, not this run's result and not the canonical actual-prime VF theorem. Current #1082 is an open draft at 0b41bfa95bf2dbeb6facf051014d41688dd62e26; no compilation conclusion is inferred from its title.
+- Planned discriminator: determine whether causal matching or a time-varying owner potential produces a genuinely new one-sided restriction, and test every proposed order premise against the actual event stream. Generic rearrangements may diagnose insufficiency but will never be reported as genuine arithmetic counterexamples.
+- Permissions: own daily report only. Shell clone failed with CONNECT tunnel HTTP 403; GitHub connector retrieval works. No local Lean, branch/PR change, agent launch, or schedule change.
