@@ -2132,3 +2132,12 @@ if __name__ == "__main__":
   "status": "PASS"
 }
 ```
+
+
+### Verified Publication Receipt - 2026-11-03 18:31:37 EST (-0500)
+
+- Final synthesis commit: `ab96791e6aa8aabc5ecc4ed4eb87cc3592c5fb66`; report blob: `95067a781d5166a65a1bbdb51c311540b4c2ff0e`.
+- Pinned-commit readback matched all 154,203 characters exactly and preserved the preceding 93,433 characters. The commit changed only `research/agent_reports/2026-11-03/30-finite-wheel.md`, with 800 added lines and zero deleted lines.
+- Verified content includes claim `20261103-wheel-3`, O1-O4, M1-M3, all A-M sections, exact reproduction source/output, source and continuity hashes, the failed exact-head #1083 gate, specialist requests and both continuation capsules.
+- Research execution is COMPLETE for this invocation. New mathematics remains PAPER_PROOF / SELF_AUDIT, independent review PENDING, no new Lean declaration and no new global exponent or RH claim. Direct OAI numerical integration remains UNSUPPORTED_DIRECT_OAI_NUMERICS.
+- This receipt records the already verified synthesis commit, not its own future commit. Publication does not imply that another agent has read the handoff or executed.
