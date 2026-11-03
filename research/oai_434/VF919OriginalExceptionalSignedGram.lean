@@ -19,7 +19,7 @@ noncomputable section
 open scoped Classical BigOperators ComplexConjugate
 
 namespace SevenEighths.ProbeGramCommon
-open ProbePhysical CanonicalQuadraticSieve CompletedGauss RayFourExpansion
+open ProbePhysical CanonicalQuadraticSieve CanonicalRowCompletion CompletedGauss RayFourExpansion
 open ConcreteTraceCRT RHLean.Analysis RHLean.Proof
 local notation "Id" => Ideal ActualEisensteinCubic.O
 
@@ -66,6 +66,29 @@ theorem original_primary_fifth_seed_clears_column
           idealRowHom C.generator (Ideal.span {n}) *
           idealRowHom (C.generator ^ 5) (Ideal.span {n})) := by ring
     _ = _ := by rw [hrestore]
+
+/-- Every coprime sixth-power multiple of the bad fifth seed is
+equally coherent at the ACTUAL calibrated primary low column.
+The genuine sixth-power character mask is proved by the original
+source, not postulated for abstract NNS atoms. -/
+theorem original_primary_fifth_sixth_tower_clears_column
+    (S : Finset Id) (hS : ∀ p ∈ S, p.IsMaximal)
+    (hbad : fixedBadPrimes ⊆ S)
+    (σ : RayRing) (n v : ActualEisensteinCubic.O)
+    (hn : Supported (Ideal.span {n}))
+    (hprimary : ConcretePrimeRowBridge.goodLambda ^ 2 ∣ n - 1)
+    (hray : physicalRay n = σ)
+    (hcop : IsCoprime (calibrationForSet S hS).generator n)
+    (hv : IsCoprime n v) :
+    primaryCoefficient S hS σ n *
+        idealRowHom (((calibrationForSet S hS).generator ^ 5) * v ^ 6)
+          (Ideal.span {n}) =
+      (calibrationForSet S hS).tau⁻¹ *
+        ((calibrationForSet S hS).residueMonoid n)⁻¹ := by
+  rw [idealRowHom_argument_mul,
+    supported_sixth_value n v hn hv, mul_one]
+  exact original_primary_fifth_seed_clears_column
+    S hS hbad σ n hn hprimary hray hcop
 
 /-- One original common-ideal row, with all ideal divisor coefficients,
 Hecke phases and nonzero frequencies retained. -/
@@ -195,6 +218,7 @@ theorem original_truncation_signed_nns
     (fun _ => E) W hW Y Q hY U v
 
 #print axioms original_primary_fifth_seed_clears_column
+#print axioms original_primary_fifth_sixth_tower_clears_column
 #print axioms original_source_signed_hermitian_gram
 #print axioms original_source_signed_nns_codiv
 #print axioms original_exceptional_source_signed_nns
