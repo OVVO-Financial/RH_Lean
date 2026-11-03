@@ -80,7 +80,7 @@ theorem native_beta_lt_seven_eighths : HeckeZeroSupremum.beta<7/8 := by
   change 0<tilt at htilt
   change tilt<1/960 at htilt1
   let margin := min (tilt/2) D.sigma
-  have hmargin : 0<margin := lt_min (by positivity) D.sigma_pos
+  have hmargin : 0 < margin := lt_min (by positivity) D.sigma_pos
   have hmleft : margin≤tilt/2 := min_le_left _ _
   have hmright : margin≤D.sigma := min_le_right _ _
   obtain ⟨η,ρ,_hprimitive,hhalf,_hstrip,hpole,hzero,hnear⟩ :=
