@@ -1,5 +1,8 @@
 # RH proof attack portfolio and seven-agent operating contract — 2026-10-24
 
+> **2026-11-03 LIVE SOURCE-FIRST ROUTING (effective after human merge, no mathematical claim):** The stable selector now points to [the original OAI signed LOW seven-agent contract](RHLEAN_OAI_LOW_SOURCE_FIRST_AGENT_CONTRACT_20261103.md), with distinct work packets, not the dated 2026-10-26 first-task suggestion below. This *comparison-axis priority* specifically traces original signal beta-11/16 versus normalized LOW 3/16, the first cross-unselected-tuple norm_sum_le and the true NNS signed full source; the genuine new arithmetic estimate is still OPEN. All nine viable route hypotheses, refuted R=549 universal BLOCK claim, independent source requirements, rolling investigator rotation and human-only merge stay unchanged. A marked-HIGH, finite-slot or conditional owner gain is not the requested additional LOW saving.
+
+
 
 > **2026-10-26 NATIVE-FIRST RESEARCH ROUTING (after human merge):** This ten-route classification remains authoritative for mathematical independence and falsifiers, but the latest **first-task selector** is [RH_Lean-native first proof routing](RHLEAN_NATIVE_FIRST_PROOF_ROUTING_20261026.md). Begin with genuine pi-VF_can first-owner/#915 arithmetic, signed NNS Co/Div, or independently sufficient CORR4/finite-A/C/MU-LIFT source estimates. The focused analytic OpenAI comparison is the *actual post-compensation original ideal-prime cross-Gram*, not Collet's frozen final-return scalar bound. Collet remains an optional downstream consumer only after a real uniform source improvement; the old hypothetical sigma_sat=3/40000 is not proved, nor disproved by mere upper-bound crossing. No ten-route statuses, Lean proofs, agent governance or schedules change.
 
