@@ -3,9 +3,9 @@ name: Native LOW-first slot-calibrated contraction
 on:
   pull_request:
     paths:
-      - 'research/oai_434/VF919PhysicalTiltFullBudget.lean'
-      - 'research/oai_434/VF919SlotCalibratedData.lean'
-      - 'research/oai_434/VF919SlotAnchoredEndpoint.lean'
+      - 'research/oai_434/VF919LowFirstPhysicalTiltFullBudget.lean'
+      - 'research/oai_434/VF919LowFirstSlotCalibratedData.lean'
+      - 'research/oai_434/VF919LowFirstSlotAnchoredEndpoint.lean'
       - 'research/oai_434/VF919Anchored*.lean'
       - 'scripts/lean/slot_anchored/**'
       - '.github/workflows/vf919-low-first-slot-anchored.yml'
@@ -86,9 +86,9 @@ jobs:
             anchored-tilt-generation.json
             slot-anchored-lean.log
             slot-anchored-audit-*.log
-            research/oai_434/VF919PhysicalTiltFullBudget.lean
-            research/oai_434/VF919SlotCalibratedData.lean
-            research/oai_434/VF919SlotAnchoredEndpoint.lean
+            research/oai_434/VF919LowFirstPhysicalTiltFullBudget.lean
+            research/oai_434/VF919LowFirstSlotCalibratedData.lean
+            research/oai_434/VF919LowFirstSlotAnchoredEndpoint.lean
             research/oai_434/VF919Anchored*.lean
             scripts/lean/slot_anchored/
           if-no-files-found: error

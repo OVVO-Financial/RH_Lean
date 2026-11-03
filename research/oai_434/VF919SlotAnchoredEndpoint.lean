@@ -3,10 +3,11 @@ import «research.oai_434.VF919SlotCalibratedData»
 import «research.oai_434.VF919NativeStrictMertens»
 
 /-!
-LOW-first source-calibrated endpoint. See exact-head CI for proof status.
-The HIGH contour and exponent reference is the already-proved 7/8 ceiling.
-The actual Hecke supremum is NOT redefined. Native moments are supplied
-internally at fixed auxiliary Delta. The endpoint saving is slotTilt D.
+# A constructed source-sized endpoint from the anchored HIGH estimate
+
+The contour reference is the already-proved 7/8 upper bound. The actual
+Hecke supremum is not redefined. The original strict-gap endpoint is not
+used in any proof value; the runtime audit rejects that shortcut.
 -/
 namespace OAI
 noncomputable section
@@ -26,7 +27,7 @@ theorem native_fixed_slot_anchored_probe_bounds
     (counts : CountParameters F.modulus ⊤ D.t)
     (hbetalow : (51/100 : ℝ) ≤ HeckeZeroSupremum.beta) :
     ∀ chi : Character,
-      (∀ loss : ℝ, 0 < loss ->
+      (∀ loss : ℝ, 0 < loss →
         F.tiltedProbe (slotTilt D) chi =O[atTop]
           (fun Z : ℝ => Z ^ (3/16 - 9*slotTilt D + loss))) ∧
       (fun Z => F.tiltedProbe (slotTilt D) chi Z -
@@ -36,7 +37,7 @@ theorem native_fixed_slot_anchored_probe_bounds
   obtain ⟨J, hJ, hmom⟩ := native_uniform_fixed_source_moments D hbetalow
     (by linarith [native_beta_le_seven_eighths]) hfine F counts
   have hsource : ∀ chi : Character, ∃ C : ℝ, 0 < C ∧
-      ∀ tau : ℝ, 0 < tau -> tau ≤ 1 ->
+      ∀ tau : ℝ, 0 < tau → tau ≤ 1 →
       ∀ᶠ Z : ℝ in atTop,
         SourceMomentBound F counts chi Z tau (C*(1+Z^(2*tau))^J) (Z^(2*tau)) := by
     intro chi
@@ -61,8 +62,7 @@ theorem native_fixed_slot_anchored_probe_bounds
   filter_upwards [hhigh, hsource] with Z hh hs
   exact hh Cm hCm.le hs
 
-/-- A source-calibrated endpoint, not an unnamed spectral-gap witness.
-The extra sigma condition is discharged by exists_slot_calibrated_data. -/
+/-- The reserve hypothesis is discharged by the calibrated-data constructor. -/
 theorem native_beta_le_slot_calibrated_boundary
     (D : HighData (1/1000000 : ℝ))
     (hfine : ∀ j, D.ell j ≤ detectorMesh (1/1000000) D.t / 200)
@@ -140,35 +140,5 @@ theorem native_mertens_constructed_slot_tilt :
   obtain ⟨D, hD, hbound⟩ := native_beta_le_constructed_slot_tilt
   exact ⟨D, hD, growthAtMost_mono hbound native_mertens_growth_at_hecke_beta⟩
 
-/-- A strict fixed power envelope after spending half the calibrated gap. -/
-theorem native_mertens_slot_fixed_power :
-    ∃ D : Parameters.HighData (1/1000000 : ℝ),
-      0 < slotTilt D ∧ MertensExponent.MertensPowerBound (7/8-slotTilt D/2) := by
-  obtain ⟨D, hD, hgrowth⟩ := native_mertens_constructed_slot_tilt
-  refine ⟨D, hD, ?_⟩
-  convert hgrowth (slotTilt D/2) (by positivity) using 1; ring
-
-/-- The actual signed pairs retain their exact squarefree diagonal. -/
-theorem native_signed_pair_constructed_slot_tilt :
-    ∃ D : Parameters.HighData (1/1000000 : ℝ),
-      0 < slotTilt D ∧ ∀ eps : ℝ, 0 < eps →
-      ∃ C : ℝ, 0 ≤ C ∧ ∀ x : ℕ, 1 ≤ x →
-        2*realMertensPositiveLagPairSum (x+1) ≤
-          (C*Real.rpow (x:ℝ) (7/8-slotTilt D+eps))^2-realMertensDiagonal (x+1) := by
-  obtain ⟨D, hD, hgrowth⟩ := native_mertens_constructed_slot_tilt
-  refine ⟨D, hD, ?_⟩
-  intro eps heps
-  obtain ⟨C, hC, hbound⟩ := hgrowth eps heps
-  refine ⟨C, hC, ?_⟩
-  intro x hx
-  have hsquare : ‖mertensSummatory x‖^2 ≤
-      (C*Real.rpow (x:ℝ) (7/8-slotTilt D+eps))^2 :=
-    (sq_le_sq₀ (norm_nonneg _)
-      (mul_nonneg hC (Real.rpow_nonneg (Nat.cast_nonneg x) _))).mpr (hbound x hx)
-  rw [vf919_mertens_sq_eq_signedPair] at hsquare
-  linarith only [hsquare]
-
 #print axioms native_mertens_constructed_slot_tilt
-#print axioms native_mertens_slot_fixed_power
-#print axioms native_signed_pair_constructed_slot_tilt
 end RHLean.Analysis

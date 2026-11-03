@@ -46,13 +46,13 @@ partial def closure (env : Environment) (pending : List Name)
       closure env (refs ++ rest) seen'
 
 def required : Array Name := #[
- `OAI.SevenEighths.RHLeanNativeSevenEighthsReplay.native_beta_le_slot_calibrated_boundary,
- `OAI.SevenEighths.RHLeanNativeSevenEighthsReplay.native_fixed_slot_anchored_probe_bounds,
+ `OAI.SevenEighths.RHLeanNativeSevenEighthsReplay.native_beta_le_slot_calibrated_boundary_low_first,
+ `OAI.SevenEighths.RHLeanNativeSevenEighthsReplay.native_fixed_slot_anchored_probe_bounds_low_first,
  `OAI.SevenEighths.RHLeanNativeSevenEighthsReplay.native_uniform_fixed_source_moments,
  `OAI.SevenEighths.RHLeanNativeSevenEighthsReplay.native_source_moments_all_heights,
  `OAI.SevenEighths.RHLeanNativeSevenEighthsReplay.nns_terminal_certificate,
- `OAI.SevenEighths.RHLeanFullPhysicalTilt.exists_slot_calibrated_data,
- `OAI.SevenEighths.RHLeanFullPhysicalTilt.low_at_slot_tilt,
+ `OAI.SevenEighths.RHLeanFullPhysicalTilt.exists_slot_calibrated_data_low_first,
+ `OAI.SevenEighths.RHLeanFullPhysicalTilt.low_at_slot_tilt_low_first,
  `OAI.SevenEighths.InverseReflectedPhase.low_original_completed_energy_tilted,
  `OAI.SevenEighths.ProbeFinalAssembly.fixed_tilted_high_bound_anchored,
  `OAI.SevenEighths.ProbeFinalAssembly.actual_high_probe_from_raw_moments_tilted_anchored,
@@ -92,11 +92,11 @@ end SlotAnchoredAudit
 open SlotAnchoredAudit in
 def main (args : List String) : IO UInt32 := do
   let mertens := args.head?.getD "hecke" == "mertens"
-  let root := if mertens then `RHLean.Analysis.native_mertens_constructed_slot_tilt
-    else `OAI.SevenEighths.RHLeanNativeSevenEighthsReplay.native_beta_le_constructed_slot_tilt
+  let root := if mertens then `RHLean.Analysis.native_mertens_constructed_slot_tilt_low_first
+    else `OAI.SevenEighths.RHLeanNativeSevenEighthsReplay.native_beta_le_constructed_slot_tilt_low_first
   initSearchPath (<- findSysroot)
   unsafe enableInitializersExecution
-  let env <- importModules #[{ module := Name.mkSimple "research.oai_434.VF919SlotAnchoredEndpoint" }]
+  let env <- importModules #[{ module := Name.mkSimple "research.oai_434.VF919LowFirstSlotAnchoredEndpoint" }]
     Options.empty 1024 (loadExts := true)
   (checkType root mertens).toIO'
     { fileName := "<slot-endpoint-audit>", fileMap := default } { env := env }

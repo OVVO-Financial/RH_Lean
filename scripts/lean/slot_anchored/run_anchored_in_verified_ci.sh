@@ -21,9 +21,9 @@ baseline=(
  VF919NativeStrictSevenEighths VF919NativeStrictMertens
 )
 targets=(
- VF919PhysicalTiltFullBudget VF919SlotCalibratedData VF919AnchoredSmallTail
+ VF919LowFirstPhysicalTiltFullBudget VF919LowFirstSlotCalibratedData VF919AnchoredSmallTail
  VF919AnchoredPrincipalRemainder VF919AnchoredHighPrincipal VF919AnchoredHighTails
- VF919AnchoredHighTransport VF919AnchoredHighAssembly VF919SlotAnchoredEndpoint
+ VF919AnchoredHighTransport VF919AnchoredHighAssembly VF919LowFirstSlotAnchoredEndpoint
 )
 for name in "${baseline[@]}" "${targets[@]}"; do
   echo "Checking $name" | tee -a "$log"

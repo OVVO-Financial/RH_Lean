@@ -109,3 +109,14 @@ literal delta `((7/8)*D.rmin)/24`, permits only propext/Classical.choice/Quot.so
 requires the actual new LOW/HIGH and native moment suppliers in live proof
 values, and rejects the previous strict-gap shortcuts. Static source generation
 or rational checks are never treated as a substitute for this kernel run.
+
+## Integration after #1075 merged into the target branch
+
+The earlier `m/48` construction from PR #1075 remains in its original
+`VF919PhysicalTiltFullBudget`, `VF919SlotCalibratedData`, and
+`VF919SlotAnchoredEndpoint` modules, with its original audit and workflow.
+The LOW-first `m/24` variant from PR #1076 is now in distinct
+`VF919LowFirst*` modules with `_low_first` theorem names, preserving its
+separate exact-type and live-dependency audits. The original pinned-source
+HIGH generator is unchanged. This namespace separation is an integration
+operation only; the new merged head must pass CI before acceptance.

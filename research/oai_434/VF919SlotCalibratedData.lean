@@ -1,9 +1,10 @@
 import «research.oai_434.VF919PhysicalTiltFullBudget»
 
 /-!
-Source-calibrated HIGH data. Exact-head CI determines verification status.
-Raise the HIGH saving to a fixed fraction of the actual minimum slot mass.
-Only sigma is changed after the existing eps cap; no source slot is changed.
+# HIGH data calibrated to the fixed positive slot tilt
+
+Only sigma is changed after the existing eps cap; the source slots and
+all detector data are preserved. Every affected record field is reproved.
 -/
 namespace OAI
 noncomputable section
@@ -49,21 +50,21 @@ theorem slotCalibratedHighData_reserves {Delta : ℝ} (D : HighData Delta) :
     let E := slotCalibratedHighData D
     E.ε ≤ E.t / 2000 ∧ E.e ≤ E.t / 2000 ∧
       ((E.N : ℝ) + 8) * E.eps ≤ E.t ∧
-      E.sigma = 6 * slotTilt E := by
+      E.sigma = 12 * slotTilt E := by
   have h := capped_high_data_bounds D
   dsimp only
   refine ⟨h.1, h.2.1, h.2.2.1, ?_⟩
-  change ((7/8 : ℝ) * D.rmin) / 4 = 6 * (((7/8 : ℝ) * D.rmin) / 24)
+  change ((7/8 : ℝ) * D.rmin) / 4 = 12 * (((7/8 : ℝ) * D.rmin) / 48)
   ring
 
-/-- The constructor proves nonvacuity before choosing any character or zero. -/
+/-- The source exists before any character, zero, or arbitrary LOW loss. -/
 theorem exists_slot_calibrated_data (Delta : ℝ) (hDelta : 0 < Delta)
-    (mesh : ℝ -> ℝ) (hmesh : ∀ t : ℝ, 0 < t -> 0 < mesh t) :
+    (mesh : ℝ → ℝ) (hmesh : ∀ t : ℝ, 0 < t → 0 < mesh t) :
     ∃ D : HighData Delta,
       (∀ j, D.ell j ≤ mesh D.t / 200) ∧
       D.ε ≤ D.t / 2000 ∧ D.e ≤ D.t / 2000 ∧
       ((D.N : ℝ) + 8) * D.eps ≤ D.t ∧
-      D.sigma = 6 * slotTilt D := by
+      D.sigma = 12 * slotTilt D := by
   obtain ⟨D, hfine⟩ := Parameters.exists_high_data_fine Delta hDelta mesh hmesh
   exact ⟨slotCalibratedHighData D, hfine, slotCalibratedHighData_reserves D⟩
 
