@@ -89,7 +89,7 @@ theorem actual_normalized_probe_transport_tilted (tilt : ℝ) (htilt : 0≤tilt)
     eventually_gt_atTop (0:ℝ)] with Z hcan hnorm hprincipal hdis hZ
   dsimp only at hnorm hprincipal ⊢
   let Yp : Fin K→ℝ := fun j=>Z^(ell j)
-  let T : Fin K→Finset PrimeIdeal := fun j=>pool (RayQuotient.identityClass M H) S a b (Yp j)
+  let T : Fin K→Finset HeckeInverseAmplification.PrimeIdeal := fun j=>pool (RayQuotient.identityClass M H) S a b (Yp j)
   let hT := nonfloorPoolOutside M H S K a b Yp
   let WC : Fin K→ℝ→ℂ := fun j y=>(W j y:ℂ)
   have hWS (j : Fin K) : Function.support (WC j)⊆Icc a b := by
@@ -99,7 +99,7 @@ theorem actual_normalized_probe_transport_tilted (tilt : ℝ) (htilt : 0≤tilt)
     exact hy (by dsimp [WC];rw [hh];simp)
   have hWCB (j : Fin K) (y : ℝ) : ‖WC j y‖≤B := by
     simpa only [WC,Complex.norm_real,Real.norm_eq_abs,abs_of_nonneg (hWB j y).1] using (hWB j y).2
-  have hpool (j : Fin K) (P : PrimeIdeal) (hP : P∈T j) : (P.val.absNorm:ℝ)≤b*Z^(ell j) := by
+  have hpool (j : Fin K) (P : HeckeInverseAmplification.PrimeIdeal) (hP : P∈T j) : (P.val.absNorm:ℝ)≤b*Z^(ell j) := by
     have hh := (pool_norm_bounds (RayQuotient.identityClass M H) S ha.le hab
       (Real.rpow_pos_of_pos hZ (ell j)) P hP).2
     simpa only [mul_comm] using hh
@@ -286,7 +286,7 @@ theorem actual_nonfloor_probe_transport_tilted (tilt : ℝ) (htilt : 0≤tilt) (
   obtain ⟨hnorm,idx,grid,hlabels,hbins,hray,herror⟩ := ht
   refine ⟨hnorm,idx,grid,hlabels,hbins,hray,?_⟩
   let Yp : Fin K→ℝ := fun j=>Z^(ell j)
-  let T : Fin K→Finset PrimeIdeal := fun j=>pool (RayQuotient.identityClass M H) S a b (Yp j)
+  let T : Fin K→Finset HeckeInverseAmplification.PrimeIdeal := fun j=>pool (RayQuotient.identityClass M H) S a b (Yp j)
   let hT := nonfloorPoolOutside M H S K a b Yp
   let WC : Fin K→ℝ→ℂ := fun j y=>(W j y:ℂ)
   let rows := rowBand (Z^(1/100:ℝ)) (Z^((13/16:ℝ)+ζ))

@@ -137,7 +137,8 @@ def main (args : List String) : IO UInt32 := do
   let moduleName := Name.mkSimple moduleArg
   let terminalName := dottedName terminalArg
   initSearchPath (← findSysroot)
-  let env ← importModules #[{ module := moduleName }] Options.empty 1024
+  unsafe enableInitializersExecution
+  let env ← importModules #[{ module := moduleName }] Options.empty 1024 (loadExts := true)
   if (env.find? terminalName).isNone then
     throw (IO.userError s!"Missing terminal declaration {terminalName}")
   (checkEndpointType terminalName).toIO'

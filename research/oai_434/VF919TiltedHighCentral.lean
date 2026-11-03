@@ -49,7 +49,7 @@ theorem actual_global_floor_cube_norm_tilted (tilt : ℝ) (htilt : 0≤tilt) (N 
       (∀u∈rows,detectorMaximum (sourceDetectorFamily S hS.prime η u (rayCubeFamily M H hH u))
         (3*(i+1:ℕ)*Z^τ)<51/100+2*e) →
       let Yp : Fin N→ℝ := fun j=>Z^(ell j)
-      let T : Fin N→Finset PrimeIdeal := fun j=>pool (RayQuotient.identityClass M H) S c b (Yp j)
+      let T : Fin N→Finset HeckeInverseAmplification.PrimeIdeal := fun j=>pool (RayQuotient.identityClass M H) S c b (Yp j)
       ‖finiteCentralCubeRows S hS hmax η rows T (nonfloorPoolOutside M H S N c b Yp) W Yp
         W0 W1 (Z^((17/48:ℝ)-24*tilt)) (Z^((23/48:ℝ)+12*tilt)) Z e (fun _=>51/100) (fun _=>(3*i+1:ℕ)*Z^τ)‖≤
         C*(η.modulus.absNorm:ℝ)^(2*eps)*
@@ -66,7 +66,7 @@ theorem actual_global_floor_cube_norm_tilted (tilt : ℝ) (htilt : 0≤tilt) (N 
   dsimp only
   have hZp : 0<Z := zero_lt_one.trans_le hZ.1
   let Yp : Fin N→ℝ := fun j=>Z^(ell j)
-  let T : Fin N→Finset PrimeIdeal := fun j=>pool (RayQuotient.identityClass M H) S c b (Yp j)
+  let T : Fin N→Finset HeckeInverseAmplification.PrimeIdeal := fun j=>pool (RayQuotient.identityClass M H) S c b (Yp j)
   have hheight : (3*i+1:ℕ)*Z^τ≤(3*i+2:ℕ)*Z^τ := by
     apply mul_le_mul_of_nonneg_right _ (Real.rpow_nonneg hZp.le _)
     exact_mod_cast (show 3*i+1≤3*i+2 by omega)
@@ -126,7 +126,7 @@ theorem actual_normalized_floor_cube_tilted (tilt : ℝ) (htilt : 0≤tilt) (N n
       (∀u∈rows,detectorMaximum (sourceDetectorFamily S hS.prime η u (rayCubeFamily M H hH u))
         (3*(i+1:ℕ)*Z^τ)<51/100+2*e) →
       let Yp : Fin N→ℝ := fun j=>Z^(ell j)
-      let T : Fin N→Finset PrimeIdeal := fun j=>pool (RayQuotient.identityClass M H) S c b (Yp j)
+      let T : Fin N→Finset HeckeInverseAmplification.PrimeIdeal := fun j=>pool (RayQuotient.identityClass M H) S c b (Yp j)
       let normer := PrincipalMellinResidues.sourceResidueConstant W0 W1 (∏P∈S,P)*
         (Probe.principalScalar Finset.univ Z (1/6)
           (PrincipalSignalComparison.slotMass T (ProbePrincipalResidueActual.residueWeights W Yp)) : ℂ)
@@ -202,7 +202,7 @@ theorem actual_floor_cube_saving_tilted (tilt : ℝ) (htilt : 0≤tilt) (N n : �
       (∀u∈rows,detectorMaximum (sourceDetectorFamily S hS.prime η u (rayCubeFamily M H hH u))
         (3*(i+1:ℕ)*Z^τ)<51/100+2*e) →
       let Yp : Fin N→ℝ := fun j=>Z^(ell j)
-      let T : Fin N→Finset PrimeIdeal := fun j=>pool (RayQuotient.identityClass M H) S c b (Yp j)
+      let T : Fin N→Finset HeckeInverseAmplification.PrimeIdeal := fun j=>pool (RayQuotient.identityClass M H) S c b (Yp j)
       let normer := PrincipalMellinResidues.sourceResidueConstant W0 W1 (∏P∈S,P)*
         (Probe.principalScalar Finset.univ Z (1/6)
           (PrincipalSignalComparison.slotMass T (ProbePrincipalResidueActual.residueWeights W Yp)) : ℂ)
@@ -261,7 +261,7 @@ theorem actual_floor_rows_saving_tilted (tilt : ℝ) (htilt : 0≤tilt) (N n : �
       (∀u∈rows,detectorMaximum (sourceDetectorFamily S hS.prime η u (rayCubeFamily M H hH u))
         (3*(idx u+1:ℕ)*Z^τ)<51/100+2*e) →
       let Yp : Fin N→ℝ := fun j=>Z^(ell j)
-      let T : Fin N→Finset PrimeIdeal := fun j=>pool (RayQuotient.identityClass M H) S c b (Yp j)
+      let T : Fin N→Finset HeckeInverseAmplification.PrimeIdeal := fun j=>pool (RayQuotient.identityClass M H) S c b (Yp j)
       let normer := PrincipalMellinResidues.sourceResidueConstant W0 W1 (∏P∈S,P)*
         (Probe.principalScalar Finset.univ Z (1/6)
           (PrincipalSignalComparison.slotMass T (ProbePrincipalResidueActual.residueWeights W Yp)) : ℂ)
@@ -280,7 +280,7 @@ theorem actual_floor_rows_saving_tilted (tilt : ℝ) (htilt : 0≤tilt) (N n : �
   intro d hd hd' v hv hvhi rows hrows hnorm idx hidx hbin
   dsimp only
   let Yp : Fin N→ℝ := fun j=>Z^(ell j)
-  let T : Fin N→Finset PrimeIdeal := fun j=>pool (RayQuotient.identityClass M H) S c b (Yp j)
+  let T : Fin N→Finset HeckeInverseAmplification.PrimeIdeal := fun j=>pool (RayQuotient.identityClass M H) S c b (Yp j)
   let hT := nonfloorPoolOutside M H S N c b Yp
   let WC : Fin N→ℝ→ℂ := fun j y=>(W j y:ℂ)
   let normer := PrincipalMellinResidues.sourceResidueConstant W0 W1 (∏P∈S,P)*

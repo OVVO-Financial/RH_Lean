@@ -44,7 +44,7 @@ lemma tilted_source_residue (W0 W1 : SchwartzMap ℝ ℂ)
     ring
   unfold sourceResidueIntegral
   simp_rw [hi]
-  exact verticalIntegral_mul_const _ _ _
+  exact PrincipalMellinResidues.verticalIntegral_mul_const _ _ _
 
 lemma tilted_signal (χ : Character) (H : ℂ→ℂ) (Z tilt : ℝ) (hZ : 0<Z) :
     signal χ H (-11/16-8*tilt) Z=

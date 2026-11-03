@@ -1,6 +1,6 @@
 # Finite-slot reflected gain and fixed-source uniformity
 
-Date: 2026-11-02. Status: complete strict-endpoint proof drafted and reviewed at source level; pinned warning-fatal Lean verification is in progress. A new endpoint below \(7/8\) is **not yet claimed as verified**.
+Date: 2026-11-02. Complete strict-endpoint source, reviewed and submitted to pinned warning-fatal Lean verification. The exact-head verification status is recorded in [proof PR #1073](https://github.com/OVVO-Financial/RH_Lean/pull/1073) and its Actions runs; source text alone is not a verification certificate.
 
 Base RH_Lean main: **8e5d64ae689b39dabd2a4f6eb33efe4d5d192015**.
 Original OpenAI analytic source: **1581d4cbdd69a0faf34b2089614fe2a814316a6a**.
@@ -491,4 +491,4 @@ Root wrote the proof chain. Same-model agents separately reviewed the finite-slo
 
 Verification runs only in the pinned GitHub Actions environment. Every target uses `-DwarningAsError=true`. The workflow collects independent component diagnostics but fails if any target fails. The final audit checks the entire unconditional endpoint type, allows only `propext`, `Classical.choice`, and `Quot.sound`, and requires actual proof-value dependencies on the native source moments, tilted LOW, tilted HIGH, actual principal comparison, and variable-boundary continuation.
 
-The proof remains a draft until all these checks pass at the identified head. No main-branch or merged proof claim is made.
+Acceptance requires all these checks to pass at the identified head. The proof PR records the checked head and run. No main-branch or merged proof claim is made.
