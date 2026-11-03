@@ -984,3 +984,16 @@ Execution/publication: COMPLETED / PUBLISHED_AND_READBACK_VERIFIED. This receipt
 The early checkpoint was committed as `6d02b6deda0aa3831d592f6895cb8996490e60c9` and read back at blob `3853c756ce954300c7b88257debea835a4e0e657`. The complete synthesis and both executed reproducers were committed as `2d584ab279783893384a016d0067858efdb6d382`, then re-fetched byte-for-byte at blob `90fbd69c4a1c34e6333d262da4c80cb94b4e723e` (71,245 characters). Commit inspection confirms that only this authorized Analytic report changed. Earlier same-day findings, the checkpoint and prior publication history are preserved.
 
 The new appendix passed ASCII/control-character, A-L-section and balanced-code-fence checks. All finite computations completed successfully. Final main refresh returned unchanged `acffafc79df1a3713e77dcd14eb551b7413d00c2`. The new result is the genuine simultaneous-positive pair and sharp conditional cap, not a new global bound. Independent Referee review remains PENDING; next protected route is CODIV.
+
+
+## Scheduled Continuation Checkpoint - 2026-11-03 17:11 EST Invocation
+
+**Execution:** PARTIAL / IN_PROGRESS. Scheduled invocation at 2026-11-03T17:11:01-05:00; RUN_ID_UNAVAILABLE. This is a new actual continuation, preserving all earlier sections.
+
+**Authority:** live main `69aac0441b4df011cf7df3ba115169c3b66d72f5`; AGENTS blob `9fa5e9519e2fb6dde22217aa2a18982dafef373a`; contract blob `88cddd9cd98c3b55f0b013998541e9b4e9dc9f2a`; engine blob `6fce99c61efb5b2a73c0cb1f1464f09b351fcd55`. All seven roles' available November 3 and November 2 reports and the unchanged external inbox were retrieved. Relevant continuation inputs are `20261102-analytic-3`, Coordinator C20-C25, Referee `20261103-referee-3/4`, and Census PC4/PC5. Today's NYMAN and OAI-NNS continuations remain preserved; CODIV is the due protected route.
+
+**Selected research:** resume the actual frozen hybrid `g_H=mu*kappa_H`, maximal shell fragments, and complete physical return. Investigate a genuinely multiplicative restriction or a precise arithmetic correlation reduction that distinguishes actual mu from the squarefree-supported comparison sequence. Reuse the accepted freezing and activation bounds; do not rerun their old census or infer maximal energy from a global Mertens envelope. Every principal, selected-fragment, mixed, and boundary contribution must be retained.
+
+**Source/verification:** the original lifted carrier and shell declarations were read at pinned main. No open/draft PR is currently returned. #1079, #1081, and #1082 are now merged; #1080 is closed unmerged. Exact-head Actions/axiom verification is being refreshed. The inherited strict-below-7/8 result is present in original source; this checkpoint does not independently certify a new gain. Canonical VF, RH, the genuine maximal-fragment estimate, and the positive fullOwnerGamma estimate remain OPEN.
+
+No new theorem or computation is claimed yet. Independent review of this run: PENDING. New net endpoint gain: UNKNOWN. Next protected route after this CODIV continuation: NYMAN.
