@@ -88,7 +88,7 @@ theorem native_beta_le_half_source_e
   have hmargin : 0<margin := lt_min homega D.sigma_pos
   have hmleft : margin≤omega := min_le_left _ _
   have hmright : margin≤D.sigma := min_le_right _ _
-  obtain ⟨η,ρ,_hprimitive,_hhalf,_hstrip,hpole,hzero,hnear⟩ :=
+  obtain ⟨η,ρ,_hprimitive,hhalf,_hstrip,hpole,hzero,hnear⟩ :=
     HeckePrimitiveSupremum.exists_primitive_zero_near_beta hmargin
       (by linarith only [hgt,htilt1])
   let χ := η.excludePrimes F.S F.exclusions.prime
@@ -100,7 +100,7 @@ theorem native_beta_le_half_source_e
         (fun hc=>hη ((HeckeFiniteDeletion.principal_iff_of_mask χ η hmask).mp hc))
   have hzχ : LFunction χ ρ=0 := by
     rw [HeckeFiniteDeletion.LFunction_eq_of_mask_nonpole χ η hmask
-      (by linarith only [hnear,hmleft,homega,hgt,htilt1]) hχpole,hzero,zero_mul]
+      (by linarith only [hhalf]) hχpole,hzero,zero_mul]
   have hboundary : max (7/8-tilt+omega) (HeckeZeroSupremum.beta-D.sigma)<ρ.re := by
     dsimp [omega] at hmleft ⊢
     exact max_lt (by linarith only [hnear,hmleft]) (by linarith only [hnear,hmright])
@@ -108,8 +108,9 @@ theorem native_beta_le_half_source_e
   apply (HeckeSignal.nonzero_of_probe_bounds_variable_boundary
     χ (sourceCorrection η F.S) (F.tiltedProbe tilt η)
     (21/25) (7/8-tilt) HeckeZeroSupremum.beta omega D.sigma (-11/16-8*tilt)
-    (by norm_num) (by linarith only [htilt1]) (by linarith only [hgt,htilt1])
-    HeckeZeroSupremum.beta_le_one homega (by linarith only [hgt]) D.sigma_pos
+    (by norm_num) (by linarith only [htilt1]) (by linarith only [htilt1])
+    HeckeZeroSupremum.beta_le_one homega
+    (by dsimp [omega];linarith only [hgt]) D.sigma_pos
     (sourceCorrection_analytic_wide η F.S F.exclusions)
     (sourceCorrection_bound_wide η F.S F.exclusions)
     ?_ ?_ hboundary hχpole) hzχ
