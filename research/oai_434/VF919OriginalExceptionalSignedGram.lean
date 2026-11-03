@@ -55,7 +55,7 @@ theorem original_primary_fifth_seed_clears_column
           (calibrationLowData S hS) n else 0)
       else 0) * idealRowHom (C.generator ^ 5) (Ideal.span {n}) =
       C.tau⁻¹ * (C.residueMonoid n)⁻¹
-  simp only [if_true, hprimary, hray, hrow]
+  simp [hprimary, hray, hrow]
   calc
     C.tau⁻¹ *
         ((C.residueMonoid n)⁻¹ *
