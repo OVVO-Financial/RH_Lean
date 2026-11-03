@@ -39,12 +39,11 @@ positive slot cannot exceed the total available mass. -/
 theorem true_slot_min_le_sixth {Delta : ℝ}
     (D : OAI.SevenEighths.Parameters.HighData Delta) :
     OAI.SevenEighths.RHLeanActualSlotMin.actualSlotMinimum D ≤ 1 / 6 := by
-  open OAI.SevenEighths.RHLeanActualSlotMin in
-  have hmin :
-      D.ell (leastSlotIndex D) ≤ ∑ i, D.ell i :=
+  let j := OAI.SevenEighths.RHLeanActualSlotMin.leastSlotIndex D
+  have hmin : D.ell j ≤ ∑ i, D.ell i :=
     Finset.single_le_sum
       (fun i _ => (D.slots_bounds i).1.le)
-      (Finset.mem_univ (leastSlotIndex D))
+      (Finset.mem_univ j)
   rw [D.slots_sum] at hmin
   exact hmin
 
