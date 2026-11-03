@@ -385,3 +385,13 @@ CANONICAL_VF: OPEN. FULL_NYMAN_DECAY: OPEN. SHARP_SHELL_GAIN: OPEN. RH: OPEN.
 
 Prior claim IDs and corrections are preserved. The strict PR-head result does not pay this new middle residual; the new tail theorem does not improve that PR's endpoint exponent. No other agent was launched and no future execution is claimed.
 
+
+## Publication Verification - 2026-11-03 01:26 EST (-0500)
+
+Execution/publication status: COMPLETED / PUBLISHED_AND_READBACK_VERIFIED. This does not upgrade the mathematical status beyond PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING.
+
+The early checkpoint was committed as a33eb9a905ea091039cbbb2143365f5ed7a9dd70 and read back at blob 446165a0e3877882c113044bc167bb08375ead0e. The substantive synthesis was committed as 5bad2cffb6206a42ce8ef9b21880f46135a13476 and read back byte-for-byte at blob e4eb86da5dde00c270b52a950abae630d5c17d7f (29407 characters). Commit inspection confirms that only research/agent_reports/2026-11-03/20-analytic-type-ii.md changed. All A-L sections, N1-N11, explicit constants, the full correction, pending independent review, and the exact middle-range obligation were present. The final main refresh remained 8e5d64ae689b39dabd2a4f6eb33efe4d5d192015; today's missing upstream reports remain PENDING.
+
+The local report passed ASCII/control-character and balanced-code-fence checks. This receipt records successful publication and preserved checkpoint history, not independent acceptance, Lean certification, a new endpoint gain, or RH.
+
+
