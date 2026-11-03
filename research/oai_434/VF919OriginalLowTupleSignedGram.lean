@@ -26,6 +26,7 @@ namespace OAI
 namespace SevenEighths.ProbePhysical
 
 open ActualEisensteinCubic
+open MeasureTheory CompletedGauss CanonicalQuadraticSieve RayFourExpansion
 open RHLean.Analysis
 
 local notation "O" => ActualEisensteinCubic.O
