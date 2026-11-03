@@ -125,11 +125,59 @@ theorem native_slot_seed_zero_owner_orbit
   norm_num at h ⊢
   exact h
 
+/-- Elementary domination: the geometric dyadic scale outgrows its index. -/
+theorem nat_cast_le_two_pow (n : ℕ) : (n : ℝ) ≤ (2 : ℝ) ^ n := by
+  induction n with
+  | zero => norm_num
+  | succ n ih =>
+      rw [pow_succ]
+      push_cast
+      nlinarith only [ih, Nat.cast_nonneg (α := ℝ) n]
+
+/-- If the complete ORIGINAL signed owner loss is zero, the fixed positive
+slot seed and the compiled recurrence really do prove Mertens at exponent
+1/2. No limit at a boundary is assumed: each epsilon uses a finite n. -/
+theorem native_zero_owner_bootstrap_to_half
+    (howner : NativeOwnerBound 0) :
+    MertensGrowthAtMost (1 / 2) := by
+  obtain ⟨θ, hθ, _hθ7, hall⟩ :=
+    native_slot_seed_zero_owner_orbit howner
+  intro ε hε
+  let A : ℝ := θ - 1 / 2
+  let u : ℝ := ε / 2
+  have hu : 0 < u := by dsimp [u]; linarith
+  obtain ⟨n, hn⟩ := exists_nat_gt (A / u)
+  have hnA : A < (n : ℝ) * u := (div_lt_iff₀ hu).mp hn
+  have hn2 : (n : ℝ) ≤ (2 : ℝ) ^ n := nat_cast_le_two_pow n
+  have hnA2 : A < (2 : ℝ) ^ n * u := by
+    have hm := mul_le_mul_of_nonneg_right hn2 hu.le
+    linarith only [hnA, hm]
+  have hpow : 0 < (2 : ℝ) ^ n := pow_pos (by norm_num) n
+  have hsmall : A / (2 : ℝ) ^ n < u :=
+    (div_lt_iff₀ hpow).mpr (by nlinarith only [hnA2])
+  have hp := hall n u hu
+  have heq : (1 / 2 + (θ - 1 / 2) / (2 : ℝ) ^ n) + u ≤
+      (1 / 2 : ℝ) + ε := by
+    dsimp [A, u] at hsmall
+    dsimp [u]
+    linarith only [hsmall]
+  exact powerBound_mono heq hp
+
+/-- Original-owner zero loss is RH-strength, given the existing finite-slot
+source. This is CONDITIONAL on the unproved signed owner hypothesis. -/
+theorem native_zero_owner_implies_critical_zeros
+    (howner : NativeOwnerBound 0) :
+    ∀ ρ : ℂ, NontrivialZetaZero ρ → ρ.re = (1 / 2 : ℝ) := by
+  exact growthAtMost_half_iff_criticalZeros.mp
+    (native_zero_owner_bootstrap_to_half howner)
+
 #print axioms ownerExponentIterate_closed
 #print axioms native_owner_iterated_growth
 #print axioms native_owner_single_strict_gain
 #print axioms native_slot_seed_owner_iterates
 #print axioms native_slot_seed_zero_owner_orbit
+#print axioms native_zero_owner_bootstrap_to_half
+#print axioms native_zero_owner_implies_critical_zeros
 
 end RHLean.Analysis.OwnerPrefix
 end
