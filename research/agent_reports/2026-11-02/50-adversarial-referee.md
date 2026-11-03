@@ -419,3 +419,143 @@ The first independent arithmetic input remains a power-rate aggregate signed cor
 ### Publication verification
 
 The continuation checkpoint was committed as `acd9ac6559798fa87fc2d8b513cc799ede947325`. The completed synthesis was committed as `729340765b8d8502b8235150961eda6969f116f8` and read back at blob `c8a55a31bb723a1857eeb6d97fac1354044edc63` (24,404 characters). Readback contained claim `20261102-referee-2`, the corrected constant `2/(9 sqrt 3)`, the Tao citation repair `1509.05422`, separated verdicts, formal evidence, and the resume capsule. This receipt records publication only and changes no mathematical classification.
+
+
+## Scheduled invocation checkpoint - 2026-11-02 20:13 EST (-0500)
+
+**Status:** `COMPLETED / INDEPENDENT PR-HEAD ENDPOINT AUDIT`.  
+**Invocation:** scheduled run; RUN_ID_UNAVAILABLE.  
+**deployment_ack:** latest actual main `8e5d64ae689b39dabd2a4f6eb33efe4d5d192015`; `AGENTS.md` blob `9fa5e9519e2fb6dde22217aa2a18982dafef373a`; `CURRENT_PROOF_CONTRACT.md` blob `88cddd9cd98c3b55f0b013998541e9b4e9dc9f2a`.  
+**Selected task:** newer consequential claim superseding the already-resolved fixed-seed ticket: draft PR #1073 at exact head `9cbfce5295343bcb411e6d2cb159b59995cd985b`, claiming an unconditional native Mertens exponent strictly below (7/8).  
+**Continuity:** consumed the complete 2026-11-02 and 2026-11-01 Coordinator, Owner, Analytic, Wheel, Census, Referee, and Lean reports. External inbox remains blob `038018145c0fddb2f6306c0712373adf9cd1ea52`, with no new handoff after 2026-10-18.
+
+## Final synthesis - claim `20261102-referee-3`
+
+**Verdict:** `ACCEPT_WITH_SCOPE / VERIFIED_ETA_ON_PR_HEAD`; `NO HIDDEN TERMINAL PREMISE`; `NO CARRIER SUBSTITUTION FOUND`; `AUDIT_HARDENING_RECOMMENDED`; `NOT_ON_MAIN`; `NO RH CLAIM`.
+
+### P. Exact claim, source, and formal state
+
+The reviewed terminal statements are
+
+[
+eta_{m Hecke}<7/8
+]
+
+and
+
+[
+lambda_M<7/8,
+]
+
+where (eta_{m Hecke}) is the supremum of positive real parts of genuine zeros of the repository's Hecke (L)-functions, with the pole excluded, and (lambda_M) is the independently defined exponent of the actual rational Möbius summatory function.
+
+Material PR-head blobs:
+
+- `VF919NativeStrictSevenEighths.lean`: `efbf2780f0b453a702fb8847f2d360d8faf0fa66`;
+- `VF919NativeStrictMertens.lean`: `b33a4883e1ddb0551b0f11f062bce46680d87450`;
+- `VF919TiltedLowReflection.lean`: `88293c915d67eefee2e1e989082248b8a52f2ae7`;
+- `VF919TiltedLowPhysical.lean`: `c608fe06005359225661cc58d9caa0e4036de265`;
+- `VF919TiltedHighAssembly.lean`: `883141e0af896d4132bfc4ffa076e2d265ece5c9`;
+- `VF919NativeSourceMoments.lean`: `4e5326b983f5110f7138d222f7b1be71c5694dfc`;
+- dependency audit: `b3a620ed4dd7307aec5b268dd04673209000d877`.
+
+All thirteen PR-triggered workflows returned success at the exact head, including run `41554561404`. The terminal types are unconditional. The reported terminal axioms are exactly `propext`, `Classical.choice`, and `Quot.sound`. PR #1073 remains draft, open, mergeable, and unmerged.
+
+Pinned original files independently inspected include `Hecke/ZeroSupremum.lean` blob `1139da5652ec349aebb9f395fe7ca0ba6e1fa654`, `Reflection/LowInactiveEnergy.lean` blob `9545dd93469e9adeb1044d8c8b4cd216e3276bbe`, and `Detector/LowNominalEnergy.lean` blob `55b1a3abfb7fa07da3f9ac8c393b375d1c86329b`, all at `openai/math@1581d4cbdd69a0faf34b2089614fe2a814316a6a`.
+
+### Q. Independent reconstruction of the new arithmetic restriction
+
+Put
+
+[
+delta=D.e/48,qquad x=17/48-24delta,qquad y=23/48+12delta.
+]
+
+The exact identities are
+
+[
+(5x+y)/12=3/16-9delta,quad
+-5/6+x/3+1/36=-11/16-8delta,
+]
+
+and their difference is (7/8-delta). The new reflected scalar charge is
+
+[
+1+4(1/6)-2(x+y)=24delta=D.e/2.
+]
+
+For each actual source slot, the HighData bounds give
+
+[
+D.ell_ige (7/8)D.r_{min}>D.e/2=24delta.
+]
+
+The physical LOW decomposition indexes a selected complement (operatorname{SelectedSlot}(J)={i:i
+otin J}).
+
+- If this complement is nonempty, its nominal length contains a complete slot. Therefore
+  [
+  24deltale D.ell_ile operatorname{lowSelectedLength}(D.ell,J)+arepsilon/2,
+  ]
+  which is exactly the finite-slot gate used in the reflected exponent theorem.
+- If the complement is empty, the genuine active tuple type is empty. Its tuple product is one, the divisor dyadic scale is one, and hence the actual width
+  [
+  z=log_Z((2cdot1)/2)=0.
+  ]
+  This is proved by `empty_active_tuple_dyad_width` and is consumed at the fixed-member caller before global reassembly.
+
+Thus the dichotomy is exhaustive on the original carrier. It is not a relaxation to arbitrary vectors, and the inactive-subset summation preserves the outer nominal length already carrying the paid gate. No slot, branch, mask, or cross term is dropped in the LOW reassembly.
+
+A useful obstruction also survives: the same argument is false for the continuous scalar relaxation. For every (a>0), choosing a positive selected mass (ell_0=a/2) defeats (aleell_0); if the actual width is nonzero, the zero-width branch is unavailable. This is a counterexample to removing finite whole-slot granularity from the proof mechanism, not a counterexample to the proved fixed-source theorem.
+
+### R. Quantifiers, HIGH return, and no-circularity
+
+The fixed source data (D,F,mathrm{counts}), the positive tilt, and the moment degree are chosen before the character. In `native_uniform_fixed_source_moments`, the eventual threshold precedes both the batch exponent and every nonnegative height. The character-dependent constant does not affect a common exponent.
+
+The HIGH theorem retains the same compensated probe as LOW and returns every small-tail, large-tail, cube, central, principal, normalization, and source-moment term. Its terminal exponent is
+
+[
+eta-11/16-8delta-D.sigma.
+]
+
+With (	heta=7/8-delta), LOW loss (omega=delta/2), and
+(m=min(delta/2,D.sigma)>0), the continuation boundary is
+
+[
+max(	heta+omega,eta-D.sigma)=eta-m<eta
+]
+
+under the contradiction hypothesis (eta=7/8). A genuine primitive zero exists above (eta-m); finite prime deletion preserves it away from the pole. This contradicts the proved variable-boundary nonvanishing theorem.
+
+The dependency audit traverses live opaque proof bodies, requires the new LOW/HIGH, moment, principal, and continuation declarations, and rejects the original terminal shortcut namespace. No assumed zero-free region, Mertens growth bound, or desired endpoint was found.
+
+### S. Genuine rational Möbius transfer
+
+The transfer does not identify ideal-character phases with rational Möbius signs. For every actual nontrivial zeta zero (ho), the exact modulus-one Hecke-Dirichlet product gives a zero of the repository Hecke (L)-function at the same (ho). Hence
+
+[
+Theta_zetaleeta_{m Hecke}<7/8.
+]
+
+The already merged bidirectional theorem
+(lambda_M=Theta_zeta) then yields (lambda_M<7/8). Spending half the positive gap gives one fixed all-prefix power envelope. This is the original Möbius summatory function, not a shell model or signed ideal surrogate.
+
+### T. Scope, surviving theorem, and hardening
+
+The strongest accepted statement is exactly the PR-head theorem:
+
+[
+exists g>0 orallarepsilon>0 exists C_arepsilonge0orall nge1,quad |M(n)|le C_arepsilon n^{7/8-g+arepsilon},
+]
+
+together with a fixed exponent strictly below (7/8) after spending half the gap. The aggregate signed-pair corollary keeps the exact squarefree diagonal. No sharp shell-variance theorem and no Riemann Hypothesis theorem follows.
+
+Audit hardening: add `RHLeanFiniteSlotGap.finite_slot_gate` and `InverseReflectedPhase.empty_active_tuple_dyad_width` explicitly to `requiredStrict`. They are already live dependencies of the accepted proof, so this is not a missing mathematical step; it prevents a future refactor from satisfying the dependency audit while silently replacing the mechanism.
+
+### U. Gate and repository decision
+
+For the five-part breadth-policy gate, the exact PR head supplies: a fixed positive gain; original source and uniform quantifiers; complete LOW/HIGH return and Mertens consumer; the independently new finite-slot restriction; and exact-head Lean/axiom/dependency verification. This independent review accepts those items.
+
+Therefore `eta_gate: VERIFIED_ETA` **on PR-head evidence only**. Main remains at `8e5d64ae...` and still contains only the (7/8) baseline. Human review and human-only merge remain mandatory. This verdict authorizes no automatic schedule change, merge, or abandonment of other routes.
+
+**Resume capsule:** reopen this verdict if PR #1073's theorem statements, HighData slot bounds, LOW selected-complement carrier, empty-width identity, moment quantifier order, HIGH probe identity, zeta product, or Mertens converse changes. Otherwise do not repeat the unchanged audit.
