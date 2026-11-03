@@ -346,3 +346,176 @@ independent_reviewer_and_formal_evidence: PENDING for the new lemma; merged #107
 net_endpoint_gain_after_complete_return: UNKNOWN
 
 Complete shell estimate OPEN; strict exponent below 7/8 NOT PROVED; canonical VF theorem OPEN; RH OPEN.
+
+
+---
+
+## Scheduled continuation - claim \`20261102-census-3\` - 2026-11-02 19:06 EST (-0500)
+
+**Status:** COMPLETED / exact FINITE-AC square-block inverse census with two independent reconstructions.  
+**Evidence classes:** \`FINITE_COMPUTATION\`; \`REFUTED ON FROZEN SAMPLE / SQRT-BURST\`; \`FINITE_SURVIVAL / 1.06-SQRT BURST\`; \`CONJECTURE / SQUARE-ROOT-TIME INVERSE\`; \`NO COMPLETE SOURCE BOUND\`; \`NO FIXED ETA GAIN\`; \`NO RH\`.
+
+### O. Authority, continuity, and selected task
+
+This run began from live \`main@8e5d64ae689b39dabd2a4f6eb33efe4d5d192015\`, the human merge of PR #1072. Retrieval and exact computation occurred 2026-11-02 19:00-19:06 EST on Linux 6.18.57 x86_64, g++ 13.3.0, and Python 3.12.14.
+
+Live authority and source provenance:
+
+- \`AGENTS.md\`: blob \`9fa5e9519e2fb6dde22217aa2a18982dafef373a\`;
+- \`CURRENT_PROOF_CONTRACT.md\`: blob \`88cddd9cd98c3b55f0b013998541e9b4e9dc9f2a\`;
+- selector: \`d05c327ae694ea54b599dab0a21032a056b521f1\`;
+- breadth policy: \`b5c063c51556ba57c4b25bcc380a606fa8daa207\`;
+- complete-return contract: \`16838f7f3c8724b970f8b8ece0bceaab9418066d\`;
+- research engine and exact NEXT-CENSUS ticket: \`6fce99c61efb5b2a73c0cb1f1464f09b351fcd55\`;
+- literal historical envelope: \`RHLean/Proof/SquareRootLegalAncestryGramReduction.lean\`, blob \`1270d4d91c53b50b110d10014f223f427fb7a575\`;
+- endpoint amplification statement: \`RHLean/Proof/SquareRootMertensEndpointAmplification.lean\`, blob \`7793d7bfd842348facf62a7ad856bc802ffcd15c\`;
+- original double Mobius floor source: \`research/EULER_HYBRID_ABEL_GRAM_20261027.lean\`, blob \`2a94dd8fd56fc03e95f732fb44b778a8d4f83e26\`;
+- exact floor-to-endpoint bridge: \`research/EULER_SELF_DUAL_ENDPOINT_GATE_20261027.lean\`, blob \`e7ee8f77ffd59bccaa49dd6d74fbe0d7952c2d73\`.
+
+The complete 2026-11-02 reports were consumed at blobs Coordinator \`1f8b6897897fc6e8d76fdc9a541bebea68ef52fc\`, Owner \`abfe546d72b151f4cd200fc61de3197efe23a65c\`, Analytic \`8e48b59611aa1d0bfa3577ed0a4a3bc0d0fcae73\`, Wheel \`abf8ac8c22a708886183849552c90dd62787ac8d\`, prior Census \`6e8070f78688c63824ed6586dc8bad78f04f1f11\`, Referee \`73a4e272393964d06a3fced63a1eea546ac9dd8d\`, and Lean \`f4616a722c6a2b79e253207ab2352a66751f4624\`. The relevant 2026-11-01 carry-forward set was also consumed, including Coordinator \`8f661bc144fd96ffd7a9a8cd084e74e3df05d1a8\`, Owner \`40ad74dd7378834a48203153afc30618233f4b04\`, prior Census \`8724bbebf07365ffc5364b411caea7c6d804d468\`, Referee \`fbf6dfc995e7d38b1ec07754e4d368a91112ecec\`, and Lean \`6aa7197c4169a70debed607e12f4639218cd21b6\`. External handoffs remain unchanged after 2026-10-18.
+
+Draft PR #1073 is the sole open PR at intake, based on this main. It proposes a strict finite-slot gain but explicitly labels its terminal chain unverified. It is \`CANDIDATE_ETA / DRAFT / NOT CONSUMED AS A THEOREM\`. The live gate remains \`SEARCH_BROAD\`.
+
+The earlier affine-cell assignments were completed by claims \`20261102-census-1,2\`; enlarging those scans was therefore rejected. This continuation resumes the still-live FINITE-AC square-block inverse from \`20261101-census-1\` and Coordinator's reserve mechanism: determine whether large literal normalized \(Q_R\) excursions are fresh square-time bursts or inherited cumulative drift while the historical envelope remains anchored.
+
+### P. Frozen carrier, competing hypotheses, and rejection rule
+
+For \(R\ge2\), use the exact original carrier
+
+\[
+ X_R=R^2-1,\qquad
+ Q_R=\sum_{1\le a,b<R}\mu(a)\mu(b)\left\lfloor{X_R\over ab}\right\rfloor
+     =2M(R-1)-M(X_R),
+\]
+
+and the least historical envelope
+
+\[
+ K_R=\max_{0\le y<R}{(M(y)-1)^2\over y+1}.
+\]
+
+Rank roots by the exact rational statistic
+
+\[
+ C_R^2={Q_R^2\over R^2K_R}.
+\]
+
+The holdout \(16001\le R\le20000\) and the top-eight rule were frozen in the previous report, before this run. For each selected root define \(L_R\) to be the least positive integer \(L\) such that
+
+\[
+ \Delta_L(R)=M(R^2-1)-M((R-L)^2-1)
+\]
+
+has the sign of \(M(R^2-1)\) and satisfies
+\[
+ 2|\Delta_L(R)|\ge |M(R^2-1)|.
+\]
+
+The finite operational hypothesis was preregistered before scanning:
+
+\[
+ \texttt{SQRT-BURST}:\qquad L_R\le\lfloor\sqrt R\rfloor
+\]
+
+for every one of the frozen top eight. One legal failure rejects it. The rival cumulative mechanism predicts a stopping length visibly proportional to \(R\), rather than square-root sized. Observations between these two regimes were permitted to reveal a third mechanism.
+
+### Q. Exact methods and independent checks
+
+The primary C++ program performed a segmented exact factorization through \(20000^2-1=399999999\). Within each block it divided every integer by each prime factor, flipped parity once per distinct prime, and set the Mobius coefficient to zero on repeated prime factors. It accumulated \(M(n)\) exactly, recorded every \(M(R^2-1)\), formed \(K_R\) by exact rational comparison, selected the top eight by cross multiplication in signed 128-bit integers, and located each \(L_R\) by exact integer inequalities.
+
+A structurally independent reference used the quotient-grouped identity
+
+\[
+ M(n)=1-\sum_{l=2}^{n}(r-l+1)M(\lfloor n/l\rfloor),
+ \qquad r=\left\lfloor {n\over\lfloor n/l\rfloor}\right\rfloor,
+\]
+
+with an independent linear Mobius prefix only through \(5\,000\,000\) and memoization above that threshold. It recomputed every selected endpoint and every candidate stopping point without using the segmented table. Agreement was exact on all displayed fields.
+
+A third source check used an independent linear Mobius sieve and directly evaluated the original double floor sum at \(R=5,53,317,1027\). It agreed with \(2M(R-1)-M(R^2-1)\) exactly:
+
+| \(R\) | \(M(R-1)\) | \(M(R^2-1)\) | endpoint \(Q_R\) | direct floor sum |
+|---:|---:|---:|---:|---:|
+| 5 | -1 | -2 | 0 | 0 |
+| 53 | -2 | -24 | 20 | 20 |
+| 317 | -3 | -28 | 22 | 22 |
+| 1027 | -4 | 367 | -375 | -375 |
+
+Warning-fatal commands:
+
+\`\`\`text
+g++ -Wall -Wextra -Werror -O3 -std=c++17 finite_ac_burst_census.cpp -o finite_ac_burst_census
+./finite_ac_burst_census 16001 20000 8
+g++ -Wall -Wextra -Werror -O3 -std=c++17 mertens_dujiao_reference.cpp -o mertens_dujiao_reference
+./mertens_dujiao_reference
+\`\`\`
+
+Elapsed times were 7.69 seconds for the complete primary census and 0.62 seconds for the independent selected-root reference. No floating value controlled membership, ranking, signs, stopping lengths, or verdicts. Decimals below are displays of exact integers/rationals.
+
+Artifact hashes:
+
+\`\`\`text
+6a7bd21f3fabb16e9de1609bf8be887ec10c671359aca2657113be6d840fa70b  finite_ac_burst_census.cpp
+17f9084464dd1e19aca9efdb56f46b529ad29f45d0829f21929a46c5af394c76  finite_ac_burst_results.csv
+155bb39d811f686f5718c06b32c6d161a08dacd31214748679abe4b0241a9d86  mertens_dujiao_reference.cpp
+7929c9d66fba63bbebb7732d2f0f59f66fa51858de89910c999ef1bef8463b06  mertens_dujiao_results.csv
+\`\`\`
+
+### R. Exact held-out results and falsifier
+
+At every selected root, \(K_R=9/6=3/2\), with least maximizer \(y=5\). Thus none is a new historical-envelope corner.
+
+| \(R\) | \(M(R-1)\) | \(M(R^2-1)\) | \(Q_R\) | \(C_R^2\) | \(L_R\) | \(L_R/\sqrt R\) | \(L_R/R\) |
+|---:|---:|---:|---:|---:|---:|---:|---:|
+| 18993 | 39 | 6602 | -6524 | 0.0786592 | 140 | 1.01585 | 0.007371 |
+| 18994 | 38 | 6570 | -6494 | 0.0779292 | 141 | 1.02308 | 0.007423 |
+| 18986 | 37 | 6413 | -6339 | 0.0743162 | 135 | 0.97975 | 0.007111 |
+| 18987 | 36 | 6351 | -6279 | 0.0729083 | 136 | 0.98699 | 0.007163 |
+| 18989 | 37 | 6303 | -6229 | 0.0717367 | 139 | 1.00870 | 0.007320 |
+| 18992 | 39 | 6304 | -6226 | 0.0716449 | 142 | 1.03039 | 0.007477 |
+| 18988 | 37 | 6296 | -6222 | 0.0715831 | 138 | 1.00147 | 0.007268 |
+| 18996 | 38 | 6240 | -6164 | 0.0701956 | 146 | 1.05931 | 0.007686 |
+
+\`SQRT-BURST\` is refuted on the frozen sample. The smallest selected failing root is \(R=18988\): \(\lfloor\sqrt{18988}\rfloor=137\), but \(L_R=138\). Six of eight selected roots fail the literal cutoff.
+
+The failure is narrow and discriminating. All eight roots lie in one excursion cluster, every \(L_R\) lies in
+\[
+ 0.9797\sqrt R\le L_R\le1.0594\sqrt R,
+\]
+and every \(L_R/R<0.0077\). Thus the rival proportional-to-\(R\) cumulative mechanism is not visible either. The data expose a third finite pattern: a square-root-time burst sitting on an ancient, unchanged historical envelope.
+
+The root-prefix correction is also small: \(2|M(R-1)|/|Q_R|<0.0127\) throughout the sample, and \(\operatorname{sign}(Q_R)=-\operatorname{sign}(M(R^2-1))\). These are exact finite observations, not an all-scale inverse theorem.
+
+### S. Interpretation, conjecture, and proof impact
+
+The precise failed inference is now stronger than the earlier fresh-corner no-go: a high normalized literal \(Q_R\) excursion need not renew \(K_R\), and even its least half-amplitude square-block history need not fit inside one literal \(\sqrt R\) window. However, the observed stopping length remains remarkably close to \(\sqrt R\), not proportional to \(R\).
+
+Exploratory theorem candidate:
+
+> **SQUARE-ROOT-TIME INVERSE.** There exist universal constants \(C,R_0\) such that every sufficiently large root satisfying a fixed high-\(C_R\) threshold and \(K_R=3/2\) has \(L_R\le C\sqrt R\).
+
+Status: \`CONJECTURE\`. The finite sample only shows survival with \(C=1.06\) on one selected cluster. The threshold must be fixed independently, and \(K_R=3/2\) is not known for all scales. No optimal constant is inferred.
+
+Even such an inverse statement would not prove finite A/C. The next missing theorem would have to control the number or total energy of square-root-length coherent Mobius square-block bursts strongly enough to bound the complete literal \(Q_R\) source. A location theorem without an energy/frequency restriction merely relocates the endpoint bill.
+
+Draft PR #1073 is not changed by this result. Its proposed finite-slot gain lies on a different native analytic carrier and remains unverified. This census neither supports nor refutes its complete-return argument.
+
+### T. Evidence status and continuation checkpoint
+
+**Evidence status:** \`FINITE_COMPUTATION\` on every root \(16001\le R\le20000\), with exact rational ranking and two independent selected-root reconstructions; \`REFUTED ON FROZEN SAMPLE\` for \`SQRT-BURST\`; \`FINITE_SURVIVAL\` for the post hoc \(1.06\sqrt R\) envelope on the selected cluster; \`CONJECTURE\` for any all-scale square-root-time inverse. No complete source estimate is proved.
+
+Continuation:
+
+1. freeze this top-eight sample and do not tune the constant against it;
+2. ask Wheel/Referee to derive and audit the exact relation between \(L_R\), the block increments \(Q_t-Q_{t-1}=2\mu(t-1)-[M(t^2-1)-M((t-1)^2-1)]\), and any candidate burst-energy inequality;
+3. test the fixed constant and a fixed \(C_R\) threshold only on a new disjoint range if that analytic inequality identifies a genuine consequence;
+4. preserve the \(R=53,317,1027\) direct-source regressions and the \(R=18988\) cutoff falsifier;
+5. do not infer finite A/C, a strict exponent below \(7/8\), or complete-return gain from the finite square-root scale.
+
+\`eta_gate: SEARCH_BROAD\`  
+\`primary_route_and_original_carrier: FINITE-AC / literal Euler self-dual Q_R, least historical K_R, and genuine square-block Mertens increments\`  
+\`actual_new_lemma_or_first_unresolved_inequality: finite sqrt-cutoff falsifier at R=18988; unresolved square-root-time burst frequency/energy theorem\`  
+\`independent_reviewer_and_formal_evidence: PENDING; exact computations only, no Lean theorem\`  
+\`net_endpoint_gain_after_complete_return: UNKNOWN\`
+
+Complete shell estimate OPEN; strict exponent below \(7/8\) NOT PROVED; finite A/C OPEN; canonical VF theorem OPEN; RH OPEN.
