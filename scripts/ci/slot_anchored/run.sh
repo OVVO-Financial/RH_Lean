@@ -26,12 +26,19 @@ targets=(
  VF919SlotAnchoredEndpoint
  VF919SlotAnchoredConsequences
 )
+failed=0
 for name in "${targets[@]}"; do
   echo "Checking $name" | tee -a "$log"
-  env LEAN_PATH="$RH_PATH:$OAI_PATH" lean -DwarningAsError=true \
+  if ! env LEAN_PATH="$RH_PATH:$OAI_PATH" lean -DwarningAsError=true \
     -o ".lake/build/lib/lean/research.oai_434.${name}.olean" \
-    "research/oai_434/${name}.lean" 2>&1 | tee -a "$log"
+    "research/oai_434/${name}.lean" 2>&1 | tee -a "$log"; then
+    failed=1
+  fi
 done
+if (( failed )); then
+  echo 'At least one slot-anchored proof target failed. No endpoint is accepted.' >&2
+  exit 1
+fi
 if grep -E 'sorryAx|admitAx' "$log"; then
   echo 'Rejected: admitted proof dependency' >&2
   exit 1

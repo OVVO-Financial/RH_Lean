@@ -115,6 +115,8 @@ def main() -> None:
             text = replace_once(text, '(by linarith) le_rfl le_rfl S hS hmax hfirst',
                 f'(by linarith) (by linarith only [he, {UPPER}]) le_rfl S hS hmax hfirst',
                 'actual reciprocal bound on anchored small contour')
+            # This former lower-bound premise is now only reflexivity.
+            text = text.replace(f'(h{BETA} :', f'(_h{BETA} :')
         elif name == 'VF919AnchoredHighTails':
             text = replace_once(text, "he he' (by linarith) le_rfl\n",
                 f"he he' (by linarith) (by linarith only [he, {UPPER}])\n",
@@ -131,6 +133,8 @@ def main() -> None:
                 'obtain ' + AB + 'D,hD,hres' + AC + ' := normalized_actual_window_residue_tilted',
                 f'have hbetaUpper := {UPPER}\n  obtain ' + AB + 'D,hD,hres' + AC + ' := normalized_actual_window_residue_tilted',
                 'generic principal residue, true zero-free premise')
+        elif name == 'VF919AnchoredHighTransport':
+            text = text.replace('have hbetal :=', 'have _hbetal :=')
         text = pattern.sub(lambda match: mapping[match[0]], text)
         imports = {
             'VF919AnchoredSmallTail': imp('VF919NativeSevenEighthsReplay'),
@@ -140,12 +144,9 @@ def main() -> None:
             'VF919AnchoredHighTransport': imp('VF919AnchoredHighTails', 'VF919AnchoredHighPrincipal'),
             'VF919AnchoredHighAssembly': imp('VF919AnchoredHighTransport'),
         }[name]
-        source_imports = ''.join(re.findall(r'^import .+\\n', text, flags=re.M))
-        text = re.sub(r'^import .+\\n', '', text, flags=re.M).lstrip('\\n')
-        text = (imports + source_imports +
-                f'/-! Generated from {relative}; original blob {sha}.\\n'
-                'Acceptance requires warning-fatal Lean and the terminal audit. -/\\n' +
-                text)
+        # A module doc comment is a Lean command and would end the import
+        # header before the original imports. This must be an ordinary comment.
+        text = imports + f'/- Generated from {relative}; original blob {sha}.\nAcceptance requires warning-fatal Lean and the terminal audit. -/\n' + text
         if re.search(r'\b(?:sorry|admit|axiom)\b', re.sub(r'/-.*?-/', '', text, flags=re.S)):
             raise ValueError('Proof placeholder in output')
         generated.append((name + '.lean', text))
