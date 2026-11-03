@@ -112,6 +112,9 @@ def main() -> None:
         # The actual supremum declaration and beta_le_one remain untouched.
         text = re.sub(r'\bHeckeZeroSupremum\.beta\b', f'(7/8:{R})', text)
         if name == 'VF919AnchoredSmallTail':
+            text = replace_once(text, 'Fin K→Finset PrimeIdeal',
+                'Fin K→Finset HeckeInverseAmplification.PrimeIdeal',
+                'pinned small-tail prime-ideal type')
             text = replace_once(text, '(by linarith) le_rfl le_rfl S hS hmax hfirst',
                 f'(by linarith) (by linarith only [he, {UPPER}]) le_rfl S hS hmax hfirst',
                 'actual reciprocal bound on anchored small contour')
