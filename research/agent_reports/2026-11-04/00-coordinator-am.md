@@ -487,3 +487,15 @@ SAT b=15/16: band excess=5/136; anchor excess=3/544
 SAT b=99/100: band excess=13/2525; anchor excess=3/20200
 PASS: exact rational bookkeeping only; no arithmetic energy sampled
 ```
+
+---
+
+## Verified Publication Receipt: 2026-11-04 07:39:24 EST
+
+**This actual scheduled invocation: COMPLETE / PUBLISHED_AND_VERIFIED.** The full synthesis, claims `20261104-coordinator-1/C41-C44`, source/CI audit, portfolio, protected-route assignments and complete exact reproducer were published in commits `3dc5e0f1d84631d5b87ee435a8f13bbf050bb4f8` (90 mirror, 12:38:29Z) and `1f255cb1ff29d37b7780c33b1311e8525f790cb9` (00 mirror, 12:38:38Z). Both were subsequently fetched from agent-reports and matched all **50,964 ASCII bytes** of the submitted synthesis exactly, sharing blob `0060b9cb3d3ebb84ec990cf924526ae9b9d7914e`.
+
+Commit inspection confirmed that each commit changed only its one authorized Coordinator report, with 458 additions and zero deletions. Together they update only the two owned mirrors. The early checkpoint remains an unchanged prefix. Validation checked all A-J sections, balanced Markdown fences, exact embedded program/output, ASCII content and the program SHA-256. Main was unchanged at the immediate prepublication refresh. All six current specialist reports were present and unchanged at the closing continuity check.
+
+C41-C43 remain **PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED**; C44 remains a finite exact-arithmetic check. The published no-go statements restrict the specified upper-bound arguments, not actual arithmetic energies or every alternative proof mechanism. No new LOW saving, canonical VF bound or RH proof is claimed. The Lean agent's moving-mass implementation remains uncompiled with its reported write-access blocker. No agent launch, schedule change, local Lean execution, proof-source/PR action, other-report edit, direct-main write or merge occurred.
+
+This receipt records the already verified substantive publication. Its own later commit/readback is checked separately before user-facing completion; it is not presupposed here.
