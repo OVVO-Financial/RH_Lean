@@ -360,6 +360,7 @@ theorem lowUnselectedMass_moving_power_bound (rho : ℝ) (hrho : 0 < rho)
         Z ^ ((rho - 1) * (∑ i ∈ J, ell i)) := by
       rw [Finset.prod_mul_distrib, Finset.prod_const, Finset.card_univ,
         Fintype.card_coe, ← Real.rpow_sum_of_pos hZ, Finset.mul_sum]
+      rw [Finset.sum_attach J (fun i : Fin K => (rho - 1) * ell i)]
 
 theorem lowUnselectedMass_empty (K : ℕ) (T : Fin K → Finset PrimeIdeal)
     (hT : ∀ i P, P ∈ T i → Supported P.val)
