@@ -110,7 +110,7 @@ def main() -> None:
     assert "full github repository read/write" in role_prompts.lower()
     assert "FULL GitHub repository" in engine or "full GitHub read/write" in engine
     assert "J=empty" in agent_policy and "J=empty" in engine
-    assert "PR #1087" in agent_policy and "PR #1087" in engine
+    assert "PR #1085" in agent_policy and "PR #1085" in engine
     assert "2026-11-04" in source_first and "full read/write" in source_first.lower()
     assert "human-only merge" in agent_policy.lower()
     assert "own-report-only" in agent_policy
