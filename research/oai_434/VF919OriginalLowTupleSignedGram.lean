@@ -203,6 +203,7 @@ end SevenEighths.ProbePhysical
 end OAI
 end
 
+
 /- Source-faithful proof attempt for 20261103-lean-3, NOT CI-certified.
    Baseline: RH_Lean 040980c16901af749202e9b0f91211c43909404a.
    OAI pin: 1581d4cbdd69a0faf34b2089614fe2a814316a6a.
@@ -358,8 +359,8 @@ theorem lowUnselectedMass_moving_power_bound (rho : ℝ) (hrho : 0 < rho)
     _ = (C * B * a ^ (rho - 1)) ^ J.card *
         Z ^ ((rho - 1) * (∑ i ∈ J, ell i)) := by
       rw [Finset.prod_mul_distrib, Finset.prod_const, Finset.card_univ,
-        Fintype.card_coe, ← Real.rpow_sum_of_pos hZ, Finset.sum_coe_sort,
-        ← Finset.mul_sum]
+        Fintype.card_coe, ← Real.rpow_sum_of_pos hZ, Finset.mul_sum]
+      rw [← Finset.sum_attach J (fun i : Fin K => (rho - 1) * ell i)]
 
 theorem lowUnselectedMass_empty (K : ℕ) (T : Fin K → Finset PrimeIdeal)
     (hT : ∀ i P, P ∈ T i → Supported P.val)
@@ -447,7 +448,7 @@ theorem low_central_compensated_tuple_moving_mass
   let Yp := fun i=>Z^(ell i)
   have hz : 0<Z := lt_trans zero_lt_one hInv.1
   have hslots : ∀i n,n∈slots i→n≠0 := fun i=>canonicalSlotSupport_nonzero _ (hT i)
-  have hnormE : ∀i n,n∈slots i→elementNorm n≤max 1 b*Z^(ell i) := by
+  have hnormE : ∀i n,n∈slots i→elementNorm n ≤ max 1 b * Z^(ell i) := by
     intro i n hn
     obtain ⟨P,hP,rfl⟩ := Finset.mem_image.mp hn
     rw [primaryTuple_norm P (hT i P hP)]
