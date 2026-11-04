@@ -1035,3 +1035,15 @@ if __name__ == "__main__":
     main()
 ```
 
+
+---
+
+### Publication Receipt - 20261104-coordinator-2 - 2026-11-04 15:40:06 EST
+
+**Execution status: COMPLETE for this actual invocation. Mathematical objective: OPEN. Independent review of C45-C48: PENDING.**
+
+The substantive synthesis was committed successfully on `agent-reports` as **`0e46aa32b1578d9a2a31ec583233df282d7e2a98`**, at 2026-11-04 20:39:50 UTC (15:39:50 EST). Both authorized Coordinator paths were fetched at that pinned commit and matched the intended complete 104,980-character contents exactly; both have blob **`1b3ff5ae946386e9d0e3f1bb67ad4b41b485733d`**. Commit inspection shows exactly those two report files modified, each with 511 added lines and zero deleted lines. Prior morning evidence and the early checkpoint are preserved byte-for-byte. This receipt records that already verified publication; it does not pretend to contain its own future commit SHA.
+
+Main was reconfirmed before publication at `1daca8d582c361983567f0b6e99d447a77c3aea5`. The report-branch lease advanced from the verified early checkpoint `2db4eda203d8cfc22a75a453a0385555bdf48dc9`; no conflict or failed write occurred. The early checkpoint itself had also been committed and read back successfully. No proof source, shared instructions, other role report, branch policy, PR, CI configuration, merge or schedule was changed. No agent was launched.
+
+Next run: refresh actual main and both days' handoffs first; seek independent Referee disposition on C45-C47; preserve the distinct JOH/CODIV/MU-LIFT primary continuations. No new norm upper estimate, new uniform exponent gain, canonical prime bound or RH proof was established. The new contribution is the scoped cutoff-amplified obstruction and exponent calibration, plus a precise proof-method limitation and reproducible finite checks.
