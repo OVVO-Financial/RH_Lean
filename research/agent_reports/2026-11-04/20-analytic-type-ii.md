@@ -1280,3 +1280,656 @@ Check stronger literature at its actual exceptional-set and amplitude tolerances
 ### D-L. Pending
 
 New derivation, quantitative comparison, independent-source bridge, self-audit, specialist requests and final resume capsule remain PENDING. ETA_GATE=SEARCH_BROAD for new arithmetic; net endpoint gain UNKNOWN. Publication status is established only by the following successful write/readback, not by this text.
+
+
+---
+
+## Scheduled CODIV Continuation Final Synthesis - 20261104-analytic-3
+
+### A. Most Important Analytic Development
+
+**New source-specific result:** for genuine Mobius coefficients, maximal square-shell energy admits **every fixed logarithmic saving**, uniformly over all arithmetic-progression fragments and all polynomial phases of any fixed degree. The same estimate survives arbitrary bounded **owner-only** masks/phases in the reciprocal prime-square daughter field. It returns to the **complete original physical remainder's root-step energy, uniformly in the same frequency at both endpoints**, including the actual prime-square birth term.
+
+For every fixed A>0 and integer d>=0, the quantities defined below satisfy
+
+```text
+sum_(H<=R<2H) Omega_(R,d)(mu)^2 <<_(A,d) H^3/log(2H)^A,
+sum_(H<=R<2H) Gamma_(R,d)^2    <<_(A,d) H^3/log(2H)^A,
+sum_(H<=R<2H) sup_(tau in R) |A_(R+1)(tau)-A_R(tau)|^2
+                                      <<_A H^3/log(2H)^A.
+```
+
+The first two hold for integer H>=2 after enlarging the constant; the last uses H>=56. These improve `20261103-analytic-3/CD2-CD3` at their logarithmic scale and extend phase/AP/mask uniformity. They do **not** establish a fixed power saving, a new Mertens exponent, the full amplitude estimate, the original ideal-character LOW bound, or the canonical prime-counting objective.
+
+**Claim IDs and evidence:** `20261104-analytic-3/M1` is a deterministic maximal-window comparison; `M2-M4` are PAPER_PROOF / SELF_AUDIT quantitative consequences of an independently stated external theorem and the original source identities; `M5` proves scope restrictions and refutes two overextensions; `M6` is FINITE_COMPUTATION. All new claims are INDEPENDENT_REVIEW_PENDING and NOT_FORMALIZED. No external-literature novelty is claimed. Publication status is recorded only in the later verified receipt.
+
+This is the continuation of the actual scheduled invocation **2026-11-04 17:11:01 EST**, not a new execution. `RUN_ID_UNAVAILABLE`. The early IN_PROGRESS checkpoint was committed and read back at `4a056b2a47953e54146aed9e7ef89c673c50435d`, report blob `181a9af8ced040f7764dca5dd5b271190852a9ec`.
+
+### B. Current Mathematical Objective And Authority
+
+Actual main HEAD, fetched at intake and reconfirmed during close-out: **`1daca8d582c361983567f0b6e99d447a77c3aea5`**. The live [AGENTS](https://github.com/OVVO-Financial/RH_Lean/blob/1daca8d582c361983567f0b6e99d447a77c3aea5/AGENTS.md), [proof contract](https://github.com/OVVO-Financial/RH_Lean/blob/1daca8d582c361983567f0b6e99d447a77c3aea5/CURRENT_PROOF_CONTRACT.md), and [independent multi-front policy](https://github.com/OVVO-Financial/RH_Lean/blob/1daca8d582c361983567f0b6e99d447a77c3aea5/docs/RHLEAN_INDEPENDENT_MULTIFRONT_NO_PIGEONHOLING_20261104.md) govern. The restored protected rotation makes CODIV due after today's NYMAN and OAI-NNS attempts. All-selected OAI is optional, not this run's compulsory task.
+
+The canonical statement remains OPEN:
+
+```text
+exists C>=0, for every integer R>=2,
+  |pi(R^2)-vfCanonical(R^2)| <= C R log R,
+vfCanonical(x)=vfMid(x)+sqrt(2).
+```
+
+The nearer independent CODIV benchmark is a genuine sharp shell energy `O_epsilon(H^(5/2-eta+epsilon))` for fixed eta>0, with its complete source consumer. Incoming one-shot slot gains retain their existing narrow theorem scope. This run provides no independently established new net endpoint gain: `SEARCH_BROAD; NEW_NET_ENDPOINT_GAIN=NONE; stronger gain=UNKNOWN`.
+
+Material original files were fetched at the main SHA above. Blob identities, rather than historical report descriptions, anchor this derivation:
+
+| File | Blob SHA | Actual use |
+| --- | --- | --- |
+| AGENTS.md | 547dda0d9456e7a4e1165dc72d59da6f70d5c023 | Live role, rotation and permissions |
+| CURRENT_PROOF_CONTRACT.md | 7c4ac83a1ec1a4144e1bd691391ed4244f1cc27c | Open canonical and sharp-shell objectives |
+| docs/RHLEAN_INDEPENDENT_MULTIFRONT_NO_PIGEONHOLING_20261104.md | ffd8f1c65cc4da656174956d4e03b48bea46768b | Current routing supersession |
+| research/LOW_OWNER_PHYSICAL_AMPLITUDE_TRANSPORT.lean | 72d66f61b3eeb000117ecdac393572558bb7c378 | Actual complete remainder and exact transport |
+| research/LOW_OWNER_AMPLITUDE_MELLIN_LEDGER_SPLICE.lean | 73447e8c73ea60affec36a25b9f4794862331359 | Zero-frequency reciprocal, not unit, weights |
+| research/STABLE_FAR_CRITICAL_Q2_ENERGY_MULTIPLIER.lean | ce897525508ba4553d4e3f3d310948920fe4ba2a | Exact reciprocal-phase multiplier |
+| research/STABLE_FAR_PERRON_QUARTER_FRAME_BOUND.lean | af4af35e55c2ccb843e449a38dd0a8fe047b921c | Critical synthesis versus raw unit-phase column |
+| RHLean/Analysis/SquareRootCanonicalRoughCovariance.lean | 8c125b69cc0fbee577d063bcfa606843152868f3 | Parent equals M(R-1)-M(R^2-1) |
+| research/CANONICAL_ROUGH_Q2_TAIL_REDUCTION.lean | ebca096e83009a7df514d00b6a2696be86a94c55 | Strict low-owner cutoff p^2<R |
+| research/LIFTED_MOBIUS_ADDRESS_INJECTIVITY_20261102.lean | 61f98a8997d86ddbb07404284d12aebd36a67955 | Literal prime-square addresses and occurrences |
+| research/VF_919_SEVEN_EIGHTHS_SQUARE_SHELL_BRIDGE_20261019.lean | 55839f2013fc5b8d352dcea0e2ed4bb47d763693 | Genuine signed Mobius shell consumer |
+| research/VF_919_SEVEN_EIGHTHS_DYADIC_SHELL_COVARIANCE_20261019.lean | 4ace115a6ec7537af5f871a97486e2b8cd5086e5 | Diagonal, covariance and dyadic losses |
+| research/VF_CANONICAL_SQRT_TWO_VON_KOCH.lean | 79030d70e8d3e0d08eef9bac53fef95c36eca2fb | Canonical target, with explicit classical criterion interface |
+
+Other live routing/engine documents and the external inbox were read; none supplies the new estimate. Original definitions are reused, not edited. Source inspection is not a claim that this new argument has compiled in Lean.
+
+### C. Analytic Mechanism Investigated
+
+The changed mathematical question is whether the old logarithmic fragment bound can be strengthened while allowing genuine oscillatory phases and retaining the exact owner response. The earlier CD1 smoothing inequality loses a boundary term. A different mechanism uses a maximal short-window theorem: any large square-shell AP sum forces the same large maximal sum on a whole interval of starting positions. Those intervals can be chosen disjoint. Thus an almost-everywhere bound gives a deterministic sampled-square energy bound without assuming that square endpoints avoid the exceptional set.
+
+**Independent input:** Matomaki, Radziwill, Shao, Tao and Teravainen, [Higher uniformity of arithmetic functions in short intervals II. Almost all intervals, arXiv:2411.05770v2, Theorem 1.1(i)](https://arxiv.org/html/2411.05770v2#S1.Thmtheorem1), version dated 23 January 2026. Specialize to a fixed circle nilmanifold with filtration degree max(1,d) and the fixed exponential test function. For fixed B>0 and epsilon>0, X>=3 and `X^(1/3+epsilon)<=L<=X^(1-epsilon)`, the supremum of the Mobius sum over all polynomial phases of degree at most d and all APs inside `(x,x+L]` is at most `L/log(X)^B`, except on a set of measure `O_(B,d,epsilon)(X/log(X)^B)`. The fixed nilmanifold complexity and Lipschitz norm are absorbed into these constants. No numerical constant or effective threshold is extracted here.
+
+This is a new input to the resumed packet, not a rediscovery of its already-used 2016 short-interval theorem or the 2020 sequel. The repository search for this arXiv identifier found no matching use, and the relevant prior CODIV reports use the earlier input. This is a source-specific application of existing mathematics, not a claim of a new literature theorem. The polynomial degree is fixed; the phase coefficients and AP step are unrestricted. The conjugation in the theorem is harmless by replacing the polynomial by its negative.
+
+### D. Exact Mathematical Formulation
+
+Let `mu:N_{>=1}-> {-1,0,1}` be the genuine Mobius function, `M(t)=sum_(1<=n<=floor(t)) mu(n)`, and `e(t)=exp(2*pi*i*t)`. Set
+
+```text
+I_R = [R^2,(R+1)^2) intersect N_{>=1},
+Omega_(R,d)(a) = sup_(deg P<=d; finite AP B subset I_R)
+                  |sum_(n in B) a(n)e(P(n))|,
+W_(d,L)(a;x) = sup_(deg P<=d; finite AP B subset (x,x+L] intersect N_{>=1})
+                  |sum_(n in B) a(n)e(P(n))|.
+```
+
+Here P has real coefficients, d is a fixed nonnegative integer, APs are finite consecutive pieces of a progression of positive integer step, and the empty progression is allowed. `Omega_(0,d)=0`. Degree zero includes the ordinary unweighted AP maximum, and interval fragments are the step-one subclass. For integer L, these window maxima are measurable step functions of x: there are finitely many APs on each window and polynomial coefficients may be reduced modulo 1 to a compact torus.
+
+For each root R, allow independent complex owner coefficients `c_(R,p)` with `|c_(R,p)|<=1` for odd primes p<=R. Define the finite shell carrier
+
+```text
+g_(R,c)(n) = mu(n) + sum_(p odd prime, p^2|n) c_(R,p)mu(n/p^2)/p,
+Gamma_(R,d) = sup_(c; deg P<=d; AP B subset I_R)
+                 |sum_(n in B) g_(R,c)(n)e(P(n))|.
+```
+
+No prime p>R can divide a shell site by p^2. The complete daughter field uses c=1, the moving source uses `c=1_(p^2<R)`, and the frozen source in a dyadic block uses `c=1_(p^2<H)`. Arbitrary bounded owner-only phases/masks are included. There is no arbitrary site-dependent mask on mu or on a daughter's individual sites.
+
+M1 is the deterministic inequality in E1. M2 asserts the first A-bound in A for every fixed A,d. M3 asserts the Gamma bound with the same quantifiers. M4 concerns the original remainder `A_R(tau)` in G, at the same tau on both sides of each increment. All implied constants are independent of H, R, phase coefficients, APs, owner masks and tau. Constants may depend on A,d; they are neither uniform in growing d nor in A=A(H).
+
+### E. Mathematical Derivation
+
+#### E1. M1: Disjoint Thickening Of Every Square Shell
+
+Fix integer H>=2 and take L=6H. For `H<=R<2H` put `J_R=[R^2-H,R^2)`. The J_R are pairwise disjoint, each of length H. For x in J_R,
+
+```text
+x<R^2,
+x+6H >= R^2+5H >= (R+1)^2-1,
+```
+
+because R<=2H-1. Therefore the whole integer shell I_R is contained in `(x,x+6H]`. Every admissible polynomial/AP sum for the shell is also admissible for that window. Squaring and integrating on disjoint J_R proves
+
+```text
+H sum_(H<=R<2H) Omega_(R,d)(a)^2
+ <= integral_(union J_R) W_(d,6H)(a;x)^2 dx
+ <= integral_(H^2-H)^(4H^2) W_(d,6H)(a;x)^2 dx.       (M1)
+```
+
+This is valid for any coefficient sequence, without arithmetic independence or cancellation hypotheses. It is only a comparison until the integral is bounded. There is no truncation remainder or smoothing boundary bill; the forward window, including its halo, remains intact. Replacing the maximal window by its raw full sum would be invalid.
+
+#### E2. M2: Every Fixed Logarithmic Saving
+
+The last integration domain is covered by the three dyadic intervals with left endpoints `X=H^2/2,H^2,2H^2`. Fix epsilon=1/12. For all sufficiently large H, the common length L=6H satisfies
+
+```text
+X^(5/12) <= L <= X^(11/12)
+```
+
+on each block. Apply the input in C with fixed B=A. On the good set, `W<=L/log(X)^A`; on the exceptional set use the exact trivial bound W<=L, since L is an integer and the half-open window has L integers. Consequently
+
+```text
+integral_X^(2X) W_(d,L)(mu;x)^2 dx
+ <= X L^2/log(X)^(2A) + O_(A,d)(X L^2/log(X)^A)
+ <<_(A,d) X L^2/log(X)^A.
+```
+
+Sum the three blocks and divide by H in M1. This is `O_(A,d)(H^3/log(2H)^A)`. The finitely many smaller integer H are absorbed by increasing the constant, using `Omega_(R,d)<=2R+1`. Thus M2 holds for every integer H>=2. There is no exceptional sequence of roots left over: their potential concentration was paid by disjoint thickening.
+
+The main term is zero; the entire conclusion is a cancellation bound. Every supremum above is taken before integration, so phases and APs may be chosen separately at each root. No hypothesis about Mertens prefix growth or the inherited 7/8 theorem enters this proof.
+
+#### E3. M3: Uniform Transfer Through Reciprocal Prime-Square Daughters
+
+For integer R,p with p prime, write `j=floor(R/p)`. The real interval `[R/p,(R+1)/p)` lies in `[j,j+1)`, with the possible upper endpoint j+1 excluded. Hence every daughter m with `p^2*m in I_R` lies in I_j. The preimage of an AP under `m -> p^2*m` is an AP or is empty, and `P(p^2*m)` still has degree at most d. The triangle inequality before taking the owner supremum gives
+
+```text
+Gamma_(R,d) <= Omega_(R,d)(mu)
+             + sum_(p odd prime, p<=R) Omega_(floor(R/p),d)(mu)/p.   (1)
+```
+
+This uses actual signed Mobius daughter coefficients and actual addresses. It does not pretend that g is multiplicative. For example, the complete unweighted hybrid has g(9)=1/3, g(25)=1/5 and g(225)=0, so applying a multiplicative-function theorem to g itself would be unjustified.
+
+Let `F_d(Y)=sum_(1<=r<Y) Omega_(r,d)(mu)^2`. Dyadic aggregation of M2 gives, for every fixed A,d and real Y>1,
+
+```text
+F_d(Y) <<_(A,d) Y^3/log(2Y)^A,  and  F_d(Y)<=9Y^3.       (2)
+```
+
+For completeness, sum the dyadic blocks above sqrt(Y) with logs comparable to log(Y), a geometric series dominated by Y^3. Bound all smaller roots trivially by O(Y^(3/2)); this is absorbable into (2) for fixed A. A bounded initial range is paid by the constant.
+
+Each j has at most p preimages under `r -> floor(r/p)`. Minkowski in the finite root sum applied to (1) therefore yields, for X>=4,
+
+```text
+(sum_(1<=r<X) Gamma_(r,d)^2)^(1/2)
+ <= F_d(X)^(1/2) + sum_(p odd prime,p<X) p^(-1/2)F_d(X/p)^(1/2).
+```
+
+For p<=sqrt(X), use (2) and `log(2X/p)>=log(2X)/2`. The contribution is at most
+
+```text
+O_(A,d)(X^(3/2)/log(2X)^(A/2)) sum_p p^(-2).
+```
+
+For p>sqrt(X), the trivial part of (2) gives at most
+
+```text
+3 X^(3/2) sum_(p>sqrt(X)) p^(-2) = O(X).
+```
+
+The series converges absolutely, and its tail is bounded by the corresponding integer series; no prime number theorem or fixed-prime extrapolation is used. Squaring gives `O_(A,d)(X^3/log(2X)^A+X^2)`. The X^2 term is absorbable for each fixed A. Taking X=2H proves M3. The root-dependent supremum over all owner masks causes no further cost because (1) majorizes every such mask pointwise.
+
+The losses are explicit: the root-fibre multiplicity contributes sqrt(p), the reciprocal coefficient contributes 1/p, and the descendant energy contributes p^(-3/2), leaving the summable p^(-2). Minkowski and absolute values over owners are affordable at this logarithmic target. They are not asserted optimal for a power-saving target. All within-owner oscillation has already been retained by M2.
+
+A useful inverse restriction follows: for any fixed u,v>0 and d,
+
+```text
+#{H<=R<2H: Gamma_(R,d)>H/log(2H)^u}
+  <<_(u,v,d) H/log(2H)^v.                               (3)
+```
+
+Use M3 with A=2u+v and the squared threshold. This rules out a positive-density family of large coherent sums within the stated phase/owner class, not all conceivable arithmetic responses.
+
+### F. Quantitative Comparison With The Required Scale
+
+| Quantity | New proved paper bound | What remains unpaid |
+| --- | --- | --- |
+| Genuine maximal AP/polynomial shell energy | H^3/log(2H)^A for each fixed A,d | Fixed positive power saving |
+| Moving/frozen/complete reciprocal daughter maximal energy | Same, uniform owner-only masks/phases | Stronger signed source interactions if seeking power gain |
+| Complete physical root-step energy | Same, uniformly in same-frequency increments | Root-scale amplitude control and any global response integration |
+| Sharp signed shell benchmark | Not established | H^(5/2-eta+epsilon), fixed eta>0 |
+| Actual prime/VF canonical discrepancy | No new bound | C R log R |
+
+The new bound's root-energy exponent remains 3, not 5/2-eta. Dyadic Cauchy would give only `H^2/log(2H)^(A/2)` for a sum of H shell amplitudes. In x=H^2 coordinates that is `x/log(x)^(A/2)`, weaker in power than the incoming 7/8-type prefix result. Conversely, the incoming prefix result does not by itself imply a local sum-of-squares estimate. These facts are compatible.
+
+There is no valid choice A=A(H) in the theorem. The comparison function `H^3 exp(-sqrt(log H))` is smaller than `H^3/log(H)^A` eventually for every fixed A, yet larger than `H^(5/2-eta)` eventually for every fixed eta>0. This is a logical scale comparison, not a claim about the actual Mobius energy.
+
+The earlier target-strength smoothing route used `h=floor(H^(2/3))` and X approximately H^2. That h is at the X^(1/3) boundary, **outside** the fixed-epsilon range of the external quantitative input used here. Even within its range the supplied gain is logarithmic. Neither a divisor-function power estimate nor a qualitative fixed-tolerance Mobius statement in the same paper may be substituted for the missing Mobius power bound.
+
+### G. M4: Original-Carrier Bridge And Full Physical Return
+
+The [original amplitude transport](https://github.com/OVVO-Financial/RH_Lean/blob/1daca8d582c361983567f0b6e99d447a77c3aea5/research/LOW_OWNER_PHYSICAL_AMPLITUDE_TRANSPORT.lean) defines the full physical correction from low-owner census terms, owner two, renewal, terminal products and the frozen root correction. Its theorem `squareRootCanonicalRoughCorrelation_eq_criticalSynthesis_add_physicalRemainder` is an exact identity for R>=56 and every real tau. Combine it with `squareRootCanonicalRoughCorrelation_eq_mertens_pred_sub_endpoint`, the actual raw cutoff, and [the reciprocal-phase multiplier identity](https://github.com/OVVO-Financial/RH_Lean/blob/1daca8d582c361983567f0b6e99d447a77c3aea5/research/STABLE_FAR_CRITICAL_Q2_ENERGY_MULTIPLIER.lean). In ordinary mathematical notation, exactly the original remainder is
+
+```text
+m_p(tau) = p^(-1) exp(-2 i tau log p),
+A_R(tau) = M(R-1)-M(R^2-1)
+           - sum_(p odd prime,p^2<R) m_p(tau) M(floor((R^2-1)/p^2)).
+```
+
+The low-owner finset is precisely the odd primes with p^2<R; the ambient p<=R-1 restriction is redundant there. This equality includes the complete physical terms through their source identity. None was discarded because it looked small.
+
+At the same tau, subtract adjacent roots. Existing daughters advance over their exact lifted shell. The only new owner occurs when R=p^2 for an odd prime p, because the cutoff is strict. Thus
+
+```text
+A_(R+1)(tau)-A_R(tau) = mu(R)-W_R(tau)-K_R(tau),
+W_R(tau) = sum_(n in I_R) [mu(n)
+              + sum_(p odd prime,p^2<R,p^2|n) m_p(tau)mu(n/p^2)],
+K_R(tau) = m_p(tau) M(R+2) if R=p^2 with p odd prime, and 0 otherwise.
+```
+
+The activation argument is exact: at R=p^2, `floor(((R+1)^2-1)/p^2)=R+2`. Its sign above is negative because the daughter is subtracted in A_R. The full shell, constant polynomial and owner phases `exp(-2i tau log p)` are permitted in Gamma, hence `sup_tau |W_R(tau)|<=Gamma_(R,0)`.
+
+No global Mobius bound is needed for activation. For a birth R=p^2>=9, `|M(R+2)|<=R+2` and
+
+```text
+sup_tau |K_R(tau)|^2 <= (R+2)^2/R < (3/2)R < 3H
+```
+
+when H<=R<2H. There are at most sqrt(2H) possible square roots, so the total birth energy is at most `6H^(3/2)`. Using `|a+b+c|^2<=3(|a|^2+|b|^2+|c|^2)` proves
+
+```text
+sum_(H<=R<2H) sup_tau |A_(R+1)(tau)-A_R(tau)|^2
+ <= 3H + 3 sum_(H<=R<2H) Gamma_(R,0)^2 + 18H^(3/2)
+ <<_A H^3/log(2H)^A.                                  (M4)
+```
+
+All mixed terms are bounded by this explicit factor-three loss, not silently removed. The remainder after returning to the original carrier is lower order for every fixed A. There is no restriction on the magnitude of tau. The supremum is legal because the comparison is uniform in arbitrary bounded owner phases.
+
+**Scope boundary:** this concerns `A_(R+1)(tau)-A_R(tau)` with the same tau, even though the maximizing tau may differ between summands of the energy. It does not concern a trajectory `A_(R+1)(tau_(R+1))-A_R(tau_R)` without paying phase drift. It does not give an unweighted integral over all frequencies, a Perron inversion, or a bound on A_R itself. The critical reciprocal column is not the raw unit-coefficient column, the first-bad prime payment, or the original OAI ideal/character source. No bridge to those different carriers is asserted.
+
+### H. M5-M6: Falsification, Circularity And Exact Tests
+
+#### H1. Genuine-Arithmetic Scope Falsifiers
+
+**Growing degree is forbidden (M5a).** The shell has 2R+1 integer sites. Interpolate a real polynomial P_R of degree at most 2R taking value 1/2 where mu(n)=-1 and 0 elsewhere on the shell. Then `mu(n)e(P_R(n))=mu(n)^2`. Since no twisted absolute sum can exceed the squarefree count D_R, this proves
+
+```text
+Omega_(R,2R)(mu)=D_R=sum_(n in I_R) mu(n)^2.
+```
+
+The elementary identity `mu(n)^2=sum_(q^2|n) mu(q)` gives the squarefree count `sum_(n<=x)mu(n)^2=x/zeta(2)+O(sqrt(x))`: count each multiple by a floor, paying O(sqrt(x)), and bound the absolutely convergent tail of sum mu(q)/q^2 by O(x^(-1/2)). Hence
+
+```text
+sum_(H<=R<2H) D_R = (18/pi^2)H^2+O(H),
+sum_(H<=R<2H) D_R^2 >= H^(-1)(sum D_R)^2 >> H^3.
+```
+
+Thus a constant uniform in d up to 2R would refute the claimed logarithmic saving. This is genuine mu, not a synthetic sequence. No quantitative lower bound on each individual shell's squarefree count is assumed.
+
+**Arbitrary site masks are forbidden (M5b).** In each shell, select the more populous of the mu=1 and mu=-1 sites. The masked absolute sum is at least D_R/2, so its energy is also >>H^3. This does not contradict M3: its masks multiply whole owner contributions, not individually chosen sites. AP fragments are a restricted, not arbitrary, mask class.
+
+**Raw windows cannot replace maximal windows (M5c).** An alternating sequence has zero full moving sum on every length-two integer window, while a singleton fragment has magnitude one. M1 uses a maximal window explicitly. No zero boundary bill is claimed for ordinary smoothing.
+
+**No circular supplier.** M2 uses actual multiplicative Mobius input, rather than prefix cancellation, density-one assumptions, or independent owner phases. M3 uses the exact joint carrier before a quantified affordable inequality. M4 restores every physical term by the source identity. None assumes RH or OPEN-CD5. The accepted Referee `20261103-referee-4` squarefree-supported, square-root-prefix countermodel still rules out a prefix-only proof; it does not satisfy the new genuine-Mobius input. C20-C25, CD1-CD6 and the original negative results retain their prior scopes and claim IDs.
+
+#### H2. Exact Finite Checks (M6)
+
+The complete standard-library Python reproducer is appended below. It was executed successfully (exit 0) and syntax-checked (exit 0), with Python **3.12.14**. SHA-256 of the exact 254-line script: **`742516e26be31423d9054550f7c56f6755b3e678c29f3f08a3a3c1aa1b7ad529`**. Fixtures and the scope tests were fixed before running. Arithmetic is integer/rational, including Gaussian-integer phase sums; no floating-point conclusion is used.
+
+- Two independent Mobius constructions, prime-square sieve and divisor-convolution inversion, agree through **66049**.
+- All **6561** ternary words of length eight, placed at sites 4 through 11 with zero elsewhere, satisfy the deterministic H=2 interval-max packing check.
+- Geometry checks cover H=2 through 64, with **89439** disjoint preceding start cells and **45050** prime-square dilation checks.
+- Genuine Mobius tests verify **2129** AP containment checks and **388** complete/moving/frozen/root-signed owner-mask comparisons against the dilation bound.
+- Six full AP-max blocks give the table below. The checked inequality is H times the shell energy <= the disjoint-window integral, not energy <= integral alone.
+- The quadratic phases `(a*n+b*n^2)/4`, a,b in {0,1,2,3}, give exact grid energies/integrals (H=2: 25/163; H=3: 41/306; H=4: 57/569). This finite grid is not a certificate for a continuous supremum.
+- **840** complex root-step checks use roots 56 through 256 plus 8,9,10,24,25,26,48,49,50, with four fixed owner-phase vectors. Nonzero vectors test the stronger algebraic owner-phase identity; they are not asserted realizable simultaneously by one tau.
+- Exact zero-frequency birth values include R=9: -2/3; R=25: -1/5; R=49: -2/7; R=121: -1/11; R=169: -2/13. These are K_R, with the additional minus sign in the increment formula retained.
+- Exact rational interpolation at R=2,3,4 aligns all nonzero Mobius signs using degree bounds 4,6,8. The resulting sums 3,5,5 equal the squarefree counts. Majority-site masks have sizes 2,3,3. The raw length-two window counterexample also passes.
+
+| H | AP shell energy | Disjoint-window integral |
+| --- | --- | --- |
+| 4 | 31 | 214 |
+| 8 | 369 | 4306 |
+| 12 | 635 | 15215 |
+| 16 | 1049 | 30740 |
+| 25 | 2667 | 135025 |
+| 32 | 4871 | 338583 |
+
+These tests verify finite geometry, coefficients, signs and boundary reconstruction. They neither prove the asymptotic external theorem nor fit a power saving. No large census was repeated and no local Lean execution occurred.
+
+### I. Conceptual Interpretation And Verified Repository Status
+
+The independent restriction is that a bad square shell has a substantial interval of witnesses in the maximal short-window problem. Disjoint witness intervals prevent all square roots from hiding in a small exceptional set. The reciprocal daughter response preserves this restriction because its multiplicity-adjusted weights are absolutely summable. Owner phases may even be adversarial: they cannot undo the within-daughter maximal cancellation at the proved logarithmic scale.
+
+This changes the available local information, not the endpoint exponent. It supplies a nonlocal arithmetic upper bound on the real carrier and a precise inverse restriction (3). It also identifies sharp limits on admissible phase/mask complexity. A new fixed-power source theorem is still needed; the next investigation must not relabel an equivalent norm as that theorem.
+
+**PR/CI refresh, separate from the new paper proof.** The open/draft PR collection was empty at intake and the close-out refresh. Human merges #1083, #1085, #1087, #1090, #1091 and #1092 were checked in the current collection; #1087 has no separate substantive theorem credit and #1092 is policy. The detailed existing proof audit in this run was #1091: all 12 returned workflows at final PR head `6778fd4c25b0f369d311e6e71223e168e329b4bf` succeeded. [Run 41898325686, job 126813711885](https://github.com/OVVO-Financial/RH_Lean/actions/runs/41898325686/job/126813711885) actually checked synthetic merge `3b4c6872ca13838fb960f519b5473c109c6de28e`, with original OAI pin `1581d4cbdd69a0faf34b2089614fe2a814316a6a`.
+
+The current-main and tested-checkout blobs agree for `VF919ExplicitFixedSourceSlotCount.lean` (`bad5aab0a60e96d19e7c9550cd7c0a072288bc0f`) and `VF919OriginalLowTupleSignedGram.lean` (`dd2fde01ae6e2446da4e69b30f6fc80fcadb858d`). The logs show warning-fatal target compilation, exact-type/source audits and only `propext`, `Classical.choice`, `Quot.sound` for `native_beta_le_explicit_slot_count` and `low_central_compensated_tuple_moving_mass`. The runner at that tested checkout has blob `b9397a1e91081d63cbfecd3faffd39931918bf8a`; its rejection and audit checks were read. The explicit theorem is `beta<=7/8-1/(288*explicitSlotCount)` at its own constructed fixed-source scope, not a new gain proved here. Central nonempty-J moving mass is not the full integrated return or all-selected saving.
+
+The current main HEAD itself had only the returned documentation/proof-inventory runs `41904587765` and `41904587774`; those do not certify a fresh full-main Lean build. #1090's Nyman fixed-log invariant and #1085's scoped central moving-mass status are also reported by today's verified Coordinator/Lean handoffs; they do not supply M2 or OPEN-CD5. No Actions were triggered or rerun, no proof source was changed, and no new theorem is labeled Lean-verified in this packet.
+
+### J. Specialist Handoffs And Research Continuity
+
+**Adversarial Referee:** independently audit M1-M5 before promotion. In particular: maximal-AP scope of the cited input; the three-block range with epsilon=1/12; the exceptional-set L2 conversion; root-cell containment at p dividing R+1; p-fibre multiplicity and p>sqrt(X) tail; the sup over owner masks; and the same-tau physical birth formula. Test the growing-degree/site-mask refutations. Existing CD1-CD6 review was not found, so it remains pending rather than assumed accepted.
+
+**Coordinator:** record M2-M4 as new local quantitative PAPER_PROOF, not VERIFIED_ETA or a complete endpoint. The prior request for logarithmic improvement is answered with every fixed log power and uniform structured phases. Preserve broad routing and OPEN-CD5. The protected next turn for this investigator is NYMAN, using C45-C47 and the actual corrected middle rather than redoing tail algebra.
+
+**Owner Payment:** the original physical remainder now has the all-log same-frequency root-step estimate with its strict-cutoff birth restored. It does not supply JOH LC1-LC5's prime-counting clock variance, SAT ancestry, or first-bad weights. Your latest exact Li-clock compression and the open sampled prime-variance supplier remain separate. No site-mask substitution into M3 is allowed.
+
+**Finite Wheel & Incidence:** an independently signed restriction on the common-window Mobius triangular lag sum in K would have the existing maximal consumer. Prime-completion positivity and squarefree density do not supply it; today's L1-L4 obstruction remains binding. Preserve your own protected rotation rather than treating this handoff as a launch request.
+
+**Prime Census:** no new range-extension or empirical power fit is requested. A useful independent diagnostic is to reimplement only the root-cell/birth boundary tests with a different Mobius construction and confirm the mask/phase scope. Any future test of OPEN-CD5 must predeclare eta, epsilon, constant and range and report T, diagonal, signed halo and J together. A stable plot is not an all-scale certificate.
+
+**Lean Verification:** M1's finite discrete counterpart and M4's exact root-step identity may be small implementation candidates only after independent acceptance and utility selection. M2 additionally requires a serious external analytic theorem not claimed present in Lean. Do not introduce it or OPEN-CD5 as an unexplained project axiom. No immediate PR is requested and no other agent is launched.
+
+Both calendar days' available relevant reports were retrieved and the latest applicable continuations read. All seven roles have TODAY available; YESTERDAY=CARRY_FORWARD is used for unchanged accepted inputs, not to invent a missing run. The close-out directory refresh found all upstream blobs unchanged from intake:
+
+| Role | 2026-11-03 blob | 2026-11-04 intake blob |
+| --- | --- | --- |
+| Coordinator (00; 90 mirror matches) | e35ab2cd9cba2a47ac5be53b09938b37a0c20df3 | f4297e525684aa149b9f7bd037bc1507e9f3a3e4 |
+| Owner | d52c74b76c2914c3be694f39cd7afe9b122a4834 | 560b0b7617703b64e728e12e60a390646c9379ea |
+| Analytic | 2b9c3dbab6039e3c30a5ece3e473290af5dbbf0b | 5e489bffbce7fe986b9f48c73cb409beaa151f82 |
+| Wheel | cd7777180bb5c2c899a60bdd699b99be8e12a672 | 6a773f357029bb97cf34110532c7de1f7bb38f3f |
+| Census | eb9a2e0cf7772f22060aec07e0bcddd24ace9cd9 | 9f634c872fe98f82676c263a4faba35dff3ac4f0 |
+| Referee | 583ce524628577818603ffd4e9ec0eb3673a3f37 | 11eaf073fad23591cdf6d8fe83209042139e54c5 |
+| Lean | fc27fb1ae103e60ff600e5a24ce6716937da3884 | 1519754f2b440abd6821a960926028dc776c8576 |
+
+Relevant continuity includes Coordinator C20-C25 and C45-C47; own CD1-CD6 and today's NYMAN/OAI packets; Referee-3/4's accepted dilation and no-go scopes plus today's scoped CF1-CF3 review; Census PC4's finite freezing certificate with PC5 still conjectural; Owner LC1-LC5; Wheel L1-L4; and Lean's actually merged fixed-log Nyman invariant. No upstream norm or correlation estimate is silently assumed. The older November 2 Coordinator source was also fetched at blob `1e932d4ce0eb0fd2c5f4507f6b111194d633eb32` to check the accepted dilation and old literature route, not to repeat its derivation as new work.
+
+The [external inbox](https://github.com/OVVO-Financial/RH_Lean/blob/agent-reports/research/agent_reports/EXTERNAL_HANDOFFS.md), blob `038018145c0fddb2f6306c0712373adf9cd1ea52`, contains no entry newer than October 18. Its PNT/XCOORD boundary/source safeguards were retained; they are not an independent supplier for the present target.
+
+### K. First Independently Missing Analytic Theorem
+
+Keep the original `20261103-analytic-3/OPEN-CD5` unchanged rather than presenting an equivalent reformulation as new progress. For integers H>=2 and `h=floor(H^(2/3))`, define the genuine common-window signed sum
+
+```text
+T_mu(H,h) = 2 sum_(1<=d<h) (h-d)
+                sum_(H^2<=n<4H^2) mu(n)mu(n+d).
+```
+
+The missing one-sided bound is: for some fixed `0<eta<1/6`, for every epsilon>0, there is `C_(eta,epsilon)` such that for all sufficiently large H,
+
+```text
+T_mu(H,floor(H^(2/3))) <= C_(eta,epsilon) H^(17/6-eta+epsilon).
+```
+
+The inequality is one-sided, not an assumed absolute correlation bound. The identity CD4 retains `h*sum_(H^2<=n<4H^2)mu(n)^2`, this T_mu and a signed boundary bounded absolutely by `h(h-1)(2h-1)/3`. Combined with CD1's factor `8H/h^2` and boundary `2H(h-1)^2`, the target would give
+
+```text
+E_mu(H) << H^(7/3) + H^(5/2-eta+epsilon) + H^(5/3).
+```
+
+This would yield the genuine Mertens exponent `7/8-eta/4+epsilon` through the existing full consumer, subject to comparison with any already inherited strict gap. It remains OPEN. M2-M4 are independently proved weaker local restrictions, not its proof, not a necessary condition for the canonical target, and not an equivalence claim. The present literature application does not settle the signed triangular source at that length or power scale.
+
+### L. Next-Run Resume Capsule
+
+```text
+INVOCATION: 2026-11-04T17:11:01-05:00 SCHEDULED; RUN_ID_UNAVAILABLE
+ROLE: RH | Analytic Type II
+CLAIM_BUNDLE: 20261104-analytic-3/M1-M6
+MAIN: 1daca8d582c361983567f0b6e99d447a77c3aea5
+AGENTS: 547dda0d9456e7a4e1165dc72d59da6f70d5c023
+CONTRACT: 7c4ac83a1ec1a4144e1bd691391ed4244f1cc27c
+POLICY: NO_PIGEONHOLING_ROUTE_SELECTOR_V1
+POLICY_BLOB: ffd8f1c65cc4da656174956d4e03b48bea46768b
+DEPLOYMENT_ACK: restored independent routing consumed; CODIV chosen as due;
+  actual new maximal-window proof and exact tests performed, not instructions-only.
+RESUMED: 20261103-analytic-3/CD1-CD6; Coordinator C20-C25 and CODIV request.
+NEW_INPUT: arXiv:2411.05770v2 Theorem 1.1(i), fixed degree, epsilon=1/12.
+NEW_RESULT: every fixed log saving for genuine AP/polynomial maximal shells;
+  uniform owner-only masked/phased daughters; same-frequency complete remainder steps.
+MATHEMATICS: PAPER_PROOF / SELF_AUDIT; FINITE_COMPUTATION; review PENDING.
+FORMAL_STATUS: NOT_FORMALIZED; no new Lean or project axiom.
+FIRST_OPEN_INPUT: OPEN-CD5 signed triangular lag power estimate, unchanged.
+RETIRED_OVEREXTENSIONS: growing degree, arbitrary site masks, raw-window shortcut,
+  log-to-power upgrade, arbitrary-frequency path without drift, raw-column identification.
+FULL_COSTS: disjoint starts; dyadic blocks; p-fibre sqrt(p); p^-2 series;
+  tail O(X^2) energy; physical birth <=6H^(3/2); factor-three mixed-term bound.
+NEW_ENDPOINT_GAIN: NONE; canonical VF, RH, sharp-shell power and PC5 remain OPEN.
+INHERITED_CI: #1091 exact job verified at synthetic merge, main blobs matched;
+  no claim of all-main rebuild and no new Actions triggered.
+ROTATION: today analytic-1 NYMAN; analytic-2 OAI-NNS; analytic-3 CODIV.
+NEXT_PROTECTED_ROUTE: NYMAN. Refresh sources/handoffs; seek Referee C45-C47
+  disposition; attack the corrected middle-norm supplier, not the paid exact head/tail.
+NEXT_CODIV: seek independent signed input for OPEN-CD5; do not repeat all-log proof.
+CHECKPOINT: 4a056b2a47953e54146aed9e7ef89c673c50435d, exact readback verified.
+PUBLICATION: final receipt follows only after successful commit and exact readback.
+PERMISSIONS: own report only; no source/PR/policy/CI/schedule edits or agent launches.
+```
+
+### Appendix. Complete M6 Reproducer
+
+The script below is the executed source, not pseudocode. It is included in the authorized report so reproducibility does not depend on a private local scratch path.
+
+```python
+"""Exact finite tests of the new CODIV transfer, not asymptotic certificates."""
+
+from fractions import Fraction as F
+from itertools import product
+from math import isqrt, lcm
+import hashlib
+import json
+import platform
+
+
+def mobius_sieve(n):
+    mu = [1] * (n + 1)
+    mu[0] = 0
+    prime = [True] * (n + 1)
+    prime[0:2] = [False, False]
+    ps = []
+    for p in range(2, n + 1):
+        if not prime[p]:
+            continue
+        ps.append(p)
+        for k in range(p, n + 1, p):
+            mu[k] *= -1
+        for k in range(p * p, n + 1, p):
+            prime[k] = False
+        for k in range(p * p, n + 1, p * p):
+            mu[k] = 0
+    return mu, ps
+
+
+def mobius_inversion(n):
+    mu = [0] * (n + 1)
+    mu[1] = 1
+    for k in range(1, n + 1):
+        for j in range(2 * k, n + 1, k):
+            mu[j] -= mu[k]
+    return mu
+
+
+def interval_max(values):
+    total = lower = upper = 0
+    for x in values:
+        total += x
+        lower = min(lower, total)
+        upper = max(upper, total)
+    return upper - lower
+
+
+def ap_max(values):
+    size = len(values)
+    best = 0
+    for step in range(1, size + 1):
+        for residue in range(step):
+            best = max(best, interval_max(values[residue::step]))
+    return best
+
+
+def gaussian_ap_max_sq(values):
+    size = len(values)
+    best = 0
+    for step in range(1, size + 1):
+        for residue in range(step):
+            prefixes = [(0, 0)]
+            a = b = 0
+            for da, db in values[residue::step]:
+                a += da
+                b += db
+                best = max(best, *( (a-c)**2 + (b-d)**2 for c, d in prefixes ))
+                prefixes.append((a, b))
+    return best
+
+
+UNITS = [(1, 0), (0, 1), (-1, 0), (0, -1)]
+
+
+def exhaustive_packing():
+    # Exact integral: a length-integer window is constant for k <= x < k+1.
+    tested = 0
+    for word in product((-1, 0, 1), repeat=8):
+        a = [0] * 30
+        a[4:12] = word
+        energy = sum(interval_max(a[r*r:(r+1)**2])**2 for r in (2, 3))
+        integral = sum(interval_max(a[k+1:k+13])**2 for k in range(2, 16))
+        assert 2 * energy <= integral
+        tested += 1
+    return tested
+
+
+def geometry():
+    cells = owners = 0
+    for h in range(2, 65):
+        preceding = set()
+        _, ps = mobius_sieve(2*h)
+        for r in range(h, 2*h):
+            for k in range(r*r-h, r*r):
+                assert k not in preceding
+                preceding.add(k)
+                assert k < r*r and (r+1)**2-1 <= k+6*h
+                cells += 1
+            for p in ps:
+                if p == 2:
+                    continue
+                j = r//p
+                lo = (r*r+p*p-1)//(p*p)
+                hi = ((r+1)**2+p*p-1)//(p*p)
+                if lo < hi:
+                    assert j*j <= lo < hi <= (j+1)**2
+                owners += 1
+    return {'start_cells': cells, 'prime_dilations': owners}
+
+
+def genuine(mu, ps):
+    top = len(mu)-1
+    pref = [0] * (top+1)
+    for n in range(1, top+1):
+        pref[n] = pref[n-1]+mu[n]
+    odd = [p for p in ps if p != 2 and p <= 256]
+    max_ap = {r: ap_max(mu[r*r:(r+1)**2]) for r in range(0, 65)}
+    rows = []
+    hybrid_checks = packing_checks = 0
+    for h in (4, 8, 12, 16, 25, 32):
+        eng = sum(max_ap[r]**2 for r in range(h, 2*h))
+        local_integral = 0
+        for r in range(h, 2*h):
+            bound = F(max_ap[r]) + sum((F(max_ap[r//p], p) for p in odd if p <= r), F(0))
+            den = lcm(*[p for p in odd if p <= r])
+            for variant in range(4):
+                a = []
+                for n in range(r*r, (r+1)**2):
+                    val = den*mu[n]
+                    for p in odd:
+                        admitted = (variant == 0 or p*p < (h if variant == 1 else r))
+                        sign = -1 if variant == 3 and (p+r) % 3 == 0 else 1
+                        if p <= r and admitted and n % (p*p) == 0:
+                            val += sign*(den//p)*mu[n//(p*p)]
+                    a.append(val)
+                assert F(ap_max(a), den) <= bound
+                hybrid_checks += 1
+            # A subset of the integral is sufficient and avoids unused gaps.
+            for k in range(r*r-h, r*r):
+                value = ap_max(mu[k+1:k+6*h+1])
+                assert max_ap[r] <= value
+                local_integral += value*value
+                packing_checks += 1
+        assert h*eng <= local_integral
+        rows.append({'H': h, 'AP_shell_energy': eng,
+                     'disjoint_window_integral': local_integral})
+
+    phase_rows = []
+    for h in (2, 3, 4):
+        shell = {}
+        for r in range(h, 2*h):
+            best = 0
+            for a, b in product(range(4), repeat=2):
+                vals = [(mu[n]*UNITS[(a*n+b*n*n) % 4][0],
+                         mu[n]*UNITS[(a*n+b*n*n) % 4][1])
+                        for n in range(r*r, (r+1)**2)]
+                best = max(best, gaussian_ap_max_sq(vals))
+            shell[r] = best
+        integral = 0
+        for r in range(h, 2*h):
+            for k in range(r*r-h, r*r):
+                best = 0
+                for a, b in product(range(4), repeat=2):
+                    vals = [(mu[n]*UNITS[(a*n+b*n*n) % 4][0],
+                             mu[n]*UNITS[(a*n+b*n*n) % 4][1])
+                            for n in range(k+1, k+6*h+1)]
+                    best = max(best, gaussian_ap_max_sq(vals))
+                assert shell[r] <= best
+                integral += best
+        assert h*sum(shell.values()) <= integral
+        phase_rows.append({'H': h, 'quadratic_quarter_phase_energy': sum(shell.values()),
+                           'disjoint_window_integral': integral})
+
+    activation = []
+    root_checks = 0
+    roots = list(range(56, 257)) + [8, 9, 10, 24, 25, 26, 48, 49, 50]
+    for r in roots:
+        owners = [p for p in odd if p*p < r+1]
+        den = lcm(*owners) if owners else 1
+        for variant in range(4):
+            phases = {p: UNITS[0 if variant == 0 else (p*variant+1) % 4] for p in owners}
+            def ledger(rr):
+                x = rr*rr-1
+                a, b = den*(pref[rr-1]-pref[x]), 0
+                for p in owners:
+                    if p*p < rr:
+                        scale = (den//p)*pref[x//(p*p)]
+                        a -= scale*phases[p][0]
+                        b -= scale*phases[p][1]
+                return a, b
+            a, b = 0, 0
+            for n in range(r*r, (r+1)**2):
+                a += den*mu[n]
+                for p in owners:
+                    if p*p < r and n % (p*p) == 0:
+                        scale = (den//p)*mu[n//(p*p)]
+                        a += scale*phases[p][0]
+                        b += scale*phases[p][1]
+            q = isqrt(r)
+            ka = kb = 0
+            if q*q == r and q in phases:
+                scale = (den//q)*pref[r+2]
+                ka, kb = scale*phases[q][0], scale*phases[q][1]
+                if variant == 0:
+                    activation.append({'R': r, 'q': q, 'birth': str(F(scale, den))})
+            a0, b0 = ledger(r)
+            a1, b1 = ledger(r+1)
+            assert (a1-a0, b1-b0) == (den*mu[r]-a-ka, -b-kb)
+            root_checks += 1
+    return {'AP_blocks': rows, 'hybrid_mask_checks': hybrid_checks,
+            'AP_containment_checks': packing_checks, 'phase_grid_blocks': phase_rows,
+            'complex_rootstep_checks': root_checks, 'activation_examples': activation}
+
+
+def sharp_scope(mu):
+    # Lagrange interpolation is verified at each integer, with exact rationals.
+    data = []
+    for r in (2, 3, 4):
+        xs = list(range(r*r, (r+1)**2))
+        ys = [F(1, 2) if mu[x] == -1 else F(0) for x in xs]
+        for x, target in zip(xs, ys):
+            got = F(0)
+            for j, y in enumerate(ys):
+                term = y
+                for k, z in enumerate(xs):
+                    if k != j:
+                        term *= F(x-z, xs[j]-z)
+                got += term
+            assert got == target
+        sqfree = sum(mu[x]**2 for x in xs)
+        twisted = sum(mu[x]*(-1 if y == F(1, 2) else 1) for x, y in zip(xs, ys))
+        assert twisted == sqfree
+        plus = sum(mu[x] == 1 for x in xs)
+        minus = sum(mu[x] == -1 for x in xs)
+        assert 2*max(plus, minus) >= sqfree
+        data.append({'R': r, 'allowed_degree': 2*r,
+                     'squarefree_count': sqfree, 'aligned_sum': twisted,
+                     'larger_sign_mask': max(plus, minus)})
+    # A raw moving sum cannot replace a maximal window without a boundary bill.
+    alternating = [1, -1]*8
+    assert all(sum(alternating[k:k+2]) == 0 for k in range(15))
+    assert interval_max(alternating) == 1
+    return data
+
+
+if __name__ == '__main__':
+    top = 257**2
+    mu, ps = mobius_sieve(top)
+    assert mu == mobius_inversion(top)
+    result = {'python': platform.python_version(), 'mobius_agreement_through': top,
+              'exhaustive_words': exhaustive_packing(), 'geometry': geometry(),
+              'genuine': genuine(mu, ps), 'scope_falsifiers': sharp_scope(mu),
+              'scope': 'Exact finite structural checks; no asymptotic or continuous-phase certificate.'}
+    print(json.dumps(result, indent=2))
+```
