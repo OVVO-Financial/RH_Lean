@@ -14,7 +14,7 @@ The [current proof contract](CURRENT_PROOF_CONTRACT.md), original live declarati
 
 Current breadth, cadence, complete-return and research-engine policies override historical routing, one/day budgets and frozen PR/task queues. They do NOT override source constraints or broaden permissions. Archived sources are historical evidence, not a competing instruction hierarchy. Reporting-branch copies of main instructions and unmerged proposals are not live authority.
 
-## Source-first OAI 1 -> 7/8 reconstruction (2026-11-03 priority)
+## Historical OAI 1 -> 7/8 source reconstruction (optional specialist reference)
 
 If the OAI-NNS route is selected on substantive mathematical grounds, its relevant specialist may execute a source-faithful packet from the [OAI LOW source-first contract](docs/RHLEAN_OAI_LOW_SOURCE_FIRST_AGENT_CONTRACT_20261103.md) rather than re-assume an abstract owner Gamma contraction. The real 1/8 margin is (beta-11/16)-3/16=beta-7/8. The terminal 3/16 LOW bound is binding at beta=7/8. OAI Detector/LowSlotPolynomial.lean exactly expands the original Hecke compensated physical polynomial, and Detector/LowTupleGram.lean applies norm_sum_le across the genuine unselected tuple atoms. Preserve their literal cross-tuple Hermitian Gram and NNS Co-minus-Div equality BEFORE that triangle loss. Track sqrt(Q) normalization, Gaussian exponent 3/16, original principal/HIGH and the complete return. A strict bound requires new arithmetic, not a coordinate identity.
 
@@ -22,7 +22,7 @@ The separate sharper 1+t/2 marked-HIGH moment is lost when widened to 1+t in the
 
 This is a shared source-comparison priority, NOT an authorization to abandon the nine viable routes or the three-substantive-invocation protected rotation. Distinct assignments: Coordinator source/exponent DAG, Owner genuine owner-to-ideal occurrence map, Referee sign/quantifier audit, Census actual finite OAI tuples, Analytic original LOW signed estimate, Wheel physical collision/multiplicity partition, Lean qualified exact-source proof/checks. Preserve the six non-Lean own-report-only roles, the user-granted full GitHub read/write authority for Lean Verification on reviewed branches/PRs, human-only merge and actually configured cadence.
 
-## 2026-11-04 all-selected source priority and full Lean write authorization
+## Optional all-selected source and full Lean write authorization
 
 Treat the detailed [original all-selected inverse proof and falsification contract](docs/RHLEAN_ALL_SELECTED_INVERSE_SOURCE_ATTACK_20261104.md) as one OPTIONAL Analytic/Referee task, chosen only when OAI-NNS is due or independently most promising. It never overrides the nine-route protected rotation.
 
