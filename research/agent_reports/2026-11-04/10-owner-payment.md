@@ -1108,3 +1108,810 @@ The source-qualified owner-to-OAI comparison remains limited: original LowSlotPo
 ### D-K. Pending Research
 
 Derive the precise squarefree construction or falsifier, restore the full signed complement and every quadratic cross term, inspect relevant active-carrier conditions without inferring returned-mask admission, classify quantitative relevance, and append specialist handoffs plus a resume capsule. Canonical VF and RH remain OPEN; additional signed-LOW eta remains SEARCH_BROAD. Publication is established only after commit/readback. Only this own dated report is authorized for remote modification.
+
+
+---
+
+## Scheduled VF-LOW Final Synthesis - Claim 20261104-owner-2
+
+### A. Most Important Mathematical Development
+
+**Squarefreeness does not repair the once-only ancestry-payment mechanism. Nor does restricting to factor depth three.** There are genuine squarefree odd seats, each the product of exactly three distinct primes and each inside the original processed squarefree carrier of its own square block, whose total VF weight exceeds every available historical prime-divisor charge even if each ancestor is generously given one full unit.
+
+The explicit witness has **435 distinct physical seats and 31 distinct prime ancestors**. At q=490001 its actual positive demand lies in **[33.59618270,33.59618271]**, versus actual historical negative capacity **[21.26725110,21.26725111]**. The much more generous capacity 31 already fails: an elementary exact bound gives demand **>3132/95**, exceeding 31 by **187/95**. Deleting any six of these seats still leaves demand **>31+719/475**.
+
+More strongly, SF3 gives an infinite fixed-depth construction. With k=2^t, t>=11, demand divided by even the enlarged ancestry capacity is greater than
+
+~~~text
+k(k-1) / [(k+1) 4t(4t+1)] -> infinity.
+~~~
+
+Along these constructed scales the required congestion is at least a constant times q^(1/4)/(log q)^2. The construction uses an elementary central-binomial prime count and Bertrand's postulate, not PNT, random signs, a fitted exponent, or the desired VF estimate.
+
+**Classification:** SF1-SF4 are PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING; the specified squarefree bounded-capacity supplier is REFUTED; SF2's numerical certificates are FINITE_COMPUTATION. SF5 is exact source restoration, not a new cancellation theorem. No new Lean theorem, global upper bound, first-bad counterexample, or endpoint gain is claimed.
+
+This is a substantive strengthening of **20261103-owner-2/O4**, whose explicit obstruction was squareful with unbounded factor depth. That result remains valid and unchanged. The new obstruction survives the squarefree-active restriction, has constant depth three, and includes only actual negative historical prime seats. It does not use the exceptional prime-3 anchor or positive VF charges of primes 5 and 7.
+
+Actual invocation: scheduled **2026-11-04T08:09:02-05:00**, RUN_ID_UNAVAILABLE. The early checkpoint and this synthesis belong to the same invocation. Protected route: **VF-LOW**; next distinct route: **JOH**. Additional signed-LOW gate remains **SEARCH_BROAD**.
+
+### B. Current Authoritative Objective
+
+Main was refreshed at intake and again during closeout and remains **040980c16901af749202e9b0f91211c43909404a**. Main AGENTS blob is **b878d396c387a57bd0b5165fecf10d15ef3732cd**; proof contract **63f7553bf6e5f2a16e37808116c643dc0dcc50e1**; source-first policy **b6980c30e63bb8c9ddfc8d6fa86a2bb401707fa6**; research engine **495fa9ee2067ccf5db9dc3c48ffaaadcd6485aa4**. Current policies, not older one/day or frozen PR prose, govern this run.
+
+The original actual-prime objective remains
+
+~~~text
+exists C>=0, forall integer R>=2:
+  |pi(R^2)-F_R-sqrt(2)| <= C R log R,
+F_R=sum_(2<=r<R) (2r+1)/log(r^2+r+1/2).
+~~~
+
+It is OPEN. Put D_R=pi(R^2)-F_R. The canonical phase is retained: D_can(R)=D_R-sqrt(2), so D_can(R)^2=D_R^2-2sqrt(2)D_R+2. The von Koch consumer still has its explicit classical-criterion interface.
+
+The literal source examined here is
+
+~~~text
+C(A,B)={(r,n): A<=r<B, r^2<n<(r+1)^2, n odd},
+w_r=(2+1/r)/log(r^2+r+1/2),
+c(r,n)=w_r-1_Prime(n).
+~~~
+
+Its exact signed sum is D_A-D_B. The coefficients are NOT mu(n). In particular all new selected n have mu(n)=-1 but physical VF charge +w_r.
+
+Material original sources were fetched at the main SHA, including their proofs and relevant hypotheses:
+
+| File | Blob SHA |
+| --- | --- |
+| research/VF_MID_VON_KOCH_BRIDGE.lean | 32d4b0d74ecadc9780b9841d40357f6ff02369f0 |
+| research/VF_MID_ODD_FRACTIONAL_CLUSTER.lean | 942badff45c03d2a9e97789b57d1bd8052232191 |
+| research/VF_MID_SIGNED_SEAT_CHARGE.lean | 87a6654a4a4337b409fde69aa15d7264d8b721b6 |
+| research/VF_MID_FIRST_BAD_AFFINE_OWNER_SPLICE.lean | 29953ea50b87868e6462ab6d885af03c1d6ec42a |
+| research/VF_MID_ONE_BLOCK_SOURCE_TO_RANK_INLET.lean | dd4ff316e51501a3ca9404e0c2c3e754f154ac6e |
+| research/VF_MID_PHI_CUTOFF_TELESCOPE.lean | 0490b63a8752c13e3552a3ea8ed1eba36579c927 |
+| research/VF_MID_FIRST_BAD_WEIGHTED_OWNER_FUBINI.lean | 4679d7edae521dd4d9f0238aa4201445b1fdb9a9 |
+| research/VF_MID_FIRST_BAD_HISTORY_COMPRESSION.lean | d9cc97541f9713b6eec8df30885e9ca830478e59 |
+| research/VF_MID_915_EXACT_HISTORICAL_NNS_COMPRESSION.lean | 6cc6b2a9d25279dd44fb65cb222f5d6846a912d4 |
+| research/VF_MID_FIRST_BAD_RESTORING_DECOMPOSITION.lean | 41ca385cb2bd0706db21007e19cd2b0b1aaa4b3e |
+| research/VF_CANONICAL_SQRT_TWO_VON_KOCH.lean | 79030d70e8d3e0d08eef9bac53fef95c36eca2fb |
+| research/oai_434/VF919OriginalLowTupleSignedGram.lean | c1b7b46a9e62a5b2f3729618c4dd24e31558166f |
+| research/oai_434/VF919OriginalGainComponentLedger.lean | 5e7cea836158fc819f37e71da5fe55c8a8dce44e |
+
+The actual active-carrier admission used below is from **vfMidSquarefreeProcessedOwnerSites**, **vfMidFrozenProcessedOwnerPrimes**, **vfMidOneBlockProcessedSquarefreePhysicalCarrier**, and the original least-owner cutoff theorem. It is admission to the processed physical carrier at EACH original root. It is not admission to a chosen returned child/signature/mask or a hypothetical first-bad packet.
+
+### C. Structural Hypothesis Investigated
+
+Resume point: **20261103-owner-2/O1-O5, equations (66)-(74)**, and Coordinator **20261104-coordinator-1**, section H. The question was whether the squareful obstruction could be avoided by restricting the proposed divisor-only resource to squarefree processed seats, possibly of bounded depth, after removing an already-paid short logarithmic packet.
+
+Three competing possibilities were compared:
+
+1. Squarefreeness eliminates the overload because a prime cannot recur within a cofactor. SF2-SF3 refute this: different squarefree cofactors share the same small set of genuine primes.
+2. A fixed factor-depth cutoff repairs the resource. SF3 refutes this already at exactly three distinct prime factors, without an asymptotic-depth limit.
+3. A source-qualified non-divisor interaction or a genuinely joint signed estimate can compensate the family. This remains possible; no such complete theorem is established here. The obstruction does not forbid compensation from the original complement.
+
+The first two are materially stricter repairs than the already-refuted unrestricted O4 claim. Repeating the old squareful witness alone would not decide them. The initial finite design used distinct prime subset products; the derivation strengthened it to products of exactly TWO distinct small primes followed by one new greatest prime.
+
+### D. Mathematical Derivation
+
+#### SF1. Exact Placement, Ownership, And Weight Lemma
+
+Let q>=11 be an odd prime and let S be a finite set of distinct odd primes, all less than q. Let F be a set of distinct products
+
+~~~text
+n=q*p*s,  p,s in S, p<s,  q/4 < p*s < q.
+A=(q-1)/2, B=q-1, r(n)=floor(sqrt n).
+~~~
+
+Then every n is an odd, squarefree composite of depth three, with greatest prime q and least prime p. There are no repeated occurrences: unique factorization recovers {p,s} from n/q.
+
+Because p*s>q/4,
+
+~~~text
+n>q^2/4>A^2.
+~~~
+
+Because p*s and q are odd and p*s<q, p*s<=q-2, whence
+
+~~~text
+n<=q(q-2)<(q-1)^2=B^2.
+~~~
+
+The q-adic valuation of n is exactly one, so n is not a square. Therefore
+
+~~~text
+A<=r(n)<B,  r(n)^2<n<(r(n)+1)^2.                       (SF1a)
+~~~
+
+All ancestors are historical: q<A^2 for q>=11, and p,s<q. Also p<=sqrt(p*s)<sqrt(q)<A<=r(n). Thus p belongs to the original frozen processed-owner set even at cutoff A, and n belongs to the squarefree processed-owner fiber at its actual root. The exact source definitions make this an original-carrier statement, not mere prime eligibility. It still says nothing about later clipped/returned source masks.
+
+For fixed q, two distinct odd multiples differ by at least 2q. Every block here has width 2r+1<2q. Hence at most one selected seat lies at each root. Finally,
+
+~~~text
+0<log(r^2+r+1/2)<2log q,  2+1/r>2,
+w_r > 1/log q.                                         (SF1b)
+~~~
+
+Every selected term keeps its literal VF weight. No descendant replaces its parent weight, and no historical prime is cloned.
+
+#### SF2. Explicit Squarefree Counterexample
+
+Let S be ALL primes in [500,700], explicitly
+
+~~~text
+503,509,521,523,541,547,557,563,569,571,
+577,587,593,599,601,607,613,617,619,631,
+641,643,647,653,659,661,673,677,683,691.
+~~~
+
+Take q=490001 and all 435 unordered pairs p<s from S. Exact trial division certifies every listed prime and q. Independently, an integer smallest-prime-factor sieve and a scan through the full cofactor interval reconstruct the same 435 products.
+
+Their cofactors range from 256027 to 471953. Thus q/4<p*s<q. SF1 applies with
+
+~~~text
+A=245000, B=490000,
+354194<=r(n)<=480892,
+#F=435, #primeDivisors(F)=31.
+~~~
+
+There are 29 actual least-prime owner labels, 435 distinct root locations, no squareful seat, and no strict-square-boundary omission. The final production root is R=B-1=489999 and R/2+1=A, so these are genuine seats in the original final half-history run, not a distant model population. No first-bad premise is claimed.
+
+Since q<2^19 and
+
+~~~text
+log 2 = 2 sum_(j>=0) (1/3)^(2j+1)/(2j+1)
+      < 2/3 + (2/3)*(1/27)/(1-1/9) = 25/36,
+~~~
+
+SF1 gives w_r>36/475 and consequently
+
+~~~text
+X:=sum_(n in F)w_(r(n)) >435*(36/475)=3132/95>31.       (SF2a)
+~~~
+
+For every historical ancestor a in Q=S union {q}, its actual negative capacity is y_a=1-w_(floor(sqrt a)). Here 0<y_a<1. Therefore Y=sum_Q y_a<31 and X-Y>187/95, even before using the sharper rational intervals.
+
+Suppose nonnegative allocations x_(n,a) are permitted only when a is a prime divisor of n, must satisfy sum_a x_(n,a)>=w_(r(n)), and may spend each historical ancestor at most once. Even enlarging every capacity to 1 yields
+
+~~~text
+X <= sum_n sum_(a|n) x_(n,a)
+   = sum_(a in Q) sum_(n:a|n) x_(n,a) <=31,
+~~~
+
+contradicting SF2a. The original actual capacities are smaller, so they cannot rescue this supplier.
+
+**Residual after one short packet.** Every root in [A,B) is below 2^19, so the O1 horizon floor(log_2(root)/3) is at most 6. SF1 allows at most one selected n per root. Removing ANY six seats, in particular those removed by any single O1-eligible short subrun within this run, leaves
+
+~~~text
+X_remaining >429*(36/475)=31+719/475.                  (SF2b)
+~~~
+
+This even re-grants the entire 31-unit ancestor capacity to the residual. In an actual sequential payment some of that history has already been spent, so the real residual resource is no larger. This does not refute O1, whose own restricted packet remains valid.
+
+#### SF3. Infinite Constant-Depth Overload
+
+For every integer t>=11 put k=2^t. There exist k distinct primes in (k,k^2]. Here is a self-contained elementary count, avoiding an imported short-interval/PNT estimate.
+
+For even N, the central binomial coefficient satisfies
+
+~~~text
+2^N/(N+1) <= binom(N,N/2) <= N^pi(N).
+~~~
+
+The first inequality follows because the central term is the maximum of N+1 nonnegative binomial coefficients summing to 2^N. For the second, for each prime a the factorial valuation formula gives
+
+~~~text
+v_a binom(N,N/2)
+ =sum_(j>=1)[floor(N/a^j)-2floor((N/2)/a^j)]
+ <=floor(log_a N),
+~~~
+
+because every bracket is 0 or 1. Thus each prime-power contribution is at most N. Taking logarithms at N=k^2=2^(2t) gives
+
+~~~text
+pi(k^2) >= [k^2-(2t+1)]/(2t) >=2k                    (t>=5).
+~~~
+
+The final elementary inequality is k^2-(2t+1)>=4tk. It holds at t=5; if f(t)=2^(2t)-(2t+1)-4t*2^t, then f(t+1)-4f(t)=8(t-1)2^t+6t+1>0, proving it for all later t. Since pi(k)<=k, at least k primes lie in (k,k^2]. Select any k of them as S.
+
+There are k(k-1)/2 distinct unordered semiprime products p*s, all in (2^(2t),2^(4t)). Partition them into the 2t dyadic bins [2^j,2^(j+1)), 2t<=j<4t. One bin contains N_t>=k(k-1)/(4t) products. By Bertrand's postulate choose a prime
+
+~~~text
+2^(j+1)<q<2^(j+2).
+~~~
+
+The upper endpoint is a composite power of two, so the usual non-strict upper bound is strict here. In particular every small prime is below q and
+
+~~~text
+q/4 < p*s <q,
+2k^2<q<2k^4.
+~~~
+
+Apply SF1 to all products in that bin. Its population has at most k+1 distinct ancestors. Since log q<(4t+1)log 2<4t+1,
+
+~~~text
+X_t > N_t/(4t+1)
+    >= k(k-1)/[4t(4t+1)].                            (SF3a)
+~~~
+
+Therefore
+
+~~~text
+X_t/#Q_t >= X_t/(k+1)
+ > k(k-1)/[(k+1)4t(4t+1)] -> infinity.               (SF3b)
+~~~
+
+This lower bound exceeds 1 for every t>=11: k(k-1)/(k+1)>k-2 and 2^t-2>4t(4t+1) starts at t=11 and persists by induction. Consequently no fixed per-ancestor congestion constant can fund all these genuine squarefree depth-three populations.
+
+A useful scale version follows without a fitted exponent. For k>=4,
+
+~~~text
+X_t/#Q_t > k/(40t^2)
+          > (q/2)^(1/4) / [10(log_2 q)^2].            (SF3c)
+~~~
+
+Indeed 4t(4t+1)<=20t^2, k(k-1)/(k+1)>=k/2, q<2k^4, and q>2k^2 implies t<(log_2 q)/2. This is a lower bound on the resource congestion along the constructed unbounded prime scales. It is NOT a lower bound on the complete signed endpoint defect.
+
+**Imported theorem and exact source:** the only nontrivial external existence input is Bertrand's postulate, stated and proved as Nat.exists_prime_lt_and_le_two_mul in [the pinned Mathlib file](https://github.com/leanprover-community/mathlib4/blob/d13f23b723b8a846827a245b89c10fc7d3f11612/Mathlib/NumberTheory/Bertrand.lean), blob **25029ababf90aa3d54a7b483c01bb6c0c4ddb9aa**. That Mathlib revision was read from main lake-manifest.json. Its input is a nonzero natural n and conclusion n<p<=2n; here n=2^(j+1). No parameter-uniformity or new analytic bound is assumed. The present combined proof has NOT been compiled in Lean.
+
+#### SF4. Necessary Non-Divisor Contribution
+
+Suppose a proposed nonnegative payment of these same seats is enlarged to allow other resources, but all prime-divisor history together still has total capacity <=#Q_t. Summing the original demands shows that payment not drawn from that ancestry must contribute at least
+
+~~~text
+ExternalPayment >= X_t-#Q_t,
+ExternalPayment/X_t
+ > 1-[(k+1)4t(4t+1)]/[k(k-1)] ->1.                  (SF4)
+~~~
+
+This is an inverse restriction on any such payment design: on this family, almost all demand eventually needs a different resource. It does not assert that the external resource exists, is negative, or is admitted to the original returned source. Collective signed compensation need not be representable as nonnegative allocations at all; SF4 does not prohibit it.
+
+#### SF5. Complete Original Signed And Quadratic Return
+
+Define Q as the ACTUAL prime-divisor union of F, X=sum_F w_r, and Y=sum_Q(1-w_(floor(sqrt a))). For our examples and the SF3 construction these historical charges are genuinely negative. Let Z be the signed charge of EVERY current seat in C(A,B) outside F, with actual primes, other squarefree composites, squareful composites and all original open-square conventions retained.
+
+Put
+
+~~~text
+P=X-Y,
+C=-D_A+Y+Z.
+-D_B=C+P.                                             (SF5a)
+~~~
+
+C is not an invented residual with an assumed bound. Because every a in Q is historical before A, it is exactly the initial anchor -D_2=-2, every historical odd seat before A OTHER THAN those primes Q, and the complete current complement Z. Adding Y removes each selected historical negative occurrence once. All current F occurrences and all historical Q occurrences are disjoint.
+
+The complete square is
+
+~~~text
+D_B^2=C^2+P^2+2CP,
+P^2=X^2+Y^2-2XY.                                    (SF5b)
+~~~
+
+X^2 retains all 435 diagonal terms and every cross-owner/cross-root term; Y^2 retains all historical diagonal and cross-prime terms; -2XY retains EVERY historical/current interaction. There is no decomposition into independent owner squares. Positive P does not imply positive -D_B because the original C may compensate it.
+
+At the actual final root R=B-1, preserve
+
+~~~text
+Source=D_B=D_R+P_R-m_R,
+beta_R=m_R+(1-2w_R)P_R,
+TotalMass=(|D_R|+beta_R)^2.
+~~~
+
+If all original history is decompressed into upper/lower masses U,V, its exact existing price remains
+
+~~~text
+(U+V+beta_R)^2-(|U-V|+beta_R)^2
+ =4UV+2beta_R(U+V-|U-V|).                            (SF5c)
+~~~
+
+These are the compiled historical/NNS identities cited in B, not newly invented payment capacity. No conclusion about 2D_B^2-TotalMass follows from SF2-SF4. No full endpoint prime census up to B^2 was executed or claimed.
+
+### E. Quantitative Consequence
+
+The independent quantitative result is an **ancestry-resource lower bound**, not an improved global upper estimate: fixed-depth squarefree populations require unbounded, indeed at least q^(1/4)/log^2(q)-order, congestion along the constructed scales if payment is confined to prime-divisor history. The exact 435-seat witness rejects unit capacity, and the residual survives one original short-logarithmic packet.
+
+Thus the old squareful-only objection cannot be repaired merely by discarding squareful restoration, imposing bounded factor depth, invoking distinct factors, or using each prime ancestor once. Any proposed global repair must have genuinely new source information.
+
+The original canonical VF bound, full #915 payment, global signed LOW improvement and RH receive **no new upper bound**. Net endpoint gain: **UNKNOWN / NONE ESTABLISHED**. The inherited reviewed one-shot strict-slot result keeps its prior formal scope; this run does not count it as a renewed gain.
+
+### F. Falsification And Circularity Review
+
+The strongest positive claim tested was the squarefree fixed-depth ancestry-capacity repair. Its exact hypotheses are refuted by SF2, not by synthetic signs. Every n is a legal original integer with all factors and original weights preserved.
+
+| q | A,B | Demand X | Actual ancestor capacity Y | Signed packet X-Y |
+| ---: | --- | --- | --- | --- |
+| 490001 | 245000,490000 | [33.59618270,33.59618271] | [21.26725110,21.26725111] | [12.32893159,12.32893160] |
+| 500009 | 250004,500008 | [33.56997131,33.56997132] | [21.26748363,21.26748364] | [12.30248767,12.30248769] |
+| 1000003 | 500001,1000002 | [32.69548954,32.69548955] | [21.27516333,21.27516334] | [11.42032620,11.42032621] |
+
+All three have exactly the same 435 distinct cofactor products, 31 ancestor primes, 29 first owners and squarefree depth three. The first witness is not claimed minimal. The other two are held-out location/weight tests, not a fitted asymptotic sample.
+
+Primality was checked by trial division and an independently structured smallest-factor sieve. Each cofactor family was independently reconstructed by scanning the whole exact cofactor interval. Logarithms were certified with rational range reduction x=2^h y, 1<=y<2, and 24 terms of 2sum u^(2j+1)/(2j+1), u=(y-1)/(y+1). The remaining tail is bounded by 2u^(49)/(49(1-u^2)). Each weight interval is rounded outward to a common denominator 10^12 before aggregation; displayed eight-place intervals are again rounded outward. There are no floating-point sign decisions.
+
+Additional executed checks: 100 small central-binomial cases with every prime valuation, 46 exact power-parameter cases t=5..50, 400 signed-restoration substitutions, and 125 original-compression substitutions. Those finite substitutions are sanity checks; the all-scale proofs are the derivations above. A repeated small-prime factor is rejected as squareful. At q=2000003 the unchanged cofactor pool fails SF1 admission, so it is explicitly NOT a valid same-family counterexample.
+
+**Correction history within this run:** the first script demanded that a coarse uniform lower bound prove six-seat-deletion overload at every held-out q. At q=1000003 that coarse lower bound is insufficient (-14/125 surplus), although the actual statement survives. The final script instead verifies the stronger certified actual-weight deletion bound, which is positive (>1.2386 there). SF2b's purely rational six-seat bound is asserted for q=490001 (and also holds for 500009), not silently universalized. The final horizon uses the largest permitted O1 horizon anywhere in [A,B), namely 6, not only the starting-root horizon 5. The full final verifier was rerun successfully after both adjustments.
+
+**No circularity:** SF3 uses no Mertens/VF/LOW target bound. Squarefreeness and mu=-1 are true factorization facts but never substituted for w_r. The ancestry budget is deliberately enlarged, making the contradiction stronger. The current complement, full quadratic interactions, final mask admission, first-bad conditioning, and canonical phase remain explicit.
+
+**Novelty check:** relevant main ancestry/congestion notes and the retrieved November 3/4 reports were searched. CANONICAL_ANCESTRY_WEIGHTED_CONGESTION.md, blob **e8d9b0d1a61cadc1bf72a93554bad13f4a01baa0**, treats a different saturated q<R carrier and a q^-2-weighted resource; this result does NOT refute that reciprocal theorem. Yesterday's squareful O4, the short-horizon O1/O2 theorem, and today’s ideal-counting lower bounds remain distinct. No exhaustive claim of historical novelty beyond this checked continuation is made.
+
+### G. Conceptual Interpretation
+
+The overload does not come from repetitions of a prime within one integer. It comes from many distinct two-prime cofactors reusing the same finite ancestry pool across different physical integers. Bounded factor depth controls the number of ancestors of ONE seat, but not the aggregate weighted demand served by those ancestors.
+
+The first-owner map is genuinely unique and all selected roots are distinct. Those facts coexist with severe once-only historical congestion. In particular, a unique owner or an injective per-block occurrence map cannot supply the missing global resource bound by itself.
+
+The original global system may compensate this positive proper-class packet through non-divisor primes, other historical/current terms, or a joint signed identity. SF5 is the exact place those possibilities remain. The right conclusion is to retire this repaired divisor-payment supplier, not the entire VF-LOW architecture.
+
+### H. Competing Mechanisms
+
+| Mechanism | Established / missing input | Disposition |
+| --- | --- | --- |
+| Squarefree or fixed-depth repair of once-only prime-divisor payment | SF2-SF3 give legal depth-three counterexamples and unbounded congestion | ABANDON this unconditional supplier |
+| One O1 short packet followed by the same ancestor budget on the residual | SF2b survives even after re-granting all history; repeated q credit is not new capacity | REJECT this residual repair; retain O1 at its true local scope |
+| New non-divisor or collective signed original-source interaction | SF4 gives a necessary resource scale; actual occurrence/weight/mask map and signed estimate are still absent | CONTINUE only with a concrete new source relation |
+| Native source relabeled as the OAI outer LOW tuples | Already blocked by binding J=empty singleton; actual selected inverse is a different carrier | Do not reopen the completed outer-bijection question; selected-source bridge remains unproved |
+
+This preserves the current broad programme. It does not duplicate the Analytic all-selected inverse estimate or Wheel’s due FINITE-AC work.
+
+### I. Specialist Handoffs
+
+**Coordinator:** register **20261104-owner-2/SF1-SF4** as self-audited paper results, with a new fixed-depth squarefree refinement of O4, not a global upper-bound advance. The strategic point is that squareful restoration is no longer the only obstruction to once-only ancestry funding. Preserve C41-C43 and route rotation; JOH is next.
+
+**Adversarial Referee:** independently check the central-binomial count, the 2t-bin pigeonhole, Bertrand endpoints, original processed-carrier membership, the congestion factor in SF3c, and the full return SF5. Verify that the finite q=490001 family has 435 seats and 31 ancestors, and that removing any six still exceeds 31. Review scope before any formalization; author's review is SELF_AUDIT.
+
+**Prime Census:** smallest decisive reproduction is the single q=490001/S=[500,700] prime family with exact factorization and rational logs. Null is X<=31, falsifier is X>31; exact elementary gap is 187/95. The held-out q=1000003 requires the certified weight bound for deletion, not the coarse lower bound. No endpoint sieve to q^2, bigger range, or exponent fit is requested.
+
+**Finite Wheel:** a bounded-degree or squarefree ancestry graph can still have this large weighted neighborhood deficit. Check a proposed repair against SF3 before exporting an owner multiplicity cap. Your q^-2 daughter resources and finite-A/C source are different; retain their original weights and complements.
+
+**Analytic Type II:** these are original VF prime-indicator coefficients, even though all selected integers have mu=-1. No transfer to a Mobius shell or Hecke inverse follows. A new signed analytic packet would need to include C in SF5 or exhibit a proved smaller independently useful source comparison. Today’s ambient cube-count energy cannot be substituted for this physical history.
+
+**Lean Verification:** no new proof branch is requested before independent acceptance and utility selection. If qualified, SF1 plus the fixed 435-seat certificate is an implementation-sized finite source lemma; the all-scale SF3 additionally needs the elementary binomial prime-count argument and the existing Bertrand theorem. Do not encode an unknown payment inequality as a hypothesis and call it proved. Keep your independently qualified moving-mass task separate.
+
+These are asynchronous report handoffs only. No specialist was launched, and no claim of independent review or formalization is made.
+
+### J. First Independently Missing Lemma
+
+The precise supplier tested here was the squarefree depth-three neighborhood inequality
+
+~~~text
+forall legal F in C(A,B), supported on squarefree depth-three seats:
+  sum_F w_r <= sum_(a in primeDivisors(F)) availableHistoricalCredit(a),
+~~~
+
+even with one unit per ancestor, and even after one short-log packet. It is **REFUTED**, not an open theorem to keep attempting.
+
+**No qualified independent replacement quantitative supplier was obtained.** For a proposed non-divisor resource, the first missing step is its actual occurrence/weight/admission identity and once-only allocation, with SF4's necessary external contribution. A bound for C+P at canonical size would simply restate the original target; it is NOT presented as a smaller last lemma.
+
+The next protected JOH turn has an already well-posed smaller arithmetic question from **20261103-owner-3/JH9-JH10**, which is carried forward without rederiving it. Let b_j be consecutive genuine floor-Li arrivals; select EVEN j for which b_j,b_(j+1) are composite and the interior contains exactly two primes p_j<q_j. These closed slots are disjoint. Seek an independent signed restriction, or a precise falsifier, for
+
+~~~text
+W(X)=sum_(selected slots contained in [X,2X])
+       [b_j+b_(j+1)-p_j-q_j].
+~~~
+
+No favorable sign or power bound is asserted. All other events, the historical anchor and terminal return must be restored before a JOH endpoint claim. This is the exact next source-level question, not a renamed canonical bound.
+
+### K. Next-Run Resume Capsule
+
+~~~text
+RUN: scheduled 2026-11-04 08:09:02 EST (-0500); RUN_ID_UNAVAILABLE.
+LOCAL LABEL / CLAIM: 20261104-owner-2, SF1-SF5.
+MAIN: 040980c16901af749202e9b0f91211c43909404a, refreshed unchanged.
+SOURCE_FIRST_VERSION: 2026-11-03.
+POLICY: b6980c30e63bb8c9ddfc8d6fa86a2bb401707fa6.
+ENGINE: 495fa9ee2067ccf5db9dc3c48ffaaadcd6485aa4.
+PRIMARY: VF-LOW, literal w_r-1_Prime(n), all original square boundaries.
+NEW RESULT: squarefree depth-three once-only ancestry capacity is refuted;
+            all-scale lower congestion and external-resource inverse.
+EXPLICIT: q490001, 435 seats, 31 ancestors, X>3132/95>31;
+          any six-seat deletion still X>31+719/475.
+GENERAL: k=2^t, t>=11, X/(k+1)>k(k-1)/[(k+1)4t(4t+1)].
+FULL RETURN: -D_B=(-D_A+Y+Z)+(X-Y); retain complete square and NNS price.
+STATUS: PAPER_PROOF / SELF_AUDIT; FINITE_COMPUTATION; supplier REFUTED.
+REVIEW / FORMAL: independent review PENDING; NOT_FORMALIZED.
+FIRST GAP: no qualified non-divisor or complete signed replacement;
+           do not relabel canonical-sized C+P control as an elementary lemma.
+LAST ROUTES: JOH (Nov3 owner-3), SAT (Nov4 owner-1), VF-LOW (this run).
+NEXT DISTINCT ROUTE: JOH, original selected even-slot midpoint W(X).
+SAT RESUME: OPEN-SAT-I plus actual anchor/model/complement; C43 retained.
+VF RESUME: SF3, not squareful-only O4; masks/first-bad conditional scope unpaid.
+ETA: SEARCH_BROAD for additional signed LOW; no new net endpoint gain.
+DEPLOYMENT_ACK: current policy consumed, protected VF-LOW ticket executed,
+                literal original sources inspected and a new falsifier proved.
+~~~
+
+#### Source-First Comparison And Formal Evidence
+
+The latest source-first correction is reused, not claimed as new mathematics: **J is unselected**, and the binding all-selected J=empty outer tuple is a singleton. Today’s own SAT report already gave a legal multiple-native-occurrence obstruction to an outer-atom injection. This run does not repeat that claim as novelty.
+
+Original openai/math pin: **1581d4cbdd69a0faf34b2089614fe2a814316a6a**. Freshly inspected original files:
+
+| Original file under lean/OAI/NumberTheory/DirichletL/ | Blob |
+| --- | --- |
+| Detector/LowSlotPolynomial.lean | b1dcb5a1e51afad1d39ccd91fa58a764e39629ba |
+| Detector/LowTupleGram.lean | 710598c8bef4d1a1ec98aa7e68b00369962c3d17 |
+| Detector/LowSelectedSum.lean | a54eb9ec6a5beb0db57ce9baa658718aab808af1 |
+| Detector/Physical.lean | f0012db7d94f8f23893732b923c3b346f2fc89bf |
+
+The actual atom retains (-1)^|J| L^(-3/2), original windows, 1/(2pi sqrt(Qphysical)), the Mellin integral, W0/W1, cutoff, calibration and the selected inverse row. The latter is the sum of the ACTUAL lowSelectedWeight times lowMarkedInverseRow, including conjugate Hecke coefficients, logarithmic phase, selected ideal divisibility and all ray correction terms. Grouping our VF seats into it has not been proved. The many distinct first owners here are not automatically its slots.
+
+The first local cross-unselected sign loss is still LowTupleGram's norm_sum_le following exact LowSlotPolynomial Fubini. The NNS identity keeps the full ordered Hermitian Gram; it creates no new sign inequality. Reviewed **20261103-referee-9/10** and **20261103-lean-3**, with today’s uncompiled central consumer, pay nonempty moving mass at their stated original geometry and leave the all-selected inner source open. No actual OAI integral was evaluated by this run.
+
+Power ledger carried forward at its source-verified scope: inverse squared baseline 5/6-2d+507epsilon; normalization by sqrt(Qphysical); original complete LOW amplitude 3/16 plus loss; signal beta-11/16; difference beta-7/8. A new saving nu in the fully normalized LOW square could supply at most nu/2 in amplitude, only after original HIGH/principal/remote/exceptional/tail return. **New nu, amplitude gain, and net beta are UNKNOWN.** Marked-HIGH t/2 and the finite one-shot slot tilt are not paid again.
+
+GitHub status was verified, not inferred from stale policy prose. No open/draft PRs at intake; #1083 is merged at main, while #1080 is closed unmerged and #1079/#1081/#1082/#1084 are merged. At #1083 head **1ae84e2ff019b266114c100f43016eeec71144a9**, all 14 returned checks are completed/success. The dedicated [job 126295407267](https://github.com/OVVO-Financial/RH_Lean/actions/runs/41744927180/job/126295407267) actually tested PR merge **06cac0b95a56fdef0f61294e257e67ee2146c32c**, not a fresh raw-head checkout. Both bridge and gain-ledger files were fetched at head, tested merge and main, and their full bytes and blob SHAs agree.
+
+The runner **scripts/lean/slot_anchored/run_anchored_in_verified_ci.sh**, blob **1b8973bf270dda5ee9635d42f4c89a82f2e2b82a**, uses warning-fatal Lean and checks terminal logs for sorryAx/admitAx. The retrieved log shows Lean 4.34.1, the exact OAI pin, and [propext, Classical.choice, Quot.sound] for the three literal LOW equality/Gram/NNS declarations. Existing unrelated Wiener.lean sorry warnings were visible; no blanket hole-free claim about all dependencies is made. The scoped terminal axiom lists above contain no sorryAx. This run launches no CI and supplies no new formal theorem.
+
+#### Continuity And Publication Evidence
+
+Both dated report sets were retrieved at **bcf9cda3a2060405d46555ef048f3007cbcc1213**; relevant mathematical findings, source qualifications, handoffs and continuation sections were consumed. This was not an independent audit of every upstream derivation or embedded verifier.
+
+| Role file | November 3 blob | November 4 intake blob |
+| --- | --- | --- |
+| 00-coordinator-am | e35ab2cd9cba2a47ac5be53b09938b37a0c20df3 | 6f00c4e1055a03325e8c152d4bcb505e254b8ecc |
+| 10-owner-payment | d52c74b76c2914c3be694f39cd7afe9b122a4834 | 546f46832e12fdf80d32713d26978e63e1d7b7d5 |
+| 20-analytic-type-ii | 2b9c3dbab6039e3c30a5ece3e473290af5dbbf0b | a0b8ee1e2c50d6ba926bc948a8896e78982f895f |
+| 30-finite-wheel | cd7777180bb5c2c899a60bdd699b99be8e12a672 | 364e6a0a29f8513d5471352d563a49e9b933c2e3 |
+| 40-prime-census | eb9a2e0cf7772f22060aec07e0bcddd24ace9cd9 | 108303ebdf61dc64cacd16651521ea39468292a3 |
+| 50-adversarial-referee | 583ce524628577818603ffd4e9ec0eb3673a3f37 | dd02c8e7072b9390119da35a204924ddad721d06 |
+| 60-lean-verification | fc27fb1ae103e60ff600e5a24ce6716937da3884 | 4585dc42e267f62da5c13624f2a5a4494aa79c53 |
+
+TODAY=AVAILABLE; YESTERDAY=CARRY_FORWARD where cited. Coordinator mirrors had matching tree blobs on each date. Consumed current claims include Coordinator C41-C43; Owner S1-S5 and previous O1-O5/JH1-JH10; Analytic's proper Nyman head/tail with unpaid middle; Wheel's ideal-counting/CORR4 separation; Census cube-incidence R1-R3; Referee's counting-measure/row-admission restriction; and Lean's uncompiled moving-mass continuation. None is silently upgraded to a new VF or Hecke estimate.
+
+External inbox **038018145c0fddb2f6306c0712373adf9cd1ea52** has no new entry since October 18. EXT-20261018-PNT-1..3, EXT-20261017-XCOORD-1's q=R correction, and EXT-20261014-5 retain their original scopes; none supplies the missing occurrence bridge here.
+
+The early checkpoint was committed as **2b6f2da40fd37a4faf99e22ef34790a28a49bf50**, blob **a699910ccb50e45dbc21ad57d9bee4acb23dc495**. Exact readback matched every submitted byte, preserved the entire preceding daily report, and commit inspection showed only this authorized file changed.
+
+Final verifier SHA256: **50c753746e84f4d965da26b5d953bfed71f8242f4bd9e109f19994a4aceab9b1**. The full verifier and Python syntax check passed after the documented corrections. Its complete source and recorded output follow. No local Lean execution occurred. No local clone or endpoint sieve was required. The connector's code search follows a default branch, so every relied-upon discovered definition was re-fetched at the stated immutable source pin.
+
+Only this own dated report is a remote write target. No main, Lean source, central policy, other report, issue, proof branch, PR, workflow, schedule, protection or permission was modified. No agent was launched, and no merge was attempted. Final publication is claimed only after the separate commit/readback verification below.
+
+### Complete Executed Verifier
+
+~~~python
+"""Exact finite audit of the squarefree VF ancestry-capacity obstruction.
+
+No Lean is executed. The all-scale proof is in the Owner report.
+"""
+
+from collections import Counter
+from fractions import Fraction as F
+from functools import lru_cache
+from itertools import combinations
+from math import comb, isqrt
+import json
+
+
+def trial_prime(n):
+    return n >= 2 and all(n % d for d in range(2, isqrt(n) + 1))
+
+
+def smallest_factors(limit):
+    spf = list(range(limit + 1))
+    for p in range(2, isqrt(limit) + 1):
+        if spf[p] == p:
+            for n in range(p * p, limit + 1, p):
+                if spf[n] == n:
+                    spf[n] = p
+    return spf
+
+
+def log_unit_bounds(x, terms=24):
+    assert 1 <= x <= 2
+    u = (x - 1) / (x + 1)
+    power = u
+    lower = F(0)
+    for j in range(terms):
+        lower += 2 * power / (2 * j + 1)
+        power *= u * u
+    tail = 2 * power / ((2 * terms + 1) * (1 - u * u))
+    return lower, lower + tail
+
+
+LOG2 = log_unit_bounds(F(2))
+DEN = 10**12
+assert LOG2[1] < F(25, 36) < F(7, 10)
+
+
+def ceil_fraction(x):
+    return -((-x.numerator) // x.denominator)
+
+
+@lru_cache(None)
+def weight_interval(r):
+    assert r >= 2
+    x = F(2 * r * r + 2 * r + 1, 2)
+    k = x.numerator.bit_length() - x.denominator.bit_length()
+    if x < 2**k:
+        k -= 1
+    lo, hi = log_unit_bounds(x / 2**k)
+    lo += k * LOG2[0]
+    hi += k * LOG2[1]
+    numerator = F(2 * r + 1, r)
+    lower = numerator / hi
+    upper = numerator / lo
+    return (lower * DEN).__floor__(), ceil_fraction(upper * DEN)
+
+
+def display_interval(lo, hi):
+    scale = 10**8
+    a = lo * scale // DEN
+    b = -((-hi * scale) // DEN)
+    def dec(n):
+        return f"{n // scale}.{n % scale:08d}"
+    return [dec(a), dec(b)]
+
+
+S = [p for p in range(500, 701) if trial_prime(p)]
+Q_VALUES = [490001, 500009, 1000003]
+SPF = smallest_factors(max(Q_VALUES))
+assert len(S) == 30 and all(SPF[p] == p for p in S)
+assert all(trial_prime(q) and SPF[q] == q for q in Q_VALUES)
+
+
+def audit(q):
+    a, b = (q - 1) // 2, q - 1
+    pairs = list(combinations(S, 2))
+    products = {p * s for p, s in pairs}
+    assert len(products) == len(pairs) == 435
+    # A differently structured scan reconstructs the exact cofactor population.
+    recovered = set()
+    support = set(S)
+    for m in range(q // 4 + 1, q):
+        if m % 2 == 0:
+            continue
+        p = SPF[m]
+        s = m // p
+        if p in support and s in support and p != s:
+            recovered.add(m)
+    assert recovered == products
+    current_intervals = []
+    roots = []
+    owner_counts = Counter()
+    for p, s in pairs:
+        m, n = p * s, q * p * s
+        r = isqrt(n)
+        assert p < s < q and SPF[m] == p
+        assert m % (p * p) != 0 and m % (s * s) != 0
+        assert 4 * m > q and m < q
+        assert a * a < n < b * b
+        assert r * r < n < (r + 1) * (r + 1)
+        assert a <= r < b and p <= r
+        assert q < a * a and all(z < a * a for z in (p, s))
+        assert b == 2 * a and (b - 1) // 2 + 1 == a
+        roots.append(r)
+        owner_counts[p] += 1
+        current_intervals.append(weight_interval(r))
+    assert len(set(roots)) == 435  # q >= b gives at most one per root.
+    historical = [weight_interval(isqrt(p)) for p in S + [q]]
+    assert all(0 < lo <= hi < DEN for lo, hi in historical)
+    xlo = sum(z[0] for z in current_intervals)
+    xhi = sum(z[1] for z in current_intervals)
+    ylo = 31 * DEN - sum(z[1] for z in historical)
+    yhi = 31 * DEN - sum(z[0] for z in historical)
+    assert xlo > 31 * DEN
+    bits = q.bit_length()
+    per_seat = F(36, 25 * bits)
+    assert q < 2**bits and F(xlo, DEN) > 435 * per_seat > 31
+    horizon = ((b - 1).bit_length() - 1) // 3
+    after_deletion = xlo - horizon * max(z[1] for z in current_intervals)
+    assert after_deletion > 31 * DEN
+    return {
+        "q": q, "A": a, "B": b, "seats": 435,
+        "prime_ancestor_count": 31,
+        "cofactor_range": [min(products), max(products)],
+        "root_range": [min(roots), max(roots)],
+        "first_owner_count": len(owner_counts), "mobius_each": -1,
+        "current_weight_interval": display_interval(xlo, xhi),
+        "historical_negative_capacity_interval": display_interval(ylo, yhi),
+        "signed_packet_interval": display_interval(xlo - yhi, xhi - ylo),
+        "elementary_demand_lower": str(435 * per_seat),
+        "elementary_unit_capacity_excess": str(435 * per_seat - 31),
+        "short_run_horizon": horizon,
+        "after_any_horizon_seat_deletion_excess":
+            str((435 - horizon) * per_seat - 31),
+        "certified_after_deletion_excess_lower":
+            str(F(after_deletion - 31 * DEN, DEN)),
+    }
+
+
+results = [audit(q) for q in Q_VALUES]
+# Out-of-domain controls must not be smuggled into the squarefree family.
+assert any(4 * p * s <= 2000003 for p, s in combinations(S, 2))
+assert len({S[0], S[0], Q_VALUES[0]}) != 3
+
+# Verify the elementary central-binomial input on a small exact finite range.
+for n in range(1, 101):
+    N = 2 * n
+    c = comb(N, n)
+    primes = [p for p in range(2, N + 1) if trial_prime(p)]
+    assert 2**N <= (N + 1) * c <= (N + 1) * N**len(primes)
+    for p in primes:
+        v, z = 0, c
+        while z % p == 0:
+            v += 1
+            z //= p
+        assert p**v <= N
+for t in range(5, 51):
+    k = 2**t
+    assert k * k - (2 * t + 1) >= 4 * t * k
+    if t >= 11:
+        assert k * (k - 1) > (k + 1) * 4 * t * (4 * t + 1)
+
+# Complete signed restoration, including the original compression cost.
+restoration_checks = 0
+for d, x, y, z in [(F(d), F(x, 3), F(y, 5), F(z, 7))
+                    for d in range(-2, 3) for x in range(4)
+                    for y in range(4) for z in range(-2, 3)]:
+    packet, complement = x - y, -d + y + z
+    total = -d + x + z
+    assert total == packet + complement
+    assert total**2 == packet**2 + complement**2 + 2 * packet * complement
+    restoration_checks += 1
+for u in range(5):
+    for v in range(5):
+        for current in range(5):
+            assert (u + v + current)**2 - (abs(u - v) + current)**2 == (
+                4 * u * v + 2 * current * (u + v - abs(u - v)))
+
+print(json.dumps({"prime_support": S, "fixtures": results,
+                 "central_binomial_checks": 100,
+                 "power_parameter_checks": 46,
+                 "signed_restoration_checks": restoration_checks,
+                 "compression_checks": 125,
+                 "source_admission_controls": "passed",
+                 "scope": "exact finite arithmetic; no first-bad or OAI integral claim"},
+                indent=2))
+
+~~~
+
+### Recorded Exact Output
+
+~~~json
+{
+  "prime_support": [
+    503,
+    509,
+    521,
+    523,
+    541,
+    547,
+    557,
+    563,
+    569,
+    571,
+    577,
+    587,
+    593,
+    599,
+    601,
+    607,
+    613,
+    617,
+    619,
+    631,
+    641,
+    643,
+    647,
+    653,
+    659,
+    661,
+    673,
+    677,
+    683,
+    691
+  ],
+  "fixtures": [
+    {
+      "q": 490001,
+      "A": 245000,
+      "B": 490000,
+      "seats": 435,
+      "prime_ancestor_count": 31,
+      "cofactor_range": [
+        256027,
+        471953
+      ],
+      "root_range": [
+        354194,
+        480892
+      ],
+      "first_owner_count": 29,
+      "mobius_each": -1,
+      "current_weight_interval": [
+        "33.59618270",
+        "33.59618271"
+      ],
+      "historical_negative_capacity_interval": [
+        "21.26725110",
+        "21.26725111"
+      ],
+      "signed_packet_interval": [
+        "12.32893159",
+        "12.32893160"
+      ],
+      "elementary_demand_lower": "3132/95",
+      "elementary_unit_capacity_excess": "187/95",
+      "short_run_horizon": 6,
+      "after_any_horizon_seat_deletion_excess": "719/475",
+      "certified_after_deletion_excess_lower": "1063305173509/500000000000"
+    },
+    {
+      "q": 500009,
+      "A": 250004,
+      "B": 500008,
+      "seats": 435,
+      "prime_ancestor_count": 31,
+      "cofactor_range": [
+        256027,
+        471953
+      ],
+      "root_range": [
+        357792,
+        485778
+      ],
+      "first_owner_count": 29,
+      "mobius_each": -1,
+      "current_weight_interval": [
+        "33.56997131",
+        "33.56997132"
+      ],
+      "historical_negative_capacity_interval": [
+        "21.26748363",
+        "21.26748364"
+      ],
+      "signed_packet_interval": [
+        "12.30248767",
+        "12.30248769"
+      ],
+      "elementary_demand_lower": "3132/95",
+      "elementary_unit_capacity_excess": "187/95",
+      "short_run_horizon": 6,
+      "after_any_horizon_seat_deletion_excess": "719/475",
+      "certified_after_deletion_excess_lower": "1050385049893/500000000000"
+    },
+    {
+      "q": 1000003,
+      "A": 500001,
+      "B": 1000002,
+      "seats": 435,
+      "prime_ancestor_count": 31,
+      "cofactor_range": [
+        256027,
+        471953
+      ],
+      "root_range": [
+        505991,
+        686989
+      ],
+      "first_owner_count": 29,
+      "mobius_each": -1,
+      "current_weight_interval": [
+        "32.69548954",
+        "32.69548955"
+      ],
+      "historical_negative_capacity_interval": [
+        "21.27516333",
+        "21.27516334"
+      ],
+      "signed_packet_interval": [
+        "11.42032620",
+        "11.42032621"
+      ],
+      "elementary_demand_lower": "783/25",
+      "elementary_unit_capacity_excess": "8/25",
+      "short_run_horizon": 6,
+      "after_any_horizon_seat_deletion_excess": "-14/125",
+      "certified_after_deletion_excess_lower": "1238669058799/1000000000000"
+    }
+  ],
+  "central_binomial_checks": 100,
+  "power_parameter_checks": 46,
+  "signed_restoration_checks": 400,
+  "compression_checks": 125,
+  "source_admission_controls": "passed",
+  "scope": "exact finite arithmetic; no first-bad or OAI integral claim"
+}
+~~~
+
