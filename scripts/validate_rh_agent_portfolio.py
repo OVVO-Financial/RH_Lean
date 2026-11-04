@@ -104,6 +104,16 @@ def main() -> None:
         assert f"SOURCE-FIRST NEXT-{role}" in prompts, f"saved role {role} not updated"
     assert source_first.index("## 2. Actual OAI LOW") < source_first.index("## 3. Exact signed LOW")
     assert "six non-lean" in agent_policy.lower()
+    # 2026-11-04 user authorization and original all-selected source-first attack.
+    assert "FULL GitHub repository READ/WRITE" in agent_policy
+    assert "FULL GitHub repository READ/WRITE" in prompts
+    assert "FULL GitHub repository READ/WRITE" in role_prompts or "full repository READ/WRITE" in role_prompts
+    assert "FULL GitHub repository" in engine or "full GitHub read/write" in engine
+    assert "J=empty" in agent_policy and "J=empty" in engine
+    assert "PR #1087" in agent_policy and "PR #1087" in engine
+    assert "2026-11-04" in source_first and "full read/write" in source_first.lower()
+    assert "human-only merge" in agent_policy.lower()
+    assert "own-report-only" in agent_policy
     assert "agent/lean-verification/" in prompts
     assert "an unmerged" in source_first.lower() or "unmerged DRAFT" in source_first
     assert "no mathematical" in read("docs/RH_PROOF_ATTACK_PORTFOLIO_20261024.md").lower()
