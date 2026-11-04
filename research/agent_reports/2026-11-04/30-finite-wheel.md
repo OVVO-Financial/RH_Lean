@@ -1100,3 +1100,727 @@ Preregistered proof/test: fix the prime set {2,3}; uniquely separate the prime-f
 Source-first continuity: original J is UNSELECTED. The binding J=empty outer sum is a singleton, so repeat outer-pairing/cycle work is retired by current Coordinator guidance. Earlier own I1-I3 now have Referee-1 ACCEPT_WITH_SCOPE at ambient counting measure; Referee-2/3 and Analytic CF1-CF3 are new paper handoffs, not inverse-energy estimates. The source gain remains OPEN/UNKNOWN. PR1083 is human-MERGED at head 1ae84e2ff019b266114c100f43016eeec71144a9; live open PR collection is empty. Its existing equality/CI evidence is being checked, not promoted to a signed bound.
 
 Only this own report may be updated remotely. No Lean execution/edit, branch, PR, issue, policy, other-report, workflow, schedule or merge action is authorized. Final proofs, tests, precise limitations and publication receipts will be appended after actual verification.
+
+
+## Scheduled FINITE-AC Continuation Final Synthesis - Claim 20261104-wheel-2
+
+Actual invocation: **2026-11-04T10:12:01-05:00**, scheduled, America/New_York. Platform run ID: **RUN_ID_UNAVAILABLE**. This is the final synthesis of the checkpoint above, not another invocation. Research status: COMPLETE; publication status is established by the later pinned receipt. Mathematical status: **PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED** for the source-specific consequences L1-L4; L5 is **FINITE_COMPUTATION**. General Mobius inversion and the quadratic support-extension identity are inherited mathematics, explicitly not claimed as new. **NO_NEW_ENDPOINT_INEQUALITY; NO_NEW_VERIFIED_ETA.**
+
+Closing authority/handoff refresh: **2026-11-04T15:37:04Z / 10:37:04 EST**. Main is unchanged; the complete reporting tree at `16f218ea00837a234e052a883afe05fc8de7ebc5` differs from intake only by this invocation's own checkpoint. All other consumed November 3/4 report blobs and the external inbox are unchanged. The live open/draft PR collection remains empty. The exact verifier was rerun for final packaging and reproduced the recorded result hash with exit 0.
+
+### A. Most Important Structural Discovery
+
+Completing every small-prime lift of each prime-free historical core has an exact, uniform full-source return: for a squarefree prime product `1<P<=R+1`, its complete signed floor form is **`-M(R^2-1)`**. The difference from the original finite-C form is exactly **`2 M(R-1)`**, bounded using the original strict historical envelope. This includes all cross-core and both historical/completion interactions, not only the favorable cells studied in `20261103-wheel-2`.
+
+There is a stronger restriction on the proposed mechanism. **Every two such prime completions have the same mixed floor form `-M(R^2-1)`.** Arbitrary normalized averaging of completions therefore leaves the complete signed quantity unchanged. Different prime products do not supply independent cancellation directions. The matrix involving the original source and one completion has determinant `-M(R-1)^2`; it is generally indefinite, not a positive covariance matrix.
+
+This is a source-specific completion and coherence theorem, derived below from existing Mobius support algebra. It removes an apparent family of independent prime-completion degrees of freedom. It does **not** estimate the surviving Mertens endpoint. The historical correction is independently paid at its declared envelope scale, but a bound for the completed form remains target-strength and OPEN.
+
+### B. Current Authoritative Objective And Continuity
+
+Verified main: **`040980c16901af749202e9b0f91211c43909404a`**. AGENTS blob `b878d396c387a57bd0b5165fecf10d15ef3732cd`; proof contract `63f7553bf6e5f2a16e37808116c643dc0dcc50e1`. The canonical objective is `VFCanonicalSquareVonKochStatement`:
+
+```text
+exists C>=0, forall natural R>=2,
+  |pi(R^2)-vfMidFinishedMass(R)-sqrt(2)| <= C R log R.
+```
+
+It remains OPEN. The fixed sqrt(2) phase, all-real O(1) VF/Li_2 comparison, and explicit `ClassicalVonKochRHCriterion` consumer are preserved. A native Mobius calculation is not an identity with the masked/clipped #915 source or the OAI Hecke source.
+
+`deployment_ack`: source-first policy `b6980c30e63bb8c9ddfc8d6fa86a2bb401707fa6`, engine `495fa9ee2067ccf5db9dc3c48ffaaadcd6485aa4`, complete-return `4775ee5fd95f279beab08a75d1e17127078b19a6`, breadth `f5d754ce6b06d98643f30beeccb4bf7bd1f6242a`, selector `3cb817ab9aae51429858d5a98727e16dbd072d47`, role prompts `6fa78bdecd4670075350f269f54e88618359e94d`, dynamic protocol `ea90322f257a12dc694ca4a188fe4c5715880c79` were consumed. SOURCE_FIRST_VERSION=2026-11-03.
+
+Protected rotation selects **FINITE-AC**, after `20261103-wheel-3` MU-LIFT and `20261104-wheel-1` CORR4. Coordinator `20261104-coordinator-1` section H explicitly requests the full cross-core/historical coupling and retires another outer-unselected pairing task at binding `J=empty`. Resume `20261103-wheel-2/F1-F6`: its partial `{1,2,3}` divisor masks, genuine negative cells and coherent proper subfamilies did not control the complete cross-core source. No accepted wheel table or large census was rerun.
+
+### C. Structural Mechanism Investigated
+
+Three distinct possibilities were screened: an involution inside partially admitted prime cubes; completion with exact historical boundary restoration; averaging different complete prime cubes. The first cannot be justified by simply inserting the missing divisor 6: the actual admitted mask is not a full cube. The second gives L1-L2 and the paid boundary L4. The third is resolved exactly by L3, without assuming positivity, independence or a favorable sign.
+
+The arithmetic input is unique factorization plus `mu * 1 = delta_1`. The geometric input is the strict horizon `X=R^2-1`: two coefficient changes supported at or above R cannot meet inside the floor form. No prime distribution, density estimate, growing-wheel heuristic, imported RH-strength bound or abstract graph assumption enters.
+
+### D. Exact Theorem Statements
+
+Let `R>=2`, `X=R^2-1`, `m=M(R-1)`, and `M_X=M(X)`, where `M(t)=sum_(1<=n<=t) mu(n)`, with `M(0)=0`. For complex coefficients define the finite Hermitian, but not necessarily positive, form
+
+```text
+B_X(f,g) = sum_(a,b>=1; ab<=X) f(a) conjugate(g(b)) floor(X/(ab)).
+f_0(n) = mu(n) 1_(n<R).
+Q_R = B_X(f_0,f_0).
+```
+
+This is the literal `eulerSelfDualBilinear R`, with its real value embedded in the repository's complex carrier. One physical floor occurrence is `(a,b,t)` with positive integers `abt<=X`, coefficient `f(a) conjugate(g(b))`. Ordered `(a,b)` multiplicities and the diagonal are retained.
+
+**L1: Unique complete prime-lift carrier.** For a squarefree integer `P>=1`, let `core_P(n)` be n with all factors from primes dividing P removed. Define
+
+```text
+f_P(n) = sum_(d|P, 1<=u<R, gcd(u,P)=1, du=n) mu(d) mu(u)
+       = mu(n) 1_(core_P(n)<R).
+```
+
+Each nonzero coefficient has exactly one pair `(d,u)`. Its support lies in `n<=P(R-1)`, and `f_P(n)=mu(n)` for `n<R`. For `P=1`, `f_P=f_0`. For `P>1`, its complete coefficient sum is zero. In particular, if `1<P<=R+1`, then all coefficients lie at or below X and
+
+```text
+s_P := sum_(n<=X) f_P(n) = 0.
+```
+
+This range permits P and its prime set to vary with R. It is a sufficient support condition, not a claim of the sharp necessary condition.
+
+**L2: Full mixed completion identity and tail.** For any complex coefficient functions f,g agreeing with genuine mu on `1<=n<R`,
+
+```text
+B_X(f,g) = s_f + conjugate(s_g) - M_X,
+s_f = sum_(n<=X) f(n).
+```
+
+Only their restrictions to `n<=X` matter. This polarized identity is a consequence of the existing quadratic support-extension algebra, not a new general Mobius theorem. Applied to squarefree `1<P,Q<=R+1`, it gives
+
+```text
+B_X(f_P,f_Q) = -M_X,
+B_X(f_0,f_P) = m-M_X,
+Q_R = 2m-M_X.
+```
+
+For arbitrary squarefree `P,Q>1`, retain the finite exterior tails
+
+```text
+T_P = sum_(X<n<=P(R-1)) f_P(n),
+B_X(f_P,f_Q) = -M_X-T_P-T_Q,
+C_P(R) := B_X(f_P,f_P) = -M_X-2T_P,
+Q_R = C_P(R)+2m+2T_P.
+```
+
+No bound or favorable sign for an overlarge-product tail is asserted.
+
+**L3: Exact joint rank restriction; no averaging gain.** Fix any finite family of squarefree `1<P_j<=R+1`, allowing repetitions. For arbitrary complex numbers lambda_j,
+
+```text
+B_X(sum_j lambda_j f_(P_j), sum_j lambda_j f_(P_j))
+  = -M_X |sum_j lambda_j|^2.
+```
+
+Consequently, a normalized linear combination with `sum lambda_j=1` has exactly the same signed value as each completion. A zero-sum combination has zero value, but does not reconstruct the target source. With the original coefficient included, put `F=alpha_0 f_0+sum_j alpha_j f_(P_j)`, `A=alpha_0+sum_j alpha_j`. Then
+
+```text
+B_X(F,F) = -M_X |A|^2 + 2m Re(alpha_0 conjugate(A)).
+```
+
+The completion-only matrix has rank at most one; the family with the original source has rank at most two. The two-source matrix is
+
+```text
+G = [[2m-M_X, m-M_X], [m-M_X, -M_X]],   det G = -m^2.
+```
+
+When m is nonzero this matrix is indefinite. These are signed floor forms, not positive norm squares. This conclusion concerns this precise complete family, not every prime-conditioned, partially admitted or differently weighted mechanism.
+
+**L4: Original-envelope payment, including moving completions.** Suppose `LowerMertensCriticalEnvelope R K`, namely
+
+```text
+0<=K and forall integers 0<=y<R, (M(y)-1)^2<=K(y+1).
+```
+
+For every squarefree `1<P<=R+1`,
+
+```text
+|Q_R-C_P(R)| = 2|M(R-1)| <= 2+2 sqrt(KR),
+|Q_R-C_P(R)|/(R sqrt K) <= 2/R+2/sqrt R.
+```
+
+The bound is uniform over the complete family, including growing P. It is not multiplied by the number of primes or completions. For any moving choice `P_R` in that range, write `C_R=C_(P_R)(R)`. Then for every R>=2,
+
+```text
+C_(R+1)-C_R = -sum_(R^2<=n<(R+1)^2) mu(n),
+(Q_(R+1)-Q_R)-(C_(R+1)-C_R) = 2 mu(R).
+```
+
+For any H consecutive such roots the sum of squares of the latter correction is at most `4H`. This controls the correction only, not the full shell sum.
+
+**L5: Finite verification and scoped falsifiers.** The executed reproducer below verifies L1-L4 on the declared exact finite domains, records complete mixed sums, and falsifies omission of an exterior tail, the closed-square support extension, positive-semidefiniteness, and deletion of a divisor from the completion. It is finite evidence, not the proof of the uniform statements.
+
+### E. Proof And Derivation
+
+**Proof of L1.** For nonzero mu(n), n is squarefree. Its primes dividing P form the unique divisor d of P; the remaining primes form the unique u coprime to P. Thus n=du and multiplicativity gives `mu(n)=mu(d)mu(u)`. Conversely, a nonzero term in the displayed sum is squarefree and has this unique factorization. A squareful n contributes zero on both sides: either a repeated prime dividing P prevents a legal `(d,u)`, or the repeated prime remains in u and makes mu(u)=0. This accounts for the actual squareful exceptions, rather than discarding a nonzero population.
+
+The support bound and agreement below R follow immediately. The full sum factors as
+
+```text
+sum_n f_P(n) = (sum_(d|P) mu(d)) (sum_(1<=u<R, gcd(u,P)=1) mu(u)).
+```
+
+For squarefree P>1 the first factor is zero: fix any prime p|P and pair divisors d not divisible by p with pd. The map preserves the core occurrence and reverses its coefficient. This is a complete-cube coefficient involution, not an involution preserving the pair mask `ab<=X`. The remaining pair-mask effects are dealt with exactly below. Since `P(R-1)<=R^2-1` for `P<=R+1`, no exterior tail is present in the stated range.
+
+**Proof of L2 by finite convolution.** Write `f=mu+e`, `g=mu+d`. Here e and d vanish on all positive indices below R; the functions need not have finite total support because every calculation is restricted to indices at most X. Conjugation fixes mu. Every nonzero factor in `e * conjugate(d) * 1` has product at least R^2, so that convolution vanishes at all indices at most X. Using `mu * 1=delta_1`,
+
+```text
+(f * conjugate(g) * 1)(n)
+  = mu(n)+e(n)+conjugate(d(n))
+  = f(n)+conjugate(g(n))-mu(n)       (1<=n<=X).
+```
+
+Summing over n and expanding n=abt is exactly the full ordered floor form, proving the assertion. The prime-completion and tail specializations now follow from L1 and `s_P=-T_P` for P>1. The old identity `Q_R=2m-M_X` is recovered, not newly discovered.
+
+**Independent direct view of the boundary.** Put `h_P=f_P-f_0`. All its support is at least R, so `B_X(h_P,h_Q)=0`, even if P,Q are overlarge. For any `R<=a<=X`, set `Y=floor(X/a)<R`. The entire historical row is present, and
+
+```text
+sum_(b<R) mu(b) floor(X/(ab))
+  = sum_(b<=Y) mu(b) floor(Y/b)
+  = sum_(n<=Y) sum_(b|n) mu(b) = 1.
+```
+
+The final equality includes n=1; that singleton must not be removed. Therefore `B_X(h_P,f_0)=sum_(R<=n<=X) h_P(n)=-m-T_P`. The opposite orientation has the same real value. Expanding the complete form gives
+
+```text
+C_P = Q_R + 2(-m-T_P) + 0.
+```
+
+This is the full return: two mixed orientations, every cross-core pair, diagonal, floor multiplicity, strict endpoint and unmatched exterior tail are present. No historical occurrence is spent independently once per prime. The added high-index coefficients are auxiliary; this explicit comparison, not their existence alone, transfers the result to the original admitted source.
+
+**Proof of L3.** Insert every entry from L2 into the finite sesquilinear expansion. Completion-completion terms give `-M_X |sum lambda_j|^2`. With f_0 included, the `m` part is `m(alpha_0 conjugate(A)+A conjugate(alpha_0))`, yielding the stated real expression. The determinant is `(2m-M_X)(-M_X)-(m-M_X)^2=-m^2`. The rank statements follow directly. No Cauchy-Schwarz or positivity claim is used.
+
+**Proof of L4.** The original envelope at y=0 gives K>=1, since M(0)=0. At y=R-1 it gives `|m-1|<=sqrt(KR)`, hence `|m|<=1+sqrt(KR)`. L2 supplies the exact difference, so division by `R sqrt K` is legitimate and gives the bound. There is no hidden fixed-modulus constant. Since every permitted completion equals `-M(R^2-1)`, changing its prime set between roots introduces no extra term. Taking consecutive differences and using `M(R)-M(R-1)=mu(R)` proves the two return formulas. Finally `mu(R)^2<=1` gives `4H`.
+
+### F. Structural Consequence
+
+In the completed family the apparent diversity of prime sets lies in null directions of the signed floor pairing. A new small prime changes many coefficients, but once its cube is fully completed its aggregate mixed value with every other permitted completion is unchanged. High-high extension pairs are forbidden by integer product geometry; their entire mixed historical return is governed by exact divisor inversion, not a degree estimate.
+
+This is stronger than separately bounding the number of added lifts. It also explains why the earlier partial-mask negative cells cannot be independently accumulated into a global gain. Completion is possible with a small historical correction, but its complete interaction reintroduces the whole signed endpoint. The theorem makes no claim about an arbitrary graph or an arbitrary multiplicative sign sequence: the exact row sum uses genuine mu.
+
+### G. Signed And Quantitative Relevance
+
+The live finite-C obligation is
+
+```text
+exists C>=0, forall R>=2, forall K satisfying the original historical envelope,
+  |Q_R| <= C R sqrt K.
+```
+
+L4 supplies a uniformly negligible normalized comparison error, at most `2/R+2/sqrt R`. Thus for any permitted choice of P_R, a uniform bound of that form for C_R and one for Q_R imply each other with an absolute constant increase of at most 3. But `C_R=-M(R^2-1)`. This is an **exact target-strength reformulation**, not an independently proved estimate. The paid boundary does not pay the bulk. The source's existing conditional finite-C -> finite-A -> Mertens energy -> RH chain remains conditional.
+
+The correction-square bound does not estimate shell energy: reassembling `(delta C+2mu(R))^2` retains both `(delta C)^2` and `4mu(R) delta C`. Neither has acquired a favorable sign or an independent bound. Likewise, rank-one dependence is not a small eigenvalue estimate: the remaining scalar is the uncontrolled endpoint itself.
+
+**Source-first gain ledger.** Original OAI source pin: `1581d4cbdd69a0faf34b2089614fe2a814316a6a`. `Detector/LowSlotPolynomial.lean` blob `b1dcb5a1e51afad1d39ccd91fa58a764e39629ba`; `Detector/LowTupleGram.lean` blob `710598c8bef4d1a1ec98aa7e68b00369962c3d17`. J is UNSELECTED. The unselected atom retains `(-1)^|J| N(product)^(-3/2) product W`; the selected polynomial retains its conjugate Hecke coefficient and `logPhase(-t)(log(norm/P))`. Its actual Hermitian sum is diagonal plus all ordered off-diagonals before the literal `norm_sum_le` step. Binding J=empty has one outer atom, so a fresh outer pairing cannot improve it.
+
+The inherited selected-inverse squared exponent is `5/6-2d+507epsilon`, with physical sqrt(Q) normalization; the Gaussian amplitude charge is `3/16+23epsilon/96`. The old normalized LOW is `3/16+loss`, against signal `beta-11/16`, hence threshold `beta-7/8`. A new fully normalized squared saving nu would yield at most nu/2 in amplitude before all other costs. This run proves no such saving: squared source gain UNKNOWN, new LOW gain UNKNOWN, new endpoint gain UNKNOWN. Original HIGH, principal, moving admission, exceptions and complete return are unchanged. Inherited strict-slot results keep their own reviewed scope; no slot gain is renewed or borrowed into this native calculation. **No mu-to-Hecke transport is asserted.**
+
+### H. Falsification, Novelty And Verification
+
+The preregistered comparison was full ordered arithmetic sums against the completion formula, not isolated packet signs. Exact source cases cover R=2 through 40 and held-out/continuity roots 61,106,137,211. For R<=40, all squarefree `1<=P<=R+5` are tested, so the declared support threshold is crossed. Larger roots use P in `{1,2,3,5,6,10,30,42,210}`. Mobius sieve output is independently checked by trial factorization through 10000. All arithmetic is integer or rational; no floating-point sign decisions occur.
+
+Executed checks: **705** source pairs `(R,P)`; **1775** complete mixed comparisons; **446154** coefficient/unique-core comparisons; **705** high-high vanishing checks; **559** valid-range historical-envelope checks; **39** moving-root transitions; **625** rational-complex polarization tests on the directly evaluated actual four-source matrix at R=23. Those linear combinations are explicitly synthetic controls for the matrix identity, not claimed to be another genuine Mobius prefix.
+
+| R | P | m | M_X | Q_R | C_P | B(f_0,f_P) | determinant |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| 4 | 3 | -1 | -1 | -1 | 1 | 0 | -1 |
+| 5 | 6 | -1 | -2 | 0 | 2 | 1 | -1 |
+| 9 | 6 | -2 | -4 | 0 | 4 | 2 | -4 |
+| 23 | 6 | -1 | -1 | -1 | 1 | 0 | -1 |
+| 106 | 6 | -3 | 3 | -9 | -3 | -6 | -9 |
+| 61 | 6 | -1 | -7 | 5 | 7 | 6 | -1 |
+| 137 | 6 | -1 | 0 | -2 | 0 | -1 | -1 |
+| 211 | 6 | -1 | 6 | -8 | -6 | -7 | -1 |
+
+Decisive controls:
+
+- **Positive-semidefinite claim fails:** at R=5, P=6, the actual source matrix is `[[0,1],[1,2]]`. The synthetic linear combination `2f_0-f_6` has signed value -2. Its purpose is to falsify positivity of the form, not to pretend the linear combination is genuine mu.
+- **Partial cube is not complete:** at R=5, f_6 has coefficients `{1:1,2:-1,3:-1,6:1}`. Deleting the divisor-6 lift changes its form from 2 to 0. The coefficient pairing cannot be applied after an arbitrary admission deletion.
+- **Overlarge product needs its tail:** R=3, P=5, X=8 has f_P coefficients `1,-1,-1,1` at `1,2,5,10`. Here T_P=1, M_X=-2, Q_R=2, C_P=0, so dropping `2T_P` gives a false identity.
+- **Strict horizon matters:** at R=3, P=3, replacing X=8 by X=9 gives `(B(f_0,f_0),B(f_0,h),B(h,h),B(f_P,f_P))=(3,-1,1,2)`. The high-high cell at `(3,3)` is real and must not be erased.
+- **No universal completion sign:** C_P=2 at R=5 but -3 at R=106. This is not a counterexample to finite-C and is not a first-bad-conditioned example.
+
+Novelty audit inspected the live pointwise Newton identity, endpoint gate, convolution/Fubini bridge, asymmetric-corner module, physical product-modulus completion, uniform completed coefficients, finite-C binary-parity obstruction, shared-gcd Mobius Gram note and frontier-incidence no-go. Repository searches for completion/coprime/floor and prime/isotropic statements found no explicit equivalent prime-cube family application; this is not an exhaustive priority or literature claim. In particular:
+
+- `eulerSelfDualConvolutionCoefficient_eq_signed_moebius` and `eulerSelfDualBilinear_eq_two_mertens_sub_endpoint` already supply the fundamental support algebra and Q_R identity. L2's generic polarization is a direct consequence and is attributed accordingly.
+- Earlier product-modulus completions and their activation corrections are not the coefficient prime-cube completion defined here. Their different weights and cutoff are not silently identified.
+- `FRONTIER_INCIDENCE_NO_GO.md` already warns that a fully completed one-prime divisor fibre collapses through Mobius inversion. L3 is a precise all-cross-family extension of that warning on this finite-C carrier, not a claim that the general collapse phenomenon was unknown.
+- `20261103-wheel-2` supplied partial-mask classifications and proper coherent subfamilies, not this complete-family mixed identity. Those facts are reused without another census.
+
+The net contribution is a source-specific exact completion/coherence consequence and explicitly paid comparison error. There is **NO_NEW_INDEPENDENT_BULK_ESTIMATE**, no external-literature novelty claim, and no independent Referee verdict yet.
+
+**Formal evidence actually checked.** PR #1083 is human-merged at head `1ae84e2ff019b266114c100f43016eeec71144a9`, merge/current main `040980c16901af749202e9b0f91211c43909404a`. Fourteen attached head-associated checks were successful. Dedicated Actions run `41744927180`, job `126295407267`, is successful; its actual checkout is synthetic tested merge `06cac0b95a56fdef0f61294e257e67ee2146c32c`, not the bare PR head. The bridge file at that tested merge has blob `c1b7b46a9e62a5b2f3729618c4dd24e31558166f`, byte-identical to main. Actual log output gives only `propext`, `Classical.choice`, `Quot.sound` for `actual_low_tuple_polynomial_eq_sum_atoms`, `actual_low_tuple_polynomial_sq_eq_signed_gram`, and `actual_low_NNS_co_minus_div_eq_normSq`. The log also contains prerequisite Wiener `sorry` warnings; this is not a claim of a globally warning-free cold build. These checked equalities are inherited formal evidence, not a formalization of L1-L4. No local Lean or new CI was run.
+
+### I. Conceptual Interpretation
+
+Complete prime-lift cancellation is genuine coefficient arithmetic, but the floor geometry routes its remaining signed mass into one common endpoint. A completion can make the admission correction affordable without making the completed bulk easier. This distinguishes a successful exact completion theorem from an independently useful analytic estimate. The joint matrix prevents a false diversification argument while leaving different partially admitted or coefficient-sensitive arithmetic restrictions available for investigation.
+
+### J. Competing Structural Hypotheses
+
+**Full-cube normalized averaging:** disproved as a source of additional reduction for this family by the exact L3 formula. Disposition: do not rerun with a larger prime product to seek a different average.
+
+**Partially admitted, coefficient-sensitive cancellation:** still OPEN. It must break the completion-only rank collapse through actual arithmetic information, retain the full complement and mixed return, and prove an estimate rather than choose a favorable subfamily. The old `{1,2,3}` negative cells alone do not do so.
+
+**MU-LIFT joint top-prime/complement interaction:** distinct next protected task. The previous isolated top-half-prime packet is too large for a separately subcritical payment, but its negative compensation with the remaining alternating source has not been estimated. Today's endpoint completion theorem does not supply the required whole-prefix recurrence.
+
+### K. Specialist Handoffs And Consumed Findings
+
+**Referee request, 20261104-wheel-2/L1-L4:** reconstruct the mixed identity from the original floor form before relying on this proof; challenge the unique occurrence map, squareful terms, both cross orientations, n=1 singleton, strict horizon, overlarge-product tail, complex polarization and every-K quantifier. Compare explicitly with the existing Newton and frontier no-go statements. Return ACCEPT_WITH_SCOPE, REVISE or an exact counterexample, separating inherited algebra from the completion-family application. No estimate for M_X or OAI transfer is submitted for acceptance.
+
+**Census request, only if independent verification is useful:** independently enumerate the literal `(d,u,e,v,t)` occurrences at the small R=5,9 controls and the negative R=106 witness, plus R=3 P=5 exterior tail and X=9 closed-square control. Preserve all mu signs, coprime cores, ordered pair multiplicities and original `abt<=X`; compare to L2-L3. The rival is an omitted mixed/high-boundary contribution, not a proposed asymptotic power. Reject on any exact mismatch. Reproducibility requires source pin, code/hash, integer output and distinction between actual sources and synthetic polarization vectors. No larger wheel or repeated broad prime scan is requested.
+
+**Lean Verification:** no immediate proof PR is requested for these self-audited algebraic consequences. If Referee accepts and a live consumer needs the interface, reuse the existing support/Newton machinery; do not create a duplicate generic convolution wrapper. The already qualified moving-mass integration remains a separate task and this report does not broaden anyone's permissions.
+
+**Proof Architect:** record FINITE-AC as substantively resumed and the complete-prime averaging mechanism as closed at its exact scope. Keep `OPEN-VF-ACTUAL-PRIME` and the finite-C quantitative obligation unchanged. L1-L4 are an exploratory structural dependency, not a replacement endpoint node. Next distinct protected Wheel route is MU-LIFT; no team-wide narrowing or new launch is requested.
+
+Continuity consumed at reporting snapshot `9eb7f6458166cdbdb0e567bf66b7fcb89a5d0454`, with both November 3 and November 4 applicable sections read:
+
+- Coordinator `20261104-coordinator-1/C41-C43`, receipt 07:39:24 EST: the canonical-to-terminal direct-power transfer and separate SAT return have unresolved/failed budgets at their stated scope. These are paper/self-audit findings, not a new actual LOW estimate.
+- Owner `20261104-owner-2/SF1-SF5`, receipt in the 08:09 invocation: squarefree depth-three divisor ancestry overload, including 435 seats versus 31 ancestors at q=490001; source restoration remains essential. No bounded-capacity theorem is imported here.
+- Analytic `20261104-analytic-2/CF1-CF3`, receipt 09:41 EST: genuine `E=E1 E2^2 C^3` support and height compression expose useful arithmetic, but the cube-sharing absolute envelope is not the original inverse bound. No coefficient identification with mu is made.
+- Own `20261103-wheel-2/F1-F6`, `20261103-wheel-3/O1-O4,M1-M3`, and `20261104-wheel-1/C1-C2,I1-I3` are resumed at their actual scopes. The accepted ideal counting result is not rerun as an inverse-energy claim.
+- Census `20261104-census-1/R1-R3`, receipt 03:34:56 EST: residual ideal modulus and cube-count kernel are exact/counting results. Referee accepted that scope, not a physical inverse transfer.
+- Referee `20261104-referee-1` accepts the earlier Wheel I1-I3 and Census R1-R3 with scope. Its new referee-2/3 tensor/mask findings remain self-audited; referee-4's finite per-column coverage inequality was subsequently paper-qualified by Lean. Row density alone can delete every mark; no favorable actual OAI mask behavior is inferred.
+- Lean `20261104-lean-1`, report 05:30 EST and receipt 05:36 EST: moving-mass integration is UNCOMPILED and that execution reported BLOCKED_WRITE_ACCESS. This run does not pretend to repair or inherit its tool failure. Nonempty J without positive length can have no power decay; terminal positive lengths matter.
+- External inbox blob `038018145c0fddb2f6306c0712373adf9cd1ea52` has no post-October-18 entry. EXT-20261018-PNT source restoration, EXT-20261017-XCOORD strict q=R, and EXT-20261014-5's unconditional-denominator scope remain historical safeguards, not new task assignments or proofs.
+
+All seven same-day role stages are AVAILABLE at intake; earlier PENDING labels in preserved sections remain historical observations. No execution is inferred from a configured schedule.
+
+### L. First Independently Missing Theorem
+
+On this protected route, the first unsupported quantitative assertion is still a uniform, genuine signed estimate for the full original Q_R, with one constant before R and every admissible historical K. Replacing it by a bound for the common `C_P=-M_X` is target-strength and is **not** a narrower supplied lemma. The completed-family identity supplies no independent estimate for this common scalar. No smaller unproved condition is mislabeled as paid.
+
+For the next MU-LIFT continuation the actual desired independent whole-prefix input is, with fixed `1<=r<2` and subpower G on a square-growing chain,
+
+```text
+|2M(B-1)-Q_(B-1)(X)| <= G(B) E(B)^r sqrt(X)
+for every integer B<=X<B^2,
+E(B)=max_(1<=n<B) |M(n)|/sqrt(n).
+```
+
+The joint top-prime packet plus complement must be retained. An endpoint-only formula or separately bounded top-prime packet does not establish this recurrence or its interpolation. Higher fixed-k alternatives must retain the full k-fold interval and final amplitude-budget power r<k.
+
+For original OAI, binding all-selected OPEN-E0 remains an independently proved, coefficient-sensitive selected-inverse energy saving, uniform in actual rows, heights and masks, with nu chosen before scale and error parameters; then original principal/HIGH and every return term must fit. The native result here does not address that analytic inequality.
+
+### M. Source Ledger And Next-Run Resume Capsule
+
+Material main source blobs, all read at `040980c16901af749202e9b0f91211c43909404a`:
+
+| Source | Blob |
+| --- | --- |
+| research/EULER_HYBRID_ABEL_GRAM_20261027.lean | 2a94dd8fd56fc03e95f732fb44b778a8d4f83e26 |
+| research/EULER_SELF_DUAL_FINITE_C_BRIDGE_20261027.lean | e97561ef330a9996fd807d8910369f0698147b01 |
+| research/EULER_SELF_DUAL_POINTWISE_20261027.lean | c327c556f39ee7014fd774b24d0f95a1ece050e0 |
+| research/EULER_SELF_DUAL_ENDPOINT_GATE_20261027.lean | e7ee8f77ffd59bccaa49dd6d74fbe0d7952c2d73 |
+| RHLean/Proof/SquareRootLegalAncestryGramReduction.lean | 1270d4d91c53b50b110d10014f223f427fb7a575 |
+| research/EULER_ASYMMETRIC_CORNER_SIGNED_GRAM_20261028.lean | e501613434bccdc6183763a8aec8f8e62a5ff26d |
+| research/EULER_PHYSICAL_COMPLETE_PACKET_20261030.lean | 8084af7fa50fb5b8361a64f05eb658f08b529ca7 |
+| research/EULER_UNIFORM_COMPLETED_COEFFICIENTS_20261030.lean | c39fde58586c2df55fb5be0166d1908db5aa3aba |
+| research/FINITE_C_BINARY_PARITY_OBSTRUCTION_20261102.lean | 168e58512054ecd3fd6518331b086b9cca7cf9ed |
+| research/FRONTIER_INCIDENCE_NO_GO.md | 401bcc9c5a41b5b164620fe2d193c783df3f16d1 |
+| research/MOBIUS_DENSITY_PRESERVING_MULTIPLICATIVE_GRAM_2026_10_11.md | 25f96804928af68d3ca3506e8ea4c8f7685cedb7 |
+| research/VF_CANONICAL_SQRT_TWO_VON_KOCH.lean | 79030d70e8d3e0d08eef9bac53fef95c36eca2fb |
+| research/oai_434/VF919OriginalLowTupleSignedGram.lean | c1b7b46a9e62a5b2f3729618c4dd24e31558166f |
+
+Continuity blob ledger at intake, filenames under `research/agent_reports/<date>/`:
+
+| Role filename | 2026-11-03 | 2026-11-04 |
+| --- | --- | --- |
+| 00-coordinator-am.md | e35ab2cd9cba2a47ac5be53b09938b37a0c20df3 | 6f00c4e1055a03325e8c152d4bcb505e254b8ecc |
+| 10-owner-payment.md | d52c74b76c2914c3be694f39cd7afe9b122a4834 | bef2ab8cefd691a868d8f1acdfe696af41266d16 |
+| 20-analytic-type-ii.md | 2b9c3dbab6039e3c30a5ece3e473290af5dbbf0b | 5e489bffbce7fe986b9f48c73cb409beaa151f82 |
+| 30-finite-wheel.md | cd7777180bb5c2c899a60bdd699b99be8e12a672 | 364e6a0a29f8513d5471352d563a49e9b933c2e3 |
+| 40-prime-census.md | eb9a2e0cf7772f22060aec07e0bcddd24ace9cd9 | 108303ebdf61dc64cacd16651521ea39468292a3 |
+| 50-adversarial-referee.md | 583ce524628577818603ffd4e9ec0eb3673a3f37 | dd02c8e7072b9390119da35a204924ddad721d06 |
+| 60-lean-verification.md | fc27fb1ae103e60ff600e5a24ce6716937da3884 | 4585dc42e267f62da5c13624f2a5a4494aa79c53 |
+
+The Coordinator compatibility mirrors had identical complete blobs. The own November 4 intake blob predates this invocation's checkpoint. These are evidence references, not claims that every paper result in the files was independently verified.
+
+```text
+ENGINE_VERSION: 2026-11-03
+RUN_ID: RUN_ID_UNAVAILABLE; scheduled 2026-11-04T10:12:01-05:00
+TASK_ID: protected FINITE-AC full cross-core completion continuation
+ORIGINAL_SOURCE: eulerSelfDualBilinear; strict X=R^2-1; original historical K
+CLAIM: 20261104-wheel-2/L1-L4 paper; L5 finite computation
+LAST_JUSTIFIED_STEP: full mixed completion equals -M_X, with exact tail if overlarge
+PAID_PROPER_TERM: |Q_R-C_P|<=2+2sqrt(KR), uniformly over permitted moving P
+FIRST_UNSUPPORTED_STEP: independent uniform estimate of the remaining full signed scalar
+SCOPED_FAILURE: normalized complete-prime averaging cannot change that scalar
+NEXT_DECISIVE_ACTION: resume MU-LIFT top-prime/complement joint interaction
+NEXT_PROTECTED_ROUTE: MU-LIFT, then CORR4, then FINITE-AC, subject to actual new evidence
+NEXT_FINITE_AC_STEP: seek a genuinely coefficient-sensitive restriction beyond full-cube completion
+REVIEW: SELF_AUDIT; independent Referee PENDING; no Lean implementation requested yet
+SOURCE_FIRST_VERSION: 2026-11-03; original J=unselected; binding J=empty singleton
+NEW_SQUARED_LOW_GAIN / AMPLITUDE_GAIN / ENDPOINT_GAIN: UNKNOWN / UNKNOWN / UNKNOWN
+ETA_GATE: SEARCH_BROAD for additional signed arithmetic; inherited results retain scope
+CANONICAL_VF / FINITE_C / CORR4 / RH: OPEN
+```
+
+Early checkpoint commit `16f218ea00837a234e052a883afe05fc8de7ebc5`, blob `fc1c429e1a5b0ae18ad9fccd687723585df2558f`, was pinned-readback verified; the commit modifies only this authorized role file, with 17 additions and zero deletions. All earlier report bytes are preserved. No proof source, main, other report, policy, workflow, proof branch, PR, issue, permission or schedule was changed; no agent was launched and no merge or local Lean execution occurred.
+
+### Complete Executed Reproducer For 20261104-wheel-2
+
+Python standard library only. The program exited 0 and `python -m py_compile` also passed. SHA-256 of the exact program bytes: `c2c4a8649e98f2f9cdae2d247ca112561a8a60ba9128c05a77593f31282b19ba`. Deterministic result SHA-256 (the sorted-key JSON string constructed for hashing): `84c494fa9429374e17c4943971bab656a4a451ed62b6b0a95d4ff76534b010df`. Finite verification does not replace the proofs or independent review.
+
+
+```python
+"""Exact finite checks for 20261104-wheel-2; no asymptotic inference."""
+
+from fractions import Fraction as F
+from itertools import product
+from math import gcd, isqrt
+import hashlib
+import json
+
+
+def mobius_sieve(limit):
+    mu = [1] * (limit + 1)
+    prime = [True] * (limit + 1)
+    mu[0] = 0
+    for p in range(2, limit + 1):
+        if prime[p]:
+            for n in range(p, limit + 1, p):
+                prime[n] = False
+                mu[n] *= -1
+            for n in range(p * p, limit + 1, p * p):
+                mu[n] = 0
+    return mu
+
+
+def trial_mu(n):
+    parity = 1
+    p = 2
+    while p * p <= n:
+        if n % p == 0:
+            n //= p
+            parity = -parity
+            if n % p == 0:
+                return 0
+        p += 1
+    return -parity if n > 1 else parity
+
+
+def prime_free_part(n, modulus):
+    for p in range(2, isqrt(modulus) + 1):
+        if modulus % p == 0:
+            while modulus % p == 0:
+                modulus //= p
+            while n % p == 0:
+                n //= p
+    if modulus > 1:
+        while n % modulus == 0:
+            n //= modulus
+    return n
+
+
+def complete(R, P, mu):
+    divisors = [d for d in range(1, P + 1) if P % d == 0]
+    row = {}
+    for u in range(1, R):
+        if gcd(u, P) == 1 and mu[u]:
+            for d in divisors:
+                n = d * u
+                assert n not in row
+                row[n] = mu[d] * mu[u]
+    return row
+
+
+def bilinear(f, g, X):
+    return sum(c * d * (X // (a * b))
+               for a, c in f.items() for b, d in g.items() if a * b <= X)
+
+
+def main():
+    anchors = (4, 5, 9, 23, 106, 61, 137, 211)
+    root_cases = tuple(range(2, 41)) + tuple(r for r in anchors if r > 40)
+    limit = max(max(root_cases) ** 2, 210 * (max(root_cases) - 1))
+    mu = mobius_sieve(limit)
+    M = [0]
+    K = [F(1)]
+    for n in range(1, limit + 1):
+        M.append(M[-1] + mu[n])
+        K.append(max(K[-1], F((M[n] - 1) ** 2, n + 1)))
+    for n in range(1, 10001):
+        assert mu[n] == trial_mu(n)
+
+    counts = dict(source_cases=0, cross_cases=0, occurrence_checks=0,
+                  high_high=0, history_bounds=0, moving_roots=0,
+                  complex_polarizations=0)
+    witnesses = []
+    overlarge = []
+    for R in root_cases:
+        X = R * R - 1
+        f0 = {n: mu[n] for n in range(1, R) if mu[n]}
+        Q = bilinear(f0, f0, X)
+        assert Q == 2 * M[R - 1] - M[X]
+        Ps = ([P for P in range(1, R + 6) if mu[P]] if R <= 40
+              else [1, 2, 3, 5, 6, 10, 30, 42, 210])
+        rows = {}
+        sums = {}
+        for P in Ps:
+            f = complete(R, P, mu)
+            rows[P] = f
+            sums[P] = sum(c for n, c in f.items() if n <= X)
+            for n in range(1, P * (R - 1) + 1):
+                assert f.get(n, 0) == (mu[n] if prime_free_part(n, P) < R else 0)
+                counts['occurrence_checks'] += 1
+            assert all(f.get(n, 0) == mu[n] for n in range(1, R))
+            if P > 1:
+                assert sum(f.values()) == 0
+            h = {n: c for n, c in f.items() if R <= n <= X}
+            b = sum(h.values())
+            t = sum(c for n, c in f.items() if n > X)
+            comp = bilinear(f, f, X)
+            assert bilinear(h, h, X) == 0
+            assert bilinear(f0, h, X) == b
+            assert comp == Q + 2 * b == 2 * sums[P] - M[X]
+            if P > 1:
+                assert b == -M[R - 1] - t
+                assert comp == -M[X] - 2 * t
+            if 1 < P <= R + 1:
+                assert t == 0 and comp == -M[X]
+                # Squared version avoids all numerical square roots.
+                assert (M[R - 1] - 1) ** 2 <= K[R - 1] * R
+                counts['history_bounds'] += 1
+            elif P > R + 1 and t and len(overlarge) < 6:
+                overlarge.append([R, P, Q, comp, M[R - 1], M[X], t])
+            counts['source_cases'] += 1
+            counts['high_high'] += 1
+        # Test complete mixed forms, not only the diagonal identities.
+        selected = [P for P in (1, 2, 3, 5, 6, 10, 30) if P in rows]
+        for P, S in product(selected, repeat=2):
+            assert bilinear(rows[P], rows[S], X) == sums[P] + sums[S] - M[X]
+            counts['cross_cases'] += 1
+        if R in anchors:
+            P = 6 if R >= 5 else 3
+            mixed = bilinear(f0, rows[P], X)
+            c = bilinear(rows[P], rows[P], X)
+            determinant = Q * c - mixed * mixed
+            assert determinant == -M[R - 1] ** 2
+            witnesses.append(dict(R=R, P=P, M_history=M[R - 1], M_endpoint=M[X],
+                                  Q=Q, completion=c, cross=mixed,
+                                  determinant=determinant, K=str(K[R - 1])))
+
+    # All entries of this actual four-source matrix are directly evaluated.
+    R = 23
+    X = R * R - 1
+    rows = [complete(R, P, mu) for P in (1, 2, 3, 6)]
+    G = [[bilinear(f, g, X) for g in rows] for f in rows]
+    choices = ((F(0), F(0)), (F(1), F(0)), (F(-1), F(0)),
+               (F(1, 2), F(1, 3)), (F(0), F(1)))
+    for cs in product(choices, repeat=4):
+        ar = sum(z[0] for z in cs)
+        ai = sum(z[1] for z in cs)
+        actual = sum(G[i][j] * (cs[i][0] * cs[j][0] + cs[i][1] * cs[j][1])
+                     for i in range(4) for j in range(4))
+        expected = -M[X] * (ar * ar + ai * ai)
+        expected += 2 * M[R - 1] * (cs[0][0] * ar + cs[0][1] * ai)
+        assert actual == expected
+        counts['complex_polarizations'] += 1
+
+    # A deliberately moving completion choice: no hidden fixed-P assumption.
+    last = None
+    for R in range(5, 45):
+        choices_R = [P for P in range(2, R + 2) if mu[P]]
+        P = choices_R[(R * R + 3) % len(choices_R)]
+        c = bilinear(complete(R, P, mu), complete(R, P, mu), R * R - 1)
+        assert c == -M[R * R - 1]
+        if last is not None:
+            assert c - last == -(M[R * R - 1] - M[(R - 1) ** 2 - 1])
+            counts['moving_roots'] += 1
+        last = c
+
+    # Strict square horizon control: the formerly zero high-high cell appears.
+    R, P, X = 3, 3, 9
+    f0, f = complete(R, 1, mu), complete(R, P, mu)
+    h = {n: c for n, c in f.items() if n >= R}
+    horizon = [bilinear(f0, f0, X), bilinear(f0, h, X),
+               bilinear(h, h, X), bilinear(f, f, X)]
+    assert horizon == [3, -1, 1, 2]
+
+    # Zero completion mass is essential; deleting one divisor is not a cube.
+    R, P, X = 5, 6, 24
+    f0 = complete(R, 1, mu)
+    full = complete(R, P, mu)
+    partial = {n: c for n, c in full.items() if n != 6}
+    assert (bilinear(f0, f0, X), bilinear(full, full, X),
+            bilinear(partial, partial, X)) == (0, 2, 0)
+    combined = {n: 2 * f0.get(n, 0) - full.get(n, 0)
+                for n in set(f0) | set(full)}
+    assert bilinear(combined, combined, X) == -2
+
+    result = dict(counts=counts, witnesses=witnesses,
+                  overlarge_columns='R,P,Q,completed,M_history,M_endpoint,tail',
+                  overlarge_witnesses=overlarge, horizon=horizon,
+                  partial_cube=[0, 2, 0], negative_quadratic=-2,
+                  interpretation='FINITE_COMPUTATION / SELF_AUDIT; no uniform bound inferred')
+    encoded = json.dumps(result, sort_keys=True)
+    print(json.dumps(result, indent=2, sort_keys=True))
+    print('RESULT_SHA256', hashlib.sha256(encoded.encode()).hexdigest())
+
+
+if __name__ == '__main__':
+    main()
+```
+
+### Exact Reproducer Output
+
+```text
+{
+  "counts": {
+    "complex_polarizations": 625,
+    "cross_cases": 1775,
+    "high_high": 705,
+    "history_bounds": 559,
+    "moving_roots": 39,
+    "occurrence_checks": 446154,
+    "source_cases": 705
+  },
+  "horizon": [
+    3,
+    -1,
+    1,
+    2
+  ],
+  "interpretation": "FINITE_COMPUTATION / SELF_AUDIT; no uniform bound inferred",
+  "negative_quadratic": -2,
+  "overlarge_columns": "R,P,Q,completed,M_history,M_endpoint,tail",
+  "overlarge_witnesses": [
+    [
+      2,
+      5,
+      3,
+      3,
+      1,
+      -1,
+      -1
+    ],
+    [
+      2,
+      6,
+      3,
+      -1,
+      1,
+      -1,
+      1
+    ],
+    [
+      2,
+      7,
+      3,
+      3,
+      1,
+      -1,
+      -1
+    ],
+    [
+      3,
+      5,
+      2,
+      0,
+      0,
+      -2,
+      1
+    ],
+    [
+      3,
+      7,
+      2,
+      0,
+      0,
+      -2,
+      1
+    ],
+    [
+      4,
+      7,
+      -1,
+      -1,
+      -1,
+      -1,
+      1
+    ]
+  ],
+  "partial_cube": [
+    0,
+    2,
+    0
+  ],
+  "witnesses": [
+    {
+      "K": "1",
+      "M_endpoint": -1,
+      "M_history": -1,
+      "P": 3,
+      "Q": -1,
+      "R": 4,
+      "completion": 1,
+      "cross": 0,
+      "determinant": -1
+    },
+    {
+      "K": "1",
+      "M_endpoint": -2,
+      "M_history": -1,
+      "P": 6,
+      "Q": 0,
+      "R": 5,
+      "completion": 2,
+      "cross": 1,
+      "determinant": -1
+    },
+    {
+      "K": "3/2",
+      "M_endpoint": -4,
+      "M_history": -2,
+      "P": 6,
+      "Q": 0,
+      "R": 9,
+      "completion": 4,
+      "cross": 2,
+      "determinant": -4
+    },
+    {
+      "K": "3/2",
+      "M_endpoint": -1,
+      "M_history": -1,
+      "P": 6,
+      "Q": -1,
+      "R": 23,
+      "completion": 1,
+      "cross": 0,
+      "determinant": -1
+    },
+    {
+      "K": "3/2",
+      "M_endpoint": 3,
+      "M_history": -3,
+      "P": 6,
+      "Q": -9,
+      "R": 106,
+      "completion": -3,
+      "cross": -6,
+      "determinant": -9
+    },
+    {
+      "K": "3/2",
+      "M_endpoint": -7,
+      "M_history": -1,
+      "P": 6,
+      "Q": 5,
+      "R": 61,
+      "completion": 7,
+      "cross": 6,
+      "determinant": -1
+    },
+    {
+      "K": "3/2",
+      "M_endpoint": 0,
+      "M_history": -1,
+      "P": 6,
+      "Q": -2,
+      "R": 137,
+      "completion": 0,
+      "cross": -1,
+      "determinant": -1
+    },
+    {
+      "K": "3/2",
+      "M_endpoint": 6,
+      "M_history": -1,
+      "P": 6,
+      "Q": -8,
+      "R": 211,
+      "completion": -6,
+      "cross": -7,
+      "determinant": -1
+    }
+  ]
+}
+RESULT_SHA256 84c494fa9429374e17c4943971bab656a4a451ed62b6b0a95d4ff76534b010df
+```
