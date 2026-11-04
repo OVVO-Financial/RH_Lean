@@ -43,7 +43,7 @@ Read the original pinned Lean declarations in order:
 
 ## 3. Exact signed LOW atoms and NNS Co minus Div
 
-For actual selected slot set J, write the literal original unselected-tuple complex atom U_a from Detector/LowSlotPolynomial.lean:
+For the actual **UNSELECTED** slot set J (SelectedSlot J is its complement), write the literal original unselected-tuple complex atom U_a from Detector/LowSlotPolynomial.lean:
 
     U_a := lowUnselectedWeight(a)
        * (sqrt(Q_a))^(-1) / (2*pi)
