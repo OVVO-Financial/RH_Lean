@@ -1077,3 +1077,9 @@ Final executed process exited 0. The JSON below is the complete emitted result, 
   }
 }
 ```
+
+## Publication Receipt - 2026-11-04 02:41:28 EST (-0500)
+
+Full research synthesis committed as `3b85d5cbeff36baace23ac030ba5271d34743cbe`, content blob `d34e0a24e3fa6a9035c8ffcec25b8139ea540d5c`. Re-fetch at 2026-11-04T07:41:28Z matched all 58,293 characters exactly, including the preserved early checkpoint, proofs, complete reproducer and emitted results. This receipt records that successful readback; it does not certify itself or upgrade the mathematics to independent review.
+
+Execution/publication: COMPLETE / PUBLISHED_AND_READBACK_VERIFIED for the full synthesis above. New mathematical status: PAPER_PROOF / SELF_AUDIT; Referee and Lean: PENDING. Main remains `040980c16901af749202e9b0f91211c43909404a`. No new source-energy, LOW-amplitude or endpoint exponent gain is claimed. Next protected Wheel route: FINITE-AC.
