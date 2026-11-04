@@ -190,6 +190,8 @@ theorem exists_explicit_high_data_fine :
   have hN1 : (1 : ℝ) < N := by
     have h := explicitSlotCount_two_le
     exact_mod_cast (lt_of_lt_of_le (by norm_num : 1 < 2) h)
+  have hN : 0 < N := by
+    exact_mod_cast (lt_trans zero_lt_one hN1)
   have hNL :
       1/(3*((1/200:ℝ)*min (min t (mesh t)) t)) < (N : ℝ) := by
     simpa [N, t, mesh, explicitFineLength] using explicitSlotCount_gt
