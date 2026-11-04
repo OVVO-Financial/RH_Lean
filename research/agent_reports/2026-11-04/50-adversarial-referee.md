@@ -890,3 +890,629 @@ Selected review: Analytic `20261104-analytic-2-CF1/CF2/CF3` against original squ
 Preregistered independent attack: reconstruct the modulo-three cofactor support and exact complex source, test forced/forbidden slots, conjugate ideals, cube-sharing with E2=1, equal-norm multiplicity, and selected-slot admission. Seek a source-faithful strengthened absolute bound or an exact obstruction to sector/row orthogonality; a finite factor witness is not a numerical evaluation of the physical inverse. All squared-energy gain, complete LOW gain and new endpoint gain remain UNKNOWN. ETA_GATE=SEARCH_BROAD. No local Lean or unauthorized repository changes.
 
 Publication is claimed only following commit/readback; final mathematics and continuation capsule remain PENDING.
+
+
+## All-Selected Source Synthesis - 20261104-referee-5 Through 20261104-referee-8
+
+Actual invocation: SCHEDULED, 2026-11-04T12:03:01-05:00, America/New_York; RUN_ID_UNAVAILABLE. This continues the verified checkpoint above and preserves the complete earlier 04:13 report. New original results below are PAPER_PROOF / SELF_AUDIT, INDEPENDENT_REVIEW_PENDING, NOT_FORMALIZED. Independent review of other authors' claims is separately labeled. Research completion does not imply a new exponent or RH proof.
+
+### A. Most Important Mathematical Finding
+
+**Cube extraction has an exact source-preserving formula, but its effective scale shrinks while its numerator rows do not.** Extracting a squarefree selected ideal H from the cube variable replaces U by U/N(H)^3 and the selected mark D by D/H. The genuine cofactor therefore satisfies E=H^2 E'. After the original Fourier/Gaussian recombination, the Gaussian is exactly G(N(E')/(Z/N(H)^2)). This identifies a two-power scale contraction, not a free power saving.
+
+For a nonempty extracted slot subset L of fixed length h=sum_(i in L) ell_i, the existing original inverse theorem genuinely supplies the new restricted-row statement
+
+```text
+sum_(m in R) |T_L(m;U,t)|^2
+  <= C_epsilon (1+|t|)^A Z^(5/6 - (5/3)h + epsilon),
+provided every m in R is nonzero and
+N(m) <= Ck Z^(5/6 - (5/3)h).                         (R7)
+```
+
+The exact original intersection source T_L and full quantifiers are in E3/I. This is an independently derived consequence for a smaller numerator range, not an assumption of the desired all-row saving. The upper rows of the original range N(m)=O(Z^(5/6)) are not paid by R7. A direct reapplication of the old supplier to that entire range would require simultaneously s>=1 and s<=1-2h for its new scale Z^s, ignoring arbitrarily small losses. For h>0 this is impossible. Section F proves the precise positive-loss version and gives legal original-supplier row-factor witnesses.
+
+**Independent scope verdicts:** Analytic CF1, CF2's constant 24, and CF3's stated Fourier estimate/Gaussian identity are accepted on paper at their stated scopes. CF2 remains far too weak for the 5/6 baseline. Census H1/H2 and the same-A cap/core witness survive independent reconstruction and a small exact reproducer; they refute automatic factor orthogonality, not the actual inverse saving.
+
+**Formal-status change verified:** #1085's six new mass/central declarations pass the pinned warning-fatal compilation and standard-axiom audit. A final refresh caught human merges of #1085 and #1087 during this invocation. Final main `72ab5bdd0f9d8876f512e6273b50410328444e6e` has EXACTLY the same complete Git tree as the successfully tested #1085 merge. The six declarations are therefore PROVED_IN_LEAN_MAIN, not merely PR-head. This is not the complete terminal Gaussian/normalizer return. No new all-selected nu, complete LOW g, canonical VF estimate, or RH proof is established. ETA_GATE=SEARCH_BROAD.
+
+### B. Current Authoritative Objective And Continuity
+
+Intake main was `ffe2ef4a684c7cb52d04852ea38b251203ff8a71`; final refreshed main is `72ab5bdd0f9d8876f512e6273b50410328444e6e`. AGENTS is `3b5ff6e0249aa8d8f58ba8341a0d6eb21cd21dba`; CURRENT_PROOF_CONTRACT is `df026713a18c2ab851485e99d2239de80bbe87e3`; both were fetched again at final main and are unchanged. The all-selected source-attack policy is `6565096a532ef7224da389670aacd6f3ab7a57d2`. The full intake-to-final comparison changes only the Gram source and its workflow, so all policy and canonical-source blobs remain valid. OAI sources are read at the actual fixed pin `1581d4cbdd69a0faf34b2089614fe2a814316a6a`, not external main. The stable selector, broad-search, complete-return, source-first, research-engine, role, multi-run and dynamic-protocol instructions were retrieved and applicable instructions read.
+
+The canonical objective remains the literal actual-prime `VFCanonicalSquareVonKochStatement`: there exists C>=0 such that every natural R>=2 satisfies abs(pi(R^2)-vfCanonical(R^2))<=C R log R. Its defining source blob is `79030d70e8d3e0d08eef9bac53fef95c36eca2fb`. The existing von Koch coordinate bridge and explicit classical criterion interface are not changed.
+
+The immediate distinct task is SF-I: a coefficient-sensitive fixed nu>0 on the ORIGINAL all-selected squared inverse at Z^(5/6-nu+epsilon), or the weaker sufficient task SF-L of a complete integrated all-selected LOW saving. No arbitrary coefficient vector, ambient incidence measure or assumed Gamma contraction is substituted. J indexes UNSELECTED slots; J=empty has a singleton outer tuple and zero outer cross Gram.
+
+All seven reports for November 3 and November 4 were retrieved at reporting head `86f4ad19e0273b7c1f8d0ad18d7f4daaf068a6c4`. Applicable findings, source qualifications, new claims and continuation sections were read, not every historical program appendix re-audited. TODAY=AVAILABLE for every role; YESTERDAY=CARRY_FORWARD only at existing scope. The prior-day Referee R9/R10 and Lean-3 qualification, today's Referee-1/2/3/4, and Lean-1 central integration were available as actual bytes. No missing stage or execution was inferred from a schedule.
+
+Continuity consumed: Coordinator C37-C44's density and canonical-margin limitations; Owner O1-O5/JH1-JH10 and today's SF1-SF5 ancestry obstruction; Analytic's NYMAN P1-P10, prior CODIV CD1-CD6 and current CF1-CF3; Wheel's norm-fiber restrictions and current FINITE-AC L1-L4; Census's earlier counting/fiber work and new census-2 H1/H2; own R9/R10 and current counting/mask results; Lean's six-declaration integration. The non-OAI claims retain their prior review states. This run does NOT independently accept all those separate proofs.
+
+External inbox blob `038018145c0fddb2f6306c0712373adf9cd1ea52` has no entry newer than October 18. Its historical native-source counterexamples remain carrier-specific, not new OAI handoffs. No protected investigator rotation was reset. Analytic's next owned route is CODIV; the support queue also contains the unreviewed NYMAN P1-P10 and native FINITE-AC claims.
+
+The early checkpoint was committed as `f1083187a1683f9a09e70b9f5ecbbe327757e569`, read back exactly at blob `17886fa347434bdba8da3c35f117afad544f62bc`. The final publication receipt is recorded only after its actual write/readback.
+
+### C. Highest-Risk Proof Mechanisms
+
+1. Applying the old inverse estimate after shrinking U but retaining a numerator range outside its quantified hypotheses. This is the newly isolated scale error, not a false theorem of OAI.
+2. Treating the q^(-3) reduction of CF2's crude absolute envelope as a saving against the much smaller sharp squared energy. Analytic correctly does not make that inference.
+3. Applying the full correction-summed row bound separately to its character or cube subsums. A norm bound for a complex sum does not bound its subsums. R7 instead invokes the actual per-character supplier used in the original proof.
+4. Erasing cap/core mixed terms because their marked occurrences differ. Census's same-A example shows identical numerator and height factors in opposite sectors.
+5. Promoting a green central moving-mass theorem to complete LOW, or to a positive gain for J=empty. The central theorem assigns d_empty=0 and does not assert either conclusion.
+
+### D. Claims Reviewed And Verdicts
+
+| Stable claim | Verdict | Evidence and exact scope |
+| --- | --- | --- |
+| 20261104-analytic-2-CF1 | ACCEPT_WITH_SCOPE | PAPER_PROOF: unique modulo-three ideal decomposition and full weighted height grouping; additional source masks may still kill an occurrence |
+| 20261104-analytic-2-CF2 | ACCEPT_WITH_SCOPE | PAPER_PROOF: constant 24 and all displayed K/slot dependence verified; upper bound on the actual cap sector by a crude absolute envelope, not new inverse-energy gain |
+| 20261104-analytic-2-CF3 | ACCEPT_WITH_SCOPE | PAPER_PROOF: stated harmonic mean-square error and original Gaussian reconstruction; no short-height diagonalization of genuine coefficients follows |
+| 20261104-census-2 H1/H2, F1-F3 | ACCEPT_WITH_SCOPE | PAPER_PROOF for source-factor extraction and complete-residue kernel; exact small factor checks independently executed. F1 is not an evaluated physical integral or actual weighted-energy lower bound |
+| census-2 F4 six radial observations | NOT_REPRODUCED_THIS_RUN | Their finite numbers are not used in this proof; incomplete-row orthogonality is not assumed |
+| 20261104-lean-1 L1 and six declarations in #1085 | ACCEPT_WITH_SCOPE; PROVED_IN_LEAN_MAIN | Actual central polynomial and mass theorem types checked; six standard-axiom outputs verified; final main tree equals tested merge tree; full terminal return remains paper scope |
+| lean-1 L2 nonempty zero-length mass witness | ACCEPT_WITH_SCOPE | Norm-25 supported inert ideal with ell=0 gives mass 25^-2=1/625 for all Z; this refutes only nonempty-implies-decay under nonnegative lengths |
+| 20261104-referee-6/R6 | PAPER_PROOF / SELF_AUDIT | New exact actual cube-extraction identity and E=H^2 E' Gaussian scale |
+| 20261104-referee-7/R7 | PAPER_PROOF / SELF_AUDIT | New source-specific small-numerator-row bound; independent review and Lean pending |
+| 20261104-referee-8/R8 | PAPER_PROOF / SELF_AUDIT | No direct full-row reuse of the old supplier under the stated cube-extraction rebase; NOT a no-go for new signed estimates |
+
+`20261104-referee-5` names this independent upstream review bundle. Review method: the upstream statements and author proofs were read, then reconstructed against original source and independently tested. This was not a blind review. Independent session provenance is not a claim of statistically independent models. New R6-R8 are not independently accepted merely because their author is the Referee.
+
+### E. Independent Mathematical Reconstruction
+
+#### E1. The Literal Source And CF1
+
+Work in the original Eisenstein ideal monoid. Fix the original Hecke character eta, finite maximal-ideal set S containing fixedBadPrimes, sigma and the original calibration, true periodic bases and finite correction characters. For row m let Psi_(chi,m) be exactly `rowTwist(physicalRayPeriodicBase eta S sigma chi, calibration.generator, 1, m)`. The true-period/lowReflectionMask form is equal AS A ROW HOMOMORPHISM by `physical_row_absorb_true_period`, not just after summing a particular mark. Its source `Detector/LowTruePeriodPuncture.lean`, blob `7b77da5ecb4b9849ca47163d57386615e59582e5`, was additionally retrieved and inspected. Thus equality holds term by term under the cube restrictions used below; it is not inferred by restricting an equality of total sums. Selected ideal-list filtering retains its exact source zero conditions. Let W_t be `normTwistedSource gaussianFixedWindow t` and gamma_chi the original `correctionCoeff`.
+
+For squarefree selected D define
+
+```text
+T_(D,chi,m)(U,t) = markedCompletedT(Psi_(chi,m), W_t, U, 1_(D|A)).
+s_(chi,m)(I,B;U,t)
+ = columnWeight(Psi_(chi,m),I)/sqrt(N(I))
+   * cubeWeight(Psi_(chi,m),B) * Vstar(W_t)(N(I)N(B)^3/U).
+```
+
+The original all-selected row is sum_p c_p(t) sum_chi gamma_chi T_(D_p,chi,m), with c_p(t) the unchanged `lowSelectedWeight`. Both the Hecke coefficient and every selected log phase are present. Pairwise-disjoint prime-ideal slots make D_p squarefree. Compact support and U>0 imply N(I)N(B)^3<2U for nonzero summands; zero ideals vanish. Every regrouping here is finite.
+
+On nonzero terms I is squarefree. Write E=IB^3/D=E1 E2^2 C^3 with valuation residues 0,1,2 modulo three. Then E1,E2 are squarefree and coprime, C is unrestricted, and
+
+```text
+E2|D, gcd(D,E1)=1, D=E2 D0,
+I=E1 D0, B=E2 C.
+```
+
+Prime by prime, v(D) in {0,1} must make v(D)+v(E) congruent to 0 or 1 modulo three. This proves necessity and sufficiency and the displayed unique I,B. It permits C to meet E1, E2 AND D0. Consequently E2=1 does not characterize gcd(D,B)=1. The actual coprime core additionally requires gcd(D,C)=1. Two forced E2 primes in one slot, or a forced prime outside all slots, give an empty structural fiber. Distinct conjugate ideals are not collapsed by their equal rational norms.
+
+With P_*=product P_i, the two original log phases combine to log(N(E)P_*/U). Grouping by integer N(E) must sum all complex coefficients within a norm fiber first. This independently recovers CF1 and D2 without removing character, Gauss or same-norm cross terms.
+
+#### E2. CF2 And CF3 Survive At Their Claimed Scope
+
+For x>0, the elementary Eisenstein ideal count A_O(x)<=3x follows from six associates and the enclosing lattice box for a^2-ab+b^2<=x; below 1 the count is zero. Positive layer cake gives zeta_O(4)<=4. For a fixed squarefree D put F_B=D/gcd(D,B). Then D|IB^3 iff F_B|I. Counting I and using ONLY the proved source bounds |columnWeight/sqrt(NI)|<=1, |cubeWeight(B)|<=1/NB and |gaussianAnnulus|<=1 gives
+
+```text
+absolute cap contribution for D
+ <= (6U/ND) sum_(B:gcd(D,B)!=1) N(gcd(D,B))/(NB)^4.
+```
+
+Its exact Euler sum is zeta_O(4) times
+
+```text
+product_(P|D)(1+q^-3-q^-4) - product_(P|D)(1-q^-4).
+```
+
+Each difference is q^-3; all factors are at most 9/8 for q>=2. Product telescoping and the finite character norms therefore give exactly Analytic's
+
+```text
+24 C_gamma U (9/8)^(K-1) sum_i J_i product_(j!=i) H_j,
+H_i=sum_(P in T_i)|W_i(NP/P_i)|/NP,
+J_i=sum_(P in T_i)|W_i(NP/P_i)|/(NP)^4.
+```
+
+K>=1 is required for that formula; K=0 has zero cap sector. No uniformity in growing K or conductor follows. Its all-row squared exponent 19/6-6ell_min+epsilon is at least 13/6+epsilon when sum ell_i=1/6. This proves inadequacy of that BOUND relative to 5/6, not largeness of the actual cap energy.
+
+For CF3, integrate each off-diagonal pair in sum_n a_n exp(2*pi*i*t*log(nP_*/U)). Its integral is at most 1/(pi|log(n/k)|); |log(n/k)|>=|n-k|/N and the harmonic-row bound give exactly (2N/pi)H_(N-1) sum|a_n|^2. N=1 and zero coefficients cause no exception. The original `gaussian_selected_slot_family` and `gaussianFixedWindow_Vstar_twist` give the finite-term return sum_n a_n G(n/Z). A fixed lower bound for G on n/Z in a fixed compact interval is valid; it is NOT uniform on the full expanding Z^(+/-epsilon/2) window. No external mean-value theorem or stronger constant is needed for this verification.
+
+#### E3. New Exact Cube Extraction (R6)
+
+For squarefree D, write T_cap for the portion with gcd(D,B)!=1. Inclusion-exclusion on the selected primes, followed by B=H B', gives the exact complex identity
+
+```text
+T_cap(D,chi,m;U,t)
+ = sum_(1!=H|D) -mu_ideal(H) * cubeWeight(Psi_(chi,m),H)
+       * T_(D/H,chi,m)(U/N(H)^3,t).                 (R6a)
+```
+
+Proof: 1_(gcd(D,B)!=1)=sum_(1!=H|D,H|B)-mu_ideal(H). For each such H, D|I(HB')^3 iff D/H|I(B')^3. The source defines cubeWeight as a multiplicative homomorphism, including its actual zero masks, and
+
+```text
+N(I)N(HB')^3/U = N(I)N(B')^3/(U/N(H)^3).
+```
+
+Thus every Gauss factor, character, angular factor, height phase and window value is preserved. There is no additional height phase from changing U in this equality. The external selected coefficient c_p(t) is retained. The finite character sum is not simplified or assumed orthogonal. The intersections overlap; the alternating signs are essential and are not a disjoint partition.
+
+Equivalently, for each nonempty subset L of selected slot indices, define T_L(m;U,t) as the ORIGINAL sum over all selected p, all chi,I,B with D_p|IB^3 and H_p(L)|B, with the entire original coefficient. Here H_p(L)=product_(i in L)p_i. Since I is squarefree, H|B is equivalent to H^3|IB^3; the combined restriction can also be written as the single ideal mark D_p H_p(L)^2|IB^3. This supplies another explicit original-carrier description. Then
+
+```text
+B_cap = sum_(empty!=L subset slots) (-1)^(|L|+1) T_L.
+```
+
+After extraction T_L is the sum over the removed-slot choices H of their original product weight, times cubeWeight(Psi_(chi,m),H), times the remaining-slot selected polynomial at U/NH^3. This retains actual repeated occurrence counts. The remaining-slot weight factors by the source's `lowSelectedWeight_eq_product`, as used in `lowSelectedInverseRow_actual_ideal`.
+
+For each original occurrence, D=H D', B=H B', and
+
+```text
+E=IB^3/D=H^2*(I(B')^3/D')=H^2 E'.                  (R6b)
+```
+
+Consequently the ORIGINAL Gaussian return is exactly G(N(H)^2 N(E')/Z), or G(N(E')/(Z/N(H)^2)). This is an identity term by term even when the source coefficient vanishes. If a compressed formula incorrectly drops the removed slots' log phases it loses this H^2; retaining the full phase gives precisely R6b. We have not replaced the original Gaussian density by a freely chosen height average.
+
+### F. New No-Go Scope And Exact Hostile Configurations (R8)
+
+#### F1. No Direct Full-Row Reuse Of The Old Supplier
+
+Fix a nonempty extracted slot subset of total length h>0, with original fixed terminal sum ell_i=1/6 and norms in fixed positive bands. Write U=Z^(7/6+xi), |xi|<=delta, and NH=Z^(h+o(1)). Remaining slot product size is Z^(1/6-h+o(1)) when the remaining pools are nonempty. Attempt to use `low_original_completed_energy` at new scale z=Z^s, with its parameters d>=0, ell0>=0 and |shift|<=eta, preserving the full allowed old row range.
+
+Its hypotheses force
+
+```text
+remaining selected caps: s*ell0 >= 1/6-h+o(1),
+source length: s*(1+ell0+shift) = 7/6-3h+xi+o(1),
+old full numerator cap: 5/6 <= s*(5/6-2d)+o(1).
+```
+
+The last inequality gives liminf s>=1; the first two give s(1-eta)<=1-2h+delta+o(1). Choose fixed positive eta,delta with eta+delta<2h. These conditions are incompatible for all sufficiently large Z. This is a genuine hypothesis obstruction to THIS direct black-box reapplication. Increasing d cannot repair it. Absorbing the deficit in a scale-dependent Ck violates the theorem's constant quantifiers; choosing a fixed positive eta large enough also loses the intended arbitrarily-small-loss estimate.
+
+Empty residual slot families are handled separately: an empty selected pool makes that term zero; no lower cap argument is applied to a zero source. If all slots were extracted, the remaining product is 1 and the same argument uses h=1/6. For the small-row repair, only upper slot caps are needed.
+
+This does not prove the high-row energy is large, does not refute SF-I or SF-L, and does not prohibit a new long-row estimate, reciprocal transformation with controlled conductor, or signed cancellation with the core. It proves why the existing theorem cannot simply be pasted into this changed regime.
+
+#### F2. The Numerator Factor Does Not Automatically Remove The Upper Rows
+
+For any supported extracted H outside the ideals above 2, take the genuine Eisenstein numerator m=2^k with 4^k<=Z^(5/6)<4^(k+1). It is a legal nonzero row for the ORIGINAL supplier with Ck=1, N(m) lies between Z^(5/6)/4 and Z^(5/6), and m is coprime to H. The numerator factor rho_m(H)^3 has modulus one. Thus the extracted cube's numerator-zero mask cannot itself prove the smaller row cutoff. This does not assert nonvanishing of all other source coefficients or admission/nonzero weight in the particular physical `lowNumeratorRows` consumer.
+
+Finite original-supplier geometry: K=1, ell=1/6, a singleton prime-ideal slot of norm p, Z=p^6, U=p^7, and H=D. At p=7, m=128 gives N(m)=16384<=16807=p^5, but N(m)^3>p^10, so it exceeds the rebased cap (p^4)^(5/6). The same exact check passed at p=13,19,31,37. The statement about all sufficiently large configurations follows from the inequalities above, not from these five numbers or an unverified Z0.
+
+#### F3. Source-Factor Orthogonality And Hypothesis Sharpness
+
+Census's legal factor example uses conjugates P,Pbar of norm p in one slot, I=P, B=Pbar^2, A=P Pbar^6. Marks D=P and D=Pbar lie in opposite cube sectors but share the same A, original row factor, and norm-based height phase. Our independent finite-field calculation gives Gram [[36,36],[36,36]] for p=7 and [[144,144],[144,144]] for p=13. With the actual scalar coefficient G_A and selected c_P,c_Pbar left unchanged, this subfamily's complete-residue energy is (p-1)^2 |G_A|^2 |c_P+c_Pbar|^2. Its sign and nonvanishing in the full physical source are NOT evaluated.
+
+R6 requires squarefree D. Outside that hypothesis, D=P^2,I=1,B=P,H=P makes the original mark true but D/H|I(B/H)^3 false. Repeated ownership of one prime across selected slots is therefore not admitted into R6; original disjointness prevents it. This is a counterexample to an unstated strengthening, not to R6 or CF1.
+
+### G. Original-Carrier And Covariance Audit
+
+Census H1 follows from the exact multiplicativity rho_(c^6 m)(A)=rho_(c^6)(A)rho_m(A), including zero factors. The primary-generator source identity and cube power give
+
+```text
+B_m = sum_A H_A rho_m(A),
+H_A = (sum_chi gamma_chi sum_(IB^3=A) s_(chi,1)(I,B))
+      * (sum_p c_p(t) 1_(D_p|A)).
+```
+
+No division by a possibly zero coefficient is made. For a complete residue system modulo a squarefree ideal M containing the supports, the local factor at P is q if both exponents vanish, q-1 if at least one is positive and their difference is divisible by six, and zero otherwise. CRT gives H2. Squarefree I implies matching residues precisely when I=I' and odd(B)=odd(B'). Support masks still distinguish exponents 0 and 6 on nonunit rows. These statements are accepted as source-factor/complete-period mathematics, not as a replacement for the actual incomplete row kernel.
+
+The actual total energy keeps sum_(A,A') H_A conjugate(H_A') K_R(A,A'). R6 keeps all of these interactions through an exact linear identity. R7 uses a priced norm inequality only on its stated smaller row domain, after the identity. The full source still satisfies
+
+```text
+|B_core+B_cap|^2
+ = |B_core|^2 + |B_cap|^2 + 2 Re(B_core conjugate(B_cap)).
+```
+
+Splitting the numerator DOMAIN into disjoint low and upper rows adds their energies without a mixed row term, but does not create orthogonality between cap/core or extraction intersections within a row. All original principal, bad-ideal, ray, correction-character, Gaussian, normalizer and physical-return conditions remain binding.
+
+### H. Quantifiers And No-Circularity Audit
+
+CF1/R6 are exact finite source identities for every fixed legal instance; CF2 permits arbitrary finite pools with explicit K dependence. R7 fixes eta,S and the exact calibration of E1, K, a,b>0, positive ell_i summing to 1/6, the extracted L and Ck>0 before epsilon and Z. Its constants are uniform in the admitted finite pools, actual ray class, original bounded selected windows, numerator subsets, real t and U in the stated sufficiently narrow central band. No growing conductor, growing K, arbitrary changing geometry or vanishing ell_min uniformity is claimed.
+
+The epsilon order is essential: first choose the requested output loss, then a sufficiently small supplier tolerance and input central-band tolerance, finally Z0. It is not a bound on an arbitrarily wider fixed central window at the same output loss. No fixed nu for the full source is inferred from choosing a small row cap.
+
+Forward implication audit: R7 alone does not imply SF-I, SF-L, an improved Mertens exponent or the canonical target. It lacks the upper-row cap contribution and the coprime core. Reverse audit: no implication from RH or a new global Mertens bound to R7 is assumed or needed; R7 follows from the existing source theorem and the exact extraction. Therefore it is not promoted as a target-equivalent premise. SF-L retains the earlier source-level equivalence with complete LOW for g<=ell_min only through the separately qualified R9/R10 return. No equivalence between SF-I and SF-L is claimed; SF-I is sufficient, not proved necessary.
+
+The main source inequality still asks for a fixed nu chosen BEFORE epsilon and scale. The exact NNS Co-minus-Div identity, new extraction identity, complete-period kernel and renamed coefficient sums cannot establish its boundedness by themselves.
+
+### I. Constructive Repair: The Small-Row Theorem (R7)
+
+**Full statement.** Fix the data in H and nonempty L; h=sum_L ell_i, s=1-2h, so 2/3<=s<1. For every requested epsilon_out>0, there exist delta>0, A in N, C>0 and Z0>1, depending only on those fixed data and epsilon_out, such that for all Z>=Z0, all original supported pairwise-disjoint slots outside S with a Z^ell_i<=NP<=b Z^ell_i, all |W_i|<=1, all real t, all sigma and U with
+
+```text
+Z^(7/6-delta) <= U <= Z^(7/6+delta),
+```
+
+and all finite numerator sets R of nonzero elements satisfying N(m)<=Ck Z^(5s/6), the ORIGINAL intersection source T_L defined in E3 obeys R7. All original masks and correction characters stay in its definition. Zero slot families give zero.
+
+**Proof with actual suppliers.** Work first in the exact true-period representation of `lowSelectedInverseRow_actual_ideal`. Let H be a removed-slot choice and write NH=c_H Z^h, with a^|L|<=c_H<=b^|L|. The remaining slots have product upper cap b^(K-|L|) Z^(1/6-h). Put
+
+```text
+x=Z^s, ell_base=(1/6-h)/s, 0<=ell_base<=1/6.
+```
+
+Choose 0<eta<=1 so that 507*s*eta<=epsilon_out, and put ell0=ell_base+eta/4. For sufficiently large Z, the fixed b product is at most x^(eta/4). Hence the remaining slot cap is <=x^ell0, with ell0<=1/6+eta. Since s(1+ell_base)=7/6-3h, there is an exact shift_H with
+
+```text
+U/NH^3 = x^(1+ell0+shift_H),
+shift_H = [log(U)/log(Z)-7/6]/s
+          - 3 log(c_H)/(s log Z) - eta/4.
+```
+
+Choose delta<=s*eta/4 and increase Z0 so the middle absolute term is <=eta/4. Then |shift_H|<=3eta/4<eta uniformly in H and U. The numerator cap is exactly Ck x^(5/6). All hypotheses of the original `low_original_completed_energy` now hold with d=0 and the remaining-slot cardinality <=K.
+
+Apply that theorem separately to each ORIGINAL periodic base chi and each of the six unit representatives, exactly as in the hrow step of `low_selected_physical_energy`. The unchanged `low_element_rowTwist_energy` conversion bounds element-row sums by the six ideal-row sums. This is important: we do NOT deduce a character-subsummed estimate from a bound on the correction sum. The stronger per-character source theorem is actually available and its parameters have been inspected.
+
+For each H the multiplier cubeWeight(Psi_(chi,m),H) has norm <=1/NH at every row. Keep that pointwise multiplier rather than changing the source's character or conductor. Minkowski in the finite row Hilbert space and the exact original product weight bound give
+
+```text
+||T_L||_(l2(R))
+ <= C (1+|t|)^(A/2) x^(5/12+507eta/2)
+    * sum_(removed-slot choices H) product_(i in L)|w_i(p_i)| / NH.
+```
+
+Finite correction-character and six-unit factors are absorbed in a FIXED constant. The last sum factors across the distinct removed slots. Each sum_(P in T_i) 1/NP <= A_O(b Z^ell_i)/(a Z^ell_i)<=3b/a, using the elementary ideal count already verified in E2. No prime-density assumption is needed. Squaring proves R7 with exponent 5s/6+507s eta<=5/6-(5/3)h+epsilon_out. The argument retains all growing H choices and pays their entire reciprocal multiplicity; it does not reuse one occurrence's cancellation credit.
+
+**A common-row consequence.** On any original numerator subset with N(m)<=Ck Z^(5/9), all nonempty L satisfy the row condition. Summing the FINITELY MANY signed intersections via Minkowski gives
+
+```text
+sum_R |B_cap|^2 <<_(epsilon,data)
+   (1+|t|)^A Z^(5/6-(5/3)ell_min+epsilon).
+```
+
+This is a genuine source-specific restricted-row estimate, NOT the all-row OPEN-CUBE statement. It must not be silently extended from norm Z^(5/9) to Z^(5/6). The source comparison is useful precisely because it names the omitted upper-row region.
+
+### J. Competing Proof-Strategy Assessment
+
+Continue coefficient-sensitive all-selected work. R6/R7 give a legal way to exploit cube damping without an arbitrary-coefficient surrogate, but the high-numerator interaction is a new input, not a solved remainder. Treat the cap/core split jointly if their mixed term is useful; do not insist both be separately small when a complete signed bound could suffice.
+
+Keep canonical-power transplantation and ambient counting as previously scoped supporting/no-go results, not alternate proofs of SF-I. The new rebase restriction is different from Coordinator C41: it arises from simultaneously preserving the original source length, remaining selected caps and numerator window, without invoking the canonical -cstar branch.
+
+The native VF ancestry, CODIV, FINITE-AC and NYMAN inputs remain different carriers and independent research routes. Their latest claims are not reviewed by analogy to this OAI calculation. To avoid indefinite support narrowing, the next non-OAI referee candidate is the existing NYMAN P1-P10 or Wheel L1-L4 statement, selected against newer live evidence. No schedule or investigator assignment is changed here.
+
+### K. Original Research And Executed Verification
+
+This invocation derived R6, its exact Gaussian H^2 scale, R7's legally rebased small-row estimate, and R8's incompatible full-row conditions. These go beyond checking the submitted CF1-CF3 statements. Novelty is relative to the retrieved reports/source trail, not a claim that elementary inclusion-exclusion or scale restriction is new to mathematics. The existing `marked_cube_inverse` is a different Mobius inversion of the whole completed transform; R6 partitions selected-prime cube overlap and keeps its changed mark explicitly.
+
+An independent exact Python verifier was written and executed, without copying Analytic's or Census's programs. It passed:
+
+| Test | Actual executed result |
+| --- | --- |
+| CF1 admissible four-prime valuation cases | 50,625, including 40,625 with allowed C overlap |
+| R6 inclusion-exclusion multiplicities | 65,536 configurations |
+| Window/cofactor rebase equalities | 143,856 extracted occurrences |
+| Source-factor complete-residue checks | p=7 and p=13, exact sixth-root arithmetic; same-A and distinct sixth-power matrices match |
+| Rational exponent bookkeeping | six h values, including h=1/6 and h=1/600 |
+| Genuine original-supplier upper-row witnesses | p=7,13,19,31,37; all exact |
+| Outside-hypothesis squarefree-D check | D=P^2 failure detected as expected |
+
+Prime coordinates in the valuation test represent distinct Eisenstein prime ideals of norms 7,7,13,25; the two norm-7 ideals are never identified. These tests certify the finite algebra/factor statements, not nonzero Gauss amplitudes, numerical original inverse energy, convergence rates, unknown source thresholds or a full OAI integral. The new universal theorems rest on the proofs above, not extrapolation. The full reproducible code is appended below.
+
+### L. Formal Source, PR And Actions Audit
+
+PR #1083 is human-merged at `040980c16901af749202e9b0f91211c43909404a`; its final head is `1ae84e2ff019b266114c100f43016eeec71144a9`. All 13 returned workflow runs succeed. Relevant run [41744927180](https://github.com/OVVO-Financial/RH_Lean/actions/runs/41744927180), job `126295407267`, checked synthetic merge `06cac0b95a56fdef0f61294e257e67ee2146c32c`. The three actual source identities' standard axioms were read in the logs. Tested/main Gram blobs agree at `c1b7b46a9e62a5b2f3729618c4dd24e31558166f`.
+
+PR #1085 was OPEN DRAFT at intake, head `7895272e5303ed0f4199d5b06b74786e22d31769`. The final refresh verifies human merge at `98386bb0cb014819aa26c760b7d10a8cce7804fa`, 2026-11-04T17:18:33Z. All 12 returned final-head workflow runs succeed. Relevant [run 41872040501](https://github.com/OVVO-Financial/RH_Lean/actions/runs/41872040501), job `126721440818`, checked synthetic merge `5722472b6f316619b98770dc2781a47f0f7b41fd` against intake main. Its complete Gram file was fetched at head, tested merge and final main: identical blob `dd2fde01ae6e2446da4e69b30f6fc80fcadb858d`. The six new declarations are:
+
+```text
+supportedIdeal_inverse_square_tail
+canonical_slot_inverse_square_tail
+lowUnselectedMass_moving_bound
+lowUnselectedMass_moving_power_bound
+lowUnselectedMass_empty
+low_central_compensated_tuple_moving_mass
+```
+
+Every printed axiom list is exactly [propext, Classical.choice, Quot.sound]. The four printed principal theorem types were compared to the fetched source; tail statements and proofs were also read. The central result is the original polynomial bound with exponent 3/16+254epsilon+(rho-1)d_J, fixed rho in (0,1), fixed nonnegative ell with sum<=1/6, and the full original smooth W0/W1, supported/disjoint slots, U-band and t quantifiers. It does not assume the desired bound. Its mass gain requires d_J>0. Source comments still saying uncompiled are stale at this observed CI state, not a mathematical defect.
+
+Workflow `.github/workflows/vf919-low-first-slot-anchored.yml`, blob `974ca5dd2ce18a0dd03a64cf19d360f3340c1d20`, pins Lean 4.34.1, Mathlib `d13f23b723b8a846827a245b89c10fc7d3f11612` and the actual OAI commit. Its executed runner, blob `1b8973bf270dda5ee9635d42f4c89a82f2e2b82a`, includes this file in the explicit target list, invokes warning-as-error compilation, rejects sorryAx/admitAx in the target log and runs endpoint audits. Actual job steps verify pinned source and import closure; cold prerequisite compilation was SKIPPED on an exact complete cache hit. The job does contain existing Wiener prerequisite sorry warnings. Accordingly this is a terminal six-theorem standard-axiom verification, not a blanket assertion that all upstream files contain no placeholders.
+
+The independently inspected L1 proof retains the original central hterm and prices the mass only at the last step. The source-dependent factors are sqrt(Q), scalar Gram power 3/16+(23/96)epsilon, and inverse power 507epsilon/2; 507/2+23/96<254. The new mass supplies (rho-1)d_J. Its squared central exponent is 3/8+508epsilon-2(1-rho)d_J. Gaussian dyads, remote return and common normalizer remain the already paper-qualified R9/R10 chain, not a newly compiled conclusion of this PR.
+
+At intake #1087 was a reopened draft, head `921a7158404f231c029b06422165c38780b9600c`, with 12 returned green workflows; run `41872612679`, job `126723491650`, tested merge `a665fc699b94136c4c0b0bf86d8de8e5a1850b61`. Its then-source blob differed (`2336eeaa36503f73f4a520c87ee8ca909023bbd5`). Those logs were inspected but detailed acceptance remains pinned to the #1085 proof. During this run #1087 was reconciled to final head `f8f65f21043301d5258f6e37afb994ac2c1e5e57`, then human-merged at final main `72ab5bdd0f9d8876f512e6273b50410328444e6e` at 17:26:07Z. The PR reports zero changed files. No duplicate branch or PR was created or modified by this agent.
+
+**Exact-tree freshness certificate:** Git commit objects for the successful tested #1085 merge `5722472...`, merged #1085 `98386bb...`, final #1087 head `f8f65f2...`, and final main `72ab5bd...` all name the identical complete tree `32ede9a84f99f7b623f4dd463d8ff0f8e96aa025`. This transfers unchanged-source verification to merged main without inventing a new execution. There are NO returned Actions runs at final #1087 head or final main, so neither is called a newly green exact-head run. At the #1085 main-merge SHA the separate push collection has nine successful runs and one in-progress GaussianSubset/NNS run; it is not reported as fully green. The reused completed LOW-first proof run above is the actual compilation/axiom evidence. Final open-PR collection is empty. All other roles' November 4 report blobs remain unchanged at the final intake refresh.
+
+#1088 is the human-merged policy revision producing intake main; #1086 is closed unmerged. No agent action in this invocation changed any PR or merge state. No local Lean, workflow rerun, merge, auto-merge, proof edit, policy edit or other-report write was performed.
+
+### M. Specialist Handoffs
+
+| Recipient | Precise continuation |
+| --- | --- |
+| Proof Architect | Record CF1-CF3 and census-2 H1/H2 acceptance only at scope; #1085 is now verified MAIN central progress through exact-tree equality after human merge. Add R6/R7/R8 as SELF_AUDIT review candidates, not new nu. The new gap is upper numerator rows after cube extraction. |
+| Analytic Type II | On the next due OAI return, independently audit R7's per-character supplier and epsilon choice. Seek a same-source high-row estimate after U/NH^3, or a joint cap/core bound; do not apply the old supplier with growing Ck. Preserve the due CODIV turn. |
+| Finite Wheel | Check the exact selected-prime inclusion-exclusion and squarefree-D necessity. R6 intersections overlap with signs, so a once-only allocation is not their algebra. Native FINITE-AC L1-L4 remains separately reviewable. |
+| Prime Census | H1/H2 and the p=7/13 same-A factor witness accepted with scope. Test proposed actual high-row/admission restrictions against m=2^k before a larger scan; coefficient/physical nonvanishing remains uncomputed. |
+| Owner Payment | No ideal-to-native VF occurrence bridge is inferred. Existing SF1-SF5 and JH results retain their own carrier and review status. |
+| Lean Verification | #1085's six declarations and central theorem are verified at the tested merge and identical final main tree; #1087's final source is reconciled and merged. No new run is claimed at final main. Preserve full-return vs central distinction. New R6/R7 require independent review before implementation; no new proof task assuming the high-row bound is authorized by this report. |
+
+These handoffs are delivered solely within this own report. No other agent was launched or messaged through unauthorized GitHub writes.
+
+### N. First Independently Missing Mathematical Ingredient
+
+For the cube-sharing route, the new narrower unproved input is a bound for the ACTUAL upper-row remainder, not more divisor-counting algebra. For any legal R define
+
+```text
+R_L^low = {m in R : N(m)<=Ck Z^(5/6-(5/3)h_L)},
+V(m) = sum_(L!=empty) (-1)^(|L|+1)
+         1_(m notin R_L^low) T_L(m).
+```
+
+R7 and finite Minkowski pay the complementary low-row part at squared exponent at most 5/6-(5/3)ell_min+epsilon. A new fixed-power estimate for sum_R |V(m)|^2 would then pay the entire cap sector, with the cross term controlled by Minkowski; it has NOT been proved. A joint one-sided/full-source estimate may bypass separate smallness. The coprime core and its full interaction with cap remain independently open.
+
+At the final consumer, SF-I still requires the full original squared source <=C_epsilon(1+|t|)^A Z^(5/6-nu+epsilon) with fixed nu>0, or independently proved SF-L. If obtained, sqrt(Q) permits at most nu/2 amplitude gain; the qualified nonempty return caps complete untilted LOW by min(nu/2,ell_min) before principal/HIGH/remote/exceptional checks. None of those discounts is supplied by R7 on the full row range. Net additional endpoint gain=UNKNOWN.
+
+### O. Next-Run Resume Capsule
+
+```text
+RUN: scheduled 2026-11-04T12:03:01-05:00; RUN_ID_UNAVAILABLE
+MAIN_INTAKE: ffe2ef4a684c7cb52d04852ea38b251203ff8a71
+MAIN_FINAL: 72ab5bdd0f9d8876f512e6273b50410328444e6e
+SOURCE_FIRST_VERSION: 2026-11-03 plus 2026-11-04 all-selected refinement
+TASK: NEXT-REFEREE actual selected inverse, CF1/2/3 and current #1085
+OAI_PIN: 1581d4cbdd69a0faf34b2089614fe2a814316a6a
+DEPLOYMENT_ACK: actual R6 extraction, R7 restricted-row proof, R8 audit/tests
+CLAIMS: referee-5 upstream review; referee-6 R6; referee-7 R7; referee-8 R8
+NEW_MATH_STATUS: PAPER_PROOF / SELF_AUDIT; independent review PENDING
+UPSTREAM_ACCEPTED: CF1/CF2/CF3; census-2 H1/H2/F1-F3 at source-factor scope
+ORIGINAL_SOURCE: actual lowSelectedInverseRow and markedCompletedT
+CHARACTERS/MASKS: original eta,S,sigma,chi,calibration/period filters retained
+J: empty means all selected; outer off-diagonal exactly zero
+LAST_PROVED: Bcap=sum_L (-1)^(|L|+1) T_L; E=H^2 E'; R7 low rows
+FIRST_MISSING: actual upper-row V energy or joint complete source estimate;
+  coprime core remains, with all cap/core mixed terms
+NO_GO: direct full-row supplier rebase forces s>=1 and s<=1-2h
+WITNESS: p7,Z117649,U823543,m128,Nm16384; original cap16807;
+  numerator factor survives but smaller rebased row cap is exceeded
+FINITE: 65536 extraction cases; 50625 CF1; 143856 scale identities;
+  exact p7/p13 factor Grams; six rational h and five upper-row fixtures
+FORMAL: #1085 head 7895272e5303ed0f4199d5b06b74786e22d31769
+TESTED: 5722472b6f316619b98770dc2781a47f0f7b41fd
+RUN/JOB: 41872040501 / 126721440818 SUCCESS
+GRAM_BLOB: dd2fde01ae6e2446da4e69b30f6fc80fcadb858d
+NEW_AXIOMS: exactly propext, Classical.choice, Quot.sound for six declarations
+VERIFIED_TREE: 32ede9a84f99f7b623f4dd463d8ff0f8e96aa025
+MERGES: #1085 98386bb0cb014819aa26c760b7d10a8cce7804fa;
+  #1087 72ab5bdd0f9d8876f512e6273b50410328444e6e
+SCOPE: PROVED_IN_LEAN_MAIN central/mass; not full LOW or new nu
+CI: successful prior tested tree reused; no new final-main run claimed
+SOURCE_SQUARED_GAIN / COMPLETE_AMPLITUDE_GAIN / NET_ENDPOINT: UNKNOWN
+ETA_GATE: SEARCH_BROAD; no change to nine protected investigations
+NEXT_OAI: independently review R7, then real high-row/core arithmetic
+NEXT_DISTINCT_SUPPORT: ready NYMAN P1-P10 or native FINITE-AC L1-L4 review
+LIMITATIONS: original integrals not evaluated; no local Lean; no global nu;
+  direct terminal GitHub clone failed proxy403, connector retrieval succeeded
+PUBLICATION: checkpoint verified; final commit/readback receipt follows
+```
+
+The following source/continuity ledgers and exact verifier are part of this invocation. Final freshness and publication are recorded separately, preserving rather than overwriting the earlier report.
+
+
+### Material Source Ledger
+
+These are Git BLOB SHAs, not inferred file timestamps. All listed original OAI files were retrieved at the immutable pin and the relevant declarations/definitions inspected. Listed report SHAs are the intake versions whose content was consumed; earlier own-report history remains intact below the final append.
+
+| RH_Lean material | Blob SHA |
+| --- | --- |
+| [AGENTS.md](https://github.com/OVVO-Financial/RH_Lean/blob/72ab5bdd0f9d8876f512e6273b50410328444e6e/AGENTS.md) | `3b5ff6e0249aa8d8f58ba8341a0d6eb21cd21dba` |
+| [CURRENT_PROOF_CONTRACT.md](https://github.com/OVVO-Financial/RH_Lean/blob/72ab5bdd0f9d8876f512e6273b50410328444e6e/CURRENT_PROOF_CONTRACT.md) | `df026713a18c2ab851485e99d2239de80bbe87e3` |
+| [docs/RHLEAN_NATIVE_SQUARE_CLOCK_AGENT_DIRECTIVE_20261029.md](https://github.com/OVVO-Financial/RH_Lean/blob/72ab5bdd0f9d8876f512e6273b50410328444e6e/docs/RHLEAN_NATIVE_SQUARE_CLOCK_AGENT_DIRECTIVE_20261029.md) | `1c0b13d313ee6168cc35bd9b3210b30dd96a0335` |
+| [docs/RHLEAN_BROAD_SEARCH_UNTIL_ETA_20261031.md](https://github.com/OVVO-Financial/RH_Lean/blob/72ab5bdd0f9d8876f512e6273b50410328444e6e/docs/RHLEAN_BROAD_SEARCH_UNTIL_ETA_20261031.md) | `201e10ffbfcafeee8f7a4d72a0189e2e37e04aa8` |
+| [docs/RHLEAN_SOURCE_FAITHFUL_COMPLETE_RETURN_AGENT_CONTRACT_20261031.md](https://github.com/OVVO-Financial/RH_Lean/blob/72ab5bdd0f9d8876f512e6273b50410328444e6e/docs/RHLEAN_SOURCE_FAITHFUL_COMPLETE_RETURN_AGENT_CONTRACT_20261031.md) | `4775ee5fd95f279beab08a75d1e17127078b19a6` |
+| [docs/RHLEAN_OAI_LOW_SOURCE_FIRST_AGENT_CONTRACT_20261103.md](https://github.com/OVVO-Financial/RH_Lean/blob/72ab5bdd0f9d8876f512e6273b50410328444e6e/docs/RHLEAN_OAI_LOW_SOURCE_FIRST_AGENT_CONTRACT_20261103.md) | `fb734186509a0b6b21bb6afbd738844889adfc35` |
+| [docs/RHLEAN_ALL_SELECTED_INVERSE_SOURCE_ATTACK_20261104.md](https://github.com/OVVO-Financial/RH_Lean/blob/72ab5bdd0f9d8876f512e6273b50410328444e6e/docs/RHLEAN_ALL_SELECTED_INVERSE_SOURCE_ATTACK_20261104.md) | `6565096a532ef7224da389670aacd6f3ab7a57d2` |
+| [docs/RHLEAN_SEVEN_AGENT_RESEARCH_ENGINE_20261101.md](https://github.com/OVVO-Financial/RH_Lean/blob/72ab5bdd0f9d8876f512e6273b50410328444e6e/docs/RHLEAN_SEVEN_AGENT_RESEARCH_ENGINE_20261101.md) | `5f736aa5cec74408aa5cc39f1141e9967e8d9bd2` |
+| [docs/RHLEAN_ALL_VECTOR_AGENT_PROMPTS_20261030.md](https://github.com/OVVO-Financial/RH_Lean/blob/72ab5bdd0f9d8876f512e6273b50410328444e6e/docs/RHLEAN_ALL_VECTOR_AGENT_PROMPTS_20261030.md) | `6d4b581e0189824db9a3054ca96f60b7f214e9c6` |
+| [docs/DYNAMIC_RESEARCH_AGENTS.md](https://github.com/OVVO-Financial/RH_Lean/blob/72ab5bdd0f9d8876f512e6273b50410328444e6e/docs/DYNAMIC_RESEARCH_AGENTS.md) | `812ee2d92032e6fc41088a119f54a3bf0cdbad62` |
+| [docs/RHLEAN_MULTIRUN_DAILY_AGENT_POLICY_20261031.md](https://github.com/OVVO-Financial/RH_Lean/blob/72ab5bdd0f9d8876f512e6273b50410328444e6e/docs/RHLEAN_MULTIRUN_DAILY_AGENT_POLICY_20261031.md) | `643cfd596116720a8e5b1efc07a6124b55d70946` |
+| [research/VF_CANONICAL_SQRT_TWO_VON_KOCH.lean](https://github.com/OVVO-Financial/RH_Lean/blob/72ab5bdd0f9d8876f512e6273b50410328444e6e/research/VF_CANONICAL_SQRT_TWO_VON_KOCH.lean) | `79030d70e8d3e0d08eef9bac53fef95c36eca2fb` |
+| [research/oai_434/VF919OriginalLowTupleSignedGram.lean](https://github.com/OVVO-Financial/RH_Lean/blob/72ab5bdd0f9d8876f512e6273b50410328444e6e/research/oai_434/VF919OriginalLowTupleSignedGram.lean) | `dd2fde01ae6e2446da4e69b30f6fc80fcadb858d` |
+| [.github/workflows/vf919-low-first-slot-anchored.yml](https://github.com/OVVO-Financial/RH_Lean/blob/72ab5bdd0f9d8876f512e6273b50410328444e6e/.github/workflows/vf919-low-first-slot-anchored.yml) | `974ca5dd2ce18a0dd03a64cf19d360f3340c1d20` |
+| [scripts/lean/slot_anchored/run_anchored_in_verified_ci.sh](https://github.com/OVVO-Financial/RH_Lean/blob/72ab5bdd0f9d8876f512e6273b50410328444e6e/scripts/lean/slot_anchored/run_anchored_in_verified_ci.sh) | `1b8973bf270dda5ee9635d42f4c89a82f2e2b82a` |
+
+| Pinned openai/math path under lean/OAI/NumberTheory/DirichletL | Blob SHA |
+| --- | --- |
+| [Detector/LowSelectedBound.lean](https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/NumberTheory/DirichletL/Detector/LowSelectedBound.lean) | `695d81de46038693b9c701d55e81fe43d18d52d2` |
+| [Detector/LowSelectedSum.lean](https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/NumberTheory/DirichletL/Detector/LowSelectedSum.lean) | `a54eb9ec6a5beb0db57ce9baa658718aab808af1` |
+| [Detector/LowSlotMarks.lean](https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/NumberTheory/DirichletL/Detector/LowSlotMarks.lean) | `4dbdd321565d5bc171f5766608a367d2ee1da15a` |
+| [Detector/LowCompensation.lean](https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/NumberTheory/DirichletL/Detector/LowCompensation.lean) | `d99716fc995533acc9a563582f1d313e8587890d` |
+| [Detector/LowPhysicalInverseBound.lean](https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/NumberTheory/DirichletL/Detector/LowPhysicalInverseBound.lean) | `58bc871a18d9baa43d1684209027b8a2ebed87d6` |
+| [Detector/LowSlotPolynomial.lean](https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/NumberTheory/DirichletL/Detector/LowSlotPolynomial.lean) | `b1dcb5a1e51afad1d39ccd91fa58a764e39629ba` |
+| [Detector/LowCentralTuple.lean](https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/NumberTheory/DirichletL/Detector/LowCentralTuple.lean) | `bb7c4eaf4dc3ec5a1467d76e4a3c576e32a433c9` |
+| [Descent/Completion.lean](https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/NumberTheory/DirichletL/Descent/Completion.lean) | `17f1f38b6485d1960f07b9a622757d48db6680d1` |
+| [Descent/IdealMasks.lean](https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/NumberTheory/DirichletL/Descent/IdealMasks.lean) | `dad6b8dcc8f08649fb95f1fb5dbe8aded3d38791` |
+| [Arithmetic/IdealMobius.lean](https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/NumberTheory/DirichletL/Arithmetic/IdealMobius.lean) | `6c1098ed3f3018397fd965d6a250db7092e86de7` |
+| [Detector/LowRay.lean](https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/NumberTheory/DirichletL/Detector/LowRay.lean) | `5873fb85610c3d3965ee3a979c4be13f1dcc1baa` |
+| [Detector/GaussianCoupled.lean](https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/NumberTheory/DirichletL/Detector/GaussianCoupled.lean) | `570522241d9ec0d34f26a634c7b5784c332503e8` |
+| [Detector/GaussianTuple.lean](https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/NumberTheory/DirichletL/Detector/GaussianTuple.lean) | `1f807c48deb02d882551321f9e8b577262c456b0` |
+| [Mellin/LogProfiles.lean](https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/NumberTheory/DirichletL/Mellin/LogProfiles.lean) | `4ca0df6768674c87654fe3637be3851c8c6d12cc` |
+| [Eisenstein/SourceMellinInversion.lean](https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/NumberTheory/DirichletL/Eisenstein/SourceMellinInversion.lean) | `7830dfe17fd39e4b462832d6ff6a2fa786b37080` |
+| [Eisenstein/CompactEnergyFamilies.lean](https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/NumberTheory/DirichletL/Eisenstein/CompactEnergyFamilies.lean) | `559d3a8e1e44cefe3b6f31ea120866470e5db6cd` |
+| [Reflection/LowOriginalEnergy.lean](https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/NumberTheory/DirichletL/Reflection/LowOriginalEnergy.lean) | `3b6c81973bd5ef24c9aa8a7403f8f71663bd1da8` |
+| [Detector/LowActualReflectedEnergy.lean](https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/NumberTheory/DirichletL/Detector/LowActualReflectedEnergy.lean) | `015c046a5d4ccbf088ee627df75a5c80c7f561e6` |
+| [Detector/LowActualIdealLists.lean](https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/NumberTheory/DirichletL/Detector/LowActualIdealLists.lean) | `a29aae44a5e7880aa9c3b5a85a65fc3bb9945ee9` |
+| [Detector/GaussianSlots.lean](https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/NumberTheory/DirichletL/Detector/GaussianSlots.lean) | `bf4e39205b30ae0e8a894b42b6aa4126aac26dbe` |
+| [RowCompletion/PolynomialHeight.lean](https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/NumberTheory/DirichletL/RowCompletion/PolynomialHeight.lean) | `3a6f4e7903d2e832e562687bccf13a2fce551aed` |
+| [Detector/LowSeparated.lean](https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/NumberTheory/DirichletL/Detector/LowSeparated.lean) | `a6f7aab556b30edd188915bf227a5b140c4265f2` |
+| [Detector/LowGramApplied.lean](https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/NumberTheory/DirichletL/Detector/LowGramApplied.lean) | `6cedd2379fde8f28532b0833dfb4017381ecd54c` |
+| [Detector/LowGramIntegrated.lean](https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/NumberTheory/DirichletL/Detector/LowGramIntegrated.lean) | `35ee3fb09e7c04f554c4bdf0b0250132859ca2ec` |
+| [Detector/LowElementRows.lean](https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/NumberTheory/DirichletL/Detector/LowElementRows.lean) | `504cddbc9ee2e1248ce4df1bd872cf339cbd23f0` |
+| [Detector/LowTruePeriodPuncture.lean](https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/NumberTheory/DirichletL/Detector/LowTruePeriodPuncture.lean) | `7b77da5ecb4b9849ca47163d57386615e59582e5` |
+
+### Two-Day Handoff Ledger
+
+| Date / role file | Consumed blob SHA |
+| --- | --- |
+| [EXTERNAL_HANDOFFS.md](https://github.com/OVVO-Financial/RH_Lean/blob/86f4ad19e0273b7c1f8d0ad18d7f4daaf068a6c4/research/agent_reports/EXTERNAL_HANDOFFS.md) | `038018145c0fddb2f6306c0712373adf9cd1ea52` |
+| [2026-11-03/00-coordinator-am.md](https://github.com/OVVO-Financial/RH_Lean/blob/86f4ad19e0273b7c1f8d0ad18d7f4daaf068a6c4/research/agent_reports/2026-11-03/00-coordinator-am.md) | `e35ab2cd9cba2a47ac5be53b09938b37a0c20df3` |
+| [2026-11-03/10-owner-payment.md](https://github.com/OVVO-Financial/RH_Lean/blob/86f4ad19e0273b7c1f8d0ad18d7f4daaf068a6c4/research/agent_reports/2026-11-03/10-owner-payment.md) | `d52c74b76c2914c3be694f39cd7afe9b122a4834` |
+| [2026-11-03/20-analytic-type-ii.md](https://github.com/OVVO-Financial/RH_Lean/blob/86f4ad19e0273b7c1f8d0ad18d7f4daaf068a6c4/research/agent_reports/2026-11-03/20-analytic-type-ii.md) | `2b9c3dbab6039e3c30a5ece3e473290af5dbbf0b` |
+| [2026-11-03/30-finite-wheel.md](https://github.com/OVVO-Financial/RH_Lean/blob/86f4ad19e0273b7c1f8d0ad18d7f4daaf068a6c4/research/agent_reports/2026-11-03/30-finite-wheel.md) | `cd7777180bb5c2c899a60bdd699b99be8e12a672` |
+| [2026-11-03/40-prime-census.md](https://github.com/OVVO-Financial/RH_Lean/blob/86f4ad19e0273b7c1f8d0ad18d7f4daaf068a6c4/research/agent_reports/2026-11-03/40-prime-census.md) | `eb9a2e0cf7772f22060aec07e0bcddd24ace9cd9` |
+| [2026-11-03/50-adversarial-referee.md](https://github.com/OVVO-Financial/RH_Lean/blob/86f4ad19e0273b7c1f8d0ad18d7f4daaf068a6c4/research/agent_reports/2026-11-03/50-adversarial-referee.md) | `583ce524628577818603ffd4e9ec0eb3673a3f37` |
+| [2026-11-03/60-lean-verification.md](https://github.com/OVVO-Financial/RH_Lean/blob/86f4ad19e0273b7c1f8d0ad18d7f4daaf068a6c4/research/agent_reports/2026-11-03/60-lean-verification.md) | `fc27fb1ae103e60ff600e5a24ce6716937da3884` |
+| [2026-11-04/00-coordinator-am.md](https://github.com/OVVO-Financial/RH_Lean/blob/86f4ad19e0273b7c1f8d0ad18d7f4daaf068a6c4/research/agent_reports/2026-11-04/00-coordinator-am.md) | `6f00c4e1055a03325e8c152d4bcb505e254b8ecc` |
+| [2026-11-04/10-owner-payment.md](https://github.com/OVVO-Financial/RH_Lean/blob/86f4ad19e0273b7c1f8d0ad18d7f4daaf068a6c4/research/agent_reports/2026-11-04/10-owner-payment.md) | `bef2ab8cefd691a868d8f1acdfe696af41266d16` |
+| [2026-11-04/20-analytic-type-ii.md](https://github.com/OVVO-Financial/RH_Lean/blob/86f4ad19e0273b7c1f8d0ad18d7f4daaf068a6c4/research/agent_reports/2026-11-04/20-analytic-type-ii.md) | `5e489bffbce7fe986b9f48c73cb409beaa151f82` |
+| [2026-11-04/30-finite-wheel.md](https://github.com/OVVO-Financial/RH_Lean/blob/86f4ad19e0273b7c1f8d0ad18d7f4daaf068a6c4/research/agent_reports/2026-11-04/30-finite-wheel.md) | `6a773f357029bb97cf34110532c7de1f7bb38f3f` |
+| [2026-11-04/40-prime-census.md](https://github.com/OVVO-Financial/RH_Lean/blob/86f4ad19e0273b7c1f8d0ad18d7f4daaf068a6c4/research/agent_reports/2026-11-04/40-prime-census.md) | `9f634c872fe98f82676c263a4faba35dff3ac4f0` |
+| [2026-11-04/50-adversarial-referee.md](https://github.com/OVVO-Financial/RH_Lean/blob/86f4ad19e0273b7c1f8d0ad18d7f4daaf068a6c4/research/agent_reports/2026-11-04/50-adversarial-referee.md) | `dd02c8e7072b9390119da35a204924ddad721d06` |
+| [2026-11-04/60-lean-verification.md](https://github.com/OVVO-Financial/RH_Lean/blob/86f4ad19e0273b7c1f8d0ad18d7f4daaf068a6c4/research/agent_reports/2026-11-04/60-lean-verification.md) | `4585dc42e267f62da5c13624f2a5a4494aa79c53` |
+
+Both directory listings also show 90-coordinator-pm.md byte-identical to 00-coordinator-am.md for that date; only the identical 00 bytes were retrieved. At final refresh every other November 4 role blob is unchanged; this report's own checkpoint is the only changed role blob. No later scheduled stage is claimed.
+
+### Exact Reproducer
+
+Executed using Python's arbitrary-precision integers, Fraction and exact Eisenstein sixth-root pairs; no third-party numeric library. Final source SHA-256: `b247e3f181bbac4e94dfeff1fc0da2434c279e850d2b84fec95ea19a5446c17d`. The final run and syntax compilation both exit 0. The extra combined-mark assertion checks H|B iff D H^2|IB^3 under D|IB^3, squarefree I,D and H|D. Summary counts are in K. This is embedded reproducibility material within the authorized own report, not a new repository code file.
+
+```python
+"""Exact finite checks for the source-preserving referee cube extraction.
+
+Valuation and scale tests do not evaluate original Gauss coefficients or integrals.
+The sextic test evaluates an actual source factor on complete residues only.
+"""
+
+from fractions import Fraction as F
+from itertools import product
+from math import prod
+import json
+
+
+def norm(v):
+    # Distinct conjugate ideals over 7 remain different coordinates.
+    return prod(q ** e for q, e in zip((7, 7, 13, 25), v))
+
+
+def le(a, b):
+    return all(x <= y for x, y in zip(a, b))
+
+
+def valuation_checks():
+    factorizations = extractions = term_scales = c_shared = 0
+    bits = list(product(range(2), repeat=4))
+    for d in bits:
+        for i in bits:
+            for b in product(range(4), repeat=4):
+                a = tuple(x + 3*y for x, y in zip(i, b))
+                admitted = le(d, a)
+                cap = admitted and any(x and y for x, y in zip(d, b))
+                rhs = 0
+                for h in bits:
+                    if le(h, d):
+                        combined_mark = tuple(x+2*y for x, y in zip(d, h))
+                        assert (admitted and le(h, b)) == le(combined_mark, a)
+                    if not any(h) or not le(h, d) or not le(h, b):
+                        continue
+                    bp = tuple(x-y for x, y in zip(b, h))
+                    dp = tuple(x-y for x, y in zip(d, h))
+                    ap = tuple(x+3*y for x, y in zip(i, bp))
+                    mark = le(dp, ap)
+                    rhs += (-1) ** (sum(h)+1) * mark
+                    if mark:
+                        nh, na, nap = norm(h), norm(a), norm(ap)
+                        assert F(na, na) == F(nap, F(na, nh**3))
+                        assert F(na, norm(d)) == nh**2 * F(nap, norm(dp))
+                        term_scales += 1
+                assert rhs == int(cap)
+                extractions += 1
+                if not admitted:
+                    continue
+                e = tuple(x-y for x, y in zip(a, d))
+                e1 = tuple(int(x % 3 == 1) for x in e)
+                e2 = tuple(int(x % 3 == 2) for x in e)
+                c = tuple(x//3 for x in e)
+                assert le(e2, d)
+                assert not any(x and y for x, y in zip(d, e1))
+                d0 = tuple(x-y for x, y in zip(d, e2))
+                assert i == tuple(x+y for x, y in zip(e1, d0))
+                assert b == tuple(x+y for x, y in zip(e2, c))
+                c_shared += any(z and (x or y) for x, y, z in zip(e1, e2, c))
+                factorizations += 1
+    # The squarefree-selected-product hypothesis is essential.
+    assert 2 <= 3 and not 1 <= 0  # D=P^2, I=1, B=P, H=P.
+    return dict(factorization_cases=factorizations,
+                extraction_cases=extractions,
+                exact_scaled_occurrences=term_scales,
+                allowed_C_overlap_cases=c_shared,
+                repeated_slot_counterexample="D=P^2,I=1,B=P,H=P: 1 != 0")
+
+
+def mul(x, y):
+    a, b = x
+    c, d = y
+    return a*c-b*d, a*d+b*c-b*d
+
+
+def conj(x):
+    return x[0]-x[1], -x[1]
+
+
+def power(x, n):
+    out = (1, 0)
+    for _ in range(n):
+        out = mul(out, x)
+    return out
+
+
+def add(x, y):
+    return x[0]+y[0], x[1]+y[1]
+
+
+def sextic(p, root, a, b):
+    x = (a+root*b) % p
+    if not x:
+        return 0, 0
+    y = pow(x, (p-1)//6, p)
+    for j in range(6):
+        if pow(1+root, j, p) == y:
+            return power((1, 1), j)
+    raise AssertionError("not a sixth root")
+
+
+def factor_grams():
+    out = []
+    for p, roots in [(7, (2, 4)), (13, (3, 9))]:
+        profiles = [(1, 6), (6, 0), (0, 6)]
+        gram = [[(0, 0) for _ in profiles] for _ in profiles]
+        for a, b in product(range(p), repeat=2):
+            chars = [sextic(p, r, a, b) for r in roots]
+            values = [mul(power(chars[0], x), power(chars[1], y))
+                      for x, y in profiles]
+            for j, v in enumerate(values):
+                for k, w in enumerate(values):
+                    gram[j][k] = add(gram[j][k], mul(v, conj(w)))
+        assert gram[0][0] == ((p-1)**2, 0)
+        assert gram[1][1] == (p*(p-1), 0)
+        assert gram[1][2] == ((p-1)**2, 0)
+        # Same A, opposite selected sectors: the numerator functions coincide.
+        cap_core = [[(p-1)**2]*2 for _ in range(2)]
+        out.append(dict(p=p, cap_core_gram=cap_core, distinct_sixth_gram=gram))
+    return out
+
+
+def exponent_and_row_checks():
+    out = []
+    for h in map(F, ["1/600", "1/96", "1/48", "1/24", "1/12", "1/6"]):
+        s = 1-2*h
+        ell = (F(1, 6)-h)/s
+        row = F(5, 6)*s
+        assert F(2, 3) <= s < 1
+        assert 0 <= ell <= F(1, 6)
+        assert s*(1+ell) == F(7, 6)-3*h
+        assert row == F(5, 6)-F(5, 3)*h
+        out.append(dict(h=str(h), effective_scale=str(s),
+                        residual_slot_length=str(ell), row_exponent=str(row)))
+    rows = []
+    for p in [7, 13, 19, 31, 37]:
+        n = 1
+        while (2*n)**2 <= p**5:
+            n *= 2
+        assert p**5 < 4*n*n and n*n <= p**5
+        assert n % p and (n*n)**3 > p**10
+        rows.append(dict(p=p, Z=p**6, U=p**7, effective_Z=p**4,
+                         numerator=n, numerator_norm=n*n,
+                         original_row_cap=p**5,
+                         exceeds_rebased_cap=True))
+    return dict(exponents=out, high_row_factor_witnesses=rows)
+
+
+if __name__ == "__main__":
+    result = {"valuation": valuation_checks(), "sextic": factor_grams(),
+              "budget": exponent_and_row_checks(),
+              "scope": "exact factor/identity tests; no OAI integral evaluation"}
+    print(json.dumps(result, indent=2))
+```
+
