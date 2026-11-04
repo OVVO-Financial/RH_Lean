@@ -62,9 +62,6 @@ def main() -> None:
          read("docs/RHLEAN_ALL_SELECTED_INVERSE_SOURCE_ATTACK_20261104.md")),
     ):
         assert independent_tag in doc, f"lost independent-route precedence: {path}"
-    for block in re.split(r"^### Agent \\d+[^\\n]*\\n", prompts, flags=re.MULTILINE)[1:]:
-        assert independent_tag in block, "saved Studio template has no independent-route override"
-
     for route in ("VF-LOW", "SAT", "CODIV", "BLOCK", "OAI-NNS", "JOH",
                   "FINITE-AC", "CORR4", "MU-LIFT", "NYMAN"):
         assert "**" + route + "**" in portfolio, f"missing route {route}"
@@ -160,6 +157,7 @@ def main() -> None:
     blocks = re.split(r"^### Agent \d+[^\n]*\n", prompts, flags=re.MULTILINE)[1:]
     assert len(blocks) == 7
     for index, block in enumerate(blocks, start=1):
+        assert independent_tag in block, f"agent {index} lost independent-route precedence"
         assert "deployment_ack" in block, f"agent {index} lacks consumption evidence"
         assert "human-only merge" in block.lower(), f"agent {index} lacks merge gate"
         assert "agent-reports" in block, f"agent {index} lacks report branch"
