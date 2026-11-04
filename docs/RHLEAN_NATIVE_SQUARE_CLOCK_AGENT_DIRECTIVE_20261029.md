@@ -9,8 +9,9 @@ Read in this order:
 1. [Broad RH_Lean mathematics until a verified positive gain](RHLEAN_BROAD_SEARCH_UNTIL_ETA_20261031.md): protected portfolios and the no-narrowing gate.
 2. [Source-faithful complete-return contract](RHLEAN_SOURCE_FAITHFUL_COMPLETE_RETURN_AGENT_CONTRACT_20261031.md): exact source, signed reconstruction, uniformity and net exponent acceptance.
 3. [Literal OAI 1-to-7/8 source-first signed LOW contract](RHLEAN_OAI_LOW_SOURCE_FIRST_AGENT_CONTRACT_20261103.md): original physical Hecke coefficients, 3/16 LOW power, first norm_sum_le, native NNS Co-minus-Div, seven complementary agent work packets and noncircular uniform-gain target.
-4. [Seven-agent persistent research engine and explicit next-run tickets](RHLEAN_SEVEN_AGENT_RESEARCH_ENGINE_20261101.md): resume derivations, develop distinct approaches deeply, select ready testing/review/formalization work, and execute the role's NEXT-* task after merge.
-5. [All-vector source directive](RHLEAN_ALL_VECTOR_SYNTHESIS_AGENT_DIRECTIVE_20261030.md) for the relevant source qualifications and [current role prompts](RHLEAN_ALL_VECTOR_AGENT_PROMPTS_20261030.md) for the seven named specialties.
+4. [2026-11-04 all-selected inverse source attack for Analytic and Referee](RHLEAN_ALL_SELECTED_INVERSE_SOURCE_ATTACK_20261104.md): exact binding J=empty all-selected row, coefficient-sensitive nu target, hostile masks, squarefree/cube support, no outer Gram gain, full return.
+5. [Seven-agent persistent research engine and explicit next-run tickets](RHLEAN_SEVEN_AGENT_RESEARCH_ENGINE_20261101.md): resume derivations, develop distinct approaches deeply, select ready testing/review/formalization work, and execute the role's NEXT-* task after merge.
+6. [All-vector source directive](RHLEAN_ALL_VECTOR_SYNTHESIS_AGENT_DIRECTIVE_20261030.md) for the relevant source qualifications and [current role prompts](RHLEAN_ALL_VECTOR_AGENT_PROMPTS_20261030.md) for the seven named specialties.
 
 The [multiple-daily policy](RHLEAN_MULTIRUN_DAILY_AGENT_POLICY_20261031.md), [AGENTS](../AGENTS.md), [proof contract](../CURRENT_PROOF_CONTRACT.md) and [dynamic protocol](DYNAMIC_RESEARCH_AGENTS.md) retain current permissions, source fidelity, reporting and human-only merge. No actual saved Studio setting or trigger is changed by this selector.
 
