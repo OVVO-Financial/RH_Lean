@@ -1,5 +1,7 @@
 # RH_Lean dynamic seven-agent research protocol
 
+**NO_PIGEONHOLING_ROUTE_SELECTOR_V1:** [Independent multi-front policy](RHLEAN_INDEPENDENT_MULTIFRONT_NO_PIGEONHOLING_20261104.md) governs actual routing. The historical source-first tickets below are OPTIONAL upon choosing OAI-NNS, not required on an unrelated investigation. Preserve nine independent routes and use the strongest real mathematical next step.
+
 **Current operating protocol, updated 2026-11-04; effective after human merge.** Use [AGENTS](../AGENTS.md) for permissions, the [proof contract](../CURRENT_PROOF_CONTRACT.md) and live source for mathematics, and the [persistent research engine](RHLEAN_SEVEN_AGENT_RESEARCH_ENGINE_20261101.md) for next-run tickets. This update changes research organization, not agent identities, actual schedules or theorem status.
 
 ## Authority and compact intake
@@ -12,11 +14,11 @@ Verify main and relevant policy/source hashes on every actual invocation. Read a
 
 ## Source-first work allocation without loss of route coverage
 
-The [OAI LOW source-first contract](RHLEAN_OAI_LOW_SOURCE_FIRST_AGENT_CONTRACT_20261103.md) is a compulsory cross-source verification task at each role's next eligible actual invocation: isolate the **genuine** OAI 1/8 signal-vs-LOW separation, the original 3/16 LOW scalar cost, and the first cross-unselected-tuple norm_sum_le. Do not treat the native NNS isometry, higher-quality marked HIGH moment, the slot tilt, a canonical cstar local estimate on a different source, or an assumed owner Gamma saving as a new LOW arithmetic restriction.
+The [OAI LOW source-first contract](RHLEAN_OAI_LOW_SOURCE_FIRST_AGENT_CONTRACT_20261103.md) is an optional source-specific verification task only when the OAI-NNS route is actually selected: isolate the **genuine** OAI 1/8 signal-vs-LOW separation, the original 3/16 LOW scalar cost, and the first cross-unselected-tuple norm_sum_le. Do not treat the native NNS isometry, higher-quality marked HIGH moment, the slot tilt, a canonical cstar local estimate on a different source, or an assumed owner Gamma saving as a new LOW arithmetic restriction.
 
 Use different packets with checkable outputs: source power dependency (Coordinator), occurrence map or mismatch (Owner), independent theorem/CI/missing-compensation review (Referee), preregistered actual-ideal finite probe (Census), source-backed signed LOW or inverse energy gain (Analytic), exact collision-class multiplicities/partial admission (Wheel), and exact-source formalization/axiom audit (Lean). New results must explicitly record total signed Hermitian off-diagonal, complete NORMALIZED LOW, principal/HIGH reserves and any genuinely net gain. #1083 must be examined at its **live** PR head and is not main until human merge.
 
-This changes current attack priorities but no other role's write permissions, existing report names, independently protected route rotation or cadence. If a stronger source step is still unproved, report the exact open inequality and continue a serious derivation; do not report another conditional bootstrap as a breakthrough.
+This records a specialized OAI avenue, not compulsory source priority, and changes no other role's write permissions, existing report names, independently protected route rotation or cadence. If a stronger source step is still unproved, report the exact open inequality and continue a serious derivation; do not report another conditional bootstrap as a breakthrough.
 
 ## Persistent work and protected rotation
 
@@ -52,7 +54,7 @@ Use the engine's compact task record inside the existing own dated file, with an
 
 Coordinator appends each genuine synthesis to both 00/90 files and verifies their complete bytes match. Filenames alone are not launches. No other role edits those files. Six non-Lean roles remain own-report-only; Lean alone has expressly user-granted full GitHub repository read/write on reviewable non-main branches/PRs, with no path/prefix/per-claim restrictions. This instruction DOES NOT configure Studio tools or OAuth; if an actual write action fails, report its exact permission error. No autonomous merge, direct-main push, another role's report-history falsification, schedule mutation or automatic Studio tool permission expansion is authorized.
 
-At first consumption after merge record deployment_ack and execute the selected NEXT-* task, adjusted only for newer evidence or protected rotation. After two complete investigator rotations, examine duplicate attempts, actual resumption, consumed downstream lemmas and support queues. Report intake/timing data only when observable; otherwise UNKNOWN. These are workflow diagnostics, not proof or probability estimates.
+At first consumption after merge record deployment_ack and independently choose a substantive route under the multi-front selector. Any dated NEXT-* ticket is a nonbinding option. After two complete investigator rotations, examine duplicate attempts, actual resumption, consumed downstream lemmas and support queues. Report intake/timing data only when observable; otherwise UNKNOWN. These are workflow diagnostics, not proof or probability estimates.
 
 ## Historical mathematical safeguards
 
