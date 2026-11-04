@@ -1080,3 +1080,31 @@ The early checkpoint is retained verbatim in its historical section. Report chec
 Closing main refresh still returned **040980c16901af749202e9b0f91211c43909404a**. The latest November 4 directory check contained only this Owner report, so upstream **TODAY=PENDING; YESTERDAY=CARRY_FORWARD** remains the observed state, not an assumed agent failure. Immediately before this receipt update the live report blob/content matched the verified substantive version.
 
 **Execution: COMPLETE. Publication: substantive commit verified.** S2/S3 remain PAPER_PROOF / SELF_AUDIT; independent Referee and Lean review PENDING. New complete-endpoint gain: NONE. Next protected Owner route: VF-LOW. This receipt's own commit/readback is checked after writing, not presupposed.
+
+---
+
+## Scheduled VF-LOW Continuation Checkpoint - 2026-11-04 08:09 EST Invocation
+
+### A. Most Important Mathematical Development
+
+Execution **IN_PROGRESS / PARTIAL**. No new theorem is asserted at this checkpoint. The selected falsifiable repair of yesterday's ancestry-capacity mechanism is: does restricting to genuine **squarefree** composite seats restore a once-only prime-divisor payment? Yesterday's O4 counterexample was squareful; it does not by itself answer that restricted question. I will test distinct squarefree divisor products with their actual VF weights, not replace those weights by Mobius signs.
+
+### B. Authority And Continuity
+
+Actual trigger: scheduled 2026-11-04T08:09:02-05:00; platform identifier RUN_ID_UNAVAILABLE. Local continuation label: **20261104-owner-2**. Checkpoint prepared 08:15 EST. Latest actual main: **040980c16901af749202e9b0f91211c43909404a**; AGENTS blob **b878d396c387a57bd0b5165fecf10d15ef3732cd**; proof contract **63f7553bf6e5f2a16e37808116c643dc0dcc50e1**; SOURCE_FIRST_VERSION=2026-11-03, source-first policy **b6980c30e63bb8c9ddfc8d6fa86a2bb401707fa6**.
+
+Both November 3 and November 4 named handoff sets were retrieved at reporting snapshot **bcf9cda3a2060405d46555ef048f3007cbcc1213**, with applicable current findings and continuation sections read. TODAY=AVAILABLE for all roles; YESTERDAY=CARRY_FORWARD where referenced. External inbox **038018145c0fddb2f6306c0712373adf9cd1ea52** has no post-October-18 entry. No absent execution is inferred.
+
+Protected rotation: Nov 3 VF-LOW owner-2, Nov 3 JOH owner-3, Nov 4 SAT owner-1; **VF-LOW is due**. Resume O1-O5/(66)-(74), respecting the existing squareful 118-seat obstruction and complete historical restoration. Coordinator **20261104-coordinator-1/C41-C43**, today Referee counting-versus-inverse distinction, and the accepted moving-mass/empty-J reduction are continuity constraints, not new quantitative suppliers.
+
+Live PR list is empty. #1083 is **MERGED**, head **1ae84e2ff019b266114c100f43016eeec71144a9**, merge **040980c16901af749202e9b0f91211c43909404a**. All 14 returned head-associated check runs are successful. Literal Gram source blob **c1b7b46a9e62a5b2f3729618c4dd24e31558166f** and gain-ledger blob **5e7cea836158fc819f37e71da5fe55c8a8dce44e** were inspected on main. No new local Lean or CI execution is claimed.
+
+### C. Structural Hypothesis And Preregistered Test
+
+Compare: (1) squarefreeness rescues prime-divisor capacity; (2) many distinct subset products overload even the enlarged one-unit-per-prime ancestry budget. Construct squarefree odd cofactors from a finite set of distinct genuine primes, place them with a new greatest prime q inside the exact open-square run, and verify every actual occurrence, factor, owner, historical location, and weight. Reject (1) only if the genuine weighted demand exceeds even the enlarged capacity. Seek an all-scale construction as well as the smallest useful reproducible exact witness. No first-bad hypothesis is asserted by such a witness.
+
+The source-qualified owner-to-OAI comparison remains limited: original LowSlotPolynomial/LowTupleGram and LowSelectedSum were retrieved at openai/math **1581d4cbdd69a0faf34b2089614fe2a814316a6a**, blobs **b1dcb5a1e51afad1d39ccd91fa58a764e39629ba**, **710598c8bef4d1a1ec98aa7e68b00369962c3d17**, **a54eb9ec6a5beb0db57ce9baa658718aab808af1**. J is unselected; the binding J=empty outer carrier is a singleton. A many-seat bijection to that outer carrier is impossible; any useful bridge must enter the actual selected inverse sum with its Hecke phase and divisor marks. No such weight-preserving map or signed gain is assumed.
+
+### D-K. Pending Research
+
+Derive the precise squarefree construction or falsifier, restore the full signed complement and every quadratic cross term, inspect relevant active-carrier conditions without inferring returned-mask admission, classify quantitative relevance, and append specialist handoffs plus a resume capsule. Canonical VF and RH remain OPEN; additional signed-LOW eta remains SEARCH_BROAD. Publication is established only after commit/readback. Only this own dated report is authorized for remote modification.
