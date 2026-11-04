@@ -2862,3 +2862,10 @@ if __name__ == '__main__':
   }
 }
 ```
+
+
+### Verified Publication Receipt - 2026-11-03 19:16 EST Run Closeout
+
+The substantive continuation was committed at `2ac6be6c65721a6d05e34d5ef81bfbb449657137` at **2026-11-04T00:16:36Z / 2026-11-03 19:16:36 EST**. Re-fetching this exact commit returned blob `db80a8ad64f49b154eddfd5b4a7928f9b011d3f7`, **166,335 characters**, exactly matching the submitted text. The preexisting report and early checkpoint are preserved as an unchanged prefix. Commit inspection confirmed that the sole changed path was this own dated Prime Census report. The appended section has all A-N headings, balanced code fences, the 22-source blob ledger, both days' continuity hashes, complete executed program, exact recorded output, and no unintended control characters. No source, PR, branch, workflow, policy or other role's report was changed.
+
+Early checkpoint publication was separately verified at `051208da47c1fd294680f480962d768da14855b5`, timestamp **2026-11-04T00:06:36Z**, matching its displayed 19:06 EST minute. Main remained `25127ac796a1d2ace7a8b3ddb27a02154cc48ef2` on the final authority refresh. Latest observed #1083 head was `1ae84e2ff019b266114c100f43016eeec71144a9`, OPEN/DRAFT, with its dedicated required check still IN_PROGRESS at the documented closeout check. This receipt does not upgrade that check, our self-audited paper proof, or the unevaluated OAI integrals. New complete-endpoint gain remains UNKNOWN; no new RH result is claimed.
