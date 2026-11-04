@@ -25,7 +25,8 @@ permissions:
   contents: read
 
 concurrency:
-  group: vf919-low-first-slot-${{ github.head_ref || github.ref_name }}
+  # Distinguish source revisions so delayed PR events cannot cancel newer-head proofs.
+  group: vf919-low-first-slot-${{ github.head_ref || github.ref_name }}-${{ github.event.pull_request.head.sha || github.sha }}
   cancel-in-progress: true
 
 jobs:
