@@ -916,3 +916,14 @@ def run():
 if __name__ == "__main__":
     run()
 ```
+
+
+## Scheduled Source-First Checkpoint - Claim 20261103-lean-3
+
+Actual invocation: 2026-11-03T21:08:01-05:00, America/New_York; scheduled; RUN_ID_UNAVAILABLE. Checkpoint at 21:12 EST. Execution is PARTIAL / IN_PROGRESS. Prior entries and uncompiled Nyman material are preserved.
+
+Live main is `040980c16901af749202e9b0f91211c43909404a`; AGENTS blob `b878d396c387a57bd0b5165fecf10d15ef3732cd`; proof-contract blob `63f7553bf6e5f2a16e37808116c643dc0dcc50e1`; SOURCE_FIRST_VERSION=2026-11-03. PR #1083 is now human-merged, head `1ae84e2ff019b266114c100f43016eeec71144a9`, with all 14 observed checks successful. Actual job-log/axiom verification is in progress. Open proof-PR collection is empty, so no active repair was selected.
+
+Today and yesterday's required role-report bytes and external inbox were retrieved. TODAY=AVAILABLE; applicable prior evidence is being checked for YESTERDAY=CARRY_FORWARD. The newest source-first handoff is `20261103-referee-8/9/10`, including the moving lower-cutoff mass refinement and the empty-unselected obstruction. These remain paper claims pending this independent audit, not new Lean-certified results. The selected NEXT-LEAN continuation is to inspect their original OAI inputs, audit the quantifiers and full LOW return, then prepare a qualified nonduplicate proof step.
+
+Operational status: BLOCKED_WRITE_ACCESS for proof publication. Current create/update-file tools restrict writes to agent-reports and dated Lean reports; lower-level Git operations will not be used to evade this restriction. No proof branch, proof commit, PR, local Lean execution or new CI run has occurred. The existing uncompiled C29 draft remains queued rather than silently marked complete. No new exponent gain or change to the canonical actual-prime objective is claimed.
