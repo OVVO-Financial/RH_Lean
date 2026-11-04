@@ -1850,3 +1850,1103 @@ No proof-source/PR/issue/workflow action, other-report change, direct-main write
 **Source:** current `mobiusPrefix`/`newtonLift`, `heathBrownLift`, and exact signed hyperbola declarations fetched and read. Main blobs: `131e9af86207a42d4bf6488e3f64c9ce4f97e5df`, `af69b4811cf9f523eb7c96fb0ca836b2cdbd1180`, `d199571f19346797229a25b0fa53c6e80499999f`. Amplification budget blob `62bbe73c4755eaa64772ec2cc2731936c01b49cd`. Complete all-X subcritical recurrence, canonical actual-prime VF and RH remain OPEN. Live open-PR query returned no open PRs; merged results retain their exact scope, not stale draft labels.
 
 **Execution limits:** direct shell clone is unavailable (CONNECT 403); GitHub connector source reads succeeded. No local Lean execution, Lean/source edit, branch/PR/issue change, other-report write, merge, schedule change or agent launch is authorized or performed. New work will be paper proof and exact finite tests unless independently formalized later.
+
+
+## Scheduled MU-LIFT Final Synthesis - Claim 20261104-wheel-3
+
+Claim `20261104-wheel-3`, scheduled invocation 2026-11-04 18:06:01 EST
+(America/New_York, UTC-05:00). Platform run ID unavailable.
+
+### A. Most Important Structural Discovery
+
+**A sharp obstruction survives the ENTIRE signed lift and its complete square,
+not just the isolated top-prime packet.** Fix integers B>=2, k>=2 and
+1<=X<B^k. Expand the genuine k-lift with its original ordered factors and
+binomial multiplicities. In the square of that sum, allow ANY sign-reversing
+matching that preserves the rational square class of the product of the two
+physical integer values. Even after optimal cancellation, the number of
+unmatched unit-weight pair occurrences is exactly
+
+```text
+S(X)^2, where S(X) = #{1<=n<=X : mu(n) != 0}.
+```
+
+More generally, cancelling zero-sum packets inside those classes cannot leave
+less absolute mass. Since S(X)>=X/4 by an elementary square-divisor union
+bound, finishing this method with the triangle inequality produces an
+amplitude certificate no smaller than X/4. At X=B^k-1 this is incompatible
+with any proposed subcritical certificate C G(B) E(B)^r sqrt(X), for fixed
+1<=r<k and subpower G, even on a single unbounded scale chain.
+
+**This is a limitation of a specified proof method, NOT a lower bound on
+|M(X)| and NOT a refutation of MU-LIFT.** Cross-class cancellation can be
+enormous: at B=4, k=2, X=15 the sharp within-class absolute pair remainder is
+121, while the actual M(15)^2 is 1. Its positive and negative class masses
+are 61 and 60. The full top-prime/complement mixed term has not been removed.
+
+Evidence: `QC1-QC3` are **PAPER_PROOF / SELF_AUDIT /
+INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED**. `QC4` is exact
+**FINITE_COMPUTATION**, not an all-scale proof. The underlying Mobius sign
+character and exact lift reconstruction are known; the contribution is a
+source-specific sharp cancellation obstruction with a complete norm-budget
+calibration. No literature novelty is claimed for the character identity.
+No new Mertens exponent, finite A/C bound, canonical VF bound or RH proof
+is established.
+
+### B. Current Authoritative Objective
+
+Main retrieved for this invocation:
+`1daca8d582c361983567f0b6e99d447a77c3aea5`.
+
+| Authority | Blob SHA |
+| --- | --- |
+| AGENTS.md | 547dda0d9456e7a4e1165dc72d59da6f70d5c023 |
+| CURRENT_PROOF_CONTRACT.md | 7c4ac83a1ec1a4144e1bd691391ed4244f1cc27c |
+| NO_PIGEONHOLING_ROUTE_SELECTOR_V1 | ffd8f1c65cc4da656174956d4e03b48bea46768b |
+| Stable task selector | 4fbab59cc6fcc33a4f4e7a8ef447b2f7947b53dd |
+| Complete-return contract | 4775ee5fd95f279beab08a75d1e17127078b19a6 |
+| Persistent research engine | 6c1d1c10e2755017ffe9d7f40df8b9ae7692f23a |
+| Amplification budget | 62bbe73c4755eaa64772ec2cc2731936c01b49cd |
+
+The canonical `VFCanonicalSquareVonKochStatement` remains the actual-prime
+statement: there exists C>=0 such that, for every integer R>=2,
+
+```text
+|pi(R^2) - vfMidFinishedMass(R) - sqrt(2)| <= C R log(R).
+```
+
+It is OPEN. The completed VF/Li_2 O(1) transport is not this arithmetic
+estimate. Inherited strictly-below-7/8 results retain their independently
+reviewed one-shot scope; this invocation neither reproves nor revokes them.
+The new MU-LIFT quantitative gate remains OPEN / SEARCH_BROAD.
+
+`deployment_ack`: the new multi-front policy was consumed. This is the due
+MU-LIFT continuation after today's `20261104-wheel-1` CORR4 and
+`20261104-wheel-2` FINITE-AC. It resumes yesterday's
+`20261103-wheel-3/M1-M3` and Coordinator `20261104-coordinator-2`, section H.
+OAI LOW and all-selected tickets are optional and no unrelated mandatory
+OAI audit was imposed. The next distinct protected route is CORR4.
+
+The selected original source is the integer arithmetic-function lift, not
+raw VF seats, a returned-cell mask, a Hecke tuple, or the historical finite-C
+envelope. Its actual recurrence budget is
+
+```text
+E(B) = max_(1<=n<B) |M(n)|/sqrt(n),    1 <= E(B) <= sqrt(B-1).
+```
+
+The independently missing whole-prefix recurrence remains
+E(B_j^k)<=G_j E(B_j)^r, with one fixed k>=2, one fixed 1<=r<k,
+B_(j+1)=B_j^k, G_j>=1 and log(G_j)/log(B_j)->0. The report supplies no such
+inequality.
+
+### C. Structural Mechanism Investigated
+
+The earlier top-prime obstruction leaves open whether completing ALL
+families and then exchanging prime factors across the two sides of the
+quadratic source could produce a sufficiently small unmatched remainder.
+This run tests that stronger method on the entire source.
+
+Three distinctions matter. Factor exchange preserving a combined product
+also preserves its square class. Common-factor dilation changes the product
+by a square. Neither operation is automatically sign-reversing after true
+Mobius reassembly. Conversely, raw lift occurrences CAN have opposite signs
+inside one class, so it would be false to prohibit all internal cancellation.
+The correct question is the exact minimum remainder after that cancellation.
+
+No top-prime scan, wheel enlargement, coefficient-radius scan or norm-fiber
+OAI census was repeated. The new finite tests concern the lifted ordered-pair
+carrier and the optimal remainder, including its complete complement.
+
+### D. Exact Statements And Carriers
+
+#### QC1. Original Occurrences And Square-Class Reassembly
+
+Let a(n)=mu(n) for 1<=n<B and zero otherwise, and let zeta(n)=1 for positive
+n. Products of arithmetic functions denote Dirichlet convolution. The live
+definition has H_0=0 and H_(j+1)=a+(1-a*zeta)*H_j. Its finite expansion is
+
+```text
+H_(B,k) = sum_(j=1..k) (-1)^(j-1) binom(k,j)
+                         a^{*j} * zeta^{*(j-1)}.
+```
+
+Define the finite occurrence set O=O(B,k,X). An occurrence is
+
+```text
+o = (j, c, a_1,...,a_j, b_1,...,b_(j-1)),
+1<=j<=k, 1<=c<=binom(k,j),
+1<=a_i<B, mu(a_i)!=0, b_l>=1,
+n(o) = product_i a_i * product_l b_l <= X,
+epsilon(o) = (-1)^(j-1) product_i mu(a_i) in {-1,+1}.
+```
+
+The copy c records the actual binomial coefficient, not new mathematical
+mass. Factor slots are ordered. Terms with a squareful a_i have zero weight
+and are omitted, but b_l may be squareful and n(o) may be squareful. The
+integer value n(o) is NOT the occurrence identifier. Empty b-products for
+j=1 are 1. Values start at 1; the Lean coefficient at 0 is zero.
+
+For every 1<=n<=X<B^k, the exact source theorem gives
+
+```text
+sum_(o in O, n(o)=n) epsilon(o) = H_(B,k)(n) = mu(n).   (QC1a)
+sum_(o in O) epsilon(o) = M(X).
+```
+
+For a positive integer t, define
+
+```text
+kappa(t) = product_(p prime, v_p(t) odd) p.
+```
+
+This is the squarefree representative of the rational square class of t;
+it is NOT rad(t). For example kappa(12)=3, whereas rad(12)=6.
+
+Use the full ORDERED square O x O and the class
+s=kappa(n(o)n(o')). Define its signed coefficient K_s and the genuine
+squarefree-pair count W_s by
+
+```text
+K_s = sum_(o,o' in O, kappa(n(o)n(o'))=s) epsilon(o)epsilon(o'),
+W_s = #{(m,n): 1<=m,n<=X, mu(m)mu(n)!=0, kappa(mn)=s}.
+```
+
+For every squarefree s, including s=1,
+
+```text
+K_s = mu(s) W_s,                                      (QC1b)
+W_s = sum_(d|s) Z_s(floor(X/max(d,s/d))),               (QC1c)
+Z_s(Y) = #{1<=g<=Y: mu(g)!=0, gcd(g,s)=1},
+W_1 = S(X),    sum_s W_s = S(X)^2,
+M(X)^2 = sum_s mu(s) W_s.                             (QC1d)
+```
+
+All s-sums are finite, with s<=X^2. The divisors d are ordered through the
+choice of first factor; when d differs from s/d, the two orientations are
+distinct original pairs. No extra factor of two is inserted elsewhere.
+
+#### QC2. Sharp Minimum Under Square-Class-Preserving Cancellation
+
+Let D be any subset of O x O, with a fixed-point-free involution tau:D->D
+such that each paired occurrence has opposite sign and tau preserves
+kappa(n(o)n(o')). Remove those pairs. If R is the retained occurrence set,
+then
+
+```text
+|R| >= sum_s |K_s| = S(X)^2.                          (QC2a)
+```
+
+There EXISTS such a cancellation with equality. Thus the minimum is exactly
+S(X)^2, not merely a lower bound arising from a poor local matching.
+
+The lower bound also applies to arbitrary zero-sum packets confined to one
+square class, or classwise algebra followed by absolute values: the residual
+total variation is at least sum_s |K_s|. It does not cover packets that
+exchange mass between classes or estimates that retain signed cancellation
+between classes.
+
+#### QC3. Complete-Source Certificate Obstruction
+
+For every integer X>=1,
+
+```text
+S(X) >= X/4.                                         (QC3a)
+```
+
+Suppose a proposed proof of the complete lift bound first performs only the
+QC2 cancellations and then uses absolute values on the remaining pair
+occurrences or square-class sums. Its energy certificate U has
+
+```text
+M(X)^2 <= U,    U >= S(X)^2 >= X^2/16.                (QC3b)
+```
+
+The displayed lower bound is on U, NOT on M(X)^2. For every fixed integer
+k>=2, every fixed real 1<=r<k, every constant C>0, and every G(B)>=1 with
+log G(B)/log B -> 0, at X=B^k-1,
+
+```text
+sqrt(U) / (C G(B) E(B)^r sqrt(X))
+  >= sqrt(B^k-1) / (4 C G(B) (B-1)^(r/2))
+  -> infinity.                                      (QC3c)
+```
+
+Therefore this class of absolute-remainder certificates cannot prove the
+subcritical whole-prefix inequality, even on a single unbounded prescribed
+B-chain. If G(B)=B^(g+o(1)), it needs at least g>=(k-r)/2 at the top endpoint;
+this necessary cost is not a sufficient recurrence. The squared form has
+budget power 2r and normalized cost 2g, consistently with (QC3c).
+
+#### QC4. Finite Falsification And Boundary Tests
+
+The executed exact reproducer checked every coefficient below B^k and every
+new-interval endpoint B<=X<B^k for:
+
+```text
+k=2: B=2,...,12;  k=3: B=2,...,5;  k=4: B=2,3.
+```
+
+This comprises 953 coefficient checks and 874 new-interval endpoints.
+Seven separate literal occurrence fixtures check all 346,145 ordered raw
+pairs, the explicit attaining involution, actual integer signs, square-class
+coefficients and the independent gcd/divisor count (QC1c).
+
+| B | k | X | Raw atoms | Raw ordered pairs | S(X)^2 | M(X)^2 |
+| ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| 2 | 2 | 3 | 5 | 25 | 9 | 1 |
+| 3 | 2 | 8 | 22 | 484 | 36 | 4 |
+| 4 | 2 | 15 | 53 | 2809 | 121 | 1 |
+| 6 | 2 | 35 | 145 | 21025 | 529 | 1 |
+| 2 | 3 | 7 | 40 | 1600 | 36 | 4 |
+| 3 | 3 | 26 | 429 | 184041 | 289 | 1 |
+| 2 | 4 | 15 | 369 | 136161 | 121 | 1 |
+
+Negative controls were tested, not omitted:
+
+- At the excluded equality B=2, k=2, n=4, H(4)=-1 but mu(4)=0. The theorem
+  cannot silently replace X<B^k by X<=B^k.
+- At B=3, k=2, physical n=4 has raw signs [-1,+1,+1,-1]. Internal
+  cancellation is real; only its sharp remaining mass is obstructed.
+- Pairs (1,6) and (2,3) have class 6 and sign +1, so factor exchange is not
+  sign reversal. Pairs (1,1) and (1,2) have opposite signs but different
+  classes; class-changing cancellation is lawful and is not prohibited.
+- At X=15 the class totals are +61 and -60. Allowing cross-class pairing can
+  leave only 1. Treating 121 as a lower bound on the actual energy is false.
+
+### E. Proofs
+
+**QC1a, occurrence bridge.** The already proved geometric identity is
+H_k=a sum_(l=0..k-1)(1-a*zeta)^l. Expand each finite power. The coefficient
+of a^j*zeta^(j-1) is
+(-1)^(j-1) sum_(l=j-1..k-1) binom(l,j-1)
+=(-1)^(j-1) binom(k,j). This is finite binomial algebra, with no convergence
+assumption. Dirichlet convolution enumerates precisely the ordered factor
+tuples above; the copy label implements the integer coefficient exactly.
+The current `heathBrownLift_prefix_exact`, with N=B-1, gives H_k(n)=mu(n)
+for n<B^k. Thus summing all raw occurrences at each integer n proves QC1a.
+This is reuse of exact coefficient reconstruction, not a new norm estimate.
+
+**QC1b-c, arithmetic restriction.** Fix a nonzero pair (m,n). Unique prime
+factorization gives g=gcd(m,n), d=m/g and e=n/g, with g,d,e squarefree,
+gcd(d,e)=1, gcd(g,de)=1 and mn=g^2 de. Hence
+
+```text
+kappa(mn)=de=s,    mu(m)mu(n)=mu(g)^2 mu(d)mu(e)=mu(s).
+```
+
+Conversely, each d|s and squarefree g coprime to s with
+g<=floor(X/max(d,s/d)) produces exactly one ordered pair
+(gd,gs/d). This is a bijection and proves QC1c. The case s=1 forces m=n,
+giving W_1=S(X). Each nonzero ordered pair belongs to exactly one class, so
+sum_s W_s=S(X)^2. Now sum raw occurrences first by (m,n), using QC1a on
+both factors, and then by s. This proves QC1b-d, including squareful sites
+whose complete coefficient is zero and every cross-family interaction.
+
+**QC2, lower bound.** Every removed opposite-sign pair has net zero in its
+original class. If the remainder in class s has p_s positive and q_s
+negative atoms, then p_s-q_s=K_s and p_s+q_s>=|K_s|. Summing and applying
+QC1b-d proves QC2a. The same argument is conservation of signed mass for
+any internal zero-sum packet.
+
+**QC2, attainment.** Within each integer fiber O_n, order the positive and
+negative occurrences and pair as many opposite signs as possible. QC1a
+implies that exactly |mu(n)| atoms remain, with sign mu(n). This is an
+actual finite matching of distinct occurrence identifiers; no occurrence
+is spent twice. Let sigma be that matching, extended by fixing the leftovers.
+On O x O, apply sigma in the first coordinate if that coordinate is matched;
+otherwise apply it in the second coordinate if the second is matched;
+otherwise leave the pair unmatched. This rule is an involution on its
+nonfixed domain, reverses the pair sign and preserves both integer values.
+Its unmatched set is the Cartesian square of the S(X) first-order leftovers,
+so its cardinality is exactly S(X)^2. In particular it preserves square
+class. The argument does not assert a global matching with O(X) leftovers.
+
+**QC3a, elementary population lower bound.** Every nonsquarefree n<=X is
+divisible by d^2 for some integer d>=2. Union bounding, without independence,
+
+```text
+X-S(X) <= sum_(2<=d<=sqrt(X)) floor(X/d^2)
+        <= X sum_(d=2..infinity) 1/d^2
+        <= X [1/4 + integral_(2..infinity) t^(-2) dt]
+         = 3X/4.
+```
+
+For the integral comparison, each d>=3 contributes at most the integral
+over [d-1,d]. This also covers X=1 and empty finite sums. No prime number
+theorem, prime density assumption or RH input is needed.
+
+**QC3b-c, complete budget.** A terminal triangle estimate on a retained
+unit-weight pair list gives U=|R|; classwise algebra and triangle give
+U=sum_s|K_s|, or something larger. QC2 and QC3a imply QC3b. The genuine
+prefix satisfies |M(n)|<=n and hence E(B)<=sqrt(B-1). Substitute X=B^k-1
+and divide by the proposed amplitude budget. The power (k-r)/2 is positive,
+while G is subpower, proving QC3c. The same divergence holds on every
+unbounded chain and therefore is not repaired by selecting sparse scales.
+No inference from a first-moment bound to a second moment is used.
+
+### F. Structural Consequence
+
+Once the full lift is reassembled, exchange of prime factors between the
+two integer values, swapping the values, and any admitted simultaneous
+factor operation whose combined product changes by a rational square all
+preserve the sign of a nonzero pair. Such operations cannot provide the
+missing cross-class cancellation. The optimality theorem remains true even
+if the method first uses every possible opposite-sign cancellation among
+raw alternating lift families.
+
+The restriction is genuinely arithmetic: an arbitrary signed pair array
+need not have constant sign on a square class. It is stronger in scope than
+the previous separate top-prime argument, because it applies to the full
+joint square after all available internal lift cancellations, with no PNT
+input. It is not a stronger theorem about the size of M(X).
+
+### G. Signed And Quantitative Relevance
+
+For X=B^k-1 let A(X)=pi(X)-pi(floor(X/2)) and let C_(B,k)(X) be the literal
+sum of H_k over all other integers. The previously established exact relation
+remains
+
+```text
+M(X)=C_(B,k)(X)-A(X),
+M(X)^2=C_(B,k)(X)^2+A(X)^2-2A(X)C_(B,k)(X).
+```
+
+QC1 reindexes this ENTIRE square, not only its prime-prime part or a sum of
+separately squared components. The two ordered mixed orientations are both
+present in O x O. In particular, at X=15, A=2 and C=1, so the energy is
+1+4-4=1. No historical prime has been spent as more than its actual ordered
+occurrence contribution.
+
+At k=2 the linear 2M(B-1) term is retained by the two j=1 copies. Its full
+source is exactly 2M(B-1)-Q_(B-1)(X), not Q alone. There is no smoothing,
+changed cutoff, boundary omission, owner mask or imported Hecke normalizer.
+
+The complete signed W_s expression is an identity. Demanding its upper bound
+G(B)^2 E(B)^(2r) X is precisely a squared form of the unresolved interval
+estimate, NOT a newly independent supplier. No such signed estimate is
+proved. Fixed-k constants are allowed, but no growing-k argument is asserted.
+Net new endpoint gain: **UNKNOWN / NONE ESTABLISHED**.
+
+### H. Falsification, Novelty And Formal Evidence
+
+**Frozen test:** does full alternating reassembly permit a square-class-
+preserving cancellation with less than S(X)^2 remaining pair mass? The
+competing explanation is that only cross-class cancellation can reduce it
+further. Tests compared literal raw occurrences, a separately implemented
+recursive convolution lift, direct Mobius pair enumeration and the gcd
+divisor formula. They checked involutivity, sign reversal, no duplicate
+identifiers, all strict interval endpoints and the equality-cutoff failure.
+These are author self-checks, not independent Referee review.
+
+**No novelty inflation.** Repository searches for squareclass, squarefree
+core, product-preserving and unmatched Mobius retrieved and prompted
+inspection of the existing gcd sign classifier, signature pair-energy
+identities, multiplicative-Gram notes, top-prime isolation and canonical
+face/tail toggles. `FINITE_A_C_VF_ALIGNMENT_2026_10_11.md` and
+`MOBIUS_DENSITY_PRESERVING_MULTIPLICATIVE_GRAM_2026_10_11.md` already explain
+common-gcd sign coherence and its failure to supply a full bound.
+`GLOBAL_RETURNED_CORE_SIGNATURE_PAIR_ENERGY.lean` already supplies generic
+pair reindexing. `LowWheelCanonicalRepeatedMovableOthello.lean` has a
+product-preserving toggle on a DIFFERENT face/tail coefficient carrier;
+QC2 does not refute that existing cancellation.
+
+The elementary group-character fact is also classical; see Titus
+Hilberdink, [The group of squarefree integers](https://doi.org/10.1016/j.laa.2014.05.037),
+Linear Algebra and its Applications 457 (2014), 383-399. The publisher's
+indexed abstract explicitly identifies Mobius as a character of the
+squarefree-integer group. Full article retrieval was blocked; no uninspected
+theorem from it is used. The proofs above are elementary and self-contained.
+
+No equivalent sharp minimum for the COMPLETE k-lift ordered-pair occurrence
+carrier was located in the inspected sources and November 3/4 reports.
+This is a scoped novelty check, not an exhaustive literature-originality
+claim. QC2-QC3 are best classified as a source-specific no-go corollary of
+known arithmetic and existing exact reconstruction, not a new cancellation
+principle or quantitative advance toward RH.
+
+**Formal evidence actually checked.** PR #954 is human-merged, with tested
+head `a4b5578f12729b4caa36e9305aa30ccc098f4923` and merge commit
+`c0bf6261b5e78aa0ec03967a86691987842b80eb`. All 11 returned workflows at
+that head succeeded. The dedicated signed-lift
+[job 116540514284](https://github.com/OVVO-Financial/RH_Lean/actions/runs/38769272005/job/116540514284)
+shows warning-fatal compilation and an exact dependency audit. Retrieved
+logs explicitly print only propext, Classical.choice and Quot.sound for
+`heathBrownLift_eq_geometric`, `heathBrownLift_agrees_below_power`,
+`heathBrownLift_prefix_exact` and `convolution_sum_hyperbola`.
+
+Current source bytes were compared with that tested head. The hyperbola
+module is byte-identical. The prefix and signed-lift modules now have
+tactic compatibility edits (`using!`, simplifier changes, and ordered-add
+lemma changes); the relevant definitions and theorem statements are
+unchanged. This is historical exact-head proof evidence plus current
+statement inspection, NOT a claim of newly compiling the current main
+dependency closure. QC1b-QC3 themselves have no Lean implementation or CI.
+
+Live PR discovery returned no open/draft PRs at intake. #1085, #1087, #1090
+and #1091 are now merged, unlike stale prose in some reports; their subject
+matter does not discharge this MU-LIFT recurrence. No duplicate proof PR
+was created.
+
+### I. Conceptual Interpretation
+
+The candidate factor-exchange symmetry has the wrong parity for the job:
+changing both sides by the same prime operation preserves the quadratic
+sign. Completing internal lift cancellation does not fix this. The exact
+obstruction is conservation of signed mass in square classes, rather than
+an insufficiency of local counts or a finite wheel modulus.
+
+This gives a concrete rule for future proposals: explain where the proposed
+negative credit crosses square classes, and keep the admission boundary and
+all other interactions created by that move. Merely changing the name of a
+product-preserving pairing cannot evade QC2.
+
+### J. Competing Structural Hypotheses
+
+1. **Within-square-class pairing plus an absolute remainder:** rejected by
+   QC2-QC3 at its exact scope, even with full alternating families and the
+   full top-prime complement. No need for larger scans.
+2. **Class-changing arithmetic transport:** remains possible. Prime toggles
+   on one coordinate do change class, but existing dyadic/Mobius boundary
+   identities already show why moving a boundary is not a norm estimate.
+   Do not rediscover them or claim that class change alone proves a saving.
+3. **A signed estimate without terminal classwise absolute values:** remains
+   possible. No bound or impossible-spectrum claim is made for that method.
+
+An arbitrary across-class matching also exists by counting positive and
+negative atoms, but bounding its leftover by the desired energy is just the
+original target in disguise. Its existence alone supplies no independent
+arithmetic estimate.
+
+### K. Continuity And Specialist Handoffs
+
+Reporting snapshot retrieved:
+`fdbcb8e1755ff9b7c17a0770b2331d5cd864a401`.
+All seven role files for both Eastern calendar dates were retrieved as actual
+content and relevant claims, corrections and continuation sections inspected.
+TODAY=AVAILABLE for all seven; older missing-stage observations are preserved
+at their original times, not retroactively rewritten.
+
+| Role | Nov 3 blob | Nov 4 blob at intake |
+| --- | --- | --- |
+| Coordinator (00/90 matching) | e35ab2cd9cba2a47ac5be53b09938b37a0c20df3 | f4297e525684aa149b9f7bd037bc1507e9f3a3e4 |
+| Owner | d52c74b76c2914c3be694f39cd7afe9b122a4834 | 560b0b7617703b64e728e12e60a390646c9379ea |
+| Analytic | 2b9c3dbab6039e3c30a5ece3e473290af5dbbf0b | 04ffb1b41d8b6afe5a5d89754f5ccbc8d9682d58 |
+| Wheel | cd7777180bb5c2c899a60bdd699b99be8e12a672 | 6a773f357029bb97cf34110532c7de1f7bb38f3f |
+| Census | eb9a2e0cf7772f22060aec07e0bcddd24ace9cd9 | 9f634c872fe98f82676c263a4faba35dff3ac4f0 |
+| Referee | 583ce524628577818603ffd4e9ec0eb3673a3f37 | 11eaf073fad23591cdf6d8fe83209042139e54c5 |
+| Lean | fc27fb1ae103e60ff600e5a24ce6716937da3884 | 1519754f2b440abd6821a960926028dc776c8576 |
+
+Consumed continuity, without blanket endorsement:
+
+- Coordinator `20261104-coordinator-2/C45-C48`, receipt 15:40:06 EST,
+  explicitly preserves the distinct JOH/CODIV/MU-LIFT next tasks. Its Nyman
+  cutoff obstruction is a different carrier, not a lift estimate.
+- Own `20261103-wheel-3/M1-M3`, receipt 18:31:37 EST on Nov 3, supplies the
+  separate top-prime obstruction and the full complement square. The Nov 3
+  Referee accepted that report's O1-O4 at OAI scope, explicitly NOT M1-M3.
+  Own Nov 4 wheel-2's completion rank-one result does not supply a recurrence.
+- Owner `20261103-owner-3/JH1-JH10` and `20261104-owner-3/LC1-LC5`, receipt
+  16:32 EST today, distinguish bounded within-slot contributions from the
+  unpaid whole backlog. Same-length/same-owner opposite-sign examples and
+  W(512)=+1, W(2048)=+3 remain scoped JOH falsifiers.
+- Analytic `20261103-analytic-3/CD1-CD6` and today's
+  `20261104-analytic-3/M1-M6` give reported logarithmic maximal-window
+  progress with pending independent review, not a fixed power or the
+  complete MU-LIFT whole-prefix inequality. No transfer is assumed here.
+- Census `20261103-census-5/6` and `20261104-census-1, census-2` address
+  genuine ideal norm/character collision structure. They supply no map to
+  rational Mobius pair signs. Their physical-integral limitation is retained.
+- Referee `20261104-referee-1..8` contains scoped OAI reviews; it is not a
+  new endorsement of today's native Wheel work. Lean
+  `20261103-lean-3`, `20261104-lean-1/2` preserves failed-write history and
+  later formal evidence; live merge metadata supersedes old draft labels.
+- EXTERNAL_HANDOFFS blob `038018145c0fddb2f6306c0712373adf9cd1ea52` has no
+  entry newer than October 18. `EXT-20261018-PNT-1..3`,
+  `EXT-20261017-XCOORD-1..3` and `EXT-20261014-5` retain their exact
+  source/restoration/endpoint scopes, but their old routing and cadence are
+  superseded. None supplies the present missing norm inequality.
+
+**Coordinator:** register this as the due MU-LIFT complete-source method
+obstruction, not a fourth proof of a generic sign identity. Do not narrow
+the nine-route programme. Next Wheel route is CORR4.
+
+**Referee:** independently check QC2's sharpness on the ORIGINAL occurrence
+carrier and QC3's certificate-versus-actual-energy distinction. Check the
+finite binomial-copy expansion, both ordered mixed orientations, squareful
+zeros, strict X<B^k, and quantifier order in r/G/chain. Return a scoped verdict;
+none is presumed here.
+
+**Prime Census:** a small independent implementation of B=4,k=2,X=15 and
+B=3,k=3,X=26 is sufficient. Reconstruct family/copy/factor labels and the
+induced pair involution; verify (121,1) and (289,1) for (minimum remainder,
+actual energy). Include B=2,k=2,X=4 as an intentionally invalid endpoint.
+No larger prime or wheel census is requested.
+
+**Owner / Analytic:** factor exchanges that preserve combined square class
+cannot be sign-reversing on the fully reassembled nonzero Mobius pairs.
+This does not govern your native VF weights or Hecke phases without a source
+map. Analytic's log-saving window theorem is not imported as a lift bound.
+
+**Lean Verification:** no immediate proof PR requested. After independent
+review and a utility check, QC2's finite conservation lower bound and its
+source specialization could be a small interface; reuse existing gcd-sign,
+lift and Gram declarations. Do not implement a duplicate character identity
+or assume the unresolved recurrence. All handoffs are asynchronous report
+requests; no other agent was launched.
+
+### L. First Independently Missing Theorem
+
+For k=2 the original arithmetic estimate is still
+
+```text
+exists fixed r in [1,2), suitable G_j>=1 with log(G_j)/log(B_j)->0,
+forall sufficiently large j, forall integer X in [B_j,B_j^2):
+  |2M(B_j-1)-Q_(B_j-1)(X)| <= G_j E(B_j)^r sqrt(X),
+Q_N(X)=sum_(1<=i,j<=N) mu(i)mu(j) floor(X/(ij)).
+```
+
+The fixed-k alternative requires the entire interval [B_j,B_j^k), r<k and
+all alternating families. An endpoint-only certificate does not supply
+whole-prefix coverage. The present work identifies an unusable symmetry
+class, but does NOT isolate a newly paid or independently easier signed
+supplier. A bound on sum_s mu(s)W_s is target-equivalent and remains open.
+
+The useful next MU-LIFT question is whether an actual class-changing map
+can couple the retained boundary with its original complement, with a
+provable signed remainder that is not just the target rewritten. The known
+dyadic boundary telescope and top-prime isolation are constraints, not tasks
+to repeat.
+
+### M. Source Ledger And Resume Capsule
+
+| Source at main 1daca8d5 | Blob SHA |
+| --- | --- |
+| research/MERTENS_FINITE_PREFIX_EXTENSION.lean | 131e9af86207a42d4bf6488e3f64c9ce4f97e5df |
+| research/MERTENS_HEATH_BROWN_SIGNED.lean | af69b4811cf9f523eb7c96fb0ca836b2cdbd1180 |
+| research/MERTENS_SIGNED_HYPERBOLA.lean | d199571f19346797229a25b0fa53c6e80499999f |
+| research/MERTENS_HEATH_BROWN_ACCEPTANCE.lean | 9c7f3c030bcfcfa3fe56ccedf30bfcbf42e5fd7d |
+| research/MERTENS_FINITE_PREFIX_ACCEPTANCE.lean | c0511aab705b7a6756c48318b7f0fea6183bff7a |
+| research/GLOBAL_RETURNED_CORE_SIGNATURE_PAIR_ENERGY.lean | ff060b070c52d17ef4f10e2391e548fb9333dffb |
+| research/FINITE_A_C_VF_ALIGNMENT_2026_10_11.md | 12bb0a5e924bbafce57e90996133a7c1c2832de0 |
+| research/MOBIUS_DENSITY_PRESERVING_MULTIPLICATIVE_GRAM_2026_10_11.md | 25f96804928af68d3ca3506e8ea4c8f7685cedb7 |
+| RHLean/Arithmetic/TopPrimeReplacementIsolation.lean | 950173fc3e5271f3eeed8cc6f7831ca89bb11a90 |
+| RHLean/Proof/LowWheelCanonicalRepeatedMovableOthello.lean | 25378e4a53250119941461164546a32b7263cdcc |
+
+```text
+ACTUAL_INVOCATION: 2026-11-04 18:06:01 EST, scheduled, RUN_ID_UNAVAILABLE
+CLAIM: 20261104-wheel-3/QC1-QC4
+POLICY: NO_PIGEONHOLING_ROUTE_SELECTOR_V1, main 1daca8d5
+PRIMARY_ROUTE: MU-LIFT; complete original H_(B,k) square
+RESUMED: 20261103-wheel-3/M1-M3; 20261104-coordinator-2 section H
+LAST_JUSTIFIED: exact minimum within-square-class remainder = S(X)^2
+NEW_RESULT_SCOPE: full-source proof-method obstruction; paper/self-audit
+QUANTITATIVE_ENDPOINT_GAIN: NONE ESTABLISHED; net eta UNKNOWN
+FORMAL_STATE: new claims NOT_FORMALIZED; Referee PENDING
+REPRODUCER: mu_lift_squareclass_test.py, complete source appended below
+REPRODUCER_SHA256: 22060475336758ee28b81236c139eb73a6f75d8e44d843b759f16e32902d04e8
+TEST_SCOPE: 953 coefficients, 874 new-interval endpoints,
+            seven literal carriers, 346145 ordered raw pairs, all PASS
+FAILED_METHOD: class-preserving cancellation followed by absolute remainder
+NOT_REFUTED: cross-class signed methods, arbitrary complete MU-LIFT recurrence
+NEXT_MU_LIFT_ACTION: new source-faithful class-changing boundary/complement map
+NEXT_PROTECTED_ROUTE: CORR4, then FINITE-AC, then MU-LIFT
+CORR4_RESUME: today's anchored full-return C1/C2 and source sign restrictions
+FINITE_AC_RESUME: today's L1-L4, full-prime completion supplies no new direction
+CANONICAL_VF / FINITE_AC / CORR4 / RH: OPEN
+```
+
+The early checkpoint was published at commit
+`aaebdd3bbad89122717f532ab6bcff663cdc7f2c`, blob
+`a480b6432c3535c2a9592fe7c211dfbe883c3bc4`, and its exact content was read
+back successfully. Final publication is recorded in the later receipt only
+after commit/readback; it is not presumed here.
+
+Execution limits: direct shell cloning failed with CONNECT 403; authenticated
+GitHub connector reads and own-report writes succeeded. No local Lean
+execution, repository Lean edit, other-report edit, branch/PR/issue mutation,
+merge, policy change, permission change, schedule change or agent launch was
+performed. All fresh arithmetic checks used exact Python integers and were
+self-audits. Research completion does not mean independent review completion.
+
+### Reproducibility Appendix
+
+Execute with Python 3, using only the standard library. The complete exact
+output follows the source. This is a finite regression and does not replace
+the all-scale paper proofs in sections D-E.
+
+```python
+"""Exact, small-domain tests of complete-lift square-class cancellation.
+
+This is a finite regression, not a proof of any all-scale Mertens bound.
+All arithmetic below is integral; occurrence identifiers retain family,
+binomial copy, ordered prefix factors, and ordered zeta factors.
+"""
+
+from collections import Counter, defaultdict
+from fractions import Fraction
+from math import comb, gcd, isqrt
+import json
+
+
+def prime_exponents(n):
+    result = []
+    p = 2
+    while p * p <= n:
+        exponent = 0
+        while n % p == 0:
+            n //= p
+            exponent += 1
+        if exponent:
+            result.append((p, exponent))
+        p += 1
+    if n > 1:
+        result.append((n, 1))
+    return result
+
+
+def mobius(n):
+    if n == 0:
+        return 0
+    factors = prime_exponents(n)
+    if any(e > 1 for _, e in factors):
+        return 0
+    return (-1) ** len(factors)
+
+
+def squareclass(n):
+    result = 1
+    for p, e in prime_exponents(n):
+        if e % 2:
+            result *= p
+    return result
+
+
+def convolution(a, b, limit):
+    c = [0] * (limit + 1)
+    for i in range(1, limit + 1):
+        if a[i]:
+            for j in range(1, limit // i + 1):
+                c[i * j] += a[i] * b[j]
+    return c
+
+
+def recursive_lift(B, k, limit):
+    a = [mobius(n) if n < B else 0 for n in range(limit + 1)]
+    zeta = [0] + [1] * limit
+    az = convolution(a, zeta, limit)
+    defect = [-value for value in az]
+    defect[1] += 1
+    h = [0] * (limit + 1)
+    for _ in range(k):
+        dh = convolution(defect, h, limit)
+        h = [a[n] + dh[n] for n in range(limit + 1)]
+    return h
+
+
+def literal_occurrences(B, k, X):
+    prefix = [n for n in range(1, B) if mobius(n)]
+    result = []
+    for j in range(1, k + 1):
+        def visit(position, product, sign, factors):
+            if position == 2 * j - 1:
+                for copy in range(comb(k, j)):
+                    identity = (j, copy, factors[:j], factors[j:])
+                    result.append((identity, product, sign))
+                return
+            candidates = prefix if position < j else range(1, X // product + 1)
+            for factor in candidates:
+                if product * factor <= X:
+                    next_sign = sign * mobius(factor) if position < j else sign
+                    visit(position + 1, product * factor, next_sign, factors + (factor,))
+        visit(0, 1, (-1) ** (j - 1), ())
+    assert len({o[0] for o in result}) == len(result)
+    return result
+
+
+def gcd_squareclass_counts(X, mu):
+    counts = Counter()
+    for s in range(1, X * X + 1):
+        if not mobius(s):
+            continue
+        for d in range(1, isqrt(s) + 1):
+            if s % d:
+                continue
+            e = s // d
+            cap = X // max(d, e)
+            mass = sum(bool(mu[g]) and gcd(g, s) == 1 for g in range(1, cap + 1))
+            counts[s] += mass if d == e else 2 * mass
+    return +counts
+
+
+def literal_case(B, k, X):
+    occurrences = literal_occurrences(B, k, X)
+    mu = [mobius(n) for n in range(X + 1)]
+    h = recursive_lift(B, k, X)
+    grouped = Counter()
+    signs_by_n = defaultdict(lambda: {1: [], -1: []})
+    for index, (_, n, sign) in enumerate(occurrences):
+        grouped[n] += sign
+        signs_by_n[n][sign].append(index)
+    assert all(grouped[n] == h[n] == mu[n] for n in range(1, X + 1))
+
+    mate = list(range(len(occurrences)))
+    for signs in signs_by_n.values():
+        for plus, minus in zip(signs[1], signs[-1]):
+            mate[plus], mate[minus] = minus, plus
+    sf = sum(bool(mu[n]) for n in range(1, X + 1))
+    assert sum(i == mate[i] for i in range(len(mate))) == sf
+
+    def pair_mate(i, j):
+        if mate[i] != i:
+            return mate[i], j
+        if mate[j] != j:
+            return i, mate[j]
+        return i, j
+
+    classes = [0] + [squareclass(n) for n in range(1, X * X + 1)]
+    raw_gram = Counter()
+    fixed = 0
+    for i, (_, n, sign_n) in enumerate(occurrences):
+        for j, (_, m, sign_m) in enumerate(occurrences):
+            s = classes[n * m]
+            raw_gram[s] += sign_n * sign_m
+            u, v = pair_mate(i, j)
+            assert pair_mate(u, v) == (i, j)
+            if (u, v) == (i, j):
+                fixed += 1
+            else:
+                _, n2, sign_n2 = occurrences[u]
+                _, m2, sign_m2 = occurrences[v]
+                assert n2 == n and m2 == m
+                assert sign_n2 * sign_m2 == -sign_n * sign_m
+                assert classes[n2 * m2] == s
+    assert fixed == sf * sf
+
+    W = Counter()
+    direct = Counter()
+    for n in range(1, X + 1):
+        for m in range(1, X + 1):
+            s = classes[n * m]
+            direct[s] += mu[n] * mu[m]
+            if mu[n] and mu[m]:
+                W[s] += 1
+                assert s == n * m // gcd(n, m) ** 2
+                assert mu[n] * mu[m] == mobius(s)
+    assert all(raw_gram[s] == direct[s] == mobius(s) * W[s] for s in raw_gram.keys() | direct.keys() | W.keys())
+    assert W == gcd_squareclass_counts(X, mu)
+    assert W[1] == sf and sum(W.values()) == sf * sf
+    assert sum(abs(v) for v in raw_gram.values()) == sf * sf
+    assert 4 * sf >= X
+    M = sum(mu)
+    A = sum(n > X // 2 and prime_exponents(n) == [(n, 1)] for n in range(1, X + 1))
+    C = M + A
+    assert M * M == C * C + A * A - 2 * A * C
+    return {"B": B, "k": k, "X": X, "raw_atoms": len(occurrences),
+            "raw_ordered_pairs": len(occurrences) ** 2, "squarefree_count": sf,
+            "minimal_squareclass_remainder": fixed, "actual_M_squared": M * M,
+            "M": M, "top_prime_count": A, "complement": C,
+            "nonzero_squareclasses": len(W)}
+
+
+def whole_prefix_tests():
+    cases = [(B, 2) for B in range(2, 13)] + [(B, 3) for B in range(2, 6)] + [(B, 4) for B in range(2, 4)]
+    endpoints = 0
+    coefficient_checks = 0
+    for B, k in cases:
+        end = B ** k - 1
+        h = recursive_lift(B, k, end)
+        mu = [mobius(n) for n in range(end + 1)]
+        assert h == mu
+        coefficient_checks += end
+        W = Counter()
+        K = Counter()
+        M = sf = 0
+        for X in range(1, end + 1):
+            M += mu[X]
+            sf += bool(mu[X])
+            for m in range(1, X + 1):
+                multiplicity = 1 if m == X else 2
+                s = squareclass(m * X)
+                K[s] += multiplicity * h[m] * h[X]
+                if mu[m] and mu[X]:
+                    W[s] += multiplicity
+            assert sum(K.values()) == M * M
+            assert sum(abs(v) for v in K.values()) == sf * sf
+            assert W[1] == sf
+            assert all(K[s] == mobius(s) * W[s] for s in K.keys() | W.keys())
+            assert 4 * sf >= X
+            if X >= B:
+                endpoints += 1
+    return {"B_k_cases": cases, "valid_new_interval_endpoints": endpoints,
+            "valid_coefficients_checked": coefficient_checks}
+
+
+def main():
+    fixtures = [(2, 2, 3), (3, 2, 8), (4, 2, 15), (6, 2, 35),
+                (2, 3, 7), (3, 3, 26), (2, 4, 15)]
+    literal = [literal_case(*case) for case in fixtures]
+    boundary = recursive_lift(2, 2, 4)[4]
+    assert boundary == -1 and mobius(4) == 0
+    squareful = [o[2] for o in literal_occurrences(3, 2, 8) if o[1] == 4]
+    assert sorted(squareful) == [-1, -1, 1, 1]
+    x = 15
+    mu = [mobius(n) for n in range(x + 1)]
+    W = gcd_squareclass_counts(x, mu)
+    positive_mass = sum(w for s, w in W.items() if mobius(s) == 1)
+    negative_mass = sum(w for s, w in W.items() if mobius(s) == -1)
+    assert (positive_mass, negative_mass) == (61, 60)
+    print(json.dumps({"status": "PASS", "whole_prefix": whole_prefix_tests(),
+        "literal_cases": literal,
+        "negative_controls": {
+            "strict_cutoff": {"B": 2, "k": 2, "n": 4, "lift": boundary, "mu": 0},
+            "raw_squareful_n4_signs": squareful,
+            "X15_positive_mass": positive_mass, "X15_negative_mass": negative_mass,
+            "X15_after_cross_class_matching": abs(positive_mass - negative_mass),
+            "same_class_example": {"pairs": [[1, 6], [2, 3]], "class": 6, "sign": 1},
+            "class_changing_example": {"pairs": [[1, 1], [1, 2]], "classes": [1, 2], "signs": [1, -1]}
+        }}, indent=2))
+
+
+if __name__ == "__main__":
+    main()
+```
+
+#### Exact Executed Output
+
+```json
+{
+  "status": "PASS",
+  "whole_prefix": {
+    "B_k_cases": [
+      [
+        2,
+        2
+      ],
+      [
+        3,
+        2
+      ],
+      [
+        4,
+        2
+      ],
+      [
+        5,
+        2
+      ],
+      [
+        6,
+        2
+      ],
+      [
+        7,
+        2
+      ],
+      [
+        8,
+        2
+      ],
+      [
+        9,
+        2
+      ],
+      [
+        10,
+        2
+      ],
+      [
+        11,
+        2
+      ],
+      [
+        12,
+        2
+      ],
+      [
+        2,
+        3
+      ],
+      [
+        3,
+        3
+      ],
+      [
+        4,
+        3
+      ],
+      [
+        5,
+        3
+      ],
+      [
+        2,
+        4
+      ],
+      [
+        3,
+        4
+      ]
+    ],
+    "valid_new_interval_endpoints": 874,
+    "valid_coefficients_checked": 953
+  },
+  "literal_cases": [
+    {
+      "B": 2,
+      "k": 2,
+      "X": 3,
+      "raw_atoms": 5,
+      "raw_ordered_pairs": 25,
+      "squarefree_count": 3,
+      "minimal_squareclass_remainder": 9,
+      "actual_M_squared": 1,
+      "M": -1,
+      "top_prime_count": 2,
+      "complement": 1,
+      "nonzero_squareclasses": 4
+    },
+    {
+      "B": 3,
+      "k": 2,
+      "X": 8,
+      "raw_atoms": 22,
+      "raw_ordered_pairs": 484,
+      "squarefree_count": 6,
+      "minimal_squareclass_remainder": 36,
+      "actual_M_squared": 4,
+      "M": -2,
+      "top_prime_count": 2,
+      "complement": 0,
+      "nonzero_squareclasses": 13
+    },
+    {
+      "B": 4,
+      "k": 2,
+      "X": 15,
+      "raw_atoms": 53,
+      "raw_ordered_pairs": 2809,
+      "squarefree_count": 11,
+      "minimal_squareclass_remainder": 121,
+      "actual_M_squared": 1,
+      "M": -1,
+      "top_prime_count": 2,
+      "complement": 1,
+      "nonzero_squareclasses": 35
+    },
+    {
+      "B": 6,
+      "k": 2,
+      "X": 35,
+      "raw_atoms": 145,
+      "raw_ordered_pairs": 21025,
+      "squarefree_count": 23,
+      "minimal_squareclass_remainder": 529,
+      "actual_M_squared": 1,
+      "M": -1,
+      "top_prime_count": 4,
+      "complement": 3,
+      "nonzero_squareclasses": 151
+    },
+    {
+      "B": 2,
+      "k": 3,
+      "X": 7,
+      "raw_atoms": 40,
+      "raw_ordered_pairs": 1600,
+      "squarefree_count": 6,
+      "minimal_squareclass_remainder": 36,
+      "actual_M_squared": 4,
+      "M": -2,
+      "top_prime_count": 2,
+      "complement": 0,
+      "nonzero_squareclasses": 13
+    },
+    {
+      "B": 3,
+      "k": 3,
+      "X": 26,
+      "raw_atoms": 429,
+      "raw_ordered_pairs": 184041,
+      "squarefree_count": 17,
+      "minimal_squareclass_remainder": 289,
+      "actual_M_squared": 1,
+      "M": -1,
+      "top_prime_count": 3,
+      "complement": 2,
+      "nonzero_squareclasses": 87
+    },
+    {
+      "B": 2,
+      "k": 4,
+      "X": 15,
+      "raw_atoms": 369,
+      "raw_ordered_pairs": 136161,
+      "squarefree_count": 11,
+      "minimal_squareclass_remainder": 121,
+      "actual_M_squared": 1,
+      "M": -1,
+      "top_prime_count": 2,
+      "complement": 1,
+      "nonzero_squareclasses": 35
+    }
+  ],
+  "negative_controls": {
+    "strict_cutoff": {
+      "B": 2,
+      "k": 2,
+      "n": 4,
+      "lift": -1,
+      "mu": 0
+    },
+    "raw_squareful_n4_signs": [
+      -1,
+      1,
+      1,
+      -1
+    ],
+    "X15_positive_mass": 61,
+    "X15_negative_mass": 60,
+    "X15_after_cross_class_matching": 1,
+    "same_class_example": {
+      "pairs": [
+        [
+          1,
+          6
+        ],
+        [
+          2,
+          3
+        ]
+      ],
+      "class": 6,
+      "sign": 1
+    },
+    "class_changing_example": {
+      "pairs": [
+        [
+          1,
+          1
+        ],
+        [
+          1,
+          2
+        ]
+      ],
+      "classes": [
+        1,
+        2
+      ],
+      "signs": [
+        1,
+        -1
+      ]
+    }
+  }
+}
+```
+
+
+### Close-Out Source Check
+
+At 2026-11-04 18:25:37 EST (23:25:37 UTC), main was re-fetched and remained `1daca8d582c361983567f0b6e99d447a77c3aea5`. The appendix source matches its recorded SHA256 exactly, embedded JSON parses, and all Markdown fences are balanced. Independent review remains PENDING. Publication is verified only by the subsequent receipt.
