@@ -1,4 +1,6 @@
-# All-selected original OAI LOW: next Analytic and Referee attack (2026-11-04)
+# All-selected original OAI LOW: optional Analytic and Referee attack (2026-11-04)
+
+**NO_PIGEONHOLING_ROUTE_SELECTOR_V1:** This is one optional specialist target under the [independent multi-front research policy](RHLEAN_INDEPENDENT_MULTIFRONT_NO_PIGEONHOLING_20261104.md), NOT a compulsory next task for Analytic/Referee or every agent. Retain the exact arithmetic and falsification conditions when this source is chosen. Other RH_Lean architectures may independently deliver the exponent improvement without proving J=empty selected-inverse savings.
 
 **User-directed new mathematics priority, effective on main after reviewed human merge.** This supplements, not replaces, the [original OAI 1->7/8 source-first contract](RHLEAN_OAI_LOW_SOURCE_FIRST_AGENT_CONTRACT_20261103.md), the [complete-return contract](RHLEAN_SOURCE_FAITHFUL_COMPLETE_RETURN_AGENT_CONTRACT_20261031.md) and the [nine-route broad-search policy](RHLEAN_BROAD_SEARCH_UNTIL_ETA_20261031.md). This file does not itself supply an improved exponent.
 

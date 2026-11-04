@@ -1,14 +1,16 @@
 # Broad RH_Lean mathematics until a verified positive exponent gain
 
+**NO_PIGEONHOLING_ROUTE_SELECTOR_V1 (2026-11-04):** [Independent multi-front policy](RHLEAN_INDEPENDENT_MULTIFRONT_NO_PIGEONHOLING_20261104.md) controls routing. The below 2026-11-03 OAI source-first heading records a useful specialized comparison, NOT a mandatory cross-source task. No seven-agent convergence onto J=empty, tiny physical-slot numerator, OAI inverse-energy, or any one route.
+
 **User-directed research policy, 2026-10-31. Effective only after human merge to main.** Instruction-only: no theorem, proof-status, permission, actual Studio schedule, saved Studio configuration, or historical report is changed.
 
 **Cadence clarification:** The separately user-authorized [multiple-daily agent invocation policy](RHLEAN_MULTIRUN_DAILY_AGENT_POLICY_20261031.md) supersedes the historical one-run/day ceiling. Broad coverage is measured over three **actual substantive invocations**, which can occur on the same day; neither increased run frequency nor a local positive eta permits team-wide narrowing.
 
-## 2026-11-03 original OAI signed LOW cross-source priority without route closure
+## Historical 2026-11-03 OAI signed LOW comparison (optional, without route closure)
 
-The [original OAI 1-to-7/8 source-first seven-agent contract](RHLEAN_OAI_LOW_SOURCE_FIRST_AGENT_CONTRACT_20261103.md) sets a coordinated *research comparison* axis, not a narrowed single-route campaign. Its goal is to explain the actual principal-minus-LOW exponent gap (beta-11/16)-3/16=beta-7/8 and to prove genuinely new signed arithmetic before OAI LowTupleGram's norm_sum_le over literal unselected prime-ideal tuples, with the full normalized LOW/HIGH return. All seven specialists receive different responsibilities, and Owner VF-LOW/SAT/JOH, Analytic CODIV/OAI-NNS/NYMAN and Wheel FINITE-AC/CORR4/MU-LIFT keep rolling three-invocation route coverage.
+The [original OAI 1-to-7/8 source-first seven-agent contract](RHLEAN_OAI_LOW_SOURCE_FIRST_AGENT_CONTRACT_20261103.md) sets a coordinated *research comparison* axis, not a narrowed single-route campaign. Its goal is to explain the actual principal-minus-LOW exponent gap (beta-11/16)-3/16=beta-7/8 and to prove genuinely new signed arithmetic before OAI LowTupleGram's norm_sum_le over literal unselected prime-ideal tuples, with the full normalized LOW/HIGH return. Those who elect the OAI comparison receive different responsibilities; Owner VF-LOW/SAT/JOH, Analytic CODIV/OAI-NNS/NYMAN and Wheel FINITE-AC/CORR4/MU-LIFT keep rolling three-invocation route coverage.
 
-A declaration of a positive finite-slot tilt (including reported PRs #1073/#1079) is examined at its exact formal and semantic scope, not silently an endlessly reusable improvement. Likewise a proposed #1083 exact Gram/NNS bridge is not a new signed inequality; it is an unmerged DRAFT until live status proves otherwise. The existing VERIFIED_ETA contract for a *new independent gain surviving the complete endpoint* remains binding. The goal now is an additional source-supported LOW saving, not another assumption on owner Gamma_R+ or a claim that the imported 7/8 bound improves itself.
+A declaration of a positive finite-slot tilt (including reported PRs #1073/#1079) is examined at its exact formal and semantic scope, not silently an endlessly reusable improvement. Likewise a proposed #1083 exact Gram/NNS bridge is not a new signed inequality; it is an unmerged DRAFT until live status proves otherwise. The existing VERIFIED_ETA contract for a *new independent gain surviving the complete endpoint* remains binding. A legitimate goal is an additional source-supported LOW saving; any independently proved source-faithful gain on the other RH_Lean architectures is equally eligible. An owner Gamma_R+ assumption or a claim the imported 7/8 bound improves itself is never a proof.
 
 ## 1. Governing rule and precedence
 
