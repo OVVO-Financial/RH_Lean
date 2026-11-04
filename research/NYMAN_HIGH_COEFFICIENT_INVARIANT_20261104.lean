@@ -151,7 +151,8 @@ theorem nymanLogKernel_divisor_sum (N n : Nat) (hn : 1 <= n) :
   change Finset.sum n.divisors (fun d =>
     (ArithmeticFunction.moebius d : Real) * Real.log (d : Real)) =
       -ArithmeticFunction.vonMangoldt n at hlog
-  simp only [nymanLogKernel, mul_sub, Finset.sum_sub_distrib]
+  unfold nymanLogKernel
+  simp only [mul_sub, Finset.sum_sub_distrib]
   rw [<- Finset.sum_mul, hmu, hlog]
   ring
 
@@ -230,7 +231,7 @@ theorem nymanLogCoefficient_dyadic (N m : Nat) (hN : 2 <= N)
         -(nymanLogKernel N k * nymanCarry k m) := by
     intro k
     unfold nymanLogCoefficient
-    field_simp [hL] <;> ring
+    field_simp [hL]
   rw [Finset.sum_congr rfl (fun k _ => hterm k), Finset.sum_neg_distrib,
     nymanLogKernel_carry_sum N m hm hmN]
   ring
@@ -285,6 +286,7 @@ theorem nyman_dyadic_weighted_bound (X : Nat) (r : Nat -> Real) :
         Finset.sum (Icc 1 X) (fun m => f (2 * m)) := by
       rw [Finset.sum_image]
       intro a _ b _ hab
+      change 2 * a = 2 * b at hab
       omega
     rw [← he]
     exact Finset.sum_le_sum_of_subset_of_nonneg himage (fun n _ _ => hf n)
