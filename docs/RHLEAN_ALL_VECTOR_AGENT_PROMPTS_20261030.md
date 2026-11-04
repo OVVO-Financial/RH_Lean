@@ -1,5 +1,7 @@
 # Seven-agent all-vector prompt reference - persistent research edition
 
+**NO_PIGEONHOLING_ROUTE_SELECTOR_V1:** [Independent multi-front policy](RHLEAN_INDEPENDENT_MULTIFRONT_NO_PIGEONHOLING_20261104.md) overrides all source-first NEXT-* tickets below. The seven roles must pursue distinct RH_Lean mathematical routes rather than automatically follow the latest OAI/J=empty work; those source-specific instructions remain valid ONLY when the OAI-NNS route is actually chosen. Other routes need not reconstruct an unrelated Hecke source to qualify.
+
 **Updated 2026-11-04; effective after human merge.** These instructions cover all seven existing roles. They configure no saved Studio prompt, trigger, new agent or permission. Use established role names and report ownership, not historical numbering.
 
 ## Common instruction on every actual invocation
@@ -16,7 +18,7 @@ Use the compact engine task record in the existing own report with links to full
 
 ## Source-first common quantitative obligation
 
-Every role's NEXT-* ticket is now the *distinct* task in the [OAI signed LOW source-first contract](RHLEAN_OAI_LOW_SOURCE_FIRST_AGENT_CONTRACT_20261103.md), replacing the 2026-11-01 bootstrap default but not the protected route rotation. The true original bound is from (beta-11/16)-3/16=beta-7/8; preserve original OAI LowSlotPolynomial -> LowTupleGram before norm_sum_le, selected-inverse sqrt(Q), Gaussian 3/16, original full HIGH/principal and all exceptional return terms. Isometric NNS Co-Div equality does not give nu>0. The separate marked-HIGH t/2 loss is not a binding LOW saving. A finite original-slot tilt is not a reusable bootstrap. Do not assume owner Gamma_R+ or borrow a different canonical cstar source. Each run must deliver a source-faithful original declaration/weights, actually new proof or falsifier, first missing inequality and net exponent ledger, with PR #1083 live status verified. Maintain own-report-only permissions for six roles and human-only merge.
+When OAI-NNS is voluntarily selected, the role may use its *specialized* packet in the [OAI signed LOW source-first contract](RHLEAN_OAI_LOW_SOURCE_FIRST_AGENT_CONTRACT_20261103.md), without replacing the investigator's independent task choice or protected route rotation. The true original bound is from (beta-11/16)-3/16=beta-7/8; preserve original OAI LowSlotPolynomial -> LowTupleGram before norm_sum_le, selected-inverse sqrt(Q), Gaussian 3/16, original full HIGH/principal and all exceptional return terms. Isometric NNS Co-Div equality does not give nu>0. The separate marked-HIGH t/2 loss is not a binding LOW saving. A finite original-slot tilt is not a reusable bootstrap. Do not assume owner Gamma_R+ or borrow a different canonical cstar source. Each run must deliver new proof progress, a falsifier or the first missing inequality on its *chosen* original arithmetic source; verify PR #1083 only if actually relevant. Maintain own-report-only permissions for six roles and human-only merge.
 
 ## Research Coordinator / Proof Architect
 
