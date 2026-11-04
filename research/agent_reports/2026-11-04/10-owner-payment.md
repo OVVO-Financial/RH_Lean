@@ -1915,3 +1915,10 @@ print(json.dumps({"prime_support": S, "fixtures": results,
 }
 ~~~
 
+
+
+## Verified Publication Receipt - 20261104-owner-2
+
+The completed VF-LOW synthesis, full executed verifier and exact output were published in commit **aafddf3c7f2d66039d0412ccac4e45f495e6c211**, report blob **dc9788b7aca0e16ed7e07770e5d354bbd3f0dd66**. Re-fetch at that immutable commit matched every submitted byte. The entire pre-existing daily report and this invocation's early checkpoint remain unchanged as exact prefixes. Commit inspection showed exactly one changed file: this authorized Owner report.
+
+Claim **20261104-owner-2/SF1-SF4** remains PAPER_PROOF / SELF_AUDIT, with the unit-capacity supplier REFUTED and exact finite certificates verified; independent review is PENDING and no new Lean compilation is claimed. Full-source SF5 is identity-only. No global VF/RH upper bound or new signed-LOW exponent has been established. Research execution and the verified synthesis publication are COMPLETE; next protected route is JOH. This receipt is an append to the same 08:09 EST invocation, not another run.
