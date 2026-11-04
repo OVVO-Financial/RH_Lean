@@ -1148,3 +1148,1716 @@ Finite plan before running code: exploratory conjugate ideals over 7, held-out c
 The derivation will retain all actual coefficient symbols, correction characters, smooth windows, heights and source normalizers. If only the row factor is reconstructible, publish that exact limitation and a source-qualified identity, not a claimed signed inverse-energy gain. New net endpoint gain UNKNOWN; SEARCH_BROAD. The independent FINITE-AC request from Wheel remains available for a later support turn.
 
 Live GitHub intake: #1083 MERGED at current main, head 1ae84e2ff019b266114c100f43016eeec71144a9. #1085 draft head 3d587772a0a9b6928e80e8a089da6ad8191c0936; #1087 draft head a34d95c99ee715c1e517d7e51401e36651ff5fb8; policy proposal #1086 open head b8347665b73b5920dcfa68d108a1ddefcb09be60. Open proposals are not live policy or verified new proofs. No Lean execution, PR/branch/workflow changes, other-report writes, or agent launches are authorized or performed.
+
+## 20261104-census-2: Exact Sextic Source Factors and the Cube-Sector Cross Term
+
+Synthesis prepared 2026-11-04T11:37:20-05:00 (16:37:20Z). Live PR/report-directory refresh was performed at approximately 11:30 EST; all states below are observed snapshots, not promises about later CI.
+
+Scheduled continuation of the 2026-11-04T11:00:01-05:00 invocation; RUN_ID_UNAVAILABLE. This section follows the verified early checkpoint and preserves all preceding reports. Research execution COMPLETE for the stated finite/source-factor task. Mathematical classifications: FINITE_COMPUTATION and PAPER_PROOF at the scopes below; review SELF_AUDIT, independent Referee PENDING, new Lean proof PENDING. No new LOW or endpoint exponent is established. SEARCH_BROAD.
+
+### A. Most Important Mathematical Discovery
+
+**The coprime and cube-sharing parts of the selected inverse need not occupy different numerator-character channels.** For conjugate prime ideals P and Pbar over 7, the two selected marks D=P and D=Pbar can act on the SAME completed pair I=P, B=Pbar^2, hence the same A=I*B^3=P*Pbar^6. The first mark is coprime to B; the second shares a cube prime. Both have exactly the same original numerator factor rho_m(A). Their complete-residue factor Gram is [[36,36],[36,36]], not a diagonal matrix. Their selected norms and completed-cofactor norms also coincide, so those norm-based height phases do not distinguish them.
+
+This is a statement about an ACTUAL FACTOR of the source and its exact marked support, not a numerical value of the fully compensated LOW integral. All original coefficient symbols remain in the reconstruction below. A vanishing correction coefficient, Hecke cancellation, physical mask, or Gaussian return can still remove or cancel this contribution. No actual positive C_low or counterexample to the all-selected saving theorem is claimed.
+
+For complete residue systems, the correct finite channel classifier specializes to **(squarefree I, odd(B))**, with separate prime-support zero masks. Here odd(B) is the product of primes with ODD valuation in B, not rad(B). On incomplete norm-bounded rows, even different channels can have nonzero, sign-changing correlations. Consequently, neither a coprime/cube-sharing split nor complete-period orthogonality alone supplies the missing source estimate.
+
+General sextic order/CRT/profile orthogonality is already present in the pinned OAI source. The contribution here is its explicit squarefree/cube specialization, the marked-sector coincidence, support-sensitive certificates, and the precise coefficient-weighted obstruction to transferring the earlier positive counting argument. This is not a claim to have discovered character orthogonality.
+
+### B. Current Authoritative Objective
+
+Intake main was `040980c16901af749202e9b0f91211c43909404a`. Main changed during this invocation to **`ffe2ef4a684c7cb52d04852ea38b251203ff8a71`**, committed 2026-11-04T16:12:50Z. The live comparison reports one additional commit and only policy/documentation plus portfolio-validator changes; no Lean or OAI dependency change. The revised main instructions and applicable selector/source-first/engine/role/protocol changes were retrieved and read before this synthesis.
+
+| Latest main authority | Blob SHA |
+| --- | --- |
+| AGENTS.md | 3b5ff6e0249aa8d8f58ba8341a0d6eb21cd21dba |
+| CURRENT_PROOF_CONTRACT.md | df026713a18c2ab851485e99d2239de80bbe87e3 |
+| docs/RHLEAN_NATIVE_SQUARE_CLOCK_AGENT_DIRECTIVE_20261029.md | 1c0b13d313ee6168cc35bd9b3210b30dd96a0335 |
+| docs/RHLEAN_OAI_LOW_SOURCE_FIRST_AGENT_CONTRACT_20261103.md | fb734186509a0b6b21bb6afbd738844889adfc35 |
+| docs/RHLEAN_ALL_SELECTED_INVERSE_SOURCE_ATTACK_20261104.md | 6565096a532ef7224da389670aacd6f3ab7a57d2 |
+| docs/RHLEAN_SEVEN_AGENT_RESEARCH_ENGINE_20261101.md | 5f736aa5cec74408aa5cc39f1141e9967e8d9bd2 |
+| docs/RHLEAN_ALL_VECTOR_AGENT_PROMPTS_20261030.md | 6d4b581e0189824db9a3054ca96f60b7f214e9c6 |
+| docs/DYNAMIC_RESEARCH_AGENTS.md | 812ee2d92032e6fc41088a119f54a3bf0cdbad62 |
+| docs/RHLEAN_BROAD_SEARCH_UNTIL_ETA_20261031.md | 201e10ffbfcafeee8f7a4d72a0189e2e37e04aa8 |
+| docs/RHLEAN_SOURCE_FAITHFUL_COMPLETE_RETURN_AGENT_CONTRACT_20261031.md (unchanged) | 4775ee5fd95f279beab08a75d1e17127078b19a6 |
+
+Canonical objective remains OPEN: `VFCanonicalSquareVonKochStatement`, existence of C>=0 with abs(pi(R^2)-vfCanonical(R^2)) <= C*R*log(R) for every natural R>=2. The canonical source blob is `79030d70e8d3e0d08eef9bac53fef95c36eca2fb`, path `research/VF_CANONICAL_SQRT_TWO_VON_KOCH.lean`.
+
+The binding OAI task is now explicitly the **J=empty, ALL-SELECTED inner inverse**. J indexes unselected slots. Its outer tuple population is a singleton; its outer off-diagonal is zero. SF-I asks for an independently proved coefficient-sensitive fixed nu>0 in the actual squared selected inverse at power 5/6-nu+epsilon, or SF-L for a complete integrated all-selected LOW saving. The current experiment resumes prior Census R1-R3 and Analytic CF1-CF3 at actual numerator-character evaluation, not another ambient count.
+
+`deployment_ack`: consumed latest main/AGENTS and the November 4 all-selected refinement; executed source-factor/mark reconstruction and independent exact tests. Six non-Lean roles remain own-report-only. The new full repository write permission belongs to Lean Verification, NOT Census. No route, schedule, grant, PR, branch, issue, workflow, or other report was changed.
+
+#### Continuity and Live Proof State
+
+All seven role reports for BOTH November 3 and November 4 were retrieved. Applicable claim sections, timestamps, source qualifications, and continuation tickets were read. TODAY=AVAILABLE for all roles; no successful execution was inferred merely from a filename. November 3 findings are CARRY_FORWARD only within their reported/reviewed scopes. The refreshed directory blobs were unchanged at synthesis except for this invocation's own checkpoint.
+
+| Role file | Nov 3 blob | Nov 4 intake/current upstream blob |
+| --- | --- | --- |
+| 00-coordinator-am.md (90 mirror identical) | e35ab2cd9cba2a47ac5be53b09938b37a0c20df3 | 6f00c4e1055a03325e8c152d4bcb505e254b8ecc |
+| 10-owner-payment.md | d52c74b76c2914c3be694f39cd7afe9b122a4834 | bef2ab8cefd691a868d8f1acdfe696af41266d16 |
+| 20-analytic-type-ii.md | 2b9c3dbab6039e3c30a5ece3e473290af5dbbf0b | 5e489bffbce7fe986b9f48c73cb409beaa151f82 |
+| 30-finite-wheel.md | cd7777180bb5c2c899a60bdd699b99be8e12a672 | 6a773f357029bb97cf34110532c7de1f7bb38f3f |
+| 40-prime-census.md | eb9a2e0cf7772f22060aec07e0bcddd24ace9cd9 | 108303ebdf61dc64cacd16651521ea39468292a3 (before this invocation) |
+| 50-adversarial-referee.md | 583ce524628577818603ffd4e9ec0eb3673a3f37 | dd02c8e7072b9390119da35a204924ddad721d06 |
+| 60-lean-verification.md | fc27fb1ae103e60ff600e5a24ce6716937da3884 | 4585dc42e267f62da5c13624f2a5a4494aa79c53 |
+
+External inbox `research/agent_reports/EXTERNAL_HANDOFFS.md`, blob `038018145c0fddb2f6306c0712373adf9cd1ea52`, was read; its latest dated entry is October 18. No newer external identification is assumed.
+
+Consumed continuity: Coordinator C41-C44's missing same-source power transfer; Owner SF1-SF5's genuine squarefree ancestry overload (435 seats/31 ancestors, not a first-bad refutation); Analytic CF1's exact E=E1*E2^2*C^3, E2|D, gcd(D,E1)=1, I=E1*D0, B=E2*C and CF2's crude cube-sector bound; Wheel L1-L4's rank-one FINITE-AC reconstruction; prior Census R1-R3, accepted by Referee only as counting results; Referee's hostile-density-mask/per-column coverage distinction; Lean's separately scoped moving-mass patch. Prior norm-fiber and counting scans were not rerun. The Wheel literal (d,u,e,v,t) R=5,9,106 request remains DEFERRED, not marked executed. Native JOH/CODIV/MU-LIFT warnings remain in force and are not transferred to this ideal-character source.
+
+Live PR refresh: #1083 merged, head `1ae84e2ff019b266114c100f43016eeec71144a9`, merge `040980c16901af749202e9b0f91211c43909404a`. #1085 is open DRAFT at `d0bedb4f18b90b062fcb6f065124b7b470e0e6cf`; required LOW-first run `41866703372` was IN_PROGRESS at the refresh, so no new moving-mass Lean theorem is promoted here. #1086 and #1087 are CLOSED UNMERGED; their earlier checkpoint states were accurate at intake, not current authority.
+
+For #1083, run `41744927180` completed successfully. I retrieved job `126295407267` logs: checkout was synthetic merge `06cac0b95a56fdef0f61294e257e67ee2146c32c`, not the bare PR head. The signed-Gram file at that tested commit was fetched and matched main byte-for-byte, blob `c1b7b46a9e62a5b2f3729618c4dd24e31558166f`. Logs report only `[propext, Classical.choice, Quot.sound]` for `actual_low_tuple_polynomial_eq_sum_atoms`, `actual_low_tuple_polynomial_sq_eq_signed_gram`, and `actual_low_NNS_co_minus_div_eq_normSq`. This verifies those source identities, not an arithmetic gain. The fetched logs also contain prerequisite Wiener-file sorry warnings; this is not a blanket fresh axiom audit of every imported declaration. No new Lean execution was launched.
+
+### C. Competing Hypotheses
+
+The early checkpoint, committed before experiment publication, fixes the question and domain.
+
+- H1: complete-residue correlations are classified by valuations modulo six, with prime-support zero masks retained. Exact disagreement with the local/CRT formula rejects H1.
+- H0: distinct completed occurrences or cofactors necessarily become orthogonal under numerator averaging. A nonzero exact off-diagonal factor Gram rejects H0 at that scope.
+- H0-support: the same exponent residues modulo six imply identical row functions without a support condition. A row killed by one sixth-power mask but not the other rejects it.
+- Unanticipated discriminator: incomplete radial rows may produce cross-channel sign reversals. These were recorded without fitting a new constant or claiming random-sign behavior.
+
+Exploration uses conjugates over 7; fixed-rule held-out test uses conjugates over 13; the inert prime over 5 supplies a different field. The later geometric supplement was prompted by a support audit, not used to redesign H1 after seeing its results.
+
+### D. Experimental Design
+
+Work in O=Z[omega], omega^2+omega+1=0, N(a+b*omega)=a^2-a*b+b^2. A pair [a,b] in output means a+b*omega, NOT a real/imaginary pair. The six exact units are (1,0),(1,1),(0,1),(-1,0),(-1,-1),(0,-1). No floating-point arithmetic determines a sign.
+
+The prime residue fields are F7 with omega mapped to 2 or 4, F13 with omega mapped to 3 or 9, and F25=F5[omega]. Primality is checked by complete trial division in these small domains. At a good prime ideal P outside 2 and 3, the original actualSextic is the unique sixth root reducing to x^((N(P)-1)/6) for x!=0, and is zero at x=0. This orientation was checked against the pinned `sexticChar_reduce_unit` and canonical embedding definitions, not assigned by an arbitrary complex phase.
+
+Python evaluates these finite-field powers. The C++ cross-check independently finds a primitive field element, constructs discrete logarithms, fixes root orientation by reduction, and enumerates the two-dimensional residue lattice. Both preserve distinct conjugate ideals and every marked occurrence. CRT bijectivity is explicitly checked. Powers 0 through 7 include 0 versus 6, repeated cubes, and residues 2/5 excluded by squarefree-I support. Zero-to-the-zero power is 1, as required for an absent prime.
+
+For rho_m(A)=idealRowHom(m)(A), enumerate all 64 exponent pairs over each split rational prime, hence 4096 ordered Gram entries per prime. Check full, empty, common-unit, and m=1 singleton masks. Enumerate all nonzero lattice points with N(m)<=H at H=1,p,p^2, using independent enclosing boxes. These radial masks are exact source-factor tests, not the original physical weight.
+
+Source binding: `lowSelectedInverseRow_correction` expands correction characters and actual selected weights; `markedCompletedT` sums `summand` with the literal indicator D|I*B^3. `squarefreeGaussCoefficient` removes nonsquarefree I. `rowTwist` has numerator c^6*m (its f parameter is 1). The original summand retains the angular/Gauss coefficient, Hecke/ray base, 1/sqrt(N(I)), cubeWeight including 1/N(B), and Vstar of the height-twisted window. No primary generator, character coefficient, historical charge, or physical integral is replaced by a Mobius or random-sign model.
+
+### E. Executed Results
+
+| Exact check | Executed outcome |
+| --- | --- |
+| Python/C++ character values | 65 agreements |
+| Field multiplicativity | 1061 assertions passed |
+| Split-prime full Gram entries | 8192 Python/C++ agreements; per p, 144 nonzero and 3952 zero |
+| Inert q=25 exponent-pair cases | 64; 12 nonzero, 52 zero |
+| Squarefree/cube classification | 2592 pair checks passed |
+| Signed square = diagonal + ordered cross | 432 reconstructions, all sixth-root coefficient triples |
+| Independent radial-mask cases | 6 agreements |
+| Geometry supplement | 2 marked families; independent (1,6) Gram agreement; 436 calibration multiplicativity checks |
+
+All assertions passed. No discrepancy was averaged away. The signed reconstructions use diagnostic coefficient triples: they test arithmetic/algebra, NOT the actual Hecke/Gauss coefficient vector.
+
+Observed environment: Python 3.12.14; g++ (Ubuntu 13.3.0-6ubuntu2~24.04); Linux 6.18.57 x86_64. Compile flags `-std=c++17 -O2 -Wall -Wextra -Werror`. Main census elapsed time was 1.8622180990000743 seconds, including its call to the already compiled C++ checker; not total research or compilation time. No random seed. Exact pair enumeration complexity here is O(8^4*p^2) for each split p, with small integer/root-ring arithmetic. The standalone inert Gram uses Python, while its underlying field values are independently cross-checked in C++.
+
+Executed commands include g++ compilation, the Python census, `python -m py_compile`, the geometry supplement, and `sha256sum`. Reproducible program listings and compact result payloads follow Section N. The original saved JSON includes elapsed time; a new run's timing and therefore JSON hash will naturally differ.
+
+| Artifact | SHA-256 |
+| --- | --- |
+| sextic_row_census.py | a91c7c71e6b7c896374444553ccd85c9f20fff723cc723e6a456583df13c2593 |
+| sextic_row_check.cpp | 524935bec14b85afbecb98ecc90216ec317d25341c41528561e5ec1e6a0d07d0 |
+| sextic_geometry_check.py | 4038b16f31e040fff75af0137b3ed838f0616965e694597e1bb2b2657ba6e9b2 |
+| original sextic_row_results.json | 62ab05b0743868a5742541b436d0262e70602995f8e2fd7c6cf56b195748fc78 |
+
+### F. Exceptional Cases and Counterexamples
+
+**F1: cap/core coincidence, with supplier norm geometry checked.** Take K=1, J=empty, one slot containing P and Pbar, equal norm p, outside S and the relevant bad/conductor support. I=P and B=Pbar^2 give A=P*Pbar^6. D=P is coprime to B and E=A/D=Pbar^6; D=Pbar shares B and E=P*Pbar^5. The original selected-weight norm arguments and log phases agree because N(D)=p in both cases. The same I,B mean the Gauss, cube, calibration, and completed-window factors are shared; the selected Hecke coefficients are still retained separately.
+
+Set Z=p^6, d=0, ell0=1/6, shift=0, H=Y=p, U=p^7. Then H=Z^ell0 and N(A)/U=1, so the example meets these original supplier norm equalities and places the completed window at its interior argument 1. Both selected slot arguments equal 1. Nonzero canonical residue representatives have norm <=(p-1)^2<=p^5=Z^(5/6), so Ck=1 suffices for the supplier's row size condition. **This does not check the unknown asymptotic Z0, actual physical-row admission/weight, nonvanishing of the full correction sum, or the complete terminal integral.** P/Pbar must really survive the chosen S/conductor; no divisibility-only admission claim is made.
+
+| p | Z | U=N(A) | N(E) both | Nonzero representatives | Active per occurrence | Factor Gram |
+| --- | --- | --- | --- | --- | --- | --- |
+| 7 | 117649 | 823543 | 117649 | 48 | 36 | [[36,36],[36,36]] |
+| 13 | 4826809 | 62748517 | 4826809 | 168 | 144 | [[144,144],[144,144]] |
+
+If G_A denotes the full original m=1 completed/correction coefficient and c_P,c_Pbar the actual selected coefficients, this two-occurrence subfamily has complete-residue factor energy `(p-1)^2 * |G_A|^2 * |c_P+c_Pbar|^2`. This identity leaves both coefficients untouched. It demonstrates where the mixed term sits; it does not assert its sign or nonvanishing in the full physical source.
+
+The preregistered smaller factor-only example I=P, B=Pbar, A=P*Pbar^3 has N(A)=p^4 and N(E)=p^3 and gives the same factor matrix. It is NOT claimed to satisfy terminal window geometry at Z=p^6. The supplement above repairs that potential misuse without altering the earlier experiment. With synthetic c=(1,1), p=7 gives D=72,C=72,total=144; c=(1,-1) gives D=72,C=-72,total=0. At 13 these are D=288,C=+/-288,total=576 or 0. These numbers are diagnostic, not actual compensated C_low.
+
+**F2: distinct A need not be orthogonal.** A=P^6 and A'=Pbar^6 are different equal-norm ideals, with I=I'=1 and B=P^2,B'=Pbar^2. At 7 their matrix is [[42,36],[36,42]]; at 13 it is [[156,144],[144,156]]. Synthetic plus coefficients give (D,C,total)=(84,72,156) and (312,288,600). Their common-unit matrices have all entries 36 and 144 respectively. Thus equality of the mod-six profile does not mean equality of zero masks.
+
+**F3: support-null falsifier.** At p=7, m=5+omega is zero modulo P=(7,omega-2) and nonzero modulo Pbar. rho_m(1)=1 but rho_m(P^6)=0, although the exponent residues agree modulo six. This is the first tested prime, not a claim of globally smallest arithmetic element or a terminal counterexample.
+
+**F4: incomplete-row sign reversal.** Compare rho_m(P) with rho_m(Pbar) on 0<N(m)<=H. Upper off-diagonal entries below are exact a+b*omega; the lower entry is the conjugate.
+
+| p | H | Rows | Each diagonal | Upper off-diagonal | Real part |
+| --- | --- | --- | --- | --- | --- |
+| 7 | 1 | 6 | 6 | 6 | 6 |
+| 7 | 7 | 30 | 24 | 6 | 6 |
+| 7 | 49 | 186 | 156 | -6 | -6 |
+| 13 | 1 | 6 | 6 | 6 | 6 |
+| 13 | 13 | 54 | 48 | 6-6*omega | 9 |
+| 13 | 169 | 612 | 558 | -24-6*omega | -21 |
+
+The corresponding complete-residue P/Pbar off-diagonal is zero. Hence complete-period orthogonality is not pointwise orthogonality on norm windows. No universal radial sign is inferred from six cases.
+
+### G. Hidden Variables and Arithmetic Classification
+
+For nonzero A=I*B^3 with squarefree I, v_P(A)=i_P+3*b_P with i_P in {0,1}. This representation, if it exists, is unique. Exponents congruent to 2 modulo 3 are excluded. The sextic remainder is determined by i_P and b_P modulo 2: residues 0,1,3,4 correspond to the four possibilities. Two such A have matching sextic remainders exactly when their I ideals agree and their odd(B) ideals agree.
+
+This is more specific than shared rational norm, prime-owner count, or squarefree status alone. But it still omits the zero mask `1_{gcd((m),rad(A))=1}`. In particular even cube depth can create new masked primes while leaving the unit-row sextic remainder unchanged. Distinct conjugate ideals must never be identified merely because their norms coincide.
+
+At the marked-occurrence level, D and E=A/D are NOT sufficient channel labels: different selected D may belong to opposite cube-sharing sectors while producing the same A, I, B, and numerator function. Retain each occurrence's coefficient until summing it into its exact A coefficient. Regrouping is not deletion or deduplication.
+
+### H. Mathematical Interpretation
+
+**H1, PAPER_PROOF / SELF_AUDIT: exact numerator-factor extraction.** Fix original eta,S,sigma,U,t, slots, and W,Y, with U>0 and the original compact completed window. Write c_b for the original `lowSelectedWeight`, D_b for `lowSelectedIdeal`, and Psi_chi=`physicalRayPeriodicBase eta S hS sigma chi`. Let c be the original calibration generator. For every nonzero completed pair I,B,
+
+```text
+s_chi,I,B(m) = summand(rowTwist(Psi_chi,c,1,m), W_t, U, I, B)
+             = s_chi,I,B(1) * rho_m(I*B^3).
+```
+
+Proof: at every supported prime, actualSextic(c^6*m)=actualSextic(c^6)*actualSextic(m), including zero residues. Apply the ideal multiplicative homomorphism, the primary-generator ideal identity, and the power 3 in cubeWeight. If an unsupported/zero generator or zero ideal kills a summand, both sides are zero. No division by a possibly zero row or coefficient is used. The calibration sixth power is an exact fixed zero mask, not a reason to discard it. The supplement independently checks 436 finite calibration pairs; the general statement follows from character multiplicativity, not from their enumeration.
+
+Only squarefree I contribute. Define the ORIGINAL completed coefficient and marked coefficient, preserving all original summands,
+
+```text
+G_A = sum_chi correctionCoeff(chi) *
+      sum_{I*B^3=A} s_chi,I,B(1),
+M_A = sum_b c_b * 1_{D_b|A},
+H_A = G_A * M_A.
+
+lowSelectedInverseRow(...,sigma,m) = sum_A H_A * rho_m(A).
+```
+
+For contributing A the I,B representation is unique, but writing the full fiber sum makes occurrence conservation explicit. Compact support makes this a finite reindexing (the gaussianFixedWindow support is inside [1/2,2], and endpoint zeros can be retained harmlessly). This extraction keeps the original Gauss/angular/Hecke/correction/window/height/norm factors in G_A or M_A; it does not evaluate them. The source equality is a paper derivation from the fetched definitions, not a newly compiled Lean declaration.
+
+**H2, PAPER_PROOF / SELF_AUDIT: exact complete-residue kernel.** For any finite family of nonzero ideals supported at prime ideals outside 2 and 3, let M be a squarefree ideal containing their union of prime supports. With q_P=N(P),
+
+```text
+K_M(A,A') = sum_{m in O/M} rho_m(A) * conjugate(rho_m(A'))
+         = 0, if some v_P(A) != v_P(A') mod 6;
+         = N(M) * product_{P | A*A'} (1 - 1/q_P), otherwise.
+```
+
+At P the factor is q_P if both exponents are zero; q_P-1 if at least one is positive and their difference is divisible by six; zero otherwise, by the exact order-six character sum on the field units. CRT multiplies these factors. For squarefree-I/cube-B support, nonzero is equivalent to I=I' and odd(B)=odd(B'). On common-unit rows the kernel is phi(M) on each matching class, hence
+
+```text
+sum_{m in (O/M)^units} |sum_A H_A*rho_m(A)|^2
+ = phi(M) * sum_classes |sum_{A in class} H_A|^2.
+```
+
+On ALL residues, keep the support-dependent matrix above; replacing it by a common phi(M) is false. On incomplete rows, keep the complete kernel without setting cross-class entries to zero.
+
+### I. Proposed Theorem or Conjecture
+
+The exact statements H1/H2 and the squarefree/cube specialization are PAPER_PROOF candidates for independent checking. Finite evidence is precisely the field/exponent domain in E, not an all-scale computation. General character-order/profile ingredients are preexisting OAI facts; no redundant generic formalization PR is requested.
+
+For the actual supplier row set R, define
+
+```text
+K_R(A,A') = sum_{m in R} rho_m(A)*conjugate(rho_m(A')),
+E_actual = sum_{A,A'} H_A*conjugate(H_A')*K_R(A,A').
+```
+
+The latter is the exact selected-inverse square after H1. It restores diagonal, within-class, cross-class, coprime/cube-sharing, and correction-character interactions. It is NOT the NNS covariance formula by analogy and is NOT an evaluation of D_low or C_low of the integrated outer source.
+
+**First unsupported inequality:** for the ORIGINAL H_A and the actual R/mode/height/scale quantifiers of SF-I, prove a uniform fixed nu>0 bound of this full expression by C_epsilon*(1+|t|)^degree*Z^(5/6-nu+epsilon), with all conductor/mask dependence and exceptions stated. H2 does not provide it. Nor is an arbitrary-coefficient inequality required when only the original H_A is needed. A direct signed integrated SF-L estimate remains an eligible alternative.
+
+A useful next structural target is a quantitative estimate on the actual same-(I,odd(B)) coefficient block, including the coprime/cube-sharing mixed product, together with the incomplete-row remainder. No new constant or bounded-ratio conjecture is fitted here: its exact strength remains the open original estimate, not an asserted consequence of these finite matrices.
+
+### J. Relationship to the Proof Objective
+
+| Source-to-endpoint item | Status after this run |
+| --- | --- |
+| Literal outer tuple/NNS equality | Existing merged source identity; no gain |
+| J=empty outer cross Gram | Exactly zero, not the object tested numerically here |
+| Selected inverse squared-energy baseline | 5/6-2*d+507*epsilon; d=0 is binding |
+| New squared-energy saving nu | UNKNOWN; none proved |
+| sqrt(Q) and square-root step | Must remain; a real squared nu gives at most nu/2 amplitude |
+| Central original Gaussian LOW | 3/16 baseline unchanged |
+| Nonempty J moving mass | Paper-qualified; current required PR #1085 run still unverified at refresh |
+| Principal comparison | beta-11/16 versus 3/16, giving beta-7/8 |
+| HIGH/principal/remote/exceptional/aggregation bills | No new-gain payment supplied by this experiment |
+| Canonical VF/RH and net endpoint improvement | OPEN / UNKNOWN; SEARCH_BROAD |
+
+The independent mathematical information is a source-factor channel/zero-mask classification and a warning about a specific proposed partition. It changes where a coefficient-sensitive proof must look. It does not convert the CF2 P_min^(-3) crude-envelope saving, ambient counting diagonal dominance, sharper nonbinding HIGH moments, or canonical powers into a LOW improvement.
+
+### K. Falsification and Uncertainty Audit
+
+H0 and H0-support are REFUTED only for the explicitly defined factor assertions. H1 survives all declared finite checks and has the elementary local/CRT paper proof above. These are not falsifications of SF-I, SF-L, the canonical theorem, or any first-bad theorem. No universal sign, asymptotic bound, or optimal constant is inferred from finite data.
+
+Exact integer/root-ring calculations have no numerical rounding error. The elapsed time is a floating diagnostic only. Python and C++ are meaningfully different algorithms for the characters and row enumeration, but both were written in this same invocation: this is computational cross-checking, not independent Referee acceptance or independently authored research. Inert Gram classification and the symbolic source extraction were not separately formalized.
+
+The original Hecke and Gauss values, correction-character sum, physical row weights, W0/W1 admissions, Fourier/Gaussian integrals, and complete physical D_low/C_low were NOT numerically evaluated. A lawful full-source positive-C_low certificate is therefore still PENDING. Arbitrary +/- coefficient tests are labelled synthetic. Norm-bounded R is permitted in the supplier theorem, but the actual terminal lowNumeratorRows and their weights are not silently identified with our residue systems or radial samples. The small-scale supplier threshold Z0 was not certified.
+
+The failed initial supplemental source fetch used the OAI commit in RH_Lean and returned 404; it was corrected to `openai/math:lean/OAI/...` and the actual pinned file was retrieved. No unavailable result is used as evidence. No local Lean, new CI, cloud integrations, or external mathematical claims were fabricated.
+
+### L. Specialist Handoffs
+
+- **Proof Architect:** consume the same-A cap/core coincidence, not a new exponent. The exact last equation is the full sum H_A*conjugate(H_A')*K_R(A,A') in Section I. Keep all-selected coefficient work and the independent nine-route portfolio distinct; this report requests no campaign override.
+- **Analytic Type II:** in CF1, group actual occurrences by A=I*B^3 before trying a coprime/cube-sharing separation. At A=P*Pbar^6 the mixed term is unavoidable in that factor representation. Attack actual G_A*M_A and the incomplete K_R, retaining conjugate equal-norm ideals and correction characters. Do not replace H_A by a free vector or infer nu from H2.
+- **Finite Wheel:** refine collision labels to (I,odd(B),rad(A)) for complete-character diagnostics and retain D occurrences inside each A. Your native FINITE-AC L1-L4 small-root support check remains queued separately; it was not executed here.
+- **Owner Payment:** rational ancestry overload and this ideal-character coincidence are different carriers. A bridge needs original phase/admission/weight transport, not only shared prime factors. No native signed payment follows from the sextic matrix.
+- **Adversarial Referee:** independently inspect H1's calibration/zero-generator cases, H2's 0-versus-6 masks, and F1's actual slot/source hypotheses. Distinguish the paper identity and finite factor certificate from an uncomputed physical counterexample. Review PENDING.
+- **Lean Verification:** no generic-character or squared-norm filler PR requested. Existing order-six/CRT declarations may already cover H2; formalize only a nonduplicate source-specific step if independently accepted and useful to the all-selected proof. The live moving-mass PR remains a separate priority.
+
+These handoffs are delivered only through this authorized own report; no messages, issues, PR comments, or other agents' reports were edited.
+
+### M. Ranked Experimental Hypothesis Portfolio
+
+| Rank / disposition | Hypothesis and motivation | Evidence / counterevidence | Independent ingredient and required theorem | Decisive next experiment |
+| --- | --- | --- | --- | --- |
+| 1 / CONTINUE, source target OPEN | Actual coefficient cancellation within or between (I,odd(B)) blocks, with actual incomplete rows, could supply SF-I or SF-L | H1 gives exact carrier; same-A mixing prevents sector independence; no coefficient-energy gain measured | Original Gauss/Hecke/correction restrictions, not free-vector orthogonality; full coefficient-weighted K_R estimate at required power | Evaluate a fixed fully specified small source packet's G_A*M_A, retaining all marks and modes, with exact phases/certified integrals and complete D/C recombination |
+| 2 / REVISE | Complete-period sextic classes explain row-factor coherence, provided support masks are retained | 8192 split Gram agreements plus inert control; radial examples disprove unrestricted incomplete-row transfer | Existing order-six/CRT plus a genuine incomplete-window estimate; no uniform estimate supplied here | Test a proposed exact weighted completion/remainder identity, not a larger unchanged full-period census |
+| 3 / REJECT at stated scope | Coprime and cube-sharing marks are automatically numerator-orthogonal, or equal residues determine identical masked rows | F1 and F3 are exact counterexamples; synthetic coefficient signs can reverse C | Any repaired separation must use actual coefficient or admission information beyond these labels | No more scans of the false claim; require a concrete new source restriction before reopening |
+
+The independent native FINITE-AC support request remains a ready alternate portfolio task. It is not evidence for the first two hypotheses and is not erased by this OAI continuation.
+
+### N. Next-Run Resume Capsule
+
+```text
+ENGINE_VERSION: 2026-11-04 live revision of 2026-11-01 engine
+SOURCE_FIRST_VERSION: 2026-11-03 with 2026-11-04 all-selected refinement
+TASK_ID: 20261104-census-2
+RUN_ID: RUN_ID_UNAVAILABLE
+TRIGGER: scheduled 2026-11-04T11:00:01-05:00, America/New_York
+MAIN: ffe2ef4a684c7cb52d04852ea38b251203ff8a71
+OAI: openai/math@1581d4cbdd69a0faf34b2089614fe2a814316a6a
+ROUTE: source-faithful OAI-NNS support; no protected investigator rotation reset
+RESUMED: census-1 R1-R3 -> actual rowTwist / squarefree-cube row character
+ACTUAL RESULT: exact factor-kernel classification, cap/core same-A channel,
+  radial sign reversals, norm-window supplement, independent finite checks
+FORMAL STATE: FINITE_COMPUTATION / PAPER_PROOF; SELF_AUDIT; review PENDING
+LAST JUSTIFIED STEP: R_m=sum_A G_A*M_A*rho_m(A), E_actual=sum_A,A' H_A*conj(H_A')*K_R(A,A')
+FIRST UNSUPPORTED STEP: original coefficient-weighted incomplete-row power saving,
+  with complete physical/Gaussian return or direct SF-L alternative
+SQUARED_GAIN / AMPLITUDE_GAIN / NET_ENDPOINT_GAIN: UNKNOWN / UNKNOWN / UNKNOWN
+ETA_GATE: SEARCH_BROAD
+NEXT DECISIVE OAI ACTION: choose actual eta,S,sigma,W,Y,U,t and numerator admission,
+  evaluate original G_A*M_A for a small complete marked packet, restore all
+  mixed terms and only then ask whether a lawful signed bound is violated.
+  Certified physical integrals are needed before claiming D_low/C_low values.
+DO NOT REPEAT: unchanged norm-fiber/counting census, full-period arrays, generic CRT proofs
+NEXT DISTINCT SUPPORT TASK: Wheel FINITE-AC L1-L4 literal support at R=5,9,106,
+  unless a ready original-coefficient claim requires timely verification;
+  refresh current source and relevant native safeguards first.
+PROTECTED PORTFOLIOS: Owner VF-LOW/SAT/JOH; Analytic CODIV/OAI-NNS/NYMAN;
+  Wheel FINITE-AC/CORR4/MU-LIFT unchanged; Census does not fabricate their coverage.
+PUBLICATION: early checkpoint e723ffa5bcb516b2a50fb3896c305625e0018ebf,
+  2026-11-04T16:10:36Z, blob e586cbbf19ad5b0bebba096577926204df134396;
+  exact readback and sole changed path verified. Final synthesis receipt follows
+  only after the new write is actually verified.
+```
+
+#### Exact Original Source Provenance
+
+All OAI paths below are relative to `openai/math:lean/OAI/NumberTheory/DirichletL/` at the immutable pin above. Source statements were inspected; this table does not claim a fresh compile of every file.
+
+| Original file | Blob SHA | Used for |
+| --- | --- | --- |
+| Detector/LowSlotPolynomial.lean | b1dcb5a1e51afad1d39ccd91fa58a764e39629ba | actual selected weights, log phase, outer polynomial |
+| Detector/LowSelectedSum.lean | a54eb9ec6a5beb0db57ce9baa658718aab808af1 | correction expansion of actual selected inverse |
+| Detector/LowSlotMarks.lean | 4dbdd321565d5bc171f5766608a367d2ee1da15a | literal ideal mark and occurrence multiplicity |
+| Descent/Completion.lean | 17f1f38b6485d1960f07b9a622757d48db6680d1 | marked completed I*B^3 source and finite support |
+| Arithmetic/IdealMobius.lean | 6c1098ed3f3018397fd965d6a250db7092e86de7 | squarefree Gauss, cube, column, and summand definitions |
+| Eisenstein/CompactEnergyFamilies.lean | 559d3a8e1e44cefe3b6f31ea120866470e5db6cd | localRowValue, idealRowHom, rowTwist |
+| Arithmetic/EisensteinEmbedding.lean | 00fc7c168e5aff185607d219e34461c47994284d | canonical character embedding |
+| CubicSieve/CutoffOrders.lean | f913c9856cfa3939f6d2339b839271002186bbfb | sexticChar_reduce_unit orientation |
+| CubicSieve/RowCaps.lean | ad015cabb098f02b0630bb739b4bea6c0ec12af6 | actualSextic abbreviation |
+| Moments/Canonical.lean | 91df584105ed95bc611b0c17ac584668b19b8a79 | existing order-six/CRT source facts |
+| Detector/GramMean.lean | 62519287531e884205f01a4e0caf4db56e1cc94d | existing complete-character mean scope |
+| CenteredExceptionalProfile.lean | 4853585896308d78e36605b899ca4c28f221b2d6 | existing valuation-mod-six profile safeguard |
+| Detector/LowRay.lean | 5873fb85610c3d3965ee3a979c4be13f1dcc1baa | physical ray/correction connection |
+| Detector/PhysicalRows.lean | 6e5fc3ecb2b29d6d35eb91ff42a4ad701d6ef952 | actual physical row weight omitted from numerical test |
+| Detector/LowSelectedBound.lean | 695d81de46038693b9c701d55e81fe43d18d52d2 | exact supplier quantifiers and 5/6 baseline |
+| Detector/LowTupleGram.lean | 710598c8bef4d1a1ec98aa7e68b00369962c3d17 | original outer triangle; singleton distinction |
+
+RH_Lean original-source bridge: `research/oai_434/VF919OriginalLowTupleSignedGram.lean`, blob `c1b7b46a9e62a5b2f3729618c4dd24e31558166f`, unchanged between tested #1083 merge and current main.
+
+#### Reproducible Programs and Results
+
+The following are the executed files, embedded only in this authorized report. The programs use the documented scratch directory to find the C++ checker. Compile it first with the command below; no Lean environment or third-party Python package is needed.
+
+```sh
+g++ -std=c++17 -O2 -Wall -Wextra -Werror /workspace/research_run/sextic_row_check.cpp -o /workspace/research_run/sextic_row_check
+python /workspace/research_run/sextic_row_census.py
+python /workspace/research_run/sextic_geometry_check.py
+python -m py_compile /workspace/research_run/sextic_row_census.py
+```
+
+<details>
+<summary>sextic_row_census.py (executed)</summary>
+
+```python
+"""Exact original OAI sextic numerator-factor census, not inverse integrals."""
+
+from collections import Counter
+from itertools import product
+from math import isqrt
+import json
+import platform
+import subprocess
+import time
+
+ROOTS = ((1, 0), (1, 1), (0, 1), (-1, 0), (-1, -1), (0, -1))
+ZERO, ONE = (0, 0), (1, 0)
+
+
+def add(x, y):
+    return x[0] + y[0], x[1] + y[1]
+
+
+def mul(x, y):
+    a, b = x
+    c, d = y
+    return a*c - b*d, a*d + b*c - b*d
+
+
+def conj(x):
+    return x[0] - x[1], -x[1]
+
+
+def norm(x):
+    a, b = x
+    return a*a - a*b + b*b
+
+
+class Field:
+    def __init__(self, p, root=None):
+        assert p >= 5 and all(p % d for d in range(2, isqrt(p) + 1))
+        self.p, self.root = p, root
+        if root is None:
+            assert p % 3 == 2
+            self.elements = list(product(range(p), repeat=2))
+        else:
+            assert (root*root + root + 1) % p == 0
+            self.elements = [(a, 0) for a in range(p)]
+        self.q = len(self.elements)
+        self.unit_lift = {self.reduce(z): k for k, z in enumerate(ROOTS)}
+        assert len(self.unit_lift) == 6
+        self.chars = {x: self.character(x) for x in self.elements}
+        counts = Counter(self.chars.values())
+        assert counts[ZERO] == 1
+        assert all(counts[z] == (self.q - 1)//6 for z in ROOTS)
+        for x, y in product(self.elements, repeat=2):
+            assert self.chars[self.multiply(x, y)] == mul(self.chars[x], self.chars[y])
+
+    def reduce(self, x):
+        if self.root is None:
+            return x[0] % self.p, x[1] % self.p
+        return (x[0] + x[1]*self.root) % self.p, 0
+
+    def multiply(self, x, y):
+        return self.reduce(mul(x, y))
+
+    def power(self, x, n):
+        ans = ONE
+        while n:
+            if n & 1:
+                ans = self.multiply(ans, x)
+            x = self.multiply(x, x)
+            n >>= 1
+        return ans
+
+    def character(self, x):
+        if x == ZERO:
+            return ZERO
+        y = self.power(x, (self.q - 1)//6)
+        return ROOTS[self.unit_lift[y]]
+
+
+def cpow(x, n):
+    if n == 0:
+        return ONE
+    if x == ZERO:
+        return ZERO
+    return ROOTS[(ROOTS.index(x)*n) % 6]
+
+
+def row(fields, exponents, residues):
+    ans = ONE
+    for f, e, x in zip(fields, exponents, residues):
+        ans = mul(ans, cpow(f.chars[x], e))
+    return ans
+
+
+def pair_sum(left, right, mask=None):
+    return tuple(sum(mul(x, conj(y))[k] for i, (x, y) in enumerate(zip(left, right))
+                     if mask is None or mask[i]) for k in range(2))
+
+
+def predicted(fields, a, b):
+    ans = 1
+    for f, e, g in zip(fields, a, b):
+        if e == g == 0:
+            ans *= f.q
+        elif (e - g) % 6 == 0:
+            ans *= f.q - 1
+        else:
+            return ZERO
+    return ans, 0
+
+
+def check_gram(fields, residues, domain):
+    values = {e: [row(fields, e, x) for x in residues] for e in domain}
+    classes = Counter()
+    for a, b in product(domain, repeat=2):
+        actual = pair_sum(values[a], values[b])
+        assert actual == predicted(fields, a, b), (a, b, actual)
+        classes['nonzero' if actual != ZERO else 'zero'] += 1
+    return values, dict(classes)
+
+
+def reconstruct(values, exponents, coefficients):
+    total = ZERO
+    diagonal = ZERO
+    for r in range(len(next(iter(values.values())))):
+        s = ZERO
+        for e, c in zip(exponents, coefficients):
+            z = mul(c, values[e][r])
+            s = add(s, z)
+            diagonal = add(diagonal, mul(z, conj(z)))
+        total = add(total, mul(s, conj(s)))
+    gram = ZERO
+    for (a, ca), (b, cb) in product(zip(exponents, coefficients), repeat=2):
+        gram = add(gram, mul(mul(ca, conj(cb)), pair_sum(values[a], values[b])))
+    assert total == gram
+    return {'D': diagonal, 'C': (total[0]-diagonal[0], total[1]-diagonal[1]), 'total': total}
+
+
+def main():
+    start = time.perf_counter()
+    output = {'scope': 'FINITE_COMPUTATION: actual sextic row factor only',
+              'python': platform.python_version(), 'fields': [], 'split': {}}
+    fields = [Field(7, 2), Field(7, 4), Field(13, 3), Field(13, 9), Field(5)]
+    checker = subprocess.check_output(['/workspace/research_run/sextic_row_check'], text=True)
+    records = [line.split() for line in checker.splitlines() if line[0].isdigit()]
+    independent = {(int(p), int(r), int(a), int(b)): (int(c), int(d))
+                   for p, r, a, b, c, d in records}
+    independent_pairs = {}
+    independent_radial = {}
+    for line in checker.splitlines():
+        fields_line = line.split()
+        if fields_line[0] == 'PAIR':
+            p, a, b, c, d, x, y = map(int, fields_line[1:])
+            independent_pairs[p, (a, b), (c, d)] = (x, y)
+        if fields_line[0] == 'RADIAL':
+            p, bound, rows, diagonal, x, y = map(int, fields_line[1:])
+            independent_radial[p, bound] = rows, diagonal, (x, y)
+    for f in fields:
+        for x, value in f.chars.items():
+            assert independent[f.p, -1 if f.root is None else f.root, *x] == value
+        output['fields'].append({'p': f.p, 'omega_image': f.root, 'q': f.q,
+                                 'character_values': [[list(x), list(z)] for x, z in f.chars.items()]})
+    output['independent_character_values'] = len(independent)
+    output['multiplicativity_checks'] = sum(f.q*f.q for f in fields)
+    all_domain = list(product(range(8), repeat=2))
+    sf_cases = 0
+    coefficient_checks = 0
+    for p, fs in ((7, fields[:2]), (13, fields[2:4])):
+        residues = [tuple(f.reduce((a, b)) for f in fs)
+                    for a, b in product(range(p), repeat=2)]
+        assert len(set(residues)) == p*p
+        values, counts = check_gram(fs, residues, all_domain)
+        for a, b in product(all_domain, repeat=2):
+            assert independent_pairs[p, a, b] == pair_sum(values[a], values[b])
+        allowed = list(product((0, 1, 3, 4, 6, 7), repeat=2))
+        for a, b in product(allowed, repeat=2):
+            Ia, Ib = tuple(e % 3 for e in a), tuple(e % 3 for e in b)
+            Ba, Bb = tuple(e // 3 for e in a), tuple(e // 3 for e in b)
+            assert ((all((e-g) % 6 == 0 for e, g in zip(a, b))) ==
+                    (Ia == Ib and all((e-g) % 2 == 0 for e, g in zip(Ba, Bb))))
+            sf_cases += 1
+        for coeffs in product(ROOTS, repeat=3):
+            reconstruct(values, [(1, 3), (1, 3), (6, 0)], coeffs)
+            coefficient_checks += 1
+        masks = {'empty': [False]*len(residues),
+                 'all': [True]*len(residues),
+                 'units': [all(x != ZERO for x in r) for r in residues],
+                 'm_equals_one': [r == (ONE, ONE) for r in residues]}
+        mask_checks = {}
+        for label, mask in masks.items():
+            mask_checks[label] = [[pair_sum(values[a], values[b], mask)
+                                  for b in [(0, 0), (6, 0), (0, 6)]]
+                                 for a in [(0, 0), (6, 0), (0, 6)]]
+        radial = {}
+        for bound in (1, p, p*p):
+            radius = 2*isqrt(bound) + 2
+            pts = [(a, b) for a in range(-radius, radius+1)
+                   for b in range(-radius, radius+1) if 0 < norm((a, b)) <= bound]
+            rvalues = {e: [row(fs, e, tuple(f.reduce(m) for f in fs)) for m in pts]
+                       for e in [(1, 0), (0, 1), (1, 3)]}
+            radial[str(bound)] = {'rows': len(pts),
+                'gram_P_Pbar': [[pair_sum(rvalues[a], rvalues[b])
+                                 for b in [(1, 0), (0, 1)]] for a in [(1, 0), (0, 1)]]}
+            assert independent_radial[p, bound] == (len(pts),
+                pair_sum(rvalues[(1, 0)], rvalues[(1, 0)])[0],
+                pair_sum(rvalues[(1, 0)], rvalues[(0, 1)]))
+        # The same (I=P,B=Pbar) occurrence can be marked by either selected prime.
+        for D in [(1, 0), (0, 1)]:
+            A = (1, 3)
+            assert all(d <= e for d, e in zip(D, A))
+            E = tuple(e-d for d, e in zip(D, A))
+            assert sum(E) == 3
+        output['split'][str(p)] = {
+            'gram_pair_counts_exponents_0_to_7': counts,
+            'squarefree_cube_occurrence_count': len(allowed),
+            'core_cap_same_A': {'I': [1, 0], 'B': [0, 1], 'A_norm': p**4,
+                                'E_norm_both': p**3,
+                                'matrix': [[pair_sum(values[(1, 3)], values[(1, 3)])]*2]*2,
+                                'coefficient_test_plus': reconstruct(values, [(1, 3)]*2, [ONE, ONE]),
+                                'coefficient_test_minus': reconstruct(values, [(1, 3)]*2, [ONE, (-1, 0)])},
+            'sixth_power_distinct_A': {'A_norm_both': p**6,
+                'matrix': [[pair_sum(values[a], values[b]) for b in [(6, 0), (0, 6)]]
+                           for a in [(6, 0), (0, 6)]],
+                'coefficient_test_plus': reconstruct(values, [(6, 0), (0, 6)], [ONE, ONE])},
+            'zero_mask_difference_m_P': {'m': [(-fs[0].root) % p, 1],
+                'constant': ONE, 'P_sixth': row(fs, (6, 0), (ZERO, fs[1].reduce(((-fs[0].root) % p, 1))))},
+            'masks': mask_checks, 'radial': radial}
+    inert = fields[-1]
+    _, counts = check_gram([inert], [(x,) for x in inert.elements], [(e,) for e in range(8)])
+    output['inert_gram_pair_counts'] = counts
+    output['squarefree_cube_pair_checks'] = sf_cases
+    output['independent_gram_entries'] = len(independent_pairs)
+    output['independent_radial_cases'] = len(independent_radial)
+    output['signed_reconstruction_checks'] = coefficient_checks
+    output['squarefree_support_negative_controls'] = [2, 5]
+    assert all(e % 3 == 2 for e in output['squarefree_support_negative_controls'])
+    output['all_exact_assertions_passed'] = True
+    output['elapsed_seconds'] = time.perf_counter() - start
+    print(json.dumps(output, indent=2, sort_keys=True))
+
+
+if __name__ == '__main__':
+    main()
+```
+
+</details>
+
+<details>
+<summary>sextic_row_check.cpp (executed)</summary>
+
+```cpp
+#include <array>
+#include <cassert>
+#include <iostream>
+#include <map>
+#include <utility>
+#include <vector>
+
+using E = std::pair<int, int>;
+const std::array<E, 6> units{{{1,0},{1,1},{0,1},{-1,0},{-1,-1},{0,-1}}};
+
+int mod(int x, int p) { return (x % p + p) % p; }
+E reduce(E x, int p, int r) {
+    if (r >= 0) return {mod(x.first + r*x.second, p), 0};
+    return {mod(x.first,p), mod(x.second,p)};
+}
+E multiply(E x, E y, int p, int r) {
+    return reduce({x.first*y.first-x.second*y.second,
+                   x.first*y.second+x.second*y.first-x.second*y.second},p,r);
+}
+E exactMultiply(E x, E y) {
+    return {x.first*y.first-x.second*y.second,
+            x.first*y.second+x.second*y.first-x.second*y.second};
+}
+E exactPower(E x, int e) {
+    E out{1,0};
+    for (int j=0;j<e;++j) out=exactMultiply(out,x);
+    return out;
+}
+E conjugate(E x) { return {x.first-x.second,-x.second}; }
+
+int main() {
+    std::map<E,std::map<E,E>> tables;
+    for (auto [p,r] : std::vector<E>{{7,2},{7,4},{13,3},{13,9},{5,-1}}) {
+        const int q = r < 0 ? p*p : p;
+        std::vector<E> elements;
+        for (int a=0;a<p;++a) for (int b=0;b<(r<0?p:1);++b) elements.emplace_back(a,b);
+        std::map<E,int> logs;
+        E primitive{};
+        for (E candidate : elements) {
+            if (candidate == E{0,0}) continue;
+            std::map<E,int> trial;
+            E x{1,0};
+            for (int j=0;j<q-1;++j) { trial.emplace(x,j); x=multiply(x,candidate,p,r); }
+            if (static_cast<int>(trial.size())==q-1 && x==E{1,0}) {
+                logs=trial; primitive=candidate; break;
+            }
+        }
+        assert(static_cast<int>(logs.size())==q-1);
+        E root{1,0};
+        for (int j=0;j<(q-1)/6;++j) root=multiply(root,primitive,p,r);
+        int orientation=-1;
+        for (int k=0;k<6;++k) if (reduce(units[k],p,r)==root) orientation=k;
+        assert(orientation==1 || orientation==5);
+        for (E x : elements) {
+            E value = x==E{0,0} ? E{0,0} : units[(orientation*logs.at(x))%6];
+            tables[{p,r}][x]=value;
+            std::cout<<p<<' '<<r<<' '<<x.first<<' '<<x.second<<' '
+                     <<value.first<<' '<<value.second<<'\n';
+        }
+    }
+    int checks=0;
+    for (auto [p,r1,r2] : std::vector<std::array<int,3>>{{7,2,4},{13,3,9}}) {
+        auto value = [&](E e, E m) {
+            return exactMultiply(exactPower(tables[{p,r1}].at(reduce(m,p,r1)),e.first),
+                                 exactPower(tables[{p,r2}].at(reduce(m,p,r2)),e.second));
+        };
+        for (int a=0;a<8;++a) for (int b=0;b<8;++b)
+        for (int c=0;c<8;++c) for (int d=0;d<8;++d) {
+            E sum{0,0};
+            for (int x=0;x<p;++x) for (int y=0;y<p;++y) {
+                E term=exactMultiply(value({a,b},{x,y}),conjugate(value({c,d},{x,y})));
+                sum.first+=term.first; sum.second+=term.second;
+            }
+            std::cout<<"PAIR "<<p<<' '<<a<<' '<<b<<' '<<c<<' '<<d<<' '
+                     <<sum.first<<' '<<sum.second<<'\n';
+            ++checks;
+        }
+        for (int bound : {1,p,p*p}) {
+            int rows=0, diagonal=0;
+            E cross{0,0};
+            // Independent enclosing box from |a|,|b| <= 2*sqrt(bound/3).
+            for (int a=-2*p;a<=2*p;++a) for (int b=-2*p;b<=2*p;++b) {
+                const int n=a*a-a*b+b*b;
+                if (n<=0 || n>bound) continue;
+                ++rows;
+                E v=value({1,0},{a,b}), w=value({0,1},{a,b});
+                diagonal+=exactMultiply(v,conjugate(v)).first;
+                E term=exactMultiply(v,conjugate(w));
+                cross.first+=term.first; cross.second+=term.second;
+            }
+            std::cout<<"RADIAL "<<p<<' '<<bound<<' '<<rows<<' '<<diagonal<<' '
+                     <<cross.first<<' '<<cross.second<<'\n';
+        }
+    }
+    assert(checks==8192);
+}
+```
+
+</details>
+
+<details>
+<summary>sextic_geometry_check.py (executed)</summary>
+
+```python
+"""Supplement: marked occurrence geometry, not a physical inverse-energy value."""
+
+from itertools import product
+import json
+import subprocess
+from sextic_row_census import Field, ONE, ZERO, mul, conj, norm, row, pair_sum
+
+
+raw = subprocess.check_output(['/workspace/research_run/sextic_row_check'], text=True)
+independent = {}
+for line in raw.splitlines():
+    fields = line.split()
+    if fields[0] == 'PAIR':
+        p, a, b, c, d, x, y = map(int, fields[1:])
+        independent[p, (a, b), (c, d)] = (x, y)
+
+results = []
+for p, r, s in [(7, 2, 4), (13, 3, 9)]:
+    fs = [Field(p, r), Field(p, s)]
+    I, B, A = (1, 0), (0, 2), (1, 6)
+    assert A == tuple(i + 3*b for i, b in zip(I, B))
+    cofactors = []
+    sectors = []
+    for D in [(1, 0), (0, 1)]:
+        assert all(d <= a for d, a in zip(D, A))
+        E = tuple(a-d for d, a in zip(D, A))
+        cofactors.append(E)
+        sectors.append('coprime' if all(min(d,b) == 0 for d,b in zip(D,B)) else 'cube-sharing')
+        assert sum(E) == 6
+    Z, U, Y = p**6, p**7, p
+    assert p**sum(A) == U
+    assert Y**6 == Z and U**6 == Z**7
+    representatives = list(product(range(p), repeat=2))
+    values = [row(fs, A, tuple(f.reduce(m) for f in fs)) for m in representatives]
+    gram = pair_sum(values, values)
+    assert gram == independent[p, A, A] == ((p-1)**2, 0)
+    nonzero_reps = [m for m in representatives if m != ZERO]
+    assert max(map(norm, nonzero_reps)) <= p**5
+    assert values[0] == ZERO
+    assert pair_sum(values[1:], values[1:]) == gram
+    # Multiplicativity including zero calibration factors; no division by a row value.
+    calibration_checks = 0
+    for f in fs:
+        for c, m in product(f.elements, repeat=2):
+            c6 = f.power(c, 6)
+            assert f.chars[f.multiply(c6,m)] == mul(f.chars[c6],f.chars[m])
+            calibration_checks += 1
+    results.append({'p': p, 'I': I, 'B': B, 'A': A, 'E_in_D_order': cofactors,
+                    'sectors_in_D_order': sectors, 'Z': Z, 'U': U, 'Y': Y,
+                    'window_argument': [1,1], 'selected_arguments': [[1,1],[1,1]],
+                    'rows_after_zero_removed': len(nonzero_reps),
+                    'active_rows_per_occurrence': sum(v != ZERO for v in values),
+                    'max_row_norm': max(map(norm, nonzero_reps)), 'row_norm_cap_Ck_1': p**5,
+                    'row_factor_gram': [[gram,gram],[gram,gram]],
+                    'independent_gram_agreement': True,
+                    'calibration_multiplicativity_checks': calibration_checks,
+                    'unevaluated': ['Hecke coefficient', 'Gauss coefficient', 'correction sum',
+                                    'physical row weight', 'Gaussian integrals', 'supplier Z0']})
+
+print(json.dumps({'scope': 'FINITE_COMPUTATION: supplier norm geometry and actual row factor',
+                  'results': results, 'all_exact_assertions_passed': True}, indent=2))
+```
+
+</details>
+
+<details>
+<summary>Exact census output, omitting only the individual character-value tables</summary>
+
+```json
+{
+  "all_exact_assertions_passed": true,
+  "elapsed_seconds": 1.8622180990000743,
+  "independent_character_values": 65,
+  "independent_gram_entries": 8192,
+  "independent_radial_cases": 6,
+  "inert_gram_pair_counts": {
+    "nonzero": 12,
+    "zero": 52
+  },
+  "multiplicativity_checks": 1061,
+  "python": "3.12.14",
+  "scope": "FINITE_COMPUTATION: actual sextic row factor only",
+  "signed_reconstruction_checks": 432,
+  "split": {
+    "7": {
+      "core_cap_same_A": {
+        "A_norm": 2401,
+        "B": [
+          0,
+          1
+        ],
+        "E_norm_both": 343,
+        "I": [
+          1,
+          0
+        ],
+        "coefficient_test_minus": {
+          "C": [
+            -72,
+            0
+          ],
+          "D": [
+            72,
+            0
+          ],
+          "total": [
+            0,
+            0
+          ]
+        },
+        "coefficient_test_plus": {
+          "C": [
+            72,
+            0
+          ],
+          "D": [
+            72,
+            0
+          ],
+          "total": [
+            144,
+            0
+          ]
+        },
+        "matrix": [
+          [
+            [
+              36,
+              0
+            ],
+            [
+              36,
+              0
+            ]
+          ],
+          [
+            [
+              36,
+              0
+            ],
+            [
+              36,
+              0
+            ]
+          ]
+        ]
+      },
+      "gram_pair_counts_exponents_0_to_7": {
+        "nonzero": 144,
+        "zero": 3952
+      },
+      "masks": {
+        "all": [
+          [
+            [
+              49,
+              0
+            ],
+            [
+              42,
+              0
+            ],
+            [
+              42,
+              0
+            ]
+          ],
+          [
+            [
+              42,
+              0
+            ],
+            [
+              42,
+              0
+            ],
+            [
+              36,
+              0
+            ]
+          ],
+          [
+            [
+              42,
+              0
+            ],
+            [
+              36,
+              0
+            ],
+            [
+              42,
+              0
+            ]
+          ]
+        ],
+        "empty": [
+          [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              0
+            ]
+          ],
+          [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              0
+            ]
+          ],
+          [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              0
+            ]
+          ]
+        ],
+        "m_equals_one": [
+          [
+            [
+              1,
+              0
+            ],
+            [
+              1,
+              0
+            ],
+            [
+              1,
+              0
+            ]
+          ],
+          [
+            [
+              1,
+              0
+            ],
+            [
+              1,
+              0
+            ],
+            [
+              1,
+              0
+            ]
+          ],
+          [
+            [
+              1,
+              0
+            ],
+            [
+              1,
+              0
+            ],
+            [
+              1,
+              0
+            ]
+          ]
+        ],
+        "units": [
+          [
+            [
+              36,
+              0
+            ],
+            [
+              36,
+              0
+            ],
+            [
+              36,
+              0
+            ]
+          ],
+          [
+            [
+              36,
+              0
+            ],
+            [
+              36,
+              0
+            ],
+            [
+              36,
+              0
+            ]
+          ],
+          [
+            [
+              36,
+              0
+            ],
+            [
+              36,
+              0
+            ],
+            [
+              36,
+              0
+            ]
+          ]
+        ]
+      },
+      "radial": {
+        "1": {
+          "gram_P_Pbar": [
+            [
+              [
+                6,
+                0
+              ],
+              [
+                6,
+                0
+              ]
+            ],
+            [
+              [
+                6,
+                0
+              ],
+              [
+                6,
+                0
+              ]
+            ]
+          ],
+          "rows": 6
+        },
+        "7": {
+          "gram_P_Pbar": [
+            [
+              [
+                24,
+                0
+              ],
+              [
+                6,
+                0
+              ]
+            ],
+            [
+              [
+                6,
+                0
+              ],
+              [
+                24,
+                0
+              ]
+            ]
+          ],
+          "rows": 30
+        },
+        "49": {
+          "gram_P_Pbar": [
+            [
+              [
+                156,
+                0
+              ],
+              [
+                -6,
+                0
+              ]
+            ],
+            [
+              [
+                -6,
+                0
+              ],
+              [
+                156,
+                0
+              ]
+            ]
+          ],
+          "rows": 186
+        }
+      },
+      "sixth_power_distinct_A": {
+        "A_norm_both": 117649,
+        "coefficient_test_plus": {
+          "C": [
+            72,
+            0
+          ],
+          "D": [
+            84,
+            0
+          ],
+          "total": [
+            156,
+            0
+          ]
+        },
+        "matrix": [
+          [
+            [
+              42,
+              0
+            ],
+            [
+              36,
+              0
+            ]
+          ],
+          [
+            [
+              36,
+              0
+            ],
+            [
+              42,
+              0
+            ]
+          ]
+        ]
+      },
+      "squarefree_cube_occurrence_count": 36,
+      "zero_mask_difference_m_P": {
+        "P_sixth": [
+          0,
+          0
+        ],
+        "constant": [
+          1,
+          0
+        ],
+        "m": [
+          5,
+          1
+        ]
+      }
+    },
+    "13": {
+      "core_cap_same_A": {
+        "A_norm": 28561,
+        "B": [
+          0,
+          1
+        ],
+        "E_norm_both": 2197,
+        "I": [
+          1,
+          0
+        ],
+        "coefficient_test_minus": {
+          "C": [
+            -288,
+            0
+          ],
+          "D": [
+            288,
+            0
+          ],
+          "total": [
+            0,
+            0
+          ]
+        },
+        "coefficient_test_plus": {
+          "C": [
+            288,
+            0
+          ],
+          "D": [
+            288,
+            0
+          ],
+          "total": [
+            576,
+            0
+          ]
+        },
+        "matrix": [
+          [
+            [
+              144,
+              0
+            ],
+            [
+              144,
+              0
+            ]
+          ],
+          [
+            [
+              144,
+              0
+            ],
+            [
+              144,
+              0
+            ]
+          ]
+        ]
+      },
+      "gram_pair_counts_exponents_0_to_7": {
+        "nonzero": 144,
+        "zero": 3952
+      },
+      "masks": {
+        "all": [
+          [
+            [
+              169,
+              0
+            ],
+            [
+              156,
+              0
+            ],
+            [
+              156,
+              0
+            ]
+          ],
+          [
+            [
+              156,
+              0
+            ],
+            [
+              156,
+              0
+            ],
+            [
+              144,
+              0
+            ]
+          ],
+          [
+            [
+              156,
+              0
+            ],
+            [
+              144,
+              0
+            ],
+            [
+              156,
+              0
+            ]
+          ]
+        ],
+        "empty": [
+          [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              0
+            ]
+          ],
+          [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              0
+            ]
+          ],
+          [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              0
+            ]
+          ]
+        ],
+        "m_equals_one": [
+          [
+            [
+              1,
+              0
+            ],
+            [
+              1,
+              0
+            ],
+            [
+              1,
+              0
+            ]
+          ],
+          [
+            [
+              1,
+              0
+            ],
+            [
+              1,
+              0
+            ],
+            [
+              1,
+              0
+            ]
+          ],
+          [
+            [
+              1,
+              0
+            ],
+            [
+              1,
+              0
+            ],
+            [
+              1,
+              0
+            ]
+          ]
+        ],
+        "units": [
+          [
+            [
+              144,
+              0
+            ],
+            [
+              144,
+              0
+            ],
+            [
+              144,
+              0
+            ]
+          ],
+          [
+            [
+              144,
+              0
+            ],
+            [
+              144,
+              0
+            ],
+            [
+              144,
+              0
+            ]
+          ],
+          [
+            [
+              144,
+              0
+            ],
+            [
+              144,
+              0
+            ],
+            [
+              144,
+              0
+            ]
+          ]
+        ]
+      },
+      "radial": {
+        "1": {
+          "gram_P_Pbar": [
+            [
+              [
+                6,
+                0
+              ],
+              [
+                6,
+                0
+              ]
+            ],
+            [
+              [
+                6,
+                0
+              ],
+              [
+                6,
+                0
+              ]
+            ]
+          ],
+          "rows": 6
+        },
+        "13": {
+          "gram_P_Pbar": [
+            [
+              [
+                48,
+                0
+              ],
+              [
+                6,
+                -6
+              ]
+            ],
+            [
+              [
+                12,
+                6
+              ],
+              [
+                48,
+                0
+              ]
+            ]
+          ],
+          "rows": 54
+        },
+        "169": {
+          "gram_P_Pbar": [
+            [
+              [
+                558,
+                0
+              ],
+              [
+                -24,
+                -6
+              ]
+            ],
+            [
+              [
+                -18,
+                6
+              ],
+              [
+                558,
+                0
+              ]
+            ]
+          ],
+          "rows": 612
+        }
+      },
+      "sixth_power_distinct_A": {
+        "A_norm_both": 4826809,
+        "coefficient_test_plus": {
+          "C": [
+            288,
+            0
+          ],
+          "D": [
+            312,
+            0
+          ],
+          "total": [
+            600,
+            0
+          ]
+        },
+        "matrix": [
+          [
+            [
+              156,
+              0
+            ],
+            [
+              144,
+              0
+            ]
+          ],
+          [
+            [
+              144,
+              0
+            ],
+            [
+              156,
+              0
+            ]
+          ]
+        ]
+      },
+      "squarefree_cube_occurrence_count": 36,
+      "zero_mask_difference_m_P": {
+        "P_sixth": [
+          0,
+          0
+        ],
+        "constant": [
+          1,
+          0
+        ],
+        "m": [
+          10,
+          1
+        ]
+      }
+    }
+  },
+  "squarefree_cube_pair_checks": 2592,
+  "squarefree_support_negative_controls": [
+    2,
+    5
+  ]
+}
+```
+
+</details>
+
+<details>
+<summary>Exact supplier-geometry supplement output</summary>
+
+```json
+{
+  "scope": "FINITE_COMPUTATION: supplier norm geometry and actual row factor",
+  "results": [
+    {
+      "p": 7,
+      "I": [
+        1,
+        0
+      ],
+      "B": [
+        0,
+        2
+      ],
+      "A": [
+        1,
+        6
+      ],
+      "E_in_D_order": [
+        [
+          0,
+          6
+        ],
+        [
+          1,
+          5
+        ]
+      ],
+      "sectors_in_D_order": [
+        "coprime",
+        "cube-sharing"
+      ],
+      "Z": 117649,
+      "U": 823543,
+      "Y": 7,
+      "window_argument": [
+        1,
+        1
+      ],
+      "selected_arguments": [
+        [
+          1,
+          1
+        ],
+        [
+          1,
+          1
+        ]
+      ],
+      "rows_after_zero_removed": 48,
+      "active_rows_per_occurrence": 36,
+      "max_row_norm": 36,
+      "row_norm_cap_Ck_1": 16807,
+      "row_factor_gram": [
+        [
+          [
+            36,
+            0
+          ],
+          [
+            36,
+            0
+          ]
+        ],
+        [
+          [
+            36,
+            0
+          ],
+          [
+            36,
+            0
+          ]
+        ]
+      ],
+      "independent_gram_agreement": true,
+      "calibration_multiplicativity_checks": 98,
+      "unevaluated": [
+        "Hecke coefficient",
+        "Gauss coefficient",
+        "correction sum",
+        "physical row weight",
+        "Gaussian integrals",
+        "supplier Z0"
+      ]
+    },
+    {
+      "p": 13,
+      "I": [
+        1,
+        0
+      ],
+      "B": [
+        0,
+        2
+      ],
+      "A": [
+        1,
+        6
+      ],
+      "E_in_D_order": [
+        [
+          0,
+          6
+        ],
+        [
+          1,
+          5
+        ]
+      ],
+      "sectors_in_D_order": [
+        "coprime",
+        "cube-sharing"
+      ],
+      "Z": 4826809,
+      "U": 62748517,
+      "Y": 13,
+      "window_argument": [
+        1,
+        1
+      ],
+      "selected_arguments": [
+        [
+          1,
+          1
+        ],
+        [
+          1,
+          1
+        ]
+      ],
+      "rows_after_zero_removed": 168,
+      "active_rows_per_occurrence": 144,
+      "max_row_norm": 144,
+      "row_norm_cap_Ck_1": 371293,
+      "row_factor_gram": [
+        [
+          [
+            144,
+            0
+          ],
+          [
+            144,
+            0
+          ]
+        ],
+        [
+          [
+            144,
+            0
+          ],
+          [
+            144,
+            0
+          ]
+        ]
+      ],
+      "independent_gram_agreement": true,
+      "calibration_multiplicativity_checks": 338,
+      "unevaluated": [
+        "Hecke coefficient",
+        "Gauss coefficient",
+        "correction sum",
+        "physical row weight",
+        "Gaussian integrals",
+        "supplier Z0"
+      ]
+    }
+  ],
+  "all_exact_assertions_passed": true
+}
+```
+
+</details>
+
