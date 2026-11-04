@@ -2861,3 +2861,7 @@ print(json.dumps({'scope': 'FINITE_COMPUTATION: supplier norm geometry and actua
 
 </details>
 
+
+### Publication Verification for 20261104-census-2
+
+Verified 2026-11-04T11:40:02-05:00 (16:40:02Z): substantive synthesis commit `6a4628d7c1cffc5a08e182630e3fb55db3a82ba0`, committed 2026-11-04T16:39:39Z; report blob `68ac376cf60a6f4a4a0fade501c4a53094df82c3`. Commit metadata lists exactly this authorized report, 1713 additions and zero deletions. Immutable-commit readback matched the entire submitted content exactly; earlier content and all three executed program listings were preserved. Fresh branch readback also matched before this receipt was appended. Main recheck immediately before publication remained `ffe2ef4a684c7cb52d04852ea38b251203ff8a71`. Execution and publication are COMPLETE; independent Referee review and any source-energy gain remain PENDING/OPEN. This receipt verifies the preceding substantive commit, not its own not-yet-known commit hash.
