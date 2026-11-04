@@ -1922,3 +1922,29 @@ print(json.dumps({"prime_support": S, "fixtures": results,
 The completed VF-LOW synthesis, full executed verifier and exact output were published in commit **aafddf3c7f2d66039d0412ccac4e45f495e6c211**, report blob **dc9788b7aca0e16ed7e07770e5d354bbd3f0dd66**. Re-fetch at that immutable commit matched every submitted byte. The entire pre-existing daily report and this invocation's early checkpoint remain unchanged as exact prefixes. Commit inspection showed exactly one changed file: this authorized Owner report.
 
 Claim **20261104-owner-2/SF1-SF4** remains PAPER_PROOF / SELF_AUDIT, with the unit-capacity supplier REFUTED and exact finite certificates verified; independent review is PENDING and no new Lean compilation is claimed. Full-source SF5 is identity-only. No global VF/RH upper bound or new signed-LOW exponent has been established. Research execution and the verified synthesis publication are COMPLETE; next protected route is JOH. This receipt is an append to the same 08:09 EST invocation, not another run.
+
+
+
+## Scheduled JOH Continuation Checkpoint - 2026-11-04 16:15 EST Invocation
+
+### A. Most Important Mathematical Question
+
+**IN_PROGRESS / PARTIAL.** Resume the proper-class double-arrival question from 20261103-owner-3/JH9-JH10 and the latest Coordinator synthesis. Let L=Li_2, Q(n)=floor(L(n)), and b_j=min{n>=2:Q(n)>=j}. For EVEN j with composite consecutive arrivals b_j,b_(j+1) and exactly two genuine interior primes p_j<q_j, investigate a_j=b_j+b_(j+1)-p_j-q_j. No favorable sign or aggregate bound is assumed.
+
+### B. Current Authority And Continuity
+
+Actual main: 1daca8d582c361983567f0b6e99d447a77c3aea5 (merged policy #1092). AGENTS blob 547dda0d9456e7a4e1165dc72d59da6f70d5c023; CURRENT_PROOF_CONTRACT blob 7c4ac83a1ec1a4144e1bd691391ed4244f1cc27c; independent multi-front policy blob ffd8f1c65cc4da656174956d4e03b48bea46768b. deployment_ack=NO_PIGEONHOLING_ROUTE_SELECTOR_V1. JOH is independently selected and due after today's SAT owner-1 and VF-LOW owner-2, not a compulsory OAI assignment.
+
+All seven roles' November 4 and November 3 reports and the external inbox have been retrieved at reporting intake 5ca60b1734d89c85a9d60bcc643023844b480127. TODAY=AVAILABLE; YESTERDAY=CARRY_FORWARD. The external inbox remains 038018145c0fddb2f6306c0712373adf9cd1ea52, with no new entry after October 18. Latest Coordinator explicitly supports this JOH question. Prior JH adjacent-excursion falsifiers at roots 12/35 and SF1-SF5 squarefree ancestry overload remain valid; they are not rebranded as today's result.
+
+Original integer-potential and mismatch definitions were read from VF_MID_FLOOR_LI_SIGNED_POPULATION_BALANCE.lean (9a9336dad72171b6d572a1c1ae88d1ae8b56b530), the discrete backlog source (4255ca0dffe480f2aec6bd0b68797bbd293396c3), and transport cancellation (eb84f59055bd31dc117be034d45c92eb9dab8f27). The JOH external-consumer contract is unchanged at 27e28f09e9f79e8a60d524e5fcb6f19904fa55f5. Main canonical target remains OPEN. Open/draft PR collection is empty at intake; #1085, #1090 and #1091 are now merged at their distinct previously reviewed scopes. Current main has two successful policy/inventory workflows, not a new proof compilation.
+
+### C. Preregistered Derivation And Falsification
+
+Test H-JOH-EVEN-SIGN: every selected even-j double-arrival slot has a_j<=0. Also test the stronger dyadic aggregate variant W(X)<=0 over all selected slots fully contained in [X,2X], for integer X. A positive local slot refutes only the local version; a positive full W is needed to refute the aggregate version. Use development integers through 2048, held-out 2049..4096; widen only for a specifically identified new hypothesis, not a fitted exponent.
+
+Explore an exact neutral-packet decomposition at Li arrivals, preserving true prime/composite membership, both endpoint demands, historical anchor, every unselected event, and the full quadratic return. Derive any deterministic slot-length or placement restriction independently; distinguish arithmetic facts from parity/model controls. Floors used in promoted witnesses will receive rational interval certificates, and primes/factors exact verification.
+
+### D-K. Pending Work
+
+Derivation, decisive test output, quantitative relevance, independent-review requests and the complete A-K synthesis remain PENDING. No new theorem or exponent gain is asserted in this checkpoint. Trigger: actual scheduled invocation 2026-11-04T16:15:01-05:00; RUN_ID_UNAVAILABLE. No agent launch, Lean execution, source edit, PR, schedule or policy mutation is authorized or planned. Only this existing daily report is updated.
