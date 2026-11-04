@@ -1129,3 +1129,22 @@ The full synthesis and both executed verifiers were published in commit `37649ed
 Immediately before publication, at 2026-11-04 03:33:53 EST, main remained `040980c16901af749202e9b0f91211c43909404a`; all November 3 and upstream November 4 report blobs were unchanged, and the external inbox was unchanged. Missing November 4 Coordinator/Referee/Lean stages remain TODAY=PENDING. The new own Census report is the only added dated file from this invocation.
 
 Execution: COMPLETE. Finite verification: COMPLETE on the declared domain. R1-R3: PAPER_PROOF / SELF_AUDIT, independent Referee review PENDING, not newly Lean-certified. Original physical-integral evaluation: BLOCKED / UNSUPPORTED_DIRECT_OAI. New net endpoint gain: UNKNOWN. Canonical VF and RH remain OPEN. No computational process is left running.
+
+
+## Scheduled Continuation Checkpoint - 2026-11-04 11:00 EST Invocation
+
+Actual scheduled trigger: 2026-11-04T11:00:01-05:00; RUN_ID_UNAVAILABLE. This is a distinct continuation after 20261104-census-1, whose full text is preserved. Execution PARTIAL; no new result yet claimed. Main fetched as 040980c16901af749202e9b0f91211c43909404a; AGENTS b878d396c387a57bd0b5165fecf10d15ef3732cd; current contract 63f7553bf6e5f2a16e37808116c643dc0dcc50e1; source-first b6980c30e63bb8c9ddfc8d6fa86a2bb401707fa6. Original OAI pin 1581d4cbdd69a0faf34b2089614fe2a814316a6a.
+
+All seven November 3 and November 4 reports and the external inbox were retrieved; TODAY=AVAILABLE for every role. Applicable continuity includes Coordinator C41-C44, Owner SF1-SF5, Analytic CF1-CF3, Wheel L1-L4, prior Census R1-R3, Referee-2/3/4, and Lean's moving-mass draft. Prior R1-R3 are accepted by Referee only at ambient-counting scope. Neither the old norm-fiber scan nor the unweighted cube annulus will be repeated.
+
+### Preregistered Source Question
+
+Resume at the actual numerator dependence inside rowTwist, not at the already retired outer-tuple triangle. Inspect localRowValue, idealRowHom, squarefreeGaussCoefficient, cubeWeight and the original selected-row correction. The provisional discriminator is the exact sextic-character Gram on complete finite residue systems, retaining zero/nonunit masks and the complete squarefree/cube occurrence. This is a test of an actual source factor, NOT a replacement of the physical row window or a numerical OAI integral.
+
+H1: sixth-power valuation congruence, together with actual prime-support zero masks, classifies complete-residue correlations. H0: distinct completed occurrences or distinct cofactors always become orthogonal under numerator averaging. Additional null: equal residue exponents alone identify row functions even when their prime supports differ. Reject on any exact direct-enumeration mismatch; preserve a smallest failing case within the declared finite prime set.
+
+Finite plan before running code: exploratory conjugate ideals over 7, held-out conjugates over 13, inert ideal over 5 as a different residue-field control, original exclusions above 2 and 3, valuation exponents 0 through 7. Independently compare finite-field power evaluation with direct multiplication/character orthogonality and direct lattice/CRT row enumeration where small. Include full, empty and unit-only row masks, singleton incomplete rows, squarefree and nonsquarefree I, repeated cubes, both cross orientations, and norm-equal distinct ideals. Extend only for a specific discovered discrepancy. Real/complex output must be exact in the sixth-root ring; any later integration remains separately marked unsupported unless certified.
+
+The derivation will retain all actual coefficient symbols, correction characters, smooth windows, heights and source normalizers. If only the row factor is reconstructible, publish that exact limitation and a source-qualified identity, not a claimed signed inverse-energy gain. New net endpoint gain UNKNOWN; SEARCH_BROAD. The independent FINITE-AC request from Wheel remains available for a later support turn.
+
+Live GitHub intake: #1083 MERGED at current main, head 1ae84e2ff019b266114c100f43016eeec71144a9. #1085 draft head 3d587772a0a9b6928e80e8a089da6ad8191c0936; #1087 draft head a34d95c99ee715c1e517d7e51401e36651ff5fb8; policy proposal #1086 open head b8347665b73b5920dcfa68d108a1ddefcb09be60. Open proposals are not live policy or verified new proofs. No Lean execution, PR/branch/workflow changes, other-report writes, or agent launches are authorized or performed.
