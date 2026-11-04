@@ -1948,3 +1948,1208 @@ Explore an exact neutral-packet decomposition at Li arrivals, preserving true pr
 ### D-K. Pending Work
 
 Derivation, decisive test output, quantitative relevance, independent-review requests and the complete A-K synthesis remain PENDING. No new theorem or exponent gain is asserted in this checkpoint. Trigger: actual scheduled invocation 2026-11-04T16:15:01-05:00; RUN_ID_UNAVAILABLE. No agent launch, Lean execution, source edit, PR, schedule or policy mutation is authorized or planned. Only this existing daily report is updated.
+
+
+## Scheduled JOH Final Synthesis - Claim 20261104-owner-3
+
+Actual invocation: scheduled **2026-11-04T16:15:01-05:00**, RUN_ID_UNAVAILABLE. This completes the checkpoint above, not a separate execution. Selected route: **JOH**. Next protected route: **SAT**, then VF-LOW. `deployment_ack=NO_PIGEONHOLING_ROUTE_SELECTOR_V1` at main **1daca8d582c361983567f0b6e99d447a77c3aea5**.
+
+### A. Most Important Mathematical Development
+
+**The unresolved within-slot sign is not needed to pay this part of the JOH source.** Every disjoint even-index double-arrival packet has a bounded primitive, so its entire accumulated contribution is O(N), with no assumed sign. More substantially, retaining the ACTUAL backlog at every floor-Li arrival compresses the complete JOH statistic with an explicit, nonnegative placement error:
+
+```text
+G(N) = U(N) + E_place(N),
+0 <= E_place(N) <= pi(N) log N <= (13/10) N   (N>=17).
+```
+
+Here U uses actual prime counts at the original arrival locations, original cell lengths, the initial anchor and the final partial cell. E_place is the exact sum of within-cell prime displacements, not an unspecified error. The final inequality uses the established prime-count estimate in Johnston's Lemma 2.2, not RH, PNT in short intervals, a random model or the desired bound.
+
+Thus all within-Li-cell positional information costs only O(N) in this integrated statistic. The remaining serious question is the weighted history of the sampled count backlogs, not the sign of each microscopic midpoint. This is a source-qualified proper-term estimate and a reason to redirect the local investigation, **not** a bound for U or a new global exponent.
+
+The proposed sign rules are also **REFUTED** on genuine arithmetic. Even-index slots of the SAME length six, SAME least-owner pair (2,2), and SAME twin-prime gap have opposite areas: (194,197,199,200) gives -2; (820,821,823,826) gives +2. The complete selected dyadic aggregate has W(512)=+1 and the held-out W(2048)=+3. No claim about an eventual-only sign is refuted by these finite witnesses.
+
+Evidence: LC1 is IDENTITY_ONLY; LC2 and LC4 are **PAPER_PROOF / SELF_AUDIT** quantitative proper-sector results; LC3 is **FINITE_COMPUTATION / REFUTED** at the displayed universal scopes; LC5 is a **PAPER_PROOF / TARGET_EQUIVALENT** consumer reformulation, not an independently paid supplier. Independent review and new Lean formalization remain PENDING. **No new complete-endpoint gain, canonical bound or RH proof.**
+
+### B. Current Authoritative Objective
+
+Canonical target, unchanged and OPEN:
+
+```text
+exists C>=0, forall integer R>=2:
+  |pi(R^2) - F_R - sqrt(2)| <= C R log R,
+F_R = sum_(2<=r<R) (2r+1)/log(r^2+r+1/2).
+```
+
+The exact original JOH carrier is
+
+```text
+L(x)=Li_2(x)=integral_2^x du/log u,
+Q(n)=floor(L(n)), B(n)=pi(n)-Q(n)-1,
+eta(k)=1_Prime(k)-Q(k)+Q(k-1),
+G(N)=sum_(2<=n<N) B(n)=sum_(3<=k<N)(N-k) eta(k).
+```
+
+The Lean primitive is `eta(k)=vfMidFloorLiPrimitiveMismatch(k-1)`, not the declaration at k. The continuous external consumer uses classical li, with its fixed li(2) offset; it is not silently replaced by Li_2. The actual-prime canonical phase is still sqrt(2), with its full quadratic phase correction if that coordinate is used.
+
+Material bytes fetched from the pinned main:
+
+| Source | Blob SHA | Relevant scope |
+| --- | --- | --- |
+| AGENTS.md | 547dda0d9456e7a4e1165dc72d59da6f70d5c023 | Independent routing, source integrity and own-report-only writes |
+| CURRENT_PROOF_CONTRACT.md | 7c4ac83a1ec1a4144e1bd691391ed4244f1cc27c | Canonical objective and source safeguards |
+| Independent multi-front policy | ffd8f1c65cc4da656174956d4e03b48bea46768b | NO_PIGEONHOLING_ROUTE_SELECTOR_V1 |
+| Stable task selector | 4fbab59cc6fcc33a4f4e7a8ef447b2f7947b53dd | Protected Owner VF-LOW/SAT/JOH rotation |
+| Research engine | 6c1d1c10e2755017ffe9d7f40df8b9ae7692f23a | Resume exact derivations and preserve evidence |
+| VF_MID_FLOOR_LI_SIGNED_POPULATION_BALANCE.lean | 9a9336dad72171b6d572a1c1ae88d1ae8b56b530 | Actual integer potential, ternary mismatch, exact Abel carrier |
+| VF_MID_FLOOR_LI_DISCRETE_BACKLOG.lean | 4255ca0dffe480f2aec6bd0b68797bbd293396c3 | Actual square-backlog recurrence and owner census |
+| VF_MID_FLOOR_LI_TRANSPORT_CANCELLATION.lean | eb84f59055bd31dc117be034d45c92eb9dab8f27 | Existing chamber identity and full boundary-energy correction |
+| VF_MID_915_FLOOR_LI_TRANSPORT_BOUNDARY.lean | 10829c3857b6a375d1dd8179f78a35550c9e67d8 | Original history/anchor remains; no extra denominator capacity |
+| PrimeSieveLipschitzExcursion.lean | 3eec4abf544310871088dae648fbed1f400cf35a | Original Li integral and drift theorem |
+| LI_FAN_ONE_SIDED_WEIGHTED_COMPOSITE_RH_CONTRACT_20261022.md | 27e28f09e9f79e8a60d524e5fcb6f19904fa55f5 | Paper JOH eventual-square consumer and physical weights |
+| VF_CANONICAL_SQRT_TWO_VON_KOCH.lean | 79030d70e8d3e0d08eef9bac53fef95c36eca2fb | Canonical definition and explicit classical-criterion premise |
+| VF_MID_FLOOR_LI_TRANSPORT_MINING.md | 14f86c0038da3371353a94fce2510dabf03ccd62 | Existing transport identities, finite lifetime observations only |
+
+The last eight mathematical files have the same material SHAs as the applicable earlier sources, but their bytes were retrieved and relevant definitions/proofs read, not assumed cached. The source search found existing generic chamber and quadratic identities; these are reused, not claimed as new. No identical all-Li-cell placement bound was located in the scoped sources and two-day handoffs; no exhaustive or literature-novelty claim is made.
+
+Live PR collection: no open or draft PR at intake. Human merges #1085, #1090 and #1091 were directly confirmed. Their independently audited central moving-mass, fixed-log Nyman and explicit fixed-slot-count results retain the scopes recorded by today's Coordinator; none is a JOH estimate. Main's two returned workflows are successful Proof inventory and Documentation checks, not a new JOH compilation. No new or local Lean execution occurred.
+
+### C. Structural Hypotheses Investigated
+
+Resume **20261103-owner-3/JH9-JH10**, its section J proper-class question, and **20261104-coordinator-2**, section H. Today's prior actual Owner turns were SAT owner-1 and VF-LOW owner-2, so this independently useful JOH turn completes the protected triple.
+
+Three moves were distinguished:
+
+1. **H-JOH-EVEN-SIGN:** every selected even-index double-arrival slot has nonpositive midpoint area. The stricter source restriction excludes yesterday's odd-index first witness; a new genuine test was necessary.
+2. **H-JOH-EVEN-DYADIC:** W(X)<=0 for every integer X>=5, including every selected slot fully contained in [X,2X]. A local counterexample alone would not disprove this aggregate version.
+3. Pay bounded, zero-total-mass packets geometrically, then test whether the same clock geometry controls ALL within-slot placement. This yields LC2 and LC4 without requiring either sign conjecture.
+
+The first two tests were recorded in the early checkpoint before execution. Development range was 2..2048; held-out was 2049..4096. No larger range or fitted exponent was used. The all-cell compression was derived after the packet bound and added as a disclosed second-stage verification, not retroactively described as preregistered.
+
+Wording correction to the preserved checkpoint: the aggregate sign assertion is logically WEAKER than a universal pointwise sign assertion. Refuting the aggregate is a stronger falsification than exhibiting just one positive packet. The tested definitions and rejection conditions were unchanged.
+
+### D. Mathematical Derivation
+
+#### LC1. Genuine Admission And Neutral Packet
+
+For integers j with b_j>=5 define
+
+```text
+b_j=min{n>=2: Q(n)>=j}.
+```
+
+L is increasing and unbounded. Its integer increments above four are less than one, so these are strictly increasing arrivals with Q(b_j)=j and Q(n)=j on b_j<=n<b_(j+1). Retain these INTEGER arrivals, not continuous inverse-Li roots.
+
+Select any subfamily of EVEN j for which b=b_j and c=b_(j+1) are composite and the interior contains exactly two primes p<q. Even indexing makes the closed slots pairwise disjoint: c=b_(j+1)<b_(j+2). The actual nonzero mismatch events on the closed slot are exactly
+
+```text
+b(-1), p(+1), q(+1), c(-1).
+```
+
+There is no hidden prime/model coincidence here: the endpoints are composite, and there is no model arrival in the interior. Every prime/composite keeps its original location, factorization and occurrence. The slot is a genuine source subset, not just eligible ancestry.
+
+Its primitive and accumulated contribution at ANY integer cutoff N are
+
+```text
+k_j(n)=-1_(b<=n<p)+1_(q<=n<c),
+P_j(N)=-(N-b)_+ +(N-p)_+ +(N-q)_+ -(N-c)_+.
+```
+
+These are specializations of the existing signed-transport chamber identity. In particular, for N>=c,
+
+```text
+P_j(N)=a_j=b+c-p-q=(c-q)-(p-b).                 (LC1)
+```
+
+Zero mass makes the completed contribution independent of N. It does not force its sign to vanish. A cutoff inside the packet retains the displayed clipped formula; it is never replaced prematurely by a_j.
+
+#### LC2. An Independent All-Scale Bound For The Selected Class
+
+Let S be ANY subfamily just defined, finite or infinite. It is locally finite. Put
+
+```text
+K_S(n)=sum_(j in S) k_j(n),
+P_S(N)=sum_(2<=n<N) K_S(n).
+```
+
+Since the chamber supports are disjoint,
+
+```text
+|K_S(n)|<=1,                |P_S(N)|<=N-2.       (LC2a)
+```
+
+This is uniform in the scale, chosen subfamily, number of packets, owner labels and factor depth. It includes every partial terminal packet, without any probabilistic or prime-distribution premise.
+
+For a complete selected slot put u=p-b>=1, v=c-q>=1 and d=q-p>=2. These primes exceed two, so d is even. With ell=c-b=u+d+v,
+
+```text
+|a_j|=|v-u|<=u+v-2=ell-d-2<=ell-4.             (LC2b)
+```
+
+For S_X consisting of ALL selected slots contained in [X,2X], m_X=#S_X, disjointness gives the exact uniform restriction
+
+```text
+|W(X)| <= sum_(j in S_X)|a_j|
+       <= sum_(j in S_X)(b_(j+1)-b_j)-4m_X
+       <= X-4m_X <= X.                          (LC2c)
+```
+
+This answers the requested proper-class signed-estimate question without a sign law. It is not a bound for the original full G.
+
+To restore that full source define eta_star by deleting ONLY these four actual events per selected slot, define B_star=B-K_S, and G_star(N)=sum_(2<=n<N)B_star(n). The complement retains every other event, all original anchors and squareful terms. Then
+
+```text
+G=G_star+P_S,
+G^2=G_star^2+2G_star P_S+P_S^2.                 (LC2d)
+```
+
+The complete mixed term is present. Its honest magnitude price is at most 2(N-2)|G_star|+(N-2)^2 in the difference of squares; no diagonal-only inference is made. This is a JOH source comparison, not a replacement for #915's compressed historical denominator.
+
+#### LC3. Exact Sign Falsifiers
+
+The interval certificate proves the relevant Q floors, and independent integer sieve/trial factorization certifies prime membership.
+
+| j | (b,p,q,c) | a_j | Least owners of (b,c) | Endpoint factorizations |
+| ---: | --- | ---: | --- | --- |
+| 48 | (194,197,199,200) | -2 | (2,2) | 194=2*97; 200=2^3*5^2 |
+| 150 | (820,821,823,826) | +2 | (2,2) | 820=2^2*5*41; 826=2*7*59 |
+| 328 | (2109,2111,2113,2117) | +2 | (3,29) | 2109=3*19*37; 2117=29*73 |
+| 330 | (2124,2129,2131,2132) | -4 | (2,2) | 2124=2^2*3^2*59; 2132=2^2*13*41 |
+
+For j=150, Q(819)=149, Q(820)=...=Q(825)=150 and Q(826)=151. The positive witness satisfies ALL fixed hypotheses. The held-out j=328 positive witness even has both endpoint demands squarefree; simply removing squareful demands cannot rescue the universal sign claim.
+
+The complete [512,1024] selected population consists of exactly:
+
+```text
+j=116: (597,599,601,603), area 0;
+j=148: (806,809,811,813), area -1;
+j=150: (820,821,823,826), area +2.
+W(512)=1.
+```
+
+Thus H-JOH-EVEN-DYADIC is refuted without dropping unfavorable slots. Additional complete dyadic totals: W(128)=-2, W(256)=0, W(1024)=-4, W(2048)=+3. The first positive integer-X window within the declared scan is X=413. These are finite universal-claim falsifiers, not assertions of infinitely many sign changes or asymptotic frequency.
+
+#### LC4. Full Li-Cell Compression With A Paid Placement Error
+
+**Theorem (paper).** Fix any original arrival a=b_(j0)>=5 and an integer N>=a. For each j>=j0 with b_j<N let
+
+```text
+t_j=min(b_(j+1),N), ell_j=t_j-b_j, h_j=B(b_j),
+U_a(N)=G(a)+sum_j ell_j*h_j,
+E_a(N)=sum_j sum_(b_j<p<t_j, p prime) (t_j-p).
+```
+
+Then, for every such a,N,
+
+```text
+G(N)=U_a(N)+E_a(N),
+0<=E_a(N)<=pi(N)log N,
+0<=E_a(N)<=(13/10)N  when N>=17.                (LC4)
+```
+
+Constants are independent of a, j0, N, cell count and all factorizations. The finite or truncated last cell is included by t_j. No count assumption on any cell and no disjoint-even restriction are needed.
+
+**Proof.** For b_j<=n<t_j, Q(n)=j, hence exactly
+
+```text
+B(n)=B(b_j)+pi(n)-pi(b_j).
+```
+
+Sum this over the original integers in that cell. Finite Fubini gives
+
+```text
+sum_(b_j<=n<t_j)B(n)
+ = ell_j B(b_j)+sum_(b_j<p<t_j, p prime)(t_j-p).
+```
+
+These cells partition [a,N), and the initial G(a) is kept. Boundary primes p=b_j already belong to h_j; a prime at the next boundary belongs to the next h, not this cell. A prime at N has zero weight and is excluded. The map counts every original interior prime once, with its exact weight. In particular the error is nonnegative.
+
+For a cell containing an interior prime, t_j>=b_j+2. Its last integer t_j-1 has the SAME floor j as b_j, so
+
+```text
+0 <= L(t_j-1)-L(b_j) < 1,
+(t_j-1-b_j)/log(t_j-1)
+ <= integral_(b_j)^(t_j-1) du/log u < 1.
+```
+
+Consequently each original displacement satisfies
+
+```text
+0<t_j-p<=t_j-b_j-1<log(t_j-1)<=log N.
+```
+
+At most pi(N) primes occur in the error sum, proving its first bound. The last uses the classical explicit estimate pi(x)<1.3*x/log x for x>=17, stated in [Johnston, Lemma 2.2](https://arxiv.org/html/2201.06184v2#S2), with x=N. Its hypotheses concern the SAME genuine prime count, and its constant is absolute. No short-interval input is imported. Even the elementary weaker E_a(N)<=N log N follows without that external estimate and is smaller than the later RH-scale signed margin.
+
+This is a justified comparison, not a claim that actual primes are located at b_j. The omitted positions are recovered exactly in E_a. The floor phase, unequal prime counts, simultaneous prime/model events and every original square boundary are retained through the actual b_j and h_j.
+
+For a=5 (Q(4)=1,Q(5)=2,G(5)=0, certified below), write U=U_5 and E_place=E_5. Full quadratic accounting is
+
+```text
+G^2=U^2+2U E_place+E_place^2,
+|G^2-U^2| <= (13/5)N|U|+(169/100)N^2   (N>=17).
+```
+
+There is no claim that the entire squared error costs only O(N^2); its cross term remains. LC2 and LC4 are alternative decompositions of the SAME source and are not two independent cancellation credits to add.
+
+#### LC5. Endpoint Relevance And Its Limitation
+
+Let H(x)=integral_2^x(pi(t)-li(t))dt with classical li. The existing JOH paper bridge gives G(N)-H(N)=O(N). The source was checked against [Johnston's original theorem and proof](https://arxiv.org/html/2201.06184v2#S3): under RH, the proof yields H(x)<=-c*x^(3/2)/log x eventually for some c>0; if RH is false, it gives positive values of order x^kappa along an unbounded sequence for some kappa>3/2. These are external analytic inputs, not new formal imports.
+
+LC4 therefore yields U(N)-H(N)=O(N). Under RH, U(N)<=G(N)<0 eventually. If RH is false, transfer the positive H values to integers with O(x) cost, and then to a nearest square with O(x^(3/2)) cost using the elementary |B(n)|=O(n) bound. The x^kappa term dominates both costs, as well as E_place=O(x), so U(R^2)>0 for arbitrarily large R. Hence, at PAPER scope with the stated external ingredients,
+
+```text
+RH iff U(R^2)<0 for every sufficiently large integer R. (LC5)
+```
+
+This is explicitly **TARGET_EQUIVALENT**. The independent gain is payment of E_place, not proof of this remaining sign. No target-strength bound on U is assumed. At N=R^2, the paid placement error is O(R^2), versus the external RH negative-margin scale R^3/log R; the original canonical pointwise bound is not inferred from this first moment alone.
+
+An elementary inverse statement records where a hypothetical large positive discrepancy must reside:
+
+```text
+G(N)>=Y  ==>  U(N)>=Y-(13/10)N.
+```
+
+Similarly LC2 gives G_star(N)>=Y-(N-2). Thus neither these double-arrival packets nor ANY within-single-Li-cell prime placement can create an asymptotic superlinear positive discrepancy while the corresponding retained source remains small. This does not supply an impossibility theorem for the retained source.
+
+### E. Quantitative Consequence
+
+New independent restrictions at paper scope: |W(X)|<=X-4m_X; |K_S|<=1 and |P_S(N)|<=N-2 with complete terminal clipping; and the full proper-error bound 0<=E_place(N)<=(13/10)N. They hold uniformly on the actual prime/floor-Li source, not merely at the tested scales.
+
+The conclusion is stronger strategically than another local sign catalogue: the whole within-clock position bill is already lower order for the JOH endpoint, despite genuine positive packets. Further work trying to prove a universal midpoint sign is both falsified in its stated form and unnecessary for paying this term. The complete sampled history U remains unpaid, including cross-cell coherence and the original initial condition.
+
+No incoming 7/8 estimate was needed or bootstrapped. No new upper bound on full G, canonical VF, original #915 NNS, or Mertens was obtained. New net endpoint gain **UNKNOWN / NONE ESTABLISHED**; independent-innovation gate remains **SEARCH_BROAD**. Previously reviewed fixed-slot results retain their separate scopes without being counted again.
+
+### F. Falsification And Circularity Review
+
+The final program certifies every Q(n), 2<=n<=4096, using integer-only outward-rounded intervals with denominator 2^200, 80 terms of the range-reduced log series and 180 terms of the positive Ei series. Its analytic identity is F(z)=log z+sum_(k>=1)z^k/(k*k!), F'(z)=exp(z)/z; L(n)=F(log n)-F(log 2), so Euler's constant cancels. Explicit geometric tails are included. The minimum noninitial distance to an integer exceeds 9/100000; the largest interval width is below 10^(-50). No floating-point sign decision is used.
+
+All prime flags through 4096 agree between an Eratosthenes sieve and independent trial factorization. There are 41 selected slots: 12 positive, 13 negative, 16 zero. Development has 13 slots, held-out has 28, with no straddler at 2048. All 2044 integer windows 5<=X<=2048 satisfy LC2c. The finite survival of this bound is regression evidence for its separate proof, not its justification.
+
+Executed exact checks: 4095 original/complement/packet prefix reconstructions, 8190 full quadratic identity/bound checks, and 4092 all-cell compression checks. Every partial cutoff is included. E_place was independently reconstructed from literal prime displacement weights, not only defined as G-U.
+
+| N | Original G(N) | Sampled U(N) | E_place(N) |
+| ---: | ---: | ---: | ---: |
+| 512 | -2595 | -2808 | 213 |
+| 1024 | -6703 | -7134 | 431 |
+| 2048 | -16599 | -17485 | 886 |
+| 4096 | -42284 | -44049 | 1765 |
+
+Separate extraction of the 41 neutral packets gives at N=4096: original G=-42284, packet P_S=-2, retained G_star=-42282. The all-cell sampled U=-44049 is a DIFFERENT retained coordinate; these must not be conflated. The roots 12/35 anchored values remain unchanged; yesterday's witnesses are used only as regressions.
+
+Stress points addressed: prime at a cell boundary, composite/squareful endpoints, squarefree held-out demands, coincident arrivals, even-index nonoverlap, a cutoff inside a packet/cell, zero-area packets, and opposite signs with the same owner/length/twin-gap signature. The bound does not claim a family covers every event. The residual is explicitly the original complement. Duplicate prime histories, unsigned replacement of global covariance, and altered Li constants are absent.
+
+The prior generic transport identity already exists on main. The paper additions are the checked disjoint-source upper bound and ALL-cell logarithmic-displacement estimate, plus their quantitative implication for this investigation. LC5 remains target-equivalent and supplies no new arithmetic sign. No independent Referee acceptance or Lean compilation is asserted.
+
+### G. Conceptual Interpretation
+
+The four-event motif has zero mass but a nonzero first moment. Its positive and negative areas depend on placement, and genuine factors do not fix the orientation. Yet its primitive has bounded height. Disjointness converts that fact into a global bound even when all packet areas conspire with the same sign.
+
+The wider compression is more decisive. At the fixed Li clock, all information about prime positions INSIDE a cell is an explicitly paid linear error. The possible large signed defect is carried by how many prime arrivals have accumulated by successive clock boundaries and how those signed levels persist across many cells. This distinguishes local timing from cross-cell count history without pretending they are independent. The new representation is useful because the discarded information has an independently proved price.
+
+### H. Competing Mechanisms
+
+| Mechanism | Established restriction / obstruction | Missing input and disposition |
+| --- | --- | --- |
+| Universal even-slot midpoint sign | LC3 genuine +2; same owners/width/twin gap also gives -2 | ABANDON that universal sign, not eventual or global compensation |
+| Nonpositive complete dyadic selected area | W(512)=1, held-out W(2048)=3 | ABANDON universal version; no asymptotic sign conclusion |
+| Bounded neutral-packet removal | LC2 pays the selected class, including terminal clipping, at O(N) | RETAIN as a proper-sector tool; no claim on its complement |
+| All-cell placement compression | LC4 pays every local positional error at O(N) | CONTINUE with sampled count history; U's sign is target-equivalent and OPEN |
+| Growing-window count correlations | Exact h_(j+h)-h_j carrier below | Exploratory independent candidate; no theorem or complete consumer yet |
+| SAT moving-band interior | owner-1 S3 bound and OPEN-SAT-I | Next protected turn, retain endpoint/model/zero-layer return |
+| VF-LOW ancestry payment | owner-2 SF1-SF5 fixed-depth squarefree overload | Do not revive once-only capacity; next after SAT |
+
+The compression is more useful than the falsified local sign as a decomposition because it actually pays a whole term. It is not evidence that JOH has become easier than other routes; its remaining count-history source is still target-strength.
+
+### I. Specialist Handoffs
+
+**Coordinator:** register 20261104-owner-3 LC2/LC4 as new self-audited paper proper-sector bounds, LC3 as exact sign falsifiers, and LC5 as target-equivalent. Stop assigning the nonpositive even-slot midpoint law as an unpaid necessity. A serious next JOH mechanism must constrain cross-cell sampled counts or their complete signed history. Preserve distinct next Owner SAT and then VF-LOW turns; do not narrow the nine-route programme.
+
+**Referee:** independently reconstruct LC4 before reading the proof: original b_j, h_j, truncated t_j, exact E_a, and 0<=E_a<=pi(N)log N. Challenge N versus N-1, prime arrivals at boundaries, missing G(a), and the use of the genuine explicit pi upper bound. Separately test LC2's infinite-subfamily local finiteness and all-prefix clipping, LC3's entire W(512) population, and LC5's external square interpolation. Return separate scope verdicts; no global gain is proposed.
+
+**Census:** a small independent replication is enough: certify the two same-owner six-length slots, all three W(512) slots, and the held-out W(2048) total; reconstruct G/U/E at 512 and 4096. Rival claims are sign-only versus bounded-but-both-sign placement. Required exactness is integer primality plus certified floors. Any positive W disproves the universal aggregate claim; a larger range is not needed to strengthen that conclusion.
+
+**Analytic:** if a future JOH support turn is warranted, examine the precise growing-arrival-window variance candidate in J, including actual sampled windows and halo. Any theorem must be translated with correct sampling weights; do not import an all-real interval average without its discrete-sampling bridge. Even a positive result does not control the initial backlog or full cross-window coherence. No Mobius-to-Hecke map is presumed.
+
+**Wheel:** the same (least owner 2,2), twin-prime gap and slot length permit both signs. Local factor labels alone cannot decide this midpoint. Seek genuine restrictions on the COUNT innovation sequence, not another price for an already paid within-cell displacement. Preserve squareful and coincidence events.
+
+**Lean:** no speculative supplier or immediate proof-branch request. After independent acceptance and utility review, LC2 is a finite disjoint-chamber consequence of existing transport declarations; LC4 requires exact floor-cell partition and Li drift/lower-integral ingredients, with the established prime-count upper bound stated honestly. Formalizing the identity alone must not be labeled the O(N) estimate or the remaining U sign. Existing accepted implementation work is not displaced.
+
+These are published asynchronous handoffs, not claims that any specialist was launched or has reviewed the work.
+
+### J. First Independently Missing Lemma
+
+There is **no identified independently justified supplier closing the remaining U sign**. That sign is explicitly target-equivalent and must not be renamed as an elementary last lemma.
+
+A proper, falsifiable next quantitative candidate for a later JOH turn is the following original COUNT-increment question. For real X sufficiently large set h=floor(X^(1/4)), J_X={j:X<=b_j<2X}, and
+
+```text
+V_clock(X)=sum_(j in J_X)
+  |pi(b_(j+h))-pi(b_j)-h|^2
+ =sum_(j in J_X)|B(b_(j+h))-B(b_j)|^2.
+
+OPEN-JOH-CLOCK-VAR (exploratory):
+exists absolute C,A>=0 and X0, forall X>=X0,
+  V_clock(X) <= C X h (log X)^A.
+```
+
+Every interval is the literal original (b_j,b_(j+h)] with all multiplicities and its upper halo retained; Q(b_(j+h))-Q(b_j)=h exactly. The question asks for an independent growing-window prime-count restriction, not a bound for G renamed. No proof, literature novelty, optimal exponent, or implication to RH is claimed. Its existing literature status has not been fully audited in this invocation. It would control a proper increment energy, while any constant offset of the level sequence is invisible to it; therefore the initial history and global signed consumer would remain separate obligations. This explicit limitation prevents selling it as a complete supplier.
+
+Before new computation, Analytic should check applicable established prime short-interval variance results and the exact discrete-sampling bridge. Any requested finite test must freeze C,A and range separately; an unspecified constant is not falsifiable by a finite scan. This is a future candidate, not an extra launch or a reason to skip the next SAT turn.
+
+The immediately due next Owner action remains the already specified **OPEN-SAT-I** from owner-1: with b=7/8, alpha=8/9, seek a fixed kappa>0 in the true interior I_R bound R^(11/6-kappa+epsilon), preserving the separate 85/48 endpoint and full model/complement. Do not repeat the paid S3 derivation or claim its interior saving alone beats the terminal 7/4 exponent.
+
+### K. Next-Run Resume Capsule
+
+```text
+RUN: actual scheduled 2026-11-04T16:15:01-05:00; RUN_ID_UNAVAILABLE.
+MAIN: 1daca8d582c361983567f0b6e99d447a77c3aea5.
+POLICY: NO_PIGEONHOLING_ROUTE_SELECTOR_V1 / ffd8f1c65cc4da656174956d4e03b48bea46768b.
+INTAKE_REPORT_HEAD: 5ca60b1734d89c85a9d60bcc643023844b480127.
+EARLY_CHECKPOINT: 7368003a54ca0738fee7b7f8145fdf5106a66609.
+EARLY_BLOB: 380ce83816eaf3e4dd1109cae767d90156940175; exact readback PASS.
+ROUTE/TASK: JOH / genuine even-arrival area, then all-cell placement compression.
+CLAIM: 20261104-owner-3 / LC1-LC5.
+NEW INDEPENDENT RESTRICTION: |K_S|<=1, |P_S(N)|<=N-2, |W(X)|<=X-4m_X;
+  0<=E_place(N)<=pi(N)log N<=1.3N, exact G=U+E_place.
+FALSIFIERS: j150 +2 versus j48 -2 with identical owners/length/twin gap;
+  full W(512)=1; held-out W(2048)=3.
+PAID: within-cell placement, not actual count-level history U.
+COMPLETE RETURN: all original anchors, boundary coincidences, clipped last cell;
+  G^2=U^2+2UE+E^2, and separate G_star/P decomposition with mixed term.
+REVIEW: SELF_AUDIT; independent Referee PENDING. FORMAL: NOT_COMPILED_THIS_RUN.
+CONSUMER: external Johnston plus O(N) bridge; U eventual sign TARGET_EQUIVALENT.
+NEW COMPLETE-ENDPOINT GAIN: UNKNOWN / NONE; canonical VF and RH OPEN.
+OWNED ROTATION TODAY: SAT owner-1; VF-LOW owner-2; JOH owner-3.
+NEXT: SAT OPEN-SAT-I with full endpoint/model/complement; then VF-LOW.
+JOH FUTURE: cross-cell count increments, not a revived local midpoint sign.
+PERMISSIONS: only this own dated report; no source/PR/agent/schedule/main action.
+```
+
+#### Two-Day Continuity
+
+All listed reports were actually retrieved at the intake reporting SHA. Relevant findings, corrections and continuation sections were read; this is not independent acceptance of all their claims. TODAY=AVAILABLE for every role; YESTERDAY=CARRY_FORWARD. Coordinator 00/90 mirror blobs agree in the fetched directory metadata.
+
+| Role | November 3 blob | November 4 intake blob |
+| --- | --- | --- |
+| Coordinator | e35ab2cd9cba2a47ac5be53b09938b37a0c20df3 | f4297e525684aa149b9f7bd037bc1507e9f3a3e4 |
+| Owner | d52c74b76c2914c3be694f39cd7afe9b122a4834 | bef2ab8cefd691a868d8f1acdfe696af41266d16 |
+| Analytic | 2b9c3dbab6039e3c30a5ece3e473290af5dbbf0b | 5e489bffbce7fe986b9f48c73cb409beaa151f82 |
+| Wheel | cd7777180bb5c2c899a60bdd699b99be8e12a672 | 6a773f357029bb97cf34110532c7de1f7bb38f3f |
+| Census | eb9a2e0cf7772f22060aec07e0bcddd24ace9cd9 | 9f634c872fe98f82676c263a4faba35dff3ac4f0 |
+| Referee | 583ce524628577818603ffd4e9ec0eb3673a3f37 | 11eaf073fad23591cdf6d8fe83209042139e54c5 |
+| Lean | fc27fb1ae103e60ff600e5a24ce6716937da3884 | 1519754f2b440abd6821a960926028dc776c8576 |
+
+Consumed scope: latest Coordinator C45-C48 Nyman cutoff/deficit work and distinct JOH assignment; Owner SAT S1-S5, VF SF1-SF5 and yesterday JH1-JH10; Analytic CODIV logarithmic maximal estimate and CF1-CF3; Wheel top-prime packet obstruction and completion coherence; Census exact norm/factor collisions; Referee's scoped CF acceptance and moving-mass/small-row restrictions; Lean's actual Nyman and central-mass formal evidence. None is silently imported as a bound on the present prime-clock source. External inbox 038018145c0fddb2f6306c0712373adf9cd1ea52 is unchanged, with latest entries October 18; EXT-20261018-PNT-1..3 and EXT-20261014-5 remain source-qualified safeguards, not current routing.
+
+#### Execution And Publication Discipline
+
+The early checkpoint was committed and read back exactly; commit inspection showed only this authorized report changed. The full synthesis is published only after current-blob refresh and exact readback; the following receipt will record that verified commit, not a presumed outcome.
+
+Direct shell GitHub access failed with CONNECT tunnel HTTP 403; connected GitHub reads and report writing worked. No local Lean or background mathematical process remains. No main, shared instruction, proof source, other agent report, issue, PR, workflow, permission, protection or schedule was modified. No agent was launched and no merge was attempted.
+
+Final verifier source SHA256: **41a854b5741dd3b0396a8a809270d82e3e9f978bec877cdb264173c1102c2dd7**. Reused certificate library SHA256: **c6411707d81bbc6f74246ecab45eaa8d353650258ae969e08342717eb5dbbd86**. The library is reproduced verbatim from the available prior proof method, not called a new algorithm. Exact selected-slot data digest: **e9b1ab26ae9cae521490e754bd40b1af202c6f3cefc7c8b1503ef4bca86f4b2e**. Both scripts passed syntax checks; the final verifier exited zero.
+
+### Complete Executed Certificate
+
+The two program blocks below are the exact executed sources, followed by the exact output. No finite test is promoted to an all-scale theorem or Lean proof.
+
+
+#### joh_interval_base.py
+
+```python
+"""Rational dyadic interval certificate for the selected genuine JOH events.
+
+All arithmetic deciding a floor or sign uses Python integers. Natural logs
+use range reduction and the atanh series with an explicit geometric tail.
+Li_2 uses the convergent Ei series; Euler's constant cancels exactly.
+"""
+
+import json
+from fractions import Fraction
+from math import isqrt
+
+BITS = 200
+SCALE = 1 << BITS
+LOG_TERMS = 80
+EI_TERMS = 180
+
+
+def ceildiv(a, b):
+    return -((-a) // b)
+
+
+def rational(n, d=1):
+    return n * SCALE // d, ceildiv(n * SCALE, d)
+
+
+def add(a, b):
+    return a[0] + b[0], a[1] + b[1]
+
+
+def sub(a, b):
+    return a[0] - b[1], a[1] - b[0]
+
+
+def mul(a, b):
+    assert a[0] >= 0 and b[0] >= 0
+    return a[0] * b[0] // SCALE, ceildiv(a[1] * b[1], SCALE)
+
+
+def div(a, b):
+    assert a[0] >= 0 and b[0] > 0
+    return a[0] * SCALE // b[1], ceildiv(a[1] * SCALE, b[0])
+
+
+def times(a, n):
+    return (a[0] * n, a[1] * n) if n >= 0 else (a[1] * n, a[0] * n)
+
+
+def small_log(n, d):
+    assert d <= n <= 2 * d
+    u = rational(n - d, n + d)
+    u2 = mul(u, u)
+    power, result = u, rational(0)
+    for j in range(LOG_TERMS):
+        result = add(result, div(times(power, 2), rational(2 * j + 1)))
+        power = mul(power, u2)
+    tail = div(times(power, 2), times(sub(rational(1), u2), 2 * LOG_TERMS + 1))
+    return result[0], result[1] + tail[1]
+
+
+LOG2 = small_log(2, 1)
+
+
+def log_rational(n, d=1):
+    assert n > 0 and d > 0
+    k = n.bit_length() - d.bit_length()
+    if k >= 0:
+        den, num = d << k, n
+    else:
+        den, num = d, n << (-k)
+    if num < den:
+        k -= 1
+        num *= 2
+    assert den <= num < 2 * den
+    return add(small_log(num, den), times(LOG2, k))
+
+
+def ei_without_gamma(z):
+    assert z[0] > 0
+    result = (log_rational(z[0], SCALE)[0], log_rational(z[1], SCALE)[1])
+    term = rational(1)
+    for k in range(1, EI_TERMS + 1):
+        term = div(mul(term, z), rational(k))
+        result = add(result, div(term, rational(k)))
+    first = div(div(mul(term, z), rational(EI_TERMS + 1)), rational(EI_TERMS + 1))
+    ratio = div(z, rational(EI_TERMS + 2))
+    tail = div(first, sub(rational(1), ratio))
+    return result[0], result[1] + tail[1]
+
+
+BASE = ei_without_gamma(LOG2)
+
+
+def li_interval(n):
+    if n == 2:
+        return rational(0)
+    return sub(ei_without_gamma(log_rational(n)), BASE)
+
+
+def sieve(n):
+    p = bytearray(b"\x01") * (n + 1)
+    p[:2] = b"\x00\x00"
+    for k in range(2, isqrt(n) + 1):
+        if p[k]:
+            p[k * k:n + 1:k] = b"\x00" * ((n - k * k) // k + 1)
+    return p
+
+
+def factor(n):
+    result = []
+    for d in range(2, isqrt(n) + 1):
+        while n % d == 0:
+            result.append(d)
+            n //= d
+    if n > 1:
+        result.append(n)
+    return result
+
+
+
+```
+
+#### joh_even_slots.py
+
+```python
+"""Preregistered JOH even-arrival tests; every floor decision is certified."""
+
+from fractions import Fraction
+import hashlib
+import json
+from joh_interval_base import SCALE, li_interval, log_rational, sieve, factor
+
+END = 4096
+DEVELOPMENT_END = 2048
+prime = sieve(END)
+assert all(bool(prime[n]) == (factor(n) == [n]) for n in range(2, END + 1))
+floors = {2: 0}
+margin = SCALE
+width = 0
+for n in range(3, END + 1):
+    lo, hi = li_interval(n)
+    assert lo // SCALE == hi // SCALE, (n, lo, hi)
+    floors[n] = lo // SCALE
+    margin = min(margin, lo - floors[n] * SCALE,
+                 (floors[n] + 1) * SCALE - hi)
+    width = max(width, hi - lo)
+
+arrivals = {}
+for n in range(3, END + 1):
+    jump = floors[n] - floors[n - 1]
+    assert jump in (0, 1)
+    if jump:
+        arrivals[floors[n]] = n
+
+slots = []
+for j, b in arrivals.items():
+    if j % 2 or b < 5 or j + 1 not in arrivals:
+        continue
+    c = arrivals[j + 1]
+    inside = [n for n in range(b + 1, c) if prime[n]]
+    if prime[b] or prime[c] or len(inside) != 2:
+        continue
+    p, q = inside
+    a = b + c - p - q
+    assert abs(a) <= c - b - 4
+    assert factor(p) == [p] and factor(q) == [q]
+    assert len(factor(b)) >= 2 and len(factor(c)) >= 2
+    slots.append(dict(j=j, b=b, p=p, q=q, c=c, area=a,
+                      owners=[factor(b)[0], factor(c)[0]],
+                      factors=[factor(b), factor(c)]))
+
+events = [0] * (END + 1)
+chambers = [0] * (END + 1)
+for s in slots:
+    b, p, q, c = (s[k] for k in ('b', 'p', 'q', 'c'))
+    for k, sign in ((b, -1), (p, 1), (q, 1), (c, -1)):
+        eta = int(prime[k]) - floors[k] + floors[k - 1]
+        assert eta == sign and events[k] == 0
+        events[k] = sign
+    for n in range(b, p):
+        assert chambers[n] == 0
+        chambers[n] = -1
+    for n in range(q, c):
+        assert chambers[n] == 0
+        chambers[n] = 1
+
+count = 1
+K = P = G = Gstar = Bstar = 0
+compressed = placement = 0
+prime_counts = {2: 1}
+arrival_backlog = {}
+current_arrival = None
+compression_samples = []
+compression_checks = 0
+return_checks = quadratic_checks = 0
+samples = []
+for n in range(2, END + 1):
+    if n >= 3:
+        count += prime[n]
+        eta = int(prime[n]) - floors[n] + floors[n - 1]
+        K += events[n]
+        Bstar += eta - events[n]
+    B = count - floors[n] - 1
+    prime_counts[n] = count
+    if n in arrivals.values():
+        current_arrival = n
+        arrival_backlog[n] = B
+    assert K == chambers[n] and abs(K) <= 1
+    assert B == Bstar + K
+    assert G == Gstar + P
+    direct = sum(-max(n-s['b'], 0) + max(n-s['p'], 0)
+                 + max(n-s['q'], 0) - max(n-s['c'], 0) for s in slots)
+    assert P == direct and abs(P) <= n - 2
+    assert G * G == Gstar * Gstar + 2 * Gstar * P + P * P
+    assert abs(G * G - Gstar * Gstar) <= 2 * (n-2) * abs(Gstar) + (n-2)**2
+    return_checks += 1
+    quadratic_checks += 2
+    if n in (144, 169, 1225, 1296, 2048, 4096):
+        samples.append(dict(N=n, B=B, K=K, G=G, packet=P, complement=Gstar))
+    if n >= 5:
+        assert G == compressed + placement
+        direct_placement = 0
+        for j, b in arrivals.items():
+            if b < 5 or b >= n:
+                continue
+            t = min(arrivals.get(j + 1, END + 1), n)
+            direct_placement += sum(t-p for p in range(b+1, t) if prime[p])
+        assert placement == direct_placement >= 0
+        log_lo, _ = log_rational(n)
+        assert placement * SCALE <= count * log_lo
+        if n >= 17:
+            assert 10 * placement <= 13 * n
+        if n in (512, 1024, 2048, 4096):
+            compression_samples.append(dict(N=n, G=G, sampled=compressed,
+                                            placement=placement, pi=count))
+        compression_checks += 1
+        compressed += arrival_backlog[current_arrival]
+        placement += count - prime_counts[current_arrival]
+    G += B
+    P += K
+    Gstar += Bstar
+
+Wrows = []
+for X in range(5, END // 2 + 1):
+    sub = [s for s in slots if X <= s['b'] and s['c'] <= 2 * X]
+    W = sum(s['area'] for s in sub)
+    abs_sum = sum(abs(s['area']) for s in sub)
+    spans = sum(s['c']-s['b'] for s in sub)
+    assert abs(W) <= abs_sum <= spans - 4 * len(sub) <= X - 4 * len(sub)
+    Wrows.append(dict(X=X, W=W, count=len(sub), abs_sum=abs_sum,
+                      spans=spans, j=[s['j'] for s in sub]))
+
+def first_sign(rows, sign, field):
+    return next((s for s in rows if sign * s[field] > 0), None)
+
+def slot_summary(rows):
+    return dict(count=len(rows), positive=sum(s['area'] > 0 for s in rows),
+                zero=sum(s['area'] == 0 for s in rows),
+                negative=sum(s['area'] < 0 for s in rows),
+                sum_area=sum(s['area'] for s in rows),
+                first_positive=first_sign(rows, 1, 'area'),
+                first_negative=first_sign(rows, -1, 'area'))
+
+result = dict(
+    scope='FINITE_COMPUTATION; not an asymptotic sign or frequency theorem',
+    certified_integers=[2, END],
+    minimum_floor_margin=str(Fraction(margin, SCALE)),
+    maximum_li_interval_width=str(Fraction(width, SCALE)),
+    development=slot_summary([s for s in slots if s['c'] <= DEVELOPMENT_END]),
+    held_out=slot_summary([s for s in slots if s['b'] > DEVELOPMENT_END]),
+    boundary_straddlers=[s for s in slots if s['b'] <= DEVELOPMENT_END < s['c']],
+    full=slot_summary(slots),
+    first_positive_W=first_sign(Wrows, 1, 'W'),
+    first_negative_W=first_sign(Wrows, -1, 'W'),
+    dyadic_W=[r for r in Wrows if r['X'] & (r['X'] - 1) == 0],
+    restored_prefix_samples=samples,
+    return_checks=return_checks,
+    quadratic_checks=quadratic_checks,
+    dyadic_window_checks=len(Wrows),
+    compression_checks=compression_checks,
+    compression_samples=compression_samples,
+    positive_dyadic_slots=[s for s in slots if 512 <= s['b'] and s['c'] <= 1024],
+    witness_floor_values={n: floors[n] for n in (193, 194, 197, 199, 200,
+                                               819, 820, 821, 823, 825, 826,
+                                               2108, 2109, 2111, 2113, 2116, 2117)},
+)
+print(json.dumps(result, sort_keys=True, indent=2))
+print('SLOT_DATA_SHA256', hashlib.sha256(json.dumps(slots, sort_keys=True).encode()).hexdigest())
+
+```
+
+#### Exact Output
+
+```text
+{
+  "boundary_straddlers": [],
+  "certified_integers": [
+    2,
+    4096
+  ],
+  "compression_checks": 4092,
+  "compression_samples": [
+    {
+      "G": -2595,
+      "N": 512,
+      "pi": 97,
+      "placement": 213,
+      "sampled": -2808
+    },
+    {
+      "G": -6703,
+      "N": 1024,
+      "pi": 172,
+      "placement": 431,
+      "sampled": -7134
+    },
+    {
+      "G": -16599,
+      "N": 2048,
+      "pi": 309,
+      "placement": 886,
+      "sampled": -17485
+    },
+    {
+      "G": -42284,
+      "N": 4096,
+      "pi": 564,
+      "placement": 1765,
+      "sampled": -44049
+    }
+  ],
+  "development": {
+    "count": 13,
+    "first_negative": {
+      "area": -2,
+      "b": 194,
+      "c": 200,
+      "factors": [
+        [
+          2,
+          97
+        ],
+        [
+          2,
+          2,
+          2,
+          5,
+          5
+        ]
+      ],
+      "j": 48,
+      "owners": [
+        2,
+        2
+      ],
+      "p": 197,
+      "q": 199
+    },
+    "first_positive": {
+      "area": 2,
+      "b": 820,
+      "c": 826,
+      "factors": [
+        [
+          2,
+          2,
+          5,
+          41
+        ],
+        [
+          2,
+          7,
+          59
+        ]
+      ],
+      "j": 150,
+      "owners": [
+        2,
+        2
+      ],
+      "p": 821,
+      "q": 823
+    },
+    "negative": 4,
+    "positive": 3,
+    "sum_area": -5,
+    "zero": 6
+  },
+  "dyadic_W": [
+    {
+      "W": 0,
+      "X": 8,
+      "abs_sum": 0,
+      "count": 0,
+      "j": [],
+      "spans": 0
+    },
+    {
+      "W": 0,
+      "X": 16,
+      "abs_sum": 0,
+      "count": 0,
+      "j": [],
+      "spans": 0
+    },
+    {
+      "W": 0,
+      "X": 32,
+      "abs_sum": 0,
+      "count": 0,
+      "j": [],
+      "spans": 0
+    },
+    {
+      "W": 0,
+      "X": 64,
+      "abs_sum": 0,
+      "count": 0,
+      "j": [],
+      "spans": 0
+    },
+    {
+      "W": -2,
+      "X": 128,
+      "abs_sum": 2,
+      "count": 2,
+      "j": [
+        48,
+        56
+      ],
+      "spans": 12
+    },
+    {
+      "W": 0,
+      "X": 256,
+      "abs_sum": 0,
+      "count": 1,
+      "j": [
+        94
+      ],
+      "spans": 6
+    },
+    {
+      "W": 1,
+      "X": 512,
+      "abs_sum": 3,
+      "count": 3,
+      "j": [
+        116,
+        148,
+        150
+      ],
+      "spans": 19
+    },
+    {
+      "W": -4,
+      "X": 1024,
+      "abs_sum": 12,
+      "count": 7,
+      "j": [
+        198,
+        216,
+        262,
+        276,
+        280,
+        304,
+        310
+      ],
+      "spans": 54
+    },
+    {
+      "W": 3,
+      "X": 2048,
+      "abs_sum": 53,
+      "count": 28,
+      "j": [
+        324,
+        328,
+        330,
+        332,
+        340,
+        344,
+        348,
+        358,
+        364,
+        390,
+        398,
+        410,
+        446,
+        456,
+        464,
+        482,
+        484,
+        486,
+        492,
+        508,
+        510,
+        524,
+        536,
+        542,
+        546,
+        564,
+        566,
+        570
+      ],
+      "spans": 225
+    }
+  ],
+  "dyadic_window_checks": 2044,
+  "first_negative_W": {
+    "W": -2,
+    "X": 100,
+    "abs_sum": 2,
+    "count": 1,
+    "j": [
+      48
+    ],
+    "spans": 6
+  },
+  "first_positive_W": {
+    "W": 1,
+    "X": 413,
+    "abs_sum": 3,
+    "count": 4,
+    "j": [
+      94,
+      116,
+      148,
+      150
+    ],
+    "spans": 25
+  },
+  "full": {
+    "count": 41,
+    "first_negative": {
+      "area": -2,
+      "b": 194,
+      "c": 200,
+      "factors": [
+        [
+          2,
+          97
+        ],
+        [
+          2,
+          2,
+          2,
+          5,
+          5
+        ]
+      ],
+      "j": 48,
+      "owners": [
+        2,
+        2
+      ],
+      "p": 197,
+      "q": 199
+    },
+    "first_positive": {
+      "area": 2,
+      "b": 820,
+      "c": 826,
+      "factors": [
+        [
+          2,
+          2,
+          5,
+          41
+        ],
+        [
+          2,
+          7,
+          59
+        ]
+      ],
+      "j": 150,
+      "owners": [
+        2,
+        2
+      ],
+      "p": 821,
+      "q": 823
+    },
+    "negative": 13,
+    "positive": 12,
+    "sum_area": -2,
+    "zero": 16
+  },
+  "held_out": {
+    "count": 28,
+    "first_negative": {
+      "area": -4,
+      "b": 2124,
+      "c": 2132,
+      "factors": [
+        [
+          2,
+          2,
+          3,
+          3,
+          59
+        ],
+        [
+          2,
+          2,
+          13,
+          41
+        ]
+      ],
+      "j": 330,
+      "owners": [
+        2,
+        2
+      ],
+      "p": 2129,
+      "q": 2131
+    },
+    "first_positive": {
+      "area": 2,
+      "b": 2109,
+      "c": 2117,
+      "factors": [
+        [
+          3,
+          19,
+          37
+        ],
+        [
+          29,
+          73
+        ]
+      ],
+      "j": 328,
+      "owners": [
+        3,
+        29
+      ],
+      "p": 2111,
+      "q": 2113
+    },
+    "negative": 9,
+    "positive": 9,
+    "sum_area": 3,
+    "zero": 10
+  },
+  "maximum_li_interval_width": "509517/1606938044258990275541962092341162602522202993782792835301376",
+  "minimum_floor_margin": "150567783471251571167945556070712817530817720815572100393/1606938044258990275541962092341162602522202993782792835301376",
+  "positive_dyadic_slots": [
+    {
+      "area": 0,
+      "b": 597,
+      "c": 603,
+      "factors": [
+        [
+          3,
+          199
+        ],
+        [
+          3,
+          3,
+          67
+        ]
+      ],
+      "j": 116,
+      "owners": [
+        3,
+        3
+      ],
+      "p": 599,
+      "q": 601
+    },
+    {
+      "area": -1,
+      "b": 806,
+      "c": 813,
+      "factors": [
+        [
+          2,
+          13,
+          31
+        ],
+        [
+          3,
+          271
+        ]
+      ],
+      "j": 148,
+      "owners": [
+        2,
+        3
+      ],
+      "p": 809,
+      "q": 811
+    },
+    {
+      "area": 2,
+      "b": 820,
+      "c": 826,
+      "factors": [
+        [
+          2,
+          2,
+          5,
+          41
+        ],
+        [
+          2,
+          7,
+          59
+        ]
+      ],
+      "j": 150,
+      "owners": [
+        2,
+        2
+      ],
+      "p": 821,
+      "q": 823
+    }
+  ],
+  "quadratic_checks": 8190,
+  "restored_prefix_samples": [
+    {
+      "B": -5,
+      "G": -431,
+      "K": 0,
+      "N": 144,
+      "complement": -431,
+      "packet": 0
+    },
+    {
+      "B": -5,
+      "G": -553,
+      "K": 0,
+      "N": 169,
+      "complement": -553,
+      "packet": 0
+    },
+    {
+      "B": -9,
+      "G": -8392,
+      "K": 0,
+      "N": 1225,
+      "complement": -8394,
+      "packet": 2
+    },
+    {
+      "B": -9,
+      "G": -9055,
+      "K": 0,
+      "N": 1296,
+      "complement": -9058,
+      "packet": 3
+    },
+    {
+      "B": -12,
+      "G": -16599,
+      "K": 0,
+      "N": 2048,
+      "complement": -16594,
+      "packet": -5
+    },
+    {
+      "B": -12,
+      "G": -42284,
+      "K": 0,
+      "N": 4096,
+      "complement": -42282,
+      "packet": -2
+    }
+  ],
+  "return_checks": 4095,
+  "scope": "FINITE_COMPUTATION; not an asymptotic sign or frequency theorem",
+  "witness_floor_values": {
+    "193": 47,
+    "194": 48,
+    "197": 48,
+    "199": 48,
+    "200": 49,
+    "819": 149,
+    "820": 150,
+    "821": 150,
+    "823": 150,
+    "825": 150,
+    "826": 151,
+    "2108": 327,
+    "2109": 328,
+    "2111": 328,
+    "2113": 328,
+    "2116": 328,
+    "2117": 329
+  }
+}
+SLOT_DATA_SHA256 e9b1ab26ae9cae521490e754bd40b1af202c6f3cefc7c8b1503ef4bca86f4b2e
+
+```
