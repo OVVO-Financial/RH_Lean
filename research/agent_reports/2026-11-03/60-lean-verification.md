@@ -927,3 +927,680 @@ Live main is `040980c16901af749202e9b0f91211c43909404a`; AGENTS blob `b878d396c3
 Today and yesterday's required role-report bytes and external inbox were retrieved. TODAY=AVAILABLE; applicable prior evidence is being checked for YESTERDAY=CARRY_FORWARD. The newest source-first handoff is `20261103-referee-8/9/10`, including the moving lower-cutoff mass refinement and the empty-unselected obstruction. These remain paper claims pending this independent audit, not new Lean-certified results. The selected NEXT-LEAN continuation is to inspect their original OAI inputs, audit the quantifiers and full LOW return, then prepare a qualified nonduplicate proof step.
 
 Operational status: BLOCKED_WRITE_ACCESS for proof publication. Current create/update-file tools restrict writes to agent-reports and dated Lean reports; lower-level Git operations will not be used to evade this restriction. No proof branch, proof commit, PR, local Lean execution or new CI run has occurred. The existing uncompiled C29 draft remains queued rather than silently marked complete. No new exponent gain or change to the canonical actual-prime objective is claimed.
+
+## Scheduled Source-First Synthesis - 20261103-lean-3
+
+Invocation: **2026-11-03T21:08:01-05:00**, America/New_York. Scheduled, RUN_ID_UNAVAILABLE. Synthesis prepared November 3, 21:24 EST. This continuation preserves every earlier entry, including the C29 uncompiled draft and this run's checkpoint.
+
+### A. Most Important Result
+
+**New independently justified quantitative supporting theorem, not a new Lean-certified theorem:** the original LOW unselected mass has a uniform moving-cutoff bound with heterogeneous per-slot thresholds and window norms. The summability constant is chosen before the number of slots and their contents. This strengthens the finite core of **20261103-referee-9** without assuming disjoint slots, fixed exponent sums, distinct slot exponents, or any desired LOW/RH estimate.
+
+A 187-line Lean module with five complete proof attempts and five axiom-print commands has been written and is preserved verbatim below. It is **UNCOMPILED**. Proof implementation status is **BLOCKED_WRITE_ACCESS**, not CI_GREEN or REVIEW_READY. No local Lean execution, proof branch, proof commit, PR, or new CI run occurred.
+
+Independent paper review also qualifies **20261103-referee-9/10** at the **original untilted geometry**: all nonempty-unselected compensation subsets gain their moving mass; the empty-unselected/all-selected packet remains unpaid. The exact empty mass is 1, so a uniform positive mass saving across all J is false. This does not prove that its physical integral is nonzero or large.
+
+### B. Current Authority And Continuity
+
+Main: `040980c16901af749202e9b0f91211c43909404a`, tree `42dea1655870832af9dda6dde45a31365e99ab3c`. AGENTS blob `b878d396c387a57bd0b5165fecf10d15ef3732cd`; CURRENT_PROOF_CONTRACT blob `63f7553bf6e5f2a16e37808116c643dc0dcc50e1`.
+
+The canonical actual-prime target remains **OPEN**:
+`VFCanonicalSquareVonKochStatement`, namely existence of C>=0 with
+`|vfCanonicalSquareDefect R| <= C * R * log R` for every natural R>=2.
+Its canonical sqrt-two phase is unchanged. The classical von Koch RH interface is not discharged by this run. Neither an exact identity nor the new mass estimate is claimed to close it.
+
+Consumed the current native square-clock, broad-search-until-eta, complete-return, seven-agent engine, multirun and source-first directives. Source-first contract blob `b6980c30e63bb8c9ddfc8d6fa86a2bb401707fa6`; complete-return contract blob `4775ee5fd95f279beab08a75d1e17127078b19a6`; engine blob `495fa9ee2067ccf5db9dc3c48ffaaadcd6485aa4`.
+
+TODAY=AVAILABLE for every required role; YESTERDAY=CARRY_FORWARD for applicable verified results. Full report bytes were retrieved; relevant claims, counterexamples, next actions and status evidence were read. This does not claim a new independent audit of every historical claim in those reports.
+
+| Role report | November 2 blob | November 3 intake blob |
+| --- | --- | --- |
+| 00-coordinator-am.md | `1e932d4ce0eb0fd2c5f4507f6b111194d633eb32` | `8f22479e602b919c00ad5539a7442371c2ee6076` |
+| 10-owner-payment.md | `abfe546d72b151f4cd200fc61de3197efe23a65c` | `d52c74b76c2914c3be694f39cd7afe9b122a4834` |
+| 20-analytic-type-ii.md | `8e48b59611aa1d0bfa3577ed0a4a3bc0d0fcae73` | `2b9c3dbab6039e3c30a5ece3e473290af5dbbf0b` |
+| 30-finite-wheel.md | `abf8ac8c22a708886183849552c90dd62787ac8d` | `cd7777180bb5c2c899a60bdd699b99be8e12a672` |
+| 40-prime-census.md | `2cd84c57ab18d923e97368764f29f4ccd2ec3bb3` | `eb9a2e0cf7772f22060aec07e0bcddd24ace9cd9` |
+| 50-adversarial-referee.md | `814af1684df66e6ac99b8df1f102cb592b316f89` | `583ce524628577818603ffd4e9ec0eb3673a3f37` |
+| 60-lean-verification.md | `02d19d792e26f072004cb5909f149538752626e9` | `a9c65a6809323216f8a876845538b6af0fae393e` |
+
+Coordinator AM/PM mirror contents were checked; duplicate content was not treated as separate evidence. External inbox `research/agent_reports/EXTERNAL_HANDOFFS.md`, blob `038018145c0fddb2f6306c0712373adf9cd1ea52`, had no entry later than October 18. Its older normalization/source-restoration warnings remain relevant; it supplied no new override or accepted theorem.
+
+The current own-report checkpoint is commit `6305a9f609e9d7d8be377a1ccfb67138beb03713`, blob `349e77cb45d1045ee4ef4bf834792ff7c43f01c4`. At **2026-11-04 02:21:44 UTC / November 3 21:21:44 EST**, main was unchanged, the open/draft PR collection was empty, and agent-reports remained at this checkpoint. Thus no intervening upstream handoff had appeared. Immediately before publication at **2026-11-04 02:27:38 UTC / November 3 21:27:38 EST**, main and this report blob were unchanged and the open/draft PR collection was still empty.
+
+### C. Formalization Queue
+
+| Priority | Candidate and source | Current decision |
+| --- | --- | --- |
+| A | Active authorized proof-PR repair | None: no open or draft PR at intake or freshness check. |
+| B | Referee-9 moving-cutoff estimate, Referee-10 empty-packet reduction | Independently qualified on paper with original-source scope; implement finite quantitative core now as an uncompiled draft. |
+| B, carry-forward | Coordinator C29 / prior 20261103-lean-2 Nyman finite invariant | Existing complete uncompiled draft retained; not duplicated, not silently promoted. |
+| D | Wheel O1-O4 and Census-5/6 exact norm fibers | Relevant accepted paper structure; same-norm coherence does not supply the all-selected gain. No duplicate equality PR. |
+| E | Coordinator C33-C36 Nyman head/middle; Analytic CD1-CD6 shell estimate; Owner-3 phase/area restriction | Preserve their distinct paper/self-audit scopes. Nyman middle remains unpaid; logarithmic shell saving is not a fixed power gain; lower-area information is not the required upper bound. No new acceptance of those claims here. |
+
+Prior merged #1070/#1071 and repaired #1075/#1076 evidence is preserved in the earlier dated entries. Current #1083 is merged and green; it is not a repair target. Original and repo theorem-name/source searches found the scale-free mass bound and its consumers, but no moving-cutoff declaration selected here. Search is navigation, not a claim of exhaustive equivalence detection.
+
+### D. Selection And Proof Plan
+
+The selected result improves a literal bound inside the original `low_central_compensated_tuple` proof. It is not a generic desired-bound wrapper and does not introduce a surrogate arithmetic model.
+
+Target: `lowUnselectedMass_moving_bound`, followed by its common-power specialization and empty-subset equality. Mathematical inputs: supported-ideal absolute summability below exponent -1; the canonical prime-ideal/generator equivalence; the already established exact norm identity for `lowUnselectedWeight`; finite Cartesian product summation.
+
+Proof strategy: split the exponent -2 into (-1-rho)+(rho-1); use the lower norm cutoff on the negative second power; sum the first power with the existing universal constant; transport bijectively to canonical slots; factor the actual Cartesian mass and apply the slotwise inequalities.
+
+Lean strategy: reuse `supportedIdeal_rpow_finite_bound`, `canonicalSlotEquiv`, `canonicalSlotEquiv_norm`, `lowUnselectedWeight_norm_identity`, `Fintype.prod_sum`, and pinned Real.rpow lemmas. All new declarations have explicit proof bodies. Positivity, real norm coercions, negative exponents, empty products and constant quantifier order are handled in the draft.
+
+Validation still required: an authorized proof PR with actual Actions compilation, warning-fatal checking, root/import/inventory coverage as applicable, and printed axiom/dependency checks on its latest head. None is replaced by the finite tests.
+
+### E. Exact New Statement
+
+Fix 0<rho<1. There exists C_rho>0 such that for **every** K, every family of finite supported prime-ideal sets T_i, positive real cutoffs Y_i, nonnegative bounds B_i, every J subset Fin K, every complex window W_i with |W_i(x)|<=B_i for all x, and every real scale P_i, if
+
+```text
+N(prime ideal) >= Y_i   for every prime ideal in T_i,
+slots_i = canonicalSlotSupport(T_i),
+L_u = elementNorm(product_(i in J) u_i),
+M_J = sum_(u : LowUnselectedTuple slots J)
+        norm(lowUnselectedWeight slots J W P u) * L_u^(-1/2),
+```
+
+then
+
+```text
+M_J <= product_(i in J) ((C_rho * B_i) * Y_i^(rho-1)).
+```
+
+C_rho depends only on rho and the fixed underlying Eisenstein field, not K, T, J, cutoffs, windows or scales. It comes from the existing summable family of all supported ideals, not a density assumption about the prime pools. No disjointness is needed for this finite-mass statement. The central inverse-row theorem still requires disjointness; that separate requirement is not removed.
+
+Specialize Y_i=a Z^ell_i, a>0, Z>0, B_i=B>=0. For arbitrary real ell_i, set d_J=sum_(i in J)ell_i:
+
+```text
+M_J <= (C_rho * B * a^(rho-1))^card(J) * Z^(-(1-rho)*d_J).
+M_empty = 1.
+```
+
+The finite bound does not require ell_i>=0, sum ell_i<=1/6, or Z>=1. Those original geometry restrictions return when using the analytic LOW suppliers. This is an explicit strengthening of the finite core, not a silent change to the terminal theorem.
+
+The complete Lean declarations appear in the draft appendix. It preserves original `LowUnselectedTuple`, `canonicalSlotSupport`, `lowUnselectedWeight` and `elementNorm`; it does not redefine them.
+
+### F. Independent Audit And Full Original LOW Return
+
+**Carrier and indexing.** In the actual source, J is the **unselected** set; `SelectedSlot J` is its complement. The source-first prose's phrase “selected slot set J” must not be used to reverse this convention. The code is authoritative. The mass is not the norm of a modified polynomial: it is the literal positive majorant remaining after the original triangle and scalar Gram factors.
+
+For supported ideal norm n>=Y>0,
+
+```text
+n^(-2) = n^(-1-rho) * n^(rho-1)
+       <= n^(-1-rho) * Y^(rho-1).
+```
+
+The sum of the first factor is uniformly bounded because -1-rho<-1. The primary-generator equivalence preserves ideal norm and multiplicity exactly; the injective image in SupportedIdeal prevents accidental repeated counting inside a slot. Cartesian products retain all occurrences across slots, even overlapping ones. The finite factorization then proves the displayed mass bound. Empty slots with J nonempty give zero as required; empty J has one empty tuple and mass 1, regardless of unused slot contents.
+
+**R9 original-source return, independently checked on paper.** Keep every hypothesis of `low_central_compensated_tuple`: fixed character, calibration and exclusions, actual supported/disjoint slot sets outside S with both norm bounds, original smooth supported W0/W1, bounded slot windows, all J,t, and central U. Its displayed `hterm` retains the factor sqrt(3q/L), so after summation the pre-mass bound is
+
+```text
+|P_J(U,t)| <= C (1+|t|)^degree Z^(3/16+254*epsilon) M_J.
+```
+
+Inserting the new mass gives exponent `3/16-(1-rho)d_J+254epsilon`. The fixed-K factor can be bounded by `max(1,C_rho*a^(rho-1))^K` for unit-bounded windows. This is uniform over the same admitted T,J,W,t,U after fixed data, rho and epsilon are chosen. It is not uniform in growing characters/conductors or scale-dependent K/geometry.
+
+The bound feeds `lowCommonDyad_norm_of_bound`. In the proof of `low_central_gaussian_dyads`, Gaussian summation costs `(1+lowSelectedLength)*epsilon <= 2epsilon`. The factor `Z^(-(1-rho)d_J)` is independent of both dyadic index and t, so it survives unchanged. This yields central exponent `3/16-(1-rho)d_J+256epsilon`, with the original summable majorants.
+
+The original remote contribution is O(Z^-1). Since 0<=d_J<=1/6,
+`3/16-(1-rho)d_J >= 1/48 > -1`, so the remote contribution is absorbed, not discarded. `compensation_subset_common` identifies this full dyadic sum with the original subset F_J. `compensatedPhysicalProbe_common_gaussian` uses a finite family V_J determined from the fixed windows before Z, then sums exactly over J.
+
+For general bounded windows, D=max(1,B) restores **D^K**, not merely D^card(J): the full source has one window for every selected or unselected slot. In a subset this follows directly from the product of all K window weights; it is not a new independent subset normalization.
+
+At the terminal original ray pools, keep all hypotheses of `original_normalized_compensatedPhysicalProbe_low`, including positive distinct ell_i summing to 1/6, smooth compactly supported nonnegative nonzero real slot windows, and nonzero positive source windows. The original common normalizer is
+
+```text
+N(Z) = sourceResidueConstant(W0,W1,product_(P in S)P)
+       * complex_coercion(principalScalar(univ,Z,1/6,
+                         slotMass(T,residueWeights(W,Yp)))),
+Yp_i = Z^ell_i, T_i = pool(identityClass(M,H),S,a,b,Yp_i).
+```
+
+The fetched `actual_ray_normalizer_inverse` gives eventual nonzero N and |N^-1|<=C_delta Z^delta. Divide **each original F_J by this same N**, with no coefficient change. Given lambda>0 choose rho=min(1/2,lambda), epsilon=min(1/2,lambda/1024), delta=lambda/4. Then
+`rho*d_J+256epsilon+delta <= lambda/6+lambda/4+lambda/4 < lambda`.
+The normalized remote exponent -1+delta is also smaller than the target. Consequently, at fixed original data and character,
+
+```text
+forall lambda>0, exists C,Z0, forall Z>=Z0 and every J:
+  |F_J(Z)/N(Z)| <= C Z^(3/16-d_J+lambda).
+```
+
+**R10 reduction.** Positive ell_i with sum 1/6 forces K>0, so ell_*=min_i ell_i exists and is positive. Set A=F_empty/N, R=sum_(J!=empty)F_J/N and P=A+R. Then
+`R=O(Z^(3/16-ell_*+lambda))` for every lambda>0. For each fixed 0<g<=ell_*,
+`Bound_g(P) iff Bound_g(A)`, where Bound_g means the same estimate with exponent 3/16-g+lambda for every positive lambda. Both directions follow from A=P-R or P=A+R and the independently bounded R. The mixed term `2 Re(A conjugate(R))` in |P|^2 is retained; no sign assumption is used.
+
+Verdict on original **20261103-referee-9/10**: **PAPER_PROOF / INDEPENDENTLY_QUALIFIED_WITH_SCOPE**. No new Lean certification of their analytic return. The R10 equivalence is source-level, not an asserted equivalence to RH. Neither side of its improved bound has been proved.
+
+**No circularity.** The mass supplier is absolute ideal summability in the convergent half-plane; it assumes no covariance, Mertens gain, RH, or desired LOW bound. The empty-packet equivalence is honestly a reduction. Prior one-shot slot tilt, marked-HIGH gain, canonical cstar and NNS isometry are not counted as new payment. No claim is made that this original-geometry proof automatically transfers to the shifted #1079 source.
+
+### G. Lean Implementation And Executed Checks
+
+Prepared **VF919OriginalLowMovingMass.lean**, intended location `research/oai_434/` on a future authorized proof branch, importing only the existing `OAI.NumberTheory.DirichletL.Detector.LowUnselectedMass`. Namespace is the existing `OAI.SevenEighths.ProbePhysical`.
+
+Five declarations: `supportedIdeal_inverse_square_tail`, `canonical_slot_inverse_square_tail`, `lowUnselectedMass_moving_bound`, `lowUnselectedMass_moving_power_bound`, `lowUnselectedMass_empty`. The first two support the one new quantitative theorem; the fourth preserves its source-scale interpretation; the fifth protects the decisive boundary case. This is not a parallel abstraction or a list of assumed endpoints.
+
+Draft SHA256: `cae19411c1db9119ce776056fe7b0f98764e7b4414051b4a7c2edff4f1378162`.
+Verifier SHA256: `a13d8f4cb741d0cf12055bbe7c0547bff7432a21ffcea5b3145ef3e5e3969ab7`.
+Both complete artifacts are embedded below for reproducible continuation. They are not committed Lean source on main.
+
+Static scan found no standalone sorry, admit, axiom declaration, unsafe or native_decide token in the draft. Each theorem has a complete proof attempt, and five `#print axioms` commands are present. Pinned Mathlib rpow signatures were read, including rpow_add, rpow_mul, rpow_sum_of_pos and rpow_le_rpow_of_nonpos. Static review is not elaboration, tactic success or a dependency audit.
+
+A newly written exact-rational Python verifier passed 35 tail cases, 4,000 heterogeneous-window mass cases, 500 empty-J cases, 1,696 zero-upper-bound cases, and 90 exponent-budget cases. It includes overlapping and empty slot sets and complex phases with norm 0,1,5. The finite norm fixtures use rational primes 5,11,17; trial division and irreducibility of x^2+x+1 modulo each p establish the inert norm p^2 fixtures. Products of complex values and the original L^(-3/2)*L^(-1/2) factor are computed directly, then compared with slotwise factorization.
+
+These are **FINITE_COMPUTATION** bookkeeping regressions, not a construction/evaluation of every original canonical generator, selected Hecke inverse row or OAI integral. The finite comparison constant is only the fixture sum of p^-3, not a numerical value for C_rho over all supported ideals. No infinite claim follows from the tests.
+
+### H. Proof Branch And PR Evidence
+
+New proof branch: **NONE**. New proof commit/head: **NONE**. New PR: **NONE**. Intended baseline is the actual main SHA above. A future branch must follow `agent/lean-verification/YYYYMMDD-claim-slug`, refreshing main and duplication checks before publication.
+
+Exact operational blocker: the exposed GitHub create/update-file schemas constrain writes to **branch agent-reports**, with the configured “Only create/update dated Lean verification reports” restrictions. The repository authorizes proof feature work in principle, but this connector configuration does not expose that source-write lane. No lower-level blob/tree/commit/ref operation was used to evade it. A direct clone was also unavailable (HTTP 403); authenticated source reading remained available.
+
+Status is **BLOCKED_WRITE_ACCESS**, not NO_NEW_THEOREM_TO_FORMALIZE and not BLOCKED_CI_NOT_TRIGGERED. There is valid mathematics and an actual uncompiled implementation attempt; no proof PR exists from which CI could be triggered.
+
+### I. Reused GitHub Actions Evidence
+
+[PR #1083](https://github.com/OVVO-Financial/RH_Lean/pull/1083) is **MERGED** at main `040980c16901af749202e9b0f91211c43909404a`; head `1ae84e2ff019b266114c100f43016eeec71144a9`. All 14 returned checks on that head succeeded, including inventory, hosted Lean, public export, proof audits and the dedicated LOW lane.
+
+The [dedicated run 41744927180](https://github.com/OVVO-Financial/RH_Lean/actions/runs/41744927180), attempt 1, event pull_request, and [job 126295407267](https://github.com/OVVO-Financial/RH_Lean/actions/runs/41744927180/job/126295407267) succeeded. The complete decoded log was read.
+
+**Checkout precision:** the checks are associated with the exact PR head, but Actions checked out GitHub's synthetic PR merge `06cac0b95a56fdef0f61294e257e67ee2146c32c`, merging that head into `25127ac796a1d2ace7a8b3ddb27a02154cc48ef2`. The signed-Gram file was fetched at all three relevant revisions: synthetic merge, PR head and current main; its blob is identical, `c1b7b46a9e62a5b2f3729618c4dd24e31558166f`. Thus this is tested PR-merge evidence with verified identical theorem source, not a false claim of bare-head checkout.
+
+The log records warning-fatal compilation of `VF919OriginalLowTupleSignedGram` and axiom output for:
+
+```text
+OAI.SevenEighths.ProbePhysical.actual_low_tuple_polynomial_eq_sum_atoms
+OAI.SevenEighths.ProbePhysical.actual_low_tuple_polynomial_sq_eq_signed_gram
+OAI.SevenEighths.ProbePhysical.actual_low_NNS_co_minus_div_eq_normSq
+```
+
+Each uses exactly `[propext, Classical.choice, Quot.sound]`. These are **PROVED_IN_LEAN / MERGED structural identities**, not a quantitative contraction. Their status is reused; no redundant build was requested.
+
+Scope caveat: the prerequisite build log also contains pre-existing `PrimeNumberTheoremAnd/Wiener.lean:325` and `:344` sorry warnings. The audited terminal declarations above show only the three standard axioms. Do not describe the entire dependency tree or complete log as globally hole-free. The lane uses pinned cached prerequisites, not a fresh cold reconstruction of every dependency.
+
+Pinned Lean **4.34.1**; Mathlib `d13f23b723b8a846827a245b89c10fc7d3f11612`; OAI `1581d4cbdd69a0faf34b2089614fe2a814316a6a`; PNT+ `c39a751132c88b6e8080b74c74023fd95b3d8be0`. Workflow blob `c1510bd39ea1f863f8c94bf5fc1a7ddd71f36c65`; runner blob `1b8973bf270dda5ee9635d42f4c89a82f2e2b82a`.
+
+**None of that green evidence covers the new moving-mass draft.** New elaborated theorem types and axiom outputs remain NOT_OBTAINED.
+
+### J. Failures And Repair Requirements
+
+No active failing proof PR was found, and no Lean compiler failure was produced in this invocation.
+
+The next legitimate proof implementation step, once the configured source-write lane is available, is to place the draft on an authorized branch and include it in the existing pinned OAI compilation/audit target surface. Merely adding a new filename may not trigger the path-filtered lane. Verify actual workflow execution and compile coverage, without weakening any check. Diagnose any genuine elaboration error against the exact stated mathematics; do not add premises that assert its conclusion.
+
+Likely engineering touchpoints needing actual CI are subtype/finite-image transport, dependent Cartesian sums, real-power rewriting and empty-subtype simplification. They are not claimed observed errors. No failing goal or successful elaboration is fabricated.
+
+### K. Mathematical Conclusions
+
+New finite-mass theorem: **PAPER_PROOF**, quantitative supporting control on original prime ideals. The stronger hypotheses/quantifier review is independent work in this run. Its Lean implementation is uncompiled and blocked from publication.
+
+Referee-9/10: independently qualified paper source return and source-level reduction, scoped to fixed original terminal data. This improves the nonempty-subset analysis, but gives **no fixed gain for the complete LOW term**, no new Mertens exponent and no canonical VF/RH proof.
+
+Existing #1083: compiled exact identities with standard-axiom evidence, unchanged. NNS Co-minus-Div equals the same squared norm and supplies no extra smallness by itself.
+
+### L. Formalization-Driven Discoveries
+
+The mass proof needs only supported prime ideals, actual lower cutoffs and bounded windows. Disjointness, upper cutoffs, nonnegative ell, sum ell<=1/6, distinct ell and a large-scale threshold are unnecessary at this step. They remain explicitly present where the analytic/source-normalizer suppliers need them.
+
+Keeping C_rho outside K gives a reusable slotwise estimate; dependence on K is displayed as a finite product instead of hidden in an existential constant. Zero B_i and empty T_i are handled without dividing by the window bound.
+
+At J=empty, no outer-tuple cross term exists: there is only one actual outer tuple, L=1, weight=1. The triangle is an equality there. A strict multiplicative improvement of that outer triangle with factor below one would force that single physical atom to vanish. No vanishing/nonvanishing theorem was proved. This identifies selected arithmetic or its complete integrated packet as the necessary remaining location for this mechanism, not proof that all possible LOW mechanisms fail.
+
+### M. Significance And Route Scope
+
+This is a useful independent quantitative refinement of an original source supplier and a sharper gap map. It is not “signed cancellation” merely because its consumer belongs to the signed LOW program. The finite estimate uses positive absolute mass.
+
+Inherited strict-slot ETA evidence remains **VERIFIED_ETA / ON_MAIN within its prior scope**. The additional signed-LOW gate remains **SEARCH_BROAD**. Additional squared gain, amplitude gain, and net endpoint gain are **UNKNOWN**. No route is closed or promoted. Protected VF-LOW/SAT/JOH, CODIV/OAI-NNS/NYMAN and FINITE-AC/CORR4/MU-LIFT coverage is retained.
+
+### N. Specialist Handoffs
+
+| Role | Precise handoff |
+| --- | --- |
+| Proof Architect | R9/R10 now have an independent source/quantifier review at original geometry. Preserve ell_* and the shared normalizer. The remaining all-selected bound is source-equivalent to a full original LOW improvement for 0<g<=ell_*. Do not call that RH-equivalent. |
+| Analytic Type II | Target the genuine J=empty selected inverse row or its complete original integrated packet. Outer unselected cancellation alone cannot improve its singleton triangle. Track any squared-energy saving through sqrt(Q), dyads, common normalizer and HIGH/principal. |
+| Owner Payment | Native incidence still needs an exact Hecke occurrence/phase/weight bridge. The weaker hypotheses of the finite mass bound do not provide that bridge or a signed covariance estimate. |
+| Finite Wheel | Same-norm fiber structure remains useful for nonempty J, but cannot pay the empty-J packet. Cross-slot disjointness is unnecessary only for the finite absolute-mass lemma, not for the selected energy theorem or existing fiber multiplicity theorem. |
+| Prime Census | Boundary/complex-weight mass regressions passed. No actual inverse-source integral or nonzero positive cross-Gram witness was evaluated. Preserve that distinction in future tests. |
+| Adversarial Referee | Original stable claims 20261103-referee-9/10 independently qualified with scope. Review the heterogeneous-cutoff strengthening and formal draft once CI is possible; it does not assert the unpaid all-selected estimate. |
+
+These are handoffs in this own report only. No other agent was launched, and no other role report, issue, policy, schedule or permission was edited.
+
+### O. First Unresolved Mathematical Theorem
+
+At fixed original terminal data, find a fixed g>0 with
+
+```text
+forall lambda>0, exists C,Z0, forall Z>=Z0:
+  |F_empty(Z)/N(Z)| <= C Z^(3/16-g+lambda).
+```
+
+For 0<g<=ell_*, this is exactly the still-unproved original complete LOW improvement by R10, not its proof.
+
+One noncircular **candidate supplier**, not an established result, is OPEN-E0: a fixed nu>0 saving for the **genuine** all-selected inverse row on its actual numerator rows, all original modes sigma,t, central U near Z^(7/6), masks and admitted ideal sets:
+
+```text
+sum_(m in actual lowNumeratorRows)
+  |lowSelectedInverseRow(empty-unselected data; U,t,sigma,m)|^2
+ <= C_(epsilon,eta,fixed data) (1+|t|)^degree
+       Z^(5/6-nu+epsilon).
+```
+
+The physical Q at J=empty is q Z^(5/6). Such a squared-energy saving would give at most nu/2 at LOW amplitude, then at most min(nu/2,ell_*) after the already bounded nonempty remainder, up to positive losses. HIGH/principal, exceptional terms and any shifted geometry must still be checked before an endpoint conclusion. No nu or g is supplied here.
+
+### P. Resume And Source-First Capsule
+
+```text
+RUN: scheduled 2026-11-03T21:08:01-05:00; RUN_ID_UNAVAILABLE
+CLAIM: 20261103-lean-3
+RESEARCH_RUN: COMPLETED_WITH_PROOF_PUBLICATION_BLOCKED
+MATHEMATICS: PAPER_PROOF; referee-9/10 independently qualified with scope
+PROOF_IMPLEMENTATION: BLOCKED_WRITE_ACCESS; new code UNCOMPILED
+MAIN_SHA: 040980c16901af749202e9b0f91211c43909404a
+OAI_PIN_SHA: 1581d4cbdd69a0faf34b2089614fe2a814316a6a
+SOURCE_FIRST_VERSION: 2026-11-03
+PR1083_LIVE_HEAD_STATE: 1ae84e2ff019b266114c100f43016eeec71144a9; MERGED
+EXACT_HEAD_ACTIONS: run 41744927180 / job 126295407267; SUCCESS
+ACTUAL_CHECKOUT: synthetic merge 06cac0b95a56fdef0f61294e257e67ee2146c32c
+SIGNED_GRAM_BLOB: c1b7b46a9e62a5b2f3729618c4dd24e31558166f at all three revisions
+ORIGINAL_DECLARATION: lowUnselectedWeight_norm_identity; low_central_compensated_tuple
+CHARACTER/J/MASK/ADMISSION: original fixed eta, J UNSELECTED; no original mask changed
+U_A_EXACT_SOURCE_AND_OCCURRENCE_MAP: preserved original tuple and all actual weights
+LOW_INVERSE_ENERGY: baseline 5/6-2*d+507epsilon; no new inverse saving
+SQRT_Q: original physical Q retained
+GAUSSIAN: central extra <=2epsilon; original remote O(Z^-1) included
+TRIANGLE_STEP: still used; empty-J outer triangle exactly equal
+NNS_CO_DIV_EQUALS_GRAM: compiled identity only
+SIGNED_CROSS_TERMS: not bounded or assumed negative
+PROPOSED_NEW_ARITHMETIC_RESTRICTION: actual norm lower cutoffs, no target-shaped premise
+EXACT_QUANTIFIERS: C_rho before K,T,Y,B,J,W,P; full return fixed data/character
+SOURCE_SQUARED_GAIN / AMPLITUDE_GAIN / NET_BETA_AFTER_HIGH: UNKNOWN
+PRINCIPAL/HIGH: no new improvement claimed; remain required for endpoint return
+REMOTE/TAILS: original complete LOW suppliers retained
+EXCEPTIONS: original source exclusions and masks retained; no omission-based gain
+STRESS_TEST: 4000 finite mass cases, 35 tails, 90 exponent budgets PASS
+COUNTEREXAMPLE: exact M_empty=1 refutes uniform all-J positive mass decay
+STATUS/REVIEW: paper independent qualification; new Lean/axiom evidence NOT_OBTAINED
+LAST_JUSTIFIED_EQUATION: sum_(J!=empty) F_J/N = O(Z^(3/16-ell_*+lambda))
+FIRST_UNSUPPORTED_STEP: fixed gain for F_empty/N, or genuine OPEN-E0 supplier
+NEXT_DECISIVE_ACTION: authorize configured proof-source writes; compile/audit this draft
+NEXT_MATHEMATICAL_ACTION: prove or falsify a source-qualified all-selected estimate
+C29_DRAFT: carried forward unchanged, still uncompiled
+PROTECTED_ROUTE_DUE: no investigator rotation reassigned by this verification run
+DEPLOYMENT_ACK: source-first and seven-agent engine consumed; no route narrowing
+REMOTE_WRITES: own dated report on agent-reports only
+```
+
+### Audited Original Source Blobs
+
+All OAI entries below were fetched at the exact pin, not taken from a search snippet. The finite-mass implementation uses the first-order sources identified in sections D-G; reading the analytic suppliers does not certify new analytic Lean code.
+
+| Source | Blob SHA |
+| --- | --- |
+| [Detector/LowSelectedBound.lean](https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/NumberTheory/DirichletL/Detector/LowSelectedBound.lean) | `695d81de46038693b9c701d55e81fe43d18d52d2` |
+| [Detector/LowNominalEnergy.lean](https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/NumberTheory/DirichletL/Detector/LowNominalEnergy.lean) | `55b1a3abfb7fa07da3f9ac8c393b375d1c86329b` |
+| [Detector/LowPhysicalInverseBound.lean](https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/NumberTheory/DirichletL/Detector/LowPhysicalInverseBound.lean) | `58bc871a18d9baa43d1684209027b8a2ebed87d6` |
+| [Detector/LowSlotPolynomial.lean](https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/NumberTheory/DirichletL/Detector/LowSlotPolynomial.lean) | `b1dcb5a1e51afad1d39ccd91fa58a764e39629ba` |
+| [Detector/LowSlotSplit.lean](https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/NumberTheory/DirichletL/Detector/LowSlotSplit.lean) | `8c8fe01a1b3fffe3b06839c2befc2ddae39a2c9b` |
+| [Detector/LowTupleGram.lean](https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/NumberTheory/DirichletL/Detector/LowTupleGram.lean) | `710598c8bef4d1a1ec98aa7e68b00369962c3d17` |
+| [Detector/LowUnselectedMass.lean](https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/NumberTheory/DirichletL/Detector/LowUnselectedMass.lean) | `4233ef473b8a71d4a331d0eb5ddc0c6cd7dacb4f` |
+| [Detector/GramIdealSummation.lean](https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/NumberTheory/DirichletL/Detector/GramIdealSummation.lean) | `b889394857052cb8e320e8a04aeb446c02865654` |
+| [Detector/CanonicalSlots.lean](https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/NumberTheory/DirichletL/Detector/CanonicalSlots.lean) | `0ae88f818a6c8f6b2c8dd4d5254ce34a14b026cf` |
+| [Detector/LowSlotScales.lean](https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/NumberTheory/DirichletL/Detector/LowSlotScales.lean) | `f8ebfef6a7efe1ecb63a61975f240999afe2f0eb` |
+| [Detector/LowCentralTuple.lean](https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/NumberTheory/DirichletL/Detector/LowCentralTuple.lean) | `bb7c4eaf4dc3ec5a1467d76e4a3c576e32a433c9` |
+| [Detector/LowGaussianDyad.lean](https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/NumberTheory/DirichletL/Detector/LowGaussianDyad.lean) | `d890d50dcfdb510ef4dda3bcbccf946173e4537e` |
+| [Detector/LowGaussianCentral.lean](https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/NumberTheory/DirichletL/Detector/LowGaussianCentral.lean) | `46d68f3c6e684984312b3b5603643c826cec5be4` |
+| [Detector/LowGaussianRemote.lean](https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/NumberTheory/DirichletL/Detector/LowGaussianRemote.lean) | `488b9143cccf51fa1bf0b66023e2ecf33ff5f020` |
+| [Detector/LowGaussianSum.lean](https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/NumberTheory/DirichletL/Detector/LowGaussianSum.lean) | `1bfd335a4db0973b7b5a9342a03eab82eddfe60d` |
+| [Detector/GaussianSubset.lean](https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/NumberTheory/DirichletL/Detector/GaussianSubset.lean) | `560ba0b999e04d591537840af659a67b9cbbae57` |
+| [Detector/GaussianCommon.lean](https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/NumberTheory/DirichletL/Detector/GaussianCommon.lean) | `ab1e3bff726fd851a0091cc43ac98a765881f3ad` |
+| [Detector/LowCommonBound.lean](https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/NumberTheory/DirichletL/Detector/LowCommonBound.lean) | `328f8ae217343c8766a6fead1f7d0d4abdfba3fc` |
+| [Detector/LowWindowBound.lean](https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/NumberTheory/DirichletL/Detector/LowWindowBound.lean) | `d16ab5fbe03f86b3ee4aef949129a18835979573` |
+| [Detector/LowNormalized.lean](https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/NumberTheory/DirichletL/Detector/LowNormalized.lean) | `3a9f0257cdbde8fce7cc026ac62ef672c3e9820c` |
+| [PrimeRows/CubeNormalizer.lean](https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/NumberTheory/DirichletL/PrimeRows/CubeNormalizer.lean) | `2fd86974397340fe33ea401736a751651fb83e42` |
+
+Other important blobs: canonical target `79030d70e8d3e0d08eef9bac53fef95c36eca2fb`; lean-toolchain `ba8ebf2dbaf6a668cd2a0e086186d6d569b69ff5`; lake-manifest `a34d142c3d75a602a8b0f8241a4fb504d5c7c5a4`; lakefile `6ef95e9ebf184d5846fee88a9cdf2db3a38afc97`. Pinned Mathlib Pow/Real.lean blob `6e3f62550a758e94a1d513133cd744406b319e41`.
+
+### Complete Uncompiled Lean Draft
+
+Status: **NOT PROVED_IN_LEAN**. Intended future file `research/oai_434/VF919OriginalLowMovingMass.lean`. Exact SHA256 above includes the final newline. The proof text below is an implementation attempt preserved for authorized CI, not a claim of compiler acceptance.
+
+```lean
+import OAI.NumberTheory.DirichletL.Detector.LowUnselectedMass
+
+/- Source-faithful proof attempt for 20261103-lean-3, NOT CI-certified.
+   Baseline: RH_Lean 040980c16901af749202e9b0f91211c43909404a.
+   OAI pin: 1581d4cbdd69a0faf34b2089614fe2a814316a6a.
+   Only GitHub Actions may compile this file. -/
+
+namespace OAI
+
+noncomputable section
+open scoped BigOperators Classical
+namespace SevenEighths.ProbePhysical
+open CompletedGauss CanonicalQuadraticSieve
+local notation "O" => ActualEisensteinCubic.O
+local notation "SupportedIdeal" => {I : Ideal O // Supported I}
+
+lemma supportedIdeal_inverse_square_tail (rho : ℝ) (hrho : 0 < rho)
+    (hrho1 : rho < 1) :
+    ∃ C : ℝ, 0 < C ∧ ∀ (Y : ℝ), 0 < Y → ∀ (F : Finset SupportedIdeal),
+      (∀ I ∈ F, Y ≤ ProbeGramCommon.gramIdealNorm I) →
+      (∑ I ∈ F, ProbeGramCommon.gramIdealNorm I ^ (-2 : ℝ)) ≤
+        C * Y ^ (rho - 1) := by
+  obtain ⟨C, hC, hb⟩ :=
+    ProbeGramCommon.supportedIdeal_rpow_finite_bound (-1 - rho) (by linarith)
+  refine ⟨C, hC, ?_⟩
+  intro Y hY F hF
+  calc
+    _ ≤ ∑ I ∈ F, ProbeGramCommon.gramIdealNorm I ^ (-1 - rho) *
+        Y ^ (rho - 1) := by
+      apply Finset.sum_le_sum
+      intro I hI
+      have hn := ProbeGramCommon.gramIdealNorm_pos I
+      have he : ProbeGramCommon.gramIdealNorm I ^ (-2 : ℝ) =
+          ProbeGramCommon.gramIdealNorm I ^ (-1 - rho) *
+            ProbeGramCommon.gramIdealNorm I ^ (rho - 1) := by
+        rw [← Real.rpow_add hn]
+        congr 1
+        ring
+      rw [he]
+      exact mul_le_mul_of_nonneg_left
+        (Real.rpow_le_rpow_of_nonpos hY (hF I hI) (by linarith))
+        (Real.rpow_nonneg hn.le _)
+    _ = (∑ I ∈ F, ProbeGramCommon.gramIdealNorm I ^ (-1 - rho)) *
+        Y ^ (rho - 1) := (Finset.sum_mul ..).symm
+    _ ≤ C * Y ^ (rho - 1) :=
+      mul_le_mul_of_nonneg_right (hb F) (Real.rpow_nonneg hY.le _)
+
+lemma canonical_slot_inverse_square_tail (rho : ℝ) (hrho : 0 < rho)
+    (hrho1 : rho < 1) :
+    ∃ C : ℝ, 0 < C ∧ ∀ (T : Finset PrimeIdeal)
+      (_hT : ∀ P ∈ T, Supported P.val) (Y : ℝ), 0 < Y →
+      (∀ P ∈ T, Y ≤ (Ideal.absNorm P.val : ℝ)) →
+      (∑ a : canonicalSlotSupport T, elementNorm a.val ^ (-2 : ℝ)) ≤
+        C * Y ^ (rho - 1) := by
+  obtain ⟨C, hC, hb⟩ := supportedIdeal_inverse_square_tail rho hrho hrho1
+  refine ⟨C, hC, ?_⟩
+  intro T hT Y hY hnorm
+  let f : T → SupportedIdeal := fun P => ⟨P.val.val, hT P.val P.property⟩
+  have hf : Function.Injective f := by
+    intro P Q h
+    apply Subtype.ext
+    apply Subtype.ext
+    exact congrArg (fun I : SupportedIdeal => I.val) h
+  have he : (∑ a : canonicalSlotSupport T, elementNorm a.val ^ (-2 : ℝ)) =
+      ∑ I ∈ Finset.univ.image f, ProbeGramCommon.gramIdealNorm I ^ (-2 : ℝ) := by
+    rw [Finset.sum_image (fun P _ Q _ h => hf h)]
+    have hh := (canonicalSlotEquiv T hT).sum_comp
+      (fun a => elementNorm a.val ^ (-2 : ℝ))
+    rw [← hh]
+    apply Finset.sum_congr rfl
+    intro P hP
+    rw [canonicalSlotEquiv_norm]
+    rfl
+  rw [he]
+  apply hb Y hY
+  intro I hI
+  obtain ⟨P, _, rfl⟩ := Finset.mem_image.mp hI
+  change Y ≤ (Ideal.absNorm P.val.val : ℝ)
+  exact hnorm P.val P.property
+
+-- C is chosen before K, the slot sets, the cutoffs, and the windows.
+theorem lowUnselectedMass_moving_bound (rho : ℝ) (hrho : 0 < rho)
+    (hrho1 : rho < 1) :
+    ∃ C : ℝ, 0 < C ∧ ∀ (K : ℕ) (T : Fin K → Finset PrimeIdeal)
+      (_hT : ∀ i P, P ∈ T i → Supported P.val) (Y B : Fin K → ℝ),
+      (∀ i, 0 < Y i) → (∀ i, 0 ≤ B i) →
+      (∀ i P, P ∈ T i → Y i ≤ (Ideal.absNorm P.val : ℝ)) →
+      ∀ (J : Finset (Fin K)) (W : Fin K → ℝ → ℂ) (P : Fin K → ℝ),
+      (∀ i x, ‖W i x‖ ≤ B i) →
+      (∑ a : LowUnselectedTuple (fun i => canonicalSlotSupport (T i)) J,
+        ‖lowUnselectedWeight (fun i => canonicalSlotSupport (T i)) J W P a‖ *
+          elementNorm (∏ i : J, (a i).val) ^ (-(1 / 2 : ℝ))) ≤
+        ∏ i : J, (C * B i.val) * (Y i.val) ^ (rho - 1) := by
+  obtain ⟨C, hC, hb⟩ := canonical_slot_inverse_square_tail rho hrho hrho1
+  refine ⟨C, hC, ?_⟩
+  intro K T hT Y B hY hB hnorm J W P hW
+  simp_rw [lowUnselectedWeight_norm_identity _
+    (fun i => canonicalSlotSupport_nonzero _ (hT i))]
+  rw [← Fintype.prod_sum
+    (fun (i : J) (a : canonicalSlotSupport (T i.val)) =>
+      elementNorm a.val ^ (-2 : ℝ) *
+        ‖W i.val (elementNorm a.val / P i.val)‖)]
+  apply Finset.prod_le_prod₀
+    (fun i _ => Finset.sum_nonneg (fun a _ =>
+      mul_nonneg (Real.rpow_nonneg (by unfold elementNorm; positivity) _)
+        (norm_nonneg _)))
+  intro i hi
+  calc
+    _ ≤ ∑ a : canonicalSlotSupport (T i.val),
+        elementNorm a.val ^ (-2 : ℝ) * B i.val := by
+      apply Finset.sum_le_sum
+      intro a ha
+      exact mul_le_mul_of_nonneg_left (hW i.val _)
+        (Real.rpow_nonneg (by unfold elementNorm; positivity) _)
+    _ = (∑ a : canonicalSlotSupport (T i.val),
+        elementNorm a.val ^ (-2 : ℝ)) * B i.val := (Finset.sum_mul ..).symm
+    _ ≤ (C * (Y i.val) ^ (rho - 1)) * B i.val :=
+      mul_le_mul_of_nonneg_right
+        (hb (T i.val) (hT i.val) (Y i.val) (hY i.val) (hnorm i.val))
+        (hB i.val)
+    _ = (C * B i.val) * (Y i.val) ^ (rho - 1) := by ring
+
+theorem lowUnselectedMass_moving_power_bound (rho : ℝ) (hrho : 0 < rho)
+    (hrho1 : rho < 1) :
+    ∃ C : ℝ, 0 < C ∧ ∀ (K : ℕ) (T : Fin K → Finset PrimeIdeal)
+      (_hT : ∀ i P, P ∈ T i → Supported P.val)
+      (ell : Fin K → ℝ) (a Z B : ℝ), 0 < a → 0 < Z → 0 ≤ B →
+      (∀ i P, P ∈ T i → a * Z ^ (ell i) ≤ (Ideal.absNorm P.val : ℝ)) →
+      ∀ (J : Finset (Fin K)) (W : Fin K → ℝ → ℂ) (P : Fin K → ℝ),
+      (∀ i x, ‖W i x‖ ≤ B) →
+      (∑ u : LowUnselectedTuple (fun i => canonicalSlotSupport (T i)) J,
+        ‖lowUnselectedWeight (fun i => canonicalSlotSupport (T i)) J W P u‖ *
+          elementNorm (∏ i : J, (u i).val) ^ (-(1 / 2 : ℝ))) ≤
+        (C * B * a ^ (rho - 1)) ^ J.card *
+          Z ^ ((rho - 1) * (∑ i ∈ J, ell i)) := by
+  obtain ⟨C, hC, hb⟩ := lowUnselectedMass_moving_bound rho hrho hrho1
+  refine ⟨C, hC, ?_⟩
+  intro K T hT ell a Z B ha hZ hB hnorm J W P hW
+  have hm := hb K T hT (fun i => a * Z ^ (ell i)) (fun _ => B)
+    (fun _ => by positivity) (fun _ => hB) hnorm J W P hW
+  have hp : ∀ i : Fin K,
+      (C * B) * (a * Z ^ (ell i)) ^ (rho - 1) =
+        (C * B * a ^ (rho - 1)) * Z ^ ((rho - 1) * ell i) := by
+    intro i
+    rw [Real.mul_rpow ha.le (Real.rpow_nonneg hZ.le _), ← Real.rpow_mul hZ.le]
+    rw [mul_comm (ell i) (rho - 1)]
+    ring
+  calc
+    _ ≤ ∏ i : J, (C * B) * (a * Z ^ (ell i.val)) ^ (rho - 1) := hm
+    _ = ∏ i : J, (C * B * a ^ (rho - 1)) *
+        Z ^ ((rho - 1) * ell i.val) := by
+      apply Finset.prod_congr rfl
+      intro i hi
+      exact hp i.val
+    _ = (C * B * a ^ (rho - 1)) ^ J.card *
+        Z ^ ((rho - 1) * (∑ i ∈ J, ell i)) := by
+      rw [Finset.prod_mul_distrib, Finset.prod_const, Finset.card_univ,
+        Fintype.card_coe, ← Real.rpow_sum_of_pos hZ, Finset.sum_coe_sort,
+        ← Finset.mul_sum]
+
+theorem lowUnselectedMass_empty (K : ℕ) (T : Fin K → Finset PrimeIdeal)
+    (hT : ∀ i P, P ∈ T i → Supported P.val)
+    (W : Fin K → ℝ → ℂ) (P : Fin K → ℝ) :
+    (∑ a : LowUnselectedTuple (fun i => canonicalSlotSupport (T i))
+        (∅ : Finset (Fin K)),
+      ‖lowUnselectedWeight (fun i => canonicalSlotSupport (T i)) ∅ W P a‖ *
+        elementNorm (∏ i : (∅ : Finset (Fin K)), (a i).val) ^
+          (-(1 / 2 : ℝ))) = 1 := by
+  simp_rw [lowUnselectedWeight_norm_identity _
+    (fun i => canonicalSlotSupport_nonzero _ (hT i))]
+  rw [← Fintype.prod_sum
+    (fun (i : (∅ : Finset (Fin K))) (a : canonicalSlotSupport (T i.val)) =>
+      elementNorm a.val ^ (-2 : ℝ) *
+        ‖W i.val (elementNorm a.val / P i.val)‖)]
+  simp
+
+end SevenEighths.ProbePhysical
+end
+
+end OAI
+
+#print axioms OAI.SevenEighths.ProbePhysical.supportedIdeal_inverse_square_tail
+#print axioms OAI.SevenEighths.ProbePhysical.canonical_slot_inverse_square_tail
+#print axioms OAI.SevenEighths.ProbePhysical.lowUnselectedMass_moving_bound
+#print axioms OAI.SevenEighths.ProbePhysical.lowUnselectedMass_moving_power_bound
+#print axioms OAI.SevenEighths.ProbePhysical.lowUnselectedMass_empty
+
+```
+
+### Independent Finite Verifier
+
+```python
+"""Exact norm-level regressions, not Lean execution or OAI integral evaluation."""
+
+from fractions import Fraction as Q
+from itertools import combinations, product
+from math import isqrt, prod
+import json
+
+
+def cmul(a, b):
+    return (a[0] * b[0] - a[1] * b[1],
+            a[0] * b[1] + a[1] * b[0])
+
+
+def cnorm(a):
+    n = a[0] ** 2 + a[1] ** 2
+    r = isqrt(n)
+    assert r * r == n
+    return r
+
+
+def subsets(n):
+    for k in range(n + 1):
+        yield from combinations(range(n), k)
+
+
+def main():
+    primes = (5, 11, 17)
+    for p in primes:
+        assert all(p % d for d in range(2, isqrt(p) + 1))
+        assert p % 3 == 2
+        assert not any((x * x + x + 1) % p == 0 for x in range(p))
+    # These irreducible Eisenstein residue polynomials give norm p^2 fixtures.
+    pool = tuple(primes)
+    finite_c = sum((Q(1, p ** 3) for p in pool), Q(0))
+    tail_checks = 0
+    for root_y in (Q(1, 2), Q(1), Q(5), Q(7), Q(11), Q(17), Q(18)):
+        for subset in subsets(len(pool)):
+            selected = tuple(pool[i] for i in subset)
+            if any(p < root_y for p in selected):
+                continue
+            lhs = sum((Q(1, p ** 4) for p in selected), Q(0))
+            assert lhs <= finite_c / root_y
+            tail_checks += 1
+
+    fixtures = (
+        ((5,), (11,), (17,)),
+        ((5, 11), (5, 17), (11, 17)),
+        ((), (5, 11), (17,)),
+        ((), (), ()),
+    )
+    weight_options = ((0, 0), (1, 0), (-1, 0), (0, 1), (3, 4))
+    mass_checks = empty_checks = zero_bound_checks = 0
+    for slots in fixtures:
+        roots_y = tuple(min(s) if s else 19 for s in slots)
+        # Different norm-dependent windows in each slot, with exact integer norms.
+        for offsets in product(range(len(weight_options)), repeat=3):
+            weights = tuple(
+                {p: weight_options[(j + offsets[i]) % len(weight_options)]
+                 for j, p in enumerate(slots[i])}
+                for i in range(3)
+            )
+            bounds = tuple(max((cnorm(w) for w in row.values()), default=0)
+                           for row in weights)
+            for J in subsets(3):
+                direct = Q(0)
+                for row in product(*(slots[i] for i in J)):
+                    z = (1, 0)
+                    root_l = 1
+                    for i, p in zip(J, row):
+                        z = cmul(z, weights[i][p])
+                        root_l *= p
+                    # L^(-3/2) times L^(-1/2), using L=(product p)^2.
+                    direct += Q(cnorm(z), root_l ** 3) * Q(1, root_l)
+                factored = prod(
+                    sum((Q(cnorm(weights[i][p]), p ** 4) for p in slots[i]), Q(0))
+                    for i in J
+                )
+                upper = prod(finite_c * bounds[i] / roots_y[i] for i in J)
+                assert direct == factored
+                assert direct <= upper
+                if not J:
+                    assert direct == upper == 1
+                    empty_checks += 1
+                if upper == 0:
+                    assert direct == 0
+                    zero_bound_checks += 1
+                mass_checks += 1
+
+    exponent_checks = 0
+    geometries = ((Q(1, 48), Q(1, 24), Q(5, 48)),
+                  (Q(0), Q(1, 12), Q(1, 12)),
+                  (Q(1, 6),))
+    for ell in geometries:
+        assert sum(ell) <= Q(1, 6)
+        for loss in (Q(1, 1000000), Q(1, 100), Q(1, 2), Q(3), Q(1024)):
+            rho = min(Q(1, 2), loss)
+            eps = min(Q(1, 2), loss / 1024)
+            delta = loss / 4
+            assert 0 < rho < 1 and 0 < eps < 1
+            for J in subsets(len(ell)):
+                d = sum((ell[i] for i in J), Q(0))
+                central = Q(3, 16) - (1 - rho) * d + 256 * eps + delta
+                target = Q(3, 16) - d + loss
+                assert central <= target
+                assert -1 + delta <= target
+                assert Q(3, 16) - (1 - rho) * d >= Q(1, 48)
+                exponent_checks += 1
+
+    print(json.dumps({
+        "tail_checks": tail_checks,
+        "heterogeneous_mass_checks": mass_checks,
+        "empty_J_checks": empty_checks,
+        "zero_upper_bound_checks": zero_bound_checks,
+        "exponent_budget_checks": exponent_checks,
+        "finite_fixture_constant": str(finite_c),
+        "overlapping_and_empty_slots": "PASS",
+        "complex_window_norms": "0, 1, 5",
+        "lean_execution": "NOT_RUN",
+        "source_integrals": "NOT_EVALUATED",
+        "status": "FINITE_REGRESSIONS_ONLY"
+    }, sort_keys=True, indent=2))
+
+
+if __name__ == "__main__":
+    main()
+
+```
+
+### Executed Finite Output
+
+```json
+{
+  "complex_window_norms": "0, 1, 5",
+  "empty_J_checks": 500,
+  "exponent_budget_checks": 90,
+  "finite_fixture_constant": "7319703/817400375",
+  "heterogeneous_mass_checks": 4000,
+  "lean_execution": "NOT_RUN",
+  "overlapping_and_empty_slots": "PASS",
+  "source_integrals": "NOT_EVALUATED",
+  "status": "FINITE_REGRESSIONS_ONLY",
+  "tail_checks": 35,
+  "zero_upper_bound_checks": 1696
+}
+```
