@@ -128,7 +128,7 @@ principal/resonant cases, Fourier phases, Gaussian normalization and
 all original height/remote costs. Refute ambient-counting or density-one
 admission shortcuts unless their WEIGHTED original incidence and row
 transform are proved; cite the November 4 cube-mask annihilation example.
-Separately audit the moving-mass central theorem in PR #1087 at its
+Separately audit the moving-mass central theorem in PR #1085 at its
 live exact-head CI/axiom status, never promoting uncompiled proof text.
 Return a lawful counterexample or independently checked ν theorem and
 the complete squared-energy -> ν/2 amplitude -> net beta budget.
@@ -353,7 +353,7 @@ Real tool/Studio permissions must be checked independently: a Markdown
 permission statement cannot configure OAuth or the saved Studio agent.
 If a needed write is disabled, record the exact tool/permission failure
 rather than treating uncompiled mathematics as unusable.
-Immediate mathematical work: repair and kernel-compile PR #1087
+Immediate mathematical work: repair and kernel-compile PR #1085
 low_central_compensated_tuple_moving_mass from the November 4 Lean
 integration patch, preserving actual original OAI LOW atoms and
 proof-integrity audits. The original #1083 LOW/NNS equalities are merged
