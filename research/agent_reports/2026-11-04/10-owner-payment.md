@@ -1068,3 +1068,15 @@ Compare exact summation by parts with centered endpoint differences and source-f
 Substantive derivation, quantitative consequence, circularity review, competing mechanisms, precise specialist handoffs and final resume capsule are PENDING and will be appended in this same report. Review is SELF_AUDIT unless independently published evidence is obtained. No local Lean, proof/source modification, other-report edit, agent launch, schedule change, PR mutation or merge is authorized or performed.
 
 Existing one-shot strict-slot endpoint credit is inherited only; additional signed-LOW gate SEARCH_BROAD; net new endpoint gain UNKNOWN. Source-faithful complete return remains mandatory.
+
+---
+
+## Verified Publication Receipt - 2026-11-04 00:47 EST
+
+The completed synthesis, claim 20261104-owner-1/S1-S5, full executed verifier, exact output and preserved early checkpoint were published in commit **fe552dad704e6a4014103ef64e56cd3ee7c97181**, report blob **9560bd392e13c2d5bf0990f94876de126df62906**. Fetching the report at that commit returned all **53,246 characters**, exactly matching the submitted bytes. Commit inspection confirmed exactly one changed file: this authorized Owner report.
+
+The early checkpoint is retained verbatim in its historical section. Report checks found all A-K sections, balanced code fences and ASCII text; the verifier and its syntax check passed. These checks are not independent mathematical review or Lean certification.
+
+Closing main refresh still returned **040980c16901af749202e9b0f91211c43909404a**. The latest November 4 directory check contained only this Owner report, so upstream **TODAY=PENDING; YESTERDAY=CARRY_FORWARD** remains the observed state, not an assumed agent failure. Immediately before this receipt update the live report blob/content matched the verified substantive version.
+
+**Execution: COMPLETE. Publication: substantive commit verified.** S2/S3 remain PAPER_PROOF / SELF_AUDIT; independent Referee and Lean review PENDING. New complete-endpoint gain: NONE. Next protected Owner route: VF-LOW. This receipt's own commit/readback is checked after writing, not presupposed.
