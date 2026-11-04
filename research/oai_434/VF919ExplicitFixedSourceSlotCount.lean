@@ -262,8 +262,8 @@ theorem exists_explicit_high_data_fine :
     change (1 : ℝ) / (12 * (explicitSlotCount : ℝ)) ≤ ell j
     exact hslotLower j
 
-end Parameters
-end SevenEighths
+end SevenEighths.Parameters
+end
 end OAI
 
 namespace OAI
@@ -314,4 +314,5 @@ theorem native_beta_le_explicit_slot_count :
 
 #print axioms native_beta_le_explicit_slot_count
 end SevenEighths
+end
 end OAI
