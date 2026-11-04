@@ -1778,3 +1778,27 @@ with open('common_mode_results.json', 'w', encoding='ascii') as handle:
 The completed synthesis and all four executable sources were published in commit `12c3aec267e04e364c9ff5ea1d942d777902e65d`, content blob `f4b1e85d89607a1ad2b4a54fa660d60b13b58eb9`. At 2026-11-03T16:22:00Z, pinned readback matched all 104,498 characters exactly. The commit inspection confirmed only `research/agent_reports/2026-11-03/40-prime-census.md` changed, with 812 additions and zero deletions. All earlier same-day content and the preregistration checkpoint were preserved. This receipt is appended only after that verification.
 
 Final mathematical checks: 458 independent arithmetic comparisons and exact primal/dual certificates passed; original first-owner reconstruction and full AMP square restoration passed at R=57,59,125,376; no unresolved discrepancy. A final report-only sign-check command initially had a quoting/parenthesis error, was corrected, and returned true for negativity of every stored B and pair envelope. The arithmetic programs were unaffected. Main remained `3930d884282dd5315f0453e5dd88b356d187a8e0`; #1079 remained open/draft at the inspected unchanged head. No GitHub mutation outside this authorized report occurred.
+
+
+## Scheduled Continuation Checkpoint - 2026-11-03 19:00 EST Invocation
+
+Actual trigger: 2026-11-03T19:00:01-05:00. RUN_ID_UNAVAILABLE.
+Checkpoint written at 2026-11-03T19:06 EST. Status: PARTIAL; no new result or completed integral evaluation claimed.
+
+Main refreshed to `25127ac796a1d2ace7a8b3ddb27a02154cc48ef2`; AGENTS blob `b878d396c387a57bd0b5165fecf10d15ef3732cd`; proof-contract blob `63f7553bf6e5f2a16e37808116c643dc0dcc50e1`; source-first policy `b6980c30e63bb8c9ddfc8d6fa86a2bb401707fa6`. SOURCE_FIRST_VERSION=2026-11-03. Selected NEXT-CENSUS. All November 2/3 named role files and external inbox were retrieved at reporting snapshot `78ce7dc8eb16986f22f4c0624ff8e01ceaa14fe3`; applicable findings are continuity evidence, not new proof authority. Today's reports are available; independent review of this new experiment is PENDING.
+
+### Preregistered Experiment
+
+Resume Wheel `20261103-wheel-3` O1-O4, not the completed native CORR4 scan. The exact source is pinned OAI `1581d4cbdd69a0faf34b2089614fe2a814316a6a`, `LowSlotPolynomial.compensation_tuple_low_polynomial` (blob `b1dcb5a1e51afad1d39ccd91fa58a764e39629ba`). In the actual code J indexes UNSELECTED slots. Canonical ideal labels are retained using `canonicalSlotEquiv`, not deduplicated by norm.
+
+Question: does the conjugate-prime incidence graph determine the complete multiplicity of a product-norm fiber? Rival H0: only the bound m<=2^|J| is robust, with arbitrary intermediate positive multiplicities. Candidate H1: for full Cartesian, pairwise-disjoint prime-ideal slots each nonempty norm fiber has m=2^c, where c counts residual alternating cycles after forced assignments; terminal separated norm bands permit only same-slot conjugate switches. A multiplicity outside {0,1,2,4,...}, disagreement with the independent reconstruction, or loss of an original occurrence rejects H1.
+
+Frozen exploratory domain: all assignments of the six actual split prime ideals above 7,13,19 to absent/slot0/slot1/slot2 (4096 placements), every J subset (8 masks). Held-out domain: 512 deterministic placements of the eight split ideals above 31,37,43,61 and the inert ideals above 5,11 into absent/four slots, every J; seed 20261103. Include exact p^2 forced assignments, loops, parallel cycles, empty/full/partial J, empty pools, and explicit exclusions. Stress tests deliberately delete one tuple from a four-element fiber or violate slot disjointness; these test necessity of hypotheses and are not legal terminal counterexamples.
+
+Freeze rational norm-only slot weights and compare the COMPLETE symbolic Hermitian polynomial by direct ordered pairs versus separately grouped fibers. Actual selected inverse integrals remain symbolic. No invented values for H_J(L), no arbitrary complex vector labeled actual OAI, and no native Mobius substitution. Direct certified OAI integration is presently BLOCKED (`UNSUPPORTED_DIRECT_OAI`): no concrete admissible calibration/character/Schwartz-window instance with certified tail and numerical integration has been constructed. The authorized fallback is an exact finite source sub-identity, NOT a numerical positive C_low witness. Principal and nonprincipal characters remain universally quantified in the symbolic identity, not numerically tested.
+
+A further source check is mandatory: `LowNormalized` has positive injective ell and common norm windows [a Z^ell_i,b Z^ell_i]. Once these bands separate, cross-slot conjugacy cycles cannot occur. Do not promote a merely disjoint arbitrary-slot example as an asymptotic terminal example.
+
+PR #1083 was live OPEN/DRAFT at head `e859ade072681f0a0dc596198eaa2f2863b91525`: 13 check runs successful, dedicated low-first-slot-proof IN_PROGRESS. This is newer than Wheel's failed-head observation; no complete CI or axiom certification is claimed. The existing strict-slot gain is inherited at its previously reviewed scope only; this run's new endpoint gain is UNKNOWN.
+
+Planned output: exact finite certificates, a source-scoped proof or smallest falsifier, all missing return terms, and a nonduplicate resume capsule. Only this own dated report may be written remotely.
