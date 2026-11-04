@@ -835,3 +835,7 @@ Recorded output:
 ```
 
 Final publication is verified by commit/readback after this write; no earlier checkpoint is overwritten.
+
+## Publication Receipt
+
+At 05:35:58 EST, the final synthesis was read back at commit `382d15880ff4c56567eb180d3295125c0dfb94de`, blob `bbe5a9910633d76bc3a3ffdc30c51ab06bd58075`. Content matched the prepared report after normalizing only the fetch tool's omitted terminal newline. The embedded integration patch and verifier matched their recorded SHA256 hashes. The finite verifier and patch dry-application check were rerun successfully. This receipt is a report-only follow-up, not a proof commit or CI certification.
