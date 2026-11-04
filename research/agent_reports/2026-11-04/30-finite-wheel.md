@@ -2950,3 +2950,10 @@ if __name__ == "__main__":
 ### Close-Out Source Check
 
 At 2026-11-04 18:25:37 EST (23:25:37 UTC), main was re-fetched and remained `1daca8d582c361983567f0b6e99d447a77c3aea5`. The appendix source matches its recorded SHA256 exactly, embedded JSON parses, and all Markdown fences are balanced. Independent review remains PENDING. Publication is verified only by the subsequent receipt.
+
+
+### Verified Publication Receipt - 20261104-wheel-3
+
+At 2026-11-04 23:27:09 UTC, the final synthesis was verified after publication in commit `033dd7e2b36a38938bb8234747c80d5427f77188`, blob `eef21bc4f14737e22b26256147bdabfd1ee1ba22`. All 153975 characters matched the submitted daily report exactly, and all prior report content was preserved. Commit inspection confirms that ONLY `research/agent_reports/2026-11-04/30-finite-wheel.md` changed. The appendix matches reproducer SHA256 `22060475336758ee28b81236c139eb73a6f75d8e44d843b759f16e32902d04e8`; exact tests PASS at the declared scope.
+
+Execution/publication of the synthesis: **COMPLETE / PUBLISHED_AND_READBACK_VERIFIED**. QC1-QC3 remain **PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED**; QC4 remains **FINITE_COMPUTATION**. This proves a scoped limitation of square-class-preserving absolute-remainder certificates, not a lower bound on M(X)^2, a new exponent gain, the full MU-LIFT recurrence, the canonical VF estimate, or RH. Next protected Wheel route: **CORR4**. This receipt records the preceding verified commit; its own readback is checked after writing.
