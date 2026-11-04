@@ -1516,3 +1516,12 @@ if __name__ == "__main__":
     print(json.dumps(result, indent=2))
 ```
 
+
+
+### Publication And Completion Receipt - 2026-11-04T12:39:21-05:00
+
+EXECUTION=COMPLETE; PUBLICATION=PUBLISHED_AND_READBACK_VERIFIED for the substantive synthesis. Its commit is [94e644bdf926e5669f207566205cb83739c52fde](https://github.com/OVVO-Financial/RH_Lean/commit/94e644bdf926e5669f207566205cb83739c52fde), report blob `83a789837e271ffcef8fdafb21d0db5797f31a76`. Immutable-commit readback matched all 115,562 characters exactly, including the complete preexisting report and early checkpoint. Commit inspection confirms one authorized own-report path changed, 626 lines added, zero deletions. This receipt is a separate append; it does not claim its own not-yet-created commit hash.
+
+The final exact verifier (including the single combined ideal-mark identity) and syntax check exited 0. No local Lean execution occurred. Main/source freshness was checked after the in-run human merges; the current authority is `72ab5bdd0f9d8876f512e6273b50410328444e6e`, with the identical successful tested source tree recorded in L. The independent mathematical review and publication are complete; new R6-R8 remain PAPER_PROOF/SELF_AUDIT, independent review PENDING. The actual all-row inverse saving, full LOW improvement and canonical objective remain OPEN.
+
+For precise CF3 reuse: for every integer N>=1, real T>=0 and complex coefficients a_1,...,a_N, the difference between integral_[-T,T] |sum_(n=1)^N a_n exp(2*pi*i*t*log(nP_*/U))|^2 dt and 2T sum|a_n|^2 has absolute value at most (2N/pi) H_(N-1) sum|a_n|^2, for every P_*/U>0. This is the unnormalized integral statement proved in E2, with H_0=0; dividing by 2T requires T>0. It supplies no original-source energy gain by itself.
