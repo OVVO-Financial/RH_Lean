@@ -1,5 +1,7 @@
 # OAI 1 -> 7/8 source-first signed LOW research contract for all seven agents
 
+**NO_PIGEONHOLING_ROUTE_SELECTOR_V1: OPTIONAL OAI SPECIALIST REFERENCE.** The [2026-11-04 independent multi-front user directive](RHLEAN_INDEPENDENT_MULTIFRONT_NO_PIGEONHOLING_20261104.md) supersedes mandatory source-first tasks and all seven-agent convergence written below. When an investigator actually selects OAI-NNS, keep all original masks, phases, cancellations and source-to-endpoint safeguards in this document. On VF-LOW/SAT/JOH/CODIV/NYMAN/FINITE-AC/CORR4/MU-LIFT or a valid new method, **do not require an OAI audit, matched packet or Hecke reinterpretation**. Dated NEXT-* assignments below are historical optional examples.
+
 **2026-11-03. Effective only after human-reviewed merge to main.** This is a mathematical research and instruction contract, not an assertion of a new proof, an Agent Studio schedule change, a saved-prompt update or authorization to merge. Seven existing roles, existing reports, repeated runs only when configured, independent review, human-only merge, and protected broad-route coverage are retained.
 
 ## 0. Correct the research question
