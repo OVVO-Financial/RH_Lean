@@ -1747,3 +1747,12 @@ if __name__ == "__main__":
   "result": "PASS"
 }
 ```
+
+
+### Verified Publication Receipt - 2026-11-03 23:30:52 EST
+
+**This actual scheduled invocation: COMPLETE / PUBLISHED_AND_VERIFIED.** The 23:09 EST synthesis, claims C37-C40, full source/exponent audit, protected-route assignments and exact reproducer were published in commit `a49cead2dad4aeb8a8f1f4d2b3562905f308792e` on `agent-reports`, parent `a3b830e0806ac92510dfd81e82799570e3884eaa`. Both authorized mirrors were fetched at the synthesis commit and matched all 158899 submitted characters exactly, sharing blob `90ff5e63bfe99ab3a87566a7fb262003f2b03e3f`. Commit inspection confirmed exactly the two owned Coordinator paths, each with 483 added lines and zero deletions. All prior report content, correction history and the honest early checkpoint remain an unchanged prefix.
+
+Final authority refresh retained main `040980c16901af749202e9b0f91211c43909404a`; the latest open-PR query returned no open or draft PR. The C40 verifier passed, and its checked SHA256 matches the embedded program. Markdown headings, code fences, prior-prefix preservation, exact output inclusion and identical mirrors were checked. This receipt records the already verified synthesis, not an assumed success of its own later commit/readback.
+
+Research/publication completion does not promote C37-C39 beyond scoped PAPER_PROOF / SELF_AUDIT, C40 beyond FINITE_COMPUTATION, or the moving-mass draft beyond UNCOMPILED / reported BLOCKED_WRITE_ACCESS. Independent review of today's new claims remains PENDING. The all-selected signed inverse estimate, canonical VF/von Koch bound, RH and a reusable additional strict gain remain OPEN. No Lean or central policy edits, proof PR, merge, other-role report write, agent launch, permission change or schedule change occurred.
