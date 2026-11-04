@@ -1802,3 +1802,1063 @@ A further source check is mandatory: `LowNormalized` has positive injective ell 
 PR #1083 was live OPEN/DRAFT at head `e859ade072681f0a0dc596198eaa2f2863b91525`: 13 check runs successful, dedicated low-first-slot-proof IN_PROGRESS. This is newer than Wheel's failed-head observation; no complete CI or axiom certification is claimed. The existing strict-slot gain is inherited at its previously reviewed scope only; this run's new endpoint gain is UNKNOWN.
 
 Planned output: exact finite certificates, a source-scoped proof or smallest falsifier, all missing return terms, and a nonduplicate resume capsule. Only this own dated report may be written remotely.
+
+
+## Scheduled Continuation Final Synthesis - Claims 20261103-census-5 And 20261103-census-6
+
+Actual invocation: **2026-11-03 19:00:01 EST (-0500)**, America/New_York. Platform run ID unavailable. This completes the preceding preregistration, not another invocation. Mathematical classifications: **FINITE_COMPUTATION** and **PAPER_PROOF / SELF_AUDIT**. Independent review and new Lean certification: **PENDING**. Direct certified OAI integral evaluation: **BLOCKED**, source-policy label `UNSUPPORTED_DIRECT_OAI`.
+
+### A. Most Important Mathematical Discovery
+
+**The norm-collision multiplicity has an exact cycle structure, not merely an upper bound.** In a full Cartesian family of pairwise-disjoint Eisenstein prime-ideal slots, a nonempty product-norm fiber has exactly `2^c` occurrences. Here c counts the alternating cycles left after forced slot assignments are removed from an explicit incidence multigraph. A weighted version factors the entire original norm-fiber coefficient into forced weights and two-choice cycle factors.
+
+The terminal OAI source is more restrictive: its fixed, injective slot exponents eventually separate the norm windows themselves. Then every cycle reduces to the two conjugate ideals in a single slot. Equal product norm determines the whole slot-norm profile, so every original atom in that fiber is identical. The exact same-norm ordered cross term is `(2^c-1) D_L`, nonnegative, where D_L is that fiber's original diagonal energy. This refines Wheel O1-O4 without claiming that those earlier identities or elementary matching theory are new.
+
+All **40,960 preregistered placement/subset cases** agreed between direct tuple enumeration, independent ideal-polynomial reconstruction, and the cycle algorithm. Another 12 fixtures and 96 zero/boundary-norm checks passed. On 8,204 cases the complete symbolic Hermitian polynomial was reconstructed coefficient by coefficient, including distinct-norm terms.
+
+This is a source-qualified structural restriction, **not a numerical evaluation of the original atoms**, a positive actual-integral witness, or a new LOW power saving. The missing arithmetic is still in interactions between different norms and in the complete returned source.
+
+### B. Current Authoritative Objective
+
+Intake main: `25127ac796a1d2ace7a8b3ddb27a02154cc48ef2`, human merge of #1084. The canonical theorem remains `VFCanonicalSquareVonKochStatement`: there exists C>=0 such that, for every integer R>=2, `|pi(R^2)-VF_can(R^2)| <= C R log R`. It is OPEN. The authorized immediate task is NEXT-CENSUS from the original signed LOW source-first contract, not an owner-Gamma assumption or a native-Mobius replacement.
+
+Live authority blobs:
+
+| File | Blob |
+| --- | --- |
+| AGENTS.md | b878d396c387a57bd0b5165fecf10d15ef3732cd |
+| CURRENT_PROOF_CONTRACT.md | 63f7553bf6e5f2a16e37808116c643dc0dcc50e1 |
+| Stable task selector | 3cb817ab9aae51429858d5a98727e16dbd072d47 |
+| Source-first LOW contract | b6980c30e63bb8c9ddfc8d6fa86a2bb401707fa6 |
+| Complete-return contract | 4775ee5fd95f279beab08a75d1e17127078b19a6 |
+| Persistent research engine | 495fa9ee2067ccf5db9dc3c48ffaaadcd6485aa4 |
+| Dynamic protocol | ea90322f257a12dc694ca4a188fe4c5715880c79 |
+
+Original source is pinned `openai/math@1581d4cbdd69a0faf34b2089614fe2a814316a6a`. The source declaration is `Detector/LowSlotPolynomial.lean::compensation_tuple_low_polynomial`. **J indexes unselected slots in the code**, and its complement indexes the selected row. This corrects ambiguous informal uses of J; no Lean definition was changed.
+
+The original first local cross-tuple sign loss was inspected directly in `LowTupleGram.compensation_tuple_actual_gram`: after the exact polynomial equality it invokes `norm_sum_le`. The squared inverse exponent is `5/6-2*d+507*epsilon`; sqrt(Q) normalization leaves an epsilon-scale inverse power, and the scalar Gaussian Gram contributes `3/16+23*epsilon/96`. The complete un-tilted LOW amplitude is `3/16+loss`, compared with principal signal `beta-11/16`. The original crossing is 7/8. A new fully normalized squared-energy saving nu could provide at most nu/2 in amplitude, only after every other return is paid. **No such nu is established here.**
+
+Relevant accepted source changes were checked from live PR metadata: #1079 merged at 16:55:21Z, #1081 at 20:55:13Z, #1082 at 21:23:28Z, and policy #1084 at 23:07:58Z on November 3. #1080 was closed without merge. The existing source-relative strict-slot Mertens result is carried forward at its previously independently reviewed scope; this run inspected its main declaration but did not independently re-audit its entire analytic proof. It is not newly discovered, numerically evaluated, or repeatedly spendable.
+
+### C. Competing Hypotheses
+
+The checkpoint in commit `051208da47c1fd294680f480962d768da14855b5`, read back at blob `f8b9d78006754d5c5fd30751a270b3b92f1d13c4`, fixed the hypotheses and ranges before execution.
+
+- H1: every nonempty full Cartesian disjoint-slot norm fiber has multiplicity `2^c`, with c determined by the incidence graph; its weighted coefficient has an exact cycle factorization.
+- Rival H0: only the ambient `m<=2^|J|` bound is stable, and arbitrary intermediate positive multiplicities can occur under the same hypotheses.
+- Rejection rule: any non-power-of-two positive multiplicity, disagreement between independent reconstructions, or lost physical occurrence rejects H1.
+- Scope stress: deleting one tuple or allowing overlapping slots may destroy the power-of-two rule. Such controls must not be called legal counterexamples to H1 or to terminal OAI.
+- Terminal discriminator: cross-slot cycles must disappear once the actual fixed exponent windows separate. General disjoint-slot fixtures cannot be silently promoted to eventual terminal admission.
+
+The finite tests support H1 on their exact domain; the paper argument below proves its stated combinatorial scope independently of the finite range. They say nothing about an untested asymptotic sign of the complete LOW polynomial.
+
+### D. Experimental Design
+
+Work in the actual Eisenstein ring `Z[omega]`, `omega^2+omega+1=0`. A split prime ideal is labeled `(p,r)` for the kernel of `omega -> r mod p`, where `r^2+r+1=0 mod p`; its norm is p. An inert prime p gives the single ideal `(p)` of norm p^2. The tests use only odd p!=3. Primality is certified by exhaustive trial division through floor(sqrt(p)); all residue roots are exhaustively checked. This is deterministic exact arithmetic through the largest fixture prime 4099, not a probable-prime test.
+
+The original `canonicalSlotEquiv` is an ideal-to-canonical-generator bijection preserving the ideal and norm. Thus ideal labels preserve the original tuple occurrences for this norm-only sub-identity. We do not choose arbitrary generator associates and infer that character phases are unchanged. All Hecke character, selected-row, phase, cutoff, W0/W1, calibration, and sqrt(Q)/(2*pi) data stay inside the original symbolic integral.
+
+For fixed J and all its original source parameters, write precisely
+
+```text
+L_a = product_(i in J) N(a_i),
+b_a = product_(i in J) W_i(N(a_i)/P_i),
+H_J(L) = [sqrt(lowPhysicalScale(C,X/L,Y/L))]^-1/(2*pi)
+         * integral_v lowSeparatedIntegrand(C,W0,W1,original_cutoff,
+                    X/L,Y/L,original_lowSelectedInverseRow,v),
+U_a = (-1)^|J| L_a^(-3/2) b_a H_J(L_a).
+```
+
+H_J is the literal original function, not a fitted or substituted random variable. The selected inverse row is the same for all outer a at fixed J, as the inspected source states. A new coupled mask depending on both a and selected b could invalidate that fact and is outside the theorem unless its row equality is separately proved.
+
+The exploratory domain assigns all six ideals above 7,13,19 to absent/slot0/slot1/slot2, giving 4^6 placements, and tests all eight J subsets. The held-out domain uses 512 placements of the eight split ideals above 31,37,43,61 and the inert ideals above 5,11 into absent/four slots, all 16 J, with `random.Random(20261103)`. The seed and domain were fixed in the checkpoint. Missing ideals model exclusions at the Cartesian-slot level, not a computed arbitrary ray-character predicate.
+
+The tabulated carrier is the unselected outer carrier. If an empty slot lies in the selected complement, the selected sum and therefore H_J can vanish even when that outer carrier is nonempty. An outer occurrence count is never treated as evidence for a nonzero full source.
+
+For weighted algebra tests the frozen rational norm samples are
+
+```text
+w_i(n) = (1 + ((i+1)*n mod 11))/12.
+```
+
+They are positive, at most 11/12, and depend on the original slot index and norm. Original indices are retained under partial J. These values test a universal coefficient identity; they are **not** reported as numerical evaluations of a chosen terminal Schwartz window. No nontrivial Hecke character or source integral was numerically evaluated. The identity applies symbolically to every character allowed by its original hypotheses, including principal and nonprincipal cases.
+
+### E. Executed Results
+
+| Domain | Slot/subset cases | Tuple occurrences | Nonempty fibers | Empty carriers |
+| --- | ---: | ---: | ---: | ---: |
+| Exploratory, exhaustive | 32,768 | 53,248 | 44,158 | 8,365 |
+| Held-out, fixed seed | 8,192 | 30,672 | 25,665 | 1,736 |
+| Named fixtures | 8 | 22 | 15 | 1 |
+| Separated-band fixture, all J | 4 | 9 | 4 | 0 |
+
+The nonempty exploratory multiplicities 1,2,4,8 occurred respectively 35,968; 7,752; 432; 6 times. The held-out frequencies were 21,212; 4,188; 259; 6. These counts are over placement/subset occurrences, not distinct ideals or statistically independent samples. The graph cycle count was exactly log2(m) in every case.
+
+Three separately structured reconstructions were executed: Cartesian tuple products; a sparse generating polynomial over individual ideals with an occupied-slot bitmask; and rational-prime factorization followed by forced-assignment elimination and residual cycles. They share the frozen prime-ideal input, not intermediate tuple tables or an assumed count formula. This is computational cross-checking in one invocation, **not independent Referee acceptance or a separate human implementation**.
+
+The held-out and fixture cases additionally compute every ordered coefficient of `K_L conjugate(K_M)`, where `K_L=(-1)^|J| L^(-3/2) H_J(L)`. Direct ordered occurrence pairs and grouped coefficients `B_L conjugate(B_M)` agree exactly, with `B_L=sum_(L_a=L)b_a`. All diagonals and distinct-norm coefficients are retained. There are 8,204 complete symbolic Gram checks and 25,684 same-norm coefficient checks, all with difference zero. This is a polynomial identity check, not a sign decision about unevaluated H_J.
+
+An implementation review caught a partial-J address issue: the initial weighted harness reindexed slot-dependent weights. It was corrected to preserve original slot labels before the final recorded run; count outputs were unaffected. The final source was rerun completely and passed `python -m py_compile`.
+
+Environment observed: Python 3.12.14, Linux 6.18.57 x86_64 GNU/Linux. Only Python standard-library integer arithmetic and `fractions.Fraction` enter mathematical decisions. The final recorded runtime was 3.6906479149999996 seconds. No floating-point signs, numerical quadrature, C++ execution, local Lean, or memory benchmark is claimed.
+
+```bash
+python norm_fiber_census.py > results.json
+python -m py_compile norm_fiber_census.py
+```
+
+Source SHA256: `e71b630cd142780f76061c4782daee36c755bf6505a06f371adee5cc735b74a2`.
+Recorded output SHA256: `4f54bff622c45338c14e14c738813489a2a0d198e2c6c65931fbbb6cbed806b7`.
+The measured elapsed-time field varies on rerun. Complete executed source and results are appended below; no external scratch artifact is needed to reproduce them.
+
+### F. Exceptional Cases And Counterexamples
+
+**Small explicit conjugate fiber.** Above 7 the two roots are 2 and 4. A single slot containing those two ideals has L=7, m=2 and fixed sample weight 2/3. Its exact coefficients multiplying the still-unknown `|H_J(7)|^2` are
+
+```text
+D_L = (8/3087) |H_J(7)|^2,
+C_same(L) = (8/3087) |H_J(7)|^2,
+|V_L|^2 = (16/3087) |H_J(7)|^2.
+```
+
+These are coefficients, not certified numerical values of D or C. Strict positivity additionally requires `H_J(7)!=0`, which was not established. Thus this is not a claimed direct counterexample to `C_low<=0`.
+
+**Cross-slot cycle.** Put the first ideals above 7 and 13 in slot0 and their conjugates in slot1. The L=91 fiber has two profiles `(7,13)` and `(13,7)`, while L=49 and L=169 each have one forced occurrence. Its exact L=91 coefficients are D=`109/976628016`, C=`5/81385668`, total=`1/5778864`, all multiplying `|H_J(91)|^2`. This is a valid disjoint-slot algebra example, not an eventual separated-window terminal example.
+
+**Hypothesis controls.** Two slots each containing one full conjugate pair, above 7 and 13 respectively, give m=4 at L=91. Delete exactly one tuple with an additional non-Cartesian mask and m=3. Three identical overlapping slots, each containing one ideal above 7,13,19, give m=6 at L=1729. These refute the extensions of the power-of-two statement to arbitrary tuple masks or overlapping slots, respectively. They do not refute its disjoint Cartesian statement. No universal smallest-counterexample claim is made.
+
+**Exact terminal geometry control.** Take `ell=(1/24,1/8)`, sum ell=1/6, a=1, b=2, and `Z=16^24=79228162514264337593543950336`. The scales are exactly 16 and 4096. The conjugate pairs above 19 and 4099 lie in the respective strict-lower/closed-upper windows `(16,32]` and `(4096,8192]`, giving a four-occurrence sub-fiber at L=77,881. The roots above 4099 are 2017 and 2081. This verifies norm-band geometry only: these chosen pairs are not claimed to exhaust a concrete ray pool or to instantiate its calibration, characters and analytic hypotheses.
+
+### G. Hidden Variable And Exact Classification
+
+**Claim 20261103-census-5, PAPER_PROOF / SELF_AUDIT.** Let T_i be arbitrary finite, pairwise-disjoint sets of prime ideals of the Eisenstein ring outside the primes above 2 and 3. Fix any J, including empty, and keep the entire Cartesian carrier `A_J=product_(i in J) T_i`. For L>=1, define `A_J(L)={a:product_i N(a_i)=L}`. Then its cardinality is zero or an exact power of two. More precisely, the multigraph construction below gives `|A_J(L)|=2^c` when a perfect matching exists, and zero otherwise. The empty-J, L=1 case has c=0 and one empty tuple.
+
+For every rational prime p dividing L, splitting fixes the choices. At split p an exponent one requires one of its two conjugate ideals; exponent two requires both, each once. At inert p only exponent two is possible and requires its single prime ideal. Other exponents are impossible because the product ideal is squarefree. Disjoint slots ensure that an ideal occurs in at most one slot and cannot be chosen twice.
+
+Create one left vertex for each required prime-ideal factor choice and one right vertex for each slot in J. A split exponent-one factor is one left vertex with at most two edges, one for each available conjugate ideal, to its owning slot. Split exponent-two factors become two individually forced left vertices. Inert factors are individually forced as well. Preserve parallel edges: two conjugates in the same slot are distinct choices. Wrong total depth, a missing factor, or incompatible slot coverage gives no perfect matching. Otherwise original tuples are in a literal occurrence-preserving bijection with perfect matchings of this bipartite multigraph.
+
+Delete degree-one forced matches and their two vertices repeatedly; a degree-zero remaining vertex makes the count zero. When there are no forced vertices, all remaining left degrees are at most two and all remaining vertex degrees are at least two. The two sides have equal size. Counting edges forces every remaining degree to equal two. Thus each connected component is an alternating cycle, including the two-parallel-edge component. Each has exactly two perfect matchings, independently across components. The forced part contributes one, proving `2^c` with no all-scale computational inference.
+
+For arbitrary complex norm-slot weights w_e, the same bijection proves the **weighted refinement**
+
+```text
+B_L := sum_(a in A_J(L)) product_(i in J) w_i(N(a_i))
+     = product_(forced edges e) w_e
+       * product_(residual cycles C)
+           [product_(alternate edges C,0) w_e
+            + product_(alternate edges C,1) w_e].
+```
+
+No absolute values or phases are discarded. This applies to the actual `W_i(N/P_i)` coefficients. If an edge weight is zero, it remains an admitted occurrence with zero weight; deleting its occurrence would change the unweighted multiplicity statement. The current tests use positive samples and do not claim exhaustive complex-weight testing; the displayed finite polynomial proof allows complex and zero values.
+
+### H. Terminal Interpretation
+
+**Claim 20261103-census-6, PAPER_PROOF / SELF_AUDIT.** Now impose the actual terminal source's positive injective ell and common norm windows. The original `RayPoolDisjoint.annular_power_separation` already proves eventual separation; that theorem is not new. Quantitatively, for fixed finite ell with at least two slots, put `delta=min_(i!=j)|ell_i-ell_j|>0`. Any Z>1 with `Z^delta>b/a` makes all closed enclosing bands disjoint. The actual pool has the stricter convention `a Z^ell_i < N(P) <= b Z^ell_i`, equivalently the displayed natural-floor convention in `RaySlots.mem_pool`.
+
+At such Z, all ideals of a given norm can belong to only one slot. Rational prime factorization of an admitted L therefore determines its unique slot-norm profile. A split p^2 in L would demand both conjugate ideals in one slot and is impossible for this carrier. Inert p^2 uses its unique ideal and is permitted. All residual graph cycles are same-slot conjugate choices, and `m_L=2^c_L`, where c_L is the number of slots for which both conjugates at the required norm survive the actual slot exclusions and ray admission.
+
+Because the profile is fixed, the original b_a and H_J(L) are identical throughout the fiber, even for a complex slot window. Write its common literal atom as u_L. Then
+
+```text
+V_L = m_L u_L,
+D_L = m_L |u_L|^2,
+C_same(L) = m_L(m_L-1)|u_L|^2 = (m_L-1)D_L.
+```
+
+Thus a phase flip in the Hecke character alone cannot create cancellation **inside this fixed norm fiber**: the entire selected row changes through the same H_J(L) for every occurrence. This does not assert that different L or different J share phases, or that any H_J(L) is nonzero.
+
+If a ray predicate or exclusions retain just one conjugate, that choice is forced, reducing c_L. The formula does not assume conjugation-invariance of the ray class. Actual membership, not eligibility by norm alone, decides which edges exist. For growing ell families there is no claimed uniform separation threshold: delta may shrink and K may grow. The terminal theorem fixes its finite geometry before Z; no loss uniform in a varying geometry is inferred.
+
+### I. Complete Reconstruction And First Missing Inequality
+
+For a fixed original J retain every nonempty norm fiber. At separated bands the full original square is exactly
+
+```text
+|P_J|^2 = sum_L m_L D_L
+          + sum_(L!=M) Re(V_L conjugate(V_M)).
+C_low = sum_L (m_L-1)D_L + C_distinct_norm.
+```
+
+Both cross sums use ordered pairs. In particular, a proposed bound `|P_J|^2<=D_J` would require the genuinely arithmetic statement
+
+```text
+C_distinct_norm <= -sum_L (m_L-1)D_L.
+```
+
+This is an exact necessary-and-sufficient accounting statement, **not an independently proved supplier** or a suggested assumption closing the target. Our result locates the retained positive contribution; it does not pay it. A useful new analytic estimate must bound the actual mixed different-norm rows, or jointly control the complete source at a strictly improved normalized power.
+
+When combining J, dyads or returned branches, retain all terms of `|sum_J c_J P_J|^2` and the original principal/HIGH/remote/tail terms. This experiment has not evaluated those terms, dropped them, or bounded them separately. Original multiplicities and all scalar normalizers remain in u_L.
+
+### J. Relationship To The Proof Objective
+
+The graph factorization is a new source-specific refinement of the inspected Wheel O2 upper bound. The terminal specialization sharpens O3 from a profile-level statement to an exact product-norm coefficient. It is useful for identifying which collisions can contribute cancellation and for constructing a faithful smaller numerical target.
+
+It creates **no exponent saving**. For fixed K, `m_L<=2^K` is only a fixed-factor bound, and the same-norm term is coherent, not negative payment. The existing norm/Co-minus-Div isometry, marked-HIGH improvement, and finite slot tilt are not spent again. Source squared gain: NONE; amplitude gain: NONE; additional net Mertens gain: UNKNOWN. Canonical VF, RH, and the new full signed LOW estimate remain open.
+
+The next genuinely new restriction must concern the actual selected integrals at **different** unselected norms, with uniform character/height/admission control and full return. Simply postulating small C_distinct_norm at the desired final scale would repackage the unpaid estimate.
+
+### K. Falsification, Continuity And Formal Audit
+
+The tests are exact at the incidence and rational-coefficient level. `UNSUPPORTED_DIRECT_OAI` is retained because no admissible numerical calibration/character/W0/W1 instance with a certified integration tail was constructed. There is no actual positive C_low numerical witness, no certified nonzero H_J(L), and no finite-to-uniform extrapolation. The structural paper proof is SELF_AUDIT; independent review and Lean implementation are PENDING.
+
+All November 2 and November 3 named reports were fetched at `agent-reports@78ce7dc8eb16986f22f4c0624ff8e01ceaa14fe3`. Applicable summaries, corrections and continuation sections were read. All seven roles had available today reports; no missing scheduled execution or successful subsequent review was assumed. The 00/90 coordinator blobs were equal in the retrieved tree, so their common content was read once.
+
+Continuity specifically consumed: Wheel `20261103-wheel-3` O1-O4; Census `20261103-census-3/4` and November 2 stopping-window falsifier; Analytic `20261103-analytic-3` logarithmic maximal-fragment bound, which is not a fixed power gain; Owner `20261103-owner-3` adjacent-excursion falsifier; Referee `20261103-referee-5/6/7`, including its correction withdrawing the earlier integral-constant objection; Coordinator `20261103-coordinator-2` C33-C36; and Lean `20261103-lean-2`, explicitly an uncompiled Nyman attempt. These are continuity inputs at their published scopes, not independently re-proved claims. Yesterday's unfinished Lean-3 checkpoint was not upgraded to a completed result. No unchanged native census was rerun.
+
+External inbox `038018145c0fddb2f6306c0712373adf9cd1ea52` contains no entry newer than October 18. Its EXT-20261018-PNT-1/2/3 and older source-restoration warnings remain historical constraints; they provide no Mobius-to-Hecke occurrence map for this task.
+
+**Live #1083:** the inspected head `e859ade072681f0a0dc596198eaa2f2863b91525` is OPEN/DRAFT, not main. The dedicated [run 41743282013 / job 126289873320](https://github.com/OVVO-Financial/RH_Lean/actions/runs/41743282013/job/126289873320) finished FAILED at 2026-11-04 00:09:07Z. The log shows a line-125 type mismatch in the Gram theorem: `Finset.erase` uses different inferred equality-decision instances (`Classical.propDecidable` versus `Fintype.decidablePiFintype`). Its error-generated declaration prints `sorryAx`; it is not accepted proof evidence. The polynomial equality and NNS identity printed only standard axioms, but the required combined gate failed. This supersedes this run's early IN_PROGRESS observation and Wheel's older failed-head observation. No branch, PR, workflow, or source was edited or rerun.
+
+**Latest-head correction at the 00:15 UTC closeout check:** #1083 had advanced to `1ae84e2ff019b266114c100f43016eeec71144a9`, still OPEN/DRAFT. Its signed-Gram blob is `c1b7b46a9e62a5b2f3729618c4dd24e31558166f`; it adds an explicit `herase` equality to address the preceding mismatch. Thirteen checks succeeded and the required [LOW-first run 41744927180](https://github.com/OVVO-Financial/RH_Lean/actions/runs/41744927180) was IN_PROGRESS. The old failure is historical evidence, not the verdict on this new head. New-head complete compilation and terminal axiom acceptance remain PENDING. Main was re-fetched unchanged. No further polling is needed for this incidence experiment.
+
+The standard library version of matching-cycle reasoning is not a literature-priority claim. Novelty is limited to the exact original-source application, scoped weighted factorization, terminal norm-window consequence, and its independently reconstructed finite certificates. No exhaustive literature search or new Lean theorem is claimed.
+
+### L. Specialist Handoffs
+
+- Coordinator: retain the prior strict-slot result at its verified scope, but record no new eta here. Source-faithful norm collisions are coherent. This is not a request to narrow the protected portfolios.
+- Wheel: review the strengthening `m=2^c` and the weighted cycle factorization, including parallel-edge and forced p^2 cases. The actual terminal source forbids cross-slot cycles after norm-band separation; keep the broader and terminal scopes separate.
+- Analytic: start any distinct-norm Gram estimate from the exact positive bill `sum_L m_L D_L`. Conjugate swapping cannot produce intrafiber sign cancellation. No assertion that every cross-norm pair must be negative is required.
+- Owner: the graph's forced slot is an incidence address, not a native chronological prime owner. A native-to-OAI map still needs actual occurrence, weight and phase equality.
+- Referee: independently audit the balanced bipartite degree argument and terminal source quantifiers. The m=3 mask control and m=6 overlapping-slot control identify essential hypotheses; neither refutes the full source theorem.
+- Lean: #1083's previous head failed on an equality-instance mismatch; the latest fetched head contains a targeted repair with its dedicated check still pending. No proof branch is requested for our new theorem before independent acceptance and utility review. No local Lean execution was performed.
+
+Handoffs are contained in this own report only. No other agent was launched or messaged by an external action.
+
+### M. Ranked Experimental Hypothesis Portfolio
+
+| Candidate | Evidence and counterevidence | Required new ingredient | Disposition |
+| --- | --- | --- | --- |
+| Exact disjoint Cartesian norm-fiber cycle factorization | Three exact algorithms agree; complete paper proof; arbitrary-mask/overlap extensions fail | Independent scope review; any useful formal source bridge | Continue at structural scope |
+| Conjugate-fiber sign cancellation | Original atoms agree at terminal separated norms; cross coefficient is nonnegative | None can create a sign flip inside the fixed fiber | Reject this specific mechanism, not all LOW cancellation |
+| Distinct-norm signed cancellation on actual H_J(L) | No direct certified integral values or new bound yet | Genuine character/row correlation with full normalized return | Open; do not infer it from algebra |
+| Native CORR4 absolute-anchor recovery / JOH phase restriction | Prior exact counterexamples and corrections retained | An independently proposed source-specific restriction | Preserve as separate support tasks; no repeated scan |
+
+### N. Next-Run Resume Capsule
+
+```text
+RUN: scheduled 2026-11-03T19:00:01-05:00; RUN_ID_UNAVAILABLE
+TASK: NEXT-CENSUS, actual OAI ideal-tuple incidence sub-identity
+SOURCE_FIRST_VERSION: 2026-11-03
+MAIN: 25127ac796a1d2ace7a8b3ddb27a02154cc48ef2
+POLICY: b6980c30e63bb8c9ddfc8d6fa86a2bb401707fa6
+OAI_PIN: 1581d4cbdd69a0faf34b2089614fe2a814316a6a
+CLAIMS: 20261103-census-5 graph/weighted factorization;
+        20261103-census-6 terminal equal-profile specialization
+RESUMED: 20261103-wheel-3 O1-O4; no duplicate native scan
+EXECUTED: 40960 preregistered cases; 12 fixtures; 96 extra norm checks;
+          8204 complete symbolic Gram identities; all exact checks pass
+CHARACTER: original eta retained symbolically, not numerically instantiated
+J: original unselected subset, empty/full/partial all covered
+MASK: Cartesian slot exclusions; coupled row masks require a new proof
+DIRECT_INTEGRALS: UNSUPPORTED_DIRECT_OAI; no nonzero or positive witness
+REVIEW: SELF_AUDIT; independent Referee and new Lean PENDING
+PR1083: old e859ade... FAILED; latest 1ae84e2... OPEN/DRAFT,
+        dedicated required CI IN_PROGRESS at 00:15 UTC, not certified
+SQUARED_GAIN: NONE; AMPLITUDE_GAIN: NONE; NEW_NET_ENDPOINT_GAIN: UNKNOWN
+ETA_GATE: SEARCH_BROAD for this proposed additional signed LOW gain
+INHERITED_STATUS: prior accepted strict-slot gain only;
+          no new VERIFIED_ETA and no authorized portfolio narrowing
+LAST_JUSTIFIED: full norm-fiber Gram with coherent multiplicity retained
+FIRST_UNSUPPORTED: genuine uniform distinct-norm/source signed estimate
+COMPLETE_RETURN: all J/dyad/principal/HIGH/remote/normalizer terms unpaid here
+NEXT_DECISIVE_ACTION: before any larger incidence scan, obtain one explicit
+  source-admissible character/calibration/window instance and a rigorous
+  integration/tail enclosure for TWO DISTINCT norms. Test a stated mixed
+  inequality; never assign arbitrary values to H_J(L). If unavailable,
+  select another ready protected-portfolio falsifier instead of rerunning
+  this settled combinatorial table.
+DEPLOYMENT_ACK: live source-first policy consumed and actual exact tests/
+  source-scoped proof steps performed, not only an instruction refresh
+PERMISSIONS: only own dated report remotely written; no main/Lean/policy/
+  other-report/PR/branch/workflow/schedule/permission edits or merges
+```
+
+The source ledger, continuity hashes, full executed program, and exact output follow. Publication is claimed only after commit and exact readback, recorded in the final receipt.
+
+### Source Ledger For This Invocation
+
+OAI sources below were fetched at the pinned OAI commit; RH_Lean sources at the observed main SHA. File inspection is not a new compiler run. Search results at openai/math's newer default branch were used only for navigation; relied-on files were re-fetched at the pin.
+
+| Source | Observed blob |
+| --- | --- |
+| [OAI/Detector/LowSlotPolynomial.lean](https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/NumberTheory/DirichletL/Detector/LowSlotPolynomial.lean) | `b1dcb5a1e51afad1d39ccd91fa58a764e39629ba` |
+| [OAI/Detector/LowSlotSplit.lean](https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/NumberTheory/DirichletL/Detector/LowSlotSplit.lean) | `8c8fe01a1b3fffe3b06839c2befc2ddae39a2c9b` |
+| [OAI/Detector/LowSelectedSum.lean](https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/NumberTheory/DirichletL/Detector/LowSelectedSum.lean) | `a54eb9ec6a5beb0db57ce9baa658718aab808af1` |
+| [OAI/Detector/CanonicalSlots.lean](https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/NumberTheory/DirichletL/Detector/CanonicalSlots.lean) | `0ae88f818a6c8f6b2c8dd4d5254ce34a14b026cf` |
+| [OAI/Detector/LowTupleGram.lean](https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/NumberTheory/DirichletL/Detector/LowTupleGram.lean) | `710598c8bef4d1a1ec98aa7e68b00369962c3d17` |
+| [OAI/Detector/LowSelectedBound.lean](https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/NumberTheory/DirichletL/Detector/LowSelectedBound.lean) | `695d81de46038693b9c701d55e81fe43d18d52d2` |
+| [OAI/Detector/LowNominalEnergy.lean](https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/NumberTheory/DirichletL/Detector/LowNominalEnergy.lean) | `55b1a3abfb7fa07da3f9ac8c393b375d1c86329b` |
+| [OAI/Detector/LowPhysicalInverseBound.lean](https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/NumberTheory/DirichletL/Detector/LowPhysicalInverseBound.lean) | `58bc871a18d9baa43d1684209027b8a2ebed87d6` |
+| [OAI/Detector/LowCentralTuple.lean](https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/NumberTheory/DirichletL/Detector/LowCentralTuple.lean) | `bb7c4eaf4dc3ec5a1467d76e4a3c576e32a433c9` |
+| [OAI/Detector/LowNormalized.lean](https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/NumberTheory/DirichletL/Detector/LowNormalized.lean) | `3a9f0257cdbde8fce7cc026ac62ef672c3e9820c` |
+| [OAI/Detector/RaySlots.lean](https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/NumberTheory/DirichletL/Detector/RaySlots.lean) | `6f4d2da063a01b75960fe2fc38751d8b712120f9` |
+| [OAI/Detector/RayPoolDisjoint.lean](https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/NumberTheory/DirichletL/Detector/RayPoolDisjoint.lean) | `f4c4412a840e93aa797edf065a1276be5db30f81` |
+| [OAI/QuadraticSieve/UnrestrictedCharacters.lean](https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/NumberTheory/DirichletL/QuadraticSieve/UnrestrictedCharacters.lean) | `55a1a30309c10607fb8550bb542fcb861797f29a` |
+| [OAI/Arithmetic/EisensteinIdeals.lean](https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/NumberTheory/DirichletL/Arithmetic/EisensteinIdeals.lean) | `cc49e3d0babdd98b025220c0ce8513e794eba521` |
+| [research/VF_CANONICAL_SQRT_TWO.lean](https://github.com/OVVO-Financial/RH_Lean/blob/25127ac796a1d2ace7a8b3ddb27a02154cc48ef2/research/VF_CANONICAL_SQRT_TWO.lean) | `3ced39671cff51579a8009a6ea059890368ca05a` |
+| [research/VF_CANONICAL_SQRT_TWO_VON_KOCH.lean](https://github.com/OVVO-Financial/RH_Lean/blob/25127ac796a1d2ace7a8b3ddb27a02154cc48ef2/research/VF_CANONICAL_SQRT_TWO_VON_KOCH.lean) | `79030d70e8d3e0d08eef9bac53fef95c36eca2fb` |
+| [research/oai_434/VF919NativeSevenEighthsReplay.lean](https://github.com/OVVO-Financial/RH_Lean/blob/25127ac796a1d2ace7a8b3ddb27a02154cc48ef2/research/oai_434/VF919NativeSevenEighthsReplay.lean) | `111c933a7ca15647105ce6a4d0f3cbfc3cde81f4` |
+| [research/oai_434/VF919NativeEnergyInduction.lean](https://github.com/OVVO-Financial/RH_Lean/blob/25127ac796a1d2ace7a8b3ddb27a02154cc48ef2/research/oai_434/VF919NativeEnergyInduction.lean) | `350eec60b5ed1fd5fda7b3313654c1bbe5ac4e7e` |
+| [research/oai_434/VF919OriginalMarkedSharpenedSignedNNS.lean](https://github.com/OVVO-Financial/RH_Lean/blob/25127ac796a1d2ace7a8b3ddb27a02154cc48ef2/research/oai_434/VF919OriginalMarkedSharpenedSignedNNS.lean) | `1ead3888a1f59cacc71f482f6d4ce9c9ad31903a` |
+| [research/oai_434/VF919NativeSourceMoments.lean](https://github.com/OVVO-Financial/RH_Lean/blob/25127ac796a1d2ace7a8b3ddb27a02154cc48ef2/research/oai_434/VF919NativeSourceMoments.lean) | `4e5326b983f5110f7138d222f7b1be71c5694dfc` |
+| [research/oai_434/VF919TiltedLowReflection.lean](https://github.com/OVVO-Financial/RH_Lean/blob/25127ac796a1d2ace7a8b3ddb27a02154cc48ef2/research/oai_434/VF919TiltedLowReflection.lean) | `88293c915d67eefee2e1e989082248b8a52f2ae7` |
+| [research/oai_434/VF919ActualSlotMinRetighten.lean](https://github.com/OVVO-Financial/RH_Lean/blob/25127ac796a1d2ace7a8b3ddb27a02154cc48ef2/research/oai_434/VF919ActualSlotMinRetighten.lean) | `138c4726085995b966204406805f70082402bec4` |
+
+PR-only Gram, prior failed head e859ade: `f7ed80ec97999fb835ea3503587a941a57f2d1b9`; latest fetched head 1ae84e2: `c1b7b46a9e62a5b2f3729618c4dd24e31558166f`. Neither is a main dependency.
+
+### Continuity Blob Ledger
+
+All rows at reporting snapshot `78ce7dc8eb16986f22f4c0624ff8e01ceaa14fe3`. Available files do not imply completed review or formal verification.
+
+| Report | Blob |
+| --- | --- |
+| 2026-11-02/00-coordinator-am.md | `1e932d4ce0eb0fd2c5f4507f6b111194d633eb32` |
+| 2026-11-02/10-owner-payment.md | `abfe546d72b151f4cd200fc61de3197efe23a65c` |
+| 2026-11-02/20-analytic-type-ii.md | `8e48b59611aa1d0bfa3577ed0a4a3bc0d0fcae73` |
+| 2026-11-02/30-finite-wheel.md | `abf8ac8c22a708886183849552c90dd62787ac8d` |
+| 2026-11-02/40-prime-census.md | `2cd84c57ab18d923e97368764f29f4ccd2ec3bb3` |
+| 2026-11-02/50-adversarial-referee.md | `814af1684df66e6ac99b8df1f102cb592b316f89` |
+| 2026-11-02/60-lean-verification.md | `02d19d792e26f072004cb5909f149538752626e9` |
+| 2026-11-02/90-coordinator-pm.md | `1e932d4ce0eb0fd2c5f4507f6b111194d633eb32` |
+| 2026-11-03/00-coordinator-am.md | `8f22479e602b919c00ad5539a7442371c2ee6076` |
+| 2026-11-03/10-owner-payment.md | `d52c74b76c2914c3be694f39cd7afe9b122a4834` |
+| 2026-11-03/20-analytic-type-ii.md | `2b9c3dbab6039e3c30a5ece3e473290af5dbbf0b` |
+| 2026-11-03/30-finite-wheel.md | `cd7777180bb5c2c899a60bdd699b99be8e12a672` |
+| 2026-11-03/40-prime-census.md | `5b564235ba20bf4a53c13dac0cc91d210d665a84` |
+| 2026-11-03/50-adversarial-referee.md | `dff2382a732be1829ad7583e046ebbc64c61e4c9` |
+| 2026-11-03/60-lean-verification.md | `a9c65a6809323216f8a876845538b6af0fae393e` |
+| 2026-11-03/90-coordinator-pm.md | `8f22479e602b919c00ad5539a7442371c2ee6076` |
+
+### Complete Executed Reproducer
+
+```python
+"""Exact OAI ideal-tuple incidence sub-identity; no source integrals evaluated."""
+
+from collections import Counter, defaultdict
+from fractions import Fraction as Q
+from itertools import product
+from math import isqrt, prod
+import json
+import random
+import time
+
+
+def prime(p):
+    return p >= 2 and all(p % d for d in range(2, isqrt(p) + 1))
+
+
+def ideals(primes):
+    out = []
+    for p in primes:
+        assert prime(p) and p != 3
+        roots = [r for r in range(p) if (r * r + r + 1) % p == 0]
+        assert len(roots) == (2 if p % 3 == 1 else 0)
+        out.extend((p, r, p) for r in roots)
+        if not roots:
+            out.append((p, -1, p * p))
+    return tuple(out)
+
+
+def weight(slot, norm):
+    # Fixed before execution; norm-only values in (0,1), not evaluated windows.
+    return Q(1 + ((slot + 1) * norm) % 11, 12)
+
+
+def direct(slots, labels=None):
+    labels = list(range(len(slots))) if labels is None else labels
+    grouped = defaultdict(list)
+    for tup in product(*slots):
+        n = prod(x[2] for x in tup)
+        b = prod((weight(labels[i], x[2]) for i, x in enumerate(tup)), start=Q(1))
+        grouped[n].append((tup, b))
+    return grouped
+
+
+def independent_polynomial(slots):
+    """Multiply ideal factors, enforcing exactly one ideal at each slot."""
+    states = {(0, 1): 1}
+    for i, slot in enumerate(slots):
+        for _, _, norm in slot:
+            nxt = dict(states)
+            for (mask, n), count in states.items():
+                if not mask & (1 << i):
+                    key = (mask | (1 << i), n * norm)
+                    nxt[key] = nxt.get(key, 0) + count
+            states = nxt
+    full = (1 << len(slots)) - 1
+    return {n: c for (mask, n), c in states.items() if mask == full}
+
+
+def factor(n):
+    out = {}
+    p = 2
+    while p * p <= n:
+        while n % p == 0:
+            out[p] = out.get(p, 0) + 1
+            n //= p
+        p += 1
+    if n > 1:
+        out[n] = out.get(n, 0) + 1
+    return out
+
+
+def graph_fiber(slots, n, labels=None):
+    labels = list(range(len(slots))) if labels is None else labels
+    where = {ideal: i for i, slot in enumerate(slots) for ideal in slot}
+    assert len(where) == sum(map(len, slots)), "slots must be disjoint"
+    tokens = []
+    for p, exponent in factor(n).items():
+        available = [(a, s) for a, s in where.items() if a[0] == p]
+        if p % 3 == 1 and exponent == 1:
+            tokens.append(available)
+        elif p % 3 == 1 and exponent == 2:
+            if len(available) != 2:
+                return 0, Q(0), 0
+            tokens.extend([[entry] for entry in available])
+        elif p % 3 == 2 and exponent == 2:
+            tokens.append(available)
+        else:
+            return 0, Q(0), 0
+    k = len(slots)
+    if len(tokens) != k:
+        return 0, Q(0), 0
+    # A multigraph is needed: conjugates in one slot are parallel edges.
+    edges = [(j, k + s, weight(labels[s], a[2]))
+             for j, choices in enumerate(tokens) for a, s in choices]
+    active = set(range(2 * k))
+    forced = Q(1)
+    while active:
+        degree = Counter(v for e in edges for v in e[:2])
+        if any(degree[v] == 0 for v in active):
+            return 0, Q(0), 0
+        leaves = [v for v in active if degree[v] == 1]
+        if not leaves:
+            break
+        v = min(leaves)
+        e = next(e for e in edges if v in e[:2])
+        forced *= e[2]
+        removed = set(e[:2])
+        active -= removed
+        edges = [f for f in edges if not removed.intersection(f[:2])]
+    if not active:
+        return 1, forced, 0
+    degree = Counter(v for e in edges for v in e[:2])
+    assert all(degree[v] == 2 for v in active)
+    cycles = 0
+    cycle_weight = Q(1)
+    while active:
+        component = {min(active)}
+        while True:
+            expanded = component | {v for e in edges
+                                    if component.intersection(e[:2]) for v in e[:2]}
+            if expanded == component:
+                break
+            component = expanded
+        es = [e for e in edges if e[0] in component]
+        v = min(component)
+        alternatives = [e for e in es if v in e[:2]]
+        assert len(alternatives) == 2
+        terms = []
+        for first in alternatives:
+            remaining = component - set(first[:2])
+            rest = [e for e in es if not set(first[:2]).intersection(e[:2])]
+            term = first[2]
+            while remaining:
+                deg = Counter(x for e in rest for x in e[:2])
+                leaf = next(x for x in sorted(remaining) if deg[x] == 1)
+                chosen = next(e for e in rest if leaf in e[:2])
+                term *= chosen[2]
+                removed = set(chosen[:2])
+                remaining -= removed
+                rest = [e for e in rest if not removed.intersection(e[:2])]
+            terms.append(term)
+        cycle_weight *= sum(terms)
+        cycles += 1
+        active -= component
+        edges = [e for e in edges if e[0] not in component]
+    return 2 ** cycles, forced * cycle_weight, cycles
+
+
+def check_case(slots, stats, gram=False, labels=None):
+    grouped = direct(slots, labels)
+    independent = independent_polynomial(slots)
+    assert {n: len(v) for n, v in grouped.items()} == independent
+    stats['cases'] += 1
+    stats['tuples'] += sum(map(len, grouped.values()))
+    stats['empty_carriers'] += not bool(grouped)
+    for n, entries in grouped.items():
+        count, total_weight, cycles = graph_fiber(slots, n, labels)
+        assert count == len(entries)
+        assert total_weight == sum(b for _, b in entries)
+        stats['fibers'] += 1
+        stats['multiplicity'][count] += 1
+        stats['cycles'][cycles] += 1
+        if gram:
+            diagonal = sum(b * b for _, b in entries)
+            ordered = sum(b * c for i, (_, b) in enumerate(entries)
+                          for j, (_, c) in enumerate(entries) if i != j)
+            assert diagonal + ordered == total_weight ** 2
+            assert ordered >= 0
+            stats['same_norm_gram_checks'] += 1
+    if gram:
+        # Coefficients of K_n conjugate(K_m), K_n=(-1)^|J| n^-3/2 H_J(n).
+        pairs = defaultdict(Q)
+        for n, aa in grouped.items():
+            for m, bb in grouped.items():
+                for _, b in aa:
+                    for _, c in bb:
+                        pairs[n, m] += b * c
+        totals = {n: sum(b for _, b in es) for n, es in grouped.items()}
+        assert pairs == {(n, m): b * c for n, b in totals.items()
+                         for m, c in totals.items()}
+        stats['complete_symbolic_gram_checks'] += 1
+    return grouped
+
+
+def stats():
+    return Counter(cases=0, tuples=0, fibers=0, empty_carriers=0,
+                   same_norm_gram_checks=0, complete_symbolic_gram_checks=0,
+                   multiplicity=Counter(), cycles=Counter())
+
+
+def place(pool, assignment, k):
+    return [tuple(a for a, s in zip(pool, assignment) if s == i) for i in range(k)]
+
+
+def masked_slots(slots, mask):
+    # Reindex the chosen J increasingly, preserving every original ideal.
+    return [slot for i, slot in enumerate(slots) if mask & (1 << i)]
+
+
+def main():
+    start = time.perf_counter()
+    training = stats()
+    pool = ideals([7, 13, 19])
+    for assignment in product(range(-1, 3), repeat=len(pool)):
+        slots = place(pool, assignment, 3)
+        for mask in range(8):
+            check_case(masked_slots(slots, mask), training,
+                       labels=[i for i in range(3) if mask & (1 << i)])
+    heldout = stats()
+    rng = random.Random(20261103)
+    pool2 = ideals([31, 37, 43, 61, 5, 11])
+    for case in range(512):
+        slots = place(pool2, [rng.randrange(-1, 4) for _ in pool2], 4)
+        for mask in range(16):
+            check_case(masked_slots(slots, mask), heldout, gram=True,
+                       labels=[i for i in range(4) if mask & (1 << i)])
+    p7, q7, p13, q13, p19, q19 = pool
+    fixtures = {
+        'one_conjugate_pair': [[p7, q7]],
+        'two_independent_pairs': [[p7, q7], [p13, q13]],
+        'cross_slot_cycle': [[p7, p13], [q7, q13]],
+        'forced_prime_square': [[p7], [q7]],
+        'three_slot_cycle': [[p7, q19], [q7, p13], [q13, p19]],
+        'inert_and_split': [[ideals([5])[0]], [p7, q7]],
+        'empty_J': [],
+        'empty_slot': [[]],
+    }
+    fixture_stats = stats()
+    certs = {}
+    for name, slots in fixtures.items():
+        grouped = check_case(slots, fixture_stats, gram=True)
+        certs[name] = {}
+        for n, entries in grouped.items():
+            b = sum(w for _, w in entries)
+            d = sum(w * w for _, w in entries)
+            certs[name][n] = {'m': len(entries),
+                             'norm_profiles': [list(a[2] for a in t) for t, _ in entries],
+                             'weighted_D_over_Hsq': str(d / n ** 3),
+                             'weighted_C_over_Hsq': str((b * b - d) / n ** 3),
+                             'weighted_total_over_Hsq': str(b * b / n ** 3)}
+    negative_norm_checks = 0
+    for slots in fixtures.values():
+        grouped = direct(slots)
+        for n in [1, 5, 7, 25, 49, 91, 119, 169, 175, 343, 625, 1729]:
+            assert graph_fiber(slots, n)[0] == len(grouped.get(n, []))
+            negative_norm_checks += 1
+    complete = direct(fixtures['two_independent_pairs'])[91]
+    restricted = complete[:-1]
+    assert len(complete) == 4 and len(restricted) == 3
+    overlapping = [[p7, p13, p19]] * 3
+    assert len(direct(overlapping)[7 * 13 * 19]) == 6
+    # These are out-of-hypothesis controls, never original terminal sources.
+    controls = {'arbitrary_outer_mask': {'before': 4, 'after': 3, 'norm': 91},
+                'overlapping_slots': {'multiplicity': 6, 'norm': 1729}}
+    # An exact separated-band fixture, not a full detector calibration.
+    # ell=(1/24,1/8), Z=16^24: scales=(16,4096), sum ell=1/6.
+    assert prime(4099) and 4099 % 3 == 1
+    terminal = [list(ideals([19])), list(ideals([4099]))]
+    term_stats = stats()
+    for mask in range(4):
+        check_case(masked_slots(terminal, mask), term_stats, gram=True,
+                   labels=[i for i in range(2) if mask & (1 << i)])
+    assert 16 <= 19 <= 32 and 4096 <= 4099 <= 8192
+    assert 32 < 4096
+    certs['separated_bands'] = {'Z': str(16 ** 24), 'ell': ['1/24', '1/8'],
+                               'a': 1, 'b': 2, 'norm': 19 * 4099,
+                               'm': len(direct(terminal)[19 * 4099])}
+    result = {'scope': 'FINITE_COMPUTATION: exact ideal incidence and symbolic Gram only',
+              'direct_integrals': 'UNSUPPORTED_DIRECT_OAI',
+              'exploratory': training, 'heldout': heldout,
+              'fixtures': fixture_stats, 'terminal_band_fixture': term_stats,
+              'certificates': certs, 'negative_controls': controls,
+              'additional_zero_and_boundary_norm_checks': negative_norm_checks,
+              'prime_ideal_certificates': {'exploratory': pool, 'heldout': pool2,
+                                         'terminal': terminal},
+              'elapsed_seconds': time.perf_counter() - start}
+    print(json.dumps(result, indent=2, sort_keys=True))
+
+
+if __name__ == '__main__':
+    main()
+```
+
+### Recorded Exact Output
+
+```json
+{
+  "additional_zero_and_boundary_norm_checks": 96,
+  "certificates": {
+    "cross_slot_cycle": {
+      "49": {
+        "m": 1,
+        "norm_profiles": [
+          [
+            7,
+            7
+          ]
+        ],
+        "weighted_C_over_Hsq": "0",
+        "weighted_D_over_Hsq": "4/9529569",
+        "weighted_total_over_Hsq": "4/9529569"
+      },
+      "91": {
+        "m": 2,
+        "norm_profiles": [
+          [
+            7,
+            13
+          ],
+          [
+            13,
+            7
+          ]
+        ],
+        "weighted_C_over_Hsq": "5/81385668",
+        "weighted_D_over_Hsq": "109/976628016",
+        "weighted_total_over_Hsq": "1/5778864"
+      },
+      "169": {
+        "m": 1,
+        "norm_profiles": [
+          [
+            13,
+            13
+          ]
+        ],
+        "weighted_C_over_Hsq": "0",
+        "weighted_D_over_Hsq": "25/11120967936",
+        "weighted_total_over_Hsq": "25/11120967936"
+      }
+    },
+    "empty_J": {
+      "1": {
+        "m": 1,
+        "norm_profiles": [
+          []
+        ],
+        "weighted_C_over_Hsq": "0",
+        "weighted_D_over_Hsq": "1",
+        "weighted_total_over_Hsq": "1"
+      }
+    },
+    "empty_slot": {},
+    "forced_prime_square": {
+      "49": {
+        "m": 1,
+        "norm_profiles": [
+          [
+            7,
+            7
+          ]
+        ],
+        "weighted_C_over_Hsq": "0",
+        "weighted_D_over_Hsq": "4/9529569",
+        "weighted_total_over_Hsq": "4/9529569"
+      }
+    },
+    "inert_and_split": {
+      "175": {
+        "m": 2,
+        "norm_profiles": [
+          [
+            25,
+            7
+          ],
+          [
+            25,
+            7
+          ]
+        ],
+        "weighted_C_over_Hsq": "2/434109375",
+        "weighted_D_over_Hsq": "2/434109375",
+        "weighted_total_over_Hsq": "4/434109375"
+      }
+    },
+    "one_conjugate_pair": {
+      "7": {
+        "m": 2,
+        "norm_profiles": [
+          [
+            7
+          ],
+          [
+            7
+          ]
+        ],
+        "weighted_C_over_Hsq": "8/3087",
+        "weighted_D_over_Hsq": "8/3087",
+        "weighted_total_over_Hsq": "16/3087"
+      }
+    },
+    "separated_bands": {
+      "Z": "79228162514264337593543950336",
+      "a": 1,
+      "b": 2,
+      "ell": [
+        "1/24",
+        "1/8"
+      ],
+      "m": 4,
+      "norm": 77881
+    },
+    "three_slot_cycle": {
+      "637": {
+        "m": 1,
+        "norm_profiles": [
+          [
+            7,
+            7,
+            13
+          ]
+        ],
+        "weighted_C_over_Hsq": "0",
+        "weighted_D_over_Hsq": "1/15381891252",
+        "weighted_total_over_Hsq": "1/15381891252"
+      },
+      "931": {
+        "m": 1,
+        "norm_profiles": [
+          [
+            7,
+            7,
+            19
+          ]
+        ],
+        "weighted_C_over_Hsq": "0",
+        "weighted_D_over_Hsq": "1/261453255084",
+        "weighted_total_over_Hsq": "1/261453255084"
+      },
+      "1183": {
+        "m": 1,
+        "norm_profiles": [
+          [
+            7,
+            13,
+            13
+          ]
+        ],
+        "weighted_C_over_Hsq": "0",
+        "weighted_D_over_Hsq": "25/1576397204928",
+        "weighted_total_over_Hsq": "25/1576397204928"
+      },
+      "1729": {
+        "m": 2,
+        "norm_profiles": [
+          [
+            7,
+            13,
+            19
+          ],
+          [
+            19,
+            7,
+            13
+          ]
+        ],
+        "weighted_C_over_Hsq": "5/1275941249856",
+        "weighted_D_over_Hsq": "541/107179064987904",
+        "weighted_total_over_Hsq": "961/107179064987904"
+      },
+      "2527": {
+        "m": 1,
+        "norm_profiles": [
+          [
+            19,
+            7,
+            19
+          ]
+        ],
+        "weighted_C_over_Hsq": "0",
+        "weighted_D_over_Hsq": "1/4131004718848",
+        "weighted_total_over_Hsq": "1/4131004718848"
+      },
+      "3211": {
+        "m": 1,
+        "norm_profiles": [
+          [
+            19,
+            13,
+            13
+          ]
+        ],
+        "weighted_C_over_Hsq": "0",
+        "weighted_D_over_Hsq": "1225/1220459505168384",
+        "weighted_total_over_Hsq": "1225/1220459505168384"
+      },
+      "4693": {
+        "m": 1,
+        "norm_profiles": [
+          [
+            19,
+            13,
+            19
+          ]
+        ],
+        "weighted_C_over_Hsq": "0",
+        "weighted_D_over_Hsq": "25/423361743081472",
+        "weighted_total_over_Hsq": "25/423361743081472"
+      }
+    },
+    "two_independent_pairs": {
+      "91": {
+        "m": 4,
+        "norm_profiles": [
+          [
+            7,
+            13
+          ],
+          [
+            7,
+            13
+          ],
+          [
+            7,
+            13
+          ],
+          [
+            7,
+            13
+          ]
+        ],
+        "weighted_C_over_Hsq": "25/20346417",
+        "weighted_D_over_Hsq": "25/61039251",
+        "weighted_total_over_Hsq": "100/61039251"
+      }
+    }
+  },
+  "direct_integrals": "UNSUPPORTED_DIRECT_OAI",
+  "elapsed_seconds": 3.6906479149999996,
+  "exploratory": {
+    "cases": 32768,
+    "complete_symbolic_gram_checks": 0,
+    "cycles": {
+      "0": 35968,
+      "1": 7752,
+      "2": 432,
+      "3": 6
+    },
+    "empty_carriers": 8365,
+    "fibers": 44158,
+    "multiplicity": {
+      "1": 35968,
+      "2": 7752,
+      "4": 432,
+      "8": 6
+    },
+    "same_norm_gram_checks": 0,
+    "tuples": 53248
+  },
+  "fixtures": {
+    "cases": 8,
+    "complete_symbolic_gram_checks": 8,
+    "cycles": {
+      "0": 10,
+      "1": 4,
+      "2": 1
+    },
+    "empty_carriers": 1,
+    "fibers": 15,
+    "multiplicity": {
+      "1": 10,
+      "2": 4,
+      "4": 1
+    },
+    "same_norm_gram_checks": 15,
+    "tuples": 22
+  },
+  "heldout": {
+    "cases": 8192,
+    "complete_symbolic_gram_checks": 8192,
+    "cycles": {
+      "0": 21212,
+      "1": 4188,
+      "2": 259,
+      "3": 6
+    },
+    "empty_carriers": 1736,
+    "fibers": 25665,
+    "multiplicity": {
+      "1": 21212,
+      "2": 4188,
+      "4": 259,
+      "8": 6
+    },
+    "same_norm_gram_checks": 25665,
+    "tuples": 30672
+  },
+  "negative_controls": {
+    "arbitrary_outer_mask": {
+      "after": 3,
+      "before": 4,
+      "norm": 91
+    },
+    "overlapping_slots": {
+      "multiplicity": 6,
+      "norm": 1729
+    }
+  },
+  "prime_ideal_certificates": {
+    "exploratory": [
+      [
+        7,
+        2,
+        7
+      ],
+      [
+        7,
+        4,
+        7
+      ],
+      [
+        13,
+        3,
+        13
+      ],
+      [
+        13,
+        9,
+        13
+      ],
+      [
+        19,
+        7,
+        19
+      ],
+      [
+        19,
+        11,
+        19
+      ]
+    ],
+    "heldout": [
+      [
+        31,
+        5,
+        31
+      ],
+      [
+        31,
+        25,
+        31
+      ],
+      [
+        37,
+        10,
+        37
+      ],
+      [
+        37,
+        26,
+        37
+      ],
+      [
+        43,
+        6,
+        43
+      ],
+      [
+        43,
+        36,
+        43
+      ],
+      [
+        61,
+        13,
+        61
+      ],
+      [
+        61,
+        47,
+        61
+      ],
+      [
+        5,
+        -1,
+        25
+      ],
+      [
+        11,
+        -1,
+        121
+      ]
+    ],
+    "terminal": [
+      [
+        [
+          19,
+          7,
+          19
+        ],
+        [
+          19,
+          11,
+          19
+        ]
+      ],
+      [
+        [
+          4099,
+          2017,
+          4099
+        ],
+        [
+          4099,
+          2081,
+          4099
+        ]
+      ]
+    ]
+  },
+  "scope": "FINITE_COMPUTATION: exact ideal incidence and symbolic Gram only",
+  "terminal_band_fixture": {
+    "cases": 4,
+    "complete_symbolic_gram_checks": 4,
+    "cycles": {
+      "0": 1,
+      "1": 2,
+      "2": 1
+    },
+    "empty_carriers": 0,
+    "fibers": 4,
+    "multiplicity": {
+      "1": 1,
+      "2": 2,
+      "4": 1
+    },
+    "same_norm_gram_checks": 4,
+    "tuples": 9
+  }
+}
+```
