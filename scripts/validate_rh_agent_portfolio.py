@@ -107,7 +107,7 @@ def main() -> None:
     # 2026-11-04 user authorization and original all-selected source-first attack.
     assert "FULL GitHub repository READ/WRITE" in agent_policy
     assert "FULL GitHub repository READ/WRITE" in prompts
-    assert "FULL GitHub repository READ/WRITE" in role_prompts or "full repository READ/WRITE" in role_prompts
+    assert "full github repository read/write" in role_prompts.lower()
     assert "FULL GitHub repository" in engine or "full GitHub read/write" in engine
     assert "J=empty" in agent_policy and "J=empty" in engine
     assert "PR #1087" in agent_policy and "PR #1087" in engine
