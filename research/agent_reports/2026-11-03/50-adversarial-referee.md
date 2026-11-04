@@ -1290,3 +1290,724 @@ print("ALL EXACT ASSERTIONS PASSED; finite tails are not infinite-tail certifica
 **Selected research:** independently audit Wheel 20261103-wheel-3 O1-O4 and Census 20261103-census-5/6 against actual prime-ideal slots, and test whether norm-fiber aggregation can itself create a power saving. Reconstruct the whole ordered Hermitian cross term and examine a source-qualified repair. Direct integral nonvanishing is not assumed. This is not a blind review: upstream statements/proofs and original source have already been read interleaved.
 
 **Current justified observation:** in the source, J indexes UNSELECTED slots, and the selected row uses its complement. At fixed J the outer tuple enters the common selected-row integral only through its product norm; this does not by itself bound that integral or the distinct-norm cross term. New verdicts, quantitative gain and completion remain PENDING.
+
+
+## Scheduled Source-First Referee Synthesis - 2026-11-03 20:13 EST Invocation
+
+Invocation: 2026-11-03T20:13:01-05:00, America/New_York; scheduled, RUN_ID_UNAVAILABLE. This continues the preceding checkpoint, not a new invocation. New claim IDs: **20261103-referee-8**, **20261103-referee-9**, **20261103-referee-10**. The earlier referee-1 through referee-7 and the explicit correction of the November 2 integral objection remain unchanged.
+
+Mathematical evidence: independently reviewed upstream PAPER_PROOF; new PAPER_PROOF / SELF_AUDIT; exact FINITE_COMPUTATION; and separately verified on-main Lean identities. No new Lean implementation, certified integral evaluation, Mertens exponent, or RH result is claimed. Final publication is certified by the receipt appended after readback.
+
+### A. Most Important Mathematical Finding
+
+**The original binding LOW problem can be reduced further than the new cross-tuple interface suggests. Every nonempty unselected-slot packet already has a power saving from its genuine moving lower norm cutoff. The empty-unselected packet remains, and the outer triangle inequality is exact on it.**
+
+For the ORIGINAL untilted geometry, let J denote the unselected slots, let
+
+```text
+d_J = sum_(i in J) ell_i,       ell_* = min_i ell_i > 0,
+F_J(Z) = the original complete J compensation subset,
+N(Z) = the original common terminal normalizer.
+```
+
+With all data fixed as in original `LowNormalized`, every character eta, every loss lambda>0, and all sufficiently large real Z, the new paper derivation proves
+
+```text
+|F_J(Z)/N(Z)| <= C_(lambda,eta,data) Z^(3/16-d_J+lambda)      (R9)
+```
+
+uniformly over the finite set of J. All original Gaussian dyads, remote terms, slot occurrences and the actual normalizer are included. This is not a modification of any source coefficient. In particular,
+
+```text
+F/N = F_empty/N + R_nonempty,
+|R_nonempty| <<_(lambda,eta,data) Z^(3/16-ell_*+lambda).     (R10)
+```
+
+For every fixed 0<g<=ell_*, the all-positive-loss estimate with power `3/16-g` holds for F/N **if and only if** it holds for F_empty/N. This is a source-level equivalence, not an independently proved gain on the latter. It does not assert that F_empty is nonzero or saturates its old upper bound.
+
+**Consequential scope correction:** improving only distinct-unselected-norm interactions cannot supply the missing improvement of F_empty. Its unselected tuple type has exactly one element, L=1, so its ordered outer cross Gram is zero and `norm_sum_le` is an equality. The remaining information must be extracted inside its genuine selected row, its integral/Gaussian recombination, or another proved same-source estimate. The investigators may still study other packets, but those packets are not the only possible next bottleneck.
+
+These new R9/R10 results are **PAPER_PROOF / SELF_AUDIT, INDEPENDENT_REVIEW_PENDING**, not `VERIFIED_ETA`. They use a compiled ideal-summability input, not an assumed desired cancellation bound. The existing finite-slot strict gain is inherited at its previously reviewed on-main scope; this run supplies no additional endpoint gain and does not change protected route coverage.
+
+### B. Current Authoritative Objective And Continuity
+
+Main at intake: `040980c16901af749202e9b0f91211c43909404a`, human merge of #1083. Live `AGENTS.md` blob: `b878d396c387a57bd0b5165fecf10d15ef3732cd`. Live `CURRENT_PROOF_CONTRACT.md` blob: `63f7553bf6e5f2a16e37808116c643dc0dcc50e1`. Source-first policy: `b6980c30e63bb8c9ddfc8d6fa86a2bb401707fa6`; engine: `495fa9ee2067ccf5db9dc3c48ffaaadcd6485aa4`; complete-return policy: `4775ee5fd95f279beab08a75d1e17127078b19a6`; selector: `3cb817ab9aae51429858d5a98727e16dbd072d47`.
+
+The exact canonical declaration was read on this main:
+
+```text
+VFCanonicalSquareVonKochStatement:
+  exists C>=0, forall R : Nat, R>=2 ->
+    |pi(R^2)-vfCanonical(R^2)| <= C R log R.
+```
+
+It remains OPEN. The original phase, actual primes and explicit `ClassicalVonKochRHCriterion` interface are unchanged. `VF919NativeStrictMertens.lean` and `VF919ActualSlotMinRetighten.lean` match the previously reviewed blobs `b33a4883e1ddb0551b0f11f062bce46680d87450` and `138c4726085995b966204406805f70082402bec4`. Prior acceptance is reusable evidence, not a fresh claim that every endpoint dependency was independently reconstructed again.
+
+All seven role files for November 2 and November 3 were retrieved from `agent-reports@7d23faf4455275dae0b7d1a4ce3a50e49bbdf0cd`. Applicable recent source, review, correction and resume sections were read. TODAY=AVAILABLE for each role. Yesterday's relevant unchanged results are YESTERDAY=CARRY_FORWARD. The two Coordinator paths have identical blobs on each date and were read once per date. No completion is inferred for yesterday's final Lean checkpoint or today's explicitly uncompiled Nyman draft.
+
+Consumed current claims include Coordinator C33-C36; Owner `20261103-owner-3`; Analytic `20261103-analytic-3` CD1-CD6; Wheel `20261103-wheel-3` O1-O4 and the M1-M3 handoff; Census `20261103-census-5/6`; prior referee-5/6/7; and Lean `20261103-lean-2`. Only the selected OAI claims receive a new independent verdict here. In particular, the logarithmic CODIV estimate and JOH excursion estimates are continuity inputs, not newly endorsed theorems in this review.
+
+External inbox blob `038018145c0fddb2f6306c0712373adf9cd1ea52` has no entry newer than October 18. EXT-20261018-PNT-1/2/3 and the older restoration/no-carrier-substitution warnings remain relevant safeguards, not a new OAI tuple map or current routing policy. No unchanged historical census was rerun.
+
+### C. Highest-Risk Mechanisms And Review Method
+
+Three possibilities were examined: cancellation within norm fibers; recovery of the lower cutoff discarded by the absolute mass bound; and a new selected-row estimate. The second produces a complete useful restriction now; the third remains open. The first is limited by exact coherence and, more decisively, by the singleton unselected carrier at J=empty.
+
+This was NOT a blind review. Upstream statements/proofs and original source were read interleaved. The critical source dependence, graph degree argument, tail estimate, exponent ledger and finite checks were then reconstructed independently. The author's self-check and this separate referee review are distinguished; no statistical independence claim is made.
+
+### D. Claim-By-Claim Verdicts
+
+| Claim | Referee verdict | Mathematical scope/status |
+| --- | --- | --- |
+| #1083 literal LOW polynomial, ordered signed Gram and NNS Co-minus-Div | ACCEPT_WITH_SCOPE | PROVED_IN_LEAN_ON_MAIN / IDENTITY_ONLY, exact head and three axiom outputs checked; no signed power saving |
+| #1083 component exponent/max-branch ledger | ACCEPT_WITH_SCOPE | Verified algebra and one-source geometric cap; not an independently supplied nu or reusable contraction |
+| Wheel `20261103-wheel-3` O1-O4 | ACCEPT_WITH_SCOPE | PAPER_PROOF: exact common H_J(L), squarefree ideal depth, collision bound and retained interactions under stated source hypotheses |
+| Census `20261103-census-5` | ACCEPT_WITH_SCOPE | PAPER_PROOF: full Cartesian disjoint-slot norm fibers have zero or power-of-two multiplicity; weighted cycle factorization |
+| Census `20261103-census-6` | ACCEPT_WITH_SCOPE | PAPER_PROOF: fixed positive injective terminal slot exponents eventually separate norm bands, so each norm fiber has identical atoms |
+| Inference that same-norm reindexing itself improves the terminal triangle bound | REJECT as a proof mechanism | The triangle mass is exactly unchanged under the terminal nonnegative windows; no numerical nonzero integral witness is asserted |
+| Recommendation that the next necessary new restriction must be at distinct unselected norms | REVISE | Such a restriction cannot address J=empty. R9/R10 identify a more precise remaining packet at the original geometry |
+| Uniform positive decay of the original unselected inverse-square mass for ALL J | COUNTEREXAMPLE / REFUTED | J=empty has mass exactly 1 at every scale, a genuine infinite-family boundary obstruction |
+| New referee-9/R9 and referee-10/R10 | SELF_AUDIT; INDEPENDENT_REVIEW_PENDING | New complete paper derivations below; no new Lean certification or endpoint gain |
+
+`20261103-referee-8` is the upstream review bundle in this table. The last three statements are distinguished from the valid upstream theorems: neither Wheel nor Census asserted a proved full LOW power saving. Their exact structural claims survive.
+
+### E. Independent Reconstruction Of The Literal Source
+
+Pin all original OAI sources to `openai/math@1581d4cbdd69a0faf34b2089614fe2a814316a6a`. In the code, J is UNSELECTED and `SelectedSlot J` is its complement. For fixed original source parameters define
+
+```text
+A_J = product_(i in J) canonicalSlotSupport(T_i),
+L_a = product_(i in J) N(a_i),
+b_a = product_(i in J) W_i(N(a_i)/P_i),
+
+H_J(L) = [sqrt(lowPhysicalScale(C,X/L,Y/L))]^-1/(2*pi)
+         * integral_v lowSeparatedIntegrand(
+              C,W0,W1,original lowOuterCutoff,X/L,Y/L,
+              original lowSelectedInverseRow,v),
+
+U_a = (-1)^|J| L_a^(-3/2) b_a H_J(L_a).
+```
+
+The selected row in this formula contains the actual selected Hecke conjugates, phases, ideals, correction characters, divisibility marks and height. It does not depend on a. Every occurrence and every original normalizer is retained. `LowSlotPolynomial.compensation_tuple_low_polynomial` proves the exact sum of these U_a. In `LowTupleGram.compensation_tuple_actual_gram`, `norm_sum_le` is applied immediately after that equality. This is the first explicit outer-tuple sign loss in this local trail, not a claim that no earlier inequality exists elsewhere.
+
+For each fixed source,
+
+```text
+|sum_a U_a|^2 = sum_a |U_a|^2
+               + sum_(a!=b) Re(U_a conjugate(U_b)).
+```
+
+The off sum is ordered. The new on-main NNS definitions divide the sum of the two real-coordinate Co and Div quantities by 2 exactly as required by their imported realification theorem. Their difference equals this same squared norm, with no new sign assumption.
+
+At terminal real nonnegative W_i, all atoms with one product norm L have the form `s b_a H_J(L)` with the same real signed scalar `s=(-1)^|J|L^(-3/2)` and b_a>=0. Consequently, if `V_L=sum_(L_a=L) U_a`,
+
+```text
+|V_L| = sum_(L_a=L) |U_a|,
+sum_L |V_L| = sum_a |U_a|.                              (E1)
+```
+
+Thus regrouping equal norms recovers an exact coherent block, not a cheaper triangle budget. The full distinct-norm Gram remains. This does not impose termwise negativity on it or prohibit a useful aggregate estimate.
+
+For Census-5, unique factorization of ideals turns each split prime of exponent one in L into a left vertex with at most two ideal choices; split exponent two and inert factors give forced vertices. Right vertices are the slots. Disjointness prevents repeated use of an ideal. Admitted tuples are perfect matchings of this balanced bipartite MULTIGRAPH. Delete forced degree-one matches on either side. A zero-degree vertex makes the fiber empty. Otherwise every remaining vertex has degree at least two, while each left degree is at most two. Equal side cardinalities force every degree on both sides to be exactly two. Every residual component is an even cycle, including parallel-edge two-cycles, with two choices. This proves m=2^c. The weighted fiber sum is the product of all forced-edge weights times the product, over residual cycles, of the sum of their two alternating matching products. Empty J and L=1 give the single empty matching.
+
+For Census-6, with fixed finite injective ell, all enclosing bands are disjoint once `Z^min_(i!=j)|ell_i-ell_j|>b/a`. Every rational prime factor of L then has a unique possible slot-norm address. Split exponent two cannot use both conjugates in one slot, while an inert norm p^2 has one ideal. The only remaining choices are conjugates within one slot; all weights and H_J(L) agree in that fiber. Hence `C_same(L)=(m_L-1)D_L`. This proof does not assume a ray predicate retains both conjugates, and it supplies no nonzero H_J(L).
+
+### F. New Moving-Cutoff Mass Theorem
+
+**20261103-referee-9, R9a.** Fix K, a>0, Z>0, nonnegative ell_i, actual supported prime-ideal sets T_i satisfying `N(P)>=a Z^ell_i`, any J, and windows with `|W_i|<=B`, B>=0. Put d_J=sum_(i in J)ell_i. For each fixed 0<rho<1 there is an A_rho>0 depending only on the original supported-ideal family such that
+
+```text
+M_J := sum_(a in A_J) |lowUnselectedWeight(a)| L_a^(-1/2)
+     = product_(i in J) sum_(P in T_i) N(P)^(-2)
+                                      |W_i(N(P)/P_i)|,
+
+M_J <= [A_rho B a^(-(1-rho))]^|J|
+                      Z^(-(1-rho)d_J).                    (F1)
+```
+
+The empty product is 1, including B=0 when J=empty. No disjointness between slots is needed for this mass inequality; the later selected-row theorem retains its own disjointness hypothesis.
+
+**Proof.** `CanonicalSlots.canonicalSlotEquiv` is a genuine ideal-to-generator bijection preserving the norm. `LowUnselectedMass.lowUnselectedWeight_norm_identity` gives the displayed product exactly, including all multiplicities and absolute weights. The compiled theorem `GramIdealSummation.supportedIdeal_rpow_finite_bound` at exponent `-1-rho<-1` supplies
+
+```text
+sum_(P in any finite supported prime set) N(P)^(-1-rho)
+  <= A_rho.
+```
+
+On each ACTUAL moving support,
+
+```text
+N(P)^(-2) = N(P)^(-1-rho) N(P)^(-(1-rho))
+          <= N(P)^(-1-rho) (a Z^ell_i)^(-(1-rho)).
+```
+
+Multiply the resulting finite slot inequalities. This proves F1 without a prime-distribution theorem, a growing-conductor constant, a new character hypothesis or any assumed cancellation. Crucially, rho is fixed before Z. The constant need not stay bounded as rho approaches zero.
+
+The original `lowUnselectedMass_bound` instead uses the full ideal inverse-square sum and replaces M_J by a scale-independent constant. F1 retains the lower cutoff it discards. This is a source-qualified quantitative refinement of an existing argument, not a claim of a new general summability principle.
+
+An optional sharper elementary prime-ideal version is `M_J <= (4B/a)^|J| Z^(-d_J)`: at any positive integer norm there are at most two Eisenstein prime ideals, and `sum_(n>=Y) n^(-2)<=2/Y` for Y>0. The finite verifier checks this version on actual split/inert norm labels. The complete analytic proof below does NOT need this extra splitting-count input; F1 and the already compiled summability theorem suffice.
+
+**Exact infinite-family obstruction.** For J=empty the original carrier has exactly one empty tuple, L=1, weight=1, and therefore M_empty=1 for EVERY Z. For any fixed g>0 and C, `1<=C Z^(-g)` fails at sufficiently large Z. Thus a uniform positive moving-mass saving for all J is false even on the original carrier. This refutes only that stronger mass statement, not R9, the full signed LOW estimate or RH. R9 correctly assigns d_empty=0.
+
+### G. Complete Original Return Of The New Bound
+
+**R9b, central tuple.** Work under every hypothesis of original `low_central_compensated_tuple`: fixed eta; fixed excluded maximal ideals S containing fixedBadPrimes; fixed K and nonnegative ell with sum<=1/6; a>0 and fixed b; 0<epsilon<1; the stated supported smooth W0/W1, positive lower supports and W1 bound; all supported, pairwise-disjoint T_i outside S with lower/upper norm bounds; all J; all |W_i|<=1; all real t; and all U in
+
+```text
+Z^(1+lowSelectedLength(ell,J)-epsilon/2)
+ <= U <= Z^(1+lowSelectedLength(ell,J)+epsilon/2).
+```
+
+Inspect the proof before its last call to `lowUnselectedMass_bound`. Its displayed per-atom `hterm`, the original triangle theorem and the inverse/scalar bounds establish
+
+```text
+|P_J(U,t)| <= C (1+|t|)^degree Z^(3/16+254 epsilon) M_J.
+```
+
+The scalar factor has retained `sqrt(3q/L)`; combining it with the outer `L^(-3/2)` is precisely the inverse-square mass, not a newly invented weight. Apply F1, using a uniform factor `max(1,A_rho a^(-(1-rho)))^K`, to obtain
+
+```text
+|P_J(U,t)| <= C_rho (1+|t|)^degree
+                 Z^(3/16-(1-rho)d_J+254 epsilon).          (G1)
+```
+
+C_rho, degree and a common scale threshold precede T_i,J,W,t,U, exactly as in the original central theorem. They may depend on fixed eta, S, K, ell, a,b, windows, rho and epsilon. This does NOT assert uniformity over growing characters, conductors, K or geometry beyond the original statement.
+
+**R9c, central Gaussian sum.** Apply `lowCommonDyad_norm_of_bound` to G1. The new factor `Z^(-(1-rho)d_J)` is independent of t and the dyadic index. The proof of `low_central_gaussian_dyads` multiplies by at most `Z^((1+lowSelectedLength)epsilon)`, hence by at most Z^(2 epsilon). It therefore gives central dyads bounded by
+
+```text
+C_rho Z^(3/16-(1-rho)d_J+256 epsilon).                    (G2)
+```
+
+The same summable majorants prove convergence. No sum/integral is interchanged without the existing absolute-integrability/summability suppliers.
+
+**R9d, remote and subset return.** Original `low_remote_gaussian_dyads` gives C Z^(-1), for each J, without needing any new inverse saving. Since d_J<=1/6,
+
+```text
+3/16-(1-rho)d_J >= 3/16-1/6 = 1/48 > -1,
+```
+
+so the remote term is absorbed in G2. The exact theorem `GaussianSubset.compensation_subset_common` identifies this all-dyad sum with the original physical J compensation subset, not just an auxiliary central polynomial. `GaussianCommon.compensatedPhysicalProbe_common_gaussian` then sums those subsets exactly. Its finite family V_J is chosen from the fixed slot windows before Z; constants may depend on that legitimate choice. If the original windows are bounded by B rather than 1, divide them by max(1,B) in the estimates and restore the factor max(1,B)^K: every integrand has exactly one slot window per slot. No subset normalization or coefficient changes.
+
+**R9e, original terminal normalizer.** Use precisely the actual ray pools, original fixed ray data and W0/W1 positivity/nonzero hypotheses of `original_normalized_compensatedPhysicalProbe_low`. Explicitly, with its notation and WC_i the complex coercion of W_i,
+
+```text
+Yp_i = Z^ell_i,
+T_i = pool(identityClass(M,H),S,a,b,Yp_i),
+slots_i = canonicalSlotSupport(T_i),
+Ccal = calibrationForSet(S,hmax),
+
+F_J(Z) = sum_(p in product_i slots_i)
+  [product_i WC_i(N(p_i)/Yp_i)]
+  * compensationSubsetProbe(eta,Ccal,W0,W1,p,J,
+                             Z^(17/48),Z^(23/48),Z),
+
+F(Z) = sum_(J subset Fin K) F_J(Z)
+     = compensatedPhysicalProbe(eta,Ccal,W0,W1,slots,WC,Yp,
+                                 Z^(17/48),Z^(23/48),Z),
+
+N(Z) = sourceResidueConstant(W0,W1,product_(P in S) P)
+       * complex_coercion(principalScalar(univ,Z,1/6,
+                              slotMass(T,residueWeights(W,Yp)))).
+```
+
+Its original normalizer N(Z) is eventually nonzero and its inverse is O(Z^delta) for every fixed delta>0. Divide each ORIGINAL subset by that SAME N(Z). Do not renormalize subsets individually.
+
+Given any final loss lambda>0 choose, before Z,
+
+```text
+rho = min(1/2,lambda),
+epsilon = min(1/2,lambda/1024),
+delta = lambda/4.
+```
+
+Then `rho*d_J+256*epsilon+delta <= lambda/6+lambda/4+lambda/4 < lambda`. The normalized remote exponent `-1+delta` also lies below `3/16-d_J+lambda`. This proves R9 exactly, with all dyads and the original normalizer. Finite summation over nonempty J gives R10. At fixed terminal geometry ell_*>0; no numerical lower bound for ell_* is claimed.
+
+This is complete **LOW-source** return, not complete source-to-zero/Mertens return. The original HIGH/principal comparison has not received any additional gain. The proof is at `(X,Y)=(Z^(17/48),Z^(23/48))`; applying it to the shifted #1079 geometry requires rechecking the corresponding shifted suppliers, not borrowing its powers by notation.
+
+### H. Quantifiers, Circularity And The Exact Remaining Packet
+
+**20261103-referee-10.** Fix one full original terminal data set and eta, and set
+
+```text
+A(Z)=F_empty(Z)/N(Z),  R(Z)=sum_(J!=empty) F_J(Z)/N(Z),
+P(Z)=A(Z)+R(Z).
+```
+
+For any fixed 0<g<=ell_*, define `Bound_g(f)` to mean
+
+```text
+forall lambda>0, exists C,Z0, forall real Z>=Z0,
+  |f(Z)| <= C Z^(3/16-g+lambda).
+```
+
+Then `Bound_g(P) <-> Bound_g(A)`. The forward arrow uses A=P-R; the reverse uses P=A+R; R9 bounds R at the required exponent in both directions. The same statement holds character by character with character-dependent constants, as in the original terminal theorem. The fixed g precedes lambda and Z. No statement uniform over a scale-dependent geometry is inferred.
+
+The exact full square is retained:
+
+```text
+|P|^2 = |A|^2 + |R|^2 + 2 Re(A conjugate(R)).
+```
+
+The equivalence does not require the mixed term to be positive. It allows cancellation, but a rigorously smaller remainder cannot change the existence of a bound at any g<=ell_*. This is not the forbidden blanket demand that every large complement be separately small: here the actual complement has just been independently bounded.
+
+This is SOURCE_EQUIVALENT to the proposed improved original LOW bound, not a proved equivalence to RH or the canonical VF objective. The reverse implication from a Mertens bound to this particular detector packet has not been proved and is not claimed. Neither side of Bound_g is established by the equivalence.
+
+For J=empty, `LowUnselectedTuple slots J` has one element, L=1, lowUnselectedWeight=1, and the selected inverse row contains ALL slots. At each fixed U,t,
+
+```text
+P_empty(U,t)=H_empty(1),
+D_empty=|H_empty(1)|^2,   C_outer_empty=0,
+|sum_a U_a|=sum_a |U_a|.
+```
+
+A multiplicative strict improvement of this last inequality with a factor <1 would require H_empty(1)=0; the triangle inequality itself supplies none. This is an exact obstruction to a cross-UNSELECTED-tuple-only mechanism, not proof that H_empty is large, nonzero, or uncancellable in its selected variables.
+
+The merged fractional-owner module was also inspected at its declaration: `NativeUniformFractionalOwnerContraction c` explicitly quantifies over every current exponent theta in [1/2,7/8] with a Mertens-growth hypothesis, and its half-exponent theorem retains `hcontract` as an argument. It is a conditional consumer, not a supplied arithmetic restriction. No reverse-equivalence claim for that property is made here. The new moving-tail proof does not use it.
+
+### I. First Independently Missing Inequality And Constructive Repair
+
+For a source-specific selected-inverse attempt, now start with **J=empty**, not an arbitrary nonempty norm collision. Its nominal parameters are d=0 and selected length 1/6. The original source U range is around Z^(7/6), and its physical scale is Q=q Z^(5/6), with the original fixed calibration norm q.
+
+One sufficient new input is a fixed nu>0 for the genuine all-selected row:
+
+```text
+sum_(m in actual lowNumeratorRows) |R_empty(sigma,m;U,t)|^2
+  <= C_(epsilon,eta,data) (1+|t|)^A
+                        Z^(5/6-nu+epsilon),              (OPEN-E0)
+```
+
+uniform over the original admitted sets, ray modes sigma, t and central U, with the same fixed-source quantifier order and all original masks. This is a precise candidate, NOT an established theorem or necessary unique mechanism. A direct estimate for the complete A(Z) could be weaker and more efficient.
+
+If OPEN-E0 is independently proved and propagated through the same source, sqrt(Q) converts its squared-energy saving nu into an amplitude saving nu/2. Combining with R9 caps the resulting complete original LOW saving by `min(nu/2,ell_*)`, up to arbitrary positive losses. Additional HIGH/principal and any shifted-geometry conditions must then be verified before translating to a zero/Mertens exponent. No new value of nu is supplied here.
+
+The practical repair is to keep the correct exact Gram interface, retain the moving-mass bound, and target either the ALL-SELECTED inverse row or its complete same-source integral. Do not introduce a desired-bound hypothesis and call that a proof.
+
+### J. Counterexamples, Boundary Tests And Strategy Comparison
+
+The decisive infinite family is M_empty=1 at every scale. It has genuine source admission and no numerical integration uncertainty. It defeats only a proposed all-J positive mass decay.
+
+The graph controls remain scoped: deleting one tuple from a 2-by-2 Cartesian carrier changes m=4 to m=3; overlapping slots can give a permutation fiber of size 6. These violate the precise Cartesian/disjoint hypotheses, not Census-5. Under separated norm bands, complex weights still give identical atoms within each norm; without separation, the broader central theorem allows complex windows and different profiles at the same product norm, so the terminal nonnegative-weight sign conclusion must not be universalized.
+
+There is no new actual nonzero positive-C_low witness: none of the original selected integrals was evaluated or certified nonzero. The coefficient identities are valid even when the selected sum vanishes, a slot is empty, or W has zeros. Model H(L) values would test algebra only and are not used as arithmetic counterexamples.
+
+Portfolio consequence: retain the useful OAI source comparison, but revise the claim that distinct-unselected-norm cancellation is the sole next input. VF-LOW/SAT/JOH, CODIV/OAI-NNS/NYMAN and FINITE-AC/CORR4/MU-LIFT remain distinct, with their existing route rotation. This report recommends no campaign or schedule change. No result here pays the genuine sharp shell bound, a growing-family conductor loss, or the canonical VF estimate.
+
+### K. Executed Independent Verification
+
+A fresh standard-library verifier was written for this invocation, not copied from the Census algorithm. It tests direct Cartesian norm fibers against a separately constructed prime-factor/forced-matching graph, including absent fibers. Deterministic trial division and all roots of x^2+x+1 mod p certify the finite split/inert labels. All mathematical decisions use integers or rational arithmetic.
+
+- 324 small disjoint-slot/subset cases; 343 nonempty fibers; multiplicities 1,2,4 occurred 285,56,2 times. All graph counts matched.
+- 256 four-cycle complex/zero-weight assignments from {0,1,-1,i}, retaining the complete ordered diagonal/cross identity.
+- 64 finite prime-ideal inverse-square tail checks and 8 direct moving-mass product factorizations, including the exact empty product 1 and equality of lower norm bounds.
+- 24 rational exponent-budget checks, including every J of a three-slot source with ell=(1/48,1/24,5/48), at three independent positive loss values.
+
+Commands executed: `python referee_low_audit.py` and `python -m py_compile referee_low_audit.py`. Source SHA256: `7537dfa2233892c33ec3b914b06b2ddc6c541db392c28fc3517e54bea16ecbc8`. Deterministic result SHA256: `5c649b94b6edad53755c98974787cb579b1e7b1c8e7e67f6d993f02491a1ff4f`. Full source and output follow in the appendices. These finite tests verify bookkeeping, not the infinite analytic theorem. That theorem is the displayed paper proof using the original source suppliers.
+
+No local Lean was executed, in accordance with repository policy. A direct clone was unavailable (HTTP 403); authenticated read tools provided the pinned source and live GitHub evidence. Direct OAI integrals remain NOT_EVALUATED, not an inferred successful experiment.
+
+### L. Formal Evidence And Scope
+
+PR #1083 head `1ae84e2ff019b266114c100f43016eeec71144a9` is human-merged at `040980c16901af749202e9b0f91211c43909404a`, 2026-11-04T00:27:40Z (November 3, 19:27:40 EST). The open-PR collection returned no entries. Earlier Wheel/Census failed-head and pending-head reports are preserved historical evidence, not the current status.
+
+Final freshness check at 2026-11-04T01:32:13Z (November 3, 20:32:13 EST): main is unchanged; the open-PR collection is still empty; agent-reports is at this invocation's verified checkpoint commit `10d688bea3f39d562b16c88cd03c95c8451861bb`, so no newer upstream handoff was committed during this review.
+
+All 13 returned exact-head workflows succeeded. The relevant [dedicated run 41744927180](https://github.com/OVVO-Financial/RH_Lean/actions/runs/41744927180), job 126295407267, succeeded. Its complete decoded log was retrieved. The workflow and runner pin Lean 4.34.1, Mathlib `d13f23b723b8a846827a245b89c10fc7d3f11612` and OAI `1581d4cbdd69a0faf34b2089614fe2a814316a6a`; the runner compiles the two new modules with `-DwarningAsError=true` and rejects placeholder axioms.
+
+The log explicitly records compilation of `VF919OriginalLowTupleSignedGram` and the three declarations:
+
+```text
+actual_low_tuple_polynomial_eq_sum_atoms
+actual_low_tuple_polynomial_sq_eq_signed_gram
+actual_low_NNS_co_minus_div_eq_normSq
+```
+
+Each axiom output contains only `propext`, `Classical.choice`, `Quot.sound`. The component ledger was separately compiled and printed standard axioms. The latest signed-Gram source includes the explicit equality-decision-instance repair, and its current proof no longer carries the earlier error-generated sorryAx. The current main blob matches the compiled exact-head source.
+
+The inherited strict-slot terminal type/live-dependency audits also pass in this run. They do not certify R9/R10, a new signed LOW gain, or the arithmetic premise of the owner bootstrap. Formalization guidance: independently review R9/R10 first; a small moving-tail specialization of the existing supported-ideal summability theorem is a plausible enabling lemma. Do not create a generic norm-square wrapper merely for theorem count, and do not promote the paper return chain to Lean-certified status.
+
+### M. Specialist Handoffs
+
+| Role | Precise next request |
+| --- | --- |
+| Proof Architect | Independently review R9/R10 and revise the original-geometry binding-source DAG to isolate J=empty if accepted. Preserve previous strict-slot credit, protected routes and human-only changes. |
+| Analytic Type II | Check the retained mass factor at `LowCentralTuple.hterm`, then the rho/epsilon/normalizer budget. On a due OAI turn, attack OPEN-E0 or the complete all-selected packet; retain CODIV/NYMAN rotation. |
+| Finite Wheel | O1-O4 and the Census cycle refinement are accepted on paper at their stated scope. Distinguish that structural result from a gain on J=empty. Continue the next protected route; do not spend the same coherent block as negative credit. |
+| Prime Census | Preserve the exact m=2^c result and direct-integral limitation. A source-faithful next numerical target is the all-selected J=empty row/integral with certified calibration and integration tails; more unselected collision scans alone will not test it. |
+| Owner Payment | Do not identify the all-selected ideal row with native chronological ownership. Any proposed map still needs actual phase, weight, mask and occurrence equality; maintain VF-LOW/SAT/JOH coverage. |
+| Lean Verification | #1083 is now green and merged at the stated head. R9's simplest core uses existing `supportedIdeal_rpow_finite_bound (-1-rho)` plus actual lower support, avoiding a new prime-splitting formalization. R9/R10 are this author's SELF_AUDIT paper findings awaiting independent qualification. |
+
+These requests are published in this own report only. No agent was launched, no other report/issue was modified, and no proof branch or PR was created.
+
+### N. First Independently Missing Mathematical Ingredient
+
+At the original untilted geometry, the first unpaid improved bound is for the complete normalized ALL-SELECTED, EMPTY-UNSELECTED compensation subset A(Z), at a fixed positive gain. Its selected coefficients, inverse source and Gaussian integrals remain genuine arithmetic, not a scalar placeholder whose desired norm is assumed.
+
+R9 independently pays the remaining nonempty subsets below any g<=ell_*. OPEN-E0 is one sufficient supplier, not a proved one. The new LOW amplitude gain and final Mertens gain remain UNKNOWN. The existing one-shot geometric slot theorem, NNS isometry, marked-HIGH t/2 improvement and any canonical cstar estimate cannot substitute for this missing proof.
+
+### O. Resume Capsule
+
+```text
+RUN: scheduled 2026-11-03T20:13:01-05:00; RUN_ID_UNAVAILABLE
+TASK: NEXT-REFEREE, original LOW sign/quantifier and complete-return audit
+SOURCE_FIRST_VERSION: 2026-11-03
+MAIN: 040980c16901af749202e9b0f91211c43909404a
+OAI_PIN: 1581d4cbdd69a0faf34b2089614fe2a814316a6a
+PR1083: MERGED; head 1ae84e2ff019b266114c100f43016eeec71144a9
+CI: 41744927180 / 126295407267; SUCCESS; exact three standard-axiom outputs
+CLAIMS:
+  referee-8: #1083 identities, Wheel O1-O4, Census-5/6 accepted with scope
+  referee-9: moving lower-cutoff mass and original complete LOW subset bounds
+  referee-10: empty-subset obstruction and source-level iff for 0<g<=ell_*
+NEW_PROOF_STATUS: PAPER_PROOF / SELF_AUDIT; independent review pending
+COUNTEREXAMPLE: actual M_empty(Z)=1 for every Z, no all-J positive mass decay
+LAST_JUSTIFIED: |sum_(J!=empty) F_J/N| << Z^(3/16-ell_*+lambda)
+FIRST_OPEN: fixed gain for F_empty/N, or sufficient genuine OPEN-E0
+NNS: exact Co-minus-Div identity only; singleton outer cross term is zero
+NORMALIZATION: original sqrt(Q), Gaussian dyads, remote and common normer retained
+ADDITIONAL_SQUARED_GAIN / AMPLITUDE_GAIN / ENDPOINT_GAIN: UNKNOWN
+ETA_GATE: inherited VERIFIED_ETA / ON_MAIN only for prior strict-slot theorem
+ADDITIONAL_SIGNED_LOW_GATE: SEARCH_BROAD; no new gate promotion or route narrowing
+DEPLOYMENT_ACK: current source-first policy and engine consumed through R9/R10
+NEXT: independent review of R9/R10; then all-selected source estimate at original geometry
+LIMITS: no numerical OAI integrals, no local Lean, no shifted-geometry transfer
+```
+
+### Material Source Ledger
+
+The following source list is completed from fetched file blobs, not remembered hashes. OAI paths are under `lean/OAI/NumberTheory/DirichletL/Detector/` at the pin above; RH_Lean paths are at the stated main or identical compiled PR head. See the source links for the exact original declarations.
+
+| Source | Blob SHA |
+| --- | --- |
+| [LowSlotPolynomial.lean](https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/NumberTheory/DirichletL/Detector/LowSlotPolynomial.lean) | `b1dcb5a1e51afad1d39ccd91fa58a764e39629ba` |
+| [LowTupleGram.lean](https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/NumberTheory/DirichletL/Detector/LowTupleGram.lean) | `710598c8bef4d1a1ec98aa7e68b00369962c3d17` |
+| [LowSlotSplit.lean](https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/NumberTheory/DirichletL/Detector/LowSlotSplit.lean) | `8c8fe01a1b3fffe3b06839c2befc2ddae39a2c9b` |
+| [LowSelectedSum.lean](https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/NumberTheory/DirichletL/Detector/LowSelectedSum.lean) | `a54eb9ec6a5beb0db57ce9baa658718aab808af1` |
+| [Compensation.lean](https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/NumberTheory/DirichletL/Detector/Compensation.lean) | `93a2332f3e98d307c0e5f09d14f3175ca46ac9e7` |
+| [LowSelectedBound.lean](https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/NumberTheory/DirichletL/Detector/LowSelectedBound.lean) | `695d81de46038693b9c701d55e81fe43d18d52d2` |
+| [LowPhysicalInverseBound.lean](https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/NumberTheory/DirichletL/Detector/LowPhysicalInverseBound.lean) | `58bc871a18d9baa43d1684209027b8a2ebed87d6` |
+| [LowSlotScales.lean](https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/NumberTheory/DirichletL/Detector/LowSlotScales.lean) | `f8ebfef6a7efe1ecb63a61975f240999afe2f0eb` |
+| [LowUnselectedMass.lean](https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/NumberTheory/DirichletL/Detector/LowUnselectedMass.lean) | `4233ef473b8a71d4a331d0eb5ddc0c6cd7dacb4f` |
+| [GramIdealSummation.lean](https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/NumberTheory/DirichletL/Detector/GramIdealSummation.lean) | `b889394857052cb8e320e8a04aeb446c02865654` |
+| [LowCentralTuple.lean](https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/NumberTheory/DirichletL/Detector/LowCentralTuple.lean) | `bb7c4eaf4dc3ec5a1467d76e4a3c576e32a433c9` |
+| [LowGaussianDyad.lean](https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/NumberTheory/DirichletL/Detector/LowGaussianDyad.lean) | `d890d50dcfdb510ef4dda3bcbccf946173e4537e` |
+| [LowGaussianCentral.lean](https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/NumberTheory/DirichletL/Detector/LowGaussianCentral.lean) | `46d68f3c6e684984312b3b5603643c826cec5be4` |
+| [LowGaussianRemote.lean](https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/NumberTheory/DirichletL/Detector/LowGaussianRemote.lean) | `488b9143cccf51fa1bf0b66023e2ecf33ff5f020` |
+| [LowGaussianSum.lean](https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/NumberTheory/DirichletL/Detector/LowGaussianSum.lean) | `1bfd335a4db0973b7b5a9342a03eab82eddfe60d` |
+| [GaussianSubset.lean](https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/NumberTheory/DirichletL/Detector/GaussianSubset.lean) | `560ba0b999e04d591537840af659a67b9cbbae57` |
+| [GaussianCommon.lean](https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/NumberTheory/DirichletL/Detector/GaussianCommon.lean) | `ab1e3bff726fd851a0091cc43ac98a765881f3ad` |
+| [LowCommonBound.lean](https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/NumberTheory/DirichletL/Detector/LowCommonBound.lean) | `328f8ae217343c8766a6fead1f7d0d4abdfba3fc` |
+| [LowWindowBound.lean](https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/NumberTheory/DirichletL/Detector/LowWindowBound.lean) | `d16ab5fbe03f86b3ee4aef949129a18835979573` |
+| [LowNormalized.lean](https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/NumberTheory/DirichletL/Detector/LowNormalized.lean) | `3a9f0257cdbde8fce7cc026ac62ef672c3e9820c` |
+| [CanonicalSlots.lean](https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/NumberTheory/DirichletL/Detector/CanonicalSlots.lean) | `0ae88f818a6c8f6b2c8dd4d5254ce34a14b026cf` |
+| [RayPoolDisjoint.lean](https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/NumberTheory/DirichletL/Detector/RayPoolDisjoint.lean) | `f4c4412a840e93aa797edf065a1276be5db30f81` |
+| [VF919OriginalLowTupleSignedGram.lean](https://github.com/OVVO-Financial/RH_Lean/blob/040980c16901af749202e9b0f91211c43909404a/research/oai_434/VF919OriginalLowTupleSignedGram.lean) | `c1b7b46a9e62a5b2f3729618c4dd24e31558166f` |
+| [VF919OriginalGainComponentLedger.lean](https://github.com/OVVO-Financial/RH_Lean/blob/040980c16901af749202e9b0f91211c43909404a/research/oai_434/VF919OriginalGainComponentLedger.lean) | `5e7cea836158fc819f37e71da5fe55c8a8dce44e` |
+| [VF919FractionalOwnerContraction.lean](https://github.com/OVVO-Financial/RH_Lean/blob/040980c16901af749202e9b0f91211c43909404a/research/oai_434/VF919FractionalOwnerContraction.lean) | `c4e4307cef054a9b7366718081f95f623edd61dd` |
+| [VF919ActualSlotMinRetighten.lean](https://github.com/OVVO-Financial/RH_Lean/blob/040980c16901af749202e9b0f91211c43909404a/research/oai_434/VF919ActualSlotMinRetighten.lean) | `138c4726085995b966204406805f70082402bec4` |
+| [VF919NativeStrictMertens.lean](https://github.com/OVVO-Financial/RH_Lean/blob/040980c16901af749202e9b0f91211c43909404a/research/oai_434/VF919NativeStrictMertens.lean) | `b33a4883e1ddb0551b0f11f062bce46680d87450` |
+| [VF_CANONICAL_SQRT_TWO_VON_KOCH.lean](https://github.com/OVVO-Financial/RH_Lean/blob/040980c16901af749202e9b0f91211c43909404a/research/VF_CANONICAL_SQRT_TWO_VON_KOCH.lean) | `79030d70e8d3e0d08eef9bac53fef95c36eca2fb` |
+| [run_anchored_in_verified_ci.sh](https://github.com/OVVO-Financial/RH_Lean/blob/040980c16901af749202e9b0f91211c43909404a/scripts/lean/slot_anchored/run_anchored_in_verified_ci.sh) | `1b8973bf270dda5ee9635d42f4c89a82f2e2b82a` |
+| .github/workflows/vf919-low-first-slot-anchored.yml | `c1510bd39ea1f863f8c94bf5fc1a7ddd71f36c65` |
+
+### Continuity Blob Ledger
+
+| Role | November 2 | November 3, before this invocation |
+| --- | --- | --- |
+| 00-coordinator-am | `1e932d4ce0eb0fd2c5f4507f6b111194d633eb32` | `8f22479e602b919c00ad5539a7442371c2ee6076` |
+| 10-owner-payment | `abfe546d72b151f4cd200fc61de3197efe23a65c` | `d52c74b76c2914c3be694f39cd7afe9b122a4834` |
+| 20-analytic-type-ii | `8e48b59611aa1d0bfa3577ed0a4a3bc0d0fcae73` | `2b9c3dbab6039e3c30a5ece3e473290af5dbbf0b` |
+| 30-finite-wheel | `abf8ac8c22a708886183849552c90dd62787ac8d` | `cd7777180bb5c2c899a60bdd699b99be8e12a672` |
+| 40-prime-census | `2cd84c57ab18d923e97368764f29f4ccd2ec3bb3` | `eb9a2e0cf7772f22060aec07e0bcddd24ace9cd9` |
+| 50-adversarial-referee | `814af1684df66e6ac99b8df1f102cb592b316f89` | `dff2382a732be1829ad7583e046ebbc64c61e4c9` |
+| 60-lean-verification | `02d19d792e26f072004cb5909f149538752626e9` | `a9c65a6809323216f8a876845538b6af0fae393e` |
+
+### Executed Verifier Source
+
+```python
+"""Exact finite regressions; no OAI integrals or Lean execution."""
+
+from collections import Counter, defaultdict
+from fractions import Fraction as F
+from itertools import product
+from math import isqrt, prod
+import json
+
+
+def prime(n):
+    return n >= 2 and all(n % d for d in range(2, isqrt(n) + 1))
+
+
+def ideals_up_to(bound):
+    out = []
+    for p in range(5, bound + 1):
+        if not prime(p):
+            continue
+        roots = [r for r in range(p) if (r * r + r + 1) % p == 0]
+        if roots:
+            assert len(roots) == 2 and p % 3 == 1
+            out.extend((p, r, p) for r in roots)
+        elif p * p <= bound:
+            assert p % 3 == 2
+            out.append((p, -1, p * p))
+    return out
+
+
+def matching_cycle_count(slots, L):
+    # Factor L first, then reconstruct a bipartite multigraph independently.
+    factors = []
+    n = L
+    for p in range(2, L + 1):
+        if p * p > n:
+            break
+        if n % p == 0:
+            e = 0
+            while n % p == 0:
+                n //= p
+                e += 1
+            factors.append((p, e))
+    if n > 1:
+        factors.append((n, 1))
+    candidates = defaultdict(list)
+    for i, slot in enumerate(slots):
+        for ideal in slot:
+            candidates[ideal[0]].append((i, ideal))
+    edges = []
+    for p, e in factors:
+        options = candidates[p]
+        if p % 3 == 1 and e == 1:
+            edges.append(options)
+        elif p % 3 == 1 and e == 2:
+            if len(options) != 2:
+                return 0
+            edges.extend([[edge] for edge in options])
+        elif p % 3 == 2 and e == 2:
+            if len(options) != 1:
+                return 0
+            edges.append(options)
+        else:
+            return 0
+    if len(edges) != len(slots):
+        return 0
+    left = set(range(len(edges)))
+    right = set(range(len(slots)))
+    live = [(l, r, ideal) for l, row in enumerate(edges) for r, ideal in row]
+    while left:
+        ld = Counter(l for l, r, ideal in live)
+        rd = Counter(r for l, r, ideal in live)
+        if any(ld[l] == 0 for l in left) or any(rd[r] == 0 for r in right):
+            return 0
+        forced = next((e for e in live if ld[e[0]] == 1 or rd[e[1]] == 1), None)
+        if forced is None:
+            break
+        l, r, _ = forced
+        left.remove(l)
+        right.remove(r)
+        live = [e for e in live if e[0] != l and e[1] != r]
+    if not left:
+        return 1
+    assert all(sum(e[0] == l for e in live) == 2 for l in left)
+    assert all(sum(e[1] == r for e in live) == 2 for r in right)
+    graph = defaultdict(set)
+    for l, r, _ in live:
+        graph[(0, l)].add((1, r))
+        graph[(1, r)].add((0, l))
+    remaining = set(graph)
+    cycles = 0
+    while remaining:
+        todo = [remaining.pop()]
+        cycles += 1
+        while todo:
+            v = todo.pop()
+            for w in graph[v]:
+                if w in remaining:
+                    remaining.remove(w)
+                    todo.append(w)
+    return 2 ** cycles
+
+
+def norm_fibers(slots):
+    fibers = defaultdict(list)
+    for tup in product(*slots):
+        fibers[prod(a[2] for a in tup)].append(tup)
+    return fibers
+
+
+def cmul(z, w):
+    return (z[0] * w[0] - z[1] * w[1], z[0] * w[1] + z[1] * w[0])
+
+
+def cadd(z, w):
+    return (z[0] + w[0], z[1] + w[1])
+
+
+def cabs2(z):
+    return z[0] ** 2 + z[1] ** 2
+
+
+def main():
+    all_ideals = ideals_up_to(256)
+    small = [a for a in all_ideals if a[2] in (7, 13)]
+    assert len(small) == 4
+    cases = fibers_checked = 0
+    multiplicities = Counter()
+    for positions in product(range(3), repeat=4):
+        slots = [[a for a, p in zip(small, positions) if p == i + 1] for i in range(2)]
+        for mask in range(4):
+            chosen = [s for i, s in enumerate(slots) if mask & (1 << i)]
+            fibers = norm_fibers(chosen)
+            cases += 1
+            for L, rows in fibers.items():
+                assert matching_cycle_count(chosen, L) == len(rows)
+                multiplicities[len(rows)] += 1
+                fibers_checked += 1
+            # Test absent fibers too, not only the factors enumeration admits.
+            for L in (1, 7, 13, 25, 49, 91, 169):
+                assert matching_cycle_count(chosen, L) == len(fibers.get(L, []))
+
+    phases = [(0, 0), (1, 0), (-1, 0), (0, 1)]
+    for a, b, c, d in product(phases, repeat=4):
+        terms = [cmul(a, d), cmul(b, c)]
+        total = cadd(*terms)
+        diagonal = sum(cabs2(z) for z in terms)
+        cross = 2 * (terms[0][0] * terms[1][0] + terms[0][1] * terms[1][1])
+        assert cabs2(total) == diagonal + cross
+        # The two perfect matchings on the four-cycle give a*d+b*c.
+        assert total == cadd(cmul(a, d), cmul(b, c))
+
+    tail_bounds = []
+    for Y in range(1, 65):
+        mass = sum((F(1, a[2] ** 2) for a in all_ideals if a[2] >= Y), F(0))
+        assert mass <= F(4, Y)
+        tail_bounds.append((Y, mass))
+
+    norm_slots = [
+        [a for a in all_ideals if 7 <= a[2] <= 13],
+        [a for a in all_ideals if 19 <= a[2] <= 31],
+        [a for a in all_ideals if 37 <= a[2] <= 61],
+    ]
+    minimum = [7, 19, 37]
+    cutoff_checks = []
+    for mask in range(8):
+        J = [i for i in range(3) if mask & (1 << i)]
+        sums = [sum((F(1, a[2] ** 2) for a in norm_slots[i]), F(0)) for i in J]
+        direct = sum((F(1, prod(a[2] for a in row) ** 2)
+                      for row in product(*(norm_slots[i] for i in J))), F(0))
+        assert direct == prod(sums)
+        bound = prod(F(4, minimum[i]) for i in J)
+        assert direct <= bound
+        cutoff_checks.append({"J": J, "mass": str(direct), "bound": str(bound)})
+
+    # Exact exponent bookkeeping, independent of any actual integral values.
+    ell = [F(1, 48), F(1, 24), F(5, 48)]
+    assert sum(ell) == F(1, 6)
+    exponent_cases = 0
+    for loss in (F(1, 10), F(1, 100), F(1, 10000)):
+        rho = min(F(1, 2), loss)
+        eps = min(F(1, 2), loss / 1024)
+        normalization_loss = loss / 4
+        for mask in range(8):
+            d = sum((ell[i] for i in range(3) if mask & (1 << i)), F(0))
+            final = F(3, 16) - (1 - rho) * d + 256 * eps + normalization_loss
+            assert final <= F(3, 16) - d + loss
+            assert -1 + normalization_loss <= F(3, 16) - d + loss
+            exponent_cases += 1
+    print(json.dumps({
+        "incidence_cases": cases,
+        "nonempty_fibers_checked": fibers_checked,
+        "multiplicities": dict(sorted(multiplicities.items())),
+        "complex_cycle_weight_cases": len(phases) ** 4,
+        "finite_prime_ideal_tail_checks": len(tail_bounds),
+        "moving_mass_factorization": cutoff_checks,
+        "exponent_budget_cases": exponent_cases,
+        "empty_J_mass": str(cutoff_checks[0]["mass"]),
+        "source_integrals": "NOT_EVALUATED",
+        "proof_status": "FINITE_REGRESSIONS_ONLY"
+    }, indent=2))
+
+
+if __name__ == "__main__":
+    main()
+```
+
+### Exact Verifier Output
+
+```json
+{
+  "incidence_cases": 324,
+  "nonempty_fibers_checked": 343,
+  "multiplicities": {
+    "1": 285,
+    "2": 56,
+    "4": 2
+  },
+  "complex_cycle_weight_cases": 256,
+  "finite_prime_ideal_tail_checks": 64,
+  "moving_mass_factorization": [
+    {
+      "J": [],
+      "mass": "1",
+      "bound": "1"
+    },
+    {
+      "J": [
+        0
+      ],
+      "mass": "436/8281",
+      "bound": "4/7"
+    },
+    {
+      "J": [
+        1
+      ],
+      "mass": "1999421/216825625",
+      "bound": "4/19"
+    },
+    {
+      "J": [
+        0,
+        1
+      ],
+      "mass": "871747556/1795533000625",
+      "bound": "16/133"
+    },
+    {
+      "J": [
+        2
+      ],
+      "mass": "29010918/9418896601",
+      "bound": "4/37"
+    },
+    {
+      "J": [
+        0,
+        2
+      ],
+      "mass": "12648760248/77997882752881",
+      "bound": "16/259"
+    },
+    {
+      "J": [
+        1,
+        2
+      ],
+      "mass": "58005038678478/2042258142322200625",
+      "bound": "16/703"
+    },
+    {
+      "J": [
+        0,
+        1,
+        2
+      ],
+      "mass": "25290196863816408/16911939676570143375625",
+      "bound": "64/4921"
+    }
+  ],
+  "exponent_budget_cases": 24,
+  "empty_J_mass": "1",
+  "source_integrals": "NOT_EVALUATED",
+  "proof_status": "FINITE_REGRESSIONS_ONLY"
+}
+```
+
