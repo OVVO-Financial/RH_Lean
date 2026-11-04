@@ -122,7 +122,13 @@ theorem actual_low_tuple_polynomial_sq_eq_signed_gram
     (Finset.univ : Finset (LowUnselectedTuple slots J))
     (actualUnselectedLowAtom eta S hS W0 W1 a0 b0 a1 b1
       slots J W P X Y T t)
-  exact hnorm.trans hgram
+  have herase (a : LowUnselectedTuple slots J) :
+      (Finset.univ : Finset (LowUnselectedTuple slots J)).erase a =
+        @Finset.erase (LowUnselectedTuple slots J)
+          (Classical.decEq (LowUnselectedTuple slots J)) Finset.univ a := by
+    ext b
+    simp only [Finset.mem_erase]
+  simpa only [herase] using hnorm.trans hgram
 
 /-- LITERAL finite-source NNS UPM/Co on the actual original LOW tuple
 source. This is equal to the weighted singleton-row Co definition, but
