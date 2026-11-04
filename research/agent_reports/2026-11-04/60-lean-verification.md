@@ -873,3 +873,208 @@ GitHub Actions actually started on that head. Dedicated [run 41886500358](https:
 The six #1085 moving-mass declarations are independently confirmed PROVED_IN_LEAN_MAIN at their exact stated scope: [run 41872040501](https://github.com/OVVO-Financial/RH_Lean/actions/runs/41872040501), [job 126721440818](https://github.com/OVVO-Financial/RH_Lean/actions/runs/41872040501/job/126721440818), PR head `7895272e5303ed0f4199d5b06b74786e22d31769`. Actual tested checkout `5722472b6f316619b98770dc2781a47f0f7b41fd` has tree `32ede9a84f99f7b623f4dd463d8ff0f8e96aa025`, exactly the current main tree. All six printed axiom sets are `[propext, Classical.choice, Quot.sound]`. #1087 has no separate head-associated PR runs in the wrapper result; tree equality to the tested #1085 merge supplies the transport, not an invented #1087 CI run. Original analytic prerequisites were cache-reused, not freshly cold-built. Existing upstream Wiener warnings are recorded separately from the allowed terminal dependency closures.
 
 Original all-selected audit: `low_selected_physical_energy` and its per-character `low_original_completed_energy` supplier were read at OAI pin `1581d4cbdd69a0faf34b2089614fe2a814316a6a`. The supplier explicitly caps numerator norms by Ck Z^(5/6-2d); cube extraction cannot silently retain the old full row domain after rebasing. Today's R6-R8 remain paper claims with their own review status; this run does not promote the restricted-row R7 to the full source. Full Gaussian/normalizer transport of nonempty packets is still distinct from the now-certified central polynomial.
+
+---
+
+## Scheduled Research Synthesis - 20261104-lean-2 - 13:38 EST
+
+Actual invocation: 2026-11-04T13:14:01-05:00, America/New_York. This is the final continuation of the 13:14 checkpoint and 13:24 milestone, not another launch. RUN_ID_UNAVAILABLE. Earlier failures, uncompiled drafts and publication receipts above remain historical evidence.
+
+**Current status:** Mathematics PROVED_IN_LEAN at the tested unmerged PR revision; implementation CI_GREEN / REVIEW_READY; research execution COMPLETED. ETA_GATE=SEARCH_BROAD; no new net endpoint gain. Report publication is confirmed only by the subsequent commit/readback.
+
+### A. Most Important Formal Mathematical Result
+
+Implemented the finite arithmetic content of **20261103-coordinator-1/C29**, independently accepted with scope by **20261103-referee-5**, in [PR #1090](https://github.com/OVVO-Financial/RH_Lean/pull/1090). It contains the exact original-residue high-coefficient invariant and its factor-16 finite weighted consequence. This resumes the genuine uncompiled proof preserved in 20261103-lean-2; it is not a second implementation of an already compiled result.
+
+**PROVED_IN_LEAN at head `9a5e599e1c5c491d681d52d7c4ac095200c80f39`; REVIEW_READY, not merged.** All twelve attached workflows and thirteen jobs passed. Warning-fatal compilation and the four terminal axiom audits passed with only propext, Classical.choice and Quot.sound. The final actual main recheck at 18:37:41 UTC remains the stated baseline; the PR is open and no longer draft.
+
+Separately, all six moving-mass declarations from #1085 are now verified on main at their exact scope. The current main tree equals the actually tested #1085 synthetic merge tree. This supersedes the morning UNCOMPILED status without deleting it. The certified central formula is not the complete integrated LOW return.
+
+### B. Current Authoritative Objective
+
+Main remained `72ab5bdd0f9d8876f512e6273b50410328444e6e` on recheck. AGENTS blob: `3b5ff6e0249aa8d8f58ba8341a0d6eb21cd21dba`; CURRENT_PROOF_CONTRACT blob: `df026713a18c2ab851485e99d2239de80bbe87e3`. Canonical source `research/VF_CANONICAL_SQRT_TWO_VON_KOCH.lean`, blob `79030d70e8d3e0d08eef9bac53fef95c36eca2fb`, retains the actual-prime `VFCanonicalSquareVonKochStatement`. Its quantitative hypothesis and RH remain OPEN; no new classical criterion is asserted.
+
+deployment_ack: consumed SOURCE_FIRST_VERSION=2026-11-03 and the main-merged November 4 all-selected/full-write supplement, blob `6565096a532ef7224da389670aacd6f3ab7a57d2`. Completed the immediate six-declaration/CI audit, tested authorized proof writes, and resumed accepted NYMAN C29 after finding no independent proof of the binding all-selected supplier. The all-selected source priority and the protected alternate routes remain distinct.
+
+Pins: Lean v4.34.1; Mathlib `d13f23b723b8a846827a245b89c10fc7d3f11612`; PNT+ `c39a751132c88b6e8080b74c74023fd95b3d8be0`; original OAI `1581d4cbdd69a0faf34b2089614fe2a814316a6a`. No pin, central contract, security or existing audit was weakened.
+
+### C. Formalization Candidates
+
+| Priority | Candidate and current decision |
+|---|---|
+| A | No open/draft proof PR existed at intake. #1085/#1087 were human-merged; verify and reuse their evidence, do not duplicate. |
+| B | C29 finite high-coefficient invariant and reviewed weighted comparison: accepted, complete argument, available imports; selected. |
+| B/D | Qualified nonempty Gaussian/window/normalizer continuation of Referee R9/R10: useful next integration, not already proved by the central theorem. |
+| E | Original all-selected SF-I or SF-L: no independently proved fixed positive saving supplied; do not create a bound by assuming it. |
+| E | Today's CF1-CF3 and R6-R8: preserve exact factorization, crude-envelope/restricted-row scope and independent-review status. No promotion to full inverse energy. |
+
+Both today's and yesterday's seven-role report bytes and the external handoff index were retrieved. TODAY=AVAILABLE for all roles; YESTERDAY=CARRY_FORWARD only at verified unchanged scope. Coordinator mirrors match on each date. Exact continuity blobs are listed below. Today's Coordinator, Analytic and Referee were re-fetched during CI and unchanged. The external inbox `038018145c0fddb2f6306c0712373adf9cd1ea52` contains no new entry after October 18.
+
+### D. Candidate Selection
+
+C29 certifies a genuine restriction on a proposed approximation repair: arbitrary coefficients above a cutoff cannot alter the specified lower dyadic prime-power discrepancy. The weighted theorem is a necessary lower-energy constraint on that same family. Its mathematics is complete and independently reviewed, unlike the new uniform all-selected estimate. There was no active valid PR to repair before starting it. The archived uncompiled candidate was reused, not renamed as a new mathematical discovery.
+
+### E. Exact Theorem Statement
+
+For natural N,H,m, real coefficients c, and genuine Mobius/von Mangoldt functions, define the following real-valued expressions. All displayed quotients are real; only the modulus and the explicitly written floors use integer arithmetic.
+
+```text
+a_k(m) = (m mod k)/k,
+r_N,c(m) = 1 - sum_(2<=k<=N) c_k a_k(m),
+b_N(k) = -mu(k) log(N/k)/log N,
+psi(m) = sum_(1<=n<=m) Lambda(n),
+w_m = 1/[m(m+1)].
+```
+
+The implementation proves equality of b_N with its log-difference representation for N>=2, k>=1. If N>=2, H<=N, 1<=m, 2m<=H, and c_k=b_N(k) for every 2<=k<=N with k<=H, then
+
+```text
+log N * (r_N,c(2m) - 2*r_N,c(m)) = 2*psi(m) - psi(2m).
+```
+
+Declaration: `RHLean.Analysis.nyman_high_coefficient_annihilator`. Coefficients k>H are unrestricted. This states the same reviewed mechanism for arbitrary H, including the reviewed H=floor(N/2) specialization; no source is replaced.
+
+For every natural X with 2X<=H under the same N,H,c conditions,
+
+```text
+sum_(1<=m<=X) w_m*(2*psi(m)-psi(2m))^2
+ <= 16*(log N)^2 * sum_(1<=n<=2X) w_n*r_N,c(n)^2.
+```
+
+Declaration: `RHLean.Analysis.nyman_high_coefficient_weighted_obstruction`. The generic helper `nyman_dyadic_weighted_bound` holds for every real sequence and every natural X, including X=0. Neither theorem assumes bounded full approximation error.
+
+### F. Independent Mathematical Audit
+
+Original paper: `research/NYMAN_BEURLING_POSITIVE_RESIDUE_ATTACK_2026_10_15.md`, blob `b2775c892edffe920a101651eef6f3581c73c9d4`. Reviewed claim C29 and the actual 20261103-referee-5 derivation were read, not inferred from a verdict label. This run's reconstruction is SELF_AUDIT; prior separate Referee acceptance is the independent evidence.
+
+The finite carry equals floor(2m/k)-2*floor(m/k), and a_k(2m)-2a_k(m) is its negative. It vanishes for k>2m. Interchanging actual divisor sums gives sum_(1<=k<=N) mu(k)(log N-log k)floor(m/k)=log N+psi(m) for 1<=m<=N. Subtracting twice the m identity from the 2m identity proves the signed result. The k=1 contribution has zero carry.
+
+For the weighted comparison, (a-2b)^2<=2a^2+8b^2 and w_m<=4w_(2m). Each of the two sums embeds into the complete 1..2X sum; their overlap is paid twice. No orthogonality, independence, lost sign, target-strength hypothesis or new axiom is used.
+
+Exact rational regressions pass: 60 logarithmic-floor identities, 63 arbitrary-high-coefficient identities, 360 residue-carry identities and 39 weighted-square certificates. At N=6,m=2, changing c_4 by 1 produces defect log(6) outside the allowed fixed-low/cutoff scope. At m=0 the proposed identity has defect -log(6). These tests establish finite witnesses and implementation checks, not Lean verification.
+
+### G. Lean Implementation
+
+Three changed files only: the focused research module `research/NYMAN_HIGH_COEFFICIENT_INVARIANT_20261104.lean`, exact regression script `scripts/nyman_high_coefficient_regression.py`, and source-addressed cached workflow `.github/workflows/nyman-high-coefficient-invariant.yml`.
+
+The module imports Mathlib and existing `RHLean.Analysis.NativePNTMertens`, blob `090c01e8ac656021a4c88af697a46f5ce7c2f2b3`. It reuses `nativeCardMultiplesIcc`, `nativeSumMoebiusDivisors` and pinned Mathlib's `ArithmeticFunction.sum_moebius_mul_log_eq`. Supporting declarations prove exact residue/floor transport, carry cancellation, finite divisor rearrangement, coefficient transport, and positive weighted aggregation. No new parallel arithmetic model is introduced.
+
+The research module is compiled directly by the dedicated lane and by existing targeted iteration. The library import closure is built with warnings fatal; existing root/declaration/inventory/export checks remain enabled. Four terminal theorem signatures and dependency-axiom sets are printed and checked. `autoImplicit false` prevents accidental implicit theorem parameters.
+
+### H. Proof Branch and PR Evidence
+
+PR: [#1090](https://github.com/OVVO-Financial/RH_Lean/pull/1090). Branch: `agent/lean-verification/20261104-nyman-head-invariant`. Base: `72ab5bdd0f9d8876f512e6273b50410328444e6e`.
+
+| Proof revision | Purpose | Result |
+|---|---|---|
+| `86525175a7b767b7e15fad9ff6d85fb0f192cd7d` | Initial complete proof, tests and workflow | Compiler failure, preserved |
+| `863bf357b61eeb748165189050e8d97ef02d429a` | Qualify protected finite sums; disable automatic implicit parameters | Three remaining proof-script diagnostics |
+| `9a5e599e1c5c491d681d52d7c4ac095200c80f39` | Explicit unfolding/injectivity; remove redundant tactic | CI_GREEN / REVIEW_READY |
+
+Final tree: `9aad3d18e747fc3878e699d303d1fa4ba0162ac1`. Source blob: `2da630c1d5fb9302e2097ec1e170cf41c2b40609`; regression blob: `fa6c9e66893705cdc70a1143fee822bcb3c21368`; workflow blob: `0e6a61454af009815e82c577d47f9e780f5f764d`. Exact remote source readback matched the prepared source. Source SHA256: `8d0f4f32a1e4a5ac57fdafac9b0d7ef3d81f92cc423b83792addd45131765c6b`; regression SHA256: `6b725cac9c127895f27dc97dfd34613b17f918068167599a10ed832f3a2acea7`; workflow SHA256: `dcbaf5492686dd3f86b7b0cb9add16b2544d0f0e9b8d3661c383a8abe43aa1b4`.
+
+Authorized connected branch/blob/tree/commit/ref and draft-PR writes succeeded. The earlier report-only access diagnosis does not apply to the separately exposed current Git-data actions. Contents create/update actions remain constrained to dated reports and were used only for the own report. No access grant, protection, main branch, other author's report, schedule or agent launch was changed. Human merge only.
+
+### I. GitHub Actions Evidence
+
+The dedicated [run 41888225226](https://github.com/OVVO-Financial/RH_Lean/actions/runs/41888225226) has event pull_request, head `9a5e599e1c5c491d681d52d7c4ac095200c80f39`, base `72ab5bdd0f9d8876f512e6273b50410328444e6e`, and conclusion SUCCESS. Actual checkout `0ba663b685a7923d54d7f3c9e15079a601ffbbf9` has exactly the proof-head tree `9aad3d18e747fc3878e699d303d1fa4ba0162ac1`; both parents were verified.
+
+Dedicated job `126778327742` passed exact regressions, pin checks, source-addressed warning-fatal compilation, explicit theorem/axiom recheck and evidence upload. At 18:35:09 UTC it printed: "PASS: four original-carrier terminal declarations; standard logical axioms only". Each of `nymanLogCoefficient_eq_original`, `nyman_high_coefficient_annihilator`, `nyman_dyadic_weighted_bound`, and `nyman_high_coefficient_weighted_obstruction` printed exactly `[propext, Classical.choice, Quot.sound]`. Exact elaborated types match Section E, with no unexpected supplier. No sorryAx or native-evaluation axiom appears in these dependency closures.
+
+Existing Targeted Lean iteration independently emitted this research module, passed warnings-fatal compilation, and then confirmed source-addressed cache reuse. The hosted build passed its exact elaborated declaration graph and owned-warning checks. All attached workflow/job evidence at the latest head:
+
+| Workflow | Run / job | Result |
+|---|---|---|
+| Prevent new cold-only Lean and OpenAI CI | [41888225272 / 126778327002](https://github.com/OVVO-Financial/RH_Lean/actions/runs/41888225272/job/126778327002) | SUCCESS |
+| Coordinate atlas and static search corpus | [41888225214 / 126778327370](https://github.com/OVVO-Financial/RH_Lean/actions/runs/41888225214/job/126778327370) | SUCCESS |
+| Public export verification | [41888225308 / 126778327981](https://github.com/OVVO-Financial/RH_Lean/actions/runs/41888225308/job/126778327981) | SUCCESS |
+| Targeted Lean iteration | [41888225301 / 126778327427](https://github.com/OVVO-Financial/RH_Lean/actions/runs/41888225301/job/126778327427) | SUCCESS |
+| Lean source audits (static audit) | [41888225585 / 126778329112](https://github.com/OVVO-Financial/RH_Lean/actions/runs/41888225585/job/126778329112) | SUCCESS |
+| Lean source audits (hosted build) | [41888225585 / 126778329453](https://github.com/OVVO-Financial/RH_Lean/actions/runs/41888225585/job/126778329453) | SUCCESS |
+| VF first-bad final aggregate contraction | [41888225296 / 126778327382](https://github.com/OVVO-Financial/RH_Lean/actions/runs/41888225296/job/126778327382) | SUCCESS |
+| Proof inventory | [41888225680 / 126778330632](https://github.com/OVVO-Financial/RH_Lean/actions/runs/41888225680/job/126778330632) | SUCCESS |
+| VF recursive child population and complement capacity | [41888225657 / 126778329429](https://github.com/OVVO-Financial/RH_Lean/actions/runs/41888225657/job/126778329429) | SUCCESS |
+| VF pre-914 consolidation | [41888225217 / 126778327082](https://github.com/OVVO-Financial/RH_Lean/actions/runs/41888225217/job/126778327082) | SUCCESS |
+| Nyman high-coefficient invariant | [41888225226 / 126778327742](https://github.com/OVVO-Financial/RH_Lean/actions/runs/41888225226/job/126778327742) | SUCCESS |
+| VF first-bad normalized infrastructure | [41888225417 / 126778329035](https://github.com/OVVO-Financial/RH_Lean/actions/runs/41888225417/job/126778329035) | SUCCESS |
+| VF first-bad source to sector-six inlet | [41888225406 / 126778328613](https://github.com/OVVO-Financial/RH_Lean/actions/runs/41888225406/job/126778328613) | SUCCESS |
+
+Compilation reused pinned library caches; this is not a claim that every unchanged external theorem was freshly rebuilt. The selected new source was actually elaborated. Non-Lean action-runtime deprecation notices do not weaken the warning-fatal Lean audit.
+
+Existing moving-mass evidence: #1085 head `7895272e5303ed0f4199d5b06b74786e22d31769`, [run 41872040501](https://github.com/OVVO-Financial/RH_Lean/actions/runs/41872040501), [job 126721440818](https://github.com/OVVO-Financial/RH_Lean/actions/runs/41872040501/job/126721440818), all twelve associated workflows successful. Actual checkout `5722472b6f316619b98770dc2781a47f0f7b41fd` has tree `32ede9a84f99f7b623f4dd463d8ff0f8e96aa025`, exactly current main. The six new theorem axiom outputs are [propext, Classical.choice, Quot.sound].
+
+The audited declarations are `supportedIdeal_inverse_square_tail`, `canonical_slot_inverse_square_tail`, `lowUnselectedMass_moving_bound`, `lowUnselectedMass_moving_power_bound`, `lowUnselectedMass_empty`, `low_central_compensated_tuple_moving_mass`, in `research/oai_434/VF919OriginalLowTupleSignedGram.lean`, blob `dd2fde01ae6e2446da4e69b30f6fc80fcadb858d`. #1087 head `f8f65f21043301d5258f6e37afb994ac2c1e5e57` has no separate head-associated PR runs returned; do not invent one. Tree equality transports the tested source to main. Original OAI prerequisites were cache-reused, not cold rebuilt. Historical Wiener warnings are distinguished from the accepted terminal axiom closures.
+
+### J. CI Failures and Repairs
+
+Initial [run 41886500358 / job 126772261837](https://github.com/OVVO-Financial/RH_Lean/actions/runs/41886500358/job/126772261837) failed because unqualified `sum` does not resolve the protected `Finset.sum` declaration. The first repair qualifies every finite sum and turns off automatic implicit parameters; no intended mathematical statement changes.
+
+Second [run 41887444892 / job 126775597439](https://github.com/OVVO-Financial/RH_Lean/actions/runs/41887444892/job/126775597439) exposed three exact errors: line 154 simplification made no progress at the partially applied logarithmic kernel; line 233 had an unreachable `ring` after `field_simp` had already closed the goal; line 288's arithmetic tactic had not exposed the lambda-applied doubling equality. The final repair explicitly unfolds the kernel, removes only the redundant tactic, and states `2*a=2*b` at the injectivity hypothesis before arithmetic closure. No linter or warning check was disabled.
+
+The failed compiler runs printed recovery `sorryAx` dependencies; those revisions are NOT certified. No explicit proof placeholder was added. The final actual compilation and all four terminal axiom outputs exclude that recovery axiom. Existing targeted runs failed alongside the first two attempts and pass at the repaired latest head.
+
+No local Lean was executed. All compiler/axiom claims refer to actual GitHub Actions. Finite Python tests and textual checks are labeled separately. No no-op commits or audit bypasses were used.
+
+### K. Mathematical Conclusions
+
+**Structural control:** exact original-residue invariant; the freedom in k>H cannot affect the stated dyadic discrepancy.
+
+**Quantitative control:** an unconditional finite weighted comparison for this family, with explicit factor 16. This is a necessary restriction, not an independent upper bound on the error.
+
+**Existing original-source quantitative control:** nonempty moving mass and its central LOW consumer are compiled on main, with exponent 3/16+254 epsilon-(1-rho)d_J. Fixed saving requires d_J>0. J=empty has mass 1 and singleton outer tuple, hence no cross-outer-tuple cancellation.
+
+**Still OPEN:** bounded full Nyman error, unrestricted full-basis approximation at the required rate, original all-selected fixed-nu energy saving or fixed-g integrated saving, complete newly improved LOW return, and any new canonical endpoint/RH consequence. The reviewed paper boundedness-to-RH implication C30 was not silently included as a compiled theorem.
+
+### L. Formalization-Driven Discoveries
+
+The positive-index condition is substantive: m=0 fails exactly by -log N. The cutoff is substantive: a changed low coefficient contributes its actual floor-carry defect. The theorem works for any H satisfying the exact inequalities, rather than requiring the arbitrary half-range specialization. The weighted helper permits X=0. All these are checked at the original real/integer coercions and finite endpoints.
+
+The compiler failures described above are implementation diagnoses, not counterexamples to C29. No mathematical hypothesis was added to silence a failed tactic. Automatic implicit parameters are disabled, and elaborated terminal types are checked for unintended suppliers.
+
+### M. Mathematical Significance
+
+This closes a previously unimplemented, independently reviewed NYMAN obstruction. It prevents an invalid strategy from treating high-modulus flexibility as control of the low dyadic prime-power signal. It is a short finite arithmetic advance in formal coverage, not a new asymptotic prime estimate. Proof-engineering difficulty is not used as evidence of endpoint progress.
+
+Today's original OAI source review independently confirms that `low_original_completed_energy` caps rows by Ck*Z^(5/6-2d). Its `LowSelectedBound` per-character supplier preserves genuine masks and characters. Cube extraction E=H^2 E' rebases U by N(H)^3 and Z by N(H)^2; a small-row theorem cannot be applied to the old full Ck*Z^(5/6) row set for free. The relevant original blobs are `Reflection/LowOriginalEnergy.lean` = `3b6c81973bd5ef24c9aa8a7403f8f71663bd1da8`, and `Detector/LowSelectedBound.lean` = `695d81de46038693b9c701d55e81fe43d18d52d2`, at the OAI pin above. No blanket independent acceptance of new R6-R8 is asserted.
+
+### N. Specialist Handoffs
+
+| Role | Precise handoff |
+|---|---|
+| Coordinator | Record C29's exact formal/PR status below; remove the uncompiled finite invariant from the ready queue only after this evidence. Keep full Nyman boundedness and all-selected arithmetic open. |
+| Analytic Type II | On NYMAN, genuinely new low coefficients must retain the carry-defect term; fixed-low high-only repair obeys the compiled invariant. On OAI, supply a full-row or fully integrated original-source saving, not only a cube-sector envelope or short-row theorem. |
+| Adversarial Referee | Prior C29 acceptance is now implemented at exact scope. Check any proposed strengthened approximation consequence against the frozen-low restriction; audit R6-R8 source rescaling before promotion to the full row family. |
+| Owner Payment | No transport from this Nyman carrier to raw seats, returned owner cells or covariance has been proved. Retain the actual signed cross-family terms. |
+| Finite Wheel and Incidence | Ambient counting and prime-completion restrictions remain separate from genuine selected-inverse energy. No independent all-selected bound follows from this PR. |
+| Prime Census Laboratory | Reuse the finite regression suite for a changed coefficient proposal. Finite scans cannot certify uniform error boundedness; no larger unchanged scan is requested. |
+
+### O. First Unresolved Mathematical Theorem
+
+For original all-selected OAI admissible rows, character, masks, U/t window, coefficients and Gaussian, establish a uniform nu>0 bound on squared selected-inverse energy by C_epsilon*(1+|t|)^A*Z^(5/6-nu+epsilon), OR prove a complete integrated original all-selected LOW bound with fixed g>0 below 3/16. The full old numerator-row range and all actual normalizations must survive. No such theorem has been supplied here.
+
+In NYMAN, the next genuine ingredient is independently justified control of the complete residual, including the middle range and tail, or a new low-coefficient mechanism with its carry-defect contribution paid. C29 gives a restriction, not that supplier. The independent nonempty Gaussian/normalizer continuation remains useful formal infrastructure but does not pay all-selected.
+
+### P. Next-Run Resume Capsule
+
+- Stable claim: `20261103-coordinator-1/C29`; independent acceptance: `20261103-referee-5`; archived implementation resumed: `20261103-lean-2`.
+- PR #1090: open, REVIEW_READY, unmerged; current head `9a5e599e1c5c491d681d52d7c4ac095200c80f39`; base/current main `72ab5bdd0f9d8876f512e6273b50410328444e6e`.
+- Dedicated evidence: [run 41888225226 / job 126778327742](https://github.com/OVVO-Financial/RH_Lean/actions/runs/41888225226/job/126778327742). All 12 workflows / 13 jobs SUCCESS. No unresolved compiler failures on the latest head.
+- Verified new terminal content: original coefficient transport, high-coefficient annihilator, generic dyadic weighted bound, and original-residue weighted obstruction. Only the three standard permitted axioms.
+- Existing main moving-mass evidence: exact tested tree match from #1085 as Section I; no new full integrated return or all-selected saving.
+- Source and report hashes are retained above. Final publication was prepared against report blob `b7f27ffa9a75178df3b083f192d9051ae7d10e79`, preserving all prior bytes apart from terminal newline normalization.
+
+Read the actual latest main and both current/preceding Eastern-date reports again. Reuse unchanged verified evidence; do not assume human merge. No pending local process is needed. Reuse exact rational fixtures only if their source bytes are unchanged. Next highest-value action is repair any newly failing valid PR; otherwise choose the first independently accepted original-source theorem, with nonempty full return and new coefficient-sensitive all-selected work kept distinct.
+
+#### Continuity Source Blobs
+
+| Role | November 3 | November 4 intake |
+|---|---|---|
+| Coordinator, both mirrors | e35ab2cd9cba2a47ac5be53b09938b37a0c20df3 | 6f00c4e1055a03325e8c152d4bcb505e254b8ecc |
+| Owner | d52c74b76c2914c3be694f39cd7afe9b122a4834 | bef2ab8cefd691a868d8f1acdfe696af41266d16 |
+| Analytic | 2b9c3dbab6039e3c30a5ece3e473290af5dbbf0b | 5e489bffbce7fe986b9f48c73cb409beaa151f82 |
+| Wheel | cd7777180bb5c2c899a60bdd699b99be8e12a672 | 6a773f357029bb97cf34110532c7de1f7bb38f3f |
+| Census | eb9a2e0cf7772f22060aec07e0bcddd24ace9cd9 | 9f634c872fe98f82676c263a4faba35dff3ac4f0 |
+| Referee | 583ce524628577818603ffd4e9ec0eb3673a3f37 | 11eaf073fad23591cdf6d8fe83209042139e54c5 |
+| Lean | fc27fb1ae103e60ff600e5a24ce6716937da3884 | 4585dc42e267f62da5c13624f2a5a4494aa79c53 |
+
+This invocation's earlier verified report commits: checkpoint `a62e06e564df136d7c452d1f35a3648443843ba1`, milestone `953224cc03b4fc26af41986642ac709133abc106`. Final append publication requires a fresh blob and exact readback; earlier contents are preserved.
