@@ -1,6 +1,6 @@
 # RH_Lean dynamic seven-agent research protocol
 
-**Current operating protocol, updated 2026-11-03; effective after human merge.** Use [AGENTS](../AGENTS.md) for permissions, the [proof contract](../CURRENT_PROOF_CONTRACT.md) and live source for mathematics, and the [persistent research engine](RHLEAN_SEVEN_AGENT_RESEARCH_ENGINE_20261101.md) for next-run tickets. This update changes research organization, not agent identities, actual schedules or theorem status.
+**Current operating protocol, updated 2026-11-04; effective after human merge.** Use [AGENTS](../AGENTS.md) for permissions, the [proof contract](../CURRENT_PROOF_CONTRACT.md) and live source for mathematics, and the [persistent research engine](RHLEAN_SEVEN_AGENT_RESEARCH_ENGINE_20261101.md) for next-run tickets. This update changes research organization, not agent identities, actual schedules or theorem status.
 
 ## Authority and compact intake
 
@@ -42,7 +42,7 @@ Referee should reconstruct the critical step from the statement and source befor
 
 ## Formalization and honest scope
 
-Prioritize independently accepted quantitative estimates, active enabling interfaces and decisive counterexamples over easy theorem volume. Validate actual dependencies, absent modules and duplicate declarations before branching. Use the scoped agent/lean-verification/ draft-PR lane with warning-fatal GitHub Actions only, exact theorem types and standard-axiom audits. Reuse exact-head successes, repair diagnosed failures without weakening proofs/checks, and return mathematical gaps as exact missing lemmas. No sorry, admit, new project axiom, hidden desired-bound assumption or unsupported native evaluation. Human-only merge remains binding.
+Prioritize independently accepted quantitative estimates, active enabling interfaces and decisive counterexamples over easy theorem volume. Validate actual dependencies, absent modules and duplicate declarations before branching. Use the Lean agent's user-granted FULL GitHub repository read/write authority via any suitable non-main feature branch/reviewable PR (including source, docs, workflows, scripts, policy and issue/PR records) with warning-fatal GitHub Actions only, exact theorem types and standard-axiom audits. Reuse exact-head successes, repair diagnosed failures without weakening proofs/checks, and return mathematical gaps as exact missing lemmas. No sorry, admit, new project axiom, hidden desired-bound assumption or unsupported native evaluation. Human-only merge remains binding.
 
 Record mathematical state (identity, exploratory, paper, independently reviewed, finite, conditional, refuted, Lean verified), scope (local, aggregate, returned source, endpoint), PR state and execution/publication state separately. No qualified theorem is preferable to a filler PR. VERIFIED_ETA requires the full accepted and formally verified source-to-endpoint chain, not only a local positive number.
 
@@ -50,7 +50,7 @@ Record mathematical state (identity, exploratory, paper, independently reviewed,
 
 Use the engine's compact task record inside the existing own dated file, with an early truthful checkpoint and final capsule. Retain full derivations and source references. Append every actual run's ID or RUN_ID_UNAVAILABLE, America/New_York timestamp/offset, trigger, policy/source SHA and consumed claims. Preserve prior results and corrections; refresh blob before writes, reconcile conflicts once, and verify commit/readback. Failed publication is NOT_PUBLISHED; absent stages are PENDING with real carry-forward references.
 
-Coordinator appends each genuine synthesis to both 00/90 files and verifies their complete bytes match. Filenames alone are not launches. No other role edits those files. Six roles remain own-report-only; Lean alone retains its narrow proof exception. No new shared-write store, autonomous merge, direct-main push, other-report edit, schedule mutation or permission expansion is authorized.
+Coordinator appends each genuine synthesis to both 00/90 files and verifies their complete bytes match. Filenames alone are not launches. No other role edits those files. Six non-Lean roles remain own-report-only; Lean alone has expressly user-granted full GitHub repository read/write on reviewable non-main branches/PRs, with no path/prefix/per-claim restrictions. This instruction DOES NOT configure Studio tools or OAuth; if an actual write action fails, report its exact permission error. No autonomous merge, direct-main push, another role's report-history falsification, schedule mutation or automatic Studio tool permission expansion is authorized.
 
 At first consumption after merge record deployment_ack and execute the selected NEXT-* task, adjusted only for newer evidence or protected rotation. After two complete investigator rotations, examine duplicate attempts, actual resumption, consumed downstream lemmas and support queues. Report intake/timing data only when observable; otherwise UNKNOWN. These are workflow diagnostics, not proof or probability estimates.
 
