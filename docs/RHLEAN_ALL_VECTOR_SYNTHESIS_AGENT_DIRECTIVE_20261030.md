@@ -1,5 +1,7 @@
 # All-vector RH_Lean attack and same-source synthesis — 2026-10-30
 
+**NO_PIGEONHOLING_ROUTE_SELECTOR_V1:** [Independent nine-route policy](RHLEAN_INDEPENDENT_MULTIFRONT_NO_PIGEONHOLING_20261104.md) supersedes compulsory dated route assignments. Cross-source comparison is optional and never displaces independent native RH_Lean mathematics; all prior source-integrity safeguards remain.
+
 **User-authorized instruction proposal; operative only after human merge to main.** This is research routing, not a mathematical certificate. It changes neither the theorem registry nor schedules, saved Studio agents, permissions, or merge policy.
 
 ## 1. Authority, objective, and exact success criterion
