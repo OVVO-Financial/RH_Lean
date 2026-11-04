@@ -12,7 +12,7 @@ Use [the route portfolio](RH_PROOF_ATTACK_PORTFOLIO_20261024.md), [overlap/7-8 a
 
 Verify main and relevant policy/source hashes on every actual invocation. Read applicable committed same-day and previous-day own/upstream sections and external handoffs. Reuse content only when it is actually available at unchanged verified dependencies; retrieve missing content in a fresh session. A concise briefing has authority, current derivation and relevant history, with exact references to full proofs. No fabricated caches, measured savings, launches or reports.
 
-## Source-first work allocation without loss of route coverage
+## Optional OAI source-specific work without loss of route coverage
 
 The [OAI LOW source-first contract](RHLEAN_OAI_LOW_SOURCE_FIRST_AGENT_CONTRACT_20261103.md) is an optional source-specific verification task only when the OAI-NNS route is actually selected: isolate the **genuine** OAI 1/8 signal-vs-LOW separation, the original 3/16 LOW scalar cost, and the first cross-unselected-tuple norm_sum_le. Do not treat the native NNS isometry, higher-quality marked HIGH moment, the slot tilt, a canonical cstar local estimate on a different source, or an assumed owner Gamma saving as a new LOW arithmetic restriction.
 
