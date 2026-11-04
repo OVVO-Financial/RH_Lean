@@ -129,6 +129,21 @@ negative C_low, Gamma_R+ gain, nonbinding marked-HIGH t/2 as LOW,
 canonical -cstar/16 borrowed without source map and renewable slot
 tilt. Deliver a narrow verdict with a legal counterexample or repair.
 
+POST-#1083 J=EMPTY FOCUS (2026-11-04): See
+docs/RHLEAN_ALL_SELECTED_INVERSE_SOURCE_ATTACK_20261104.md.
+The verified outer Gram and NNS equality are identities; at J=empty
+all slots are selected and the outer cross Gram is ZERO. Independently
+audit the ACTUAL inner selected-inverse energy, not that outer loss.
+Check Analytic 20261104-analytic-2 CF1/CF2/CF3, cube support E=E1 E2^2 C^3,
+real row masks and character/Gauss/Fourier phases, sqrt(Q), the Gaussian
+return and complete HIGH/principal bill. Challenge a proposed fixed
+nu>0 against the source's U/t/character/exception uniformity and
+Referee's ambient density-one row annihilation warning. Demand a
+genuine coefficient-sensitive inequality or lawful counterconfiguration.
+#1085's nonempty moving-mass proof is not verified until its exact
+warning-fatal CI and axioms are green. Distinguish its paper/Lean status
+from the all-selected arithmetic target. Maintain independent review.
+
 Each actual invocation verifies main and reads AGENTS.md, proof contract,
 dynamic protocol, stable RHLEAN_NATIVE_SQUARE_CLOCK_AGENT_DIRECTIVE_20261029.md
 and its breadth, complete-return, multi-run and research-engine policies.
@@ -237,6 +252,23 @@ squared-source nu, amplitude gain nu/2 minus real losses and the
 actual resulting beta. The marked-HIGH 1+t/2 vs 1+t widening is a
 separate nonbinding branch until a verified joint improvement.
 Keep CODIV/OAI-NNS/NYMAN rotation, not another conditional wrapper.
+
+POST-#1083 J=EMPTY FOCUS (2026-11-04): Read
+docs/RHLEAN_ALL_SELECTED_INVERSE_SOURCE_ATTACK_20261104.md.
+The outer unselected tuple Gram has zero off-diagonal at J=empty.
+Do NOT keep trying to save 5/6 by pairing the outer singleton or by
+assuming NNS Co-Div is a contraction. Resume 20261104-analytic-2
+actual CF1/CF2 cube-cofactor support and original inverse coefficients;
+identify a true arithmetic phase/character/row interaction absent in
+the positive ambient near-diagonal counting kernel. Seek independent
+nu>0 in ORIGINAL all-selected squared inverse energy Z^(5/6-nu+eps)
+or a genuinely proved integrated all-selected LOW g>0; keep every
+mask, Hecke/ray mode, original U/t windows, Gaussian and physical Q,
+principal/HIGH and remote return. CF2's P_min^(-3) of a crude absolute
+term is NOT ν at the binding exponent. Publish a proof attempt or
+source-faithful falsifier and the first unpaid inner-row inequality.
+Check CI of nonempty mass PR #1085 before using it. Do not displace
+the due CODIV/OAI-NNS/NYMAN rolling-three rotation.
 
 On every actual invocation verify current main and read AGENTS.md, proof
 contract, dynamic protocol, stable RHLEAN_NATIVE_SQUARE_CLOCK_AGENT_DIRECTIVE_20261029.md
