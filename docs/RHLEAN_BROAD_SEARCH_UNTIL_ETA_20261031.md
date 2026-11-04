@@ -6,7 +6,7 @@
 
 **Cadence clarification:** The separately user-authorized [multiple-daily agent invocation policy](RHLEAN_MULTIRUN_DAILY_AGENT_POLICY_20261031.md) supersedes the historical one-run/day ceiling. Broad coverage is measured over three **actual substantive invocations**, which can occur on the same day; neither increased run frequency nor a local positive eta permits team-wide narrowing.
 
-## 2026-11-03 original OAI signed LOW cross-source priority without route closure
+## Historical 2026-11-03 OAI signed LOW comparison (optional, without route closure)
 
 The [original OAI 1-to-7/8 source-first seven-agent contract](RHLEAN_OAI_LOW_SOURCE_FIRST_AGENT_CONTRACT_20261103.md) sets a coordinated *research comparison* axis, not a narrowed single-route campaign. Its goal is to explain the actual principal-minus-LOW exponent gap (beta-11/16)-3/16=beta-7/8 and to prove genuinely new signed arithmetic before OAI LowTupleGram's norm_sum_le over literal unselected prime-ideal tuples, with the full normalized LOW/HIGH return. Those who elect the OAI comparison receive different responsibilities; Owner VF-LOW/SAT/JOH, Analytic CODIV/OAI-NNS/NYMAN and Wheel FINITE-AC/CORR4/MU-LIFT keep rolling three-invocation route coverage.
 
