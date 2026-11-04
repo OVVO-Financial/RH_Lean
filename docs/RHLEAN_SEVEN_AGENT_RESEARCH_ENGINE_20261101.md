@@ -10,7 +10,7 @@ Use seven roles to accumulate nine serious investigations, not seven recurring s
 
 A local gain, conditional consumer, identity, finite fit or green partial PR does not establish VERIFIED_ETA. Conversely, do not demand a complete endpoint proof before permitting a useful intermediate lemma, new representation, structural restriction or exploratory proof attempt. A target-equivalent conclusion may be independently proved; do not assume it as an unproved supplier. The canonical target and proof-obligation statuses remain unchanged.
 
-## 1A. Binding source-first comparison: reproduce OAI 1 -> 7/8 and improve ACTUAL LOW
+## 1A. Optional historical OAI comparison: 1 -> 7/8 and ACTUAL LOW
 
 If the investigator selects OAI-NNS as the best mathematical route, resolve its specific packet from the [OAI signed LOW source-first contract](RHLEAN_OAI_LOW_SOURCE_FIRST_AGENT_CONTRACT_20261103.md). Original principal exponent beta-11/16 minus original fully normalized LOW 3/16 equals beta-7/8; at beta=1 the original separation is 1/8, at 7/8 it closes. Source chain: original OAI LowSelectedBound -> LowNominalEnergy -> LowPhysicalInverseBound -> LowSlotPolynomial (literal signed compensated tuples) -> LowTupleGram (first cross-unselected-tuple norm_sum_le) -> LowCentralTuple (Gaussian 3/16) -> LowGaussianSum/LowNormalized -> principal/HIGH. The correct NNS signed expansion is |sum_a U_a|^2 = sum_a|U_a|^2 + sum_a sum_(b != a) Re(U_a conjugate(U_b)), with original U_a, phase, cutoff, Hecke weights and Mellin normalizer intact.
 
