@@ -1,0 +1,77 @@
+name: Nyman high-coefficient invariant
+
+on:
+  pull_request:
+    paths:
+      - 'research/NYMAN_HIGH_COEFFICIENT_INVARIANT_20261104.lean'
+      - 'scripts/nyman_high_coefficient_regression.py'
+      - '.github/workflows/nyman-high-coefficient-invariant.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: nyman-head-${{ github.head_ref || github.ref_name }}-${{ github.event.pull_request.head.sha || github.sha }}
+  cancel-in-progress: true
+
+jobs:
+  nyman-head-proof:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - name: Exact residue, logarithmic convolution, and weighted regressions
+        run: python3 scripts/nyman_high_coefficient_regression.py
+      - name: Verify compiler and Mathlib pins
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(cat lean-toolchain)" = 'leanprover/lean4:v4.34.1'
+          grep -q 'd13f23b723b8a846827a245b89c10fc7d3f11612' lakefile.lean
+      - name: Pinned Lean and cached Mathlib
+        uses: ./.github/actions/lean-setup
+      - name: Restore native compiled prerequisites
+        uses: ./.github/actions/lean-compiled-cache
+      - name: Compile the source-addressed warning-fatal import closure
+        uses: ./.github/actions/research-compile
+        with:
+          build-library: 'true'
+          targets: research/NYMAN_HIGH_COEFFICIENT_INVARIANT_20261104.lean
+      - name: Print exact theorem types and audit all four terminal axiom sets
+        shell: bash
+        run: |
+          set -euo pipefail
+          lake env lean -DwarningAsError=true \
+            research/NYMAN_HIGH_COEFFICIENT_INVARIANT_20261104.lean | tee nyman-head-audit.log
+          python3 - <<'PY'
+          import pathlib
+          import re
+          text = pathlib.Path('nyman-head-audit.log').read_text()
+          expected = {
+              'nymanLogCoefficient_eq_original',
+              'nyman_high_coefficient_annihilator',
+              'nyman_dyadic_weighted_bound',
+              'nyman_high_coefficient_weighted_obstruction',
+          }
+          entries = re.findall(r"'RHLean.Analysis.([^']+)' depends on axioms:\s*\[([^]]*)\]", text, re.S)
+          assert len(entries) == len(expected), entries
+          assert {name for name, _ in entries} == expected, entries
+          for name, values in entries:
+              used = {value.strip() for value in values.split(',') if value.strip()}
+              assert used <= {'propext', 'Classical.choice', 'Quot.sound'}, (name, used)
+          source = pathlib.Path('research/NYMAN_HIGH_COEFFICIENT_INVARIANT_20261104.lean').read_text()
+          source = re.sub(r'/-.*?-/', '', source, flags=re.S)
+          source = re.sub(r'--.*', '', source)
+          assert not re.search(r'\b(sorry|admit|axiom|native_decide|unsafe)\b', source)
+          print('PASS: four original-carrier terminal declarations; standard logical axioms only')
+          PY
+      - name: Preserve theorem signatures and axiom evidence
+        if: ${{ !cancelled() && hashFiles('nyman-head-audit.log') != '' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: nyman-head-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            nyman-head-audit.log
+            research/NYMAN_HIGH_COEFFICIENT_INVARIANT_20261104.lean
+          if-no-files-found: error
