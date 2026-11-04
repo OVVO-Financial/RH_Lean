@@ -839,3 +839,22 @@ Final publication is verified by commit/readback after this write; no earlier ch
 ## Publication Receipt
 
 At 05:35:58 EST, the final synthesis was read back at commit `382d15880ff4c56567eb180d3295125c0dfb94de`, blob `bbe5a9910633d76bc3a3ffdc30c51ab06bd58075`. Content matched the prepared report after normalizing only the fetch tool's omitted terminal newline. The embedded integration patch and verifier matched their recorded SHA256 hashes. The finite verifier and patch dry-application check were rerun successfully. This receipt is a report-only follow-up, not a proof commit or CI certification.
+
+
+---
+
+## Scheduled Continuation Checkpoint - 2026-11-04 13:14 EST
+
+Actual trigger: scheduled 2026-11-04T13:14:01-05:00, America/New_York; RUN_ID_UNAVAILABLE. This is a distinct invocation from the preserved 05:10 report. Execution IN_PROGRESS; research/publication stage PARTIAL. ETA_GATE=SEARCH_BROAD; additional net endpoint gain UNKNOWN.
+
+Main at intake is `72ab5bdd0f9d8876f512e6273b50410328444e6e`; AGENTS blob `3b5ff6e0249aa8d8f58ba8341a0d6eb21cd21dba`; proof-contract blob `df026713a18c2ab851485e99d2239de80bbe87e3`. Current source-first and all-selected policies are consumed. The canonical actual-prime bound is unchanged and remains open.
+
+Both November 3 and November 4 report sets and EXTERNAL_HANDOFFS.md were retrieved as actual bytes; applicable claim and continuation review is in progress. TODAY=AVAILABLE for every role; YESTERDAY=CARRY_FORWARD at verified prior scope. Coordinator mirrors match within each day. The external inbox remains blob `038018145c0fddb2f6306c0712373adf9cd1ea52`, no new entry after October 18.
+
+Live open/draft PR search returned no entries. #1085 and #1087 are now human-merged, with heads `7895272e5303ed0f4199d5b06b74786e22d31769` and `f8f65f21043301d5258f6e37afb994ac2c1e5e57`. Their exact-head compiler/axiom evidence and main-tree transport are being independently checked; the old UNCOMPILED status in the preserved morning section is historical, not the current claim. No duplicate moving-mass PR will be created.
+
+Current queue: verify the merged six-declaration implementation; independently assess today's accepted CF1-CF3 and new Referee R6-R8 against original sources; compare completion of the qualified nonempty Gaussian/normalizer return with the previously reviewed Nyman C29 reserve. The binding all-selected SF-I/SF-L estimate remains unproved. Source extraction, restricted-row bounds and central moving mass must not be promoted to full LOW or an endpoint gain.
+
+The current repository explicitly authorizes non-main proof writes. Available connected actions will be tested only for legitimate selected work; earlier report-only write diagnoses are not assumed to describe this run. Read-only shell clone returned CONNECT HTTP 403; connected GitHub reads work. No local Lean, proof-source mutation, new CI, main push, merge, schedule change or agent launch has occurred at this checkpoint.
+
+Next: finish original-source and Actions audit, choose the highest-value ready candidate, implement and verify where supported, then append exact findings and a resumable capsule. Publication of this checkpoint is confirmed only by subsequent commit/readback.
