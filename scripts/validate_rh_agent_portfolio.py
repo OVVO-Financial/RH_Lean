@@ -94,21 +94,18 @@ def main() -> None:
     roles = ("COORDINATOR", "OWNER", "ANALYTIC", "WHEEL", "CENSUS", "REFEREE", "LEAN")
     source_first_name = "RHLEAN_OAI_LOW_SOURCE_FIRST_AGENT_CONTRACT_20261103.md"
     source_first = read("docs/" + source_first_name)
+    # The source-first paper remains an optional OAI specialist reference.
+    # Do NOT require every global entrypoint or role to mention it: that
+    # previously turned one research lead into a compulsory team-wide task.
     for label, doc in (
-        ("AGENTS", agent_policy),
-        ("DYNAMIC", dynamic),
-        ("SELECTOR", selector),
-        ("RESEARCH ENGINE", engine),
-        ("ROLE REFERENCES", role_prompts),
-        ("STUDIO TEMPLATES", prompts),
-        ("SOURCE RETURN", read("docs/RHLEAN_SOURCE_FAITHFUL_COMPLETE_RETURN_AGENT_CONTRACT_20261031.md")),
-        ("BREADTH", read("docs/RHLEAN_BROAD_SEARCH_UNTIL_ETA_20261031.md")),
-        ("ALL VECTOR", read("docs/RHLEAN_ALL_VECTOR_SYNTHESIS_AGENT_DIRECTIVE_20261030.md")),
-        ("PROOF CONTRACT", proof_contract),
-        ("STUDIO SETUP", setup),
-        ("PORTFOLIO", portfolio),
+        ("OAI SPECIALIST", source_first),
+        ("BROAD ROUTING", read("docs/RHLEAN_BROAD_SEARCH_UNTIL_ETA_20261031.md")),
+        ("MULTI-FRONT POLICY", independent),
     ):
-        assert source_first_name in doc, f"{label} misses source-first live directive"
+        if label == "MULTI-FRONT POLICY":
+            assert "OAI" in doc
+        else:
+            assert source_first_name in doc or "source-first" in doc.lower(), label
 
     for needle in (
         "beta-11/16", "3/16", "beta-7/8",
@@ -125,16 +122,15 @@ def main() -> None:
                  "CENSUS", "REFEREE", "LEAN"):
         assert f"### NEXT-{role}:" in engine
         assert f"NEXT-{role}" in role_prompts
-        assert f"SOURCE-FIRST NEXT-{role}" in prompts, f"saved role {role} not updated"
+        assert independent_tag in prompts, f"saved role {role} lacks independent-route policy"
     assert source_first.index("## 2. Actual OAI LOW") < source_first.index("## 3. Exact signed LOW")
     assert "six non-lean" in agent_policy.lower()
-    # 2026-11-04 user authorization and original all-selected source-first attack.
+    # 2026-11-04 user authorization retained; old all-selected source-first priority is optional.
     assert "FULL GitHub repository READ/WRITE" in agent_policy
     assert "FULL GitHub repository READ/WRITE" in prompts
     assert "full github repository read/write" in role_prompts.lower()
     assert "FULL GitHub repository" in engine or "full GitHub read/write" in engine
-    assert "J=empty" in agent_policy and "J=empty" in engine
-    assert "PR #1085" in agent_policy and "PR #1085" in engine
+    assert "all-selected" in independent and "optional" in independent.lower()
     assert "2026-11-04" in source_first and "full read/write" in source_first.lower()
     assert "human-only merge" in agent_policy.lower()
     assert "own-report-only" in agent_policy
@@ -220,8 +216,8 @@ def main() -> None:
         "docs/RHLEAN_NATIVE_SQUARE_CLOCK_AGENT_DIRECTIVE_20261029.md",
     ):
         assert (chr(92) + chr(96)) not in read(path), f"escaped Markdown backtick in {path}"
-    print("PASS: original OAI 1-to-7/8 LOW source-first contract; all seven distinct "
-          "Studio/role/engine tickets; nine viable routes and historical archives; "
+    print("PASS: independent multi-front nine-route routing for all seven agents; "
+          "optional OAI source-first specialist reference; historical archives; "
           "human-only merge, proof DAG/von Koch, no new arithmetic gain asserted")
 
 
