@@ -1264,3 +1264,486 @@ This receipt is appended identically to both mirrors after that successful readb
 Report intake is pinned to `f28995aa6996e9a4df75ef4442bd91abc1e3aa63`. All seven role files exist for November 2 and November 3 Eastern; both Coordinator mirrors have the same prior blob `8f22479e602b919c00ad5539a7442371c2ee6076`. Their prior bytes and correction history are preserved. Relevant current/previous-day sections and external handoffs are being read. Mathematical synthesis, independent conceptual investigation, full source/exponent DAG, scoped status corrections, and next assignments are PENDING. No new bound, independent review, completed implementation or positive net gain is claimed at this checkpoint.
 
 Resume target: distinguish the original selected-inverse energy and literal cross-unselected-tuple source; test whether a genuine structural restriction supplies quantitative information absent from the exact Gram/NNS identity. Preserve sqrt(Q), Gaussian, HIGH/principal, masks and complete return. Final findings will append below this checkpoint, with successful commit/readback verified before any completion claim.
+
+
+---
+
+## Scheduled Continuation - 2026-11-03 23:09 EST - Claim 20261103-coordinator-3
+
+### A. What Changed Mathematically?
+
+**The all-selected prime-divisor marks are not power-sparse.** A new, self-audited paper argument counts their genuine Eisenstein-ideal support at the original central scale. With fixed terminal geometry and K slots, their positive weighted mass is asymptotic to a positive constant times `Z^(7/6)/(log Z)^K`. Even a squarefree, fixed-ray, fixed-exclusion subfamily contains at least `c Z^(7/6)/(log Z)^(K+1)` marked ideals. Thus slot divisibility, bounded factor multiplicity, squarefreeness and fixed bad-prime exclusions alone cannot supply a fixed power saving. This is a precise obstruction to one proposed source of gain, NOT a lower bound for the signed OAI inverse row.
+
+The decisive upstream change is the Referee's moving-cutoff theorem R9 and empty-packet reduction R10, now independently qualified on paper by Lean Verification. At the **original untilted geometry**, every nonempty-unselected packet already has a power saving from its moving mass. The first unpaid packet is `J = empty`, meaning **all slots selected**. It has exactly one outer unselected tuple; there is no cross-unselected-tuple cancellation to recover there. Neither this observation nor today's density result proves that the actual empty-packet integral is nonzero or large.
+
+New claims C37-C39 below: `IDENTITY_ONLY` where explicitly reused, otherwise `PAPER_PROOF / SELF_AUDIT`; independent review `PENDING`. C40: `FINITE_COMPUTATION`. No new terminal gain, RH result, canonical VF bound, or Lean-certified new theorem is claimed. The support-only candidate is rejected in its stated scope; analytic cancellation in the complete selected inverse remains active. No new independently sufficient positive-gain mechanism survived this investigation.
+
+Research and synthesis are finished; publication completion is recorded only by the subsequent verified receipt. This invocation does not create a second execution because two report filenames exist.
+
+### B. Current Proof Objective And Source Authority
+
+`deployment_ack`: main `040980c16901af749202e9b0f91211c43909404a`; AGENTS blob `b878d396c387a57bd0b5165fecf10d15ef3732cd`; CURRENT_PROOF_CONTRACT blob `63f7553bf6e5f2a16e37808116c643dc0dcc50e1`; `SOURCE_FIRST_VERSION: 2026-11-03`. Source-first policy blob `b6980c30e63bb8c9ddfc8d6fa86a2bb401707fa6`, engine `495fa9ee2067ccf5db9dc3c48ffaaadcd6485aa4`, complete-return contract `4775ee5fd95f279beab08a75d1e17127078b19a6`. The selected Coordinator packet is the original source-to-power audit with three nonduplicate mathematical tickets, advanced by the new support-density obstruction below. Live repository instructions supersede obsolete one-run-per-day prose; no configured cadence was changed or inferred.
+
+Canonical objective, still **OPEN**:
+
+```text
+VFCanonicalSquareVonKochStatement:
+  exists C >= 0, forall natural R >= 2,
+    |pi(R^2) - vfCanonical(R^2)| <= C R log R.
+```
+
+The exact declaration is in `research/VF_CANONICAL_SQRT_TWO_VON_KOCH.lean`, blob `79030d70e8d3e0d08eef9bac53fef95c36eca2fb`. Preserve the canonical sqrt-two phase and the explicit hypotheses of the classical von Koch consumer. The existing native 7/8 replay and the separately accepted one-shot true physical-slot-minimum improvement are inherited results, not discoveries of this run. The latter has a data-dependent positive minimum, no newly evaluated numerical value here, and does not establish renewable contraction toward 1/2. The additional signed-LOW campaign remains `SEARCH_BROAD`; no new `VERIFIED_ETA` is assigned.
+
+All original OAI source references below are pinned to **openai/math `1581d4cbdd69a0faf34b2089614fe2a814316a6a`**, under `lean/OAI/NumberTheory/DirichletL/`. Definitions and relevant proofs were read, not inferred from theorem names.
+
+| Original source / declaration | Exact mathematical role | Blob |
+| --- | --- | --- |
+| Detector/LowSlotPolynomial, `compensation_tuple_low_polynomial` | Exact original polynomial as sum of unselected atoms, preserving all selected weights | `b1dcb5a1e51afad1d39ccd91fa58a764e39629ba` |
+| Detector/LowTupleGram, `compensation_tuple_actual_gram` | First outer `norm_sum_le`, after exact reconstruction | `710598c8bef4d1a1ec98aa7e68b00369962c3d17` |
+| Detector/LowNominalEnergy, `low_selected_nominal_energy` | Selected inverse squared energy `5/6 - 2d + 507epsilon` | `55b1a3abfb7fa07da3f9ac8c393b375d1c86329b` |
+| Detector/LowPhysicalInverseBound, `low_physical_inverse_normalized` | Divide inverse amplitude by `sqrt(Q)` | `58bc871a18d9baa43d1684209027b8a2ebed87d6` |
+| Detector/LowSlotScales, `eventually_original_slot_scales` | Scalar Gram factor `sqrt(3q/L) Z^(3/16+(23/96)delta)` | `f8ebfef6a7efe1ecb63a61975f240999afe2f0eb` |
+| Detector/LowCentralTuple, `low_central_compensated_tuple` | Actual combined central tuple source; retain the intermediate moving mass | `bb7c4eaf4dc3ec5a1467d76e4a3c576e32a433c9` |
+| Detector/LowNormalized, `original_normalized_compensatedPhysicalProbe_low` | Complete original normalized LOW bound `3/16 + loss` | `3a9f0257cdbde8fce7cc026ac62ef672c3e9820c` |
+| Reflection/LowCompletedRows, `low_completed_rows_energy` | Full selected marked completed rows, not an isolated canonical cell | `c3a839216ff8cb4133a478ab7615f0886ce8309a` |
+| Detector/LowSelectedSum, `lowSelectedInverseRow_correction` | Literal selected sum and ray-correction expansion | `a54eb9ec6a5beb0db57ce9baa658718aab808af1` |
+| Detector/LowSlotMarks, `lowCanonicalSelected_mark` | Exact selected-ideal divisibility and disjoint-slot bridge | `4dbdd321565d5bc171f5766608a367d2ee1da15a` |
+| Descent/Completion, `markedCompletedT_finset_sum` | Linear marked completion, still evaluated on `I*H^3` | `17f1f38b6485d1960f07b9a622757d48db6680d1` |
+| Detector/RaySlots; RayPrimeNormalizer, `asymptotic` | Exact terminal ray pools and fixed-ray weighted prime asymptotic | `6f4d2da063a01b75960fe2fc38751d8b712120f9`; `3b9466b965c9f2afd2c6758460ea3393d2bf5b27` |
+
+**Source-to-power DAG.** In the original code J is the **unselected** set and `SelectedSlot J` its complement. Put `d=sum_(i in J) ell_i`, `L=Norm(product_(i in J) a_i)`, and `q=Norm(calibration.generator)`. Before any outer triangle, the source is `sum_a U_a`, with
+
+```text
+U_a = (-1)^|J| L^(-3/2) product_(i in J) W_i(Na_i/Z^ell_i)
+      * (sqrt(Q))^(-1)/(2pi)
+      * integral_v lowSeparatedIntegrand(..., lowSelectedInverseRow, v),
+Q = q Z^(5/6)/L^2.
+```
+
+The selected coefficient is literally the conjugate Hecke element coefficient of the selected product, multiplied by every original selected window and logarithmic phase. The complete signed Gram is `sum_a |U_a|^2 + 2 Re sum_(a<b) U_a conjugate(U_b)`; the merged NNS Co-minus-Div identity equals this complete norm square. It gives no sign or contraction estimate.
+
+The inverse squared energy is `Z^(5/6-2d+507epsilon)`. Its amplitude is `Z^(5/12-d+(507/2)epsilon)`; division by `sqrt(Q)`, with `L` comparable to `Z^d`, removes the nominal `5/12-d` power. It leaves `Z^((507/2)epsilon)`, not an independent saving. Scalar Gram contributes `Z^(3/16+(23/96)delta) sqrt(3q/L)`. The original unselected coefficient `L^-3/2` then makes the literal remaining positive mass
+
+```text
+M_J = sum_a |lowUnselectedWeight(a)| L_a^(-1/2)
+    = product_(i in J) sum_(P in T_i) NP^(-2) |W_i(NP/Z^ell_i)|.
+```
+
+R9 keeps this factor instead of replacing it by a scale-independent constant: for `0<rho<1`, absolute ideal summability at `1+rho` gives `M_J <= C Z^(-(1-rho)d)`. Central tuple, Gaussian summation, remote dyads, and division by the **same original** principal normalizer give, for fixed admitted data,
+
+```text
+forall lambda>0, exists C,Z0, forall Z>=Z0, forall J:
+  |F_J(Z)/N(Z)| <= C Z^(3/16 - d_J + lambda).
+```
+
+Explicit loss payment from the independent Lean-role paper audit: central `254epsilon`, Gaussian at most `2epsilon`, normalizer `delta`; choose `rho=min(1/2,lambda)`, `epsilon=min(1/2,lambda/1024)`, `delta=lambda/4`. Remote `O(Z^-1)` is absorbed since `3/16-d_J>=1/48`. Fixed window norm bounds are paid over all K windows, not only J. This is not a claim about shifted #1079 geometry.
+
+With `ell_*=min ell_i>0`, write normalized LOW `P=A+R`, where `A=F_empty/N` and `R=sum_(J!=empty)F_J/N`. Then `R=O(Z^(3/16-ell_*+lambda))` for every positive lambda. For each fixed `0<g<=ell_*`, `Bound_g(P) iff Bound_g(A)`, where `Bound_g` uses exponent `3/16-g+lambda` for every lambda>0. Both directions retain R; no mixed term is omitted. This is a useful source-level reduction, not an independently proved estimate for A and not an asserted RH equivalence.
+
+The original signal exponent is `beta-11/16`; LOW is `3/16`, giving separation `beta-7/8` and the 1/8 margin at beta=1. The separate marked-HIGH improvement `1+t/2` widened to `1+t` does not fix unchanged binding LOW. The inherited one-shot slot tilt changes signal/LOW by `-8tilt/-9tilt`, net `+tilt`, with `tilt=ell_min/24<=1/144`; it is not repeatedly spendable. An alternate canonical `-cstar/16` energy saving requires a proved identical-source return through masks, selected marks, phases, representative aggregation, principal/HIGH and normalization. Its name alone does not supply that return.
+
+### C. Competing Mechanism Portfolio
+
+| Mechanism | Independent input and target implication | First missing step, obstruction and decisive test | Allocation / disposition |
+| --- | --- | --- | --- |
+| Original all-selected OAI inverse cancellation | A genuine quantitative restriction on the complete selected rows or their signed Gram; a squared-energy gain nu gives at most nu/2 amplitude before full return | R9 pays nonempty J, not empty J. C38-C39 defeat selected-support sparsity alone. Obtain an actual character/cubic/cross-row cancellation theorem with uniform central scales; test its principal/coherent modes before claiming it | Analytic next eligible OAI turn; Referee source audit; Census exact falsifier. CONTINUE, revise from outer-tuple rescue to inner selected mechanism |
+| Native arithmetic return and chronological structure | Actual signed owner/backlog restrictions, or genuine cofactor/multiplicative correlations supplying the native full-return consumer; these are distinct subroutes, not aliases for one Gamma premise | JOH adjacent-excursion payment is false; finite ancestry, local signs and mu-lift fragments omit essential interactions. CODIV's new logarithmic gain is not a fixed power. Test a complete weighted obstruction or signed recurrence on its exact native carrier | Owner SAT/VF-LOW/JOH; Analytic CODIV; Wheel FINITE-AC/CORR4/MU-LIFT. CONTINUE protected rotation, reject refuted strong forms |
+| Full-basis Nyman approximation | Construct coefficients controlling the complete Hilbert norm, including middle, slope, head and tail; invoke only the established exact norm consumer | Optimal low-head energy exposes the original zero-boundary exponent rather than bootstrapping it. C33-C35 repair certain bands but not the full middle. Prove a full middle estimate or a genuinely independent alternative basis construction | Analytic NYMAN due next; Referee later audit of C33-C35. CONTINUE with middle unpaid; do not rebrand the head iff as a new estimate |
+
+These three portfolio families do not all assume the same unproved assertion. The native family deliberately retains its non-equivalent internal lanes. No probability of success is assigned. OAI has the sharpest current localization; Nyman and native arithmetic remain independent alternatives, not subordinate copies of it.
+
+### D. Conceptual Research Performed
+
+#### C37. Exact Selected Divisor Mark And Bounded Incidence
+
+Fix K>=1, pairwise distinct positive real `ell_i` with sum `s=1/6`, a fixed ray quotient `(M,H)` as in `LowNormalized`, fixed finite prime exclusions S, and original smooth, compactly supported, nonnegative, nonzero real windows W_i supported in a common `(a,b)` with `0<a<b`. All this data is fixed before Z tends to infinity. Set `Y_i=Z^ell_i`, and let T_i be the **full original identity-ray prime pool outside S** in `(aY_i,bY_i]`. These pools are pairwise disjoint for all sufficiently large Z. The canonical-generator equivalence preserves each ideal exactly; no extra factor of six is introduced in the tuple count.
+
+For a tuple p selecting one prime ideal from each T_i, set `D_p=product_i p_i` and `w_p=product_i W_i(Np_i/Y_i)`. Define the nonnegative mark
+
+```text
+d_Z(A) = sum_p w_p 1_(D_p divides A)
+       = product_i sum_(P in T_i, P divides A) W_i(NP/Y_i).
+```
+
+The equality follows from pairwise-coprime selected ideals and finite Cartesian expansion. It is **IDENTITY_ONLY / REUSED INFRASTRUCTURE**, already supported by `lowCanonicalSelected_mark` and marked-completion linearity, not a new quantitative discovery. With the actual complex `lowSelectedWeight` in place of w_p, the exact same reindexing gives the actual complex mark inside `markedCompletedT`; it does **not** remove Hecke, Mellin, ray-correction or row-twist phases.
+
+The nonnegative d_Z is the exact window-weighted divisibility mark, not the full signed inverse row. No equality between it and that row is asserted. In particular, positivity of d_Z is not positivity of `summand Psi W U I H`.
+
+For `U=Z^(1+s)` and `0<NA<=2U`, let `r_i(A)` count prime divisors of A in T_i. Their distinct product divides A, hence
+
+```text
+product_(i,P in T_i,P|A) NP <= NA,
+r_i(A) <= log(2U)/log(a Z^ell_i) <= 2(2+s)/ell_i
+```
+
+eventually. Thus `d_Z(A)<=C_data`, using fixed upper bounds for the W_i. This supplies a genuine bounded-incidence fact, but **not** a power saving. Overlapping slots invalidate the product-divisibility equivalence; C40 records the smallest tested witness.
+
+#### C38. Uniform Count And Logarithmic-Density Obstruction
+
+Let `b_S=product_(P in S) P`; empty S is allowed. Let `N_S(x)` count nonzero ideals B in the Eisenstein ring with `NB<=x` and coprime to b_S. Elementary lattice counting gives
+
+```text
+N_S(x) = kappa_S x + O_S(sqrt(x)+1),
+kappa_S = pi/(3 sqrt(3)) product_(P in S) (1-1/NP) > 0.
+```
+
+**Proof of this input.** Every nonzero ideal of the Eisenstein PID has exactly six associate generators. The ellipse `a^2-ab+b^2<=x` has area `2pi x/sqrt(3)` and boundary length `O(sqrt(x))`. Comparing lattice unit cells with its boundary strip gives the stated unexcluded count after division by six and omission of zero. Fixed finite inclusion-exclusion over the prime ideals in S, using multiplicative norms and the bijection `B -> D B`, gives kappa_S and the displayed error. This is an elementary paper argument; no unproved zeta error estimate is used.
+
+For arbitrary finite disjoint pools outside S and nonnegative weights, exact return through **all ideal cofactors** gives
+
+```text
+H_Z(U) := sum_(U<NA<=2U, (A,b_S)=1) d_Z(A)
+        = sum_p w_p [N_S(2U/ND_p)-N_S(U/ND_p)].
+
+S_i = sum_(P in T_i) W_i(NP/Y_i)/NP,
+V_i = sum_(P in T_i) W_i(NP/Y_i)/sqrt(NP),
+B_i = sum_(P in T_i) W_i(NP/Y_i).
+
+H_Z(U) = kappa_S U product_i S_i
+         + O_S(sqrt(U) product_i V_i + product_i B_i).
+```
+
+This is not fixed-cofactor PNT applied nonuniformly: the ideal-counting error is explicitly uniform in every `U/ND_p`, and the complete error sum is written. Since `ND_p<=b^K Z^s`, nonnegative weights imply
+
+```text
+product_i V_i <= (b^K Z^s)^(1/2) product_i S_i,
+product_i B_i <= b^K Z^s product_i S_i.
+```
+
+Consequently, at `U=Z^(1+s)`,
+
+```text
+H_Z(U) = kappa_S U product_i S_i * (1 + O_data(Z^(-1/2))).
+```
+
+The zero-mass case is identically zero; eventual positivity in the following specialization avoids division by zero.
+
+For the **full original fixed-ray pools**, the already established fixed-ray weighted prime asymptotic gives
+
+```text
+S_i ~ (h^(-1) integral_0^infinity W_i(y)/y dy) / log(Y_i),
+h = RayQuotient.classNumber(M,H).
+
+H_Z(Z^(7/6)) ~ C_data Z^(7/6)/(log Z)^K,
+C_data = kappa_S product_i [ integral W_i(y)/y dy / (h ell_i) ] > 0.
+```
+
+**Exact literature/source bridge.** [RayPrimeNormalizer.asymptotic at the pinned OAI revision](https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/NumberTheory/DirichletL/RayPrimeNormalizer.lean) states convergence of `(log x)/x^(1/6)` times the sum of `V(NP/x) NP^(-5/6)` to `h^-1 integral V(y)y^(-5/6)dy`, for fixed modulus/subgroup and smooth compact V supported away from zero. Apply it to `V(y)=W_i(y)y^(-1/6)`, extended by zero near nonpositive y; this is smooth because the support stays away from zero. The sum is exactly `x^(1/6) S_i`, giving the asserted asymptotic. The original pool equality is `ProbeRaySlots.pool_mass_eq_deleted`. Finite S is unchanged. There is no growing-conductor, growing-K, variable-geometry or arbitrary-pruned-pool lower bound here. The external literature check supplied no additional uniform power-saving theorem; no analogy to Chebotarev or probabilistic independence is imported.
+
+For every fixed nu>0 the ratio `H_Z(U)/(U Z^-nu)` tends to infinity. The same is true of the marked support size, by C37's bounded incidence. Cauchy-Schwarz also gives `sum_A d_Z(A)^2 >> U/(log Z)^(2K)`. Hence a fixed-power density or positive-mark L2 saving cannot follow from these restrictions alone. This is a new application/obstruction relative to the retrieved handoffs, not a claim that the elementary counting method is new to number theory.
+
+#### C39. Squarefree Prime-Cofactor Corridor
+
+The preceding obstruction is not caused only by arbitrary prime powers. Choose, for every i, a fixed compact subinterval `[c_i,d_i]` inside a region where `W_i>=w_i>0`, narrow enough that `d_D=product d_i < 2 product c_i=2c_D`. Restrict selected primes to these intervals times Y_i. Fixed-ray prime asymptotics (or smooth bump lower bounds from the same source) give at least `c_i' Y_i/log Y_i` choices in every slot.
+
+Choose an additional prime ideal Q in the same fixed identity ray, outside S, with
+
+```text
+Z/c_D < NQ <= 2Z/d_D.
+```
+
+There are at least `c' Z/log Z` such Q eventually. Every `A=D_p Q` lies in `(U,2U]`, is outside S and in the same identity ray, and is squarefree. Since each `ell_i<=1/6<1`, Q eventually has norm larger than every selected prime. It is recoverable uniquely as the unique large prime factor; the disjoint slots recover p. Unique factorization therefore prevents double counting, including conjugate primes of equal norm.
+
+There are at least `c U/(log Z)^(K+1)` distinct such A, and each satisfies `d_Z(A)>=product_i w_i>0`. In particular,
+
+```text
+sum_(U<NA<=2U, A squarefree, (A,b_S)=1) d_Z(A)^2
+  >= c_data U/(log Z)^(K+1).
+```
+
+All constants and the eventual threshold depend only on the fixed data. This refutes any fixed-power positive-mark sparsity bound even after squarefreeness and this fixed-ray restriction. The ordinary ideal Mobius sign is constant on this subfamily, but no sign is inferred for the full completed inverse coefficient. This corridor is not a lower bound after ray corrections, row-dependent coprimality, oscillatory weights, cube inversion, or cross-family completion. Additional row-dependent restrictions might genuinely matter and are not covered by this no-go theorem.
+
+**No-narrowing / failure analysis.** C38-C39 follow from elementary ideal counting and an already established fixed-ray PNT; they assume no desired Mertens/LOW bound and have no reverse implication to RH. They invalidate only the proposed argument that many selected primes make the positive mark power-sparse. They neither refute OPEN-E0 nor prove its negation. If an improved signed inverse estimate exists, it must use information discarded by this positive mark envelope, such as actual row/cubic/character correlations or additional proved source restrictions. Merely changing norm or naming this density a cancellation term does not provide that information.
+
+#### C40. Executed Exact Arithmetic Test
+
+The embedded Python program uses exact pairs `a+b*omega`, norm `a^2-ab+b^2`, multiplication, conjugation and divisibility in the Eisenstein integers, with canonical representatives modulo all six units. The selected ideals include both split primes and an inert prime of norm 25. Its rational window weights depend on norm within each slot, as required by the original window form.
+
+Results: **PASS**. It checked 1,211 nonzero ideals through norm 2,000, 12 distinct selected-product ideals, and complete direct-versus-cofactor mass identities with fixed excluded primes above 2 and 3. For U=120,360,1000, the respective admissible window counts were 36,107,304 and the weighted masses were `14/3, 8/3, 52/3`. A repeated-slot prime of norm 7 gives `P^2 not dividing P` while both separate prime indicators equal 1, falsifying the identity without disjointness. A squarefree corridor at U=10,000 has 4 selected pairs, 18 prime cofactors and 72 distinct returned ideals.
+
+The program verifies finite ideal-mark algebra only. Its rational windows are finite fixtures, not a numerical evaluation of the original smooth terminal windows or any Hecke inverse integral. It does not establish the asymptotic theorem by finite sampling. Program SHA256: `83313ad0c56138cdbbde15309a023ca004e606070f4b4e45f51e823ef4e2d6f0`.
+
+### E. Specialist Findings And Continuity
+
+Intake was pinned to `agent-reports` commit `f28995aa6996e9a4df75ef4442bd91abc1e3aa63`. All six specialist and own reports for **November 3 and November 2 Eastern** were available; relevant claims, proofs, corrections and resume sections were read from retrieved bytes. This is not a claim of independent verification of every historical assertion. No current role stage is fabricated from a missing report. External inbox blob `038018145c0fddb2f6306c0712373adf9cd1ea52` contains no newly dated handoff after October 18; its PNT/source-return warnings remain carry-forward context, not a new OAI bridge.
+
+| Role | November 2 blob | November 3 intake blob |
+| --- | --- | --- |
+| Owner | `abfe546d72b151f4cd200fc61de3197efe23a65c` | `d52c74b76c2914c3be694f39cd7afe9b122a4834` |
+| Analytic | `8e48b59611aa1d0bfa3577ed0a4a3bc0d0fcae73` | `2b9c3dbab6039e3c30a5ece3e473290af5dbbf0b` |
+| Wheel | `abf8ac8c22a708886183849552c90dd62787ac8d` | `cd7777180bb5c2c899a60bdd699b99be8e12a672` |
+| Census | `2cd84c57ab18d923e97368764f29f4ccd2ec3bb3` | `eb9a2e0cf7772f22060aec07e0bcddd24ace9cd9` |
+| Referee | `814af1684df66e6ac99b8df1f102cb592b316f89` | `583ce524628577818603ffd4e9ec0eb3673a3f37` |
+| Lean | `02d19d792e26f072004cb5909f149538752626e9` | `fc27fb1ae103e60ff600e5a24ce6716937da3884` |
+| Coordinator, both mirrors | `1e932d4ce0eb0fd2c5f4507f6b111194d633eb32` | `8f22479e602b919c00ad5539a7442371c2ee6076` |
+
+- **Owner, 20261103-owner-3:** Actual root-12 events 148(-),149(+),151(+),153(-) give adjacent excursion areas -1,+2; root 35 gives -1,+4. Thus adjacent negative excursion payment is refuted in its actual hypotheses. Restoring root-12 history gives -125+3=-122; omitting history changes the question. The phase-sensitive lower excursion-area inequalities are useful paper restrictions, not the needed upper bound or full signed control. `SELF_AUDIT`, independent review pending. Resume SAT equation (63).
+- **Analytic, 20261103-analytic-3:** Exact deterministic maximal-fragment smoothing with its forward halo plus the stated short-average input yields logarithmic saving `H^3/(log(2H))^(1/100)` for genuine mu and the source-faithful hybrid return. This is genuine arithmetic content if the paper proof survives review, but not the fixed-power `H^(5/2-eta)` requirement. `PAPER_PROOF / SELF_AUDIT`, independent review pending. Previously accepted moving-to-frozen O(H) energy and exact convolution remain reusable. Resume NYMAN.
+- **Wheel, 20261103-wheel-3 O1-O4:** Referee-8 accepts the original unselected normal form, ideal injectivity, norm-fiber multiplicity and same-norm coherent Gram with scope. Genuine terminal equal-norm atoms add coherently; extra coupled masks cannot be inserted silently. The MU-LIFT top-half prime packet is an obstruction to separate subcritical payment, not to a full signed recurrence with the complement. Resume CORR4.
+- **Census, 20261103-census-5/6:** Referee-8 accepts the exact disjoint incidence/matching classification and cycle multiplicities, including weighted products; terminal equal-norm cross contribution is `(multiplicity-1)D`. This is exact finite combinatorics/symbolic Gram, not an evaluated original inverse integral or endpoint counterexample.
+- **Referee, 20261103-referee-8/9/10:** R8 qualifies the Wheel/Census scope. R9-R10 independently isolate the moving-mass nonempty saving and the exact all-selected obstruction. Their original author self-audit has now received the separate Lean-role paper qualification, with all-source return limited to untilted geometry.
+- **Lean, 20261103-lean-3:** Independently qualifies R9/R10 on paper and preserves a 187-line, five-declaration moving-mass draft. It is `UNCOMPILED / BLOCKED_WRITE_ACCESS`, with no proof branch, PR or new CI. The prior C29 Nyman draft remains separately uncompiled. A committed report containing a draft is not a compiled theorem.
+- **Coordinator, earlier 20261103-coordinator-2 C33-C36:** Optimal Nyman low-head variance has the old zero-boundary exponent; two-band repairs pay selected slope/head/tail pieces but leave the full middle. Paper self-audit and exact finite algebra are retained without promoting them to independent acceptance. C29 has prior independent acceptance but no new certification.
+
+November 2 carry-forward safeguards include actual JOH owner-sign reversals, hybrid all-sector sign reversals and the proved operator/convolution equivalence rather than a new bound; finite-cell density and parity obstructions; MU-LIFT factorial coherence; and the SQRT-BURST finite counterexample at R=18988. Earlier Referee constant objections explicitly withdrawn in later repairs are not revived. Yesterday's unfinished Lean checkpoint is interpreted through today's actual continuation, not reported as a fictitious completed prior proof.
+
+### F. Mathematical Bottlenecks
+
+**OPEN-E0, original selected inverse.** Fix precisely the original terminal data, character, supported disjoint full ray pools, windows, exclusions, calibration and cutoffs. At J=empty, use the literal `lowSelectedWeight`, `lowSelectedIdeal`, `lowSelectedInverseRow`, and actual `lowNumeratorRows` from the source, not arbitrary coefficient surrogates. Seek a fixed nu>0 such that for every sufficiently small epsilon>0 there are C, degree and Z0, chosen before Z,U,t and ray sigma, satisfying
+
+```text
+sum_(m in actual lowNumeratorRows at Z,sigma)
+  |lowSelectedInverseRow(univ, actual coefficients, eta,S,D,U,t,sigma,m)|^2
+  <= C (1+|t|)^degree Z^(5/6 - nu + C_loss*epsilon)
+```
+
+for all Z>=Z0, all real t, every actual ray sigma, and every original central `Z^(7/6-epsilon/2)<=U<=Z^(7/6+epsilon/2)`. C_loss must be an explicit fixed constant; the old supplier has 507. Keep the actual row support and its parameter dependence; do not strengthen to all bounded multiplicative Psi without testing coherent modes. This is a **CONJECTURAL sufficient input**, not an independently proved smaller final step. An input uniform over arbitrary subsets/weights is stronger and may fail; it is not required merely because the old theorem had that scope.
+
+If proved, sqrt(Q) converts nu into at most nu/2 amplitude, and R9 allows at most `min(nu/2,ell_*)` at complete original LOW, with epsilon/normalizer losses paid. Principal/HIGH reserve, any shifted slot geometry and the final target transfer must then be checked anew. No direct inference to RH or renewable strict gain is recorded.
+
+For native routes, the first missing input remains a full-source arithmetic restriction on signed owner/correlation/recurrence terms, not a definition of positive Gamma with the desired bound attached. For Nyman, it is the complete middle-plus-return norm estimate after the known low-head and tail corrections. The exact first-bad or Hilbert consumer is conditional until these independent inputs are supplied.
+
+### G. Strategy Decisions
+
+1. **Continue OAI, revise the location of work.** Use R9/R10. Do not spend another primary investigation proving that all nonempty outer fibers are small while the unique empty outer atom remains untouched.
+2. **Reject positive selected-support power sparsity in the stated fixed-data geometry**, subject to independent review of C38-C39. Preserve the elementary identity and bounded incidence. Do not reject full signed selected-row cancellation, extra row-dependent restrictions, or compensated global estimates.
+3. **Suspend same-norm outer pairing as a terminal gain source.** Its coherent sign and the empty-packet boundary are already explained. Cross-different-norm estimates remain possible but must show why they materially affect the complete original target.
+4. **Preserve nine-route rotation.** The observed latest substantive triples are Owner SAT/VF-LOW/JOH, Analytic NYMAN/OAI-NNS/CODIV, and Wheel CORR4/FINITE-AC/MU-LIFT. Their next due protected lanes are SAT, NYMAN and CORR4 respectively. Proposed OAI follow-ups are queued for eligible work; they do not fabricate a new execution or reset that rotation.
+5. **Formalize accepted quantitative support before unreviewed new claims.** Moving-mass finite core is the one active Lean recommendation; retain C29 as qualified reserve. Today's C37-C39 first go to independent review. No filler Gram-wrapper PR is useful.
+
+### H. Next Specialist Assignments
+
+These are asynchronous handoffs in this owned report, not launched or rescheduled jobs. Each agent must refresh authority and later evidence on its next actual invocation.
+
+**Three required, nonoverlapping source-first tickets.**
+
+| Ticket / owner / reviewer | Exact question, dependencies and valid output | Falsifier and portfolio consequence |
+| --- | --- | --- |
+| SF-I: Analytic, next eligible OAI turn; Referee review | For OPEN-E0, expand the literal selected inverse Gram only far enough to identify a usable cancellation theorem on actual characters/rows. Reuse LowSelectedSum, LowSlotMarks, completed-row source and R9/R10. State one independent supplier with full quantifiers, central-scale uniformity and nu/2 complete loss ledger, or prove it false | Test all-selected positive-mark support C38-C39 and coherent/principal modes. A support-count estimate is insufficient; a valid signed theorem would promote OAI. An actual counterexample retires only its stated supplier |
+| SF-T: Wheel, after due CORR4; Census replication and Referee review | Close the cross-unselected pairing ticket with R10's J=empty boundary and retain the original coefficients in any remaining mixed-fiber formula. Reuse accepted O1-O4/Census cycle classification. Determine whether a proposed extra physical mask genuinely changes a same-norm equality, and supply the exact source bridge or a mismatch witness | Same norm must remain coherent absent a real coupled mask; the empty outer carrier has one atom. This prevents another local-pairing campaign from masquerading as a bound for the binding packet |
+| SF-C: Referee source comparison; Analytic checks exponent return | Compare any claimed canonical `-cstar/16` supplier against `Reflection.low_completed_rows_energy` and its actual original consumers. List the exact coefficient, mask, parent/representative, phase, scale and normalization map; prove it or give the first failed equality/hypothesis. No coordinate name is a bridge | A lost canonical saving, mismatched mask or strengthened family is a decisive mismatch. Only a fully proved source-preserving transfer becomes a new candidate; otherwise this shortcut stays suspended |
+
+**Role-specific primary continuations.**
+
+- **Owner Payment:** Resume SAT at 20261103-owner-1 equation (63), preserving true seats, weights, moving prime threshold, historical terms and the complete terminal return. Seek an independently provable signed restriction or a genuine source-admitted counterexample, not an assumed small positive Gamma. Reuse the accepted ancestry/phase obstructions; test whether the proposed restriction survives root-divisor and boundary terms. The genuine owner-to-OAI occurrence map remains missing and must not be inferred from C38's ideal count.
+- **Analytic Type II:** NYMAN is due. Resume the full-basis construction after C33-C35, not the already understood optimal low-head exponent. State and attack the exact middle-return inequality with coefficients and normalizer fixed. Return a proof or an obstruction preserving all basis tails; use the N=6 omitted-floor/omitted-U witnesses in the previous report as falsifiers. Queue SF-I for the next OAI turn. Keep the CODIV log-saving claim pending independent review, not as a fixed-power certificate.
+- **Finite Wheel & Incidence:** CORR4 is due. Resume the genuine signed four-copy arithmetic expression with its coefficient/sign/negative-credit qualifications; retain complete mixed terms. Seek an exact structural restriction not implied by a frame-only identity. Test common-mode concentration and actual signed finite data before claiming a uniform gain. SF-T is a bounded follow-up, not permission to replace the due route.
+- **Prime Census Laboratory:** Independently reconstruct C38's exact ideal/cofactor count or falsify it on original canonical slot supports, including conjugate primes, excluded primes, zero weights and the repeated-slot witness. Distinguish a static actual-ideal fixture from growing smooth terminal pools and from an unevaluated inverse integral. The decisive output is a source mismatch or an independently reproducible equality with declared masks, not merely a larger range. Avoid another redundant same-norm cycle census.
+- **Adversarial Referee:** First audit C38-C39 claim-first, checking lattice/PID normalization, uniform cofactor error, full-pool versus pruned-pool quantifiers, fixed-ray PNT weighting, corridor injectivity and the restriction to positive marks. Try to extend to row-dependent masks only to expose the missing hypothesis; do not accept an inverse-energy lower bound. Return ACCEPT_WITH_SCOPE, REVISE or a legal counterexample. SF-C is the distinct source-transfer question. C33-C35 and Owner/Analytic latest self-audits remain queued rather than implicitly accepted.
+- **Lean Verification:** Reuse unchanged merged #1083 checks. If the legitimate proof-write lane becomes available, implement and compile the already qualified moving-mass core on the authorized Lean feature lane, with actual path-triggered warning-fatal CI and terminal axiom inspection. Repair observed errors, not conjectured ones; do not bypass tool restrictions. Current draft is uncompiled. Keep C29 as reserve, and do not implement today's unreviewed density claims as established. No task here changes permissions or the human merge gate.
+
+### I. Lean And PR Status
+
+[PR #1083](https://github.com/OVVO-Financial/RH_Lean/pull/1083) is **MERGED**, not the stale draft described in policy prose or earlier specialist snapshots. Latest head: `1ae84e2ff019b266114c100f43016eeec71144a9`; branch `research/explicit-slot-seed-owner-bootstrap-20261103`; human merge `2026-11-04T00:27:40Z`. All 14 returned exact-head-associated check runs succeeded. The dedicated [run 41744927180, job 126295407267](https://github.com/OVVO-Financial/RH_Lean/actions/runs/41744927180/job/126295407267) was inspected, including actual checkout, warning-fatal target and terminal axiom output.
+
+**Checkout precision:** the workflow tested synthetic PR merge `06cac0b95a56fdef0f61294e257e67ee2146c32c`, not a bare-head checkout. This run fetched the signed-Gram file at that merge, the PR head and current main; all have identical blob `c1b7b46a9e62a5b2f3729618c4dd24e31558166f`. The log reports the following declarations with exactly `propext`, `Classical.choice`, `Quot.sound`:
+
+```text
+OAI.SevenEighths.ProbePhysical.actual_low_tuple_polynomial_eq_sum_atoms
+OAI.SevenEighths.ProbePhysical.actual_low_tuple_polynomial_sq_eq_signed_gram
+OAI.SevenEighths.ProbePhysical.actual_low_NNS_co_minus_div_eq_normSq
+```
+
+Status: **PROVED_IN_LEAN / CI_GREEN / MERGED structural identities**, not a signed gain. The imported prerequisite log contains preexisting Wiener.lean sorry warnings at lines 325 and 344; the displayed terminal axiom lists above do not include sorryAx. This is scoped terminal evidence, not a claim that every imported file is globally hole-free or freshly cold-built. No new CI was requested for unchanged code.
+
+Recent status corrections: #1084 policy merge is live; #1082 was repaired and merged at head `0b41bfa95bf2dbeb6facf051014d41688dd62e26`, so its historical failed-head label is not current. #1081 and #1079 are merged; #1080 is closed without merge. No open or draft PR was present at intake. Final freshness is recorded with the publication receipt. No active proof PR was invented for the moving-mass or C29 drafts.
+
+Lean-role operational blocker is reported as `BLOCKED_WRITE_ACCESS`: its available source-write lane was not usable, and it did not circumvent that restriction through other Git operations. This Coordinator does not diagnose a current compiler failure, claim a CI result for the draft, or attempt to alter permissions. Human action on the legitimate Lean proof-write capability is needed before that reported implementation can proceed; it does not block mathematical review or this report publication.
+
+### J. Next-Run Resume Capsule
+
+```text
+Run: 20261103-coordinator-3; actual scheduled invocation 23:09 EST.
+Main: 040980c16901af749202e9b0f91211c43909404a.
+OAI pin: 1581d4cbdd69a0faf34b2089614fe2a814316a6a.
+Report intake: f28995aa6996e9a4df75ef4442bd91abc1e3aa63.
+Early checkpoint: a3b830e0806ac92510dfd81e82799570e3884eaa;
+  both mirrors blob 4c66a64406f3068332659c0de54695fc828edf93.
+Own new claims: C37 exact mark/bounded incidence; C38 log-density no-go;
+  C39 squarefree prime-cofactor corridor; C40 finite exact verifier.
+Evidence: paper SELF_AUDIT, independent review PENDING; finite test PASS.
+Accepted carry-forward: referee-9/10 paper independently qualified by lean-3,
+  original untilted source only; #1083 structural identities merged/green.
+Binding packet: J=empty, all selected, one outer unselected atom.
+Do not infer: selected-mark density -> signed inverse energy lower bound;
+  arbitrary bounded Psi -> actual row theorem; canonical cstar -> terminal gain;
+  fixed slot tilt -> renewed contraction; native owner source -> OAI ideals.
+Protected next: Owner SAT; Analytic NYMAN; Wheel CORR4.
+Lean: one active recommended moving-mass task, actual draft uncompiled;
+  C29 reserve, no new proof PR, no Coordinator proof edits.
+Highest-value next reasoning: find a genuine arithmetic cancellation input
+  for the actual all-selected inverse Gram that survives coherent modes,
+  or prove a same-source canonical transfer. Counting support alone is out.
+Canonical VF/von Koch, RH, full signed endpoint, renewed strict gain: OPEN.
+```
+
+The complete exact verifier follows. Its output was obtained in this invocation, not attributed to another agent. Only the two authorized Coordinator Markdown mirrors are published; no Lean, policy, other-role report, main branch, PR, schedule or permission was changed.
+
+### C40 Complete Reproducer
+
+```python
+"""Exact Eisenstein-ideal checks for Coordinator C37-C39.
+
+Finite mark algebra only: no Hecke inverse integral or asymptotic is evaluated.
+"""
+
+from fractions import Fraction as F
+from itertools import product
+from math import isqrt, prod
+import json
+
+
+def mul(x, y):
+    a, b = x
+    c, d = y
+    return a * c - b * d, a * d + b * c - b * d
+
+
+def norm(x):
+    a, b = x
+    return a * a - a * b + b * b
+
+
+UNITS = ((1, 0), (-1, 0), (0, 1), (0, -1), (1, 1), (-1, -1))
+
+
+def canon(x):
+    return min(mul(x, u) for u in UNITS)
+
+
+def divides(p, a):
+    cp = p[0] - p[1], -p[1]
+    x, y = mul(a, cp)
+    n = norm(p)
+    return x % n == 0 and y % n == 0
+
+
+def ideals(limit):
+    radius = 2 * isqrt(limit) + 2
+    return sorted({canon((a, b)) for a in range(-radius, radius + 1)
+                   for b in range(-radius, radius + 1)
+                   if 0 < norm((a, b)) <= limit}, key=lambda x: (norm(x), x))
+
+
+def isprime(n):
+    return n >= 2 and all(n % d for d in range(2, isqrt(n) + 1))
+
+
+def ideal_product(ps):
+    out = (1, 0)
+    for p in ps:
+        out = mul(out, p)
+    return canon(out)
+
+
+def weight(i, p):
+    # Equal norms in one slot have equal weights, as in original windows.
+    return F(1 + (norm(p) + i) % 3, 3)
+
+
+def main():
+    all_ideals = ideals(20000)
+    small = [a for a in all_ideals if norm(a) <= 2000]
+    ps = {p: [a for a in small if norm(a) == p] for p in (7, 13, 19)}
+    assert all(len(v) == 2 for v in ps.values())
+    inert5 = canon((5, 0))
+    assert norm(inert5) == 25
+    assert all((r * r + r + 1) % 5 for r in range(5))
+    slots = (ps[7] + [ps[13][0]], [ps[13][1]] + ps[19] + [inert5])
+    assert not set(slots[0]) & set(slots[1])
+    tuples = [(b, ideal_product(b), prod(weight(i, p) for i, p in enumerate(b)))
+              for b in product(*slots)]
+    assert len({d for _, d, _ in tuples}) == len(tuples)
+    excluded = (canon((2, 0)), canon((1, -1)))
+    good = lambda a: all(not divides(p, a) for p in excluded)
+    records = []
+    checks = 0
+    for a in small:
+        direct = sum((w for _, d, w in tuples if divides(d, a)), F())
+        factored = prod(sum((weight(i, p) for p in s if divides(p, a)), F())
+                        for i, s in enumerate(slots))
+        assert direct == factored
+        count_by_slot = [sum(divides(p, a) for p in s) for s in slots]
+        assert direct <= prod(count_by_slot)
+        distinct = [p for s in slots for p in s if divides(p, a)]
+        assert divides(ideal_product(distinct), a)
+        assert prod(norm(p) for p in distinct) <= norm(a)
+        checks += 1
+    for U in (120, 360, 1000):
+        window = [a for a in small if U < norm(a) <= 2 * U and good(a)]
+        direct = sum((sum((w for _, d, w in tuples if divides(d, a)), F())
+                      for a in window), F())
+        returned = sum((w * sum(U < norm(d) * norm(b) <= 2 * U and good(b)
+                               for b in small)
+                        for _, d, w in tuples), F())
+        assert direct == returned
+        records.append({"U": U, "ideals_in_window": len(window),
+                        "weighted_mark_mass": str(direct)})
+    p = ps[7][0]
+    assert not divides(ideal_product((p, p)), p)
+    assert divides(p, p)
+    # A prime cofactor larger than every selected norm is recoverable uniquely.
+    U = 10000
+    selected = list(product(ps[7], ps[13]))
+    cofactors = [q for q in all_ideals if isprime(norm(q))
+                 and U < 91 * norm(q) <= 2 * U and good(q)]
+    outputs = [ideal_product((*b, q)) for b in selected for q in cofactors]
+    assert len(set(outputs)) == len(outputs)
+    assert all(U < norm(a) <= 2 * U for a in outputs)
+    assert all(norm(q) > 13 for q in cofactors)
+    print(json.dumps({
+        "scope": "Actual Eisenstein ideals; exact finite mark identities only",
+        "ideal_checks": checks, "weighted_mass_checks": records,
+        "selected_products": len(tuples),
+        "overlap_falsifier": {"norm_A": 7, "norm_selected_product": 49,
+                              "product_mark": 0, "separate_marks": 1},
+        "prime_cofactor_corridor": {"U": U, "selected_pairs": len(selected),
+                                    "cofactors": len(cofactors),
+                                    "distinct_squarefree_ideals": len(outputs)},
+        "result": "PASS"
+    }, indent=2))
+
+
+if __name__ == "__main__":
+    main()
+```
+
+### C40 Recorded Output
+
+```json
+{
+  "scope": "Actual Eisenstein ideals; exact finite mark identities only",
+  "ideal_checks": 1211,
+  "weighted_mass_checks": [
+    {
+      "U": 120,
+      "ideals_in_window": 36,
+      "weighted_mark_mass": "14/3"
+    },
+    {
+      "U": 360,
+      "ideals_in_window": 107,
+      "weighted_mark_mass": "8/3"
+    },
+    {
+      "U": 1000,
+      "ideals_in_window": 304,
+      "weighted_mark_mass": "52/3"
+    }
+  ],
+  "selected_products": 12,
+  "overlap_falsifier": {
+    "norm_A": 7,
+    "norm_selected_product": 49,
+    "product_mark": 0,
+    "separate_marks": 1
+  },
+  "prime_cofactor_corridor": {
+    "U": 10000,
+    "selected_pairs": 4,
+    "cofactors": 18,
+    "distinct_squarefree_ideals": 72
+  },
+  "result": "PASS"
+}
+```
