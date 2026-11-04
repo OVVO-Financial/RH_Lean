@@ -9,6 +9,8 @@ The finite weighted comparison retains both overlapping dyadic index sets.
 No bound on the full approximation error or analytic RH consequence is asserted.
 -/
 
+set_option autoImplicit false
+
 noncomputable section
 
 open Finset
@@ -19,7 +21,7 @@ namespace RHLean.Analysis
 def nymanResidue (k m : Nat) : Real := (m % k : Nat) / (k : Real)
 
 def nymanResidual (N : Nat) (c : Nat -> Real) (m : Nat) : Real :=
-  1 - sum (Icc 2 N) (fun k => c k * nymanResidue k m)
+  1 - Finset.sum (Icc 2 N) (fun k => c k * nymanResidue k m)
 
 def nymanLogKernel (N k : Nat) : Real :=
   (ArithmeticFunction.moebius k : Real) *
@@ -29,7 +31,7 @@ def nymanLogCoefficient (N k : Nat) : Real :=
   -nymanLogKernel N k / Real.log (N : Real)
 
 def nymanPsi (m : Nat) : Real :=
-  sum (Icc 1 m) (fun n => ArithmeticFunction.vonMangoldt n)
+  Finset.sum (Icc 1 m) (fun n => ArithmeticFunction.vonMangoldt n)
 
 def nymanCarry (k m : Nat) : Real :=
   ((2 * m / k : Nat) : Real) - 2 * ((m / k : Nat) : Real)
@@ -72,11 +74,11 @@ theorem nymanCarry_eq_zero_of_lt (k m : Nat) (h : 2 * m < k) :
 
 theorem nymanResidual_dyadic_eq_carry (N m : Nat) (c : Nat -> Real) :
     nymanResidual N c (2 * m) - 2 * nymanResidual N c m =
-      -1 + sum (Icc 2 N) (fun k => c k * nymanCarry k m) := by
+      -1 + Finset.sum (Icc 2 N) (fun k => c k * nymanCarry k m) := by
   have hsum :
-      sum (Icc 2 N) (fun k => c k * nymanCarry k m) =
-        2 * sum (Icc 2 N) (fun k => c k * nymanResidue k m) -
-          sum (Icc 2 N) (fun k => c k * nymanResidue k (2 * m)) := by
+      Finset.sum (Icc 2 N) (fun k => c k * nymanCarry k m) =
+        2 * Finset.sum (Icc 2 N) (fun k => c k * nymanResidue k m) -
+          Finset.sum (Icc 2 N) (fun k => c k * nymanResidue k (2 * m)) := by
     rw [Finset.mul_sum, <- Finset.sum_sub_distrib]
     apply Finset.sum_congr rfl
     intro k hk
@@ -103,22 +105,22 @@ theorem nymanResidual_dyadic_congr_low
     simp
 
 theorem nyman_sum_mul_floor_eq_divisor_sum (A : Nat) (f : Nat -> Real) :
-    sum (Icc 1 A) (fun d => f d * ((A / d : Nat) : Real)) =
-      sum (Icc 1 A) (fun n => sum n.divisors f) := by
+    Finset.sum (Icc 1 A) (fun d => f d * ((A / d : Nat) : Real)) =
+      Finset.sum (Icc 1 A) (fun n => Finset.sum n.divisors f) := by
   classical
   have key : ∀ d : Nat,
       f d * ((A / d : Nat) : Real) =
-        sum (Icc 1 A) (fun n => if d ∣ n then f d else 0) := by
+        Finset.sum (Icc 1 A) (fun n => if d ∣ n then f d else 0) := by
     intro d
     rw [Finset.sum_ite, Finset.sum_const_zero, add_zero,
       Finset.sum_const, nsmul_eq_mul, nativeCardMultiplesIcc]
     ring
   calc
-    _ = sum (Icc 1 A) (fun d =>
-        sum (Icc 1 A) (fun n => if d ∣ n then f d else 0)) :=
+    _ = Finset.sum (Icc 1 A) (fun d =>
+        Finset.sum (Icc 1 A) (fun n => if d ∣ n then f d else 0)) :=
       Finset.sum_congr rfl (fun d _ => key d)
-    _ = sum (Icc 1 A) (fun n =>
-        sum (Icc 1 A) (fun d => if d ∣ n then f d else 0)) :=
+    _ = Finset.sum (Icc 1 A) (fun n =>
+        Finset.sum (Icc 1 A) (fun d => if d ∣ n then f d else 0)) :=
       Finset.sum_comm
     _ = _ := by
       apply Finset.sum_congr rfl
@@ -139,14 +141,14 @@ theorem nyman_sum_mul_floor_eq_divisor_sum (A : Nat) (f : Nat -> Real) :
         rfl
 
 theorem nymanLogKernel_divisor_sum (N n : Nat) (hn : 1 <= n) :
-    sum n.divisors (nymanLogKernel N) =
+    Finset.sum n.divisors (nymanLogKernel N) =
       Real.log (N : Real) * (if n = 1 then 1 else 0) +
         ArithmeticFunction.vonMangoldt n := by
-  have hmu : sum n.divisors (fun d => (ArithmeticFunction.moebius d : Real)) =
+  have hmu : Finset.sum n.divisors (fun d => (ArithmeticFunction.moebius d : Real)) =
       if n = 1 then 1 else 0 := by
     exact_mod_cast nativeSumMoebiusDivisors n hn
   have hlog := ArithmeticFunction.sum_moebius_mul_log_eq (n := n)
-  change sum n.divisors (fun d =>
+  change Finset.sum n.divisors (fun d =>
     (ArithmeticFunction.moebius d : Real) * Real.log (d : Real)) =
       -ArithmeticFunction.vonMangoldt n at hlog
   simp only [nymanLogKernel, mul_sub, Finset.sum_sub_distrib]
@@ -154,15 +156,15 @@ theorem nymanLogKernel_divisor_sum (N n : Nat) (hn : 1 <= n) :
   ring
 
 theorem nymanLogKernel_floor_sum (N m : Nat) (hm : 1 <= m) (hmN : m <= N) :
-    sum (Icc 1 N) (fun k => nymanLogKernel N k * ((m / k : Nat) : Real)) =
+    Finset.sum (Icc 1 N) (fun k => nymanLogKernel N k * ((m / k : Nat) : Real)) =
       Real.log (N : Real) + nymanPsi m := by
   have hsub : Icc 1 m ⊆ Icc 1 N := by
     intro k hk
     have := Finset.mem_Icc.mp hk
     exact Finset.mem_Icc.mpr ⟨this.1, this.2.trans hmN⟩
   have hrestrict :
-      sum (Icc 1 N) (fun k => nymanLogKernel N k * ((m / k : Nat) : Real)) =
-        sum (Icc 1 m) (fun k => nymanLogKernel N k * ((m / k : Nat) : Real)) := by
+      Finset.sum (Icc 1 N) (fun k => nymanLogKernel N k * ((m / k : Nat) : Real)) =
+        Finset.sum (Icc 1 m) (fun k => nymanLogKernel N k * ((m / k : Nat) : Real)) := by
     symm
     apply Finset.sum_subset hsub
     intro k hkN hkm
@@ -172,8 +174,8 @@ theorem nymanLogKernel_floor_sum (N m : Nat) (hm : 1 <= m) (hmN : m <= N) :
     simp [Nat.div_eq_of_lt hmk]
   rw [hrestrict, nyman_sum_mul_floor_eq_divisor_sum]
   have hsum :
-      sum (Icc 1 m) (fun n => sum n.divisors (nymanLogKernel N)) =
-        sum (Icc 1 m) (fun n =>
+      Finset.sum (Icc 1 m) (fun n => Finset.sum n.divisors (nymanLogKernel N)) =
+        Finset.sum (Icc 1 m) (fun n =>
           Real.log (N : Real) * (if n = 1 then 1 else 0) +
             ArithmeticFunction.vonMangoldt n) := by
     apply Finset.sum_congr rfl
@@ -184,15 +186,15 @@ theorem nymanLogKernel_floor_sum (N m : Nat) (hm : 1 <= m) (hmN : m <= N) :
 
 theorem nymanLogKernel_carry_sum (N m : Nat) (hm : 1 <= m)
     (hmN : 2 * m <= N) :
-    sum (Icc 2 N) (fun k => nymanLogKernel N k * nymanCarry k m) =
+    Finset.sum (Icc 2 N) (fun k => nymanLogKernel N k * nymanCarry k m) =
       -Real.log (N : Real) + nymanPsi (2 * m) - 2 * nymanPsi m := by
   have hsub : Icc 2 N ⊆ Icc 1 N := by
     intro k hk
     have := Finset.mem_Icc.mp hk
     exact Finset.mem_Icc.mpr ⟨by omega, this.2⟩
   have hsame :
-      sum (Icc 2 N) (fun k => nymanLogKernel N k * nymanCarry k m) =
-        sum (Icc 1 N) (fun k => nymanLogKernel N k * nymanCarry k m) := by
+      Finset.sum (Icc 2 N) (fun k => nymanLogKernel N k * nymanCarry k m) =
+        Finset.sum (Icc 1 N) (fun k => nymanLogKernel N k * nymanCarry k m) := by
     apply Finset.sum_subset hsub
     intro k hk hnot
     have hk1 : k = 1 := by
@@ -202,9 +204,9 @@ theorem nymanLogKernel_carry_sum (N m : Nat) (hm : 1 <= m)
     simp [nymanCarry]
   rw [hsame]
   have hsplit :
-      sum (Icc 1 N) (fun k => nymanLogKernel N k * nymanCarry k m) =
-        sum (Icc 1 N) (fun k => nymanLogKernel N k * ((2 * m / k : Nat) : Real)) -
-          2 * sum (Icc 1 N) (fun k => nymanLogKernel N k * ((m / k : Nat) : Real)) := by
+      Finset.sum (Icc 1 N) (fun k => nymanLogKernel N k * nymanCarry k m) =
+        Finset.sum (Icc 1 N) (fun k => nymanLogKernel N k * ((2 * m / k : Nat) : Real)) -
+          2 * Finset.sum (Icc 1 N) (fun k => nymanLogKernel N k * ((m / k : Nat) : Real)) := by
     rw [Finset.mul_sum, <- Finset.sum_sub_distrib]
     apply Finset.sum_congr rfl
     intro k hk
@@ -260,12 +262,12 @@ theorem nymanWeight_le_four_doubled (m : Nat) (hm : 1 <= m) :
   nlinarith
 
 theorem nyman_dyadic_weighted_bound (X : Nat) (r : Nat -> Real) :
-    sum (Icc 1 X) (fun m => nymanWeight m * (r (2 * m) - 2 * r m) ^ 2) <=
-      16 * sum (Icc 1 (2 * X)) (fun n => nymanWeight n * r n ^ 2) := by
+    Finset.sum (Icc 1 X) (fun m => nymanWeight m * (r (2 * m) - 2 * r m) ^ 2) <=
+      16 * Finset.sum (Icc 1 (2 * X)) (fun n => nymanWeight n * r n ^ 2) := by
   classical
   let f : Nat -> Real := fun n => nymanWeight n * r n ^ 2
   have hf (n : Nat) : 0 <= f n := mul_nonneg (nymanWeight_nonneg n) (sq_nonneg _)
-  have hsmall : sum (Icc 1 X) f <= sum (Icc 1 (2 * X)) f := by
+  have hsmall : Finset.sum (Icc 1 X) f <= Finset.sum (Icc 1 (2 * X)) f := by
     apply Finset.sum_le_sum_of_subset_of_nonneg
     · intro n hn
       simp only [Finset.mem_Icc] at hn ⊢
@@ -277,10 +279,10 @@ theorem nyman_dyadic_weighted_bound (X : Nat) (r : Nat -> Real) :
     obtain ⟨m, hm, rfl⟩ := Finset.mem_image.mp hn
     simp only [Finset.mem_Icc] at hm ⊢
     omega
-  have hdoubled : sum (Icc 1 X) (fun m => f (2 * m)) <=
-      sum (Icc 1 (2 * X)) f := by
-    have he : sum ((Icc 1 X).image (fun m => 2 * m)) f =
-        sum (Icc 1 X) (fun m => f (2 * m)) := by
+  have hdoubled : Finset.sum (Icc 1 X) (fun m => f (2 * m)) <=
+      Finset.sum (Icc 1 (2 * X)) f := by
+    have he : Finset.sum ((Icc 1 X).image (fun m => 2 * m)) f =
+        Finset.sum (Icc 1 X) (fun m => f (2 * m)) := by
       rw [Finset.sum_image]
       intro a _ b _ hab
       omega
@@ -299,23 +301,23 @@ theorem nyman_dyadic_weighted_bound (X : Nat) (r : Nat -> Real) :
     dsimp only [f]
     nlinarith only [hp, hw]
   calc
-    _ <= sum (Icc 1 X) (fun m => 8 * f (2 * m) + 8 * f m) :=
+    _ <= Finset.sum (Icc 1 X) (fun m => 8 * f (2 * m) + 8 * f m) :=
       Finset.sum_le_sum hpoint
-    _ = 8 * sum (Icc 1 X) (fun m => f (2 * m)) + 8 * sum (Icc 1 X) f := by
+    _ = 8 * Finset.sum (Icc 1 X) (fun m => f (2 * m)) + 8 * Finset.sum (Icc 1 X) f := by
       rw [Finset.sum_add_distrib, ← Finset.mul_sum, ← Finset.mul_sum]
-    _ <= 16 * sum (Icc 1 (2 * X)) f := by linarith
+    _ <= 16 * Finset.sum (Icc 1 (2 * X)) f := by linarith
 
 theorem nyman_high_coefficient_weighted_obstruction
     (N H X : Nat) (c : Nat -> Real) (hN : 2 <= N) (hHN : H <= N)
     (hXH : 2 * X <= H)
     (hlow : ∀ k, k ∈ Icc 2 N -> k <= H ->
       c k = nymanLogCoefficient N k) :
-    sum (Icc 1 X) (fun m => nymanWeight m * (2 * nymanPsi m - nymanPsi (2 * m)) ^ 2) <=
+    Finset.sum (Icc 1 X) (fun m => nymanWeight m * (2 * nymanPsi m - nymanPsi (2 * m)) ^ 2) <=
       16 * Real.log (N : Real) ^ 2 *
-        sum (Icc 1 (2 * X)) (fun n => nymanWeight n * nymanResidual N c n ^ 2) := by
+        Finset.sum (Icc 1 (2 * X)) (fun n => nymanWeight n * nymanResidual N c n ^ 2) := by
   have he :
-      sum (Icc 1 X) (fun m => nymanWeight m * (2 * nymanPsi m - nymanPsi (2 * m)) ^ 2) =
-        Real.log (N : Real) ^ 2 * sum (Icc 1 X)
+      Finset.sum (Icc 1 X) (fun m => nymanWeight m * (2 * nymanPsi m - nymanPsi (2 * m)) ^ 2) =
+        Real.log (N : Real) ^ 2 * Finset.sum (Icc 1 X)
           (fun m => nymanWeight m *
             (nymanResidual N c (2 * m) - 2 * nymanResidual N c m) ^ 2) := by
     rw [Finset.mul_sum]
