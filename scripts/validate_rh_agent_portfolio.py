@@ -38,6 +38,33 @@ def main() -> None:
     engine = read("docs/" + ENGINE)
     selector = read("docs/RHLEAN_NATIVE_SQUARE_CLOCK_AGENT_DIRECTIVE_20261029.md")
     cadence = read("docs/RHLEAN_MULTIRUN_DAILY_AGENT_POLICY_20261031.md")
+    # User-directed 2026-11-04 regression: prevent mandatory narrow source
+    # assignments from silently overriding the independent nine-route portfolio.
+    independent_name = "RHLEAN_INDEPENDENT_MULTIFRONT_NO_PIGEONHOLING_20261104.md"
+    independent = read("docs/" + independent_name)
+    independent_tag = "NO_PIGEONHOLING_ROUTE_SELECTOR_V1"
+    assert independent_tag in independent
+    assert "VF-LOW" in independent and "NYMAN" in independent
+    assert "not" in independent.lower() and "OAI" in independent
+    for path, doc in (
+        ("AGENTS.md", agent_policy),
+        ("CURRENT_PROOF_CONTRACT.md", proof_contract),
+        ("docs/DYNAMIC_RESEARCH_AGENTS.md", dynamic),
+        ("docs/RHLEAN_NATIVE_SQUARE_CLOCK_AGENT_DIRECTIVE_20261029.md", selector),
+        ("docs/RHLEAN_BROAD_SEARCH_UNTIL_ETA_20261031.md",
+         read("docs/RHLEAN_BROAD_SEARCH_UNTIL_ETA_20261031.md")),
+        ("docs/RHLEAN_SEVEN_AGENT_RESEARCH_ENGINE_20261101.md", engine),
+        ("docs/RHLEAN_ALL_VECTOR_AGENT_PROMPTS_20261030.md", role_prompts),
+        ("docs/AGENT_STUDIO_20261024_SEVEN_PROMPTS.md", prompts),
+        ("docs/RHLEAN_OAI_LOW_SOURCE_FIRST_AGENT_CONTRACT_20261103.md",
+         read("docs/RHLEAN_OAI_LOW_SOURCE_FIRST_AGENT_CONTRACT_20261103.md")),
+        ("docs/RHLEAN_ALL_SELECTED_INVERSE_SOURCE_ATTACK_20261104.md",
+         read("docs/RHLEAN_ALL_SELECTED_INVERSE_SOURCE_ATTACK_20261104.md")),
+    ):
+        assert independent_tag in doc, f"lost independent-route precedence: {path}"
+    for block in re.split(r"^### Agent \\d+[^\\n]*\\n", prompts, flags=re.MULTILINE)[1:]:
+        assert independent_tag in block, "saved Studio template has no independent-route override"
+
     for route in ("VF-LOW", "SAT", "CODIV", "BLOCK", "OAI-NNS", "JOH",
                   "FINITE-AC", "CORR4", "MU-LIFT", "NYMAN"):
         assert "**" + route + "**" in portfolio, f"missing route {route}"
