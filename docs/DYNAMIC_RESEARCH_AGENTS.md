@@ -6,7 +6,7 @@
 
 ## Authority and compact intake
 
-Follow the stable [task selector](RHLEAN_NATIVE_SQUARE_CLOCK_AGENT_DIRECTIVE_20261029.md): breadth gate, complete-return contract, [original OAI LOW source-first contract](RHLEAN_OAI_LOW_SOURCE_FIRST_AGENT_CONTRACT_20261103.md), research engine, then relevant route constraints and [seven-role prompts](RHLEAN_ALL_VECTOR_AGENT_PROMPTS_20261030.md). The [multiple-daily policy](RHLEAN_MULTIRUN_DAILY_AGENT_POLICY_20261031.md) permits genuinely configured repeated runs. Saved Studio templates are in [the seven complete prompt blocks](AGENT_STUDIO_20261024_SEVEN_PROMPTS.md); editing GitHub does not edit saved Studio state.
+Follow the stable [task selector](RHLEAN_NATIVE_SQUARE_CLOCK_AGENT_DIRECTIVE_20261029.md): breadth gate, complete-return contract, independent multi-front policy, research engine and [seven-role prompts](RHLEAN_ALL_VECTOR_AGENT_PROMPTS_20261030.md). Read the specialist [original OAI LOW source-first contract](RHLEAN_OAI_LOW_SOURCE_FIRST_AGENT_CONTRACT_20261103.md) ONLY if OAI-NNS is independently selected. The [multiple-daily policy](RHLEAN_MULTIRUN_DAILY_AGENT_POLICY_20261031.md) permits genuinely configured repeated runs. Saved Studio templates are in [the seven complete prompt blocks](AGENT_STUDIO_20261024_SEVEN_PROMPTS.md); editing GitHub does not edit saved Studio state.
 
 Use [the route portfolio](RH_PROOF_ATTACK_PORTFOLIO_20261024.md), [overlap/7-8 audit](RH_PROOF_OVERLAP_AND_SEVEN_EIGHTHS_AUDIT_20261024.md), [proof DAG](PROOF_DEPENDENCY_DAG.md), [formal milestones](FORMALIZATION_MILESTONES.md) and [coordinate atlas](COORDINATE_ATLAS.md) to locate the selected source and consumer, not to regenerate an inventory every run. Preserve the von Koch milestone and literal R=549 BLOCK falsifier.
 
