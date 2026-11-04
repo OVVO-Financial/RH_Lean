@@ -1121,3 +1121,11 @@ int main(int argc, char** argv) {
   ]
 }
 ```
+
+## Verified Publication Receipt - 2026-11-04 03:34:56 EST (-0500)
+
+The full synthesis and both executed verifiers were published in commit `37649edc8a6ee34b70bcf456103ab3dbf7172ed5`, then re-fetched from agent-reports with exact content equality at blob `932314325cfd1639df3afba5488a6a915be4111f`. The early checkpoint was separately published/read back as recorded above. This receipt certifies that observed write, not an unobserved future action.
+
+Immediately before publication, at 2026-11-04 03:33:53 EST, main remained `040980c16901af749202e9b0f91211c43909404a`; all November 3 and upstream November 4 report blobs were unchanged, and the external inbox was unchanged. Missing November 4 Coordinator/Referee/Lean stages remain TODAY=PENDING. The new own Census report is the only added dated file from this invocation.
+
+Execution: COMPLETE. Finite verification: COMPLETE on the declared domain. R1-R3: PAPER_PROOF / SELF_AUDIT, independent Referee review PENDING, not newly Lean-certified. Original physical-integral evaluation: BLOCKED / UNSUPPORTED_DIRECT_OAI. New net endpoint gain: UNKNOWN. Canonical VF and RH remain OPEN. No computational process is left running.
