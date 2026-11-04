@@ -92,7 +92,7 @@ A green partial PR or formal conditional consumer is NOT a proved nu.
 Actual published exact-head Lean plus independent Referee acceptance plus
 full genuine source-to-endpoint net saving are needed for VERIFIED_NET_GAIN.
 
-## 5A. November 4 source-first refinement: binding all-selected row and actual write scope
+## 5A. 2026-11-04 source-first refinement: binding all-selected row and actual write scope
 
 Merged #1083's literal Gram and NNS equality are verified source identities, not new power bounds. Original J indexes **unselected** slots: for J=empty, ALL physical slots are selected and the OUTER unselected tuple population has cardinality one. Its ordered off-diagonal outer cross Gram is exactly zero. An attack on the outer norm_sum_le cannot improve this binding packet. Referee R9/R10's moving-mass reduction pays nonempty J at original positive terminal geometry at paper scope. Lean's submitted PR #1087 must actually pass pinned warning-fatal compilation and axiom audit before that stronger central theorem can be labeled PROVED_IN_LEAN.
 
