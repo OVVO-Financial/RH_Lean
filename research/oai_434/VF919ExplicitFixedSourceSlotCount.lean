@@ -64,14 +64,14 @@ theorem explicit_distinct_slot_lengths (L : ℝ) (hL : 0 < L)
     nlinarith
   let w : Fin N→ℝ := fun j=>1+(j.val:ℝ)/(N:ℝ)
   let A : ℝ := ∑j,w j
-  have hw (j : Fin N) : 1≤w j ∧ w j<2 := by
+  have hw (j : Fin N) : 1≤ w j ∧ w j<2 := by
     have hj : (j.val:ℝ)<N := by exact_mod_cast j.isLt
     have hdiv : (j.val:ℝ)/(N:ℝ)<1 := (div_lt_one hNp).mpr hj
     dsimp only [w]
     constructor
     · linarith [div_nonneg (Nat.cast_nonneg j.val) hNp.le]
     · linarith
-  have hA : (N:ℝ)≤A := by
+  have hA : (N:ℝ)≤ A := by
     calc
       _ = ∑_j : Fin N,(1:ℝ) := by simp
       _ ≤ _ := Finset.sum_le_sum fun j _=>(hw j).1
@@ -132,12 +132,12 @@ theorem explicit_physical_slot_lengths (dmin dmax mesh R : ℝ)
   have hmax : 0<dmax := hdmin.trans_le hd
   let rmin := ell j/(2*dmax)
   have hr : 0<rmin := div_pos (he j).1 (by positivity)
-  have hlo (k : Fin N) : dmax*rmin≤ell k := by
+  have hlo (k : Fin N) : dmax*rmin≤ ell k := by
     have hk := hjmin k (Finset.mem_univ k)
     have hiden : dmax*rmin=ell j/2 := by dsimp [rmin]; field_simp
     rw [hiden]
     linarith [(he j).1]
-  have hup (k : Fin N) : ell k≤dmin*mesh ∧ ell k≤dmin*R := by
+  have hup (k : Fin N) : ell k≤ dmin*mesh ∧ ell k≤ dmin*R := by
     constructor
     · exact (he k).2.le.trans (mul_le_mul_of_nonneg_left (min_le_left _ _) hdmin.le)
     · exact (he k).2.le.trans (mul_le_mul_of_nonneg_left (min_le_right _ _) hdmin.le)
@@ -145,7 +145,7 @@ theorem explicit_physical_slot_lengths (dmin dmax mesh R : ℝ)
   intro d hd' hd'' k
   have hd0 : 0<d := hdmin.trans_le hd'
   refine ⟨(le_div_iff₀ hd0).mpr ?_,(div_le_iff₀ hd0).mpr ?_,(div_le_iff₀ hd0).mpr ?_⟩
-  · exact (by nlinarith : rmin*d≤dmax*rmin).trans (hlo k)
+  · exact (by nlinarith : rmin*d≤ dmax*rmin).trans (hlo k)
   · exact (hup k).1.trans (by nlinarith)
   · exact (hup k).2.trans (by nlinarith)
 
@@ -175,16 +175,16 @@ theorem exists_explicit_high_data_fine :
     let allowance := t/((N:ℝ)+2000)
     have hden : 0<(N:ℝ)+2000 := by positivity
     have ha : 0<allowance := div_pos ht hden
-    have ha0 : allowance≤t/2000 := div_le_div_of_nonneg_left ht.le (by norm_num) (by linarith [Nat.cast_nonneg (α:=ℝ) N])
+    have ha0 : allowance≤ t/2000 := div_le_div_of_nonneg_left ht.le (by norm_num) (by linarith [Nat.cast_nonneg (α:=ℝ) N])
     have hap : allowance*((N:ℝ)+2000)=t := by dsimp [allowance];field_simp
     refine ⟨allowance,ha,?_⟩
     intro ε e eps hε hεa he hea heps hepsa
-    have hεt : 2000*ε≤t := by linarith
-    have het : 2000*e≤t := by linarith
-    have hepsN : ((N:ℝ)+2000)*eps≤t := by
+    have hεt : 2000*ε≤ t := by linarith
+    have het : 2000*e≤ t := by linarith
+    have hepsN : ((N:ℝ)+2000)*eps≤ t := by
       have h := mul_le_mul_of_nonneg_left hepsa hden.le
       nlinarith
-    have heps8 : ((N:ℝ)+8)*eps≤t := by nlinarith
+    have heps8 : ((N:ℝ)+8)*eps≤ t := by nlinarith
     constructor <;> nlinarith
   let N : ℕ := explicitSlotCount
   have hN1 : (1 : ℝ) < N := by
@@ -201,9 +201,9 @@ theorem exists_explicit_high_data_fine :
   obtain ⟨allowance,ha,hbud⟩ := hallow N
   let small := min allowance (t/((N:ℝ)+2000))
   have hsmall : 0<small := lt_min ha (div_pos ht (by positivity))
-  have hsa : small≤allowance := min_le_left _ _
-  have hst : small≤t/((N:ℝ)+2000) := min_le_right _ _
-  have hst0 : small≤t/2000 := hst.trans
+  have hsa : small≤ allowance := min_le_left _ _
+  have hst : small≤ t/((N:ℝ)+2000) := min_le_right _ _
+  have hst0 : small≤ t/2000 := hst.trans
     (div_le_div_of_nonneg_left ht.le (by norm_num) (by linarith [Nat.cast_nonneg (α:=ℝ) N]))
   let ellMin := (7/8:ℝ)*rmin
   have hmin : 0<ellMin := mul_pos (by norm_num) hr
@@ -213,19 +213,19 @@ theorem exists_explicit_high_data_fine :
       ht.le hr ht (by norm_num) ht hmin hsmall (by norm_num)
   let eps := small/2
   have heps : 0<eps := by dsimp [eps];positivity
-  have hepss : eps≤small := by dsimp [eps];linarith only [hsmall]
+  have hepss : eps≤ small := by dsimp [eps];linarith only [hsmall]
   have heps1 : eps≤1 := by linarith only [hepss, hst0, ht1]
   have hbud' := hbud ε e eps hε.le (hεa.trans hsa) he.le (hea.trans hsa)
     heps.le (hepss.trans hsa)
-  have heN : ((N:ℝ)+2000)*eps≤t := by
+  have heN : ((N:ℝ)+2000)*eps≤ t := by
     have h := (le_div_iff₀ (show 0<(N:ℝ)+2000 by positivity)).mp (hepss.trans hst)
     simpa only [mul_comm] using h
-  have he8 : ((N:ℝ)+8)*eps≤t := by nlinarith only [heN, heps.le]
-  have het : 2000*e≤t := by linarith only [hea, hst0]
+  have he8 : ((N:ℝ)+8)*eps≤ t := by nlinarith only [heN, heps.le]
+  have het : 2000*e≤ t := by linarith only [hea, hst0]
   let sigma := min (t/2) (ellMin/4)
   have hs : 0<sigma := lt_min (by positivity) (by positivity)
-  have hst2 : sigma≤t/2 := min_le_left _ _
-  have hsell : sigma≤ellMin/4 := min_le_right _ _
+  have hst2 : sigma≤ t/2 := min_le_left _ _
+  have hsell : sigma≤ ellMin/4 := min_le_right _ _
   refine ⟨{
     t:=t,N:=N,ell:=ell,rmin:=rmin,ε:=ε,e:=e,κ:=κ,cost:=cost,eps:=eps,sigma:=sigma
     t_pos:=ht,t_delta:=htΔ,t_small:=ht1,slots_pos:=hN,slots_injective:=hell,slots_sum:=hsum
@@ -245,15 +245,15 @@ theorem exists_explicit_high_data_fine :
     have htau : 0<τ := lt_min (by positivity) (lt_min (by norm_num) (by positivity))
     have hτc : τ≤(1/200:ℝ)*cost/16 := min_le_left _ _
     have hτd : τ≤1/800 := (min_le_right _ _).trans (min_le_left _ _)
-    have hτt : τ≤t/(4*(J+7)) := (min_le_right _ _).trans (min_le_right _ _)
-    have hτJ : τ*(4*(J+7))≤t := (le_div_iff₀ (by positivity)).mp hτt
-    have hprod : 0≤τ*J := mul_nonneg htau.le hJ
+    have hτt : τ≤ t/(4*(J+7)) := (min_le_right _ _).trans (min_le_right _ _)
+    have hτJ : τ*(4*(J+7))≤ t := (le_div_iff₀ (by positivity)).mp hτt
+    have hprod : 0≤ τ*J := mul_nonneg htau.le hJ
     have hprodeps := mul_le_mul_of_nonneg_left heps1 htau.le
     refine ⟨τ,htau,by linarith only [hτd],by linarith only [hτc, hcost],
       by nlinarith only [hτJ, hprod, htau],by nlinarith only [hτJ, hprod, htau],
       by nlinarith only [hτJ, hprod, hprodeps, htau]⟩
   · intro j
-    change ell j≤mesh t/200
+    change ell j≤ mesh t/200
     calc
       ell j≤(1/200:ℝ)*min t (mesh t):=(hbounds j).2.2.1
       _≤(1/200:ℝ)*mesh t:=mul_le_mul_of_nonneg_left (min_le_right _ _) (by norm_num)
