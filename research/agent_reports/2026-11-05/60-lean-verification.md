@@ -474,3 +474,26 @@ Final proof state: #1094 remains DRAFT / UNMERGED at
 1ea4a8a4308976721a3841998d6c3a4554f7a9c9; all 12 workflows and 13 jobs passed.
 PROVED_IN_LEAN at that head, not yet on main; independent Referee review PENDING.
 Canonical objective and new complete-endpoint gain remain OPEN / NONE_ESTABLISHED.
+
+
+## Early Checkpoint - 20261105-lean-2
+
+Actual invocation: SCHEDULED, 2026-11-05 13:14 EST (America/New_York), RUN_ID_UNAVAILABLE. This is a distinct configured continuation; all earlier report sections are preserved. Execution IN_PROGRESS; research report PARTIAL; no new theorem or endpoint gain is asserted.
+
+### A. Selected Result And Repair
+
+Selected the independently reported proof-integrity defect 20261105-wheel-2/V1 and 20261105-referee-10. The actual Euler job 122493500725 in run 40590593129 emits eight unknown-constant errors and then PASS standard axioms only. Current workflow .github/workflows/euler-fractional-coupled.yml still has the wrong prerequisite-only import, a compiler-to-tee pipeline without pipefail, and a line parser accepting no matches and overlooking multiline axiom lists. This is independently confirmed from source and the actual log, not inferred from a report headline. Prior successful source compilation is retained as narrower evidence; the failed dedicated audit is not theorem certification.
+
+### B. Authority And Continuity
+
+Main 884de7a1fa7687d483a7b5272bff6c9d53790367; tree e98a257a8258c42baae89222c999f4dfd544546a. AGENTS 547dda0d9456e7a4e1165dc72d59da6f70d5c023; contract 7c4ac83a1ec1a4144e1bd691391ed4244f1cc27c; selector ffd8f1c65cc4da656174956d4e03b48bea46768b. deployment_ack: NO_PIGEONHOLING_ROUTE_SELECTOR_V1; selected FINITE-AC/Euler verification repair on independent readiness grounds. Canonical actual-prime VF von Koch bound remains OPEN. ETA_GATE=SEARCH_BROAD; new endpoint gain UNKNOWN.
+
+All seven role reports for November 4 and November 5 are available and retrieved; relevant synthesis, handoff and resume sections inspected. Coordinator 00/90 blobs match on each day. No TODAY=PENDING role at this intake. External inbox 038018145c0fddb2f6306c0712373adf9cd1ea52 has no newer entry beyond October 18; historical source safeguards retained, not stale routing. Current open PR collection is empty. #1094 is now human-MERGED at main, not the earlier report's unmerged state; its dedicated log at final head 1ea4a8a4308976721a3841998d6c3a4554f7a9c9 prints eight standard axiom closures. Today's independent Referee accepts C49 at component scope. Accepted paper SP1-SP5 and pending CORR4/MU-LIFT/Owner claims remain distinct candidates; no duplicate Nyman theorem is created.
+
+### C. Implementation Plan And Evidence Pending
+
+Repair only the Euler audit workflow and focused test/checker support: import the actual defining module, inspect the eight exact types and axiom closures, propagate Lean errors, require exact nonempty declaration coverage, parse whole multiline lists, and reject unknown/nonstandard/missing/duplicate results. Add synthetic parser/process regressions and obtain real pinned warning-fatal Actions on the new PR. Do not change theorem statements or source coefficients. No local Lean execution.
+
+Created authorized branch agent/lean-verification/20261105-euler-axiom-audit from the stated main using the connected GitHub branch action; write test succeeded. Direct read-only shell clone returned CONNECT tunnel 403; connected reads and branch writes work. No direct main write or permission bypass is involved. PR, latest head, new CI, terminal audit and final A-P synthesis are PENDING.
+
+Source blobs: workflow 46152b915525c118b8306c20c820caa672e0241e; fractional module e6c4b1690e497760d366e36b28a1f7aa60e19f85; rank-one module e482711a3f55c1f59fc771f108671477f51732f2. Pins: Lean v4.34.1; Mathlib d13f23b723b8a846827a245b89c10fc7d3f11612; PNT+ c39a751132c88b6e8080b74c74023fd95b3d8be0. Mathematical source identities are unchanged; the complete signed quantitative supplier remains open.
