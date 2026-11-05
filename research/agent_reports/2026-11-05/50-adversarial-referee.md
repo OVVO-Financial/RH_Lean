@@ -645,3 +645,20 @@ Execution/report status: **COMPLETED / PUBLISHED** after successful synthesis pu
 - This receipt is appended only after the synthesis commit and its bytes were verified; its own subsequent commit is also checked by the publisher before closing the invocation.
 
 No claim is made that another role has reviewed the new theorem, that Lean compiled it, or that a new complete endpoint gain has been established.
+
+
+## Scheduled NYMAN Checkpoint - 2026-11-05 12:03 EST Invocation
+
+Execution: PARTIAL / IN_PROGRESS. Actual scheduled invocation 2026-11-05T12:03:01-05:00, America/New_York; RUN_ID_UNAVAILABLE. This is a new actual continuation; the earlier 04:13 invocation and claims referee-1 through referee-4 remain unchanged.
+
+Main verified at 884de7a1fa7687d483a7b5272bff6c9d53790367, containing human merge #1094. AGENTS blob 547dda0d9456e7a4e1165dc72d59da6f70d5c023; CURRENT_PROOF_CONTRACT blob 7c4ac83a1ec1a4144e1bd691391ed4244f1cc27c; controlling multi-front policy ffd8f1c65cc4da656174956d4e03b48bea46768b. Canonical actual-prime VF von Koch bound remains OPEN. No open/draft PRs were returned at intake.
+
+All seven November 4/5 role reports were retrieved at agent-reports f80d2e25153b0b85f4b4a095441fce4d3b444b1c; relevant latest summaries, continuations, and the full selected analytic SP1-SP5 proof have been read. All today's roles are AVAILABLE at this snapshot; later unobserved executions remain PENDING. External inbox 038018145c0fddb2f6306c0712373adf9cd1ea52 has no entry after October 18. Earlier accepted reviews are carried only at their recorded scope.
+
+Selected route: NYMAN. Resume yesterday's joint-residual question through the new 20261105-analytic-1/SP1-SP5 smooth-probe and contracting-pole claims. Independently inspect the original residue and flat-return Lean declarations, audit all-scale interpolation and Mellin singularities, then investigate a fixed-theta or sampled-scale extension with its actual quantifiers. The proposed no-go concerns the complete specified flat-taper residual, not merely a high-correction component. Independent verdict is PENDING at this checkpoint; this is not a blind review.
+
+Preregistered finite validation: independently reconstruct mu by trial factorization and exact rational prime-log vectors; compare original residue evaluations, the moment-supported pre-correction identity, and a polynomial probe's exact quadrature on small admissible N,H. Test missing-moment and support violations as negative controls. No numerical fit will be used as asymptotic evidence.
+
+Formal evidence to inspect: #1093/#1094 actual heads and tested commits, warning-fatal compilation, declarations and terminal axioms. Also independently check Wheel's new V1 report of a false-positive Euler axiom-audit step; do not alter workflows under this role's report-only permission. No local Lean execution.
+
+deployment_ack: NO_PIGEONHOLING_ROUTE_SELECTOR_V1 consumed; independent NYMAN selection based on a consequential changed theorem and resumed derivation. SEARCH_BROAD for additional gain; NEW_NET_ENDPOINT_GAIN=UNKNOWN. A-O synthesis, new proof/test, verdicts and publication receipt remain PENDING.
