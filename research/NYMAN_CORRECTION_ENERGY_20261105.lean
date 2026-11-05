@@ -82,7 +82,7 @@ theorem nyman_affine_block_energy_lower_bound (K : Nat) (hK : 1 <= K)
     _ = (lam ^ 2 * K * (K + 1) * (2 * K + 1) / 3) /
         ((3 * K) * (3 * K + 1)) := by
       field_simp [ne_of_gt hk, ne_of_gt (show (0 : Real) < 3 * K + 1 by positivity)]
-      <;> ring
+      ring
     _ <= ((2 * (K : Real) + 1) * (z - 2 * K * lam) ^ 2 +
         lam ^ 2 * K * (K + 1) * (2 * K + 1) / 3) /
         ((3 * K) * (3 * K + 1)) := by
@@ -99,8 +99,9 @@ theorem nyman_affine_block_energy_one_eighty_one (K : Nat) (hK : 1 <= K)
     apply (le_div_iff₀ (by positivity)).mpr
     nlinarith [show (0 : Real) <= K by positivity]
   calc
-    _ <= lam ^ 2 * (K + 1) * (2 * K + 1) / (9 * (3 * K + 1)) := by
-      nlinarith [mul_le_mul_of_nonneg_right hc (sq_nonneg lam)]
+    _ <= ((K + 1) * (2 * K + 1) / (9 * (3 * K + 1))) * lam ^ 2 :=
+      mul_le_mul_of_nonneg_right hc (sq_nonneg lam)
+    _ = lam ^ 2 * (K + 1) * (2 * K + 1) / (9 * (3 * K + 1)) := by ring
     _ <= _ := nyman_affine_block_energy_lower_bound K hK z lam
 
 theorem nyman_high_correction_eq_affine (N L m : Nat) (d : Nat -> Real)
