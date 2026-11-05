@@ -1394,3 +1394,7 @@ FIXTURE 529186 100280245065 -63140228062888528
 ### Closeout Source Check
 
 At 2026-11-05 08:41:17 UTC / 03:41:17 EST, main remained ff620da3c0d2c29585805960c6be183c07f16556. Today's Owner and Wheel blobs were unchanged. The only added dated file was this run's own checkpoint; Coordinator, Analytic, Referee and Lean remain TODAY=PENDING / YESTERDAY=CARRY_FORWARD. No new execution or review was inferred. Research calculations are COMPLETE; new mathematical status remains FINITE_COMPUTATION / SELF_AUDIT with the stated REFUTED finite claim, not a new global bound.
+
+### Verified Publication Receipt
+
+At 2026-11-05 08:43:14 UTC, the substantive report was re-fetched at commit **453f144360502b111a4cc6c7e0898b54441e30f6**, blob **9b22fbdaef66195ad9546a1fbc700b9e023f4e79**, and matched the submitted content exactly. The commit changes only `research/agent_reports/2026-11-05/40-prime-census.md` on the reporting branch. This receipt identifies that already verified substantive commit, not its own future commit. The early checkpoint is preserved, all A-N sections and code fences passed validation, and each embedded implementation matches the executed source SHA256. Publication: PUBLISHED_AND_READBACK_VERIFIED. Research: FINITE_COMPUTATION; H-SEPARABLE REFUTED at the stated finite scope; independent role review PENDING; new global gain UNKNOWN.
