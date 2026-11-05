@@ -1072,3 +1072,658 @@ Current main has merged #1093, the Nyman flat-taper complete return and exact-he
 ### C-J. Pending Investigation And Publication
 
 Read the latest original source and handoffs, choose one falsifiable conceptual investigation, audit circularity and complete return, update distinct specialist assignments, and append the A-J synthesis and resume capsule to both mirrors. Preserve every earlier section byte-for-byte. No Lean source, shared policy, other report, PR, schedule or merge will be changed.
+
+---
+
+## 20261104-coordinator-3: Centered Correction Cost And The Missing Joint Estimate
+
+### A. What Changed Mathematically?
+
+**Even after repairing the divergent floor-piece split, paying the high correction separately can demand a substantially stronger zero-free boundary than the advertised full-residual target.** For the actual flat-taper Nyman family, every centered high correction has an affine segment on the original residue carrier. Its squared energy on just `N/6 <= m <= N/2` is at least
+
+```text
+J_N >= N/81 * |u(N,H)/log(N/H)|^2,
+u(N,H) = sum_(n<=N) mu(n)/n log(N/max(H,n)).
+```
+
+The reciprocal moment is not a free nuisance parameter. It is exactly the difference of two genuine smoothed Mobius sums. A power bound for that difference at EVERY sufficiently large admissible scale telescopes to a power remainder for the smoothed sum; its Mellin transform then excludes zeta zeros. At `H=floor(N^(4/5))`, a separate correction estimate `J_N <<_epsilon N^(3/5-eta+epsilon)` would imply the boundary `3/4-5eta/8`, whereas the previously accepted full-residual consumer asks only for `7/8-5eta/8`. The difference is exactly `1/8`.
+
+This is a new source-specific inverse implication for the program, not a new norm upper estimate or a claim of literature originality. It does NOT prove the full P4 family false, bound its full residual from below by `J_N`, establish a converse, or show that the component estimate is false. It identifies a stronger arithmetic burden hidden in a proposed separate-payment repair. Exact mixed cancellation remains a legitimate possibility.
+
+Claims `20261104-coordinator-3/C49-C51` below are **PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING**. The asserted implications are proved here; their quantitative supplier hypotheses remain **CONDITIONAL / OPEN**. C52 is **FINITE_COMPUTATION**, not an asymptotic fit. No new uniform exponent improvement, canonical prime bound, OAI estimate, or RH proof is established.
+
+Actual invocation: scheduled `2026-11-04T23:09:01-05:00`, platform run ID unavailable. This is the continuation of the early checkpoint above, not an extra execution. Synthesis prepared after the `2026-11-05 04:27:09 UTC` state check, still November 4 in America/New_York. Publication remains pending until the verified receipt appended after this synthesis. Earlier daily sections and their corrections remain unchanged.
+
+### B. Current Proof Objective And Authority
+
+Actual latest main, fetched at intake and rechecked during close-out: **`ff620da3c0d2c29585805960c6be183c07f16556`**. Its commit tree is **`958770679fb0146df80f44de258f694cd232434e`**. The canonical theorem remains
+
+```text
+exists C >= 0, forall integers R >= 2,
+  |pi(R^2) - vfMidFinishedMass(R) - sqrt(2)| <= C R log R.
+```
+
+This is the actual-prime `VFCanonicalSquareVonKochStatement`, **OPEN**. The canonical VF/Li_2 transport does not prove its arithmetic premise. The VF-to-RH interface still takes `ClassicalVonKochRHCriterion` explicitly. The independently inspected Mertens strip identification is a consumer of an actual bound, not that bound itself.
+
+Pinned authority and relevant original files:
+
+| File on main | Blob SHA | Use in this invocation |
+|---|---|---|
+| AGENTS.md | 547dda0d9456e7a4e1165dc72d59da6f70d5c023 | Current permissions, protected rotation, report mirrors, no launches |
+| CURRENT_PROOF_CONTRACT.md | 7c4ac83a1ec1a4144e1bd691391ed4244f1cc27c | Canonical target and distinct unpaid inputs |
+| docs/RHLEAN_INDEPENDENT_MULTIFRONT_NO_PIGEONHOLING_20261104.md | ffd8f1c65cc4da656174956d4e03b48bea46768b | Highest routing precedence |
+| docs/RHLEAN_NATIVE_SQUARE_CLOCK_AGENT_DIRECTIVE_20261029.md | 4fbab59cc6fcc33a4f4e7a8ef447b2f7947b53dd | Nine-route selector |
+| research/NYMAN_FLAT_TAPER_RETURN_20261104.lean | 2d23721027ecc44e85b7add02fc632b482f03352 | Original coefficients, complete return and exact head |
+| research/NYMAN_HIGH_COEFFICIENT_INVARIANT_20261104.lean | 2da630c1d5fb9302e2097ec1e170cf41c2b40609 | Fixed-log obstruction; its premise does not cover changed P4 lows |
+| research/NYMAN_BEURLING_POSITIVE_RESIDUE_ATTACK_2026_10_15.md | b2775c892edffe920a101651eef6f3581c73c9d4 | Original residue basis, weights and Mellin source |
+| research/VF_CANONICAL_SQRT_TWO_VON_KOCH.lean | 79030d70e8d3e0d08eef9bac53fef95c36eca2fb | Actual canonical statement and explicit classical interface |
+| research/MERTENS_CONVERSE_IDENTIFICATION.lean | 768c8255850bf4074aff265c3fe17a1f5c43979b | `growthAtMost_iff_strip` and genuine Mobius endpoint identification |
+| research/oai_434/VF919NativeSevenEighthsReplay.lean | 111c933a7ca15647105ce6a4d0f3cbfc3cde81f4 | Existing weak sublinear input, not a new exponent supplier |
+
+The broad-search, complete-return, research-engine, role and dynamic operating instructions were also fetched and read. The live policy supersedes historical mandatory OAI/slot tasks and the permanent prompt's older one/day cap; this invocation neither creates another run nor changes any schedule. The earlier reviewed strict-slot theorem retains its actual scope. The search for an additional independent gain remains **SEARCH_BROAD**; do not optimize its tiny denominator as a substitute for new arithmetic.
+
+```text
+deployment_ack: NO_PIGEONHOLING_ROUTE_SELECTOR_V1
+main: ff620da3c0d2c29585805960c6be183c07f16556
+policy_blob: ffd8f1c65cc4da656174956d4e03b48bea46768b
+selected: NYMAN centered-correction inverse restriction
+resumed: coordinator-2 C45-C47; analytic-1 P4-P10;
+         referee-10 divergent split and its centered repair
+new_step: C49 finite affine lower bound + C50 scale-chain telescope
+          + C51 reciprocal-zeta continuation, with exact finite C52 checks
+not_claimed: component upper bound; complete-middle upper bound; new eta
+```
+
+### C. Competing Mechanism Portfolio
+
+The portfolio has two quantitatively specified continuations and one structural-discovery slot. It does not pretend that the third already has an independently sufficient estimate. The three missing inputs are different: a joint residue norm, a signed short-shift correlation, and a class-changing arithmetic transport with a paid boundary.
+
+| Mechanism | Independent input and exact target route | Existing support and first missing step | Obstruction and decisive next test | Lead and disposition |
+|---|---|---|---|---|
+| Joint centered NYMAN residual | Prove an upper bound for the actual complete corrected middle. Accepted C45-C46 turn the full norm rate into a zero strip and genuine Mertens growth. Subpower full norm with a power-sized exact head would force RH. | P4 exact head; P6 remote tail; paid transition; merged #1093 generic return. The first missing step is still the signed joint middle estimate, with both correction bands and the after-N return present. | Referee-10 rejects separate uncentered infinite energies; C49-C51 quantify the stronger input demanded even by a separate centered correction. A new decomposition must retain the affine mixed cancellation and then pay its complete return. | Analytic on its next NYMAN turn. CONTINUE, revise away from separately cheap correction. |
+| CODIV signed triangular lag control | For actual mu, independently bound the common-window signed lag sum in F. The existing physical-shell return would give `M(x)=O_epsilon(x^(7/8-eta/4+epsilon))`. | Analytic M1-M4 pays stronger logarithmic maximal and dilation losses. First missing: fixed power cancellation in the off-diagonal lag sum, not another identity or logarithmic loss removal. | Imported almost-all short-interval uniformity does not supply the required power. A legal high-frequency/correlation configuration or a missing halo bill can defeat a candidate before formalization. | Analytic's protected CODIV turn; independent review remains due. CONTINUE without borrowing Nyman conclusions. |
+| MU-LIFT class-changing transport | Seek an explicit source-faithful sign-reversing transport with its unmatched boundary controlled by a subcritical previous-prefix budget. Together with a whole-prefix recurrence this would imply the required Mertens growth. | Exact finite lift reconstruction is established. Wheel QC1-QC3 shows why complete within-square-class cancellation followed by an absolute remainder cannot supply the recurrence. | No class-changing construction with a paid boundary exists yet. First test: identify the changed prime parity and enumerate every admitted/lost pair, including mixed families. Merely bounding the full signed sum is target-strength again. | Wheel after its due CORR4 and FINITE-AC turns; Referee now audits QC1-QC3. REVISE, discovery slot rather than a ready proof plan. |
+
+Priority is based on exact independent content and falsifiability, not local lemma count. NYMAN has a sharp consumer but no new upper estimate; CODIV has a genuine external quantitative input but only logarithmic progress; MU-LIFT currently has a useful exclusion and needs a different construction. No numerical probabilities are assigned.
+
+Protected nine-route coverage and first unpaid work:
+
+| Route | Latest substantive finding or obstruction | Next unresolved input / disposition |
+|---|---|---|
+| VF-LOW | Owner SF1-SF5: squarefree fixed-depth once-only ancestor capacity fails; depth-three example has 435 seats and 31 ancestors. | Preserve original signed complement; abandon this unconditional capacity supplier, not VF-LOW. |
+| SAT | Owner S3: actual reciprocal-band error improves to `R^(11/6)` from the same input b=7/8. | Due next: OPEN-SAT-I; endpoint `R^(85/48)` and full model/complement remain. |
+| JOH | Owner LC4 pays all within-Li-cell placements at O(N), leaving the actual sampled count history. LC3 defeats local and selected-dyadic nonpositivity. | Count history, not a local midpoint sign. LC5's eventual square sign is TARGET_EQUIVALENT, not an independent supplier. |
+| CODIV | Analytic M1-M4 strengthens logarithmic maximal/daughter return. | The fixed-power common-window lag estimate in F remains OPEN. |
+| OAI-NNS | Original J=empty outer cross Gram is zero; CF1-CF3 separates cube counts from actual inverse coefficients. | Optional original coefficient-sensitive selected-inverse or full integrated saving; no compulsory side audit on other routes. |
+| NYMAN | Changed-low exact head now compiled; C45-C47 accepted with scope; new C49-C51 pending review. | Due next: complete joint middle, not its first half or separate correction norm. |
+| FINITE-AC | Wheel's complete prime-product average collapses to the original Mertens prefix; coherence correction is not free PSD gain. | Independent full finite A/C control; do not rename the collapse an estimate. |
+| CORR4 | Wheel C1-C2: relaxed low-label support/anchor/parity caps can be realized by synthetic signs on actual support. | Due next: a genuine mu-specific cross-label restriction with complete credit accounting. Synthetic support alone is insufficient. |
+| MU-LIFT | QC1-QC3: exact minimum class-preserving absolute pair remainder is S(X)^2. | Review the no-go, then search for class-changing signed structure; recurrence and chain coverage remain OPEN. |
+
+### D. Conceptual Research Performed
+
+#### D1. Exact Original Family And A Legal Centered Split
+
+For integers `N=6K`, `K>=1`, `2<=H<=N/2`, set
+
+```text
+ell = log(N/H),
+F_k = mu(k) log(N/max(H,k))                 (1<=k<=N),
+u = sum_(k=1..N) F_k/k,
+v = 2ell + sum_(k=1..N) F_k.
+
+I_1 = {3K+1,...,4K}, I_2 = {5K+1,...,6K},
+s_i = sum_(k in I_i) 1/k,
+A = (u-s_2*v/K)/(s_1-s_2),
+Z = (s_1*v/K-u)/(s_1-s_2),
+h_k = A*1_(I_1)(k) + Z*1_(I_2)(k),
+c_k = (h_k-F_k)/ell                         (2<=k<=N).
+```
+
+These are exactly Analytic P4, not fitted or synthetic coefficients. The solved moments are `sum h_k/k=u` and `sum h_k=v`, and consequently `sum c_k/k=1`, `sum c_k=3`, `sum c_k alpha_k=1` with `alpha_k=(k-1)/(2k)`. Put
+
+```text
+a_k(m) = (m mod k)/k,       w_m = 1/[m(m+1)],
+r(m) = 1-sum_(k=2..N)c_k a_k(m),
+E = sum_(m>=1) w_m r(m)^2.
+
+B(m) = sum_(k=2..N) (F_k/ell)(a_k(m)-alpha_k),
+g(m) = -sum_(k=2..N) (h_k/ell)(a_k(m)-alpha_k).
+```
+
+Then `r=B+g` EXACTLY. Both centered pieces are bounded and periodic for each fixed family, hence have finite weighted squared norms. This is a valid repair of Referee-10's divergent uncentered floor pieces, but does not by itself provide an upper bound.
+
+For every `m<=N/2`, all high-correction residues equal `m/k`, so
+
+```text
+g(m) = z-lambda*m,
+lambda = u/ell,       z = sum_(k=2..N) h_k alpha_k/ell = (v-u)/(2ell).
+```
+
+For `m<=H`, the original exact head gives `r(m)=0` and thus `B(m)=-g(m)`. This is explicit mixed cancellation in the genuine family, not assumed independence. More generally, for `m<=N/2` the complete return reduces to `ell*r(m)=-U_H(m)`, where
+
+```text
+U_D(m)=sum_(D<k<=m) mu(k) log(D/k) floor(m/k).
+```
+
+For all m the full return remains `ell*r=U_N-U_H+A*F_1floor+Z*F_2floor`, with `F_ifloor=sum_(k in I_i)floor(m/k)`. After N and across the correction bands these omitted-looking terms must be restored before estimating a complete norm.
+
+#### D2. C49: An Unavoidable Finite Correction Energy
+
+**Claim C49 (PAPER_PROOF / SELF_AUDIT).** For every integer `K>=1`, real `lambda,z`, and `N=6K`,
+
+```text
+sum_(m=K..3K) (z-lambda*m)^2/[m(m+1)]
+  >= lambda^2 * (K+1)(2K+1)/[9(3K+1)]
+  >= (N/81)*lambda^2.                                      (C49)
+```
+
+Consequently, this bounds the centered correction energy `J_N=sum_(K<=m<=3K)w_m g(m)^2` in D1. More generally it applies to EVERY real correction supported on `3K<k<=6K`, with the same reciprocal moment, and to every choice of constant centering. Adding more high bands or optimizing the intercept cannot remove this bound while that support and moment are retained.
+
+**Proof.** On this block `w_m>=1/[3K(3K+1)]`. Completing the unweighted square around the mean `2K` gives
+
+```text
+sum_(m=K..3K)(z-lambda*m)^2
+ = (2K+1)(z-2K*lambda)^2
+   + lambda^2*K(K+1)(2K+1)/3.
+```
+
+Discard the nonnegative first term and multiply by the minimum weight. The second inequality follows from
+
+```text
+9(K+1)(2K+1) - 6K(3K+1) = 21K+9 > 0.
+```
+
+This proves the displayed universal constant; no optimality of 1/81 is claimed. No Mobius estimate, probability assumption, or zeta-zero premise is used in this finite geometric lemma.
+
+For each fixed `0<theta<1`, let `H=floor(N^theta)` and take the already used transition `t=floor(H^(4/5))`. Eventually `H+t<N/6`. Thus the entire C49 block is inside the original unpaid middle, not the far tail and not a vanishing head fragment. A separate upper bound for g on that whole middle implies the same upper bound for J_N.
+
+It is INVALID to conclude `E>=J_N`: the full residual is `B+g`, with its mixed term intact. The exact zero head gives a direct warning against such a transfer. C49 is an obstruction to a separate-component certificate, not a lower bound for the complete P4 norm.
+
+#### D3. C50: The Reciprocal Moment Encodes A Stronger Arithmetic Remainder
+
+Define, for real `x>=1`, using the genuine arithmetic Mobius function,
+
+```text
+T(x)=sum_(n<=x) mu(n)/n log(x/n),
+A_mu(x)=sum_(n<=x) mu(n)/n,     V(x)=1-T(x).
+```
+
+The exact source identity is
+
+```text
+u(N,H)=T(N)-T(H)=integral_(H..N) A_mu(t) dt/t.             (C50a)
+```
+
+For n<=H the log difference is log(N/H); for H<n<=N it is log(N/n). This proves the equality without approximation, deleted endpoints, or replacement coefficients. The integral follows by integrating each finite step contribution; equality at integer endpoints causes no extra atom.
+
+**Normalization input.** The following telescope assumes `T(x)->1`. It is enough to use an already available fixed sublinear envelope `|M(x)|<=C x^b` for some b<1. This is strictly weaker than the new conclusion sought. In the repository one may choose, for example, b=15/16 from the existing `MertensGrowthAtMost (7/8)` source statement. This run does not reprove or strengthen that incoming theorem.
+
+For completeness, the analytic bridge is explicit. Abel summation gives locally uniform convergence of `D(s)=sum mu(n)n^(-s)` and its derivative on `Re(s)>b`. On `Re(s)>1`, `D=1/zeta`; at s=1 the zeta pole of residue 1 yields `D(1)=0`, `D'(1)=1`. Therefore
+
+```text
+A_mu(x)=O(x^(b-1)),
+sum_(n<=x) mu(n)log(n)/n -> -1,
+T(x)=log(x)A_mu(x)-sum_(n<=x)mu(n)log(n)/n -> 1.
+```
+
+This uses a fixed b<1 only for normalization; it does not assume the sharper bound for V that is about to be deduced.
+
+**Claim C50 (PAPER_PROOF implication / SELF_AUDIT).** Fix `0<theta<1` and `0<a<1`. Assume `T(x)->1` and, for every epsilon>0, there exist `C_epsilon,N_epsilon` such that
+
+```text
+|u(N,floor(N^theta))| <= C_epsilon N^(-theta*a+epsilon)
+```
+
+for EVERY multiple of 6 `N>=N_epsilon`. Then for every delta>0,
+
+```text
+V(x)=O_delta(x^(-a+delta))                    (all real x>=1). (C50b)
+```
+
+**Proof.** For every sufficiently large integer h choose
+
+```text
+n(h)=6*ceil(h^(1/theta)/6).
+```
+
+The interval `[h^(1/theta),(h+1)^(1/theta))` has length tending to infinity, so eventually `floor(n(h)^theta)=h`. Also `n(h)~h^(1/theta)` and `n(h)>=2h`. Starting at h_0=h, put `h_(j+1)=n(h_j)`. For `0<delta<a`, use the hypothesis with epsilon=theta*delta. Since the resulting exponent is negative,
+
+```text
+|V(h_j)-V(h_(j+1))|
+ = |u(h_(j+1),h_j)| <= C h_j^(-a+delta).
+```
+
+Because `V(h_j)->0` and `h_j>=2^j h`, the sum telescopes absolutely and is bounded by `C h^(-a+delta)/(1-2^(-a+delta))`. This proves the integer assertion. For `h<=x<h+1`, the exact derivative representation and the elementary bound `|A_mu(t)|<=1+log t` give `|T(x)-T(h)|=O(log(2h)/h)`. Since a<1, that is an admissible error. Larger delta follow from any smaller positive delta. Constants may depend on fixed theta,a,delta and the incoming normalization, never on h,N or j.
+
+**Quantifier restriction:** arbitrary sparse scales do NOT suffice for this proof. It needs all sufficiently large multiples of 6, or a separately proved covering-chain substitute. This differs from C46's full-residual zero obstruction, which can use any unbounded certificate subsequence. No sparse-chain bridge is silently supplied.
+
+#### D4. C51: Separate Correction Payment Has A Stronger Zero-Strip Consequence
+
+**Claim C51 (PAPER_PROOF implication / SELF_AUDIT; upper-bound premise OPEN).** Fix `0<theta<1`, `0<=kappa<1`, and suppose `a=(1-kappa)/(2theta)` lies in `(0,1)`. In the exact P4 family, let `H=floor(N^theta)` for all sufficiently large multiples of 6. Assume the normalization in D3 and
+
+```text
+forall epsilon>0, exists C_epsilon,N_epsilon, forall 6|N>=N_epsilon,
+  J_N <= C_epsilon N^(kappa+epsilon).                      (OPEN-NY-CORR)
+```
+
+Then zeta has no zero with
+
+```text
+Re(rho)>b_corr:=1-(1-kappa)/(2theta)=1-a.                  (C51)
+```
+
+**Proof, first step.** C49 gives `|u|<=9ell sqrt(J_N/N)`. Because `ell=O_theta(log N)`, arbitrary positive losses absorb the logarithm and the square root of the input loss. Thus `|u|<<_epsilon N^(-theta*a+epsilon)`. C50 gives `V(x)<<_delta x^(-a+delta)` for every delta>0.
+
+**Proof, analytic step.** For `Re(s)>0`, absolute convergence justifies interchanging the Mobius sum with the integral:
+
+```text
+integral_(1..infinity) T(x)x^(-s-1) dx = 1/[s^2 zeta(1+s)],
+F(s):=integral_(1..infinity) V(x)x^(-s-1) dx
+     = 1/s - 1/[s^2 zeta(1+s)].
+```
+
+The power remainder makes F holomorphic on `Re(s)>-a`: on each compact subset choose delta smaller than its distance from the boundary, giving an integrable dominating power, also for derivatives. Therefore `s-s^2 F(s)` is a holomorphic continuation of `1/zeta(1+s)` throughout that half-plane. On the connected half-plane with s=0 removed, its product with `zeta(1+s)` equals 1 by the identity theorem. A zero of zeta there would give a contradiction. At s=0 the zeta pole is removable in its reciprocal and causes no exception involving a zero. This proves C51 without assuming the zero-free region as an input.
+
+For comparison with accepted C46, additionally take `kappa<theta`. The SAME power kappa for the COMPLETE residual has advertised boundary
+
+```text
+b_full = 1/2+kappa/(2theta),
+b_full-b_corr = (1-theta)/(2theta) > 0.                  (C51a)
+```
+
+At the current fixed parameters, `theta=4/5`, `kappa=3/5-eta`, with `0<eta<2/5`,
+
+```text
+complete residual: b_full = 7/8-5eta/8,
+separate correction: b_corr = 3/4-5eta/8,
+boundary difference: 1/8.                              (C51b)
+```
+
+Reflection gives the corresponding symmetric zero strips. In this displayed range `b_corr>1/2`, so the already inspected `growthAtMost_of_strip` interface converts the conditional result into genuine Mertens growth at b_corr with every positive exponent loss. At eta=2/5 the correction premise would already force the critical-line boundary. No such premise is proved. An improvement over the already inherited strict slot exponent must still be compared with that actual incoming gain, not merely with the rounded 7/8 benchmark.
+
+**Interpretation and no-circularity review.** C50a and the Mellin transform are classical identities; they are not a new quantitative supplier. C49 is a universal finite lower bound on a different, explicitly identified component. C50b and C51 are proved one-way implications with unpaid hypotheses. They show that a separately cheap correction would already provide a boundary 1/8 stronger than the desired full-family consumer advertises. This is NOT a proof of strict logical inequivalence of the two norm hypotheses, nor a claim that the stronger boundary is false. No reverse implication from RH, a zero strip, or Mertens growth to this prescribed P4 norm is proved.
+
+This differs from Referee-10: its bad uncentered pieces are non-summable for each fixed N; the centered g here is summable and is tested on a finite block as N grows. It also differs from C47: that claim measured the deficit of one available upper certificate, whereas C49-C51 place a necessary arithmetic consequence on ANY upper certificate for the separate high correction at the stated all-scale rate. Changing notation or reapplying the same prefix majorant is not a way around either result.
+
+#### D5. Work Backward From Failure And Limits Of The Investigation
+
+The contrapositive is useful and precise: if an actual zeta zero lies to the right of b_corr, the all-scale component estimate OPEN-NY-CORR cannot hold. The failure must occur through the genuine reciprocal moment difference `T(N)-T(H)` on admissible scales, regardless of the two high-band intercept choices. This does not assert existence of such a zero or uniform largeness of u at every N.
+
+The possible escape is joint cancellation, already exact before the correction activates in the floor coordinates. On `N/6<=m<=N/2`, the full r equals `-U_H/ell`; the large affine part in the base is paired with g. Retaining that cancellation is necessary for an efficient joint proof, but it is an identity, not a bound for U_H or the later return. An arbitrary subtraction of the affine piece from only one component would change the original residual and is not an authorized renormalization.
+
+No new independent signed upper estimate survived this investigation. The strongest finding is the finite source restriction and its analytic inverse consequence. It justifies retiring the description of a separately bounded correction as an automatically cheaper final bill, while keeping the full joint mechanism open.
+
+#### D6. C52: Exact Finite Regressions And Falsification
+
+Before execution the script fixed development `(N,H)=(24,12),(42,19),(120,46)` and held-out `(84,34),(180,63),(240,80)`. These are six admissible families, not an assertion that every listed H equals `floor(N^(4/5))`. Logarithms are represented as exact rational vectors of prime logarithms. No floating point, zeta zeros, asymptotic fit, or synthetic replacement of P4 coefficients is used.
+
+The executed checks cover:
+
+- **1,380 original residue coordinates**, all `1<=m<=2N` in the six families: both solved moments, the exact source difference, centering moment, original `r=B+g`, the affine interval, and exact head cancellation.
+- **432 rational affine-energy checks** over K=1,...,32 and K=47,64,101,127, including optimized weighted intercepts and zero/positive/negative slopes. The exact weighted variance dominates the paper constant.
+- **393 integer power-window chain steps** for theta=4/5, checking `h^5<=n^4<(h+1)^5` and `n>=2h`; three separate middle-block cutoffs N=49,152, 98,304, 196,608.
+- **Four rational exponent comparisons**, eta=1/100,1/10,1/5,2/5, each giving boundary gap 1/8.
+- **A real scope falsifier:** remove high support and take only d_2=1 at N=24. Its centered energy on m=4,...,12 is exactly 9/832, below the purported high-support lower bound 2/27. Therefore the support hypothesis cannot be deleted. This is not a counterexample to P4 or C49.
+
+The script and its exact output are included after J. Execution and Python syntax compilation succeeded. SHA-256 of the executed script: **`b87aaf3282f64cf18724efd517e1ea6f356a145748841f85257c0f439b46a080`**. These checks validate finite algebra and scope, not the infinite analytic argument or an upper norm rate. Independent review remains PENDING.
+
+#### D7. External Mathematics And What Was Not Imported
+
+Primary sources consulted were Baez-Duarte's [Arithmetical Aspects of Beurling's Real Variable Reformulation of the Riemann Hypothesis](https://arxiv.org/pdf/math/0011254) and [A Strengthening of the Nyman-Beurling Criterion](https://arxiv.org/pdf/math/0202141), together with [DLMF 25.2](https://dlmf.nist.gov/25.2) and [DLMF 25.4](https://dlmf.nist.gov/25.4). The Baez-Duarte papers place the genuine reciprocal Mobius sum, natural approximants and logarithmic taper in their established context; their convergence statements are not imported as bounds for today's changed-low, two-band family. There is no literature novelty claim for the classical Mellin/Abel ingredients.
+
+DLMF supplies the standard meromorphic continuation, residue-one pole at 1 and reflection formulas of the SAME Riemann zeta function. The required finite coefficient map, all-scale telescope, quantitative loss and Mellin interchange are proved explicitly above. No general analogy, uninspected density theorem, all-Dirichlet extension, or claim about Hecke masks substitutes for that bridge. The present norm-to-strip proof is zeta-only.
+
+### E. Specialist Findings And Continuity
+
+All six current-day reports and both days' own reports were available. November 3 and November 4 files were retrieved in full; relevant current claim, proof, correction and resume sections were read. Executed appendix codes in other reports were NOT all rerun. Initial reporting snapshot was `bd332f81ab901d17543987c1172cdd4c8b88ad92`; close-out tree at `e4d693ea6d35aab11bf6995c313d7babd3cbd610` shows unchanged specialist bytes. The two own mirrors are one logical report, not independent evidence.
+
+| Role | November 3 blob | November 4 intake blob |
+|---|---|---|
+| Coordinator | e35ab2cd9cba2a47ac5be53b09938b37a0c20df3 | f4297e525684aa149b9f7bd037bc1507e9f3a3e4 |
+| Owner | d52c74b76c2914c3be694f39cd7afe9b122a4834 | 560b0b7617703b64e728e12e60a390646c9379ea |
+| Analytic | 2b9c3dbab6039e3c30a5ece3e473290af5dbbf0b | 04ffb1b41d8b6afe5a5d89754f5ccbc8d9682d58 |
+| Wheel | cd7777180bb5c2c899a60bdd699b99be8e12a672 | 37ad6a1230fbb46369311790ed5686baf1775598 |
+| Census | eb9a2e0cf7772f22060aec07e0bcddd24ace9cd9 | 4bd5319fa3d13219cdad006dce4a854b606c2f7c |
+| Referee | 583ce524628577818603ffd4e9ec0eb3673a3f37 | 0e4fdfbf90d52a74074e04ef6cb6988339dc8d84 |
+| Lean | fc27fb1ae103e60ff600e5a24ce6716937da3884 | 5fce0138779d67eda4e69c13230274e6419de894 |
+
+**Owner.** Today's third turn, scheduled 16:15 EST, establishes the all-cell compression `G(N)=U_a(N)+E_a(N)` with the genuine initial anchor, final partial cell and actual prime displacements; `0<=E_a<=pi(N)log N<=(13/10)N` for N>=17. LC4 is a useful paid proper sector, **PAPER_PROOF / SELF_AUDIT**, not the bound on U. LC3's actual same-owner/width/gap slot examples have signed areas -2 and +2; W(512)=1 and W(2048)=3 defeat the aggregate nonpositive shortcut. LC5's eventual square sign for U is **TARGET_EQUIVALENT** at its stated external-paper scope. Earlier S3 and SF1-SF5 retain their limited scopes. Yesterday's JH9-JH10 and SAT endpoint accounting are carried forward, not rebranded as new results. Next protected route: SAT, then VF-LOW.
+
+**Analytic.** Today's third turn, scheduled 17:11 EST, M1-M4 gives arbitrary fixed logarithmic savings in the maximal AP/polynomial, reciprocal-owner daughter and complete same-frequency physical-shell estimates. It uses an almost-all short-interval nilsequence theorem with explicit admissible scales, thickening and exceptional-set payment. This is new reported quantitative content, **PAPER_PROOF / SELF_AUDIT**, but not the fixed-power CD5 supplier. Earlier P4-P10 is independently accepted with scope by today's Referee; CF1-CF3 is likewise scoped and does not pay an all-selected inverse estimate. Yesterday's N4 complete covariance/tail is accepted carry-forward. Next protected route: NYMAN, then OAI-NNS.
+
+**Wheel.** Today's third turn, scheduled 18:06 EST, QC1-QC3 reconstructs the entire ordered lift-pair carrier by the rational square class `s=kappa(mn)`, not rad(mn). Its signed class mass is `mu(s)W_s`; optimal class-preserving cancellation leaves exactly `S(X)^2`, at least X^2/16. This defeats the specified absolute-remainder method, NOT the full signed Mertens energy. At X=15 the class signs give +61 and -60: full energy is 1, not 121. **PAPER_PROOF / SELF_AUDIT**, independent review pending. Earlier C1-C2 synthetic support-cap saturation and complete prime-product collapse remain proper restrictions, not mu estimates. Next protected route: CORR4, then FINITE-AC.
+
+**Census.** The 19:00 EST continuation completes the requested genuine P4 middle test. `E_core<=4E_first` is **REFUTED** at each declared N=120,240,384,600, with reported ratios approximately 112.47,22.90,38.82,13.66. At N=120 a single later term already certifies failure. The finite-core correction-monotonicity proposal also fails at N=42,H=19,T=273: correction energy is positive and its favorable mixed term does not fully offset it. Referee independently reproduced the N=120 and N=42 certificates; the other two scales remain author finite evidence. Do not infer any asymptotic exponent from these values or extend the same defeated scan merely for volume.
+
+**Referee.** The 20:13 EST report accepts C45-C47 and Analytic P1-P10 with scope and independently reproduces the two Census fixtures just noted. New referee-10 proves fixed-N divergence of the separately squared uncentered floor pieces and restores the bounded centered alternative. Its proof of `u!=0` does not give a uniform power lower bound as N grows. New referee-12 extends the hypothetical-zero obstruction to a fixed finite Gram system, improving constants but not exponents. These new author-originated Referee claims have **SELF_AUDIT**, not a fictitious second independent review. C49-C51 are new here and still unreviewed.
+
+**Lean Verification.** The 21:08 EST report's #1093 has since been human-merged. Its former REVIEW_READY/unmerged wording is superseded by I. It certifies the generic flat return, reciprocal moment and exact head, not the full two-band analytic norm theorem. There is no active failing proof PR at this run's checked snapshot. No new Lean task is claimed completed by Coordinator.
+
+**Own continuity.** C41-C44 and C45-C48 remain intact. C45-C47 are now independently accepted at their scopes, superseding the earlier review-pending line; C48 remains finite validation. C49-C51 do not recycle the fixed-log invariant under a changed premise. No source definition was replaced to obtain the new lower bound.
+
+**External inbox.** `EXTERNAL_HANDOFFS.md` has unchanged blob `038018145c0fddb2f6306c0712373adf9cd1ea52`; no entry after October 18 was present. The PNT source/error/anchor restrictions, strict-root boundary cautions and the distinction between an all-R denominator no-go and a conditional first-bad statement remain relevant safeguards. No new Nyman supplier or fresh external handoff is invented. All current specialist stages above are AVAILABLE; next executions, future reviews and formalizations remain PENDING and were not launched.
+
+### F. Mathematical Bottlenecks
+
+**NYMAN.** For theta=4/5, the actual unpaid estimate is, for some fixed eta>0,
+
+```text
+sum_(H+t<m<=T_cut) [U_N(m)-U_H(m)+A F_1floor(m)+Z F_2floor(m)]^2
+                    /[ell^2*m(m+1)]
+  <<_epsilon N^(3/5-eta+epsilon),
+H=floor(N^(4/5)), t=floor(H^(4/5)), T_cut=ceil(N^(3/2)).
+```
+
+All cutoffs, both bands and the after-N part are included. Accepted tail/transition payments are separate disjoint regions of the SAME full residual; no separate B/g energy payment is assumed. The target is a calibrated sufficient hypothesis, not an independently established easier estimate. To exploit C46 it is enough to produce a suitable unbounded subsequence of full certificates; C51's component obstruction deliberately has stronger scale-coverage assumptions.
+
+**CODIV.** For all sufficiently large integer H, `h=floor(H^(2/3))`, define
+
+```text
+T_mu(H,h)=2 sum_(1<=d<h)(h-d)
+                 sum_(H^2<=n<4H^2) mu(n)mu(n+d).
+```
+
+The open proper signed supplier is `T_mu(H,h)<=C_epsilon H^(17/6-eta+epsilon)` for every epsilon>0 and one fixed `0<eta<1/6`. In the recorded exact return, this gives complete physical-shell energy bounded by the sum of powers `H^(7/3)`, `H^(5/2-eta)` and `H^(5/3)`, with positive losses and real halos paid. Today's logarithmic M1-M4 does not establish that power inequality. Diagonal, shifted upper halo, smoothing and root-birth terms cannot be omitted.
+
+**MU-LIFT.** The unpaid theorem remains a whole-prefix recurrence
+
+```text
+E(B)=max_(1<=n<B)|M(n)|/sqrt(n),
+E(B_j^k)<=G_j E(B_j)^r,
+B_(j+1)=B_j^k, fixed k>=2, fixed 1<=r<k,
+G_j>=1, log(G_j)/log(B_j)->0.
+```
+
+QC1-QC3 excludes class-preserving absolute remainder as its supplier, even after full raw cancellation. It does not exclude a genuinely class-changing signed estimate. An exact reindexing `M(X)^2=sum_s mu(s)W_s` alone has no new quantitative consequence.
+
+**Prime-history routes.** In JOH, the paid O(N) placement error leaves `U_a=G(a)+sum_j(t_j-b_j)h_j`, with `h_j=pi(b_j)-floor(Li_2(b_j))-1`, `b_j` the integer Li arrivals, and `t_j=min(b_(j+1),N)`. A proposed increment variance does not by itself control this signed level history: adding a constant to every h_j leaves increments unchanged and changes U by a linear amount. Original anchors and a global level principle remain necessary. SAT's proper interior is independent of this statistic and is the next due Owner task, not replaced by it.
+
+### G. Strategy Decisions
+
+1. Continue the full joint NYMAN route. Suspend the claim that separately bounding its centered correction at the desired power is an innocuous final step. C49-C51 should receive independent review before formalization or use as an accepted exclusion.
+2. Retire the defeated initial-half constant-factor surrogate and finite-core monotonicity claim. Neither failure refutes the complete norm-growth target. Do not repeat those scans without a changed hypothesis.
+3. Preserve the independent CODIV lag problem and review the stronger logarithmic transfer on its actual carrier. Better logarithms are supporting progress, not VERIFIED_ETA.
+4. Subject QC1-QC3 to an independent audit, then reject only the precise square-class-preserving absolute-certificate program if accepted. Cross-class signed work and MU-LIFT itself remain open.
+5. In JOH retire universal favorable microscopic/dyadic timing signs. Preserve LC4's paid geometric error; do not promote U's target-equivalent sign or unanchored increment estimates as new arithmetic input.
+6. Preserve next primary rotations Owner SAT, Analytic NYMAN, Wheel CORR4. Support roles receive distinct verification tasks, not six versions of the new Nyman calculation. Existing strict-slot proof facts remain unchanged; no additional gate promotion is made.
+
+### H. Next Specialist Assignments
+
+These are asynchronous handoffs for future actual executions, not launches, schedules, approvals of speculative claims, or edits to another role's instructions. Newer authoritative evidence may change the choice with a stated reason.
+
+**Owner Payment: SAT interior with the actual anchor.** Resume owner-1 S1c and OPEN-SAT-I. For `Y=(2R)^2-1`, `D=floor(sqrt R)`, `x_d=floor(Y/d)`, `Delta(x)=pi(x)-Li_2(x)`, preserve
+
+```text
+I_R=sum_(D<d<2D)mu(d)[Delta(x_d)-Delta(x_(2D))],
+A_R=M(D)[Delta(x_D)-Delta(x_(2D))],
+E_R=-A_R-I_R.
+```
+
+Resolve whether an independently justified multiplicative/prime-location restriction yields a fixed kappa>0 in `|I_R|<<_epsilon R^(11/6-kappa+epsilon)`, with the existing b=7/8 and alpha=8/9 input. Reuse the paid S3 transfer and retain `A_R`, its 85/48 estimate, and the model/complement in every endpoint comparison. A valid output is a new bound with all-R quantifiers or a legal obstruction to the proposed correlation method. Test simultaneous endpoint/interior signs and the known R=16 endpoint deletion failure. This changes SAT's prospects only if new arithmetic survives the full return; a proper-sector result alone is not a 7/4 improvement.
+
+**Analytic Type II: NYMAN joint cancellation, not a separately small correction.** Resume accepted P4-P10 and C45-C47 with the complete middle in F. Test a genuinely new arithmetic decomposition that pairs the forced affine mode before taking a square/absolute value and controls the resulting after-N and both-band contributions. Reuse #1093 for the exact return; do not spend the turn recompiling the head identity. New C49-C51 is a self-audited warning, not a pre-accepted premise. A valid result is an independent signed upper bound at a declared range/exponent, or a no-go with original coefficients and full reconstruction. A decisive falsifier is an unpaid cross term or a surviving whole block at the same exponent after every return. If only a renamed complete norm or separately postulated u-decay is obtained, report that as the first missing input, not a smaller final step. Next protected route remains OAI-NNS, then CODIV.
+
+**Finite Wheel & Incidence: CORR4 beyond relaxed support caps.** Resume wheel-1 C1-C2. Use actual `X=R^2-1`, `m=M(R-1)`, `G=M(X)-m`, `d_q=M(floor(X/q^2))` and the same full quadratic carrier
+
+```text
+B_R=G^2-(D-P)+sum_q [2G*d_q/q-2*d_q^2].
+```
+
+The relaxed constraints `d_q in m-V_q+2Z`, `|d_q-m|<=V_q`, with actual squarefree support V_q, are not sufficient: the synthetic-support construction can jointly saturate relevant low-label caps. Seek a genuine Mobius factor/sign relation across at least two admitted labels that excludes an explicit relaxed extremizer. Reuse the support/anchor/parity theorem; specify the exact additional relation and its original-source proof. The falsifier is a true arithmetic configuration satisfying that relation while retaining the relaxed cap, or a proof that the relation is already implied by the old relaxation. Restore the entire B_R before any global credit; no sum of favorable local caps constitutes the target. Then FINITE-AC, then MU-LIFT according to protected rotation.
+
+**Prime Census Laboratory: independent JOH compression fixtures.** Use the original Li_2 definition and rigorous interval-certified floor arrivals from Owner LC4. Freeze N=512,1024 for development and N=2048,4096 for held-out validation; use a=5. Independently compute the literal `G(N)`, `U_5(N)` and exact integer prime-displacement E, with initial and final partial cells, and verify `G=U+E` and the claimed nonnegative placement payment. Include the already declared W(512)>0 falsifier only as reproduction, not a new discovery. Challenge primes at b_j, b_(j+1) and N, and any uncertain floor interval must be refined rather than rounded heuristically. Return exact certificates or a first violated identity; do not enlarge the range or fit an RH exponent. This would prepare a distinct paid source theorem for review and prevents support work from concentrating entirely on NYMAN.
+
+**Adversarial Referee: MU-LIFT QC1-QC3 first, new C49-C51 queued.** Independently reconstruct the raw ordered occurrence carrier, strict `X<B^k`, square class kappa rather than radical, signed class mass and optimal class-preserving matching. Verify whether the claimed X^2/16 absolute certificate lower bound really prevents `G(B)E(B)^r sqrt X` for r<k, with all scale and chain assumptions. Test X=15 (+61,-60) to catch accidental promotion to a lower bound for M(X)^2 and test the excluded equality X=B^k. Output per-claim ACCEPTED/REVISED/REFUTED with exact scope. This decides whether an entire pairing method should be retired. C49-C51 is a subsequent independent-review packet: challenge affine support, all-multiples coverage, normalization, epsilon allocation, holomorphic continuation and comparison with sparse C46. Its author self-audit is not enough to call it accepted. CODIV M1-M4 also remains a distinct pending review, not silently completed.
+
+**Lean Verification: one previously accepted localized obstruction, if absent and useful.** Recheck that C45 has not been implemented after this snapshot. Today's Referee accepted its exact-head and leakage statements with scope. Select at most that one coherent theorem family for an authorized proof branch: the original Nyman Mellin residual at a hypothetical zero, localized Cauchy bound with cutoff H+1 and the nonnegative leakage term, preserving beta>1/2 and the exact original basis. Reuse actual analytic imports and #1093's head interface; do not assume a norm upper estimate. An abstract Hilbert inequality without the original Mellin bridge is only an abstract sublemma and must be labeled accordingly. Falsification/stop conditions are a missing integrability/zero premise, changed cutoff, or absent original-source bridge; record the precise gap instead of smuggling it into an axiom. Exact-head Actions, theorem types and accepted terminal axioms are required; human merge only. New C49-C51, LC4 and QC1-QC3 are not yet independently qualified formalization requests.
+
+The exact-head endpoint to encode is: for every finite real coefficient vector on the original basis, every integer H>=1 with r(m)=0 for 1<=m<=H, and every nontrivial zero rho with beta=Re(rho)>1/2,
+
+```text
+sum_(m>=1) r(m)^2/[m(m+1)]
+  >= (2beta-1)/|rho|^2 * (H+1)^(2beta-1).
+```
+
+The leakage extension is exactly C45a in the preserved preceding synthesis, not a claim that a fixed leakage is harmless uniformly in the zero height. Neither theorem asserts existence of an off-critical zero.
+
+### I. Lean And PR Status
+
+Live open/draft PR discovery returned an empty collection at intake and close-out. Recent merged changes were inspected; #1092 changes routing, #1091 preserves the explicit fixed-slot result, #1090 is the fixed-log Nyman invariant, and #1085 is scoped central moving mass. Historical unmerged wording in the contract/reports does not override their actual statuses. This invocation does not re-credit #1087 as a new theorem or pretend to re-audit every historical dependency.
+
+**#1093 is now PROVED_IN_LEAN / CI_GREEN / MERGED at its actual scope.** Human merge occurred at `2026-11-05T03:23:34Z`, yielding current main. Final PR head is `a54f0cf9535c548920dae3412e3fbe6d6584e029`; the dedicated job actually checked synthetic merge commit `779336cefaf99d04bf48b837340a076d40aebdd3`. Its entire Git tree matches main's `958770679fb0146df80f44de258f694cd232434e`, not merely a similar filename. All 12 returned workflows and 13 checks succeeded at the final PR head.
+
+The [dedicated run 41955044802 / job 127007831273](https://github.com/OVVO-Financial/RH_Lean/actions/runs/41955044802/job/127007831273) was read directly. It used Lean 4.34.1 and Mathlib `d13f23b723b8a846827a245b89c10fc7d3f11612`; warning-fatal compilation and theorem/axiom checks passed. Printed terminal dependencies are restricted to `propext`, `Classical.choice`, `Quot.sound`. The workflow blob is `5cc25dd6759fcfec808cf01e893346d2cb5f3b10`. Cached prerequisites were used; no cold rebuild of the whole import closure is claimed.
+
+The checked declarations are `nymanFlatKernel_eq_original`, `nymanFlatCoefficient_eq_original`, `nyman_flat_reciprocal_moment`, `nyman_flat_complete_return`, `nyman_flat_return_of_moment`, `nyman_flat_exact_head`, `nyman_flat_head_iff_moment`, and `nyman_two_band_moment_solver`. In particular, the generic source identity retains `m*(u-v_h)` until the reciprocal correction moment is supplied. Exact head requires `1<=H<N`, positive m in the head and h vanishing there; it is not a theorem about arbitrary coefficients.
+
+The finite real two-moment solver is not the full concrete P4 band instantiation or its infinite norm/tail theorem. #1093 does not formalize C45, C49-C51, the full-middle supplier, a zero-strip improvement, or RH. No local Lean execution, source edit, proof branch, PR mutation, workflow rerun, merge, permission change or agent launch occurred in this Coordinator run.
+
+### J. Next-Run Resume Capsule
+
+```text
+RUN: 20261104-coordinator-3, actual scheduled 23:09:01 EST.
+MAIN: ff620da3c0d2c29585805960c6be183c07f16556.
+POLICY: NO_PIGEONHOLING_ROUTE_SELECTOR_V1;
+        ffd8f1c65cc4da656174956d4e03b48bea46768b.
+CANONICAL: actual-prime VF square von Koch bound OPEN.
+GATE: SEARCH_BROAD for additional independent gain; existing strict slot retained.
+NEW: C49 universal finite centered-high-correction lower bound;
+     C50 exact reciprocal-moment source and all-scale telescope;
+     C51 correction-rate -> stronger zero boundary;
+     all PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING.
+C52: finite exact regressions, script SHA256
+     b87aaf3282f64cf18724efd517e1ea6f356a145748841f85257c0f439b46a080.
+CRUCIAL LIMIT: J_N is NOT a lower bound for full E;
+     C50-C51 require all sufficiently large multiples of 6, not arbitrary sparse N.
+AT theta=4/5: same kappa=3/5-eta gives correction boundary 3/4-5eta/8,
+     vs full-residual advertised boundary 7/8-5eta/8; difference 1/8.
+FIRST UNPAID NYMAN: joint entire original corrected-middle upper estimate.
+NO REVERSE: no equivalence to prescribed-family norm rate proved.
+ACCEPTED PREVIOUS: Referee-9 accepts C45-C47 and Analytic P1-P10 with scope.
+REFUTED SURROGATES: finite first-half factor-four and finite-core monotonicity.
+MU REVIEW NEXT: QC1-QC3 class-preserving absolute-remainder obstruction;
+     do not infer full signed energy >=S(X)^2.
+PROTECTED NEXT: Owner SAT; Analytic NYMAN; Wheel CORR4.
+SUPPORT: Census JOH compression fixtures; Referee MU audit;
+     Lean at most accepted C45 source-faithful localized obstruction.
+FORMAL: #1093 MERGED; final head a54f0cf9535c548920dae3412e3fbe6d6584e029;
+     tested merge 779336cefaf99d04bf48b837340a076d40aebdd3;
+     tested tree equals current main; no active failing PR found.
+EXTERNAL: inbox 038018145c0fddb2f6306c0712373adf9cd1ea52, no post-Oct18 entry.
+RESUME: refresh live main and both Eastern dates first; obtain independent
+     disposition for C49-C51; seek a jointly signed arithmetic estimate
+     rather than a separately small correction or another exact rewriting.
+```
+
+The early checkpoint for this same invocation was committed to the AM mirror in `a161be2ebad11e1340c2226e80fd3a3dd4b6c904` and the PM mirror in `e4d693ea6d35aab11bf6995c313d7babd3cbd610`. Readback verified both at blob `bc141cff856e1e279be47a370f4826c74c8dc65a`. The synthesis below is not declared published until its own commit/readback succeeds. No pending specialist review or future execution is represented as complete.
+
+### Appendix 2. Complete C52 Reproducer
+
+The following standard-library Python script is included verbatim so the finite evidence does not depend on an uncommitted local file. Its hash and scope are recorded in D6.
+
+```python
+"""Exact finite source checks; no numerical zeros or asymptotic fit."""
+
+from fractions import Fraction as Q
+
+
+def add(a, b):
+    out = dict(a)
+    for p, v in b.items():
+        out[p] = out.get(p, Q(0)) + v
+        if not out[p]:
+            del out[p]
+    return out
+
+
+def scale(a, c):
+    return {p: v * c for p, v in a.items() if v * c}
+
+
+def total(terms):
+    out = {}
+    for a in terms:
+        out = add(out, a)
+    return out
+
+
+def factors(n):
+    out, p = {}, 2
+    while p * p <= n:
+        while n % p == 0:
+            out[p] = out.get(p, 0) + 1
+            n //= p
+        p += 1
+    if n > 1:
+        out[n] = out.get(n, 0) + 1
+    return out
+
+
+def mu(n):
+    fs = factors(n)
+    return 0 if any(e > 1 for e in fs.values()) else (-1) ** len(fs)
+
+
+def logvec(n):
+    return {p: Q(e) for p, e in factors(n).items()}
+
+
+def logquot(n, h):
+    return add(logvec(n), scale(logvec(h), -1))
+
+
+def alpha(k):
+    return Q(k - 1, 2 * k)
+
+
+def log_average(x):
+    return total(scale(logquot(x, k), Q(mu(k), k)) for k in range(1, x + 1))
+
+
+def actual_family(n, h):
+    assert n % 6 == 0 and 2 <= h <= n // 2
+    k0 = n // 6
+    ell = logquot(n, h)
+    f = {k: scale(logquot(n, max(h, k)), mu(k)) for k in range(1, n + 1)}
+    u = total(scale(f[k], Q(1, k)) for k in f)
+    v = add(scale(ell, 2), total(f.values()))
+    i1 = range(3 * k0 + 1, 4 * k0 + 1)
+    i2 = range(5 * k0 + 1, 6 * k0 + 1)
+    s1 = sum((Q(1, k) for k in i1), Q(0))
+    s2 = sum((Q(1, k) for k in i2), Q(0))
+    a = scale(add(u, scale(v, -s2 / k0)), 1 / (s1 - s2))
+    z = scale(add(scale(v, s1 / k0), scale(u, -1)), 1 / (s1 - s2))
+    correction = {k: a if k in i1 else z if k in i2 else {} for k in range(2, n + 1)}
+    assert total(scale(correction[k], Q(1, k)) for k in correction) == u
+    assert total(correction.values()) == v
+    assert u == add(log_average(n), scale(log_average(h), -1))
+    intercept = total(scale(correction[k], alpha(k)) for k in correction)
+    assert intercept == scale(add(v, scale(u, -1)), Q(1, 2))
+    cnum = {k: add(correction[k], scale(f[k], -1)) for k in correction}
+    assert total(scale(cnum[k], alpha(k)) for k in cnum) == ell
+    coords = 0
+    for m in range(1, 2 * n + 1):
+        residues = {k: Q(m % k, k) for k in cnum}
+        rnum = add(ell, scale(total(scale(cnum[k], residues[k]) for k in cnum), -1))
+        base = total(scale(f[k], residues[k] - alpha(k)) for k in cnum)
+        gnum = scale(total(scale(correction[k], residues[k] - alpha(k)) for k in cnum), -1)
+        assert rnum == add(base, gnum)
+        if m <= n // 2:
+            assert gnum == add(intercept, scale(u, -m))
+        if m <= h:
+            assert not rnum
+            assert base == scale(gnum, -1)
+        coords += 1
+    return coords
+
+
+def weighted_affine_variance(k):
+    weights = {m: Q(1, m * (m + 1)) for m in range(k, 3 * k + 1)}
+    s0 = sum(weights.values(), Q(0))
+    s1 = sum((m * w for m, w in weights.items()), Q(0))
+    s2 = sum((m * m * w for m, w in weights.items()), Q(0))
+    variance = s2 - s1 * s1 / s0
+    paper_bound = Q((k + 1) * (2 * k + 1), 9 * (3 * k + 1))
+    assert variance >= paper_bound >= Q(6 * k, 81)
+    for slope in (Q(-7, 3), Q(0), Q(2, 5)):
+        for intercept in (Q(-3, 2), Q(0), Q(11, 7), slope * s1 / s0):
+            energy = sum((w * (intercept - slope * m) ** 2 for m, w in weights.items()), Q(0))
+            assert energy == slope * slope * variance + s0 * (intercept - slope * s1 / s0) ** 2
+            assert energy >= Q(6 * k, 81) * slope * slope
+    return 12
+
+
+def ceil_root(n, power):
+    lo, hi = 0, 1
+    while hi ** power < n:
+        hi *= 2
+    while lo + 1 < hi:
+        mid = (lo + hi) // 2
+        if mid ** power >= n:
+            hi = mid
+        else:
+            lo = mid
+    return hi
+
+
+def root_floor(n, power):
+    r = ceil_root(n, power)
+    return r if r ** power == n else r - 1
+
+
+def main():
+    development = [(24, 12), (42, 19), (120, 46)]
+    held_out = [(84, 34), (180, 63), (240, 80)]
+    coords = sum(actual_family(n, h) for n, h in development + held_out)
+    ks = list(range(1, 33)) + [47, 64, 101, 127]
+    checks = sum(weighted_affine_variance(k) for k in ks)
+    # A low-supported correction violates the conclusion if high support is dropped.
+    n, k0 = 24, 4
+    energy = sum((Q(1, m * (m + 1)) * (Q(1, 4) - Q(m % 2, 2)) ** 2
+                  for m in range(k0, 3 * k0 + 1)), Q(0))
+    assert energy == Q(9, 832) < Q(n, 81) * Q(1, 2) ** 2
+    chain_steps = 0
+    for h in list(range(1024, 1152)) + [4096, 8192, 16384]:
+        for _ in range(3):
+            n = 6 * ((ceil_root(h ** 5, 4) + 5) // 6)
+            assert h ** 5 <= n ** 4 < (h + 1) ** 5
+            assert n >= 2 * h
+            h = n
+            chain_steps += 1
+    for n in [49152, 98304, 196608]:
+        h = root_floor(n ** 4, 5)
+        transition = root_floor(h ** 4, 5)
+        assert h + transition < n // 6
+    theta = Q(4, 5)
+    for eta in (Q(1, 100), Q(1, 10), Q(1, 5), Q(2, 5)):
+        kappa = Q(3, 5) - eta
+        full_boundary = Q(1, 2) + kappa / (2 * theta)
+        correction_boundary = 1 - (1 - kappa) / (2 * theta)
+        assert full_boundary == Q(7, 8) - Q(5, 8) * eta
+        assert correction_boundary == Q(3, 4) - Q(5, 8) * eta
+        assert full_boundary - correction_boundary == Q(1, 8)
+    print(f'PASS: {coords} exact original P4 residue/centered reconstructions in six fixed families')
+    print(f'PASS: {checks} rational affine energies on {len(ks)} fixed K values')
+    print(f'PASS: {chain_steps} integer power-window chain steps; three middle-range cutoffs')
+    print('PASS: four exact exponent comparisons; boundary gap = 1/8')
+    print(f'Negative control: low-support energy {energy} < proposed bound {Q(24, 324)}')
+    print('Scope: finite algebraic regressions; no zeta-zero test or uniform norm upper bound')
+
+
+if __name__ == '__main__':
+    main()
+```
+
+Executed output:
+
+```text
+PASS: 1380 exact original P4 residue/centered reconstructions in six fixed families
+PASS: 432 rational affine energies on 36 fixed K values
+PASS: 393 integer power-window chain steps; three middle-range cutoffs
+PASS: four exact exponent comparisons; boundary gap = 1/8
+Negative control: low-support energy 9/832 < proposed bound 2/27
+Scope: finite algebraic regressions; no zeta-zero test or uniform norm upper bound
+```
+
+
