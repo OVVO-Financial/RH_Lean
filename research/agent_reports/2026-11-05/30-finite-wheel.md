@@ -1357,3 +1357,693 @@ Actual invocation: **2026-11-05T18:06:01-05:00**, SCHEDULED, America/New_York; R
 **Preregistered checks:** compare genuine prime and squarefree semiprime populations in the SAME interval (floor(X/2),X]; preserve the q>small-prime admission so factor classes are disjoint; test exact finite endpoints and the failure of too-small partner pools. If a matching exists, explicitly lift it to raw occurrence IDs and the full ordered square, not a separately squared prime packet. Finite success will not establish all-scale existence or a recurrence. The subcritical whole-prefix bound remains OPEN; no large undirected scan is planned.
 
 Only this own daily report is being changed remotely. No Lean execution, source/other-report edit, new branch/PR, schedule change, agent launch or merge.
+
+
+## Scheduled MU-LIFT Final Synthesis - 20261105-wheel-3
+
+Actual invocation: **2026-11-05T18:06:01-05:00**, SCHEDULED, America/New_York; RUN_ID_UNAVAILABLE. This completes this invocation's earlier checkpoint, not another run. New claims PE1-PE4 are **PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED**. PE5 is **FINITE_COMPUTATION**. No additional complete-endpoint gain, canonical VF bound, or RH proof is claimed.
+
+### A. Most Important Structural Discovery
+
+**The top-prime one-toggle obstruction can be bypassed by a genuine class-changing matching without spending any already matched factor-2 occurrence.** First retain every existing squarefree cancellation n <-> 2n. The remaining carrier is exactly the odd squarefree integers in (X/2,X]. For all sufficiently large integer X, every prime in that interval can then be paired with a DISTINCT positive odd semiprime in the SAME interval. Each new pair changes three prime coordinates and reverses the original Mobius sign.
+
+The permitted semiprimes can use the fixed small-prime set
+
+```text
+P9 = {3,5,7,11,13,17,19,23,29},
+partner = s*q, s in P9, q prime >29, X/2 < s*q <= X.
+```
+
+This is not a residue-wheel count or a proposed prime-density substitution. Unique factorization proves disjointness and signs; the ordinary prime number theorem proves enough ACTUAL partners. The exact capacity criterion for any fixed finite odd-prime set P is sum_(s in P) 1/s > 1. Nine is the minimum number of such prime multiplier channels for eventual complete coverage; the claim is not about every small cutoff or other possible partner families.
+
+The matching lifts to the original ordered Heath-Brown occurrences, with all binomial multiplicities, and then to their ENTIRE ordered square. Thus the new cancellation is real and includes the mixed terms. However, its final unsigned remainder still has linear size in X. Closing by absolute values after this particular construction cannot provide the subcritical MU-LIFT recurrence. There is also no cutoff-independent partner map that remains in the odd upper-half carrier at every cutoff.
+
+This supplies a concrete nonlocal alternative to the already compiled one-toggle no-go, together with its precise limitation. The prime number theorem, factor-2 telescope, general matching principle, coefficient reconstruction and tensor cancellation are prior tools, not claimed as new. The new contribution relative to the inspected repository and two-day handoffs is their source-qualified, once-only odd-boundary extension and complete-return calibration. No literature-priority claim is made.
+
+### B. Current Authoritative Objective
+
+Main at intake: **1667c3cf9b4e898bb9afd62ec48e24610b2156ab**. The canonical `VFCanonicalSquareVonKochStatement` remains
+
+```text
+exists C>=0, forall integer R>=2:
+ |pi(R^2) - vfMidFinishedMass(R) - sqrt(2)| <= C*R*log(R).
+```
+
+It is OPEN. The completed VF/Li_2 transport is not this estimate. The present route is the separate, genuine-Mobius **MU-LIFT** source. With
+
+```text
+M(n) = sum_(1<=m<=n) mu(m),
+E(B) = max_(1<=n<B) |M(n)|/sqrt(n),
+1 <= E(B) <= sqrt(B-1),
+```
+
+the missing supplier is a complete-prefix recurrence on an unbounded chain B_(j+1)=B_j^k, with fixed k>=2, fixed 1<=r<k, G_j>=1 and log(G_j)/log(B_j)->0. No such inequality is established here.
+
+`deployment_ack`: NO_PIGEONHOLING_ROUTE_SELECTOR_V1 consumed at the stated main. This run follows today's CORR4 and FINITE-AC runs, resumes **20261104-wheel-3/QC1-QC3** and **20261105-coordinator-2, section H**, and completes the protected three-route rotation. Next protected route: **CORR4**. No unrelated OAI source audit is imposed and no campaign change is requested.
+
+### C. Structural Mechanism Investigated
+
+Yesterday's square-class-preserving cancellation obstruction does not prohibit a class-changing map. A single adaptive prime toggle is already ruled out as a complete treatment of top-half primes by `TopPrimeReplacementIsolation` and `AdaptivePrimeMatching`: all those primes share the same only downward neighbor, 1. This was deduplicated, not rediscovered.
+
+A naive repair would pair each top prime with some even semiprime 2q. That is INVALID if the original factor-2 cancellation has already used q <-> 2q. The decisive change is to use only odd semiprimes in the existing upper-half remainder. The exact allowed edge p <-> s*q changes the prime-factor set from {p} to {s,q}; these are genuine integer values, not arbitrary signed graph vertices.
+
+The intermediate factor description p -> 1 -> s -> s*q certifies three legal prime edits in the full prefix. It is NOT a flow consuming the intermediate sites 1 or s. Only the two endpoints are used as cancellation occurrences. This distinction is essential: the theorem does not construct vertex-disjoint paths or a new one-toggle mate.
+
+### D. Exact Statements And Carriers
+
+#### PE1. Finite Once-Only Odd-Boundary Matching
+
+Fix any integer X>=4 and any nonempty finite set P of distinct odd primes. Put Y=max(P), and define
+
+```text
+S_X = {n: 1<=n<=X, mu(n)!=0},
+U_X = {n in S_X: n odd, X<2n},
+A_X = {p prime: X<2p, p<=X},       a(X)=|A_X|,
+C_P(X) = {s*q: s in P, q prime, q>Y, X<2*s*q, s*q<=X},
+c_P(X)=|C_P(X)|,                  t=min(a(X),c_P(X)).
+```
+
+All values, occurrences and inequalities here are literal integers. P is fixed for PE2, but PE1 is finite and holds for every such P and X. The q>Y condition guarantees each partner has a unique displayed small factor s and large factor q. Every element of A_X has Mobius sign -1; every element of C_P(X) has sign +1; both are subsets of U_X and the two sets are disjoint.
+
+List A_X increasingly as p_1,...,p_a, and list C_P(X) increasingly as c_1,...,c_c. Define tau_X on S_X by preserving every pair n <-> 2n with n odd and 2n<=X, then pairing p_i <-> c_i for 1<=i<=t, and fixing all other sites. Then tau_X is an involution; every nonfixed site reverses its Mobius sign; no endpoint is spent twice. Its fixed set is exactly
+
+```text
+R_P(X) = U_X \ ({p_1,...,p_t} union {c_1,...,c_t}),
+T_P(X) = |R_P(X)| = |U_X|-2t,
+M(X) = sum_(n in R_P(X)) mu(n).                       (PE1)
+```
+
+The second-stage matching is maximum among matchings restricted to A_X and C_P(X), while retaining the factor-2 pairs: it has exactly min(a,c) edges. This is NOT an optimality assertion over all class-changing matchings of S_X.
+
+The exact partner count, including small-X admission, is
+
+```text
+c_P(X) = sum_(s in P)
+  max(0, pi(floor(X/s)) - pi(max(Y,floor(X/(2s))))).   (1)
+```
+
+#### PE2. Uniform All-Large-Cutoff Capacity Criterion
+
+For every FIXED nonempty finite odd-prime set P,
+
+```text
+a(X) ~ X/(2 log X),
+c_P(X)/a(X) -> kappa(P) := sum_(s in P) 1/s.          (2)
+```
+
+Consequently, if kappa(P)>1 there exists an integer X_0(P) such that the PE1 matching pairs EVERY top-half prime for EVERY integer X>=X_0(P). If kappa(P)<1, every sufficiently large X has insufficient partners; even the optimal restricted matching leaves
+
+```text
+a(X)-t ~ (1-kappa(P))*X/(2 log X)                     (3)
+```
+
+top-half primes unmatched. Equality kappa(P)=1 is impossible for a finite set of distinct primes. Thus kappa(P)>1 is necessary and sufficient for eventual complete top-prime coverage in this precise partner family.
+
+For the first eight and nine odd primes the exact sums are
+
+```text
+kappa(P8) = 111429982/111546435 < 1,
+kappa(P9) = 3343015913/3234846615 > 1,
+kappa(P9)-1 = 108169298/3234846615.
+```
+
+Any set of at most eight distinct odd primes has reciprocal sum no larger than kappa(P8), so fails eventually. P9 succeeds eventually. No effective numerical X_0 is claimed, and no finite successful table proves this conclusion; the proof uses PNT.
+
+#### PE3. Original Lift And Complete Ordered-Square Involution
+
+Let B>=2, k>=2 be integers and 4<=X<B^k. Put a(n)=mu(n) for 1<=n<B and zero otherwise. For Dirichlet convolution and zeta(n)=1 on positive integers, the original lift is
+
+```text
+H_(B,k) = sum_(j=1..k) (-1)^(j-1) binom(k,j)
+                       a^{*j} * zeta^{*(j-1)}.
+```
+
+Its actual occurrence identifiers are
+
+```text
+o=(j,c,a_1,...,a_j,b_1,...,b_(j-1)),
+1<=j<=k, 1<=c<=binom(k,j),
+1<=a_i<B, mu(a_i)!=0, b_l>=1,
+n(o)=product a_i * product b_l <= X,
+epsilon(o)=(-1)^(j-1) product mu(a_i).
+```
+
+Factor slots are ordered. c records the real binomial multiplicity. A squareful a_i gives zero and is omitted, but b_l and n(o) may be squareful. n(o) alone is not an occurrence ID. The coefficient at zero is zero.
+
+There exists an explicit finite involution sigma on these original occurrences such that every nonfixed occurrence reverses epsilon, and its fixed occurrences consist of exactly one representative of sign mu(n) for each n in R_P(X). In particular the number of fixed occurrences is T_P(X), not an artificially reweighted count.
+
+On the ENTIRE ordered Cartesian square O x O define
+
+```text
+Psi(o,o') = (sigma(o),o')     if sigma(o)!=o;
+           (o,sigma(o'))     if sigma(o)=o, sigma(o')!=o';
+           (o,o')            otherwise.
+```
+
+Psi is an involution, reverses the product sign on its nonfixed domain, and has exactly T_P(X)^2 fixed ordered pairs. Therefore
+
+```text
+sum_(o,o' in O) epsilon(o)epsilon(o')
+  = sum_(m,n in R_P(X)) mu(m)mu(n) = M(X)^2.          (PE3)
+```
+
+No diagonal, binomial cross-family term, prime/complement interaction or squareful physical site is silently dropped. The new p <-> s*q moves change rational square class: their ratio has nontrivial square-class representative p*s*q. They are not among QC2's class-preserving cancellations.
+
+#### PE4. Remainder Size And Moving-Cutoff Limitation
+
+For every X>=4,
+
+```text
+|U_X| >= X/9 - floor(sqrt X)/2 - 1,
+T_P(X) >= X/9 - floor(sqrt X)/2 - 1 - 2a(X).         (4)
+```
+
+Hence T_P(X)>=X/18 for all sufficiently large X. This bound is independent of P; it concerns the specified two-stage construction, which removes at most two sites per top-half prime in its second stage. The terminal absolute-pair certificate is
+
+```text
+M(X)^2 <= U_cert(X):=T_P(X)^2,   U_cert(X)>=X^2/324   (eventually).
+```
+
+For every fixed k>=2, fixed 1<=r<k, C>0 and G(B)>=1 with log G(B)/log B->0, at X=B^k-1,
+
+```text
+sqrt(U_cert(X)) / [C G(B) E(B)^r sqrt(X)]
+ >= sqrt(B^k-1) / [18 C G(B) (B-1)^(r/2)] -> infinity. (5)
+```
+
+This is a lower bound on this proof certificate, NOT on |M(X)| or M(X)^2, and does not refute other class-changing or signed methods.
+
+For any distinct positive integers p,m, both lie in (X/2,X] precisely for the integer cutoffs
+
+```text
+max(p,m) <= X <= 2 min(p,m)-1.                       (6)
+```
+
+A fixed partner m for a prime p>=5 cannot lie in U_X for every cutoff at which p lies there: X=p forces m<=p, while X=2p-1 forces m>=p. Thus m=p, which cannot reverse sign. The PE1 matchings must depend on the cutoff; this proof supplies no cross-cutoff compatibility, recurrence contraction or small changing-mask bound.
+
+### E. Mathematical Proofs
+
+**PE1, original population and multiplicity.** Every nonzero even coefficient is at n=2u with u odd squarefree and u<=X/2. Conversely every such u has a unique even child 2u, with mu(2u)=-mu(u). These disjoint pairs remove exactly S_X minus U_X. This inherited factor-2 cancellation is retained unchanged.
+
+For n=sq in C_P(X), q>Y>=s gives distinct odd primes and mu(n)=+1. If sq=s'q' with s,s' in P and q,q'>Y, unique factorization forces s=s' and q=q'. Thus the displayed multichannel list is an actual set of distinct integers. No q is charged as a donor merely because it is a factor of several different products. Those products are distinct physical occurrences. All are in U_X, so none was spent by the factor-2 matching. A_X is an actual prime subset of U_X and disjoint from C_P(X).
+
+Any p in A_X is larger than either factor of an admitted partner sq: each factor is at most X/3. Hence p,s,q are distinct. Their prime-factor symmetric difference has cardinality three, and their signs are opposite. Every A_X-to-C_P(X) edge is therefore an allowed three-prime-edit correspondence. Increasing-order pairing is injective in both endpoints, has exactly min(a,c) edges, and defines the claimed involution. Formula (1) is just the strict lower and closed upper q interval, with the additional q>Y cutoff. This also proves small-X cases without approximating floors.
+
+**PE2, all-scale argument.** The only external asymptotic input is the ordinary [prime number theorem, NIST DLMF 27.2.3](https://dlmf.nist.gov/27.2.E3), pi(x)~x/log x. For each fixed positive s,
+
+```text
+pi(floor(X/s))-pi(floor(X/(2s))) ~ X/(2s log X).
+```
+
+For X>2Y^2 the q>Y constraint is automatic in every term of (1). Summing over the FIXED finite set P gives (2). The constants and threshold may depend on P; no result uniform over a growing P is claimed. Given kappa>1, choose an error smaller than (kappa-1)/2 in the ratio limit; this proves c>a for every sufficiently large integer X. The kappa<1 case gives (3), not merely failure on a subsequence.
+
+If sum 1/s=1, multiply by D=product_(s in P)s. For any p in P, reduction modulo p leaves the nonzero residue D/p on the left and zero on the right, a contradiction. The exact two rational sums displayed above prove the nine-channel conclusion. This is a finite-to-infinite proof with a fixed partner set, not extrapolation from a census and not a growing-wheel claim.
+
+**PE3, bridge to original lift.** The existing geometric expansion and the finite binomial identity give the displayed ordered occurrence formula. The current `heathBrownLift_prefix_exact` gives sum_(n(o)=n) epsilon(o)=mu(n) for n<=X<B^k. Within each integer-value fiber, order the positive and negative occurrence IDs and match the first min(N_+,N_-) pairs. Exactly |mu(n)| representatives remain. In particular every squareful physical fiber is completely cancelled.
+
+Then match the remaining representatives according to tau_X. The fiber-stage domain and representative-stage domain are disjoint, so this is one actual involution sigma, not repeated spending. Its fixed representatives are precisely R_P(X). The definition of Psi first uses the first coordinate if it moves, otherwise the second. An involution maps a moved point to a moved point, so this branch choice is stable under applying Psi again. Exactly one sign changes on every nonfixed pair. The fixed set is the Cartesian square of the fixed representatives, proving PE3 including both ordered mixed orientations.
+
+The generic finite matching and tensor device are not claimed new; the content is that PE1's class-changing partners are admitted original leftover occurrences, and therefore this device applies without inventing new coefficients or duplicating an old cancellation.
+
+**PE4, quantitative limitation.** The interval (X/2,X] contains at least X/4-1 odd integers. Every nonsquarefree odd integer there is divisible by d^2 for an odd d>=3. There are at most X/(2d^2)+1 odd multiples of d^2 in the entire prefix, an upper bound sufficient here. The number of possible odd d is at most floor(sqrt X)/2, and
+
+```text
+sum_(d>=3, d odd) d^(-2)
+ = sum_(j>=1) (2j+1)^(-2)
+ <= 1/9 + integral_(1..infinity) (2t+1)^(-2) dt
+ = 5/18.
+```
+
+The union bound therefore gives |U_X|>=X/4-1-5X/36-floor(sqrt X)/2, which is (4). Since t<=a(X)=O(X/log X), T_P(X)>=X/18 eventually. Apply E(B)<=sqrt(B-1) to obtain (5). A fixed positive power (k-r)/2 beats any subpower G along every unbounded B-chain. No lower estimate on the genuine signed sum was used. Formula (6) is the exact pair of interval inequalities; the two-endpoint argument proves the static-partner obstruction.
+
+### F. Structural Consequences And Finite Falsification
+
+The three-prime-edit move can remove the complete top-prime packet while preserving the old factor-2 matching. Thus top-prime isolation is a restriction on one-toggle geometry, not a universal barrier to sign-reversing arithmetic correspondences. Conversely, capacity must be counted on the ACTUAL remaining carrier. Even partners 2q are unavailable after the first stage, and a larger ambient semiprime count would give a false certificate.
+
+An exact small illustration is X=63, P={3,5}. The seven top primes are 37,41,43,47,53,59,61; the six admitted partners are 33,35,39,51,55,57. The new pairs are
+
+```text
+(37,33), (41,35), (43,39), (47,51), (53,55), (59,57).
+```
+
+After the original factor-2 pairs and these six new pairs, the single leftover is 61 with sign -1. This verifies M(63)=-1 by an explicit matching. It is NOT an all-scale one-leftover theorem. At this cutoff P9 supplies no q>29 partner, so the assertion that its asymptotic capacity works at every X is false.
+
+Further exact finite results, with P9 unless noted:
+
+| X | top primes a | partners c | odd boundary | leftovers T | M(X) | T^2 versus M(X)^2 |
+| --- | ---: | ---: | ---: | ---: | ---: | --- |
+| 63, P={3,5} | 7 | 6 | 13 | 1 | -1 | 1 versus 1 |
+| 255 | 23 | 16 | 53 | 21 | -1 | 441 versus 1 |
+| 1023 | 75 | 99 | 206 | 56 | -4 | 3136 versus 16 |
+| 4095 | 255 | 332 | 831 | 321 | -19 | 103041 versus 361 |
+| 65535 | 3030 | 3809 | 13286 | 7226 | 14 | 52215076 versus 196 |
+
+These X values are literal prefix cutoffs, not historical square-root R labels. P8 also has enough partners at X=1023,4095,65535, yet PE2 proves it fails at EVERY sufficiently large X because its reciprocal sum is below one. This is a useful explicit warning against extrapolating finite successful matchings. No expensive search for its eventual crossover was run.
+
+### G. Complete Signed Return And Quantitative Relevance
+
+Let A=A_X and let J be the selected t semiprime partners. When t=a, their original signed masses are -a and +a. With Z=sum_(n in R_P(X))mu(n), and the old factor-2 packet already cancelling exactly,
+
+```text
+M(X)=(-a)+a+Z,
+M(X)^2 = a^2+a^2+Z^2-2a^2-2aZ+2aZ = Z^2.          (7)
+```
+
+PE3 proves this on the full ordered raw carrier, not just after informal scalar grouping. The negative prime-semiprime cross contribution is spent once. Its interactions with the complement cancel only in the displayed joint packet; they are not deleted independently. For partial matching replace a by t and retain unpaired primes inside R_P(X).
+
+At k=2 the two linear copies remain present: the original expression is exactly 2M(B-1)-Q_(B-1)(X), not Q alone. No original coefficient, truncation, strict endpoint, occurrence multiplicity or normalization is changed. There are no VF weights, returned-cell masks or Hecke phases in this selected source, so no cross-carrier theorem is asserted.
+
+There is no paid squared-energy exponent, amplitude exponent or complete-endpoint gain. The first sign loss in the attempted closure is replacing the final signed sum over R_P(X) x R_P(X) by its cardinality T_P(X)^2; PE4 quantifies why that loss is too large. `NET_ENDPOINT_GAIN=UNKNOWN; ETA_GATE=SEARCH_BROAD`. Enlarging this fixed semiprime pool cannot fix that final loss because it only supplies additional partners for the same a(X) top primes.
+
+### H. Falsification, Novelty And Formal Evidence
+
+**PE5 exact checks.** The complete standard-library verifier is appended below. It checked all X=4..256 and twelve declared additional cutoffs up to 65535, against three fixed partner sets, for 795 physical cases. It checked 20,620 selected prime-semiprime pairs, 10,000 independent trial-factorization Mobius values, and the exact count formula, factor-2 preservation, injection, involutivity, signs, residual cardinality and full signed reconstruction. No asymptotic fit was used.
+
+Five literal ordered lift carriers were enumerated: (B,k,X)=(4,2,15),(8,2,63),(3,3,26),(4,3,63),(16,2,255). All 4,591 original occurrence IDs were unique and checked. A separately implemented recursive convolution lift agreed with direct Mobius and occurrence coefficients. All 305,875 ordered pairs were checked in the three carriers with at most 700 raw atoms. For the two larger carriers, only the full first-order involution and factorized tensor count were checked computationally; no exhaustive pair enumeration is claimed.
+
+Negative controls included insufficient finite partner capacity at X=63, already-spent 22=2*11 at X=31, changing admission of (37,33) between X=63 and X=73, duplicated factor orientations if q>Y is omitted, and static partners at p=7,37,101. The strict lift boundary was tested: B=2,k=2,n=4 gives H(4)=-1 while mu(4)=0; equality X=B^k cannot be admitted. The original squareful zero fibers remain accounted for. Syntax compilation succeeded; no Lean execution occurred.
+
+Final verifier SHA256: **7bc201d3950b06cf77d1bbeb5d7771412047c6229faa1a770cabaa54f18b03ed**. Its canonical sorted-key JSON payload SHA256: **d002f90df8e50007bac0ed1f4d87c47b87eef09da6d1969585b758be2d2ce577**. Checks are SELF_AUDIT, not independent role review.
+
+**Novelty review.** Inspected `TopPrimeReplacementIsolation.lean`, `AdaptivePrimeMatching.lean`, `RecursivePrimeReplacement.lean`, `PrimeProductCubeFrontier.lean`, the exact signed-lift modules and the existing x=210 amplitude example. The x=210 example already gives a finite odd prime/semiprime cancellation after a factor-2 matching; its 19-versus-19 computation is NOT new and was not used as an all-scale proof. The recursive replacement module already supplies exact lower-scale signed rows, not a quantitative bound. Repository searches included semiprime/matching, odd semiprime matching, reciprocal top matching, three-toggle and 31/30. No equivalent all-large-X fixed odd-partner capacity criterion, its raw-lift extension and its complete certificate calibration was found in inspected sources/results. This is a scoped repository check, not an exhaustive literature search.
+
+**Formal evidence is separate.** Current source contains `heathBrownLift_agrees_below_power`, `heathBrownLift_prefix_exact`, the geometric/error identities and exact hyperbola reindexings. Merged PR #954, proof head **a4b5578f12729b4caa36e9305aa30ccc098f4923**, has eleven returned head-associated successful workflows. Its [dedicated run 38769272005, job 116540514284](https://github.com/OVVO-Financial/RH_Lean/actions/runs/38769272005/job/116540514284) was read directly: warning-fatal compilation and all 22 required axiom lists passed, including the prefix-exact declarations, with only propext, Classical.choice and Quot.sound. The log identifies synthetic checkout 5b47470 merging that exact head into 470c19702553079b6b64a7f8e1f87ef544b76efe.
+
+The old signed-lift blob **bb028fc18b8228412dafa21f990eeb84dc376b95** is NOT byte-identical to the current **af69b4811cf9f523eb7c96fb0ca836b2cdbd1180**. Direct comparison found three `using` to `using!` proof-port edits and removal of `ArithmeticFunction.one_apply` from one simp list; the displayed declarations and hypotheses are unchanged. The current file's latest modifying commit is **e52cc437a70ccf32e8bc81eb0f0d8aeea9e188b6**, October 19. This run does not present the old exact-head check as a new compilation of current main. A workflow-specific listing URL was rejected by the connector, and no fresh current-main Lean execution was attempted. The new PE claims are NOT_FORMALIZED regardless of inherited formal infrastructure.
+
+Latest PR collection at intake was empty. Recent #1093 and #1094 are human-merged Nyman component/interface results. #1095 was human-merged at **2026-11-05T20:32:22Z** with head **46e68178192c6e429a02abee9d5b8ebca5de46c8**, repairing the earlier V1 fail-open audit. Its exact-head evidence is carried forward from the retrieved Lean and Coordinator reports, not described as a newly executed audit by this run. No new proof branch, PR or source modification was made.
+
+### I. Conceptual Interpretation
+
+The important distinction is between a top prime having no unused ONE-EDGE partner and having no sign-reversing partner at all. Three-coordinate replacement changes its prime ancestry and admits enough opposite-sign physical endpoints. Arithmetic capacity is sufficient once the correct leftover population is used, and prior cancellations need not be undone.
+
+But eliminating a visually prominent coherent packet is not equivalent to controlling the complete remaining signed sum. The construction removes only O(X/log X) additional sites from a linear-size odd boundary. Its quantitative limitation is therefore explicit, not hidden behind a favorable local sign or finite example.
+
+### J. Competing Hypotheses
+
+| Mechanism | Outcome | Scope |
+| --- | --- | --- |
+| Adaptive one-prime edges exhaust the top-prime packet | Already refuted on main | Not new; do not repeat its proof |
+| Reuse even semiprime partners after factor-2 cancellation | Invalid | Actual endpoint occurrence already spent |
+| Three-prime edits using a fixed odd partner pool exhaust top primes eventually | PE1-PE2 prove this when kappa(P)>1 | PNT-scale structural matching, not global cancellation |
+| Eight successful finite multiplier channels imply eventual coverage | False inference | P8 succeeds in listed fixtures but fails eventually |
+| A fixed global partner map preserves upper-half admission at every cutoff | PE4 refutes this | Cutoff-dependent matches remain allowed |
+| This two-stage matching followed by an absolute remainder proves r<k | PE4 refutes this certificate | No no-go for further signed or different matching methods |
+| An independent signed restriction controls the remaining whole prefix | OPEN | Still requires new arithmetic |
+
+### K. Continuity And Specialist Handoffs
+
+Intake began at 2026-11-05 23:06 UTC. Reporting branch snapshot **be06ee6b165dc6533df33ce9aeff8248692afc6d** was recorded; the following individual blobs were retrieved during the 23:07-23:08 UTC continuity window. All seven TODAY stages were AVAILABLE. Relevant summaries, selected-route derivations, source qualifications and handoffs were read; unrelated executable appendices were not rerun or blanket-endorsed. Matching Coordinator 00/90 mirror blobs count as one source.
+
+| Role | November 4 blob | November 5 blob | Evidence consumed |
+| --- | --- | --- | --- |
+| Coordinator | 68495a5e913eee0e788940a683cf16ec4d0984cc | 88c4b9f83cc3dcea885d0c9ddb1fc26cedef4632 | C45-C52 context; C53-C62 and exact MU-LIFT cross-class handoff; new C58-C61 pending review |
+| Owner | 560b0b7617703b64e728e12e60a390646c9379ea | 39665b5b28fc48378519ab9d56cee8df4d3e2681 | SF/LC history; RC1-RC6, CR1-CR5, latest MC count-clock transfer; distinct sources, no automatic transfer |
+| Analytic | 04ffb1b41d8b6afe5a5d89754f5ccbc8d9682d58 | 9490aa2eecafcd19d8007043cc5f978fe421a7c9 | M1-M6 logarithmic CODIV, SP1-SP5 accepted by Referee-5, latest OAI CR row-localization limitation |
+| Wheel | 37ad6a1230fbb46369311790ed5686baf1775598 | 000bd6a7e0900373f8fca05a607676f6170f1032 before checkpoint | QC1-QC4 resumed; F1-F3 scoped acceptance; P1-P4 paper/self-audit, V1 repaired |
+| Census | 4bd5319fa3d13219cdad006dce4a854b606c2f7c | 44f070eed4302f3d8d560346c6fb9b66c35be18a | Nyman N=42/120 controls; genuine R=57/58 joint-cap deficits; no extrapolation |
+| Referee | 0e4fdfbf90d52a74074e04ef6cb6988339dc8d84 | df74121b0a07297776a106ccd1b9d80a36b12fc5 | Separate acceptance of F1-F3 and SP1-SP5; QC1-QC3/P1-P4 remain review-pending |
+| Lean | 5fce0138779d67eda4e69c13230274e6419de894 | c9e8255d2c00a2b317f39531589ac2a16f8e3518 | #1090/#1093/#1094 history; #1095 exact-head audit repair, now human-merged |
+
+External inbox blob **038018145c0fddb2f6306c0712373adf9cd1ea52** has no entry after October 18. Its newest full PNT-first handoff was also retrieved, blob **aeb5fa075701c9c0e38ddf02f6c2f571c13fdbc9**. EXT-20261018-PNT-1..3 retain their actual-prime, cutoff, complete-complement and once-only warnings. EXT-20261017-XCOORD-1 retains the q=R boundary correction; EXT-20261014-5 is an unconditional-all-R, not conditional-first-bad, obstruction. None supplies the missing MU-LIFT recurrence. Historical route priorities and once-daily wording are superseded by live main.
+
+**Coordinator:** register PE1-PE3 as a constructive source-qualified bypass of a restricted local obstruction, with PE4's explicit residual limitation. Keep SEARCH_BROAD and next Wheel CORR4. Do not promote a top-prime packet cancellation into an endpoint gain.
+
+**Referee:** independently check the literal U_X carrier before following the proof. Audit q>Y uniqueness, complete retention of factor-2 mates, exact capacity count with floors, fixed-P PNT quantifiers, the modular exclusion of kappa=1, tensor branch stability, the elementary X/9 lower bound, and the distinction between endpoint matching and vertex-disjoint transport. PE claims remain SELF_AUDIT until separately reviewed. In particular, challenge any extension from eventual existence to every X or to one cutoff-independent matching.
+
+**Census:** independently reconstruct X=63 with P={3,5}, X=255 and X=4095 with P9, and the (37,33) cutoff exit. For one literal carrier B=8,k=2,X=63, verify the 345 IDs, 119025 ordered pairs, fixed occurrence 61, and original M(63)^2=1. These are new-map tests, not requests to repeat QC's square-class scan or locate P8's potentially very distant crossover. Reproducibility requires exact prime/factor lists, ordered copy IDs and all mixed signs.
+
+**Lean Verification:** no immediate unreviewed formalization request. Reuse the existing coefficient-exact and adaptive one-toggle sources. After independent acceptance, PE1's finite injection/involution and PE3's bridge are possible interfaces only if a consumer needs them; the PNT all-scale argument and unsigned remainder limitation are not newly Lean-certified. Do not duplicate #1095 or produce another generic matching theorem for theorem count.
+
+**Owner:** this matching spends each physical integer endpoint once, even when several endpoints share a factor. It does not allocate VF weights or historical prime-divisor charges. There is no assertion that these pairs satisfy your chronological masks or returned-cell admission.
+
+**Analytic:** the restored packet contributes exactly zero and imposes no signed bound on the remaining odd boundary. A coefficient-sensitive estimate on that residual must account for the cutoff-dependent selected semiprimes. Every-log CODIV savings and OAI physical-row statements do not transfer without their own source bridge.
+
+These are report handoffs, not launches, new schedules, independent approvals or promises of another agent's execution.
+
+### L. First Independently Missing Theorem
+
+At k=2, the actual open input is still, on a specified square-growing chain and uniformly for EVERY new-interval cutoff,
+
+```text
+exists fixed r in [1,2), G_j>=1 with log(G_j)/log(B_j)->0,
+forall sufficiently large j, forall integer B_j<=X<B_j^2:
+ |2M(B_j-1)-Q_(B_j-1)(X)| <= G_j E(B_j)^r sqrt(X),
+Q_N(X)=sum_(1<=i,j<=N)mu(i)mu(j)floor(X/(ij)).
+```
+
+Replacing the left side by |sum_(n in R_P(X))mu(n)| through PE1 is **TARGET_EQUIVALENT**, not an independently easier supplier. No independently paid norm estimate for that residual was found in this run. PE4 rules out one proposed absolute-value finish, not the signed problem.
+
+A materially different next MU-LIFT test would need a quantitative, source-exact mechanism on the positive-density leftover, or a new signed bilinear estimate across its classes. Repeating the finite partner count, enlarging P only to cancel the already exhausted top-prime cohort, or renaming the full residual would not advance the bound. Any iterative use must prove changing-cutoff admission and complete-prefix control; a single endpoint matching is insufficient.
+
+### M. Source Ledger And Next-Run Capsule
+
+Original files were fetched at main 1667c3cf9b4e898bb9afd62ec48e24610b2156ab; declarations, definitions and relevant proofs were inspected.
+
+| Source | Blob SHA |
+| --- | --- |
+| AGENTS.md | 547dda0d9456e7a4e1165dc72d59da6f70d5c023 |
+| CURRENT_PROOF_CONTRACT.md | 7c4ac83a1ec1a4144e1bd691391ed4244f1cc27c |
+| Multi-front policy | ffd8f1c65cc4da656174956d4e03b48bea46768b |
+| Stable selector | 4fbab59cc6fcc33a4f4e7a8ef447b2f7947b53dd |
+| Complete-return contract | 4775ee5fd95f279beab08a75d1e17127078b19a6 |
+| Persistent research engine | 6c1d1c10e2755017ffe9d7f40df8b9ae7692f23a |
+| research/MERTENS_FINITE_PREFIX_EXTENSION.lean | 131e9af86207a42d4bf6488e3f64c9ce4f97e5df |
+| research/MERTENS_HEATH_BROWN_SIGNED.lean | af69b4811cf9f523eb7c96fb0ca836b2cdbd1180 |
+| research/MERTENS_SIGNED_HYPERBOLA.lean | d199571f19346797229a25b0fa53c6e80499999f |
+| research/MERTENS_HEATH_BROWN_ACCEPTANCE.lean | 9c7f3c030bcfcfa3fe56ccedf30bfcbf42e5fd7d |
+| docs/MERTENS_AMPLIFICATION_BUDGET.md | 62bbe73c4755eaa64772ec2cc2731936c01b49cd |
+| RHLean/Arithmetic/TopPrimeReplacementIsolation.lean | 950173fc3e5271f3eeed8cc6f7831ca89bb11a90 |
+| RHLean/Proof/AdaptivePrimeMatching.lean | c2caaace0f4e99ea06107d939119c12fa005bcbc |
+| RHLean/Proof/RecursivePrimeReplacement.lean | f15bc14ae94677661f2499707b6d60f1d887fcb7 |
+| RHLean/Arithmetic/PrimeProductCubeFrontier.lean | b47760731f40c845ddfd0c90636f7ceda236a7b3 |
+| research/VF_CANONICAL_SQRT_TWO_VON_KOCH.lean | 79030d70e8d3e0d08eef9bac53fef95c36eca2fb |
+| .github/workflows/mertens-signed-lift.yml | 5d7570cc84a286ab9aa3697b731972886b618671 |
+
+```text
+RUN: 20261105-wheel-3; scheduled 18:06:01 EST; RUN_ID_UNAVAILABLE.
+MAIN: 1667c3cf9b4e898bb9afd62ec48e24610b2156ab.
+POLICY: NO_PIGEONHOLING_ROUTE_SELECTOR_V1; SEARCH_BROAD.
+ROUTE: MU-LIFT; original ordered k-lift, complete Cartesian square.
+RESUMED: 20261104-wheel-3/QC1-QC3; 20261105-coordinator-2 H.
+NEW: finite odd-boundary class-changing mate; eventual capacity iff
+     sum_(s in fixed P)1/s>1; nine-prime example; full raw/tensor bridge.
+LIMIT: after this construction, unsigned remainder remains >=X/18
+       eventually; no static partner works at every moving cutoff.
+INHERITED: coefficient reconstruction, factor-2 telescope, single-toggle
+           no-go, generic matching/tensor algebra, ordinary PNT.
+FINITE: 795 cases; 4591 raw atoms; 305875 ordered raw pairs; all PASS.
+REVIEW: PAPER_PROOF / SELF_AUDIT; independent review PENDING.
+FORMAL: new claims NOT_FORMALIZED; historical #954 exact-head checked,
+        proof-port differences to current source explicitly disclosed.
+FIRST OPEN: complete signed whole-prefix recurrence, fixed r<k,
+            subpower loss, with moving cutoff and every mixed term.
+NEXT ROUTE: CORR4; resume joint all-label arithmetic beyond finite caps,
+            preserving R=57/58 counterexamples and P1-P4 distinctions.
+NEXT MU-LIFT: positive-density residual signed mechanism, not another
+              top-prime pool count or absolute-value finish.
+NET NEW ENDPOINT GAIN: UNKNOWN / NONE ESTABLISHED.
+CANONICAL VF / FINITE AC / CORR4 / RH: OPEN.
+```
+
+Early checkpoint commit **94e7d33f5d5e21e99fc046f5f24854bca0b01273**, blob **c05d83adfb5f38b8737272228977ea239feac524**, was read back exactly before substantive publication. Final publication is certified only in the later receipt. Direct shell cloning failed with CONNECT 403; authenticated source/report connector access worked. One workflow-list URL was unsupported; the historical dedicated job log was available and inspected. No local Lean, proof-source/workflow change, other-report modification, branch/PR/issue mutation, merge, policy/permission/schedule change or agent launch occurred.
+
+### Reproducibility Appendix - PE5
+
+The following complete standard-library Python program was executed. Its finite domain and negative controls are fixed above; its output is not an asymptotic proof. Main was re-fetched at **2026-11-05 23:23:38 UTC** and remained **1667c3cf9b4e898bb9afd62ec48e24610b2156ab**. That unchanged commit pins the same policy and source blobs.
+
+```python
+"""Exact finite checks for an odd-boundary, class-changing Mobius matching.
+
+No Lean execution, asymptotic fitting, or numerical inference of PNT thresholds.
+"""
+
+from collections import Counter, defaultdict
+from fractions import Fraction
+from hashlib import sha256
+from math import comb, isqrt
+import json
+
+
+def sieve(limit):
+    least = [0] * (limit + 1)
+    mu = [0] * (limit + 1)
+    mu[1] = 1
+    primes = []
+    for n in range(2, limit + 1):
+        if least[n] == 0:
+            least[n] = n
+            primes.append(n)
+            mu[n] = -1
+        for p in primes:
+            if p * n > limit:
+                break
+            least[p * n] = p
+            if n % p == 0:
+                break
+            mu[p * n] = -mu[n]
+    return mu, primes
+
+
+def factor(n):
+    out = {}
+    p = 2
+    while p * p <= n:
+        while n % p == 0:
+            out[p] = out.get(p, 0) + 1
+            n //= p
+        p += 1
+    if n > 1:
+        out[n] = out.get(n, 0) + 1
+    return out
+
+
+def trial_mu(n):
+    fs = factor(n)
+    return 0 if any(v > 1 for v in fs.values()) else (-1) ** len(fs)
+
+
+def pool(x, small, primes):
+    y = max(small)
+    return sorted((s * q, s, q) for s in small for q in primes
+                  if q > y and x < 2 * s * q and s * q <= x)
+
+
+def physical_mate(x, small, mu, primes):
+    support = [n for n in range(1, x + 1) if mu[n]]
+    mate = {n: n for n in support}
+    for n in support:
+        if n % 2 and 2 * n <= x:
+            mate[n] = 2 * n
+            mate[2 * n] = n
+    top = [p for p in primes if x < 2 * p <= 2 * x]
+    partners = pool(x, small, primes)
+    for p, (n, _, _) in zip(top, partners):
+        assert mate[p] == p and mate[n] == n
+        mate[p] = n
+        mate[n] = p
+    return support, mate, top, partners
+
+
+def convolution(f, g, x):
+    out = [0] * (x + 1)
+    for i in range(1, x + 1):
+        if f[i]:
+            for j in range(1, x // i + 1):
+                out[i * j] += f[i] * g[j]
+    return out
+
+
+def recursive_lift(b, k, x, mu):
+    a = [mu[n] if 0 < n < b else 0 for n in range(x + 1)]
+    zeta = [0] + [1] * x
+    az = convolution(a, zeta, x)
+    defect = [-v for v in az]
+    defect[1] += 1
+    h = [0] * (x + 1)
+    for _ in range(k):
+        dh = convolution(defect, h, x)
+        h = [v + w for v, w in zip(a, dh)]
+    return h
+
+
+def raw_occurrences(b, k, x, mu):
+    out = []
+    for j in range(1, k + 1):
+        choices = tuple(n for n in range(1, b) if mu[n])
+
+        def visit(slot, product, sign, factors):
+            if slot == 2 * j - 1:
+                for c in range(comb(k, j)):
+                    out.append(((j, c, factors), product, sign))
+                return
+            if slot < j:
+                for n in choices:
+                    if n * product <= x:
+                        visit(slot + 1, product * n, sign * mu[n], factors + (n,))
+            else:
+                for n in range(1, x // product + 1):
+                    visit(slot + 1, product * n, sign, factors + (n,))
+
+        visit(0, 1, (-1) ** (j - 1), ())
+    return out
+
+
+def lift_mate(raw, physical, mu):
+    fibers = defaultdict(lambda: {1: [], -1: []})
+    for i, (_, n, sign) in enumerate(raw):
+        fibers[n][sign].append(i)
+    mate = list(range(len(raw)))
+    representatives = {}
+    for n, signs in fibers.items():
+        plus, minus = signs[1], signs[-1]
+        t = min(len(plus), len(minus))
+        for a, b in zip(plus[:t], minus[:t]):
+            mate[a], mate[b] = b, a
+        remaining = plus[t:] + minus[t:]
+        assert len(remaining) == abs(mu[n])
+        if remaining:
+            representatives[n] = remaining[0]
+            assert raw[remaining[0]][2] == mu[n]
+    for n, i in representatives.items():
+        other = physical[n]
+        if other != n:
+            mate[i] = representatives[other]
+    return mate
+
+
+def pair_mate(i, j, mate):
+    if mate[i] != i:
+        return mate[i], j
+    if mate[j] != j:
+        return i, mate[j]
+    return i, j
+
+
+def main():
+    max_x = 65535
+    mu, primes = sieve(max_x)
+    counts = Counter()
+    for n in range(1, 10001):
+        assert mu[n] == trial_mu(n)
+        counts['independent_mu_checks'] += 1
+    odd8 = (3, 5, 7, 11, 13, 17, 19, 23)
+    odd9 = odd8 + (29,)
+    r8 = sum((Fraction(1, p) for p in odd8), Fraction())
+    r9 = sum((Fraction(1, p) for p in odd9), Fraction())
+    assert r8 < 1 < r9
+    records = []
+    prefix_pi = [0] * (max_x + 1)
+    prime_set = set(primes)
+    for n in range(1, max_x + 1):
+        prefix_pi[n] = prefix_pi[n - 1] + (n in prime_set)
+    samples = list(range(4, 257)) + [317, 511, 1023, 1682, 1683, 2002, 4095,
+                                     4096, 8191, 10000, 16383, 65535]
+    for x in samples:
+        for small in ((3, 5), odd8, odd9):
+            support, mate, top, partners = physical_mate(x, small, mu, primes)
+            values = [n for n, _, _ in partners]
+            assert len(values) == len(set(values))
+            y = max(small)
+            formula = sum(max(0, prefix_pi[x // s]
+                              - prefix_pi[max(y, x // (2 * s))]) for s in small)
+            assert formula == len(partners)
+            for n, s, q in partners:
+                assert n == s * q and n % 2 and mu[n] == 1 and q > y
+            t = min(len(top), len(partners))
+            boundary = [n for n in support if n % 2 and x < 2 * n]
+            remaining = [n for n in support if mate[n] == n]
+            assert 18 * len(boundary) >= 2 * x - 9 * isqrt(x) - 18
+            assert len(remaining) == len(boundary) - 2 * t
+            assert sum(mu[n] for n in remaining) == sum(mu[1:x + 1])
+            for n in support:
+                assert mate[mate[n]] == n
+                if mate[n] != n:
+                    assert mu[mate[n]] == -mu[n]
+                if n % 2 == 0:
+                    assert mate[n] == n // 2
+                elif 2 * n <= x:
+                    assert mate[n] == 2 * n
+            for p, (n, s, q) in zip(top, partners):
+                assert len(set(factor(p)) ^ set(factor(n))) == 3
+                assert [mu[z] for z in (p, 1, s, n)] == [-1, 1, -1, 1]
+                assert all(1 <= z <= x for z in (p, 1, s, n))
+                assert max(p, n) <= x < 2 * min(p, n)
+                counts['prime_semiprime_pairs'] += 1
+            counts['physical_cases'] += 1
+            if x in (63, 210, 255, 317, 1023, 1682, 4095, 10000, 65535):
+                packet = set(top[:t]) | set(values[:t])
+                c = sum(mu[n] for n in packet)
+                r = sum(mu[n] for n in remaining)
+                assert c == 0
+                assert c * c + 2 * c * r + r * r == sum(mu[1:x + 1]) ** 2
+                records.append({'X': x, 'pool': list(small), 'A': len(top),
+                                'C': len(partners), 't': t, 'U': len(boundary),
+                                'T': len(remaining), 'M': r,
+                                'certificate_energy': len(remaining) ** 2})
+    raw_records = []
+    for b, k, x, small in [(4, 2, 15, (3, 5)), (8, 2, 63, (3, 5)),
+                            (3, 3, 26, (3, 5)), (4, 3, 63, (3, 5)),
+                            (16, 2, 255, odd9)]:
+        support, physical, top, partners = physical_mate(x, small, mu, primes)
+        raw = raw_occurrences(b, k, x, mu)
+        assert len(set(o[0] for o in raw)) == len(raw)
+        coeff = [0] * (x + 1)
+        for _, n, sign in raw:
+            coeff[n] += sign
+        assert coeff == recursive_lift(b, k, x, mu) == mu[:x + 1]
+        mate = lift_mate(raw, physical, mu)
+        for i, (_, n, sign) in enumerate(raw):
+            assert mate[mate[i]] == i
+            if mate[i] != i:
+                assert raw[mate[i]][2] == -sign
+            else:
+                assert physical[n] == n and sign == mu[n]
+            counts['raw_atoms_checked'] += 1
+        fixed = [i for i, j in enumerate(mate) if i == j]
+        t = len([n for n in support if physical[n] == n])
+        assert len(fixed) == t
+        fixed_mass = sum(raw[i][2] for i in fixed)
+        assert fixed_mass == sum(mu[1:x + 1])
+        # Full ordered-pair check on the small carriers; analytic tensor formula
+        # and full first-coordinate involution checks on the larger carriers.
+        pair_count = 0
+        if len(raw) <= 700:
+            fixed_pairs = 0
+            signed_fixed_pairs = 0
+            for i in range(len(raw)):
+                for j in range(len(raw)):
+                    u, v = pair_mate(i, j, mate)
+                    assert pair_mate(u, v, mate) == (i, j)
+                    if (u, v) == (i, j):
+                        fixed_pairs += 1
+                        signed_fixed_pairs += raw[i][2] * raw[j][2]
+                    else:
+                        assert raw[u][2] * raw[v][2] == -raw[i][2] * raw[j][2]
+                    pair_count += 1
+            assert fixed_pairs == t * t
+            assert signed_fixed_pairs == fixed_mass * fixed_mass
+        counts['ordered_raw_pairs_checked'] += pair_count
+        counts['lift_cases'] += 1
+        raw_records.append({'B': b, 'k': k, 'X': x, 'atoms': len(raw),
+                            'fixed': t, 'full_pair_checks': pair_count,
+                            'fixed_square_mass': fixed_mass * fixed_mass})
+    # Negative controls isolate hypotheses instead of expanding the scan.
+    at2 = recursive_lift(2, 2, 4, mu)
+    assert at2[4] == -1 and mu[4] == 0
+    counts['strict_cutoff_negative_control'] += 1
+    support, mate, top, partners = physical_mate(63, (3, 5), mu, primes)
+    assert len(top) == 7 and len(partners) == 6
+    counts['finite_capacity_failure'] += 1
+    even_partner = 2 * 11
+    assert even_partner <= 31 and 31 < 2 * even_partner
+    assert physical_mate(31, (3, 5), mu, primes)[1][even_partner] == 11
+    counts['already_spent_even_partner_control'] += 1
+    p, n = 37, 33
+    assert max(p, n) <= 63 < 2 * min(p, n)
+    assert not (max(p, n) <= 73 < 2 * min(p, n))
+    counts['moving_cutoff_control'] += 1
+    assert 63 // 2 < 35 <= 63 and factor(35) == {5: 1, 7: 1}
+    loose_orientations = [(s, q) for s in (3, 5, 7) for q in primes
+                          if q != s and 63 < 2 * s * q and s * q <= 63]
+    assert [(s, q) for s, q in loose_orientations if s * q == 35] == [(5, 7), (7, 5)]
+    counts['factor_orientation_duplicate_control'] += 1
+    # A fixed image cannot remain in the upper half for all cutoffs containing p.
+    for p in (7, 37, 101):
+        candidates = [n for n in range(1, 2 * p)
+                      if n <= p and 2 * n > p and n <= 2 * p - 1
+                      and 2 * n > 2 * p - 1]
+        assert candidates == [p]
+        counts['static_partner_negative_control'] += 1
+    payload = {'checks': dict(counts), 'reciprocal_odd8': str(r8),
+               'reciprocal_odd9': str(r9), 'odd9_surplus': str(r9 - 1),
+               'physical_records': records, 'raw_records': raw_records}
+    digest = sha256(json.dumps(payload, sort_keys=True).encode()).hexdigest()
+    print(json.dumps({'payload_sha256': digest, **payload}, indent=2))
+
+
+if __name__ == '__main__':
+    main()
+
+```
+
