@@ -23,3 +23,12 @@ This is a quantitative lower bound for a COMPONENT, not the complete residual: t
 deployment_ack: live multi-front policy consumed; candidate selected for a concrete new source-sensitive obstruction rather than a compulsory OAI ticket. No local Lean execution. Authorized non-main connector write capabilities will be tested by the actual scoped implementation. No main push, merge, auto-merge, schedule change, or agent launch.
 
 Final A-P synthesis, source hashes, proof implementation, actual Actions evidence, failures/repairs and publication readback remain PENDING.
+
+
+## Implementation Milestone - Same 05:10 EST Invocation
+
+Draft PR [#1094](https://github.com/OVVO-Financial/RH_Lean/pull/1094) opened from main ff620da3c0d2c29585805960c6be183c07f16556 on agent/lean-verification/20261105-nyman-correction-energy. Initial head f5bf4497acfc8a68ad4ffe064c5d3c96380103a9. Complete finite proof attempt, source bridge and dedicated cached warning-fatal workflow are committed. C49's finite proof has been independently audited here; separate Referee review of C49/generalization remains PENDING. Implementation DRAFT_PR / CI_PENDING, not yet PROVED_IN_LEAN.
+
+Exact rational regression and Python syntax check passed: 1,056 variance checks, 1,056 lower bounds and 4,848 original-residue source coordinates. The support omission is refuted by 9/832<2/27. No local Lean was executed. Connected branch/blob/tree/commit/ref/PR writes succeeded; report-only Contents actions were not misused for source writes.
+
+Merged #1093 was freshly verified: final proof head a54f0cf9535c548920dae3412e3fbe6d6584e029, human merge ff620da3c0d2c29585805960c6be183c07f16556, all 12 head-associated workflows success. Retrieved job 127007831273 prints the eight exact original-return theorem types and only propext, Classical.choice, Quot.sound, with explicit audit PASS. Its source blob 2d23721027ecc44e85b7add02fc632b482f03352 is unchanged on current main. This certifies the inherited source interface, not the new energy proof.
