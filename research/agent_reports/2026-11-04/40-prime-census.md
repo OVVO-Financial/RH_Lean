@@ -2884,3 +2884,1336 @@ Development N=120,240; untouched held-out N=384,600. Exact diagnostic H-SURROGAT
 Preserve U_N-U_H+A F_1+Z F_2 inside the square, including all six mixed products; partition contributions at N/2 and N. Verify exact zero head symbolically through the two moments and genuine Mobius divisor inversion. Evaluate the displayed P6 tail certificate with rigorous logarithm enclosures, explicitly retaining its paper-theorem status. Implement a second reconstruction from direct residues and independently computed Mobius coefficients. Record code, precision, enclosures, errors, runtime and hashes; do not fit eta or infer an asymptotic exponent from four inputs.
 
 Additional structural analysis is permitted only after these fixed tests, explicitly labeled exploratory. Canonical VF bound and stronger complete-endpoint gain remain OPEN / UNKNOWN; SEARCH_BROAD. No Lean source edits, local Lean, new agent launch, issue/PR, merge, or schedule action.
+
+
+## Scheduled NYMAN Final Synthesis - Claims 20261104-census-3 And 20261104-census-4
+
+Actual invocation: scheduled 2026-11-04T19:00:01-05:00, America/New_York. RUN_ID_UNAVAILABLE. This completes the early checkpoint from the same invocation, not a new execution. All preceding daily report sections remain intact.
+
+### A. Most Important Mathematical Discovery
+
+**The exact-head Nyman family's initial-half norm misses most of its actual returned middle, even when all signed cancellations are restored.** The preregistered diagnostic `E_core <= 4 E_first` fails at all four prescribed inputs. The certified ratios are approximately 112.47, 22.90, 38.82 and 13.66 for N=120,240,384,600. At N=120, the single original coordinate m=95 already exceeds four times the entire initial-half energy. This is a compact source-exact falsifier, not an extrapolated growth law.
+
+**Negative mixed interaction does not guarantee that the two-moment correction reduces energy.** A separately disclosed, data-derived second-stage hypothesis fails first at admissible N=42, H=19, T=273. The correction's squared energy is approximately 0.000421209785 while its mixed term is approximately -0.000406622569. Their sum is strictly positive. The same correction reduces the finite core at each of the four primary inputs, so that favorable pattern is not an automatic consequence of its moments.
+
+Evidence classifications:
+
+- `20261104-census-3`: FINITE_COMPUTATION, with the specified four-case factor-four diagnostic REFUTED. Certified interval enclosures, exact symbolic moment/head verification, and independent original-residue reconstruction.
+- `20261104-census-4`: FINITE_COMPUTATION, with universal correction-monotonicity on the precisely defined P4 family REFUTED at its smallest admissible failing N=42. The search stopped there.
+- The covariance-tail theorem is reused PAPER_PROOF, not a new discovery or new Lean theorem. Its finite evaluated certificates are provided separately from the exact finite core.
+- Review state: SELF_AUDIT; independent Adversarial Referee review PENDING. No new PROVED_IN_LEAN claim. New complete-endpoint gain UNKNOWN; SEARCH_BROAD. Canonical VF and RH remain OPEN.
+
+### B. Current Authoritative Objective And Provenance
+
+Source repository: OVVO-Financial/RH_Lean. Actual main at intake: `1daca8d582c361983567f0b6e99d447a77c3aea5`, fetched shortly after the scheduled trigger. Reporting snapshot: `e046bbd98f66c1163a0fd0083d08dbc24a5415ed`. The main contract and instructions, not reporting-branch policy copies, govern.
+
+The canonical original theorem remains
+
+```text
+VFCanonicalSquareVonKochStatement:
+  exists C>=0, forall R:Nat, 2<=R ->
+    |pi(R^2)-vfMidFinishedMass(R)-sqrt(2)| <= C R log R.
+```
+
+The original declarations `vfCanonical`, `vfCanonicalSquareDefect`, and `VFCanonicalSquareVonKochStatement` were inspected. The square/all-real VF transport and explicit classical-criterion interface are not a proof of this unpaid arithmetic bound. This run uses the distinct full-basis NYMAN carrier; it does not claim a prime-owner, returned-cell, or ideal-character source identification.
+
+| Actual fetched main source | Blob SHA | Use |
+| --- | --- | --- |
+| AGENTS.md | 547dda0d9456e7a4e1165dc72d59da6f70d5c023 | Current permissions and task routing |
+| CURRENT_PROOF_CONTRACT.md | 7c4ac83a1ec1a4144e1bd691391ed4244f1cc27c | Canonical and quantitative obligations |
+| Independent multi-front policy | ffd8f1c65cc4da656174956d4e03b48bea46768b | NO_PIGEONHOLING_ROUTE_SELECTOR_V1 |
+| Stable task selector | 4fbab59cc6fcc33a4f4e7a8ef447b2f7947b53dd | Actual invocation selection |
+| Complete-return contract | 4775ee5fd95f279beab08a75d1e17127078b19a6 | Retain signed full return |
+| Persistent research engine | 6c1d1c10e2755017ffe9d7f40df8b9ae7692f23a | Resumption and evidence rules |
+| research/NYMAN_BEURLING_POSITIVE_RESIDUE_ATTACK_2026_10_15.md | b2775c892edffe920a101651eef6f3581c73c9d4 | Original residue basis and infinite Hilbert norm |
+| research/NYMAN_HIGH_COEFFICIENT_INVARIANT_20261104.lean | 2da630c1d5fb9302e2097ec1e170cf41c2b40609 | Original nymanResidue and nymanResidual definitions |
+| research/VF_CANONICAL_SQRT_TWO.lean | 3ced39671cff51579a8009a6ea059890368ca05a | Actual canonical phase/defect |
+| research/VF_CANONICAL_SQRT_TWO_VON_KOCH.lean | 79030d70e8d3e0d08eef9bac53fef95c36eca2fb | Canonical theorem and consumer interface |
+
+The broad-search, all-vector, role, dynamic-protocol and multi-run instructions were also retrieved and applicable sections read. `deployment_ack`: independently selected NYMAN task NY-P4-FULL-MIDDLE under the new policy, consuming Coordinator 20261104-coordinator-2 section H and Analytic 20261104-analytic-1 P4-P10. The previous OAI incidence experiments were not repeated.
+
+The open/draft PR collection was empty at intake. Recent accepted changes include merged #1090, the finite Nyman high-coefficient invariant; #1091, the explicitly constructed fixed-slot endpoint; and #1092, the routing policy. The live Nyman source matches the blob recorded by Lean Verification. Its fixed-log hypothesis is different from P4's changed low coefficients. Existing CI evidence is carried forward at its stated scope, not relabeled as a fresh full-main build. No new/local Lean execution or CI trigger occurred.
+
+### C. Competing Hypotheses And Preregistration
+
+Primary test, frozen before execution in verified checkpoint commit `fa50bcb24bce73496ba76924e30d971cadb8bc8b`, report blob `65be4d7ea3e6ed68aa668481bdf7179cb36a2621`:
+
+```text
+theta=4/5.
+Development N=120,240. Held-out N=384,600.
+H=max{h in Nat: h^5<=N^4}.
+T=min{t in Nat: t^2>=N^3}.
+E_first=sum_(H<m<=N/2) r(m)^2/[m(m+1)].
+E_core =sum_(H<m<=T)   r(m)^2/[m(m+1)].
+H-SURROGATE: E_core<=4 E_first on each declared input.
+```
+
+Rival mechanism: the correction-active and after-N regions contain substantial original energy that the initial-half proxy cannot see. A strictly positive certified interval for `E_core-4 E_first` rejects the diagnostic. The factor four is a finite diagnostic, not an alleged universal theorem or adjustable fit. Development results were obtained before held-out execution; no threshold or coefficient was changed afterward.
+
+Secondary test was explicitly formulated AFTER observing the four cases and BEFORE its own scan. Since correction helped all four, test the universal proposed repair `E_core<=E_base` on all admissible multiples of six, with the same H,T and exactly the same P4 coefficients. Here `base=(U_N-U_H)/ell`. Check N=6,12,...,114 in order, excluding only H>N/2, and stop at the first strict failure. This is exploratory falsification, not held-out confirmation of a preregistered original hypothesis.
+
+### D. Exact Carrier And Reconstruction
+
+Use genuine mu, the full modulus set 2 through N, and the live source's residue `a_k(m)=(m mod k)/k`. No squareful basis direction is removed. For N=6K and 2<=H<=N/2, P4 is exactly
+
+```text
+ell=log(N/H), q_k=log(N/max(H,k)),
+I1={3K+1,...,4K}, I2={5K+1,...,6K}, s_i=sum_(k in Ii)1/k,
+u=sum_(k=1..N) mu(k)q_k/k,
+v=2ell+sum_(k=1..N) mu(k)q_k,
+A=(u-s2*v/K)/(s1-s2), Z=(s1*v/K-u)/(s1-s2),
+c_k=-mu(k)q_k/ell+(A*1_I1(k)+Z*1_I2(k))/ell,
+r(m)=1-sum_(k=2..N)c_k*a_k(m).
+```
+
+Z is a correction coefficient, not an OAI scale. The exact symbolic identities are
+
+```text
+sum c_k/k=1, sum c_k*(k-1)/(2k)=1, c_k=-mu(k) for k<=H.
+```
+
+The independent reference proves these equalities in rational vectors of prime logarithms. They are not inferred from tiny decimal residuals. For m<=H, residue-to-floor conversion and `sum_(k<=m)mu(k)floor(m/k)=1` give `r(m)=0` exactly. Across the four primary cases, 408 prescribed head coordinates are exactly zero. Two additional coordinates vanish because of the actual coefficients; they are not a changed head cutoff.
+
+Retain the complete P5 return, for every m>=1:
+
+```text
+U_D(m)=sum_(D<k<=m)mu(k)log(D/k)floor(m/k),
+F_i(m)=sum_(k in Ii)floor(m/k),
+ell*r(m)=U_N(m)-U_H(m)+A F_1(m)+Z F_2(m).
+```
+
+Every U_N term beyond N, both correction bands, and all six mixed products are included. The first implementation uses weighted divisor sieves followed by prefix sums. The second computes original residues directly, without any U_D transform. Their input mu tables are also independently constructed.
+
+### E. Executed Results And Tail Certificates
+
+Each following value is an outward enclosure of width 10^-12, not a floating-point sign decision. `E_active` is the complete original squared residual on N/2<m<=N; its name describes the coordinate range, not the isolated correction term. `E_after` is N<m<=T.
+
+| N | H | T | E_first | E_active | E_after | E_core |
+| ---: | ---: | ---: | --- | --- | --- | --- |
+| 120 | 46 | 1315 | [0.000216992395,0.000216992396] | [0.012448841077,0.012448841078] | [0.011740293525,0.011740293526] | [0.024406126998,0.024406126999] |
+| 240 | 80 | 3719 | [0.001028962233,0.001028962234] | [0.010991913210,0.010991913211] | [0.011541568939,0.011541568940] | [0.023562444383,0.023562444384] |
+| 384 | 116 | 7525 | [0.000566421202,0.000566421203] | [0.009383066550,0.009383066551] | [0.012036945721,0.012036945722] | [0.021986433474,0.021986433475] |
+| 600 | 166 | 14697 | [0.001670350745,0.001670350746] | [0.008842251971,0.008842251972] | [0.012309251649,0.012309251650] | [0.022821854366,0.022821854367] |
+
+| N | E_core/E_first | E_core-4 E_first |
+| ---: | --- | --- |
+| 120 | [112.474573015822,112.474573015823] | [0.023538157417,0.023538157418] |
+| 240 | [22.899231492165,22.899231492166] | [0.019446595449,0.019446595450] |
+| 384 | [38.816402694013,38.816402694014] | [0.019720748665,0.019720748666] |
+| 600 | [13.662911476503,13.662911476504] | [0.016140451385,0.016140451386] |
+
+The exact finite partition recombines with zero mathematical discrepancy. Interval overlaps verify recombination numerically; the source identity establishes the equality itself. There is no infinite-norm convergence assertion.
+
+Let Delta=max(|A|,|Z|)/ell. The requested P6 bound is `E_far <= 14/(3ell^2)+(5/3)Delta^2`. Its numerical certificate is quite coarse at these inputs. A tighter finite certificate comes from evaluating the complete signed covariance, using the previously reviewed N4 theorem:
+
+```text
+V(c)=(1/12)sum_(j,k=2..N)c_j*c_k*(gcd(j,k)^2-1)/(j*k),
+E_far<=V(c)*[1/(T+1)+N^2/((T+1)(T+2))].
+```
+
+Why this pays the infinite tail: the exact second moment makes r a centered periodic sum. Combining equal Fourier frequencies before applying the dual large sieve gives every J-term window energy at most `(J+N^2)V(c)`. Summation by parts against the original weight gives the displayed bracket. The primary source, [Montgomery and Vaughan, Theorem 19.4 and duality (19.7)](https://personal.science.psu.edu/rcv4/571s25/montgomery-vaughanII.pdf#page=165), was checked in this run. This is reuse of the accepted PAPER_PROOF, not a new analytic theorem. No prefix-envelope hypothesis is needed when Delta and V(c) are evaluated for the actual finite coefficients.
+
+| N | P6 RHS enclosure | N4 RHS enclosure | Valid upper bound on full infinite E |
+| ---: | --- | --- | ---: |
+| 120 | [5.075830982905,5.075830982906] | [0.013771444539,0.013771444540] | 0.038177571538 |
+| 240 | [3.866540906254,3.866540906255] | [0.012037976285,0.012037976286] | 0.035600420669 |
+| 384 | [3.256730885525,3.256730885526] | [0.010954677921,0.010954677922] | 0.032941111396 |
+| 600 | [2.826519251839,2.826519251840] | [0.010131448766,0.010131448767] | 0.032953303134 |
+
+The last column combines the finite E_core upper enclosure with the N4 tail upper enclosure, rounded upward. E_core itself is a lower bound on the infinite E. These are finite approximant certificates, not the optimized Nyman distance, not a monotonicity claim, and not an all-N bound. The independent elementary tail `(1+sum|c_k|)^2/(T+1)` was also computed as a fallback; it is not confused with the tighter covariance certificate.
+
+### F. Small Witnesses And Exceptional Cases
+
+**Primary certificate, N=120.** Here H=46 and T=1315. A particularly simple rational consequence of the certified intervals is
+
+```text
+E_first < 1/4500,
+r(95) > 3,
+E_core >= r(95)^2/(95*96) > 9/9120 > 4/4500 > 4 E_first.
+```
+
+The arithmetic comparison is `9*4500=40500 > 4*9120=36480`. This certificate uses only the initial-half sum and one later original coordinate. At m=95, `U_120=0`, `F1=20`, `F2=0`; all these are within the original carrier. N=120 is the smallest PRIMARY tested N, not a claimed global smallest violation of the primary diagnostic.
+
+The largest weighted coordinate over each complete tested core was independently certified by comparing its lower bound with every other coordinate's upper bound. Locations were m=95,221,221,554 for N=120,240,384,600. Their squared weighted values are enclosed respectively by [0.000995754447,0.000995754448], [0.000645433477,0.000645433478], [0.000301381033,0.000301381034], and [0.000147083404,0.000147083405]. These maxima occur beyond the initial-half region.
+
+**Secondary certificate, smallest correction-monotonicity failure.** N=6,12,18 have H=4,7,10 and violate H<=N/2, so they are not admissible. N=24,30,36 pass strictly. At N=42, H=19, T=273:
+
+```text
+E_base in [0.025665414747,0.025665414748],
+E_core in [0.025680001964,0.025680001965],
+E_core-E_base in [0.000014587216,0.000014587217] > 0.
+```
+
+The complete scan from the smallest admissible N establishes minimality for this specific correction-monotonicity assertion, with theta=4/5, the exact H/T conventions, original correction bands and genuine mu. It does not refute an eventual-only or additive-error variant. No further scales were scanned after the failure.
+
+### G. Hidden Variables And Full Signed Classification
+
+Let `b=(U_N-U_H)/ell` and `d=(A F1+Z F2)/ell`. On the exact core, write
+
+```text
+E_core=E_base+E_correction+E_mixed,
+E_base=sum w*b^2, E_correction=sum w*d^2, E_mixed=2 sum w*b*d.
+```
+
+These are a decomposition of the original residual, not separate replacement approximants. In particular b alone is NOT the raw c_flat residual: the latter is `b+m*u/ell`. That linear drift must remain when using a direct uncorrected coefficient calculation.
+
+| N | E_base | E_correction | E_mixed |
+| ---: | --- | --- | --- |
+| 120 | [0.026799172643,0.026799172644] | [0.002447103069,0.002447103070] | [-0.004840148715,-0.004840148714] |
+| 240 | [0.024429716864,0.024429716865] | [0.001037361983,0.001037361984] | [-0.001904634465,-0.001904634464] |
+| 384 | [0.021994369462,0.021994369463] | [0.000047155336,0.000047155337] | [-0.000055091326,-0.000055091325] |
+| 600 | [0.023190946274,0.023190946275] | [0.000821436103,0.000821436104] | [-0.001190528012,-0.001190528011] |
+| 42, exploratory | [0.025665414747,0.025665414748] | [0.000421209785,0.000421209786] | [-0.000406622569,-0.000406622568] |
+
+In every primary case, even E_base already exceeds four times E_first. Thus the initial-half failure cannot be attributed solely to a badly chosen moment correction. In the primary cases the correction helps after full signed recombination; at N=42 it harms, despite negative covariance. The required sign condition is `E_mixed<=-E_correction`, not merely `E_mixed<=0`. The moments impose linear constraints, not this quadratic inequality.
+
+All ten terms of the four-component Gram were also retained. For example at N=600 the U_N and -U_H diagonals are about 0.056502697 and 0.094879591, while their ordered mixed term is about -0.128191341. The correction-band diagonals are about 0.027220303 and 0.019691216, with ordered cross term about -0.046090082. Removing those interactions would substantially change the original statistic. The complete exact dyadic endpoints for all ten terms are in the machine certificate generated by the appended program.
+
+### H. Mathematical Interpretation
+
+The changed-low construction genuinely solves its initial interpolation and mean constraints. The finite counterexamples show that those constraints neither make the initial-half norm representative nor force a contraction from the two-band correction. This is a failure of the proposed shortcuts, not a failure of the exact construction.
+
+The remaining quantity is the original signed omitted-modulus floor kernel with its high correction. Its return beyond N carries significant energy in every fixed case. Successful future estimates must control this joint quantity; an estimate for m<=N/2 alone leaves a mathematically distinct region unpaid. No arithmetic independence, random-sign explanation, or positive covariance lower bound is inferred from the measurements.
+
+### I. Precise Surviving Target And Falsification Status
+
+No new all-scale rate is inferred from four values. The retained target is the existing, explicitly unproved Coordinator OPEN-NY-INTERMEDIATE: with fixed theta=4/5, t=floor(H^(4/5)), independently establish some fixed eta in (0,3/5) such that, for every epsilon>0, a constant independent of N bounds
+
+```text
+sum_(H+t<m<=T) [U_N(m)-U_H(m)+A F1(m)+Z F2(m)]^2
+                  /[ell^2*m(m+1)]
+  <= C_epsilon N^(3/5-eta+epsilon)
+```
+
+on the stipulated sufficiently large multiples of six, or a sufficient unbounded subsequence with the same exact-head/tail hypotheses. This remains CONJECTURE/OPEN as an arithmetic supplier, not a newly paid lemma. The transition and remote tail keep their separate established paper bounds. A proposed eventual correction-monotonicity repair would need its own independently specified cutoff and proof; the N=42 falsifier only rejects the universal version tested here.
+
+The next useful question is an actual signed estimate on the after-N floor-kernel combination or a coefficient design whose joint norm can be controlled. Fitting an exponent or increasing N without such a prediction would not address the missing proof.
+
+### J. Relationship To The Proof Objective
+
+Coordinator C45-C47 gives a paper-level proposed consumer: an exact head H approximately N^(4/5) and the complete middle estimate above lead to a Mertens boundary `7/8-5eta/8`, with head, transition, tail and the zero-strip transfer restored. This consumer is not newly independently accepted or formalized by this run; it is carried forward with its current review status. Improving any inherited strict baseline also requires its actual margin comparison.
+
+Our finite falsifiers do not refute that uniform supplier, the Nyman density criterion, the canonical actual-prime statement, a first-bad theorem, or RH. They reject replacing the full middle by a factor-four initial-half proxy and replacing signed correction control by a nonpositive-cross-term assumption. No endpoint exponent is fitted or claimed.
+
+### K. Verification And Uncertainty Audit
+
+Certifying arithmetic uses only Python arbitrary-precision integers and fractions. For a positive rational y reduced to [1,2], set z=(y-1)/(y+1). The exact truncated logarithm and remainder bound are
+
+```text
+L_J=2 sum_(j=0..J-1) z^(2j+1)/(2j+1),
+0<=log(y)-L_J<=2*z^(2J+1)/[(2J+1)(1-z^2)].
+```
+
+Logs of primes use power-of-two reduction; logs of composites use exact factorization. Every operation is rounded outward onto the dyadic grid 2^-192. The complete primary run and the secondary counterexample were repeated at 256 bits, with unchanged conclusions. No floating-point routine certifies the signs. All primary residual enclosure widths are below 10^-50, against a smallest primary gap exceeding 0.016 and secondary gap exceeding 0.0000145.
+
+Independent checks actually executed:
+
+- Smallest-prime-factor Mobius recursion agrees with divisor-convolution inversion through 14697; the reference separately uses trial factorization through each coefficient cutoff.
+- Original-residue evaluation at 100 decimal digits agrees on all 27,256 primary coordinates, with exact zero treated separately from rounding residue. This is an independent numerical reconstruction, not a second certified interval engine.
+- Rational log-vector algebra verifies both coefficient moments and exact prescribed head values. The secondary N=42 vector is checked separately.
+- All 16 primary range/Gram recombinations retain the four squares and six mixed products. The direct residue computation independently verifies the resulting energies.
+- 19,577 exact rational arithmetic fixtures validate the interval operations, including negative products, division and intervals crossing zero.
+- The N=42 base, correction, mixed and complete values are independently reconstructed through original residues minus the exact linear drift, not merely copied from the U_D arrays.
+- Python syntax compilation passes for all four final scripts. No Lean compilation or kernel-certified interval computation is claimed.
+
+Observed runtime environment: Python 3.12.14. Main interval development run: 1.357 seconds; held-out: 5.435 seconds; all-case 256-bit rerun: 7.706 seconds; independent primary reference: 5.315 seconds. These are program-observed wall durations, not resource estimates. No randomness or seed is used. Arithmetic arrays and logarithms are finite; asymptotic claims are not tested numerically.
+
+During author validation, an audit-helper generator was accidentally consumed twice, and exact-zero Decimal residues initially triggered the containment check; both helper issues were localized and corrected. A negative-decimal display bug in the audit summary was also corrected before publication. The certified primary kernel and its original results were unchanged. Final audits pass. These development fixes are not evidence of a mathematical mismatch between the two reconstructions.
+
+### L. Continuity And Specialist Handoffs
+
+All named roles were available on both New York dates. Applicable result, correction and continuation sections were read, not every historical code appendix re-executed. Coordinator mirrors have equal blobs on each date. Exact intake provenance:
+
+| Role file | 2026-11-03 blob | 2026-11-04 blob |
+| --- | --- | --- |
+| 00-coordinator-am.md / 90-coordinator-pm.md | e35ab2cd9cba2a47ac5be53b09938b37a0c20df3 | f4297e525684aa149b9f7bd037bc1507e9f3a3e4 |
+| 10-owner-payment.md | d52c74b76c2914c3be694f39cd7afe9b122a4834 | 560b0b7617703b64e728e12e60a390646c9379ea |
+| 20-analytic-type-ii.md | 2b9c3dbab6039e3c30a5ece3e473290af5dbbf0b | 04ffb1b41d8b6afe5a5d89754f5ccbc8d9682d58 |
+| 30-finite-wheel.md | cd7777180bb5c2c899a60bdd699b99be8e12a672 | 37ad6a1230fbb46369311790ed5686baf1775598 |
+| 40-prime-census.md | eb9a2e0cf7772f22060aec07e0bcddd24ace9cd9 | 9f634c872fe98f82676c263a4faba35dff3ac4f0 |
+| 50-adversarial-referee.md | 583ce524628577818603ffd4e9ec0eb3673a3f37 | 11eaf073fad23591cdf6d8fe83209042139e54c5 |
+| 60-lean-verification.md | fc27fb1ae103e60ff600e5a24ce6716937da3884 | 1519754f2b440abd6821a960926028dc776c8576 |
+
+External inbox: `038018145c0fddb2f6306c0712373adf9cd1ea52`, no new entry after October 18. Its native first-bad, prime-location and carrier warnings remain intact; none is a fresh Nyman norm estimate. No unchanged R=317/1027, R=549, CORR4, OAI norm-fiber or square-class census was rerun on this unrelated carrier.
+
+Specific consumed continuity: Coordinator C45-C48 and the fixed four-input Census request; Analytic P4-P10 and prior N4-N6; Referee 20261103-referee-5's acceptance of the full covariance-tail theorem and the changed-low scope warning; Lean's now-merged finite high-coefficient invariant. Today's Owner LC1-LC5 Li-clock compression, Analytic M1-M6 logarithmic shell result, Wheel QC1-QC4 square-class obstruction, own OAI census-1/2, and Referee's cube-factor review remain distinct-carrier work with their stated review limitations. They were not silently promoted into Nyman inputs.
+
+**Coordinator:** mark the requested four-input diagnostic completed and refuted. The support queue should now request a genuine returned-middle estimate, not a larger repeat of this scan. The second counterexample also removes automatic moment-correction contraction as a supplier.
+
+**Analytic Type II:** on the next NYMAN turn retain U_N-U_H, both bands and their joint square. The correction helps the four primary cases but is not universally non-energy-increasing. Consider an independently proved defect bound for `2<base,correction>+||correction||^2`, with the entire floor-kernel base still unpaid.
+
+**Adversarial Referee:** audit P4 source extraction, the m=95 rational certificate, exact moment/head algebra, N=42 minimality and the signed correction budget. Independently reproduce before accepting the new claims; author cross-checks are not Referee acceptance.
+
+**Lean Verification:** no new proof PR is requested. The finite sign certificates are possible later candidates after independent review and a justified logarithm-interval formalization. The existing fixed-log invariant must not be applied to the changed-low P4 family.
+
+**Owner Payment and Finite Wheel:** preserve your own protected routes. The demonstrated distinction between a negative cross term and enough negative cross credit is structurally relevant, but no cross-carrier estimate is transferred to JOH, VF, CORR4 or MU-LIFT without an actual map.
+
+### M. Ranked Experimental Hypothesis Portfolio
+
+| Rank | Exact candidate and evidence | Missing independent ingredient / next discriminator | Disposition |
+| ---: | --- | --- | --- |
+| 1 | Full signed P4 middle at OPEN-NY-INTERMEDIATE scale. Original head/tail paid separately; actual finite cores reconstructed here. | A uniform arithmetic estimate for the returned omitted-modulus kernel plus corrections, not a head-only fit. Test a proposed concrete inequality with its constants before new computation. | CONTINUE, OPEN |
+| 2 | P4 correction defect controlled by its two moments. Negative interaction is insufficient; universal nonincrease fails first at N=42. | A justified one-sided defect estimate with permitted additive cost and full base control. Any eventual version must specify its cutoff in advance. | REVISE |
+| 3 | `E_core<=4 E_first` on the frozen four cases. All fail; one m=95 coordinate certifies the smallest primary case. | No further range extension needed. A changed coefficient family or genuinely new bound would be a different premise. | REJECT |
+| 4 | Exact covariance tail as a numerical certificate. All four full-norm finite upper bounds follow from reviewed N4. | This does not bound the growing middle or imply all-N decay; do not optimize an already paid tail instead of the missing input. | REUSE, NOT A NEW GAIN |
+
+No new uniform exponent conjecture is fitted to the small sample. Previously accepted OAI and native findings remain foundations, not compulsory next tasks or new results of this run.
+
+### N. Next-Run Resume Capsule
+
+```text
+RUN: 2026-11-04T19:00:01-05:00 scheduled; RUN_ID_UNAVAILABLE.
+MAIN: 1daca8d582c361983567f0b6e99d447a77c3aea5.
+POLICY: NO_PIGEONHOLING_ROUTE_SELECTOR_V1, ffd8f1c65cc4da656174956d4e03b48bea46768b.
+TASK: NY-P4-FULL-MIDDLE, NYMAN, source-exact finite falsification.
+CLAIMS: 20261104-census-3 and 20261104-census-4.
+RESULT: four-case factor-four proxy refuted; universal correction nonincrease
+        first fails at admissible N=42. Exact witnesses and code below.
+COMPLETE_SOURCE: all moduli 2..N, original residue weights, both moments,
+        both correction bands, U_N beyond N, all six mixed products.
+VALIDATION: integer intervals 192/256 bits; independent direct residues at
+        100 decimal digits; symbolic rational log moments; 27256 coordinates.
+FIRST_UNPAID_STEP: uniform signed full returned-middle estimate, not tail.
+NET_ENDPOINT_GAIN: UNKNOWN. ETA_GATE: SEARCH_BROAD.
+REVIEW: SELF_AUDIT; independent Referee PENDING; new Lean PENDING.
+PERMISSIONS: only own dated report changed remotely; no other agent launched,
+        no main/Lean/branch/PR/issue/workflow/schedule edits.
+NEXT_DECISIVE_ACTION: consume a specified joint floor-kernel/correction
+        estimate with an independent proof ingredient; test its exact full
+        expression. Do not enlarge the completed four-case scan by default.
+NEXT_DISTINCT_ROUTE: support a ready non-NYMAN native claim if no such estimate
+        is available; preserve investigator rotation without inventing runs.
+```
+
+### Reproducibility
+
+All four scripts below are complete and use only the Python standard library. Run in one directory:
+
+```bash
+python nyman_interval.py --phase development --bits 192 --output results/development.json
+python nyman_interval.py --phase heldout --bits 192 --output results/heldout.json
+python nyman_reference.py --output results/reference.json
+python nyman_interval.py --phase all --bits 256 --output results/high_precision.json
+python nyman_audit.py
+python nyman_correction_probe.py --bits 192
+python nyman_correction_probe.py --bits 256
+python -m py_compile nyman_interval.py nyman_reference.py nyman_audit.py nyman_correction_probe.py
+```
+
+Exact dyadic certificates, all ten Gram terms, reference residuals and hashes are generated under results/. Runtime fields will naturally differ on rerun. Deterministic residual-file and source hashes, mathematical values, and verdicts are the reproducibility checks.
+
+| Final source | SHA-256 |
+| --- | --- |
+| nyman_interval.py | 6dfdde34b0f2af52aa0826179dbd21b7da0bd1fb36d84be968ca956ee2be5ce7 |
+| nyman_reference.py | 85297e1a3f3df5fbbc03c46075924d89d56a4742c461e63181e18fcca895809e |
+| nyman_audit.py | 931d8250a9cabeaf8377b37bf0cb4f50ba166f43d5e3f808d4328f84f842fc2a |
+| nyman_correction_probe.py | f4d6c093f2f63fb35638a6020aede353486602474c4bd12e52c5b4a69f21d3a4 |
+
+Publication receipts and the final main recheck are appended only after actual successful writes/readbacks.
+
+
+### Complete Executed Source Appendix
+
+#### nyman_interval.py
+
+```python
+"""Certified P4 Nyman middle diagnostic; only Python integer arithmetic certifies."""
+
+import argparse
+import hashlib
+import json
+import math
+import platform
+import time
+from dataclasses import dataclass
+from fractions import Fraction
+from pathlib import Path
+
+
+BITS = 192
+SCALE = 1 << BITS
+
+
+def ceildiv(a, b):
+    assert b > 0
+    return -((-a) // b)
+
+
+@dataclass(frozen=True)
+class I:
+    lo: int
+    hi: int
+
+    def __post_init__(self):
+        assert self.lo <= self.hi
+
+    @staticmethod
+    def integer(n):
+        return I(n * SCALE, n * SCALE)
+
+    @staticmethod
+    def rational(x):
+        x = Fraction(x)
+        return I((x.numerator * SCALE) // x.denominator,
+                 ceildiv(x.numerator * SCALE, x.denominator))
+
+    def __add__(self, other):
+        if isinstance(other, int):
+            other = I.integer(other)
+        return I(self.lo + other.lo, self.hi + other.hi)
+
+    __radd__ = __add__
+
+    def __neg__(self):
+        return I(-self.hi, -self.lo)
+
+    def __sub__(self, other):
+        return self + (-other)
+
+    def __mul__(self, other):
+        if isinstance(other, int):
+            a, b = self.lo * other, self.hi * other
+            return I(min(a, b), max(a, b))
+        vals = (self.lo * other.lo, self.lo * other.hi,
+                self.hi * other.lo, self.hi * other.hi)
+        return I(min(vals) // SCALE, ceildiv(max(vals), SCALE))
+
+    __rmul__ = __mul__
+
+    def __truediv__(self, other):
+        if isinstance(other, int):
+            assert other > 0
+            return I(self.lo // other, ceildiv(self.hi, other))
+        assert other.lo > 0
+        lows = [(v * SCALE) // w for v in (self.lo, self.hi)
+                for w in (other.lo, other.hi)]
+        highs = [ceildiv(v * SCALE, w) for v in (self.lo, self.hi)
+                 for w in (other.lo, other.hi)]
+        return I(min(lows), max(highs))
+
+    def square(self):
+        a, b = self.lo * self.lo, self.hi * self.hi
+        low = 0 if self.lo <= 0 <= self.hi else min(a, b)
+        return I(low // SCALE, ceildiv(max(a, b), SCALE))
+
+    def abs(self):
+        if self.lo >= 0:
+            return self
+        if self.hi <= 0:
+            return -self
+        return I(0, max(-self.lo, self.hi))
+
+    def intersects(self, other):
+        return max(self.lo, other.lo) <= min(self.hi, other.hi)
+
+
+ZERO = I(0, 0)
+
+
+def show_interval(x, digits=12):
+    unit = 10 ** digits
+
+    def fmt(n):
+        sign = "-" if n < 0 else ""
+        n = abs(n)
+        return f"{sign}{n // unit}.{n % unit:0{digits}d}"
+
+    return [fmt(x.lo * unit // SCALE), fmt(ceildiv(x.hi * unit, SCALE))]
+
+
+def certificate(x):
+    return {"lo": str(x.lo), "hi": str(x.hi), "decimal": show_interval(x)}
+
+
+def log_series(y):
+    """log(y), 1<=y<=2, with an exact positive atanh remainder bound."""
+    assert 1 <= y <= 2
+    z = (y - 1) / (y + 1)
+    z2 = z * z
+    power = z
+    total = Fraction(0)
+    terms = (BITS + 64) // 3 + 1
+    for j in range(terms):
+        total += power / (2 * j + 1)
+        power *= z2
+    tail = 2 * power / ((2 * terms + 1) * (1 - z2))
+    return I(I.rational(2 * total).lo, I.rational(2 * total + tail).hi)
+
+
+def arithmetic(limit):
+    """Smallest-prime-factor sieve and multiplicative Mobius recursion."""
+    spf = [0] * (limit + 1)
+    for p in range(2, limit + 1):
+        if not spf[p]:
+            for n in range(p, limit + 1, p):
+                if not spf[n]:
+                    spf[n] = p
+    mu = [0] * (limit + 1)
+    mu[1] = 1
+    for n in range(2, limit + 1):
+        p = spf[n]
+        q = n // p
+        mu[n] = 0 if q % p == 0 else -mu[q]
+    # Independent divisor-convolution inversion, not another factor sieve.
+    inv = [0] * (limit + 1)
+    inv[1] = 1
+    for n in range(1, limit + 1):
+        for m in range(2 * n, limit + 1, n):
+            inv[m] -= inv[n]
+    assert mu == inv
+    logs = [ZERO] * (limit + 1)
+    log2 = log_series(Fraction(2))
+    for n in range(2, limit + 1):
+        if spf[n] != n:
+            logs[n] = logs[spf[n]] + logs[n // spf[n]]
+        else:
+            e = n.bit_length() - 1
+            logs[n] = log2 * e + log_series(Fraction(n, 1 << e))
+    return mu, logs
+
+
+def floor_power_four_fifths(n):
+    lo, hi = 0, n + 1
+    while hi - lo > 1:
+        mid = (lo + hi) // 2
+        if mid ** 5 <= n ** 4:
+            lo = mid
+        else:
+            hi = mid
+    assert lo ** 5 <= n ** 4 < (lo + 1) ** 5
+    return lo
+
+
+def ceil_three_halves(n):
+    t = math.isqrt(n ** 3)
+    t += t * t < n ** 3
+    assert (t - 1) ** 2 < n ** 3 <= t * t
+    return t
+
+
+def omitted_moduli(b, t, mu, logs):
+    # A weighted divisor sieve followed by one prefix sum equals the floor sum.
+    delta = [ZERO] * (t + 1)
+    for k in range(b + 1, t + 1):
+        if not mu[k]:
+            continue
+        term = (logs[b] - logs[k]) * mu[k]
+        for m in range(k, t + 1, k):
+            delta[m] = delta[m] + term
+    for m in range(1, t + 1):
+        delta[m] = delta[m] + delta[m - 1]
+    return delta
+
+
+def band_floors(band, t):
+    delta = [0] * (t + 1)
+    for k in band:
+        for m in range(k, t + 1, k):
+            delta[m] += 1
+    for m in range(1, t + 1):
+        delta[m] += delta[m - 1]
+    return delta
+
+
+def run_case(n, mu, logs, outdir):
+    started = time.perf_counter()
+    h, t, k = floor_power_four_fifths(n), ceil_three_halves(n), n // 6
+    assert n == 6 * k and 2 <= h <= n // 2
+    ell = logs[n] - logs[h]
+    q = [ZERO] + [logs[n] - logs[max(h, j)] for j in range(1, n + 1)]
+    u = sum((q[j] * mu[j]) / j for j in range(1, n + 1))
+    v = ell * 2 + sum(q[j] * mu[j] for j in range(1, n + 1))
+    band1, band2 = range(3 * k + 1, 4 * k + 1), range(5 * k + 1, 6 * k + 1)
+    s1q = sum((Fraction(1, j) for j in band1), Fraction(0))
+    s2q = sum((Fraction(1, j) for j in band2), Fraction(0))
+    assert s1q - s2q > Fraction(1, 20)
+    s1, s2, den = I.rational(s1q), I.rational(s2q), I.rational(s1q - s2q)
+    a = (u - s2 * v / k) / den
+    z = (s1 * v / k - u) / den
+    coeffs = [ZERO] * (n + 1)
+    for j in range(2, n + 1):
+        corr = a if j in band1 else z if j in band2 else ZERO
+        coeffs[j] = ((q[j] * (-mu[j])) + corr) / ell
+    moment1 = sum(coeffs[j] / j for j in range(2, n + 1))
+    moment2 = sum((coeffs[j] * (j - 1)) / (2 * j) for j in range(2, n + 1))
+    assert moment1.lo <= SCALE <= moment1.hi
+    assert moment2.lo <= SCALE <= moment2.hi
+    un, uh = omitted_moduli(n, t, mu, logs), omitted_moduli(h, t, mu, logs)
+    f1, f2 = band_floors(band1, t), band_floors(band2, t)
+    totals = {name: ZERO for name in ("first", "active", "after_n", "core")}
+    matrices = {name: [[ZERO for _ in range(4)] for _ in range(4)]
+                for name in ("first", "active", "after_n", "core")}
+    residuals = []
+    peak_energy, peak_abs = None, None
+    max_width = 0
+    direct_checks = 0
+    for m in range(1, t + 1):
+        parts = [un[m] / ell, -uh[m] / ell, (a * f1[m]) / ell, (z * f2[m]) / ell]
+        r = sum(parts)
+        residuals.append(f"{m}\t{r.lo}\t{r.hi}")
+        max_width = max(max_width, r.hi - r.lo)
+        if m <= h:
+            # Exact zero follows symbolically, not from the size of an interval.
+            assert all(part == ZERO for part in parts)
+        if m <= n or m in (t, t - 1, 2 * n, 3 * n):
+            direct = I.integer(1) - sum((coeffs[j] * (m % j)) / j
+                                       for j in range(2, n + 1))
+            assert direct.intersects(r)
+            direct_checks += 1
+        if m <= h:
+            continue
+        region = "first" if m <= n // 2 else "active" if m <= n else "after_n"
+        weight_den = m * (m + 1)
+        energy = r.square() / weight_den
+        for name in (region, "core"):
+            totals[name] = totals[name] + energy
+            for i in range(4):
+                for j in range(i, 4):
+                    product = parts[i].square() if i == j else parts[i] * parts[j] * 2
+                    matrices[name][i][j] = matrices[name][i][j] + product / weight_den
+        if peak_energy is None or energy.lo > peak_energy[1].lo:
+            peak_energy = (m, energy, r)
+        if peak_abs is None or r.abs().lo > peak_abs[1].abs().lo:
+            peak_abs = (m, r)
+    for name in totals:
+        recombined = sum(matrices[name][i][j] for i in range(4) for j in range(i, 4))
+        assert recombined.intersects(totals[name])
+    assert (totals["first"] + totals["active"] + totals["after_n"]).intersects(totals["core"])
+    delta = I(max(a.abs().lo, z.abs().lo), max(a.abs().hi, z.abs().hi)) / ell
+    p6 = (I.rational(Fraction(14, 3)) / ell.square()) + delta.square() * I.rational(Fraction(5, 3))
+    # Independently valid but coarse bounded-residual tail, no large sieve required.
+    l1 = I.integer(1) + sum(coeffs[j].abs() for j in range(2, n + 1))
+    elementary_tail = l1.square() / (t + 1)
+    # Directly evaluated full centered covariance, not a diagonal proxy.
+    covariance = ZERO
+    for i in range(2, n + 1):
+        for j in range(i, n + 1):
+            gij = math.gcd(i, j) ** 2 - 1
+            if gij:
+                prod = coeffs[i].square() if i == j else coeffs[i] * coeffs[j] * 2
+                covariance = covariance + (prod * gij) / (12 * i * j)
+    large_sieve_factor = I.rational(Fraction(1, t + 1) + Fraction(n * n, (t + 1) * (t + 2)))
+    n4 = covariance * large_sieve_factor
+    gap = totals["core"] - totals["first"] * 4
+    ratio = totals["core"] / totals["first"]
+    assert gap.lo > 0 or gap.hi < 0
+    path = outdir / f"residuals_N{n}_b{BITS}.tsv"
+    path.write_text("\n".join(residuals) + "\n")
+    result = {
+        "N": n, "H": h, "T": t, "bits": BITS,
+        "A": certificate(a), "Z": certificate(z), "ell": certificate(ell),
+        "energies": {key: certificate(value) for key, value in totals.items()},
+        "gap_core_minus_four_first": certificate(gap), "core_first_ratio": certificate(ratio),
+        "verdict": "REFUTED" if gap.lo > 0 else "FINITE_PASS",
+        "gram_terms": {key: {f"{i}{j}": certificate(mat[i][j])
+                              for i in range(4) for j in range(i, 4)}
+                       for key, mat in matrices.items()},
+        "P6_tail_certificate": certificate(p6),
+        "N4_covariance_tail_certificate": certificate(n4),
+        "centered_covariance": certificate(covariance),
+        "elementary_tail_certificate": certificate(elementary_tail),
+        "peak_weighted_coordinate": {"m": peak_energy[0], "energy": certificate(peak_energy[1]),
+                                     "residual": certificate(peak_energy[2])},
+        "peak_abs_coordinate": {"m": peak_abs[0], "residual": certificate(peak_abs[1])},
+        "max_residual_interval_width_units": str(max_width),
+        "direct_residue_checks": direct_checks,
+        "residual_certificate_sha256": hashlib.sha256(path.read_bytes()).hexdigest(),
+        "elapsed_seconds": time.perf_counter() - started,
+    }
+    return result
+
+
+def main():
+    global BITS, SCALE
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--phase", choices=("development", "heldout", "all"), required=True)
+    parser.add_argument("--bits", type=int, default=192)
+    parser.add_argument("--output", type=Path, required=True)
+    args = parser.parse_args()
+    BITS, SCALE = args.bits, 1 << args.bits
+    ns = {"development": [120, 240], "heldout": [384, 600], "all": [120, 240, 384, 600]}[args.phase]
+    start = time.perf_counter()
+    max_t = max(ceil_three_halves(n) for n in ns)
+    mu, logs = arithmetic(max_t)
+    args.output.parent.mkdir(parents=True, exist_ok=True)
+    cases = []
+    for n in ns:
+        result = run_case(n, mu, logs, args.output.parent)
+        cases.append(result)
+        print(json.dumps({"N": n, "H": result["H"], "T": result["T"],
+                          "verdict": result["verdict"],
+                          "energies": {k: v["decimal"] for k, v in result["energies"].items()},
+                          "ratio": result["core_first_ratio"]["decimal"],
+                          "gap": result["gap_core_minus_four_first"]["decimal"],
+                          "P6_tail": result["P6_tail_certificate"]["decimal"],
+                          "N4_tail": result["N4_covariance_tail_certificate"]["decimal"]}), flush=True)
+    output = {"python": platform.python_version(), "bits": BITS, "scale": str(SCALE),
+              "phase": args.phase, "mobius_independent_range": max_t,
+              "source_sha256": hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
+              "elapsed_seconds": time.perf_counter() - start, "cases": cases}
+    args.output.write_text(json.dumps(output, indent=2) + "\n")
+    print(json.dumps({"elapsed_seconds": output["elapsed_seconds"], "output": str(args.output)}))
+
+
+if __name__ == "__main__":
+    main()
+```
+
+#### nyman_reference.py
+
+```python
+"""Independent original-residue reconstruction at 100 decimal digits.
+
+This is a numerical cross-check, not the certifying interval implementation.
+Rational symbolic log-vector checks establish the two moments exactly.
+"""
+
+import argparse
+import hashlib
+import json
+import math
+import platform
+import time
+from decimal import Decimal, localcontext
+from fractions import Fraction
+from pathlib import Path
+
+
+def factor(n):
+    result = {}
+    p = 2
+    while p * p <= n:
+        while n % p == 0:
+            result[p] = result.get(p, 0) + 1
+            n //= p
+        p += 1
+    if n > 1:
+        result[n] = result.get(n, 0) + 1
+    return result
+
+
+def mobius(n):
+    exponents = list(factor(n).values())
+    return 0 if any(e > 1 for e in exponents) else (-1) ** len(exponents)
+
+
+def add(a, b):
+    c = a.copy()
+    for p, v in b.items():
+        c[p] = c.get(p, Fraction(0)) + v
+        if c[p] == 0:
+            del c[p]
+    return c
+
+
+def scale(a, q):
+    q = Fraction(q)
+    return {p: v * q for p, v in a.items() if v * q}
+
+
+def logvector(n):
+    return {p: Fraction(e) for p, e in factor(n).items()}
+
+
+def symbolic_moments(n, h, mu):
+    k = n // 6
+    ell = add(logvector(n), scale(logvector(h), -1))
+    q = [None] + [add(logvector(n), scale(logvector(max(h, j)), -1))
+                  for j in range(1, n + 1)]
+    u, v = {}, scale(ell, 2)
+    for j in range(1, n + 1):
+        u = add(u, scale(q[j], Fraction(mu[j], j)))
+        v = add(v, scale(q[j], mu[j]))
+    b1, b2 = range(3 * k + 1, 4 * k + 1), range(5 * k + 1, 6 * k + 1)
+    s1 = sum(Fraction(1, j) for j in b1)
+    s2 = sum(Fraction(1, j) for j in b2)
+    a = scale(add(u, scale(v, -s2 / k)), 1 / (s1 - s2))
+    z = scale(add(scale(v, s1 / k), scale(u, -1)), 1 / (s1 - s2))
+    first, second = {}, {}
+    for j in range(2, n + 1):
+        num = scale(q[j], -mu[j])
+        if j in b1:
+            num = add(num, a)
+        if j in b2:
+            num = add(num, z)
+        if j <= h:
+            assert num == scale(ell, -mu[j])
+        first = add(first, scale(num, Fraction(1, j)))
+        second = add(second, scale(num, Fraction(j - 1, 2 * j)))
+    assert first == second == ell
+    for m in range(1, h + 1):
+        assert sum(mu[j] * (m // j) for j in range(1, m + 1)) == 1
+    return {"first_moment_exact": True, "mean_moment_exact": True,
+            "zero_head_exact_coordinates": h,
+            "ell_log_prime_coefficients": {str(p): str(v) for p, v in ell.items()}}
+
+
+def run_case(n, directory):
+    start = time.perf_counter()
+    h = 0
+    while (h + 1) ** 5 <= n ** 4:
+        h += 1
+    t = math.isqrt(n ** 3)
+    if t * t != n ** 3:
+        t += 1
+    k = n // 6
+    mu = [0] + [mobius(j) for j in range(1, n + 1)]
+    symbolic = symbolic_moments(n, h, mu)
+    with localcontext() as ctx:
+        ctx.prec = 100
+        ell = (Decimal(n) / Decimal(h)).ln()
+        q = [Decimal(0)] + [(Decimal(n) / max(h, j)).ln() for j in range(1, n + 1)]
+        u = sum(Decimal(mu[j]) * q[j] / j for j in range(1, n + 1))
+        v = 2 * ell + sum(Decimal(mu[j]) * q[j] for j in range(1, n + 1))
+        b1, b2 = range(3 * k + 1, 4 * k + 1), range(5 * k + 1, 6 * k + 1)
+        s1 = sum(Decimal(1) / j for j in b1)
+        s2 = sum(Decimal(1) / j for j in b2)
+        a, z = (u - s2 * v / k) / (s1 - s2), (s1 * v / k - u) / (s1 - s2)
+        c = [Decimal(0)] * (n + 1)
+        for j in range(2, n + 1):
+            c[j] = (-Decimal(mu[j]) * q[j] + (a if j in b1 else z if j in b2 else 0)) / ell
+        # Direct mod residues, with no U/floor decomposition or cached arithmetic input.
+        ck = [c[j] / j for j in range(2, n + 1)]
+        energies = {s: Decimal(0) for s in ("first", "active", "after_n", "core")}
+        lines = []
+        max_head_error = Decimal(0)
+        for m in range(1, t + 1):
+            r = 1 - sum(vv * (m % j) for j, vv in enumerate(ck, 2))
+            lines.append(f"{m}\t{r}")
+            if m <= h:
+                max_head_error = max(max_head_error, abs(r))
+                continue
+            en = r * r / (m * (m + 1))
+            region = "first" if m <= n // 2 else "active" if m <= n else "after_n"
+            energies[region] += en
+            energies["core"] += en
+        assert max_head_error < Decimal("1e-90")
+        path = directory / f"reference_N{n}.tsv"
+        path.write_text("\n".join(lines) + "\n")
+        result = {"N": n, "H": h, "T": t, "A": str(a), "Z": str(z), "ell": str(ell),
+                  "energies": {key: str(value) for key, value in energies.items()},
+                  "max_head_rounding_error": str(max_head_error), "symbolic": symbolic,
+                  "elapsed_seconds": time.perf_counter() - start,
+                  "residual_sha256": hashlib.sha256(path.read_bytes()).hexdigest()}
+        print(json.dumps(result), flush=True)
+        return result
+
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--output", type=Path, required=True)
+    args = parser.parse_args()
+    args.output.parent.mkdir(parents=True, exist_ok=True)
+    start = time.perf_counter()
+    cases = [run_case(n, args.output.parent) for n in (120, 240, 384, 600)]
+    output = {"python": platform.python_version(), "precision_decimal_digits": 100,
+              "source_sha256": hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
+              "elapsed_seconds": time.perf_counter() - start, "cases": cases}
+    args.output.write_text(json.dumps(output, indent=2) + "\n")
+    print(json.dumps({"elapsed_seconds": output["elapsed_seconds"]}), flush=True)
+
+
+if __name__ == "__main__":
+    main()
+```
+
+#### nyman_audit.py
+
+```python
+"""Validate independent reconstructions, precision rerun and small certificates."""
+
+import hashlib
+import json
+import time
+from fractions import Fraction
+from pathlib import Path
+
+import nyman_interval as cert
+
+
+ROOT = Path(__file__).resolve().parent
+RESULTS = ROOT / "results"
+
+
+def read_json(name):
+    return json.loads((RESULTS / name).read_text())
+
+
+def bounds(obj, scale):
+    return Fraction(int(obj["lo"]), scale), Fraction(int(obj["hi"]), scale)
+
+
+def add_bounds(items):
+    items = tuple(items)
+    return tuple(sum(x[j] for x in items) for j in (0, 1))
+
+
+def rounded(x, digits=12, upper=False):
+    s = 10 ** digits
+    v = (-((-x.numerator * s) // x.denominator) if upper
+         else x.numerator * s // x.denominator)
+    sign = "-" if v < 0 else ""
+    v = abs(v)
+    return f"{sign}{v // s}.{v % s:0{digits}d}"
+
+
+def check_arithmetic():
+    values = [Fraction(n, d) for n in range(-7, 8) for d in (1, 2, 3, 7, 11)]
+    count = 0
+    for a in values:
+        x = cert.I.rational(a)
+        for b in values:
+            y = cert.I.rational(b)
+            for val, interval in ((a + b, x + y), (a - b, x - y), (a * b, x * y)):
+                assert Fraction(interval.lo, cert.SCALE) <= val <= Fraction(interval.hi, cert.SCALE)
+                count += 1
+            if b > 0:
+                interval = x / y
+                assert Fraction(interval.lo, cert.SCALE) <= a / b <= Fraction(interval.hi, cert.SCALE)
+                count += 1
+        interval = x.square()
+        assert Fraction(interval.lo, cert.SCALE) <= a * a <= Fraction(interval.hi, cert.SCALE)
+        count += 1
+    crossing = cert.I(-2 * cert.SCALE, 3 * cert.SCALE)
+    assert crossing.square() == cert.I(0, 9 * cert.SCALE)
+    assert crossing.abs() == cert.I(0, 3 * cert.SCALE)
+    return count + 2
+
+
+def residuals(name, scale):
+    result = {}
+    for line in (RESULTS / name).read_text().splitlines():
+        m, lo, hi = map(int, line.split())
+        result[m] = (Fraction(lo, scale), Fraction(hi, scale))
+    return result
+
+
+def main():
+    start = time.perf_counter()
+    fixtures = check_arithmetic()
+    original = read_json("development.json")["cases"] + read_json("heldout.json")["cases"]
+    higher = read_json("high_precision.json")["cases"]
+    reference = read_json("reference.json")["cases"]
+    summary, coordinate_checks, exact_zero_coordinates = [], 0, 0
+    for x, y, z in zip(original, higher, reference):
+        n, h, t = x["N"], x["H"], x["T"]
+        assert (n, h, t) == (y["N"], y["H"], y["T"]) == (z["N"], z["H"], z["T"])
+        low = residuals(f"residuals_N{n}_b192.tsv", 1 << 192)
+        high = residuals(f"residuals_N{n}_b256.tsv", 1 << 256)
+        refs = {int(m): Fraction(value) for m, value in
+                (line.split() for line in (RESULTS / f"reference_N{n}.tsv").read_text().splitlines())}
+        assert len(low) == len(high) == len(refs) == t
+        for m in range(1, t + 1):
+            assert max(low[m][0], high[m][0]) <= min(low[m][1], high[m][1])
+            if low[m] == high[m] == (0, 0):
+                exact_zero_coordinates += 1
+                assert abs(refs[m]) < Fraction(1, 10 ** 90)
+            elif m <= h:
+                assert low[m] == high[m] == (0, 0)
+                assert abs(refs[m]) < Fraction(1, 10 ** 90)
+            else:
+                assert low[m][0] <= refs[m] <= low[m][1], (n, m, low[m], refs[m])
+                assert high[m][0] <= refs[m] <= high[m][1], (n, m, high[m], refs[m])
+            coordinate_checks += 1
+        for name in ("first", "active", "after_n", "core"):
+            b0, b1 = bounds(x["energies"][name], 1 << 192), bounds(y["energies"][name], 1 << 256)
+            f = Fraction(z["energies"][name])
+            assert b0[0] <= f <= b0[1] and b1[0] <= f <= b1[1]
+            matrix_sum = add_bounds(bounds(value, 1 << 256)
+                                    for value in y["gram_terms"][name].values())
+            assert max(b1[0], matrix_sum[0]) <= min(b1[1], matrix_sum[1])
+        gram = y["gram_terms"]["core"]
+        groups = {"base": ("00", "01", "11"), "correction": ("22", "23", "33"),
+                  "mixed": ("02", "03", "12", "13")}
+        terms = {name: add_bounds(bounds(gram[key], 1 << 256) for key in keys)
+                 for name, keys in groups.items()}
+        first = bounds(y["energies"]["first"], 1 << 256)
+        # Post-preregistration analysis: the omitted correction is not the sole cause.
+        assert terms["base"][0] > 4 * first[1]
+        peak = y["peak_weighted_coordinate"]
+        peak_value = bounds(peak["energy"], 1 << 256)
+        other_highs = []
+        for m, (a, b) in high.items():
+            if m != peak["m"]:
+                other_highs.append(max(a * a, b * b) / (m * (m + 1)))
+        assert peak_value[0] > max(other_highs)
+        if n == 120:
+            assert first[1] < Fraction(217, 10 ** 6)
+            assert peak["m"] == 95 and peak_value[0] > Fraction(995, 10 ** 6)
+            assert Fraction(995, 10 ** 6) > 4 * Fraction(217, 10 ** 6)
+        core = bounds(y["energies"]["core"], 1 << 256)
+        n4 = bounds(y["N4_covariance_tail_certificate"], 1 << 256)
+        width = max(b - a for a, b in low.values())
+        assert width < Fraction(1, 10 ** 50)
+        summary.append({"N": n,
+                        "grouped_core_gram_12dp": {key: [rounded(v[0]), rounded(v[1], upper=True)]
+                                                         for key, v in terms.items()},
+                        "core_plus_N4_tail_upper_12dp_ceiling": rounded(core[1] + n4[1], upper=True),
+                        "peak_weighted_m": peak["m"],
+                        "certified_residual_width_lt_1e_minus_50": True,
+                        "base_without_correction_already_violates_four": True})
+    output = {"interval_arithmetic_exact_fixture_checks": fixtures,
+              "all_coordinate_cross_checks": coordinate_checks,
+              "exact_zero_head_count": sum(x["H"] for x in original),
+              "exact_zero_coordinates_including_accidental_extension": exact_zero_coordinates,
+              "independent_decimal_reference_status": "cross-check, not interval certificate",
+              "author_review_status": "SELF_AUDIT; independent Referee PENDING",
+              "cases": summary,
+              "source_sha256": hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
+              "elapsed_seconds": time.perf_counter() - start}
+    (RESULTS / "audit.json").write_text(json.dumps(output, indent=2) + "\n")
+    print(json.dumps(output, indent=2))
+
+
+if __name__ == "__main__":
+    main()
+```
+
+#### nyman_correction_probe.py
+
+```python
+"""Post-hoc, preregistered small falsification of correction monotonicity."""
+
+import argparse
+import hashlib
+import json
+from decimal import Decimal, localcontext
+from pathlib import Path
+
+import nyman_interval as c
+import nyman_reference as ref
+
+
+def case(n):
+    h, t, k = c.floor_power_four_fifths(n), c.ceil_three_halves(n), n // 6
+    mu, logs = c.arithmetic(t)
+    ell = logs[n] - logs[h]
+    q = [c.ZERO] + [logs[n] - logs[max(h, j)] for j in range(1, n + 1)]
+    u = sum((q[j] * mu[j]) / j for j in range(1, n + 1))
+    v = 2 * ell + sum(q[j] * mu[j] for j in range(1, n + 1))
+    b1, b2 = range(3 * k + 1, 4 * k + 1), range(5 * k + 1, 6 * k + 1)
+    s1 = sum(c.I.rational(c.Fraction(1, j)) for j in b1)
+    s2 = sum(c.I.rational(c.Fraction(1, j)) for j in b2)
+    a, z = (u - s2 * v / k) / (s1 - s2), (s1 * v / k - u) / (s1 - s2)
+    un, uh = c.omitted_moduli(n, t, mu, logs), c.omitted_moduli(h, t, mu, logs)
+    f1, f2 = c.band_floors(b1, t), c.band_floors(b2, t)
+    total, base_e, corr_e, cross = c.ZERO, c.ZERO, c.ZERO, c.ZERO
+    for m in range(h + 1, t + 1):
+        base, corr = (un[m] - uh[m]) / ell, (a * f1[m] + z * f2[m]) / ell
+        w = m * (m + 1)
+        total += (base + corr).square() / w
+        base_e += base.square() / w
+        corr_e += corr.square() / w
+        cross += (base * corr * 2) / w
+    gap = total - base_e
+    assert (base_e + corr_e + cross).intersects(total)
+    return {"N": n, "H": h, "T": t,
+            "core": c.certificate(total), "base": c.certificate(base_e),
+            "correction": c.certificate(corr_e), "mixed": c.certificate(cross),
+            "gap": c.certificate(gap), "failure": gap.lo > 0}
+
+
+def independent_groups(n, h, t):
+    # Recover the base through original residues minus its exact linear drift.
+    # This avoids the U_N/U_H floor transform used by the certificate.
+    with localcontext() as ctx:
+        ctx.prec = 100
+        k = n // 6
+        ell = (Decimal(n) / h).ln()
+        q = [Decimal(0)] + [(Decimal(n) / max(h, j)).ln() for j in range(1, n + 1)]
+        mu = [0] + [ref.mobius(j) for j in range(1, n + 1)]
+        u = sum(Decimal(mu[j]) * q[j] / j for j in range(1, n + 1))
+        v = 2 * ell + sum(Decimal(mu[j]) * q[j] for j in range(1, n + 1))
+        s1 = sum(Decimal(1) / j for j in range(3 * k + 1, 4 * k + 1))
+        s2 = sum(Decimal(1) / j for j in range(5 * k + 1, 6 * k + 1))
+        a, z = (u - s2 * v / k) / (s1 - s2), (s1 * v / k - u) / (s1 - s2)
+        base_coeff = [Decimal(0)] + [-Decimal(mu[j]) * q[j] / ell for j in range(1, n + 1)]
+        corr_coeff = [Decimal(0)] + [(a if 3 * k < j <= 4 * k else
+                                     z if 5 * k < j <= 6 * k else 0) / ell
+                                    for j in range(1, n + 1)]
+        sums = {key: Decimal(0) for key in ("core", "base", "correction", "mixed")}
+        for m in range(h + 1, t + 1):
+            raw = 1 - sum(base_coeff[j] * (m % j) / j for j in range(2, n + 1))
+            base = raw - m * u / ell
+            full = raw - sum(corr_coeff[j] * (m % j) / j for j in range(2, n + 1))
+            corr = full - base
+            w = m * (m + 1)
+            sums["core"] += full * full / w
+            sums["base"] += base * base / w
+            sums["correction"] += corr * corr / w
+            sums["mixed"] += 2 * base * corr / w
+        sums["gap"] = sums["core"] - sums["base"]
+        return {key: str(value) for key, value in sums.items()}
+
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--bits", type=int, default=192)
+    args = parser.parse_args()
+    c.BITS, c.SCALE = args.bits, 1 << args.bits
+    directory = Path(__file__).resolve().parent / "results"
+    tested, skipped = [], []
+    for n in range(6, 115, 6):
+        h = c.floor_power_four_fifths(n)
+        if not (2 <= h <= n // 2):
+            skipped.append([n, h])
+            continue
+        result = case(n)
+        tested.append(result)
+        if result["failure"]:
+            independent = ref.run_case(n, directory)
+            lo = c.Fraction(int(result["core"]["lo"]), c.SCALE)
+            hi = c.Fraction(int(result["core"]["hi"]), c.SCALE)
+            assert lo <= c.Fraction(independent["energies"]["core"]) <= hi
+            groups = independent_groups(n, result["H"], result["T"])
+            for key, value in groups.items():
+                assert (c.Fraction(int(result[key]["lo"]), c.SCALE)
+                        <= c.Fraction(value)
+                        <= c.Fraction(int(result[key]["hi"]), c.SCALE))
+            break
+    output = {"bits": c.BITS, "scale": str(c.SCALE), "skipped": skipped,
+              "cases": tested, "independent_reference": independent if tested[-1]["failure"] else None,
+              "independent_grouped_energies": groups if tested[-1]["failure"] else None,
+              "source_sha256": hashlib.sha256(Path(__file__).read_bytes()).hexdigest()}
+    (directory / f"correction_probe_b{c.BITS}.json").write_text(json.dumps(output, indent=2) + "\n")
+    print(json.dumps(output, indent=2))
+
+
+if __name__ == "__main__":
+    main()
+```
+
+### Minimal Exact Dyadic Certificates
+
+Each integer endpoint is divided by the displayed scale. Decimal entries are outward display enclosures.
+
+```json
+{
+  "scale": "115792089237316195423570985008687907853269984665640564039457584007913129639936",
+  "N": 120,
+  "H": 46,
+  "T": 1315,
+  "E_first": {
+    "lo": "25126002789725627615989544186849195445918939054313328082405085719819335521",
+    "hi": "25126002789725627615989544186849195445918939054313328082405085719819335535",
+    "decimal": [
+      "0.000216992395",
+      "0.000216992396"
+    ]
+  },
+  "r95": {
+    "lo": "348941349610074485894137339808258646534827330689703241560260870327852687972290",
+    "hi": "348941349610074485894137339808258646534827330689703241560260870327852688001016",
+    "decimal": [
+      "3.013516311074",
+      "3.013516311075"
+    ]
+  },
+  "E95": {
+    "lo": "115300487791490534489013126187270493687908406594128833266389123376390177004",
+    "hi": "115300487791490534489013126187270493687908406594128833266389123376390177024",
+    "decimal": [
+      "0.000995754447",
+      "0.000995754448"
+    ]
+  },
+  "E_core": {
+    "lo": "2826036435368753679343415254777767885919246202917925074697451950091948453421",
+    "hi": "2826036435368753679343415254777767885919246202917925074697451950091948458052",
+    "decimal": [
+      "0.024406126998",
+      "0.024406126999"
+    ]
+  }
+}
+```
+
+```json
+{
+  "scale": "115792089237316195423570985008687907853269984665640564039457584007913129639936",
+  "skipped": [
+    [
+      6,
+      4
+    ],
+    [
+      12,
+      7
+    ],
+    [
+      18,
+      10
+    ]
+  ],
+  "cases": [
+    {
+      "N": 24,
+      "H": 12,
+      "T": 118,
+      "gap": {
+        "lo": "-33207515105825668909234807525441587721621927001379112558408787205576802378",
+        "hi": "-33207515105825668909234807525441587721621927001379112558408787205576801562",
+        "decimal": [
+          "-0.000286785698",
+          "-0.000286785697"
+        ]
+      },
+      "failure": false
+    },
+    {
+      "N": 30,
+      "H": 15,
+      "T": 165,
+      "gap": {
+        "lo": "-1859991874928238251322225823077470530496902488440095861680087412807531017315",
+        "hi": "-1859991874928238251322225823077470530496902488440095861680087412807531016071",
+        "decimal": [
+          "-0.016063203343",
+          "-0.016063203342"
+        ]
+      },
+      "failure": false
+    },
+    {
+      "N": 36,
+      "H": 17,
+      "T": 216,
+      "gap": {
+        "lo": "-575086872667900930073560894380628272610960141437112475348332763726158543413",
+        "hi": "-575086872667900930073560894380628272610960141437112475348332763726158541961",
+        "decimal": [
+          "-0.004966547167",
+          "-0.004966547166"
+        ]
+      },
+      "failure": false
+    },
+    {
+      "N": 42,
+      "H": 19,
+      "T": 273,
+      "gap": {
+        "lo": "1689084291480873876798769628269688189440418383272095681637234861732171632",
+        "hi": "1689084291480873876798769628269688189440418383272095681637234861732173374",
+        "decimal": [
+          "0.000014587216",
+          "0.000014587217"
+        ]
+      },
+      "failure": true
+    }
+  ],
+  "independent_grouped_energies": {
+    "core": "0.02568000196420442489850865577694018089525987888525081376708175834995878302636060406953333357407313215",
+    "base": "0.02566541474755943379621677041592342209035840691281897546363619992475283056691686717850563231130792874",
+    "correction": "0.0004212097853663130861922806395372455170229463266361943254249560812357102511835279574441301288156826883",
+    "mixed": "-0.0004066225687213219839003952785204867121214743542043560219793976560297577917397910664164288660504792989",
+    "gap": "0.00001458721664499110229188536101675880490147197243183830344555842520595245944373689102770126276520341"
+  }
+}
+```
+
+### Final Audit Output
+
+```json
+{
+  "interval_arithmetic_exact_fixture_checks": 19577,
+  "all_coordinate_cross_checks": 27256,
+  "exact_zero_head_count": 408,
+  "exact_zero_coordinates_including_accidental_extension": 410,
+  "independent_decimal_reference_status": "cross-check, not interval certificate",
+  "author_review_status": "SELF_AUDIT; independent Referee PENDING",
+  "cases": [
+    {
+      "N": 120,
+      "grouped_core_gram_12dp": {
+        "base": [
+          "0.026799172643",
+          "0.026799172644"
+        ],
+        "correction": [
+          "0.002447103069",
+          "0.002447103070"
+        ],
+        "mixed": [
+          "-0.004840148715",
+          "-0.004840148714"
+        ]
+      },
+      "core_plus_N4_tail_upper_12dp_ceiling": "0.038177571538",
+      "peak_weighted_m": 95,
+      "certified_residual_width_lt_1e_minus_50": true,
+      "base_without_correction_already_violates_four": true
+    },
+    {
+      "N": 240,
+      "grouped_core_gram_12dp": {
+        "base": [
+          "0.024429716864",
+          "0.024429716865"
+        ],
+        "correction": [
+          "0.001037361983",
+          "0.001037361984"
+        ],
+        "mixed": [
+          "-0.001904634465",
+          "-0.001904634464"
+        ]
+      },
+      "core_plus_N4_tail_upper_12dp_ceiling": "0.035600420669",
+      "peak_weighted_m": 221,
+      "certified_residual_width_lt_1e_minus_50": true,
+      "base_without_correction_already_violates_four": true
+    },
+    {
+      "N": 384,
+      "grouped_core_gram_12dp": {
+        "base": [
+          "0.021994369462",
+          "0.021994369463"
+        ],
+        "correction": [
+          "0.000047155336",
+          "0.000047155337"
+        ],
+        "mixed": [
+          "-0.000055091326",
+          "-0.000055091325"
+        ]
+      },
+      "core_plus_N4_tail_upper_12dp_ceiling": "0.032941111396",
+      "peak_weighted_m": 221,
+      "certified_residual_width_lt_1e_minus_50": true,
+      "base_without_correction_already_violates_four": true
+    },
+    {
+      "N": 600,
+      "grouped_core_gram_12dp": {
+        "base": [
+          "0.023190946274",
+          "0.023190946275"
+        ],
+        "correction": [
+          "0.000821436103",
+          "0.000821436104"
+        ],
+        "mixed": [
+          "-0.001190528012",
+          "-0.001190528011"
+        ]
+      },
+      "core_plus_N4_tail_upper_12dp_ceiling": "0.032953303134",
+      "peak_weighted_m": 554,
+      "certified_residual_width_lt_1e_minus_50": true,
+      "base_without_correction_already_violates_four": true
+    }
+  ],
+  "source_sha256": "931d8250a9cabeaf8377b37bf0cb4f50ba166f43d5e3f808d4328f84f842fc2a",
+  "elapsed_seconds": 0.8606982420000122
+}
+```
+
+### Closeout Authority Check
+
+At 2026-11-05 00:18:10 UTC, main was re-fetched as 1daca8d582c361983567f0b6e99d447a77c3aea5, unchanged. The current open/draft PR collection remained empty. These observations do not assert future repository state.
