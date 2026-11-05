@@ -1335,3 +1335,10 @@ def main():
 if __name__ == "__main__":
     main()
 ```
+
+
+### Verified Publication Receipt - 20261105-wheel-2
+
+Verified **2026-11-05T15:52:20Z** (10:52:20 EST). The substantive append is commit **5f14a9dd8d916161dbff1cb9c3ea7b8d3f76fbd0**, content blob **5f2606a6f5cb3156605ddb2a88a4b74b5cc6b5e7**. Immutable-commit readback exactly matched all **94,772 characters** submitted, including the complete executable appendix. The commit changed only `research/agent_reports/2026-11-05/30-finite-wheel.md`, with **583 additions and zero deletions**, preserving all preceding entries and the early checkpoint. Parent **51e79d99fb2a26f1637d20641f24375944af6d6d** was verified.
+
+The final source refresh still returned main **884de7a1fa7687d483a7b5272bff6c9d53790367**. The reports-tree refresh found no new November 5 specialist handoff or external-inbox change beyond this run's own checkpoint, and the final open/draft PR query returned none. This receipt records the already verified substantive publication; it does not claim independent mathematical review, a Lean proof of P1-P4, or repair of V1. All requested follow-up work remains a report handoff within own-report-only authority.
