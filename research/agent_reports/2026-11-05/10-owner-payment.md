@@ -1112,3 +1112,14 @@ print(json.dumps(dict(scope='FINITE_COMPUTATION, not an asymptotic estimate',
 
 ~~~
 
+### Verified Publication Receipt - 2026-11-05 00:36 EST
+
+**Execution COMPLETE; substantive report PUBLISHED_AND_READBACK_VERIFIED.** The full RC1-RC6 synthesis, A-K sections, exact verifier/output, source ledger and specialist handoffs were published in commit **2312f30f3fed5e1029778f5f8bbdf297d9ac53ea**, blob **ceeb4b4d68453c6ce7d79d6b72c04c8a109af199**. Immutable-commit readback matched all **57,883 characters** exactly. Commit inspection confirms that only this authorized Owner report changed. The original early checkpoint remains an unchanged prefix.
+
+Main was rechecked before publication and remained **ff620da3c0d2c29585805960c6be183c07f16556**. Today's upstream directory still contained no other role report: TODAY=PENDING; YESTERDAY=CARRY_FORWARD. The current branch report was freshly fetched again before this receipt and matched the verified synthesis.
+
+This receipt records the already verified substantive commit, not its own future commit; the receipt write is followed by its own exact readback. The downloadable report mirrors the final published content.
+
+Mathematical status remains **PAPER_PROOF / SELF_AUDIT**, with **FINITE_COMPUTATION**, the specified **REFUTED** method extensions, and **TARGET_EQUIVALENT** RC5 only relative to its stated prime-error envelope. Independent review and new Lean formalization remain PENDING. **No new global exponent bound, canonical VF bound, or RH proof was established.**
+
+
