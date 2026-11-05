@@ -1,4 +1,4 @@
-import research.NYMAN_HIGH_COEFFICIENT_INVARIANT_20261104
+import «research.NYMAN_HIGH_COEFFICIENT_INVARIANT_20261104»
 
 /-!
 Exact finite source return for 20261104-analytic-1/P4-P5 and its head, independently
@@ -60,6 +60,17 @@ theorem nymanFlatKernel_eq_original (N H k : Nat)
 theorem nymanFlatKernel_one (N H : Nat) (hH : 1 <= H) :
     nymanFlatKernel N H 1 = nymanFlatScale N H := by
   simp [nymanFlatKernel, nymanLogKernel, nymanFlatScale, hH]
+
+theorem nymanFlatCoefficient_eq_original (N H k : Nat) (h : Nat -> Real)
+    (hN : 1 <= N) (hH : 1 <= H) (hk : 1 <= k) :
+    nymanFlatCoefficient N H h k =
+      (h k - (ArithmeticFunction.moebius k : Real) *
+        Real.log ((N : Real) / (max H k : Nat))) /
+          Real.log ((N : Real) / (H : Real)) := by
+  have hNz : (N : Real) != 0 := by exact_mod_cast (show N != 0 by omega)
+  have hHz : (H : Real) != 0 := by exact_mod_cast (show H != 0 by omega)
+  unfold nymanFlatCoefficient nymanFlatScale
+  rw [nymanFlatKernel_eq_original N H k hN hH hk, Real.log_div hNz hHz]
 
 theorem nyman_sum_one_split (N : Nat) (hN : 1 <= N) (f : Nat -> Real) :
     Finset.sum (Icc 1 N) f = f 1 + Finset.sum (Icc 2 N) f := by
@@ -268,6 +279,7 @@ theorem nyman_two_band_moment_solver (K s1 s2 u v : Real)
   constructor <;> field_simp [hK, sub_ne_zero.mpr hs] <;> ring
 
 #check nymanFlatKernel_eq_original
+#check nymanFlatCoefficient_eq_original
 #check nyman_flat_reciprocal_moment
 #check nyman_flat_complete_return
 #check nyman_flat_return_of_moment
@@ -275,6 +287,7 @@ theorem nyman_two_band_moment_solver (K s1 s2 u v : Real)
 #check nyman_flat_head_iff_moment
 #check nyman_two_band_moment_solver
 #print axioms nymanFlatKernel_eq_original
+#print axioms nymanFlatCoefficient_eq_original
 #print axioms nyman_flat_reciprocal_moment
 #print axioms nyman_flat_complete_return
 #print axioms nyman_flat_return_of_moment

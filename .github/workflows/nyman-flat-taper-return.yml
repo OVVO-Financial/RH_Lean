@@ -51,6 +51,7 @@ jobs:
           text = pathlib.Path('nyman-flat-audit.log').read_text()
           expected = {
               'nymanFlatKernel_eq_original',
+              'nymanFlatCoefficient_eq_original',
               'nyman_flat_reciprocal_moment',
               'nyman_flat_complete_return',
               'nyman_flat_return_of_moment',
@@ -68,7 +69,7 @@ jobs:
           source = re.sub(r'/-.*?-/', '', source, flags=re.S)
           source = re.sub(r'--.*', '', source)
           assert not re.search(r'\b(sorry|admit|axiom|native_decide|unsafe)\b', source)
-          print('PASS: seven original-carrier terminal declarations; standard logical axioms only')
+          print('PASS: eight original-carrier terminal declarations; standard logical axioms only')
           PY
       - name: Preserve theorem signatures and axiom evidence
         if: ${{ !cancelled() && hashFiles('nyman-flat-audit.log') != '' }}
