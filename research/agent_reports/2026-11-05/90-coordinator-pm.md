@@ -629,3 +629,568 @@ Authority consumed: AGENTS blob `547dda0d9456e7a4e1165dc72d59da6f70d5c023`; cont
 Reports snapshot `d4ae547b8783aefdb0e7cf16f8d95746863b7464` contains November 4 and 5 reports for all six specialists and both Coordinator mirrors. All have been retrieved, including today's Analytic report, which was PENDING at the earlier Coordinator snapshot. Relevant sections and the external inbox are being read; retrieval alone is not acceptance. External inbox blob `038018145c0fddb2f6306c0712373adf9cd1ea52` has no newer entry than October 18. Only open PR at intake: #1095, Euler axiom-audit repair, head `46e68178192c6e429a02abee9d5b8ebca5de46c8`; no review/merge conclusion yet.
 
 Independent derivation, portfolio decisions, source verification, assignments and final readback remain PENDING. Canonical VF bound and new complete-endpoint gain remain OPEN. No Lean source, policy, other report, proof branch, PR, schedule or permission will be changed by this role; no other agent is launched. Earlier sections and evidence are preserved verbatim.
+
+
+---
+
+## Research Synthesis - 20261105-coordinator-2
+
+Actual invocation: **SCHEDULED, 2026-11-05 15:13:00 EST (-0500), America/New_York; RUN_ID_UNAVAILABLE**. This appends one continuation to the existing complete mirrors, not a new launch. Research is finished; publication is PENDING until the verified receipt below. Earlier reports and their time-specific statuses are preserved.
+
+### A. What Changed Mathematically?
+
+**A fixed finite signed combination of polynomial-head flat tapers cannot repair their all-scale norm obstruction.** The shortest head whose combined coefficient is nonzero controls the exact logarithmic-limsup exponent of the complete pre-correction residual. This remains true when the weights cancel the explicit prime-power term altogether, and when the mixed terms are negative. The proof is not a triangle lower bound: a hypothetical cancellation would force a sequence of actual zeta zeros toward 1 through one of finitely many strict contractions.
+
+For the precise original-residue families in D, with fixed shortest exponent theta_1 in (0,1),
+
+```text
+limsup_(N->infinity, 6|N) log(1+E_pre(N))/log N
+    = 1-2*theta_1*(1-beta_*),
+beta_* = sup Re(actual nontrivial zeta zeros).                 (C60)
+```
+
+In particular this exponent is at least 1-theta_1>0. For every 0<delta<1-theta_1 and every C,N0, some multiple of six N>=N0 has E_full(N)>C*N^(1-theta_1-delta). This is not divergence at every N. Fixed ordinary affine combinations of the individually normalized tapers satisfy the same restriction (C61).
+
+**New C58-C61: PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED.** C59's source formulas are IDENTITY_ONLY until used in the inverse estimate. C62 is exact FINITE_COMPUTATION for the source algebra, with separate non-certified decimal diagnostics. The finding is new relative to the retrieved two-day reports; no literature-originality claim is made. No additional complete-endpoint exponent improvement, canonical VF estimate or RH proof is established.
+
+Today's later Analytic SP1-SP5 are now independently accepted on paper by Referee-5; the morning Coordinator's pending Analytic stage is superseded. PR #1094 is now human-merged and verified at its finite component scope. PR #1095, initially green but unmerged during intake, was human-merged during this execution; its repaired Euler axiom audit has the exact merged tree. Those formal developments do not certify today's analytic argument.
+
+### B. Current Proof Objective And Authority
+
+Final pinned main: **1667c3cf9b4e898bb9afd62ec48e24610b2156ab**, committed 2026-11-05T20:32:22Z; tree **6351bbacd22d7abb34eefed1e2cbf5f674642010**. Intake main was **884de7a1fa7687d483a7b5272bff6c9d53790367**, committed 2026-11-05T13:35:24Z; tree e98a257a8258c42baae89222c999f4dfd544546a. The intervening #1095 merge changes only `.github/workflows/euler-fractional-coupled.yml` and two audit/test scripts; no mathematical source or policy changes. Both authority files were fetched again at the final main: AGENTS blob **547dda0d9456e7a4e1165dc72d59da6f70d5c023** and CURRENT_PROOF_CONTRACT blob **7c4ac83a1ec1a4144e1bd691391ed4244f1cc27c** are unchanged. Independent multi-front policy blob **ffd8f1c65cc4da656174956d4e03b48bea46768b** controls route choice. Task selector, breadth, complete-return, research-engine, role and operating/cadence documents were retrieved at intake and are unchanged by this merge.
+
+Canonical arithmetic target, inspected in `research/VF_CANONICAL_SQRT_TWO_VON_KOCH.lean`:
+
+```text
+VFCanonicalSquareVonKochStatement:
+exists C >= 0, forall natural R >= 2,
+  |pi(R^2)-VF_can(R^2)| <= C*R*log R.
+```
+
+It remains OPEN. The actual declaration `riemannHypothesis_of_vfCanonicalSquare` still takes `ClassicalVonKochRHCriterion` explicitly; the coordinate equivalence is not a newly proved prime bound. Existing fixed-count slot results keep their own certified scope. This invocation claims no new gain beyond the inherited result and does not optimize its denominator.
+
+Deployment acknowledgement: **NO_PIGEONHOLING_ROUTE_SELECTOR_V1**, sources above; selected task **NYMAN-FINITE-SIGNED-PROFILE-ESCAPE**, resuming Analytic SP1-SP5 and Referee-6 rather than a compulsory OAI ticket. Independent new step: finite-branch pole propagation, including exact prime-term elimination. Protected route rotation is unchanged; no other agent was launched.
+
+Original sources read at this main:
+
+| Source | Blob | Actual role |
+| --- | --- | --- |
+| research/NYMAN_HIGH_COEFFICIENT_INVARIANT_20261104.lean | 2da630c1d5fb9302e2097ec1e170cf41c2b40609 | Original residues, residual, logarithmic kernel and finite divisor identities |
+| research/NYMAN_FLAT_TAPER_RETURN_20261104.lean | 2d23721027ecc44e85b7add02fc632b482f03352 | Complete return with moment defect, exact-head criterion |
+| research/NYMAN_CORRECTION_ENERGY_20261105.lean | e5453cd32c3c4ebf9ebf41927bcb92e534b2ece7 | Component lower bound, not the full norm |
+| research/MERTENS_CONVERSE_IDENTIFICATION.lean | 768c8255850bf4074aff265c3fe17a1f5c43979b | Existing actual-zero/Mertens exponent translator; no numerical boundary supplied |
+| research/VF_CANONICAL_SQRT_TWO_VON_KOCH.lean | 79030d70e8d3e0d08eef9bac53fef95c36eca2fb | Canonical statement and conditional classical interface |
+| research/EULER_RANK_ONE_FRACTIONAL_ROWS_20261027.lean | e482711a3f55c1f59fc771f108671477f51732f2 | Nonsymmetric original kernel and complete rank-one residual |
+| research/EULER_SELF_DUAL_FINITE_C_BRIDGE_20261027.lean | e97561ef330a9996fd807d8910369f0698147b01 | Exact ordered convolution-to-floor map, not a bound |
+| research/CORR4_OAI_POWER_MIXED_TAIL_GATE_20261025.lean | bb0ee1252e7ba10c44ae5b8d827573d6c581b73a | Explicit conditional mixed-tail consumer |
+
+### C. Competing Mechanism Portfolio
+
+**1. Chronological non-divisor prime response: CONTINUE at proper-sector scope.** Concept: spend actual earlier prime coefficients fractionally and once, keeping unfinished chronological packets. Independent input: ordinary effective PNT supplies the donor interval counts in Owner CR1-CR2. Exact return: -D_T=C_F(T)+Q(T), with Q(T)=o(T/log T) for the stated sparse selections; the canonical phase and full square remain. First missing step: new control of the dense original complement or a genuine simultaneous allocation with sufficiently small chronological return. Support: paper CR1-CR3 and the exact finite donor checks. Obstruction: a sparse per-label result cannot be summed over the dense three-prime rectangle without congestion and return costs. Decisive test: a proposed dense allocation must pay every donor once and bound every unfinished prefix. Owner leads, with Referee review pending. This is real prime/chronology information, not a Mobius norm reformulation.
+
+**2. Joint historical bilinear control: REVISE, retaining signed masks.** Concept: exploit genuine factor geometry in the complete floor source before taking block norms. Independent input needed: a new arithmetic restriction on the recombined form, beyond exact Mobius inversion and inherited prefix bounds. Consumer: the original finite-C/Euler chain with strict historical K_R, or the separately inspected CORR4 full mixed-tail consumer; those are different source contracts, not interchangeable norms. First missing step: an independently paid uniform signed remainder. Support: Wheel's exact P1 four-block return and paper P2 asymptotic. Obstruction: all four actual blocks have size R^2/log^2 R and cancel in the leading matrix [[-1,1],[1,-1]]; bounding them separately at R sqrt(K_R) is false. CORR4 fixed-label relaxations also leave freedom (C53-C55 still review pending). Decisive experiment: require a new proposed packet to mix the obstructing classes, then restore its entire complement before assessing its gain. Wheel leads; no extra team-wide route is imposed.
+
+**3. Nyman approximation with changed constraints: REVISE; fixed finite-mixture repair RETIRED at its stated all-scale scope, subject to independent review.** Concept: allow genuine scale-dependent profiles, reciprocal-moment leakage or a sufficiently sparse sequence, with the original full Hilbert norm. Independent input needed: an upper bound for the entire new residual, plus the exact leakage/tail/consumer calculation. Support: the unrestricted basis, C45-C46's localized consumer, and Referee-8's source-realizable moment-defect tradeoff. Obstructions: SP1-SP5 and C58-C61 eliminate high-correction rearrangement and fixed finite taper superposition as all-scale bounded-norm repairs. Optimizing one lower certificate is not an upper estimate. Decisive experiment: choose one explicitly different coefficient rule and test its head, orthogonal pre-residual, corrections and after-N return together. Analytic leads on its next NYMAN turn, not at the expense of the due OAI/CODIV rotation. This remains exploratory: there is no surviving proved norm supplier.
+
+These are three distinct proposed sources of information, not three claimed closing theorems. No new independent mechanism is promoted to a program-wide priority. All nine protected routes remain active as investigations.
+
+### D. Conceptual Research Performed
+
+#### D1. C58-C59: Exact finite-profile carrier and full return
+
+Fix an integer d>=1, distinct real exponents
+
+```text
+0<theta_1<...<theta_d<1,
+alpha_i in R\{0}, fixed independently of N,
+A=sum_i alpha_i,
+c_star=sum_i alpha_i*(1-theta_i) != 0.
+```
+
+Combine equal exponents first and delete any resulting zero coefficient. For every sufficiently large multiple of six N=6K put H_i=floor(N^theta_i), so 2<=H_i<N/2. Define
+
+```text
+ell_i=log(N/H_i),                  ell=sum_i alpha_i*ell_i,
+F(k)=mu(k)*sum_i alpha_i*log(N/max(H_i,k)),  1<=k<=N,
+u=sum_(k=1..N) F(k)/k,
+h(k)=0 for 2<=k<=N/2,             sum_(k=2..N)h(k)/k=u,
+c(k)=(h(k)-F(k))/ell,             2<=k<=N,
+r_N(m)=1-sum_(k=2..N)c(k)*(m mod k)/k,
+E_pre(N)=sum_(K<=m<3K)r_N(m)^2/[m(m+1)],
+E_full(N)=sum_(m>=1)r_N(m)^2/[m(m+1)].
+```
+
+Here h is ANY finite real correction satisfying the displayed conditions; it may vary with N. The sign of ell is immaterial. It is nonzero eventually because ell=c_star*log N+O(N^(-theta_1)). Each full norm is finite since the actual finite residue sum is bounded and periodic at fixed N. Uniform boundedness is NOT inferred. Optional mean centering is allowed but not needed for the obstruction.
+
+Use the already inspected definition
+
+```text
+U_B(m)=sum_(B<k<=m)mu(k)*log(B/k)*floor(m/k).
+```
+
+Linearity of `nyman_flat_complete_return`, including F(1)=ell, gives the complete identity, for EVERY m>=1:
+
+```text
+ell*r_N(m)=m*(u-sum h(k)/k)
+           +A*U_N(m)-sum_i alpha_i*U_(H_i)(m)
+           +sum_(k=2..N)h(k)*floor(m/k).                    (C59a)
+```
+
+Nothing after N is dropped from this equality. Under the stated moment and support conditions,
+
+```text
+ell*r_N(m)=-sum_i alpha_i*U_(H_i)(m),  1<=m<N/2;
+r_N(m)=0,                              1<=m<=H_1.           (C59b)
+```
+
+Thus the whole pre-block, not a correction component, is independent of h. All cross-profile and base/correction interactions remain inside r_N before squaring. For A=0 the U_N and explicit prime-power terms cancel exactly; this important hostile case is INCLUDED.
+
+#### D2. Full-residual smooth probe
+
+Set T(x)=sum_(k<=x)mu(k)log(x/k)/k and V(x)=1-T(x). Choose a fixed nonnegative normalized smooth probe g supported on [1/6,1/2], w=-g', and
+
+```text
+w_N(t)=N^(-2)*w(t/N),
+P_g(N)=N^(-1)*sum_n Lambda(n)*g(n/N)-1,
+L_N(r)=integral w_N(t)*r_N(floor t) dt,
+Q_N(H)=sum_(k<=H)mu(k)log(H/k)
+       *integral w_N(t)*({t/k}-1/2) dt,
+B_g=integral v^2*w(v)^2 dv > 0.
+```
+
+For a prescribed number J of integrations by parts one may explicitly use the polynomial probe from Referee-6: g(v)=C_l(3v-1/2)^l(3/2-3v)^l on that interval, zero elsewhere, l>=J+3, C_l=3(2l+1)!/(l!)^2. Every parameter is fixed before N; no uniformity as theta_d tends to 1 is claimed.
+
+The same finite divisor identity used in SP1, now summed with the ORIGINAL alpha_i, gives
+
+```text
+sum_i alpha_i*V(H_i)+A*P_g(N)
+    =-ell*L_N(r)-sum_i alpha_i*Q_N(H_i).                    (C59c)
+```
+
+This can be checked directly from U_H(floor t)=log H+psi(t)-t*T(H)+sum_(k<=H)mu(k)log(H/k){t/k}. The prime-power coefficient is A, not automatically 1. The k=1 term of Q is retained even though the discrete k=1 residue vanishes.
+
+The exact norm correspondence and Fourier estimate give
+
+```text
+|L_N(r)| <= sqrt(B_g*E_pre(N)/N),
+|Q_N(H)| <= C_(g,J)*(H/N)^(J+1),
+|sum_i alpha_i V(H_i)+A P_g(N)|
+ <= |ell| sqrt(B_g E_pre(N)/N)
+      +C_(g,J)*sum_i |alpha_i|*(H_i/N)^(J+1).              (C59d)
+```
+
+For completeness, the periodic Fourier coefficient after J integrations is bounded by a constant times k^J/N^(J+1). Summing k^J log(H/k) over k<=H costs at most H^(J+1) for J>=1, using log(H/k)<=H/k. Absolute convergence after smoothing justifies the exchange. The continuous norm is exactly integral_(N/6..N/2)r_N(floor t)^2*t^(-2)dt. This is a lower/inverse bound on the complete residual; it never asserts E_component<=E_full.
+
+#### D3. C58: Finite-branch pole-contraction lemma
+
+Let 0<=kappa<1 with kappa>1-2theta_1 and put a=(1-kappa)/2, so 0<a<theta_1. Suppose, explicitly as an OPEN UPPER PREMISE, that for every epsilon>0 there are C_epsilon,N_epsilon such that
+
+```text
+E_pre(N)<=C_epsilon*N^(kappa+epsilon)
+for EVERY multiple of six N>=N_epsilon.                   (UPPER)
+```
+
+Choose J with (J+1)(1-theta_d)>a. Equation C59d implies decay of the sampled expression. To remove both floor heads and the six-step mesh, use the elementary bounds
+
+```text
+|V'(x)| <= (1+log x)/x,
+|P_g'(y)| <= C_g*log(2y)/y.
+```
+
+The first follows from differentiating T; T is continuous across integer changes because its new term has log 1=0. The second follows by differentiating the finite smooth sum and using Lambda(n)<=log n. Replacing H_i by N^theta_i costs O(log N/N^theta_i); moving to a real scale within six costs O(log N/N). They are smaller than N^(-a+epsilon). Consequently
+
+```text
+W(x):=sum_i alpha_i V(x^theta_i)+A P_g(x)
+       =O_epsilon(x^(-a+epsilon)),  x>=1.                  (C58a)
+```
+
+Its Mellin transform is holomorphic on Re(s)>-a, by dominated convergence on compact subsets. On Re(s)>0 direct absolutely convergent integration gives, with ghat(z)=integral g(v)v^(z-1)dv,
+
+```text
+integral_1^infinity W(x)*x^(-s-1) dx
+ = -sum_i alpha_i*theta_i/[s^2*zeta(1+s/theta_i)]
+   -A*ghat(1+s)*zeta'(1+s)/zeta(1+s).                     (C58b)
+```
+
+Indeed the V term has transform 1/s-theta_i/[s^2 zeta(1+s/theta_i)]. The prime term is -ghat(1+s)zeta'/zeta(1+s)-1/s, with no lower-limit correction because the probe support lies below 1. The scalar poles cancel since A=sum alpha_i. The apparent singularity at s=0 is removable, also directly from the residue-one pole of zeta and ghat(1)=1.
+
+Now suppose an actual nontrivial zero rho satisfies Re(rho)>1-a/theta_1. At s_0=theta_1*(rho-1), the i=1 reciprocal term has a nonremovable pole, since alpha_1!=0 and s_0!=0. Holomorphy forces another summand to have a pole there. Hence AT LEAST ONE of
+
+```text
+1+(theta_1/theta_i)*(rho-1),  i>1;
+1+theta_1*(rho-1),           if A!=0
+```
+
+must also be a zeta zero. A vanishing ghat can remove an available cancelling pole, never create another escape. Multiple zeros cause no difficulty: the nonzero distinguished reciprocal term still has a pole that requires another singular summand. We do not assert that their residues actually cancel, only the necessary zero condition.
+
+Every possible multiplier belongs to a FINITE set of positive numbers strictly below 1. The new zero has larger real part, remains within the same offending half-plane, and has strictly smaller distance to 1. Repeat the argument with the new zero in the distinguished i=1 term. If q is the maximum allowed multiplier, the distances are at most q^j|rho-1| and tend to zero. If the set is empty the first pole is already impossible. But (z-1)zeta(z) is holomorphic and nonzero near z=1. This contradiction proves
+
+```text
+UPPER ==> beta_* <= 1-(1-kappa)/(2theta_1).                (C58c)
+```
+
+This is the genuinely new extension of the single-head argument: pole cancellation may branch among several reciprocal-zeta factors, and may have NO logarithmic-derivative term when A=0, but cannot cycle or terminate outside a zero-free neighborhood of 1. Signs and positivity of the mixture weights play no role.
+
+External analytic facts used, independently checked against [NIST DLMF 25.2](https://dlmf.nist.gov/25.2) and [25.10](https://dlmf.nist.gov/25.10): meromorphic continuation of actual zeta, its sole simple residue-one pole at 1, and existence of critical-line zeros. The Dirichlet-series/Mellin identities above are derived in their absolutely convergent half-plane before continuation. No RH, zero-density estimate, rightmost attained zero, independence model or new prime-error bound is assumed.
+
+#### D4. C60: Sharp exponent and scoped no-go
+
+Let p=1-2theta_1(1-beta_*), with 1/2<=beta_*<=1. Then p>=1-theta_1>0. If the logarithmic limsup of E_pre were less than p, choose kappa strictly between max(that limsup,0,1-2theta_1) and p. It is <1. The eventual power bound implied by the limsup and C58c would give a strict upper boundary smaller than beta_*, contradicting its definition as a supremum. No maximum zero is required.
+
+For the reverse inequality, if beta_*<1 choose beta_*<b<1. The EXISTING `growthAtMost_of_strip` supplies |M(x)|<=C_b x^b (choose its positive exponent loss within b-beta_*). Abel summation of sum_(H<k<=y)mu(k)log(k/H), followed by the floor-quotient sum, gives the already used estimate
+
+```text
+|U_H(m)| <= C_b*K_b*m*H^(b-1),
+K_b=(2-b)/(1-b)^2.
+```
+
+All alpha_i are fixed and H_i>=H_1. Thus C59b and |ell| asymptotic to |c_star|log N yield
+
+```text
+E_pre(N) <= C_(b,alpha,theta)*N*H_1^(2b-2)/(log N)^2.
+```
+
+Let b decrease to beta_*. If beta_*=1, the elementary bound |U_H(m)|=O(N log^2 N) on the pre-block gives limsup<=1. This proves C60 in A. It determines the exponent in terms of the existing UNKNOWN beta_*, not a new value of that boundary. The upper result is for E_pre only; it is NOT an upper result for E_full.
+
+Critical-line zeros make the all-scale bounded-norm supplier false for EVERY such fixed finite mixture. For kappa in [1-theta_1,1), both directions give the precise equivalence
+
+```text
+E_pre(N)=O_epsilon(N^(kappa+epsilon)) for every epsilon>0
+iff beta_*<=1-(1-kappa)/(2theta_1).                        (C60b)
+```
+
+At kappa=1-theta_1 this PRE-block rate is TARGET_EQUIVALENT to RH. It is not a smaller assumed supplier. No conclusion is made about arbitrary sparse sequences, coefficients depending freely on N, theta_i moving with N, infinitely/growingly many profiles, low-supported corrections, a moment defect, or the unrestricted optimized basis. The c_star=0 normalization case is excluded, not disposed of by division by zero.
+
+#### D5. C61: Ordinary fixed weighted combinations are also covered
+
+Let r_i,N be the individually normalized original flat residual at H_i, each with any high-supported exact-moment correction. For fixed real a_i with sum a_i=1, set r_N=sum_i a_i*r_i,N. Group equal-exponent BASE profiles and delete any zero combined base weight first. Retain every weighted high correction in the full residual, even when its base profiles cancel: different corrections need not cancel each other, but all vanish on the pre-block after the exact-moment reduction. The remaining base weights still sum to 1. Then r_N is again a residual with constant term 1 on the ORIGINAL full basis, and has exact head through the shortest remaining H_i.
+
+Multiplying its probe by log N gives effective coefficients
+
+```text
+a_i*log N/ell_i = a_i/(1-theta_i)
+                 +O_(a,theta)(N^(-theta_i)/log N).
+```
+
+The elementary bounds V(H_i)=O(log^2 N), P_g(N)=O(log N), and the periodic bound show that replacing them by the fixed alpha_i=a_i/(1-theta_i) costs only O(N^(-theta_1)log N). That is below the required N^(-a) because a<theta_1. Repeat C58 with these alpha_i, including possible sum alpha_i=0. The same upper Abel bound proves C60 for this mixture too. This is an asymptotic controlled transfer, not an exact equality of the two parameterizations. It covers fixed convex averaging and fixed signed extrapolation of normalized residuals; freely adaptive weights remain outside its hypotheses.
+
+#### D6. Checked cross-route connection, no circularity and novelty
+
+The source-to-classical Hilbert map is exact. For t=m+v with 0<=v<1,
+
+```text
+{t/k}-(1/k){t}=(m mod k)/k.
+```
+
+With x=1/t, dx=t^(-2)dt in absolute value, this identifies the whole discrete energy with the integer-dilation Nyman residual norm on (0,1). It preserves every modulus and all mixed terms. The classical integer-dilation density criterion is an existence statement, not a claim that these particular coefficients converge; see [Baez-Duarte's primary paper](https://arxiv.org/abs/math/0202141). No unproved density is imported into the argument.
+
+The further NYMAN-to-genuine-Mertens connection uses the inspected actual-zero translator, not a map to Hecke phases or VF seats. An inherited envelope b gives the pre-block certificate exponent
+
+```text
+kappa_in=1-2theta_1*(1-b).
+```
+
+The new family-specific inverse returns exactly b. The general localized exact-head consumer C46 would return b+(1-theta_1)/(2theta_1), a weaker statement under its broader hypotheses. An independently proved improvement kappa_in-eta in the REQUIRED all-scale pre upper bound would return b-eta/(2theta_1), with its needed parameter range. No such improvement is supplied. This is not the shell eta/4 exchange and cannot borrow CODIV's local logarithmic savings without a new source-preserving comparison.
+
+The preceding reports treat one fixed theta, sampled scales, moment leakage and separately centered correction costs. The search of retrieved relevant reports found no finite signed multi-profile/prime-term-annihilating result. Our new input is a finite contracting graph of possible zeta-pole cancellations. C59 alone is linear algebra; C58 and the critical-line contradiction provide the quantified obstruction. It does not assert a false lower bound obtained by dropping a negative mixed term. The theorem is a scoped method no-go and a target-equivalence diagnosis, not a new upper bound or a universal impossibility claim for Nyman.
+
+#### D7. C62: Preregistered exact checks and limits
+
+Test question fixed before execution: do the combined original residues retain the full return and exact head for signed mixtures, including A=0, and do the conclusions cease to apply when the moment or support is changed? Rival explanation: an omitted k=1, after-N floor or cross term could create a spurious obstruction. Reject the source formula on ANY rational prime-log-vector mismatch. Finite energies do not test a limiting exponent.
+
+Executed N=96,192,384, heads (floor sqrt N,floor N^(3/4)), weights (1,1), (1,-1), (2,-1), (-3/2,5/3), with both a single high correction and a distinct high correction also satisfying mean centering. All 12 fixtures passed. Exact coefficients are rational vectors of prime logarithms; no floating logarithm decides a source equality.
+
+```text
+24 reciprocal-moment checks; 12 mean-centering checks;
+360 direct original-residue/full-return coordinates;
+192 pre-coordinate identities; 48 exact-head coordinates;
+12 distinct-high-correction invariant pre-block comparisons;
+333 exact A=0 prime-power-cancellation checks;
+12 moment-breaking and 12 low-support negative controls;
+1 duplicate-profile cancellation control.
+```
+
+The direct coordinates include both sides of head/correction boundaries, N, N+1 and 2N+1. Full pre energy is evaluated for every m in [N/6,N/2). Twelve 60-digit Decimal decompositions check E_1+E_2+2Cross=E_mix numerically to 1e-50; these decimal values are diagnostics, NOT certified bounds. At N=96, alpha=(1,-1), the energy is approximately 0.014722827321 and its mixed contribution approximately -0.0039038643260. The prime-power coefficient is exactly zero; the actual residual is not. A negative mixed term is compatible with the theorem.
+
+The verifier is included below, SHA256 **4c65321f0c381519ac0947cf1a1b426b7cc94472fdebbe7bdfe18252ece4c444**. Initial tooling adjustments replaced an unavailable optional numerical package with standard Decimal and stopped a redundant exhaustive run to use the decisive boundary fixtures; no failed mathematical check was hidden. No local Lean ran. No finite result is extrapolated to all scales.
+
+### E. Specialist Findings And Continuity
+
+Both dates' reports and the external inbox were fetched from immutable reporting snapshot **d4ae547b8783aefdb0e7cf16f8d95746863b7464** (2026-11-05T18:36:20Z). Applicable substantive sections, claims, proofs and resume capsules were read. All six current-day stages are available; no missing execution is invented. For exact paths below use `research/agent_reports/YYYY-MM-DD/<role-file>` at that snapshot.
+
+| Role | November 4 blob | November 5 blob | Accepted/current reading |
+| --- | --- | --- | --- |
+| Owner | 560b0b7617703b64e728e12e60a390646c9379ea | b4a4f636ece46d696360b5ca9312c2d1d81498c9 | S2/S3, SF1-SF5, LC1-LC5 carried forward; RC1-RC5 and CR1-CR5 are paper/self-audit, not blanket Referee acceptance. CR3 corrects the scale at which ancestry-only payment truly fails. |
+| Analytic | 04ffb1b41d8b6afe5a5d89754f5ccbc8d9682d58 | 0774002d5244d373b0230429802cd1cfd8a3a8e8 | P1-P10, CF1-CF3, M1-M6 read. Today's SP1-SP5 have independent Referee-5 acceptance; the full all-scale flat-profile obstruction supersedes the earlier merely open bounded-norm proposal. CODIV every-log savings are not fixed power gains. |
+| Wheel | 37ad6a1230fbb46369311790ed5686baf1775598 | 000bd6a7e0900373f8fca05a607676f6170f1032 | Complete-prime L1-L4 coherence, QC1-QC3 method obstruction and today's F/P bundles read. Fixed-prime F2-F3 have scoped Referee acceptance. New nonsymmetric P1-P4 block obstruction and QC1-QC3 still need independent review. |
+| Census | 4bd5319fa3d13219cdad006dce4a854b606c2f7c | 44f070eed4302f3d8d560346c6fb9b66c35be18a | Cube/incidence source factors and Nyman N=42/120 failures retained. Today's genuine joint-feasibility gaps 28/3 at R=57 and 12 at R=58 are independently reproduced by Referee; no uniform gap follows. |
+| Referee | 0e4fdfbf90d52a74074e04ef6cb6988339dc8d84 | df74121b0a07297776a106ccd1b9d80a36b12fc5 | Earlier cube-source, Nyman divergent-piece and C45-C47 reviews retained. Today's fixed/growing prime-rule and SP reviews distinguished from new Referee-6/-7/-8 self-audit extensions. C53-C57 remain REVIEW_PENDING. |
+| Lean | 5fce0138779d67eda4e69c13230274e6419de894 | c9e8255d2c00a2b317f39531589ac2a16f8e3518 | #1090/#1093 structural implementation history retained; #1094 merged and independently scope-reviewed; #1095 exact-head green and now human-merged, superseding the report's earlier unmerged state. |
+| Coordinator | 68495a5e913eee0e788940a683cf16ec4d0984cc | 8598794f544c0abb9e3437faaad109e3d4f24485 | C41-C57 and preceding synthesis preserved; new continuation is C58-C62. Today's initial mirror blobs matched. |
+
+External inbox blob **038018145c0fddb2f6306c0712373adf9cd1ea52** has no entry later than October 18. EXT-20261018-PNT-1..3, EXT-20261017-XCOORD-1 and EXT-20261014-5 remain dated safeguards about original carriers, endpoints and unconditional versus first-bad claims. They supply no new finite-mixture theorem. Historical routing/cadence there does not override current main.
+
+### F. Mathematical Bottlenecks And Protected Coverage
+
+| Route | Latest substantive continuation | First independently missing input / next disposition |
+| --- | --- | --- |
+| VF-LOW | Nov 5 Owner-2 CR1-CR5 | Dense original-weight chronological return with once-only donors and the true complement; CR2 is proper-sector only. |
+| SAT | Nov 5 Owner-1 RC1-RC5 | Joint original smooth/prime-error source beyond inherited bounds; separate packet RC5 retains its stated prime-error-equivalent burden. |
+| JOH | Nov 4 Owner-3 LC1-LC5 | Independent control of weighted sampled backlogs U, not within-cell position. Next Owner route due. |
+| CODIV | Nov 4 Analytic-3 M1-M6 | A fixed power improvement on complete source energy; every fixed log saving at H^3 does not reach H^(5/2-eta). |
+| OAI-NNS | Nov 4 Analytic-2 CF1-CF3 plus Referee-5..8 | Coefficient-sensitive all-selected source control, including upper numerator rows and full return. Next Analytic route due. |
+| NYMAN | Nov 5 Analytic-1 SP1-SP5; this synthesis | A truly changed profile/moment or sparse-sequence supplier; fixed finite profile mixing is not an all-scale escape. |
+| FINITE-AC | Nov 5 Wheel-2 P1-P5 | Complete signed non-divisor/corner estimate at the original historical budget; four component bounds are not available. |
+| CORR4 | Nov 5 Wheel-1 F1-F4; Census/Referee | Genuine all-label arithmetic restriction for the full mixed bill, beyond finite marginal caps and the artificial-sign relaxations. |
+| MU-LIFT | Nov 4 Wheel-3 QC1-QC4 | Cross-square-class signed information and a paid whole-prefix recurrence r<k. Next Wheel route due. |
+
+The most recent three substantive investigator turns cover each protected triple: Owner JOH/SAT/VF-LOW, Analytic OAI-NNS/CODIV/NYMAN, Wheel MU-LIFT/CORR4/FINITE-AC. No overdue route is inferred from calendar time alone. S1 packet admission, S2 divisor/source alignment, S3 owner chronology/recurrence and S4 cross-scale analytic transfer remain distinct; this run advances S4 only through a scoped inverse theorem. No fabricated OAI audit is added to the Nyman task.
+
+### G. Strategy Decisions
+
+1. Stop treating fixed finite signed profile averaging as a prospective all-scale bounded-norm repair without a changed hypothesis. C58-C61 include negative weights and exact prime-term removal; acceptance remains subject to Referee review.
+2. Preserve unrestricted NYMAN and sparse/adaptive/leaky variants. The next Nyman experiment must specify its genuinely changed source and complete norm/consumer, not only optimize one probe or correction component.
+3. Keep Owner's proper-sector chronological construction separate from the target-equivalent complete residual. Do not turn its success into permission to reuse prime charges across dense owner families.
+4. Retain Wheel's full nonsymmetric four-block expression. Neither its negative prime block nor a sum of absolute block bounds supplies finite C. Preserve all-label CORR4 and cross-class MU-LIFT alternatives with their distinct original carriers.
+5. No new Lean proof assignment for C58-C61 before independent review. #1095 is now human-merged; no duplicate repair or re-run of unchanged green checks is needed. SEARCH_BROAD remains the additional-gain gate.
+
+### H. Next Specialist Assignments
+
+**Owner, due JOH:** resume LC4 with B(n)=pi(n)-floor(Li_2(n)), arrival b_j and U_a(N)=G(a)+sum_(b_j<N)(min(b_(j+1),N)-b_j)B(b_j). Exact question: does a new chronological cofactor restriction control a proper class of MULTI-cell backlog excursions after unequal counts, anchor and final partial cell are restored? Reuse the paid E_place=O(N); do not repeat midpoint signs or assume eventual U(R^2)<0, which LC5 identifies as target-equivalent. Output one weighted inequality with an independent arithmetic input, or a legal counterexample. Falsifier: excursions with the same local owner data but uncontrolled accumulated backlog. This decides whether chronological progress reaches the actual retained variable; CR1-CR3 review is a separate queue.
+
+**Analytic, due OAI-NNS:** resume the previously accepted CF1/source cube extraction and Referee-7 restricted-row theorem. Exact question: can one coefficient-sensitive argument bound the original extracted-sector UPPER numerator rows not covered by N(m)<=C Z^(5/6-(5/3)h), with the original Hecke/Gauss coefficients, masks and Gaussian return? Expected output is a genuinely paid integrated estimate or a lawful obstruction to a specific source-level move, not another positive counting envelope or a repeat of the scale-mismatch proof. Falsifier: same-norm/cube-sharing channels or upper-row mass survives every purported gain. Preserve CODIV/NYMAN rotation. On the following NYMAN turn, choose a profile or moment change outside C58-C61 and quantify head leakage, orthogonal pre residual and all later return before proposing an exponent.
+
+**Wheel, due MU-LIFT:** resume QC1-QC3 at the exact ordered k-lift occurrences. Exact question: can a deterministic pairing or bilinear estimate move between distinct square classes while preserving original signs, binomial multiplicities, once-only occurrences and X<B^k, and leave a quantitatively smaller complete signed remainder? Reuse the exact K_s=mu(s)W_s and the 121-versus-1 fixture at B=4,k=2,X=15. Missing input is cross-class arithmetic, not another class-preserving matching. Output a real mixed-class identity plus an independently proved restriction, or a counterexample to a proposed rule. Check the final amplitude r<k and all-prefix coverage. A mere re-expression of M(X)^2 is IDENTITY_ONLY and does not promote the route.
+
+**Census:** independently test C59 on one three-profile signed fixture with A=0 and nonzero c_star, retaining exact prime-log coefficients and both sides of the correction boundary; include a fixed-weight normalized-mixture fixture for C61. Falsification criterion: any mismatch of the original residues, complete return, or predicted rounding-coefficient expansion. Do not fit a limiting exponent or re-run the old N=42/120 scans. A failure changes the proposed finite-mixture theorem immediately; success supports only the finite source bridge. The uncompleted JOH LC4 independent certificate remains a distinct useful follow-on, not a fabricated completed handoff.
+
+**Referee:** independently audit C58-C61, especially A=0, repeated exponents, normalization c_star, the floor error versus a<theta_1, smoothing order based on theta_d, multiple zeros, and finite branching with q<1. Reconstruct the Mellin formula before relying on the author's cancellation argument. Expected result: ACCEPT_WITH_SCOPE, precise repair, or a counterexample. Test whether fixed normalized weights are transported with the actual O(N^(-theta_1)log N) error. Growing/adaptive weights and vanishing normalizers are excluded, not silent conclusions. C53-C57, Owner CR1-CR5 and Wheel P1-P4/QC1-QC3 remain separately pending; this ticket does not accept them by association.
+
+**Lean Verification:** preserve #1095's exact-head green audit evidence and record its human merge; do not rerun or create another repair unless source/head changes. One possible implementation task remains the independently accepted C45 localized original-Nyman Mellin functional, only if the necessary integrability and actual-zero interfaces are available and the declaration is still absent. Required output is the exact source-faithful theorem and pinned CI/axiom evidence, or the specific missing analytic bridge. Do not replace it by a generic Hilbert axiom or formalize unreviewed C58-C61 for theorem count. At most this one new implementation-sized task is proposed; the human merge gate remains unchanged for any future PR.
+
+These are asynchronous report handoffs for the roles' next actual executions, not launches, schedule changes or claims of future delivery.
+
+### I. Lean And PR Status
+
+Live open/draft collection at intake contained only **#1095**. The final refreshed open collection is empty: #1095 was human-merged at 2026-11-05T20:32:22Z. Recent merged #1090, #1091, #1092, #1093, #1094 and #1095 were individually checked; stale descriptions in PR bodies were not used as current state.
+
+**#1094 MERGED / PROVED_IN_LEAN at the component scope.** Latest proof head **1ea4a8a4308976721a3841998d6c3a4554f7a9c9**; human merge **884de7a1fa7687d483a7b5272bff6c9d53790367** at 13:35:24Z. All 12 returned head-associated workflows succeeded. [Dedicated run 42011040577, job 127189858614](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42011040577/job/127189858614) was read directly: eight intended theorem types and actual axiom lists contain only propext, Classical.choice, Quot.sound. Its checked synthetic merge **45a4bc4b5995d908328e5aec4c12a6a4eec946ec** has tree **e98a257a8258c42baae89222c999f4dfd544546a**, exactly the intake main tree; the relevant sources are unchanged at final main. This is stronger evidence than a PR headline and still proves only the finite correction bound and exact split.
+
+**#1093 MERGED, exact source return retained.** Proof head **a54f0cf9535c548920dae3412e3fbe6d6584e029**; merge **ff620da3c0d2c29585805960c6be183c07f16556**. All 12 returned head-associated workflows succeeded. [Run 41955044802, job 127007831273](https://github.com/OVVO-Financial/RH_Lean/actions/runs/41955044802/job/127007831273) directly verifies eight terminal declarations with the standard axiom sets, including `nyman_flat_complete_return`, `nyman_flat_return_of_moment`, `nyman_flat_exact_head` and `nyman_flat_head_iff_moment`. Synthetic checkout **779336cefaf99d04bf48b837340a076d40aebdd3**, tree **958770679fb0146df80f44de258f694cd232434e**. Current source blob matches the verified source ledger. Mellin and infinite-norm arguments are not in this PR.
+
+**#1095 MERGED / exact-head CI_GREEN, superseding its intake REVIEW_READY state.** Branch `agent/lean-verification/20261105-euler-axiom-audit`, head **46e68178192c6e429a02abee9d5b8ebca5de46c8**; human merge **1667c3cf9b4e898bb9afd62ec48e24610b2156ab** at 2026-11-05T20:32:22Z. All three triggered head workflows passed. [Run 42084042187, job 127444267657](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42084042187/job/127444267657) was inspected directly: eight actual terminal declarations, including the formerly absent cast bridge, are covered with standard axioms; the final audit reports exact coverage, not an empty match. Checked synthetic merge **55968fd690fea8b12f4602ab9dc9adf58bf00c60** has tree **6351bbacd22d7abb34eefed1e2cbf5f674642010**, exactly the human-merged final main tree. Mathematical source declarations are unchanged. No claim that unrelated workflows ran at this repair head or that a separate post-merge CI run was inspected is made. Human merge occurred outside this agent's actions; permissions remain unchanged.
+
+Today's C58-C61 are not compiled, and the existing green algebra does not prove their analytic steps. The current invocation did not execute Lean, write source, create a proof branch/PR, weaken audits or merge anything.
+
+### J. Next-Run Resume Capsule
+
+```text
+RUN: 20261105-coordinator-2; scheduled 15:13:00 EST; RUN_ID_UNAVAILABLE.
+FINAL_MAIN: 1667c3cf9b4e898bb9afd62ec48e24610b2156ab.
+INTAKE_MAIN: 884de7a1fa7687d483a7b5272bff6c9d53790367.
+POLICY: NO_PIGEONHOLING_ROUTE_SELECTOR_V1; SEARCH_BROAD.
+INTAKE_REPORTS: d4ae547b8783aefdb0e7cf16f8d95746863b7464.
+EARLY_CHECKPOINT: 35061e892f440c80db59cab39f159d41eb0c06f6;
+  identical mirrors df0e381cd34ad144c6a38a1b78f301c13559f59e.
+C58: finite contracting-pole argument for signed scale superpositions.
+C59: exact original-residue multi-profile return/probe, including A=0.
+C60: pre-energy exponent 1-2theta_min(1-beta_*), all-scale scoped no-go.
+C61: same result for fixed affine combinations of normalized residuals.
+C62: exact finite source tests; decimal energies are diagnostics only.
+REVIEW: C58-C61 SELF_AUDIT / PAPER_PROOF, independent review PENDING.
+INHERITED: Analytic SP1-SP5 accepted by today's Referee-5.
+RETIRED_SUPPLIER: all-scale bounded norms from fixed finite polynomial-head
+  mixtures with exact moment and high-supported corrections.
+NOT_RETIRED: adaptive/moving/infinite profiles, relaxed moment, sparse
+  sequences, unrestricted full-basis NYMAN, or any other protected route.
+FORMAL: #1094 merged; #1095 human-merged, exact tested tree equals main.
+NEXT: Referee finite-branch audit; investigators JOH / OAI-NNS / MU-LIFT.
+HIGHEST_VALUE_NYMAN_TASK: explicitly change a hypothesis and bound the
+  whole resulting residual, not another corrected component or one probe.
+ENDPOINT: canonical VF OPEN; no additional exponent gain established.
+```
+
+### Appendix. Complete C62 Verifier
+
+The following standard-library Python program reproduces the exact finite checks and the separately labeled Decimal diagnostics. It has no network dependency or Lean invocation.
+
+```python
+"""Finite source checks only; no Lean execution or asymptotic inference."""
+
+from collections import Counter
+from fractions import Fraction as Q
+from functools import lru_cache
+from math import isqrt
+import json
+from decimal import Decimal as D, getcontext
+
+
+def add(*vectors):
+    out = {}
+    for v in vectors:
+        for p, a in v.items():
+            out[p] = out.get(p, Q(0)) + a
+    return {p: a for p, a in out.items() if a}
+
+
+def scale(v, a):
+    return {p: b * a for p, b in v.items() if b * a}
+
+
+def logvec(n):
+    out = {}
+    p = 2
+    while p * p <= n:
+        while n % p == 0:
+            out[p] = out.get(p, Q(0)) + 1
+            n //= p
+        p += 1
+    if n > 1:
+        out[n] = out.get(n, Q(0)) + 1
+    return out
+
+
+def mobius(n):
+    factors = logvec(n)
+    return 0 if any(e > 1 for e in factors.values()) else (-1) ** len(factors)
+
+
+def value(v):
+    return sum((D(a.numerator) / D(a.denominator) * D(p).ln()
+                for p, a in v.items()), D(0))
+
+
+def main():
+    getcontext().prec = 60
+    counts = Counter()
+    records = []
+    for n in (96, 192, 384):
+        heads = (isqrt(n), isqrt(isqrt(n ** 3)))
+        assert 2 <= heads[0] < heads[1] <= n // 2
+        mu = [0] + [mobius(k) for k in range(1, 2 * n + 2)]
+        logs = [dict()] + [logvec(k) for k in range(1, 2 * n + 2)]
+
+        @lru_cache(maxsize=None)
+        def tail(b, m):
+            return add(*(scale(add(logs[b], scale(logs[k], -1)), mu[k] * (m // k))
+                         for k in range(b + 1, m + 1)))
+
+        for weights in ((Q(1), Q(1)), (Q(1), Q(-1)), (Q(2), Q(-1)),
+                        (Q(-3, 2), Q(5, 3))):
+            total_weight = sum(weights, Q(0))
+            lam = add(*(scale(add(logs[n], scale(logs[h], -1)), a)
+                        for h, a in zip(heads, weights)))
+            assert lam
+            f = [dict()] + [scale(add(*(scale(add(logs[n], scale(logs[max(h, k)], -1)), a)
+                                         for h, a in zip(heads, weights))), mu[k])
+                                  for k in range(1, n + 1)]
+            assert f[1] == lam
+            moment = add(*(scale(f[k], Q(1, k)) for k in range(1, n + 1)))
+            mass = add(scale(lam, 2), *f[1:])
+            b = scale(add(scale(moment, n), scale(mass, -1)), n - 1)
+            centered = {n - 1: b, n: add(mass, scale(b, -1))}
+            corrections = ({n: scale(moment, n)}, centered)
+            observations = []
+            for correction in corrections:
+                assert add(*(scale(v, Q(1, k)) for k, v in correction.items())) == moment
+                counts['moment_checks'] += 1
+
+                def residual_scaled(m, corr=None):
+                    if corr is None:
+                        corr = correction
+                    return add(lam, *(scale(add(corr.get(k, {}), scale(f[k], -1)),
+                                             -Q(m % k, k)) for k in range(2, n + 1)))
+
+                if correction is centered:
+                    center = add(*(scale(add(correction.get(k, {}), scale(f[k], -1)),
+                                        Q(k - 1, 2 * k)) for k in range(2, n + 1)))
+                    assert center == lam
+                    counts['mean_center_checks'] += 1
+
+                coordinates = sorted(set([1, *heads, *(h + 1 for h in heads),
+                                          n // 6, n // 6 + 1, n // 2 - 1, n // 2,
+                                          n // 2 + 1, n - 1, n, n + 1, 2 * n, 2 * n + 1]))
+                for m in coordinates:
+                    direct = residual_scaled(m)
+                    restored = add(scale(tail(n, m), total_weight),
+                                   *(scale(tail(h, m), -a) for h, a in zip(heads, weights)),
+                                   *(scale(v, m // k) for k, v in correction.items()))
+                    assert direct == restored
+                    counts['complete_return_coordinates'] += 1
+                    if m < n // 2:
+                        pre = add(*(scale(tail(h, m), -a) for h, a in zip(heads, weights)))
+                        assert direct == pre
+                        counts['pre_coordinates'] += 1
+                    if m <= heads[0]:
+                        assert not direct
+                        counts['exact_head_coordinates'] += 1
+                pre_values = [add(scale(tail(n, m), total_weight),
+                                  *(scale(tail(h, m), -a) for h, a in zip(heads, weights)),
+                                  *(scale(v, m // k) for k, v in correction.items()))
+                              for m in range(n // 6, n // 2)]
+                observations.append(pre_values)
+            assert observations[0] == observations[1]
+            counts['high_correction_invariance'] += 1
+
+            # All three quadratic terms are retained; finite cancellation is allowed.
+            e1 = e2 = cross = full = D(0)
+            ell = value(lam)
+            for m, v in zip(range(n // 6, n // 2), observations[0]):
+                parts = [-value(scale(tail(h, m), a)) / ell for h, a in zip(heads, weights)]
+                w = D(1) / (m * (m + 1))
+                e1 += parts[0] ** 2 * w
+                e2 += parts[1] ** 2 * w
+                cross += 2 * parts[0] * parts[1] * w
+                full += (value(v) / ell) ** 2 * w
+            assert abs(full - e1 - e2 - cross) < D('1e-50')
+            records.append({'N': n, 'H': heads, 'alpha': [str(a) for a in weights],
+                            'A': str(total_weight), 'energy': f'{full:.11g}',
+                            'mixed': f'{cross:.11g}'})
+            counts['numeric_energy_decompositions'] += 1
+
+            # A moment-preserving correction below N/2 changes the actual pre-block.
+            k0 = n // 4
+            altered = dict(centered)
+            altered[k0] = lam
+            altered[n] = add(altered[n], scale(lam, -Q(n, k0)))
+            assert add(*(scale(v, Q(1, k)) for k, v in altered.items())) == moment
+            assert add(residual_scaled(k0, altered), scale(residual_scaled(k0), -1)) == lam
+            counts['support_negative_controls'] += 1
+            # Breaking the reciprocal moment destroys the exact head at m=1.
+            broken = dict(centered)
+            broken[n] = add(broken[n], scale(lam, n))
+            assert residual_scaled(1, broken) == scale(lam, -1)
+            counts['moment_negative_controls'] += 1
+
+            # If A=0, the prime-power contribution cancels exactly, not the residual.
+            if total_weight == 0:
+                for m in range(1, n // 2):
+                    # Lambda(p^j)=log p, not log(p^j).
+                    psi = add(*({next(iter(logvec(k))): Q(1)} for k in range(2, m + 1)
+                                if len(logvec(k)) == 1))
+                    expansions = []
+                    for h, a in zip(heads, weights):
+                        low = add(*(scale(add(logs[h], scale(logs[k], -1)),
+                                          -mu[k] * (m // k)) for k in range(1, h + 1)))
+                        expansions.append(scale(add(logs[h], psi, low), a))
+                    assert add(*expansions) == add(*(scale(tail(h, m), a)
+                                                    for h, a in zip(heads, weights)))
+                    counts['prime_term_cancellation_checks'] += 1
+                assert full > 0
+
+    # Duplicate exponents must first be combined; cancelling their coefficients
+    # removes that profile and is outside the shortest-nonzero-head conclusion.
+    assert add(scale(logvec(9), 3), scale(logvec(9), -3)) == {}
+    counts['duplicate_profile_control'] += 1
+    print(json.dumps({'checks': dict(counts), 'finite_diagnostics_not_bounds': records}, indent=2))
+
+
+if __name__ == '__main__':
+    main()
+```
+
+### Publication Freshness
+
+Final authority refresh: main **1667c3cf9b4e898bb9afd62ec48e24610b2156ab**, unchanged instruction/contract blobs, #1095 human-merged and no open/draft PRs at the final collection read. Reporting parent **35061e892f440c80db59cab39f159d41eb0c06f6** and both current own blobs were read back before writing. All earlier report bytes and the early checkpoint are retained as an exact prefix.
+
+Synthesis publication prepared at **2026-11-05 20:41:02 UTC** (America/New_York calendar date 2026-11-05). Execution publication status remains **PENDING_READBACK** until the verified receipt. Mathematical C58-C61 remain **PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING**; canonical target **OPEN**.
