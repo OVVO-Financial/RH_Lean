@@ -504,3 +504,217 @@ Source blobs: workflow 46152b915525c118b8306c20c820caa672e0241e; fractional modu
 Opened draft PR https://github.com/OVVO-Financial/RH_Lean/pull/1095 at head 46e68178192c6e429a02abee9d5b8ebca5de46c8, base 884de7a1fa7687d483a7b5272bff6c9d53790367. Connected blob/tree/commit/ref/PR actions succeeded. Three scoped files change; mathematical Lean source remains byte-identical. Seventeen synthetic parser/process/CLI tests pass both normally and with Python optimization enabled. The actual historical audit output contains eight unknown constants and is now rejected. No local Lean execution occurred.
 
 GitHub Actions really started: Euler proof audit run 42084042187 and Proof inventory 42084042023 are IN_PROGRESS; cache-contract run 42084042136 is SUCCESS. Latest PR is DRAFT/UNMERGED, tested merge reference 55968fd690fea8b12f4602ab9dc9adf58bf00c60. New formal audit result remains CI_PENDING until the actual compiler output and exact-head coverage are inspected. This is a legitimate verification repair, not a new arithmetic bound.
+
+
+## Final Research Synthesis - 20261105-lean-2
+
+Actual invocation: SCHEDULED, 2026-11-05 13:14 EST, America/New_York; RUN_ID_UNAVAILABLE. This completes the checkpoint and implementation milestone above, not another launch. All earlier evidence and report sections are preserved. The verification repair does not add a new arithmetic theorem.
+
+### A. Most Important Formal Result
+
+Repaired the confirmed fail-open terminal axiom audit for the original Euler fractional/rank-one source. Claim 20261105-lean-2/AUDIT-1 consumes the independently reported 20261105-wheel-2/V1 and 20261105-referee-10. Exact-head result: CI_GREEN / REVIEW_READY at 46e68178192c6e429a02abee9d5b8ebca5de46c8. All eight intended existing declarations have actual warning-fatal compiler/type/standard-axiom evidence. All three triggered workflows pass. The mathematical source is unchanged; this is proof-integrity restoration, not a new signed estimate or exponent gain.
+
+### B. Current Authoritative Objective
+
+Main baseline: 884de7a1fa7687d483a7b5272bff6c9d53790367; tree e98a257a8258c42baae89222c999f4dfd544546a. AGENTS blob 547dda0d9456e7a4e1165dc72d59da6f70d5c023; proof-contract blob 7c4ac83a1ec1a4144e1bd691391ed4244f1cc27c; independent selector ffd8f1c65cc4da656174956d4e03b48bea46768b. deployment_ack: independent FINITE-AC/Euler verification repair, not compulsory OAI or continuation of the most recent Nyman theorem. ETA_GATE=SEARCH_BROAD; new complete-endpoint gain UNKNOWN.
+
+The actual canonical declaration remains
+
+```text
+exists C:Real, 0<=C and forall R:Nat, 2<=R ->
+  |vfCanonicalSquareDefect R| <= C*R*log R.
+```
+
+It is OPEN. Inspected canonical source blob 79030d70e8d3e0d08eef9bac53fef95c36eca2fb retains ClassicalVonKochRHCriterion as an explicit argument of riemannHypothesis_of_vfCanonicalSquare. No canonical object, phase, coefficient, theorem assumption, pin or proof policy changes.
+
+### C. Formalization Candidates
+
+No open/draft PR existed at intake. #1094 is now MERGED at the stated main, superseding this report's earlier unmerged observation. Its final head 1ea4a8a4308976721a3841998d6c3a4554f7a9c9 has all 12 returned workflows successful; the actual dedicated log 42011040577/127189858614 was reread and contains eight standard-axiom closures. Today's Referee accepts C49 at its component scope. This is reused evidence, not another cold build or a new theorem here.
+
+Queue: the confirmed Euler acceptance failure first; accepted Analytic SP1-SP2 finite/probe infrastructure next if its analytic prerequisites justify implementation; general SP3-SP5 are accepted paper analysis, not already formalized. Referee R6-R8, Coordinator C53-C57, Owner CR1-CR5 and Wheel P1-P5/QC1-QC3 retain their distinct pending independent-review scopes. No filler identity PR or tiny-slot optimization was created. In particular, the newly refuted all-scale boundedness claim for the fixed-polynomial exact-head Nyman profile is not a theorem to implement.
+
+### D. Candidate Selection And Proof Plan
+
+The failure affects an existing original-source verification surface and has both an independently accepted report and an actual reproducible log. Repairing it is more immediately justified than duplicating a merged theorem or treating an unproved global upper estimate as a supplier.
+
+Plan: import the module defining all eight names; print exact types and axiom closures; propagate the compiler exit status directly; require each expected name exactly once; reject errors, warnings, incomplete/multiline nonstandard output, missing and extra names; regress the historical cases and compiler failure; compile the unchanged source closure and audit it on the proof PR. No theorem weakening is required.
+
+### E. Exact Theorem Statements
+
+For natural R, X=R^2-1, actual integer Mobius mu embedded in rationals, put
+
+```text
+A_R=sum_(1<=a<R) mu(a)/a,
+F_R=sum_(1<=a,b<R)mu(a)mu(b)*floor(X/(ab)),
+D_R=sum_(1<=b<R)mu(b)^2*{X/b^2},
+B_R=sum_(1<=a<b<R)mu(a)mu(b)*{X/(ab)}.
+F_R=X*A_R^2-D_R-2*B_R.
+```
+
+Fractions in the formal source are defined by rational continuous-minus-natural-floor arithmetic. Their modulo interpretation requires positive a,b. For R>=2, the existing diagonal theorem gives 0<=D_R<=R-1. The source is not a random-sign or prime-density model.
+
+The exact rank-one subtraction is
+
+```text
+K_R(a,b)=floor(X/(ab))-(R+1)/b*floor((R-1)/a)
+        =(R+1)/b*{(R-1)/a}-{X/(ab)}.
+E_R=sum_(1<=a,b<R)mu(a)mu(b)*K_R(a,b)
+   =F_R-(R+1)*A_R.
+```
+
+The kernel identity assumes R>=2; exact divisor-row cancellation K_R(a,b)=-{X/(ab)} additionally assumes a>0 and a divides R-1. The Lean theorem does not require b>0 for its totalized rational identity; the physical sum has b>=1. Both off-diagonal orientations and the full original coefficients remain.
+
+The eight audited declarations, all in RHLean.Proof, are:
+
+```text
+eulerFloorBilinearQ_eq_continuous_sub_fractional
+eulerContinuousBilinearQ_eq_reciprocal_square
+eulerFloorBilinearQ_cast_eq_original
+eulerFloorBilinearQ_eq_continuous_sub_diag_sub_twice_off
+eulerFractionDiagonalQ_bounds
+eulerRankOneFloorKernel_eq_coupled_fracs
+eulerRankOneResidualQ_eq_floor_sub_linear
+eulerRankOneFloorKernel_divisor_row
+```
+
+### F. Independent Mathematical And Integrity Audit
+
+Source and log inspection independently confirm the reported defect. The old dedicated harness imported only research.EULER_HYBRID_TRIANGULAR_GRAM_20261027, an ancestor that cannot define its descendants' declarations. At 2026-10-27T21:56:49Z, all eight print commands emitted unknown-constant errors. At 21:56:50Z, the parser printed PASS anyway. A tee pipeline without pipefail masked Lean's failure, while the parser treated zero matches as success and ignored multiline lists.
+
+Important qualification: the preceding source compilation genuinely succeeded and printed standard axiom sets for seven of the eight requested targets, plus eulerHistoricalFloorInversionQ. The requested rational-to-complex bridge eulerFloorBilinearQ_cast_eq_original had no successful dedicated print in that log. This does not refute that theorem or erase the narrower valid compilation evidence. The repair checks the exact intended set, including that source bridge.
+
+No desired-bound hypothesis, sign assumption, new axiom or target equivalence is introduced. Structural equalities and the proper diagonal bound do not imply a full signed bound. The endpoint module explicitly leaves EulerSelfDualFiniteCStatement as an unproved hypothesis of its RH consumer.
+
+### G. Implementation
+
+Only three files change: .github/workflows/euler-fractional-coupled.yml; scripts/audit_euler_fractional_axioms.py; scripts/test_euler_fractional_axioms.py. The checker generates a focused harness importing the actual rank-one module, with one #check and #print axioms command per target. It captures both compiler streams without a shell pipeline, checks the return code, validates exact name multiplicity and complete axiom lists, and permits only propext, Classical.choice and Quot.sound. Validation uses explicit exceptions rather than assertions disabled by Python optimization.
+
+The workflow runs regression tests, uses the existing pinned setup/native caches and source-addressed research-compile action, preserves the actual harness/log artifact, and retains the original no-hole scan. No mathematical source, shared import architecture, public export, root manifest or proof-inventory policy changes. No local Lean execution.
+
+Local checks: 17 test methods PASS normally and under python -O; Python syntax compilation PASS; YAML parsing PASS. Tests include empty, missing, duplicate, unexpected and malformed records; standard and nonstandard multiline lists; warnings/errors; no-axiom declarations; CLI failures; stderr capture; and a nonzero compiler exit even with apparently valid output. Compiler calls in these tests are mocks, not Lean evidence. The actual historical eight-error log was separately passed to the pure checker and rejected.
+
+### H. Branch And PR Evidence
+
+PR: https://github.com/OVVO-Financial/RH_Lean/pull/1095
+Branch: agent/lean-verification/20261105-euler-axiom-audit.
+Base: 884de7a1fa7687d483a7b5272bff6c9d53790367.
+Head: 46e68178192c6e429a02abee9d5b8ebca5de46c8.
+Test merge: 55968fd690fea8b12f4602ab9dc9adf58bf00c60.
+Test tree: 6351bbacd22d7abb34eefed1e2cbf5f674642010, identical to the repair-head tree. Its parents are exactly the main baseline and repair head. PR is OPEN, REVIEW_READY, non-draft and UNMERGED after the successful checks; human review/merge remains outstanding. Main was re-fetched at closeout and is unchanged.
+
+Connected branch/blob/tree/commit/ref/PR/report actions succeeded. The only direct-shell clone attempt failed with CONNECT 403; no permissions workaround or local compiler was used. No main push, merge, auto-merge, other report edit, agent launch, Studio change or destructive operation occurred.
+
+### I. GitHub Actions Evidence
+
+All three returned exact-head workflows and all three check-runs are completed/success, with event=pull_request and head 46e68178192c6e429a02abee9d5b8ebca5de46c8. Actual logs, not only conclusions, were retrieved for all three.
+
+| Workflow | Exact run / job | Result |
+| --- | --- | --- |
+| Euler fractional coupled original signed source Lean | [42084042187 / 127444267657](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42084042187/job/127444267657) | SUCCESS |
+| Proof inventory | [42084042023 / 127444267372](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42084042023/job/127444267372) | SUCCESS |
+| Prevent new cold-only Lean and OpenAI CI | [42084042136 / 127444267723](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42084042136/job/127444267723) | SUCCESS |
+
+The dedicated job checked out the recorded synthetic merge, ran all 17 regressions, restored pinned native/dependency caches and freshly compiled seven research modules (compiled=7, cached=0) with warnings fatal. At 18:28:30 UTC the separate audit printed every type listed in E and each complete axiom closure, including multiline output. Every target uses exactly propext, Classical.choice and Quot.sound. It then reported exact coverage of eight declarations. The original no-hole scan also passed. The cache-policy job audited the changed workflow with zero violations; proof inventory succeeded without any inventory policy modification.
+
+The [preserved audit artifact](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42084042187/artifacts/13442397361) contains the generated harness and actual log; artifact digest sha256:2e5cde98b8ad791e18da647b10f33bbc2dd8b390b6b74cbf5074ad46ce910c99. Artifact metadata identifies the same PR head. All three changed files were read back from the immutable repair head and matched exactly.
+
+Pins are unchanged: Lean v4.34.1, Mathlib d13f23b723b8a846827a245b89c10fc7d3f11612, PNT+ c39a751132c88b6e8080b74c74023fd95b3d8be0. Existing source-addressed artifacts are reused where verified; a cache hit is not called a cold recompilation. Other historical source/export jobs are not claimed to have rerun for this workflow-and-Python-only change.
+
+### J. Failures And Repairs
+
+Historical failure: wrong module, masked compiler status, empty-success parser and multiline blind spot. Repair: actual defining import, direct subprocess status propagation, exact expected-name coverage and complete-list parsing, with negative controls. The old job's success conclusion is explicitly rejected as a dedicated theorem-audit certificate.
+
+The new repair passed on its first and only source commit. No failing new revision, weakened safeguard, no-op rebuild or rerun was needed. Historical failures are retained above and are not relabeled as successful audits.
+
+### K. Mathematical Conclusions
+
+The repaired audit certifies the exact previously implemented source equalities and diagonal restriction at its checked revision; the evidence in I passed. No new arithmetic inequality, independently improved exponent, canonical VF estimate or RH proof is supplied. The legitimate result is restored verification of the existing original-source bridge and its terminal dependencies. Source is already on main; the audit repair itself awaits human merge.
+
+### L. Formalization-Driven Findings
+
+Coverage is semantic, not a count: the old compile printed eight axiom records but one belonged to a different prerequisite, so that count did not certify the eight intended names. Similarly a successful shell step is not compiler success, and a single-line axiom parser is not a complete dependency audit. These are independently confirmed defects, not mathematical counterexamples. The new checker deliberately requires the exact target set and rejects malformed output.
+
+The mathematical inspection preserved a crucial distinction: the rational-to-complex cast is an exact original-source transport, whereas the divisor-row theorem controls only its stated sector. Neither pays the remaining non-divisor aggregate. No extra assumptions were introduced to change that distinction.
+
+### M. Significance
+
+Classification: FORMAL_INFRASTRUCTURE / verification repair. Mathematical novelty this run: NO_NEW_RESULT; no filler theorem. The work restores a trustworthy check on a source used by FINITE-AC investigations and closes a documented false-positive path. It does not upgrade the separately accepted paper Nyman inverse theorem or pending alternative-route claims. Author implementation checks are SELF_AUDIT; independent Wheel/Referee acceptance concerns the original defect. Human code review remains the next review stage.
+
+### N. Specialist Handoffs
+
+Coordinator: register the repaired audit with its exact head and actual verification scope; keep broad research and paper/theorem distinctions. Wheel and Referee: V1/referee-10 is addressed by PR #1095; review the checker, negative controls and exact eight-name coverage, retaining the old narrower source compilation evidence. Analytic: SP1-SP5 remain independently accepted paper results; no all-scale boundedness supplier for the fixed flat profile was implemented. Owner: CR1-CR5 remain distinct review candidates. Census: no enlarged scan is requested; the historical log and small negative controls suffice for this defect. No separate agent execution is requested or assumed.
+
+### O. First Unresolved Mathematical Theorem
+
+The selected Euler route still lacks the actual universal signed finite-C estimate. In the existing source notation, the unproved proposition is
+
+```text
+exists C>=0, forall natural R and real K,
+  R>=2 -> LowerMertensCriticalEnvelope R K ->
+  norm(eulerSelfDualBilinear R) <= C*R*sqrt(K).
+```
+
+The literal carrier is the genuine Mobius floor double sum at X=R^2-1. The inspected compiled consumer uses the exact identity F_R=2M(R-1)-M(R^2-1) and the finite-C hypothesis to derive endpoint amplification, Mertens energy and RH. This repair proves no supplier for that hypothesis. In fractional coordinates the complete quantity is X*A_R^2-D_R-2*B_R; one may not drop B_R, replace mu by free signs, or count the paid diagonal as full source control.
+
+### P. Next-Run Resume Capsule
+
+```text
+RUN: actual scheduled 2026-11-05 13:14 EST; RUN_ID_UNAVAILABLE.
+MAIN: 884de7a1fa7687d483a7b5272bff6c9d53790367 (unchanged at closeout).
+POLICY: NO_PIGEONHOLING_ROUTE_SELECTOR_V1 / ffd8f1c65cc4da656174956d4e03b48bea46768b.
+SELECTED: FINITE-AC/Euler audit repair; no mandatory OAI or Nyman task.
+CLAIM: 20261105-lean-2/AUDIT-1; consumes Wheel V1 and Referee-10.
+PR: #1095, REVIEW_READY, OPEN, non-draft, UNMERGED.
+BRANCH: agent/lean-verification/20261105-euler-axiom-audit.
+HEAD: 46e68178192c6e429a02abee9d5b8ebca5de46c8.
+TESTED MERGE: 55968fd690fea8b12f4602ab9dc9adf58bf00c60.
+TEST/HEAD TREE: 6351bbacd22d7abb34eefed1e2cbf5f674642010.
+DEDICATED: 42084042187/127444267657, SUCCESS; all eight type/axiom outputs.
+OTHER CHECKS: 42084042023/127444267372 and 42084042136/127444267723, SUCCESS.
+COMPILATION: seven research modules, warning-fatal; native/dependency cache reused.
+AXIOMS: exactly propext, Classical.choice, Quot.sound for all eight targets.
+TESTS: 17 methods, PASS locally normally/optimized and in actual CI.
+NEW MATH: NO_NEW_RESULT; existing identities/bound reverified, no new endpoint gain.
+IMPLEMENTATION: CI_GREEN / REVIEW_READY; no unresolved compiler or audit failure.
+FIRST OPEN: original EulerSelfDualFiniteCStatement, not a source identity.
+NEXT: inspect live main/PR before edits; reuse this exact-head green evidence.
+      Respond to actual review objections. Otherwise select the next independently
+      accepted useful theorem from any route; do not repeat this audit for activity.
+      SP1-SP5 accepted paper; R6-R8 and alternative new claims need their own review.
+REPORT: final synthesis publication is certified by subsequent commit/readback receipt.
+```
+
+### Source And Continuity Ledger
+
+All seven role reports were available on both Eastern-calendar dates; actual content was retrieved and the relevant synthesis/handoff/resume sections inspected. Coordinator 00/90 directory entries have matching blobs on each date. Availability does not imply blanket acceptance of every claim. No missing role was retrospectively marked complete. The external inbox has no new entry after October 18; its old mathematical safeguards remain applicable but it is not a new assignment or quantitative supplier.
+
+| Role | November 4 report blob | November 5 intake blob |
+| --- | --- | --- |
+| Coordinator 00/90 | 68495a5e913eee0e788940a683cf16ec4d0984cc | 8598794f544c0abb9e3437faaad109e3d4f24485 |
+| Owner | 560b0b7617703b64e728e12e60a390646c9379ea | b4a4f636ece46d696360b5ca9312c2d1d81498c9 |
+| Analytic | 04ffb1b41d8b6afe5a5d89754f5ccbc8d9682d58 | 0774002d5244d373b0230429802cd1cfd8a3a8e8 |
+| Wheel | 37ad6a1230fbb46369311790ed5686baf1775598 | 000bd6a7e0900373f8fca05a607676f6170f1032 |
+| Census | 4bd5319fa3d13219cdad006dce4a854b606c2f7c | 44f070eed4302f3d8d560346c6fb9b66c35be18a |
+| Referee | 0e4fdfbf90d52a74074e04ef6cb6988339dc8d84 | df74121b0a07297776a106ccd1b9d80a36b12fc5 |
+| Lean | 5fce0138779d67eda4e69c13230274e6419de894 | 2b9aabf0dec05ec75d9c20ffaa2e971080f930dc |
+
+Continuity distinctions retained: November 4 JOH placement compression leaves count-level history open; CODIV all-log restrictions are not fixed power gains; MU-LIFT square-class cancellation limits one method, not genuine Mertens cancellation; November 5 CORR4 auxiliary cap obstructions are not genuine-Mobius counterexamples; Nyman SP1-SP5 concerns a specified profile and full pre-correction domain, not all optimized bases. These claims were not conflated with the Euler source or silently upgraded to Lean.
+
+| Source | Git blob SHA |
+| --- | --- |
+| Original Euler workflow on main | 46152b915525c118b8306c20c820caa672e0241e |
+| Repaired Euler workflow on PR head | ca6547a55198256ce9b5d71ab1b43eb97b98067c |
+| New scoped axiom checker | 6bd0a7956ff0107d61cebbf6f610b05e6386e424 |
+| New checker regressions | 33fa08b09063cee855521ec94f1284fcc8392a08 |
+| research/EULER_FRACTIONAL_COUPLED_20261027.lean | e6c4b1690e497760d366e36b28a1f7aa60e19f85 |
+| research/EULER_RANK_ONE_FRACTIONAL_ROWS_20261027.lean | e482711a3f55c1f59fc771f108671477f51732f2 |
+| research/EULER_HYBRID_TRIANGULAR_GRAM_20261027.lean | 02fbe396b7e40fe4ac8c832970abafef31f67788 |
+| research/EULER_SELF_DUAL_ENDPOINT_GATE_20261027.lean | e7ee8f77ffd59bccaa49dd6d74fbe0d7952c2d73 |
+| scripts/compile_research_import_closure.py | eb3d429b14bf66ba2fba22e55b70ca0048f748c6 |
+| .github/actions/research-compile/action.yml | be6e049c256719f08cd82f3c6581f27ede888b58 |
+| .github/actions/lean-setup/action.yml | f24d09a28a6d466b1063bddb208cadf526330ed7 |
+| lean-toolchain | ba8ebf2dbaf6a668cd2a0e086186d6d569b69ff5 |
+| lake-manifest.json | a34d142c3d75a602a8b0f8241a4fb504d5c7c5a4 |
+| External handoff inbox | 038018145c0fddb2f6306c0712373adf9cd1ea52 |
+
+Checker SHA256 402a20ca674418530624514e4bcff038f06f7411d2f17bce2781a637250f1706; regression SHA256 ae723993b1c839702eff9af830239bfe999514140fe35f3b5517e8232b8ed872. The early report checkpoint was committed/read back at 6b973b1960ef5ce8a9aa3e0b83c815b163d7f68a (blob 207c2e86c9823fbb6c400dc210aa54781b30c531); the implementation milestone at 75a310367e729ddcbd8838a2a65590baa50671ae (blob 3d87cf5f0d86103b26fa1e7953e0154f7d1b80a0). An exploratory lookup of an incorrectly guessed cache-check filename returned 404; the actual checker path scripts/ci/check_lean_cache_contract.py was identified from the repository tree and its executed job was inspected. No required verification rests on that failed lookup.
