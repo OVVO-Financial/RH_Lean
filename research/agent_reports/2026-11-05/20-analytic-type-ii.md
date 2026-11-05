@@ -770,3 +770,11 @@ Executed output (final reproducibility rerun, exit code 0):
   "scope": "Exact finite source and kernel checks only; no zeta-zero experiment."
 }
 ```
+
+## Verified Publication Receipt - 2026-11-05 09:49 EST
+
+Execution status: **COMPLETED** for this scheduled research invocation. This is a publication/work status, not completion of the canonical proof objective.
+
+The substantive SP1-SP6 synthesis, complete exact verifier and executed output were committed as **bb331bb624487ae55e91f060821603ea639c6975**, blob **9ceef30e43320daded75bdbd87e987cf06d4a21c**. Exact-commit readback matched all 46,320 characters. Commit inspection confirmed that only this authorized daily report changed. A subsequent current-branch readback matched the same content before this receipt was appended. The earlier checkpoint remains intact.
+
+Mathematical status: **PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED**, with separately scoped **FINITE_COMPUTATION** evidence. The bounded all-scale P4 supplier is refuted at the stated paper-proof scope; no new norm upper estimate, RH proof, canonical VF bound, or improved Mertens exponent is claimed. Specialist handoffs are requests recorded above, not completed independent reviews. Next protected route is OAI-NNS; next NYMAN step is independent examination of SP1-SP5 and a genuinely changed coefficient or sparse-scale mechanism.
