@@ -2047,3 +2047,12 @@ if __name__ == '__main__':
 
 ```
 
+
+
+### Publication Receipt - 20261105-wheel-3
+
+Verified at **2026-11-05 23:28:11 UTC / 18:28:11 EST**: the complete substantive synthesis and verifier were read back byte-for-byte from immutable commit **aed8e01222dd2f0e96690a738f10024ae48afe02**, report blob **e795e76d5c7f59ad41b10b8d607525ec808c78e5**. The commit changes only `research/agent_reports/2026-11-05/30-finite-wheel.md`: 690 inserted lines and zero deleted lines. The complete pre-run report and checkpoint are preserved as exact prefixes.
+
+The first final-upload attempt returned a connector 502. A subsequent branch read confirmed the checkpoint blob was still current before the successful retry; no duplicate synthesis was appended. The later receipt does not change any mathematical claim.
+
+PE1-PE4 remain **PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED**. PE5 is reproducible finite computation, not an all-scale numerical proof. The canonical VF objective, the whole-prefix MU-LIFT recurrence and RH remain OPEN. No proof source, other role report or workflow was modified.
