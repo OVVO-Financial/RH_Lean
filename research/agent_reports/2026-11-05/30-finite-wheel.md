@@ -733,3 +733,9 @@ def main():
 if __name__ == '__main__':
     main()
 ```
+
+### Verified Publication Receipt
+
+At **2026-11-05 07:42:58 UTC / 02:42:58 EST**, the substantive final report was re-fetched at commit **8335bf4ec8dca893079c9892e163fe29c35986bd**, blob **8fb1ac53254c413edcd4bf6e325416640ec3c650**. Its complete bytes matched the submitted report. The commit's changed-file list contains exactly `research/agent_reports/2026-11-05/30-finite-wheel.md`, on `agent-reports`. This receipt records that already verified substantive commit; it does not attempt to name its own future commit.
+
+The final authority refresh still returned main **ff620da3c0d2c29585805960c6be183c07f16556**, no open/draft PRs, and only Owner plus this role in today's report directory. No new upstream execution or acceptance was inferred. Markdown section/fence checks passed, the embedded reproducer exactly matches the executed source and its recorded SHA256, and the early checkpoint's original text is preserved beneath the added final result summary. Publication status: **PUBLISHED_AND_READBACK_VERIFIED** for the substantive commit. Research status: **PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING**, with exact finite tests passed and no new Lean certification or endpoint gain.
