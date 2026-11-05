@@ -1115,3 +1115,294 @@ First build `41954221844 / 127005118306` failed only at the research import path
 The second dedicated build `41954611939 / 127006397245` reached all declarations and exposed concrete proof-script issues: ASCII `!=` elaborated to a Boolean comparison, deprecated `if_pos/if_neg`, unavailable `Finset.not_mem_empty`, and an unnecessary sequence-focus combinator. Revision `a54f0cf9535c548920dae3412e3fbe6d6584e029` uses logical non-equality, current conditional simplification lemmas, a direct empty-tail sum proof and the required single-goal tactic sequence. The intended mathematical quantifiers and obligations are unchanged; the erroneous elaborated Boolean hypotheses are corrected explicitly, not accepted as the target.
 
 The failed revision's recovery `sorryAx` outputs are NOT proof evidence. No explicit placeholder was introduced. The final eight terminal axiom sets must pass on the repaired head before certification. Current implementation remains DRAFT_PR / CI_PENDING. No audit was weakened, no local Lean was used, and no unrelated source was changed.
+
+
+---
+
+## Scheduled Research Synthesis - 20261104-lean-3
+
+Actual invocation: 2026-11-04T21:08:01-05:00, America/New_York;
+RUN_ID_UNAVAILABLE. This continues the checkpoint and implementation milestone.
+Mathematics: PROVED_IN_LEAN at unmerged PR head a54f0cf9535c548920dae3412e3fbe6d6584e029.
+Implementation: CI_GREEN / REVIEW_READY. Research execution: COMPLETED.
+This synthesis becomes publication evidence only after commit/readback.
+
+### A. Most Important Formal Mathematical Result
+
+Implemented and verified the source-exact flat-taper return and exact-head moment
+criterion in [PR #1093](https://github.com/OVVO-Financial/RH_Lean/pull/1093).
+It retains the reciprocal-moment drift for arbitrary correction,
+both signed omitted-modulus tails, and the entire correction floor sum.
+No new quantitative endpoint estimate is supplied.
+
+All 12 workflows and 13 associated jobs/checks pass at the latest head.
+Eight terminal declarations have only propext, Classical.choice and Quot.sound.
+The PR is ready for human review, not merged. No autonomous merge or auto-merge.
+
+### B. Current Authoritative Objective
+
+Main: 1daca8d582c361983567f0b6e99d447a77c3aea5. Canonical objective:
+there exists C>=0 such that for every natural R>=2,
+|pi(R^2)-vfMidFinishedMass(R)-sqrt(2)|<=C R log R.
+The original classical von Koch criterion remains an explicit consumer input.
+NO_PIGEONHOLING_ROUTE_SELECTOR_V1 was consumed; NYMAN selected independently.
+
+### C. Formalization Candidates
+
+No open proof PR existed at intake. Merged #1090 is reused, not duplicated.
+Analytic P4-P5 and head identities are independently accepted by referee-9.
+C45's localized Hilbert lower bound is accepted paper work but needs its own
+Mellin/measure-theoretic formalization. New JOH LC1-LC5, CODIV M1-M4,
+MU-LIFT QC1-QC3, and referee-10/12 remain independent-review candidates;
+this run does not endorse them simply because they were retrieved.
+
+### D. Candidate Selection
+
+The complete finite return is a needed interface for the accepted changed-low
+Nyman family, unlike the already compiled fixed-log family. It exposes exactly
+which correction moment cancels the linear term before any norm estimate.
+This is structural control, not a substitute for the unpaid norm inequality.
+
+### E. Exact Theorem Statement
+
+For natural 1<=H<N, m>=1 and ANY h:Nat->Real, define
+
+    ell=log(N/H), F_k=mu(k)log(N/max(H,k)),
+    c_k=(h_k-F_k)/ell, r(m)=1-sum_(2<=k<=N)c_k (m mod k)/k,
+    u=sum_(1<=k<=N) F_k/k, v_h=sum_(2<=k<=N) h_k/k,
+    U_B(m)=sum_(B<k<=m)mu(k)log(B/k)floor(m/k).
+
+The source theorem is
+
+    ell*r(m)=m*(u-v_h)+U_N(m)-U_H(m)+sum_(2<=k<=N)h_k floor(m/k).
+
+For h_k=0 on 2<=k<=H, exact r(m)=0 for every 1<=m<=H holds iff v_h=u.
+The reciprocal coefficient moment is 1+(v_h-u)/ell. Public declarations are
+nyman_flat_complete_return, nyman_flat_return_of_moment,
+nyman_flat_exact_head and nyman_flat_head_iff_moment, all in
+RHLean.Analysis in research/NYMAN_FLAT_TAPER_RETURN_20261104.lean.
+An explicit source-transport theorem identifies the logarithmic denominator
+and numerator with the original ratio formulation.
+
+### F. Independent Mathematical Audit
+
+Original accepted claims: 20261104-analytic-1/P4-P5 and exact head, accepted
+with scope in 20261104-referee-9. This run's extension/audit is SELF_AUDIT,
+not a newly invented independent Referee verdict. Reconstruct the finite
+Mobius logarithmic divisor convolution; extend it to every m with the exact
+omitted-modulus sum; subtract scales N and H; convert actual residues to floors.
+No root/owner/ideal-character identification or unproved analytic bound occurs.
+All moduli 2..N, including squareful directions and six, are retained. All
+quotients used in floors are natural-number division; other quotients are real.
+The N=42 correction-monotonicity and N=120 initial-half norm falsifiers remain
+compatible: an exact return and exact head imply neither tested norm bound.
+
+### G. Lean Implementation
+
+Three scoped files: new research module, exact prime-log regression script,
+dedicated cached warning-fatal Actions workflow. Reuses merged #1090's
+original nymanResidue/nymanResidual/log-kernel/divisor-sum declarations.
+No central instruction, existing theorem statement, pin, audit or main changed.
+No local Lean. Explicit autoImplicit=false; no placeholders or project axioms.
+
+Executed exact prime-log regression: 28,428 arbitrary-correction reconstructions,
+3,081 original two-band reconstructions, 57 exact moment systems and 435 initial
+coordinates. Rational vectors of prime logarithms are compared exactly; there
+is no floating-point inference or kernel-certification claim for these tests.
+The script also passed Python syntax compilation. The final source readback
+matches the prepared implementation byte-for-byte.
+
+### H. Proof Branch And PR Evidence
+
+PR #1093, agent/lean-verification/20261104-nyman-flat-return, base as above.
+Initial head 07aca9a7a2f548387e1d85e9b7428c210a925194.
+Second head c71a8fe31811d4a7aac27bcb1809c2de92b62dbf.
+Third head a54f0cf9535c548920dae3412e3fbe6d6584e029.
+Latest head remains a54f0cf9535c548920dae3412e3fbe6d6584e029; the PR is open,
+not draft and not merged after the ready-for-review transition. Actual tested
+synthetic merge 779336cefaf99d04bf48b837340a076d40aebdd3 has exactly the same
+tree 958770679fb0146df80f44de258f694cd232434e as this head; its parents are
+the stated main baseline and final proof head.
+
+Connected branch/blob/tree/commit/ref/PR writes succeeded. Contents create/update
+actions remain restricted to the reporting branch and were used only for this
+own report. Terminal read-only cloning failed with CONNECT tunnel 403; that did
+not block the authorized connector workflow. No tool grants were changed.
+
+### I. GitHub Actions Evidence
+
+[Dedicated run 41955044802, job 127007831273](https://github.com/OVVO-Financial/RH_Lean/actions/runs/41955044802/job/127007831273)
+is a successful pull_request run associated with the exact final head. Its
+checkout is the synthetic merge just identified. At 02:27:16 UTC it printed
+the exact eight theorem types and each standard axiom set; at 02:27:17 UTC
+the explicit audit reported PASS. No unexpected supplier hypothesis appears.
+
+[Targeted iteration 41955044794, job 127007830919](https://github.com/OVVO-Financial/RH_Lean/actions/runs/41955044794/job/127007830919)
+emitted the new source at 02:26:12 UTC and completed it at 02:26:36 UTC with
+warnings fatal. The dedicated lane then reused those source-addressed closure
+artifacts and separately re-elaborated the actual source with warnings fatal
+for its terminal audit. This is actual new source checking, not a claim that
+every unchanged imported dependency was cold rebuilt.
+
+The eight audited names are nymanFlatKernel_eq_original,
+nymanFlatCoefficient_eq_original, nyman_flat_reciprocal_moment,
+nyman_flat_complete_return, nyman_flat_return_of_moment,
+nyman_flat_exact_head, nyman_flat_head_iff_moment and
+nyman_two_band_moment_solver. Each prints exactly
+[propext, Classical.choice, Quot.sound].
+
+The source no-placeholder scan, proof inventory, public exports, root/import
+and declaration checks all pass in the attached workflows; the full job
+ledger is appended below. No warning or audit was disabled.
+
+Pins: Lean v4.34.1; Mathlib d13f23b723b8a846827a245b89c10fc7d3f11612;
+PNT+ c39a751132c88b6e8080b74c74023fd95b3d8be0.
+
+### J. CI Failures And Repairs
+
+Initial run 41954221844 / job 127005118306 failed before theorem elaboration:
+unknown module prefix research. The existing research build emits a flat dotted
+olean filename; the repo convention imports the whole dotted name in guillemets.
+The scoped repair adopts that convention, without changing compiler/cache rules.
+It also adds explicit original coefficient transport and its axiom audit.
+
+Second run 41954611939 / job 127006397245 reached the declarations and exposed
+Boolean != versus logical non-equality, deprecated conditional-branch lemmas,
+an unavailable empty-membership lemma and a sequence-focus warning. The third
+revision corrects these proof scripts and the wrongly elaborated Boolean
+assumptions; it preserves the intended mathematical statement. Recovery
+sorryAx from any failing revision is rejected, not counted as certification.
+
+### K. Mathematical Conclusions
+
+PROVED_IN_LEAN: source identity and exact finite interpolation criterion. The theorem
+contains no bound on the full norm. Generic finite moment equations are not
+the original full two-band construction's formal instantiation.
+The full infinite tail, transition bound, Mellin consumer and uniform signed
+middle norm remain outside this implementation. No new eta or RH claim.
+
+### L. Formalization-Driven Discoveries
+
+The exact-head theorem does not need N divisible by six, H>=2, or the second
+centered moment; it works for 1<=H<N and any high-supported correction.
+The reciprocal-moment condition is necessary already at m=1. These reductions
+apply only to interpolation, not to the original family's tail theorem.
+The full identity remains valid with arbitrary low corrections and a nonzero
+moment defect. Positive m is essential; at m=0 the residual is one.
+
+### M. Mathematical Significance
+
+This supplies a source-faithful formal interface for estimating the changed-low
+family without dropping its compensating linear terms. It is not another proof
+of the fixed-log obstruction and makes no claim of a new arithmetic norm bound.
+ETA_GATE=SEARCH_BROAD; net new complete-endpoint gain UNKNOWN.
+
+### N. Specialist Handoffs
+
+Coordinator: update the formal status of the exact generic return only.
+Analytic: instantiate P4's actual bands and keep the complete middle in one square.
+Referee: the first-moment iff is a generalization at the exact interpolation scope;
+new drift-divergence/finite-zero claims retain their own review requirements.
+Census: source reconstruction checks are exact; no repeated norm census is needed.
+Owner/Wheel: their distinct new claims remain queued for source-specific review;
+no Nyman identity is being transported to their original arithmetic carriers.
+
+### O. First Unresolved Mathematical Theorem
+
+For H=floor(N^(4/5)), ell=log(N/H), T=ceil(N^(3/2)), N=6K on an unbounded
+admissible sequence, and the ACTUAL fixed P4 coefficients A,Z,I1,I2, independently
+prove for some fixed 0<eta<3/5 and every epsilon>0:
+
+    ell^(-2) sum_(H+floor(H^(4/5))<m<=T)
+      [U_N(m)-U_H(m)+A F1(m)+Z F2(m)]^2/[m(m+1)]
+      = O_epsilon(N^(3/5-eta+epsilon)).
+
+The accepted paper head/transition/tail and C46 give the stated conditional
+consumer, but this original signed middle bound is unpaid. Do not supply it
+as an assumed project axiom or infer it from the source identity.
+
+### P. Next-Run Resume Capsule
+
+Refresh main and two Eastern-calendar days. Reuse valid exact-head evidence.
+PR #1093 is CI_GREEN / REVIEW_READY at a54f0cf9535c548920dae3412e3fbe6d6584e029.
+Do not duplicate the new return theorem or rerun unchanged green proofs.
+Next formalization can instantiate the original two bands/centering,
+or consume an independently accepted stronger quantitative claim from any route.
+Preserve the original source, both tails, correction and mixed terms.
+
+
+### Continuity And Source Ledger
+
+Both November 3 and November 4 report bytes were retrieved. Applicable latest
+results and the selected NYMAN proofs/corrections were read; retrieval is not
+blanket independent endorsement. TODAY=AVAILABLE for all seven roles;
+YESTERDAY=CARRY_FORWARD only at the stated verified scope. Coordinator 00/90
+mirrors have equal blobs on each day. Initial agent-reports head was
+b71fb4f9ac0c52e581608d70fc212bd5397fd0f2.
+
+| Role | November 3 blob | November 4 intake blob |
+|---|---|---|
+| 00-coordinator-am | e35ab2cd9cba2a47ac5be53b09938b37a0c20df3 | f4297e525684aa149b9f7bd037bc1507e9f3a3e4 |
+| 10-owner-payment | d52c74b76c2914c3be694f39cd7afe9b122a4834 | 560b0b7617703b64e728e12e60a390646c9379ea |
+| 20-analytic-type-ii | 2b9c3dbab6039e3c30a5ece3e473290af5dbbf0b | 04ffb1b41d8b6afe5a5d89754f5ccbc8d9682d58 |
+| 30-finite-wheel | cd7777180bb5c2c899a60bdd699b99be8e12a672 | 37ad6a1230fbb46369311790ed5686baf1775598 |
+| 40-prime-census | eb9a2e0cf7772f22060aec07e0bcddd24ace9cd9 | 4bd5319fa3d13219cdad006dce4a854b606c2f7c |
+| 50-adversarial-referee | 583ce524628577818603ffd4e9ec0eb3673a3f37 | 0e4fdfbf90d52a74074e04ef6cb6988339dc8d84 |
+| 60-lean-verification | fc27fb1ae103e60ff600e5a24ce6716937da3884 | 1519754f2b440abd6821a960926028dc776c8576 |
+
+The external inbox remains blob 038018145c0fddb2f6306c0712373adf9cd1ea52,
+with no entry newer than October 18. Its earlier scalar identities, source
+safeguards and scoped no-gos do not supply the new Nyman norm estimate; obsolete
+routing and PR labels were not treated as live authority.
+
+| Material source | Git blob SHA |
+|---|---|
+| AGENTS.md | 547dda0d9456e7a4e1165dc72d59da6f70d5c023 |
+| CURRENT_PROOF_CONTRACT.md | 7c4ac83a1ec1a4144e1bd691391ed4244f1cc27c |
+| docs/RHLEAN_INDEPENDENT_MULTIFRONT_NO_PIGEONHOLING_20261104.md | ffd8f1c65cc4da656174956d4e03b48bea46768b |
+| docs/RHLEAN_NATIVE_SQUARE_CLOCK_AGENT_DIRECTIVE_20261029.md | 4fbab59cc6fcc33a4f4e7a8ef447b2f7947b53dd |
+| docs/RHLEAN_BROAD_SEARCH_UNTIL_ETA_20261031.md | 8317f08996b65f2e4b32c00c91b31cb6d0c09718 |
+| docs/RHLEAN_SOURCE_FAITHFUL_COMPLETE_RETURN_AGENT_CONTRACT_20261031.md | 4775ee5fd95f279beab08a75d1e17127078b19a6 |
+| docs/RHLEAN_SEVEN_AGENT_RESEARCH_ENGINE_20261101.md | 6c1d1c10e2755017ffe9d7f40df8b9ae7692f23a |
+| docs/RHLEAN_ALL_VECTOR_AGENT_PROMPTS_20261030.md | 53143573cd5b014178d11ded008dbfb1a7e6dcc5 |
+| docs/DYNAMIC_RESEARCH_AGENTS.md | 23b6fae1d3b6b5a69155628df709d255aea7aeca |
+| research/VF_CANONICAL_SQRT_TWO_VON_KOCH.lean | 79030d70e8d3e0d08eef9bac53fef95c36eca2fb |
+| research/NYMAN_BEURLING_POSITIVE_RESIDUE_ATTACK_2026_10_15.md | b2775c892edffe920a101651eef6f3581c73c9d4 |
+| research/NYMAN_HIGH_COEFFICIENT_INVARIANT_20261104.lean | 2da630c1d5fb9302e2097ec1e170cf41c2b40609 |
+| lean-toolchain | ba8ebf2dbaf6a668cd2a0e086186d6d569b69ff5 |
+| lakefile.lean | 6ef95e9ebf184d5846fee88a9cdf2db3a38afc97 |
+| lake-manifest.json | a34d142c3d75a602a8b0f8241a4fb504d5c7c5a4 |
+| research/NYMAN_FLAT_TAPER_RETURN_20261104.lean (PR head) | 2d23721027ecc44e85b7add02fc632b482f03352 |
+| scripts/nyman_flat_taper_regression.py (PR head) | 5f22a22ad202114bcdccb70785c9ec1576a94a6a |
+| .github/workflows/nyman-flat-taper-return.yml (PR head) | 5cc25dd6759fcfec808cf01e893346d2cb5f3b10 |
+
+Prior #1090 is verified human-merged at decfa1cf5302ebdee220ba8c1c09aa1ae3e424d3.
+Its source blob above is unchanged. Actual prior run 41888225226 succeeded on
+head 9a5e599e1c5c491d681d52d7c4ac095200c80f39; job 126778327742's retrieved log
+prints all four standard terminal axiom closures and warning-fatal verification.
+That source is also a checked prerequisite of the new CI. No obsolete
+UNCOMPILED or unmerged description was carried forward as current status.
+
+### Latest-Head Job Ledger
+
+| Workflow / job | Actual run/job URL | Status |
+|---|---|---|
+| VF recursive child population and complement capacity / check | [41955044842 / 127007831885](https://github.com/OVVO-Financial/RH_Lean/actions/runs/41955044842/job/127007831885) | SUCCESS |
+| Lean source audits / Hosted Lean build | [41955044806 / 127007831865](https://github.com/OVVO-Financial/RH_Lean/actions/runs/41955044806/job/127007831865) | SUCCESS |
+| Proof inventory / inventory | [41955044792 / 127007831806](https://github.com/OVVO-Financial/RH_Lean/actions/runs/41955044792/job/127007831806) | SUCCESS |
+| VF first-bad final aggregate contraction / check | [41955044822 / 127007831692](https://github.com/OVVO-Financial/RH_Lean/actions/runs/41955044822/job/127007831692) | SUCCESS |
+| VF first-bad source to sector-six inlet / check | [41955044816 / 127007831446](https://github.com/OVVO-Financial/RH_Lean/actions/runs/41955044816/job/127007831446) | SUCCESS |
+| Coordinate atlas and static search corpus / atlas | [41955044877 / 127007831372](https://github.com/OVVO-Financial/RH_Lean/actions/runs/41955044877/job/127007831372) | SUCCESS |
+| Public export verification / verify-export | [41955044876 / 127007831339](https://github.com/OVVO-Financial/RH_Lean/actions/runs/41955044876/job/127007831339) | SUCCESS |
+| Lean source audits / audit | [41955044806 / 127007831315](https://github.com/OVVO-Financial/RH_Lean/actions/runs/41955044806/job/127007831315) | SUCCESS |
+| Nyman flat-taper complete return / nyman-flat-proof | [41955044802 / 127007831273](https://github.com/OVVO-Financial/RH_Lean/actions/runs/41955044802/job/127007831273) | SUCCESS |
+| VF first-bad normalized infrastructure / check | [41955044799 / 127007831103](https://github.com/OVVO-Financial/RH_Lean/actions/runs/41955044799/job/127007831103) | SUCCESS |
+| VF pre-914 consolidation / check | [41955044791 / 127007831007](https://github.com/OVVO-Financial/RH_Lean/actions/runs/41955044791/job/127007831007) | SUCCESS |
+| Prevent new cold-only Lean and OpenAI CI / audit | [41955044930 / 127007830930](https://github.com/OVVO-Financial/RH_Lean/actions/runs/41955044930/job/127007830930) | SUCCESS |
+| Targeted Lean iteration / check | [41955044794 / 127007830919](https://github.com/OVVO-Financial/RH_Lean/actions/runs/41955044794/job/127007830919) | SUCCESS |
+
+Closeout main recheck: 1daca8d582c361983567f0b6e99d447a77c3aea5, unchanged from intake.
+The final PR head was checked before the ready-for-review transition; no
+main push, merge, auto-merge, policy edit, schedule change, agent launch or
+other author's report edit occurred.
+
