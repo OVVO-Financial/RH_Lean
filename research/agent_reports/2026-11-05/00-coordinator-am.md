@@ -604,3 +604,13 @@ Scope: no full-prefix numerical Mertens scan, no all-label cap or endpoint gain
 ### Closeout Freshness Check
 
 At 2026-11-05 12:39:16 UTC, main remains `ff620da3c0d2c29585805960c6be183c07f16556`. The report branch before this synthesis is exactly our early-checkpoint commit `c96c464f9c4aabeca6b4c6d675bc0506bd2154cb`; no newer upstream report or Analytic execution is present. Both current Coordinator blobs were fetched and match the checkpoint byte-for-byte. The sole open PR remains #1094, draft at the unchanged verified head. No source-dependent conclusion needs revision. Research is finished; publication is certified only in the subsequent receipt.
+
+### Verified Publication Receipt - 20261105-coordinator-1
+
+**Execution COMPLETE; substantive synthesis PUBLISHED_AND_READBACK_VERIFIED. Mathematical objective OPEN; C53-C56 independent review PENDING.**
+
+The substantive report was committed atomically to both authorized mirrors in **7773273e5aafe248a35b0827553ce22215b9823d** at **2026-11-05T12:39:48Z**. Immutable readback of BOTH files matched all **54,078 ASCII characters** exactly, with common blob **77e86a036fc291f47699641ab116100162e32383**. Commit inspection confirms only the two Coordinator reports changed, each with **558 additions and zero deletions**. The early checkpoint remains an exact prefix. A-J sections, Markdown fences, embedded executed-script bytes and finite test output were validated. Final script syntax checks passed; no research computation remains running.
+
+This receipt records that already successful substantive publication; its own commit will be checked separately. The final outcome is the scoped C53-C55 paper argument, C56 limiting control and C57 exact finite evidence, not an independently reviewed new arithmetic upper bound. The same complete-source complement and all stated quantifier limitations remain. #1094 remains a verified draft component theorem, not a merged or full-residual result. No source, main, policy, other role report, proof branch, PR, workflow, permission or schedule was modified, and no other agent was launched.
+
+Receipt prepared 2026-11-05 12:40:50 UTC.
