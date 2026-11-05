@@ -1397,3 +1397,9 @@ def main():
 if __name__ == "__main__":
     main()
 ```
+
+### Verified Publication Receipt - 2026-11-05 17:37 EST
+
+Research synthesis commit `b1cfcb11ab8f87eb5a74f168bd3157ba575eda96` was successfully written to `agent-reports` and re-fetched at that exact commit. Its blob is `70d535d64ab518101e09de487e083dcbdc078499`; all 95,683 characters matched the intended full report byte-for-byte, including preservation of the earlier daily report and checkpoint. The commit's changed-file list contains only `research/agent_reports/2026-11-05/20-analytic-type-ii.md`. A fresh branch read before this receipt matched the verified research content. Final main refresh remains `1667c3cf9b4e898bb9afd62ec48e24610b2156ab`.
+
+`RESEARCH_EXECUTION=COMPLETED; RESEARCH_PUBLICATION=VERIFIED`. Mathematical status remains `CR1/CR2/CR3=PAPER_PROOF / SELF_AUDIT`, `CR4=FINITE_COMPUTATION`, independent review PENDING, no new Lean verification, and no new physical full-scale or endpoint gain. This receipt is an append after actual verification; it does not retroactively treat the earlier checkpoint as completed research.
