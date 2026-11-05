@@ -2232,3 +2232,1051 @@ Compare two distinct moves: an independent arithmetic estimate for growing arriv
 ### D-K. Pending Work
 
 Research derivation, decisive tests, literature qualification, full quantitative relevance, and specialist handoffs remain PENDING. No local Lean execution, source/PR edit, agent launch, policy/schedule change or merge. Only this existing own report is updated. Final publication will require current-blob refresh, commit inspection and exact immutable readback.
+
+## Scheduled JOH Final Synthesis - 20261105-owner-3
+
+Actual invocation: **2026-11-05T16:15:00-05:00**, SCHEDULED, America/New_York; RUN_ID_UNAVAILABLE. This completes the preceding checkpoint, not a separate run. Protected route **JOH** follows today's SAT and VF-LOW work; next **SAT**. New proofs below are **PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED** unless explicitly classified otherwise. No literature-originality claim or complete-endpoint gain.
+
+### A. Most Important Mathematical Development
+
+**A classical continuous prime-interval estimate transfers to the ACTUAL integer floor-Li arrival clock, with a proved sampling and moving-endpoint correction.** Put h=floor(X^(1/4)), let b_j be the original integer floor-Li arrivals, and retain the full upper halo b_(j+h). Then the genuine uncentered count energy satisfies, for every sufficiently large real X,
+
+```text
+V_clock(X) = sum_(X<=b_j<2X) [pi(b_(j+h))-pi(b_j)-h]^2
+          << X h^2 (log log X)^2 / (log X)^3.             (MC2)
+```
+
+This is an independently justified logarithmic restriction on multi-cell COUNT innovations, not just on the already-paid within-cell placement. It saves (log log X/log X)^2 relative to the elementary O(X h^2/log X) envelope. Its independent inputs are Zaccagnini's established short-interval mean square and Montgomery--Vaughan's uniform interval prime upper bound, not RH or the imported 7/8 theorem. The new work here is the exact-source transfer; the external analytic estimates are not claimed as new.
+
+**The quantitative gap is still polynomial.** The previously proposed OPEN-JOH-CLOCK-VAR asks for O(X h (log X)^A), whereas MC2 retains h^2. At h approximately X^(1/4), that is an extra X^(1/4), up to logarithms. No fixed exponent improvement follows. An explicit finite telescope below calibrates a hypothetical X^(-kappa) saving at the Xh level to prime-error exponent 7/8-kappa/2, while retaining the initial history and boundary windows.
+
+There is also a useful signed correction. Grouping h original cells gives an exact whole-source reconstruction with |error|=O(Nh), uniformly in the grouping and initial arrival. **The error is NOT necessarily nonnegative:** the complete genuine two-cell block [5,8) already gives -1. The positive one-cell placement property must not be carried into multi-cell arguments. Both prime and model internal displacements have to return before squaring.
+
+| Claim | Contribution | Classification |
+| --- | --- | --- |
+| MC1 | Original prime-occurrence labeling, complete clipped overlap Gram | IDENTITY_ONLY |
+| MC2 | Uniform logarithmic mean-square bound on actual clock increments | PAPER_PROOF, independent external ingredients, SELF_AUDIT |
+| MC3 | Full h-cell return and uniform O(Nh) proper-error bound | PAPER_PROOF; exact decomposition plus independent bound |
+| MC4 | Boundary telescope and hypothetical variance-to-prime-error power transfer | IDENTITY_ONLY / CONDITIONAL; supplier unproved |
+| MC5 | Exact finite checks and counterexample to coarse-error nonnegativity | FINITE_COMPUTATION / REFUTED at the stated universal scope |
+
+### B. Current Authoritative Objective
+
+Main at intake: **1667c3cf9b4e898bb9afd62ec48e24610b2156ab**. The public arithmetic target is unchanged and OPEN:
+
+```text
+VFCanonicalSquareVonKochStatement:
+exists C>=0, forall integer R>=2,
+ |pi(R^2)-vfMidFinishedMass(R)-sqrt(2)| <= C R log R.
+```
+
+The original JOH coordinate used here is
+
+```text
+L(x)=Li_2(x)=integral_2^x dt/log t,
+Q(n)=floor(L(n)), B(n)=pi(n)-Q(n)-1,
+eta(k)=1_Prime(k)-Q(k)+Q(k-1),
+G(N)=sum_(2<=n<N) B(n)=sum_(3<=k<N)(N-k) eta(k).
+```
+
+The centering -1 is essential to this definition of G. The latest Coordinator ticket writes an uncentered B in shorthand; this report does not silently adopt that change. Native Lean `vfMidPrimeFloorLiIntegerBacklog` is pi-Q; our B is that quantity minus one. Its increments agree exactly, and eta(k) is `vfMidFloorLiPrimitiveMismatch (k-1)`, not the primitive at k. Original Li_2, classical li, and canonical sqrt(2) remain distinct conventions.
+
+Material source bytes were retrieved at the pinned main and the relevant definitions/proofs inspected:
+
+| Source | Blob SHA |
+| --- | --- |
+| AGENTS.md | 547dda0d9456e7a4e1165dc72d59da6f70d5c023 |
+| CURRENT_PROOF_CONTRACT.md | 7c4ac83a1ec1a4144e1bd691391ed4244f1cc27c |
+| docs/RHLEAN_INDEPENDENT_MULTIFRONT_NO_PIGEONHOLING_20261104.md | ffd8f1c65cc4da656174956d4e03b48bea46768b |
+| docs/RHLEAN_NATIVE_SQUARE_CLOCK_AGENT_DIRECTIVE_20261029.md | 4fbab59cc6fcc33a4f4e7a8ef447b2f7947b53dd |
+| docs/RHLEAN_SEVEN_AGENT_RESEARCH_ENGINE_20261101.md | 6c1d1c10e2755017ffe9d7f40df8b9ae7692f23a |
+| research/VF_MID_FLOOR_LI_SIGNED_POPULATION_BALANCE.lean | 9a9336dad72171b6d572a1c1ae88d1ae8b56b530 |
+| research/VF_MID_FLOOR_LI_DISCRETE_BACKLOG.lean | 4255ca0dffe480f2aec6bd0b68797bbd293396c3 |
+| research/VF_MID_FLOOR_LI_TRANSPORT_CANCELLATION.lean | eb84f59055bd31dc117be034d45c92eb9dab8f27 |
+| research/LI_FAN_ONE_SIDED_WEIGHTED_COMPOSITE_RH_CONTRACT_20261022.md | 27e28f09e9f79e8a60d524e5fcb6f19904fa55f5 |
+| research/VF_CANONICAL_SQRT_TWO_VON_KOCH.lean | 79030d70e8d3e0d08eef9bac53fef95c36eca2fb |
+
+Reused Lean facts include the signed mismatch/backlog telescope, ternary primitive above four, floor-rounding error less than one, exact Mobius/Abel carrier equality, and quadratic perturbation boundary identity. None is a quantitative bound on today's V_clock. The canonical terminal theorem still has its explicit ClassicalVonKochRHCriterion premise. No local or new Lean execution was performed.
+
+Live discovery found no open/draft PR at intake. #1093, #1094 and #1095 are human-merged. At #1095 head **46e68178192c6e429a02abee9d5b8ebca5de46c8**, the three returned workflows are successful, including original Euler fractional source run **42084042187**. This verifies the current repair's workflow status, not a new JOH compiler run or a proof of MC2. The new mathematical claims have no Lean head.
+
+### C. Structural Hypotheses Investigated
+
+Resume **20261104-owner-3/LC4-LC5**, especially its OPEN-JOH-CLOCK-VAR question, and the November 5 Coordinator's explicit JOH count-history handoff. LC4 paid all within-one-cell displacements at O(N); repeating local midpoint signs would not advance that problem.
+
+Two distinct moves were developed:
+
+1. Transfer an established arithmetic mean-square estimate to literal integer arrival samples, without replacing those samples by an unproved continuous average or freezing a moving endpoint for free.
+2. Compress many cells at once and recover every internal model arrival as well as every prime, so a bounded geometric error can be separated honestly from the accumulated level.
+
+The strong Xh variance supplier was not assumed. The early checkpoint preceded the work. A separate preregistration fixed the finite core 2..4096, development through 2048, held-out through 4096, five dyadic clock windows, and h in {1,2,3,5,8} for full-prefix reconstruction. Integers 4097..4224 were certified only for the prescribed upper halo, disclosed before execution. No fitted exponent or wider supportive scan was used.
+
+### D. Mathematical Derivation
+
+#### MC1. Exact Prime Occurrences And The Complete Clock Gram
+
+For j with b_j>=5 set b_j=min{n>=2:Q(n)>=j}. The compiled one-step floor fact and monotonicity give Q(b_j)=j and Q(n)=j on b_j<=n<b_(j+1). Define H_j=B(b_j). For integer h>=1,
+
+```text
+delta_j(h)=H_(j+h)-H_j=pi(b_(j+h))-pi(b_j)-h.
+```
+
+For each actual prime p assign the label lambda(p)=Q(p-1). Then, exactly,
+
+```text
+p in (b_j,b_(j+h)]  iff  j <= lambda(p) < j+h.           (MC1a)
+```
+
+Indeed b_j<p iff b_j<=p-1 iff j<=Q(p-1); and p<=b_(j+h) iff Q(p-1)<j+h. This retains a prime equal to the right arrival and excludes a prime equal to the left arrival. Q(p) is NOT an interchangeable label.
+
+For a finite consecutive set J={u,...,v} of starting indices, let P be the actual prime set (b_u,b_(v+h)]. For each p let w(p) count its admitted starting indices; for p,q let K(p,q) count their common admitted starting indices. Explicitly,
+
+```text
+K(p,q)=max(0, min(v,lambda(p),lambda(q))
+                 -max(u,lambda(p)-h+1,lambda(q)-h+1)+1),
+w(p)=K(p,p).
+
+sum_(j in J) delta_j(h)^2
+ = sum_(p in P) w(p) + 2 sum_(p<q in P) K(p,q)
+   -2h sum_(p in P) w(p) + h^2*#J.                     (MC1b)
+```
+
+This is the entire square, not a selected pair statistic. All same-cell and cross-cell prime pairs, prime/model mixed terms, model square and edge clipping are present. A prime can appear in several overlapping windows because that multiplicity is part of V_clock; it is recorded by w and K, not represented as independent historical payment capacity. The labels aggregate actual primes only through their exact fibers. This is not mean-centered empirical covariance or a zero-covariance assertion.
+
+#### MC2. A Genuine Uniform Logarithmic Count-Energy Restriction
+
+**Theorem.** There are absolute constants C and X0 such that, for all real X>=X0, with h=floor(X^(1/4)) and J_X={j:X<=b_j<2X},
+
+```text
+sum_(j in J_X) delta_j(h)^2
+ <= C X h^2 (log log X)^2/(log X)^3.                    (MC2)
+```
+
+All h-cell endpoints are included, even when b_(j+h)>2X. Constants do not depend on X, j, the number of cells, prime factorizations or a chosen subsequence.
+
+**Independent analytic inputs.** Zaccagnini's 1998 main theorem, specialized to epsilon(x)=0, states for y^(1/6)<=L0<=y that
+
+```text
+J(y,L0)=integral_y^(2y)
+ |pi(t)-pi(t-L0)-L0/log t|^2 dt
+ << y L0^2 (log log y)^2/(log y)^4.
+```
+
+See [Zaccagnini, Acta Arith. 84 (1998), p.225](https://matwbn.icm.edu.pl/ksiazki/aa/aa84/aa8432.pdf) and the [publisher record](https://www.impan.pl/en/publishing-house/journals-and-series/acta-arithmetica/all/84/3/110125/primes-in-almost-all-short-intervals). The actual fixed-length theorem statement was retrieved from the indexed primary first page; direct full-PDF access returned 403. The author's [later paper, Theorem 3.1](https://people.dmi.unipr.it/alessandro.zaccagnini/psfiles/papers/Q429.pdf) was accessible and separately checked, but its multiplicative-window version is NOT silently substituted for the fixed-length theorem.
+
+The second input is the unconditional bound pi(z+y)-pi(z)<2y/log y for z>0,y>1, [Montgomery--Vaughan, The large sieve, Theorem 2 and (1.12), p.121](https://personal.science.psu.edu/rcv4/personal/Publications/large_sieve.pdf). Only its ordinary-prime q=1 case is used. Neither imported statement assumes RH. These two precise inputs, rather than a generic reference to PNT, are the arithmetic content being transferred.
+
+**Step 1: exact clock geometry.** Minimality of b_j gives
+
+```text
+0 <= L(b_j)-j < 1/log(b_j-1).
+```
+
+For adjacent arrivals at or above X this implies b_(j+1)-b_j>=log X-2, for sufficiently large X: the Li increase is at least 1-1/log(X-1), while the integral is at most the integer gap divided by log X. Also #J_X is comparable to X/log X: it differs by O(1) from L(2X)-L(X), and elementary integral bounds give both sides. The upper endpoint T_j=b_(j+h) lies below 3X eventually, since the Li increase from 2X to 3X exceeds h+1. Write s_j=T_j-b_j. The exact floor relation gives
+
+```text
+|integral_(b_j)^(T_j) dt/log t - h| < 1,
+s_j <= (h+1) log(3X),
+s_j = h log X + O(h+log X) = h log X + O(h),            (MC2a)
+```
+
+uniformly for j in J_X. The last estimate follows by comparing 1/log t to 1/log X on [X,3X], whose difference is O(1/log^2 X), and using h>>log X. No prime distribution is used in this geometry.
+
+**Step 2: pay the moving prime endpoint.** Set L0=h log X and t_j=b_j+L0. The difference T_j-t_j is O(h). The Montgomery--Vaughan bound on an interval of length C0 h, enlarged if necessary, gives
+
+```text
+|pi(T_j)-pi(t_j)| << h/log h << h/log X.
+```
+
+Also L0/log(t_j)-h=O(h/log X). Therefore, for
+
+```text
+f_X(t)=pi(t)-pi(t-L0)-L0/log t,
+delta_j(h)=f_X(t_j)+O(h/log X).                         (MC2b)
+```
+
+This is a quantified comparison, not a replacement of the original window by a fixed interval without error. Its total squared error costs O(X h^2/log^3 X).
+
+**Step 3: pay discrete sampling.** Set d=(log X)/4. The intervals I_j=[t_j,t_j+d] are disjoint by Step 1 and lie in [X,4X] eventually. For t in I_j, each prime-count endpoint moves at most d, hence at most d+1 integer sites; the continuous density term changes by O(1). Consequently |f_X(t)-f_X(t_j)|=O(log X), with no prime theorem needed. Integration of |f_X(t_j)|^2<=2|f_X(t)|^2+O(log^2 X) yields
+
+```text
+sum_(j in J_X)|f_X(t_j)|^2
+ << [J(X,L0)+J(2X,L0)]/log X + X log X.                (MC2c)
+```
+
+This explicit local comparison is the missing discrete-sampling bridge in the earlier candidate. Density-one continuous behavior by itself was not used as a sampling theorem.
+
+**Step 4: apply the genuine arithmetic theorem.** For all sufficiently large X, both y=X and y=2X satisfy y^(1/6)<=L0<=y. The external fixed-length estimate gives
+
+```text
+J(X,L0)+J(2X,L0)
+ << X h^2 (log log X)^2/(log X)^2.
+```
+
+Combine MC2b-c. The remaining X log X term is absorbed because h^2 is comparable to X^(1/2). This proves MC2. All comparison errors are paid independently; no covariance sign or desired variance hypothesis is inserted.
+
+**Consequence for exceptional count innovations.** For every fixed epsilon>0,
+
+```text
+#{j in J_X: |delta_j(h)|>=epsilon*h}
+ << epsilon^(-2) X (log log X)^2/(log X)^3.
+```
+
+The proportion among the actual number of arrivals, comparable to X/log X, tends to zero. This is a proper-sector restriction, not an endpoint proof; the complete estimate and exceptional cost, rather than merely the phrase 'almost all', are what is available.
+
+#### MC3. Exact Coarse-Clock Return, Including Both Signed Populations
+
+**Theorem.** Fix an original arrival a=b_(j0)>=5, integer h>=1, and N>=a. For each coarse start c_m=b_(j0+mh)<N put t_m=min(b_(j0+(m+1)h),N), and define
+
+```text
+K_(a,h)(N)=G(a)+sum_m (t_m-c_m) B(c_m),
+P_(a,h)(N)=sum_m sum_(c_m<p<t_m, p prime) (t_m-p),
+D_(a,h)(N)=sum_m sum_(c_m<b_j<t_m) (t_m-b_j).
+```
+
+Then exactly
+
+```text
+G(N)=K_(a,h)(N)+P_(a,h)(N)-D_(a,h)(N),
+|G(N)-K_(a,h)(N)| <= h log N * max(pi(N),Q(N)) << Nh.   (MC3a)
+```
+
+The final implied constant is absolute and uniform in a,h,N after adjustment for the finite small range. The statement does not require equal prime/model counts, complete terminal cells, a favorable sign or any first-bad condition.
+
+**Proof.** Inside [c_m,t_m),
+
+```text
+B(n)-B(c_m)=[pi(n)-pi(c_m)]-[Q(n)-Q(c_m)].
+```
+
+Sum over integers n and use finite Fubini on the TWO original step populations. Prime/model coincidences cancel as they should. Boundary events at c_m are already in B(c_m); events at t_m belong to the next block or have zero terminal weight. The initial G(a) and partial last block are explicit.
+
+Since Q(t_m-1)<=Q(c_m)+h-1,
+
+```text
+(t_m-1-c_m)/log N
+ <= integral_(c_m)^(t_m-1) du/log u < h.
+```
+
+Every positive internal displacement is less than h log N. Each original prime and each model arrival is charged at most once in this partition. Thus 0<=P<=h log N*pi(N) and 0<=D<=h log N*Q(N). The elementary |P-D|<=max(P,D), the uniform prime-count bound and L(N)=O(N/log N) prove MC3a. For the latter, splitting the Li integral at sqrt(N) suffices; no short-interval asymptotic is assumed.
+
+For h=1 there is no internal model arrival, D=0, recovering the prior LC4 sign. For h>1 the model return cannot be dropped. Full quadratic accounting is
+
+```text
+G^2=K^2+P^2+D^2+2KP-2KD-2PD
+   =K^2+2K(P-D)+(P-D)^2.                               (MC3b)
+```
+
+In particular the square comparison costs O(Nh*|K|+N^2 h^2), not just the error square. At the separately chosen h(N)=floor(N^(1/4)), the amplitude error is O(N^(5/4)), below the external JOH RH negative-margin scale N^(3/2)/log N. This does NOT prove any sign for K. Nor does an identity at each h(N) justify a fixed-h recurrence across changing N.
+
+This is a source comparison on G, not a new denominator or a replacement for #915's compressed NNS statistic. LC4 and MC3 are alternate decompositions, not cancellation credits to add together.
+
+#### MC4. What A Stronger Clock Bound Would Actually Buy
+
+For any u<=v and h>=1 the complete overlapping-window telescope is
+
+```text
+sum_(j=u..v) delta_j(h)
+ = sum_(r=1..h) H_(v+r) - sum_(r=0..h-1) H_(u+r).
+```
+
+If the two right-hand averages are A_right and A_left and m=v-u+1, Cauchy gives
+
+```text
+|A_right-A_left| <= sqrt(m*sum_(j=u..v)delta_j(h)^2)/h. (MC4a)
+```
+
+No endpoint is omitted. For u=min J_X and v=max J_X, comparison of these averages to B(floor X), B(floor(2X)) costs O(h log X), using literal clock distances and the ternary primitive. Therefore
+
+```text
+|B(floor(2X))-B(floor X)|
+ << sqrt((X/log X)*V_clock(X))/h + h log X.             (MC4b)
+```
+
+The anchor is not discarded: a uniform bound for these dyadic increments must be summed back to a finite starting level. Applying MC4b recursively to every integer endpoint, with the at-most-one-site odd-endpoint correction, is legitimate. A single dyadic sequence without full endpoint coverage would not suffice.
+
+**Conditional calibration, not an established supplier.** If some fixed 0<kappa<1/4 satisfies, for every epsilon>0 and all sufficiently large real X,
+
+```text
+V_clock(X) <<_epsilon X^(5/4-kappa+epsilon),            (UNPROVED)
+```
+
+then MC4b and dyadic summation imply
+
+```text
+|pi(x)-Li_2(x)| <<_epsilon x^(7/8-kappa/2+epsilon).
+```
+
+The h log X boundary has exponent 1/4 and is lower order. Floor rounding and extension from integers to real x cost O(1). The prior Xh polylogarithmic candidate corresponds only to the 7/8 power, not a strictly better power. No claim is made that a global 7/8 prefix bound already supplies this local sum-of-squares premise.
+
+Putting the PROVED MC2 into MC4b yields only O(X log log X/log^2 X) dyadic backlog changes, plus lower-order terms. This is weaker than known effective-PNT global error estimates, so it is not advertised as an improved global prime bound. Its value is a quantified restriction on the actual growing clock source and a precise map of the remaining loss.
+
+### E. Quantitative Consequence
+
+MC2 is a genuine independent all-scale improvement of a proper arithmetic energy envelope. It does not reach OPEN-JOH-CLOCK-VAR: at h approximately X^(1/4), its scale is X^(3/2)(log log X)^2/log^3 X, compared with the requested X^(5/4) polylogarithmic scale. The inherited 7/8 input was neither used nor improved.
+
+MC3 pays all intra-coarse-block shape at O(Nh), preserving its signed return and full square. The outstanding weighted level K, or equivalently the original source after that explicit error, can still dominate. The operator H_j -> H_(j+h)-H_j annihilates constants, but that observation is only algebraic noninjectivity, not a synthetic counterexample to the actual prime sequence. MC4 is the honest way to restore endpoint levels and the finite anchor when a sufficiently strong uniform innovation estimate exists.
+
+At N=R^2, MC3 with h=N^(1/4) costs O(R^(5/2)); this is below the JOH integrated negative-margin scale R^3/log R, not below the canonical POINTWISE target R log R. Those two normalizations must not be confused. No bound on the complete G sign, original #915 source, canonical VF or RH is obtained. **Net new endpoint gain: UNKNOWN / NONE_ESTABLISHED; ETA_GATE=SEARCH_BROAD.**
+
+### F. Falsification And Circularity Review
+
+**Actual finite falsifier of coarse-error nonnegativity.** The certified arrivals b_2=5, b_3=6, b_4=8 give a=5,h=2,N=8, a COMPLETE two-cell block. The only internal prime is 7, contributing P=1; the internal model arrival is 6, contributing D=2. Thus
+
+```text
+G(8)=-1, K_(5,2)(8)=0, P=1, D=2, G-K=-1.
+```
+
+The first registered partial-cut failure is already N=7,h=2, with P=0,D=1. A genuine multi-cell positive return also occurs at N=15,h=3, with G=-9,K=-10,P=9,D=8. The first complete-negative and multi-cell-positive diagnostics were a disclosed scope refinement after the registered all-prefix sign test failed; no test range was enlarged. These disprove universal nonnegativity only, not an eventual sign or the O(Nh) bound.
+
+**Endpoint-label counterexample.** At X=128,h=3,j=39, the actual interval is (148,163], containing 149,151,157,163. Using Q(p) in place of Q(p-1) omits the right-boundary prime 163. This demonstrates why a superficially similar clock labeling is not source-exact.
+
+**Full Gram checks.** The following are exact integer quantities, not numerical covariance estimates:
+
+| X | h | windows | last halo endpoint | V_clock | prime diagonal | ordered prime off-diagonal | prime/model cross | model square |
+| ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| 128 | 3 | 25 | 271 | 18 | 73 | 158 | -438 | 225 |
+| 256 | 4 | 43 | 533 | 26 | 166 | 500 | -1328 | 688 |
+| 512 | 4 | 77 | 1045 | 69 | 301 | 944 | -2408 | 1232 |
+| 1024 | 5 | 140 | 2078 | 305 | 683 | 2952 | -6830 | 3500 |
+| 2048 | 6 | 256 | 4139 | 533 | 1531 | 8158 | -18372 | 9216 |
+
+Executed checks: **20,460** coarse whole-prefix identities, **20,460** complete quadratic reconstructions, **20,460** finite error-bound checks, **541** literal prime-admission comparisons, five full Gram and five boundary-telescope/Cauchy checks, plus four nonzero-anchor controls. For example a=194 has G(a)=-675 and B(a)=-5; neither can be omitted from its return.
+
+All floors were certified by integer-only outward-rounded intervals, using the prior report's log/Ei method with explicit tails. Prime flags agree with independent trial factorization throughout 2..4224. The minimum noninitial floor margin exceeds 10^(-5); maximum interval width is below 10^(-48). The script exited zero and syntax checks passed. This is regression evidence for identities and the finite falsifier, not a proof of MC2's asymptotic bound or evidence of an optimized exponent.
+
+MC2 was self-audited for the fixed-length versus multiplicative-length distinction, all-halo coverage, separation of samples, both prime endpoints, the h/log X moving-endpoint price, absolute constants, and absorption of X log X. No arbitrary random signs, assumed source admission, deleted adverse pairs or small-variance hypothesis enter its proof. Independent review, including inspection of the imported 1998 fixed-length statement from an accessible full copy, remains requested rather than claimed complete.
+
+The scoped source and two-day report search found no earlier proof of this exact arrival-sampling bound. It did find the older abstract telescopes and LC4, which are explicitly reused. There was no exhaustive literature-novelty search. The known LC3 witnesses W(512)=1 and W(2048)=3 remain preserved and were not the object of another sign scan.
+
+### G. Conceptual Interpretation
+
+The multi-cell problem has two different components. A short-interval theorem constrains actual prime-count innovations on the Li clock after a genuine sampling bridge. Coarse compression pays positional shape, but now that shape is the DIFFERENCE of prime and model displacements, not a positive placement bill.
+
+Neither operation controls the accumulated signed level by itself. The complete overlap Gram exposes the prime-pair, model and boundary interactions needed for a stronger local energy bound; MC4 shows exactly how much of a power saving would survive restoration to actual prime error. This is a concrete restriction and an honest power-budget diagnosis, not a new name for the solved endpoint.
+
+### H. Competing Mechanisms
+
+**Continue:** the original-clock complete Gram, with its independently paid logarithmic mean-square baseline and a precise fixed-power question. Its first unsupported step is quantitative, not source admission or sampling.
+
+**Continue as an alternative:** a genuinely one-sided weighted level/innovation estimate sufficient for the JOH consumer, which may be weaker than controlling the entire nonnegative V_clock. Keep original anchor and all terminal weights. No such signed supplier has been found here.
+
+**Revise:** multi-cell geometric compression must use P-D and its mixed square, not the one-cell positive E_place. Its O(Nh) bound is useful proper-error control, not proof that the weighted retained level is negative.
+
+**Abandon at stated scope:** universal nonnegative coarse placement, and any argument that silently changes Q(p-1) to Q(p). Do not abandon JOH, global compensation, or the nine-route portfolio on the basis of those small counterexamples.
+
+### I. Specialist Handoffs
+
+**Coordinator:** record MC2 as a source-qualified independent logarithmic improvement, not a new exponent or RH result. It answers part of LC4's requested multi-cell COUNT question. The complete power gap is X^(1/4), up to logs, relative to Xh. Keep the weighted-level mechanism as a genuinely different possible consumer. Correct the ticket's B convention or explicitly transport its missing -1. Next Owner route remains SAT.
+
+**Analytic:** independently audit MC2's fixed-length Zaccagnini input and the exact deterministic sampling bridge. The first possible stronger theorem concerns the FULL MC1 clipped prime-pair/model Gram for h=floor(X^(1/4)); do not replace it by arbitrary sparse samples or presume classical almost-all results give Xh energy. Assess whether an actual coefficient-sensitive result can remove the remaining polynomial h loss, or whether a one-sided weighted consumer is more realistic.
+
+**Wheel:** use lambda(p)=Q(p-1) and the exact finite overlap K(p,q) if deriving factor/residue restrictions on the pair term. Same-cell and different-cell prime pairs both occur. Any owner classification must sum back to the complete MC1 expression, including the negative prime/model term and clipping. There is no independent random-sign or disjoint-history model here.
+
+**Census:** independent reproduction can be small: certify b_2,b_3,b_4 and the complete negative [5,8) return; certify the boundary prime 163; reconstruct the five displayed Gram rows from original primes and certified floors, retaining the 4139 halo. The rival hypotheses are nonnegative coarse placement and interchangeable Q(p)/Q(p-1) admission. No wider range or fitted exponent is requested. The earlier LC4 independent replication remains separately pending, not marked done by this author's checks.
+
+**Referee:** reconstruct MC2 from the precise external theorem and clock definitions before comparing the proof. Challenge minimal-arrival overshoot, disjoint sample intervals, the conversion of an O(h) physical endpoint shift into O(h/log X) prime count, and the full range of external constants. Separately review MC3's truncated terminal block and -2PD cross term, and MC4's every-endpoint dyadic return. Return scoped verdicts; these are SELF_AUDIT claims, not prior independent acceptance.
+
+**Lean Verification:** no immediate proof branch is requested for the unreviewed analytic estimate. After independent acceptance and utility review, MC1 admission/overlap and MC3 finite return can be implemented from existing floor-Li definitions. The logarithmic theorem additionally needs honest external analytic imports and its entire sampling proof; a conditional wrapper is not its proof. Do not displace a more consequential already-qualified task merely to formalize another identity.
+
+These are published asynchronous handoffs only. No specialist was launched and no review or future run is represented as complete.
+
+### J. First Independently Missing Lemma
+
+The explicit sufficient local input for a NEW power is
+
+```text
+OPEN-JOH-CLOCK-POWER:
+exists fixed kappa in (0,1/4), forall epsilon>0,
+exists C_epsilon,X_epsilon, forall real X>=X_epsilon,
+ sum_(X<=b_j<2X)
+  [pi(b_(j+floor(X^(1/4))))-pi(b_j)-floor(X^(1/4))]^2
+ <= C_epsilon X^(5/4-kappa+epsilon).
+```
+
+This is stronger than the earlier exploratory Xh polylogarithmic supplier and is a proper moving-window energy statement, not an asserted target equivalence. MC2 does NOT prove it. MC4 proves its native prime-error implication; it is therefore not an elementary lemma to be assumed. A direct one-sided weighted estimate might bypass this stronger energy question, but it too needs independent arithmetic and complete return. No smaller accepted supplier closing the JOH sign was identified.
+
+The next actual protected Owner task is the existing SAT **OPEN-SAT-I** from today's owner-1/RC1-RC6: seek a joint genuine cofactor/prime-error restriction, preserving E_R=-A_R-I_R and M(Y)=L_R+E_R+C_R. Its separate R^(85/48) endpoint certificate remains above the inherited 7/4 root power; RC5's centered packet has its stated prime-error-equivalent burden. Do not repeat the refuted bounded-core/triangle payment or transfer today's JOH bound without the true SAT weights.
+
+### K. Next-Run Resume Capsule
+
+```text
+RUN: 20261105-owner-3; scheduled 16:15:00 EST; RUN_ID_UNAVAILABLE.
+MAIN: 1667c3cf9b4e898bb9afd62ec48e24610b2156ab.
+POLICY: NO_PIGEONHOLING_ROUTE_SELECTOR_V1;
+  ffd8f1c65cc4da656174956d4e03b48bea46768b.
+REPORT INTAKE HEAD: 1101a07e2884fbb54442b097d7837b92e4bd3800.
+EARLY CHECKPOINT: 6c22b7389a97292895040e212de21eb6f44a4d35;
+  blob 1469549cb2a41add3454ad1894a545ed689325c7; exact readback PASS.
+ROUTE: JOH; original centered B=pi-floor(Li_2)-1 and G.
+CLAIMS: MC1 exact occurrence/Gram; MC2 true clock log saving;
+  MC3 full coarse P-D return and O(Nh); MC4 conditional power bridge;
+  MC5 exact finite falsifiers and regression checks.
+PAID: sampling, moving-endpoint correction, coarse positional error.
+UNPAID: Xh-scale fixed power saving or a sufficient weighted signed level law.
+FALSIFIERS: a=5,h=2,N=8 gives P-D=-1; Q(p) drops boundary prime 163.
+ALL CROSS TERMS: MC1 full overlap Gram; MC3 K/P/D complete square.
+REVIEW: SELF_AUDIT; independent Referee PENDING; NOT_FORMALIZED.
+GAIN: none at complete endpoint; canonical VF and RH OPEN; SEARCH_BROAD.
+ROTATION: today's SAT owner-1, VF-LOW owner-2, JOH owner-3.
+NEXT: SAT joint OPEN-SAT-I and full model/anchor/complement.
+JOH RESUME: independently review MC2 before considering stronger clock energy;
+  do not rerun old midpoint signs, rename the backlog, or delete D.
+```
+
+#### Two-Day Continuity
+
+At this invocation's pinned reporting snapshot, **TODAY=AVAILABLE** for every role and **YESTERDAY=CARRY_FORWARD**. These labels do not overwrite the valid earlier runs' TODAY=PENDING snapshots. Both Coordinator mirror entries have identical blobs. All listed report bytes were retrieved; applicable mathematical findings, requested JOH continuations and scope warnings were read, not all executable appendices rerun.
+
+| Role | November 4 blob | November 5 intake blob |
+| --- | --- | --- |
+| Coordinator | 68495a5e913eee0e788940a683cf16ec4d0984cc | 88c4b9f83cc3dcea885d0c9ddb1fc26cedef4632 |
+| Owner | 560b0b7617703b64e728e12e60a390646c9379ea | b4a4f636ece46d696360b5ca9312c2d1d81498c9 |
+| Analytic | 04ffb1b41d8b6afe5a5d89754f5ccbc8d9682d58 | 0774002d5244d373b0230429802cd1cfd8a3a8e8 |
+| Wheel | 37ad6a1230fbb46369311790ed5686baf1775598 | 000bd6a7e0900373f8fca05a607676f6170f1032 |
+| Census | 4bd5319fa3d13219cdad006dce4a854b606c2f7c | 44f070eed4302f3d8d560346c6fb9b66c35be18a |
+| Referee | 0e4fdfbf90d52a74074e04ef6cb6988339dc8d84 | df74121b0a07297776a106ccd1b9d80a36b12fc5 |
+| Lean | 5fce0138779d67eda4e69c13230274e6419de894 | c9e8255d2c00a2b317f39531589ac2a16f8e3518 |
+
+Consumed distinctions: Coordinator C58-C61 are paper Nyman finite-mixture restrictions with independent review pending, not a JOH supplier; Owner LC1-LC5, RC1-RC6 and CR1-CR5 retain their exact prior claims and counterexamples; Analytic's logarithmic maximal Mobius bounds do not transfer to prime clocks without a bridge; today's SP1-SP5 Nyman obstruction has its separate scoped Referee acceptance; Wheel's prime-mask four-block asymptotics require forced cross compensation; Census's R=57/58 joint restrictions concern auxiliary CORR4 signs; Referee's Euler audit finding and Lean's #1095 repair are verification evidence, not new arithmetic. None is imported as a missing JOH estimate.
+
+External inbox **038018145c0fddb2f6306c0712373adf9cd1ea52** has no post-October-18 entry. EXT-20261018-PNT-1..3 preserve genuine-prime discrepancy and complete return; EXT-20261014-5 remains the original-denominator, unconditional-all-R obstruction, not a refutation of today's method or conditional first-bad strategies.
+
+#### Reproducibility And Publication Discipline
+
+The complete executed verifier and interval library follow in this report. Verifier SHA-256 **549cd2341d04efe31d73f272a27e42e5a7e0ee2dd72366d2ce8fd197e81e2779**. Interval-library SHA-256 **19d1daf3209f9c5fdc507fc1e36a015285c399e156d5d3318fe2f07970f765b8**; it was extracted from yesterday's actual embedded library with the local trailing newline, not assumed from an unavailable cache. Certified floor-data SHA-256 **a01e7332a25bd065e3ef2f2149046d4e729b8c6e0d40861bca2ee3593c4dfe08**. The preregistration SHA-256 is **c7217204768c3271a0fca1fb7b5c3f668e67a9a982970da9c770389693daacae**.
+
+Actual tool limitation: direct shell access to the primary Zaccagnini PDF and several direct browser PDF endpoints returned HTTP 403. Its indexed primary theorem statement, publisher metadata, author's later theorem statement and the Montgomery--Vaughan original paper were available as described above. The fixed-length theorem is cited with this access limitation; no unseen full-text proof is claimed read. GitHub connected reads and own-report writing worked.
+
+The early checkpoint commit was inspected and re-fetched exactly; only this authorized report changed. The synthesis remains PENDING_READBACK until its own immutable commit/readback receipt. Earlier valid report bytes are preserved. No Lean source, central policy, other report, proof branch, PR, issue, workflow, permission, protection, schedule or main was changed. No agent was launched; no local Lean ran; both finite test executions finished successfully.
+
+
+### Executed Reproducibility Appendix - 20261105-owner-3
+
+The following are the exact executed files, including each code block's final newline. Place the two Python files in one directory and run `python joh_clock_verify.py`; this uses only the Python standard library. These are reproducibility instructions, not a claim that another agent executed them.
+
+#### Preregistered Scope
+
+```text
+# JOH Clock Test Registration
+
+Registered before executing the new test, 2026-11-05, same scheduled 16:15 EST invocation.
+
+- Original carrier: Q(n)=floor(Li_2(n)), B(n)=pi(n)-Q(n)-1, G(N)=sum_(2<=n<N) B(n).
+- Reuse the published integer-only interval library from November 4; independently sieve and factor the small primality range.
+- Development: integers through 2048. Held-out: 2049 through 4096. No larger-range scan or fitted exponent.
+- Test exact h-cell counts and all-pair Gram at X=128,256,512,1024,2048, with h=floor(X^(1/4)) and full upper halo.
+- Test coarse-block reconstruction at every N through 4096 for h=1,2,3,5,8 and anchor a=5, restoring both prime and model displacements.
+- Rival sign claim: G(N)-K_h(N)>=0 for all h,N, as for the h=1 LC4 placement. Stop the sign search at the first genuine negative value, but complete the registered identity checks.
+- Test the exact overlapping-window boundary telescope and its Cauchy bound for specified short ranges of arrival indices.
+- Test wrong-label negative control Q(p) versus correct Q(p-1) for primes coinciding with model arrivals, and show dropping the initial level or model returns changes the original statistic.
+- Keep the finite computations separate from the independently derived asymptotic theorem; no finite result proves its uniform bound.
+- Halo clarification before execution: certify integers through 4224 only to retain all h-cell endpoints for the prescribed X=2048 starts below 4096. The development/held-out core and coarse-prefix test range remain unchanged.
+```
+
+#### joh_interval_base.py
+
+```python
+"""Rational dyadic interval certificate for the selected genuine JOH events.
+
+All arithmetic deciding a floor or sign uses Python integers. Natural logs
+use range reduction and the atanh series with an explicit geometric tail.
+Li_2 uses the convergent Ei series; Euler's constant cancels exactly.
+"""
+
+import json
+from fractions import Fraction
+from math import isqrt
+
+BITS = 200
+SCALE = 1 << BITS
+LOG_TERMS = 80
+EI_TERMS = 180
+
+
+def ceildiv(a, b):
+    return -((-a) // b)
+
+
+def rational(n, d=1):
+    return n * SCALE // d, ceildiv(n * SCALE, d)
+
+
+def add(a, b):
+    return a[0] + b[0], a[1] + b[1]
+
+
+def sub(a, b):
+    return a[0] - b[1], a[1] - b[0]
+
+
+def mul(a, b):
+    assert a[0] >= 0 and b[0] >= 0
+    return a[0] * b[0] // SCALE, ceildiv(a[1] * b[1], SCALE)
+
+
+def div(a, b):
+    assert a[0] >= 0 and b[0] > 0
+    return a[0] * SCALE // b[1], ceildiv(a[1] * SCALE, b[0])
+
+
+def times(a, n):
+    return (a[0] * n, a[1] * n) if n >= 0 else (a[1] * n, a[0] * n)
+
+
+def small_log(n, d):
+    assert d <= n <= 2 * d
+    u = rational(n - d, n + d)
+    u2 = mul(u, u)
+    power, result = u, rational(0)
+    for j in range(LOG_TERMS):
+        result = add(result, div(times(power, 2), rational(2 * j + 1)))
+        power = mul(power, u2)
+    tail = div(times(power, 2), times(sub(rational(1), u2), 2 * LOG_TERMS + 1))
+    return result[0], result[1] + tail[1]
+
+
+LOG2 = small_log(2, 1)
+
+
+def log_rational(n, d=1):
+    assert n > 0 and d > 0
+    k = n.bit_length() - d.bit_length()
+    if k >= 0:
+        den, num = d << k, n
+    else:
+        den, num = d, n << (-k)
+    if num < den:
+        k -= 1
+        num *= 2
+    assert den <= num < 2 * den
+    return add(small_log(num, den), times(LOG2, k))
+
+
+def ei_without_gamma(z):
+    assert z[0] > 0
+    result = (log_rational(z[0], SCALE)[0], log_rational(z[1], SCALE)[1])
+    term = rational(1)
+    for k in range(1, EI_TERMS + 1):
+        term = div(mul(term, z), rational(k))
+        result = add(result, div(term, rational(k)))
+    first = div(div(mul(term, z), rational(EI_TERMS + 1)), rational(EI_TERMS + 1))
+    ratio = div(z, rational(EI_TERMS + 2))
+    tail = div(first, sub(rational(1), ratio))
+    return result[0], result[1] + tail[1]
+
+
+BASE = ei_without_gamma(LOG2)
+
+
+def li_interval(n):
+    if n == 2:
+        return rational(0)
+    return sub(ei_without_gamma(log_rational(n)), BASE)
+
+
+def sieve(n):
+    p = bytearray(b"\x01") * (n + 1)
+    p[:2] = b"\x00\x00"
+    for k in range(2, isqrt(n) + 1):
+        if p[k]:
+            p[k * k:n + 1:k] = b"\x00" * ((n - k * k) // k + 1)
+    return p
+
+
+def factor(n):
+    result = []
+    for d in range(2, isqrt(n) + 1):
+        while n % d == 0:
+            result.append(d)
+            n //= d
+    if n > 1:
+        result.append(n)
+    return result
+
+
+
+
+```
+
+#### joh_clock_verify.py
+
+```python
+"""Exact genuine-prime checks for the registered JOH multi-cell claims."""
+
+from bisect import bisect_left, bisect_right
+from collections import Counter
+from fractions import Fraction as F
+from math import isqrt
+import hashlib
+import json
+
+from joh_interval_base import SCALE, li_interval, log_rational, sieve, factor
+
+
+LIMIT = 4224
+CORE = 4096
+flags = sieve(LIMIT)
+floors = [0] * (LIMIT + 1)
+pi = [0] * (LIMIT + 1)
+prime_sum = [0] * (LIMIT + 1)
+g = [0] * (LIMIT + 2)
+b = {}
+arrival_sum = [0] * (LIMIT + 1)
+backlog = [0] * (LIMIT + 1)
+min_margin = SCALE
+max_width = 0
+
+for n in range(2, LIMIT + 1):
+    lo, hi = li_interval(n)
+    assert lo // SCALE == hi // SCALE, (n, lo, hi)
+    floors[n] = lo // SCALE
+    if n > 2:
+        min_margin = min(min_margin, lo % SCALE, SCALE - hi % SCALE)
+    max_width = max(max_width, hi - lo)
+    pi[n] = pi[n - 1] + flags[n]
+    prime_sum[n] = prime_sum[n - 1] + n * flags[n]
+    backlog[n] = pi[n] - floors[n] - 1
+    g[n + 1] = g[n] + backlog[n]
+    assert bool(flags[n]) == (factor(n) == [n])
+    arrival_sum[n] = arrival_sum[n - 1]
+    if n >= 5:
+        step = floors[n] - floors[n - 1]
+        assert step in (0, 1)
+        if step:
+            b[floors[n]] = n
+            arrival_sum[n] += n
+
+assert b[2] == 5
+counts = Counter()
+negative = None
+positive = None
+complete_negative = None
+multi_positive = None
+samples = []
+
+
+def coarse(a_index, h, n):
+    a = b[a_index]
+    k = g[a]
+    p_return = d_return = 0
+    index = a_index
+    while b[index] < n:
+        c = b[index]
+        t = min(b.get(index + h, LIMIT + 1), n)
+        k += (t - c) * backlog[c]
+        p_return += t * (pi[t - 1] - pi[c]) - (prime_sum[t - 1] - prime_sum[c])
+        d_return += t * (floors[t - 1] - floors[c]) - (arrival_sum[t - 1] - arrival_sum[c])
+        if t == n:
+            break
+        index += h
+    return k, p_return, d_return
+
+
+for n in range(5, CORE + 1):
+    for h in (1, 2, 3, 5, 8):
+        k, p, d = coarse(2, h, n)
+        r = p - d
+        assert g[n] == k + r
+        assert g[n] ** 2 == k*k + p*p + d*d + 2*k*p - 2*k*d - 2*p*d
+        assert r*r == p*p + d*d - 2*p*d
+        counts['coarse_return'] += 1
+        counts['complete_quadratic_return'] += 1
+        if h == 1:
+            assert d == 0 and r >= 0
+        if r < 0 and negative is None:
+            negative = {'N': n, 'h': h, 'G': g[n], 'K': k, 'P': p, 'D': d, 'R': r}
+        if r > 0 and positive is None:
+            positive = {'N': n, 'h': h, 'G': g[n], 'K': k, 'P': p, 'D': d, 'R': r}
+        if r > 0 and h > 1 and multi_positive is None:
+            multi_positive = {'N': n, 'h': h, 'G': g[n], 'K': k, 'P': p, 'D': d, 'R': r}
+        if r < 0 and n in b.values() and (floors[n] - 2) % h == 0 and complete_negative is None:
+            complete_negative = {'N': n, 'h': h, 'G': g[n], 'K': k, 'P': p, 'D': d, 'R': r}
+        # An outward lower bound for log(n) makes this a stronger finite check.
+        loglo = log_rational(n)[0]
+        assert max(p, d) * SCALE <= h * loglo * max(pi[n], floors[n])
+        counts['coarse_error_bound'] += 1
+        if n in (512, 1024, 2048, 4096) and h in (1, 3, 8):
+            samples.append({'N': n, 'h': h, 'G': g[n], 'K': k, 'P': p, 'D': d, 'R': r})
+
+clock_rows = []
+label_control = None
+for x in (128, 256, 512, 1024, 2048):
+    h = isqrt(isqrt(x))
+    js = [j for j in b if x <= b[j] < 2*x]
+    lo, hi = min(js), max(js)
+    assert js == list(range(lo, hi + 1)) and hi + h in b
+    deltas = [pi[b[j+h]] - pi[b[j]] - h for j in js]
+    for j, delta in zip(js, deltas):
+        assert delta == backlog[b[j+h]] - backlog[b[j]]
+        literal = [p for p in range(b[j]+1, b[j+h]+1) if flags[p]]
+        classified = [p for p in range(b[lo]+1, b[hi+h]+1)
+                      if flags[p] and j <= floors[p-1] < j+h]
+        assert literal == classified
+        wrong = [p for p in range(b[lo]+1, b[hi+h]+1)
+                 if flags[p] and j <= floors[p] < j+h]
+        if literal != wrong and label_control is None:
+            label_control = {'X': x, 'h': h, 'j': j, 'start': b[j], 'end': b[j+h],
+                             'literal': literal, 'wrong_Qp': wrong}
+        counts['literal_prime_admission'] += 1
+    primes = [p for p in range(b[lo]+1, b[hi+h]+1) if flags[p]]
+
+    def overlap(p, q):
+        lp, lq = floors[p-1], floors[q-1]
+        return max(0, min(hi, lp, lq) - max(lo, lp-h+1, lq-h+1) + 1)
+
+    diagonal = sum(overlap(p, p) for p in primes)
+    off = 2 * sum(overlap(p, q) for i, p in enumerate(primes) for q in primes[i+1:])
+    mixed = -2*h*diagonal
+    model = len(js)*h*h
+    variance = sum(d*d for d in deltas)
+    assert variance == diagonal + off + mixed + model
+    counts['complete_prime_pair_gram'] += 1
+    total = sum(deltas)
+    boundary = sum(backlog[b[j]] for j in range(hi+1, hi+h+1))
+    boundary -= sum(backlog[b[j]] for j in range(lo, lo+h))
+    assert total == boundary and total*total <= len(js)*variance
+    counts['overlap_telescope_and_cauchy'] += 1
+    clock_rows.append({'X': x, 'h': h, 'windows': len(js), 'first_arrival': b[lo],
+                       'halo_endpoint': b[hi+h], 'V': variance, 'sum_delta': total,
+                       'prime_diagonal': diagonal, 'ordered_prime_off': off,
+                       'prime_model_cross': mixed, 'model_square': model,
+                       'max_abs_delta': max(map(abs, deltas))})
+
+anchor_controls = []
+for ai in (48, 150):
+    a = b[ai]
+    for h in (2, 5):
+        n = a + 37
+        k, p, d = coarse(ai, h, n)
+        assert g[n] == k+p-d
+        assert g[a] != 0 and backlog[a] != 0
+        anchor_controls.append({'a': a, 'N': n, 'h': h, 'G_anchor': g[a],
+                                'initial_B': backlog[a], 'G': g[n], 'K': k, 'P': p, 'D': d})
+        counts['nonzero_anchor_checks'] += 1
+
+assert negative is not None and positive is not None and label_control is not None
+result = {'checks': dict(counts), 'certified_core': [2, CORE], 'certified_halo': [CORE+1, LIMIT],
+          'floor_margin_gt_1e_minus_5': min_margin * 100000 > SCALE,
+          'max_interval_width_lt_1e_minus_48': max_width * 10**48 < SCALE,
+          'first_negative_coarse_return': negative, 'first_positive_coarse_return': positive,
+          'first_complete_negative_coarse_return': complete_negative,
+          'first_multi_cell_positive_return': multi_positive,
+          'wrong_prime_clock_label_control': label_control, 'variance_decompositions': clock_rows,
+          'coarse_samples': samples, 'nonzero_anchor_controls': anchor_controls,
+          'scope': 'Exact finite identities and falsifier only; no asymptotic rate inferred.'}
+print(json.dumps(result, indent=2, sort_keys=True))
+print('FLOOR_DATA_SHA256', hashlib.sha256(json.dumps(floors[2:]).encode()).hexdigest())
+```
+
+#### Final Successful Run Output
+
+```text
+{
+  "certified_core": [
+    2,
+    4096
+  ],
+  "certified_halo": [
+    4097,
+    4224
+  ],
+  "checks": {
+    "coarse_error_bound": 20460,
+    "coarse_return": 20460,
+    "complete_prime_pair_gram": 5,
+    "complete_quadratic_return": 20460,
+    "literal_prime_admission": 541,
+    "nonzero_anchor_checks": 4,
+    "overlap_telescope_and_cauchy": 5
+  },
+  "coarse_samples": [
+    {
+      "D": 0,
+      "G": -2595,
+      "K": -2808,
+      "N": 512,
+      "P": 213,
+      "R": 213,
+      "h": 1
+    },
+    {
+      "D": 504,
+      "G": -2595,
+      "K": -2776,
+      "N": 512,
+      "P": 685,
+      "R": 181,
+      "h": 3
+    },
+    {
+      "D": 1745,
+      "G": -2595,
+      "K": -2639,
+      "N": 512,
+      "P": 1789,
+      "R": 44,
+      "h": 8
+    },
+    {
+      "D": 0,
+      "G": -6703,
+      "K": -7134,
+      "N": 1024,
+      "P": 431,
+      "R": 431,
+      "h": 1
+    },
+    {
+      "D": 1021,
+      "G": -6703,
+      "K": -7062,
+      "N": 1024,
+      "P": 1380,
+      "R": 359,
+      "h": 3
+    },
+    {
+      "D": 3540,
+      "G": -6703,
+      "K": -6957,
+      "N": 1024,
+      "P": 3794,
+      "R": 254,
+      "h": 8
+    },
+    {
+      "D": 0,
+      "G": -16599,
+      "K": -17485,
+      "N": 2048,
+      "P": 886,
+      "R": 886,
+      "h": 1
+    },
+    {
+      "D": 2059,
+      "G": -16599,
+      "K": -17498,
+      "N": 2048,
+      "P": 2958,
+      "R": 899,
+      "h": 3
+    },
+    {
+      "D": 7121,
+      "G": -16599,
+      "K": -17065,
+      "N": 2048,
+      "P": 7587,
+      "R": 466,
+      "h": 8
+    },
+    {
+      "D": 0,
+      "G": -42284,
+      "K": -44049,
+      "N": 4096,
+      "P": 1765,
+      "R": 1765,
+      "h": 1
+    },
+    {
+      "D": 4104,
+      "G": -42284,
+      "K": -44071,
+      "N": 4096,
+      "P": 5891,
+      "R": 1787,
+      "h": 3
+    },
+    {
+      "D": 14275,
+      "G": -42284,
+      "K": -43697,
+      "N": 4096,
+      "P": 15688,
+      "R": 1413,
+      "h": 8
+    }
+  ],
+  "first_complete_negative_coarse_return": {
+    "D": 2,
+    "G": -1,
+    "K": 0,
+    "N": 8,
+    "P": 1,
+    "R": -1,
+    "h": 2
+  },
+  "first_multi_cell_positive_return": {
+    "D": 8,
+    "G": -9,
+    "K": -10,
+    "N": 15,
+    "P": 9,
+    "R": 1,
+    "h": 3
+  },
+  "first_negative_coarse_return": {
+    "D": 1,
+    "G": -1,
+    "K": 0,
+    "N": 7,
+    "P": 0,
+    "R": -1,
+    "h": 2
+  },
+  "first_positive_coarse_return": {
+    "D": 0,
+    "G": -1,
+    "K": -2,
+    "N": 8,
+    "P": 1,
+    "R": 1,
+    "h": 1
+  },
+  "floor_margin_gt_1e_minus_5": true,
+  "max_interval_width_lt_1e_minus_48": true,
+  "nonzero_anchor_controls": [
+    {
+      "D": 17,
+      "G": -867,
+      "G_anchor": -675,
+      "K": -875,
+      "N": 231,
+      "P": 25,
+      "a": 194,
+      "h": 2,
+      "initial_B": -5
+    },
+    {
+      "D": 57,
+      "G": -867,
+      "G_anchor": -675,
+      "K": -880,
+      "N": 231,
+      "P": 70,
+      "a": 194,
+      "h": 5,
+      "initial_B": -5
+    },
+    {
+      "D": 17,
+      "G": -5245,
+      "G_anchor": -4938,
+      "K": -5271,
+      "N": 857,
+      "P": 43,
+      "a": 820,
+      "h": 2,
+      "initial_B": -10
+    },
+    {
+      "D": 67,
+      "G": -5245,
+      "G_anchor": -4938,
+      "K": -5304,
+      "N": 857,
+      "P": 126,
+      "a": 820,
+      "h": 5,
+      "initial_B": -10
+    }
+  ],
+  "scope": "Exact finite identities and falsifier only; no asymptotic rate inferred.",
+  "variance_decompositions": [
+    {
+      "V": 18,
+      "X": 128,
+      "first_arrival": 129,
+      "h": 3,
+      "halo_endpoint": 271,
+      "max_abs_delta": 2,
+      "model_square": 225,
+      "ordered_prime_off": 158,
+      "prime_diagonal": 73,
+      "prime_model_cross": -438,
+      "sum_delta": -2,
+      "windows": 25
+    },
+    {
+      "V": 26,
+      "X": 256,
+      "first_arrival": 259,
+      "h": 4,
+      "halo_endpoint": 533,
+      "max_abs_delta": 2,
+      "model_square": 688,
+      "ordered_prime_off": 500,
+      "prime_diagonal": 166,
+      "prime_model_cross": -1328,
+      "sum_delta": -6,
+      "windows": 43
+    },
+    {
+      "V": 69,
+      "X": 512,
+      "first_arrival": 515,
+      "h": 4,
+      "halo_endpoint": 1045,
+      "max_abs_delta": 2,
+      "model_square": 1232,
+      "ordered_prime_off": 944,
+      "prime_diagonal": 301,
+      "prime_model_cross": -2408,
+      "sum_delta": -7,
+      "windows": 77
+    },
+    {
+      "V": 305,
+      "X": 1024,
+      "first_arrival": 1024,
+      "h": 5,
+      "halo_endpoint": 2078,
+      "max_abs_delta": 4,
+      "model_square": 3500,
+      "ordered_prime_off": 2952,
+      "prime_diagonal": 683,
+      "prime_model_cross": -6830,
+      "sum_delta": -17,
+      "windows": 140
+    },
+    {
+      "V": 533,
+      "X": 2048,
+      "first_arrival": 2048,
+      "h": 6,
+      "halo_endpoint": 4139,
+      "max_abs_delta": 4,
+      "model_square": 9216,
+      "ordered_prime_off": 8158,
+      "prime_diagonal": 1531,
+      "prime_model_cross": -18372,
+      "sum_delta": -5,
+      "windows": 256
+    }
+  ],
+  "wrong_prime_clock_label_control": {
+    "X": 128,
+    "end": 163,
+    "h": 3,
+    "j": 39,
+    "literal": [
+      149,
+      151,
+      157,
+      163
+    ],
+    "start": 148,
+    "wrong_Qp": [
+      149,
+      151,
+      157
+    ]
+  }
+}
+FLOOR_DATA_SHA256 a01e7332a25bd065e3ef2f2149046d4e729b8c6e0d40861bca2ee3593c4dfe08
+```
+
+The final proof-input check also re-retrieved the indexed primary 1998 first-page theorem, confirming its range y^(1/6-epsilon(y))<=L0<=y and the admissible specialization epsilon(y)=0. This did not remove the disclosed full-PDF access limitation. Publication-time main refresh remained 1667c3cf9b4e898bb9afd62ec48e24610b2156ab, and the open/draft PR list remained empty.
