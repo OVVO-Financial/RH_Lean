@@ -2203,3 +2203,9 @@ Executed output (exit status 0; syntax compilation also succeeded):
 }
 
 ```
+
+### Publication Receipt - 20261105-owner-2
+
+**2026-11-05T08:47:22-05:00: COMPLETE / PUBLISHED / VERIFIED.** The substantive report and complete executed verifier were committed as **4c293e33720e34e02c419f97780db6aabb0e630b**, report blob **c1ecd0c9e1308befea90ea959e27c305f492a41f**. The commit was inspected: only `research/agent_reports/2026-11-05/10-owner-payment.md` changed. Re-fetching that path at the immutable commit returned EXACTLY the submitted content, preserving all 62,473 earlier characters. The report was freshly fetched again before adding this receipt. This receipt's resulting commit is also checked by immutable readback before the user-facing completion notice.
+
+Final research status: CR1-CR2 PAPER_PROOF, CR3 PAPER_PROOF/REFUTED supplier, CR4 IDENTITY_ONLY, CR5 FINITE_COMPUTATION. Independent review and Lean formalization are PENDING; the complete canonical arithmetic bound remains OPEN. No execution or endpoint gain is promised after this invocation. Resume the next actual protected JOH turn from the existing LC4/LC5 backlog checkpoint; retain OPEN-VF-CR-DENSE for the next eligible VF-LOW investigation.
