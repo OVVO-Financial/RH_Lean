@@ -1,0 +1,81 @@
+name: Nyman flat-taper complete return
+
+on:
+  pull_request:
+    paths:
+      - 'research/NYMAN_FLAT_TAPER_RETURN_20261104.lean'
+      - 'research/NYMAN_HIGH_COEFFICIENT_INVARIANT_20261104.lean'
+      - 'scripts/nyman_flat_taper_regression.py'
+      - '.github/workflows/nyman-flat-taper-return.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: nyman-flat-${{ github.head_ref || github.ref_name }}-${{ github.event.pull_request.head.sha || github.sha }}
+  cancel-in-progress: true
+
+jobs:
+  nyman-flat-proof:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - name: Exact original-residue and full-return regressions
+        run: python3 scripts/nyman_flat_taper_regression.py
+      - name: Verify compiler and Mathlib pins
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(cat lean-toolchain)" = 'leanprover/lean4:v4.34.1'
+          grep -q 'd13f23b723b8a846827a245b89c10fc7d3f11612' lakefile.lean
+      - name: Pinned Lean and cached Mathlib
+        uses: ./.github/actions/lean-setup
+      - name: Restore native compiled prerequisites
+        uses: ./.github/actions/lean-compiled-cache
+      - name: Compile the source-addressed warning-fatal import closure
+        uses: ./.github/actions/research-compile
+        with:
+          build-library: 'true'
+          targets: research/NYMAN_FLAT_TAPER_RETURN_20261104.lean
+      - name: Inspect terminal theorem types and standard axioms
+        shell: bash
+        run: |
+          set -euo pipefail
+          lake env lean -DwarningAsError=true \
+            research/NYMAN_FLAT_TAPER_RETURN_20261104.lean | tee nyman-flat-audit.log
+          python3 - <<'PY'
+          import pathlib
+          import re
+          text = pathlib.Path('nyman-flat-audit.log').read_text()
+          expected = {
+              'nymanFlatKernel_eq_original',
+              'nyman_flat_reciprocal_moment',
+              'nyman_flat_complete_return',
+              'nyman_flat_return_of_moment',
+              'nyman_flat_exact_head',
+              'nyman_flat_head_iff_moment',
+              'nyman_two_band_moment_solver',
+          }
+          entries = re.findall(r"'RHLean.Analysis.([^']+)' depends on axioms:\s*\[([^]]*)\]", text, re.S)
+          assert len(entries) == len(expected), entries
+          assert {name for name, _ in entries} == expected, entries
+          for name, values in entries:
+              used = {value.strip() for value in values.split(',') if value.strip()}
+              assert used <= {'propext', 'Classical.choice', 'Quot.sound'}, (name, used)
+          source = pathlib.Path('research/NYMAN_FLAT_TAPER_RETURN_20261104.lean').read_text()
+          source = re.sub(r'/-.*?-/', '', source, flags=re.S)
+          source = re.sub(r'--.*', '', source)
+          assert not re.search(r'\b(sorry|admit|axiom|native_decide|unsafe)\b', source)
+          print('PASS: seven original-carrier terminal declarations; standard logical axioms only')
+          PY
+      - name: Preserve theorem signatures and axiom evidence
+        if: ${{ !cancelled() && hashFiles('nyman-flat-audit.log') != '' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: nyman-flat-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            nyman-flat-audit.log
+            research/NYMAN_FLAT_TAPER_RETURN_20261104.lean
+          if-no-files-found: error
