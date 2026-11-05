@@ -1106,3 +1106,12 @@ Authorized connected branch/blob/tree/commit/ref and draft-PR writes succeeded. 
 Scope is deliberately precise: the generic P5 return retains the explicit drift `m*(u-correctionMoment)`; its exact-head criterion requires the true reciprocal moment and vanishing low correction. The algebraic two-band moment solver is included. The original band's cardinality/separation instantiation, second centered moment, remote-tail estimate, transition bound, Mellin consumer and complete middle upper bound are not claimed compiled. This is a useful source interface, not the full P1-P10 package.
 
 Exact prime-log regression executed successfully: 28,428 arbitrary-correction returns, 3,081 original two-band returns, 57 moment systems, and 435 head coordinates. No floating point or local Lean. Mathematical proof audit is complete; implementation is DRAFT_PR / CI_PENDING until exact-head compilation and axiom logs pass. Earlier report/PR histories remain intact.
+
+
+### Compiler Repair Checkpoint - 21:25 EST, Same Invocation
+
+First build `41954221844 / 127005118306` failed only at the research import path. Revision `c71a8fe31811d4a7aac27bcb1809c2de92b62dbf` corrected the quoted flat-module convention and added an explicit original-coefficient transport theorem.
+
+The second dedicated build `41954611939 / 127006397245` reached all declarations and exposed concrete proof-script issues: ASCII `!=` elaborated to a Boolean comparison, deprecated `if_pos/if_neg`, unavailable `Finset.not_mem_empty`, and an unnecessary sequence-focus combinator. Revision `a54f0cf9535c548920dae3412e3fbe6d6584e029` uses logical non-equality, current conditional simplification lemmas, a direct empty-tail sum proof and the required single-goal tactic sequence. The intended mathematical quantifiers and obligations are unchanged; the erroneous elaborated Boolean hypotheses are corrected explicitly, not accepted as the target.
+
+The failed revision's recovery `sorryAx` outputs are NOT proof evidence. No explicit placeholder was introduced. The final eight terminal axiom sets must pass on the repaired head before certification. Current implementation remains DRAFT_PR / CI_PENDING. No audit was weakened, no local Lean was used, and no unrelated source was changed.
