@@ -1078,3 +1078,22 @@ Read the actual latest main and both current/preceding Eastern-date reports agai
 | Lean | fc27fb1ae103e60ff600e5a24ce6716937da3884 | 4585dc42e267f62da5c13624f2a5a4494aa79c53 |
 
 This invocation's earlier verified report commits: checkpoint `a62e06e564df136d7c452d1f35a3648443843ba1`, milestone `953224cc03b4fc26af41986642ac709133abc106`. Final append publication requires a fresh blob and exact readback; earlier contents are preserved.
+
+
+---
+
+## Scheduled Continuation Checkpoint - 2026-11-04 21:08 EST
+
+Actual trigger: scheduled 2026-11-04T21:08:01-05:00; RUN_ID_UNAVAILABLE. This is a new actual invocation, not a reclassification of the earlier runs.
+
+Status: PARTIAL / IN_PROGRESS. No new Lean-certified result at this checkpoint.
+
+- Live main: `1daca8d582c361983567f0b6e99d447a77c3aea5`; AGENTS blob `547dda0d9456e7a4e1165dc72d59da6f70d5c023`; contract blob `7c4ac83a1ec1a4144e1bd691391ed4244f1cc27c`.
+- deployment_ack: `NO_PIGEONHOLING_ROUTE_SELECTOR_V1`, policy blob `ffd8f1c65cc4da656174956d4e03b48bea46768b`. No compulsory OAI or tiny-slot task is imposed.
+- The current open/draft PR collection is empty. Prior #1090 is reported human-merged; its source and actual CI evidence will be refreshed before reuse.
+- November 3 and November 4 seven-role report bytes and the external inbox were retrieved. Applicable statements are being inspected; TODAY=AVAILABLE, earlier validated material only is YESTERDAY=CARRY_FORWARD. External inbox `038018145c0fddb2f6306c0712373adf9cd1ea52` has no entry newer than October 18.
+- Selected candidate: NYMAN original changed-low coefficient construction, `20261104-analytic-1/P4-P5/P7-P8`, accepted with scope in `20261104-referee-9`. Check for existing declarations, then formalize a focused exact moment/head/full-return result. C45 is separately accepted paper mathematics; new referee-10/12 remain independently unreviewed and are not automatically implementation candidates.
+- Main mathematical objective remains the actual-prime canonical VF von Koch estimate, or another independently sufficient source estimate. The full Nyman middle norm is OPEN. Exact source identities do not prove density, RH, or a new exponent.
+- Read-only terminal cloning failed with CONNECT tunnel 403; connected GitHub reads work. This is not evidence of missing connector proof-write access. Authorized branch/Git-data/PR actions will be tested for the selected implementation. No local Lean execution.
+
+Next: finish source/continuity inspection, state the exact proof plan, implement only justified mathematics, inspect real Actions evidence, and append an honest A-P synthesis preserving this report's earlier revisions and failed attempts.
