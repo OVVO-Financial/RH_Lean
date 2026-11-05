@@ -1525,3 +1525,20 @@ EXECUTION=COMPLETE; PUBLICATION=PUBLISHED_AND_READBACK_VERIFIED for the substant
 The final exact verifier (including the single combined ideal-mark identity) and syntax check exited 0. No local Lean execution occurred. Main/source freshness was checked after the in-run human merges; the current authority is `72ab5bdd0f9d8876f512e6273b50410328444e6e`, with the identical successful tested source tree recorded in L. The independent mathematical review and publication are complete; new R6-R8 remain PAPER_PROOF/SELF_AUDIT, independent review PENDING. The actual all-row inverse saving, full LOW improvement and canonical objective remain OPEN.
 
 For precise CF3 reuse: for every integer N>=1, real T>=0 and complex coefficients a_1,...,a_N, the difference between integral_[-T,T] |sum_(n=1)^N a_n exp(2*pi*i*t*log(nP_*/U))|^2 dt and 2T sum|a_n|^2 has absolute value at most (2N/pi) H_(N-1) sum|a_n|^2, for every P_*/U>0. This is the unnormalized integral statement proved in E2, with H_0=0; dividing by 2T requires T>0. It supplies no original-source energy gain by itself.
+
+
+---
+
+## Scheduled NYMAN Referee Checkpoint - 2026-11-04 20:13 EST Invocation
+
+Actual trigger: scheduled 2026-11-04T20:13:01-05:00. Checkpoint recorded about 20:20 EST. RUN_ID_UNAVAILABLE. Status: PARTIAL / IN_PROGRESS; mathematical conclusions and publication verification are PENDING. This is a new actual invocation, not a revision of the earlier 12:03 review. Earlier report bytes are preserved.
+
+Live main: `1daca8d582c361983567f0b6e99d447a77c3aea5`. AGENTS blob `547dda0d9456e7a4e1165dc72d59da6f70d5c023`; proof contract blob `7c4ac83a1ec1a4144e1bd691391ed4244f1cc27c`; governing independent-route policy blob `ffd8f1c65cc4da656174956d4e03b48bea46768b`. Deployment acknowledgement: NO_PIGEONHOLING_ROUTE_SELECTOR_V1. Selected route: NYMAN, independently chosen because C45-C47 and Census's changed-low-family tests are ready for consequential review. The OAI all-selected packet is optional and its earlier accepted scopes are not reopened without changed dependencies.
+
+Continuity: all seven roles' available November 3 and November 4 reports retrieved at agent-reports `c2563e39dd41ffea1a7d0411d056a57077da0d66`; relevant current sections and previous source dependencies are being inspected. The external inbox is unchanged at `038018145c0fddb2f6306c0712373adf9cd1ea52`, with no entry later than October 18. Later unobserved runs remain PENDING; filenames are not execution evidence. Open/draft PR collection is empty at intake. Main's returned successful Proof inventory and Documentation checks are not new analytic proof certification.
+
+Selected tasks: independently audit Coordinator `20261104-coordinator-2/C45-C47`, reconstruct the actual changed-low P4 coefficients and full weighted residue norm, and independently reproduce the small decisive `20261104-census-3/4` witnesses. Original investigation: test whether several zero functionals or repeated-zero derivatives give a stronger localized obstruction, preserving all genuine residue coordinates and exact cutoff H+1. First missing upper estimate remains the complete signed corrected middle norm, not the already exact head or paid far tail.
+
+Preregistered finite verification: independently implement genuine Mobius coefficients and direct original residues; certify N=42,H=19,T=273 correction-monotonicity failure and N=120,H=46 initial-half factor-four failure using rational outward logarithm intervals. Check earlier admissible multiples of six only if claiming minimality for N=42. Synthetic dual-system tests, if used, will be labeled algebra checks, not zeta-zero or arithmetic counterexamples.
+
+No Lean source, policy, other agent report, PR, branch, schedule or CI configuration is changed. No local Lean or other agent is launched. SEARCH_BROAD; net new complete-endpoint gain UNKNOWN.
