@@ -2865,3 +2865,22 @@ print(json.dumps({'scope': 'FINITE_COMPUTATION: supplier norm geometry and actua
 ### Publication Verification for 20261104-census-2
 
 Verified 2026-11-04T11:40:02-05:00 (16:40:02Z): substantive synthesis commit `6a4628d7c1cffc5a08e182630e3fb55db3a82ba0`, committed 2026-11-04T16:39:39Z; report blob `68ac376cf60a6f4a4a0fade501c4a53094df82c3`. Commit metadata lists exactly this authorized report, 1713 additions and zero deletions. Immutable-commit readback matched the entire submitted content exactly; earlier content and all three executed program listings were preserved. Fresh branch readback also matched before this receipt was appended. Main recheck immediately before publication remained `ffe2ef4a684c7cb52d04852ea38b251203ff8a71`. Execution and publication are COMPLETE; independent Referee review and any source-energy gain remain PENDING/OPEN. This receipt verifies the preceding substantive commit, not its own not-yet-known commit hash.
+
+
+## Scheduled NYMAN Checkpoint - 2026-11-04 19:00 EST Invocation
+
+Actual scheduled trigger: 2026-11-04T19:00:01-05:00; RUN_ID_UNAVAILABLE. Checkpoint prepared 2026-11-05 00:04:35 UTC. Execution PARTIAL / IN_PROGRESS; no new result claimed. This appends to, and preserves, the earlier census-1 and census-2 records.
+
+Main authority: 1daca8d582c361983567f0b6e99d447a77c3aea5; AGENTS blob 547dda0d9456e7a4e1165dc72d59da6f70d5c023; current contract 7c4ac83a1ec1a4144e1bd691391ed4244f1cc27c. deployment_ack: NO_PIGEONHOLING_ROUTE_SELECTOR_V1, policy ffd8f1c65cc4da656174956d4e03b48bea46768b. Selected route NYMAN, task NY-P4-FULL-MIDDLE, from 20261104-coordinator-2 section H and 20261104-analytic-1 P4-P10. This is distinct from the already completed OAI cube/character census. No compulsory unrelated OAI audit is added.
+
+All seven role files for November 3 and 4 were retrieved at report head e046bbd98f66c1163a0fd0083d08dbc24a5415ed; applicable findings and continuations were read. TODAY=AVAILABLE for all roles; yesterday's evidence is carried forward only at its stated scope. External inbox 038018145c0fddb2f6306c0712373adf9cd1ea52 contains no newer entry than October 18. Current open/draft PR collection was empty. Recent merges #1090, #1091 and #1092 are observed, not new theorem credit from this run.
+
+### Frozen Experiment Before Execution
+
+Use exactly Analytic P4: N=6K, H=max{h:h^5<=N^4}, ell=log(N/H), q_k=log(N/max(H,k)), c_k=-mu(k)q_k/ell+(A 1_(3K<k<=4K)+Z 1_(5K<k<=6K))/ell, where A,Z solve the original two moments. Original residue r(m)=1-sum_(2<=k<=N)c_k*(m mod k)/k; weight 1/[m(m+1)]. T is the least integer with T^2>=N^3. The live Lean source nymanResidue/nymanResidual has blob 2da630c1d5fb9302e2097ec1e170cf41c2b40609; the registered full-basis note has blob b2775c892edffe920a101651eef6f3581c73c9d4. P4 is a paper family, not the fixed-log hypothesis of the compiled invariant.
+
+Development N=120,240; untouched held-out N=384,600. Exact diagnostic H-SURROGATE: E_core<=4 E_first, with E_first=sum_(H<m<=N/2) r(m)^2/[m(m+1)] and E_core=sum_(H<m<=T) r(m)^2/[m(m+1)]. The rival explanation is that the correction-active N/2<m<=N and after-N ranges carry substantial additional energy. A rigorously positive enclosure for E_core-4 E_first refutes the diagnostic on that input. A certified negative enclosure verifies only that finite input. Intervals containing zero remain unresolved. The factor four and ranges are not tuned after observation and are NOT an all-scale conjecture.
+
+Preserve U_N-U_H+A F_1+Z F_2 inside the square, including all six mixed products; partition contributions at N/2 and N. Verify exact zero head symbolically through the two moments and genuine Mobius divisor inversion. Evaluate the displayed P6 tail certificate with rigorous logarithm enclosures, explicitly retaining its paper-theorem status. Implement a second reconstruction from direct residues and independently computed Mobius coefficients. Record code, precision, enclosures, errors, runtime and hashes; do not fit eta or infer an asymptotic exponent from four inputs.
+
+Additional structural analysis is permitted only after these fixed tests, explicitly labeled exploratory. Canonical VF bound and stronger complete-endpoint gain remain OPEN / UNKNOWN; SEARCH_BROAD. No Lean source edits, local Lean, new agent launch, issue/PR, merge, or schedule action.
