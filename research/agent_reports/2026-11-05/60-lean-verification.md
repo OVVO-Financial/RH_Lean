@@ -718,3 +718,8 @@ Continuity distinctions retained: November 4 JOH placement compression leaves co
 | External handoff inbox | 038018145c0fddb2f6306c0712373adf9cd1ea52 |
 
 Checker SHA256 402a20ca674418530624514e4bcff038f06f7411d2f17bce2781a637250f1706; regression SHA256 ae723993b1c839702eff9af830239bfe999514140fe35f3b5517e8232b8ed872. The early report checkpoint was committed/read back at 6b973b1960ef5ce8a9aa3e0b83c815b163d7f68a (blob 207c2e86c9823fbb6c400dc210aa54781b30c531); the implementation milestone at 75a310367e729ddcbd8838a2a65590baa50671ae (blob 3d87cf5f0d86103b26fa1e7953e0154f7d1b80a0). An exploratory lookup of an incorrectly guessed cache-check filename returned 404; the actual checker path scripts/ci/check_lean_cache_contract.py was identified from the repository tree and its executed job was inspected. No required verification rests on that failed lookup.
+
+
+### Verified Publication Receipt - 20261105-lean-2
+
+The final A-P synthesis was committed at 519dc2b7fb13bda3442a2cd9873256f143011f14 and re-fetched at that immutable commit, blob f20eb17982b600da1bcd3189b6695dfb83f3e77f. Exact content equality, preservation of all prior report bytes, all sixteen required sections and balanced code fences passed. Publication PUBLISHED_AND_READBACK_VERIFIED; execution COMPLETED; implementation CI_GREEN / REVIEW_READY at PR #1095 head 46e68178192c6e429a02abee9d5b8ebca5de46c8. The repair is unmerged and human review remains outstanding. This receipt identifies the already verified synthesis commit, not its own future commit. No new arithmetic bound or RH result is claimed.
