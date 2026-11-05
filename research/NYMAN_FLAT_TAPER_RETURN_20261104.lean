@@ -47,14 +47,14 @@ theorem nymanFlatKernel_eq_original (N H k : Nat)
     (hN : 1 <= N) (hH : 1 <= H) (hk : 1 <= k) :
     nymanFlatKernel N H k = (ArithmeticFunction.moebius k : Real) *
       Real.log ((N : Real) / (max H k : Nat)) := by
-  have hNz : (N : Real) != 0 := by exact_mod_cast (show N != 0 by omega)
-  have hHz : (H : Real) != 0 := by exact_mod_cast (show H != 0 by omega)
-  have hkz : (k : Real) != 0 := by exact_mod_cast (show k != 0 by omega)
+  have hNz : (N : Real) ≠ 0 := by exact_mod_cast (show N ≠ 0 by omega)
+  have hHz : (H : Real) ≠ 0 := by exact_mod_cast (show H ≠ 0 by omega)
+  have hkz : (k : Real) ≠ 0 := by exact_mod_cast (show k ≠ 0 by omega)
   by_cases hkH : k <= H
-  · simp only [nymanFlatKernel, if_pos hkH, max_eq_left hkH,
+  · simp only [nymanFlatKernel, ite_eq_left hkH, max_eq_left hkH,
       Real.log_div hNz hHz, nymanLogKernel]
     ring
-  · simp only [nymanFlatKernel, if_neg hkH, sub_zero,
+  · simp only [nymanFlatKernel, ite_eq_right hkH, sub_zero,
       max_eq_right (by omega : H <= k), Real.log_div hNz hkz, nymanLogKernel]
 
 theorem nymanFlatKernel_one (N H : Nat) (hH : 1 <= H) :
@@ -67,8 +67,8 @@ theorem nymanFlatCoefficient_eq_original (N H k : Nat) (h : Nat -> Real)
       (h k - (ArithmeticFunction.moebius k : Real) *
         Real.log ((N : Real) / (max H k : Nat))) /
           Real.log ((N : Real) / (H : Real)) := by
-  have hNz : (N : Real) != 0 := by exact_mod_cast (show N != 0 by omega)
-  have hHz : (H : Real) != 0 := by exact_mod_cast (show H != 0 by omega)
+  have hNz : (N : Real) ≠ 0 := by exact_mod_cast (show N ≠ 0 by omega)
+  have hHz : (H : Real) ≠ 0 := by exact_mod_cast (show H ≠ 0 by omega)
   unfold nymanFlatCoefficient nymanFlatScale
   rw [nymanFlatKernel_eq_original N H k hN hH hk, Real.log_div hNz hHz]
 
@@ -97,11 +97,12 @@ theorem nyman_log_floor_with_tail (B m : Nat) (hB : 1 <= B) (hm : 1 <= m) :
     Finset.sum (Icc 1 B) (fun k => nymanLogKernel B k * ((m / k : Nat) : Real)) =
       Real.log B + nymanPsi m - nymanLogTail B m := by
   by_cases hmB : m <= B
-  · have ht : Ioc B m = (∅ : Finset Nat) := by
-      ext k
-      simp only [Finset.mem_Ioc, Finset.not_mem_empty, iff_false, not_and]
+  · have ht : nymanLogTail B m = 0 := by
+      apply Finset.sum_eq_zero
+      intro k hk
+      have := Finset.mem_Ioc.mp hk
       omega
-    simp only [nymanLogTail, ht, Finset.sum_empty, sub_zero]
+    rw [ht, sub_zero]
     exact nymanLogKernel_floor_sum B m hm hmB
   · have hset : Icc 1 m = Icc 1 B ∪ Ioc B m := by
       ext k
@@ -170,7 +171,8 @@ theorem nyman_flat_reciprocal_moment (N H : Nat) (h : Nat -> Real)
   rw [he]
   unfold nymanFlatMoment
   rw [hs]
-  field_simp [hL] <;> ring
+  field_simp [hL]
+  ring
 
 theorem nyman_flat_complete_return (N H m : Nat) (h : Nat -> Real)
     (hH : 1 <= H) (hHN : H < N) (hm : 1 <= m) :
@@ -271,7 +273,7 @@ theorem nyman_flat_head_iff_moment (N H : Nat) (h : Nat -> Real)
 
 /-- The finite linear system used by the original two-band correction. -/
 theorem nyman_two_band_moment_solver (K s1 s2 u v : Real)
-    (hK : K != 0) (hs : s1 != s2) :
+    (hK : K ≠ 0) (hs : s1 ≠ s2) :
     let A := (u - s2 * v / K) / (s1 - s2)
     let Z := (s1 * v / K - u) / (s1 - s2)
     A * s1 + Z * s2 = u ∧ K * A + K * Z = v := by
