@@ -3280,3 +3280,12 @@ FLOOR_DATA_SHA256 a01e7332a25bd065e3ef2f2149046d4e729b8c6e0d40861bca2ee3593c4dfe
 ```
 
 The final proof-input check also re-retrieved the indexed primary 1998 first-page theorem, confirming its range y^(1/6-epsilon(y))<=L0<=y and the admissible specialization epsilon(y)=0. This did not remove the disclosed full-PDF access limitation. Publication-time main refresh remained 1667c3cf9b4e898bb9afd62ec48e24610b2156ab, and the open/draft PR list remained empty.
+
+
+### Publication Verification - 20261105-owner-3
+
+**COMPLETED / PUBLISHED / READBACK_VERIFIED** at 2026-11-05 16:35:02 EST (21:35:02 UTC). This receipt closes the earlier PENDING_READBACK status.
+
+Substantive publication commit **1c8dd13d6217b8e9586df720fb114fe56d32da3b**, report blob **e79eaeb0d3427ba6c6c5f414ece3794f9f1caabb**. The commit was fetched and contained only `research/agent_reports/2026-11-05/10-owner-payment.md`. The report was re-fetched at that immutable commit and matched all **172064 characters** of the intended complete content exactly. The full **121152-character** preceding checkpoint/report prefix was preserved. The addition has all eleven A-K findings sections and balanced fenced blocks, with the exact executed verifier, interval library, preregistration and successful output.
+
+The receipt update uses a freshly fetched current blob and preserves any newer report bytes. Main remains the recorded 1667c3cf9b4e898bb9afd62ec48e24610b2156ab; no proof, source, central policy or other agent report was changed. New mathematics is MC1 IDENTITY_ONLY, MC2-MC3 PAPER_PROOF with SELF_AUDIT and independent review PENDING, MC4 CONDITIONAL, and MC5 FINITE_COMPUTATION / scoped REFUTED. No new Lean verification, global exponent gain, canonical bound or RH proof is claimed. Next protected route SAT; no extra agent or schedule was created.
