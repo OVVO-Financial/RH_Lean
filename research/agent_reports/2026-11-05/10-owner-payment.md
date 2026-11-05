@@ -2209,3 +2209,26 @@ Executed output (exit status 0; syntax compilation also succeeded):
 **2026-11-05T08:47:22-05:00: COMPLETE / PUBLISHED / VERIFIED.** The substantive report and complete executed verifier were committed as **4c293e33720e34e02c419f97780db6aabb0e630b**, report blob **c1ecd0c9e1308befea90ea959e27c305f492a41f**. The commit was inspected: only `research/agent_reports/2026-11-05/10-owner-payment.md` changed. Re-fetching that path at the immutable commit returned EXACTLY the submitted content, preserving all 62,473 earlier characters. The report was freshly fetched again before adding this receipt. This receipt's resulting commit is also checked by immutable readback before the user-facing completion notice.
 
 Final research status: CR1-CR2 PAPER_PROOF, CR3 PAPER_PROOF/REFUTED supplier, CR4 IDENTITY_ONLY, CR5 FINITE_COMPUTATION. Independent review and Lean formalization are PENDING; the complete canonical arithmetic bound remains OPEN. No execution or endpoint gain is promised after this invocation. Resume the next actual protected JOH turn from the existing LC4/LC5 backlog checkpoint; retain OPEN-VF-CR-DENSE for the next eligible VF-LOW investigation.
+
+
+## Scheduled JOH Continuation Checkpoint - 2026-11-05 16:15 EST Invocation
+
+### A. Mathematical Question
+
+**IN_PROGRESS / PARTIAL.** Resume 20261104-owner-3/LC4-LC5: the genuine all-cell position error is already paid at O(N), while the weighted count-level backlog remains OPEN. This invocation investigates growing multi-cell count increments and a source-exact coarse-clock reconstruction, including the initial level, unequal prime counts, original boundaries and full mixed terms. No new bound or sign is claimed at this checkpoint.
+
+### B. Authority And Continuity
+
+Actual trigger: SCHEDULED, 2026-11-05T16:15:00-05:00; RUN_ID_UNAVAILABLE; local label **20261105-owner-3**. Checkpoint prepared 16:18 EST. Main **1667c3cf9b4e898bb9afd62ec48e24610b2156ab**, AGENTS **547dda0d9456e7a4e1165dc72d59da6f70d5c023**, proof contract **7c4ac83a1ec1a4144e1bd691391ed4244f1cc27c**, independent-routing policy **ffd8f1c65cc4da656174956d4e03b48bea46768b**. deployment_ack=NO_PIGEONHOLING_ROUTE_SELECTOR_V1. Protected route JOH follows today's SAT and VF-LOW attempts; next SAT. No mandatory unrelated OAI audit.
+
+November 4 and 5 reports from all seven roles and external inbox were retrieved; TODAY=AVAILABLE, YESTERDAY=CARRY_FORWARD. LC4/LC5 remain paper/self-audit, not independently accepted or newly formalized. Latest Coordinator's JOH shorthand omits the -1 centering; this run retains the original B(n)=pi(n)-floor(Li_2(n))-1 and its original G. All later claims use that convention explicitly. Latest merged work includes #1093/#1094 Nyman interfaces/obstruction and #1095 Euler axiom-audit repair; open/draft collection is empty at intake. None supplies a JOH estimate.
+
+Original source bytes inspected: signed-population balance **9a9336dad72171b6d572a1c1ae88d1ae8b56b530**, discrete backlog **4255ca0dffe480f2aec6bd0b68797bbd293396c3**, transport cancellation **eb84f59055bd31dc117be034d45c92eb9dab8f27**, JOH consumer note **27e28f09e9f79e8a60d524e5fcb6f19904fa55f5**, canonical criterion **79030d70e8d3e0d08eef9bac53fef95c36eca2fb**. The native Lean backlog lacks the centering -1; eta(k) is the native primitive at k-1. Canonical actual-prime von Koch target remains OPEN.
+
+### C. Derivation And Falsification Plan
+
+Compare two distinct moves: an independent arithmetic estimate for growing arrival-clock count increments, and exact coarse-clock compression with an explicit proper-sector error. Audit whether a variance estimate controls the retained level or merely discards the zero-frequency/anchor component. Test the smallest meaningful genuine floor-Li arrival configurations, including prime-at-boundary and partial terminal blocks. Reuse certified floors rather than claiming uncertain numerical floors exact. Preserve LC3's W(512)=1 and W(2048)=3 counterexamples; do not rerun the disproved midpoint sign route.
+
+### D-K. Pending Work
+
+Research derivation, decisive tests, literature qualification, full quantitative relevance, and specialist handoffs remain PENDING. No local Lean execution, source/PR edit, agent launch, policy/schedule change or merge. Only this existing own report is updated. Final publication will require current-blob refresh, commit inspection and exact immutable readback.
