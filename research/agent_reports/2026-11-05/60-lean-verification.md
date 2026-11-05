@@ -32,3 +32,10 @@ Draft PR [#1094](https://github.com/OVVO-Financial/RH_Lean/pull/1094) opened fro
 Exact rational regression and Python syntax check passed: 1,056 variance checks, 1,056 lower bounds and 4,848 original-residue source coordinates. The support omission is refuted by 9/832<2/27. No local Lean was executed. Connected branch/blob/tree/commit/ref/PR writes succeeded; report-only Contents actions were not misused for source writes.
 
 Merged #1093 was freshly verified: final proof head a54f0cf9535c548920dae3412e3fbe6d6584e029, human merge ff620da3c0d2c29585805960c6be183c07f16556, all 12 head-associated workflows success. Retrieved job 127007831273 prints the eight exact original-return theorem types and only propext, Classical.choice, Quot.sound, with explicit audit PASS. Its source blob 2d23721027ecc44e85b7add02fc632b482f03352 is unchanged on current main. This certifies the inherited source interface, not the new energy proof.
+
+
+## Compiler Repair Checkpoint - Same 05:10 EST Invocation
+
+Initial dedicated run 42010330817 / job 127187415748 and targeted run 42010330587 / job 127187414995 failed on head f5bf4497acfc8a68ad4ffe064c5d3c96380103a9. The actual log identifies an unnecessary tactic-sequencing operator at line 85 and failed automatic rearrangement of the coefficient inequality at line 103. The finite variance, stronger weighted inequality and source statements elaborated as intended, but the failing run is NOT certification; its recovery sorryAx outputs are rejected.
+
+Repair head 1ea4a8a4308976721a3841998d6c3a4554f7a9c9 removes the redundant tactic operator and replaces the failed automation with explicit multiplication by a nonnegative square followed by a ring equality. No statement, hypothesis, bound, pin or audit is changed. New CI is required; status remains DRAFT_PR / CI_PENDING. The regression script is unchanged and its valid exact result is reused.
