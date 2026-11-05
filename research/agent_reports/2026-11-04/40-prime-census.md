@@ -4217,3 +4217,10 @@ Each integer endpoint is divided by the displayed scale. Decimal entries are out
 ### Closeout Authority Check
 
 At 2026-11-05 00:18:10 UTC, main was re-fetched as 1daca8d582c361983567f0b6e99d447a77c3aea5, unchanged. The current open/draft PR collection remained empty. These observations do not assert future repository state.
+
+
+### Verified Publication Receipt - 19:00 EST Invocation
+
+The complete findings and all four executable sources were published at commit `b9c240896cb47ac2f3757a32b7d1255b9d1d8149`, report blob `de71d59a2c1baade51d09606e2750085f9b11e51`. At 2026-11-05 00:19:14 UTC, a fresh read of that exact commit matched the submitted full content byte-for-byte, including all preserved earlier daily sections. The earlier preregistration was separately published and verified at `fa50bcb24bce73496ba76924e30d971cadb8bc8b`.
+
+Execution COMPLETE for these finite tests; report publication verified. Mathematical status remains FINITE_COMPUTATION / scoped REFUTED; independent review PENDING and no new Lean or endpoint bound. Only the authorized `agent-reports:research/agent_reports/2026-11-04/40-prime-census.md` was changed remotely.
