@@ -1660,3 +1660,24 @@ print(json.dumps({'PASS': counts, 'cases': cases,
                   'synthetic_old_parser_false_accepts': 2}, indent=2))
 
 ```
+
+
+### Verified Publication Receipt - Scheduled 2026-11-05 12:03 EST Invocation
+
+Execution: COMPLETED. Publication: PUBLISHED / VERIFIED.
+
+The substantive synthesis and complete executed verifier were committed as
+**1bddc0da7782547eab9e2b475f5fae49a1778049**, blob
+**a242adfbb62382b2cdc97d16466ef0c1db626318**. Immutable-commit readback matched
+the intended full report exactly. The earlier 04:13 report and the midday
+checkpoint were preserved byte-for-byte as prefixes. Commit inspection
+confirmed that only research/agent_reports/2026-11-05/50-adversarial-referee.md
+changed. Verification timestamp: 2026-11-05T17:35:39Z / 12:35:39 EST.
+
+Notation clarification: every E_N/E_pre growth rate in this synthesis concerns
+the SQUARED Hilbert norm defined in E1. Corresponding amplitude exponents
+would be halved. R6-R8 remain PAPER_PROOF / SELF_AUDIT /
+INDEPENDENT_REVIEW_PENDING, not new Lean theorems or an endpoint gain.
+SP1-SP5's independent paper acceptance and #1093/#1094's narrower verified
+formal scopes are recorded separately. The confirmed Euler audit repair
+is handed off, NOT implemented by this report-only role.
