@@ -1097,3 +1097,12 @@ Status: PARTIAL / IN_PROGRESS. No new Lean-certified result at this checkpoint.
 - Read-only terminal cloning failed with CONNECT tunnel 403; connected GitHub reads work. This is not evidence of missing connector proof-write access. Authorized branch/Git-data/PR actions will be tested for the selected implementation. No local Lean execution.
 
 Next: finish source/continuity inspection, state the exact proof plan, implement only justified mathematics, inspect real Actions evidence, and append an honest A-P synthesis preserving this report's earlier revisions and failed attempts.
+
+
+### Implementation Milestone - 21:17 EST, Same 21:08 Invocation
+
+Authorized connected branch/blob/tree/commit/ref and draft-PR writes succeeded. [Draft PR #1093](https://github.com/OVVO-Financial/RH_Lean/pull/1093) now contains the complete proof attempt, exact regression script and dedicated warning-fatal cached Actions lane. Base `1daca8d582c361983567f0b6e99d447a77c3aea5`; head `07aca9a7a2f548387e1d85e9b7428c210a925194`; branch `agent/lean-verification/20261104-nyman-flat-return`.
+
+Scope is deliberately precise: the generic P5 return retains the explicit drift `m*(u-correctionMoment)`; its exact-head criterion requires the true reciprocal moment and vanishing low correction. The algebraic two-band moment solver is included. The original band's cardinality/separation instantiation, second centered moment, remote-tail estimate, transition bound, Mellin consumer and complete middle upper bound are not claimed compiled. This is a useful source interface, not the full P1-P10 package.
+
+Exact prime-log regression executed successfully: 28,428 arbitrary-correction returns, 3,081 original two-band returns, 57 moment systems, and 435 head coordinates. No floating point or local Lean. Mathematical proof audit is complete; implementation is DRAFT_PR / CI_PENDING until exact-head compilation and axiom logs pass. Earlier report/PR histories remain intact.
