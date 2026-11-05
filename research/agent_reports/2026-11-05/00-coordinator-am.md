@@ -1194,3 +1194,9 @@ if __name__ == '__main__':
 Final authority refresh: main **1667c3cf9b4e898bb9afd62ec48e24610b2156ab**, unchanged instruction/contract blobs, #1095 human-merged and no open/draft PRs at the final collection read. Reporting parent **35061e892f440c80db59cab39f159d41eb0c06f6** and both current own blobs were read back before writing. All earlier report bytes and the early checkpoint are retained as an exact prefix.
 
 Synthesis publication prepared at **2026-11-05 20:41:02 UTC** (America/New_York calendar date 2026-11-05). Execution publication status remains **PENDING_READBACK** until the verified receipt. Mathematical C58-C61 remain **PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING**; canonical target **OPEN**.
+
+### Verified Publication Receipt - 20261105-coordinator-2
+
+**Execution COMPLETE; mathematical endpoint OPEN.** At **2026-11-05 20:41:45 UTC**, both complete Coordinator mirrors were fetched from substantive commit **76258df2da8fe14e8d8dcfe21c32c2d9bb9927eb** and matched the intended **106388-character** content exactly, with identical blob **0e740e9cbf6e3ad09e6c06090729d7e50b97ff01**. The branch update succeeded with an expected-parent lease; the exact prior report and checkpoint were preserved. Only the two authorized Coordinator report paths were changed.
+
+C58-C61 remain **PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED**; C62 is finite source evidence, not an asymptotic proof. Independent review and the source-changing Nyman follow-up are published handoffs only. The final main snapshot is **1667c3cf9b4e898bb9afd62ec48e24610b2156ab**; #1094 and #1095 are human-merged. No Lean source, proof branch, PR, policy, other agent report, schedule or merge action was changed by this execution.
