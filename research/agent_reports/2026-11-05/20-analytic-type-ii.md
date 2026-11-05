@@ -799,3 +799,601 @@ The live open/draft PR collection is empty. Recent #1093/#1094/#1095 are human-m
 ### C. Routing And Pending Work
 
 `eta_gate=SEARCH_BROAD`; canonical actual-prime VF/von Koch estimate and independent additional endpoint gain remain OPEN. Protected rotation: Nov 4 CODIV, this morning NYMAN, this invocation OAI-NNS; CODIV is next due. The optional OAI route is chosen for its concrete open restriction, not as a team-wide source mandate. First pending derivation: exact cube-extraction identity and the row/scale budget required to reuse the original inverse estimate. Then self-falsification, source-faithful quantitative comparison, specialist handoffs and verified final publication. Only this authorized report will be modified remotely; no agents, branches, PRs, workflows, schedules or merges are initiated.
+
+## Scheduled OAI-NNS Research Synthesis - 2026-11-05 17:11 EST Invocation
+
+### A. Most Important Analytic Development
+
+**The actual physical numerator annulus is eventually disjoint from the entire small-row domain paid by cube extraction.** For the binding all-selected packet, the Referee's previously defined upper-row remainder V is therefore exactly B_cap on every physical row, not a smaller residual. This is a new source-localization obstruction, not a refutation of a possible all-selected saving.
+
+There is also a valid quantitative improvement on the restricted domain. Optimizing the original supplier's adjustable d, instead of fixing d=0, gives the following squared-energy exponent for an extracted slot set of total length h and a row cap Z^mu:
+
+```text
+e(mu,h) = max(mu, 5/6 - 3h),
+0 <= mu <= (5/6)(1-2h),                         (CR1, all-selected)
+```
+
+up to an arbitrarily small positive exponent loss and the explicitly retained reciprocal slot masses. This improves Referee R7 below its largest allowed row cap. It does NOT enlarge that cap. Solving all the direct-rebase constraints shows that both the exponent frontier and maximum row scale are optimal for this particular use of the existing theorem (CR2), not optimality statements about the arithmetic energy itself.
+
+Restoring the literal physical cutoff proves the decisive limitation (CR3): its rows have N(z) > (aCut*q/2) Z^(5/6), whereas every extracted intersection with h>0 is covered only up to Ck Z^(5/6-(5/3)h). These sets are eventually disjoint. The generalized transition with unselected length d0 is d0 >= 5h/6; where a direct rebase does fit, its best exponent alone supplies no extra normalized power. Reciprocal-mass sparsity or new signed arithmetic would be an additional ingredient, not a consequence of the rebase.
+
+**Status:** `20261105-analytic-2-CR1/CR2/CR3` are PAPER_PROOF / SELF_AUDIT, independent review PENDING. CR4 is exact finite verification of the parameter/cutoff algebra. No new Lean theorem, physical squared-source nu, complete LOW gain, Mertens exponent, or canonical VF conclusion is claimed. The existing imported baseline and inherited one-shot strict-slot result are not withdrawn or relabeled as new.
+
+The derivation is complete for this invocation. Publication is established only by the verified commit/readback receipt appended after writing, not by this sentence.
+
+### B. Current Mathematical Objective And Verified Authority
+
+Intake and refreshed main are `1667c3cf9b4e898bb9afd62ec48e24610b2156ab`, tree `6351bbacd22d7abb34eefed1e2cbf5f674642010`. AGENTS is `547dda0d9456e7a4e1165dc72d59da6f70d5c023`; CURRENT_PROOF_CONTRACT is `7c4ac83a1ec1a4144e1bd691391ed4244f1cc27c`. The controlling multi-front policy is `ffd8f1c65cc4da656174956d4e03b48bea46768b`. `NO_PIGEONHOLING_ROUTE_SELECTOR_V1` and `eta_gate=SEARCH_BROAD` remain active for additional independent progress.
+
+The canonical objective remains the actual-prime `VFCanonicalSquareVonKochStatement`: some C>=0 controls |pi(R^2)-vfCanonical(R^2)| by C R log R for every natural R>=2. Its source is [VF_CANONICAL_SQRT_TWO_VON_KOCH.lean](https://github.com/OVVO-Financial/RH_Lean/blob/1667c3cf9b4e898bb9afd62ec48e24610b2156ab/research/VF_CANONICAL_SQRT_TWO_VON_KOCH.lean), blob `79030d70e8d3e0d08eef9bac53fef95c36eca2fb`. The canonical sqrt(2) normalization and explicit classical criterion interface are unchanged.
+
+The selected OAI task asks for an independent fixed nu>0 improvement on the ORIGINAL all-selected squared inverse at Z^(5/6-nu+epsilon), or an independently proved complete integrated LOW saving. Original J indexes UNSELECTED slots. J=empty has one outer tuple and no outer off-diagonal Gram. This run resumes the actual cube/row restriction, not a nonexistent outer cancellation. OAI is due after the preceding CODIV and this morning's NYMAN turns; CODIV is next due. Other protected routes retain their own consumers and unresolved inputs.
+
+All mathematical OAI source is pinned to `openai/math@1581d4cbdd69a0faf34b2089614fe2a814316a6a`. The main suppliers inspected are [LowOriginalEnergy](https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/NumberTheory/DirichletL/Reflection/LowOriginalEnergy.lean), [LowSelectedBound](https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/NumberTheory/DirichletL/Detector/LowSelectedBound.lean), and [LowPhysicalInverseBound](https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/NumberTheory/DirichletL/Detector/LowPhysicalInverseBound.lean). The newly decisive definitions are [LowActualEnergies](https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/NumberTheory/DirichletL/Detector/LowActualEnergies.lean) and [LowCutoff](https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/NumberTheory/DirichletL/Detector/LowCutoff.lean). Search results from external default main were used only to locate files; the relevant content was re-fetched at this fixed pin.
+
+**Continuity actually consumed.** Both November 4 and November 5 reports for all seven roles were retrieved at reporting snapshot `971b6e719af5899b5e3977b0cd95193facd2cb55`; the relevant statements, continuations, review decisions and source qualifications were read. TODAY=AVAILABLE for all seven roles, so no missing stage was invented. Historical appendices were not all computationally rerun. The detailed November 4 Referee R6-R8 section was read during the resumed derivation before novelty was assigned. Its extraction and small-row proof are reused, not claimed as this run's discoveries.
+
+Carried forward: Analytic CF1-CF3 and Census H1/H2 have Referee acceptance at their original source/counting scopes. This turn independently reconstructs November 4 Referee-6/R6, Referee-7/R7 and Referee-8/R8 from the source and accepts their stated PAPER_PROOF scope; that is an Analytic review of their work, not a second Referee endorsement or Lean certification. Today's Referee-5 accepts morning Analytic SP1-SP5; its own NYMAN extensions and Coordinator C58-C61 remain separately self-audited. Owner's current logarithmic mean-square clock estimate, Wheel's prime-mode block restoration, Census's finite CORR4 tests and Lean's current integrations are not assumed to prove any OAI estimate. External inbox `038018145c0fddb2f6306c0712373adf9cd1ea52` has no post-October-18 handoff.
+
+The early checkpoint was actually published in commit `e20df3b15232988c471cedc79910cef99468d5f1`, blob `dc0517b8d9d4bab5be566de4e1a26a2fd933490a`, and read back byte-for-byte. The subsequent report-branch refresh still pointed to that commit. Previous findings in this same daily file are preserved.
+
+**GitHub and formal evidence.** The current open/draft PR collection was empty at intake and refresh. Recent #1093/#1094/#1095 are human-merged; #1095 is the current audit-repair main. Historical #933 and its changed-file list/discussion were also read as requested by the attached orientation; it is merged documentation, not current task authority or a theorem. No workflow was triggered, no PR or branch was changed, and no local Lean was run.
+
+For the relevant #1085 dependency, actual head `7895272e5303ed0f4199d5b06b74786e22d31769`, Actions run [41872040501](https://github.com/OVVO-Financial/RH_Lean/actions/runs/41872040501), job `126721440818`, and raw logs were inspected. The job is successful. Its checkout log records tested synthetic merge `5722472b6f316619b98770dc2781a47f0f7b41fd`, not merely the PR head. `VF919OriginalLowTupleSignedGram.lean` is byte-identical at that tested merge, the PR head and current main: blob `dd2fde01ae6e2446da4e69b30f6fc80fcadb858d`. The comparison to current main was inspected: subsequent research changes add other theorem files and adjust audit/build scripts; the Gram module and its existing RH_Lean import are not changed. The nine printed declarations (three Gram identities and six mass/central declarations) have terminal axioms exactly `[propext, Classical.choice, Quot.sound]`. The pinned original analytic cache was restored and the cold original build step was skipped; this run does not claim a fresh cold rebuild of all dependencies. The verified central moving-mass theorem is not a complete terminal Gaussian/principal/HIGH return, and does not pay J=empty.
+
+### C. Analytic Mechanism Investigated
+
+Cube extraction reduces the completed source length by N(H)^3 while retaining the original row-dependent cubic coefficient. Referee R6 established this exact transformation and R7 applied the source theorem at a smaller base scale with d=0. The changed question here is whether optimizing the allowed d can improve the quantitative estimate, and whether the resulting rows occur in the literal physical consumer.
+
+The independent ingredient is the existing `low_original_completed_energy`, with its exact d/slot/row parameter restrictions. We use its per-character version, not an invalid inference from a bound on the correction sum to a bound on one of its subsums. Its constants are uniform in the variable d, slot length, central shift, finite row set, bounded selected weights and real height. This permits a genuine parameter optimization. The final source check uses the lower cutoff that the old upper-bound-only row audit did not exploit.
+
+No average prime density, new conductor-uniform theorem, assumed spectral gap, target-equivalent bound, or discarded quadratic cross term enters CR1-CR3.
+
+### D. Exact Mathematical Formulation
+
+Work over the original Eisenstein ideal monoid; N is absolute ideal norm, and N(z) is `elementNorm z`. Fix the original character eta, finite exclusion set S containing fixedBadPrimes, its calibration C, the fixed true period/mask, K>=1, positive slot lengths ell_i with sum ell_i=1/6, 0<a<=b, and Ck>0. All these data are fixed before epsilon and Z. Fix an unselected subset J, put d0=sum_(i in J) ell_i, and let L be a nonempty subset of the remaining selected slots. Write
+
+```text
+h = sum_(i in L) ell_i,         0 < h <= 1/6-d0,
+rho = 1-2h,                    2/3 <= rho < 1,
+l = 1/6-d0-h,                  u = 7/6-d0-3h,
+M0 = 5/6-2d0,                  Mmax = (5/6)rho.
+```
+
+The finite prime-ideal lists T_i are original supported, pairwise disjoint, outside S, with a Z^ell_i <= NP <= b Z^ell_i. Keep every original selected coefficient w_i(P;t), including its Hecke factor, window and log phase; |w_i|<=1. Let W_t be `normTwistedSource gaussianFixedWindow t`. Let Psi_(chi,z) be the ORIGINAL row twist, equivalently its exact true-period/lowReflectionMask representation. Original correction coefficients gamma_chi are retained.
+
+For a full selected tuple p, set D_p=product_(selected i) p_i and H_p=product_(i in L) p_i. Define T_L(z;U,t) as the original selected inverse sum restricted to H_p|B in its completed pair (I,B):
+
+```text
+T_L = sum_p product_i w_i(p_i;t) * sum_chi gamma_chi
+        * sum_(I,B : D_p | I B^3, H_p | B) s_(chi,z)(I,B;U,t),
+s_(chi,z)(I,B;U,t)
+ = columnWeight(Psi_(chi,z),I)/sqrt(NI)
+   * cubeWeight(Psi_(chi,z),B) * Vstar(W_t)(NI NB^3/U).
+```
+
+These sums are finite on the fixed compact window at each U>0. Squareful-column zeros, zero ideals, exclusions and all complex weights are part of s, not removed from its definition. Put
+
+```text
+Q_i(t) = sum_(P in T_i) |w_i(P;t)| / NP.
+```
+
+**CR1 (optimized restricted-row estimate).** For every epsilon>0 there are delta>0, degree A, C1>0 and Z0>1, depending only on the fixed data and epsilon, such that simultaneously for every Z>=Z0, every 0<=mu<=Mmax, every finite set R of nonzero elements with N(z)<=Ck Z^mu, all admissible lists/weights, sigma and real t, and
+
+```text
+Z^(7/6-d0-delta) <= U <= Z^(7/6-d0+delta),
+```
+
+one has
+
+```text
+sum_(z in R) |T_L(z;U,t)|^2
+ <= C1 (1+|t|)^A Z^(max(mu,M0-3h)+epsilon)
+           * product_(i in L) Q_i(t)^2.             (CR1)
+```
+
+The constants may be chosen uniformly over the finitely many J,L for the fixed K and ell. No uniformity in growing K, conductor, shrinking positive ell_i or changing cutoffs is asserted. Empty relevant pools give zero. The independent crude bound Q_i<=3b/a is available without prime-density input.
+
+For J=empty, inclusion-exclusion and finite Minkowski imply on any common row set N(z)<=Ck Z^mu, 0<=mu<=5/9,
+
+```text
+sum_R |B_cap|^2
+ <<_(data,epsilon) (1+|t|)^A
+       Z^(max(mu,5/6-3ell_min)+epsilon).             (CR1b)
+```
+
+Here B_cap is the actual selected-prime/cube-overlap portion, not the whole selected inverse.
+
+### E. Mathematical Derivation
+
+#### E1. Reused Exact Extraction, With Original Masks
+
+Referee R6 gives, for each extracted choice H and squarefree D,
+
+```text
+sum_(I,B : D|I B^3, H|B) s_(chi,z)(I,B;U,t)
+ = cubeWeight(Psi_(chi,z),H)
+     * markedCompletedT(Psi_(chi,z),W_t,U/NH^3,1_(D/H | A)).
+```
+
+This follows from B=H B', multiplicativity of cubeWeight, D squarefree, and equality of the window arguments. It introduces no additional height phase. The external removed-slot phases remain in product_i w_i. The equality of original and true-period row homomorphisms is termwise, so it remains valid under the restriction H|B. It is not obtained by restricting an equality only known after total summation. Full cap reconstruction is
+
+```text
+B_cap = sum_(nonempty L subset selected) (-1)^(|L|+1) T_L.
+```
+
+The intersections are not disjoint. Their alternating signs are not replaced by a singleton union bound on complex sums. The source Gaussian relation E=H^2 E' from R6 remains intact; no new Gaussian return is proved here.
+
+#### E2. Optimized Parameters And All Losses
+
+Write NH=c_H Z^h, with a^|L|<=c_H<=b^|L|, and set x=Z^rho. For a specified mu let
+
+```text
+e = max(mu,M0-3h),
+d_new = (Mmax-e)/(2rho),
+ell_base = l/rho.
+```
+
+Because h<=1/6-d0,
+
+```text
+0 <= d_new <= (d0+2h/3)/rho <= 1/6,
+0 <= ell_base <= 1/6-d_new,
+rho*(1+ell_base)=u,
+rho*(5/6-2d_new)=e >= mu.                           (E1)
+```
+
+The middle inequality is exactly the previously unused slot allowance. It justifies the smaller energy exponent; it is not an assumed gain.
+
+For epsilon>0 choose eta=min(1/2,epsilon/1014), delta=eta/6 and ell0=ell_base+eta/4. For sufficiently large Z, the fixed product of residual upper-band constants is absorbed in x^(eta/4). Write U=Z^(7/6-d0+xi), |xi|<=delta. Then the exact source shift is
+
+```text
+shift_H = xi/rho - 3 log(c_H)/(rho log Z) - eta/4,
+U/NH^3 = x^(1+ell0+shift_H).
+```
+
+Increase Z0 until |3 log(c_H)/(rho log Z)|<=eta/4 uniformly in H. Since rho>=2/3, |shift_H|<=3eta/4. Also ell0<=1/6-d_new+eta, and Ck Z^mu<=Ck x^(5/6-2d_new). All original supplier hypotheses now hold. The polynomial-height constant is uniform in these moving parameters.
+
+Apply `low_original_completed_energy` to each original periodic base and each of the six unit representatives. `low_element_rowTwist_energy` is precisely the source conversion from element rows to these ideal rows. Its fixed finite factors and the original finite correction-character norms are paid in C1, as in the inspected proof of `low_selected_physical_energy`.
+
+The multiplier cubeWeight(Psi_(chi,z),H) depends on z, but satisfies |cubeWeight|<=1/NH pointwise. Multiplication therefore contracts the finite row l2 norm by at most 1/NH without changing the base character, period or row set. Minkowski over every removed-slot choice gives the exact retained factor
+
+```text
+sum_H product_(i in L)|w_i(p_i;t)| / NH
+ = product_(i in L) Q_i(t).
+```
+
+There is no unpriced number-of-tuples loss. Squaring gives exponent e+507rho*eta<=e+epsilon/2, hence CR1 with the advertised epsilon. The elementary ideal count A_O(y)<=3y gives Q_i<=3b/a; no fixed-ray asymptotic is being used for moving pools. Finally, 2^K-1 is fixed, so finite Minkowski proves CR1b. This establishes a genuine intermediate bound, while retaining its proper row domain.
+
+#### E3. Optimality Within The Direct Supplier Rebase (CR2)
+
+This is an algebraic theorem about use of the supplier, NOT a lower bound on T_L. Ignore arbitrarily small losses and fixed multiplicative band constants. Consider any direct reapplication at x=Z^s with v=s*d_new and the original residual slot norms and extracted source. Nonempty residual pools (or the empty product when no slots remain) force
+
+```text
+s*ell0 >= l,             s*(1+ell0)=u,
+0 <= v <= s/6,           s*ell0 <= s/6-v,
+mu <= e_sup = 5s/6-2v.
+```
+
+Consequently s<=u-l=rho, and v<=7s/6-u. Thus
+
+```text
+e_sup >= 2u-(3/2)s >= 2u-(3/2)rho = M0-3h,
+e_sup >= mu,                 mu <= 5rho/6.          (CR2)
+```
+
+The E1 parameters achieve max(mu,M0-3h) for every 0<=mu<=5rho/6, so both bounds are sharp within this limiting parameter program. Taking smaller s, inflating ell0, or increasing d cannot improve them. Fixed small eta permits only a correspondingly small loss, not a fixed violation of the limiting frontier. A growing Ck or eta bounded away from zero does not establish the stated arbitrary-epsilon theorem. Zero sources and sparse reciprocal masses can separately give better estimates; CR2 makes no claim against those additional inputs.
+
+#### E4. The Physical Annulus And The Unselected-Length Transition (CR3)
+
+The original definition is
+
+```text
+z in lowNumeratorRows(aCut,bCut,Q)
+ iff lowOuterCutoff(aCut,bCut,N(z)/Q) != 0,
+lowOuterCutoff(a,b,x)
+ = smoothTransition(2x/a-1) * smoothTransition(2-x/b).
+```
+
+For aCut,bCut,Q>0, `lowOuterCutoff_small` and `lowOuterCutoff_large` give the STRICT necessary bounds
+
+```text
+(aCut/2) Q < N(z) < 2 bCut Q.                       (CR3a)
+```
+
+The strictness handles both endpoints: the cutoff is zero there. This is stronger than using only `lowNumeratorRows_norm_bound`.
+
+Let P_un be the norm of the original unselected product, and q=N(C.generator)>0. `lowPhysicalScale_source` gives
+
+```text
+Qphysical = q Z^(5/6) / P_un^2.
+```
+
+The actual fixed moving bands imply c Z^d0<=P_un<=B Z^d0 for fixed c,B>0. Therefore every physical row satisfies
+
+```text
+N(z) > c_phys Z^M0,  c_phys = aCut*q/(2 B^2) > 0.
+```
+
+If d0<5h/6, then M0-Mmax=5h/3-2d0>0. As soon as
+
+```text
+Z^(5h/3-2d0) >= Ck/c_phys,
+```
+
+the physical annulus and {N(z)<=Ck Z^Mmax} are disjoint. The result holds for every original coefficient, ray mode, central U and t; no nonvanishing or statistical independence of the inverse source is needed.
+
+In the binding J=empty packet, P_un=1 exactly, d0=0 and c_phys=aCut*q/2. For every nonempty L the disjointness threshold is explicit:
+
+```text
+Z^((5/3)h) >= 2 Ck/(aCut*q).                       (CR3b)
+```
+
+Since fixed h>=ell_min>0, a single large-Z threshold works for all L. In the notation of Referee's November 4 Section N,
+
+```text
+R_L^low = {z in Rphysical : N(z)<=Ck Z^(5/6-(5/3)h_L)} = empty,
+V(z) = sum_(L nonempty) (-1)^(|L|+1) 1_(z notin R_L^low) T_L(z)
+     = B_cap(z)                  for every z in Rphysical.  (CR3c)
+```
+
+Thus the previously proposed remainder has no smaller physical row population. R7 remains a correct statement on other admitted row sets. Its intersection with the terminal all-selected row annulus is simply empty for large Z.
+
+For completeness, if d0>=5h/6, the physical row exponent M0 is within the direct-rebase cap. CR1 with mu=M0 gives e=M0, since M0-3h<M0. After division by sqrt(Qphysical), the parameter exponent alone gives at best Z^(epsilon/2), not a positive power gain. The explicit product Q_i can still matter; at the uniform O_data(1) envelope it supplies no extra fixed power. This is a limitation of the named rebase/Minkowski argument, not of all nonempty-J arithmetic or the already established moving-mass theorem.
+
+### F. Quantitative Comparison And Complete Return Ledger
+
+| Quantity | Established in this invocation | Required or unpaid |
+| --- | --- | --- |
+| Extracted intersection on arbitrary small rows | CR1, exponent max(mu,M0-3h), exact reciprocal masses retained | Row domain must satisfy mu<=5(1-2h)/6 |
+| All-selected cap on common rows N(z)<=Ck Z^(5/9) | Exponent max(5/9,5/6-3ell_min)+epsilon | These are not the physical annular rows |
+| Example K=2, ell_1=ell_2=1/12, common small rows | New exponent 7/12 versus R7's 25/36 | Neither exponent is available on the physical full row set |
+| Actual all-selected numerator annulus | CR3 proves eventual disjointness from each paid ball | Entire cap energy remains unpaid |
+| Coprime core and cap/core cross term | Exact decomposition unchanged | No new bound or favorable sign proved |
+| Full squared-source gain nu | UNKNOWN | Need a source-specific result on the actual annulus or a complete signed integrated alternative |
+| sqrt(Q) normalization | A valid full squared nu would yield at most nu/2 in amplitude | CR1 supplies no such physical nu |
+| Nonempty-J central mass | Existing verified theorem retained | Complete Gaussian return has its own prior paper qualifications |
+| Principal/HIGH/remote/exceptional terms | No new estimate this turn | Must be included before any additional endpoint gain |
+| Additional complete LOW/Mertens/canonical gain | NO_NEW_GAIN_ESTABLISHED | Canonical target remains OPEN |
+
+No claim of cancellation is made by separately removing the cap. The original square is |B_core+B_cap|^2, including 2 Re(B_core conjugate(B_cap)). A joint bound may succeed without either sector being small separately. CR3 does not prohibit that possibility.
+
+### G. Original-Carrier Bridge And Formal Scope
+
+All columns, cube factors, selected weights, masks and numerator rows above are those used in the original completed inverse. The bridge consists of the literal finite source definition, R6 extraction, the equality of true-period row homomorphisms, the per-character supplier, and the actual cutoff membership equivalence. It is not a bridge from an ambient counting measure to a physical weighted norm.
+
+The valid improvement is not merely a coordinate identity: CR1 is a new quantitative consequence of the original supplier's unused d range. But CR3 shows why this consequence cannot be booked against the terminal all-selected quantity. That limitation is stated before any endpoint comparison.
+
+The previously green `low_central_compensated_tuple_moving_mass` and original Gram identities remain their actual compiled statements. The new CR1-CR3 proofs have not been encoded or checked in Lean. Source-file inspection, exact rational tests and a reused successful CI run do not change that status.
+
+### H. Falsification, Literature And Circularity Review
+
+**Hostile cases checked.** All slots extracted (l=0, h=1/6-d0); d_new=0; d_new=1/6; mu=0 and mu=Mmax; empty pools; arbitrarily pruned nonempty pools; both cutoff endpoints; and the exact transition d0=5h/6. All are covered by the proof. The finite tests below use exact fractions and integer norms, not floating-point decisions. They do not evaluate Gauss coefficients or a physical inverse integral and do not certify a source theorem's effective Z0.
+
+**A concrete cutoff check, not an inverse-energy counterexample.** Take Z=7^6, aCut=1/2, bCut=2, q=1, Q=7^5=16807 and z=130 in the Eisenstein ring. Then N(z)=16900 and 1/2<=N(z)/Q<=2, so the original cutoff equals one. With Ck=4 and h=1/6, its norm exceeds Ck Z^(5/9); indeed even Q/4 exceeds that ball's radius. Here q=1 is a test of the universally quantified cutoff formula, NOT a claim that it is an allowed full physical calibration. The proof of CR3 applies to the actual fixed calibration q without assigning it an invented value. Further fixtures use q=12 and 144 only as additional scalar tests. No claim of nonzero completed source is attached to these rows.
+
+**Cutoff repair fails without a new theorem.** To make a smaller ball meet the all-selected annulus, aCut would have to be at most (2 Ck/q) Z^(-(5/3)h). The consumer fixes aCut from its original physical windows before Z. Shrinking it with Z changes hypotheses and cutoff/Schwartz constants; it does not delete the unchanged original annular rows or prove a uniform bound for them. Rescaling Q also changes the original normalizer and physical expression. Neither operation is an authorized source-preserving proof step here.
+
+**Quadratic large-sieve check.** Goldmakher and Louvel's [A quadratic large sieve inequality over number fields](https://arxiv.org/pdf/1112.1642), Theorem 1.1, fixes a number field k, modulus c and quadratic Hecke family in the sense of Definition 1: primitive characters with trivial infinite type, order dividing two, finite reciprocity classes, and primitive coprime same-class pair products. For M,N>=1, epsilon>0 and fixed squarefree-supported coefficients lambda_b on ideals coprime to c, it bounds the squarefree outer norm-M character second moment by O_(k,c,epsilon)((MN)^epsilon(M+N) sum_b |lambda_b|^2), with inner norms at most N. Corollary 1.2 treats the quadratic power of an even-order family. The coefficients must be independent of the outer index. Our residual completed polynomial depends on the same numerator z as the cube character, and on U/NH^3. Family identification, squareful-row treatment and quantitative separation of that coupled coefficient are still unproved. The theorem is therefore not applied; no effective constant, growing-conductor uniformity or source saving is imported.
+
+**Circularity and novelty.** CR1 uses an independently available theorem, not the desired physical nu. CR2 bounds what that direct argument can certify, not what the true energy must be. CR3 is a source-support theorem with a simple explicit threshold. None assumes RH, and none implies RH or SF-I/SF-L by itself. Relevant main declarations and both days' retrieved reports were searched for this optimized frontier and physical lower-annulus comparison. R6/R7/R8 and CF1/CF2/CF3 are explicitly inherited. The new contribution is the d-optimized frontier, its generalized unselected-length transition, and the exact identification V=B_cap on the physical rows. No claim of historical novelty outside the retrieved project record is made.
+
+### I. Conceptual Interpretation
+
+The transformed source becomes shorter, but the physical numerator shell does not move with it. This mismatch is stronger than saying that a few upper rows remain: in the all-selected consumer, every physical row is eventually outside the paid region. The remaining obligation cannot be advertised as a small exceptional tail.
+
+The next OAI investigation should therefore address the genuine annular row/source coupling or the complete signed physical pairing. Refining the same small-row estimate further cannot, by itself, supply physical coverage. This is a recommendation within the existing optional OAI campaign, not a silent change to the team's protected routes or proof contract.
+
+### J. Specialist Handoffs
+
+| Role | Precise handoff |
+| --- | --- |
+| Research Coordinator | Record CR1-CR3 as new SELF_AUDIT paper results. Keep R7 valid but do not book its low-row budget against the actual all-selected annulus. By CR3c, the previously named upper remainder V is the whole cap there. No new nu or endpoint credit. |
+| Adversarial Referee | Independently check E1, the uniform eta/delta construction, LP necessity in E3, strict cutoff endpoints and CR3c. Your November 4 R6-R8 survive this Analytic reconstruction; the new finding narrows their physical usefulness rather than refuting them. |
+| Lean Verification | After independent review, the highest-readiness new lemma is the lower analogue of lowNumeratorRows_norm_bound: aCut*Q/2<N(z). Then finite-set disjointness and V=B_cap follow. CR1 needs the per-character multiplier argument and parameter inequalities, not an assumed long-row saving. No formalization is requested before review. |
+| Prime Census Laboratory | No larger ambient cube scan is requested. A useful changed experiment must use actual annular rows and source coefficients, and compare the row-dependent residual at U/NH^3 with its quadratic cube multiplier. If that exact source is unavailable, report the limitation; do not replace it by free coefficients and call it physical evidence. |
+| Finite Wheel & Incidence | Check whether any genuinely source-preserving row map could overcome the fixed annulus; mere density or ideal-counting incidence is insufficient. Preserve the separately due MU-LIFT investigation. |
+| Owner Payment / Arithmetic Structure | No owner-to-OAI transport is supplied here. Retain the original native source and assigned JOH/VF-LOW/SAT rotation. Any suggested interaction must include the true annular admission and calibration, not a substituted small-row ball. |
+
+These handoffs are delivered only through this authorized report. No other agent was launched, no other report was changed, and no issue/PR comment was posted.
+
+### K. First Independently Missing Analytic Theorem
+
+For this cube route the unpaid source is now exactly
+
+```text
+sum_(z in lowNumeratorRows(aCut,bCut,q Z^(5/6)))
+  | sum_(nonempty L) (-1)^(|L|+1)
+      sum_(extracted H) original_removed_weight(H;t)
+        * sum_chi gamma_chi cubeWeight(Psi_(chi,z),H)
+          * original_remaining_selected_polynomial
+              (Psi_(chi,z), W_t, U/NH^3) |^2.
+```
+
+A uniform fixed-power improvement on this exact cap expression would be useful but would still leave the core and their interaction. It is an OPEN sufficient sector problem, not a new easier theorem and not a proved reduction in difficulty. CR3 says that appending the adjective 'upper' does not reduce its physical row domain. Alternatively, a direct estimate for the complete original lowRayAmplitude/inverse pairing may avoid separately paying the cap; its actual masks, height integration and normalizer would need a fresh quantitative proof.
+
+The specific independent analytic ingredient still missing from the tempting character approach is a hybrid estimate for the original numerator-dependent residual coefficients on this annulus. A conventional fixed-coefficient quadratic large sieve does not provide it without the unproved transfer just identified. No such hybrid estimate is asserted.
+
+### L. Next-Run Resume Capsule
+
+```text
+RUN: SCHEDULED 2026-11-05T17:11:01-05:00 America/New_York
+RUN_ID: UNAVAILABLE; not fabricated
+MAIN: 1667c3cf9b4e898bb9afd62ec48e24610b2156ab
+AGENTS: 547dda0d9456e7a4e1165dc72d59da6f70d5c023
+CONTRACT: 7c4ac83a1ec1a4144e1bd691391ed4244f1cc27c
+MULTIFRONT: ffd8f1c65cc4da656174956d4e03b48bea46768b
+OAI_PIN: 1581d4cbdd69a0faf34b2089614fe2a814316a6a
+SOURCE_FIRST_VERSION: 2026-11-03 plus 2026-11-04 all-selected refinement
+TASK: due OAI-NNS; optimize and then test actual coverage of cube extraction
+DEPLOYMENT_ACK: original d supplier audited; physical lower cutoff restored;
+  exact frontier, transition and cutoff checks executed
+INHERITED: CF1-CF3; Referee 20261104 R6-R8; central #1085 only at scope
+NEW: 20261105-analytic-2-CR1 optimized source restricted-row bound
+NEW: 20261105-analytic-2-CR2 exact direct-rebase exponent frontier
+NEW: 20261105-analytic-2-CR3 annular disjointness; V=B_cap physically
+NEW: 20261105-analytic-2-CR4 exact finite parameter/cutoff checks
+STATUS: PAPER_PROOF / SELF_AUDIT; independent review and new Lean PENDING
+CR1: e=max(mu,5/6-2d0-3h), mu<=5(1-2h)/6; reciprocal masses retained
+CR3: physical fit requires d0>=5h/6 at exponent level
+BINDING_J_EMPTY: every h>0 fails physical coverage for large Z
+FIRST_MISSING: true annular hybrid/source estimate, or complete signed pairing
+FULL_SOURCE_NU / COMPLETE_LOW_G / ADDITIONAL_ENDPOINT: UNKNOWN
+FORMAL_REUSE: #1085 run41872040501/job126721440818 successful;
+  tested merge5722472b6f316619b98770dc2781a47f0f7b41fd;
+  Gram blobdd2fde01ae6e2446da4e69b30f6fc80fcadb858d equals current main;
+  standard axioms verified; original cache restored, no new cold build
+NEXT_PROTECTED_ROUTE: CODIV, then NYMAN before the following OAI return
+NEXT_OAI: actual annulus/source coupling, not another small-row rebase
+ETA_GATE: SEARCH_BROAD; no strategy, schedule or permission change
+PUBLICATION: early checkpoint verified; final receipt follows actual readback
+```
+
+### Verification Appendix: Executed Checks (CR4)
+
+The standard-library verifier below was written for this changed parameter and physical-admission question. It does not rerun the already accepted ideal cube census. `python cube_row_frontier_checks.py` completed with exit code zero; `python -m py_compile cube_row_frontier_checks.py` also completed with exit code zero. Program SHA256: `bf9ccb642ec08d9efa2bb6e6b07eb7124134630b9edfa85d9fd6f75cd7a351c1`.
+
+| Exact executed test | Result |
+| --- | --- |
+| All-selected frontier, independently enumerated rational LP vertices | 10,100 cases passed |
+| Just beyond maximum allowed row exponent | 100 cases infeasible |
+| General unselected/extracted transition | 5,050 cases passed: 2,709 feasible, 2,341 infeasible |
+| Best exponent when physical transition is feasible | Equals physical row exponent in every tested case; no extra normalized power from the rebase alone |
+| Cutoff zero/one implications, including endpoints | 10,800 exact rational cases passed |
+| Annular witnesses, p in {7,13,19,31,37}, q in {1,12,144} | 15 cutoff-one fixtures outside the rebased ball |
+| Equal-slot examples K=1,...,12 | New common-row exponent no worse; strict improvement for K>=2 |
+
+The infinite statements are proved in E, not inferred from these finite tests. No original integral, effective analytic threshold, or full physical calibration instance was numerically evaluated.
+
+### Source And Continuity Ledger
+
+The following blob ledger records the material files actually used in this continuation; it is supplemented by the original source citations above and the exact report snapshots below.
+
+| Original OAI file at the fixed pin | Blob SHA |
+| --- | --- |
+| `Detector/LowSelectedBound.lean` | `695d81de46038693b9c701d55e81fe43d18d52d2` |
+| `Detector/LowSelectedSum.lean` | `a54eb9ec6a5beb0db57ce9baa658718aab808af1` |
+| `Detector/LowCompensation.lean` | `d99716fc995533acc9a563582f1d313e8587890d` |
+| `Arithmetic/IdealMobius.lean` | `6c1098ed3f3018397fd965d6a250db7092e86de7` |
+| `Reflection/LowOriginalEnergy.lean` | `3b6c81973bd5ef24c9aa8a7403f8f71663bd1da8` |
+| `Detector/LowActualReflectedEnergy.lean` | `015c046a5d4ccbf088ee627df75a5c80c7f561e6` |
+| `Detector/LowPhysicalInverseBound.lean` | `58bc871a18d9baa43d1684209027b8a2ebed87d6` |
+| `Descent/Completion.lean` | `17f1f38b6485d1960f07b9a622757d48db6680d1` |
+| `Detector/LowCentralTuple.lean` | `bb7c4eaf4dc3ec5a1467d76e4a3c576e32a433c9` |
+| `Detector/LowSlotMarks.lean` | `4dbdd321565d5bc171f5766608a367d2ee1da15a` |
+| `Reflection/LowCompletedRows.lean` | `c3a839216ff8cb4133a478ab7615f0886ce8309a` |
+| `Reflection/CompletedAggregation.lean` | `6f496762c890e70538c44e74b23487d21a0c8107` |
+| `Reflection/CompletedCanonicalEnergy.lean` | `cac725d30dcd066a0f3cde66cc5d0dc6ef4579b2` |
+| `Reflection/CompletedFiberSource.lean` | `334697b3205113fffd6a48d8dca2ba808f67b3bf` |
+| `Detector/LowActualIdealLists.lean` | `a29aae44a5e7880aa9c3b5a85a65fc3bb9945ee9` |
+| `RowCompletion/PolynomialHeight.lean` | `3a6f4e7903d2e832e562687bccf13a2fce551aed` |
+| `Detector/LowSlotPolynomial.lean` | `b1dcb5a1e51afad1d39ccd91fa58a764e39629ba` |
+| `Detector/LowTruePeriodPuncture.lean` | `7b77da5ecb4b9849ca47163d57386615e59582e5` |
+| `Detector/LowInverseEnergy.lean` | `58b1446cc6118bdebf9ebe5b5d8407e328f0b921` |
+| `Detector/LowElementRows.lean` | `504cddbc9ee2e1248ce4df1bd872cf339cbd23f0` |
+| `Detector/LowActualEnergies.lean` | `4e810c0fd2eec79fb94e35aa4ccffb2592a899b2` |
+| `Detector/LowCutoff.lean` | `b62093834abb674ab633779b5100e1c2ba2f2805` |
+| `Detector/LowInverseNormalize.lean` | `fde2683543c2e75a0d1104b4478efc2809d269f3` |
+| `Detector/LowCentralGeometry.lean` | `3e0fc6e9228fdd6a265bbf23c46ceea19659365c` |
+| `Detector/LowNominalGeometry.lean` | `4ab2dc589c83f01df50817b327583acb8ab8bcf1` |
+
+| RH_Lean main authority/source file | Blob SHA |
+| --- | --- |
+| `AGENTS.md` | `547dda0d9456e7a4e1165dc72d59da6f70d5c023` |
+| `CURRENT_PROOF_CONTRACT.md` | `7c4ac83a1ec1a4144e1bd691391ed4244f1cc27c` |
+| `docs/RHLEAN_INDEPENDENT_MULTIFRONT_NO_PIGEONHOLING_20261104.md` | `ffd8f1c65cc4da656174956d4e03b48bea46768b` |
+| `docs/RHLEAN_NATIVE_SQUARE_CLOCK_AGENT_DIRECTIVE_20261029.md` | `4fbab59cc6fcc33a4f4e7a8ef447b2f7947b53dd` |
+| `docs/RHLEAN_BROAD_SEARCH_UNTIL_ETA_20261031.md` | `8317f08996b65f2e4b32c00c91b31cb6d0c09718` |
+| `docs/RHLEAN_SOURCE_FAITHFUL_COMPLETE_RETURN_AGENT_CONTRACT_20261031.md` | `4775ee5fd95f279beab08a75d1e17127078b19a6` |
+| `docs/RHLEAN_SEVEN_AGENT_RESEARCH_ENGINE_20261101.md` | `6c1d1c10e2755017ffe9d7f40df8b9ae7692f23a` |
+| `docs/RHLEAN_ALL_VECTOR_AGENT_PROMPTS_20261030.md` | `53143573cd5b014178d11ded008dbfb1a7e6dcc5` |
+| `docs/DYNAMIC_RESEARCH_AGENTS.md` | `23b6fae1d3b6b5a69155628df709d255aea7aeca` |
+| `docs/RHLEAN_OAI_LOW_SOURCE_FIRST_AGENT_CONTRACT_20261103.md` | `0c1eff0aa4726452b0c965b4f20b70b35bf8cf12` |
+| `docs/RHLEAN_ALL_SELECTED_INVERSE_SOURCE_ATTACK_20261104.md` | `9a4d642fcff0a63934997988737ee3a54e668de9` |
+| `docs/RHLEAN_ALL_VECTOR_SYNTHESIS_AGENT_DIRECTIVE_20261030.md` | `5ef3927b372b57c56a55ded9feced1061c42b49b` |
+| `docs/RHLEAN_MULTIRUN_DAILY_AGENT_POLICY_20261031.md` | `643cfd596116720a8e5b1efc07a6124b55d70946` |
+| `research/oai_434/VF919OriginalLowTupleSignedGram.lean` | `dd2fde01ae6e2446da4e69b30f6fc80fcadb858d` |
+| `research/oai_434/VF919OriginalGainComponentLedger.lean` | `5e7cea836158fc819f37e71da5fe55c8a8dce44e` |
+
+Dedicated LOW workflow: `.github/workflows/vf919-low-first-slot-anchored.yml`, blob `974ca5dd2ce18a0dd03a64cf19d360f3340c1d20`. The verified Gram source is [available at the exact current pin](https://github.com/OVVO-Financial/RH_Lean/blob/1667c3cf9b4e898bb9afd62ec48e24610b2156ab/research/oai_434/VF919OriginalLowTupleSignedGram.lean).
+
+| Two-day report at the intake reporting snapshot | Blob SHA |
+| --- | --- |
+| `research/agent_reports/2026-11-04/00-coordinator-am.md` | `68495a5e913eee0e788940a683cf16ec4d0984cc` |
+| `research/agent_reports/2026-11-04/10-owner-payment.md` | `560b0b7617703b64e728e12e60a390646c9379ea` |
+| `research/agent_reports/2026-11-04/20-analytic-type-ii.md` | `04ffb1b41d8b6afe5a5d89754f5ccbc8d9682d58` |
+| `research/agent_reports/2026-11-04/30-finite-wheel.md` | `37ad6a1230fbb46369311790ed5686baf1775598` |
+| `research/agent_reports/2026-11-04/40-prime-census.md` | `4bd5319fa3d13219cdad006dce4a854b606c2f7c` |
+| `research/agent_reports/2026-11-04/50-adversarial-referee.md` | `0e4fdfbf90d52a74074e04ef6cb6988339dc8d84` |
+| `research/agent_reports/2026-11-04/60-lean-verification.md` | `5fce0138779d67eda4e69c13230274e6419de894` |
+| `research/agent_reports/2026-11-05/00-coordinator-am.md` | `88c4b9f83cc3dcea885d0c9ddb1fc26cedef4632` |
+| `research/agent_reports/2026-11-05/10-owner-payment.md` | `39665b5b28fc48378519ab9d56cee8df4d3e2681` |
+| `research/agent_reports/2026-11-05/20-analytic-type-ii.md` | `0774002d5244d373b0230429802cd1cfd8a3a8e8` |
+| `research/agent_reports/2026-11-05/30-finite-wheel.md` | `000bd6a7e0900373f8fca05a607676f6170f1032` |
+| `research/agent_reports/2026-11-05/40-prime-census.md` | `44f070eed4302f3d8d560346c6fb9b66c35be18a` |
+| `research/agent_reports/2026-11-05/50-adversarial-referee.md` | `df74121b0a07297776a106ccd1b9d80a36b12fc5` |
+| `research/agent_reports/2026-11-05/60-lean-verification.md` | `c9e8255d2c00a2b317f39531589ac2a16f8e3518` |
+
+Coordinator 90 mirrors had the same corresponding day blobs as 00. External inbox: `research/agent_reports/EXTERNAL_HANDOFFS.md`, blob `038018145c0fddb2f6306c0712373adf9cd1ea52`. These are intake snapshots; the own-report checkpoint and final publication have their separately verified hashes.
+
+### Reproducibility Appendix: Complete CR4 Verifier
+
+```python
+"""Exact parameter and cutoff checks, not evaluations of OAI integrals."""
+
+from fractions import Fraction as F
+from itertools import combinations
+from math import isqrt
+import json
+
+
+def vertices(h, mu, d0=F(0)):
+    rho = 1 - 2 * h
+    u = F(7, 6) - d0 - 3 * h
+    # Each boundary is a*s+b*v=c, with v=s*d.
+    boundaries = [(0, 1, 0), (-F(1, 6), 1, 0),
+                  (1, 0, rho), (-F(7, 6), 1, -u),
+                  (F(5, 6), -2, mu), (1, 0, 0)]
+    out = []
+    for (a, b, c), (d, e, f) in combinations(boundaries, 2):
+        det = a * e - b * d
+        if not det:
+            continue
+        s = F(c * e - b * f, det)
+        v = F(a * f - c * d, det)
+        energy = F(5, 6) * s - 2 * v
+        if (0 < s <= rho and 0 <= v <= s / 6
+                and v <= F(7, 6) * s - u and energy >= mu):
+            out.append((s, v, energy))
+    return out
+
+
+def check_frontier():
+    checked = infeasible = 0
+    for j in range(1, 101):
+        h = F(j, 600)
+        rho = 1 - 2 * h
+        low = F(5, 6) - 3 * h
+        high = F(5, 6) * rho
+        u = F(7, 6) - 3 * h
+        ell = (F(1, 6) - h) / rho
+        for k in range(101):
+            mu = high * F(k, 100)
+            energy = max(mu, low)
+            d = (high - energy) / (2 * rho)
+            assert 0 <= d <= F(1, 6)
+            assert 0 <= ell <= F(1, 6) - d
+            assert rho * (1 + ell) == u
+            assert rho * (F(5, 6) - 2 * d) == energy
+            assert energy >= mu
+            exact_vertices = vertices(h, mu)
+            assert exact_vertices
+            assert min(v[2] for v in exact_vertices) == energy
+            checked += 1
+        assert not vertices(h, high + F(1, 600))
+        infeasible += 1
+    return {"frontier_cases": checked, "above_frontier_infeasible": infeasible}
+
+
+def norm(a, b):
+    return a * a - a * b + b * b
+
+
+def check_cutoffs():
+    # smoothTransition is zero at arguments <=0 and one at arguments >=1.
+    # We check only these exact, source-proved implications, not its interior.
+    cutoff_cases = 0
+    for a in (F(1, 4), F(1, 2), F(1), F(2)):
+        for b in (a, 2 * a, 4 * a):
+            for q in (F(1), F(12), F(144)):
+                for n in range(0, 300):
+                    x = F(n, 13) / q
+                    if x <= a / 2:
+                        assert 2 * x / a - 1 <= 0
+                    if x >= 2 * b:
+                        assert 2 - x / b <= 0
+                    if a <= x <= b:
+                        assert 2 * x / a - 1 >= 1
+                        assert 2 - x / b >= 1
+                    cutoff_cases += 1
+    fixtures = []
+    for p in (7, 13, 19, 31, 37):
+        for q in (1, 12, 144):
+            # Z=p^6, h=1/6, Q=q*p^5, aCut=1/2, bCut=2.
+            Q = q * p**5
+            m = isqrt(Q) + 1
+            n = norm(m, 0)
+            assert F(1, 2) <= F(n, Q) <= 2
+            assert n <= 4 * Q
+            # Ck=4*q: low cap=(4*q)*p^(10/3). Cubing is exact.
+            assert (F(Q, 4))**3 >= (4 * q)**3 * p**10
+            assert n**3 > (4 * q)**3 * p**10
+            fixtures.append({"p": p, "q": q, "m": m, "N_m": n,
+                             "Q": Q, "cutoff_equals_one": True})
+    return {"cutoff_implications": cutoff_cases, "annular_fixtures": fixtures}
+
+
+def check_consequences():
+    records = []
+    for K in range(1, 13):
+        ellmin = F(1, 6 * K)
+        old = F(5, 6) - F(5, 3) * ellmin
+        new = max(F(5, 9), F(5, 6) - 3 * ellmin)
+        assert new <= old
+        if K >= 2:
+            assert new < old
+        records.append({"K": K, "old_common_row_exponent": str(old),
+                        "new_common_row_exponent": str(new),
+                        "squared_gain_within_small_rows": str(F(5, 6) - new)})
+    # Fixed inner cutoff cannot meet a polynomially smaller numerator ball.
+    for j in range(1, 101):
+        h = F(j, 600)
+        assert F(5, 6) - F(5, 6) * (1 - 2 * h) == F(5, 3) * h > 0
+    return records
+
+
+def check_unselected_transition():
+    checked = feasible = 0
+    for j in range(100):
+        d0 = F(j, 600)
+        for k in range(1, 101 - j):
+            h = F(k, 600)
+            rho = 1 - 2 * h
+            physical = F(5, 6) - 2 * d0
+            high = F(5, 6) * rho
+            low = physical - 3 * h
+            ell = (F(1, 6) - d0 - h) / rho
+            assert ell >= 0
+            vv = vertices(h, physical, d0)
+            assert bool(vv) == (d0 >= F(5, 6) * h)
+            if vv:
+                assert min(v[2] for v in vv) == physical
+                feasible += 1
+            else:
+                assert physical - high == F(5, 3) * h - 2 * d0 > 0
+            # A distinct interior row cap tests the generalized optimal bound.
+            mu = high / 2
+            energy = max(mu, low)
+            d = (high - energy) / (2 * rho)
+            assert 0 <= d <= F(1, 6)
+            assert ell <= F(1, 6) - d
+            assert min(v[2] for v in vertices(h, mu, d0)) == energy
+            checked += 1
+    return {"unselected_transition_cases": checked,
+            "physical_geometry_feasible_cases": feasible,
+            "physical_geometry_infeasible_cases": checked - feasible,
+            "extra_normalized_power_from_feasible_rebase": "0"}
+
+
+def main():
+    result = check_frontier()
+    result.update(check_cutoffs())
+    result["equal_slot_examples"] = check_consequences()
+    result.update(check_unselected_transition())
+    result["scope"] = "Exact rational geometry; no Gauss coefficients or OAI integrals evaluated."
+    print(json.dumps(result, indent=2, sort_keys=True))
+
+
+if __name__ == "__main__":
+    main()
+```
