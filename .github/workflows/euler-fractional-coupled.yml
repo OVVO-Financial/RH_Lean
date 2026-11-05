@@ -7,6 +7,8 @@ on:
       - "research/EULER_FRACTIONAL_COUPLED_20261027.lean"
       - "research/EULER_RANK_ONE_FRACTIONAL_ROWS_20261027.lean"
       - "research/EULER_FRACTIONAL_COUPLED_AUDIT_20261027.md"
+      - "scripts/audit_euler_fractional_axioms.py"
+      - "scripts/test_euler_fractional_axioms.py"
       - ".github/workflows/euler-fractional-coupled.yml"
   workflow_dispatch:
 
@@ -19,6 +21,8 @@ jobs:
     timeout-minutes: 90
     steps:
       - uses: actions/checkout@v4
+      - name: Regress missing declarations, multiline axioms, and compiler failures
+        run: python3 -m unittest discover -s scripts -p 'test_euler_fractional_axioms.py' -v
       - name: Set up pinned Lean and cached Mathlib
         uses: ./.github/actions/lean-setup
       - name: Restore PNT+ build cache
@@ -36,35 +40,23 @@ jobs:
           restore-keys: |
             rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-
       - name: Compile exact research import closure with warnings fatal
+        uses: ./.github/actions/research-compile
+        with:
+          build-library: 'true'
+          targets: research/EULER_RANK_ONE_FRACTIONAL_ROWS_20261027.lean
+      - name: Audit exact theorem types and axiom coverage
+        id: euler_axioms
+        shell: bash
         run: |
-          python3 scripts/compile_research_import_closure.py --build-library \
-            research/EULER_RANK_ONE_FRACTIONAL_ROWS_20261027.lean
-      - name: Audit new theorem axioms
-        run: |
-          cat > /tmp/euler_fractional_axioms.lean <<'EOF'
-          import «research.EULER_HYBRID_TRIANGULAR_GRAM_20261027»
-          #print axioms RHLean.Proof.eulerFloorBilinearQ_eq_continuous_sub_fractional
-          #print axioms RHLean.Proof.eulerContinuousBilinearQ_eq_reciprocal_square
-          #print axioms RHLean.Proof.eulerFloorBilinearQ_cast_eq_original
-          #print axioms RHLean.Proof.eulerFloorBilinearQ_eq_continuous_sub_diag_sub_twice_off
-          #print axioms RHLean.Proof.eulerFractionDiagonalQ_bounds
-          #print axioms RHLean.Proof.eulerRankOneFloorKernel_eq_coupled_fracs
-          #print axioms RHLean.Proof.eulerRankOneResidualQ_eq_floor_sub_linear
-          #print axioms RHLean.Proof.eulerRankOneFloorKernel_divisor_row
-          EOF
-          lake env lean -DwarningAsError=true /tmp/euler_fractional_axioms.lean | tee /tmp/euler_fractional_axioms.log
-          if grep -q 'sorryAx' /tmp/euler_fractional_axioms.log; then exit 1; fi
-          python3 - <<'PY'
-          import re
-          log = open('/tmp/euler_fractional_axioms.log').read()
-          allowed = {'propext', 'Classical.choice', 'Quot.sound'}
-          for line in log.splitlines():
-              match = re.search(r"depends on axioms: \[(.*)\]", line)
-              if match:
-                  used = {a.strip() for a in match.group(1).split(',') if a.strip()}
-                  assert used <= allowed, f"Nonstandard axioms: {used - allowed}"
-          print("PASS standard axioms only")
-          PY
+          set -euo pipefail
+          python3 scripts/audit_euler_fractional_axioms.py --output-dir /tmp/euler-fractional-audit
+      - name: Preserve exact theorem signatures and axiom evidence
+        if: ${{ !cancelled() && steps.euler_axioms.outcome != 'skipped' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: euler-fractional-audit-${{ github.run_id }}-${{ github.run_attempt }}
+          path: /tmp/euler-fractional-audit/
+          if-no-files-found: error
       - name: Reject admitted proofs in changed source
         run: |
           python3 - <<'PY'
