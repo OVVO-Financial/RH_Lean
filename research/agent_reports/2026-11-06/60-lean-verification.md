@@ -532,3 +532,37 @@ preserved. This receipt records that completed verification; it does not
 claim human merge, a new independent review of the enlarged domain, or
 closure of the global signed/RH objective. PR #1097 remains review-ready
 at `bc727dc9f7dd655fdd2addc943b246ad70ef576d` with all 13 checks green.
+
+## Scheduled Midday Checkpoint - 2026-11-06 13:14 EST Invocation
+
+Actual trigger: SCHEDULED at 2026-11-06T13:14:00-05:00, America/New_York.
+RUN_ID_UNAVAILABLE. This is a new actual invocation. Status: PARTIAL / CI_PENDING.
+All earlier findings, failed-CI records and publication history above are preserved.
+
+### Live Authority And Continuity
+
+Intake main was 4a6e6b8c1a81f6dd8b8bc0cfad123bbc2a56188a. During intake the human merged #1097 and #1098. The refreshed proof baseline is **25319eb07e6b2abf8b218671c55635127832b72a**, tree 3a413590bde91ccac333e8135f1c6f76cb9819bf. Latest AGENTS is 48b2a58ab5fcd402321a4dace511c7d54bf688a1; proof contract remains 7c4ac83a1ec1a4144e1bd691391ed4244f1cc27c.
+
+**baseline_ack=PAID_BASELINE_EXACT_CONSUMER_V1**, policy 13d58dd12d90fbf1160812c7c93442dc5d0576ac. **deployment_ack=NO_PIGEONHOLING_ROUTE_SELECTOR_V1**, policy ffd8f1c65cc4da656174956d4e03b48bea46768b. The established native replay, global signed-prefix bound and existing strict gaps are retained; no redundant reconstruction, tiny-slot optimization or new endpoint gain is claimed. The canonical VF/RH objective stays OPEN; SEARCH_BROAD.
+
+All available November 5/6 role report bytes and the external inbox were retrieved. Relevant current summaries and the selected route's original proof/review were read. Today's Coordinator only has a partial checkpoint: completed synthesis TODAY=PENDING; November 5 YESTERDAY=CARRY_FORWARD. External inbox 038018145c0fddb2f6306c0712373adf9cd1ea52 has no newer entry than October 18.
+
+#1097 is now human-merged at 13390aee64181f8109a88139ec656d2424b26fba, proof head bc727dc9f7dd655fdd2addc943b246ad70ef576d. Its twelve successful exact-head workflows and actual dedicated log 42203731194 / 127845057234 were read, including all nine standard-axiom declarations. No repair or rebuild was needed. The live open-PR collection was empty immediately before creating #1099.
+
+### Selected Mathematics And Actual Implementation
+
+Selected **20261106-analytic-2/RM5**, independently accepted by **20261106-referee-7**. Origin report blob b075be67af6294e41f6eb232f611c208799c5e04; independent review blob 68ada01df5bd54ef07d22f1ebc4009ef9dd7e5b4. Formalization ID **20261106-lean-2/NYMAN-NULL**.
+
+At N=12, the direction (7,-16,9) at indices (7,8,9) preserves total and reciprocal moments, periodic mean, all low coefficients, and every complete residual at m<=6. It changes the original residual at m=7 by 7t. For every baseline and budget, the complete finite weighted squared residual over 1<=m<=T, T>=7, can exceed that budget. The final corollary transports this to the original Mobius flat kernel and logarithmic scale for 1<=H<12.
+
+This is a scoped obstruction to a UNIFORM later-energy bound over unrestricted high corrections. It does not refute the controlled two-band FAMILY, a norm infimum, NYMAN, or RH. No infinite-norm theorem is claimed as a new Lean declaration. All complete-square mixed terms are retained.
+
+Draft [PR #1099](https://github.com/OVVO-Financial/RH_Lean/pull/1099) is open on agent/lean-verification/20261106-nyman-moment-null, initial head **e0271e1a467ccc59bd6c4aa3cef3656e26f006b4**, base 25319eb07e6b2abf8b218671c55635127832b72a. Source blob **da928730db1da776b0669840f7ef7e6816a0080e** was fetched back byte-for-byte. Three files only: the focused Lean module, exact rational regression, and cache-enabled dedicated proof workflow. Existing CI safeguards are unchanged.
+
+Twenty exact rational cases and a broken-direction control passed locally and in Actions. No local Lean ran. Actual exact-head workflows have started, including [targeted compilation 42270667934](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42270667934) and [dedicated theorem/axiom audit 42270668081](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42270668081). Formal state is DRAFT_PR / CI_PENDING, not PROVED_IN_LEAN yet.
+
+Other qualified candidates: CORR4 CP2 finite weighted integration and NYMAN RM2 analytic first-N estimate need more analytic infrastructure. New Owner DR, Wheel PB, Census HC and Referee-8/-10 remain independently review-pending. No accepted endpoint estimate was silently replaced with an assumed supplier.
+
+Operational note: an earlier checkpoint-write sequence stalled without confirmed publication and was stopped. A fresh fetch found the daily report unchanged at 7138b713a44f514ade3a64db44268c1934b215d0. This accurate checkpoint uses an atomic report-only branch update; publication will be claimed only after immutable readback. Connected proof-branch/tree/commit/ref/PR writes all succeeded. Direct clone was blocked by CONNECT 403. No agent launch, main write, merge, auto-merge or schedule change occurred.
+
+Next: diagnose actual compiler output, repair without changing theorem meaning, verify latest head/axioms and repository checks, and append the final research capsule.
