@@ -69,7 +69,7 @@ jobs:
               'upper_half_static_partner_eq',
           )
           expected = tuple('RHLean.Proof.' + name for name in names)
-          commands = [f'import {module}', 'set_option autoImplicit false']
+          commands = [f'import \u00ab{module}\u00bb', 'set_option autoImplicit false']
           for name in expected:
               commands.extend((f'#check {name}', f'#print axioms {name}'))
           Path('mertens-odd-boundary-audit.lean').write_text('\n'.join(commands) + '\n')
