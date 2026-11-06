@@ -1641,3 +1641,1228 @@ Methods planned: exact Python arithmetic and independent C++ trial-factor/
 endpoint reconstruction; no local Lean. Preserve all original signs,
 squares and mixed terms. Publish code, exact certificates, honest finite
 coverage, proof scope and the first unpaid complete-source inequality.
+
+
+## Higher-Depth Final Synthesis - 20261106-census-2
+
+This completes the scheduled 2026-11-06 11:00:01 EST invocation, not a
+new launch. RUN_ID_UNAVAILABLE. Calculations and independent implementation
+checks are complete. Publication is established by the later receipt.
+
+Operational correction: the checkpoint's typed `16:12 UTC` preparation
+timestamp was inaccurate. Its write and exact readback were already complete
+by the observed clock reading **2026-11-06 16:11:29 UTC**. The actual scheduled
+trigger above is unchanged. This correction preserves the original entry.
+
+### A. Most Important Mathematical Discovery
+
+**A higher-depth extension is possible, but local legality does not prevent
+different cofactors from spending the same donor. A recoverable cofactor
+fixes that collision, while a separate factor-ratio obstruction limits the
+entire construction.**
+
+At **X=87283**, the two individually valid lifts
+
+```text
+17*59*61 = 61183  <->  3*17*19*61 = 59109,
+19*59*61 = 68381  <->  3*19*17*61 = 59109
+```
+
+reuse one physical donor. This is the first collision for the precisely
+registered unrestricted lift at every integer cutoff from 4 onward.
+It is not a Hall obstruction to every matching: changing the first donor
+to `3*17*23*61=71553` repairs the whole 15-source packet.
+
+The constructive repair is to require
+`16*c*Pplus(c)^2<=X`. Then the original cofactor is recoverable uniquely
+from both endpoints, so ALL permitted cofactors can be combined at once.
+This extends morning GM3 beyond depth two, retains greatest-prime ownership,
+and preserves the old P9 and qualified 13/15 matches without double use.
+
+For every FIXED `0<alpha<1/3`, the subfamily `c<=X^alpha` has a proved
+paper asymptotic
+
+```text
+number of pairs ~ delta_390*alpha/[50*(1-alpha)] * X/log X,
+delta_390 = 65/(28*pi^2).
+```
+
+This gains a logarithmic factor over GM3's fixed-cofactor packet. However,
+even the union over EVERY separated cofactor contains only
+`O(X/log log X)` pairs. Its two largest source primes are too close in
+ratio to cover a positive-density population. The complete remainder
+after all three stages still has leading term `157X/(84*pi^2)`.
+Thus growing factor depth alone does not repair an absolute-remainder
+MU-LIFT finish.
+
+| Claim | Result | Evidence |
+| --- | --- | --- |
+| HC1 | First duplicate donor at X=87283; exact full-packet repair | REFUTED for H-LOCAL; FINITE_COMPUTATION |
+| HC2 | Simultaneous separated-cofactor injection, all finite X under stated hypotheses | PAPER_PROOF |
+| HC3 | Growing cofactor subfamily has the displayed X/log X asymptotic | PAPER_PROOF |
+| HC4 | Entire separated family is O(X/log log X); complete cardinality remains linear | PAPER_PROOF |
+| HC5 | Exact source, multiplicity, sign, full-square and independent reconstruction checks | FINITE_COMPUTATION |
+
+Claim prefix: `20261106-census-2/`. Paper proofs are SELF_AUDIT,
+INDEPENDENT_REVIEW_PENDING and NOT_FORMALIZED. No new Lean result, uniform
+Mertens estimate, canonical VF estimate or RH proof is asserted.
+`eta_gate=SEARCH_BROAD`; new net endpoint gain `UNKNOWN`.
+
+### B. Current Authoritative Objective And Provenance
+
+Repository: OVVO-Financial/RH_Lean. Main actually retrieved at invocation:
+**4a6e6b8c1a81f6dd8b8bc0cfad123bbc2a56188a**, tree
+**48b193cd105e21183b1cfd68b059894c8056f35c**. Initial reporting snapshot:
+**12f56ca7cc7a9a9d450cc7907e3411b219593e21**.
+Authority retrieval began at 16:00 UTC on November 6, America/New_York
+date November 6, UTC offset -05:00.
+
+The unchanged canonical target is
+
+```text
+VFCanonicalSquareVonKochStatement:
+exists C>=0, forall integers R>=2,
+ |pi(R^2)-VF_can(R^2)| <= C*R*log R.
+```
+
+It is OPEN. The inspected canonical consumer still explicitly requires
+ClassicalVonKochRHCriterion. This run instead uses the genuine Mobius
+MU-LIFT carrier and does not identify it with weighted native VF or Hecke.
+
+| Source at pinned main | Blob SHA |
+| --- | --- |
+| AGENTS.md | 547dda0d9456e7a4e1165dc72d59da6f70d5c023 |
+| CURRENT_PROOF_CONTRACT.md | 7c4ac83a1ec1a4144e1bd691391ed4244f1cc27c |
+| Independent multi-front policy | ffd8f1c65cc4da656174956d4e03b48bea46768b |
+| Stable task selector | 4fbab59cc6fcc33a4f4e7a8ef447b2f7947b53dd |
+| Broad-search policy | 8317f08996b65f2e4b32c00c91b31cb6d0c09718 |
+| Complete-return contract | 4775ee5fd95f279beab08a75d1e17127078b19a6 |
+| Persistent research engine | 6c1d1c10e2755017ffe9d7f40df8b9ae7692f23a |
+| Role prompts | 53143573cd5b014178d11ded008dbfb1a7e6dcc5 |
+| Dynamic protocol | 23b6fae1d3b6b5a69155628df709d255aea7aeca |
+| research/MERTENS_ODD_BOUNDARY_PRIME_ESCAPE_20261105.lean | 3cbc5159536d6b9e5000f74c5bd018bd2d62daf1 |
+| research/MERTENS_HEATH_BROWN_SIGNED.lean | af69b4811cf9f523eb7c96fb0ca836b2cdbd1180 |
+| research/MERTENS_FINITE_PREFIX_EXTENSION.lean | 131e9af86207a42d4bf6488e3f64c9ce4f97e5df |
+| research/VF_CANONICAL_SQRT_TWO_VON_KOCH.lean | 79030d70e8d3e0d08eef9bac53fef95c36eca2fb |
+
+`deployment_ack=NO_PIGEONHOLING_ROUTE_SELECTOR_V1`. Selected task:
+MU-LIFT-HIGHER-DEPTH-DONOR-UNIQUENESS, the explicit morning resume request.
+Prior Census support was CORR4 then JOH then morning MU-LIFT. This targeted
+completion does not bind other investigators or supersede protected rotation.
+
+Recent accepted source changes were discovered: #1094's Nyman correction
+inequality, #1095's fail-closed Euler audit repair and #1096's odd-boundary
+theorem. Only #1097 is open, non-draft, head
+bc727dc9f7dd655fdd2addc943b246ad70ef576d, concerning CORR4 sampling.
+It is not used as a supplier here.
+
+Relevant formal evidence was actually fetched: #1096 was merged at
+2026-11-06T05:44:44Z; proof head ecf701ff2fea1de52e505ee34048a2b3c220f0fc.
+[Dedicated run 42150511056](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42150511056)
+and job 127672350630 succeeded. The log contains warning-fatal checking,
+the ten exact declarations, and actual axiom lists limited to propext,
+Classical.choice and Quot.sound. Its synthetic merge
+7783734bdc9960d3c2483af380759db85e87bc8f has the SAME tree as pinned main.
+This verifies inherited finite source infrastructure, NOT HC1-HC4.
+No local Lean or new GitHub Actions run was launched.
+
+### C. Competing Hypotheses And Preregistration
+
+The early checkpoint was committed as
+**7c31c079056bc7b73400f2cf10aed6b1337cccb4**, blob
+**130cd84b6d4e5db608f9162ce9d1ca1830c12073**, and read back byte-identically.
+It fixed the following before the census:
+
+1. H-LOCAL: individually legal common-cofactor lifts can be united without
+   endpoint collisions. Rival: different cofactors reuse a donor.
+2. H-SEPARATED: `16*c*Pplus(c)^2<=X` supplies a collision-free, sign-reversing,
+   greatest-prime-preserving union that does not reuse prior endpoints.
+3. Quantitative candidate: fixed `0<alpha<1/3` permits the displayed
+   `X/log X` pair count for `c<=X^alpha`, with uniform PNT and exact density.
+
+The rejection conditions were a duplicate endpoint, incorrect admission,
+wrong sign, factor-edit mismatch, old-site reuse, or failed full reconstruction.
+Development: every X=4..2048 plus 4095,8191,16383. Held-out fixtures:
+65535,262143,1048575. H-LOCAL alone was to scan every X=4..131071 and stop
+at its first collision. It stopped at 87283, after 87,280 cutoffs.
+No result is claimed for the unexecuted remainder of that search.
+
+Before the first program ran, its supplementary donor-capacity check was
+also fixed: at a collision, allow every r in the SAME admitted K_c and
+test whether distinct donors remain available. This was written in the
+program after the published checkpoint, not retroactively claimed to be
+part of that earlier remote text.
+
+HC4's all-cofactor upper bound and the six high-depth fixture pairs were
+developed after the initial results. They are expressly post-discovery
+proof analysis and exact checks, not preregistered predictions.
+
+### D. Exact Carrier And Construction
+
+For integer X>=4, reuse the literal main definition
+
+```text
+U_X={n: 1<=n<=X, n odd, X<2n, mu(n)!=0},
+M(X)=sum_(1<=n<=X)mu(n)=sum_(n in U_X)mu(n).
+```
+
+The equality is the inspected `sum_moebius_eq_oddSquarefreeUpper`.
+Signs are genuine Mobius signs and weights are one. Squareful coefficients
+are zero; no nonzero physical site or historical occurrence is deduplicated.
+
+Set Pplus(1)=1. For squarefree positive c coprime to 390, let y=X/c as
+a RATIONAL number, without replacing it by floor(X/c). Define
+
+```text
+J_c={prime p: 25*c*p^2>16X, 100*c*p^2<=81X}={p_1<...<p_m},
+K_c={prime r>13:16*c*r^2>X,625*c*r^2<=81X}={r_1<...<r_l}.
+```
+
+Only nonempty packets with m>=2, min(J_c)>29 and l>=m-1 are used.
+The proposed edge for i<j is
+
+```text
+a_(c,i,j)=c*p_i*p_j  <->  b_(c,i,j)=3*c*r_i*p_j.      (HC)
+```
+
+The unrestricted H-LOCAL test keeps only those edges for which
+gcd(c,p_i*p_j*r_i)=1. The separated construction instead requires
+`16*c*Pplus(c)^2<=X`, which automatically gives that coprimality.
+There is no cofactor cutoff in HC2; HC3 alone adds c<=X^alpha.
+
+The retained old matching is exactly the sorted-list P9 stage, with
+P9={3,5,7,11,13,17,19,23,29}, partner s*q, q>29, X/2<s*q<=X,
+followed by qualified R14 pairs 13d<->15d with
+gcd(d,390)=1, mu(d)!=0, omega(d)>=2, X<26d and 15d<=X.
+The new c=1 packet CONTAINS morning GM3. It replaces that stage as part
+of a larger union; it must not be added to GM3 or C66 a second time.
+
+All nonempty packets require r_1>=17, hence
+`625*c*17^2<=81X`. This proves the finite cofactor loop bound used by
+both implementations; it is not a heuristic cutoff.
+
+### E. Executed Results And Independent Checks
+
+Python and independently structured C++ computations agree on EVERY one
+of the 2,051 output rows. All separated-packet admission, sign, three-edit,
+greatest-prime, old-mate preservation and complete reconstruction checks pass.
+The new full-source tests do not recompute GM1's maximum full-graph matching.
+
+| X | Original U_X size | M(X) | Old P9/R14 pairs | New pairs, all separated c | Of these c>1 | Of these c^4<=X | Final remainder size |
+| ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| 145 | 30 | 0 | 5 | 0 | 0 | 0 | 20 |
+| 8191 | 1660 | 22 | 482 | 1 | 0 | 1 | 694 |
+| 16383 | 3320 | -32 | 912 | 7 | 1 | 7 | 1482 |
+| 65535 | 13286 | 14 | 3239 | 7 | 1 | 7 | 6794 |
+| 262143 | 53114 | 24 | 11715 | 46 | 18 | 46 | 29592 |
+| 1048575 | 212485 | 257 | 42899 | 190 | 70 | 178 | 126307 |
+
+At X=145 this uses the previously registered P9 pool, NOT GM2's
+{3,5,7} pool. Thus the 20-site remainder does not contradict that earlier
+zero-residual repair. No new matching is claimed there.
+
+At X=1048575 the 190 new pairs use 13 distinct cofactors. Pair counts by
+omega(c) are 120 at depth zero, 64 at depth one and 6 at depth two.
+The first depth-two-cofactor pair is
+
+```text
+c=77=7*11: 754369=77*97*101 <-> 723261=3*77*31*101.
+```
+
+For the exact higher-depth fixture X=21445347, c=1309=7*11*17, the six
+morning base pairs scale to six legal depth-five/depth-six pairs. One is
+
+```text
+14426489=7*11*17*103*107
+ <-> 15546993=3*7*11*17*37*107.
+```
+
+This is a direct twelve-endpoint certificate, not a population census to
+21 million. Trial division verifies all twelve endpoints, all signs, the
+bands, separation, distinctness and greatest-prime preservation. Old-stage
+nonuse follows from the proved depth/divisibility tests in H, not from a
+claimed scan of all earlier endpoints at that larger X.
+
+Python uses a prime-multiple sign sieve, exact integer square roots and
+factor-set checks. C++ independently trial-factors EVERY integer through
+1048575, enumerates the bands by direct integer inequalities, and recovers
+old semiprimes from actual sites rather than multiplying the Python prime
+table. It directly accumulates the residual off-diagonal sum by streaming
+signed partial sums. No factor arrays, endpoint tables or matchings are
+shared between the two census implementations.
+
+The standalone certificate audit uses only trial division and exact rational
+arithmetic. It independently checks the duplicate and repair, the high-depth
+fixture, and the squarefree/coprime double-divisor count at six specified
+cutoffs. For example Q_390(4095)=961 is reused as a regression, not a new
+discovery. The rational constant at alpha=1/4 is checked as 13/840 times
+1/pi^2. No decimal fitting, probabilistic primality or floating sign test
+is used. Running two implementations is not independent Referee acceptance
+of an all-scale proof.
+
+### F. Smallest Collision, Its Scope And Repair
+
+At X=87283 the actual lists are
+
+```text
+c=17: J={59,61}, K={19,23};
+c=19: J={59,61}, K={17,19,23}.
+```
+
+Both cofactors are squarefree and coprime to 390; each displayed edge is
+squarefree, lies in (X/2,X], changes exactly three prime factors, preserves
+greatest prime 61 and reverses -1 to +1. Both are unused by P9 (their
+depths exceed two) and by R14 (neither endpoint is divisible by 13 or 15).
+Nevertheless their donor is identical. The cofactor 19 is interchangeable
+with donor factor 19 in the other presentation. Separate endpoint legality
+therefore cannot justify the union.
+
+The actual separated test keeps c=17 and excludes c=19 here:
+
+```text
+16*17^3=78608 <=87283; 16*19^3=109744 >87283.
+```
+
+Alternatively retain both sources and change ONLY c=17's donor to
+71553=3*17*23*61. The standalone audit reconstructs all 15 local source
+records and verifies that this one replacement yields 30 different legal
+endpoints. The expanded-donor program separately obtains 15 matches for
+15 sources from 33 available donors. Thus a fixed assigned-edge subgraph
+has a two-sources/one-donor deficit, but the expanded graph does not.
+
+Both programs exhaust every smaller integer X=4..87282 and find no
+duplicate for the REGISTERED rule. Minimality concerns that exact sorted
+band lift with min(J)>29 and the count/coprimality filters, not every
+conceivable common-cofactor construction or arbitrary partial matching.
+The previous X=145 failure concerns a different assertion and remains valid.
+
+### G. Hidden Variables And Complete Signed Square
+
+The operative hidden variable is **whether the original cofactor can be
+recovered from the donor's factorization**. A donor representation can
+exchange a prime inside c with r_i. Greatest-prime preservation and the
+sign of each individual pair do not detect this collision. The separation
+condition imposes a canonical factor ordering and prevents the exchange.
+
+Let v be the total number of new disjoint pairs, let
+`S=sum_(c,i<j)mu(c)`, and let Z be the signed final remainder. Unlike the
+old c=1 packet, S is NOT necessarily v. All factor-depth signs remain:
+
+```text
+M(X)=S-S+Z;
+M(X)^2=S^2+S^2+Z^2-2S^2+2SZ-2SZ=Z^2.
+```
+
+At X=1048575, v=190 but S=62: 126 source endpoints are positive and
+64 are negative. The complete signed mass is Z=257 and Z^2=66049.
+The final physical diagonal is D=126307; the exact UNORDERED
+off-diagonal is C=-30129, giving D+2C=66049. Before this new stage,
+D=126687 and C=-30319. Removing the matched sites changes both terms;
+their negative interactions cannot be spent again as a global payment.
+
+This is the true Mobius square, not empirical mean-centered covariance or
+the clipped historical #915 NNS normalization. All cross-cofactor and
+matched/remainder interactions are included before their algebraic cancellation.
+
+### H. Finite Simultaneous Injection: Complete Proof Of HC2
+
+Fix any X>=4 and take ALL cofactors meeting D's conditions and separation.
+The band inequalities give, for each i<j,
+
+```text
+16X/25 < c*p_i*p_j <= 81X/100;
+3X/5 < 3*c*r_i*p_j <= 243X/250 < X.
+```
+
+Thus both endpoints belong to the exact upper half. Separation gives
+
+```text
+every prime dividing c <= Pplus(c) <= (1/4)sqrt(X/c) < r_i < p_i < p_j.
+```
+
+Since gcd(c,390)=1, c contains none of 2,3,5,13. All listed factors are
+distinct. Consequently mu(a)=mu(c), mu(b)=-mu(c), and their factor sets
+differ precisely at {p_i,3,r_i}. Their greatest prime is p_j.
+
+Source injectivity across ALL cofactors: p_i,p_j are the two largest
+prime factors of a; deleting them recovers c. Their ordered values then
+recover i,j in J_c. Donor injectivity: p_j,r_i are the two largest prime
+factors of b; its factor 3 occurs once and is not in c. Deleting those
+three factors recovers c, then r_i identifies i and p_j identifies j.
+Source and donor populations cannot intersect because sources are not
+divisible by 3 and donors are. Hence the entire union is a matching.
+
+No endpoint is consumed by the factor-two pairing: both are odd upper-half
+sites. If c>1, the source has at least three prime factors and the donor
+at least four, so neither is a PE1 prime or semiprime. If c=1, the source
+has two primes greater than 29, so it is not a P9 partner; the donor has
+depth three. No new endpoint is divisible by 13 or 15, so none is an R14
+endpoint. This proves simultaneous admission and exact old-mate preservation.
+
+It follows for every such finite X that removing 2v distinct endpoints
+preserves M(X) and the full square in G. A finite theorem does not assume
+the prime-count condition always holds; failed packets are omitted. HC3
+separately proves its eventual uniform availability on a prescribed subfamily.
+
+### I. Counting The Growing Packet And Its Limitation
+
+#### HC3: Uniform lower-scale cofactor family
+
+Fix 0<alpha<1/3 BEFORE X. For all c<=X^alpha,
+
+```text
+16*c*Pplus(c)^2 <= 16*c^3 <= 16*X^(3alpha) <= X
+```
+
+eventually, including c=1 under its stated convention. Also y=X/c ranges
+over [X^(1-alpha),X]. The ordinary prime number theorem applied to the
+fixed macroscopic band endpoints gives UNIFORMLY throughout that range
+
+```text
+|J_c|=(1+o(1)) sqrt(y)/(5 log y),
+|K_c|=(1+o(1)) 11 sqrt(y)/(50 log y).
+```
+
+Uniformity follows directly from the definition of the PNT limit: the
+smallest argument is a constant times X^((1-alpha)/2), tending to infinity.
+It does not invoke short-interval PNT or a modulus that grows with c.
+The ratio tends uniformly to 11/10, and min |J_c| tends to infinity.
+Hence every such squarefree coprime c eventually passes the count and
+small-prime filters, and
+
+```text
+binom(|J_c|,2)=(1+o(1))*X/[50*c*log(X/c)^2]
+```
+
+with one uniform o(1). The external input is the established
+[prime number theorem, DLMF 27.2.3](https://dlmf.nist.gov/27.2.E3).
+Everything concerning this particular matching and its uniform cofactor
+sum is derived here, not attributed to that reference.
+
+For a fixed D=390, expand both squarefree and coprimality indicators:
+
+```text
+A(t)=sum_(c<=t, gcd(c,390)=1)mu(c)^2
+ =sum_(d<=sqrt(t),gcd(d,390)=1)mu(d)
+    *sum_(e|390)mu(e) floor(t/(d^2*e))
+ =delta_390*t+O(sqrt(t)).
+```
+
+There are finitely many e; all floor errors and the absolutely convergent
+d-tail cost O(sqrt(t)). The Euler product gives
+`delta_390=zeta(2)^(-1)*(2/3)*(3/4)*(5/6)*(13/14)=65/(28*pi^2)`, using
+[zeta(2)=pi^2/6, DLMF 25.6.1](https://dlmf.nist.gov/25.6.E1).
+This counting lemma is inherited R14/C64 mathematics, not a new discovery.
+
+Write L=log X, Y=floor(X^alpha). Partial summation, with the above error
+and `(L-log t)>=(1-alpha)L`, now yields
+
+```text
+sum_(c<=Y,gcd(c,390)=1) mu(c)^2/[c*(L-log c)^2]
+ =delta_390*integral_1^Y dt/[t*(L-log t)^2]+O_alpha(L^(-2))
+ =delta_390*alpha/[(1-alpha)*L]+O_alpha(L^(-2)).
+```
+
+For clarity, the error integral is bounded by a constant times
+`L^(-2)*integral_1^Y t^(-3/2)dt`; the endpoint error has the same or
+smaller order. Replacing X^alpha by its integer floor changes only a
+smaller endpoint term. Summing the uniform pair formula proves HC3.
+
+In particular alpha=1/4 gives
+
+```text
+v_(1/4)(X) ~ 13/(840*pi^2) * X/log X,
+removed endpoints ~ 13/(420*pi^2) * X/log X.
+```
+
+This is an all-sufficiently-large-X PAPER_PROOF, not an effective numerical
+threshold or an asymptotic inferred from the finite table.
+
+#### HC4: Why unrestricted cofactor depth is still insufficient
+
+Let v_all(X) count ALL separated packets, with no c<=X^alpha restriction.
+Every source a=c*p*q has p,q as its two largest primes and
+`p<q<(9/8)*p`. This source restriction alone gives
+
+```text
+v_all(X)=O(X/log log X)=o(X).                         (HC4a)
+```
+
+Proof: set Y=(log X)/4. If p<=Y, every prime factor of the SQUAREFREE a
+is <=9Y/8, so
+
+```text
+log a <= theta(9Y/8) <= 2*(9Y/8) = (9/16)*log X
+```
+
+eventually, by the elementary PNT consequence theta(t)~t. This contradicts
+a>X/2 for large X. Thus every source has p>Y. Discarding the remaining
+cofactor restrictions only increases its count, so
+
+```text
+v_all(X) <= X*sum_(p>Y, prime) (1/p)
+                       *sum_(p<q<9p/8, prime) (1/q)
+         << X*sum_(p>Y, prime) 1/[p*log p]
+         << X/log Y = O(X/log log X).
+```
+
+The first prime upper bound follows from pi(t)<<t/log t. For the last,
+split p into [2^jY,2^(j+1)Y): the contribution is
+`O((log Y+j log 2)^(-2))`, whose sum is O(1/log Y).
+The source injection from H prevents double-counting problems; this is
+an upper bound on actual physical endpoints, not a random model.
+
+This argument controls any matching whose source population has this same
+near-equal-two-largest-primes restriction. It does NOT prohibit arbitrary
+three-edit matchings, unequal-largest-factor packets, or signed estimates
+on the residual. The particular constants are not being optimized.
+
+R14's already independently reconstructed complete old remainder is
+`157X/(84*pi^2)+O(X/log X)`. It can also be recovered directly from the
+odd-squarefree upper-half count, the qualified 13/15 count, and the fact
+that P9 removes at most O(X/log X) pairs. Combining HC4a with exact
+once-only cardinality gives
+
+```text
+|R_final(X)|=157X/(84*pi^2)+O(X/log log X).            (HC4b)
+```
+
+Thus even the full separated union, not merely the alpha subfamily,
+retains the old positive linear leading term. HC3 and HC4 are compatible:
+they sandwich different aspects of a sublinear removable population;
+no asymptotic equality is asserted for v_all.
+
+### J. Proof Objective, Complete Return And First Missing Bound
+
+The original `heathBrownLift_prefix_exact` identifies the coefficient at n
+with mu(n) only for n<(N+1)^k. With N=B-1 and X<B^k, the inspected
+coefficient-level bridge therefore transports any exact residual identity
+from H to the original lift sum. Squareful fibers and ordered/binomial
+copies are not reinterpreted as extra physical donors. This invocation
+did not materialize the enormous raw lift tensor again; morning GM4's
+unchanged raw-source tests are retained only at their documented scope.
+
+One can first cancel opposite atoms within each finite physical n-fiber,
+then pair its surviving representatives through HC2. A product involution
+on the full ordered square flips the first nonfixed coordinate, otherwise
+the second. This preserves both mixed orientations. It is a paper finite
+construction, not a claim that main formalizes the new packet map.
+
+The genuine quantitative MU-LIFT objective remains a whole-prefix
+recurrence along an unbounded covered chain, for fixed k>=2 and 1<=r<k:
+
+```text
+E(B_j^k) <= G_j*E(B_j)^r,
+E(B)=max_(1<=n<B)|M(n)|/sqrt(n),
+G_j>=1, log(G_j)/log(B_j) -> 0.
+```
+
+Neither HC2 nor the growing count proves this. In fact, an absolute-value
+finish using the final cardinality alone fails: E(B)<=sqrt(B-1) and
+HC4b at X=B^k-1 imply, for any fixed C>0 and subpower G,
+
+```text
+|R_final(B^k-1)|/[C*G(B)*E(B)^r*sqrt(B^k-1)]
+ >= const * B^((k-r)/2)/G(B) -> infinity.
+```
+
+This is NOT a lower bound on |M(X)|. The first missing ingredient is
+genuine signed control of that linear remainder, or a substantially
+broader packet family with a proved complete recurrence. Larger cofactor
+depth inside the same near-equal-prime geometry cannot provide that alone.
+Both endpoints remain positive-weight composite seats in native VF;
+there is no sign-preserving identity transfer to original #915 payment.
+
+### K. Falsification, Numerical Scope And Novelty Audit
+
+H-LOCAL is REFUTED at its exact stated scope. H-SEPARATED passes the entire
+declared finite domain and additionally has the elementary proof in H.
+The quantitative candidate has the independent paper argument in I; it is
+not promoted from finite data. HC4 is a later proof-derived limitation.
+
+The greatest-prime-preserving three-edit map itself is inherited GM3.
+The squarefree density, PNT, general matching principle and tensor
+involution are also inherited tools. New relative to the inspected sources
+and two-day reports are the specific duplicate-donor certificate, the
+simultaneous recoverable-cofactor extension, its uniform growing-cofactor
+count, and the explicit all-cofactor near-equal-prime coverage limit.
+No exhaustive literature-priority claim is made.
+
+No new full-graph Hall failure was found or claimed. No first-bad predicate
+is being tested, and no local counterexample refutes the canonical theorem.
+The X=145 frozen-matching obstruction is retained without repeating its
+old minimality census. The high-depth fixture is separate from the main
+finite domain. No floating-point approximation is used for a decision.
+
+The infinity-scope arguments await independent mathematical review.
+Source integrity, arithmetic tests, independent implementations and author
+self-audit are different evidence categories. HC1-HC4 are NOT newly
+PROVED_IN_LEAN. The source's existing green audit is not their certification.
+
+### L. Two-Day Continuity And Specialist Handoffs
+
+All seven roles' November 5 reports and available November 6 reports were
+retrieved at the initial reporting snapshot. Applicable summaries,
+source definitions, derivations, corrections and continuation sections
+were read. Unrelated large numerical appendices were not rerun.
+
+| Role | November 5 blob | November 6 intake blob |
+| --- | --- | --- |
+| Coordinator, equal 00/90 mirrors | be661bb2ed2830fc4aeddf14713455e550d982cc | ed98da5ddf755803c0fb9249ccf5bdb58f59658c |
+| Owner | 39665b5b28fc48378519ab9d56cee8df4d3e2681 | fd30796d1b10e58e694f1d85252dac3cd8099a94 |
+| Analytic | 9490aa2eecafcd19d8007043cc5f978fe421a7c9 | b075be67af6294e41f6eb232f611c208799c5e04 |
+| Wheel | afc85d800c47f82f2db634591a7798005cb668de | be64667df80910bc9cc8fa3034aeeb579df5829a |
+| Census | 24fcd6a631eca9ae44238d927215f49e1d8a174f | dfe20627512b4ad1fe62c83bbb2e0412390c100f |
+| Referee | 789ed87021fe98963c244a8d0c9075638e76be43 | 01cf41cbc62f430f9034870509f6b3947866a4e9 |
+| Lean | 5e0ecdd8f08c2e19b4614f00c1a5657f58722344 | 7138b713a44f514ade3a64db44268c1934b215d0 |
+
+Coordinator's November 6 report is only PARTIAL: completed synthesis
+TODAY=PENDING, YESTERDAY=CARRY_FORWARD. The other listed reports are
+available at their individual evidence scopes, not blanket-endorsed.
+No scheduled completion is inferred from a filename.
+
+External inbox blob **038018145c0fddb2f6306c0712373adf9cd1ea52** has no
+entry newer than October 18. Its prime-error, source-restoration and
+conditional-first-bad safeguards remain applicable at their scopes;
+none supplies a new norm bound here. Historical routing is superseded.
+
+**Proof Architect:** consume HC1-HC4 as completion of the morning higher-depth
+question. The packet count increases but the complete leading remainder
+does not change. Do not count cofactor multiplication as new exponent gain
+or assign a larger same-geometry census. C63-C66 and fixed-bank no-gos are
+not refuted: the new rule explicitly edits large factors.
+
+**Finite Wheel:** the now-ready MU-LIFT continuation is HC2's canonical
+factor-order proof and HC4's coverage restriction. Test any broader
+factor-ratio proposal against the 87283 donor swap and the 145 frozen
+matching witness. Distinguish local assignments from simultaneous capacity.
+The new PB1-PB4 prime-column correlation question is a different finite-C
+carrier and remains unpaid; no result is transferred to it.
+
+**Adversarial Referee:** independently check HC2's cross-cofactor recovery,
+the J>29 and gcd390 exclusions, uniformity in HC3, the weighted partial
+summation constant, and HC4's squarefree primorial argument. The repaired
+15-source certificate must prevent overstatement as a Hall obstruction.
+The current TD/CP review remains at its separate coherent-prefix scope.
+
+**Lean Verification:** existing #1096 source evidence is verified and reused.
+HC1 is a small exact duplicate-donor regression; HC2 is a finite candidate
+only after independent qualification and utility review. Do not formalize
+the all-scale count or norm conclusion by assuming its unproved supplier.
+No new branch, PR or local compilation was created.
+
+**Analytic Type II:** no signed-norm estimate follows from this injection.
+Today's RM1-RM6 changed Nyman family still owes its middle return and new
+low-coefficient arithmetic; FP1-FP5's phase averaging is distinct. A future
+Census turn should switch to a precise changed hypothesis there or in
+finite-C, rather than indefinitely supporting the same matching geometry.
+
+**Owner Payment:** earlier RC/CR/MC and current BT/RZ/DR conclusions retain
+their original weights and review status. Both HC endpoints are composites
+in native VF, so their Mobius sign cancellation is not chronological
+prime-seat payment. Donor recoverability is a useful structural question,
+not a cross-carrier quantitative theorem.
+
+### M. Ranked Experimental Hypothesis Portfolio
+
+| Rank | Hypothesis and motivation | Evidence and counterevidence | Required new ingredient / disposition |
+| --- | --- | --- | --- |
+| 1 | A broader non-comparable-largest-factor packet can retain simultaneous donor capacity and cover more than the present near-equal-prime sources | HC2 proves one exact subfamily; HC4 proves its full coverage remains sublinear | New source bands and explicit donor-reservation theorem, with complete residual return. Revise, not scale the old census |
+| 2 | Cofactor recovery is enough for collision-free union of the current separated maps | HC2 proof and 2051 exact dual-implementation cases; naive version fails at 87283 | Independent Referee review. Finite statement ready; no quantitative endpoint claim |
+| 3 | Full three-edit graph achieves T3=|M(X)| | Morning finite evidence retained; HC1 only defeats a prescribed local assignment | Actual all-scale neighbor-capacity proof, which would still not bound M. Park, do not repeat the old scan |
+| 4 | Repeated deeper cofactors in the present band can close by cardinality alone | HC4 proves the leading residual remains linear | Reject at this stated scope; seek signed remainder control or genuinely broader geometry |
+
+### N. Next-Run Resume Capsule
+
+```text
+RUN: 20261106-census-2, scheduled 11:00:01 EST; RUN_ID_UNAVAILABLE.
+MAIN: 4a6e6b8c1a81f6dd8b8bc0cfad123bbc2a56188a.
+POLICY: NO_PIGEONHOLING_ROUTE_SELECTOR_V1 / SEARCH_BROAD.
+TASK: MU-LIFT-HIGHER-DEPTH-DONOR-UNIQUENESS.
+SOURCE: odd-boundary 3cbc5159536d6b9e5000f74c5bd018bd2d62daf1;
+  signed lift af69b4811cf9f523eb7c96fb0ca836b2cdbd1180.
+RESUMED: 20261106-census-1/GM3 and its explicit higher-depth request.
+HC1: first prescribed-lift collision X=87283, donor59109 shared by
+  sources61183/68381, c17/c19; change first donor to71553 to repair.
+  All lower X=4..87282 checked independently; not a general Hall failure.
+HC2: require 16*c*Pplus(c)^2<=X; both endpoints recover c uniquely.
+  Preserve P9 and qualified R14. c1 replaces GM3, never double-count it.
+HC3: fixed 0<alpha<1/3, c<=X^alpha gives
+  v_alpha~delta390*alpha/[50*(1-alpha)]*X/logX;
+  alpha1/4 constant=13/(840*pi^2). Uniform PNT, not a finite fit.
+HC4: all separated sources have top-two prime ratio<9/8;
+  v_all=O(X/loglogX), final cardinality~157X/(84*pi^2).
+  Pure absolute-remainder subcritical recurrence remains impossible.
+HC5: 2051 cutoff rows byte-identical Python/C++; first-collision scan
+  87280 cutoffs. Six extra depth5/6 pairs at X21445347, no full scan there.
+FULL RETURN: M=S-S+Z; full square retained; S need not equal pair count.
+REVIEW: new paper proofs SELF_AUDIT; independent Referee PENDING.
+FORMAL: inherited #1096 merged-tree evidence verified; no new Lean proof.
+NEXT SUPPORT ROUTE: prefer a concrete new NYMAN or FINITE-AC hypothesis,
+  respecting broad support. Do not widen this completed matching scan.
+NEXT MATCHING QUESTION: an explicit unequal-largest-factor packet with
+  simultaneous donor capacity, not more cofactors inside the same band.
+FIRST OPEN CONSUMER: full-prefix MU-LIFT signed recurrence, r<k and
+  subpower loss on an unbounded covered chain, NOT just endpoint matching.
+NET NEW ENDPOINT GAIN: UNKNOWN. Canonical VF and RH remain OPEN.
+PUBLICATION: only today's own report on agent-reports; receipt follows.
+```
+
+### Reproducibility - This Invocation
+
+Observed environment: Linux 6.18.57 x86_64, Python 3.12.14, g++ 13.3.0.
+All inputs deterministic; no random seed, approximate primality or
+floating-point sign decisions. Timings below are measured process durations,
+not total invocation time. The main Python census took 1.735611256 seconds;
+the independent C++ process reported 0.610854 seconds. The standalone
+certificate script exited successfully; no separate runtime was recorded.
+
+Executed commands, in a directory containing the code appended below:
+
+```text
+python cofactor_lift.py
+g++ -std=c++17 -O2 -Wall -Wextra -pedantic cofactor_verify.cpp -o cofactor_verify
+./cofactor_verify
+cmp cofactor_rows.csv cofactor_cpp_rows.csv
+python certificate_audit.py
+sha256sum cofactor_lift.py cofactor_verify.cpp cofactor_rows.csv cofactor_cpp_rows.csv cofactor_result.json
+sha256sum certificate_audit.py
+```
+
+Compilation completed without diagnostics; all checks exited 0.
+`cmp` established exact equality of the full 2051-row, twelve-column tables.
+The complete JSON is regenerated by the script; key exact certificates are
+already displayed above. No separate experiment files are committed to the
+repository: executable code is included only in this authorized report.
+
+| Artifact | SHA256 |
+| --- | --- |
+| cofactor_lift.py | 815e550a53f6f664cd39456d66112a861f312b1022731ef2c6dd52b06ec1725f |
+| cofactor_verify.cpp | f4b18d82c120ad6d470cef4bb35002bee48b66d459e5214d9e28f79ee8336fb4 |
+| certificate_audit.py | 63ea697fdf60b1afb1e9b8a28315316555df8d2f4828cdff4d059450f3803d05 |
+| Python and C++ complete row files, identical | 299ce4cb7c3a4903f66eb536f36394c619da217faad22b599d27ab4f6ad7b088 |
+| cofactor_result.json, including measured elapsed time | e5e5d124e2632eb73f3a97e643b682a0625574c054f666fccfc6d4dea89c86ac |
+
+The JSON hash includes elapsed time and is not expected to reproduce across
+runs; the deterministic row hash and source hashes are the reproducibility
+targets. The next sections preserve the exact executed source bytes.
+
+
+### Executed Source - cofactor_lift.py
+
+```python
+"""Exact common-cofactor GM3 extension; all admission tests use integers."""
+
+from bisect import bisect_right
+from collections import Counter, defaultdict
+from math import gcd, isqrt
+from pathlib import Path
+import hashlib
+import json
+import time
+
+
+LIMIT = 1048575
+DEVELOPMENT = list(range(4, 2049)) + [4095, 8191, 16383]
+HELD_OUT = [65535, 262143, LIMIT]
+P9 = (3, 5, 7, 11, 13, 17, 19, 23, 29)
+
+
+def sieve(n):
+    mu = [1] * (n + 1)
+    mu[0] = 0
+    largest = [1] * (n + 1)
+    depth = [0] * (n + 1)
+    primes = []
+    for p in range(2, n + 1):
+        if largest[p] != 1:
+            continue
+        primes.append(p)
+        for k in range(p, n + 1, p):
+            mu[k] = -mu[k]
+            largest[k] = p
+            depth[k] += 1
+        for k in range(p * p, n + 1, p * p):
+            mu[k] = 0
+    return mu, largest, depth, primes
+
+
+def bands(x, c, primes):
+    jl = isqrt(16 * x // (25 * c))
+    ju = isqrt(81 * x // (100 * c))
+    kl = max(13, isqrt(x // (16 * c)))
+    ku = isqrt(81 * x // (625 * c))
+    j = primes[bisect_right(primes, jl):bisect_right(primes, ju)]
+    k = primes[bisect_right(primes, kl):bisect_right(primes, ku)]
+    return j, k
+
+
+def records(x, mu, largest, primes, separated):
+    out = []
+    for c in range(1, 81 * x // (625 * 17 * 17) + 1):
+        if not mu[c] or gcd(c, 390) != 1:
+            continue
+        if separated and 16 * c * largest[c] ** 2 > x:
+            continue
+        j, k = bands(x, c, primes)
+        if len(j) < 2 or j[0] <= 29 or len(k) < len(j) - 1:
+            continue
+        for i, p in enumerate(j[:-1]):
+            r = k[i]
+            for q in j[i + 1:]:
+                if gcd(c, p * q * r) != 1:
+                    continue
+                out.append((c, p, q, r, c * p * q, 3 * c * r * q))
+    return out
+
+
+def old_matching(x, mu, depth, primes):
+    top = primes[bisect_right(primes, x // 2):bisect_right(primes, x)]
+    partners = sorted(s * q for s in P9
+                      for q in primes[bisect_right(primes, max(29, x // (2 * s))):
+                                      bisect_right(primes, x // s)])
+    assert len(partners) == len(set(partners))
+    pairs = list(zip(top, partners))
+    pairs += [(13 * c, 15 * c) for c in range(x // 26 + 1, x // 15 + 1)
+              if mu[c] and gcd(c, 390) == 1 and depth[c] >= 2]
+    endpoints = [n for pair in pairs for n in pair]
+    assert len(endpoints) == len(set(endpoints))
+    assert all(mu[a] == -mu[b] and x < 2 * a <= 2 * x and x < 2 * b <= 2 * x
+               for a, b in pairs)
+    return pairs, set(endpoints)
+
+
+def trial_factors(n):
+    factors = []
+    d = 2
+    while d * d <= n:
+        if n % d == 0:
+            factors.append(d)
+            while n % d == 0:
+                n //= d
+        d += 1
+    if n > 1:
+        factors.append(n)
+    return factors
+
+
+def check_cutoff(x, mu, largest, depth, primes, mertens):
+    rec = records(x, mu, largest, primes, True)
+    used = set()
+    old, old_sites = old_matching(x, mu, depth, primes)
+    for c, p, q, r, a, b in rec:
+        assert a not in used and b not in used and a != b
+        assert a not in old_sites and b not in old_sites
+        assert a % 2 == b % 2 == 1 and x < 2 * a <= 2 * x and x < 2 * b <= 2 * x
+        assert mu[a] == mu[c] and mu[b] == -mu[c]
+        assert largest[a] == largest[b] == q
+        assert gcd(a, b) == c * q and a // gcd(a, b) == p and b // gcd(a, b) == 3 * r
+        assert len(set(trial_factors(a)) ^ set(trial_factors(b))) == 3
+        used.update((a, b))
+    population = [n for n in range(x // 2 + 1, x + 1, 1) if n % 2 and mu[n]]
+    remaining = [n for n in population if n not in old_sites and n not in used]
+    assert sum(mu[n] for n in population) == mertens[x]
+    assert sum(mu[n] for n in remaining) == mertens[x]
+    assert len(remaining) == len(population) - 2 * len(old) - 2 * len(rec)
+    s = sum(mu[a] for *_, a, b in rec)
+    z = mertens[x]
+    assert s * s + s * s + z * z - 2 * s * s + 2 * s * z - 2 * s * z == z * z
+    assert (z * z - len(remaining)) % 2 == 0
+    depths = Counter(depth[c] for c, *_ in rec)
+    row = [x, len(population), mertens[x], len(old), len(rec),
+           sum(c != 1 for c, *_ in rec), sum(c ** 4 <= x for c, *_ in rec),
+           len({c for c, *_ in rec}), max(depths, default=0),
+           len(remaining), (z * z - len(remaining)) // 2, s]
+    return row, rec
+
+
+def first_collision(mu, largest, primes):
+    inspected = 0
+    for x in range(4, 131072):
+        rec = records(x, mu, largest, primes, False)
+        seen = {}
+        inspected += 1
+        for e in rec:
+            for endpoint in e[-2:]:
+                if endpoint in seen:
+                    return {"X": x, "endpoint": endpoint, "first": seen[endpoint],
+                            "second": e, "cutoffs_checked": inspected,
+                            "local_records": rec}
+                seen[endpoint] = e
+    return {"X": None, "cutoffs_checked": inspected}
+
+
+def alternative_donors(x, rec, primes):
+    # Supplementary test fixed before execution: is the collision a true capacity shortage?
+    adj = defaultdict(set)
+    for c, p, q, _, a, _ in rec:
+        _, k = bands(x, c, primes)
+        for r in k:
+            if gcd(c, r) == 1:
+                adj[a].add(3 * c * r * q)
+    mates = {}
+
+    def augment(a, seen):
+        for b in sorted(adj[a]):
+            if b in seen:
+                continue
+            seen.add(b)
+            if b not in mates or augment(mates[b], seen):
+                mates[b] = a
+                return True
+        return False
+
+    for a in sorted(adj):
+        augment(a, set())
+    return {"sources": len(adj), "donors": len(set().union(*adj.values())),
+            "matching_size": len(mates), "matching": sorted((a, b) for b, a in mates.items())}
+
+
+def main():
+    start = time.perf_counter()
+    mu, largest, depth, primes = sieve(LIMIT)
+    mertens = [0] * (LIMIT + 1)
+    for n in range(1, LIMIT + 1):
+        mertens[n] = mertens[n - 1] + mu[n]
+    rows = []
+    fixtures = {}
+    for x in DEVELOPMENT + HELD_OUT:
+        row, rec = check_cutoff(x, mu, largest, depth, primes, mertens)
+        rows.append(row)
+        if x in [145, 8191, 16383] + HELD_OUT:
+            fixtures[x] = {"row": row, "depth_counts": dict(Counter(depth[c] for c, *_ in rec)),
+                           "cofactor_counts": dict(Counter(c for c, *_ in rec)),
+                           "first_high_depth": next((e for e in rec if depth[e[0]] >= 2), None),
+                           "records": rec}
+    collision = first_collision(mu, largest, primes)
+    if collision["X"]:
+        collision["alternative"] = alternative_donors(collision["X"], collision["local_records"], primes)
+        for tag in ["first", "second"]:
+            e = collision[tag]
+            collision[tag + "_factors"] = [trial_factors(n) for n in e[-2:]]
+    serial = "".join(",".join(map(str, row)) + "\n" for row in rows)
+    Path("cofactor_rows.csv").write_text(serial)
+    result = {"cutoffs": len(rows), "row_columns":
+              "X,U,M,old_pairs,new_pairs,nonunit_c_pairs,quarter_pairs,cofactors,max_c_depth,residual,offdiag,source_signed_mass",
+              "rows_sha256": hashlib.sha256(serial.encode()).hexdigest(),
+              "fixture_rows": {x: d["row"] for x, d in fixtures.items()},
+              "fixtures": fixtures, "collision": collision,
+              "elapsed_seconds": time.perf_counter() - start}
+    Path("cofactor_result.json").write_text(json.dumps(result, indent=2) + "\n")
+    print(json.dumps({k: v for k, v in result.items() if k != "fixtures"}, indent=2))
+
+
+if __name__ == "__main__":
+    main()
+```
+
+
+### Executed Source - cofactor_verify.cpp
+
+```cpp
+#include <algorithm>
+#include <array>
+#include <cassert>
+#include <chrono>
+#include <fstream>
+#include <iostream>
+#include <map>
+#include <numeric>
+#include <set>
+#include <vector>
+
+using I = long long;
+using Record = std::array<I, 6>;
+constexpr int LIMIT = 1048575;
+
+struct Factor {
+    int mu = 1;
+    int omega = 0;
+    int largest = 1;
+};
+
+Factor factor(int n) {
+    Factor f;
+    for (int d = 2; I(d) * d <= n; ++d) {
+        if (n % d) continue;
+        int e = 0;
+        while (n % d == 0) { n /= d; ++e; }
+        f.mu *= e == 1 ? -1 : 0;
+        ++f.omega;
+        f.largest = d;
+    }
+    if (n > 1) { f.mu *= -1; ++f.omega; f.largest = n; }
+    return f;
+}
+
+std::pair<std::vector<int>, std::vector<int>> bands(I x, I c, const std::vector<int>& primes) {
+    std::vector<int> j, k;
+    for (I p : primes) {
+        if (100 * c * p * p > 81 * x) break;
+        if (25 * c * p * p > 16 * x) j.push_back(int(p));
+        if (p > 13 && 16 * c * p * p > x && 625 * c * p * p <= 81 * x)
+            k.push_back(int(p));
+    }
+    return {j, k};
+}
+
+std::vector<Record> records(I x, const std::vector<Factor>& f,
+                            const std::vector<int>& primes, bool separated) {
+    std::vector<Record> out;
+    // A nonempty packet requires a donor prime at least 17.
+    for (I c = 1; 625 * c * 17 * 17 <= 81 * x; ++c) {
+        if (!f[c].mu || std::gcd(c, I(390)) != 1) continue;
+        if (separated && 16 * c * f[c].largest * f[c].largest > x) continue;
+        auto [j, k] = bands(x, c, primes);
+        if (j.size() < 2 || j.front() <= 29 || k.size() + 1 < j.size()) continue;
+        for (std::size_t i = 0; i + 1 < j.size(); ++i)
+            for (std::size_t h = i + 1; h < j.size(); ++h) {
+                I p = j[i], q = j[h], r = k[i];
+                if (std::gcd(c, p * q * r) != 1) continue;
+                out.push_back({c, p, q, r, c * p * q, 3 * c * r * q});
+            }
+    }
+    return out;
+}
+
+std::set<I> old_sites(I x, const std::vector<Factor>& f, const std::vector<int>& primes) {
+    std::vector<I> top, semis;
+    for (I p : primes) {
+        if (p > x) break;
+        if (2 * p > x) top.push_back(p);
+    }
+    const std::set<int> small = {3, 5, 7, 11, 13, 17, 19, 23, 29};
+    // Recover partners from physical sites, rather than multiplying prime tables.
+    for (I n = x / 2 + 1; n <= x; ++n) {
+        if (!(n % 2) || f[n].mu != 1 || f[n].omega != 2) continue;
+        I q = f[n].largest;
+        if (q > 29 && small.count(int(n / q))) semis.push_back(n);
+    }
+    std::set<I> used;
+    for (std::size_t i = 0; i < std::min(top.size(), semis.size()); ++i) {
+        assert(used.insert(top[i]).second);
+        assert(used.insert(semis[i]).second);
+    }
+    for (I c = x / 26 + 1; 15 * c <= x; ++c)
+        if (f[c].mu && f[c].omega >= 2 && std::gcd(c, I(390)) == 1) {
+            assert(used.insert(13 * c).second);
+            assert(used.insert(15 * c).second);
+        }
+    return used;
+}
+
+int main() {
+    auto start = std::chrono::steady_clock::now();
+    std::vector<Factor> f(LIMIT + 1);
+    std::vector<int> primes;
+    std::vector<I> mertens(LIMIT + 1);
+    for (int n = 1; n <= LIMIT; ++n) {
+        f[n] = factor(n);
+        mertens[n] = mertens[n - 1] + f[n].mu;
+        if (n >= 2 && f[n].largest == n) primes.push_back(n);
+    }
+    std::vector<I> cutoffs;
+    for (int x = 4; x <= 2048; ++x) cutoffs.push_back(x);
+    for (I x : {4095, 8191, 16383, 65535, 262143, LIMIT}) cutoffs.push_back(x);
+    std::ofstream rows("cofactor_cpp_rows.csv");
+    for (I x : cutoffs) {
+        auto rec = records(x, f, primes, true);
+        auto old = old_sites(x, f, primes);
+        std::set<I> used, cofactors;
+        I nonunit = 0, quarter = 0, maxdepth = 0, signed_source = 0, signed_donor = 0;
+        for (auto e : rec) {
+            auto [c, p, q, r, a, b] = e;
+            assert(used.insert(a).second && used.insert(b).second);
+            assert(!old.count(a) && !old.count(b));
+            assert(a % 2 && b % 2 && 2 * a > x && 2 * b > x && a <= x && b <= x);
+            assert(f[a].mu == f[c].mu && f[b].mu == -f[c].mu);
+            assert(f[a].largest == q && f[b].largest == q);
+            I d = std::gcd(a, b);
+            assert(f[a].omega + f[b].omega - 2 * f[d].omega == 3);
+            assert(d == c * q && a / d == p && b / d == 3 * r);
+            cofactors.insert(c);
+            nonunit += c != 1;
+            quarter += c * c * c * c <= x;
+            maxdepth = std::max(maxdepth, I(f[c].omega));
+            signed_source += f[a].mu;
+            signed_donor += f[b].mu;
+        }
+        I pop = 0, popsum = 0, residual = 0, total = 0, cross = 0;
+        for (I n = x / 2 + 1; n <= x; ++n) {
+            if (!(n % 2) || !f[n].mu) continue;
+            ++pop;
+            popsum += f[n].mu;
+            if (old.count(n) || used.count(n)) continue;
+            ++residual;
+            cross += total * f[n].mu;
+            total += f[n].mu;
+        }
+        assert(popsum == mertens[x] && total == mertens[x]);
+        assert(residual + I(old.size()) + 2 * I(rec.size()) == pop);
+        assert(residual + 2 * cross == total * total);
+        assert(signed_source + signed_donor == 0);
+        std::array<I, 3> groups = {signed_source, signed_donor, total};
+        I full_square = 0;
+        for (I a : groups) for (I b : groups) full_square += a * b;
+        assert(full_square == mertens[x] * mertens[x]);
+        std::array<I, 12> row = {x, pop, mertens[x], I(old.size() / 2), I(rec.size()),
+                                nonunit, quarter, I(cofactors.size()), maxdepth,
+                                residual, cross, signed_source};
+        for (std::size_t i = 0; i < row.size(); ++i) rows << (i ? "," : "") << row[i];
+        rows << '\n';
+    }
+    bool found = false;
+    for (I x = 4; x <= 131071 && !found; ++x) {
+        auto rec = records(x, f, primes, false);
+        std::map<I, Record> seen;
+        for (auto e : rec) {
+            for (int k : {4, 5}) {
+                auto it = seen.find(e[k]);
+                if (it != seen.end()) {
+                    std::cout << "FIRST_COLLISION " << x << ' ' << e[k] << '\n';
+                    for (I z : it->second) std::cout << z << ' ';
+                    std::cout << '\n';
+                    for (I z : e) std::cout << z << ' ';
+                    std::cout << '\n';
+                    found = true;
+                    break;
+                }
+                seen[e[k]] = e;
+            }
+            if (found) break;
+        }
+    }
+    assert(found);
+    auto sec = std::chrono::duration<double>(std::chrono::steady_clock::now() - start).count();
+    std::cout << "PASS " << cutoffs.size() << " cutoffs, independent trial factors, full cross sums\n";
+    std::cout << "ELAPSED_SECONDS " << sec << '\n';
+}
+```
+
+
+### Executed Source - certificate_audit.py
+
+```python
+"""Small standalone trial-division checks, with no imported sieve or census data."""
+
+from fractions import Fraction
+from itertools import combinations
+from math import gcd
+import json
+
+
+def factor(n):
+    out = []
+    d = 2
+    mu = 1
+    while d * d <= n:
+        if n % d == 0:
+            e = 0
+            while n % d == 0:
+                n //= d
+                e += 1
+            out.append(d)
+            mu *= -1 if e == 1 else 0
+        d += 1
+    if n > 1:
+        out.append(n)
+        mu *= -1
+    return out, mu
+
+
+def bands(x, c):
+    j, k = [], []
+    for p in range(2, x + 1):
+        if 100 * c * p * p > 81 * x:
+            break
+        if factor(p)[0] != [p]:
+            continue
+        if 25 * c * p * p > 16 * x:
+            j.append(p)
+        if p > 13 and 16 * c * p * p > x and 625 * c * p * p <= 81 * x:
+            k.append(p)
+    return j, k
+
+
+def check_pair(x, c, p, q, r):
+    a, b = c * p * q, 3 * c * r * q
+    fa, ma = factor(a)
+    fb, mb = factor(b)
+    assert ma and ma == -mb
+    assert x < 2 * a <= 2 * x and x < 2 * b <= 2 * x
+    assert len(set(fa) ^ set(fb)) == 3
+    assert max(fa) == max(fb) == q
+    assert a % 13 and b % 13 and a % 15 and b % 15
+    return {"endpoints": [a, b], "factors": [fa, fb], "signs": [ma, mb]}
+
+
+def main():
+    x = 87283
+    assert bands(x, 17) == ([59, 61], [19, 23])
+    assert bands(x, 19) == ([59, 61], [17, 19, 23])
+    first = check_pair(x, 17, 59, 61, 19)
+    second = check_pair(x, 19, 59, 61, 17)
+    repair = check_pair(x, 17, 59, 61, 23)
+    assert first["endpoints"][1] == second["endpoints"][1] == 59109
+    assert repair["endpoints"][1] == 71553
+    local = []
+    for c in range(1, 81 * x // (625 * 17 ** 2) + 1):
+        fc, mc = factor(c)
+        if not mc or gcd(c, 390) != 1:
+            continue
+        j, k = bands(x, c)
+        if len(j) < 2 or min(j) <= 29 or len(k) < len(j) - 1:
+            continue
+        for i, p in enumerate(j[:-1]):
+            for q in j[i + 1:]:
+                r = 23 if (c, p, q) == (17, 59, 61) else k[i]
+                if gcd(c, p * q * r) != 1:
+                    continue
+                local.append(check_pair(x, c, p, q, r)["endpoints"])
+    assert len(local) == 15 and len({n for e in local for n in e}) == 30
+    high_c = 7 * 11 * 17
+    high_x = high_c * 16383
+    j, k = bands(high_x, high_c)
+    assert (j, k) == ([103, 107, 109, 113], [37, 41, 43])
+    assert 16 * high_c * max(factor(high_c)[0]) ** 2 <= high_x
+    high = [check_pair(high_x, high_c, p, q, k[i])
+            for i, p in enumerate(j[:-1]) for q in j[i + 1:]]
+    assert len({n for e in high for n in e["endpoints"]}) == 12
+    divisors = [d for d in range(1, 391) if 390 % d == 0]
+    counts = {}
+    for y in [1, 7, 11, 31, 468, 4095]:
+        direct = sum(factor(n)[1] ** 2 for n in range(1, y + 1) if gcd(n, 390) == 1)
+        inversion = sum(factor(d)[1] * sum(factor(e)[1] * (y // (d * d * e))
+                                         for e in divisors)
+                        for d in range(1, y + 1) if d * d <= y and gcd(d, 390) == 1)
+        assert direct == inversion
+        counts[y] = direct
+    local_factor = Fraction(1)
+    for p in [2, 3, 5, 13]:
+        local_factor *= Fraction(p, p + 1)
+    assert local_factor == Fraction(65, 168)
+    # Multiplying by zeta(2)^(-1)=6/pi^2 leaves the displayed rational constants.
+    delta_pi2 = local_factor * 6
+    quarter_pairs_pi2 = delta_pi2 * Fraction(1, 4) / (50 * Fraction(3, 4))
+    assert delta_pi2 == Fraction(65, 28)
+    assert quarter_pairs_pi2 == Fraction(13, 840)
+    print(json.dumps({"first": first, "second": second, "repair": repair,
+                      "repaired_full_local_pairs": local, "high_depth_X": high_x,
+                      "high_depth_c": high_c, "high_depth_pairs": high,
+                      "squarefree_coprime_counts": counts,
+                      "quarter_pair_constant_times_pi_squared": str(quarter_pairs_pi2)}, indent=2))
+
+
+if __name__ == "__main__":
+    main()
+```
+
+
+### Prepublication Freshness - 20261106-census-2
+
+Observed at 2026-11-06 16:26:55 UTC: main is still
+4a6e6b8c1a81f6dd8b8bc0cfad123bbc2a56188a. The agent-reports head is the
+verified checkpoint commit 7c31c079056bc7b73400f2cf10aed6b1337cccb4;
+therefore all other intake reports and the external inbox remain unchanged.
+The sole open PR remains #1097 at bc727dc9f7dd655fdd2addc943b246ad70ef576d,
+non-draft. No source dependency changed during this run.
