@@ -1,5 +1,13 @@
 # RH_Lean research-agent instructions
 
+## 2026-11-06 ESTABLISHED-BASELINE CORRECTION - PAID_BASELINE_EXACT_CONSUMER_V1
+
+Read [the established-baseline and exact-consumer correction](docs/RHLEAN_PAID_BASELINE_EXACT_CONSUMER_20261106.md) before declaring an arithmetic gap or selecting a reconstruction task. The native 1-to-7/8 replay and its all-prefix signed covariance saving are already supplied; their final nonvanishing/Mertens transport does not make them absent. Preserve existing strict-gap results at their actual scopes. Do not rediscover those results or count their reuse as a new exponent gain.
+
+For the independently selected route, compare its established input with the proposed arithmetic strengthening and its actual complete consumer. A sharp square-shell sum-of-squares estimate is an optional sufficient route, not a missing premise of the completed replay or a compulsory gate for all agents. Keep global square-of-sum, local shell, original clipped VF, and OAI ideal sources distinct. An intermediate lemma is allowed before endpoint closure; any claimed new gain must survive the full signed return and improve the best applicable existing bound.
+
+This correction supersedes conflicting historical starting-point/status prose and repeat-reconstruction tasks below, not genuine source facts or verified evidence. It complements, and does not replace, NO_PIGEONHOLING_ROUTE_SELECTOR_V1: all nine protected routes, independent innovations, role permissions, configured cadence, proof integrity and human-only merge remain unchanged. On first actual consumption after merge record `baseline_ack=PAID_BASELINE_EXACT_CONSUMER_V1` and an actual new arithmetic step, not merely a policy read.
+
 ## 2026-11-04 NON-PIGEONHOLING OVERRIDE — NO_PIGEONHOLING_ROUTE_SELECTOR_V1
 
 **Highest task-routing precedence:** [docs/RHLEAN_INDEPENDENT_MULTIFRONT_NO_PIGEONHOLING_20261104.md](docs/RHLEAN_INDEPENDENT_MULTIFRONT_NO_PIGEONHOLING_20261104.md). The OAI LOW source-first, all-selected J=empty, dated NEXT-* and tiny-slot tasks are OPTIONAL source-specific investigations; none is a mandatory team-wide assignment or an extra compulsory audit on unrelated routes. Run independent mathematics across all nine viable RH_Lean routes; preserve protected rotation, free cross-route innovations and exact complete-return standards. A repaired proof PR or green geometric slot seed does not force subsequent work onto that source. This override supersedes conflicting next-run instructions below but preserves their mathematical safeguards, source facts, permissions and human-only merge.
