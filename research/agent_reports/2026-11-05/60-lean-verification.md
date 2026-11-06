@@ -723,3 +723,16 @@ Checker SHA256 402a20ca674418530624514e4bcff038f06f7411d2f17bce2781a637250f1706;
 ### Verified Publication Receipt - 20261105-lean-2
 
 The final A-P synthesis was committed at 519dc2b7fb13bda3442a2cd9873256f143011f14 and re-fetched at that immutable commit, blob f20eb17982b600da1bcd3189b6695dfb83f3e77f. Exact content equality, preservation of all prior report bytes, all sixteen required sections and balanced code fences passed. Publication PUBLISHED_AND_READBACK_VERIFIED; execution COMPLETED; implementation CI_GREEN / REVIEW_READY at PR #1095 head 46e68178192c6e429a02abee9d5b8ebca5de46c8. The repair is unmerged and human review remains outstanding. This receipt identifies the already verified synthesis commit, not its own future commit. No new arithmetic bound or RH result is claimed.
+
+
+## Scheduled Continuation Checkpoint - 2026-11-05 21:08 EST
+
+Execution IN_PROGRESS / PARTIAL. Actual scheduled invocation 2026-11-05T21:08:01-05:00, America/New_York; RUN_ID_UNAVAILABLE. Earlier daily sections are retained.
+
+Main refreshed to 1667c3cf9b4e898bb9afd62ec48e24610b2156ab. AGENTS blob 547dda0d9456e7a4e1165dc72d59da6f70d5c023, proof-contract blob 7c4ac83a1ec1a4144e1bd691391ed4244f1cc27c, independent selector ffd8f1c65cc4da656174956d4e03b48bea46768b. Deployment acknowledgement: independently selected MU-LIFT finite physical cancellation, not a mandatory OAI task. Canonical VF square von-Koch objective remains OPEN; ETA_GATE=SEARCH_BROAD.
+
+No open/draft proof PR exists at intake. #1095 is now merged, superseding the earlier unmerged report state. All seven role reports for November 5 and November 4 and the external inbox were retrieved; relevant result and continuation sections are being checked. All TODAY roles are AVAILABLE. The fresh 20261105-wheel-3/PE1-PE4 have independent PAPER_PROOF acceptance in 20261105-referee-11; the new referee-12/-14 extensions remain independent-review pending. NYMAN SP1-SP5 are another accepted candidate; no new all-scale estimate is inferred.
+
+Selected proof task under independent review: the finite original-Mobius odd-upper-boundary prime/semiprime cancellation in PE1, reusing the existing prime-toggle sum theorem. Prove exact source/carrier membership, distinct-prime partner sign and once-only factorization, and a finite residual theorem with correct unmatched cardinality and complete square. First verify nonduplication against AdaptivePrimeMatching, GlobalPrefixCarrierOthello, and the current signed lift. The intended result is structural, not PNT asymptotics, the full ordered-lift implementation, a subcritical recurrence or a new exponent bound. Exact final scope, implementation, PR and Actions evidence are PENDING.
+
+Pins verified: Lean v4.34.1, Mathlib d13f23b723b8a846827a245b89c10fc7d3f11612, PNT+ c39a751132c88b6e8080b74c74023fd95b3d8be0. Direct shell clone failed CONNECT 403; authenticated connector reads work. No local Lean execution. Write action, proof branch and compiler verification will be recorded only after actual success.
