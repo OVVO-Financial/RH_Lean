@@ -1696,3 +1696,1247 @@ All seven role reports for November 4 and November 5, current instruction docume
 Review target: finite once-only odd-boundary prime/semiprime matching, fixed-P PNT capacity, original ordered lift and complete tensor return, and remaining unsigned certificate. Review is proof-aware: the submitted statements and derivation have been read; no blind-review claim. Original investigation will test whether a materially broader bounded-factor-depth matching can escape the positive-density remainder, with precise quantifiers and genuine integer carriers. Neither a result nor a counterexample is claimed at this checkpoint.
 
 Preregistered finite tests: independently implement trial-factor Mobius and exact factor/copy enumeration; check every X=4..200 for P={3,5}, P8 and P9, plus X=255,1023,4095; reconstruct the B=8,k=2,X=63 original carrier and all ordered pairs, small k=3 controls and the excluded X=B^k endpoint. Test genuine leftover high-factor-depth witnesses and exact cutoff constraints. No numerical fit or finite survival will be promoted to an all-scale theorem. First pending tasks: original-source read, independent proof audit, new theorem attempt, executed verifier, final own-report publication/readback.
+
+
+---
+
+## Scheduled MU-LIFT Referee Synthesis - 2026-11-05 20:13 EST Invocation
+
+Actual trigger: SCHEDULED, 2026-11-05T20:13:01-05:00, America/New_York;
+RUN_ID_UNAVAILABLE. This completes the preceding evening checkpoint, not a
+new invocation. Earlier daily sections and claims referee-1 through referee-10
+are preserved. Publication is certified only by the later readback receipt.
+
+### A. Most Important Mathematical Finding
+
+**A positive-density, genuinely higher-factor-depth cancellation survives the
+new obstruction.** Preserve Wheel's complete factor-2 matching and its
+prime/semiprime matching. For every squarefree c with
+
+```text
+gcd(c,390)=1, omega(c)>=2, X/26<c<=X/15,
+```
+
+the two still-unused physical sites **13c and 15c** lie in the odd upper-half
+remainder and have opposite genuine Mobius signs. All these pairs are
+disjoint. Their number is
+
+```text
+11 X/(168 pi^2) + O(X/log X).
+```
+
+Consequently this additional matching removes asymptotically **11/168** of
+the original odd-boundary population. It transfers to the original ordered
+Heath-Brown occurrences and their complete ordered square, with no reused
+endpoint or deleted mixed term. Its first admissible pair is
+1001=7*11*13 and 1155=3*5*7*11 at X=1155. This is actual arithmetic, not
+a random-sign or density-replacement model.
+
+**The limitation is equally precise.** Any additional disjoint pairing on
+the odd boundary whose every edge touches a site with at most
+(1-delta) log log X distinct prime factors, for a FIXED delta>0, removes only
+O_delta(X/log log X) sites. Its absolute remainder is still
+(2/pi^2+o(1))X, even if every permitted opposite-sign edge is available.
+Section F gives an exact finite optimum and an elementary variance proof.
+This is a limitation of LOW-DEPTH-ENDPOINT matching, not of fixed edit
+distance: the new 13c/15c pairs make only three prime edits while reaching
+arbitrarily large factor depths.
+
+Wheel 20261105-wheel-3/PE1-PE4 are **ACCEPT_WITH_SCOPE / independently
+reviewed PAPER_PROOF**. New referee-12/-13/-14 are **PAPER_PROOF / SELF_AUDIT /
+INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED**. Neither matching yields a
+subcritical MU-LIFT recurrence: after the new extension the unsigned
+remainder still has asymptotic size 157 X/(84 pi^2). No additional endpoint
+gain, canonical VF bound, or RH proof is established.
+
+### B. Current Authoritative Objective
+
+Main HEAD: **1667c3cf9b4e898bb9afd62ec48e24610b2156ab**, tree
+**6351bbacd22d7abb34eefed1e2cbf5f674642010**. The canonical objective remains
+
+```text
+exists C>=0, forall integer R>=2:
+ |pi(R^2)-vfCanonical(R^2)| <= C R log R.
+```
+
+The inspected `riemannHypothesis_of_vfCanonicalSquare` still takes
+`ClassicalVonKochRHCriterion` and the actual-prime bound explicitly. No
+canonical definition, phase, admission, or theorem assumption was changed.
+
+`deployment_ack`: main AGENTS blob
+547dda0d9456e7a4e1165dc72d59da6f70d5c023, contract blob
+7c4ac83a1ec1a4144e1bd691391ed4244f1cc27c, and independent route-selector blob
+ffd8f1c65cc4da656174956d4e03b48bea46768b were consumed. This independently
+selected **MU-LIFT** review follows this role's CORR4 and NYMAN reviews.
+PE1-PE4 supply a new, ready claim on a distinct genuine carrier. No unrelated
+OAI audit or extra launch is imposed. ETA_GATE=SEARCH_BROAD;
+NET_NEW_ENDPOINT_GAIN=UNKNOWN / NONE_ESTABLISHED.
+
+The selected source is the actual truncated Mobius convolution lift, with
+E(B)=max_(1<=n<B)|M(n)|/sqrt(n), not the VF historical source or a Hecke
+coefficient system. The quantitative supplier still requires full-prefix
+control on B_(j+1)=B_j^k, with fixed k>=2, fixed 1<=r<k, G_j>=1 and
+log G_j/log B_j -> 0.
+
+### C. Highest-Risk Proof Mechanisms
+
+1. Eventual fixed-P partner capacity cannot be upgraded to capacity at every
+   small cutoff, or to uniformity for an arbitrary growing P.
+2. A large unweighted partner pool is insufficient unless its endpoints are
+   genuinely unused. PE1 avoids this problem; the new extension must also
+   exclude the semiprimes PE1 already spent.
+3. Cancelling a prominent prime packet removes only O(X/log X) physical
+   sites. Adding a bounded number of almost-prime levels cannot fix that
+   quantitative limitation.
+4. A lower bound on a terminal unsigned certificate is NOT a lower bound on
+   |M(X)|. The new no-go never makes that inference.
+5. A constant fractional reduction of a linear remainder is not a power
+   gain. Iterating a local matching requires new disjoint coverage and
+   moving-cutoff control; no such iteration is assumed here.
+
+Review sequence: proof-aware, not blind. I read the upstream statements and
+proof, retrieved the actual source, independently reconstructed the finite
+matching and asymptotic argument, and wrote a separate exact verifier. No
+claim of statistical independence between model sessions is made.
+
+### D. Claims Reviewed And Verdicts
+
+| Claim | Verdict | Actual evidence and accepted scope |
+| --- | --- | --- |
+| 20261105-wheel-3/PE1 | ACCEPT_WITH_SCOPE | Finite injection/involution on the literal odd squarefree upper half; complete retention of factor-2 pairs |
+| PE2 | ACCEPT_WITH_SCOPE | Fixed finite P only; eventual coverage iff sum_(s in P)1/s>1; nine is minimal within precisely that partner family |
+| PE3 | ACCEPT_WITH_SCOPE | Ordered binomial occurrences below the STRICT B^k cutoff and complete ordered-square cancellation; not a new summatory estimate |
+| PE4 | ACCEPT_WITH_SCOPE | Linear unsigned remainder and no static partner valid at all cutoffs; neither refutes a signed closure or another matching |
+| PE5 | PARTIALLY_REPRODUCED | Separate finite implementation, including the requested X=63 raw carrier; no claim of rerunning its entire 795-case suite |
+| 20261104-wheel-3/QC1 | ACCEPT_WITH_SCOPE as a prerequisite | Its original occurrence/coefficient reconstruction was reconstructed in the PE3 review; no blanket new verdict on all other QC claims |
+| 20261105-lean-2/AUDIT-1, PR #1095 | ACCEPT_WITH_SCOPE | Repair is merged; exact-head workflow and actual eight-declaration standard-axiom evidence verified |
+| New Coordinator C58-C61, Owner MC2, Analytic CR1-CR3 | REVIEW_PENDING | Read for continuity, not independently accepted by this different-route review |
+
+New stable IDs:
+
+- **20261105-referee-11:** independent PE1-PE4 review and original-carrier reconstruction.
+- **20261105-referee-12:** exact optimal low-depth-endpoint matching and sharp original remainder asymptotic.
+- **20261105-referee-13:** quantitative growing-depth obstruction and its MU-LIFT certificate calibration.
+- **20261105-referee-14:** positive-density 13c/15c repair, exact carrier and complete return.
+- **20261105-referee-15:** independent exact finite verification, explicit boundary/reuse controls and source evidence.
+
+New paper claims receive SELF_AUDIT here, not their own independent approval.
+PAPER_PROOF, FINITE_COMPUTATION, PR/CI state, and report publication remain
+separate labels.
+
+### E. Independent Mathematical Reconstruction
+
+#### E1. Exact original lift and full occurrence identity
+
+Fix integers B>=2, k>=2, 4<=X<B^k. On positive integers let a(n)=mu(n) for
+n<B and zero otherwise, and let zeta(n)=1. All multiplication below is
+Dirichlet convolution. The inspected source defines
+
+```text
+D=1-a*zeta, H_0=0, H_(j+1)=a+D*H_j.
+H_k=a*sum_(l=0..k-1)D^l
+   =sum_(j=1..k)(-1)^(j-1) binom(k,j) a^{*j}*zeta^{*(j-1)}.
+H_k(n)=mu(n) for n<B^k.
+```
+
+The last line is `heathBrownLift_prefix_exact` with N=B-1. It requires no
+summatory upper bound. The general binomial coefficient follows from
+sum_(l=j-1..k-1)binom(l,j-1)=binom(k,j); it is finite algebra, not a
+convergence argument.
+
+An occurrence is an ordered tuple
+(j,c,a_1,...,a_j,b_1,...,b_(j-1)), with 1<=c<=binom(k,j),
+1<=a_i<B, mu(a_i)!=0, b_l>=1, and physical value
+n=product a_i product b_l<=X. Its sign is
+epsilon=(-1)^(j-1)product mu(a_i). The c label is actual binomial
+multiplicity. Squareful b_l and squareful physical n are allowed; they
+cannot be discarded individually. At every n, the total signed fiber is
+exactly mu(n).
+
+Pair opposite signs within each physical fiber. Exactly one representative
+of sign mu(n) remains if n is squarefree, and none otherwise. For any
+subsequent genuine sign-reversing involution tau on these physical sites,
+pair the representatives by tau. These two stages use disjoint occurrence
+sets. Their union sigma is therefore one involution on the original raw
+carrier, not a reuse of a canceled occurrence.
+
+On the complete ordered square apply sigma in the first coordinate when
+it moves, otherwise in the second coordinate when that moves. The branch
+condition is stable under a second application, so this is an involution
+with opposite product signs off its fixed set. If T physical sites remain,
+exactly T^2 ordered pairs remain and their signed sum is M(X)^2. Both
+cross orientations, all binomial cross-family interactions, and the
+squareful-fiber cancellations are retained.
+
+#### E2. Exact PE1-PE2 restatement and independent audit
+
+For X>=4 let
+
+```text
+S_X={1<=n<=X: mu(n)!=0},
+U_X={n in S_X: n odd, X<2n},
+A_X={p prime: X<2p, p<=X}, a_X=|A_X|.
+```
+
+Fix a nonempty finite set P of distinct odd primes, Y=max P. Its partner set is
+
+```text
+C_P(X)={s*q: s in P, q prime>Y, X<2s*q, s*q<=X},
+c_P(X)=sum_(s in P)max(0,pi(floor(X/s))-pi(max(Y,floor(X/(2s))))).
+```
+
+Every even squarefree integer has a unique odd parent u with child 2u.
+The pairs u<->2u remove exactly S_X minus U_X and reverse mu. Both A_X
+and C_P(X) are unused subsets of U_X, with signs -1 and +1. The condition
+q>Y makes the displayed factorization unique, so counting multiplier
+channels does not count the same semiprime twice. Every p in A_X is
+greater than either factor of an admitted partner; hence each new edge
+changes three distinct prime coordinates.
+
+Pair the increasing lists of A_X and C_P(X) for t=min(a_X,c_P(X))
+positions. This preserves every factor-2 mate and yields exactly
+
+```text
+R_P(X)=U_X minus the 2t selected endpoints,
+T_P(X)=|R_P(X)|=|U_X|-2t,
+M(X)=sum_(n in R_P(X))mu(n).
+```
+
+The matching is maximum only for that complete A_X-to-C_P(X) bipartite
+family. No path vertex such as 1 or s is consumed by the description
+p->1->s->sq; it is an endpoint matching, not vertex-disjoint transport.
+
+The ordinary [prime number theorem](https://dlmf.nist.gov/27.2.E3) gives,
+for each FIXED s, pi(X/s)-pi(X/(2s))~X/(2s log X). For X>2Y^2 the extra
+q>Y cutoff is automatic. Thus
+
+```text
+a_X~X/(2 log X), c_P(X)/a_X -> kappa(P)=sum_(s in P)1/s.
+```
+
+If kappa>1 every sufficiently large integer cutoff has enough partners;
+if kappa<1 the unmatched-prime count is asymptotic to
+(1-kappa)X/(2 log X). Multiplying a putative sum 1/s=1 by product s
+and reducing modulo any p in P is impossible. The exact sums are
+111429982/111546435<1 for the first eight odd primes and
+3343015913/3234846615>1 for the first nine. Any other at-most-eight
+selection has no larger sum. This proves the claimed nine-channel
+minimum, with P-dependent threshold and no effective threshold asserted.
+
+#### E3. PE4 scope and a sharper remainder formula
+
+The submitted elementary square-divisor union bound correctly gives
+|U_X|>=X/9-floor(sqrt X)/2-1. Since at most 2a_X extra sites are removed,
+T_P(X)>=X/18 eventually, uniformly in the choice of partner set. Its
+static-partner argument is also correct: at X=p and X=2p-1 a common
+upper-half partner would have to be both <=p and >=p, so cannot reverse
+the sign of p.
+
+For sharper calibration, Mobius square-divisor inversion gives
+
+```text
+Q_odd(y)=sum_(n<=y,n odd)mu(n)^2
+        =y/2 * product_(p odd)(1-p^(-2))+O(sqrt y)
+        =4y/pi^2+O(sqrt y).
+|U_X|=Q_odd(X)-Q_odd(floor(X/2))=2X/pi^2+O(sqrt X).
+```
+
+Indeed, expand mu(n)^2=sum_(d^2|n)mu(d), restrict to odd d, and count
+odd multiples as y/(2d^2)+O(1). The summed error and the omitted
+absolutely convergent d-tail are both O(sqrt y). The evaluation uses
+the standard value [zeta(2)=pi^2/6](https://dlmf.nist.gov/25.6).
+No Mertens cancellation estimate is used.
+
+For FIXED P this yields the sharpened formula
+
+```text
+T_P(X)=2X/pi^2-min(1,kappa(P))*X/log X+o_P(X/log X).   (R12a)
+```
+
+For arbitrary moving P(X), the weaker but uniform conclusion
+T_P(X)=2X/pi^2+O(X/log X) still follows simply from 0<=t<=a_X.
+Thus no enlargement of only the top-prime partner pool removes a positive
+fraction of the remaining carrier. This is a statement about its unsigned
+cardinality, never a lower bound for its signed sum.
+
+### F. Counterexamples And New Growing-Depth No-Go
+
+#### F1. Sharp finite optimum, not just a counting obstruction
+
+For any integer D>=0 let
+
+```text
+L_D(X)={n in U_X: omega(n)<=D}, l=|L_D(X)|,
+u=|U_X|, p=|{n in U_X:mu(n)=+1}|, q=|{n in U_X:mu(n)=-1}|.
+```
+
+Here omega counts distinct prime factors; on this squarefree carrier it
+also equals the number with multiplicity. Consider ALL sign-reversing
+matchings on U_X for which every edge has at least one endpoint in L_D.
+No factor-neighbor, chronology or geometric restriction is imposed on
+the other endpoint. The greatest possible number of edges is exactly
+
+```text
+min(p,q,l).
+```
+
+Therefore the SHARP minimum physical leftover is
+
+```text
+T_D^*(X)=max(|M(X)|, u-2l).                         (R12b)
+```
+
+Proof of the upper bound: every edge uses one positive, one negative,
+and at least one distinct low-depth site. For attainment, first pair
+high-depth positives to low-depth negatives as far as possible, and
+high-depth negatives to low-depth positives. Pair any remaining
+opposite-sign low-depth sites. If both high populations exhausted their
+opposite low populations, the edge count is l. Otherwise one sign is
+fully matched; the count is min(p,q). These are exactly the displayed
+minimum. No Hall condition for a smaller arithmetic graph is silently
+assumed. Since p-q=M(X) by the factor-2 telescope, (R12b) follows.
+
+This applies to the union of any number of disjoint additional stages
+whose FINAL edges have the stated low-depth property. Allowing arbitrary
+opposite-sign endpoints already gives the most favorable version of
+this method, so imposing extra edge restrictions cannot improve it.
+
+#### F2. Exact finite second-moment bound
+
+Let I_X={floor(X/2)+1,...,X}, L=|I_X|, and let P_z be the odd primes <=z.
+Put h=|P_z|, s=sum_(p in P_z)1/p, and w(n)=sum_(p in P_z)1_(p|n).
+For every positive integer d,
+
+```text
+A_d=floor(X/d)-floor(floor(X/2)/d), |A_d-L/d|<1.
+```
+
+Expansion of the COMPLETE square, including all distinct-prime terms,
+gives
+
+```text
+V=sum_(n in I_X)(w(n)-s)^2
+ =sum_p A_p + 2sum_(p<q)A_(pq) - 2s sum_p A_p + Ls^2
+ <= Ls + h^2 + 2hs.                               (R13a)
+```
+
+To verify the last line, replace A_d by L/d+e_d. The main term is
+L(s-sum_p p^(-2)); the error is
+(1-2s)sum_p e_p+2sum_(p<q)e_(pq), whose absolute value is at most
+h|1-2s|+h(h-1)<=h^2+2hs. This derives the needed weak independence
+from exact divisibility counts; it does not assume random prime factors.
+
+For every real D<s, omega(n)<=D implies w(n)<=D, hence
+
+```text
+#{n in I_X:omega(n)<=D} <= (Ls+h^2+2hs)/(s-D)^2.    (R13b)
+```
+
+This finite inequality is valid before taking any limit and also bounds
+|L_D(X)| by inclusion. The variance and denominator are exact rational
+quantities whenever z and D are integers.
+
+#### F3. Growing-depth certificate obstruction
+
+Choose z=floor(X^(1/4)). The verified classical input is
+sum_(p<=z)1/p=log log z+O(1), stated and proved in
+[Shoup, Theorem 5.10, printed pp. 109-112](https://www.shoup.net/ntb/ntb-v2_1.pdf).
+Removing p=2 and taking the fourth-root cutoff gives
+s=log log X+O(1). The constant does not depend on any matching or D.
+The crude h<=z and s<=h already give h^2+2hs<=3sqrt X.
+
+Fix 0<delta<1. For EVERY integer-valued D(X)>=0 with
+D(X)<=(1-delta)log log X eventually, (R13b) implies uniformly
+
+```text
+|L_D(X)|=O_delta(X/log log X),
+T_D^*(X)= (2/pi^2+o_delta(1))X.                    (R13c)
+```
+
+For the first assertion s-D>=delta log log X/2 eventually; substitute
+in (R13b). For the second use u-2l<=T_D^*<=u and the exact odd-squarefree
+density. No sign-distribution theorem or RH assumption is needed.
+
+At X=B^k-1, after the exact occurrence compression and factor-2 matching,
+any such low-depth-endpoint matching followed by the full ordered-square
+triangle estimate has amplitude certificate T>=cX for an absolute c>0
+eventually. For fixed k>=2, fixed 1<=r<k, C>0, and subpower G(B)>=1,
+
+```text
+T/[C G(B) E(B)^r sqrt(X)]
+ >= c sqrt(B^k-1)/[C G(B)(B-1)^(r/2)] -> infinity.  (R13d)
+```
+
+Only the elementary E(B)<=sqrt(B-1) was used. This holds on every
+unbounded B-chain; a sparse choice of scales cannot fix this certificate.
+It rules out this absolute-value finish, not the signed residual or
+MU-LIFT. In particular, any all-scale o(X) leftover achieved under the
+same low-depth-edge rule must have liminf D(X)/log log X>=1. That is a
+necessary restriction, not a sufficient condition for successful matching.
+
+#### F4. Scope guards and genuine small witnesses
+
+Neither PE1 nor R13 rules out fixed-three-edit pairing at HIGH depth.
+The explicit new pair 1001<->1155 has factor sets {7,11,13} and
+{3,5,7,11}; both lie in (1155/2,1155], with signs -1 and +1.
+It is not incident to the depth<=2 packet. The smallest permitted
+cofactor for the new template is 77=7*11, proving its first cutoff
+X=15*77=1155 without extrapolation.
+
+Two omitted-hypothesis controls are exact:
+
+- Without gcd(c,390)=1, c=3 gives mu(39)=+1 but mu(45)=0, so the proposed
+  endpoints do not form a nonzero sign-reversing pair.
+- Without omega(c)>=2, X=465 and c=31 propose endpoint 403=13*31, but
+  P9's already fixed increasing-list matching pairs 403 with prime 383.
+  Reusing 403 would spend one occurrence twice. This refutes that
+  unrestricted ADD-ON construction, not PE1 or the corrected extension.
+
+These are counterexamples to explicit strengthenings, not errors in the
+submitted PE1-PE4 statements.
+
+### G. Original-Carrier And Covariance Audit
+
+Every finite matching here is on genuine integer values with actual mu,
+not freely chosen signs. Raw occurrence IDs preserve ordered factors and
+binomial copies. The source begins at n=1; the Lean n=0 coefficient is zero.
+The strict X<B^k condition is retained. At the excluded equality B=2,
+k=2,n=4 the lift is -1 whereas mu(4)=0, independently reproduced.
+
+For the NEW packet, each cofactor contributes
+mu(13c)+mu(15c)=0, but the signs of the two summands vary with mu(c).
+The cancellation is therefore exact before any norm. If A is the sum
+of its first endpoints and Z the entire remaining signed source, then
+
+```text
+M(X)=A-A+Z,
+M(X)^2=A^2+A^2+Z^2-2A^2+2AZ-2AZ=Z^2.
+```
+
+The raw tensor involution in E1 proves the same fact occurrence by
+occurrence. The negative cross credit is not used a second time. No
+diagonal, previous factor-2 partner, semiprime partner, or complement
+interaction is silently removed. There is no claim of chronological VF
+admission, a weighted #915 source identity, or an integer-to-Hecke map.
+
+### H. Quantifier And Circularity Audit
+
+PE2 fixes P BEFORE X and has a P-dependent eventual threshold. R13 instead
+fixes delta>0 and is uniform over all D(X) and all matchings in its stated
+class; its constants were explicitly derived from finite divisibility
+counts. R14 below uses a FIXED 13/15 template and fixed coprimality modulus
+390. Its disjointness holds for every X and every P, even moving P(X).
+No fixed-modulus error is summed over a growing family without a bound.
+
+The restricted class is low-depth ENDPOINTS, not small edit distance.
+Arbitrarily high-depth endpoints differing in only three primes are
+precisely how R14 avoids it. It does not follow that all such edges can
+be used simultaneously beyond the proved disjoint template.
+
+Both residual identities, before and after R14, have signed sum EXACTLY
+M(X). Replacing the MU-LIFT left side by that signed residual is
+TARGET_EQUIVALENT at the same cutoff and normalization. It supplies no
+independent upper bound. Likewise the EXISTENCE of a whole-prefix
+subcritical recurrence with subpower losses on a complete power chain
+is equivalent to half-exponent Mertens growth: its forward logarithmic
+contraction is u_(j+1)<=(r/k)u_j+g_j/k; conversely half-exponent growth
+bounds max(1,E(B_j^k)/E(B_j)^r) by C_epsilon B_j^(k epsilon).
+This is a paper logical audit of the existing consumer, not a new paid
+arithmetic premise.
+
+The matching and density theorems themselves are unconditional proper
+results. Their proofs do not assume a Mertens bound. Their fixed-density
+improvements must not be relabeled as a uniform exponent contraction.
+
+### I. Constructive Repair: Positive-Density Common-Cofactor Pairs
+
+#### I1. Exact finite theorem (referee-14)
+
+For every integer X>=4 define
+
+```text
+K_X={c>=1: mu(c)^2=1, gcd(c,390)=1, omega(c)>=2,
+             X<26c, 15c<=X}.
+```
+
+For any PE1 partner set P, extend its involution by pairing 13c<->15c
+for every c in K_X. This is well-defined and preserves EVERY earlier
+mate. Proof: c is odd and coprime to 3,5,13, so both endpoints are odd
+squarefree, with mu(13c)=-mu(c) and mu(15c)=mu(c). The exact inequalities
+place both in (X/2,X]. Their factor counts are omega(c)+1 and omega(c)+2,
+both at least three. They are neither prime nor semiprime, so PE1 never
+used them, for ANY P.
+
+Within either endpoint family distinct c give distinct integers. A
+cross equality 13c=15d would force 3|c, contrary to gcd(c,390)=1;
+the reversed equality is equally impossible. Thus all endpoints are
+distinct and each has one mate. Every pair changes precisely the
+three prime coordinates {3,5,13}, at unrestricted genuine cofactor depth.
+
+Writing R'_P for the final remainder, one obtains exactly
+
+```text
+|R'_P(X)|=T_P(X)-2|K_X|,
+sum_(n in R'_P(X))mu(n)=M(X).                       (R14a)
+```
+
+E1 supplies the occurrence involution and ENTIRE ordered-square return.
+This is not a purely formal extension with unproved source admission.
+
+#### I2. Density, quantitative improvement and remaining limitation
+
+For any FIXED positive squarefree D, a direct double-divisor inversion is
+
+```text
+Q_D(y)=#{n<=y:mu(n)^2=1,gcd(n,D)=1}
+ =sum_(d<=sqrt(y),(d,D)=1)mu(d) sum_(e|D)mu(e)floor(y/(d^2 e))
+ = y/zeta(2) * product_(p|D)p/(p+1) + O_D(sqrt y).
+```
+
+The first identity follows by expanding the squarefree indicator and
+the coprimality indicator. Replacing each floor by its argument costs
+O_D(sqrt y); the absolutely convergent d-tail has the same order.
+The product coefficient follows by multiplying the local factors.
+
+At D=390 this density is 65/(28 pi^2). Count c in (X/26,X/15] and
+remove c=1 or prime, at a cost O(X/log X). It follows that
+
+```text
+|K_X|=65/(28 pi^2)*(1/15-1/26)X+O(X/log X)
+     =11X/(168 pi^2)+O(X/log X).                    (R14b)
+```
+
+The removed prime cofactors are a vanishing fraction, yet their removal
+is essential for the finite once-only theorem. No independence of prime
+divisibility or sign distribution has been presumed.
+
+Since 0<=min(a_X,c_P(X))<=a_X=O(X/log X), uniformly for arbitrary
+nonempty finite P=P(X),
+
+```text
+|R'_P(X)|=157X/(84 pi^2)+O(X/log X).                (R14c)
+```
+
+The extra removed fraction relative to |U_X| tends to 11/168, and the
+retained fraction tends to 157/168. This is a substantive constant-density
+improvement over prime/semiprime-only cancellation, not an exponent gain.
+Applying (R13d)'s budget comparison with this positive constant again
+rules out closing by the final cardinality alone. A further signed or
+growing-coverage argument is still required.
+
+### J. Competing Proof-Strategy Assessment
+
+| Mechanism | Disposition |
+| --- | --- |
+| PE1-PE3 prime/semiprime packet | Accept its actual source and eventual fixed-P capacity; do not discard valid local mathematics |
+| More partners only for the same top-prime cohort | Deprioritize as a norm strategy: its removable population is still O(X/log X) |
+| Any low-depth-endpoint pairing with D<=(1-delta)log log X | Retire its unsigned subcritical finish by R13; arbitrary other-endpoint freedom does not help |
+| Common-cofactor three-edit pairs at unbounded depth | Continue as a distinct source-qualified structural direction; R14 proves positive-density disjoint cancellation |
+| Repeated fixed-fraction contraction | OPEN unless new disjointness, moving admission and complete recurrence are independently proved |
+| Full signed MU-LIFT residual | Remains open; the new certificate obstruction does not refute it |
+| CODIV / JOH quantitative logarithmic inputs | Distinct proper-source claims deserving a later independent external-theorem audit; no automatic transfer here |
+| NYMAN / CORR4 / OAI-NNS / VF-LOW / SAT / FINITE-AC | Preserve their actual previous verdicts and protected investigations; no team-wide campaign change |
+
+### K. Original Adversarial Research And Executed Verification
+
+The original investigation developed both the strongest permitted
+low-depth matching and a lawful way around that restriction. R12b is sharp
+at every finite cutoff; R13 supplies the growing-threshold asymptotic;
+R14 restores actual high-depth opposite-sign edges with computable
+positive density. Standard matching algebra, divisor inversion and prime
+asymptotics are not claimed as new literature results. The contribution is
+their exact application, scope and full-return calibration on this carrier.
+
+The independently written standard-library verifier used trial
+factorization and a separately implemented Mobius sieve through 20,000;
+arbitrary-precision integers and Fraction arithmetic made every test exact.
+It did not import the upstream verifier. Preregistered physical tests were
+X=4..200 plus 255,1023,4095 for P={3,5}, P8 and P9. A proof-directed
+second stage located the first new 13c/15c pair and tested its boundaries
+and the omitted-hypothesis controls; it is not mislabeled preregistered.
+
+| X and partner set | Odd boundary | PE1 leftover | Added 13c/15c pairs | Final leftover | M(X) |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| 63, {3,5} | 13 | 1 | 0 | 1 | -1 |
+| 255, P9 | 53 | 21 | 0 | 21 | -1 |
+| 1023, P9 | 206 | 56 | 0 | 56 | -4 |
+| 1155, P9 | 235 | 65 | 1 | 63 | -5 |
+| 4095, P9 | 831 | 321 | 7 | 307 | -19 |
+
+At X=4095 the seven pairs are
+(2093,2415), (2431,2805), (2639,3045), (2717,3135),
+(2821,3255), (3289,3795), (3367,3885). At X=1155 the pair
+(1001,1155) remains admitted through X=2001 and exits at X=2002,
+exactly as X<26c requires.
+
+The final executed verifier checked 1,762 physical matching calls, 1,757
+extension calls, 81 admitted new-pair instances, 990 independent
+augmenting-path maximum matchings, 600 exact variance expansions, and
+104 coprime-squarefree inversions. Call counts include repeated controls
+and are not counts of distinct mathematical configurations.
+
+Literal ordered raw carriers were checked at (B,k,X)=(4,2,15),
+(8,2,63), (3,3,26), (2,3,7), and the NEW extension at (35,2,1155).
+There were 12,476 total original occurrence IDs. All **307,475** ordered
+pairs in the first four carriers were enumerated. The fifth has 11,609
+raw atoms and 134,768,881 potential ordered pairs: its full first-order
+involution and exact factorized energy were checked, but that Cartesian
+square was NOT exhaustively enumerated. The complete tensor theorem is
+proved in E1, not inferred from a sample of those pairs.
+
+In the requested B=8,k=2,X=63 carrier, all 345 IDs and all 119,025 pairs
+were checked; fixed physical site 61 gives M(63)^2=1. Python syntax
+compilation and all runtime assertions passed. The complete executed code
+is embedded below; SHA-256 is
+**591ed104974fb9bb467103d0db7fb71c9f0ecd4703d93103759cc3c62a8b1edb**.
+No finite survival or fitted slope is used to prove the asymptotic claims.
+
+### L. Formalization Guidance And Verified Source Evidence
+
+No local Lean execution, source edit or new proof PR occurred. New
+R12-R14 remain paper/self-audited, awaiting independent review. PE1 and
+PE3's finite interface are independently accepted candidates only if a
+real downstream consumer needs them; do not create a generic matching PR
+for theorem volume. Neither a desired residual bound nor iteration of
+R14 is an accepted premise.
+
+Historical [PR #954](https://github.com/OVVO-Financial/RH_Lean/pull/954)
+is human-merged, head a4b5578f12729b4caa36e9305aa30ccc098f4923. All 11
+returned exact-head workflows are successful. The actual
+[signed-lift job](https://github.com/OVVO-Financial/RH_Lean/actions/runs/38769272005/job/116540514284)
+was retrieved, including its warning-fatal acceptance harness and all 22
+named standard-axiom lists. I checked the multiline closures, not merely
+the success label. Permitted axioms were only propext, Classical.choice
+and Quot.sound.
+
+Current lift and prefix-source blobs differ from that historical head.
+Both old and new files were fetched and compared: changes are the
+Lean-4.34 `using!`/simp/addition-helper proof-port changes, not changed
+statements or added quantitative premises. The most recent lift-source
+commit is e52cc437a70ccf32e8bc81eb0f0d8aeea9e188b6. This run does NOT claim
+a fresh exact-current-main compilation of that ported closure. Historical
+certification, inspected current declarations, independent paper
+reconstruction, and unformalized new results are kept distinct.
+
+[PR #1095](https://github.com/OVVO-Financial/RH_Lean/pull/1095) is now
+human-merged at the recorded main, superseding earlier same-day unmerged
+descriptions. Its head 46e68178192c6e429a02abee9d5b8ebca5de46c8 has three
+successful exact-head workflows. The actual
+[Euler audit job](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42084042187/job/127444267657)
+contains successful type/axiom output for all eight intended declarations,
+including eulerFloorBilinearQ_cast_eq_original, and the exact-coverage pass.
+The prior missing-name false positive is repaired; it is not a new
+mathematical cancellation theorem. No open or draft PR existed at intake.
+
+### M. Specialist Handoffs And Continuity
+
+All available November 4 and November 5 role reports were retrieved at
+reporting snapshot **79b1ea9655590f47122eae869d27b813a66ce7d5**. Relevant
+result summaries, selected-route derivations, prior Referee capsules,
+source/CI evidence and handoffs were read. Unrelated executable appendices
+were not rerun. All TODAY roles are AVAILABLE; no pending scheduled stage
+was invented. Coordinator AM/PM blobs match and count as one synthesis.
+
+| Role | Nov 4 blob | Nov 5 intake blob | Consumed scope |
+| --- | --- | --- | --- |
+| Coordinator | 68495a5e913eee0e788940a683cf16ec4d0984cc | 88c4b9f83cc3dcea885d0c9ddb1fc26cedef4632 | C45-C52 continuity; C58-C61 fixed-mixture NYMAN obstruction remains pending review; MU-LIFT support handoff |
+| Owner | 560b0b7617703b64e728e12e60a390646c9379ea | 39665b5b28fc48378519ab9d56cee8df4d3e2681 | SF/LC history; RC/CR and MC clock innovations remain distinct actual-prime carriers |
+| Analytic | 04ffb1b41d8b6afe5a5d89754f5ccbc8d9682d58 | 9490aa2eecafcd19d8007043cc5f978fe421a7c9 | M1-M6 pending logarithmic-source audit; SP1-SP5 prior acceptance retained; new physical-row CR1-CR3 not audited here |
+| Wheel | 37ad6a1230fbb46369311790ed5686baf1775598 | afc85d800c47f82f2db634591a7798005cb668de | QC1 reconstruction; current PE1-PE4 selected; F/P route results not silently promoted |
+| Census | 4bd5319fa3d13219cdad006dce4a854b606c2f7c | 24fcd6a631eca9ae44238d927215f49e1d8a174f | Prior Nyman witnesses and CORR4 corrections retained; latest JOH X=209 halo/sign warning read |
+| Referee | 0e4fdfbf90d52a74074e04ef6cb6988339dc8d84 | df74121b0a07297776a106ccd1b9d80a36b12fc5 | Previous verdicts and source-qualified no-rediscovery conditions preserved |
+| Lean | 5fce0138779d67eda4e69c13230274e6419de894 | c9e8255d2c00a2b317f39531589ac2a16f8e3518 | #1093/#1094 history and #1095 repaired audit, now merged |
+
+External inbox **038018145c0fddb2f6306c0712373adf9cd1ea52** has no entry
+after October 18. EXT-20261018-PNT-1..3, EXT-20261017-XCOORD-1 and
+EXT-20261014-5 supply relevant carrier, boundary and unconditional-versus-
+conditional scope safeguards, not new MU-LIFT inputs. Their old compulsory
+routing and one/day language is superseded by live main. No new external
+proof was silently treated as independently accepted.
+
+| Recipient | Precise published handoff |
+| --- | --- |
+| Proof Architect | Record PE1-PE4 accepted on paper; R12-R14 require a different independent review. Preserve breadth. The new positive-density repair is not a recurrence or endpoint gain |
+| Wheel | Check the sharp formula R12b and uniform variance proof R13. Independently test R14's density constant, degree exclusion and cross-endpoint injectivity; preserve CORR4 rotation |
+| Census | Small independent target: X=1155 and 4095 pairs, X=2001/2002 cutoff, c=31 reuse at X=465, and exact Q_390 inversion. No wider trend-fitting scan is requested |
+| Lean Verification | PE1/PE3 are now independently accepted at finite scope. R12-R14 are SELF_AUDIT only; do not formalize a desired norm bound or regard this report as its own independent review |
+| Analytic | A signed residual estimate or genuine growing coverage on typical-depth cofactors is still unpaid. Existing logarithmic shell bounds do not transfer automatically |
+| Owner | Common factors are allowed across DIFFERENT endpoints, but each physical site is spent once. No weighted VF donor capacity or chronological source identity is inferred |
+
+These are report handoffs, not launches or promised future executions.
+
+### N. First Independently Missing Mathematical Ingredient
+
+At k=2, on a specified chain B_(j+1)=B_j^2, the genuine open input remains
+
+```text
+exists fixed r in [1,2), G_j>=1 with log G_j/log B_j -> 0,
+forall sufficiently large j, forall integer B_j<=X<B_j^2:
+ |2M(B_j-1)-Q_(B_j-1)(X)| <= G_j E(B_j)^r sqrt(X),
+Q_N(X)=sum_(1<=i,j<=N)mu(i)mu(j)floor(X/(ij)).
+```
+
+Both linear copies and the entire signed bilinear source are retained.
+For a matching-based route, a precise exploratory prerequisite is an
+occurrence-disjoint extension acting on a quantitatively sufficient
+portion of the typical-depth remainder, with its moving-X boundaries
+and all residual interactions included. R14 supplies one fixed-density
+piece only. Alternatively an independent signed estimate on R'_P may
+avoid a near-perfect matching. It must be proved, not assumed under the
+residual's new name. Endpoint-only matching is insufficient for the
+whole-prefix recurrence without an independent interpolation theorem.
+
+### O. Next-Run Resume Capsule
+
+```text
+RUN: scheduled 2026-11-05 20:13:01 EST; RUN_ID_UNAVAILABLE.
+MAIN: 1667c3cf9b4e898bb9afd62ec48e24610b2156ab.
+POLICY: ffd8f1c65cc4da656174956d4e03b48bea46768b.
+ROUTE: MU-LIFT, original ordered lift and complete ordered square.
+UPSTREAM: wheel-3/PE1-PE4 ACCEPT_WITH_SCOPE / PAPER_PROOF.
+NEW R12: exact T_D^*=max(|M(X)|,|U_X|-2|L_D|).
+NEW R13: D<=(1-delta)log log X leaves (2/pi^2+o(1))X;
+         terminal cardinality cannot supply subcritical r<k.
+NEW R14: unused 13c<->15c, gcd(c,390)=1, omega(c)>=2,
+         X<26c and 15c<=X; pair density 11/(168 pi^2).
+LIMIT: extended leftover ~157X/(84 pi^2), still linear.
+COUNTERCONTROLS: c=3 loses squarefree sign; c=31 at X=465
+                reuses the existing endpoint 403 unless excluded.
+FINITE: 12476 raw IDs; 307475 enumerated ordered pairs;
+        large new-pair fixture checked first order, not full square.
+NEW PROOFS: SELF_AUDIT / INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED.
+CI: #954 historical exact-head signed-lift log verified; current proof
+    port inspected, not freshly compiled. #1095 merged and audit repaired.
+FIRST OPEN: whole-prefix signed recurrence or quantified new typical-depth
+            coverage, not more partners for the same low-depth cohort.
+NEXT DISTINCT REVIEW: fresh CODIV M1-M6 or JOH MC2 external-theorem
+    uniformity, or a materially new claim; do not repeat unchanged counts.
+GAIN: none newly established; SEARCH_BROAD; canonical objective OPEN.
+EARLY CHECKPOINT: 0b7e4f602e4ad0823e47c449a8d1ff0aae4b8b9d,
+                 blob ed3cb155d270ecf96c62a38371cb0b1e2ceb2b70,
+                 immutable-commit exact readback verified.
+FINAL PUBLICATION: pending the separate commit/readback receipt.
+```
+
+Honest tool limitations: direct shell clone returned CONNECT 403; the
+authenticated GitHub connector provided source and write access. One
+workflow-name listing URL was unsupported; the commit-scoped workflow
+collection and exact historical job log were successfully retrieved.
+No local Lean, CI rerun, source/workflow change, other-report edit,
+proof branch, PR, issue, merge, schedule mutation or agent launch occurred.
+
+### Material Source Ledger - Evening Invocation
+
+All current source files below were retrieved at the recorded main.
+
+| Source | Blob SHA |
+| --- | --- |
+| AGENTS.md | 547dda0d9456e7a4e1165dc72d59da6f70d5c023 |
+| CURRENT_PROOF_CONTRACT.md | 7c4ac83a1ec1a4144e1bd691391ed4244f1cc27c |
+| Independent multi-front policy | ffd8f1c65cc4da656174956d4e03b48bea46768b |
+| Stable task selector | 4fbab59cc6fcc33a4f4e7a8ef447b2f7947b53dd |
+| Broad-search policy | 8317f08996b65f2e4b32c00c91b31cb6d0c09718 |
+| Complete-return contract | 4775ee5fd95f279beab08a75d1e17127078b19a6 |
+| Persistent research engine | 6c1d1c10e2755017ffe9d7f40df8b9ae7692f23a |
+| Role prompts | 53143573cd5b014178d11ded008dbfb1a7e6dcc5 |
+| Dynamic protocol | 23b6fae1d3b6b5a69155628df709d255aea7aeca |
+| Multiple-daily policy | 643cfd596116720a8e5b1efc07a6124b55d70946 |
+| research/MERTENS_HEATH_BROWN_SIGNED.lean | af69b4811cf9f523eb7c96fb0ca836b2cdbd1180 |
+| research/MERTENS_FINITE_PREFIX_EXTENSION.lean | 131e9af86207a42d4bf6488e3f64c9ce4f97e5df |
+| research/MERTENS_HEATH_BROWN_ACCEPTANCE.lean | 9c7f3c030bcfcfa3fe56ccedf30bfcbf42e5fd7d |
+| docs/MERTENS_AMPLIFICATION_BUDGET.md | 62bbe73c4755eaa64772ec2cc2731936c01b49cd |
+| RHLean/Arithmetic/TopPrimeReplacementIsolation.lean | 950173fc3e5271f3eeed8cc6f7831ca89bb11a90 |
+| RHLean/Proof/AdaptivePrimeMatching.lean | c2caaace0f4e99ea06107d939119c12fa005bcbc |
+| research/VF_CANONICAL_SQRT_TWO_VON_KOCH.lean | 79030d70e8d3e0d08eef9bac53fef95c36eca2fb |
+| .github/workflows/mertens-signed-lift.yml | 5d7570cc84a286ab9aa3697b731972886b618671 |
+
+### Reproducibility Appendix - Complete Independent Verifier
+
+The following is the exact executed source, not the upstream implementation.
+
+```python
+"""Independent exact checks for the 2026-11-05 evening MU-LIFT review."""
+
+from bisect import bisect_right
+from collections import Counter, defaultdict
+from fractions import Fraction as F
+from itertools import product
+from math import comb, gcd, isqrt
+import json
+
+
+def factors(n):
+    out = {}
+    d = 2
+    while d * d <= n:
+        while n % d == 0:
+            out[d] = out.get(d, 0) + 1
+            n //= d
+        d += 1
+    if n > 1:
+        out[n] = out.get(n, 0) + 1
+    return out
+
+
+LIMIT = 20000
+FAC = [factors(n) for n in range(1, LIMIT + 1)]
+MU = [0] + [0 if any(e > 1 for e in f.values()) else (-1) ** len(f)
+            for f in FAC]
+PRIMES = [n for n in range(2, LIMIT + 1) if FAC[n - 1] == {n: 1}]
+P8 = (3, 5, 7, 11, 13, 17, 19, 23)
+P9 = P8 + (29,)
+COUNTS = Counter()
+
+
+def physical(X, P):
+    S = [n for n in range(1, X + 1) if MU[n]]
+    U = [n for n in S if n % 2 and X < 2 * n]
+    A = [n for n in U if FAC[n - 1] == {n: 1}]
+    C = []
+    for n in U:
+        fs = sorted(FAC[n - 1])
+        if len(fs) == 2 and fs[0] in P and fs[1] > max(P):
+            C.append(n)
+    tau = {n: n for n in S}
+    for n in S:
+        if n % 2 and 2 * n <= X:
+            tau[n], tau[2 * n] = 2 * n, n
+    for a, c in zip(A, C):
+        assert tau[a] == a and tau[c] == c and MU[a] == -MU[c]
+        tau[a], tau[c] = c, a
+        assert len(set(FAC[a - 1]) ^ set(FAC[c - 1])) == 3
+    literal_count = sum(max(0, bisect_right(PRIMES, X // s)
+                            - bisect_right(PRIMES, max(max(P), X // (2 * s))))
+                        for s in P)
+    assert literal_count == len(C)
+    for n in S:
+        assert tau[tau[n]] == n
+        if tau[n] != n:
+            assert MU[tau[n]] == -MU[n]
+        if n % 2 and 2 * n <= X:
+            assert tau[n] == 2 * n
+    R = [n for n in S if tau[n] == n]
+    assert set(R) <= set(U)
+    assert len(R) == len(U) - 2 * min(len(A), len(C))
+    assert sum(MU[n] for n in R) == sum(MU[1:X + 1])
+    assert F(len(U)) >= F(X, 9) - F(isqrt(X), 2) - 1
+    COUNTS['physical_cases'] += 1
+    return tau, U, A, C, R
+
+
+def complete_low_depth_matching(U, D):
+    positives = [n for n in U if MU[n] == 1]
+    negatives = [n for n in U if MU[n] == -1]
+    low = {n for n in U if len(FAC[n - 1]) <= D}
+    mate = {}
+
+    def augment(a, seen):
+        for b in negatives:
+            if (a not in low and b not in low) or b in seen:
+                continue
+            seen.add(b)
+            if b not in mate or augment(mate[b], seen):
+                mate[b] = a
+                return True
+        return False
+
+    size = sum(augment(a, set()) for a in positives)
+    expected = min(len(positives), len(negatives), len(low))
+    assert size == expected
+    residual = len(U) - 2 * size
+    assert residual == max(abs(sum(MU[n] for n in U)), len(U) - 2 * len(low))
+    tau = {n: n for n in U}
+    for b, a in mate.items():
+        tau[a], tau[b] = b, a
+    COUNTS['optimal_depth_matching_cases'] += 1
+    return tau, residual
+
+
+def add_high_depth_pairs(X, tau):
+    cofactors = [c for c in range(1, X // 15 + 1)
+                 if X < 26 * c and MU[c] and gcd(c, 390) == 1
+                 and len(FAC[c - 1]) >= 2]
+    used = set()
+    for c in cofactors:
+        a, b = 13 * c, 15 * c
+        assert X < 2 * a and a <= X and X < 2 * b and b <= X
+        assert a % 2 and b % 2 and MU[a] == -MU[b]
+        assert tau[a] == a and tau[b] == b
+        assert a not in used and b not in used
+        assert len(set(FAC[a - 1]) ^ set(FAC[b - 1])) == 3
+        used.update((a, b))
+        tau[a], tau[b] = b, a
+    assert len(used) == 2 * len(cofactors)
+    R = [n for n in tau if tau[n] == n]
+    assert sum(MU[n] for n in R) == sum(MU[1:X + 1])
+    assert all(tau[tau[n]] == n for n in tau)
+    COUNTS['high_depth_extension_cases'] += 1
+    COUNTS['new_pairs_checked'] += len(cofactors)
+    return cofactors, R
+
+
+def convolution(a, b, X):
+    out = [0] * (X + 1)
+    for i in range(1, X + 1):
+        if a[i]:
+            for j in range(1, X // i + 1):
+                out[i * j] += a[i] * b[j]
+    return out
+
+
+def recursive_lift(B, k, X):
+    a = [MU[n] if n < B else 0 for n in range(X + 1)]
+    d = [-v for v in convolution(a, [0] + [1] * X, X)]
+    d[1] += 1
+    h = [0] * (X + 1)
+    for _ in range(k):
+        h = [u + v for u, v in zip(a, convolution(d, h, X))]
+    return h
+
+
+def occurrences(B, k, X):
+    out = []
+    for j in range(1, k + 1):
+        def walk(slot, value, sign, vec):
+            if slot == 2 * j - 1:
+                for copy in range(1, comb(k, j) + 1):
+                    out.append(((j, copy, tuple(vec)), value, sign * (-1) ** (j - 1)))
+                return
+            for v in range(1, min(X // value, B - 1 if slot < j else X) + 1):
+                if slot >= j or MU[v]:
+                    walk(slot + 1, value * v, sign * (MU[v] if slot < j else 1), vec + [v])
+        walk(0, 1, 1, [])
+    assert len({o[0] for o in out}) == len(out)
+    return out
+
+
+def raw_check(B, k, X, P, extend=False, tensor=True):
+    O = occurrences(B, k, X)
+    h = recursive_lift(B, k, X)
+    grouped = defaultdict(lambda: {1: [], -1: []})
+    for i, (_, n, sign) in enumerate(O):
+        grouped[n][sign].append(i)
+    assert all(len(grouped[n][1]) - len(grouped[n][-1]) == h[n] == MU[n]
+               for n in range(1, X + 1))
+    sigma = list(range(len(O)))
+    reps = {}
+    for n, groups in grouped.items():
+        pos, neg = groups[1], groups[-1]
+        t = min(len(pos), len(neg))
+        for a, b in zip(pos[:t], neg[:t]):
+            sigma[a], sigma[b] = b, a
+        left = pos[t:] + neg[t:]
+        assert len(left) == abs(MU[n])
+        if left:
+            reps[n] = left[0]
+    tau, _, _, _, R = physical(X, P)
+    if extend:
+        _, R = add_high_depth_pairs(X, tau)
+    for n, i in reps.items():
+        sigma[i] = reps[tau[n]]
+    for i, (_, _, sign) in enumerate(O):
+        assert sigma[sigma[i]] == i
+        if sigma[i] != i:
+            assert O[sigma[i]][2] == -sign
+
+    def psi(i, j):
+        if sigma[i] != i:
+            return sigma[i], j
+        if sigma[j] != j:
+            return i, sigma[j]
+        return i, j
+
+    if tensor:
+        fixed = total = 0
+        for i, j in product(range(len(O)), repeat=2):
+            p, q = psi(i, j)
+            assert psi(p, q) == (i, j)
+            sign = O[i][2] * O[j][2]
+            total += sign
+            if (p, q) == (i, j):
+                fixed += 1
+            else:
+                assert O[p][2] * O[q][2] == -sign
+        assert total == sum(MU[1:X + 1]) ** 2
+        assert fixed == len(R) ** 2
+        COUNTS['raw_ordered_pairs'] += len(O) ** 2
+    else:
+        total = sum(sign for _, _, sign in O) ** 2
+        assert total == sum(MU[n] for n in R) ** 2 == sum(MU[1:X + 1]) ** 2
+        assert sum(sigma[i] == i for i in range(len(O))) == len(R)
+    COUNTS['raw_atoms'] += len(O)
+    return dict(B=B, k=k, X=X, atoms=len(O), pairs=len(O) ** 2,
+                residual=len(R), energy=total, tensor_enumerated=tensor, extended=extend)
+
+
+def finite_variance(X, ps):
+    lo, length = X // 2, X - X // 2
+    s, h = sum((F(1, p) for p in ps), F(0)), len(ps)
+    vals = [sum(n % p == 0 for p in ps) for n in range(lo + 1, X + 1)]
+    V = sum(((F(v) - s) ** 2 for v in vals), F(0))
+    A = lambda d: X // d - lo // d
+    expanded = sum(A(p) for p in ps)
+    expanded += 2 * sum(A(p * q) for i, p in enumerate(ps) for q in ps[i + 1:])
+    expanded += -2 * s * sum(A(p) for p in ps) + length * s * s
+    assert V == expanded
+    bound = length * s + h * h + 2 * h * s
+    assert V <= bound
+    for D in range(4):
+        if D < s:
+            low_count = sum(len(FAC[n - 1]) <= D for n in range(lo + 1, X + 1))
+            assert low_count * (s - D) ** 2 <= V
+    COUNTS['exact_variance_cases'] += 1
+
+
+def main():
+    # A second arithmetic implementation checks trial-factor coefficients.
+    sieve = [1] * (LIMIT + 1)
+    sieve[0] = 0
+    for p in PRIMES:
+        for n in range(p, LIMIT + 1, p):
+            sieve[n] *= -1
+        for n in range(p * p, LIMIT + 1, p * p):
+            sieve[n] = 0
+    assert sieve == MU
+    COUNTS['independent_mobius_values'] = LIMIT
+    assert sum((F(1, p) for p in P8), F(0)) == F(111429982, 111546435)
+    assert sum((F(1, p) for p in P9), F(0)) == F(3343015913, 3234846615)
+    records = []
+    for X in list(range(4, 201)) + [255, 1023, 4095]:
+        for P in ((3, 5), P8, P9):
+            tau, U, A, C, R = physical(X, P)
+            co, final = add_high_depth_pairs(X, tau)
+            assert len(final) == len(R) - 2 * len(co)
+            if (X == 63 and P == (3, 5)) or (X in (255, 1023, 4095) and P == P9):
+                records.append(dict(X=X, P=list(P), top_primes=len(A), partners=len(C),
+                                    odd_boundary=len(U), PE_left=len(R),
+                                    added_pairs=len(co), final_left=len(final), M=sum(MU[1:X + 1])))
+        if X <= 255:
+            for D in range(5):
+                complete_low_depth_matching(U, D)
+        z = isqrt(isqrt(X))
+        for ps in ([p for p in PRIMES if 2 < p <= z], [3, 5, 7], [3, 5, 7, 11, 13]):
+            finite_variance(X, ps)
+
+    raw = [raw_check(*row) for row in [(4, 2, 15, (3, 5)), (8, 2, 63, (3, 5)),
+                                      (3, 3, 26, P9), (2, 3, 7, (3, 5))]]
+    raw.append(raw_check(35, 2, 1155, P9, extend=True, tensor=False))
+    boundary = recursive_lift(2, 2, 4)[4]
+    assert boundary == -1 and MU[4] == 0
+    COUNTS['excluded_endpoint_controls'] += 1
+
+    # The growing-depth restriction is on endpoints, not on edit distance.
+    witness = None
+    for X in range(4, 2001):
+        tau, _, _, _, _ = physical(X, P9)
+        co, _ = add_high_depth_pairs(X, tau)
+        if co:
+            witness = dict(X=X, c=co[0], pair=[13 * co[0], 15 * co[0]])
+            break
+    assert witness == {'X': 1155, 'c': 77, 'pair': [1001, 1155]}
+    for c in (77, 119, 187, 7 * 11 * 17):
+        X = 15 * c
+        tau, _, _, _, R = physical(X, P9)
+        assert 13 * c in R and 15 * c in R
+        co, final = add_high_depth_pairs(X, tau)
+        assert c in co and 13 * c not in final and 15 * c not in final
+    COUNTS['genuine_high_depth_witnesses'] += 4
+    assert 26 * 77 - 1 == 2001
+    for X, admitted in [(1154, False), (1155, True), (2001, True), (2002, False)]:
+        assert (X < 26 * 77 and 15 * 77 <= X) == admitted
+    COUNTS['strict_cutoff_controls'] += 4
+    old_tau, _, _, _, _ = physical(465, P9)
+    assert old_tau[13 * 31] == 383
+    assert MU[13 * 3] == 1 and MU[15 * 3] == 0
+    COUNTS['omitted_hypothesis_controls'] += 2
+    divisors = [d for d in range(1, 391) if 390 % d == 0]
+    for x in list(range(1, 101)) + [255, 1155, 4095, 20000]:
+        literal = sum(bool(MU[n]) and gcd(n, 390) == 1 for n in range(1, x + 1))
+        inverted = sum(MU[d] * sum(MU[e] * (x // (d * d * e)) for e in divisors)
+                       for d in range(1, isqrt(x) + 1) if gcd(d, 390) == 1)
+        assert literal == inverted
+        COUNTS['coprime_squarefree_inversions'] += 1
+    assert F(6) * F(2, 3) * F(3, 4) * F(5, 6) * F(13, 14) == F(65, 28)
+    assert F(65, 28) * (F(1, 15) - F(1, 26)) == F(11, 168)
+    assert F(2) - 2 * F(11, 168) == F(157, 84)
+
+    print(json.dumps({'checks': dict(COUNTS), 'physical_records': records,
+                      'raw_records': raw, 'first_new_pair': witness,
+                      'scope': 'Exact finite checks only; asymptotic claims require the separate paper proofs.'},
+                     indent=2))
+
+
+if __name__ == '__main__':
+    main()
+```
+
+### Exact Executed Output - Evening Verifier
+
+```json
+{
+  "checks": {
+    "independent_mobius_values": 20000,
+    "physical_cases": 1762,
+    "high_depth_extension_cases": 1757,
+    "new_pairs_checked": 81,
+    "optimal_depth_matching_cases": 990,
+    "exact_variance_cases": 600,
+    "raw_ordered_pairs": 307475,
+    "raw_atoms": 12476,
+    "excluded_endpoint_controls": 1,
+    "genuine_high_depth_witnesses": 4,
+    "strict_cutoff_controls": 4,
+    "omitted_hypothesis_controls": 2,
+    "coprime_squarefree_inversions": 104
+  },
+  "physical_records": [
+    {
+      "X": 63,
+      "P": [
+        3,
+        5
+      ],
+      "top_primes": 7,
+      "partners": 6,
+      "odd_boundary": 13,
+      "PE_left": 1,
+      "added_pairs": 0,
+      "final_left": 1,
+      "M": -1
+    },
+    {
+      "X": 255,
+      "P": [
+        3,
+        5,
+        7,
+        11,
+        13,
+        17,
+        19,
+        23,
+        29
+      ],
+      "top_primes": 23,
+      "partners": 16,
+      "odd_boundary": 53,
+      "PE_left": 21,
+      "added_pairs": 0,
+      "final_left": 21,
+      "M": -1
+    },
+    {
+      "X": 1023,
+      "P": [
+        3,
+        5,
+        7,
+        11,
+        13,
+        17,
+        19,
+        23,
+        29
+      ],
+      "top_primes": 75,
+      "partners": 99,
+      "odd_boundary": 206,
+      "PE_left": 56,
+      "added_pairs": 0,
+      "final_left": 56,
+      "M": -4
+    },
+    {
+      "X": 4095,
+      "P": [
+        3,
+        5,
+        7,
+        11,
+        13,
+        17,
+        19,
+        23,
+        29
+      ],
+      "top_primes": 255,
+      "partners": 332,
+      "odd_boundary": 831,
+      "PE_left": 321,
+      "added_pairs": 7,
+      "final_left": 307,
+      "M": -19
+    }
+  ],
+  "raw_records": [
+    {
+      "B": 4,
+      "k": 2,
+      "X": 15,
+      "atoms": 53,
+      "pairs": 2809,
+      "residual": 3,
+      "energy": 1,
+      "tensor_enumerated": true,
+      "extended": false
+    },
+    {
+      "B": 8,
+      "k": 2,
+      "X": 63,
+      "atoms": 345,
+      "pairs": 119025,
+      "residual": 1,
+      "energy": 1,
+      "tensor_enumerated": true,
+      "extended": false
+    },
+    {
+      "B": 3,
+      "k": 3,
+      "X": 26,
+      "atoms": 429,
+      "pairs": 184041,
+      "residual": 5,
+      "energy": 1,
+      "tensor_enumerated": true,
+      "extended": false
+    },
+    {
+      "B": 2,
+      "k": 3,
+      "X": 7,
+      "atoms": 40,
+      "pairs": 1600,
+      "residual": 2,
+      "energy": 4,
+      "tensor_enumerated": true,
+      "extended": false
+    },
+    {
+      "B": 35,
+      "k": 2,
+      "X": 1155,
+      "atoms": 11609,
+      "pairs": 134768881,
+      "residual": 63,
+      "energy": 25,
+      "tensor_enumerated": false,
+      "extended": true
+    }
+  ],
+  "first_new_pair": {
+    "X": 1155,
+    "c": 77,
+    "pair": [
+      1001,
+      1155
+    ]
+  },
+  "scope": "Exact finite checks only; asymptotic claims require the separate paper proofs."
+}
+```
+
+### Prepublication Freshness Check
+
+At 2026-11-06 01:32:12 UTC (November 5 Eastern evening), main remained 1667c3cf9b4e898bb9afd62ec48e24610b2156ab and the open/draft PR list was empty. All seven upstream November 5 role blobs were unchanged from intake; Coordinator AM/PM remained byte-identical. The current own report blob was refreshed immediately before this append. All A-O sections and balanced Markdown fences were checked, the exact verifier reran successfully, and all preceding report bytes are retained. Execution publication remains PENDING_READBACK until the separate verified receipt.
