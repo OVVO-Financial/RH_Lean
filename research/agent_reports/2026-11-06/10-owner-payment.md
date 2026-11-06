@@ -2382,3 +2382,606 @@ Keep Q(n)=floor(Li_2(n)), B(n)=pi(n)-Q(n)-1, arrivals b_j, and delta_j(h)=pi(b_(
 ### D-K. Pending Research
 
 Proof, quantitative calibration, falsification and final handoffs remain PENDING. No new theorem, finite run, independent review, Lean check or endpoint gain is asserted. Protected sequence: today's SAT, VF-LOW, now JOH; next SAT. Only this report is writable remotely; no agents will be launched.
+
+
+
+## Scheduled JOH Final Synthesis - 20261106-owner-3
+
+Actual invocation: SCHEDULED 2026-11-06T16:15:01-05:00, America/New_York; RUN_ID_UNAVAILABLE. This completes the checkpoint above, not a fourth invocation. Protected sequence today: SAT, VF-LOW, JOH. Next: SAT.
+
+### A. Most Important Mathematical Development
+
+**The existing zero-boundary input gives a fixed-power restriction on the COMPLETE original floor-Li clock variance, after an exact moving-clock transfer.** For h=floor(X^(1/4)) and the original integer arrivals b_j, this run derives
+
+```text
+V_clock(X) = sum_(X<=b_j<2X) [pi(b_(j+h))-pi(b_j)-h]^2
+          <<_(b,epsilon) X^(3/2-(1-b)/5+epsilon),          (MS3)
+```
+
+provided every nontrivial zeta zero has real part at most the fixed b in [1/2,7/8]. The additional analytic input is the classical uniform zero-density exponent 12/5. At the rounded available b=7/8 this is **X^(59/40+epsilon)**, a genuine power improvement over yesterday's MC2 envelope X^(3/2)(log log X)^2/log^3 X. At the stronger existing b_*=7/8-delta_*, where delta_*=1/(288*explicitSlotCount)>0, retain **59/40-delta_*/5**, rather than erase that established gap.
+
+The new step is to follow Phi_h(t)=Li_2^(-1)(Li_2(t)+h), not to freeze the physical interval at h log X. Its derivative and endpoint comparison permit a variable-window zero-sum argument and an actual integer sampling theorem without an O(h/log X) centering error. All actual prime counts, overlapping-window multiplicities, signed lags, and the upper halo remain in V_clock.
+
+**This does not improve the global endpoint.** The existing boundary-complete telescope returns only exponent 79/80 at the rounded input, or 79/80-delta_*/10 at the strict input. Both are worse than their established comparators. No new RH, canonical VF, JOH sign, original #915 payment, or Mertens exponent follows.
+
+| Claim | Result | Status |
+| --- | --- | --- |
+| MS1 | Exact Li-time flow; bounded integer-endpoint error and logarithmically separated sampling | PAPER_PROOF |
+| MS2 | Variable-window full zero-sum L2 bound, including all heights and their cross terms | PAPER_PROOF with explicit established analytic inputs |
+| MS3 | Original clock energy exponent 59/40, with the stronger symbolic comparator retained | PAPER_PROOF; new source-qualified consequence of existing baseline plus density |
+| MS4 | Full returned exponent and precise failure of this estimate to beat the baseline | PAPER_PROOF / quantitative diagnosis |
+| MS5 | 322 certified endpoint brackets, full-square checks, and exact exponent checks | FINITE_COMPUTATION |
+
+All new proofs are **SELF_AUDIT / INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED**. The new contribution is the source-qualified transport and estimate relative to the inspected reports, not a claim of literature originality. Classification: ESTABLISHED_BASELINE used; component advance at PAPER_PROOF scope; NEW_VERIFIED_ENDPOINT_GAIN=NONE; eta_gate=SEARCH_BROAD.
+
+### B. Current Authoritative Objective
+
+Main at intake: **d4df133117c5b58f90979d2eb680167ef37995cf**, including the human merge of #1099. Canonical target remains
+
+```text
+exists C>=0, forall integer R>=2,
+ |pi(R^2)-vfMidFinishedMass(R)-sqrt(2)| <= C R log R.
+```
+
+The exact JOH source is L(t)=Li_2(t)=integral_2^t du/log u, Q(n)=floor(L(n)), B(n)=pi(n)-Q(n)-1, and G(N)=sum_(2<=n<N)B(n). Thus the native integer backlog is B+1, and eta(k) is native primitiveMismatch(k-1). The classical-li constant in the external Johnston consumer is not changed. The current canonical Lean terminal still explicitly consumes ClassicalVonKochRHCriterion as well as the open prime estimate.
+
+Material sources retrieved at the pinned main:
+
+| File | Blob SHA |
+| --- | --- |
+| AGENTS.md | 48b2a58ab5fcd402321a4dace511c7d54bf688a1 |
+| CURRENT_PROOF_CONTRACT.md | 7c4ac83a1ec1a4144e1bd691391ed4244f1cc27c |
+| docs/RHLEAN_PAID_BASELINE_EXACT_CONSUMER_20261106.md | 13d58dd12d90fbf1160812c7c93442dc5d0576ac |
+| docs/RHLEAN_INDEPENDENT_MULTIFRONT_NO_PIGEONHOLING_20261104.md | ffd8f1c65cc4da656174956d4e03b48bea46768b |
+| docs/RHLEAN_NATIVE_SQUARE_CLOCK_AGENT_DIRECTIVE_20261029.md | 973d3d549a52a1afe2f02bfdcf8cc35fb6a76515 |
+| research/VF_MID_FLOOR_LI_SIGNED_POPULATION_BALANCE.lean | 9a9336dad72171b6d572a1c1ae88d1ae8b56b530 |
+| research/VF_MID_FLOOR_LI_DISCRETE_BACKLOG.lean | 4255ca0dffe480f2aec6bd0b68797bbd293396c3 |
+| research/VF_MID_FLOOR_LI_TRANSPORT_CANCELLATION.lean | eb84f59055bd31dc117be034d45c92eb9dab8f27 |
+| research/LI_FAN_ONE_SIDED_WEIGHTED_COMPOSITE_RH_CONTRACT_20261022.md | 27e28f09e9f79e8a60d524e5fcb6f19904fa55f5 |
+| research/VF_CANONICAL_SQRT_TWO_VON_KOCH.lean | 79030d70e8d3e0d08eef9bac53fef95c36eca2fb |
+| research/oai_434/VF919NativeSevenEighthsReplay.lean | 111c933a7ca15647105ce6a4d0f3cbfc3cde81f4 |
+| research/oai_434/VF919NativeStrictMertens.lean | b33a4883e1ddb0551b0f11f062bce46680d87450 |
+| research/oai_434/VF919ExplicitFixedSourceSlotCount.lean | bad5aab0a60e96d19e7c9550cd7c0a072288bc0f |
+
+`baseline_ack=PAID_BASELINE_EXACT_CONSUMER_V1`; actual new mathematical consumption is MS1-MS3, not the acknowledgement alone. `deployment_ack=NO_PIGEONHOLING_ROUTE_SELECTOR_V1`; JOH is selected by protected rotation and a concrete source estimate, not an OAI assignment. The other mandatory routing/complete-return/engine/role/protocol documents were retrieved; their current permissions and mathematical safeguards are followed.
+
+The inspected baseline declarations include native_zeta_nonzero, native_zeta_zero_re_le_hecke_beta, native_beta_le_explicit_slot_count, native_mertens_uniform_strict_gap, and nativeReplay_signed_energy_seven_fourths. The new argument uses their actual zero-boundary conclusion; it does not infer a local energy from the global Mertens square. No Hecke-to-prime occurrence identification is invented.
+
+Live PR discovery returned no open/draft PR. Recent merged work includes #1099, #1098, #1097, #1096, #1095, #1094, #1093 and #1092. Direct workflow retrieval confirmed all twelve returned #1091 head workflows successful at 6778fd4c25b0f369d311e6e71223e168e329b4bf. Its dedicated run 41898325686/job 126813711885 was read: pinned Lean 4.34.1 and baseline/strict-count axiom audits are present, using the standard axioms. #1099 head 269ce7a77df7239099f8717390e3f951e81e95f0 likewise has twelve successful returned workflows and is merged at the current main. These are reused prior exact-head results, not a new local or current-main full compilation. MS1-MS5 have no proof PR or Lean evidence.
+
+### C. Structural Hypothesis Investigated
+
+Resume 20261105-owner-3/MC1-MC5 and 20261105-census-2/JL1-JL5. The source question is whether actual prime-count innovations on the nonlinear integer Li clock admit more than logarithmic control. Two distinct mechanisms were compared.
+
+1. A fixed physical-length approximation plus the inherited zero boundary: its O(h/log X) count error would dominate a proposed power saving. This approximation is insufficient at the proposed precision, not a falsification of the underlying variance claim.
+2. The exact continuous Li-time flow, with low-zero integration and high-zero endpoint transport: this succeeds at a proper energy scale. It preserves the original clock up to O(1) actual sites and avoids a polynomial parameter-grid cost.
+
+Per-lag nonpositivity remains refuted at X=209. The earlier aggregate-sign conjecture remains unproved and is not used. Even its elementary diagonal consequence would not itself beat the best existing strict global result.
+
+### D. Mathematical Derivation
+
+#### MS1. Exact Clock Flow And Original-Source Sampling
+
+Fix integer X sufficiently large, h=floor(X^(1/4)), and J_X={j:X<=b_j<2X}, where b_j=min{n>=2:Q(n)>=j}. All implied constants below are independent of X and j. For t>=X define
+
+```text
+Phi_h(t)=L^(-1)(L(t)+h),
+Phi_h'(t)=log(Phi_h(t))/log(t).
+```
+
+Existence follows from the continuous strictly increasing unbounded L. For t in [X,3X], sufficiently large X gives Phi_h(t)<4X, 1<=Phi_h'(t)<=2, and 0<Phi_h(t)-t<=ell, where ell=8h log X. Constants 8 and 2 are convenient bounds, not optimized parameters.
+
+The literal minimal-arrival overshoot satisfies
+
+```text
+L(b_j)=j+r_j,  0<=r_j<1/log(b_j-1).
+```
+
+Consequently, for a=b_j and c=b_(j+h), both in the relevant halo,
+
+```text
+|L(c)-L(Phi_h(a))|=|r_(j+h)-r_j| <= 1/log(X-1),
+|c-Phi_h(a)| <= log(4X)/log(X-1) <= 2.                 (MS1a)
+```
+
+No prime distribution is used. In particular integer and continuous endpoints are NOT declared identical. Their actual prime counts differ by at most three. Also
+
+```text
+b_(j+1)-b_j >= log X-2.
+```
+
+This follows from L(b_(j+1))-L(b_j)>=1-1/log(X-1) and the upper bound on the integral over their gap. Therefore the intervals I_j=[b_j,b_j+d], d=(log X)/4, are disjoint for large X, and #J_X=O(X/log X).
+
+Set f_h(t)=pi(Phi_h(t))-pi(t)-h. On I_j both physical endpoints move by O(log X), since Phi_h'<=2. The integer-site bound, with genuine prime indicators, gives
+
+```text
+|f_h(t)-f_h(b_j)|=O(log X).
+```
+
+Integrating the square comparison over I_j and using MS1a gives the all-starting-index estimate
+
+```text
+V_clock(X) << (1/log X) integral_X^(3X) |f_h(t)|^2 dt
+                + X log X.                            (MS1b)
+```
+
+The integral includes the complete upper halo; no window ending beyond 2X is discarded. This is a proved sampling bound, not an inference from an almost-everywhere theorem.
+
+#### Established Analytic Inputs, Not New Theorems Claimed Here
+
+Write rho=beta+i gamma for actual nontrivial zeta zeros, counted with multiplicity. Use the classical explicit formula for psi, the local count N(T+1)-N(T)=O(log(2+T)), and the uniform density estimate
+
+```text
+N(sigma,T) << T^((12/5)(1-sigma)) log^B(2T),
+1/2<=sigma<=1, T>=2,                                  (ZD)
+```
+
+for an absolute fixed B. The hypothesis beta<=b is supplied separately by the inspected repository baseline, not by ZD. [Saffari-Vaughan, Section 6, pp. 19-24](https://www.numdam.org/article/AIF_1977__27_2_1_0.pdf#page=20) supplies the explicit-formula/local-count framework and its full high-zero return. [Zaccagnini, Section 2.1, equation (4)](https://people.dmi.unipr.it/alessandro.zaccagnini/psfiles/papers/Q429.pdf#page=3) records the 12/5 density input. We derive the moving-clock extension below rather than quote the latter paper's explicitly schematic proof outline as a complete argument. No new density theorem or classical analytic originality is asserted.
+
+#### MS2. The Complete Variable-Window Zero Sum
+
+For a fixed finite collection of zeros of height at most V and arbitrary coefficients c_rho, direct integration gives
+
+```text
+integral_X^(4X) |sum c_rho t^rho|^2 dt
+ << X log^2(2V) sum |c_rho|^2 X^(2 beta),
+integral_X^(4X) |sum c_rho t^(rho-1)|^2 dt
+ << X^(-1) log^2(2V) sum |c_rho|^2 X^(2 beta).          (MS2a)
+```
+
+Here is the cross-term proof. Each integrated pair is bounded by a constant times X^(beta+beta'+1)/(1+|gamma-gamma'|), or X^(beta+beta'-1) with the shifted powers. Put a_rho=|c_rho|X^beta and apply 2 a_rho a_rho'<=a_rho^2+a_rho'^2. The local zero count bounds every row sum of (1+|gamma-gamma'|)^(-1) by O(log^2(2V)). Repeated or very close zeros are included; no spacing, independence or orthogonality assumption is made. This is the first relevant absolute-pair loss in this proof.
+
+Let U=X/ell, and S_X(V)=sum_(|gamma|<=V) X^(2 beta). Split the exact zero increment into
+
+```text
+Z_lo(t)=sum_(|gamma|<=U) [Phi_h(t)^rho-t^rho]/rho,
+Z_hi(t)=sum_(|gamma|>U) [Phi_h(t)^rho-t^rho]/rho.
+```
+
+For the low sum, integrate t^(rho-1) over the actual interval. Cauchy inside that interval, followed by Fubini, costs ell twice: each interval has length <=ell, and each point u lies in a set of starting points t of length <=ell. Thus
+
+```text
+||Z_lo||_L2([X,3X])^2
+ << ell^2 X^(-1) log^2(2U) S_X(U).                    (MS2b)
+```
+
+For a high block V<|gamma|<=2V, let F_V(t)=sum t^rho/rho on exactly that block. Its window increment is F_V(Phi_h(t))-F_V(t). Since Phi_h is increasing with derivative >=1 and image inside [X,4X], substitution and MS2a give
+
+```text
+||F_V o Phi_h-F_V||_L2([X,3X])^2
+ << X V^(-2) log^2(2V) S_X(2V).                      (MS2c)
+```
+
+No varying endpoint is replaced by a fixed phase. The sum over high blocks is taken in L2 by Minkowski, retaining a valid upper bound for ALL cross-height terms.
+
+For completeness, the all-height convergence and density optimization are explicit. Zeros with beta<=1/2 contribute O(X V log(2V)) to S_X(V). For the others, layer-cake integration and ZD give
+
+```text
+S_X(V) << X V log(2V)
+  + log X log^B(2V) integral_(1/2)^b X^(2 sigma)
+                                      V^((12/5)(1-sigma)) d sigma. (MS2d)
+```
+
+In the high estimate the exponent of V is (12/5)(1-sigma)-2<=-4/5. Hence for V=2^k U its squared bound decreases at least as 2^(-4k/5), apart from fixed logarithmic powers. The sum of square roots converges. This proves the needed L2 convergence of the high-zero series and pays its entire tail, not just V near U. The classical symmetric explicit formula identifies its L2 limit with the actual psi difference almost everywhere. Values at prime-power endpoints form a null set and will be handled by the separate integer sampling bound, not silently redefined.
+
+Only AFTER this high-tail comparison do we maximize the density integrand at U. Because 2 log X-(12/5)log U>0, its maximum on [1/2,b] is at b. Maximizing at b for every arbitrarily large V would be invalid; the preceding negative-exponent summation avoids that error. Equations MS2b-d yield, for every epsilon>0,
+
+```text
+J_psi(X):=integral_X^(3X)
+ |psi(Phi_h(t))-psi(t)-(Phi_h(t)-t)|^2 dt
+ <<_(b,epsilon) X^epsilon *
+     [X ell + X ell^2 (U^(12/5)/X^2)^(1-b)].            (MS2e)
+```
+
+The constant term in the explicit formula cancels; the trivial-zero term has derivative O(X^(-3)), so its interval increment is O(ell X^(-3)) and is absorbed. The low/high mixed term is paid by |Z_lo+Z_hi|^2<=2|Z_lo|^2+2|Z_hi|^2. The exact square before this inequality still contains 2 Re integral Z_lo conjugate(Z_hi); it is not declared zero.
+
+Since h is comparable to X^(1/4), U is comparable to X^(3/4)/log X. Therefore
+
+```text
+(U^(12/5)/X^2)^(1-b) << X^(-(1-b)/5),
+J_psi(X) <<_(b,epsilon) X^(3/2-(1-b)/5+epsilon).        (MS2f)
+```
+
+The X ell term has power 5/4, strictly smaller here because b>=1/2. All logarithms have been absorbed using a smaller internal positive loss. Constants may depend on the fixed b, density constants and epsilon, never on X, j or selected prime occurrences.
+
+#### MS3. Return From Prime Powers To Actual Prime Counts
+
+Put s=Phi_h(t)-t<=ell. For large X, ell=o(sqrt X). For each integer k>=2, consecutive k-th powers lying in [X,4X] are separated by at least a constant times sqrt X. Thus each such interval contains at most one k-th power for each k; there are O(log X) possible k. The full prime-power contribution to psi(Phi_h(t))-psi(t) is O(log^2 X), uniformly in t. This argument overcounts composite bases harmlessly; it never substitutes them for primes in the source.
+
+For the genuine primes in the interval, |log p-log t|<=s/X and their number is at most s+1. The exact identity L(Phi_h(t))-L(t)=h also gives |h log t-s|=O(s^2/(X log X)). Consequently
+
+```text
+psi(Phi_h(t))-psi(t)-s
+   = (log t) f_h(t) + O(log^2 X+s^2/X),
+f_h(t) = [psi(Phi_h(t))-psi(t)-s]/log t + O(log X).     (MS3a)
+```
+
+Here s^2/X=o(1). In particular the problematic h/log X bias from a dyadic fixed-length approximation is absent. Integrating and then using MS1b gives
+
+```text
+V_clock(X) << J_psi(X)/log^3 X + X log X,
+V_clock(X) <<_(b,epsilon) X^(3/2-(1-b)/5+epsilon).       (MS3b)
+```
+
+This proves the displayed theorem with every sufficiently large INTEGER X, not merely a dyadic subsequence. The original source has no missing exceptional set. For its cell innovations a_i=pi(b_(i+1))-pi(b_i), e_i=a_i-1, the exact complete reconstruction remains
+
+```text
+V_clock = D + 2 sum_(1<=d<h) C_d,
+D = sum_(j in J_X) sum_(0<=r<h) e_(j+r)^2,
+C_d = sum_(j in J_X) sum_(0<=r<h-d) e_(j+r)e_(j+r+d).
+```
+
+The equivalent prime-occurrence Gram and label lambda(p)=Q(p-1) are inherited MC1, not new claims. Every diagonal, prime/model mixed contribution and clipped pair multiplicity is preserved before the new whole-source estimate. Nothing is transferred to original #915's different normalization.
+
+### E. Quantitative Consequence And Complete Return
+
+For b_*=7/8-delta_* supplied by native_beta_le_explicit_slot_count and native_zeta_zero_re_le_hecke_beta, MS3 is
+
+```text
+forall epsilon>0, exists C_epsilon,X0,
+forall integer X>=X0:
+V_clock(X)<=C_epsilon X^(59/40-delta_*/5+epsilon).
+```
+
+This beats MC2's h^2-scale logarithmic estimate by a fixed power, using an already established boundary plus an independent classical density input. It is not a new zero-free strip and is not an independent reproof of the original analytic suppliers. It answers the Coordinator's question at the component level, not at the endpoint level.
+
+The exact MC4 telescope restores both h-cell boundary averages and the initial level. Cauchy plus the original endpoint comparison gives
+
+```text
+|B(2X)-B(X)| << sqrt((X/log X)*V_clock(X))/h + h log X.
+```
+
+Use the all-integer estimate and sum back through integer halvings; odd-endpoint corrections and the fixed initial anchor cost only the previously specified lower-order terms. The resulting prime-error power is
+
+```text
+1-(1-b)/10 = 79/80-delta_*/10.                         (MS4)
+```
+
+This exceeds b_*=7/8-delta_* by 9/80+9 delta_*/10. Thus the native baseline and its already available classical prime-error transfer remain strictly stronger globally. Today's MS3 still misses the old X^(5/4-kappa) optional supplier by a polynomial margin: even at kappa=0 the rounded exponent gap is 9/40. To beat b_* through that particular telescope would require kappa>2 delta_*, not merely an arbitrary kappa>0 measured against rounded 7/8.
+
+For JOH's original integrated sign use the unchanged MC3 return G=K+P-D_model and
+
+```text
+G^2=K^2+2K(P-D_model)+(P-D_model)^2.
+```
+
+Its O(Nh) placement error remains paid, but neither MS3 nor the endpoint comparison proves the required sign of K or G. No local clock inequality is substituted for the full weighted composite-removal target. Net new endpoint gain: NONE_ESTABLISHED; canonical VF and RH remain OPEN.
+
+### F. Falsification And Circularity Review
+
+The low/high zero argument was checked at the difficult boundaries: repeated zeros, negative ordinates, beta<=1/2, the possible endpoint beta=b, arbitrarily high dyadic blocks, varying Phi_h, and actual prime powers. The high-tail exponent is uniformly at most -4/5; no fixed-height assumption or unjustified maximum at b for all heights survives. The explicit-formula use is a.e. with L2 convergence; integer source values are restored separately by MS1 rather than assumed equal to half-weight prime-power conventions.
+
+No RH, pair-correlation conjecture, density hypothesis with exponent 2, individual negative lag, or unproved Xh variance is used. ZD is an external established theorem; the fixed boundary b is an EXISTING repository input. Any challenge to that input's semantic chain is separate from the stated parameter theorem. The proof does not manufacture a new global gain by calling that input independent new arithmetic.
+
+**New registered finite purpose:** test MS1a on actual arrivals, not extend the prior aggregate-sign census. Before execution, the program fixed X in {128,209,256,512,1024}, h=floor(X^(1/4)), and a Li certification cutoff 2304. The Census interval certifier was copied verbatim through its clock helper from the November 5 report (blob 24fcd6a631eca9ae44238d927215f49e1d8a174f). New exact checks establish L(c-2)<L(a)+h<L(c+2) for all 322 selected windows. They also establish L(c)!=L(a)+h in all 322, so the tempting EXACT endpoint identification is false on these genuine examples. These are rational interval decisions, not floating-point signs.
+
+| X | h | Windows | Last halo endpoint | V | D | Complete C_d list |
+| ---: | ---: | ---: | ---: | ---: | ---: | --- |
+| 128 | 3 | 25 | 271 | 18 | 34 | -6, -2 |
+| 209 | 3 | 37 | 434 | 23 | 47 | -13, 1 |
+| 256 | 4 | 43 | 533 | 26 | 58 | -14, 0, -2 |
+| 512 | 4 | 77 | 1045 | 69 | 151 | -24, -12, -5 |
+| 1024 | 5 | 140 | 2078 | 305 | 415 | -28, -12, -18, 3 |
+
+The X=209 halo/positive-lag fixture is reproduced only as a regression for the NEW bridge; its discovery remains credited to Census JL1-JL2. Full signed squares agree exactly. Rational exponent checks separately verify 59/40, 79/80 and the stronger-gap formulas; positive test gaps in that script are arithmetic diagnostics, not substitute values for the unevaluated explicitSlotCount.
+
+Certification uses denominator 2^128, a 48-term atanh logarithm series with outward-rounded tail, and composite Simpson integration with the explicit fourth-derivative bound 1544/n^4. The copied implementation is shown below. This execution is SELF_AUDIT, not a second independent Census/Referee certification. It does not test zero-density, infinite zero sums, the asymptotic theorem, or its constants. No fitted exponent is reported.
+
+Source-newness check: live repository searches for Selberg, 59/40 and moving clock, plus text checks of the retrieved two-day reports, did not locate this bound. The Selberg search also returned unrelated second-Selberg identities, not a substitute for this proof. This limited search is not a literature priority certificate.
+
+### G. Conceptual Interpretation
+
+The clock is not an uncontrolled set of irregular sample points. It is an O(1)-site discretization of a smooth Li-time flow whose Jacobian is close to one. Low zero modes can be integrated over its actual windows; high modes can be transported through that same flow with bounded L2 cost. This supplies a deterministic restriction on the aggregate original signed count statistic, despite individual lag signs of both kinds.
+
+The result also separates two difficulties. The previously unquantified moving-window/sampling return is no longer what prevents this particular power estimate. The remaining loss is in the spectral arithmetic estimate and in recovering a global level from short-clock increments. Prime ancestry alone and favorable finite covariance signs were neither assumed nor shown necessary.
+
+### H. Competing Mechanisms
+
+| Mechanism | Established part | Missing ingredient / obstruction | Decision |
+| --- | --- | --- | --- |
+| Exact Li-time flow plus existing zero boundary and ZD | MS1-MS3 whole clock bound | MS4 gives a weaker endpoint than the existing b_* | Keep as a component theorem; do not sell as bootstrap |
+| Freeze every physical interval at h log X | Earlier MC2 comparison is valid at logarithmic precision | O(h/log X) error overwhelms a power improvement | Abandon this approximation for a power-saving proof |
+| Joint original lag/weighted-level arithmetic | Full source and halo are exact | Aggregate sign remains unproved; individual signs false | Continue only with a sharper independent arithmetic prediction |
+| Stronger signed control in a selected moving-zero band | Exact band carrier in J below | No band improvement proved; all other bands/mixed terms still return | Exploratory analytic handoff, not a replacement global target |
+
+The broad nine-route programme is unchanged. No local result or tiny existing slot gap is a reason to abandon the protected portfolios.
+
+### I. Specialist Handoffs And Two-Day Continuity
+
+**Coordinator:** register MS3 as a new paper-level clock bound using the paid baseline, with MS4's explicit negative endpoint comparison. Replace neither the existing b_* theorem nor the optional clock target. Next Owner route is SAT. Do not assign the whole team to this analytic transfer.
+
+**Analytic Type II:** audit the variable-window low/high argument, especially the L2 high-tail sum BEFORE density maximization. The exact same-source exploratory band in J is a candidate for later work only; your protected OAI-NNS continuation remains due.
+
+**Finite Wheel:** exact prime arrival labels and halo multiplicities survive the flow comparison. No implication to your fresh/historical prime-column correlation or MU-LIFT residual is claimed. A proposed arithmetic transfer must still identify its source and weights.
+
+**Prime Census:** no larger aggregate-sign scan is requested. Independently verify MS1's endpoint brackets only if needed for a subsequent theorem; the important new test is whether a proposed quantitative band or original-prime pairing mechanism has a discriminating prediction. Keep X=209 and the c versus Phi_h(a) nonidentity as regressions.
+
+**Adversarial Referee:** review MS1-MS4 as a parameter theorem. Try to break the high-height L2 convergence, layer-cake bound, beta<=1/2 sector, prime-power removal, integer sampling, and comparison against b_*. Verdict should distinguish a valid component bound from any unsupported endpoint claim. Author self-audit is not your acceptance.
+
+**Lean Verification:** no speculative endpoint or new branch is requested. After independent review and an identified consumer, assess whether the elementary Li-flow/sampling interface is worth formalization; the classical density and explicit-formula analysis are not already Lean-certified here. Reuse the green baseline evidence instead of recompiling unchanged modules as new research.
+
+TODAY=AVAILABLE for all seven roles; YESTERDAY=CARRY_FORWARD at original scopes. Reports were retrieved at agent-reports commit 32e6c0e09fce62b07079a5ecf44b2a7f326361f7. Relevant summary/derivation/handoff sections were read, not every unrelated executable appendix rerun.
+
+| Role | November 5 blob | November 6 intake blob |
+| --- | --- | --- |
+| Coordinator AM, same PM bytes in directory listing | be661bb2ed2830fc4aeddf14713455e550d982cc | 2802753059cc55d1446087bc40266576214a9638 |
+| Owner | 39665b5b28fc48378519ab9d56cee8df4d3e2681 | fd30796d1b10e58e694f1d85252dac3cd8099a94 |
+| Analytic | 9490aa2eecafcd19d8007043cc5f978fe421a7c9 | b075be67af6294e41f6eb232f611c208799c5e04 |
+| Wheel | afc85d800c47f82f2db634591a7798005cb668de | be64667df80910bc9cc8fa3034aeeb579df5829a |
+| Census | 24fcd6a631eca9ae44238d927215f49e1d8a174f | 77777fae1f4273c76e0c1064f4529740cabfbb8b |
+| Referee | 789ed87021fe98963c244a8d0c9075638e76be43 | 68ada01df5bd54ef07d22f1ebc4009ef9dd7e5b4 |
+| Lean | 5e0ecdd8f08c2e19b4614f00c1a5657f58722344 | 5a08dc2ae99956bc020a57ad0cf51c67e6d0a7a5 |
+
+Carry-forward distinctions: Owner BT1-BT2 already pay their inherited SAT threshold; RZ2 remains a mode restriction, not the prime-error bound. DR1-DR7 give the proper VF dense response and its unproved short-interval supplier. Analytic FP1-FP5 recover a parent under averaging but give no shell upper bound; RM1-RM5 and Referee R9 retain their Nyman full-return limitations. Wheel PB1-PB4 retain the historical/fresh mixed term; earlier PE and Referee's 13c/15c matching do not contract the whole residual. Census HC1's reused donor at X=87283 and its repaired coverage remain distinct from JOH. Coordinator NS1-NS5 prohibit only the specified flat-source spectral-power shortcut. The reports' old unmerged labels for #1096/#1099 are superseded only by directly verified live merge metadata, not silently rewritten.
+
+External inbox blob 038018145c0fddb2f6306c0712373adf9cd1ea52 has no November entry. EXT-20261018-PNT-1, EXT-20261017-XCOORD-1 and EXT-20261014-5 retain their exact source, endpoint and unconditional-versus-first-bad safeguards. They provide no missing clock inequality. No other agent was launched; these are published asynchronous handoffs only.
+
+### J. First Independently Missing Lemma
+
+MS3 itself has a complete paper derivation from its displayed inputs; independent review and formalization remain pending. The desired additional endpoint gain is NOT proved.
+
+A narrower, falsifiable next arithmetic candidate, not merely a renaming of the full clock target, is the following proper-band question. For the same h, Phi_h, ell and U=X/ell define
+
+```text
+Z_edge(t)=sum_(U<|gamma|<=2U)
+               [Phi_h(t)^rho-t^rho]/rho,
+```
+
+over the ACTUAL zeros with their original multiplicities. Can one prove, for every epsilon>0 uniformly in sufficiently large X,
+
+```text
+integral_X^(3X) |Z_edge(t)|^2 dt <<_epsilon X^(5/4+epsilon)? (OPEN-JOH-EDGE)
+```
+
+This is CONJECTURAL / EXPLORATORY, not an imported theorem. It concerns a proper moving-height band and does not include the low-height modes or other high blocks. It therefore is not claimed equivalent to the full JOH, canonical VF or RH target, and by itself is not sufficient to improve the endpoint. It asks for signed information beyond this proof's absolute zero-pair row sum. A decisive objection would be an actual-band lower bound exceeding the proposed scale; arbitrary fabricated zero locations are not genuine-source counterexamples.
+
+Even success requires all remaining bands and their mixed terms in the original prime reconstruction. An alternative direct original-prime joint-lag or weighted-level theorem remains eligible. No unproved target-strength assertion is inserted into MS1-MS4, and no claim is made that this candidate is the uniquely necessary next lemma.
+
+### K. Next-Run Resume Capsule And Publication State
+
+```text
+RUN: 20261106-owner-3; SCHEDULED 16:15:01 EST; RUN_ID_UNAVAILABLE.
+MAIN: d4df133117c5b58f90979d2eb680167ef37995cf.
+POLICIES: PAID_BASELINE_EXACT_CONSUMER_V1 / NO_PIGEONHOLING_ROUTE_SELECTOR_V1.
+ROUTE: JOH; genuine pi, original Li_2 clock, B=pi-floor(Li_2)-1.
+NEW: MS1 exact Li-time flow/sampling; MS2 complete zero-height return;
+     MS3 V_clock << X^(59/40-delta_*/5+epsilon).
+INPUT: existing b_*=7/8-delta_* plus classical 12/5 zero-density theorem.
+FIRST SIGN LOSS: absolute integrated zero-pair row bound; low/high split.
+COMPLETE RETURN: MS4 gives only 79/80-delta_*/10, WORSE than b_*.
+NO CLAIM: new endpoint gain, RH, JOH eventual sign, original915 payment.
+FINITE: 322 certified c-2<Phi_h(a)<c+2 windows; exact equality false in all;
+        complete original squares and X=209 halo retained.
+REVIEW: SELF_AUDIT; independent Referee PENDING; NOT_FORMALIZED.
+FIRST PROPOSED MISSING PROPER LEMMA: OPEN-JOH-EDGE, not sufficient alone.
+NEXT OWNER ROUTE: SAT; resume BT/RZ work without reopening the paid threshold.
+JOH RESUME: obtain independent MS1-MS4 audit; do not repeat the fixed-length
+           transfer or enlarge the finite sign census without a new prediction.
+ETA_GATE: SEARCH_BROAD; NEW_VERIFIED_ENDPOINT_GAIN=NONE.
+```
+
+Early checkpoint commit **5e2e93848e5f9263a5d36310b846b74196c1d826**, blob **ac9dbf2d83f6c7601e1f2cb51916e8b3847c8eac**, was re-fetched at that commit and matched exactly. Final publication remains PENDING_READBACK until the receipt appended after the actual write. Earlier valid evidence and complete prior report bytes are preserved.
+
+Actual limitations: no independent review or new Lean execution was performed. The primary-paper PDF text is partly OCR-degraded; its Section 6 formulas were checked alongside the independently retrieved full-text density statement, and the moving-clock proof is supplied here in full. No third-party summary, speculative recent preprint, or unverified near-zero numerical fit is used as an input. No main, Lean, workflow, proof branch, PR, issue, other role report, schedule or permission was modified.
+
+### Reproducibility Appendix - MS5
+
+The reference helper is copied from the explicitly credited Census source; the moving-clock test is new. SHA-256:
+
+```text
+joh_clock_reference.py
+4e55172eca1a33ae27b5e3c96d087ded3983f9d44fdd28c151c7374359fab420
+joh_moving_clock_check.py
+c0c67cf22db6585f5e87c21be299488dfbbbc983a7e149fdd43128af606457de
+```
+
+Executed with Python 3.12.13; exit code 0. The complete sources and observed output follow. They are finite evidence, not formal or analytic proof certificates.
+
+
+#### Archived Reference Helper
+
+```python
+"""Exact JOH clock test with independently certified Li_2 floors."""
+
+import hashlib
+import json
+import platform
+import time
+from collections import Counter
+from decimal import Decimal, localcontext
+from math import isqrt
+from pathlib import Path
+
+S = 1 << 128
+LIMIT = 16640
+SCALES = (128, 256, 512, 1024, 2048, 4096, 8192)
+
+
+def ceildiv(a, b):
+    return -((-a) // b)
+
+
+def mul(a, b):
+    return a[0] * b[0] // S, ceildiv(a[1] * b[1], S)
+
+
+def log_unit(num, den):
+    # 1 <= num/den <= 2; 48 atanh terms, with an explicit geometric tail.
+    t = ((num - den) * S // (num + den),
+         ceildiv((num - den) * S, num + den))
+    t2 = mul(t, t)
+    p = t
+    lo = hi = 0
+    for k in range(48):
+        lo += p[0] // (2 * k + 1)
+        hi += ceildiv(p[1], 2 * k + 1)
+        p = mul(p, t2)
+    tail = ceildiv(18 * S, 8 * 97 * 3 ** 97)
+    return 2 * lo, 2 * hi + tail
+
+
+LOG2 = log_unit(2, 1)
+
+
+def log_ratio(num, den=1):
+    assert num >= den > 0
+    k = (num // den).bit_length() - 1
+    v = log_unit(num, den << k)
+    return v[0] + k * LOG2[0], v[1] + k * LOG2[1]
+
+
+def invlog(num, den):
+    lo, hi = log_ratio(num, den)
+    assert lo > 0
+    return S * S // hi, ceildiv(S * S, lo)
+
+
+def certify_floors(limit):
+    q = [0] * (limit + 1)
+    bounds = [(0, 0)] * (limit + 1)
+    lo = hi = 0
+    maxwidth = 0
+    minmargin = S
+    for n in range(2, limit):
+        m = 64 if n < 16 else 16 if n < 128 else 4
+        lower = upper = 0
+        for i in range(m + 1):
+            w = 1 if i in (0, m) else 4 if i % 2 else 2
+            f = invlog(n * m + i, m)
+            lower += w * f[0]
+            upper += w * f[1]
+        # f''''(x)=x^-4(6/log^2+22/log^3+36/log^4+24/log^5).
+        # log(x)>1/2 at x>=2, so |f''''| <= 1544/n^4 on [n,n+1].
+        error = ceildiv(1544 * S, 180 * m ** 4 * n ** 4)
+        lo += lower // (3 * m) - error
+        hi += ceildiv(upper, 3 * m) + error
+        assert lo // S == hi // S, ("ambiguous_floor", n + 1, lo, hi)
+        q[n + 1] = lo // S
+        bounds[n + 1] = (lo, hi)
+        maxwidth = max(maxwidth, hi - lo)
+        minmargin = min(minmargin, lo - q[n + 1] * S,
+                        (q[n + 1] + 1) * S - hi)
+    return q, bounds, maxwidth, minmargin
+
+
+def sieve(n):
+    prime = bytearray(b"\x01") * (n + 1)
+    prime[0:2] = b"\x00\x00"
+    for p in range(2, isqrt(n) + 1):
+        if prime[p]:
+            prime[p * p:n + 1:p] = b"\x00" * ((n - p * p) // p + 1)
+    pi = [0] * (n + 1)
+    for k in range(1, n + 1):
+        pi[k] = pi[k - 1] + prime[k]
+    return prime, pi
+
+
+def decimal_ratio(a, b):
+    with localcontext() as ctx:
+        ctx.prec = 32
+        return str(Decimal(a) / Decimal(b))
+
+
+def clock(q):
+    b = [2]
+    for n in range(3, len(q)):
+        assert q[n] - q[n - 1] in (0, 1)
+        if q[n] > q[n - 1]:
+            assert q[n] == len(b)
+            b.append(n)
+    return b
+
+
+```
+
+#### New Moving-Clock Verifier
+
+```python
+"""Preregistered finite checks for the new moving Li-clock bridge.
+
+The interval helper is copied verbatim from Census 20261105-census-2.
+Its arithmetic and the new checks are not Lean certificates.
+"""
+
+from fractions import Fraction as F
+from math import isqrt
+from joh_clock_reference import S, certify_floors, clock, sieve
+
+# Fixed before execution: five source windows, including the halo sign fixture.
+SCALES = (128, 209, 256, 512, 1024)
+LIMIT = 2304
+q, bounds, width, margin = certify_floors(LIMIT)
+b = clock(q)
+prime, pi = sieve(LIMIT)
+cases = 0
+nonidentical = 0
+rows = []
+for X in SCALES:
+    h = isqrt(isqrt(X))
+    starts = [j for j, n in enumerate(b) if X <= n < 2 * X]
+    u, v = starts[0], starts[-1]
+    assert v + h < len(b)
+    energies = []
+    for j in starts:
+        a, c = b[j], b[j + h]
+        # T is defined by Li_2(T)=Li_2(a)+h. Certify c-2<T<c+2.
+        target_lo = bounds[a][0] + h * S
+        target_hi = bounds[a][1] + h * S
+        assert bounds[c - 2][1] < target_lo
+        assert target_hi < bounds[c + 2][0]
+        # Equality T=c would require equal Li overshoots. Test that shortcut.
+        if bounds[c][1] < target_lo or target_hi < bounds[c][0]:
+            nonidentical += 1
+        energies.append((pi[c] - pi[a] - h) ** 2)
+        cases += 1
+    e = [pi[b[i + 1]] - pi[b[i]] - 1 for i in range(len(b) - 1)]
+    D = sum(e[j + r] ** 2 for j in starts for r in range(h))
+    C = [sum(e[j + r] * e[j + r + d]
+             for j in starts for r in range(h - d)) for d in range(1, h)]
+    V = sum(energies)
+    assert V == D + 2 * sum(C)
+    row = (X, h, len(starts), b[v + h], V, D, C)
+    rows.append(row)
+    print(row)
+assert rows[1][4:] == (23, 47, [-13, 1])
+
+# Exact exponent checks, including the strongest symbolic comparator.
+Cden = F(12, 5)
+theta = F(1, 4)
+for gap in (F(0), F(1, 10**6), F(1, 288 * 10**12)):
+    beta = F(7, 8) - gap
+    saving = (1 - beta) * (2 - Cden * (1 - theta))
+    assert saving == F(1, 40) + gap / 5
+    energy_power = 1 + 2 * theta - saving
+    endpoint_power = (1 + energy_power) / 2 - theta
+    assert endpoint_power == F(79, 80) - gap / 10
+    assert endpoint_power > beta
+print('PASS: moving endpoint brackets', cases)
+print('PASS: exact endpoint equality rejected in', nonidentical, 'windows')
+print('PASS: full source squares and X=209 halo regression')
+print('PASS: exact rational exponent accounting')
+print('certificate_width_upper:', F(width, S))
+print('certificate_margin_lower:', F(margin, S))
+print('FINITE ONLY: no verification of zero-density, analytic integrals, or all-scale estimates')
+```
+
+#### Observed Final Output
+
+```text
+(128, 3, 25, 271, 18, 34, [-6, -2])
+(209, 3, 37, 434, 23, 47, [-13, 1])
+(256, 4, 43, 533, 26, 58, [-14, 0, -2])
+(512, 4, 77, 1045, 69, 151, [-24, -12, -5])
+(1024, 5, 140, 2078, 305, 415, [-28, -12, -18, 3])
+PASS: moving endpoint brackets 322
+PASS: exact endpoint equality rejected in 322 windows
+PASS: full source squares and X=209 halo regression
+PASS: exact rational exponent accounting
+certificate_width_upper: 40223019380213825744686833782533/340282366920938463463374607431768211456
+certificate_margin_lower: 35228265328053005012477392063787261/340282366920938463463374607431768211456
+FINITE ONLY: no verification of zero-density, analytic integrals, or all-scale estimates
+```
+
+### Prepublication Freshness - 20261106-owner-3
+
+Main was re-fetched and remains d4df133117c5b58f90979d2eb680167ef37995cf. Direct file retrieval at #1091's reviewed head confirmed that the replay, strict-Mertens and explicit-count files have exactly the same bytes and blob SHAs as current main. Python syntax compilation and the complete finite verifier both passed. These checks do not upgrade MS1-MS4 from paper/self-audit to independent or Lean verification.
