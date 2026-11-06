@@ -3325,3 +3325,26 @@ if __name__ == '__main__':
   }
 }
 ```
+
+
+### Verified Publication Receipt - 20261105-census-2
+
+Execution COMPLETE for the declared finite domain. At 2026-11-06 00:22:23 UTC,
+the full substantive report was re-fetched from immutable commit
+**57c35707817bb34e1b859d67f8c331f4acb87ea4**, blob **c1f269b08cf3f0688471897a085dfcf0d6b73309**, and matched the submitted
+**138844-character** content exactly. The commit changed ONLY
+research/agent_reports/2026-11-05/40-prime-census.md on agent-reports.
+All 64294 characters of the prior report and checkpoint were preserved as
+an exact prefix. The preregistration was separately published and read back
+before the experiment at 07d4288a97b6097f32411004d6db51398e4d11e4.
+
+JL1-JL4 remain FINITE_COMPUTATION, with the stated local sign rule REFUTED.
+JOH-AGG remains CONJECTURE; JL5's conditional budget is PAPER_PROOF /
+SELF_AUDIT, not an upper estimate for the missing source. Independent
+Referee review and Lean certification of the new findings remain PENDING.
+No new exponent gain or RH proof is claimed.
+
+Only the authorized own report was changed remotely. Source, policy,
+other reports, proof branches, PRs, issues, workflows, schedules, and main
+were not modified; no agent was launched. The downloadable standalone
+report contains this invocation's full source and certificates.
