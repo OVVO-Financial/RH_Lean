@@ -891,3 +891,24 @@ not imply independent acceptance or Lean certification. OPEN-CD5, the
 canonical VF bound, and the new complete-endpoint gain remain OPEN.
 Next protected route: NYMAN; next CODIV obligation is actual signed
 arithmetic, not automatic frequency-average cancellation.
+
+
+## Scheduled NYMAN Continuation Checkpoint - 2026-11-06 09:09 EST Invocation
+
+Status: PARTIAL / IN_PROGRESS. Actual trigger SCHEDULED, 2026-11-06T09:09:02-05:00; RUN_ID_UNAVAILABLE. This is a distinct continuation; the earlier CODIV proof, exact verifier, claim IDs and publication history are preserved.
+
+### A. Selected Mathematical Question
+
+Protected route NYMAN is due after Nov 5 OAI-NNS and today's CODIV. Resume independently accepted 20261105-analytic-1/SP1-SP5 and the separate 20261105-referee-8/R8 relaxed-moment head/probe tradeoff. Investigate whether a source-realizable moment defect can remove the reciprocal-Mobius drift in the actual pre-correction block, what head error it introduces, and which prime-fluctuation obstruction survives optimization over that scalar. This changes an explicit hypothesis of the retired exact-head profile; it does not repeat that no-go or assume the one-probe lower certificate is attained by the full norm.
+
+### B. Authority And Continuity
+
+Main 4a6e6b8c1a81f6dd8b8bc0cfad123bbc2a56188a; AGENTS blob 547dda0d9456e7a4e1165dc72d59da6f70d5c023; CURRENT_PROOF_CONTRACT blob 7c4ac83a1ec1a4144e1bd691391ed4244f1cc27c; independent-routing policy ffd8f1c65cc4da656174956d4e03b48bea46768b. deployment_ack=NO_PIGEONHOLING_ROUTE_SELECTOR_V1. Canonical actual-prime von Koch bound remains OPEN; eta_gate=SEARCH_BROAD.
+
+All seven Nov 5/6 report files and external inbox were retrieved. Today's Coordinator is only PARTIAL, so TODAY=PENDING for its completed synthesis and YESTERDAY=CARRY_FORWARD to the verified Nov 5 report, not an invented completion. Other current specialist findings are available at their own stated scopes. SP1-SP5 have independent Referee acceptance; R8 and Coordinator C58-C61 are separately authored paper developments, not automatically Lean-certified. External inbox 038018145c0fddb2f6306c0712373adf9cd1ea52 has no post-Oct-18 entry and supplies no new NYMAN estimate.
+
+Original main source fetched: NYMAN_HIGH_COEFFICIENT_INVARIANT_20261104.lean blob 2da630c1d5fb9302e2097ec1e170cf41c2b40609; NYMAN_FLAT_TAPER_RETURN_20261104.lean blob 2d23721027ecc44e85b7add02fc632b482f03352; NYMAN_CORRECTION_ENERGY_20261105.lean blob e5453cd32c3c4ebf9ebf41927bcb92e534b2ece7. The arbitrary moment defect is already displayed in nyman_flat_complete_return; no new source equality is presumed. Current open PR #1097 is a separate CORR4 sampling result, head bc727dc9f7dd655fdd2addc943b246ad70ef576d. Exact relevant CI inspection continues.
+
+### C-L. Pending Research And Preregistered Checks
+
+Attempt a full pre-block scalar projection, independently bound the periodic remainder and retained head, and investigate a slope-annihilating prime probe with all rounding and Mellin terms. Test original residues against complete returns and moments using exact rational prime-log vectors; distinguish these exact finite checks from numerical norms or infinite estimates. Challenge high-support, integer-floor, k=1, and after-N truncation failures. No new result, independent review, or endpoint gain is claimed at this checkpoint. Only this role's dated report will be changed remotely; no agents, Lean runs, source changes, PRs, merges or schedule changes are initiated.
