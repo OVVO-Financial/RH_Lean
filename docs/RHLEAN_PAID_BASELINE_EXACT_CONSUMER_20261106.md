@@ -97,7 +97,7 @@ B_R = G_R^2 + 2 G_R sum_q d_q/q - 2 sum_q d_q^2 - H_R
         - 2 sum_q (d_q-G_R/(2q))^2 - H_R.
 ```
 
-The reciprocal-square sum is bounded independently of R. Consequently an available `M(x)=O_epsilon(x^(b0+epsilon))` gives `B_R=O_epsilon(R^(4b0+epsilon))`. At `b0=7/8`, this is `R^(7/2+epsilon)`. This is a mathematical consequence of the existing identity and input, not a claim that this documentation has formalized a new declaration. Do not queue that inherited estimate as an independently missing theorem. A source-native improvement must beat the best applicable `b0` or independently establish a new route to the desired endpoint.
+The reciprocal-square sum is bounded independently of R. Consequently an available `M(x)=O_epsilon(x^(b0+epsilon))`, with `b0>=1/2`, gives the one-sided upper bound `B_R <= C_epsilon R^(4b0+epsilon)`. At `b0=7/8`, the upper-bound exponent is `7/2+epsilon`. This is a mathematical consequence of the existing identity and input, not a claim that this documentation has formalized a new declaration. Do not queue that inherited estimate as an independently missing theorem. A source-native improvement must beat the best applicable `b0` or independently establish a new route to the desired endpoint.
 
 ## 4. Compare the proposed inequality with its real consumer
 
@@ -114,7 +114,7 @@ For the selected route only, record a compact improvement packet in the existing
 
 Do not require a finished endpoint theorem before allowing a useful intermediate lemma. Conversely, a rewritten identity, a stronger-looking coordinate, a finite fit, or a bound recycled from the desired conclusion is not an independent saving. A target-equivalent conclusion is a legitimate theorem to prove; equivalence alone neither proves it nor makes it an invalid research route. A constant-factor gain becomes an exponent gain only through a proved uniform iteration/recurrence or other complete consumer.
 
-For a global signed-energy improvement `D(N)+2C(N) << N^(7/4-kappa+epsilon)`, the rounded-baseline amplitude gain is `kappa/2`. For a CORR4 bill `B_R << R^(7/2-eta+epsilon)`, it is `eta/4`. Neither is automatically a gain beyond an already stronger inherited boundary. Keep the additional loss and fixed-power distinctions explicit.
+For a global signed-energy improvement `D(N)+2C(N) << N^(7/4-kappa+epsilon)`, the rounded-baseline amplitude gain is `kappa/2`. For a one-sided CORR4 bound `B_R <= C_epsilon R^(7/2-eta+epsilon)`, it is `eta/4`. Neither is automatically a gain beyond an already stronger inherited boundary. Keep the additional loss and fixed-power distinctions explicit.
 
 ### Two useful OAI comparisons, not mandatory team assignments
 
