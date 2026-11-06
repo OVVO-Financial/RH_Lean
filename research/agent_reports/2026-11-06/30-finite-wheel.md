@@ -796,3 +796,650 @@ Today/yesterday priority reports and external inbox were retrieved from reportin
 Source declarations inspected: eulerRankOneFloorKernelQ, eulerRankOneResidualQ, eulerFloorBilinearQ, eulerSelfDualBilinear_eq_two_mertens_sub_endpoint and EulerSelfDualFiniteCStatement. Preserve **N=R-1, X=R^2-1**, genuine mu, ordered floor occurrences, the nonsymmetric rank-one subtraction, and **K_R=max_(0<=y<R)(M(y)-1)^2/(y+1)**. The finite-C estimate is an explicit unpaid hypothesis, not a proved input.
 
 Pending: exact boundary derivation, independent code paths for finite tests, novelty/no-circularity review, full signed return, specialist handoffs, and final commit/readback. Writes remain restricted to this own report; no local Lean or other agent launch.
+
+## Scheduled FINITE-AC Final Synthesis - 20261106-wheel-2
+
+Actual invocation: **2026-11-06T10:12:01-05:00**, SCHEDULED, America/New_York; RUN_ID_UNAVAILABLE. This completes the checkpoint above, not another invocation. New arguments are **PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED**. Exact tests are **FINITE_COMPUTATION**. Earlier valid sections, claim IDs, and receipts are preserved. No new endpoint gain or RH proof is claimed.
+
+Pre-publication freshness: **2026-11-06T15:40:06Z / 10:40:06 EST**. Latest main is unchanged; the November 5/6 upstream report blobs in section K are unchanged. The current own-report blob exactly matches the previously verified checkpoint. PR #1097 was re-read and remains open, non-draft and unmerged at the stated head. The completed Coordinator synthesis remains TODAY=PENDING / YESTERDAY=CARRY_FORWARD.
+
+### A. Most Important Structural Discovery
+
+**The prime-band remainder has a coherent historical boundary that survives after the old four-block leading terms have been recombined.** Its complete successive-root change is a disjoint fresh-cofactor sum minus `k_R*mu(R)`, plus explicitly controlled admission/exit terms. The square of that historical boundary has the unconditional asymptotic
+
+```text
+D_H := sum_(H<=R<2H) k_R^2 mu(R)^2
+     ~ [7/(48 zeta(2))] H^3/log(H)^2.                  (PB3)
+```
+
+This is the energy of ONE specified component, **not a lower bound for the complete signed source**. Nevertheless it gives a useful inverse restriction: a prime-column increment bound smaller than this scale would force an explicit, almost perfectly positive, weighted correlation between `mu(R)` and the fresh cofactors above R. An independent estimate for that correlation is not currently available. Disjoint fresh occurrences do not establish the needed cancellation.
+
+The exact geometry is stronger than a raw degree cap: each old selected prime contributes a consecutive block of two or three cofactors; different selected primes have disjoint cofactor blocks at that root; physical products are distinct; and the full endpoint boundary has an exact interval lifetime with all exits retained. The elementary shell-spacing ingredient is inherited from existing work, not claimed as a new general theorem. The new application is the complete moving prime-column boundary, its paid exceptional terms, and the quantitative inverse statement PB4.
+
+| Claim | Result and scope | Status |
+| --- | --- | --- |
+| PB1 | Exact prime-band boundary, original rank-one correction, and full-source reconstruction | EXACT_IDENTITY / PAPER_PROOF |
+| PB2 | Disjoint fresh cofactor intervals, unique physical products, and complete occurrence lifetimes | PAPER_PROOF; includes an application of inherited spacing |
+| PB3 | Positive historical-component energy asymptotic; admission/exit error is smaller at that scale | PAPER_PROOF; classical inputs explicitly identified |
+| PB4 | Finite and asymptotic inverse correlation criterion for a small selected-column increment | PAPER_PROOF; no upper supplier asserted |
+| PB5 | 2,032-root exact checks, boundary counterexamples and seven dyadic diagnostics | FINITE_COMPUTATION |
+
+### B. Current Authoritative Objective
+
+Pinned main: **4a6e6b8c1a81f6dd8b8bc0cfad123bbc2a56188a**, tree **48b193cd105e21183b1cfd68b059894c8056f35c**. AGENTS **547dda0d9456e7a4e1165dc72d59da6f70d5c023**; CURRENT_PROOF_CONTRACT **7c4ac83a1ec1a4144e1bd691391ed4244f1cc27c**. deployment_ack=NO_PIGEONHOLING_ROUTE_SELECTOR_V1, policy **ffd8f1c65cc4da656174956d4e03b48bea46768b**. The stable selector, broad-search, complete-return, persistent-engine, role and dynamic instructions were retrieved. FINITE-AC is the protected route following November 5 MU-LIFT and November 6 CORR4.
+
+The canonical actual-prime objective remains
+
+```text
+exists C>=0, forall integer R>=2:
+ |pi(R^2)-vfCanonical(R^2)| <= C R log R.
+```
+
+The canonical source and its explicit ClassicalVonKochRHCriterion consumer were inspected. The current finite-C route instead asks, with its original history,
+
+```text
+N=R-1, X=R^2-1, ell=R+1;
+Q_R=sum_(1<=a,b<R) mu(a)mu(b) floor(X/(ab));
+K_R=max_(0<=y<R) (M(y)-1)^2/(y+1);
+exists C>=0, forall R>=2: |Q_R|<=C R sqrt(K_R).       OPEN
+```
+
+The compiled EulerSelfDualFiniteCStatement quantifies over every valid LowerMertensCriticalEnvelope R K. Its actual minimal K_R is valid; this is not a replacement normalization. The compiled endpoint identity is `Q_R=2M(R-1)-M(R^2-1)`. The conditional finite-C -> finite-A -> Mertens energy -> RH consumer does not prove its finite-C premise. No VF, returned-cell, or Hecke occurrence identification is asserted here.
+
+### C. Structural Mechanism Investigated
+
+Resume **20261105-wheel-2/P1-P4**, especially the exact complete prime columns `r_R+Z_R`. Yesterday showed why the four original prime/complement blocks cannot be normed separately. Repeating that asymptotic would not address the remaining source. Today's changed question is whether taking successive square endpoints yields a genuinely simpler signed source after that cancellation.
+
+Two moves were examined. A pointwise sum of the inherited Mertens bounds gives only the already known `Z_R=O(R^(1+b)/log R)` for an incoming exponent b<1; no improvement was found that way. The developed alternative follows the exact boundary of the partial prime mask before squaring. It identifies a necessary correlation for any stronger local-energy proposal, and supplies finite counterexamples to omitting its non-product boundaries.
+
+No wheel was enlarged, no accepted census was rerun merely for scale, and no arbitrary-sign model was substituted for genuine mu. The 2,032-root experiment tests the NEW moving-root identities, not yesterday's four-block asymptotic.
+
+### D. Exact Statements And Original Carrier
+
+All statements below use integer R>=17 unless a separate range is stated; H>=17 is an integer. Let M(t)=sum_(1<=n<=t)mu(n), with all divisions in M interpreted by integer floor. Define
+
+```text
+P_R={p prime: 3R<=4p and p<R};  k_R=|P_R|;
+d_R=sum_(p in P_R)1/p;  r_R=(R+1)d_R-k_R;
+Z_R=sum_(p in P_R)[M(floor((R^2-1)/p))-M(R-1)].
+
+T_R(a,b)=floor((R^2-1)/(ab))-(R+1)/b*floor((R-1)/a);
+B_R(u,v)=sum_(a,b<R, a,b>=1) u(a)v(b)T_R(a,b);
+f(a)=mu(a), g_R(a)=-1_(a in P_R), h_R=f-g_R;
+A_R=sum_(a<R,a>=1)mu(a)/a;
+C_R=B_R(f,g_R)=r_R+Z_R;
+V_R=(R+1)A_R+B_R(f,h_R);  Q_R=C_R+V_R.             (D0)
+```
+
+C_R here is a selected COLUMN of the nonsymmetric historical rank-one kernel, not a CORR4 bill or a new name for the full Q_R. Both mixed orientations remain in D0. Specifically C_R=B_R(g_R,g_R)+B_R(h_R,g_R), while V_R includes the other two blocks and the original linear term.
+
+The `(p,n)` objects below are the actual signed boundary created by exact finite row completion, with n>=R. They are NOT claimed to be original historical `(a,b)` rows with a<R. The bridge is the exact scalar row identity proved in E1, with its constant retained. There is no unproved returned-source admission map.
+
+#### PB1. Full Successive-Root Boundary
+
+Let
+
+```text
+L_R={p in P_R: 3R<=4p<3R+3};
+F_R=sum_(p in P_R) sum_(R^2<=p*n<(R+1)^2) mu(n);
+H_R=k_R*mu(R);
+B_R^new=1_(R prime)*(mu(R+1)+mu(R+2));
+J_R=sum_(p in L_R)[M(floor((R^2+2R)/p))-M(R)].
+```
+
+The use of B_R^new distinguishes the scalar birth from the bilinear B_R(u,v). H_R denotes this report's historical component only, not the earlier positive VF residual. Then
+
+```text
+P_(R+1)\P_R = {R} if R prime, else empty;
+P_R\P_(R+1) = L_R,  |L_R|<=1;
+Z_(R+1)-Z_R = F_R-H_R+B_R^new-J_R.                (PB1a)
+
+r_(R+1)-r_R = d_R + 1_(R prime)*2/R
+               -sum_(p in L_R)[(R+2)/p-1];
+|r_(R+1)-r_R|<=2.                                 (PB1b)
+
+e_R=B_R^new-J_R+r_(R+1)-r_R;
+C_(R+1)-C_R=F_R-H_R+e_R.                          (PB1c)
+```
+
+Every floor and birth is literal. The exiting row is evaluated at the UPDATED endpoint and UPDATED history M(R); replacing it by the old row without its fresh/history adjustment is incorrect.
+
+#### PB2. Arithmetic Incidence And Lifetime
+
+At each R>=17, for every p in P_R the fresh n form the consecutive interval
+
+```text
+floor((R^2-1)/p)+1 <= n <= floor((R^2+2R)/p),
+```
+
+of length exactly two or three. Distinct p have disjoint such intervals. Every fresh n satisfies `R<n<2p`; hence p does not divide n, and `mu(p*n)=-mu(n)`, including squareful zero coefficients. Distinct fresh pairs have distinct products. Thus F_R is the sum of mu over a genuine cofactor subset with coefficient exactly one, and also the NEGATIVE physical mu sum over its distinct product image. In particular `|F_R|<=3k_R`.
+
+For an endpoint pair with prime p and integer p<n, define
+
+```text
+I_(p,n)=[isqrt(p*n)+1, min(n,floor(4p/3))] intersect the integers.
+```
+
+An empty interval means no admission. For every integer R>=2 the pair appears in Z_R exactly when R belongs to I_(p,n). Its signed coefficient is mu(n). Thus, for every finite root interval [A,B],
+
+```text
+sum_(R=A)^B Z_R^2
+ =sum_(u=(p,n),v=(q,m)) mu(n)mu(m)
+    max(0,min(upper(u),upper(v),B)-max(lower(u),lower(v),A)+1). (PB2)
+```
+
+The sum is over the finitely many admitted pairs whose intervals meet [A,B]; it is an ORDERED double sum, including diagonal and same-cofactor interactions. This is an exact Gram representation, not a favorable-sign estimate. Fixed-root disjointness does not extend across different roots.
+
+#### PB3. Quantitative Boundary Budget
+
+With `D_H=sum_(H<=R<2H)H_R^2` and `E_e(H)=sum e_R^2`, classical PNT and the classical Mertens estimate give
+
+```text
+D_H ~ [7/(48 zeta(2))] H^3/log(H)^2;
+E_e(H) = o(D_H).                                   (PB3a)
+```
+
+More explicitly, for every fixed A>0,
+
+```text
+E_e(H) <<_A H^3/log(H)^(2A+1)+H.                   (PB3b)
+```
+
+Separately, under ANY explicitly supplied fixed envelope `|M(n)|<=C n^b`, 0<b<1,
+
+```text
+E_e(H) <<_(C,b) H^(1+2b)/log H+H.                 (PB3c)
+```
+
+PB3c is a conditional consequence of that input, not a new exponent theorem. PB3a-b use only classical logarithmic estimates. The same derivation gives `|C_(R+1)-C_R|=O(R/log R)` and `sum_(H<=R<2H)|C_(R+1)-C_R|^2=O(H^3/log^2 H)`. This proper-source bound remains above the useful `H^(5/2-eta)` scale by a polynomial factor. Summing it in R does not improve yesterday's pointwise Z estimate.
+
+#### PB4. Source-Explicit Inverse Correlation
+
+Put
+
+```text
+E_C(H)=sum_(H<=R<2H)(C_(R+1)-C_R)^2;
+E_F(H)=sum_(H<=R<2H)F_R^2;
+I_H=sum_(H<=R<2H) k_R mu(R)
+       sum_(p in P_R) sum_(R^2<=p*n<(R+1)^2) mu(n).
+```
+
+For EVERY H>=17, without assuming an upper bound or convergence,
+
+```text
+|I_H-D_H| <= sqrt(D_H)*(sqrt(E_C(H))+sqrt(E_e(H))). (PB4a)
+```
+
+When D_H>0, set t_H=(sqrt(E_C)+sqrt(E_e))/sqrt(D_H). Then
+
+```text
+(max(0,1-t_H))^2 <= E_F/D_H <= (1+t_H)^2.          (PB4b)
+```
+
+Consequently, along any sequence H tending to infinity,
+
+```text
+E_C(H)=o(H^3/log^2 H) ==> I_H/D_H -> 1
+                           and E_F(H)/D_H -> 1.    (PB4c)
+```
+
+In particular a hypothetical all-H bound `E_C(H)<<H^(5/2-eta)` with fixed eta>0 would REQUIRE that positive correlation. It is not implied by nonoverlap, prime spacing, squarefreeness, or PB3. Conversely, if for some fixed delta>0 a scale satisfies `I_H<=(1-delta)D_H`, then
+
+```text
+E_C(H) >= max(0,delta*sqrt(D_H)-sqrt(E_e(H)))^2.    (PB4d)
+```
+
+An independent such deficit on infinitely many large H would rule out that separately-small COLUMN-increment mechanism. No such infinite deficit is proved here; finite data are not substituted for it. This is a necessary correlation criterion on an explicit prime/cofactor graph, not an equivalent reformulation of the canonical objective.
+
+### E. Mathematical Proofs
+
+#### E1. Exact Source And Boundary
+
+For p in P_R, write Y=floor((R^2-1)/p). Then R<=Y<4R/3<2R. Genuine Mobius inversion gives
+
+```text
+sum_(a<R,a>=1)mu(a)floor(Y/a)
+ =1-sum_(R<=a<=Y)mu(a)=1-M(Y)+M(R-1).
+```
+
+The omitted floors are one, and the nested floor is exactly floor((R^2-1)/(ap)). Multiplication by mu(p)=-1 and summation gives the original floor column `Z_R-k_R`. Historical inversion at R-1 is one, so the original rank-one subtraction contributes +(R+1)d_R. This proves D0's C_R=r_R+Z_R and reuses yesterday's row-completion mechanism without re-crediting it.
+
+First keep the OLD prime set P_R while changing the endpoint and historical cutoff. Each prime contributes its fresh interval minus mu(R), producing F_R-H_R. Now restore the actual new mask. Its only possible entry is p=R; its new quotient is `(R^2+2R)/R=R+2`, giving B_R^new. Its exits satisfy exactly `3R<=4p<3R+3`; that interval has width 3/4 and at most one integer. Remove their entire UPDATED rows J_R. This proves PB1a, including cases with simultaneous entry and exit.
+
+Direct subtraction of `(R+1)d_R-k_R` proves PB1b. Since `k_R<=R/4+1`, `d_R<=1/3+4/(3R)`. Each possible exit contributes at most `1/3+8/(3R)` in absolute value and the entry contributes at most 2/R. The sum is at most `2/3+6/R<2` for R>=17. This proves the advertised safe uniform constant, without optimizing it. PB1c follows.
+
+#### E2. Incidence Proof And Limits
+
+The interval length before flooring is `(2R+1)/p`, strictly between two and three at the stated R and p. Its integer count is therefore two or three. If the same n occurs for two primes, those primes lie in the closed real interval `[R^2/n,(R^2+2R)/n]`, of length `2R/n<2` because n>R. Both primes are odd, and distinct odd primes differ by at least two. Thus they cannot both occur.
+
+Also
+
+```text
+n <= (R^2+2R)/p <= 4R/3+8/3 < 3R/2 <= 2p
+```
+
+for R>=17. Since n>R>p, this proves p does not divide n. If `p*n=q*m` with distinct selected primes, unique factorization forces q|n. But n>q and `n<3R/2<=2q`, a contradiction. This establishes product injectivity and the true Mobius sign. Neither boundary square is a selected product: a selected prime cannot divide R or R+1 in this range. The inclusive lower product convention in PB1 is nevertheless retained.
+
+For PB2's lifetime, the endpoint conditions are exactly `p<R`, `R<=n`, `3R<=4p`, and `p*n<R^2`. Since n>p, the last condition forces `R>=isqrt(p*n)+1>p`. The remaining inequalities give precisely I_(p,n). Squaring this finite sum and summing the intersection lengths proves PB2 with ALL ordered interactions. Replacing this overlap Gram by a sum of isolated squares is not valid.
+
+The fixed-root spacing proof is an elementary specialization of the already compiled `shellHighOwnerCofactorsAdjacent`: its multiplier need not be prime, so use n as multiplier, then use oddness of the two candidate prime factors. The present p<R carrier and two/three-cofactor rows differ from that module's usual high-prime interpretation. No new general spacing or unique-factorization theorem is claimed.
+
+#### E3. Historical Energy And Sparse Exit Cost
+
+PNT gives `k_R~R/(4log R)`, uniformly for H<=R<2H as H tends to infinity. This uses a fixed-ratio prime band, not a prime-in-short-interval hypothesis or a replacement of individual prime indicators by density. The classical inputs were checked at [DLMF 27.12.4-5](https://dlmf.nist.gov/27.12#E4) and [DLMF 27.11.12](https://dlmf.nist.gov/27.11#E12); neither is a new discovery.
+
+For completeness, the squarefree mean needed here follows directly from
+
+```text
+mu(n)^2=sum_(d^2|n)mu(d),
+sum_(n<=y)mu(n)^2=y/zeta(2)+O(sqrt y).
+```
+
+The floor errors and the tail of the absolutely convergent d^-2 series are both O(sqrt y). Partial summation therefore gives `sum_(H<=R<2H)R^2 mu(R)^2=(7/(3zeta(2)))H^3+O(H^(5/2))`. Multiplying by the uniform asymptotic `k_R^2/R^2~1/(16log^2 H)` proves PB3a's constant. There is no probabilistic squarefree-independence premise.
+
+Each prime exits at the unique root `R=floor(4p/3)`. Thus only O(H/log H) roots in [H,2H) have J_R nonzero. Its two Mertens arguments lie between R and 3R/2. The classical Mertens bound implies, for every fixed A>0, `|J_R|<<_A H/log^A H` on those roots. Since `|B_R^new|<=2` and `|delta r_R|<=2`,
+
+```text
+E_e(H) <= 2 sum J_R^2 +32H
+        <<_A H^3/log^(2A+1) H+H.
+```
+
+Taking A>1/2 proves E_e=o(D_H). With the separate input `|M(n)|<=C n^b`, the same support count gives PB3c. The support sparsity alone does not turn a logarithmic Mertens bound into a power saving. PB3's pointwise increment estimate follows from PB1 and `|F_R|<=3k_R`; use A>1 for J_R=O(R/log R). Its dyadic consequence is only a logarithmic improvement on the elementary root energy.
+
+#### E4. Inverse Step Without An Assumed Target
+
+Treat F,H,e and delta C as finite real vectors indexed by H<=R<2H. PB1c says `F-H=delta C-e`. Hence `||F-H||_2<=sqrt(E_C)+sqrt(E_e)`. Cauchy-Schwarz applied to `I_H-D_H=<H,F-H>` proves PB4a; the reverse triangle inequality proves PB4b. PB3 then gives PB4c. The reverse estimate `||delta C||_2>=||F-H||_2-||e||_2` gives PB4d. These finite inequalities do not assume convergence of any infinite norm.
+
+The generic Hilbert-space inequalities are inherited mathematics. The independent arithmetic content is the exact source for I_H, its once-only fresh-cofactor multiplicities, its nonzero asymptotic reference D_H, and the proved smaller complete admission/exit error. No desired source upper bound appears among those inputs.
+
+### F. Structural Consequences And Exact Falsification
+
+The historical term H_R is not k_R independent supplies of one old occurrence. It is the same mu(R) appearing with the exact multiplicity k_R in distinct prime-column boundaries. Treating those columns as independent would erase the compulsory square k_R^2 mu(R)^2. The disjoint fresh intervals do not remove this coherence.
+
+Exact counterexamples from the registered R>=17 domain:
+
+| R | k_R | F_R | H_R | B_R^new | J_R | Z_(R+1)-Z_R |
+| ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| 17 | 1 | -1 | -1 | -1 | 0 | -1 |
+| 19 | 1 | 0 | -1 | 1 | 0 | 2 |
+| 22 | 2 | -2 | 2 | 0 | -3 | -1 |
+| 57 | 3 | -1 | 3 | 0 | -2 | -2 |
+| 317 | 14 | -4 | -14 | 0 | 0 | 10 |
+| 1027 | 36 | 12 | 36 | 0 | 0 | -24 |
+| 2002 | 64 | 17 | 64 | 0 | 0 | -47 |
+
+R=19 refutes `delta Z=F` and the automatic-payment inequality `(F-H)^2<=F^2`. R=22 has exiting prime 17; omitting its UPDATED row changes the answer by three. R=17 tests simultaneous entry R=17 and exit p=13, with a nonzero birth. These are exact finite refutations, not asymptotic obstructions.
+
+The cofactor 31 occurs as `(R,p,n)=(24,19,31)` and `(26,23,31)`. Fixed-root disjointness therefore cannot be upgraded to global cofactor disjointness. These are distinct physical products, 589 and 713; the coefficient mu(31) is legitimately reused at different roots and products.
+
+The complete executed verifier checks:
+
+| Check | Scope / result |
+| --- | --- |
+| Independent coefficient check | Trial factorization agrees with sieve at n=1..10000 |
+| Full boundary and complement identities | Every R=17..2048, 2,032 roots; PASS |
+| Prime rows and physical sites | 74,048 rows, 170,640 fresh pairs; two/three size, both injectivities, gcd and signs; PASS |
+| Reverse enumeration | Independent cofactor-first construction agrees at every tested root |
+| Literal original floor columns | 67 roots: 17..80 and 317,1027,2002; no row-completion formula used in this calculation |
+| Endpoint lifetimes | 64 roots, 17..80; exact source agreement |
+| Complete interval Gram | 8,464 ordered pairs on roots 17..40; resulting energy 133 |
+| Moving masks | 303 prime-entry roots and 237 exit roots checked |
+| Finite inverse/energy tests | H=17,32,64,128,256,512,1024; rational inequalities and complete-square return PASS |
+
+Some exact dyadic diagnostics are:
+
+| H | D_H | E_F | I_H | sum(F-H)^2 | sum(delta Z)^2 |
+| ---: | ---: | ---: | ---: | ---: | ---: |
+| 17 | 22 | 31 | -2 | 57 | 42 |
+| 64 | 1014 | 471 | -105 | 1695 | 1675 |
+| 256 | 41247 | 4364 | 358 | 44895 | 43590 |
+| 1024 | 1759325 | 62690 | -15522 | 1853059 | 1850263 |
+
+Both signs of I_H occur. The necessary asymptotic alignment is NOT seen in these finite samples; this does not prove it impossible eventually. No exponent was fitted. In particular these finite values cannot refute an all-scale big-O assertion with an unspecified constant.
+
+Verifier SHA256: **e6a4fbf33bb9c4afd584c46da9dbc968b8b575593df7362237839463f7a639d5**. Deterministic exact-result payload SHA256: **2aa76aca7decc7bed8d112741f0c2cacf45b329ae67a2a00e2fa13fc8e7a9674**. Runtime assertions and Python syntax compilation passed. Two enumeration methods are same-session verification, not an independent Referee verdict. The full executed code follows this synthesis.
+
+### G. Complete Signed Return And Quantitative Relevance
+
+The actual full source is still Q_R=C_R+V_R. For the genuine square-shell sum `S_R=sum_(R^2<=n<(R+1)^2)mu(n)`, the compiled endpoint identity gives
+
+```text
+S_R=2mu(R)-delta C_R-delta V_R;
+S_R^2=(delta C_R)^2+(delta V_R)^2+2delta C_R delta V_R
+      -4mu(R)(delta C_R+delta V_R)+4mu(R)^2.        (RETURN)
+```
+
+All historical, prime/complement and within/between-column interactions are restored. Large C and V increments may cancel; their separate smallness is not required by finite C or by the shell consumer. PB4 constrains a proposed componentwise proof mechanism, not every legitimate signed recombination.
+
+The new upper estimate for E_C has scale H^3/log^2 H. It does not pay H^(5/2-eta), improve the inherited Mertens exponent, or bound Q_R at R sqrt(K_R). A bound on I_H alone does not establish finite C either. `NEW_NET_ENDPOINT_GAIN=UNKNOWN / NONE_ESTABLISHED; ETA_GATE=SEARCH_BROAD`.
+
+### H. Novelty, No-Circularity And Formal Evidence
+
+Repository searches included prime-sampled, prime-band birth, cofactor retirement and square-shell prime incidence, followed by actual source inspection. The existing admissible-prime chronology fixes X and adds primes p>=R; PB1 instead changes X and the p<R partial historical mask simultaneously. The older `shellHighOwnerCofactorsAdjacent` already supplies the relevant elementary width restriction, and the two-prime orbit theorem already supplies the same-sign fresh-prime law at its own scope. Neither is claimed new here. Yesterday's row completion and four-block identity, unique factorization, squarefree mean, PNT, Mertens logarithmic cancellation, and Cauchy-Schwarz are also inherited.
+
+No identical complete partial-prime-mask increment, reference-energy constant, and PB4 inverse statement was found in the inspected source and two-day handoffs. This is a scoped repository novelty check, not a literature-originality claim. PB2 by itself is a representation; PB3 is independently proved quantitative component information; PB4 is a necessary inverse implication, not a proved desired bound. The full finite-C upper estimate remains explicitly target-strength and open.
+
+**Formal evidence freshly checked:** PR #1095 is merged, final head **46e68178192c6e429a02abee9d5b8ebca5de46c8**, merge **1667c3cf9b4e898bb9afd62ec48e24610b2156ab**. All three attached checks returned success. The [dedicated log](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42084042187/job/127444267657) records 17 successful audit regressions, seven newly compiled research modules, and exact coverage of eight requested Euler declarations with standard axioms. The current original floor/rank-one blobs match the reviewed source. Thus yesterday's V1 fail-open warning is superseded by a verified repair, not silently retained as an active defect. No CI was triggered by this run.
+
+PR #1096 is merged at the pinned main, final head **ecf701ff2fea1de52e505ee34048a2b3c220f0fc**; its finite odd-boundary proof is not an input to PB1-PB4. The only open PR at intake is non-draft **#1097**, head **bc727dc9f7dd655fdd2addc943b246ad70ef576d**, still UNMERGED. All 13 attached checks returned success. Its source blob **e823a1a124dc1bfe4c38d4af4ee10c1e481cad2a** and the [nine-declaration sampling audit](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42203731194/job/127845057234) were inspected; each audited declaration lists propext, Classical.choice, Quot.sound. That job reused three compiled modules and freshly ran its theorem/axiom harness. This certifies its sampling scope, not CP2's weighted integrals and certainly not today's PB claims. No local Lean was run.
+
+### I. Conceptual Interpretation
+
+The same arithmetic data has two different incidence structures. New physical products have disjoint cofactor labels at a fixed root, but advancing the historical cutoff removes one shared cofactor sign from many different prime columns at once. The latter creates a coherent square, not a small diagonal proportional only to the number of primes. Exact prime geometry identifies both mechanisms and keeps them in the same signed equation.
+
+This makes a proposed cancellation assertion falsifiable: it must create the explicit positive correlation I_H near D_H, or preserve compensation with the complete complementary columns. Merely saying the new products are disjoint supplies neither conclusion.
+
+### J. Competing Structural Hypotheses
+
+| Proposal | Disposition |
+| --- | --- |
+| Count only new products to obtain delta Z | REFUTED at R=19; births, history and mask exits are genuine |
+| Fixed-root cofactor disjointness extends across all roots | REFUTED by cofactor 31 at roots 24 and 26 |
+| Historical subtraction always reduces fresh energy | REFUTED at R=19 and the displayed dyadic tests |
+| Separately small E_C follows automatically from the exact four-block endpoint cancellation | NOT ESTABLISHED; PB4 exposes the additional positive-correlation demand |
+| I_H has a fixed fractional deficit on infinitely many large H | OPEN, a possible proper-source obstruction; seven finite windows do not prove it |
+| Full delta C/delta V signed cancellation can bypass separate column estimates | OPEN and not excluded by this report |
+
+### K. Continuity And Specialist Handoffs
+
+Intake reports were retrieved from **34fafc2801539e603e05b5ce7a3b57812021c229**, beginning during this actual 15:12 UTC invocation. Applicable result, proof, correction, verdict and resume sections from both Eastern calendar days were read. Unrelated executable appendices were not all rerun or blanket-endorsed. The Coordinator's matching AM/PM blobs represent one mirrored record.
+
+| Role | November 5 blob | November 6 blob at intake | Consumed original claims / status |
+| --- | --- | --- | --- |
+| Coordinator | be661bb2ed2830fc4aeddf14713455e550d982cc | ed98da5ddf755803c0fb9249ccf5bdb58f59658c | C53-C57 finite-AC/CORR4 distinctions; C63-C68 fixed-bank and cross-core limits. Today's completed synthesis TODAY=PENDING; YESTERDAY=CARRY_FORWARD |
+| Owner | 39665b5b28fc48378519ab9d56cee8df4d3e2681 | fd30796d1b10e58e694f1d85252dac3cd8099a94 | RC/CR/MC; today's BT/RZ and DR1-DR7. Distinct SAT/VF/JOH carriers, no finite-C upper supplier |
+| Analytic | 9490aa2eecafcd19d8007043cc5f978fe421a7c9 | b075be67af6294e41f6eb232f611c208799c5e04 | SP obstruction, CR physical-row limitation; FP parent survives phase averaging; RM moment design still owes middle return |
+| Wheel | afc85d800c47f82f2db634591a7798005cb668de | d7bf40e297ed87f0899f759fa7aab7f577e134ed | P1-P4 resumed; PE1-PE4 retained; today's CP1-CP4 now independently accepted on paper |
+| Census | 24fcd6a631eca9ae44238d927215f49e1d8a174f | dfe20627512b4ad1fe62c83bbb2e0412390c100f | R=57/58 joint caps and JOH X=209 halo sign; GM1/GM2 exact matching evidence, X=145 frozen-edge obstruction; GM3 paper scope |
+| Referee | 789ed87021fe98963c244a8d0c9075638e76be43 | 01cf41cbc62f430f9034870509f6b3947866a4e9 | referee-11 ACCEPT_WITH_SCOPE for PE1-PE4; referee-14 13c/15c extension; today's referee-1 accepts CP1-CP4; TD is separate self-derived paper work |
+| Lean | 5e0ecdd8f08c2e19b4614f00c1a5657f58722344 | 7138b713a44f514ade3a64db44268c1934b215d0 | #1095 repair and #1096 finite proof now merged; 20261106-lean-1/CP1-SAMPLING verified at unmerged #1097 only |
+
+Original publication receipts inspected include Coordinator November 5 at November 6 04:35:36 UTC; Analytic November 5 at 17:37 EST; Referee November 5 at November 6 01:33:35 UTC; today's Owner 08:37 EST, Analytic 14:48:55 UTC, Census 08:44:24 UTC, Referee 09:41:27 UTC and Lean 05:43:31 EST. These are upstream recorded receipts, not claims that this agent independently reran all their experiments. P1-P4 have no newly located independent acceptance; today's CP acceptance does not cover them or PB1-PB4.
+
+The external inbox remains **038018145c0fddb2f6306c0712373adf9cd1ea52**, with no entry newer than October 18. EXT-20261018-PNT-1..3, EXT-20261017-XCOORD-1 and EXT-20261014-5 retain original-source, cutoff and conditional-versus-unconditional cautions. Their old compulsory route and cadence prose is superseded. They do not supply a finite-C estimate.
+
+| Recipient | Precise report-only handoff |
+| --- | --- |
+| Coordinator | Register PB3/PB4 as component-energy and inverse information, not VERIFIED_ETA. Preserve the complete delta C/delta V alternative and MU-LIFT next. Today's incomplete Coordinator stage is not counted as completed. |
+| Referee | Reconstruct PB1 with updated exit rows; audit R>=17, the PB3 constant 7/(48zeta(2)), unique exit roots, and PB4's necessary-only scope. PB1-PB4 await independent review. |
+| Analytic | Assess I_H on its literal prime strip, with k_R mu(R), both signs and n>R. A fixed deficit would obstruct only separate-column smallness; positive alignment is not assumed. Do not import a fixed-endpoint or differently weighted correlation. |
+| Census | Reproduce R=19/22 and H=64/256 from independent coefficients and both enumeration orders. No larger scan or fitted exponent is requested. Distinguish finite sign changes from an asymptotic deficit. |
+| Owner | Shared historical coefficients can create k_R^2 energy despite disjoint new products. This is a method warning, not a map to VF prime-seat supply, chronological charge, or returned masks. |
+| Lean Verification | No immediate new proof branch requested for self-audited PB claims. If independently accepted and useful, PB1's exact finite boundary is the smallest implementation unit; PB3 requires separate analytic infrastructure. Reuse #1097 rather than duplicate it. |
+
+These handoffs are published only inside this own authorized report. No other agent is launched or presumed to act.
+
+### L. First Independently Missing Theorem
+
+The original finite-C upper bound for the FULL Q_R remains open. Today's new source-specific missing input is a genuine quantitative theorem for
+
+```text
+I_H=sum_(H<=R<2H) k_R mu(R)
+       sum_(prime 3R/4<=p<R) sum_(R^2<=p*n<(R+1)^2) mu(n),
+```
+
+at its natural reference scale D_H. Neither `I_H/D_H -> 1` nor a fixed asymptotic deficit has been proved. Even proving one would not, by itself, settle the complete finite-C consumer. Alternatively, work directly on the full signed increment return (RETURN), where separate E_C smallness is not required.
+
+The pointwise Z_R improvement requested in yesterday's capsule was not obtained. The strongest valid continuation is PB1-PB4 plus the finite falsifiers. No missing inequality was hidden as an admissibility condition or assumed bound.
+
+### M. Source Ledger And Next-Run Capsule
+
+All listed main sources were retrieved at 4a6e6b8c; relevant definitions, statements and arguments were inspected. Historical CI was reused at its exact scope, not rerun locally.
+
+| Source | Git blob SHA |
+| --- | --- |
+| AGENTS.md | 547dda0d9456e7a4e1165dc72d59da6f70d5c023 |
+| CURRENT_PROOF_CONTRACT.md | 7c4ac83a1ec1a4144e1bd691391ed4244f1cc27c |
+| docs/RHLEAN_INDEPENDENT_MULTIFRONT_NO_PIGEONHOLING_20261104.md | ffd8f1c65cc4da656174956d4e03b48bea46768b |
+| research/EULER_RANK_ONE_FRACTIONAL_ROWS_20261027.lean | e482711a3f55c1f59fc771f108671477f51732f2 |
+| research/EULER_FRACTIONAL_COUPLED_20261027.lean | e6c4b1690e497760d366e36b28a1f7aa60e19f85 |
+| research/EULER_SELF_DUAL_FINITE_C_BRIDGE_20261027.lean | e97561ef330a9996fd807d8910369f0698147b01 |
+| research/EULER_SELF_DUAL_ENDPOINT_GATE_20261027.lean | e7ee8f77ffd59bccaa49dd6d74fbe0d7952c2d73 |
+| RHLean/Proof/SquareRootMertensEndpointAmplification.lean | 7793d7bfd842348facf62a7ad856bc802ffcd15c |
+| RHLean/Proof/SquareRootLegalAncestryGramReduction.lean | 1270d4d91c53b50b110d10014f223f427fb7a575 |
+| research/EULER_ADMISSIBLE_PRIME_POPULATION_CODIV_20261028.lean | 08493abd6ac18bff5d8ac0560b4e0d9444e99355 |
+| research/EULER_ADMISSIBLE_SIGNED_RETURN_TELESCOPE_20261028.lean | 99453a189ed19fd5c3a78ed1bf735bc3cb73c8f2 |
+| research/EULER_PRIME_RAY_SOURCE_ADMISSION_20261031.lean | d164dccf992e24fe1c6378fefa75c03535ad5de8 |
+| research/SQUARE_SHELL_INCIDENCE_COMPENSATION_20261017.md | d7826257273473e80948117ea5c0fcd04713af6f |
+| research/SQUARE_SHELL_INCIDENCE_COMPENSATION_LEAN.lean | 6f6fb9ef3e7bba68f4a1b015a90c96f61c120917 |
+| research/SQUARE_SHELL_TWO_PRIME_ORBIT_20261018.lean | 639cc98a1f8c2afc4053006996d52bc94cd3230d |
+| research/VF_CANONICAL_SQRT_TWO_VON_KOCH.lean | 79030d70e8d3e0d08eef9bac53fef95c36eca2fb |
+| research/oai_434/VF919NativeStrictMertens.lean | b33a4883e1ddb0551b0f11f062bce46680d87450 |
+| .github/workflows/euler-fractional-coupled.yml | ca6547a55198256ce9b5d71ab1b43eb97b98067c |
+
+```text
+RUN: 20261106-wheel-2, scheduled 10:12:01 EST; RUN_ID_UNAVAILABLE.
+MAIN: 4a6e6b8c1a81f6dd8b8bc0cfad123bbc2a56188a.
+POLICY: NO_PIGEONHOLING_ROUTE_SELECTOR_V1; SEARCH_BROAD.
+ROUTE: FINITE-AC, actual partial historical prime column.
+RESUMED: 20261105-wheel-2/P1-P4, full prime-column r_R+Z_R.
+NEW: complete moving boundary, sparse paid exits, compulsory component
+     D_H~7/(48zeta(2))*H^3/log^2H, and explicit inverse correlation.
+NOT NEW: row completion, shell spacing, PNT, squarefree mean, norm algebra.
+FINITE: 2032 roots, 170640 fresh pairs, 67 literal source columns,
+        64 lifetime roots, 8464 ordered overlap pairs; all assertions PASS.
+REVIEW: PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING.
+FORMAL: PB1-PB4 NOT_FORMALIZED. No local Lean or proof-source edits.
+LIMIT: no new pointwise Z improvement; no infinite correlation deficit;
+       complete complement and every mixed term still owed.
+LAST THREE: Nov5 MU-LIFT; Nov6 CORR4; this FINITE-AC turn.
+NEXT DISTINCT ROUTE: MU-LIFT, resume referee-14, Coordinator C63-C66
+       and Census GM1-GM3; X=145 freezes a nonextendible partial matching,
+       not a full-graph obstruction. Do not repeat fixed-bank pool counts.
+NEXT FINITE-AC: independently assess the actual I_H or complete RETURN;
+       do not infer component smallness from nonoverlap or optimize constants.
+NET NEW ENDPOINT GAIN: UNKNOWN / NONE_ESTABLISHED.
+CANONICAL VF / FINITE-C / RH: OPEN.
+```
+
+Checkpoint commit **3f28020bf5100e1f3adde7d70bdb0d942d9d98b2**, blob **928d5c10438d283993adf896a82ebe01392baf86**, was read back exactly. Final publication is certified only in the subsequent receipt. Direct shell GitHub cloning failed with CONNECT 403; connected source/report reads and authorized own-report writes succeeded. Only this authorized report was changed remotely: no Lean source, workflow, other report, issue, PR, policy, permission, schedule or main change, and no branch creation. No agent was launched and no background computation is promised.
+
+### Complete Executed PB5 Verifier
+
+```python
+"""Exact prime-band boundary tests; finite evidence, not an exponent proof."""
+
+from array import array
+from collections import Counter, defaultdict
+from fractions import Fraction as Q
+from hashlib import sha256
+from math import gcd, isqrt
+import json
+
+
+def sieve(limit):
+    mu = array('b', [1]) * (limit + 1)
+    mu[0] = 0
+    prime = bytearray(b'\1') * (limit + 1)
+    prime[0] = prime[1] = 0
+    for p in range(2, limit + 1):
+        if prime[p]:
+            for n in range(p, limit + 1, p):
+                mu[n] = -mu[n]
+                if n != p:
+                    prime[n] = 0
+            for n in range(p * p, limit + 1, p * p):
+                mu[n] = 0
+    m = array('i', [0]) * (limit + 1)
+    for n in range(1, limit + 1):
+        m[n] = m[n - 1] + mu[n]
+    return mu, prime, m
+
+
+def trial_mu(n):
+    value, p = 1, 2
+    while p * p <= n:
+        if n % p == 0:
+            n //= p
+            value = -value
+            if n % p == 0:
+                return 0
+        p += 1
+    return -value if n > 1 else value
+
+
+def main():
+    last = 2048
+    mu, prime, m = sieve((last + 2)**2)
+    primes = [p for p in range(2, last + 2) if prime[p]]
+    assert all(mu[n] == trial_mu(n) for n in range(1, 10001))
+    counts = Counter(independent_trial_coefficients=10000)
+
+    def band(r):
+        return [p for p in primes if 3 * r <= 4 * p and p < r]
+
+    def data(r):
+        ps = band(r)
+        x = r * r - 1
+        z = sum(m[x // p] - m[r - 1] for p in ps)
+        reciprocal = sum((Q(1, p) for p in ps), Q(0))
+        rank = (r + 1) * reciprocal - len(ps)
+        return ps, z, reciprocal, rank
+
+    values = {r: data(r) for r in range(17, last + 2)}
+    rows = {}
+    failures = {}
+    fixtures = {}
+    for r in range(17, last + 1):
+        ps, z, reciprocal, rank = values[r]
+        qs, zn, _, rankn = values[r + 1]
+        old, new = set(ps), set(qs)
+        enters, exits = new - old, old - new
+        assert enters == ({r} if prime[r] else set())
+        assert exits == {p for p in ps if 3 * r <= 4 * p < 3 * r + 3}
+        assert len(exits) <= 1
+        atoms = []
+        for p in ps:
+            ns = list(range((r * r - 1) // p + 1, (r * r + 2 * r) // p + 1))
+            assert len(ns) in (2, 3)
+            counts['prime_rows'] += 1
+            for n in ns:
+                assert r < n < 2 * p
+                assert gcd(p, n) == 1 and mu[p * n] == -mu[n]
+                assert r * r < p * n < (r + 1)**2
+                atoms.append((p, n))
+        assert len({n for p, n in atoms}) == len(atoms)
+        assert len({p * n for p, n in atoms}) == len(atoms)
+        fresh = sum(mu[n] for p, n in atoms)
+        # Independent cofactor-first enumeration of the same physical strip.
+        reverse = []
+        for n in range(r + 1, (4 * r + 8) // 3 + 1):
+            candidates = [p for p in range(max((3 * r + 3) // 4, (r * r + n - 1) // n),
+                                            min(r - 1, (r * r + 2 * r) // n) + 1)
+                          if prime[p]]
+            assert len(candidates) <= 1
+            reverse.extend((p, n) for p in candidates)
+        assert sorted(atoms) == sorted(reverse)
+        birth = mu[r + 1] + mu[r + 2] if prime[r] else 0
+        leave = sum(m[(r * r + 2 * r) // p] - m[r] for p in exits)
+        history = len(ps) * mu[r]
+        dz = zn - z
+        assert dz == fresh - history + birth - leave
+        dr = rankn - rank
+        dr_formula = reciprocal + sum((Q(r + 2, p) - 1 for p in enters), Q(0))
+        dr_formula -= sum((Q(r + 2, p) - 1 for p in exits), Q(0))
+        assert dr == dr_formula and abs(dr) <= 2
+        dc = dz + dr
+        error = Q(birth - leave) + dr
+        assert dc == fresh - history + error
+        assert abs(fresh) <= 3 * len(ps)
+        assert abs(dz) <= 4 * len(ps) + 2 + abs(leave)
+        assert abs(dc) <= 4 * len(ps) + 4 + abs(leave)
+        q0 = 2 * m[r - 1] - m[r * r - 1]
+        q1 = 2 * m[r] - m[(r + 1)**2 - 1]
+        c0, c1 = z + rank, zn + rankn
+        dw = (q1 - c1) - (q0 - c0)
+        shell = m[(r + 1)**2 - 1] - m[r * r - 1]
+        assert shell == 2 * mu[r] - dc - dw
+        assert (q1 - q0)**2 == dc**2 + dw**2 + 2 * dc * dw
+        counts['root_identities'] += 1
+        counts['physical_shell_atoms'] += len(atoms)
+        counts['mask_exit_roots'] += bool(exits)
+        counts['prime_birth_roots'] += bool(enters)
+        record = {'R': r, 'k': len(ps), 'mu_R': mu[r], 'Z': z, 'Z_next': zn,
+                  'fresh': fresh, 'history': history, 'birth': birth,
+                  'exit': leave, 'exit_primes': sorted(exits), 'delta_Z': dz,
+                  'delta_rank': str(dr), 'delta_column': str(dc)}
+        if dz != fresh:
+            failures.setdefault('fresh_only', record)
+        if leave:
+            failures.setdefault('omit_mask_exit', record)
+        if birth:
+            failures.setdefault('omit_birth', record)
+        if history and (fresh - history)**2 > fresh**2:
+            failures.setdefault('automatic_history_payment', record)
+        if r in [17, 18, 19, 20, 23, 24, 26, 31, 32, 56, 57, 317, 1027, 2002]:
+            fixtures[r] = record
+        rows[r] = {'F': fresh, 'h': history, 'J': leave, 'B': birth,
+                   'dz': dz, 'dc': dc, 'error': error}
+
+    # The historical floor column is computed without the row-completion formula.
+    for r in list(range(17, 81)) + [317, 1027, 2002]:
+        ps, z, reciprocal, rank = values[r]
+        floor_column = -sum(mu[a] * ((r * r - 1) // (a * p))
+                            for p in ps for a in range(1, r))
+        assert floor_column == z - len(ps)
+        actual_column = floor_column + (r + 1) * reciprocal
+        assert actual_column == rank + z
+        counts['literal_floor_column_checks'] += 1
+
+    # Occurrence lifetimes and the COMPLETE ordered interval-overlap square.
+    occurrences = []
+    for p in primes:
+        if p > 80:
+            break
+        for n in range(p + 1, 2 * p):
+            lo, hi = isqrt(p * n) + 1, min(n, 4 * p // 3)
+            if lo <= hi:
+                occurrences.append((p, n, lo, hi))
+    for r in range(17, 81):
+        active = [(p, n) for p, n, lo, hi in occurrences if lo <= r <= hi]
+        direct = [(p, n) for p in band(r)
+                  for n in range(r, (r * r - 1) // p + 1)]
+        assert sorted(active) == sorted(direct)
+        assert sum(mu[n] for p, n in active) == values[r][1]
+        counts['lifetime_roots'] += 1
+    overlap = 0
+    small = [o for o in occurrences if o[2] <= 40 and o[3] >= 17]
+    for p, n, lo, hi in small:
+        for q, v, low, high in small:
+            length = max(0, min(hi, high, 40) - max(lo, low, 17) + 1)
+            overlap += mu[n] * mu[v] * length
+            counts['ordered_overlap_pairs'] += 1
+    assert overlap == sum(values[r][1]**2 for r in range(17, 41))
+    assert (19, 31) in [(p, n) for p in band(24)
+                       for n in range((24**2 - 1) // p + 1, (25**2 - 1) // p + 1)]
+    assert (23, 31) in [(p, n) for p in band(26)
+                       for n in range((26**2 - 1) // p + 1, (27**2 - 1) // p + 1)]
+
+    energies = []
+    for h in [17, 32, 64, 128, 256, 512, 1024]:
+        block = [rows[r] for r in range(h, 2 * h)]
+        diagonal = sum(v['h']**2 for v in block)
+        fresh_energy = sum(v['F']**2 for v in block)
+        mixed = sum(v['F'] * v['h'] for v in block)
+        difference_energy = sum((v['F'] - v['h'])**2 for v in block)
+        assert difference_energy == diagonal + fresh_energy - 2 * mixed
+        assert (mixed - diagonal)**2 <= diagonal * difference_energy
+        column_energy = sum((v['dc']**2 for v in block), Q(0))
+        error_energy = sum((v['error']**2 for v in block), Q(0))
+        assert difference_energy <= 2 * (column_energy + error_energy)
+        if column_energy <= Q(diagonal, 16) and error_energy <= Q(diagonal, 16):
+            assert 2 * mixed >= diagonal
+        energies.append({'H': h, 'D': diagonal, 'fresh_energy': fresh_energy,
+                         'mixed': mixed, 'difference_energy': difference_energy,
+                         'delta_Z_energy': sum(v['dz']**2 for v in block),
+                         'exit_energy': sum(v['J']**2 for v in block),
+                         'automatic_half_alignment': 2 * mixed >= diagonal})
+    payload = {'checks': dict(counts), 'failures': failures,
+               'fixtures': fixtures, 'dyadic_energies': energies,
+               'overlap_energy_17_40': overlap,
+               'cross_root_reuse': [[24, 19, 31], [26, 23, 31]],
+               'all_assertions': 'PASS'}
+    digest = sha256(json.dumps(payload, sort_keys=True).encode()).hexdigest()
+    print(json.dumps({'payload_sha256': digest, **payload}, indent=2, sort_keys=True))
+
+
+if __name__ == '__main__':
+    main()
+```
