@@ -752,3 +752,10 @@ Local finite checks: 372 physical cases and 272 strict-cutoff coefficients PASS,
 The initial dedicated run 42149671624 / job 127669551589 and targeted iteration 42149671418 / job 127669551098 actually failed at head 7f37d6730b2b32606694bd83dc22ef974b3cf5a2. Both logs report the same three local proof-script diagnostics: at lines 123/137, Nat.Prime.eq_two_or_odd supplies a modulo equality rather than the existential Odd witness the script unpacked; at line 192, Finset.sum_sdiff has the additive partition orientation rather than the subtraction orientation used in rw. Native prerequisites built, but the new theorem was NOT certified at that head.
 
 Repair commit 0c3c9755b10322bbc1d0677a5fa3980a168733cc changes only those proof steps: consume the modulo equality directly, and use the exact additive partition with zero matched mass. No theorem statement, assumption, arithmetic definition, workflow or audit changes. Latest formal status remains CI_PENDING until the repaired head's actual runs pass. Initial failures remain part of the evidence history.
+
+
+### Audit Harness Repair - Same 21:08 EST Invocation
+
+At head 0c3c9755b10322bbc1d0677a5fa3980a168733cc the actual dedicated compiler stage succeeded with compiled=1, cached=2, and targeted iteration also passed. The separate audit failed with "unknown module prefix 'research'": this repository emits research modules as literal dotted names, so the harness must quote the entire module identifier. The failed audit was correctly rejected and its log/artifact preserved; compilation alone was not promoted to full certification.
+
+Latest head ecf701ff2fea1de52e505ee34048a2b3c220f0fc changes only that one import-generation line in the workflow. Lean source remains byte-identical, blob 3cbc5159536d6b9e5000f74c5bd018bd2d62daf1. No guard, theorem or premise was weakened. Actual final-head audit and applicable checks remain PENDING; prior exact source compilation may be reused only with this unchanged-source qualification.
