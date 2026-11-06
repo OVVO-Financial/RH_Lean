@@ -1209,3 +1209,19 @@ Verified checkpoint publications this invocation: 953f3a7c7c0c613e0f4a63e38c5d8f
 f3a0e750a9131ea7fe40e27bae43787b44e938c7 (audit-import repair).
 Each was fetched at its immutable commit and matched the intended complete
 report exactly; all earlier bytes were retained.
+
+### Verified Final Publication Receipt - 20261105-lean-3
+
+REPORTING_STATUS=COMPLETED. Final A-P synthesis commit
+bbd1699ec9a4d0c4508e0fcd974fa451f28bd74c was fetched at its immutable revision:
+blob 2e48ad5d04d833d8eb18fd4706c0dcbde4ffcca4; all 89978 characters matched
+exactly. All 62541 preceding report characters were preserved as an exact
+prefix. Commit metadata lists only this agent's November 5 daily report.
+A-P headings, Markdown fences, source identities and removal of pending
+placeholders were checked. No report conflict or overwrite occurred.
+
+Final proof state remains PROVED_IN_LEAN at
+ecf701ff2fea1de52e505ee34048a2b3c220f0fc, PR #1096 REVIEW_READY and unmerged.
+All 14 workflows and 15 check jobs passed on that head. No new endpoint exponent
+or proof of the canonical quantitative objective is claimed. The exact signed
+whole-prefix supplier in section O is still OPEN.
