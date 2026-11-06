@@ -1570,3 +1570,74 @@ GM3 PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED.
 The unrestricted H3 remains CONJECTURE. No new endpoint gain or RH claim.
 This receipt describes the already verified synthesis, not its own future
 commit. No other role was launched and no unauthorized remote path changed.
+
+
+## Scheduled Higher-Depth Checkpoint - 20261106-census-2
+
+Actual trigger: scheduled 2026-11-06 11:00:01 EST (America/New_York).
+RUN_ID_UNAVAILABLE. Checkpoint prepared 2026-11-06 16:12 UTC.
+Status: PARTIAL / IN_PROGRESS. No new experiment result is asserted here.
+
+Main fetched at invocation: 4a6e6b8c1a81f6dd8b8bc0cfad123bbc2a56188a.
+AGENTS blob 547dda0d9456e7a4e1165dc72d59da6f70d5c023; contract
+7c4ac83a1ec1a4144e1bd691391ed4244f1cc27c; routing policy
+ffd8f1c65cc4da656174956d4e03b48bea46768b.
+deployment_ack=NO_PIGEONHOLING_ROUTE_SELECTOR_V1; eta_gate=SEARCH_BROAD.
+The canonical actual-prime VF bound remains OPEN.
+
+### Resumed Question And Source
+
+Resume this morning's GM3 and its explicit higher-depth common-cofactor
+continuation. Original carrier:
+U_X={n:1<=n<=X, n odd, X<2n, mu(n)!=0}, with original unit weights.
+Read main's odd-boundary source (blob 3cbc5159536d6b9e5000f74c5bd018bd2d62daf1),
+signed lift (af69b4811cf9f523eb7c96fb0ca836b2cdbd1180), and original
+finite-prefix and canonical consumers. #1096's merged status, exact-head
+successful dedicated run 42150511056, and actual ten-declaration standard-axiom
+log were freshly retrieved; these do not certify the new extension.
+
+All Nov 5 and available Nov 6 role reports and external inbox were retrieved.
+The Nov 6 Coordinator is PARTIAL: completed synthesis TODAY=PENDING,
+YESTERDAY=CARRY_FORWARD. New RM, DR, PB and TD results stay on their own
+carriers. MU-LIFT is selected to finish a precise ready continuation,
+not to impose a common campaign. No unchanged full-graph scan is planned.
+Only open PR at intake: #1097, non-draft, head bc727dc9f7dd655fdd2addc943b246ad70ef576d.
+
+### Preregistered Hypotheses And Discriminator
+
+For each squarefree c coprime to 390, put y=X/c (a rational, NOT floor(X/c)),
+J_c={prime p:(4/5)sqrt(y)<p<=(9/10)sqrt(y)}, sorted p_i,
+K_c={prime r>13:(1/4)sqrt(y)<r<=(9/25)sqrt(y)}, sorted r_i.
+Require J_c>29 and |K_c|>=|J_c|-1, and form
+c*p_i*p_j <-> 3*c*r_i*p_j for i<j.
+
+H-LOCAL: keeping only individually squarefree legal endpoint pairs is
+enough to combine all these cofactor lifts without endpoint collisions.
+Rival: distinct cofactors can reserve the same physical endpoint.
+Reject H-LOCAL upon an exact duplicate endpoint from two distinct tuples.
+
+H-SEPARATED: adding 16*c*Pplus(c)^2<=X, Pplus(1)=1, makes the entire
+union disjoint, greatest-prime-preserving and disjoint from every retained
+P9 prime/semiprime pair and qualified 13c/15c pair.
+Reject on any repeated endpoint, wrong sign, incorrect factor edit, old-site
+reuse, failed interval admission or failed complete signed reconstruction.
+
+Test development: X=4..2048 plus 4095,8191,16383, including X=145.
+Held-out stress fixtures: 65535,262143,1048575.
+For H-LOCAL only, search EVERY integer X=4..131071 and stop at the first
+collision; if none is found report finite survival, not a theorem.
+Each search tests new cofactor multiplicity, not the prior maximum matching.
+
+Proof-driven quantitative candidate, not a fitted exponent:
+for fixed 0<alpha<1/3, restrict c<=X^alpha. Determine whether the all-large-X
+pair count is asymptotic to
+delta_390*alpha/[50*(1-alpha)] * X/log X,
+delta_390=(1/zeta(2))*product_(p|390)p/(p+1)=65/(28*pi^2).
+This would improve the former fixed-c packet's logarithmic count, NOT the
+linear residual exponent or a Mertens bound. Audit PNT uniformity and
+cofactor separation before accepting the candidate.
+
+Methods planned: exact Python arithmetic and independent C++ trial-factor/
+endpoint reconstruction; no local Lean. Preserve all original signs,
+squares and mixed terms. Publish code, exact certificates, honest finite
+coverage, proof scope and the first unpaid complete-source inequality.
