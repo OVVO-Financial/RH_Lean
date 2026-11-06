@@ -1211,3 +1211,647 @@ C58-C61 remain **PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING / NOT_FOR
 Deployment acknowledgement: current main AGENTS blob `547dda0d9456e7a4e1165dc72d59da6f70d5c023`, proof-contract blob `7c4ac83a1ec1a4144e1bd691391ed4244f1cc27c`, NO_PIGEONHOLING_ROUTE_SELECTOR_V1. Preserve nine-route research and own-report-only authority. Initial reporting snapshot `8c525379f7fe53fa07b131965f0ca785592002b9`; prior complete mirror blob `88c4b9f83cc3dcea885d0c9ddb1fc26cedef4632` is retained byte-for-byte above. Today's and yesterday's full report sources are being retrieved, with relevant continuation and proof sections to be inspected before selecting the new mathematical attempt. The latest open collection contains #1096 at `ecf701ff2fea1de52e505ee34048a2b3c220f0fc`; compilation/axiom status is PENDING review. Earlier #1095 is merged in current main. No new claim is accepted merely from its report or PR title.
 
 Next: finish source and report continuity, develop one nonduplicate mathematical argument, record its complete scope and first open inequality, then append the verified synthesis to both mirrors. This checkpoint is not a completed research result. No other agent is launched, no schedule is changed, and no Lean source or proof branch is written.
+
+
+---
+
+## Research Synthesis - 20261105-coordinator-3
+
+### A. What Changed Mathematically?
+
+**SEARCH_BROAD. The new 13c/15c cancellation is already optimal, to leading order, among ALL replacements using only the prime factors 3, 5 and 13. Repeating those templates cannot produce a geometric contraction.** An exact outside-prime-core invariant gives the sharp finite residual and its positive density. This applies to arbitrarily deep cofactors, so it is different from the Referee's low-depth-endpoint obstruction.
+
+There is a constructive escape, with a precise limitation. A cohort of positive semiprimes that is isolated under every replacement using primes at most four fifths of sqrt(X) can be matched, once each, to genuinely unused negative triples 15q. Ordinary PNT proves enough actual prime q for every sufficiently large cutoff. These five-prime edits preserve the earlier factor-two, prime/semiprime and qualified 13c/15c matchings. They remove the identified obstruction cohort, but only O(X/log(X)^2) sites; the complete unsigned remainder is still linear. This is a source-qualified intermediate theorem, not the missing MU-LIFT estimate.
+
+New claims **C63-C67 are PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED**. C63 includes an exact identity and a sharp finite minimization; C68 is FINITE_COMPUTATION. The scoped absolute-certificate suppliers excluded below are REFUTED, not MU-LIFT, genuine signed cancellation, or RH. No literature-priority claim is made. The new contribution is the exact application, sharp saturation constant, growing-bank restriction and lawful unused-partner repair, beyond the retrieved handoffs.
+
+Actual invocation: SCHEDULED, began **2026-11-05 23:09:00 EST**, equivalent to 2026-11-06T04:09:00Z; RUN_ID_UNAVAILABLE. The Eastern reporting date is November 5. This synthesis and the earlier checkpoint belong to one invocation. Publication remains PENDING_READBACK until the receipt below; mathematical review remains separate.
+
+### B. Current Proof Objective And Authority
+
+Main inspected: **1667c3cf9b4e898bb9afd62ec48e24610b2156ab**, tree **6351bbacd22d7abb34eefed1e2cbf5f674642010**. AGENTS blob **547dda0d9456e7a4e1165dc72d59da6f70d5c023**; CURRENT_PROOF_CONTRACT blob **7c4ac83a1ec1a4144e1bd691391ed4244f1cc27c**. The live NO_PIGEONHOLING_ROUTE_SELECTOR_V1 policy blob is **ffd8f1c65cc4da656174956d4e03b48bea46768b**. The selector, breadth, complete-return, persistent-engine, role, dynamic and multirun policies were retrieved at that main. Their current routing supersedes historical compulsory OAI tasks and old cadence prose; no schedule was changed or inferred.
+
+The actual canonical goal is unchanged:
+
+```text
+VFCanonicalSquareVonKochStatement:
+ exists C >= 0, forall integer R >= 2,
+ |pi(R^2) - vfMidFinishedMass(R) - sqrt(2)| <= C R log R.
+```
+
+The original definitions and terminal consumer were read. `riemannHypothesis_of_vfCanonicalSquare` still requires BOTH `ClassicalVonKochRHCriterion` and the actual-prime bound. The O(1) VF/Li transport is not that bound. No new canonical estimate, complete zero-target payment, finite A/C bound, CORR4 estimate, subcritical lift recurrence, or full-basis Nyman density proof is established here. Inherited imported 7/8 and source-qualified slot results are not relabeled as new, withdrawn, or assumed to improve themselves.
+
+Deployment acknowledgement: independently selected MU-LIFT after the current common-cofactor handoff, not a compulsory OAI task. Resumed sources are Wheel PE1-PE4 and Referee-14, not the already defeated square-class-only matching. The actual new steps are C63-C66 below.
+
+Material source ledger:
+
+| Source | Blob / scope |
+| --- | --- |
+| research/MERTENS_HEATH_BROWN_SIGNED.lean at main | af69b4811cf9f523eb7c96fb0ca836b2cdbd1180; exact lift, not a norm estimate |
+| research/MERTENS_FINITE_PREFIX_EXTENSION.lean at main | 131e9af86207a42d4bf6488e3f64c9ce4f97e5df; genuine prefix and strict precision |
+| RHLean/Proof/AdaptivePrimeMatching.lean at main | c2caaace0f4e99ea06107d939119c12fa005bcbc; single-toggle obstruction, not today's multi-edit theorem |
+| research/VF_CANONICAL_SQRT_TWO.lean at main | 3ced39671cff51579a8009a6ea059890368ca05a |
+| research/VF_CANONICAL_SQRT_TWO_VON_KOCH.lean at main | 79030d70e8d3e0d08eef9bac53fef95c36eca2fb |
+| research/VF_MID_SQUARE_BAND_COMPOSITE_BRIDGE.lean at main | e73fab365f477c61725f843082817cbad3413a5f; original prime/composite carrier |
+| research/MERTENS_ODD_BOUNDARY_PRIME_ESCAPE_20261105.lean at #1096 head | 3cbc5159536d6b9e5000f74c5bd018bd2d62daf1; finite endpoint subsets, coefficient-level lift bridge |
+
+### C. Competing Mechanism Portfolio
+
+These are three distinct working mechanisms, not three established routes to a new exponent. Other protected investigations remain in the coverage ledger.
+
+| Mechanism | Independent input and exact target route | First missing input / support / decisive test | Assignment and disposition |
+| --- | --- | --- | --- |
+| JOH actual arrival-clock count innovations | Owner MC2 imports a classical prime-interval mean square through an explicit integer-clock sampling bridge; a stronger complete clock energy would feed MC4's prime-error consumer | MC2 remains paper/self-audited. Its X h^2 (log log X)^2/log(X)^3 bound, h=floor(X^(1/4)), does not pay X^(5/4-kappa+epsilon). Keep upper halo, initial backlog and signed coarse return. Test the external theorem's hypotheses and exact sampling loss, not more local sign rules | Owner on next JOH rotation; Referee review priority. CONTINUE at logarithmic scope |
+| CODIV genuine phase-uniform short-interval cancellation | Analytic M1-M4 use a stated external short-interval theorem on actual Mobius AP/polynomial sums and return to full daughter/root-step sources | Every fixed logarithmic saving at H^3 is still polynomially above the sharp shell H^(5/2-eta). OPEN-CD5's signed triangular lag estimate is unpaid. Fixed degree and owner-only masks cannot become arbitrary site masks. Test one genuine common-window correlation retaining all shifts and boundaries | Analytic next primary CODIV. CONTINUE; no log-to-power upgrade |
+| MU-LIFT cross-core arithmetic cancellation | Unique factorization, squarefree counts and PNT provide actual disjoint packets; exact lift reconstruction transfers them to original ordered occurrences | Fixed-bank absolute finish is refuted by C64; even growing small-prime banks fail by C65. C66 pays one large-prime cohort, not typical-depth signed residuals or whole-prefix r<k. Test a proposed large-prime rule for once-only coverage and the complete remaining source | Wheel on next MU-LIFT rotation; Census can test C66 now. REVISE toward changing genuinely large prime coordinates or a signed estimate |
+
+The fixed polynomial-head flat-taper NYMAN bounded-norm program remains retired at its proved scope: Analytic SP1-SP5 have separate Referee acceptance. Earlier Coordinator C58-C61 extend to fixed finite mixtures but still await their own independent review. Moving/adaptive profiles, relaxed moments, sparse scales and the unrestricted full basis are not refuted. Do not manufacture a replacement independent upper-bound supplier merely to keep a fourth attractive entry.
+
+### D. Conceptual Research Performed
+
+#### C63. Sharp Outside-Core Conservation Law
+
+Fix any finite set P of odd primes, including the empty set; put W=product(P), D=2W. For positive n define core_D(n) by removing ALL powers of primes dividing D. Let
+
+```text
+U_X = {n: X/2 < n <= X, n odd, mu(n) != 0},    X >= 1 integer,
+sigma_W(t) = sum_(d|W) mu(d) 1_(d <= t < 2d),
+S_c(X) = sum_(n<=X, core_D(n)=c) mu(n),
+Lambda_W(X) = sum_(c<=X, gcd(c,D)=1) |S_c(X)|.
+```
+
+For EVERY c coprime to D, including nonsquarefree c,
+
+```text
+S_c(X) = mu(c) sigma_W(X/c),
+Lambda_W(X) = sum_(c<=X, gcd(c,D)=1) mu(c)^2 |sigma_W(X/c)|. (C63a)
+```
+
+Proof: write the nonzero physical terms uniquely as n=c e with e squarefree and e|D. Their signed sum is mu(c) sum_(e|2W,e<=X/c)mu(e). Pair the divisors e=d and e=2d to obtain sigma_W. Equivalently the original factor-two matching removes all terms outside U_X, separately within EACH core. No prime-density model or independence is used.
+
+Any rational replacement whose prime factors belong to D preserves core_D, including an arbitrary composition of such replacements. Any zero-sum packet inside a core preserves S_c. Therefore Lambda_W is the SHARP minimum number of unmatched unit-sign physical sites under unrestricted sign-reversing pairing within these cores: if a core has a positive and b negative sites, exactly |a-b| remain after pairing min(a,b). This best-case relaxation includes every bank-restricted template scheme, even when an actual restricted graph cannot attain the optimum. A bounded dual certificate is the sign of S_c on each core; it takes values in {-1,0,1} and evaluates the signed population to Lambda_W.
+
+The same statement holds for the ORIGINAL ordered Heath-Brown atoms. For B>=2, k>=2 and 1<=X<B^k, retain occurrence identifiers
+
+```text
+o=(j,v,a_1,...,a_j,b_1,...,b_(j-1)),
+1<=j<=k, 1<=v<=binom(k,j), 1<=a_i<B, mu(a_i)!=0, b_l>=1,
+n(o)=product a_i product b_l<=X,
+epsilon(o)=(-1)^(j-1) product mu(a_i).
+```
+
+The inspected `heathBrownLift_prefix_exact`, with N=B-1, gives total epsilon in each physical n-fiber equal to mu(n). Grouping atoms by core_D(n(o)) therefore gives EXACTLY S_c, even when individual physical n or b_l are squareful. Pairing within fibers and then within cores attains Lambda_W without duplicating any atom. The coefficient reconstruction and generic finite matching principle are reused prior mathematics, not new discoveries.
+
+If cancellation on the full ordered square is required to preserve the ORDERED PAIR of core labels, its sharp absolute remainder is Lambda_W(X)^2, since each block has signed mass S_c S_e. Tensoring the first-order matching attains that count. This does NOT cover arbitrary cross-core pair cancellations. The actual signed complete square is still M(X)^2, often much smaller.
+
+#### C64. Exact Positive Density And Saturation Of The 13/15 Template
+
+For FIXED W define
+
+```text
+delta_D = (1/zeta(2)) product_(p|D) p/(p+1),
+I_W = integral_(1..2W) |sigma_W(t)| dt/t^2,
+c_W = delta_D I_W.
+```
+
+Then, unconditionally as integer X tends to infinity,
+
+```text
+Lambda_W(X) = c_W X + O_W(sqrt(X)),
+delta_D/2 <= c_W <= 2/pi^2.                         (C64a)
+```
+
+Here is a proof of the only counting input, rather than an assumed distribution law. Expanding squarefreeness and coprimality gives
+
+```text
+Q_D(y) = #{n<=y: mu(n)^2=1, gcd(n,D)=1}
+ = sum_(d<=sqrt(y),(d,D)=1) mu(d)
+     sum_(e|D) mu(e) floor(y/(d^2 e))
+ = delta_D y + O_D(sqrt(y)).
+```
+
+The finitely many e and all d-floor errors cost O_D(sqrt(y)); the absolutely convergent d-tail has the same cost. Multiplying the local factors gives delta_D. Split the integral at the finite breakpoints d and 2d, d|W. On each [a,b), C63 counts c in (X/b,X/a], so Q_D(X/a)-Q_D(X/b) proves C64a with the correct strict endpoint. On [1,2), sigma_W=1, giving the lower bound. The triangle inequality gives I_W <= sum_(d|W)1/(2d), yielding the upper bound. The standard evaluation zeta(2)=pi^2/6 is independently documented in [DLMF 25.6.1](https://dlmf.nist.gov/25.6.E1). No uniform error for W growing with X is inferred.
+
+If the earlier PE1 stage has frozen t prime/semiprime pairs, remove its 2t endpoints before further core cancellation. Write Lambda'_W for the new sharp minimum. For EVERY such choice,
+
+```text
+|Lambda'_W-Lambda_W| <= 2t <= 2[pi(X)-pi(X/2)].       (C64b)
+```
+
+This is the l1 triangle inequality on the vector of core sums, not a sign assumption. The standard [prime number theorem](https://dlmf.nist.gov/27.2.E3) makes the last quantity O(X/log X), uniformly in the PE1 partner pool. Thus a fixed W still has residual c_W X+O_W(X/log X), after preserving those earlier pairs. This statement does not allow PE1 endpoints to be reused as flow vertices for new cross-core moves.
+
+For W=195=3*5*13 the signed odd divisors are
+
+```text
+d:       1,  3,  5, 13, 15, 39, 65,195
+mu(d):  +1, -1, -1, -1, +1, +1, +1, -1.
+```
+
+The ONLY opposite-sign divisor pair with larger/smaller ratio less than two is (13,15). Both can appear in one U_X core exactly when X/26<c<=X/15. Consequently, for EVERY X,
+
+```text
+K_all(X)={c: mu(c)^2=1, gcd(c,390)=1, X<26c, 15c<=X},
+Lambda_195(X)=|U_X|-2|K_all(X)|.                    (C64c)
+```
+
+The 13c/15c pairs are disjoint: 13c=15e would force 3|c, violating coprimality. Exact integration gives
+
+```text
+I_195 = 56/65 - 2(1/15-1/26) = 157/195,
+delta_390 = 65/(28 pi^2),
+c_195 = 157/(84 pi^2).                             (C64d)
+```
+
+This independently reproduces Referee-14's leading residual constant and strengthens its interpretation: it is the best possible constant for the entire {2,3,5,13}-core-preserving class, not merely a defect of that one construction. After PE1 is frozen, the exact optimum pairs every still-available (13c,15c). Referee-14 uses all c with at least two distinct prime factors; these endpoints are automatically untouched by PE1. Its omitted c=1 or prime contribute only O(X/log X). Hence its construction already attains the sharp leading coefficient, for any PE1 pool.
+
+This independent Coordinator reconstruction is a paper audit of R14, not R14's author accepting their own result. The new optimality claim still awaits separate Referee review. Fixed-bank saturation is different from Referee-13: arbitrarily large factor depth is allowed here. Adding more stages or changing their order inside this fixed bank cannot reduce c_195 to zero.
+
+#### C65. A Uniform Growing-Bank Obstruction And Inverse Requirement
+
+For EVERY integer X sufficiently large, allow ANY finite prime-edit bank whose odd primes are at most (4/5)sqrt(X). Allow a preceding PE1 matching with any partner pool under the same bound. Define
+
+```text
+J_X={p prime: (4/5)sqrt(X)<p<=(9/10)sqrt(X)},
+V_X={p q: p,q in J_X, p<q},   v_X=binom(|J_X|,2).
+```
+
+Every element n of V_X is a distinct positive-Mobius odd squarefree integer in (X/2,X], since 16X/25<n<=81X/100. It has no prime factor in the edit bank. Its outside core is n itself, and the only squarefree physical site in that core below X is n: every nontrivial bank multiplier is at least two. It cannot be a PE1 partner because those have a factor in the allowed small-prime pool, and it is not prime. Each such core therefore retains signed mass +1 after any bank-preserving zero-sum cancellation.
+
+PNT applied only to the two fixed macroscopic endpoints of J_X gives
+
+```text
+|J_X| ~ sqrt(X)/(5 log X),
+v_X ~ X/(50 log(X)^2).                              (C65a)
+```
+
+Thus the terminal unsigned remainder T satisfies T>=v_X, uniformly over the allowed moving banks, all their template choices and the earlier partner pools. This proof does not sum fixed-W error terms over a growing bank. It supplies a uniform positive lower constant, for example T>=X/(100 log(X)^2) eventually.
+
+At X=B^k-1, fixed k>=2, fixed 1<=r<k, C>0 and any G(B)>=1 with log G(B)/log B tending to zero, the elementary E(B)<=sqrt(B-1) gives
+
+```text
+T/[C G(B) E(B)^r sqrt(X)]
+ >= const * B^((k-r)/2)/[G(B) log(B)^2] -> infinity.  (C65b)
+```
+
+This refutes the stated absolute-certificate finish even on an unbounded scale chain. It is NOT a lower bound on |M(X)|. The corresponding inverse requirement is concrete: any sign-reversing matching leaving o(v_X) of this cohort must match (1-o(1))v_X distinct positive sites through a change of an outside-core prime coordinate. No two of these +1 sites can be paired to each other. That necessary large-prime coverage is not yet sufficient for a recurrence.
+
+This reuses the general rough-semiprime idea seen in Owner RC1 and Coordinator C53, but does NOT transfer their bounds between carriers. The present interval, constants, arbitrary moving bank and exact original lift are derived here. The result is not claimed as a new sieve principle.
+
+#### C66. A Lawful Large-Prime Escape Using Unspent Negative Triples
+
+The C65 obstruction is avoidable when genuinely large primes may change. For all sufficiently large X define
+
+```text
+Z_X={15q: q prime>13, X/30<q<=X/15}.
+```
+
+Every z in Z_X is an odd squarefree upper-half triple with mu(z)=-1. It is unused by factor-two matching and PE1, because its factor depth is three. It is also unused by the qualified R14 extension: it is not divisible by 13, and in the 15c representation its cofactor c=q is prime, whereas R14 requires at least two prime factors. Every n in V_X is likewise unused by R14 and PE1; its two prime factors exceed every small pool prime and eventually exceed 13.
+
+The prime-count input is exactly
+
+```text
+|Z_X|=pi(X/15)-pi(X/30) ~ X/(30 log X),
+|Z_X|/v_X ~ (5/3) log X -> infinity.                 (C66a)
+```
+
+Hence there exists an absolute X0 such that for EVERY integer X>=X0 and every allowed PE1 pool, the increasing lists give an injection V_X into Z_X. Pair each n with its assigned triple. No intermediate vertex is consumed. All endpoints are disjoint and unused, so this genuinely extends the old matching. For large X, q>X/30>(9/10)sqrt(X), and the five prime coordinates p_1,p_2,3,5,q are distinct. It changes large coordinates and is not a composition of the old small-bank replacements.
+
+This supplies an unconditional all-large-cutoff packet theorem, not just a favorable census. No effective numerical X0 is claimed. The same PNT statement used in C64-C65 supplies these fixed-interval counts; there is no short-interval PNT, random-sign assumption, growing-modulus input or RH premise.
+
+Let R_old be the COMPLETE remainder after PE1 and R14. For the new remainder R_new,
+
+```text
+|R_new|=|R_old|-2v_X,
+sum_(n in R_new)mu(n)=M(X),
+|R_new|=157X/(84 pi^2)+O(X/log X).                   (C66b)
+```
+
+The last line follows from the previously proved R14 density and v_X=O(X/log(X)^2), not from a numerical fit. It remains linear. The complete signed return, with Z=sum_(R_new)mu, is
+
+```text
+M(X)=v_X-v_X+Z,
+M(X)^2=v_X^2+v_X^2+Z^2-2v_X^2+2v_X Z-2v_X Z=Z^2.
+```
+
+C63's physical-fiber representatives lift these disjoint matches to the original ordered atoms; the tensor involution cancels their entire ordered square. All cross-family, diagonal and complement interactions are present. The negative credit is used once. This establishes new partner availability, not a smaller unsigned exponent or a signed remainder upper bound.
+
+#### C67. Checked Cross-Route Nontransfer To Native VF
+
+The actual R14 pair is 1001=7*11*13 and 1155=3*5*7*11. Their Mobius signs are -1 and +1. In the original raw odd-seat VF carrier, however, both are strict-interior COMPOSITES, in blocks r=31 and r=33. Their original coefficients are respectively
+
+```text
+w_31 and +w_33,
+w_r=(2r+1)/(r log(r^2+r+1/2))>0.
+```
+
+Their VF charge is strictly positive, not zero. The same obstruction applies to the semiprime/triple partners of C66: both physical sites are composites. Thus the identity map on integer occurrences does NOT preserve signs or weights from MU-LIFT to VF-LOW, and this cancellation gives no original #915 payment. A different weighted map with real prime donors, chronology, masks and complements would need its own proof. This is a precise failed transfer, not an impossibility result for all cross-route methods. The original square-band composite and canonical declarations were inspected; the raw-seat weighting is the current contract's stated paper carrier.
+
+#### C68. Exact Experiments And Scope
+
+The first test plan fixed the core-sum identity, exact {3,5,13} optimum, PE1 deletion stability, moving boundary X=2001/2002 and complete raw ordered-square return in the verifier before execution. This was not a separately published preregistration. The large-prime repair was a separately disclosed proof-driven addition before its test; it is not retroactively called part of the initial plan. No exponent fit or large range extension was performed.
+
+The verifier checked 660 core-formula cases and 660 exceptional-deletion inequalities on four banks and 165 cutoffs (4..160 plus eight displayed larger cases); 165 exact 195-optimality cases; 2,048 independent trial-factorization Mobius checks; 2,694 literal original lift atoms and ALL 3,791,564 ordered pairs in four declared small carriers. Twelve rough semiprime witnesses and their twelve new large-prime partner pairs were checked at X=16383 and 65535; X=4095 has no such pair in this narrow prime band. These are finite tests, not the PNT proof.
+
+| X | R14 remainder | Further V_X pairs | Complete final cardinality | Actual M(X) |
+| --- | ---: | ---: | ---: | ---: |
+| 4095 | 307 | 0 | 307 | -19 |
+| 16383 | 1496 | 6 | 1484 | -32 |
+| 65535 | 6808 | 6 | 6796 | 14 |
+
+At X=16383 one new pair is 11021=103*107 with 8205=3*5*547. Both are in (X/2,X], have opposite signs, and are unused by the old packets. The old-bank negative control 17<->21 at X=31 has opposite signs but distinct {2,3,5,13}-cores, so it is correctly excluded rather than disproving C63. The 1001/1155 pair exits at X=2002 exactly, and the VF sign mismatch is tested on strict nonsquare seats.
+
+Exact rational integration produced c_W*pi^2 equal to 2 for the empty odd bank, 157/84 for {3,5,13}, 157/84 for {3,5,7,13}, and 129961/72576 for {3,5,7,11,13,17}. These are evaluations of the proved finite formula, not evidence for a limiting growing-bank exponent. The full executed script appears below; SHA-256 **87f83b065aff67f6a179c27e974b6666e4754e0ead781c0c4b18b57de8b2f061**. Runtime assertions and Python syntax compilation passed. No Lean ran locally.
+
+### E. Specialist Findings And Continuity
+
+Both November 4 and November 5 report sets were retrieved at immutable reporting snapshot **8c525379f7fe53fa07b131965f0ca785592002b9**. Relevant result, proof, correction, source and resume sections were read; unrelated executable appendices were not all rerun. Every role has an available November 5 report. Earlier same-day PENDING labels remain valid historical snapshots and were not rewritten. The Coordinator mirrors had identical complete blobs on both dates.
+
+| Role | November 4 blob | November 5 intake blob |
+| --- | --- | --- |
+| Coordinator | 68495a5e913eee0e788940a683cf16ec4d0984cc | 88c4b9f83cc3dcea885d0c9ddb1fc26cedef4632 |
+| Owner | 560b0b7617703b64e728e12e60a390646c9379ea | 39665b5b28fc48378519ab9d56cee8df4d3e2681 |
+| Analytic | 04ffb1b41d8b6afe5a5d89754f5ccbc8d9682d58 | 9490aa2eecafcd19d8007043cc5f978fe421a7c9 |
+| Wheel | 37ad6a1230fbb46369311790ed5686baf1775598 | afc85d800c47f82f2db634591a7798005cb668de |
+| Census | 4bd5319fa3d13219cdad006dce4a854b606c2f7c | 24fcd6a631eca9ae44238d927215f49e1d8a174f |
+| Referee | 0e4fdfbf90d52a74074e04ef6cb6988339dc8d84 | 789ed87021fe98963c244a8d0c9075638e76be43 |
+| Lean | 5fce0138779d67eda4e69c13230274e6419de894 | 5e0ecdd8f08c2e19b4614f00c1a5657f58722344 |
+
+**Owner:** RC1-RC6 preserve the SAT small-prime-certificate obstruction and prime-error equivalence at its stated exponent, not a paid joint SAT source. CR1-CR5 distinguish sparse chronological prime allocation from the many-family ancestor-capacity failure, even allowing an RH-sized remainder. MC2 is a new paper logarithmic prime-clock estimate; MC3 keeps the signed coarse positional return. Their analytical proofs remain separately review-pending. Census has now independently reproduced the cited finite LC4/MC1/MC3/MC5 carrier checks, superseding the earlier finite-reproduction pending stage without certifying MC2.
+
+**Analytic:** SP1-SP5's all-scale fixed-polynomial-head Nyman obstruction has Referee acceptance; retain its limsup and family scope, not every-scale divergence or rejection of the full basis. Current CR1-CR3 optimize a restricted OAI row rebase and show the physical all-selected annulus eventually misses that paid domain. They remain paper/self-audited; no nu or physical gain follows. M1-M6's November 4 CODIV logarithmic estimate is carry-forward evidence, not a fresh November 5 CODIV execution.
+
+**Wheel:** F1-F4 refute the specified fixed-prime relaxation as a uniform CORR4 supplier, with auxiliary signs explicitly not genuine Mobius. P1-P4 require the finite-C prime block and both cross terms to cancel before any norm; the separate block scale is too large. PE1-PE4 are independently accepted by Referee-11. Their finite coefficient consequences are now verified at the unmerged #1096 head; the raw occurrence involution and PNT asymptotic are not silently included in that Lean result.
+
+**Census:** the R=57/58 joint CORR4 gaps are exact finite evidence, not a uniform cap saving; Wheel's R=59 Y_7=71 correction is retained. Latest JOH JL1-JL4 show that deleting upper-halo windows changes the source and can reverse a lag sign: X=209 has full C_2=+1 but truncated C_2=-1. All-lags-negative is refuted, while full aggregate negativity through 128..8192 is only finite evidence. JL5's power accounting is conditional, not a new upper estimate.
+
+**Referee:** PE1-PE4 acceptance and SP1-SP5 acceptance are retained at their scopes. R12-R13's low-depth sharp optimum and growing-depth argument remain that author's new paper work. R14's source admission and density have now been reconstructed here, with the stronger C64 optimality interpretation. C53-C61, MC2 and OAI CR1-CR3 have NOT acquired independent acceptance merely from this synthesis.
+
+**Lean:** #1094's finite correction bound and #1095's audit repair are human-merged. #1096 is source-verified, exact-head CI_GREEN and REVIEW_READY, but UNMERGED. No unfinished CI repair is invented. Mathematical arithmetic suppliers remain open.
+
+The external inbox blob **038018145c0fddb2f6306c0712373adf9cd1ea52** was read. There is no entry later than October 18. EXT-20261018-PNT-1..3, EXT-20261017-XCOORD-1 and EXT-20261014-5 retain exact-carrier, cutoff and unconditional-versus-first-bad safeguards; their old routing, PR-state and once-daily prose is historical. They supply no missing MU-LIFT recurrence.
+
+### F. Mathematical Bottlenecks And Coverage
+
+The selected exact quantitative gap is still, for a fixed k>=2 and an unbounded power chain B_(j+1)=B_j^k,
+
+```text
+exists fixed 1<=r<k, G_j>=1, log G_j/log B_j -> 0,
+forall sufficiently large j, forall integer B_j<=X<B_j^k,
+ |sum_(n<=X) heathBrownLift(mobiusPrefix(B_j-1),k)(n)|
+       <= G_j E(B_j)^r sqrt(X).
+```
+
+At k=2 the left side is exactly |2M(B_j-1)-Q_(B_j-1)(X)|, with the entire ordered bilinear Q and both linear copies retained. A signed residual identity is target-equivalent at the same cutoff; it is not an independent upper-bound supplier. C63-C66 do not assume this inequality and do not prove it. PNT supplies the displayed macroscopic capacities only. The near-perfect typical-depth coverage, or a genuine signed norm estimate bypassing cardinality, is the first missing arithmetic for this matching mechanism.
+
+| Protected route | Last substantive available attempt | Exact unpaid point / next action |
+| --- | --- | --- |
+| VF-LOW | Nov 5 Owner-2, CR1-CR5 | complete chronological donor/complement return beyond sparse populations |
+| SAT | Nov 5 Owner-1, RC1-RC6 | joint OPEN-SAT-I, not the separately prime-error-equivalent packet; Owner next due |
+| JOH | Nov 5 Owner-3, MC1-MC5 | independent MC2 audit, then stronger clock/weighted-level input |
+| CODIV | Nov 4 Analytic-3, M1-M6 | OPEN-CD5 genuine signed lag power; Analytic next due |
+| OAI-NNS | Nov 5 Analytic-2, CR1-CR4 | actual physical all-selected rows, not the disjoint smaller row cap |
+| NYMAN | Nov 5 Analytic-1, SP1-SP6 | changed source or moment outside the retired fixed profile, full returned norm |
+| FINITE-AC | Nov 5 Wheel-2, P1-P5 | complete four-block cancellation and original historical K budget |
+| CORR4 | Nov 5 Wheel-1, F1-F4; Census finite support | actual cross-core arithmetic and all daughter labels; Wheel next due |
+| MU-LIFT | Nov 5 Wheel-3, PE1-PE5; current Coordinator C63-C68 | new large-prime/typical-depth coverage or whole-prefix signed estimate |
+
+These are actual report observations, not a fabricated synchronized round. Owner and Wheel completed their three owned turns on November 5; Analytic's rolling three substantive attempts are November 4 CODIV, November 5 NYMAN and OAI-NNS. The next distinct primary routes are SAT / CODIV / CORR4. Support work must not erase that rotation.
+
+### G. Strategy Decisions
+
+1. Retire a repeated fixed-bank 13/15 contraction as an unsigned MU-LIFT proof strategy. C64 computes its exact saturation; reusing the same negative credit or simply multiplying its one-step retained fraction is invalid.
+2. Reject the broader small-prime-only absolute finish within C65's precise moving-bank scope. This is not a statement that all large-prime or signed methods fail.
+3. Retain C66 as a new, genuinely admitted large-prime packet and a falsifiable repair of C65, but deprioritize adding more low-depth cohorts without a reason they control the typical-depth remainder. Its full cardinality remains linear, consistent with Referee-13.
+4. Keep the three independent primary portfolios and SEARCH_BROAD. The prime-clock and CODIV logarithmic results deserve source/theorem audits; neither is a power gain. Do not move all support roles to this new matching argument.
+5. Preserve #1096 for human review. Do not reopen green source, duplicate its endpoint-subset theorem, or ask Lean to encode an assumed recurrence. C63-C67 are paper work pending independent review.
+
+No-circularity result: the sharp partition identities and finite matching principles are prior/generic infrastructure; the independent new restrictions are the explicit density/optimality, uniform isolated cohort and actual unused capacity. Their proofs use no desired Mertens bound. The full residual's sum still equals M(X), so renaming it is not a smaller final theorem. No source equality is promoted to an upper bound, and no finite test is promoted to an asymptotic result.
+
+### H. Next Specialist Assignments
+
+**Owner, primary SAT:** resume RC1-RC6's actual joint OPEN-SAT-I with E_R=-A_R-I_R and M(Y)=L_R+E_R+C_R. Resolve whether a proposed nonlocal signed cofactor relation preserves the true weights, endpoint and model complement and removes a binding loss, rather than paying the prime-error-equivalent Z_R alone. Output one independently proved proper-term bound or a precise counterexample. A recombination that still leaves the R^(85/48) certificate above the inherited 7/4 root power is not a bootstrap. C67 is a ready nontransfer warning, not an additional compulsory MU-LIFT job.
+
+**Analytic, primary CODIV:** resume M1-M6 and OPEN-CD5, with the true Mobius coefficients, fixed-degree polynomial/AP source, owner-only masks and complete triangular lag kernel. Test one arithmetic restriction that supplies a fixed power beyond every-log savings after the full daughter and root-step return. Output an actual quantified correlation estimate or an exact failed transfer. Falsifiers must include site-dependent masks and changing frequencies, which are not covered by the old theorem. Do not repeat the paid maximal-window packing proof.
+
+**Wheel, primary CORR4:** resume F2-F3 and Census's R=57/58 joint-core constraints. Ask whether an actual cross-core multiplicative relation, with all physical daughter cutoffs and complete mixed bill, imposes a scale-uniform deficit not already defeated by the per-root auxiliary construction. Reuse C53-C56's sub-square-root relaxation restriction rather than re-proving it. Expected output is a genuine arithmetic joint restriction or a legal countermodel at the stated relaxation. A non-Cartesian feasible set without an objective gap is not sufficient. C63-C66 are queued for the next MU-LIFT rotation, not a reason to skip CORR4.
+
+**Census:** independently test C66's finite admission and nonreuse at X=16383: V consists of the six products of 103,107,109,113; the first donor is 15*547=8205. Retain all PE1 and R14 endpoints, both complete signed cross orientations and the strict upper-half cutoff. Test donor c prime versus R14's c-depth restriction, and a wrong small-bank classification as negative controls. Output exact pairs and a source-preserving full-sum certificate or the smallest failure; no trend fit or extended asymptotic scan. This strengthens or falsifies a proper packet only.
+
+**Referee:** primary independent audit of the genuinely quantitative pending JOH MC2 transfer: check the exact external short-interval theorem range, integer sampling, arrival overshoot, upper halo and endpoint-shift prime bound. Output ACCEPT_WITH_SCOPE or the first missing hypothesis; finite JL4 does not certify the analytic theorem. Queue C63-C66 as a separate subsequent review: test the sharp core optimum, fixed-W versus moving-W distinction, PNT constants 1/50 and 1/30, prior-endpoint exclusion and inability of the repaired packet alone to change the linear residual. Earlier C58-C61 remain separately pending, not implicitly accepted.
+
+**Lean Verification:** retain the exact green #1096 head and human-review gate; no CI rerun or repair is requested without a new failure or changed source. Its raw-occurrence PE3 and PNT asymptotic omissions are deliberate scope, not completed formalizations. No new implementation-sized task is activated for self-audited C63-C67. A previously qualified general Nyman localized Mellin interface may still be considered only if an active consumer needs it and its analytic prerequisites are available; otherwise an honest no-new-qualified-task report is preferable to a conditional recurrence wrapper.
+
+These are published asynchronous assignments for future actual role executions. No other agent was launched, rescheduled or represented as working in the background.
+
+### I. Lean And PR Status
+
+The current open/draft collection contained only **#1096**, open and not draft, branch **agent/lean-verification/20261105-mobius-prime-escape**, head **ecf701ff2fea1de52e505ee34048a2b3c220f0fc**. All **14** head-associated workflows and **15** check jobs are completed/success. The exact source and dedicated workflow were read, not merely the PR body.
+
+The actual [run 42150511056, job 127672350630](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42150511056/job/127672350630) contains successful warning-fatal import/type and ten-name axiom audit. Nine declarations use only propext, Classical.choice and Quot.sound; `upper_half_static_partner_eq` uses propext and Quot.sound. The final job reused three compiled source modules (compiled=0, cached=3) and freshly checked its audit harness; it is not described as three fresh source compilations. Tested synthetic merge **7783734bdc9960d3c2483af380759db85e87bc8f** has exactly current main and the final PR head as parents. Its tree **48b193cd105e21183b1cfd68b059894c8056f35c** equals the head tree. The source/axiom audit also traverses the unchanged genuine prefix/lift dependencies.
+
+Qualified status: **PROVED_IN_LEAN at PR HEAD / CI_GREEN / REVIEW_READY / UNMERGED**. Principal theorem `RHLean.Proof.exists_prime_semiprime_residual` constructs equal-cardinality endpoint subsets and the exact signed remainder. The complete-square theorem and `heathBrownLift_sum_eq_prime_semiprime_residual` are exact consumers, not recurrence bounds. The sorted-list involution, raw binomial-occurrence PE3, exact capacity formula, PNT asymptotic and today's new claims are NOT asserted to be compiled there.
+
+Recent main history was freshly inspected: #1093 flat-taper return, #1094 finite correction-energy obstruction and #1095 fail-closed Euler audit are human-merged. Prior report evidence for #1093/#1094 is preserved; no claim of rerunning those workflows is made. For #1095 this run directly reread [job 127444267657](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42084042187/job/127444267657), including the actual eight terminal declarations and multiline standard-axiom lists. Synthetic merge **55968fd690fea8b12f4602ab9dc9adf58bf00c60** has tree **6351bbacd22d7abb34eefed1e2cbf5f674642010**, identical to current main. Its repaired audit is valid evidence, not a new arithmetic result. No blanket fresh build of all main was performed.
+
+Direct shell cloning was unavailable (CONNECT 403); authenticated GitHub reads and own-report publication worked. No local Lean execution, source change, proof branch, PR, merge, auto-merge, policy edit, other role report edit or schedule change occurred.
+
+### J. Next-Run Resume Capsule
+
+```text
+RUN: 20261105-coordinator-3; scheduled 23:09:00 EST; RUN_ID_UNAVAILABLE.
+MAIN: 1667c3cf9b4e898bb9afd62ec48e24610b2156ab.
+POLICY: NO_PIGEONHOLING_ROUTE_SELECTOR_V1 / SEARCH_BROAD.
+INTAKE_REPORTS: 8c525379f7fe53fa07b131965f0ca785592002b9.
+EARLY_CHECKPOINT: 8ab16757f1c247718d868d7034e662121a81515d.
+EARLY_BOTH_BLOBS: d3656c16594ff2f1e88f70ed1ce19e11f1a9ccdb; exact readback.
+C63: exact outside-prime-core sums, sharp finite unsigned minimum;
+     original ordered lift and ordered-pair-of-cores scope retained.
+C64: Lambda_W=c_W X+O_W(sqrt X); c_195=157/(84 pi^2);
+     R14 already saturates the entire fixed-bank leading capacity.
+C65: all banks <=(4/5)sqrt X leave a rough-semiprime cohort
+     ~X/(50 log^2 X), too large for the subcritical absolute certificate.
+C66: unused 15q triples pay that cohort with genuine five-prime edits;
+     preserves PE1/R14, still leaves a linear total remainder.
+C67: mu sign cancellation does not transfer to two positive VF composites.
+C68: exact finite checks; 2694 raw atoms, 3791564 ordered pairs; no fit.
+REVIEW: C63-C67 SELF_AUDIT/PAPER_PROOF; independent review PENDING.
+FORMAL: #1096 exact green head ecf701ff2fea1de52e505ee34048a2b3c220f0fc,
+        REVIEW_READY and UNMERGED; #1095 repaired audit verified on main tree.
+PRIMARY_NEXT: Owner SAT; Analytic CODIV; Wheel CORR4.
+SUPPORT: Census C66 unused donor test; Referee MC2 external-source transfer.
+FIRST_OPEN: genuine whole-prefix signed r<k recurrence or independently
+           quantified typical-depth/large-prime coverage with full return.
+NEXT_COORDINATOR: consume MC2/CODIV reviews or investigate a genuinely
+                 quantitative joint source; do not optimize fixed-bank constants.
+NET_NEW_ENDPOINT_GAIN: UNKNOWN / NONE_ESTABLISHED. Canonical VF and RH OPEN.
+PUBLICATION: pending verified commit/readback receipt below.
+```
+
+### Appendix. Complete C68 Verifier
+
+The following is the complete executed standard-library program. It requires no repository checkout, network or Lean installation. Its checks are exact finite arithmetic; all asymptotic conclusions above use the displayed separate proofs.
+
+```python
+"""Exact finite tests of fixed-prime core cancellation; no Lean or asymptotic fit."""
+
+from collections import Counter, defaultdict
+from fractions import Fraction as F
+from itertools import combinations, product
+from math import comb, gcd, isqrt, prod
+import json
+
+
+def factor(n):
+    out = {}
+    p = 2
+    while p * p <= n:
+        while n % p == 0:
+            out[p] = out.get(p, 0) + 1
+            n //= p
+        p += 1
+    if n > 1:
+        out[n] = out.get(n, 0) + 1
+    return out
+
+
+def trial_mu(n):
+    f = factor(n)
+    return 0 if any(e > 1 for e in f.values()) else (-1) ** len(f)
+
+
+def sieve(n):
+    mu = [1] * (n + 1)
+    mu[0] = 0
+    prime = [True] * (n + 1)
+    prime[0:2] = [False, False]
+    for p in range(2, n + 1):
+        if prime[p]:
+            for j in range(p, n + 1, p):
+                mu[j] *= -1
+                if j != p:
+                    prime[j] = False
+            for j in range(p * p, n + 1, p * p):
+                mu[j] = 0
+    return mu, [p for p in range(2, n + 1) if prime[p]]
+
+
+def strip(n, primes):
+    for p in primes:
+        while n % p == 0:
+            n //= p
+    return n
+
+
+def divisors(primes):
+    ds = [(1, 1)]
+    for p in primes:
+        ds += [(p * d, -s) for d, s in list(ds)]
+    return sorted(ds)
+
+
+def core_sums(sites, bank, mu):
+    out = defaultdict(int)
+    for n in sites:
+        out[strip(n, (2, *bank))] += mu[n]
+    return {c: s for c, s in out.items() if s}
+
+
+def integral(bank):
+    ds = divisors(bank)
+    breaks = sorted({x for d, _ in ds for x in (d, 2 * d)})
+    total = F(0)
+    for a, b in zip(breaks, breaks[1:]):
+        sigma = sum(s for d, s in ds if d <= a < 2 * d)
+        total += abs(sigma) * (F(1, a) - F(1, b))
+    density_pi2 = F(4) * prod((F(p, p + 1) for p in bank), start=F(1))
+    return total, density_pi2 * total
+
+
+def prime_escape(x, pool, mu, primes):
+    upper = {n for n in range(x // 2 + 1, x + 1) if n % 2 and mu[n]}
+    top = [p for p in primes if x < 2 * p <= 2 * x]
+    partners = sorted({s * q for s in pool for q in primes
+                       if q > max(pool) and x < 2 * s * q <= 2 * x})
+    t = min(len(top), len(partners))
+    removed = set(top[:t]) | set(partners[:t])
+    assert len(removed) == 2 * t
+    assert removed <= upper
+    assert sum(mu[n] for n in removed) == 0
+    return upper, upper - removed, t
+
+
+def raw_lift(b, k, x, mu):
+    atoms = []
+    seed = [n for n in range(1, b) if mu[n]]
+    for j in range(1, k + 1):
+        for aa in product(seed, repeat=j):
+            v = prod(aa)
+            if v > x:
+                continue
+            sign = (-1) ** (j - 1) * prod(mu[n] for n in aa)
+
+            def visit(prefix, value, remaining):
+                if not remaining:
+                    for copy in range(comb(k, j)):
+                        atoms.append(((j, copy, aa, prefix), value, sign))
+                    return
+                for q in range(1, x // value + 1):
+                    visit(prefix + (q,), value * q, remaining - 1)
+
+            visit((), v, j - 1)
+    return atoms
+
+
+def main():
+    mu, primes = sieve(65535)
+    assert all(mu[n] == trial_mu(n) for n in range(1, 2049))
+    counts = Counter(independent_mu_checks=2048)
+    banks = [(), (3, 5, 13), (3, 5, 7, 13), (3, 5, 7, 11, 13, 17)]
+    constants = []
+    for bank in banks:
+        ii, cc = integral(bank)
+        assert ii >= F(1, 2)
+        assert 0 < cc <= 2
+        constants.append({'bank': bank, 'integral': str(ii),
+                          'residual_coefficient_times_pi_squared': str(cc)})
+    assert integral((3, 5, 13)) == (F(157, 195), F(157, 84))
+    ds = divisors((3, 5, 13))
+    possible = [(a, b) for (a, sa), (b, sb) in combinations(ds, 2)
+                if sa != sb and b < 2 * a]
+    assert possible == [(13, 15)]
+
+    cutoffs = list(range(4, 161)) + [255, 511, 1001, 1155, 2001, 2002, 4095, 65535]
+    records = []
+    p9 = (3, 5, 7, 11, 13, 17, 19, 23, 29)
+    for x in cutoffs:
+        upper, residual, t = prime_escape(x, p9, mu, primes)
+        assert sum(mu[n] for n in upper) == sum(mu[1:x + 1])
+        for bank in banks:
+            sums = core_sums(upper, bank, mu)
+            assert sums == core_sums(range(1, x + 1), bank, mu)
+            form = {}
+            modulus = 2 * prod(bank)
+            for c in range(1, x + 1):
+                if mu[c] and gcd(c, modulus) == 1:
+                    signed = mu[c] * sum(s for d, s in divisors(bank)
+                                         if d * c <= x < 2 * d * c)
+                    if signed:
+                        form[c] = signed
+            assert sums == form
+            best = sum(abs(v) for v in sums.values())
+            after = sum(abs(v) for v in core_sums(residual, bank, mu).values())
+            assert abs(after - best) <= 2 * t
+            counts['core_formula_cases'] += 1
+            counts['exception_lipschitz_cases'] += 1
+
+        pairs = [(13 * c, 15 * c) for c in range(1, x // 15 + 1)
+                 if mu[c] and gcd(c, 390) == 1 and x < 26 * c]
+        flat = [n for pair in pairs for n in pair]
+        assert len(flat) == len(set(flat))
+        assert set(flat) <= upper
+        assert all(mu[a] == -mu[b] for a, b in pairs)
+        l195 = sum(abs(v) for v in core_sums(upper, (3, 5, 13), mu).values())
+        assert l195 == len(upper) - 2 * len(pairs)
+        usable = [(a, b) for a, b in pairs if a in residual and b in residual]
+        after_best = sum(abs(v) for v in core_sums(residual, (3, 5, 13), mu).values())
+        assert after_best == len(residual) - 2 * len(usable)
+        high = [(a, b) for a, b in pairs if len(factor(a // 13)) >= 2]
+        assert all(a in residual and b in residual for a, b in high)
+        r14 = len(residual) - 2 * len(high)
+        assert 0 <= r14 - after_best <= 2 * (len(pairs) - len(high))
+        counts['sharp_195_cases'] += 1
+        if x in (1155, 2001, 2002, 4095, 65535):
+            records.append({'X': x, 'upper': len(upper), 'prime_pairs': t,
+                            'L195': l195, 'all_13_15_pairs': len(pairs),
+                            'after_PE_optimum': after_best, 'R14_left': r14,
+                            'M': sum(mu[1:x + 1])})
+
+    rough_records = []
+    for x in (4095, 16383, 65535):
+        y = isqrt(16 * x // 25)
+        bank = tuple(p for p in primes if 2 < p <= y)
+        ps = [p for p in primes if 16 * x < 25 * p * p and 100 * p * p <= 81 * x]
+        witnesses = [p * q for p, q in combinations(ps, 2)]
+        assert len(witnesses) == len(set(witnesses)) == comb(len(ps), 2)
+        _, residual, _ = prime_escape(x, p9, mu, primes)
+        for n in witnesses:
+            assert x < 2 * n <= 2 * x and mu[n] == 1
+            assert strip(n, (2, *bank)) == n and n in residual
+        r14_pairs = [(13 * c, 15 * c) for c in range(1, x // 15 + 1)
+                     if mu[c] and gcd(c, 390) == 1 and x < 26 * c
+                     and len(factor(c)) >= 2]
+        r14_used = {n for pair in r14_pairs for n in pair}
+        remaining = residual - r14_used
+        donors = [15 * q for q in primes if q > 13 and x < 30 * q <= 2 * x]
+        assert len(donors) >= len(witnesses)
+        new_pairs = list(zip(sorted(witnesses), donors[:len(witnesses)]))
+        new_used = {n for pair in new_pairs for n in pair}
+        assert len(new_used) == 2 * len(witnesses)
+        assert new_used <= remaining
+        for a, b in new_pairs:
+            assert mu[a] == 1 and mu[b] == -1
+            assert len(set(factor(a)) ^ set(factor(b))) == 5
+        final = remaining - new_used
+        assert sum(mu[n] for n in final) == sum(mu[1:x + 1])
+        signed = sum(mu[n] for n in final)
+        v = len(witnesses)
+        assert v*v + v*v + signed*signed - 2*v*v + 2*v*signed - 2*v*signed == signed*signed
+        counts['large_prime_escape_pairs'] += len(new_pairs)
+        counts['growing_bank_isolated_witnesses'] += len(witnesses)
+        rough_records.append({'X': x, 'y': y, 'band_primes': ps,
+                              'isolated_positive_semiprimes': len(witnesses),
+                              'unused_negative_15q_donors': len(donors),
+                              'new_pairs': new_pairs,
+                              'complete_final_remainder': len(final)})
+
+    raw_records = []
+    for b, k, x in ((4, 2, 15), (8, 2, 63), (3, 3, 26), (4, 3, 63)):
+        atoms = raw_lift(b, k, x, mu)
+        assert len({a[0] for a in atoms}) == len(atoms)
+        coefficients = Counter()
+        by_core = Counter()
+        for _, n, s in atoms:
+            coefficients[n] += s
+            by_core[strip(n, (2, 3, 5, 13))] += s
+        assert all(coefficients[n] == mu[n] for n in range(1, x + 1))
+        expected = core_sums(range(1, x + 1), (3, 5, 13), mu)
+        assert {c: s for c, s in by_core.items() if s} == expected
+        pair_cores = Counter()
+        for _, n, s in atoms:
+            for _, m, t in atoms:
+                pair_cores[(strip(n, (2, 3, 5, 13)),
+                            strip(m, (2, 3, 5, 13)))] += s * t
+        best = sum(abs(v) for v in expected.values())
+        assert sum(abs(v) for v in pair_cores.values()) == best * best
+        assert sum(pair_cores.values()) == sum(mu[1:x + 1]) ** 2
+        counts['raw_atoms'] += len(atoms)
+        counts['ordered_raw_pairs'] += len(atoms) ** 2
+        raw_records.append({'B': b, 'k': k, 'X': x, 'atoms': len(atoms),
+                            'core_absolute_square': best * best,
+                            'actual_square': sum(mu[1:x + 1]) ** 2})
+
+    # A new large-prime edit escapes the invariant, but is not old-bank closure.
+    assert 17 * 2 > 31 and 3 * 7 * 2 > 31
+    assert mu[17] == -mu[21]
+    assert strip(17, (2, 3, 5, 13)) != strip(21, (2, 3, 5, 13))
+    assert 13 * 77 <= 2001 < 26 * 77
+    assert not (2002 < 26 * 77)
+    # Genuine VF carrier mismatch: both are nonsquare composite odd seats.
+    for n in (1001, 1155):
+        r = isqrt(n)
+        assert r * r < n < (r + 1) ** 2 and len(factor(n)) >= 3
+    counts['negative_controls'] = 3
+    print(json.dumps({'counts': dict(counts), 'constants': constants,
+                      'fixed_bank_records': records, 'rough_records': rough_records,
+                      'raw_records': raw_records,
+                      'scope': 'Exact finite identities; no asymptotic extrapolation.'}, indent=2))
+
+
+if __name__ == '__main__':
+    main()
+```
+
+
+### Publication Freshness
+
+At 2026-11-06 04:34:04 UTC, the main refresh remained **1667c3cf9b4e898bb9afd62ec48e24610b2156ab** and the sole open PR remained #1096 at **ecf701ff2fea1de52e505ee34048a2b3c220f0fc**, non-draft and unmerged. The reporting branch was still the verified early checkpoint **8ab16757f1c247718d868d7034e662121a81515d**. Both own report blobs and all unchanged specialist blobs were checked before writing. The full previous report and checkpoint remain an exact prefix. All ten A-J sections, balanced code fences and the complete executed verifier were checked. Execution publication remains PENDING_READBACK until the receipt; independent mathematical review remains PENDING.
