@@ -2219,3 +2219,14 @@ def main():
 if __name__ == '__main__':
     main()
 ```
+
+
+### Verified Publication Receipt - 20261106-wheel-3
+
+- Substantive final report commit: **c7634856e5c2ec09e7ce85d3b4312dc6b1917c98**; blob: **6499763883b4cf5c1617d98033b00cb225bc7520**.
+- Immutable-commit readback was exact: **150,135 characters**, including all earlier report bytes and the complete executed verifier. Markdown check: 13 A-M sections and 46 balanced fence lines in the appended synthesis.
+- Commit scope independently fetched: only `research/agent_reports/2026-11-06/30-finite-wheel.md`, **753 added lines, zero deleted lines**. Verification completed **2026-11-06T23:29:09Z / 18:29:09 EST**.
+- Main rechecked during closeout: **d4df133117c5b58f90979d2eb680167ef37995cf**, unchanged. The report branch had no intervening upstream changes beyond this run's own checkpoint; the refreshed open/draft PR list was empty.
+- Research status: GF2-GF4 **PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED**; GF5 **FINITE_PASS**. GF1 and the cited baseline/source identities remain inherited. No new verified endpoint gain, global recurrence, canonical VF bound, finite A/C, CORR4 or RH closure.
+- Resume from GF2's signed cross-label demand and GF4's reserved-factor repair. Next distinct protected route: **CORR4**. Do not restart accepted within-label or wheel computations without a changed hypothesis.
+- This receipt records already completed verification of the substantive commit above; it does not claim verification of its own future commit before that write occurs.
