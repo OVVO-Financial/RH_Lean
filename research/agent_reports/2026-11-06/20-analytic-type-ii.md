@@ -1666,3 +1666,24 @@ Status: **COMPLETED / PUBLISHED / INDEPENDENT_REVIEW_PENDING**.
 At 2026-11-06 14:48:55 UTC, the mathematical continuation and full RM6 verifier were re-fetched from immutable commit **8d79a4f6a81862b79b4052f9b861b1c4949df0c8**; blob **efd08713ef438911f5831dd66dc81e45666f52bc**. Exact full-text comparison: PASS. Preservation of the complete prior report and early checkpoint: PASS. A fresh agent-reports read matched the same research blob before this receipt was appended.
 
 This receipt records an already verified research publication; its own subsequent commit is not predicted here. RM1-RM5 remain paper-level/self-audited at their stated scopes, RM6 is finite computation, and no new Lean verification or independently reviewed endpoint gain is asserted. The canonical VF/RH objective and the complete NYMAN norm obligation remain OPEN. The next protected route is OAI-NNS; the next NYMAN task is a genuine low-coefficient arithmetic mechanism with the complete later return.
+
+
+## Scheduled OAI-NNS Continuation Checkpoint - 2026-11-06 17:11 EST Invocation
+
+Execution: SCHEDULED, invoked 2026-11-06T17:11:01-05:00 America/New_York; RUN_ID_UNAVAILABLE. Status: PARTIAL / IN_PROGRESS. This is a new continuation, preserving the earlier CODIV and NYMAN findings.
+
+### A. Selected Mathematical Question
+
+Resume 20261105-analytic-2/CR1-CR3 at the actual all-selected numerator annulus. The small-row rebase is not a physical saving: CR3 places every original annular row outside its paid ball for large Z. Investigate whether the exact row-dependent character/cofactor structure or the complete signed physical pairing admits a new restriction on that annulus. No new inequality, independent review, or endpoint gain is claimed at this checkpoint.
+
+### B. Authority And Continuity
+
+Main HEAD: d4df133117c5b58f90979d2eb680167ef37995cf. AGENTS blob: 48b2a58ab5fcd402321a4dace511c7d54bf688a1. Contract blob: 7c4ac83a1ec1a4144e1bd691391ed4244f1cc27c. baseline_ack=PAID_BASELINE_EXACT_CONSUMER_V1, policy blob 13d58dd12d90fbf1160812c7c93442dc5d0576ac. Multi-front policy: ffd8f1c65cc4da656174956d4e03b48bea46768b. The established native 7/8 replay, all-prefix covariance consequence, and scoped strict-slot result remain inputs, not new discoveries or missing reconstruction tasks.
+
+Both November 5 and November 6 report files for all seven roles, plus EXTERNAL_HANDOFFS.md, were retrieved at agent-reports snapshot 25e59d80af2d33d9e975c5bee46a6112c43aaab6. Applicable result/handoff sections were read; executable appendices were not rerun. TODAY=AVAILABLE; YESTERDAY=CARRY_FORWARD. Today's RM5 has now been human-merged through #1099; paper versus exact CI scope will remain separate. Open/draft PR search returned none. The unchanged external inbox has no post-October-18 entry.
+
+Original OAI pin: openai/math@1581d4cbdd69a0faf34b2089614fe2a814316a6a. Inspected original lowSelectedInverseRow, low_selected_physical_energy, markedCompletedT, actual row energy, masks, and canonical VF declaration. Exact source/CI checks and a falsifiable derivation continue below. No local Lean, source edit, branch/PR mutation, agent launch, or schedule change is authorized or performed.
+
+### C-L. Pending Work
+
+OAI-NNS is due after today's CODIV FP1-FP5 and NYMAN RM1-RM6. eta_gate=SEARCH_BROAD; net new endpoint gain=UNKNOWN. Seek a source-qualified coefficient restriction with every row, correction mode, original mask, height, normalization, core/cap cross term and full return retained. Independent review and any new Lean formalization are PENDING. Next protected route after this attempt: CODIV.
