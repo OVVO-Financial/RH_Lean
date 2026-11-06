@@ -120,11 +120,11 @@ theorem semiprimeEscapePartners_subset_upper
   have hmu := semiprimeEscapePartners_moebius (fun p hp => (hP p hp).1) hn
   obtain ⟨hnI, hhalf, s, hs, q, hq, hlarge, rfl⟩ := Finset.mem_filter.mp hn
   have hqodd : q % 2 = 1 := by
-    rcases hq.eq_two_or_odd with htwo | ⟨a, ha⟩
+    rcases hq.eq_two_or_odd with htwo | hodd
     · have hlt := hlarge s hs
       have htwole := (hP s hs).1.two_le
       omega
-    · omega
+    · exact hodd
   refine Finset.mem_filter.mpr ⟨hnI, ?_, hhalf, ?_⟩
   · simp [Nat.mul_mod, (hP s hs).2, hqodd]
   · rw [hmu]; norm_num
@@ -134,7 +134,9 @@ theorem topHalfPrimes_subset_upper {X : ℕ} (hX : 4 ≤ X) :
   intro p hp
   obtain ⟨hpI, hprime, hhalf⟩ := mem_topHalfPrimes.mp hp
   have hodd : p % 2 = 1 := by
-    rcases hprime.eq_two_or_odd with htwo | ⟨a, ha⟩ <;> omega
+    rcases hprime.eq_two_or_odd with htwo | hodd
+    · omega
+    · exact hodd
   refine Finset.mem_filter.mpr ⟨hpI, hodd, hhalf, ?_⟩
   rw [ArithmeticFunction.moebius_apply_prime hprime]
   norm_num
@@ -189,7 +191,11 @@ theorem exists_prime_semiprime_residual
   · have hcard := Finset.card_sdiff_add_card_eq_card hsub
     rw [Finset.card_union_of_disjoint hd] at hcard
     omega
-  · rw [sum_moebius_eq_oddSquarefreeUpper, Finset.sum_sdiff hsub, hzero, sub_zero]
+  · rw [sum_moebius_eq_oddSquarefreeUpper]
+    have hsplit : (∑ n ∈ oddSquarefreeUpper X \ (A ∪ C), μ n) +
+        (∑ n ∈ A ∪ C, μ n) = ∑ n ∈ oddSquarefreeUpper X, μ n :=
+      Finset.sum_sdiff hsub
+    simpa only [hzero, add_zero] using hsplit.symm
 
 /-- The complete ordered square retains both mixed orientations. -/
 theorem prime_semiprime_residual_complete_square
