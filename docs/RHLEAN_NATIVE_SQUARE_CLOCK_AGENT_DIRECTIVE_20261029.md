@@ -1,5 +1,7 @@
 # RH_Lean research-agent task selector
 
+**PAID_BASELINE_EXACT_CONSUMER_V1 (2026-11-06; effective after human merge):** First read [the established-baseline correction](RHLEAN_PAID_BASELINE_EXACT_CONSUMER_20261106.md). The native replay and global all-prefix covariance saving are established starting inputs, not missing prerequisites to reconstruct. Substitute the strongest applicable existing input before naming a new gap. Compare the chosen route's proposed arithmetic strengthening against its exact source and complete consumer; do not require the sharper local square-shell sum-of-squares norm from every route. The correction's seven-role instructions preserve the independent portfolios below and do not make the exceptional Gram term, all-selected inverse row, or any other OAI task compulsory. Record the first actual post-merge consumption with `baseline_ack=PAID_BASELINE_EXACT_CONSUMER_V1`, then continue the mathematics rather than repeating the baseline audit.
+
 **NO_PIGEONHOLING_ROUTE_SELECTOR_V1 (2026-11-04; current precedence):** [Independent multi-front RH_Lean research](RHLEAN_INDEPENDENT_MULTIFRONT_NO_PIGEONHOLING_20261104.md) overrides any compulsory source-first, all-selected, or dated NEXT-* instruction below. Choose by mathematical leverage while protecting all nine routes, not by the most recently merged OAI PR.
 
 ## Current routing: persistent broad mathematics until verified eta > 0
@@ -27,7 +29,7 @@ Preserve genuine arithmetic coefficients, occurrence weights, masks, moving admi
 
 At first actual consumption after merge, record deployment_ack with policy/main SHA, independently selected route (not a compulsory NEXT-* task), exact resumed derivation and actual new proof/test or first unsupported inequality. Newer evidence and protected rotation may replace a stale bootstrap task with an explicit reason. Do not redo a completed theorem or report only that the instructions were read. Subsequent invocations continue the persistent workspaces from committed reports.
 
-This stable filename is intentionally retained because existing dynamic agents and central files already point here. Current breadth, complete-return and research-engine policies supersede older single-lane priorities, fixed queues and restart-heavy daily relay expectations FOR ROUTING AND WORK ORGANIZATION. All actual mathematical source safeguards, the updated full Lean branch/PR write authorization and human-only main merge remain binding. Main is authority; archived policy and reporting-branch copies are not substitutes.
+This stable filename is intentionally retained because existing dynamic agents and central files already point here. Current breadth, complete-return and research-engine policies supersede older single-lane priorities, fixed queues and restart-heavy daily relay expectations FOR ROUTING AND WORK ORGANIZATION. All actual mathematical source safeguards, the updated full Lean branch/PR write authorization and human-only merge remain binding. Main is authority; archived policy and reporting-branch copies are not substitutes.
 
 ## Historical source provenance
 
