@@ -2883,3 +2883,14 @@ HC2-HC4 are PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING /
 NOT_FORMALIZED; HC5 is FINITE_COMPUTATION. New net endpoint gain remains
 UNKNOWN. No main, Lean source, other role report, policy, branch, PR, issue,
 workflow, schedule, permission, merge or agent-launch action was taken.
+
+### Finite Coverage Clarification - 20261106-census-2
+
+The 2,051-row conservation table contains **five nonempty new separated
+packets**, totaling **251 checked new pairs**; the other **2,046 cutoffs
+have no new packet**. Empty cases test endpoint and full-source regressions,
+not higher-depth cancellation evidence. The separate six-pair high-depth
+fixture is additional and is not part of that table. These counts were
+checked directly from the deterministic row file after publication.
+The all-scale claims rely on the displayed paper proofs, not on treating
+empty packet cases as substantive asymptotic evidence.
