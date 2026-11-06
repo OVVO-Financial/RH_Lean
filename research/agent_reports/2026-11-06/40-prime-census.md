@@ -2866,3 +2866,20 @@ verified checkpoint commit 7c31c079056bc7b73400f2cf10aed6b1337cccb4;
 therefore all other intake reports and the external inbox remain unchanged.
 The sole open PR remains #1097 at bc727dc9f7dd655fdd2addc943b246ad70ef576d,
 non-draft. No source dependency changed during this run.
+
+### Verified Publication Receipt - 20261106-census-2
+
+The complete new synthesis and all three executed source files were published
+in commit **f71e32a087175113335a7b78c6aa465d021ec6b4**, content blob
+**80c747ec40d8c654f2101d52cee1b76b8de373e2**. Commit inspection and
+byte-identical pinned-file readback were complete by the observed clock
+**2026-11-06 16:28:04 UTC (11:28:04 EST)**. The verified commit changes
+ONLY research/agent_reports/2026-11-06/40-prime-census.md and preserves the
+entire preexisting report and checkpoint. Its parent is the verified
+checkpoint commit 7c31c079056bc7b73400f2cf10aed6b1337cccb4.
+
+EXECUTION=COMPLETE; PUBLICATION=VERIFIED. HC1 is a scoped exact falsifier;
+HC2-HC4 are PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING /
+NOT_FORMALIZED; HC5 is FINITE_COMPUTATION. New net endpoint gain remains
+UNKNOWN. No main, Lean source, other role report, policy, branch, PR, issue,
+workflow, schedule, permission, merge or agent-launch action was taken.
