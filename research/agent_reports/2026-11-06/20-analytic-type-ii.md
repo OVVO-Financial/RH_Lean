@@ -877,3 +877,17 @@ if __name__ == "__main__":
     run()
 ```
 
+## Verified Publication Receipt
+
+Execution: COMPLETED. Final mathematical report and complete FP5 verifier were
+committed to the authorized agent-reports path at
+`a05af7bf26513d1e2e2f574197d2465bcc3889fd`, report blob
+`13eaca9d22fa918871a7d4ae99616dbc8c93baa5`, and re-fetched with exact
+content equality. Receipt prepared at 2026-11-06 06:30:36 UTC.
+
+FP1-FP3 remain PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING /
+NOT_FORMALIZED. FP4-FP5 retain their exact finite scope. Publication does
+not imply independent acceptance or Lean certification. OPEN-CD5, the
+canonical VF bound, and the new complete-endpoint gain remain OPEN.
+Next protected route: NYMAN; next CODIV obligation is actual signed
+arithmetic, not automatic frequency-average cancellation.
