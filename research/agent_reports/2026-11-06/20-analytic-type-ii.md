@@ -912,3 +912,749 @@ Original main source fetched: NYMAN_HIGH_COEFFICIENT_INVARIANT_20261104.lean blo
 ### C-L. Pending Research And Preregistered Checks
 
 Attempt a full pre-block scalar projection, independently bound the periodic remainder and retained head, and investigate a slope-annihilating prime probe with all rounding and Mellin terms. Test original residues against complete returns and moments using exact rational prime-log vectors; distinguish these exact finite checks from numerical norms or infinite estimates. Challenge high-support, integer-floor, k=1, and after-N truncation failures. No new result, independent review, or endpoint gain is claimed at this checkpoint. Only this role's dated report will be changed remotely; no agents, Lean runs, source changes, PRs, merges or schedule changes are initiated.
+
+
+## Scheduled NYMAN Research Synthesis - 20261106-analytic-2
+
+Actual invocation: SCHEDULED, 2026-11-06T09:09:02-05:00, America/New_York; RUN_ID_UNAVAILABLE. This continues the preceding NYMAN checkpoint, not another invocation; the publication-verification receipt follows separately. Earlier CODIV findings and publication receipts remain intact. New mathematical claims are PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED, with the finite and conditional distinctions below. No literature-originality claim is made.
+
+### A. Most Important Analytic Development
+
+**There is a concrete, source-realizable way to remove the flat taper's reciprocal-Mobius drift without pretending that the initial head stays exact.** Set its reciprocal-moment defect to
+
+```text
+delta_N = V(H),
+V(y) = 1 - sum_(k<=y) mu(k) log(y/k)/k.
+```
+
+For the original residue coefficients and the explicit two correction bands, the entire first N cells then satisfy a new effective upper estimate. If the independently supplied envelopes are |M(x)| <= C_M x^b and |psi(x)-x| <= C_psi x^b, with fixed 1/2<b<1, then
+
+```text
+ell^2 E_(<=N) <= C0 N^(2b-1) + C1 H^b + 16 H^2/N,
+ell=log(N/H),                         (RM2)
+```
+
+where C0,C1 are displayed explicitly in E. They are independent of N,H. This covers the leaked head, the complete pre-correction residual, and BOTH actual correction bands. It is not a bound on an isolated correction or an optimized probe.
+
+At H=floor(N^(4/5)), the established repository 7/8 input and its classical prime-error consequence give
+
+```text
+E_(<=N) = O_epsilon(N^(3/4+epsilon)).
+```
+
+The former exact-head pre-block certificate used exponent 4/5 at that same input. The 1/20 difference is a removed coefficient-design loss, NOT a new Mertens exponent. All m>N still have their full return. An elementary bound pays the remote tail after ceil(N^(5/4)) at the same 3/4 energy scale; the intervening interval is not paid at that scale.
+
+**Moment freedom does not eliminate the actual prime-fluctuation demand.** A new pair of exact, discretely normalized probes removes an ARBITRARY moment defect before any norm. For every fixed 0<theta<1, any all-scale pre-block estimate E_pre=O_epsilon(N^(kappa+epsilon)), 0<=kappa<1, on H=floor(N^theta), forces
+
+```text
+all nontrivial zeta zeros satisfy Re(rho) <= (1+kappa)/2.   (RM3)
+```
+
+This implication needs no Mertens envelope. It holds even after optimizing the scalar defect separately at every N. For 0<theta<=1/2 the optimized pre-block logarithmic limsup is exactly 2 beta_* - 1, where beta_* is the unknown rightmost nontrivial-zero boundary. This identifies the remaining difficulty; it does not determine beta_* or prove an upper input below the inherited boundary.
+
+| Claim | Actual contribution | Classification |
+| --- | --- | --- |
+| 20261106-analytic-2/RM1 | Full pre-block scalar projection; explicit drift-removing two-band family | EXACT_IDENTITY / source-specific construction; R8 solver reused |
+| RM2 | Uniform first-N-cell estimate with all head and correction costs | PAPER_PROOF; parameter theorem has explicit envelope hypotheses; baseline application uses established inputs |
+| RM3 | Defect-free pre-block inverse theorem and optimized exponent identification | PAPER_PROOF / CONDITIONAL upper-premise implication; no new zero boundary |
+| RM4 | Explicit remote-tail payment and complete remaining source | PAPER_PROOF for the tail; middle upper supplier OPEN |
+| RM5 | Null-direction obstruction and certified small counterexamples | PAPER_PROOF / REFUTED only the stated shortcuts |
+| RM6 | Exact finite original-source, probe, projection and negative-control tests | FINITE_COMPUTATION, not infinite or Lean evidence |
+
+### B. Current Mathematical Objective And Authority
+
+Main at intake: **4a6e6b8c1a81f6dd8b8bc0cfad123bbc2a56188a**. AGENTS blob **547dda0d9456e7a4e1165dc72d59da6f70d5c023**; CURRENT_PROOF_CONTRACT blob **7c4ac83a1ec1a4144e1bd691391ed4244f1cc27c**; controlling independent multi-front policy **ffd8f1c65cc4da656174956d4e03b48bea46768b**. deployment_ack=NO_PIGEONHOLING_ROUTE_SELECTOR_V1. This is the protected NYMAN turn after Nov 5 OAI-NNS and today's CODIV; next protected route OAI-NNS.
+
+Canonical VFCanonicalSquareVonKochStatement remains
+
+```text
+exists C>=0, forall integer R>=2,
+  |pi(R^2)-VF_can(R^2)| <= C R log R.
+```
+
+It remains OPEN. Its inspected classical RH consumer still takes ClassicalVonKochRHCriterion explicitly. None of the new claims changes the canonical phase, the original primes, the original residue norm, or that interface. eta_gate=SEARCH_BROAD; NEW_ADDITIONAL_ENDPOINT_GAIN=NONE_ESTABLISHED.
+
+The current native source also contains the already-established strict-gap declarations native_mertens_uniform_strict_gap and native_mertens_fixed_strict_power. They are prior results, not this run's discovery. The 7/8 comparison below deliberately uses the coarser available baseline and does not optimize or relabel the old tiny slot gain. No unrelated OAI source reconstruction is required for this NYMAN investigation.
+
+### C. Analytic Mechanism Investigated
+
+The accepted SP1-SP5 obstruction assumes an exact reciprocal moment, which forces an exact initial head. Referee-8 already exposed the head-versus-one-probe tradeoff and the two-band realization of any defect. Those are inherited facts, not new claims.
+
+The changed question is constructive: choose a specific defect, bound the resulting ORIGINAL residual on an entire growing prefix, and then identify which arithmetic survives arbitrary scalar optimization. The choice delta=V(H) cancels the large linear drift exactly. A two-regime bound pays the transition using actual Mertens partial sums and the later prefix using actual prime-power discrepancy. A second, independent move projects out the scalar through two exact probes; the prime logarithmic derivative remains and supplies the inverse obstruction.
+
+No independent random signs, density substitution, correction-norm domination, omitted after-N floor sum, or assumption of RH enters these derivations. The parameterized envelope theorem is useful for measuring what existing inputs really pay, not for manufacturing a new power input.
+
+### D. Exact Mathematical Formulation
+
+Let N=6K, K>=1, and integer 2<=H<=N/2. All logarithms are natural. Define
+
+```text
+ell=log(N/H), q_k=log(N/max(H,k)), F_k=mu(k)q_k,
+u=sum_(k=1..N) F_k/k, F=sum_(k=1..N) F_k,
+delta=u-sum_(k=2..N) h_k/k,
+c_k=(h_k-F_k)/ell                       (2<=k<=N),
+r(m)=1-sum_(k=2..N)c_k*(m mod k)/k,
+E_full=sum_(m>=1) r(m)^2/[m(m+1)],
+E_(<=N)=sum_(1<=m<=N) r(m)^2/[m(m+1)],
+E_pre=sum_(K<=m<3K) r(m)^2/[m(m+1)],
+U_B(m)=sum_(B<k<=m)mu(k)log(B/k)floor(m/k),
+T(B)=sum_(k<=B)mu(k)log(B/k)/k, V(B)=1-T(B),
+S_H(m)=sum_(k<=H)mu(k)log(H/k)*(m mod k)/k.
+```
+
+Unless stated otherwise, h is supported on integers N/2<k<=N. For each finite N the infinite norm converges because the residue combination is bounded and periodic; no uniform estimate follows merely from that fact.
+
+For the explicit family used in RM2 and RM4, set delta=V(H), I1=(3K,4K], I2=(5K,6K], s_i=sum_(k in Ii)1/k, and
+
+```text
+z=u-delta=T(N)-1=-V(N),
+w=2ell+F-delta,
+A=(z-s2*w/K)/(s1-s2),
+Z=(s1*w/K-z)/(s1-s2),
+h_k=A*1_I1(k)+Z*1_I2(k).                    (FAMILY)
+```
+
+These are genuine scale-dependent real coefficients in the existing full admissible residue basis. No new basis or model function replaces nymanResidue. The denominator is uniformly positive: s1>=1/4, s2<=1/5, hence s1-s2>=1/20.
+
+### E. Mathematical Derivation
+
+#### E1. RM1: Exact Source, Full Projection, And Realization
+
+The inspected, compiled nyman_flat_complete_return gives for every integer m>=1
+
+```text
+ell*r(m)=delta*m+U_N(m)-U_H(m)+sum_(k=2..N)h_k floor(m/k).  (RETURN)
+```
+
+For m<N/2 both the N-tail and correction floor vanish, giving ell*r=delta*m-U_H. For m<=H, the correction floor also vanishes and U_N=U_H=0, including the possible endpoint H=N/2. Therefore
+
+```text
+sum_(m<=H)r(m)^2/[m(m+1)]
+  = delta^2 [H+1-Harmonic_(H+1)]/ell^2.                    (HEAD)
+```
+
+This head is generally nonzero. Dropping it would change the norm.
+
+For the entire pre block put
+
+```text
+A_B=sum_(K<=m<3K)m/(m+1)>0,
+D_B=sum_(K<=m<3K)U_H(m)/(m+1),
+F_B=sum_(K<=m<3K)U_H(m)^2/[m(m+1)],
+delta_* = D_B/A_B.
+```
+
+Expanding the complete weighted square, with every mixed term retained, proves
+
+```text
+ell^2 E_pre(delta)=A_B*(delta-delta_*)^2+F_B-D_B^2/A_B.      (PROJECT)
+```
+
+This is the actual minimum over the scalar on the WHOLE block, not R8's one-probe lower certificate. It does not optimize E_full. Every delta is realized by the same two-band equations with z=u-delta and w=2ell+F-delta. Direct substitution gives
+
+```text
+sum h_k/k=u-delta, sum h_k=2ell+F-delta,
+sum_(k=2..N)c_k*(k-1)/(2k)=1.
+```
+
+Thus the original periodic mean is centered even with head leakage. These solver facts reuse Referee-8 and the source two-band algebra; the new choice and quantitative consequences are below.
+
+Finite divisor inversion, valid also when m<=H, gives
+
+```text
+U_H(m)=log H+psi(m)-m*T(H)+S_H(m).
+```
+
+With delta=V(H), RETURN therefore becomes, for all m>=1,
+
+```text
+ell*r(m)=m-psi(m)-log H-S_H(m)
+           +U_N(m)+sum h_k floor(m/k).                    (DRIFT RETURN)
+```
+
+Only for m<=N is U_N zero. Only before the correction starts can its floor sum be removed. The surviving psi is the actual von Mangoldt sum, including prime powers, not pi or a smooth replacement. The integer k=1 residue vanishes in S_H; it must still be retained when changing to continuous probe coordinates later.
+
+#### E2. RM2: Independent Quantitative Payment Of The First N Cells
+
+Assume fixed 1/2<b<1, C_M>=1, C_psi>=0, and for ALL real x>=1
+
+```text
+|M(floor x)|<=C_M x^b,
+|psi(floor x)-floor x|<=C_psi x^b.                         (ENVELOPES)
+```
+
+Define explicit constants
+
+```text
+k_b=(2-b)/(1-b)^2,
+l_b=1/[b(1-b)^2], d_b=k_b+l_b,
+B_b=(52/3)k_b+32/b,
+C0=2 C_psi^2/(2b-1)+4(C_psi+C_M B_b)^2,
+C1=2 d_b^2 C_M^2+8.
+```
+
+They may diverge as b approaches an endpoint; no endpoint-uniform theorem is asserted.
+
+**Reciprocal drift.** The Mertens envelope makes the two reciprocal moments converge and permits termwise differentiation of sum mu(n)n^(-s) near s=1. The residue-one pole of zeta supplies sum mu(n)/n=0 and sum mu(n)log n/n=-1. Partial summation then gives
+
+```text
+V(H)=integral_H^infinity M(floor t)*(1-log(t/H))/t^2 dt,
+|V(H)|<=k_b C_M H^(b-1).                                 (VBOUND)
+```
+
+The integral is absolutely convergent under the displayed envelope; its estimate uses integral_1^infinity u^(b-2)(1+log u)du=k_b. No unspecified O(1) absorbs an infinite term.
+
+**Transition range.** Write -U_H(m) as the sum over j<=m/H of sum_(H<k<=m/j)mu(k)log(k/H). Partial summation bounds each inner sum by C_M y^b(log(y/H)+1/b). The decreasing-summand integral estimates
+
+```text
+sum_(j<=A)j^(-b)log(A/j)<=A^(1-b)/(1-b)^2,
+sum_(j<=A)j^(-b)<=A^(1-b)/(1-b)
+```
+
+give, for m>=H,
+
+```text
+|U_H(m)|<=l_b C_M m H^(b-1).
+```
+
+For m<H it is zero. Thus throughout m<N/2, |ell*r(m)|<=d_b C_M m H^(b-1).
+
+**Later pre-correction range.** Monotonicity of log(H/t) gives
+
+```text
+sum_(k<=H)log(H/k)<=H-1,
+|log H+S_H(m)|<=2H.
+```
+
+The signed DRIFT RETURN, not separate U_H and delta*m bounds, now yields |ell*r(m)|<=C_psi m^b+2H before N/2. Split at J=ceil(H^(2-b)). On m<=J use the transition bound; on m>J use this prime-error bound. The inequalities J<=2H^(2-b), sum_(m>J)1/[m(m+1)]=1/(J+1), and sum_(m<=N)m^(2b-2)<=N^(2b-1)/(2b-1) prove
+
+```text
+ell^2 E_(m<N/2)
+ <= [2C_psi^2/(2b-1)]N^(2b-1)+(2d_b^2 C_M^2+8)H^b.       (LOW PREFIX)
+```
+
+The split remains a valid upper bound if J>=N/2; the empty second range causes no problem. This accounts for every cell from m=1, not just a block away from the leaking head.
+
+**Actual correction bands.** The exact relation F=integral_H^N M(floor t)dt/t gives |F|<=C_M N^b/b. From FAMILY, s1<=1/3, s2<=1/5 and s1-s2>=1/20,
+
+```text
+sum |h_k|=K(|A|+|Z|)
+ <=(20/3)N|z|+(32/3)|w|
+ <=C_M B_b N^b.                                          (HMASS)
+```
+
+Here |z|<=k_b C_M N^(b-1), |delta|<=k_b C_M, and 2ell<=2N^b/b; C_M>=1 absorbs the displayed numerical 2, not a growing parameter. For N/2<=m<=N, every floor(m/k) with h_k nonzero is 0 or 1. Consequently DRIFT RETURN bounds the absolute numerator by (C_psi+C_M B_b)N^b+2H. Its squared contribution is at most
+
+```text
+4(C_psi+C_M B_b)^2 N^(2b-1)+16H^2/N.
+```
+
+Combining this with LOW PREFIX proves RM2 exactly as stated. No correction component was assumed dominated by the total residual; it was bounded in the region where it actually occurs.
+
+#### E3. Applying Established Inputs Without Claiming A New Boundary
+
+The inspected nativeReplay_mertens_growth and native_zeta_nonzero supply the repository's established 7/8 baseline. More generally, if beta_* bounds the real parts of all actual nontrivial zeros, the classical explicit formula gives |psi(x)-x|=O(x^(beta_*)log^2(2x)). Only its ordinary qualitative consequence, not a numerical explicit constant, is used here.
+
+For clarity, the transfer can be seen at half-integers x from the truncated explicit formula with T=x/2. The reciprocal-zero sum is O(log^2 x), the nonzero remainder is O(log^2 x), and |x^rho|<=x^(beta_*). Moving to an integer changes x by at most 1/2 and does not cross a prime-power jump on the right half-cell. Enlarging the constant handles the bounded initial range. See [Platt-Trudgian, Lemmas 1-2](https://arxiv.org/pdf/1809.03134); no explicit numeral from those lemmas is needed. The independently compiled Mertens/strip translator provides the corresponding Mertens envelope for each b>beta_*.
+
+Taking any fixed 7/8<b<1 discharges ENVELOPES using those existing results. At H=floor(N^(4/5)), H^b<=N^(2b-1) whenever b>=5/6, and H^2/N<=N^(3/5). Thus RM2 gives E_(<=N)=O_b(N^(2b-1)/ell^2), uniformly at sufficiently large N divisible by six. Let b decrease to 7/8 with the requested positive loss. The conclusion in A follows. Finite smaller N can be absorbed in its constant; no finite cutoff is claimed numerically effective without constants for the incoming envelopes.
+
+At the same b, the inherited exact-head pre-block certificate has power 1-2theta(1-b). The new first-N power is 2b-1 when theta<=2-1/b. Their difference is 2(1-theta)(1-b), equal to 1/20 at theta=4/5,b=7/8. This is proper-source quantitative progress and a changed coefficient family, not stronger information about the underlying arithmetic exponent.
+
+#### E4. RM3: Remove Every Scalar Defect Before The Norm
+
+This part assumes no ENVELOPES and no particular rule for delta. Fix real smooth compactly supported g_1,g_2 on I=(1/6,1/2), each with integral 1. They need not be nonnegative. Set w_j=-g_j', w_(j,N)(t)=N^(-2)w_j(t/N), and define
+
+```text
+J_j(N)=(1/N)sum_(n>=1)g_j(n/N),
+P_j(N)=(1/N)sum_(n>=1)Lambda(n)g_j(n/N)-1,
+Q_j(N,H)=sum_(k<=H)mu(k)log(H/k)
+            * integral w_(j,N)(t)({t/k}-1/2)dt,
+L_j(N)=integral w_(j,N)(t)r(floor t)dt,
+B_j=integral_I v^2(g_j'(v))^2 dv.
+```
+
+All scale-wise sums and integrals are finite. The exact R8 source calculation, with the literal discrete slope factor, gives
+
+```text
+V(H)+P_j+Q_j = delta*J_j-ell*L_j.                         (PROBE)
+```
+
+For each integer p>=2 define the finite, effective constant
+
+```text
+C_(j,p)=2*zeta(p)/(2pi)^p * ||g_j^(p)||_1.
+```
+
+Integrating the sawtooth Fourier series p-1 times by parts gives
+
+```text
+|integral w_(j,N)(t)({t/k}-1/2)dt|
+ <= C_(j,p) k^(p-1)/N^p,
+|Q_j|<=C_(j,p)(H/N)^p,
+|J_j-1|<=C_(j,p)N^(-p).                                  (PERIODIC)
+```
+
+For the second inequality use sum_(k<=H)k^(p-1)log(H/k)<=H^p. The third is the k=1 exact quadrature integral=1-J_j. Fourier pairing can first be made with Fejer sums; after integration the summable p-power majorant justifies the limit. Arbitrarily high p is legitimate for these FIXED smooth probes, not a uniform bound over probes with uncontrolled derivatives.
+
+For large N, J_2>=1/2. Multiply the first PROBE by J_2 and the second by J_1 and subtract. The delta term cancels EXACTLY. Rearrangement yields
+
+```text
+P_1-P_2 = -ell*(L_1-(J_1/J_2)L_2)-Q_1+(J_1/J_2)Q_2
+            -[(J_2-J_1)/J_2]*(V(H)+P_2).                 (PAIR)
+```
+
+This retains the floor-sampling correction; replacing either J by 1 before subtracting is not an exact identity. On the actual block,
+
+```text
+|L_j|<=sqrt(B_j E_pre/N).
+```
+
+The elementary bounds |V(H)|<=1+log H+(log H)^2 and |P_2|<=1+(||g_2||_infinity/2)log N pay the last term without any prime asymptotic. PAIR and PERIODIC therefore prove, for every fixed pair and p,
+
+```text
+|P_1(N)-P_2(N)|
+ <= C_g ell sqrt(E_pre/N)
+    +C_(g,p)[(H/N)^p+N^(-p)(1+log^2 N)].                  (INVERSE)
+```
+
+For an explicit choice, require N^p>=2max(C_(1,p),C_(2,p)), put C_g=sqrt(B_1)+3sqrt(B_2), and take
+
+```text
+C_(g,p)=max(C_(1,p)+3C_(2,p),
+  2(C_(1,p)+C_(2,p))*(4+||g_2||_infinity/2)).
+```
+
+Then 1/2<=J_j<=3/2 and the stated inequality follows directly from PAIR. Constants are independent of delta, h, N and H. This is the independently proved restriction needed to analyze scalar optimization. It is not an upper bound on E_pre.
+
+Now fix 0<theta<1, H=floor(N^theta), and 0<=kappa<1. Suppose that for every epsilon>0, E_pre<=C_epsilon N^(kappa+epsilon) at every sufficiently large multiple of six. Put a=(1-kappa)/2 and choose fixed p with p(1-theta)>a. INVERSE gives P_1-P_2=O_epsilon(N^(-a+epsilon)). The derivative of the finite smooth prime sum is O_g(log x/x), using only Lambda(n)<=log n. Rounding a real x to a multiple of six therefore costs O_g(log x/x). The same bound holds for all sufficiently large real x.
+
+Write g=g_1-g_2, so integral g=0. For Re(s)>0, absolute convergence proves
+
+```text
+integral_1^infinity [(1/x)sum Lambda(n)g(n/x)] x^(-s-1)dx
+ = -ghat(1+s)*zeta'(1+s)/zeta(1+s),
+ghat(z)=integral_I g(v)v^(z-1)dv.                         (MELLIN)
+```
+
+The growth bound makes the left side holomorphic in Re(s)>-a, by locally uniform dominated convergence with a sufficiently small positive loss. The ghat factor is entire; at s=0 its zero removes the zeta-pole term because integral g=0.
+
+If an actual nontrivial zero rho had Re(rho)>1-a, choose a real smooth zero-integral g supported on I with ghat(rho)!=0. Such a g exists: annihilation of every zero-integral test would make v^(rho-1) constant on I, and differentiating would force rho=1. Every such g can be written as g_1-g_2 with each integral 1. At s=rho-1 the right side of MELLIN then has the nonzero logarithmic-derivative residue minus the zero multiplicity times ghat(rho). This contradicts holomorphy. Hence Re(rho)<=(1+kappa)/2, proving RM3.
+
+The quantifiers are all-scale; an arbitrary sparse subsequence is not covered. The argument accommodates multiple zeros and needs no attained rightmost zero, no zero-density conjecture, and no assumption that ghat is zero-free everywhere.
+
+#### E5. Optimized Pre-Block Exponent, With Its Exact Scope
+
+Let E_pre^opt(N,H) be the attained scalar minimum in PROJECT, equivalently the infimum over high-supported corrections, even with the two-band mean-centering constraint. For a fixed 0<theta<=1/2 and H=floor(N^theta),
+
+```text
+limsup_(N->infinity,6|N) log(1+E_pre^opt(N,H))/log N
+ = 2 beta_* - 1.                                        (OPTEXP)
+```
+
+Lower bound: any smaller limsup would give an eventual power estimate with some kappa<2beta_*-1; RM3 contradicts the definition of beta_*. If beta_*=1/2 the nonnegative lower bound is automatic.
+
+Upper bound: choose the legal delta=V(H). On K<=m<3K the correction floor vanishes. DRIFT RETURN and |log H+S_H|<=2H give
+
+```text
+E_pre^opt <= E_pre(V(H))
+ <= [4 C_psi^2 N^(2b-1)+32H^2/N]/ell^2                  (BLOCK UPPER)
+```
+
+for any prime-error envelope with b>=1/2. Here sum_(K<=m<3K)m^(2b-2)<=2N^(2b-1), and the block's total Hilbert weight is 4/N. For beta_*<1 take beta_*<b<1 using the explicit-formula consequence above, and let b decrease to beta_*. Since H<=sqrt N, the remainder is bounded. If beta_*=1, the elementary Chebyshev bound gives the upper exponent 1 directly. This proves OPTEXP.
+
+This is a logarithmic LIMSUP, not an every-scale lower bound, an infinite-norm upper bound, or a new value of beta_*. At the active theta=4/5, RM3 still applies, while BLOCK UPPER only gives the comparison max(2beta_*-1,3/5). No unjustified extrapolation from theta<=1/2 is made.
+
+### F. Quantitative Comparison And Full Return
+
+For FAMILY, sum_(k<=N)q_k=integral_H^N floor(t)dt/t<=N-H. HMASS gives
+
+```text
+sum_(k=2..N)|c_k|<=(N+C_M B_b N^b)/ell.
+```
+
+Consequently, for every integer T>=N,
+
+```text
+sum_(m>T)r(m)^2/[m(m+1)]
+ <= (2+C_M B_b)^2 N^2/[ell^2(T+1)].                      (RM4)
+```
+
+This is an absolute tail bound on the COMPLETE residual; it loses no hidden cross term. At H=floor(N^(4/5)), T=ceil(N^(5/4)), and the established 7/8 input, both E_(<=N) and this tail are O_epsilon(N^(3/4+epsilon)). The remaining exact norm contribution is
+
+```text
+E_middle=sum_(N<m<=T)
+  [delta*m+U_N(m)-U_H(m)+sum h_k floor(m/k)]^2
+  /[ell^2*m(m+1)].                                      (UNPAID)
+```
+
+U_N is nonzero on this interval and all four terms, including their mixed interactions, remain. No 3/4-scale bound for UNPAID was proved. Also, paying it at the inherited 3/4 scale would NOT give a new zero exponent. A strictly smaller all-scale pre-block exponent already requires new prime arithmetic by RM3. The actual unrestricted NYMAN density criterion still needs an infinite norm tending to zero; none is supplied here.
+
+| Object | What is established | What is not established |
+| --- | --- | --- |
+| Initial head | Exact leaked energy HEAD | It is not zero for delta=V(H) |
+| Entire first N cells of FAMILY | Explicit RM2; baseline exponent 3/4+epsilon | No exponent input stronger than the available arithmetic is obtained |
+| Arbitrary high correction / pre block | Defect-free INVERSE and RM3 | No independent improved prime-fluctuation bound |
+| Optimal pre scalar, theta<=1/2 | OPTEXP, with unknown beta_* | No full-norm optimizer or new value of beta_* |
+| Remote tail after N^(5/4) | RM4 at baseline scale | No permission to delete the intervening return |
+| Complete norm / canonical endpoint | Unchanged open obligations | No new RH proof or additional verified eta |
+
+### G. Original-Carrier Bridge And Formal Evidence
+
+The actual source is nymanResidue(k,m)=(m mod k)/k and nymanResidual=1-sum c_k nymanResidue. FAMILY is exactly nymanFlatCoefficient with an explicitly different h. The existing theorem displays its moment defect, so there is no undefined source-to-source transfer. Its high support, strict pre-block endpoints, k=1 contributions to continuous quadrature, after-N omitted-modulus sum and two correction bands were all retained.
+
+Fresh exact-head CI review: [PR #1093](https://github.com/OVVO-Financial/RH_Lean/pull/1093) is human-merged; head a54f0cf9535c548920dae3412e3fbe6d6584e029. All twelve returned associated workflows succeeded. The dedicated [Nyman run 41955044802, job 127007831273](https://github.com/OVVO-Financial/RH_Lean/actions/runs/41955044802/job/127007831273) was fetched, including its real log. It checked out synthetic merge 779336c, compiled with warningAsError under Lean 4.34.1, printed the eight exact terminal declarations, and reported only propext, Classical.choice, Quot.sound. The checked proof-head flat-return blob **2d23721027ecc44e85b7add02fc632b482f03352** equals the current main blob. The log includes the arbitrary-defect RETURN and exact-head iff theorem. This certifies the existing finite source algebra, not RM2, RM3, a new Mellin argument or an infinite norm estimate. No cold rebuild or new Lean execution was performed here.
+
+Other status checks: #1094's finite correction lower bound is merged; #1095's fail-closed audit repair is merged; #1096 is merged at the pinned main. The only open PR at intake is nondraft #1097, head bc727dc9f7dd655fdd2addc943b246ad70ef576d, a separate CORR4 sampling result. Its author's verified unmerged evidence is not used as a NYMAN analytic hypothesis. No branch was created or reconfigured; no PR, issue, Lean source, workflow, or schedule was modified. The only remote edits are this authorized report on agent-reports.
+
+### H. Falsification, Prior Work, And Executed Checks
+
+**RM5: paid early cells and centered mean do not pay the later norm.** At N=12 add lambda times the high vector v_7=7,v_8=-16,v_9=9 to any correction h. Both sum v_k and sum v_k/k vanish. Thus delta and mean centering are unchanged, and every m<=6 residual is unchanged. At m=7 the numerator ell*r increases by 7lambda. The complete norm is therefore unbounded over this allowed null direction while the entire first half is fixed. This disproves the broad inference, not a bound specifically proved for the unique FAMILY solver.
+
+**No universal small-cutoff improvement.** At N=6,H=2, replacing exact-head delta=0 by V(H) increases both the pre-block and first-N norms. Rational logarithm enclosures certify positive differences of the SCALED energies ell^2 E; their displayed lower endpoints are approximately 0.10985176159802927 and 0.4713861237510126. The theorem is an upper estimate under stated envelopes and an asymptotic exponent comparison, not monotone improvement at every N. Similar failures occur at larger tested cutoffs.
+
+**RM6 executed domain:** N in {6,12,18,24,30,42,60,90,120}; for each N, distinct admissible H from {2,3,floor(sqrt N),min(floor(N^(4/5)),N/2),N/2}; all integers 1<=m<=3N; delta in {0,V(H),delta_*}. This gives 37 actual (N,H) pairs. The test uses exact rational coefficients of 1 and log primes, not floating residual evaluations. The projection check uses exact quadratic polynomials in those coordinates. The two finite polynomial probes have supports [1/6,1/3] and [1/4,1/2]; they test finite identities, not the arbitrary-smoothness asymptotic theorem. Sign certificates use rational atanh-series enclosures after dyadic reduction; decimal outputs are display only.
+
+```text
+Exact checks: {'cases': 37, 'full_returns': 17064,
+ 'drift_returns': 911, 'head': 1245,
+ 'probe_identities': 222, 'projected_squares': 111}
+Negative controls detected: {'omitted_N_tail': 11349,
+ 'omitted_correction': 14220, 'false_exact_head': 608,
+ 'J_replaced_by_one': 126}
+Null-direction control: (7,-16,9) at (7,8,9);
+ first changed numerator +7 at m=7.
+```
+
+Verifier SHA256: **8450a726130cc290e9f5d6e3881c69454aacc4a7d0e470d11a379b1cefa753e1**. Complete executed code is attached below in this same authorized report. No finite scan proves the all-scale upper theorem, Mellin consequence, or existence of an improved exponent. These are author self-checks, not independent Referee acceptance.
+
+**Newness and literature.** SP1-SP5, R8 and the Coordinator fixed-mixture obstruction were checked before choosing the changed moment. The three current main NYMAN modules contain the finite source and component inequalities, not RM2 or the paired-probe result. A primary-author public manuscript found during the search already discusses prime discrepancy modulo arbitrary drift for classical Selberg coefficients ([logarithmic-prefix manuscript, section 7](https://rstation.ai/problems/riemann_hypothesis/papers/47/v1)). Its claims are not imported as independently accepted repository theorems. The present claim is the explicit flat-taper/moment/source transfer and prefix bound, not a new general oscillation principle. The proof above is supplied in full.
+
+The classical logarithmic coefficients also occur in [Bettin-Conrey-Farmer, Theorem 1](https://arxiv.org/pdf/1211.5191). Their norm asymptotic assumes RH and a reciprocal-zeta-derivative moment bound. Neither hypothesis is available as an independent supplier here. Only the explicitly stated classical prime-error transfer is used in E3; no external full-norm conclusion is imported.
+
+### I. Interpretation And Two-Day Continuity
+
+The successful change is quantitative but limited: exact interpolation was imposing a drift cost that need not be paid on the whole first-N source. Giving that interpolation up admits a controlled coefficient family. The surviving obstruction is prime fluctuation orthogonal to a scalar slope; scalar optimization alone cannot improve its arithmetic exponent. This directs future work toward actual new coefficients or signed arithmetic, not further optimization of one probe.
+
+All seven Nov 5/6 reports were retrieved. Applicable latest summaries, continuation/proof sections and review decisions were read; unrelated numerical appendices were not rerun. Nov 6 Coordinator is only PARTIAL at intake, so its completed synthesis is TODAY=PENDING and the verified Nov 5 synthesis is YESTERDAY=CARRY_FORWARD. All other current role reports are available at their recorded scopes. No missing scheduled work or review is invented.
+
+Nov 5 Analytic SP1-SP5 have Referee-5 independent paper acceptance. Referee-8's relaxed-moment solver and head/probe tradeoff are separately authored paper inputs, reconstructed here; PROJECT is a whole-block calculation, not a claim that R8's lower certificate was attained. Coordinator C58-C61's fixed finite-mixture theorem remains separately review-pending and is not a hypothesis in this proof. The morning CODIV FP1-FP5 retain their own pending review status.
+
+Current other routes remain distinct: Owner DR1-DR5 supplies chronological non-divisor prime allocation on a proper dense rectangle, not a NYMAN upper premise; Wheel CP1-CP4 has Referee acceptance for its coherent CORR4 weighted-energy scope, with only sampling formalized in #1097; Census GM1-GM3 distinguishes finite three-edit graph capacity from frozen matching extension. Nov 5 Owner MC2 and Census JL1-JL5 retain their mean-square/finite scopes, and Wheel PE1-PE4 plus Referee-11 retain the accepted odd-boundary matching scope. None is silently transferred to the present residue basis.
+
+External inbox blob **038018145c0fddb2f6306c0712373adf9cd1ea52** is unchanged, with no post-Oct-18 entry. EXT-20261018-PNT's actual-prime and boundary requirements remain valid but give no new NYMAN norm supplier; EXT-20261014-5's conditional-versus-unconditional distinction is preserved. Historical routing language in that inbox does not override current main.
+
+### J. Specialist Handoffs
+
+| Role | Exact requested action |
+| --- | --- |
+| Adversarial Referee | Independently audit RM2's VBOUND, transition split, two-band mass and first-N accounting; then RM3's exact J-normalized cancellation, arbitrary-test selection and all-scale Mellin continuation. Keep the small-cutoff counterexamples and source-specific scope. |
+| Coordinator | Record a changed, quantitatively paid NYMAN prefix family, not a new endpoint. Keep the old exact-head supplier retired at its scope. The new 3/4 prefix is baseline-equivalent through RM3, and the full norm still has UNPAID. Do not make this the team's compulsory route. |
+| Lean Verification | After independent qualification and utility review, RM1's explicit moment identity and PROJECT may be finite interfaces. RM2/RM3 require genuine analysis, not assumed norm bounds. Do not create another algebra-only PR merely to count a theorem; no source change is requested before review. |
+| Prime Census | No wider norm fit is requested. A changed experiment should compare FAMILY against a new low-coefficient rule on the full head, both correction bands, N<m<=T, and a certified infinite tail. The exact code below provides source regressions and null-direction controls. |
+| Owner Payment | No prime-occurrence allocation or native VF covariance map is asserted. The usable principle is to remove a real drift only together with the leakage it creates; its numerical constants here belong solely to NYMAN. |
+| Finite Wheel | No CORR4 or MU-LIFT transfer is asserted. Preserve complete return and your protected rotation; the after-N U_N term is an explicit example of why an admitted finite identity does not erase a later source. |
+
+### K. First Independently Missing Analytic Theorem
+
+For FAMILY, a uniform baseline-size bound for UNPAID is still missing. Proving that would finish the displayed 3/4-scale full-family budget, but would not by itself beat the established 7/8 boundary or establish density.
+
+For an actual new exponent, the minimal necessary restriction exposed by this run is an independently proved improvement of the complete pre-block residual, after scalar projection, below the inherited exponent 2b_0-1 where b_0 is the genuinely available zero/Mertens boundary. At the coarse 7/8 benchmark, E_pre=O_epsilon(N^(3/4-eta+epsilon)) would force a zero boundary <=7/8-eta/2 by RM3. This is a target-strength arithmetic input, NOT claimed easier or supplied. An improved coefficient construction with a separate complete norm consumer remains a distinct legitimate route. The unrestricted full-basis NYMAN problem is not refuted.
+
+Highest-value next NYMAN action: investigate a genuine change to low coefficients that controls the signed prime-fluctuation component and its entire later return. Do not repeat the exact-head pole obstruction, solve only another scalar probe, or call the baseline 1/20 design-loss removal a new arithmetic exponent.
+
+### L. Resume Capsule And Material Source Ledger
+
+```text
+RUN: 20261106-analytic-2; scheduled 09:09:02 EST; RUN_ID_UNAVAILABLE.
+MAIN: 4a6e6b8c1a81f6dd8b8bc0cfad123bbc2a56188a.
+POLICY: NO_PIGEONHOLING_ROUTE_SELECTOR_V1 / SEARCH_BROAD.
+ROUTE: NYMAN, original nymanResidue/nymanFlatCoefficient.
+RESUMED: accepted SP1-SP5; separately scoped Referee-8/R8.
+NEW: RM1 explicit delta=V(H) family and whole-block projection;
+     RM2 complete first-N envelope; RM3 defect-free prime probes;
+     RM4 remote tail; RM5 falsifiers; RM6 exact finite checks.
+PAID: head leakage, pre-transition, first N incl. both correction bands;
+      tail after N^(5/4), all at stated baseline scale.
+UNPAID: full middle N<m<=N^(5/4); any genuinely improved arithmetic input.
+FULL NORM: not shown small, bounded, or vanishing.
+NEW ENDPOINT GAIN: UNKNOWN / NONE_ESTABLISHED; canonical VF remains OPEN.
+REVIEW: SELF_AUDIT; independent RM review PENDING; NOT_FORMALIZED.
+CI: #1093 exact dedicated log and standard axioms freshly inspected;
+    tested flat-return blob equals main. No new Lean execution.
+CHECKPOINT: 7ff81b8669d64f1fcc4b59fc2f4cd3155a843962;
+    blob d9345dd78233f61f51b1081705b045e004e381a4; exact readback PASS.
+ROTATION: Nov5 OAI-NNS, Nov6 CODIV, this NYMAN invocation.
+NEXT PROTECTED: OAI-NNS; resume actual-row/source question, not tiny slots.
+NEXT NYMAN: new low-coefficient arithmetic with full return; not scalar tuning.
+PUBLICATION: final commit/readback receipt follows actual verification.
+```
+
+| Material main source | Blob SHA |
+| --- | --- |
+| AGENTS.md | 547dda0d9456e7a4e1165dc72d59da6f70d5c023 |
+| CURRENT_PROOF_CONTRACT.md | 7c4ac83a1ec1a4144e1bd691391ed4244f1cc27c |
+| docs/RHLEAN_INDEPENDENT_MULTIFRONT_NO_PIGEONHOLING_20261104.md | ffd8f1c65cc4da656174956d4e03b48bea46768b |
+| docs/RHLEAN_NATIVE_SQUARE_CLOCK_AGENT_DIRECTIVE_20261029.md | 4fbab59cc6fcc33a4f4e7a8ef447b2f7947b53dd |
+| research/NYMAN_HIGH_COEFFICIENT_INVARIANT_20261104.lean | 2da630c1d5fb9302e2097ec1e170cf41c2b40609 |
+| research/NYMAN_FLAT_TAPER_RETURN_20261104.lean | 2d23721027ecc44e85b7add02fc632b482f03352 |
+| research/NYMAN_CORRECTION_ENERGY_20261105.lean | e5453cd32c3c4ebf9ebf41927bcb92e534b2ece7 |
+| research/NYMAN_BEURLING_POSITIVE_RESIDUE_ATTACK_2026_10_15.md | b2775c892edffe920a101651eef6f3581c73c9d4 |
+| research/MERTENS_CONVERSE_IDENTIFICATION.lean | 768c8255850bf4074aff265c3fe17a1f5c43979b |
+| research/oai_434/VF919NativeSevenEighthsReplay.lean | 111c933a7ca15647105ce6a4d0f3cbfc3cde81f4 |
+| research/oai_434/VF919NativeStrictMertens.lean | b33a4883e1ddb0551b0f11f062bce46680d87450 |
+| research/VF_919_OPENAI_434_UNCONDITIONAL_SQUARE_BLOCK_COVARIANCE_20261019.lean | 89a689238dba61a93cc4ec8a4d8a206cfb4ef755 |
+| research/VF_CANONICAL_SQRT_TWO_VON_KOCH.lean | 79030d70e8d3e0d08eef9bac53fef95c36eca2fb |
+
+Original declarations: [complete arbitrary-defect return](https://github.com/OVVO-Financial/RH_Lean/blob/4a6e6b8c1a81f6dd8b8bc0cfad123bbc2a56188a/research/NYMAN_FLAT_TAPER_RETURN_20261104.lean), [residue definitions](https://github.com/OVVO-Financial/RH_Lean/blob/4a6e6b8c1a81f6dd8b8bc0cfad123bbc2a56188a/research/NYMAN_HIGH_COEFFICIENT_INVARIANT_20261104.lean), [existing native 7/8 source](https://github.com/OVVO-Financial/RH_Lean/blob/4a6e6b8c1a81f6dd8b8bc0cfad123bbc2a56188a/research/oai_434/VF919NativeSevenEighthsReplay.lean), [existing exponent translator](https://github.com/OVVO-Financial/RH_Lean/blob/4a6e6b8c1a81f6dd8b8bc0cfad123bbc2a56188a/research/MERTENS_CONVERSE_IDENTIFICATION.lean).
+
+| Continuity report | Nov 5 blob | Nov 6 intake blob |
+| --- | --- | --- |
+| Coordinator 00; 90 listing matches | be661bb2ed2830fc4aeddf14713455e550d982cc | ed98da5ddf755803c0fb9249ccf5bdb58f59658c |
+| Owner | 39665b5b28fc48378519ab9d56cee8df4d3e2681 | fd30796d1b10e58e694f1d85252dac3cd8099a94 |
+| Analytic | 9490aa2eecafcd19d8007043cc5f978fe421a7c9 | 8ad0bdd80168555773271bbc70cda5c78746a4b4 |
+| Wheel | afc85d800c47f82f2db634591a7798005cb668de | d7bf40e297ed87f0899f759fa7aab7f577e134ed |
+| Census | 24fcd6a631eca9ae44238d927215f49e1d8a174f | dfe20627512b4ad1fe62c83bbb2e0412390c100f |
+| Referee | 789ed87021fe98963c244a8d0c9075638e76be43 | 01cf41cbc62f430f9034870509f6b3947866a4e9 |
+| Lean | 5e0ecdd8f08c2e19b4614f00c1a5657f58722344 | 7138b713a44f514ade3a64db44268c1934b215d0 |
+
+Pre-publication freshness check at 2026-11-06T14:46:14Z: main remains 4a6e6b8c1a81f6dd8b8bc0cfad123bbc2a56188a; the complete current Nov 6 report directory matches the intake ledger except for this report's verified checkpoint. The external inbox blob remains 038018145c0fddb2f6306c0712373adf9cd1ea52. PR #1097 remains the sole open PR at the same head and nondraft status. Coordinator's completed synthesis is still TODAY=PENDING; no later handoff has been invented.
+
+### Reproducibility Appendix - Complete RM6 Verifier
+
+The code below is the executed own-report verifier, not a repository proof-source modification. Run with Python 3; no third-party package is required.
+
+```python
+"""Exact finite source checks for the Nov 6 relaxed-moment NYMAN packet."""
+
+from fractions import Fraction as F
+from math import isqrt
+from functools import lru_cache
+
+
+def clean(x):
+    return {k: v for k, v in x.items() if v}
+
+
+def add(*xs):
+    out = {}
+    for x in xs:
+        for k, v in x.items():
+            out[k] = out.get(k, F(0)) + v
+    return clean(out)
+
+
+def scale(x, c):
+    return clean({k: v * c for k, v in x.items()})
+
+
+ONE = {0: F(1)}
+
+
+@lru_cache(None)
+def factors(n):
+    out = {}
+    d = 2
+    while d * d <= n:
+        while n % d == 0:
+            out[d] = out.get(d, 0) + 1
+            n //= d
+        d += 1
+    if n > 1:
+        out[n] = out.get(n, 0) + 1
+    return out
+
+
+def log(n):
+    return {p: F(e) for p, e in factors(n).items()}
+
+
+def mu(n):
+    ff = factors(n)
+    return 0 if any(e > 1 for e in ff.values()) else (-1) ** len(ff)
+
+
+def mangoldt(n):
+    ff = factors(n)
+    return {next(iter(ff)): F(1)} if len(ff) == 1 else {}
+
+
+def kernel(B, k):
+    return scale(add(log(B), scale(log(k), -1)), mu(k))
+
+
+def V(B):
+    return add(ONE, *(scale(kernel(B, k), -F(1, k))
+                      for k in range(1, B + 1)))
+
+
+def tail(B, m):
+    return add(*(scale(kernel(B, k), m // k) for k in range(B + 1, m + 1)))
+
+
+def square(x):
+    out = {}
+    for k, v in x.items():
+        for j, w in x.items():
+            key = tuple(sorted((k, j)))
+            out[key] = out.get(key, F(0)) + v * w
+    return clean(out)
+
+
+def energy(values, lo, hi):
+    return add(*(scale(square(values[m]), F(1, m * (m + 1)))
+                 for m in range(lo, hi + 1)))
+
+
+def construct(N, H, delta):
+    K = N // 6
+    ell = add(log(N), scale(log(H), -1))
+    ff = {k: scale(add(log(N), scale(log(max(H, k)), -1)), mu(k))
+          for k in range(1, N + 1)}
+    u = add(*(scale(ff[k], F(1, k)) for k in ff))
+    total = add(*ff.values())
+    z = add(u, scale(delta, -1))
+    w = add(scale(ell, 2), total, scale(delta, -1))
+    I1, I2 = range(3 * K + 1, 4 * K + 1), range(5 * K + 1, 6 * K + 1)
+    s1, s2 = sum((F(1, k) for k in I1), F(0)), sum((F(1, k) for k in I2), F(0))
+    assert s1 - s2 >= F(1, 20)
+    A = scale(add(z, scale(w, -s2 / K)), 1 / (s1 - s2))
+    Z = scale(add(scale(w, s1 / K), scale(z, -1)), 1 / (s1 - s2))
+    hh = {k: A if k in I1 else Z if k in I2 else {} for k in range(2, N + 1)}
+    numer = {k: add(hh[k], scale(ff[k], -1)) for k in hh}
+    assert add(*(scale(hh[k], F(1, k)) for k in hh)) == z
+    assert add(*hh.values()) == w
+    assert add(*(scale(numer[k], F(k - 1, 2 * k)) for k in hh)) == ell
+    return ell, hh, numer
+
+
+def residual_numerator(ell, numer, m):
+    return add(ell, *(scale(v, -F(m % k, k)) for k, v in numer.items()))
+
+
+def g(v, a, b):
+    if not a <= v <= b:
+        return F(0)
+    u = (v - a) / (b - a)
+    return F(630, 1) / (b - a) * u**4 * (1 - u)**4
+
+
+def probe(N, H, values, a, b):
+    gg = {m: g(F(m, N), a, b) for m in range(N + 1)}
+    J = sum(gg.values(), F(0)) / N
+    P = add(scale(ONE, -1), *(scale(mangoldt(n), gg[n] / N) for n in range(1, N + 1)))
+    Q = add(*(scale(kernel(H, k), F(1, k) -
+                    sum((gg[j * k] for j in range(1, N // k + 1)), F(0)) / N)
+              for k in range(1, H + 1)))
+    L = add(*(scale(values[m], (gg[m] - gg[m + 1]) / N)
+              for m in range(1, N)))
+    return J, add(V(H), P, Q), L
+
+
+@lru_cache(None)
+def log_interval(n):
+    if n == 0:
+        return F(1), F(1)
+    e = n.bit_length() - 1
+    ratio = F(n, 2**e)
+    def series(x):
+        t = (x - 1) / (x + 1)
+        lo = 2 * sum((t**(2*j+1) / (2*j+1) for j in range(48)), F(0))
+        err = 2*t**97 / (97*(1-t*t))
+        return lo, lo + err
+    l2, u2 = series(F(2))
+    lo, hi = series(ratio)
+    return lo + e*l2, hi + e*u2
+
+
+def interval(poly):
+    lo = hi = F(0)
+    for (i, j), c in poly.items():
+        a, b = log_interval(i)
+        x, y = log_interval(j)
+        lower, upper = a*x, b*y
+        if c >= 0:
+            lo += c*lower
+            hi += c*upper
+        else:
+            lo += c*upper
+            hi += c*lower
+    return lo, hi
+
+
+def run():
+    counts = dict(cases=0, full_returns=0, drift_returns=0, head=0,
+                  probe_identities=0, projected_squares=0)
+    failures = dict(omitted_N_tail=0, omitted_correction=0, false_exact_head=0,
+                    J_replaced_by_one=0)
+    fixtures = []
+    for N in (6, 12, 18, 24, 30, 42, 60, 90, 120):
+        h45 = next(h for h in range(1, N + 1) if (h + 1)**5 > N**4)
+        for H in sorted({2, 3, isqrt(N), min(h45, N // 2), N // 2}):
+            if not 2 <= H <= N // 2:
+                continue
+            K = N // 6
+            aa = sum((F(m, m + 1) for m in range(K, 3*K)), F(0))
+            us = {m: tail(H, m) for m in range(1, 3*N + 1)}
+            star = scale(add(*(scale(us[m], F(1, m + 1))
+                               for m in range(K, 3*K))), 1 / aa)
+            minimum = add(energy(us, K, 3*K-1), scale(square(star), -aa))
+            energies = {}
+            for name, delta in (('exact', {}), ('drift', V(H)), ('projected', star)):
+                ell, hh, cc = construct(N, H, delta)
+                values = {m: residual_numerator(ell, cc, m) for m in range(1, 3*N+1)}
+                for m, value in values.items():
+                    corr = add(*(scale(v, m // k) for k, v in hh.items()))
+                    returned = add(scale(delta, m), tail(N, m), scale(us[m], -1), corr)
+                    assert value == returned, (N, H, name, m)
+                    counts['full_returns'] += 1
+                    failures['omitted_N_tail'] += bool(tail(N, m))
+                    failures['omitted_correction'] += bool(corr)
+                    if m <= H:
+                        assert value == scale(delta, m)
+                        counts['head'] += 1
+                        failures['false_exact_head'] += bool(value)
+                    if name == 'drift' and m < N // 2:
+                        psi = add(*(mangoldt(j) for j in range(1, m+1)))
+                        saw = add(*(scale(kernel(H, k), F(m % k, k)) for k in range(1, H+1)))
+                        expected = add(scale(ONE, m), scale(psi, -1), scale(log(H), -1), scale(saw, -1))
+                        assert value == expected
+                        counts['drift_returns'] += 1
+                pp = [probe(N, H, values, *ab) for ab in
+                      [(F(1, 6), F(1, 3)), (F(1, 4), F(1, 2))]]
+                for J, W, L in pp:
+                    assert W == add(scale(delta, J), scale(L, -1))
+                    failures['J_replaced_by_one'] += W != add(delta, scale(L, -1))
+                    counts['probe_identities'] += 1
+                J1, W1, L1 = pp[0]
+                J2, W2, L2 = pp[1]
+                assert add(scale(W1, J2), scale(W2, -J1)) == add(scale(L1, -J2), scale(L2, J1))
+                ep = energy(values, K, 3*K-1)
+                assert ep == add(minimum, scale(square(add(delta, scale(star, -1))), aa))
+                counts['projected_squares'] += 1
+                energies[name] = (ep, energy(values, 1, N), energy(values, N+1, 3*N))
+            counts['cases'] += 1
+            for name in ('drift', 'projected'):
+                pre_diff = interval(add(energies[name][0], scale(energies['exact'][0], -1)))
+                prefix_diff = interval(add(energies[name][1], scale(energies['exact'][1], -1)))
+                if prefix_diff[0] > 0 or pre_diff[0] > 0:
+                    fixtures.append((N, H, name,
+                                     'pre_increases' if pre_diff[0] > 0 else 'pre_not_certified_increase',
+                                     'prefix_increases' if prefix_diff[0] > 0 else 'prefix_not_certified_increase',
+                                     float(pre_diff[0]), float(prefix_diff[0])))
+    assert all(failures.values())
+    null = {7: F(7), 8: F(-16), 9: F(9)}
+    assert sum(null.values()) == sum((v/k for k, v in null.items()), F(0)) == 0
+    assert all(sum((v*F(m % k, k) for k, v in null.items()), F(0)) == 0 for m in range(1, 7))
+    assert -sum((v*F(7 % k, k) for k, v in null.items()), F(0)) == 7
+    print('Exact checks:', counts)
+    print('Negative controls detected:', failures)
+    print('Certified failures of automatic norm improvement:', fixtures[:8])
+    print('Null-direction control: (7,-16,9) at (7,8,9), first changed numerator +7 at m=7.')
+    print('All identities use rational prime-log vectors; sign checks use rational log enclosures.')
+    print('No infinite norm, global exponent, or Lean execution is certified by this program.')
+
+
+if __name__ == '__main__':
+    run()
+```
