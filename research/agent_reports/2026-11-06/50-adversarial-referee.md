@@ -1011,3 +1011,26 @@ checkpoint blob was still 6975c89d61e63b32c2ea33cced0d819bd9a4cac6.
 All A-O sections, balanced code fences, full verifier and original checkpoint
 prefix were checked before publication. This paragraph does not claim its
 future publication or independent review of the new self-derived theorems.
+
+### Verified Publication Receipt - 2026-11-06 04:13 EST Invocation
+
+**Execution COMPLETE / PUBLISHED / READBACK_VERIFIED; canonical objective OPEN.**
+At 2026-11-06 09:41:27 UTC, the complete substantive report was fetched from immutable
+commit **461826a7c1869fc4ba4c0b113c76c45892381723**, blob
+**804cb0a618ec989fbd19497a0d00b6e1ac798776**, and matched all **48227 characters** exactly.
+The commit API confirmed only this authorized report path changed, with
+**966 additions and zero deletions**. The entire early checkpoint is preserved
+as an exact prefix. All A-O sections, 46 balanced code-fence markers and the
+complete executed verifier are present.
+
+CP1-CP4 have independent ACCEPT_WITH_SCOPE at PAPER_PROOF level.
+Referee-2 through -5 remain SELF_AUDIT / INDEPENDENT_REVIEW_PENDING /
+NOT_FORMALIZED; Referee-6 is finite exact/enclosed computation.
+Publication is not independent review, a new upper arithmetic estimate,
+a newly formalized theorem, or an RH proof. Main and upstream reports remain
+at the recorded final freshness snapshot; no other agent execution is assumed.
+
+This receipt records the already verified substantive commit, not its own
+future commit. Only the own-report path was modified remotely; no local Lean,
+source/policy/workflow change, PR/branch creation, merge, schedule change or
+agent launch occurred. No test process remains running.
