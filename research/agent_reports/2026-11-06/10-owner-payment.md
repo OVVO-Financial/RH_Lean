@@ -1197,3 +1197,28 @@ print(json.dumps({'checks': dict(checks), 'controls': controls, 'samples': sampl
   "scope": "Exact finite identities only. No zeta-zero computation or asymptotic inference."
 }
 ```
+
+
+### Verified Publication Receipt - 20261106-owner-1
+
+**COMPLETED / PUBLISHED / READBACK_VERIFIED**, 2026-11-06 00:29 EST
+(05:29 UTC). This closes the checkpoint and final synthesis above.
+
+Substantive publication commit **6182f404f2a8b81392a11ceb60585ce06006384b**,
+report blob **d9fae603119c939b4c0f5eafdd5085a445b2e516**. The commit was fetched:
+only this authorized daily Owner report changed, with 1,097 additions and no
+deletions. Immutable-commit readback matched all **52,487 characters** exactly
+and preserved the complete early checkpoint. The result includes A-K sections,
+the full executed verifier, both preregistered tests, all output and balanced
+fenced blocks.
+
+At final status refresh, #1096 remained the sole open PR, non-draft and unmerged
+at ecf701ff2fea1de52e505ee34048a2b3c220f0fc. The latest main check remained
+1667c3cf9b4e898bb9afd62ec48e24610b2156ab. No new upstream November 6 report
+was present at the last directory check. No test session remains running.
+
+BT1-BT2 are paper-level inherited-input consequences; RZ1 is the exact response
+identity; RZ2-RZ3 are paper-level structural proofs with independent review
+PENDING; FT1 is finite exact verification. None is newly PROVED_IN_LEAN.
+No independent complete-endpoint exponent gain or RH proof is asserted.
+Next protected Owner route: VF-LOW.
