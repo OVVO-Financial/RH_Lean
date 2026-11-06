@@ -27,7 +27,7 @@ private theorem nyman_null_sum (f : Nat -> Real) :
     Finset.sum (Icc 2 12) (fun k => nymanMomentNullDirection k * f k) =
       7 * f 7 - 16 * f 8 + 9 * f 9 := by
   norm_num [Finset.sum_Icc_succ_top, nymanMomentNullDirection]
-  <;> ring
+  ring
 
 theorem nyman_null_perturb_off_support (h : Nat -> Real) (t : Real)
     (k : Nat) (hk : k <= 6 ∨ 12 < k) : nymanNullPerturb h t k = h k := by
@@ -50,7 +50,7 @@ theorem nyman_null_perturb_mean (c : Nat -> Real) (t : Real) :
       nymanNullPerturb c t k * (((k : Real) - 1) / (2 * k))) =
     Finset.sum (Icc 2 12) (fun k => c k * (((k : Real) - 1) / (2 * k))) := by
   norm_num [nymanNullPerturb, nymanMomentNullDirection, Finset.sum_Icc_succ_top]
-  <;> ring
+  ring
 
 theorem nyman_null_residual (c : Nat -> Real) (t : Real) (m : Nat) :
     nymanResidual 12 (nymanNullPerturb c t) m = nymanResidual 12 c m -
@@ -76,7 +76,7 @@ theorem nyman_null_residual_seven (c : Nat -> Real) (t : Real) :
     nymanResidual 12 (nymanNullPerturb c t) 7 = nymanResidual 12 c 7 + 7 * t := by
   rw [nyman_null_residual]
   norm_num [nymanResidue]
-  <;> ring
+  ring
 
 /-- One genuine nonnegative cell already prevents a uniform later-energy bound. -/
 theorem nyman_null_finite_energy_unbounded (c : Nat -> Real)
@@ -93,7 +93,8 @@ theorem nyman_null_finite_energy_unbounded (c : Nat -> Real)
       Finset.sum (Icc 1 T) (fun m =>
         nymanResidual 12 (nymanNullPerturb c t) m ^ 2 /
           ((m : Real) * (m + 1))) := by
-    simpa using (Finset.single_le_sum
+    simpa only [Nat.cast_ofNat, show (7 : Real) * (7 + 1) = 56 by norm_num]
+      using (Finset.single_le_sum
       (f := fun m : Nat => nymanResidual 12 (nymanNullPerturb c t) m ^ 2 /
         ((m : Real) * (m + 1)))
       (fun m _ => div_nonneg (sq_nonneg _) (by positivity))
@@ -112,7 +113,7 @@ theorem nyman_flat_null_perturb (H : Nat) (hH : 1 <= H) (hHN : H < 12)
   funext k
   unfold nymanFlatCoefficient nymanNullPerturb
   field_simp [hs]
-  <;> ring
+  ring
 
 /-- Original flat coefficients, with the complete early residual and both
 moments fixed, admit arbitrarily large complete finite energy after admission. -/
