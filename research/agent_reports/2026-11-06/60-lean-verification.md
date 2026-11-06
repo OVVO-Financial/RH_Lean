@@ -519,3 +519,16 @@ Publication history before this final synthesis:
 Each was read back at its immutable commit. This final append will also be
 verified by immutable-commit readback before publication is reported as
 COMPLETED.
+
+## Publication Receipt - 2026-11-06T05:43:31-05:00
+
+Research reporting: **COMPLETED / PUBLISHED / READBACK_VERIFIED**.
+The substantive final synthesis was committed as
+[`6aae611ca918371145e753bf27b59ee1fe6679ea`](https://github.com/OVVO-Financial/RH_Lean/commit/6aae611ca918371145e753bf27b59ee1fe6679ea),
+blob `f744cea8f39eb362e2ddecf751e6667c51c1d20a`. An immutable-commit fetch returned the exact
+submitted text, and commit metadata confirmed that only this authorized
+daily report changed. All earlier checkpoints and failed-CI history were
+preserved. This receipt records that completed verification; it does not
+claim human merge, a new independent review of the enlarged domain, or
+closure of the global signed/RH objective. PR #1097 remains review-ready
+at `bc727dc9f7dd655fdd2addc943b246ad70ef576d` with all 13 checks green.
