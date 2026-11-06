@@ -1034,3 +1034,44 @@ This receipt records the already verified substantive commit, not its own
 future commit. Only the own-report path was modified remotely; no local Lean,
 source/policy/workflow change, PR/branch creation, merge, schedule change or
 agent launch occurred. No test process remains running.
+
+
+## Scheduled NYMAN Referee Checkpoint - 2026-11-06 12:03 EST Invocation
+
+Actual configured trigger: 2026-11-06T12:03:01-05:00, America/New_York.
+RUN_ID_UNAVAILABLE. This is a distinct scheduled continuation, not a revision
+of the earlier CORR4 investigation. Status: PARTIAL / IN_PROGRESS.
+
+Pinned main: 4a6e6b8c1a81f6dd8b8bc0cfad123bbc2a56188a; AGENTS blob
+547dda0d9456e7a4e1165dc72d59da6f70d5c023; CURRENT_PROOF_CONTRACT blob
+7c4ac83a1ec1a4144e1bd691391ed4244f1cc27c; independent routing policy
+ffd8f1c65cc4da656174956d4e03b48bea46768b.
+deployment_ack=NO_PIGEONHOLING_ROUTE_SELECTOR_V1; eta_gate=SEARCH_BROAD.
+Canonical actual-prime VF square von Koch statement remains OPEN.
+
+Selected route: NYMAN. Review 20261106-analytic-2/RM1-RM5 at report blob
+b075be67af6294e41f6eb232f611c208799c5e04, following yesterday's accepted
+SP1-SP5 and Referee-8 moment-relaxation work. Reconstruct the original
+residue source, complete return, first-N estimate, arbitrary-defect paired
+probes and remaining middle interval. Review is proof-aware, not blind.
+
+Original investigation: test whether the explicit drift-removing two-band
+family necessarily incurs a later return cost, or whether an independently
+proved bound pays that interval. Keep every correction, U_N, U_H, head
+leak and mixed term. No endpoint gain, new theorem or executed experiment
+is claimed at this checkpoint.
+
+Two-day reports for all seven roles were retrieved at agent-reports
+6e7d1945bf48a68111fbca5517d233cc134ffd96. Today's Coordinator contains only a partial
+checkpoint: completed synthesis TODAY=PENDING; Nov 5 verified committed
+synthesis YESTERDAY=CARRY_FORWARD. Other available work is used only at its
+actual recorded scope. External inbox blob
+038018145c0fddb2f6306c0712373adf9cd1ea52 has no post-Oct-18 entry.
+No missing agent execution is inferred.
+
+Live main merged #1096; sole open PR #1097 is nondraft at
+bc727dc9f7dd655fdd2addc943b246ad70ef576d. Detailed source and exact-head
+workflow/axiom verification are PENDING for this continuation.
+No local Lean or remote source/branch/PR/workflow changes are authorized.
+Only this own daily report is being updated; earlier results are preserved.
+Final A-O synthesis, independent computation and publication receipt pending.
