@@ -1,0 +1,100 @@
+name: Mertens odd-boundary prime escape
+
+on:
+  pull_request:
+    paths:
+      - 'research/MERTENS_ODD_BOUNDARY_PRIME_ESCAPE_20261105.lean'
+      - 'research/MERTENS_HEATH_BROWN_SIGNED.lean'
+      - 'research/MERTENS_FINITE_PREFIX_EXTENSION.lean'
+      - 'RHLean/Proof/AdaptivePrimeMatching.lean'
+      - 'RHLean/Proof/GlobalPrefixCarrierOthello.lean'
+      - 'scripts/mertens_odd_boundary_regression.py'
+      - 'scripts/audit_euler_fractional_axioms.py'
+      - '.github/workflows/mertens-odd-boundary.yml'
+      - 'lean-toolchain'
+      - 'lake-manifest.json'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: mertens-odd-boundary-${{ github.head_ref || github.ref_name }}-${{ github.event.pull_request.head.sha || github.sha }}
+  cancel-in-progress: true
+
+jobs:
+  odd-boundary-proof:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - name: Exact physical-carrier and strict-cutoff regressions
+        run: python3 scripts/mertens_odd_boundary_regression.py
+      - name: Verify compiler and Mathlib pins
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(cat lean-toolchain)" = 'leanprover/lean4:v4.34.1'
+          grep -q 'd13f23b723b8a846827a245b89c10fc7d3f11612' lakefile.lean
+      - name: Pinned Lean and cached Mathlib
+        uses: ./.github/actions/lean-setup
+      - name: Restore native compiled prerequisites
+        uses: ./.github/actions/lean-compiled-cache
+      - name: Compile exact warning-fatal import closure
+        uses: ./.github/actions/research-compile
+        with:
+          build-library: 'true'
+          targets: research/MERTENS_ODD_BOUNDARY_PRIME_ESCAPE_20261105.lean
+      - name: Audit exact theorem types and standard axioms
+        id: axioms
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+          import subprocess
+          from scripts.audit_euler_fractional_axioms import audit_log
+          module = 'research.MERTENS_ODD_BOUNDARY_PRIME_ESCAPE_20261105'
+          names = (
+              'primeEscapePart_two_Ioc',
+              'sum_moebius_eq_oddSquarefreeUpper',
+              'semiprimeEscapePartners_moebius',
+              'semiprimeEscape_factor_unique',
+              'semiprimeEscapePartners_subset_upper',
+              'topHalfPrimes_subset_upper',
+              'exists_prime_semiprime_residual',
+              'prime_semiprime_residual_complete_square',
+              'heathBrownLift_sum_eq_prime_semiprime_residual',
+              'upper_half_static_partner_eq',
+          )
+          expected = tuple('RHLean.Proof.' + name for name in names)
+          commands = [f'import {module}', 'set_option autoImplicit false']
+          for name in expected:
+              commands.extend((f'#check {name}', f'#print axioms {name}'))
+          Path('mertens-odd-boundary-audit.lean').write_text('\n'.join(commands) + '\n')
+          process = subprocess.run(
+              ['lake', 'env', 'lean', '-DwarningAsError=true', 'mertens-odd-boundary-audit.lean'],
+              stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, check=False)
+          Path('mertens-odd-boundary-audit.log').write_text(process.stdout)
+          print(process.stdout, end='')
+          if process.returncode:
+              raise SystemExit(process.returncode)
+          audit_log(process.stdout, expected)
+          source = Path('research/MERTENS_ODD_BOUNDARY_PRIME_ESCAPE_20261105.lean').read_text()
+          source = re.sub(r'/-.*?-/', '', source, flags=re.S)
+          source = re.sub(r'--.*', '', source)
+          if re.search(r'\b(sorry|admit|axiom|native_decide|unsafe)\b', source):
+              raise SystemExit('Forbidden proof shortcut')
+          print('PASS: ten exact declarations; standard axioms; no proof shortcuts')
+          PY
+      - name: Preserve exact proof evidence
+        if: ${{ !cancelled() && steps.axioms.outcome != 'skipped' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: mertens-odd-boundary-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            mertens-odd-boundary-audit.lean
+            mertens-odd-boundary-audit.log
+            research/MERTENS_ODD_BOUNDARY_PRIME_ESCAPE_20261105.lean
+          if-no-files-found: error
