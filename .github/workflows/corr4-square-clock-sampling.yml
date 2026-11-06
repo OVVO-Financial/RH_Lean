@@ -1,0 +1,99 @@
+name: CORR4 square-clock sampling
+
+on:
+  pull_request:
+    paths:
+      - 'research/CORR4_SQUARE_CLOCK_SAMPLING_20261106.lean'
+      - 'research/CANONICAL_ROUGH_Q2_TAIL_REDUCTION.lean'
+      - 'RHLean/Proof/SignedTransportAmplificationAudit.lean'
+      - 'RHLean/Proof/SquareRootAncestryRoot.lean'
+      - 'RHLean/Analysis/SquarePrefixMertensBridge.lean'
+      - 'scripts/corr4_square_clock_regression.py'
+      - 'scripts/audit_euler_fractional_axioms.py'
+      - '.github/workflows/corr4-square-clock-sampling.yml'
+      - 'lean-toolchain'
+      - 'lake-manifest.json'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: corr4-square-clock-${{ github.head_ref || github.ref_name }}-${{ github.event.pull_request.head.sha || github.sha }}
+  cancel-in-progress: true
+
+jobs:
+  square-clock-proof:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - name: Exact sampling and moving-boundary regressions
+        run: python3 scripts/corr4_square_clock_regression.py
+      - name: Verify compiler and Mathlib pins
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(cat lean-toolchain)" = 'leanprover/lean4:v4.34.1'
+          grep -q 'd13f23b723b8a846827a245b89c10fc7d3f11612' lakefile.lean
+      - name: Pinned Lean and cached Mathlib
+        uses: ./.github/actions/lean-setup
+      - name: Restore native compiled prerequisites
+        uses: ./.github/actions/lean-compiled-cache
+      - name: Compile exact warning-fatal import closure
+        uses: ./.github/actions/research-compile
+        with:
+          build-library: 'true'
+          targets: research/CORR4_SQUARE_CLOCK_SAMPLING_20261106.lean
+      - name: Audit exact theorem types and standard axioms
+        id: axioms
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+          import subprocess
+          from scripts.audit_euler_fractional_axioms import audit_log
+          module = 'research.CORR4_SQUARE_CLOCK_SAMPLING_20261106'
+          names = (
+              'corr4SquareClock_bounds',
+              'corr4_parent_sampling_le',
+              'corr4_daughter_sampling_le',
+              'corr4_masked_daughter_sampling_le',
+              'corr4_mem_lowOwners_iff',
+              'corr4_lowOwner_sampling_le',
+              'rawQ2ChildCutoff_eq_squareEndpoint_of_dvd',
+              'corr4_lowOwner_first_admission',
+              'rawQ2ChildCutoff_first_admission',
+          )
+          expected = tuple('RHLean.Proof.' + name for name in names)
+          commands = [f'import \u00ab{module}\u00bb', 'set_option autoImplicit false']
+          for name in expected:
+              commands.extend((f'#check {name}', f'#print axioms {name}'))
+          Path('corr4-square-clock-audit.lean').write_text('\n'.join(commands) + '\n')
+          process = subprocess.run(
+              ['lake', 'env', 'lean', '-DwarningAsError=true', 'corr4-square-clock-audit.lean'],
+              stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, check=False)
+          Path('corr4-square-clock-audit.log').write_text(process.stdout)
+          print(process.stdout, end='')
+          if process.returncode:
+              raise SystemExit(process.returncode)
+          audit_log(process.stdout, expected)
+          source = Path('research/CORR4_SQUARE_CLOCK_SAMPLING_20261106.lean').read_text()
+          source = re.sub(r'/-.*?-/', '', source, flags=re.S)
+          source = re.sub(r'--.*', '', source)
+          if re.search(r'\b(sorry|admit|axiom|native_decide|unsafe)\b', source):
+              raise SystemExit('Forbidden proof shortcut')
+          print('PASS: nine exact declarations; standard axioms; no proof shortcuts')
+          PY
+      - name: Preserve exact proof evidence
+        if: ${{ !cancelled() && steps.axioms.outcome != 'skipped' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: corr4-square-clock-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            corr4-square-clock-audit.lean
+            corr4-square-clock-audit.log
+            research/CORR4_SQUARE_CLOCK_SAMPLING_20261106.lean
+          if-no-files-found: error
