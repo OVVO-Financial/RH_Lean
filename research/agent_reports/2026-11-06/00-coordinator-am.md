@@ -596,3 +596,10 @@ if __name__ == '__main__':
 ## Prepublication freshness
 
 At 2026-11-06T20:40:04Z the actual main still resolves to `25319eb07e6b2abf8b218671c55635127832b72a`. The only open PR remains [#1099](https://github.com/OVVO-Financial/RH_Lean/pull/1099), nondraft at `269ce7a77df7239099f8717390e3f951e81e95f0`, last updated 18:35:50Z. The reports branch is still this invocation's early-checkpoint commit `0f1a853dda7ad7c556fd8510489c6bbea2fe8f24`, so no newer specialist continuation has been missed between intake and this check. Only the two authorized Coordinator mirror paths will be changed. Final successful publication/readback is recorded separately below, after it actually occurs.
+
+
+## Verified publication receipt: 2026-11-06 15:13 EST invocation
+
+Verified at 2026-11-06T20:42:05Z: synthesis commit `a0a4290bfb03ff6290b599bfe9b8d59f27d1f4a9` is on `agent-reports`, committed at 20:41:45Z. Both authorized mirror paths read back exactly as the 52,532-byte intended report, with identical blob `41962e446f92f0018f46830c7c659d9a396ea2c5`. The commit changed only `research/agent_reports/2026-11-06/00-coordinator-am.md` and `research/agent_reports/2026-11-06/90-coordinator-pm.md`. Earlier checkpoint bytes were preserved. This receipt is appended to both mirrors together and is itself subject to final readback.
+
+Status for this actual 15:13 invocation: `COMPLETED / SYNTHESIS_PUBLISHED_AND_VERIFIED`. This supersedes its earlier IN_PROGRESS publication markers only; the historical morning checkpoint remains accurately recorded as partial. Mathematical status is unchanged: NS2 is a self-audited paper proof awaiting independent review, NS1 and the complete return are identities, NS5 is finite evidence, and no new RH or Mertens endpoint gain is claimed. All six specialists' available two-day reports were consumed, distinct handoffs were published, and no future execution or merge is represented as completed.
