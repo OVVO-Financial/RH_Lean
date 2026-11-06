@@ -2324,3 +2324,36 @@ if __name__ == '__main__':
   "scope": "Finite exact envelope/source/minimax checks only; no asymptotic-rate test."
 }
 ```
+
+
+
+### Verified Publication Receipt - 20261106-owner-2
+
+**COMPLETED / PUBLISHED / READBACK_VERIFIED**, 2026-11-06 08:37 EST
+(13:37 UTC). This closes the 08:09 VF-LOW checkpoint and the substantive
+A-K investigation above.
+
+Substantive publication commit **2a25c2c8517887c4f9f113e88ee4a0cbac25ba97**,
+report blob **c54ce6ff778f4d5c65326317bd3c54f7ad8a3b1a**. The commit was fetched
+and its changed-file list contains only this authorized daily Owner report.
+Immutable-commit readback matched all **108,549 characters** exactly and
+preserved every character of the prior **56,961-character** report, including
+the completed SAT turn and this invocation's early checkpoint. The A-K
+sections, preregistration, full executed verifier and final output are
+present; all 118 fenced-block delimiters are balanced.
+
+At the 13:37 UTC PR refresh, #1097 remained the sole open PR, non-draft,
+unmerged, at **bc727dc9f7dd655fdd2addc943b246ad70ef576d**. The latest actual
+main refresh remained **4a6e6b8c1a81f6dd8b8bc0cfad123bbc2a56188a**. Today's
+Coordinator synthesis remained PENDING at its last successful 13:29 UTC
+read. No unfinished experiment or local Lean process remains.
+
+DR1-DR5 are **PAPER_PROOF / SELF_AUDIT**, independent review PENDING;
+DR6 is **FINITE_COMPUTATION** and a scoped shortcut refutation;
+DR7 is **IDENTITY_ONLY**. The independently obtained
+`N^(21/20)/(log N)^4` bound is for the exact dense proper source.
+OPEN-VF-CR-DENSE, OPEN-VF-DR-SI and the complete canonical bound remain OPEN.
+No new PROVED_IN_LEAN result, VERIFIED_ETA or RH proof is asserted.
+Next protected actual Owner investigation: JOH, continuing MC1-MC5 and its
+source/sampling qualifications. This receipt records completed actions;
+it does not promise background execution.
