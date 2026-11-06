@@ -1687,3 +1687,561 @@ Original OAI pin: openai/math@1581d4cbdd69a0faf34b2089614fe2a814316a6a. Inspecte
 ### C-L. Pending Work
 
 OAI-NNS is due after today's CODIV FP1-FP5 and NYMAN RM1-RM6. eta_gate=SEARCH_BROAD; net new endpoint gain=UNKNOWN. Seek a source-qualified coefficient restriction with every row, correction mode, original mask, height, normalization, core/cap cross term and full return retained. Independent review and any new Lean formalization are PENDING. Next protected route after this attempt: CODIV.
+
+
+## 20261106-analytic-3: Annular Large-Cube Tail, Scheduled Continuation
+
+Invocation: 2026-11-06 17:11:01 EST, America/New_York; SCHEDULED; RUN_ID_UNAVAILABLE. This continuation preserves the preceding CODIV, NYMAN, and early OAI checkpoint. Research status: derivation and self-audit complete; independent review PENDING; new Lean verification NOT_PERFORMED. Publication status is recorded separately in the verified receipt.
+
+### A. Most Important Analytic Development
+
+**INDEPENDENT_COMPONENT_ADVANCE / PAPER_PROOF / INDEPENDENT_REVIEW_REQUIRED.** There is a useful quadratic-character estimate on the **actual all-selected numerator annulus**, without moving that annulus into the disjoint small-row ball of yesterday's CR1-CR3.
+
+For the exact corrected all-selected inverse row, retain only cube cofactors B with norm NB >= T0. Denote this contribution by B_high(z). For Q,U,T0 >= 1, the proof below gives
+
+```text
+sum_(0 < Nz <= Cq Q) |B_high(z)|^2
+  <<_epsilon A^2 (QU)^epsilon U (Q/T0^4 + sqrt(Q)/T0^3).       (AQ3)
+```
+
+Here U is the original completed scale, Q is the numerator norm scale, and A bounds the actual weighted selected-divisor mark, the fixed window, and the finite correction-character sum. For fixed original slot data, A is independent of Z and of the Mellin height t. All squareful numerator rows, repeated factors of B, selected-prime/cube overlaps, and zero masks are included.
+
+At the nominal all-selected scales U asymp Z^(7/6), Q asymp Z^(5/6), choosing T0=Z^(1/3) yields
+
+```text
+sum_actual_rows |B_high(z)|^2 <<_epsilon Z^(2/3+epsilon),
+sqrt(sum |B_high|^2)/sqrt(Q) <<_epsilon Z^(-1/12+epsilon).
+```
+
+This is a squared-energy saving of 1/6 for a **proper component**, not for the entire selected inverse row. The exact complementary small-cube source B_low remains. With the established full-source bound, its mixed term with B_high is O_t,epsilon(Z^(3/4+epsilon)); it is not discarded. Consequently this execution proves no new full LOW, Mertens, zero-free-boundary, or canonical VF exponent. Net new verified endpoint gain: **NONE ESTABLISHED**. The existing positive strict-slot improvement is preserved, not reset to zero.
+
+New claim IDs in this continuation:
+
+| ID | Content | Evidence |
+| --- | --- | --- |
+| 20261106-analytic-3/AQ1 | Exact original-row factorization after fixing I, including B=C L^2 masks | STRUCTURAL_IDENTITY; paper derivation from pinned definitions |
+| 20261106-analytic-3/AQ2 | Quadratic large-sieve transfer to arbitrary Eisenstein element rows | PAPER_PROOF; external unconditional theorem plus explicit transfer |
+| 20261106-analytic-3/AQ3 | Dyadic and tail mean-square bounds displayed above | PAPER_PROOF; new component estimate, self-audited |
+| 20261106-analytic-3/AQ4 | Physical exponents, retained cross-term bound, and scoped small-cube equivalence | PAPER_PROOF; equivalence part is TARGET_EQUIVALENT for this source, not a supplier |
+| 20261106-analytic-3/AQ5 | Exact mask/coherence counterexamples and finite algebra verifier | REFUTED shortcuts; FINITE_EXPERIMENT on declared domain |
+
+No claim of historical originality is made. These are new additions to this report's investigation, not newly Lean-certified theorems.
+
+### B. Current Mathematical Objective and Established Inputs
+
+Authority refreshed from actual main HEAD **d4df133117c5b58f90979d2eb680167ef37995cf**, tree **ddb733b8fa2ef7296e43b50ea1734c9a30e131fe**. Main was rechecked during final preparation and was unchanged. AGENTS blob **48b2a58ab5fcd402321a4dace511c7d54bf688a1**; CURRENT_PROOF_CONTRACT blob **7c4ac83a1ec1a4144e1bd691391ed4244f1cc27c**. The exact canonical objective is `RHLean.Analysis.VFCanonicalSquareVonKochStatement`: there exists C>=0 such that, for every natural R>=2, `abs(vfCanonicalSquareDefect R) <= C*R*log R`. It remains OPEN. Its source blob is **79030d70e8d3e0d08eef9bac53fef95c36eca2fb**.
+
+`baseline_ack=PAID_BASELINE_EXACT_CONSUMER_V1`, policy blob **13d58dd12d90fbf1160812c7c93442dc5d0576ac**. `deployment_ack=NO_PIGEONHOLING_ROUTE_SELECTOR_V1`, policy blob **ffd8f1c65cc4da656174956d4e03b48bea46768b**. This is the protected OAI-NNS turn after today's CODIV FP1-FP5 and NYMAN RM1-RM6. `eta_gate=SEARCH_BROAD`. Next protected substantive route: CODIV.
+
+The native 7/8 replay, its signed-prefix consequences, and the stronger verified strict-slot boundary remain ESTABLISHED_BASELINE. They were not rederived. The source comparator used here is the original `SevenEighths.ProbePhysical.low_selected_physical_energy` at `openai/math@1581d4cbdd69a0faf34b2089614fe2a814316a6a`: actual selected-inverse row energy at most `C*(1+abs(t))^degree*Z^(5/6+epsilon)` after choosing its internal epsilon sufficiently small. The source theorem's literal loss is 507 times its internal epsilon. No rounded-baseline comparison is advertised as a gain beyond the already stronger strict-slot result.
+
+`SOURCE_FIRST_VERSION=original-all-selected-low-inverse / fixed-column-quadratic-tail-v1`.
+
+| Improvement-packet field | This execution |
+| --- | --- |
+| Established input | Original `low_selected_physical_energy`, same fixed Hecke data, rows, weights, calibration and correction modes; paid native replay used only at its actual scope |
+| Proposed change | Control the NB>=T0 contribution on the original rows through quadratic cancellation in B |
+| First relevant loss | Freeze I and then use Minkowski over I; this costs `(sum_(NI<=2U/T^3) (NI)^(-1/2))^2 << U/T^3` |
+| Independent ingredient | Fixed-field quadratic large sieve, not an assumed OAI source gain |
+| Complete local return | B_low+B_high, all correction modes, square factors, masks and their mixed term retained |
+| Endpoint accounting | Tail energy 2/3 versus full-source comparator 5/6; normalized tail amplitude gain 1/12; full source still open |
+| First missing inequality | Coefficient-sensitive small-cube squared-source saving, stated in K |
+
+Relevant GitHub evidence was read, not triggered. The current open/draft PR searches at intake and final preparation returned none. Recent merges through #1099 were inspected. In particular, stale handoff prose calling #1085 or #1099 unmerged is superseded by actual merge metadata.
+
+| Existing evidence | Exact tested checkout and original source | Verified scope |
+| --- | --- | --- |
+| [Run 41898325686, job 126813711885](https://github.com/OVVO-Financial/RH_Lean/actions/runs/41898325686/job/126813711885), success | Synthetic merge **3b4c6872ca13838fb960f519b5473c109c6de28e**, PR head **6778fd4c25b0f369d311e6e71223e168e329b4bf**, OAI pin 1581d4c | Existing replay/strict-slot and actual-source audit outputs; standard logical axioms |
+| [Run 41872040501, job 126721440818](https://github.com/OVVO-Financial/RH_Lean/actions/runs/41872040501/job/126721440818), success | Synthetic merge **5722472b6f316619b98770dc2781a47f0f7b41fd**, PR head **7895272e5303ed0f4199d5b06b74786e22d31769**, OAI pin 1581d4c | Original tuple Gram and qualified moving-mass declarations, not a full endpoint improvement |
+| [Run 42271209683, job 128075944915](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42271209683/job/128075944915), success | Synthetic merge **55dc1c8db8fd8eb20f17859e4558b31a72a5caff**, PR head **269ce7a77df7239099f8717390e3f951e81e95f0** | Nine Nyman moment-null declarations; #1099 now human-merged at current main |
+
+Raw logs report `[propext, Classical.choice, Quot.sound]` for the audited declarations. The OAI jobs reused their validated analytic cache; this is not described as a new cold build. The main blobs of `VF919NativeSevenEighthsReplay.lean` (**111c933a7ca15647105ce6a4d0f3cbfc3cde81f4**) and `VF919OriginalLowTupleSignedGram.lean` (**dd2fde01ae6e2446da4e69b30f6fc80fcadb858d**) were separately refetched at the corresponding PR heads and match. These checks do not certify AQ1-AQ5 or assert that all current main modules were freshly rebuilt.
+
+### C. Analytic Mechanism Investigated
+
+Yesterday's `20261105-analytic-2/CR1-CR3` found that extracting selected cube factors and rebasing the energy theorem controls only a smaller row ball. At positive extracted length, the physical annulus eventually lies entirely outside it. That conclusion stands. Applying a quadratic large sieve directly to the resulting row-dependent residual coefficients was unjustified.
+
+The changed step is to **fix the original squarefree column I before estimating the cube cofactor B**. The sextic row factor belonging to I is then a common multiplier of modulus at most one. Cubing the remaining sextic factor belonging to B produces genuine quadratic residue characters. Every other factor becomes independent of the numerator row z. The necessary triangle loss over I is paid explicitly; it is affordable only when B is sufficiently large. This is not an all-B large-sieve claim and not another small-row rebase.
+
+The sole non-elementary new input is Goldmakher and Louvel, [A quadratic large sieve inequality over number fields, Theorem 1.1 and Section 2](https://arxiv.org/pdf/1112.1642), arXiv:1112.1642v2. For a fixed number field k, fixed modulus c, and a quadratic Hecke family, their theorem bounds the squarefree ideal character matrix by `(MN)^epsilon*(M+N)` in squared l2 norm, uniformly for M,N>=1 and arbitrary complex coefficients supported on squarefree ideals coprime to c. It is unconditional. We use its finite-dimensional dual as well. No numerical value or effective computational certificate for its implied constant is claimed, and no uniformity in a growing field or modulus is asserted.
+
+### D. Exact Formulation and Quantifiers
+
+Work in O=Z[omega], omega^2+omega+1=0, with absolute ideal norm NI and element norm Nz. All ideals below are nonzero. Fix the original Hecke character eta, finite exclusion set S containing `fixedBadPrimes`, calibration m, ray label sigma, finitely many correction characters chi with coefficients gamma_chi, and fixed compact window W supported in [1/2,2]. The actual W is `gaussianFixedWindow`; `W_t(x)=logPhase(t,log x)*W(x)` has the same support and supremum norm for every real t.
+
+Fix K and positive slot lengths ell_i with sum ell_i=1/6 before allowing Z to grow. The genuine disjoint supported prime-ideal pools satisfy `a*Z^ell_i <= NP <= b*Z^ell_i`, with fixed a,b>0, and the original slot weights have modulus at most one. This is the original nominal-slot specialization, not a claim for pools with no lower norm bound. Constants may depend on K, the ell_i, a,b, the fixed arithmetic data and window. There is no growing-K, shrinking-ell_i, or growing-conductor uniformity claim. The generic theorem below instead permits an explicitly supplied mark bound A.
+
+Let D_p be the actual squarefree product for one all-selected prime tuple p. Its complete weighted divisibility mark is
+
+```text
+M(I,B) = sum_p w(p;t) * 1_(D_p divides I B^3)
+       = product_i sum_(P in pool_i, P divides I B) w_i(P;t).   (D1)
+```
+
+This preserves multiplicity and overlaps between selected primes and B. No density substitution is used. On the window `NI*(NB)^3 <= 2U`, each slot contains at most `log(2U)/log(a*Z^ell_i)` distinct divisors of IB, once its denominator is positive. Thus |M(I,B)| is bounded by a constant depending only on the fixed slot data when U<=C*Z^c for fixed c. At small Z one may keep A explicit; no uniform small-Z asymptotic is asserted.
+
+Write `g(I)=squarefreeGaussCoefficient(I)`, `alpha(I)=angularFactor(primaryGenerator(I))`, and let `Psi0_chi=physicalRayPeriodicBase eta S hS sigma chi`. Define
+
+```text
+rho_I(z) = product_(P|I) actualSextic_P(z mod P),
+kappa_B(z) = product_P quadraticChar_P(z mod P)^(v_P(B)).
+
+a_(I,B) = sum_chi gamma_chi * M(I,B) * g(I)/sqrt(NI)
+          * Psi0_chi(primaryI) * conjugate(alpha(B))^3
+          * Psi0_chi(primaryB)^3 / NB
+          * 1_(IB coprime to (m))
+          * Vstar(W_t)(NI*(NB)^3/U).                         (D2)
+```
+
+Equivalently, the m-mask can remain in the original row homomorphism until it is extracted; terms killed by the base are still zero. The nonzero I are squarefree and supported away from 2 and lambda. The same is true of the prime support of B, with arbitrary exponents. The fixed calibration and original base ensure these exclusions, as recorded in G. All original Hecke and Gauss phases are retained in a_(I,B), with no assumptions on their signs or independence.
+
+By the norm-one squarefree Gauss formula and the norm-at-most-one source factors,
+
+```text
+|a_(I,B)| <= A/(sqrt(NI)*NB),
+a_(I,B)=0 unless U/2 <= NI*(NB)^3 <= 2U.                   (D3)
+```
+
+Here A can be taken as `sqrt(2)*sup|W| * sum_chi|gamma_chi| * sup|M|`, with harmless fixed source constants absorbed if a particular normalization requires them. In this normalization all displayed source factors have norm at most one. The bound is uniform in all real t.
+
+**AQ1.** The exact source and its truncations are
+
+```text
+B_total(z) = sum_I rho_I(z) sum_B a_(I,B) kappa_B(z),
+B_[T,2T)(z) = sum_I rho_I(z) sum_(T<=NB<2T) a_(I,B) kappa_B(z),
+B_low(z) = sum_I rho_I(z) sum_(NB<T0) a_(I,B) kappa_B(z),
+B_high(z) = sum_I rho_I(z) sum_(NB>=T0) a_(I,B) kappa_B(z).
+```
+
+All sums are finite by the compact window and positivity of nonzero ideal norms. Thus B_total=B_low+B_high exactly, without conditional rearrangement. The zero ideal terms vanish in the original definitions.
+
+**Generic AQ3 theorem.** For every epsilon>0 and fixed Cq>0 there exists C_epsilon,Cq such that, for every Q,U,T>=1, every finite coefficient array satisfying (D3), and arbitrary multipliers |rho_I(z)|<=1, the displayed quadratic-character polynomial satisfies
+
+```text
+sum_(0<Nz<=Cq Q) |B_[T,2T)(z)|^2
+ <= C_epsilon,Cq * A^2*(QU)^epsilon
+       * U*(Q/T^4 + sqrt(Q)/T^3).                         (D4)
+```
+
+The same bound holds for B_high with T replaced by T0>=1. The constant depends only on epsilon, Cq and the fixed Eisenstein field/bad-prime modulus; dependence on the original weights/window is explicit through A. Empty ranges contribute zero, including `2U/T^3<1`. Actual annular row sets are arbitrary subsets of this disk, so the estimate immediately applies to them. No row coprimality or squarefreeness assumption has been added.
+
+### E. Proof With All Square Parts Restored
+
+**AQ2, squarefree character matrix.** Fix a sufficiently deep modulus c supported at primes over 2 and 3 for the quadratic Fisher-Friedberg construction described in Section 2 of Goldmakher-Louvel. Choose its finitely many class-representative generators globally in O, possible because O is a PID. For squarefree A coprime to c, that construction gives a quadratic Kummer square class m_A with
+
+```text
+(m_A)=A*G_A^(-2),
+generator(A)=u_A*m_A*g_A^2,  u_A in O^x.
+```
+
+The second line follows by taking a generator g_A of the fractional ideal G_A. Its unit belongs to the six-element group O^x. In Kummer square classes, changing g_A does not change the square factor. For C coprime to Ac, the raw residue symbol therefore equals
+
+```text
+(generator(A)/C)_2 = (u_A/C)_2 * chi_A(C).                 (E1)
+```
+
+This is an identity of quadratic square classes; it does not require the chosen fractional generator to be an integral unit at every prime of C. Evaluating the associated unramified Kummer character removes the even valuation. If A and C share a prime, both extended characters are zero: the squarefree A factor belongs to the conductor outside c.
+
+Partition A by the finitely many possible u_A, absorb `(u_A/C)_2` into the C-coefficients, and use the dual large-sieve inequality. Its matrix is real quadratic, so conjugation in Hilbert-space duality changes nothing. It follows that, for M,N>=1,
+
+```text
+sum_(A squarefree, (A,c)=1, NA<=M)
+ |sum_(C squarefree, (C,c)=1, NC<=N) b_C*(generator(A)/C)_2|^2
+ <<_epsilon (MN)^epsilon*(M+N)*sum_C |b_C|^2.              (E2)
+```
+
+The finite unit partition is essential. Arbitrary primary-generator choices were not silently identified with a Hecke family. No modulus depending on I, B, z, U or Q has entered the large-sieve constant.
+
+**Both square decompositions.** Write B=C L^2 uniquely, with C squarefree. C and L need not be coprime. The exact character identity is
+
+```text
+kappa_(C L^2)(z) = kappa_C(z) * 1_(((z),L)=1).            (E3)
+```
+
+The mask is not replaced by one. For fixed I and L it is common to the entire inner C-sum, so removing the masked rows only enlarges that nonnegative energy.
+
+Every nonzero element row can be written, up to one of six units, as
+
+```text
+z = u*generator(E)*generator(A)*generator(D)^2,
+```
+
+where A is squarefree and coprime to c, E is a squarefree product of the fixed primes dividing c, and D is an arbitrary ideal. This follows by taking valuations modulo two; fixed generators for all prime ideals make the representation unambiguous up to u. It includes rows divisible by bad primes and arbitrary square factors. We have `NA <= Cq Q/(NE*(ND)^2)`. On these rows,
+
+```text
+kappa_C(z) = (u*generator(E)/C)_2
+             * (generator(A)/C)_2 * 1_((C,D)=1).          (E4)
+```
+
+For fixed u,E,D, both extra factors in (E4) are independent of A and can be inserted into b_C. The mask from L can be dropped at the outer nonnegative energy as above, while `1_((C,D)=1)` stays inside the coefficient. This prevents an incorrect squareful-row version of (E2).
+
+**Fixed I,L estimate.** On `T<=NB<2T`, the C-length is at most `2T/(NL)^2`. If this is below one the sum is empty. Otherwise (D3) and the elementary Eisenstein ideal count give
+
+```text
+sum_C |a_(I,C L^2)|^2 << A^2/(NI*T*(NL)^2).
+```
+
+Apply (E2) with M at most `Cq Q/(NE*(ND)^2)` and N=`2T/(NL)^2`. Sum over u,E,D. The elementary sums used are
+
+```text
+# {D: ND<=x} << x,
+sum_D 1/(ND)^2 < infinity,
+# {D: ND<=sqrt(Cq Q)} << sqrt(Q).
+```
+
+Their constants are absolute for this fixed field: every ideal is principal with six generators, and disk lattice counting is O(x) in norm. This yields
+
+```text
+sum_(0<Nz<=Cq Q)
+ |1_(((z),L)=1) * sum_C a_(I,C L^2) kappa_C(z)|^2
+ <<_epsilon A^2*(QT)^epsilon/NI
+       * [Q/(T*(NL)^2) + sqrt(Q)/(NL)^4].                (E5)
+```
+
+The sqrt(Q) term is the cost of all numerator square parts. It is not erased using a squarefree-row density heuristic.
+
+**Sum L, then I.** The l2 triangle inequality, `NL<=sqrt(2T)`, and
+
+```text
+sum_(NL<=sqrt(2T)) 1/NL << log(2T),
+sum_L 1/(NL)^2 << 1
+```
+
+show that the fixed-I energy is at most
+
+```text
+C_epsilon*A^2*(QT)^epsilon/NI
+  * [(Q/T)*log(2T)^2 + sqrt(Q)].                          (E6)
+```
+
+The rho_I multiplier has modulus at most one and is common before estimating the fixed-I polynomial. Minkowski over I is now legitimate, with the full cost
+
+```text
+NI <= V=2U/T^3,
+sum_(NI<=V) 1/sqrt(NI) << sqrt(V)  (V>=1).
+```
+
+Squaring gives the factor O(U/T^3). Absorb the displayed logarithm and the small auxiliary large-sieve power into `(QU)^epsilon`, choosing the internal epsilon first. This proves (D4). For the tail, sum the l2 bounds over T=2^j T0. On the nonempty finite support T<=(2U)^(1/3), the epsilon factor is globally bounded by `(QU)^epsilon`; the remaining powers decrease geometrically as T^(-2) and T^(-3/2) in norm. Their sum is bounded by a constant times the first dyad. AQ3 follows.
+
+All limits used in bounding positive ideal sums are absolutely convergent where asserted. The harmonic L-sum has an explicit logarithmic loss, not claimed absolute convergence. The original source itself is finite throughout.
+
+### F. Quantitative Comparison and Complete Local Return
+
+Set `U<=Cu*Z^(7/6+delta)` and `Q=Cq0*Z^(5/6)`, with fixed positive Cu,Cq0. At `T0=Z^tau`, AQ3 gives powers
+
+```text
+max(2+delta-4*tau, 19/12+delta-3*tau) + epsilon.          (F1)
+```
+
+For delta=0, this particular bound beats 5/6 exactly when tau>7/24. This is the frontier of this argument, **not a theorem that smaller cube ranges cannot cancel**. At tau=1/3, (F1) is `max(2/3,7/12)=2/3`. If delta is fixed positive it is charged explicitly as +delta; the usual source tolerance may be chosen small enough to fit the final epsilon. No fixed positive delta is silently absorbed into every epsilon.
+
+The normalized inverse-row amplitude includes division by sqrt(Q). Thus a 1/6 energy saving gives a 1/12 amplitude saving for the tail. Multiplication by the nominal central Gaussian factor Z^(3/16) would give a tail factor Z^(5/48), not a full central LOW bound. This is only the arithmetic exponent calculation at that component: HIGH, principal, remote, exceptional, height integration and complementary small cubes have not all been improved.
+
+For each fixed t, let `E=||B_total||_2^2` on the identical physical row set and use the already paid bound `E<=C*(1+abs(t))^D*Z^(5/6+epsilon)`. The exact decomposition and AQ3 imply
+
+```text
+||B_low||_2 <= ||B_total||_2 + ||B_high||_2,
+abs(2 Re <B_low,B_high>)
+ <= 2 ||B_low||_2 ||B_high||_2
+ <<_epsilon (1+abs(t))^(D/2)*Z^(3/4+epsilon)
+             + Z^(2/3+epsilon),
+E = ||B_low||_2^2 + O_epsilon((1+abs(t))^(D/2)*Z^(3/4+epsilon)). (F2)
+```
+
+The tail bound is uniform for all real t; the polynomial height factor in (F2) comes from the existing full-source estimate. On compact height ranges it is a fixed constant. A growing-height or integrated endpoint claim must carry that factor through the actual kernel; it is not certified by a fixed-height statement.
+
+At fixed original data and compact heights, for any prescribed `0<nu<1/6`, the bound `||B_total||_2^2 << Z^(5/6-nu+epsilon)` holds if and only if the same bound holds for `||B_low||_2^2`. Proof: use the norm triangle inequality in both directions and AQ3; its tail exponent 2/3 is smaller. This equivalence is classified as a source-local TARGET_EQUIVALENT localization, not a new proof of the small-cube estimate. In particular, (F2) alone should not be used to infer equivalence beyond its 3/4 error; the two-sided norm argument is what proves the stated nu<1/6 range.
+
+### G. Original-Carrier Bridge and Source Hashes
+
+The source is the literal `lowSelectedInverseRow` with J=empty, not a fantasy prime sequence or an arbitrary outer Gram. The original J is the **unselected** subset. For J=empty the outer tuple is a singleton, so the outer cross Gram is zero. This run instead opens the inner completed row.
+
+The bridge is termwise: `lowSelectedInverseRow_correction` expands the exact finite correction-character sum; `InverseMoment.markedCompletedT` inserts `1_(D_p|I B^3)` into `CompletedGauss.summand`; `rowTwist` and `idealRowHom` separate the fixed m^6 mask, the squarefree I sextic row and the cubed B row. `canonicalSextic_pow_three_quadratic` identifies the latter with the actual quadratic residue character. `calibration_generator_bad` says lambda and 2 divide m, so a surviving I or B is coprime to the fixed bad-prime modulus. The primary-generator, squarefree Gauss and window identities give (D2)-(D3). The finite sums and their restrictions then give AQ1 exactly.
+
+Material original source files, all fetched at **openai/math@1581d4cbdd69a0faf34b2089614fe2a814316a6a**, under `lean/OAI/NumberTheory/DirichletL/`:
+
+| File | Blob SHA | Use |
+| --- | --- | --- |
+| Detector/LowSelectedSum.lean | a54eb9ec6a5beb0db57ce9baa658718aab808af1 | Exact selected/correction row |
+| Detector/LowSelectedBound.lean | 695d81de46038693b9c701d55e81fe43d18d52d2 | Paid original energy and window support |
+| Detector/LowActualEnergies.lean | 4e810c0fd2eec79fb94e35aa4ccffb2592a899b2 | Actual numerator row set and source norm |
+| Detector/LowPhysicalInverseBound.lean | 58bc871a18d9baa43d1684209027b8a2ebed87d6 | sqrt(Q) normalization and physical scale |
+| Reflection/LowOriginalEnergy.lean | 3b6c81973bd5ef24c9aa8a7403f8f71663bd1da8 | Existing original carrier estimate |
+| Descent/Completion.lean | 17f1f38b6485d1960f07b9a622757d48db6680d1 | Finite marked completion and cube cofactor |
+| Descent/IdealMasks.lean | dad6b8dcc8f08649fb95f1fb5dbe8aded3d38791 | Marked ideal restrictions |
+| Detector/LowSlotMarks.lean | 4dbdd321565d5bc171f5766608a367d2ee1da15a | Actual selected tuple marks |
+| Detector/LowSlotPolynomial.lean | b1dcb5a1e51afad1d39ccd91fa58a764e39629ba | Literal selected weight, ideal and normalized polynomial |
+| Eisenstein/CompactEnergyFamilies.lean | 559d3a8e1e44cefe3b6f31ea120866470e5db6cd | localRowValue, idealRowHom, rowTwist |
+| Arithmetic/IdealMobius.lean | 6c1098ed3f3018397fd965d6a250db7092e86de7 | primaryGenerator, squarefreeGaussCoefficient, cubeWeight, columnWeight, summand |
+| CubicSieve/GaussNorm.lean | 05c0f466bc9f73b95bdeac6575766b136fa8e3a5 | gaussTwo_norm_one |
+| CubicSieve/RowCaps.lean | ad015cabb098f02b0630bb739b4bea6c0ec12af6 | actualSextic is the canonicalSextic abbreviation |
+| GaussSum/SexticNormalization.lean | 85788ebc6a7d751a4388844d594c50a902121aee | canonicalSextic_pow_three_quadratic |
+| RowCompletion/PolynomialHeight.lean | 3a6f4e7903d2e832e562687bccf13a2fce551aed | normTwistedSource |
+| Detector/LowCompletion.lean | 770004bf3e53474841f72a53a3a9b017288f48a5 | Original puncture/mask return |
+| Detector/LowPuncture.lean | 9e644ec9384147800db0fdb75f1edc269de5ee2c | Calibration contains 2 and lambda; zero masks |
+
+Direct declaration locations: [exact correction row](https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/NumberTheory/DirichletL/Detector/LowSelectedSum.lean), [original coefficient and cofactor definitions](https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/NumberTheory/DirichletL/Arithmetic/IdealMobius.lean), [cubed sextic character](https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/NumberTheory/DirichletL/GaussSum/SexticNormalization.lean), and [physical normalized inverse consumer](https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/NumberTheory/DirichletL/Detector/LowPhysicalInverseBound.lean).
+
+This is a paper-level combination of inspected source formulas with an external theorem. The newly combined estimate is not in the inspected compiled declarations. No full integrated same-probe endpoint transfer is claimed. The nonempty-J moving-mass results remain useful at their independently verified scope but do not pay the J=empty small-cube remainder.
+
+### H. Falsification, Novelty Check and Finite Evidence
+
+The proposed estimate was challenged in the following ways.
+
+1. **Row-dependent coefficients.** The large sieve cannot be applied before freezing I if the residual coefficients vary with z. AQ3 freezes I and pays its entire norm-sum cost. No independence between the genuine arithmetic phases is assumed.
+2. **Squareful B.** `kappa_(L^2)(z)` is a coprimality mask, not identically one. For a prime above 7, B=P^2 and z=7 give zero, while z=1 gives one. AQ1 retains this mask.
+3. **Coherent distinct cofactors.** For conjugate primes P,Pbar above 7, B=P^2 and Pbar^2 both have norm 49 and the same quadratic phase at z=1. With coefficients 1/49, the squared sum is 4/2401, not the diagonal-only 2/2401. This refutes a naive all-cofactor orthogonality shortcut, not the full genuine-source target.
+4. **Squareful rows and bad primes.** The decomposition (E4) retains the C-D mask and finite bad-prime squarefree factor. The sqrt(Q) term in (E5) remains.
+5. **Uniformity.** Fixed slot lower norms bound the mark; without them A must remain explicit. All conductors and number fields are fixed. Delta and height losses are displayed, not hidden in epsilon or O(1).
+6. **Physical geometry.** The bound holds on the disk containing the true annulus. It does not rely on the smaller, physically disjoint rebased ball refuted by CR3.
+7. **Complete square.** (F2) retains B_low, B_high and their full cross term. A tail bound is not presented as a bound on the full source.
+8. **Novelty and circularity.** The Nov5 extraction/rebase report, current exact Gram source, source policies and today/yesterday relevant no-go handoffs were checked. Current-repository searches for this quadratic-tail argument/7/24 threshold found no duplicate. Search results were used only for discovery; material formulas were refetched at their pinned source. No global novelty guarantee is claimed. The independent input is the quadratic large sieve; AQ4's remaining localization is explicitly equivalent at its scope.
+
+Executed exact verifier: Python standard library (`fractions`, `itertools`, `math`), no floating arithmetic. Script SHA-256 **587ce2b18324143e7b7e99fc47d7a886f741dc9c05da50d4be4fe3b7fc087570**. `python -m py_compile` also passed. Full reproducible source appears in the appendix to this continuation.
+
+Domain: seven actual good Eisenstein prime ideals, both roots over 7,13,19 and the inert ideal over 5; ideal exponent vectors in {0,1,2,3}^7 of norm<=400; squarefree columns of norm<=25; all 432 nonzero rows a+b*omega with norm<=120 (the box [-15,15]^2 contains that disk). The packet coefficients are an explicitly bounded test class, **not numerical evaluations of the physical Gauss/Hecke coefficients**. They test the exact factorization, zero masks, marked multiplicity and quadratic polarization. Three of four packets are nonempty; the fourth empty packet is retained as an edge case.
+
+```text
+ideals=37; columns=8; rows=432
+squarepart_checks=15984; nontrivial_zero_masks=468
+packet_checks=1728; nonempty_packets=3; full_square_checks=1728
+rational_threshold_checks=1176
+coherent_square_energy=4/2401; false_diagonal_energy=2/2401
+energy_power=2/3; normalized_amplitude_gain=1/12
+PASS; finite algebra only, no asymptotic numerical certificate
+```
+
+The finite check neither proves the large sieve nor certifies its implied constant, the infinite-scale power saving, or the full OAI integral. Those claims stand or fall on the written proof and original-carrier bridge, now offered for independent review.
+
+### I. Conceptual Interpretation
+
+The cube cofactor has two roles: its norm shortens the remaining squarefree column, and its cubed row character is quadratic. These roles can be used together without moving the physical rows. The large sieve becomes legitimate after fixing the column; its aggregation loss is then affordable above a quantified cube threshold. This isolates a genuinely bounded tail of the original annular source.
+
+The outstanding cancellation is concentrated in the small-cube portion. This does not show that portion is large, positive, or impossible to estimate. It identifies where another arithmetic mechanism is needed and prevents spending further effort on the already excluded small-row rebase. The argument deliberately does not demand a false diagonal cancellation from square cofactors.
+
+### J. Specialist Handoffs
+
+- **Adversarial Referee:** Independently audit AQ2's fixed-modulus Kummer/unit transfer and duality, the extension to all element rows, the C-L and C-D masks, and the order of the two Minkowski inequalities. Then audit the exact D2 coefficient against the pinned source, the fixed-slot mark bound and all height/delta losses. Review AQ3 as a component theorem; do not accept it as a full endpoint gain. No independent review has yet occurred.
+- **Lean Verification:** Do not encode AQ3 as a new assumption feeding an endpoint theorem. Wait for independent mathematical qualification. If qualified, identify whether the fixed-field quadratic large sieve or its exact Eisenstein specialization already has a suitable compiled declaration; formalization requires that actual dependency, not only an algebraic wrapper. Existing #1099 status is now merged and verified at its listed CI scope.
+- **Owner Payment:** The exact small-cube source in K retains the original selected divisibility mark. Seek a restriction on its signed I-coupling, not a replacement by divisor density. No rational-Mobius-to-Hecke identification is assumed or requested as a universal prerequisite.
+- **Finite Wheel:** Investigate whether selected incidence gives an I-B restriction within NB<Z^(1/3) strong enough to reduce the paid column aggregation loss. Fixed positive slot-length assumptions and every overlap must remain explicit.
+- **Prime Census:** No broad rerun requested. A decisive next test, after Referee qualification, would compare actual source coefficients on a small admitted packet with the exact B_low/B_high split, full correction modes and cross term. Test the prediction that only the tail is uniformly paid by this mechanism; use exact/certified Gauss values. Do not interpret the generic verifier here as an actual physical-energy census or fit an asymptotic exponent from it.
+- **Coordinator:** Record AQ3 as INDEPENDENT_COMPONENT_ADVANCE pending independent review, not NEW_VERIFIED_ENDPOINT_GAIN. Keep the nine-route policy and protected rotation. Next Analytic turn is CODIV; on the next OAI turn resume K rather than rebuilding the native 7/8 replay, outer Gram, or CR3 rebase obstruction.
+
+### K. First Independently Missing Analytic Theorem
+
+With exactly the original fixed data, admitted slot pools, actual numerator rows, correction modes and coefficients (D2), prove some fixed `nu>0` (one may restrict to `nu<1/6`) such that
+
+```text
+sum_(z in original lowNumeratorRows)
+ |sum_I rho_I(z) sum_(NB<Z^(1/3)) a_(I,B) kappa_B(z)|^2
+ <<_epsilon (1+abs(t))^D * Z^(5/6-nu+epsilon),             (K1)
+```
+
+uniformly in the original permitted scale/slot parameters with all stated fixed-data dependence. For integrated use, D and the original height kernel must be compatible and actually carried through the consumer. At this source, K1 is a localized equivalent route to a small fixed full-row gain, not an independently supplied theorem. No proof of K1 is claimed.
+
+The present fixed-I method alone yields no such estimate for the whole truncated range. The next genuinely different input must exploit the original I-coefficient/row coupling, a sufficient cancellation in the fully integrated physical pairing, or another source-preserving mechanism. A theorem on arbitrary bounded I-coefficients cannot simply be assumed. The full principal/HIGH/remote/exceptional return would still have to preserve a net improvement before any global eta could be declared.
+
+### L. Resume Capsule, Continuity and Publication Discipline
+
+Resumed: `20261105-analytic-2/CR1-CR3`, not the accepted earlier extraction identities as new work. Preserved today's `20261106-analytic-1/FP1-FP5` and `20261106-analytic-2/RM1-RM6`. New: AQ1-AQ5 above. Current mathematical state: AQ3 is a complete paper argument subject to independent review; K1 OPEN; full endpoint OPEN; no new Lean theorem. No unsupported publication or PR claim is substituted for mathematics.
+
+All seven role reports for Nov5 and Nov6 were retrieved at reporting snapshot **25e59d80af2d33d9e975c5bee46a6112c43aaab6**. Applicable latest mathematical/handoff sections were read, with no unchanged large computations rerun. `TODAY=AVAILABLE`; `YESTERDAY=CARRY_FORWARD`. A final reporting-tree refresh at **f91f1fe9cc4b9e900b4ef3a3fc151917fdbdfe0d** confirmed that all other Nov6 handoff blobs and the external inbox were unchanged; the only updated own-report blob was the verified early checkpoint.
+
+| Role | Nov5 blob | Nov6 intake blob |
+| --- | --- | --- |
+| Coordinator 00 (90 mirror identical) | be661bb2ed2830fc4aeddf14713455e550d982cc | 2802753059cc55d1446087bc40266576214a9638 |
+| Owner | 39665b5b28fc48378519ab9d56cee8df4d3e2681 | 1856a96aaaa9d86a5ee2d59ffe50ced936443fa6 |
+| Analytic | 9490aa2eecafcd19d8007043cc5f978fe421a7c9 | b075be67af6294e41f6eb232f611c208799c5e04 |
+| Wheel | afc85d800c47f82f2db634591a7798005cb668de | be64667df80910bc9cc8fa3034aeeb579df5829a |
+| Census | 24fcd6a631eca9ae44238d927215f49e1d8a174f | 77777fae1f4273c76e0c1064f4529740cabfbb8b |
+| Referee | 789ed87021fe98963c244a8d0c9075638e76be43 | 68ada01df5bd54ef07d22f1ebc4009ef9dd7e5b4 |
+| Lean | 5e0ecdd8f08c2e19b4614f00c1a5657f58722344 | 5a08dc2ae99956bc020a57ad0cf51c67e6d0a7a5 |
+
+Relevant carried-forward facts: Coordinator's NS1-NS5 periodic-variance result is not an actual finite-window Nyman saving; Owner's MS3 preserves the strict incoming boundary in its zero-density consequence; Wheel's PB1-PB4 root-band component still requires compensating mixed terms; Census's HC donor-collision correction preserves the factor 16 and does not supply an OAI coefficient estimate; Referee accepted today's scoped RM1-RM5, not AQ1-AQ5. None of these reports is silently assumed to have established K1.
+
+External inbox blob **038018145c0fddb2f6306c0712373adf9cd1ea52** was read; no post-Oct18 entry was present. `EXT-20261018-PNT` retains the genuine-discrepancy/full-return requirement. `EXT-20261014-5` remains an unconditional strict-fraction no-go at its stated scope, not a ban on the present source-preserving tail estimate. Current live routing supersedes old administrative directions.
+
+The early IN_PROGRESS append was committed at **f91f1fe9cc4b9e900b4ef3a3fc151917fdbdfe0d**, blob **9baf6c2844652f630eb8a44f1f20e6f01def9ed4**, and immutable readback matched exactly. Final publication must fetch the latest file blob, preserve all prior bytes, append this continuation, and verify the resulting immutable commit before reporting completion. Only the authorized dated analytic report is written remotely. No Lean file, shared policy, other report, issue, branch, PR, workflow, schedule or agent launch is changed.
+
+Next run: obey the protected CODIV rotation and resume the first unsupported CODIV source step from FP1-FP5. Next OAI run: consume the independent review of AQ2-AQ3 if available, then attack K1 or a genuinely different complete integrated mechanism; do not repeat this tail proof without a changed question.
+
+### Reproducible Finite Verifier
+
+The exact executed source follows. Its role and domain are limited as stated in H.
+
+```python
+"""Exact algebra checks, not a numerical test of the physical Gauss integral."""
+
+from fractions import Fraction as F
+from itertools import product
+from math import prod
+
+
+# Elements a+b*omega, omega^2+omega+1=0, also represent exact Q(zeta_6).
+def mul(x, y):
+    a, b = x
+    c, d = y
+    return a*c-b*d, a*d+b*c-b*d
+
+
+def add(x, y):
+    return x[0]+y[0], x[1]+y[1]
+
+
+def scale(c, x):
+    return c*x[0], c*x[1]
+
+
+def norm(x):
+    return x[0]*x[0]-x[0]*x[1]+x[1]*x[1]
+
+
+def power(x, k, p=None):
+    result = (1, 0)
+    while k:
+        if k % 2:
+            result = mul(result, x)
+            if p:
+                result = tuple(v % p for v in result)
+        x = mul(x, x)
+        if p:
+            x = tuple(v % p for v in x)
+        k //= 2
+    return result
+
+
+roots = [(1, 0), (1, 1), (0, 1), (-1, 0), (-1, -1), (0, -1)]
+# The two roots retain distinct conjugate ideals of the same rational norm.
+primes = [(7, 2), (7, 4), (13, 3), (13, 9), (19, 7), (19, 11), (5, None)]
+norms = [p if r is not None else p*p for p, r in primes]
+
+
+def local(z, prime):
+    p, r = prime
+    if r is not None:
+        value = (z[0]+z[1]*r) % p
+        if value == 0:
+            return (0, 0)
+        value = pow(value, (p-1)//6, p)
+        k = next(k for k, x in enumerate(roots) if (x[0]+x[1]*r) % p == value)
+    else:
+        value = tuple(v % p for v in z)
+        if value == (0, 0):
+            return (0, 0)
+        value = power(value, (p*p-1)//6, p)
+        k = next(k for k, x in enumerate(roots) if tuple(v % p for v in x) == value)
+    return roots[k]
+
+
+def row(z, ideal):
+    result = (1, 0)
+    for e, prime in zip(ideal, primes):
+        result = mul(result, power(local(z, prime), e))
+    return result
+
+
+def ideal_norm(ideal):
+    return prod(n**e for n, e in zip(norms, ideal))
+
+
+ideals = []
+for es in product(range(4), repeat=len(primes)):
+    n = ideal_norm(es)
+    if n <= 400:
+        ideals.append((n, es))
+ideals.sort()
+columns = [(n, es) for n, es in ideals if n <= 25 and max(es) <= 1]
+rows = [(a, b) for a in range(-15, 16) for b in range(-15, 16) if 0 < norm((a, b)) <= 120]
+
+checks = 0
+squarepart_nontrivial = 0
+for _, es in ideals:
+    c = tuple(e % 2 for e in es)
+    l = tuple(e // 2 for e in es)
+    assert tuple(a+2*b for a, b in zip(c, l)) == es
+    for z in rows:
+        mask = int(all(e == 0 or local(z, p) != (0, 0) for e, p in zip(l, primes)))
+        direct = power(row(z, es), 3)
+        restored = scale(mask, power(row(z, c), 3))
+        assert direct == restored
+        checks += 1
+        squarepart_nontrivial += int(any(l) and mask == 0)
+
+# Generic bounded coefficients exercise the exact row algebra, not OAI's
+# actual Hecke/Gauss coefficient values or its asymptotic constants.
+packet_checks = 0
+nonempty_packets = 0
+mixed_checks = 0
+for U, T in [(200000, 32), (250000, 32), (1000000, 32), (1000000, 64)]:
+    terms = []
+    for ni, ii in columns:
+        for nb, bb in ideals:
+            if not (T <= nb < 2*T and U <= 2*ni*nb**3 <= 4*U):
+                continue
+            # One selected slot; multiplicity is exactly a divisor-mark sum.
+            mark = sum(int(ii[j]+3*bb[j] > 0) for j in [0, 1, 2])
+            if mark:
+                phase = roots[(sum(ii)+2*sum(bb)) % 6]
+                terms.append((ii, bb, scale(F(mark, ni*nb), phase)))
+    nonempty_packets += bool(terms)
+    for z in rows:
+        original = (F(0), F(0))
+        grouped = (F(0), F(0))
+        low = (F(0), F(0))
+        high = (F(0), F(0))
+        for ii, bb, coef in terms:
+            term = mul(coef, mul(row(z, ii), power(row(z, bb), 3)))
+            original = add(original, term)
+            cc = tuple(e % 2 for e in bb)
+            ll = tuple(e // 2 for e in bb)
+            mask = int(all(e == 0 or local(z, p) != (0, 0) for e, p in zip(ll, primes)))
+            grouped = add(grouped, scale(mask, mul(coef, mul(row(z, ii), power(row(z, cc), 3)))))
+            if ideal_norm(bb) < 49:
+                low = add(low, term)
+            else:
+                high = add(high, term)
+        assert original == grouped == add(low, high)
+        # Twice the real part of low*conj(high) in the omega basis.
+        a, b = low
+        c, d = high
+        cross = 2*a*c-a*d-b*c+2*b*d
+        assert norm(original) == norm(low)+norm(high)+cross
+        packet_checks += 1
+        mixed_checks += 1
+
+# A square in the cube cofactor yields a coprimality mask, not one.
+p2 = (2, 0, 0, 0, 0, 0, 0)
+assert power(row((7, 0), p2), 3) == (0, 0)
+assert power(row((1, 0), p2), 3) == (1, 0)
+# Conjugate squared ideals have the same quadratic phase at the unit row.
+conj_p2 = (0, 2, 0, 0, 0, 0, 0)
+x = scale(F(1, 49), power(row((1, 0), p2), 3))
+y = scale(F(1, 49), power(row((1, 0), conj_p2), 3))
+assert norm(add(x, y)) == F(4, 2401)
+assert norm(x)+norm(y) == F(2, 2401)
+
+# Exact source-to-power bookkeeping, including the retained root loss.
+q, u, tau = F(5, 6), F(7, 6), F(1, 3)
+dyad_energy = max(q+u-4*tau, q/2+u-3*tau)
+assert dyad_energy == F(2, 3)
+assert q-dyad_energy == F(1, 6)
+assert (dyad_energy-q)/2 == -F(1, 12)
+assert F(3, 16)-F(1, 12) == F(5, 48)
+assert (q+dyad_energy)/2 == F(3, 4)
+thresholds = 0
+for den in range(2, 50):
+    for num in range(1, den):
+        t = F(num, den)
+        exponent = max(q+u-4*t, q/2+u-3*t)
+        assert (exponent < q) == (t > F(7, 24))
+        thresholds += 1
+
+print({"ideals": len(ideals), "columns": len(columns), "rows": len(rows),
+       "squarepart_checks": checks, "nontrivial_zero_masks": squarepart_nontrivial,
+       "packet_checks": packet_checks, "nonempty_packets": nonempty_packets,
+       "full_square_checks": mixed_checks, "rational_threshold_checks": thresholds,
+       "coherent_square_energy": "4/2401", "false_diagonal_energy": "2/2401",
+       "energy_power": str(dyad_energy), "normalized_amplitude_gain": "1/12",
+       "status": "PASS; finite algebra only, no asymptotic numerical certificate"})
+```
