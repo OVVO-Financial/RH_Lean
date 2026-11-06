@@ -1245,3 +1245,1082 @@ Retain the true rectangle F_N={qps: 3N/2<q<=7N/4, sqrt(N)<p<s<=11sqrt(N)/10, all
 
 ### D-K. Pending
 Independent derivation, falsification, quantitative consequence, precise specialist handoffs and verified final publication are pending. No new theorem, Lean certification, global exponent, canonical bound or RH proof is asserted. Only this existing daily Owner report will be changed remotely; no agents, proof branches, PRs, source, policies, other reports or schedules are created or changed.
+
+
+## VF-LOW Dense Chronological Response - 20261106-owner-2
+
+### A. Most Important Mathematical Development
+
+**PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED.**
+The dense three-prime rectangle that defeats bounded ancestor-only payment in
+20261105-owner-2/CR3 nevertheless admits a simultaneous allocation from genuine
+earlier **non-divisor** prime occurrences, with an independently proved uniform
+unfinished signed response
+
+```text
+|Q_N(t)| <= C N^(21/20)/(log N)^4,
+Q_N(t) <= 0,
+total fraction used from each prime <= 1/ceil(log N)^2.       (DR4)
+```
+
+The constants and sufficiently-large threshold are independent of N and of the
+physical cut t. This is a bound for the WHOLE selected rectangle, not separate
+q-families spending the same prime repeatedly. It follows from a factor-sensitive
+local demand bound, the classical Baker-Harman-Pintz short-interval prime lower
+bound, and an exact chronological minimax certificate. No probabilistic
+independence or inherited Mertens exponent is assumed.
+
+The bound is **not** O(N log N): its ratio to that tolerance is
+N^(1/20)/(log N)^5, which tends to infinity. Thus OPEN-VF-CR-DENSE remains OPEN,
+and the complete canonical VF target remains OPEN. An upper bound above the
+tolerance is not a lower bound or a refutation of the desired estimate.
+
+The minimax certificate closes the formerly missing finite matching and boundary
+bridge for this proper class. A new inverse restriction also shows that a
+canonical-scale failure must occur in a genuinely prime-poor interval with
+
+```text
+c_K N (log N)^4 log log N <= H < 2*4^(21/40) N^(21/20),
+pi(x+H)-pi(x) <= C_K H/(log N log log N).                    (DR5)
+```
+
+This necessary configuration has not been ruled out. The conceptual advance is
+to locate the missing arithmetic in **short intervals containing these actual
+factor triples and too few fresh prime occurrences**, rather than in repeated
+ancestral credit or an assumed favorable local covariance.
+
+Claim ledger: DR1 PAPER_PROOF (finite structural minimax); DR2 PAPER_PROOF
+(root/physical boundary comparison); DR3 PAPER_PROOF (independent local demand
+estimate); DR4 PAPER_PROOF (independent quantitative proper-source bound);
+DR5 PAPER_PROOF (inverse restriction); DR6 FINITE_COMPUTATION and REFUTED
+(the zero-root-deficit implies zero physical reserve shortcut); DR7 IDENTITY_ONLY
+(complete signed and quadratic return). None is newly PROVED_IN_LEAN.
+
+### B. Current Authoritative Objective And Continuity
+
+Actual invocation: **SCHEDULED, 2026-11-06T08:09:02-05:00, America/New_York**;
+RUN_ID_UNAVAILABLE. This continues the same daily file after the completed
+00:09 SAT invocation. Route: VF-LOW. Reason: resume the exact proper-class
+OPEN-VF-CR-DENSE question, after sparse CR1-CR2 and the dense ancestry no-go CR3;
+do not repeat the old sparse allocation or force an unrelated OAI assignment.
+The protected next route is JOH. deployment_ack:
+**NO_PIGEONHOLING_ROUTE_SELECTOR_V1**; eta_gate **SEARCH_BROAD**.
+
+Latest actual main at intake and the 13:28 UTC refresh:
+**4a6e6b8c1a81f6dd8b8bc0cfad123bbc2a56188a**, tree
+**48b193cd105e21183b1cfd68b059894c8056f35c**. Human-merged #1096 is present.
+All following source blobs were fetched at that commit and their relevant
+definitions/statements read:
+
+| Material source | Blob SHA |
+| --- | --- |
+| AGENTS.md | 547dda0d9456e7a4e1165dc72d59da6f70d5c023 |
+| CURRENT_PROOF_CONTRACT.md | 7c4ac83a1ec1a4144e1bd691391ed4244f1cc27c |
+| docs/RHLEAN_INDEPENDENT_MULTIFRONT_NO_PIGEONHOLING_20261104.md | ffd8f1c65cc4da656174956d4e03b48bea46768b |
+| docs/RHLEAN_NATIVE_SQUARE_CLOCK_AGENT_DIRECTIVE_20261029.md | 4fbab59cc6fcc33a4f4e7a8ef447b2f7947b53dd |
+| docs/RHLEAN_ALL_VECTOR_AGENT_PROMPTS_20261030.md | 53143573cd5b014178d11ded008dbfb1a7e6dcc5 |
+| docs/RHLEAN_BROAD_SEARCH_UNTIL_ETA_20261031.md | 8317f08996b65f2e4b32c00c91b31cb6d0c09718 |
+| docs/RHLEAN_SOURCE_FAITHFUL_COMPLETE_RETURN_AGENT_CONTRACT_20261031.md | 4775ee5fd95f279beab08a75d1e17127078b19a6 |
+| docs/RHLEAN_SEVEN_AGENT_RESEARCH_ENGINE_20261101.md | 6c1d1c10e2755017ffe9d7f40df8b9ae7692f23a |
+| docs/RHLEAN_MULTIRUN_DAILY_AGENT_POLICY_20261031.md | 643cfd596116720a8e5b1efc07a6124b55d70946 |
+| docs/DYNAMIC_RESEARCH_AGENTS.md | 23b6fae1d3b6b5a69155628df709d255aea7aeca |
+| research/VF_MID_SIGNED_SEAT_CHARGE.lean | 87a6654a4a4337b409fde69aa15d7264d8b721b6 |
+| research/VF_MID_ODD_FRACTIONAL_CLUSTER.lean | 942badff45c03d2a9e97789b57d1bd8052232191 |
+| research/VF_MID_VON_KOCH_BRIDGE.lean | 32d4b0d74ecadc9780b9841d40357f6ff02369f0 |
+| research/VF_CANONICAL_SQRT_TWO_VON_KOCH.lean | 79030d70e8d3e0d08eef9bac53fef95c36eca2fb |
+| research/VF_MID_NATIVE_LYAPUNOV_SEAT_GRAM.lean | 23e7b0c5c9f4b50997a508345d91f30364f93f10 |
+| research/VF_MID_915_EXACT_HISTORICAL_NNS_COMPRESSION.lean | 6cc6b2a9d25279dd44fb65cb222f5d6846a912d4 |
+| research/VF_MID_FRACTIONAL_INCIDENCE_CAPACITY.lean | 40f2f49747c4f4ca61337fb0a18fb740d642781d |
+| research/VF_MID_FLOOR_LI_TRANSPORT_MINING.md | 14f86c0038da3371353a94fce2510dabf03ccd62 |
+
+The last two distinguish this argument from reciprocal completed-parent energy
+and preexisting floor-Li FIFO/chamber identities. The finite minimax principle
+is elementary ordered allocation mathematics, not a claim of literature
+originality. The new application here is the genuine dense VF source and its
+independent quantitative return. Scoped repository searches did not locate this
+same application; this is not an exhaustive novelty claim.
+
+**Original global target.** With natural logarithms, for integer r>=2 set
+
+```text
+w_r = (2+1/r)/log(r^2+r+1/2),
+F_R = sum_(2<=r<R) r*w_r,
+D_R = pi(R^2)-F_R,
+D_can(R) = D_R-sqrt(2).
+```
+
+`VFCanonicalSquareVonKochStatement` is
+`exists C>=0, forall integers R>=2, |D_can(R)|<=C R log R`.
+For each actual odd integer r^2<n<(r+1)^2 the compiled original charge is
+`c(r,n)=w_r-1_Prime(n)`: positive w_r for a composite and `-(1-w_r)` for a
+prime, the latter negative in the sufficiently-large shells used here.
+The small initial roots are retained separately. There are exactly r such odd seats, so the whole block
+sum is `r*w_r-P_r`. The compiled canonical/RH consumer still takes the explicit
+`ClassicalVonKochRHCriterion`; none of its unproved arithmetic antecedents is
+being inferred from green CI.
+
+**Two-day continuity, actually retrieved.** Relevant mathematical, proof and
+handoff sections of every role were read; unrelated historical code appendices
+were not re-executed. Blob evidence:
+
+| Report | November 5 | November 6 intake |
+| --- | --- | --- |
+| Coordinator 00 and 90, identical at retrieval | be661bb2ed2830fc4aeddf14713455e550d982cc | ed98da5ddf755803c0fb9249ccf5bdb58f59658c |
+| Owner 10 | 39665b5b28fc48378519ab9d56cee8df4d3e2681 | a86a79671728b3ddfc3fdc4e4e0a7f509e1ffaf9 |
+| Analytic 20 | 9490aa2eecafcd19d8007043cc5f978fe421a7c9 | 8ad0bdd80168555773271bbc70cda5c78746a4b4 |
+| Wheel 30 | afc85d800c47f82f2db634591a7798005cb668de | d7bf40e297ed87f0899f759fa7aab7f577e134ed |
+| Census 40 | 24fcd6a631eca9ae44238d927215f49e1d8a174f | dfe20627512b4ad1fe62c83bbb2e0412390c100f |
+| Referee 50 | 789ed87021fe98963c244a8d0c9075638e76be43 | 01cf41cbc62f430f9034870509f6b3947866a4e9 |
+| Lean 60 | 5e0ecdd8f08c2e19b4614f00c1a5657f58722344 | 7138b713a44f514ade3a64db44268c1934b215d0 |
+
+Today's Coordinator is still only a 07:10 PARTIAL checkpoint on the 13:29 UTC
+re-fetch: **TODAY=PENDING for its synthesis; YESTERDAY=CARRY_FORWARD** to C63-C68.
+This is not a claim that other today's reports are absent. The relevant retained
+claims are Owner CR1-CR5 and OPEN-VF-CR-DENSE; SAT RC1-RC6, BT1-BT2/RZ1-RZ3;
+JOH MC1-MC5 and Census JL upper-halo objection; Analytic FP1-FP5 on the genuine
+parent frequency mode; Wheel CP1-CP4 and Referee's scoped CORR4 verdict;
+Census GM1-GM3 on full edits versus frozen partial matchings. In particular the
+X=145 replacement 73<->77 by 105<->77 and 73<->143 changes a matching but does
+not create a negative VF composite donor. Their distinct-carrier results are
+not imported as a prime-indicator bound. The universal BLOCK R=549 refutation
+and all prior ancestry/covariance counterexamples remain intact.
+
+External inbox blob **038018145c0fddb2f6306c0712373adf9cd1ea52** was read; its
+latest entries remain October 18. EXT-20261018-PNT-1..3, EXT-20261017-XCOORD-1
+and EXT-20261014-5 keep their actual-prime, complete-complement and
+unconditional-versus-first-bad qualifications. No new external handoff is
+invented.
+
+**PR/CI evidence.** At inspection #1097 was the sole open PR, non-draft,
+unmerged, head **bc727dc9f7dd655fdd2addc943b246ad70ef576d**. All 13 retrieved
+check runs were successful at that exact head. The dedicated Actions run
+**42203731194**, job **127845057234**, was read: native build succeeded;
+research closure reported `compiled=0 cached=3`; a fresh warning-fatal Lean
+import/check/axiom audit printed all nine square-clock sampling declarations
+and standard axioms, ending with its nine-declaration PASS. This confirms its
+scoped sampling/first-admission interface, not CP2's integrated estimate and
+not DR1-DR7. Recent merged #1096, #1095, #1094 and #1093 were discovered;
+their finite/audit/transport results are not a VF supplier. No local Lean was
+run, no CI was rerun, and no independent acceptance of this report is claimed.
+
+### C. Structural Hypothesis Investigated
+
+Put ell=log N, with N an integer sufficiently large. Preserve the precise
+20261105-owner-2/CR3 rectangle:
+
+```text
+S_N = {prime p: sqrt N<p<=(11/10)sqrt N},
+Q_N^factor = {prime q: (3/2)N<q<=(7/4)N},
+F_N^sites = {q*p*s: q in Q_N^factor, p,s in S_N, p<s}.
+```
+
+Here `Q_N^factor` is a set of prime factors; `Q_N(t)` below is a signed
+response, not that set. Unique factorization and separated factor ranges give
+one occurrence per selected integer. Every site is odd, squarefree, has three
+distinct prime factors, and satisfies
+`(3/2)N^2<n<=(847/400)N^2<4N^2`. None is a square boundary.
+
+The already established PNT counts are
+`|S_N|~sqrt(N)/(5 ell)`, `|Q_N^factor|~N/(4 ell)`,
+`|F_N^sites|~N^2/(200 ell^3)`, and total original weighted demand
+`X_N~N^2/(200 ell^4)`. Ordinary [PNT, DLMF 27.2.3](https://dlmf.nist.gov/27.2.E3)
+is sufficient for these fixed-ratio counts. The earlier ancestor-only no-go
+is retained: the distinct prime ancestors are O(N/ell), so no fixed total
+budget per ancestor pays X_N even with C N ell discarded.
+
+Allow instead **actual prime occurrences** p in (N^2,4N^2), each with original
+negative weight y_p=1-w_(floor sqrt p) and fixed maximum fraction
+`a_N=1/ceil(ell)^2`. Define at each integer site
+
+```text
+d_n = w_(floor sqrt n) if n in F_N^sites, else 0,
+c_n = a_N*(1-w_(floor sqrt n)) if n is prime in (N^2,4N^2), else 0,
+e_n = d_n-c_n.
+```
+
+The selected positive and prime populations are disjoint, with d_n,c_n>=0
+for all sufficiently large N. Eligible donor fractions must be allocated
+globally, not independently for different q, p, s, owners or generations.
+The allocation here is an alternative raw chronological decomposition; it
+does **not** assert returned-fibre/divisor-parent admission.
+
+Three mechanisms were distinguished. Ancestor-only payment is already
+refuted at this scale. Sparse CR1-CR2 cannot be separately applied to every
+q without summing resource and unfinished-return costs. The selected move
+is the exact ordered allocation obstruction, followed by two independent
+prime estimates on the original integer carrier. A fourth possibility,
+joint cancellation with the full complement, remains open and is not
+excluded by an unfavorable bound for this one response.
+
+### D. Mathematical Derivation
+
+#### DR1. Exact Chronological Minimax And Boundary Feasibility
+
+This finite theorem applies to any finite ordered sites A<n<=B with
+nonnegative d_n,c_n and d_n*c_n=0. Choose prime usage u_n in [0,c_n], zero
+where c_n=0. A feasible allocation starts at zero inventory, pays all demands
+only from earlier supply sites, and ends at zero inventory. Put
+
+```text
+b_t = max(0, max_(t<m<=B) sum_(t<n<=m)(d_n-c_n)),  A<=t<=B,
+b_B = 0,
+b_(n-1) = max(0,b_n+d_n-c_n).                               (1)
+```
+
+There is a feasible allocation exactly when b_A=0. In that event the
+smallest achievable maximum inventory is
+
+```text
+B_phys = max_(A<=s<t<=B) (sum_(s<n<=t)(d_n-c_n))_+
+       = max_t b_t.                                         (2)
+```
+
+Proof: at a demand site c_n=0, (1) says b_(n-1)=b_n+d_n, so the prior
+inventory pays the demand. At a supply site d_n=0, use
+`u_n=b_n-b_(n-1)=min(c_n,b_n)`; this is nonnegative, at most c_n, and raises
+the inventory to b_n. At zero sites it does nothing. Thus b_A=0 gives an
+explicit forward feasible inventory b_t with endpoint b_B=0. Split each
+used coefficient among later demands by FIFO; every demand is fully paid,
+and each physical supplier's total usage remains u_n. This splits one
+coefficient, not one historical occurrence into independent copies.
+
+For any feasible inventory I_t and future endpoint m, the inventory equation
+and u_n<=c_n imply
+`I_t >= sum_(t<n<=m)(d_n-u_n) >= sum_(t<n<=m)(d_n-c_n)`.
+Hence I_t>=b_t at every cut, proving necessity and optimality, not just an
+upper estimate. The actual signed response is exactly
+
+```text
+Q_N(t) = sum_(N^2<n<=t)d_n - sum_(N^2<p<=t)u_p = -b_t.       (3)
+```
+
+For the rectangle take A=N^2 and B=4N^2; the square B has zero d and c.
+There is no demand before (3/2)N^2. The reserved prime supply in
+`(N^2,(3/2)N^2]` is asymptotic to `N^2/(4 ell^3)`, whereas the total demand
+is asymptotic to `N^2/(200 ell^4)`. Thus every full-capacity prefix is
+nonpositive for all sufficiently large N, so b_A=0. This pays the initial
+boundary with actual historical primes, not an assumed starting reserve.
+The recurrence pays the terminal boundary exactly. Alternatively DR3-DR4
+below give feasibility directly from their independent bounds on the long
+prefixes; no stronger initial hypothesis is needed.
+
+#### DR2. Whole-Root Deficits And Within-Root Order
+
+Let B_root be the positive maximum of the original OPEN-VF-CR-DENSE
+quantity
+
+```text
+J_N(u,v) = sum_(n in F_N^sites, u<=floor sqrt n<v) w_(floor sqrt n)
+           - a_N sum_(prime p, u^2<p<v^2)(1-w_(floor sqrt p)),
+N<=u<v<=2N, u,v integers.
+```
+
+Write `d_max=max_(N<=r<2N) sum_(n in F_N^sites, r^2<n<(r+1)^2)d_n`.
+Whole-root intervals are physical intervals, so B_root<=B_phys. Any physical
+interval is a whole-root interval plus at most two partial roots. Discarding
+only the negative partial-root supply gives
+
+```text
+B_root <= B_phys <= B_root+2*d_max.                         (4)
+```
+
+For each distinct pair p<s, ps>N. In one root block, the allowed q-interval
+has length `(2r+1)/(ps)<5` for N large, hence contains at most six integers.
+There are O(N/ell^2) pairs and w_r=O(1/ell), uniformly on [N,2N]. Consequently
+`d_max=O(N/ell^3)`. Therefore the desired O(N ell) root bound is equivalent,
+for this precise proper class and its paid boundaries, to existence of an
+O(N ell) physical chronological allocation. This equivalence supplies the
+previously missing matching bridge; it is not an independently established
+O(N ell) bound and not an asserted equivalence with RH.
+
+The boundary term cannot simply be dropped: DR6 gives actual examples with
+B_root=0 but B_phys>0. In particular matching within a square block must
+respect physical chronology, not treat later primes as already available.
+
+#### DR3. A Uniform Factor-Sensitive Local Demand Bound
+
+For every real interval I=(x,x+H] contained in [N^2,4N^2], H>0, define
+`D_N(I)=sum_(n in F_N^sites intersect I)d_n`, and let L=H/N. There is an
+absolute C such that, for all sufficiently large N and every such I,
+
+```text
+D_N(I) <= C N/ell^3 * (1+L/log(2+L))
+        = C [N/ell^3 + H/(ell^3 log(2+H/N))].                (5)
+```
+
+Proof: fix an unordered p<s in S_N. Its possible q lie in
+`(x/(ps),(x+H)/(ps)] intersect Q_N^factor`. Unique factorization means summing
+over these pairs counts each physical selected integer once. We can enlarge
+the q-interval by dropping only the Q_N^factor restriction in this upper
+bound. Since `N<ps<=(121/100)N`, its length is comparable to L. For L bounded,
+the elementary integer count is O(1). For L large, Montgomery-Vaughan's
+uniform short-interval upper bound gives O(L/log(2+L)) prime choices.
+Specifically their [Theorem 2, equation (1.12), p.121](https://personal.science.psu.edu/rcv4/personal/Publications/large_sieve.pdf)
+states `pi(M+h)-pi(M)<2h/log h` for real M>0,h>1. The factor intervals satisfy
+these hypotheses when L is large; the bounded-length case was treated
+separately. There are O(N/ell^2) unordered pairs and every selected weight is
+O(1/ell). This proves (5) with constants independent of x,H,N.
+
+In particular, for every fixed delta>0,
+
+```text
+H>=N^(1+delta) ==> D_N(I)<=C_delta H/ell^4.                 (6)
+```
+
+No arithmetic progression, auxiliary sign, average in x, or independence
+claim is hidden in this estimate. Dropping the q-range is only a valid upper
+bound on positive demand; the original prime/composite signed charge is
+restored separately, never replaced by this unsigned upper bound.
+
+#### DR4. Independent Dense-Family Return Bound
+
+Use theta=21/40. The established input is the forward interval **count**
+conclusion on p.562 of Baker-Harman-Pintz, not merely existence of one prime:
+
+```text
+pi(z+z^theta)-pi(z) >= (9/100) z^theta/log z
+for every sufficiently large real z.                       (7)
+```
+
+The printed concluding inequality was checked in the original
+[Baker-Harman-Pintz (2001), The Difference Between Consecutive Primes, II](https://www.cs.umd.edu/~gasarch/BLOGPAPERS/BakerHarmanPintz.pdf).
+The exponent is an established input, not a claim about the best current
+exponent. Its sufficiently-large threshold is not numerically evaluated here.
+
+Set `h0=(4N^2)^theta` and `H0=2*h0`. Given any I=(x,x+H] inside
+[N^2,4N^2] with H>=H0, concatenate intervals `(z,z+z^theta]` from its left
+endpoint while they fit. Each has length at most h0; the final uncovered
+remainder is less than h0. The disjoint covered length is at least H/2.
+Adding (7), using log z<=log(4N^2), gives
+
+```text
+pi(x+H)-pi(x) >= (9/200) H/log(4N^2).                       (8)
+```
+
+For large N, `y_p=1-w_(floor sqrt p)>=1/2` and
+`a_N>=1/(4 ell^2)`. Therefore the actual reserved capacity
+`C_N(I)=sum_(p in I)c_p` is at least `c H/ell^3`, uniformly in I. On the same
+range, (6) with delta=1/20 gives demand at most `C H/ell^4`. For all N>=N0,
+with one N0 independent of I, supply dominates demand in **every** interval
+of length at least H0:
+
+```text
+H>=H0 ==> D_N(I)-C_N(I)<=0.                                (9)
+```
+
+Any shorter interval can be extended within [N^2,4N^2] to one of length H0,
+because H0<3N^2 for large N. By positivity of demand, (6) bounds the shorter
+interval's demand by `C H0/ell^4`; ignoring its nonnegative capacity only
+increases its deficit. Thus
+
+```text
+B_root <= B_phys <= C N^(21/20)/ell^4.                     (10)
+```
+
+All prefixes before the first demand have nonpositive deficit; every later
+prefix has length >(1/2)N^2>=H0 and obeys (9). Hence b_(N^2)=0 also follows
+directly. DR1 now supplies the actual earlier-prime allocation, exactly zero
+final response and (3) at every physical cut. This proves the claim in A.
+
+**Simultaneous all-scale version.** Apply this construction to dyadic integer
+N>=N0. The donor intervals (N^2,4N^2) of consecutive dyadic shells are disjoint;
+the selected rectangles lie strictly inside their respective shells. Thus a
+prime appears as a donor in at most one shell. Completed shells have response
+zero, and at any cut only one shell can be unfinished. The combined once-only
+response satisfies
+
+```text
+Q(T^2)<=0, |Q(T^2)|<=C T^(21/20)/(log T)^4,
+each prime's total coefficient fraction <=a_N in its own shell.  (11)
+```
+
+At the finite initial scales leave all original terms in the complement.
+No shell-by-shell accumulation or new boundary mass is concealed in (11).
+Every donor prime is >N^2>(7/4)N for N large, larger than every prime factor
+of every selected site in that shell. It is therefore genuinely non-divisor
+credit, not an eligible edge of a multiplicative ancestry graph.
+
+#### DR5. Inverse Restriction On A Canonical-Scale Failure
+
+Fix K>0. Suppose some physical interval I=(x,x+H] inside [N^2,4N^2] has
+`D_N(I)-C_N(I)>K N ell`. For all sufficiently large N, depending on K,
+(9) gives H<H0. From (5) and C_N(I)>=0,
+
+```text
+1+L/log(2+L) > c K ell^4,  L=H/N.
+```
+
+The increasing function L/log(2+L) has inverse of order Y log Y for large Y.
+Equivalently substitute `L=c_K ell^4 log ell` with c_K sufficiently small
+to see that smaller L cannot satisfy the display. Thus
+
+```text
+c_K N ell^4 log ell <= H < H0.                             (12)
+```
+
+Furthermore positive deficit forces C_N(I)<D_N(I). Since
+`c_p>=1/(8 ell^2)` at every prime p in I, (5) implies
+
+```text
+pi(x+H)-pi(x) <= C [N/ell+H/(ell log(2+L))].                (13)
+```
+
+Dividing by H/ell gives an upper bound `C(1/L+1/log(2+L))`.
+The lower constraint in (12) makes this `O_K(1/log ell)`, proving DR5 as
+stated in A. These are deterministic necessary conditions on actual primes
+and actual selected composites. They neither assert that such intervals
+exist nor rule them out by a stochastic density heuristic.
+
+#### DR7. Complete Original Signed And Quadratic Return
+
+Use the disjoint dyadic allocation just described, and let Q(R^2) contain
+only selected positive charges and actually used fractions of earlier
+negative prime charges. Define C_F(R) by retaining the original anchor -2,
+every unselected positive seat (including all squareful/exceptional seats),
+each unused fraction of every donor prime, all other primes, and every
+initial-scale term. This is an exact partition of the original coefficients:
+
+```text
+-D_R = C_F(R)+Q(R^2),
+D_R^2 = C_F(R)^2+Q(R^2)^2+2*C_F(R)*Q(R^2),
+D_can(R)^2 = D_R^2-2*sqrt(2)*D_R+2.                        (14)
+```
+
+Thus all within-group, between-group, between-owner and between-generation
+interactions are recovered. Q<=0 does not determine the sign of `2*C_F*Q`.
+There is no proof that C_F is individually small, and it need not be small
+separately if a future full argument proves compensation instead.
+
+For comparison, the actual #915 source remains `Source=D_(R+1)`, with
+`beta_R=m_R+(1-2*w_R)P_R` and original
+`TotalMass=(|D_R|+beta_R)^2`. Restoring unsigned historical U,V from the
+compressed form costs exactly `4UV+2 beta_R(U+V-|U-V|)`.
+Nothing here enlarges that denominator, discards this restoration, asserts
+its first-bad premise, proves a returned-mask admission theorem, or establishes
+`2 Source^2<=TotalMass`.
+
+### E. Quantitative Consequence And Limit
+
+This is a genuinely independent upper restriction on a proper original
+positive population of total mass asymptotic to N^2/(200 ell^4), balanced
+with a strictly limited, once-only portion of real negative prime mass.
+Its unfinished response is O(N^(21/20)/ell^4), not merely its total mass
+or a separate per-owner estimate. The squared selected response is at most
+O(N^(21/10)/ell^8); that says nothing by itself about the mixed term in (14).
+
+DR2 finishes the exact reduction from OPEN-VF-CR-DENSE to chronological
+matching at canonical tolerance. DR4 does **not** prove that tolerance,
+and no full VF, Mertens, original NNS or RH endpoint gain follows.
+The last unsupported proper-class step is identified in J. There is no
+new complete-source exponent gain: **UNKNOWN / NONE ESTABLISHED**.
+
+### F. Falsification, Exact Tests And Circularity Review
+
+**DR6: executed finite tests.** Before any scan, the finite registration below
+fixed development N=1600,3300 and held-out N=5000. These values have only two
+small primes apiece; they are useful source/order/enclosure checks, not an
+asymptotic density experiment. No range was enlarged to fit an exponent.
+
+The Python verifier used integer sieving and outward rational logarithm
+enclosures, not floating-point decisions: denominator 10^40, 50 atanh-series
+terms after power-of-two reduction, explicit geometric tail, then outward
+weights at denominator 10^18. At each fixed N the lower and upper signed
+streams use a common denominator `10^18*ceil(log N)^2`.
+Increasing w raises demand and lowers prime capacity, so it increases every
+interval deficit. The two maxima therefore enclose the TRUE logarithmic
+B_phys. A feasible upper-envelope flow also gives a true flow by reducing
+each demand's assigned incoming edges proportionally; capacities only become
+easier and its reserve at each cut only decreases. The reported exact square
+checks were for the rational-envelope full source, with the true-source
+identity separately proved in (14).
+
+| N | S_N | selected sites | upper-envelope donors used | B_root | certified B_phys numerator interval / denominator |
+| --- | --- | --- | --- | --- | --- |
+| 1600 | 41,43 | 50 | 500 | 0 | [8388669828571308544,8388669828571308608] / 64000000000000000000 |
+| 3300 | 59,61 | 96 | 1079 | 0 | [9704135222323126938,9704135222323127019] / 81000000000000000000 |
+| 5000 | 71,73 | 141 | 1551 | 0 | [9270243803472741486,9270243803472741567] / 81000000000000000000 |
+
+All enclosures have width <10^-12. The upper maxima are witnessed by the
+single physical sites 4250593, 17818649 and 38908781, respectively. Whole-root
+deficits are exactly nonpositive even for the upper envelope, but physical
+reserve is strictly positive. This **refutes only** the boundary-free shortcut
+`B_root=0 implies B_phys=0`, not (4), OPEN-VF-CR-DENSE, or the full objective.
+
+Each run checked exact source uniqueness, squarefree odd admission, actual
+prime capacities, strict earlier order, non-divisibility, every demand,
+zero final inventory, forward/backward minimax agreement, and (4). The full
+rational-envelope source and every mixed square were reconstructed at
+30 cut/envelope checks per N, 90 total. No original real-coefficient numerical
+zero-covariance theorem is claimed.
+
+Separately, all **21,844** synthetic sequences of lengths 1..7 over
+{-2,-1,1,2} were tested by exhaustive integer-allocation dynamic programming.
+Exactly **5,643** were feasible with zero initial/final inventory; every
+feasibility and optimal-peak result agreed with (1)-(2). These synthetic
+sequences test the finite combinatorial lemma, not arithmetic independence.
+
+The first execution passed the numerical/source assertions but exposed a
+reporting defect: the empty-prefix sentinel printed a witness left endpoint
+0 before the first nonzero event. This was corrected to the actual first
+event, an explicit witness-sum assertion was added, and the full declared
+tests were rerun successfully. The maxima and mathematical conclusions did
+not change. Final verifier SHA256:
+**bcfd134f8d787f6250ff69f5fbd7ad67434adf0b6cbff784c6a76d96dd2ddfab**.
+Preregistration SHA256:
+**42bf24b627e1123b4a238f7c6f9a8df14336e05694b557cdcc791dc2a82959bf**.
+Full executed code and output follow the report, including source-data hashes.
+
+Additional self-audit checks: (7) is a uniform prime COUNT theorem, not a
+largest-gap existence surrogate; its scale is x~N^2, giving N^(21/20), not
+N^(21/40). The upper estimate acts on q~N intervals of length H/(ps), which
+explains the extra demand logarithm. All short and endpoint intervals are
+covered. Every a_N uses ceil(log N), not an exact log substitute. No hidden
+arbitrary deletion/mask is allowed; if donors are masked, (8) must be reproved
+for those retained donors. Distinct dyadic domains remove shared-resource
+reuse. Reusing ancestral primes or summing sparse q-family proofs is not
+part of the argument. Generic FIFO identities and previous CR counts are
+credited as existing ingredients, not counted as newly discovered arithmetic.
+
+### G. Conceptual Interpretation
+
+The ancestor overload is real but does not exhaust available signed
+arithmetic. Fresh prime occurrences can pay the entire obstructing triple
+rectangle, even with a vanishing reserved fraction, because their local
+capacity beats triple demand by a logarithm on sufficiently long intervals.
+The remaining issue is not total supply. It is how far back actual prime
+mass must be retained when a demand-rich short interval has unusually little
+prime supply. The exact minimal reserve is its maximal interval deficit.
+
+This converts a poorly localized capacity intuition into a structural
+certificate and a rigorously delimited exceptional interval problem. It
+does not show all positive VF populations have such favorable factor counts,
+and it does not infer any favorable complete covariance sign.
+
+### H. Competing Mechanisms
+
+| Mechanism | Established fact / obstruction | Decision |
+| --- | --- | --- |
+| Bounded ancestor-only supply plus C N log N residual | Prior CR3 is above-tolerance and survives depth-three/squarefree restrictions | ABANDON at that exact scope |
+| One global chronological non-divisor allocation on the dense rectangle | DR1-DR4 give exact budgets, boundaries and an independent uniform response | CONTINUE; sharpen only with new short-interval arithmetic |
+| Zero whole-root deficits mean zero physical reserve | DR6 gives actual counterexamples; DR2 supplies the correct two-boundary repair | REFUTED shortcut; retain repaired statement |
+| Joint selected/complement signed control | Exact (14); mixed term and full complement remain unpaid | OPEN competing global mechanism, not ruled out |
+| Repeat sparse proofs independently for every q | No aggregate load/return theorem; old shared-resource objection remains | DO NOT USE as a dense proof |
+
+Protected SAT continuation remains BT1-BT2/RZ1-RZ3 at its inherited-input and
+zero-mode scope. Protected JOH continuation remains MC1-MC5, including the
+source-exact growing-cell bridge and the upper-halo sampling objection. No
+new work on those routes is falsely counted in this invocation.
+
+### I. Specialist Handoffs
+
+**Coordinator / Proof Architect:** register DR1-DR5 as unreviewed paper claims,
+DR6 as executed finite evidence, DR7 as exact accounting only. The strongest
+new concept is the prime-poor-interval obstruction for a real dense
+depth-three positive population whose ancestral supply provably fails.
+This is more informative than repeating ancestry counts, but no reason to
+make VF chronological allocation the entire team's compulsory route.
+The only new supplier to (10) is classical short-interval prime arithmetic,
+not any CORR4/Mobius sign-transfer claim. Preserve nine-route breadth.
+
+**Adversarial Referee:** independently reconstruct the statement of DR1
+before its proof, especially zero initial reserve, strict earlier supply,
+and unused fractions. Then check the actual forward-count inequality on
+BHP p.562, the H/N q-window in DR3, uniform tiling in DR4, the physical/root
+boundary in DR2, and all constants' independence of x,N. Attack (12)-(13)
+by a demand concentration or boundary interval. Give scoped acceptance or
+an explicit counterexample; this author's SELF_AUDIT is not your verdict.
+
+**Analytic Type II:** the exact unproved supplier OPEN-VF-DR-SI in J is a
+uniform lower prime-density problem on physical intervals of length
+N(log N)^4 log log N through N^(21/20). It is sufficient, not assumed and
+not claimed necessary. A potentially weaker alternative is an independently
+proved incompatibility between the actual triple count in (5) and the severe
+prime deficiency (13). Average-in-location estimates need an explicit
+exceptional-interval/source-incidence bridge; density-one results alone do
+not bound the maximum. No unrelated parent-mode or Hecke conclusion is
+requested as a substitute.
+
+**Finite Wheel & Incidence:** retain each unique qps occurrence and the
+separation of factor intervals. Investigate whether the concentration of
+these products inside an interval enforces additional genuine prime
+incidence nearby, beyond DR3's separate upper count. A donor p>N^2 is not a
+divisor of qps. Do not label it an admissible returned-parent edge without
+the separate source bridge; composite/composite parity flips remain
+positive/positive for this VF carrier.
+
+**Prime Census Laboratory:** independently reproduce the fixed fixtures
+and rational brackets first. The precise competing predictions are (4)
+versus the false zero-boundary shortcut, and simultaneous global budgets
+versus per-family donor reuse. Next experiments should preregister intervals
+with at least two small-factor pairs and multiple q labels, compute D_N(I),
+C_N(I), the exact forward/backward certificate and full residual square,
+and falsify a particular proposed improvement. No automatic range extension
+or fitted asymptotic exponent is requested; BHP's unspecified threshold
+cannot be validated by these finite tests.
+
+**Lean Verification:** no immediate proof branch request for this unreviewed
+result. If independently qualified and selected as useful, DR1 plus (4) is
+a finite implementation-sized interface over ordered sites with disjoint
+nonnegative demands/capacities. Keep a_N, literal w_r and actual prime
+admission explicit in the application. DR4 additionally requires an actual
+formal bridge to the imported analytic inputs; a conditional wrapper taking
+(7) or the desired deficit bound does not prove that input. Existing #1097
+sampling CI has no evidentiary bearing on these new claims.
+
+These are published handoffs in this report, not messages already acted on
+by other agents. No other agent was launched or presumed to execute.
+
+### J. First Independently Missing Lemma
+
+The original proper-class **OPEN-VF-CR-DENSE** remains the desired
+`B_root=O(N log N)`. It is not resolved by the minimax reformulation.
+A concrete sufficient analytic supplier, different from asserting that
+deficit bound, is:
+
+**OPEN-VF-DR-SI (CONJECTURE / SUFFICIENT, NOT NECESSARY).** There exist absolute
+kappa>0 and N1 such that for every integer N>=N1 and every real interval
+`I=(x,x+H] subset [N^2,4N^2]` with
+
+```text
+H_star=N(log N)^4 log log N <= H <= H0=2(4N^2)^(21/40),
+pi(x+H)-pi(x) >= kappa H/log N.                            (15)
+```
+
+No retrieved theorem proves (15). It is a genuine unproved short-interval
+prime lower bound, not a forecast from data or a claimed theorem equivalent
+to RH. We do not claim it is the weakest missing lemma.
+
+**Conditional consequence, with the losses paid.** For H>=H_star, (5) gives
+`D_N(I) <= C H/(ell^3 log ell)` throughout the range (15). The assumed lower
+bound gives `C_N(I)>=c kappa H/ell^3`, hence no positive deficit eventually.
+For H>H0 use (9). For H<H_star extend within the domain to H_star; (5) gives
+`D_N(I)<=C N ell`, so the deficit is at most that. DR1-DR2 then yield the
+desired bounded chronological allocation on this proper class. This
+implication is CONDITIONAL; (15) is not proved by the implication.
+
+A weaker future proof may exploit only the intervals with genuinely large
+triple demand, using (12)-(13), but no independent exclusion of their
+co-occurrence is currently available. Even closing this proper-class
+lemma would leave the complete original complement/mixed return in (14).
+No full-source final lemma is made smaller merely by naming that complement.
+
+### K. Next-Run Resume Capsule And Publication State
+
+```text
+ENGINE_VERSION: NO_PIGEONHOLING_ROUTE_SELECTOR_V1
+MAIN: 4a6e6b8c1a81f6dd8b8bc0cfad123bbc2a56188a
+POLICY_SHA: ffd8f1c65cc4da656174956d4e03b48bea46768b
+RUN: 20261106-owner-2 / RUN_ID_UNAVAILABLE
+TRIGGER: SCHEDULED 2026-11-06T08:09:02-05:00
+TASK / ROUTE: Dense chronological response / VF-LOW
+ORIGINAL SOURCE: w_r-1_Prime(n), blob 87a6654a4a4337b409fde69aa15d7264d8b721b6
+LAST JUSTIFIED STEP: DR4, B_phys <= C N^(21/20)/(log N)^4
+NEW ARITHMETIC: exact factor-sensitive demand + actual BHP prime capacity
+STRUCTURAL CERTIFICATE: DR1 optimal reserve; DR2 boundary correction
+INVERSE: DR5 prime-poor mesoscopic interval necessary for failure
+FIRST UNSUPPORTED STEP: OPEN-VF-DR-SI, or a weaker independent
+  exclusion of demand-rich/prime-poor intervals; OPEN-VF-CR-DENSE still OPEN
+FULL RETURN: DR7, all residual, anchor and cross terms explicit
+REVIEW: SELF_AUDIT; independent review PENDING; no new Lean result
+FINITE: registered 1600/3300 and held-out 5000; 21844 generic sequences
+SCOPE: proper original-source bound, not canonical or original915 closure
+FIRST SIGN LOSS: upper-bound positive q-count in DR3; exact signed source
+  is separately retained in DR1 and restored in DR7
+SELECTED SQUARED BOUND: N^(21/10)/(log N)^8; mixed term uncontrolled
+OAI SOURCE / SQRT_Q / GAUSSIAN: NOT_APPLICABLE to this selected source
+NET ENDPOINT GAIN: UNKNOWN / NONE ESTABLISHED
+ETA_GATE: SEARCH_BROAD
+LAST THREE ACTUAL OWNER ROUTES: Nov5 JOH, Nov6 SAT, this VF-LOW
+NEXT PROTECTED ROUTE: JOH; resume MC1-MC5 and verify the upper-halo objection
+NEXT VF ACTION: independent DR1-DR5 review; target demand/prime-deficiency
+  co-occurrence rather than redoing the ancestry count or extending a census
+```
+
+Early checkpoint publication was independently read back during this run:
+commit **3cd405bef383ef6920a0151b489032c147c5e06d**, blob
+**760e0fe66e9a59bcf417a7287c502a8e1c793563**; only this authorized report
+changed and all 56,961 characters matched. The present mathematical append
+supersedes that checkpoint's PENDING research stages without changing earlier
+SAT evidence or historical conclusions. Its own commit/readback receipt will
+be recorded after publication, not assumed in advance.
+
+Actual limitations: direct shell GitHub transport returned CONNECT 403;
+connected GitHub read/write operations worked. A closing Coordinator refresh
+initially used an incorrect filename and received 404, then fetched the
+actual 00-coordinator-am.md successfully; this was not missing research.
+No local Lean, proof-source changes, branches, PRs, merges, shared-report
+edits, new agents or schedule changes were performed. No unexecuted future
+work is promised. The code and tests below are reproducibility material
+inside this one authorized report, not additional repository file edits.
+
+
+### Reproducibility Appendix: Frozen Test Registration
+
+#### VF Dense Response Test Registration
+
+Frozen before execution, 2026-11-06 Owner 08:09 EST invocation.
+
+1. Original carrier: F_N={q*p*s: 3N/2<q<=7N/4, sqrt(N)<p<s<=11sqrt(N)/10}, all factors prime; original odd open-square weight w_r; reserved prime capacity (1-w_r)/ceil(log N)^2.
+2. Development N=1600,3300. Held-out N=5000. These are finite structural checks, not tests of unknown asymptotic constants. Do not enlarge the range to fit a rate.
+3. Compute the maximal physical interval deficit and backward minimal-inventory allocation with both outward rational weight envelopes. Compare an independently computed forward maximum-subarray value. Check every used prime's capacity, strict chronological order, full coverage, unused fractions and zero final inventory.
+4. Compare root-cut deficits to physical deficits. Reject the shortcut that zero root-cut deficit forces zero inventory at every integer site. Check the proved additive two-boundary-demand bound instead.
+5. Restore the complete original rational-envelope VF source and all mixed squares at selected root cuts. Record the fact that rational weight enclosures certify inequalities for the actual logarithmic source, not exact evaluation of its irrational coefficients.
+6. Independently test the finite allocation theorem on every synthetic sequence of length 1..7 over {-2,-1,1,2}, by exact dynamic programming over all integer prime-capacity choices. Synthetic sequences test the general lemma only; they are not replacements for genuine primes.
+7. Log evaluation: fixed-point outward arithmetic with 10^40 denominator, 50 atanh-series terms after rational power-of-two reduction, explicit geometric tail; final weights enclosed at denominator 10^18. No floating-point sign decision.
+8. All-scale inputs are separately proved/imported: original BHP 2001 p.562 lower bound and Montgomery-Vaughan 1973 p.121 equation (1.12). Finite scans cannot validate these asymptotic theorems or establish a global VF bound.
+
+
+### Reproducibility Appendix: Executed Verifier
+
+```python
+"""Finite source and allocation checks; no asymptotic inference."""
+
+from bisect import bisect_left, bisect_right
+from collections import Counter
+from functools import lru_cache
+from itertools import product
+from math import isqrt
+import hashlib
+import json
+
+SCALE = 10**40
+WD = 10**18
+TERMS = 50
+
+
+def ceildiv(n, d):
+    return -(-n // d)
+
+
+def mul(a, b):
+    return a[0] * b[0] // SCALE, ceildiv(a[1] * b[1], SCALE)
+
+
+def small_log(n, d):
+    assert d <= n <= 2*d
+    u = ((n-d)*SCALE//(n+d), ceildiv((n-d)*SCALE, n+d))
+    u2 = mul(u, u)
+    power = u
+    low = high = 0
+    for j in range(TERMS):
+        low += 2*power[0]//(2*j+1)
+        high += ceildiv(2*power[1], 2*j+1)
+        power = mul(power, u2)
+    high += ceildiv(2*power[1]*SCALE, (2*TERMS+1)*(SCALE-u2[1]))
+    return low, high
+
+
+LOG2 = small_log(2, 1)
+
+
+def log_interval(n, d=1):
+    assert n >= d > 0
+    k = n.bit_length()-d.bit_length()
+    den = d << k
+    if den > n:
+        k -= 1
+        den //= 2
+    lo, hi = small_log(n, den)
+    return lo+k*LOG2[0], hi+k*LOG2[1]
+
+
+@lru_cache(None)
+def weight(r):
+    lo, hi = log_interval(2*r*r+2*r+1, 2)
+    num = (2*r+1)*SCALE*WD
+    return num//(r*hi), ceildiv(num, r*lo)
+
+
+def sieve(n):
+    flags = bytearray(b'\x01')*(n+1)
+    flags[:2] = b'\x00\x00'
+    for p in range(2, isqrt(n)+1):
+        if flags[p]:
+            flags[p*p:n+1:p] = b'\x00'*((n-p*p)//p+1)
+    return flags
+
+
+def max_interval(events):
+    prefix = minimum = best = 0
+    start = None
+    best_start = best_end = -1
+    for position, value in events:
+        if start is None:
+            start = position-1
+        prefix += value
+        if prefix-minimum > best:
+            best = prefix-minimum
+            best_start, best_end = start+1, position
+        if prefix < minimum:
+            minimum, start = prefix, position
+    return best, best_start, best_end
+
+
+def generic_check():
+    count = feasible = 0
+    for length in range(1, 8):
+        for e in product((-2, -1, 1, 2), repeat=length):
+            b = peak = 0
+            for v in reversed(e):
+                b = max(0, b+v)
+                peak = max(peak, b)
+            states = {0: 0}
+            for v in e:
+                nxt = {}
+                for inv, used_peak in states.items():
+                    choices = [inv-v] if v > 0 and inv >= v else []
+                    if v < 0:
+                        choices = range(inv, inv-v+1)
+                    for x in choices:
+                        p = max(used_peak, x)
+                        nxt[x] = min(nxt.get(x, p), p)
+                states = nxt
+            assert (0 in states) == (b == 0)
+            if b == 0:
+                assert states[0] == peak == max_interval(enumerate(e))[0]
+                feasible += 1
+            count += 1
+    return {'synthetic_sequences': count, 'feasible_sequences': feasible}
+
+
+def arithmetic_check(N):
+    flags = sieve(4*N*N)
+    small = [p for p in range(2, 2*N) if flags[p]]
+    ss = [p for p in small if N < p*p and 100*p*p <= 121*N]
+    qs = [q for q in small if 3*N < 2*q and 4*q <= 7*N]
+    fs = sorted(q*p*s for q in qs for i, p in enumerate(ss) for s in ss[i+1:])
+    assert fs and len(fs) == len(set(fs))
+    assert all(n % 2 == 1 and isqrt(n)**2 != n and not flags[n] for n in fs)
+    assert all(2*n > 3*N*N and 400*n <= 847*N*N for n in fs)
+    lo, hi = log_interval(N)
+    assert lo//SCALE == hi//SCALE
+    k = lo//SCALE+1
+    den = WD*k*k
+    counts = Counter(isqrt(n) for n in fs)
+    W = {r: weight(r) for r in range(N, 2*N)}
+    prime_counts = {r: flags.count(1, r*r+1, (r+1)**2) for r in range(N, 2*N)}
+    root_best = []
+    for j in (0, 1):
+        root_events = [(r, counts[r]*W[r][j]*k*k-prime_counts[r]*(WD-W[r][j]))
+                       for r in range(N, 2*N)]
+        root_best.append(max_interval(root_events)[0])
+    dmax = max(counts[r]*W[r][1]*k*k for r in counts)
+
+    def events(j):
+        fi = 0
+        p = flags.find(1, fs[0], fs[-1]+1)
+        while fi < len(fs) or p != -1:
+            if fi < len(fs) and (p == -1 or fs[fi] < p):
+                n = fs[fi]
+                yield n, W[isqrt(n)][j]*k*k
+                fi += 1
+            else:
+                yield p, -(WD-W[isqrt(p)][j])
+                p = flags.find(1, p+1, fs[-1]+1)
+
+    forward = [max_interval(events(j)) for j in (0, 1)]
+    left, right = forward[1][1:]
+    assert N*N < left <= right < 4*N*N
+    assert sum(v for n, v in events(1) if left <= n <= right) == forward[1][0]
+    backward_peak = []
+    allocations = []
+    for j in (0, 1):
+        b = peak = 0
+        used = {}
+        fi = len(fs)-1
+        n = fs[-1]
+        while fi >= 0 or b:
+            if b == 0 and fi >= 0:
+                n = fs[fi]
+            if fi >= 0 and n == fs[fi]:
+                b += W[isqrt(n)][j]*k*k
+                peak = max(peak, b)
+                fi -= 1
+                n -= 1
+            else:
+                p = flags.rfind(1, N*N+1, n+1)
+                next_d = fs[fi] if fi >= 0 else N*N
+                if p < next_d:
+                    n = next_d
+                    continue
+                assert p > N*N
+                take = min(b, WD-W[isqrt(p)][j])
+                if take:
+                    used[p] = take
+                    b -= take
+                n = p-1
+        assert b == 0 and peak == forward[j][0]
+        inv = mx = 0
+        paired = []
+        queue = []
+        queue_i = 0
+        for n in sorted(fs+list(used)):
+            if n in used:
+                assert flags[n] and used[n] <= WD-W[isqrt(n)][j]
+                inv += used[n]
+                queue.append([n, used[n]])
+            else:
+                remaining = W[isqrt(n)][j]*k*k
+                inv -= remaining
+                while remaining:
+                    donor, budget = queue[queue_i]
+                    take = min(remaining, budget)
+                    assert donor < n and donor > max(qs)
+                    paired.append((donor, n, take))
+                    queue[queue_i][1] -= take
+                    remaining -= take
+                    if queue[queue_i][1] == 0:
+                        queue_i += 1
+            assert inv >= 0
+            mx = max(mx, inv)
+        assert inv == 0 and mx == peak
+        assert sum(used.values()) == sum(W[isqrt(n)][j]*k*k for n in fs)
+        assert root_best[j] <= peak <= root_best[j]+2*dmax
+        backward_peak.append(peak)
+        allocations.append(used)
+
+    # Exact complete VF reconstruction for the two rational enclosures.
+    square_checks = 0
+    pi_base = flags.count(1, 0, N*N+1)
+    cuts = sorted(set([N, 2*N]+[N+t*N//15 for t in range(16)]))
+    for j in (0, 1):
+        anchor = -(pi_base*den-sum(r*weight(r)[j]*k*k for r in range(2, N)))
+        whole = residual = anchor
+        qmass = 0
+        used_by_root = Counter()
+        for p, take in allocations[j].items():
+            used_by_root[isqrt(p)] += take
+        for r in range(N, 2*N):
+            total = r*W[r][j]*k*k-prime_counts[r]*den
+            selected = counts[r]*W[r][j]*k*k-used_by_root[r]
+            whole += total
+            qmass += selected
+            residual += total-selected
+            if r+1 in cuts:
+                assert whole == residual+qmass
+                assert whole*whole == residual*residual+qmass*qmass+2*residual*qmass
+                assert qmass <= 0
+                square_checks += 1
+        assert qmass == 0 and residual == whole
+
+    return {
+        'N': N, 'small_primes': ss, 'greatest_primes': len(qs), 'selected_sites': len(fs),
+        'first_site': fs[0], 'last_site': fs[-1], 'ceil_log_N': k,
+        'denominator': den, 'physical_max_lower_numerator': forward[0][0],
+        'physical_max_upper_numerator': forward[1][0],
+        'physical_max_upper_interval': forward[1][1:],
+        'root_max_lower_numerator': root_best[0], 'root_max_upper_numerator': root_best[1],
+        'total_demand_upper_numerator': sum(W[isqrt(n)][1]*k*k for n in fs),
+        'used_primes_upper_envelope': len(allocations[1]),
+        'peak_width_less_than_1e_minus_12': (forward[1][0]-forward[0][0])*10**12 < den,
+        'allocation_covers_every_source': True, 'all_used_primes_strictly_earlier_and_nondivisor': True,
+        'complete_source_square_checks': square_checks,
+        'source_data_sha256': hashlib.sha256(json.dumps(fs).encode()).hexdigest(),
+    }
+
+
+if __name__ == '__main__':
+    out = {'generic': generic_check(), 'actual': []}
+    for N in (1600, 3300, 5000):
+        out['actual'].append(arithmetic_check(N))
+    out['scope'] = 'Finite exact envelope/source/minimax checks only; no asymptotic-rate test.'
+    print(json.dumps(out, indent=2, sort_keys=True))
+```
+
+### Reproducibility Appendix: Final Execution Output
+
+```json
+{
+  "actual": [
+    {
+      "N": 1600,
+      "all_used_primes_strictly_earlier_and_nondivisor": true,
+      "allocation_covers_every_source": true,
+      "ceil_log_N": 8,
+      "complete_source_square_checks": 30,
+      "denominator": 64000000000000000000,
+      "first_site": 4250593,
+      "greatest_primes": 50,
+      "last_site": 4931111,
+      "peak_width_less_than_1e_minus_12": true,
+      "physical_max_lower_numerator": 8388669828571308544,
+      "physical_max_upper_interval": [
+        4250593,
+        4250593
+      ],
+      "physical_max_upper_numerator": 8388669828571308608,
+      "root_max_lower_numerator": 0,
+      "root_max_upper_numerator": 0,
+      "selected_sites": 50,
+      "small_primes": [
+        41,
+        43
+      ],
+      "source_data_sha256": "d11f0f344f482af1563155ccc278e65de18f708398608b18dc4b90080c005acb",
+      "total_demand_upper_numerator": 417203466680489611776,
+      "used_primes_upper_envelope": 500
+    },
+    {
+      "N": 3300,
+      "all_used_primes_strictly_earlier_and_nondivisor": true,
+      "allocation_covers_every_source": true,
+      "ceil_log_N": 9,
+      "complete_source_square_checks": 30,
+      "denominator": 81000000000000000000,
+      "first_site": 17818649,
+      "greatest_primes": 96,
+      "last_site": 20690651,
+      "peak_width_less_than_1e_minus_12": true,
+      "physical_max_lower_numerator": 9704135222323126938,
+      "physical_max_upper_interval": [
+        17818649,
+        17818649
+      ],
+      "physical_max_upper_numerator": 9704135222323127019,
+      "root_max_lower_numerator": 0,
+      "root_max_upper_numerator": 0,
+      "selected_sites": 96,
+      "small_primes": [
+        59,
+        61
+      ],
+      "source_data_sha256": "c40e21046c8eb6fb615240c2b55ce6d7a18474cc0216859d14d0a92b333b6bff",
+      "total_demand_upper_numerator": 927331057415019372930,
+      "used_primes_upper_envelope": 1079
+    },
+    {
+      "N": 5000,
+      "all_used_primes_strictly_earlier_and_nondivisor": true,
+      "allocation_covers_every_source": true,
+      "ceil_log_N": 9,
+      "complete_source_square_checks": 30,
+      "denominator": 81000000000000000000,
+      "first_site": 38908781,
+      "greatest_primes": 141,
+      "last_site": 45335701,
+      "peak_width_less_than_1e_minus_12": true,
+      "physical_max_lower_numerator": 9270243803472741486,
+      "physical_max_upper_interval": [
+        38908781,
+        38908781
+      ],
+      "physical_max_upper_numerator": 9270243803472741567,
+      "root_max_lower_numerator": 0,
+      "root_max_upper_numerator": 0,
+      "selected_sites": 141,
+      "small_primes": [
+        71,
+        73
+      ],
+      "source_data_sha256": "023364ca7f647352e072305d8109e0847fd3633e3eb5e9e64cbe956c2ab68b41",
+      "total_demand_upper_numerator": 1301328823439900338596,
+      "used_primes_upper_envelope": 1551
+    }
+  ],
+  "generic": {
+    "feasible_sequences": 5643,
+    "synthetic_sequences": 21844
+  },
+  "scope": "Finite exact envelope/source/minimax checks only; no asymptotic-rate test."
+}
+```
