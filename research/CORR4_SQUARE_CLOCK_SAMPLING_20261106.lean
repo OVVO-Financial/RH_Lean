@@ -105,10 +105,16 @@ theorem corr4_parent_sampling_le {x : ℝ} (hx : 3 ≤ x) :
     exact_mod_cast hgap
   have hhist : ((R - 1 : ℕ) : ℝ) ≤ (R : ℝ) := by
     exact_mod_cast (Nat.sub_le R 1)
-  have htri := abs_sub_le
-    ((mertensSummatoryInt (squareRootEndpoint R) : ℝ) -
-      (mertensSummatoryInt ⌊x⌋₊ : ℝ))
-    (mertensSummatoryInt (R - 1) : ℝ)
+  have htri :
+      |((mertensSummatoryInt (squareRootEndpoint R) : ℝ) -
+          (mertensSummatoryInt ⌊x⌋₊ : ℝ)) -
+          (mertensSummatoryInt (R - 1) : ℝ)| ≤
+        |(mertensSummatoryInt (squareRootEndpoint R) : ℝ) -
+          (mertensSummatoryInt ⌊x⌋₊ : ℝ)| +
+          |(mertensSummatoryInt (R - 1) : ℝ)| := by
+    simpa only [sub_eq_add_neg, abs_neg] using
+      abs_add ((mertensSummatoryInt (squareRootEndpoint R) : ℝ) -
+        (mertensSummatoryInt ⌊x⌋₊ : ℝ)) (-(mertensSummatoryInt (R - 1) : ℝ))
   rw [abs_sub_comm (mertensSummatoryInt (squareRootEndpoint R) : ℝ)] at htri
   have hscale := corr4_root_scale hR hlo
   change |(mertensSummatoryInt (squareRootEndpoint R) : ℝ) -
@@ -175,8 +181,8 @@ theorem corr4_masked_daughter_sampling_le {x : ℝ} {q : ℕ}
       if q * q < corr4SquareClock x then
         4 * Real.sqrt x / (q : ℝ) ^ 2 else 0 := by
   by_cases h : q * q < corr4SquareClock x
-  · simpa only [h, if_true] using corr4_daughter_sampling_le hx hq h
-  · simp only [h, if_false, sub_self, abs_zero, le_refl]
+  · simpa only [h, ite_true] using corr4_daughter_sampling_le hx hq h
+  · simp only [h, ite_false, sub_self, abs_zero, le_refl]
 
 /-- The original odd-prime owner set is exactly the strict square mask. -/
 theorem corr4_mem_lowOwners_iff {R q : ℕ} (hq : Nat.Prime q) (hq2 : q ≠ 2) :
@@ -210,10 +216,15 @@ theorem rawQ2ChildCutoff_eq_squareEndpoint_of_dvd {R q : ℕ}
   by_cases hR : R = 0
   · subst R
     simp [rawQ2ChildCutoff, squareRootEndpoint]
+  have hRpos : 0 < R := Nat.pos_of_ne_zero hR
   have hd : 0 < q * q := Nat.mul_pos hq hq
   have hr : q * (R / q) = R := by
     simpa only [Nat.mod_eq_zero_of_dvd hdiv, Nat.add_zero] using Nat.div_add_mod R q
-  have hk : 0 < R / q := by nlinarith
+  have hk : 0 < R / q := by
+    apply Nat.pos_of_ne_zero
+    intro hz
+    rw [hz, mul_zero] at hr
+    exact hR hr.symm
   have hsq : R ^ 2 = (R / q) ^ 2 * (q * q) := by
     calc
       R ^ 2 = (q * (R / q)) ^ 2 := by rw [hr]
