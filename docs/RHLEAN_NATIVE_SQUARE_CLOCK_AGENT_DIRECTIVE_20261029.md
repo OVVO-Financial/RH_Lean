@@ -29,7 +29,7 @@ Preserve genuine arithmetic coefficients, occurrence weights, masks, moving admi
 
 At first actual consumption after merge, record deployment_ack with policy/main SHA, independently selected route (not a compulsory NEXT-* task), exact resumed derivation and actual new proof/test or first unsupported inequality. Newer evidence and protected rotation may replace a stale bootstrap task with an explicit reason. Do not redo a completed theorem or report only that the instructions were read. Subsequent invocations continue the persistent workspaces from committed reports.
 
-This stable filename is intentionally retained because existing dynamic agents and central files already point here. Current breadth, complete-return and research-engine policies supersede older single-lane priorities, fixed queues and restart-heavy daily relay expectations FOR ROUTING AND WORK ORGANIZATION. All actual mathematical source safeguards, the updated full Lean branch/PR write authorization and human-only merge remain binding. Main is authority; archived policy and reporting-branch copies are not substitutes.
+This stable filename is intentionally retained because existing dynamic agents and central files already point here. Current breadth, complete-return and research-engine policies supersede older single-lane priorities, fixed queues and restart-heavy daily relay expectations FOR ROUTING AND WORK ORGANIZATION. All actual mathematical source safeguards, the updated full Lean branch/PR write authorization and human-only main merge remain binding. Main is authority; archived policy and reporting-branch copies are not substitutes.
 
 ## Historical source provenance
 
