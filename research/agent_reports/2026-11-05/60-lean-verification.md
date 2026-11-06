@@ -759,3 +759,453 @@ Repair commit 0c3c9755b10322bbc1d0677a5fa3980a168733cc changes only those proof 
 At head 0c3c9755b10322bbc1d0677a5fa3980a168733cc the actual dedicated compiler stage succeeded with compiled=1, cached=2, and targeted iteration also passed. The separate audit failed with "unknown module prefix 'research'": this repository emits research modules as literal dotted names, so the harness must quote the entire module identifier. The failed audit was correctly rejected and its log/artifact preserved; compilation alone was not promoted to full certification.
 
 Latest head ecf701ff2fea1de52e505ee34048a2b3c220f0fc changes only that one import-generation line in the workflow. Lean source remains byte-identical, blob 3cbc5159536d6b9e5000f74c5bd018bd2d62daf1. No guard, theorem or premise was weakened. Actual final-head audit and applicable checks remain PENDING; prior exact source compilation may be reused only with this unchanged-source qualification.
+
+## Final Research Synthesis - 20261105-lean-3
+
+Actual invocation: SCHEDULED, 2026-11-05T21:08:01-05:00, America/New_York;
+RUN_ID_UNAVAILABLE. This completes the preceding checkpoint, implementation
+milestone and compiler repair, not another execution. Prior daily history is
+preserved. Publication is certified by the subsequent commit/readback receipt.
+Final verification and review-ready transition: 2026-11-05 21:48 EST.
+
+### A. Most Important Formal Mathematical Result
+
+Implemented the finite signed-residual consequence of the independently accepted
+prime/semiprime cancellation in 20261105-wheel-3/PE1. For every integer X>=4
+and every finite set P of odd primes, actual unused prime and semiprime endpoints
+can be removed in equal numbers, without changing the genuine Mobius prefix sum.
+The theorem gives the exact remaining cardinality. A complete ordered-square
+corollary and strict-cutoff Heath-Brown coefficient bridge retain the full signed
+source. The static-partner obstruction from PE4 is also implemented.
+
+Formal state: PROVED_IN_LEAN at latest head
+ecf701ff2fea1de52e505ee34048a2b3c220f0fc, unmerged PR #1096.
+All 14 workflows and all 15 check jobs on that exact head are CI_GREEN.
+PR #1096 is REVIEW_READY, open, no longer draft and not merged. This is a
+verified unmerged theorem, not a new theorem already present in main.
+
+Classification: STRUCTURAL_CONTROL and a scoped OBSTRUCTION. No new asymptotic
+bound or endpoint exponent improvement; NO_NEW_INDEPENDENT_ENDPOINT_INEQUALITY.
+The earlier general prime-toggle theorem and the lift's precision theorem are
+reused, not claimed as discoveries in this invocation.
+
+### B. Current Authoritative Objective
+
+Main baseline: 1667c3cf9b4e898bb9afd62ec48e24610b2156ab; Git tree
+6351bbacd22d7abb34eefed1e2cbf5f674642010. AGENTS blob
+547dda0d9456e7a4e1165dc72d59da6f70d5c023; current proof-contract blob
+7c4ac83a1ec1a4144e1bd691391ed4244f1cc27c; independent selector blob
+ffd8f1c65cc4da656174956d4e03b48bea46768b.
+
+deployment_ack: NO_PIGEONHOLING_ROUTE_SELECTOR_V1; independently selected
+MU-LIFT after current PR discovery and accepted-claim review. This follows
+today's Nyman implementation and Euler audit repair, not a compulsory OAI task.
+ETA_GATE=SEARCH_BROAD; new net endpoint gain UNKNOWN / NONE_ESTABLISHED.
+
+The exact public objective remains VFCanonicalSquareVonKochStatement:
+
+```text
+exists C:Real, 0<=C and forall R:Nat, 2<=R ->
+ |vfCanonicalSquareDefect R| <= C*R*log R.
+```
+
+The inspected canonical consumer retains ClassicalVonKochRHCriterion explicitly.
+The canonical phase, actual-prime definitions and global quantitative status are
+unchanged. This MU-LIFT carrier is not the masked/weighted original VF #915
+source, a JOH arrival-clock source, or an ideal-character OAI source.
+
+### C. Formalization Candidates
+
+No open/draft PR existed at intake. #1095 is now human-merged at the current
+main; its exact-head three successful workflows and actual eight-name audit log
+were retrieved. #1094 is also merged, with all 12 associated workflows successful;
+its actual dedicated log was inspected. No duplicate repair or cold rebuild was
+made for those unchanged results.
+
+Selected: 20261105-wheel-3/PE1-PE4, independently accepted with scope in
+20261105-referee-11. This implementation covers the finite signed-residual
+consequence of PE1 and the moving-cutoff obstruction in PE4. The original
+sorted-list involution, exact prime-counting capacity formula, PNT asymptotics,
+raw binomial-occurrence involution and asymptotic leftover lower bound are NOT
+certified by this PR. PE3's full raw-carrier implementation remains separate.
+
+Other ready/pending candidates remain distinct: NYMAN SP1-SP5 have paper
+acceptance; Coordinator C58-C61, Owner MC2, Analytic CR1-CR3 and new Referee
+R12-R14 have their stated pending independent-review scopes. The complete
+coefficient-sensitive or signed upper estimates are not supplied by those labels.
+
+### D. Candidate Selection And Proof Plan
+
+The new source-admitted cancellation addresses a concrete limitation of the
+existing one-prime-toggle graph. It changes prime factor class while preserving
+actual integer endpoints and all old factor-two cancellations. The existing
+AdaptivePrimeMatching no-go is not contradicted: its moves are restricted to one
+prime toggle. A finite x=210 paper example already existed; this is an all-finite-X
+formal residual theorem, not a claim that prime/semiprime cancellation was unknown.
+
+Plan: reuse the exact primeEscapePart signed-sum identity; identify its p=2
+boundary; remove only zero Mobius coefficients; prove genuine prime/semiprime
+admission, signs and factor uniqueness; choose finite subsets of common size
+min(a,c); remove their zero signed mass; retain the exact residual cardinality;
+transport the existing coefficient-exact lift below its strict threshold.
+The main technical risks were parity interfaces, natural endpoints and the
+orientation of finite-set sum identities, not an unproved analytic estimate.
+
+### E. Exact Theorem Statement
+
+For natural X>=4 and a finite P with every p in P an odd prime, define
+
+```text
+U = {n: 0<n<=X, n mod 2=1, X<2n, mu(n)!=0},
+A0 = {p: 0<p<=X, p prime, X<2p},
+C0 = {n: 0<n<=X, X<2n,
+          exists s in P and prime q, (forall t in P, t<q), n=s*q}.
+t = min(|A0|,|C0|).
+
+exists A subset A0, C subset C0:
+ |A|=t, |C|=|A|, A and C disjoint,
+ R=U minus (A union C), |R|+2|A|=|U|,
+ sum_(0<n<=X)mu(n)=sum_(n in R)mu(n).
+```
+
+Principal declaration: RHLean.Proof.exists_prime_semiprime_residual in
+research/MERTENS_ODD_BOUNDARY_PRIME_ESCAPE_20261105.lean.
+Empty P is permitted. The universal large-factor condition is exactly q>max(P)
+when a partner exists; no endpoint or multiplicity is replaced by a density.
+Nonzero mu is the existing genuine squarefree-support predicate.
+
+The complete square is the ordered double sum of mu(a)mu(b) over R x R.
+The actual heathBrownLift(mobiusPrefix N,k) has the same sum for
+X<(N+1)^k. This bridge consumes the proved scalar residual equality and is
+coefficient-level, not an asserted new occurrence-ID bijection. The cutoff is
+strict. No N>=1 or k>=2 assumption is needed for this already valid general bridge.
+
+The additional obstruction says that for positive natural p, if a fixed m obeys
+m<=X<2m at every integer p<=X<2p, then m=p. Thus a distinct opposite-sign partner
+cannot be frozen throughout that full admission interval.
+
+### F. Independent Mathematical Audit
+
+Review sequence: the author and independent Referee statements were read before
+this proof reconstruction; no blind-review claim is made. PE1-PE4 paper acceptance
+is upstream independent review. Implementation checks here are SELF_AUDIT.
+
+An even squarefree n has the unique odd parent n/2 and opposite mu sign; its
+old factor-two pair is already accounted for by the existing primeEscapePart
+theorem. Every newly admitted partner s*q has distinct odd prime factors and
+mu=+1. Every top-half prime has mu=-1 and, for X>=4, is odd. Both populations
+therefore lie in the actual leftover U and are disjoint. Equal-cardinality
+subsets have exactly zero combined signed mass. Set cardinality prevents
+reusing an endpoint. The full square retains every ordered mixed interaction.
+
+The factorization uniqueness proof uses primality and the actual large-factor
+ordering, not a label-based assumption. No RH-strength hypothesis, hypothetical
+covariance sign, PNT approximation, new axiom or desired-bound premise is used
+in the existence theorem. Conditional square/lift transports state their input
+equality explicitly; they do not supply a quantitative estimate under a new name.
+
+### G. Lean Implementation And Tests
+
+Three scoped files: the new research module, its exact Python regression, and a
+dedicated GitHub Actions workflow. Existing library modules and pins are unchanged.
+The new module imports AdaptivePrimeMatching and MERTENS_HEATH_BROWN_SIGNED,
+uses the existing RHLean.Proof namespace, and is reached by dedicated and targeted
+research compilation plus the repository research index. It is not silently
+claimed to be a new public root-library export.
+
+The dedicated workflow restores pinned native/dependency and source-addressed
+research artifacts, compiles with warnings fatal, and separately prints ten exact
+theorem types and complete axiom lists. It reuses the newly repaired fail-closed
+audit parser with its own explicit expected-name tuple. Compiler status is
+propagated directly, not hidden by a shell pipeline. Actual evidence is preserved.
+
+Local checks: 372 exact physical cases, 272 strict-cutoff lift coefficients,
+Python syntax and workflow YAML pass. These are finite arithmetic tests, NOT
+Lean execution or asymptotic evidence. At X=63, P={3,5}, the residual is {61}
+with signed mass -1. Empty P is valid; P9 has no partner at X=63; X=3 would
+incorrectly admit the even prime 2 to the proposed odd boundary; N=1,k=2,n=4
+has lift coefficient -1 rather than mu(4)=0 at the excluded equality endpoint.
+The complete small ordered square is directly enumerated, not just fitted.
+
+### H. Proof Branch And PR Evidence
+
+PR: https://github.com/OVVO-Financial/RH_Lean/pull/1096
+Branch: agent/lean-verification/20261105-mobius-prime-escape.
+Base: 1667c3cf9b4e898bb9afd62ec48e24610b2156ab.
+Initial implementation: 7f37d6730b2b32606694bd83dc22ef974b3cf5a2.
+Proof repair: 0c3c9755b10322bbc1d0677a5fa3980a168733cc.
+Audit import repair/latest head: ecf701ff2fea1de52e505ee34048a2b3c220f0fc.
+Head tree: 48b193cd105e21183b1cfd68b059894c8056f35c.
+Final source blob: 3cbc5159536d6b9e5000f74c5bd018bd2d62daf1.
+Tested PR merge: 7783734bdc9960d3c2483af380759db85e87bc8f, with parents exactly
+the stated main base and latest proof head. Its Git tree equals the head tree
+48b193cd105e21183b1cfd68b059894c8056f35c. All three final changed-file blobs
+were fetched at the immutable head and matched the uploaded bytes.
+Final PR review state: REVIEW_READY; open, draft=false, merged=false, exact
+head unchanged. The ready-for-review transition was confirmed at
+2026-11-06T02:48:02Z. Merge authority remains with the human owner.
+
+Connected branch/blob/tree/commit/ref/PR/report actions succeeded. Direct shell
+clone returned CONNECT 403; the connected workflow was used without credential
+workarounds. No local Lean, direct main push, merge, auto-merge, other-report edit,
+agent launch, schedule mutation or permission change occurred.
+
+### I. GitHub Actions Evidence
+
+Final-head dedicated run
+[42150511056 / job 127672350630](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42150511056/job/127672350630)
+completed SUCCESS. The actual log was retrieved, including the checkout,
+finite regression results, exact Lean version, import closure, all ten elaborated
+theorem types, ten axiom results and fail-closed audit success.
+
+Source compilation was actually performed at proof-repair head
+0c3c9755b10322bbc1d0677a5fa3980a168733cc in
+[42150063645 / job 127670853293](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42150063645/job/127670853293):
+compiled=1, cached=2, warning-fatal source step SUCCESS. Its overall run failed
+only in the separate harness import, as recorded in J. The final head changes
+only that import in the workflow, not a Lean source or dependency byte.
+The final run legitimately reuses those source-addressed verified artifacts:
+compiled=0, cached=3. Native prerequisites report build success (8952 jobs).
+The corrected exact-type/axiom harness freshly executes Lean at the final head
+with warningAsError=true and exits successfully. This is verified cache reuse,
+not a claim that the final run recompiled unchanged source from scratch.
+
+Audited declarations, all under RHLean.Proof:
+
+| Declaration | Actual complete axiom list |
+| --- | --- |
+| primeEscapePart_two_Ioc | propext, Classical.choice, Quot.sound |
+| sum_moebius_eq_oddSquarefreeUpper | propext, Classical.choice, Quot.sound |
+| semiprimeEscapePartners_moebius | propext, Classical.choice, Quot.sound |
+| semiprimeEscape_factor_unique | propext, Classical.choice, Quot.sound |
+| semiprimeEscapePartners_subset_upper | propext, Classical.choice, Quot.sound |
+| topHalfPrimes_subset_upper | propext, Classical.choice, Quot.sound |
+| exists_prime_semiprime_residual | propext, Classical.choice, Quot.sound |
+| prime_semiprime_residual_complete_square | propext, Classical.choice, Quot.sound |
+| heathBrownLift_sum_eq_prime_semiprime_residual | propext, Classical.choice, Quot.sound |
+| upper_half_static_partner_eq | propext, Quot.sound |
+
+No sorryAx, project axiom or unexpected hypothesis was found. The
+structural/admission declarations and final obstruction preserve the hypotheses
+described in E; the square and lift statements explicitly consume hR. In
+particular the factorization statement has no primality hypothesis on q, and
+the moving-cutoff statement requires only p>0. The no-shortcut scan passes.
+
+Evidence artifact
+[13472585506](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42150511056/artifacts/13472585506)
+contains the exact proof source, generated harness and audit log; 4962 bytes,
+SHA256 f5e4db2d689752d6f456163a6a2dd3690536413fed7e5ccbc24a85b0148ee6e2.
+API metadata independently ties it to the final head and run.
+
+| Workflow | Exact-head job evidence | Result |
+| --- | --- | --- |
+| Targeted Lean iteration | [42150510991/127672349798](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42150510991/job/127672349798) | SUCCESS |
+| Proof inventory | [42150510928/127672349612](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42150510928/job/127672349612) | SUCCESS |
+| VF pre-914 consolidation | [42150510894/127672349368](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42150510894/job/127672349368) | SUCCESS |
+| Prevent new cold-only Lean and OpenAI CI | [42150510909/127672349150](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42150510909/job/127672349150) | SUCCESS |
+| Public export verification | [42150510919/127672350037](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42150510919/job/127672350037) | SUCCESS |
+| Coordinate atlas and static search corpus | [42150510965/127672349494](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42150510965/job/127672349494) | SUCCESS |
+| VF first-bad final aggregate contraction | [42150511041/127672349929](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42150511041/job/127672349929) | SUCCESS |
+| VF first-bad normalized infrastructure | [42150510891/127672349699](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42150510891/job/127672349699) | SUCCESS |
+| VF first-bad source to sector-six inlet | [42150510967/127672349757](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42150510967/job/127672349757) | SUCCESS |
+| Mertens odd-boundary prime escape | [42150511056/127672350630](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42150511056/job/127672350630) | SUCCESS |
+| VF recursive child population and complement capacity | [42150510995/127672350233](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42150510995/job/127672350233) | SUCCESS |
+| Original OpenAI full certified 7/8 into RHLean square-block covariance | [42150510971/127672789985](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42150510971/job/127672789985) | SUCCESS |
+| OpenAI COMPLETE 7/8 theorem on original RHLean square-block covariance | [42150510853/127672851792](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42150510853/job/127672851792) | SUCCESS |
+| Lean source audits | [42150510871/127672349723](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42150510871/job/127672349723), [42150510871/127672349322](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42150510871/job/127672349322) | SUCCESS |
+
+Actual source-audit, inventory, targeted and export logs were also read. The
+root manifest imports all 830 native modules in sorted order; the inventory
+reports zero local import cycles and zero project axiom declarations on its
+native surface. Research staging is explicitly outside that native root and
+TerminalAxiomAudit surface, hence the new module's dedicated exact-name audit.
+Public-export success is only the unchanged export/closure audit, not a claim
+that this research module was newly exported or proves the terminal objective.
+The final API sweep confirmed all 14 workflow results and all 15 check jobs
+successful, each check bound to ecf701ff2fea1de52e505ee34048a2b3c220f0fc.
+Existing workflow names above are retained verbatim as evidence labels, not
+reinterpreted as a proof of the still-open canonical objective.
+
+Pins: Lean v4.34.1; Mathlib d13f23b723b8a846827a245b89c10fc7d3f11612;
+PNT+ c39a751132c88b6e8080b74c74023fd95b3d8be0. Cached prerequisites are
+distinguished from newly compiled research files. No unrelated green check is
+substituted for the dedicated proof audit.
+
+### J. CI Failures And Repairs
+
+Initial head 7f37d6730b2b32606694bd83dc22ef974b3cf5a2 failed dedicated
+42149671624/127669551589 and targeted 42149671418/127669551098. Actual logs
+identified the same three diagnostics: Nat.Prime.eq_two_or_odd returns the
+modulo equality directly, not the existential Odd witness unpacked at lines
+123/137; Finset.sum_sdiff gives the additive partition orientation, not the
+subtraction rewrite attempted at line 192.
+
+Repair 0c3c9755b10322bbc1d0677a5fa3980a168733cc changes only those proof steps.
+The theorem statements, assumptions, definitions, workflow and audit are unchanged.
+These are elaboration/library-interface failures, not false mathematical claims.
+No initial failure is relabeled as a passed proof; subsequent evidence is in I.
+
+At the proof-repair head the actual dedicated compilation succeeded (compiled=1,
+cached=2), as did targeted iteration. Its separate audit then failed with
+unknown module prefix 'research': this repository emits literal dotted research
+module names. Commit ecf701ff2fea1de52e505ee34048a2b3c220f0fc changes only the
+workflow-generated import to quote the entire module identifier. The audit
+correctly failed closed and preserved the failed harness/log artifact. No
+mathematical source or check was weakened. The final source bytes are unchanged
+from the successful source compilation and were separately read back.
+
+### K. Mathematical Conclusions
+
+The implementation certifies exactly the finite original-coefficient residual
+and its stated transports under the actual verification evidence in I.
+It does not prove the full paper matching construction, the nine-channel
+asymptotic capacity criterion, typical-depth cancellation, an all-scale residual
+bound, a new Mertens exponent, the canonical VF bound or RH.
+
+Source-to-target map: existing exact lift -> genuine Mobius prefix -> the new
+finite residual -> complete residual square. The next arrow, an independently
+small uniform signed residual, is OPEN. Merely naming R does not make it easier
+or quantitatively smaller. The accepted paper linear unsigned remainder warning
+is retained at paper scope, not upgraded by the implemented cardinal identity.
+
+### L. Formalization-Driven Discoveries
+
+P need not be nonempty for the finite result. The factorization uniqueness lemma
+also needs neither primality of q nor a second large-factor hypothesis: if
+s,t are primes in P, r is prime larger than every member of P and s*q=t*r,
+primality forces s=t, then positive-factor cancellation forces q=r. These are
+genuine removals of unnecessary assumptions, not added premises to close a proof.
+
+The static-partner obstruction generalizes from prime p to every positive
+integer p and requires no Mobius/sign assumption. Conversely, X>=4 is genuinely
+needed for the selected top-prime-to-odd-boundary admission statement. The strict
+lift threshold cannot be changed to a closed endpoint. These boundary facts
+are recorded separately from the unrestricted exploratory matching problem.
+
+### M. Mathematical Significance
+
+This provides a formal, reusable source-admission and once-only residual
+interface for a class-changing MU-LIFT cancellation, beyond the existing
+one-toggle carrier. It is not credited as an independently new quantitative
+estimate. Its utility is to prevent double spending and lost signs when later
+arithmetic attacks the true leftover. Proof length and declaration count are
+not measures of endpoint progress.
+
+### N. Specialist Handoffs
+
+Coordinator: register only the exact scoped finite theorem and tested head;
+keep SEARCH_BROAD and all nine routes. Wheel: the PE1 signed-residual consequence
+and PE4 static-cutoff obstruction are implemented; sorted-list/raw-occurrence
+and PNT-capacity formalizations remain separate. Referee: preserve the upstream
+PE1-PE4 acceptance scope and review this narrower implementation without treating
+new R12-R14 as already independently accepted.
+
+Analytic: a uniform whole-prefix signed bound is still needed; no coefficient-
+sensitive or asymptotic gain follows from this equality. Owner: no VF/JOH
+occurrence transport is asserted. Census: the checked small endpoint controls
+are available in the PR; no unchanged enlarged scan is requested. An additional
+matching must prove fresh disjoint endpoints, exact moving admission and full
+signed restoration before any purported quantitative benefit is used.
+
+### O. First Unresolved Mathematical Theorem
+
+On a specified power chain B_(j+1)=B_j^2 the genuine required supplier is
+
+```text
+exists fixed r in [1,2), G_j>=1 with log(G_j)/log(B_j)->0,
+forall sufficiently large j, forall integer B_j<=X<B_j^2:
+ |2M(B_j-1)-Q_(B_j-1)(X)| <= G_j E(B_j)^r sqrt(X),
+Q_N(X)=sum_(1<=a,b<=N)mu(a)mu(b)floor(X/(ab)),
+E(B)=max_(1<=n<B)|M(n)|/sqrt(n).
+```
+
+The compiled identities allow a complete signed residual to replace the left
+side, but do not prove this bound. Both linear copies, all bilinear terms and
+all prefixes must be retained. For fixed higher lift order k the subcritical
+threshold is r<k with its whole-prefix coverage. A smaller finite-cardinality
+certificate at selected X or a fixed partner is insufficient.
+
+### P. Next-Run Resume Capsule
+
+```text
+RUN: actual scheduled 2026-11-05 21:08 EST; RUN_ID_UNAVAILABLE.
+MAIN: 1667c3cf9b4e898bb9afd62ec48e24610b2156ab.
+POLICY: NO_PIGEONHOLING_ROUTE_SELECTOR_V1 / ffd8f1c65cc4da656174956d4e03b48bea46768b.
+ROUTE: MU-LIFT, original integer Mobius and strict convolution lift.
+CLAIM: 20261105-lean-3/PE1-RESIDUAL; consumes Wheel PE1/PE4 and Referee-11.
+PR: #1096; branch agent/lean-verification/20261105-mobius-prime-escape.
+HEAD: ecf701ff2fea1de52e505ee34048a2b3c220f0fc.
+SOURCE: 3cbc5159536d6b9e5000f74c5bd018bd2d62daf1.
+FORMAL: PROVED_IN_LEAN, structural control plus scoped obstruction.
+PR/CI: REVIEW_READY, draft=false, unmerged; 14 workflows / 15 check jobs SUCCESS.
+DEDICATED: https://github.com/OVVO-Financial/RH_Lean/actions/runs/42150511056/job/127672350630
+SOURCE COMPILE: https://github.com/OVVO-Financial/RH_Lean/actions/runs/42150063645/job/127670853293
+COMPILE DISTINCTION: preceding source compile passed; that run's audit failed;
+                    final run reuses identical source and freshly passes audit.
+TESTED MERGE: 7783734bdc9960d3c2483af380759db85e87bc8f, tree equals final head.
+AXIOMS: 9 declarations [propext, Classical.choice, Quot.sound];
+        static-partner obstruction [propext, Quot.sound].
+ARTIFACT: https://github.com/OVVO-Financial/RH_Lean/actions/runs/42150511056/artifacts/13472585506
+FIRST FAILED HEAD: 7f37d6730b2b32606694bd83dc22ef974b3cf5a2; preserved above.
+UNRESOLVED CI FAILURES: none at latest head; all historical failures retained.
+MATH: exact finite residual/cardinality, full square, strict coefficient bridge.
+NOT IMPLEMENTED: sorted involution, raw occurrence PE3, PNT PE2, asymptotic PE4.
+NEW ENDPOINT GAIN: NONE_ESTABLISHED; SEARCH_BROAD.
+FIRST OPEN: independent uniform signed whole-prefix estimate, not a renamed R.
+NEXT: refresh live PR/head; reuse verified evidence if unchanged.
+      Repair actual review failures first; otherwise choose another qualified
+      useful estimate/obstruction from the broad queue. Do not duplicate PE1.
+PUBLICATION: final commit/readback is recorded by the subsequent receipt.
+```
+
+### Source And Continuity Ledger
+
+All seven role files on both Eastern-calendar dates were retrieved; relevant
+result summaries, handoffs, resume capsules and the selected complete PE1-PE4
+proof/review were inspected. This is not blanket acceptance of every claim or
+a claim to rerun unrelated executable appendices. All TODAY roles were AVAILABLE;
+no unobserved scheduled stage was inferred. Coordinator AM/PM blobs match on
+each date. The external inbox has no entry later than October 18; its historical
+routing is superseded and its source-fidelity safeguards remain relevant.
+
+| Role | November 4 blob | November 5 intake blob |
+| --- | --- | --- |
+| Coordinator | 68495a5e913eee0e788940a683cf16ec4d0984cc | 88c4b9f83cc3dcea885d0c9ddb1fc26cedef4632 |
+| Owner | 560b0b7617703b64e728e12e60a390646c9379ea | 39665b5b28fc48378519ab9d56cee8df4d3e2681 |
+| Analytic | 04ffb1b41d8b6afe5a5d89754f5ccbc8d9682d58 | 9490aa2eecafcd19d8007043cc5f978fe421a7c9 |
+| Wheel | 37ad6a1230fbb46369311790ed5686baf1775598 | afc85d800c47f82f2db634591a7798005cb668de |
+| Census | 4bd5319fa3d13219cdad006dce4a854b606c2f7c | 24fcd6a631eca9ae44238d927215f49e1d8a174f |
+| Referee | 0e4fdfbf90d52a74074e04ef6cb6988339dc8d84 | 789ed87021fe98963c244a8d0c9075638e76be43 |
+| Lean | 5fce0138779d67eda4e69c13230274e6419de894 | c9e8255d2c00a2b317f39531589ac2a16f8e3518 |
+
+External inbox blob: 038018145c0fddb2f6306c0712373adf9cd1ea52. Current source
+and dependency blobs used in this implementation:
+
+| File at main unless specified | Blob SHA |
+| --- | --- |
+| RHLean/Proof/GlobalPrefixCarrierOthello.lean | f34d55e4c8de4c20a18ecf78565cf3f864dab4fe |
+| RHLean/Proof/AdaptivePrimeMatching.lean | c2caaace0f4e99ea06107d939119c12fa005bcbc |
+| RHLean/Proof/AlternatingSignMatchingParity.lean | 75037dda120c7ba6f6af977d03097f542135ec59 |
+| RHLean/Proof/FiniteOthelloMatching.lean | ef8d7db0a6b1f3bffb23cb8dd2ba26392c5a262b |
+| research/MERTENS_HEATH_BROWN_SIGNED.lean | af69b4811cf9f523eb7c96fb0ca836b2cdbd1180 |
+| research/MERTENS_FINITE_PREFIX_EXTENSION.lean | 131e9af86207a42d4bf6488e3f64c9ce4f97e5df |
+| research/VF_CANONICAL_SQRT_TWO_VON_KOCH.lean | 79030d70e8d3e0d08eef9bac53fef95c36eca2fb |
+| lean-toolchain | ba8ebf2dbaf6a668cd2a0e086186d6d569b69ff5 |
+| lake-manifest.json | a34d142c3d75a602a8b0f8241a4fb504d5c7c5a4 |
+| Pinned Mathlib/Data/Finset/Card.lean | 493d7c6c08ecb7577d201d3318dbb075bb30f04a |
+| Pinned Mathlib/NumberTheory/ArithmeticFunction/Moebius.lean | 05f76c89adb09318abbec6ada574be955267b03d |
+| New final-head Lean module | 3cbc5159536d6b9e5000f74c5bd018bd2d62daf1 |
+| New final-head regression script | ba7c1679d5ac7886c0bff46e63a42cc5bac59724 |
+| New final-head dedicated workflow | 46907ac606f57dab6a41349591887f294825e6c0 |
+
+Final prepublication freshness check: main remains
+1667c3cf9b4e898bb9afd62ec48e24610b2156ab. Today's six other role-report blobs,
+both Coordinator copies and the external inbox remain unchanged from intake.
+Only this agent's daily report has changed through its recorded checkpoints.
+
+Verified checkpoint publications this invocation: 953f3a7c7c0c613e0f4a63e38c5d8f20c50ebe6e
+(early), fb554d134331ec89b81fa405becbaa1217e16cc5 (implementation),
+088252aca1fc3675405239b62968dc93b0fc14d3 (compiler repair), and
+f3a0e750a9131ea7fe40e27bae43787b44e938c7 (audit-import repair).
+Each was fetched at its immutable commit and matched the intended complete
+report exactly; all earlier bytes were retained.
