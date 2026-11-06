@@ -566,3 +566,367 @@ Other qualified candidates: CORR4 CP2 finite weighted integration and NYMAN RM2 
 Operational note: an earlier checkpoint-write sequence stalled without confirmed publication and was stopped. A fresh fetch found the daily report unchanged at 7138b713a44f514ade3a64db44268c1934b215d0. This accurate checkpoint uses an atomic report-only branch update; publication will be claimed only after immutable readback. Connected proof-branch/tree/commit/ref/PR writes all succeeded. Direct clone was blocked by CONNECT 403. No agent launch, main write, merge, auto-merge or schedule change occurred.
 
 Next: diagnose actual compiler output, repair without changing theorem meaning, verify latest head/axioms and repository checks, and append the final research capsule.
+
+## Midday Formalization Synthesis - Scheduled 2026-11-06 13:14 EST Invocation
+
+Actual trigger: 2026-11-06T13:14:00-05:00, America/New_York; SCHEDULED;
+RUN_ID_UNAVAILABLE. This completes the midday checkpoint, not another run.
+
+### A. Most Important Formal Mathematical Result
+
+Claim **20261106-lean-2/NYMAN-NULL** implements the independently accepted
+**20261106-analytic-2/RM5** obstruction on the original Nyman residue carrier.
+It constructs arbitrarily large complete finite weighted energy while all
+first-six residuals, low coefficients, both moments, and periodic mean stay
+fixed. It is a source-faithful counterexample family, not a new RH estimate.
+
+**PROVED_IN_LEAN at unmerged head 269ce7a77df7239099f8717390e3f951e81e95f0.**
+**CI_GREEN / REVIEW_READY** in PR #1099. All twelve attached workflows and
+thirteen checks passed on that exact head; all nine declarations use exactly
+propext, Classical.choice and Quot.sound. The PR remains unmerged.
+
+### B. Current Authoritative Objective
+
+Intake main was 4a6e6b8c1a81f6dd8b8bc0cfad123bbc2a56188a. Human merges
+#1097 and #1098 occurred during intake. The new proof baseline is
+**25319eb07e6b2abf8b218671c55635127832b72a**, tree
+3a413590bde91ccac333e8135f1c6f76cb9819bf. AGENTS is
+48b2a58ab5fcd402321a4dace511c7d54bf688a1; the contract remains
+7c4ac83a1ec1a4144e1bd691391ed4244f1cc27c.
+
+**baseline_ack=PAID_BASELINE_EXACT_CONSUMER_V1**, source
+13d58dd12d90fbf1160812c7c93442dc5d0576ac. The stable selector is now
+973d3d549a52a1afe2f02bfdcf8cc35fb6a76515. The independent-route policy
+ffd8f1c65cc4da656174956d4e03b48bea46768b is unchanged and consumed.
+
+The canonical actual-prime statement is still
+`exists C>=0, forall R>=2, abs(pi(R^2)-VF_can(R^2))<=C*R*log R`.
+Its source blob is 79030d70e8d3e0d08eef9bac53fef95c36eca2fb and its terminal
+consumer retains ClassicalVonKochRHCriterion explicitly. The canonical
+objective is OPEN. Existing native 7/8 and strict-gap results are preserved,
+not reconstructed or counted as a new gain.
+
+Pinned Lean: v4.34.1, toolchain blob ba8ebf2dbaf6a668cd2a0e086186d6d569b69ff5.
+Mathlib: d13f23b723b8a846827a245b89c10fc7d3f11612; manifest
+a34d142c3d75a602a8b0f8241a4fb504d5c7c5a4. PNT+ remains
+c39a751132c88b6e8080b74c74023fd95b3d8be0.
+
+| Original source at the proof baseline | Blob SHA |
+| --- | --- |
+| research/NYMAN_HIGH_COEFFICIENT_INVARIANT_20261104.lean | 2da630c1d5fb9302e2097ec1e170cf41c2b40609 |
+| research/NYMAN_FLAT_TAPER_RETURN_20261104.lean | 2d23721027ecc44e85b7add02fc632b482f03352 |
+| research/NYMAN_CORRECTION_ENERGY_20261105.lean | e5453cd32c3c4ebf9ebf41927bcb92e534b2ece7 |
+
+The first two are proof dependencies; the third was inspected for duplication
+and is not imported into the new module. Their content is unchanged across the
+human merges during intake.
+
+### C. Formalization Queue And Continuity
+
+The fresh open-PR collection was empty after the two human merges. #1097's
+head bc727dc9f7dd655fdd2addc943b246ad70ef576d had twelve successful workflows.
+Its actual dedicated log 42203731194 / 127845057234 was read, including all
+nine standard-axiom declarations. It merged at
+13390aee64181f8109a88139ec656d2424b26fba on 2026-11-06T18:17:46Z. Its
+sampling-only scope is unchanged; no duplicate build or repair was needed.
+
+| Candidate | Disposition |
+| --- | --- |
+| NYMAN RM5 null direction | Independently accepted, decisive finite obstruction; selected |
+| NYMAN RM2 first-N bound | Accepted paper estimate; requires substantial analytic partial summation and infinite moment infrastructure |
+| CORR4 CP2 weighted comparison | Accepted paper; optional analytic continuation, not an unpaid inherited-scale bound |
+| Owner DR / Wheel PB / Census HC | New proper-source work; independent review pending |
+| Referee-8/-9/-10 | New Fourier/exponent/full-norm paper results; self-audit is not independent acceptance |
+
+Both days' available report bytes were retrieved, applicable latest summaries
+and the selected source's full proof/review were read. Unrelated long numerical
+appendices were not rerun. Today's Coordinator only has a partial checkpoint:
+completed synthesis TODAY=PENDING; November 5 YESTERDAY=CARRY_FORWARD.
+External inbox 038018145c0fddb2f6306c0712373adf9cd1ea52 is unchanged since
+its October 18 entry. Its carrier/scope cautions remain; old routing is superseded.
+
+### D. Candidate Selection
+
+The current Nyman program permits relaxed moments and high-supported
+corrections. RM5 pinpoints exactly why controlling the first half and the
+periodic mean cannot provide a uniform later-energy bound over that unrestricted
+class. It has a complete independent paper review and a short original-source
+kernel proof. Existing dyadic invariance, flat return, and correction-component
+lower bounds do not already state this null-direction unboundedness theorem.
+No new large abstraction or duplicate coordinate consumer was introduced.
+
+### E. Exact Theorem And Original Definitions
+
+All declarations are in RHLean.Analysis. Use the existing definitions
+
+```text
+r_c(m)=nymanResidual 12 c m=1-sum_(2<=k<=12)c(k)*(m mod k)/k,
+v(7)=7, v(8)=-16, v(9)=9, v(k)=0 otherwise,
+c_t(k)=c(k)+t*v(k),
+E_T(c)=sum_(1<=m<=T)r_c(m)^2/[m(m+1)].
+```
+
+For every real coefficient function c, real t, and natural m<=6,
+`r_(c_t)(m)=r_c(m)`; at m=7, `r_(c_t)(7)=r_c(7)+7t`.
+Total coefficient sum, reciprocal moment, periodic mean, and coefficients
+at k<=6 or k>12 are unchanged. For every c, natural T>=7 and real B,
+`exists t, B<E_T(c_t)`.
+
+For every natural 1<=H<12, arbitrary h:Nat->Real and real budget B, the terminal
+`nyman_flat_null_obstruction` constructs g with the same low/outside values,
+same total and reciprocal h-moments, same flat-coefficient periodic mean, and
+all first-six complete residuals unchanged, but `B<E_7(c_g)`, where
+
+```text
+L=nymanFlatScale 12 H=log 12-log H>0,
+c_h(k)=nymanFlatCoefficient 12 H h k
+      =(h(k)-nymanFlatKernel 12 H k)/L,
+g=h+(t*L)*v.
+```
+
+The original Mobius flat kernel is retained exactly. If h is high-supported,
+g remains high-supported. If h is moment-corrected or mean-centered, those
+equalities remain true. The theorem does not impose those properties solely
+to make a tactic succeed; it proves preservation for every baseline.
+
+### F. Independent Mathematical And Circularity Audit
+
+The exact cancellations are `7-16+9=0` and `7/7-16/8+9/9=0`. The periodic
+mean is half the difference of those two moments. For m<=6 every supported
+residue is m/k, so the change vanishes. At m=7 the residue contribution is
+`7*0-16*(7/8)+9*(7/9)=-7`.
+
+Choose `t=(56*(abs(B)+1)-r_c(7))/7`. The complete changed residual at seven
+is exactly `56*(abs(B)+1)`. Its contribution divided by 7*8 exceeds B;
+all other weighted squares are nonnegative. This retains the entire baseline
+and its mixed term, rather than comparing a correction component to the full
+norm. No Mertens envelope, prime-error bound, RH premise, random sign model,
+or desired energy estimate is assumed.
+
+The obstruction quantifies over unrestricted high corrections. Its witness
+uses index 9, which need not belong to the specific two-band FAMILY. Therefore
+it does not refute FAMILY's proved paper upper bounds, a best-approximation
+infimum, or the full Nyman criterion. An infinite norm dominates this finite
+prefix when legitimately defined; no new infinite-series Lean theorem is claimed.
+
+### G. Implementation And Validation Design
+
+The three-file PR adds a focused research module, an exact Fraction-based
+regression script, and a dedicated cache-enabled proof workflow. The existing
+research-closure compiler reaches the new module, so no root import or public
+export claim is manufactured. The dedicated job freshly checks exact theorem
+types and fails closed unless all nine expected axiom entries are present and
+contain only propext, Classical.choice, and Quot.sound. Existing safeguards
+are unchanged.
+
+| New file | Verified blob at the final head |
+| --- | --- |
+| research/NYMAN_MOMENT_NULL_OBSTRUCTION_20261106.lean | 301d7286fc2151b5d33bdca9762a6a01c496ff87 |
+| scripts/nyman_moment_null_regression.py | 4f27e3d280dd5273a3d07dc8d6c49f8f4ecc22b7 |
+| .github/workflows/nyman-moment-null-obstruction.yml | b02c44ee88d4e4ab21f8e1fb8cd9b0c5f8140e99 |
+
+All three final files were fetched at the immutable proof head and matched the
+submitted bytes. No other proof-source or integration file changed.
+
+Twenty rational cases passed, covering centered and noncentered baselines,
+positive/zero/negative perturbations and budgets, T=7/12/25, unchanged early
+cells, and a broken-direction negative control. These are finite computation,
+not a replacement for kernel proof. No local Lean execution occurred.
+
+### H. Branch And PR Evidence
+
+PR #1099: https://github.com/OVVO-Financial/RH_Lean/pull/1099
+Branch: agent/lean-verification/20261106-nyman-moment-null.
+Base: 25319eb07e6b2abf8b218671c55635127832b72a.
+Initial head: e0271e1a467ccc59bd6c4aa3cef3656e26f006b4.
+Repaired head: 269ce7a77df7239099f8717390e3f951e81e95f0.
+Only the proof script changed during repair. All theorem statements stayed fixed.
+
+### I. Exact-Head GitHub Actions Evidence
+
+The [dedicated proof job](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42271209683/job/128075944915)
+actually compiled the new file with warnings fatal: `compiled=1 cached=2`.
+It then freshly ran the warning-fatal theorem/type/axiom audit. All nine exact
+elaborated types match section E and the source; every transitive axiom list is
+exactly `[propext, Classical.choice, Quot.sound]`. The fail-closed expected-name
+check and no-placeholder/native-shortcut source check passed.
+
+The [targeted closure job](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42271209483/job/128075944351)
+reused the same-source compiled artifacts, reporting `compiled=0 cached=3`;
+its cache-smoke rerun also passed. This is not misreported as a fresh cold build.
+The [preserved proof artifact](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42271209683/artifacts/13527954656)
+contains the new source and exact theorem/axiom output.
+
+Actual checkout: synthetic merge **55dc1c8db8fd8eb20f17859e4558b31a72a5caff**,
+whose parents are the stated main baseline and final proof head. Its tree
+**ddb733b8fa2ef7296e43b50ea1734c9a30e131fe** exactly equals the proof-head tree.
+Thus the Actions merge checkout tests the same source bytes being certified.
+
+All thirteen check runs explicitly carry head
+269ce7a77df7239099f8717390e3f951e81e95f0 and conclusion SUCCESS. The hosted
+root build and source audits passed; the elaborated root graph agrees with
+the inventory on 8,870 named proofs. Those unchanged root checks are not
+substitutes for the dedicated research-module audit above. Public export
+verification is structural synchronization/closure, not a standalone export
+package compilation claim.
+
+| Workflow | Exact-head run | Result |
+| --- | --- | --- |
+| Nyman moment-null obstruction | 42271209683 | SUCCESS |
+| Targeted Lean iteration | 42271209483 | SUCCESS |
+| Lean source audits, including hosted root build | 42271209618 | SUCCESS |
+| Proof inventory | 42271209554 | SUCCESS |
+| Public export verification | 42271209642 | SUCCESS |
+| Coordinate atlas and static search corpus | 42271209493 | SUCCESS |
+| Prevent new cold-only Lean and OpenAI CI | 42271209537 | SUCCESS |
+| VF pre-914 consolidation | 42271209583 | SUCCESS |
+| VF first-bad normalized infrastructure | 42271209525 | SUCCESS |
+| VF first-bad final aggregate contraction | 42271209514 | SUCCESS |
+| VF first-bad source to sector-six inlet | 42271209568 | SUCCESS |
+| VF recursive child population and complement capacity | 42271209532 | SUCCESS |
+
+No local Lean ran. Standard dependency caches were reused. The root build's
+historical StrongPNT output prints `choice` under its open-Classical scope;
+the new declarations' transitive audits print the complete standard names.
+
+### J. Failures And Focused Repair
+
+Initial targeted run 42270667934 / job 128074067549 and dedicated run
+42270668081 / job 128074068000 failed. Four `unnecessarySeqFocus` warnings
+were fatal under the existing policy. The cell lower-bound proof also needed
+explicit real normalization `7*(7+1)=56`; simplification alone did not close it.
+The actual failed-goal diagnostic was read in full.
+
+Repair 269ce7a77df7239099f8717390e3f951e81e95f0 removes only the redundant
+tactic sequencing and adds the explicit denominator equality. No theorem
+semantics, hypotheses, normalization, workflow requirement or linter policy
+changed. The initial failed elaboration printed sorryAx in the dependent
+unfinished declarations; that was compiler error recovery, not accepted proof
+evidence or an authored placeholder. Final success requires its absence.
+
+### K. Mathematical Conclusions
+
+Classification: **OBSTRUCTION**, with structural preservation and an independent
+finite-energy unboundedness theorem. It rules out an unrestricted inference,
+not the research route. No exponent improvement or new prime/Mobius estimate
+is supplied. Existing native replay and strict-gap results remain established.
+
+### L. Formalization-Driven Discoveries
+
+The witness works for every baseline, not merely a mean-centered example, and
+for every finite endpoint T>=7. The exact flat-source bridge works throughout
+1<=H<12, beyond the submitted 2<=H<=6 domain. These extensions are author
+SELF_AUDIT, not an invented separate Referee verdict. The original accepted
+scope is included. The positive scale is mathematically relevant: at H=12 the
+scale is zero and the field's zero division collapses all flat coefficients,
+so the unboundedness conclusion cannot simply include that endpoint.
+
+### M. Significance And Established-Baseline Comparison
+
+Established input on this route: compiled residue identities and the complete
+arbitrary-defect flat return. The new result identifies an unconstrained
+three-coefficient direction that those moments and early observations miss.
+The inherited Mertens/7/8 bound does not uniformly bound arbitrary added high
+corrections; no fictitious transport from that baseline is used.
+
+The earliest invalid proposed inference would be extending a fixed early norm
+and centered moments to a coefficient-uniform complete norm. The exact cell
+counterexample prevents it. A controlled chosen-family estimate remains
+eligible and must retain all later cells and returned terms.
+
+NEW_NET_ENDPOINT_GAIN=NONE_ESTABLISHED; eta_gate=SEARCH_BROAD. This invocation
+does not erase any already established strict gap or impose a square-shell
+sum-of-squares condition on another route.
+
+### N. Specialist Handoffs
+
+| Role | Precise finding / next task |
+| --- | --- |
+| Coordinator | Record the RM5 obstruction at its exact verified PR scope; do not promote it to a route-wide impossibility or a new exponent. |
+| Analytic Type II | Early cells and both moments leave this explicit unbounded direction. Prove complete return for an explicitly controlled family, rather than a uniform statement over all high corrections. |
+| Adversarial Referee | Original RM5 acceptance is preserved; arbitrary-baseline/T and enlarged H formulations are transparent author extensions available for review. |
+| Finite Wheel | CORR4 #1097 is human-merged. CP2 remains a distinct optional paper continuation; PB claims still need independent review. |
+| Prime Census | Reuse the exact rational null-direction fixtures. No larger exponent-fitting scan is requested; HC's physical-donor collisions are a separate carrier. |
+| Owner Payment | DR proper-source chronological results remain pending independent review. No Nyman-to-native-VF source transfer is asserted. |
+
+### O. First Unresolved Mathematical Theorem
+
+For the specifically controlled FAMILY, not unrestricted h, the full returned
+middle at H=floor(N^(4/5)), T=ceil(N^(5/4)) is
+
+```text
+sum_(N<m<=T)
+ [V(H)*m+U_N(m)-U_H(m)+sum_(2<=k<=N)h_k*floor(m/k)]^2
+ /[(log(N/H))^2*m*(m+1)].
+```
+
+The accepted RM2/RM4 paper bounds cover the first N cells and remote tail,
+not this middle at the N^(3/4+epsilon) benchmark. Referee-10 proposes a weaker
+whole-norm estimate, still pending independent review. Paying the middle at
+the inherited benchmark would not itself improve the best established zero
+boundary. A genuinely stronger result needs new arithmetic in a complete
+controlled residual, or another independently sufficient route. No target-
+equivalent upper supplier is assumed here.
+
+### P. Next-Run Capsule And Publication
+
+```text
+RUN: scheduled 2026-11-06T13:14:00-05:00; RUN_ID_UNAVAILABLE.
+MAIN / PROOF BASE: 25319eb07e6b2abf8b218671c55635127832b72a.
+BASELINE_ACK: PAID_BASELINE_EXACT_CONSUMER_V1.
+ROUTE: NYMAN; original integer residues and Mobius flat kernel.
+CLAIM: 20261106-lean-2/NYMAN-NULL.
+ORIGIN / REVIEW: 20261106-analytic-2/RM5; 20261106-referee-7.
+PR: #1099, REVIEW_READY, open and unmerged.
+HEAD: 269ce7a77df7239099f8717390e3f951e81e95f0.
+SOURCE: 301d7286fc2151b5d33bdca9762a6a01c496ff87.
+COMPILATION + AXIOMS: 42271209683 / 128075944915, SUCCESS.
+TARGETED CLOSURE: 42271209483 / 128075944351, SUCCESS.
+FORMAL STATUS: PROVED_IN_LEAN at this PR head; not on main.
+CHECKS: 12 workflows / 13 checks successful; nine standard-three-axiom declarations.
+UNRESOLVED COMPILER FAILURES: NONE at the final head.
+SCOPE: unrestricted-correction obstruction; not a new endpoint bound.
+ETA_GATE: SEARCH_BROAD; existing strict gaps preserved.
+```
+
+Next run: refresh main/report/source and #1099 status, reuse these green checks
+if unchanged, and repair any real review/CI issue first. Do not restate this
+counterexample or enlarge its finite scan without a new hypothesis. Prefer a
+new independently accepted quantitative source estimate or an actually needed
+analytic interface from any route. The controlled Nyman return, not a uniform
+bound for all high corrections, is the mathematically relevant remaining task.
+
+Reporting status is COMPLETED only after the final append's immutable commit
+and content readback have been verified; its receipt records that action.
+
+The early accurate checkpoint was committed as
+fc81ab491a2bad180d02a1fa61916682d111ca78, blob
+597a5feb208cb71a7353260f7f2db31d59e4ea38, and verified by immutable readback.
+An earlier stalled publication sequence was stopped without a confirmed write;
+fresh readback showed the report unchanged before the successful atomic
+report-only update. No permission bypass, main write, merge, auto-merge, other
+agent launch or schedule edit occurred. Only this role's report is changed on
+agent-reports; proof files are on the reviewable non-main branch.
+
+### Two-Day Provenance And Final Freshness
+
+Main was refreshed again after all proof checks and remains
+25319eb07e6b2abf8b218671c55635127832b72a. All upstream November 6 report
+blobs are unchanged from intake, including the accepted RM5 proof and its
+independent review. Coordinator 00/90 mirrors have the same blob; the completed
+synthesis is still pending. The following sources were actually retrieved:
+
+| Role report | November 5 blob | November 6 closeout blob |
+| --- | --- | --- |
+| 00-coordinator-am.md | be661bb2ed2830fc4aeddf14713455e550d982cc | ed98da5ddf755803c0fb9249ccf5bdb58f59658c |
+| 10-owner-payment.md | 39665b5b28fc48378519ab9d56cee8df4d3e2681 | fd30796d1b10e58e694f1d85252dac3cd8099a94 |
+| 20-analytic-type-ii.md | 9490aa2eecafcd19d8007043cc5f978fe421a7c9 | b075be67af6294e41f6eb232f611c208799c5e04 |
+| 30-finite-wheel.md | afc85d800c47f82f2db634591a7798005cb668de | be64667df80910bc9cc8fa3034aeeb579df5829a |
+| 40-prime-census.md | 24fcd6a631eca9ae44238d927215f49e1d8a174f | 77777fae1f4273c76e0c1064f4529740cabfbb8b |
+| 50-adversarial-referee.md | 789ed87021fe98963c244a8d0c9075638e76be43 | 68ada01df5bd54ef07d22f1ebc4009ef9dd7e5b4 |
+| 60-lean-verification.md | 5e0ecdd8f08c2e19b4614f00c1a5657f58722344 | 597a5feb208cb71a7353260f7f2db31d59e4ea38 |
+
+The current Lean row is the verified midday checkpoint, before this final
+append. Earlier Lean evidence remains preserved above. Formal status is exact-head
+PROVED_IN_LEAN / REVIEW_READY, not a main-merged theorem or a new endpoint gain.
+
