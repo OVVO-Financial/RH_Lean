@@ -1463,3 +1463,1865 @@ deployment_ack: current independent multi-front policy consumed.
 Only this own report is written remotely; no agent launches or local Lean.
 Final findings, exact certificates, source code and resume capsule follow
 after actual execution and checks.
+
+## Scheduled JOH Final Synthesis - 20261105-census-2
+
+Actual invocation: SCHEDULED, 2026-11-05T19:00:01-05:00, America/New_York; RUN_ID_UNAVAILABLE. This completes the preceding checkpoint, not an additional run. New mathematical evidence is FINITE_COMPUTATION, with a scoped REFUTED sign assertion. The exploratory aggregate statement remains CONJECTURE. Independent computational reconstructions are reported below; independent Referee acceptance and Lean certification of the new findings remain PENDING.
+
+### A. Most Important Mathematical Discovery
+
+**The original arrival-clock lag correlation can change sign when its upper halo is omitted.** At X=209, h=3, the full source has lag correlations C_1=-13 and C_2=+1. Keeping only windows whose right endpoint lies below 2X changes them to -8 and -1. The apparent favorable sign obtained by that truncation is a statement about a DIFFERENT source.
+
+The complete original energy is V=23, its cell diagonal is D=47, and its full cross contribution is 2(C_1+C_2)=-24. Thus the positive lag does NOT refute aggregate cancellation. This is the smallest lag-sign failure among every integer X in the tested domain 128..8192, not a claim of absolute minimality below 128.
+
+The result discriminates two mechanisms. All-separations-negative is REFUTED, including at the preregistered development scale X=1024 and held-out scales. Full signed recombination remains favorable throughout the tested domain: sum_d C_d<0 at all 8,065 integer cutoffs. In fact 7,571 of those cutoffs have at least one positive lag. Favorable aggregate behavior cannot be justified here by treating every lag as a negative payment.
+
+**Independent upstream verification is also complete at finite scope:** Owner LC4 single-cell compression, MC3's signed coarse return, MC1/MC5's five complete prime/model Grams, the negative [5,8) coarse example, and the boundary prime 163 all agree with separately constructed arithmetic. No defect in those finite upstream claims was found. This does not independently certify Owner MC2's external analytic estimate.
+
+| Claim | Result | Evidence |
+| --- | --- | --- |
+| JL1 | Original clock lag sign fails; exact X=209 certificate and held-out failures | FINITE_COMPUTATION / REFUTED for H-LAG |
+| JL2 | Deleting the upper-halo windows reverses C_2 at X=209 | FINITE_COMPUTATION |
+| JL3 | Full C_total remains negative on 128..8192 | FINITE_COMPUTATION only |
+| JL4 | LC4, MC1, MC3 and MC5 source checks reproduced independently | FINITE_COMPUTATION |
+| JL5 | Lag recombination formula and baseline-only conditional power accounting | PAPER_PROOF / SELF_AUDIT; upper supplier CONDITIONAL |
+
+### B. Current Authoritative Objective And Provenance
+
+Repository OVVO-Financial/RH_Lean. Main at intake and the 2026-11-06 00:16:38 UTC refresh: **1667c3cf9b4e898bb9afd62ec48e24610b2156ab**, tree **6351bbacd22d7abb34eefed1e2cbf5f674642010**. Research date is November 5 in New York. Authority retrieval began with the 00:00:27 UTC check. Reporting intake: **e22e2ddd080f4b5c3d8bb27e6365083ecd6b2b63**. These are observed snapshots, not future freshness claims.
+
+The unchanged canonical target remains OPEN:
+
+```text
+VFCanonicalSquareVonKochStatement:
+exists C>=0, forall integer R>=2,
+ |pi(R^2)-vfMidFinishedMass(R)-sqrt(2)| <= C R log R.
+```
+
+The canonical RH consumer keeps its explicit ClassicalVonKochRHCriterion premise. This investigation uses the separate native JOH floor-Li prime carrier. It does not identify it with Mobius atoms, OAI Hecke characters, or the original clipped first-bad #915 norm.
+
+| Material source inspected on pinned main | Git blob SHA |
+| --- | --- |
+| AGENTS.md | 547dda0d9456e7a4e1165dc72d59da6f70d5c023 |
+| CURRENT_PROOF_CONTRACT.md | 7c4ac83a1ec1a4144e1bd691391ed4244f1cc27c |
+| docs/RHLEAN_INDEPENDENT_MULTIFRONT_NO_PIGEONHOLING_20261104.md | ffd8f1c65cc4da656174956d4e03b48bea46768b |
+| docs/RHLEAN_SOURCE_FAITHFUL_COMPLETE_RETURN_AGENT_CONTRACT_20261031.md | 4775ee5fd95f279beab08a75d1e17127078b19a6 |
+| docs/RHLEAN_SEVEN_AGENT_RESEARCH_ENGINE_20261101.md | 6c1d1c10e2755017ffe9d7f40df8b9ae7692f23a |
+| research/VF_MID_FLOOR_LI_SIGNED_POPULATION_BALANCE.lean | 9a9336dad72171b6d572a1c1ae88d1ae8b56b530 |
+| research/VF_MID_FLOOR_LI_DISCRETE_BACKLOG.lean | 4255ca0dffe480f2aec6bd0b68797bbd293396c3 |
+| research/VF_MID_FLOOR_LI_TRANSPORT_CANCELLATION.lean | eb84f59055bd31dc117be034d45c92eb9dab8f27 |
+| RHLean/Analysis/PrimeSieveLipschitzExcursion.lean | 3eec4abf544310871088dae648fbed1f400cf35a |
+| research/LI_FAN_ONE_SIDED_WEIGHTED_COMPOSITE_RH_CONTRACT_20261022.md | 27e28f09e9f79e8a60d524e5fcb6f19904fa55f5 |
+| research/VF_CANONICAL_SQRT_TWO_VON_KOCH.lean | 79030d70e8d3e0d08eef9bac53fef95c36eca2fb |
+
+Current open/draft PR collection was empty. The latest accepted changes were the #1095 Euler audit repair, #1094 finite Nyman correction-energy theorem, and #1093 exact Nyman return. Their merge commits were inspected directly. This run did not re-audit their CI or claim new formal verification: none changes the inspected JOH source blobs or proves a JOH bound. No Lean execution occurred.
+
+deployment_ack: NO_PIGEONHOLING_ROUTE_SELECTOR_V1. JOH was independently selected to finish the deferred census-1/Coordinator LC4 support request and to test the new MC1 original overlap Gram. The newest Coordinator Nyman finite-mixture ticket was not selected and remains unexecuted by this run. No protected investigator rotation or source policy is changed. ETA_GATE=SEARCH_BROAD; new net endpoint gain UNKNOWN / NONE_ESTABLISHED.
+
+### C. Competing Hypotheses And Preregistration
+
+The frozen checkpoint was published and read back before execution at commit **07d4288a97b6097f32411004d6db51398e4d11e4**, blob **b2a6dd27a71c7618240537e50a37a8f15036f73a**.
+
+H-LAG asserted C_d<=0 for every lag 1<=d<h at the registered scales. The rival H-AGG allowed positive individual lags but asserted sum_d C_d<=0. A positive individual lag rejects only H-LAG; only a positive complete sum rejects H-AGG. The comparison is an exact uncentered quadratic decomposition, not a statistical covariance estimate.
+
+Development: X=128,256,512,1024. Held-out: X=2048,4096,8192. In every case h=floor(X^(1/4)), fixed in advance. The integer floor-certification domain was 2..16640, including the full halo. No range, coefficient or threshold was fitted after seeing the dyadic results.
+
+**Disclosed follow-up, not retroactive preregistration:** after H-LAG failed, the boundary test froze every integer X=128..8192 on the SAME certified table, seeking the smallest failure and testing whether moving admission could also defeat H-AGG. Its result was then independently recomputed in C++. The halo-truncation control was motivated by the resulting X=209 witness and labeled a changed-source control. It is not part of the original held-out test. No larger arithmetic domain was added.
+
+### D. Exact Carrier And Full Reconstruction
+
+Let L(x)=Li_2(x)=integral_2^x dt/log t, Q(n)=floor(L(n)), and
+
+```text
+B(n)=pi(n)-Q(n)-1,
+G(N)=sum_(2<=n<N) B(n),
+b_j=min{n>=2:Q(n)>=j},
+a_j=pi(b_(j+1))-pi(b_j), e_j=a_j-1,
+J_X={j:X<=b_j<2X}={u,...,v}, h=floor(X^(1/4)).
+```
+
+The centered B differs by -1 from the Lean integer backlog; its first difference agrees exactly. The primitive at physical integer k is the Lean vfMidFloorLiPrimitiveMismatch at k-1. All tested b_j are above the small exceptional domain. Each a_j counts actual primes in **(b_j,b_(j+1)]**, preserving right-boundary primes. In particular lambda(p)=Q(p-1), not Q(p), labels the source cell.
+
+Define the complete original moving-window energy and its cell decomposition:
+
+```text
+V(X)=sum_(j in J_X) [pi(b_(j+h))-pi(b_j)-h]^2,
+D(X)=sum_(j in J_X)sum_(0<=r<h) e_(j+r)^2,
+C_d(X)=sum_(j in J_X)sum_(0<=r<h-d) e_(j+r)e_(j+r+d),
+V=D+2 sum_(1<=d<h) C_d.                                  (JL5a)
+```
+
+The exact once-per-physical-cell-pair weight is
+
+```text
+C_d=sum_i w_(i,d) e_i e_(i+d),
+w_(i,d)=max(0,min(v,i)-max(u,i+d-h+1)+1).                 (JL5b)
+```
+
+Proof: the two cells i and i+d occur in the same h-window starting at j precisely when i+d-h+1<=j<=i. Intersect with [u,v] and count its integer points. This finite Fubini identity preserves overlap multiplicity and both ends of the interval. It is not an independent size estimate.
+
+Separately, the full prime/model Gram from MC1 was rebuilt with each actual prime p in (b_u,b_(v+h)], its occurrence weight w(p), and the exact clipped pair-overlap K(p,q):
+
+```text
+V = sum_p w(p) + 2 sum_(p<q)K(p,q)
+    -2h sum_p w(p) + h^2*#J_X.                          (JL5c)
+```
+
+D in JL5a is the CELL-innovation diagonal, not the prime diagonal in JL5c. Mixing those two decompositions would change the claim. All same-cell and cross-cell primes, model cross terms, model square, and the upper halo are included. A repeated physical prime across different windows is counted with the actual multiplicity, not deduplicated.
+
+### E. Executed Results
+
+| X | h | Windows | Last halo endpoint | V | Cell diagonal D | C_total | Individual lags C_1,...,C_(h-1) |
+| ---: | ---: | ---: | ---: | ---: | ---: | ---: | --- |
+| 128 | 3 | 25 | 271 | 18 | 34 | -8 | -6,-2 |
+| 256 | 4 | 43 | 533 | 26 | 58 | -16 | -14,0,-2 |
+| 512 | 4 | 77 | 1045 | 69 | 151 | -41 | -24,-12,-5 |
+| 1024 | 5 | 140 | 2078 | 305 | 415 | -55 | -28,-12,-18,3 |
+| 2048 | 6 | 256 | 4139 | 533 | 957 | -212 | -105,-81,-3,-34,11 |
+| 4096 | 8 | 471 | 8258 | 1550 | 2202 | -326 | -158,-118,28,-48,27,-61,4 |
+| 8192 | 9 | 872 | 16464 | 2456 | 5128 | -1336 | -830,-328,198,-136,-65,-182,23,-16 |
+
+Each row satisfies V=D+2C_total exactly. H-LAG first fails among the registered dyadic scales at X=1024,d=4. All three held-out scales also have a positive lag. H-AGG survives each registered scale.
+
+The separate boundary scan exhausts all **8,065 integers 128<=X<=8192**. The smallest positive lag is X=209,d=2. At **7,571** cutoffs at least one lag is positive, but at **zero** cutoffs is C_total positive or zero: the largest total is **-7**, first attained at X=147. The largest individual positive lag within this declared domain is **217**, first at X=7684,d=3. These maxima are finite-domain statements only. No h other than floor(X^(1/4)) is covered by this scan.
+
+The five MC5 rows were checked against the literal four-term prime/model expansion, not only their totals. For example X=2048 gives **533=1531+8158-18372+9216**, and the new X=8192 row gives **2456=7842+65138-141156+70632**.
+
+### F. Small Exact Certificate And Boundary Sign Reversal
+
+At X=209, h=3, J_X=51..87. The five and ONLY five nonzero terms in C_2=sum_(j=51..87)e_j e_(j+2) are:
+
+| j | First cell | Actual primes | Second cell | Actual primes | e_j,e_(j+2) | Product |
+| ---: | --- | --- | --- | --- | --- | ---: |
+| 61 | (265,271] | 269,271 | (276,282] | 277,281 | 1,1 | 1 |
+| 67 | (299,305] | none | (310,316] | 311,313 | -1,1 | -1 |
+| 69 | (310,316] | 311,313 | (322,328] | none | 1,-1 | -1 |
+| 86 | (410,416] | none | (422,428] | none | -1,-1 | 1 |
+| 87 | (416,422] | 419,421 | (428,434] | 431,433 | 1,1 | 1 |
+
+Their exact sum is 1. Floor certificates for each listed endpoint and its preceding integer, divided by the common denominator 2^128, are in the audit appendix. The prime/composite assertions were checked by both sieve and trial division. The preceding range 128..208 was exhausted, so the stated domain-minimality is verified, not inferred from sparse sampling.
+
+Moving X from 208 to 209 leaves the leftmost admitted index at 51 but admits j=87, since b_87=416 was excluded by b_j<416 and is included by b_j<418. This adds the last +1 above, changing C_2 from 0 to 1. Its right endpoint is b_90=434, which is part of the original source even though 434>2X.
+
+Now compare a deliberately DIFFERENT source that discards every window with b_(j+3)>418:
+
+| Source | Windows | V | D | C_1 | C_2 | C_total |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| Original, j=51..87 | 37 | 23 | 47 | -13 | 1 | -12 |
+| Halo-truncated control, j=51..84 | 34 | 21 | 39 | -8 | -1 | -9 |
+
+Both full reconstructions agree in Python and C++. The truncation removes exactly j=85,86,87. It does not merely remove negligible rounding error: it reverses the lag sign. Neither table permits deletion of the cross-lag return in the other table.
+
+### G. Hidden Variables And Arithmetic Classification
+
+Write e_i=s_i-z_i, where s_i=max(a_i-1,0) and z_i=1_(a_i=0). Because a_i is a nonnegative integer, this equality is exact. Each lag has three signed classes:
+
+```text
+C_d = sum_i w_(i,d) s_i s_(i+d)
+      + sum_i w_(i,d) z_i z_(i+d)
+      - sum_i w_(i,d)(s_i z_(i+d)+z_i s_(i+d)).
+```
+
+Thus a positive contribution need not be a prime cluster: two EMPTY clock cells also contribute positively. The X=209,d=2 totals are surplus-surplus 2, empty-empty 1, and opposite signs -2. At the held-out X=8192,d=3 they are **544+408-754=198**. Other lags restore the full negative C_total=-1336.
+
+The relevant hidden data are therefore cell occupancy, separation, and moving admission, including the halo. This is a deterministic explanation of the sign reconstruction. It is not a causal independence claim, a fixed-residue theorem, or a claim that either positive population is individually small. No model primes or randomized coefficients were substituted.
+
+### H. Independently Verified Compression And Its Meaning
+
+Using the original centered B, retained initial anchor, and final partial cell, the requested LC4 coordinates at a=5 are:
+
+| N | G(N) | U_5(N) | E_place(N) | Exact identity |
+| ---: | ---: | ---: | ---: | --- |
+| 512 | -2595 | -2808 | 213 | G=U+E_place |
+| 1024 | -6703 | -7134 | 431 | G=U+E_place |
+| 2048 | -16599 | -17485 | 886 | G=U+E_place |
+| 4096 | -42284 | -44049 | 1765 | G=U+E_place |
+
+Both implementations also check every integer a<=N<=4096 at a=5,194,820 and h=1,2,3,5,8: **56,360** complete G=K+P-D_model identities and **56,360** full quadratic reconstructions each. Python additionally checks every corresponding stated coarse error bound using a certified LOWER bound for log N. For h=1 it checks 0<=E_place<=pi(N)log N, and E_place<=13N/10 for N>=17. These finite checks do not replace the prior paper proof.
+
+At a=5,h=2,N=8, **G=-1, K=0, P=1, D_model=2**. At a=5,h=3,N=15, **G=-9, K=-10, P=9, D_model=8**. The signed coarse correction can have either sign. For the nonzero anchor a=194,h=3,N=512, **G(a)=-675** and the returned values are G=-2595, K=-2753, P=471, D_model=313. The anchor is neither zeroed nor duplicated.
+
+The five MC5 prime/model Grams and their endpoint telescopes agree exactly. The certified arrivals b_39=148 and b_42=163 give the interval (148,163] with primes 149,151,157,163. Its correct label uses Q(162)=41; the incorrect Q(163)=42 drops the actual right-boundary prime 163. This is independent computational confirmation of the upstream finite witness, not a new discovery credited to this run.
+
+### I. Precise Conjecture And First Missing Estimate
+
+**Exploratory CONJECTURE, not a theorem:** for every integer X>=128, with the exact J_X, h and original prime coefficients above,
+
+```text
+sum_(1<=d<h) C_d(X) <= 0.                              (JOH-AGG)
+```
+
+The threshold 128 is the registered test-domain boundary, not an optimized universal threshold. There are no observed exceptions through 8192, including all h-transition and boundary cases in that interval. The strongest attempted falsification here was the complete 8,065-cutoff scan, not only seven dyadic points. The componentwise strengthening is false. Future tests of JOH-AGG are prospective; no all-scale probability or optimal constant is inferred.
+
+**Even if JOH-AGG were proved, it would not by itself deliver a new strict power beyond 7/8.** An elementary complete-return budget explains the limitation. For all sufficiently large X the entire h-cell halo lies below 3X, since Q(3X)-Q(2X)>h. Minimal-arrival overshoot bounds every included cell length by O(log X): its Li increase is at most 1+1/log 2<3, and the integral is at least its length divided by log(3X). Consequently max a_i=O(log X), sum a_i<=3X, and the number of cells is at most 3X. Hence, without any short-interval prime hypothesis,
+
+```text
+sum_i (a_i-1)^2 <= (max a_i) sum_i a_i + #cells = O(X log X),
+D <= h sum_i (a_i-1)^2 = O(X h log X).                  (JL5d)
+```
+
+If JOH-AGG held uniformly, V<=D would give V=O(X^(5/4)log X). The exact boundary telescope and Cauchy give an average-backlog difference at most sqrt(#J_X*V)/h. Since #J_X<=X and the boundary averages are within O(h log X) of B(X) and B(2X), this yields O(X^(7/8)sqrt(log X)) plus the lower-order boundary term. Summing dyadic increments back to a finite initial anchor, and paying the integer/real rounding, yields only the corresponding 7/8+epsilon prime-error scale. No initial level is discarded. This is a CONDITIONAL calibration with an elementary PAPER_PROOF / SELF_AUDIT budget, not a proved bound for V or a new endpoint theorem.
+
+Owner's stronger OPEN-JOH-CLOCK-POWER still asks for a fixed kappa>0 and
+
+```text
+forall epsilon>0, V(X) <<_epsilon X^(5/4-kappa+epsilon)
+uniformly at all sufficiently large X.
+```
+
+That supplier is not established, and is not asserted necessary for JOH. A direct one-sided weighted retained-level estimate could use a different consumer. Neither finite aggregate negativity nor payment of positional error supplies it.
+
+### J. Relationship To The Current Proof Objective
+
+JL1-JL2 identify a source-fidelity obstruction to a local-negative-lag proof and provide a small regression for future incomplete-window estimates. JL4 removes the pending independent finite-verification gap in LC4/MC1/MC3/MC5. The new finite evidence suggests that any useful count-energy mechanism must combine signed lags and retain the halo, rather than demand negative sign from every separated class.
+
+No canonical VF estimate, original first-bad payment, Mertens improvement, OAI LOW estimate, or RH theorem follows. The 7/8 baseline and any already qualified fixed-slot improvement retain their own exact scopes. This run establishes **no new endpoint gain**. It does not retire JOH, the native prime-pair route, or the other protected investigations.
+
+### K. Numerical, Independence And Falsification Audit
+
+All discrete arithmetic, correlations, counts, quadratic identities and counterexamples are exact integers. Every Q(n) for 2<=n<=16640 is certified by rational enclosures, not rounded floating evaluations.
+
+The new certifier uses composite Simpson integration of f(x)=1/log x on each unit interval [n,n+1]. It uses 64 equal subintervals for n<16, 16 for 16<=n<128, and 4 thereafter. For even subdivision count m, the error is bounded by max|f''''|/(180m^4). Direct differentiation gives
+
+```text
+f''''(x)=x^(-4)(6/log(x)^2+22/log(x)^3+36/log(x)^4+24/log(x)^5).
+```
+
+Since log x>1/2 for x>=2, 1544/n^4 bounds this derivative on [n,n+1]. All Simpson weights are positive. Fixed-point intervals use denominator 2^128 with outward rounding for each operation. Logarithms are reduced to y in [1,2] and evaluated by 48 terms of 2*sum_(k>=0)t^(2k+1)/(2k+1), t=(y-1)/(y+1)<=1/3. The omitted tail is at most 18/(8*97*3^97), added with outward rounding. Reciprocals and integration errors are also rounded outward.
+
+Maximum final enclosure width is **less than 1.183e-7**. The minimum certified distance of any noninitial enclosure from an integer is **greater than 8.2788e-7**. Both endpoints of every enclosure have the same floor. The exceptional initial Li_2(2)=0 is exact. A separate 60-digit Decimal computation using the 200-term positive-argument Ei series agrees at every integer; this second calculation is a diagnostic, not the rational certificate.
+
+The reference implementation uses an Eratosthenes sieve, prefix counts and direct window expansion. C++ instead uses trial division, sums the original physical primitive events, groups each cell pair by its clipped overlap count, and reconstructs the compression directly from integer sites. It shares the **certified Q table**, not the prime table or intermediate Gram arrays. This is independent discrete reconstruction, not two independent interval libraries. The floor certifier itself is newly written and differs from Owner's previous log/Ei certificate. All 16,639 prime flags were additionally compared with trial division. The audit compares 236 selected exact fields, all five upstream Gram rows, the complete scan summaries, four LC4 fixtures, and the halo control.
+
+Actual environment: Python **3.12.14**; g++ **13.3.0**, flags **-std=c++17 -O2 -Wall -Wextra -pedantic**. No random seed or probabilistic primality test is used. Reference elapsed time was about **7.597 seconds**; final C++ elapsed time about **0.385 seconds**; the boundary search about **0.064 seconds**. These are observed program timers, not total research time or performance promises.
+
+One initial reference execution completed the certified arithmetic checks but stopped at an unavailable optional mpmath import. The diagnostic was replaced by a standard-library Decimal/Ei implementation and the complete program was rerun successfully. The final sources have no third-party Python dependency. All required computations and syntax/compile checks finished; no running job is left outstanding.
+
+The new proof discussion is SELF_AUDIT. Agreement of separate implementations is not independent Referee acceptance or kernel certification. No global H-AGG assertion, external MC2 analytic theorem, or quantitative infinite bound is labeled proved by these finite checks.
+
+### L. Continuity And Specialist Handoffs
+
+All seven roles' relevant November 4 and November 5 reports were retrieved at the pinned reporting snapshot. Relevant conclusions, scope warnings and continuations were read; executable appendices outside the selected JOH task were not rerun. **TODAY=AVAILABLE** for all seven stages at this intake; **YESTERDAY=CARRY_FORWARD** at original scopes. Earlier runs' valid TODAY=PENDING snapshots remain intact. Coordinator AM/PM tree entries match on both dates.
+
+| Role | November 4 blob | November 5 intake blob |
+| --- | --- | --- |
+| Coordinator | 68495a5e913eee0e788940a683cf16ec4d0984cc | 88c4b9f83cc3dcea885d0c9ddb1fc26cedef4632 |
+| Owner | 560b0b7617703b64e728e12e60a390646c9379ea | 39665b5b28fc48378519ab9d56cee8df4d3e2681 |
+| Analytic | 04ffb1b41d8b6afe5a5d89754f5ccbc8d9682d58 | 9490aa2eecafcd19d8007043cc5f978fe421a7c9 |
+| Wheel | 37ad6a1230fbb46369311790ed5686baf1775598 | afc85d800c47f82f2db634591a7798005cb668de |
+| Census | 4bd5319fa3d13219cdad006dce4a854b606c2f7c | 44f070eed4302f3d8d560346c6fb9b66c35be18a |
+| Referee | 0e4fdfbf90d52a74074e04ef6cb6988339dc8d84 | df74121b0a07297776a106ccd1b9d80a36b12fc5 |
+| Lean | 5fce0138779d67eda4e69c13230274e6419de894 | c9e8255d2c00a2b317f39531589ac2a16f8e3518 |
+
+Consumed distinctions: the current CORR4 finite joint caps and growing-rule countermodels are not JOH estimates; the Nyman fixed-profile obstruction does not apply to this prime clock; CODIV logarithmic Mobius results require a source bridge before transfer; the latest OAI physical-annulus limitation and MU-LIFT top-prime matching retain their separate carriers; the Euler audit repair is verification infrastructure, not new cancellation. The external inbox **038018145c0fddb2f6306c0712373adf9cd1ea52** has no entry later than October 18. EXT-20261018-PNT and EXT-20261014-5 continue to warn against deleting discrepancy/history or generalizing an unconditional denominator obstruction to first-bad hypotheses; they supply no missing JOH bound.
+
+**Proof Architect:** close only the pending independent finite LC4/MC1/MC3/MC5 verification request. Register JL1-JL2 as a native original-source falsifier and regression. Do not promote H-AGG's finite survival or the older MC2 claim to VERIFIED_ETA. The unselected Nyman three-profile C59/C61 support ticket remains separate and unexecuted here.
+
+**Owner:** the reported finite identities and all five full Grams reproduce. The complete h-cell clock must retain b_(v+h), even for a lag-sign claim. Explore a signed aggregate or one-sided weighted level estimate; componentwise lag negativity is false. Continue the protected SAT task without assuming this prime-clock statistic supplies its cofactor weights.
+
+**Analytic:** assess whether a genuine prime-pair estimate can control the complete clipped C_total, with both empty-cell and surplus-cell terms and the original prime/model return. Before seeking another finite table, specify the arithmetic prediction and a genuine improvement beyond the baseline-only JL5d budget. Independent review of MC2 remains a different task.
+
+**Finite Wheel:** any residue/owner conditioning must restore both classes of positive cell products and the upper-halo windows. X=209 is a minimal tested boundary regression; X=8192,d=3 shows the effect is not confined to the first small witness. No uniform residue or parity theorem is asserted.
+
+**Adversarial Referee:** independently audit the Simpson remainder/tail certificate, JL5b overlap endpoints, the five-row X=209 certificate, and the precise finite versus all-scale scope. JL5d is a conditional exponent diagnosis, not an asserted new source estimate. No independent acceptance of these new findings is claimed in advance.
+
+**Lean Verification:** no new proof branch is requested for unreviewed infinite conjectures. If useful after review, the exact overlap formula and small certified source regression are available; do not treat external rational computation as a Lean numerical certificate or displace higher-readiness quantitative work with duplicate identities.
+
+These are asynchronous published handoffs only. No agent was launched or promised to execute.
+
+### M. Ranked Experimental Hypothesis Portfolio
+
+| Rank | Exact idea and evidence | Counterevidence / independent ingredient / next action | Disposition |
+| ---: | --- | --- | --- |
+| 1 | JOH-AGG: original C_total<=0 for all integer X>=128; survives 128..8192 | No all-scale proof. Needs genuine complete prime-pair/model control, not component signs. Ask for an analytic discriminator before another larger scan. Even this sign alone supplies no new strict exponent. | CONJECTURE; continue cautiously |
+| 2 | Uniformly negative individual lags | Exact C_2(209)=1; registered and held-out failures; positive lags at 7,571 cutoffs | REFUTED; reject this strengthening |
+| 3 | Truncating at 2X preserves the relevant sign | X=209 changes C_2 from +1 to -1 | REFUTED at this precise source-comparison scope |
+| 4 | Original LC4/MC3 compression with full anchor and P-D_model return | Independently verified 56,360 finite cases; all-scale proof remains the upstream paper argument | FINITE_COMPUTATION; reuse, do not repeat |
+
+### N. Next-Run Resume Capsule
+
+```text
+RUN: 20261105-census-2; actual scheduled 19:00:01 EST; RUN_ID_UNAVAILABLE.
+MAIN: 1667c3cf9b4e898bb9afd62ec48e24610b2156ab.
+POLICY: NO_PIGEONHOLING_ROUTE_SELECTOR_V1 / ffd8f1c65cc4da656174956d4e03b48bea46768b.
+REPORT INTAKE: e22e2ddd080f4b5c3d8bb27e6365083ecd6b2b63.
+CHECKPOINT: 07d4288a97b6097f32411004d6db51398e4d11e4; exact readback PASS.
+ROUTE: JOH; original Q=floor(Li_2), centered B=pi-Q-1; no carrier substitution.
+NEW: JL1 C_2(209)=1; JL2 halo deletion changes that sign to -1.
+FULL: V=23=D47+2*(-13+1); halo to 434 is mandatory.
+FINITE: all integer X=128..8192, h=floor(X^(1/4)); C_total<0 throughout.
+POSITIVE LAGS: 7,571/8,065 cutoffs; no all-scale extrapolation.
+INDEPENDENT: Python/C++ discrete reconstruction; shared certified Q table
+  explicitly disclosed; independently factored primes; Decimal/Ei diagnostic.
+UPSTREAM: LC4/MC1/MC3/MC5 finite checks PASS; MC2 analytic review NOT performed.
+PRECISION: all Q(2..16640) certified; width<1.183e-7, margin>8.2788e-7.
+REVIEW: new findings await independent Referee; no Lean certification.
+FIRST OPEN: complete uniform signed clock-energy/weighted-level inequality.
+GAIN: NONE_ESTABLISHED; SEARCH_BROAD; canonical VF and RH OPEN.
+NEXT: test a proposed source-exact weighted/pair mechanism against X=209
+  and the held-out positive lags BEFORE scaling; retain the complete halo.
+DISTINCT SUPPORT OPTION: pending Coordinator C59/C61 three-profile source test,
+  if still relevant under fresh authority. Do not repeat unchanged old norm scans.
+PERMISSIONS: only this own report changed remotely; no main, other report,
+  Lean source, branch, PR, issue, workflow, schedule, or merge action.
+```
+
+### Reproducibility And Publication
+
+The following appendix contains all four executed sources, exact output summaries, code hashes and the minimal floor certificates. They are published inside this authorized report, not as arbitrary new repository files. Run the commands in their printed order in one scratch directory; no network or third-party Python package is required.
+
+```bash
+python joh_clock.py
+g++ -std=c++17 -O2 -Wall -Wextra -pedantic joh_verify.cpp -o joh_verify
+./joh_verify
+python joh_boundary_test.py
+python joh_audit.py
+python -m py_compile joh_clock.py joh_boundary_test.py joh_audit.py
+```
+
+The synthesis is not declared published merely because it was prepared. Its immutable commit/readback receipt follows after the actual authorized write. All earlier daily report contents and the preregistration are preserved as an exact prefix.
+
+
+### Executed Source And Data Hashes
+
+| Artifact | SHA-256 |
+| --- | --- |
+| joh_clock.py | 6af10a960d5e92f93fd0fd72b4daac542f4f36dd3be1669e471840fd48865ba7 |
+| joh_verify.cpp | 9de4d2cff7f1d01c2c97b453e3599e8bc8f6e84c15f4b42900040b4f6ce77f78 |
+| joh_boundary_test.py | a72ea96e08e3ccce92f9b6040689ac41a039b5d85f6e838f957f4c8119204f6b |
+| joh_audit.py | 26fb2353469e6ae31c700bfd84ec7de335b23885c38014bd8a0853e3aba7ad2b |
+| Certified floor table, Q(2)..Q(16640), newline-separated | df1a6bdff4cedb3d2195766677edcc3ebbe45d01673124ee0133b4a85b655892 |
+
+### Executed Source: joh_clock.py
+
+```python
+"""Exact JOH clock test with independently certified Li_2 floors."""
+
+import hashlib
+import json
+import platform
+import time
+from collections import Counter
+from decimal import Decimal, localcontext
+from math import isqrt
+from pathlib import Path
+
+S = 1 << 128
+LIMIT = 16640
+SCALES = (128, 256, 512, 1024, 2048, 4096, 8192)
+
+
+def ceildiv(a, b):
+    return -((-a) // b)
+
+
+def mul(a, b):
+    return a[0] * b[0] // S, ceildiv(a[1] * b[1], S)
+
+
+def log_unit(num, den):
+    # 1 <= num/den <= 2; 48 atanh terms, with an explicit geometric tail.
+    t = ((num - den) * S // (num + den),
+         ceildiv((num - den) * S, num + den))
+    t2 = mul(t, t)
+    p = t
+    lo = hi = 0
+    for k in range(48):
+        lo += p[0] // (2 * k + 1)
+        hi += ceildiv(p[1], 2 * k + 1)
+        p = mul(p, t2)
+    tail = ceildiv(18 * S, 8 * 97 * 3 ** 97)
+    return 2 * lo, 2 * hi + tail
+
+
+LOG2 = log_unit(2, 1)
+
+
+def log_ratio(num, den=1):
+    assert num >= den > 0
+    k = (num // den).bit_length() - 1
+    v = log_unit(num, den << k)
+    return v[0] + k * LOG2[0], v[1] + k * LOG2[1]
+
+
+def invlog(num, den):
+    lo, hi = log_ratio(num, den)
+    assert lo > 0
+    return S * S // hi, ceildiv(S * S, lo)
+
+
+def certify_floors(limit):
+    q = [0] * (limit + 1)
+    bounds = [(0, 0)] * (limit + 1)
+    lo = hi = 0
+    maxwidth = 0
+    minmargin = S
+    for n in range(2, limit):
+        m = 64 if n < 16 else 16 if n < 128 else 4
+        lower = upper = 0
+        for i in range(m + 1):
+            w = 1 if i in (0, m) else 4 if i % 2 else 2
+            f = invlog(n * m + i, m)
+            lower += w * f[0]
+            upper += w * f[1]
+        # f''''(x)=x^-4(6/log^2+22/log^3+36/log^4+24/log^5).
+        # log(x)>1/2 at x>=2, so |f''''| <= 1544/n^4 on [n,n+1].
+        error = ceildiv(1544 * S, 180 * m ** 4 * n ** 4)
+        lo += lower // (3 * m) - error
+        hi += ceildiv(upper, 3 * m) + error
+        assert lo // S == hi // S, ("ambiguous_floor", n + 1, lo, hi)
+        q[n + 1] = lo // S
+        bounds[n + 1] = (lo, hi)
+        maxwidth = max(maxwidth, hi - lo)
+        minmargin = min(minmargin, lo - q[n + 1] * S,
+                        (q[n + 1] + 1) * S - hi)
+    return q, bounds, maxwidth, minmargin
+
+
+def sieve(n):
+    prime = bytearray(b"\x01") * (n + 1)
+    prime[0:2] = b"\x00\x00"
+    for p in range(2, isqrt(n) + 1):
+        if prime[p]:
+            prime[p * p:n + 1:p] = b"\x00" * ((n - p * p) // p + 1)
+    pi = [0] * (n + 1)
+    for k in range(1, n + 1):
+        pi[k] = pi[k - 1] + prime[k]
+    return prime, pi
+
+
+def decimal_ratio(a, b):
+    with localcontext() as ctx:
+        ctx.prec = 32
+        return str(Decimal(a) / Decimal(b))
+
+
+def clock(q):
+    b = [2]
+    for n in range(3, len(q)):
+        assert q[n] - q[n - 1] in (0, 1)
+        if q[n] > q[n - 1]:
+            assert q[n] == len(b)
+            b.append(n)
+    return b
+
+
+def energy(X, b, prime, pi, q):
+    h = isqrt(isqrt(X))
+    starts = [j for j, n in enumerate(b) if X <= n < 2 * X]
+    u, v = starts[0], starts[-1]
+    assert v + h < len(b)
+    e = [pi[b[i + 1]] - pi[b[i]] - 1 for i in range(len(b) - 1)]
+    V = sum((pi[b[j + h]] - pi[b[j]] - h) ** 2 for j in starts)
+    D = sum(sum(e[j + r] ** 2 for r in range(h)) for j in starts)
+    lag = []
+    for d in range(1, h):
+        parts = Counter()
+        witness = None
+        for j in starts:
+            for r in range(h - d):
+                i = j + r
+                a, c = e[i], e[i + d]
+                label = "empty_empty" if a < 0 and c < 0 else (
+                    "surplus_surplus" if a > 0 and c > 0 else "opposite")
+                parts[label] += a * c
+                if witness is None and a * c > 0:
+                    witness = {"start": j, "i": i, "d": d,
+                               "cells": [b[i], b[i + 1], b[i + d], b[i + d + 1]],
+                               "e": [a, c]}
+        lag.append({"d": d, "C": sum(parts.values()), **parts,
+                    "first_positive_pair": witness})
+    assert V == D + 2 * sum(t["C"] for t in lag)
+    primes = [p for p in range(b[u] + 1, b[v + h] + 1) if prime[p]]
+    labels = [q[p - 1] for p in primes]
+    diagonal = off = 0
+    for k, p in enumerate(primes):
+        lp = labels[k]
+        diagonal += max(0, min(v, lp) - max(u, lp - h + 1) + 1)
+        for lq in labels[k + 1:]:
+            off += 2 * max(0, min(v, lp, lq) - max(u, lp - h + 1, lq - h + 1) + 1)
+    assert V == diagonal + off - 2 * h * diagonal + h * h * len(starts)
+    # Endpoint telescope with both complete h-cell boundary groups.
+    H = [pi[n] - q[n] - 1 for n in b]
+    delta_sum = sum(H[j + h] - H[j] for j in starts)
+    boundary = sum(H[v + r] for r in range(1, h + 1)) - sum(H[u + r] for r in range(h))
+    assert delta_sum == boundary
+    assert boundary * boundary <= len(starts) * V
+    return {"X": X, "h": h, "windows": len(starts), "u": u, "v": v,
+            "halo": b[v + h], "V": V, "D": D,
+            "C_total": sum(t["C"] for t in lag), "lags": lag,
+            "prime_diagonal": diagonal, "prime_off": off,
+            "prime_model": -2 * h * diagonal, "model_square": h * h * len(starts),
+            "delta_sum": delta_sum}
+
+
+def compression(b, prime, pi, q):
+    B = [pi[n] - q[n] - 1 for n in range(len(q))]
+    G = [0] * len(q)
+    for n in range(3, len(q)):
+        G[n] = G[n - 1] + B[n - 1]
+    count = 0
+    fixtures = []
+    starts = (2, 48, 150)
+    for j0 in starts:
+        a = b[j0]
+        for h in (1, 2, 3, 5, 8):
+            j = j0
+            complete_K = complete_P = complete_D = 0
+            for N in range(a, 4097):
+                while b[j + h] <= N:
+                    c, t = b[j], b[j + h]
+                    complete_K += (t - c) * B[c]
+                    complete_P += sum(t - p for p in range(c + 1, t) if prime[p])
+                    complete_D += sum(t - b[k] for k in range(j + 1, j + h))
+                    j += h
+                c, t = b[j], N
+                K = G[a] + complete_K + (t - c) * B[c]
+                P = complete_P + sum(t - p for p in range(c + 1, t) if prime[p])
+                D = complete_D + sum(t - b[k] for k in range(j + 1, j + h) if b[k] < t)
+                assert G[N] == K + P - D
+                assert G[N] ** 2 == K*K + P*P + D*D + 2*K*P - 2*K*D - 2*P*D
+                # Use a certified LOWER log bound for the theorem's RHS.
+                log_lower = log_ratio(max(2, N))[0]
+                if h == 1:
+                    assert D == 0 and P >= 0
+                    assert P * S <= pi[N] * log_lower
+                    if N >= 17:
+                        assert 10 * P <= 13 * N
+                assert abs(P - D) * S <= h * log_lower * max(pi[N], q[N])
+                count += 1
+                if (a, h, N) in ((5, 2, 8), (5, 3, 15), (194, 3, 512), (820, 5, 1024)):
+                    fixtures.append({"a": a, "h": h, "N": N, "G": G[N],
+                                     "anchor_G": G[a], "anchor_B": B[a],
+                                     "K": K, "P": P, "D": D})
+    return count, fixtures
+
+
+def main():
+    began = time.perf_counter()
+    q, bounds, width, margin = certify_floors(LIMIT)
+    print("Certified all floors", flush=True)
+    prime, pi = sieve(LIMIT)
+    b = clock(q)
+    rows = [energy(X, b, prime, pi, q) for X in SCALES]
+    count, fixtures = compression(b, prime, pi, q)
+    assert (b[2], b[3], b[4]) == (5, 6, 8)
+    assert (b[39], b[42]) == (148, 163)
+    assert prime[163] and q[162] == 41 and q[163] == 42
+    wrong = [p for p in range(149, 164) if prime[p] and 39 <= q[p] < 42]
+    assert wrong == [149, 151, 157]
+    # Independent Ei power series; only the Simpson enclosures certify floors.
+    with localcontext() as ctx:
+        ctx.prec = 60
+
+        def ei_without_gamma(x):
+            total = x.ln()
+            term = Decimal(1)
+            for k in range(1, 201):
+                term = term * x / k
+                total += term / k
+            return total
+
+        li2 = ei_without_gamma(Decimal(2).ln())
+        for n in range(2, LIMIT + 1):
+            value = ei_without_gamma(Decimal(n).ln()) - li2
+            assert bounds[n][0] <= value * S <= bounds[n][1], n
+            assert int(value) == q[n], n
+    floor_text = "\n".join(str(v) for v in q[2:]) + "\n"
+    Path("floors.txt").write_text(floor_text)
+    cert_points = sorted({2, 4, 5, 6, 7, 8, 148, 162, 163,
+                          *(v for row in rows for lag in row['lags'] if lag['C'] > 0
+                            for v in lag['first_positive_pair']['cells'])})
+    out = {"environment": platform.python_version(), "limit": LIMIT,
+           "scale": str(S), "log_terms": 48,
+           "floor_max_width": decimal_ratio(width, S),
+           "floor_min_margin": decimal_ratio(margin, S),
+           "floors_sha256": hashlib.sha256(floor_text.encode()).hexdigest(),
+           "ei_diagnostic_precision": 60, "ei_checks": LIMIT - 1,
+           "compression_checks": count, "fixtures": fixtures, "rows": rows,
+           "floor_certificates": {str(n): {"Q": q[n], "lo": str(bounds[n][0]),
+                                           "hi": str(bounds[n][1])} for n in cert_points},
+           "source_sha256": hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
+           "elapsed_seconds": time.perf_counter() - began}
+    Path("joh_results.json").write_text(json.dumps(out, indent=2) + "\n")
+    print(json.dumps(out, indent=2))
+
+
+if __name__ == "__main__":
+    main()
+```
+
+### Executed Source: joh_verify.cpp
+
+```cpp
+#include <algorithm>
+#include <cassert>
+#include <chrono>
+#include <fstream>
+#include <iostream>
+#include <numeric>
+#include <vector>
+
+using I = long long;
+
+int main() {
+    const auto started = std::chrono::steady_clock::now();
+    constexpr int limit = 16640;
+    std::vector<int> q(limit + 1), prime(limit + 1), pi(limit + 1), b{2};
+    std::ifstream floors("floors.txt");
+    for (int n = 2; n <= limit; ++n) assert(bool(floors >> q[n]));
+    for (int n = 2; n <= limit; ++n) {
+        prime[n] = 1;
+        for (int d = 2; d * d <= n; ++d) {
+            if (n % d == 0) { prime[n] = 0; break; }
+        }
+        pi[n] = pi[n - 1] + prime[n];
+        if (n >= 3 && q[n] != q[n - 1]) {
+            assert(q[n] == int(b.size()));
+            b.push_back(n);
+        }
+    }
+    std::vector<int> event(limit + 1), e(b.size() - 1);
+    for (int n = 3; n <= limit; ++n) event[n] = prime[n] - q[n] + q[n - 1];
+    for (int i = 1; i + 1 < int(b.size()); ++i)
+        for (int n = b[i] + 1; n <= b[i + 1]; ++n) e[i] += event[n];
+
+    std::ofstream out("cpp_results.json");
+    out << "{\"rows\":[";
+    bool firstrow = true;
+    for (int X : {128, 256, 512, 1024, 2048, 4096, 8192}) {
+        int h = 1;
+        while (I(h + 1)*(h + 1)*(h + 1)*(h + 1) <= X) ++h;
+        int u = int(std::lower_bound(b.begin(), b.end(), X) - b.begin());
+        int v = int(std::lower_bound(b.begin(), b.end(), 2*X) - b.begin()) - 1;
+        assert(v + h < int(b.size()));
+        I V = 0, diagonal = 0, off = 0, D = 0;
+        for (int j = u; j <= v; ++j) {
+            I change = 0, count = 0;
+            for (int n = b[j] + 1; n <= b[j + h]; ++n) {
+                change += event[n];
+                count += prime[n];
+            }
+            assert(change == count - h);
+            V += change * change;
+            diagonal += count;
+            off += count * (count - 1);
+        }
+        for (int i = u; i < v + h; ++i) {
+            I w = std::max(0, std::min(v, i) - std::max(u, i - h + 1) + 1);
+            D += w * e[i] * e[i];
+        }
+        std::vector<I> C(h), ss(h), zz(h), mixed(h);
+        for (int d = 1; d < h; ++d) {
+            for (int i = u; i + d < v + h; ++i) {
+                I w = std::max(0, std::min(v, i) - std::max(u, i + d - h + 1) + 1);
+                I value = w * e[i] * e[i + d];
+                C[d] += value;
+                if (e[i] > 0 && e[i + d] > 0) ss[d] += value;
+                else if (e[i] < 0 && e[i + d] < 0) zz[d] += value;
+                else mixed[d] += value;
+            }
+        }
+        I total = std::accumulate(C.begin(), C.end(), I(0));
+        assert(V == D + 2*total);
+        assert(V == diagonal + off - 2*h*diagonal + I(h)*h*(v-u+1));
+        if (!firstrow) out << ',';
+        firstrow = false;
+        out << "{\"X\":" << X << ",\"h\":" << h << ",\"windows\":" << v-u+1
+            << ",\"V\":" << V << ",\"D\":" << D << ",\"C_total\":" << total
+            << ",\"prime_diagonal\":" << diagonal << ",\"prime_off\":" << off
+            << ",\"lags\":[";
+        for (int d = 1; d < h; ++d) {
+            if (d > 1) out << ',';
+            out << "{\"d\":" << d << ",\"C\":" << C[d]
+                << ",\"surplus_surplus\":" << ss[d] << ",\"empty_empty\":" << zz[d]
+                << ",\"opposite\":" << mixed[d] << '}';
+        }
+        out << "]}";
+    }
+    out << "],\"fixtures\":[";
+    int checks = 0;
+    bool first = true;
+    for (int j0 : {2, 48, 150}) {
+        int a = b[j0];
+        I anchor = 0;
+        for (int n = 2; n < a; ++n) anchor += pi[n] - q[n] - 1;
+        for (int h : {1, 2, 3, 5, 8}) {
+            for (int N = a; N <= 4096; ++N) {
+                I G = 0, K = anchor, P = 0, M = 0;
+                for (int n = 2; n < N; ++n) G += pi[n] - q[n] - 1;
+                int j = j0;
+                for (int n = a; n < N; ++n) {
+                    if (n == b[j + h]) j += h;
+                    int c = b[j], t = std::min(N, b[j + h]);
+                    K += pi[c] - q[c] - 1;
+                    if (n > c) {
+                        P += I(t-n)*prime[n];
+                        M += I(t-n)*(q[n]-q[n-1]);
+                    }
+                }
+                assert(G == K + P - M);
+                assert(G*G == K*K+P*P+M*M+2*K*P-2*K*M-2*P*M);
+                ++checks;
+                bool special = (a == 5 && h == 2 && N == 8) ||
+                    (a == 5 && h == 3 && N == 15) ||
+                    (a == 194 && h == 3 && N == 512) ||
+                    (a == 820 && h == 5 && N == 1024) ||
+                    (a == 5 && h == 1 && (N == 512 || N == 1024 || N == 2048 || N == 4096));
+                if (special) {
+                    if (!first) out << ',';
+                    first = false;
+                    out << "{\"a\":" << a << ",\"h\":" << h << ",\"N\":" << N
+                        << ",\"G\":" << G << ",\"K\":" << K << ",\"P\":" << P
+                        << ",\"D\":" << M << ",\"anchor_G\":" << anchor << '}';
+                }
+            }
+        }
+    }
+    int first_lag = 0, positive_lag = 0, positive_total = 0, max_X = 0;
+    I max_C = -1000000000;
+    for (int X = 128; X <= 8192; ++X) {
+        int h = 1;
+        while (I(h+1)*(h+1)*(h+1)*(h+1) <= X) ++h;
+        int u = int(std::lower_bound(b.begin(), b.end(), X)-b.begin());
+        int v = int(std::lower_bound(b.begin(), b.end(), 2*X)-b.begin())-1;
+        I V = 0, D = 0, C = 0;
+        std::vector<I> lags(h);
+        for (int j = u; j <= v; ++j) {
+            I sum = 0;
+            for (int r = 0; r < h; ++r) {
+                sum += e[j+r];
+                D += I(e[j+r])*e[j+r];
+                for (int s = r+1; s < h; ++s) lags[s-r] += I(e[j+r])*e[j+s];
+            }
+            V += sum*sum;
+        }
+        C = std::accumulate(lags.begin(), lags.end(), I(0));
+        assert(V == D + 2*C);
+        bool has_positive = std::any_of(lags.begin(), lags.end(), [](I z) { return z > 0; });
+        if (has_positive) { ++positive_lag; if (!first_lag) first_lag = X; }
+        if (C > 0) ++positive_total;
+        if (C > max_C) { max_C = C; max_X = X; }
+    }
+    I halo[2][4] = {};
+    for (int j = 1; j+3 < int(b.size()); ++j) {
+        if (b[j] < 209 || b[j] >= 418) continue;
+        for (int mode = 0; mode < 2; ++mode) {
+            if (mode == 1 && b[j+3] > 418) continue;
+            I count = 0;
+            for (int n = b[j]+1; n <= b[j+3]; ++n) count += prime[n];
+            halo[mode][0] += (count-3)*(count-3);
+            for (int r = 0; r < 3; ++r) halo[mode][1] += e[j+r]*e[j+r];
+            halo[mode][2] += e[j]*e[j+1]+e[j+1]*e[j+2];
+            halo[mode][3] += e[j]*e[j+2];
+        }
+    }
+    auto elapsed = std::chrono::duration<double>(std::chrono::steady_clock::now()-started).count();
+    out << "],\"boundary\":{\"first_lag_X\":" << first_lag
+        << ",\"positive_lag_scales\":" << positive_lag << ",\"positive_total_scales\":" << positive_total
+        << ",\"max_C\":" << max_C << ",\"max_C_X\":" << max_X << "}"
+        << ",\"halo_witness\":[[" << halo[0][0] << ',' << halo[0][1] << ',' << halo[0][2] << ',' << halo[0][3]
+        << "],[" << halo[1][0] << ',' << halo[1][1] << ',' << halo[1][2] << ',' << halo[1][3] << "]]"
+        << ",\"compression_checks\":" << checks << ",\"trial_primality_checks\":" << limit-1
+        << ",\"elapsed_seconds\":" << elapsed << "}\n";
+    std::cout << "Independent checks PASS; compression=" << checks << "; elapsed=" << elapsed << '\n';
+}
+```
+
+### Executed Source: joh_boundary_test.py
+
+```python
+"""Post-development boundary falsification, with no larger Li domain."""
+
+import bisect
+import hashlib
+import json
+import time
+from collections import Counter
+from pathlib import Path
+from math import isqrt
+
+from joh_clock import clock, sieve
+
+
+def main():
+    started = time.perf_counter()
+    q = [0, 0] + [int(x) for x in Path('floors.txt').read_text().splitlines()]
+    b = clock(q)
+    prime, pi = sieve(len(q) - 1)
+    e = [pi[b[i+1]] - pi[b[i]] - 1 for i in range(len(b)-1)]
+    cache = {}
+    for h in range(3, 10):
+        V = [0]
+        D = [0]
+        Cs = [[0] for _ in range(h-1)]
+        for j in range(len(b)-h):
+            V.append(V[-1] + (pi[b[j+h]] - pi[b[j]] - h)**2)
+            D.append(D[-1] + sum(x*x for x in e[j:j+h]))
+            for d in range(1, h):
+                Cs[d-1].append(Cs[d-1][-1] + sum(e[i]*e[i+d] for i in range(j, j+h-d)))
+        cache[h] = V, D, Cs
+    first_lag = first_aggregate = strongest = None
+    positive_total = 0
+    positive_lag_scales = 0
+    extrema = {d: [None, None] for d in range(1, 9)}
+    # Frozen before this script's execution: exact 128..8192, same floor table.
+    for X in range(128, 8193):
+        h = isqrt(isqrt(X))
+        u = bisect.bisect_left(b, X)
+        v = bisect.bisect_left(b, 2*X)
+        Vp, Dp, Cs = cache[h]
+        V, D = Vp[v]-Vp[u], Dp[v]-Dp[u]
+        lag = [C[v]-C[u] for C in Cs]
+        assert V == D + 2*sum(lag)
+        row = {'X': X, 'h': h, 'u': u, 'v': v-1, 'windows': v-u,
+               'V': V, 'D': D, 'C_total': sum(lag), 'C': lag,
+               'halo': b[v+h-1]}
+        if any(C > 0 for C in lag):
+            positive_lag_scales += 1
+            if first_lag is None: first_lag = row
+        if sum(lag) > 0:
+            positive_total += 1
+            if first_aggregate is None: first_aggregate = row
+        if strongest is None or row['C_total'] > strongest['C_total']:
+            strongest = row
+        for d, C in enumerate(lag, 1):
+            a, z = extrema[d]
+            if a is None or C < a['C']: extrema[d][0] = {'X': X, 'h': h, 'C': C}
+            if z is None or C > z['C']: extrema[d][1] = {'X': X, 'h': h, 'C': C}
+    out = {'domain': [128,8192], 'scales': 8065, 'first_lag': first_lag,
+           'first_aggregate': first_aggregate, 'max_aggregate': strongest,
+           'positive_total_scales': positive_total,
+           'positive_lag_scales': positive_lag_scales, 'lag_extrema': extrema,
+           'source_sha256': hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
+           'elapsed_seconds': time.perf_counter()-started}
+    Path('boundary_results.json').write_text(json.dumps(out, indent=2)+'\n')
+    print(json.dumps(out, indent=2))
+
+
+if __name__ == '__main__':
+    main()
+```
+
+### Executed Source: joh_audit.py
+
+```python
+"""Compare independent reconstructions and emit a small exact lag witness."""
+
+import hashlib
+import json
+from pathlib import Path
+from math import isqrt
+
+from joh_clock import S, certify_floors, clock, sieve
+
+
+def main():
+    py = json.loads(Path('joh_results.json').read_text())
+    cpp = json.loads(Path('cpp_results.json').read_text())
+    scan = json.loads(Path('boundary_results.json').read_text())
+    checked = 0
+    for a, b in zip(py['rows'], cpp['rows'], strict=True):
+        for key in ('X', 'h', 'windows', 'V', 'D', 'C_total', 'prime_diagonal', 'prime_off'):
+            assert a[key] == b[key], (key, a, b)
+            checked += 1
+        for c, d in zip(a['lags'], b['lags'], strict=True):
+            for key in ('d', 'C', 'surplus_surplus', 'empty_empty', 'opposite'):
+                assert c.get(key, 0) == d[key], (key, c, d)
+                checked += 1
+    assert py['compression_checks'] == cpp['compression_checks'] == 56360
+    for a in py['fixtures']:
+        b = next(b for b in cpp['fixtures'] if all(a[k] == b[k] for k in ('a','h','N')))
+        for k in ('G','K','P','D','anchor_G'):
+            assert a[k] == b[k]
+            checked += 1
+    assert cpp['boundary']['first_lag_X'] == scan['first_lag']['X'] == 209
+    assert cpp['boundary']['positive_lag_scales'] == scan['positive_lag_scales'] == 7571
+    assert cpp['boundary']['positive_total_scales'] == scan['positive_total_scales'] == 0
+    assert cpp['boundary']['max_C_X'] == scan['max_aggregate']['X'] == 147
+    assert cpp['boundary']['max_C'] == scan['max_aggregate']['C_total'] == -7
+    expected = [(18,73,158,-438,225), (26,166,500,-1328,688),
+                (69,301,944,-2408,1232), (305,683,2952,-6830,3500),
+                (533,1531,8158,-18372,9216)]
+    for row, vals in zip(py['rows'][:5], expected, strict=True):
+        assert tuple(row[k] for k in ('V','prime_diagonal','prime_off','prime_model','model_square')) == vals
+    q = [0,0] + [int(x) for x in Path('floors.txt').read_text().splitlines()]
+    b = clock(q)
+    prime, pi = sieve(len(q)-1)
+    for n in range(2,len(q)):
+        assert bool(prime[n]) == all(n % d for d in range(2,isqrt(n)+1))
+    e = [pi[b[i+1]]-pi[b[i]]-1 for i in range(len(b)-1)]
+    witness = []
+    points = {208,209,210,417,418}
+    for j in range(51,88):
+        z = e[j]*e[j+2]
+        if z:
+            cells = [b[j], b[j+1], b[j+2], b[j+3]]
+            points.update(n for c in cells for n in (c-1,c))
+            witness.append({'j': j, 'cells': cells, 'e': [e[j],e[j+2]],
+                            'product': z,
+                            'primes_left': [p for p in range(cells[0]+1,cells[1]+1) if prime[p]],
+                            'primes_right': [p for p in range(cells[2]+1,cells[3]+1) if prime[p]]})
+    assert sum(row['product'] for row in witness) == 1
+    # Independently materialize the requested LC4 coordinates from Python's source.
+    lc4 = []
+    for N in (512,1024,2048,4096):
+        G = sum(pi[n]-q[n]-1 for n in range(2,N))
+        U = E = 0
+        for j in range(2,len(b)-1):
+            if b[j] >= N: break
+            c,t = b[j],min(N,b[j+1])
+            U += (t-c)*(pi[c]-q[c]-1)
+            E += sum(t-p for p in range(c+1,t) if prime[p])
+        assert G == U+E
+        row = next(x for x in cpp['fixtures'] if x['a']==5 and x['h']==1 and x['N']==N)
+        assert (G,U,E) == (row['G'],row['K'],row['P'])
+        lc4.append({'N':N,'G':G,'U':U,'E_place':E})
+    smallq, bounds, _, _ = certify_floors(max(points))
+    assert smallq[2:] == q[2:len(smallq)]
+    class_totals = {'surplus_surplus':0,'empty_empty':0,'opposite':0}
+    for row in witness:
+        a,c = row['e']
+        key = 'surplus_surplus' if a>0 and c>0 else 'empty_empty' if a<0 and c<0 else 'opposite'
+        class_totals[key] += row['product']
+    halo_rows = []
+    for trim in (False,True):
+        J = [j for j,n in enumerate(b) if 209 <= n < 418 and (not trim or b[j+3] <= 418)]
+        V = sum((pi[b[j+3]]-pi[b[j]]-3)**2 for j in J)
+        D = sum(sum(e[j+r]**2 for r in range(3)) for j in J)
+        C1 = sum(e[j]*e[j+1]+e[j+1]*e[j+2] for j in J)
+        C2 = sum(e[j]*e[j+2] for j in J)
+        halo_rows.append([V,D,C1,C2])
+    assert halo_rows == cpp['halo_witness'] == [[23,47,-13,1],[21,39,-8,-1]]
+    assert q[415] == 86 and q[416] == 87 and b[90] == 434
+    before = [j for j,n in enumerate(b) if 208 <= n < 416]
+    assert (before[0],before[-1]) == (51,86)
+    assert sum(e[j]*e[j+2] for j in before) == 0
+    files = ('joh_clock.py','joh_verify.cpp','joh_boundary_test.py','joh_audit.py')
+    out = {'independent_field_checks':checked, 'all_comparisons':'PASS',
+           'smallest_lag_witness_in_128_8192':witness,
+           'witness_class_totals':class_totals,'LC4':lc4,'halo_witness':halo_rows,
+           'sieve_vs_trial_flags_checked':len(q)-2,
+           'source_hashes':{f:hashlib.sha256(Path(f).read_bytes()).hexdigest() for f in files},
+           'small_witness_floor_scale':str(S),
+           'small_witness_floors':{str(n):{'Q':q[n],'lo':str(bounds[n][0]),'hi':str(bounds[n][1])}
+                                   for n in sorted(points)}}
+    Path('audit_results.json').write_text(json.dumps(out,indent=2)+'\n')
+    print(json.dumps({k:v for k,v in out.items() if k!='small_witness_floors'},indent=2))
+
+
+if __name__ == '__main__':
+    main()
+```
+
+### Complete Audit Output And Minimal Floor Certificate
+
+```json
+{
+  "environment_and_precision": {
+    "environment": "3.12.14",
+    "limit": 16640,
+    "scale": "340282366920938463463374607431768211456",
+    "log_terms": 48,
+    "floor_max_width": "1.1820665287790296613941555728695E-7",
+    "floor_min_margin": "8.2788088501359898850481962541418E-7",
+    "floors_sha256": "df1a6bdff4cedb3d2195766677edcc3ebbe45d01673124ee0133b4a85b655892",
+    "ei_diagnostic_precision": 60,
+    "ei_checks": 16639,
+    "compression_checks": 56360,
+    "elapsed_seconds": 7.597195517000046
+  },
+  "independent_cpp": {
+    "rows": [
+      {
+        "X": 128,
+        "h": 3,
+        "windows": 25,
+        "V": 18,
+        "D": 34,
+        "C_total": -8,
+        "prime_diagonal": 73,
+        "prime_off": 158,
+        "lags": [
+          {
+            "d": 1,
+            "C": -6,
+            "surplus_surplus": 2,
+            "empty_empty": 2,
+            "opposite": -10
+          },
+          {
+            "d": 2,
+            "C": -2,
+            "surplus_surplus": 0,
+            "empty_empty": 1,
+            "opposite": -3
+          }
+        ]
+      },
+      {
+        "X": 256,
+        "h": 4,
+        "windows": 43,
+        "V": 26,
+        "D": 58,
+        "C_total": -16,
+        "prime_diagonal": 166,
+        "prime_off": 500,
+        "lags": [
+          {
+            "d": 1,
+            "C": -14,
+            "surplus_surplus": 0,
+            "empty_empty": 3,
+            "opposite": -17
+          },
+          {
+            "d": 2,
+            "C": 0,
+            "surplus_surplus": 4,
+            "empty_empty": 2,
+            "opposite": -6
+          },
+          {
+            "d": 3,
+            "C": -2,
+            "surplus_surplus": 0,
+            "empty_empty": 1,
+            "opposite": -3
+          }
+        ]
+      },
+      {
+        "X": 512,
+        "h": 4,
+        "windows": 77,
+        "V": 69,
+        "D": 151,
+        "C_total": -41,
+        "prime_diagonal": 301,
+        "prime_off": 944,
+        "lags": [
+          {
+            "d": 1,
+            "C": -24,
+            "surplus_surplus": 3,
+            "empty_empty": 9,
+            "opposite": -36
+          },
+          {
+            "d": 2,
+            "C": -12,
+            "surplus_surplus": 6,
+            "empty_empty": 4,
+            "opposite": -22
+          },
+          {
+            "d": 3,
+            "C": -5,
+            "surplus_surplus": 2,
+            "empty_empty": 2,
+            "opposite": -9
+          }
+        ]
+      },
+      {
+        "X": 1024,
+        "h": 5,
+        "windows": 140,
+        "V": 305,
+        "D": 415,
+        "C_total": -55,
+        "prime_diagonal": 683,
+        "prime_off": 2952,
+        "lags": [
+          {
+            "d": 1,
+            "C": -28,
+            "surplus_surplus": 32,
+            "empty_empty": 32,
+            "opposite": -92
+          },
+          {
+            "d": 2,
+            "C": -12,
+            "surplus_surplus": 24,
+            "empty_empty": 30,
+            "opposite": -66
+          },
+          {
+            "d": 3,
+            "C": -18,
+            "surplus_surplus": 12,
+            "empty_empty": 16,
+            "opposite": -46
+          },
+          {
+            "d": 4,
+            "C": 3,
+            "surplus_surplus": 9,
+            "empty_empty": 11,
+            "opposite": -17
+          }
+        ]
+      },
+      {
+        "X": 2048,
+        "h": 6,
+        "windows": 256,
+        "V": 533,
+        "D": 957,
+        "C_total": -212,
+        "prime_diagonal": 1531,
+        "prime_off": 8158,
+        "lags": [
+          {
+            "d": 1,
+            "C": -105,
+            "surplus_surplus": 71,
+            "empty_empty": 75,
+            "opposite": -251
+          },
+          {
+            "d": 2,
+            "C": -81,
+            "surplus_surplus": 56,
+            "empty_empty": 76,
+            "opposite": -213
+          },
+          {
+            "d": 3,
+            "C": -3,
+            "surplus_surplus": 60,
+            "empty_empty": 78,
+            "opposite": -141
+          },
+          {
+            "d": 4,
+            "C": -34,
+            "surplus_surplus": 36,
+            "empty_empty": 34,
+            "opposite": -104
+          },
+          {
+            "d": 5,
+            "C": 11,
+            "surplus_surplus": 26,
+            "empty_empty": 25,
+            "opposite": -40
+          }
+        ]
+      },
+      {
+        "X": 4096,
+        "h": 8,
+        "windows": 471,
+        "V": 1550,
+        "D": 2202,
+        "C_total": -326,
+        "prime_diagonal": 3712,
+        "prime_off": 27086,
+        "lags": [
+          {
+            "d": 1,
+            "C": -158,
+            "surplus_surplus": 186,
+            "empty_empty": 217,
+            "opposite": -561
+          },
+          {
+            "d": 2,
+            "C": -118,
+            "surplus_surplus": 165,
+            "empty_empty": 186,
+            "opposite": -469
+          },
+          {
+            "d": 3,
+            "C": 28,
+            "surplus_surplus": 155,
+            "empty_empty": 188,
+            "opposite": -315
+          },
+          {
+            "d": 4,
+            "C": -48,
+            "surplus_surplus": 132,
+            "empty_empty": 132,
+            "opposite": -312
+          },
+          {
+            "d": 5,
+            "C": 27,
+            "surplus_surplus": 105,
+            "empty_empty": 123,
+            "opposite": -201
+          },
+          {
+            "d": 6,
+            "C": -61,
+            "surplus_surplus": 38,
+            "empty_empty": 61,
+            "opposite": -160
+          },
+          {
+            "d": 7,
+            "C": 4,
+            "surplus_surplus": 26,
+            "empty_empty": 35,
+            "opposite": -57
+          }
+        ]
+      },
+      {
+        "X": 8192,
+        "h": 9,
+        "windows": 872,
+        "V": 2456,
+        "D": 5128,
+        "C_total": -1336,
+        "prime_diagonal": 7842,
+        "prime_off": 65138,
+        "lags": [
+          {
+            "d": 1,
+            "C": -830,
+            "surplus_surplus": 356,
+            "empty_empty": 495,
+            "opposite": -1681
+          },
+          {
+            "d": 2,
+            "C": -328,
+            "surplus_surplus": 490,
+            "empty_empty": 442,
+            "opposite": -1260
+          },
+          {
+            "d": 3,
+            "C": 198,
+            "surplus_surplus": 544,
+            "empty_empty": 408,
+            "opposite": -754
+          },
+          {
+            "d": 4,
+            "C": -136,
+            "surplus_surplus": 280,
+            "empty_empty": 358,
+            "opposite": -774
+          },
+          {
+            "d": 5,
+            "C": -65,
+            "surplus_surplus": 260,
+            "empty_empty": 283,
+            "opposite": -608
+          },
+          {
+            "d": 6,
+            "C": -182,
+            "surplus_surplus": 162,
+            "empty_empty": 188,
+            "opposite": -532
+          },
+          {
+            "d": 7,
+            "C": 23,
+            "surplus_surplus": 150,
+            "empty_empty": 157,
+            "opposite": -284
+          },
+          {
+            "d": 8,
+            "C": -16,
+            "surplus_surplus": 71,
+            "empty_empty": 67,
+            "opposite": -154
+          }
+        ]
+      }
+    ],
+    "fixtures": [
+      {
+        "a": 5,
+        "h": 1,
+        "N": 512,
+        "G": -2595,
+        "K": -2808,
+        "P": 213,
+        "D": 0,
+        "anchor_G": 0
+      },
+      {
+        "a": 5,
+        "h": 1,
+        "N": 1024,
+        "G": -6703,
+        "K": -7134,
+        "P": 431,
+        "D": 0,
+        "anchor_G": 0
+      },
+      {
+        "a": 5,
+        "h": 1,
+        "N": 2048,
+        "G": -16599,
+        "K": -17485,
+        "P": 886,
+        "D": 0,
+        "anchor_G": 0
+      },
+      {
+        "a": 5,
+        "h": 1,
+        "N": 4096,
+        "G": -42284,
+        "K": -44049,
+        "P": 1765,
+        "D": 0,
+        "anchor_G": 0
+      },
+      {
+        "a": 5,
+        "h": 2,
+        "N": 8,
+        "G": -1,
+        "K": 0,
+        "P": 1,
+        "D": 2,
+        "anchor_G": 0
+      },
+      {
+        "a": 5,
+        "h": 3,
+        "N": 15,
+        "G": -9,
+        "K": -10,
+        "P": 9,
+        "D": 8,
+        "anchor_G": 0
+      },
+      {
+        "a": 194,
+        "h": 3,
+        "N": 512,
+        "G": -2595,
+        "K": -2753,
+        "P": 471,
+        "D": 313,
+        "anchor_G": -675
+      },
+      {
+        "a": 820,
+        "h": 5,
+        "N": 1024,
+        "G": -6703,
+        "K": -6773,
+        "P": 478,
+        "D": 408,
+        "anchor_G": -4938
+      }
+    ],
+    "boundary": {
+      "first_lag_X": 209,
+      "positive_lag_scales": 7571,
+      "positive_total_scales": 0,
+      "max_C": -7,
+      "max_C_X": 147
+    },
+    "halo_witness": [
+      [
+        23,
+        47,
+        -13,
+        1
+      ],
+      [
+        21,
+        39,
+        -8,
+        -1
+      ]
+    ],
+    "compression_checks": 56360,
+    "trial_primality_checks": 16639,
+    "elapsed_seconds": 0.384958
+  },
+  "all_integer_boundary_scan": {
+    "domain": [
+      128,
+      8192
+    ],
+    "scales": 8065,
+    "first_lag": {
+      "X": 209,
+      "h": 3,
+      "u": 51,
+      "v": 87,
+      "windows": 37,
+      "V": 23,
+      "D": 47,
+      "C_total": -12,
+      "C": [
+        -13,
+        1
+      ],
+      "halo": 434
+    },
+    "first_aggregate": null,
+    "max_aggregate": {
+      "X": 147,
+      "h": 3,
+      "u": 39,
+      "v": 66,
+      "windows": 28,
+      "V": 28,
+      "D": 42,
+      "C_total": -7,
+      "C": [
+        -6,
+        -1
+      ],
+      "halo": 310
+    },
+    "positive_total_scales": 0,
+    "positive_lag_scales": 7571,
+    "lag_extrema": {
+      "1": [
+        {
+          "X": 7811,
+          "h": 9,
+          "C": -868
+        },
+        {
+          "X": 128,
+          "h": 3,
+          "C": -6
+        }
+      ],
+      "2": [
+        {
+          "X": 8102,
+          "h": 9,
+          "C": -334
+        },
+        {
+          "X": 4941,
+          "h": 8,
+          "C": 14
+        }
+      ],
+      "3": [
+        {
+          "X": 878,
+          "h": 5,
+          "C": -29
+        },
+        {
+          "X": 7684,
+          "h": 9,
+          "C": 217
+        }
+      ],
+      "4": [
+        {
+          "X": 7840,
+          "h": 9,
+          "C": -199
+        },
+        {
+          "X": 625,
+          "h": 5,
+          "C": 11
+        }
+      ],
+      "5": [
+        {
+          "X": 8034,
+          "h": 9,
+          "C": -68
+        },
+        {
+          "X": 2440,
+          "h": 7,
+          "C": 38
+        }
+      ],
+      "6": [
+        {
+          "X": 8189,
+          "h": 9,
+          "C": -182
+        },
+        {
+          "X": 2686,
+          "h": 7,
+          "C": -13
+        }
+      ],
+      "7": [
+        {
+          "X": 6123,
+          "h": 8,
+          "C": -17
+        },
+        {
+          "X": 8034,
+          "h": 9,
+          "C": 39
+        }
+      ],
+      "8": [
+        {
+          "X": 6561,
+          "h": 9,
+          "C": -23
+        },
+        {
+          "X": 7493,
+          "h": 9,
+          "C": 9
+        }
+      ]
+    },
+    "source_sha256": "a72ea96e08e3ccce92f9b6040689ac41a039b5d85f6e838f957f4c8119204f6b",
+    "elapsed_seconds": 0.06379309499993724
+  },
+  "audit_and_minimal_exact_floor_certificate": {
+    "independent_field_checks": 236,
+    "all_comparisons": "PASS",
+    "smallest_lag_witness_in_128_8192": [
+      {
+        "j": 61,
+        "cells": [
+          265,
+          271,
+          276,
+          282
+        ],
+        "e": [
+          1,
+          1
+        ],
+        "product": 1,
+        "primes_left": [
+          269,
+          271
+        ],
+        "primes_right": [
+          277,
+          281
+        ]
+      },
+      {
+        "j": 67,
+        "cells": [
+          299,
+          305,
+          310,
+          316
+        ],
+        "e": [
+          -1,
+          1
+        ],
+        "product": -1,
+        "primes_left": [],
+        "primes_right": [
+          311,
+          313
+        ]
+      },
+      {
+        "j": 69,
+        "cells": [
+          310,
+          316,
+          322,
+          328
+        ],
+        "e": [
+          1,
+          -1
+        ],
+        "product": -1,
+        "primes_left": [
+          311,
+          313
+        ],
+        "primes_right": []
+      },
+      {
+        "j": 86,
+        "cells": [
+          410,
+          416,
+          422,
+          428
+        ],
+        "e": [
+          -1,
+          -1
+        ],
+        "product": 1,
+        "primes_left": [],
+        "primes_right": []
+      },
+      {
+        "j": 87,
+        "cells": [
+          416,
+          422,
+          428,
+          434
+        ],
+        "e": [
+          1,
+          1
+        ],
+        "product": 1,
+        "primes_left": [
+          419,
+          421
+        ],
+        "primes_right": [
+          431,
+          433
+        ]
+      }
+    ],
+    "witness_class_totals": {
+      "surplus_surplus": 2,
+      "empty_empty": 1,
+      "opposite": -2
+    },
+    "LC4": [
+      {
+        "N": 512,
+        "G": -2595,
+        "U": -2808,
+        "E_place": 213
+      },
+      {
+        "N": 1024,
+        "G": -6703,
+        "U": -7134,
+        "E_place": 431
+      },
+      {
+        "N": 2048,
+        "G": -16599,
+        "U": -17485,
+        "E_place": 886
+      },
+      {
+        "N": 4096,
+        "G": -42284,
+        "U": -44049,
+        "E_place": 1765
+      }
+    ],
+    "halo_witness": [
+      [
+        23,
+        47,
+        -13,
+        1
+      ],
+      [
+        21,
+        39,
+        -8,
+        -1
+      ]
+    ],
+    "sieve_vs_trial_flags_checked": 16639,
+    "source_hashes": {
+      "joh_clock.py": "6af10a960d5e92f93fd0fd72b4daac542f4f36dd3be1669e471840fd48865ba7",
+      "joh_verify.cpp": "9de4d2cff7f1d01c2c97b453e3599e8bc8f6e84c15f4b42900040b4f6ce77f78",
+      "joh_boundary_test.py": "a72ea96e08e3ccce92f9b6040689ac41a039b5d85f6e838f957f4c8119204f6b",
+      "joh_audit.py": "26fb2353469e6ae31c700bfd84ec7de335b23885c38014bd8a0853e3aba7ad2b"
+    },
+    "small_witness_floor_scale": "340282366920938463463374607431768211456",
+    "small_witness_floors": {
+      "208": {
+        "Q": 50,
+        "lo": "17235752169100639885310824778226521006372",
+        "hi": "17235752208473488638222867732662617913002"
+      },
+      "209": {
+        "Q": 50,
+        "lo": "17299476201943273682221549793547545726930",
+        "hi": "17299476241328305342061080572925414263120"
+      },
+      "210": {
+        "Q": 51,
+        "lo": "17363143187655150054433588069033202825714",
+        "hi": "17363143227052133123624164023269987447672"
+      },
+      "264": {
+        "Q": 60,
+        "lo": "20725437900379077173452651929479745614662",
+        "hi": "20725437940187250023732742994290045430808"
+      },
+      "265": {
+        "Q": 61,
+        "lo": "20786444013844642043881440442896082109155",
+        "hi": "20786444053657509385680018553884492467413"
+      },
+      "270": {
+        "Q": 61,
+        "lo": "21090860090791370372910449833307738701858",
+        "hi": "21090860130626679172693420219050778366506"
+      },
+      "271": {
+        "Q": 62,
+        "lo": "21151621855201096138793907516604081105914",
+        "hi": "21151621895040695846641496155377327485504"
+      },
+      "275": {
+        "Q": 62,
+        "lo": "21394270800017656243532173766448841903320",
+        "hi": "21394270839873801125401606272974991014363"
+      },
+      "276": {
+        "Q": 63,
+        "lo": "21454834492263072133364707714805999848367",
+        "hi": "21454834532123204265456316370408088295658"
+      },
+      "281": {
+        "Q": 63,
+        "lo": "21757071298612292795176179984445764133197",
+        "hi": "21757071338491519391579250542298786665429"
+      },
+      "282": {
+        "Q": 64,
+        "lo": "21817403642408493096967377757441435321932",
+        "hi": "21817403682291377148329935457816255067232"
+      },
+      "298": {
+        "Q": 66,
+        "lo": "22777685304227019000071282115316628290874",
+        "hi": "22777685344161978315351408619566596468602"
+      },
+      "299": {
+        "Q": 67,
+        "lo": "22837396857535145291152895159348563870577",
+        "hi": "22837396897472996213050291121737442198663"
+      },
+      "304": {
+        "Q": 67,
+        "lo": "23135432413636315184657138559547808317014",
+        "hi": "23135432453588059366448111259506189387395"
+      },
+      "305": {
+        "Q": 68,
+        "lo": "23194936168585529312592358393171474969521",
+        "hi": "23194936208539943486209329817573053525455"
+      },
+      "309": {
+        "Q": 68,
+        "lo": "23432611726937438786398857983780839156446",
+        "hi": "23432611766902190093637075765814259658883"
+      },
+      "310": {
+        "Q": 69,
+        "lo": "23491946493862957230559617297879434045612",
+        "hi": "23491946533830209864092380953625845409210"
+      },
+      "315": {
+        "Q": 69,
+        "lo": "23788122862994078885538657714836978387617",
+        "hi": "23788122902973366492203510185216053549071"
+      },
+      "316": {
+        "Q": 70,
+        "lo": "23847259640250138528426242847033481893855",
+        "hi": "23847259680231742260393779722213534940606"
+      },
+      "321": {
+        "Q": 70,
+        "lo": "24142458696950524194558902727012251071376",
+        "hi": "24142458736943279898920886991049300446915"
+      },
+      "322": {
+        "Q": 71,
+        "lo": "24201402494576112628606034354269392958806",
+        "hi": "24201402534571016084990239097763897064996"
+      },
+      "327": {
+        "Q": 71,
+        "lo": "24495648730187594972195613448724773860674",
+        "hi": "24495648770192846918307773023490293364490"
+      },
+      "328": {
+        "Q": 72,
+        "lo": "24554404337448940650108593625827224841465",
+        "hi": "24554404377456187000767576416724837923416"
+      },
+      "409": {
+        "Q": 85,
+        "lo": "29220751459270078556902278410123831783771",
+        "hi": "29220751499382211961976382497168057912037"
+      },
+      "410": {
+        "Q": 86,
+        "lo": "29277324352904770711486627089224495470265",
+        "hi": "29277324393017719029163333250954307336855"
+      },
+      "415": {
+        "Q": 86,
+        "lo": "29559846339825551496686516750220863312789",
+        "hi": "29559846379942457457012611440870802671752"
+      },
+      "416": {
+        "Q": 87,
+        "lo": "29616282755157582852190171478541433707445",
+        "hi": "29616282795275257609869301490945339402254"
+      },
+      "417": {
+        "Q": 87,
+        "lo": "29672696679247100629870866165875300123541",
+        "hi": "29672696719365536819232964167338066545223"
+      },
+      "418": {
+        "Q": 87,
+        "lo": "29729088183885111779688292840245314060898",
+        "hi": "29729088224004302123063370418642375349910"
+      },
+      "421": {
+        "Q": 87,
+        "lo": "29898128892909861709290637942767281747421",
+        "hi": "29898128933031271709931380779243299694376"
+      },
+      "422": {
+        "Q": 88,
+        "lo": "29954431429554469065308170726802609546094",
+        "hi": "29954431469676604964422035678015263628095"
+      },
+      "427": {
+        "Q": 88,
+        "lo": "30235614496777562992187740605142131283401",
+        "hi": "30235614536903227139754587283730378241111"
+      },
+      "428": {
+        "Q": 89,
+        "lo": "30291785667399671268057137822970230926211",
+        "hi": "30291785707526021366106827706058443609451"
+      },
+      "433": {
+        "Q": 89,
+        "lo": "30572318018380237879718403044950576152090",
+        "hi": "30572318058509923373931634767044915591389"
+      },
+      "434": {
+        "Q": 90,
+        "lo": "30628360252803706751997263331957026835180",
+        "hi": "30628360292934040959329522526862296955301"
+      }
+    }
+  }
+}
+```
