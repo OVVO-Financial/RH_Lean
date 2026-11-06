@@ -1466,3 +1466,756 @@ Preregistered finite checks for the new claim: independently trial-check small M
 Both November 5 and November 6 committed reports were retrieved at agent-reports **9d269c4c78142989874bbf29197004960e56e573**; all seven TODAY role files are available, including the now-complete Coordinator synthesis. External inbox remains 038018145c0fddb2f6306c0712373adf9cd1ea52, newest October 18. Original claim IDs, source distinctions and review qualifications are retained. Live open/draft PR listing is empty. #1096, #1097, #1098 and #1099 are now merged; earlier report descriptions of #1097/#1099 as open are historical. #1096's actual job 127672350630 was read: warning-fatal ten-declaration audit, standard axioms only, at tested merge 7783734bdc9960d3c2483af380759db85e87bc8f / proof head ecf701ff2fea1de52e505ee34048a2b3c220f0fc. Its source blob 3cbc5159536d6b9e5000f74c5bd018bd2d62daf1 is unchanged on main. This is inherited evidence, not certification of the new question.
 
 First quantitative goal remains an independently paid whole-prefix E(B_j^k)<=G_j E(B_j)^r with fixed 1<=r<k and log G_j/log B_j tending to zero. No recurrence is assumed. ETA_GATE=SEARCH_BROAD; new net endpoint gain UNKNOWN. Only this authorized report will be changed remotely; no local Lean or agent launch.
+
+
+## Scheduled MU-LIFT Final Synthesis - 20261106-wheel-3
+
+This completes the scheduled **2026-11-06T18:06:00-05:00** invocation, not a new run. America/New_York; RUN_ID_UNAVAILABLE. New results are **PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED**, with finite checks distinguished below. Publication is established only by the later immutable-commit readback receipt.
+
+### A. Most Important Structural Discovery
+
+**Preserving the greatest prime leaves a compulsory signed deficit even after the top-prime/semiprime cancellation. One explicit component can be paid by a genuine cross-label three-edit matching, but not by further optimization within the same labels.**
+
+On the original odd squarefree upper half, the complete fiber of a prime q with q^2>X has signed mass -M(floor(X/q)). The underlying cofactor identity and the values M(94)=1, M(47)=-3 are inherited, not new discoveries. The new restriction concerns their interaction with the actual previously spent donors: in every non-top fiber with M(floor(X/q))>0, the prime/semiprime stage removes only positive sites. It can only make that fiber's negative imbalance worse.
+
+Let
+
+```text
+A_X = sum_(q prime, q^2>X, 2<=floor(X/q)) max(M(floor(X/q)),0),
+a_+ = sum_(m>=2) max(M(m),0)/[m(m+1)] > 0.
+```
+
+For ANY top-prime/distinct-semiprime matching, followed by ANY sign-reversing matching preserving greatest-prime labels, its physical leftover T satisfies
+
+```text
+T >= M(X) + 2 A_X,
+A_X ~ a_+ X/log X,
+liminf T log(X)/X >= 2 a_+ >= 2/(94*95) > 0.          (GF2-GF3)
+```
+
+The asymptotic uses the established subunit Mertens envelope and ordinary PNT; it is not a newly improved global estimate. The lower bound concerns this **absolute leftover certificate**, never |M(X)|. It allows arbitrarily many prime edits and arbitrary rematching within labels, so it differs from both the fixed-prime-bank and near-equal-largest-primes obstructions.
+
+There is a constructive repair. For primes in the two exact quotient bands
+
+```text
+Q_X = {q prime: X/95<q<=X/94},
+R_X = {r prime: X/48<r<=X/47},
+```
+
+pair **93q <-> 31r**, using distinct r. These genuine opposite-sign integers change exactly {3,q,r}, including the greatest prime. They avoid the old P9, qualified 13/15, and separated-cofactor endpoints. Each pair reduces the optimal greatest-prime-label absolute remainder by EXACTLY two. PNT proves enough donors for every sufficiently large X. The first targeted fixture is **9021=3*31*97 <-> 5921=31*191 at X=9118**. This is a lawful source-level repair, not a complete MU-LIFT recurrence.
+
+| Claim | Content | Status |
+| --- | --- | --- |
+| GF1 | Exact greatest-prime fiber and optimal within-label remainder | INHERITED_IDENTITY plus source-qualified finite reconstruction |
+| GF2 | Donor-monotone negative-fiber deficit and necessary net cross-label flow | New PAPER_PROOF / SELF_AUDIT |
+| GF3 | Uniform X/log X certificate obstruction and complete MU-LIFT calibration | New application / PAPER_PROOF; established analytic inputs |
+| GF4 | Disjoint 94-to-47 cross-label repair, exact two-per-edge improvement, eventual capacity | New PAPER_PROOF / SELF_AUDIT |
+| GF5 | Literal finite source, donor, cutoff and ordered-lift verification | FINITE_COMPUTATION / PASS |
+
+Claim prefix: **20261106-wheel-3/**. No new endpoint gain, Lean theorem, canonical VF bound, or RH proof. ETA_GATE=SEARCH_BROAD. No exhaustive literature-originality claim.
+
+### B. Current Authoritative Objective
+
+Main at intake and prepublication refresh: **d4df133117c5b58f90979d2eb680167ef37995cf**, tree **ddb733b8fa2ef7296e43b50ea1734c9a30e131fe**. The canonical actual-prime objective is unchanged:
+
+```text
+VFCanonicalSquareVonKochStatement:
+exists C>=0, forall integers R>=2,
+ |pi(R^2)-vfCanonical(R^2)| <= C R log R.
+```
+
+The inspected terminal theorem still requires ClassicalVonKochRHCriterion explicitly. The canonical arithmetic estimate remains OPEN; the established VF/Li O(1) transport is not that estimate.
+
+**baseline_ack=PAID_BASELINE_EXACT_CONSUMER_V1**, correction blob **13d58dd12d90fbf1160812c7c93442dc5d0576ac**. **deployment_ack=NO_PIGEONHOLING_ROUTE_SELECTOR_V1**, blob **ffd8f1c65cc4da656174956d4e03b48bea46768b**. Actual new arithmetic steps are GF2 and GF4, not the policy read.
+
+The available native replay supplies all-prefix signed energy and Mertens growth. The separate inspected native_mertens_fixed_strict_power supplies a fixed b0<7/8 envelope after spending part of its already established gap. That stronger result is preserved. GF3 needs only the weaker consequence: there exist fixed 0<b<1 and C with |M(n)|<=C n^b. Reusing that consequence is ESTABLISHED_BASELINE, not a new gain or reconstruction of its analytic suppliers. No sharp square-shell sum-of-squares hypothesis is required here.
+
+Selected protected route: **MU-LIFT**, following today's CORR4 and FINITE-AC attempts. Resume PE1-PE4 and their separate Referee-11 acceptance; incorporate Referee-14, Coordinator C63-C68, Census GM2 and HC1-HC4 at their recorded scopes. The latest near-equal-prime packet is not enlarged or rescanned as an exponent strategy. The question is the stronger greatest-prime invariant that survives unlimited within-label edits.
+
+### C. Structural Mechanism Investigated
+
+Two genuinely different possibilities were considered: a larger separated-cofactor packet, and cross-label signed transport. Census HC4 already supplies the relevant first mechanism's sublinear coverage limitation; repeating it would add no new supplier. The second mechanism is developed here.
+
+Unique factorization makes the greatest prime an exact occurrence label. Above the root wall its entire cofactor interval is available, so a small historical signed prefix dictates the label's net sign. A negative label cannot be repaired by deleting positive semiprimes or cancelling opposite signs internally. The relevant demand is therefore a directed signed imbalance between labels, not a vertex degree, unsigned donor total, or near-equal-factor condition.
+
+The proposed continuation is not to assume those demands can all be paid. GF2 proves a necessary cross-label flow; GF4 constructs one nontrivial portion using unused genuine factors and proves that its donors have positive surplus even after earlier spending.
+
+### D. Exact Statements And Carriers
+
+Fix an integer X>=4. All weights below are unit genuine Mobius coefficients. Define
+
+```text
+M(t)=sum_(1<=n<=t) mu(n),
+U_X={n: 1<=n<=X, n odd, X<2n, mu(n)!=0},
+F_q(X)={n in U_X: Pplus(n)=q},
+s_q(X)=sum_(n in F_q(X)) mu(n).
+```
+
+The main definition is oddSquarefreeUpper. Its compiled sum_moebius_eq_oddSquarefreeUpper gives sum_(U_X) mu=M(X). Every n in U_X is greater than one, so Pplus is an unambiguous prime label.
+
+**GF1.** For every prime q with q^2>X, put t=floor(X/q). Then
+
+```text
+F_q(X)={q*c: c odd, mu(c)!=0, t<2c, c<=t},
+s_q(X)=-M(t).                                         (FIBER)
+```
+
+For any residual set R contained in U_X, the sharp minimum leftover after unrestricted sign-reversing pairing WITHIN greatest-prime labels is
+
+```text
+Lambda(R)=sum_(q prime) |sum_(n in R, Pplus(n)=q) mu(n)|. (OPT)
+```
+
+This optimality is for the complete opposite-sign graph inside each label, not necessarily for the smaller three-edit graph. It is a relaxation favorable to the proposed method.
+
+**GF2.** Define the explicit union of negative high fibers
+
+```text
+V_X = union_(q prime, q^2>X, 2<=floor(X/q), M(floor(X/q))>0) F_q(X).
+```
+
+Choose ANY disjoint equal-sized endpoint sets A,C contained in U_X, where A consists of top-half primes and C of distinct semiprimes. This includes every PE1 choice and any moving partner pool; no fixed pool or eventual-capacity hypothesis is needed. Put S=U_X minus (A union C), d=|C intersect V_X|. Then
+
+```text
+sum_(S intersect V_X) mu = -A_X-d.                     (DEFICIT)
+```
+
+After any further disjoint sign-reversing matching, let R be the leftover and let F be the number of edges with a negative endpoint in V_X and a positive endpoint outside V_X, MINUS the number with a positive endpoint in V_X and a negative endpoint outside V_X. Edges wholly inside or outside V_X contribute zero. Then
+
+```text
+sum_(R intersect V_X) mu = -A_X-d+F,
+|R| >= M(X)+2(A_X+d-F),
+F >= A_X+d-(|R|-M(X))/2.                              (FLOW)
+```
+
+In particular greatest-prime-preserving edges have F=0. If a final |R|=o(X/log X) certificate is sought, GF3 and the established Mertens bound require F>=a_+ X/log X+o(X/log X), with the additional nonnegative d term retained. Merely changing greatest-prime labels is insufficient: the **net direction** must be correct.
+
+**GF3.** With the already available fixed subunit Mertens envelope and ordinary PNT,
+
+```text
+a_+ = sum_(m>=2) M(m)_+ /[m(m+1)] is finite and >=1/8930,
+A_X ~ a_+ X/log X.                                    (ASYM)
+```
+
+Consequently every sequence of the allowed PE1 and within-label matchings, even depending arbitrarily on X, has liminf |R| log X/X>=2a_+. This is uniform over matching choices, not an assertion about their signed sum's magnitude.
+
+**GF4.** For every integer X>=95^2, let Q_X,R_X be the exact prime bands in A. Take any N=min(|Q_X|,|R_X|) distinct q and r and pair them injectively by 93q<->31r. Permit the prior PE1 pool to be ANY subset of the odd primes <=29, retain every qualified Referee-14 pair, and retain any other disjoint previous matching supported on Pplus(n)<=sqrt(X), including a lawful HC2 packet. The new edges are disjoint from all these prior endpoints. For the resulting old and new residuals S0,S1,
+
+```text
+sum_(S1) mu=sum_(S0) mu=M(X),
+Lambda(S1)=Lambda(S0)-2N.                              (REPAIR)
+```
+
+For every sufficiently large X the entire Q_X is covered, because
+
+```text
+|Q_X| ~ X/[94*95 log X],
+|R_X| ~ X/[47*48 log X],
+|R_X|/|Q_X| -> 95/24 > 1.                             (CAPACITY)
+```
+
+No effective threshold, uniformity over arbitrary growing numerical quotient bands, or all-small-X full coverage is asserted.
+
+### E. Mathematical Proofs
+
+#### E1. Original arithmetic fiber, inherited identity
+
+If q^2>X, every positive c with cq<=X has c<q. Thus gcd(c,q)=1, Pplus(cq)=q and mu(cq)=-mu(c). Conversely unique greatest-prime factorization gives the same c. Since X/q has integer part t, cq<=X and X<2cq are equivalent to c<=t and t<2c. In particular floor(X/(2q))=floor(t/2); no real-endpoint approximation is used.
+
+The factor-two telescope on the complete cofactor prefix gives
+
+```text
+sum_(c odd, t/2<c<=t) mu(c)=M(t).
+```
+
+Deleting zero coefficients proves FIBER. This is a specialization/recombination of the existing complete-fiber and dyadic-compression results. The same post-root -M(floor(X/q)) law and the first M(94) sign change occur in the October 11 main note. They are explicitly credited as prior work.
+
+For OPT, each label with p positive and n negative sites leaves at least |p-n|. Pair min(p,n) opposite signs in that label. Distinct labels are disjoint, so the union attains the sum. Generic finite pairing and this l1 argument are not claimed as new combinatorics.
+
+#### E2. Donor monotonicity and the inverse flow
+
+FIBER gives sum_(V_X) mu=-A_X. Every removed prime in A lies in its own top-half fiber with floor(X/p)=1, so none belongs to V_X. Every distinct semiprime in C has mu=+1. Therefore deleting C intersect V_X subtracts exactly d and proves DEFICIT. This is why the prime/semiprime escape cannot silently be used a second time to pay a negative non-top fiber.
+
+An edge wholly inside V_X removes one sign of each kind, leaving its mass unchanged. An edge crossing outward from a negative endpoint raises its remaining mass by one; the reversed orientation lowers it by one. This proves the first FLOW equality. If N_- is the TOTAL remaining negative-site count, then N_->=A_X+d-F. Since the complete remaining signed mass is M(X), its cardinality is M(X)+2N_-. This proves both inequalities, even when the displayed lower bound happens to be negative at a small cutoff.
+
+The statement concerns final disjoint endpoint use. Arbitrarily many procedural stages or rematching within labels cannot change it. It does not forbid cross-label rematching, signed estimates after the matching, or a differently weighted original carrier.
+
+#### E3. Finite-to-infinite transfer with an explicit uniform tail
+
+Put r=floor(sqrt X). The exact number of high primes with quotient m is
+
+```text
+H_m(X)=pi(floor(X/m))-pi(max(r,floor(X/(m+1)))).
+A_X=sum_(2<=m<=r) M(m)_+ H_m(X).                       (BUCKETS)
+```
+
+The max keeps the root-clipped last bucket correct. This bucket formula is inherited; its present absolute-sign demand is the selected new application.
+
+For every FIXED m, ordinary [PNT](https://dlmf.nist.gov/27.2.E3) gives H_m(X)~X/[m(m+1)log X]. No short-interval theorem is used: these are fixed relative endpoints. To justify summing, take the established |M(n)|<=C n^b with fixed 0<b<1. For integer L>=2, the omitted tail is bounded by
+
+```text
+sum_(q>sqrt X, floor(X/q)>L) |M(floor(X/q))|
+ <= C X^b sum_(sqrt X<q<=X/(L+1), q prime) q^(-b)
+ <<_b C X (L+1)^(b-1)/log X.                          (TAIL)
+```
+
+Indeed pi(t)<<t/log t<<t/log X for t>=sqrt X; partial summation gives sum q^(-b)<<_b Q^(1-b)/log X for sqrt X<=Q<=X. If Q<sqrt X the sum is empty. The bound is uniform in L and X in this range. Separately, the coefficient-series tail is O_b(C L^(b-1)). First take X to infinity for a FIXED L, then L to infinity. This proves ASYM. It does not replace growing prime bands by densities term by term.
+
+The positive contribution at m=94 gives a_+>=1/(94*95). Since M(X)=O(X^b)=o(X/log X), FLOW with F=0 gives the stated uniform liminf. The old note's signed harmonic limit is compatible, but is not needed to infer this positive demand or used as a new result.
+
+#### E4. A source-valid cross-label repair with reserved donors
+
+For X>=95^2 and q in Q_X, q>X/95>=sqrt X and q>94. For r in R_X, r>X/48>sqrt X and r>q. The two proposed endpoints satisfy
+
+```text
+93X/95 < 93q <= 93X/94 < X,
+31X/48 < 31r <= 31X/47 < X.
+```
+
+Both lower endpoints exceed X/2. Their prime factors are distinct: 93q=3*31*q has sign -1; 31r has sign +1. The shared factor is 31 and the symmetric difference is precisely {3,q,r}. Distinct q give distinct sources, distinct r give distinct donors, and a source cannot equal a donor because 3 divides every source and no donor.
+
+Both endpoints are composites, so neither is a used top prime. The source has three factors; the donor's smaller factor is 31, outside every permitted prior pool. Neither is divisible by 13 or 15, so neither is a qualified R14 endpoint. Both greatest primes exceed sqrt X, so no prior low-greatest-prime packet uses them. HC2's displayed bands put ALL of its greatest primes below sqrt X; only that support fact is needed here, not a new endorsement of its asymptotic count.
+
+The q-fiber has quotient 94 and original mass -1. Its possible semiprime cofactors are primes in (47,94], none <=29, so PE1 spent no endpoint there. R14 preserves every high label: its large prime divides the shared cofactor and exceeds 15. Low-label packets do not enter. Thus its old mass is exactly -1.
+
+The r-fiber has quotient 47 and original mass -M(47)=3. A prior semiprime donor in this fiber has prime cofactor in (47/2,47]; among primes <=29, only 29 is possible. At most one positive site was spent, so its old mass is at least two. Again R14 preserves its mass and low-label packets do not enter.
+
+Removing 93q raises the q-mass from -1 to zero. Removing 31r lowers the r-mass from at least two by one. Each absolute mass falls by one. No label repeats across either list or between the lists, proving REPAIR. If an arbitrary later within-label matching already consumed these particular endpoints, reserve them first or explicitly rematch; preservation of EVERY arbitrary frozen matching is not claimed.
+
+PNT at the four fixed endpoints gives CAPACITY, hence an all-sufficiently-large-X injection. It is a genuine arithmetic supply proof, not a Hall hypothesis asserted from a plot. The improvement is 2|Q_X|~2X/[8930 log X] in this **labelwise absolute certificate**, not in the exponent of M(X).
+
+### F. Structural Consequences And Falsification
+
+**Exact obstruction fixture.** At X=9118 the high q=97 fiber has nine positive and ten negative sites, net -1; M(9118)=3. After ANY initial prime/semiprime stage, within-label matching must leave at least 3+2=5 sites, exceeding the global sign imbalance 3. This is a counterexample to the proposed universal within-label saturation statement, not a minimum claim over all possible counterexamples and not a full-three-edit-graph failure.
+
+The actual P9/R14/HC2 construction leaves the q=97 mass -1 and r=191 mass +2. The edge 9021<->5921 changes them to zero and +1. On the complete carrier, optimal within-label leftover changes from 369 to 367; the signed mass stays 3 and its square stays 9.
+
+**Small-cutoff capacity failure.** At X=9594, Q_X={101}, whereas R_X is empty: (9594/48,9594/47] contains no prime. Thus the all-X strengthening |R_X|>=|Q_X| is FALSE. The finite theorem matches min of the counts, and PNT proves only eventual full coverage. This witness was discovered in the preselected targeted boundary fixtures, not concealed by dropping a failing row.
+
+**Moving endpoints.** q=97 enters the quotient-94 band at X=9118, remains through 9214, and exits at 9215; its fiber then has quotient 95 and mass -2. At q^2=X the high-fiber theorem is no longer asserted. If the strict root-wall condition is removed, X=9,q=3 already fails: the physical odd squarefree fiber is empty, but -M(3)=1. The squareful product cannot be treated as a signed partner.
+
+**Scope controls.** Extending the constructive prior pool to include 31 can spend 31r in advance; the <=29 hypothesis is load-bearing. The general deficit theorem has no such pool restriction. The historical X=145 frozen-matching failure and X=87283 duplicate donor are retained; this new injection does not assume arbitrary old matches extend or treat locally legal edges as globally disjoint without proof.
+
+### G. Complete Signed Return And Quantitative Relevance
+
+For every fixed B>=2, k>=2 and X<B^k, the actual lift has the original ordered occurrence IDs
+
+```text
+(j,v,a_1,...,a_j,b_1,...,b_(j-1)),
+1<=j<=k, 1<=v<=binom(k,j), 1<=a_i<B, mu(a_i)!=0, b_l>=1,
+n=product(a_i)*product(b_l)<=X,
+epsilon=(-1)^(j-1)*product mu(a_i).
+```
+
+The verifier uses the equivalent zero-based binomial-copy index v-1.
+
+The signed fiber at n equals mu(n), by heathBrownLift_prefix_exact with N=B-1 and the inherited binomial expansion. First pair opposite raw signs within each physical fiber. Exactly one representative remains for every nonzero mu(n), none for a squareful n. Apply the factor-two involution, the old disjoint pairs and the new cross-label pairs to those representatives. No occurrence is omitted, duplicated or spent twice. The finite coefficient bridge is on main; this particular raw pairing construction is a paper extension, not an existing compiled declaration.
+
+On the complete ordered square, move the first nonfixed coordinate, or else the second. The branch is stable under a second application, so this is a sign-reversing involution. Its only fixed pairs are pairs of fixed raw representatives. This retains both mixed orientations, every binomial cross-family interaction and all squareful-fiber cancellations. With A the signed sum of one endpoint side and Z the complete residual,
+
+```text
+M(X)=A-A+Z,
+M(X)^2=A^2+A^2+Z^2-2A^2+2AZ-2AZ=Z^2.
+```
+
+There is no additional reusable negative-square credit. The physical diagonal and off-diagonal change together.
+
+**Comparator and first loss.** The independent endpoint input is already |M(X)|<=C X^b0 for some fixed b0<7/8, and its full signed energy is paid. The matching strategy's first relevant loss is replacing the remaining signed sum by its unit-sign cardinality T. GF3 proves that the greatest-prime-preserving version of THAT certificate is at least order X/log X, even though its signed sum is much smaller by the established baseline. The failure is in the proposed certificate, not in the paid input.
+
+At X=B^k-1, E(B)<=sqrt(B-1). For fixed k>=2, fixed 1<=r<k, any fixed C>0 and G(B)>=1 with log G/log B->0, GF3 gives
+
+```text
+T/[C G(B) E(B)^r sqrt(B^k-1)]
+ >= const * B^((k-r)/2)/[G(B) log B] -> infinity.
+```
+
+Thus this absolute finish cannot prove the requested whole-prefix subcritical recurrence even on an unbounded power chain. The raw ordered-square absolute certificate is T^2 and has the same limitation after taking its square root.
+
+GF4 repairs only quotient 94. Even after its complete eventual injection, FLOW still forces the remaining negative demand A_X-|Q_X|; a_+>1/8930 because M(95)=2. Therefore that one repair followed by label-preserving cancellation still leaves order X/log X. The final norm recurrence and all-prefix coverage remain unpaid. No constant, local packet, or inherited gap is counted as NEW_VERIFIED_ENDPOINT_GAIN.
+
+**Cross-route distinction.** Both 9021 and 5921 are composite sites, although their Mobius signs are opposite. They are not a sign-reversing pair in the raw positive-composite VF carrier, nor do they certify chronological/clipped #915 admission. GF2 supplies an incidence/flow restriction to MU-LIFT; an application to VF, finite-C or Hecke sources requires a separate actual-weight bridge.
+
+### H. Exact Verification, Novelty And Formal Evidence
+
+The complete executed standard-library verifier is appended below. Python syntax compilation and all assertions passed. It uses an integer prime-multiple Mobius sieve, a separate trial-factorization check, direct physical greatest-prime grouping, independent cofactor-first enumeration, exact rational arithmetic and ordered occurrence IDs. No floating sign decisions, numerical PNT threshold, or fitted exponent is used.
+
+| Test | Actual executed scope |
+| --- | --- |
+| Independent coefficient/factor checks | Every n=1..20,000 |
+| Literal U_X and complete high fibers | 525 distinct cutoffs: X=4..512 plus 16 named fixtures; 65,208 fibers |
+| Arbitrary initial donor subsets | 865 tiny-carrier cases; their new negative-fiber condition is vacuous there |
+| Nonvacuous donor monotonicity | All 512 subsets of the nine positive semiprime sites in the X=9118,q=97 fiber |
+| New cross-label packets | 14 larger/boundary fixtures; seven nonempty packets and seven checked edges, not hundreds of nonempty packets |
+| Complete old/new labelwise optimum | Exact pairing counts, signed totals and full-square algebra at those fixtures |
+| Original raw lift | B=96,k=2,X=9118: all 131,793 ordered/binomial occurrence IDs checked; 367 fixed occurrences |
+| Ordered-square scope | Streaming full signed cross-sum and proved tensor rule; 17,369,394,849 raw pairs NOT individually enumerated |
+
+At the raw fixture, the fixed ordered-pair count is 134,689 and the signed square is 9. These are different quantities. The full ordered-square theorem is proved above, not inferred from enumerating that enormous tensor.
+
+Selected outputs:
+
+| X | A_X | Source/donor prime counts | New pairs | Label optimum before/after | M(X) |
+| ---: | ---: | --- | ---: | --- | ---: |
+| 9118 | 1 | 1 / 2 | 1 | 369 / 367 | 3 |
+| 9214 | 1 | 1 / 1 | 1 | 367 / 365 | -1 |
+| 9215 | 2 | 0 / 1 | 0 | 368 / 368 | -2 |
+| 9594 | 1 | 1 / 0 | 0 | 373 / 373 | -17 |
+| 16383 | 3 | 1 / 1 | 1 | 622 / 620 | -32 |
+| 65535 | 13 | 1 / 3 | 1 | 2166 / 2164 | 14 |
+| 87283 | 26 | 1 / 3 | 1 | 2832 / 2830 | 34 |
+| 131071 | 48 | 1 / 6 | 1 | 4096 / 4094 | -20 |
+
+Verifier SHA-256: **ca5894a5951370f1716ccd9e082653e5212d8b76b60f79bfcc057d17bd86917d**. Deterministic payload SHA-256: **d0d37bf4a7fcfa2490d0c361f18e804c24c96bcc69068601f2cdb76488254729**. The additional displayed fiber-site list was separately reconstructed by trial-certified coefficients. The new quotient bands and X=9118 fixture were proof-directed choices after the early checkpoint, as that checkpoint allowed; they are not retroactively described as predeclared numerical constants.
+
+**Novelty audit.** Main code searches for greatest-prime-preserving, M(94), prime-fiber residuals and the 93/31 matching were performed. They located the October 11 -M quotient law, exact harmonic limit and M(94) witness, plus compiled dyadic transport and root-wall fibers. These are reused explicitly. Coordinator C63's general within-class l1 invariant is also prior structure. The new content is the donor-monotone negative quotient population after PE1, its quantitative net-flow requirement, and the explicitly reserved 94-to-47 repair with exact labelwise improvement. No equivalent statement was located in the inspected main sources and both days' relevant reports; this is not an exhaustive historical/literature-priority assertion.
+
+**Formal evidence.** The live open/draft PR list was empty. #1096 is merged; the actual dedicated job **127672350630**, run **42150511056**, was fetched. It checked tested merge **7783734bdc9960d3c2483af380759db85e87bc8f**, incorporating proof head **ecf701ff2fea1de52e505ee34048a2b3c220f0fc**. Warning-fatal compilation and ten exact declaration audits succeeded. Actual terminal lists contain only propext, Classical.choice and Quot.sound (upper_half_static_partner_eq uses only propext and Quot.sound). Its theorem file is unchanged at the pinned current-main blob. This inherited source certificate does NOT certify GF2-GF4. No local Lean, new workflow run or proof-source edit occurred.
+
+Recent merges #1097 (CORR4 sampling), #1098 (baseline correction), and #1099 (Nyman moment-null obstruction) were verified from live PR metadata; stale same-day unmerged descriptions are not repeated as current state. Their unrelated proofs are not arithmetic suppliers for this argument and were not newly rebuilt here.
+
+### I. Conceptual Interpretation
+
+Changing some large factors is not enough: a construction may still conserve a larger arithmetic label whose signed demand cannot be paid internally. Here that label is the greatest prime, and its imbalance is determined by a complete smaller genuine prefix. Existing positive semiprime spending has a definite adverse direction on selected fibers.
+
+The repair exhibits a distinct useful principle: reserve a composite cofactor outside the earlier small-prime bank, and transport one negative label unit to a label with provable remaining positive surplus. The surplus proof, not mere unused donor cardinality, is what gives the exact two-unit improvement of the optimized certificate.
+
+### J. Competing Structural Hypotheses
+
+| Hypothesis | Disposition |
+| --- | --- |
+| Arbitrary within-greatest-prime rematching finishes the PE1 residual | REFUTED for an o(X/log X) absolute certificate by GF2-GF3 |
+| The separated HC family can evade that obstruction through higher depth | No: its high-label preservation is the relevant invariant; its scoped HC results remain valid |
+| Arbitrary three-edit matching itself has a Hall obstruction | NOT ESTABLISHED; the new obstruction is label-restricted and GF4 changes labels |
+| Quotient-94 negative demand admits a protected cross-label supply | PROVED ON PAPER with finite min-capacity and eventual full coverage |
+| The displayed donor band has enough primes at every X>=95^2 | REFUTED at X=9594; repaired statement retains the exact minimum |
+| Complete multi-band signed transport gives a subcritical recurrence | OPEN; capacity, net directions, moving cutoffs and the whole signed remainder remain |
+
+### K. Continuity And Specialist Handoffs
+
+Both November 5 and November 6 reports were retrieved from reporting snapshot **9d269c4c78142989874bbf29197004960e56e573** (commit time 2026-11-06T22:39:41Z). Applicable summaries, selected-route proofs, corrections, verdicts and resume sections were read. Unrelated executable appendices were not all rerun or blanket-endorsed. All seven TODAY role files were present; the Coordinator's latest synthesis is now complete, superseding earlier TODAY=PENDING entries. Equal AM/PM mirror blobs count as one source.
+
+| Role | November 5 blob | November 6 intake blob | Original claims consumed |
+| --- | --- | --- | --- |
+| Coordinator | be661bb2ed2830fc4aeddf14713455e550d982cc | 2802753059cc55d1446087bc40266576214a9638 | C53-C68; especially fixed-bank C63-C66 and latest MU-LIFT assignment; NS spectral synthesis is a distinct route |
+| Owner | 39665b5b28fc48378519ab9d56cee8df4d3e2681 | 1856a96aaaa9d86a5ee2d59ffe50ced936443fa6 | RC/CR/MC; BT/RZ, DR1-DR7 and new MS proper-clock result; no identity of VF weights and mu |
+| Analytic | 9490aa2eecafcd19d8007043cc5f978fe421a7c9 | 7997620b6ab7eb0701296994734ee910df3c3ba1 | SP and CR; FP, RM1-RM5 and latest AQ1-AQ5 large-cube component, no new endpoint claimed |
+| Wheel | afc85d800c47f82f2db634591a7798005cb668de | be64667df80910bc9cc8fa3034aeeb579df5829a | PE1-PE4; CP1-CP4 and PB1-PB4; exact next MU-LIFT continuation |
+| Census | 24fcd6a631eca9ae44238d927215f49e1d8a174f | 77777fae1f4273c76e0c1064f4529740cabfbb8b | CORR4 R=57/58 and JOH X=209; GM2, HC1 donor collision, HC2-HC4 plus five-nonempty-packet clarification |
+| Referee | 789ed87021fe98963c244a8d0c9075638e76be43 | 68ada01df5bd54ef07d22f1ebc4009ef9dd7e5b4 | referee-11 ACCEPT_WITH_SCOPE for PE1-PE4; referee-14 new repair; today's CP and RM scoped acceptances; no acceptance of new GF claims |
+| Lean | 5e0ecdd8f08c2e19b4614f00c1a5657f58722344 | 5a08dc2ae99956bc020a57ad0cf51c67e6d0a7a5 | #1095 fail-closed repair, #1096 finite source; CP1-SAMPLING and NYMAN-NULL now merged, not new MU-LIFT suppliers |
+
+Upstream recorded publication receipts consumed include yesterday's Wheel 23:23 UTC freshness and Referee 2026-11-06 01:33:35 UTC receipt; today's own 15:40:51 UTC, Census 16:28:04 UTC, Referee 17:26:33 UTC, Lean 18:38:38 UTC and Owner 21:33:49 UTC receipts. These are upstream records, not claims that every underlying proof or computation was independently rerun here. The current source refresh during this run remained d4df133 at 23:19-23:20 UTC; the final publication receipt supplies its own actual verification time.
+
+External inbox **038018145c0fddb2f6306c0712373adf9cd1ea52** has no handoff newer than October 18. EXT-20261018-PNT-1..3 preserve genuine primes, the complete smooth/model/error return and the q=R boundary; EXT-20261017-XCOORD-1 warns against dropping that boundary; EXT-20261014-5 is an unconditional-all-R rather than conditional-first-bad obstruction. Their historical priorities and cadence do not override current main. They provide no new MU-LIFT norm supplier.
+
+**Coordinator:** register GF2/GF4 as a new label-demand obstruction and a constructive proper-component repair, not VERIFIED_ETA. Do not request another same-geometry largest-factor census. Next protected Wheel route is CORR4.
+
+**Referee:** independently reconstruct the exact V_X before reading the proof. Audit donor direction, the exclusion of quotient one, the root-clipped last band, TAIL's uniformity, the M(X)+2N_- relation, the prior pool restriction, and the exact two-unit label improvement. Challenge any all-small-X capacity or arbitrary frozen-matching assertion. GF2-GF4 await separate acceptance.
+
+**Census:** reproduce X=9118,9215,9594 with independent coefficients; verify q=97's nine positive/ten negative sites, the edge 9021<->5921, and absence of quotient-47 donors at 9594. Do not rerun the all-three-edit graph census or extend a range to fit an exponent. A new experiment should test a proposed simultaneous multi-band transport with explicit old-donor reservations.
+
+**Analytic:** the scalar a_+ is already an absolutely convergent historical demand under the available baseline. The next meaningful issue is a signed multi-quotient return or a uniform recurrence, not another proof that this scalar converges. Full signed cancellation may bypass the absolute matching certificate.
+
+**Owner:** the argument distinguishes arithmetic labels from chronological/VF ownership. Both new endpoints are composites; no weighted VF payment is imported. The reserve-versus-surplus distinction may be useful only after an actual source map.
+
+**Lean Verification:** no unreviewed proof branch is requested. Reuse the compiled odd-boundary and cofactor identities. If independently accepted and needed by the continuing mechanism, the smallest new interface is GF2's signed donor/flow identity or GF4's finite disjoint endpoints; do not formalize another generic matching wrapper for theorem count. GF3's analytic transfer is separate from those finite interfaces.
+
+These are report-only handoffs. No agent was launched or presumed to have executed in response.
+
+### L. First Independently Missing Theorem
+
+The original complete quantitative requirement remains, on a covered power chain B_(j+1)=B_j^k,
+
+```text
+fixed k>=2, fixed 1<=r<k, G_j>=1, log G_j/log B_j -> 0,
+E(B_j^k) <= G_j E(B_j)^r,
+E(B)=max_(1<=n<B) |M(n)|/sqrt(n).
+```
+
+For k=2 this requires EVERY B_j<=X<B_j^2 to satisfy the source-exact bound on 2M(B_j-1)-Q_(B_j-1)(X), with all signed floor rows retained. An endpoint-only or moving partner identity does not supply it.
+
+For the selected matching mechanism, the first new open structural step is a simultaneous cross-label allocation beyond one fixed quotient pair, with net favorable flow at least A_X plus already spent positive donors minus a genuinely controlled residual, no donor reuse, and exact changing-cutoff admission. That necessary flow alone is not sufficient: every other signed class and the all-prefix recurrence must still be controlled. Defining the final signed residual to equal M(X) and assuming its desired bound is TARGET_EQUIVALENT, not a paid input.
+
+### M. Source Ledger And Next-Run Capsule
+
+Original main sources were retrieved at d4df133117c5b58f90979d2eb680167ef37995cf; pertinent definitions, theorem hypotheses and proof arguments were inspected.
+
+| Source | Blob SHA |
+| --- | --- |
+| AGENTS.md | 48b2a58ab5fcd402321a4dace511c7d54bf688a1 |
+| CURRENT_PROOF_CONTRACT.md | 7c4ac83a1ec1a4144e1bd691391ed4244f1cc27c |
+| Established-baseline correction | 13d58dd12d90fbf1160812c7c93442dc5d0576ac |
+| Stable task selector | 973d3d549a52a1afe2f02bfdcf8cc35fb6a76515 |
+| Complete-return contract | 4775ee5fd95f279beab08a75d1e17127078b19a6 |
+| Persistent research engine | 6c1d1c10e2755017ffe9d7f40df8b9ae7692f23a |
+| research/MERTENS_ODD_BOUNDARY_PRIME_ESCAPE_20261105.lean | 3cbc5159536d6b9e5000f74c5bd018bd2d62daf1 |
+| research/MERTENS_HEATH_BROWN_SIGNED.lean | af69b4811cf9f523eb7c96fb0ca836b2cdbd1180 |
+| research/MERTENS_FINITE_PREFIX_EXTENSION.lean | 131e9af86207a42d4bf6488e3f64c9ce4f97e5df |
+| RHLean/Proof/AdaptivePrimeMatching.lean | c2caaace0f4e99ea06107d939119c12fa005bcbc |
+| RHLean/Proof/RootWallCompleteFibre.lean | 054694c0aa125e6f542a3208d85d30c2d79fb320 |
+| RHLean/Analysis/DyadicTransportCanonicalForm.lean | 90df0b8187f628b4f4e886a1271955955245b8a6 |
+| research/UNIVERSAL_PRIME_PARTITION_MAXIMA_ROOT_WHEEL_2026_10_11.md | 770fb7b2de8f8fe4cda40aae5ec2159928d4f5f4 |
+| docs/MERTENS_AMPLIFICATION_BUDGET.md | 62bbe73c4755eaa64772ec2cc2731936c01b49cd |
+| research/oai_434/VF919NativeSevenEighthsReplay.lean | 111c933a7ca15647105ce6a4d0f3cbfc3cde81f4 |
+| research/oai_434/VF919NativeStrictMertens.lean | b33a4883e1ddb0551b0f11f062bce46680d87450 |
+| research/VF_CANONICAL_SQRT_TWO_VON_KOCH.lean | 79030d70e8d3e0d08eef9bac53fef95c36eca2fb |
+
+```text
+RUN: 20261106-wheel-3; SCHEDULED 18:06 EST; RUN_ID_UNAVAILABLE.
+MAIN: d4df133117c5b58f90979d2eb680167ef37995cf.
+BASELINE_ACK: PAID_BASELINE_EXACT_CONSUMER_V1.
+ROUTE: MU-LIFT, genuine odd boundary and ordered k-lift.
+RESUMED: PE1-PE4; referee-11/-14; C63-C68; GM2/HC1-HC4.
+NEW: donor-monotone high-label demand; compulsory net cross-label flow;
+     finite and eventual 94-to-47 reserved-factor repair.
+INHERITED: -M quotient law, M(94), factor-two telescope, raw coefficient
+           lift, standard pairing/tensor algebra, PNT, strict baseline.
+FINITE: 525 cutoffs, 65,208 high fibers, seven nonempty new packets;
+        131,793 raw atoms, all assertions PASS. No huge tensor enumeration.
+REVIEW: SELF_AUDIT; independent Referee PENDING; NOT_FORMALIZED.
+LIMIT: single quotient repair does not pay all negative labels; no new
+       signed whole-prefix estimate or endpoint exponent.
+FIRST OPEN: complete simultaneous signed transport/recurrence, r<k,
+            subpower G, every cutoff and every mixed interaction.
+TODAY COVERAGE: CORR4 -> FINITE-AC -> MU-LIFT (three actual turns).
+NEXT DISTINCT ROUTE: CORR4; use CP/TD and the corrected inherited bound,
+                     not another baseline reconstruction or cap scan.
+NEXT MU-LIFT: net cross-label demands with recoverable, unspent donors;
+              no more greatest-prime-preserving-only absolute finish.
+ETA_GATE: SEARCH_BROAD; NEW_NET_ENDPOINT_GAIN: NONE_ESTABLISHED.
+CANONICAL VF / FINITE AC / CORR4 / RH: OPEN.
+```
+
+Early checkpoint commit **d5a007fffe7a71f9b6313858ec22c4cf33aab31d**, blob **96edd6e40a59c0ca06d125b9decf5074d964d41f**, was re-fetched at its immutable commit and exactly matched before the final synthesis. Final publication is recorded only after a new verified write/readback. Shell GitHub cloning returned CONNECT 403; the authenticated connector supplied all required sources and authorized own-report writes. An optional exploratory SymPy import was unavailable, so all substantive arithmetic used the standard-library verifier. No local Lean, proof-source/workflow edits, other-report modification, branch/PR/issue mutation, merge, policy/permission/schedule change, or agent launch occurred.
+
+### Complete Executed GF5 Verifier
+
+```python
+"""Exact tests for greatest-prime conservation and a cross-label repair.
+
+Finite tests are not the proof of the all-scale asymptotics.
+"""
+
+from bisect import bisect_right
+from collections import Counter, defaultdict
+from fractions import Fraction
+from hashlib import sha256
+from itertools import combinations
+from math import isqrt
+import json
+
+
+P9 = (3, 5, 7, 11, 13, 17, 19, 23, 29)
+
+
+def sieve(limit):
+    mu = [1] * (limit + 1)
+    mu[0] = 0
+    greatest = [1] * (limit + 1)
+    prime = bytearray(b'\1') * (limit + 1)
+    prime[0] = prime[1] = 0
+    primes = []
+    for p in range(2, limit + 1):
+        if prime[p]:
+            primes.append(p)
+            for n in range(p, limit + 1, p):
+                greatest[n] = p
+                mu[n] = -mu[n]
+                if n != p:
+                    prime[n] = 0
+            for n in range(p * p, limit + 1, p * p):
+                mu[n] = 0
+    mertens = [0] * (limit + 1)
+    for n in range(1, limit + 1):
+        mertens[n] = mertens[n - 1] + mu[n]
+    return mu, greatest, prime, primes, mertens
+
+
+def trial(n):
+    fs, repeated, p = [], False, 2
+    while p * p <= n:
+        if n % p == 0:
+            fs.append(p)
+            n //= p
+            if n % p == 0:
+                repeated = True
+            while n % p == 0:
+                n //= p
+        p += 1
+    if n > 1:
+        fs.append(n)
+    return (0 if repeated else (-1) ** len(fs)), fs
+
+
+def upper(x, mu):
+    return {n for n in range(x // 2 + 1, x + 1) if n % 2 and mu[n]}
+
+
+def fiber_sums(population, mu, greatest):
+    sums = Counter()
+    for n in population:
+        sums[greatest[n]] += mu[n]
+    return sums
+
+
+def old_pairs(x, mu, primes):
+    top = [p for p in primes if x < 2 * p <= 2 * x]
+    donors = sorted(s * q for s in P9 for q in primes
+                    if q > 29 and x < 2 * s * q <= 2 * x)
+    pairs = list(zip(top, donors))
+    for c in range(x // 26 + 1, x // 15 + 1):
+        value, factors = trial(c)
+        if value and len(factors) >= 2 and all(c % p for p in (2, 3, 5, 13)):
+            pairs.append((13 * c, 15 * c))
+    return pairs
+
+
+def separated_pairs(x, mu, greatest, primes):
+    pairs = []
+    for c in range(1, (81 * x) // (625 * 17 * 17) + 1):
+        if not mu[c] or any(c % p == 0 for p in (2, 3, 5, 13)):
+            continue
+        if 16 * c * greatest[c] ** 2 > x:
+            continue
+        js = [p for p in primes if 25 * c * p * p > 16 * x
+              and 100 * c * p * p <= 81 * x]
+        ks = [p for p in primes if p > 13 and 16 * c * p * p > x
+              and 625 * c * p * p <= 81 * x]
+        if len(js) < 2 or js[0] <= 29 or len(ks) < len(js) - 1:
+            continue
+        for i, j in combinations(range(len(js)), 2):
+            pairs.append((c * js[i] * js[j], 3 * c * ks[i] * js[j]))
+    return pairs
+
+
+def remove_pairs(population, pairs, mu):
+    remainder = set(population)
+    for a, b in pairs:
+        assert a != b and a in remainder and b in remainder
+        assert mu[a] == -mu[b] and mu[a]
+        remainder.remove(a)
+        remainder.remove(b)
+    return remainder
+
+
+def optimize_fibers(population, mu, greatest):
+    groups = defaultdict(lambda: {1: [], -1: []})
+    for n in sorted(population):
+        groups[greatest[n]][mu[n]].append(n)
+    pairs = []
+    for sides in groups.values():
+        pairs.extend(zip(sides[1], sides[-1]))
+    fixed = remove_pairs(population, pairs, mu)
+    assert len(fixed) == sum(abs(s) for s in fiber_sums(population, mu, greatest).values())
+    return pairs, fixed
+
+
+def cross_pairs(x, primes):
+    qs = [p for p in primes if 94 * p <= x < 95 * p]
+    rs = [p for p in primes if 47 * p <= x < 48 * p]
+    return qs, rs, [(93 * q, 31 * r) for q, r in zip(qs, rs)]
+
+
+def main():
+    fixtures = [2002, 4095, 9025, 9117, 9118, 9214, 9215, 9408, 9409,
+                9494, 9594, 9595, 16383, 65535, 87283, 131071]
+    mu, greatest, prime, primes, m = sieve(max(fixtures))
+    counts = Counter()
+    for n in range(1, 20001):
+        value, fs = trial(n)
+        assert value == mu[n]
+        assert greatest[n] == (fs[-1] if fs else 1)
+        counts['trial_coefficient_checks'] += 1
+    assert m[94] == 1 and m[95] == 2 and m[47] == -3
+    assert next(n for n in range(2, 100) if m[n] > 0) == 94
+    first_quotient = next((x, p) for x in range(4, 9119) for p in primes
+                          if p * p > x and 2 <= x // p and m[x // p] > 0)
+    assert first_quotient == (9118, 97)
+
+    rows = []
+    for x in list(range(4, 513)) + fixtures:
+        u = upper(x, mu)
+        assert sum(mu[n] for n in u) == m[x]
+        sums = fiber_sums(u, mu, greatest)
+        for q in primes:
+            if q > x:
+                break
+            if q * q <= x:
+                continue
+            t = x // q
+            actual = {n for n in u if greatest[n] == q}
+            cofactor = {q * c for c in range(t // 2 + 1, t + 1)
+                        if c % 2 and mu[c]}
+            assert actual == cofactor
+            assert sums[q] == -m[t]
+            counts['complete_high_fibers'] += 1
+        root = isqrt(x)
+        band_a = 0
+        band_k = 0
+        for t in range(1, root + 1):
+            h = bisect_right(primes, x // t) - bisect_right(primes, max(root, x // (t + 1)))
+            band_k += abs(m[t]) * h
+            if t >= 2:
+                band_a += max(m[t], 0) * h
+        a_x = sum(max(m[x // q], 0) for q in primes
+                  if q * q > x and 2 <= x // q)
+        assert a_x == band_a
+        assert band_k == sum(abs(s) for q, s in sums.items() if q * q > x)
+        v = {n for n in u if greatest[n] ** 2 > x
+             and x // greatest[n] >= 2 and m[x // greatest[n]] > 0}
+        assert sum(mu[n] for n in v) == -a_x
+        old = old_pairs(x, mu, primes)
+        before = remove_pairs(u, old, mu)
+        # R14 is internal to every relevant high fiber once X is large.
+        if x >= 9025:
+            assert sum(mu[n] for n in before & v) <= -a_x
+        internal, fixed = optimize_fibers(before, mu, greatest)
+        assert sum(mu[n] for n in fixed) == m[x]
+        assert len(fixed) >= m[x] + 2 * a_x
+        counts['literal_cutoffs'] += 1
+
+        if x in fixtures and x >= 9025:
+            hc = separated_pairs(x, mu, greatest, primes)
+            old.extend(hc)
+            before = remove_pairs(u, old, mu)
+            s0 = fiber_sums(before, mu, greatest)
+            qs, rs, cross = cross_pairs(x, primes)
+            assert all(q * q > x and q > 94 for q in qs)
+            for q in qs:
+                assert s0[q] == -1
+            for r in rs:
+                assert s0[r] >= 2
+            after = remove_pairs(before, cross, mu)
+            s1 = fiber_sums(after, mu, greatest)
+            for a, b in cross:
+                va, fa = trial(a)
+                vb, fb = trial(b)
+                assert va == -1 and vb == 1
+                assert len(set(fa) ^ set(fb)) == 3
+                assert fa[-1] != fb[-1]
+                counts['new_cross_edges'] += 1
+            delta = sum(map(abs, s0.values())) - sum(map(abs, s1.values()))
+            assert delta == 2 * len(cross)
+            assert sum(mu[n] for n in after) == m[x]
+            _, fixed_after = optimize_fibers(after, mu, greatest)
+            running = pair_sum = 0
+            for n in sorted(fixed_after):
+                pair_sum += mu[n] * running
+                running += mu[n]
+            assert len(fixed_after) + 2 * pair_sum == m[x] ** 2
+            flow = sum((-mu[a] if a in v else 0) + (-mu[b] if b in v else 0)
+                       for a, b in cross)
+            assert flow == len(cross)
+            assert len(fixed_after) >= m[x] + 2 * (a_x - flow)
+            rows.append({'X': x, 'M': m[x], 'A_X': a_x,
+                         'source_primes': len(qs), 'donor_primes': len(rs),
+                         'old_pairs': len(old), 'cross_pairs': len(cross),
+                         'label_optimum_before': sum(map(abs, s0.values())),
+                         'label_optimum_after': len(fixed_after),
+                         'examples': cross[:3]})
+
+    # All possible semiprime donor subsets on tiny literal carriers.
+    for x in range(4, 65):
+        u = upper(x, mu)
+        positives = [n for n in u if len(trial(n)[1]) == 2]
+        top = [p for p in primes if x < 2 * p <= 2 * x]
+        v = {n for n in u if greatest[n] ** 2 > x
+             and x // greatest[n] >= 2 and m[x // greatest[n]] > 0}
+        a_x = -sum(mu[n] for n in v)
+        for size in range(min(len(positives), len(top)) + 1):
+            for subset in combinations(positives, size):
+                after = u - set(top[:size]) - set(subset)
+                d = len(set(subset) & v)
+                assert sum(mu[n] for n in after & v) == -a_x - d
+                _, fixed = optimize_fibers(after, mu, greatest)
+                assert len(fixed) >= m[x] + 2 * (a_x + d)
+                counts['arbitrary_donor_subsets'] += 1
+
+    # A nonvacuous donor test in the first negative complete high fiber.
+    x, q = 9118, 97
+    u = upper(x, mu)
+    qfiber = {n for n in u if greatest[n] == q}
+    donors = sorted(n for n in qfiber if len(trial(n)[1]) == 2)
+    assert len(donors) == 9
+    for size in range(len(donors) + 1):
+        for subset in combinations(donors, size):
+            assert sum(mu[n] for n in qfiber - set(subset)) == -1 - size
+            counts['nonvacuous_fiber_donor_subsets'] += 1
+
+    # Literal k=2 ordered binomial carrier at the first new flow cutoff.
+    b, x = 96, 9118
+    raw = []
+    for copy in range(2):
+        for a in range(1, b):
+            if mu[a]:
+                raw.append(((1, copy, a), a, mu[a]))
+    for a in range(1, b):
+        for c in range(1, b):
+            if mu[a] and mu[c]:
+                for z in range(1, x // (a * c) + 1):
+                    raw.append(((2, 0, a, c, z), a * c * z, -mu[a] * mu[c]))
+    fibers = defaultdict(lambda: {1: [], -1: []})
+    for i, (_, n, sign) in enumerate(raw):
+        fibers[n][sign].append(i)
+    mate = list(range(len(raw)))
+    reps = {}
+    for n in range(1, x + 1):
+        signs = fibers[n]
+        assert len(signs[1]) - len(signs[-1]) == mu[n]
+        k = min(len(signs[1]), len(signs[-1]))
+        for i, j in zip(signs[1][:k], signs[-1][:k]):
+            mate[i], mate[j] = j, i
+        left = signs[1][k:] + signs[-1][k:]
+        assert len(left) == abs(mu[n])
+        if left:
+            reps[n] = left[0]
+    physical = [(n, 2 * n) for n in range(1, x // 2 + 1) if n % 2 and mu[n]]
+    old = old_pairs(x, mu, primes) + separated_pairs(x, mu, greatest, primes)
+    qs, rs, cross = cross_pairs(x, primes)
+    physical.extend(old + cross)
+    remaining = remove_pairs(set(reps), physical, mu)
+    internal, remaining = optimize_fibers(remaining, mu, greatest)
+    physical.extend(internal)
+    for n, v in physical:
+        i, j = reps[n], reps[v]
+        assert mate[i] == i and mate[j] == j
+        mate[i], mate[j] = j, i
+    for i, (_, n, sign) in enumerate(raw):
+        assert mate[mate[i]] == i
+        if mate[i] != i:
+            assert raw[mate[i]][2] == -sign
+    fixed = [i for i in range(len(raw)) if mate[i] == i]
+    assert {raw[i][1] for i in fixed} == remaining
+    assert sum(raw[i][2] for i in fixed) == m[x]
+    running = raw_cross = 0
+    for _, _, sign in raw:
+        raw_cross += running * sign
+        running += sign
+    assert len(raw) + 2 * raw_cross == m[x] ** 2
+    raw_info = {'B': b, 'k': 2, 'X': x, 'occurrences': len(raw),
+                'fixed_occurrences': len(fixed), 'ordered_pairs': len(raw) ** 2,
+                'fixed_ordered_pairs': len(fixed) ** 2, 'signed_square': m[x] ** 2,
+                'tensor_scope': 'proved branch-stable tensor rule; full Cartesian square not enumerated'}
+
+    # Endpoint controls for the new prime bands and the strict cofactor wall.
+    endpoint = {'q': 97, 'first': 94 * 97, 'last': 95 * 97 - 1,
+                'source': 93 * 97, 'donor': 31 * 191}
+    assert cross_pairs(9117, primes)[0] == []
+    assert 97 in cross_pairs(9118, primes)[0]
+    assert 97 in cross_pairs(9214, primes)[0]
+    assert 97 not in cross_pairs(9215, primes)[0]
+    assert sum(mu[c * 3] for c in range(2, 4) if c % 2 and mu[c * 3]) != -m[3]
+    payload = {'checks': dict(counts), 'first_inherited_positive_quotient': first_quotient,
+               'M_values': {n: m[n] for n in [47, 94, 95, 96, 97, 98, 99, 100]},
+               'positive_series_partial_100': str(sum((Fraction(max(m[n], 0), n * (n + 1))
+                                                      for n in range(2, 101)), Fraction())),
+               'rows': rows, 'raw': raw_info, 'endpoint': endpoint,
+               'scope': 'exact finite validation; no prime asymptotics inferred from data',
+               'all_assertions': 'PASS'}
+    digest = sha256(json.dumps(payload, sort_keys=True).encode()).hexdigest()
+    print(json.dumps({'payload_sha256': digest, **payload}, indent=2, sort_keys=True))
+
+
+if __name__ == '__main__':
+    main()
+```
