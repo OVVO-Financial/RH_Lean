@@ -1553,3 +1553,20 @@ blobs were unchanged; Coordinator, Referee and Lean were still absent.
 Their TODAY=PENDING / YESTERDAY=CARRY_FORWARD status is retained.
 The preregistration remains an exact prefix of this completed report.
 No additional scan or unobserved upstream execution is claimed.
+
+
+### Verified Publication Receipt - 20261106-census-1
+
+At 2026-11-06 08:44:24 UTC, the completed synthesis and all five executable
+source blocks were re-fetched at immutable commit
+**d65c6c19807681396b4ba1f5e9b71ab352e959d8**, blob
+**294df90c7831c4fa2a949a59b2068fb61bcb40a2**, and matched the submitted bytes exactly.
+The commit API confirmed that only this authorized report path changed.
+The earlier checkpoint is preserved as an exact prefix.
+
+Execution and publication: COMPLETE / PUBLISHED.
+Mathematics: GM1/GM4 FINITE_COMPUTATION; GM2 scoped REFUTED assertion;
+GM3 PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED.
+The unrestricted H3 remains CONJECTURE. No new endpoint gain or RH claim.
+This receipt describes the already verified synthesis, not its own future
+commit. No other role was launched and no unauthorized remote path changed.
