@@ -112,9 +112,9 @@ theorem corr4_parent_sampling_le {x : ℝ} (hx : 3 ≤ x) :
         |(mertensSummatoryInt (squareRootEndpoint R) : ℝ) -
           (mertensSummatoryInt ⌊x⌋₊ : ℝ)| +
           |(mertensSummatoryInt (R - 1) : ℝ)| := by
-    simpa only [sub_eq_add_neg, abs_neg] using
-      abs_add ((mertensSummatoryInt (squareRootEndpoint R) : ℝ) -
-        (mertensSummatoryInt ⌊x⌋₊ : ℝ)) (-(mertensSummatoryInt (R - 1) : ℝ))
+    simpa only [sub_zero, zero_sub, abs_neg] using
+      abs_sub_le ((mertensSummatoryInt (squareRootEndpoint R) : ℝ) -
+        (mertensSummatoryInt ⌊x⌋₊ : ℝ)) (0 : ℝ) (mertensSummatoryInt (R - 1) : ℝ)
   rw [abs_sub_comm (mertensSummatoryInt (squareRootEndpoint R) : ℝ)] at htri
   have hscale := corr4_root_scale hR hlo
   change |(mertensSummatoryInt (squareRootEndpoint R) : ℝ) -
