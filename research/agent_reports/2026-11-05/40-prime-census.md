@@ -1398,3 +1398,68 @@ At 2026-11-05 08:41:17 UTC / 03:41:17 EST, main remained ff620da3c0d2c2958580596
 ### Verified Publication Receipt
 
 At 2026-11-05 08:43:14 UTC, the substantive report was re-fetched at commit **453f144360502b111a4cc6c7e0898b54441e30f6**, blob **9b22fbdaef66195ad9546a1fbc700b9e023f4e79**, and matched the submitted content exactly. The commit changes only `research/agent_reports/2026-11-05/40-prime-census.md` on the reporting branch. This receipt identifies that already verified substantive commit, not its own future commit. The early checkpoint is preserved, all A-N sections and code fences passed validation, and each embedded implementation matches the executed source SHA256. Publication: PUBLISHED_AND_READBACK_VERIFIED. Research: FINITE_COMPUTATION; H-SEPARABLE REFUTED at the stated finite scope; independent role review PENDING; new global gain UNKNOWN.
+
+
+## Scheduled JOH Checkpoint - 2026-11-05 19:00 EST Invocation
+
+Actual trigger: SCHEDULED, 2026-11-05T19:00:01-05:00, America/New_York.
+RUN_ID_UNAVAILABLE. Research state PENDING; no new result asserted.
+Main: 1667c3cf9b4e898bb9afd62ec48e24610b2156ab.
+AGENTS: 547dda0d9456e7a4e1165dc72d59da6f70d5c023.
+Contract: 7c4ac83a1ec1a4144e1bd691391ed4244f1cc27c.
+Policy: ffd8f1c65cc4da656174956d4e03b48bea46768b.
+Report intake: e22e2ddd080f4b5c3d8bb27e6365083ecd6b2b63.
+All seven November 5 stages are now AVAILABLE; November 4 findings are
+CARRY_FORWARD at their stated scopes. Earlier PENDING records are preserved.
+
+Independently selected JOH, resuming the deferred census-1 support task and
+Owner 20261104-owner-3/LC4 plus 20261105-owner-3/MC1,MC3,MC5.
+No OAI side audit, larger CORR4 scan, or repeated Nyman scan is selected.
+Canonical VF bound remains OPEN; SEARCH_BROAD; new endpoint gain UNKNOWN.
+
+### Frozen Question Before Execution
+
+Let Q(n)=floor(Li_2(n)), b_j=min{n>=2:Q(n)>=j},
+a_j=pi(b_(j+1))-pi(b_j), e_j=a_j-1. Preserve the original
+right-closed interval (b_j,b_(j+1)], not Q(p) admission.
+For J_X={j:X<=b_j<2X} and h=floor(X^(1/4)), define
+V=sum_(j in J_X)(sum_(r=0..h-1)e_(j+r))^2,
+D=sum_(j in J_X)sum_(r=0..h-1)e_(j+r)^2,
+C_d=sum_(j in J_X)sum_(r=0..h-1-d)e_(j+r)e_(j+r+d).
+Thus V=D+2sum_(d=1..h-1)C_d, with exact overlapping multiplicities
+and the complete upper halo.
+
+H-LAG: every C_d<=0 at the declared scales.
+Rival H-AGG: individual positive C_d may occur, while sum_d C_d<=0.
+A positive C_d refutes only H-LAG; a positive sum_d C_d refutes H-AGG.
+Both surviving is finite evidence only, never an all-scale theorem.
+Classify each lag into surplus-surplus, empty-empty and opposite-sign
+products; no empirical mean subtraction or omitted class is allowed.
+
+Development X={128,256,512,1024}; held-out X={2048,4096,8192}.
+Certify Q at integers 2..16640, including halos; stop if any floor is
+ambiguous or the halo exceeds that range. No exponent fitting.
+This extends the five MC5 fixtures only to test the new lag hypothesis,
+not to claim a larger successful census.
+
+Independently verify LC4 single-cell compression, the signed coarse P-D
+return and full K/P/D square through N=4096 for h in {1,2,3,5,8}, with
+nonzero starting anchors; verify [5,8), prime 163, and the five MC5 Grams.
+Use a new certified composite-Simpson/log-series calculation of Li_2,
+separate high-precision Ei checks, exact sieve primes and independent
+trial-division/discrete-statistic reconstruction. Record which parts of
+the verification share the certified floor table.
+
+Source inspected: VF_MID_FLOOR_LI_SIGNED_POPULATION_BALANCE.lean
+9a9336dad72171b6d572a1c1ae88d1ae8b56b530; discrete backlog
+4255ca0dffe480f2aec6bd0b68797bbd293396c3; transport
+eb84f59055bd31dc117be034d45c92eb9dab8f27; JOH consumer
+27e28f09e9f79e8a60d524e5fcb6f19904fa55f5.
+B=pi-Q-1 is the centered JOH coordinate, not the uncentered Lean backlog;
+its first difference is unchanged. No claim of independently reviewing
+Owner MC2's external analytic theorem is made by this finite test.
+
+deployment_ack: current independent multi-front policy consumed.
+Only this own report is written remotely; no agent launches or local Lean.
+Final findings, exact certificates, source code and resume capsule follow
+after actual execution and checks.
