@@ -781,3 +781,18 @@ At the final authority review, completed **2026-11-06 07:40 UTC (02:40 EST)**, t
 ## Verified Publication Receipt
 
 **PUBLISHED / READBACK_VERIFIED**, checked **2026-11-06T07:41:14Z (02:41:14 EST)**. The substantive final report commit is **74f4411e6f930693c9b1629e429b62f8cd7ec8b0**, content blob **edd91fd3037e45c4d56a64439683fb8958a05403**. An immutable-commit fetch returned the exact submitted content, and commit metadata confirmed that only `research/agent_reports/2026-11-06/30-finite-wheel.md` changed: **740 additions, 0 deletions**. The prior checkpoint body was preserved in full. This receipt is appended in a subsequent own-report-only commit and does not promote CP1-CP4 beyond **PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING**. CP5 remains **FINITE_COMPUTATION**. The authorized research invocation is complete; the canonical objective and independent improved source upper bound remain **OPEN**.
+
+
+## Scheduled FINITE-AC Continuation Checkpoint - 20261106-wheel-2
+
+Actual invocation: scheduled **2026-11-06T10:12:01-05:00**, America/New_York; RUN_ID_UNAVAILABLE. Checkpoint recorded **2026-11-06 15:16:35 UTC**. Status: **PARTIAL / IN_PROGRESS**. This is a new actual invocation appended to the preserved earlier CORR4 report, not a retroactive revision of its results.
+
+Selected route: **FINITE-AC**, resuming **20261105-wheel-2/P1-P4** and the earlier complete-extension obstruction. The last proved step is the exact four-block prime-mask return for the original historical rank-one kernel. The first open input is genuine signed control after all four blocks are restored. This run will test the successive-root boundary of the prime-sampled remainder, including changing prime admission, historical cutoff, and every return term. No theorem or power saving is claimed yet.
+
+Authority: main **4a6e6b8c1a81f6dd8b8bc0cfad123bbc2a56188a**; AGENTS **547dda0d9456e7a4e1165dc72d59da6f70d5c023**; proof contract **7c4ac83a1ec1a4144e1bd691391ed4244f1cc27c**; policy **ffd8f1c65cc4da656174956d4e03b48bea46768b**. deployment_ack=NO_PIGEONHOLING_ROUTE_SELECTOR_V1; eta_gate=SEARCH_BROAD; net new endpoint gain UNKNOWN. Canonical VFCanonicalSquareVonKochStatement remains OPEN.
+
+Today/yesterday priority reports and external inbox were retrieved from reporting snapshot **34fafc2801539e603e05b5ce7a3b57812021c229**. Today's Coordinator has only a PARTIAL checkpoint: **TODAY=PENDING** for completed synthesis; **YESTERDAY=CARRY_FORWARD** from November 5 C63-C68 and earlier finite-AC discussion. Today's other named roles have substantive reports. The earlier CP1-CP4 now have independent ACCEPT_WITH_SCOPE from 20261106-referee-1; Lean reports sampling-only proof PR #1097, which is being checked at its exact current head. This does not promote the weighted-integral claims or supply finite C. #1096 is merged; yesterday's V1 Euler audit finding was repaired by merged #1095. No new upstream execution is inferred from schedules.
+
+Source declarations inspected: eulerRankOneFloorKernelQ, eulerRankOneResidualQ, eulerFloorBilinearQ, eulerSelfDualBilinear_eq_two_mertens_sub_endpoint and EulerSelfDualFiniteCStatement. Preserve **N=R-1, X=R^2-1**, genuine mu, ordered floor occurrences, the nonsymmetric rank-one subtraction, and **K_R=max_(0<=y<R)(M(y)-1)^2/(y+1)**. The finite-C estimate is an explicit unpaid hypothesis, not a proved input.
+
+Pending: exact boundary derivation, independent code paths for finite tests, novelty/no-circularity review, full signed return, specialist handoffs, and final commit/readback. Writes remain restricted to this own report; no local Lean or other agent launch.
