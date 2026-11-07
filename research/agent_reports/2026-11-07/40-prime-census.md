@@ -1060,3 +1060,67 @@ All A-N sections, 30 balanced code fences, source/report hashes, four exact exec
 Mathematics remains **REFUTED / FINITE_COMPUTATION** for the specified additive assertions and **PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING** for the general capacity law and corrected component. No new Lean theorem or complete endpoint gain is asserted. Existing strict baseline results are preserved. No background computation remains running.
 
 
+
+## Scheduled Consumer-Certificate Checkpoint - 20261107-census-2
+
+Trigger: 2026-11-07T11:00:01-05:00, America/New_York; RUN_ID_UNAVAILABLE.
+Prepared: 2026-11-07 16:07:47 UTC. Execution IN_PROGRESS / PARTIAL; new mathematical claims PENDING.
+
+### Authority And Resumption
+
+main=aa10b310efb2a095fd4c69dc965e6bde0bd135d6; AGENTS blob 7d19591d69a141c2c094a81a7dff2569562ab892;
+CURRENT_PROOF_CONTRACT blob 7c4ac83a1ec1a4144e1bd691391ed4244f1cc27c.
+chain_ack=CANCELLATION_CHAIN_REUSE_V1, policy blob ef8d3ac76a893028f4de772c9a00d3bc261c8132.
+baseline_ack=PAID_BASELINE_EXACT_CONSUMER_V1;
+deployment_ack=NO_PIGEONHOLING_ROUTE_SELECTOR_V1.
+All seven relevant reports for November 7 and November 6 were retrieved. TODAY=AVAILABLE;
+YESTERDAY=CARRY_FORWARD, not a new certification of every archived claim.
+EXTERNAL_HANDOFFS blob 038018145c0fddb2f6306c0712373adf9cd1ea52 contains no November entry.
+Earlier SC1-SC5 and yesterday's GM/HC/FW evidence remain preserved and are not rerun.
+
+No open/draft PRs were returned at intake. #1101, #1102 and #1103 are merged.
+The new #1103 source extension is the selected support task: original marked capacity
+2*m+6*kappa*z<=1 with kappa>1/2, original full-family license
+2*HeckeZeroSupremum.beta-1<=kappa, actual source profiles and unchanged HighData.
+Dedicated exact-head run 42386987885/job128446349776 succeeded, and its terminal
+axiom output was read. No local Lean or new Actions run is performed.
+
+### Preregistered Question And Discriminator
+
+Existing input: RetainedSlotDetector.source_batch_plain_marked_fine_half and
+RetainedSlotFiberCount.plain_marked_count_half, plus unchanged inverse/unmarked branches.
+Actual consumer: original DetectorRowCountOptimization.count_bound_of_source_branches,
+DetectorRowCountEndpoint.balanced_endpoint_with_loss, and their downstream HIGH return.
+
+Question: after retaining kappa in the original marked branch instead of widening
+its capacity to 9/2, does the resulting crossing/balanced count improve on the
+ENTIRE admitted parameter rectangle, or does a supply/endpoint constraint invalidate
+the naive extension? A uniform positive improvement in every bin is a separate,
+potentially false, assertion.
+
+Preregistered exact closed diagnostic domain:
+kappa in [1/2,3/4], delta in [0,5/6], x in [0,1/2], tstar in [1,3/2].
+The kappa=1/2 face is arithmetic limiting diagnostics ONLY; the analytic supplier
+requires strict kappa>1/2 and its full-family license. q=delta*x.
+Keep inverse z<(1-r)/2, second inverse inequality, supply z<=7/37,
+plain z=(1-2*m)/(6*kappa)-nu, zero-capacity fallback, original small
+length/mesh/moment losses, and high-bin delta>=5/6 branch.
+No artificial row is asserted to be an actual Hecke fiber.
+
+Method: derive rational crossing and balanced formulas; exact boundary and
+interior checks; clear only positive denominators; seek a finite polynomial
+certificate valid over the whole rectangle, with independent integer/rational
+verification. Exploratory grid and held-out grid will be recorded separately;
+neither is the uniform proof. Search for equality faces, supply overruns,
+incorrect strict-capacity use, and nonuniform-limit errors.
+Stopping rule: stop at a decisive counterexample or a complete parameter certificate
+and the exact first unsupported same-probe return. Do not fit a global exponent.
+
+### Full Return And Status
+
+Retain original rows, prime/exclusion masks, profile derivatives, external
+real part 17/50, d>=1/200, rowNorm>=Z^(1/100), polynomial height cost,
+all four moment fields, large/empty selections, principal, LOW, remote and
+exceptional contributions. A detector-count improvement alone is not a new
+Mertens/VF/RH endpoint. Strongest applicable strict baseline is retained.
+NO_NEW_VERIFIED_ENDPOINT_GAIN; eta_gate=SEARCH_BROAD.
