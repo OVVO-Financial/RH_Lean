@@ -1726,3 +1726,567 @@ The common endpoint remains complete canonical HIGH, with fixed-cutoff LOW alrea
 ### D-K. Pending work
 
 Derivation, falsification, full signed and quadratic return, endpoint comparison, source/evidence ledger, specialist handoffs, and immutable final readback are pending. Earlier SAT/VF-LOW findings, code, receipts and correction history above remain unchanged. No Lean/source/policy/PR/schedule edits or other-agent launches are authorized or attempted. eta_gate=SEARCH_BROAD; NEW_VERIFIED_ENDPOINT_GAIN=NONE.
+
+## Complete JOH Return And Low-Zero Failure Localization - 20261107-owner-3
+
+### A. Most Important Mathematical Development
+
+**PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED.** The complete original Johnston floor-Li source has a useful inverse restriction, obtained without reconstructing its level from short-clock variance. Under the repository's already supplied nontrivial-zero boundary beta <= b < 1, the exact logarithmic transfer and an established zero-density theorem pay the ENTIRE sufficiently high zero tail below the prime-square bias scale. Any large-scale failure of G(N)<0 must therefore be carried by a quantitatively negative, bounded-height group of actual off-critical zeros.
+
+Write a=30/13, d_a(b)=2-a(1-b), and nu_a(b)=(b-1/2)/d_a(b). For fixed 1/2<=b<=7/8 and
+
+```text
+nu_a(b) < nu < 1/a,
+A_N = N^(3/2)/log N,
+D_N = {actual zeros rho=beta+i*gamma, counted with multiplicity:
+       0<|gamma|<=N^nu and beta>1/2+1/log N},
+```
+
+the new inverse conclusion is, for EVERY sufficiently large integer N,
+
+```text
+G(N)>=0  ==>  sum_(rho in D_N) K_rho(N) <= -A_N/2.       (JT3)
+```
+
+The sum is real because conjugate zeros are included. In particular D_N must be nonempty. K is the exact kernel in D below, not its leading logarithmic approximation. This is a proved implication under the displayed incoming boundary, NOT a proof that the forced configuration is impossible.
+
+At rounded b=7/8, the admissible height threshold is nu>39/178, compared with nu>3/8 from the same kernel plus total-zero counting alone. The reused classical density coefficient 12/5 would already give nu>15/68. The strict actual baseline is retained by using nu_a(b), not by replacing b with 7/8 in the theorem. These are zero-HEIGHT thresholds, not Mertens exponents. No optimal density threshold is claimed.
+
+A particularly simple, completely returned fixed-power consequence uses nu=9/40:
+
+```text
+G(N) = -sum_(0<|gamma|<=N^(9/40)) K_rho(N) - P_2(N)
+       + O(N^(3/2-21/4160)),                            (JT2-return)
+P_2(N) = (1/2) sum_(p prime, p^2<N) (N-p^2)
+       ~ (2/3) A_N.
+```
+
+This pays the discarded-height part, every higher prime power and the exact floor/constant/lower-end restoration. The remaining finite zero sum is NOT bounded at a new global power. The full endpoint and JOH eventual sign remain OPEN. **NEW_VERIFIED_ENDPOINT_GAIN=NONE; eta_gate=SEARCH_BROAD.**
+
+Claim ledger: JT1 exact source/logarithmic-kernel return and its uniform estimate, PAPER_PROOF with IDENTITY_ONLY subclaims; JT2 complete tail bound and returned remainder, PAPER_PROOF / INDEPENDENT_COMPONENT_ADVANCE; JT3 failure localization, PAPER_PROOF / INVERSE_RESTRICTION; JT4 logarithmic-freezing obstruction, PAPER_PROOF on a specified analytic-mode domain, not an actual off-line-zero counterexample; JT5 exact original-prime tests and scoped shortcut refutations, FINITE_COMPUTATION. No new result is PROVED_IN_LEAN. Classical analytic ingredients are credited; no literature-priority claim is made.
+
+### B. Current Authoritative Objective
+
+Actual invocation: SCHEDULED 2026-11-07T16:15:01-05:00, America/New_York; RUN_ID_UNAVAILABLE. This completes the earlier checkpoint, not another execution. Protected sequence today is SAT, VF-LOW, JOH; next SAT.
+
+Main at intake: **cae99df1c3ea24ff4113063bf09f6fd07517ad93**, tree **087a31436295ea4b0307d3d851f363c5370dba5f**. Current HIGH policy blob **be8168b67584d9d8ebbaa732a30c51509137543e**. high_attack_ack=COMPLETE_SIGNED_HIGH_ATTACK_V1; chain_ack=CANCELLATION_CHAIN_REUSE_V1; baseline_ack=PAID_BASELINE_EXACT_CONSUMER_V1; deployment_ack=NO_PIGEONHOLING_ROUTE_SELECTOR_V1.
+
+For fixed Lambda>=0, the complete common object is
+
+```text
+M(R^2-1)=canonicalLowPrefix_Lambda(R-1)
+          +canonicalHighPrefix_Lambda(R-1),
+|canonicalLowPrefix_Lambda(R-1)| <= (floor Lambda+1) R.
+```
+
+The desired new HIGH amplitude must beat the strongest applicable existing boundary, with the final partial-square O(R) cost and positive-loss spending retained. This run instead uses the independently sufficient JOH route: eventual G(R^2)<0, with the correct classical-li convention, implies RH by the established external Johnston criterion and the repository's recorded discrete transfer. That sign is NOT assumed. An isolated prime-power or clock estimate is not a quantitative map to canonical HIGH.
+
+The strongest directly available native arithmetic boundary inspected is **b_base=HeckeZeroSupremum.beta**, with `native_mertens_growth_at_hecke_beta` and `native_zeta_zero_re_le_hecke_beta`, and b_base<7/8. The actual-source theorem `native_beta_le_true_physical_slot_minimum` additionally supplies a fixed D and m=actualSlotMinimum D>0 with b_base<=7/8-m/24. The explicit-count bound 7/8-1/(288 explicitSlotCount) is also retained, not confused with an optimized or equal boundary. JT1-JT3 are parameter theorems and can take b=b_base. No numerical value or uniformity as b varies is inferred from an existential witness.
+
+For every positive epsilon, the existing Mertens and complete signed-pair consequences already apply at b_base. They do not imply a new sharp shell variance or the desired JOH sign. Our final complete source still has only the inherited b_base-scale global control; the new height localization is not an exponent improvement.
+
+Material source blobs, all retrieved at the pinned main:
+
+| File | Blob SHA |
+| --- | --- |
+| AGENTS.md | 0a99faf8458809ac772d470d704c5433f373bda8 |
+| CURRENT_PROOF_CONTRACT.md | d1d6fd558ee23927bd9f70ffdc375bafd1dbb67a |
+| docs/RHLEAN_COMPLETE_SIGNED_HIGH_ATTACK_20261107.md | be8168b67584d9d8ebbaa732a30c51509137543e |
+| docs/RHLEAN_REUSE_CANCELLATION_CHAIN_20261107.md | 28e2ab47c68bc83b91ae02b6112b94867b021b32 |
+| research/VF_MID_FLOOR_LI_SIGNED_POPULATION_BALANCE.lean | 9a9336dad72171b6d572a1c1ae88d1ae8b56b530 |
+| research/VF_MID_FLOOR_LI_DISCRETE_BACKLOG.lean | 4255ca0dffe480f2aec6bd0b68797bbd293396c3 |
+| research/VF_MID_FLOOR_LI_TRANSPORT_CANCELLATION.lean | eb84f59055bd31dc117be034d45c92eb9dab8f27 |
+| research/LI_FAN_ONE_SIDED_WEIGHTED_COMPOSITE_RH_CONTRACT_20261022.md | 27e28f09e9f79e8a60d524e5fcb6f19904fa55f5 |
+| research/oai_434/VF919NativeSevenEighthsReplay.lean | 111c933a7ca15647105ce6a4d0f3cbfc3cde81f4 |
+| research/oai_434/VF919NativeStrictMertens.lean | b33a4883e1ddb0551b0f11f062bce46680d87450 |
+| research/oai_434/VF919ActualSlotMinRetighten.lean | 138c4726085995b966204406805f70082402bec4 |
+| research/oai_434/VF919ExplicitFixedSourceSlotCount.lean | bad5aab0a60e96d19e7c9550cd7c0a072288bc0f |
+| RHLean/Analysis/CanonicalHighSectorCore.lean | dd02fc8fabfe4004c6b0d50374b3b8752607b168 |
+| RHLean/Analysis/CanonicalLowOccupancy.lean | b958da340d107cdd00015d2827b9a728357b4d8e |
+
+Live discovery returned no open/draft PRs. #1102, #1103, #1104 and #1105 are now human-merged; stale unmerged labels in earlier reports are historical. #1105's two-error moment interface and #1103's licensing package do not themselves prove a complete new endpoint and are not imported into prime occurrences. Today's Coordinator/Lean evidence for their dedicated checks is attributed, not represented as a new build here.
+
+The existing strict-baseline proof was checked directly against #1091 head **6778fd4c25b0f369d311e6e71223e168e329b4bf**: all twelve retrieved workflows succeeded. Dedicated run **41898325686**, job **126813711885**, was fetched; its log verifies exact actual-source-minimum terminal types and standard axioms `[propext, Classical.choice, Quot.sound]`, and the explicit-count terminal. The three strict/actual-minimum/explicit-count files were re-fetched at that head and matched current main byte-for-byte and by blob. This is reused exact-head evidence, not a fresh main-wide compilation. No local Lean was run.
+
+### C. Structural Hypothesis Investigated
+
+The full original carrier is
+
+```text
+L(t)=Li_2(t), Q(n)=floor L(n), B(n)=pi(n)-Q(n)-1,
+G(N)=sum_(2<=n<N) B(n)
+    =sum_(3<=k<N)(N-k) [1_Prime(k)-Q(k)+Q(k-1)].
+```
+
+B is native integer backlog minus one; the bracketed atom is native primitiveMismatch(k-1), not mu(k). The same G is the complete one-sided weighted composite removal A(N)-T(N)-L_model(N), with every odd-square boundary at N=R^2 restored. The exact Li clock b_j and MS1-MS4 remain valid at their original scope.
+
+Three possibilities were distinguished. Continuing to apply Cauchy to short-clock increments retains MS4's weaker returned endpoint and is not a new mechanism. Freezing the final logarithmic transfer at 1/log N can lose a large mode-dependent term. The selected hypothesis is that the exact POSITIVE logarithmic transfer of the integrated Chebyshev discrepancy retains enough inverse-height decay to pay all high zeros jointly with the original prime-power corrections. This succeeds at the tail and inverse-theorem levels; it does not establish favorable cancellation of the remaining low zeros.
+
+This is a new continuation of the authorized JOH route and current Coordinator's complete-return request, not a departure from the campaign or a request to centralize all investigators on zero-density methods. The local derivative/clock covariance is not declared equal to a global level covariance.
+
+### D. Mathematical Derivation
+
+#### JT1. Exact Logarithmic Return, With All Arithmetic Restored
+
+Use the following established analytic inputs at their original scopes. Johnston's [Lemma 2.6 and its displayed integrated explicit formula](https://arxiv.org/pdf/2201.06184#page=4) provide the unconditional formula used below; RH is used in his subsequent bound, NOT in that identity. His Theorem 1.1 is the external sign consumer. The uniform density input is [Guth-Maynard, Theorem 1.2 and (1.4)](https://arxiv.org/pdf/2405.20552#page=2): N(sigma,T)<<_epsilon T^((30/13)(1-sigma)+epsilon). The earlier 12/5 alternative is the recorded [Zaccagnini Section 2.1 density input](https://people.dmi.unipr.it/alessandro.zaccagnini/psfiles/papers/Q429.pdf#page=3). [Brent-Platt-Trudgian, Corollary 1](https://maths-people.anu.edu.au/brent/pd/rpb276-MC-preprint.pdf#page=3) implies the unconditional all-ordinate bound sum_rho gamma^(-2)<1/20, multiplicities included. Ordinary PNT is used only for the prime-square asymptotic. These are imported established facts, not this run's discoveries or new Lean declarations.
+
+The density statement's positive loss is retained. If its o(1) formulation is read only for fixed sigma, monotonicity in sigma and a finite fixed mesh give the required uniform positive-loss version on [1/2,b]. Fix the mesh after the desired loss, then take the maximum of finitely many constants. No growing-parameter uniformity is silently assumed.
+
+For real X>=2 let
+
+```text
+Pi(t)=sum_(p^k<=t) 1/k,
+F(t)=integral_2^t (psi(u)-u) du,
+c=li(2),
+W_X(t)=1/log t + (X-t)/(t log^2 t),
+v_X(t)=-W_X'(t)
+      =(X+t)/(t^2 log^2 t)+2(X-t)/(t^2 log^3 t) >= 0,
+T_X[f]=f(X)/log X + integral_2^X f(t) v_X(t) dt.
+```
+
+Stieltjes partial summation for the ACTUAL prime powers gives
+
+```text
+Pi(t)-li(t) = (psi(t)-t)/log t
+ + integral_2^t (psi(u)-u)/(u log^2 u) du + 2/log 2-c.
+```
+
+Integrate over t and use F(2)=0. Fubini and integration by parts yield exactly
+
+```text
+integral_2^X (Pi(t)-li(t)) dt = T_X[F]+(2/log 2-c)(X-2).  (1)
+```
+
+The integrated explicit formula is
+
+```text
+F(t)=-sum_rho t^(rho+1)/(rho(rho+1)) + E(t),
+E(t)=2-t log(2*pi)+zeta'(-1)/zeta(-1)
+     -sum_(r>=1) t^(1-2r)/(2r(2r-1)).                  (2)
+```
+
+The zero sum is absolutely and locally uniformly convergent here. There is no half-weight ambiguity after integration. E(t)=O(t) on t>=2. Apply the SAME linear operator T_X to (2), retaining its lower-end constants, and define
+
+```text
+K_rho(X) = 1/(rho(rho+1)) *
+ [X^(rho+1)/log X + integral_2^X t^(rho+1) v_X(t) dt].   (3)
+```
+
+For an integer N>=3, put
+
+```text
+P_k(N)=(1/k) sum_(p prime, p^k<N)(N-p^k),
+P_ge3(N)=sum_(k>=3)P_k(N),
+E_floor(N)=sum_(n=2)^(N-1) integral_n^(n+1)
+                       [li(t)-Q(n)-1] dt,
+U(N)=T_N[E]+(2/log 2-c)(N-2)+E_floor(N).
+```
+
+Then the COMPLETE original source is exactly
+
+```text
+G(N)=-sum_rho K_rho(N)-P_2(N)-P_ge3(N)+U(N).            (4)
+```
+
+Every p^k is an actual occurrence, with its original 1/k multiplicity; the prime 2 and all its powers are included. Replacing <N by <=N changes nothing because a boundary atom has weight zero. No actual prime is replaced by floor-Li membership. The subtraction Pi-pi is exact before any estimate. In the odd-owner presentation, T(R^2) still contains sum_(odd 3<=s<R)(R^2-s^2); (4) is not permission to delete that term.
+
+Since 0<=L(n)-Q(n)<1 and 0<=L(t)-L(n)<=1/log 2 on a unit cell,
+
+```text
+0 <= E_floor(N) <= (c+1/log 2)(N-2).
+```
+
+The strict positivity c>1 explains the chosen -1 centering, without changing the classical li convention. Because |E(t)|<=Ct and T_N is positive, T_N[E]=O(N); explicitly T_N[t]=O(N). Thus U(N)=O(N). Also
+
+```text
+0<=P_ge3(N)<<N^(4/3) log N,
+P_2(N)=(1/2) integral_2^N pi(sqrt t) dt
+      =(2/3+o(1)) N^(3/2)/log N.                       (5)
+```
+
+The second conclusion is ordinary PNT plus integration, not a square-root error theorem. No rate for that o(1) is used as a power-saving remainder: P_2 is retained EXACTLY in JT2-return.
+
+For a fixed zero boundary b<1, the functional equation also gives beta>=1-b. Uniformly for sigma in [1-b,b],
+
+```text
+T_N[t^(sigma+1)]
+ = N^(sigma+1)/log N * (1+O_b(1/log N)),
+|K_rho(N)| <= C_b N^(beta+1)/(gamma^2 log N).            (6)
+```
+
+To see the first estimate, integrate the three positive terms in v_N: the leading two integrals are N integral t^(sigma-1)/log^2 t and integral t^sigma/log^2 t; both have order N^(sigma+1)/log^2 N uniformly away from sigma=0. The third has one additional logarithm. Splitting at sqrt N supplies an elementary uniform bound near the fixed lower endpoint. The second estimate uses |rho(rho+1)|>=gamma^2. This positive-operator bound retains the whole logarithmic correction, not a truncation of (3).
+
+#### JT2. All-Height Tail And Complete Signed Remainder
+
+The proof works for either a=12/5 with its fixed logarithmic density loss, or a=30/13 with every positive exponent loss. Fix b and epsilon before N,T. For 2<=T<=N^(1/a),
+
+```text
+sum_(|gamma|>T) |K_rho(N)|
+ <<_(a,b,epsilon) N^epsilon *
+       [N^(3/2)/T + N^(b+1)/T^(2-a(1-b))].             (7)
+```
+
+Here is the full tail argument. On a band V<|gamma|<=2V, layer-cake gives
+
+```text
+sum N^beta << N^(1/2) V log(2V)
+ + log N integral_(1/2)^b N^sigma
+                            V^(a(1-sigma)+epsilon_0) d sigma.
+```
+
+After division by V^2, the exponent of V in the integral is at most a/2-2+epsilon_0<0. Choose epsilon_0 below half this fixed negative margin. Sum all dyadic bands FIRST, using this uniform geometric decay. The resulting integral is bounded by a constant times
+
+```text
+integral_(1/2)^b N^sigma T^(a(1-sigma)-2+epsilon_0) d sigma.
+```
+
+Only now use T<=N^(1/a), so N^sigma T^(a(1-sigma)) is nondecreasing in sigma. Its maximum occurs at b. Multiply by N/log N from (6), and absorb the fixed logs and T^epsilon_0 into N^epsilon. This proves (7), including arbitrary high heights and their original multiplicities. Maximizing at b at every unbounded V before summation would be invalid; that shortcut is not used. No zero-pair independence is needed because this is an absolutely convergent first-moment return.
+
+For fixed nu_a(b)<nu<1/a and any fixed
+
+```text
+0<kappa<min{nu, d_a(b)*nu-(b-1/2), 1/6},
+```
+
+choose the internal positive loss small enough. Equations (4), (5), (7) imply
+
+```text
+G(N)=-S_(N^nu)(N)-P_2(N)+O_(a,b,nu,kappa)(N^(3/2-kappa)),
+S_T(N)=sum_(0<|gamma|<=T) K_rho(N).                     (8)
+```
+
+The constants are uniform for every sufficiently large INTEGER N, not only a dyadic sequence. In the concrete a=30/13, b<=7/8, nu=9/40 case the worst tail exponent before loss is
+
+```text
+15/8-(89/52)*(9/40)=3099/2080=3/2-21/2080.
+```
+
+Spending epsilon=21/4160 yields the fixed remainder in A; higher powers and U are smaller. At b=7/8-delta, the same tail exponent is 3099/2080-(79/52)delta. The exact minimum in (8) must still be taken when delta is not small. No existential strict gain is erased or silently made numerical.
+
+#### JT3. A Signed Inverse Theorem For Actual Failure
+
+Split S_(N^nu)=S_safe+S_danger at beta=1/2+1/log N. For every zero in the safe part and 2<=t<=N,
+
+```text
+|t^(rho+1)| <= e*t^(3/2).
+```
+
+Positivity of T_N and the unconditional all-zero sum bound give
+
+```text
+|S_safe| <= (e/20) T_N[t^(3/2)]
+         = (e/20+o(1)) A_N.                            (9)
+```
+
+This includes the critical line, all left-half-plane mates, repeated zeros and both ordinate signs; it does not assert that any of these sums vanishes. With (5) and (8), G(N)>=0 forces
+
+```text
+-S_danger >= (2/3-e/20+o(1)) A_N > A_N/2
+```
+
+for all sufficiently large N, since e<3 and 2/3-3/20=31/60>1/2. This proves JT3 and the bounded-height, quantitatively off-critical witness. At N=R^2 the same statement holds with height R^(2nu) and beta>1/2+1/(2log R), uniformly for all sufficiently large integer R.
+
+The theorem supplies an independent necessary configuration for a failure of the original weighted-composite sign. It does NOT exclude that configuration, prove RH, or infer finite-height RH verification from a numerical zero list. If b=1/2 is supplied, the danger set is empty and the familiar RH-sign implication follows; using that special case without its boundary premise would be circular.
+
+#### JT4. Why The Exact Kernel Must Not Be Frozen
+
+For a FIXED complex s with Re(s)=sigma>0, s not 0 or -1, the kernel (3) has the expansion
+
+```text
+K_s(N)=N^(s+1)/(s(s+1)log N)
+ + (2s+1)N^(s+1)/(s^2(s+1)^2 log^2 N)
+ + O_s(N^(sigma+1)/log^3 N)+O_s(N).
+```
+
+It follows by the same endpoint integration of v_N, without changing the source definition. For sigma>1/2 the magnitude of the nonzero second coefficient grows faster than A_N. Thus a uniform analytic-mode argument cannot call the discarded logarithmic correction O(A_N) merely because it contains one extra log. This is a scoped analytic obstruction, NOT evidence that an actual off-critical zeta zero exists and NOT a refutation of collective cancellation of such modes. The full K is used throughout JT1-JT3.
+
+### E. Quantitative Consequence And Complete Return
+
+The new quantitative result is the proper-spectrum bound (7), its fully restored original-source remainder (8), and the inverse statement JT3. The change is from short-clock variance plus level-reconstruction Cauchy to the actual triangularly weighted source before norms. It avoids MS4's loss but does not bound the remaining signed low spectrum.
+
+For complete quadratic accounting put Z=S_(N^nu), P=P_2, and E_rest=-sum_(|gamma|>N^nu)K_rho-P_ge3+U. These are real. Before any inequality,
+
+```text
+G=-Z-P+E_rest,
+G^2=Z^2+P^2+E_rest^2+2ZP-2Z E_rest-2P E_rest.
+```
+
+All within-Z zero pairs, safe/danger mixing, high/low mixing, prime-power mixing, initial constants and floor rounding are retained by this identity. The sign proof uses a one-sided linear comparison of the COMPLETE source, not a claim that any cross term is negative. The alternative exact finite arithmetic test uses G=G_Pi-P_2-P_ge3 and checks all six corresponding terms.
+
+The native canonical HIGH consequence currently remains the paid one at b_base. Taking absolute values of the remaining low sum in (8) yields only inherited b-scale control for G; it does not improve a zero boundary or Mertens exponent. A new estimate on the remaining joint sum would still be needed. No source-specific OAI LOW moment, arbitrary Hecke phase, fixed-window variance or prime-only density has been used in its place. Original #915's normalization, historical compression and first-bad premises are untouched and unpaid by this result.
+
+### F. Falsification And Circularity Review
+
+JT5's purpose and ranges were frozen before execution. The rational Li-floor helper is reused unchanged from 20261106-owner-3/MS5, itself credited there to Census 20261105-census-2. All 256 registered endpoints passed: development 4<=N<=256, held-out N=529,1024,2048. Seventeen square endpoints additionally passed the exact odd-interior plus odd-square boundary reconstruction. All floors through 2048 were certified by outward integer log/Simpson bounds; no floating-point sign decision was used.
+
+Two deliberately incomplete claims are REFUTED on actual arithmetic:
+
+| Shortcut and first development witness | Exact result |
+| --- | --- |
+| Replace pi by Pi without restoring prime powers, N=7 | G=-1, G_Pi=1/2, P_2=3/2, P_ge3=0; the sign reverses |
+| Treat the omitted mixed term in (G_Pi-P)^2 as nonpositive, N=71 | G=-157, G_Pi=-7/60, P=9413/60; omitted -2G_Pi P=65891/1800>0 |
+
+The first exact mixed-term identity mismatch is already N=5, where -2G_Pi P=-1/2. N=71 is specifically the first POSITIVE omitted term, not the first nonzero term. Final verifier logging was tightened to report both witnesses within the unchanged registered range.
+
+Held-out complete returns (all exact rationals):
+
+| N | G | G_Pi | P_2 | P_ge3 |
+| --- | --- | --- | --- | --- |
+| 529 | -2707 | 2057/2520 | 3205/2 | 2785397/2520 |
+| 1024 | -6703 | -5408/45 | 3953 | 118342/45 |
+| 2048 | -16599 | -31069/210 | 20415/2 | 655573/105 |
+
+The tests also verify the triangular primitive mismatch, weighted odd-composite identity, every quadratic cross term, strict prime-power boundaries and exact rational tail exponents. They DO NOT verify the analytic zero-density theorem, the infinite kernel series, the all-scale inverse statement, or attainment of its unknown N0. No actual zero computation was performed. The wrong-symbolic-kernel issue in JT4 is established analytically, not disguised as an actual-zero numerical falsifier.
+
+Important self-audit checks: sum dyadic high heights before maximizing in beta; retain functional-equation lower bounds when using uniform kernel constants; retain arbitrary positive density loss; spend it before claiming a fixed remainder; retain P_2 exactly instead of treating its PNT o(1) as a power; preserve c=li(2), F(2)=0 and native backlog's -1; retain every prime power including powers of 2. The safe/danger split uses no stochastic assumption. Author self-audit is not independent Referee acceptance.
+
+Scoped searches of the inspected source tree and both dates' relevant reports found the inherited MS/RS high-tail arguments but not this complete G-kernel/height-failure implication. This is not an exhaustive novelty search. The existing Johnston RH equivalence makes it especially important NOT to label an unproved low-spectrum sign condition as an elementary independent supplier.
+
+### G. Conceptual Interpretation
+
+The exact triangular Johnston weight supplies two inverse-zero factors before logarithmic transport. Keeping that weight exposes an absolutely summable high-height tail and a real negative prime-square term. The earlier moving-clock energy was asking a derivative statistic to recover a global level; the direct return shows precisely which actual low-zero configuration would instead have to carry a failure.
+
+This is a structural localization of the COMPLETE source, with an independent quantitative tail payment, not a cancellation theorem for its hard finite spectrum. The logarithmic correction is part of that spectrum, not harmless bookkeeping. Arithmetic ancestry remains exact through the prime-power subtraction and weighted owner partition; no copied historical occurrence or altered admission mask is introduced.
+
+### H. Competing Mechanisms
+
+| Mechanism | Established result and strongest obstruction | Decision |
+| --- | --- | --- |
+| MS moving-clock variance plus endpoint Cauchy | MS1-MS3 remain paper-level inputs; MS4 returns a boundary worse than the paid one | Preserve component work; do not repeat it as a bootstrap |
+| Exact complete Johnston return and high-tail payment | JT1-JT3 localize every possible sign failure; dangerous low signed sum still open | Continue, independent audit first |
+| Freeze logarithmic transfer at its endpoint | JT4 exposes a potentially super-bias correction for allowed off-line modes | Reject that unquantified simplification; retain K |
+| Favorable pairwise or per-lag signs | Prior X=209 halo/per-lag counterexamples and today's mixed-term witness remain | Do not infer full compensation from selected signs |
+| Low dangerous spectrum always above -A_N/2 | Sufficient via JT3; not independently established and target-strength in consequence | CONJECTURE / CONDITIONAL, not a supplied lemma |
+
+Protected VF-LOW RS/DR and SAT SG/BT/RZ work is not retired. The next Owner route is SAT. No other investigator's rotation is reset.
+
+### I. Specialist Handoffs And Continuity
+
+**Coordinator:** register JT2 as a fully restored proper-tail estimate and JT3 as a necessary low-height configuration for an original JOH failure. It meets the requested full signed return without claiming a new global exponent. Keep the native b_base comparator, SEARCH_BROAD and nine routes. Do not replace the unresolved low signed sum by finite-height RH as an assumed input.
+
+**Analytic:** independently check T_X, the all-height absolute tail, finite-mesh density uniformity and the order of summation/maximization. The use of the current Guth-Maynard density theorem is a documented external input on actual zeta zeros, not a new RH_Lean density proof or a transfer from ideal coefficients. The optional moving-band question in J is smaller than the whole sign criterion but not sufficient alone.
+
+**Wheel:** compare only through an actual map: (4) counts unique prime powers and exactly restores pi, whereas your LR three-root cofactor incidence concerns different Mobius coefficients. The exact odd-square boundary remains in T(R^2). No LR multiplicity bound is asserted to control these zero phases.
+
+**Census:** the development N=7/N=71 and held-out N=529 sign/cross-term checks are sufficient source regressions; no larger sign or zero-height scan is requested. Any future numerical test of K must certify the entire logarithmic kernel and analytic tail, not truncate a zero list and infer an all-scale sign. The unknown N0 is not a finite certificate.
+
+**Referee:** priority is independent reconstruction of (1)-(4), then (7)-(9) and the aggregate JT3 sign. Try to break lower-end constants, denominator signs, density losses, multiple zeros, all-N uniformity and the use of PNT only for P_2's asymptotic. Review the actual full source, not a frozen-log variant. No independent acceptance is presumed.
+
+**Lean:** no new proof branch or wrapper is requested before independent analytic review and a consuming proof choice. The finite prime-power and triangular identities are elementary, but a formalization must not assume the unproved low signed bound or pretend the classical density/explicit-formula bridge is already imported. Reuse the existing strict-baseline evidence.
+
+Relevant committed sections from both Eastern dates were retrieved and read; TODAY=AVAILABLE for all seven, YESTERDAY=CARRY_FORWARD at original scope. No later scheduled run or review is presumed. Intake reporting head was **c06219edf131961b6b1ecf0aa08d3b0b30afc1f0**.
+
+| Role | November 6 blob | November 7 intake blob |
+| --- | --- | --- |
+| Coordinator 00/90, identical directory blobs | 8812a90540fb511279b5f4ce08e108ef717d5ef1 | 785c56207f0745244d8c2503a18ed7b4d91b39e6 |
+| Owner 10 | 1856a96aaaa9d86a5ee2d59ffe50ced936443fa6 | 432fc87602f97318fdac212002b52ac29f12a0e0 |
+| Analytic 20 | 7997620b6ab7eb0701296994734ee910df3c3ba1 | 1315b3c9deba1148338d9023af349ee8a246dae7 |
+| Wheel 30 | 3099558194a00358962ff1844bf283e625b9283d | b973552f1574e39afe6dbc165bde3635f12c9ead |
+| Census 40 | c34ac074296e8b2e5b20dee3a2ce02518571206c | 3fae830e34c590d32c31ad77cad3ace833eb3ff5 |
+| Referee 50 | da3265467c799e9d21832ab25245617ba3b15a54 | 65384576327e1ae2c976fca368c83690fc8a95dd |
+| Lean 60 | b8bfe3ce9c20d7903395364efb39bcec974c8a2f | 2998b7339ea4b3e3fd2fd1d26f839527fd5adc95 |
+
+Current Coordinator RG1-RG5 and Referee MH1-MH4 remain separate exact-consumer investigations. #1105 now supplies MH1 only, not MH2/MH3 or RG4. Analytic GL's large-gcd tail, FT's full Nyman norm and AQ's proper cube sector; Wheel DI/LR and earlier PB/GF; Census SC/RC and prior FW; Referee's NC/PF and previous spectral verdicts keep their original hypotheses. None supplies a sign for our low spectrum. Existing X=209, N=690/H=186, X=87283 donor-reuse and R=549 BLOCK counterexamples remain at their own carriers.
+
+The external inbox was read at **038018145c0fddb2f6306c0712373adf9cd1ea52**. No post-October-18 entry exists in that snapshot. EXT-20261018-PNT-1..3, EXT-20261017-XCOORD-1's q=R boundary, and EXT-20261014-5's unconditional-versus-first-bad qualification are retained; they supply no missing low-zero estimate. All handoffs are published here only; no other agent was launched or another report edited.
+
+### J. First Independently Missing Lemma
+
+JT1-JT3 have complete paper arguments from the explicit incoming and external inputs; independent review and formalization remain pending. To close JOH one must still exclude the aggregate configuration in JT3. The full condition S_danger(N)>-A_N/2 for every large N would suffice, but is target-strength in consequence and is NOT presented as an independently known or easier lemma.
+
+A smaller OPTIONAL new quantitative test is the following proper moving-band assertion, with b fixed, nu chosen as above and nu>1/5:
+
+```text
+Z_mid(N)=sum_(N^(1/5)<|gamma|<=N^nu,
+             beta>1/2+1/log N) K_rho(N),
+|Z_mid(N)| << N^(3/2)/(log N)^2  for every large integer N.  (OPEN-JOH-MID)
+```
+
+This is CONJECTURE / EXPLORATORY, not a premise in JT1-JT3. The proved uniform-a tail bound at its lower cutoff gives at rounded b=7/8 only exponent 797/520=3/2+17/520, before positive loss. Other stronger sigma-dependent density estimates may improve that comparison and must be substituted before treating 17/520 as an optimal deficit. No optimality claim is made. The question asks for a genuinely stronger restriction on a MOVING band, from actual zero phases or another established analytic theorem, not a larger isolated clock variance scan.
+
+Success would further localize possible failure below N^(1/5); it would NOT control lower-height zeros or settle the original sign. Fixed off-critical zeros eventually lie outside this moving band, so the proposed statement is not merely the assertion that all such zeros are absent. The smaller statement's independence from RH is not claimed as a formal logical separation. A source-valid obstruction, or a proof using a sharper existing supplier, would both be useful. The full low-spectrum exclusion remains the unresolved endpoint problem.
+
+### K. Next-Run Resume Capsule And Publication State
+
+```text
+RUN: 20261107-owner-3; scheduled 16:15:01 EST; RUN_ID_UNAVAILABLE.
+MAIN: cae99df1c3ea24ff4113063bf09f6fd07517ad93.
+ACKS: COMPLETE_SIGNED_HIGH_ATTACK_V1; CANCELLATION_CHAIN_REUSE_V1;
+      PAID_BASELINE_EXACT_CONSUMER_V1; NO_PIGEONHOLING_ROUTE_SELECTOR_V1.
+ROUTE: JOH; full G(N)=sum(pi-floor Li_2-1), original triangular weights.
+NEW: exact positive logarithmic kernel, complete high-height tail,
+     and quantitative necessary dangerous-low-zero aggregate at every failure.
+INPUTS: fixed native zero boundary; credited density and explicit formula;
+        unconditional reciprocal-ordinate square sum; PNT for P_2 only.
+HEIGHT: nu>(b-1/2)/(2-(30/13)(1-b)); nominal threshold 39/178.
+CONCRETE RETURN: nu=9/40, fixed error power 3/2-21/4160.
+RETAINED: exact P_2, every higher power, floor/li(2)/lower-end constants,
+          safe/danger and full quadratic interactions, odd-square boundaries.
+UNPAID: signed low spectrum; original JOH sign and complete new HIGH endpoint.
+FINITE: 256 certified original-source returns, 17 square boundaries,
+        N=7 omitted-power sign reversal, N=71 positive omitted mixed term.
+SCOPE: PAPER_PROOF / SELF_AUDIT; independent review PENDING; NOT_FORMALIZED.
+NEXT JOH: independently audit JT1-JT3; compare actual suppliers for OPEN-JOH-MID.
+NEXT PROTECTED OWNER ROUTE: SAT; resume SG/BT/RZ without repeating paid tails.
+ETA_GATE: SEARCH_BROAD; NEW_VERIFIED_ENDPOINT_GAIN=NONE.
+```
+
+Early checkpoint commit **8b740d65018f89e61978346a0c12316c926282f4**, blob **56f391da9d8acfaf652f4e9afcc12936771c8c5e**, was re-fetched at the immutable commit and matched exactly. This append preserves all prior report bytes. Final publication remains PENDING_READBACK until the actual receipt below.
+
+Actual limitations: no independent review, new Lean build or zero computation occurred. The classical Huxley original-paper download attempted during comparison returned HTTP 403; its inaccessible text is not relied on for an additional claimed sharper result. The retrieved primary Guth-Maynard, Johnston and Brent-Platt-Trudgian papers support the actual stated inputs. No main/source/policy/workflow/proof branch/PR/issue/schedule or another role's report was modified. No future background work is promised.
+
+### Reproducibility Appendix - JT5
+
+The new test registration and complete executed verifier follow. The helper is exactly the `Archived Reference Helper` already preserved in the [November 6 Owner MS5 appendix](https://github.com/OVVO-Financial/RH_Lean/blob/c06219edf131961b6b1ecf0aa08d3b0b30afc1f0/research/agent_reports/2026-11-06/10-owner-payment.md); it was extracted unchanged, not silently replaced. SHA256: helper `4e55172eca1a33ae27b5e3c96d087ded3983f9d44fdd28c151c7374359fab420`; final verifier `95a033e3da27623e731e4a62ff51b23c44073b43673b6f7273db99eae93b5923`; preregistration `33f31c554c4efc758162c89a5153f6ea3f173876b782618ff8ccdb9deac093b0`. Python syntax compilation and the executed assertions passed. These hashes certify the printed experiment's files, not the analytic theorems.
+
+#### Frozen Test Registration
+
+```text
+# Frozen JOH Integrated-Return Test
+
+Run: 20261107-owner-3. Frozen before the new verifier is executed.
+
+- Actual carrier: primes, unique prime powers with weight 1/k, certified floor(Li_2(n)), B(n)=pi(n)-Q(n)-1, and G(N)=sum B(n).
+- Development: all integers 4 <= N <= 256. Held out: N=529, 1024, 2048. Li floor certification through 2048.
+- Verify the exact triangular source, integrated prime-power correction, least-prime odd-owner count including odd-square endpoints, and all quadratic cross terms.
+- Rival shortcut: replace pi by prime-power count Pi without restoring the weighted power terms. Seek the first sign-changing example in the development range; do not extend the search if absent.
+- Rival shortcut: remove the mixed term from (G_Pi-P)^2. Seek the first actual arithmetic mismatch, not a synthetic Mobius model.
+- Exact rational parameter tests: a=12/5 and a=30/13, b in {1/2,3/4,7/8,7/8-1/1000000}; cutoff thresholds, concrete nu=9/40, strict-loss spending, and limiting equality at the threshold.
+- Analytic check: prove the positive log-transfer kernel by differentiation and integration by parts. No finite zero list, floating-point zero sign, or finite data are claimed to certify the infinite tail or its all-scale inverse consequence.
+- Reuse the previously printed rational Simpson/log helper unchanged. New tests must label finite evidence separately from the paper theorem and must not pretend the unknown asymptotic threshold is reached.
+```
+
+#### Executed Verifier
+
+```python
+"""Exact registered arithmetic checks for the complete JOH prime-power return."""
+
+from fractions import Fraction as F
+from math import isqrt
+
+from joh_clock_reference import S, certify_floors, sieve
+
+
+LIMIT = 2048
+DEVELOPMENT = range(4, 257)
+HELD_OUT = (529, 1024, 2048)
+q, bounds, width, margin = certify_floors(LIMIT)
+prime, pi = sieve(LIMIT)
+primes = [p for p in range(2, LIMIT + 1) if prime[p]]
+
+power_atoms = []
+for p in primes:
+    k, power = 2, p * p
+    while power <= LIMIT:
+        power_atoms.append((power, p, k))
+        k += 1
+        power *= p
+assert len({v for v, _, _ in power_atoms}) == len(power_atoms)
+
+power_count = [F(0) for _ in range(LIMIT + 1)]
+for power, p, k in power_atoms:
+    for n in range(power, LIMIT + 1):
+        power_count[n] += F(1, k)
+
+g = [0] * (LIMIT + 1)
+gp = [F(0)] * (LIMIT + 1)
+for n in range(2, LIMIT):
+    g[n + 1] = g[n] + pi[n] - q[n] - 1
+    gp[n + 1] = gp[n] + pi[n] + power_count[n] - q[n] - 1
+
+first_sign = None
+first_mixed_mismatch = None
+first_positive_mix = None
+rows = []
+square_checks = 0
+for N in list(DEVELOPMENT) + list(HELD_OUT):
+    p2 = sum((F(N - power, k) for power, _, k in power_atoms
+              if power < N and k == 2), F(0))
+    p3 = sum((F(N - power, k) for power, _, k in power_atoms
+              if power < N and k >= 3), F(0))
+    powers = p2 + p3
+    assert g[N] == gp[N] - powers
+    triangular = sum((N - k) * (prime[k] - q[k] + q[k - 1])
+                     for k in range(3, N))
+    assert triangular == g[N]
+    odd_candidates = sum(N - k for k in range(3, N, 2))
+    composite = sum(N - k for k in range(3, N, 2) if not prime[k])
+    model = sum(q[2:N])
+    assert g[N] == odd_candidates - composite - model
+    assert g[N] ** 2 == gp[N] ** 2 + powers ** 2 - 2 * gp[N] * powers
+    assert (g[N] ** 2 == gp[N] ** 2 + p2 ** 2 + p3 ** 2
+            - 2 * gp[N] * p2 - 2 * gp[N] * p3 + 2 * p2 * p3)
+
+    if N in DEVELOPMENT and first_sign is None and g[N] < 0 <= gp[N]:
+        first_sign = (N, g[N], str(gp[N]), str(p2), str(p3))
+    if N in DEVELOPMENT and first_mixed_mismatch is None and gp[N] * powers:
+        first_mixed_mismatch = (N, str(-2 * gp[N] * powers))
+    if N in DEVELOPMENT and first_positive_mix is None and gp[N] < 0 and powers:
+        first_positive_mix = (N, g[N], str(gp[N]), str(powers),
+                              str(-2 * gp[N] * powers))
+
+    R = isqrt(N)
+    if R * R == N:
+        interior = sum(N - k for r in range(2, R)
+                       for k in range(r * r + 1, (r + 1) ** 2)
+                       if k % 2 and not prime[k])
+        square_boundary = sum(N - r * r for r in range(3, R, 2))
+        assert composite == interior + square_boundary
+        square_checks += 1
+    if N in HELD_OUT:
+        rows.append((N, g[N], str(gp[N]), str(p2), str(p3)))
+
+assert first_sign is not None
+assert first_mixed_mismatch is not None
+assert first_positive_mix is not None
+
+exponent_rows = []
+for a in (F(12, 5), F(30, 13)):
+    for b in (F(1, 2), F(3, 4), F(7, 8), F(7, 8) - F(1, 10**6)):
+        d = 2 - a * (1 - b)
+        threshold = (b - F(1, 2)) / d
+        assert d > 0 and 0 <= threshold < 1 / a
+        assert b + 1 - d * threshold == F(3, 2)
+        nu = F(9, 40)
+        assert threshold < nu < 1 / a
+        tail_power = b + 1 - d * nu
+        saving = F(3, 2) - max(F(3, 2) - nu, tail_power)
+        assert saving > 0
+        assert max(F(3, 2) - nu, tail_power) + saving / 2 < F(3, 2)
+        exponent_rows.append((str(a), str(b), str(threshold),
+                              str(tail_power), str(saving)))
+
+assert (F(7, 8) - F(1, 2)) / (2 - F(12, 5) / 8) == F(15, 68)
+assert (F(7, 8) - F(1, 2)) / (2 - F(30, 13) / 8) == F(39, 178)
+assert F(15, 8) - F(9, 40) * F(89, 52) == F(3099, 2080)
+assert F(3, 2) - F(3099, 2080) == F(21, 2080)
+assert F(1, 2) + F(3, 20) < F(2, 3)
+
+print('PASS exact actual-source returns:', len(DEVELOPMENT) + len(HELD_OUT))
+print('PASS square-endpoint interior/boundary returns:', square_checks)
+print('First dropped-prime-power sign reversal:', first_sign)
+print('First nonzero omitted mixed term:', first_mixed_mismatch)
+print('First positive omitted mixed term:', first_positive_mix)
+print('Held-out (N,G,G_Pi,P2,P_ge3):', rows)
+print('Exact (density,b,threshold,tail_power,saving):', exponent_rows)
+print('Li certificate maximum width:', F(width, S))
+print('Li certificate minimum floor margin:', F(margin, S))
+print('FINITE ONLY: no zero-list or all-scale analytic validation was performed')
+```
+
+#### Verified Execution Output
+
+```text
+PASS exact actual-source returns: 256
+PASS square-endpoint interior/boundary returns: 17
+First dropped-prime-power sign reversal: (7, -1, '1/2', '3/2', '0')
+First nonzero omitted mixed term: (5, '-1/2')
+First positive omitted mixed term: (71, -157, '-7/60', '9413/60', '65891/1800')
+Held-out (N,G,G_Pi,P2,P_ge3): [(529, -2707, '2057/2520', '3205/2', '2785397/2520'), (1024, -6703, '-5408/45', '3953', '118342/45'), (2048, -16599, '-31069/210', '20415/2', '655573/105')]
+Exact (density,b,threshold,tail_power,saving): [('12/5', '1/2', '0', '33/25', '9/50'), ('12/5', '3/4', '5/28', '287/200', '13/200'), ('12/5', '7/8', '15/68', '597/400', '3/400'), ('12/5', '874999/1000000', '1874995/8499988', '74624977/50000000', '375023/50000000'), ('30/13', '1/2', '0', '681/520', '99/520'), ('30/13', '3/4', '13/74', '1487/1040', '73/1040'), ('30/13', '7/8', '39/178', '3099/2080', '21/2080'), ('30/13', '874999/1000000', '4874987/22249970', '3098999/2080000', '21001/2080000')]
+Li certificate maximum width: 40222755730802479125082494402985/340282366920938463463374607431768211456
+Li certificate minimum floor margin: 35228265328053005012477392063787261/340282366920938463463374607431768211456
+FINITE ONLY: no zero-list or all-scale analytic validation was performed
+```
+
+Final authority refresh at 2026-11-07T21:35:08Z (16:35:08 EST) again returned main `cae99df1c3ea24ff4113063bf09f6fd07517ad93` and no open/draft PRs. No authority change was detected during this investigation.
