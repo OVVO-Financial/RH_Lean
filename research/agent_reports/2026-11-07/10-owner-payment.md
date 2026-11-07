@@ -955,3 +955,745 @@ No agent launch, Lean execution, proof-source write, branch/PR or schedule
 change is authorized or performed. Direct shell clone failed with CONNECT
 403; connected GitHub retrieval works. Publication is claimed only after
 commit verification and immutable readback.
+
+## VF-LOW Reserve Thickness And Square-Sampled Energy - 20261107-owner-2
+
+### A. Most Important Mathematical Development
+
+**PAPER_PROOF / INDEPENDENT_COMPONENT_ADVANCE / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED.** The unchanged dense three-prime rectangle of 20261106-owner-2/DR1-DR7 admits a new all-scale restriction on its actual once-only chronological response. With the same donor cap and allocation, there are constants K,C,N0 such that
+
+```text
+sum_(integer N<=R<2N) |Q_N(R^2)|^2 <= C N^3/(log N)^6,
+for every integer N>=N0.                                  (RS4)
+```
+
+This improves the prior consequence `O(N^(31/10)/(log N)^8)` obtained by summing DR4's pointwise bound. The simultaneously allocated dyadic response therefore satisfies
+
+```text
+sum_(integer R>=R0) |Q(R^2)|^2/R^3 < infinity.              (RS5)
+```
+
+The new structural step is **one-sided reserve persistence**: a large future funding requirement cannot disappear to the right without spending positive demand. The actual factor-sensitive demand bound makes any large value at a square boundary persist on a physical interval of length N. This supplies a rigorous transfer from a prime-poor exceptional-set estimate to the original square samples. Almost-everywhere information alone would not supply that transfer.
+
+The analytic engine is explicitly reused from yesterday's **20261106-owner-3/MS2**, not rediscovered: the established zeta zero boundary plus the classical 12/5 zero-density estimate and the full high-zero tail. The new work is its source-faithful application to the dense reserve, the sampling proof, and the weighted all-scale conclusion. Its inherited analytic proof remains at paper/self-audit scope; this run checks the specialization, not independent Referee acceptance.
+
+For the actual best input `b_*=7/8-delta_*`, where `delta_*=1/(288 explicitSlotCount)>0`, put `s_*=(4/5)(1-b_*)=1/10+(4/5)delta_*`. The more precise new exceptional-root bound is
+
+```text
+#{N<=R<2N : |Q_N(R^2)|>2K N/(log N)^3}
+  <<_epsilon N^(1-2s_*+epsilon).                           (RS3)
+```
+
+The rounded power is `4/5+epsilon`, with the existing strict slot gain retained in the displayed formula. This is NOT a new zero-free strip or Mertens exponent. Neither the pointwise proper-class target `O(N log N)` nor the full canonical VF target is established. The original complement and its mixed term remain present and uncontrolled. **NEW_VERIFIED_ENDPOINT_GAIN=NONE; eta_gate=SEARCH_BROAD.**
+
+Claim ledger: RS1 PAPER_PROOF (finite persistence); RS2 PAPER_PROOF (specialization of inherited analytic input and prime-poor cover); RS3 PAPER_PROOF (source-exact square sampling); RS4-RS5 PAPER_PROOF (proper-source quantitative bounds); RS6 FINITE_COMPUTATION plus REFUTED (two-sided demand-only shortcut). No new claim is PROVED_IN_LEAN.
+
+### B. Current Authoritative Objective
+
+Actual invocation: SCHEDULED **2026-11-07T08:09:01-05:00**, America/New_York; RUN_ID_UNAVAILABLE. Route **VF-LOW**, resuming DR5's demand-rich/prime-poor obstruction as suggested by today's Coordinator. This is the second actual Owner invocation represented in this daily file, after SAT. Protected route sequence: yesterday JOH, today SAT, this VF-LOW; next JOH. No additional execution or schedule is inferred.
+
+Latest actual main at intake and the 13:32 UTC prepublication refresh: **1c057c1d65b6d4cb4d59d207f69a815c52353314**, tree **beb042acf728f3447aa7f18456c678d048360ab2**. `baseline_ack=PAID_BASELINE_EXACT_CONSUMER_V1`; `deployment_ack=NO_PIGEONHOLING_ROUTE_SELECTOR_V1`. Main's paid baseline and strict gap are preserved, not listed as unproved suppliers. Unmerged policy PR #1101 is not authority.
+
+Material blobs actually retrieved at that main, with original relevant definitions and theorem statements inspected:
+
+| Source | Blob SHA |
+| --- | --- |
+| AGENTS.md | 48b2a58ab5fcd402321a4dace511c7d54bf688a1 |
+| CURRENT_PROOF_CONTRACT.md | 7c4ac83a1ec1a4144e1bd691391ed4244f1cc27c |
+| Paid-baseline correction, 20261106 | 13d58dd12d90fbf1160812c7c93442dc5d0576ac |
+| Independent multi-front policy, 20261104 | ffd8f1c65cc4da656174956d4e03b48bea46768b |
+| Native square-clock selector, 20261029 | 973d3d549a52a1afe2f02bfdcf8cc35fb6a76515 |
+| Broad-search policy, 20261031 | 8317f08996b65f2e4b32c00c91b31cb6d0c09718 |
+| Source-faithful complete-return contract, 20261031 | 4775ee5fd95f279beab08a75d1e17127078b19a6 |
+| VF_MID_SIGNED_SEAT_CHARGE.lean | 87a6654a4a4337b409fde69aa15d7264d8b721b6 |
+| VF_MID_ODD_FRACTIONAL_CLUSTER.lean | 942badff45c03d2a9e97789b57d1bd8052232191 |
+| VF_MID_NATIVE_LYAPUNOV_SEAT_GRAM.lean | 23e7b0c5c9f4b50997a508345d91f30364f93f10 |
+| VF_MID_915_EXACT_HISTORICAL_NNS_COMPRESSION.lean | 6cc6b2a9d25279dd44fb65cb222f5d6846a912d4 |
+| VF_CANONICAL_SQRT_TWO_VON_KOCH.lean | 79030d70e8d3e0d08eef9bac53fef95c36eca2fb |
+| oai_434/VF919NativeSevenEighthsReplay.lean | 111c933a7ca15647105ce6a4d0f3cbfc3cde81f4 |
+| oai_434/VF919NativeStrictMertens.lean | b33a4883e1ddb0551b0f11f062bce46680d87450 |
+| oai_434/VF919ExplicitFixedSourceSlotCount.lean | bad5aab0a60e96d19e7c9550cd7c0a072288bc0f |
+
+The canonical definitions, all with natural logarithms, remain
+
+```text
+w_r=(2+1/r)/log(r^2+r+1/2),
+F_R=sum_(2<=r<R) r*w_r,
+D_R=pi(R^2)-F_R,  D_can(R)=D_R-sqrt(2),
+exists C>=0, forall integer R>=2, |D_can(R)|<=C R log R.     (OPEN)
+```
+
+For each actual odd nonsquare seat `r^2<n<(r+1)^2`, the original charge is `w_r-1_Prime(n)`. There are r seats per block. Composite charge is positive w_r; prime charge is `-(1-w_r)`. The original starting anchor is `-D_2=-2`. The canonical/RH bridge still has its explicit `ClassicalVonKochRHCriterion` and arithmetic antecedent; green conditional code does not establish those premises.
+
+The inherited input used here is concrete: `native_zeta_zero_re_le_hecke_beta` and `native_beta_le_explicit_slot_count` imply that every actual nontrivial zeta zero has real part at most b_*. `explicitSlotCount_two_le` gives `503/576<=b_*<7/8`. This is a fixed repository constant, independent of N, the root, the prime donor, and the zero height. We use the zero-location statement, not an unproved transfer from global Mobius energy to local prime covariance.
+
+**PR/CI status.** Current open PRs are #1102, non-draft head `5b246ac81398ae8ee8f177dc9acda18288765a4e`, and policy #1101, non-draft head `690477c55070aabafefbaff883880a5c37c44370`. #1102 has 13 successful retrieved checks at its exact head; it is not main. Its detailed GL2 log verdict is attributed to today's Lean report, not claimed as a log reread here. Recent merged #1100, #1099, #1098, #1097 and #1096 were discovered; their radical/moment/sampling/policy results do not prove RS1-RS5.
+
+The inherited strict-baseline #1091 head `6778fd4c25b0f369d311e6e71223e168e329b4bf` also has 13 successful retrieved checks. Its actual dedicated run **41898325686**, job **126813711885**, was fetched and read: the fixed-count endpoint audit succeeds and `native_beta_le_explicit_slot_count` uses only `[propext, Classical.choice, Quot.sound]`. This is reused exact-head evidence, not a new build. No local Lean, new CI execution, or independent mathematical review occurred.
+
+### C. Structural Hypothesis Investigated
+
+Preserve the exact DR carrier. For integer N sufficiently large let ell=log N, X=N^2, and
+
+```text
+S_N={prime p: sqrt N<p<=(11/10)sqrt N},
+T_N={prime q: (3/2)N<q<=(7/4)N},
+F_N={q*p*s: q in T_N, p,s in S_N, p<s}.
+d_n=w_(floor sqrt n) on F_N, and 0 otherwise,
+a_N=1/ceil(ell)^2,
+c_n=a_N*(1-w_(floor sqrt n)) on actual primes X<n<4X,
+    and 0 otherwise.
+```
+
+Each selected site occurs once by unique factorization and separated factor ranges. It is odd, squarefree and has exactly three distinct factors; `3X/2<n<=847X/400<4X`. Donors are genuine prime occurrences, chronologically earlier than the demands they fund, not divisor-parent edges or returned-mask admissions. Each donor's total used fraction is at most a_N, however many demands share it. The construction allocates the entire rectangle simultaneously.
+
+The inherited reserve and allocated response are
+
+```text
+b_N(t)=max(0,max_(t<m<=4X) sum_(t<n<=m)(d_n-c_n)),
+u_p=min(c_p,b_N(p)),
+Q_N(t)=sum_(X<n<=t)d_n-sum_(X<p<=t)u_p=-b_N(t).             (DR1)
+```
+
+The maximum may be taken over integer endpoints; define b_N as a right-continuous step function for real t. DR1 proves the exact recurrence, global FIFO feasibility and zero boundary inventories. DR3-DR4 give, uniformly for intervals I=(t,t+H] inside [X,4X],
+
+```text
+D_N(I)<=C0 N/ell^3 * (1+(H/N)/log(2+H/N)),                 (D)
+H>=H0:=2(4X)^(21/40) ==> D_N(I)<=C_N(I),
+sup_t b_N(t)<=C1 N^(21/20)/ell^4,  b_N(X)=b_N(4X)=0.       (B)
+```
+
+These are reused results, not new claims. For (D), each unordered pair p<s gives a q-interval of length comparable to H/N; summing the uniform prime upper bound counts each selected site exactly once. The primary [Montgomery-Vaughan Theorem 2, (1.12)](https://personal.science.psu.edu/rcv4/personal/Publications/large_sieve.pdf#page=3) was rechecked. For (B), the actual input is the forward **count** lower bound in [Baker-Harman-Pintz, concluding p.562](https://www.cs.umd.edu/~gasarch/BLOGPAPERS/BakerHarmanPintz.pdf#page=31), not just one prime. Concatenation gives capacity of order H/ell^3 for H>=H0, whereas demand is O(H/ell^4). No assumption of initial reserve is made.
+
+The tested hypothesis is that factor-limited demand prevents a sparse set of bad physical intervals from hiding at all relevant square boundaries. A competing two-sided continuity conjecture is false: fresh prime capacity can increase the reserve when there is no positive demand. Only the correct one-sided statement is used.
+
+### D. Mathematical Derivation
+
+#### RS1. Finite One-Sided Persistence
+
+For arbitrary finite nonnegative demand and capacity, and all real A<=t<=s<=B,
+
+```text
+b(s)>=b(t)-D((t,s]).                                     (RS1)
+```
+
+If b(t)=0 there is nothing to prove. Otherwise choose an endpoint m attaining its positive maximum. If m<=s, then `b(t)<=D((t,m])<=D((t,s])`. If m>s, split its signed sum at s; its first part is at most D((t,s]), and its remaining part is at most b(s). Both cases give the inequality. No allocation, prime distribution, independence or favorable covariance is assumed in this finite lemma. In the feasible actual source it describes the same b_N and Q_N, not a new auxiliary boundedness hypothesis.
+
+#### RS2. Prime-Poor Exceptional Measure With Complete Zero-Height Return
+
+This subsection specializes the already supplied 20261106-owner-3/MS2 machinery to the fixed shift t+h. Its new analytic parameter is h in `[c sqrt(X), C X^(21/40)]`, with fixed positive c,C. For a fixed boundary `1/2<=b<=7/8`, assume every nontrivial zeta zero satisfies beta<=b. Put `U=X/h` and `s=(4/5)(1-b)`. The specialized estimate is
+
+```text
+J_psi(X,h):=integral_X^(4X) |psi(t+h)-psi(t)-h|^2 dt
+ <<_(b,epsilon,c,C) X^epsilon *
+    [X*h + X*h^2 * ((X/h)^(12/5)/X^2)^(1-b)]
+ <<_(b,epsilon,c,C) h^2 X^(1-s+epsilon).                  (RS2a)
+```
+
+The independent density input is `N(sigma,V)<<V^((12/5)(1-sigma))*log^B(2V)` uniformly for `1/2<=sigma<=1`. Its statement and scope were checked in the author's [Zaccagnini, Section 2.1, (4)](https://people.dmi.unipr.it/alessandro.zaccagnini/psfiles/papers/Q429.pdf#page=3). No density hypothesis or pair-correlation conjecture is assumed. The symmetric explicit formula and unit-height zero count are classical ingredients also inspected in [Saffari-Vaughan, Section 6](https://www.numdam.org/article/AIF_1977__27_2_1_0.pdf#page=20). The following retained derivation is an audit of the existing MS2 method, not a quotation of a new theorem from either paper.
+
+For a finite set of actual zeros up to height V, integrated expansion of `sum c_rho t^rho` over a fixed-ratio interval pays each pair by a kernel of size `(1+|gamma-gamma'|)^(-1)`. The actual count of zeros in each unit-height interval is O(log(2V)); hence every row sum is O(log^2(2V)). Weighted Cauchy gives
+
+```text
+integral |sum c_rho t^rho|^2 dt
+  << X log^2(2V) sum |c_rho|^2 X^(2 beta).
+```
+
+For powers `t^(rho-1)` the same proof has X^(-1) instead of X. This retains all diagonal and off-diagonal terms before bounding them; no zero-pair independence is used. Constants are uniform for the fixed-ratio intervals inside [X,5X].
+
+Define `S_X(V)=sum_(|gamma|<=V) X^(2 beta)`. Integrating the low-height increment over [t,t+h] and using Cauchy/Fubini gives squared norm at most `h^2 X^(-1) log^2(2U) S_X(U)`. A high band `V<|gamma|<=2V` has increment `F_V(t+h)-F_V(t)`, where `F_V(t)=sum t^rho/rho`. Translation preserves Lebesgue measure, and the preceding pair bound gives squared norm at most `X V^(-2) log^2(2V) S_X(2V)`.
+
+Layer-cake and the density estimate imply
+
+```text
+S_X(V) << X V log(2V)
+ + log X log^B(2V) integral_(1/2)^b
+                    X^(2 sigma) V^((12/5)(1-sigma)) d sigma.
+```
+
+In the high squared bound, the exponent of V is at most `-4/5` throughout that integral; the beta<=1/2 part decays as V^(-1). Summing the square roots over V=2^j U converges geometrically, even with the logarithmic factors. Minkowski pays all cross-height terms. Only after this tail comparison at U do we maximize in sigma: `2 log X-(12/5)log U>0` in the stated range, so the maximum is at b. This proves the first bound in RS2a. Maximizing at b before summing arbitrary high V would not be justified.
+
+The symmetric explicit formula identifies the L2 limit with the actual psi difference almost everywhere, using admissible symmetric heights if necessary. Endpoint prime powers form a null set in this integral; the next step handles their contribution separately. The constant term cancels, the trivial-zero increment is negligible, and the low/high mixed term is paid by the squared triangle inequality, not set to zero. Finally `U<=c^(-1)sqrt X`, so `U^(12/5)/X^2<<X^(-4/5)`. The term Xh is smaller than the second upper scale since `s<=2/5`. These facts prove the second bound with constants independent of X and h in the specified range.
+
+Define the actual prime-poor set
+
+```text
+E_h={t in [X,4X]: pi(t+h)-pi(t)<=h/(4 log(5X))}.
+```
+
+For such t the contribution of first powers of primes to the psi increment is at most h/4. Squares contribute `O((h/sqrt X+1)log X)`. Since `h<<X^(21/40)=o(X^(2/3))`, each higher exponent contributes O(1) possible integer powers, with O(log X) exponents and weights O(log X). Thus the whole higher-prime-power contribution is `O((h/sqrt X+log X)log X)=o(h)` uniformly here. For sufficiently large X, every t in E_h satisfies `|psi(t+h)-psi(t)-h|>=h/2`. Chebyshev and RS2a give
+
+```text
+Lebesgue_measure(E_h)<<_epsilon X^(1-s+epsilon).            (RS2b)
+```
+
+Now return to the exact reserve. Choose a fixed L0 large enough that
+
+```text
+8 C0 [1/L+1/log(2+L)]<=1/128  for every L>=L0.
+```
+
+Choose fixed K larger than the demand constants in (D) for all H<=L0 N, including H=N, and write `B_N=K N/ell^3`. If b_N(t)>B_N, a maximizing interval (t,t+H] has positive deficit, H>L0 N by (D), and H<H0 by (B). Every actual prime has `c_p>=1/(8ell^2)` for large N. Therefore
+
+```text
+pi(t+H)-pi(t) < 8ell^2 D_N((t,t+H])
+             <= H/(128ell).
+```
+
+Choose a power of two h with H/2<h<=H. Monotonicity of prime counts gives `pi(t+h)-pi(t)<=h/(64ell)<=h/(4log(5X))`. This h lies between L0 N/2 and H0. Only O(log N) such dyadic lengths occur. Consequently, after absorbing that logarithm in an arbitrary positive loss,
+
+```text
+measure{t in [X,4X]: b_N(t)>B_N}
+  <<_epsilon X^(1-s+epsilon).                             (RS2c)
+```
+
+Every length, threshold and exceptional event in this argument concerns the same actual prime/composite source. The huge but fixed choices of L0,K and N0 are not evaluated by the finite tests.
+
+#### RS3. Sampling The Actual Square Boundaries
+
+For every integer N<=R<2N, (D) and our choice of K give `D_N((R^2,R^2+N])<=B_N`. RS1 then shows
+
+```text
+b_N(R^2)>2B_N ==> b_N(t)>B_N
+                 for every t in [R^2,R^2+N).
+```
+
+These intervals all lie in [X,4X] and are pairwise disjoint: consecutive squares are separated by `2R+1>N`. Thus
+
+```text
+N * #{N<=R<2N : b_N(R^2)>2B_N}
+ <= measure{t in [X,4X]: b_N(t)>B_N}.
+```
+
+Combining this with RS2c and renaming the arbitrary positive loss proves RS3. No integer square is discarded as a null-set exception. This is the essential source-specific sampling bridge.
+
+#### RS4-RS5. Mean Square And Once-Only All-Scale Energy
+
+The nonexceptional roots contribute at most `4K^2 N^3/ell^6`. Use the inherited uniform bound (B) at every exceptional root, retaining the exact exceptional exponent from RS3:
+
+```text
+sum_(N<=R<2N) b_N(R^2)^2
+ << N^3/ell^6 + C_epsilon N^(31/10-2s_*+epsilon)/ell^8.
+                                                               (RS4a)
+```
+
+Because `s_*>=1/10`, the second power is at most `29/10+epsilon`, strictly below 3 for fixed epsilon<1/10. It is eventually absorbed by the first term. This proves RS4 for every sufficiently large integer N, not only a selected subsequence.
+
+For the global construction use only N=2^k>=N0. Its donor intervals `(N^2,4N^2)` are disjoint, and each completed shell has Q_N=0 exactly. Therefore at any physical cut at most one shell contributes. No earlier prime is cloned and no historical reserve is accumulated. Since R>=N on that shell,
+
+```text
+sum_(N<=R<2N) Q(R^2)^2/R^3 <= C/(log N)^6.
+```
+
+Summation over k converges, proving RS5. Finite initial scales are left in the original complement, as in DR4, not silently dropped from the canonical object.
+
+### E. Quantitative Consequence And Complete Return
+
+The precise improvement packet is:
+
+| Item | Exact scope |
+| --- | --- |
+| Established inputs | DR1/DR3/DR4 on this genuine dense rectangle; existing b_* zero boundary; inherited MS2 full-height method; classical 12/5 density |
+| New arithmetic | Factor-sensitive demand forces persistent physical neighborhoods for high square-sampled reserves |
+| First loss | DR3 upper-bounds positive q-counts; RS2 uses absolute integrated zero-pair row sums, then low/high Cauchy and a dyadic exceptional-set union |
+| Old selected energy | Summing the pointwise DR4 estimate gives `N^(31/10)/ell^8` |
+| New selected energy | `N^3/ell^6`, with the exceptional term `N^(31/10-2s_*+epsilon)/ell^8` |
+| RMS comparison | Old `N^(21/20)/ell^4`; new `N/ell^3`; this is a root average, NOT a pointwise estimate |
+| Actual complete consumer | The exact original VF split below; no new full endpoint bound follows without further signed information |
+
+Let C_F(R) retain the original anchor -2, every unselected positive seat, every squareful/exceptional contribution, each unused fraction of every donor, all other primes, and every initial-scale term. The exact complete equations remain
+
+```text
+-D_R = C_F(R)+Q(R^2),
+D_R^2=C_F(R)^2+Q(R^2)^2+2*C_F(R)*Q(R^2),
+D_can(R)^2=D_R^2-2*sqrt(2)*D_R+2.                         (RETURN)
+```
+
+RS4 bounds the Q-square on a dyadic block, not the C_F-square or the mixed term. Even Q<=0 says nothing about the mixed sign without C_F. Weighted Cauchy could control the mixed term only with an additional estimate on C_F in the same norm; none is assumed or proved. Conversely a future full argument may use compensation without separately bounding C_F. The ordinary native square-shell Lyapunov identity retains history-current, diagonal and anchor terms; this report does not turn it into zero covariance.
+
+The original #915 source is still `Source=D_(R+1)` and `TotalMass=(|D_R|+beta_R)^2`, not an enlarged denominator. Decompressing historical positive/negative masses U,V restores exactly `4UV+2 beta_R(U+V-|U-V|)`. This bill, genuine clipping/admission and the first-bad premise are not paid by RS4 or RS5. The final canonical phase is explicitly present in RETURN. **Canonical VF, original #915, a new Mertens exponent and RH are not concluded.**
+
+### F. Falsification And Circularity Review
+
+**RS6: actual tests, not asymptotic evidence.** Development N=9216 and held-out N=10000 were frozen before execution. They contain respectively three and four small primes, so the fixtures test simultaneous pair families and shared donor use beyond yesterday's two-small-prime cases. There was no range extension, exponent fit or claim that these N exceed the analytic N0.
+
+The prior DR helper supplies rational log enclosures at scale 10^40, 50 atanh terms after power-of-two reduction, an outward geometric tail, and original w_r enclosures with denominator 10^18. Integer sieving is exact. For each lower/upper envelope the new verifier recomputes the full chronological reserve, capacity-limited FIFO, one-sided persistence at every square and event in its N-neighborhood, the high-reserve measure, and every original block's full signed/quadratic reconstruction. All assertions and Python syntax compilation passed.
+
+| Fixture | Selected sites | q-primes | Used prime occurrences per envelope | Allocation edges | Nonzero square samples |
+| --- | --- | --- | --- | --- | --- |
+| N=9216; small primes 97,101,103 | 732 | 244 | 8784 | 8784 | 5 |
+| N=10000; small primes 101,103,107,109 | 1560 | 260 | 18720 | 18723 | 12 |
+
+There are 12,710 and 17,750 persistence checks per envelope and 9,216 and 10,000 complete-square checks per envelope. The exact squared-reserve sums are enclosed by these integer numerator intervals, all divided by 10^40:
+
+```text
+N=9216:
+[430043108024829000662538278727035597212,
+ 430043108024829010006964115810926933612] / 10^40
+N=10000:
+[644034756025160402085410569353264938529,
+ 644034756025160418872147551500942585379] / 10^40
+```
+
+Enclosure follows because increasing every weight increases d and decreases c, so the maximum defining b is monotone; b>=0 then makes its square monotone. This is not a floating-point fit.
+
+The stronger conjecture `|b(s)-b(t)|<=D((t,s])` is **REFUTED on the actual source**. At genuinely used prime p=135482381 in the N=9216 fixture, D((p-1,p])=0 whereas b(p)-b(p-1)>0, with certified interval
+
+```text
+[856747932727355146,856747932727355257] / 10^20.
+```
+
+The second fixture independently has the same obstruction at p=156179939. Both primes were also trial-divided in the regression. This refutes only the two-sided auxiliary claim, not RS1 or the canonical objective.
+
+All 97,655 signed sequences of lengths 1 through 7 over {-2,-1,0,1,2} passed 3,326,415 ordered-cut persistence checks. These generic sequences test the finite lemma, not prime-distribution hypotheses. The four tested arithmetic threshold levels 0,1/100,1/20,1/10 had **zero roots satisfying the sufficient thick-root test**; their sampling-count inequalities were therefore vacuous. This limitation was recorded before the revised test. A separate explicitly synthetic feasible fixture, capacity 20 at site 20 and demand 20 at site 60 on (16,64], gives exactly three thick roots 5,6,7 at threshold 10, disjoint neighborhood measure 12 and high-reserve measure 40. It verifies a nonvacuous finite sampling case, not an arithmetic prediction.
+
+Density-one information without persistence was rejected: a function supported only on integer squares can have zero Lebesgue support measure while every square sample is large. This generic warning is not asserted to be an actual prime-source counterexample. RS1 plus (D), not numerical density, excludes that shortcut for the present reserve.
+
+Exact rational exponent tests retain the preliminary valid but weaker truncated 8/3 path (`s=1/14`, exceptional energy `207/70` at b=7/8). On rereading MS2 we replaced it with the stronger already available full-height 12/5 method (`s=1/10`, exceptional energy `29/10`). The initial path was not disproved; presenting it as the strongest new analytic result would have ignored continuity. Diagnostic b=503/576 gives s=73/720 and exceptional energy 1043/360. Neither diagnostic b is substituted for the unevaluated actual slot count in the theorem.
+
+Circularity audit: RS1 is finite algebra; (D) is an independent upper sieve bound on actual factors; (B) uses an established short-interval prime lower bound; the zero boundary is an already compiled incoming result; density is an independent classical theorem. No all-scale canonical target, bounded new potential, independence axiom or desired prime-poor exclusion is assumed. The new claims are proper-source restrictions, not target-equivalent relabelings. The full-source RETURN is an identity only.
+
+### G. Conceptual Interpretation
+
+A prime-poor physical set is not automatically harmless or harmful at square boundaries. The directional way a true reserve changes supplies the missing connection: it can rise at a prime, but it can fall only by paying genuine selected composite demand. The multiplicative rectangle bounds that demand over a square-scale neighborhood. This makes high square values measurable at positive physical width, and converts inherited analytic information into a new restriction on the genuine signed allocation.
+
+The resulting critical weighted energy is finite across all dyadic generations because old inventories close exactly, not because generations are independent. This changes what is known about the dense component while leaving room for a small exceptional set of large pointwise values. It neither vindicates ancestor-only payment nor excludes a more effective joint-source mechanism.
+
+### H. Competing Mechanisms
+
+| Mechanism | Status and obstruction | Decision |
+| --- | --- | --- |
+| Ancestor-only dense payment | Earlier CR3 capacity obstruction still applies | Abandon that fixed-budget universal claim |
+| Chronological reserve plus factor-limited thickness | RS1-RS5 give new proper-source sampled energy | Continue at component scope; independent review next |
+| Two-sided demand-only continuity | Actual prime-site counterexample in RS6 | Abandon; keep one-sided RS1 |
+| Prime lower bound on every DR5 mesoscopic interval | OPEN-VF-DR-SI remains unsupplied | Keep as sufficient, not necessary; no stochastic substitute |
+| Joint C_F/Q signed compensation | Exact RETURN available; no favorable mixed estimate | Preserve as distinct global option |
+| Generic low-gcd sign-matrix spectral contraction | Today's Coordinator PG1-PG3 preserves conjugation and sharp clique obstruction | Do not reopen as a shortcut to the full signed sum |
+
+No protected route is replaced by this component result. The next Owner route is JOH, resuming MS1-MS4 and their unfavorable complete endpoint comparison rather than redoing the prime-count clock bridge.
+
+### I. Specialist Handoffs And Research Continuity
+
+**Coordinator:** evaluate RS4-RS5 as a proper-source quantitative advance obtained by a new sampling bridge with inherited analytic inputs. Keep `NEW_VERIFIED_ENDPOINT_GAIN=NONE`. It is more useful than repeating DR's ancestry count or imposing a generic sign-matrix contraction; it does not justify centralizing all roles on payment or zero-density. The global conceptual question is whether the exact residual can exploit Q's weighted energy without assuming the desired bound.
+
+**Analytic Type II:** independently audit RS2a-c as the fixed-shift specialization of MS2, especially the all-height geometric comparison before density maximization, the prime-power bound uniformly up to X^(21/40), and constants uniform across the O(log N) dyadic h. Your GL large-gcd result concerns a different genuine Mobius carrier; no transfer of its unsigned support estimate to prime membership is asserted. Keep your protected next route.
+
+**Finite Wheel:** examine whether additional genuine factor incidence can force a stronger demand bound inside the remaining prime-poor exceptional intervals. A useful claim must cover the whole q*p*s rectangle with overlap counted once. Today's DI overlap at R=70/shared210 and positive mixed term at R=65 prohibit inferring full disjointness or an automatically negative mixed term.
+
+**Prime Census:** do not extend the prime sieve solely to fit the asymptotic powers. If reviewing RS1-RS3, independently certify the two fixed actual fixtures and the explicitly synthetic nonvacuous sampling regression. Any proposed improvement should discriminate whether high reserve can persist on a shorter/larger quantitatively forced interval; freeze its exact coefficients, thresholds and held-out test first. Today's SC example X=21754 shows why endpoint-disjoint edges alone do not make label surplus additive; our verifier instead caps each physical prime's total coefficient globally.
+
+**Adversarial Referee:** attack RS1-RS5 independently, with priority on real-cut endpoint cases, the high-zero tail, strict-gap substitution, prime powers, disjoint N-neighborhood sampling, and the dyadic once-only sum. Check that the root-exception count is never promoted to a pointwise bound and that RETURN retains C_F/Q mixing and the sqrt(2) phase. Author self-audit is not your acceptance. The small-gcd signed estimate remains open even though today's GL/ratio-profile work constrains its complementary region.
+
+**Lean Verification:** after independent acceptance and an identified consumer, RS1 and its abstract disjoint-neighborhood corollary are finite candidates. Required hypotheses are nonnegative d,c, the exact future-deficit maximum, a uniform demand bound on every chosen neighborhood, and disjoint equal-length neighborhoods. Do not formalize an assumed RS2 or an unproved full endpoint as a wrapper. No new proof branch, PR or CI run is requested by this report.
+
+All seven roles' relevant **today and yesterday** report sections were retrieved and read. `TODAY=AVAILABLE`; yesterday's valid evidence is `YESTERDAY=CARRY_FORWARD` at its original scope. This does not certify later unobserved scheduled runs.
+
+| Role | November 6 blob | November 7 intake blob |
+| --- | --- | --- |
+| Coordinator 00 and 90, identical bytes | 8812a90540fb511279b5f4ce08e108ef717d5ef1 | 4a71edcce4c44a309640d36e9453d016e5b188a9 |
+| Owner 10 | 1856a96aaaa9d86a5ee2d59ffe50ced936443fa6 | 1006bb9f0c61a22ceeb7fab25d177a40dc24f25e |
+| Analytic 20 | 7997620b6ab7eb0701296994734ee910df3c3ba1 | 6712040159ca37ef3257cf507ec8198fd26fbb91 |
+| Wheel 30 | 3099558194a00358962ff1844bf283e625b9283d | b943f16b0fedbcefa53545f8a7c77482e688399e |
+| Census 40 | c34ac074296e8b2e5b20dee3a2ce02518571206c | c9d78787ca4fca22f89bc9bcaf886e5ae74deda2 |
+| Referee 50 | da3265467c799e9d21832ab25245617ba3b15a54 | 787a9030cc6d6f8f63fa89cd3a99d7cf54e25ea5 |
+| Lean 60 | b8bfe3ce9c20d7903395364efb39bcec974c8a2f | 7df1e5d73bfe6cbbb2fa76d6380d7d456a938c11 |
+
+Continuity retained: today's Owner SG1-SG4 give the sharp 2/7 high-gcd matching sector, not a low-gcd full bound. Coordinator PG1-PG3 keeps the balanced-sign conjugation and actual squarefree clique obstruction. Analytic GL controls large-gcd absolute support with growing parameters; Lean's #1102 is a scoped formal refinement, not signed small-gcd cancellation. Yesterday's DR1-DR7, JOH MS1-MS4, Analytic FP/RM/AQ, Wheel CP/PB/GF and Referee's two-daughter equivalence/clock variance remain at their stated carriers. Census GM's X=145 replacement, HC's reused donor 87283 and FW's N=690,H=186 weighted-Nyman sign failure are preserved, not imported as prime-source counterexamples. The universal BLOCK R=549 refutation remains intact.
+
+The external inbox `research/agent_reports/EXTERNAL_HANDOFFS.md`, blob **038018145c0fddb2f6306c0712373adf9cd1ea52**, was read. Its latest entries remain October 18. EXT-20261018-PNT-1..3, EXT-20261017-XCOORD-1 (including q=R endpoint separation), and EXT-20261014-5 (unconditional versus first-bad qualification) supply no missing uniform short-interval statement. No newer external input is invented. These are published asynchronous handoffs; no other agent was launched or contacted through an unauthorized write.
+
+### J. First Independently Missing Lemma
+
+RS4's paper derivation is complete from the displayed established inputs, but independent review and formalization are pending. For the still-open proper-class pointwise target, preserve the original claim unchanged:
+
+**OPEN-VF-DR-SI, CONJECTURE / SUFFICIENT, NOT NECESSARY.** There exist kappa>0 and N1 such that for every integer N>=N1 and every real interval `(x,x+H] subset [N^2,4N^2]` with
+
+```text
+N(log N)^4 log log N <= H <= 2(4N^2)^(21/40),
+pi(x+H)-pi(x) >= kappa H/log N.
+```
+
+This is an independently stated actual-prime lower bound, not assumed and not newly proved. The existing DR argument shows it would exclude positive deficits on that range and leave O(N log N) on shorter intervals. RS2-RS3 bound exceptions but do not remove them. A weaker factor-sensitive exclusion limited to genuinely demand-rich intervals may suffice; proving merely that exceptions are few is not that exclusion.
+
+The distinct global question is an independently justified restriction on the exact complement and its interaction with Q. Writing a bound for `C_F+Q` would merely restate the unresolved target unless accompanied by new arithmetic. No such lemma is claimed proved here, and OPEN-VF-DR-SI alone would still not close the full source.
+
+### K. Next-Run Resume Capsule And Publication State
+
+```text
+RUN: 20261107-owner-2; SCHEDULED 08:09:01 EST; RUN_ID_UNAVAILABLE.
+MAIN: 1c057c1d65b6d4cb4d59d207f69a815c52353314.
+POLICIES: PAID_BASELINE_EXACT_CONSUMER_V1;
+          NO_PIGEONHOLING_ROUTE_SELECTOR_V1.
+ROUTE: VF-LOW; exact DR dense rectangle and same capped prime allocation.
+NEW: RS1 one-sided reserve thickness; RS3 actual square-sample return;
+     RS4 selected root energy <=C N^3/log^6 N;
+     RS5 sum Q(R^2)^2/R^3 finite for the once-only dyadic construction.
+REUSED: DR1/DR3/DR4, MS2 full-height zero method, compiled b_* and 12/5 density.
+BEST EXCEPTION POWER: 1-2s_*=4/5-(8/5)delta_*, plus arbitrary positive loss.
+FIRST SIGN LOSS: positive q-count upper bound, then integrated zero-pair absolute row bound.
+COMPLETE RETURN: -D=C_F+Q, all squares/mixed terms and canonical sqrt(2) phase.
+NO CLAIM: pointwise O(N log N), full VF, original915 payment, new Mertens exponent or RH.
+FALSIFIER: two-sided demand-only continuity fails at actual used prime 135482381.
+FINITE: 97655 generic sequences; 3326415 cut checks;
+        exact fixtures N=9216 and held-out10000; synthetic thick-root test separately labeled.
+REVIEW: SELF_AUDIT; INDEPENDENT_REVIEW_PENDING; NOT_FORMALIZED.
+FIRST MISSING SUPPLIER: OPEN-VF-DR-SI or an independent factor-sensitive exceptional exclusion.
+NEXT PROTECTED OWNER ROUTE: JOH; resume MS1-MS4 without claiming their worse endpoint beats b_*.
+NEXT VF ACTION: independent RS1-RS5 audit; then study the residual exceptional configuration,
+                not another reserve identity or larger nondiscriminating census.
+ETA_GATE: SEARCH_BROAD; NEW_VERIFIED_ENDPOINT_GAIN=NONE.
+```
+
+The early checkpoint commit **63ddbbb050d3bea88bf869109bb3fa70bfad0f84**, blob **0d6fc493fc0635254e50b6872e69960a290fa9cf**, was verified by immutable exact-content readback and a report-only commit audit. The current append completes its research stages while preserving every prior byte, including today's SAT result and older receipts. The final synthesis is PENDING_READBACK until the publication receipt below records an actual verified write.
+
+Actual limitations: direct shell GitHub transport returned CONNECT 403; connected GitHub read/write tools worked. No local Lean, new CI run, proof source/branch/PR, issue, shared report, main, schedule or permission was changed. PDF OCR was checked against the relevant displayed mathematical statements; no unsupported probabilistic model, recent preprint claim or fitted exponent was used. Scoped source/report searches did not locate this same reserve-energy application; that is not an exhaustive literature novelty claim. No future background execution is promised.
+
+### Reproducibility Appendix - RS6
+
+Executed with Python 3.12.13; syntax checks and the complete revised verifier exited 0. The helper is the explicitly credited prefix of 20261106-owner-2's published exact verifier, not a new interval algorithm. The registration preserves its initial frozen test and subsequent disclosed addendum. SHA-256:
+
+```text
+reserve_interval_helper.py
+05d46897638d6a29e05a254ef24f84fee92bc23172b9be96f80db15ca76aa9d6
+reserve_sampling_verify.py
+36d7b42e76d4c2768f84e23353c9fa801fc91df7014996b5f10f3cdddc3712f0
+reserve-test-registration.md, including pre-rerun addendum
+4bad407219684f3976f6dfcb522dcce3183e36e36a9a209400dd27f5415371ee
+```
+
+The following complete sources are archived inside this authorized report only. They test the finite structural claims and arithmetic reconstruction, not the density theorem, asymptotic constants, infinite zero sum or independently accepted proof status.
+
+#### Frozen Test Registration And Disclosed Addendum
+
+```text
+# Frozen VF-LOW Test Registration
+
+Run: 20261107-owner-2; scheduled 08:09 EST.
+
+- Actual carrier: the unchanged q*p*s rectangle; original w_r logarithmic weights; each actual donor prime capped at 1/ceil(log N)^2.
+- Development N=9216; held-out N=10000. These deliberately include at least three small primes and multiple factor-pair families. No range extension or exponent fit.
+- Use the prior DR rational logarithm enclosure helper, credited to 20261106-owner-2, and exact integer sieving.
+- New finite claims: one-sided reserve persistence b(s)>=b(t)-D(t,s); disjoint physical-neighborhood sampling inequality at square roots; exact high-reserve measure; all original source and quadratic reconstruction.
+- Counterclaim to falsify: absolute reserve movement is bounded by positive demand alone. A genuinely used prime with no demand changes the reserve, so this should fail.
+- Generic finite test: all sequences of lengths 1..7 over {-2,-1,0,1,2}; every ordered cut pair; boundary cases and backwards recurrence. Synthetic cases are tests of the finite lemma, not arithmetic predictions.
+- Exact exponent test: use rational arithmetic for b=7/8 and 503/576, verify a=(1+2(1-b))/(2+8(1-b)/3), delta=2a-1=(1-b)(2-8a/3), and exceptional squared-root cost 31/10-2delta<3.
+- Rejection: any recurrence, allocation, source, sampling, or exponent mismatch requires correction and an explicitly reported rerun. No finite survival proves a uniform analytic bound.
+
+## Addendum Before Revised Test Execution
+
+The first execution passed, but the sufficient thick-root condition was empty at every tested level in the genuine arithmetic fixtures. Preserve that fact; it is not a nonvacuous sampling certificate. Add the synthetic feasible sequence on (16,64] with capacity 20 at site 20 and demand 20 at site 60, neighborhood length 4, root samples 4,5,6,7, and threshold 10. It predicts exactly three thick roots and high-reserve measure 40. This is explicitly a generic lemma fixture, not a prime-source example.
+
+After rereading yesterday's 20261106-owner-3/MS2 full-height estimate, reuse its already derived 12/5 density argument instead of presenting the weaker truncated 8/3 route as new. Keep the original rational checks as a valid weaker comparison. Add delta=(4/5)(1-b), bad-root power 1-2delta, exceptional-energy power 31/10-2delta, for b=7/8 and 503/576. Expected rounded powers: delta=1/10, bad-root=4/5, energy=29/10. The strict-slot gap must remain symbolic in the theorem, not be replaced by either diagnostic value.
+```
+
+#### Credited Exact Interval Helper
+
+```python
+"""Finite source and allocation checks; no asymptotic inference."""
+
+from bisect import bisect_left, bisect_right
+from collections import Counter
+from functools import lru_cache
+from itertools import product
+from math import isqrt
+import hashlib
+import json
+
+SCALE = 10**40
+WD = 10**18
+TERMS = 50
+
+
+def ceildiv(n, d):
+    return -(-n // d)
+
+
+def mul(a, b):
+    return a[0] * b[0] // SCALE, ceildiv(a[1] * b[1], SCALE)
+
+
+def small_log(n, d):
+    assert d <= n <= 2*d
+    u = ((n-d)*SCALE//(n+d), ceildiv((n-d)*SCALE, n+d))
+    u2 = mul(u, u)
+    power = u
+    low = high = 0
+    for j in range(TERMS):
+        low += 2*power[0]//(2*j+1)
+        high += ceildiv(2*power[1], 2*j+1)
+        power = mul(power, u2)
+    high += ceildiv(2*power[1]*SCALE, (2*TERMS+1)*(SCALE-u2[1]))
+    return low, high
+
+
+LOG2 = small_log(2, 1)
+
+
+def log_interval(n, d=1):
+    assert n >= d > 0
+    k = n.bit_length()-d.bit_length()
+    den = d << k
+    if den > n:
+        k -= 1
+        den //= 2
+    lo, hi = small_log(n, den)
+    return lo+k*LOG2[0], hi+k*LOG2[1]
+
+
+@lru_cache(None)
+def weight(r):
+    lo, hi = log_interval(2*r*r+2*r+1, 2)
+    num = (2*r+1)*SCALE*WD
+    return num//(r*hi), ceildiv(num, r*lo)
+
+
+def sieve(n):
+    flags = bytearray(b'\x01')*(n+1)
+    flags[:2] = b'\x00\x00'
+    for p in range(2, isqrt(n)+1):
+        if flags[p]:
+            flags[p*p:n+1:p] = b'\x00'*((n-p*p)//p+1)
+    return flags
+```
+
+#### New Reserve And Square-Sampling Verifier
+
+```python
+"""Exact reserve persistence and square-sampling checks, not an exponent fit."""
+
+from bisect import bisect_right
+from collections import Counter
+from fractions import Fraction
+from itertools import product
+from math import isqrt
+import hashlib
+import json
+
+from reserve_interval_helper import SCALE, WD, log_interval, sieve, weight
+
+
+def generic():
+    sequences = pairs = 0
+    for length in range(1, 8):
+        for values in product((-2, -1, 0, 1, 2), repeat=length):
+            b = [0] * (length + 1)
+            d = [0]
+            for value in values:
+                d.append(d[-1] + max(0, value))
+            for i in range(length - 1, -1, -1):
+                b[i] = max(0, b[i + 1] + values[i])
+            for i in range(length + 1):
+                for j in range(i, length + 1):
+                    assert b[j] >= b[i] - (d[j] - d[i])
+                    pairs += 1
+            sequences += 1
+    return {"sequences": sequences, "ordered_cut_checks": pairs}
+
+
+def powers():
+    out = []
+    for b in (Fraction(7, 8), Fraction(503, 576)):
+        w = 1 - b
+        a = (1 + 2*w) / (2 + Fraction(8, 3)*w)
+        delta = 2*a - 1
+        assert delta == w*(2 - Fraction(8, 3)*a)
+        assert delta == 2*w/(3 + 4*w)
+        assert Fraction(31, 10) - 2*delta < 3
+        out.append({"method": "weaker_truncation", "b": str(b), "a": str(a), "delta": str(delta),
+                    "bad_root_power": str(1 - 2*delta),
+                    "exceptional_energy_power": str(Fraction(31, 10) - 2*delta)})
+        full_delta = Fraction(4, 5)*w
+        assert full_delta > delta
+        assert Fraction(31, 10) - 2*full_delta < 3
+        out.append({"method": "inherited_full_height", "b": str(b),
+                    "delta": str(full_delta), "bad_root_power": str(1 - 2*full_delta),
+                    "exceptional_energy_power": str(Fraction(31, 10) - 2*full_delta)})
+    return out
+
+
+def synthetic_sampling():
+    # A generic non-prime fixture; the real arithmetic tests are separate.
+    d, c, b = [0]*65, [0]*65, [0]*65
+    c[20], d[60] = 20, 20
+    for n in range(64, 16, -1):
+        b[n - 1] = max(0, b[n] + d[n] - c[n])
+    assert b[16] == b[64] == 0
+    thick = [r for r in range(4, 8) if b[r*r] > 10 + sum(d[r*r + 1:r*r + 5])]
+    measure = sum(b[t] > 10 for t in range(16, 64))
+    assert thick == [5, 6, 7] and measure == 40
+    assert 4*len(thick) <= measure
+    for r in thick:
+        assert all(b[t] > 10 for t in range(r*r, r*r + 4))
+    return {"synthetic_only": True, "thick_roots": thick,
+            "neighborhood_measure": 4*len(thick), "high_reserve_measure": measure}
+
+
+def trial_prime(n):
+    return n >= 2 and all(n % d for d in range(2, isqrt(n) + 1))
+
+
+def arithmetic(N, flags):
+    small = [p for p in range(2, 2*N) if flags[p]]
+    ss = [p for p in small if N < p*p and 100*p*p <= 121*N]
+    qs = [q for q in small if 3*N < 2*q and 4*q <= 7*N]
+    fs = sorted(q*p*s for q in qs for i, p in enumerate(ss) for s in ss[i + 1:])
+    assert len(ss) >= 3 and len(fs) == len(set(fs))
+    assert all(2*n > 3*N*N and 400*n <= 847*N*N for n in fs)
+    assert all(n % 2 and isqrt(n)**2 != n and not flags[n] for n in fs)
+    lo, hi = log_interval(N)
+    assert lo//SCALE == hi//SCALE
+    k = lo//SCALE + 1
+    den = WD*k*k
+    counts = Counter(isqrt(n) for n in fs)
+    prime_counts = {r: flags.count(1, r*r + 1, (r + 1)**2) for r in range(N, 2*N)}
+    result = []
+    for side in (0, 1):
+        demand = {n: weight(isqrt(n))[side]*k*k for n in fs}
+        used = {}
+        capacities = {}
+        b = 0
+        fi = len(fs) - 1
+        n = fs[-1]
+        while fi >= 0 or b:
+            if b == 0 and fi >= 0:
+                n = fs[fi]
+            if fi >= 0 and n == fs[fi]:
+                b += demand[n]
+                fi -= 1
+                n -= 1
+                continue
+            p = flags.rfind(1, N*N + 1, n + 1)
+            next_d = fs[fi] if fi >= 0 else N*N
+            if p < next_d:
+                n = next_d
+                continue
+            assert p > N*N
+            cap = WD - weight(isqrt(p))[side]
+            take = min(b, cap)
+            assert take > 0
+            used[p], capacities[p] = take, cap
+            b -= take
+            n = p - 1
+
+        events = sorted(fs + list(used))
+        reserves = []
+        prefix_d = [0]
+        inv = 0
+        queue = []
+        qi = 0
+        pair_count = 0
+        for n in events:
+            if n in used:
+                assert flags[n] and used[n] <= capacities[n]
+                inv += used[n]
+                queue.append([n, used[n]])
+            else:
+                remain = demand[n]
+                inv -= remain
+                while remain:
+                    p, amount = queue[qi]
+                    take = min(remain, amount)
+                    assert p < n and p > max(qs) and n % p != 0
+                    remain -= take
+                    queue[qi][1] -= take
+                    if queue[qi][1] == 0:
+                        qi += 1
+                    pair_count += 1
+            assert inv >= 0
+            reserves.append(inv)
+            prefix_d.append(prefix_d[-1] + demand.get(n, 0))
+        assert inv == 0
+        assert sum(used.values()) == sum(demand.values())
+
+        # Omitted primes occur only while the current future reserve is zero.
+        backward = 0
+        for i in range(len(events) - 1, -1, -1):
+            assert backward == reserves[i]
+            n = events[i]
+            backward = max(0, backward + demand.get(n, 0) - capacities.get(n, 0))
+        assert backward == 0
+
+        def reserve(t):
+            i = bisect_right(events, t) - 1
+            return reserves[i] if i >= 0 else 0
+
+        def demanded(t, s):
+            return prefix_d[bisect_right(events, s)] - prefix_d[bisect_right(events, t)]
+
+        # Check the new one-sided statement at each genuine square and every
+        # event in its physical neighborhood, including the right endpoint.
+        checks = 0
+        sampled = []
+        for r in range(N, 2*N):
+            t = r*r
+            sampled.append(reserve(t))
+            i, j = bisect_right(events, t), bisect_right(events, t + N)
+            for s in [t + N] + events[i:j]:
+                assert reserve(s) >= reserve(t) - demanded(t, s)
+                checks += 1
+
+        sampling = []
+        for level in (Fraction(0), Fraction(1, 100), Fraction(1, 20), Fraction(1, 10)):
+            B = level*den
+            thick = sum(reserve(r*r) > B + demanded(r*r, r*r + N)
+                        for r in range(N, 2*N))
+            measure = sum((events[i + 1] - n) for i, n in enumerate(events[:-1])
+                          if reserves[i] > B)
+            assert N*thick <= measure
+            sampling.append({"level": str(level), "thick_roots": thick,
+                             "high_reserve_measure": measure})
+
+        pi_base = flags.count(1, 0, N*N + 1)
+        anchor = sum(r*weight(r)[side]*k*k for r in range(2, N)) - pi_base*den
+        whole = complement = anchor
+        qmass = 0
+        uroot = Counter()
+        for p, take in used.items():
+            uroot[isqrt(p)] += take
+        full_checks = 0
+        for r in range(N, 2*N):
+            assert qmass == -sampled[r - N]
+            assert whole == complement + qmass
+            assert whole**2 == complement**2 + qmass**2 + 2*complement*qmass
+            # D_can^2 in the basis (1,sqrt(2)), including the original anchor.
+            assert (whole**2 + 2*den**2, 2*whole*den) == (
+                complement**2 + qmass**2 + 2*complement*qmass + 2*den**2,
+                2*(complement + qmass)*den)
+            total = r*weight(r)[side]*k*k - prime_counts[r]*den
+            selected = counts[r]*weight(r)[side]*k*k - uroot[r]
+            whole += total
+            complement += total - selected
+            qmass += selected
+            full_checks += 1
+        assert qmass == 0 and whole == complement
+
+        p = min(used)
+        # A real negative prime source changes reserve with no positive demand.
+        assert demanded(p - 1, p) == 0
+        assert reserve(p) - reserve(p - 1) == used[p] > 0
+        for p0 in sorted(used)[:8]:
+            assert trial_prime(p0)
+        result.append({"side": side, "used_prime_count": len(used),
+                       "allocated_edges": pair_count, "persistence_checks": checks,
+                       "full_square_checks": full_checks, "sampling": sampling,
+                       "root_energy_numerator": sum(v*v for v in sampled),
+                       "root_energy_denominator": den*den,
+                       "nonzero_root_samples": sum(v > 0 for v in sampled),
+                       "maximum_root_numerator": max(sampled),
+                       "maximum_physical_numerator": max(reserves),
+                       "weight_denominator": den,
+                       "two_sided_demand_only_counterexample_prime": p,
+                       "positive_jump_numerator": used[p],
+                       "donor_sha256": hashlib.sha256(str(sorted(used.items())).encode()).hexdigest()})
+    assert result[0]["root_energy_numerator"] <= result[1]["root_energy_numerator"]
+    return {"N": N, "small_primes": ss, "q_count": len(qs), "site_count": len(fs),
+            "site_sha256": hashlib.sha256(str(fs).encode()).hexdigest(), "envelopes": result}
+
+
+if __name__ == "__main__":
+    print(json.dumps({"generic": generic(), "powers": powers(),
+                      "synthetic_sampling": synthetic_sampling()}), flush=True)
+    flags = sieve(4*10000**2)
+    for N in (9216, 10000):
+        print(json.dumps(arithmetic(N, flags)), flush=True)
+```
