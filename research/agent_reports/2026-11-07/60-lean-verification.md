@@ -647,3 +647,484 @@ the new type-audit rejection matches the actual first failure log.
 [New exact-head run 42402231812/job 128492295936](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42402231812/job/128492295936)
 is running. PR #1105 remains draft, CI_PENDING. No completed formal result
 is claimed before this repaired revision passes the required audit.
+
+---
+
+## Final Complete-HIGH Synthesis - 20261107-lean-2
+
+Scheduled trigger: 2026-11-07T13:14:01-05:00, America/New_York.
+RUN_ID_UNAVAILABLE. Same invocation as the three preserved checkpoints.
+Final source/CI observation: 2026-11-07T18:50:11Z (13:50:11 EST).
+Execution=COMPLETE. Mathematical implementation=PROVED_IN_LEAN_AT_PR_HEAD.
+PR=READY_FOR_REVIEW / UNMERGED. Independent review=AWAITING_REFEREE.
+Publication is confirmed by the subsequent immutable readback receipt.
+
+### A. Most Important Formal Mathematical Result
+
+**20261107-lean-2/MH1-CUTOFF** implements the source-interface part of
+**20261107-referee-2/MH1** and three immediate original-fiber count consumers.
+[PR #1105](https://github.com/OVVO-Financial/RH_Lean/pull/1105) preserves the
+already-proved marked exponent `1+D.t/2` in a four-field source package
+uniform over arbitrary supplied cutoffs. Inverse and unmarked errors stay
+`D.t`; physical `HighData` and the original arithmetic expressions stay
+unchanged.
+
+**PROVED_IN_LEAN at PR head
+`30e235ac5ee86041d194d07b20c52b0b22d317f2`, not yet on main.**
+All four new terminal declarations passed the actual pinned Lean job and
+the axiom audit. The mathematical review recorded here is the author's
+SELF_AUDIT, not a new independent Referee acceptance.
+
+Classification: FORMAL_INFRASTRUCTURE / SOURCE-QUALIFIED CONSUMER EXTENSION.
+This retains useful quantitative information in an actual consumer; it is
+not a new primitive moment estimate, six-case combined count, complete HIGH
+bound or global exponent. NEW_VERIFIED_ENDPOINT_GAIN=NONE;
+eta_gate=SEARCH_BROAD; canonical actual-prime VF and RH remain OPEN.
+
+### B. Current Authoritative Objective
+
+Observed main: `3de4f7331e5fe55ad0e404dc8463b1df56c19330`.
+AGENTS blob: `0a99faf8458809ac772d470d704c5433f373bda8`.
+Contract blob: `d1d6fd558ee23927bd9f70ffdc375bafd1dbb67a`.
+Complete-HIGH directive: `be8168b67584d9d8ebbaa732a30c51509137543e`.
+Cancellation-chain directive: `28e2ab47c68bc83b91ae02b6112b94867b021b32`.
+
+high_attack_ack=COMPLETE_SIGNED_HIGH_ATTACK_V1;
+chain_ack=CANCELLATION_CHAIN_REUSE_V1;
+baseline_ack=PAID_BASELINE_EXACT_CONSUMER_V1;
+deployment_ack=NO_PIGEONHOLING_ROUTE_SELECTOR_V1.
+
+Selected route: OAI-NNS moment/count consumer. The complete endpoint it
+serves is the same compensated LOW/HIGH/principal probe, then native
+Mertens and complete signed-pair consequences, then canonical HIGH at fixed
+Lambda>=0. The actual canonical partition retains both height orientations:
+
+```text
+M(R^2-1) = canonicalLowPrefix Lambda (R-1)
+           + canonicalHighPrefix Lambda (R-1),
+|LOW| <= (floor Lambda+1)*R.
+```
+
+The inspected strongest source-specific comparator is
+`native_mertens_true_physical_slot_minimum`: there exists an actual
+D:HighData(1/1000000), with m=actualSlotMinimum D>0, giving
+MertensGrowthAtMost(7/8-m/24). Its companion beta theorem supplies the
+full-family bound. Preserve the existential witness and every-positive-loss
+quantifiers; this is not an attained fixed no-loss power. The explicit
+slot-count fallback is not asserted optimal. No new comparison beats that
+baseline in this PR.
+
+### C. Formalization Queue And Continuity
+
+At intake there were no open/draft PRs, so no active failed proof to repair.
+#1102 and #1103 are human-merged; their old draft/unfinished prose is stale.
+The relevant original source and successful actual logs were retrieved.
+
+Priority selected: the arbitrary-cutoff two-error interface needed by the
+accepted generalized-capacity count work, and its immediate actual count
+consumers. Census RC1/RC3 were independently accepted by today's Referee;
+RC2/RC4 acceptance is scoped to their supplied fields and remaining return.
+The Referee's newer MH1-MH4 were paper/self-audit claims, not inherited Lean
+proofs. Lean Verification independently checked MH1's assembly against the
+original supplier quantifiers before coding. MH2-MH3 remain paper claims
+outside this implementation; no independent acceptance is invented for them.
+
+Other available results remain separate: Coordinator PG squarefree-clique
+obstruction, Owner RS chronological reserve sampling, Analytic FT complete
+Nyman norm, Wheel LR cofactor multiplicity, and yesterday's CS/AQ/GF/FW
+findings. They do not license a rational-to-Hecke identification, a new
+favorable sign, or a replacement of the complete original signed return.
+The ready current source-interface task takes precedence over formalizing
+unreviewed alternative claims or duplicating completed GL2/FW3.
+
+All seven roles' same-day and previous-day files were retrieved at the
+immutable intake revision; relevant findings, qualifications and continuation
+sections were read. TODAY=AVAILABLE for all seven; YESTERDAY=CARRY_FORWARD.
+This does not claim that every role has consumed the later HIGH directive.
+Coordinator 00/90 mirror blobs match. External inbox
+`038018145c0fddb2f6306c0712373adf9cd1ea52` has no new entry after October 18.
+EXT-20261018-PNT-1, EXT-20261017-XCOORD-1 and EXT-20261014-5 retain their
+scope/cutoff/normalization warnings; their old routing is superseded.
+The final branch refresh found main unchanged and no upstream report or
+inbox changes since intake; only this agent's checkpoints had been appended.
+
+### D. Proof Plan And Independent Derivation
+
+Fix actual D:HighData Delta, SourceData D and CountParameters at D.t.
+Let kappa>1/2 satisfy the original lower-beta and full-family license, and
+retain source fineness at detectorMeshAt kappa D.t.
+
+The existing source suppliers separately quantify all batch cutoffs AFTER
+their eventual-Z thresholds. Their degrees Ji,Jm,Ju are natural and their
+constants Ci,Cm,Cu are positive. Intersect the three eventual events, put
+J=Ji+Jm+Ju and C=Ci+Cm+Cu, and use 1+height>=1 to dominate each
+Ci*(1+height)^Ji by C*(1+height)^J. Only constants grow. The marked
+power 1+D.t/2 is not weakened.
+
+The licensed retained-slot terminal band supplies the positive and zero
+inputs, so the final theorem does not assume those analytic estimates.
+Original inverse_fiber_count, plain_fiber_count and no_slot_plain_count
+then consume the corresponding fields. The marked consumer uses literal
+capacity 2*m+6*kappa*z<=1; only kappa>=0 is needed for this isolated count,
+while its source supplier retains kappa>1/2 and the full license.
+
+Complications checked: natural degree casts versus real powers; nonnegative
+height; selected-subset supply; strict inverse capacities; nonempty fibers;
+actual profiles and external frequencies; constant-before-cutoff order;
+and the distinction between arbitrary supplied batches and witness existence.
+
+### E. Exact Theorems And Carrier
+
+Namespace: `OAI.SevenEighths.RetainedSlotCutoffMoments`.
+
+The source terminal `source_moments_two_error` has hypotheses:
+
+```text
+F : SourceData D
+counts : CountParameters F.modulus top D.t
+1/2 < kappa
+51/100 <= HeckeZeroSupremum.beta
+2*HeckeZeroSupremum.beta-1 <= kappa
+forall j, D.ell j <= detectorMeshAt kappa D.t / 200
+```
+
+It concludes existence of J>=0, then for each character a C>0, such that for
+every 0<tau<=1 and all sufficiently large Z, the source package holds with
+constant C*(1+Z^(2*tau))^J and height Z^(2*tau). Expanding that package keeps
+all original row, amplitude, source-data, reverse, selected-slot, profile,
+width, external-frequency, mesh, bin and character-family equalities, but
+quantifies every real tstar instead of fixing the old adaptive cutoff.
+
+On an original Fiber, write delta=2*a-1, r=F.r, m=F.m, q=F.q.
+The new record keeps the exact original raw inverse expression and:
+
+```text
+inverse marked: sum_rows |inverse_polynomial * selected_product|^2
+                  <= C*U^(1+eps_m)
+plain marked:   sum_rows |plain_j * plain_k * selected_product|^2
+                  <= C*U^(1+eps_plain)
+unmarked:       sum_rows |plain_j * plain_k|^2
+                  <= C*U^(max(1,2*m)+eps_m).
+```
+
+The source supplies eps_m=D.t and eps_plain=D.t/2. The three count terminals
+retain the original count hypotheses, coefficients, selected supply and
+frequency/height budget:
+
+```text
+inverse_marked_count_two_error:
+card(rows) <= 12*(1+height)*C
+  * U^(1-delta*r-2*q*z+2*epsilon+delta*mesh+eps_m)
+
+plain_marked_count_two_error:
+card(rows) <= 192*(1+height)*C
+  * U^(1-2*delta*m-2*q*z+4*epsilon+delta*mesh+eps_plain)
+
+plain_unmarked_count_two_error:
+card(rows) <= 192*(1+height)*C
+  * U^(max(1,2*m)-2*delta*m+4*epsilon+eps_m).
+```
+
+For the selected counts, 0<=z<=7/37. The inverse retains r+2*z<1 and
+2*r+8*z<3. The plain-marked count retains 2*m+6*kappa*z<=1.
+The exact Lean declarations, not this abbreviation, govern all hypotheses.
+
+### F. Carrier And No-Circularity Audit
+
+The entire four-field record and source admission definition were compared
+against the pinned originals under only the stated parameter/error/cutoff
+changes. No prime/ideal occurrence, physical selected product, reverse flag,
+zero/residue mask, multiplicity, width or source profile is substituted.
+No blanket rho/2 replacement affects inverse or unmarked fields.
+
+Physical Delta is unchanged; kappa is an independent licensed capacity
+parameter. The new terminal does not assume a favorable signed covariance,
+a desired count bound, the new global exponent, or an energy certificate
+under another name. Its source inputs are proved by the existing band chain.
+Individual count lemmas naturally consume the moment record; the source
+terminal provides that record under explicit actual-source hypotheses.
+
+No automatic bootstrap is licensed. A coefficient improvement in this
+marked count may be irrelevant in bins governed by another branch. The
+old fixed-branch max obstruction is not refuted; changing the crossing and
+witness cutoff is a distinct, still-unimplemented downstream argument.
+
+### G. Implementation And Checks
+
+Committed Lean source:
+`scripts/lean/retained_slot_feedback/CutoffMoments.lean`.
+Generated module:
+`research/oai_434/Feedback/CutoffMoments.lean`.
+The other five changed files are the new `prepare_cutoff_moments.py`,
+existing `run.sh`, `compile.py` and `check_generation.py` in the same script
+directory, and `research/oai_434/RETAINED_SLOT_FEEDBACK.md`.
+
+A small additive generator follows the existing Applications template
+pattern, records four original source hashes plus generated-source hash, and
+adds the module to the existing full compile order. The workflow runner and
+fail-closed terminal axiom inventory include the new module. Generation
+checks enforce separate errors, arbitrary cutoff, full license, fineness and
+identity of committed and materialized Lean source. No existing interface,
+workflow file, proof policy or source theorem was changed.
+
+Executed locally, without Lean: source materialization; generation/target
+integrity; Python syntax; shell syntax; and an exact whole-record/source-
+admission comparison against pinned original definitions. These are source
+and engineering checks, not proof certification.
+
+### H. Proof Branch And PR Evidence
+
+Base: `3de4f7331e5fe55ad0e404dc8463b1df56c19330`.
+Branch: `agent/lean-verification/20261107-cutoff-two-error-moments`.
+Submitted head: `e2916fab61d141993163f003704876905cf01c73`.
+Submitted tree: `6dc608f10351a35e38492f81c9bbd27e640a7a2d`.
+Repaired head: `30e235ac5ee86041d194d07b20c52b0b22d317f2`.
+Repaired tree: `087a31436295ea4b0307d3d851f363c5370dba5f`.
+PR: [#1105](https://github.com/OVVO-Financial/RH_Lean/pull/1105).
+READY_FOR_REVIEW, open, draft=false, merged=false, verified by the returned
+PR snapshot at 18:50:11 UTC. No independent review is claimed.
+
+The branch originated from current main and contains only the six listed
+source/template/validation/documentation files. No main push, merge,
+auto-merge, other-agent report edit or additional agent launch occurred.
+
+### I. GitHub Actions Evidence
+
+Pinned Lean: `leanprover/lean4:v4.34.1`.
+Mathlib: `d13f23b723b8a846827a245b89c10fc7d3f11612`.
+PNT+: `c39a751132c88b6e8080b74c74023fd95b3d8be0`.
+Original OAI: `1581d4cbdd69a0faf34b2089614fe2a814316a6a`.
+
+Successful dedicated run:
+[42402231812 / job 128492295936](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42402231812/job/128492295936).
+All 43 modules in the generated dependency graph compiled with
+`-DwarningAsError=true`; failed_or_blocked=[]. The new module compiled at
+18:46:57 UTC and the job finished successfully. The exact record and both
+source definitions were printed and read; all four public terminal types
+were checked. Each new terminal's ACTUAL axiom list is exactly
+`[propext, Classical.choice, Quot.sound]`. No sorryAx/admitAx occurs in the
+successful proof output. Existing original terminal audits remain intact.
+The printed record has no implicit logProfile/positiveAnnular binders.
+
+Actions checked out synthetic merge
+`6e990fb08574e402f3452d18ff3ee8059f7780d2`. Its Git tree is
+`087a31436295ea4b0307d3d851f363c5370dba5f`, identical to the repaired PR-head
+tree; its two parents are the recorded main and PR head. The dedicated log
+also confirms original OAI checkout at the pinned source revision.
+
+All seven checks, across six workflows, succeeded on the exact head:
+
+| Check | Actual successful job |
+| --- | --- |
+| Dedicated analytic proof | [128492295936](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42402231812/job/128492295936) |
+| Hosted Lean build | [128492295846](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42402231849/job/128492295846) |
+| Source/import audit | [128492295981](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42402231849/job/128492295981) |
+| Proof inventory | [128492295753](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42402231916/job/128492295753) |
+| Public export verification | [128492296270](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42402231953/job/128492296270) |
+| Documentation | [128492295667](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42402231813/job/128492295667) |
+| Coordinate atlas | [128492295573](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42402231880/job/128492295573) |
+
+The hosted-build, audit, inventory and export logs were read, not inferred
+from a green icon. Native root imports cover 830 modules; the elaborated
+native inventory agrees on 8,870 named proofs. Research leaves are excluded
+from that native inventory. The dedicated job is the evidence for this new
+research module. Export verification establishes source/closure consistency,
+not separate compilation of the export packages; no such build is claimed.
+
+Warning scope: the broader dedicated job prints the unchanged PNT+ Wiener
+placeholder warnings at lines 325/344, dependency-cache local-change
+warnings, and the existing RetainedSlotFeedback import-deprecation warning.
+These do not appear as forbidden axioms in the audited new terminals. The
+new module has no warning. The native hosted job reports no RHLean-owned
+Lean warnings. This is not a claim that every upstream declaration is
+hole-free or the entire job log is warning-free; no audit was weakened.
+
+Downloaded proof artifact ID 13586312178, ZIP SHA256
+`53af70549d04dc6b6f174cb092ab6ae0811b087e831c46b29be9ac526b880d14`.
+Its generated CutoffMoments source is byte-identical to the committed
+template, verified by comparison and matching SHA256
+`5f2a80cb4a74185c4bbb4edec6a3b1c89ea608fb0e0252bce3f1a530759b7566`.
+The artifact contains the generation manifest, full generated source graph,
+proof log and scripts needed for continuity; it expires December 7.
+
+### J. Failures And Repairs
+
+Direct git cloning failed with CONNECT tunnel 403. Immutable source fetch,
+artifact download and feature-branch PR writes through the authorized GitHub
+connector worked. This was not BLOCKED_WRITE_ACCESS and did not justify
+local Lean execution. No no-op CI commit or workflow rerun was used.
+
+The first head failed
+[run 42401229354 / job 128489189043](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42401229354/job/128489189043)
+at three source-assembly
+applications. The printed record showed that missing namespace openings
+had made logProfile and positiveAnnular into implicit quantified variables.
+The resulting moment fields were stronger, unintended statements about
+arbitrary functions; textual similarity to the original was insufficient.
+The actual source suppliers could not supply those fields, and CI rejected
+the source theorem. Error-recovery sorryAx appeared only in failed compiler
+output; no such revision is certified and no placeholder was authored.
+
+The repair opens the original profile namespaces, sets autoImplicit=false
+in the new module and adds a fail-closed check of the printed record that
+rejects those accidental binders. That checker was tested against the
+actual first failure log and rejects it. The existing script executable
+modes are restored. The intended mathematics and public obligations are
+unchanged. This is an elaboration/statement-semantics repair, not a false
+mathematical theorem or a weakened source bound.
+
+Successful repair verification run:
+[42402231812 / job 128492295936](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42402231812/job/128492295936).
+Repaired Lean template SHA256:
+`5f2a80cb4a74185c4bbb4edec6a3b1c89ea608fb0e0252bce3f1a530759b7566`.
+
+### K. Mathematical Conclusions
+
+The established sharper marked estimate is now retained in a uniform
+arbitrary-cutoff source interface and passed to its immediate marked count.
+The inverse/unmarked companions remain available with their original
+errors. This removes the specific typed-interface obstruction identified
+in MH1; it does not complete MH2, MH3 or the endpoint comparison.
+
+Formal soundness is the exact-revision evidence in I. Mathematical
+significance is an enabling source-qualified extension for the active
+complete-HIGH consumer, not a new stand-alone cancellation law or claimed
+global power gain.
+
+### L. Formalization-Driven Discoveries
+
+The original source suppliers already quantify tstar after their constants
+and thresholds. The unnecessary restriction was in SourceMomentsAt, not
+the analytic source. Removing it therefore requires no new contour or
+cancellation hypothesis.
+
+An arbitrary-cutoff source-moment theorem is NOT arbitrary-cutoff witness
+existence. Future use must choose supported witnesses in their proved
+range, and keep a common cutoff within each actual batch/bin.
+The separate-error record also makes the exact non-improved branches
+visible rather than implicitly halving all four estimates.
+
+The failed first elaboration additionally demonstrates why source-text and
+consumer-only checks are insufficient: a missing namespace can create an
+unintended stronger moment hypothesis while generic consumers still prove
+consequences of it. The source-supplier connection and printed record audit
+exposed that change. The repaired module disables such auto-generalization.
+
+### M. Complete Return And Significance
+
+The intended route is:
+licensed band -> actual two-error moments -> original row counts ->
+reoptimized six-case combined count -> fixed-amplitude batch count ->
+source HIGH -> same anchored LOW/HIGH/principal comparison ->
+native Mertens -> fixed-cutoff canonical HIGH.
+
+This PR reaches the original row counts. The source assembly preserves
+conductor/character gates and polynomial height costs. Future aggregation
+must retain bin/label multiplicities, selected/unselected cases, long-bin
+complement, principal and remote/exceptional pieces and all actual LOW
+costs. No component is assumed harmless merely because its name differs.
+Restoring canonical LOW costs O(R); full-prefix interpolation also retains
+the incomplete square block, at most 2*R+1. Positive loss must be spent
+before a fixed-power claim.
+
+### N. Specialist Handoffs
+
+- Coordinator: record MH1-CUTOFF at its exact PR/CI state; queue the actual
+  combined-count/witness continuation, not another four-field wrapper.
+- Analytic: retain separate D.t and D.t/2 errors in the six cases; preserve
+  original physical HighData, full-family license and all other branches.
+- Referee: review the actual new terminal type and immediate consumers;
+  do not transfer this certification to the unimplemented MH2/MH3 claims.
+- Census: no unchanged Bernstein rescan is needed. Target a changed
+  crossing/witness or boundary condition in the next implementation.
+- Wheel: retain selected-subset supply and both strict inverse capacities
+  when translating the shifted crossing into physical selections.
+- Owner: keep native VF-LOW/SAT/JOH work independent. No rational Mobius
+  signs have been identified with Hecke phases in this implementation.
+
+### O. First Unresolved Mathematical Inference
+
+The next formal task is the MH2 actual-fiber combined bound with the shifted
+crossing and cutoff, including every fallback, followed by supported
+witness choice and batch summation. Its source moment supply is no longer
+the missing interface at this PR revision.
+
+The precise next proposed bound, not proved here, is
+
+```text
+card(F.rows) <= (192*(1+height)*C)*max(1,K0)
+  * U^(T_hat+159*epsilon+mesh+7*nu).
+```
+
+Here delta=2*a-1 is in (0,5/6], x=q/delta is in [0,1/2],
+kappa is in [1/2,3/4], and 0<rho<=delta/12. With
+c=x/(3*kappa), Dk=3-x-2*c, A=2*(1-c)*(1-x)/Dk,
+s=5/6-delta and Bk=s+delta*A, the shifted witness cutoff and power are
+t_hat=1+delta*A/(2*Bk)-(1-x)*rho/(2*Dk*Bk) and
+T_hat=1-delta+s*delta*A/(2*Bk)+(1-s*(1-x)/(2*Dk*Bk))*rho.
+The statement must retain U>1, C>=0, 0<epsilon<=1/1000, mesh>=0,
+nu>0, the original raw-inverse constant K0 and large-U hypotheses,
+frequency/height budget and all actual Fiber constraints. The source
+supplies the moment errors rho and rho/2; it does not itself prove this
+six-case optimization. Supported witness existence is only used after
+proving 1<=t_hat<=3/2, with a common cutoff in each amplitude bin.
+
+The first unresolved ENDPOINT inference remains a complete admissible
+comparison that turns the retained marked allowance/generalized capacity
+into a fixed improvement over the SAME strongest source-specific baseline.
+One must identify the binding constraint that changes, pay all remaining
+terms and license inputs before outputs. Keeping the old LOW/principal
+difference and legal tilt unchanged proves no new endpoint gain.
+
+### P. Provenance And Resume Capsule
+
+| Material source | Original Git blob SHA |
+| --- | --- |
+| CutoffMoments.lean template (tested PR head) | d877240267337cca4dae6a2929b216fe6f3e2898 |
+| compile.py (tested PR head) | 2c83d1a52a4096e6a03890cde3f69ff0f6bed58e |
+| check_generation.py (tested PR head) | dee54d09b07f8709614a637b84f8c0e25a87d9f0 |
+| prepare_cutoff_moments.py (tested PR head) | 5f3e5178c12d6c9ff32727ceb3eaa95ef398b971 |
+| Hecke/DetectorRawFiber.lean (OAI pin) | ee826e81bbec1df5820f26aa15bce53bcb675cd6 |
+| Hecke/DetectorRawBranches.lean (OAI pin) | 16adf0ef89dafd510b98dd44e9a5461e3fbf351d |
+| PrimeRows/NonfloorMoments.lean (OAI pin) | 5711ee00b7ab3fdb61d8f91d092c29781c437bfb |
+| Detector/FinalAssemblyCertifiedBands.lean (OAI pin) | 8c7337e8f0755ba24fddab46a6630d58a32a9c86 |
+| Detector/FinalAssemblyMomentInput.lean (OAI pin) | 436856065bd974c5ca52ac43b751a716f454ed20 |
+| Detector/DetectorInverseFields.lean (OAI pin) | b0f4775ed6e9fa2047eeae6f4c18df0896fb1992 |
+| retained-slot-feedback.yml (main) | 9504c45d5c704bf2369553677bd2c17be9002dea |
+| VF919ActualSlotMinRetighten.lean (main) | 138c4726085995b966204406805f70082402bec4 |
+| VF919NativeStrictMertens.lean (main) | b33a4883e1ddb0551b0f11f062bce46680d87450 |
+| CanonicalHighSectorCore.lean (main) | dd02fc8fabfe4004c6b0d50374b3b8752607b168 |
+| CanonicalLowOccupancy.lean (main) | b958da340d107cdd00015d2827b9a728357b4d8e |
+
+| Role | November 6 report blob | November 7 intake report blob |
+| --- | --- | --- |
+| Coordinator 00/90 | 8812a90540fb511279b5f4ce08e108ef717d5ef1 | 4a71edcce4c44a309640d36e9453d016e5b188a9 |
+| Owner | 1856a96aaaa9d86a5ee2d59ffe50ced936443fa6 | 432fc87602f97318fdac212002b52ac29f12a0e0 |
+| Analytic | 7997620b6ab7eb0701296994734ee910df3c3ba1 | 1315b3c9deba1148338d9023af349ee8a246dae7 |
+| Wheel | 3099558194a00358962ff1844bf283e625b9283d | b973552f1574e39afe6dbc165bde3635f12c9ead |
+| Census | c34ac074296e8b2e5b20dee3a2ce02518571206c | 3fae830e34c590d32c31ad77cad3ace833eb3ff5 |
+| Referee | da3265467c799e9d21832ab25245617ba3b15a54 | 65384576327e1ae2c976fca368c83690fc8a95dd |
+| Lean | b8bfe3ce9c20d7903395364efb39bcec974c8a2f | 7df1e5d73bfe6cbbb2fa76d6380d7d456a938c11 |
+
+Prior formal evidence was actually retrieved: #1103 head
+06dde8d85985c86481680610b6c86c663be4e242, merge aa10b310efb2a095fd4c69dc965e6bde0bd135d6,
+[run 42386987885/job 128446349776](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42386987885/job/128446349776).
+Its downloaded source/proof artifact ZIP SHA256 is
+1e7455779f49942a7ce9d5d0ee00d17601ad83639d43541e5a7e9afd6dee5e1f.
+Generated SourceMoments and RowCount bytes were read, not inferred from
+a report. #1102's successful dedicated job 128379218641 was also read;
+its actual merge is dadd9cd7b0a36b4298db30a33c2a1e4b6eb36dcc. These are
+reused earlier results, not new work or a new all-main rebuild.
+
+Resume: refresh current main and #1105's actual latest head and checks.
+Do not regenerate this source interface or the completed GL2 tail.
+If new changes cause a real failure, repair it first. Otherwise continue
+the shifted count/witness connection with explicit source errors and full
+return. Preserve human merge authority and report/CI status distinctions.
+
+Verified earlier checkpoints in this invocation:
+5541e39b94b54711abe7d2317037105f0204bd6e and
+4a297fc4b27e7c271ca2fa426bf0ad75735a1a4b, followed by repair checkpoint
+fd9daa8faf504f0780dfe01e0221c90267bc6abd. All immutable readbacks matched.
+This synthesis records the observed final proof status, not the earlier
+checkpoint's pending state. The following receipt pins its publication.
