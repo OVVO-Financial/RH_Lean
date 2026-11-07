@@ -1,6 +1,12 @@
 # RH_Lean research-agent task selector
 
-## Current instruction: follow the proved 1-to-7/8 cancellation chain
+## Current instruction: improve the complete signed HIGH endpoint
+
+**COMPLETE_SIGNED_HIGH_ATTACK_V1 - 2026-11-07; effective after human merge.** Read [the complete signed HIGH attack directive](RHLEAN_COMPLETE_SIGNED_HIGH_ATTACK_20261107.md) first. All seven roles serve one global objective through independent methods: improve the complete signed HIGH contribution or a justified route to a stronger global endpoint, compared with the strongest applicable certified baseline. Fixed-Lambda canonical LOW is already O(R). Preserve nine-route coverage and useful supporting estimates even when their names contain LOW; no common single-component, OAI-only or sharp-shell entrance test is imposed.
+
+Prioritize the retained marked 1+t/2 consumer and generalized-kappa combined counts/full return on the analytic/formal workstream, while native Gram, conductor-core, far-residual and moving-population investigations continue. Retain coherent mean, absorption, conductor one and full signed recombination. When using the prefix-energy criterion, retain its uniformity for all 1 <= h <= N; direct amplitude and other justified global consumers remain eligible. The new directive controls task priority; the existing cancellation and breadth policies below remain supporting rules.
+
+## Reuse the proved 1-to-7/8 cancellation chain
 
 **CANCELLATION_CHAIN_REUSE_V1 - 2026-11-07; effective after human merge.** Start with [the cancellation-chain reuse directive](RHLEAN_REUSE_CANCELLATION_CHAIN_20261107.md). All seven roles use the established arithmetic suppliers, native weighted moments and complete LOW/HIGH/principal comparison as their shared baseline. Improve an actual consumer before commissioning a stronger standalone cancellation theorem. The existing native all-prefix covariance result is not a missing premise.
 
@@ -9,11 +15,11 @@ This supersedes contrary dated routing/NEXT-* assignments in the proof contract,
 ## Resolve each actual task
 
 1. Refresh main, [AGENTS](../AGENTS.md), the applicable live proof declarations and changed dependencies. Read relevant same-day/yesterday reports and external handoffs. Reuse unchanged verified content when actually available; do not restart the complete 7/8 reconstruction.
-2. Select an investigator's due protected route or a ready support task. Identify the strongest established input relevant to its actual source and the theorem that consumes it. Non-OAI work uses its own consumer; no fictional rational-Mobius-to-Hecke map is required.
+2. Select an investigator's due protected route or a ready support task. Name its exact signed object, strongest applicable certified baseline and actual quantitative consumer. A needed bridge may itself be the enabling task; record its current status and direction. Non-OAI work uses its own consumer; no fictional rational-Mobius-to-Hecke map is required.
 3. First test a stronger use of existing information: weighted fourth-moment averaging, retained tuple/rescaling decay, retaining a sharper proved width, a joint estimate instead of componentwise bounds, or a justified admissible-range/contour extension. State the exact old-to-new inference and all hypotheses.
 4. Only if this leaves an unsupported quantitative step, define the smallest missing estimate and explain why the available theorem does not cover its rows, weights or parameter range. Do not replace that analysis with 'we need another cancellation theorem.' A source-specific new estimate remains eligible when genuinely needed, not presumed necessary.
 5. Carry the change through the actual complete consumer, including principal, HIGH, LOW, heights, conductors, complementary cases, exceptions and cross terms. Compare the net boundary against the best applicable established strict result, not just rounded 7/8. An external parameter certificate is not the missing analytic proof.
-6. Spend the run deriving or testing that step. Publish the compact chain-consumer record and a substantive proof advance, scoped falsifier or exact unresolved lemma. No repeated inventories, unchanged scans, tiny-slot-denominator optimization or no-op builds as substitutes.
+6. Spend the run deriving or testing that step. Publish the compact HIGH task record and a substantive proof advance, scoped falsifier or exact unresolved lemma, with the resulting endpoint budget. No repeated inventories, unchanged scans, tiny-slot-denominator optimization or no-op builds as substitutes.
 
 The default OAI-NNS queue is **not** another uniform nu bound for the old all-selected inverse core. Its ready workstreams are: actual marked fourth-moment numerator averaging; retaining LOW rescaling weights across all tuples; and generalizing only those parameter/capacity interfaces needed by the complete comparison. The source-specific facts J=empty has one outer tuple and outer cross Gram=0 remain binding. The [old LOW source contract](RHLEAN_OAI_LOW_SOURCE_FIRST_AGENT_CONTRACT_20261103.md) and [all-selected attack](RHLEAN_ALL_SELECTED_INVERSE_SOURCE_ATTACK_20261104.md) are references for their genuine definitions and safeguards, not compulsory proof tickets.
 
@@ -29,7 +35,7 @@ The [broad-search gate](RHLEAN_BROAD_SEARCH_UNTIL_ETA_20261031.md), [complete-re
 
 Six non-Lean roles remain own-report-only. Lean Verification retains full task-relevant repository read/write through non-main feature branches and PRs, pinned warning-fatal GitHub Actions only, exact type/axiom checks and human-only merge. No local Lean, direct-main push, autonomous merge, auto-merge, another agent launch or Studio schedule/tool-grant modification is authorized.
 
-At first actual post-merge consumption record `chain_ack=CANCELLATION_CHAIN_REUSE_V1`, main/policy SHA, selected route, reused declaration, actual consumer and changed inference. Reading the policy is not a result. Current CI/PR evidence replaces frozen historical statuses. The stable filename is retained so existing dynamic prompts reach the new instruction without pretending to edit saved Studio state.
+At first actual post-merge consumption record `high_attack_ack=COMPLETE_SIGNED_HIGH_ATTACK_V1`, main/policy SHA, selected route, exact signed object, certified baseline, reused declaration, actual consumer and changed inference. Preserve `chain_ack=CANCELLATION_CHAIN_REUSE_V1` and applicable deployment acknowledgments. Reading the policy is not a result. Current CI/PR evidence replaces frozen historical statuses. The stable filename is retained so existing dynamic prompts reach the new instruction without pretending to edit saved Studio state.
 
 ## Historical source provenance
 

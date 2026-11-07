@@ -1,5 +1,7 @@
 # Reuse the 1-to-7/8 cancellation chain; improve its complete consumers
 
+**COMPLETE_SIGNED_HIGH_ATTACK_V1 (current objective and task priority):** [The complete signed HIGH directive](RHLEAN_COMPLETE_SIGNED_HIGH_ATTACK_20261107.md) focuses all seven roles on improving the complete signed growth contribution through their independent routes. This cancellation-reuse document supplies established inputs and valid consumer methods. The immediate analytic/formal priorities are retention of 1+t/2 and generalized-kappa combined counts/full return; weighted fourth-moment averaging and retained tuple/rescaling factors remain eligible. Supporting OAI LOW is distinct from the already-controlled canonical LOW population. Preserve all exact source qualifications below.
+
 **CANCELLATION_CHAIN_REUSE_V1 - user direction, 2026-11-07. Effective after human merge.** This directive changes the seven agents' research starting point and next mathematical tasks, not any theorem, source, schedule, tool grant or proof status.
 
 ## 1. The instruction
@@ -58,7 +60,7 @@ Use these current native files, not just a terminal imported exponent:
 
 Consult the exact declarations and their dependencies when using a row. This table is navigation, not a new certification or a claim that every supplier is independently reproved by RH_Lean. The original cancellation need not be rediscovered merely because it was supplied by imported analytic lemmas.
 
-## 3. First concrete task: use the existing weighted fourth moment
+## 3. Concrete consumer task: use the existing weighted fourth moment
 
 On its admitted actual rows the marked moment controls the squared norm of two plain polynomials times the selected product. With the two plain factors equal, an admissible instance has the form
 
