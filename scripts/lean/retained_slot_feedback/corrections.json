@@ -4,5 +4,8 @@
   ],
   "OriginalHighReflectionDeleted": [
     {"old":"  have hg:=actual_deleted_gates s hZ.1 (by linarith) hBmask","new":"  have hMpos : 0 < s.width := by\n    by_contra hn\n    have hzero : s.width = 0 := le_antisymm (le_of_not_gt hn) s.width_nonneg\n    rw [hzero] at hxiM\n    have hkp := RHLeanFeedback.kappa_gt hκ\n    have hpositive : 0 < (6*κ-1)*xi := mul_pos (by linarith) hxi\n    nlinarith only [hxiM,hpositive]\n  have hg:=actual_deleted_gates s hZ.1 hMpos hBmask"}
+  ],
+  "PositiveHighSource": [
+    {"old":"omit [DecidableEq α] in\nlemma balanced_volume:","new":"omit cfg [DecidableEq α] in\nlemma balanced_volume:"}
   ]
 }
