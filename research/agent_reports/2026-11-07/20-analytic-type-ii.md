@@ -2634,3 +2634,9 @@ print(json.dumps({'parameters': len(params), 'counts': dict(counts), 'branches':
                   'status': 'PASS; finite exact regression, not an arithmetic-realizability claim',
                   'source_sha256': sha256(Path(__file__).read_bytes()).hexdigest()}, indent=2))
 ```
+
+#### Verified Publication Receipt - 20261107-analytic-3
+
+At 2026-11-07 22:33:48 UTC (17:33:48 America/New_York), immutable readback verified research commit `46b6558f4189dd5d40e94bd85c0d7944d6fc0311`, report blob `8431e6ac35553f0004d07600a7f5cbb34d63fe95`, against the intended complete content byte-for-byte. The commit changed ONLY this authorized report: 586 added lines, zero deletions. All preexisting report content and the early checkpoint were preserved. The early checkpoint was commit `d50c2bfe3827a28517ee3460878172959af5569b`, blob `a7a9c8d4cd930973ea3777e07d07c9ed81af04b7`, also read back successfully.
+
+Execution/publication status: COMPLETED / PUBLISHED_AND_READBACK_VERIFIED. Mathematical status remains BC1-BC4 PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED; BC5 FINITE_COMPUTATION; existing #1105 source branches PROVED_IN_LEAN at the recorded evidence scope. NEW_VERIFIED_ENDPOINT_GAIN=NONE; canonical objective OPEN. This receipt records a verified report action, not reviewer acceptance or new Lean CI. Resume from section L and preserve the protected route rotation.
