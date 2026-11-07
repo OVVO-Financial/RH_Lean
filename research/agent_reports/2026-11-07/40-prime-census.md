@@ -1124,3 +1124,781 @@ all four moment fields, large/empty selections, principal, LOW, remote and
 exceptional contributions. A detector-count improvement alone is not a new
 Mertens/VF/RH endpoint. Strongest applicable strict baseline is retained.
 NO_NEW_VERIFIED_ENDPOINT_GAIN; eta_gate=SEARCH_BROAD.
+
+## Retained-Capacity Consumer Certificate - 20261107-census-2
+
+### A. Most Important Mathematical Discovery
+
+**The newly licensed marked capacity can be retained through the actual inverse/plain crossing and balanced detector count, with no extra supply loss. The resulting complete detector endpoint functional has the uniform certified margin**
+
+```text
+M(kappa) = 1/5000 + (3-4*kappa)/1600,
+1/2 <= kappa <= 3/4.
+```
+
+This is a parameter-domain theorem for the ORIGINAL detector consumer, not a numerical fit, a new primitive cancellation estimate, or a new global zero-free exponent. At kappa=3/4 it already improves the existing sufficient detector margin 49/440640 to 1/5000; retaining smaller kappa gives the displayed additional margin. The bound is deliberately nonoptimal.
+
+The subtlety is that the balanced row-count exponent does **not** improve strictly in every bin: it is unchanged at zero selected amplitude and at the long-branch endpoint. Those equality faces are not the worst cases of the complete detector endpoint functional. One must optimize the actual consumer, not assume a uniform per-bin saving.
+
+The all-parameter certificate consists of 324 strictly positive rational Bernstein coefficients on nine boxes. Python coefficient conversion and an independently written JavaScript BigInt interpolation agree on every coefficient. The new count/consumer derivation is **PAPER_PROOF / SELF_AUDIT**, independent Referee review **PENDING**, and is **not** a new Lean theorem. The certificate calculations are **FINITE_COMPUTATION**; positivity of their explicitly specified polynomial certifies the whole real rectangle by the Bernstein identity, not by extrapolation from a grid.
+
+This completes the scheduled invocation triggered at 2026-11-07T11:00:01-05:00, America/New_York; RUN_ID_UNAVAILABLE. Earlier same-day SC1-SC5, checkpoints, corrections and receipts remain unchanged. **NEW_VERIFIED_ENDPOINT_GAIN=NONE; eta_gate=SEARCH_BROAD.** The existing strict native baseline is preserved.
+
+### B. Current Authoritative Objective
+
+Authority pin: main **aa10b310efb2a095fd4c69dc965e6bde0bd135d6**, observed at 2026-11-07T16:00:43Z. Current instructions were read at that immutable revision, together with the updated selector, role prompts, complete-return, persistent-engine, breadth and paid-baseline contracts. The canonical target remains `VFCanonicalSquareVonKochStatement`: there is C>=0 such that for every integer R>=2, the actual prime-counting defect from vfCanonical at R^2 is at most C R log R. It remains OPEN.
+
+Activation: `chain_ack=CANCELLATION_CHAIN_REUSE_V1`, policy blob ef8d3ac76a893028f4de772c9a00d3bc261c8132; `baseline_ack=PAID_BASELINE_EXACT_CONSUMER_V1`; `deployment_ack=NO_PIGEONHOLING_ROUTE_SELECTOR_V1`.
+
+The preserved strongest explicit comparator is the live `native_beta_le_explicit_slot_count` statement, b_* = 7/8-g_*, g_* = 1/(288*explicitSlotCount)>0. No astronomical denominator was recomputed or optimized. This report improves a detector budget, not b_*.
+
+Compact chain-consumer record:
+
+| Item | Exact scope |
+| --- | --- |
+| Reused input | Merged #1103 `RetainedSlotMoments.source_moments_half` and `RetainedSlotFiberCount.plain_marked_count_half`; unchanged inverse and unmarked suppliers |
+| Actual consumer | Original `count_from_raw_moments`, `fixed_amplitude_count_from_raw_moments`, `balanced_endpoint_with_loss`, and native `actual_high_probe_from_raw_moments_tilted` |
+| Old loss | Compare marked capacity 6*kappa to 9/2, then pay Delta/4 and use the old crossing; this discards the newly available kappa dependence |
+| Changed inference | Retain 6*kappa through the crossing and balance; prove the new rational endpoint budget over the entire rectangle |
+| Return retained | Four moment fields, actual fibers and selected products, finite bins and dyadic multiplicities, mesh/height/moment costs, high-bin branch and all later source terms |
+| First uncompleted return | Native complete HIGH transport must consume this parameterized count without substituting a negative physical Delta, and its below-7/8 comparison must be justified |
+| Net endpoint | No new complete zero/Mertens/VF exponent established |
+
+### C. Competing Hypotheses
+
+**H-CAPACITY:** the wider marked capacity produces a valid improved crossing and balanced count while preserving all actual inverse and supply constraints. This survives, with the proof in H.
+
+**H-RETURN:** retaining kappa necessarily overruns selected-slot supply or breaks the second inverse capacity at some legal parameter. This is excluded on the stated rectangle, including the full length-error allowance used below. It is not a claim about unexamined parameter extensions.
+
+**H-UNIFORM-BIN:** for fixed kappa<3/4 there exists c(kappa)>0 such that the new balanced row exponent is at most the old one minus c(kappa) for every delta,x in the rectangle. This precisely quantified scalar assertion is REFUTED by x=0. No artificial parameter point is called a realized Hecke fiber or a counterexample to the canonical theorem.
+
+**H-AUTOMATIC-ENDPOINT:** the supplier extension alone permits replacing Delta by (kappa-3/4)/2 throughout the old HIGH theorem and iterating the global boundary. The actual theorem hypotheses do not justify this inference. This is an identified unsupported use, not a mathematical impossibility theorem for feedback.
+
+### D. Exact Experimental Carrier
+
+The source is the pinned original OAI Hecke `Fiber`, not rational Mobius data. Preserve `F.rows`, its witness family and label, left/right dyadic lengths, actual row ideal coefficient relation and reverse flag, prime profiles, excluded-prime masks, fixed amplitude bins and physical selected product. The native generalized supplier keeps the same `HighData Delta`; only the `Moments` capacity index becomes `(kappa-3/4)/2`.
+
+Write delta=2*a-1, q=F.q, x=q/delta, r=F.r, m=F.m, t=tstar. On the actual low-bin branch a>51/100, 0<delta<=5/6 and 0<=x<=1/2. The closed delta=0 face is included only to strengthen the scalar certificate; it does not use the undefined actual quotient q/delta there. The scalar expression is defined independently on that face.
+
+The common source losses are retained. The raw branch exponents before their explicitly stated errors are
+
+```text
+I0 = max(1,(1+5*r)/6) - delta*r,
+P0 = 1 - 2*delta*m,
+I  = 1 - delta*r - 2*q*z,
+P  = 1 - 2*delta*m - 2*q*z.
+```
+
+The inverse branch requires z>=0, z<=7/37, r+2z<1 and 2r+8z<3. The plain branch requires z>=0, z<=7/37 and 2m+6*kappa*z<=1. The original source supplies at least 7/37 total slot width; selection loses the same mesh term as before. No continuum selection substitutes for actual slots.
+
+Registered domain: kappa in [1/2,3/4], delta in [0,5/6], x in [0,1/2], t in [1,3/2]. Analytic use is STRICTLY kappa>1/2 with `51/100<=HeckeZeroSupremum.beta`, `2*HeckeZeroSupremum.beta-1<=kappa`, and the genuine source fineness condition. Constants may depend on a fixed lower kappa0>1/2. Uniform polynomial inequalities down to 1/2 do not imply uniform analytic constants there.
+
+The source field retains d>=1/200, d<=7/8 in the assembled moment interface, Z^(1/100)<=rowNorm, nonunit and residue masks, external real part 17/50, actual profile derivatives j+k<=2, height bounds and the same selected subsets. The sharper separate marked field has exponent 1+D.t/2; the four-field common record explicitly widens it to 1+D.t. This report does not claim to recover that separate half-loss too.
+
+### E. Executed Results
+
+The exploratory four-slice scan used ordinary floating point only to locate a difficult region near delta=31/80, x=1/2. It is not used for any certified sign, maximum or theorem. All final arithmetic uses Python `Fraction` or independent JavaScript normalized BigInt rationals; no rounding error, probable primality, random seed or transcendental approximation is involved.
+
+| Check | Exact outcome |
+| --- | --- |
+| Rational parameter checks | 9,639 registered points: 9 kappa values, 21 delta values, 17 x values and three t values |
+| Python held-out regime | 400 deterministic prime-denominator points, distinct from the exploratory grid |
+| Independent JavaScript held-out regime | 401 differently generated rational points, with crossing and balance obtained by solving the two affine intersections |
+| Uniform certificate | 324/324 Bernstein coefficients strictly positive, identical across both methods |
+| Actual branch case-split stress | 3,000 rational length/error cases; 640 long, 438 inverse, 287 plain and 1,635 unmarked fallback cases |
+| Syntax validation | Python byte compilation and Node syntax check passed |
+
+The three uniform formulas and all capacity comparisons passed. The independent method does not import Python polynomials, coefficient tables or intermediate outputs: it evaluates the unexpanded rationally defined polynomial at interpolation nodes and inverts three small Bernstein evaluation matrices. The comparison program then checks all reconstructed coefficients against the Python result.
+
+Exact fixtures at delta=3/8, x=1/2:
+
+| kappa | A_kappa | Balanced t | Balanced row exponent | Endpoint functional |
+| --- | --- | --- | --- | --- |
+| 3/4 | 14/37 | 596/533 | 362/533 | -1/3936 |
+| 2/3 | 3/8 | 257/230 | 1249/1840 | -49/88320 |
+| 1/2 | 4/11 | 175/157 | 851/1256 | -95/60288 |
+
+The kappa=2/3 row is an arithmetic fixture, NOT a presently licensed unconditional full-family choice: licensing it would require beta<=5/6. The kappa=1/2 row is a limiting diagnostic outside the analytic theorem.
+
+Observed environment: Python 3.12.14, Node v24.22.1. The successful Python certificate run reported 1.125464596 seconds; terminal wall times were approximately 0.093 seconds for the Node verifier and 0.081 seconds for the coefficient/branch comparison. These are observed timings, not performance guarantees.
+
+### F. Exceptional Cases And Corrections
+
+1. At x=0, delta=3/8, every kappa in [1/2,3/4] has A=2/3, balanced t=20/17, row exponent 12/17 and endpoint -1/102. Thus H-UNIFORM-BIN is false. Equality also occurs when delta=0 or delta=5/6. These are parameter-domain equality certificates, not claimed arithmetic-row realizations.
+2. Strict inverse admission cannot discard nu. At kappa=2/3, delta=3/8, x=1/2 and balanced t=257/230, the crossing is r=82/115. Choosing z=(1-r)/2=33/230 gives r+2z=1, not <1. The actual proof chooses z=(1-r)/2-nu with nu>0, and retains its loss. This is an inherited strictness regression, not a new obstruction discovery.
+3. The first eight-box Bernstein attempt was inconclusive: the box delta in [3/8,2/5] had coefficient -79/150000. A negative Bernstein coefficient is not a counterexample to the polynomial. Splitting that interval once at 31/80 gave nine boxes and all-positive coefficients. The inequality and constant M(kappa) were not changed after that failure. No held-out check had run before the certificate was fixed.
+4. The proposed C++ independent verifier could not compile because Boost multiprecision headers were absent. It produced no mathematical result. A separately written Node BigInt interpolation replaced it and ran successfully. SymPy was also unavailable, so the Python computation uses elementary exact polynomial dictionaries. No package installation, local Lean build, or hidden tool assumption was used.
+
+### G. Hidden Variable And Classification
+
+The explanatory variable is x=q/delta: the actual width-weighted selected-prime amplitude relative to the detector threshold. Smaller kappa has no leverage when that weighted amplitude is zero. The size of the gain also depends quadratically on the distance s=5/6-delta from the long-branch endpoint. This makes a blanket per-bin saving the wrong quantitative description.
+
+For c=x/(3*kappa), set
+
+```text
+D_k = 3-x-2*c,
+A_k = 2*(1-c)*(1-x)/D_k,
+s = 5/6-delta.
+```
+
+For 1/2<=kappa<=3/4, 0<=x<=1/2, the exact difference is
+
+```text
+A_(3/4)-A_k
+  = 2*x*(3-4*kappa)*(1-x)^2 / (9*kappa*D_(3/4)*D_k),
+
+R_(3/4)-R_k
+  = delta*s^2*(A_(3/4)-A_k)
+      / (2*(s+delta*A_(3/4))*(s+delta*A_k)).
+```
+
+Every denominator is positive. These identities prove the improvement and its precise equality faces. They also explain why a joint complete consumer can improve even though some component bins do not.
+
+### H. Mathematical Derivation
+
+**RC1: generalized crossing and valid source capacities. PAPER_PROOF.** For all parameters in D, define
+
+```text
+r_k(x,t) = [c+(2-2*c)*t-x]/D_k,
+I(r) = 1-delta*[x+(1-x)*r],
+P_k(t,r) = 1-delta*[c+(2-2*c)*(t-r)],
+S_k(delta,x,t) = 1-delta+delta*A_k*(3/2-t),
+L(delta,t) = 1-delta+(5/6-delta)*(t-1).
+```
+
+Then I(r_k)=P_k(t,r_k)=S_k. The inverse exponent decreases in r and the plain exponent increases in r, so choose plain for r<=r_k and inverse for r>=r_k. Moreover
+
+```text
+D_k >= 11/6,
+23/37 <= r_k <= 1,
+1/3 <= t-r_k <= 1/2.
+```
+
+Here is a short proof including the boundary details. Multiply the crossing denominator by 3*kappa and put Dbar=9*kappa-3*kappa*x-2*x. It is at least 11/4. The crossing numerator is (6*kappa-2*x)*t+x*(1-3*kappa), increasing in t. At t=3/2 it equals Dbar. At t=1, 37*numerator-23*Dbar=15*kappa+9*x-42*kappa*x, nonnegative by its endpoint values in x and kappa. For the cofactor length, t-r_k is increasing in t, equals 1/2 at t=3/2, and at t=1 the inequality t-r_k>=1/3 reduces to x*(3*kappa-1)>=0.
+
+With the original length error gamma<=1/12 and m>=t-r-gamma on the plain side, m>=1/4. Thus, whenever its requested capacity is positive,
+
+```text
+(1-2*m)/(6*kappa) <= 1/6 < 7/37,
+7/37-1/6 = 5/222.
+```
+
+Subtracting nu>=0 preserves supply. On the inverse side r>=23/37 gives (1-r)/2<=7/37; with nu>0, both strict inverse inequalities hold, and the second has slack at least 9/37. These estimates concern the actual selection interface, not fractional arbitrary replacements for physical slots.
+
+**RC2: changed actual fiber consumer and balanced bound. PAPER_PROOF, source-moment hypotheses retained.** Replace only the old moment capacity index by `(kappa-3/4)/2`. Under the other hypotheses of `count_from_raw_moments`, its conclusion becomes
+
+```text
+card(F.rows) <= fiberConstant(C,height,K0)
+  * U^(max(S_k(delta,x,t),L(delta,t))
+       +159*epsilon+epsilon_m+F.mesh+7*nu).
+```
+
+The previous extra Delta/4 is absent. No claim removes the 159*epsilon, epsilon_m, mesh or nu costs. The four branch suppliers and their constants are unchanged except for using the already-proved `plain_marked_count_half` at capacity 6*kappa.
+
+Proof of the case split: for r>=1 use I0 and r<=t+gamma. For r<1 on the inverse side, use I unless `(1-r)/2<=nu`; then I0 is at most 1-delta+2*delta*nu. On the plain side, m>=1/2 gives P0<=1-delta. If its capacity is at most nu, P0<=1-delta+6*delta*kappa*nu<=1-delta+6*nu. Otherwise use RC1's admissible requested z. Replacing m by t-r costs at most 2*gamma because the slope is delta*(2-2*c) in [0,2]. All marked requested-z losses fit the original `commonLoss=154*epsilon+epsilon_m+mesh+nu`. The old conservative additional 5*gamma+6*nu remains sufficient. Setting gamma=epsilon gives exactly the displayed 159*epsilon+epsilon_m+mesh+7*nu.
+
+The coefficient inequality follows from the original witnesses, common frequency, profiles, selected products and four moment estimates. Empty row sets are trivial; nonempty fibers retain the positive supply condition. No inverse or unmarked field requires positivity of the capacity-only Delta index. In contrast, downstream modules with a physical nonnegative Delta cannot simply be invoked at that negative index.
+
+The new balanced choice and row exponent are
+
+```text
+t_k = 1 + delta*A_k/[2*(s+delta*A_k)],
+R_k = 1-delta + s*delta*A_k/[2*(s+delta*A_k)].
+```
+
+Here s+delta*A_k>0, t_k in [1,3/2], and S_k(delta,x,t_k)=L(delta,t_k)=R_k. The genuine finite-bin aggregation remains multiplicative by `card(Label)*(dyadicLength U)^2*card(B.Bin)`. We do not drop this factor or claim its later costs vanish.
+
+**RC3: full-rectangle detector endpoint certificate. PAPER_PROOF with FINITE_COMPUTATION certificate.** Define exactly the original endpoint functional
+
+```text
+E_k(delta,x) = -1/48 + (2/3)*delta + delta*x/6
+                -(13/16)*(1-R_k).
+```
+
+Then, for every real 1/2<=kappa<=3/4, 0<=delta<=5/6, 0<=x<=1/2,
+
+```text
+E_k(delta,x) <= -1/5000-(3-4*kappa)/1600 = -M(kappa).
+```
+
+This is a universal algebraic assertion, not a finite-grid claim. Its exact certificate follows. Set v=3-4*kappa, Pbar=(6*kappa-2*x)*(1-x), J=s*Dbar+delta*Pbar. We have Pbar>=1 and J>=5/6. Clear only the positive denominator 96*J:
+
+```text
+H(delta,x,v) = [2+delta*(14-16*x)-96*(1/5000+v/1600)]*J
+                -39*delta*s*Pbar
+             = -96*J*(E_k+M(kappa)).
+```
+
+After substituting kappa=(3-v)/4, H has degree at most (2,3,2) in (delta,x,v). On each box below, affinely rescale to [0,1]^3 and expand in the tensor Bernstein basis of those degrees. Every basis function is nonnegative and their sum is one. Therefore the minimum coefficient bounds H below on that entire box. The following are the EXACT minima, independently reconstructed:
+
+| delta interval | Minimum of its 36 Bernstein coefficients |
+| --- | --- |
+| [0,1/4] | 38353/60000 |
+| [1/4,1/3] | 16771/120000 |
+| [1/3,3/8] | 1729/120000 |
+| [3/8,31/80] | 8329/1200000 |
+| [31/80,2/5] | 17861/2400000 |
+| [2/5,5/12] | 1231/75000 |
+| [5/12,1/2] | 319/6000 |
+| [1/2,2/3] | 7067/15000 |
+| [2/3,5/6] | 69827/30000 |
+
+Each box has the FULL x interval [0,1/2] and v interval [0,1]. Thus the boxes cover the complete parameter rectangle, including shared boundaries. The reproducible coefficient formula is: if the affinely transformed power coefficients are a_j, the Bernstein coefficient at i is `sum_(j<=i) a_j product_l binom(i_l,j_l)/binom(n_l,j_l)`, n=(2,3,2). The two executed implementations below reconstruct every a_j/b_i comparison without relying on a decimal sign.
+
+**RC4: endpoint-with-loss and the other branch. PAPER_PROOF / CONDITIONAL at the unwired source return.** If the actual row exponent is at most R_k+loss, the same functional is at most `-M(kappa)+(13/16)*loss`. For 5/6<=delta<=1, the unchanged high-bin proof gives `-1/48-delta/16+(13/16)*loss`, at most `-7/96+(13/16)*loss`, stronger than this new margin. The high-bin complement is therefore not silently omitted.
+
+At a licensed kappa=3/4-2*g with 0<g<1/8 and beta<=7/8-g, the parameter margin is `1/5000+g/200`. This is an additional detector budget, NOT a conclusion that beta decreases by that amount.
+
+### I. Precise Theorem And Evidence Status
+
+| Stable ID | Assertion | Status |
+| --- | --- | --- |
+| 20261107-census-2/RC1 | Generalized crossing, both inverse inequalities and genuine selection supply | PAPER_PROOF; SELF_AUDIT; independent review PENDING |
+| RC2 | Source-qualified four-branch fiber count with kappa retained and no old Delta/4 widening | PAPER_PROOF; source-moment hypotheses explicit; not formalized |
+| RC3 | Uniform complete detector functional margin M(kappa) on the entire real rectangle | PAPER_PROOF supported by independently checked exact FINITE_COMPUTATION certificate |
+| RC4 | Loss propagation and unchanged high-bin return; complete-probe application still conditional | CONDITIONAL for the uncompleted complete HIGH integration |
+| RC5 | H-UNIFORM-BIN is false on the stated parameter domain; equality-face and strict-capacity certificates | REFUTED / FINITE_COMPUTATION; no claimed actual-row realization |
+| RC6 | Registered grids, held-out cases, exact cross-language coefficients and branch stress | FINITE_COMPUTATION |
+
+The next theorem worth implementing, after independent review and utility assessment, is a kappa-parameterized `count_from_raw_moments` and its `fixed_amplitude_count_from_raw_moments` consumer with RC2's displayed loss. This is a smaller, source-backed inference, not a new signed-covariance assumption.
+
+### J. Complete Return And Proof Impact
+
+The actual native HIGH assembly charges
+
+```text
+(13/16)*(159*epsilon+epsilon_m+R_slot+7*nu)
+ +2*zeta+(3/2)*mu
+ +(26*e+(N+8)*eps+loss+mesh/6)
+ +(logCost+heightCost+momentCost)+saving.
+```
+
+Its current sufficient cap is 49/440640. RC3 supplies the candidate replacement cap M(kappa) **after** RC2 has been wired through the actual batch/source consumer. The present report does not change any of these charges, ignore source thresholds or delete a term. Character constants and polynomial height costs remain those of the native supplied moments. The kappa-dependent analytic constants are fixed before the large-scale limit.
+
+Two precise return limitations remain. First, `actual_high_probe_from_raw_moments_tilted` still takes a nonnegative physical Delta and downstream source hypotheses; the capacity-only negative index in `SourceMomentBoundAtKappa` is not a legal substitution for that physical parameter. Second, its current fixed comparison explicitly assumes `7/8<=HeckeZeroSupremum.beta`. The old declaration cannot simply be applied below 7/8 to license a feedback iteration. A generalized same-probe comparison must prove its own range and retain geometric, principal, floor, window, conductor, remote, exceptional and height budgets.
+
+LOW remains `3/16-9*tilt+positive_loss`; the principal shift remains `-11/16-8*tilt`. Their difference is `7/8-tilt`, with the actual slot charge `24*tilt<=(7/8)*D.rmin`. This is reused existing structure. RC3 alone does not enlarge the allowed physical tilt or improve that difference. Original J=empty still has one outer tuple and zero outer cross Gram; no outer-pair saving is claimed. The future proof may consume the new margin jointly with other existing estimates, but it must exhibit that changed complete inference.
+
+No sharp square-shell estimate, actual-prime VF payment or rational-to-Hecke identification is assumed. There is no new complete zero bound to transfer to Mertens; any eventual transfer must spend a stated positive loss before claiming a fixed no-loss power, and retain the actual squarefree diagonal and all signed pairs.
+
+### K. Falsification, Independence And Formal Audit
+
+The algebraic proof does not assume the desired endpoint. It changes a specified consumer of available moment estimates. The finite grid is diagnostic; the uniform inequality follows from the exact Bernstein certificate plus its elementary nonnegative-basis proof. The independent implementations validate arithmetic, not independent Referee acceptance of the full mathematical interpretation.
+
+The #1103 PR body is an early work-in-progress description and is not treated as the final proof status. Live metadata says human-merged at 2026-11-07T15:44:29Z, head 06dde8d85985c86481680610b6c86c663be4e242. Dedicated workflow **42386987885**, job **128446349776**, completed successfully. Its tested synthetic merge e9e581ca346364dd6bfa0ec492cdf6ea2a7d7832 and current main have the identical full tree **31c33d2adcc24ac16d0e4e3655c54ed99cf6b9bb**. Its terminal outputs for the generalized band, marked source, four-field moments and row count list only propext, Classical.choice and Quot.sound. Generated sources were downloaded and inspected; their selected hashes match the artifact manifest.
+
+The log also contains two upstream Wiener `sorry` warnings during its prerequisite build. They are not concealed or treated as proof of a target failure: the relevant terminal axiom checks subsequently show no sorryAx. No claim is made that every declaration in that prerequisite is certified. The new RC1-RC4 claims were not compiled, and receive no inherited Lean certification.
+
+The proof artifact ZIP digest is 1e7455779f49942a7ce9d5d0ee00d17601ad83639d43541e5a7e9afd6dee5e1f, exactly matching GitHub artifact metadata. Artifact ID 13579504958. Original OAI source pin is 1581d4cbdd69a0faf34b2089614fe2a814316a6a. Source and artifact provenance are recorded below; no source-only inspection is described as a new Lean run.
+
+### L. Continuity And Specialist Handoffs
+
+Both Eastern dates' seven role files were retrieved in full, with relevant findings, continuation sections, exact selected derivations and correction history read. Unrelated code appendices were not all rerun. At this intake all TODAY reports are AVAILABLE, and YESTERDAY is CARRY_FORWARD. Older embedded TODAY=PENDING markers remain historically accurate for their original runs, not this one.
+
+Continuity consumed: today's Coordinator PG signed-graph restriction; Owner SG and newer RS square-sampled reserve result; Analytic GL and newer FT complete Nyman norm return; Wheel DI and newer LR admitted three-row incidence; own SC signed-label capacities; Referee GL acceptance and NC/PF cutoff qualifications; Lean GL2 implementation. Yesterday's own GM/HC/FW, Coordinator NS/CS, Owner BT/RZ/DR/MS, Analytic FP/RM/AQ, Wheel CP/PB/GF, Referee CP/RM/spectral decisions and Lean sampling/null/increment results retain their scoped status. The newly merged consumer-reuse directive supersedes old mandatory source-cancellation tickets, not those results.
+
+The external inbox has no entry newer than October 18. EXT-20261018-PNT-1, EXT-20261017-XCOORD-1 and EXT-20261014-5 remain source/cutoff/scope cautions, not suppliers for this Hecke detector. Their old cadence and routing language is not live authority.
+
+- Proof Architect: register RC2-RC3 as a concrete post-#1103 consumer improvement, not a new endpoint. Keep the complete HIGH/LOW join and nine-route coverage explicit.
+- Analytic: on the next OAI turn, the available small task is to propagate the genuine kappa record through the four-branch count, preserving RC2's exact errors. The existing weighted fourth moment needs no reproof. Other protected route work is not reset.
+- Finite Wheel: independently check the physical selection interface, especially the universal 5/222 spare below 7/37 on the plain side, strict inverse nu, empty selections and finite-bin multiplicities. No additional prime census is needed for this scalar certificate.
+- Owner: this is not a rational Mobius/VF transfer. Preserve SG/RS and the due JOH route; the complete-consumer method may be useful without identifying the carriers.
+- Adversarial Referee: audit RC1's full rectangle, RC2's four fallbacks and loss accounting, the independent 324-coefficient proof, and the distinction between a capacity index and physical Delta. Challenge global bootstrap claims unless the real HIGH hypotheses have been generalized.
+- Lean Verification: after independent qualification, the intended useful unit is the kappa-retaining count plus its immediate fixed-amplitude consumer, not a standalone constant lemma with no consumer. Reuse #1103's exact proof artifact and do not alter the original arithmetic suppliers or weaken audits. No branch, PR or launch is requested or performed here.
+
+### M. Ranked Experimental Portfolio
+
+1. **Promote RC2-RC3:** source-backed parameterized detector count and its full-domain certificate; first remaining work is actual downstream integration and independent review.
+2. **Keep weighted marked averaging separate:** the 1+D.t/2 supplier is present, but common source assembly widens it; using that extra half-loss needs an explicit consuming branch, not double-credit with the present capacity gain.
+3. **Reject H-UNIFORM-BIN; do not assert automatic bootstrap:** exact equality faces and current physical-Delta/beta hypotheses delimit these shortcuts. They do not rule out a different joint consumer.
+4. **Carry forward SC capacity-safe transport and NYMAN FT:** no repeated fixed-band matching scan, unchanged prime cutoff, old spectral falsifier or external decimal leaderboard was substituted for new work.
+
+### N. Next-Run Resume Capsule
+
+```text
+RUN: 20261107-census-2; scheduled 11:00:01 EST; RUN_ID_UNAVAILABLE.
+AUTHORITY: main aa10b310efb2a095fd4c69dc965e6bde0bd135d6.
+CHAIN_ACK: CANCELLATION_CHAIN_REUSE_V1.
+SOURCE: #1103 generalized source moments and literal marked row count;
+        original OAI 1581d4cbdd69a0faf34b2089614fe2a814316a6a.
+NEW: kappa-dependent crossing/balance; actual fiber exponent without
+     old Delta/4 widening; full detector margin 1/5000+(3-4*kappa)/1600.
+DOMAIN: kappa in [1/2,3/4], delta in [0,5/6], x in [0,1/2].
+ANALYTIC: strict kappa>1/2, fixed lower floor before constants,
+          full-family license, actual rows/profiles/heights/masks unchanged.
+CERTIFICATE: 9 boxes, 324 positive rational coefficients; independently
+             equal Python power conversion and Node interpolation.
+FINITE: 9639 grid +400 Python held-out +401 Node held-out;
+        3000 error/branch stress cases, all complete.
+REVIEW: SELF_AUDIT; independent Referee PENDING; new claims NOT_FORMALIZED.
+NEXT SINGLE TASK: carry RC2 through count_from_raw_moments and
+ fixed_amplitude_count_from_raw_moments with the actual Moments record;
+ then identify every remaining physical-Delta use before a HIGH extension.
+DO NOT: reoptimize the tiny explicit slot denominator, infer a new beta
+ from M(kappa), set kappa=1/2 analytically, or iterate the old beta>=7/8 theorem.
+NO NEW GLOBAL EXPONENT; canonical VF/RH OPEN; SEARCH_BROAD.
+```
+
+All computational sessions finished. Only this authorized own daily report is changed remotely. No Lean source, another report, shared policy, issue/comment, proof branch/PR, workflow, schedule, permission or merge action was modified; no other agent was launched. Publication verification is appended only after actual commit and immutable readback.
+
+### Prepublication Freshness
+
+At 2026-11-07T16:21:43Z, main was re-fetched and remained aa10b310efb2a095fd4c69dc965e6bde0bd135d6. No open/draft PRs were returned. All seven same-day upstream report blobs remained unchanged from intake except this run's own already-verified checkpoint. No unfinished external invocation is presumed complete. The selected source definitions and policy therefore require no changed-dependency rerun.
+
+### Reproducibility And Source Ledger
+
+The code below is the actual successfully executed source, not proposed pseudocode. Run in one directory:
+
+```bash
+python consumer_explore.py
+python consumer_certificate.py
+node consumer_reference.mjs
+python consumer_compare.py
+python -m py_compile consumer_explore.py consumer_certificate.py consumer_compare.py
+node --check consumer_reference.mjs
+```
+
+The scripts write their computational JSON outputs under /workspace. The report embeds the full exact coefficient construction and the independent reconstruction, so the durable research evidence does not depend on scratch-file persistence.
+
+| Executed file | SHA-256 |
+| --- | --- |
+| consumer_explore.py | ffdafa462bd41d502d411a9c1d4b59c5c33c746f2f701a5886ec5f51aaceeaba |
+| consumer_certificate.py | 2f1a306e0eda98e1f2f73bb5af3f7905f1cbe845d7d7b10b025a830989e9a3fd |
+| consumer_reference.mjs | d3d2cdbef76d23d2f2e680330a237875d2be525d339d5d9e3bc3382a69f062f0 |
+| consumer_compare.py | 6d0ed5c616f0f45dc843270f3337755fa6575f2e2ec0355e10ef70108f03206f |
+
+The original executed Python diagnostic-row serialization has SHA-256 ee5e78a5a9ff6b53f8ffcd7dc3fdb7c3c2aed9d8669b2fe491895e5f4a90358e. No C++ execution success is claimed.
+
+
+#### Main-Source Blobs
+
+All paths in this table are at main aa10b310efb2a095fd4c69dc965e6bde0bd135d6.
+
+| Path | Git blob SHA |
+| --- | --- |
+| AGENTS.md | 7d19591d69a141c2c094a81a7dff2569562ab892 |
+| CURRENT_PROOF_CONTRACT.md | 7c4ac83a1ec1a4144e1bd691391ed4244f1cc27c |
+| docs/RHLEAN_REUSE_CANCELLATION_CHAIN_20261107.md | ef8d3ac76a893028f4de772c9a00d3bc261c8132 |
+| docs/RHLEAN_PAID_BASELINE_EXACT_CONSUMER_20261106.md | 13d58dd12d90fbf1160812c7c93442dc5d0576ac |
+| research/VF_CANONICAL_SQRT_TWO_VON_KOCH.lean | 79030d70e8d3e0d08eef9bac53fef95c36eca2fb |
+| research/oai_434/RetainedSlotFeedback.lean | 51628cad59734f948224510f7ac94fd68efaacfb |
+| research/oai_434/Feedback/Range.lean | 743ad5cca9aa500dcf3f34567cbc6e5f6fa89223 |
+| research/oai_434/VF919NativeStrictSevenEighths.lean | efbf2780f0b453a702fb8847f2d360d8faf0fa66 |
+| research/oai_434/VF919TiltedProbe.lean | 0f95d412bce773d50e71b1809ab9942653e66812 |
+| research/oai_434/VF919TiltedHighAssembly.lean | 883141e0af896d4132bfc4ffa076e2d265ece5c9 |
+| research/oai_434/VF919ExplicitFixedSourceSlotCount.lean | bad5aab0a60e96d19e7c9550cd7c0a072288bc0f |
+| scripts/lean/retained_slot_feedback/prepare_moments.py | 22ee4a6445b242e8a096f54fc923c52d6616e2e0 |
+| scripts/lean/retained_slot_feedback/prepare_detector.py | caedf4e83ab4f0890a1e90ad2ddee4eb92e48377 |
+
+#### Original Analytic Source
+
+Repository openai/math, immutable pin 1581d4cbdd69a0faf34b2089614fe2a814316a6a. All source files below were retrieved directly, not inferred from filenames.
+
+| Path below lean/OAI/NumberTheory/DirichletL/ | Git blob SHA |
+| --- | --- |
+| Hecke/DetectorRawFiber.lean | ee826e81bbec1df5820f26aa15bce53bcb675cd6 |
+| Hecke/DetectorRawBranches.lean | 16adf0ef89dafd510b98dd44e9a5461e3fbf351d |
+| Hecke/DetectorBranchBudget.lean | 05e7948b9df4c2385d08db006fbdbae56f62b0c3 |
+| Hecke/DetectorRowCountCrossing.lean | 43adea8cf7c2ec8639f5b3eb0403d240e4cc8115 |
+| Hecke/DetectorRowCountOptimization.lean | 7aa80cdbfadcbf29c6b78199ec15674c99b161f4 |
+| Hecke/DetectorRowCountEndpoint.lean | 24ec6bcdaf9e017c41a39c12bc503c86a28d5ef5 |
+| Hecke/DetectorCountFromMoments.lean | 91a6e8aa5e0336d6006a5211e77a13f7f8aba348 |
+| Hecke/DetectorFixedAmplitudeCount.lean | 0b83ce168a0dd8b82e3d50fb6c04b2f05d1b1d18 |
+| Hecke/DetectorRowCount.lean | 27d8321e816fd7eac1369f44e125ee53466cd8d0 |
+| Detector/DetectorPlainMarkedFineField.lean | d4b3e96991e97155c064df03b988a5787da3252a |
+
+#### Generated, Compiled Source Evidence
+
+These are artifact SHA-256 values, not Git blob SHAs. Each selected generated file was inspected and matched to its manifest.
+
+| Generated module below research/oai_434/Feedback/ | SHA-256 |
+| --- | --- |
+| SourceFeedback.lean | 9c7abb4987d79df4489a7f8bcca176ab4427538b7260a0319f4268ceb54169df |
+| SourceMoments.lean | 62e95892524f7b5938588985c216e87e9c19fa915291e9f932396c383eac2f67 |
+| RowCount.lean | b4e7234e1c40281018455112992945f5677369ec5f373a2cba25e7d9e5c6709c |
+| Applications.lean | 7df779842a3c605a322ad0eab20b2f70d54d395f62dd58ea78b20d2aeee637cd |
+
+#### Two-Day Handoff Ledger
+
+Initial agent-reports commit 6d68bdbd6e60d83c6e066ece7dcabb7de3855ee8. AM/PM Coordinator directory entries have identical blobs on each date; one substantive copy was read. TODAY=AVAILABLE for every listed role. YESTERDAY=CARRY_FORWARD. Retrieval and review do not certify every inherited paper claim.
+
+| Role | November 6 blob | November 7 intake blob |
+| --- | --- | --- |
+| 00-coordinator-am.md | 8812a90540fb511279b5f4ce08e108ef717d5ef1 | 4a71edcce4c44a309640d36e9453d016e5b188a9 |
+| 10-owner-payment.md | 1856a96aaaa9d86a5ee2d59ffe50ced936443fa6 | 432fc87602f97318fdac212002b52ac29f12a0e0 |
+| 20-analytic-type-ii.md | 7997620b6ab7eb0701296994734ee910df3c3ba1 | 1315b3c9deba1148338d9023af349ee8a246dae7 |
+| 30-finite-wheel.md | 3099558194a00358962ff1844bf283e625b9283d | b973552f1574e39afe6dbc165bde3635f12c9ead |
+| 40-prime-census.md | c34ac074296e8b2e5b20dee3a2ce02518571206c | c9d78787ca4fca22f89bc9bcaf886e5ae74deda2 |
+| 50-adversarial-referee.md | da3265467c799e9d21832ab25245617ba3b15a54 | 787a9030cc6d6f8f63fa89cd3a99d7cf54e25ea5 |
+| 60-lean-verification.md | b8bfe3ce9c20d7903395364efb39bcec974c8a2f | 7df1e5d73bfe6cbbb2fa76d6380d7d456a938c11 |
+
+EXTERNAL_HANDOFFS.md blob 038018145c0fddb2f6306c0712373adf9cd1ea52; no November entry. Current own checkpoint was published at 1a03aa3dd4944d85207fcbbcecfe25d2e8ebf568, blob d53e263c98f452691e54976029e4230596caaf53; immutable full readback matched and the commit changed only this report, 64 additions and zero deletions.
+
+#### Executed Source: consumer_explore.py
+
+```python
+from fractions import Fraction as F
+import json
+
+
+def values(k, d, x):
+    den = 9*k-3*k*x-2*x
+    p = (6*k-2*x)*(1-x)
+    s = F(5, 6)-d
+    j = s*den+d*p
+    a = p/den
+    t = 1+d*p/(2*j)
+    r = 1-d+s*d*p/(2*j)
+    e = -F(1, 48)+F(2, 3)*d+d*x/6-F(13, 16)*(1-r)
+    return a,t,r,e
+
+
+if __name__ == '__main__':
+    result = []
+    for k in [F(1, 2), F(7, 12), F(2, 3), F(3, 4)]:
+        best = max((values(float(k), i/240, j/160)[3], i, j)
+                   for i in range(201) for j in range(81))
+        d, x = F(best[1], 240), F(best[2], 160)
+        result.append(dict(k=str(k), delta=str(d), x=str(x),
+                           endpoint=str(values(k,d,x)[3]),
+                           decimal=float(values(k,d,x)[3])))
+    print(json.dumps(result, indent=2))
+```
+
+#### Executed Source: consumer_certificate.py
+
+```python
+"""Exact retained-capacity certificate; no Lean execution or source modification."""
+from fractions import Fraction as F
+from itertools import product
+from math import comb
+import hashlib
+import json
+import platform
+import time
+
+from consumer_explore import values
+
+
+class Poly:
+    def __init__(self, terms):
+        self.terms = {a: F(v) for a, v in terms.items() if v}
+
+    @staticmethod
+    def cast(value):
+        return value if isinstance(value, Poly) else Poly({(0, 0, 0): value})
+
+    def __add__(self, other):
+        out = self.terms.copy()
+        for a, v in self.cast(other).terms.items():
+            out[a] = out.get(a, F(0)) + v
+        return Poly(out)
+
+    __radd__ = __add__
+
+    def __neg__(self):
+        return Poly({a: -v for a, v in self.terms.items()})
+
+    def __sub__(self, other):
+        return self + -self.cast(other)
+
+    def __rsub__(self, other):
+        return self.cast(other) + -self
+
+    def __mul__(self, other):
+        out = {}
+        for a, v in self.terms.items():
+            for b, w in self.cast(other).terms.items():
+                c = tuple(i+j for i, j in zip(a, b))
+                out[c] = out.get(c, F(0)) + v*w
+        return Poly(out)
+
+    __rmul__ = __mul__
+
+    def __truediv__(self, other):
+        return self * (1/F(other))
+
+    def eval(self, point):
+        return sum(v * point[0]**a[0] * point[1]**a[1] * point[2]**a[2]
+                   for a, v in self.terms.items())
+
+
+def bernstein_on_box(poly, bounds, degree=(2, 3, 2)):
+    # Exact affine substitution, then power-to-Bernstein basis conversion.
+    local = {}
+    for a, value in poly.terms.items():
+        for j in product(*(range(i+1) for i in a)):
+            v = value
+            for n, b, (lo, hi) in zip(a, j, bounds):
+                v *= comb(n, b)*lo**(n-b)*(hi-lo)**b
+            local[j] = local.get(j, F(0)) + v
+    answer = {}
+    for i in product(*(range(n+1) for n in degree)):
+        b = F(0)
+        for j, v in local.items():
+            if all(j[k] <= i[k] for k in range(3)):
+                for k in range(3):
+                    v *= F(comb(i[k], j[k]), comb(degree[k], j[k]))
+                b += v
+        answer[i] = b
+    return answer
+
+
+def certificate():
+    d = Poly({(1, 0, 0): 1})
+    x = Poly({(0, 1, 0): 1})
+    v = Poly({(0, 0, 1): 1})
+    k = (3-v)/4
+    den = 9*k-3*k*x-2*x
+    p = (6*k-2*x)*(1-x)
+    s = F(5, 6)-d
+    j = s*den+d*p
+    margin = F(1, 5000)+v/1600
+    h = (2+d*(14-16*x)-96*margin)*j-39*d*s*p
+    # Freeze a small rational subdivision before the held-out evaluation.
+    cuts = [F(0), F(1, 4), F(1, 3), F(3, 8), F(31, 80), F(2, 5), F(5, 12), F(1, 2), F(2, 3), F(5, 6)]
+    boxes = []
+    for lo, hi in zip(cuts, cuts[1:]):
+        coeff = bernstein_on_box(h, [(lo, hi), (F(0), F(1, 2)), (F(0), F(1))])
+        boxes.append(dict(delta=[str(lo), str(hi)], minimum=str(min(coeff.values())),
+                          coefficients={','.join(map(str, a)): str(b) for a, b in coeff.items()}))
+    return h, boxes
+
+
+def crossing(k, x, t):
+    c = x/(3*k)
+    return (c+(2-2*c)*t-x)/(3-x-2*c)
+
+
+def test_point(k, d, x, t):
+    a, tb, rb, e = values(k, d, x)
+    rc = crossing(k, x, t)
+    mc = t-rc
+    assert F(23, 37) <= rc <= 1
+    assert F(1, 3) <= mc <= F(1, 2)
+    assert 1 <= tb <= F(3, 2)
+    assert (1-rc)/2 <= F(7, 37)
+    assert 2*rc+8*((1-rc)/2) <= 3-F(9, 37)
+    assert (1-2*(mc-F(1, 12)))/(6*k) <= F(1, 6) < F(7, 37)
+    short = 1-d+d*a*(F(3, 2)-tb)
+    long = 1-d+(F(5, 6)-d)*(tb-1)
+    assert short == long == rb
+    rcb = crossing(k, x, tb)
+    inverse = 1-d*(x+(1-x)*rcb)
+    plain = 1-d*(2*(tb-rcb)+x*(1-2*(tb-rcb))/(3*k))
+    assert inverse == plain == rb
+    old = values(F(3, 4), d, x)
+    assert a <= old[0] and rb <= old[2]
+    assert (rb == old[2]) == (k == F(3, 4) or d == 0 or d == F(5, 6) or x == 0)
+    margin = F(1, 5000)+(3-4*k)/1600
+    assert e <= -margin
+    return e
+
+
+def main():
+    start = time.perf_counter()
+    poly, boxes = certificate()
+    out = dict(python=platform.python_version(), boxes=boxes,
+               coefficients=len(boxes)*36,
+               all_coefficients_positive=all(F(b['minimum']) > 0 for b in boxes))
+    print(json.dumps({k: v for k, v in out.items() if k != 'boxes'}, indent=2))
+    print('box_minima', [(b['delta'], b['minimum']) for b in boxes])
+    assert out['all_coefficients_positive']
+    counts = {'registered': 0, 'held_out': 0}
+    points = []
+    for ik, idelta, ix in product(range(9), range(21), range(17)):
+        k, d, x = F(1, 2)+F(ik, 32), F(idelta, 24), F(ix, 32)
+        for t in [F(1), F(5, 4), F(3, 2)]:
+            e = test_point(k, d, x, t)
+            points.append((str(k), str(d), str(x), str(t), str(e)))
+            counts['registered'] += 1
+    for i in range(1, 401):
+        k = F(1, 2)+F((i*37) % 997, 4*997)
+        d = F(5, 6)*F((i*53) % 991, 991)
+        x = F((i*71) % 983, 2*983)
+        t = 1+F((i*89) % 977, 2*977)
+        e = test_point(k, d, x, t)
+        vv = 3-4*k
+        den = 9*k-3*k*x-2*x
+        p = (6*k-2*x)*(1-x)
+        j = (F(5, 6)-d)*den+d*p
+        assert poly.eval((d, x, vv)) == -96*j*(e+F(1, 5000)+vv/1600)
+        points.append((str(k), str(d), str(x), str(t), str(e)))
+        counts['held_out'] += 1
+    out.update(counts=counts, rows_sha256=hashlib.sha256(json.dumps(points).encode()).hexdigest(),
+               elapsed_seconds=time.perf_counter()-start)
+    with open('/workspace/consumer-certificate.json', 'w') as stream:
+        json.dump(out, stream, indent=2)
+    print(json.dumps({k: v for k, v in out.items() if k != 'boxes'}, indent=2))
+    for k in [F(3, 4), F(2, 3), F(1, 2)]:
+        d, x = F(3, 8), F(1, 2)
+        print('fixture', str(k), *(str(v) for v in values(k, d, x)),
+              'crossing', str(crossing(k,x,values(k,d,x)[1])))
+
+
+if __name__ == '__main__':
+    main()
+```
+
+#### Executed Source: consumer_reference.mjs
+
+```javascript
+// Independent certificate reconstruction by rational interpolation.
+import fs from 'node:fs';
+import assert from 'node:assert/strict';
+
+function gcd(a,b) { a=a<0n?-a:a; b=b<0n?-b:b; while(b) [a,b]=[b,a%b]; return a; }
+class Q {
+  constructor(n,d=1n) {
+    n=BigInt(n); d=BigInt(d); assert(d!==0n);
+    if(d<0n) { n=-n; d=-d; }
+    const g=gcd(n,d); this.n=n/g; this.d=d/g;
+  }
+  add(b) { b=q(b); return new Q(this.n*b.d+b.n*this.d,this.d*b.d); }
+  neg() { return new Q(-this.n,this.d); }
+  mul(b) { b=q(b); return new Q(this.n*b.n,this.d*b.d); }
+  div(b) { b=q(b); return new Q(this.n*b.d,this.d*b.n); }
+  cmp(b) { b=q(b); const n=this.n*b.d-b.n*this.d; return n<0n?-1:n>0n?1:0; }
+  toString() { return this.d===1n?`${this.n}`:`${this.n}/${this.d}`; }
+}
+const q=(a,b=1)=>a instanceof Q?a:new Q(a,b);
+const add=(...a)=>a.reduce((s,v)=>s.add(v),q(0));
+const mul=(...a)=>a.reduce((s,v)=>s.mul(v),q(1));
+const sub=(a,b)=>q(a).add(q(b).neg());
+const div=(a,b)=>q(a).div(b);
+const pow=(a,n)=>Array.from({length:n}).reduce(s=>s.mul(a),q(1));
+const eq=(a,b)=>assert.equal(q(a).toString(),q(b).toString());
+function choose(n,k) { let a=1; for(let j=1;j<=k;j++) a=a*(n+1-j)/j; return a; }
+eq(add(q(1,3),q(1,6)),q(1,2)); eq(q(-2,-6),q(1,3));
+
+function inverseMatrix(degree) {
+  const n=degree+1;
+  const a=Array.from({length:n},(_,i)=>[
+    ...Array.from({length:n},(_,j)=>mul(choose(degree,j),pow(q(i,degree),j),pow(sub(1,q(i,degree)),degree-j))),
+    ...Array.from({length:n},(_,j)=>q(i===j?1:0))]);
+  for(let j=0;j<n;j++) {
+    let pivot=j; while(a[pivot][j].n===0n) pivot++;
+    [a[pivot],a[j]]=[a[j],a[pivot]];
+    const scale=a[j][j]; a[j]=a[j].map(x=>div(x,scale));
+    for(let i=0;i<n;i++) if(i!==j) {
+      const c=a[i][j]; a[i]=a[i].map((x,k)=>sub(x,mul(c,a[j][k])));
+    }
+  }
+  return a.map(row=>row.slice(n));
+}
+
+function hvalue(d,x,v) {
+  const k=div(sub(3,v),4), s=sub(q(5,6),d);
+  const den=sub(sub(mul(9,k),mul(3,k,x)),mul(2,x));
+  const p=mul(sub(mul(6,k),mul(2,x)),sub(1,x));
+  const j=add(mul(s,den),mul(d,p));
+  const margin=add(q(1,5000),div(v,1600));
+  return sub(mul(sub(add(2,mul(d,sub(14,mul(16,x)))),mul(96,margin)),j),mul(39,d,s,p));
+}
+
+const inverse=(d,x,r)=>sub(sub(1,mul(d,r)),mul(d,x,sub(1,r)));
+const plain=(k,d,x,m)=>sub(sub(1,mul(2,d,m)),div(mul(2,d,x,sub(1,mul(2,m))),mul(6,k)));
+function crossing(k,x,t) {
+  const i0=inverse(q(1),x,q(0)),i1=inverse(q(1),x,q(1));
+  const p0=plain(k,q(1),x,t),p1=plain(k,q(1),x,sub(t,1));
+  return div(sub(i0,p0),sub(sub(p1,p0),sub(i1,i0)));
+}
+const short=(k,d,x,t)=>inverse(d,x,crossing(k,x,t));
+const long=(d,t)=>add(sub(1,d),mul(sub(q(5,6),d),sub(t,1)));
+const cuts=[q(0),q(1,4),q(1,3),q(3,8),q(31,80),q(2,5),q(5,12),q(1,2),q(2,3),q(5,6)];
+const degrees=[2,3,2], matrices=degrees.map(inverseMatrix);
+const indices=[];
+for(let i=0;i<3;i++) for(let j=0;j<4;j++) for(let k=0;k<3;k++) indices.push([i,j,k]);
+const key=idx=>idx.join(',');
+const boxes=[];
+for(let box=0;box<9;box++) {
+  let grid=Object.fromEntries(indices.map(([i,j,k])=>[
+    key([i,j,k]),hvalue(add(cuts[box],mul(sub(cuts[box+1],cuts[box]),q(i,2))),q(j,6),q(k,2))]));
+  for(let axis=0;axis<3;axis++) {
+    const next={};
+    for(const idx of indices) {
+      let v=q(0);
+      for(let l=0;l<=degrees[axis];l++) {
+        const src=[...idx]; src[axis]=l;
+        v=add(v,mul(matrices[axis][idx[axis]][l],grid[key(src)]));
+      }
+      next[key(idx)]=v;
+    }
+    grid=next;
+  }
+  let minimum=grid['0,0,0'];
+  for(const b of Object.values(grid)) { assert(b.cmp(0)>0); if(b.cmp(minimum)<0) minimum=b; }
+  boxes.push({delta:[cuts[box].toString(),cuts[box+1].toString()],minimum:minimum.toString(),
+    coefficients:Object.fromEntries(Object.entries(grid).map(([i,v])=>[i,v.toString()]))});
+}
+for(let i=1;i<=401;i++) {
+  const k=add(q(1,2),q((i*29)%1009,4*1009));
+  const d=mul(q(5,6),q((i*43)%1013,1013)), x=q((i*61)%1019,2*1019);
+  const f0=sub(short(k,d,x,q(1)),long(d,q(1)));
+  const f1=sub(short(k,d,x,q(3,2)),long(d,q(3,2)));
+  const t=add(1,mul(q(1,2),div(f0,sub(f0,f1))));
+  const row=short(k,d,x,t); eq(row,long(d,t));
+  const endpoint=sub(add(q(-1,48),mul(q(2,3),d),div(mul(d,x),6)),mul(q(13,16),sub(1,row)));
+  assert(endpoint.cmp(sub(q(-1,5000),div(sub(3,mul(4,k)),1600)))<=0);
+}
+const out={node:process.version,boxes,coefficients:324,held_out:401};
+fs.writeFileSync('/workspace/consumer-reference.json',JSON.stringify(out,null,2));
+console.log(JSON.stringify({node:out.node,coefficients:324,held_out:401,
+  minima:boxes.map(b=>b.minimum),status:'PASS'},null,2));
+```
+
+#### Executed Source: consumer_compare.py
+
+```python
+import json
+from fractions import Fraction as F
+from consumer_explore import values
+from consumer_certificate import crossing
+
+with open('/workspace/consumer-certificate.json') as stream:
+    python = json.load(stream)
+with open('/workspace/consumer-reference.json') as stream:
+    node = json.load(stream)
+assert python['boxes'] == node['boxes']
+
+checked = 0
+paths = {key: 0 for key in ['long', 'inverse', 'plain', 'unmarked']}
+for i in range(1, 3001):
+    k = F(1, 2)+F((i*29) % 1009, 4*1009)
+    d = F(5, 6)*F((i*43) % 1013, 1013)
+    x = F((i*61) % 1019, 2*1019)
+    t = 1+F((i*79) % 1021, 2*1021)
+    gamma = F((i*97) % 1031, 12*1031)
+    nu = F(1+(i*107) % 1033, 1200*1033)
+    r = (t+gamma)*F((i*109) % 1039, 1039)
+    m = max(F(0), t-r-gamma)
+    a = values(k, d, x)[0]
+    target = max(1-d+d*a*(F(3, 2)-t), 1-d+(F(5, 6)-d)*(t-1))+6*nu+5*gamma
+    i0 = max(F(1), (1+5*r)/6)-d*r
+    p0 = 1-2*d*m
+    rc = crossing(k, x, t)
+    if r >= 1:
+        choice = i0
+        paths['long'] += 1
+    elif r >= rc:
+        if (1-r)/2 <= nu:
+            choice = i0
+            paths['unmarked'] += 1
+        else:
+            z = (1-r)/2-nu
+            assert 0 <= z <= F(7, 37) and r+2*z < 1 and 2*r+8*z < 3
+            choice = 1-d*r-2*d*x*z
+            paths['inverse'] += 1
+    elif m >= F(1, 2) or (1-2*m)/(6*k) <= nu:
+        choice = p0
+        paths['unmarked'] += 1
+    else:
+        z = (1-2*m)/(6*k)-nu
+        assert 0 <= z <= F(7, 37) and 2*m+6*k*z <= 1
+        choice = 1-2*d*m-2*d*x*z
+        paths['plain'] += 1
+    assert choice <= target
+    checked += 1
+print('PASS: all 324 coefficients agree exactly; branch stress',checked,paths)
+```
+
