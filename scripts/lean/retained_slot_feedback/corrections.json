@@ -7,5 +7,9 @@
   ],
   "PositiveHighSource": [
     {"old":"omit [DecidableEq α] in\nlemma balanced_volume:","new":"omit cfg [DecidableEq α] in\nlemma balanced_volume:"}
+  ],
+  "Terminal": [
+    {"old":"open CenteredMomentEnergyCappedAnalyticSuccessor CenteredMomentEnergyCappedRadialTransport","new":"open FeedbackCenteredMomentEnergyCappedAnalyticSuccessor CenteredMomentEnergyCappedRadialTransport"},
+    {"old":"  letI : RHLeanFeedback.KappaRange :=","new":"  let : RHLeanFeedback.KappaRange :="}
   ]
 }
