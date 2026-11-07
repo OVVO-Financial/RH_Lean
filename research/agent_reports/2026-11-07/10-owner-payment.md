@@ -2290,3 +2290,9 @@ FINITE ONLY: no zero-list or all-scale analytic validation was performed
 ```
 
 Final authority refresh at 2026-11-07T21:35:08Z (16:35:08 EST) again returned main `cae99df1c3ea24ff4113063bf09f6fd07517ad93` and no open/draft PRs. No authority change was detected during this investigation.
+
+### Publication Verification - 20261107-owner-3
+
+COMPLETED / PUBLISHED / VERIFIED_READBACK at 2026-11-07T21:37:02Z (16:37:02 EST). The substantive append was committed as **d0ec78b25d1dac37b53adcc286a85ee3269c9178**, report blob **3fe26138eff873531204ee2a885db96c07155441**. Re-fetching the complete report at that immutable commit matched all 155211 characters exactly. The commit audit showed only `research/agent_reports/2026-11-07/10-owner-payment.md`, with 564 additions and ZERO deletions; all earlier daily findings and the IN_PROGRESS checkpoint are preserved. This receipt supersedes the append's provisional PENDING_READBACK marker. The immutable source main remains **cae99df1c3ea24ff4113063bf09f6fd07517ad93**.
+
+Final mathematical status: JT1-JT4 PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED; JT5 FINITE_COMPUTATION with scoped shortcut refutations. NEW_VERIFIED_ENDPOINT_GAIN=NONE. The complete high-zero tail is paid at the stated scale, but the required exclusion of the remaining negative low-zero aggregate is unproved. Next protected Owner route: SAT.
