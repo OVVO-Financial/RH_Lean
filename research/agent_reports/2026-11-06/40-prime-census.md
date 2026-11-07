@@ -2919,3 +2919,1100 @@ H-PRIME: sum_W w(m)Q(m)S(m)>=0 for every eligible N. Rival: a favorable coeffici
 Development domain fixed before execution: all eligible multiples of six from 24 through 1536. Held-out N: 3072,6144,7776,8190,12288,24576,49152. Separate head cells m<=H from post-head cells; the late fixtures have H<K. Rank extremes without fitting an asymptotic exponent. Restore all six terms Q^2+L^2+B^2-2QL-2QB+2LB before interpreting energy. Check the full original residue family and all return terms on small anchors N=6,12,18,24 and H in {2,3,N/2}, with 1<=m<=3N, not only before correction admission. Complete-period orthogonality will be checked only on small exact periods, not used as a finite-window lower bound.
 
 Implement a direct-modulo reference and a separately structured divisor-jump reconstruction; certify decision signs with outward enclosures or explicit rational log bounds, keeping floating diagnostics labeled. For important witnesses preserve source coefficients, endpoints and a standalone certificate. If the two reconstructions disagree, stop scaling and localize the first discrepancy. No conjectured universal sign or endpoint gain is assumed.
+
+
+## Scheduled NYMAN Final Synthesis - 20261106-census-3
+
+This completes the actual scheduled 2026-11-06T19:00:01-05:00 invocation, America/New_York; RUN_ID_UNAVAILABLE. It is not an additional launch. The preceding two Census runs and this run's preregistration are preserved. Publication is established by the later immutable-commit readback receipt.
+
+### A. Most Important Mathematical Discovery
+
+**Complete-period spectral orthogonality does not give favorable finite-window cancellation, and changing to the original Nyman weights can reverse the sign.** On the genuine flat-taper source, the first weighted failure in the registered exhaustive range is N=690, H=186:
+
+```text
+278408809 / 10^12
+  < sum_(115<=m<345) L(m)B(m)/[m(m+1)]
+  < 278408810 / 10^12.
+```
+
+Here L is the singleton REDUCED-FREQUENCY band, B the complete remaining spectrum, and both use the original Mobius logarithmic coefficients. This refutes H-SPECTRAL at its stated scope. The first unweighted failure occurs earlier, at N=222, H=75. At the held-out N=24576, H=3253, the unweighted cross term is negative but the original weighted cross term is positive. All cells there lie strictly beyond the initial head; the failure cannot be dismissed as an initial-head artifact.
+
+**A distinct dependence survives:** the COMPLETE prime-error/spectrum inner product is strictly positive in all 260 registered cases, even after subtracting the finite-window weighted means. This remains finite evidence, not a global sign theorem. Its arithmetic structure is visible in a source-exact increment identity: before high corrections enter, the residual increment depends only on the radical of the integer, not its prime-factor multiplicities. That identity is proved below and independently checked; it does not establish the observed aggregate sign.
+
+| Claim | Result | Evidence |
+| --- | --- | --- |
+| FW1 | Weighted and unweighted singleton/rest universal cancellation assertions fail, with first registered witnesses | REFUTED; FINITE_COMPUTATION with rational certificates |
+| FW2 | Original weighting reverses the N=24576 cross sign; exact Abel reconstruction explains it | FINITE_COMPUTATION; finite algebraic identity |
+| FW3 | Radical-dependent residual increments and identical prime-power jumps on the admitted pre-correction source | PAPER_PROOF; SELF_AUDIT, independent review PENDING |
+| FW4 | 260 complete-window prime/spectrum signs and centered signs survive; 176 cutoff-variation tests add no failure | FINITE_COMPUTATION; all-scale extension remains CONJECTURE |
+| FW5 | Independent source reconstructions, exact returns, missing-term controls and reproducible certificates | FINITE_COMPUTATION |
+
+Claim prefix: `20261106-census-3/`. No new claim is PROVED_IN_LEAN. No additional Mertens exponent, canonical VF bound, finite-A/C payment, or RH theorem is established. `eta_gate=SEARCH_BROAD`; `net_endpoint_gain=UNKNOWN`; `NEW_VERIFIED_ENDPOINT_GAIN=NONE`.
+
+### B. Current Authoritative Objective And Provenance
+
+Observed main: **d4df133117c5b58f90979d2eb680167ef37995cf**, including the human merge of #1099. Intake began 2026-11-07 00:00 UTC, which is November 6 in America/New_York. Initial reports head: **887aa0ff071229d5c6dc372fc2a6b822bf46a74a**. The canonical objective is still
+
+```text
+VFCanonicalSquareVonKochStatement:
+exists C>=0, forall integer R>=2,
+ |pi(R^2)-vfMidFinishedMass(R)-sqrt(2)| <= C R log R.
+```
+
+It remains OPEN. The inspected `riemannHypothesis_of_vfCanonicalSquare` still explicitly requires `ClassicalVonKochRHCriterion`. This run uses the distinct original Nyman residue carrier, not an identification with clipped VF/#915 or OAI ideal coefficients.
+
+| Source at pinned main | Blob SHA |
+| --- | --- |
+| AGENTS.md | 48b2a58ab5fcd402321a4dace511c7d54bf688a1 |
+| CURRENT_PROOF_CONTRACT.md | 7c4ac83a1ec1a4144e1bd691391ed4244f1cc27c |
+| Established-baseline correction | 13d58dd12d90fbf1160812c7c93442dc5d0576ac |
+| Independent multi-front policy | ffd8f1c65cc4da656174956d4e03b48bea46768b |
+| Stable task selector | 973d3d549a52a1afe2f02bfdcf8cc35fb6a76515 |
+| NYMAN_HIGH_COEFFICIENT_INVARIANT_20261104.lean | 2da630c1d5fb9302e2097ec1e170cf41c2b40609 |
+| NYMAN_FLAT_TAPER_RETURN_20261104.lean | 2d23721027ecc44e85b7add02fc632b482f03352 |
+| NYMAN_MOMENT_NULL_OBSTRUCTION_20261106.lean | 301d7286fc2151b5d33bdca9762a6a01c496ff87 |
+| VF_CANONICAL_SQRT_TWO_VON_KOCH.lean | 79030d70e8d3e0d08eef9bac53fef95c36eca2fb |
+| oai_434/VF919NativeSevenEighthsReplay.lean | 111c933a7ca15647105ce6a4d0f3cbfc3cde81f4 |
+| oai_434/VF919NativeStrictMertens.lean | b33a4883e1ddb0551b0f11f062bce46680d87450 |
+| oai_434/VF919ExplicitFixedSourceSlotCount.lean | bad5aab0a60e96d19e7c9550cd7c0a072288bc0f |
+
+Lean files in the table are under `research/`. The other required breadth, complete-return, persistent-engine, role, dynamic and multi-run policies were retrieved. `baseline_ack=PAID_BASELINE_EXACT_CONSUMER_V1`; `deployment_ack=NO_PIGEONHOLING_ROUTE_SELECTOR_V1`. Actual consumption is FW1-FW5, not merely this acknowledgement.
+
+**Established comparator.** The native all-prefix 7/8 result and its stronger existing strict-gap results are paid inputs. The available fixed-count boundary `b_*=7/8-1/(288*explicitSlotCount)` is not erased or counted as a new discovery. An every-positive-loss growth theorem is not a no-loss envelope at the same exponent. For this experiment no exponent envelope is needed: every discrete condition is exact and every decision sign is enclosed. The comparator's prime-error and full-return bounds are still required for quantitative endpoint use. The present finite sign tests do not improve them.
+
+**Live PR/CI evidence.** The open-PR collection returned no open/draft PR. Recent accepted changes include #1099 (Nyman null obstruction), #1098 (baseline correction), #1097 (CORR4 sampling), #1096 (odd-boundary cancellation), #1095 (audit repair), #1094 and #1093 (Nyman source results). Direct retrieval of dedicated runs confirmed success at the following exact proof heads:
+
+| Inherited proof | Head / dedicated run / job |
+| --- | --- |
+| #1093 flat complete return | a54f0cf9535c548920dae3412e3fbe6d6584e029 / 41955044802 / 127007831273 |
+| #1099 null obstruction | 269ce7a77df7239099f8717390e3f951e81e95f0 / 42271209683 / 128075944915 |
+| #1091 replay and strict/count baseline | 6778fd4c25b0f369d311e6e71223e168e329b4bf / 41898325686 / 126813711885 |
+
+The actual logs show Lean 4.34.1, warning-fatal checking, target declaration/type evidence, and standard `propext`, `Classical.choice`, `Quot.sound` axiom lists for the relevant declarations. Tested checkouts were synthetic PR merges, explicitly shown in the logs, not silently equated to main. The flat-return, null-obstruction, replay, strict-Mertens and explicit-count files were separately fetched at those proof heads and compared byte-for-byte with main: all match. These are reused inherited results, not a new full-main compilation. No local Lean or new Actions run was launched.
+
+### C. Competing Hypotheses And Continuity
+
+The early checkpoint was committed as **2df575b0db2f512f6c9fff07279764e1410d4237**, blob **093f3d8d265768937658df0a36c15bbd36beb0f1**, and read back byte-identically before execution. It fixed both sign hypotheses, exact source, weights, development/held-out ranges, head split and independent verification requirements.
+
+H-SPECTRAL proposed `<L,B>_w<=0` at every admissible N for each of w=1 and w=1/[m(m+1)]. The rival was sign-indefinite finite-window phase interaction, despite complete-period orthogonality. H-PRIME proposed `<Q,S>_w>=0`; its rival was failure of compensation with the actual prime-power residual. FW1 rejects H-SPECTRAL. H-PRIME survives only the declared finite tests.
+
+This responds to Coordinator `20261106-coordinator-1513/NS1-NS5`, using Analytic `20261106-analytic-2/RM1-RM6` and Referee `20261106-referee-7` through `-11`. The coordinator's O(H) full-period energy, positive limiting constant and no-sublinear-power conclusion remain inherited PAPER_PROOF claims, not newly independently certified here. The computation deliberately tests the unresolved finite-window question rather than fitting that constant again.
+
+All seven roles have committed November 6 reports. No missing same-day role is represented as a successful execution. The following reports were retrieved from both New York dates; coordinator mirrors had identical directory blob SHAs, so duplicate mirror bytes were not fetched needlessly.
+
+| Role file | November 5 blob | November 6 intake blob |
+| --- | --- | --- |
+| 00/90 coordinator mirrors | be661bb2ed2830fc4aeddf14713455e550d982cc | 2802753059cc55d1446087bc40266576214a9638 |
+| 10-owner-payment.md | 39665b5b28fc48378519ab9d56cee8df4d3e2681 | 1856a96aaaa9d86a5ee2d59ffe50ced936443fa6 |
+| 20-analytic-type-ii.md | 9490aa2eecafcd19d8007043cc5f978fe421a7c9 | 7997620b6ab7eb0701296994734ee910df3c3ba1 |
+| 30-finite-wheel.md | afc85d800c47f82f2db634591a7798005cb668de | 3099558194a00358962ff1844bf283e625b9283d |
+| 40-prime-census.md | 24fcd6a631eca9ae44238d927215f49e1d8a174f | 77777fae1f4273c76e0c1064f4529740cabfbb8b |
+| 50-adversarial-referee.md | 789ed87021fe98963c244a8d0c9075638e76be43 | 68ada01df5bd54ef07d22f1ebc4009ef9dd7e5b4 |
+| 60-lean-verification.md | 5e0ecdd8f08c2e19b4614f00c1a5657f58722344 | 5a08dc2ae99956bc020a57ad0cf51c67e6d0a7a5 |
+
+Relevant continuity: yesterday's exact-head Nyman obstruction is not applied to today's relaxed delta=V(H). Today's RM full return keeps the leaked head and high corrections; #1099 refutes unrestricted moment-only tail control, not the selected FAMILY. Owner's newest JOH MS3 is a source-level consequence of an existing boundary plus density, with a weaker complete endpoint; it is not a new global gain. Wheel's newest MU-LIFT greatest-prime deficit and cross-label repair do not justify dropping the signed remainder. Own GM/HC matching results, X=145 rematching and X=87283 duplicate-donor fixtures remain valid at their scopes and are not recomputed. Prior CORR4/JOH and R=317/1027/BLOCK anchors are retained as route-specific evidence, not imported into this different carrier.
+
+External inbox `research/agent_reports/EXTERNAL_HANDOFFS.md`, blob **038018145c0fddb2f6306c0712373adf9cd1ea52**, was retrieved. No new November external entry was present. EXT-20261018-PNT-1's full source, EXT-20261017-XCOORD-1's endpoint safeguard, and EXT-20261014-5's unconditional-versus-first-bad distinction are carried forward at index scope; no claim is made to have independently re-proved those historical handoffs. Their old routing is superseded by live main.
+
+### D. Exact Experimental Carrier
+
+For N=6K and 2<=H<=N/2 set ell=log(N/H), W={K,...,3K-1}, and
+
+```text
+a_k=mu(k) log(H/k),
+f_k(m)=(m mod k)/k-(k-1)/(2k),
+S(m)=sum_(1<=k<=H) a_k f_k(m),
+mean_H=sum_(k<=H) a_k (k-1)/(2k),
+Q(m)=m-psi(m)-log H-mean_H.
+```
+
+psi is the genuine von Mangoldt sum, including every prime power; signs and zero squareful coefficients are retained. The singleton REDUCED-denominator projector is
+
+```text
+P_d(m)=sum_(e|d) mu(d/e)*(e/d)*f_e(m),
+L(m)=sum_(H/2<d<=H) a_d P_d(m), B(m)=S(m)-L(m).
+```
+
+This is not the raw coefficient sub-sum `sum_(H/2<d<=H)a_d f_d`. Indeed at H=7,m=0 the raw sum minus L is `-log(7/6)/4`, exactly nonzero. Shared-denominator contributions must be combined before their squares. Mobius inversion gives the exact full reconstruction
+
+```text
+S(m)=sum_(2<=d<=H) A_d P_d(m),
+A_d=sum_(1<=j<=H/d) mu(dj)log(H/(dj))/j.
+```
+
+The rational projector extracts precisely the reduced frequencies of denominator d; for d>H/2 its coefficient is just a_d. The computation avoids evaluating complex roots of unity. Complete-period orthogonality is inherited and checked on small exact periods; it supplies no sign on W.
+
+For the original two-band FAMILY, use the published scalar choice delta=V(H), where `V(H)=1-sum_(k<=H)a_k/k`. For completeness, F_k=mu(k)log(N/max(H,k)), u=sum F_k/k, F=sum F_k, s1=sum_(3K<k<=4K)1/k, s2=sum_(5K<k<=6K)1/k, z=u-delta, v=2ell+F-delta. Set
+
+```text
+A=(z-s2*v/K)/(s1-s2), Z=(s1*v/K-z)/(s1-s2),
+h_k=A*1_(3K<k<=4K)+Z*1_(5K<k<=6K),
+c_k=(h_k-F_k)/ell,
+r(m)=1-sum_(2<=k<=N)c_k (m mod k)/k.
+```
+
+The complete original identity, at EVERY m>=1, is
+
+```text
+ell*r(m)=Q(m)-L(m)-B(m)+U_N(m)+sum h_k floor(m/k),
+U_T(m)=sum_(T<k<=m)mu(k)log(T/k)floor(m/k).
+```
+
+Only on W do both final terms vanish. There the exact numerator is R=Q-L-B, and
+
+```text
+ell^2 E_pre = <Q,Q>_w + <L,L>_w + <B,B>_w
+             -2<Q,L>_w -2<Q,B>_w +2<L,B>_w,
+w(m)=1/[m(m+1)].
+```
+
+Every reported energy below is this **ell-squared scaled** energy unless explicitly marked unweighted. It is not the infinite norm. The tests retain the exact integer floor head `H^5<=N^4<(H+1)^5`, without a floating-power cutoff.
+
+### E. Executed Results
+
+Primary domain: every admissible N=24,30,...,1536, plus the held-out N=3072,6144,7776,8190,12288,24576,49152: **260 windows**. There are 253 development windows and seven held-out windows. All required weights and all m in each W are included.
+
+| N | H | <L,B> unweighted | <L,B> original weighted | <Q,S> original weighted | ell^2 E_pre |
+| ---: | ---: | ---: | ---: | ---: | ---: |
+| 222 | 75 | 1.153847542 | -0.003809819945 | 0.044764845753 | 0.000903296063 |
+| 690 | 186 | 102.913432969 | 0.000278408809 | 0.044018424428 | 0.002399074214 |
+| 3072 | 616 | 1230.300416528 | 0.001581767272 | 0.040761562376 | 0.006608265522 |
+| 6144 | 1073 | 2277.538911837 | 0.001254369707 | 0.041728015972 | 0.011978176811 |
+| 7776 | 1296 | 4319.578195286 | 0.001292201340 | 0.041507869474 | 0.015097159893 |
+| 8190 | 1350 | 6762.216936247 | 0.001721618566 | 0.039455986230 | 0.015032150465 |
+| 12288 | 1868 | 9772.765949749 | 0.000761234733 | 0.032857323672 | 0.010610232999 |
+| 24576 | 3253 | -14685.294332411 | 0.000035370373 | 0.020358281430 | 0.021390158290 |
+| 49152 | 5665 | 187348.488602623 | 0.000936105113 | 0.026028596536 | 0.023027739575 |
+
+Decimals are rounded presentations of certified enclosures, not the certificates themselves. Positive `<L,B>` occurs in 99 unweighted windows and 32 weighted windows. Positive and negative examples both exist. `<Q,S>` is strictly positive for both weights in all 260 full windows. After removing each window's own weighted means, the centered Q/S inner product is also strictly positive in all 260; this diagnostic is restored to the original inner product before any source conclusion.
+
+The complete six-term square is independently reconstructed. Two representative weighted ledgers are:
+
+| Contribution | N=690 | N=24576 |
+| --- | ---: | ---: |
+| <Q,Q> | 0.050893372662 | 0.045675594287 |
+| <L,L> | 0.003954456432 | 0.000757804056 |
+| <B,B> | 0.035031276358 | 0.015602582060 |
+| -2<Q,L> | -0.012456219349 | -0.004532448357 |
+| -2<Q,B> | -0.075580629507 | -0.036184114503 |
+| +2<L,B> | +0.000556817618 | +0.000070740747 |
+| Recombined ell^2 E_pre | 0.002399074214 | 0.021390158290 |
+
+Thus the wrong spectral sign does not refute favorable COMPLETE source cancellation. Nor can the two negative prime cross terms be spent a second time in another bound.
+
+After primary results, two additional mechanisms were explicitly distinguished and tested, rather than misrepresented as preregistered discoveries. First, varying the head across EVERY H=2,...,N/2 for N in {24,48,96,192} gives **176** evaluations (172 previously untested pairs and four primary pairs reused for the cutoff comparison) with no negative complete Q/S inner product under either weight; H=2 is identically zero, and no nonzero-H decision remains unresolved. This tests cutoff sensitivity, not the primary power-family's minimality. Second, the mean-versus-centered decomposition and Abel explanation in G were computed on the already specified windows. These are post-discovery diagnostics, with no new claimed held-out confirmation of a stronger conjecture.
+
+### F. Exact Counterexamples, Extremes And Boundaries
+
+FW1's weighted first failure is N=690,H=186,W=[115,345), certified by BOTH the integer enclosure reconstruction and the independent Fraction/log-polynomial reconstruction. All smaller eligible multiples of six in the registered range have nonpositive weighted cross. At N=222,H=75,W=[37,111), the unweighted cross lies strictly between `1153847541971/10^12` and `1153847541972/10^12`, while the weighted cross lies between `-3809819946/10^12` and `-3809819945/10^12`.
+
+For FW2, at N=24576,H=3253,W=[4096,12288),
+
+```text
+-14685294332410782/10^12 < sum_W L B < -14685294332410781/10^12,
+35370373/10^12 < sum_W L B/[m(m+1)] < 35370374/10^12.
+```
+
+These signs concern exactly the same coefficients and cells. Only the weight changes. The C++ reconstruction independently agrees with both; the rigorous bounds come from integer interval arithmetic.
+
+Head/post-head split: at N=690 the weighted head cross is approximately -0.001994205540 and the post-head cross +0.002272614350. The latter exceeds the former's magnitude. At N=42,H=19 the sole post-head cell m=20 already has positive L*B, while the whole-window cross is negative. These are source subregions, not replacements for the full window. N=7776 has exactly one head cell; N=8190,12288,24576,49152 have none. Their positive weighted cross terms exclude a purely initial-head explanation.
+
+Within the 260 declared windows, the most positive unweighted cross is at N=49152, and the most negative at N=24576. For the weighted cross the maximum is at N=8190 and minimum at N=186 (approximately -0.010689664231). These are finite extrema, not uniform constants. The largest observed weighted ratio `||R||_w^2/||Q||_w^2` is about 0.468306 at N=24576; no universal contraction factor is inferred from it.
+
+### G. Hidden Arithmetic Variables And Sign Restoration
+
+**Position inside the physical window controls the weighting effect.** Let a=K,b=3K-1 and T_j=sum_(a<=m<=j)L(m)B(m). Exact finite summation by parts gives
+
+```text
+sum_(m=a..b) L(m)B(m)/[m(m+1)]
+ = T_b/[b(b+1)] + sum_(j=a..b-1) 2T_j/[j(j+1)(j+2)].
+```
+
+At N=24576 the two terms are approximately -0.000097264776773 and +0.000132635150184. Their sum is +0.000035370373411. Earlier cumulative products receive more weight; the final unweighted negative total alone does not determine the original cross sign. This identity and its restoration were verified on every primary window. The summation-by-parts identity is not claimed as novel mathematics.
+
+**The finite means are not the sole source of the observed Q/S dependence.** With W0=sum w, the exact decomposition is
+
+```text
+<Q,S>_w = (sum wQ)(sum wS)/W0
+           + sum w(Q-Qbar)(S-Sbar).
+```
+
+At N=24576, the mean term is approximately -0.000013368763113 and the centered term +0.020371650193299, giving the positive original +0.020358281430186. At N=49152 the mean term is also negative while the total remains positive. All 260 complete-window centered signs are certified positive. Two singleton post-head diagnostic windows, at N=42 and 48, have centered covariance exactly zero by their one-cell definition; enclosure overestimation there is not interpreted as a sign theorem.
+
+### H. Radical Increment Identity And Proof
+
+Define rad(m) as the product of DISTINCT prime factors of m. For H>=2 and m>=1 let
+
+```text
+R_H(m)=m-psi(m)-log H-sum_(k<=H)mu(k)log(H/k)*(m mod k)/k,
+V(H)=1-sum_(k<=H)mu(k)log(H/k)/k,
+J_H(t)=sum_(d|t, d>H)mu(d)log(d/H).
+```
+
+**FW3, PAPER_PROOF:** for EVERY integer H>=2 and m>=2,
+
+```text
+R_H(m)-R_H(m-1)=V(H)+J_H(rad(m)).
+```
+
+Proof: for k>=1 the residue increment is `1/k-1_(k|m)`. Hence, writing T(H)=1-V(H), the uncentered sawtooth increment is
+
+```text
+T(H)-sum_(d|m,d<=H)mu(d)log(H/d).
+```
+
+For m>1 the full divisor sum is Lambda(m), by `sum_(d|m)mu(d)=0` and `sum_(d|m)mu(d)log d=-Lambda(m)`. Subtract the sawtooth increment from `1-Lambda(m)`. The result is V(H) plus the displayed high-divisor sum. Every nonsquarefree divisor has zero coefficient, so the surviving divisor set is exactly the divisor set of rad(m), proving the claim. The m=1 exception is intentionally excluded.
+
+Consequences at this exact scope:
+
+1. Equal radicals give identical R_H increments, even when the original integers and their multiplicities differ. They remain DISTINCT physical cells and must not be deduplicated in the energy.
+2. If rad(m)<=H, the increment is exactly V(H). This can happen at m>H, so the ordinary initial-head split is not the full arithmetic classification.
+3. For m=p^j, p prime, the increment is V(H) when p<=H, and V(H)-log(p/H) when p>H. Thus low-base prime powers have identical prime-error and residue jumps up to the fixed drift, including higher powers after m>H.
+
+For the source FAMILY in D, `ell*r(m)=R_H(m)` for 1<=m<=N/2. Therefore FW3 applies to actual original residual differences there. Beyond high-correction admission, the full terms U_N and the correction floor must be restored; arbitrary high corrections are not claimed to be radical-invariant. The moment-null obstruction remains intact.
+
+Exact checks used H=2,...,24 and 2<=m<=3H: 874 increment identities, including 326 repeated-radical comparisons, 483 no-tail radical cases and 151 large-base prime-power cases. This is finite verification of an independently displayed paper proof, not its replacement. The identity is a precise source-specific dependency, not an upper estimate or an independence theorem. Its discovery here is not a claim of literature priority.
+
+### I. Surviving Conjecture And First Missing Lemma
+
+**FW4-CONJ (CONJECTURE):** for every integer N=6K>=24, H=floor(N^(4/5)) satisfying H<=N/2, on the exact W, Q and S from D,
+
+```text
+sum_(m in W) Q(m)S(m)/[m(m+1)] >= 0.
+```
+
+No asymptotic exception or fitted constant is built into the claim. The same unweighted statement is a separate diagnostic conjecture. Both survived all 260 preregistered windows, including four entirely post-head held-out windows. The H=2 zero case belongs only to the supplementary all-H test, not the main power family. Neither the 176 cutoff variations nor the positive centered signs prove this conjecture; they weaken a simple mean-only or head-only explanation.
+
+The first missing structural step is a genuinely signed estimate for the finite weighted correlation between the actual prime-error history and the radical-divisor increment source, with all partial sums and endpoint weights preserved. FW3 identifies a relevant variable but supplies no favorable cross-increment sign. Pairwise identical jumps do not imply an aggregate norm estimate.
+
+Even proving FW4-CONJ alone would give only `||Q-S||_w^2<=||Q||_w^2+||S||_w^2`. It would not beat the established prime-error exponent. A quantitatively useful strengthening must control the COMPLETE defect `||Q||_w^2+||S||_w^2-2<Q,S>_w` below its inherited scale and then pay every non-pre-block cell, high correction and infinite tail. No source-equivalent endpoint premise is assumed here.
+
+### J. Relationship To The Proof Objective
+
+The new falsifier rejects a definite proposed sign mechanism on the correct arithmetic carrier. It does not refute Nyman density, the canonical VF target, or any conditional first-bad theorem. Full-period energy O(H) remains compatible with both signs of the incomplete-window cross. The observed Q/S compensation concerns an actual signed combination that the original consumer needs, unlike a standalone spectral diagonal.
+
+At a fixed available envelope exponent b, the earlier source-qualified pre-block comparator still contains `N^(2b-1)`, together with head and geometric terms such as `H^(2b)/N` and `H/N+H^3 log(2H)/N^2`, all divided by ell^2. This run does not remove that prime term or promote a constant finite ratio into a power gain. Use the best applicable strict baseline with its necessary positive loss, not merely the rounded 7/8 comparator. The existing full-norm upper result and the missing sharper middle/tail return remain separate from the pre-block experiment.
+
+### K. Reproducibility And Uncertainty Audit
+
+Observed environment: CPython **3.12.14**, GCC/g++ **13.3.0**, Linux container. These are actual command outputs, not the environment's representative version list. No mpmath/flint was installed or used. There is no probabilistic primality, random seed, numerical integration, floating endpoint test or fitted exponent.
+
+Primary method: a prime-multiple Mobius sieve, exact prime-power identification and integer fifth roots. The source arrays are independently accumulated through divisor jumps. Primitive-denominator coefficients are assembled with every divisor and correct Mobius factor. All logarithms are enclosed using
+
+```text
+log(n)=b*log(2)+2*atanh((n-2^b)/(n+2^b)), b=floor(log_2 n).
+```
+
+Here 0<=z<=1/3. After 64 terms the tail is bounded by `2 z^129/[129(1-z^2)]<2^-160`. Every addition, rational multiplication, product, square and positive division is rounded outward on the 2^-160 integer lattice. Thus all reported decision intervals enclose the REAL source. The largest aggregate enclosure width was less than 1.713e-34. Witness sign margins exceed this by many orders of magnitude.
+
+Independent implementation: C++ trial-factors integers, computes von Mangoldt from prime-power factorization, and evaluates every source by DIRECT modular residues, not the primary divisor-jump arrays. It shares no factor table or source array with Python. Its long-double results agree on all **4680** aggregate comparisons (260 windows, two weights, nine quantities); maximum normalized difference 3.502e-16. This floating comparison is a diagnostic cross-check, not the rigorous sign certificate.
+
+A third audit uses trial factorization, exact rational polynomials in prime logarithms, and an independently implemented 70-term exact-Fraction log series with an explicit remainder. It separately certifies the weighted N=222 and N=690 signs. Exact source checks passed:
+
+- 621 complete spectral returns, H=2,...,24 and 0<=m<=2H.
+- 1054 rational Ramanujan-jump/projector checks, 2<=d<=32 and 1<=m<=2d.
+- Six complete-period singleton/rest orthogonality identities, H in {2,3,4,5,6,8}.
+- Eleven exact two-band moment systems and 522 complete original returns, N in {6,12,18,24}, admissible distinct H in {2,3,N/2}, 1<=m<=3N.
+- Omission of U_N detected in 345 returns; omission of correction floors detected in 435. The initial-head scalar is not silently set to zero.
+- One explicit rejection of the raw high-k band as a substitute for the singleton reduced-frequency band.
+- FW3's 874 exact radical-increment checks, as detailed above.
+
+These small inherited anchors are rerun for a specific reason: to validate a NEW primitive-frequency/finite-window implementation and full return. They are not counted as new mathematical source identities. No unchanged large prime census was repeated.
+
+Observed final primary runtime: about 5.20 seconds. The independently executed C++ reference reported about 0.69 seconds. The exact audit's observed final timing is included in its output below. These are finite process observations, not promised performance. All calculations finished; no partial range is concealed. No independent role-level Referee acceptance is claimed from two programs or a same-session self-audit.
+
+| Executed source file | SHA-256 |
+| --- | --- |
+| nyman_window_census.py | cb5045b0ba7f0b0316bb9b86fe9b7add036dc6154a16587afa748f6adfa01415 |
+| nyman_window_reference.cpp | b0180a55f44311b059edd86fde44fd62f05bb7d53969875a072f3638c55be1c8 |
+| nyman_window_audit.py | fe2d70df47528134b3b4935c841d23be777b22eba62fe15c82979eed30dc7a0c |
+| nyman_window_compare.py | f037dc6d94a778c091c0a7f20c8e4033a2d40e799d727d6b99f114222072c335 |
+
+All source is included in the appendix, rather than committed as unauthorized repository experiment files. Commands actually executed:
+
+```bash
+python /workspace/nyman_window_census.py
+g++ -O2 -std=c++17 -Wall -Wextra -Werror /workspace/nyman_window_reference.cpp -o /workspace/nyman_window_reference
+/workspace/nyman_window_reference
+python /workspace/nyman_window_audit.py
+python /workspace/nyman_window_compare.py
+python -m py_compile /workspace/nyman_window_census.py /workspace/nyman_window_audit.py
+sha256sum /workspace/nyman_window_census.py /workspace/nyman_window_reference.cpp /workspace/nyman_window_audit.py /workspace/nyman_window_compare.py
+```
+
+Limitations: no asymptotic numerical extrapolation, infinite norm computation, new Lean verification or external independent mathematical review. The primary sign claim has only the declared finite coverage. The supplementary centered and all-H tests are labeled post-discovery. The radical identity is proved only at its exact source scope; it is not a theorem about arbitrary correction coefficients.
+
+### L. Specialist Handoffs
+
+**Proof Architect:** FW1-FW2 resolve the requested finite-window discriminator. Retire universal singleton/rest nonpositivity on this source. Preserve complete Q/S interaction as an unproved arithmetic question, not an endpoint gain. Do not redirect all investigators to this route.
+
+**Analytic Type II:** on the next eligible NYMAN turn, use FW3 to expand the full Q/S correlation through radical-indexed divisor jumps, retaining separate physical positions and the exact Abel weights. Test whether the observed sign has a deterministic explanation; a conditional desired-sign supplier is not a proof. Your protected OAI/CODIV work is not displaced.
+
+**Finite Wheel & Incidence:** the radical is an exact increment classification here, but its time positions and Nyman weights are different from the quadratic FINITE-AC clock or odd-boundary MU-LIFT carrier. Any transfer needs a proved source map; no automatic cross-route gain is asserted.
+
+**Owner Payment:** the N=24576 weighting reversal reinforces the need to retain native response weights and halos. No prime-error/Nyman correlation bound is transferred to JOH or clipped VF without a source bridge.
+
+**Adversarial Referee:** independently verify the rational P_d projector, N=690 sign certificate, N=24576 Abel restoration, and FW3's m>1 and pre-correction restrictions. Attempt to falsify FW4-CONJ on the actual power family using a predicted resonance, not a shifted surrogate window. Independently reviewing Coordinator NS2 remains a separate task.
+
+**Lean Verification:** no speculative endpoint PR requested. A finite projector/counterexample interface is worth considering only if independently accepted and needed by an active quantitative proof. FW3 is an elementary source consequence, not a new bound. Reuse #1093/#1099 and do not duplicate them.
+
+### M. Ranked Experimental Hypothesis Portfolio
+
+| Rank / hypothesis | Evidence and counterevidence | Structural ingredient / next test | Disposition |
+| --- | --- | --- | --- |
+| 1. FW4-CONJ, nonnegative original weighted Q/S interaction on H=floor(N^(4/5)) | All 260 registered signs and centered signs positive; 176 supplementary cutoff pairs give no negative sign; no all-scale proof or endpoint return | Radical-divisor increment dependence plus exact temporal weights; derive a resonance-sensitive signed formula and test its predicted worst case | CONTINUE, CONJECTURE |
+| 2. Same-radical residual increments before correction admission | Complete proof in H and 874 exact checks; high corrections outside scope | Classify correlations by radical WITHOUT merging repeated occurrences; first need a genuine weighted cross-increment estimate | CONTINUE as PAPER_PROOF structural input, review PENDING |
+| 3. Singleton versus remaining spectrum is always nonpositive on the original window | Weighted N=690 and unweighted N=222 refute it; N=24576 flips under weighting | Complete finite-window phases, not complete-period orthogonality, govern the sign | REJECT at the precise universal-sign scope |
+
+The prior MU-LIFT growing-bank/deficit questions and JOH complete clock-correlation questions remain eligible independent candidates. This support run follows two MU-LIFT Census invocations and deliberately diversifies to NYMAN. It neither resets another role's rotation nor makes NYMAN compulsory next.
+
+### N. Next-Run Resume Capsule
+
+Authority: main d4df133117c5b58f90979d2eb680167ef37995cf; source blobs and two-day ledger above. Early preregistration commit 2df575b0db2f512f6c9fff07279764e1410d4237 was read back before execution. Refresh authority and report bytes at the next actual invocation, not from memory alone.
+
+Completed: 260-window certified census, 4680 independent aggregate comparisons, two independent Fraction sign certificates, 176 supplementary cutoff pairs, exact full-return and radical-identity checks. Do not rerun them merely to enlarge a table. No original Lean source, policy, branch, PR, issue, workflow, other role's report or schedule was changed; no other agent was launched.
+
+**Single highest-value continuation:** derive the original weighted Q/S correlation as a signed sum of radical-divisor increments, including endpoints and physical repeated-radical cells, then predict and test one adverse resonance that could falsify FW4-CONJ. A finite-window positive sign without the full quantitative return remains insufficient. The current counterexample is to spectral nonpositivity, not to the Nyman route or RH.
+
+Review state: new paper proof SELF_AUDIT / independent review PENDING / NOT_FORMALIZED. Mathematical completion and publication completion are separate. The final receipt below records the actual commit/readback; until then this synthesis does not claim a successful publication.
+
+### Appendix: Complete Executed Reproducers
+
+The following source files are included verbatim. They use the local scratch directory `/workspace` for generated audit outputs; no such extra file was committed to the repository. All source hashes above refer to these exact bytes.
+
+
+#### nyman_window_census.py
+
+```python
+"""Certified finite-window census; integer intervals enclose all real logs."""
+
+import hashlib
+import json
+import platform
+import time
+from functools import lru_cache
+from pathlib import Path
+
+BITS = 160
+SCALE = 1 << BITS
+TERMS = 64
+HELD_OUT = [3072, 6144, 7776, 8190, 12288, 24576, 49152]
+
+
+def ceildiv(a, b):
+    return -((-a) // b)
+
+
+def add(a, b):
+    return a[0] + b[0], a[1] + b[1]
+
+
+def neg(a):
+    return -a[1], -a[0]
+
+
+def sub(a, b):
+    return add(a, neg(b))
+
+
+def rat(a, n, d=1):
+    if n < 0:
+        return neg(rat(a, -n, d))
+    return a[0] * n // d, ceildiv(a[1] * n, d)
+
+
+def mul(a, b):
+    v = [x * y for x in a for y in b]
+    return min(v) // SCALE, ceildiv(max(v), SCALE)
+
+
+def square(a):
+    lo = 0 if a[0] <= 0 <= a[1] else min(a[0] ** 2, a[1] ** 2)
+    hi = max(a[0] ** 2, a[1] ** 2)
+    return lo // SCALE, ceildiv(hi, SCALE)
+
+
+def div_positive(a, b):
+    assert b[0] > 0
+    lower = min(x * SCALE // y for x in a for y in b)
+    upper = max(ceildiv(x * SCALE, y) for x in a for y in b)
+    return lower, upper
+
+
+def atanh_log(a, b):
+    # 2*atanh(a/b), 0<=a/b<=1/3. The omitted tail is < 2^-160.
+    assert 0 <= 3 * a <= b
+    power = (SCALE * a // b, ceildiv(SCALE * a, b))
+    total = (0, 0)
+    for j in range(TERMS):
+        total = add(total, rat(power, 2, 2 * j + 1))
+        power = rat(power, a * a, b * b)
+    assert 2 * SCALE * 9 < 8 * (2 * TERMS + 1) * 3 ** (2 * TERMS + 1)
+    return total[0], total[1] + 1
+
+
+LOG2 = atanh_log(1, 3)
+
+
+@lru_cache(None)
+def log_interval(n):
+    assert n >= 1
+    if n == 1:
+        return 0, 0
+    b = n.bit_length() - 1
+    p = 1 << b
+    return add(rat(LOG2, b), atanh_log(n - p, n + p))
+
+
+def mobius_sieve(n):
+    mu = [1] * (n + 1)
+    mu[0] = 0
+    prime = [True] * (n + 1)
+    prime[0:2] = [False, False]
+    primes = []
+    for p in range(2, n + 1):
+        if prime[p]:
+            primes.append(p)
+            for k in range(p, n + 1, p):
+                mu[k] = -mu[k]
+                if k > p:
+                    prime[k] = False
+            for k in range(p * p, n + 1, p * p):
+                mu[k] = 0
+    return mu, primes
+
+
+def fifth_root(n):
+    lo, hi = 0, n + 1
+    while hi - lo > 1:
+        m = (hi + lo) // 2
+        if m ** 5 <= n:
+            lo = m
+        else:
+            hi = m
+    return lo
+
+
+def primitive_coefficients(H, mu, a):
+    b = [(0, 0) for _ in range(H + 1)]
+    for e in range(1, H + 1):
+        for d in range(max(e, (H // 2 // e + 1) * e), H + 1, e):
+            if mu[d] and mu[d // e]:
+                b[e] = add(b[e], rat(a[d], mu[d // e] * e, d))
+    return b
+
+
+def residue_stream(coeff, last):
+    drift = (0, 0)
+    start = (0, 0)
+    jumps = [(0, 0) for _ in range(last + 1)]
+    for k, a in enumerate(coeff):
+        if k < 1 or a == (0, 0):
+            continue
+        drift = add(drift, rat(a, 1, k))
+        start = sub(start, rat(a, k - 1, 2 * k))
+        for m in range(k, last + 1, k):
+            jumps[m] = add(jumps[m], a)
+    out = [start]
+    for m in range(1, last + 1):
+        out.append(sub(add(out[-1], drift), jumps[m]))
+    return out
+
+
+def sign(a):
+    if a[0] > 0:
+        return 1
+    if a[1] < 0:
+        return -1
+    if a == (0, 0):
+        return 0
+    return None
+
+
+def show(a):
+    return {"mid": (a[0] + a[1]) / (2 * SCALE), "lo_num": str(a[0]),
+            "hi_num": str(a[1]), "den_pow2": BITS, "sign": sign(a),
+            "width": (a[1] - a[0]) / SCALE}
+
+
+KEYS = ["Q2", "L2", "B2", "QL", "QB", "LB", "S2", "R2", "QS", "Q1", "S1", "W"]
+
+
+def census(N, mu, psi, H_override=None):
+    H = fifth_root(N ** 4) if H_override is None else H_override
+    assert 2 <= H <= N // 2
+    if H_override is None:
+        assert H ** 5 <= N ** 4 < (H + 1) ** 5
+    K, last = N // 6, N // 2 - 1
+    lh = log_interval(H)
+    a = [(0, 0)] + [rat(sub(lh, log_interval(k)), mu[k]) for k in range(1, H + 1)]
+    S = residue_stream(a, last)
+    b = primitive_coefficients(H, mu, a)
+    L = residue_stream(b, last)
+    mean = neg(S[0])
+    blocks = {part: {weight: {key: (0, 0) for key in KEYS}
+                     for weight in ["plain", "weighted"]}
+              for part in ["all", "head", "post"]}
+    cumulative_lb = (0, 0)
+    abel_correction = (0, 0)
+    for m in range(K, last + 1):
+        q = sub(sub(sub((m * SCALE, m * SCALE), psi[m]), lh), mean)
+        l, s = L[m], S[m]
+        other, residual = sub(s, l), sub(q, s)
+        terms = dict(zip(KEYS, [square(q), square(l), square(other), mul(q, l),
+                               mul(q, other), mul(l, other), square(s),
+                               square(residual), mul(q, s), q, s, (SCALE, SCALE)]))
+        cumulative_lb = add(cumulative_lb, terms["LB"])
+        if m < last:
+            abel_correction = add(abel_correction, rat(cumulative_lb, 2, m*(m+1)*(m+2)))
+        for part in ["all", "head" if m <= H else "post"]:
+            for key, val in terms.items():
+                for weight, den in [("plain", 1), ("weighted", m * (m + 1))]:
+                    blocks[part][weight][key] = add(blocks[part][weight][key], rat(val, 1, den))
+    for part in blocks.values():
+        for vals in part.values():
+            rec = add(add(vals["Q2"], vals["L2"]), vals["B2"])
+            rec = add(sub(sub(rec, rat(vals["QL"], 2)), rat(vals["QB"], 2)), rat(vals["LB"], 2))
+            gap = sub(rec, vals["R2"])
+            assert gap[0] <= 0 <= gap[1]
+            if vals["W"][0] > 0:
+                vals["QS_mean"] = div_positive(mul(vals["Q1"], vals["S1"]), vals["W"])
+                vals["QS_centered"] = sub(vals["QS"], vals["QS_mean"])
+            else:
+                vals["QS_mean"] = vals["QS_centered"] = (0, 0)
+    abel_endpoint = rat(cumulative_lb, 1, last*(last+1))
+    abel_gap = sub(add(abel_endpoint, abel_correction), blocks["all"]["weighted"]["LB"])
+    assert abel_gap[0] <= 0 <= abel_gap[1]
+    return {"N": N, "H": H, "K": K, "count": 2 * K,
+            "head_count": max(0, min(last, H) - K + 1),
+            "abel": {"endpoint": show(abel_endpoint), "correction": show(abel_correction)},
+            "blocks": {p: {w: {k: show(v) for k, v in a.items()}
+                           for w, a in b.items()} for p, b in blocks.items()}}
+
+
+def main():
+    started = time.perf_counter()
+    maxm = max(HELD_OUT) // 2
+    mu, primes = mobius_sieve(maxm)
+    increments = [(0, 0) for _ in range(maxm + 1)]
+    for p in primes:
+        q = p
+        while q <= maxm:
+            increments[q] = log_interval(p)
+            q *= p
+    psi = [(0, 0)]
+    for a in increments[1:]:
+        psi.append(add(psi[-1], a))
+    rows = []
+    for N in list(range(24, 1537, 6)) + HELD_OUT:
+        row = census(N, mu, psi)
+        rows.append(row)
+        if N in HELD_OUT:
+            print("held-out", N, row["H"], {w: {k: row["blocks"]["all"][w][k]["mid"]
+                  for k in ["LB", "QS", "R2"]} for w in ["plain", "weighted"]}, flush=True)
+    summary = {}
+    for w in ["plain", "weighted"]:
+        for key, badsign in [("LB", 1), ("QS", -1), ("QS_centered", -1)]:
+            for part in ["all", "post"]:
+                matches = [r for r in rows if r["blocks"][part][w][key]["sign"] == badsign]
+                unresolved = [r["N"] for r in rows if r["blocks"][part][w][key]["sign"] is None]
+                summary[f"{w}_{part}_{key}"] = {"violations": len(matches),
+                    "first": {k: matches[0][k] for k in ["N", "H", "K", "head_count"]} if matches else None,
+                    "unresolved": unresolved}
+    result = {"status": "PASS", "python": platform.python_version(),
+              "scale_bits": BITS, "log_terms": TERMS, "row_count": len(rows),
+              "elapsed_seconds": time.perf_counter() - started, "summary": summary,
+              "code_sha256": hashlib.sha256(Path(__file__).read_bytes()).hexdigest(), "rows": rows}
+    Path("/workspace/nyman_window_results.json").write_text(json.dumps(result, indent=2) + "\n")
+    print(json.dumps({k: v for k, v in result.items() if k != "rows"}, indent=2))
+
+
+if __name__ == "__main__":
+    main()
+```
+
+
+#### nyman_window_reference.cpp
+
+```cpp
+#include <algorithm>
+#include <chrono>
+#include <cmath>
+#include <fstream>
+#include <iomanip>
+#include <iostream>
+#include <map>
+#include <numeric>
+#include <vector>
+
+int mobius(int n) {
+    int sign = 1;
+    for (int p = 2; p * p <= n; ++p) {
+        if (n % p) continue;
+        n /= p;
+        sign = -sign;
+        if (n % p == 0) return 0;
+        while (n % p == 0) n /= p;
+    }
+    return n > 1 ? -sign : sign;
+}
+
+long double mangoldt(int n) {
+    if (n < 2) return 0;
+    int p = 2;
+    while (n % p) ++p;
+    while (n % p == 0) n /= p;
+    return n == 1 ? std::log((long double)p) : 0;
+}
+
+int head(int n) {
+    __int128 x = (__int128)n * n * n * n;
+    int h = 0;
+    while ((__int128)(h + 1) * (h + 1) * (h + 1) * (h + 1) * (h + 1) <= x) ++h;
+    return h;
+}
+
+int main() {
+    auto start = std::chrono::steady_clock::now();
+    std::vector<int> cases;
+    for (int n = 24; n <= 1536; n += 6) cases.push_back(n);
+    for (int n : {3072, 6144, 7776, 8190, 12288, 24576, 49152}) cases.push_back(n);
+    std::vector<int> mu(24577);
+    std::vector<long double> psi(24577);
+    for (int k = 1; k <= 24576; ++k) {
+        mu[k] = mobius(k);
+        psi[k] = psi[k - 1] + mangoldt(k);
+    }
+    std::ofstream out("/workspace/nyman_reference_results.json");
+    out << std::setprecision(21) << "[\n";
+    bool first = true;
+    for (int N : cases) {
+        int H = head(N), K = N / 6;
+        std::vector<long double> a(H + 1), b(H + 1);
+        long double mean = 0;
+        for (int d = 1; d <= H; ++d) {
+            a[d] = mu[d] * std::log((long double)H / d);
+            mean += a[d] * (d - 1) / (2 * d);
+            if (2 * d > H) {
+                for (int e = 1; e <= d; ++e) {
+                    if (d % e == 0) b[e] += a[d] * mu[d / e] * e / d;
+                }
+            }
+        }
+        long double values[2][9] = {};
+        for (int m = K; m < 3 * K; ++m) {
+            long double s = 0, l = 0;
+            for (int k = 1; k <= H; ++k) {
+                long double f = ((long double)(m % k) - (long double)(k - 1) / 2) / k;
+                s += a[k] * f;
+                l += b[k] * f;
+            }
+            long double q = m - psi[m] - std::log((long double)H) - mean;
+            long double other = s - l, r = q - s;
+            long double v[] = {q*q, l*l, other*other, q*l, q*other, l*other, s*s, r*r, q*s};
+            for (int j = 0; j < 9; ++j) {
+                values[0][j] += v[j];
+                values[1][j] += v[j] / ((long double)m * (m + 1));
+            }
+        }
+        if (!first) out << ",\n";
+        first = false;
+        out << "{\"N\":" << N << ",\"H\":" << H << ",\"values\":[";
+        for (int w = 0; w < 2; ++w) {
+            if (w) out << ',';
+            out << '[';
+            for (int j = 0; j < 9; ++j) {
+                if (j) out << ',';
+                out << values[w][j];
+            }
+            out << ']';
+        }
+        out << "]}";
+    }
+    out << "\n]\n";
+    std::cout << "PASS reference rows=" << cases.size() << " elapsed_seconds="
+              << std::chrono::duration<double>(std::chrono::steady_clock::now() - start).count() << '\n';
+}
+```
+
+
+#### nyman_window_audit.py
+
+```python
+"""Independent exact source audit and rational-log certificates."""
+
+import hashlib
+import json
+import math
+import time
+from collections import Counter
+from fractions import Fraction as F
+from functools import lru_cache
+from pathlib import Path
+
+
+@lru_cache(None)
+def factors(n):
+    out = {}
+    p = 2
+    while p * p <= n:
+        while n % p == 0:
+            out[p] = out.get(p, 0) + 1
+            n //= p
+        p += 1
+    if n > 1:
+        out[n] = out.get(n, 0) + 1
+    return out
+
+
+def mu(n):
+    ff = factors(n)
+    return 0 if any(e > 1 for e in ff.values()) else (-1) ** len(ff)
+
+
+@lru_cache(None)
+def divisors(n):
+    return tuple(d for d in range(1, n + 1) if n % d == 0)
+
+
+def add(*ps):
+    out = {}
+    for p in ps:
+        for k, v in p.items():
+            out[k] = out.get(k, F(0)) + v
+    return {k: v for k, v in out.items() if v}
+
+
+def scale(p, c):
+    return {k: v * c for k, v in p.items() if v * c}
+
+
+def sub(p, q):
+    return add(p, scale(q, -1))
+
+
+def product(p, q):
+    out = {}
+    for k, a in p.items():
+        for l, b in q.items():
+            kl = tuple(sorted(k + l))
+            out[kl] = out.get(kl, F(0)) + a * b
+    return {k: v for k, v in out.items() if v}
+
+
+ONE = {(): F(1)}
+
+
+def logpoly(n):
+    return {(p,): F(e) for p, e in factors(n).items()}
+
+
+def psi(m):
+    return add(*(logpoly(next(iter(factors(n)))) for n in range(2, m + 1)
+                 if len(factors(n)) == 1))
+
+
+def f(k, m):
+    return F(2 * (m % k) - (k - 1), 2 * k)
+
+
+def primitive(d, m):
+    return sum((F(mu(d // e) * e, d) * f(e, m) for e in divisors(d)), F(0))
+
+
+def streams(H, m):
+    a = {k: scale(sub(logpoly(H), logpoly(k)), mu(k)) for k in range(1, H + 1)}
+    s = add(*(scale(v, f(k, m)) for k, v in a.items()))
+    l = add(*(scale(a[d], primitive(d, m)) for d in range(H // 2 + 1, H + 1)))
+    mean = add(*(scale(v, F(k - 1, 2 * k)) for k, v in a.items()))
+    q = sub(sub(sub(scale(ONE, m), psi(m)), logpoly(H)), mean)
+    return q, l, sub(s, l), s
+
+
+def source_audit():
+    counts = Counter()
+    _, l, _, _ = streams(7, 0)
+    naive = add(*(scale(sub(logpoly(7), logpoly(d)), mu(d)*f(d, 0))
+                  for d in range(4, 8)))
+    assert sub(naive, l) == scale(sub(logpoly(7), logpoly(6)), F(-1, 4))
+    assert naive != l
+    counts['raw_band_surrogate_rejected'] += 1
+    for H in range(2, 25):
+        for m in range(0, 2 * H + 1):
+            a = {k: scale(sub(logpoly(H), logpoly(k)), mu(k)) for k in range(1, H + 1)}
+            direct = add(*(scale(v, f(k, m)) for k, v in a.items()))
+            grouped = add(*(scale(add(*(scale(a[d*j], F(1, j))
+                                        for j in range(1, H // d + 1))), primitive(d, m))
+                            for d in range(2, H + 1)))
+            assert direct == grouped
+            counts['exact_spectral_returns'] += 1
+    for d in range(2, 33):
+        for m in range(1, 2 * d + 1):
+            ram = sum(e * mu(d // e) for e in divisors(math.gcd(d, m)))
+            assert primitive(d, m) - primitive(d, m - 1) == -F(ram, d)
+            counts['ramanujan_jump_checks'] += 1
+    for H in range(2, 25):
+        delta = sub(ONE, add(*(scale(sub(logpoly(H), logpoly(k)), F(mu(k), k))
+                              for k in range(1, H + 1))))
+        previous = sub(streams(H, 1)[0], streams(H, 1)[3])
+        by_radical = {}
+        for m in range(2, 3 * H + 1):
+            q, _, _, s = streams(H, m)
+            residual = sub(q, s)
+            jump = sub(residual, previous)
+            rad = math.prod(factors(m))
+            tail = add(*(scale(sub(logpoly(d), logpoly(H)), mu(d))
+                         for d in divisors(rad) if d > H))
+            assert jump == add(delta, tail)
+            if rad in by_radical:
+                assert jump == by_radical[rad]
+                counts['same_radical_pairs'] += 1
+            by_radical[rad] = jump
+            if rad <= H:
+                assert jump == delta
+                counts['no_tail_radical_cases'] += 1
+            if len(factors(m)) == 1 and next(iter(factors(m))) > H:
+                p = next(iter(factors(m)))
+                assert jump == sub(delta, sub(logpoly(p), logpoly(H)))
+                counts['large_base_prime_power_cases'] += 1
+            previous = residual
+            counts['radical_jump_identities'] += 1
+    for H in [2, 3, 4, 5, 6, 8]:
+        cross = {}
+        for m in range(math.lcm(*range(1, H + 1))):
+            _, l, b, _ = streams(H, m)
+            cross = add(cross, product(l, b))
+        assert not cross
+        counts['complete_period_orthogonality'] += 1
+    for N in [6, 12, 18, 24]:
+        K = N // 6
+        for H in sorted({2, 3, N // 2}):
+            if not 2 <= H <= N // 2:
+                continue
+            ell = sub(logpoly(N), logpoly(H))
+            ff = {k: scale(sub(logpoly(N), logpoly(max(H, k))), mu(k))
+                  for k in range(1, N + 1)}
+            u = add(*(scale(v, F(1, k)) for k, v in ff.items()))
+            delta = sub(ONE, add(*(scale(sub(logpoly(H), logpoly(k)), F(mu(k), k))
+                                  for k in range(1, H + 1))))
+            z = sub(u, delta)
+            w = sub(add(scale(ell, 2), *ff.values()), delta)
+            s1 = sum((F(1, k) for k in range(3*K+1, 4*K+1)), F(0))
+            s2 = sum((F(1, k) for k in range(5*K+1, 6*K+1)), F(0))
+            A = scale(sub(z, scale(w, s2/K)), 1/(s1-s2))
+            Z = scale(sub(scale(w, s1/K), z), 1/(s1-s2))
+            h = {k: A if 3*K < k <= 4*K else Z if 5*K < k <= 6*K else {}
+                 for k in range(2, N + 1)}
+            assert add(*(scale(v, F(1, k)) for k, v in h.items())) == z
+            assert add(*h.values()) == w
+            assert add(*(scale(sub(h[k], ff[k]), F(k-1, 2*k))
+                         for k in range(2, N+1))) == ell
+            counts['moment_systems'] += 1
+            for m in range(1, 3 * N + 1):
+                original = sub(ell, add(*(scale(sub(h[k], ff[k]), F(m % k, k))
+                                         for k in range(2, N+1))))
+                def tail(B):
+                    return add(*(scale(sub(logpoly(B), logpoly(k)), mu(k)*(m//k))
+                                 for k in range(B+1, m+1)))
+                un, uh = tail(N), tail(H)
+                cf = add(*(scale(v, m // k) for k, v in h.items()))
+                returned = add(scale(delta, m), un, scale(uh, -1), cf)
+                q, l, b, _ = streams(H, m)
+                restored = add(q, scale(l, -1), scale(b, -1), un, cf)
+                assert original == returned == restored
+                if m <= H:
+                    assert original == scale(delta, m)
+                if un:
+                    assert original != sub(restored, un)
+                    counts['omitted_tail_detected'] += 1
+                if cf:
+                    assert original != sub(restored, cf)
+                    counts['omitted_correction_detected'] += 1
+                counts['full_original_returns'] += 1
+    return dict(counts)
+
+
+@lru_cache(None)
+def rational_log(n):
+    if n == 1:
+        return F(0), F(0)
+    # Independent exact-Fraction series, without fixed-point rounding.
+    b = n.bit_length() - 1
+    p = 1 << b
+    def series(z):
+        total = sum((2*z**(2*j+1)/(2*j+1) for j in range(70)), F(0))
+        error = 2*z**141/(141*(1-z*z))
+        return total, total + error
+    base = series(F(1, 3))
+    rem = series(F(n-p, n+p))
+    return b*base[0] + rem[0], b*base[1] + rem[1]
+
+
+def interval_linear(p):
+    lo = hi = F(0)
+    for monomial, c in p.items():
+        v = (F(1), F(1)) if not monomial else rational_log(monomial[0])
+        assert len(monomial) <= 1
+        lo += c * (v[0] if c >= 0 else v[1])
+        hi += c * (v[1] if c >= 0 else v[0])
+    return lo, hi
+
+
+def imul(a, b):
+    vals = [x*y for x in a for y in b]
+    return min(vals), max(vals)
+
+
+def certificate(N, H):
+    total = [F(0), F(0)]
+    for m in range(N//6, N//2):
+        _, l, b, _ = streams(H, m)
+        val = imul(interval_linear(l), interval_linear(b))
+        for i in range(2):
+            total[i] += val[i] / (m*(m+1))
+    den = 10**12
+    lo = total[0].numerator * den // total[0].denominator
+    hi = -((-total[1].numerator * den) // total[1].denominator)
+    return {'N': N, 'H': H, 'LB_lower': f'{lo}/{den}', 'LB_upper': f'{hi}/{den}',
+            'positive': total[0] > 0, 'negative': total[1] < 0}
+
+
+def supplement():
+    # Registered after primary results: vary H, not the arithmetic or weights.
+    from nyman_window_census import census, add as iadd, log_interval
+    muv = [0] + [mu(k) for k in range(1, 97)]
+    pp = [(0, 0)]
+    for n in range(1, 97):
+        ff = factors(n)
+        inc = log_interval(next(iter(ff))) if len(ff) == 1 else (0, 0)
+        pp.append(iadd(pp[-1], inc))
+    records = [census(N, muv, pp, H) for N in [24, 48, 96, 192]
+               for H in range(2, N//2+1)]
+    failures = {}
+    for weight in ['plain', 'weighted']:
+        bad = [r for r in records if r['blocks']['all'][weight]['QS']['sign'] == -1]
+        failures[weight] = [{'N': r['N'], 'H': r['H'],
+                              'QS': r['blocks']['all'][weight]['QS']} for r in bad[:3]]
+    return {'row_count': len(records), 'first_QS_failures': failures,
+            'unresolved_nonzero_H': {w: [(r['N'], r['H']) for r in records
+                  if r['H'] != 2 and r['blocks']['all'][w]['QS']['sign'] is None]
+                  for w in ['plain', 'weighted']},
+            'H2_exact_zero_handled_by_definition': True}
+
+
+if __name__ == '__main__':
+    start = time.perf_counter()
+    counts = source_audit()
+    print('PASS exact source audit', counts, flush=True)
+    certs = [certificate(N, H) for N, H in [(222, 75), (690, 186)]]
+    print('PASS independent Fraction certificates', certs, flush=True)
+    extra = supplement()
+    result = {'exact_counts': counts, 'certificates': certs, 'supplement': extra,
+              'elapsed_seconds': time.perf_counter()-start,
+              'sha256': hashlib.sha256(Path(__file__).read_bytes()).hexdigest()}
+    Path('/workspace/nyman_audit_results.json').write_text(json.dumps(result, indent=2)+'\n')
+    print(json.dumps(result, indent=2))
+```
+
+
+#### nyman_window_compare.py
+
+```python
+"""Cross-language comparisons and certified witness extraction."""
+
+import json
+from pathlib import Path
+
+primary = json.loads(Path('/workspace/nyman_window_results.json').read_text())
+reference = json.loads(Path('/workspace/nyman_reference_results.json').read_text())
+keys = ['Q2', 'L2', 'B2', 'QL', 'QB', 'LB', 'S2', 'R2', 'QS']
+errors = []
+assert len(primary['rows']) == len(reference) == 260
+for x, y in zip(primary['rows'], reference):
+    assert (x['N'], x['H']) == (y['N'], y['H'])
+    for weight, values in zip(['plain', 'weighted'], y['values']):
+        for key, value in zip(keys, values):
+            expected = x['blocks']['all'][weight][key]['mid']
+            error = abs(expected-value)/max(1, abs(expected))
+            errors.append(error)
+            assert error <= 2e-12
+for weight in ['plain', 'weighted']:
+    for key in ['QS', 'QS_centered']:
+        assert all(r['blocks']['all'][weight][key]['sign'] == 1 for r in primary['rows'])
+width = max(v['width'] for r in primary['rows'] for part in r['blocks'].values()
+            for weight in part.values() for v in weight.values())
+assert width < 1e-30
+witnesses = []
+for n in [222, 690, 24576]:
+    row = next(r for r in primary['rows'] if r['N'] == n)
+    for weight in ['plain', 'weighted']:
+        val = row['blocks']['all'][weight]['LB']
+        den = 10**12
+        lo = int(val['lo_num'])*den//2**160
+        hi = -((-int(val['hi_num'])*den)//2**160)
+        witnesses.append({'N': n, 'weight': weight, 'lo': lo, 'hi': hi, 'den': den})
+result = {'status': 'PASS', 'comparisons': len(errors),
+          'max_normalized_difference': max(errors), 'max_interval_width': width,
+          'witnesses': witnesses}
+Path('/workspace/nyman_comparison_results.json').write_text(json.dumps(result, indent=2)+'\n')
+print(json.dumps(result, indent=2))
+```
+
+
+#### Observed Final Exact-Audit Output
+
+```json
+{
+  "exact_counts": {
+    "raw_band_surrogate_rejected": 1,
+    "exact_spectral_returns": 621,
+    "ramanujan_jump_checks": 1054,
+    "no_tail_radical_cases": 483,
+    "radical_jump_identities": 874,
+    "large_base_prime_power_cases": 151,
+    "same_radical_pairs": 326,
+    "complete_period_orthogonality": 6,
+    "moment_systems": 11,
+    "full_original_returns": 522,
+    "omitted_correction_detected": 435,
+    "omitted_tail_detected": 345
+  },
+  "certificates": [
+    {
+      "N": 222,
+      "H": 75,
+      "LB_lower": "-3809819946/1000000000000",
+      "LB_upper": "-3809819945/1000000000000",
+      "positive": false,
+      "negative": true
+    },
+    {
+      "N": 690,
+      "H": 186,
+      "LB_lower": "278408809/1000000000000",
+      "LB_upper": "278408810/1000000000000",
+      "positive": true,
+      "negative": false
+    }
+  ],
+  "supplement": {
+    "row_count": 176,
+    "first_QS_failures": {
+      "plain": [],
+      "weighted": []
+    },
+    "unresolved_nonzero_H": {
+      "plain": [],
+      "weighted": []
+    },
+    "H2_exact_zero_handled_by_definition": true
+  },
+  "elapsed_seconds": 10.223257072000024,
+  "sha256": "fe2d70df47528134b3b4935c841d23be777b22eba62fe15c82979eed30dc7a0c"
+}
+```
+
+
+### Prepublication Freshness - 20261106-census-3
+
+At 2026-11-07 00:19:47 UTC, main still resolves to d4df133117c5b58f90979d2eb680167ef37995cf. The reports branch is the verified early checkpoint 2df575b0db2f512f6c9fff07279764e1410d4237; both daily directories show unchanged upstream report blobs. Only this role's own checkpoint differs from the intake. All executable checks have finished. The final append below preserves the full previous report byte-for-byte; its actual publication is verified by the subsequent receipt.
