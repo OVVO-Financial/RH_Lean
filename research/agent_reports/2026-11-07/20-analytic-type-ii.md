@@ -2048,3 +2048,589 @@ high_attack_ack=COMPLETE_SIGNED_HIGH_ATTACK_V1; chain_ack=CANCELLATION_CHAIN_REU
 Selected task: continue the arbitrary-cutoff two-error source package through the actual combined-count/witness consumer. Reuse #1105, now human-merged, instead of reproducing its source interface. Inspect original raw branches and supported-witness definitions, independently challenge the MH2/MH3 crossing, and determine a quantitatively valid complete detector bound. Preserve physical HighData, full-family kappa licensing, fineness, both unmarked errors, high-bin complement, and all downstream LOW/principal obligations. Coordinator RG4 remains a separate source-integration proposal, not an input assumed here.
 
 The applicable comparator is the fixed actual-source boundary 7/8-actualSlotMinimum(D)/24, not merely rounded 7/8. A detector saving alone does not beat it. No new result or Lean verification is claimed at this checkpoint; exact Actions/source evidence and mathematical derivation are pending. Own-report-only permissions remain in force.
+
+---
+
+## Scheduled OAI-NNS Research Continuation - 20261107-analytic-3
+
+Invocation: 2026-11-07 17:11:01 America/New_York (22:11:01 UTC). This synthesis continues the verified early checkpoint, preserves today's GL/FT findings, and resumes the marked-half-error consumer requested by the current Coordinator. Mathematical review status of new claims is PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED. Publication status is recorded separately in the verified receipt below.
+
+### A. Most Important Analytic Development
+
+**The actual combined fiber count retains more of the proved source strength than the existing consumer:** on the low-delta range, its exponent can be
+
+```text
+T_hat(k,delta,x,rho) + (154-150*delta)*epsilon + delta*mesh,
+```
+
+with the SAME fixed raw-inverse coefficient and threshold, and no artificial `7*nu` loss. Here `T_hat=R_k+(1-omega_k)*rho` is the shifted two-error exponent of `20261107-referee-2/MH2`, not a new name for the original target. The proof below independently reconstructs the six original branches, retains their delta factors, and takes a fixed-scale limit in the strict-capacity slack. It does not send the genuine moment error rho or source mesh to zero.
+
+Additional results establish exactly what this buys:
+
+| Claim | New result | Scope |
+| --- | --- | --- |
+| 20261107-analytic-3/BC1 | Slack-free count with `(154-150*delta)*epsilon+delta*mesh`; high complement `1-delta+(2+76*delta)*epsilon+rho` | Actual Fiber under the existing source moment package and a compatible retained raw-inverse certificate; paper proof |
+| 20261107-analytic-3/BC2 | Exact minimax optimality of the shifted cutoff over all `1<=tstar<=3/2`, including the boundary plateau | Four-bound scalar envelope, not a claim of arithmetic realizability or a no-go for joint arithmetic estimates |
+| 20261107-analytic-3/BC3 | Exact kappa finite-difference formula and a uniform interior gain at least `(k2-k1)/6075` | With the already certified same-source boundary, a licensed count-power gain at least `m/145800`, and class-power gain at least `m/29160000` |
+| 20261107-analytic-3/BC4 | Compatible source certificate construction, fresh arbitrary-cutoff batches, and return to the original nonfloor `cubeArithmeticSum` class inequality | Original coefficients, source masks, norms, bin factors and height costs retained; paper proof, not the complete probe comparison |
+| 20261107-analytic-3/BC5 | Exact rational regression and source-interface audit | FINITE_COMPUTATION, supplementing rather than replacing the proofs |
+
+The complete detector functional consequently permits the common loss
+`151*epsilon+(5/6)*mesh+(41/42)*rho` on the actual source range `delta>1/50`, in place of `159*epsilon+mesh+7*nu+(41/42)*rho`. The existing `41/42` improvement belongs to Referee MH3; it is reused, not claimed as newly discovered here.
+
+**NEW_VERIFIED_ENDPOINT_GAIN=NONE.** No new bound on the Hecke zero supremum, global Mertens exponent, canonical signed HIGH, VF error, or RH is claimed. The new fixed saving is on an explicitly stated interior class range, which need not contain every actual class. Full compensation and comparison remain necessary.
+
+### B. Current Mathematical Objective And Authority
+
+Main was fetched at intake and rechecked before publication: `cae99df1c3ea24ff4113063bf09f6fd07517ad93`, tree `087a31436295ea4b0307d3d851f363c5370dba5f`. The governing files are [AGENTS.md](https://github.com/OVVO-Financial/RH_Lean/blob/cae99df1c3ea24ff4113063bf09f6fd07517ad93/AGENTS.md), blob `0a99faf8458809ac772d470d704c5433f373bda8`, and [CURRENT_PROOF_CONTRACT.md](https://github.com/OVVO-Financial/RH_Lean/blob/cae99df1c3ea24ff4113063bf09f6fd07517ad93/CURRENT_PROOF_CONTRACT.md), blob `d1d6fd558ee23927bd9f70ffdc375bafd1dbb67a`.
+
+```text
+high_attack_ack=COMPLETE_SIGNED_HIGH_ATTACK_V1
+chain_ack=CANCELLATION_CHAIN_REUSE_V1
+baseline_ack=PAID_BASELINE_EXACT_CONSUMER_V1
+deployment_ack=NO_PIGEONHOLING_ROUTE_SELECTOR_V1
+selected_route=OAI-NNS
+rolling_portfolio=CODIV(GL), NYMAN(FT), OAI-NNS(BC)
+next_protected_route=CODIV
+research_mode=SEARCH_BROAD
+```
+
+The complete-HIGH directive has blob `be8168b67584d9d8ebbaa732a30c51509137543e`; the cancellation-chain reuse directive has blob `28e2ab47c68bc83b91ae02b6112b94867b021b32`. They supersede older compulsory small-cube/all-selected entrance tests without changing source hypotheses. No branch, Lean file, issue, PR, workflow or other agent's report was changed, and no agent or CI run was launched.
+
+The canonical objective remains actual-prime `|pi(R^2)-VFcan(R^2)| <= C R log R`, with the live domain and VF normalization retained. Its common arithmetic intermediate is the genuine signed decomposition `M(R^2-1)=L_R+H_R`, where fixed-Lambda LOW is bounded by `(floor Lambda+1)R`. This is distinct from OAI reflected LOW. Returning a square-scale Mertens bound to arbitrary integers must still restore the partial block of at most `2R+1` terms. Complete signed pairs retain the squarefree diagonal.
+
+The incoming certified comparator is **not merely 7/8**. The exact source construction in [VF919ActualSlotMinRetighten.lean](https://github.com/OVVO-Financial/RH_Lean/blob/cae99df1c3ea24ff4113063bf09f6fd07517ad93/research/oai_434/VF919ActualSlotMinRetighten.lean), blob `138c4726085995b966204406805f70082402bec4`, gives a fixed fine source with true slot minimum `m>0` and
+
+```text
+beta_H <= 7/8-m/24;
+MertensGrowthAtMost (7/8-m/24), with every positive exponent loss;
+2*realMertensPositiveLagPairSum(x+1)
+  <= (C*x^(7/8-m/24+eps))^2-realMertensDiagonal(x+1).
+```
+
+The native growth theorem at the actual `beta_H` may be stronger still; no numerical equality for beta_H is asserted. A fixed Mertens power must spend a specified positive loss. This run does not beat that comparator globally.
+
+Compact HIGH task record: exact signed object is the original compensated OAI probe whose complete comparison feeds beta_H and genuine Mobius sums; paid input is the actual marked `1+rho/2` estimate with licensed generalized capacity; changed consumer is combined fiber count, fresh source batch and nonfloor class; first unreturned piece is the complete nonfloor/floor/geometric/remote/HIGH and reflected-LOW/principal comparison with a better admissible boundary. The old sufficient LOW gate is not a universal impossibility theorem.
+
+### C. Mechanism And Continuity
+
+The independent ingredient is a quantitative use of information already present in the four raw count inequalities. The strict selected-width constraints need positive slack, but neither their common coefficient nor their large-scale threshold depends on that slack. Therefore the slack can disappear after the inequalities are proved at a fixed scale. The large unmarked branch also need not lose its `1-delta` multiplier. This is different from assuming new arithmetic cancellation.
+
+Both Nov 7 and Nov 6 report sets were retrieved; latest applicable substantive sections, source claims, review decisions and unresolved obligations were read. All seven roles have TODAY=AVAILABLE; YESTERDAY=READ_CARRY_FORWARD, not an invented missing-stage completion. The Coordinator AM/PM mirrors have matching blobs. A final tree refresh found no upstream report or external-inbox changes during this invocation.
+
+| Role | Nov 7 blob | Nov 6 blob | Relevant continuation |
+| --- | --- | --- | --- |
+| Coordinator | `785c56207f0745244d8c2503a18ed7b4d91b39e6` | `8812a90540fb511279b5f4ce08e108ef717d5ef1` | RG1-RG3 paper; RG4 source extension OPEN; RG5 conditional; assigned Analytic the marked-count return |
+| Owner | `933e8eb23e669594cc687059d75147e6267eec8d` | `1856a96aaaa9d86a5ee2d59ffe50ced936443fa6` | JT high-zero tail/inverse failure restriction and prior MS; no licensed complete endpoint from those alone |
+| Analytic, before this checkpoint | `1315b3c9deba1148338d9023af349ee8a246dae7` | `7997620b6ab7eb0701296994734ee910df3c3ba1` | GL and FT preserved; prior AQ is not repeated or imposed as an entrance condition |
+| Wheel | `b973552f1574e39afe6dbc165bde3635f12c9ead` | `3099558194a00358962ff1844bf283e625b9283d` | LR incidence and GF qualifications; no automatic identification with ideal-character phases |
+| Census | `3fae830e34c590d32c31ad77cad3ace833eb3ff5` | `c34ac074296e8b2e5b20dee3a2ce02518571206c` | RC1 crossing, RC2 count, RC3 margin, RC4 conditional complete return |
+| Referee | `65384576327e1ae2c976fca368c83690fc8a95dd` | `da3265467c799e9d21832ab25245617ba3b15a54` | Accepted scoped RC1/RC3; new MH1-MH4 paper claims, with MH1 now implemented |
+| Lean | `2998b7339ea4b3e3fd2fd1d26f839527fd5adc95` | `b8bfe3ce9c20d7903395364efb39bcec974c8a2f` | #1105 source package and three count branches merged; combined consumer still absent |
+
+External handoffs blob `038018145c0fddb2f6306c0712373adf9cd1ea52` was checked, including relevant EXT-20261018-PNT-1, EXT-20261017-XCOORD-1 and EXT-20261014-5 warnings. No newer handoff supplies this combined count. This run needs no new external literature theorem and does not repeat an accepted literature search.
+
+Recent relevant human merges are #1102 (CODIV tail), #1103 (generalized feedback), #1104 (policy), and #1105 (two-error source moments). The open/draft PR collection was empty at the checks made during this run. CI evidence is scoped in L, not inferred merely from merged status.
+
+### D. Exact Formulation
+
+Use `k` for the marked capacity coefficient, never for the unrelated raw-inverse constant `k_raw`. Fix
+
+```text
+1/2 <= k <= 3/4,  0 < delta <= 5/6,
+0 <= x <= 1/2,    0 < rho <= delta/12.
+c = x/(3*k),                    Dk = 3-x-2*c,
+A = 2*(1-c)*(1-x)/Dk,           s = 5/6-delta,
+Bk = s+delta*A,                 Jk = Dk*Bk,
+omega = s*(1-x)/(2*Dk*Bk),
+t_hat = 1+delta*A/(2*Bk)-(1-x)*rho/(2*Dk*Bk),
+r_hat = [c+(2-2*c)*t_hat-x+rho/(2*delta)]/Dk,
+T_hat = 1-delta+rho+s*(t_hat-1),
+R_k = 1-delta+s*delta*A/(2*Bk).
+```
+
+All denominators are positive, including `s=0`. The genuine source application requires `k>1/2`, `beta_H>=51/100`, `2*beta_H-1<=k`, and the exact source-fineness condition. Physical `HighData Delta` remains at positive Delta; a generalized auxiliary capacity index is not a replacement physical record.
+
+For BC1, fix `U>1`, `0<=epsilon<=1/1000`, `mesh>=0`, and a genuine nonempty
+`F : Fiber M H Label Slot U a epsilon t_hat T allowance i`
+with `delta=2*a-1` and `x=F.q/delta`. Require the original arithmetic carrier, row norm/coefficient identities, slot supply and mesh conditions of Fiber, `C,height>=0`, and `2*pi*allowance+3*i*T<=height`. Use the actual record
+
+```text
+MomentsTwoError F k c_raw k_raw C height rho (rho/2)
+```
+
+from #1105. Select and RETAIN the compatible `no_slot_inverse_count` certificate at `R=2`, error rho, with constants `c_raw,k_raw,K0`, where `0<c_raw<=1`, `k_raw>0`, `K0>=0`, and its original uniform large-U threshold. Define
+`Cstar=192*(1+height)*C*max(1,K0)`.
+The threshold is fixed before all fiber parameters and every auxiliary `nu>0`. This retained certificate is a proved source choice, not a consequence of the opaque terminal CountParameters fields; construction is in G.
+
+**BC1:** at every U satisfying that certificate,
+
+```text
+card(F.rows) <= Cstar * U^[T_hat+(154-150*delta)*epsilon+delta*mesh].   (1)
+```
+
+At `5/6<=delta<=1`, use the original cutoff `3/2` and the same raw-inverse certificate. Then
+
+```text
+card(F.rows) <= Cstar * U^[1-delta+(2+76*delta)*epsilon+rho].          (2)
+```
+
+The high case does not require the plain marked field. Its source range uses `a<=1`. Empty fibers have count zero. Constants depend on the fixed original modulus, subgroup, excluded ideals, test profile/support bounds, and rho, exactly as in the raw theorem; not on U, nu, a, k, tstar, or the individual fiber. Source moment constants may depend on fixed k and character, and their height growth is retained in G. No uniformity in rho approaching zero or in an increasing number of source slots is asserted.
+
+**BC2:** define the relaxed zero-witness-error geometry
+`G_t={(r,m):0<=r<=t, 0<=m<=1/2, r+m>=t}`.
+Let `E_t(r,m)` be the infimum of these available exponents, ignoring empty marked families:
+
+```text
+I0 = max(1,(1+5*r)/6)-delta*r+rho;
+P0 = max(1,2*m)-2*delta*m+rho;
+Iz = 1-delta*r-2*delta*x*z+rho,
+     0<=z<=7/37, r+2*z<1, 2*r+8*z<3;
+Pz = 1-2*delta*m-2*delta*x*z+rho/2,
+     0<=z<=7/37, 2*m+6*k*z<=1.
+```
+
+Then `inf_(1<=t<=3/2) sup_(r,m in G_t) E_t(r,m)=T_hat`.
+The minimizer is uniquely `t_hat` if `delta<5/6`; at `delta=5/6` every `t in [t_hat,3/2]` minimizes. This is an exact scalar minimax theorem, not a theorem that actual rows realize the extremal lengths.
+
+**BC3:** for fixed delta,x,rho and `1/2<=k1<k2<=3/4`, put `cj=x/(3*kj)` and `Jj=J_kj`. Then
+
+```text
+T_hat(k2)-T_hat(k1)
+ = s*(1-x)*(c1-c2)
+   *[delta*s*(1-x)+rho*(s+delta*(1-x))]/(J1*J2).                    (3)
+```
+
+It is nonnegative, and is positive exactly when `x>0` and `delta<5/6`. On the CLOSED interior box `1/4<=delta<=1/2`, `1/4<=x<=1/2`, it is at least `(k2-k1)/6075`, uniformly in `0<rho<=delta/12`.
+
+### E. Derivation
+
+#### E1. Domain and crossing
+
+The MH2 identities, independently checked here by substitution, are
+
+```text
+I(r_hat)+rho = P(t_hat,r_hat)+rho/2 = L(t_hat)+rho = T_hat,
+I(r)=1-delta*(x+(1-x)*r),
+P(t,r)=1-delta*(c+(2-2*c)*(t-r)),
+L(t)=1-delta+s*(t-1),
+T_hat=R_k+(1-omega)*rho.
+```
+
+For completeness, `c<=1/3`, `Dk>=11/6`, `Dk>=3*(1-x)`, and
+
+```text
+t_hat-1=(1-x)*[delta*(1-c)-rho/2]/Jk,
+1-r_hat=s*[1-c-rho/(2*delta)]/Jk.
+```
+
+These imply `1<=t_hat<=3/2` and `r_hat<=1`. At any `1<=t<=t_hat`, set
+`r_t=[c+(2-2*c)*t-x+rho/(2*delta)]/Dk` and `m_t=t-r_t`.
+The minimum possible r_t is bounded by `(2-c-x)/Dk>=23/37`, since after multiplying by `37*Dk` the difference is `5-14*x+9*c>=5-10*x>=0`. Also
+`m_t>1/4`, because `4*(1-c-1/24)-Dk=5/6+x-2*c>0`.
+At the upper endpoint,
+`t_hat-r_hat>=1/3-rho/(2*delta*Dk)>=41/132`, while `t_hat<=3/2` gives `t_hat-r_hat<=1/2`. Finally `0<=omega<=1/6`, and `T_hat>=1-delta+rho`.
+
+#### E2. Six actual branches and loss retention
+
+The original Fiber geometry is
+`r<=t_hat+epsilon`, `m>=t_hat-r-epsilon`, `0<=m<=1/2+75*epsilon`, and `r>=t_hat-1/2-76*epsilon>=0`.
+The raw inverse is valid up to `r<=2`; this follows from the same geometry. Three marked/unmarked inequalities are the compiled #1105 declarations; the fourth is the retained raw inverse. Promote every coefficient to Cstar using nonnegativity and `U>1`.
+
+Fix any `nu>0`. Exhaust the following six cases; the right column lists the loss above T_hat, not an unproved remainder.
+
+| Case | Existing branch and exact sufficient excess |
+| --- | --- |
+| `r>=1` | Raw inverse: `(2+s)*epsilon` |
+| `r<1, r>=r_hat, (1-r)/2>nu` | Inverse marked at `z=(1-r)/2-nu`: `2*epsilon+delta*mesh+2*delta*x*nu` |
+| `r<1, r>=r_hat, (1-r)/2<=nu` | Raw inverse fallback: `2*epsilon+2*delta*nu` |
+| `r<r_hat, m>=1/2` | Restore the unmarked maximum: `(154-150*delta)*epsilon` |
+| `r<r_hat, m<1/2, (1-2*m)/(6*k)<=nu` | Raw plain fallback: `4*epsilon+6*delta*k*nu` |
+| `r<r_hat, m<1/2, (1-2*m)/(6*k)>nu` | Plain marked at `z=(1-2*m)/(6*k)-nu`: `[4+2*delta*(1-c)]*epsilon+delta*mesh+2*delta*x*nu` |
+
+Details that matter: inverse r is at least `23/37`, so both STRICT capacities hold at the selected z, with `z<=7/37`. On the plain side `m>=41/132-epsilon>=1/4`, hence `z<=1/6<7/37`; its capacity is non-strict. The plain exponent is decreasing in m and its zero-error reduction is increasing in r. The fourth line follows from
+`2*(1-delta)*m+4*epsilon+rho <= 1-delta+rho+[150*(1-delta)+4]*epsilon`.
+This is why replacing `1-delta` by one too early loses a real factor.
+
+Since `154-150*delta>=29`, every epsilon coefficient in the table is bounded by it. Every nu coefficient is less than 7, and no branch needs more than `delta*mesh`. Thus for EVERY nu>0,
+
+```text
+card(F.rows) <= Cstar*U^[T_hat+(154-150*delta)*epsilon+delta*mesh+7*nu].
+```
+
+Now hold F,U,Cstar and the threshold fixed and let nu decrease to zero. Continuity of `U^v` in v proves (1). When Cstar=0 the conclusion is already immediate. This is not an exchange of a growing-U threshold and a limit: the raw threshold precedes nu, and the marked inequalities hold at this SAME U for all legal z. Do not substitute nu=0 into a strict-capacity lemma. Conversely this argument would fail for `O_nu(U^(p+nu))` with nu-dependent constants or thresholds, as the elementary example `log U=O_nu(U^nu)` demonstrates.
+
+For (2), the high-cutoff geometry gives `1-76*epsilon<=r<=3/2+epsilon`. If r>=1, the raw exponent has slope `s<=0`, so is at most `1-delta+2*epsilon+rho`. If r<1 it is `1-delta*r+2*epsilon+rho`, at most `1-delta+(2+76*delta)*epsilon+rho`. This proves the whole high complement, including equality delta=5/6.
+
+#### E3. Exact minimax proof
+
+At t_hat, for r>=1 the raw inverse is at most T_hat because `r<=t_hat` and s>=0. For r<1 and r>=r_hat, approach the inverse width `(1-r)/2` from below; its exponent tends to `I(r)+rho<=T_hat`. For r<r_hat, `m>=t_hat-r>=41/132` and the full plain width `(1-2*m)/(6*k)` is legal and at most 1/6. Its exponent is at most `P(t_hat,r)+rho/2<=T_hat`. This proves `sup E_t_hat<=T_hat`.
+
+For any `t<=t_hat` take the legal lengths r_t,m_t in E1. The inverse and plain full-capacity exponents agree at
+
+```text
+V(t)=1-delta+delta*A*(3/2-t)+rho-(1-x)*rho/(2*Dk)
+    =T_hat+delta*A*(t_hat-t).
+```
+
+The inverse cap is below 7/37 and its other constraint is weaker. The plain cap is below 1/6. Smaller widths only increase these exponents. Both unmarked exponents are at least V(t): they remove a nonnegative marked credit, and the plain unmarked one also replaces rho/2 by rho. If r_t=1 the inverse marked family is empty and raw inverse equals V(t). Thus `E_t(r_t,m_t)>=V(t)>=T_hat`.
+
+For any `t>=t_hat`, use `r=t,m=0`. Inverse marking is impossible. The raw inverse is `L(t)+rho>=T_hat`. Every plain marked exponent is at least `1-delta*c+rho/2`. With `Y=delta*(1-c)-rho/2>0`,
+
+```text
+1-delta*c+rho/2-T_hat = Y*(1-2*omega)>0.
+```
+
+Raw plain is still larger. This proves the other minimax inequality. For delta<5/6, t<t_hat has the strict penalty `delta*A*(t_hat-t)`, and t>t_hat has a strict long-branch excess. For delta=5/6, s=0 and the long exponent is constant. At every t>=t_hat the r<1 alternatives only improve, since their minimum m increases with t; the same argument proves the stated plateau. No physical rows have been manufactured from these scalar witnesses.
+
+#### E4. Kappa gain, without circular licensing
+
+Write
+`T_hat=1-delta+rho+s*(1-x)*[delta*(1-c)-rho/2]/Jk`.
+Both numerator and Jk are affine in c. Cross multiplication gives (3), with positive denominators. On the interior box, use
+
+```text
+s>=1/3, delta>=1/4, 1-x>=1/2, x>=1/4,
+c1-c2 = x*(k2-k1)/(3*k1*k2) >= (16*x/27)*(k2-k1),
+0<Jk<=3*s+2*delta=5/2-delta<=5/2.
+```
+
+Dismissing only the nonnegative rho summand in (3) yields the explicit constant `1/6075`. This estimate is uniform in k,delta,x,rho on the displayed ranges; it does not assign a uniform bound to source constants as k changes.
+
+Choose the actual fine D from the EXISTING baseline proof construction, and its calibrated `E=slotCalibratedHighDataLowFirst(sourceWithExactSlotMinimum D)`. Retain the construction's fineness witness, not just an arbitrary existential D from the terminal theorem. E has the SAME ell and t, and `m=min ell>0`, `m<=1/6`, in fact `m<=E.t/200`. The proved boundary gives
+
+```text
+k1=3/4-m/24, k2=3/4,
+1/2<k1<k2,
+2*beta_H-1 <= 3/4-m/12 < k1.
+```
+
+The already compiled `original_source_fineness_preserved` transfers the original fine mesh to both smaller k values. If `beta_H>=51/100`, all generalized source-moment licenses hold. If beta_H is smaller, that is the separate already-stronger boundary case; the source theorem is not invoked outside its lower-beta hypothesis.
+
+It follows that the optimized count POWER in each admitted interior cell improves by at least `m/145800` compared with the SAME two-error construction at k2. Both have the same `(154-150*delta)*epsilon+delta*mesh`, which therefore cancels in this comparison. At `U=Z^d`, `d>=1/200`, the original class exponent improves by at least `m/29160000`. Constants may differ between the two fixed suppliers. This is a class estimate, not proof that all classes lie in the interior box and not a new global boundary.
+
+### F. Quantitative Comparison And Remaining Budget
+
+For actual a>51/100, delta>1/50. Therefore the low-bin auxiliary count loss is at most `151*epsilon+(5/6)*R_slot`; the high-bin coefficient is at most 78 and needs no mesh. Physical rho=E.t satisfies rho<=delta/12 because `E.t<=1e-8`.
+
+Reuse Census RC3's independently reviewed certificate
+`M(k)=1/5000+(3-4*k)/1600`, and the Referee MH3 functional argument. With `q=delta*x` and `Rtwo` defined to be the exponent in (1) or (2), the complete detector inequality is
+
+```text
+-1/48+2*delta/3+q/6-(13/16)*(1-Rtwo)
+ <= -M(k)+(13/16)*[151*epsilon+(5/6)*R_slot+(41/42)*rho].            (4)
+```
+
+This includes the high-delta complement. To check rather than merely cite MH3: for delta<=3/4, `omega>=1/42` follows by monotonicity in delta and
+`21*(1-x)-(Dk+18*(1-c)*(1-x))=2*(c*(10-9*x)-x)>=0`.
+For 3/4<=delta<=5/6, the independent zero-error margin is at least `13/384`, exceeding `33/40000+(13/672)*(5/72)`. For the high complement it is at least `7/96`, exceeding `33/40000+(13/672)*(1/12)`. These margins pay the rho/42 discount without demanding it on every row. The RC3 polynomial margin itself is reused, not rerun or relabeled as this run's discovery.
+
+A proposed complete detector-to-HIGH assembly must explicitly charge at least the unchanged downstream terms in the existing consumer:
+
+```text
+(13/16)*[151*epsilon+(5/6)*R_slot+(41/42)*rho]
++ 2*zeta + (3/2)*mu
++ [26*e+(N+8)*eps_outer+loss+mesh_bin/6]
++ [logCost+heightCost+momentCost] + saving <= M(k).
+```
+
+This is a prospective ledger for the unchanged stages, not a proved full comparison theorem. The conservative existing count-smallness gate can remain `159*epsilon+rho+R_slot+7*nu<=1/32`; it is not silently deleted from HighData. One may separately prove an updated gate from (1)-(2). Physical Delta remains positive and unchanged.
+
+The genuine class saving is fixed after choosing the existing fine source, but the global rate remains the incoming beta_H bound. No cancellation of conductor one, absorbed mass, all-selected terms, mixed Gram terms or reflected correction terms has been claimed. No summability or average-over-selected-populations assumption is introduced.
+
+### G. Original-Carrier Bridge And Source Provenance
+
+#### G1. Retain the raw certificate instead of projecting it from the wrong record
+
+Original `Detector/FinalAssemblyCountParameters.lean` stores positive cB,kB,cH,kH and the two TERMINAL balanced/high count functions at the OLD cutoff. It does not store the raw no-slot inverse gate. Therefore a theorem accepting an arbitrary opaque old CountParameters cannot simply project the missing raw gate at the shifted cutoff. This is a proof-interface limitation, not a counterexample to that valid record.
+
+A compatible enriched package exists without a new analytic hypothesis. In `HeckeDetectorCountFromMoments.count_from_raw_moments` and `HeckeDetectorHighCount.high_count_from_raw_moments`, the only existential analytic selection is the same `no_slot_inverse_count(...,R=2,rho)` call. Call it ONCE, retain c_raw,k_raw,K0 and its uniform gate, and reuse the rest of both inspected proofs at those choices. The marked branches require no additional selection of these constants. Finite fiber aggregation and the old adaptive-cutoff identities then supply the existing balanced and high fields with `cB=cH=c_raw`, `kB=kH=k_raw`. Thus one constructs an ordinary CountParameters together with the additional provenance certificate. No assertion is made that every previously chosen opaque CountParameters is so enriched.
+
+The already compiled #1105 `source_moments_two_error` accepts ANY CountParameters with its positivity fields, so it applies to this compatible choice. This construction is a paper proof by replaying the identified original proof bodies with their sole raw witness retained; it is not yet a Lean declaration. A smaller implementation may expose the raw gate explicitly and build its compatible counts once.
+
+#### G2. Fresh batches on the SAME arithmetic amplitude classes
+
+Original `SourceBatch.actual_source_batch` has a threshold BEFORE `forall tstar, 1<=tstar<=3/2`. The amplitude rows, physical products and classMean do not depend on a detector witness. For each nonempty original amplitude class, call this theorem at t_hat(delta,q/delta), or at 3/2 for the high complement. This supplies a fresh batch with EXACTLY the same rows, sourceMomentData, reverse flag, all slots, widths ell/d, profiles W, upper b, external z, mesh, bin width and sourceDetectorFamily. The eleven source equalities match `SourceMomentsAtCutoff` literally.
+
+Apply `fiber_mean_eq` to the fixed classMean q; every fiber has the same x and cutoff. The original `Batch.card_bound` then gives, without omitting labels or bins,
+
+```text
+card(B.rows) <= card(Label)*(dyadicLength U)^2*card(B.Bin)
+                *Cstar*U^Rtwo.
+```
+
+Empty fibers contribute zero. No equality-only recut of an old witness is used. The old `actual_source_amplitude_batches` wrapper specializes the old cutoff, so its body must be replayed from the uniform source theorem, not applied unchanged at an unequal cutoff.
+
+#### G3. Actual nonfloor class return, with every power displayed
+
+Retain ALL geometric, smoothness, support, test-function, row-norm, nonunit, conductor-residue, detector-window and height hypotheses of the original `ProbeFinalAssembly.actual_nonfloor_class_from_raw_moments`. Replace only the old raw-moment/count package by the compatible package above, and the old count exponent by Rtwo. The original `actual_class_cube_arithmetic` accepts a cardinality bound with an arbitrary exponent. Therefore its same proof yields, for the SAME original amplitude rows', pool T and outside pool,
+
+```text
+||cubeArithmeticSum S hS hmax eta rows' T outside W Y a e t||
+ <= C*C0*(eta.modulus.absNorm)^(2*eps_outer)
+    *Z^[logCost+heightCost+momentCost+d*Rtwo
+        +v*(a-1/2+12*e+eps_outer*(N+8)-17/50)
+        +loss-2/75+q/6+mesh_bin/6].                               (5)
+```
+
+Quantifiers and constant uniformity are those of the original class theorem: fixed N,n,ell and source parameters; `exists C>0, forall eta, eventually Z, forall d in [dmin,dmax]`, `v>=0`, `51/100<a<=1`, `C0>=0`, every admitted rows set, height window, and nonempty bin. Require `0<dmin<=dmax<=37/42` and the original positive bin width, phase, detector and moment-height budgets. The fixed compatible raw-inverse threshold is absorbed uniformly for all d>=dmin using `eventually_all_rpow_ge`. The new k,rho are fixed before this threshold; the count proof is uniform over all admitted a,q.
+
+Specifically, the original `source_count_prefactor_eventually` quantifies ALL tstar. It absorbs exactly the label cardinality, dyadic factor, finite bin alphabet and Cstar into `K*C0*Z^(logCost+heightCost+momentCost)`, for fixed N and bin width and any fixed positive logCost. It is not a bound uniform in growing N or shrinking bin width. Frequency domination still requires `heightCost>tau` and the fixed height index bound i<=n.
+
+The compiled supplier gives `exists J>=0, forall eta, exists C_eta>0, forall 0<tau<=1, eventually Z`, with moment constant `C_eta*(1+Z^(2*tau))^J` and height `Z^(2*tau)`. Choose tau AFTER J; for Z>=1 this constant is at most `2^J*C_eta*Z^(2*tau*J)`. Keep `momentCost>=2*tau*J` and `heightCost=2*tau>tau`. Original HighData's height_choice supplies an admissible sufficiently small tau; no growing-source parameter is hidden in O(1). Equation (5) follows by substituting the fresh-batch cardinality into the original class bound, preserving the original q/6, bin-width/6, conductor norm and v-dependent terms.
+
+The proof of (5) returns to the genuine ideal-character arithmetic expression. It does NOT identify these phases with rational Mobius signs, and does not omit the remaining full probe sum. The latter requires the existing complete comparison and native transfers, with their hypotheses re-established for any claimed improved endpoint.
+
+### H. Falsification And Circularity Review
+
+BC2 falsifies an overstatement: changing only the cutoff and optimizing the same four scalar alternatives cannot yield a power below T_hat on the full relaxed geometry. This strengthens MH4's single-face diagnostic to all k,delta,x,rho in the stated rectangle. It does not refute a stronger theorem using actual arithmetic restrictions or joint bounds; no actual Fiber realization of the scalar extremizers is claimed.
+
+BC3 also shows exactly where kappa feedback saves nothing: x=0 and delta=5/6. A uniform positive per-row feedback saving would be false in this envelope. Equation (4) survives because those faces have independent functional margin. Interior saving cannot be promoted to an all-row or full-probe saving by averaging without a proved population restriction.
+
+No circular license is used: k1 is permitted by the incoming certified strict boundary, not by the desired improved boundary. No physical HighData has negative Delta. No arbitrary CountParameters is assumed to retain information its fields do not contain. Constants and thresholds are fixed before nu, but generally not before rho or k; only the first limit is taken.
+
+BC5 used exact Fraction arithmetic, not floating-point plots. It tested 288 parameter configurations, 5,184 alternate-cutoff lower witnesses, 21,600 optimal-cutoff upper-envelope points, 288 sharp long witnesses, 208,896 positive-error raw cases across ALL SIX branches, 48 finite-difference identities, 36 uniform-interior gains, 54 licensed gains, 297 high-complement inequalities, and one original CountParameters provenance check. All passed. The verifier is reproduced after L; SHA256 `7e3fd4912df381e1c5197b3404dea7e68fc69b14f98cab79a14d5518116cdcf7`. Python syntax compilation also passed. These are finite scalar/source-interface diagnostics, not a prime-ideal experiment, numerical evidence of RH, or an all-scale proof.
+
+### I. Conceptual Interpretation
+
+There are three different phenomena: a removable proof slack, a genuine source moment error, and a genuine capacity improvement. The first vanishes by fixed-scale continuity; the second survives through a precisely optimized coefficient; the third has an exact positive sensitivity on interior amplitude classes. Conflating them either wastes available strength or fabricates a global exponent gain.
+
+The scalar minimax calculation now closes one local optimization question. Another unmotivated cutoff scan has no value for these same four bounds. The useful next work is source-compatible consumer implementation and the remaining complete comparison, or a justified additional arithmetic restriction. It is not necessary to invent a new universal covariance assumption to use the cancellation already proved.
+
+### J. Specialist Handoffs
+
+| Recipient | Precise request |
+| --- | --- |
+| Adversarial Referee | Independently review BC1's fixed-U limit and retained delta losses, BC2's lower witnesses/plateau, BC3's exact finite difference, and BC4's compatible raw-certificate construction. In particular attack any hidden dependence of K0 or the U threshold on nu, and the freshness of arbitrary-cutoff witnesses. Return an explicit accepted scope or first failed lemma. |
+| Lean Verification | After independent acceptance, implement the combined count using the already merged MomentsTwoError branches, retain the raw certificate with compatible CountParameters, and take the nu limit without weakening strict capacity. Then implement fresh-batch/cardinality/class return from actual_source_batch and source_count_prefactor_eventually. Do not assume the new count or claim an endpoint from it. |
+| Coordinator | Record BC1-BC4 as paper consumer advances, not VERIFIED_ETA. Preserve the separate RG4 source-extension program. A complete endpoint comparison must beat the same-source `7/8-m/24` (and respect any stronger applicable beta_H result), not rounded 7/8. |
+| Prime Census Laboratory | Do not repeat the printed rational grid. A changed useful test is an independently sourced actual amplitude-class decomposition checking that new witnesses retain identical rows/q and all norm factors, or a finite original-source counterexample to a claimed population restriction. Distinguish inability to construct actual source data from a counterexample. |
+| Finite Wheel | Check the exact admissible width selections at r=23/37 and near m=1/2, keeping the separate bin and slot meshes. No rational-incidence restriction may be transferred to these ideal-character rows without a bridge. |
+| Owner Payment | Preserve the JT and signed arithmetic programs; if proposing a route bridge, specify the exact original signed carrier and complete compensation. No new arithmetic independence or row-population assumption is requested by BC1. |
+
+These are published handoff requests only; no other agent was launched or assumed to have acted.
+
+### K. First Independently Missing Analytic Theorem
+
+For this marked-consumer line, the next concrete proof task is the compatible raw-certificate plus complete combined-count/class implementation just specified. Its paper proof has no new unproved cancellation hypothesis. It is not yet a compiled theorem.
+
+The first additional ANALYTIC requirement for a NEW GLOBAL endpoint is a source-faithful complete comparison whose admissible LOW/HIGH/principal window yields a boundary below the incoming one. A sharper detector bound alone does not enlarge the reflected LOW gate. Coordinator RG4 is one precise candidate: retain the full signature of `low_original_completed_energy_tilted`, replace its hard reflected gate by the stated additive shortfall energy price, and prove that price occurs exactly once through surviving, retained, inactive, frozen, completed and physical reconstruction before the square root and moving-mass payment. RG4 remains OPEN here; RG5's candidate m/4 tilt is not adopted as proved. A different complete joint estimate is also eligible. The old finite-slot gate is a sufficient construction, not a universal barrier.
+
+No theorem of the form 'assume the complete improved HIGH/Mertens bound' is counted as an independent input. The current new class bounds do not by themselves resolve the canonical VF objective.
+
+### L. Evidence And Resume Capsule
+
+Exact-head evidence actually retrieved:
+
+| Evidence | Verification and scope |
+| --- | --- |
+| Baseline #1091 head `6778fd4c25b0f369d311e6e71223e168e329b4bf` | Retrieved job log 126813711885 from run 41898325686. The three actual-minimum beta/Mertens/signed-pair declarations PASS with only propext, Classical.choice, Quot.sound; logged closure counts 35334/35713/35728. Retrieved old-head source is byte-identical to current main blob `138c472...`. No fresh whole-main build is claimed. |
+| #1105 head `30e235ac5ee86041d194d07b20c52b0b22d317f2` | Retrieved all seven successful check-runs and the dedicated proof run 42402231812/job 128492295936. Downloaded proof artifact 13586312178; log reports 43 compiled modules, no failed/blocked modules, and standard-three axiom outputs for source_moments_two_error plus the three count declarations. This is evidence for those source/count branches, NOT BC1-BC4. |
+| Proof artifact | ZIP SHA256 `53af70549d04dc6b6f174cb092ab6ae0811b087e831c46b29be9ac526b880d14`. Generated CutoffMoments source has the same git blob as main template, `d877240267337cca4dae6a2929b216fe6f3e2898`. |
+| Original-source artifact 13585812753 | ZIP SHA256 `2652d33c7c5041d0a374e6c7d2e4198442ffa32485b79d0403e14a35c61d53f9`; extracted and inspected original OAI source at `openai/math@1581d4cbdd69a0faf34b2089614fe2a814316a6a`. No invented repository source path for generated files. |
+
+Relevant source links: [two-error source and branches](https://github.com/OVVO-Financial/RH_Lean/blob/cae99df1c3ea24ff4113063bf09f6fd07517ad93/scripts/lean/retained_slot_feedback/CutoffMoments.lean), [#1105 CI run](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42402231812), [baseline CI run](https://github.com/OVVO-Financial/RH_Lean/actions/runs/41898325686), and [original source commit](https://github.com/openai/math/tree/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/NumberTheory/DirichletL).
+
+Material original-source blobs below were computed with git hash-object on the downloaded pinned source. Paths are relative to `lean/OAI/NumberTheory/DirichletL/` at that original commit.
+
+| Original path | Blob |
+| --- | --- |
+| Hecke/DetectorRawFiber.lean | `ee826e81bbec1df5820f26aa15bce53bcb675cd6` |
+| Hecke/DetectorRawBranches.lean | `16adf0ef89dafd510b98dd44e9a5461e3fbf351d` |
+| Hecke/DetectorNoSlotInverseCount.lean | `c8fdfa1f67f8d165e22ae7e1095f3b324d14e803` |
+| Hecke/DetectorCountFromMoments.lean | `91a6e8aa5e0336d6006a5211e77a13f7f8aba348` |
+| Hecke/DetectorHighCount.lean | `41a574d26a2bdadd7eeaf3cb567e788597a2742d` |
+| Hecke/DetectorFixedAmplitudeCount.lean | `0b83ce168a0dd8b82e3d50fb6c04b2f05d1b1d18` |
+| Detector/FinalAssemblyCountParameters.lean | `055b2b222dd291b51deb02161f0e8a53b04412eb` |
+| Detector/SourceBatch.lean | `3fc92060b6ee89a199f7c73439e388eec527bc92` |
+| Detector/SourceAmplitudeClasses.lean | `ce56409a5216a31f6b39ec364a60a995caa87ef2` |
+| PrimeRows/NonfloorBudget.lean | `a329eea00340862c71a06e812f2f3deafbc1efaa` |
+| PrimeRows/NonfloorCount.lean | `664881d8c19f9b71d94afbcd1807bd53e6563666` |
+| PrimeRows/NonfloorClass.lean | `97f39ee3ce4887e8812f291b7b6a4880a5e838b7` |
+| ParametersHighData.lean | `c565dc0a72c7da9a2706cdd835e69a39e8c0dc14` |
+| Detector/DetectorBatch.lean | `b9e09717ff6311fb7b7fff90a8ab14b86ded8072` |
+| Detector/FinalAssemblySourceCount.lean | `103295913c4677ec4fa77064434d5a8b4999091e` |
+| Detector/FinalAssemblyClass.lean | `d4568661c72b76ca67f71a9793750841ad676ee0` |
+| Hecke/DetectorSupportedWitness.lean | `42f1060befe86b8455777ecfa5ade9a825edd9f8` |
+
+Additional inspected current-main return blobs: NativeStrictMertens `b33a4883e1ddb0551b0f11f062bce46680d87450`, NativeSevenEighthsReplay `111c933a7ca15647105ce6a4d0f3cbfc3cde81f4`, TiltedHighAssembly `883141e0af896d4132bfc4ffa076e2d265ece5c9`, TiltedHighTransport `50c46fb1c5629865c3b7a6546ed3d9418fff1391`, LowFirstSlotAnchoredEndpoint `d9373ce13b703b1e5f4e4bcde158ef9004d250dd`, CanonicalHighSectorCore `dd02fc8fabfe4004c6b0d50374b3b8752607b168`, CanonicalLowOccupancy `b958da340d107cdd00015d2827b9a728357b4d8e`.
+
+Resume from BC1-BC4 at the main SHA above. First refresh authority, affected sources, and new reviewer/Lean decisions. Preserve GL/FT and their claim IDs. Do not rerun the accepted RC3 certificate or this scalar grid without a changed question. Keep the new count's genuine rho and mesh, the raw-gate provenance, full source licenses, and full class exponent (5). On the next protected investigator invocation return to CODIV unless current authority redirects it; the OAI handoff remains ready for independent review. The strongest globally established boundary is unchanged. Publication receipt follows only after successful immutable readback.
+
+#### BC5 Reproducibility Appendix
+
+Run the following verifier with Python 3.12+. Its single local source-read audit expects the downloaded original artifact extracted at `/workspace/original-evidence/`; changing that root does not change the mathematical checks. The printed script hash identifies the exact executed version. All computational claims are finite.
+
+```python
+"""Exact checks for 20261107-analytic-3. Finite tests are not all-scale proofs."""
+from collections import Counter
+from fractions import Fraction as Q
+from hashlib import sha256
+from pathlib import Path
+import json
+
+
+def quantities(k, delta, x, rho):
+    c = x / (3 * k)
+    den = 3 - x - 2 * c
+    aa = 2 * (1 - c) * (1 - x) / den
+    s = Q(5, 6) - delta
+    bb = s + delta * aa
+    omega = s * (1 - x) / (2 * den * bb)
+    t = 1 + delta * aa / (2 * bb) - (1 - x) * rho / (2 * den * bb)
+    r = (c + (2 - 2 * c) * t - x + rho / (2 * delta)) / den
+    power = 1 - delta + rho + s * (t - 1)
+    return c, den, aa, s, bb, omega, t, r, power
+
+
+def envelope(k, delta, x, rho, t, r, m):
+    # Infimum in strict inverse capacities. The selected exponent has
+    # nonpositive width slope, so the supremal permitted width is optimal.
+    out = [max(Q(1), (1 + 5 * r) / 6) - delta * r + rho,
+           max(Q(1), 2 * m) - 2 * delta * m + rho]
+    if r < 1:
+        z = min(Q(7, 37), (1 - r) / 2, (3 - 2 * r) / 8)
+        if z >= 0:
+            out.append(1 - delta * r - 2 * delta * x * z + rho)
+    if 2 * m <= 1:
+        z = min(Q(7, 37), (1 - 2 * m) / (6 * k))
+        out.append(1 - 2 * delta * m - 2 * delta * x * z + rho / 2)
+    return min(out)
+
+
+def actual_branch(k, delta, x, rho, eps, mesh, nu, r, m):
+    c, den, aa, s, bb, omega, t, cross, power = quantities(k, delta, x, rho)
+    if r >= 1:
+        return 'long', max(Q(1), (1 + 5 * r) / 6) - delta * r + 2 * eps + rho
+    if r >= cross:
+        if (1 - r) / 2 <= nu:
+            return 'inverse_zero', 1 - delta * r + 2 * eps + rho
+        z = (1 - r) / 2 - nu
+        assert 0 < z <= Q(7, 37) and r + 2 * z < 1 and 2 * r + 8 * z < 3
+        return 'inverse', 1 - delta * r - 2 * delta * x * z + 2 * eps + delta * mesh + rho
+    if m >= Q(1, 2):
+        return 'unmarked', max(Q(1), 2 * m) - 2 * delta * m + 4 * eps + rho
+    if (1 - 2 * m) / (6 * k) <= nu:
+        return 'plain_zero', 1 - 2 * delta * m + 4 * eps + rho
+    z = (1 - 2 * m) / (6 * k) - nu
+    assert 0 < z <= Q(7, 37) and 2 * m + 6 * k * z <= 1
+    return 'plain', 1 - 2 * delta * m - 2 * delta * x * z + 4 * eps + delta * mesh + rho / 2
+
+
+counts = Counter()
+branches = Counter()
+params = [(k, delta, x, ratio * delta)
+          for k in [Q(1, 2), Q(9, 16), Q(2, 3), Q(3, 4)]
+          for delta in [Q(1, 50), Q(1, 8), Q(3, 8), Q(1, 2), Q(3, 4), Q(5, 6)]
+          for x in [Q(0), Q(1, 10), Q(1, 4), Q(1, 2)]
+          for ratio in [Q(1, 1000000), Q(1, 24), Q(1, 12)]]
+
+for k, delta, x, rho in params:
+    c, den, aa, s, bb, omega, t, cross, power = quantities(k, delta, x, rho)
+    assert 1 <= t <= Q(3, 2) and Q(23, 37) <= cross <= 1
+    assert Q(41, 132) <= t - cross <= Q(1, 2)
+    assert 0 <= omega <= Q(1, 6)
+    assert power == 1 - delta + s * delta * aa / (2 * bb) + (1 - omega) * rho
+    inv = 1 - delta * (x + (1 - x) * cross) + rho
+    plain = 1 - delta * (c + (2 - 2 * c) * (t - cross)) + rho / 2
+    assert inv == plain == power
+    counts['shifted_identities_and_domains'] += 1
+
+    # Exact minimax lower witnesses at every sampled alternate cutoff.
+    for cutoff in [Q(1) + Q(j, 32) for j in range(17)] + [t]:
+        if cutoff <= t:
+            r = (c + (2 - 2 * c) * cutoff - x + rho / (2 * delta)) / den
+            m = cutoff - r
+            assert Q(23, 37) <= r <= 1 and Q(1, 4) < m <= Q(1, 2)
+            target = power + delta * aa * (t - cutoff)
+            assert envelope(k, delta, x, rho, cutoff, r, m) >= target
+        else:
+            r, m = cutoff, Q(0)
+            assert envelope(k, delta, x, rho, cutoff, r, m) >= power
+            if s > 0:
+                assert envelope(k, delta, x, rho, cutoff, r, m) > power
+        counts['minimax_lower_witnesses'] += 1
+
+    # At the optimal cutoff, test the entire sampled zero-error triangle.
+    for j in range(25):
+        r = t - Q(1, 2) + Q(j, 48)
+        if r > t:
+            continue
+        for f in [Q(0), Q(1, 3), Q(1)]:
+            m = t - r + f * (Q(1, 2) - (t - r))
+            assert t - r <= m <= Q(1, 2)
+            assert envelope(k, delta, x, rho, t, r, m) <= power
+            counts['minimax_upper_triangle'] += 1
+    assert envelope(k, delta, x, rho, t, t, Q(0)) == power
+    counts['sharp_long_witnesses'] += 1
+
+    # Original positive-error geometry, including all six finite fallbacks.
+    for eps in [Q(1, 1000000), Q(1, 1000)]:
+        rlo = t - Q(1, 2) - 76 * eps
+        rhi = t + eps
+        rs = [rlo + (rhi - rlo) * Q(j, 20) for j in range(21)]
+        rs += [cross, cross - eps, Q(1), Q(1) - eps]
+        for r in rs:
+            if not rlo <= r <= rhi:
+                continue
+            mlo = max(Q(0), t - r - eps)
+            mhi = Q(1, 2) + 75 * eps
+            for m in [mlo, (mlo + mhi) / 2, mhi, Q(1, 2), Q(1, 2) - eps]:
+                if not mlo <= m <= mhi:
+                    continue
+                for nu in [Q(1, 1000000), Q(1, 100), Q(1, 2)]:
+                    mesh = Q(1, 10000)
+                    branch, value = actual_branch(k, delta, x, rho, eps, mesh, nu, r, m)
+                    assert value <= power + (154 - 150 * delta) * eps + delta * mesh + 7 * nu
+                    branches[branch] += 1
+                    counts['positive_error_raw_cases'] += 1
+
+for delta in [Q(1, 50), Q(3, 8), Q(3, 4), Q(5, 6)]:
+    for x in [Q(0), Q(1, 8), Q(1, 2)]:
+        for rho in [delta / 100, delta / 12]:
+            for k1, k2 in [(Q(1, 2), Q(3, 4)), (Q(2, 3), Q(3, 4))]:
+                v1 = quantities(k1, delta, x, rho)
+                v2 = quantities(k2, delta, x, rho)
+                c1, d1, a1, s, b1, *_ = v1
+                c2, d2, a2, _, b2, *_ = v2
+                gain = s * (1 - x) * (c1 - c2) * (
+                    delta * s * (1 - x) + rho * (s + delta * (1 - x))) / (d1 * b1 * d2 * b2)
+                assert v2[-1] - v1[-1] == gain >= 0
+                assert (gain == 0) == (x == 0 or s == 0)
+                counts['exact_capacity_gain'] += 1
+
+for delta in [Q(1, 4), Q(3, 8), Q(1, 2)]:
+    for x in [Q(1, 4), Q(3, 8), Q(1, 2)]:
+        for rho in [delta / 100, delta / 12]:
+            for k1, k2 in [(Q(1, 2), Q(3, 4)), (Q(2, 3), Q(3, 4))]:
+                gain = quantities(k2, delta, x, rho)[-1] - quantities(k1, delta, x, rho)[-1]
+                assert gain >= (k2 - k1) / 6075
+                counts['uniform_interior_gain'] += 1
+            for slot_min in [Q(1, 60000000000), Q(1, 10000), Q(1, 6)]:
+                k1, k2 = Q(3, 4) - slot_min / 24, Q(3, 4)
+                assert Q(1, 2) < k1 < k2
+                assert 2 * (Q(7, 8) - slot_min / 24) - 1 < k1
+                gain = quantities(k2, delta, x, rho)[-1] - quantities(k1, delta, x, rho)[-1]
+                assert gain >= slot_min / 145800
+                assert gain / 200 >= slot_min / 29160000
+                counts['licensed_interior_gain'] += 1
+
+for delta in [Q(5, 6), Q(9, 10), Q(1)]:
+    for eps in [Q(0), Q(1, 1000000), Q(1, 1000)]:
+        for j in range(33):
+            r = 1 - 76 * eps + (Q(1, 2) + 77 * eps) * Q(j, 32)
+            raw = max(Q(1), (1 + 5 * r) / 6) - delta * r + 2 * eps
+            assert raw <= 1 - delta + (2 + 76 * delta) * eps
+            counts['high_complement_error'] += 1
+
+# The old opaque count record has no raw-inverse gate. This is a source
+# dependency check, not a theorem that its valid fields are mathematically false.
+root = Path('/workspace/original-evidence/OAI/NumberTheory/DirichletL')
+record = (root / 'Detector/FinalAssemblyCountParameters.lean').read_text().split('theorem exists_count_parameters')[0]
+assert 'balanced :' in record and 'high :' in record and 'inverse_raw' not in record
+counts['count_record_provenance_checks'] += 1
+
+print(json.dumps({'parameters': len(params), 'counts': dict(counts), 'branches': dict(branches),
+                  'status': 'PASS; finite exact regression, not an arithmetic-realizability claim',
+                  'source_sha256': sha256(Path(__file__).read_bytes()).hexdigest()}, indent=2))
+```
