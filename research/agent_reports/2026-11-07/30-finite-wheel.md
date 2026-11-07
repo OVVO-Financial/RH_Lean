@@ -1915,3 +1915,779 @@ Complete consumer: coefficient-level signed lift below X<B^k, then the whole-pre
 
 Live open/draft PR collection was empty. Recent merged #1102/#1103/#1105 are respectively CODIV and retained marked-moment work; they do not prove this matching estimate. Direct git transport failed with CONNECT 403; connected source reads succeeded. No local Lean, source edit, proof branch, PR, merge, schedule change or other-agent launch will be performed. Own-report publication is the sole remote write.
 
+
+## MU-LIFT Occurrence-Capacity Synthesis - 20261107-wheel-3
+
+### A. Most Important Structural Discovery
+
+**A growing family of cross-label factor deletions can respect both signed label capacities and still have an unavoidable physical source cut.** On the actual odd-squarefree boundary, the natural extension of GF4/SC3 which reserves every donor cofactor at most 29 leaves at least one negative occurrence in every high greatest-prime fiber of quotient 95 or 96. Each such label has signed demand two, but ALL permitted prime-deletion channels together expose only the one negative integer 93q. More channels and more donor labels cannot duplicate that integer.
+
+This restriction holds for arbitrarily many channels and arbitrarily growing quotient ceilings. It is not extrapolated from a finite scan. With the inherited subunit Mertens envelope and ordinary PNT, every residual T_X obtained by this restricted method satisfies
+
+```text
+liminf_(X -> infinity) |T_X| log X / X >= 4/9215.
+```
+
+For the actual increasing-list P9 prime/semiprime stage used by Census, the additional quotient-15 cut strengthens this to
+
+```text
+liminf_(X -> infinity) |T_X| log X / X >= 1939/221160.
+```
+
+These are lower bounds for an **absolute residual certificate**, not for |M(X)|. They reject this reservation policy as a way to obtain a subcritical MU-LIFT recurrence by residual cardinality; they do not reject a signed recurrence or the unrestricted three-edit graph.
+
+The scope is constructive. The same sorted old stage leaves an explicitly described positive-density bank of UNUSED cofactor-three and cofactor-five donors. An occurrence- and capacity-correct use of this bank removes the displayed quotient-15/95/96 deficits for all sufficiently large X. Its exact finite statement keeps minimum capacities and all earlier spending. This is an admission improvement and a counterexample to a broader no-go, not a new endpoint gain.
+
+| Claim | Contribution | Evidence Status |
+| --- | --- | --- |
+| 20261107-wheel-3/OC1 | Exact high-prime three-edit classification; distinct-cofactor source capacity; finite reduction of the raw cofactor obstruction | PAPER_PROOF / SELF_AUDIT; finite classification explicitly identified below |
+| 20261107-wheel-3/OC2 | Uniform quotient-95/96 cut; sorted-P9 quotient-15 strengthening; complete residual and recurrence obstruction | PAPER_PROOF / SELF_AUDIT, using inherited Mertens and classical PNT only for the asymptotic conclusion |
+| 20261107-wheel-3/OC3 | Source-faithful finite network and exact label-relaxation counterexample at X=9215 | EXACT_REPRESENTATION plus FINITE_COMPUTATION; generic flow theory is not claimed as novel |
+| 20261107-wheel-3/OC4 | Unspent-bank threshold law and capacity-safe repair with full old-stage preservation | PAPER_PROOF / SELF_AUDIT; proper-component result only |
+| 20261107-wheel-3/OC5 | Exact coefficient, source, cut/flow, boundary and signed-return validation | FINITE_COMPUTATION / PASS |
+
+All new paper claims are **INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED**. No literature-priority claim is made. `NEW_VERIFIED_ENDPOINT_GAIN=NONE`; `eta_gate=SEARCH_BROAD`. The earlier same-day DI/LR sections, their claims and publication receipts remain unchanged.
+
+### B. Current Authoritative Objective
+
+Invocation: SCHEDULED, 2026-11-07 18:06:01 EST / 23:06:01 UTC, America/New_York; RUN_ID_UNAVAILABLE. This synthesis completes the preceding checkpoint, not another execution.
+
+Pinned main is `cae99df1c3ea24ff4113063bf09f6fd07517ad93`. Current acknowledgments are `COMPLETE_SIGNED_HIGH_ATTACK_V1`, `CANCELLATION_CHAIN_REUSE_V1`, `PAID_BASELINE_EXACT_CONSUMER_V1` and `NO_PIGEONHOLING_ROUTE_SELECTOR_V1`. The protected sequence is CORR4 (DI), FINITE-AC (LR), then this MU-LIFT turn; next protected route is CORR4.
+
+For fixed Lambda>=0 the native canonical split is M(R^2-1)=L_R+H_R, with the already supplied |L_R|<=(floor Lambda+1)R. Canonical HIGH uses the atom's birth block and the absolute-height test, not simply the sign of q^2-c^2. The public `VFCanonicalSquareVonKochStatement` remains open; its terminal RH consumer retains `ClassicalVonKochRHCriterion`.
+
+The strongest applicable inherited baseline is kept in its actual form. `native_mertens_uniform_strict_gap` supplies an existential positive gap at every positive loss; `native_mertens_fixed_strict_power` supplies a fixed power strictly below 7/8 after spending part of that gap. No explicit numerical value is invented for the witness. OC2 needs only a fixed subunit bound |M(X)|<=C X^b, b<1, which is weaker than that existing input. The present result does not improve b or the full signed square.
+
+Compact HIGH task record:
+
+```text
+route: MU-LIFT
+object: sum_(n in oddSquarefreeUpper X) mu(n)=M(X), all unit coefficients
+existing input: exact odd-boundary/lift bridges, GF fiber law, SC capacities,
+                native fixed strict Mertens envelope
+actual consumer: a whole-prefix subcritical recurrence, not a local norm
+changed inference: replace blanket cofactor reservation / label-only flow by
+                   exact physical occurrence cuts and actual unspent donors
+return: preserve prior P9/R14 spending, all unmatched labels, ordered square,
+        strict X<B^k and every prefix in the amplification interval
+budget: restricted cardinality certificate is Omega(X/log X), too large;
+        repaired proper sectors do not bound the full residual
+first unpaid step: full residual estimate on a genuinely growing, physically
+                   feasible family, or a direct signed subcritical estimate
+```
+
+### C. Structural Mechanism Investigated
+
+Coordinator's 15:13 handoff requested an exact cut or augmenting obstruction for the smallest expanding MU-LIFT family. Census SC2 correctly adds signed label capacities to endpoint uniqueness, and SC3 corrects the two-band allocation. The changed question here is the converse pitfall: can a graph retain signed capacities but forget that different label edges use the SAME negative integer?
+
+We test the maximal high-label prime-deletion family with the existing safe reservation b>29, not only the two historical channels. Every odd prime deletion and every unspent positive high-label donor is allowed. The quotient ceiling may grow with X. Thus the negative theorem cannot be evaded by adding further channels of that same type. A separate positive theorem uses actual unspent P9 donors instead of excluding the whole pool.
+
+### D. Exact Statements And Carriers
+
+#### D1. Original Source And Old Stages
+
+For integer X>=4, let
+
+```text
+U_X = {n: 1<=n<=X, n odd, X<2n, mu(n)!=0},
+F_q(X) = {n in U_X: Pplus(n)=q},
+s_q(S) = sum_(n in S, Pplus(n)=q) mu(n),
+Lambda(S) = sum_(q prime) |s_q(S)|.
+```
+
+The original coefficient identity is sum_(U_X) mu=M(X). One physical occurrence is the integer n, not each of its possible factorizations or each adjacent graph edge. Under q prime and q^2>X, t=floor(X/q), the inherited exact fiber is
+
+```text
+F_q(X) = {q*c: c odd, mu(c)!=0, t<2*c, c<=t},
+s_q(U_X) = -M(t).
+```
+
+The old PE stage removes equal-sized sets of top-half primes and P9 semiprimes, where P9={3,5,7,11,13,17,19,23,29} and each large semiprime factor exceeds 29. For OC2's first bound the removed subsets may be arbitrary. All further old sign-reversing pairs with the SAME greatest-prime label are allowed. The qualified 13c/15c stage has mu(c)!=0, omega(c)>=2, gcd(c,390)=1, X<26c and 15c<=X. On high labels q>sqrt(X)>15 it is label-preserving. Any old low-label matching is also allowed and does not touch the high fibers considered here.
+
+For t>=2, no removed top-half prime has label q in this fiber. If d_q old positive PE donors were removed at q, its mass is -M(t)-d_q. Label-preserving cancellations do not change this number. Do not replace d_q by an unused endpoint count.
+
+#### D2. OC1: Arithmetic Edge Classification And Source Capacity
+
+Let n=q*c and m=r*d be distinct opposite-sign members of U_X with distinct primes q,r>sqrt(X). Then q,r cannot divide either lower cofactor, and
+
+```text
+|primeFactors(n) symmetric_difference primeFactors(m)|
+  = 2 + |primeFactors(c) symmetric_difference primeFactors(d)|.
+```
+
+Consequently an exactly-three-prime edit is necessarily one cofactor toggle: c=p*d or d=p*c for an odd prime p. For the deletion orientation from negative n to positive m,
+
+```text
+n=p*b*q,  m=b*r,  mu(b)=-1, p does not divide b,
+p/2 < r/q < 2*p,  hence r>q.
+```
+
+The reverse orientation has r<q. These inequalities follow from X/2<n,m<=X, not an assumed ordering of arbitrary ancestry labels. This classification concerns high greatest-prime labels only; it is not an identification with least-owner or chronological ownership.
+
+For the reserved-deletion family impose b>29. Define the finite cofactor count
+
+```text
+a29(t) = #{c: c odd, t<2*c, c<=t, mu(c)=1,
+             there exists a prime p dividing c with c/p>29}.
+```
+
+It counts DISTINCT c, not the number of admissible p. Equivalently, for c>1, the final condition is c/Pminus(c)>29. At a high label q with quotient t, ANY collection of endpoint-disjoint reserved-deletion edges removes at most a29(t) negative endpoints from that label. Existing masks or frozen endpoints can only reduce this capacity. Removing positive endpoints at that label makes its negative balance worse. Therefore after these edges and any label-preserving cancellations,
+
+```text
+s_q(final) <= -M(t)-d_q+a29(t),
+N_-(final intersect F_q) >= (M(t)+d_q-a29(t))_+.
+```
+
+This is a physical cut bound. It does not assert that all a29(t) occurrences have an admitted donor, that different labels have disjoint neighborhoods, or that a feasible matching realizes this upper capacity.
+
+There is an exact finite-to-infinite reduction for the RAW profile (M(t)-a29(t))_+. Every excluded c>1 with mu(c)=1 is one of the 36 distinct products p*r of two different P9 primes. Indeed a squarefree odd c with at least four prime factors satisfies c/Pminus(c)>=5*7*11=385>29; with two factors, exclusion says its larger prime is at most 29. The maximum excluded c is 23*29=667. Thus for t>=1334 every positive cofactor in the odd upper half is eligible, and a29(t)>=M(t) follows simply by subtracting the negative cofactor count.
+
+Exact finite enumeration for 2<=t<=1333, independently checking mu by trial factorization, gives
+
+```text
+(M(t)-a29(t))_+ = 1 for t=95 or t=96, and 0 otherwise.
+```
+
+The executed check covered 2<=t<=4096, but the proof that no untested t can fail is the 667 support bound, NOT extrapolation to infinity. This classification includes a finite-computation ingredient and is not Lean-certified. The two specific values used in OC2 also have the explicit hand-checkable fiber below. This raw classification does NOT say that actual post-PE cuts are absent elsewhere; d_q and source-admission losses matter, as quotient 15 demonstrates.
+
+#### D3. OC2: Uniform Cuts For The Entire Reserved Family
+
+For t=95 and t=96 the nonzero odd cofactor fiber is the same:
+
+```text
+mu(c)=+1: 51,55,57,65,69,77,85,87,91,93,95   (eleven)
+mu(c)=-1: 53,59,61,67,71,73,79,83,89         (nine).
+```
+
+Hence M(95)=M(96)=2. Only c=93 can be divided by a prime to leave b>29, and its unique such division is 93/3=31. PE removes no positive site of these fibers because all its small primes are at most 29, below the fiber's cofactor interval. Thus s_q=-2 and at most ONE negative site, 93q, can be removed by the entire reserved-deletion family.
+
+Put Q_*(X)={q prime: q^2>X, 95<=floor(X/q)<=96}. Uniformly over all old permitted choices, all numbers of reserved-deletion channels, all growing quotient cutoffs and every further label-preserving cancellation, the final residual T_X satisfies
+
+```text
+s_q(T_X)<=-1 for q in Q_*(X),
+|T_X| >= M(X)+2*|Q_*(X)|.                         (CUT)
+```
+
+For X>=97^2, |Q_*|=pi(floor(X/95))-pi(floor(X/97)). Fixed-endpoint PNT gives |Q_*|~2X/(9215 log X). The inherited b<1 envelope makes M(X)=o(X/log X), proving the first liminf in A, uniformly over choices of matching. There is no assertion that the prime band is nonempty at every small X.
+
+For the deterministic old stage, sort all top-half primes and all eligible P9 semiprimes increasingly, remove equal initial segments up to the shorter length, and let y_X be the largest spent positive donor (X/2 if none). Suppose X>=97^2 and 15*y_X>=13*X. At every high quotient-15 label q, the original fiber is precisely {11q,13q,15q}, with signs (+,+,-); in particular q>29, as required by the old donor definition. The first two are spent PE donors; the last is not. A qualified 13c/15c pair cannot remove 15q because c=q has omega(c)=1. Its cofactor 15 can only be deleted to 3 or 5, both excluded by b>29. Hence this entire negative label remains, adding |Q_15(X)| to the lower bound on N_-.
+
+OC4 proves y_X/X tends to a constant tau>13/15. Therefore this extra cut holds eventually, and
+
+```text
+|T_X| >= M(X)+2*(|Q_15(X)|+|Q_*(X)|),
+liminf |T_X| log X/X >= 1/120+4/9215 = 1939/221160.
+```
+
+The sorted-stage strengthening is not asserted for arbitrary PE subsets; the first Q_* cut is. Both remain valid even if the new deletion edges are not signed-capacity-safe, because positive removals at a negative label cannot improve its balance. Allowing the opposite cofactor-toggle orientation, previously spent endpoint reassignment, or unspent b<=29 donors changes the method and is outside this no-go.
+
+#### D4. OC3: Exact Network And Minimal Multiplicity Failure
+
+For an old residual S, use old negative labels as source labels and old positive labels as donor labels. Make a layered directed network:
+
+```text
+source -> negative label q -> physical negative integer n
+       -> physical positive integer m -> positive label r -> sink.
+```
+
+The outer capacities are -s_q(S) and s_r(S). Every label-to-occurrence and occurrence-to-label edge has capacity one. The middle edge exists exactly when the original physical pair is admitted and has the specified deletion relation. Integer flows are equivalent to endpoint-disjoint matchings with these signed capacities: each unit follows one physical pair, every site is used at most once, and the original factors determine its labels. Conversely each such matching supplies a unit flow. The layered network has no cyclic flow ambiguity. It realizes the Census SC2 hypotheses and gives Lambda(after)=Lambda(before)-2*flow, not a new signed-square credit.
+
+At X=9215=95*97, after the exact sorted P9/R14 stages, s_97=-2 and every reserved edge from this label uses n=9021=3*31*97. There are 15 admitted positive neighbors. For example,
+
+```text
+9021 <-> 4619=31*149,  with s_149=2,
+9021 <-> 4681=31*151,  with s_151=2.
+```
+
+The label-only relaxation has flow two, respecting both label capacities. Its purported two matches reuse 9021. The physical network has flow one, certified both by the single-occurrence cut and by either displayed edge. This is NOT the old SC example of four distinct endpoints exhausting a signed capacity: it is the complementary information loss.
+
+The raw q=97 fixture is first admitted at X=95*97. This is a first-admission fact for this particular fiber, not a claim that it is the earliest obstruction of the entire post-PE graph. At X=9312 it changes to quotient 96 and retains the same cut; at X=9409=q^2 it leaves both bands, so the strict root-wall hypothesis is not extended through equality.
+
+#### D5. OC4: Use The Actually Unspent Old-Pool Bank
+
+Keep the deterministic sorted old PE stage and the qualified R14 pairs fixed. Reserve the following new endpoints before any unrelated high-label matching. Define
+
+```text
+D_b(X)={r prime: r^2>X, floor(X/r)=b, y_X<b*r<=X}, b=3,5.
+```
+
+Every 3r in D_3 is an unspent PE donor and its label has mass one: its high quotient-three fiber has only 3r. Every 5r in D_5 is unspent, and its label has mass at least one: its quotient-five fiber is {3r,5r}, both originally positive, and at most 3r was spent. These are statements about the old SIGNED masses, not just unused endpoint counts. R14 cannot use these semiprimes.
+
+For X>=97^2 with 15*y_X>=13*X, put
+
+```text
+N15 = min(|Q_15|, |D_3|),
+N*  = min(|Q_*|, |D_3|-N15, |D_5|).
+```
+
+Allocate distinct D_3 labels first to N15 selected Q_15 labels, then to N* selected Q_* labels; allocate distinct D_5 labels to those same N* Q_* labels. Use
+
+```text
+15q <-> 3r                  for q in Q_15,
+51q <-> 3r, 55q <-> 5s     for q in Q_*.
+```
+
+These are actual exactly-three-prime edits, all endpoints lie in (X/2,X], and all factors are distinct. The first channel toggles {5,q,r}; the second {17,q,r}; the third {11,q,s}. Every source and donor is unused by the old stage. Unique factorization prevents both within-channel and cross-channel collisions. Source-label loads are one at Q_15 and two at Q_*; donor-label loads are one. The label families Q_15, Q_*, D_3, D_5 are disjoint. Thus
+
+```text
+sum_(new residual) mu = M(X),
+Lambda(new) = Lambda(old)-2*N15-4*N*.
+```
+
+The statement also applies below the displayed convenient X bound whenever the explicitly listed high-wall and threshold hypotheses hold, including X=9215. It does not preserve arbitrary other frozen high-label matchings which may already use these new endpoints. Old P9/R14 spending is never undone. Existing GF4/SC3 endpoints are not added twice; their quotient labels 94/146/43/47 are distinct from the new 15/95/96/3/5 labels when those stages are otherwise admitted.
+
+For the eventual capacity proof set
+
+```text
+S9 = sum_(p in P9) 1/p = 3343015913/3234846615 > 1,
+tau = (1+1/S9)/2 = 3288931264/3343015913.
+```
+
+For each fixed alpha in (1/2,1], the number of old PE donors in (X/2,alpha X] is asymptotic to S9*(alpha-1/2)*X/log X. Factorization uniqueness makes this an actual disjoint sum over the nine primes. The number of top-half primes is asymptotic to X/(2 log X). Since S9>1, the old stage eventually removes every top-half prime. Bracketing the donor rank between fixed alpha=tau-epsilon and alpha=tau+epsilon proves y_X/X -> tau; no PNT uniformity in shrinking or growing bands is invoked.
+
+Since tau>13/15 and tau>5/6, another fixed-endpoint bracket gives
+
+```text
+|D_3| ~ (1-tau)*X/(3 log X),
+|D_5| ~ (1-tau)*X/(5 log X),
+|Q_15| ~ X/(240 log X),  |Q_*| ~ 2X/(9215 log X).
+```
+
+The exact capacity margins are positive:
+
+```text
+(1-tau)/3 - 1/240 - 2/9215 = 497377597751/492894266212720,
+(1-tau)/5 - 2/9215         = 92991976281/30805891638295.
+```
+
+Therefore eventually N15=|Q_15| and N*=|Q_*|. No effective threshold or uniform growing-quotient allocation follows. The classical input is [PNT, DLMF 27.2.3](https://dlmf.nist.gov/27.2#E3); the threshold and actual signed-capacity application are the argument here.
+
+### E. Proof Audit And Quantifier Order
+
+OC1 follows from unique prime factorization, squarefreeness and the strict high wall; no arbitrary graph edges were introduced. The source-capacity inequality remains an upper bound after every additional old mask, which is why it supports the uniform no-go without needing an unproved donor count.
+
+OC2 uses exact finite cofactors 95/96, then the identity |T|=M(X)+2*N_-(T). Distinct labels give disjoint negative populations. Both the floor bands and q^2>X are retained. Only after this all-X finite inequality is established are PNT and the inherited subunit envelope used. Matching choices may vary with X; the lower bound is uniform in them.
+
+For OC4, fix the nine-prime old pool before X tends to infinity. Each threshold comparison uses finitely many fixed endpoints, followed by epsilon tending to zero. The minimum capacities are part of the finite theorem; eventual inequalities are not retroactively asserted at small X. If the old pool changes, or its selection rule is not sorted initial segments, its threshold law must be recomputed.
+
+The source 15q is divisible by 15, but the qualified R14 condition omega(c)>=2 is decisive: c=q has only one prime factor. The sources 51q and 55q are divisible by neither 13 nor 15. All new donors have exactly two prime factors. This checks the full old admission mask rather than merely comparing greatest primes.
+
+### F. Structural Consequence
+
+The exact method restriction is now sharper than GF's greatest-prime-preserving obstruction. Genuine cross-label three-edit moves can still fail uniformly when a safe reservation removes nearly all accessible negative occurrences of a label. The smallest useful resource is not an edge, a factorization, or a signed label unit alone: it is a physical occurrence with both endpoint and label budgets.
+
+Conversely, old-pool membership does not mean an endpoint was spent. The sorted stage leaves a quantitatively described unspent tail, and source-compatible use of that tail repairs these cuts without borrowing the same historical occurrence twice. This suggests retaining the actual residual mask in future growing-network work rather than using the sufficient but overly restrictive b>29 surrogate.
+
+### G. Signed Return And Quantitative Relevance
+
+For e new negative/positive pairs and residual signed sum Z, the complete source is -e+e+Z. Its square is
+
+```text
+e^2+e^2+Z^2-2e^2-2eZ+2eZ = Z^2 = M(X)^2.
+```
+
+All cross terms with unmatched sites cancel in this equality; they are not separately reusable negative credit. Grouped labels likewise retain sum_q s_q^2+2*sum_(q<r)s_q*s_r. A lower Lambda improves a particular absolute certificate, not the already unchanged signed square.
+
+At X=9215 the complete old residual has 794 sites, signed sum -2, physical ordered off-diagonal -790, and square 4. Its label diagonal is 1720 and ordered cross-label sum -1716. The isolated reserved match leaves 792 sites and ordered off-diagonal -788, still square 4. The fully capacity-budgeted finite repair (seven Q_15 labels and one Q_* label, nine edges) leaves 776 sites, physical ordered off-diagonal -772, label diagonal 1700 and ordered cross-label sum -1696, still square 4. Lambda changes 368 -> 350. No sign or complement has disappeared.
+
+The compiled `heathBrownLift_sum_eq_prime_semiprime_residual` is a coefficient-level bridge under X<(N+1)^k. Taking B=N+1, an actual complete small residual bound would feed the whole-prefix MU-LIFT recurrence. But at X=B^k-1, E(B)<=sqrt(B-1), and for fixed r<k and subpower G(B),
+
+```text
+G(B)*E(B)^r*sqrt(X) <= B^((r+k)/2+o(1)) = o(X/log X).
+```
+
+OC2 therefore rules out paying that recurrence by the cardinality of a residual produced solely by the reserved-deletion method. This uses even the trivial E(B) upper bound; it does not assume the desired recurrence. The unreserved OC4 repair fixes these selected cuts but leaves the entire other signed population unpaid. The correct first missing input is the complete residual/recurrence estimate, not the existence of the displayed local matching.
+
+Cross-route audit: the native prime-comb note has post-root increment 2*(1-M(t)), while our high fiber has mass -M(t). Thus the exact scalar relation is increment=2+2*s_q(U_X), retaining the extra prime-candidate constant. Our modified residual label sums cannot be substituted for the original chronological prime-comb steps. They supply neither finite-C's historical kernel bound nor its full cross terms. Likewise 4947 and 8079 are both composite, although their Mobius signs differ; the raw VF composite charges are positive native weights, so this sign-reversing mu pair does not cancel the VF source. No rational-to-Hecke identification is attempted.
+
+If a future result gives a stronger all-prefix Mertens bound, the fixed-Lambda canonical LOW estimate transfers it to complete HIGH; the converse square-endpoint transfer must restore at most 2R+1 partial-block terms. The present cardinality obstruction is not a lower bound for HIGH or Mertens.
+
+### H. Falsification, Novelty And Evidence
+
+Exploration was disclosed. Before the main validation, a small source probe inspected X=9215,9311,22132; it motivated the unspent 3/5-donor repair. The initial quotient-95 source cut was derived before that probe. Quotient 96 and the 667 finite reduction were identified after the first validation, then separately proved and checked in a revised run. The quotient-15 extension was likewise recorded before its revised test. No post-selected observation is described as a preregistered discovery.
+
+The final executed verifier used exact integers and rational constants, SciPy 1.17.0 integer maximum flow, and explicit independent flow/cut certificates. Every returned flow was checked for edge capacities, vertex conservation and a residual reachable cut of equal value. The paper's singleton-cut proof does not depend on the solver. [SciPy's documented flow contract](https://docs.scipy.org/doc/scipy/reference/generated/scipy.sparse.csgraph.maximum_flow.html) was checked. NetworkX was unavailable and installation was blocked; no claim of using it is made.
+
+Validation completed:
+
+- 4,095 cofactor indices, 2..4096, including the finite 2..1333 classification sufficient for the all-scale raw admission result.
+- 4,103 independent trial-factor checks, including all coefficients through 4096 and displayed physical witnesses.
+- 1,005 cutoffs: every X=9000..10000, plus held-out 16383,32767,65535,131071.
+- 607 quotient-95/96 label occurrences and 7,104 quotient-15 label occurrences repaired with capacities; these count repeated labels at distinct X, not distinct physical integers across time.
+- 42 growing-ceiling networks at six declared X and T=94,95,96,120,146,192,256, plus the isolated q=97 network: 86 checked physical/label-relaxation flow-cut certificates in total.
+- Complete direct physical-source and label-square reconstruction at the 11 listed material fixtures; no extrapolated exponent or effective PNT threshold.
+
+At X=65535 and T=256, the actual reserved network has flow 11 whereas the label-only relaxation has flow 13. Both remain far below the complete negative-label demand 337; the latter includes old PE-induced deficits. This is not a claim that fixing only the two-unit relaxation error completes the growing-family allocation.
+
+Final payload SHA-256: `4ae0b1e1851837af7946e96bc909ac820ec9e86d05517a0e9d1b6e53d956ac2c`. Complete executed sources and output are embedded in the appendix below. Script SHA-256 values: probe `20e260e6608d3ea2884c8dde4bef4a8f00bdbcf50d6afcc37bc435a7d6154922`; verifier `d89ea8161db831a902227341adb06b61c07df4a8ff5109d6d374dc9939aee7cb`; registration `0cb13d2fe3878050a908a77cc05864b5314eed7819ef9d54f3086ac4a71d68fa`.
+
+Novelty audit searched current main for oddSquarefreeUpper, M(95), source-capacity results, matching modules, and the complete relevant two-day reports. M(95)=2 and the old prime-comb first-exception statements are INHERITED, including `EULER_PRIME_COMB_FEEDBACK_FINITE_C.md`. GF already notes the 94-to-95 exit and the remaining negative demand. SC already proves the signed-label overload law. The new claim is the all-channel physical source cut under b>29, its exact finite support reduction, the occurrence-faithful network distinction, and the actual unspent-bank return. No claim of exhaustive literature novelty is made.
+
+Formal evidence reused: dedicated odd-boundary job [127672350630](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42150511056/job/127672350630) was read. It tested merge `7783734bdc9960d3c2483af380759db85e87bc8f` containing proof head `ecf701ff2fea1de52e505ee34048a2b3c220f0fc`, with warning-fatal Lean and ten exact declaration/axiom checks. The actual terminal lists are only propext, Classical.choice, Quot.sound; the static-partner theorem uses propext and Quot.sound. The file was fetched at that proof head and matched current main byte-for-byte, blob `3cbc5159536d6b9e5000f74c5bd018bd2d62daf1`. This certifies the inherited interface at its tested source, NOT OC1-OC4 or a fresh main build. No local Lean was run.
+
+### I. Conceptual Interpretation
+
+The reservation policy creates its own persistent obstruction. Its failure is not an absence of global prime supply: in the minimal witness there are many allowed donor labels, but only one allowable physical source. The old pool also contains unused donors which the surrogate rule unnecessarily discards. Exact occurrence and old-spending information therefore changes what the matching can do, while preserving the original signed system.
+
+### J. Competing Hypotheses And Protected Coverage
+
+| Mechanism | Verdict |
+| --- | --- |
+| Grow the b>29 deletion family until it pays a subcritical cardinality budget | REFUTED by OC2, uniformly in the number of channels |
+| Both label capacities alone make a projected label flow physically realizable | REFUTED at X=9215 by OC3 |
+| Reuse all P9 candidates as free donors | REJECT; only the explicitly unspent tail is available |
+| Use the actual residual mask and physical/label network jointly | VIABLE source-correct formulation; OC4 is a scoped constructive input, full residual open |
+| Direct signed MU-LIFT recurrence | OPEN and not ruled out by a cardinality lower bound |
+| CORR4 / FINITE-AC | Earlier DI/LR derivations retained; this run neither repeats their scans nor supplies their missing weighted consumers |
+
+### K. Specialist Handoffs
+
+- **Coordinator:** record OC2 as a scoped rejection of the growing reserved-deletion family and OC4 as an admission improvement, not VERIFIED_ETA. The next growing-family test must keep the actual unused old-pool mask and physical source capacities. Do not spend another run adding fixed b>29 channels to repair the same cut.
+- **Census:** independently reproduce the q=97 physical cut and the old threshold y_9215=8067. Then test a precisely declared growing FAMILY with both cofactor-toggle orientations or actual unspent b<=29 donors, keeping the complete physical network and signed label capacities. Return an exact deficient set or checked matching; no repeat of the unchanged SC four-endpoint scan is needed.
+- **Referee:** audit the c/Pminus(c) admission formula, the support bound 667 and finite-certificate status, the two explicit cofactor lists, the sorted-stage restriction for quotient 15, and the rank-threshold bracketing. Check that the cardinality lower bound is never transferred to |M(X)| and that OC4 preserves the qualified R14 mask.
+- **Lean Verification:** no speculative proof branch requested. Only after independent qualification and a live consumer need, consider the exact reserved-source capacity/cut lemma. The old odd-boundary and ordered-lift bridges are already certified. A new generic max-flow wrapper alone would not improve an endpoint.
+- **Owner:** the actual old spending and physical capacities are both necessary. The example's signs are Mobius signs on composite integers, not your positive native composite weights; any VF transport needs its own weight/mask proof.
+- **Analytic:** the inherited strict power is fully sufficient for the asymptotic cut calibration. No stronger inverse norm or all-selected theorem is needed here. Assess a future source-compatible COMPLETE signed recurrence, not the fixed-band repair count in isolation.
+
+These are published asynchronous handoffs; no other agent was launched.
+
+### L. First Independently Missing Theorem
+
+The reserved-deletion cardinality approach is now rejected at its explicit scope. The next nonrefuted incidence task is a quantitative theorem on the ACTUAL residual network, including unused small-cofactor donors or both cofactor-toggle orientations, retaining physical and signed capacities jointly over a growing family. The theorem must bound the complete remaining signed source for every B<=X<B^k on the required chain, with fixed r<k and subpower losses, or supply a genuinely weaker sufficient consumer with its full return. Neither global feasibility of a label flow nor a proper-component matching is that estimate.
+
+There is no claim that every proof of Mertens improvement must use this matching method. The alternative direct signed recurrence remains eligible, and the paid native cancellation chain is not reopened as a missing premise.
+
+### M. Continuity, Provenance And Resume Capsule
+
+All seven relevant same-day and preceding-day reports were retrieved. Relevant summaries, derivations, scopes and latest continuation sections were inspected, not every embedded historical experiment. No current upstream stage is invented from a schedule. At intake all dated paths existed, so TODAY=AVAILABLE; earlier verified mathematics is carried forward with its own review status, not promoted to new acceptance.
+
+| Role | Nov 6 Report Blob | Nov 7 Intake Blob |
+| --- | --- | --- |
+| Coordinator (00 and 90 identical tree blobs) | 8812a90540fb511279b5f4ce08e108ef717d5ef1 | 785c56207f0745244d8c2503a18ed7b4d91b39e6 |
+| Owner | 1856a96aaaa9d86a5ee2d59ffe50ced936443fa6 | 933e8eb23e669594cc687059d75147e6267eec8d |
+| Analytic | 7997620b6ab7eb0701296994734ee910df3c3ba1 | 77f3e5795533041e4356ceb94cb66328da7af27c |
+| Wheel | 3099558194a00358962ff1844bf283e625b9283d | b973552f1574e39afe6dbc165bde3635f12c9ead |
+| Census | c34ac074296e8b2e5b20dee3a2ce02518571206c | 3fae830e34c590d32c31ad77cad3ace833eb3ff5 |
+| Referee | da3265467c799e9d21832ab25245617ba3b15a54 | 65384576327e1ae2c976fca368c83690fc8a95dd |
+| Lean | b8bfe3ce9c20d7903395364efb39bcec974c8a2f | 2998b7339ea4b3e3fd2fd1d26f839527fd5adc95 |
+
+Intake report head: `6af83a15b929d1842baf1454faae7e851ebeb001`, 2026-11-07T22:34:08Z. The early checkpoint was committed at `796ea1c0ff1b96b9c3d2082b45e8cdbf42ee9a7b`, blob `efb2de343ef40379232364fbc7707f5d396bbac8`, and immutable readback matched all 118,290 characters.
+
+Consumed continuity includes Nov6 Wheel GF2-GF4; today's Census SC1-SC5 with X=21754 endpoint-disjoint signed-capacity failures and X=22132 donor-label shortage; today's Wheel DI/LR with R=20 full-square/diagonal and R=34 overlap counterexamples; Coordinator PG/RG and the 15:13 MU-LIFT cut assignment; Owner SG/RS/JT with their original weight restrictions; Analytic GL/FT/BC with their distinct carriers; Referee GL ACCEPT_WITH_SCOPE and RC/MH acceptance only at their stated scopes; Lean GL2-TAIL and the marked-half implementation. None is independent Referee acceptance of OC. The earlier Nyman coefficient/window obstructions and original R=549 BLOCK refutation are not reopened.
+
+External inbox blob `038018145c0fddb2f6306c0712373adf9cd1ea52` has no entry newer than October 18. EXT-20261018-PNT-1 and EXT-20261017-XCOORD-1 retain actual source/cutoff corrections; EXT-20261014-5 retains only its original-denominator limsup scope. They provide no new matching-capacity theorem, and their old routing/cadence prose is superseded.
+
+Material source ledger at pinned main:
+
+| Path | Blob SHA |
+| --- | --- |
+| AGENTS.md | 0a99faf8458809ac772d470d704c5433f373bda8 |
+| CURRENT_PROOF_CONTRACT.md | d1d6fd558ee23927bd9f70ffdc375bafd1dbb67a |
+| docs/RHLEAN_COMPLETE_SIGNED_HIGH_ATTACK_20261107.md | be8168b67584d9d8ebbaa732a30c51509137543e |
+| docs/RHLEAN_REUSE_CANCELLATION_CHAIN_20261107.md | 28e2ab47c68bc83b91ae02b6112b94867b021b32 |
+| research/MERTENS_ODD_BOUNDARY_PRIME_ESCAPE_20261105.lean | 3cbc5159536d6b9e5000f74c5bd018bd2d62daf1 |
+| RHLean/Proof/AdaptivePrimeMatching.lean | c2caaace0f4e99ea06107d939119c12fa005bcbc |
+| research/MERTENS_HEATH_BROWN_SIGNED.lean | af69b4811cf9f523eb7c96fb0ca836b2cdbd1180 |
+| research/MERTENS_SIGNED_HYPERBOLA.lean | d199571f19346797229a25b0fa53c6e80499999f |
+| research/oai_434/VF919NativeStrictMertens.lean | b33a4883e1ddb0551b0f11f062bce46680d87450 |
+| RHLean/Analysis/CanonicalHighSectorCore.lean | dd02fc8fabfe4004c6b0d50374b3b8752607b168 |
+| RHLean/Analysis/CanonicalLowOccupancy.lean | b958da340d107cdd00015d2827b9a728357b4d8e |
+| research/VF_CANONICAL_SQRT_TWO_VON_KOCH.lean | 79030d70e8d3e0d08eef9bac53fef95c36eca2fb |
+| research/EULER_PRIME_COMB_FEEDBACK_FINITE_C.md | 87918ebb53f725d71eb2fd1eb583c47c21659b27 |
+
+Live PR read: no open/draft PR. Recent human merges #1102 (CODIV), #1103 (retained-slot feedback), #1104 (current policy), #1105 (marked half-error) are preserved. The Lean report's old #1105 review-ready status is superseded by the actual merge at 2026-11-07T19:40:47Z. None of those changes certifies this new MU-LIFT mathematics.
+
+Execution limitations: direct git transport and optional package installation returned CONNECT 403; connected source/report access and installed integer tools worked. No local Lean, proof-source edit, branch/PR creation, issue, merge, workflow trigger, other report edit, schedule change, or agent launch occurred. Publication is not COMPLETE until the immutable readback receipt below.
+
+Resume: next protected CORR4 turn starts from DI's daughter-image and signed mixed-term accounting; do not repeat accepted scans. On the next MU-LIFT turn, carry OC2's no-go, OC3's physical network and OC4's actual unspent bank. The highest-value new question is a source-exact growing-family cut/return estimate after the b>29 surrogate is removed. Preserve prior SC capacities and all complete residual costs.
+
+### Reproducibility Appendix - OC5
+
+The following is the complete executed registration, probe, verifier and final output. The probe's exploratory role is explicit; only the final verifier/output supplies the reported validation counts. Reproduction uses Python with NumPy/SciPy; no Lean execution or external data download is required.
+
+
+#### validation-registration.md
+
+```text
+# MU-LIFT Occurrence-Capacity Validation
+
+Run: 20261107-wheel-3. Main: cae99df1c3ea24ff4113063bf09f6fd07517ad93.
+
+Paper-derived hypothesis, before the validation below: after any permitted old P9 stage and label-preserving cancellations, each high quotient-95 label has mass -2; every three-prime deletion with donor cofactor greater than 29 must use the single negative occurrence 93q. Expanding the deletion channels cannot remove two negative occurrences from that label.
+
+Exploration disclosed: mulift_probe.py inspected X=9215, 9311, 22132 and found unused old-pool donors. The proposed 51q -> 3r and 55q -> 5s repair was selected after that exploration. No first-failure or preregistered discovery claim is made about the repair.
+
+Validation domains: all quotient indices 2..4096 for the distinct cofactor admission formula; all X=9000..10000 plus held-out X=16383, 32767, 65535, 131071 for exact quotient-95 residual masses and finite two-channel repair; full occurrence and label-only networks at X=9215, 9311, 10000, 16383, 32767, 65535 with quotient ceilings 94, 95, 96, 120, 146, 192, 256. Retain the strict high wall q*q>X.
+
+For every network, verify integer flow capacity/conservation, derive a residual reachable cut, and compare cut capacity with flow. At X=9215 isolate q=97 and compare the label-only relaxation with the physical-occurrence network. Reconstruct the entire signed square after matching, not just label diagonals. Independently trial-factor displayed witnesses and every coefficient through 4096.
+
+Competing models: physical endpoint capacities plus both signed label capacities, versus both signed label capacities with the shared source endpoint omitted. Negative controls: the latter may claim two units at q=97; the true reserved network must allow at most one. The unreserved repair must respect every already-spent P9 endpoint and qualified 13/15 pair.
+
+No numerical exponent fit, effective asymptotic threshold, or full-graph universal matching claim is planned. NetworkX was unavailable and package installation was blocked; validation will use the installed SciPy integer max-flow implementation and explicit flow/cut certificates. The mathematical bottleneck proof is independent of a solver.
+
+Post-validation extension, disclosed before the revised test: quotient 96 has the identical odd squarefree cofactor fiber to quotient 95, so the obstruction and the proposed two-channel repair extend to their union. The observed finite profile has only these two deficits through 4096. A separate factorization proof reduces the raw cofactor-admission classification to t<=1333: every ineligible positive cofactor is one of the 36 products of two distinct P9 primes, with maximum 23*29=667. Validate the finite profile exactly and keep it distinct from actual donor feasibility or post-old-stage capacity.
+
+Second analytic extension, disclosed before its test: the sorted P9 stage also creates a frozen quotient-15 demand when its last-spent threshold y satisfies 15*y>=13*X. Its fiber has positive sites 11q,13q and negative site 15q; both positives are already spent and the reservation rule exposes no negative endpoint. The PNT threshold law implies this condition eventually. Extend the finite repair by assigning unused cofactor-three donors once to Q15 first, then to Q95/Q96; use cofactor-five donors for the second Q95/Q96 demand. Keep exact minimum capacities. This is a scoped correction of the model, not a new large undirected scan.
+```
+
+#### mulift_probe.py
+
+```python
+"""Exploratory exact source probe for the reserved deletion bottleneck."""
+
+from collections import Counter
+from math import gcd, isqrt
+
+
+def tables(limit):
+    factors = [[] for _ in range(limit + 1)]
+    mu = [1] * (limit + 1)
+    mu[0] = 0
+    for p in range(2, limit + 1):
+        if not factors[p]:
+            for n in range(p, limit + 1, p):
+                factors[n].append(p)
+                mu[n] = -mu[n]
+            for n in range(p * p, limit + 1, p * p):
+                mu[n] = 0
+    return factors, mu
+
+
+P9 = {3, 5, 7, 11, 13, 17, 19, 23, 29}
+
+
+def residual(X, factors, mu):
+    upper = {n for n in range(X // 2 + 1, X + 1) if n % 2 and mu[n]}
+    primes = sorted(n for n in upper if len(factors[n]) == 1)
+    donors = sorted(n for n in upper if len(factors[n]) == 2
+                    and factors[n][0] in P9 and factors[n][1] > 29)
+    count = min(len(primes), len(donors))
+    spent = set(primes[:count]) | set(donors[:count])
+    pairs = []
+    for c in range(1, X // 15 + 1):
+        if (X < 26 * c and mu[c] and len(factors[c]) >= 2
+                and gcd(c, 390) == 1):
+            assert 13 * c in upper and 15 * c in upper
+            assert 13 * c not in spent and 15 * c not in spent
+            spent.update((13 * c, 15 * c))
+            pairs.append((13 * c, 15 * c))
+    S = upper - spent
+    mass = Counter()
+    for n in S:
+        mass[factors[n][-1]] += mu[n]
+    return S, mass, donors[count:], pairs
+
+
+def edges_from(q, S, mass, factors, mu, X, reserve=True, allow_add=False):
+    out = []
+    for n in sorted(S):
+        if mu[n] != -1 or factors[n][-1] != q:
+            continue
+        c = n // q
+        candidates = {c // p for p in factors[c]}
+        if allow_add:
+            candidates.update(c * p for p in range(3, isqrt(X) // c + 1, 2)
+                              if factors[p] == [p] and c % p)
+        for b in sorted(candidates):
+            if (reserve and b <= 29) or mu[b] != -1:
+                continue
+            for r in range(max(isqrt(X) + 1, X // (2 * b) + 1), X // b + 1):
+                if r != q and factors[r] == [r] and mass[r] > 0 and b * r in S:
+                    assert len(set(factors[n]) ^ set(factors[b * r])) == 3
+                    out.append((n, b * r, q, r, b, mass[r]))
+    return sorted(out)
+
+
+if __name__ == "__main__":
+    fs, mu = tables(65536)
+    for X in (9215, 9311, 22132):
+        S, mass, unused, pairs = residual(X, fs, mu)
+        qs = [q for q in range(97, X // 95 + 1)
+              if fs[q] == [q] and q * q > X and X // q == 95]
+        for q in qs:
+            print("SOURCE", X, q, mass[q], [(n // q, mu[n]) for n in sorted(S)
+                                           if fs[n][-1] == q])
+            for reserve, add in [(True, False), (False, False), (True, True)]:
+                es = edges_from(q, S, mass, fs, mu, X, reserve, add)
+                print("EDGES", reserve, add, "count", len(es), "first", es[:10])
+                chosen = []
+                loads = Counter()
+                used = set()
+                for e in es:
+                    n, m, _, r, _, cap = e
+                    if n not in used and m not in used and loads[r] < cap:
+                        used.update((n, m))
+                        loads[r] += 1
+                        chosen.append(e)
+                        if len(chosen) == -mass[q]:
+                            break
+                print("MATCH", chosen)
+        print("UNUSED_P9_LAST", unused[:3], unused[-3:])
+```
+
+#### mulift_validate.py
+
+```python
+"""Exact arithmetic validation of physical and signed label capacities."""
+
+from bisect import bisect_right
+from collections import Counter, defaultdict
+from fractions import Fraction
+from hashlib import sha256
+from math import gcd, isqrt
+import json
+
+import numpy as np
+from scipy.sparse import csr_matrix
+from scipy.sparse.csgraph import maximum_flow
+
+from mulift_probe import P9, residual, tables
+
+
+def trial(n):
+    fs, value = [], 1
+    d = 2
+    while d * d <= n:
+        if n % d == 0:
+            fs.append(d)
+            n //= d
+            value = -value
+            if n % d == 0:
+                value = 0
+            while n % d == 0:
+                n //= d
+        d += 1
+    if n > 1:
+        fs.append(n)
+        value = -value
+    return fs, value
+
+
+def solve(arcs):
+    nodes = sorted(set(v for pair in arcs for v in pair), key=repr)
+    ids = {v: i for i, v in enumerate(nodes)}
+    rr, cc, values = [], [], []
+    for (a, b), capacity in arcs.items():
+        rr.append(ids[a])
+        cc.append(ids[b])
+        values.append(capacity)
+    capacity = csr_matrix((np.array(values, dtype=np.int64), (rr, cc)),
+                          shape=(len(nodes), len(nodes)))
+    result = maximum_flow(capacity, ids['S'], ids['T'], method='dinic')
+    flow = result.flow
+    assert (flow + flow.transpose()).nnz == 0
+    balance = np.asarray(flow.sum(axis=1)).ravel()
+    for v, i in ids.items():
+        assert int(balance[i]) == (result.flow_value if v == 'S' else
+                                   -result.flow_value if v == 'T' else 0)
+    for (a, b), cap in arcs.items():
+        assert 0 <= flow[ids[a], ids[b]] <= cap
+    residual_graph = capacity - flow
+    reachable, stack = {ids['S']}, [ids['S']]
+    while stack:
+        i = stack.pop()
+        row = residual_graph.getrow(i)
+        for j, value in zip(row.indices, row.data):
+            if value > 0 and j not in reachable:
+                reachable.add(j)
+                stack.append(j)
+    assert ids['T'] not in reachable
+    cut = sum(cap for (a, b), cap in arcs.items()
+              if ids[a] in reachable and ids[b] not in reachable)
+    assert cut == result.flow_value
+    return int(result.flow_value), flow, ids
+
+
+def network(X, T, S, mass, fs, mu, only_q=None):
+    negative = {q for q, value in mass.items() if value < 0 and q*q > X
+                and 2 <= X//q <= T and (only_q is None or q == only_q)}
+    donor_by_cofactor = defaultdict(list)
+    for m in S:
+        r = fs[m][-1]
+        if mu[m] == 1 and r*r > X and mass[r] > 0 and m//r > 29:
+            donor_by_cofactor[m//r].append((m, r))
+    edges = set()
+    for n in S:
+        q = fs[n][-1]
+        if q not in negative or mu[n] != -1:
+            continue
+        c = n//q
+        for p in fs[c]:
+            b = c//p
+            if b <= 29:
+                continue
+            for m, r in donor_by_cofactor[b]:
+                assert q != r and r > q
+                assert len(set(fs[n]) ^ set(fs[m])) == 3
+                edges.add((n, m, q, r))
+    physical, labels = {}, {}
+    for q in negative:
+        physical['S', ('q', q)] = labels['S', ('q', q)] = -mass[q]
+    physical['S', 'T'] = labels['S', 'T'] = 0
+    for n, m, q, r in edges:
+        physical[('q', q), ('n', n)] = 1
+        physical[('n', n), ('m', m)] = 1
+        physical[('m', m), ('r', r)] = 1
+        physical[('r', r), 'T'] = mass[r]
+        labels[('q', q), ('r', r)] = labels.get((('q', q), ('r', r)), 0) + 1
+        labels[('r', r), 'T'] = mass[r]
+    pf, flow, ids = solve(physical)
+    lf, _, _ = solve(labels)
+    selected = [(n, m, q, r) for n, m, q, r in edges
+                if flow[ids[('n', n)], ids[('m', m)]] == 1]
+    used = [v for n, m, _, _ in selected for v in (n, m)]
+    assert len(set(used)) == 2*pf
+    assert pf == len(selected) <= lf
+    newmass = mass.copy()
+    for n, m, q, r in selected:
+        newmass[q] += 1
+        newmass[r] -= 1
+    assert sum(abs(v) for v in mass.values()) - sum(abs(v) for v in newmass.values()) == 2*pf
+    assert all(newmass[q] <= -1 for q in negative if X//q in (95, 96))
+    signed = sum(mu[n] for n in S)
+    assert sum(newmass.values()) == signed
+    diagonal = len(S) - len(used)
+    ordered_cross = signed*signed - diagonal
+    assert ordered_cross % 2 == 0
+    label_diag = sum(v*v for v in newmass.values())
+    label_cross = sum(a*b for q, a in newmass.items() for r, b in newmass.items() if q != r)
+    assert label_diag + label_cross == signed*signed
+    return {'X': X, 'T': T, 'demand': sum(-mass[q] for q in negative),
+            'physical_flow': pf, 'label_flow': lf, 'edges': len(edges),
+            'q95_96': sum(X//q in (95, 96) for q in negative), 'square': signed*signed,
+            'residual_sites': diagonal, 'ordered_cross': ordered_cross}
+
+
+def main():
+    LIMIT = 131071
+    fs, mu = tables(LIMIT)
+    primes = [p for p in range(2, LIMIT + 1) if fs[p] == [p]]
+    M = [0]
+    for value in mu[1:]:
+        M.append(M[-1] + value)
+    for n in range(1, 4097):
+        assert trial(n) == (fs[n], mu[n])
+    capacity_checks = 0
+    deficient = []
+    for t in range(2, 4097):
+        eligible = {c for c in range(t//2 + 1, t + 1)
+                    if c % 2 and mu[c] == 1 and any(c//p > 29 for p in fs[c])}
+        distinct = {c for c in range(t//2 + 1, t + 1)
+                    if c % 2 and mu[c] == 1 and fs[c] and c//fs[c][0] > 29}
+        assert eligible == distinct
+        assert sum(mu[c] for c in range(t//2 + 1, t + 1) if c % 2) == M[t]
+        capacity_checks += 1
+        if M[t] > len(eligible):
+            deficient.append([t, M[t], len(eligible)])
+        if t == 95:
+            assert eligible == {93} and M[t] == 2
+    assert deficient == [[95, 2, 1], [96, 2, 1]]
+    excluded = {p*q for p in P9 for q in P9 if p < q}
+    assert len(excluded) == 36 and max(excluded) == 667
+    for c in range(3, LIMIT + 1, 2):
+        if mu[c] == 1:
+            assert (c//fs[c][0] <= 29) == (c in excluded)
+
+    semis = sorted(p*q for p in P9 for q in primes if q > 29 and p*q <= LIMIT)
+    fixtures = list(range(9000, 10001)) + [16383, 32767, 65535, 131071]
+    summaries, repaired, fiber_checks, repaired15 = [], 0, 0, 0
+    for X in fixtures:
+        start = bisect_right(semis, X//2)
+        donor_count = bisect_right(semis, X) - start
+        top_count = bisect_right(primes, X) - bisect_right(primes, X//2)
+        k = min(donor_count, top_count)
+        y = semis[start+k-1] if k else X//2
+        Q = [q for q in primes if q*q > X and X//q in (95, 96)]
+        D = {b: [r for r in primes if r*r > X and X//r == b and y < b*r <= X]
+             for b in (3, 5)}
+        Q15 = [q for q in primes if q*q > X and X//q == 15] if 15*y >= 13*X else []
+        N15 = min(len(Q15), len(D[3]))
+        N = min(len(Q), len(D[3]) - N15, len(D[5]))
+        pairs = [(15*q, 3*r, q, r) for q, r in zip(Q15[:N15], D[3][:N15])]
+        pairs += [(51*q, 3*r, q, r) for q, r in zip(Q[:N], D[3][N15:N15+N])]
+        pairs += [(55*q, 5*r, q, r) for q, r in zip(Q[:N], D[5][:N])]
+        used = [n for pair in pairs for n in pair[:2]]
+        assert len(set(used)) == 4*N + 2*N15
+        for n, m, q, r in pairs:
+            assert X < 2*n <= 2*X and X < 2*m <= 2*X
+            assert mu[n] == -1 and mu[m] == 1 and m > y
+            assert n not in semis and len(set(fs[n]) ^ set(fs[m])) == 3
+            assert n % 13
+            if n % 15 == 0:
+                assert n//15 == q and len(fs[q]) == 1
+        repaired += N
+        repaired15 += N15
+        for q in Q:
+            assert -sum(mu[c] for c in range(48, 96) if c % 2) == -2
+            assert all(not (X < 2*p*q <= 2*X) for p in P9)
+            fiber_checks += 1
+        if X in [9214, 9215, 9311, 9312, 9408, 9409, 10000, 16383, 32767, 65535, 131071]:
+            S, masses, _, _ = residual(X, fs, mu)
+            assert sum(mu[n] for n in S) == M[X]
+            assert all(masses[q] == -2 for q in Q)
+            assert all(masses[q] == -1 for q in Q15)
+            assert all(n in S for n in used)
+            after = S - set(used)
+            newmass = masses.copy()
+            for n, m, q, r in pairs:
+                newmass[q] += 1
+                newmass[r] -= 1
+            assert all(newmass[q] == 0 for q in Q[:N])
+            assert all(newmass[q] == 0 for q in Q15[:N15])
+            assert sum(abs(v) for v in masses.values()) - sum(abs(v) for v in newmass.values()) == 4*N + 2*N15
+            assert sum(mu[n] for n in after) == M[X]
+            assert len(after) + (M[X]**2 - len(after)) == M[X]**2
+            summaries.append({'X': X, 'threshold': y, 'Q95_96': Q, 'Q15_count': len(Q15),
+                              'D3': len(D[3]), 'D5': len(D[5]), 'N': N, 'N15': N15, 'M': M[X],
+                              'Lambda': sum(abs(v) for v in masses.values()),
+                              'Lambda_after': sum(abs(v) for v in newmass.values()),
+                              'sites': len(S), 'sites_after': len(after),
+                              'label_square': sum(v*v for v in masses.values()),
+                              'label_square_after': sum(v*v for v in newmass.values())})
+
+    networks = []
+    for X in (9215, 9311, 10000, 16383, 32767, 65535):
+        S, mass, _, _ = residual(X, fs, mu)
+        for T in (94, 95, 96, 120, 146, 192, 256):
+            networks.append(network(X, T, S, mass, fs, mu))
+    S, mass, _, _ = residual(9215, fs, mu)
+    isolated = network(9215, 95, S, mass, fs, mu, only_q=97)
+    assert isolated['physical_flow'] == 1 and isolated['label_flow'] == 2
+    assert all(n in S for n in (4947, 8079, 5335, 8095))
+    for n in (4947, 8079, 5335, 8095, 9021, 4619, 4681):
+        assert trial(n) == (fs[n], mu[n])
+    assert [mass[q] for q in (97, 149, 151, 2693, 1619)] == [-2, 2, 2, 1, 1]
+
+    s = sum((Fraction(1, p) for p in P9), Fraction())
+    tau = (1 + 1/s)/2
+    assert Fraction(5, 6) < tau < 1
+    assert (1-tau)/5 > Fraction(2, 95*97)
+    assert tau > Fraction(13, 15)
+    assert (1-tau)/3 > Fraction(1, 15*16) + Fraction(2, 95*97)
+    output = {'cofactor_checks': capacity_checks, 'trial_checks': 4103,
+              'first_deficiencies': deficient[:12], 'cutoff_checks': len(fixtures),
+              'quotient95_96_labels': fiber_checks, 'repaired_labels': repaired,
+              'repaired_quotient15_labels': repaired15,
+              'fixtures': summaries, 'isolated_cut': isolated, 'networks': networks,
+              'P9_reciprocal': str(s), 'threshold_limit': str(tau)}
+    payload = json.dumps(output, sort_keys=True)
+    print(payload)
+    print('PAYLOAD_SHA256', sha256(payload.encode()).hexdigest())
+    print('PASS: source bottleneck, growing exact networks, unspent-donor repair, complete signed return')
+
+
+if __name__ == '__main__':
+    main()
+```
+
+#### validation-output.txt
+
+```text
+{"P9_reciprocal": "3343015913/3234846615", "cofactor_checks": 4095, "cutoff_checks": 1005, "first_deficiencies": [[95, 2, 1], [96, 2, 1]], "fixtures": [{"D3": 48, "D5": 27, "Lambda": 367, "Lambda_after": 353, "M": -1, "N": 0, "N15": 7, "Q15_count": 7, "Q95_96": [], "X": 9214, "label_square": 1717, "label_square_after": 1703, "sites": 793, "sites_after": 779, "threshold": 8067}, {"D3": 48, "D5": 27, "Lambda": 368, "Lambda_after": 350, "M": -2, "N": 1, "N15": 7, "Q15_count": 7, "Q95_96": [97], "X": 9215, "label_square": 1720, "label_square_after": 1700, "sites": 794, "sites_after": 776, "threshold": 8067}, {"D3": 46, "D5": 26, "Lambda": 364, "Lambda_after": 344, "M": -4, "N": 1, "N15": 8, "Q15_count": 8, "Q95_96": [97], "X": 9311, "label_square": 1636, "label_square_after": 1614, "sites": 806, "sites_after": 786, "threshold": 8139}, {"D3": 46, "D5": 26, "Lambda": 364, "Lambda_after": 344, "M": -4, "N": 1, "N15": 8, "Q15_count": 8, "Q95_96": [97], "X": 9312, "label_square": 1636, "label_square_after": 1614, "sites": 806, "sites_after": 786, "threshold": 8139}, {"D3": 46, "D5": 30, "Lambda": 366, "Lambda_after": 348, "M": -6, "N": 1, "N15": 7, "Q15_count": 7, "Q95_96": [97], "X": 9408, "label_square": 1694, "label_square_after": 1674, "sites": 812, "sites_after": 794, "threshold": 8197}, {"D3": 46, "D5": 30, "Lambda": 366, "Lambda_after": 352, "M": -6, "N": 0, "N15": 7, "Q15_count": 7, "Q95_96": [], "X": 9409, "label_square": 1694, "label_square_after": 1680, "sites": 812, "sites_after": 798, "threshold": 8197}, {"D3": 48, "D5": 30, "Lambda": 389, "Lambda_after": 375, "M": -23, "N": 0, "N15": 7, "Q15_count": 7, "Q95_96": [], "X": 10000, "label_square": 1933, "label_square_after": 1919, "sites": 867, "sites_after": 853, "threshold": 8767}, {"D3": 71, "D5": 43, "Lambda": 622, "Lambda_after": 602, "M": -32, "N": 0, "N15": 10, "Q15_count": 10, "Q95_96": [], "X": 16383, "label_square": 3812, "label_square_after": 3792, "sites": 1496, "sites_after": 1476, "threshold": 14509}, {"D3": 131, "D5": 84, "Lambda": 1162, "Lambda_after": 1126, "M": 26, "N": 0, "N15": 18, "Q15_count": 18, "Q95_96": [], "X": 32767, "label_square": 9206, "label_square_after": 9170, "sites": 3226, "sites_after": 3190, "threshold": 29071}, {"D3": 227, "D5": 150, "Lambda": 2166, "Lambda_after": 2094, "M": 14, "N": 2, "N15": 32, "Q15_count": 32, "Q95_96": [677, 683], "X": 65535, "label_square": 23484, "label_square_after": 23408, "sites": 6808, "sites_after": 6736, "threshold": 58791}, {"D3": 406, "D5": 254, "Lambda": 4096, "Lambda_after": 3962, "M": -20, "N": 3, "N15": 61, "Q15_count": 61, "Q95_96": [1361, 1367, 1373], "X": 131071, "label_square": 60570, "label_square_after": 60430, "sites": 14226, "sites_after": 14092, "threshold": 118113}], "isolated_cut": {"T": 95, "X": 9215, "demand": 2, "edges": 15, "label_flow": 2, "ordered_cross": -788, "physical_flow": 1, "q95_96": 1, "residual_sites": 792, "square": 4}, "networks": [{"T": 94, "X": 9215, "demand": 59, "edges": 0, "label_flow": 0, "ordered_cross": -790, "physical_flow": 0, "q95_96": 0, "residual_sites": 794, "square": 4}, {"T": 95, "X": 9215, "demand": 61, "edges": 15, "label_flow": 2, "ordered_cross": -788, "physical_flow": 1, "q95_96": 1, "residual_sites": 792, "square": 4}, {"T": 96, "X": 9215, "demand": 61, "edges": 15, "label_flow": 2, "ordered_cross": -788, "physical_flow": 1, "q95_96": 1, "residual_sites": 792, "square": 4}, {"T": 120, "X": 9215, "demand": 61, "edges": 15, "label_flow": 2, "ordered_cross": -788, "physical_flow": 1, "q95_96": 1, "residual_sites": 792, "square": 4}, {"T": 146, "X": 9215, "demand": 61, "edges": 15, "label_flow": 2, "ordered_cross": -788, "physical_flow": 1, "q95_96": 1, "residual_sites": 792, "square": 4}, {"T": 192, "X": 9215, "demand": 61, "edges": 15, "label_flow": 2, "ordered_cross": -788, "physical_flow": 1, "q95_96": 1, "residual_sites": 792, "square": 4}, {"T": 256, "X": 9215, "demand": 61, "edges": 15, "label_flow": 2, "ordered_cross": -788, "physical_flow": 1, "q95_96": 1, "residual_sites": 792, "square": 4}, {"T": 94, "X": 9311, "demand": 60, "edges": 0, "label_flow": 0, "ordered_cross": -790, "physical_flow": 0, "q95_96": 0, "residual_sites": 806, "square": 16}, {"T": 95, "X": 9311, "demand": 62, "edges": 13, "label_flow": 2, "ordered_cross": -788, "physical_flow": 1, "q95_96": 1, "residual_sites": 804, "square": 16}, {"T": 96, "X": 9311, "demand": 62, "edges": 13, "label_flow": 2, "ordered_cross": -788, "physical_flow": 1, "q95_96": 1, "residual_sites": 804, "square": 16}, {"T": 120, "X": 9311, "demand": 62, "edges": 13, "label_flow": 2, "ordered_cross": -788, "physical_flow": 1, "q95_96": 1, "residual_sites": 804, "square": 16}, {"T": 146, "X": 9311, "demand": 62, "edges": 13, "label_flow": 2, "ordered_cross": -788, "physical_flow": 1, "q95_96": 1, "residual_sites": 804, "square": 16}, {"T": 192, "X": 9311, "demand": 62, "edges": 13, "label_flow": 2, "ordered_cross": -788, "physical_flow": 1, "q95_96": 1, "residual_sites": 804, "square": 16}, {"T": 256, "X": 9311, "demand": 62, "edges": 13, "label_flow": 2, "ordered_cross": -788, "physical_flow": 1, "q95_96": 1, "residual_sites": 804, "square": 16}, {"T": 94, "X": 10000, "demand": 66, "edges": 0, "label_flow": 0, "ordered_cross": -338, "physical_flow": 0, "q95_96": 0, "residual_sites": 867, "square": 529}, {"T": 95, "X": 10000, "demand": 66, "edges": 0, "label_flow": 0, "ordered_cross": -338, "physical_flow": 0, "q95_96": 0, "residual_sites": 867, "square": 529}, {"T": 96, "X": 10000, "demand": 66, "edges": 0, "label_flow": 0, "ordered_cross": -338, "physical_flow": 0, "q95_96": 0, "residual_sites": 867, "square": 529}, {"T": 120, "X": 10000, "demand": 68, "edges": 32, "label_flow": 2, "ordered_cross": -334, "physical_flow": 2, "q95_96": 0, "residual_sites": 863, "square": 529}, {"T": 146, "X": 10000, "demand": 68, "edges": 32, "label_flow": 2, "ordered_cross": -334, "physical_flow": 2, "q95_96": 0, "residual_sites": 863, "square": 529}, {"T": 192, "X": 10000, "demand": 68, "edges": 32, "label_flow": 2, "ordered_cross": -334, "physical_flow": 2, "q95_96": 0, "residual_sites": 863, "square": 529}, {"T": 256, "X": 10000, "demand": 68, "edges": 32, "label_flow": 2, "ordered_cross": -334, "physical_flow": 2, "q95_96": 0, "residual_sites": 863, "square": 529}, {"T": 94, "X": 16383, "demand": 103, "edges": 21, "label_flow": 1, "ordered_cross": -470, "physical_flow": 1, "q95_96": 0, "residual_sites": 1494, "square": 1024}, {"T": 95, "X": 16383, "demand": 103, "edges": 21, "label_flow": 1, "ordered_cross": -470, "physical_flow": 1, "q95_96": 0, "residual_sites": 1494, "square": 1024}, {"T": 96, "X": 16383, "demand": 103, "edges": 21, "label_flow": 1, "ordered_cross": -470, "physical_flow": 1, "q95_96": 0, "residual_sites": 1494, "square": 1024}, {"T": 120, "X": 16383, "demand": 105, "edges": 63, "label_flow": 3, "ordered_cross": -466, "physical_flow": 3, "q95_96": 0, "residual_sites": 1490, "square": 1024}, {"T": 146, "X": 16383, "demand": 105, "edges": 63, "label_flow": 3, "ordered_cross": -466, "physical_flow": 3, "q95_96": 0, "residual_sites": 1490, "square": 1024}, {"T": 192, "X": 16383, "demand": 105, "edges": 63, "label_flow": 3, "ordered_cross": -466, "physical_flow": 3, "q95_96": 0, "residual_sites": 1490, "square": 1024}, {"T": 256, "X": 16383, "demand": 105, "edges": 63, "label_flow": 3, "ordered_cross": -466, "physical_flow": 3, "q95_96": 0, "residual_sites": 1490, "square": 1024}, {"T": 94, "X": 32767, "demand": 174, "edges": 41, "label_flow": 1, "ordered_cross": -2548, "physical_flow": 1, "q95_96": 0, "residual_sites": 3224, "square": 676}, {"T": 95, "X": 32767, "demand": 174, "edges": 41, "label_flow": 1, "ordered_cross": -2548, "physical_flow": 1, "q95_96": 0, "residual_sites": 3224, "square": 676}, {"T": 96, "X": 32767, "demand": 174, "edges": 41, "label_flow": 1, "ordered_cross": -2548, "physical_flow": 1, "q95_96": 0, "residual_sites": 3224, "square": 676}, {"T": 120, "X": 32767, "demand": 176, "edges": 123, "label_flow": 3, "ordered_cross": -2544, "physical_flow": 3, "q95_96": 0, "residual_sites": 3220, "square": 676}, {"T": 146, "X": 32767, "demand": 177, "edges": 362, "label_flow": 4, "ordered_cross": -2542, "physical_flow": 4, "q95_96": 0, "residual_sites": 3218, "square": 676}, {"T": 192, "X": 32767, "demand": 177, "edges": 362, "label_flow": 4, "ordered_cross": -2542, "physical_flow": 4, "q95_96": 0, "residual_sites": 3218, "square": 676}, {"T": 256, "X": 32767, "demand": 177, "edges": 362, "label_flow": 4, "ordered_cross": -2542, "physical_flow": 4, "q95_96": 0, "residual_sites": 3218, "square": 676}, {"T": 94, "X": 65535, "demand": 325, "edges": 73, "label_flow": 1, "ordered_cross": -6610, "physical_flow": 1, "q95_96": 0, "residual_sites": 6806, "square": 196}, {"T": 95, "X": 65535, "demand": 327, "edges": 146, "label_flow": 3, "ordered_cross": -6608, "physical_flow": 2, "q95_96": 1, "residual_sites": 6804, "square": 196}, {"T": 96, "X": 65535, "demand": 329, "edges": 219, "label_flow": 5, "ordered_cross": -6606, "physical_flow": 3, "q95_96": 2, "residual_sites": 6802, "square": 196}, {"T": 120, "X": 65535, "demand": 333, "edges": 511, "label_flow": 9, "ordered_cross": -6598, "physical_flow": 7, "q95_96": 2, "residual_sites": 6794, "square": 196}, {"T": 146, "X": 65535, "demand": 333, "edges": 511, "label_flow": 9, "ordered_cross": -6598, "physical_flow": 7, "q95_96": 2, "residual_sites": 6794, "square": 196}, {"T": 192, "X": 65535, "demand": 334, "edges": 959, "label_flow": 10, "ordered_cross": -6596, "physical_flow": 8, "q95_96": 2, "residual_sites": 6792, "square": 196}, {"T": 256, "X": 65535, "demand": 337, "edges": 2076, "label_flow": 13, "ordered_cross": -6590, "physical_flow": 11, "q95_96": 2, "residual_sites": 6786, "square": 196}], "quotient95_96_labels": 607, "repaired_labels": 607, "repaired_quotient15_labels": 7104, "threshold_limit": "3288931264/3343015913", "trial_checks": 4103}
+PAYLOAD_SHA256 4ae0b1e1851837af7946e96bc909ac820ec9e86d05517a0e9d1b6e53d956ac2c
+PASS: source bottleneck, growing exact networks, unspent-donor repair, complete signed return
+```
+
+### Prepublication Freshness - 20261107-wheel-3
+
+At 2026-11-07T23:31:36Z, current main was rechecked and remained `cae99df1c3ea24ff4113063bf09f6fd07517ad93`; the open/draft PR collection remained empty. All material source hashes are unchanged. The complete final verifier was rerun and its output matched byte-for-byte, including payload SHA-256 `4ae0b1e1851837af7946e96bc909ac820ec9e86d05517a0e9d1b6e53d956ac2c`. All required test sessions finished. New mathematics remains PAPER_PROOF / SELF_AUDIT with independent review and formalization pending.
