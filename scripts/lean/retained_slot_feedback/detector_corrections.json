@@ -1,1 +1,8 @@
-{}
+{
+  "SourceFeedback": [
+    {
+      "old": "(conjugate_source_support F)",
+      "new": "(CenteredMomentDetectorPlainSlotProfile.conjugate_source_support F)"
+    }
+  ]
+}
