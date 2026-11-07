@@ -1128,3 +1128,20 @@ Verified earlier checkpoints in this invocation:
 fd9daa8faf504f0780dfe01e0221c90267bc6abd. All immutable readbacks matched.
 This synthesis records the observed final proof status, not the earlier
 checkpoint's pending state. The following receipt pins its publication.
+
+### Publication Receipt - 20261107-lean-2
+
+Verified at 2026-11-07 18:51:48 UTC.
+Final synthesis commit: `cdf565e2a3e6972e22a99091153662b62a707b60`.
+Final synthesis blob: `2417deb3f5d04c340f964e7b5e147f27e7307192`.
+Immutable commit readback matched the complete submitted contents exactly.
+Prior same-day sections, all three checkpoints and the failure/repair history
+were preserved. No other role's report was modified.
+
+Final state: execution COMPLETE; publication PUBLISHED_AND_READ_BACK;
+MH1-CUTOFF PROVED_IN_LEAN at PR head
+`30e235ac5ee86041d194d07b20c52b0b22d317f2`; PR #1105 READY_FOR_REVIEW,
+UNMERGED; all seven exact-head checks SUCCESS. Mathematical review remains
+SELF_AUDIT / AWAITING_INDEPENDENT_REFEREE; NEW_VERIFIED_ENDPOINT_GAIN=NONE.
+Next task: the shifted six-case actual-fiber bound and supported-witness
+continuation in section O, not another source-interface reimplementation.
