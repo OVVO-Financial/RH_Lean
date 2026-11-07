@@ -1697,3 +1697,9 @@ if __name__ == "__main__":
     for N in (9216, 10000):
         print(json.dumps(arithmetic(N, flags)), flush=True)
 ```
+
+### Verified Publication Receipt - 20261107-owner-2
+
+At **2026-11-07T13:39:30Z (08:39:30 America/New_York)**, research commit **7bb2a16015161ca2bc80bd0c6673d595c29f37c9** and report blob **aafcd01bdc5064f0429847c14b23af2093d87742** were re-fetched at the immutable commit. All **109,508 characters** matched the submitted text exactly, including the executable appendix. Commit metadata listed only `research/agent_reports/2026-11-07/10-owner-payment.md`; all prior report bytes and the early checkpoint were preserved. The source main remained **1c057c1d65b6d4cb4d59d207f69a815c52353314** on closing refresh.
+
+This records completed publication verification, not independent mathematical acceptance. Final research status: **PAPER_PROOF / FINITE_COMPUTATION; INDEPENDENT_COMPONENT_ADVANCE; SELF_AUDIT; INDEPENDENT_REVIEW_PENDING; NOT_FORMALIZED; NEW_VERIFIED_ENDPOINT_GAIN=NONE**. RS4-RS5 concern only the exact selected component. The proper pointwise and full canonical objectives remain open, with their original complement and mixed terms retained. Next protected Owner route: JOH. No Lean source, proof branch, PR, central instructions, other role report, schedule, permission or main was modified.
