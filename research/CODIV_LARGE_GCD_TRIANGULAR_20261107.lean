@@ -205,7 +205,8 @@ theorem codivLargeGcdCovariance_eq_original (X h G : Nat) :
           (fun n => realMoebiusStep n * realMoebiusStep (n + d))) := by
   unfold codivLargeGcdCovariance codivLargeGcdPairs
   simp only [Finset.sum_filter, Finset.mul_sum]
-  rw [Finset.sum_product]
+  refine (Finset.sum_finset_product _ (Ico 1 h) (fun _ => Ico X (4 * X))
+    (fun _ => Finset.mem_product)).trans ?_
   apply Finset.sum_congr rfl
   intro d _
   apply Finset.sum_congr rfl
