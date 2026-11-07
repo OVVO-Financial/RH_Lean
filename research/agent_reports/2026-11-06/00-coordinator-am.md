@@ -603,3 +603,16 @@ At 2026-11-06T20:40:04Z the actual main still resolves to `25319eb07e6b2abf8b218
 Verified at 2026-11-06T20:42:05Z: synthesis commit `a0a4290bfb03ff6290b599bfe9b8d59f27d1f4a9` is on `agent-reports`, committed at 20:41:45Z. Both authorized mirror paths read back exactly as the 52,532-byte intended report, with identical blob `41962e446f92f0018f46830c7c659d9a396ea2c5`. The commit changed only `research/agent_reports/2026-11-06/00-coordinator-am.md` and `research/agent_reports/2026-11-06/90-coordinator-pm.md`. Earlier checkpoint bytes were preserved. This receipt is appended to both mirrors together and is itself subject to final readback.
 
 Status for this actual 15:13 invocation: `COMPLETED / SYNTHESIS_PUBLISHED_AND_VERIFIED`. This supersedes its earlier IN_PROGRESS publication markers only; the historical morning checkpoint remains accurately recorded as partial. Mathematical status is unchanged: NS2 is a self-audited paper proof awaiting independent review, NS1 and the complete return are identities, NS5 is finite evidence, and no new RH or Mertens endpoint gain is claimed. All six specialists' available two-day reports were consumed, distinct handoffs were published, and no future execution or merge is represented as completed.
+
+
+---
+
+## 2026-11-06 23:09 EST scheduled continuation: early checkpoint
+
+eta_gate: SEARCH_BROAD. No new mathematical result is yet asserted by this invocation. The prior NS1-NS5 spectral result and its latest specialist reviews are being checked against the original discrete residual; full-period energy is not an arbitrary-window lower bound.
+
+Status: PARTIAL / IN_PROGRESS. Trigger SCHEDULED at 2026-11-06T23:09:01-05:00 (2026-11-07T04:09:01Z); RUN_ID_UNAVAILABLE. Checkpoint 2026-11-07 04:12:11 UTC. Source main `d4df133117c5b58f90979d2eb680167ef37995cf`; AGENTS blob `48b2a58ab5fcd402321a4dace511c7d54bf688a1`; contract blob `7c4ac83a1ec1a4144e1bd691391ed4244f1cc27c`. baseline_ack=PAID_BASELINE_EXACT_CONSUMER_V1, policy `13d58dd12d90fbf1160812c7c93442dc5d0576ac`; deployment_ack=NO_PIGEONHOLING_ROUTE_SELECTOR_V1, policy `ffd8f1c65cc4da656174956d4e03b48bea46768b`.
+
+Main now includes #1099's moment-null obstruction. The sole open proof PR at intake is #1100, Nyman radical increments, head `e52207d527da684346e151d4ff680696c88e8fa7`, non-draft. Exact-head CI/axiom review remains PENDING in this checkpoint. Both dates' seven-role reports and external index were retrieved at reporting head `1e9305646a0e09b797d66c538001059a30e8d522`; substantive intake and independent mathematical investigation are in progress. The 07:10 checkpoint remains incomplete evidence. The completed 15:13 synthesis and all its evidence are preserved.
+
+Next: resolve one source-faithful new arithmetic question, distinguish it from inherited bounds and prior identities, compare independent mechanisms, and publish A-J findings with exact limitations and next tasks. Canonical actual-prime VF bound remains OPEN. No source, other report, proof branch, PR, policy, permission or schedule will be changed; no agent is launched.
