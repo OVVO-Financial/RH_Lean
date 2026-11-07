@@ -85,3 +85,51 @@ E(B^k)<=G E(B)^r, r<k, with subpower G and all-prefix coverage.
 
 eta_gate=SEARCH_BROAD; net_endpoint_gain=UNKNOWN.
 No other agent is launched. Only this own dated report will be written.
+
+## Frozen Two-Channel Registration - 2026-11-07T08:18:05Z
+
+Selection-stage disclosure: a direct trial-factor calculation of M(t) for
+t<=222 was used to select explicit channels; it is exploratory, not
+held-out confirmation. It gave M(94)=M(146)=1, M(95)=2,
+M(43)=M(47)=-3. Protect the original P9={3,5,7,11,13,17,19,23,29}
+prime/semiprime stage and all qualified 13c/15c pairs.
+
+Freeze X>=147^2=21609. Let Q_m={q prime: m*q<=X<(m+1)*q}.
+All source and donor greatest primes below are strictly above sqrt(X).
+The original complete high-label mass is -M(m). Prior P9 removes only
+eligible positive semiprimes; actual removed endpoints are retained.
+
+D-demand test: independently pair increasing Q_146 and Q_47 by
+93q <->31r (channel A), and 111q <->37r (channel B).
+Both channels individually improve Lambda by two per edge. Test whether
+the endpoint-disjoint union improves it by the sum of these gains.
+
+D-supply test: pair Q_94 to Q_43 by 93q <->31r, and Q_146 to Q_43 by
+111q <->37r. Use increasing lists independently, retaining actual
+post-P9/R14 donor-label sums. Test the same additive claim.
+
+Primary exhaustive range: every integer 21609<=X<=65535, with earliest
+failure returned for each fixed rule. Held-out cutoffs: 65536,87283,
+131071,262143. Do not change the rules after seeing failures.
+Also independently reproduce GF4 at X=9118,9215,9594 and its changing
+quotient boundary. No scan of the old X=145 or X=87283 counterexample
+searches is requested.
+
+Corrected candidate, fixed before the scan: joint per-label capacities.
+For endpoint-disjoint directed edges from negative labels to positive
+labels, conjecture the exact defect
+  Lambda_after = Lambda_before - 2*edge_count
+    + 2*sum_labels max(load(label)-abs(old_signed_mass(label)),0).
+For a safe two-band construction, concatenate Q_94 then Q_146 and
+assign distinct Q_43 labels, using 31r and 37r respectively, with
+edge_count=min(|Q_94|+|Q_146|,|Q_43|).
+Every Q_43 label has at least one positive unit after any permitted P9
+spending. This construction REPLACES the GF4 stage on Q_94; it is not
+added after those same 93q endpoints were spent.
+
+Compute exact full-carrier Lambda and squares at material fixtures;
+use the derived high-fiber representation for the exhaustive cutoff
+scan and independently check it by trial-factor physical enumeration.
+Capture complete signed return, residual diagonal, off-diagonal,
+cross-label terms, exact factors, and old-reservation membership.
+No claim about global matching impossibility or a new exponent follows.
