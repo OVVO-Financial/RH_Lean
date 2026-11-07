@@ -987,3 +987,29 @@ quantitative estimate. New theorem, PR and CI statuses remain PENDING.
 Read-only shell cloning returned CONNECT tunnel 403; connected GitHub source
 reads work. No local Lean has run. Actual connected write access will be
 tested on the focused feature branch, with GitHub Actions as sole Lean runner.
+
+
+### Evening Implementation Milestone - Same 21:08 EST Invocation
+
+Draft PR https://github.com/OVVO-Financial/RH_Lean/pull/1100 is open on
+agent/lean-verification/20261106-nyman-radical-increment from main
+d4df133117c5b58f90979d2eb680167ef37995cf. Initial head:
+daceba8f379470875a68e62337928da2e59d5cc8.
+
+Three focused files contain a complete proof attempt, exact prime-log
+regressions, and a cached warning-fatal proof/type/axiom workflow.
+Connected branch/blob/tree/commit/ref and draft-PR writes succeeded.
+No direct main write or local Lean execution occurred.
+
+The exact regression passed 1,264 source increments, 480 repeated-radical
+comparisons, 324 small-radical cells and 928 complete flat returns. Separate
+negative controls show the m=1 exception, the first correction admission,
+and the after-N term cannot be silently dropped. These are finite exact
+computations, not kernel proof evidence.
+
+Dedicated workflow 42328555244, job 128269470227, actually started on this
+head; targeted workflow 42328555089 also started. Current status is
+DRAFT_PR / CI_PENDING, not PROVED_IN_LEAN. The all-m formula retains
+delta + J_H(rad m) - J_N(rad m) + correctionJump; the precorrection result
+needs no special moment equation. Source and hypothesis scope are unchanged
+from the explicitly stated proof plan.
