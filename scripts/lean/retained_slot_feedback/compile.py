@@ -41,7 +41,11 @@ for target in [
     'OAI.SevenEighths.RetainedSlotDetector.source_batch_plain_marked_fine_half',
     'OAI.SevenEighths.RetainedSlotMoments.source_moments_half',
     'OAI.SevenEighths.RetainedSlotFiberCount.plain_marked_count_half',
-    'OAI.SevenEighths.RetainedSlotApplications.original_source_fineness_preserved']:
+    'OAI.SevenEighths.RetainedSlotApplications.original_source_fineness_preserved',
+    'OAI.SevenEighths.RetainedSlotCutoffMoments.source_moments_two_error',
+    'OAI.SevenEighths.RetainedSlotCutoffMoments.inverse_marked_count_two_error',
+    'OAI.SevenEighths.RetainedSlotCutoffMoments.plain_marked_count_two_error',
+    'OAI.SevenEighths.RetainedSlotCutoffMoments.plain_unmarked_count_two_error']:
     found=[a for n,a in checks if n==target]
     if len(found)!=1:raise SystemExit('Missing exact terminal axiom report: '+target)
     actual={a.strip() for a in found[0].split(',') if a.strip()}
@@ -49,3 +53,4 @@ for target in [
 if 'sorryAx' in text or 'admitAx' in text:raise SystemExit('Admitted dependency')
 print('PASS: generalized analytic band, all four source moments, literal marked count, and mesh reuse; permitted axioms only.')
 print('No new global Mertens exponent is asserted by this audit.')
+
