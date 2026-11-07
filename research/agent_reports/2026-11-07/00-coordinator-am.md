@@ -1275,3 +1275,10 @@ print(json.dumps({'grid_cases': grid_count, 'subsets': len(subset_results),
                   'max_soft_scalar_excess': str(max_excess), 'lp_exploration': lp_results}, indent=2))
 ~~~
 
+
+
+### Verified publication receipt - 20261107-coordinator-1513
+
+At 2026-11-07T20:39:50Z the synthesis commit 3b9118abe9e3c6b2bdd9b38e231060026cd2d650 was published to agent-reports and both owned reports were fetched at that immutable commit. Each readback exactly matched the 111,816-character intended content; both blobs were 037e1701e017e0ba47c2c6eedf64bfb763e9616c. The commit changed ONLY the two Coordinator paths. The preceding full 63,161-character report/checkpoint was preserved as an exact prefix. No other report or source was changed.
+
+Execution/publication status for this invocation: COMPLETED / PUBLISHED_AND_READBACK_VERIFIED. Mathematical status is unchanged: RG1-RG3 PAPER_PROOF / SELF_AUDIT with independent review pending; RG4 source integration remains OPEN; RG5 endpoint remains CONDITIONAL; NEW_VERIFIED_ENDPOINT_GAIN=NONE; canonical objective OPEN. This receipt records publication already verified, not acceptance of the proposed analytic extension.
