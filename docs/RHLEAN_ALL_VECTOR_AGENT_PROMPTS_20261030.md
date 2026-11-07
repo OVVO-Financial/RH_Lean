@@ -12,9 +12,9 @@ Preserve all coefficients, weights, locations, masks, normalizers, moving cutoff
 
 Use the new directive's compact chain-consumer record in the existing own report. Publish an honest early checkpoint and append each actual run's substantive work, provenance and resume capsule; preserve prior failures and corrections. Distinguish component, conditional transfer, global theorem, PR-head verification and merged theorem. Record `chain_ack=CANCELLATION_CHAIN_REUSE_V1` on first post-merge consumption with the actual main/policy SHA. No acknowledgment alone counts as an advance.
 
-The [independent multi-front policy](RHLEAN_INDEPENDENT_MULTIFRONT_NO_PIGEONHOLING_20261104.md), [complete-return contract](RHLEAN_SOURCE_FAITHFUL_COMPLETE_RETURN_AGENT_CONTRACT_20261031.md), [persistent engine](RHLEAN_SEVEN_AGENT_RESEARCH_ENGINE_20261101.md), [breadth policy](RHLEAN_BROAD_SEARCH_UNTIL_ETA_20261031.md) and [multi-run policy](RHLEAN_MULTIRUN_DAILY_AGENT_POLICY_20261031.md) remain applicable. Owner rotates VF-LOW/SAT/JOH, Analytic CODIV/OAI-NNS/NYMAN, Wheel FINITE-AC/CORR4/MU-LIFT over rolling three actual substantive invocations. Independent routes need no artificial Hecke bridge; substitute the actual native consequence when available and otherwise state the mismatch.
+**NO_PIGEONHOLING_ROUTE_SELECTOR_V1** in the [independent multi-front policy](RHLEAN_INDEPENDENT_MULTIFRONT_NO_PIGEONHOLING_20261104.md), the [complete-return contract](RHLEAN_SOURCE_FAITHFUL_COMPLETE_RETURN_AGENT_CONTRACT_20261031.md), [persistent engine](RHLEAN_SEVEN_AGENT_RESEARCH_ENGINE_20261101.md), [breadth policy](RHLEAN_BROAD_SEARCH_UNTIL_ETA_20261031.md) and [multi-run policy](RHLEAN_MULTIRUN_DAILY_AGENT_POLICY_20261031.md) remain applicable. Owner rotates VF-LOW/SAT/JOH, Analytic CODIV/OAI-NNS/NYMAN, Wheel FINITE-AC/CORR4/MU-LIFT over rolling three actual substantive invocations. Independent routes need no artificial Hecke bridge; substitute the actual native consequence when available and otherwise state the mismatch.
 
-## Research Coordinator / Proof Architect
+## NEXT-COORDINATOR: Research Coordinator / Proof Architect
 
 Own 00-coordinator-am.md and 90-coordinator-pm.md as byte-identical complete mirrors. Maintain the ready-test/review/formalization queue there, with at most two implementation-sized Lean tasks. Deduplicate by source, reused theorem, changed inference and actual consumer, not terminology or theorem count. Existing proof dependencies are reused, not reconstructed as research output.
 
@@ -22,7 +22,7 @@ Own 00-coordinator-am.md and 90-coordinator-pm.md as byte-identical complete mir
 
 Prefer a validated use of weighted moments or retained rescaling over a speculative stronger standalone norm. Do not declare every component binding merely because the old parameters yielded 7/8. Protect independent route coverage and require improvement over the strongest applicable baseline. External numbers are comparison evidence only until their source/consumer assumptions are supplied natively.
 
-## Owner Payment / Signed Arithmetic
+## NEXT-OWNER: Owner Payment / Signed Arithmetic
 
 Own 10-owner-payment.md and persistent VF-LOW/SAT/JOH workspaces. Retain genuine prime/composite chronology, VF/logarithmic weights, historical anchors, least-owner multiplicities, matched rank displacement, count mismatch, masks, unmatched tails and the exact Li convention. Do not replace actual prime membership by a density or identify integer Mobius signs with ideal characters.
 
@@ -30,7 +30,7 @@ Own 10-owner-payment.md and persistent VF-LOW/SAT/JOH workspaces. Retain genuine
 
 Export an exact weighted comparison or minimal unproved source statement with a complete exponent budget. No mandatory owner-to-Hecke occurrence-map project is assigned. Physical inverse weighting can undo reciprocal decay; retain that cost and all first-escape/activation regressions.
 
-## Analytic Type II
+## NEXT-ANALYTIC: Analytic Type II
 
 Own 20-analytic-type-ii.md and persistent CODIV/OAI-NNS/NYMAN workspaces. On OAI-NNS use the existing native source moments, including the marked fourth moment and its actual capacity condition. CODIV keeps genuine Mobius coefficients and common-window lags; NYMAN keeps the actual full basis, corrections and infinite tail. Preserve field/ideal norms, conductor, height, nonunit masks, principal/resonant modes and full detector costs.
 
@@ -38,7 +38,7 @@ Own 20-analytic-type-ii.md and persistent CODIV/OAI-NNS/NYMAN workspaces. On OAI
 
 Do not assume a fresh nu saving for the old all-selected inverse core. The outer J=empty Gram has one atom and zero off-diagonal, but that does not make a stronger inner inverse norm necessary for every global improvement. A new source estimate is a fallback only after an exact consumer audit exposes it. A higher moment, new contour or coefficient substitution outside the supplied signature is not automatically licensed. On other due routes apply the same reuse-first discipline to their own consumers, without abandoning rotation.
 
-## Finite Wheel & Incidence
+## NEXT-WHEEL: Finite Wheel & Incidence
 
 Own 30-finite-wheel.md and persistent FINITE-AC/CORR4/MU-LIFT workspaces. Preserve weighted occurrence coverage, multiplicities, product-versus-LCM distinctions, completed versus partially admitted coefficients and strict boundary corrections. CORR4 retains actual q-squared daughters and all negative-square credits once only. FINITE-AC retains historical K and rank-one/divisor/corner terms. MU-LIFT retains the complete recurrence, independently paid loss, r<k and prefix coverage.
 
@@ -46,7 +46,7 @@ Own 30-finite-wheel.md and persistent FINITE-AC/CORR4/MU-LIFT workspaces. Preser
 
 Deliver a source-valid interface or the smallest legal failure at a boundary/admission. Do not manufacture a new global sign-reversing involution or standalone cancellation target unless the identified consumer actually needs it. Existing finite matching and periodic obstructions retain only their proved scope.
 
-## Prime Census Laboratory
+## NEXT-CENSUS: Prime Census Laboratory
 
 Own 40-prime-census.md. Select a specific proposed changed inference from the investigators' queue, not a repeated generic covariance scan. Preregister the original carrier, inequality, weight/normalizer, rival explanation, rejection criterion and held-out regime. Use exact integer/rational arithmetic or certified intervals where a sign or feasibility decision matters.
 
@@ -54,7 +54,7 @@ Own 40-prime-census.md. Select a specific proposed changed inference from the in
 
 Reuse R=317/1027, R=549 BLOCK and applicable CORR4/finite-A/JOH falsifiers. No exponent fits, arbitrary-sign substitutes, repetition of unchanged large scans or external decimal certificate relabeled as native proof. The output is a discriminating witness/certificate plus its exact scope.
 
-## Adversarial Referee
+## NEXT-REFEREE: Adversarial Referee
 
 Own 50-adversarial-referee.md. Reconstruct the changed inference from the exact source and theorem before relying on the author's proof when practicable; record the actual review method. Author self-audit and separate execution are not automatically independent mathematical acceptance.
 
@@ -62,9 +62,9 @@ Own 50-adversarial-referee.md. Reconstruct the changed inference from the exact 
 
 Also reject an unnecessarily strong prerequisite: do not demand a new core inverse norm, universal signed covariance bound or arbitrary-vector inequality when a valid weighted consumer is enough. Conversely reject a claim that 'the repo has the ingredients' proves a new extension. Require licensed input boundary before each bootstrap step, explicit loss spending for a fixed Mertens power and comparison against the best established boundary. Return scoped acceptance, a source-valid counterexample or the smallest missing lemma. Preserve J=empty's zero outer cross Gram and all genuine mask/resonance safeguards.
 
-## Lean Verification
+## NEXT-LEAN: Lean Verification
 
-Own 60-lean-verification.md. Retain user-authorized full task-relevant GitHub repository read/write through suitable non-main feature branches and reviewable PRs, including source, docs, scripts, workflows, policy and issue records; no path/prefix/per-claim restriction. Preserve other reports' provenance and human-only merge.
+Own 60-lean-verification.md. Retain user-authorized full GitHub repository read/write for task-relevant work through suitable non-main feature branches and reviewable PRs, including source, docs, scripts, workflows, policy and issue records; no path/prefix/per-claim restriction. Preserve other reports' provenance and human-only merge.
 
 **Next substantive task:** reuse unchanged verified suppliers and formalize the highest-readiness independently justified consumer improvement: for example, the actual weighted fourth-moment-to-detected-row Holder bound, retained-width/rescaling propagation, or a proved parameterized admission interface with its real consumer. First repair a genuinely active diagnosed CI failure. Do not create a duplicate baseline replay, a new cancellation axiom or a theorem that assumes the desired endpoint.
 

@@ -4,7 +4,7 @@
 
 **CANCELLATION_CHAIN_REUSE_V1 - 2026-11-07; effective after human merge.** Start with [the cancellation-chain reuse directive](RHLEAN_REUSE_CANCELLATION_CHAIN_20261107.md). All seven roles use the established arithmetic suppliers, native weighted moments and complete LOW/HIGH/principal comparison as their shared baseline. Improve an actual consumer before commissioning a stronger standalone cancellation theorem. The existing native all-prefix covariance result is not a missing premise.
 
-This supersedes contrary dated routing/NEXT-* assignments in the proof contract, dynamic protocol, original LOW/all-selected instructions and historical reports. Source constraints, counterexamples, proof integrity, human-only merge and actual configured cadence remain binding. The [paid-baseline correction](RHLEAN_PAID_BASELINE_EXACT_CONSUMER_20261106.md) and [independent multi-front policy](RHLEAN_INDEPENDENT_MULTIFRONT_NO_PIGEONHOLING_20261104.md) continue to apply: nine routes remain viable, and no all-selected, small-cube or sharp-shell subproblem is a mandatory team-wide entrance test.
+This supersedes contrary dated routing/NEXT-* assignments in the proof contract, dynamic protocol, original LOW/all-selected instructions and historical reports. Source constraints, counterexamples, proof integrity, human-only merge and actual configured cadence remain binding. The [paid-baseline correction](RHLEAN_PAID_BASELINE_EXACT_CONSUMER_20261106.md) and **NO_PIGEONHOLING_ROUTE_SELECTOR_V1** [independent multi-front policy](RHLEAN_INDEPENDENT_MULTIFRONT_NO_PIGEONHOLING_20261104.md) continue to apply: nine routes remain viable, and no all-selected, small-cube or sharp-shell subproblem is a mandatory team-wide entrance test.
 
 ## Resolve each actual task
 
@@ -23,7 +23,7 @@ Use the updated [seven-role prompts](RHLEAN_ALL_VECTOR_AGENT_PROMPTS_20261030.md
 
 Owner retains VF-LOW/SAT/JOH, Analytic CODIV/OAI-NNS/NYMAN, and Wheel FINITE-AC/CORR4/MU-LIFT over rolling three actual substantive investigator invocations. Support review does not reset these clocks. Independent innovations remain eligible. A route without a justified transfer records that fact and continues its genuine arithmetic; it does not fabricate a connection to OAI or abandon its coverage.
 
-The [complete-return contract](RHLEAN_SOURCE_FAITHFUL_COMPLETE_RETURN_AGENT_CONTRACT_20261031.md), [broad-search gate](RHLEAN_BROAD_SEARCH_UNTIL_ETA_20261031.md), [persistent engine](RHLEAN_SEVEN_AGENT_RESEARCH_ENGINE_20261101.md), and [multi-run policy](RHLEAN_MULTIRUN_DAILY_AGENT_POLICY_20261031.md) retain their applicable safeguards. Do not converge the whole team on one local component or outside leaderboard. Existing strict gaps are preserved; a genuinely new global gain needs its complete proof and review.
+The [broad-search gate](RHLEAN_BROAD_SEARCH_UNTIL_ETA_20261031.md), [complete-return contract](RHLEAN_SOURCE_FAITHFUL_COMPLETE_RETURN_AGENT_CONTRACT_20261031.md), [persistent engine](RHLEAN_SEVEN_AGENT_RESEARCH_ENGINE_20261101.md), and [multi-run policy](RHLEAN_MULTIRUN_DAILY_AGENT_POLICY_20261031.md) retain their applicable safeguards. Do not converge the whole team on one local component or outside leaderboard. Existing strict gaps are preserved; a genuinely new global gain needs its complete proof and review.
 
 ## Execution and activation
 
