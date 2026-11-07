@@ -1301,3 +1301,16 @@ PASS negative controls: primitive subset is strict, small-H sign is negative, pe
 ## Final source freshness
 
 Refreshed at 2026-11-07 04:32:44 UTC: main remains `d4df133117c5b58f90979d2eb680167ef37995cf`; the only open PR remains #1100 at `e52207d527da684346e151d4ff680696c88e8fa7`, non-draft and unmerged, with all 13 exact-head check runs completed successfully. The report branch is still the verified early-checkpoint commit `45d92a3e8fda94d2e55d07ce328d25d958a54309`; both Coordinator mirrors were fetched at this immutable commit and match the preserved checkpoint bytes. No specialist or external handoff changed between intake and this refresh. Publication success will be recorded only after immutable-commit readback of both mirrors.
+
+
+---
+
+## Publication receipt: 20261106-coordinator-2309
+
+Execution and publication status: `COMPLETED` for this 23:09 EST invocation only. This does not complete the earlier 07:10 partial execution or any pending independent mathematical review.
+
+The final synthesis was committed on `agent-reports` at [`c1758e50a7ba699ba33ec0629b079585f560b113`](https://github.com/OVVO-Financial/RH_Lean/commit/c1758e50a7ba699ba33ec0629b079585f560b113). Both authorized Coordinator files were then fetched at that immutable commit and matched the intended 108,263-character content exactly; both have blob `7161453cd9b0b52c577272b5f550bf4f6d7cec41`. Readback verified at 2026-11-07 04:33:33 UTC. All preceding report content and the accurate early checkpoint were preserved.
+
+The final exact verifier was rerun successfully before publication: 1,090 shifted covariance identities, 88 complete-period returns, 136 grouped returns, 136 gcd-reindexed returns, 6,300 multiplier tests and 67 rational-interval shift bounds, plus the stated negative controls. The embedded source hash is unchanged. No Lean proof, source policy, proof PR, protected branch, other agent report, permission or schedule was altered.
+
+`CS1-CS4=PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED`; `CS5=FINITE_COMPUTATION`; `eta_gate=SEARCH_BROAD`; `NEW_VERIFIED_ENDPOINT_GAIN=NONE`. The canonical objective remains OPEN. The next actions are the scoped asynchronous assignments in H, not a claim that another agent has already run.
