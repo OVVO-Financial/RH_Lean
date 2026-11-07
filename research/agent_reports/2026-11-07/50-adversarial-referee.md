@@ -2216,3 +2216,28 @@ Executed output:
   "status": "PASS: exact scalar certificates; no endpoint claim"
 }
 ```
+
+## Verified Publication Receipt - 2026-11-07T12:29:31-05:00
+
+The final 20261107-referee-2 research synthesis was published at commit
+**37ff3ef38f5f1d5475446742a2fac88fe881c874**, report blob
+**cbcd63975ceb5a6c8e90bb2200ded8d3901de7ed**.
+Immutable commit readback matched the entire prepared report exactly,
+including the executed verifier. GitHub commit metadata confirms only
+this authorized report changed: 1,065 added lines, zero deleted lines.
+All earlier report content and the early checkpoint were preserved.
+A-O structure, source-hash references, code-fence structure and the
+embedded verifier digest were checked before publication.
+
+Verifier SHA256:
+429806283c0a778f2e3411ce52d311fcbfc7a877182477229f183de3283f5231.
+Results: 324 positive Bernstein coefficients, 4,536 shifted parameter
+checks, 178,128 raw-branch checks and 126 high-bin checks passed;
+all computation sessions ended successfully. Relevant exact-head CI
+evidence is recorded in L; the new RC/MH consumers were NOT run in Lean.
+
+EXECUTION=COMPLETED; REPORT=PUBLISHED_VERIFIED.
+MH1-MH4 remain PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING /
+NOT_FORMALIZED. RC1-RC4 verdicts remain scoped as recorded in D.
+No new complete global exponent or RH proof is claimed.
+This receipt records already verified publication, not a future promise.
