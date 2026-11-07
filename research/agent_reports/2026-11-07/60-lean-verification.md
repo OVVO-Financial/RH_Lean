@@ -582,3 +582,46 @@ implementation-sized change, then obtain exact-head Actions compilation,
 type and axiom evidence if authorized writes succeed. No local Lean or
 agent launches. Direct git clone failed with CONNECT tunnel 403; immutable
 source retrieval through the GitHub connector works.
+
+
+## Implementation Milestone - 20261107-lean-2
+
+Timestamp: 2026-11-07 18:27:07 UTC; same 13:14 EST scheduled invocation.
+
+Draft [PR #1105](https://github.com/OVVO-Financial/RH_Lean/pull/1105)
+implements the source-interface part of 20261107-referee-2/MH1 and three
+immediate actual-fiber count consumers. Branch:
+`agent/lean-verification/20261107-cutoff-two-error-moments`.
+Base `3de4f7331e5fe55ad0e404dc8463b1df56c19330`; head `e2916fab61d141993163f003704876905cf01c73`.
+Mathematics PAPER_PROOF / independently source-checked by Lean Verification;
+implementation DRAFT_PR / CI_PENDING. Not yet PROVED_IN_LEAN.
+
+The complete committed Lean template is
+`scripts/lean/retained_slot_feedback/CutoffMoments.lean`; the existing
+workflow materializes `research/oai_434/Feedback/CutoffMoments.lean`.
+All original four moment expressions, source admission conditions and
+physical HighData are retained. The new source package admits every real
+cutoff after the source threshold; inverse/unmarked error is D.t, marked
+error is D.t/2. This does not manufacture arbitrary-cutoff witnesses.
+Three original row-count theorems consume the corresponding fields.
+
+Proof: intersect the three eventual source suppliers; enlarge constants
+using J=Ji+Jm+Ju and C=Ci+Cm+Cu, since 1+height>=1; never weaken the marked
+exponent. The existing licensed terminal band discharges the positive/zero
+inputs. Preserve kappa>1/2, 51/100<=beta, 2*beta-1<=kappa and source fineness.
+No bound equivalent to the desired global endpoint is assumed.
+
+Executed non-Lean checks: Python/shell syntax, source-only generation,
+generation/target integrity, and full textual comparison of the original
+four-field carrier and source admission definition under ONLY the stated
+capacity/error/cutoff changes. These checks are not kernel evidence.
+
+Actual required run:
+[42401229354, job 128489189043](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42401229354/job/128489189043),
+Retained-slot analytic feedback, IN_PROGRESS on the submitted head.
+Source audits, hosted root build, inventory, export, documentation and atlas
+checks also started. No no-op commit or manual workflow rerun was used.
+
+The six-case combined crossing, shifted supported-witness selection,
+batch aggregation and complete anchored LOW/HIGH/principal return remain
+unimplemented. New global exponent gain NONE; canonical VF/RH OPEN.
