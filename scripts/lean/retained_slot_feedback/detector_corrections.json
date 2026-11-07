@@ -1,0 +1,16 @@
+{
+  "SourceFeedback": [
+    {
+      "old": "(conjugate_source_support F)",
+      "new": "(CenteredMomentDetectorPlainSlotProfile.conjugate_source_support F)"
+    },
+    {
+      "old": "open HeckeFamily HeckeDyadic HeckeInverseAmplification HeckeDetectorRawFiber HeckeDetectorBatch",
+      "new": "open HeckeFamily HeckeDyadic HeckeInverseAmplification HeckeDetectorRawFiber HeckeDetectorBatch\nopen HeckeDetectorRowwisePolynomial HeckeDetectorDyadicProfiles"
+    },
+    {
+      "old": "theorem source_batch_plain_marked_fine_half ",
+      "new": "set_option autoImplicit false in\ntheorem source_batch_plain_marked_fine_half "
+    }
+  ]
+}

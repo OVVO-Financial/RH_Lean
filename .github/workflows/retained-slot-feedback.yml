@@ -1,0 +1,77 @@
+name: Retained-slot analytic feedback
+on:
+  pull_request:
+    paths:
+      - 'research/oai_434/RetainedSlotFeedback.lean'
+      - 'research/oai_434/Feedback/**'
+      - 'scripts/lean/retained_slot_feedback/**'
+      - '.github/workflows/retained-slot-feedback.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: retained-slot-feedback-${{ github.head_ref || github.ref_name }}-${{ github.event.pull_request.head.sha || github.sha }}
+  cancel-in-progress: true
+jobs:
+  feedback-proof:
+    runs-on: ubuntu-latest
+    timeout-minutes: 150
+    steps:
+      - uses: actions/checkout@v4
+      - name: Checkout the exact original analytic source
+        uses: actions/checkout@v4
+        with:
+          repository: openai/math
+          ref: 1581d4cbdd69a0faf34b2089614fe2a814316a6a
+          path: oai-upstream
+          persist-credentials: false
+      - name: Preserve source-only dependency evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git -C oai-upstream rev-parse HEAD)" = '1581d4cbdd69a0faf34b2089614fe2a814316a6a'
+          tar -czf retained-slot-original-source.tar.gz -C oai-upstream/lean OAI/NumberTheory/DirichletL
+      - uses: actions/upload-artifact@v4
+        with:
+          name: retained-slot-original-source-${{ github.run_id }}
+          path: retained-slot-original-source.tar.gz
+          retention-days: 7
+      - name: Verify pinned toolchain
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(cat lean-toolchain)" = 'leanprover/lean4:v4.34.1'
+          grep -q 'd13f23b723b8a846827a245b89c10fc7d3f11612' lakefile.lean
+      - uses: ./.github/actions/lean-setup
+      - uses: ./.github/actions/lean-compiled-cache
+      - name: Verify native Wiener prerequisites
+        run: lake build PrimeNumberTheoremAnd.Wiener
+      - name: Restore source-pinned original analytic cache
+        id: oai_cache
+        uses: ./.github/actions/oai-434-shared-cache
+      - name: Build original prerequisites on genuine cache miss
+        if: ${{ steps.oai_cache.outputs.complete != 'true' }}
+        working-directory: oai-upstream/lean
+        shell: bash
+        run: |
+          set -euo pipefail
+          lake build OAI.NumberTheory.DirichletL.Detector.FinalAssemblyUnconditional
+      - name: Check package identity
+        run: python3 scripts/check_shared_lean_packages.py . oai-upstream/lean PrimeNumberTheoremAnd mathlib
+      - name: Compile and audit feedback
+        id: proof
+        shell: bash
+        run: bash scripts/lean/retained_slot_feedback/run.sh
+      - name: Preserve proof diagnostics
+        if: ${{ !cancelled() && steps.proof.outcome != 'skipped' && steps.proof.outcome != '' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: retained-slot-proof-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            retained-slot-*.log
+            retained-slot-generation.json
+            research/oai_434/RetainedSlotFeedback.lean
+            research/oai_434/Feedback/
+            scripts/lean/retained_slot_feedback/
+          if-no-files-found: error
+          retention-days: 30
