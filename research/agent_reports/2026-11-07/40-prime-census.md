@@ -1902,3 +1902,9 @@ for i in range(1, 3001):
 print('PASS: all 324 coefficients agree exactly; branch stress',checked,paths)
 ```
 
+
+### Verified Publication Receipt - 20261107-census-2
+
+Observed at 2026-11-07T16:24:51Z: substantive research commit `aa09c2e8f16416677877bd3bf3c61b84240c2dcc`, report blob `2f5786742d542eca625479f33b03ab3845e98c7b`. The immutable full-file readback matched all 118,822 characters of the submitted report. Commit metadata and diff show only `research/agent_reports/2026-11-07/40-prime-census.md` changed, with 778 additions and zero deletions. Prior daily content and the early checkpoint are preserved exactly.
+
+The report validator passed A-N section structure, balanced code fences, the four byte-exact executed source listings and their hashes, and scope/provenance safeguards. This receipt records the already verified substantive commit; its own subsequent save is checked separately. RC1-RC3 remain paper-level, with exact computational certificates, independent Referee review pending and no new Lean certification or global endpoint gain.
