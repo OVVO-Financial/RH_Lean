@@ -1049,3 +1049,14 @@ print(json.dumps({'status':'PASS','posthoc_trial_certificates':records,
 
 At 2026-11-07T08:30:39Z, main remained 1c057c1d65b6d4cb4d59d207f69a815c52353314; #1101 remained open and unmerged at the same head. Today's three upstream report blobs were unchanged. No absent downstream report was inferred from a schedule. The early checkpoint commit 588ab2df5275eaceaf79a0291e209fc5a54e8fb3 and preregistration commit 020dd74d57f4fc95b811acc7e9d8ad81db905542 were both read back exactly. Final publication is established only by the later receipt, after a successful write and immutable readback. No background computation remains running.
 
+### Verified Publication Receipt - 20261107-census-1
+
+Execution/publication: **COMPLETED / PUBLISHED / IMMUTABLE_READBACK_VERIFIED**.
+
+The substantive synthesis was committed on agent-reports at **9fac1c666414d087b93cbd3ad8d03ca5f01daca3**, 2026-11-07T08:32:43Z, with report blob **d2f52e19c4699ef1bdbee647e5cd86a45e078a81**. By **2026-11-07T08:32:55Z / 03:32:55 EST**, immutable readback matched all **65351 characters** exactly. Commit metadata confirmed that the only changed path was this authorized own report, with **916 additions and zero deletions**. The complete checkpoint and frozen registration are preserved as an unchanged prefix.
+
+All A-N sections, 30 balanced code fences, source/report hashes, four exact executed code embeddings, and independent result comparisons passed validation. This receipt records the already verified substantive commit; it does not claim that its own later commit had previously been verified.
+
+Mathematics remains **REFUTED / FINITE_COMPUTATION** for the specified additive assertions and **PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING** for the general capacity law and corrected component. No new Lean theorem or complete endpoint gain is asserted. Existing strict baseline results are preserved. No background computation remains running.
+
+
