@@ -1016,3 +1016,59 @@ remains CONDITIONAL; GL5 is finite evidence only. No new RH theorem,
 complete signed estimate, endpoint improvement, merge, PR or CI run is
 claimed. The next protected route is NYMAN; OPEN-GL4 is retained for the
 next substantive CODIV investigation.
+
+
+---
+
+## Scheduled NYMAN Checkpoint - 2026-11-07 09:09 EST Invocation
+
+Execution: PARTIAL / IN_PROGRESS. Actual trigger 2026-11-07T09:09:01-05:00,
+America/New_York; RUN_ID_UNAVAILABLE. Run label: 20261107-analytic-2.
+Earlier CODIV findings, claims and publication history are preserved.
+
+### A. Selected Analytic Question
+
+Protected NYMAN is due after November 6 OAI-NNS and today's CODIV.
+Resume accepted 20261106-analytic-2/RM1-RM5, Referee-10's complete but
+coarser N^b return, and independently accepted NS1-NS4 spectral budget.
+Investigate a quantitatively sharper bound on the full later return,
+or a genuine change to low coefficients with that return retained.
+Do not redo scalar optimization, fixed-profile pole obstructions,
+full-period variance, or the failed short-filter mechanism.
+No new theorem or endpoint improvement is claimed at this checkpoint.
+
+### B. Live Authority And Continuity
+
+Main: 1c057c1d65b6d4cb4d59d207f69a815c52353314.
+AGENTS blob: 48b2a58ab5fcd402321a4dace511c7d54bf688a1.
+CURRENT_PROOF_CONTRACT blob: 7c4ac83a1ec1a4144e1bd691391ed4244f1cc27c.
+baseline_ack=PAID_BASELINE_EXACT_CONSUMER_V1,
+policy blob 13d58dd12d90fbf1160812c7c93442dc5d0576ac.
+deployment_ack=NO_PIGEONHOLING_ROUTE_SELECTOR_V1,
+policy blob ffd8f1c65cc4da656174956d4e03b48bea46768b.
+
+All seven November 6 and November 7 role reports and the external inbox
+were retrieved. Applicable latest result, review and handoff sections are
+being consumed; no missing report is fabricated. The inbox has no entry
+after October 18 and no new NYMAN supplier. Today's GL1-GL4 are now
+independently accepted; GL2 is implemented at open PR #1102, not main.
+Main includes #1100's radical-increment identities and #1099's correction
+obstruction; #1101 remains an unmerged policy proposal, not authority.
+Exact-head CI evidence is being checked separately from paper mathematics.
+
+Material NYMAN blobs: high-coefficient source
+2da630c1d5fb9302e2097ec1e170cf41c2b40609;
+flat complete return 2d23721027ecc44e85b7add02fc632b482f03352;
+radical increments c5ebb3d5d96898549ad039fd32e1a26955c5b8f8.
+The genuine weighted infinite residue norm, all post-N floor terms,
+initial leakage and full signed interactions are retained.
+
+### C-L. Research Pending
+
+Full estimates, proof, uniform constants, hostile tests, novelty/strength
+comparison and specialist handoffs follow in this same report.
+Existing 7/8 and strict-gap baselines are established inputs, not discoveries.
+Canonical VF and unrestricted Nyman density remain OPEN.
+eta_gate=SEARCH_BROAD; new_endpoint_gain=UNKNOWN.
+Author checks will be SELF_AUDIT; independent review is not preassigned.
+Only this own dated report is modified remotely; no agent is launched.
