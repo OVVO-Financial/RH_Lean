@@ -1050,3 +1050,22 @@ All thirteen A-M sections, balanced code/math delimiters, nineteen material sour
 Execution/publication: **COMPLETED / PUBLISHED / READBACK_VERIFIED** for this invocation. Mathematics: **PAPER_PROOF / FINITE_COMPUTATION; SELF_AUDIT; INDEPENDENT_REVIEW_PENDING; NOT_FORMALIZED**. DI1 is inherited; DI2-DI3 are scoped incidence restrictions; DI4 uses the paid envelope; DI5 records actual falsifiers. No new global exponent, canonical VF bound or RH theorem is claimed. No background computation remains.
 
 Next distinct protected Wheel route: **FINITE-AC**, resuming the PB historical/fresh prime-column interaction, after refreshing latest main and any human merge of #1101. This receipt records completed verification of the substantive commit, not a claim that its own future commit had already been verified.
+
+
+## Scheduled FINITE-AC Continuation Checkpoint - 20261107-wheel-2
+
+Actual invocation: SCHEDULED, 2026-11-07T10:12:01-05:00, America/New_York; RUN_ID_UNAVAILABLE. Status **PARTIAL / IN_PROGRESS**. Earlier CORR4 work and its receipt are preserved.
+
+**Mathematical question.** Resume 20261106-wheel-2/PB1-PB4 on the literal prime-column boundary. First use the already established native Mertens envelope in a stronger joint/weighted consumer: reindex the complete selected prime column by genuine cofactor multiplicity, preserving its historical term and every admission/exit. Test whether completing a movable cofactor interval removes a supremum loss, or instead exposes a precise remaining prime-weighted obstruction. No new bound is claimed at this checkpoint; the earlier local historical/fresh correlation is not a compulsory entrance test.
+
+**Authority.** Main dadd9cd7b0a36b4298db30a33c2a1e4b6eb36dcc; AGENTS blob 7d19591d69a141c2c094a81a7dff2569562ab892; proof contract 7c4ac83a1ec1a4144e1bd691391ed4244f1cc27c. chain_ack=CANCELLATION_CHAIN_REUSE_V1, policy ef8d3ac76a893028f4de772c9a00d3bc261c8132; baseline_ack=PAID_BASELINE_EXACT_CONSUMER_V1; deployment_ack=NO_PIGEONHOLING_ROUTE_SELECTOR_V1. The new main instructions supersede dated compulsory covariance/source-first tickets, not their valid formulas or counterexamples.
+
+**Source and consumer.** eulerRankOneFloorKernelQ and its full residual (e482711a3f55c1f59fc771f108671477f51732f2), exact endpoint and EulerSelfDualFiniteCStatement (e7ee8f77ffd59bccaa49dd6d74fbe0d7952c2d73), and native_mertens_growth_at_hecke_beta (b33a4883e1ddb0551b0f11f062bce46680d87450) were retrieved at pinned main. The finite-C premise and canonical VF bound remain OPEN. Preserve the strict existing input and spend a positive loss before using a fixed-power envelope.
+
+**Continuity.** Both November 6 and November 7 relevant report sections were retrieved at reporting head d35a425d69fce8603bdac858afbd0617da6859b8; all seven current role reports are present: TODAY=AVAILABLE, YESTERDAY=CARRY_FORWARD. Consumed PB, DI, GF; Coordinator PG/CS; Owner SG/RS; Analytic GL/FT/AQ; Census SC/FW; Referee scoped GL/CP/RM/NS decisions; Lean GL2/FW3 records. External inbox 038018145c0fddb2f6306c0712373adf9cd1ea52 remains latest October 18. Its source safeguards do not provide today's missing estimate. New upstream paper claims are not silently accepted.
+
+**Live GitHub state.** #1101 policy and #1102 large-gcd proof are now merged, superseding older report statuses. The only discovered open PR is draft #1103, head 6cca79b69fd903805ec7c08c987bca4bacb835fa at intake, a separate retained-slot analytic propagation effort; no completion or endpoint is inferred. Current route is FINITE-AC, following yesterday MU-LIFT and today's CORR4; next is MU-LIFT.
+
+**Planned discriminator.** Before arithmetic tests, freeze the exact cofactor weight, integer floor endpoints, selected prime mask, original rank-one column, complete complement and full signed square. Compare direct historical rows with both prime-first and cofactor-first reconstruction; test a claim that differs from the accepted PB census, not simply a wider unchanged scan. All new mathematical claims remain SELF_AUDIT / REVIEW_PENDING / NOT_FORMALIZED.
+
+Only this own report is authorized for remote writing. No local Lean, other report/source/workflow, branch/PR, schedule, permission, merge or agent-launch action is taken. Final findings and a timestamped resume capsule will be appended after derivation and tests.
