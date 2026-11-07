@@ -43,6 +43,21 @@ def main() -> None:
     independent_name = "RHLEAN_INDEPENDENT_MULTIFRONT_NO_PIGEONHOLING_20261104.md"
     independent = read("docs/" + independent_name)
     independent_tag = "NO_PIGEONHOLING_ROUTE_SELECTOR_V1"
+    # The shared HIGH objective must reach every live intake and each copied
+    # standalone role; preserving diverse routes is checked independently below.
+    high_name = "RHLEAN_COMPLETE_SIGNED_HIGH_ATTACK_20261107.md"
+    high_tag = "COMPLETE_SIGNED_HIGH_ATTACK_V1"
+    high_directive = read("docs/" + high_name)
+    assert high_tag in high_directive
+    for label, doc in (
+        ("AGENTS", agent_policy), ("CONTRACT", proof_contract),
+        ("DYNAMIC", dynamic), ("ENGINE", engine), ("SELECTOR", selector),
+        ("ROLE PROMPTS", role_prompts), ("STUDIO PROMPTS", prompts),
+        ("BREADTH", read("docs/RHLEAN_BROAD_SEARCH_UNTIL_ETA_20261031.md")),
+        ("MULTI-FRONT", independent),
+        ("CANCELLATION REUSE", read("docs/RHLEAN_REUSE_CANCELLATION_CHAIN_20261107.md")),
+    ):
+        assert high_tag in doc and high_name in doc, f"lost HIGH objective routing: {label}"
     assert independent_tag in independent
     assert "VF-LOW" in independent and "NYMAN" in independent
     assert "not" in independent.lower() and "OAI" in independent
@@ -153,6 +168,8 @@ def main() -> None:
     blocks = re.split(r"^### Agent \d+[^\n]*\n", prompts, flags=re.MULTILINE)[1:]
     assert len(blocks) == 7
     for index, block in enumerate(blocks, start=1):
+        assert high_tag in block and high_name in block, f"agent {index} lost HIGH objective"
+        assert "high_attack_ack" in block, f"agent {index} lacks HIGH consumption evidence"
         assert independent_tag in block, f"agent {index} lost independent-route precedence"
         assert "deployment_ack" in block, f"agent {index} lacks consumption evidence"
         assert "human-only merge" in block.lower(), f"agent {index} lacks merge gate"
@@ -216,7 +233,7 @@ def main() -> None:
         "docs/RHLEAN_NATIVE_SQUARE_CLOCK_AGENT_DIRECTIVE_20261029.md",
     ):
         assert (chr(92) + chr(96)) not in read(path), f"escaped Markdown backtick in {path}"
-    print("PASS: independent multi-front nine-route routing for all seven agents; "
+    print("PASS: complete signed HIGH objective and independent nine-route routing for all seven agents; "
           "optional OAI source-first specialist reference; historical archives; "
           "human-only merge, proof DAG/von Koch, no new arithmetic gain asserted")
 

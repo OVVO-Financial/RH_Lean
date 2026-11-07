@@ -1,5 +1,7 @@
 # Independent multi-front RH_Lean research: NO_PIGEONHOLING_ROUTE_SELECTOR_V1
 
+**COMPLETE_SIGNED_HIGH_ATTACK_V1 (2026-11-07; effective after human merge):** [Complete signed HIGH directive](RHLEAN_COMPLETE_SIGNED_HIGH_ATTACK_20261107.md) defines the shared objective and current tasks. This policy continues to protect independent methods and all nine routes within that objective. A route's own global consumer or a specific enabling bridge is sufficient to organize its work; no fictional source identification or compulsory OAI subproblem is imposed. Compare with the strongest applicable certified baseline, including an existing strict result, rather than treating rounded 7/8 as the only comparator. Canonical LOW control and OAI estimates named LOW are distinct.
+
 **User directive, 2026-11-04. Effective only after reviewed human merge.** This document overrides conflicting *task selection* instructions in the 2026-11-03 OAI source-first packets, the 2026-11-04 all-selected J=empty tickets, historical NEXT-* queues, and agent templates. It does not change mathematical facts, rigorous source requirements, permissions, configured Studio prompts, or schedules.
 
 ## Non-negotiable research policy
