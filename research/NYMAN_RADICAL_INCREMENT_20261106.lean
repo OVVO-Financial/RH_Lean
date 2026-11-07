@@ -94,8 +94,9 @@ private theorem nymanLogTail_eq_cumulative (H m : Nat) :
         (fun k => if H < k then nymanLogKernel H k else 0)) :=
       nyman_sum_mul_floor_eq_divisor_sum m _
     _ = -Finset.sum (Icc 1 m) (nymanHighDivisorJump H) := by
-      simp only [nymanHighDivisorJump, Finset.sum_neg_distrib, neg_neg,
-        Finset.sum_filter]
+      change _ = -Finset.sum (Icc 1 m) (fun n =>
+        -Finset.sum (n.divisors.filter (fun d => H < d)) (nymanLogKernel H))
+      simp only [Finset.sum_neg_distrib, neg_neg, Finset.sum_filter]
 
 theorem nymanLogTail_step (H m : Nat) (hm : 1 <= m) :
     nymanLogTail H m - nymanLogTail H (m - 1) = -nymanHighDivisorJump H m := by
@@ -111,11 +112,11 @@ private theorem nyman_floor_step (k m : Nat) (hm : 1 <= m) :
   have he := @Nat.succ_div (m - 1) k
   rw [Nat.sub_add_cancel hm] at he
   by_cases hd : k ∣ m
-  · simp only [hd, if_true] at he ⊢
+  · simp only [hd, ite_true] at he ⊢
     rw [he]
     push_cast
     ring
-  · simp only [hd, if_false, Nat.add_zero] at he ⊢
+  · simp only [hd, ite_false, Nat.add_zero] at he ⊢
     rw [he]
     ring
 
