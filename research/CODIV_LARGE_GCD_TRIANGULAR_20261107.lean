@@ -181,7 +181,7 @@ private theorem gcd_lattice_bound (X h G : Nat) (hX : 1 <= X)
       _ <= (4 * X / (g : Real)) * 2 *
           ((h : Real) ^ 2 / (2 * g)) :=
         mul_le_mul (mul_le_mul_of_nonneg_right hc (by norm_num)) hs hs0 (by positivity)
-      _ = _ := by field_simp [ne_of_gt hgR]; ring
+      _ = _ := by field_simp [ne_of_gt hgR]
   calc
     _ <= t.sum w := hinj
     _ = _ := heq
@@ -204,7 +204,8 @@ theorem codivLargeGcdCovariance_eq_original (X h G : Nat) :
         ((Ico X (4 * X)).filter (fun n => G <= Nat.gcd n d)).sum
           (fun n => realMoebiusStep n * realMoebiusStep (n + d))) := by
   unfold codivLargeGcdCovariance codivLargeGcdPairs
-  simp only [Finset.sum_filter, Finset.sum_product, Finset.mul_sum]
+  simp only [Finset.sum_filter, Finset.mul_sum]
+  rw [Finset.sum_product]
   apply Finset.sum_congr rfl
   intro d _
   apply Finset.sum_congr rfl
