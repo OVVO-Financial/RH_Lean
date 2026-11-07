@@ -46,6 +46,34 @@ The generator records source/output hashes in `retained-slot-generation.json`. C
 
 Validation status comes from exact-head Actions results, not this note. Independent mathematical review and human-only merge remain required.
 
+## Cutoff-parametric two-error consumer
+
+The additive `CutoffMoments` module implements the source-interface part of
+`20261107-referee-2/MH1`, independently checked against the original source
+by Lean Verification. It keeps the old interfaces unchanged. The new
+`MomentsTwoError` has the same actual fiber, raw inverse, selected inverse,
+plain-marked and unmarked polynomial expressions. Only the marked error is
+separated: the source supplies errors `D.t` and `D.t/2`, respectively.
+
+`SourceMomentsAtCutoff` quantifies every real cutoff after the common source
+threshold and constant. The witness existence theorem still requires its
+own cutoff range; this module does not claim that arbitrary-cutoff witnesses
+exist. No physical `HighData` parameter is changed. The full-family license,
+fineness, source rows, masks, profiles and polynomial height cost remain.
+
+Three immediate count consumers retain the marked `D.t/2` error and the
+unchanged inverse/unmarked errors. They are original arithmetic fiber
+bounds, not scalar parameter certificates. Reoptimizing the crossing,
+choosing the new supported witnesses and consuming the complete batch/HIGH
+return remain subsequent work. In particular no uniform per-row saving or
+global endpoint improvement is asserted.
+
+The existing pinned workflow generates this module, compiles it with fatal
+warnings and prints its definitions, exact public theorem types and all four
+new terminal axiom lists. Validation is determined by exact-head Actions
+evidence, not by source generation or this description.
+
 ## Endpoint boundary
 
 This is an analytic supplier and consumer extension, not a new numerical global zero-free/Mertens exponent, fixed critical historical amplification, or uniform iteration to RH. The final same-probe parameter comparison must consume the strengthened supplier before an improved endpoint is claimed. Existing complete 7/8 and strict-slot results are preserved.
+

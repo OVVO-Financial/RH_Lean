@@ -21,4 +21,26 @@ source=(base/'SourceFeedback.lean').read_text();start=source.index('theorem sour
 end=source.index(':= by',start);sig=source[start:end]
 if 'henergy' in sig or 'PositiveFineSourceInput' in sig:raise SystemExit('Source terminal assumes its energy supplier')
 if '1+D.t/2' not in sig or 'F.physicalProduct selected u' not in sig:raise SystemExit('Changed actual source or lost retained width')
+cutoff=(base/'CutoffMoments.lean').read_text()
+if cutoff!=(root/'scripts/lean/retained_slot_feedback/CutoffMoments.lean').read_text():
+    raise SystemExit('Generated cutoff module differs from its reviewed Lean source')
+if 'set_option autoImplicit false' not in cutoff:
+    raise SystemExit('Cutoff interface must reject undeclared implicit profile variables')
+record=cutoff[cutoff.index('structure MomentsTwoError '):cutoff.index('theorem inverse_marked_count_two_error ')]
+plain=record[record.index('  plain_marked :'):record.index('  plain_unmarked :')]
+if '(1+\u03b5plain)' not in plain or '6*kappa' not in plain:
+    raise SystemExit('Lost the separate marked exponent or literal capacity')
+if '(1+\u03b5m)' not in record[:record.index('  plain_marked :')]:
+    raise SystemExit('Changed the inverse marked error')
+source_def=cutoff[cutoff.index('def SourceMomentsAtCutoff '):cutoff.index('def SourceMomentBoundTwoError ')]
+if '\u2200tstar : \u211d' not in source_def or 'HeckeDetectorAdaptiveCutoff.cutoff' in source_def:
+    raise SystemExit('Arbitrary-cutoff source quantifier was lost')
+bound=cutoff[cutoff.index('def SourceMomentBoundTwoError '):cutoff.index('theorem source_moments_two_error_at ')]
+if 'C height D.t (D.t/2)' not in bound:
+    raise SystemExit('Source errors no longer match the two original suppliers')
+start=cutoff.index('theorem source_moments_two_error ')
+sig=cutoff[start:cutoff.index(':= by',start)]
+if 'hlicense' not in sig or 'hfine' not in sig or 'hpositive' in sig or 'hzero' in sig:
+    raise SystemExit('Wrong two-error source terminal assumptions')
 print('PASS generated-source integrity and declared target interfaces; mathematical validation remains Lean kernel checking.')
+
