@@ -1089,3 +1089,22 @@ def main():
 if __name__ == "__main__":
     main()
 ~~~
+
+## Verified Publication Receipt - 2026-11-07T04:33:57-05:00
+
+The final research synthesis was published at commit
+**bdd9deb3db1bccf876acb69ebe122170ab6f9db1**, report blob
+**47bf5de42d06dcb2155f61dedefbac93ddbe980e**.
+Immutable commit readback matched all 47082 bytes of the prepared report.
+The embedded verifier matched its executed file byte-for-byte, with SHA256
+8bc7dd6670e49cadaedd832989dbd2d29d9713e16b822016137c38ed5510865d.
+All A-O sections and Markdown code fences passed structural validation.
+
+Final live main remained
+1c057c1d65b6d4cb4d59d207f69a815c52353314.
+EXECUTION=COMPLETED; REPORT=PUBLISHED_VERIFIED.
+This receipt records an already verified publication, not a future promise.
+NC1-NC2 and PF1-PF2 remain PAPER_PROOF / SELF_AUDIT /
+INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED.
+GL1-GL4 acceptance remains at its explicitly scoped paper/conditional level.
+No new endpoint gain, source modification, proof PR, agent launch or merge occurred.
