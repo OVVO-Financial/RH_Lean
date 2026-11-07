@@ -2013,3 +2013,25 @@ showed no changed November 7 specialist report other than this run's own
 checkpoint. The source and handoff conclusions above therefore remain at
 the inspected versions. Final write/readback remains pending until the
 receipt below is added after the actual successful publication.
+
+## Verified Publication Receipt - 20261107-analytic-2
+
+Execution: COMPLETED. Publication: PUBLISHED_AND_READBACK_VERIFIED.
+Verified at 2026-11-07 14:28:28 UTC for the same 09:09 EST scheduled invocation.
+The FT1-FT5 synthesis and complete executed verifier were committed at
+**87d533f9eef5ff226c851e6f26c811ad14f8620c**, report blob
+**05fddd1d9b3eef706788592619fb95b1c44d61fa**. Immutable readback matched all
+91,594 characters, preserving the entire earlier report and checkpoint.
+
+Mathematical state remains PAPER_PROOF / SELF_AUDIT /
+INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED for FT1-FT4; FT5 is scoped
+FINITE_COMPUTATION and a certified counterexample to FALSE-AVG. No independent
+review or Lean verification of these new claims is asserted. The complete
+family's energy bound improves to 5/6-(4/3)delta_*+epsilon at the established
+input, but the optimal full-basis distance, Mertens exponent, canonical VF
+bound and RH have not been improved or proved. eta_gate=SEARCH_BROAD.
+
+Next protected analytic route: OAI-NNS. Next NYMAN continuation: the genuine
+transition-window cross term in OPEN-FT4 or a changed low-coefficient family
+with its complete return, not another period-average or scalar shortcut.
+No future execution, agent launch or automatic delivery is promised.
