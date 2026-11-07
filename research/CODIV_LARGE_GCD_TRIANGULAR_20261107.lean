@@ -15,7 +15,7 @@ open Finset
 
 namespace RHLean.Analysis
 
-def codivLargeGcdPairs (X h G : Nat) : Finset (Nat * Nat) :=
+def codivLargeGcdPairs (X h G : Nat) : Finset (Prod Nat Nat) :=
   ((Ico 1 h).product (Ico X (4 * X))).filter
     (fun p => G <= Nat.gcd p.2 p.1)
 
@@ -28,13 +28,13 @@ def codivLargeGcdSupport (X h G : Nat) : Real :=
     2 * ((h : Real) - p.1) * realMoebiusStep p.2 ^ 2 *
       realMoebiusStep (p.2 + p.1) ^ 2)
 
-private def gcdCoordinates (p : Nat * Nat) : Sigma (fun _ : Nat => Nat * Nat) :=
+private def gcdCoordinates (p : Prod Nat Nat) : Sigma (fun _ : Nat => Prod Nat Nat) :=
   Sigma.mk (Nat.gcd p.2 p.1) (p.1 / Nat.gcd p.2 p.1, p.2 / Nat.gcd p.2 p.1)
 
-private def gcdExpand (v : Sigma (fun _ : Nat => Nat * Nat)) : Nat * Nat :=
+private def gcdExpand (v : Sigma (fun _ : Nat => Prod Nat Nat)) : Prod Nat Nat :=
   (v.1 * v.2.1, v.1 * v.2.2)
 
-private theorem gcdExpand_coordinates (p : Nat * Nat) :
+private theorem gcdExpand_coordinates (p : Prod Nat Nat) :
     gcdExpand (gcdCoordinates p) = p := by
   apply Prod.ext
   · exact Nat.mul_div_cancel' (Nat.gcd_dvd_right p.2 p.1)
@@ -87,10 +87,15 @@ private theorem reciprocal_square_tail (G h : Nat) (hG : 2 <= G) (hGh : G <= h) 
     have hh : (1 : Real) < h := by exact_mod_cast (show 1 < h by omega)
     have hstep : (1 : Real) / (h : Real) ^ 2 <=
         1 / ((h : Real) - 1) - 1 / (h : Real) := by
-      apply (div_le_iff₀ (sq_pos_of_pos (by linarith : (0 : Real) < h))).mpr
-      field_simp
-      nlinarith
-    push_cast
+      have h0 : (0 : Real) < h := by linarith
+      have hm1 : (0 : Real) < (h : Real) - 1 := by linarith
+      have he : 1 / ((h : Real) - 1) - 1 / (h : Real) =
+          1 / ((h : Real) * ((h : Real) - 1)) := by
+        field_simp [ne_of_gt h0, ne_of_gt hm1]
+        ring
+      rw [he]
+      exact one_div_le_one_div_of_le (mul_pos h0 hm1) (by nlinarith)
+    simp only [Nat.cast_add, Nat.cast_one, add_sub_cancel_right]
     linarith
 
 private theorem gcd_lattice_bound (X h G : Nat) (hX : 1 <= X)
@@ -99,7 +104,7 @@ private theorem gcd_lattice_bound (X h G : Nat) (hX : 1 <= X)
       4 * X * (h : Real) ^ 2 / ((G : Real) - 1) := by
   let t := (Ico G h).sigma (fun g =>
     (Icc 1 (h / g)).product (Icc 1 (4 * X / g)))
-  let w := fun v : Sigma (fun _ : Nat => Nat * Nat) =>
+  let w := fun v : Sigma (fun _ : Nat => Prod Nat Nat) =>
     2 * ((h : Real) - (v.1 : Real) * v.2.1)
   have hmap : (codivLargeGcdPairs X h G).image gcdCoordinates <= t := by
     intro v hv
@@ -134,7 +139,7 @@ private theorem gcd_lattice_bound (X h G : Nat) (hX : 1 <= X)
       (Nat.mul_le_mul_left v.1 hk').trans (Nat.mul_div_le h v.1)
     have hmR : (v.1 : Real) * v.2.1 <= h := by exact_mod_cast hm
     dsimp [w]
-    positivity
+    linarith
   have hinj : (codivLargeGcdPairs X h G).sum (fun p => 2 * ((h : Real) - p.1)) <=
       t.sum w := by
     apply Finset.sum_le_sum_of_injOn gcdCoordinates gcdCoordinates_injective.injOn hmap
@@ -176,7 +181,7 @@ private theorem gcd_lattice_bound (X h G : Nat) (hX : 1 <= X)
       _ <= (4 * X / (g : Real)) * 2 *
           ((h : Real) ^ 2 / (2 * g)) :=
         mul_le_mul (mul_le_mul_of_nonneg_right hc (by norm_num)) hs hs0 (by positivity)
-      _ = _ := by field_simp; ring
+      _ = _ := by field_simp [ne_of_gt hgR]; ring
   calc
     _ <= t.sum w := hinj
     _ = _ := heq
@@ -215,9 +220,10 @@ theorem codivLargeGcdCovariance_abs_le_support (X h G : Nat) :
   have hd := (Finset.mem_Ico.mp (Finset.mem_product.mp (Finset.mem_filter.mp hp).1).1).2
   have hdR : (p.1 : Real) <= h := by exact_mod_cast Nat.le_of_lt hd
   have hw : 0 <= 2 * ((h : Real) - p.1) := by positivity
+  rw [abs_mul, abs_mul, abs_of_nonneg hw]
   rcases ArithmeticFunction.moebius_eq_or p.2 with ha | ha | ha <;>
     rcases ArithmeticFunction.moebius_eq_or (p.2 + p.1) with hb | hb | hb <;>
-    simp [realMoebiusStep, ha, hb, abs_mul, abs_of_nonneg hw]
+    simp [realMoebiusStep, ha, hb]
 
 theorem codivLargeGcdSupport_le_sharp (X h G : Nat) (hX : 1 <= X)
     (hG : 2 <= G) (hGh : G <= h) :
@@ -240,8 +246,8 @@ theorem codivLargeGcdSupport_le (X h G : Nat) (hX : 1 <= X)
     codivLargeGcdSupport X h G <= 8 * X * (h : Real) ^ 2 / G := by
   apply (codivLargeGcdSupport_le_sharp X h G hX hG hGh).trans
   have hGR : (2 : Real) <= G := by exact_mod_cast hG
-  apply (div_le_div_iff₀ (by positivity : (0 : Real) < (G : Real) - 1)
-    (by positivity : (0 : Real) < G)).mpr
+  apply (div_le_div_iff₀ (by linarith : (0 : Real) < (G : Real) - 1)
+    (by linarith : (0 : Real) < G)).mpr
   nlinarith [mul_nonneg (by positivity : (0 : Real) <= X * (h : Real) ^ 2)
     (by linarith : (0 : Real) <= (G : Real) - 2)]
 
