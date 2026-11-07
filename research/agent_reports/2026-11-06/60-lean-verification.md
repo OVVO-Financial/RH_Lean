@@ -947,3 +947,43 @@ PR #1099 is **REVIEW_READY**, open and unmerged at
 checks passed; all nine new theorem declarations have the standard three
 axioms only. No additional endpoint gain, canonical VF bound, or RH proof is
 claimed. Human merge remains required.
+
+
+## Scheduled Evening Checkpoint - 2026-11-06 21:08 EST Invocation
+
+Actual trigger: 2026-11-06T21:08:00-05:00; SCHEDULED;
+America/New_York; RUN_ID_UNAVAILABLE. Status: PARTIAL / IN_PROGRESS.
+
+Main is d4df133117c5b58f90979d2eb680167ef37995cf, the human merge of #1099.
+AGENTS blob 48b2a58ab5fcd402321a4dace511c7d54bf688a1 and contract blob
+7c4ac83a1ec1a4144e1bd691391ed4244f1cc27c were retrieved from that exact main.
+baseline_ack=PAID_BASELINE_EXACT_CONSUMER_V1;
+deployment_ack=NO_PIGEONHOLING_ROUTE_SELECTOR_V1.
+The canonical actual-prime VF bound remains open; established replay and strict
+gaps are not being reconstructed or claimed as new progress.
+
+The exact intake report snapshot is c945264fbc4eb37c1f8bd705f6dfac6c233868b0.
+All seven relevant role files for November 5 and November 6 and the external
+inbox were retrieved. TODAY=AVAILABLE for all roles; previous-day results are
+continuity evidence, not imaginary new executions. No open/draft PR exists
+at intake. #1099's unchanged source and green proof evidence will be reused.
+
+Selected: 20261106-census-3/FW3, independently accepted with scope by the
+evening Referee-13. The original residual increment has a squarefree-divisor
+tail, hence depends only on the radical before correction admission. Its
+active consumer is the proposed weighted prime-error/spectrum correlation,
+not a presumed favorable sign or endpoint bound. Source/library duplication
+checks and precise statement construction are in progress. NS1-NS4 are a
+separate accepted, larger analytic candidate; new AQ/GF/referee jump-energy
+extensions retain their pending independent-review status.
+
+Implementation plan: retain the exact original residues, Mobius/logarithmic
+kernel, scalar defect and arbitrary correction-floor increments. Prove the
+finite jump identity and radical support, then transport it to the flat
+residual only under the explicit admission/moment hypotheses. No correction
+or mixed term is silently deleted. This is structural control, not a new
+quantitative estimate. New theorem, PR and CI statuses remain PENDING.
+
+Read-only shell cloning returned CONNECT tunnel 403; connected GitHub source
+reads work. No local Lean has run. Actual connected write access will be
+tested on the focused feature branch, with GitHub Actions as sole Lean runner.
