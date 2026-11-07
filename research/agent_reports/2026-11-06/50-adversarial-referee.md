@@ -2119,3 +2119,63 @@ passed. Relevant proof-head and main CI, actual job logs, theorem scopes,
 terminal axioms, tested merge revisions, and matching source blobs are
 recorded in section L. Canonical VF and RH remain OPEN. No autonomous merge,
 other-agent launch, source modification, or schedule change occurred.
+
+
+## Scheduled Spectral Referee Checkpoint - 2026-11-06 20:13 EST Invocation
+
+Execution **IN_PROGRESS / PARTIAL**. Actual trigger 2026-11-06T20:13:01-05:00,
+America/New_York; RUN_ID_UNAVAILABLE. This is the third actual Referee
+continuation in today's file, not another launch. Prior morning and midday
+claims, proofs, evidence and receipts will be preserved verbatim.
+
+Live main **d4df133117c5b58f90979d2eb680167ef37995cf** includes human-merged
+#1099. AGENTS blob **48b2a58ab5fcd402321a4dace511c7d54bf688a1**;
+CURRENT_PROOF_CONTRACT blob **7c4ac83a1ec1a4144e1bd691391ed4244f1cc27c**.
+Reporting intake head **baaafeb247c04e0ea5e3e70c10ffecc1626b41b1**.
+Open/draft PR collection is empty at intake. Relevant compilation and axiom
+evidence still requires this invocation's direct inspection.
+
+baseline_ack=PAID_BASELINE_EXACT_CONSUMER_V1, policy blob
+13d58dd12d90fbf1160812c7c93442dc5d0576ac;
+deployment_ack=NO_PIGEONHOLING_ROUTE_SELECTOR_V1, policy blob
+ffd8f1c65cc4da656174956d4e03b48bea46768b.
+The native replay and existing strict-slot improvement remain established;
+no baseline reconstruction or new endpoint gain is claimed.
+
+All seven roles' November 5 and November 6 reports were retrieved. Relevant
+latest summaries, current Nyman derivations and prior Referee decisions were
+read; unrelated numerical appendices were not rerun. Today's completed
+Coordinator synthesis is now available, superseding the midday PENDING
+assessment without changing its historical record. External inbox blob
+038018145c0fddb2f6306c0712373adf9cd1ea52 has no new November entry.
+
+Selected route: **NYMAN**, to independently audit the newly published
+20261106-coordinator-1513/NS1-NS4 full-period theorem and the subsequent
+20261106-census-3/FW1-FW4 finite-window claims. This is a deliberate exception
+to the preceding non-NYMAN support preference: the new positive-limit theorem
+and actual weighted sign falsifier were not available to that review and
+materially change the proposed next inequality. Other portfolios remain
+independent and are not reassigned.
+
+Review sequence is source-and-report audit, NOT a claimed blind review: the
+authors' proofs were available during intake. Independently reconstruct the
+Jordan identity, multiplicative mean, d=1 removal, dominated convergence,
+singleton positivity, and full after-N return. Then investigate the exact
+shifted covariance and jump energy of the same centered residue source.
+
+Frozen finite checks: grouped-versus-direct period covariance for small H;
+the 7H/6 bound with certified logarithms; source-exact radical increments;
+the weighted N=690,H=186 cross-sign witness and an earlier negative control;
+small full-return fixtures beyond N. Distinguish finite regression from
+all-scale paper proof. A universal finite-window sign or endpoint estimate
+will not be inferred from passing samples. No result of these tests is yet
+claimed in this checkpoint.
+
+First unresolved endpoint input remains a genuinely improved complete signed
+residual estimate with all high corrections and infinite tail. The proposed
+new investigation is component theory, not an assumed upper supplier.
+eta_gate=SEARCH_BROAD; net_endpoint_gain=UNKNOWN.
+
+Only this role's report on agent-reports may be changed remotely. No Lean
+execution, source edits, other-report changes, agent launches, schedule
+changes, branch/PR creation or autonomous merge are authorized or performed.
