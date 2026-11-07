@@ -616,3 +616,688 @@ Status: PARTIAL / IN_PROGRESS. Trigger SCHEDULED at 2026-11-06T23:09:01-05:00 (2
 Main now includes #1099's moment-null obstruction. The sole open proof PR at intake is #1100, Nyman radical increments, head `e52207d527da684346e151d4ff680696c88e8fa7`, non-draft. Exact-head CI/axiom review remains PENDING in this checkpoint. Both dates' seven-role reports and external index were retrieved at reporting head `1e9305646a0e09b797d66c538001059a30e8d522`; substantive intake and independent mathematical investigation are in progress. The 07:10 checkpoint remains incomplete evidence. The completed 15:13 synthesis and all its evidence are preserved.
 
 Next: resolve one source-faithful new arithmetic question, distinguish it from inherited bounds and prior identities, compare independent mechanisms, and publish A-J findings with exact limitations and next tasks. Canonical actual-prime VF bound remains OPEN. No source, other report, proof branch, PR, policy, permission or schedule will be changed; no agent is launched.
+
+
+---
+
+# 2026-11-06 23:09 EST continuation: cutoff-scale covariance and strategy
+
+## A. What changed mathematically?
+
+**eta_gate: SEARCH_BROAD. The genuine centered Nyman spectrum remains asymptotically fully correlated at EVERY sublinear shift h=o(H), not merely the previously established h=o(sqrt(H/log H)) range.** An explicit all-H inequality below proves this without an RH input, a prime-error estimate, or a new unproved correlation assumption. Consequently every mass-one averaging filter of bounded total variation supported on o(H) shifts preserves its full-period energy to relative error o(1). Short smoothing cannot produce a fixed contraction of this source. A separate absolutely convergent formula identifies its covariance at shifts proportional to H, with a continuous limiting kernel tending to zero at large fixed rescaled shift.
+
+The new mechanism is to retain the exact finite geometric-sum multiplier before estimating. The earlier step-by-step Cauchy estimate paid h^2; completing only the nonzero frequencies of each denominator pays at most h*d. This is a new quantitative restriction and a broader method obstruction, not a renamed endpoint inequality. It does not bound the physical weighted Nyman window, the complete infinite residual, or any prime-error cross term.
+
+Claims `20261106-coordinator-2309/CS1-CS4`: `PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED`. CS5: `FINITE_COMPUTATION`. No literature-priority claim. `INDEPENDENT_COMPONENT_ADVANCE`; `net_endpoint_gain=UNKNOWN`; `NEW_VERIFIED_ENDPOINT_GAIN=NONE`. Canonical VF and RH remain OPEN.
+
+Actual invocation: SCHEDULED at 2026-11-06T23:09:01-05:00, America/New_York (2026-11-07T04:09:01Z); `RUN_ID_UNAVAILABLE`. This is one invocation, not a launch of specialists. Its early checkpoint was committed and both mirrors read back identically at `45d92a3e8fda94d2e55d07ce328d25d958a54309`. All previous sections are preserved. This synthesis remains `IN_PROGRESS / PUBLICATION_READBACK_PENDING` until its later receipt; mathematical review and publication are distinct.
+
+## B. Current proof objective and authority
+
+Latest inspected main: `d4df133117c5b58f90979d2eb680167ef37995cf`, human merge of #1099 at 2026-11-06T21:11:48Z. Main AGENTS blob `48b2a58ab5fcd402321a4dace511c7d54bf688a1`; CURRENT_PROOF_CONTRACT blob `7c4ac83a1ec1a4144e1bd691391ed4244f1cc27c`.
+
+The original declaration remains
+
+```text
+VFCanonicalSquareVonKochStatement:
+exists C>=0, forall natural R>=2,
+ |pi(R^2)-vfCanonical(R^2)| <= C*R*log R.
+```
+
+The actual canonical phase is vfCanonical=vfMid+sqrt(2). Source `research/VF_CANONICAL_SQRT_TWO_VON_KOCH.lean`, blob `79030d70e8d3e0d08eef9bac53fef95c36eca2fb`, was inspected. Its terminal `riemannHypothesis_of_vfCanonicalSquare` explicitly consumes `ClassicalVonKochRHCriterion` as well as the unpaid arithmetic statement. No hypothesis was silently discharged.
+
+`baseline_ack=PAID_BASELINE_EXACT_CONSUMER_V1`, policy blob `13d58dd12d90fbf1160812c7c93442dc5d0576ac`; `deployment_ack=NO_PIGEONHOLING_ROUTE_SELECTOR_V1`, blob `ffd8f1c65cc4da656174956d4e03b48bea46768b`. The current selector, broad-search, complete-return, persistent-engine, role, dynamic, and multi-run policies were retrieved and applicable instructions read. Their source and permission safeguards are retained.
+
+The existing native all-prefix covariance/Mertens bound and actual strict gaps are established baselines, not reconstruction assignments. Direct source and inherited exact-head evidence were checked for `nativeReplay_signed_energy_seven_fourths`, `native_mertens_uniform_strict_gap`, and `native_beta_le_explicit_slot_count`. Keep the best applicable boundary `b_*=7/8-1/(288*explicitSlotCount)`, not just rounded 7/8; an every-positive-loss growth statement is not a no-loss power envelope at the same exponent. CS1-CS4 need none of these zero-boundary inputs. Their only asymptotic normalization is the elementary positive linear variance NS2, now independently accepted in today's Referee-12.
+
+No main, Lean, workflow, policy, other report, proof branch, PR, schedule, or permission was changed. No local Lean and no specialist launch occurred. Only the Coordinator's authorized reporting mirrors are published.
+
+## C. Competing mechanism portfolio
+
+The review queue is rebalanced toward three different sources of missing information. These are research mechanisms, not proved endpoint suppliers. NYMAN remains a protected independent route; only the specific filter-only shortcut is retired in G.
+
+| Mechanism | Independent input and target implication | First unproved step | Existing support and obstruction | Decisive next action / specialist | Disposition |
+| --- | --- | --- | --- | --- | --- |
+| Actual OAI coefficient-sensitive cube decomposition | A new bound for the literal selected inverse row, then its complete normalized LOW/HIGH/principal consumer, beating the actual strict baseline | The small-cube source, or a jointly integrated full-source saving, remains unpaid | Analytic AQ3 bounds the large-cube component by Z^(2/3+epsilon) on original annular rows; AQ4 restores mixed terms. Small-cube localization is target-equivalent, not a supplied estimate; AQ2-AQ3 await independent review | Audit the squareful-row/character large-sieve transfer and repeated-factor masks before more optimization; Referee first, Analytic on next eligible OAI turn | CONTINUE, highest ready quantitative-review priority; not an endpoint gain |
+| Actual-prime temporal allocation and clock correlations | A chronology/multiplicity-preserving signed payment or genuinely stronger prime-count correlation, followed by its original VF/JOH return | Complete signed history and return still cost more than the inherited endpoint; SAT interior pairs also need independent arithmetic | Owner DR gives a proper-sector response; MS3 gives a stronger clock variance from established boundary plus density. MS4 returns exponent 79/80 at rounded input, worse than 7/8. Individual lag signs and halo deletion are refuted | Review moving Li-time flow, high-zero tail, and exact clock sampling; resume distinct SAT cofactor correlations on Owner's due turn | CONTINUE; keep component advance, reject a claimed automatic bootstrap |
+| Factor-respecting cross-label residual transport | A simultaneous, resource-correct signed transport or subcritical whole-prefix recurrence; then MU-LIFT's r<k, subpower-loss consumer | Net favorable cross-label flow for all relevant quotient classes, donor reservations, remaining signed classes and every cutoff | Wheel GF2-GF3 force an X/log X absolute-certificate deficit under greatest-prime-preserving pairing; GF4 pays one reserved 94-to-47 component. Fixed banks, fixed depth and frozen partial matchings have distinct obstructions | Check exact reserved-donor fixtures and then a simultaneous multi-band construction, not another within-label census; Census/Wheel | CONTINUE; density or single-band cancellation is not recurrence closure |
+
+Each row has distinct independent information, a real complete consumer, a falsifiable obstruction and an assigned specialist. The portfolio is not three aliases for one covariance norm. The separate NYMAN opportunity is an estimate on the complete weighted prime-error/residue residual or a genuinely changed coefficient family. CS1-CS4 close only a broad subcutoff-smoothing shortcut; they neither defeat full-basis approximation nor supply its missing upper bound.
+
+Protected coverage, based on actual substantive November 6 sections:
+
+| Investigator | Three actual route attempts | Next distinct route due |
+| --- | --- | --- |
+| Owner | 00:09 SAT BT/RZ; 08:09 VF-LOW DR; 16:15 JOH MS | SAT |
+| Analytic | 01:04 CODIV FP; 09:09 NYMAN RM; 17:11 OAI-NNS AQ | CODIV |
+| Wheel | 02:05 CORR4 CP; 10:12 FINITE-AC PB; 18:06 MU-LIFT GF | CORR4 |
+
+No route is overdue in this inspected cycle. Support review does not reset these clocks. All nine remain eligible; no global sharp-shell prerequisite is imposed.
+
+## D. Conceptual research performed
+
+### D1. Original carrier and inherited exact identities
+
+For integers H>=2 and m in Z define
+
+```text
+a_H(k)=mu(k)*log(H/k), 1<=k<=H,
+f_k(m)=(m mod k)/k-(k-1)/(2k),
+S_H(m)=sum_(k<=H) a_H(k) f_k(m),
+P_H=lcm(1,...,H),
+<F>_H=(1/P_H)sum_(0<=m<P_H)F(m),
+V_H=<S_H(m)^2>_H,
+C_H(h)=<S_H(m+h)S_H(m)>_H,
+J_H(h)=<(S_H(m+h)-S_H(m))^2>_H=2(V_H-C_H(h)).
+```
+
+The modulo convention extends the original natural residue periodically, not by changing coefficients. The zero k=1 sawtooth is retained in arithmetic bookkeeping. V_H is spectral variance, not the earlier scalar defect V(H); J_H(h) is jump energy, not the radical-divisor function called J_H in FW3.
+
+With e(t)=exp(2*pi*i*t), the inherited reduced-frequency coefficient and shifted covariance are
+
+```text
+A_d=sum_(j<=H/d) mu(dj)log(H/(dj))/j,
+C_(a/d)=-A_d/[d*(1-e(-a/d))], 1<=a<d, gcd(a,d)=1,
+mean_m f_k(m)f_l(m+h)
+ =[g^2-1-6r(g-r)]/(12kl), g=gcd(k,l), r=h mod g.
+```
+
+These are NS1 / Referee-14 identities, not discoveries of this invocation. They were reconstructed from direct residue averaging and independently tested as input to the new estimate. NS2, accepted by Referee-12, gives `0<=V_H<=7H/6` and `V_H/H -> C_spec>0`. No finite fit is used for positivity.
+
+### D2. CS1: an explicit uniform shift bound
+
+**Theorem.** For every pair of integers H>=2 and 1<=h<=H, with L=log(H/h)>=0,
+
+```text
+0 <= J_H(h) <= h*B(L),
+B(L)=L^5/20 + 5L^4/16 + 5L^3/6 + 7L^2/4 + 7L/2 + 7/2.       (CS1)
+```
+
+All constants are absolute. The same bound holds for -h. It is about the complete uniform period, not an arbitrary weighted interval.
+
+**Proof.** Exact differencing of the grouped Fourier source gives
+
+```text
+J_H(h)=sum_(d=2..H) A_d^2/d^2 * U_d(h),
+U_d(h)=sum_(1<=a<d, gcd(a,d)=1)
+             |sum_(j=0..h-1)e(aj/d)|^2.
+```
+
+Complete this positive sum to ALL nonzero frequencies modulo d, not including zero. If r=h mod d, finite Fourier orthogonality gives
+
+```text
+0<=U_d(h)<=sum_(a=1..d-1)|sum_(j=0..h-1)e(aj/d)|^2=r(d-r).
+```
+
+For completeness, if h=qd+r then the counts of the h indices in each residue class are q or q+1. The sum including zero is d[(d-r)q^2+r(q+1)^2]; subtracting h^2 gives r(d-r). Thus the bound holds even across whole periods. It is an inequality, not equality on the primitive subset: d=6,h=3 gives 8<9.
+
+For d<=h use r(d-r)<=d^2/4; for d>h use r=h and r(d-r)<=hd. The genuine coefficient satisfies
+
+```text
+|A_d| <= log(H/d)+(1/2)log^2(H/d).
+```
+
+This last estimate follows by bounding the first summand and integrating the positive decreasing function log(x/t)/t for x=H/d. It needs only |mu|<=1. Put P(x)=x^2+x^3+x^4/4. Then
+
+```text
+J_H(h)<= (1/4)sum_(d<=h)P(log(H/d))
+                    +h sum_(h<d<=H)P(log(H/d))/d.
+```
+
+Adding d=1 in the first nonnegative bound is harmless. Monotonicity, including the integrable first cell at zero, gives
+
+```text
+sum_(d<=h)P(log(H/d)) <= h*Q(L),
+Q(L)=L^4/4+2L^3+7L^2+14L+14,
+sum_(h<d<=H)P(log(H/d))/d
+ <= integral_0^L P(t)dt=L^3/3+L^4/4+L^5/20.
+```
+
+Here Q(L)=integral_0^1 P(L+log(1/u))du; termwise integration uses integral_0^1 log^j(1/u)du=j!. Combining these expressions gives the exact polynomial B in CS1. This proves the theorem. No cancellation, density replacement, or endpoint hypothesis is smuggled into the bound.
+
+### D3. CS2: every subcutoff shift is coherent, and inversion is costly
+
+For EVERY integer sequence u_H>=0 with u_H/H ->0,
+
+```text
+sup_(|h|<=u_H) |1-C_H(h)/V_H| ->0.                         (CS2a)
+```
+
+The ratio is taken for all sufficiently large H, when NS2 makes V_H>0. Indeed, `J_H(h)/H <= t*B(log(1/t))`, t=|h|/H, and this function extends continuously by zero at t=0. Its supremum on 0<=t<=u_H/H therefore tends to zero. Combine this with J_H=2(V_H-C_H) and V_H/H->C_spec. The h=0 case is exact. No monotonicity of t*B(log(1/t)) on the entire interval is asserted or required.
+
+This is strictly stronger than Referee-15's sufficient range `u_H^2 log H/H ->0`, obtained by telescoping individual jumps. It covers, for example, u_H=floor(H^(9/10)) and u_H=floor(H/log log H) when the latter is defined and below H. These examples are asymptotic statements, not finite positive-sign claims. H=3,h=1 has C_H(1)=-V_H and remains a valid small-scale control.
+
+For fixed 0<alpha<1 and h_H=floor(H^alpha), any nonnegative K_H satisfying `V_H<=K_H J_H(h_H)` for all sufficiently large H must obey
+
+```text
+K_H >= c_alpha * H^(1-alpha)/(log H)^5.                  (CS2b)
+```
+
+Proof: NS2 gives V_H>=cH eventually, while CS1 gives J_H(h_H)=O_alpha(H^alpha log^5 H). If a jump energy vanishes, no finite K_H can satisfy the proposed inequality there. Thus no bounded or subpower reconstruction factor works at ANY fixed polynomial subcutoff shift. This extends the one-step reconstruction obstruction; it does not override the sharper known one-step H/log H asymptotic.
+
+### D4. CS3: bounded short filters cannot contract this energy
+
+For each H choose real weights w_(H,j), finitely supported in |j|<=u_H, with
+
+```text
+sum_j w_(H,j)=1, sum_j |w_(H,j)|<=K,
+K fixed independent of H, u_H/H->0.
+T_H S(m)=sum_j w_(H,j)S_H(m+j).
+```
+
+Then, in the complete-period normalized L2 norm,
+
+```text
+||T_H S-S_H||_2/sqrt(V_H)->0,
+||T_H S||_2^2/V_H->1.                                  (CS3)
+```
+
+The weights may depend on H and may have either sign; no positivity assumption is needed beyond bounded total variation. The proof is the exact mass-one identity followed by the triangle inequality:
+
+```text
+||T_H S-S_H||_2
+ <=sum_j |w_(H,j)|sqrt(J_H(j))
+ <=K*max_(|j|<=u_H)sqrt(J_H(j))=o(sqrt(V_H)).
+```
+
+The reverse triangle inequality proves the squared-norm conclusion. Therefore a proposed uniform contraction `||T_H S||_2^2<=theta V_H`, fixed theta<1, is REFUTED for this entire filter class. This is a precisely stated prospective mechanism no-go, not an allegation that an upstream author already claimed such a theorem. Unbounded-variation filters, cutoff-scale support, changed low coefficients, and joint prime-error cancellation are not covered.
+
+### D5. CS4: a macroscopic covariance limit, with correct limit order
+
+There is also a positive structural description at the first potentially effective shift scale. Define
+
+```text
+b(t)=1-6*{t}*(1-{t}),
+sigma(q)=(1/zeta(2))*product_(p|q)(1+1/p)^(-1),
+K(tau)=(1/12) sum_(i,j>=1, gcd(i,j)=1) mu(i)mu(j)*sigma(ij)/(ij)
+   *integral_(0,1/max(i,j))
+       log(1/(ui))*log(1/(uj))*b(tau/u) du.              (CS4a)
+```
+
+The double series is absolutely convergent, uniformly dominated independently of tau. For every REAL tau and EVERY integer sequence h_H with h_H/H->tau,
+
+```text
+C_H(h_H)/H -> K(tau).
+K is continuous and even; K(0)=C_spec>0;
+K(tau)->0 as |tau|->infinity.                           (CS4b)
+```
+
+**Exact reindexing.** In the shifted gcd covariance set k=di,l=dj, gcd(i,j)=1. The actual Mobius product is
+
+```text
+mu(di)mu(dj)=mu(i)mu(j)mu(d)^2*1_(gcd(d,ij)=1).
+```
+
+This remains valid when a factor is not squarefree, since both sides then vanish. Therefore the EXACT finite covariance is
+
+```text
+C_H(h)=(1/12)sum_(i,j<=H, gcd(i,j)=1)mu(i)mu(j)/(ij)
+ *sum_(d<=H/max(i,j), gcd(d,ij)=1) mu(d)^2
+    log(H/(di))*log(H/(dj))*[b(h/d)-1/d^2].             (CS4c)
+```
+
+The `-1/d^2` term is not dropped from the finite identity. Its total absolute contribution is O(log^4(2H)): bound both harmonic-log sums by log(H/d)+log^2(H/d)/2 and sum d^-2. It is consequently o(H).
+
+**Mean-value proof.** For each FIXED q, the elementary squarefree mean is
+
+```text
+sum_(d<=x, gcd(d,q)=1) mu(d)^2=sigma(q)*x+o_q(x).
+```
+
+One self-contained proof writes f_q=1*g_q by Dirichlet convolution. For p not dividing q, g_q(p^2)=-1 and the other positive prime powers vanish; for p dividing q, g_q(p)=-1 and the higher powers vanish. Thus sum |g_q(n)|/n converges, and dominated convergence in x^-1 sum_n g_q(n)floor(x/n) gives the displayed product. No uniform error in growing q is used.
+
+Fix i,j. After d=Hu and division by H, this mean supplies the integral in CS4a. On any interval epsilon<=u<=1/max(i,j), the periodic function b is continuous, including integer joins, and h_H/H->tau gives uniform convergence of the test functions. The omitted u near zero is bounded by the corresponding integrable product of logarithms. This proves the fixed-i,j limit even though b(tau/u) oscillates indefinitely near zero.
+
+**Summable domination.** Since |b|<=1 and 0<=mu(d)^2<=1, the absolute normalized contribution, before its harmless factor 1/12, is at most
+
+```text
+(2+|log(i/j)|)/(ij*max(i,j)).                           (CS4d)
+```
+
+The logarithm product is decreasing and nonnegative on its integration interval, so the discrete sum/H is bounded by the integral starting at zero. On i<=j, summing CS4d over i costs O((1+log j)^2/j^2), summable over j. Dominated convergence therefore proves CS4a-CS4b without a hidden growing-q error. The same majorant proves continuity in tau; b is even, and tau=0 recovers the independently known V_H/H limit.
+
+**Large rescaled shift.** For each fixed i,j, substitute v=1/u. The integral becomes
+
+```text
+integral_(max(i,j),infinity) log(v/i)*log(v/j)/v^2 * b(tau*v) dv.
+```
+
+Its first factor is integrable. The continuous one-periodic b has mean zero and a bounded primitive, so its integral against any finite-interval step function tends to zero as |tau| grows. L1 approximation and |b|<=1 extend this to the displayed kernel. Apply the same summable domination to the i,j series: K(tau)->0.
+
+**Essential limitation:** this is a fixed-rescaled-shift limit followed by a large-tau limit. It is NOT uniform over all sequences h_H/H->infinity. The exact counterexample is h_H=P_H, for which C_H(h_H)=V_H at every H. Nor is K asserted positive or monotone for all tau. These distinctions prevent replacing true arithmetic resonances by a generic mixing assertion.
+
+### D6. Full return, cross-route test, and no-circularity audit
+
+The source still comes from the original residues `nymanResidue` and the actual log kernel. Let N=6K0, 2<=H<=N/2, ell=log(N/H), F_k=mu(k)log(N/max(H,k)), and c_k=(h_k-F_k)/ell. Keep the previously specified two-band FAMILY and its scalar choice delta=1-sum_(k<=H)a_H(k)/k. With mean_H=sum a_H(k)(k-1)/(2k) and U_B(m)=sum_(B<k<=m)mu(k)log(B/k)floor(m/k), the exact all-m return is
+
+```text
+ell*r(m)=Q_H(m)-S_H(m)+U_N(m)+sum_(k=2..N)h_k floor(m/k),
+Q_H(m)=m-psi(m)-log H-mean_H.                            (RETURN)
+```
+
+The source `nyman_flat_complete_return` is already compiled; RETURN is its established paper divisor/psi expansion, accepted in NS4. High corrections and U_N vanish on K0<=m<3K0, not globally. For any positive shift s, taking the difference of RETURN gives the full prime increment, the S_H increment, the U_N increment and every correction-floor increment. CS1 estimates only the uniform-period S_H part. It is not a statement about their complete signed combination.
+
+In the genuine Nyman norm the weight is 1/[m(m+1)] and the initial location is fixed. CS1-CS4 use uniform averaging over P_H. There is no proved transfer between those two measures here. Likewise the JOH clock samples actual prime counts at b_j and b_(j+h), with nonconstant physical lengths, not all residues of m modulo P_H. Setting N comparable to X and noting X^(1/4)log X=o(H) at H=N^(4/5) does NOT bridge the sampling/weight/prime-error mismatch. This checked no-connection is the required cross-route audit; no OAI ideal or quadratic FINITE-AC clock is identified with this linear residue clock.
+
+The appropriate complete Nyman candidate remains a quantified bound for
+
+```text
+sum_(m>=1) |Q_H(m)-S_H(m)+U_N(m)+sum h_k floor(m/k)|^2/[m(m+1)],
+```
+
+with a real consumer and all terms retained. The existing fixed-b pre-block comparator contains N^(2b-1), H^(2b)/N, H/N and H^3 log(2H)/N^2. Referee-10 separately supplies a weaker complete norm scale O_b(N^b/ell^2) under its stated envelopes. CS1-CS4 improve neither exponent. FW4's favorable cross-sign alone would only bound the complete pre-block by the sum of two energies, not improve the inherited exponent. Do not spend a further full run on that sign alone without a quantitative discriminator.
+
+No-narrowing verdict: inherited Fourier/gcd formulas are IDENTITY_ONLY; CS1 is an elementary independent bound; CS2-CS3 are genuine obstructions derived with the accepted positive variance theorem; CS4 is an independent asymptotic description, not a new value of the zeta boundary. None assumes the canonical target or implies a new endpoint by itself. A target-equivalent complete estimate would be legitimate if independently proved, but no such estimate has been supplied here.
+
+### D7. Literature and falsification
+
+[Zuniga Alterman, On a logarithmic sum related to the Selberg sieve](https://arxiv.org/pdf/2005.04280), v6, Theorem 1 and equation (3.3), were checked directly. At fixed q=1 they give Sigma_1(H)=log H-s_1+O(1/log H) and sum_(k<=H)mu(k)log(H/k)/k=1+O(1/log H). Through the exact centered divisor-jump identity this supports Referee-15's J_H(1)~log H. No growing-q theorem is imported. CS1-CS4 do not require this analytic input; they use finite Fourier algebra, elementary squarefree means and the accepted elementary NS2. The stronger shift range is not claimed as a new Selberg-sieve theorem.
+
+[Baez-Duarte's integer-dilation criterion](https://arxiv.org/abs/math/0202141) is background for the separate full-basis route: its Hilbert closure criterion is not a theorem about complete-period covariance. [Burnol's approximation lower-bound paper](https://arxiv.org/abs/math/0103058) is also background, not a quantitative premise of CS1-CS4. Neither abstract is treated as a proof of a new source transfer. No imported result provides the currently missing full residual estimate.
+
+The new verifier was written with its ranges declared before execution. Exact checks passed: 1,090 shifted single-sawtooth covariances for k,l<=16; 88 actual prime-log polynomial complete-period returns for H=2..8 including zero, short, beyond-cutoff and full-period shifts; 136 grouped-frequency and 136 gcd-reindexed actual-source returns for H<=24; 6,300 nonnegative primitive-multiplier bounds for d<=64 and h<=3d. Sixty-seven finite CS1 inequalities were additionally certified with rational interval logarithms. The integration-polynomial coefficients were checked exactly.
+
+The logarithm certifier uses range reduction log n=b log 2+2 atanh((n-2^b)/(n+2^b)), 64 terms and the explicit nonnegative remainder 2z^129/[129(1-z^2)], with 0<=z<=1/3. Endpoints are rounded outward to 2^-120. Source identities are rational polynomials in log primes; matching their coefficients requires no numerical logarithms. Negative controls preserve d=6,h=3's strict primitive-subset inequality, H=3's negative lag-one covariance, and the exact P_H return. There was no failure in the declared final tests.
+
+Uncertified floating diagnostics at H=16,32,64,128,256 are only implementation checks, not asymptotic evidence or fits. For example C_256(1)/V_256 is approximately 0.75837, whereas C_256(256)/V_256 is approximately -0.07542; no all-H sign is inferred. The macro-limit proof is analytic, not certified by these finite values.
+
+Executed verifier SHA-256: `70651f31a0f64da5c8410d50f59ed4c64950b5b4dcda2bb0b40333e87d0609bd`. Python execution and syntax compilation passed. Complete source is included below so the experiment survives this workspace. No local Lean was run. Independent role-level review of the new claims remains PENDING.
+
+## E. Specialist findings and continuity
+
+Both November 5 and November 6 Eastern reports for all seven roles were retrieved at intake head `1e9305646a0e09b797d66c538001059a30e8d522` (2026-11-07T02:27:16Z). Relevant summaries, new derivations, verdicts, handoffs and resume sections were read; unrelated historical executable appendices were not all rerun or blanket-certified. All six specialist TODAY files are AVAILABLE. The Coordinator's 07:10 entry is still only PARTIAL; its unperformed work stays PENDING. The 15:13 synthesis and its subsequent independent review are real, separately identified evidence.
+
+| Role filename | November 5 blob | November 6 intake blob |
+| --- | --- | --- |
+| 10-owner-payment.md | 39665b5b28fc48378519ab9d56cee8df4d3e2681 | 1856a96aaaa9d86a5ee2d59ffe50ced936443fa6 |
+| 20-analytic-type-ii.md | 9490aa2eecafcd19d8007043cc5f978fe421a7c9 | 7997620b6ab7eb0701296994734ee910df3c3ba1 |
+| 30-finite-wheel.md | afc85d800c47f82f2db634591a7798005cb668de | 3099558194a00358962ff1844bf283e625b9283d |
+| 40-prime-census.md | 24fcd6a631eca9ae44238d927215f49e1d8a174f | c34ac074296e8b2e5b20dee3a2ce02518571206c |
+| 50-adversarial-referee.md | 789ed87021fe98963c244a8d0c9075638e76be43 | da3265467c799e9d21832ab25245617ba3b15a54 |
+| 60-lean-verification.md | 5e0ecdd8f08c2e19b4614f00c1a5657f58722344 | b8bfe3ce9c20d7903395364efb39bcec974c8a2f |
+| Coordinator identical 00/90 mirrors | be661bb2ed2830fc4aeddf14713455e550d982cc | 2802753059cc55d1446087bc40266576214a9638 |
+
+**Owner:** carry forward November 5 RC/CR/MC at their reported paper scopes, including ancestor-only failure, proper chronological payments and signed coarse-clock restoration. Today's BT1-BT2 pay the former inherited SAT target; OPEN-SAT-CROSS is a different stronger sufficient component. DR still lacks its canonical-scale complete return. New `20261106-owner-3/MS1-MS4` gives moving Li-time sampling and V_clock<<X^(3/2-(1-b)/5+epsilon) from a fixed boundary b plus classical 12/5 density. Its returned 79/80 at rounded input is worse, not a gain. Independent review remains PENDING; this run does not endorse the entire zero-sum proof.
+
+**Analytic:** November 5 SP's original exact-head obstruction has independent Referee acceptance; its fixed family is not today's optimized scalar. CR's small-row domain mismatch remains. Today's FP recovers the parent and forbids free phase-averaging gain; RM1-RM5 have Referee-7 acceptance. New `20261106-analytic-3/AQ3` states, on actual rows, E_high<<A^2(QU)^epsilon U(Q/T0^4+sqrt(Q)/T0^3). At T0=Z^(1/3), U~Z^(7/6), Q~Z^(5/6), this is Z^(2/3+epsilon); the restored cross term is bounded at Z^(3/4+epsilon), and the low component is still open. AQ2's Eisenstein-row quadratic-large-sieve transfer is the key review obligation; no independent acceptance is invented here.
+
+**Wheel:** November 5 fixed-rule/cap countermodels are auxiliary, not genuine mu; finite marginal improvements do not globalize. Its prime-mask block cancellation and PE matching preserve their scopes. Today's CP1 is merged, CP2/CP3 are accepted paper comparisons, and Referee TD exposes the two-fixed-daughter energy equivalence. PB's large historical component alone is not the complete increment. New `20261106-wheel-3/GF2-GF4` supplies donor-monotone high-label demand, an X/log X absolute-certificate obstruction, and the 93q<->31r reserved repair. The underlying -M(floor(X/q)) fiber law is reused, not new. These new claims await independent review.
+
+**Census:** preserve November 5 R=57/58 auxiliary CORR4 fixtures and JOH X=209 halo/sign test. Today's GM2 X=145 forbids freezing every partial three-edit match, not full-graph capacity. HC1 X=87283 exposes duplicated donors; HC2's recoverable cofactor repairs one class, with corrected coverage of only five nonempty new packets in 2,051 rows. Evening FW1 refutes singleton/rest nonpositivity at N=690,H=186 with certified original weights; FW2 shows weighting matters; FW3's radical increment now has accepted and formal PR-head evidence. FW4's 260 positive prime/spectrum cases are FINITE_COMPUTATION, not a sufficient estimate or proof of its conjecture.
+
+**Referee:** November 5 accepted SP and PE at scope and supplied separate growing-rule, coherence and matching obstructions. Today's early TD and midday RM reviews do not establish their unpaid upper suppliers. Evening `referee-12` independently accepts NS1-NS4; `referee-13` accepts FW3 and selected exact sign fixtures. New referee-14/-15/-16 are self-authored paper results, not already independently accepted merely because of the role name. This run independently derives the shifted source formula and checks the cited q=1 sieve input, then proves a stronger shift-range result. It does not certify every claim in those sections wholesale.
+
+**Lean:** yesterday's #1095 audit failure was repaired, not ignored; #1096 finite matching is merged. Today #1097 sampling and #1099 moment-null obstruction are merged. New #1100 supplies radical increments plus the complete all-m restoration, at its verified unmerged head. It is structural infrastructure, not a norm bound. Its all-m arbitrary-drift extensions remain distinct from the original reviewed FW3 statement.
+
+**Own continuity:** November 5 C53-C57 auxiliary cap obstruction, C58-C62 finite flat-taper-mixture obstruction, and C63-C68 fixed-bank conservation are preserved at their actual paper scopes. Today's NS2 has now received independent acceptance. CS1-CS4 differ from that variance computation: they quantify growing translations, filter stability and rescaled covariance. They are not a rediscovery of the already formal residue increment or the full-period variance identity.
+
+**External inbox:** `EXTERNAL_HANDOFFS.md`, blob `038018145c0fddb2f6306c0712373adf9cd1ea52`, has no entry after October 18 at intake. Carry forward EXT-20261018-PNT-1's full signed source, EXT-20261017-XCOORD-1's prime-boundary correction, CL-20261014-1/2's target-equivalence warnings, and EXT-20261014-5's unconditional-versus-first-bad distinction. This is dated index-level continuity, not a claim that every linked historical proof was freshly reverified. Historical single-route/cadence instructions do not supersede main.
+
+## F. Mathematical bottlenecks
+
+1. OAI: independently verify AQ2-AQ3; then the small-cube or complete integrated signed source still needs new arithmetic, with actual heights and all LOW/HIGH/principal costs. The local tail saving alone does not move the endpoint.
+2. Actual primes: MS3's clock estimate is a valid candidate component only after review, and its current global return is too weak. SAT's stronger one-sided cofactor-pair input must restore A, L, C and cross terms; inherited BT2 is not missing.
+3. MU-LIFT: pay all negative-label demands with simultaneous unspent donors or prove a signed recurrence that bypasses absolute leftover size. GF4 is one proper repair, not whole-prefix control.
+4. NYMAN: complete weighted Q_H-S_H plus corrections and tail requires a genuinely quantitative joint estimate. CS3 excludes bounded short filtering of S_H as a standalone fix. Full periods, fixed physical windows, optimized scalar, fixed FAMILY and optimized full basis remain different objects.
+5. CODIV, FINITE-AC and CORR4 retain their exact unpaid common-window lag, complete fresh/historical increment, and genuine full-bill upper estimates. A common-prefix or coordinate equivalence supplies no additional arithmetic.
+
+## G. Strategy decisions
+
+- Retire the specified subcutoff-decorrelation and bounded short-filter contraction suppliers, conditional only on independent acceptance of the new paper proof. Preserve the sharper one-step Selberg asymptotic; CS1 is a growing-shift improvement, not a sharper one-step estimate.
+- Preserve CS4's order of limits. Reject any universal large-lag decay claim contradicted by h=P_H. Do not infer a weighted physical-window sign from it.
+- Do not spend another entire support run merely extending FW4's sign-survival range. A proposed experiment must discriminate a quantitative complete-defect mechanism or a predicted adverse configuration.
+- Prioritize independent review of the genuinely quantitative OAI AQ component and actual-prime MS component. Keep CS1-CS4 in the review queue without making all roles pursue Nyman.
+- Keep SAT/CODIV/CORR4 as the three investigators' next protected routes; next OAI, JOH and MU-LIFT turns resume their existing derivations rather than restart them.
+- No speculative CS proof PR is requested. #1100 is already green and review-ready; do not reimplement it or launch no-op CI. Main merge remains human-only.
+
+## H. Next specialist assignments
+
+These are asynchronous published requests for actual future configured invocations. They neither launch agents nor alter schedules. Refresh main, actual rotation and latest reports before choosing a task.
+
+**Owner Payment, SAT due.** Resolve an actual arithmetic restriction on the original cofactor-pair source from BT/RZ: D=floor(sqrt R), e_c=Delta(x_c)-Delta(x_(2D)), and 2 sum_(D<c<d<2D)mu(c)mu(d)e_c e_d. Reuse the already paid BT1-BT2 diagonal/anchor estimates and literal floor/prime-power weight from D6a; do not redo the old 29/16 target. The candidate stronger supplier is O_epsilon(R^(4b-eta+epsilon)) for fixed 0<eta<b-1/2, with fixed available b. The missing input is a restriction on these genuine correlated prime errors, not non-annihilation of one Mellin mode. Valid output is a proved proper-population estimate with its complement, or a legal counterexample to a proposed pair-sign/conditioning law. Test floor endpoints and prime powers first; a result disappearing after A_R or the L_R+C_R return is restored cannot promote this mechanism. This advances the actual-prime portfolio without replacing it by OAI.
+
+**Analytic Type II, CODIV due.** Resume OPEN-CD5 on T_mu(H,h)=2 sum_(1<=d<h)(h-d)sum_(H^2<=n<4H^2)mu(n)mu(n+d), h=floor(H^(2/3)). Ask whether conditioning on the ACTUAL common divisor g=gcd(n,n+d), with squarefreeness and coprimality masks retained, supplies a signed restriction beyond counting. Reuse FP's parent-recovery obstruction; do not claim gain from frequency averaging. Preserve J_mu=h sum mu^2+T_mu+halo and the existing absolute halo bound h(h-1)(2h-1)/3. The missing quantitative input is the one-sided H^(17/6-eta+epsilon) bound, fixed 0<eta<1/6; a proper g-sector estimate is acceptable only with a clearly stated complementary bill. Falsify any proposed independence/sign by exact gcd-class arithmetic, not arbitrary signs. A new genuinely signed sector restriction promotes CODIV; reindexing alone is IDENTITY_ONLY. AQ review proceeds independently, without displacing this turn.
+
+**Finite Wheel & Incidence, CORR4 due.** Test whether actual prime multiplication gives a new restriction on the q-divisible-root part of 2G_R sum_(q^2<R)d_q(R)/q-2 sum d_q(R)^2, retaining -H_R and G_R^2 in the full bill. Reuse CP1b: when q|R, d_q(R)=M((R/q)^2-1); preserve nondivisible roots, first admission R=q^2+1, and all existing reciprocal-prefix credit. CP2/TD already rule out presenting a fixed-daughter integrated cap estimate as a smaller independent premise. The missing ingredient must use genuine mu factor relations beyond bounded-step prefix coherence. Expected result: a signed arithmetic comparison for an exactly defined divisible-root subpopulation, or a source-valid obstruction showing the proposed restriction supplies no new information after the complement. Small admission/divisibility fixtures are the falsifier. Do not rerun the fixed-wheel cap scan or claim an inherited R^(4b) upper bound as new progress.
+
+**Prime Census Laboratory.** Diversify from the completed Nyman sign census. Independently reconstruct GF4's exact X=9118,9215,9594 reserved-donor tests, with actual mu and the old P9/qualified 13c-15c reservations. Verify 9021<->5921 at 9118, the changing quotient-94 source count, and the empty quotient-47 donor band at 9594. Then test a proposed TWO-band version only after specifying recoverable donor ownership and net label-flow direction. Reuse X=145 and X=87283 rather than recensus them. Valid result is exact complete labelwise improvement or the smallest donor collision/capacity failure in the declared range; an extra count with no net demand reduction is not support. This can advance or falsify simultaneous MU-LIFT transport while the investigators retain their rotations.
+
+**Adversarial Referee.** Primary ready review: AQ2-AQ3 on the unchanged physical annulus, especially squareful numerator rows, B=C L^2 masks, selected-prime overlap, quadratic-character transfer, mark bound A, all scale tolerances, and the Z^(3/4) mixed return. Expected verdict is scoped acceptance or an actual failed source/quantifier step; a large-cube bound is not a full-row saving. Secondary queued review, not a second automatic run: CS1-CS4. Attack the primitive-to-nonzero completion, exact B polynomial, sublinear uniform limit, bounded-variation filter quantifiers, fixed-q dominated convergence and period-return counterexample. These new coordinator claims are SELF_AUDIT only. MS1-MS4 is the next non-Nyman review candidate. Do not let this queue erase protected route coverage.
+
+**Lean Verification.** Preserve #1100's tested head and human review gate; repair only an actual new failure. No second active implementation is assigned now. If CS1 is independently accepted and an active quantitative proof needs it, assess the finite nonzero-character energy identity `sum_(a=1..d-1)|sum_(j<h)e(aj/d)|^2=(h mod d)(d-h mod d)` as a reusable bound, checking for an existing Mathlib lemma before coding. Its application still requires the original coefficient bridge; a generic Fourier identity alone is not an endpoint. Independently accepted AQ or MS arithmetic should outrank an optional identity-only wrapper. Missing qualified ready work is an honest NO_NEW_THEOREM_TO_FORMALIZE, not a reason to formalize an unproved supplier.
+
+## I. Lean and PR status
+
+The sole open PR at intake is [#1100](https://github.com/OVVO-Financial/RH_Lean/pull/1100), branch `agent/lean-verification/20261106-nyman-radical-increment`, latest head `e52207d527da684346e151d4ff680696c88e8fa7`, non-draft and unmerged. Direct retrieval confirms twelve attached workflows successful and all thirteen returned check runs successful on that exact head.
+
+Dedicated [run 42328802826 / job 128270266477](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42328802826/job/128270266477) was read, not inferred from a green label. It freshly runs warning-fatal Lean 4.34.1 and prints all eleven exact theorem types and standard axiom lists, each `[propext, Classical.choice, Quot.sound]`. The actual checkout is synthetic merge `c004afeecb0e4d81b734e2b9796cf2a6e43468b4`; direct Git-object reads show its tree and the PR-head tree are both `beb042acf728f3447aa7f18456c678d048360ab2`. Tested source is therefore identified precisely. No new main-wide build was run in this invocation.
+
+The source `research/NYMAN_RADICAL_INCREMENT_20261106.lean`, blob `c5ebb3d5d96898549ad039fd32e1a26955c5b8f8`, was inspected at that head. `nyman_arithmetic_residual_step` requires H>=1,m>=2. `nyman_flat_complete_step` preserves arbitrary drift, the high-H and high-N radical sums, and correction admission for every m>=2. It is not a norm estimate. Status: `PROVED_IN_LEAN at PR head / CI_GREEN / REVIEW_READY / NOT_MERGED`.
+
+Merged #1099's exact proof head is `269ce7a77df7239099f8717390e3f951e81e95f0`. Its twelve returned workflows are successful, and direct [job 128075944915](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42271209683/job/128075944915) shows the warning-fatal closure and all nine standard-axiom entries. Its null-obstruction file and both Nyman prerequisites were fetched at that head and compared byte-for-byte with current main: identical. This certifies the arbitrary-high-correction obstruction at its actual scope, not the specified FAMILY's tail.
+
+The replay/strict/count files were also compared byte-for-byte between current main and tested #1091 head `6778fd4c25b0f369d311e6e71223e168e329b4bf`: identical. Direct [job 126813711885](https://github.com/OVVO-Financial/RH_Lean/actions/runs/41898325686/job/126813711885) contains the actual relevant standard-axiom audits. This is reused inherited evidence, not a new endpoint discovery or an assertion that every transitive main dependency was freshly rebuilt.
+
+| Inspected source at main unless noted | Blob SHA |
+| --- | --- |
+| NYMAN_HIGH_COEFFICIENT_INVARIANT_20261104.lean | 2da630c1d5fb9302e2097ec1e170cf41c2b40609 |
+| NYMAN_FLAT_TAPER_RETURN_20261104.lean | 2d23721027ecc44e85b7add02fc632b482f03352 |
+| NYMAN_MOMENT_NULL_OBSTRUCTION_20261106.lean | 301d7286fc2151b5d33bdca9762a6a01c496ff87 |
+| NYMAN_RADICAL_INCREMENT_20261106.lean, #1100 head only | c5ebb3d5d96898549ad039fd32e1a26955c5b8f8 |
+| VF_CANONICAL_SQRT_TWO_VON_KOCH.lean | 79030d70e8d3e0d08eef9bac53fef95c36eca2fb |
+| oai_434/VF919NativeSevenEighthsReplay.lean | 111c933a7ca15647105ce6a4d0f3cbfc3cde81f4 |
+| oai_434/VF919NativeStrictMertens.lean | b33a4883e1ddb0551b0f11f062bce46680d87450 |
+| oai_434/VF919ExplicitFixedSourceSlotCount.lean | bad5aab0a60e96d19e7c9550cd7c0a072288bc0f |
+| NYMAN_BEURLING_POSITIVE_RESIDUE_ATTACK_2026_10_15.md | b2775c892edffe920a101651eef6f3581c73c9d4 |
+
+Files in the table are under research/. No source edit or proof PR was made by the Coordinator. Earlier #1097/#1096 merges are current history; their specialist CI accounts were carried forward, not independently rebuilt here. CS1-CS4 and the pending AQ/MS/GF paper work are NOT_PROVED_IN_LEAN.
+
+## J. Next-run resume capsule
+
+```text
+RUN: 20261106-coordinator-2309; SCHEDULED 23:09:01 EST; RUN_ID_UNAVAILABLE.
+MAIN: d4df133117c5b58f90979d2eb680167ef37995cf.
+REPORT_INTAKE: 1e9305646a0e09b797d66c538001059a30e8d522.
+CHECKPOINT: 45d92a3e8fda94d2e55d07ce328d25d958a54309, identical readback.
+BASELINE_ACK: PAID_BASELINE_EXACT_CONSUMER_V1.
+DEPLOYMENT_ACK: NO_PIGEONHOLING_ROUTE_SELECTOR_V1.
+NEW: CS1 explicit h*B(log(H/h)) jump bound; CS2 all-o(H) coherence
+     and polynomial inverse cost; CS3 bounded short-filter obstruction;
+     CS4 continuous fixed-rescaled-shift covariance limit and decay;
+     CS5 exact finite verification, no asymptotic numerical inference.
+INHERITED: NS2 positive variance, now Referee-12 accepted; shifted source
+           identity; original flat complete return; paid strict baseline.
+REVIEW: new CS PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING.
+CRITICAL SCOPE: full period != physical weighted window; h=P_H returns
+               exactly, so no uniform arbitrary-large-shift mixing claim.
+READY REVIEW: AQ2-AQ3 first; MS1-MS4 next; CS1-CS4 scoped secondary queue.
+FORMAL: #1100 e52207d, 12 workflows / 13 checks green, 11 axiom audits,
+        tested merge tree equals head tree; unmerged, human gate.
+NEXT INVESTIGATORS: Owner SAT; Analytic CODIV; Wheel CORR4.
+NEXT CENSUS: GF reserved-donor/flow fixtures and proposed two-band conflict.
+NEXT NYMAN: complete quantitative Q-S defect or changed low coefficients,
+           not another favorable-sign scan or subcutoff filter.
+NO NEW ENDPOINT GAIN; eta_gate=SEARCH_BROAD; canonical VF/RH OPEN.
+```
+
+Highest-value next Coordinator reasoning: after the independent AQ review, determine whether its genuinely paid tail permits an arithmetic treatment of a specific small-cube sector with a complete signed return; otherwise move to the simultaneous cross-label demand obstruction rather than producing more identities around the same unpaid norm. Refresh the actual main and newly published reports before choosing. No future execution or delivery is promised.
+
+## Appendix: Complete CS5 Verifier
+
+```python
+#!/usr/bin/env python3
+"""Finite regressions for 20261106-coordinator-2309/CS1-CS5.
+
+Preregistered before execution: exact shifted residue covariances for k,l<=16;
+actual Mobius/log polynomial full periods H=2..8, shifts 0..2H and P,P+1;
+gcd and primitive-frequency returns for H<=24; exact primitive multipliers
+d<=64, h<=3d; explicit bound diagnostics at H=16,32,64,128,256.
+No finite calculation certifies an asymptotic claim or a physical window.
+"""
+
+from fractions import Fraction as F
+from functools import lru_cache
+from math import factorial, gcd, lcm, log
+import json
+
+
+@lru_cache(None)
+def factor(n):
+    out = []
+    p = 2
+    while p * p <= n:
+        e = 0
+        while n % p == 0:
+            n //= p
+            e += 1
+        if e:
+            out.append((p, e))
+        p += 1
+    if n > 1:
+        out.append((n, 1))
+    return tuple(out)
+
+
+def mu(n):
+    fs = factor(n)
+    return 0 if any(e > 1 for _, e in fs) else (-1) ** len(fs)
+
+
+def add(a, b, scale=F(1)):
+    c = a.copy()
+    for mon, value in b.items():
+        c[mon] = c.get(mon, F(0)) + scale * value
+        if not c[mon]:
+            del c[mon]
+    return c
+
+
+def mul(a, b):
+    c = {}
+    for x, ax in a.items():
+        for y, by in b.items():
+            z = tuple(sorted(x + y))
+            c[z] = c.get(z, F(0)) + ax * by
+    return {k: v for k, v in c.items() if v}
+
+
+def logarithm(n):
+    return {(p,): F(e) for p, e in factor(n)}
+
+
+def coeff(H, k):
+    return {p: mu(k) * v for p, v in add(logarithm(H), logarithm(k), -1).items()
+            if mu(k) * v}
+
+
+def saw(k, m):
+    return F(m % k, k) - F(k - 1, 2 * k)
+
+
+def source(H, m):
+    out = {}
+    for k in range(1, H + 1):
+        out = add(out, coeff(H, k), saw(k, m))
+    return out
+
+
+@lru_cache(None)
+def covariance(H, h):
+    out = {}
+    for k in range(1, H + 1):
+        for ell in range(1, H + 1):
+            g = gcd(k, ell)
+            r = h % g
+            out = add(out, mul(coeff(H, k), coeff(H, ell)),
+                      F(g * g - 1 - 6 * r * (g - r), 12 * k * ell))
+    return out
+
+
+def ramanujan(d, h):
+    return sum(e * mu(d // e) for e in range(1, d + 1)
+               if d % e == 0 and h % e == 0)
+
+
+def multiplier(d, h):
+    return h * ramanujan(d, 0) + 2 * sum(
+        (h - j) * ramanujan(d, j) for j in range(1, h))
+
+
+def grouped_jump(H, h):
+    out = {}
+    for d in range(2, H + 1):
+        a = {}
+        for j in range(1, H // d + 1):
+            a = add(a, coeff(H, d * j), F(1, j))
+        out = add(out, mul(a, a), F(multiplier(d, h), d * d))
+    return out
+
+
+def gcd_reindexed(H, h):
+    out = {}
+    for i in range(1, H + 1):
+        for j in range(1, H + 1):
+            if gcd(i, j) != 1:
+                continue
+            for d in range(1, H // max(i, j) + 1):
+                if gcd(d, i * j) != 1:
+                    continue
+                r = h % d
+                weight = F(mu(i) * mu(j) * mu(d) ** 2, 12 * i * j)
+                weight *= 1 - F(6 * r * (d - r) + 1, d * d)
+                logs = mul(add(logarithm(H), logarithm(d * i), -1),
+                           add(logarithm(H), logarithm(d * j), -1))
+                out = add(out, logs, weight)
+    return out
+
+
+counts = {"shifted_covariances": 0, "period_returns": 0,
+          "grouped_returns": 0, "gcd_returns": 0, "multipliers": 0}
+for k in range(1, 17):
+    for ell in range(1, 17):
+        period = lcm(k, ell)
+        for h in sorted({0, 1, gcd(k, ell), k + ell, period + 1}):
+            exact = sum((saw(k, m) * saw(ell, m + h)
+                         for m in range(period)), F(0)) / period
+            g = gcd(k, ell)
+            r = h % g
+            assert exact == F(g * g - 1 - 6 * r * (g - r), 12 * k * ell)
+            counts["shifted_covariances"] += 1
+
+for H in range(2, 9):
+    period = lcm(*range(1, H + 1))
+    values = [source(H, m) for m in range(period)]
+    v = covariance(H, 0)
+    for h in sorted(set(range(2 * H + 1)) | {period, period + 1}):
+        direct = {}
+        direct_jump = {}
+        for m, a in enumerate(values):
+            b = values[(m + h) % period]
+            direct = add(direct, mul(a, b), F(1, period))
+            diff = add(b, a, -1)
+            direct_jump = add(direct_jump, mul(diff, diff), F(1, period))
+        assert direct == covariance(H, h)
+        assert direct_jump == {k: 2 * a for k, a in add(v, direct, -1).items()}
+        assert direct_jump == grouped_jump(H, h)
+        counts["period_returns"] += 1
+    assert covariance(H, period) == v
+
+for H in range(2, 25):
+    v = covariance(H, 0)
+    for h in sorted({0, 1, H // 2, H, H + 1, 2 * H + 1}):
+        c = covariance(H, h)
+        assert grouped_jump(H, h) == {k: 2 * a for k, a in add(v, c, -1).items()}
+        assert gcd_reindexed(H, h) == c
+        counts["grouped_returns"] += 1
+        counts["gcd_returns"] += 1
+
+for d in range(2, 65):
+    for h in range(3 * d + 1):
+        r = h % d
+        u = multiplier(d, h)
+        assert 0 <= u <= r * (d - r)
+        if h <= d:
+            assert u <= d * h
+        assert u <= F(d * d, 4)
+        counts["multipliers"] += 1
+assert multiplier(6, 3) == 8 < 9  # Primitive is a subset, not all nonzero modes.
+assert covariance(3, 1) == {k: -v for k, v in covariance(3, 0).items()}
+
+
+def interval_add(a, b):
+    return (a[0] + b[0], a[1] + b[1])
+
+
+def interval_mul(a, b):
+    products = [x * y for x in a for y in b]
+    return (min(products), max(products))
+
+
+def log_series(z):
+    value = 2 * sum((z ** (2 * j + 1) / (2 * j + 1)
+                     for j in range(64)), F(0))
+    tail = 2 * z**129 / (129 * (1 - z * z))
+    return value, value + tail
+
+
+@lru_cache(None)
+def log_interval(n):
+    b = n.bit_length() - 1
+    a = log_series(F(1, 3))
+    c = log_series(F(n - 2**b, n + 2**b))
+    lo, hi = b * a[0] + c[0], b * a[1] + c[1]
+    scale = 2**120
+    return F((lo * scale).__floor__(), scale), F((hi * scale).__ceil__(), scale)
+
+
+def eval_interval(poly):
+    out = (F(0), F(0))
+    for mon, coefficient in poly.items():
+        term = (coefficient, coefficient)
+        for prime in mon:
+            term = interval_mul(term, log_interval(prime))
+        out = interval_add(out, term)
+    return out
+
+
+p = {2: F(1), 3: F(1), 4: F(1, 4)}
+q = {k: sum((v * F(factorial(n), factorial(k))
+             for n, v in p.items() if n >= k), F(0)) for k in range(5)}
+bcoef = [q.get(k, F(0)) / 4 + p.get(k - 1, F(0)) / k
+         if k else q[0] / 4 for k in range(6)]
+assert bcoef == [F(7, 2), F(7, 2), F(7, 4), F(5, 6), F(5, 16), F(1, 20)]
+certified_bounds = 0
+for H in range(2, 25):
+    for h in sorted({1, H // 2, H}):
+        lhs = {k: 2 * a for k, a in add(covariance(H, 0), covariance(H, h), -1).items()}
+        j_interval = eval_interval(lhs)
+        L = interval_add(log_interval(H), (-log_interval(h)[1], -log_interval(h)[0]))
+        power, bound = (F(1), F(1)), (F(0), F(0))
+        for coefficient in bcoef:
+            bound = interval_add(bound, interval_mul((h * coefficient, h * coefficient), power))
+            power = interval_mul(power, L)
+        assert j_interval[1] <= bound[0]
+        certified_bounds += 1
+
+
+def bound_polynomial(L):
+    return L**5 / 20 + 5 * L**4 / 16 + 5 * L**3 / 6 + 7 * L**2 / 4 + 7 * L / 2 + 7 / 2
+
+
+diagnostics = []
+for H in [16, 32, 64, 128, 256]:
+    aa = [0.0] + [mu(k) * log(H / k) for k in range(1, H + 1)]
+    def numeric_cov(h):
+        return sum(aa[k] * aa[ell] *
+                   (gcd(k, ell)**2 - 1 - 6 * (h % gcd(k, ell)) *
+                    (gcd(k, ell) - h % gcd(k, ell))) / (12 * k * ell)
+                   for k in range(1, H + 1) for ell in range(1, H + 1))
+    v = numeric_cov(0)
+    rows = []
+    for h in sorted({1, max(1, H // 8), H // 2, H, 2 * H, 4 * H}):
+        c = numeric_cov(h)
+        j = 2 * (v - c)
+        if h <= H:
+            assert j <= h * bound_polynomial(log(H / h)) + 1e-8
+        rows.append({"h": h, "covariance_over_variance": c / v,
+                     "jump_over_H": j / H})
+    diagnostics.append({"H": H, "variance_over_H": v / H, "rows": rows})
+
+print("PASS exact rational prime-log identities:", json.dumps(counts, sort_keys=True))
+print("PASS certified finite bounds:", certified_bounds, "; exact integration polynomial verified")
+print("PASS negative controls: primitive subset is strict, small-H sign is negative, period return is exact")
+print("UNCERTIFIED_FLOATING_DIAGNOSTICS", json.dumps(diagnostics, sort_keys=True))
+print("No asymptotic fit, original-window estimate, infinite-norm claim, or Lean execution")
+```
+
+Selected final verifier output lines (floating diagnostics omitted here):
+
+```text
+PASS exact rational prime-log identities: {"gcd_returns": 136, "grouped_returns": 136, "multipliers": 6300, "period_returns": 88, "shifted_covariances": 1090}
+PASS certified finite bounds: 67 ; exact integration polynomial verified
+PASS negative controls: primitive subset is strict, small-H sign is negative, period return is exact
+```
+
+## Final source freshness
+
+Refreshed at 2026-11-07 04:32:44 UTC: main remains `d4df133117c5b58f90979d2eb680167ef37995cf`; the only open PR remains #1100 at `e52207d527da684346e151d4ff680696c88e8fa7`, non-draft and unmerged, with all 13 exact-head check runs completed successfully. The report branch is still the verified early-checkpoint commit `45d92a3e8fda94d2e55d07ce328d25d958a54309`; both Coordinator mirrors were fetched at this immutable commit and match the preserved checkpoint bytes. No specialist or external handoff changed between intake and this refresh. Publication success will be recorded only after immutable-commit readback of both mirrors.
