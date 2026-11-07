@@ -504,3 +504,41 @@ Earlier verified publication commits are
 This synthesis is PENDING_READBACK until its actual commit and immutable
 byte-for-byte readback are recorded in the receipt. No local artifact or
 unperformed test is presented as a published result.
+
+
+## Verified Publication Receipt And Resume Capsule
+
+Same scheduled invocation: 20261107-lean-1, triggered
+2026-11-07T05:10:01-05:00. Execution **COMPLETE**; daily synthesis
+**PUBLISHED / READBACK_VERIFIED** at 2026-11-07 10:38:23 UTC
+(05:38:23 EST, America/New_York).
+
+Synthesis commit: `bfc51f2bb74e67313c6b993f846c732a141ce2b7`.
+Synthesis blob: `e3fc4d3d2d90fea3773f6e3d444c6416fbf5978a`.
+Immutable readback of that commit matched all 31,399 characters and the
+returned blob SHA exactly. Earlier checkpoints and failed revisions remain
+preserved. This receipt records a completed readback, not a proposed write.
+
+Final authority refresh still returned main
+`1c057c1d65b6d4cb4d59d207f69a815c52353314`; upstream report blobs are
+unchanged. Coordinator TODAY=PENDING / YESTERDAY=CARRY_FORWARD remains
+accurate. No other scheduled agent's completion is assumed.
+
+**Mathematics:** 20261107-lean-1/GL2-TAIL is PROVED_IN_LEAN at exact PR head
+`5b246ac81398ae8ee8f177dc9acda18288765a4e`, with all five public declarations
+using only propext, Classical.choice, Quot.sound. This implements accepted
+20261107-analytic-1/GL2 and transparently strengthens its parameter range;
+the extension is SELF_AUDIT, not independently referee-certified.
+
+**PR/CI:** #1102 is open, ready for review, non-draft and unmerged. All 13
+checks across 12 workflows pass on that head. Dedicated run 42364367658,
+job 128379218641; targeted run 42364367519, job 128379218006. Tested
+synthetic merge `388a28232f1b07f0c9c6b561dca1ae58cef210ad` has exactly the
+PR-head tree. No merge or auto-merge was performed.
+
+**Research boundary:** canonical VF objective OPEN; new endpoint gain NONE;
+eta_gate=SEARCH_BROAD. First unsupported proposition is section O's original
+small-gcd one-sided signed estimate. The paid native strict baseline and
+large-gcd sector must not be reopened as missing prerequisites. Resume with
+fresh main/PR checks; repair only a genuine changed-head failure, otherwise
+select the next independently justified mathematical candidate.
