@@ -1886,3 +1886,13 @@ for R in [17, 18, 20, 21, 22, 23, 34, 35, 36]:
           "history=", len(ps) * mu(R), "L=", F - len(ps) * mu(R))
 print("PASS: 80 product-first rows, 240 rational Abel consumers, all displayed overlap witnesses")
 ```
+
+## Verified Publication Receipt - 20261107-wheel-2
+
+At **2026-11-07 15:42:08 UTC / 10:42:08 EST**, immutable readback of substantive research commit **48abf7d1e7e48b18ee9525d0a932ec587482bdb4**, blob **d8911775e034b1df0e0d4d3be2464e4b702c1da6**, matched all **113,165 characters** of the intended report exactly, including the frozen registration, both executed checkers and exact main output. The entire earlier report and this invocation's checkpoint remain an unchanged prefix. Commit metadata confirms the sole changed path was this authorized daily report: **817 additions, zero deletions**; commit time 2026-11-07T15:41:53Z.
+
+The closing authority read still returned main **dadd9cd7b0a36b4298db30a33c2a1e4b6eb36dcc**. The own report was fetched again before appending this receipt and matched the verified synthesis. This receipt records completed verification of that substantive commit; its own publication is separately read back by the active invocation.
+
+**Execution: COMPLETE. Publication: PUBLISHED / READBACK_VERIFIED.** New LR1-LR5 remain **PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED**, with LR5's classical sieve input explicitly attributed. FC1 is finite reproducible evidence, not the uniform proof. **NEW_VERIFIED_ENDPOINT_GAIN=NONE**; finite-C and the canonical VF bound remain OPEN. No local Lean, other agent launch, unauthorized file change, PR, merge, workflow or schedule action occurred. All required test sessions finished.
+
+Next protected route: **MU-LIFT**, using the corrected Census signed-capacity handoff. Next FINITE-AC continuation: the exact prime-weighted consumer cost and full complement, with LR1-LR4 available for independent qualification and the R=20 / R=34 counterexamples retained.
