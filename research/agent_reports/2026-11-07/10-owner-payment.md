@@ -1703,3 +1703,26 @@ if __name__ == "__main__":
 At **2026-11-07T13:39:30Z (08:39:30 America/New_York)**, research commit **7bb2a16015161ca2bc80bd0c6673d595c29f37c9** and report blob **aafcd01bdc5064f0429847c14b23af2093d87742** were re-fetched at the immutable commit. All **109,508 characters** matched the submitted text exactly, including the executable appendix. Commit metadata listed only `research/agent_reports/2026-11-07/10-owner-payment.md`; all prior report bytes and the early checkpoint were preserved. The source main remained **1c057c1d65b6d4cb4d59d207f69a815c52353314** on closing refresh.
 
 This records completed publication verification, not independent mathematical acceptance. Final research status: **PAPER_PROOF / FINITE_COMPUTATION; INDEPENDENT_COMPONENT_ADVANCE; SELF_AUDIT; INDEPENDENT_REVIEW_PENDING; NOT_FORMALIZED; NEW_VERIFIED_ENDPOINT_GAIN=NONE**. RS4-RS5 concern only the exact selected component. The proper pointwise and full canonical objectives remain open, with their original complement and mixed terms retained. Next protected Owner route: JOH. No Lean source, proof branch, PR, central instructions, other role report, schedule, permission or main was modified.
+
+
+## Scheduled JOH Continuation Checkpoint - 20261107-owner-3
+
+### A. Mathematical question and status
+
+IN_PROGRESS / PARTIAL. Resume 20261106-owner-3/MS1-MS4 on the original Li_2 arrival clock. The established local variance improves a component but its complete returned exponent is worse than the certified native boundary. This invocation investigates a joint signed clock/level return, with both endpoint halos and original integrated Johnston weight retained, before asking for a stronger isolated variance. No new theorem or endpoint gain is asserted at this checkpoint.
+
+### B. Live authority and continuity
+
+Actual trigger: scheduled 2026-11-07T16:15:01-05:00, America/New_York; RUN_ID_UNAVAILABLE. Main fetched as cae99df1c3ea24ff4113063bf09f6fd07517ad93, tree 087a31436295ea4b0307d3d851f363c5370dba5f. AGENTS blob 0a99faf8458809ac772d470d704c5433f373bda8; CURRENT_PROOF_CONTRACT blob d1d6fd558ee23927bd9f70ffdc375bafd1dbb67a. high_attack_ack=COMPLETE_SIGNED_HIGH_ATTACK_V1; chain_ack=CANCELLATION_CHAIN_REUSE_V1; baseline_ack=PAID_BASELINE_EXACT_CONSUMER_V1; deployment_ack=NO_PIGEONHOLING_ROUTE_SELECTOR_V1.
+
+Due protected route: JOH, following today's SAT then VF-LOW. Current Coordinator's 15:13 synthesis recommends precisely this continuation. Both Eastern dates' seven-role reports have been retrieved; relevant sections are being checked. TODAY=AVAILABLE; YESTERDAY=CARRY_FORWARD at original scope. External inbox remains blob 038018145c0fddb2f6306c0712373adf9cd1ea52 with no new November entry. No open/draft PRs were returned. #1102, #1103, #1104 and #1105 are now merged; their new moment/count interfaces do not identify ideal characters with actual prime occurrences.
+
+### C. Exact source and first consumer
+
+L(t)=Li_2(t), Q(n)=floor L(n), B(n)=pi(n)-Q(n)-1, G(N)=sum_(2<=n<N)B(n). The source prime/model mismatch is native primitiveMismatch(n-1); B is native integer backlog minus one. Arrivals b_j=min{n>=2:Q(n)>=j} and increments pi(b_(j+h))-pi(b_j)-h are genuine prime counts with the complete upper halo. Preserve the classical li(2) correction in Johnston's external criterion, odd-square owner boundaries, and the initial level.
+
+The common endpoint remains complete canonical HIGH, with fixed-cutoff LOW already O(R). JOH's eventual G(R^2)<0 is an independently sufficient RH route through its established external analytic criterion; it is not a new quantitative bridge or an assumed sign. Reuse the strongest applicable actual native strict boundary, retaining its source hypotheses and every-positive-loss quantifiers. Source refresh includes the original floor-Li balance/backlog/transport modules and native strict-Mertens/fixed-count declarations. The new work must locate a smaller independently provable joint restriction, or explicitly report why the tested consumer does not improve the endpoint.
+
+### D-K. Pending work
+
+Derivation, falsification, full signed and quadratic return, endpoint comparison, source/evidence ledger, specialist handoffs, and immutable final readback are pending. Earlier SAT/VF-LOW findings, code, receipts and correction history above remain unchanged. No Lean/source/policy/PR/schedule edits or other-agent launches are authorized or attempted. eta_gate=SEARCH_BROAD; NEW_VERIFIED_ENDPOINT_GAIN=NONE.
