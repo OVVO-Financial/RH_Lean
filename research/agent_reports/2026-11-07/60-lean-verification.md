@@ -37,3 +37,11 @@ Actual exact integer/rational regression passed 4896 original/lattice cases, inc
 The dedicated CODIV and targeted Lean workflows have started on this exact head. Current state DRAFT_PR / CI_PENDING; no PROVED_IN_LEAN claim yet. Five public types and all their transitive axioms are explicitly audited. Existing root/inventory/export checks remain enabled. No GL3 lower bound or open GL4 signed supplier is assumed or claimed.
 
 Prior #1100 was directly confirmed merged; its dedicated job 128270266477 in run 42328802826 is successful. Retrieved logs show the exact synthetic-merge checkout and eleven standard-axiom lists. Tested source blob c5ebb3d5d96898549ad039fd32e1a26955c5b8f8 equals current main. This reuses prior evidence, not a fresh build of today's entire main.
+
+## CI Diagnosis And Repair Checkpoint - Same Invocation
+
+Initial head 3ccef8f0a095268a322be71403cb9c909605181b failed dedicated run 42363415534 / job 128376323672. Actual logs exposed ASCII pair-type notation parsed as multiplication of types, explicit reciprocal denominator/normalization obligations, and two positivity tactic failures. These were proof-script/elaboration issues; no mathematical premise was strengthened.
+
+Repair head d551268cc0c74b2f5ed49a88fd81b87cd81c3e63 failed dedicated run 42363634625 / job 128376980950 on an unnecessary tactic after a solved field calculation and an unsuccessful source-equality simplification. The four quantitative/support declarations printed only the permitted standard axioms, but the full warning-fatal file failed and the source-equality declaration had compiler error-recovery sorryAx. This revision is NOT accepted as a completed Lean result.
+
+Current repaired head aa401fb98b888fe94a99d719ac8366e67831c9ca, source blob 62ec0fc04fa722672746d9b3ff65826ea0c3ae58, makes the product-sum rewrite explicit and removes the solved-goal tactic. The five public theorem statements, hypotheses, coefficients, normalizers and all checks are unchanged across repairs. No authored proof hole or new axiom was introduced. Current state remains DRAFT_PR / CI_PENDING until the complete latest-head audit succeeds.
