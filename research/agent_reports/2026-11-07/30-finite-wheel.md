@@ -2691,3 +2691,11 @@ PASS: source bottleneck, growing exact networks, unspent-donor repair, complete 
 ### Prepublication Freshness - 20261107-wheel-3
 
 At 2026-11-07T23:31:36Z, current main was rechecked and remained `cae99df1c3ea24ff4113063bf09f6fd07517ad93`; the open/draft PR collection remained empty. All material source hashes are unchanged. The complete final verifier was rerun and its output matched byte-for-byte, including payload SHA-256 `4ae0b1e1851837af7946e96bc909ac820ec9e86d05517a0e9d1b6e53d956ac2c`. All required test sessions finished. New mathematics remains PAPER_PROOF / SELF_AUDIT with independent review and formalization pending.
+
+## Verified Publication Receipt - 20261107-wheel-3
+
+At 2026-11-07 23:33:09 UTC, immutable readback of substantive commit `e2dfbe7de809a070329f3539c5c0dd9a381c71f8`, blob `2ec36fc95e85e2d2d08e38bf51c10adf3212b353`, matched all **183,939 characters** of the intended report exactly. The entire prior 118,290-character report/checkpoint remains an unchanged prefix. The complete registration, exploratory probe, executed verifier and final exact output are included. The final verifier was rerun successfully with byte-identical output before publication; all required test sessions finished.
+
+**Execution: COMPLETE. Publication: PUBLISHED / READBACK_VERIFIED.** OC1-OC4 remain **PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED**, with the raw-profile finite-classification ingredient separately labeled and the classical PNT input attributed. OC3's numerical fixture and OC5 are **FINITE_COMPUTATION**. **NEW_VERIFIED_ENDPOINT_GAIN=NONE**. No canonical HIGH improvement, subcritical recurrence, VF bound or RH closure is claimed.
+
+Next protected route: **CORR4**. Next MU-LIFT continuation: the actual residual network after removing the blanket b>29 restriction, retaining both physical and signed-label capacities, all old reservations, and the complete signed return. Do not rerun the same reserved-deletion census as new work. No local Lean, source/PR/branch/workflow/schedule change, other-role report edit or agent launch occurred. This receipt records verification of the substantive commit above; its own publication is separately read back by the active invocation.
