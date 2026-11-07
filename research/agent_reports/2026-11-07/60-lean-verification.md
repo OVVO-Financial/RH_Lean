@@ -625,3 +625,25 @@ checks also started. No no-op commit or manual workflow rerun was used.
 The six-case combined crossing, shifted supported-witness selection,
 batch aggregation and complete anchored LOW/HIGH/principal return remain
 unimplemented. New global exponent gain NONE; canonical VF/RH OPEN.
+
+
+## Diagnosed CI Repair - 20261107-lean-2
+
+Same scheduled invocation. First head e2916fab61d141993163f003704876905cf01c73
+failed [run 42401229354/job 128489189043](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42401229354/job/128489189043).
+The three source assembly errors were traced to accidental implicit
+logProfile/positiveAnnular variables from missing namespace openings.
+Printed record types exposed the unintended stronger function-quantified
+moment fields. The actual source assembly correctly failed; that revision
+and its error-recovery sorryAx output are NOT proof evidence.
+
+Focused repair head: `30e235ac5ee86041d194d07b20c52b0b22d317f2`.
+Open the original profile namespaces, disable autoImplicit in this new
+module and add fail-closed printed-record checks for those accidental
+binders. Preserve original script executable modes. No intended theorem
+bound or hypothesis changed. Source generation and integrity checks pass;
+the new type-audit rejection matches the actual first failure log.
+
+[New exact-head run 42402231812/job 128492295936](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42402231812/job/128492295936)
+is running. PR #1105 remains draft, CI_PENDING. No completed formal result
+is claimed before this repaired revision passes the required audit.
