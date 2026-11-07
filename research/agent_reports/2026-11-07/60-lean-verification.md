@@ -25,3 +25,15 @@ Candidate selection is in progress. Today's independently accepted CODIV GL1-GL4
 Lean/Mathlib pins retrieved: leanprover/lean4:v4.34.1; Mathlib d13f23b723b8a846827a245b89c10fc7d3f11612. All Lean execution will be through proof-PR GitHub Actions only. No local Lean, no direct main writes, no merges, no agent launches. Ordinary network cloning returned CONNECT 403; connected GitHub reads work, so this is not yet a proof-write blocker.
 
 Next: finish the focused candidate/dependency audit, implement a complete qualified theorem if ready, inspect actual CI, and append a full A-P synthesis preserving this checkpoint.
+
+## Implementation Milestone - Same Scheduled Invocation
+
+[Draft PR #1102](https://github.com/OVVO-Financial/RH_Lean/pull/1102) is open on agent/lean-verification/20261107-codiv-large-gcd. Base 1c057c1d65b6d4cb4d59d207f69a815c52353314; initial head 3ccef8f0a095268a322be71403cb9c909605181b. Connected branch/blob/tree/commit/ref/PR writes succeeded; BLOCKED_WRITE_ACCESS does not apply.
+
+Selected accepted claim: 20261107-analytic-1/GL2, independent acceptance 20261107-referee-1. The complete Lean proof attempt bounds the original absolute covariance by its genuine squared-Mobius support, then by 4 X h^2/(G-1) and 8 X h^2/G. The canonical-gcd injection retains every physical pair; the later overcount is explicitly nonnegative. A proof-driven extension removes h<=X: 1<=X and 2<=G<=h suffice. That extension is SELF_AUDIT, not a fabricated Referee verdict.
+
+Actual exact integer/rational regression passed 4896 original/lattice cases, including 1785 with h>X and 544 empty-cutoff cases, plus six declared fixtures. Both covariance signs occur (16 at X=225,h=6,G=5; -16 at X=1764,h=12,G=9); n+d is not clipped at 4X. These are finite checks, not kernel certificates.
+
+The dedicated CODIV and targeted Lean workflows have started on this exact head. Current state DRAFT_PR / CI_PENDING; no PROVED_IN_LEAN claim yet. Five public types and all their transitive axioms are explicitly audited. Existing root/inventory/export checks remain enabled. No GL3 lower bound or open GL4 signed supplier is assumed or claimed.
+
+Prior #1100 was directly confirmed merged; its dedicated job 128270266477 in run 42328802826 is successful. Retrieved logs show the exact synthetic-merge checkout and eleven standard-axiom lists. Tested source blob c5ebb3d5d96898549ad039fd32e1a26955c5b8f8 equals current main. This reuses prior evidence, not a fresh build of today's entire main.
