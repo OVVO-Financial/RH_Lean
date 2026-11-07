@@ -1069,3 +1069,820 @@ Actual invocation: SCHEDULED, 2026-11-07T10:12:01-05:00, America/New_York; RUN_I
 **Planned discriminator.** Before arithmetic tests, freeze the exact cofactor weight, integer floor endpoints, selected prime mask, original rank-one column, complete complement and full signed square. Compare direct historical rows with both prime-first and cofactor-first reconstruction; test a claim that differs from the accepted PB census, not simply a wider unchanged scan. All new mathematical claims remain SELF_AUDIT / REVIEW_PENDING / NOT_FORMALIZED.
 
 Only this own report is authorized for remote writing. No local Lean, other report/source/workflow, branch/PR, schedule, permission, merge or agent-launch action is taken. Final findings and a timestamped resume capsule will be appended after derivation and tests.
+
+## FINITE-AC: Arithmetic Restrictions On Cofactor Reuse - 20261107-wheel-2
+
+### A. Most important structural discovery
+
+**New paper result:** a fresh cofactor in the admitted prime-column boundary can recur in two adjacent square blocks only through a twin-prime pair. It cannot occur in three consecutive blocks. After restoring the actual historical coefficient, every cofactor still has at most two nonzero incidences in a three-block packet; the gap-two historical collision has an explicit negative coefficient.
+
+This supplies an actual admission/multiplicity interface, not an independence assumption. For arbitrary real packet weights it improves the cofactor-grouped diagonal allowance from three times the ungrouped diagonal to two times, with the exact mixed terms retained. It does **not** bound the full signed square by that diagonal. A genuine three-root overlap triangle at roots 34, 35, 36 disproves a universal row-signing cancellation mechanism, and the complete packet at root 20 has square 25 versus grouped diagonal 13.
+
+Claims **20261107-wheel-2/LR1-LR5** below are PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED. **FC1** records the reproducible finite checks and counterexamples. Reused PB identities and native cancellation are not new claims. **NEW_VERIFIED_ENDPOINT_GAIN=NONE; VERIFIED_ETA=NOT_ESTABLISHED.**
+
+This completes the actual scheduled invocation at **2026-11-07T10:12:01-05:00**, America/New_York; RUN_ID_UNAVAILABLE. It is the same invocation as the preserved early checkpoint, not another launch. Publication completion is established separately by the immutable-readback receipt.
+
+### B. Current authority, existing input, and actual consumer
+
+Pinned main is **dadd9cd7b0a36b4298db30a33c2a1e4b6eb36dcc**, unchanged on the prepublication refresh. AGENTS blob **7d19591d69a141c2c094a81a7dff2569562ab892** and CURRENT_PROOF_CONTRACT blob **7c4ac83a1ec1a4144e1bd691391ed4244f1cc27c** were retrieved. The current instruction is **CANCELLATION_CHAIN_REUSE_V1**, policy blob **ef8d3ac76a893028f4de772c9a00d3bc261c8132**; baseline_ack=PAID_BASELINE_EXACT_CONSUMER_V1 and deployment_ack=NO_PIGEONHOLING_ROUTE_SELECTOR_V1 remain recorded. The new instruction supersedes dated compulsory covariance tickets, not valid arithmetic identities or counterexamples.
+
+The canonical objective remains
+
+\[
+ \exists C\geq0\ \forall R\geq2,\quad
+ |\pi(R^2)-vfCanonical(R^2)|\leq CR\log R,\qquad
+ vfCanonical(x)=vfMid(x)+\sqrt2.
+\]
+
+The terminal VF theorem retains its explicit ClassicalVonKochRHCriterion and arithmetic hypotheses. Neither this report nor a conditional terminal declaration proves them.
+
+On this protected **FINITE-AC** turn the actual consumer is EulerSelfDualFiniteCStatement:
+
+\[
+ \exists C\geq0\ \forall R\geq2\ \forall K,\quad
+ LowerMertensCriticalEnvelope(R,K)\Longrightarrow
+ |Q_R|\leq CR\sqrt K.
+\]
+
+Here \(Q_R=\sum_{1\leq a,b<R}\mu(a)\mu(b)\lfloor(R^2-1)/(ab)\rfloor
+=2M(R-1)-M(R^2-1)\). The lower envelope is the actual historical critical envelope in the source, not a new chosen admissibility condition. The finite-C premise remains OPEN; its finite-A/energy/RH implication is conditional.
+
+**Compact chain-consumer record**
+
+| Field | Actual content |
+| --- | --- |
+| Existing input | native_mertens_growth_at_hecke_beta and the fixed-power consequence, with their real rational-Mobius transfer; no identification with Hecke phases |
+| Positive loss | Write beta for the actual Hecke boundary and choose a fixed epsilon>0 with b=beta+epsilon<1. Then use the supplied \(|M(n)|\leq A_b n^b\). At the explicit benchmark beta<=7/8-delta_star, spend epsilon<delta_star before claiming a fixed strict power. |
+| Consumer | Literal selected columns of eulerRankOneFloorKernelQ, their moving boundary, and their full complement inside Q_R |
+| Initially tested loss | Complete the prime-weighted cofactor interval before applying the native prefix bound; keep the exact multiplicity weight rather than a maximum |
+| Result of that attempt | Exact summation by parts is valid, but its native bound still costs the actual prime-weighted variation. No power saving follows merely from changing the order of summation. |
+| Changed interface | LR1-LR4 classify the actual cofactor reuse in the moving boundary, retain arbitrary packet weights, and account for a negative historical collision. This is a new source-specific structural input, not a new universal covariance premise. |
+| Complete return | Births, exits at the updated endpoint, rational drift, the full complementary column V_R, the rank-one term, squarefree diagonal, and every distinct-cofactor/full-complement interaction remain present. |
+| Net budget | Inherited full-source \(Q_R=O_b(R^{2b})\) is unchanged. Separate prime-column bounding gives \(O_b(R^{1+b}/\log R)\), which is worse when b<1. LR4 saves a local diagonal factor, not an endpoint exponent. |
+
+No new all-selected norm, generic covariance law, or sharp shell energy is imposed as an entrance requirement. The existing estimate has first been substituted into this route's genuine consumer.
+
+### C. Source-faithful representation and resumed PB argument
+
+All variables below are integers unless called real. Let \(R\geq17\), \(X=R^2-1\), \(M(t)=\sum_{1\leq n\leq t}\mu(n)\), and
+
+\[
+ \mathcal P_R=\{p:\ p\text{ prime},\ 3R\leq4p,\ p<R\},\quad
+ k_R=|\mathcal P_R|,\quad d_R=\sum_{p\in\mathcal P_R}1/p.
+\]
+
+Use the ORIGINAL ordered kernel, with both coordinates historical:
+
+\[
+ T_R(a,b)=\left\lfloor{X\over ab}\right\rfloor
+    -{R+1\over b}\left\lfloor{R-1\over a}\right\rfloor,\quad
+ B_R(u,v)=\sum_{1\leq a,b<R}u(a)v(b)T_R(a,b).
+\]
+
+Set \(f=\mu\), \(g=-1_{\mathcal P_R}\), \(h=f-g\), and
+
+\[
+ C_R=B_R(f,g),\quad
+ V_R=(R+1)\sum_{a<R}{\mu(a)\over a}+B_R(f,h),\quad Q_R=C_R+V_R.
+\]
+
+These are selected **columns**, not a symmetric cut silently doubled. All rows are retained in each selected column; all other columns, with their original rows, are in V_R. Nothing assumes T_R is symmetric.
+
+The already derived PB1 source bridge is
+
+\[
+ C_R=r_R+Z_R,\quad r_R=(R+1)d_R-k_R,\quad
+ Z_R=\sum_{p\in\mathcal P_R}
+ \left[M\!\left(\left\lfloor X/p\right\rfloor\right)-M(R-1)\right].
+\tag{C1}
+\]
+
+Indeed \(R+1\leq\lfloor X/p\rfloor<2R\); full divisor inversion subtracts exactly the omitted coefficients with index at least R, whose floors are one. The historical divisor sum at R-1 is one. Thus (C1) is an exact bridge from historical source rows, not permission to insert new rows \(a\geq R\).
+
+The initially attempted weighted completion is
+
+\[
+ w_R(n)=1_{n\geq R}\#\{p\in\mathcal P_R:pn\leq X\},\quad
+ Z_R=\sum_{n\geq1}\mu(n)w_R(n)
+     =\sum_{n\geq1}M(n)[w_R(n)-w_R(n+1)].
+\tag{C2}
+\]
+
+Weights are extended by zero outside their finite support, including below R. The boundary jump at R-1 is indispensable. For fixed b in the source-qualified range above,
+
+\[
+ |Z_R|\leq A_b\sum_n n^b|w_R(n)-w_R(n+1)|
+ =A_b\left[k_R(R-1)^b+
+       \sum_{p\in\mathcal P_R}\lfloor X/p\rfloor^b\right].
+\tag{C3}
+\]
+
+The equality on the right holds because w is nonincreasing after its initial upward jump; coincident downward jumps add with the same sign. Also \(0\leq r_R\leq k_R(1/3+4/(3R))<k_R\). Consequently this use of the native estimate still gives
+\(|C_R|\leq k_R+A_b k_R[(R-1)^b+(4R/3)^b]\).
+The usual prime upper bound yields the budget recorded in B. No failure of the native cancellation theorem is alleged; its **consumer** here introduces the extra prime multiplicity.
+
+The new investigation therefore concerns actual reuse in its moving boundary:
+
+\[
+ \mathcal A_R=\{n:\exists p\in\mathcal P_R,\ R^2\leq pn<(R+1)^2\},\quad
+ I_R(n)=1_{\mathcal A_R}(n),\quad F_R=\sum_n\mu(n)I_R(n),
+\]
+\[
+ a_R(n)=I_R(n)-k_R1_{n=R},\qquad
+ L_R=F_R-k_R\mu(R)=\sum_n\mu(n)a_R(n).
+\tag{C4}
+\]
+
+A physical fresh occurrence is \((R,p,n)\). Repeated n in different roots denotes distinct physical occurrences sharing an arithmetic coefficient, not one historical occurrence that can be spent repeatedly.
+
+For this mask each n has a unique label \(p_R(n)\), and
+\[
+ R+2\leq n\leq {4(R+2)\over3}<{3R\over2}\leq2p
+ \quad\text{for every }p\in\mathcal P_R.
+\tag{C5}
+\]
+The strict inequality uses R>16. Distinct selected primes are odd and differ by at least two. Two labels for the same n would give product separation at least \(2n>2R\), exceeding the shell width. Two selected prime labels dividing one physical product would force that product to be at least \(2(3R/4)^2>R^2+2R\). Thus no occurrence is duplicated. Also p does not divide n, and \(\mu(pn)=-\mu(n)\), including squareful zero cases. Each fixed-p cofactor interval contains two or three integers, as in PB1; that count is inherited, not the new discovery.
+
+### D. Exact new statements
+
+**LR1: lag-to-prime-gap restriction.** For every R>=17, h>=1, and \(n\in\mathcal A_R\cap\mathcal A_{R+h}\), put \(p=p_R(n)\) and \(q=p_{R+h}(n)\). Then
+\[
+ q-p\in\{2,4,\ldots,2h\}.
+\tag{D1}
+\]
+In particular adjacent reuse forces q=p+2. No bound on h or modulus is implicit in this all-scale statement.
+
+**LR2: exact adjacent overlap and forbidden triple.** Define
+\[
+ \mathcal T_R=\{p\in\mathcal P_R:p+2\in\mathcal P_{R+1}\},\qquad
+ \mathcal I_{R,p}=\left[\left\lceil R^2/p\right\rceil,
+       \left\lfloor{R^2+4R+3\over p+2}\right\rfloor\right]\cap\mathbb Z.
+\]
+Then
+\[
+ \mathcal A_R\cap\mathcal A_{R+1}
+    =\bigsqcup_{p\in\mathcal T_R}\mathcal I_{R,p},
+ \quad |\mathcal I_{R,p}|\leq2,\quad
+ \mathcal A_R\cap\mathcal A_{R+1}\cap\mathcal A_{R+2}=\varnothing.
+\tag{D2}
+\]
+Empty integer intervals contribute zero; neither endpoint is rounded away.
+
+**LR3: signed historical restoration.** Put
+\[
+ J_{S,T}=\sum_{n\in\mathcal A_S\cap\mathcal A_T}\mu(n)^2,\quad
+ H_R=k_{R+2}\mu(R+2)^2\,1_{\{R-1\ {\rm prime}\}}.
+\]
+Then
+\[
+ \sum_n\mu(n)^2a_R(n)a_{R+1}(n)=J_{R,R+1},
+\quad
+ \sum_n\mu(n)^2a_R(n)a_{R+2}(n)=J_{R,R+2}-H_R.
+\tag{D3}
+\]
+Moreover \(\#\{i\in\{0,1,2\}:a_{R+i}(n)\ne0\}\leq2\) for every n.
+The symbols H_R and a_R in this section are local notation, not an identification with an earlier report's historical-family name.
+
+**LR4: weighted source interface.** For any real \(\theta_0,\theta_1,\theta_2\), let
+\[
+ W(n)=\sum_{i=0}^2\theta_i a_{R+i}(n),\quad
+ S_i=\sum_{n\in\mathcal A_{R+i}}\mu(n)^2,\quad
+ D_0=\sum_{i=0}^2\theta_i^2
+       [S_i+k_{R+i}^2\mu(R+i)^2],\quad D=\sum_n\mu(n)^2W(n)^2.
+\]
+The exact cofactor-grouped diagonal and its uniform allowance are
+\[
+\begin{split}
+ D={}&D_0+2\theta_0\theta_1J_{R,R+1}
+             +2\theta_1\theta_2J_{R+1,R+2}\\
+    &+2\theta_0\theta_2(J_{R,R+2}-H_R)
+ \ \leq\ 2D_0 .
+\end{split}
+\tag{D4}
+\]
+No weight is replaced by a maximum. The actual COMPLETE packet satisfies
+\[
+ \left(\sum_i\theta_i L_{R+i}\right)^2
+ =D+2\sum_{n<m}\mu(n)\mu(m)W(n)W(m).
+\tag{D5}
+\]
+The last sum is not omitted or assumed nonpositive.
+
+**LR5: scoped quantitative corollary.** Unconditionally,
+\[
+ 0\leq J_{R,R+1}\leq2|\mathcal T_R|.
+\tag{D6}
+\]
+Using the classical twin-prime upper bound, this gives
+\[
+ J_{R,R+1}\ll R/\log^2R,\qquad
+ \sum_{H\leq R<2H}J_{R,R+1}\ll H^2/\log^2H\quad(H\geq17).
+\tag{D7}
+\]
+The imported bound is an upper count of prime pairs, not the twin-prime conjecture, a prime-pair asymptotic, or a signed correlation theorem. LR5's new content is the source-specific bridge (D6); the sieve estimate is classical and is not newly formalized here.
+
+### E. Proofs
+
+**LR1.** Since \(pn<(R+1)^2\leq(R+h)^2\leq qn\), q>p. Both primes exceed three, so q-p is positive and even. The exact shell endpoints give
+\[
+ (q-p)n\leq (R+h+1)^2-1-R^2.
+\]
+By (C5) at the later root, \(n\geq R+h+2\). The upper bound is strictly less than \(2(h+1)n\), because
+\[
+ 2(h+1)(R+h+2)-[(R+h+1)^2-1-R^2]
+   =(h+1)(h+3)+1>0.
+\]
+Hence q-p<2h+2; its even parity gives (D1).
+
+**LR2.** For adjacent reuse LR1 forces q=p+2. Membership at both roots is the intersection of their two exact real intervals before integer rounding. The earlier lower endpoint is larger, since
+\[
+ {R^2\over p}-{(R+1)^2\over p+2}
+ ={2R^2-(2R+1)p\over p(p+2)}>0.
+\]
+The later upper endpoint is smaller, since
+\[
+ {R^2+2R\over p}-{R^2+4R+3\over p+2}
+ ={2R^2+4R-(2R+3)p\over p(p+2)}>0.
+\]
+Here p+2<R+1 implies p<=R-2; each numerator is strictly positive even at that boundary. Thus the intersection is exactly \(\mathcal I_{R,p}\). Its real endpoint difference is strictly less than two because
+\[
+ 2p(p+2)-[(4R+3)p-2R^2]=2(R-p)^2+p>0.
+\]
+It therefore contains at most two integers. Disjointness follows from the unique label at R, and the converse follows directly from the two interval inequalities and both prime masks.
+
+If a cofactor appeared at all three roots, its labels would be p,p+2,p+4. One is divisible by three, while all are primes greater than three. This is impossible. This short modular argument is a consequence of the forced arithmetic progression, not a repeated wheel-density computation.
+
+**LR3.** Fresh cofactors are at least root+2, so adjacent rows have no fresh/historical collision. Two distinct historical atoms also never coincide. At separation two, the only possible fresh/historical collision is n=R+2, with earlier coefficient +1 and later coefficient \(-k_{R+2}\).
+
+For n=R+2 the inequalities and p<R force
+\[
+ p\geq\left\lceil{R^2\over R+2}\right\rceil=R-1,\qquad p\leq R-1.
+\]
+Conversely p=R-1 satisfies the band and shell inequalities when it is prime:
+\((R-1)(R+2)=R^2+R-2\). Thus
+\[
+ R+2\in\mathcal A_R\quad\Longleftrightarrow\quad R-1\text{ is prime}.
+\]
+This proves (D3) with its original negative historical coefficient and zero-Mobius factor. For n>R+2 all relevant entries are fresh, so LR2 forbids three; for n=R+2 only the earlier fresh and later historical entries can occur; below R+2 there is at most one historical entry. This proves the support bound, including k=0.
+
+**LR4.** Expanding D gives (D4)'s equality by LR3. Each fixed n has at most two nonzero summands \(\theta_i a_{R+i}(n)\). The elementary two-term inequality \((x+y)^2\leq2(x^2+y^2)\), multiplied by \(\mu(n)^2\), gives \(D\leq2D_0\) after summation. Expanding the complete square over n gives (D5). This reasoning does not assert any favorable sign for interactions between distinct n.
+
+**LR5.** Drop \(\mu(n)^2\leq1\) in the disjoint union (D2), giving (D6). The admitted pair set is a subset of all primes p<R with p+2 prime; apply the standard upper bound to that larger set, never its converse. On a dyadic root interval, \(R/\log^2R\ll H/\log^2H\), and there are at most H roots. The constant is absolute for H>=17.
+
+Primary mathematical reference for the imported count: [K. S. Kedlaya, Analytic Number Theory, Chapter 12, Section 12.5](https://kskedlaya.org/ant/chap-brun.html), with the Selberg derivation requested in [Exercise 14.4.6](https://kskedlaya.org/ant/chap-selberg2.html). The inspected text states the \(O(x/\log^2x)\) upper bound. No distribution hypothesis for the selected cofactor signs is imported.
+
+### F. Structural consequence and limits
+
+The fresh occurrence system is not an arbitrary graph: adjacent time reuse forces a particular two-prime arithmetic progression, and three-step persistence is forbidden. The history-restored system has a negative collision fixed by the exact boundary, rather than an allocated negative resource that can be spent at will.
+
+Nevertheless, "no cofactor in three rows" does not mean "the row overlap graph is bipartite." Different cofactors can make a triangle; FC1 below does so with genuine squarefree coefficients. No global matching or sign-reversing involution follows. Likewise (D7) controls only the **same-cofactor** adjacent sector, not all adjacent fresh products.
+
+This is a new structural restriction on source-admitted multiplicities and an exact weighted local allowance. It is not a new global signed estimate. Even a logarithmic saving in this proper sector cannot be added to an unchanged complement and called an endpoint gain.
+
+### G. Full signed return and remaining budget
+
+Retain the previously proved PB2-PB3 boundary formulas. Define
+\[
+ \mathcal E_R=\{p\in\mathcal P_R:3R\leq4p<3R+3\},
+\]
+\[
+ b_R=1_{\{R\ {\rm prime}\}}[\mu(R+1)+\mu(R+2)],\quad
+ x_R=\sum_{p\in\mathcal E_R}
+       [M(\lfloor(R^2+2R)/p\rfloor)-M(R)],
+\]
+\[
+ \delta r_R=d_R+{2\,1_{\{R\ {\rm prime}\}}\over R}
+              -\sum_{p\in\mathcal E_R}[(R+2)/p-1],\quad
+ e_R=b_R-x_R+\delta r_R.
+\]
+Then, with \(\Delta Y_R=Y_{R+1}-Y_R\),
+\[
+ \Delta C_R=L_R+e_R,\qquad
+ \sum_{R^2\leq m<(R+1)^2}\mu(m)
+   =2\mu(R)-[L_R+e_R+\Delta V_R].
+\tag{G1}
+\]
+Exits use the **updated endpoint** \(R^2+2R\), not \(R^2-1\). The new p=R column has exactly cofactors R+1,R+2 after the historical cutoff. Empty masks and squareful coefficients are retained.
+
+For arbitrary three-root weights, put
+\[
+ \Lambda=\sum_i\theta_i L_{R+i},\quad
+ E=\sum_i\theta_i e_{R+i},\quad
+ U=\sum_i\theta_i\Delta V_{R+i},\quad
+ A=2\sum_i\theta_i\mu(R+i).
+\]
+The complete shell packet is \(A-\Lambda-E-U\). Its square contains the full \(\Lambda^2\) from (D5), \(A^2,E^2,U^2\), and **all six pair terms**
+\[
+ -2A\Lambda-2AE-2AU+2\Lambda E+2\Lambda U+2EU.
+\tag{G2}
+\]
+At the original endpoint, \(Q_R^2=C_R^2+V_R^2+2C_RV_R\). Thus neither the historical rank-one correction nor the complement nor its mixed term is being discarded. One cannot infer finite-C from a small selected-column diagonal.
+
+The strongest applicable native input can also be applied directly to this *actual* weighted local coefficient:
+\[
+ \Lambda=\sum_n M(n)[W(n)-W(n+1)],\qquad
+ |\Lambda|\leq A_b\sum_n n^b|W(n)-W(n+1)|.
+\tag{G3}
+\]
+This retains signed cancellations in the weight differences before taking absolute values; no unweighted or mask-free surrogate is used. The identity and the elementary Abel consumer are classical/inherited tools, not counted as LR novelty. LR3-LR4 describe the true incidence on which such a consumer acts, but do not prove that its full weighted variation is sufficiently small.
+
+The full endpoint already has
+\[
+ |Q_R|\leq A_b[2(R-1)^b+(R^2-1)^b]=O_b(R^{2b}).
+\]
+This report establishes no bound beating it, no finite-C constant uniform in every historical K, and no VF actual-prime consequence. In particular the existing complete signed-pair prefix bound cannot be silently specialized to these masked local products. Retaining it is compatible with investigating a different sufficient consumer; a new universal covariance assumption is neither made nor requested.
+
+### H. Falsification, reproducibility, and novelty review
+
+The hypotheses and domain were frozen locally before the new computation. The exact registration is included below, SHA-256 **1002cd99cc3ce50283071fd0d6b8d88995a0ec888151e6303bdf5d938318b895**. The initial-weight analysis (C2)-(C3) was not subjected to an exponent fit. These tests differ from the prior PB counts: they investigate cross-root reuse, historical collisions, arbitrary packet weights, and stronger false pairing claims.
+
+**FC1: completed exact computation.** Main verifier SHA-256 **7e238274b4a84839dcfe3ddc922dc00f9daaad71c7df1cb6de4500e6bb120946**. Observed Python **3.12.14**. All decisive comparisons use integers or Fraction; no floating-point primality, floors, or sign tests.
+
+| Check | Completed count or domain |
+| --- | --- |
+| Independent trial factorization of sieve coefficients | n=1..20000 |
+| Fresh root rows | R=17..2062, 2046 roots |
+| Admitted prime rows / physical fresh sites | 74990 / 172822 |
+| Cofactor-first reconstruction | 498 roots: 17..512 plus 1027,2002 |
+| Lag tests | R=17..2048, h=1..12: 24384 root-lag pairs, 453663 shared sites |
+| Adjacent overlap classification | 12978 admitted twin intervals; 25072 shared sites |
+| Weighted exact squares | 10009 cases, including the full five-value cubical weight grid and held-out rational weights |
+| Literal historical double sums and complete Q=C+V square | R=17..48 plus 317,1027,2002: 35 cases |
+| Complete birth/exit/drift/shell return | R=17..2048: 2032 cases |
+
+The main output payload SHA-256 is **f5f1c19cde3e18df19b1a46584294e776fcccb7f35fd61d681f4bde7fd951030**. The executable and exact output are included below. A first recovered run stopped before mathematical tests because seven dictionary variables were initialized with eight dictionaries. That harness typo was corrected; the hypotheses and domain were unchanged. The complete successful run exited zero. No claim is based on the failed run.
+
+A separately written product-first/trial-division checker reconstructs sites by divisibility of each physical shell integer, not by the main prime-interval formulas. It checks 80 starting roots, 240 rational Abel consumers, the weighted-column identity, and the displayed witnesses. SHA-256 **fabdec9f6700afd76dbed6614974503c8c7e4bdb7c6d36006e82b638e8429fa9**; exited zero. This is implementation cross-checking by the same author, **not independent Referee acceptance**.
+
+**Exact counterexamples preserved**
+
+| False strengthening | Genuine counterexample |
+| --- | --- |
+| Adjacent fresh supports are disjoint | R=19, n=22: labels 17 and 19; mu(22)=+1 |
+| All complete adjacent fresh products are nonnegative | F_17=-1, F_18=+1; product -1, same-cofactor J=0 |
+| All complete adjacent fresh products are nonpositive | F_22=F_23=-2; product +4, same-cofactor J=2 |
+| History restoration has no gap-two credit | R=20: n=22, earlier p=19, k_22=2, mu(22)=1, J_20,22=0; exact same-cofactor mixed term is -2 |
+| No triple intersection implies a bipartite overlap graph | Roots 34,35,36 have three distinct nonzero shared cofactors 41,42,43, detailed below |
+| The grouped diagonal bounds the complete signed packet | R=20, theta=(1,1,1): L=(0,-1,-4), square 25; D=13, distinct-cofactor cross contribution +12, D_0=15 |
+
+For the triangle, cofactor 41 joins roots 34 and 35 via 29*41=1189 and 31*41=1271; cofactor 42 joins roots 34 and 36 via 29*42=1218 and 31*42=1302; cofactor 43 joins roots 35 and 36 via 29*43=1247 and 31*43=1333. All six products lie in their exact respective shells and both primes satisfy each relevant mask. Each of mu(41),mu(42),mu(43) is -1. The three positive same-cofactor edges cannot all become negative under one choice of signs on the three root vertices: multiplying their three required sign equations gives +1=-1. This refutes this particular row-signing mechanism, not all possible signed transports.
+
+**Novelty audit.** Repository searches for the adjacent/twin/cofactor/three-consecutive descriptions and the relevant exact source files found no equivalent of (D1)-(D4). This is a scoped repository search, not an exhaustive mathematical priority claim. Prior PB1-PB4, shellHighOwnerCofactorsAdjacent, and squareShell_twoPrimeOrbit_pairProduct_eq_sq already supply local spacing, exact PB return, and the common-cofactor sign law. They are not reclaimed here. The new addition is the cross-root prime-gap restriction, exact adjacent admitted interval, forbidden triple, and the restored historical coefficient with its weighted three-row consequence.
+
+The prior two-prime orbit theorem uses a different same-shell strict carrier; it is not silently applied as if it already encoded this moving prime-band boundary. C2/G3 and the final square expansion are exact classical rearrangements, not new cancellation. LR5's sieve count is explicitly imported. No theorem assumes its own desired conclusion; no graph property is inferred from a picture or finite prevalence. Finite evidence supports, but does not replace, the uniform proofs in E.
+
+### I. Conceptual interpretation
+
+Integer square geometry fixes how much a prime label can change when its cofactor is reused. Prime parity converts that inequality into twin-prime adjacency; divisibility by three then excludes persistent three-root reuse. This arithmetic constraint survives the signed historical restoration, with a precisely located negative correction.
+
+The distinction between a cofactor and a physical occurrence matters twice: it prevents inventing duplicate fresh sites within a row, and it prevents falsely treating the global overlap graph as a disjoint collection of pairs. Genuine arithmetic supplies a useful restricted local incidence pattern, but not automatic signed cancellation of all interactions.
+
+### J. Competing hypotheses and protected coverage
+
+Retain: exact weighted/cofactor grouping before applying an existing estimate; genuine source masks; negative historical collision; an optional use of the classical prime-pair upper bound for the proper repeated-cofactor sector.
+
+Reject: adjacent disjointness; bipartiteness from no triple intersection; automatic common-cofactor sign reversal; diagonal-only control of the full packet; obtaining an improved native exponent merely by completing the monotone cofactor weight.
+
+Do not promote either rejection to a universal impossibility theorem. A complete joint consumer could use information not captured by these local tests.
+
+| Owned route | Actual continuity and present status |
+| --- | --- |
+| CORR4 | Today's earlier 20261107-wheel-1/DI1-DI5 preserved. Daughter-image support and mixed interactions remain paper-level; no global gain. Prior CP acceptance/compiled work remains separate. Not rerun. |
+| FINITE-AC | This actual invocation resumes 20261106-wheel-2/PB1-PB4, substitutes the native input, and adds LR1-LR5 plus FC1. Paper proof complete; independent review and formalization pending. |
+| MU-LIFT | Yesterday 20261106-wheel-3/GF2-GF4 and today's Census SC1-SC3 carried forward. Endpoint-disjoint matching is not signed-label capacity. Next protected turn is MU-LIFT, with the corrected capacity-safe two-band replacement, not an added duplicate credit. |
+
+The rolling actual sequence is yesterday MU-LIFT, today's CORR4, this FINITE-AC. No execution is inferred from a schedule, and no specialist is launched by this handoff.
+
+### K. Specialist handoffs
+
+- **Coordinator:** qualify LR1-LR4 as an actual admission/multiplicity result under CANCELLATION_CHAIN_REUSE_V1. Record no global budget improvement. Preserve the next MU-LIFT turn; do not make a fresh universal covariance theorem compulsory.
+- **Owner Payment:** inspect D3's unique historical collision and G1-G2's full return. The negative coefficient is tied to n=R+2 and cannot be reused as a freely allocable historical supply.
+- **Analytic Type II:** the precise optional inputs are D4 and D6 on this prime-band carrier. Test a named joint weighted consumer using G3 and the existing native prefix bound before requesting stronger arithmetic. Distinguish the \(O(R/\log^2R)\) repeated-cofactor count from the complete local signed square; no ideal-character identification is supplied.
+- **Prime Census:** independently check D1-D4 with integer endpoints, mu=0 cases and both mask transitions. The decisive regression cases are R=19,20,22,34; test the six physical triangle products and the exact negative history coefficient. Reproduce the attached payload before extending the range; a larger undirected wheel is not requested.
+- **Adversarial Referee:** review quantifiers h>=1 and R>=17, strict upper versus inclusive lower shell endpoints, adjacent interval dominance, the two-term support bound after historical restoration, and the limitation of D7. LR claims have only author self-audit so far.
+- **Lean Verification:** after mathematical qualification, the most compact substantive target is the general-lag restriction followed by the forbidden triple and the exact gap-two history collision. Preserve actual prime masks and the original-column bridge. Do not formalize D5 alone or add an unproved global cancellation premise merely to obtain a green endpoint wrapper. No new Lean execution or PR is requested as already completed.
+
+### L. First independently missing inference
+
+The exact missing step in the initial proposed improvement is now explicit: the native prefix estimate bounds (C2) through (C3), whose weight variation still counts every admitted prime. Adjacent reuse information does not eliminate that cost, and the complete finite-C consumer also retains V_R.
+
+For a continuation **of this particular local route**, the next useful mathematical question is whether the exact weight differences in a jointly reassembled packet, including its complementary columns, can be consumed with a smaller source-qualified cost than the current separate-prime bound. No such estimate is proved here. An estimate of only J, D, or a selected column is not sufficient. This is a proposed consumer improvement to investigate, not a new hypothesis fed into an endpoint theorem, not a claimed equivalent reformulation of RH, and not a compulsory task for the other protected routes.
+
+The independent uniform theorem actually established in this run is the forbidden-reuse and historical-incidence result. Its global quantitative sufficiency remains unresolved. No invocation is to repeat the same monotone-weight calculation or the triangle search as new work unless an assumption changes.
+
+### M. Continuity, evidence, and next-run resume capsule
+
+**Report continuity.** At reporting snapshot **d35a425d69fce8603bdac858afbd0617da6859b8**, all relevant November 6 and November 7 role reports were retrieved. Relevant summaries, derivations, corrections, verdicts and resume sections were read; unrelated executable appendices were not all rerun. All TODAY role reports are AVAILABLE; YESTERDAY=CARRY_FORWARD. The Coordinator AM/PM files have equal blobs and count as one source.
+
+| Role file | November 6 blob | November 7 intake blob |
+| --- | --- | --- |
+| 00-coordinator-am.md / 90-coordinator-pm.md | 8812a90540fb511279b5f4ce08e108ef717d5ef1 | 4a71edcce4c44a309640d36e9453d016e5b188a9 |
+| 10-owner-payment.md | 1856a96aaaa9d86a5ee2d59ffe50ced936443fa6 | 432fc87602f97318fdac212002b52ac29f12a0e0 |
+| 20-analytic-type-ii.md | 7997620b6ab7eb0701296994734ee910df3c3ba1 | 1315b3c9deba1148338d9023af349ee8a246dae7 |
+| 30-finite-wheel.md | 3099558194a00358962ff1844bf283e625b9283d | b943f16b0fedbcefa53545f8a7c77482e688399e |
+| 40-prime-census.md | c34ac074296e8b2e5b20dee3a2ce02518571206c | c9d78787ca4fca22f89bc9bcaf886e5ae74deda2 |
+| 50-adversarial-referee.md | da3265467c799e9d21832ab25245617ba3b15a54 | 787a9030cc6d6f8f63fa89cd3a99d7cf54e25ea5 |
+| 60-lean-verification.md | b8bfe3ce9c20d7903395364efb39bcec974c8a2f | 7df1e5d73bfe6cbbb2fa76d6380d7d456a938c11 |
+
+Consumed claim continuity: 20261107-coordinator-0710/PG1-PG5 and 20261106-coordinator-2309/CS1-CS5 preserve complete graph interactions and the short-filter limitation; 20261107-owner-1/SG1-SG5 and the owner-2 RS section preserve source-specific reserve and signed incidence qualifications; 20261107-analytic-1/GL1-GL5, 20261107-analytic-2/FT1 and its FT continuations, and the preceding AQ section preserve the accepted large-gcd sector and newer Nyman complete-tail paper estimate, without transferring it to FINITE-AC; 20261107-census-1/SC1-SC3 correct the earlier 20261106-wheel-3/GF2-GF4 allocation; Referee's GL1-GL4 ACCEPT_WITH_SCOPE is not an endorsement of this report; 20261107-lean-1/GL2-TAIL and the preceding FW3 records distinguish actual compiled source identities from new bounds.
+
+Important original counterexamples carried forward include Census's X=21754 signed-label capacity failure and X=22132 shortage, prior Nyman N=690,H=186 weighted sign failure, and today's CORR4 R=65 positive mixed interaction / R=70,90 multiple daughter labels. They concern their stated carriers and are not used as counterexamples to LR1-LR4.
+
+Upstream recorded verification receipts read include yesterday's Coordinator 2026-11-07T04:33:33Z, Owner 2026-11-06T21:33:49Z, Wheel 2026-11-06T23:29:09Z, and today's Wheel 07:43:16Z, Census 08:32:55Z, Referee 09:33:57Z, Lean 10:38:23Z, Coordinator 12:32:45Z, Owner 13:39:30Z and Analytic 14:28:28Z. These are upstream publication records, not a claim of independent reexecution or mathematical acceptance by this author.
+
+The external inbox blob **038018145c0fddb2f6306c0712373adf9cd1ea52** was read; latest entries remain October 18. EXT-20261018-PNT1-PNT3 and EXT-20261017-XCOORD1 retain actual-prime errors, historical terms, q=R and source-carrier distinctions. They provide no fresh estimate for this consumer; historical priorities do not supersede the November 7 instruction.
+
+**Source provenance at pinned main**
+
+| Path | Blob SHA / role |
+| --- | --- |
+| research/EULER_RANK_ONE_FRACTIONAL_ROWS_20261027.lean | e482711a3f55c1f59fc771f108671477f51732f2; original ordered kernel and rank-one restoration |
+| research/EULER_FRACTIONAL_COUPLED_20261027.lean | e6c4b1690e497760d366e36b28a1f7aa60e19f85; literal rational floor/fractional carrier |
+| research/EULER_SELF_DUAL_FINITE_C_BRIDGE_20261027.lean | e97561ef330a9996fd807d8910369f0698147b01; exact convolution bridge |
+| research/EULER_SELF_DUAL_ENDPOINT_GATE_20261027.lean | e7ee8f77ffd59bccaa49dd6d74fbe0d7952c2d73; Q endpoint and OPEN finite-C premise |
+| RHLean/Proof/SquareRootMertensEndpointAmplification.lean | 7793d7bfd842348facf62a7ad856bc802ffcd15c; exact conditional finite-A endpoint |
+| research/oai_434/VF919NativeStrictMertens.lean | b33a4883e1ddb0551b0f11f062bce46680d87450; existing native rational-Mertens and full signed-pair inputs |
+| research/oai_434/VF919ExplicitFixedSourceSlotCount.lean | bad5aab0a60e96d19e7c9550cd7c0a072288bc0f; explicit beta<=7/8-1/(288*slotCount) benchmark |
+| research/VF_CANONICAL_SQRT_TWO_VON_KOCH.lean | 79030d70e8d3e0d08eef9bac53fef95c36eca2fb; canonical target and explicit terminal hypotheses |
+| research/SQUARE_SHELL_INCIDENCE_COMPENSATION_LEAN.lean | 6f6fb9ef3e7bba68f4a1b015a90c96f61c120917; inherited high-owner cofactor spacing |
+| research/SQUARE_SHELL_TWO_PRIME_ORBIT_20261018.lean | 639cc98a1f8c2afc4053006996d52bc94cd3230d; inherited common-cofactor sign law, different strict carrier |
+| research/EULER_PRIME_COMB_FEEDBACK_FINITE_C.md | 87918ebb53f725d71eb2fd1eb583c47c21659b27; prior prime-comb/no-separated-mass evidence, not a compiled theorem |
+
+Other applicable instruction files were retrieved: stable selector f14ec929794bd5e3f7936514ca6965dfc0ac6a2b; seven-role prompts 8f13427a0523bf517da6ea0b7fe8d8834dfa3fd2; complete-return contract 4775ee5fd95f279beab08a75d1e17127078b19a6; persistent engine 6c1d1c10e2755017ffe9d7f40df8b9ae7692f23a; breadth policy 8317f08996b65f2e4b32c00c91b31cb6d0c09718; dynamic protocol 23b6fae1d3b6b5a69155628df709d255aea7aeca; independent multi-front policy ffd8f1c65cc4da656174956d4e03b48bea46768b; paid-baseline directive 13d58dd12d90fbf1160812c7c93442dc5d0576ac; multi-run policy 643cfd596116720a8e5b1efc07a6124b55d70946.
+
+**Formal and GitHub evidence.** The actual log for Euler audit run **42084042187**, job **127444267657**, was retrieved. At tested PR #1095 head **46e68178192c6e429a02abee9d5b8ebca5de46c8**, it records warning-fatal source compilation and exact coverage of eight Euler declarations, each using only propext, Classical.choice, Quot.sound; log PASS at 2026-11-05T18:28:30Z. The run metadata independently confirms that head and successful completion. This certifies its listed inherited Euler results, not LR1-LR5 or a finite-C premise. The audited EULER_FRACTIONAL_COUPLED and EULER_RANK_ONE_FRACTIONAL_ROWS modules were fetched at both the tested head and current main; both full contents and blob SHAs match. The native strict input is reused from the inspected main declarations and inherited repository evidence; no fresh native-chain build or global dependency recertification was performed.
+
+Live PR reads verify #1095, #1100, #1101 and #1102 are merged. #1101 merged at 15:04:22Z, followed by #1102 at 15:04:34Z; older upstream "open" descriptions are superseded. The only open PR discovered at intake was draft **#1103**. Its head advanced from **6cca79b69fd903805ec7c08c987bca4bacb835fa** to **06dde8d85985c86481680610b6c86c663be4e242** at the later read (updated_at 15:33:49Z); it remained draft/open/unmerged. Its retained-slot analytic propagation is separate active work, not a proved supplier for this report. No draft endpoint is imported.
+
+**Execution and publication limits.** No local Lean was run. No source, other report, shared policy, branch, PR, workflow, issue, schedule, permission, or merge action was performed; no other agent was launched. Direct terminal GitHub access failed with CONNECT 403, so the authorized GitHub connector was used. The early checkpoint was committed at **cf2cf1a46acedf35b0e896f530c909963eeb5834**, blob **3fef1fc69f12e851d9e54a7ef1a7793cd32bbe6a**, and its full immutable content was read back exactly. Commit scope lists only this authorized report, 19 additions and zero deletions.
+
+The prepublication branch refresh still returned that checkpoint, so no intervening upstream report was missed. Main remained unchanged. All tests have finished. Final mathematical status is PAPER_PROOF / SELF_AUDIT; independent acceptance and Lean formalization remain PENDING. Final publication is PENDING_READBACK until the receipt after the actual write.
+
+**Resume:** next protected route MU-LIFT; retain Census SC1-SC3 and the corrected signed capacities. On the next FINITE-AC turn, start from C3's explicit prime-multiplicity cost and G1-G3's complete return, not a new derivation of the same PB identities. LR1-LR4 are candidates for independent review, not already accepted facts. Do not repeat the R=34 triangle search or enlarge the unchanged census as novelty. Highest-value question: can an actual joint weighted consumer retain useful cancellation after its complementary columns are restored?
+
+### Reproducible Appendix
+
+The registration, exact executed scripts and main output follow. These are evidence embedded in this own report, not separate remote code changes. The small checker is algorithmically different but remains author self-audit.
+
+
+#### Frozen registration
+
+```text
+# Frozen FINITE-AC Test Registration
+
+Run: 20261107-wheel-2, scheduled 10:12 EST. This registration precedes the new computation. The initial cofactor-weight attempt is analyzed separately; no numerical power fitting is planned.
+
+Source: P_R = {p prime: 3R <= 4p, p < R}, R >= 17; A_R contains n for which R^2 <= p*n < (R+1)^2 for some p in P_R. F_R = sum_{n in A_R} mu(n); k_R = |P_R|; L_R = F_R - k_R*mu(R). A physical fresh occurrence is (R,p,n), not just n. No root, prime, zero coefficient, or historical mask is changed.
+
+- H1: For any shared n at R and R+h, unique labels satisfy 2 <= q-p <= 2h and the difference is even. Test h=1..12, including roots where the intersection is empty.
+- H2: Adjacent-root overlap is exactly the disjoint union over admitted twin primes p,p+2 of integers ceil(R^2/p) <= n <= floor((R^2+4R+3)/(p+2)); each interval has at most two integers. Test full integer and nonzero-Mobius support separately.
+- H3: A_R intersect A_(R+1) intersect A_(R+2) is empty. A cofactor has at most two nonzero entries in the three-row L incidence as well.
+- H4: The same-cofactor mixed term for L_R,L_(R+2) equals J_(R,R+2) - k_(R+2)*mu(R+2)^2*1_(R-1 prime); adjacent mixed terms equal J_(R,R+1). Check with independently grouped coefficient dictionaries.
+- H5: For every selected triple of rational weights, the grouped same-cofactor square is at most twice the ungrouped weighted diagonal. Retain the distinct-cofactor cross terms and verify the complete square independently.
+- Falsifiers: search for a legal nonzero adjacent overlap, an overlap-incidence triangle using three distinct cofactors, positive and negative complete adjacent fresh products, and a complete signed three-row square larger than its grouped diagonal. These would refute disjointness, automatic bipartite pairing, universal signs, or diagonal-only control, not H1-H5.
+- Source return: compare literal original historical floor columns to r_R+Z_R; verify all PB entry/exit terms, Q=C+V, and the full signed square. Include 317, 1027 and 2002 without extending an unchanged census for its own sake.
+
+Domain: fresh rows R=17..2048 plus enough forward rows for h<=12; independent cofactor-first enumeration through R=512 and at 1027/2002. Weight grid {-2,-1,0,1,2}^3 at R=17..96; additional held-out weights at 317/1027/2002. Literal historical double sums at R=17..48 and 317/1027/2002. All decisive comparisons use exact integers or rational arithmetic. Independent trial factorization checks the coefficient sieve and displayed witnesses. No finite result is promoted to an all-scale theorem.
+```
+
+#### Main exact verifier
+
+```python
+"""Exact arithmetic tests of the source-specific prime-band reuse interface."""
+
+from array import array
+from collections import defaultdict
+from fractions import Fraction
+from hashlib import sha256
+from itertools import product
+from math import gcd, isqrt
+import json
+
+
+def sieve(limit):
+    mu = array("b", [1]) * (limit + 1)
+    prime = bytearray(b"\x01") * (limit + 1)
+    mu[0] = 0
+    prime[0:2] = b"\x00\x00"
+    primes = []
+    for p in range(2, limit + 1):
+        if prime[p]:
+            primes.append(p)
+            for m in range(p, limit + 1, p):
+                mu[m] = -mu[m]
+                if m != p:
+                    prime[m] = 0
+            pp = p * p
+            for m in range(pp, limit + 1, pp):
+                mu[m] = 0
+    M = array("i", [0]) * (limit + 1)
+    running = 0
+    for n in range(1, limit + 1):
+        running += mu[n]
+        M[n] = running
+    return mu, M, prime, primes
+
+
+def trial_mu(n):
+    ans = 1
+    p = 2
+    while p * p <= n:
+        if n % p == 0:
+            n //= p
+            ans = -ans
+            if n % p == 0:
+                return 0
+        p += 1
+    return -ans if n > 1 else ans
+
+
+def main():
+    max_root = 2062
+    mu, M, prime, primes = sieve((max_root + 1) ** 2)
+    for n in range(1, 20001):
+        assert mu[n] == trial_mu(n)
+
+    rows, masks, F, K, L, Z, C = {}, {}, {}, {}, {}, {}, {}
+    row_count = site_count = 0
+    for R in range(17, max_root + 1):
+        ps = [p for p in range((3 * R + 3) // 4, R) if prime[p]]
+        masks[R] = ps
+        K[R] = len(ps)
+        row = {}
+        for p in ps:
+            lo = (R * R + p - 1) // p
+            hi = (R * R + 2 * R) // p
+            assert hi - lo + 1 in (2, 3)
+            for n in range(lo, hi + 1):
+                assert n not in row
+                assert R + 2 <= n < 2 * p
+                assert gcd(n, p) == 1
+                assert mu[p * n] == -mu[n]
+                row[n] = p
+            row_count += 1
+        assert len({p * n for n, p in row.items()}) == len(row)
+        rows[R] = row
+        site_count += len(row)
+        F[R] = sum(mu[n] for n in row)
+        L[R] = F[R] - K[R] * mu[R]
+        X = R * R - 1
+        Z[R] = sum(M[X // p] - M[R - 1] for p in ps)
+        C[R] = Z[R] + (R + 1) * sum((Fraction(1, p) for p in ps), Fraction(0)) - K[R]
+
+    reverse_count = 0
+    for R in list(range(17, 513)) + [1027, 2002]:
+        reverse = {}
+        for n in range(R + 1, (4 * R + 8) // 3 + 1):
+            for p in range((R * R + n - 1) // n, (R * R + 2 * R) // n + 1):
+                if prime[p] and 3 * R <= 4 * p < 4 * R:
+                    assert n not in reverse
+                    reverse[n] = p
+        assert reverse == rows[R]
+        reverse_count += 1
+
+    lag_cases = shared_lag_sites = 0
+    adjacent_intersections = twins_tested = 0
+    witnesses = {}
+    for R in range(17, 2049):
+        A, B, D = (rows[R + i] for i in range(3))
+        assert not (A.keys() & B.keys() & D.keys())
+        for h in range(1, 13):
+            S = R + h
+            for n in rows[R].keys() & rows[S].keys():
+                p, q = rows[R][n], rows[S][n]
+                assert 2 <= q - p <= 2 * h and (q - p) % 2 == 0
+                shared_lag_sites += 1
+            lag_cases += 1
+        predicted = {}
+        for p in masks[R]:
+            if p + 2 in masks[R + 1]:
+                lo = (R * R + p - 1) // p
+                hi = (R * R + 4 * R + 3) // (p + 2)
+                assert hi - lo + 1 <= 2
+                twins_tested += 1
+                for n in range(lo, hi + 1):
+                    assert n not in predicted
+                    predicted[n] = (p, p + 2)
+        actual = {n: (A[n], B[n]) for n in A.keys() & B.keys()}
+        assert actual == predicted
+        adjacent_intersections += len(actual)
+        nonzero = {n: labels for n, labels in actual.items() if mu[n]}
+        if nonzero and "adjacent" not in witnesses:
+            n = min(nonzero)
+            witnesses["adjacent"] = [R, n, *nonzero[n], mu[n]]
+        J01 = sum(mu[n] ** 2 for n in A.keys() & B.keys())
+        assert J01 <= 2 * sum(p + 2 in masks[R + 1] for p in masks[R])
+        if F[R] * F[R + 1] > 0 and "fresh_positive" not in witnesses:
+            witnesses["fresh_positive"] = [R, F[R], F[R + 1], J01]
+        if F[R] * F[R + 1] < 0 and "fresh_negative" not in witnesses:
+            witnesses["fresh_negative"] = [R, F[R], F[R + 1], J01]
+
+        coefs = []
+        for i in range(3):
+            vals = {n: 1 for n in rows[R + i]}
+            if K[R + i]:
+                vals[R + i] = -K[R + i]
+            coefs.append(vals)
+        for n in set().union(*(set(c) for c in coefs)):
+            assert sum(n in c for c in coefs) <= 2
+        for i, j in [(0, 1), (1, 2), (0, 2)]:
+            source = sum(mu[n] ** 2 * coefs[i].get(n, 0) * coefs[j].get(n, 0)
+                         for n in set(coefs[i]) | set(coefs[j]))
+            JJ = sum(mu[n] ** 2 for n in rows[R + i].keys() & rows[R + j].keys())
+            if (i, j) == (0, 2):
+                correction = K[R + 2] * mu[R + 2] ** 2 * int(prime[R - 1])
+                assert (R + 2 in A) == bool(prime[R - 1])
+                assert source == JJ - correction
+                if correction and "historical_credit" not in witnesses:
+                    witnesses["historical_credit"] = [R, R - 1, R + 2, K[R + 2], mu[R + 2], JJ, source]
+            else:
+                assert source == JJ
+        edges = {}
+        for i, j in [(0, 1), (1, 2), (0, 2)]:
+            common = [n for n in rows[R + i].keys() & rows[R + j].keys() if mu[n]]
+            if common:
+                n = min(common)
+                edges[f"{i}{j}"] = [n, rows[R + i][n], rows[R + j][n], mu[n]]
+        if len(edges) == 3 and "triangle" not in witnesses:
+            witnesses["triangle"] = {"R": R, "edges": edges}
+
+    weighted_cases = 0
+    for R in list(range(17, 97)) + [317, 1027, 2002]:
+        coefs = []
+        for i in range(3):
+            c = {n: 1 for n in rows[R + i]}
+            c[R + i] = -K[R + i]
+            coefs.append(c)
+        weights = list(product(range(-2, 3), repeat=3)) if R <= 96 else [
+            (1, 1, 1), (1, -2, 1), (Fraction(2, 3), Fraction(-3, 5), Fraction(7, 11))]
+        for theta in weights:
+            combined = defaultdict(Fraction)
+            rawdiag = Fraction(0)
+            for i, c in enumerate(coefs):
+                for n, v in c.items():
+                    combined[n] += theta[i] * v
+                    rawdiag += theta[i] ** 2 * v ** 2 * mu[n] ** 2
+            grouped = sum(mu[n] ** 2 * v ** 2 for n, v in combined.items())
+            assert grouped <= 2 * rawdiag
+            signed = sum(mu[n] * v for n, v in combined.items())
+            assert signed == sum(theta[i] * L[R + i] for i in range(3))
+            off = sum(2 * mu[n] * mu[m] * combined[n] * combined[m]
+                      for n in combined for m in combined if n < m)
+            assert signed ** 2 == grouped + off
+            if theta == (1, 1, 1) and signed ** 2 > grouped and "diagonal_not_full" not in witnesses:
+                witnesses["diagonal_not_full"] = [R, list(theta), signed, grouped, off, rawdiag]
+            weighted_cases += 1
+
+    literal_cases = boundary_cases = 0
+    for R in list(range(17, 49)) + [317, 1027, 2002]:
+        X = R * R - 1
+        row_values = {}
+        for b in range(1, R):
+            if mu[b]:
+                row_values[b] = sum(mu[a] * (X // (a * b)) for a in range(1, R) if mu[a])
+        direct_Q = sum(mu[b] * v for b, v in row_values.items())
+        assert direct_Q == 2 * M[R - 1] - M[X]
+        direct_C = sum(-row_values[p] for p in masks[R]) + (R + 1) * sum(
+            (Fraction(1, p) for p in masks[R]), Fraction(0))
+        assert direct_C == C[R]
+        reciprocal = sum((Fraction(mu[a], a) for a in range(1, R)), Fraction(0))
+        complement = (R + 1) * reciprocal + sum(
+            mu[b] * (v - Fraction(R + 1, b))
+            for b, v in row_values.items() if b not in masks[R])
+        assert direct_Q == direct_C + complement
+        assert direct_Q ** 2 == direct_C ** 2 + complement ** 2 + 2 * direct_C * complement
+        literal_cases += 1
+
+    for R in range(17, 2049):
+        exits = [p for p in masks[R] if p not in masks[R + 1]]
+        birth = int(prime[R]) * (mu[R + 1] + mu[R + 2])
+        exit_mass = sum(M[(R * R + 2 * R) // p] - M[R] for p in exits)
+        d = sum((Fraction(1, p) for p in masks[R]), Fraction(0))
+        delta_r = d + Fraction(2 * int(prime[R]), R) - sum(
+            (Fraction(R + 2, p) - 1 for p in exits), Fraction(0))
+        e = birth - exit_mass + delta_r
+        assert C[R + 1] - C[R] == L[R] + e
+        q0 = 2 * M[R - 1] - M[R * R - 1]
+        q1 = 2 * M[R] - M[R * R + 2 * R]
+        v0, v1 = q0 - C[R], q1 - C[R + 1]
+        shell = M[R * R + 2 * R] - M[R * R - 1]
+        assert shell == 2 * mu[R] - (L[R] + e + v1 - v0)
+        boundary_cases += 1
+
+    def exact_json(x):
+        if isinstance(x, Fraction):
+            return str(x)
+        raise TypeError(type(x))
+
+    result = {
+        "counts": {"coefficient_checks": 20000, "fresh_roots": len(rows),
+                   "prime_rows": row_count, "fresh_sites": site_count,
+                   "reverse_rows": reverse_count, "lag_cases": lag_cases,
+                   "shared_lag_sites": shared_lag_sites, "adjacent_sites": adjacent_intersections,
+                   "twin_intervals": twins_tested, "weighted_cases": weighted_cases,
+                   "literal_sources": literal_cases, "complete_boundaries": boundary_cases},
+        "witnesses": witnesses,
+    }
+    assert len(witnesses) == 6, witnesses
+    payload = json.dumps(result, sort_keys=True, default=exact_json)
+    print(payload)
+    print("PAYLOAD_SHA256", sha256(payload.encode()).hexdigest())
+    print("PASS: source-exact reuse restrictions, all weighted cross terms and complete return")
+
+
+if __name__ == "__main__":
+    main()
+```
+
+#### Main output
+
+```text
+{"counts": {"adjacent_sites": 25072, "coefficient_checks": 20000, "complete_boundaries": 2032, "fresh_roots": 2046, "fresh_sites": 172822, "lag_cases": 24384, "literal_sources": 35, "prime_rows": 74990, "reverse_rows": 498, "shared_lag_sites": 453663, "twin_intervals": 12978, "weighted_cases": 10009}, "witnesses": {"adjacent": [19, 22, 17, 19, 1], "diagonal_not_full": [20, [1, 1, 1], "-5", "13", "12", "15"], "fresh_negative": [17, -1, 1, 0], "fresh_positive": [22, -2, -2, 2], "historical_credit": [20, 19, 22, 2, 1, 0, -2], "triangle": {"R": 34, "edges": {"01": [41, 29, 31, -1], "02": [42, 29, 31, -1], "12": [43, 29, 31, -1]}}}}
+PAYLOAD_SHA256 f5f1c19cde3e18df19b1a46584294e776fcccb7f35fd61d681f4bde7fd951030
+PASS: source-exact reuse restrictions, all weighted cross terms and complete return
+```
+
+#### Product-first cross-check
+
+```python
+"""Small product-first trial-division audit, independent of the main sieve."""
+
+from fractions import Fraction
+from math import isqrt
+
+
+def prime(n):
+    return n >= 2 and all(n % d for d in range(2, isqrt(n) + 1))
+
+
+def mu(n):
+    parity = 1
+    for p in range(2, n + 1):
+        if n % p == 0:
+            n //= p
+            parity = -parity
+            if n % p == 0:
+                return 0
+        if n == 1:
+            return parity
+    return parity
+
+
+def row(R):
+    ps = [p for p in range(2, R) if 3 * R <= 4 * p and prime(p)]
+    sites = {}
+    for physical in range(R * R, (R + 1) ** 2):
+        labels = [p for p in ps if physical % p == 0]
+        assert len(labels) <= 1
+        for p in labels:
+            n = physical // p
+            assert n not in sites
+            sites[n] = p
+    return ps, sites
+
+
+rows = {R: row(R) for R in range(17, 99)}
+for R in range(17, 97):
+    ps, A = rows[R]
+    B, C = rows[R + 1][1], rows[R + 2][1]
+    assert not (A.keys() & B.keys() & C.keys())
+    assert all(B[n] == A[n] + 2 for n in A.keys() & B.keys())
+    assert (R + 2 in A) == prime(R - 1)
+    X = R * R - 1
+    top = max([X // p for p in ps], default=R - 1)
+    M = [0]
+    for n in range(1, top + 1):
+        M.append(M[-1] + mu(n))
+    w = {n: sum(p * n <= X for p in ps) for n in range(R, top + 1)}
+    z = sum(M[X // p] - M[R - 1] for p in ps)
+    assert z == sum(mu(n) * v for n, v in w.items())
+    assert z == sum(M[n] * (w.get(n, 0) - w.get(n + 1, 0))
+                    for n in range(1, top + 1))
+    coefs = []
+    for S in range(R, R + 3):
+        pp, aa = rows[S]
+        c = {n: 1 for n in aa}
+        c[S] = -len(pp)
+        coefs.append(c)
+    for theta in [(1, 1, 1), (1, -2, 1), (Fraction(2, 3), Fraction(-3, 5), Fraction(7, 11))]:
+        top = max(set().union(*(set(c) for c in coefs)))
+        W = {n: sum(theta[i] * coefs[i].get(n, 0) for i in range(3))
+             for n in range(1, top + 2)}
+        running = signed = abel = 0
+        for n in range(1, top + 1):
+            running += mu(n)
+            signed += mu(n) * W[n]
+            abel += running * (W[n] - W[n + 1])
+        assert signed == abel
+
+assert rows[19][1][22] == 17 and rows[20][1][22] == 19 and mu(22) == 1
+for R, n, p in [(34, 41, 29), (35, 41, 31), (34, 42, 29),
+                (36, 42, 31), (35, 43, 29), (36, 43, 31)]:
+    assert rows[R][1][n] == p and mu(n) == -1
+for R in [17, 18, 20, 21, 22, 23, 34, 35, 36]:
+    ps, A = rows[R]
+    F = sum(mu(n) for n in A)
+    print(R, "P=", ps, "A=", sorted(A.items()), "F=", F,
+          "history=", len(ps) * mu(R), "L=", F - len(ps) * mu(R))
+print("PASS: 80 product-first rows, 240 rational Abel consumers, all displayed overlap witnesses")
+```
