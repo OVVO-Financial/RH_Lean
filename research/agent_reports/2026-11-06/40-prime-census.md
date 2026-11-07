@@ -2894,3 +2894,28 @@ fixture is additional and is not part of that table. These counts were
 checked directly from the deterministic row file after publication.
 The all-scale claims rely on the displayed paper proofs, not on treating
 empty packet cases as substantive asymptotic evidence.
+
+
+## Scheduled NYMAN Checkpoint - 20261106-census-3
+
+Actual trigger: SCHEDULED 2026-11-06T19:00:01-05:00, America/New_York; RUN_ID_UNAVAILABLE. This is a third actual Census invocation, preserving the morning and midday histories. Status: PARTIAL / IN_PROGRESS. No new numerical result is asserted at this checkpoint.
+
+Latest observed main: d4df133117c5b58f90979d2eb680167ef37995cf; intake reports head: 887aa0ff071229d5c6dc372fc2a6b822bf46a74a. Canonical VFCanonicalSquareVonKochStatement remains OPEN. AGENTS blob 48b2a58ab5fcd402321a4dace511c7d54bf688a1; contract blob 7c4ac83a1ec1a4144e1bd691391ed4244f1cc27c. baseline_ack=PAID_BASELINE_EXACT_CONSUMER_V1, policy blob 13d58dd12d90fbf1160812c7c93442dc5d0576ac; deployment_ack=NO_PIGEONHOLING_ROUTE_SELECTOR_V1. Existing native 7/8 and stronger strict-gap consequences are paid inputs, not new gains or missing reconstructions.
+
+Selected independent route: NYMAN-FINITE-WINDOW-SIGNED-RETURN. Consume Coordinator 20261106-coordinator-1513/NS1-NS5, Analytic 20261106-analytic-2/RM1-RM6 and Referee 20261106-referee-7 through -11. Relevant same-day and preceding-day reports for all seven roles and the unchanged external inbox have been retrieved. All roles have a committed report today; no missing report is represented as a successful future execution. No open/draft PR was returned; #1099 is now merged. Current exact source blobs: NYMAN_HIGH_COEFFICIENT_INVARIANT_20261104.lean 2da630c1d5fb9302e2097ec1e170cf41c2b40609; NYMAN_FLAT_TAPER_RETURN_20261104.lean 2d23721027ecc44e85b7add02fc632b482f03352; NYMAN_MOMENT_NULL_OBSTRUCTION_20261106.lean 301d7286fc2151b5d33bdca9762a6a01c496ff87. No local Lean execution is permitted or planned.
+
+### Preregistered Discriminator
+
+For N=6K, H=floor(N^(4/5)) computed by integer fifth-root inequalities, 2<=H<=N/2, use every integer m in W_N=[K,3K). Let a_k=mu(k)log(H/k), f_k(m)=(m mod k)/k-(k-1)/(2k), S(m)=sum_(k<=H)a_k f_k(m), and mean_H=sum a_k(k-1)/(2k). The primitive reduced-denominator projector is
+
+    P_d(m)=sum_(e|d) mu(d/e)*(e/d)*f_e(m).
+
+The singleton band is L(m)=sum_(H/2<d<=H)mu(d)log(H/d)P_d(m); B(m)=S(m)-L(m). Retain Q(m)=m-psi(m)-log H-mean_H and the COMPLETE pre-correction numerator R(m)=Q(m)-L(m)-B(m). psi includes every prime power. The original energy is sum R(m)^2/[m(m+1)log(N/H)^2]. Also compute unweighted versions to distinguish normalization effects.
+
+H-SPECTRAL: sum_W w(m)L(m)B(m)<=0 for every eligible N. Rival: finite-window phases allow either sign even though the two groups are orthogonal over complete periods.
+
+H-PRIME: sum_W w(m)Q(m)S(m)>=0 for every eligible N. Rival: a favorable coefficient budget does not imply compensation with the actual prime residual. Test each with both w=1 and w=1/[m(m+1)]; a certified wrong sign refutes exactly that sign assertion, not a Nyman/RH theorem.
+
+Development domain fixed before execution: all eligible multiples of six from 24 through 1536. Held-out N: 3072,6144,7776,8190,12288,24576,49152. Separate head cells m<=H from post-head cells; the late fixtures have H<K. Rank extremes without fitting an asymptotic exponent. Restore all six terms Q^2+L^2+B^2-2QL-2QB+2LB before interpreting energy. Check the full original residue family and all return terms on small anchors N=6,12,18,24 and H in {2,3,N/2}, with 1<=m<=3N, not only before correction admission. Complete-period orthogonality will be checked only on small exact periods, not used as a finite-window lower bound.
+
+Implement a direct-modulo reference and a separately structured divisor-jump reconstruction; certify decision signs with outward enclosures or explicit rational log bounds, keeping floating diagnostics labeled. For important witnesses preserve source coefficients, endpoints and a standalone certificate. If the two reconstructions disagree, stop scaling and localize the first discrepancy. No conjectured universal sign or endpoint gain is assumed.
