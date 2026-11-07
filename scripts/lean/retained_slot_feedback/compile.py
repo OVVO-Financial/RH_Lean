@@ -34,6 +34,13 @@ with (root/'retained-slot-analytic.log').open('w') as log:
     say(json.dumps({'compiled':compiled,'failed_or_blocked':sorted(failed),'blocked':skipped},indent=2))
 if failed:raise SystemExit('Incomplete proof graph: '+str(len(failed))+' failed or blocked modules')
 text=(root/'retained-slot-analytic.log').read_text()
+record_marker='structure OAI.SevenEighths.RetainedSlotCutoffMoments.MomentsTwoError'
+source_marker='def OAI.SevenEighths.RetainedSlotCutoffMoments.SourceMomentsAtCutoff'
+if text.count(record_marker)!=1 or text.count(source_marker)!=1:
+    raise SystemExit('Missing exact two-error record/source type output')
+record=text.split(record_marker,1)[1].split(source_marker,1)[0]
+if re.search(r'\{(?:logProfile|positiveAnnular)\s*:',record):
+    raise SystemExit('Original profile constants became implicit record hypotheses')
 checks=re.findall(r"'([^']+)' depends on axioms: \[([^\]]*)\]",text)
 allowed={'propext','Classical.choice','Quot.sound'}
 for target in [

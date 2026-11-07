@@ -24,6 +24,8 @@ if '1+D.t/2' not in sig or 'F.physicalProduct selected u' not in sig:raise Syste
 cutoff=(base/'CutoffMoments.lean').read_text()
 if cutoff!=(root/'scripts/lean/retained_slot_feedback/CutoffMoments.lean').read_text():
     raise SystemExit('Generated cutoff module differs from its reviewed Lean source')
+if 'set_option autoImplicit false' not in cutoff:
+    raise SystemExit('Cutoff interface must reject undeclared implicit profile variables')
 record=cutoff[cutoff.index('structure MomentsTwoError '):cutoff.index('theorem inverse_marked_count_two_error ')]
 plain=record[record.index('  plain_marked :'):record.index('  plain_unmarked :')]
 if '(1+\u03b5plain)' not in plain or '6*kappa' not in plain:

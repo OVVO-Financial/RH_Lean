@@ -7,6 +7,8 @@ import OAI.NumberTheory.DirichletL.Detector.DetectorPlainMarkedFineField
 import OAI.NumberTheory.DirichletL.Detector.DetectorPlainUnmarkedRestrictedField
 import OAI.NumberTheory.DirichletL.Energy.CappedWidthInduction
 
+set_option autoImplicit false
+
 namespace OAI
 
 noncomputable section
@@ -25,6 +27,7 @@ open ProbeDetectorPlainUnmarkedField
 local notation "O"=>HeckeFamily.O
 
 open HeckeDetectorCoefficientTransfer HeckeDetectorSupportedWitness
+open HeckeDetectorRowwisePolynomial HeckeDetectorDyadicProfiles
 open HeckeDetectorInverseFiberCount HeckeDetectorPlainFiberCount
 open HeckeDetectorNoSlotPlainCount
 open Set
