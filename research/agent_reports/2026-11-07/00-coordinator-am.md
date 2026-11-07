@@ -719,3 +719,559 @@ Observed main `cae99df1c3ea24ff4113063bf09f6fd07517ad93`, including human-merged
 ### C-J. Pending work
 
 Independent derivation, quantitative return budget, portfolio decisions, six role-specific handoffs, formal evidence and final readback remain IN_PROGRESS. No new exponent, RH proof or formal theorem is asserted. Writes are confined to these two owned report mirrors; no agents are launched and no schedule or proof branch is changed.
+
+---
+
+# 2026-11-07 15:13 EST invocation: pay the reflected shortfall with complementary tuple mass
+
+## A. What changed mathematically?
+
+**The hard smallest-slot gate can be replaced at the scalar reflected-exponent level by a sharp positive-part cost. The already-proved moving mass of the ORIGINAL unselected tuples pays that cost after the square root, provided the cost survives the source reconstruction only once.** This gives a concrete new consumer mechanism, rather than a request for stronger cancellation or another slot-denominator optimization.
+
+The new elementary results below are RG1 (soft reflected bound), RG2 (sharp counterexample to deleting the gate for free), and RG3 (complementary-length absorption). They are PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED. The moving arithmetic mass theorem is an existing PROVED_IN_LEAN input, not a discovery of this run. RG4 is the precise source-level extension still requiring independent proof review and implementation. RG5 is a CONDITIONAL complete-return budget, not a newly established Mertens theorem.
+
+If RG4 and its specified downstream consumption are validated, the existing HIGH reserve would permit tilt m/4 on the same physical slot family whose certified baseline is 7/8-m/24, where m is its true minimum slot length. The candidate boundary would be 7/8-m/4, an additional 5m/24. No new all-selected outer cancellation is used: the all-selected term has zero shortfall and its outer mass remains exactly one.
+
+**Decision:** prioritize an independent source-level attack on RG4, while retaining the live marked-half-error/generalized-kappa priority and independent investigator rotation. Do not queue an endpoint wrapper that merely assumes RG4. Do not call this VERIFIED_ETA.
+
+Execution identifier: 20261107-coordinator-1513. Trigger SCHEDULED at 2026-11-07T15:13:01-05:00, America/New_York; platform RUN_ID_UNAVAILABLE. This is a continuation of that actual invocation, not a new launch. Early checkpoint b94f9d23b0a19599a22b2d95317db99cdd29ed6c was published and both mirror blobs 300ac903a5017578318235ba32bce17760c20064 were read back. Research status: completed investigation with open source integration. Publication status for THIS synthesis: READBACK_PENDING until the receipt appended after successful publication.
+
+## B. Current proof objective and authority
+
+Main was freshly fetched at intake and rechecked at 20:29 UTC: cae99df1c3ea24ff4113063bf09f6fd07517ad93, human merge of #1105 at 2026-11-07T19:40:47Z. AGENTS blob 0a99faf8458809ac772d470d704c5433f373bda8; CURRENT_PROOF_CONTRACT blob d1d6fd558ee23927bd9f70ffdc375bafd1dbb67a. Both actual files, applicable directives, original declarations, and current PR evidence were inspected.
+
+high_attack_ack=COMPLETE_SIGNED_HIGH_ATTACK_V1, policy blob be8168b67584d9d8ebbaa732a30c51509137543e.
+chain_ack=CANCELLATION_CHAIN_REUSE_V1, policy blob 28e2ab47c68bc83b91ae02b6112b94867b021b32.
+baseline_ack=PAID_BASELINE_EXACT_CONSUMER_V1, blob 13d58dd12d90fbf1160812c7c93442dc5d0576ac.
+deployment_ack=NO_PIGEONHOLING_ROUTE_SELECTOR_V1, current blob 6ff6eb30b91705af5478d3705849234260f8a7a3.
+eta_gate=SEARCH_BROAD; NEW_VERIFIED_ENDPOINT_GAIN=NONE.
+
+The canonical theorem remains VFCanonicalSquareVonKochStatement: there exists C>=0 such that for every natural R>=2,
+
+~~~text
+|pi(R^2)-vfMidFinishedMass(R)-sqrt(2)| <= C R log R.
+~~~
+
+The inspected source research/VF_CANONICAL_SQRT_TWO_VON_KOCH.lean, blob 79030d70e8d3e0d08eef9bac53fef95c36eca2fb, still has an explicit ClassicalVonKochRHCriterion and the actual arithmetic bound as premises of its RH consumer. The canonical objective remains OPEN.
+
+The new governing intermediate objective uses fixed Lambda>=0, X_R=R^2-1, L_R=canonicalLowPrefix Lambda (R-1), H_R=canonicalHighPrefix Lambda (R-1). The exact identity M(X_R)=L_R+H_R and |L_R|<=(floor(Lambda)+1)R are paid. The desired new complete HIGH bound is, for some fixed eta_gain>0, every eps>0 and all R>=2,
+
+~~~text
+|H_R| <= C_eps R^(2*b_base-2*eta_gain+eps).
+~~~
+
+Canonical LOW is not the OAI reflected LOW considered here. No shell-increment bound is substituted for a prefix bound; no h=1 case, coherent mean, six-term ancestry Gram, conductor-one correction, or unfinished-block contribution is deleted. The all-prefix Mertens transfer includes the at-most 2R+1 unfinished square-block terms.
+
+For this OAI source path the strongest applicable explicit source-calibrated comparator is native_beta_le_true_physical_slot_minimum and native_mertens_true_physical_slot_minimum in VF919ActualSlotMinRetighten.lean, blob 138c4726085995b966204406805f70082402bec4. Let D be a fine actual HighData(1/1000000) source, m=actualSlotMinimum D>0, and
+
+~~~text
+E = slotCalibratedHighDataLowFirst (sourceWithExactSlotMinimum D).
+b_base = 7/8-m/24.
+~~~
+
+This calibration retains the same physical slot list, t, e, and actual coefficients. It adjusts certificates and the permitted eps/sigma allowances, not the arithmetic population. The published existential baseline fixes its source before characters, zeros, and positive losses. It supplies an every-positive-loss Mertens boundary, not a zero-loss fixed power at that boundary. Comparing instead with nominal 7/8, or replacing this m by a more conservative explicit denominator, would overstate the new budget.
+
+Compact HIGH task record: selected_route=OAI-NNS retained tuple/rescaling hybrid; exact object=F.tiltedProbe on the original compensated physical source; existing suppliers=reflected source inequalities, exact compensation Gram, moving unselected mass, anchored HIGH, native source moments; changed step=replace the hard admission gate by a quantified shortfall and retain its complementary mass through the sum; first unpaid source theorem=RG4 below; endpoint budget=RG5 conditional only.
+
+## C. Competing mechanism portfolio
+
+| Priority and concept | Independent input and exact target route | First missing step, support, obstruction, decisive test | Specialist and disposition |
+| --- | --- | --- | --- |
+| 1. Reuse cancellation through the actual weighted OAI consumer | RG1 plus the compiled inverse-square tuple tail; alternatively the already-paid marked 1+t/2 supplier and licensed kappa capacity. Each must feed the same complete LOW/HIGH/principal probe, then actual Hecke beta and Mertens. | RG4 must carry one shortfall through all original reflection layers. RG2 shows free gate deletion is false. The separate MH2/MH3 combined-count return is still missing despite MH1 being merged. Decisive test: either find the first extra power/mask failure in RG4 or prove its exact full signature. | Referee audits RG4; Analytic's next OAI turn advances the marked-count return. CONTINUE as two distinct consumer improvements, not two alleged independent global mechanisms. |
+| 2. Genuine prime-response restrictions from chronology or a joint clock law | Actual-prime demand, persistent reserves, and signed responses, using the strongest transferred Mertens input only where its proof applies; return through the real VF/SAT/JOH identity. | Owner RS pays one sampled reserve rectangle, not its full complement and mixed terms. The prime-poor interval supply and the complete JOH joint return remain open. PG forbids a coefficient-blind graph shortcut, not arithmetic concentration control. Decisive test: identify the exact complete signed clock covariance required by the next JOH consumer and compare its exponent with b_base. | Owner next JOH. CONTINUE; reject another isolated-variance claim as a global gain. |
+| 3. Capacity-correct cross-label transport / genuinely signed MU-LIFT recurrence | Simultaneous occurrence-preserving signed capacities, then a complete subcritical recurrence with all leftover and chain-cover terms. | GF defeats label-preserving absolute payment; SC defeats edge-disjoint-only additivity. A growing-band signed capacity theorem is not supplied by a two-band example. Decisive test: an exact min-cut or augmenting obstruction for the smallest expanding family, retaining both label capacities and residual. | Wheel next MU-LIFT. CONTINUE at a falsifiable structural scope. |
+
+NYMAN, CODIV, FINITE-AC and CORR4 remain protected workspaces, not discarded routes. FT is a genuine full-tail paper estimate for one NYMAN coefficient family, but is not an improved Mertens exponent. A new full residual supplier or changed coefficient family remains eligible. No unrelated route must prove RG4 or a Hecke identification.
+
+Verified rolling coverage from actual report sections:
+
+| Investigator | November 6 substantive turns | November 7 substantive turns read | Next distinct route |
+| --- | --- | --- | --- |
+| Owner | SAT BT/RZ; VF-LOW DR; JOH MS | 00:09 SAT SG; 08:09 VF-LOW RS | JOH |
+| Analytic | CODIV FP; NYMAN RM; OAI-NNS AQ | 01:04 CODIV GL; 09:09 NYMAN FT | OAI-NNS |
+| Wheel | CORR4 CP; FINITE-AC PB; MU-LIFT GF | 02:05 CORR4 DI; 10:12 FINITE-AC LR | MU-LIFT |
+
+All nine routes remain protected. A support review does not reset the investigator's rolling coverage. No additional execution or agent launch is requested or represented as having happened.
+
+## D. Conceptual research performed
+
+### D1. RG1: a sharp soft replacement for the scalar gate
+
+Use the EXACT definitions in original OAI Inversion/TerminalWidths.lean:
+
+~~~text
+u(v,z) = min(v, z, (v+z)/3),
+T = 2H+2A+2z-1-l0-theta-N-3B,
+Eref = O/2+max(H,v+l)-S0-B+z-u(v,z)-l-2e/3
+       -max(0,T-v-3l-e)/2.
+~~~
+
+All symbols in the following theorem are real. Suppose
+
+~~~text
+S+L<=1, L<=1/3, d>=0, h>=0, O>=0,
+H<=S-2d-O+h, 2A<=O+3h, 0<=N<=A, S0>=0, B>=0,
+l0<=L-d+h, z<=l0+h, v>=0, l>=0, e>=-h, |theta|<=h,
+v+3l+e<=T+2h.
+~~~
+
+Then, WITHOUT the old disjunction u(v,z)=z or 1+4L-2S<=l0,
+
+~~~text
+Eref <= S-2d+(38/3)h + max(0,1+4L-2S-l0)/4.       (RG1)
+~~~
+
+Proof. The hypotheses give T<=H-3d+8h and v+l<=H+11h. If u=z, substitute into Eref; the nonnegative kernel, l,S0,B and the lower bound e>=-h give Eref<=S-2d+(38/3)h.
+
+Otherwise the exact hybrid minimum satisfies u>=v/2. Put K=max(0,T-v-3l-e). The elementary retained-kernel inequality
+
+~~~text
+T/4 <= (v+3l+e)/4 + K/2
+~~~
+
+gives T/4-5h/12<=u+l+2e/3+K/2. If v+l<=H, substitution therefore gives
+
+~~~text
+Eref <= O/2+H-S0-B+z-T/4+5h/12
+     <= S-2d+(1+4L-2S-l0)/4+8h/3.
+~~~
+
+For the second inequality, expand T, use N<=A, A>=0, H<=S-2d-O+h, z<=l0+h, theta<=h, and finally l0<=L-d+h. Replace the signed deficit by its positive part and enlarge 8h/3 to 38h/3.
+
+If H<=v+l instead, substitution, u>=v/2 and the retained inequality give
+
+~~~text
+Eref <= S-2d-1/2+3L/2-3d/2+26h/3
+     <= S-2d+38h/3.
+~~~
+
+The last implication uses L<=1/3 and d,h>=0. This covers both max branches and all cases of the actual hybrid minimum. The argument is a direct extension of reflected_exponent_finite_slot_gap, not an invocation of that theorem without its hypothesis. Its proof's sole use of the hard gate is exactly the row-case deficit disposal.
+
+Status: PAPER_PROOF, complete elementary argument, independent review pending. It introduces a quantitative inequality on the existing scalar carrier; it neither defines the desired endpoint into a norm nor assumes a new cancellation statement.
+
+### D2. RG2: simply deleting the gate is false; the coefficient 1/4 is sharp
+
+For any real 0<g<=1/6 choose
+
+~~~text
+L=1/6, S=5/6-g/2, l0=z=g/5, d=1/6-g/5,
+H=1/2-g/10, O=A=N=S0=B=v=l=e=theta=h=0.
+~~~
+
+Every RG1 hypothesis holds, T=0, H=S-2d, and u=0. Hence
+
+~~~text
+Eref-(S-2d) = g/5 > 0,
+(1+4L-2S-l0)/4 = (g-g/5)/4 = g/5.
+~~~
+
+Thus the scalar assertion with no gate and no cost is REFUTED, even with exact complementary lengths l0+d=L and S in [3/4,5/6]. No universal coefficient smaller than 1/4 multiplying that positive part can repair this scalar assertion. This is a theorem about the specified scalar relaxation; it does NOT claim these witnesses are realized by actual ideals, characters, or HighData. It does not refute the proposed mass-weighted arithmetic estimate.
+
+The family was discovered by a six-linear-branch optimization and then proved and checked with exact rational arithmetic. The displayed proof, not floating-point solver output, establishes the counterexample.
+
+### D3. RG3: complementary slot length pays the shortfall
+
+Original J means UNSELECTED slots. For a fixed finite actual source define
+
+~~~text
+d_J = sum_(i in J) ell_i,
+s_J = sum_(i not in J) ell_i,
+s_J+d_J = 1/6 = L,
+g = 5/3-2*Sphys.
+~~~
+
+The equality uses the actual slots_sum, not merely the weaker assumption sum ell_i<=1/6.
+
+For every L>=0, 0<=g<=L, 0<rho<1, define on 0<=s<=L
+
+~~~text
+Phi(s) = max(0,g-s)/8 - (1-rho)(L-s).
+~~~
+
+This piecewise-linear convex function has maximum
+
+~~~text
+max_(0<=s<=L) Phi(s) = max(0,g/8-(1-rho)L).
+~~~
+
+Indeed its only possible maximizing endpoints are 0 and L; the interior breakpoint s=g has value -(1-rho)(L-g)<=0. Consequently Phi<=0 whenever rho<=7/8. In particular rho=1/2 is a fixed, valid choice independent of the source scale and all selected subsets. This is a complete PAPER_PROOF, not an asymptotic fit.
+
+The arithmetic supplier is the ALREADY COMPILED lowUnselectedMass_moving_power_bound. For every fixed 0<rho<1 it supplies C_rho>0, uniformly over finite prime-ideal slot sets T_i supported in the original population, lower norm bounds Norm(P)>=a Z^ell_i with a,Z>0, all subsets J and windows ||W_i||<=B, B>=0:
+
+~~~text
+sum_u ||lowUnselectedWeight(u)|| * L_u^(-1/2)
+ <= (C_rho B a^(rho-1))^|J| * Z^((rho-1)d_J),
+L_u = elementNorm(product_(i in J) u_i).
+~~~
+
+The exact norm identity turns its integrand into a product of inverse-square ideal norms times the ORIGINAL window magnitudes. No random-sign, prime-density, or character-independence hypothesis is added. With B=1 and fixed K, replace the finite constants by max(1,C_rho a^(rho-1))^K uniformly over all J, not by a Z-dependent constant.
+
+Why this is not double payment: the inverse normalization uses Q=q Z^Sphys/L_u^2; taking its square root and the already-used upper bound L_u<=C Z^d_J cancels the -2d_J row exponent. The separate Gram factor still contributes L_u^(-1/2). The old proof subsequently bounded exactly sum ||weight|| L_u^(-1/2) by a constant. RG3 retains the unused moving decay at THAT final mass step. It does not reuse the canceled normalization credit.
+
+The soft energy price is max(0,g-s_J)/4; after the required square root it is max(0,g-s_J)/8. Their sum with the moving-mass exponent is precisely Phi(s_J). If J is empty, s_J=L and the price is zero, while the outer mass is exactly one. No outer off-diagonal saving is asserted. If J is all slots, the moving mass is largest in decay and pays even the deliberately overestimated soft price.
+
+Negative controls: g=1/5>L, s=L, rho=1/2 gives Phi=1/240>0. With g=L, s=L/2 and rho=9/10, Phi=1/480>0. Thus the hypotheses matter. Under the actual conserved length and rho<=7/8, positive budget excess would force g>L or a failure of the claimed source-to-budget mapping; this is a useful inverse diagnostic, not an assertion that an arithmetic failure has been ruled out.
+
+### D4. RG4: exact source extension and proof audit, still the first unpaid theorem
+
+The proposed source theorem has the FULL signature and every original ideal, selected-type, row, mask, cutoff, weight, support, and normalizer hypothesis of low_original_completed_energy_tilted in VF919TiltedLowReflection.lean, EXCEPT that its disjunction
+
+~~~text
+IsEmpty selected_type OR 5/3-2*Sphys<=l0
+~~~
+
+is removed and its final RHS is multiplied by
+
+~~~text
+Z^P, where P=max(0,5/3-2*Sphys-l0)/4.
+~~~
+
+In particular Sphys is fixed in [1/2,5/6], 0<h<=1, all fixed shape/source data precede the existential degree,C,Z0, and the latter must remain uniform over the original moving finite carriers, Z>=Z0, 0<=d<=1/6, 0<=l0<=1/6-d+h, |shift|<=h, and the actual completed row family. The RHS is C(1+||theta||)^degree Z^(Sphys-2d+507h+P). This is an exact modification of a pinned signature, not a claim about arbitrary unmasked vectors.
+
+The audit located the following complete propagation obligations:
+
+| Original stages | Required propagation and audit observation |
+| --- | --- |
+| surviving_low_exponent_finite_slot_gap, surviving branch energy, literal sector energy | Apply RG1 on the same widths and T. The actual literal ENERGY exponent contains Eref once, not twice. All surviving branches share Sphys,l0, so Z^P factors out of the existing positive sum. |
+| retained dyads and retained budget | Existing weighted finite-row-energy and cardinality factors multiply a common energy bound. Carry one factor Z^P without changing their counts or spending it as a small error. |
+| full sector and tail budget | Retained main bound acquires Z^P. The separately proved tail bound stays unchanged and is dominated by the enlarged RHS because Z>1 and P>=0. The original negative-saving admission is not relaxed without justification. |
+| global cusp/member geometry and fixed member | Preserve the original ideals, reference completion, coprimality, masks and polynomial heights. Sphys<=5/6 still licenses old crude scale bounds. No change to row/column cap exponents is proposed. |
+| dyadic choice and inactive slots | The inactive subset T keeps the GLOBAL l0 and X=Z^(1+l0+shift), even if some slots are inactive. Its product cap is bounded by the original cap. Do not replace l0 by a smaller active mass or accumulate one penalty per slot. |
+| frozen branches, completed fiber, powerful parts, all rows and punctured lists | Their estimates are linear in the common energy bound. The common nonnegative factor can remain outside the exact finite sums; powerful-part and logarithmic costs remain 506h then 507h. |
+| actual selected physical and nominal row | Use l0=s_J+h/2 as in the source. Its P is at most max(0,g-s_J)/4. Preserve full fineness, disjoint prime slots, weights, and scale interval for X. |
+| inverse normalization and central compensation | Take the square root, then insert the compiled moving-mass theorem at the final mass step, yielding exponent (5x+y)/12+254h+Phi(s_J). Apply RG3 with rho=1/2. |
+| Gaussian central, remote, all dyads and subsets | Central has the same paid exponent after absorption; original remote bound O(Z^-1) is unchanged and has no slot gate. Retain all finite subset weights, Gaussian moments, and the existing 256h budget. |
+| original ray normalization and final probe | Positive distinct ell_i with exact sum 1/6 give the same genuine nonzero source normalizer. Use the unchanged inverse normalizer with half the arbitrary loss; no principal denominator or character mask is replaced. |
+
+This is a source-specific proof blueprint with checked use-sites, NOT a compiled theorem and NOT independent acceptance of every new lifted inequality. The many-layer uniformity, branch aggregation and end-to-end substitution are the first remaining obligations. A reviewer should try to break this map before implementation. No change to the old theorem's assumptions is silently assumed in subsequent unconditional statements.
+
+Conditional consequence of the full RG4 consumption: for any actual SourceData F, any 0<=tau<1/960, any character chi and loss>0,
+
+~~~text
+F.tiltedProbe tau chi = O(Z^(3/16-9*tau+loss)),
+~~~
+
+without the old 24tau<=min ell_i gate. The physical exponents are exactly x=17/48-24tau, y=23/48+12tau, Sphys=5/6-12tau, g=24tau<1/40<1/6. Existing physical inequalities remain valid. Source K and slot lengths are fixed before scale and loss; constants may depend on the fixed source, character, and chosen loss. This is not uniformity in a moving number of slots.
+
+### D5. RG5: conditional complete endpoint, with the existing HIGH reserve restored
+
+Use the same calibrated E and same-source m from Section B. Its proved reserve is E.sigma=m/4, six times the old LOW tilt m/24. It preserves E.t and the physical ell_i. The source bounds give 0<m<=E.t/200. Choose tau=m/4. Then
+
+~~~text
+24tau=6m<=3E.t/100<E.t, 0<tau<1/960.
+~~~
+
+The actual GENERATED and CI-checked fixed_tilted_high_bound_anchored accepts an arbitrary tilt>=0 subject to 24tilt<D.t. It does NOT require the old LOW gate. Its other hypotheses are retained: D=HighData(1/1000000), epsilon,e<=t/2000, (N+8)eps<=t, the same SourceData and CountParameters, and the original height bounds 0<height<1/400, 4height<cost/200, height<t, 2height<=t, height(2+4eps)<t. Native fixed-source moments supply that chosen height exactly as in the existing endpoint. This route uses the PAID native bound beta<=7/8, not the desired new beta to license itself.
+
+After those unchanged suppliers, the complete comparison would be
+
+~~~text
+LOW amplitude:      3/16-9tau+loss,
+signal shift:       -11/16-8tau,
+HIGH remainder:     7/8-11/16-8tau-E.sigma,
+complete boundary:  max(7/8-tau,7/8-E.sigma)=7/8-m/4.
+~~~
+
+The original near-supremum primitive-zero argument, finite-prime deletion, conductor/principal corrections and wide sourceCorrection analyticity remain the same. The small m guaranteed by t_small keeps this boundary above the existing 21/25 analytic floor and above the 51/100 lower-beta branch; no new contour is asserted. The shortfall argument has changed LOW admission, not HIGH data or moment-record Delta.
+
+If and only if the source extension and all these consumers are proved, the same-source improvement is
+
+~~~text
+b_new=7/8-m/4 = b_base-5m/24.
+~~~
+
+The existing Hecke-to-rational Mertens transfer is reused through its analytic L-function product, not through an invented equality of Mobius coefficients and Hecke phases. It would supply every-positive-loss Mertens growth at b_new. Spending loss=5m/48 would give the fixed power b_base-5m/48=7/8-7m/48. For fixed Lambda, M(R^2-1)=L_R+H_R and the paid O(R) LOW bound would then give the desired HIGH every-positive-loss estimate with eta_gain=5m/24. The residual O(R) is dominated because b_new>1/2.
+
+All of this paragraph is CONDITIONAL on RG4 and its full consumption. It does not establish a new endpoint, imply the canonical von Koch bound, or license iteration to 1/2. It beats the existing SAME-source comparator only; no source-dependent m is identified with a numerically optimized or universally largest gap.
+
+### D6. Falsification, reproducibility and no-circularity review
+
+Preregistration preceded computation. Exact Fraction checks covered 73,205 (g,s,rho) grid cases, all 16 subsets of the DISTINCT abstract slots (1,2,3,4)/60 with g=1/12, both negative controls, and 120 members of the sharp RG2 family. The old minimum-slot gate fails in that abstract four-slot model, while every new budget passes. This is NOT a constructed HighData or a prime-ideal experiment.
+
+Additional deterministic rational checks used seed 202611071513: 20,000 proposals, 11,280 satisfying every displayed scalar hypothesis, including 2,224 outside the old gate; no soft-bound violation. The small-error random sample covered the row branch only; two explicit large-error admissible points tested both column cases. Exploratory six-branch linear programs at S=3/4,19/24,24997/30000 found bare excesses 1/30,1/60,1/25000; rational rechecking led to the exact RG2 family. Solver optima are not used as proof or evidence of arithmetic realizability.
+
+Full exploratory verifier SHA256 c92edc58c9889cb7e0ed0d8d56c1c6f82615286ebd2de4f36cfb74f4442cb7a2; preregistration SHA256 06420204d7751ac6519880351b19a9f66dc0debc7f77a108f4127a1e0edb3375. The complete verifier is preserved as a fenced appendix below. No local Lean command was run.
+
+No-narrowing classifications: the old moving-tail theorem is PROVED_IN_LEAN / REUSED; the slots_sum equality and crossing ledger are IDENTITY_ONLY; RG1 and RG3 are independently elementary PAPER_PROOF inequalities; free gate deletion is REFUTED on the scalar domain by RG2; RG4 is an unverified source-level extension, not already implemented in the inspected modules; RG5 is CONDITIONAL. No reverse equivalence between RG4 and the canonical theorem has been established or assumed. RG4 is specified by original source expressions, not by defining success as the desired endpoint.
+
+No new external analytic theorem is imported. The primary original OAI source was inspected at immutable commit 1581d4cbdd69a0faf34b2089614fe2a814316a6a, including TerminalWidths (blob 7e8d1403fb941545385aa5156e774ef9c29280a9), LowWidth (f9dc1ebc4b1ff46e11ff7c81e53c1cfe2fd13c39), LowExponent (c9f58c2407dba48939f15ba392df5ea29918b590) and LowReflectedLength (d60d45ed6d2b4c1284319839e120c467c9be4984). The proofs use their actual formulas and the repository's certified suppliers, not a literature analogy.
+
+## E. Specialist findings and two-day continuity
+
+All six specialists' November 6 and November 7 reports, both days' own Coordinator mirrors, and EXTERNAL_HANDOFFS.md were retrieved from report intake 881f5fa63dd74b6fdba769a9fba365210f3a1bc6. No specialist file was missing. Later scheduled stages are PENDING until an actual report exists. The November 6 07:10 Coordinator checkpoint remains a historically incomplete stage; later 15:13 NS and 23:09 CS sections are separate actual completed investigations, not retroactive completion of that checkpoint.
+
+| Role and claim versions consumed | Accepted scope / revision / open term |
+| --- | --- |
+| Owner Nov 6 BT/RZ, DR, MS; Nov 7 SG, RS | Existing Mertens transfers and clock estimates are paid at their scopes. SG high-GCD graph control does not pay the complement. RS derives persistent reserve constraints and a triple-rectangle sampled energy sum<=C N^3/log^6 N; its full VF complement/mixed terms and independently supplied short-interval primes remain open. RS/MS are paper claims requiring review, not a canonical bound. Next JOH. |
+| Analytic Nov 6 FP/RM/AQ; Nov 7 GL/FT | GL preserves signed lag masks and the n+d halo; #1102 now merges the large-GCD bound. FT restores an infinite NYMAN tail and obtains an energy-level improvement, not a Mertens exponent. AQ's large-cube component still needs its exact number-field transfer review and small-cube/mixed return; it is optional, not a compulsory barrier to RG4. Next OAI-NNS. |
+| Wheel Nov 6 CP/PB/GF; Nov 7 DI/LR | Overlapping toggle images and positive mixed examples remain valid falsifiers. LR's fresh-cofactor adjacent recurrence is constrained by twin primes and no three consecutive roots, but reduced grouped diagonal is not the complete square; R=20 gives full square 25 versus diagonal 13, and the 34,35,36 overlap triangle obstructs row signing. Latest LR claims are not independently certified here. Next MU-LIFT. |
+| Census Nov 6 GM/HC/FW; Nov 7 SC/RC | Exact signed capacity accounting replaces false edge-additivity (SC counterexample X=23175). RC's generalized-kappa count margin M(kappa)=1/5000+(3-4kappa)/1600 has a 324-positive-coefficient Bernstein certificate and Referee acceptance, not a full endpoint. No unchanged large-range sieve was rerun. |
+| Referee Nov 6 R9/NYMAN/finite controls; Nov 7 GL/NC/PF then RC/MH | GL and RC are independently accepted at component scope. PF refutes a naive h-G lower-profile law on squareful runs. MH1 is no longer waiting for implementation: #1105 merged. MH2 shifted witnesses retain legal cutoff ranges and MH3 gives a complete detector budget on paper, but their new combined-count consumption is not certified by MH1's green checks. |
+| Lean Nov 6 and Nov 7 05:10/13:14 | Exact-source GL2 and arbitrary-cutoff two-error moment work have real CI evidence; reports' then-open #1102/#1105 states are superseded by current human merges. No active failed proof PR was found. Green conditional interfaces do not prove a new endpoint. |
+| Coordinator PG, NS, CS carry-forward | PG2/PG3 signed-graph obstructions remain self-audited paper results; NS variance was independently accepted; CS short-filter covariance obstruction remains paper-level. None is newly rediscovered or upgraded here. |
+
+MH2/MH3 priority retained precisely: with kappa in [1/2,3/4], actual source t=rho<=delta/12 and x=q/delta in [0,1/2], the shifted witness preserves cutoff in [1,3/2], r in [23/37,1], cutoff-r>=41/132. The claimed combined row exponent is R+(1-omega)rho+159epsilon+mesh+7nu. MH3's detector functional is at most
+
+~~~text
+-M(kappa)+(13/16)(159epsilon+mesh+7nu+41rho/42).
+~~~
+
+The delta=5/6 face has omega=0; a uniform marked discount across all rows is false, though its detector margin may remain sufficient. The generalized source license 2*HeckeZeroSupremum.beta-1<=kappa and kappa>1/2 applies to the FULL family. A negative moment-record Delta does not authorize a negative physical HighData parameter. This record preserves the exact unresolved downstream issue rather than promoting the certificate to a global theorem.
+
+The external inbox blob 038018145c0fddb2f6306c0712373adf9cd1ea52 contains no newly dated post-October-18 handoff. Its historical source safeguards and no-go evidence were considered; its superseded routing is not current authority. No external estimate or missing execution is invented.
+
+Intake blob ledger, November 6 / November 7:
+
+| Report | Nov 6 blob | Nov 7 blob before this continuation |
+| --- | --- | --- |
+| 10 Owner | 1856a96aaaa9d86a5ee2d59ffe50ced936443fa6 | 432fc87602f97318fdac212002b52ac29f12a0e0 |
+| 20 Analytic | 7997620b6ab7eb0701296994734ee910df3c3ba1 | 1315b3c9deba1148338d9023af349ee8a246dae7 |
+| 30 Wheel | 3099558194a00358962ff1844bf283e625b9283d | b973552f1574e39afe6dbc165bde3635f12c9ead |
+| 40 Census | c34ac074296e8b2e5b20dee3a2ce02518571206c | 3fae830e34c590d32c31ad77cad3ace833eb3ff5 |
+| 50 Referee | da3265467c799e9d21832ab25245617ba3b15a54 | 65384576327e1ae2c976fca368c83690fc8a95dd |
+| 60 Lean | b8bfe3ce9c20d7903395364efb39bcec974c8a2f | 2998b7339ea4b3e3fd2fd1d26f839527fd5adc95 |
+| Coordinator 00=90 | 8812a90540fb511279b5f4ce08e108ef717d5ef1 | 4a71edcce4c44a309640d36e9453d016e5b188a9 |
+
+## F. Mathematical bottlenecks
+
+For RG, the first unpaid statement is the precise soft completed-energy source theorem RG4, including uniformity and one-time propagation of P. The existing weighted tail alone does not prove it. The all-selected safeguard is satisfied by zero deficit, not by fictitious outer cancellation.
+
+For marked-half/kappa feedback, the first unmerged consumer is the actual combined-count/witness/crossing package using both errors; then its complete HIGH/principal/LOW maximum must beat the strongest applicable baseline. A smaller row cost, admissible kappa, or certificate margin is insufficient on its own.
+
+For actual-prime routes, the missing input is a source-valid restriction on the full signed response or chronological prime supply, not another unconditional norm of a masked graph. For MU-LIFT it is growing-band capacity plus a complete strictly subcritical recurrence and leftovers. For NYMAN it is a competitive full residual estimate, not only one window or a periodic variance.
+
+## G. Strategy decisions
+
+Continue the RG mechanism because its new input is an independently proved soft scalar estimate, its paying arithmetic theorem already exists, and it identifies an exact place where the current consumer discards quantitative information. Its full scope remains conditional until the source extension is independently audited and compiled.
+
+Reject FREE-GATE: RG2 proves that deleting the admission hypothesis without a replacement cost is invalid on the original scalar domain. Preserve the old theorem and its valid baseline. Do not reinterpret the old maximal-gate lemma as a universal obstruction.
+
+Do not optimize m's astronomical denominator. The candidate spends an existing HIGH reserve on the same m. Do not claim RH, a new numerical exponent, or uniform iterative contraction.
+
+Keep MH2/MH3 as the immediate Analytic/formal priority; RG is a distinct compatible consumer opportunity, not a reason to stop it or route all seven agents to LOW. Keep all three investigator rotations. No agent was launched, rescheduled, or controlled.
+
+## H. Next specialist assignments
+
+These are asynchronous handoffs for the next ACTUAL executions, not claims that work has been launched.
+
+| Specialist | Exact task, source and expected result | Falsification and portfolio consequence |
+| --- | --- | --- |
+| Owner Payment, next JOH | On the original MS moving-Li clock, substitute the strongest valid native Mertens consequence and identify the full signed joint expression whose improvement could beat b_base. Reuse MS/RS only at their actual populations; give a complete boundary/cross-term ledger and the first independent covariance or incidence claim. | A full exponent still >=b_base or an unpaid complement invalidates a global claim. An actual smaller independent supplier would promote the prime-response mechanism. No new isolated clock variance is requested. |
+| Analytic Type II, next OAI-NNS | Independently check Referee MH2/MH3 against merged CutoffMoments and the actual combined inverse/raw/marked/plain count cases. Retain both errors, all cutoff faces, the full-family kappa license, source t and all conductor/height costs. Produce an accepted full consumer theorem or the first failed inequality. | The omega=0 face and a binding unchanged maximum are mandatory falsifiers. No endpoint if the complete maximum fails to improve. This supplies independent mathematical acceptance before the first Lean task. |
+| Finite Wheel & Incidence, next MU-LIFT | Starting from GF and Census SC's exact signed two-band capacities, investigate the smallest growing family of simultaneous cross-label moves on original occurrences. State both label capacities, remaining positive/negative mass and the actual chain coverage; seek an exact min-cut or a complete recurrence coefficient. | A cut deficit, donor reuse or non-subcritical full coefficient rejects that family, not all cross-label methods. No edge-disjoint-only or label-preserving certificate is requested. |
+| Prime Census Laboratory | For the next source-faithful RG falsifier, audit the inactive-slot/active-subset passage with GLOBAL l0 and the actual weighted reconstruction inequality. Seek the smallest finite original-source instance that forces a repeated shortfall factor or an extra Z-power. Preserve masks, coefficients and normalization, and report a construction obstacle if actual realization is unavailable. | A model with arbitrary weights is not an arithmetic falsifier. Do not repeat the scalar grid already printed here. A genuine repeated-power obstruction revises RG4; a passed finite example is not its proof. |
+| Adversarial Referee | Independently audit RG1-RG3 and attack RG4, especially the one-factor energy propagation, square-root exchange, the still-present L_u^-1/2, exact s+d=1/6, all-selected singleton, inactive subsets and tail dominance. Then check RG5 on the same calibrated source and arbitrary-tilt HIGH signature. | A missing power, changed carrier, nonuniform constant or source-dependent loss destroys the proposed return until repaired. Return ACCEPTED_PAPER at an explicit scope or a precise counterexample; do not mark VERIFIED_ETA. |
+| Lean Verification | Refresh the next report/PR state. No repair is currently needed for #1102/#1103/#1105. After independent acceptance of MH2/MH3, task 1 is the actual generalized combined-count consumer and legal witnesses using the already-merged two-error moments. After independent acceptance of RG4's full proof, task 2 is the additive source extension and exact moving-mass consumption, not a wrapper assuming it. | At most two implementation-sized tasks; no second task is READY now. Preserve old interfaces, exact carriers and all audits; use authorized non-main PRs and pinned warning-fatal Actions only. Do not weaken a hypothesis to make a branch green. Human merge gate remains. |
+
+Current implementation queue: 0 newly independently accepted complete consumer tasks ready from THIS investigation; 2 conditional candidates, ordered MH combined-count first and RG source lift second. Independently accepted minimal prerequisites may be formalized at their honest local scope when they actually enable that consumer. No filler algebra PR is requested.
+
+## I. Lean, PR and source evidence
+
+There were no open or draft PRs at intake or the 20:29 UTC refresh.
+
+| PR | Verified current state | Source/CI scope |
+| --- | --- | --- |
+| #1102 | MERGED 15:04:34Z; head 5b246ac81398ae8ee8f177dc9acda18288765a4e; merge dadd9cd7b0a36b4298db30a33c2a1e4b6eb36dcc | All 13 head checks success, including large-GCD run 42364367658, job 128379218641. Complete small-GCD signed complement is not supplied by its tail theorem. |
+| #1103 | MERGED 15:44:29Z; head 06dde8d85985c86481680610b6c86c663be4e242; merge aa10b310efb2a095fd4c69dc965e6bde0bd135d6 | All 14 head checks success, including feedback run 42386987885. Generalized moment licenses are retained; no automatic endpoint iteration follows. |
+| #1104 | MERGED 16:56:31Z; merge 3de4f7331e5fe55ad0e404dc8463b1df56c19330 | Current HIGH directive, not a mathematical theorem or Studio configuration change. |
+| #1105 | MERGED 19:40:47Z; head 30e235ac5ee86041d194d07b20c52b0b22d317f2; merge/current main cae99df1c3ea24ff4113063bf09f6fd07517ad93 | Seven checks success. Dedicated run 42402231812, job 128492295936, directly inspected logs and artifact. 43-module compilation has failed_or_blocked=[]; the four new terminals have only propext, Classical.choice, Quot.sound. |
+
+#1105's tested synthetic merge 6e990fb08574e402f3452d18ff3ee8059f7780d2, PR head and actual main have the SAME tree 087a31436295ea4b0307d3d851f363c5370dba5f. The source template scripts/lean/retained_slot_feedback/CutoffMoments.lean has blob d877240267337cca4dae6a2929b216fe6f3e2898; generated research/oai_434/Feedback/CutoffMoments.lean supplies source_moments_two_error and the three row-count consumers. It does not provide MH2's new combined-count theorem. Artifact 13586312178 has SHA256 53af70549d04dc6b6f174cb092ab6ae0811b087e831c46b29be9ac526b880d14.
+
+Existing moving-mass and baseline evidence was independently re-read from successful run 41898325686, job 126813711885, PR #1091 head 6778fd4c25b0f369d311e6e71223e168e329b4bf, merged in 43fc54939e57d069812143f6bd07d1aa41366867. Logs certify the actual-slot-minimum terminal type and permitted axioms, and compile the moving-power and moving-central mass theorems with standard axioms. The old comment saying 'Uncompiled continuation' in that source is superseded by this exact CI evidence, not silently treated as an axiom.
+
+Downloaded artifact 13357024564 has SHA256 245aeede7f0c32c835b003325438696c10cd3e795b4d447120cf8b2f75f755e9. Artifact bytes for ActualSlotMinRetighten, OriginalLowTupleSignedGram and LowFirstSlotCalibratedData hash to their current main blobs below. The generated anchored HIGH assembly, not a fabricated current source file, has git blob c48b40e5c6b4c1f7f1cf0d94195f187b091affbe and the arbitrary-tilt signature quoted in RG5. Generation manifest says GENERATED_NOT_VERIFIED because it records the generation stage; the subsequent successful compiler/type/axiom logs supply acceptance. This is reuse of available exact evidence, not a claim of a new repository-wide rebuild.
+
+Affected source ledger at main:
+
+| Source | Blob |
+| --- | --- |
+| VF919FiniteSlotReflectedGain.lean | a5545b5a00958b69f6fbfd79fc555a0476aa6487 |
+| VF919TiltedLowReflection.lean | 88293c915d67eefee2e1e989082248b8a52f2ae7 |
+| VF919TiltedLowPhysical.lean | c608fe06005359225661cc58d9caa0e4036de265 |
+| VF919TiltedProbe.lean | 0f95d412bce773d50e71b1809ab9942653e66812 |
+| VF919OriginalLowTupleSignedGram.lean | dd2fde01ae6e2446da4e69b30f6fc80fcadb858d |
+| VF919ActualSlotMinRetighten.lean | 138c4726085995b966204406805f70082402bec4 |
+| VF919LowFirstSlotCalibratedData.lean | 950c00c60d8757c7b6cd0dcea19e94d5114ea0ba |
+| VF919LowFirstSlotAnchoredEndpoint.lean | d9373ce13b703b1e5f4e4bcde158ef9004d250dd |
+| VF919NativeStrictMertens.lean | b33a4883e1ddb0551b0f11f062bce46680d87450 |
+| CanonicalHighSectorCore.lean | dd02fc8fabfe4004c6b0d50374b3b8752607b168 |
+| CanonicalLowOccupancy.lean | b958da340d107cdd00015d2827b9a728357b4d8e |
+
+Lean 4.34.1, mathlib d13f23b723b8a846827a245b89c10fc7d3f11612 and original OAI 1581d4cbdd69a0faf34b2089614fe2a814316a6a remain the inspected pinned environment. No local Lean execution, source edit, proof branch/PR creation, main modification, merge, schedule change or other-agent report edit occurred in this Coordinator run.
+
+## J. Next-run resume capsule
+
+Resume 20261107-coordinator-1513/RG1-RG5 at main cae99df1c3ea24ff4113063bf09f6fd07517ad93, refreshing authority and affected bytes first. Preserve the earlier PG/NS/CS findings and this run's checkpoint. RG1 soft energy cost is sharp by RG2; RG3 pays its HALF cost using the existing actual inverse-square tuple mass. Do not confuse original J with selected slots.
+
+Highest-value next reasoning: independently reconstruct the full RG4 signature through the original surviving, retained, inactive, frozen, completed and physical stages, proving that exactly one common Z^P survives until the required square root. Stop at the first nonuniform constant or additional power. The next existing source consumer is low_central_compensated_tuple_tilted's FINAL mass step, not a new universal NNS assertion.
+
+Keep the separate MH2/MH3 combined-count priority. MH1/#1105 is MERGED, not queued. For RG the complete candidate uses tau=sigma=m/4, not the old m/24 and not an arbitrary fixed tilt ignoring HIGH's reserve. Candidate additional eta=5m/24 remains CONDITIONAL; fixed-loss spending is 5m/48. Neither a new verified exponent nor RH is claimed.
+
+Independent route continuation: Owner JOH; Analytic OAI-NNS; Wheel MU-LIFT. Referee's RG audit and Census's source-level falsifier are recommendations only. No future execution is reported completed or guaranteed. Next report must distinguish publication receipt, mathematical acceptance, CI_GREEN, REVIEW_READY and human MERGED.
+
+### Reproducibility appendix: complete exploratory scalar verifier
+
+The following code is a finite scalar diagnostic only. The universal paper proofs are RG1-RG3 above; source integration remains conditional.
+
+~~~python
+"""Exact scalar checks; not a Lean proof or a genuine arithmetic experiment."""
+from fractions import Fraction as F
+from itertools import product
+import json
+import random
+
+from scipy.optimize import linprog
+
+
+def budget(g, s, rho, total=F(1, 6)):
+    return max(F(0), g - s) / 8 - (1 - rho) * (total - s)
+
+
+def reflected(p):
+    S, L, d, s, O, H, A, N, S0, B, z, v, ell, el, theta, eta = p
+    td = 2 * H + 2 * A + 2 * z - 1 - s - theta - N - 3 * B
+    u = min(v, z, (v + z) / 3)
+    return O / 2 + max(H, v + ell) - S0 - B + z - u - ell - 2 * el / 3 - max(F(0), td - v - 3 * ell - el) / 2
+
+
+total = F(1, 6)
+grid_count = 0
+for gi, si, rho in product(range(121), range(121), [F(1, 100), F(1, 4), F(1, 2), F(3, 4), F(7, 8)]):
+    g, s = total * gi / 120, total * si / 120
+    assert budget(g, s, rho) <= 0
+    grid_count += 1
+
+slots = [F(i, 60) for i in range(1, 5)]
+subset_results = []
+for bits in product([0, 1], repeat=4):
+    d = sum((ell for ell, b in zip(slots, bits) if b), F(0))
+    s = total - d
+    phi = budget(F(1, 12), s, F(1, 2))
+    assert phi <= 0
+    subset_results.append(str(phi))
+assert min(slots) < F(1, 12)
+negative_controls = [budget(F(1, 5), total, F(1, 2)), budget(total, total / 2, F(9, 10))]
+assert all(v > 0 for v in negative_controls)
+
+rng = random.Random(202611071513)
+accepted = 0
+old_gate_false = 0
+branches = set()
+max_excess = None
+for _ in range(20000):
+    eta = F(rng.randrange(4), 2400)
+    S = F(3, 4) + F(rng.randrange(121), 1440)
+    L = total
+    d = L * F(rng.randrange(121), 120)
+    s = L - d
+    O = F(rng.randrange(121), 480)
+    H = S - 2 * d - O + eta * F(rng.randrange(121), 120)
+    A = (O + 3 * eta) * F(rng.randrange(121), 240)
+    N = A * F(rng.randrange(121), 120)
+    S0 = F(rng.randrange(5), 2400)
+    B = F(rng.randrange(5), 2400)
+    z = (s + eta) * F(rng.randrange(121), 120)
+    theta = eta * F(rng.randrange(-120, 121), 120)
+    el = eta * F(rng.randrange(-120, 121), 120)
+    td = 2 * H + 2 * A + 2 * z - 1 - s - theta - N - 3 * B
+    cap = td + 2 * eta - el
+    if cap < 0:
+        continue
+    v = cap * F(rng.randrange(121), 120)
+    ell = (cap - v) * F(rng.randrange(121), 360)
+    assert S + L <= 1 and L <= F(1, 3) and d >= 0 and eta >= 0
+    assert O >= 0 and H <= S - 2 * d - O + eta and 2 * A <= O + 3 * eta
+    assert 0 <= N <= A and S0 >= 0 and B >= 0 and s <= L - d + eta
+    assert z <= s + eta and v >= 0 and ell >= 0 and el >= -eta and abs(theta) <= eta
+    assert v + 3 * ell + el <= td + 2 * eta
+    p = (S, L, d, s, O, H, A, N, S0, B, z, v, ell, el, theta, eta)
+    excess = reflected(p) - (S - 2 * d + F(38, 3) * eta + max(F(0), 1 + 4 * L - 2 * S - s) / 4)
+    assert excess <= 0
+    accepted += 1
+    max_excess = excess if max_excess is None else max(max_excess, excess)
+    u = min(v, z, (v + z) / 3)
+    old_gate_false += int(u != z and 1 + 4 * L - 2 * S > s)
+    branches.add((u == z, v + ell <= H))
+
+# Two large-error points exercise the column branch absent from the small-error sample.
+column_checks = 0
+for z, v, ell in [(F(0), F(1, 2), F(0)), (F(1, 6), F(1, 8), F(1, 8))]:
+    p = (F(5, 6), total, F(0), total, F(0), F(0), F(0), F(0), F(0), F(0), z, v, ell, F(0), F(0), F(1))
+    td = 2 * z - 1 - total
+    assert v + 3 * ell <= td + 2
+    assert reflected(p) <= F(5, 6) + F(38, 3)
+    branches.add((min(v, z, (v + z) / 3) == z, False))
+    column_checks += 1
+
+# Exact family discovered by LP: it proves sharpness without trusting the optimizer.
+sharp_checks = 0
+for gi in range(1, 121):
+    g = total * gi / 120
+    S, s, H = F(5, 6) - g / 2, g / 5, F(1, 2) - g / 10
+    d = total - s
+    p = (S, total, d, s, F(0), H, F(0), F(0), F(0), F(0), s, F(0), F(0), F(0), F(0), F(0))
+    assert H == S - 2 * d and 2 * H + s - 1 == 0
+    assert reflected(p) - H == g / 5 == (g - s) / 4
+    assert g / 10 - d / 2 <= 0
+    sharp_checks += 1
+
+# Piecewise linear exploratory optimization, followed by rational witness checks.
+names = ['s', 'H', 'O', 'A', 'N', 'S0', 'B', 'z', 'v', 'ell', 'el', 'k', 'P']
+index = {name: i for i, name in enumerate(names)}
+
+
+def vec(**kw):
+    out = [F(0)] * len(names)
+    for name, value in kw.items():
+        out[index[name]] = F(value)
+    return out
+
+
+lp_results = []
+for S in [F(3, 4), F(19, 24), F(5, 6) - F(1, 10000)]:
+    g = F(5, 3) - 2 * S
+    rows = [vec(H=1, O=1, s=-2), vec(A=2, O=-1), vec(N=1, A=-1), vec(z=1, s=-1),
+            vec(v=1, ell=3, el=1, H=-2, A=-2, z=-2, s=1, N=1, B=3),
+            vec(H=2, A=2, z=2, s=-1, N=-1, B=-3, v=-1, ell=-3, el=-1, k=-1),
+            vec(s=-1, P=-1)]
+    rhs = [S - 2 * total, F(0), F(0), F(0), F(-1), F(1), -g]
+    bounds = [(0, float(total))] + [(0, None)] * 12
+    for soft in [False, True]:
+        best = None
+        witness = None
+        for max_branch, min_branch in product(['H', 'v+ell'], ['v', 'z', 'third']):
+            c = vec(s=-2, O=F(1, 2), S0=-1, B=-1, z=1, ell=-1, el=F(-2, 3), k=F(-1, 2), P=F(-1, 4) if soft else 0)
+            if max_branch == 'H':
+                c[index['H']] += 1
+            else:
+                c[index['v']] += 1
+                c[index['ell']] += 1
+            if min_branch in ['v', 'z']:
+                c[index[min_branch]] -= 1
+            else:
+                c[index['v']] -= F(1, 3)
+                c[index['z']] -= F(1, 3)
+            result = linprog([-float(x) for x in c], A_ub=[[float(x) for x in r] for r in rows],
+                             b_ub=[float(x) for x in rhs], bounds=bounds, method='highs')
+            assert result.success
+            q = [F(float(x)).limit_denominator(10000000) for x in result.x]
+            assert all(sum((a * b for a, b in zip(row, q)), F(0)) <= b for row, b in zip(rows, rhs))
+            assert all(x >= 0 for x in q) and q[0] <= total
+            s, H, O, A, N, S0, B, z, v, ell, el, _, _ = q
+            p = (S, total, total - s, s, O, H, A, N, S0, B, z, v, ell, el, F(0), F(0))
+            actual = reflected(p) - (S - 2 * (total - s))
+            if soft:
+                actual -= max(F(0), g - s) / 4
+            if best is None or actual > best:
+                best, witness = actual, dict(zip(names, map(str, q)))
+        lp_results.append({'S': str(S), 'soft': soft, 'best_witness_excess': str(best), 'witness': witness})
+
+print(json.dumps({'grid_cases': grid_count, 'subsets': len(subset_results),
+                  'negative_controls': list(map(str, negative_controls)),
+                  'random_proposals': 20000, 'accepted_scalar_samples': accepted,
+                  'old_gate_false_samples': old_gate_false, 'branches': sorted(branches),
+                  'column_checks': column_checks, 'sharp_family_checks': sharp_checks,
+                  'max_soft_scalar_excess': str(max_excess), 'lp_exploration': lp_results}, indent=2))
+~~~
+
