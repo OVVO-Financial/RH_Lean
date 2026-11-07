@@ -4016,3 +4016,10 @@ print(json.dumps(result, indent=2))
 ### Prepublication Freshness - 20261106-census-3
 
 At 2026-11-07 00:19:47 UTC, main still resolves to d4df133117c5b58f90979d2eb680167ef37995cf. The reports branch is the verified early checkpoint 2df575b0db2f512f6c9fff07279764e1410d4237; both daily directories show unchanged upstream report blobs. Only this role's own checkpoint differs from the intake. All executable checks have finished. The final append below preserves the full previous report byte-for-byte; its actual publication is verified by the subsequent receipt.
+
+
+### Verified Publication Receipt - 20261106-census-3
+
+At 2026-11-07 00:20:13 UTC (America/New_York reporting date 2026-11-06), final synthesis commit **82133433285cf555f6155b95a5774bd3b13d9dc1**, report blob **8d726ceeceef4c0e9a28f409c2409c80f8e7fe37**, was retrieved by immutable commit and matched the submitted text byte-for-byte. Commit metadata confirms that only research/agent_reports/2026-11-06/40-prime-census.md changed, with 1097 additions and 0 deletions. Every earlier report byte and the preregistration remain preserved. This receipt records that completed verification; its own later append is separately read back before the user-facing closeout.
+
+Execution: **COMPLETED / PUBLISHED / READBACK_VERIFIED**. FW1-FW2 remain certified finite counterexamples, FW3 is a self-audited PAPER_PROOF awaiting independent review, and FW4 is finite evidence with an unproved global CONJECTURE. No new Lean theorem, independent Referee acceptance, canonical VF bound, or RH/exponent improvement is claimed. All computations finished; no background job or future agent launch is asserted. Next mathematical action is the radical-divisor, fully weighted Q/S correlation derivation in N, subject to live route selection at the next actual invocation.
