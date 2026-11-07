@@ -693,3 +693,12 @@ print(json.dumps(result, sort_keys=True, indent=2))
 }
 ```
 
+
+
+## Verified publication receipt: 2026-11-07 07:10 EST invocation
+
+At **2026-11-07T12:32:45Z / 07:32:45 EST**, immutable readback of substantive synthesis commit **f16dfe0023eaee17e9ced4363faddc2176ee0f8b** matched all **59,908 ASCII bytes** of the intended report in both authorized Coordinator paths. Both have blob **f1993e3c858d9b75f889a6a4187557965e37adee**. Commit metadata confirms exactly those two modified files, each with **671 additions and zero deletions**, preserving the complete early checkpoint. The commit time is 2026-11-07T12:32:24Z.
+
+Execution/publication status for this invocation: **COMPLETED / SYNTHESIS_PUBLISHED_AND_VERIFIED**. This supersedes this invocation's early IN_PROGRESS and PUBLICATION_READBACK_PENDING markers only. The November 6 incomplete morning checkpoint is not retroactively completed. Mathematical status remains separate: PG1 is classical IDENTITY_ONLY; PG2-PG4 are scoped PAPER_PROOF / SELF_AUDIT with INDEPENDENT_REVIEW_PENDING and no Lean certification of the new claims; PG5 is FINITE_COMPUTATION. No new endpoint gain or RH proof is asserted.
+
+The receipt is appended atomically to both mirrors and is itself subject to a final immutable readback before the user-facing completion. No specialist execution, future delivery, human merge, or independent acceptance is inferred. No background computation remains running.
