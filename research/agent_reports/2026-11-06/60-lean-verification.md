@@ -1013,3 +1013,377 @@ DRAFT_PR / CI_PENDING, not PROVED_IN_LEAN. The all-m formula retains
 delta + J_H(rad m) - J_N(rad m) + correctionJump; the precorrection result
 needs no special moment equation. Source and hypothesis scope are unchanged
 from the explicitly stated proof plan.
+
+
+## Evening Formalization Synthesis - Scheduled 2026-11-06 21:08 EST Invocation
+
+This is the same scheduled invocation as the evening checkpoint, not another
+launch. RUN_ID_UNAVAILABLE. Mathematical, PR/CI and publication states are
+reported separately. Earlier daily sections and failure histories are preserved.
+
+### A. Most Important Formal Mathematical Result
+
+Implemented the independently accepted **20261106-census-3/FW3** identity on
+the original Nyman residue carrier, together with the complete flat-source
+increment formula. Claim **20261106-lean-3/FW3-INCREMENTS**.
+
+For H>=1 and m>=2, the prime-error/residue residual has increment
+`delta_H + J_H(rad(m))`. Equal radicals therefore give equal increments;
+they do not merge distinct physical cells or their energy weights. The complete
+flat-source formula also identifies exactly what returns after cutoff and
+correction admission: `delta + J_H(rad(m)) - J_N(rad(m)) + C_h(m)`.
+
+Formal status: **PROVED_IN_LEAN** at the exact repaired PR revision;
+**CI_GREEN / REVIEW_READY**, open and not merged. All twelve workflows and
+thirteen checks passed; all eleven audited declarations use only the standard
+axioms. The PR has been marked ready for human review, not merged by the agent.
+Classification: STRUCTURAL_CONTROL / FORMAL_INFRASTRUCTURE, not a new norm
+bound, favorable covariance theorem, Mertens exponent, canonical VF bound, or RH.
+The independently reviewed original claim is separated from the transparent
+author extensions described below.
+
+### B. Current Authoritative Objective
+
+Main baseline: **d4df133117c5b58f90979d2eb680167ef37995cf**;
+tree **ddb733b8fa2ef7296e43b50ea1734c9a30e131fe**.
+AGENTS blob **48b2a58ab5fcd402321a4dace511c7d54bf688a1**;
+contract blob **7c4ac83a1ec1a4144e1bd691391ed4244f1cc27c**.
+The actual-prime `VFCanonicalSquareVonKochStatement` remains OPEN:
+there exists C>=0 such that, for every natural R>=2,
+`|pi(R^2)-vfCanonical(R^2)| <= C R log R`.
+The inspected classical terminal consumer retains its explicit
+`ClassicalVonKochRHCriterion` argument. No canonical definition was changed.
+
+`baseline_ack=PAID_BASELINE_EXACT_CONSUMER_V1`, policy blob
+**13d58dd12d90fbf1160812c7c93442dc5d0576ac**;
+`deployment_ack=NO_PIGEONHOLING_ROUTE_SELECTOR_V1`, policy blob
+**ffd8f1c65cc4da656174956d4e03b48bea46768b**.
+The original replay, all-prefix signed saving and existing strict gaps remain
+paid inputs. They are neither reconstructed nor recounted as this run's gains.
+This finite source identity does not need an exponent envelope or an unrelated
+sharp square-shell norm.
+
+Pinned Lean: **4.34.1**; Mathlib:
+**d13f23b723b8a846827a245b89c10fc7d3f11612**; PNT+:
+**c39a751132c88b6e8080b74c74023fd95b3d8be0**.
+
+### C. Formalization Queue And Continuity
+
+No open/draft proof PR existed at intake, so there was no Priority-A repair.
+Current #1099 is human-merged, with unchanged source and successful exact-head
+evidence. It was not duplicated. Its actual dedicated log was retrieved:
+run 42271209683 / job 128075944915 compiled the source and printed all nine
+standard-three-axiom results; its twelve workflows are successful.
+
+Selected: FW3, accepted in the evening **20261106-referee-13**. The active
+consumer is Census/Analytic's original weighted prime-error/spectrum
+correlation, not an assumed favorable sign. NS1-NS4 now have independent
+paper acceptance, but their full Jordan/Fourier, mean-value and asymptotic
+formalization is a separate larger task. CP2 is another accepted analytical
+candidate; CP1's source sampling is already merged in #1097. No accepted
+endpoint estimate is silently replaced by this structural interface.
+
+Owner MS1-MS4, Analytic AQ2-AQ4, Wheel GF2-GF4, and Referee's new jump-energy
+and inverse-difference extensions remain independent-review pending. Earlier
+PE cancellation and the Nyman null obstruction are already implemented.
+The N=690 weighted spectral cross-sign counterexample remains accepted finite
+evidence, not a refutation of FW4's different prime/spectrum sign conjecture.
+
+All seven role reports for November 5 and November 6 were retrieved at
+**c945264fbc4eb37c1f8bd705f6dfac6c233868b0**. Relevant result, review and
+continuation sections were read; historical experiments were not all rerun.
+TODAY=AVAILABLE for all roles; yesterday is carried-forward evidence, not a
+fabricated new execution. External inbox blob
+**038018145c0fddb2f6306c0712373adf9cd1ea52** contains no entry after October 18;
+its historical single-route/cadence language is superseded by current main.
+No new relevant external claim was promoted.
+
+| Role | November 5 intake blob | November 6 intake blob |
+| --- | --- | --- |
+| Coordinator | be661bb2ed2830fc4aeddf14713455e550d982cc | 2802753059cc55d1446087bc40266576214a9638 |
+| Owner | 39665b5b28fc48378519ab9d56cee8df4d3e2681 | 1856a96aaaa9d86a5ee2d59ffe50ced936443fa6 |
+| Analytic | 9490aa2eecafcd19d8007043cc5f978fe421a7c9 | 7997620b6ab7eb0701296994734ee910df3c3ba1 |
+| Wheel | afc85d800c47f82f2db634591a7798005cb668de | 3099558194a00358962ff1844bf283e625b9283d |
+| Census | 24fcd6a631eca9ae44238d927215f49e1d8a174f | c34ac074296e8b2e5b20dee3a2ce02518571206c |
+| Referee | 789ed87021fe98963c244a8d0c9075638e76be43 | da3265467c799e9d21832ab25245617ba3b15a54 |
+| Lean | 5e0ecdd8f08c2e19b4614f00c1a5657f58722344 | 5a08dc2ae99956bc020a57ad0cf51c67e6d0a7a5 |
+
+### D. Candidate Selection And Proof Plan
+
+The chosen identity classifies a genuine arithmetic dependence that the active
+correlation attempt must retain. It is implementation-sized, independently
+accepted, absent from the inspected Nyman modules/route index, and has a
+source-exact consumer. It is not another version of the dyadic annihilator or
+moment-null obstruction. No endpoint-sized premise is added.
+
+Plan: reuse finite floor/divisor convolution; take its exact prefix difference;
+discard only zero Mobius coefficients on nonsquarefree divisors; identify the
+surviving divisors with divisors of the radical; transport the original
+prime-error expression and complete flat residual. Particular care is needed
+at m=1, truncated natural subtraction, finite cutoffs and correction admission.
+Validation requires actual pinned warning-fatal Actions, exact theorem types,
+import closure, source inventories and all terminal axioms.
+
+### E. Exact Statements And Original Definitions
+
+All indices below are natural numbers; coefficients and logarithms are real.
+The radical is Mathlib's `UniqueFactorizationMonoid.radical`, with its actual
+natural-number product-of-distinct-primes theorem, not a synthetic label.
+
+```text
+a_H(k) = mu(k)*(log H-log k),
+rho_k(m) = (m mod k)/k,
+psi(m) = sum_(1<=n<=m) Lambda(n),
+delta_H = 1-sum_(1<=k<=H) a_H(k)/k,
+R_H(m) = m-psi(m)-log H-sum_(1<=k<=H) a_H(k)*rho_k(m),
+J_H(t) = sum_(d|t,H<d) mu(d)*log(d/H).
+
+For all H>=1 and m>=2:
+  R_H(m)-R_H(m-1) = delta_H+J_H(rad(m)).
+For m,n>=2 with rad(m)=rad(n), their R_H increments are equal.
+For m>=2 with rad(m)<=H, the increment is exactly delta_H.
+```
+
+The exact original-log bridge is `nymanHighDivisorJump_eq_original`.
+The three main declarations are `nyman_arithmetic_residual_step`,
+`nyman_arithmetic_step_same_radical`, and
+`nyman_arithmetic_step_small_radical`.
+
+For every 1<=H<N, arbitrary h:Nat->Real, and every m>=2:
+
+```text
+ell = log N-log H,
+F_k = a_N(k)-1_(k<=H)*a_H(k),
+c_k = (h_k-F_k)/ell,
+r(m) = 1-sum_(2<=k<=N)c_k*rho_k(m),
+delta = sum_(1<=k<=N)F_k/k-sum_(2<=k<=N)h_k/k,
+C_h(m) = sum_(2<=k<=N,k|m)h_k,
+
+ell*(r(m)-r(m-1))
+  = delta+J_H(rad(m))-J_N(rad(m))+C_h(m).
+```
+
+This is `nyman_flat_complete_step`. Its corollary
+`nyman_flat_step_before_corrections` removes the last two terms ONLY when
+m<=N and every h_k with 2<=k<=m is zero. No particular moment equation is
+needed for that arbitrary-drift statement. Choosing delta=delta_H recovers
+the accepted family specialization; that choice is not asserted for arbitrary h.
+
+### F. Independent Mathematical And Circularity Audit
+
+The proof was reconstructed from the original residue/floor definitions and
+the already proved Mobius divisor convolution, then checked against FW3 and
+Referee-13. The signed kernel, full divisor multiplicity, k=1 scalar term,
+finite m-1 endpoint and both moving cutoff tails are retained. Squareful
+divisors vanish because their Mobius coefficient is zero, not because an
+arbitrary occurrence was dropped. Repeated radicals remain distinct cells.
+
+The theorem has no RH, Mertens-growth, covariance-sign, admissibility or desired
+norm-bound hypothesis. It is not target-equivalent and cannot prove a new
+bound just by algebraic substitution. H>=1 rather than H>=2 and the arbitrary
+defect/all-m flat transport are explicit author extensions, SELF_AUDIT, not
+an invented additional independent Referee verdict.
+
+### G. Implementation And Executed Regression
+
+Only three feature-branch files change:
+`research/NYMAN_RADICAL_INCREMENT_20261106.lean`,
+`scripts/nyman_radical_increment_regression.py`, and
+`.github/workflows/nyman-radical-increment.yml`.
+Existing root modules, original arithmetic and CI requirements are untouched.
+The existing research-compile action builds the source-addressed import
+closure; the dedicated job freshly checks all eleven public theorem types
+and their transitive axioms. Its parser fails on missing, duplicate, unexpected
+or disallowed axiom entries, and checks declaration/type-audit name coverage.
+
+Exact finite prime-log algebra passed: 1,264 original source increments,
+480 repeated-radical comparisons, 324 small-radical cells, and 928 complete
+flat returns. Logs are represented by rational coefficients of log primes;
+equal coefficient vectors certify these identities without floating-point
+approximation. Negative controls explicitly fail when m=1 is included,
+when the correction h_7=1 is dropped at m=7 for N=12,H=2, or when J_12 is
+dropped at m=13. These are finite computations, not Lean certification.
+No local Lean was executed.
+
+### H. Proof Branch And PR Evidence
+
+[PR #1100](https://github.com/OVVO-Financial/RH_Lean/pull/1100)
+targets main from `agent/lean-verification/20261106-nyman-radical-increment`.
+Base: **d4df133117c5b58f90979d2eb680167ef37995cf**.
+Initial head: **daceba8f379470875a68e62337928da2e59d5cc8**.
+Repaired head: **e52207d527da684346e151d4ff680696c88e8fa7**.
+Current source blob: **c5ebb3d5d96898549ad039fd32e1a26955c5b8f8**.
+
+Connected branch/blob/tree/commit/ref/report/PR writes actually succeeded.
+The read-only shell clone was unavailable (CONNECT tunnel 403); connected
+GitHub actions provided the authorized workflow. No direct main push, merge,
+auto-merge, schedule change, permission change or agent launch occurred.
+
+### I. Exact-Revision GitHub Actions Evidence
+
+The [targeted job](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42328802797/job/128270266260)
+actually compiled the new source with warnings fatal: `compiled=1 cached=2`.
+Its subsequent cache-smoke check passed with `compiled=0 cached=3`.
+The [dedicated proof job](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42328802826/job/128270266477)
+reused that same-source closure, then FRESHLY ran warning-fatal Lean on the
+target and printed all eleven exact theorem types and terminal axiom lists.
+Each list is exactly `[propext, Classical.choice, Quot.sound]`; no sorryAx
+remains. The fail-closed declaration/name/axiom and no-placeholder checks pass.
+The [proof artifact](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42328802826/artifacts/13556511874)
+preserves source and exact type/axiom output; digest
+`sha256:a014d00554afbef3e341e35cb6c4200874cbac4effbe28bfc7d1537b0f9bf6ed`.
+
+Actual checkout in both jobs:
+**c004afeecb0e4d81b734e2b9796cf2a6e43468b4**, the synthetic merge of the
+recorded main and PR head. Its tree
+**beb042acf728f3447aa7f18456c678d048360ab2** equals the PR-head tree exactly.
+Thus the tested source revision is identified, not inferred from a green label.
+
+All thirteen check runs carry head
+**e52207d527da684346e151d4ff680696c88e8fa7** and SUCCESS. Actual logs for
+the hosted root build, source audit, proof inventory and export verification
+were inspected. The elaborated root graph agrees with the inventory on 8,870
+named proofs. These unchanged root checks are separate from the new research
+module's dedicated theorem audit. Public export verification checks structural
+synchronization/closure; no new standalone export build is claimed.
+
+| Exact-head workflow | Run | Result |
+| --- | --- | --- |
+| Nyman radical increments | 42328802826 | SUCCESS |
+| Targeted Lean iteration | 42328802797 | SUCCESS |
+| Lean source audits, including hosted root build | 42328802798 | SUCCESS |
+| Proof inventory | 42328802808 | SUCCESS |
+| Public export verification | 42328802777 | SUCCESS |
+| Coordinate atlas and static search corpus | 42328802800 | SUCCESS |
+| Prevent new cold-only Lean and OpenAI CI | 42328802898 | SUCCESS |
+| VF pre-914 consolidation | 42328802803 | SUCCESS |
+| VF first-bad normalized infrastructure | 42328802783 | SUCCESS |
+| VF first-bad final aggregate contraction | 42328802775 | SUCCESS |
+| VF first-bad source to sector-six inlet | 42328802794 | SUCCESS |
+| VF recursive child population and complement capacity | 42328802791 | SUCCESS |
+
+### J. Diagnosed Failure And Focused Repair
+
+Initial dedicated run **42328555244**, job **128269470227**, failed on three
+proof-script diagnostics: `simp made no progress` at the partially applied
+cumulative-sum definition, and warning-fatal deprecations of `if_true` and
+`if_false`. The actual raw log was retrieved. The first failure is repaired
+by an explicit function expansion; the latter two by the pinned names
+`ite_true` and `ite_false`.
+
+All thirteen theorem statements, including the two private helpers, were
+compared before and after the repair and are unchanged. No mathematical
+assumption, source normalization, workflow or warning policy changed.
+The failed elaboration printed sorryAx downstream of its unsolved proof;
+that error-recovery output was rejected, not accepted as proof evidence or
+introduced as an authored placeholder. The successful final audit verifies
+its absence. No unresolved compiler failures remain at the current head.
+
+### K. Mathematical Conclusions
+
+The result is an exact structural restriction on the original source. It
+provides no upper bound, no favorable pair-sign rule and no energy saving.
+The complete returned expression remains signed before squaring. The full
+basis, all later cells, middle and remote-tail obligations remain separate.
+`NEW_VERIFIED_ENDPOINT_GAIN=NONE`; `eta_gate=SEARCH_BROAD`.
+
+### L. Formalization-Driven Discoveries
+
+The special moment equation is unnecessary for the structural flat jump:
+it only selects the scalar drift. H=1 is also valid. At m=1 the literal
+prime-error expression has a log(H) boundary correction, so the m>=2
+hypothesis cannot simply be removed. The exact tests retain this falsifier.
+
+The full formula shows a more precise distinction than a blanket claim
+that the outer cutoff destroys radical dependence. Both J_H and J_N still
+depend only on the radical. For two cells of equal radical, the difference
+between their scaled flat increments is exactly C_h(m)-C_h(n). Arbitrary
+high corrections can distinguish those cells; removing their jump is not
+justified by moment control. This is an immediate mathematical consequence
+of the displayed complete theorem, not a separately audited new declaration.
+
+### M. Significance And Complete Consumer
+
+FW3 identifies the arithmetic variable behind the active prime-error/spectrum
+correlation attempt. The new implementation makes that variable and its
+admission boundary reliable for subsequent proofs. It does not convert
+complete-period spectral orthogonality into physical-window cancellation.
+The established exponent baseline has no needed forward role in this finite
+identity, and no new endpoint comparison is manufactured.
+
+### N. Specialist Handoffs
+
+| Role | Precise continuation |
+| --- | --- |
+| Coordinator | Record FW3 at the verified PR scope only; keep NS2 and the independent portfolios separate. No exponent promotion. |
+| Analytic | Use radical-indexed jumps inside the actual weighted history, retaining each physical time, scalar drift, J_N and correction admission. The complete joint-source bound is still unpaid. |
+| Census | Reuse the accepted FW3 fixtures and the new m=1/admission/after-N controls. Do not expand an unchanged scan or treat repeated radicals as one cell. |
+| Referee | Original FW3 acceptance is preserved; the all-m arbitrary-defect return and H=1 extension are explicit author generalizations available for review. |
+| Wheel | Radical classes here are not greatest-prime labels or MU-LIFT occurrence fibers. No cross-route transport is asserted; GF2-GF4 retain their review status. |
+| Owner | No Nyman-to-VF/JOH carrier identification is claimed. MS's proper-component gain retains its own complete-return and review obligations. |
+
+### O. First Unresolved Mathematical Theorem
+
+For the specified family N=6K, H=floor(N^(4/5)) in its admitted range, let
+`S_H(m)=sum a_H(k)[rho_k(m)-(k-1)/(2k)]` and
+`Q_H(m)=m-psi(m)-log H-(1/2)sum a_H(k)(1-1/k)`.
+The actual pre-correction residual is `R_H=Q_H-S_H`.
+The proposed signed statement
+
+```text
+sum_(K<=m<3K) Q_H(m)*S_H(m)/[m(m+1)] >= 0
+```
+
+remains **FW4-CONJ**, not proved by identical radical jumps or finite positive
+tests. It is not contradicted by the different N=690 singleton/rest witness.
+Even this sign alone is insufficient for an improved exponent: one needs
+a quantitative bound on the COMPLETE weighted square of Q_H-S_H, plus the
+chosen family's later correction/middle/remote return and an applicable
+analytic consumer. No such missing upper supplier is assumed in this PR.
+
+### P. Resume Capsule And Source Ledger
+
+```text
+TRIGGER: scheduled 2026-11-06T21:08:00-05:00; RUN_ID_UNAVAILABLE.
+CLAIM: 20261106-lean-3/FW3-INCREMENTS.
+ORIGIN / REVIEW: 20261106-census-3/FW3; 20261106-referee-13.
+ROUTE / CARRIER: NYMAN; genuine Mobius logarithmic integer residues.
+MAIN: d4df133117c5b58f90979d2eb680167ef37995cf.
+PR: #1100; CI_GREEN / REVIEW_READY; open, not merged.
+HEAD: e52207d527da684346e151d4ff680696c88e8fa7.
+SOURCE: c5ebb3d5d96898549ad039fd32e1a26955c5b8f8.
+DEDICATED TYPE/AXIOM AUDIT: 42328802826 / 128270266477, SUCCESS.
+TARGETED COMPILATION: 42328802797 / 128270266260, SUCCESS.
+FORMAL STATUS: PROVED_IN_LEAN at this PR head; not on main.
+CHECKS: 12 workflows / 13 checks successful; eleven standard-three-axiom results.
+UNRESOLVED COMPILER FAILURES: NONE.
+NEXT: refresh human review/merge and sources; reuse unchanged green evidence.
+SCOPE: structural identity and complete source return, no endpoint gain.
+ETA_GATE: SEARCH_BROAD; existing strict gaps preserved.
+```
+
+| Material source | Blob SHA |
+| --- | --- |
+| Original residue, logarithmic kernel, divisor convolution | 2da630c1d5fb9302e2097ec1e170cf41c2b40609 |
+| Original flat coefficient and complete return | 2d23721027ecc44e85b7add02fc632b482f03352 |
+| Merged moment-null obstruction | 301d7286fc2151b5d33bdca9762a6a01c496ff87 |
+| Canonical VF von Koch interface | 79030d70e8d3e0d08eef9bac53fef95c36eca2fb |
+| New exact regression | 49dd9b6c0ddc32aeb8f79eeba11420cf4a9ada74 |
+| New dedicated workflow | be1938272730e41a9339a1c544e30f526738f9f6 |
+| Existing research-compile action | be6e049c256719f08cd82f3c6581f27ede888b58 |
+| Pinned Mathlib radical natural-number interface | fa1204627a638b49490459d716d5d33763da30f1 |
+| Pinned Mathlib radical divisibility | e9a40d6be7d894fbff62b09327a438ef68d3972a |
+| Pinned Mathlib Mobius | 05f76c89adb09318abbec6ada574be955267b03d |
+
+The report's completion/publication status is assigned only after final
+freshness checks and immutable commit readback. No future work is claimed
+to have run, and no report from another role is altered.
+
+### Prepublication Freshness - 2026-11-07T02:26:13Z / November 6 EST
+
+Live main remains d4df133117c5b58f90979d2eb680167ef37995cf. PR #1100 is
+open, no longer draft, unmerged, and still at the exact green head
+e52207d527da684346e151d4ff680696c88e8fa7. No rebuild was requested after
+metadata changes. The report passed all sixteen A-P section checks, balanced
+code-fence checks, and table-width checks. No local Lean or background shell
+process remains. Human merge and any future research run remain future events.
