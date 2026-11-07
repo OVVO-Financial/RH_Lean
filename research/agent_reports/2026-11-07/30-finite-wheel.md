@@ -1896,3 +1896,22 @@ The closing authority read still returned main **dadd9cd7b0a36b4298db30a33c2a1e4
 **Execution: COMPLETE. Publication: PUBLISHED / READBACK_VERIFIED.** New LR1-LR5 remain **PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED**, with LR5's classical sieve input explicitly attributed. FC1 is finite reproducible evidence, not the uniform proof. **NEW_VERIFIED_ENDPOINT_GAIN=NONE**; finite-C and the canonical VF bound remain OPEN. No local Lean, other agent launch, unauthorized file change, PR, merge, workflow or schedule action occurred. All required test sessions finished.
 
 Next protected route: **MU-LIFT**, using the corrected Census signed-capacity handoff. Next FINITE-AC continuation: the exact prime-weighted consumer cost and full complement, with LR1-LR4 available for independent qualification and the R=20 / R=34 counterexamples retained.
+
+## Scheduled MU-LIFT Checkpoint - 20261107-wheel-3
+
+**PARTIAL / IN_PROGRESS.** No new theorem or endpoint gain is claimed at this checkpoint. This scheduled invocation began 2026-11-07 18:06:01 EST (23:06:01 UTC), America/New_York; RUN_ID_UNAVAILABLE. Earlier CORR4 and FINITE-AC sections are preserved unchanged.
+
+Source main: `cae99df1c3ea24ff4113063bf09f6fd07517ad93` (human merge #1105). AGENTS blob `0a99faf8458809ac772d470d704c5433f373bda8`; CURRENT_PROOF_CONTRACT blob `d1d6fd558ee23927bd9f70ffdc375bafd1dbb67a`; complete-HIGH directive blob `be8168b67584d9d8ebbaa732a30c51509137543e`.
+
+`high_attack_ack=COMPLETE_SIGNED_HIGH_ATTACK_V1`; `chain_ack=CANCELLATION_CHAIN_REUSE_V1`; retain `baseline_ack=PAID_BASELINE_EXACT_CONSUMER_V1` and `deployment_ack=NO_PIGEONHOLING_ROUTE_SELECTOR_V1`. Selected protected route: MU-LIFT, following the two actual earlier turns CORR4 and FINITE-AC. Canonical LOW is already supplied for fixed Lambda. Canonical VF/von Koch, the complete improved HIGH bound and a subcritical MU-LIFT recurrence remain open.
+
+All seven same-day and previous-day reports are available at intake `agent-reports@6af83a15b929d1842baf1454faae7e851ebeb001`; relevant continuity includes Wheel GF2-GF4 (Nov 6), today's Census SC1-SC5, and Coordinator's 15:13 assignment to inspect a growing capacity-correct transport family. External inbox blob `038018145c0fddb2f6306c0712373adf9cd1ea52` has no newer entry than October 18. Older routing prose does not override current main. Today's Referee RC acceptance concerns the OAI consumer, not the proposed MU-LIFT work. No agent is presumed launched.
+
+Exact source: `oddSquarefreeUpper X = {n: 0<n<=X, n odd, X<2n, mu(n)!=0}`, whose sum is M(X), source blob `3cbc5159536d6b9e5000f74c5bd018bd2d62daf1`. The greatest-prime high fiber q^2>X has signed mass -M(floor(X/q)); every prior spent endpoint must remain removed. Existing native strict Mertens declaration blob `b33a4883e1ddb0551b0f11f062bce46680d87450` supplies an existential fixed exponent strictly below 7/8 after a loss is spent. It is an inherited baseline, not this run's result.
+
+Changed inference to investigate: whether the Census capacity correction extends to a growing shared-factor transport family with an exact arithmetic neighborhood/cut description. Retain both signed label capacities AND one-use physical endpoints. Challenge any replacement of this source network by a label-only graph. Seek a proved restriction or exact deficient set before claiming global feasibility. No larger unchanged wheel scan is planned.
+
+Complete consumer: coefficient-level signed lift below X<B^k, then the whole-prefix recurrence E(B_j^k)<=G_j E(B_j)^r with fixed 1<=r<k and subpower G_j. All unmatched sites and the entire signed square must remain. A proper-component transport is not that recurrence. The first unresolved step is a source-faithful growing-family capacity/return estimate, not a new universal covariance prerequisite.
+
+Live open/draft PR collection was empty. Recent merged #1102/#1103/#1105 are respectively CODIV and retained marked-moment work; they do not prove this matching estimate. Direct git transport failed with CONNECT 403; connected source reads succeeded. No local Lean, source edit, proof branch, PR, merge, schedule change or other-agent launch will be performed. Own-report publication is the sole remote write.
+
