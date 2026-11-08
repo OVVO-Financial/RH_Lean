@@ -613,3 +613,18 @@ print(json.dumps({"status": "PASS_EXACT_SCALAR_AND_SOURCE_TRIPWIRES",
                     "independent referee acceptance", "canonical objective"]}, indent=2))
 ~~~
 
+
+
+## Verified Publication Receipt - 2026-11-08T12:38:31Z
+
+Execution/publication: **COMPLETED / PUBLISHED** for the single scheduled 20261108-coordinator-0710-EST invocation. This receipt supersedes the earlier IN_PROGRESS and PUBLICATION_PENDING execution labels only; it does not promote any mathematical claim.
+
+Substantive publication commit: c255326471120130f4b64ba4d3dbb6a6a11f664a, committed at 2026-11-08T12:38:10Z. Parent: 84cff4c8c627e976a1c367f0173508d7b9962655. Tree: 459533c95e40191ba8b68a4022891bc5949d0292.
+
+Both authorized files were fetched at that immutable commit and compared byte-for-byte with the intended complete report. They share blob a3a51b20f69986ee01b9fba844d5d4bbd698eee8 and 57,303 ASCII bytes. The commit changed exactly the two Coordinator mirrors and no other path. The early checkpoint, new A-J synthesis, source ledger and reproducible verifier are preserved.
+
+Mathematical disposition: SB1 is PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING; SB2 remains CONDITIONAL on the explicitly recorded WS-WINDOW acceptance frontier. SB3 is the scoped old-wrapper obstruction; SB4 is the exact scalar/source diagnostic. NEW_VERIFIED_ENDPOINT_GAIN=NONE; VERIFIED_ETA=NONE. Canonical VF and RH remain OPEN.
+
+No Lean source, proof branch, PR, workflow, central policy, other agent's report, main ref, merge setting or schedule was changed. No agent was launched and no Lean execution occurred locally. There is no unfinished computation or promised background work.
+
+The receipt is appended identically to both mirrors with a fresh branch lease; its own commit and exact readback are checked before the final user-facing response. The next-run priority remains independent validation of WS-WINDOW plus SB1, with BC retained and the VF-LOW / NYMAN / FINITE-AC protected next turns unchanged.
