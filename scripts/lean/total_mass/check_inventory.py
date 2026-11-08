@@ -231,6 +231,64 @@ def read_source(root: Path, relative: str) -> Source:
     return source
 
 
+def expected_binders(declaration: Declaration) -> str:
+    """Alpha-rename only outer binders with no later identifier occurrence.
+
+    Source proof arguments can be unused in their quantified type even though
+    the original proof uses them. Prefixing their names avoids the unused-name
+    linter in an explicit forall assertion. Referenced binders and every result
+    type character stay unchanged; source declaration hashes use the originals.
+    """
+    text = declaration.binders
+    pairs = {"(": ")", "[": "]", "{": "}", "⦃": "⦄"}
+    replacements: list[tuple[int, int, str]] = []
+    cursor = 0
+    while cursor < len(text):
+        if text[cursor].isspace():
+            cursor += 1
+            continue
+        if text[cursor] not in pairs:
+            raise ValueError(f"{declaration.name}: unsupported expected-type binder")
+        start = cursor
+        stack = [pairs[text[cursor]]]
+        cursor += 1
+        while stack and cursor < len(text):
+            char = text[cursor]
+            if char in pairs:
+                stack.append(pairs[char])
+            elif char in pairs.values():
+                if char != stack.pop():
+                    raise ValueError(f"{declaration.name}: unbalanced expected-type binder")
+            cursor += 1
+        if stack:
+            raise ValueError(f"{declaration.name}: unclosed expected-type binder")
+        inside = text[start + 1:cursor - 1]
+        colon = next((i for i in top_level_positions(inside)
+                      if inside[i] == ":" and not inside.startswith(":=", i)), None)
+        if colon is None:
+            if text[start] == "[":  # Anonymous instance binder.
+                continue
+            raise ValueError(f"{declaration.name}: expected an explicitly typed binder")
+        names = inside[:colon]
+        if not re.fullmatch(r"[\w'\s]+", names):
+            raise ValueError(f"{declaration.name}: unsupported binder name syntax")
+        later = text[cursor:] + "\n" + declaration.result
+        for match in re.finditer(r"[\w']+", names):
+            name = match.group(0)
+            if name.startswith("_"):
+                continue
+            occurrence = rf"(?<![\w']){re.escape(name)}(?![\w'])"
+            if not re.search(occurrence, later):
+                new_name = "_" + name
+                if re.search(rf"(?<![\w']){re.escape(new_name)}(?![\w'])", text + declaration.result):
+                    raise ValueError(f"{declaration.name}: alpha-renaming would collide")
+                replacements.append((start + 1 + match.start(),
+                                     start + 1 + match.end(), new_name))
+    for start, end, new_name in reversed(replacements):
+        text = text[:start] + new_name + text[end:]
+    return text
+
+
 def render_exact_types(sources: list[Source]) -> str:
     """Deterministic expected text; comparison only, never written by this check."""
     lines = [
@@ -264,7 +322,8 @@ def render_exact_types(sources: list[Source]) -> str:
                 continue
             assert isinstance(value, Declaration)
             lines.extend(["", f"-- Expected public type: {value.name}"])
-            prefix = f"example : ∀ {value.binders},\n    " if value.binders else "example :\n    "
+            binders = expected_binders(value)
+            prefix = f"example : ∀ {binders},\n    " if binders else "example :\n    "
             lines.extend([prefix + value.result + " :=", f"  @_root_.{value.name}", ""])
         lines.extend(["", f"end {section}", ""])
     return "\n".join(lines)

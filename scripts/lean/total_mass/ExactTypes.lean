@@ -36,11 +36,11 @@ example :
 
 -- Expected public type: OAI.SevenEighths.ProbePhysical.low_selected_nominal_energy_total_mass
 example : ∀ (phys : LowPhysicalExponents) (η : HeckeFamily.Character) (S : Finset Id)
-    (hS : ∀ P ∈ S, P.IsMaximal) (hbad : fixedBadPrimes ⊆ S)
-    {K : ℕ} (ell : Fin K → ℝ) (hell : ∀ i, 0 ≤ ell i)
-    (hsum : ∑ i, ell i ≤ 1/6)
-    (hbudget : (3/2 : ℝ) * ((5/3 : ℝ) - 2*(phys.x+phys.y)) ≤ ∑ i, ell i)
-    (Ck b ε : ℝ) (hCk : 0 < Ck) (hε : 0 < ε) (hε1 : ε ≤ 1),
+    (hS : ∀ P ∈ S, P.IsMaximal) (_hbad : fixedBadPrimes ⊆ S)
+    {K : ℕ} (ell : Fin K → ℝ) (_hell : ∀ i, 0 ≤ ell i)
+    (_hsum : ∑ i, ell i ≤ 1/6)
+    (_hbudget : (3/2 : ℝ) * ((5/3 : ℝ) - 2*(phys.x+phys.y)) ≤ ∑ i, ell i)
+    (Ck b ε : ℝ) (_hCk : 0 < Ck) (_hε : 0 < ε) (_hε1 : ε ≤ 1),
     ∃ degree : ℕ, ∃ C : ℝ, 0 < C ∧
       ∀ᶠ Z : ℝ in Filter.atTop, 1 < Z ∧
       ∀ (T : Fin K → Finset PrimeIdeal),
@@ -86,11 +86,11 @@ local instance exactTypesUnitsFintype : Fintype Oˣ := @Fintype.ofFinite _ Prima
 
 -- Expected public type: OAI.SevenEighths.ProbePhysical.low_physical_inverse_normalized_total_mass
 example : ∀ (phys : LowPhysicalExponents) (η : HeckeFamily.Character) (S : Finset Id)
-    (hS : ∀P∈S,P.IsMaximal) (hbad : fixedBadPrimes⊆S)
-    {K : ℕ} (ell : Fin K→ℝ) (hell : ∀i,0≤ell i) (hsum : ∑i,ell i≤1/6)
-    (htotal : (3/2:ℝ)*((5/3:ℝ)-2*(phys.x+phys.y)) ≤ ∑i,ell i)
-    (a b aCut bCut ε : ℝ) (ha : 0<a) (haCut : 0<aCut) (hbCut : 0<bCut)
-    (hε : 0<ε) (hε1 : ε≤1),
+    (hS : ∀P∈S,P.IsMaximal) (_hbad : fixedBadPrimes⊆S)
+    {K : ℕ} (ell : Fin K→ℝ) (_hell : ∀i,0≤ell i) (_hsum : ∑i,ell i≤1/6)
+    (_htotal : (3/2:ℝ)*((5/3:ℝ)-2*(phys.x+phys.y)) ≤ ∑i,ell i)
+    (a b aCut bCut ε : ℝ) (_ha : 0<a) (haCut : 0<aCut) (hbCut : 0<bCut)
+    (_hε : 0<ε) (_hε1 : ε≤1),
     ∃degree : ℕ,∃C : ℝ,0<C ∧ ∀ᶠZ : ℝ in Filter.atTop,1<Z ∧
     ∀(T : Fin K→Finset PrimeIdeal),(∀i P,P∈T i→Supported P.val)→
       (∀i P,P∈T i→P.val∉S)→Pairwise (fun i j=>Disjoint (T i) (T j))→
@@ -113,14 +113,14 @@ example : ∀ (phys : LowPhysicalExponents) (η : HeckeFamily.Character) (S : Fi
 
 -- Expected public type: OAI.SevenEighths.ProbePhysical.low_central_compensated_tuple_total_mass
 example : ∀ (phys : LowPhysicalExponents) (η : HeckeFamily.Character) (S : Finset Id)
-    (hS : ∀P∈S,P.IsMaximal) (hbad : fixedBadPrimes⊆S)
-    {K : ℕ} (ell : Fin K→ℝ) (hell : ∀i,0≤ell i) (hsum : ∑i,ell i≤1/6)
-    (htotal : (3/2:ℝ)*((5/3:ℝ)-2*(phys.x+phys.y)) ≤ ∑i,ell i)
-    (a b ε : ℝ) (ha : 0<a) (hε : 0<ε) (hε1 : ε<1)
-    (W0 W1 : ℝ→ℂ) (a0 b0 a1 b1 M : ℝ) (ha0 : 0<a0) (ha1 : 0<a1)
-    (hab1 : a1<b1) (hM : 0≤M)
-    (hW0 : Function.support W0⊆Set.Icc a0 b0) (hW1 : Function.support W1⊆Set.Icc a1 b1)
-    (hW0s : ContDiff ℝ ∞ W0) (hW1s : ContDiff ℝ ∞ W1) (hWM : ∀x,‖W1 x‖≤M),
+    (hS : ∀P∈S,P.IsMaximal) (_hbad : fixedBadPrimes⊆S)
+    {K : ℕ} (ell : Fin K→ℝ) (_hell : ∀i,0≤ell i) (_hsum : ∑i,ell i≤1/6)
+    (_htotal : (3/2:ℝ)*((5/3:ℝ)-2*(phys.x+phys.y)) ≤ ∑i,ell i)
+    (a b ε : ℝ) (_ha : 0<a) (_hε : 0<ε) (_hε1 : ε<1)
+    (W0 W1 : ℝ→ℂ) (a0 b0 a1 b1 M : ℝ) (_ha0 : 0<a0) (_ha1 : 0<a1)
+    (_hab1 : a1<b1) (_hM : 0≤M)
+    (_hW0 : Function.support W0⊆Set.Icc a0 b0) (_hW1 : Function.support W1⊆Set.Icc a1 b1)
+    (_hW0s : ContDiff ℝ ∞ W0) (_hW1s : ContDiff ℝ ∞ W1) (_hWM : ∀x,‖W1 x‖≤M),
     ∃degree : ℕ,∃C : ℝ,0<C ∧ ∀ᶠZ : ℝ in Filter.atTop,1<Z ∧
     ∀(T : Fin K→Finset PrimeIdeal),(∀i P,P∈T i→Supported P.val)→
       (∀i P,P∈T i→P.val∉S)→Pairwise (fun i j=>Disjoint (T i) (T j))→
@@ -139,14 +139,14 @@ example : ∀ (phys : LowPhysicalExponents) (η : HeckeFamily.Character) (S : Fi
 
 -- Expected public type: OAI.SevenEighths.ProbePhysical.low_central_gaussian_dyad_total_mass
 example : ∀ (phys : LowPhysicalExponents) (η : HeckeFamily.Character) (S : Finset Id)
-    (hS : ∀P∈S,P.IsMaximal) (hbad : fixedBadPrimes⊆S)
-    {K : ℕ} (ell : Fin K→ℝ) (hell : ∀i,0≤ell i) (hsum : ∑i,ell i≤1/6)
-    (htotal : (3/2:ℝ)*((5/3:ℝ)-2*(phys.x+phys.y)) ≤ ∑i,ell i)
-    (a b ε : ℝ) (ha : 0<a) (hε : 0<ε) (hε1 : ε<1)
-    (W0 W1 : ℝ→ℂ) (a0 b0 a1 b1 M : ℝ) (ha0 : 0<a0) (ha1 : 0<a1)
-    (hab1 : a1<b1) (hM : 0≤M)
-    (hW0 : Function.support W0⊆Set.Icc a0 b0) (hW1 : Function.support W1⊆Set.Icc a1 b1)
-    (hW0s : ContDiff ℝ ∞ W0) (hW1s : ContDiff ℝ ∞ W1) (hWM : ∀x,‖W1 x‖≤M),
+    (hS : ∀P∈S,P.IsMaximal) (_hbad : fixedBadPrimes⊆S)
+    {K : ℕ} (ell : Fin K→ℝ) (_hell : ∀i,0≤ell i) (_hsum : ∑i,ell i≤1/6)
+    (_htotal : (3/2:ℝ)*((5/3:ℝ)-2*(phys.x+phys.y)) ≤ ∑i,ell i)
+    (a b ε : ℝ) (_ha : 0<a) (_hε : 0<ε) (_hε1 : ε<1)
+    (W0 W1 : ℝ→ℂ) (a0 b0 a1 b1 M : ℝ) (_ha0 : 0<a0) (_ha1 : 0<a1)
+    (_hab1 : a1<b1) (_hM : 0≤M)
+    (_hW0 : Function.support W0⊆Set.Icc a0 b0) (_hW1 : Function.support W1⊆Set.Icc a1 b1)
+    (_hW0s : ContDiff ℝ ∞ W0) (_hW1s : ContDiff ℝ ∞ W1) (_hWM : ∀x,‖W1 x‖≤M),
     ∃degree : ℕ,∃C : ℝ,0<C ∧ ∀ᶠZ : ℝ in Filter.atTop,1<Z ∧
     ∀(T : Fin K→Finset PrimeIdeal),(∀i P,P∈T i→Supported P.val)→
       (∀i P,P∈T i→P.val∉S)→Pairwise (fun i j=>Disjoint (T i) (T j))→
@@ -164,15 +164,15 @@ example : ∀ (phys : LowPhysicalExponents) (η : HeckeFamily.Character) (S : Fi
 
 -- Expected public type: OAI.SevenEighths.ProbePhysical.low_central_gaussian_dyads_total_mass
 example : ∀ (phys : LowPhysicalExponents) (η : HeckeFamily.Character) (S : Finset Id)
-    (hS : ∀P∈S,P.IsMaximal) (hbad : fixedBadPrimes⊆S)
-    {K : ℕ} (ell : Fin K→ℝ) (hell : ∀i,0≤ell i) (hsum : ∑i,ell i≤1/6)
-    (htotal : (3/2:ℝ)*((5/3:ℝ)-2*(phys.x+phys.y)) ≤ ∑i,ell i)
-    (a b ε : ℝ) (ha : 0<a) (hε : 0<ε) (hε1 : ε<1)
+    (hS : ∀P∈S,P.IsMaximal) (_hbad : fixedBadPrimes⊆S)
+    {K : ℕ} (ell : Fin K→ℝ) (_hell : ∀i,0≤ell i) (_hsum : ∑i,ell i≤1/6)
+    (_htotal : (3/2:ℝ)*((5/3:ℝ)-2*(phys.x+phys.y)) ≤ ∑i,ell i)
+    (a b ε : ℝ) (_ha : 0<a) (_hε : 0<ε) (_hε1 : ε<1)
     (V : SchwartzMap ℝ ℂ) (hV : HasCompactSupport (V:ℝ→ℂ))
-    (W0 W1 : ℝ→ℂ) (a0 b0 a1 b1 M : ℝ) (ha0 : 0<a0) (ha1 : 0<a1)
-    (hab1 : a1<b1) (hM : 0≤M)
-    (hW0 : Function.support W0⊆Set.Icc a0 b0) (hW1 : Function.support W1⊆Set.Icc a1 b1)
-    (hW0s : ContDiff ℝ ∞ W0) (hW1s : ContDiff ℝ ∞ W1) (hWM : ∀x,‖W1 x‖≤M),
+    (W0 W1 : ℝ→ℂ) (a0 b0 a1 b1 M : ℝ) (_ha0 : 0<a0) (_ha1 : 0<a1)
+    (_hab1 : a1<b1) (_hM : 0≤M)
+    (_hW0 : Function.support W0⊆Set.Icc a0 b0) (_hW1 : Function.support W1⊆Set.Icc a1 b1)
+    (_hW0s : ContDiff ℝ ∞ W0) (_hW1s : ContDiff ℝ ∞ W1) (_hWM : ∀x,‖W1 x‖≤M),
     ∃C : ℝ,0<C ∧ ∀ᶠZ : ℝ in Filter.atTop,1<Z ∧
     ∀(T : Fin K→Finset PrimeIdeal),(∀i P,P∈T i→Supported P.val)→
       (∀i P,P∈T i→P.val∉S)→Pairwise (fun i j=>Disjoint (T i) (T j))→
@@ -188,16 +188,16 @@ example : ∀ (phys : LowPhysicalExponents) (η : HeckeFamily.Character) (S : Fi
 
 -- Expected public type: OAI.SevenEighths.ProbePhysical.low_all_gaussian_dyads_total_mass
 example : ∀ (phys : LowPhysicalExponents) (η : HeckeFamily.Character) (S : Finset Id)
-    (hS : ∀P∈S,P.IsMaximal) (hbad : fixedBadPrimes⊆S)
-    {K : ℕ} (ell : Fin K→ℝ) (hell : ∀i,0≤ell i) (hsum : ∑i,ell i≤1/6)
-    (htotal : (3/2:ℝ)*((5/3:ℝ)-2*(phys.x+phys.y)) ≤ ∑i,ell i)
-    (a b ε : ℝ) (ha : 0<a) (hε : 0<ε) (hε1 : ε<1)
+    (hS : ∀P∈S,P.IsMaximal) (_hbad : fixedBadPrimes⊆S)
+    {K : ℕ} (ell : Fin K→ℝ) (_hell : ∀i,0≤ell i) (_hsum : ∑i,ell i≤1/6)
+    (_htotal : (3/2:ℝ)*((5/3:ℝ)-2*(phys.x+phys.y)) ≤ ∑i,ell i)
+    (a b ε : ℝ) (_ha : 0<a) (_hε : 0<ε) (_hε1 : ε<1)
     (V : SchwartzMap ℝ ℂ) (hV : HasCompactSupport (V:ℝ→ℂ))
-    (W0 W1 : ℝ→ℂ) (a0 b0 a1 b1 B0 B1 : ℝ) (ha0 : 0<a0) (ha1 : 0<a1)
-    (hab1 : a1<b1) (hB0 : 0≤B0) (hB1 : 0≤B1)
-    (hW0 : Function.support W0⊆Set.Icc a0 b0) (hW1 : Function.support W1⊆Set.Icc a1 b1)
-    (hW0s : ContDiff ℝ ∞ W0) (hW1s : ContDiff ℝ ∞ W1)
-    (hWB0 : ∀x,‖W0 x‖≤B0) (hWB1 : ∀x,‖W1 x‖≤B1),
+    (W0 W1 : ℝ→ℂ) (a0 b0 a1 b1 B0 B1 : ℝ) (_ha0 : 0<a0) (_ha1 : 0<a1)
+    (_hab1 : a1<b1) (_hB0 : 0≤B0) (_hB1 : 0≤B1)
+    (_hW0 : Function.support W0⊆Set.Icc a0 b0) (_hW1 : Function.support W1⊆Set.Icc a1 b1)
+    (_hW0s : ContDiff ℝ ∞ W0) (_hW1s : ContDiff ℝ ∞ W1)
+    (_hWB0 : ∀x,‖W0 x‖≤B0) (_hWB1 : ∀x,‖W1 x‖≤B1),
     ∃C : ℝ,0<C ∧ ∀ᶠZ : ℝ in Filter.atTop,1<Z ∧
     ∀(T : Fin K→Finset PrimeIdeal),(∀i P,P∈T i→Supported P.val)→
       (∀i P,P∈T i→P.val∉S)→Pairwise (fun i j=>Disjoint (T i) (T j))→
@@ -212,16 +212,16 @@ example : ∀ (phys : LowPhysicalExponents) (η : HeckeFamily.Character) (S : Fi
 
 -- Expected public type: OAI.SevenEighths.ProbePhysical.compensatedPhysicalProbe_low_total_mass
 example : ∀ (phys : LowPhysicalExponents) (η : HeckeFamily.Character) (S : Finset Id)
-    (hS : ∀P∈S,P.IsMaximal) (hbad : fixedBadPrimes⊆S)
-    {K : ℕ} (ell : Fin K→ℝ) (hell : ∀i,0≤ell i) (hsum : ∑i,ell i≤1/6)
-    (htotal : (3/2:ℝ)*((5/3:ℝ)-2*(phys.x+phys.y)) ≤ ∑i,ell i)
-    (a b ε : ℝ) (ha : 0<a) (hε : 0<ε) (hε1 : ε<1)
-    (W : Fin K→ℝ→ℂ) (hW : ∀i,Function.support (W i)⊆Set.Icc a b) (hWnorm : ∀i x,‖W i x‖≤1)
-    (W0 W1 : ℝ→ℂ) (a0 b0 a1 b1 B0 B1 : ℝ) (ha0 : 0<a0) (ha1 : 0<a1)
-    (hab1 : a1<b1) (hB0 : 0≤B0) (hB1 : 0≤B1)
-    (hW0 : Function.support W0⊆Set.Icc a0 b0) (hW1 : Function.support W1⊆Set.Icc a1 b1)
-    (hW0s : ContDiff ℝ ∞ W0) (hW1s : ContDiff ℝ ∞ W1)
-    (hWB0 : ∀x,‖W0 x‖≤B0) (hWB1 : ∀x,‖W1 x‖≤B1),
+    (hS : ∀P∈S,P.IsMaximal) (_hbad : fixedBadPrimes⊆S)
+    {K : ℕ} (ell : Fin K→ℝ) (_hell : ∀i,0≤ell i) (_hsum : ∑i,ell i≤1/6)
+    (_htotal : (3/2:ℝ)*((5/3:ℝ)-2*(phys.x+phys.y)) ≤ ∑i,ell i)
+    (a b ε : ℝ) (_ha : 0<a) (_hε : 0<ε) (_hε1 : ε<1)
+    (W : Fin K→ℝ→ℂ) (_hW : ∀i,Function.support (W i)⊆Set.Icc a b) (_hWnorm : ∀i x,‖W i x‖≤1)
+    (W0 W1 : ℝ→ℂ) (a0 b0 a1 b1 B0 B1 : ℝ) (_ha0 : 0<a0) (_ha1 : 0<a1)
+    (_hab1 : a1<b1) (_hB0 : 0≤B0) (_hB1 : 0≤B1)
+    (_hW0 : Function.support W0⊆Set.Icc a0 b0) (_hW1 : Function.support W1⊆Set.Icc a1 b1)
+    (_hW0s : ContDiff ℝ ∞ W0) (_hW1s : ContDiff ℝ ∞ W1)
+    (_hWB0 : ∀x,‖W0 x‖≤B0) (_hWB1 : ∀x,‖W1 x‖≤B1),
     ∃C : ℝ,0<C ∧ ∀ᶠZ : ℝ in Filter.atTop,1<Z ∧
     ∀(T : Fin K→Finset PrimeIdeal),(∀i P,P∈T i→Supported P.val)→
       (∀i P,P∈T i→P.val∉S)→Pairwise (fun i j=>Disjoint (T i) (T j))→
@@ -234,17 +234,17 @@ example : ∀ (phys : LowPhysicalExponents) (η : HeckeFamily.Character) (S : Fi
 
 -- Expected public type: OAI.SevenEighths.ProbePhysical.original_ray_compensatedPhysicalProbe_low_total_mass
 example : ∀ (phys : LowPhysicalExponents) (η : HeckeFamily.Character)
-    (S : Finset Id) (hS : SourceExclusions S) (hmax : ∀P∈S,P.IsMaximal)
-    {K : ℕ} (ell : Fin K→ℝ) (hell : ∀i,0≤ell i) (hinj : Function.Injective ell)
-    (hsum : ∑i,ell i≤1/6)
-    (htotal : (3/2:ℝ)*((5/3:ℝ)-2*(phys.x+phys.y)) ≤ ∑i,ell i) (R : Set Id)
-    (a b ε : ℝ) (ha : 0<a) (hab : a≤b) (hε : 0<ε) (hε1 : ε<1)
-    (W : Fin K→ℝ→ℂ) (hW : ∀i,Function.support (W i)⊆Set.Icc a b) (hWnorm : ∀i x,‖W i x‖≤1)
-    (W0 W1 : ℝ→ℂ) (a0 b0 a1 b1 B0 B1 : ℝ) (ha0 : 0<a0) (ha1 : 0<a1)
-    (hab1 : a1<b1) (hB0 : 0≤B0) (hB1 : 0≤B1)
-    (hW0 : Function.support W0⊆Set.Icc a0 b0) (hW1 : Function.support W1⊆Set.Icc a1 b1)
-    (hW0s : ContDiff ℝ ∞ W0) (hW1s : ContDiff ℝ ∞ W1)
-    (hWB0 : ∀x,‖W0 x‖≤B0) (hWB1 : ∀x,‖W1 x‖≤B1),
+    (S : Finset Id) (_hS : SourceExclusions S) (hmax : ∀P∈S,P.IsMaximal)
+    {K : ℕ} (ell : Fin K→ℝ) (_hell : ∀i,0≤ell i) (_hinj : Function.Injective ell)
+    (_hsum : ∑i,ell i≤1/6)
+    (_htotal : (3/2:ℝ)*((5/3:ℝ)-2*(phys.x+phys.y)) ≤ ∑i,ell i) (R : Set Id)
+    (a b ε : ℝ) (_ha : 0<a) (_hab : a≤b) (_hε : 0<ε) (_hε1 : ε<1)
+    (W : Fin K→ℝ→ℂ) (_hW : ∀i,Function.support (W i)⊆Set.Icc a b) (_hWnorm : ∀i x,‖W i x‖≤1)
+    (W0 W1 : ℝ→ℂ) (a0 b0 a1 b1 B0 B1 : ℝ) (_ha0 : 0<a0) (_ha1 : 0<a1)
+    (_hab1 : a1<b1) (_hB0 : 0≤B0) (_hB1 : 0≤B1)
+    (_hW0 : Function.support W0⊆Set.Icc a0 b0) (_hW1 : Function.support W1⊆Set.Icc a1 b1)
+    (_hW0s : ContDiff ℝ ∞ W0) (_hW1s : ContDiff ℝ ∞ W1)
+    (_hWB0 : ∀x,‖W0 x‖≤B0) (_hWB1 : ∀x,‖W1 x‖≤B1),
     ∃C : ℝ,0<C ∧ ∀ᶠZ : ℝ in Filter.atTop,
       ‖compensatedPhysicalProbe η (calibrationForSet S hmax) W0 W1
         (fun i=>canonicalSlotSupport (ProbeRaySlots.pool R S a b (Z^(ell i)))) W (fun i=>Z^(ell i))
@@ -254,17 +254,17 @@ example : ∀ (phys : LowPhysicalExponents) (η : HeckeFamily.Character)
 
 -- Expected public type: OAI.SevenEighths.ProbePhysical.original_ray_compensatedPhysicalProbe_low_loss_total_mass
 example : ∀ (phys : LowPhysicalExponents)
-    (S : Finset Id) (hS : SourceExclusions S) (hmax : ∀P∈S,P.IsMaximal)
-    {K : ℕ} (ell : Fin K→ℝ) (hell : ∀i,0≤ell i) (hinj : Function.Injective ell)
-    (hsum : ∑i,ell i≤1/6)
-    (htotal : (3/2:ℝ)*((5/3:ℝ)-2*(phys.x+phys.y)) ≤ ∑i,ell i) (R : Set Id)
-    (a b B loss : ℝ) (ha : 0<a) (hab : a≤b) (hloss : 0<loss)
-    (W : Fin K→ℝ→ℂ) (hW : ∀i,Function.support (W i)⊆Set.Icc a b) (hWnorm : ∀i x,‖W i x‖≤B)
-    (W0 W1 : ℝ→ℂ) (a0 b0 a1 b1 B0 B1 : ℝ) (ha0 : 0<a0) (ha1 : 0<a1)
-    (hab1 : a1<b1) (hB0 : 0≤B0) (hB1 : 0≤B1)
-    (hW0 : Function.support W0⊆Set.Icc a0 b0) (hW1 : Function.support W1⊆Set.Icc a1 b1)
-    (hW0s : ContDiff ℝ ∞ W0) (hW1s : ContDiff ℝ ∞ W1)
-    (hWB0 : ∀x,‖W0 x‖≤B0) (hWB1 : ∀x,‖W1 x‖≤B1),
+    (S : Finset Id) (_hS : SourceExclusions S) (hmax : ∀P∈S,P.IsMaximal)
+    {K : ℕ} (ell : Fin K→ℝ) (_hell : ∀i,0≤ell i) (_hinj : Function.Injective ell)
+    (_hsum : ∑i,ell i≤1/6)
+    (_htotal : (3/2:ℝ)*((5/3:ℝ)-2*(phys.x+phys.y)) ≤ ∑i,ell i) (R : Set Id)
+    (a b B loss : ℝ) (_ha : 0<a) (_hab : a≤b) (_hloss : 0<loss)
+    (W : Fin K→ℝ→ℂ) (_hW : ∀i,Function.support (W i)⊆Set.Icc a b) (_hWnorm : ∀i x,‖W i x‖≤B)
+    (W0 W1 : ℝ→ℂ) (a0 b0 a1 b1 B0 B1 : ℝ) (_ha0 : 0<a0) (_ha1 : 0<a1)
+    (_hab1 : a1<b1) (_hB0 : 0≤B0) (_hB1 : 0≤B1)
+    (_hW0 : Function.support W0⊆Set.Icc a0 b0) (_hW1 : Function.support W1⊆Set.Icc a1 b1)
+    (_hW0s : ContDiff ℝ ∞ W0) (_hW1s : ContDiff ℝ ∞ W1)
+    (_hWB0 : ∀x,‖W0 x‖≤B0) (_hWB1 : ∀x,‖W1 x‖≤B1),
     ∀η : HeckeFamily.Character,∃C : ℝ,0<C ∧ ∀ᶠZ : ℝ in Filter.atTop,
       ‖compensatedPhysicalProbe η (calibrationForSet S hmax) W0 W1
         (fun i=>canonicalSlotSupport (ProbeRaySlots.pool R S a b (Z^(ell i)))) W (fun i=>Z^(ell i))
@@ -275,18 +275,18 @@ example : ∀ (phys : LowPhysicalExponents)
 -- Expected public type: OAI.SevenEighths.ProbePhysical.original_normalized_compensatedPhysicalProbe_low_total_mass
 example : ∀ (phys : LowPhysicalExponents) {K : ℕ}
     (M : Ideal O) [NeZero M] [Finite (O ⧸ M)]
-    (H : Subgroup (O ⧸ M)ˣ) (hH : RayOrthogonality.globalUnits M≤H)
+    (H : Subgroup (O ⧸ M)ˣ) (_hH : RayOrthogonality.globalUnits M≤H)
     (S : Finset (Ideal O)) (hS : SourceExclusions S) (hmax : ∀P∈S,P.IsMaximal)
-    (a b B loss : ℝ) (ha : 0<a) (hab : a≤b) (hloss : 0<loss)
-    (ell : Fin K→ℝ) (hell : ∀j,0<ell j) (hinj : Function.Injective ell) (hsum : ∑j,ell j=1/6)
-    (htotal : (3/2:ℝ)*((5/3:ℝ)-2*(phys.x+phys.y)) ≤ ∑i,ell i)
-    (W : Fin K→ℝ→ℝ) (hW : ∀j,ContDiff ℝ ∞ (W j)) (hcompact : ∀j,HasCompactSupport (W j))
-    (hsupp : ∀j,Function.support (W j)⊆Set.Ioo a b)
-    (hWB : ∀j y,0≤W j y ∧ W j y≤B) (hne : ∀j,W j≠0)
-    (W0 W1 : SchwartzMap ℝ ℂ) (a0 b0 a1 b1 : ℝ) (ha0 : 0<a0) (ha1 : 0<a1)
-    (hW0 : Function.support W0⊆Set.Icc a0 b0) (hW1 : Function.support W1⊆Set.Icc a1 b1)
-    (hr0 : ∀y,(W0 y).im=0) (hr1 : ∀y,(W1 y).im=0)
-    (hp0 : ∀y,0≤(W0 y).re) (hp1 : ∀y,0≤(W1 y).re) (hn0 : W0≠0) (hn1 : W1≠0),
+    (a b B loss : ℝ) (_ha : 0<a) (_hab : a≤b) (_hloss : 0<loss)
+    (ell : Fin K→ℝ) (_hell : ∀j,0<ell j) (_hinj : Function.Injective ell) (_hsum : ∑j,ell j=1/6)
+    (_htotal : (3/2:ℝ)*((5/3:ℝ)-2*(phys.x+phys.y)) ≤ ∑i,ell i)
+    (W : Fin K→ℝ→ℝ) (_hW : ∀j,ContDiff ℝ ∞ (W j)) (_hcompact : ∀j,HasCompactSupport (W j))
+    (_hsupp : ∀j,Function.support (W j)⊆Set.Ioo a b)
+    (_hWB : ∀j y,0≤W j y ∧ W j y≤B) (_hne : ∀j,W j≠0)
+    (W0 W1 : SchwartzMap ℝ ℂ) (a0 b0 a1 b1 : ℝ) (_ha0 : 0<a0) (_ha1 : 0<a1)
+    (_hW0 : Function.support W0⊆Set.Icc a0 b0) (_hW1 : Function.support W1⊆Set.Icc a1 b1)
+    (_hr0 : ∀y,(W0 y).im=0) (_hr1 : ∀y,(W1 y).im=0)
+    (_hp0 : ∀y,0≤(W0 y).re) (_hp1 : ∀y,0≤(W1 y).re) (_hn0 : W0≠0) (_hn1 : W1≠0),
     letI : NeZero (∏P∈S,P) := ⟨fixedPrimeProduct_ne_zero S hS.prime⟩
     ∀η : HeckeFamily.Character,∃C : ℝ,0<C ∧ ∀ᶠZ : ℝ in atTop,
       let Yp := fun j=>Z^(ell j)
@@ -320,8 +320,8 @@ open ProbePrincipalResidueActual RHLeanFiniteSlotGap
 -- Expected public type: OAI.SevenEighths.ProbeFinalAssembly.SourceData.tiltedProbe_low_total_mass
 example : ∀ {Delta : ℝ}
     {D : Parameters.HighData Delta} (F : SourceData D)
-    (tilt : ℝ) (htilt : 0 ≤ tilt) (htilt1 : tilt < 1 / 960)
-    (loss : ℝ) (hloss : 0 < loss) (eta : Character),
+    (tilt : ℝ) (_htilt : 0 ≤ tilt) (_htilt1 : tilt < 1 / 960)
+    (loss : ℝ) (_hloss : 0 < loss) (eta : Character),
     F.tiltedProbe tilt eta =O[atTop]
       (fun Z : ℝ => Z ^ (3 / 16 - 9 * tilt + loss)) :=
   @_root_.OAI.SevenEighths.ProbeFinalAssembly.SourceData.tiltedProbe_low_total_mass
@@ -335,13 +335,13 @@ open CenteredMomentDetectorPlainMomentParameters
 
 -- Expected public type: OAI.SevenEighths.RHLeanNativeSevenEighthsReplay.native_fixed_total_mass_probe_bounds
 example : ∀ (D : HighData (1 / 1000000 : ℝ))
-    (tilt : ℝ) (htilt : 0 < tilt) (htilt1 : tilt < 1 / 960)
-    (htail : 24 * tilt < D.t)
-    (hfine : ∀ j, D.ell j ≤ detectorMesh (1 / 1000000) D.t / 200)
-    (hepsilon : D.ε ≤ D.t / 2000) (he : D.e ≤ D.t / 2000)
-    (heps : ((D.N : ℝ) + 8) * D.eps ≤ D.t) (F : SourceData D)
-    (counts : CountParameters F.modulus ⊤ D.t)
-    (hbetalow : (51 / 100 : ℝ) ≤ HeckeZeroSupremum.beta),
+    (tilt : ℝ) (_htilt : 0 < tilt) (_htilt1 : tilt < 1 / 960)
+    (_htail : 24 * tilt < D.t)
+    (_hfine : ∀ j, D.ell j ≤ detectorMesh (1 / 1000000) D.t / 200)
+    (_hepsilon : D.ε ≤ D.t / 2000) (_he : D.e ≤ D.t / 2000)
+    (_heps : ((D.N : ℝ) + 8) * D.eps ≤ D.t) (F : SourceData D)
+    (_counts : CountParameters F.modulus ⊤ D.t)
+    (_hbetalow : (51 / 100 : ℝ) ≤ HeckeZeroSupremum.beta),
     ∀ chi : Character,
       (∀ loss : ℝ, 0 < loss →
         F.tiltedProbe tilt chi =O[atTop]
@@ -355,13 +355,13 @@ example : ∀ (D : HighData (1 / 1000000 : ℝ))
 
 -- Expected public type: OAI.SevenEighths.RHLeanNativeSevenEighthsReplay.native_beta_le_total_mass_boundary
 example : ∀ (D : HighData (1 / 1000000 : ℝ))
-    (tilt : ℝ) (htilt : 0 < tilt) (htilt1 : tilt < 1 / 960)
-    (htail : 24 * tilt < D.t)
-    (hfine : ∀ j, D.ell j ≤ detectorMesh (1 / 1000000) D.t / 200)
-    (hepsilon : D.ε ≤ D.t / 2000) (he : D.e ≤ D.t / 2000)
-    (heps : ((D.N : ℝ) + 8) * D.eps ≤ D.t)
-    (hreserve : tilt ≤ D.sigma) (F : SourceData D)
-    (counts : CountParameters F.modulus ⊤ D.t),
+    (tilt : ℝ) (_htilt : 0 < tilt) (_htilt1 : tilt < 1 / 960)
+    (_htail : 24 * tilt < D.t)
+    (_hfine : ∀ j, D.ell j ≤ detectorMesh (1 / 1000000) D.t / 200)
+    (_hepsilon : D.ε ≤ D.t / 2000) (_he : D.e ≤ D.t / 2000)
+    (_heps : ((D.N : ℝ) + 8) * D.eps ≤ D.t)
+    (_hreserve : tilt ≤ D.sigma) (F : SourceData D)
+    (_counts : CountParameters F.modulus ⊤ D.t),
     HeckeZeroSupremum.beta ≤ 7 / 8 - tilt :=
   @_root_.OAI.SevenEighths.RHLeanNativeSevenEighthsReplay.native_beta_le_total_mass_boundary
 
@@ -414,7 +414,7 @@ example : ∀ {Delta : ℝ}
 
 -- Expected public type: OAI.SevenEighths.RHLeanActualSlotMin.native_beta_le_true_physical_slot_minimum_total_mass_of_fine
 example : ∀ (D : HighData (1 / 1000000 : ℝ))
-    (hfine : ∀ i, D.ell i ≤ detectorMesh (1 / 1000000) D.t / 200),
+    (_hfine : ∀ i, D.ell i ≤ detectorMesh (1 / 1000000) D.t / 200),
     HeckeZeroSupremum.beta ≤ 7 / 8 - actualSlotMinimum D / 4 :=
   @_root_.OAI.SevenEighths.RHLeanActualSlotMin.native_beta_le_true_physical_slot_minimum_total_mass_of_fine
 
