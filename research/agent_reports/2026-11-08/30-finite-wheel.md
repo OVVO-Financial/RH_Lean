@@ -997,3 +997,913 @@ No local Lean execution, Lean source edit, proof branch/PR, other report,
 merge, schedule change or other-agent launch is authorized or attempted.
 This checkpoint preserves the entire earlier daily report as an exact prefix.
 Publication is asserted only after immutable commit/readback.
+
+---
+
+## FINITE-AC Historical-Envelope Rectangle Payment - 20261108-wheel-2
+
+### A. Most Important Structural Discovery
+
+An adaptive, genuinely signed rectangle of the ORIGINAL ordered Euler residual is paid at the finite-C scale by the existing historical Mertens envelope alone. For every integer R>=2 and every admissible historical envelope K, put W=floor(R/(4 sqrt K)). The complete Mobius-weighted rectangle E defined below satisfies
+
+```text
+|E(R,W)| <= (8/3) R sqrt K.                         (HC2)
+```
+
+This is a quantitative proper-component consumer, not a new primitive cancellation hypothesis. It retains both historical and endpoint floor modes. The useful change from the unfinished LR investigation is to restore the nonprime columns in an exactly admitted rectangle, so the existing historical signed bound applies twice. A prime-only substitution is false: at R=65536 and the valid minimal envelope K=3/2, the prime-prime part has absolute value >324450 and violates the displayed bound, while the complete rectangle has absolute value <95. The other three prime/nonprime classes are indispensable.
+
+The complementary source is retained explicitly. Bounding that entire complement at finite-C scale is equivalent to the still-open finite-C statement; it is NOT introduced as an independently established premise. No new complete HIGH, global exponent, canonical VF or RH theorem is claimed.
+
+| Claim ID | Result | Evidence and scope |
+| --- | --- | --- |
+| 20261108-wheel-2/HC1 | Exact maximal stable rectangle and ordered-kernel factorization | PAPER_PROOF; elementary geometry/identity, no priority claim for rank-one factorization |
+| HC2 | Uniform adaptive rectangle bound with constant 8/3 | PAPER_PROOF; proper-source quantitative consumer; SELF_AUDIT |
+| HC3 | Mesoscopic rectangle bound from any supplied fixed native Mertens power | PAPER_PROOF; component saving only |
+| HC4 | Exact full return, all square cross terms, and complement target-equivalence | IDENTITY plus PAPER_PROOF of scope classification; missing bound remains TARGET_EQUIVALENT |
+| HC5 | Exact boundary, transpose, sign, complement and prime-mask falsifiers | FINITE_COMPUTATION; reproduced by a separate implementation, not independent Referee acceptance |
+
+All new claims: INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED. NEW_VERIFIED_ENDPOINT_GAIN=NONE.
+
+### B. Current Authoritative Objective
+
+Source main is **30c9fade09be0a4cb12776cd324e9fd9a9ed44ac**, freshly retrieved at execution and again at 2026-11-08 15:39:19 UTC. AGENTS.md blob is **0a99faf8458809ac772d470d704c5433f373bda8**; CURRENT_PROOF_CONTRACT.md blob is **d1d6fd558ee23927bd9f70ffdc375bafd1dbb67a**. The live authority is COMPLETE_SIGNED_HIGH_ATTACK_V1, supported by CANCELLATION_CHAIN_REUSE_V1, PAID_BASELINE_EXACT_CONSUMER_V1 and NO_PIGEONHOLING_ROUTE_SELECTOR_V1. This run is the protected **FINITE-AC** turn, not an OAI reassignment.
+
+The canonical actual-prime objective remains VFCanonicalSquareVonKochStatement, with vfCanonical=vfMid+sqrt(2) and the explicit classical von Koch criterion/hypotheses preserved. For the native square clock,
+
+```text
+M(R^2-1) = canonicalLowPrefix_Lambda(R-1)
+           + canonicalHighPrefix_Lambda(R-1).
+|canonicalLowPrefix_Lambda(R-1)| <= (floor Lambda+1)R
+```
+
+for the source's fixed nonnegative Lambda. The task is a justified improvement of the COMPLETE signed HIGH return over the strongest applicable supplied baseline. A rectangle of the Euler residual is not itself identified with canonical HIGH, an eligible ancestry carrier, a clipped returned cell, or an ideal-character probe.
+
+The strongest applicable native starting input is native_mertens_growth_at_hecke_beta with its actual every-positive-loss quantifier, together with the current improved total-mass boundary. #1107 gives the same-source boundary 7/8-m/4 rather than the older m/24 payment. #1108 now supplies the explicit-slot instance: for Nstar=explicitSlotCount, native_mertens_explicit_slot_count_total_mass gives growth at 7/8-1/(48 Nstar), and native_mertens_fixed_explicit_slot_count_total_mass spends half the saving to give the fixed power
+
+```text
+b_fixed = 7/8 - 1/(96 Nstar).
+```
+
+HC3 applies to any valid fixed b in (1/2,1) with |M(n)|<=C_b n^b. It can use the displayed fixed theorem or any sharper applicable fixed power obtained by an explicitly stated positive loss from the actual beta theorem. It does not weaken the comparator to rounded 7/8, assume zero loss at beta, or equate the explicit upper bound with beta itself.
+
+The relevant original definitions were retrieved, not inferred from reports: eulerRankOneFloorKernelQ, eulerRankOneResidualQ, eulerHistoricalFloorInversionQ, eulerRankOneResidualQ_eq_floor_sub_linear, eulerSelfDualBilinear_eq_two_mertens_sub_endpoint, LowerMertensCriticalEnvelope, and EulerSelfDualFiniteCStatement. Source blobs and tested-head evidence appear in M.
+
+### C. Structural Mechanism Investigated
+
+Resume target: 20261107-wheel-2/LR's complete weighted-boundary/complement obligation, after its local triangle, path and diagonal statements. Those old computations were NOT rerun as new work. The LR prime-column set uses 3R<=4p and p<R. For the new B=R-W>=3R/4, prime columns b>=B lie in that selected set. They are now combined with their genuine nonprime-column complement on exactly the rows a>=A where both original floor modes are fixed.
+
+The change is source-preserving rather than a prime-density approximation: select a disjoint rectangle from the full integer-by-integer source, keep its actual mu(a)mu(b), and leave every other ordered occurrence in the explicit complement Z. On this rectangle, exact integer geometry makes the coefficient independent of a. The monotone b weight then allows the historical envelope to control the signed sum by discrete Abel summation. Width is selected from an already-admissible K before evaluating E; K contains no endpoint M(R^2-1).
+
+This does not complete LR's full source estimate. It pays one precisely admitted portion using a supplier already present in the finite-C formulation. It neither spends a historical occurrence twice nor treats two ownership classifications as identical. The occurrence identifier here is the ordered pair (a,b), not the arithmetic product ab; distinct factorizations and both orientations remain distinct when admitted.
+
+### D. Exact Theorem Statements
+
+All sums below are finite. Let R>=2 be an integer, N=R-1, X=R^2-1, and M(y)=sum_{1<=n<=y} mu(n), with M(0)=0. Write
+
+```text
+T_R(a,b) = floor(X/(ab)) - (R+1)/b * floor(N/a),
+Q_R      = sum_{1<=a,b<R} mu(a)mu(b) floor(X/(ab)),
+P_R      = (R+1) sum_{1<=b<R} mu(b)/b.
+```
+
+These are the exact rational/real versions of the original Lean quantities. In particular sum mu(a)mu(b)T_R(a,b)=Q_R-P_R. An admissible K is precisely
+
+```text
+K>=0 and (M(y)-1)^2 <= K(y+1) for every integer 0<=y<R.  (H)
+```
+
+Condition (H) implies K>=1 by y=0. For finite experiments only, K_min(R)=max_{0<=y<R}(M(y)-1)^2/(y+1). This is a valid envelope, not a claim that an independently named repository empirical K(R), which may add a baseline, has the same normalization.
+
+**HC1.** For every integer W with 1<=W and 4W<=R, set
+
+```text
+B = R-W,
+A = floor(X/(2B))+1,
+Omega(R,W) = {(a,b): A<=a<R, B<=b<R},
+m_A = M(N)-M(A-1),
+t_B = sum_{B<=b<R} mu(b)*(1-(R+1)/b),
+E(R,W) = sum_{(a,b) in Omega(R,W)} mu(a)mu(b)T_R(a,b).
+```
+
+Then 1<=A<=B<R, floor(N/a)=floor(X/(ab))=1 throughout Omega, and
+
+```text
+T_R(a,b) = 1-(R+1)/b,
+E(R,W)  = m_A*t_B.                                  (1)
+```
+
+For fixed B, A is the smallest integer lower row cutoff giving floor(X/(ab))=1 throughout this rectangular tail: at (A-1,B) the endpoint floor is at least 2. This is a coefficient-level assertion, not a claim that mu(A-1) is always nonzero.
+
+**HC2.** For every R,W as in HC1 and every K satisfying (H),
+
+```text
+|E(R,W)| <= 4 K R (W+1)/(R-W).                        (2)
+```
+
+For every R>=2 and every K satisfying (H), put W_K=floor(R/(4 sqrt K)). If W_K=0, define Omega empty and E=0 without using HC1's A. Otherwise HC1 applies. Uniformly in all these R and K,
+
+```text
+|E(R,W_K)| <= (8/3) R sqrt K.                         (3)
+```
+
+There is no asymptotic threshold or scale-dependent implied constant in (3).
+
+**HC3.** Fix b in (1/2,1) and C_b>=0 such that |M(n)|<=C_b n^b for every n>=1. Then
+
+```text
+|E(R,W)| <= 4 C_b^2 R^(2b) (W+1)/(R-W).               (4)
+```
+
+Fix theta in (0,1). For every integer R>=max(2,4^(1/(1-theta))), W=floor(R^theta) obeys HC1, and
+
+```text
+|E(R,W)| <= (32/3) C_b^2 R^(2b+theta-1).              (5)
+```
+
+Choosing theta=(1+b)/2 gives component exponent (5b-1)/2, a saving (1-b)/2 from 2b in the root variable. Constants and threshold depend only on the fixed supplied b,C_b,theta. No limit uniformity as theta tends to 1 is asserted.
+
+**HC4.** Let Z(R,W) sum mu(a)mu(b)T_R(a,b) over the complement of Omega inside [1,R)^2; for W=0 this is the whole residual. Then, exactly,
+
+```text
+Q_R = P_R + E(R,W) + Z(R,W),                          (6)
+Q_R^2 = P_R^2+E^2+Z^2+2P_R E+2P_R Z+2EZ.             (7)
+```
+
+At W=W_K, there exists one uniform nonnegative C_Z with |Z(R,W_K)|<=C_Z R sqrt K for EVERY R>=2 and EVERY (H) if and only if EulerSelfDualFiniteCStatement holds. Each direction increases the bounding constant by at most 17/3. This classifies the complete residual bound as TARGET_EQUIVALENT; it does not prove either missing bound.
+
+### E. Mathematical Proof
+
+**Integer geometry.** Since B>=3R/4, 2B^2>=9R^2/8>X. Thus floor(X/(2B))<B and A<=B. Also B<=N, so X/(2B)>N/2 and A>N/2. On Omega, a<=N gives floor(N/a)>=1, while a>N/2 gives floor(N/a)<=1. The endpoint inequalities are
+
+```text
+ab <= N^2 < X,
+2ab >= 2AB > X.
+```
+
+Therefore the endpoint floor is exactly 1, including every allowed boundary. At (A-1,B), 2(A-1)B<=X, proving the stated sharpness. Substitution into the ORIGINAL kernel gives (1). No fractional-part mode has been thrown away.
+
+**Historical signed payment.** Condition (H) gives |M(y)-1|<=sqrt(KR) for every y<R. Consequently |m_A|<=2sqrt(KR). For B<=t<=N put S(t)=M(t)-M(B-1); again |S(t)|<=2sqrt(KR). The positive decreasing weights
+
+```text
+w_b=(R+1-b)/b,   w_B=(W+1)/B
+```
+
+satisfy the exact discrete Abel identity
+
+```text
+sum_{b=B}^N mu(b)w_b
+  = S(N)w_N + sum_{b=B}^{N-1} S(b)(w_b-w_(b+1)).      (8)
+```
+
+The nonnegative weights on the right telescope to w_B. It follows that |t_B|<=2sqrt(KR)(W+1)/B. Multiplying by the bound on m_A proves (2). This uses complete signed historical sums, not absolute counts or a hypothetical short-interval theorem.
+
+For adaptive W_K, K>=1 gives 4W_K<=R. If W_K>=1, W_K+1<=2W_K and B>=3R/4, so
+
+```text
+|E| <= (32/3) K W_K <= (8/3) R sqrt K.
+```
+
+The empty case is immediate. K is quantified first and the proof works for every valid K, including arbitrarily large K producing W=0; it does not infer an infinite result from the measured values of K_min.
+
+**Native fixed-power consumer.** Under HC3's supplied bound, all differences M(t)-M(s), 0<=s,t<R, have absolute value <=2C_b R^b. (M(0)=0 handles s=0.) Replace the two historical bounds in the same proof of (8) to obtain (4). The stated threshold gives R^theta<=R/4; W+1<=2R^theta and B>=3R/4 then give (5). This is an application of the already proved cancellation-bearing input, not a new assertion of cancellation.
+
+**Complete source and constants.** The rectangle indicator and its complement partition each original ordered pair exactly once, proving (6). The original historical Mobius inversion is sum_{n<=N}mu(n)floor(N/n)=1. Hence
+
+```text
+N sum_{n<=N}mu(n)/n = 1+sum_{n<=N}mu(n){N/n},
+|sum_{n<=N}mu(n)/n| <= (N+1)/N <= 2,
+|P_R| <= 2(R+1) <= 3R.                              (9)
+```
+
+The braces in (9) are fractional parts, not an altered source. Thus (3), K>=1 and (9) imply |P_R+E|<=(17/3)R sqrt K. Apply the triangle inequality in both directions to (6) to obtain HC4's equivalence. Equation (7) is the full square expansion; no cross term has been declared favorable.
+
+The established original-source theorem Q_R=2M(N)-M(X) supplies the return to Mertens. It is an already compiled declaration, not a new discovery here. Our proof of HC1-HC3 never assumes a bound on Q_R, Z or M(X), and HC4 does not use the desired conclusion as an input.
+
+### F. Structural Consequence
+
+Exact square geometry forces a whole ordered rectangle of the original residual to have rank one. Its signed behavior is controlled by two actual historical interval sums and a decreasing geometric weight. This is stronger than a maximum-degree or cardinality statement on that region, but it is not a new general factor-incidence invariant.
+
+Every admitted (a,b) has its original coefficient and multiplicity. Diagonal a=b sites remain. Squareful a or b remain as zero coefficients, not as fictitious prime survivors. Prime-prime, prime-nonprime, nonprime-prime and nonprime-nonprime classes are all present and add back exactly. The row and column restrictions are unequal and the original kernel is ordered: transposing the region cannot be silently substituted.
+
+The result does not assert a negative sign, positivity of a Gram matrix, or availability of negative credit for another sector. The counterexamples in H rule out both uniform sign claims and an identification with the transpose. It also does not apply automatically after a nonseparable admission mask, clipping, or ownership restriction is added. A separate bridge would be needed for any such modified source.
+
+### G. Signed And Quantitative Relevance
+
+The complete-return ledger is
+
+| Quantity | Proven payment | Remaining scope |
+| --- | --- | --- |
+| Canonical LOW at fixed Lambda | O(R), inherited | Kept separate from Euler labels |
+| P_R | <=3R, elementary historical inversion | Entire original linear correction |
+| E at adaptive W_K | <=(8/3)R sqrt K, HC2 | Complete within this proper rectangle |
+| E at mesoscopic W | O_b(R^((5b-1)/2)), HC3 | Strict component saving below R^(2b) |
+| Z | Exact complement; from supplied native input only O_b(R^(2b)) | No newly improved full bound |
+| P/E/Z square interactions | All six terms in (7) retained | No independent favorable sign asserted |
+| Complete M(X) and canonical HIGH | Existing supplied baseline only | No new fixed exponent gain |
+
+For illustration only, rounded b=7/8 gives 27/16 instead of 7/4 on E. The actual comparison uses the stronger available strict b, not this rounded example. Since Z remains at O(R^(2b)), the whole Q remains at the incoming scale. Neither subtraction of upper envelopes nor a positive component exponent is an endpoint improvement.
+
+The actual complete HIGH identity is
+
+```text
+canonicalHighPrefix_Lambda(R-1)
+  = 2M(N)-P_R-E-Z-canonicalLowPrefix_Lambda(R-1).       (10)
+```
+
+The already-paid O(R) and O(R^b) terms are restored. E is not renamed HIGH. No full prefix-energy claim is made, so no averaging window, especially h=1, is silently omitted. HC2 itself is pointwise at every R,K. Any subsequent energy consumer must still return every 1<=h<=N and all interactions in (10). Changing R also moves A,B and possibly K; no derivative or telescoping identity across these moving boundaries has been asserted.
+
+Compact HIGH task record:
+
+```text
+high_attack_ack: COMPLETE_SIGNED_HIGH_ATTACK_V1
+chain_ack: CANCELLATION_CHAIN_REUSE_V1
+baseline_ack: PAID_BASELINE_EXACT_CONSUMER_V1
+deployment_ack: NO_PIGEONHOLING_ROUTE_SELECTOR_V1
+main_policy_sha: 30c9fade09be0a4cb12776cd324e9fd9a9ed44ac
+role / route: Finite Wheel & Incidence / FINITE-AC
+exact_object: original ordered T_R(a,b), actual mu(a)mu(b), full complement Z
+baseline: supplied native fixed b, retaining total-mass/actual-beta hypotheses
+reused_supplier: LowerMertensCriticalEnvelope; native fixed Mertens power
+consumer: original historical-floor-stable near-root rectangle
+changed_step: restore nonprime columns, retain decreasing b weight, adapt width to K
+complete_return: Q=P+E+Z; all six square terms; M(X)=2M(N)-Q; canonical LOW restored
+net_endpoint_gain: NONE; proper-component estimate only
+first_unpaid_full_step: Z at finite-C scale, explicitly TARGET_EQUIVALENT
+independent_review / new_Lean: PENDING / NONE
+next_protected_route: MU-LIFT, resume OC physical-capacity work
+```
+
+### H. Falsification And No-Circularity Review
+
+The frozen registration and both complete checkers are embedded below. They use integer arithmetic, Fraction and integer square roots; no floating fit or probabilistic primality assumption occurs. All assertions passed. Python reported 3.12.14. Main checks covered 8,140 R/W rectangles; 1,295 adaptive R/K cases including W=0; 53,554 literal ordered kernel sites; 375 four-class expansions; 79 complete-source and full-square reconstructions; and 10,000 trial-factorization Mobius cross-checks. The second implementation checked five literal rectangles by counting multiples for the endpoint floor (8,296 sites), independently trial-factored through 65,535, and separately sieved primes for the decisive mask witness.
+
+The main domain was frozen at every R=4..256 and every 1<=W<=floor(R/4), plus held-out roots 317,1027,2002,4096. Adaptive tests use K_min,2K_min,R,R^2,100R^2. Literal full returns were checked for R=4..80,99,317. The exact arithmetic stream digest is **bcaf3b198a790c244b0c1bf2c6bcd7848ba0055523168d71395a5337ace5bb2e**. These finite checks corroborate, but do not replace, E's uniform proofs.
+
+**HC5 counterexamples.**
+
+1. Strict endpoint boundary: R=99, a=b=70, X=9800=2ab, mu(70)=-1. The actual T is 4/7, not the false floor-one value -3/7. This tests a weakened strict guard outside HC1's width domain; it is NOT a counterexample to HC1.
+2. Lowering the stable row threshold: R=4,W=1 gives A=B=3. At a=2,b=3, coefficient mu(a)mu(b)=1 and actual T=1/3, not -2/3.
+3. Transpose: R=7,W=1,A=5,B=6 gives E=0, while the transposed-region sum of the ORIGINAL kernel is 4/15.
+4. Both signs occur: R=4,W=1 gives E=-2/3; R=18,W=3,A=11,B=15 gives m_A=-1,t_B=-38/255,E=38/255. There is no universal nonpositive or nonnegative rectangle rule.
+5. Complement and interactions matter: R=4,W=1 gives Q=-1,P=5/6,E=-2/3,Z=-7/6, and 2(P+E)Z=-7/18. Dropping Z or its cross term is false even here.
+6. Prime-only bound fails on genuine source occurrences: R=65536, K_min=3/2, W=13377, B=52159, A=41172. There are 2,235 primes among the rows and 1,210 among the columns. The exact prime-prime component is
+
+```text
+E_PP = -2235 * sum_{52159<=p<65536, p prime}(65537-p)/p.
+|E_PP| > 324450,
+9 * 324450^2 > 64 * 65536^2 * (3/2),
+|E| < 95.
+```
+
+Thus the HC2 adaptive bound CANNOT be transferred to the prime-prime mask while retaining the same genuine historical K. The sum of the other three classes compensates by more than 324355 in absolute value. This is an exact finite cancellation fact, not a prime-distribution theorem. The frozen prime stress set was R=4096,8192,16384,32768,65536,131072; the last two violate the wrong prime-only bound. No claim of global minimality is made.
+
+For held-out adaptive examples, K_min=3/2: R=317,W=64,A=199 has 1<E<2; R=1027,W=209,A=645 has E=0; R=2002,W=408,A=1258 has 1<E<2; R=4096,W=836,A=2574 has -74<E<-73. These are rationally checked statements, not decimal estimates.
+
+**Novelty and no-go audit.** A scoped current-main search and inspection covered EULER_ASYMMETRIC_CORNER_SIGNED_GRAM_20261028, EULER_HYBRID_ABEL_GRAM_20261027, EULER_HYBRID_ABEL_AUDIT_20261027, EULER_UNIFORM_COMPLETED_COEFFICIENTS_20261030, EULER_PRIME_RAY_SOURCE_ADMISSION_20261031, EULER_SQUARE_BLOCK_DIVISOR_SURROGATE_20261028, the original Euler source chain and the Nov 7-8 Wheel reports. The previous asymmetric-corner O(R) bound concerns its postroot omitted strip/triangle, not this ordered original historical rectangle. Existing actual-mu completed coefficients, odd-doubling identities, prime admission tests, LR paths and OC cuts are not claimed again.
+
+No equivalent adaptive historical-envelope rectangle bound was located in that scoped inspection. This is not an exhaustive repository/literature novelty certificate. Rank-one algebra, unit-floor geometry, and Abel summation themselves are elementary and receive no novelty claim. HC2's useful content is the explicit original-source consumer, uniform width choice and constant; HC5 rejects the tempting prime-only replacement. No external analytic theorem is imported. No sieve parity slogan, factor-density heuristic, unmatched negative credit, or assumed full covariance estimate enters the proof.
+
+The first test run already passed. A later edit changed only four displayed rational outputs to integer floor/ceiling enclosures to keep the report readable; the final run passed with the same arithmetic stream digest. The separate checker was written by this same agent: DIFFERENT_IMPLEMENTATION / SELF_AUDIT, not independent human or Referee review.
+
+### I. Conceptual Interpretation
+
+The useful arithmetic organization is not a larger wheel. On an exactly delimited part of the square geometry, the complete historical signed population has a two-stage payment that is invisible after projecting to primes. The prime-prime witness shows why that restoration is substantive: an individually large coherent class can coexist with a small complete signed rectangle under the very same historical envelope.
+
+This does not prove that all remaining configurations cancel. It isolates where an existing supplier already works, with strict admission boundaries and a measured failure of an invalid transfer. The unexplained difficulty now lies outside the paid rectangle, not in an invented need for a fresh short-interval bound on this rectangle.
+
+### J. Competing Structural Hypotheses
+
+| Proposal | Outcome | Continuation |
+| --- | --- | --- |
+| Restore all integer columns and apply the existing envelope with the exact weight | HC2 proved on paper | Retain as a paid proper component |
+| Keep only genuine prime columns/rows and borrow the same payment | Exact HC5 refutation | Abandon this transfer, not genuine-prime research |
+| Use a favorable sign or transpose symmetry for free credit | Exact HC5 refutations | Preserve signed interactions and ordered source |
+| Pay successively more constant-floor cells plus their genuine jump boundaries | Prospective smaller consumer | First formulate and test the j=2 joint strip in L |
+| Assume the full remaining Z finite-C estimate as a smaller input | HC4 says TARGET_EQUIVALENT | Do not assume it |
+| Enlarge a wheel or rerun the accepted LR triangle/OC scan | No changed hypothesis here | Not performed |
+
+Protected coverage is preserved: the latest actual sequence is Nov 7 FINITE-AC/LR, Nov 7 MU-LIFT/OC, Nov 8 earlier CORR4/SP, and this Nov 8 FINITE-AC/HC continuation. The next protected turn is MU-LIFT, not another automatic HC scan. No agent, schedule, policy change or campaign departure was launched.
+
+### K. Specialist Handoffs
+
+| Recipient | Precise handoff |
+| --- | --- |
+| Coordinator / Proof Architect | Record HC2 as a paid original-source proper component, HC4 as a target-equivalence warning, and HC5 as a failed prime-mask transfer. Complete HIGH and global eta remain open. No strategy change is requested. Protect next MU-LIFT coverage. |
+| Owner Payment / Arithmetic Structure | The complete-population versus prime-mask distinction is exact at R=65536. Any use inside an owner/clipped allocation must first prove that the original ordered rectangle and weights survive that mask; no such bridge is assumed here. MC4's proper-payment/full-complement distinction is compatible, not an identification of carriers. |
+| Analytic Type II | HC3 consumes any already-certified fixed native Mertens power with explicit loss spending. Challenge whether a genuine joint j=2 moving-boundary sum in L can reuse that input; do not replace it by an unlicensed short-interval or all-masks estimate. No Nyman/Hecke sign identification is proposed. |
+| Prime Census Laboratory | Independent reproduction, if useful, should target the single prime-mask witness and coefficient-level admission/transpose controls from the frozen script, not enlarge the scan. A future experiment should discriminate the exact j=2 jump-boundary inference at the frozen K-dependent width. |
+| Adversarial Referee | Independently verify A<=B, both strict floor guards, the shifted M-1 envelope cancellation in interval sums, the Abel total variation, empty W, all-K quantifiers, and HC4's two directions. Check HC5 with an independent prime/Mobius implementation. No author self-audit is acceptance. |
+| Lean Verification | After review, at most two implementation-sized candidates: HC1 original-kernel rectangle identity with strict cutoffs, and HC2 from LowerMertensCriticalEnvelope including W=0. Preserve the existing source API and complete-return statement. Do not create a finite-C wrapper assuming Z, or a filler PR before review. No new source/CI job was requested or executed by this role. |
+
+### L. First Independently Missing Theorem
+
+The full estimate on Z in HC4 is the original finite-C difficulty in another form; it is not a smaller independently missing input. To pursue a genuinely smaller consumer on a later FINITE-AC turn, use the adjacent historical floor-two rows
+
+```text
+I_2(R) = {a: floor(N/3)<a<=floor(N/2)},
+E_2(R,K) = sum_{a in I_2(R), B<=b<R} mu(a)mu(b)T_R(a,b),
+Delta_2(a,b) = floor(X/(ab))-2,
+J_2 = sum_{a in I_2(R), B<=b<R} mu(a)mu(b)Delta_2(a,b).
+```
+
+Here W=W_K, B=R-W, and all sums are empty when W=0. For nonempty rows, floor(N/a)=2 and floor(X/(ab))>=2, so Delta_2>=0 and it is nonzero exactly when 3ab<=X. Exact substitution gives
+
+```text
+E_2 = 2 * (sum_{a in I_2(R)}mu(a)) * t_B + J_2.       (11)
+```
+
+The first term is already paid by the SAME historical/Abel proof, at most (16/3)R sqrt K. The genuinely different next question is whether the actual moving staircase J_2 can be paid jointly, for example by one absolute C_2 with |E_2(R,K)|<=C_2 R sqrt K for every R>=2 and every (H), or whether a source-valid counterexample forces a different normalization. This is a PROSPECTIVE proper-strip theorem, not proved here, not known equivalent to finite-C, and not asserted necessary for every global route. It retains all floor jumps, including any value >1 near the strict boundaries; no replacement by the indicator alone is licensed.
+
+Even proving it would leave the other historical rows and b<B complement. Do not sum unboundedly many such component constants without proving a uniform aggregate statement. The next protected invocation nevertheless resumes MU-LIFT/OC's physical-donor cut and unspent-donor repair; the j=2 question is a saved FINITE-AC continuation, not a rotation override.
+
+### M. Next-Run Resume Capsule
+
+**Execution and authority.** Scheduled invocation 2026-11-08 10:12:00 America/New_York (15:12:00 UTC); run 20261108-wheel-2. No opaque scheduler execution ID was available. Both Nov 8 and Nov 7 reports were retrieved from agent-reports. TODAY=AVAILABLE for all seven roles; YESTERDAY=CARRY_FORWARD where the older derivation remains relevant. No execution was inferred from a schedule. Coordinator AM/PM identical bytes were counted as one source. External inbox newest material is still Oct 18, not a fresh Nov 8 upstream proof.
+
+Read continuity at intake reports HEAD **3513c6a5019386c6959827803e39fd9154790b45**. The already-published early checkpoint is commit **86471d7f1cd9df04357b7c0d1df1f98b23f22061**, own-report blob **2319e2141c5d90ce38f760cdb36fed81b6a6678a**; exact immutable readback and single-own-file commit scope were verified. At the 15:39 UTC refresh, main and the report branch were unchanged since their respective recorded observations, and the open/draft PR search was empty. Final publication receives a separate verified receipt after the write.
+
+**Continuity, original claims and as-published receipts.** These are upstream statuses, not newly granted review:
+
+| Source | Relevant original claim IDs and scope | Latest relevant receipt UTC |
+| --- | --- | --- |
+| Nov 7 Coordinator | WS window/error obligations, then unpaid bulk | Nov 8 04:35:35 |
+| Nov 8 Coordinator | 20261108-coordinator-0710-EST/SB1-SB4 paper bulk return; WS-WINDOW still unaccepted; preserve strongest comparator | 12:38:31 |
+| Nov 7 Owner | SG/RS/JT: proper square-sample payment and low-zero localization, not full endpoint | 21:37:02 |
+| Nov 8 Owner | 20261108-owner-1/PD1-PD6 primitive-ratio restrictions; 7:10 weighted sign flip R=36/41; owner-2/MC1-MC6 same-site bill, proper mixed payment, full complement unpaid | 05:32:59 / 13:30:29 |
+| Nov 7 Analytic | GL/FT/BC: high-GCD payment, complete Nyman tail, retained generalized count thresholds | 22:33:48 |
+| Nov 8 Analytic | 20261108-analytic-1/MP1-MP6 proper prime-profile decorrelation; analytic-2/ND1-ND5 full-norm finite descents and uniform correction-cost restriction, no asymptotic gain | 06:33:18 / 14:29:53 |
+| Nov 7 Wheel | DI/LR/OC; LR R=34 triangle and R=20 square=25 versus diagonal=13; OC physical versus label capacity X=9215 | 23:33:09 |
+| Nov 8 Wheel | 20261108-wheel-1/SP1-SP5: exact daughter geometry, Q^3<=2H injectivity boundary, rays and full signed bill | 07:34:03 |
+| Nov 7 Census | SC/RC; signed-label failure X=21754 and coverage failure X=22132; scoped scalar capacity certificate | 16:24:51 |
+| Nov 8 Census | 20261108-census-1/TC1-TC5; doubled-cube collision (556,11),(657,13), Y=2554, M(Y)=-5, determinant 1; minimality only finite | 08:40:30 |
+| Nov 7 Referee | GL accepted within scope; RC paper acceptance; TF self-audit not own independent acceptance | Nov 8 01:33:31 |
+| Nov 8 Referee | DR1-DR4; SP1/SP2 ACCEPT, SP3 ACCEPT_WITH_SCOPE, SP4 identity/necessary alternative; TC1 accepted, TC2 norm scope, TC3 identity, TC4 finite counterexample; dyadic <12/5 not unrestricted half-line | 09:35:13 |
+| Nov 7 Lean | GL2-TAIL/MH1-CUTOFF/KL1-KL2; total-mass #1107 then awaiting merge, now merged | Nov 8 02:28:57 |
+| Nov 8 Lean | CC nine declarations for cutoff/determinant/parity/image energy and literal collision, not full SP/TC/DR signed estimates | 10:37:46 closing readiness |
+
+EXTERNAL_HANDOFFS.md blob **038018145c0fddb2f6306c0712373adf9cd1ea52** carries EXT-20261018-PNT-1..3 and EXT-20261017-XCOORD-1. Preserve their q=R, actual-prime/error and historical-anchor safeguards; old routing does not override current main. No new external quantitative ingredient was imported.
+
+**Report input blob inventory.**
+
+| Role file | Nov 7 blob | Nov 8 intake blob |
+| --- | --- | --- |
+| 00-coordinator-am.md / identical 90 mirror | 00a649b70f851ca193e74e5004d0d3390cf9ca18 | b6d5c65aed0537efd0018e11dbcd9a72dea3c15a |
+| 10-owner-payment.md | 933e8eb23e669594cc687059d75147e6267eec8d | dc8da662cdafc4bc96bcc3ccb29c3052eb1b4d99 |
+| 20-analytic-type-ii.md | 77f3e5795533041e4356ceb94cb66328da7af27c | 707aea15cc8e09f16cccf874c876bb04ede9ef14 |
+| 30-finite-wheel.md | 7739fa5d4cc77f35773b0d4149b2ddd21732a70d | 5b56caa1e7b3463510a7257b10a784ccc8798621 |
+| 40-prime-census.md | 3fae830e34c590d32c31ad77cad3ace833eb3ff5 | 3cc1bbe7e0d9a80bdcaa630a2fb3c31d4b8f90c8 |
+| 50-adversarial-referee.md | 426c2abfa5b8926b512e07f05be37692a2416d0b | 9b691e84eeb8f2f9e2497604dc874935a61d5005 |
+| 60-lean-verification.md | ec14e2803af8c1e56123682ee61ed927ed4f9450 | 02647045bf731a52b3c726c9ea690b72fa48c274 |
+
+**Relevant main source blobs.** Paths are repository-relative at the pinned main above.
+
+| Source | Blob SHA |
+| --- | --- |
+| research/EULER_RANK_ONE_FRACTIONAL_ROWS_20261027.lean | e482711a3f55c1f59fc771f108671477f51732f2 |
+| research/EULER_FRACTIONAL_COUPLED_20261027.lean | e6c4b1690e497760d366e36b28a1f7aa60e19f85 |
+| research/EULER_SELF_DUAL_FINITE_C_BRIDGE_20261027.lean | e97561ef330a9996fd807d8910369f0698147b01 |
+| research/EULER_SELF_DUAL_ENDPOINT_GATE_20261027.lean | e7ee8f77ffd59bccaa49dd6d74fbe0d7952c2d73 |
+| RHLean/Proof/SquareRootLegalAncestryGramReduction.lean | 1270d4d91c53b50b110d10014f223f427fb7a575 |
+| RHLean/Proof/SquareRootMertensEndpointAmplification.lean | 7793d7bfd842348facf62a7ad856bc802ffcd15c |
+| RHLean/Proof/SquareRootAmplificationLogGrowth.lean | 2599db31079f388229d072ee616957fba6ffc555 |
+| research/oai_434/VF919NativeStrictMertens.lean | b33a4883e1ddb0551b0f11f062bce46680d87450 |
+| research/oai_434/VF919TotalMassEndpoint.lean | 827bb952c4d4311d75fd03a2470799dc10b0f7e7 |
+| research/oai_434/VF919ExplicitSlotTotalMass.lean | 71c5b7b5b8032ca3558467126fdf97d3caf1a7df |
+| research/oai_434/VF919ExplicitAmplificationBound.lean | f3cb6dbe1eb53c910c9b4b203d98ff849bd27dd3 |
+| research/CORR4_CUTOFF_COLLISIONS_20261108.lean | a5ece19a328d3f3c5213f6482d7eb09c4638fb0e |
+| RHLean/Analysis/CanonicalHighSectorCore.lean | dd02fc8fabfe4004c6b0d50374b3b8752607b168 |
+| RHLean/Analysis/CanonicalLowOccupancy.lean | b958da340d107cdd00015d2827b9a728357b4d8e |
+
+The complete-HIGH directive blob is be8168b67584d9d8ebbaa732a30c51509137543e; cancellation-chain directive 28e2ab47c68bc83b91ae02b6112b94867b021b32. Applicable stable selector, seven-role prompts, complete-return, persistent-engine, breadth, dynamic, independent-multifront and paid-baseline instructions were read. Their routing does not supersede current HIGH authority or the role's own-report-only permissions.
+
+**Actual PR and CI evidence read.**
+
+| PR | Exact tested head / human merge | Evidence observed, not a new execution |
+| --- | --- | --- |
+| #1095 | 46e68178192c6e429a02abee9d5b8ebca5de46c8 / 1667c3cf9b4e898bb9afd62ec48e24610b2156ab | Run 42084042187, job 127444267657 success; logs show warning-fatal compile7, coverage8 Euler declarations and permitted terminal axioms. Rank-one and fractional source bytes match current main. |
+| #1107 | cd8f98fd6ed2dee3fa08f526eb8ac86c94549da5 / bf4af1cd18aff7c3944a75991aa66371c8afc18a | Actual merged status at 2026-11-08T03:26:45Z; carried exact-head green evidence plus direct #1108 terminal re-audit of the four total-mass endpoints. |
+| #1108 | a0c986c0343a56e98b7344268fdc0b74aa885cdb / 70616fd264e48490f5296a63c79e1ee11ce000b8 | Run 42451075330, job 128640229840 success; actual logs inspected for 36 exact public types and ten terminal dependency/axiom audits. Relevant total-mass/explicit-slot source bytes match main. Human merge 14:30:14Z. |
+| #1109 | fedd203158af32b09cb86fd12f04fec33998408e / 30c9fade09be0a4cb12776cd324e9fd9a9ed44ac | Run 42471452039, job 128702933142 success; actual nine-type/axiom logs inspected. Cutoff module bytes match main. Human merge 14:30:38Z. |
+
+The relevant inspected terminal axiom sets are limited to propext, Classical.choice and Quot.sound. These observations certify the reused declarations at their tested heads, not HC1-HC5, every upstream paper claim, or a fresh whole-main rebuild. No local Lean, CI trigger/rerun, source modification, PR creation, merge, branch creation, issue, schedule change or other agent launch occurred.
+
+**Reproducibility hashes.**
+
+| Embedded artifact | SHA256 |
+| --- | --- |
+| Frozen registration | 12c1a56ea86ea30f16ec2d59226086524261c366f24bd93f3e1f5fa50dffe31c |
+| finite_ac_rectangle.py, final | 925d8cc00f8e609b7f22578de1fabb3202a9aa2a30ff655d3b9ee6d484161a43 |
+| Main captured JSON | bfcb58a141b0902298ba68c23ac71477f9ca37e272fbf5f6d24c2ecec6255619 |
+| finite_ac_independent_check.py | 8ad0121ece9d83f14fc87b9087c63debfdc596e717accca8c9489413668286c5 |
+| Independent captured JSON | 3d16a28ebcd6c11b22ea07dcc090a21150b08c0bf8333f0d0f349d803a40bf00 |
+
+**Resume:** retain HC2's paid adaptive rectangle and HC5's strict-boundary, transpose, sign and prime-mask failures. Preserve prior LR/OC/SP claim IDs and the new Referee/Lean statuses rather than rewriting earlier historical entries. Next actual protected route MU-LIFT: resume OC physical occurrence capacity and unspent donor repair, retaining the complete recurrence and crossings. Next FINITE-AC: investigate (11), not the already-paid rectangle scan. HC1-HC4 are paper/self-audit; HC5 finite/self-audit; independent review and formalization remain pending. The full Z estimate, complete HIGH gain, canonical VF and RH remain open. All local finite executions finished; publication is recorded only after verified remote readback.
+
+### Reproducibility Appendix - HC5
+
+The following are the exact frozen registration, final main checker, separately implemented checker and captured outputs. Code is embedded in this authorized report only; no repository source or auxiliary script file was committed by this role. Hashes above refer to the contents inside each fence, including its final newline.
+
+#### Frozen Registration
+
+```text
+# Frozen FINITE-AC Rectangle Validation
+
+Run: 20261108-wheel-2. Source main: 30c9fade09be0a4cb12776cd324e9fd9a9ed44ac.
+Registered before the new arithmetic experiment.
+
+- Original ordered kernel T_R(a,b)=floor((R^2-1)/(ab))-(R+1)/b*floor((R-1)/a), with 1<=a,b<R and actual Mobius coefficients.
+- For width W, B=R-W and A=floor((R^2-1)/(2B))+1. Under 1<=W<=R/4, test exact floor-one on [A,R)x[B,R), original historical floor one, and exact rectangle factorization m_A * sum_[B,R) mu(b)*(1-(R+1)/b).
+- Test all integer R=4..256 and all W=1..floor(R/4), plus held-out roots 317,1027,2002,4096. No randomness or prime-density replacement.
+- Actual envelope K_R=max_[0<=y<R](M(y)-1)^2/(y+1), including y=0. Test the squared rational form of |rectangle|<=4*K_R*R*(W+1)/B.
+- Adaptive width is the greatest integer W with 16*K*W^2<=R^2. Test K in {K_R,2*K_R,R,R^2,100*R^2} for the small roots and held-out roots; handle W=0. Assert |rectangle|^2 <=(64/9)*R^2*K and record that K is chosen before the cutoff-dependent region.
+- Full source reconstruction on R=4..80, plus 99,317: directly compute all ordered kernel contributions, complement outside the rectangle, the global rank-one correction, Q_R, and the full three-term square. Cross terms are not dropped.
+- Check coefficient-level region indicators before taking sums. Check both prime/nonprime orientations and diagonal contributions in the rectangle.
+- Negative controls: exact threshold equality R=99,A=B=70; expanding the stable row set by one at its lower boundary; treating the ordered rectangle as its transpose; universal nonpositive/nonnegative rectangle sign; omitting the complement in the full source.
+- Prime-mask stress test at R in {4096,8192,16384,32768,65536,131072}: keep the genuine envelope but replace the rectangle coefficients by the actual prime-only subpopulation. Search for failure of the full-Mobius bound there, not a counterexample to the proved complete-population statement.
+- Independently verify mu by trial factorization for n<=10000. Independently reconstruct selected literal rectangles without using the factorization in a separate checker.
+- No fitted exponent, local Lean, claim of independent Referee review, or inference from finite survival to all scales. The paper proof must carry all quantified claims.
+```
+
+#### Main Exact Checker
+
+```python
+from fractions import Fraction as F
+from hashlib import sha256
+from math import isqrt
+import json
+
+
+def sieve(limit):
+    mu = [0] * (limit + 1)
+    mu[1] = 1
+    least = [0] * (limit + 1)
+    primes = []
+    for n in range(2, limit + 1):
+        if least[n] == 0:
+            least[n] = n
+            primes.append(n)
+            mu[n] = -1
+        for p in primes:
+            if n * p > limit:
+                break
+            least[n * p] = p
+            if n % p == 0:
+                break
+            mu[n * p] = -mu[n]
+    M = [0] * (limit + 1)
+    K = [F(1)] * (limit + 1)
+    for n in range(1, limit + 1):
+        M[n] = M[n - 1] + mu[n]
+        K[n] = max(K[n - 1], F((M[n] - 1) ** 2, n + 1))
+    return mu, M, K, least
+
+
+def trial_mu(n):
+    sign = 1
+    for p in range(2, isqrt(n) + 1):
+        if n % p == 0:
+            n //= p
+            sign = -sign
+            if n % p == 0:
+                return 0
+    return -sign if n > 1 else sign
+
+
+def adaptive_width(R, K):
+    ratio = F(R * R, 16) / K
+    W = isqrt(ratio.numerator // ratio.denominator)
+    assert 16 * K * W * W <= R * R < 16 * K * (W + 1) ** 2
+    return W
+
+
+LIMIT = 131072
+mu, M, K, least = sieve(LIMIT)
+for n in range(1, 10001):
+    assert mu[n] == trial_mu(n)
+
+counts = {'mu_crosschecks': 10000, 'rectangles': 0, 'adaptive_cases': 0,
+          'literal_kernel_sites': 0, 'full_returns': 0, 'class_expansions': 0}
+digest = sha256()
+signs = {}
+transpose_witness = None
+cut_witness = None
+complete_witness = None
+
+
+def rect(R, W):
+    if W == 0:
+        return R, R, 0, F(0), F(0)
+    B = R - W
+    A = (R * R - 1) // (2 * B) + 1
+    assert 1 <= A <= B < R
+    assert 2 * A * B > R * R - 1
+    assert 2 * (A - 1) * B <= R * R - 1
+    assert 2 * A > R - 1
+    m = M[R - 1] - M[A - 1]
+    t = sum((F(mu[b] * (b - R - 1), b) for b in range(B, R)), F(0))
+    return A, B, m, t, m * t
+
+
+def inspect(R, W, literal=False):
+    global transpose_witness, cut_witness
+    A, B, m, t, value = rect(R, W)
+    bound = 4 * K[R - 1] * R * F(W + 1, B)
+    assert abs(value) <= bound
+    localmax = max(abs(M[n] - M[B - 1]) for n in range(B, R))
+    assert localmax ** 2 <= 4 * K[R - 1] * R
+    assert abs(t) <= localmax * F(W + 1, B)
+    if literal:
+        raw = F(0)
+        classes = {(i, j): F(0) for i in range(2) for j in range(2)}
+        for a in range(A, R):
+            for b in range(B, R):
+                floor = (R * R - 1) // (a * b)
+                hist = (R - 1) // a
+                assert floor == hist == 1
+                term = mu[a] * mu[b] * (floor - F(R + 1, b) * hist)
+                raw += term
+                classes[(int(least[a] == a), int(least[b] == b))] += term
+                counts['literal_kernel_sites'] += 1
+        assert raw == value == sum(classes.values())
+        counts['class_expansions'] += 1
+    if value:
+        key = 'positive' if value > 0 else 'negative'
+        signs.setdefault(key, {'R': R, 'W': W, 'A': A, 'B': B,
+                               'm': m, 't': str(t), 'value': str(value)})
+    other = (M[R - 1] - M[B - 1]) * sum(
+        (F(mu[a] * (a - R - 1), a) for a in range(A, R)), F(0))
+    if value != other and transpose_witness is None:
+        transpose_witness = dict(R=R, W=W, A=A, B=B,
+                                 original=str(value), transpose=str(other))
+    a = A - 1
+    if mu[a] * mu[B] and cut_witness is None:
+        actual = F((R * R - 1) // (a * B)) - F(R + 1, B) * ((R - 1) // a)
+        fake = 1 - F(R + 1, B)
+        if actual != fake:
+            cut_witness = dict(R=R, W=W, a=a, b=B, actual=str(actual),
+                               predicted=str(fake), coefficient=mu[a]*mu[B])
+    counts['rectangles'] += 1
+    digest.update(f'{R},{W},{A},{B},{m},{t},{value}\n'.encode())
+
+
+for R in range(4, 257):
+    for W in range(1, R // 4 + 1):
+        inspect(R, W, literal=(R <= 48 or W in {1, R//4}) and R <= 96)
+for R in [317, 1027, 2002, 4096]:
+    for W in sorted({1, R // 8, R // 4}):
+        inspect(R, W, literal=(R == 317))
+
+adaptive = []
+for R in list(range(2, 257)) + [317,1027,2002,4096]:
+    for k in [K[R-1],2*K[R-1],F(R),F(R*R),F(100*R*R)]:
+        W = adaptive_width(R, k)
+        assert 4 * W <= R
+        A, B, m, t, value = rect(R, W)
+        assert 9 * value * value <= 64 * R * R * k
+        counts['adaptive_cases'] += 1
+        if R in [317,1027,2002,4096] and k == K[R-1]:
+            adaptive.append(dict(R=R, K=str(k), W=W, A=A,
+                                 rows=R-A, columns=W,
+                                 value_floor=value.numerator//value.denominator,
+                                 value_ceil=-((-value.numerator)//value.denominator)))
+
+for R in list(range(4, 81)) + [99,317]:
+    k = K[R - 1]
+    W = adaptive_width(R, k)
+    A, B, _, _, value = rect(R, W)
+    X = R * R - 1
+    reciprocal = sum((F(mu[a], a) for a in range(1, R)), F(0))
+    linear = (R + 1) * reciprocal
+    assert abs(reciprocal) <= 1
+    assert sum(mu[a] * ((R-1)//a) for a in range(1,R)) == 1
+    Q = 0
+    remainder = F(0)
+    rectangle = F(0)
+    for a in range(1,R):
+        for b in range(1,R):
+            term = mu[a] * mu[b] * (X//(a*b)-F(R+1,b)*((R-1)//a))
+            Q += mu[a]*mu[b]*(X//(a*b))
+            inside = a >= A and b >= B
+            assert int(inside)+int(not inside) == 1
+            if inside:
+                rectangle += term
+            else:
+                remainder += term
+    assert rectangle == value
+    assert Q == 2*M[R-1] - M[X]
+    assert Q == linear + value + remainder
+    assert Q*Q == (linear*linear+value*value+remainder*remainder
+                   +2*linear*value+2*linear*remainder+2*value*remainder)
+    if Q != linear+value and complete_witness is None:
+        complete_witness=dict(R=R,W=W,Q=Q,linear=str(linear),
+                              rectangle=str(value),remainder=str(remainder),
+                              cross=str(2*(linear+value)*remainder))
+    counts['full_returns'] += 1
+
+assert mu[70] == -1
+assert 99**2-1 == 2*70**2
+actual = F((99**2-1)//(70*70))-F(100,70)*(98//70)
+assert actual == F(4,7) and 1-F(100,70) == F(-3,7)
+
+prime_tests = []
+for R in [4096,8192,16384,32768,65536,131072]:
+    k = K[R-1]
+    W = adaptive_width(R,k)
+    A,B,_,_,full = rect(R,W)
+    row_primes = [p for p in range(A,R) if least[p] == p]
+    col_primes = [p for p in range(B,R) if least[p] == p]
+    prime_value = -len(row_primes)*sum((F(R+1-p,p) for p in col_primes),F(0))
+    fails = 9*prime_value**2 > 64*R*R*k
+    prime_tests.append(dict(R=R,K=str(k),W=W,A=A,row_primes=len(row_primes),
+                            col_primes=len(col_primes),fails_full_bound=fails,
+                            prime_abs_integer_lower=abs(prime_value).numerator//abs(prime_value).denominator,
+                            full_abs_integer_upper=(abs(full).numerator+abs(full).denominator-1)//abs(full).denominator))
+
+assert set(signs) == {'positive','negative'}
+assert transpose_witness and cut_witness and complete_witness
+assert any(p['fails_full_bound'] for p in prime_tests)
+print(json.dumps(dict(status='PASS',counts=counts,signs=signs,
+                     row_cutoff_failure=cut_witness,transpose=transpose_witness,
+                     complete_return=complete_witness,
+                     equality_control=dict(R=99,a=70,b=70,actual=str(actual),fake='-3/7'),
+                     adaptive_examples=adaptive,prime_mask_controls=prime_tests,
+                     exact_stream_sha256=digest.hexdigest()),sort_keys=True,indent=2))
+```
+
+#### Separate Exact Checker
+
+```python
+from fractions import Fraction as F
+from math import isqrt
+import json
+
+
+def mobius(n):
+    value = 1
+    p = 2
+    while p * p <= n:
+        if n % p == 0:
+            n //= p
+            value = -value
+            if n % p == 0:
+                return 0
+        p += 1
+    return -value if n > 1 else value
+
+
+def primes_to(n):
+    mark = bytearray(b'\x01') * (n + 1)
+    mark[0:2] = b'\x00\x00'
+    for p in range(2, isqrt(n) + 1):
+        if mark[p]:
+            for j in range(p*p, n+1, p):
+                mark[j] = 0
+    return mark
+
+
+cases = [(4,1),(7,1),(18,3),(99,20),(317,64)]
+checked = 0
+for R,W in cases:
+    B = R-W
+    A = (R*R-1)//(2*B)+1
+    coeff = {n:mobius(n) for n in range(1,R)}
+    raw = F(0)
+    for b in range(B,R):
+        for a in range(A,R):
+            copies = sum(1 for _ in range(a*b,R*R,a*b))
+            old_copies = sum(1 for _ in range(a,R,a))
+            raw += coeff[a]*coeff[b]*(copies-F(R+1,b)*old_copies)
+            checked += 1
+    factored = sum(coeff[a] for a in range(A,R))*sum(
+        (coeff[b]*(1-F(R+1,b)) for b in range(B,R)),F(0))
+    assert raw == factored
+
+R = 65536
+prime = primes_to(R)
+M = 0
+K = F(1)
+prefix = [0]
+for n in range(1,R):
+    M += mobius(n)
+    prefix.append(M)
+    K = max(K,F((M-1)**2,n+1))
+assert K == F(3,2)
+W = isqrt((F(R*R,16)/K).numerator//(F(R*R,16)/K).denominator)
+B = R-W
+A = (R*R-1)//(2*B)+1
+row_count = sum(prime[A:R])
+col_count = sum(prime[B:R])
+positive = row_count*sum((F(R+1-p,p) for p in range(B,R) if prime[p]),F(0))
+assert positive > 324450
+assert 9*324450**2 > 64*R*R*K
+full = (prefix[R-1]-prefix[A-1])*sum(
+    (mobius(n)*(1-F(R+1,n)) for n in range(B,R)),F(0))
+assert abs(full) < 95
+print(json.dumps(dict(status='PASS',direct_occurrence_sites=checked,
+                     literal_rectangles=len(cases),trial_prefix=R-1,
+                     R=R,K=str(K),W=W,A=A,B=B,row_primes=row_count,
+                     column_primes=col_count,
+                     prime_abs_gt=324450,full_abs_lt=95,
+                     prime_only_wrong_bound_refuted=True),sort_keys=True,indent=2))
+```
+
+#### Main Captured Output
+
+```json
+{
+  "adaptive_examples": [
+    {
+      "A": 199,
+      "K": "3/2",
+      "R": 317,
+      "W": 64,
+      "columns": 64,
+      "rows": 118,
+      "value_ceil": 2,
+      "value_floor": 1
+    },
+    {
+      "A": 645,
+      "K": "3/2",
+      "R": 1027,
+      "W": 209,
+      "columns": 209,
+      "rows": 382,
+      "value_ceil": 0,
+      "value_floor": 0
+    },
+    {
+      "A": 1258,
+      "K": "3/2",
+      "R": 2002,
+      "W": 408,
+      "columns": 408,
+      "rows": 744,
+      "value_ceil": 2,
+      "value_floor": 1
+    },
+    {
+      "A": 2574,
+      "K": "3/2",
+      "R": 4096,
+      "W": 836,
+      "columns": 836,
+      "rows": 1522,
+      "value_ceil": -73,
+      "value_floor": -74
+    }
+  ],
+  "complete_return": {
+    "Q": -1,
+    "R": 4,
+    "W": 1,
+    "cross": "-7/18",
+    "linear": "5/6",
+    "rectangle": "-2/3",
+    "remainder": "-7/6"
+  },
+  "counts": {
+    "adaptive_cases": 1295,
+    "class_expansions": 375,
+    "full_returns": 79,
+    "literal_kernel_sites": 53554,
+    "mu_crosschecks": 10000,
+    "rectangles": 8140
+  },
+  "equality_control": {
+    "R": 99,
+    "a": 70,
+    "actual": "4/7",
+    "b": 70,
+    "fake": "-3/7"
+  },
+  "exact_stream_sha256": "bcaf3b198a790c244b0c1bf2c6bcd7848ba0055523168d71395a5337ace5bb2e",
+  "prime_mask_controls": [
+    {
+      "A": 2574,
+      "K": "3/2",
+      "R": 4096,
+      "W": 836,
+      "col_primes": 103,
+      "fails_full_bound": false,
+      "full_abs_integer_upper": 74,
+      "prime_abs_integer_lower": 2295,
+      "row_primes": 189
+    },
+    {
+      "A": 5147,
+      "K": "3/2",
+      "R": 8192,
+      "W": 1672,
+      "col_primes": 186,
+      "fails_full_bound": false,
+      "full_abs_integer_upper": 38,
+      "prime_abs_integer_lower": 7713,
+      "row_primes": 343
+    },
+    {
+      "A": 10293,
+      "K": "3/2",
+      "R": 16384,
+      "W": 3344,
+      "col_primes": 347,
+      "fails_full_bound": false,
+      "full_abs_integer_upper": 6,
+      "prime_abs_integer_lower": 26012,
+      "row_primes": 638
+    },
+    {
+      "A": 20586,
+      "K": "3/2",
+      "R": 32768,
+      "W": 6688,
+      "col_primes": 646,
+      "fails_full_bound": false,
+      "full_abs_integer_upper": 25,
+      "prime_abs_integer_lower": 91837,
+      "row_primes": 1191
+    },
+    {
+      "A": 41172,
+      "K": "3/2",
+      "R": 65536,
+      "W": 13377,
+      "col_primes": 1210,
+      "fails_full_bound": true,
+      "full_abs_integer_upper": 95,
+      "prime_abs_integer_lower": 324450,
+      "row_primes": 2235
+    },
+    {
+      "A": 82344,
+      "K": "3/2",
+      "R": 131072,
+      "W": 26754,
+      "col_primes": 2289,
+      "fails_full_bound": true,
+      "full_abs_integer_upper": 358,
+      "prime_abs_integer_lower": 1139598,
+      "row_primes": 4201
+    }
+  ],
+  "row_cutoff_failure": {
+    "R": 4,
+    "W": 1,
+    "a": 2,
+    "actual": "1/3",
+    "b": 3,
+    "coefficient": 1,
+    "predicted": "-2/3"
+  },
+  "signs": {
+    "negative": {
+      "A": 3,
+      "B": 3,
+      "R": 4,
+      "W": 1,
+      "m": -1,
+      "t": "2/3",
+      "value": "-2/3"
+    },
+    "positive": {
+      "A": 11,
+      "B": 15,
+      "R": 18,
+      "W": 3,
+      "m": -1,
+      "t": "-38/255",
+      "value": "38/255"
+    }
+  },
+  "status": "PASS",
+  "transpose": {
+    "A": 5,
+    "B": 6,
+    "R": 7,
+    "W": 1,
+    "original": "0",
+    "transpose": "4/15"
+  }
+}
+```
+
+#### Separate Captured Output
+
+```json
+{
+  "A": 41172,
+  "B": 52159,
+  "K": "3/2",
+  "R": 65536,
+  "W": 13377,
+  "column_primes": 1210,
+  "direct_occurrence_sites": 8296,
+  "full_abs_lt": 95,
+  "literal_rectangles": 5,
+  "prime_abs_gt": 324450,
+  "prime_only_wrong_bound_refuted": true,
+  "row_primes": 2235,
+  "status": "PASS",
+  "trial_prefix": 65535
+}
+```
