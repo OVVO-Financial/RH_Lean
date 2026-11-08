@@ -1549,7 +1549,8 @@
       ],
       "proof_nodes": [
         "MILESTONE-MERTENS-CONVERSE",
-        "OPEN-MERTENS-EXPONENT-BELOW-7-8"
+        "MILESTONE-MERTENS-STRICT-EXPLICIT",
+        "OPEN-MERTENS-FURTHER-GAIN"
       ]
     },
     {

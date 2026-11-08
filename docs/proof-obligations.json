@@ -154,7 +154,8 @@
             "IFACE-CLASSICAL-VONKOCH"
           ]
         }
-      ]
+      ],
+      "intermediate_targets": []
     },
     {
       "id": "SAT",
@@ -200,7 +201,8 @@
             "PAPER-VF-LOW-ONE-SIDED"
           ]
         }
-      ]
+      ],
+      "intermediate_targets": []
     },
     {
       "id": "CODIV",
@@ -220,7 +222,7 @@
         "MECH-SIGNED-QUOTIENT-VARIATION"
       ],
       "intermediate_targets": [
-        "OPEN-MERTENS-EXPONENT-BELOW-7-8"
+        "OPEN-MERTENS-FURTHER-GAIN"
       ],
       "next_action": "Compare actual complete covariances with already-paid signed-energy bound; identify a smaller weighted source-loss with a full consumer, or prove a new genuine arithmetic restriction.",
       "paths": [
@@ -265,7 +267,8 @@
             "IFACE-CLASSICAL-VONKOCH"
           ]
         }
-      ]
+      ],
+      "intermediate_targets": []
     },
     {
       "id": "OAI-NNS",
@@ -284,7 +287,7 @@
         "MECH-OAI-NNS-COMPLETE-LEDGER"
       ],
       "intermediate_targets": [
-        "OPEN-MERTENS-EXPONENT-BELOW-7-8"
+        "OPEN-MERTENS-FURTHER-GAIN"
       ],
       "next_action": "Feed proved 1+t/2 marked and kappa>1/2 source moments through the actual combined counts, LOW/HIGH/principal comparison and native return; record first failed exponent, not a new generic cancellation premise.",
       "paths": [
@@ -333,7 +336,8 @@
             "PAPER-JOH-SQUARE-TRANSFER"
           ]
         }
-      ]
+      ],
+      "intermediate_targets": []
     },
     {
       "id": "FINITE-AC",
@@ -366,7 +370,8 @@
             "OPEN-FINITE-AC"
           ]
         }
-      ]
+      ],
+      "intermediate_targets": []
     },
     {
       "id": "CORR4",
@@ -418,7 +423,7 @@
       ],
       "intermediate_targets": [
         "OPEN-CORR4-MIXED-TAIL-POWER",
-        "OPEN-MERTENS-EXPONENT-BELOW-7-8"
+        "OPEN-MERTENS-FURTHER-GAIN"
       ]
     },
     {
@@ -451,7 +456,8 @@
             "PAPER-MU-LIFT-CONTRACTION"
           ]
         }
-      ]
+      ],
+      "intermediate_targets": []
     },
     {
       "id": "NYMAN",
@@ -482,7 +488,8 @@
             "LIT-BAEZ-DUARTE"
           ]
         }
-      ]
+      ],
+      "intermediate_targets": []
     }
   ],
   "nodes": [
@@ -3602,8 +3609,8 @@
     },
     {
       "a": "IMPORTED-OAI-7-8",
-      "b": "OPEN-MERTENS-EXPONENT-BELOW-7-8",
-      "reason": "The imported 7/8 bound is a benchmark; inserting it into identities reproduces exponent 7/8 and is not an exponent-improvement engine."
+      "b": "OPEN-MERTENS-FURTHER-GAIN",
+      "reason": "The imported OAI 7/8 bound and the now-proved explicit strict baseline do not by themselves yield an ADDITIONAL source-faithful saving beyond 7/8-1/(48N_*); the full consumer is the OPEN arithmetic target."
     },
     {
       "a": "OPEN-VF-LOW",

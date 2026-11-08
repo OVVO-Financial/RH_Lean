@@ -60,11 +60,11 @@ OPEN-VF-ACTUAL-PRIME ≡ PROP-VF-CAN-REAL-VONKOCH ≡ PROP-VF-MID-SQUARE-VONKOCH
 3. **External:** the classical prime−Li ⇔ RH theorem, as `ClassicalVonKochRHCriterion`.
 4. **Significance of O(1):** π − Li₂ and π − VF_can differ by a bounded deterministic term at every real x, so the von Koch question is exactly the actual-prime VF question; it bounds nothing about primes.
 5. **Open actual-prime inequality:** ∃C ∀R ≥ 2, |π(R²) − VF_can(R²)| ≤ C R log R.
-6. **Imported 7/8 (#987):** ζ(s) ≠ 0 for Re s > 7/8 and M(x) = O_ε(x^{7/8+ε}) on the original carriers, imported from the pinned OpenAI Lean proof; no strict exponent below 7/8 is verified (`OPEN-MERTENS-EXPONENT-BELOW-7-8`).
+6. **Imported 7/8 (#987):** ζ(s) ≠ 0 for Re s > 7/8 and M(x) = O_ε(x^{7/8+ε}) on original carriers via pinned OAI; #1107/#1108 subsequently prove the strict explicit boundary 7/8-1/(48N_*), leaving only an ADDITIONAL gain (`OPEN-MERTENS-FURTHER-GAIN`) unproved.
 7. **Routes:** VF-LOW, SAT, CODIV, BLOCK, OAI-NNS, JOH, FINITE-AC, CORR4, MU-LIFT, NYMAN; BLOCK's universal form is refuted at R = 549.
 8. **Independent mechanisms:** (I) prime/composite incidence (VF-LOW, SAT, JOH); (II) genuine Mertens signed pair and historical envelope (CODIV, FINITE-AC) with CORR4's q² recursion as a distinct mechanism; (III) original OAI Hecke/character (OAI-NNS); (IV) higher-order Newton lift (MU-LIFT); (V) Nyman Hilbert (NYMAN).
 9. **Exact missing estimate per route:** §4 scoreboard.
-10. **Breakthrough theorems:** any unpaid OPEN input in §5 (each closes RH with its listed conditions); short of RH, `OPEN-MERTENS-EXPONENT-BELOW-7-8` on the complete source.
+10. **Breakthrough theorems:** any unpaid OPEN input in §5 (each closes RH with its listed conditions); short of RH, `OPEN-MERTENS-FURTHER-GAIN` beyond the current strict explicit baseline, with separate zero-log and finite-A terminal targets.
 11. **Numerical shortcut-killers:** `CE-BLOCK-R549`, `CE-CORR4-R57`, `CE-CORR4-R56`, `CE-CORR4-R5561`, `CE-JOH-R4-R7`; literature `LIT-BURNOL-2002` kills the q < 1/2 Nyman contraction; `NOGO-FINITE-A-HURST` (paper) bounds finite-A constants below.
 12. **Kernel-verified vs conditional vs paper vs numerical:** the `formal_status` and `evidence_class` columns of §7.
 13. **Where:** Lean links and PR columns in §7; dated PR heads and checks in §8.
@@ -283,7 +283,7 @@ Recorded non-equivalences (the validator fails if any pair collapses):
 | `OPEN-FINITE-AC` ≠ `PROP-MERTENS-ENERGY` | Finite A implies the Mertens energy statement; the converse is not proved and finite A can be stronger than RH. |
 | `PROP-LEGAL-ANCESTRY-GRAM` ≠ `PROP-MERTENS-ENERGY` | Co/Div and finite A/C are existentially equivalent only on the correctly normalized live-packet carrier, not as global unnormalized covariance statements. |
 | `CARRIER-OAI-IDEAL-SOURCE` ≠ `CARRIER-915-WEIGHTED-SOURCE` | Original OAI ideal coefficients are not automatically RH_Lean physical prime-owner coefficients; #987 is an output-level bound. |
-| `IMPORTED-OAI-7-8` ≠ `OPEN-MERTENS-EXPONENT-BELOW-7-8` | The imported 7/8 bound is a benchmark; inserting it into identities reproduces exponent 7/8 and is not an exponent-improvement engine. |
+| `IMPORTED-OAI-7-8` ≠ `OPEN-MERTENS-FURTHER-GAIN` | The imported OAI 7/8 bound and the now-proved explicit strict baseline do not by themselves yield an ADDITIONAL source-faithful saving beyond 7/8-1/(48N_*); the full consumer is the OPEN arithmetic target. |
 | `OPEN-VF-LOW` ≠ `OPEN-VF-ACTUAL-PRIME` | One-sided sufficiency uses an external Omega+- theorem; no Lean equivalence. |
 | `OPEN-915-SOURCE-PAYMENT` ≠ `OPEN-VF-ACTUAL-PRIME` | The #915 payment is a fixed-constant K = 2 envelope; the public target is existential in C. |
 | `CLASSICAL_VONKOCH_CRITERION_FORMAL_IMPORT_OR_PROOF` ≠ `OPEN-VF-ACTUAL-PRIME` | Formalizing the classical criterion does not touch the open actual-prime estimate. |
