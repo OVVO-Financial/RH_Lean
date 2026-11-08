@@ -1345,3 +1345,21 @@ print(json.dumps(result,indent=2))
   "seconds": 7.700756647999924
 }
 ```
+
+
+### Verified Publication Receipt - 20261108-census-1
+
+Verified at 2026-11-08 08:40:30 UTC / 03:40:30 EST.
+
+- Research completion: COMPLETED / DONE; publication of the substantive report succeeded.
+- Branch and sole changed path: agent-reports:research/agent_reports/2026-11-08/40-prime-census.md.
+- Substantive commit: b5eebf18d6a98591fed9335139e9d39f7ed0eca9.
+- Substantive content blob: 5d1a9654d68d8c6862c9bfb4066e1010209d9eea.
+- Immutable commit readback: exact match, 68,077 characters. Commit metadata confirms that only the authorized own report changed.
+- Substantive report SHA256 before this receipt: 220f617deccffee14153f17e74775d4ea1334008f40fd419901c1f247707c911.
+- The early checkpoint remains an exact prefix; this receipt is an append-only follow-up, not a new research invocation.
+- New claims remain TC1-TC3 PAPER_PROOF / SELF_AUDIT, TC4 REFUTED, and TC5 FINITE_COMPUTATION. Independent Referee review and new Lean certification remain PENDING; no new global exponent or RH proof is claimed.
+
+This receipt attests the verified preceding substantive commit. The follow-up
+receipt commit is checked separately after writing; no self-referential future
+commit or unobserved publication is asserted here.
