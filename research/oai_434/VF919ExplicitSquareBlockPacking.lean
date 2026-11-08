@@ -103,8 +103,10 @@ theorem near_uniform_distinct_slot_lengths (L : ℝ) (hL : 0 < L)
   have hLpack : (1 + 1 / (N : ℝ)) / (6 * (N : ℝ)) < L := by
     have hdist : 1 / (6 * L) < (N : ℝ) - 1 := by
       linarith only [hNL]
-    have hprod : (1 : ℝ) < 6 * L * ((N : ℝ) - 1) :=
+    have hprod0 : (1 : ℝ) < ((N : ℝ) - 1) * (6 * L) :=
       (div_lt_iff₀ (by positivity : 0 < 6 * L)).mp hdist
+    have hprod : (1 : ℝ) < 6 * L * ((N : ℝ) - 1) := by
+      nlinarith only [hprod0]
     have hplus : 0 < (N : ℝ) + 1 := by linarith only [hNp]
     have hmul := mul_lt_mul_of_pos_right hprod hplus
     have hquad : ((N : ℝ) - 1) * ((N : ℝ) + 1) < (N : ℝ) ^ 2 := by

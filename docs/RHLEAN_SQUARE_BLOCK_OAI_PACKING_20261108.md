@@ -14,13 +14,29 @@ The new Lean theorem is groupedSquareBlocks_sum. In particular f=mu recovers
 each completed square-group Möbius contribution without absolute values or
 any prime-count approximation. This is an exact additive partition.
 
-An OAI detector slot is NOT one arithmetic square block. OAI's ell_j is
-the exponent of an original prime-ideal norm ray, roughly N(P)~Z^ell_j,
-and the smooth profile and Hecke-character weights are part of the source.
-Each such norm ray typically occupies many square blocks. A further
-bridge to the ORIGINAL OAI source must retain the ideal-to-rational norm
-map, ray character, original profiles and boundary collars. Grouping itself
-does not create cancellation or establish that weighted source comparison.
+An OAI detector slot is NOT one arithmetic square block. OAI's ell_j
+locates an original prime-ideal norm ray, roughly N(P)~Z^ell_j;
+the smooth profile and Hecke-character weights are part of the source.
+Each such norm ray typically occupies many square blocks.
+
+**EXISTING exact bridge: already paid, not an open task.** The repo has
+vf919OAITrueSquareIdealNormSource_eq_originalShell and its complete
+signed covariance (VF_919_OAI_TRUE_IDEAL_NORM_SHARP_SQUARE_BLOCK_20261019.lean);
+rhlean_actual_ideal_ordered_physical_square_pairs_eq_VF919
+(RHLeanActualEisensteinIdealSharpSquareBlock.lean); and
+rhlean_actual_sharp_compensated_full_ideal_pair_gram
+(RHLeanActualEisensteinCompensatedSharpSquareBlock.lean).
+OAI_PAIRED_SHARP_EULER_SQUARE_LOCALIZATION_20261028.lean already
+identifies the true sharp source with three moving Euler populations.
+
+The **unpaid bridge is quantitative smooth-to-sharp uniformity**:
+the OAI licensed smooth marked/inverse profile moment theorems do not
+automatically bound the original sharp root-indexed dyadic energy
+sum_{H<=R<2H} |M((R+1)^2-1)-M(R^2-1)|^2 with the needed power saving.
+See research/OAI_PAIRED_SHARP_MOMENT_TRANSFER_20261028.md and
+research/OAI_SHARP_ROOTGRID_HEIGHT_AUDIT_20261028.md.
+The elementary grouping theorem is not a replacement for those paid
+coefficient/covariance bridges and provides no new cancellation.
 
 ## 2. The detector's necessary slot-count tax
 
