@@ -915,3 +915,29 @@ readback.
 - NEXT ROUTE: FINITE-AC, resuming LR's complete weighted boundary and complement.
 - NEXT CORR4: independently control actual signed alignment on this graph, or test a genuinely changed transition-range restriction.
 - DO NOT REPEAT: this unchanged sampling census, paid tail, #1097, or prior disproved all-sample/composite-label claims as new progress.
+
+## Verified Publication Receipt - 20261108-wheel-1
+
+At 2026-11-08T07:34:03Z / 02:34:03 EST, immutable readback verified substantive
+research commit **466ba48f43b5791d68f3b058144418a7a6b2e4f0**, report blob
+**592297b8e23b22ef40a0601ee902e31265825b75**, against all **56721 characters** of the
+intended text exactly. The original early checkpoint is an unchanged prefix.
+Commit metadata confirms that ONLY this authorized daily report changed:
+**890 additions, zero deletions**, commit time 2026-11-08T07:33:50Z.
+The complete preregistration, final verifier, captured first output and
+reporting-only second-run distinction are preserved.
+
+[Verified substantive report](https://github.com/OVVO-Financial/RH_Lean/blob/466ba48f43b5791d68f3b058144418a7a6b2e4f0/research/agent_reports/2026-11-08/30-finite-wheel.md).
+
+**Execution: COMPLETE. Publication: PUBLISHED / READBACK_VERIFIED.**
+SP1-SP4 remain **PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING /
+NOT_FORMALIZED**, with inherited and elementary representations distinguished
+from new structural restrictions. SP5 is exact **FINITE_COMPUTATION**,
+not an infinite proof. **NEW_VERIFIED_ENDPOINT_GAIN=NONE**.
+No improved global exponent, canonical HIGH estimate, VF closure or RH proof
+is claimed. No local Lean, unauthorized remote file/branch/PR/workflow edit,
+merge, schedule action or other-agent launch occurred. All required test
+sessions finished.
+
+This receipt documents the substantive commit above; the subsequent
+receipt-only commit is separately read back before final delivery.
