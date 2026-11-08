@@ -1,13 +1,13 @@
 {
   "schema": "rhlean-proof-obligations/1",
   "registry_version": "2026-11-08.2",
-  "authority": "Mathematical proof-obligation registry (Layer A) with links to Lean declarations (Layer B) and evidence (Layer C). Navigation and status bookkeeping only: a conditional consumer does not prove its premises, an explicit interface is not a Lean proof, and paper or numerical findings are not Lean certificates. Live PR state must be refreshed from GitHub; the evidence snapshot is dated. Nov 8 continuation: #1106-#1109 remain merged; repaired #1111 is recorded separately at its exact unmerged head and is not promoted while its required axiom audit is pending. Zero-log amplification, uniform finite A and RH remain open. Current status must not be inferred from the dated Oct 26 portfolio.",
+  "authority": "Mathematical proof-obligation registry (Layer A) with links to Lean declarations (Layer B) and evidence (Layer C). Navigation and status bookkeeping only: a conditional consumer does not prove its premises, an explicit interface is not a Lean proof, and paper or numerical findings are not Lean certificates. Live PR state must be refreshed from GitHub; the evidence snapshot is dated. Nov 8 continuation: #1106-#1109 remain merged; repaired #1111 and #1113 are exact-head green, review-ready and UNMERGED. The new fixed-source boundary is distinguished from main and from a further open improvement; the ancestry result is structural. Zero-log amplification, uniform finite A and RH remain open.",
   "baseline": {
     "repository": "OVVO-Financial/RH_Lean",
     "main_sha": "8b5a6921002da0742ecfab9ee7d40728ed5fe348",
     "lean_toolchain": "leanprover/lean4:v4.34.1",
     "agent_reports_sha": "4128712b7a4f4b27b2d7f70e08578063121e8214",
-    "verified_at": "2026-11-08T18:58:06Z"
+    "verified_at": "2026-11-08T19:18:49Z"
   },
   "vocabulary": {
     "node_types": [
@@ -213,8 +213,8 @@
       "priority": "C",
       "architecture": "II. genuine Mertens signed pair",
       "missing_mathematics": "Actual full signed covariance already satisfies the merged strict sub-7/8 consequence. Prove an additional complete signed power saving beyond the explicit boundary, or RH-level M^2=O(X^(1+eps)) with the squarefree diagonal.",
-      "quantitative_target": "Certified M^2=O_eps(X^(7/4-1/(24N_*)+eps)); next strictly better exponent, critical X^(1+eps).",
-      "best_source": "#1107 complete signed-pair return; #1108 explicit bound; MertensCovarianceDescent and real Phi / NNS packets.",
+      "quantitative_target": "Main certifies M^2=O_eps(X^(7/4-1/(24N_*)+eps)); green unmerged #1111 certifies MertensGrowthAtMost(b_pack), b_pack=7/8-1/(32*N_pack). Squaring with half the positive loss gives the elementary energy consequence O_eps(X^(2*b_pack+eps)); no new separately named signed-pair theorem is claimed. Further gain and the critical X^(1+eps) remain open.",
+      "best_source": "#1107 complete signed-pair return; #1108 merged explicit bound; #1111 exact-head green unmerged improved native Mertens bound; MertensCovarianceDescent and real Phi / NNS packets.",
       "largest_unpaid_term": "Joint genuine pair interactions not controlled at the RH-scale; no factorwise transfer from Hecke atom labels to rational Moebius signs.",
       "falsifiers": [],
       "mechanism_nodes": [
@@ -274,13 +274,13 @@
       "id": "OAI-NNS",
       "title": "Original OpenAI compensated Hecke/Gaussian source and full signed NNS moment",
       "disposition": "OPEN",
-      "status_label": "STRICT EXPLICIT GAP PROVED (#1107/#1108); FURTHER GAIN / RH OPEN",
+      "status_label": "STRICT GAP ON MAIN; IMPROVED #1111 GREEN UNMERGED; FURTHER GAIN / RH OPEN",
       "gate": "ANALYTIC-IMPROVEMENT",
       "priority": "C",
       "architecture": "III. original OAI Hecke/character",
-      "missing_mathematics": "Further complete-source saving beyond 7/8-1/(48N_*) or a repeatable licensed contraction. Retain the existing original 1->7/8 cancellation, total-slot-mass LOW and full same-probe HIGH/principal return.",
-      "quantitative_target": "Certified beta<=7/8-1/(48N_*); NEXT beta<=7/8-1/(48N_*)-eta for fixed eta>0, or uniform renewal toward 1/2.",
-      "best_source": "Merged #1107 VF919TotalMassEndpoint; #1108 explicit finite-slot/amp; retained-slot-feedback marked 1+t/2 and generalized kappa; original OAI LOW/HIGH/principal ledger.",
+      "missing_mathematics": "Further complete-source saving beyond the strongest verified b_active=7/8-1/(32*N_pack), available at green unmerged #1111, or a repeatable licensed contraction. Main still has 7/8-1/(48N_*). Retain the existing original cancellation, total-slot-mass LOW and full same-probe HIGH/principal return.",
+      "quantitative_target": "Main: beta<=7/8-1/(48N_*). Green unmerged #1111: beta<=b_active=7/8-1/(32*N_pack). NEXT: beta<=b_active-eta for fixed eta>0, or uniform renewal toward 1/2; every-positive-loss versus fixed-power quantifiers remain distinct.",
+      "best_source": "Merged #1107 VF919TotalMassEndpoint and #1108 finite-slot/amp; exact-head green unmerged #1111 original near-uniform slot witness; retained-slot-feedback marked 1+t/2 and generalized kappa; original complete ledger.",
       "largest_unpaid_term": "Complete downstream combined counts, crossing/height budgets and every resonant/principal/outer branch when using retained marked 1+t/2 and generalized kappa.",
       "falsifiers": [],
       "mechanism_nodes": [
@@ -382,7 +382,7 @@
       "priority": "A",
       "architecture": "II'. q^2 recursion (distinct mechanism within the Mertens family)",
       "missing_mathematics": "#1109 controls the multiplicity of original off-ray daughter-cutoff images (at most two), NOT their image energy/signs. Need the complete signed prefix-tail/mixed bill with rays, parent, q>Q, historical prefix and negative daughters kept.",
-      "quantitative_target": "RH-sufficient: |B_R|^2 <= (9/4) E_R + C R^2 K_R. Strict-power consumer: 2 Gamma_mixed <= 2 E_R + A R^(7/2-eta); to exceed new b_base requires eta>1/(12N_*).",
+      "quantitative_target": "RH-sufficient: |B_R|^2 <= (9/4) E_R + C R^2 K_R. Strict-power consumer: 2 Gamma_mixed <= 2 E_R + A R^(7/2-eta). Elementary threshold comparison: beating main requires eta>1/(12N_*); beating green unmerged #1111 requires eta>1/(8*N_pack). The full signed input remains unproved.",
       "best_source": "Merged #1021 general-power Gram, #1027/#1040 signed reductions, #1109 CORR4_CUTOFF_COLLISIONS; full original q^2 daughter carrier.",
       "largest_unpaid_term": "Signed mixed-tail return and distinct-image energy; an upper energy bound cannot replace a negative daughter credit with the wrong sign.",
       "falsifiers": [
@@ -3108,15 +3108,14 @@
     {
       "id": "MILESTONE-NEAR-UNIFORM-SLOT-BOUNDARY",
       "title": "Near-uniform fixed-source Mertens boundary (#1111)",
-      "type": "paper_claim",
+      "type": "formalization_milestone",
       "route_ids": ["OAI-NNS", "CODIV"],
       "statement": "For the fixed N_pack=nearUniformSlotCount=ceil(max(1,1/(6*explicitFineLength)))+2, beta <= 7/8-1/(32*N_pack), and for every eps>0 there is C_eps>=0 for all integers n>=1: |M(n)|<=C_eps*n^(7/8-1/(32*N_pack)+eps). The positive distinct slots have sum 1/6 and satisfy the original complete detector/source budgets. No no-loss bound at the endpoint is asserted.",
-      "logical_status": "CLAIMED",
-      "formal_status": "LEAN_PR_HEAD_NOT_GREEN",
-      "evidence_class": "PAPER_PROOF_NEEDS_REVIEW",
-      "provenance": "PAPER_ARGUMENT",
-      "open_obligation": true,
-      "obligation_kind": "REVIEW",
+      "logical_status": "PROVED",
+      "formal_status": "PROVED_IN_LEAN_PR_GREEN_UNMERGED",
+      "evidence_class": "PROVED_IN_LEAN_PR_GREEN_UNMERGED",
+      "provenance": "PROVED_INTERNALLY",
+      "open_obligation": false,
       "lean": [
         {
           "file": "research/oai_434/VF919ExplicitSquareBlockPacking.lean",
@@ -3129,7 +3128,7 @@
       ],
       "pr": 1111,
       "evidence": ["EV-PR-1111"],
-      "notes": "The signed square-block regrouping in the same module is a separate identity, not an input to the analytic endpoint or a quantitative smooth-to-sharp bridge. This is a repaired existing proof PR, not new primitive cancellation or a change to the original source. The exact PR state and tested head remain separate from main.",
+      "notes": "Exact-head source, fixed types and three terminal axiom audits passed; independent PR review and human merge remain separate. The signed square-block regrouping is a separate identity, not an input to the endpoint or a quantitative smooth-to-sharp bridge. This repairs an existing proof PR and retains the original source budgets. PAPER_COROLLARY, not separately Lean-named: N_pack<=N_*=explicitSlotCount, hence eta=1/(32*N_pack)-1/(48*N_*)>=1/(96*N_*)>0. Spending eps=eta/2 yields a fixed power strictly better than the old every-positive-loss boundary. No VERIFIED_ETA program gate is inferred solely from CI.",
       "does_not_prove": [
         "A quantitative smooth-to-sharp square-shell transfer",
         "Uniform finite A or zero-log amplification",
@@ -3143,6 +3142,33 @@
       }
     },
     {
+      "id": "MILESTONE-PRIME-LOCATION-ANCESTRY",
+      "title": "Original prime-location two-channel decomposition and smaller factor root (#1113)",
+      "type": "formalization_milestone",
+      "route_ids": ["VF-LOW", "SAT"],
+      "statement": "For every R>=2 and S<=R, the genuine prime left-minus-right mass on R^2<n<(R+1)^2 equals prefix-wheel mass minus the signed mass of later-removed composite sites. Every removed site has a genuine prime divisor S<q<=R, hence sqrt(q)<R. The exact masses at R=2,3,4 are 0,0,1, refuting only inheritance of perfect one-block balance.",
+      "logical_status": "PROVED",
+      "formal_status": "PROVED_IN_LEAN_PR_GREEN_UNMERGED",
+      "evidence_class": "PROVED_IN_LEAN_PR_GREEN_UNMERGED",
+      "provenance": "PROVED_INTERNALLY",
+      "open_obligation": false,
+      "lean": [
+        {"file": "research/VF_MID_PRIME_LOCATION_ANCESTRY_DICHOTOMY_20261108.lean", "name": "squareWheelPrimeHalfMass_eq_prefix_sub_late"},
+        {"file": "research/VF_MID_PRIME_LOCATION_ANCESTRY_DICHOTOMY_20261108.lean", "name": "squareWheelLateRemoved_has_new_prime_factor"},
+        {"file": "research/VF_MID_PRIME_LOCATION_ANCESTRY_DICHOTOMY_20261108.lean", "name": "squareWheelLateRemoved_has_smaller_prime_root"},
+        {"file": "research/VF_MID_PRIME_LOCATION_ANCESTRY_DICHOTOMY_20261108.lean", "name": "squareWheelEarlierBalanced_nextUnbalanced"}
+      ],
+      "pr": 1113,
+      "evidence": ["EV-PR-1113"],
+      "notes": "The source repair resolves the original RHLean.Arithmetic namespace only; the audit additionally requires all four complete, possibly multiline axiom lists. Exact-head warning-fatal compilation, nine logged theorem types, four standard-axiom closures and finite regressions pass. This is a signed structural restriction and finite obstruction, not a new global bound. The note's fixed-modulus prefix bound and unbounded CRT family are not Lean-certified by this node. The S<=R hypothesis is preserved even where the factor proof does not need it.",
+      "does_not_prove": [
+        "A signed late-owner estimate or unique first ownership",
+        "A smaller block with the same normalized bad event",
+        "An asymptotic anti-clustering bound, Mertens gain, VF payment or RH"
+      ],
+      "milestone": {"order": 20, "date": "2026-11-08", "label": "Original prime-location decomposition and smaller factor root (#1113)", "pr": 1113}
+    },
+    {
       "id": "OPEN-MERTENS-FURTHER-GAIN",
       "title": "New complete-source gain beyond the explicit November 8 boundary",
       "type": "open_obligation",
@@ -3152,7 +3178,8 @@
         "CORR4",
         "FINITE-AC"
       ],
-      "statement": "Prove a fixed eta>0 so for every eps>0 there exists C_eps independent of x with |M(x)|<=C_eps*x^(7/8-1/(48N_*)-eta+eps), preserving the actual source and every complementary term. This is a new target beyond the already certified strict exponent.",
+      "statement": "Prove a fixed eta>0 so for every eps>0 there exists C_eps independent of x with |M(x)|<=C_eps*x^(b_active-eta+eps), where the strongest verified b_active is 7/8-1/(32*N_pack) at green unmerged #1111. Preserve the actual source and every complementary term. A further gain beyond that boundary remains open; main's merged comparator is separately 7/8-1/(48N_*).",
+      "historical_statement": "The November 8.1 snapshot asked for a fixed gain beyond 7/8-1/(48N_*). The #1111 endpoint plus the explicitly labeled elementary ceiling comparison now improves that numeric threshold. This stable next-improvement node follows the strongest verified boundary, without changing the canonical VF/RH proof contract.",
       "logical_status": "OPEN",
       "formal_status": "NOT_FORMALIZED",
       "evidence_class": "UNKNOWN",
@@ -3432,7 +3459,7 @@
       "from": "MECH-CODIV-SIGNED-COVARIANCE",
       "type": "INDEPENDENT_ARITHMETIC_GAIN",
       "to": "OPEN-MERTENS-FURTHER-GAIN",
-      "gain": "A strictly positive NEW global saving beyond 7/8-1/(48N_*) after full original-source recombination, not merely another proof of the paid 1->7/8 cancellation.",
+      "gain": "A strictly positive NEW global saving beyond b_active=7/8-1/(32*N_pack), retaining the complete original-source consumer and exact-head unmerged status of the current baseline.",
       "conditions": []
     },
     {
@@ -3440,7 +3467,7 @@
       "from": "MECH-SIGNED-QUOTIENT-VARIATION",
       "type": "INDEPENDENT_ARITHMETIC_GAIN",
       "to": "OPEN-MERTENS-FURTHER-GAIN",
-      "gain": "A strictly positive NEW global saving beyond 7/8-1/(48N_*) after full original-source recombination, not merely another proof of the paid 1->7/8 cancellation.",
+      "gain": "A strictly positive NEW global saving beyond b_active=7/8-1/(32*N_pack), retaining the complete original-source consumer and exact-head unmerged status of the current baseline.",
       "conditions": []
     },
     {
@@ -3448,7 +3475,7 @@
       "from": "MECH-OAI-NNS-COMPLETE-LEDGER",
       "type": "INDEPENDENT_ARITHMETIC_GAIN",
       "to": "OPEN-MERTENS-FURTHER-GAIN",
-      "gain": "A strictly positive NEW global saving beyond 7/8-1/(48N_*) after full original-source recombination, not merely another proof of the paid 1->7/8 cancellation.",
+      "gain": "A strictly positive NEW global saving beyond b_active=7/8-1/(32*N_pack), retaining the complete original-source consumer and exact-head unmerged status of the current baseline.",
       "conditions": []
     },
     {
@@ -3655,7 +3682,7 @@
     {
       "a": "IMPORTED-OAI-7-8",
       "b": "OPEN-MERTENS-FURTHER-GAIN",
-      "reason": "The imported OAI 7/8 bound and the now-proved explicit strict baseline do not by themselves yield an ADDITIONAL source-faithful saving beyond 7/8-1/(48N_*); the full consumer is the OPEN arithmetic target."
+      "reason": "The imported OAI 7/8 bound and the strongest already certified strict baseline do not themselves supply an ADDITIONAL saving beyond b_active=7/8-1/(32*N_pack); that further complete consumer remains OPEN."
     },
     {
       "a": "OPEN-VF-LOW",
@@ -4151,11 +4178,11 @@
       "kind": "pr",
       "number": 1111,
       "state": "open",
-      "draft": true,
+      "draft": false,
       "title": "Square blocks and near-uniform fixed analytic slot packing",
-      "observed_at": "2026-11-08T18:56:20Z",
+      "observed_at": "2026-11-08T19:13:06Z",
       "head_sha": "20875a55dd9780993c4cdc06624c88be6060e2ee",
-      "checks": {"jobs": 13, "success": 0, "failed": 0, "pending": 13},
+      "checks": {"jobs": 13, "success": 13, "failed": 0, "pending": 0},
       "workflow_run": "https://github.com/OVVO-Financial/RH_Lean/actions/runs/42512437623",
       "proof_job": "https://github.com/OVVO-Financial/RH_Lean/actions/runs/42512437623/job/128828203921",
       "source_blob": "32999039fdeea99c58a070c1c4ee9c140720dd44",
@@ -4165,7 +4192,28 @@
         {"head_sha": "562e313ac405b93cf94ba851e314ceef9e64c579", "run_id": 42509367510, "job_id": 128818866826, "conclusion": "failure", "diagnosis": "Warning-fatal unreachable tactic after field_simp already closes the slot normalization equality; removed only the redundant tactic."},
         {"head_sha": "b6b637a9395c5f73a034c84474e2f314685d67bb", "run_id": 42510955610, "job_id": 128823686854, "conclusion": "failure", "diagnosis": "Source and fixed types compiled; new axiom runner could not load hierarchical research prefix. Corrected to the literal dotted module name using Name.mkSimple, as in the existing audit."}
       ],
-      "grade": "PR_HEAD_PENDING"
+      "grade": "KERNEL_CHECKED_GREEN_PR_HEAD"
+    },
+    {
+      "id": "EV-PR-1113",
+      "kind": "pr",
+      "number": 1113,
+      "state": "open",
+      "draft": false,
+      "title": "Prime-location ancestry: complete nested-wheel signed dichotomy and scale descent",
+      "observed_at": "2026-11-08T19:18:49Z",
+      "head_sha": "43c9ac1235ceed8f40762ad5357486fea27e31bb",
+      "checks": {"jobs": 14, "success": 14, "failed": 0, "pending": 0},
+      "workflow_run": "https://github.com/OVVO-Financial/RH_Lean/actions/runs/42513839908",
+      "proof_job": "https://github.com/OVVO-Financial/RH_Lean/actions/runs/42513839908/job/128832422955",
+      "source_blob": "95951a5aefedadf2e2b4c51bde7bdb8e79deb544",
+      "workflow_blob": "14eae49f93744e19c723af40dc10f6ef06d11bf5",
+      "prior_green_head": "8f9fd140c6a74ddc370f1c2952d60e758478f51c",
+      "audit_hardening": "Prior run 42513026319/job 128829995271 compiled identical source and printed four permitted axiom lists. The regex skipped wrapped lists; final head adds multiline matching and requires count four. Actual-output and missing/forbidden multiline fixtures were checked without local Lean execution.",
+      "repair_history": [
+        {"head_sha": "e7309fd99881bff66ca51586a3c427e8af9f0cac", "run_id": 42510188604, "job_id": 128821370530, "conclusion": "failure", "diagnosis": "Missing RHLean.Arithmetic namespace for primesUpTo and mem_primesUpTo; unchanged statements and proofs work with the original namespace opened. Targeted run 42510188619/job 128821370784 failed on the same identifiers."}
+      ],
+      "grade": "KERNEL_CHECKED_GREEN_PR_HEAD"
     }
   ],
   "historical_tracks": {
@@ -4242,7 +4290,7 @@
         "MECH-OAI-NNS-COMPLETE-LEDGER"
       ],
       "lens": "CLAIM-1022-POISSON-SAVING",
-      "task": "Start from merged #1107/#1108. Carry proved marked 1+t/2 and generalized kappa through combined count, crossing/height, full HIGH and principal. Quantify complete improvement versus b_base=7/8-1/(48N_*); avoid replay of 1->7/8."
+      "task": "Reuse merged #1107/#1108 and the stronger exact-head green unmerged #1111 endpoint. Carry proved marked 1+t/2 and generalized kappa through combined count, crossing/height, full HIGH and principal. Compare a new complete improvement with b_active=7/8-1/(32*N_pack), while keeping main's older bound distinct."
     },
     {
       "rank": "C",
