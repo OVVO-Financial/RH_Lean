@@ -2241,3 +2241,20 @@ MH1-MH4 remain PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING /
 NOT_FORMALIZED. RC1-RC4 verdicts remain scoped as recorded in D.
 No new complete global exponent or RH proof is claimed.
 This receipt records already verified publication, not a future promise.
+
+
+## Scheduled Referee Checkpoint - 20261107-referee-3
+
+Invocation: 2026-11-07T20:13:01-05:00 (America/New_York); RUN_ID_UNAVAILABLE.
+Execution IN_PROGRESS / PARTIAL. No new mathematical verdict or endpoint gain is claimed by this checkpoint.
+
+Live main: `cae99df1c3ea24ff4113063bf09f6fd07517ad93`; AGENTS blob `0a99faf8458809ac772d470d704c5433f373bda8`; proof-contract blob `d1d6fd558ee23927bd9f70ffdc375bafd1dbb67a`.
+Acknowledgments: high_attack_ack=COMPLETE_SIGNED_HIGH_ATTACK_V1; chain_ack=CANCELLATION_CHAIN_REUSE_V1; baseline_ack=PAID_BASELINE_EXACT_CONSUMER_V1; deployment_ack=NO_PIGEONHOLING_ROUTE_SELECTOR_V1.
+
+Today is November 7 in America/New_York, despite the UTC date. All seven November 7 and November 6 role reports were retrieved from agent-reports snapshot `ac20a0055c43cc0b61fc6e239d351b784e0a31e0`; coordinator mirrors have equal blobs. TODAY=AVAILABLE; YESTERDAY=CARRY_FORWARD. External inbox blob `038018145c0fddb2f6306c0712373adf9cd1ea52` has no post-October-18 entry; current source-specific safeguards remain in force.
+
+Selected route: OAI-NNS retained tuple/rescaling consumer. Selected original claims: `20261107-coordinator-1513/RG1-RG5`, especially RG4's proposed soft-gate source propagation; source report blob `785c56207f0745244d8c2503a18ed7b4d91b39e6`. Review method: reconstruct the scalar inequality and original source/normalization use-sites, test boundary and multiplicity cases, then determine the exact first unpaid consumer. The arithmetic object is the original compensated tilted probe, not arbitrary signs or canonical LOW. The incoming same-source baseline is the actual-minimum-slot strict theorem, not nominal 7/8.
+
+Also received `20261107-analytic-3/BC1-BC5` and merged #1105's arbitrary-cutoff separate-error interface. Prior MH1-MH4 decisions are preserved; no repeated scalar grid is planned without a changed question. Open PR #1106 at `aafb28e85bbc7a55a6c351621dc451042aee5b8f` is separately discovered; its CI/source scope is not yet certified here. #1105 is merged, not still awaiting merge. Publication and mathematical/formal status remain distinct.
+
+Plan: independent RG1-RG4 review; a substantive source-faithful obstruction or corrected consumer theorem; exact finite checks only where discriminating; final append preserving all prior history and immutable readback. Endpoint comparison, all LOW/HIGH/principal/remote/height/conductor costs, fixed-loss spending and canonical O(R) restoration must remain explicit. No source/branch/PR/workflow/other-report changes or local Lean execution are authorized.
