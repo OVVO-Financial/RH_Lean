@@ -62,7 +62,9 @@ jobs:
           s=pathlib.Path('/tmp/prime_location_ancestry_types.log').read_text()
           assert 'sorryAx' not in s
           allow={'propext','Classical.choice','Quot.sound'}
-          for x in re.finditer(r'depends on axioms: \[(.*?)\]',s):
+          matches=list(re.finditer(r'depends on axioms: \[(.*?)\]',s,re.S))
+          assert len(matches)==4, f'Expected four complete axiom lists, got {len(matches)}'
+          for x in matches:
               observed={v.strip() for v in x.group(1).split(',') if v.strip()}
               assert observed <= allow, f'Unexpected axioms: {observed-allow}'
           code=pathlib.Path(
