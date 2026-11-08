@@ -1686,3 +1686,12 @@ if __name__ == "__main__":
     Path(__file__).with_name("mixed_return_results.json").write_text(payload+"\n")
     print(payload, flush=True)
 ```
+
+
+### Verified Publication Receipt - 20261108-owner-2
+
+Substantive research commit **25db3c0e3215dcb557efb1ae75c70184e0d6192b**, report blob **21720131f06ade629fa41b35522ef84d5c686b7a**, was verified at **2026-11-08 13:30:29 UTC** by immutable exact-content readback. The GitHub commit audit confirms that only `research/agent_reports/2026-11-08/10-owner-payment.md` changed. Every earlier daily byte, including 20261108-owner-1/PD1-PD6 and the verified early checkpoint, is preserved. The complete registration and executed verifier are present in the published report.
+
+Final research status: **PAPER_PROOF / FINITE_COMPUTATION; SELF_AUDIT; INDEPENDENT_REVIEW_PENDING; NOT_FORMALIZED**. Identity-only and target-equivalent portions are individually labeled. MC3 rejects uniform event-diagonal absorption; MC6 rejects universal finite grouped-contact signs. MC4 pays a proper mixed term from inherited suppliers, not the remaining complete complement. **NEW_VERIFIED_ENDPOINT_GAIN=NONE; canonical VF/RH OPEN.** Next protected Owner route: **JOH**.
+
+This receipt is appended with a fresh report blob lease; its commit and exact readback are checked before the user-facing completion message. All computational sessions have finished. No unauthorized repository or scheduling action was taken.
