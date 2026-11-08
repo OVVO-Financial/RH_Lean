@@ -34,22 +34,11 @@ jobs:
         run: python3 scripts/twoab_complete_band_probe.py
       - name: Install Lean and Mathlib cache
         uses: ./.github/actions/lean-setup
-      - name: Build transitive internal library imports
+      - name: Warning-fatal compile of full source-closed Lean dependencies
         run: >-
-          python3 scripts/compile_research_import_closure.py --library-only
+          python3 scripts/compile_research_import_closure.py --build-library
           research/TWOAB_RENEWAL_COMPLETE_BAND_20261108.lean
           research/TWOAB_RENEWAL_OAI_CONSUMER_20261108.lean
-      - name: Compile 2ab complete signed band (warnings fatal)
-        run: |
-          mkdir -p .lake/build/lib/lean
-          lake env lean -DwarningAsError=true \
-            -o .lake/build/lib/lean/research.TWOAB_RENEWAL_COMPLETE_BAND_20261108.olean \
-            research/TWOAB_RENEWAL_COMPLETE_BAND_20261108.lean
-      - name: Compile strict OAI bound consumer (warnings fatal)
-        run: |
-          lake env lean -DwarningAsError=true \
-            -o .lake/build/lib/lean/research.TWOAB_RENEWAL_OAI_CONSUMER_20261108.olean \
-            research/TWOAB_RENEWAL_OAI_CONSUMER_20261108.lean
       - name: Check exact theorem signatures and axiom dependencies
         run: |
           cat >/tmp/twoab_complete_band_acceptance.lean <<'LEAN'
