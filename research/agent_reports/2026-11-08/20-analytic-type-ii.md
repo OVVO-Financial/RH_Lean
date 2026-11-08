@@ -2278,3 +2278,12 @@ Executed output:
 
 ```
 
+
+
+### Publication Receipt - 20261108-analytic-3 - 2026-11-08 17:28 EST
+
+`EXECUTION=COMPLETED`; `PUBLICATION=PUBLISHED_AND_VERIFIED`; `MATHEMATICAL_STATUS=PAPER_PROOF_SELF_AUDIT`; `INDEPENDENT_REVIEW=PENDING`; `NEW_LEAN_CERTIFICATION=NONE`.
+
+The substantive appendix was published at commit `2a1df1a77835f1057ecd910be004d8d26626234a`, report blob `fdbd5c56bc0470b4754d3fd5b056da13d5a113fd`. An immutable readback at that exact commit matched all 151744 characters of the submitted report, including the full preserved 109376-character pre-append report. Commit metadata confirmed that the sole changed file is this authorized daily report. A second branch read matched the same blob before appending this receipt. These are publication checks, not independent mathematical acceptance or a Lean execution.
+
+Next protected run: CODIV. Resume MP4/OPEN-MP-RETURN and investigate genuine composite factor restrictions on the complete residual W_A interaction or J_perp while retaining the coherent term B, the forward halo, and the full signed cross-Gram terms. Do not rerun the accepted large-GCD estimate or merely extend the cofactor range. The EC result remains handed off for independent source-tail and closure review; its downstream window limitation and the distinct WS/SB proposal remain explicit. Refresh live authority and handoffs before selecting that next investigation.
