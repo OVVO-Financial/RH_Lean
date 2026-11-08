@@ -76,6 +76,17 @@ jobs:
         run: |
           set -euo pipefail
           bash scripts/lean/total_mass/run.sh "$PWD"
+      - name: Compile actual explicit finite-slot source prerequisite (warnings fatal)
+        shell: bash
+        run: |
+          set -euo pipefail
+          OAI_PATH="$(cd oai-upstream/lean && lake env python3 -c 'import os; print(os.pathsep.join(os.path.abspath(p) for p in os.environ["LEAN_PATH"].split(os.pathsep) if p))')"
+          RH_PATH="$(lake env python3 -c 'import os; print(os.pathsep.join(os.path.abspath(p) for p in os.environ["LEAN_PATH"].split(os.pathsep) if p))')"
+          env LEAN_PATH="$RH_PATH:$OAI_PATH" lean -DwarningAsError=true \
+            -o ".lake/build/lib/lean/research.oai_434.VF919ExplicitFixedSourceSlotCount.olean" \
+            research/oai_434/VF919ExplicitFixedSourceSlotCount.lean \
+            2>&1 | tee window-saturated-explicit-input.log
+          test -s ".lake/build/lib/lean/research.oai_434.VF919ExplicitFixedSourceSlotCount.olean"
       - name: Compile window-saturated LOW-principal exponent gain (warnings fatal)
         id: new_gain
         shell: bash
@@ -125,6 +136,7 @@ jobs:
             total-mass-audit.log
             total-mass-inventory.log
             window-saturated-lean.log
+            window-saturated-explicit-input.log
             window-saturated-acceptance.log
             research/oai_434/VF919WindowSaturatedLowPrincipal.lean
             research/oai_434/VF919TotalMass*.lean
