@@ -916,3 +916,773 @@ Derivation, falsification, quantitative return, precise specialist handoffs, and
 Original source declarations inspected at main: signed seats 87a6654a4a4337b409fde69aa15d7264d8b721b6; odd cluster 942badff45c03d2a9e97789b57d1bd8052232191; native Lyapunov 23e7b0c5c9f4b50997a508345d91f30364f93f10; historical compression 6cc6b2a9d25279dd44fb65cb222f5d6846a912d4; total-mass endpoint 827bb952c4d4311d75fd03a2470799dc10b0f7e7. Open #1108 and #1109 are non-draft at a0c986c0343a56e98b7344268fdc0b74aa885cdb and fedd203158af32b09cb86fd12f04fec33998408e; neither is main. Fresh CI verification is pending; unchanged prior exact-head evidence is available.
 
 Scheduled invocation 2026-11-08 08:09:01 EST; checkpoint prepared 2026-11-08 13:13:02 UTC. Only this own daily report is authorized for remote writing. No Lean execution, agent launch, proof branch/PR, source, schedule, permission or main change. Publication remains pending commit/readback.
+
+
+## VF-LOW Same-Site Conservation And Paid Mixed Return - 20261108-owner-2
+
+### A. Most Important Mathematical Development
+
+**The once-only allocation does not create a free negative mixed covariance. Its negative complete chronological action is exactly cancelled by a positive same-site prime contribution, and that contribution cannot be absorbed into a constant multiple of the selected event diagonal.** On the unchanged DR/RS three-prime rectangle, uniformly over every feasible allocation with the prescribed donor cap,
+
+```text
+K_N ~ N^2/(200 (log N)^4),
+E_event,N ~ N^2/(200 (log N)^5),
+K_N/E_event,N ~ log N.
+```
+
+Here K_N is the mixed same-site contribution, NOT a square-prefix energy. A donor prime remains one physical occurrence: its allocated negative charge and its unused negative fraction have a positive product. Rerouting the same capped donor mass cannot remove this asymptotic bill.
+
+There is also a positive consumer result. **A new joint-sign premise is unnecessary to bound this selected square-sampled mixed term below the inherited baseline scale.** Substituting the existing prime-error envelope and DR pointwise reserve bound gives, uniformly in every h including h=1,
+
+```text
+sum_(r in I) |2 C_F(r) Q(r^2)|
+ <<_epsilon h N^(2b+21/20+epsilon)/(log N)^4
+             + h N^(21/10)/(log N)^8,
+I subset [N,2N), |I|=h.
+```
+
+The exponent of the first term is below 4b by gamma=2b-21/20>0. With RS4's existing paper-level square-sampled energy, the full-window bound improves further to O_epsilon(N^(2b+2+epsilon)/(log N)^3 + N^3/(log N)^6). These are proper-component estimates, not a new bound on C_F or the complete VF error. The argument spends only the already established incoming b, not the desired improved boundary.
+
+Finite genuine-logarithmic certificates also show that grouping these same events into their original square blocks can reverse the sign of the grouped mixed diagonal: it is negative at N=9216 and positive at N=10000. No universal finite sign rule survives that regrouping.
+
+| Claim | Result | Status |
+| --- | --- | --- |
+| 20261108-owner-2/MC1 | Complete event product rule and exact square-block regrouping | IDENTITY_ONLY; resolves which mixed terms must be restored |
+| 20261108-owner-2/MC2 | Positive same-site bill and uniform finite bounds for every feasible capped allocation | PAPER_PROOF; independent quantitative structural restriction |
+| 20261108-owner-2/MC3 | Allocation-uniform logarithmic ratio law on the actual three-prime source | PAPER_PROOF; uniform constant-factor absorption assertion REFUTED |
+| 20261108-owner-2/MC4 | All-window mixed estimate from inherited suppliers, plus sharper RS4 full-window consequence | PAPER_PROOF; proper-source consumer advance, not endpoint gain |
+| 20261108-owner-2/MC5 | Complement-only power bounds above root exponent 21/20 are equivalent to the complete VF power bound | TARGET_EQUIVALENT classification; not a new assumed lemma |
+| 20261108-owner-2/MC6 | Certified real-log allocation decisions, same-site ratios, opposite grouped signs and complete-return tests | FINITE_COMPUTATION; universal finite grouped-sign assertions REFUTED |
+
+All new proofs are **SELF_AUDIT / INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED**. MC4's RS4-dependent refinement inherits that supplier's paper/self-audit status; it is not independently certified here. NEW_VERIFIED_ENDPOINT_GAIN=NONE; VERIFIED_ETA=NONE; eta_gate=SEARCH_BROAD. No literature-priority claim is made for the product rule, PNT or Cauchy-Schwarz; the new research content is their exact arithmetic application, uniform normalization obstruction and corrected consumer diagnosis.
+
+### B. Current Authoritative Objective
+
+Invocation: scheduled **2026-11-08 08:09:01 EST**, America/New_York; RUN_ID_UNAVAILABLE. Current main at intake is **bf4af1cd18aff7c3944a75991aa66371c8afc18a**. Governing acknowledgments: high_attack_ack=COMPLETE_SIGNED_HIGH_ATTACK_V1; chain_ack=CANCELLATION_CHAIN_REUSE_V1; baseline_ack=PAID_BASELINE_EXACT_CONSUMER_V1; deployment_ack=NO_PIGEONHOLING_ROUTE_SELECTOR_V1.
+
+Execution=COMPLETED; mathematical scope=PAPER_PROOF / FINITE_COMPUTATION with the explicit identity and refutation classifications above. Substantive publication is pending the commit/readback receipt below, not inferred from this status line.
+
+This is the due **VF-LOW** turn, following yesterday's VF-LOW/JOH and today's SAT turn. The last three substantive Owner routes after this run are JOH, SAT, VF-LOW. Next protected route: JOH. The immediate question is the exact mixed-return assignment in today's Coordinator report, not a fresh OAI primitive-norm campaign.
+
+The public target remains the actual-prime statement
+
+```text
+D_R = pi(R^2)-F_R,  F_R=sum_(2<=r<R) r*w_r,
+w_r=(2+1/r)/log(r^2+r+1/2),
+D_can(R)=D_R-sqrt(2),
+exists C>=0, forall R>=2, |D_can(R)|<=C R log R.
+```
+
+The common Mertens comparison uses the DIFFERENT exact canonical population
+
+```text
+M(R^2-1)=L_R+H_R,
+|L_R|<=(floor Lambda+1)R for fixed Lambda>=0.
+```
+
+No identity of VF seats with canonical Mobius HIGH or Hecke ideal coefficients is asserted. This run serves the authorized actual-prime VF route and its existing canonical consumer. A new VF power estimate would need its justified zeta/Mertens transfer; none is supplied by the selected-source calculation alone.
+
+**Strongest applicable incoming boundary.** Merged #1107 supplies one fixed fine HighData source mathcalD, with m=actualSlotMinimum(mathcalD)>0 and
+
+```text
+b=7/8-m/4,
+HeckeZeroSupremum.beta<=b,
+MertensGrowthAtMost(b).
+```
+
+Use the SAME source witness throughout. The actual source budget proves m/4<1/960, hence 839/960<b<7/8. There is no inferred explicit numerical m, attained infimum, or uniformity as m varies. `native_zeta_zero_re_le_hecke_beta` supplies the actual zeta-zero bound. The older same-source 7/8-m/24 is not the comparator. #1108's explicit-source refinement is still unmerged and is not silently substituted for this witness.
+
+The standard zero-boundary-to-prime-error consequence, already used by the earlier Owner work, is
+
+```text
+forall epsilon>0, |D_R| <<_(mathcalD,epsilon) R^(2b+epsilon).  (PE)
+```
+
+For clarity, its paper analytic bridge does not assume RH: the classical explicit formula truncated at height comparable to x, with all zero real parts <=b, gives psi(x)-x=O_b(x^b log^2 x) at half-integer arguments. The weighted zero count is O(log^2 x); changing the argument by at most one costs O(log x). Removing prime powers and partial summation gives a prime-minus-Li_2 bound of the same power with logarithmic losses. The compiled all-real VF-minus-Li_2 O(1) theorem then gives PE after epsilon relabeling. This familiar analytic transfer is not claimed newly formalized in this run. The [primary PNT/explicit-formula notes](https://terrytao.wordpress.com/2021/02/12/246b-notes-4-the-riemann-zeta-function-and-the-prime-number-theorem/) provide the classical framework; the fixed boundary used here comes from the inspected repository theorem, not from those notes.
+
+### C. Structural Hypotheses Investigated
+
+**H1, chronological cancellation:** perhaps a favorable chronological mixed action could reduce the original endpoint energy. MC1-MC3 show that the complete closed-block action has an unavoidable equal-and-opposite same-site bill. A proof omitting that bill is invalid; a proof retaining all terms remains eligible.
+
+**H2, small selected diagonal:** perhaps the donor cap allows that bill to be charged to a fixed multiple of the selected event diagonal. MC3 refutes this on the genuine source, uniformly over legal allocations, not on an arbitrary-vector replacement.
+
+**H3, mixed-term consumer:** perhaps new arithmetic joint-sign information is required just to bound the mixed square-prefix term below the current baseline. MC4 shows it is not: the supplied pointwise reserve estimate suffices, and the supplied average improves the long-window result. This corrects a too-strong prerequisite without asserting the full complement is paid.
+
+### D. Mathematical Derivation
+
+#### D0. Original source, reserve and complete complement
+
+Fix an integer N sufficiently large and write ell=log N, X=N^2. Preserve exactly
+
+```text
+S_N={prime p: sqrt N<p<=(11/10)sqrt N},
+T_N={prime q: (3/2)N<q<=(7/4)N},
+F_N={q*p*s: q in T_N, p,s in S_N, p<s},
+a_N=1/ceil(ell)^2.
+```
+
+Every selected integer is one odd nonsquare three-distinct-prime occurrence, with 3X/2<n<=847X/400. Unique factorization and disjoint factor ranges give injective tuple-to-site admission. This is the original positive VF charge of these composite seats, not their Mobius weight.
+
+Extend the true charge z_n=w_floor(sqrt n)-1_prime(n) by zero outside odd nonsquare seats in (X,4X]. Put d_n=w_floor(sqrt n) on F_N and zero elsewhere. For each actual donor prime p in (X,4X), let v_p=1-w_floor(sqrt p)>0 and use a total amount
+
+```text
+0<=u_p<=a_N*v_p,  sum_p u_p=sum_n d_n=:W_N.
+```
+
+No prime is copied. The exact DR allocation is a particular feasible choice, with donors preceding their funded demands. Its backwards reserve satisfies
+
+```text
+b_N(t)=max(0,max_(t<m<=4X) sum_(t<n<=m)(d_n-a_N*v_n*1_prime(n))),
+u_p=min(a_N*v_p,b_N(p)),
+Q(t)=sum_(X<n<=t)(d_n-u_n)=-b_N(t),
+Q(X)=Q(4X)=0.
+```
+
+DR/RS already supplies feasibility and, for constants independent of N,
+
+```text
+sup_t |Q(t)| << N^(21/20)/ell^4,                         (DR-B)
+sum_(N<=r<2N) |Q(r^2)|^2 << N^3/ell^6.                 (RS4)
+```
+
+These are reused PAPER_PROOF inputs, not newly compiled theorems or newly inferred from this census. DR-B uses the genuine forward prime COUNT lower bound, not merely the existence of one prime; the concluding page of [Baker-Harman-Pintz](https://www.cs.umd.edu/~gasarch/BLOGPAPERS/BakerHarmanPintz.pdf#page=31) was rechecked. RS4 uses the separately recorded zero-density and square-sampling proof. MC1-MC3 require only finite feasibility, positivity and the cap, not either quantitative reserve estimate.
+
+Write q_n=d_n-u_n and c_n=z_n-q_n. Let S(t) be the complete VF-minus-prime prefix, starting with the actual -2 anchor at 4, and C(t)=S(t)-Q(t). Thus C(X)=S(X), and C contains every earlier term, every unselected positive seat, squareful and exceptional seat, all primes outside the donor set, and the unused donor fraction. At original root cuts,
+
+```text
+S(r^2)=-D_r=C_F(r)+Q(r^2).
+```
+
+For simultaneous all-scale use take the already specified disjoint dyadic shells N=2^k. Each completed shell has Q=0; finite initial scales remain in C_F. Nothing is accumulated or spent twice across shells.
+
+#### MC1. Exact event telescope and regrouping
+
+For every cut t inside the shell define
+
+```text
+K(t)=sum_(X<n<=t) c_n*q_n,
+A(t)=sum_(X<n<=t) [C(n-1)*q_n+Q(n-1)*c_n].
+```
+
+The discrete product rule, with Q(X)=0, gives
+
+```text
+C(t)Q(t)=A(t)+K(t).                                      (1)
+```
+
+Every event is retained, including background seats at which q_n=0 but Q(n-1)c_n is nonzero. The anchor contributes C(X)Q(t) through the first sum. No selected-pair shortcut is taken.
+
+At a complete shell Q(4X)=0, so
+
+```text
+A(4X)=-K(4X),
+sum_(i<j in shell) (q_i*c_j+c_i*q_j)=-sum_n q_n*c_n.       (2)
+```
+
+The second equality follows alternatively from (sum q)(sum c)=0. Thus a negative off-diagonal action does not by itself lower the original complete quadratic statistic.
+
+For the true square-block increments, define qbar_r=Q((r+1)^2)-Q(r^2) and cbar_r=C((r+1)^2)-C(r^2). Their contact sum is
+
+```text
+K_square=sum_r qbar_r*cbar_r
+        =K_N + sum_r sum_(i<j in the same block)
+                    (q_i*c_j+c_i*q_j).                    (3)
+```
+
+The root-index product rule has the same form as (1), but with K_square, not K_N. Grouping moves within-block off-diagonal terms into the block diagonal. It cannot justify retaining the old diagonal while dropping those interactions. MC6 shows their actual sign impact.
+
+#### MC2. The positive contact bill, uniform over legal allocations
+
+At a selected demand, q_n=d_n=z_n and c_n=0. At a donor prime,
+
+```text
+q_p=-u_p,   c_p=-(v_p-u_p),
+q_p*c_p=u_p(v_p-u_p)>=0.
+```
+
+All other same-site products are zero. Consequently
+
+```text
+K_N=K(4X)=sum_p u_p(v_p-u_p).                             (4)
+```
+
+Let w_min,w_max be the extreme VF weights on N<=r<2N, and v_min=1-w_max, v_max=1-w_min. For 0<a_N<1 and W_N>0,
+
+```text
+(1-a_N)*v_min*W_N <= K_N <= v_max*W_N,                   (5)
+w_min*W_N <= E_event,N <= (w_max+a_N*v_max)*W_N,         (6)
+E_event,N := sum_n q_n^2 = sum_(n in F_N) d_n^2 + sum_p u_p^2.
+```
+
+Proof: v_p-u_p>=(1-a_N)v_p, and sum u_p=W_N. For (6), sum d_n^2 lies between w_min*W_N and w_max*W_N; sum u_p^2<=a_N*v_max*sum u_p. All constants are explicit finite quantities. In particular,
+
+```text
+(1-a_N)*v_min/(w_max+a_N*v_max)
+ <= K_N/E_event,N <= v_max/w_min.                       (7)
+```
+
+This conclusion is independent of how legal donor fractions are paired with demands. It uses no independence, empirical covariance, sign cancellation, or inequality for the desired final error. The selected event diagonal is not the prefix energy sum_r Q(r^2)^2.
+
+#### MC3. Actual-factor asymptotic and uniform absorption no-go
+
+Uniformly for N<=r<2N, w_r=ell^(-1)(1+O(ell^(-1))); hence v_r=1+O(ell^(-1)) and a_N=O(ell^(-2)). Substituting these facts into the two-sided (5)-(7) gives
+
+```text
+K_N/W_N -> 1,
+ell*E_event,N/W_N -> 1,
+K_N/(ell*E_event,N) -> 1,                               (8)
+```
+
+uniformly over all feasible capped allocations. This uniformity is possible because the bounds contain no allocation-dependent constants.
+
+The ordinary PNT, in the exact fixed-ratio intervals above, gives
+
+```text
+|S_N| ~ (1/5)*sqrt(N)/ell,
+|T_N| ~ (1/4)*N/ell,
+|F_N|=choose(|S_N|,2)*|T_N| ~ N^2/(200*ell^3).
+```
+
+Strict versus weak endpoints change these counts by at most fixed endpoint contributions and do not change these asymptotics. The selected tuple map is injective, so W_N~N^2/(200*ell^4). This proves the three asymptotic statements in A. The only prime-distribution input for this counting step is the [prime number theorem](https://terrytao.wordpress.com/2021/02/12/246b-notes-4-the-riemann-zeta-function-and-the-prime-number-theorem/); DR separately supplies existence of chronological feasible allocations for sufficiently large N.
+
+**Refuted statement:** there is a constant C, independent of N, with K_N<=C E_event,N for all sufficiently large N for the actual DR allocation, or uniformly for all legal allocations with this cap. Equation (8) contradicts either version. Likewise the whole chronological action cannot be treated as an unopposed negative endpoint credit: (2) restores exactly K_N. This does NOT refute charging the interaction to a larger genuine complete budget, changing the source through a proved bridge, or using other signed compensation.
+
+More generally, the finite lower bound (7) diverges whenever the donor cap tends to zero and w_max tends to zero. The precise log N equivalent uses the prescribed a_N=o(1/log N); that stronger asymptotic is not asserted for arbitrary cap sequences.
+
+#### MC4. Reuse the incoming bound to pay the square-sampled mixed term
+
+Let I be any set of h roots inside [N,2N), so the theorem includes every consecutive window and h=1. Put
+
+```text
+E_I=sum_(r in I) Q(r^2)^2,
+V(N,h)=min(h*N^(21/10)/ell^8, N^3/ell^6).
+```
+
+DR-B and RS4 give E_I<<V(N,h). The first alternative uses DR-B alone. Since C_F(r)=-D_r-Q(r^2), the exact original mixed term satisfies
+
+```text
+2 C_F(r) Q(r^2)=-2 D_r Q(r^2)-2 Q(r^2)^2,
+sum_(r in I) |2 C_F(r) Q(r^2)|
+ <= 2 max_(r in I)|D_r| * sqrt(h E_I)+2 E_I
+ <<_epsilon N^(2b+epsilon)*sqrt(h V(N,h))+V(N,h).         (9)
+```
+
+The first inequality is triangle and finite Cauchy on the complete signed identity; no off-diagonal term is set to zero. PE is the already paid input boundary b, not a conjectured b-eta. Constants may depend on the fixed source, epsilon and inherited reserve constants, but not on N,I,h or a growing source parameter.
+
+Using only the first branch of V yields the all-h statement in A. In particular its leading power is
+
+```text
+2b+21/20=4b-gamma,  gamma=2b-21/20=7/10-m/2>0.           (10)
+```
+
+The selected square term has power 21/10<2b+21/20. For a contemplated improvement with 0<eta<gamma/4, choose the positive epsilon loss smaller than gamma-4eta. Both the mixed and selected-square terms are then below h*N^(4b-4eta) on this VF energy comparison. This is an explicit proper-term loss spend, NOT an achieved endpoint exponent.
+
+With h=N and the second branch of V, (9) becomes
+
+```text
+sum_(N<=r<2N) |2 C_F(r) Q(r^2)|
+ <<_epsilon N^(2b+2+epsilon)/ell^3 + N^3/ell^6.           (11)
+```
+
+This refinement uses RS4 at its present paper status. It does not assert that a full-window estimate alone supplies all h; (9)-(10) supply the separate uniform small-window control. For the globally disjoint dyadic construction, any window [H,H+h), h<=H, meets at most two comparable dyadic shells; summing their stated bounds preserves the same uniformity with a fixed constant.
+
+#### MC5. The remaining complement is not a smaller endpoint premise
+
+The complete source is still
+
+```text
+D_r^2=C_F(r)^2+Q(r^2)^2+2 C_F(r)Q(r^2),
+D_can(r)^2=D_r^2-2*sqrt(2)*D_r+2.                        (12)
+```
+
+MC4 bounds the last two terms of the first line below the old energy scale. It says nothing independently new about C_F(r)^2. In fact DR-B immediately proves, for any fixed root exponent s>21/20,
+
+```text
+|D_r|=O(r^s) iff |C_F(r)|=O(r^s).                        (13)
+```
+
+Both directions follow from |D_r+C_F(r)|=|Q(r^2)|=o(r^s), with the disjoint-shell source and finite initial terms retained. The same statement holds with every-positive-loss quantifiers above that threshold. Therefore asking for an improved near-baseline bound on C_F alone is TARGET_EQUIVALENT, not an independent newly isolated arithmetic lemma. Equation (13) is NOT asserted at the canonical r log r threshold: the supplied pointwise reserve bound is larger than that scale.
+
+The original #915 numerator remains D_(r+1) and its denominator remains (|D_r|+beta_r)^2 under its actual first-bad hypotheses. No enlarged historical norm is used. If history is decompressed into U,V, the previously compiled restoration 4UV+2 beta_r(U+V-|U-V|) remains due. Equations (1)-(13) do not pay that source-admission/first-bad obligation or change its denominator.
+
+### E. Quantitative Consequence And Complete Endpoint Budget
+
+| Quantity | Before this run | Result and remaining cost |
+| --- | --- | --- |
+| Selected reserve | DR-B and RS4 already supplied | Reused unchanged; no rediscovery credit |
+| Mixed square-prefix term | Described as needing a new joint sign/variation input in the immediate assignment | MC4 pays it below the incoming VF energy scale, uniformly at h=1 and all h, by existing inputs |
+| Same-site prime cross term | Not separately quantified in the selected allocation telescope | MC2-MC3: positive, allocation-uniform, asymptotic N^2/(200 log^4 N); cannot be absorbed by the selected event diagonal |
+| Chronological complete-shell action | A possible candidate negative credit | Exactly -K_N, cancelled by the same-site +K_N; no leftover complete-shell gain |
+| Square-block contact sign | Not inferred from microscopic sign | Either sign occurs in certified feasible actual fixtures |
+| Complete C_F square | Unpaid | Still unpaid; a near-baseline power assumption is target-equivalent by MC5 |
+| Strongest incoming global boundary | b=7/8-m/4 | Unchanged; no new fixed Mertens or canonical HIGH exponent |
+
+The power gap gamma in (10) is a gap for one VF mixed component, not a new global eta. No conversion from the selected VF square energy to canonical H_R is claimed. The canonical actual-prime von Koch and RH goals remain OPEN.
+
+### F. Falsification, Computation And Circularity Review
+
+**MC6 test design.** The frozen scales are the previous RS development N=9216 and held-out N=10000. The purpose is new same-site/contact/regrouping and complete-return validation, not rerunning RS's exceptional-set scan or fitting an asymptotic exponent. The original actual prime sieve, strict factor intervals, nonsquare seats and exact donor cap are used.
+
+The credited rational logarithm enclosure places every w_r in an interval of width at most the displayed fixed-point unit. Every backwards min decision is certified by strict interval separation. A full donor uses its actual capacity; a partial donor uses the actual remaining reserve; exact zero resets are retained. Thus the donor support and full/partial branches are certified for the genuine logarithms. The two endpoint weight realizations separately test algebraic identities; genuine sign and ratio assertions use outward interval propagation, not agreement between those two realizations.
+
+| Certified quantity | N=9216 | N=10000 |
+| --- | --- | --- |
+| Small primes | 97,101,103 | 101,103,107,109 |
+| Large-prime factors | 244 | 260 |
+| Distinct demand sites | 732 | 1560 |
+| Used physical primes | 8784 | 18720 |
+| Certified full / partial donors | 8052 / 732 | 17163 / 1557 |
+| K_N, true-log enclosure | [68.800220379,68.800220380] | [145.474889526,145.474889527] |
+| E_event,N, true-log enclosure | [8.946605658,8.946605659] | [18.731568012,18.731568013] |
+| K_N/E_event,N, true-log enclosure | [7.690091975,7.690091976] | [7.766295348,7.766295349] |
+| K_square, true-log enclosure | [-5.950036665,-5.950036664] | [5.855377873,5.855377874] |
+| Within-block mixed off-diagonal | [-74.750257044,-74.750257043] | [-139.619511654,-139.619511653] |
+
+All decimal endpoints here are exact rationals with denominator 10^9. The registration predicted and both fixtures certify K_N>7 E_event,N. That finite comparison does not prove the divergent ratio; MC3 supplies the separate all-scale proof.
+
+The first execution found opposite grouped signs only for the rational endpoint realizations. A disclosed follow-up was added before the second execution to certify the true-logarithmic grouped intervals. It used the same two scales and same source; no failed sign claim or enlarged range was hidden. This refutes each universal finite assertion K_square>=0 or K_square<=0 for every feasible such source. It does not refute a proposed eventual-only sign claim with an unspecified threshold, the complete endpoint, or the microscopic positivity theorem.
+
+Per endpoint realization the verifier checked 9516 / 20280 chronological q-events (including intervening background contributions), 9216 / 10000 complete root returns, and 13 finite windows per fixture including h=1 and the full window. Both realizations completed. Across them: 59,592 event product checks, 38,432 root returns and 52 window checks. The root reconstruction retains the actual -2 anchor via F_r-pi(r^2), every original block prime count, all complement terms, and the canonical sqrt(2) phase as coefficients in the basis (1,sqrt(2)).
+
+**Scope and no-go review.** No statistical independence, duplicated donor history, prime-density replacement, clipped-cell admission, local-to-global covariance claim or omitted simultaneous jump occurs. The factor-count PNT asymptotic is independent of the target; all-scale allocation feasibility is explicitly inherited from DR. MC4 uses PE at the already certified b. MC5 prevents laundering the missing complement into a supposedly easier target. A finite generic same-sign model is not used to refute actual primes; the displayed grouped-sign witnesses are original-source enclosures.
+
+Scoped searches of the retrieved two-day reports and relevant source paths did not find this allocation-uniform contact/diagonal law. This is not an exhaustive literature or repository novelty certification. Existing native seat-Gram and history-compression identities remain credited prior work.
+
+### G. Conceptual Interpretation
+
+The small donor fraction suppresses the selected donor square u_p^2 while leaving a much larger interaction u_p(v_p-u_p) with the unused fraction of the SAME prime. The split therefore makes the selected event norm small without decoupling it from the original source. Its logarithmic cost is forced by the actual weight sizes and survives any legal rerouting of that capped mass.
+
+At the root scale, within-block interactions can dominate and reverse the grouped contact sign. There is no contradiction: (3) states exactly where they moved. The complete chronological cancellation is a conservation law, not independent global cancellation.
+
+Finally, the existing reserve and incoming prime-error bounds already control the mixed component at a useful sub-baseline power. The correct strategic conclusion is to stop requiring a new sign theorem merely to pay this term, while refusing to count the unchanged complete complement as progress.
+
+### H. Competing Mechanisms
+
+| Mechanism | Established / missing / decisive test | Disposition |
+| --- | --- | --- |
+| Negative chronological action as free endpoint credit | Exact -K_N with mandatory +K_N; any nonempty feasible source tests the omission | Abandon the omission, retain complete telescopes |
+| Constant selected-event-diagonal payment of contact | Refuted uniformly by K_N/E_event,N~log N; finite ratios already exceed 7 | Abandon at the prescribed vanishing cap |
+| Favorable microscopic sign survives square grouping | Original feasible fixtures have opposite K_square signs; eventual-only variants remain unproved | Reject universal finite version |
+| Reuse-first mixed-term control | MC4 uses PE plus DR-B, with optional RS4 strengthening; independent review pending | Continue as a proper consumer improvement, not endpoint closure |
+| Factor-sensitive pointwise reserve refinement | OPEN-VF-DR-SI below remains an independent sufficient prime-count question; does not pay C_F | Keep only at its stated component scope |
+| New complete-complement arithmetic | No independent quantitative restriction discovered; a power bound alone is equivalent by MC5 | Open; do not relabel the target or centralize other routes around it |
+
+### I. Specialist Handoffs And Continuity
+
+**Coordinator:** MC4 corrects the immediate assignment's need for a new joint-sign premise at the current baseline scale. The full telescope exists, but MC2-MC3 rule out extracting an unpaid negative credit from it. Record the proper mixed bill as supplied on paper, retain C_F as unpaid, and keep NEW_VERIFIED_ENDPOINT_GAIN=NONE. This does not change the independent WS/SB or BC acceptance queues. The next Owner turn is JOH.
+
+**Analytic Type II:** audit PE-to-(9), the epsilon spend in (10), and the distinction between the DR-only all-h bound and RS4's long-window refinement. MP's Mobius/prime-ray covariance is a different source: no transfer of its 11/952 gain is asserted. Do not commission a stronger event covariance just to reproduce (9).
+
+**Finite Wheel:** the cap-law (5)-(8) is allocation-independent. Any new admissible donor matching using the same cap retains it; changing pair labels cannot copy prime mass or discard unused fractions. Examine any alternative allocation against its full complement, not the selected event norm alone. Preserve your FINITE-AC turn.
+
+**Prime Census:** independently reproduce MC6 only if it tests a proposed sign/normalization claim. The exact outputs and full executable below freeze two scales. A new experiment should target an actual complement restriction or corrected event grouping, not extend these scales to fit log N or infer an eventual sign.
+
+**Adversarial Referee:** independently challenge the uniformity in legal allocations, the PNT constant 1/200, the strict-log branch certificates, root regrouping, and MC4's all-h comparison. In particular, ensure MC5 is not asserted at r log r, and do not equate K_N with sum_r Q(r^2)^2. New author self-audit is not your acceptance.
+
+**Lean Verification:** after independent acceptance and an identified consumer, a single integrated finite task could formalize the original q/c product rule with simultaneous prime contact, cap bounds (5)-(7), and the finite mixed-Cauchy implication. Do not formalize an assumed final complement bound, claim PNT/RS4 newly compiled, or create a wrapper simply assuming the endpoint. No new PR or CI launch is requested by this report.
+
+**Two-day continuity.** TODAY=AVAILABLE for all seven roles; YESTERDAY=CARRY_FORWARD. Today Owner PD1-PD6 (including the 7:10 sign reversal and complete F-I dichotomy), yesterday SG/RS/JT, and all existing receipts are preserved byte-for-byte. Coordinator's latest SB1-3/WS continuation remains paper/review-pending. Analytic's MP1-MP6 and prior BC/FT stay at their distinct carriers and current scope. Wheel SP, Census TC and Referee DR preserve the (556,11),(657,13) cutoff-2554 counterexample, ray masks, full negative-square ledger and target-equivalence audit; #1109 formalizes only the verified subset. Yesterday OC's physical-donor cut and unused-bank repair are not signs of this VF source. Lean's verified #1107/#1109 evidence is reused, not rerun.
+
+External inbox blob 038018145c0fddb2f6306c0712373adf9cd1ea52 has no entry newer than October 18. EXT-20261018-PNT-1..3, EXT-20261017-XCOORD-1's q=R correction, and EXT-20261014-5's unconditional-versus-first-bad distinction remain intact. The universal BLOCK refutation at R=549 is not reopened. All handoffs here are asynchronous report entries; no other agent was launched or externally contacted.
+
+### J. First Independently Missing Lemma
+
+For the NEW finite telescope and mixed estimate, the next requirement is independent mathematical review and, if chosen, source-compatible formalization; there is no newly assumed cancellation premise in MC1-MC4 beyond the explicitly reused suppliers.
+
+The first specific independent arithmetic question retained on the VF component portfolio is the unchanged **OPEN-VF-DR-SI**, CONJECTURE / SUFFICIENT, NOT NECESSARY:
+
+```text
+exists kappa>0,N1, forall integer N>=N1,
+forall real (x,x+H] subset [N^2,4N^2],
+ N(log N)^4 log log N <= H <= 2(4N^2)^(21/40)
+ ==> pi(x+H)-pi(x) >= kappa H/log N.
+```
+
+This actual-prime count statement would improve the selected reserve to O(N log N) by the existing DR argument. It is not assumed here, is not a consequence of the finite tests, and would still not close the complete VF return. It is a proper-source sufficient input, not a claimed uniquely necessary global bottleneck. A genuinely factor-sensitive weaker restriction could replace it if proved.
+
+No newly justified smaller lemma for the complete complement was found in this run. In particular, an assertion |C_F(r)|=O(r^(2b-2eta)) in the range of (13) is explicitly NOT offered as an independent theorem to assume. Finding actual arithmetic information in that complement remains a research question, rather than a fabricated successful reduction.
+
+### K. Source Evidence, Resume Capsule And Publication
+
+Material main-source blobs read at bf4af1cd18aff7c3944a75991aa66371c8afc18a:
+
+| Path | Blob SHA |
+| --- | --- |
+| AGENTS.md | 0a99faf8458809ac772d470d704c5433f373bda8 |
+| CURRENT_PROOF_CONTRACT.md | d1d6fd558ee23927bd9f70ffdc375bafd1dbb67a |
+| docs/RHLEAN_COMPLETE_SIGNED_HIGH_ATTACK_20261107.md | be8168b67584d9d8ebbaa732a30c51509137543e |
+| docs/RHLEAN_REUSE_CANCELLATION_CHAIN_20261107.md | 28e2ab47c68bc83b91ae02b6112b94867b021b32 |
+| research/VF_MID_SIGNED_SEAT_CHARGE.lean | 87a6654a4a4337b409fde69aa15d7264d8b721b6 |
+| research/VF_MID_ODD_FRACTIONAL_CLUSTER.lean | 942badff45c03d2a9e97789b57d1bd8052232191 |
+| research/VF_MID_NATIVE_LYAPUNOV_SEAT_GRAM.lean | 23e7b0c5c9f4b50997a508345d91f30364f93f10 |
+| research/VF_MID_915_EXACT_HISTORICAL_NNS_COMPRESSION.lean | 6cc6b2a9d25279dd44fb65cb222f5d6846a912d4 |
+| research/VF_CANONICAL_ALL_REAL_LI_O_ONE.lean | d4762a8bcce2acba597d1578b4846619cf143cf7 |
+| research/oai_434/VF919NativeStrictMertens.lean | b33a4883e1ddb0551b0f11f062bce46680d87450 |
+| research/oai_434/VF919TotalMassEndpoint.lean | 827bb952c4d4311d75fd03a2470799dc10b0f7e7 |
+| RHLean/Analysis/CanonicalHighSectorCore.lean | dd02fc8fabfe4004c6b0d50374b3b8752607b168 |
+| RHLean/Analysis/CanonicalLowOccupancy.lean | b958da340d107cdd00015d2827b9a728357b4d8e |
+
+The exact signed-seat sum, historical-current polarization, native Lyapunov step and historical norm restoration were read in source; none is claimed newly proved here. The canonical birth-HIGH uses the actual absolute-height criterion and both orientations, not a replacement source.
+
+Report intake was pinned at reporting commit 06ce70a905271f0865b98fa9cc5e1e8142e33fc2. Retrieved continuity blobs:
+
+| Role | November 7 | November 8 at intake |
+| --- | --- | --- |
+| Coordinator, matching mirrors | 00a649b70f851ca193e74e5004d0d3390cf9ca18 | b6d5c65aed0537efd0018e11dbcd9a72dea3c15a |
+| Owner | 933e8eb23e669594cc687059d75147e6267eec8d | 79dd00b2c26491ab302ea17d6dbe4e0146d57a97 |
+| Analytic | 77f3e5795533041e4356ceb94cb66328da7af27c | b32aa501bff08a8da7ecf387f4e9a168f71ea3e5 |
+| Wheel | 7739fa5d4cc77f35773b0d4149b2ddd21732a70d | 5b56caa1e7b3463510a7257b10a784ccc8798621 |
+| Census | 3fae830e34c590d32c31ad77cad3ace833eb3ff5 | 3cc1bbe7e0d9a80bdcaa630a2fb3c31d4b8f90c8 |
+| Referee | 426c2abfa5b8926b512e07f05be37692a2416d0b | 9b691e84eeb8f2f9e2497604dc874935a61d5005 |
+| Lean | ec14e2803af8c1e56123682ee61ed927ed4f9450 | 02647045bf731a52b3c726c9ea690b72fa48c274 |
+
+**Verified PR/CI evidence during this run.** #1107 is merged at the current main SHA; exact tested head cd8f98fd6ed2dee3fa08f526eb8ac86c94549da5 has 14/14 successful returned checks. Its dedicated [total-mass job 128599096276](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42437401175/job/128599096276) log was freshly read and confirms warning-fatal proof/type checks and the four terminal standard-axiom closures using only propext, Classical.choice, Quot.sound. This is reused exact-head evidence, not a fresh main build. Programme-level independent Referee acceptance remains separate.
+
+Open enumeration and individual reads find #1108 non-draft at a0c986c0343a56e98b7344268fdc0b74aa885cdb, 20/20 checks successful, and #1109 non-draft at fedd203158af32b09cb86fd12f04fec33998408e, 14/14 checks successful. Neither is merged. Their dedicated proof details are carried from today's Coordinator/Lean reports; this run freshly checked the status and heads, not every job log. Recent #1106/#1105/#1103 work remains incorporated in main, not new Owner output.
+
+Prepublication freshness at 2026-11-08 13:28 UTC: main, both open proof heads and all retrieved upstream November 7/8 report blobs are unchanged. The only reporting-tree change since intake is this run's verified own checkpoint. No newly completed upstream execution was inferred from a schedule.
+
+```text
+RUN: 20261108-owner-2, scheduled 08:09:01 EST, run id unavailable.
+MAIN: bf4af1cd18aff7c3944a75991aa66371c8afc18a.
+ROUTE: VF-LOW; last three JOH/SAT/VF-LOW; next JOH.
+NEW: MC1 complete event/block product rules;
+     MC2-MC3 allocation-uniform positive contact and log N diagonal cost;
+     MC4 supplied-input all-h mixed bound and RS4 long-window refinement;
+     MC5 explicit complement target-equivalence above root power 21/20;
+     MC6 actual-log opposite grouped signs and exact source checks.
+PAID INPUTS: DR feasibility/pointwise reserve, RS4 at paper scope,
+             same-source b=7/8-m/4 and classical prime-error transfer.
+REJECT: omitted same-site term, fixed event-diagonal payment,
+        universal finite grouped-contact sign, unproved complement-as-lemma.
+NEXT: independent MC review; on protected JOH turn resume JT full-kernel
+      low-zero failure localization, preserving its prime-square term.
+GLOBAL: no new fixed exponent; canonical VF/RH OPEN; SEARCH_BROAD.
+```
+
+The early checkpoint was published at **1eef95e562efc0a9cbd9a41db9f8086112463885**, report blob **2c2cac899159250b5819327a13eefc01a927cd7c**. Immutable readback matched exactly; the commit changed only this authorized report. This synthesis preserves all earlier daily bytes. Its own commit/readback will be recorded in the receipt below.
+
+Actual execution limitations: no local Lean was run or permitted; all new mathematical claims remain paper/finite, not kernel-certified. No CI was launched, no other agent was spawned, and no Lean source, proof branch/PR, workflow, central instruction, other report, main, permission or schedule was changed. Both registered computations and syntax validation finished successfully; no background work is promised.
+
+### Reproducibility Appendix - MC6
+
+Python 3.12.13. The first registered execution passed. The disclosed interval-regrouping follow-up and syntax check also exited 0. Final SHA-256:
+
+```text
+mixed_return_verify.py
+e266e3bd9a3af4bca572a962a52f18016a05a1ff1192ae5b8f8c03d2000e07b2
+mixed-test-registration.md
+de734fd74d85de422ce21b2a7612d4a5bbb2153e4e2166e7b5b2a706e429e4e4
+mixed_return_results.json
+add2415a4b1c9587ac4e998b6440eaf5b3b86fc0208913731d5133ad13f48cab
+```
+
+The complete registration and executable are embedded below in the authorized report. They generate the JSON output whose hash is recorded above. These are exact finite tests and genuine-logarithmic interval certificates, not validation of PNT, the inherited all-scale reserve estimates, or a new global exponent.
+
+
+#### Frozen Registration And Disclosed Follow-Up
+
+```text
+# Frozen VF-LOW Mixed-Return Tests
+
+Run: 20261108-owner-2, scheduled 08:09 EST.
+
+- Reuse exactly N=9216 (development) and N=10000 (held out); do not extend the census or fit exponents.
+- Original source: odd nonsquare seats w_floor(sqrt(n))-1_prime(n), anchor -2, unchanged three-prime rectangle and donor fraction 1/ceil(log N)^2.
+- Credit the rational logarithm enclosure from 20261107-owner-2/RS6 (originally 20261106-owner-2). Verify each backwards min branch by strict rational interval separation. This certifies the real-log donor support and fractional/full decisions; ambiguous branches fail.
+- Test all-cut event product rule including same-site prime contact. Test exact complete-block chronological action=-contact, original full/complement prefix return, block regrouping, and canonical sqrt(2) restoration.
+- Test exact finite Cauchy mixed bounds on h=1, intermediate and full windows. These are algebraic checks, not validation of asymptotic constants.
+- Certify positive real-log contact and its ratio to the selected EVENT diagonal, with lower/upper rational enclosures. Predictions: contact>0 and contact>7*event diagonal on both fixtures. If false, report that failure, not alter the threshold silently.
+- The two rational endpoint weight realizations test polynomial identities only. Genuine logarithmic sign/ratio claims require interval bounds across the certified decisions, not extrapolation from those endpoints.
+- No finite observation will certify the all-scale PNT asymptotic or RS4 analytic estimate.
+
+## Disclosed Follow-Up After First Pass
+
+The first frozen execution passed. Its two rational endpoint realizations gave opposite signs for the square-block grouped contact at N=9216 and N=10000. This was not predeclared as a genuine-logarithmic sign result. Before reporting that conclusion, add outward interval arithmetic for every original block increment and allocated block increment, using the already certified real-log allocation branches. No new scale or changed carrier is introduced. Required outcome: strictly negative grouped contact at 9216 and strictly positive at 10000; otherwise preserve only the observed rational-vector statement. Archive the revised output for report reproduction.
+```
+
+#### Complete Executed Verifier
+
+```python
+"""Source-faithful mixed-return checks; see frozen registration.
+
+The logarithm helper is credited to Owner 20261107-owner-2/RS6.
+All final certified intervals use integer arithmetic.
+"""
+
+from bisect import bisect_right
+from collections import Counter
+from functools import lru_cache
+from math import isqrt
+from pathlib import Path
+import hashlib
+import json
+
+SCALE = 10**40
+WD = 10**18
+TERMS = 50
+
+
+def ceildiv(n, d):
+    return -(-n // d)
+
+
+def mul(a, b):
+    return a[0] * b[0] // SCALE, ceildiv(a[1] * b[1], SCALE)
+
+
+def small_log(n, d):
+    assert d <= n <= 2*d
+    u = ((n-d)*SCALE//(n+d), ceildiv((n-d)*SCALE, n+d))
+    u2, power = mul(u, u), u
+    low = high = 0
+    for j in range(TERMS):
+        low += 2*power[0]//(2*j+1)
+        high += ceildiv(2*power[1], 2*j+1)
+        power = mul(power, u2)
+    high += ceildiv(2*power[1]*SCALE, (2*TERMS+1)*(SCALE-u2[1]))
+    return low, high
+
+
+LOG2 = small_log(2, 1)
+
+
+def log_interval(n, d=1):
+    assert n >= d > 0
+    k = n.bit_length()-d.bit_length()
+    den = d << k
+    if den > n:
+        k -= 1
+        den //= 2
+    lo, hi = small_log(n, den)
+    return lo+k*LOG2[0], hi+k*LOG2[1]
+
+
+@lru_cache(None)
+def weight(r):
+    lo, hi = log_interval(2*r*r+2*r+1, 2)
+    num = (2*r+1)*SCALE*WD
+    return num//(r*hi), ceildiv(num, r*lo)
+
+
+def sieve(n):
+    flags = bytearray(b'\x01')*(n+1)
+    flags[:2] = b'\x00\x00'
+    for p in range(2, isqrt(n)+1):
+        if flags[p]:
+            flags[p*p:n+1:p] = b'\x00'*((n-p*p)//p+1)
+    return flags
+
+
+def decimals(lo, hi, den, digits=9):
+    unit = 10**digits
+    return [str(lo*unit//den)+"/"+str(unit),
+            str(ceildiv(hi*unit, den))+"/"+str(unit)]
+
+
+def signed_product(x, y):
+    products = [a*b for a in x for b in y]
+    return min(products), max(products)
+
+
+def fixture(N, flags):
+    ss = [p for p in range(2, 2*N) if flags[p] and
+          N < p*p and 100*p*p <= 121*N]
+    qs = [q for q in range(2, 2*N) if flags[q] and
+          3*N < 2*q and 4*q <= 7*N]
+    sites = sorted(q*p*s for q in qs for i, p in enumerate(ss) for s in ss[i+1:])
+    assert len(ss) >= 3 and len(sites) == len(set(sites))
+    assert all(n % 2 and isqrt(n)**2 != n and not flags[n] for n in sites)
+    lo, hi = log_interval(N)
+    assert lo//SCALE == hi//SCALE
+    k = lo//SCALE + 1
+    den = WD*k*k
+    demands = {n: tuple(x*k*k for x in weight(isqrt(n))) for n in sites}
+    used, branch = {}, {}
+    bL = bU = 0
+    fi, n = len(sites)-1, sites[-1]
+    while fi >= 0 or bU:
+        if bU == 0 and fi >= 0:
+            n = sites[fi]
+        if fi >= 0 and n == sites[fi]:
+            dl, du = demands[n]
+            bL, bU = bL+dl, bU+du
+            fi -= 1
+            n -= 1
+            continue
+        p = flags.rfind(1, N*N+1, n+1)
+        next_d = sites[fi] if fi >= 0 else N*N
+        if p < next_d:
+            n = next_d
+            continue
+        assert p > N*N
+        wl, wu = weight(isqrt(p))
+        cl, cu = WD-wu, WD-wl
+        if bU < cl:
+            used[p], branch[p] = (bL, bU), "partial"
+            bL = bU = 0
+        else:
+            assert bL > cu, ("ambiguous real-log branch", N, p)
+            used[p], branch[p] = (cl, cu), "full"
+            bL, bU = bL-cu, bU-cl
+        n = p-1
+    assert bL == bU == 0
+    contactL = contactU = eL = eU = 0
+    for dl, du in demands.values():
+        eL, eU = eL+dl*dl, eU+du*du
+    for p, (ul, uu) in used.items():
+        wl, wu = weight(isqrt(p))
+        vl, vu = (WD-wu)*k*k, (WD-wl)*k*k
+        assert 0 < ul <= uu < vl
+        contactL += ul*(vl-uu)
+        contactU += uu*(vu-ul)
+        eL, eU = eL+ul*ul, eU+uu*uu
+    assert contactL > 7*eU
+    assert contactL > 0
+
+    events = sorted(sites + list(used))
+    cuts = sorted(set([n-1 for n in events] + events +
+                      [r*r for r in range(N, 2*N+1)]))
+    pi, last, counts = 0, -1, {}
+    for t in cuts:
+        pi += flags.count(1, last+1, t+1)
+        counts[t], last = pi, t
+
+    qrootL, qrootU = Counter(), Counter()
+    for n, (dl, du) in demands.items():
+        r = isqrt(n)
+        qrootL[r] += dl
+        qrootU[r] += du
+    for p, (ul, uu) in used.items():
+        r = isqrt(p)
+        qrootL[r] -= uu
+        qrootU[r] -= ul
+    rootContactL = rootContactU = 0
+    for r in range(N, 2*N):
+        pl = counts[(r+1)**2]-counts[r*r]
+        wl, wu = weight(r)
+        zl, zu = r*wl*k*k-pl*den, r*wu*k*k-pl*den
+        qr = qrootL[r], qrootU[r]
+        cr = zl-qr[1], zu-qr[0]
+        vl, vu = signed_product(qr, cr)
+        rootContactL += vl
+        rootContactU += vu
+    assert (rootContactU < 0) if N == 9216 else (rootContactL > 0)
+
+    checks = []
+    for side in (0, 1):
+        w = [0, 0] + [weight(r)[side]*k*k for r in range(2, 2*N+1)]
+        F = [0]*(2*N+2)
+        for r in range(2, 2*N+1):
+            F[r+1] = F[r]+r*w[r]
+
+        def total(t):
+            r = isqrt(t)
+            odd = (t+1)//2-(r*r+1)//2
+            return F[r]+odd*w[r]-counts[t]*den
+
+        q, b = {}, 0
+        for n in reversed(events):
+            if n in demands:
+                q[n] = demands[n][side]
+                b += q[n]
+            else:
+                cap = WD-weight(isqrt(n))[side]
+                take = min(b, cap)
+                assert (b < cap) == (branch[n] == "partial")
+                assert used[n][0] <= take <= used[n][1]
+                q[n] = -take
+                b -= take
+        assert b == 0 and sum(q.values()) == 0
+        Q = contact = chronological = 0
+        last = N*N
+        root_q, block_contact, event_contact = Counter(), Counter(), Counter()
+        for n in events:
+            before = total(n-1)
+            chronological += Q*(before-total(last))
+            C = before-Q
+            z = w[isqrt(n)]-int(bool(flags[n]))*den
+            c = z-q[n]
+            chronological += C*q[n]+Q*c
+            contact += c*q[n]
+            assert c*q[n] >= 0
+            assert (c*q[n] > 0) == bool(flags[n])
+            root_q[isqrt(n)] += q[n]
+            event_contact[isqrt(n)] += c*q[n]
+            Q += q[n]
+            assert Q <= 0
+            assert 2*(total(n)-Q)*Q == 2*(chronological+contact)
+            last = n
+        assert Q == 0 and chronological == -contact
+        assert contactL <= contact <= contactU
+        event_diag = sum(x*x for x in q.values())
+        assert eL <= event_diag <= eU
+
+        rootQ, rootC, rootD = [], [], []
+        Q = block_action = root_contact = 0
+        root_regroup = 0
+        for r in range(N, 2*N):
+            S = total(r*r)
+            C = S-Q
+            rootQ.append(Q)
+            rootC.append(C)
+            rootD.append(-S)
+            assert S*S == C*C+Q*Q+2*C*Q
+            assert (S*S+2*den*den, 2*S*den) == (
+                C*C+Q*Q+2*C*Q+2*den*den, 2*(C+Q)*den)
+            z = total((r+1)**2)-S
+            qr, cr = root_q[r], z-root_q[r]
+            block_action += C*qr+Q*cr
+            root_contact += cr*qr
+            root_regroup += cr*qr-event_contact[r]
+            Q += qr
+            assert 2*(total((r+1)**2)-Q)*Q == 2*(block_action+root_contact)
+        assert Q == 0 and block_action == -root_contact
+        assert root_contact == contact+root_regroup
+        E = sum(x*x for x in rootQ)
+        B2 = max(x*x for x in rootQ)
+        windows = 0
+        for start in (0, N//4, N//2, N-1):
+            for h in sorted({1, min(7, N-start), min(N//3, N-start), N-start}):
+                qv = rootQ[start:start+h]
+                cv = rootC[start:start+h]
+                dv = rootD[start:start+h]
+                ei = sum(x*x for x in qv)
+                l1 = sum(abs(x) for x in qv)
+                mx = sum(abs(2*x*y) for x, y in zip(cv, qv))
+                dmax = max(abs(x) for x in dv)
+                assert ei <= min(h*B2, E)
+                assert l1*l1 <= h*ei
+                assert mx <= 2*dmax*l1+2*ei
+                windows += 1
+        checks.append({"side": side, "event_product_checks": len(events),
+                       "root_return_checks": N, "all_h_samples": windows,
+                       "same_site_contact": decimals(contact, contact, den*den),
+                       "root_group_contact": decimals(root_contact, root_contact, den*den),
+                       "within_root_offdiagonal": decimals(root_regroup, root_regroup, den*den),
+                       "selected_event_diagonal": decimals(event_diag, event_diag, den*den)})
+    return {"N": N, "small_primes": ss, "large_prime_count": len(qs),
+            "demand_sites": len(sites), "used_primes": len(used),
+            "certified_branches": dict(Counter(branch.values())),
+            "true_contact_interval": decimals(contactL, contactU, den*den),
+            "true_event_diagonal_interval": decimals(eL, eU, den*den),
+            "true_contact_to_event_diag_interval": [
+                str(contactL*10**9//eU)+"/1000000000",
+                str(ceildiv(contactU*10**9, eL))+"/1000000000"],
+            "strict_contact_gt_7_event_diagonal": True,
+            "true_root_group_contact_interval": decimals(
+                rootContactL, rootContactU, den*den),
+            "true_within_root_offdiagonal_interval": decimals(
+                rootContactL-contactU, rootContactU-contactL, den*den),
+            "model_identity_checks": checks}
+
+
+if __name__ == "__main__":
+    flags = sieve(4*10000**2)
+    out = {"fixtures": [fixture(N, flags) for N in (9216, 10000)],
+           "scope": "real-log branch and contact certificates; endpoint-vector identities",
+           "source_sha256": hashlib.sha256(Path(__file__).read_bytes()).hexdigest()}
+    payload = json.dumps(out, indent=2)
+    Path(__file__).with_name("mixed_return_results.json").write_text(payload+"\n")
+    print(payload, flush=True)
+```
