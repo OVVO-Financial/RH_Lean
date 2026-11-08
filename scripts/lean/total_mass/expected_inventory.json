@@ -1,0 +1,158 @@
+{
+  "schema": 1,
+  "hash_format": "sha256 of comment-free source binders, colon, and result type; whitespace collapsed",
+  "public_theorems": 23,
+  "public_definitions": 1,
+  "files": [
+    {
+      "path": "research/oai_434/VF919TotalMassLowEnergy.lean",
+      "imports": [
+        "research.oai_434.VF919TiltedLowPhysical"
+      ],
+      "scope_sha256": "113ad652fa48e4e5e0d566e4bf1c83d09b627c99f9d2087e507588844cf1205f",
+      "declarations": [
+        {
+          "kind": "def",
+          "name": "OAI.SevenEighths.ProbePhysical.totalMassAuxiliaryPhysicalExponents",
+          "type_sha256": "96534a3149d1253765dfafd84a35fd8ccfb420b0bdc77af0a04d7d25e5cb9e43"
+        },
+        {
+          "kind": "theorem",
+          "name": "OAI.SevenEighths.ProbePhysical.low_selected_nominal_energy_total_mass",
+          "type_sha256": "23f17fcfe6dade01533751c44a45e3319eb0efa13713951a056ef91961cca462"
+        }
+      ]
+    },
+    {
+      "path": "research/oai_434/VF919TotalMassLowPhysical.lean",
+      "imports": [
+        "research.oai_434.VF919TotalMassLowEnergy",
+        "research.oai_434.VF919OriginalLowTupleSignedGram"
+      ],
+      "scope_sha256": "9b4bc72ffaf4bc6a2b46396adb4dbd0e7f8c1b63ea8ba5d71ac4eee0d6e18f1f",
+      "declarations": [
+        {
+          "kind": "theorem",
+          "name": "OAI.SevenEighths.ProbePhysical.low_physical_inverse_normalized_total_mass",
+          "type_sha256": "9cf426a7a08ae0cc43496d682f478538904dc41757887d1e722c1fc659df1c2a"
+        },
+        {
+          "kind": "theorem",
+          "name": "OAI.SevenEighths.ProbePhysical.low_central_compensated_tuple_total_mass",
+          "type_sha256": "e5597546220ad07c4b0eee1d11c63f76c0448ec559652b4a14fc682ba8bd1e7c"
+        },
+        {
+          "kind": "theorem",
+          "name": "OAI.SevenEighths.ProbePhysical.low_central_gaussian_dyad_total_mass",
+          "type_sha256": "f1fb64491834ed82ea60bd9864e9de4c5f2493843459a171ee2565929e69f0d2"
+        },
+        {
+          "kind": "theorem",
+          "name": "OAI.SevenEighths.ProbePhysical.low_central_gaussian_dyads_total_mass",
+          "type_sha256": "979c88392dbc68a3949b7232b9e98ae1febdbe6ad390c03e481748183cd3d31a"
+        },
+        {
+          "kind": "theorem",
+          "name": "OAI.SevenEighths.ProbePhysical.low_all_gaussian_dyads_total_mass",
+          "type_sha256": "d3b718c1f4e7f3857452e581fe99b797a4df67d978e1b028bdcb6571fe2a23f9"
+        },
+        {
+          "kind": "theorem",
+          "name": "OAI.SevenEighths.ProbePhysical.compensatedPhysicalProbe_low_total_mass",
+          "type_sha256": "2f29887c03d64513468a0e9d9532b6342776ddcf892a0c53159939e3c2c212c4"
+        },
+        {
+          "kind": "theorem",
+          "name": "OAI.SevenEighths.ProbePhysical.original_ray_compensatedPhysicalProbe_low_total_mass",
+          "type_sha256": "1ee02835fc1150c7d3358e1ffa7608e534da40ffeee3e418223e02741c8b01d1"
+        },
+        {
+          "kind": "theorem",
+          "name": "OAI.SevenEighths.ProbePhysical.original_ray_compensatedPhysicalProbe_low_loss_total_mass",
+          "type_sha256": "f38be813692423022301a705dea414ffe429b2110b5d50fd7ba11e47ea81d6dc"
+        },
+        {
+          "kind": "theorem",
+          "name": "OAI.SevenEighths.ProbePhysical.original_normalized_compensatedPhysicalProbe_low_total_mass",
+          "type_sha256": "e3b534e6f3b8cdcea2c32cd8e3c57cd4183fd465217860eb1a73622dec904e12"
+        }
+      ]
+    },
+    {
+      "path": "research/oai_434/VF919TotalMassEndpoint.lean",
+      "imports": [
+        "research.oai_434.VF919TotalMassLowPhysical",
+        "research.oai_434.VF919ActualSlotMinRetighten"
+      ],
+      "scope_sha256": "a6dc56efc6413c759b94223bec64d08fb8e8663ea72feb21fbcaa1252969b50c",
+      "declarations": [
+        {
+          "kind": "theorem",
+          "name": "OAI.SevenEighths.ProbeFinalAssembly.SourceData.tiltedProbe_low_total_mass",
+          "type_sha256": "fd625f44cdd360493359973541c0c2b6d5879a7f22c517f1f417012d532c971e"
+        },
+        {
+          "kind": "theorem",
+          "name": "OAI.SevenEighths.RHLeanNativeSevenEighthsReplay.native_fixed_total_mass_probe_bounds",
+          "type_sha256": "3beb7691476db4dbea7ba0b1e008311d3217b2ff5ac4c1489a46b57d4c7c9072"
+        },
+        {
+          "kind": "theorem",
+          "name": "OAI.SevenEighths.RHLeanNativeSevenEighthsReplay.native_beta_le_total_mass_boundary",
+          "type_sha256": "7b6daa84b832e592bb21600ea7ad2aed597c16cd7c6fad37bc737504b78cae90"
+        },
+        {
+          "kind": "theorem",
+          "name": "OAI.SevenEighths.RHLeanActualSlotMin.recalibrated_sigma_eq_true_minimum_quarter",
+          "type_sha256": "1fc11b0084b33893651891f13197638e0209ade423a07977b5ca78611d8947e5"
+        },
+        {
+          "kind": "theorem",
+          "name": "OAI.SevenEighths.RHLeanActualSlotMin.total_mass_calibration_preserves_physical_geometry",
+          "type_sha256": "4c19646fc3d92eba1fa1b91800f244bbec8cd4940a9262fd6cf8d0a03a937f72"
+        },
+        {
+          "kind": "theorem",
+          "name": "OAI.SevenEighths.RHLeanActualSlotMin.recalibrated_total_mass_tilt_budget",
+          "type_sha256": "64c95107211264bbe871d6b4da4f18671b630e0f73eef2b22876df1c7f576011"
+        },
+        {
+          "kind": "theorem",
+          "name": "OAI.SevenEighths.RHLeanActualSlotMin.total_mass_boundary_strictly_improves_low_first",
+          "type_sha256": "43b01043202cf64e0dbac5c68ed0421b50acc6b856680481e5b1f5838882d480"
+        },
+        {
+          "kind": "theorem",
+          "name": "OAI.SevenEighths.RHLeanActualSlotMin.total_mass_fixed_power_strictly_improves_low_first",
+          "type_sha256": "f6e94047874d4977d781a6e62e29cb120ce1e678b7513ea862ee2e623181174c"
+        },
+        {
+          "kind": "theorem",
+          "name": "OAI.SevenEighths.RHLeanActualSlotMin.native_beta_le_true_physical_slot_minimum_total_mass_of_fine",
+          "type_sha256": "5f4cbdc367df178c33aded653db037e4341c006fb8638d9e02b2446be8a5f27c"
+        },
+        {
+          "kind": "theorem",
+          "name": "OAI.SevenEighths.RHLeanActualSlotMin.native_beta_le_true_physical_slot_minimum_total_mass",
+          "type_sha256": "51d2bb55eca76b7e9973d9c4ea757b08756b236d7e8e1f843644887158bad1d7"
+        },
+        {
+          "kind": "theorem",
+          "name": "RHLean.Analysis.native_mertens_true_physical_slot_minimum_total_mass",
+          "type_sha256": "7883804a29c7cde7af7c65f7c99408f4d2fde41932d8c34853146dfc6a10a49d"
+        },
+        {
+          "kind": "theorem",
+          "name": "RHLean.Analysis.native_mertens_fixed_true_physical_slot_minimum_total_mass",
+          "type_sha256": "d52535f9f2ec9362b33a4d70f11ae1ae15a327289e6a4c033396c2a7423134c3"
+        },
+        {
+          "kind": "theorem",
+          "name": "RHLean.Analysis.native_signed_pair_true_physical_slot_minimum_total_mass",
+          "type_sha256": "2cd2598a8a1c62cb672a4a967dfc3694d5db34be0c70104de24e3536fc3dbfec"
+        }
+      ]
+    }
+  ],
+  "exact_types_sha256": "a0b0338259d0cb4edc83147b3be20c1e20ccc3e977447db59cdca0a24a580f38"
+}
