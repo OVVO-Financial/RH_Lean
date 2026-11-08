@@ -124,7 +124,7 @@ theorem squareRootAmplificationLogRatio_le_of_powerBound {a D : ℝ}
   have hupper : 1 + squareRootAmplificationMax X ≤ (1 + D) * (X : ℝ) ^ a := by
     calc
       _ ≤ 1 + D * (X : ℝ) ^ a := add_le_add_left (hA X (by omega)) 1
-      _ ≤ (X : ℝ) ^ a + D * (X : ℝ) ^ a := add_le_add_right hpow _
+      _ ≤ (X : ℝ) ^ a + D * (X : ℝ) ^ a := by linarith only [hpow]
       _ = (1 + D) * (X : ℝ) ^ a := by ring
   have hpositive : 0 < 1 + squareRootAmplificationMax X := by
     linarith [squareRootAmplificationMax_nonneg X]
@@ -164,8 +164,8 @@ theorem squareRootAmplificationLogRatio_le_of_mertensPower_threshold {b C : ℝ}
     apply (div_le_iff₀ hlog).2
     have h := (div_le_iff₀ heta).1 hthresholdLog
     simpa only [mul_comm] using h
-  exact (squareRootAmplificationLogRatio_le_of_mertensPower hb hC hM X hX).trans
-    (add_le_add_left hpayment _)
+  have hq := squareRootAmplificationLogRatio_le_of_mertensPower hb hC hM X hX
+  linarith only [hq, hpayment]
 
 /-- The resulting logarithmic power bound holds eventually with any positive
 additional loss, with the source constant fixed before the cutoff. -/
