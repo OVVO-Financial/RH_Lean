@@ -100,7 +100,10 @@ theorem native_beta_le_explicit_slot_count_total_mass :
       ((1 : ℝ) / (12 * (explicitSlotCount : ℝ))) / 4 := by
     ring
   rw [hident]
-  linarith only [hbound, hmin]
+  exact hbound.trans
+    (sub_le_sub_left
+      (div_le_div_of_nonneg_right hmin (by norm_num : (0 : ℝ) ≤ 4))
+      (7 / 8))
 
 #print axioms native_beta_le_explicit_slot_count_total_mass
 
