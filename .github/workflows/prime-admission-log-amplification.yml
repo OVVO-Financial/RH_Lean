@@ -1,0 +1,70 @@
+name: Prime-admission logarithmic amplification
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    paths:
+      - 'RHLean/Proof/PrimeAdmissionLogPotential.lean'
+      - 'RHLean/Proof/SquareRootAmplificationLogGrowth.lean'
+      - 'RHLean/Proof/SquareRootMertensEndpointAmplification.lean'
+      - 'RHLean/Proof/SquareRootLegalAncestryGramReduction.lean'
+      - 'research/PRIME_ADMISSION_LOG_AMPLIFICATION_20261107.lean'
+      - 'research/PRIME_ADMISSION_LOG_AMPLIFICATION_ACCEPTANCE_20261107.lean'
+      - 'research/EULER_ADMISSIBLE_PRIME_POPULATION_CODIV_20261028.lean'
+      - 'research/EULER_ASYMMETRIC_CORNER_SIGNED_GRAM_20261028.lean'
+      - 'scripts/audit_prime_admission_log_amplification.py'
+      - 'scripts/audit_euler_fractional_axioms.py'
+      - '.github/workflows/prime-admission-log-amplification.yml'
+      - '.github/actions/research-compile/**'
+      - '.github/actions/lean-setup/**'
+      - '.github/actions/lean-compiled-cache/**'
+      - 'lean-toolchain'
+      - 'lakefile.lean'
+      - 'lake-manifest.json'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: prime-admission-log-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  logarithmic-amplification-proof:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Verify compiler and Mathlib pins
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(cat lean-toolchain)" = 'leanprover/lean4:v4.34.1'
+          grep -q 'd13f23b723b8a846827a245b89c10fc7d3f11612' lakefile.lean
+          git rev-parse HEAD
+      - name: Pinned Lean and cached Mathlib
+        uses: ./.github/actions/lean-setup
+      - name: Restore native compiled prerequisites
+        uses: ./.github/actions/lean-compiled-cache
+      - name: Compile exact warning-fatal import closure and type acceptance
+        uses: ./.github/actions/research-compile
+        with:
+          build-library: 'true'
+          targets: research/PRIME_ADMISSION_LOG_AMPLIFICATION_ACCEPTANCE_20261107.lean
+      - name: Audit declarations, public exports and standard axioms
+        id: axioms
+        run: python3 scripts/audit_prime_admission_log_amplification.py
+      - name: Preserve exact proof evidence
+        if: ${{ !cancelled() && steps.axioms.outcome != 'skipped' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: prime-admission-log-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            prime-admission-log-audit.lean
+            prime-admission-log-audit.log
+            prime-admission-log-inventory.json
+            research/PRIME_ADMISSION_LOG_AMPLIFICATION_ACCEPTANCE_20261107.lean
+          if-no-files-found: error
