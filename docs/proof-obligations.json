@@ -1,13 +1,13 @@
 {
   "schema": "rhlean-proof-obligations/1",
-  "registry_version": "2026-11-08.1",
-  "authority": "Mathematical proof-obligation registry (Layer A) with links to Lean declarations (Layer B) and evidence (Layer C). Navigation and status bookkeeping only: a conditional consumer does not prove its premises, an explicit interface is not a Lean proof, and paper or numerical findings are not Lean certificates. Live PR state must be refreshed from GitHub; the evidence snapshot is dated. Nov 8 2026 refresh: #1106-#1109 merged; strict sub-7/8, explicit amplification and CORR4 collision milestones are proved, zero-log and uniform finite A remain open. Current status must not be inferred from the dated Oct 26 portfolio.",
+  "registry_version": "2026-11-08.2",
+  "authority": "Mathematical proof-obligation registry (Layer A) with links to Lean declarations (Layer B) and evidence (Layer C). Navigation and status bookkeeping only: a conditional consumer does not prove its premises, an explicit interface is not a Lean proof, and paper or numerical findings are not Lean certificates. Live PR state must be refreshed from GitHub; the evidence snapshot is dated. Nov 8 continuation: #1106-#1109 remain merged; repaired #1111 is recorded separately at its exact unmerged head and is not promoted while its required axiom audit is pending. Zero-log amplification, uniform finite A and RH remain open. Current status must not be inferred from the dated Oct 26 portfolio.",
   "baseline": {
     "repository": "OVVO-Financial/RH_Lean",
-    "main_sha": "30c9fade09be0a4cb12776cd324e9fd9a9ed44ac",
+    "main_sha": "8b5a6921002da0742ecfab9ee7d40728ed5fe348",
     "lean_toolchain": "leanprover/lean4:v4.34.1",
-    "agent_reports_sha": "488624466091f82500ab46c35d7fa0ba64b03665",
-    "verified_at": "2026-11-08T14:30:38Z"
+    "agent_reports_sha": "4128712b7a4f4b27b2d7f70e08578063121e8214",
+    "verified_at": "2026-11-08T18:58:06Z"
   },
   "vocabulary": {
     "node_types": [
@@ -3106,6 +3106,43 @@
       "open_obligation": false
     },
     {
+      "id": "MILESTONE-NEAR-UNIFORM-SLOT-BOUNDARY",
+      "title": "Near-uniform fixed-source Mertens boundary (#1111)",
+      "type": "paper_claim",
+      "route_ids": ["OAI-NNS", "CODIV"],
+      "statement": "For the fixed N_pack=nearUniformSlotCount=ceil(max(1,1/(6*explicitFineLength)))+2, beta <= 7/8-1/(32*N_pack), and for every eps>0 there is C_eps>=0 for all integers n>=1: |M(n)|<=C_eps*n^(7/8-1/(32*N_pack)+eps). The positive distinct slots have sum 1/6 and satisfy the original complete detector/source budgets. No no-loss bound at the endpoint is asserted.",
+      "logical_status": "CLAIMED",
+      "formal_status": "LEAN_PR_HEAD_NOT_GREEN",
+      "evidence_class": "PAPER_PROOF_NEEDS_REVIEW",
+      "provenance": "PAPER_ARGUMENT",
+      "open_obligation": true,
+      "obligation_kind": "REVIEW",
+      "lean": [
+        {
+          "file": "research/oai_434/VF919ExplicitSquareBlockPacking.lean",
+          "name": "native_beta_le_near_uniform_slots"
+        },
+        {
+          "file": "research/oai_434/VF919ExplicitSquareBlockPacking.lean",
+          "name": "native_mertens_near_uniform_slots"
+        }
+      ],
+      "pr": 1111,
+      "evidence": ["EV-PR-1111"],
+      "notes": "The signed square-block regrouping in the same module is a separate identity, not an input to the analytic endpoint or a quantitative smooth-to-sharp bridge. This is a repaired existing proof PR, not new primitive cancellation or a change to the original source. The exact PR state and tested head remain separate from main.",
+      "does_not_prove": [
+        "A quantitative smooth-to-sharp square-shell transfer",
+        "Uniform finite A or zero-log amplification",
+        "RH or a repeatable contraction to one half"
+      ],
+      "milestone": {
+        "order": 19,
+        "date": "2026-11-08",
+        "label": "Near-uniform fixed-source Mertens boundary (#1111)",
+        "pr": 1111
+      }
+    },
+    {
       "id": "OPEN-MERTENS-FURTHER-GAIN",
       "title": "New complete-source gain beyond the explicit November 8 boundary",
       "type": "open_obligation",
@@ -3381,6 +3418,14 @@
       "to": "MILESTONE-MERTENS-STRICT-EXPLICIT",
       "elementary": "exponent 1/2 + eps is below 7/8 - delta for delta < 3/8",
       "conditions": []
+    },
+    {
+      "id": "E-NEAR-UNIFORM-REQUIRES-TOTAL-MASS",
+      "from": "MILESTONE-NEAR-UNIFORM-SLOT-BOUNDARY",
+      "type": "REQUIRES",
+      "to": "MILESTONE-OAI-TOTAL-MASS",
+      "conditions": [],
+      "notes": "The new original HighData witness is consumed by the complete existing total-mass endpoint; square-block regrouping is not the analytic dependency."
     },
     {
       "id": "E-CODIV-MECH",
@@ -4100,6 +4145,27 @@
       "head_sha": "fedd203158af32b09cb86fd12f04fec33998408e",
       "merged_at": "2026-11-08T14:30:38Z",
       "grade": "KERNEL_CHECKED_ON_MAIN"
+    },
+    {
+      "id": "EV-PR-1111",
+      "kind": "pr",
+      "number": 1111,
+      "state": "open",
+      "draft": true,
+      "title": "Square blocks and near-uniform fixed analytic slot packing",
+      "observed_at": "2026-11-08T18:56:20Z",
+      "head_sha": "20875a55dd9780993c4cdc06624c88be6060e2ee",
+      "checks": {"jobs": 13, "success": 0, "failed": 0, "pending": 13},
+      "workflow_run": "https://github.com/OVVO-Financial/RH_Lean/actions/runs/42512437623",
+      "proof_job": "https://github.com/OVVO-Financial/RH_Lean/actions/runs/42512437623/job/128828203921",
+      "source_blob": "32999039fdeea99c58a070c1c4ee9c140720dd44",
+      "audit_blob": "732b3dbfe2b4e8137d254cebd49dc8df2692c40e",
+      "repair_history": [
+        {"head_sha": "e02629be7e276dbccf812fb5cdb67a7f060d0cae", "run_id": 42502239742, "job_id": 128797297359, "conclusion": "failure", "diagnosis": "Constant-sum algebra, two natural/real numeral elaborations and positive-division inequality proof."},
+        {"head_sha": "562e313ac405b93cf94ba851e314ceef9e64c579", "run_id": 42509367510, "job_id": 128818866826, "conclusion": "failure", "diagnosis": "Warning-fatal unreachable tactic after field_simp already closes the slot normalization equality; removed only the redundant tactic."},
+        {"head_sha": "b6b637a9395c5f73a034c84474e2f314685d67bb", "run_id": 42510955610, "job_id": 128823686854, "conclusion": "failure", "diagnosis": "Source and fixed types compiled; new axiom runner could not load hierarchical research prefix. Corrected to the literal dotted module name using Name.mkSimple, as in the existing audit."}
+      ],
+      "grade": "PR_HEAD_PENDING"
     }
   ],
   "historical_tracks": {
@@ -4317,3 +4383,4 @@
     }
   ]
 }
+

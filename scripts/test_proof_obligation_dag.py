@@ -57,6 +57,32 @@ class ProofObligationDagTests(unittest.TestCase):
         self.assertEqual(next(r for r in self.reg["routes"] if r["id"] == "BLOCK")
                          ["disposition"], "REFUTED")
 
+    def test_near_uniform_slots_keep_exact_head_and_unmerged_status(self):
+        packing = node(self.reg, "MILESTONE-NEAR-UNIFORM-SLOT-BOUNDARY")
+        self.assertEqual(packing["pr"], 1111)
+        ev = next(e for e in self.reg["evidence"] if e.get("number") == 1111)
+        self.assertEqual(ev["state"], "open")
+        self.assertEqual(len(ev["head_sha"]), 40)
+        self.assertIn("/actions/runs/", ev["proof_job"])
+        self.assertEqual({d["name"] for d in packing["lean"]}, {
+            "native_beta_le_near_uniform_slots",
+            "native_mertens_near_uniform_slots",
+        })
+        dependency = edge(self.reg, "E-NEAR-UNIFORM-REQUIRES-TOTAL-MASS")
+        self.assertEqual(dependency["type"], "REQUIRES")
+        self.assertEqual(dependency["to"], "MILESTONE-OAI-TOTAL-MASS")
+        self.assertEqual(node(self.reg, "MILESTONE-MERTENS-STRICT-EXPLICIT")
+                         ["formal_status"], "PROVED_IN_LEAN_ON_MAIN")
+        self.assertRejects(
+            lambda r: node(r, packing["id"]).update(
+                formal_status="PROVED_IN_LEAN_ON_MAIN"),
+            "on-main status but PR #1111 is not merged")
+        if packing["formal_status"] == "PROVED_IN_LEAN_PR_GREEN_UNMERGED":
+            def pending_check(r):
+                snapshot = next(e for e in r["evidence"] if e.get("number") == 1111)
+                snapshot["checks"]["pending"] = 1
+            self.assertRejects(pending_check, "contradicts PR #1111 checks")
+
     def test_ten_routes_and_seven_agents(self):
         self.assertEqual(tuple(r["id"] for r in self.reg["routes"]), dag.ROUTE_IDS)
         self.assertEqual(tuple(a["role"] for a in self.reg["agents"]), dag.AGENT_ROLES)
@@ -180,3 +206,4 @@ class ProofObligationDagTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+

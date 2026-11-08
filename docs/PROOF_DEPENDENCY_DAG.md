@@ -1,6 +1,8 @@
 # RH_Lean mathematical proof-dependency DAG
 
-**Status (registry `2026-11-08.1`, base main `30c9fade09be0a4cb12776cd324e9fd9a9ed44ac`, Lean 4.34.1; merged evidence through PR #1109): RH remains OPEN. The original 1->7/8 and an explicit strict improvement are PROVED; uniform finite A, zero-log amplification and complete signed HIGH closure remain OPEN.** This page is generated from, and validated against, the machine-readable registry [proof-obligations.json](proof-obligations.json) by [`scripts/proof_obligation_dag.py`](../scripts/proof_obligation_dag.py). It is a proof map, not a proof: a compiled implication does not prove its premise, an explicit theorem interface is not a Lean construction, and paper or numerical findings are not Lean certificates.
+**Status (registry `2026-11-08.2`, base main `8b5a6921002da0742ecfab9ee7d40728ed5fe348`, Lean 4.34.1): merged evidence through PR #1109 is unchanged; repaired PR #1111 is UNMERGED / CI_PENDING. RH remains OPEN. The original 1->7/8 and the merged explicit strict improvement are PROVED; uniform finite A, zero-log amplification and complete signed HIGH closure remain OPEN.** This page is generated from, and validated against, the machine-readable registry [proof-obligations.json](proof-obligations.json) by [`scripts/proof_obligation_dag.py`](../scripts/proof_obligation_dag.py). It is a proof map, not a proof: a compiled implication does not prove its premise, an explicit theorem interface is not a Lean construction, and paper or numerical findings are not Lean certificates.
+
+**Current repair evidence:** [#1111](https://github.com/OVVO-Financial/RH_Lean/pull/1111) constructs an original fixed near-uniform slot family with candidate boundary `b_pack=7/8-1/(32*N_pack)`, where `N_pack=nearUniformSlotCount` is independent of the arithmetic cutoff. The prior revision compiled its source and exact public types but failed to load the new axiom-audit module; the corrected audit is running at `20875a55dd9780993c4cdc06624c88be6060e2ee`. It is not a completed Lean certificate until every required check passes. Square-block regrouping is a separate identity, not a quantitative smooth-to-sharp bridge. Main's certified comparator remains `7/8-1/(48*explicitSlotCount)`.
 
 Read first the [November 8 all-route proof status and seven-role handoff](RHLEAN_REPO_WIDE_PROOF_ATTACKS_20261108.md), which supersedes dated route and agent priorities but not theorem signatures, then the [coordinate atlas](COORDINATE_ATLAS.md) (which repository objects are the same quantity in other coordinates), [FORMALIZATION_MILESTONES.md](FORMALIZATION_MILESTONES.md) (what is finished), the [ten-route portfolio](RH_PROOF_ATTACK_PORTFOLIO_20261024.md) (task routing) and the [overlap / imported 7/8 audit](RH_PROOF_OVERLAP_AND_SEVEN_EIGHTHS_AUDIT_20261024.md) (why shared coordinates are not equivalences).
 
@@ -184,9 +186,11 @@ flowchart LR
   c68["MECH-NYMAN-FULL-BASIS-DECAY"]
   c69["REFUTED-BLOCK-UNIVERSAL"]
   c81["OPEN-CORR4-MIXED-TAIL-POWER"]
+  c84["MILESTONE-OAI-TOTAL-MASS"]
   c85["MILESTONE-EXPLICIT-AMPLIFICATION"]
-  c87["OPEN-MERTENS-FURTHER-GAIN"]
-  c88["OPEN-AMPLIFICATION-SUBPOWER"]
+  c87["MILESTONE-NEAR-UNIFORM-SLOT-BOUNDARY"]
+  c88["OPEN-MERTENS-FURTHER-GAIN"]
+  c89["OPEN-AMPLIFICATION-SUBPOWER"]
   c5 -->|required by| c7
   c4 -->|required by| c7
   c6 -->|PROVED_IMPLICATION| c5
@@ -207,9 +211,10 @@ flowchart LR
   c22 -.->|condition| c0
   c27 -->|PROVED_IMPLICATION| c0
   c27 -->|PROVED_IMPLICATION| c35
-  c36 -.->|INDEPENDENT_ARITHMETIC_GAIN| c87
-  c37 -.->|INDEPENDENT_ARITHMETIC_GAIN| c87
-  c38 -.->|INDEPENDENT_ARITHMETIC_GAIN| c87
+  c84 -->|required by| c87
+  c36 -.->|INDEPENDENT_ARITHMETIC_GAIN| c88
+  c37 -.->|INDEPENDENT_ARITHMETIC_GAIN| c88
+  c38 -.->|INDEPENDENT_ARITHMETIC_GAIN| c88
   c42 -->|PROVED_IMPLICATION| c27
   c45 -.->|INDEPENDENT_ARITHMETIC_GAIN| c42
   c47 -->|PROVED_IMPLICATION| c42
@@ -226,7 +231,7 @@ flowchart LR
   c2 -.->|condition| c0
   c81 -->|PROVED_IMPLICATION| c35
   c35 -->|PROVED_IMPLICATION| c85
-  c42 -->|PROVED_IMPLICATION| c88
+  c42 -->|PROVED_IMPLICATION| c89
 ```
 <!-- END GENERATED: mermaid-routes -->
 
@@ -386,6 +391,7 @@ Recorded non-equivalences (the validator fails if any pair collapses):
 | `MILESTONE-OAI-TOTAL-MASS` | formalization_milestone | PROVED | PROVED_IN_LEAN_ON_MAIN | PROVED_IN_LEAN_ON_MAIN | [`native_beta_le_true_physical_slot_minimum_total_mass`](../research/oai_434/VF919TotalMassEndpoint.lean)<br/>[`native_mertens_true_physical_slot_minimum_total_mass`](../research/oai_434/VF919TotalMassEndpoint.lean) | [#1107](https://github.com/OVVO-Financial/RH_Lean/pull/1107) | On the same actual finite source, the complete LOW/HIGH/principal comparison retains complementary tuple mass and proves beta <= 7/8-actualSlotMinimum(D)/4; all source masks, signed pairs and fixed source uniformity survive. |
 | `MILESTONE-EXPLICIT-AMPLIFICATION` | formalization_milestone | PROVED | PROVED_IN_LEAN_ON_MAIN | PROVED_IN_LEAN_ON_MAIN | [`native_amplification_fixed_explicit_slot_count_total_mass`](../research/oai_434/VF919ExplicitAmplificationBound.lean)<br/>[`native_amplification_limsup_explicit_slot_count_total_mass`](../research/oai_434/VF919ExplicitAmplificationBound.lean)<br/>[`native_amplification_eventually_lt_cutoff`](../research/oai_434/VF919ExplicitAmplificationBound.lean) | [#1108](https://github.com/OVVO-Financial/RH_Lean/pull/1108) | With N_*=explicitSlotCount fixed, exists C>0 for all integer X>=1: A(X)<=C*X^(3/4-1/(48N_*)); limsup_{X->infinity} log(1+A(X))/log X <= 3/4-1/(24N_*) and A(X)<X eventually. The exact historical K_R is retained (with K_R>=1 used for this coarse transfer). |
 | `MILESTONE-CORR4-CUTOFF-COLLISIONS` | formalization_milestone | PROVED | PROVED_IN_LEAN_ON_MAIN | PROVED_IN_LEAN_ON_MAIN | [`corr4_offRay_sum_le_twice_image`](../research/CORR4_CUTOFF_COLLISIONS_20261108.lean)<br/>[`corr4_offRay_mertens_energy_le_twice_image`](../research/CORR4_CUTOFF_COLLISIONS_20261108.lean) | [#1109](https://github.com/OVVO-Financial/RH_Lean/pull/1109) | For actual off-ray events with q,r<=Q and roots >=H, Q^3<=2H gives equal-cutoff injectivity; Q^3<=4H permits at most two occurrences after parity splitting. The actual nonnegative Mertens occurrence energy is <= twice its distinct-image energy. Does not bound that image energy or the complete signed mixed tail. |
+| `MILESTONE-NEAR-UNIFORM-SLOT-BOUNDARY` | paper_claim | CLAIMED | LEAN_PR_HEAD_NOT_GREEN | PAPER_PROOF_NEEDS_REVIEW | [`native_beta_le_near_uniform_slots`](https://github.com/OVVO-Financial/RH_Lean/blob/20875a55dd9780993c4cdc06624c88be6060e2ee/research/oai_434/VF919ExplicitSquareBlockPacking.lean)<br/>[`native_mertens_near_uniform_slots`](https://github.com/OVVO-Financial/RH_Lean/blob/20875a55dd9780993c4cdc06624c88be6060e2ee/research/oai_434/VF919ExplicitSquareBlockPacking.lean) | [#1111](https://github.com/OVVO-Financial/RH_Lean/pull/1111) | For the fixed N_pack=nearUniformSlotCount=ceil(max(1,1/(6*explicitFineLength)))+2, beta <= 7/8-1/(32*N_pack), and for every eps>0 there is C_eps>=0 for all integers n>=1: \|M(n)\|<=C_eps*n^(7/8-1/(32*N_pack)+eps). The positive distinct slots have sum 1/6 and satisfy the original complete detector/source budgets. No no-loss bound at the endpoint is asserted. |
 | `OPEN-MERTENS-FURTHER-GAIN` | open_obligation | OPEN | NOT_FORMALIZED | UNKNOWN |  |  | Prove a fixed eta>0 so for every eps>0 there exists C_eps independent of x with \|M(x)\|<=C_eps*x^(7/8-1/(48N_*)-eta+eps), preserving the actual source and every complementary term. This is a new target beyond the already certified strict exponent. |
 | `OPEN-AMPLIFICATION-SUBPOWER` | open_obligation | OPEN | LEAN_STATEMENT_ONLY | UNKNOWN | [`SquareRootAmplificationZeroLogGrowthStatement`](../RHLean/Proof/SquareRootAmplificationLogGrowth.lean) |  | SquareRootAmplificationZeroLogGrowthStatement: q(X)=log(1+A(X))/log X tends to zero for integer X->infinity, with A(X)=max_{R^2-1<=X}(M(R^2-1)-1)^2/(R^2 K_R) and strict history K_R. Equivalent to eventual bounds by every positive power, not to the proved fixed positive-power bound. |
 | `OPEN-NATIVE-OWNER-FRACTIONAL` | open_obligation | OPEN | LEAN_STATEMENT_ONLY | UNKNOWN | [`NativeUniformFractionalOwnerContraction`](../research/oai_434/VF919FractionalOwnerContraction.lean) |  | Exist c with 0<c<=1 such that for every theta in [1/2,7/8], MertensGrowthAtMost(theta) implies NativeOwnerBound((1-c)*(2*theta-1)); the existing consumer then contracts theta-1/2 geometrically. The quantifier over UPDATED theta is essential and unproved. |
@@ -419,6 +425,7 @@ Recorded non-equivalences (the validator fails if any pair collapses):
 | `E-REF-JOH` | `REFUTED-JOH-COUNT-ONLY` | REFUTED_BY | `CE-JOH-R4-R7` |  |  |  |
 | `E-MERTENS-RH` | `PROP-MERTENS-ENERGY` | PROVED_IMPLICATION | `RH` |  | `CONSUMER-MERTENS-ENERGY-RH` |  |
 | `E-MERTENS-BELOW-78` | `PROP-MERTENS-ENERGY` | PROVED_IMPLICATION | `MILESTONE-MERTENS-STRICT-EXPLICIT` |  |  | elementary: exponent 1/2 + eps is below 7/8 - delta for delta < 3/8 |
+| `E-NEAR-UNIFORM-REQUIRES-TOTAL-MASS` | `MILESTONE-NEAR-UNIFORM-SLOT-BOUNDARY` | REQUIRES | `MILESTONE-OAI-TOTAL-MASS` |  |  |  |
 | `E-CODIV-MECH` | `MECH-CODIV-SIGNED-COVARIANCE` | INDEPENDENT_ARITHMETIC_GAIN | `OPEN-MERTENS-FURTHER-GAIN` |  |  | A strictly positive NEW global saving beyond 7/8-1/(48N_*) after full original-source recombination, not merely another proof of the paid 1->7/8 cancellation. |
 | `E-QUOT-MECH` | `MECH-SIGNED-QUOTIENT-VARIATION` | INDEPENDENT_ARITHMETIC_GAIN | `OPEN-MERTENS-FURTHER-GAIN` |  |  | A strictly positive NEW global saving beyond 7/8-1/(48N_*) after full original-source recombination, not merely another proof of the paid 1->7/8 cancellation. |
 | `E-OAI-MECH` | `MECH-OAI-NNS-COMPLETE-LEDGER` | INDEPENDENT_ARITHMETIC_GAIN | `OPEN-MERTENS-FURTHER-GAIN` |  |  | A strictly positive NEW global saving beyond 7/8-1/(48N_*) after full original-source recombination, not merely another proof of the paid 1->7/8 cancellation. |
@@ -447,7 +454,7 @@ Recorded non-equivalences (the validator fails if any pair collapses):
 ## 8. Dated PR evidence snapshot
 
 <!-- BEGIN GENERATED: evidence -->
-Snapshot `2026-11-08T14:30:38Z`, main `30c9fade09be0a4cb12776cd324e9fd9a9ed44ac`, `leanprover/lean4:v4.34.1`. Refresh from GitHub before relying on any open-PR row.
+Snapshot `2026-11-08T18:58:06Z`, main `8b5a6921002da0742ecfab9ee7d40728ed5fe348`, `leanprover/lean4:v4.34.1`. Refresh from GitHub before relying on any open-PR row.
 
 | PR | State | Head | Observed checks | Grade |
 | --- | --- | --- | --- | --- |
@@ -475,6 +482,7 @@ Snapshot `2026-11-08T14:30:38Z`, main `30c9fade09be0a4cb12776cd324e9fd9a9ed44ac`
 | [#1107](https://github.com/OVVO-Financial/RH_Lean/pull/1107) | merged 2026-11-08 | `cd8f98fd6ed2` | not re-audited | KERNEL_CHECKED_ON_MAIN |
 | [#1108](https://github.com/OVVO-Financial/RH_Lean/pull/1108) | merged 2026-11-08 | `a0c986c0343a` | not re-audited | KERNEL_CHECKED_ON_MAIN |
 | [#1109](https://github.com/OVVO-Financial/RH_Lean/pull/1109) | merged 2026-11-08 | `fedd203158af` | not re-audited | KERNEL_CHECKED_ON_MAIN |
+| [#1111](https://github.com/OVVO-Financial/RH_Lean/pull/1111) | open (draft) | `20875a55dd97` | 0/13 jobs green, 13 pending | PR_HEAD_PENDING |
 <!-- END GENERATED: evidence -->
 
 ## 9. Maintenance
@@ -490,3 +498,4 @@ python3 scripts/vf_block_capture_counterexample_549.py
 ```
 
 Before upgrading any status, verify the original carrier, quantifiers, normalization, complete source terms, independence from the conclusion, all-scale validity, the exact passing Lean head, the standard axiom footprint, an actual exponent/coefficient gain, and independent review of any paper argument. Never infer an open PR's state from this page; query GitHub and update the dated snapshot.
+
