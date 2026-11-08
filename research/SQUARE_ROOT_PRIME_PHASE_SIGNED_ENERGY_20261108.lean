@@ -1,5 +1,6 @@
 import Mathlib
 import RHLean.Analysis.DeterministicTGreenKuboComparison
+import «research.VF_919_MARKED_FIRST_OWNER_SHELL_20261019»
 import «research.VF_MID_GLOBAL_PHASE_UNIFORMITY_BRIDGE»
 import «research.VF_MID_FLOOR_LI_DISCRETE_BACKLOG»
 import «research.OAI_PAIRED_SHARP_EULER_SQUARE_LOCALIZATION_20261028»
@@ -19,6 +20,7 @@ Neither empirical equidistribution nor a power bound on signed pairs is assumed.
 noncomputable section
 open scoped BigOperators
 namespace RHLean.Analysis
+open RHLean.Proof
 
 /-- Actual prime count in a square block minus integer floor-Li demand. -/
 def squarePhaseCountExcess (R : ℕ) : ℝ :=
@@ -238,6 +240,7 @@ theorem no_count_bound_from_halfPhaseUniformity (K : ℝ) :
   · positivity
   · ring
   · have hK := le_abs_self K
+    have hAbs : 0 ≤ |K| := abs_nonneg K
     linarith
 
 end RHLean.Analysis
