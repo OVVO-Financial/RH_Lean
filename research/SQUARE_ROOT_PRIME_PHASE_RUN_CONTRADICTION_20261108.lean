@@ -59,7 +59,6 @@ theorem squarePhasePersistentDeficit_forces_backlogDrop
       exact hdeficit R hR
     _ = -(((B - A : ℕ) : ℝ) * δ) := by
       simp [Nat.card_Ico]
-      ring
 
 /-- Symmetric persistent actual-prime surplus. -/
 theorem squarePhasePersistentSurplus_forces_backlogRise
@@ -90,8 +89,8 @@ theorem squarePhaseDeficitRun_le_endpointBudget
     ((B - A : ℕ) : ℝ) * δ ≤ EA + EB := by
   have hdrop :=
     squarePhasePersistentDeficit_forces_backlogDrop A B hAB δ hdeficit
-  have ha := (abs_le.mp hA).1
-  have hb := (abs_le.mp hB).2
+  have ha := (abs_le.mp hA).2
+  have hb := (abs_le.mp hB).1
   linarith
 
 theorem squarePhaseSurplusRun_le_endpointBudget
@@ -103,8 +102,8 @@ theorem squarePhaseSurplusRun_le_endpointBudget
     ((B - A : ℕ) : ℝ) * δ ≤ EA + EB := by
   have hrise :=
     squarePhasePersistentSurplus_forces_backlogRise A B hAB δ hsurplus
-  have ha := (abs_le.mp hA).2
-  have hb := (abs_le.mp hB).1
+  have ha := (abs_le.mp hA).1
+  have hb := (abs_le.mp hB).2
   linarith
 
 /-- If the accumulated deficit exceeds both possible endpoint errors, the
