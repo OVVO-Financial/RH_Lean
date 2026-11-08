@@ -1,5 +1,23 @@
 # RH_Lean research-agent instructions
 
+## 2026-11-08 governing all-route proof contract (current merged baseline)
+
+**REPO_WIDE_PROOF_DAG_AND_AGENTS_20261108; effective only after a reviewed human merge.** First read [the current route-wide status and exact seven-role assignments](docs/RHLEAN_REPO_WIDE_PROOF_ATTACKS_20261108.md) together with the [generated proof-obligation DAG](docs/PROOF_DEPENDENCY_DAG.md) and the [coordinate atlas](docs/COORDINATE_ATLAS.md). This section supersedes dated task-selection and baseline claims below, not proof signatures, counterexamples, scientific uncertainty, permissions, schedules, configured agents or source-integrity checks.
+
+**Paid November 8 input (not a new target):** #1106 proves the genuine Euler prime-admission logarithm telescope, #1107 proves the same-source total-slot-mass improvement, #1108 proves beta <= 7/8 - 1/(48*N_*) with every positive loss and the exact historical amplification limsup <= 3/4 - 1/(24*N_*), and #1109 proves CORR4 off-ray cutoff image multiplicity at most two in its stated range. N_* is fixed by the explicit source, independently of the scale. All four are merged on main. NONE proves finite A, q(X)->0, uniform fractional owner contraction or RH.
+
+**Square blocks first:** use X_R=R^2-1 and the actual strict-history K_R=max_{0<=y<R}(M(y)-1)^2/(y+1). Canonical LOW for any FIXED Lambda is paid at O(R); the original signed HIGH plus coherent mode, absorption, ancestry, conductor, owner, diagonal, crossing and complementary terms is the physical object to improve. OAI LOW is a different analytic estimate. Never substitute K_R>=1 for its full information without recording the resulting exponent loss.
+
+**Keep all nine viable routes independently active:** VF-LOW, SAT, CODIV, OAI-NNS, JOH, FINITE-AC, CORR4, MU-LIFT and NYMAN. Retire only the FALSE universal one-block BLOCK capture at R=549; weaker, verified replacement proposals remain admissible. Never pigeonhole seven agents into one generic covariance, all-selected inverse estimate or imported OAI replay. The atlas's 41 coordinates and 59 typed crosswalks do not make 41 independent mechanisms.
+
+**Seven distinct jobs:** Coordinator maintains all-route DAG, checked baseline and rotations; Owner handles actual-prime VF/SAT/JOH with weighted floor-Li, #915 masks and first moments; Referee guards quantifiers, source equivalences and falsifiers; Census runs held-out exact regressions only; Analytic uses proved marked 1+t/2 and generalized kappa through a COMPLETE common probe; Wheel tackles FINITE-AC/CORR4/MU-LIFT using #1109 only as multiplicity bookkeeping; Lean formalizes independently accepted new lemmas, regenerates registry/DAG and audits exact types/axioms.
+
+**Prove a new consumer, not a renamed target.** A complete report specifies source theorem, current b_base=7/8-1/(48*N_*), true source coefficients, exact equality/one-way edge, constants before scale, changed exponent/constant, all complementary costs, required hypothesis and first counterexample check. For direct q(X)->0 the target is forall eta>0 exists C_eta forall R>=2: (M(R^2-1)-1)^2 <= C_eta*(R^2-1)^eta*R^2*K_R. The stronger uniform finite-A claim remains a separate open sufficient criterion. An improvement only at a new local moment or source band is not a global endpoint.
+
+**Proof integrity:** human-only merge, exact-head CI with warnings fatal, standard-axiom and declaration-dependency audits; report green/failed/pending honestly. No new assumption, surrogate prime distribution, silent signed-to-unsigned inequality, changed cutoff/normalization, local Lean build policy, auto-merge or changed Studio settings.
+
+---
+
 ## 2026-11-07 governing attack space: complete signed HIGH
 
 **COMPLETE_SIGNED_HIGH_ATTACK_V1; effective after human merge.** Read [the complete signed HIGH attack directive](docs/RHLEAN_COMPLETE_SIGNED_HIGH_ATTACK_20261107.md) first. All seven agents work toward improving the complete signed contribution carrying global Mertens growth, or a quantitatively justified route to that endpoint. Canonical LOW already has unconditional O(R) control for fixed Lambda. The common objective is a new fixed exponent gain over the strongest applicable certified baseline, with its actual hypotheses and quantifiers retained.

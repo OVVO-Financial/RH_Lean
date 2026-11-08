@@ -36,6 +36,27 @@ class ProofObligationDagTests(unittest.TestCase):
         self.assertEqual(dag.validate(self.reg), [])
         self.assertEqual(dag.sync(self.reg, write=False), [])
 
+    def test_november_2026_paid_and_open_milestones(self):
+        # A strict gap below 7/8 is paid; the NEXT improvement is distinct.
+        paid = node(self.reg, "MILESTONE-MERTENS-STRICT-EXPLICIT")
+        self.assertEqual(paid["logical_status"], "PROVED")
+        self.assertEqual(paid["formal_status"], "PROVED_IN_LEAN_ON_MAIN")
+        self.assertEqual(paid["pr"], 1108)
+        self.assertFalse(any(n["id"] == "OPEN-MERTENS-EXPONENT-BELOW-7-8"
+                             for n in self.reg["nodes"]))
+        for target in ("OPEN-MERTENS-FURTHER-GAIN", "OPEN-AMPLIFICATION-SUBPOWER",
+                       "OPEN-NATIVE-OWNER-FRACTIONAL", "OPEN-FINITE-AC",
+                       "OPEN-CORR4-MIXED-TAIL-POWER"):
+            self.assertEqual(node(self.reg, target)["logical_status"], "OPEN")
+        for pr in (1106, 1107, 1108, 1109):
+            ev = next(e for e in self.reg["evidence"] if e.get("number") == pr)
+            self.assertEqual(ev["state"], "merged")
+        self.assertEqual(node(self.reg, "MILESTONE-CORR4-CUTOFF-COLLISIONS")["pr"], 1109)
+        self.assertEqual(edge(self.reg, "E-FINITE-A-IMPLIES-ZERO-LOG")["type"],
+                         "PROVED_IMPLICATION")
+        self.assertEqual(next(r for r in self.reg["routes"] if r["id"] == "BLOCK")
+                         ["disposition"], "REFUTED")
+
     def test_ten_routes_and_seven_agents(self):
         self.assertEqual(tuple(r["id"] for r in self.reg["routes"]), dag.ROUTE_IDS)
         self.assertEqual(tuple(a["role"] for a in self.reg["agents"]), dag.AGENT_ROLES)

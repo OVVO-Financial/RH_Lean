@@ -1,5 +1,8 @@
 # Complete signed HIGH: common objective, independent proof routes
 
+**2026-11-08 update:** The new [all-route handoff](RHLEAN_REPO_WIDE_PROOF_ATTACKS_20261108.md) and [generated DAG](PROOF_DEPENDENCY_DAG.md) supersede the pre-#1107 baseline in this directive. #1107/#1108 prove the same-source explicit strict boundary 7/8-1/(48*N_*) and an exact original amplification bound; #1109 proves original off-ray q2 cutoff image multiplicity only. The complete signed HIGH objective remains, but all nine viable routes and independent owner/analytic/wheel portfolios are protected. Existing 1->7/8 signed cancellation and the new strict gain are PAID. A local marked 1+t/2 or kappa supplier is not itself an improved terminal bound, and the terminal q(X)->0 is OPEN.
+
+
 **Policy tag: `COMPLETE_SIGNED_HIGH_ATTACK_V1`. Effective after human merge.**
 
 All seven agents focus on improving the complete signed contribution carrying the global Mertens endpoint, or on an explicitly justified route to that improvement. The existing cancellation and strict endpoint are starting inputs. This policy changes research priorities; it proves no new inequality, numerical exponent or RH claim. Repository text alone does not update saved Studio settings or establish that an agent has run.
