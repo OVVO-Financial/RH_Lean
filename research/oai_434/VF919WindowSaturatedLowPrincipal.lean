@@ -58,9 +58,6 @@ noncomputable def windowSaturatedHighData {Delta : ℝ}
   have hnewpos : 0 < newSigma := by
     dsimp [newSigma]
     linarith only [hm, heM]
-  have hnewup : newSigma ≤ (7 / 8 : ℝ) * m := by
-    dsimp [newSigma]
-    linarith only [E.e_pos]
   refine { E with
     sigma := newSigma
     sigma_pos := hnewpos
@@ -157,16 +154,14 @@ theorem native_beta_le_window_saturated_minimum_of_fine
   have hfineE : ∀ i, E.ell i ≤
       detectorMesh (1 / 1000000) E.t / 200 := by
     exact hfine
-  have hreserves := capped_high_data_bounds Dstar
-  change E.ε ≤ E.t / 2000 ∧ E.e ≤ E.t / 2000 ∧
-    ((E.N : ℝ) + 8) * E.eps ≤ E.t ∧
-    E.sigma ≤ (7 / 8 : ℝ) * E.rmin / 4 ∧
-    E.e ≤ (7 / 8 : ℝ) * E.rmin / 4 at hreserves
-  obtain ⟨hepsilon, he, heps, _, _⟩ := hreserves
+  have hepsilon : E.ε ≤ E.t / 2000 :=
+    (capped_high_data_bounds Dstar).1
+  have he : E.e ≤ E.t / 2000 :=
+    (capped_high_data_bounds Dstar).2.1
+  have heps : ((E.N : ℝ) + 8) * E.eps ≤ E.t :=
+    (capped_high_data_bounds Dstar).2.2.1
   obtain ⟨hpos, hsmall, htail⟩ :=
     windowSaturatedHighData_tilt_budget D
-  change 0 < E.sigma ∧ E.sigma < 1 / 960 ∧
-    24 * E.sigma < E.t at hpos
   obtain ⟨F⟩ := exists_source_data E
   obtain ⟨counts⟩ := source_count_parameters F
   have hbound := native_beta_le_total_mass_boundary
