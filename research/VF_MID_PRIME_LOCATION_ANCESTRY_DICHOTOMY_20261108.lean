@@ -29,7 +29,7 @@ noncomputable section
 open scoped BigOperators
 
 namespace RHLean.Analysis
-open RHLean.Proof
+open RHLean.Arithmetic RHLean.Proof
 
 /-- Integer left-minus-right sign of one actual physical square-block site.
 The root square itself is not in the open prime carrier. -/
