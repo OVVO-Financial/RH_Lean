@@ -176,3 +176,87 @@ The full 100-million finite raw CSV and stochastic controls are
 available as a downloadable research artifact from the originating
 experiment, but not committed to this repository due to size. The
 small C++ source in scripts/ reconstructs the exact integer results.
+
+
+## 7. Contradiction test against the proved 7/8 baseline (2026-11-08)
+
+**Question:** Does M(x)=O_epsilon(x^(7/8+epsilon)) force primes to be
+spatially uniform in every square block, or prevent Li-fan escapes?
+
+**Answer:** No. It does impose a weaker, mathematically valid
+non-persistence condition on the TOTAL signed prime-count backlog. This
+distinction is now formalized in
+research/SQUARE_ROOT_PRIME_PHASE_RUN_CONTRADICTION_20261108.lean.
+
+Define actual signed prime-count error e_R=P_R-F_R and integer endpoint
+backlog D_R=pi(R^2)-floor Li_2(R^2). The existing floor-Li recurrence and
+the new Lean theorem give, on ALL finite runs A<=B,
+
+    sum_{A<=R<B} e_R = D_B - D_A.                    (7.1)
+
+For a uniform per-block deficit e_R<=-delta across B-A consecutive
+actual square blocks, exact signed summation yields
+
+    (B-A)*delta <= |D_A|+|D_B|.                     (7.2)
+
+The analogous theorem holds for surplus e_R>=delta.
+If the block deficit would demand more than the two actual endpoint
+budgets, the Lean theorem
+squarePhaseNoDeficitRun_exceeding_endpointBudget proves False.
+The premises about a uniform per-block sign and about both endpoint
+bounds are EXPLICIT, and neither follows from a local phase histogram.
+
+Classical explicit-formula consequence, NOT yet a new Lean-certified
+Mertens-to-PNT transfer: a zero-free half-plane Re(s)>theta, as supplied
+by the actual Mertens 7/8 bound, gives for all epsilon>0
+    pi(x)-Li_2(x)=O_epsilon(x^(theta+epsilon))
+at the cost of standard analytic explicit-formula estimates.
+At square endpoints, theta=7/8 corresponds to
+    |D_R| <= C_epsilon R^(7/4+epsilon).
+
+Take A=R large and B=R+h<=2R. If every block in this run exhibits a
+relative fixed-sign excess or deficit at least c*R/log R, then (7.2)
+requires, up to constants and an arbitrarily small exponent loss,
+
+    h <= C_{c,epsilon} R^(3/4+epsilon) log R.        (7.3)
+
+So a contradiction is available only for a run substantially
+LONGER than R^(3/4) log R under these hypotheses. In contrast, starting
+near the fan center, escaping a K R log R wall needs only roughly
+    h ~ (K/c)*(log R)^2
+blocks with the same relative count bias. The first is polynomial and
+the second polylogarithmic. Thus the current 7/8 bound is **much too weak
+to exclude the hypothetical first escape**.
+
+Even RH's classical pi(x)=Li(x)+O(sqrt(x) log x) is not strong enough by
+itself to force the correct prime count in *each individual* square
+block: the error O(R log R) at the two endpoints exceeds the expected
+block population ~ R/log R by two logarithms. The prime-between-squares
+problem remains open. An even stronger spatial claim that primes split
+50/50 inside every block is not the content of global equidistribution.
+
+**Algebraic independence of the two diagnostics:** For an abstract
+population with P=F>0 and L=P, the total prime-count excess P-F is
+identically zero but the spatial half-phase bias L-P/2=P/2>0. Conversely,
+L=P/2 is perfect spatial balance while P-F can be arbitrarily large.
+Lean proves both finite real-population witnesses. They are mathematical
+counterexamples to an *unsupported algebraic implication*, not alternative
+actual primes, so they do not assert anything about multiplicative Euler
+constraints. To prove stronger implications for genuine primes one needs
+an additional genuinely arithmetic prime/composite or signed multi-window
+restriction, not a re-labelling of the count/phase identities.
+
+The repo's existing Harman/Vinogradov prime-sqrt equidistribution theorem
+is still an EXTERNAL analytic statement, represented as the explicit
+SquareRootPrimePhaseEquidistributionStatement hypothesis.
+VF_MID_HARMAN_FOUR_FIFTHS.lean records a quantitative conditional
+4/5 discrepancy consumer, but X^(4/5+epsilon) corresponds to
+R^(8/5+2epsilon), also far larger than the fan width R log R at X=R^2.
+The classical global phase theorem is about summing across many blocks,
+not per-block sharp density and not the weighted Möbius covariance.
+
+**Possible native stronger route:** Prove a new *actual-prime*
+cofactor-conditioned signed inequality that turns persistent spatial
+imbalance into a nonzero count backlog or controls the full joint
+signed Möbius energy. That step is exactly the mathematical content
+currently missing; (7.1) and (7.2) alone cannot provide it.
