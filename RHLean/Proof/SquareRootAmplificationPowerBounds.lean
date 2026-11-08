@@ -123,7 +123,9 @@ theorem squareRootAmplificationLogRatio_le_of_powerBound {a D : ℝ}
   have hpow : (1 : ℝ) ≤ (X : ℝ) ^ a := Real.one_le_rpow hX1 ha
   have hupper : 1 + squareRootAmplificationMax X ≤ (1 + D) * (X : ℝ) ^ a := by
     calc
-      _ ≤ 1 + D * (X : ℝ) ^ a := add_le_add_left (hA X (by omega)) 1
+      _ ≤ 1 + D * (X : ℝ) ^ a := by
+        have hAX := hA X (by omega)
+        linarith only [hAX]
       _ ≤ (X : ℝ) ^ a + D * (X : ℝ) ^ a := by linarith only [hpow]
       _ = (1 + D) * (X : ℝ) ^ a := by ring
   have hpositive : 0 < 1 + squareRootAmplificationMax X := by
