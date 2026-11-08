@@ -889,3 +889,11 @@ print(json.dumps({"checks": dict(checks), "no_divisor_factor_witness": no_tau_wi
 ```
 
 
+
+### Verified Publication Receipt - 20261108-owner-1
+
+At 2026-11-08 05:32:59 UTC, substantive commit **f0a27d03262fd5c064baa6a70480826655095dba** was verified by immutable-commit file readback and commit metadata. Its 58,515-character report matched the intended content exactly, with blob **f8e808f9e97b976e93b3fe7919fcbf6f32e905ff**. The commit changed ONLY research/agent_reports/2026-11-08/10-owner-payment.md. The entire early checkpoint remained an exact prefix.
+
+Execution: COMPLETED. Substantive publication: PUBLISHED / READBACK_VERIFIED. Mathematical status: PD1-PD5 PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED; PD6 FINITE_COMPUTATION with the specified auxiliary statements REFUTED. NEW_VERIFIED_ENDPOINT_GAIN=NONE. The new structural restriction does not exclude its surviving many-ratio or restored-complement alternatives; the global objective remains OPEN.
+
+The next protected Owner route is VF-LOW. No new Lean run, source change, proof branch, PR write, other-report change, main write, schedule change or agent launch occurred. No needed background computation remains running. This receipt records completed verification of the substantive commit; its own append is separately checked before the final user-facing response.
