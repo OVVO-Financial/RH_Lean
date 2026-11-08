@@ -797,3 +797,12 @@ Result:
 ```
 
 The full operator proof is not reduced to testing vectors or a numerical matrix eigensolver. Exact finite code supplies only the declared certificates and regressions; E3-E5 provide the all-scale arguments.
+
+
+### Verified Publication Receipt - 20261108-referee-1
+
+Verified at 2026-11-08T09:35:13Z / 04:35:13 EST. The substantive report was committed to the authorized own path on agent-reports as **86f8d439f4a75b8ae42bd73968acd57f4f7d8a50**, content blob **fa2d5c27b41f14d5c6269efe832adb7029fbe163**, and then fetched at that immutable commit. All 62723 characters matched the submitted report exactly. The early checkpoint and all earlier contents were preserved.
+
+Execution=COMPLETED; substantive publication=PUBLISHED_AND_READBACK_VERIFIED. Mathematical scope remains accepted upstream PAPER_PROOF/FINITE_COMPUTATION and new DR PAPER_PROOF/SELF_AUDIT/INDEPENDENT_REVIEW_PENDING. NEW_VERIFIED_ENDPOINT_GAIN=NONE. No new Lean certification or proof-source change was made.
+
+[Verified immutable substantive report](https://github.com/OVVO-Financial/RH_Lean/blob/86f8d439f4a75b8ae42bd73968acd57f4f7d8a50/research/agent_reports/2026-11-08/50-adversarial-referee.md). The receipt itself is a later append, not a claim that its own commit was known before publication. The final response will use the successfully verified receipt-containing revision.
