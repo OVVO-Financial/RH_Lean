@@ -1,0 +1,103 @@
+name: Actual prime sqrt-phase and Mobius square energy proofs
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'research/SQUARE_ROOT_PRIME_PHASE_SIGNED_ENERGY_20261108.lean'
+      - 'research/SQUARE_ROOT_PRIME_PHASE_RUN_CONTRADICTION_20261108.lean'
+      - 'research/SQUARE_ROOT_PRIME_PHASE_SIGNED_ENERGY_FINDINGS_20261108.md'
+      - 'scripts/square_root_prime_phase_mobius_census.cpp'
+      - '.github/workflows/square-root-prime-phase-signed-energy.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  signed-phase-energy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - uses: ./.github/actions/lean-setup
+      - name: Restore pinned PNT+ cache
+        uses: actions/cache/restore@v5
+        with:
+          path: .lake/packages/PrimeNumberTheoremAnd/.lake/build
+          key: pntplus-build-v1-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
+      - name: Prebuild PNT prerequisite
+        run: lake build PrimeNumberTheoremAnd.StrongPNT
+      - name: Restore native Lean build cache
+        uses: actions/cache/restore@v5
+        with:
+          path: .lake/build
+          key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'RHLean.lean', 'RHLean/**/*.lean') }}
+          restore-keys: |
+            rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-
+      - name: Kernel compile exact source, warnings fatal
+        run: |
+          test "$(cat lean-toolchain)" = 'leanprover/lean4:v4.34.1'
+          python3 scripts/compile_research_import_closure.py --build-library research/SQUARE_ROOT_PRIME_PHASE_RUN_CONTRADICTION_20261108.lean
+      - name: Source theorem and axiom audit
+        run: |
+          cat >/tmp/phase_signed_energy_audit.lean <<'EOF'
+          import «research.SQUARE_ROOT_PRIME_PHASE_RUN_CONTRADICTION_20261108»
+          #check RHLean.Analysis.squarePhaseCountExcess_eq_floorLiBacklogStep
+          #check RHLean.Analysis.squarePhase_leftHalfExcess_eq_bias_add_halfCountExcess
+          #check RHLean.Analysis.squarePhaseSignedPrefix_sq_eq_diagonal_add_two_pairs
+          #check RHLean.Analysis.squarePhaseSignedPrefix_eq_originalSharpShell
+          #check RHLean.Analysis.oaiPaired_actualSharpEnergy_eq_squarePhaseDiagonal_add_pairs
+          #check RHLean.Analysis.squarePhaseDyadicSiteCount_eq_three_sq
+          #check RHLean.Analysis.squarePhaseActualDyadicDiagonal_le_three_sq
+          #check RHLean.Analysis.oaiPaired_actualSharpEnergy_le_of_squarePhasePairs
+          #check RHLean.Analysis.no_count_bound_from_halfPhaseUniformity
+          #check RHLean.Analysis.squarePhaseCountExcess_sum_eq_backlogDifference
+          #check RHLean.Analysis.squarePhasePersistentDeficit_forces_backlogDrop
+          #check RHLean.Analysis.squarePhasePersistentSurplus_forces_backlogRise
+          #check RHLean.Analysis.squarePhaseDeficitRun_le_endpointBudget
+          #check RHLean.Analysis.squarePhaseSurplusRun_le_endpointBudget
+          #check RHLean.Analysis.squarePhaseNoDeficitRun_exceeding_endpointBudget
+          #check RHLean.Analysis.perfectCountYetNonuniformHalfPhase
+          #check RHLean.Analysis.balancedHalfPhaseDoesNotBoundCountExcess
+          #print axioms RHLean.Analysis.squarePhaseCountExcess_eq_floorLiBacklogStep
+          #print axioms RHLean.Analysis.squarePhaseSignedPrefix_sq_eq_diagonal_add_two_pairs
+          #print axioms RHLean.Analysis.oaiPaired_actualSharpEnergy_eq_squarePhaseDiagonal_add_pairs
+          #print axioms RHLean.Analysis.oaiPaired_actualSharpEnergy_le_of_squarePhasePairs
+          #print axioms RHLean.Analysis.squarePhaseCountExcess_sum_eq_backlogDifference
+          #print axioms RHLean.Analysis.squarePhaseDeficitRun_le_endpointBudget
+          #print axioms RHLean.Analysis.squarePhaseSurplusRun_le_endpointBudget
+          #print axioms RHLean.Analysis.perfectCountYetNonuniformHalfPhase
+          EOF
+          lake env lean -DwarningAsError=true /tmp/phase_signed_energy_audit.lean | tee /tmp/phase_signed_energy_audit.log
+          python3 - <<'PY'
+          import pathlib, re
+          s=pathlib.Path('/tmp/phase_signed_energy_audit.log').read_text()
+          assert 'sorryAx' not in s
+          allowed={'propext','Classical.choice','Quot.sound'}
+          for m in re.finditer(r'depends on axioms: \[(.*?)\]',s):
+              axioms={v.strip() for v in m.group(1).split(',') if v.strip()}
+              assert axioms <= allowed, f'disallowed axioms: {axioms-allowed}'
+          code='\n'.join(pathlib.Path(p).read_text() for p in ('research/SQUARE_ROOT_PRIME_PHASE_SIGNED_ENERGY_20261108.lean','research/SQUARE_ROOT_PRIME_PHASE_RUN_CONTRADICTION_20261108.lean'))
+          code=re.sub(r'/-.*?-/', '',code,flags=re.S)
+          code=re.sub(r'--.*','',code)
+          assert not re.search(r'\b(sorry|admit|axiom)\b',code)
+          print('PASS standard axioms and no admits')
+          PY
+      - name: Exact integer prime-Mobius regression
+        run: |
+          g++ -std=c++17 -O3 -Wall -Wextra -Werror scripts/square_root_prime_phase_mobius_census.cpp -o /tmp/phase_mu
+          /tmp/phase_mu 2048 100 > /tmp/phase_mu.csv
+          python3 - <<'PY'
+          import csv
+          rows={int(x['R']):x for x in csv.DictReader(open('/tmp/phase_mu.csv'))}
+          for H,E,D in [(128,37622,29882),(256,110216,119516),(512,486935,478101),(1024,1723387,1912373)]:
+              ss=[rows[r] for r in range(H,2*H)]
+              energy=sum(int(z['mobius_block'])**2 for z in ss)
+              diag=sum(int(z['mu2_block']) for z in ss)
+              assert (energy,diag)==(E,D),(H,energy,diag)
+              assert (energy-diag)%2==0
+              print('PASS',H,'energy',energy,'diagonal',diag,'signed offdiag',(energy-diag)//2)
+          for r in (317,1027):
+              z=rows[r]
+              assert int(z['mobius_block'])+int(z['cofactor_prime_debt'])==int(z['smooth_population'])
+          PY
