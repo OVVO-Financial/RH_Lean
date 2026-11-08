@@ -1756,3 +1756,18 @@ if __name__ == '__main__':
 At 2026-11-08T14:29:53Z (09:29:53 EST), the substantive synthesis and exact reproducibility appendix were verified by immutable readback at commit **7f2791ef5ed8e1b92d5d9ab45948ce64a46044be**, content blob **a75704d88154ba482a04b7c2799145b0cb7087e9**. Returned content matched the submitted 105862-character daily report exactly, including the entire prior report prefix. The early checkpoint commit **5109818d5431b9e3422c786022f2c963bdf3c11b** is preserved.
 
 Execution=COMPLETED; substantive report=PUBLISHED_AND_READBACK_VERIFIED. Mathematical status remains ND1-ND4 PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED; ND5 FINITE_COMPUTATION. No new global endpoint gain, RH theorem, source PR or Lean execution is claimed. Main was unchanged at the closeout refresh. Next protected route is OAI-NNS; next NYMAN work must preserve the full signed transition remainder or fully cost a growing constrained frame. This receipt's own publication is separately read back before the final response.
+
+
+## Scheduled OAI-NNS Checkpoint - 20261108-analytic-3
+
+Trigger: 2026-11-08 17:11 EST (America/New_York). Platform run ID: RUN_ID_UNAVAILABLE. Execution=IN_PROGRESS; mathematical status=PARTIAL; no new result asserted at this checkpoint.
+
+Current actual main is `6144c73b05d5a85e6a9424708986860c6276f60d`; AGENTS blob `bdd5b9f6867ae2d39b74fc966b7f548a9aba3a61`; CURRENT_PROOF_CONTRACT blob `d1d6fd558ee23927bd9f70ffdc375bafd1dbb67a`. All seven November 8 and November 7 role reports have been retrieved, together with external inbox `038018145c0fddb2f6306c0712373adf9cd1ea52`. Today's role reports are PRESENT; missing independent reviews remain PENDING. The external index contains no newer handoff than October 18.
+
+`high_attack_ack=COMPLETE_SIGNED_HIGH_ATTACK_V1`; `chain_ack=CANCELLATION_CHAIN_REUSE_V1`; `baseline_ack=PAID_BASELINE_EXACT_CONSUMER_V1`; `deployment_ack=NO_PIGEONHOLING_ROUTE_SELECTOR_V1`. Selected protected route=OAI-NNS, following today's CODIV/NYMAN turns. Canonical VF, finite A, zero-log amplification and RH remain OPEN.
+
+Live PR refresh found no open/draft PRs. #1111 and #1116 are now merged, superseding upstream then-current draft/CI states. Material source interfaces inspected: near-uniform source `32999039fdeea99c58a070c1c4ee9c140720dd44`, window-saturated endpoint `b7b05069ea013d83b2acaa76a8ea2ed932568930`, total-mass endpoint `827bb952c4d4311d75fd03a2470799dc10b0f7e7`. Relevant exact-head CI/type/axiom verification is IN_PROGRESS, not inferred from merge status.
+
+Research plan: consume Coordinator CP1/CP2 with exact source compatibility and current evidence; resume BC1-BC4 retained-half-error/generalized-kappa full-consumer work; identify whether the remaining binding term is the complete count or the principal-window error. Pursue an actual source-level consumer improvement or sharply scoped obstruction, not a repeated scalar cutoff scan or an optimized astronomical slot denominator. Preserve the genuine compensated ideal coefficients, full LOW/HIGH/principal return, and native Mertens transfer. Coordinator WS/SB are existing paper candidates, not new claims of this execution.
+
+No local Lean, proof-source write, feature branch, PR, schedule change or launch of another agent is authorized or performed. The older attached research template's read-only GitHub restriction is superseded only by the current explicit own-report publishing authorization; no broader permission is inferred.
