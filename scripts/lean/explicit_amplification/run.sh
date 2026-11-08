@@ -21,12 +21,15 @@ env LEAN_PATH="$RH_PATH:$OAI_PATH" lean -DwarningAsError=true \
   -o .lake/build/lib/lean/RHLean/Proof/SquareRootAmplificationPowerBounds.olean \
   RHLean/Proof/SquareRootAmplificationPowerBounds.lean 2>&1 | tee -a "$log"
 
-for name in VF919ExplicitFixedSourceSlotCount VF919ExplicitSlotTotalMass VF919ExplicitAmplificationBound; do
+for name in VF919ExplicitFixedSourceSlotCount VF919ExplicitSlotTotalMass VF919ExplicitAmplificationBound VF919ExplicitSquareBlockPacking; do
   echo "Checking $name" | tee -a "$log"
   env LEAN_PATH="$RH_PATH:$OAI_PATH" lean -DwarningAsError=true \
     -o ".lake/build/lib/lean/research.oai_434.${name}.olean" \
     "research/oai_434/${name}.lean" 2>&1 | tee -a "$log"
 done
+
+env LEAN_PATH="$RH_PATH:$OAI_PATH" lean -DwarningAsError=true \
+  "$bundle_dir/SquarePackingTypes.lean" 2>&1 | tee -a "$log"
 
 env LEAN_PATH="$RH_PATH:$OAI_PATH" lean -DwarningAsError=true \
   "$bundle_dir/ExactTypes.lean" 2>&1 | tee -a "$log"
@@ -36,4 +39,6 @@ if grep -E 'sorryAx|admitAx' "$log"; then
 fi
 env LEAN_PATH="$RH_PATH:$OAI_PATH" lean -DwarningAsError=true \
   --run "$bundle_dir/AmplificationAudit.lean" 2>&1 | tee explicit-amplification-audit.log
-echo 'Explicit finite-slot amplification: warning-fatal proofs, exact public types, and live-axiom audit passed.'
+env LEAN_PATH="$RH_PATH:$OAI_PATH" lean -DwarningAsError=true \
+  --run "$bundle_dir/SquarePackingAudit.lean" 2>&1 | tee square-packing-audit.log
+echo 'Explicit finite-slot amplification and square-block packing: warning-fatal proof, exact types, and axiom audits passed.'

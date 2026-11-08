@@ -30,7 +30,7 @@ theorem groupedSquareBlocks_sum (f : ℕ → ℤ) (a b : ℕ) (hab : a ≤ b) :
   | base =>
       simp
   | succ b hab ih =>
-      have hsq : a ^ 2 ≤ b ^ 2 := Nat.pow_le_pow_left hab
+      have hsq : a ^ 2 ≤ b ^ 2 := Nat.pow_le_pow_left hab 2
       have hnext : b ^ 2 ≤ (b + 1) ^ 2 := by nlinarith
       rw [Finset.sum_Ico_succ_top hab, ← ih]
       exact (Finset.sum_Ico_consecutive (f := f) hsq hnext).symm
@@ -119,7 +119,8 @@ theorem near_uniform_distinct_slot_lengths (L : ℝ) (hL : 0 < L)
         ((N : ℝ) + 1) / (6 * (N : ℝ) ^ 2) := by
       field_simp
       <;> ring
-    exact heq.trans_lt hfrac
+    rw [heq]
+    exact hfrac
   let ell : Fin N → ℝ := fun j => w j / (6 * A)
   refine ⟨ell, ?_, ?_, ?_, ?_⟩
   · intro j k he
@@ -175,7 +176,7 @@ theorem near_uniform_physical_slot_lengths (dmin dmax mesh R : ℝ)
         ell j ≤ dmin*mesh ∧ ell j ≤ dmin*R) ∧
       (∀ d : ℝ, dmin ≤ d → d ≤ dmax →
         ∀ j, rmin ≤ ell j/d ∧ ell j/d ≤ mesh ∧ ell j/d ≤ R) ∧
-      (∀ j, (1 : ℝ)/(12 * (N : ℝ)) ≤ ell j) := by
+      (∀ j, (1 : ℝ)/(8 * (N : ℝ)) ≤ ell j) := by
   have hN : 0 < N := by exact_mod_cast (lt_of_lt_of_le (by norm_num : 0 < 3) hN1)
   obtain ⟨ell,hi,he,hS,hslotLower⟩ :=
     near_uniform_distinct_slot_lengths (dmin*min mesh R)
