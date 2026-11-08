@@ -131,6 +131,7 @@ theorem windowSaturatedHighData_tilt_budget {Delta : ℝ}
   change 0 < E.sigma ∧ E.sigma < 1 / 960 ∧ 24 * E.sigma < E.t
   have hmin : actualSlotMinimum D ≤ D.t / 200 := by
     have h := (D.slots_bounds (leastSlotIndex D)).2.2
+    change D.ell (leastSlotIndex D) ≤ D.t / 200
     nlinarith only [h]
   have hσ := windowSaturatedHighData_sigma_exact_minimum D
   change E.sigma = (7 / 8 : ℝ) * actualSlotMinimum D - D.e at hσ
