@@ -1,5 +1,11 @@
 # RH_Lean
 
+**Current mathematical status — 2026-11-08, main 30c9fade:** The original OpenAI 1->7/8 Mertens cancellation is formally available and the native full-source argument now proves an explicit fixed-slot improvement to 7/8-1/(48*N_*), where N_*>0 is chosen once. The exact historical amplification A(X) satisfies a fixed power bound C*X^(3/4-1/(48*N_*)) and limsup log(1+A(X))/log X <= 3/4-1/(24*N_*). #1106-#1109 are merged; #1109 adds CORR4 off-ray cutoff multiplicity, not a signed mixed-tail bound. Uniform finite A, subpower A(X), an all-scale fractional owner contraction, and RH remain open.
+
+**Live navigation:** [November 8 all-route attack ledger](docs/RHLEAN_REPO_WIDE_PROOF_ATTACKS_20261108.md) | [generated proof DAG](docs/PROOF_DEPENDENCY_DAG.md) | [coordinate atlas](docs/COORDINATE_ATLAS.md) | [agent instructions](AGENTS.md). The October 26 status paragraph and older snapshots retained below are historical and must not override these merged results.
+
+---
+
 Lean 4 formalization of the classical von Koch prime-counting criterion
 in a square-tiled VF coordinate, plus the genuinely open signed
 actual-prime and Möbius arithmetic research.

@@ -1,5 +1,8 @@
 # RH proof attack portfolio and seven-agent operating contract — 2026-10-24
 
+> **2026-11-08 CURRENT ROUTE REFRESH (overrides dated table only for status and task selection).** The [current all-route handoff](RHLEAN_REPO_WIDE_PROOF_ATTACKS_20261108.md) and [regenerated proof DAG](PROOF_DEPENDENCY_DAG.md) now account for merged #1106 (exact prime-admission log), #1107 (total slot mass), #1108 (strict explicit 7/8-1/(48*N_*) and historic amp limsup), and #1109 (CORR4 q2 image multiplicity). The former OPEN strict sub-7/8 target is proved; the replacement OPEN target is a further improvement beyond that exact fixed boundary. Nine viable routes remain distinct, BLOCK's universal R=549 hypothesis remains false. No uniform finite-A, zero-log amplification, renewed fractional owner contraction or RH proof. All old numerical powers and live-PR references below are dated provenance.
+
+
 > **2026-11-03 LIVE SOURCE-FIRST ROUTING (effective after human merge, no mathematical claim):** The stable selector now points to [the original OAI signed LOW seven-agent contract](RHLEAN_OAI_LOW_SOURCE_FIRST_AGENT_CONTRACT_20261103.md), with distinct work packets, not the dated 2026-10-26 first-task suggestion below. This *comparison-axis priority* specifically traces original signal beta-11/16 versus normalized LOW 3/16, the first cross-unselected-tuple norm_sum_le and the true NNS signed full source; the genuine new arithmetic estimate is still OPEN. All nine viable route hypotheses, refuted R=549 universal BLOCK claim, independent source requirements, rolling investigator rotation and human-only merge stay unchanged. A marked-HIGH, finite-slot or conditional owner gain is not the requested additional LOW saving.
 
 

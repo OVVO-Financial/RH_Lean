@@ -49,6 +49,9 @@ OPEN-VF-ACTUAL-PRIME ≡ PROP-VF-CAN-REAL-VONKOCH ≡ PROP-VF-MID-SQUARE-VONKOCH
 
 ## 3. Answers an agent should not have to reconstruct
 
+**2026-11-08 correction to the dated October 26 narrative (§3 and historical discussion below).** The intermediate goal "some strict Mertens exponent below 7/8" is now PROVED on main by #1107/#1108: b_base=7/8-1/(48*N_*). The original OAI import #987 remains the foundation, but not the strongest current bound. The newly open targets are *a further complete-source improvement*, *zero-log original amplification*, and *uniform fractional owner contraction*; CORR4 #1109 supplies only an image-multiplicity theorem. See the generated scoreboard and current [all-route handoff](RHLEAN_REPO_WIDE_PROOF_ATTACKS_20261108.md), not historical item 6/10 below.
+
+
 **Merged #1021 power milestone:** for each beta >= 1/2, `corr4PowerFirstOwnerGram_iff_mertensPowerBound` proves `(exists A>=0, Corr4PowerFirstOwnerGram A beta) <=> MertensPowerBound beta`. This is a *proved equivalence*, not a proof of either arithmetic statement below the imported 7/8 exponent. The distinct OPEN node `OPEN-CORR4-MIXED-TAIL-POWER` asks for the full signed first-owner inequality `2 Gamma_mixed <= 2 E_R + A R^(7/2-eta)` with some eta>0. The merged *conditional* consumer converts this into beta `7/8 - eta/4`. The old RH-strength relaxed remainder `OPEN-CORR4-RELAXED-REMAINDER` remains OPEN; no RH or strict 7/8 improvement is claimed.
 
 
