@@ -165,7 +165,7 @@ theorem low_central_compensated_tuple_total_mass (phys : LowPhysicalExponents) (
   let Yp := fun i=>Z^(ell i)
   have hz : 0<Z := lt_trans zero_lt_one hInv.1
   have hslots : ∀i n,n∈slots i→n≠0 := fun i=>canonicalSlotSupport_nonzero _ (hT i)
-  have hnormE : ∀i n,n∈slots i→elementNorm n≤max 1 b*Z^(ell i) := by
+  have hnormE : ∀i n,n∈slots i→elementNorm n ≤ max 1 b*Z^(ell i) := by
     intro i n hn
     obtain ⟨P,hP,rfl⟩ := Finset.mem_image.mp hn
     rw [primaryTuple_norm P (hT i P hP)]
@@ -570,7 +570,7 @@ theorem original_normalized_compensatedPhysicalProbe_low_total_mass (phys : LowP
   have hW1' : Function.support W1⊆Set.Icc a1 (max b1 (a1+1)) := by
     intro y hy
     exact ⟨(hW1 hy).1,(hW1 hy).2.trans (le_max_left _ _)⟩
-  have hab1 : a1<max b1 (a1+1) := lt_of_lt_of_le (by linarith) (le_max_right _ _)
+  have hab1 : a1 < max b1 (a1+1) := lt_of_lt_of_le (by linarith) (le_max_right _ _)
   obtain ⟨Cn,hCn,hnorm⟩ := ProbeHighRowFamily.actual_ray_normalizer_inverse M H hH S hS a b ha hab
     ell hell hsum W hW hcompact hsupp (fun j y=>(hWB j y).1) hne W0 W1 a0 b0 a1 b1 ha0 ha1
     hW0 hW1 hr0 hr1 hp0 hp1 hn0 hn1 (loss/2) (by positivity)
