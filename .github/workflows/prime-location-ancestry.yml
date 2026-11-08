@@ -49,7 +49,7 @@ jobs:
           #check RHLean.Analysis.squareWheelLateRemoved_has_smaller_prime_root
           #check RHLean.Analysis.squareWheelLateRemoved_full_empty
           #check RHLean.Analysis.squareWheelEarlierBalanced_nextUnbalanced
-          #check RHLean.Analysis.squareWheelB4_bias_from_rightComposite
+          #check RHLean.Analysis.squareWheelB4_primeHalfMass_ne_zero
           #print axioms RHLean.Analysis.squareWheelPrimeHalfMass_eq_prefix_sub_late
           #print axioms RHLean.Analysis.squareWheelLateRemoved_has_new_prime_factor
           #print axioms RHLean.Analysis.squareWheelLateRemoved_has_smaller_prime_root
