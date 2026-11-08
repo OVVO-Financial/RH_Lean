@@ -1,0 +1,64 @@
+name: TwoAB complete reciprocal renewal bands
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - research/TWOAB_RENEWAL_COMPLETE_BAND_20261108.lean
+      - research/TWOAB_RENEWAL_OAI_CONSUMER_20261108.lean
+      - .github/workflows/twoab-complete-renewal-bands.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: twoab-complete-renewal-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  exact-band-and-oai-consumer:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - name: Reject proof holes and new axioms
+        run: |
+          if grep -nE '^[[:space:]]*(sorry|admit|axiom)([[:space:]]|$)' \
+            research/TWOAB_RENEWAL_COMPLETE_BAND_20261108.lean \
+            research/TWOAB_RENEWAL_OAI_CONSUMER_20261108.lean; then
+            exit 1
+          fi
+      - name: Install Lean and Mathlib cache
+        uses: ./.github/actions/lean-setup
+      - name: Build transitive internal library imports
+        run: >-
+          python3 scripts/compile_research_import_closure.py --library-only
+          research/TWOAB_RENEWAL_COMPLETE_BAND_20261108.lean
+          research/TWOAB_RENEWAL_OAI_CONSUMER_20261108.lean
+      - name: Compile 2ab complete signed band (warnings fatal)
+        run: |
+          mkdir -p .lake/build/lib/lean
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.TWOAB_RENEWAL_COMPLETE_BAND_20261108.olean \
+            research/TWOAB_RENEWAL_COMPLETE_BAND_20261108.lean
+      - name: Compile strict OAI bound consumer (warnings fatal)
+        run: |
+          lake env lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.TWOAB_RENEWAL_OAI_CONSUMER_20261108.olean \
+            research/TWOAB_RENEWAL_OAI_CONSUMER_20261108.lean
+      - name: Check exact theorem signatures and axiom dependencies
+        run: |
+          cat >/tmp/twoab_complete_band_acceptance.lean <<'LEAN'
+          import «research.TWOAB_RENEWAL_OAI_CONSUMER_20261108»
+          #check RHLean.Proof.twoABCompleteReciprocalPacket_eq_parent
+          #check RHLean.Proof.twoABCompleteReciprocalBand_eq_mertensDifference
+          #check RHLean.Proof.twoABCompleteReciprocalBand_norm_le_endpoints
+          #check RHLean.Proof.twoAB_quotientKernel_diagonal_upperHalf
+          #check RHLean.Proof.twoAB_replacementCoefficient_upperHalf_eq_mertensIncrement
+          #check RHLean.Proof.twoABCompleteReciprocalBand_native_oai_bound
+          #print axioms RHLean.Proof.twoABCompleteReciprocalBand_eq_mertensDifference
+          #print axioms RHLean.Proof.twoAB_replacementCoefficient_upperHalf_eq_mertensIncrement
+          #print axioms RHLean.Proof.twoABCompleteReciprocalBand_native_oai_bound
+          LEAN
+          lake env lean -DwarningAsError=true /tmp/twoab_complete_band_acceptance.lean
