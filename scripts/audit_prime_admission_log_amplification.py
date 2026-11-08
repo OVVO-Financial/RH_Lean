@@ -52,7 +52,9 @@ EXPECTED = {
         "squareRootEndpointAmplification_le_max",
         "squareRootAmplificationMax_mono",
         "squareRootMertensEndpointAmplification_iff_boundedRunningMax",
+        "squareRootAmplificationMax_log_le_iff",
         "squareRootAmplificationLogRatio_nonneg",
+        "squareRootAmplificationLogRatio_le_iff",
     ),
     "research/PRIME_ADMISSION_LOG_AMPLIFICATION_20261107.lean": (
         "eulerAdmissibleCenteredRealState_step",
@@ -68,6 +70,7 @@ EXPECTED = {
         "eulerAdmissibleLogReturn_eq_endpoint",
         "squareRootEndpointAmplification_log_eq_primeAdmission",
         "squareRootEndpointAmplification_log_identity",
+        "squareRootAmplificationLogRatio_le_iff_primeAdmissionLogReturn",
     ),
 }
 

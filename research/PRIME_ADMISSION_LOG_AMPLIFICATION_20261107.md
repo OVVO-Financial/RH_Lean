@@ -81,6 +81,21 @@ are proved to have zero logarithmic increment. Every genuine daughter has
 cutoff strictly below `R`, and primes above `X_R/2` have daughter exactly `1`.
 The denominator is the same positive historical maximum throughout the sum.
 
+The final finite-cutoff consumer directly links this sum to the requested
+ratio. For `X >= 2` and `epsilon >= 0`, it proves
+
+\[
+q(X)\le\varepsilon
+\quad\Longleftrightarrow\quad
+\forall R\ge2\ (X_R\le X),\quad
+\mathrm{eulerAdmissibleLogReturn}(R,R^2K_R)
+\le\varepsilon\log X.
+\]
+
+This retains all admitted square endpoints and one common right side.
+It supplies an exact consumer for a future signed-return estimate; it does
+not prove that estimate.
+
 Every signed mixed term and the initial population are retained. No estimate
 on their complete return is proved by this identity. In particular, this PR
 adds no finite-`A` theorem, no global Mertens exponent improvement, and no RH
@@ -93,7 +108,7 @@ this formalization.
 | --- | --- | --- |
 | [PrimeAdmissionLogPotential](../RHLean/Proof/PrimeAdmissionLogPotential.lean) | `primeAdmissionLogPotential_step`, `primeAdmissionLogIncrement_argument_pos`, `primeAdmissionLogPotential_telescope` | Exact real logarithm algebra, positivity and finite telescope. |
 | [SquareRootAmplificationLogGrowth](../RHLean/Proof/SquareRootAmplificationLogGrowth.lean) | `squareRootHistoricalK_le_iff`, `squareRootAmplificationMax_le_iff`, `squareRootMertensEndpointAmplification_iff_boundedRunningMax` | Original denominator and ratio, finite maximum, and correspondence with the existing finite-`A` statement. |
-| [Arithmetic specialization](PRIME_ADMISSION_LOG_AMPLIFICATION_20261107.lean) | `eulerAdmissibleCenteredRealState_step`, `eulerAdmissibleLogReturn_eq_endpoint`, `squareRootEndpointAmplification_log_identity` | Original Möbius states, original normalization and full signed logarithmic return. |
+| [Arithmetic specialization](PRIME_ADMISSION_LOG_AMPLIFICATION_20261107.lean) | `eulerAdmissibleCenteredRealState_step`, `eulerAdmissibleLogReturn_eq_endpoint`, `squareRootEndpointAmplification_log_identity`, `squareRootAmplificationLogRatio_le_iff_primeAdmissionLogReturn` | Original Möbius states, original normalization, full signed logarithmic return and the direct finite-cutoff ratio consumer. |
 | [Exact type acceptance](PRIME_ADMISSION_LOG_AMPLIFICATION_ACCEPTANCE_20261107.lean) | Explicit typed examples | Reject hidden recurrence/cancellation premises and test the `R=2` normalization. |
 
 The arithmetic specialization imports the established
@@ -110,7 +125,7 @@ compiles the full research import closure and the explicit type acceptance,
 and recompiles the two new native modules with warnings fatal.
 
 The [audit script](../scripts/audit_prime_admission_log_amplification.py)
-checks the exact inventory of 42 public theorems, both native exports, the
+checks the exact inventory of 45 public theorems, both native exports, the
 absence of proof shortcuts, and every theorem's terminal axioms. Only
 `propext`, `Classical.choice`, and `Quot.sound` are permitted. The ratio and
 zero-limit proposition receive definition checks, not assertions of truth.

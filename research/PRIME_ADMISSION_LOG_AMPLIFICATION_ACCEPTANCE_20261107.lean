@@ -74,3 +74,11 @@ example (R : ℕ) (hR : 2 ≤ R) :
       eulerAdmissibleLogReturn R
         ((R : ℝ) ^ 2 * squareRootHistoricalK R) :=
   squareRootEndpointAmplification_log_eq_primeAdmission R hR
+
+example (X : ℕ) (ε : ℝ) (hX : 2 ≤ X) (hε : 0 ≤ ε) :
+    squareRootAmplificationLogRatio X ≤ ε ↔
+      ∀ R : ℕ, 2 ≤ R → squareRootEndpoint R ≤ X →
+        eulerAdmissibleLogReturn R
+            ((R : ℝ) ^ 2 * squareRootHistoricalK R) ≤
+          ε * Real.log (X : ℝ) :=
+  squareRootAmplificationLogRatio_le_iff_primeAdmissionLogReturn X ε hX hε

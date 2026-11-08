@@ -237,6 +237,34 @@ theorem squareRootMertensEndpointAmplification_iff_boundedRunningMax :
     exact (squareRootEndpointAmplification_le_max hR le_rfl).trans
       (hbound (squareRootEndpoint R))
 
+/-- A nonnegative bound on the logarithm of the running maximum is exactly
+the same bound on every admitted endpoint logarithm. -/
+theorem squareRootAmplificationMax_log_le_iff (X : ℕ) (B : ℝ) (hB : 0 ≤ B) :
+    Real.log (1 + squareRootAmplificationMax X) ≤ B ↔
+      ∀ R : ℕ, 2 ≤ R → squareRootEndpoint R ≤ X →
+        Real.log (1 + squareRootEndpointAmplification R) ≤ B := by
+  constructor
+  · intro h R hR hX
+    have hpos : 0 < 1 + squareRootEndpointAmplification R := by
+      linarith [squareRootEndpointAmplification_nonneg R]
+    exact (Real.log_le_log hpos
+      (add_le_add_left (squareRootEndpointAmplification_le_max hR hX) 1)).trans h
+  · intro h
+    have hexp : 1 ≤ Real.exp B := by
+      simpa using (Real.exp_le_exp.mpr hB)
+    have hmax : squareRootAmplificationMax X ≤ Real.exp B - 1 := by
+      apply (squareRootAmplificationMax_le_iff X (Real.exp B - 1)).2
+      refine ⟨by linarith, ?_⟩
+      intro R hR hX
+      have hpos : 0 < 1 + squareRootEndpointAmplification R := by
+        linarith [squareRootEndpointAmplification_nonneg R]
+      have hbound := (Real.log_le_iff_le_exp hpos).1 (h R hR hX)
+      linarith
+    have hpos : 0 < 1 + squareRootAmplificationMax X := by
+      linarith [squareRootAmplificationMax_nonneg X]
+    apply (Real.log_le_iff_le_exp hpos).2
+    linarith
+
 /-- The exact logarithmic ratio at natural cutoffs.  The values below `2`
 are immaterial for a limit at infinity. -/
 def squareRootAmplificationLogRatio (X : ℕ) : ℝ :=
@@ -249,6 +277,21 @@ theorem squareRootAmplificationLogRatio_nonneg {X : ℕ} (hX : 2 ≤ X) :
   · exact Real.log_nonneg (by linarith [squareRootAmplificationMax_nonneg X])
   · apply Real.log_nonneg
     exact_mod_cast (show 1 ≤ X by omega)
+
+/-- Finite, all-prefix characterization of the requested ratio.  Every
+endpoint through `X` must satisfy the same logarithmic budget. -/
+theorem squareRootAmplificationLogRatio_le_iff
+    (X : ℕ) (ε : ℝ) (hX : 2 ≤ X) (hε : 0 ≤ ε) :
+    squareRootAmplificationLogRatio X ≤ ε ↔
+      ∀ R : ℕ, 2 ≤ R → squareRootEndpoint R ≤ X →
+        Real.log (1 + squareRootEndpointAmplification R) ≤
+          ε * Real.log (X : ℝ) := by
+  have hlog : 0 < Real.log (X : ℝ) := by
+    apply Real.log_pos
+    exact_mod_cast (show 1 < X by omega)
+  rw [squareRootAmplificationLogRatio, div_le_iff₀ hlog]
+  exact squareRootAmplificationMax_log_le_iff X
+    (ε * Real.log (X : ℝ)) (mul_nonneg hε hlog.le)
 
 /-- The requested zero growth limit.  This is an open proposition, not an
 axiom and not a theorem asserted by this module. -/

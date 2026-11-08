@@ -71,7 +71,7 @@ theorem eulerAdmissibleAdmissionDebtReal_of_prime
     eulerAdmissibleAdmissionDebtReal R p =
       ((mertensSummatoryInt (squareRootEndpoint R / p) : ℤ) : ℝ) := by
   unfold eulerAdmissibleAdmissionDebtReal eulerAdmissibleAdmissionDebt
-  rw [if_pos hp, ← mertensSummatoryInt_cast (squareRootEndpoint R / p)]
+  rw [ite_eq_left hp, ← mertensSummatoryInt_cast (squareRootEndpoint R / p)]
   simp only [Complex.intCast_re]
 
 /-- A composite candidate introduces no family. -/
@@ -251,5 +251,25 @@ theorem squareRootEndpointAmplification_log_identity
   simpa only [eulerAdmissibleLogReturn, primeAdmissionLogPotential,
     primeAdmissionLogIncrement] using
     squareRootEndpointAmplification_log_eq_primeAdmission R hR
+
+/-- Direct consumer for the user's running-maximum ratio.  A proposed bound
+must control the complete signed prime-admission return at every admitted
+square endpoint, with the same right side `epsilon * log X`.  This equivalence
+does not supply that bound or assert convergence to zero. -/
+theorem squareRootAmplificationLogRatio_le_iff_primeAdmissionLogReturn
+    (X : ℕ) (ε : ℝ) (hX : 2 ≤ X) (hε : 0 ≤ ε) :
+    squareRootAmplificationLogRatio X ≤ ε ↔
+      ∀ R : ℕ, 2 ≤ R → squareRootEndpoint R ≤ X →
+        eulerAdmissibleLogReturn R
+            ((R : ℝ) ^ 2 * squareRootHistoricalK R) ≤
+          ε * Real.log (X : ℝ) := by
+  rw [squareRootAmplificationLogRatio_le_iff X ε hX hε]
+  constructor
+  · intro h R hR hRX
+    rw [← squareRootEndpointAmplification_log_eq_primeAdmission R hR]
+    exact h R hR hRX
+  · intro h R hR hRX
+    rw [squareRootEndpointAmplification_log_eq_primeAdmission R hR]
+    exact h R hR hRX
 
 end RHLean.Proof

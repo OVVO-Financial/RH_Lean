@@ -57,7 +57,8 @@ theorem primeAdmissionLogIncrement_argument_eq_div (W F m : ℝ)
     1 + (m ^ 2 - 2 * F * m) / (W + F ^ 2) =
       (W + (F - m) ^ 2) / (W + F ^ 2) := by
   have hden : W + F ^ 2 ≠ 0 := ne_of_gt (primeAdmissionEnergy_pos W F hW)
-  field_simp [hden] <;> ring
+  field_simp [hden]
+  ring
 
 /-- Even a negative signed increment has a strictly positive logarithm
 argument; no absolute values or sign assumptions on `F` or `m` are needed. -/
@@ -72,7 +73,7 @@ theorem primeAdmissionLogIncrement_argument_pos (W F m : ℝ)
 theorem primeAdmissionLogPotential_eq_log_sub (W F : ℝ) (hW : 0 < W) :
     primeAdmissionLogPotential W F = Real.log (W + F ^ 2) - Real.log W := by
   have harg : 1 + F ^ 2 / W = (W + F ^ 2) / W := by
-    field_simp [ne_of_gt hW] <;> ring
+    field_simp [ne_of_gt hW]
   unfold primeAdmissionLogPotential
   rw [harg, Real.log_div (ne_of_gt (primeAdmissionEnergy_pos W F hW))
     (ne_of_gt hW)]
