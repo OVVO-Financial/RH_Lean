@@ -1443,3 +1443,1146 @@ square and fixed-cutoff canonical LOW remain present. No bound on Z is assumed.
 Only this own report is written remotely. No Lean execution, source change,
 other-report edit, branch/PR/workflow/schedule mutation or agent launch.
 Verified results, code, precise evidence grades and a continuation capsule follow.
+
+
+## Floor-Two Boundary Synthesis - 20261108-census-2
+
+This completes the scheduled invocation begun November 8, 2026 at 11:00:01 EST.
+The earlier TC report and this invocation's early checkpoint remain unchanged.
+Research=COMPLETED; publication is verified in the subsequent receipt.
+
+### A. Most Important Mathematical Discovery
+
+**The adjacent historical floor-two strip has exactly one hyperbolic jump, not a higher-floor cascade. The jump can reverse the genuine signed answer, and historical prefix control by itself cannot pay the original wide strip. A smaller, explicitly admitted strip is nevertheless paid uniformly without new cancellation.**
+
+At the smallest genuine nonzero-jump example, R=6, K=3/2, W=1, the no-jump term is -4/5 while the ORIGINAL strip is +1/5. At R=15,W=1 the reverse sign change occurs: +2/7 becomes -5/7. Thus neither an erased staircase nor a uniform jump-sign assertion survives.
+
+The positive replacement is the paper theorem
+
+```text
+16 K W^2 <= R^2 and W^4 <= R^2 K
+    ==> |E2(R,W)| <= (61/9) R sqrt(K),
+```
+
+for every R>=2 and every actual LowerMertensCriticalEnvelope R K. This bound includes W=0 and is not inferred from a finite maximum. It changes the paid width; the discarded columns are restored to the complement.
+
+A separate family of NON-MOBIUS bounded coefficients satisfies the same shifted historical prefix envelope with K=1 but has E2/R unbounded on the original W=R/4 strip. This refutes only the envelope-only, arbitrary-coefficient extension. It is NOT a counterexample to the actual Mobius strip conjecture, finite-C, Mertens growth, the canonical VF target, or RH.
+
+New evidence: SJ1-SJ4 are PAPER_PROOF / SELF_AUDIT; SJ5 is FINITE_COMPUTATION, with scoped assertions REFUTED by exact witnesses. INDEPENDENT_REVIEW_PENDING; NOT_FORMALIZED. NEW_VERIFIED_ENDPOINT_GAIN=NONE; net_endpoint_gain=NONE; eta_gate=SEARCH_BROAD.
+
+### B. Current Authority And Exact Objective
+
+Pinned main: 30c9fade09be0a4cb12776cd324e9fd9a9ed44ac, retrieved at invocation. AGENTS blob 0a99faf8458809ac772d470d704c5433f373bda8; proof contract d1d6fd558ee23927bd9f70ffdc375bafd1dbb67a. Governing HIGH directive be8168b67584d9d8ebbaa732a30c51509137543e; cancellation-reuse directive 28e2ab47c68bc83b91ae02b6112b94867b021b32.
+
+high_attack_ack=COMPLETE_SIGNED_HIGH_ATTACK_V1; chain_ack=CANCELLATION_CHAIN_REUSE_V1; baseline_ack=PAID_BASELINE_EXACT_CONSUMER_V1; deployment_ack=NO_PIGEONHOLING_ROUTE_SELECTOR_V1. The applicable task selector, seven-role prompts, complete-return contract, persistent-engine, breadth, dynamic, paid-baseline and multifront instructions were retrieved and their applicable provisions inspected.
+
+The canonical theorem remains VFCanonicalSquareVonKochStatement: one constant C>=0 must bound the actual-prime canonical defect by C R log R for every integer R>=2. The original vfCanonical=vfMid+sqrt(2) phase and explicit ClassicalVonKochRHCriterion are unchanged. No claim about that open estimate is made here.
+
+The shared complete signed object is
+
+```text
+M(R^2-1)=canonicalLowPrefix_Lambda(R-1)+canonicalHighPrefix_Lambda(R-1),
+|canonicalLowPrefix_Lambda(R-1)| <= (floor Lambda+1)R
+```
+
+for a fixed Lambda>=0, with absolute birth height and both orientations retained. The ordered Euler strip is a proper piece of a DIFFERENT exact representation, not a new definition of canonical HIGH.
+
+The strongest source-level input remains native_mertens_growth_at_hecke_beta, with its every-positive-loss interpretation. The same-source total-mass theorem supplies the boundary 7/8-m/4 for an admitted fixed source with m=actualSlotMinimum(D)>0. The explicit finite-source instance supplies 7/8-1/(48*explicitSlotCount), and spending half its saving gives the fixed power 7/8-1/(96*explicitSlotCount). Neither upper bound is asserted equal to the unknown true growth boundary. SJ4 below works with ANY applicable fixed b in (1/2,1), retaining its constant and loss spending; the rounded 7/8 example is illustrative only.
+
+PR #1108 is human-merged into 70616fd264e48490f5296a63c79e1ee11ce000b8; #1109 is human-merged into current main. Open/draft PR discovery was empty. The actual #1108 run 42451075330 is completed/success at a0c986c0343a56e98b7344268fdc0b74aa885cdb. Its job 128640229840 was read: exact types and terminal audits, including native_mertens_fixed_explicit_slot_count_total_mass, passed with propext, Classical.choice and Quot.sound only. Comparing that tested head to current main changes only six CORR4-collision implementation/audit files, not the consumed OAI baseline. This is reused exact-head evidence, not a fresh whole-main build or author-created Lean result.
+
+### C. Competing Hypotheses And Selection Discipline
+
+The pre-experiment checkpoint was published and read back at commit 7dd71f8ed80b938a9d290dffc009612f2640b79f, blob 8ff33d211cc91f704203778d2b081707128e60e3. Its frozen domains are preserved above and in the executable appendix.
+
+| Hypothesis | Discriminator | Outcome |
+| --- | --- | --- |
+| Ignore the floor-two jump without changing the answer or its sign | Genuine ordered-strip reconstruction | REFUTED, R=6 |
+| Only one jump level is geometrically possible | Literal endpoint floor minus two | PAPER_PROOF SJ1; exact finite checks agree |
+| The same historical envelope alone pays the entire adaptive strip for any bounded coefficients | Same carrier, explicitly nonmultiplicative coefficients | REFUTED at this synthetic/generalized scope by SJ3 |
+| A narrower original strip is already paid by existing input and site geometry | Explicit all-K width inequalities | PAPER_PROOF SJ2; exact finite checks agree |
+| Actual Mobius wide-strip payment holds uniformly | Original E2 with every valid K | CONJECTURE remains unresolved; finite survival is not proof |
+
+The newer Wheel HC handoff was selected instead of replaying the already verified TC collision census. Coordinator's NYMAN fixture request is not reported completed by this run: Analytic ND has already executed those fixtures, and independent review remains available. No investigator coverage clock was reset.
+
+The safe-width lemma was derived at implementation stage after the original checkpoint, before test outputs were inspected; it was present in the first program. The synthetic family and m values were recorded locally before their execution. The R=8 strict-equality audit and native-power corollary were disclosed post-discovery follow-ups, not held-out predictions. No constant was tuned to observed extrema.
+
+### D. Original Carrier And Full Return
+
+For R>=2 put N=R-1, X=R^2-1, and retain the genuine integer Mobius function, including mu(1)=1 and squareful zeros. The exact rational source inspected in main is
+
+```text
+T_R(a,b)=floor(X/(ab))-(R+1)floor(N/a)/b,
+Q_R=sum_(1<=a,b<R) mu(a)mu(b)floor(X/(ab)),
+P_R=(R+1)sum_(1<=b<R)mu(b)/b.
+```
+
+An occurrence is the ORDERED pair (a,b). Equal products are not deduplicated. The historical condition is K>=0 and (M(y)-1)^2<=K(y+1) for EVERY 0<=y<R; y=0 forces K>=1. Experimental K_min is the maximum of those ratios, not an identification with another empirical normalization.
+
+For an integer 0<=W<=R/4, let B=R-W, lo=floor(N/3)+1=ceil(R/3), hi=floor(N/2), I2=[lo,hi], and
+
+```text
+m2=M(hi)-M(lo-1),
+t_B=sum_(B<=b<R)mu(b)(1-(R+1)/b),
+E2=sum_(a in I2,B<=b<R)mu(a)mu(b)T_R(a,b),
+J2=sum_(a in I2,B<=b<R,3ab<=X)mu(a)mu(b).
+E2=2*m2*t_B+J2.
+```
+
+Empty intervals have zero sum. The original wide width is W_K=floor(R/(4sqrt K)). No logarithms or nonrational signs enter the computation: for rational K=p/q, W_K=isqrt(floor(R^2*q/(16p))).
+
+Let E1 be Wheel HC's disjoint floor-one rectangle at the chosen width, and let Z be the original T sum over all other ordered pairs. Recombine BEFORE any norm:
+
+```text
+Q=P+E1+E2+Z,
+Q^2=P^2+E1^2+E2^2+Z^2
+    +2PE1+2PE2+2PZ+2E1E2+2E1Z+2E2Z,
+M(X)=2M(N)-Q.
+```
+
+The complete source and all six cross interactions were independently enumerated in the finite full-return checks. No original #915 NNS denominator, conductor source or Hecke phase was substituted. Their extra source terms are not applicable to this Euler representation. No energy/window gain is asserted, so a full-window average is not passed off as h=1 control.
+
+### E. Executed Results And Independent Checks
+
+| Check | Exact scope/result |
+| --- | --- |
+| Genuine strip cases | 10,991 evaluations, including all R=2..256, all W=0..floor(R/4), and adaptive tests |
+| Literal floor sites | 5,649,735 evaluations; 3,340 strict-equality evaluations, with overlaps between tested strips retained |
+| Adaptive K cases | 1,304; K in {K_min,2K_min,R,R^2,100R^2}, duplicates removed |
+| Safe-width cases | 1,304; exact squared 61/9 inequality and site-count inequality passed |
+| Held-out R | 317,549,1027,2002,4096,8192, fixed before execution |
+| Independent arithmetic | Trial-factor mu for every n=1..8192, inverse row geometry versus forward columns/literal floors; all 10,991 exact outputs agree |
+| Complete source | 81 roots: R=2..80,99,317; 276,940 ordered sites; every partition and full square agrees exactly |
+| Synthetic cross-check | Five m values; Python inverse 4,793,344 rows versus C++ forward 14,380,032 columns; every integer agrees |
+
+The canonical exact record-stream SHA-256 is 233e3098d9ad71de4e4e7f572db97e4d6a9fc673e4012af8eac1864738a941ca in BOTH genuine implementations. The main mu sieve reaches 100,488 solely for the full endpoint checks. The independent trial implementation does not share the sieve or its intermediate table. The full-source identity at the 81 roots is checked directly against the separately summed genuine M(X), not by defining the complement as a difference.
+
+All held-out minimal envelopes equal 3/2. Compact certified integer enclosures of E2 at the ORIGINAL width are:
+
+| R | W_K | J2 | E2 |
+| --- | --- | --- | --- |
+| 317 | 64 | -4 | -3<E2<-2 |
+| 549 | 112 | 13 | 11<E2<12 |
+| 1027 | 209 | -1 | -7<E2<-6 |
+| 2002 | 408 | 22 | 36<E2<37 |
+| 4096 | 836 | 263 | E2=263 exactly |
+| 8192 | 1672 | 181 | 199<E2<200 |
+
+The largest sampled E2^2/(R^2 K) in the ORIGINAL adaptive corpus is 3/200 at R=40,K=3/2,W=8,E2=J2=6. This is a finite diagnostic only. It is not an optimal constant, an asymptotic estimate or evidence that all K and R have been covered. At R=4096 the separable term is zero and the entire strip is the jump J2=263, so erasing the jump cannot be justified even by a small measured separable part.
+
+### F. Exact Falsifiers And Boundary Cases
+
+**Smallest genuine jump/sign reversal in increasing R, then W.** R=6, K=3/2 gives W=1, I2={2}, B=5. The only nonzero site is (2,5), mu(2)mu(5)=1. X=35 gives floor(35/10)=3 and floor(5/2)=2. Thus T=3-14/5=1/5, while replacing the endpoint floor by two gives -4/5. The tested R<6 strips have J2=0. The full historical envelope is checked at every y=0..5, not merely its endpoint.
+
+**Opposite sign.** R=15,W=1 has J2=-1, separable term 2/7, E2=-5/7. It is an admitted adaptive width for K=9, which is larger than the actual K_min=3/2. Thus positivity of the geometric indicator does not impose positivity of the signed jump.
+
+**Equality must be included.** The first nonzero coefficient at 3ab=X is R=8,a=3,b=7. Here X=63, mu(3)mu(7)=1, K_min=3/2, W=1; T=3/7. Replacing <= by < loses the jump and gives -4/7. This is inside the original width/source hypotheses.
+
+**Full original return at R=6.** The four components are
+
+```text
+P=-7/30, E1=-2/5, E2=1/5, Z=-77/30, Q=-3,
+sum of all six doubled cross terms = 971/450.
+```
+
+Their sum is -3 and their full square is 9. No favorable local sign is used to pay Z.
+
+### G. Single-Jump Geometry And Boundary Variable: SJ1
+
+**20261108-census-2/SJ1, PAPER_PROOF.** For every R>=2, 0<=4W<=R and every site in I2 x [R-W,R),
+
+```text
+floor(N/a)=2,
+floor(X/(ab))=2+1_(3ab<=X).
+```
+
+Proof: a<=N/2 and b<=N imply 2ab<=N^2<X, so the endpoint floor is at least two. The exact lower row endpoint gives a>=R/3, while b>=3R/4; hence 4ab>=R^2>X. The endpoint floor is therefore less than four. Equality at 3ab=X belongs to the upper value. This uses the original -1 horizon; no limiting or continuous replacement is made.
+
+The complete staircase is independently represented in both directions:
+
+```text
+J2=sum_(B<=b<R)mu(b)[M(max(lo-1,min(hi,floor(X/(3b)))))-M(lo-1)]
+  =sum_(lo<=a<=hi)mu(a)[M(max(B-1,min(N,floor(X/(3a)))))-M(B-1)].
+```
+
+These are exact identities, not quantitative cancellation. In adjacent b columns the unclipped quotient decreases by at most one, because X/[3b(b+1)]<1. Thus the difficult variable is the actual signed prefix sampled along one moving hyperbolic boundary, not an unbounded floor-jump multiplicity. No new higher-floor investigation is needed on this particular strip. Other historical floor classes are not covered.
+
+### H. Paid Narrow Strip And Native Component: SJ2 And SJ4
+
+Let A2 count ALL jump sites, including those with zero Mobius coefficient. Write b=R-d, 1<=d<=W. The number of a in a given column is at most
+
+```text
+X/[3(R-d)]-R/3+1 <= 4d/9+1.
+```
+
+Consequently
+
+```text
+|J2| <= A2 <= (2W^2+11W)/9 <= (13/9)W^2  (W>=1).  (SJ2a)
+```
+
+The first displayed count inequality also holds at W=0. This is an all-scale integer-lattice bound; it neither assumes independence nor estimates signed pairs by a new conjecture.
+
+Under the genuine historical K envelope, interval differences have size at most 2sqrt(KR). Abel summation with decreasing weight (R+1-b)/b gives
+
+```text
+|2*m2*t_B| <= 8KR(W+1)/(R-W).
+```
+
+For 1<=W<=R/(4sqrt K), use W+1<=2W and R-W>=3R/4 to bound this by (16/3)R sqrt K. If in addition W^4<=R^2 K, then W^2<=R sqrt K, so SJ2a proves
+
+```text
+|E2| <= (16/3+13/9)R sqrt K = (61/9)R sqrt K.        (SJ2)
+```
+
+The W=0 case is immediate. Define W_safe as the largest nonnegative integer satisfying 16KW^2<=R^2 and W^4<=R^2K. It automatically obeys 4W<=R since K>=1. For rational K=p/q the implementation uses the minimum of isqrt(floor(R^2q/(16p))) and isqrt(isqrt(floor(R^2p/q))). All rounding is exact. The complete original wider strip is E2(W_K)=E2(W_safe)+the signed omitted-column strip; the latter has NOT been paid by this proof.
+
+**20261108-census-2/SJ4, PAPER_PROOF, post-discovery native-power consumer.** Suppose an already licensed fixed bound |M(n)|<=C_b*n^b holds for every n>=1, with 1/2<b<1. The same interval/Abel proof gives
+
+```text
+|E2(R,W)| <= 8 C_b^2 R^(2b)(W+1)/(R-W)+(13/9)W^2.
+```
+
+Set theta=(3b-1)/2 and W=floor(R^theta). For R>=max(2,4^(1/(1-theta))), W<=R/4 and W+1<=2R^theta. Since
+
+```text
+2b+theta-1 <= 2theta=3b-1 < 2b,
+```
+
+the ORIGINAL strip satisfies
+
+```text
+|E2| <= ((64/3)C_b^2+13/9) R^(3b-1).                (SJ4)
+```
+
+This is a proper-component saving of 1-b in the root exponent relative to R^(2b), with all constants and threshold depending on the supplied fixed b,C_b. At the illustrative b=7/8 the exponent is 13/8, not 7/4. Use the stronger actual fixed b when applying it. No uniform statement as b tends to one or no-loss statement at the true beta is asserted. The finite rational exponent audit checks algebra only; the displayed proof, not that grid, supplies the universal corollary.
+
+### I. Envelope-Only Extension Fails: SJ3
+
+**20261108-census-2/SJ3, PAPER_PROOF.** The assertion that the original W_K strip is O(Rsqrt K) for EVERY bounded coefficient sequence satisfying the shifted historical envelope is false. The following coefficients are explicitly synthetic and NOT multiplicative.
+
+For any positive multiple m of eight set
+
+```text
+R=192m^4, K=1, W=R/4, a0=R/3, h=8m^2, L=2m^3.
+```
+
+Let f(1)=1. On a=a0+x, 1<=x<=L, set f(a)=+1 for (x-1) mod 2h<h, and -1 otherwise. On b=R-d, 1<=d<=3L, put x=floor((d-1)/3) and set f(b)=+1 for h/2<=x mod 2h<3h/2, and -1 otherwise. Set f=0 elsewhere. The two support intervals are disjoint, wholly inside I2 and [B,R), respectively. L is a multiple of 2h, so each support sums to zero.
+
+Let S_f(y)=sum_(n<=y)f(n). Before the row support S_f-1=0; within it the prefix has absolute value at most h, and h^2=a0. After it the prefix returns to zero. In the column support, read in increasing b, the absolute prefix is at most 3h/2, and (3h/2)^2=144m^4<=R-3L+1. All zero gaps preserve those inequalities; y=0 has (S_f(0)-1)^2=1. Thus
+
+```text
+|f(n)|<=1, (S_f(y)-1)^2<=y+1 for EVERY 0<=y<R.
+```
+
+This proves the full K=1 envelope, not a finite sample of its nonzero locations.
+
+Let F(u) be the row prefix: on 0<=u<=L it is the triangular function min(r,2h-r), r=u mod 2h, and it is zero outside. F is 1-Lipschitz on the integers. At b=R-d the exact row cutoff is
+
+```text
+c(d)=floor((R*d-1)/(3*(R-d))).
+```
+
+Writing x=floor((d-1)/3), one has 0<=c(d)-x<=1+d^2/[3(R-d)]<=h/32 for all 1<=d<=3L and m>=8. For the last inequality, the right side is at most 1+2m^3/(32m-1)<=1+2m^2/31<=m^2/4=h/32. The first inequality follows by substituting d=3x+u, 1<=u<=3; the numerator remainder is nonnegative. This also handles the upper support boundary because F extends by zero.
+
+Over a complete 2h cycle, summing the stated column signs against F(x) gives h^2/2. Each x occurs three times, so the linear-boundary value is J0=3Lh/4. Lipschitz control gives
+
+```text
+|J_f-J0| <= 3Lh/32,
+J_f >= (21/32)Lh = (21/2)m^5,
+J_f/R >= 7m/128 -> infinity.
+```
+
+Since the row sum is zero, the separable term vanishes EXACTLY and E2_f=J_f. This proves failure of every universal constant for the envelope-only extension. It does not use, or assert for f, the genuine Mobius convolution identity Q=2M(N)-M(X).
+
+Executed independent certificates:
+
+| m | R | Exact J_f=E2_f | Linear J0 |
+| --- | --- | --- | --- |
+| 8 | 786432 | 394652 | 393216 |
+| 16 | 12582912 | 12606532 | 12582912 |
+| 32 | 201326592 | 403025357 | 402653184 |
+| 64 | 3221225472 | 12890559217 | 12884901888 |
+| 128 | 51539607552 | 412397376316 | 412316860416 |
+
+The final finite example exceeds (16/3)R and also (61/9)R at the ORIGINAL wide width, but it violates SJ2's extra W^4<=R^2K condition and is not a counterexample to SJ2. The sequence has f(2)=0 whereas mu(2)=-1. The model destroys arithmetic multiplicativity by design. Its purpose is to show that the historical envelope, bounded entries and genuine strip geometry alone do not force the desired wider estimate; additional genuine-Mobius structure remains eligible.
+
+### J. Complete Budget And First Unpaid Step
+
+The actual consumer is EulerSelfDualFiniteCStatement and its certified conditional square-root amplification/Mertens-energy chain. We do not assume that statement or the full residual. In canonical coordinates, the exact return is
+
+```text
+HIGH_Lambda(R-1)=2M(N)-P-E1-E2-Z-LOW_Lambda(R-1).
+```
+
+For SJ4's mesoscopic width, Wheel's same historical/Abel proof also bounds E1 by O_b(R^(2b+theta-1)); SJ4 bounds E2 by O_b(R^(3b-1)). The O(R) canonical LOW, the O(R) linear P and the O(R^b) history are retained. At the supplied global boundary the COMPLETE Z still has only the incoming O_b(R^(2b)) control obtained from the full source identity. The worst exponent remains 2b. No subtraction of upper bounds gives a signed saving for Z.
+
+The smaller next question is the GENUINE signed boundary J2 at the ORIGINAL W_K, retaining all valid K. Equivalently on this proper strip, a uniform |E2|<=C2 R sqrt K holds iff |J2|<=CJ R sqrt K, with constants changed by at most 16/3. This follows from the already paid separable term. This equivalence is a local reduction, NOT a proof of its premises and NOT a demonstrated equivalence to finite-C. Even its proof would leave all other historical row classes and b<B columns.
+
+For a practical continuation, isolate the actual omitted-column boundary J2(W_K)-J2(W_safe), preserving its Mobius coefficients and the constant-floor correction. Test a multiplicative/factor-incidence restriction on that original boundary. Do not ask for an arbitrary-vector theorem now refuted by SJ3; do not promote a missing bound to an assumption. Moving to a new hypothetical coefficient model cannot refute the genuine conjecture.
+
+Compact HIGH record: route FINITE-AC; input LowerMertensCriticalEnvelope and any already certified fixed native Mertens power; exact source original ordered rank-one Euler kernel; changed step retain and count the unique floor-two boundary; new payment SJ2/SJ4 on explicitly reduced widths; return P/E1/E2/Z and all mixed terms; first unpaid estimate actual wider boundary then complete complement; global gain NONE.
+
+### K. Falsification, Precision And Novelty Audit
+
+All original coefficients, cutoffs, signs, occurrence multiplicities, reciprocal weights and squares use exact integers or rational arithmetic. No transcendental evaluation, probabilistic primality, random seed, floating sign or fitted exponent is used. Python arbitrary-precision integers and Fraction handle the genuine source. The C++ synthetic cross-check uses __int128 for products; all accumulators fit signed 64-bit in the declared finite test range. The paper family uses unbounded integers, not a claim that this machine program can run every m.
+
+Python forward/literal reconstruction and trial-factor inverse reconstruction agree exactly. The synthetic Python inverse row calculation and separate C++ forward column calculation agree exactly. These are DIFFERENT_IMPLEMENTATIONS / SELF_AUDIT within this invocation, not independent Referee acceptance. No mathematical assertion failed in the first executions; the later audit adds disclosed equality and exponent checks without changing earlier test domains or constants.
+
+The scoped novelty check inspected the original fractional/rank-one source, finite-C bridge and endpoint, asymmetric-corner report, one-sided Abel audit, uniform completed-coefficient source, and the relevant two-day reports. The previous asymmetric corner is a postroot region, not this historical floor-two strip. General Abel summation, triangular block controls and hyperbola identities are elementary; no worldwide novelty claim is made. The useful new content is the exact j=2 source restriction, its admissible reduced-width payment, and the explicit scope of the failed envelope-only extension. This is not a rerun of the known arbitrary-prefix MU-LIFT countermodel or the paid CORR4 sampling census.
+
+### L. Continuity And Specialist Handoffs
+
+Intake agent-reports HEAD e9b83d9687ae3e7585353eda7c910a48d1d91d84 contained BOTH November 7 and November 8 reports for all seven roles. TODAY=AVAILABLE for every role; relevant November 7 evidence is YESTERDAY=CARRY_FORWARD, not presumed rerun. The Coordinator AM/PM directory blobs match on each date, so each pair is one substantive source. External inbox 038018145c0fddb2f6306c0712373adf9cd1ea52 has no entry newer than October 18; q=R, genuine-prime, historical-anchor and original-denominator safeguards remain at their original scopes.
+
+Relevant continuity: Coordinator WS/SB complete-return questions remain qualified; Owner SG/RS/JT and today's PD/MC distinguish paid proper terms from complete complements; Analytic GL/FT/BC and MP/ND retain genuine sources and full-tail costs; Wheel DI/LR/OC and SP/HC supply the selected continuation; own SC/RC/TC need no unchanged rerun. Today's Referee DR accepts SP/TC only at stated geometric/identity scopes. Lean CC implements selected collision declarations, not their complete signed bills. As-published receipts read include today's Coordinator 12:38:31Z, Owner MC 13:30:29Z, Analytic ND 14:29:53Z and Wheel HC 15:46:20Z; historical unmerged wording is superseded by the live PR reads, not silently retained as current status.
+
+- Proof Architect: HC's next j=2 source has only one jump. SJ2/SJ4 pay precise subregions from existing inputs. The actual wide-strip conjecture survives; the whole complement and eta remain open. Keep the independent routes.
+- Finite Wheel: no higher jump levels occur under 4W<=R and the literal endpoints. Resume from the single boundary, not a multilevel census. The synthetic failure forbids an envelope-only all-coefficient extension, not your genuine conjecture. Your next protected MU-LIFT turn is unaffected.
+- Analytic: a stronger arbitrary-vector hyperbola estimate is not a necessary prerequisite. Seek genuine arithmetic structure only on the unpaid boundary if pursuing this route. The fixed-b SJ4 payment already uses the available native input; do not recount it as a global power gain.
+- Owner: the R=6 and R=15 sign reversals are original Euler-strip facts, not an identification with your prime-error allocation. All complements and phase terms remain separate.
+- Referee: independently audit SJ1 endpoint inequalities, the all-K SJ2 width and area estimate, SJ3's entire historical envelope and synthetic scope, and SJ4's actual fixed-power threshold. Author self-audit is not acceptance.
+- Lean: after independent acceptance and only with a useful active consumer, SJ1 and SJ2 are two possible small implementation units. Do not formalize the unproved full-strip bound as an assumed endpoint theorem. No new PR, workflow or launch was requested or performed here.
+
+### M. Ranked Experimental Hypothesis Portfolio
+
+| Rank | Hypothesis and evidence | Missing ingredient / decisive next test | Disposition |
+| --- | --- | --- | --- |
+| 1 | Genuine wide-strip absolute J2 <= C R sqrt K; all finite tests survive, but no proof | A source-specific restriction on the omitted hyperbolic boundary; test factor-preserving classes with full recombination | Continue as a precise CONJECTURE |
+| 2 | Narrowed strip needs new primitive cancellation: SJ2/SJ4 already pay it on paper | Independent review, then consume at exact width; no larger unchanged scan | Reject that prerequisite; retain the payment |
+| 3 | Envelope-only arbitrary-coefficient wide-strip theorem: SJ3 gives unbounded E2_f/R with K=1 | No more scaling needed; any repair must use additional hypotheses | REFUTED at synthetic scope |
+| 4 | Current NYMAN correction and OAI marked/kappa consumers: upstream ND/BC/SB provide distinct pending claims | Independent full-source review, no duplication of executed fixtures | Preserve independent alternatives |
+
+### N. Resume Capsule And Execution Limits
+
+RUN=20261108-census-2, scheduled 11:00:01 EST; RUN_ID_UNAVAILABLE.
+MAIN=30c9fade09be0a4cb12776cd324e9fd9a9ed44ac.
+NEW=single exact j=2 jump; genuine sign reversal R=6; <= boundary witness R=8;
+uniform narrower-width (61/9) payment; native proper-strip R^(3b-1) payment;
+explicit non-Mobius envelope-only obstruction with unbounded normalized strip.
+FINITE=10991 matched original strips, 81 full source/square returns, five exact
+Python/C++ synthetic certificates. NO_NEW_LEAN; INDEPENDENT_REVIEW_PENDING.
+NEXT=original wide-strip omitted boundary with multiplicativity retained;
+do not rerun unchanged HC/TC tables or infer an all-scale bound from finite ratios.
+FULL RETURN=all four scalar parts and ten square terms retained; canonical
+LOW and final unfinished-square O(R) allowance are inherited, not newly improved.
+GLOBAL=canonical VF/RH and improved complete HIGH remain open.
+
+Execution used Python 3.12.14 and g++ 13.3.0 (observed versions, rather than the environment's representative version). Compilation flags: -O2 -std=c++17 -Wall -Wextra -Werror. Measured principal runs: original probe 4.423234409 s, trial/inverse check 0.470899965 s, synthetic inverse 3.423026528 s; the captured comparison's C++ run took 0.145267501 s. These timings are diagnostics, not claims about other machines. All command sessions completed. No local Lean or unrequested remote write occurred. Scratch artifacts are not separate authorized repository commits.
+
+The appendices preserve all executed source, frozen registration, exact key outputs and input hashes. Raw multi-thousand-digit fractions are reproducibly generated by the scripts; compact table enclosures were obtained by integer floor/ceiling, not rounded floating point. Publication is claimed only in the verified receipt.
+
+
+### Immutable Source Ledger
+
+All main paths below were fetched at 30c9fade09be0a4cb12776cd324e9fd9a9ed44ac; every fetched blob matches the observed recursive main tree.
+
+| Path | Blob SHA |
+| --- | --- |
+| AGENTS.md | 0a99faf8458809ac772d470d704c5433f373bda8 |
+| CURRENT_PROOF_CONTRACT.md | d1d6fd558ee23927bd9f70ffdc375bafd1dbb67a |
+| docs/RHLEAN_COMPLETE_SIGNED_HIGH_ATTACK_20261107.md | be8168b67584d9d8ebbaa732a30c51509137543e |
+| docs/RHLEAN_REUSE_CANCELLATION_CHAIN_20261107.md | 28e2ab47c68bc83b91ae02b6112b94867b021b32 |
+| research/EULER_RANK_ONE_FRACTIONAL_ROWS_20261027.lean | e482711a3f55c1f59fc771f108671477f51732f2 |
+| research/EULER_FRACTIONAL_COUPLED_20261027.lean | e6c4b1690e497760d366e36b28a1f7aa60e19f85 |
+| research/EULER_SELF_DUAL_FINITE_C_BRIDGE_20261027.lean | e97561ef330a9996fd807d8910369f0698147b01 |
+| research/EULER_SELF_DUAL_ENDPOINT_GATE_20261027.lean | e7ee8f77ffd59bccaa49dd6d74fbe0d7952c2d73 |
+| RHLean/Proof/SquareRootLegalAncestryGramReduction.lean | 1270d4d91c53b50b110d10014f223f427fb7a575 |
+| research/oai_434/VF919ExplicitSlotTotalMass.lean | 71c5b7b5b8032ca3558467126fdf97d3caf1a7df |
+| RHLean/Analysis/CanonicalHighSectorCore.lean | dd02fc8fabfe4004c6b0d50374b3b8752607b168 |
+| RHLean/Analysis/CanonicalLowOccupancy.lean | b958da340d107cdd00015d2827b9a728357b4d8e |
+| research/VF_CANONICAL_SQRT_TWO_VON_KOCH.lean | 79030d70e8d3e0d08eef9bac53fef95c36eca2fb |
+
+### Two-Day Report Ledger
+
+These are the intake bytes, before this run's own append.
+
+| Role file | November 7 blob | November 8 blob |
+| --- | --- | --- |
+| 00-coordinator-am.md | 00a649b70f851ca193e74e5004d0d3390cf9ca18 | b6d5c65aed0537efd0018e11dbcd9a72dea3c15a |
+| 10-owner-payment.md | 933e8eb23e669594cc687059d75147e6267eec8d | dc8da662cdafc4bc96bcc3ccb29c3052eb1b4d99 |
+| 20-analytic-type-ii.md | 77f3e5795533041e4356ceb94cb66328da7af27c | 707aea15cc8e09f16cccf874c876bb04ede9ef14 |
+| 30-finite-wheel.md | 7739fa5d4cc77f35773b0d4149b2ddd21732a70d | 45e789c59f9165dbdf9dae352d7438dc468e9e70 |
+| 40-prime-census.md | 3fae830e34c590d32c31ad77cad3ace833eb3ff5 | 3cc1bbe7e0d9a80bdcaa630a2fb3c31d4b8f90c8 |
+| 50-adversarial-referee.md | 426c2abfa5b8926b512e07f05be37692a2416d0b | 9b691e84eeb8f2f9e2497604dc874935a61d5005 |
+| 60-lean-verification.md | ec14e2803af8c1e56123682ee61ed927ed4f9450 | 02647045bf731a52b3c726c9ea690b72fa48c274 |
+
+### Reproduction Commands
+
+The files below are embedded in full so this own-report-only publication is self-contained. Their original scratch location was /workspace. No separate repository script commit was made.
+
+```sh
+python /workspace/staircase_probe.py
+python /workspace/staircase_reference.py
+python /workspace/staircase_synthetic.py
+g++ -O2 -std=c++17 -Wall -Wextra -Werror /workspace/staircase_synthetic_reference.cpp -o /workspace/staircase-synthetic-reference
+/workspace/staircase-synthetic-reference
+python /workspace/staircase_audit.py
+```
+
+### Executed File Hashes
+
+```text
+77019a10b83d3c4c5d70dce66cb8def162569f5020d90f5f5d81d2558e4e1fd7  /workspace/staircase_probe.py
+dafd9eae27a64bf1edda1035c30e626df70333bde5f584ed9e699e49e4b3b3ec  /workspace/staircase_reference.py
+5a9290bf28dcf9bcb4bc58394ebd62f6c453488c7505597d5151441cb3a84831  /workspace/staircase_synthetic.py
+5a95cef099ad73262f1d87eeee00c8743756fdaca8312d83859d3201ccf69353  /workspace/staircase_synthetic_reference.cpp
+3385c4accb815e01924621168fdcdb68bd9d83de46d113784875f7ead3de1a6f  /workspace/staircase_audit.py
+a0b02ebaa2cc9b46739bab1d20483add77d42926fc136e92102f5d762397b43b  /workspace/staircase-registration.md
+edec7cac486559e752d7bcb2755d028f3817b9c9f6557f593c4a176e4736e5f2  /workspace/staircase-synthetic-registration.md
+```
+
+### Compact Captured Results
+
+The first object omits only the bulky exact fractions and full-return fixtures already summarized above; those are regenerated in staircase-results.json. The other objects preserve the corresponding captured structured outputs.
+
+#### Original probe
+
+```json
+{
+  "status": "PASS",
+  "python": "3.12.14",
+  "counts": {
+    "strip_cases": 10991,
+    "literal_sites": 5649735,
+    "strict_equalities": 3340,
+    "adaptive_checks": 1304,
+    "safe_width_checks": 1304,
+    "complete_ordered_sites": 276940,
+    "complete_returns": 81
+  },
+  "first_jump": {
+    "R": 6,
+    "W": 1,
+    "J": 1,
+    "E": "1/5",
+    "base": "-4/5",
+    "area": 1
+  },
+  "first_sign_reversal": {
+    "R": 6,
+    "W": 1,
+    "J": 1,
+    "E": "1/5",
+    "base": "-4/5",
+    "area": 1
+  },
+  "first_negative_jump": {
+    "R": 15,
+    "W": 1,
+    "J": -1,
+    "E": "-5/7",
+    "base": "2/7",
+    "area": 1
+  },
+  "maximum_sampled_ratio_squared": "3/200",
+  "maximum_sampled_ratio_fixture": {
+    "R": 40,
+    "W": 8,
+    "J": 6,
+    "E": "6",
+    "base": "0",
+    "area": 13,
+    "K": "3/2"
+  },
+  "record_sha256": "233e3098d9ad71de4e4e7f572db97e4d6a9fc673e4012af8eac1864738a941ca",
+  "elapsed_seconds": 4.423234409000088
+}
+```
+
+#### Independent inverse
+
+```json
+{
+  "status": "PASS",
+  "independent_trial_mu": 8192,
+  "inverse_cases": 10991,
+  "records_sha256": "233e3098d9ad71de4e4e7f572db97e4d6a9fc673e4012af8eac1864738a941ca",
+  "elapsed_seconds": 0.4708999650000578
+}
+```
+
+#### Synthetic control
+
+```json
+{
+  "status": "PASS",
+  "scope": "SYNTHETIC_NOT_MOBIUS",
+  "results": [
+    {
+      "m": 8,
+      "R": 786432,
+      "h": 512,
+      "L": 1024,
+      "K": 1,
+      "W": 196608,
+      "J": 394652,
+      "linear_J": 393216,
+      "error": 1436,
+      "violates_16_over_3": false
+    },
+    {
+      "m": 16,
+      "R": 12582912,
+      "h": 2048,
+      "L": 8192,
+      "K": 1,
+      "W": 3145728,
+      "J": 12606532,
+      "linear_J": 12582912,
+      "error": 23620,
+      "violates_16_over_3": false
+    },
+    {
+      "m": 32,
+      "R": 201326592,
+      "h": 8192,
+      "L": 65536,
+      "K": 1,
+      "W": 50331648,
+      "J": 403025357,
+      "linear_J": 402653184,
+      "error": 372173,
+      "violates_16_over_3": false
+    },
+    {
+      "m": 64,
+      "R": 3221225472,
+      "h": 32768,
+      "L": 524288,
+      "K": 1,
+      "W": 805306368,
+      "J": 12890559217,
+      "linear_J": 12884901888,
+      "error": 5657329,
+      "violates_16_over_3": false
+    },
+    {
+      "m": 128,
+      "R": 51539607552,
+      "h": 131072,
+      "L": 4194304,
+      "K": 1,
+      "W": 12884901888,
+      "J": 412397376316,
+      "linear_J": 412316860416,
+      "error": 80515900,
+      "violates_16_over_3": true
+    }
+  ],
+  "elapsed_seconds": 3.4230265280000367
+}
+```
+
+#### Post-discovery audit
+
+```json
+{
+  "status": "PASS",
+  "first_nonzero_equality": {
+    "R": 8,
+    "a": 3,
+    "b": 7,
+    "coefficient": 1
+  },
+  "synthetic_exact_matches": 5,
+  "cpp_elapsed_seconds": 0.10656696299997748,
+  "cpp_forward_columns": 14380032,
+  "python_inverse_rows": 4793344,
+  "native_component_budget": [
+    {
+      "b": "3/5",
+      "theta": "2/5",
+      "component": "4/5",
+      "saving": "2/5"
+    },
+    {
+      "b": "3/4",
+      "theta": "5/8",
+      "component": "5/4",
+      "saving": "1/4"
+    },
+    {
+      "b": "5/6",
+      "theta": "3/4",
+      "component": "3/2",
+      "saving": "1/6"
+    },
+    {
+      "b": "7/8",
+      "theta": "13/16",
+      "component": "13/8",
+      "saving": "1/8"
+    },
+    {
+      "b": "9/10",
+      "theta": "17/20",
+      "component": "17/10",
+      "saving": "1/10"
+    }
+  ],
+  "held_out_integer_enclosures": [
+    {
+      "R": 317,
+      "safe": false,
+      "W": 64,
+      "J": -4,
+      "E_floor": -3,
+      "E_ceil": -2
+    },
+    {
+      "R": 317,
+      "safe": true,
+      "W": 19,
+      "J": -6,
+      "E_floor": -8,
+      "E_ceil": -7
+    },
+    {
+      "R": 549,
+      "safe": false,
+      "W": 112,
+      "J": 13,
+      "E_floor": 11,
+      "E_ceil": 12
+    },
+    {
+      "R": 549,
+      "safe": true,
+      "W": 25,
+      "J": 7,
+      "E_floor": 6,
+      "E_ceil": 7
+    },
+    {
+      "R": 1027,
+      "safe": false,
+      "W": 209,
+      "J": -1,
+      "E_floor": -7,
+      "E_ceil": -6
+    },
+    {
+      "R": 1027,
+      "safe": true,
+      "W": 35,
+      "J": -2,
+      "E_floor": -3,
+      "E_ceil": -2
+    },
+    {
+      "R": 2002,
+      "safe": false,
+      "W": 408,
+      "J": 22,
+      "E_floor": 36,
+      "E_ceil": 37
+    },
+    {
+      "R": 2002,
+      "safe": true,
+      "W": 49,
+      "J": 2,
+      "E_floor": -1,
+      "E_ceil": 0
+    },
+    {
+      "R": 4096,
+      "safe": false,
+      "W": 836,
+      "J": 263,
+      "E_floor": 263,
+      "E_ceil": 263
+    },
+    {
+      "R": 4096,
+      "safe": true,
+      "W": 70,
+      "J": 6,
+      "E_floor": 6,
+      "E_ceil": 6
+    },
+    {
+      "R": 8192,
+      "safe": false,
+      "W": 1672,
+      "J": 181,
+      "E_floor": 199,
+      "E_ceil": 200
+    },
+    {
+      "R": 8192,
+      "safe": true,
+      "W": 100,
+      "J": -3,
+      "E_floor": -3,
+      "E_ceil": -2
+    }
+  ]
+}
+```
+
+#### Executed Artifact: staircase_probe.py
+
+~~~python
+"""Exact genuine-Mobius floor-two census; no inferred infinite bound."""
+
+from collections import Counter
+from fractions import Fraction as F
+from hashlib import sha256
+from itertools import accumulate
+from math import isqrt
+from pathlib import Path
+import json
+import platform
+import time
+
+
+def mobius(limit):
+    primes, mu, least = [], [0] * (limit + 1), [0] * (limit + 1)
+    mu[1] = 1
+    for n in range(2, limit + 1):
+        if not least[n]:
+            least[n] = n
+            primes.append(n)
+            mu[n] = -1
+        for p in primes:
+            if p * n > limit:
+                break
+            least[p * n] = p
+            if n % p == 0:
+                break
+            mu[p * n] = -mu[n]
+    return mu
+
+
+def width(r, k):
+    return isqrt(r * r * k.denominator // (16 * k.numerator))
+
+
+def safe_width(r, k):
+    return min(width(r, k), isqrt(isqrt(r * r * k.numerator // k.denominator)))
+
+
+def main():
+    start = time.perf_counter()
+    mu = mobius(317 * 317 - 1)
+    mertens = list(accumulate(mu))
+    kmins, k = {}, F(0)
+    for r in range(1, 8193):
+        k = max(k, F((mertens[r - 1] - 1) ** 2, r))
+        kmins[r] = k
+    counts, records, fixtures = Counter(), [], {}
+    first_jump = first_reversal = first_negative = None
+    max_ratio_sq = (F(-1), None)
+
+    def evaluate(r, w, literal):
+        nonlocal first_jump, first_reversal, first_negative, max_ratio_sq
+        n, x, b0 = r - 1, r * r - 1, r - w
+        lo, hi = n // 3 + 1, n // 2
+        m = mertens[hi] - mertens[lo - 1] if lo <= hi else 0
+        t = sum((mu[b] * (1 - F(r + 1, b)) for b in range(b0, r)), F(0))
+        if literal:
+            j = floor_sum = area = 0
+            for a in range(lo, hi + 1):
+                assert n // a == 2
+                for b in range(b0, r):
+                    delta = x // (a * b) - 2
+                    assert delta == int(3 * a * b <= x)
+                    counts['literal_sites'] += 1
+                    counts['strict_equalities'] += int(3 * a * b == x)
+                    j += mu[a] * mu[b] * delta
+                    floor_sum += mu[a] * mu[b] * (x // (a * b))
+                    area += delta
+            reciprocal = sum((F(mu[b], b) for b in range(b0, r)), F(0))
+            e = F(floor_sum) - 2 * (r + 1) * m * reciprocal
+            assert e == 2 * m * t + j
+        else:
+            # Forward column cutoffs, independently checked by inverse rows.
+            j = sum(mu[b] * (mertens[max(lo - 1, min(hi, x // (3 * b)))]
+                            - mertens[lo - 1]) for b in range(b0, r))
+            area = sum(max(0, min(hi, x // (3 * b)) - lo + 1) for b in range(b0, r))
+            e = 2 * m * t + j
+        assert 9 * area <= 2 * w * w + 11 * w
+        row = dict(R=r, W=w, J=j, E=str(e), base=str(2 * m * t), area=area)
+        records.append(row)
+        counts['strip_cases'] += 1
+        if j and first_jump is None:
+            first_jump = row
+        if e * (2 * m * t) < 0 and first_reversal is None:
+            first_reversal = row
+        if j < 0 and first_negative is None:
+            first_negative = row
+        return row
+
+    for r in range(2, 257):
+        for w in range(r // 4 + 1):
+            evaluate(r, w, True)
+
+    for r in list(range(2, 257)) + [317, 549, 1027, 2002, 4096, 8192]:
+        for k in sorted({kmins[r], 2 * kmins[r], F(r), F(r * r), F(100 * r * r)}):
+            for safe in [False, True]:
+                w = safe_width(r, k) if safe else width(r, k)
+                row = evaluate(r, w, False)
+                e = F(row['E'])
+                if safe:
+                    assert e * e <= F(61, 9) ** 2 * r * r * k
+                    counts['safe_width_checks'] += 1
+                else:
+                    ratio_sq = e * e / (r * r * k)
+                    if ratio_sq > max_ratio_sq[0]:
+                        max_ratio_sq = (ratio_sq, dict(row, K=str(k)))
+                    counts['adaptive_checks'] += 1
+                if r > 256 and k == kmins[r]:
+                    fixtures[f'{r}:{safe}'] = dict(row, K=str(k))
+
+    complete = []
+    for r in list(range(2, 81)) + [99, 317]:
+        x, n, k = r * r - 1, r - 1, kmins[r]
+        w, b0 = width(r, k), r - width(r, k)
+        a1 = x // (2 * b0) + 1
+        lo, hi = n // 3 + 1, n // 2
+        parts = [F(0), F(0), F(0)]
+        q = 0
+        for a in range(1, r):
+            for b in range(1, r):
+                f = x // (a * b)
+                q += mu[a] * mu[b] * f
+                value = mu[a] * mu[b] * (f - F(r + 1, b) * (n // a))
+                sector = 0 if w and a >= a1 and b >= b0 else (
+                    1 if w and lo <= a <= hi and b >= b0 else 2)
+                parts[sector] += value
+                counts['complete_ordered_sites'] += 1
+        p = (r + 1) * sum((F(mu[b], b) for b in range(1, r)), F(0))
+        all_parts = [p] + parts
+        assert q == sum(all_parts) == 2 * mertens[n] - mertens[x]
+        diagonal = sum(v * v for v in all_parts)
+        mixed = sum(2 * all_parts[i] * all_parts[j] for i in range(4) for j in range(i + 1, 4))
+        assert q * q == diagonal + mixed
+        complete.append(dict(R=r, Q=q, parts=list(map(str, all_parts)), cross=str(mixed)))
+    counts['complete_returns'] = len(complete)
+
+    encoded = json.dumps(records, sort_keys=True, separators=(',', ':'))
+    Path('/workspace/staircase-records.json').write_text(encoded + '\n')
+    out = dict(status='PASS', python=platform.python_version(), counts=dict(counts),
+               first_jump=first_jump, first_sign_reversal=first_reversal,
+               first_negative_jump=first_negative, held_out=fixtures,
+               maximum_sampled_ratio_squared=str(max_ratio_sq[0]),
+               maximum_sampled_ratio_fixture=max_ratio_sq[1],
+               complete_fixtures=[v for v in complete if v['R'] in [6, 99, 317]],
+               record_sha256=sha256(encoded.encode()).hexdigest(),
+               elapsed_seconds=time.perf_counter() - start)
+    Path('/workspace/staircase-results.json').write_text(json.dumps(out, indent=2) + '\n')
+    print(json.dumps(out, indent=2))
+
+
+if __name__ == '__main__':
+    main()
+~~~
+
+#### Executed Artifact: staircase_reference.py
+
+~~~python
+"""Independent trial-factor coefficients and inverse row geometry."""
+
+from fractions import Fraction as F
+from hashlib import sha256
+from pathlib import Path
+import json
+import time
+
+
+def trial_mu(n):
+    value, p = 1, 2
+    while p * p <= n:
+        if n % p == 0:
+            n //= p
+            value = -value
+            if n % p == 0:
+                return 0
+        p += 1
+    return -value if n > 1 else value
+
+
+start = time.perf_counter()
+mu = [0] + [trial_mu(n) for n in range(1, 8193)]
+prefix = [0]
+for v in mu[1:]:
+    prefix.append(prefix[-1] + v)
+rows = json.loads(Path('/workspace/staircase-records.json').read_text())
+for row in rows:
+    r, w = row['R'], row['W']
+    n, x, b0 = r - 1, r * r - 1, r - w
+    lo, hi = n // 3 + 1, n // 2
+    # Sum a rows with independently reconstructed b intervals.
+    j = sum(mu[a] * (prefix[max(b0 - 1, min(n, x // (3 * a)))] - prefix[b0 - 1])
+            for a in range(lo, hi + 1))
+    m = sum(mu[lo:hi + 1])
+    t = sum((F(mu[b] * (b - r - 1), b) for b in range(b0, r)), F(0))
+    assert j == row['J']
+    assert 2 * m * t + j == F(row['E'])
+    area = sum(max(0, min(n, x // (3 * a)) - b0 + 1) for a in range(lo, hi + 1))
+    assert area == row['area']
+out = dict(status='PASS', independent_trial_mu=8192, inverse_cases=len(rows),
+           records_sha256=sha256(json.dumps(rows, sort_keys=True, separators=(',', ':')).encode()).hexdigest(),
+           elapsed_seconds=time.perf_counter() - start)
+Path('/workspace/staircase-reference-results.json').write_text(json.dumps(out, indent=2) + '\n')
+print(json.dumps(out, indent=2))
+~~~
+
+#### Executed Artifact: staircase_synthetic.py
+
+~~~python
+"""NON-MOBIUS envelope-only control: exact inverse-boundary enumeration."""
+
+from pathlib import Path
+import json
+import time
+
+
+def column_prefix(d, h):
+    blocks, last = divmod(d, 3)
+    _, r = divmod(blocks, 2 * h)
+    base = -r if r <= h // 2 else (r - h if r <= 3 * h // 2 else 2 * h - r)
+    sign = 1 if h // 2 <= r < 3 * h // 2 else -1
+    return 3 * base + last * sign
+
+
+start = time.perf_counter()
+results = []
+for m in [8, 16, 32, 64, 128]:
+    r, h, length = 192 * m ** 4, 8 * m * m, 2 * m ** 3
+    a0, w = r // 3, r // 4
+    assert length % (2 * h) == 0 and 3 * length <= w
+    assert a0 + length <= (r - 1) // 2
+    assert h * h <= a0 + 1
+    assert (3 * h // 2) ** 2 <= r - 3 * length + 1
+    assert column_prefix(3 * length, h) == 0
+    assert 32 * (1 + (3 * length) ** 2 // (3 * (r - 3 * length)) + 1) <= h
+    j = 0
+    for x in range(1, length + 1):
+        sign = 1 if (x - 1) % (2 * h) < h else -1
+        denominator = r + 3 * x
+        first = (3 * r * x + 1 + denominator - 1) // denominator
+        j -= sign * column_prefix(first - 1, h)
+    j0 = 3 * length * h // 4
+    assert 32 * abs(j - j0) <= 3 * length * h
+    assert 128 * j >= 7 * m * r
+    results.append(dict(m=m, R=r, h=h, L=length, K=1, W=w, J=j,
+                        linear_J=j0, error=j - j0,
+                        violates_16_over_3=(3 * j > 16 * r)))
+out = dict(status='PASS', scope='SYNTHETIC_NOT_MOBIUS', results=results,
+           elapsed_seconds=time.perf_counter() - start)
+Path('/workspace/staircase-synthetic-results.json').write_text(json.dumps(out, indent=2) + '\n')
+print(json.dumps(out, indent=2))
+~~~
+
+#### Executed Artifact: staircase_synthetic_reference.cpp
+
+~~~cpp
+#include <algorithm>
+#include <cassert>
+#include <cstdint>
+#include <iostream>
+
+using i64 = std::int64_t;
+using i128 = __int128_t;
+
+int main() {
+    for (i64 m : {8, 16, 32, 64, 128}) {
+        const i64 R = 192 * m * m * m * m;
+        const i64 h = 8 * m * m;
+        const i64 L = 2 * m * m * m;
+        i64 J = 0, linear = 0, column = 0, max_column = 0;
+        for (i64 d = 1; d <= 3 * L; ++d) {
+            const i64 x = (d - 1) / 3;
+            const i64 phase = x % (2 * h);
+            const i64 sign = (h / 2 <= phase && phase < 3 * h / 2) ? 1 : -1;
+            const i64 c = static_cast<i64>((static_cast<i128>(R) * d - 1) / (3 * (R - d)));
+            auto prefix = [h, L](i64 u) {
+                if (u < 0 || u > L) return i64{0};
+                const i64 a = u % (2 * h);
+                return std::min(a, 2 * h - a);
+            };
+            assert(c >= x && 32 * (c - x) <= h);
+            J += sign * prefix(c);
+            linear += sign * prefix(x);
+            column += sign;
+            max_column = std::max(max_column, column < 0 ? -column : column);
+        }
+        assert(column == 0 && max_column == 3 * h / 2);
+        assert(linear == 3 * L * h / 4);
+        assert(32 * (J > linear ? J - linear : linear - J) <= 3 * L * h);
+        assert(128 * J >= 7 * m * R);
+        std::cout << m << '\t' << R << '\t' << J << '\t' << linear << '\t' << max_column << '\n';
+    }
+}
+~~~
+
+#### Executed Artifact: staircase_audit.py
+
+~~~python
+"""Post-discovery certificate comparison and small original-source fixtures."""
+
+from fractions import Fraction as F
+from pathlib import Path
+import json
+import subprocess
+import time
+
+from staircase_probe import mobius, width
+
+
+mu = mobius(300)
+first_equality = None
+for r in range(2, 257):
+    for a in range((r - 1) // 3 + 1, (r - 1) // 2 + 1):
+        for b in range(r - r // 4, r):
+            if 3 * a * b == r * r - 1 and mu[a] * mu[b]:
+                first_equality = dict(R=r, a=a, b=b, coefficient=mu[a] * mu[b])
+                break
+        if first_equality:
+            break
+    if first_equality:
+        break
+assert first_equality == dict(R=8, a=3, b=7, coefficient=1)
+assert width(15, F(9)) == 1
+total = 0
+for y in range(15):
+    total += mu[y]
+    assert (total - 1) ** 2 <= 9 * (y + 1)
+
+models = json.loads(Path('/workspace/staircase-synthetic-results.json').read_text())['results']
+start = time.perf_counter()
+raw = subprocess.check_output(['/workspace/staircase-synthetic-reference'], text=True)
+elapsed = time.perf_counter() - start
+for fields, expected in zip(raw.strip().splitlines(), models, strict=True):
+    m, r, j, j0, maximum = map(int, fields.split())
+    assert (m, r, j, j0) == tuple(expected[k] for k in ['m', 'R', 'J', 'linear_J'])
+    assert maximum == 3 * expected['h'] // 2
+
+native_budget = []
+for b in [F(3, 5), F(3, 4), F(5, 6), F(7, 8), F(9, 10)]:
+    theta = (3 * b - 1) / 2
+    assert 0 < theta < b < 1
+    assert 2 * b + theta - 1 <= 2 * theta == 3 * b - 1 < 2 * b
+    native_budget.append(dict(b=str(b), theta=str(theta), component=str(3 * b - 1), saving=str(1 - b)))
+
+full = json.loads(Path('/workspace/staircase-results.json').read_text())
+held_out = []
+for key, item in full['held_out'].items():
+    e = F(item['E'])
+    held_out.append(dict(R=item['R'], safe=key.endswith('True'), W=item['W'],
+                         J=item['J'], E_floor=e.numerator // e.denominator,
+                         E_ceil=-((-e.numerator) // e.denominator)))
+out = dict(status='PASS', first_nonzero_equality=first_equality,
+           synthetic_exact_matches=len(models), cpp_elapsed_seconds=elapsed,
+           cpp_forward_columns=sum(3 * v['L'] for v in models),
+           python_inverse_rows=sum(v['L'] for v in models),
+           native_component_budget=native_budget, held_out_integer_enclosures=held_out)
+Path('/workspace/staircase-audit-results.json').write_text(json.dumps(out, indent=2) + '\n')
+print(json.dumps(out, indent=2))
+~~~
+
+#### Executed Artifact: staircase-registration.md
+
+~~~markdown
+# Frozen FINITE-AC Floor-Two Experiment
+
+Run: 20261108-census-2, scheduled 2026-11-08 11:00:01 EST.
+Source: main 30c9fade09be0a4cb12776cd324e9fd9a9ed44ac.
+Purpose: test the j=2 moving-boundary inference in 20261108-wheel-2/HC.
+
+Original definitions: N=R-1, X=R^2-1; genuine Mobius mu;
+T(a,b)=floor(X/(ab))-(R+1)floor(N/a)/b.
+K>=0 satisfies (M(y)-1)^2<=K(y+1) for every 0<=y<R.
+W=floor(R/(4sqrt(K))), B=R-W, I2=[floor(N/3)+1,floor(N/2)].
+E2=sum_(a in I2,B<=b<R) mu(a)mu(b)T(a,b).
+J2=sum mu(a)mu(b)(floor(X/(ab))-2).
+W=0 means empty strip; ordered occurrences, squareful zeros retained.
+
+Competing hypotheses, before execution:
+1. The staircase can be erased without changing sign or payment: seek a
+   smallest genuine nonzero jump and strict sign reversal.
+2. The exact endpoint admits only a single jump, with an explicit
+   moving-boundary bilinear form, not an unrestricted multilevel floor.
+3. Historical prefix control alone gives a uniform O(R sqrt(K)) strip
+   bound even for bounded nonmultiplicative coefficients. This is an
+   explicitly synthetic diagnostic, not a statement about genuine mu.
+4. A genuine-mu O(R sqrt(K)) strip estimate survives, but needs a new
+   boundary estimate beyond the already paid separable term.
+
+Discovery: all R=2..256 and all W=0..floor(R/4); adaptive valid K in
+{Kmin,2Kmin,R,R^2,100R^2}; include strict equality boundaries.
+Held-out: R in {317,549,1027,2002,4096,8192}; adaptive K values as above.
+Literal complete source and all square cross terms: R=2..80 plus 99,317.
+Independent algorithm: forward floor enumeration versus inverse hyperbola
+row-prefix enumeration, independently trial-factored Mobius values.
+All accept/reject comparisons exact integers/rationals; no decimal signs.
+
+Synthetic investigation: derive a bounded-prefix block construction in the
+same strip to discriminate envelope-only reasoning. Freeze its formula and
+test domain in a dated addendum before executing it; it must not be
+substituted for genuine mu or the complete Mertens identity.
+
+Stop: once the minimal genuine falsifier and boundary structure are verified,
+do not extend an unchanged census. Do not fit an exponent or universal
+constant from a finite maximum. Full complement remains in Q=P+E1+E2+Z.
+Unfinished Coordinator NYMAN independent review is not declared completed:
+Analytic ND has already executed those prescribed fixtures; this run selects
+the newer, nonduplicate HC handoff under the live route selector.
+
+## Implementation-Stage Pencil Extension
+
+The safe-width hypothesis was derived after the original checkpoint and
+included in the first implementation before any test output was inspected.
+Let Wsafe be the largest integer W satisfying 16*K*W^2<=R^2 and
+W^4<=R^2*K. Test |E2(R,Wsafe)|<=(61/9)*R*sqrt(K), by squaring
+with exact rational arithmetic. This changes the admitted width, not the
+original wide-strip conjecture; the difference remains in the complement.
+Its paper proof uses the explicit jump-site count
+9*card{(a,b) in strip:3ab<=X}<=2W^2+11W.
+No constant was selected from computed maxima.
+~~~
+
+#### Executed Artifact: staircase-synthetic-registration.md
+
+~~~markdown
+# Synthetic Boundary-Control Addendum
+
+Prepared before execution. This is a deliberately NON-MOBIUS coefficient
+family on the same ordered strip, solely testing an envelope-only inference.
+It is not a counterexample to finite-C, the genuine j=2 conjecture, or RH.
+
+For m a positive multiple of 8, set R=192*m^4, K=1, W=R/4,
+a0=R/3, h=8*m^2, L=2*m^3. Let f(1)=1. On a=a0+x,
+1<=x<=L, use +1 for (x-1) mod (2h)<h and -1 otherwise.
+On b=R-d, 1<=d<=3L, put x=floor((d-1)/3), and f(b)=+1
+when h/2 <= x mod (2h) < 3h/2, -1 otherwise. Else f=0.
+Both support sums are zero. They are disjoint and lie in the genuine
+historical floor-two row strip and column band.
+
+Let F(u) be the triangular row prefix, zero outside [0,L]. The exact
+hyperbolic cutoff is c(d)=floor((R*d-1)/(3*(R-d))). Compute
+J=sum_(d=1..3L) f(R-d)*F(c(d)). Independent inverse form:
+J=sum_(x=1..L) f(a0+x)*(-C(ceil((3*R*x+1)/(R+3*x))-1)),
+where C is the column coefficient prefix in increasing d.
+
+Frozen tested m: 8,16,32,64,128. Python inverse formula versus independent
+C++ forward formula, with exact 128-bit products where needed.
+Check full historical shifted-prefix envelope with K=1 by support extrema
+and interval monotonicity, not sampling unrepresented zero gaps.
+Check J0=3*L*h/4 for the linear-boundary comparison; prove and test
+|J-J0|<=3*L*h/32, hence J/R>=7*m/128. The ratio diverges in the
+paper family only; finite computed ratios are not an exponent fit.
+The separable strip term vanishes exactly since sum_row f=0.
+The synthetic global Mertens/convolution identity is NOT used.
+~~~
+
+
+
+### Prepublication Freshness - 20261108-census-2
+
+At 2026-11-08 16:19:39 UTC, main was still 30c9fade09be0a4cb12776cd324e9fd9a9ed44ac and agent-reports was the verified checkpoint 7dd71f8ed80b938a9d290dffc009612f2640b79f. The final validator passed 14 A-N sections, balanced fences, table layout, seven byte-exact embedded artifacts and their SHA-256 values, the original record digest and all five cross-language synthetic matches. Three portfolio table rows initially had an extra cell; that formatting-only validation failure was repaired before publication. A pre-write completeness check initially rejected the harmless blank line after the final code fence; its corrected check confirms the exact 54760-character local append. Neither guard failure changed arithmetic or prior report content. Validated append SHA-256: bd585681feb7ad43954b604358a6977209f3f1f5079d4c32ffa2cc7c6ac5e67e. Final preparation clock: 2026-11-08 16:21:10 UTC. The repeated post-discovery audit passed, with a final measured C++ comparison runtime of 0.106566963 s; the earlier 0.145267501 s measurement in N is preserved as observed.
+
+This substantive append preserves all prior daily content byte-for-byte. Its publication is not inferred from this text; the following receipt records the actual immutable readback.
