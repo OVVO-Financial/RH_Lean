@@ -27,3 +27,11 @@ Today: Owner PD, Analytic MP, Wheel SP, Census TC and Referee DR reports retriev
 Next: finish source/consumer and no-duplication audit; prove the selected independent claim without additional desired-bound hypotheses; use only authorized non-main branch and draft PR; compile only in GitHub Actions with warning-fatal, exact-type, import/inventory and terminal-axiom evidence. Then append exact results, failures/repairs, source SHAs, actual CI URLs, mathematical significance and next-run capsule to this report. No agent launch, main push, merge, auto-merge or schedule change.
 
 Shell GitHub cloning is unavailable (CONNECT tunnel 403); the GitHub connector works. This transport failure does not by itself constitute blocked proof-write access.
+
+## Implementation Milestone - 20261108-lean-1
+
+Draft PR [#1109](https://github.com/OVVO-Financial/RH_Lean/pull/1109) opened at 2026-11-08T10:22:39Z. Branch agent/lean-verification/20261108-corr4-cutoff-collisions; base bf4af1cd18aff7c3944a75991aa66371c8afc18a; initial head aec2b7041f328b67ca59c7c4401acd94367f5b29. Six focused files include one actual Lean proof module and its dedicated exact-head workflow, fixed types, axiom/inventory checks, finite controls and proof note.
+
+Selected accepted claims: 20261108-wheel-1/SP2 and determinant/parity from 20261108-census-1/TC1, with accepted TC4 witness. Own implementation ID: 20261108-lean-1/CC. The proof attempt gives smaller-range off-ray injectivity, doubled-range parity injectivity, and a multiplicity-two image transfer for every nonnegative weight, specialized to actual Mertens squares. Pairwise geometry needs no active-square mask and only one off-ray premise; these strengthening observations are SELF_AUDIT. Original admitted energy populations keep the exact strict mask.
+
+Static inventory and Python syntax passed; exact finite checks covered 13,175 events and seven double columns, with the legal 556/657 collision and excluded-ray controls. No local Lean execution. Implementation=DRAFT_PR / CI_PENDING; mathematical status=PAPER_PROOF until the dedicated warning-fatal/exact-type/terminal-axiom job succeeds. No new global exponent is asserted. The actual signed bill retains parent, history, rays, tail, diagonal and all mixed interactions.
