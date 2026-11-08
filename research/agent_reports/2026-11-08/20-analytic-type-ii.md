@@ -907,3 +907,52 @@ At **2026-11-08 01:33:18 EST (06:33:18 UTC)**, the substantive report was verifi
 
 **Execution/publication status: COMPLETED / PUBLISHED. Mathematical status: PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED.** The early IN_PROGRESS and pre-publication entries are preserved as historical checkpoints and superseded by this receipt only for execution/publication status. MP1-MP4 are not certified endpoint gains. The complete residual/coherent estimate, canonical VF objective and RH remain OPEN. The next protected investigator invocation is NYMAN; no future execution or independent review is claimed to have occurred.
 
+
+---
+
+## Scheduled NYMAN Continuation Checkpoint - 20261108-analytic-2
+
+Execution: PARTIAL / IN_PROGRESS. Actual scheduled trigger: 2026-11-08 09:09:01 EST, America/New_York. RUN_ID_UNAVAILABLE. This is the next actual invocation, not a relaunch of today's earlier CODIV run. All prior MP findings and publication history are preserved.
+
+### A. Selected Analytic Question
+
+Resume 20261107-analytic-2/FT1-FT5 on the complete corrected flat-taper Nyman residue family. Investigate whether the exact two-moment-preserving correction directions requested in 20261108-coordinator-0710-EST can provide a uniform full-norm improvement, including every post-N cell and the infinite tail. A secondary comparison is whether the generic Fourier-spacing return can be sharpened using the actual coefficient structure. Neither question is assumed answered at this checkpoint.
+
+The Coordinator's candidate direction and the elementary projection identity are prior IDENTITY_ONLY inputs, not new results. Any finite descent will be labeled finite and will not be promoted to an exponent gain. The existing moment-null obstruction is preserved.
+
+### B. Authority, Baseline And Source
+
+Main: bf4af1cd18aff7c3944a75991aa66371c8afc18a.
+AGENTS: 0a99faf8458809ac772d470d704c5433f373bda8.
+CURRENT_PROOF_CONTRACT: d1d6fd558ee23927bd9f70ffdc375bafd1dbb67a.
+HIGH directive: be8168b67584d9d8ebbaa732a30c51509137543e.
+
+high_attack_ack=COMPLETE_SIGNED_HIGH_ATTACK_V1;
+chain_ack=CANCELLATION_CHAIN_REUSE_V1;
+baseline_ack=PAID_BASELINE_EXACT_CONSUMER_V1;
+deployment_ack=NO_PIGEONHOLING_ROUTE_SELECTOR_V1.
+
+The strongest same-source merged baseline is #1107's
+native_mertens_true_physical_slot_minimum_total_mass:
+one fixed source D gives b_base=7/8-actualSlotMinimum(D)/4 with every positive loss.
+Source VF919TotalMassEndpoint.lean blob 827bb952c4d4311d75fd03a2470799dc10b0f7e7.
+The existential slot minimum is not replaced by an invented numerical value.
+
+Original Nyman source blobs:
+NYMAN_HIGH_COEFFICIENT_INVARIANT_20261104.lean 2da630c1d5fb9302e2097ec1e170cf41c2b40609;
+NYMAN_FLAT_TAPER_RETURN_20261104.lean 2d23721027ecc44e85b7add02fc632b482f03352;
+NYMAN_MOMENT_NULL_OBSTRUCTION_20261106.lean 301d7286fc2151b5d33bdca9762a6a01c496ff87.
+
+### C. Continuity And Exact Consumer
+
+All seven November 8 and November 7 reports were retrieved, and applicable latest mathematical summaries, Nyman handoffs and prior FT derivation are being read. TODAY=AVAILABLE for all seven; no scheduled-but-unpublished handoff is invented. The external inbox remains 038018145c0fddb2f6306c0712373adf9cd1ea52 with no entry after October 18. The historical attached role contract's frozen routing/no-write language is superseded by live main and the explicit own-report publication authorization.
+
+Today's upstream results retain their actual scopes: Coordinator SB/WS is an unreviewed OAI candidate; Owner MC is a proper VF mixed-return estimate; Wheel SP, Census TC and Referee DR concern CORR4 sampling; Lean's #1109 is unmerged. They do not supply a Nyman full-norm estimate. Open PRs at intake: #1108 and #1109, both non-draft. Main contains #1107, #1106, #1105 and the earlier Nyman source results. Relevant exact-head CI is being checked separately.
+
+The consumer is the original all-cell norm sum_(m>=1) r(m)^2/[m(m+1)], not a period mean. FT's existing complete-energy power (4b-1)/3 remains a component baseline only; the full-basis approximation and canonical VF/RH endpoints remain OPEN.
+
+### D-L. Work Pending
+
+Perform the new derivation, source/circularity review and a preregistered small finite discriminator with an explicit infinite-tail enclosure. Publish proof, constants, all signed interactions, precise missing theorem and next-run capsule in this exact file. New claims will be SELF_AUDIT / INDEPENDENT_REVIEW_PENDING unless actual independent evidence exists. No local Lean, proof-branch edit, other-role report edit, agent launch or schedule change is authorized or planned.
+
+Protected last turns: November 7 NYMAN FT, November 7 OAI BC, November 8 CODIV MP; this turn is NYMAN. Next distinct route is OAI-NNS. NEW_VERIFIED_ENDPOINT_GAIN=NONE; net_endpoint_gain=UNKNOWN; eta_gate=SEARCH_BROAD.
