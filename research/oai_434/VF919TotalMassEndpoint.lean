@@ -173,8 +173,8 @@ theorem native_beta_le_total_mass_boundary
     (sourceCorrection_analytic_wide chi F.S F.exclusions)
     (sourceCorrection_bound_wide chi F.S F.exclusions)
     ?_ ?_ hboundary hpole') hzero'
-  · convert hlow loss hloss using 1 <;> ring_nf
-  · convert hhigh using 1 <;> ring_nf
+  · convert hlow loss hloss using 1; ring_nf
+  · convert hhigh using 1; ring_nf
 
 end SevenEighths.RHLeanNativeSevenEighthsReplay
 
@@ -305,10 +305,10 @@ theorem native_mertens_true_physical_slot_minimum_total_mass :
 theorem native_mertens_fixed_true_physical_slot_minimum_total_mass :
     ∃ D : Parameters.HighData (1 / 1000000 : ℝ),
       0 < actualSlotMinimum D ∧
-      MertensPowerBound (7 / 8 - actualSlotMinimum D / 8) := by
+      MertensExponent.MertensPowerBound (7 / 8 - actualSlotMinimum D / 8) := by
   obtain ⟨D, hD, hgrowth⟩ := native_mertens_true_physical_slot_minimum_total_mass
   refine ⟨D, hD, ?_⟩
-  convert hgrowth (actualSlotMinimum D / 8) (by positivity) using 1 <;> ring
+  convert hgrowth (actualSlotMinimum D / 8) (by positivity) using 1; ring
 
 /-- Complete integer-by-integer signed return, retaining every lag pair
 and the actual squarefree diagonal. -/

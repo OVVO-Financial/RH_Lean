@@ -144,7 +144,7 @@
         {
           "kind": "theorem",
           "name": "RHLean.Analysis.native_mertens_fixed_true_physical_slot_minimum_total_mass",
-          "type_sha256": "6a87f9f1570ac0dcd4f66b3e980d6d7b072dd53d3c08d392dcb4bf5d4b5ff1eb"
+          "type_sha256": "d52535f9f2ec9362b33a4d70f11ae1ae15a327289e6a4c033396c2a7423134c3"
         },
         {
           "kind": "theorem",
@@ -154,5 +154,5 @@
       ]
     }
   ],
-  "exact_types_sha256": "3efb545029e09fbee5cf2aca7440117316769b53c8dfe74a101d9ce52e6f16b3"
+  "exact_types_sha256": "9b858f2c6791c02dff7e8895d0553ee9cf38d0d33b0808e8604a6c80041d2e63"
 }

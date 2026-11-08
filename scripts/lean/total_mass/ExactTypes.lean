@@ -445,7 +445,7 @@ example :
 example :
     ∃ D : Parameters.HighData (1 / 1000000 : ℝ),
       0 < actualSlotMinimum D ∧
-      MertensPowerBound (7 / 8 - actualSlotMinimum D / 8) :=
+      MertensExponent.MertensPowerBound (7 / 8 - actualSlotMinimum D / 8) :=
   @_root_.RHLean.Analysis.native_mertens_fixed_true_physical_slot_minimum_total_mass
 
 
