@@ -1714,3 +1714,516 @@ G(N)=sum_(2<=n<N)[pi(n)-floor(Li_2(n))-1], with the true triangular event weight
 November 7 and November 8 reports for all seven roles are retrieved: TODAY=AVAILABLE; YESTERDAY=CARRY_FORWARD at original scopes. Latest Coordinator 20261108-coordinator-1513-EST expressly assigns this protected JOH question. Own SAT PD and VF-LOW MC results are preserved; the last three protected routes will be SAT/VF-LOW/JOH, next SAT. JT analytic claims remain SELF_AUDIT / INDEPENDENT_REVIEW_PENDING, not automatically accepted by the new invocation. The external inbox 038018145c0fddb2f6306c0712373adf9cd1ea52 has no newer entry after October 18. Its source-preservation qualifications remain in force.
 
 Next: derive the exact paired-kernel response, attempt to disprove a favorable symmetry sign, and determine any complete-return consequence with every square cross term restored. No new zero scan is planned. Canonical VF, eventual JOH sign, q(X)->0, finite A and RH remain OPEN. Publication verification for this checkpoint follows from actual commit/readback, not this text. No local Lean, other-agent launch, source/PR/main edit or schedule change is authorized or performed.
+
+
+## Exact JOH Reflection And Finite-Packet Obstruction - 20261108-owner-3
+
+### A. Most Important Mathematical Development
+
+**PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED.** Functional-equation pairing does not make the dangerous Johnston spectrum cancel locally. The two reflected real parts have the SAME oscillatory curvature, multiplied by a positive hyperbolic-cosine factor. More importantly, any fixed finite conjugation-closed collection of genuine zeros with rightmost real part beta_*>1/2 has positive and negative excursions larger than the prime-square bias on a positive logarithmic proportion of the ORIGINAL square endpoints N=R^2. All interactions within that collection are retained; no independent-phase hypothesis is used.
+
+This answers the current Coordinator's protected JOH question with a precise no-narrowing result: even allowing a separate constant for every finite symmetry packet, the assertion that each packet's negative part is eventually O(N^(3/2)/log N) is **RH-equivalent**. It is not an independently supplied local payment. The statement is not declared false for actual zeta zeros: existence of an off-critical zero is not asserted.
+
+There is also an exact original-source inverse consequence. On the adverse square endpoints for any such fixed packet, either G itself is positive at the packet's larger scale, or the remaining spectrum must supply a comparably large POSITIVE compensation. The already-paid JT tail can further locate that compensation in OTHER dangerous low zeros. This is a necessary interaction, not a proof that it is impossible.
+
+| Claim | Result | Scope |
+| --- | --- | --- |
+| 20261108-owner-3/JS1 | Exact kernel differential equation, lower-end data and coherent reflected curvature | PAPER_PROOF; structural identity |
+| JS2 | Complete finite-packet logarithmic first/second moments and two-sided positive logarithmic-density excursions on N=R^2 | PAPER_PROOF; fixed packet, no growing-height uniformity |
+| JS3 | Packetwise prime-square-scale lower budget iff RH | TARGET_EQUIVALENT; proved equivalence, not an assumed or refuted actual-zero bound |
+| JS4 | Complete-source failure-or-complement-compensation dichotomy, with all quadratic terms | CONDITIONAL inverse theorem if a genuine off-critical packet exists; PAPER_PROOF |
+| JS5 | Exact derivative, Fourier multiplicity, resonance and full-square diagnostics; synthetic analytic-mode negative control | FINITE_COMPUTATION; not a zero census |
+
+**NEW_VERIFIED_ENDPOINT_GAIN=NONE; net_endpoint_gain=NONE; eta_gate=SEARCH_BROAD.** The advance is a quantified obstruction to the proposed finite-packet mechanism, not a new Mertens exponent, JOH sign, finite-A bound or RH proof. The elementary harmonic argument has no literature-priority claim; its application here resolves the exact fixed-packet question left by JT and the latest Coordinator handoff.
+
+### B. Current Authoritative Objective
+
+Actual invocation: SCHEDULED, 2026-11-08 16:15:01 EST (UTC-05:00), America/New_York; RUN_ID_UNAVAILABLE. Main at intake is **829aa93ec4a2117db4a5920b121c0ed70681b4e5**. Authority: AGENTS **bdd5b9f6867ae2d39b74fc966b7f548a9aba3a61**, CURRENT_PROOF_CONTRACT **d1d6fd558ee23927bd9f70ffdc375bafd1dbb67a**, all-route directive **5862ccaffd0e75c25b509c1d246c3aa09b6c345b**. Acknowledgments are REPO_WIDE_PROOF_DAG_AND_AGENTS_20261108, COMPLETE_SIGNED_HIGH_ATTACK_V1, CANCELLATION_CHAIN_REUSE_V1, PAID_BASELINE_EXACT_CONSUMER_V1 and NO_PIGEONHOLING_ROUTE_SELECTOR_V1.
+
+Canonical target remains: one C>=0, independent of integer R>=2, with |pi(R^2)-vfCanonical(R^2)|<=C R log R. The canonical Mobius decomposition remains M(R^2-1)=LOW_Lambda(R-1)+HIGH_Lambda(R-1), with fixed-Lambda |LOW|<=(floor Lambda+1)R. Johnston's G below is at N=R^2, not the different Mertens cutoff R^2-1. No identification with original #915 masks or its compressed zero-target quadratic is made.
+
+Fresh evidence corrects stale DAG/report prose: #1111-#1114 have been human-merged. The strongest directly inspected merged finite-source boundary is
+
+```text
+b_pack = 7/8 - 1/(32*N_pack),
+N_pack = nearUniformSlotCount, fixed independently of the cutoff.
+```
+
+`native_beta_le_near_uniform_slots` and `native_mertens_near_uniform_slots` occur in `research/oai_434/VF919ExplicitSquareBlockPacking.lean`, blob **32999039fdeea99c58a070c1c4ee9c140720dd44**. The exact tested head **20875a55dd9780993c4cdc06624c88be6060e2ee** has 13/13 successful checks. The actual [dedicated job 128828203921](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42512437623/job/128828203921) was read: exact-head checkout, pinned Lean 4.34.1, original OAI pin 1581d4cbdd69a0faf34b2089614fe2a814316a6a, warning-fatal proof/types, and the three new terminal axiom lists containing only propext, Classical.choice, Quot.sound. This is reused exact-head evidence at unchanged source bytes, not a fresh whole-main build.
+
+The original b_base=7/8-1/(48*explicitSlotCount) remains proved by #1108, but is not silently substituted for the newer comparator. Current #1116 is draft/unmerged at **1e32da429324c39a791406a0ae1265581df7ea06**, with all 14 returned checks successful. Its source-parametric five-eighths-minimum theorem was read at blob **b7b05069ea013d83b2acaa76a8ea2ed932568930**. Coordinator CP2's composition with the near-uniform family gives the stronger PAPER corollary 7/8-5/(64*N_pack), but is not a new named merged theorem or Owner discovery. No dedicated #1116 log/axiom audit is claimed in this run. #1115 is also draft/unmerged, head **7256681db5adfc907426deaef676244aeb4384dd**, 14/14 checks successful; its complete reciprocal-band identity does not prove its growth premise.
+
+The new JS theorem is valid for every fixed finite packet in the strip 0<Re(s)<1, so it does not depend on choosing the weaker of these baselines. Where the inherited JT tail is invoked, use any genuinely supplied fixed zero boundary b<1, in particular the actual Hecke supremum bounded by b_pack. Positive exponent losses in Mertens input are not dropped. No new endpoint comparison is won by this run.
+
+### C. Structural Hypothesis Investigated
+
+The exact original arithmetic object is
+
+```text
+Q(n)=floor(Li_2(n)), B(n)=pi(n)-Q(n)-1,
+eta(k)=1_Prime(k)-Q(k)+Q(k-1),
+G(N)=sum_(2<=n<N) B(n)=sum_(3<=k<N)(N-k)eta(k).
+```
+
+Equivalently G=A-T-L with the original weighted odd candidates, once-only least-prime-owned composite removals, and floor-Li demand. At N=R^2, the odd-square endpoint terms remain in T. Equal counts do not eliminate first moments; the r=4,7 falsifiers remain in force.
+
+The selected hypothesis was: conjugation and functional-equation reflection might compensate a dangerous mode at the natural prime-square scale, perhaps after grouping finitely many correlated modes. The competing prediction is that reflection couples the same oscillatory forcing, and any fixed finite grouping retains a nonzero leading oscillation. JS1-JS3 establish the latter, at the exact carrier and quantifier scope below. The alternative of a growing or infinite source-wide signed compensation remains distinct and unproved.
+
+### D. Mathematical Derivation
+
+#### D0. Reused exact return, not a surrogate
+
+Retain 20261107-owner-3/JT1-JT5 at their paper/self-audit scope. For X>=2 define
+
+```text
+v_X(t)=(X+t)/(t^2 log^2 t)+2(X-t)/(t^2 log^3 t),
+T_X[f]=f(X)/log X + integral_2^X f(t)v_X(t)dt,
+K_s(X)=T_X[t^(s+1)/(s(s+1))].
+```
+
+For actual zeros counted with their genuine multiplicities, JT1's complete return is
+
+```text
+G(N)=-sum_rho K_rho(N)-P(N)+U(N),
+P(N)=sum_(k>=2) (1/k)sum_(p prime,p^k<N)(N-p^k),
+P_2(N)~(2/3)N^(3/2)/log N,
+P_ge3(N)=O(N^(4/3)log N), U(N)=O(N).
+```
+
+The source is unchanged: every actual prime power, including powers of 2, is present; c=li(2), floor rounding and lower-end constants remain in U. Specifically U=T_N[E]+(2/log 2-c)(N-2)+E_floor, with E and E_floor exactly as in JT1. The integrated explicit identity, not the RH-only estimate later in its proof, is supported by [Johnston, Lemma 2.6 proof, page 4](https://arxiv.org/pdf/2201.06184#page=4). The eventual G(R^2) sign consumer remains the earlier paper discrete transfer of Johnston's criterion, not a new compiled Lean implication.
+
+No new density estimate is used to establish JS1-JS3. Only the optional bounded-height refinement of JS4 reuses JT2, whose zero-density input is [Guth-Maynard, Theorem 1.2 and (1.4)](https://arxiv.org/pdf/2405.20552#page=2). The safe part there uses the unconditional sum over BOTH ordinate signs, sum gamma^(-2)<1/20, justified by [Brent-Platt-Trudgian, Corollary 1](https://maths-people.anu.edu.au/brent/pd/rpb276-MC-preprint.pdf#page=3). These are attributed ingredients, not new results here.
+
+#### JS1. Reflection reinforces the exact curvature
+
+For any fixed s with 0<Re(s)<1 and Im(s) nonzero, direct differentiation of the displayed transform gives
+
+```text
+K_s''(X)=X^(s-1)/log X,
+K_s(2)=2^(s+1)/(s(s+1)log 2),
+K_s'(2)=2^s/(s log 2)+2^s/(s(s+1)log^2 2).
+```
+
+Proof: for an arbitrary C^2 function f, differentiating T_X[f] once gives f'(X)/log X+f(X)/(X log^2 X)+integral_2^X f(t)[t^(-2)log^(-2)t+2t^(-2)log^(-3)t]dt. The second derivative cancels every term except f''(X)/log X. Here f''(X)=X^(s-1). The two initial values follow by evaluation. Thus the exact triangular representation contains BOTH affine lower-end terms:
+
+```text
+K_s(X)=K_s(2)+(X-2)K_s'(2)
+       +integral_2^X (X-t)t^(s-1)/log t dt.
+```
+
+This identity is used for one mode or a finite family only. Its differentiated infinite zero series is not asserted to converge absolutely; no termwise differentiation of the full spectrum is used.
+
+For beta>1/2, gamma>0, let the four DISTINCT reflected/conjugate points be beta+-i gamma and 1-beta+-i gamma, with common multiplicity m. Their complete kernel sum C has
+
+```text
+C''(X)=4m X^(-1/2) cosh((beta-1/2)log X)
+                         *cos(gamma log X)/log X.
+```
+
+Both real parts therefore have the same oscillatory curvature sign. Reflection supplies no opposing local sign. This curvature statement alone would not determine C's sign; the initial values above and JS2 supply the actual integrated conclusion. At beta=1/2 the orbit has only TWO distinct members; it must not be counted as a four-member physical orbit.
+
+#### JS2. Full finite-packet moments at the actual square endpoints
+
+Let F be a fixed nonempty finite multiset in 0<Re(s)<1, Im(s) nonzero, closed under conjugation, with positive integral multiplicities. It may, in particular, be any genuine finite zero packet. Set beta_*=max_(s in F) Re(s). For every distinct positive ordinate gamma on the rightmost line, let
+
+```text
+a_gamma=m_gamma/[(beta_*+i gamma)(beta_*+1+i gamma)],
+V_F=2 sum_gamma |a_gamma|^2 > 0,
+M_F=2 sum_gamma m_gamma/gamma^2 >= 2 sum_gamma |a_gamma| > 0,
+d_F=V_F/(4M_F), delta_F=V_F/(4M_F^2).
+```
+
+All these constants are fixed BEFORE R. Repeated equal zeros are combined into m_gamma before squaring: the m_gamma^2 contribution includes their original coincident cross terms. Define the exact normalized packet
+
+```text
+S_F(X)=sum_(s in F) K_s(X),
+h_F(R)=log(R^2) S_F(R^2)/R^(2beta_*+2), R>=2.
+```
+
+Then
+
+```text
+(1/log Y)sum_(2<=R<=Y) h_F(R)/R -> 0,
+(1/log Y)sum_(2<=R<=Y) h_F(R)^2/R -> V_F,
+
+liminf_(Y->infinity) (1/log Y)
+ sum_(2<=R<=Y, h_F(R)<=-d_F) 1/R >= delta_F > 0,
+```
+
+and the same density conclusion holds for h_F(R)>=d_F. These are **logarithmic densities in the integer root R**, not ordinary densities and not uniform moving-packet estimates.
+
+Proof of the complete claims:
+
+1. The positive majorant of the integral in K_s gives, for fixed s,
+   K_s(X)=X^(s+1)/[s(s+1)log X]+O_s(X^(Re(s)+1)/log^2 X).
+   For example split each integral at sqrt X; the lower piece is smaller, while the upper piece uses log t>=(log X)/2 and Re(s)>0. F is finite, so all constants and the positive gap to any strictly lower real part can be fixed. Consequently
+   h_F(R)=f_F(R)+o_F(1), where
+   f_F(R)=sum_gamma[a_gamma R^(2i gamma)+conj(a_gamma)R^(-2i gamma)].
+   In particular |h_F(R)|<=M_F+o_F(1). The logarithmic correction has NOT been called O(N^(3/2)/log N): its error can exceed that smaller scale when beta_*>1/2. It is small only relative to the packet's OWN displayed scale.
+
+2. For every fixed real tau nonzero,
+   sum_(R=2)^Y R^(-1+i tau)=O_tau(1).
+   Compare with the integral on [2,Y+1]. The integral has modulus <=2/|tau| and the sum-integral error is bounded by integral_2^infinity |(-1+i tau)t^(-2+i tau)|dt. This proves the assertion directly on integer squares after substituting tau=2gamma or 2(gamma+-gamma'). No irrationality or linear independence of the ordinates is needed.
+
+3. Expand the ENTIRE finite square f_F(R)^2 before averaging. Every nonzero frequency vanishes after division by log Y; the zero-frequency terms are exactly 2sum|a_gamma|^2. Distinct resonant nonzero frequencies can coincide with each other, but still have zero logarithmic mean. Every lower-real-part mixed term is retained in h_F^2 and tends to zero only after this justified normalization. The o_F(1) error has vanishing logarithmic average, including in the square, because h_F and f_F are eventually bounded. This proves both moment limits.
+
+4. Write h_-=max(-h,0). Since h^2<=(M_F+o(1))|h| eventually, the two moment limits imply liminf Avg_log h_->=V_F/(2M_F). With E_-={R:h_F(R)<=-d_F}, one has h_-<=d_F+(M_F+o(1))*1_(E_-) outside finitely many R. Hence liminf Avg_log 1_(E_-)>=(V_F/(2M_F)-d_F)/M_F=delta_F. Apply the same argument to -h for the positive excursions.
+
+This proof explicitly retains finite cross terms. It establishes deterministic logarithmic orthogonality for fixed frequencies, NOT pointwise zero covariance, ordinary-density independence, or uniformity as a frequency difference tends to zero. Constants deteriorate with a growing family and small gaps; that limitation blocks an illicit passage to the full spectrum.
+
+#### JS3. A finite-packet payment is already target-strength
+
+Consider the following actual-zero assertion:
+
+```text
+For every finite collection F of genuine complete functional-equation
+orbits, with distinct points and their actual multiplicities,
+there exist C_F>=0 and R_F such that for every integer R>=R_F,
+  S_F(R^2) >= -C_F R^3/log(R^2).                     (FP)
+```
+
+Then FP is equivalent to RH. It is enough in FP to demand the property for every single orbit, allowing its OWN C_F and R_F.
+
+If RH holds, every such F has beta_*=1/2; the finite kernel majorant immediately gives |S_F(R^2)|=O_F(R^3/log(R^2)). Conversely, if an actual off-critical zero exists, its conjugate/reflected orbit has beta_*>1/2. On JS2's negative-density set,
+
+```text
+S_F(R^2)/(R^3/log(R^2)) <= -d_F R^(2beta_*-1) -> -infinity.
+```
+
+No finite C_F can satisfy FP. Taking any fixed finite union of complete orbits containing that zero does not repair the problem: its own beta_* is at least as large and JS2 applies again.
+
+This is a proof of equivalence, not a proof of FP or a counterexample to RH. It rejects **assuming** packetwise root-scale payment as a smaller independent supplier. A specific finite packet is not claimed bad unless it actually contains an off-critical zero. A scale-dependent choice F(R), nonpositive invented coefficients or an infinite family is outside this theorem; those changes require a new, exact source argument.
+
+#### JS4. Original-source compensation is necessarily outside the packet
+
+Suppose F is a genuine fixed conjugation-closed zero packet with beta_*>1/2. Let
+
+```text
+A_F(N)=N^(beta_*+1)/log N,
+S_comp(N)=sum_(rho outside F) K_rho(N).
+```
+
+Here F's multiplicities are removed exactly once from the absolutely convergent original kernel sum. On the negative-density root set from JS2, -S_F(N)>=d_F A_F(N), N=R^2. Since P(N)+|U(N)|=o_F(A_F(N)), for all sufficiently large members of that set,
+
+```text
+G(N)+S_comp(N)=-S_F(N)-P(N)+U(N)
+             >= (3d_F/4) A_F(N).
+
+Therefore: G(N)>=(d_F/4)A_F(N)
+       OR S_comp(N)>=(d_F/2)A_F(N).                  (DICHOTOMY)
+```
+
+In particular, at any such endpoint where G(N)<0, the complement must be positive and at least (3d_F/4)A_F(N). The prime-square bias, all higher prime powers, floors and constants cannot absorb this packet's unfavorable excursion by themselves. This conclusion controls neither sign nor size of the actual complement; it states the required compensation on an independently obtained positive-log-density set.
+
+Optional reuse of JT2: fix an admissible supplied b<=7/8 and nu=9/40. Once N is large enough to include F, replace S_comp in DICHOTOMY by
+
+```text
+S_other_danger(N)=sum_(rho outside F,
+  0<|gamma|<=N^(9/40), beta>1/2+1/log N) K_rho(N).
+```
+
+JT2 pays the high tail below N^(3/2), and JT3's safe-sector bound is O(N^(3/2)/log N), both o_F(A_F). Thus the same displayed thresholds hold after increasing the fixed starting scale. This is a REUSE of JT's pending-review analytic input, not a new high-tail estimate. It cannot be iterated with F=F(N) because JS2's constants and errors are not uniform in that change.
+
+For complete covariance accounting, write F0=S_F, C0=S_comp and P=P_2+P_ge3. Before any estimate,
+
+```text
+G=-F0-C0-P+U,
+G^2=F0^2+C0^2+P^2+U^2
+    +2F0*C0+2F0*P-2F0*U+2C0*P-2C0*U-2P*U.
+```
+
+P^2 and C0^2 themselves retain all their internal interactions. The dichotomy comes from the exact LINEAR return, not from dropping a favorable-looking mixed square term. This expression is not substituted for #915's different compressed NNS statistic.
+
+### E. Quantitative Consequence
+
+The independent quantitative restriction is JS2's finite-packet moment/density theorem with explicit V_F, M_F, d_F and delta_F, constants fixed before the scale. Its original-source consequence JS4 is an inverse restriction conditional on the existence of a genuine off-critical packet. It improves understanding of where compensation would have to occur, not the current all-scale upper estimate.
+
+The canonical Mertens/HIGH boundary remains the strongest supplied one, with positive losses and partial-square costs unchanged. The full JOH sign remains OPEN. FP is TARGET_EQUIVALENT, not an independently smaller missing bound. No finite-A, q(X)->0, owner-contraction, canonical VF or RH conclusion is obtained.
+
+### F. Falsification And Circularity Review
+
+The frozen diagnostic registration preceded execution. The 124-line standard-library verifier completed successfully, as did Python syntax validation. It checks the exact derivative cancellation for an arbitrary formal C^2 input, all TEN terms of the four-term return square, and a deliberately resonant synthetic analytic spectrum beta=3/4 with positive ordinates 20,40,60 and multiplicities 2,1,1 plus reflected/conjugate mates. It is explicitly NOT a list of zeta zeros.
+
+For that negative control, sum over all mates gamma^(-2)=17/720<1/20, beta=3/4 lies below b_pack, and the finite collection satisfies ordinary positive-loss counting bounds with fixed constants. Its leading trigonometric polynomial is strictly negative at exp(20iy)=1 and strictly positive at exp(20iy)=-1. JS2, rather than those two phase evaluations alone, proves its large square-endpoint oscillation. Thus symmetry, the licensed strip and these coarse scalar bounds ALONE do not force favorable packet signs. No actual Euler product or complete zeta zero distribution is asserted for the synthetic collection.
+
+The exact Fourier constant is
+
+```text
+V_F=350137628988314123264/6935606881138085859235917,
+M_F=17/1440,
+delta_F=20167927429726893500006400/222710043183211868146575557.
+```
+
+Deleting multiplicity cross terms gives a strictly smaller incorrect V_F. Substituting V_F for the pointwise square also fails. A nonzero resonant cross coefficient at frequency 40 remains. These are narrowly scoped algebraic falsifiers; the all-scale theorem is proved in D, not inferred from these finite checks.
+
+Self-audit safeguards: no differentiation of an infinite zero sum; no doubling of critical-line orbits; no zero-frequency term in the mean-zero argument; no missing logarithmic correction or lower-end affine data; no ordinary-density claim; no uniformity over growing F; no unproved off-critical zero; no inference from a bad component to a bad complete G; all signs/multiplicities/prime powers and square endpoints restored. The actual-zero packet inequality is classified TARGET_EQUIVALENT, not REFUTED. Only the stated symmetry-only analytic implication is refuted.
+
+The existing JT4 fixed-mode correction remains valid: an extra inverse logarithm need not be small at the prime-square scale. JS2 does not contradict it, because it normalizes a FIXED packet at its own larger power. Previous JT5 N=7 and N=71 source falsifiers are preserved and not rerun. The r=4,7 first-moment and R=549 universal BLOCK failures remain at their original scopes.
+
+Scoped inspection of live JOH source, atlas, both days' own derivations and current handoffs found no existing version of this fixed-packet, exact-square logarithmic-density test. This is not an exhaustive literature or repository novelty claim. Johnston's full-source oscillation theorem is prior established work; JS2 is a finite-component statement and must not be presented as a new proof of that theorem.
+
+### G. Conceptual Interpretation
+
+Reflection is a dependence, not independence: it synchronizes the curvature of the two real parts. In a fixed finite family, all leading frequencies have zero logarithmic mean but a positive complete mean square, so neither sign can disappear. Square sampling does not remove this oscillation because its logarithmic mesh becomes arbitrarily fine, as made precise by the direct weighted sum proof.
+
+Consequently a fixed finite packet cannot become an RH-scale payment merely by retaining its conjugate and reflected companions. Any still-viable spectral mechanism must use genuinely new information about the growing/full source and its complement. This conclusion does not exclude genuine arithmetic compensation, nonlocal owner structure, or the other eight viable routes.
+
+### H. Competing Mechanisms
+
+| Mechanism | Established evidence / strongest obstruction | Decision |
+| --- | --- | --- |
+| Individual reflected-quartet favorable sign | JS1 curvature and JS2 oscillation; actual root-scale assertion is RH-equivalent | Abandon as an assumed independent supplier |
+| Fixed finite multi-orbit compensation | JS2 retains every internal cross term and still gives both signs if off-critical | Same scope-limited rejection; more fixed modes do not fix it |
+| Growing low-spectrum / full arithmetic compensation | JT return and JS4 identify necessary complementary mass; no uniform estimate supplied | Continue only with a new quantitative input; no invented independence |
+| Original unequal-count first moments / chronological composite removal | Genuine source remains exact; r=4,7 and current #1113 descent limitation retained | Preserve as distinct JOH arithmetic approach |
+| SAT primitive-ratio and VF-LOW reserve/mixed work | PD, MC and RS retain their published scopes; no transfer from synthetic zeros | Preserve protected rotation; next SAT |
+
+### I. Specialist Handoffs
+
+**Coordinator:** the requested finite-packet restriction is TARGET_EQUIVALENT, proved by JS2-JS3. Do not queue packetwise prime-square payment as a smaller independent lemma. JS4 is a source-faithful inverse alternative, not endpoint progress. Preserve CP2's new source-family comparison and b_pack rather than an obsolete nominal baseline.
+
+**Referee:** independently audit the two kernel derivatives and initial data, multiplicity-squared zero-frequency coefficient, logarithmic lattice sum, density inequality, and the distinction between fixed F and growing F. Try to break JS3 with a finite conjugation/reflection-closed packet or show an omitted original-return term. No acceptance is presumed.
+
+**Analytic:** any extension must quantify small frequency gaps, growing heights, varying real parts and every complete-return term. Fixed-frequency orthogonality is NOT a bound on the moving dangerous spectrum. JT's tail and OPEN-JOH-MID remain separate; no repeat tail derivation or full-spectrum sign assumption is requested.
+
+**Census:** no new zero scan or larger prime census is requested. The exact analytic-mode diagnostics are sufficient for this narrow falsification. An actual computational zero list cannot certify the absent all-scale theorem. Preserve held-out first-moment and source-mask checks for a future genuinely new arithmetic hypothesis.
+
+**Wheel:** reflected spectral multiplicities and actual prime-factor occurrence capacities are different carriers. No Fourier orthogonality statement here supplies CORR4/MU-LIFT signs or licenses repeated donor use. Current HC/SJ/WT scopes remain unchanged.
+
+**Lean Verification:** no new source edit or proof PR requested before independent qualification. A generic finite-frequency logarithmic-moment theorem is a possible later formalization, but it must not assume the actual zero packet budget or claim the classical explicit formula is already imported. Current source and exact-head CI were read, not executed locally.
+
+Continuity: all seven roles' November 7 and November 8 reports were retrieved and relevant committed sections read. TODAY=AVAILABLE; YESTERDAY=CARRY_FORWARD. Current Coordinator 20261108-coordinator-1513-EST explicitly requested this protected JOH investigation. Today's PD/MC, Analytic ND and earlier BC/GL, Wheel HC/OC, Census SJ/RC, Referee WT plus HC/SJ acceptance, and Lean #1111/#1113 repairs retain their original IDs and evidence scopes. JT analytic claims still have no independently accepted verdict in the consumed reports. External inbox blob **038018145c0fddb2f6306c0712373adf9cd1ea52** contains no new entry after October 18; EXT-20261018-PNT-1..3, EXT-20261017-XCOORD-1 and EXT-20261014-5 are retained, not re-promoted as new suppliers.
+
+### J. First Independently Missing Lemma
+
+No independently justified smaller SUFFICIENT lemma for the full JOH sign was obtained. In particular FP must not be assumed; JS3 proves it already has the target's strength. A bound forbidding all JS4 compensation would likewise require genuine new source information, not just another regrouping.
+
+The previously registered, strictly proper moving-band QUESTION remains available, without being promoted to the endpoint or to a necessary condition:
+
+```text
+OPEN-JOH-MID: exists C,N0, forall integer N>=N0,
+ |sum_(N^(1/5)<|gamma|<=N^(9/40),
+       beta>1/2+1/log N) K_rho(N)|
+ <= C N^(3/2)/log^2 N.
+```
+
+Status: CONJECTURE / EXPLORATORY; independence from RH is not proved. A proof would further localize possible failure but would not control the remaining lower spectrum. JS2 does not prove this statement: F grows with N and the fixed-frequency constants are not uniform. Any future attempt must first substitute the best applicable sigma-dependent density suppliers and preserve the exact K, rather than treating yesterday's coarser threshold as optimal. This invocation does not add another tail estimate or assign this optional question to every specialist.
+
+The most useful next JOH decision is whether a NEW actual unequal-count/first-moment restriction is available that survives the source's chronology, rather than seeking a favorable sign from finite spectral symmetry alone. Next scheduled Owner route remains SAT, resuming PD's true primitive-ratio problem.
+
+### K. Next-Run Resume Capsule And Evidence
+
+```text
+RUN: 20261108-owner-3; scheduled 16:15:01 EST; RUN_ID_UNAVAILABLE.
+MAIN: 829aa93ec4a2117db4a5920b121c0ed70681b4e5.
+ROUTE: JOH; coverage SAT/VF-LOW/JOH; next SAT.
+SOURCE: actual G(N), triangular eta weights, exact K_s, full prime powers/U.
+BASELINE: merged b_pack=7/8-1/(32*N_pack), source/tested-head verified.
+NEW: JS1 exact reflected curvature; JS2 square-log packet moments/density;
+     JS3 packet budget iff RH; JS4 full compensation dichotomy;
+     JS5 exact rational/symbolic diagnostics, synthetic domain disclosed.
+RETAIN: current JT tail/safe input at paper scope, all prime powers,
+        lower-end/floor constants, complete quadratic cross terms.
+REJECT: assumed finite-packet RH-scale payment; growing-F use of fixed constants;
+        synthetic zero family called actual arithmetic; bad packet => bad G.
+UNPAID: original JOH sign, full low-spectrum compensation, canonical endpoint.
+STATUS: PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED.
+GAIN: NONE; SEARCH_BROAD. No new source-bound assumption or endpoint claim.
+NEXT: independent JS review; protected SAT continuation; preserve PD/MC/JT history.
+```
+
+Early checkpoint commit **2d43c06c26b4b84834df77852fb4c59ed1a5b08f**, blob **712b480cd8e5772ad70057f7c53516abfed3084d**, was fetched at the immutable commit and matched the intended content exactly. This synthesis appends without modifying any earlier daily byte. Final commit/readback verification is recorded in the publication receipt following this synthesis.
+
+Actual limitations: SymPy is not installed; an availability probe returned ModuleNotFoundError, so the exact checks used only standard-library rational/symbolic arithmetic. Both the registered diagnostic and syntax validation exited successfully. No numerical complex quadrature or actual-zero computation was performed. No local Lean, no CI launch, no other agent, no proof/source/main/central-policy/other-report/PR/workflow/schedule/permission edit was performed. No background work is promised.
+
+### Source And Continuity Manifest
+
+The source rows and report blobs appended below were directly retrieved during this invocation; historical report status does not override current merged declarations.
+
+| Main source | Blob SHA |
+| --- | --- |
+| `AGENTS.md` | `bdd5b9f6867ae2d39b74fc966b7f548a9aba3a61` |
+| `CURRENT_PROOF_CONTRACT.md` | `d1d6fd558ee23927bd9f70ffdc375bafd1dbb67a` |
+| `docs/RHLEAN_REPO_WIDE_PROOF_ATTACKS_20261108.md` | `5862ccaffd0e75c25b509c1d246c3aa09b6c345b` |
+| `docs/PROOF_DEPENDENCY_DAG.md` | `455717b6d99da7248c71ada0062dfd6747a7938d` |
+| `docs/COORDINATE_ATLAS.md` | `cd0419d00a37739fe5a292f5cb738e33213949d5` |
+| `docs/RHLEAN_COMPLETE_SIGNED_HIGH_ATTACK_20261107.md` | `53a4685d7260e4f3abd05f60fdd0221b5ea5c603` |
+| `research/VF_MID_FLOOR_LI_SIGNED_POPULATION_BALANCE.lean` | `9a9336dad72171b6d572a1c1ae88d1ae8b56b530` |
+| `research/VF_MID_FLOOR_LI_DISCRETE_BACKLOG.lean` | `4255ca0dffe480f2aec6bd0b68797bbd293396c3` |
+| `research/VF_MID_FLOOR_LI_TRANSPORT_CANCELLATION.lean` | `eb84f59055bd31dc117be034d45c92eb9dab8f27` |
+| `research/LI_FAN_ONE_SIDED_WEIGHTED_COMPOSITE_RH_CONTRACT_20261022.md` | `27e28f09e9f79e8a60d524e5fcb6f19904fa55f5` |
+| `research/oai_434/VF919ExplicitSlotTotalMass.lean` | `71c5b7b5b8032ca3558467126fdf97d3caf1a7df` |
+| `research/oai_434/VF919ExplicitSquareBlockPacking.lean` | `32999039fdeea99c58a070c1c4ee9c140720dd44` |
+| `research/oai_434/VF919NativeStrictMertens.lean` | `b33a4883e1ddb0551b0f11f062bce46680d87450` |
+| `research/VF_MID_PRIME_LOCATION_ANCESTRY_DICHOTOMY_20261108.lean` | `95951a5aefedadf2e2b4c51bde7bdb8e79deb544` |
+| `RHLean/Analysis/CanonicalHighSectorCore.lean` | `dd02fc8fabfe4004c6b0d50374b3b8752607b168` |
+| `RHLean/Analysis/CanonicalLowOccupancy.lean` | `b958da340d107cdd00015d2827b9a728357b4d8e` |
+
+| Continuity role | November 7 blob | November 8 intake blob |
+| --- | --- | --- |
+| 00-coordinator-am | 00a649b70f851ca193e74e5004d0d3390cf9ca18 | 5d14fb5e0eb3e40a479ebb344b9f8a84a169535e |
+| 10-owner-payment | 933e8eb23e669594cc687059d75147e6267eec8d | dc8da662cdafc4bc96bcc3ccb29c3052eb1b4d99 |
+| 20-analytic-type-ii | 77f3e5795533041e4356ceb94cb66328da7af27c | 707aea15cc8e09f16cccf874c876bb04ede9ef14 |
+| 30-finite-wheel | 7739fa5d4cc77f35773b0d4149b2ddd21732a70d | 45e789c59f9165dbdf9dae352d7438dc468e9e70 |
+| 40-prime-census | 3fae830e34c590d32c31ad77cad3ace833eb3ff5 | c70b0a6dda7278e5e7befca546893314a16530df |
+| 50-adversarial-referee | 426c2abfa5b8926b512e07f05be37692a2416d0b | 68b1162b59f195722fc34378c0d4a182884025dd |
+| 60-lean-verification | ec14e2803af8c1e56123682ee61ed927ed4f9450 | 7f394c7ca839386c6692a5ad622f26c299db8abb |
+
+Coordinator 00/90 mirrors have matching tree blobs on both dates. Prepublication refresh found main unchanged and all upstream report blobs unchanged; the own-report change is the verified checkpoint from this invocation. No absent or later scheduled stage was inferred.
+
+### Reproducibility Appendix - JS5
+
+Python 3.12.13; exact standard-library rational/symbolic arithmetic. The registered execution and syntax validation both exited 0. All assertions passed. No actual zero or arithmetic sample was invented. Complete executed registration and code follow.
+
+```text
+joh_symmetry_check.py SHA-256:
+5910684104786221ce2b2dbe39599c1297e0ee20fd85c46d9cd3ce03c2183e48
+joh-symmetry-registration.md SHA-256:
+df8883d4f2ab73424f11bd092d901e2b9eca0fe509b9461a2b24b43d30c63242
+```
+
+#### Frozen Registration
+
+```text
+# Frozen JOH Symmetry Diagnostics
+
+Run: 20261108-owner-3, scheduled 2026-11-08 16:15:01 EST.
+
+- Validate the exact logarithmic-kernel differentiation using integer symbolic coefficients, with both lower-end affine terms retained in the paper statement.
+- Validate the complete four-term return square, including all six mixed terms.
+- Test one explicitly synthetic analytic spectrum: beta=3/4, upper ordinates 20,40,60, multiplicities 2,1,1, and all conjugate/reflected mates. These are NOT claimed to be zeta zeros.
+- Retain resonances and multiplicity-squared terms in its exact Fourier square. Check that omitting them fails.
+- Evaluate the leading finite trigonometric polynomial at the exact phases exp(20*i*y)=1 and -1. These are algebraic phase fixtures, not evaluations of the full kernel at arithmetic endpoints.
+- Check the coarse reciprocal-square budget and the proposed rational density constants on that fixture. Finite diagnostics do not prove all-scale density or certify actual zeros.
+- No new zero search, prime census, numerical asymptotic fit, Lean execution, or external package installation.
+- The general proof uses elementary weighted orthogonality on actual integer square endpoints, not independence or numerical sampling.
+```
+
+#### Complete Executed Diagnostic
+
+```python
+"""Exact diagnostics for the frozen JOH symmetry proof, not a zero census."""
+
+from collections import defaultdict
+from fractions import Fraction as Q
+import json
+
+
+def clean(poly):
+    return {key: value for key, value in poly.items() if value}
+
+
+def add(*polys):
+    out = defaultdict(int)
+    for poly in polys:
+        for key, value in poly.items():
+            out[key] += value
+    return clean(out)
+
+
+def derivative(poly):
+    # f^(j)(x) * x^p * log(x)^q, with independent jets f^(j).
+    out = defaultdict(int)
+    for (j, p, q), value in poly.items():
+        out[j + 1, p, q] += value
+        out[j, p - 1, q] += p * value
+        out[j, p - 1, q - 1] += q * value
+    return clean(out)
+
+
+def cmul(a, b):
+    return a[0] * b[0] - a[1] * b[1], a[0] * b[1] + a[1] * b[0]
+
+
+def cadd(a, b):
+    return a[0] + b[0], a[1] + b[1]
+
+
+def conj(a):
+    return a[0], -a[1]
+
+
+def cscale(n, a):
+    return n * a[0], n * a[1]
+
+
+def norm2(a):
+    return a[0] ** 2 + a[1] ** 2
+
+
+def coefficient(beta, gamma, multiplicity):
+    real = beta * (beta + 1) - gamma * gamma
+    imag = gamma * (2 * beta + 1)
+    den = real * real + imag * imag
+    return multiplicity * real / den, -multiplicity * imag / den
+
+
+# After one differentiation of the exact transform, these are the
+# nonintegral terms and the upper endpoint of the remaining integral.
+first = {(1, 0, -1): 1, (0, -1, -2): 1}
+upper = {(0, -2, -2): 1, (0, -2, -3): 2}
+assert add(derivative(first), upper) == {(2, 0, -1): 1}
+
+# Exact full return G=-F-C-P+U: four diagonals, all six cross terms.
+signs = [-1, -1, -1, 1]
+square = {(i, j): (1 if i == j else 2 * signs[i] * signs[j])
+          for i in range(4) for j in range(i, 4)}
+assert len(square) == 10
+assert [square[0, 1], square[0, 2], square[0, 3],
+        square[1, 2], square[1, 3], square[2, 3]] == [2, 2, -2, 2, -2, -2]
+for F, C, P, U in [(3, -7, 5, 2), (-11, 13, 17, -2), (0, 1, 2, 3)]:
+    vals = [F, C, P, U]
+    assert (-F-C-P+U)**2 == sum(v*vals[i]*vals[j] for (i, j), v in square.items())
+
+beta = Q(3, 4)
+fixture = [(20, 2), (40, 1), (60, 1)]
+positive = {g: coefficient(beta, Q(g), m) for g, m in fixture}
+fourier = dict(positive)
+fourier.update({-g: conj(a) for g, a in positive.items()})
+product = defaultdict(lambda: (Q(0), Q(0)))
+for g, a in fourier.items():
+    for h, b in fourier.items():
+        product[g+h] = cadd(product[g+h], cmul(a, b))
+V = 2 * sum(norm2(a) for a in positive.values())
+assert product[0] == (V, 0)
+wrong_unmerged_multiplicity = 2 * sum(m * norm2(coefficient(beta, Q(g), 1))
+                                     for g, m in fixture)
+assert wrong_unmerged_multiplicity < V
+assert product[40] != (0, 0)  # A resonant off-diagonal is really present.
+
+M = 2 * sum(Q(m, g*g) for g, m in fixture)
+assert all(norm2(a) <= Q(m, g*g)**2
+           for (g, m), a in zip(fixture, positive.values()))
+assert 0 < V <= M*M
+d = V / (4*M)
+density = V / (4*M*M)
+assert 0 < d <= M/4 and 0 < density <= Q(1, 4)
+assert (V/(2*M)-d)/M == density
+
+negative_phase = 2 * sum(a[0] for a in positive.values())
+positive_phase = 2 * sum((-1)**(g//20) * a[0] for g, a in positive.items())
+assert negative_phase < -d and positive_phase > d
+assert negative_phase**2 != V
+reciprocal_square_sum = 4 * sum(Q(m, g*g) for g, m in fixture)
+assert reciprocal_square_sum < Q(1, 20)
+
+# A zero frequency has nonzero logarithmic mean: it must not be admitted
+# into the mean-zero argument. Nontrivial zeta ordinates are nonzero.
+assert Q(-1) != 0
+
+print(json.dumps({
+    "kernel_jet_identity": "PASS: K_f''=f''/log(x)",
+    "full_square_monomials": len(square),
+    "fixture_scope": "synthetic analytic parameters, not zeta zeros",
+    "beta": str(beta),
+    "upper_ordinates_and_multiplicities": fixture,
+    "V": str(V), "M_upper": str(M),
+    "negative_threshold_d": str(d),
+    "lower_log_density_bound": str(density),
+    "negative_phase": str(negative_phase),
+    "positive_phase": str(positive_phase),
+    "reciprocal_square_sum_all_mates": str(reciprocal_square_sum),
+    "multiplicity_and_pointwise_diagonal_shortcuts": "REFUTED on fixture",
+    "all_assertions": "PASS"
+}, indent=2))
+```
