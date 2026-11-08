@@ -1917,3 +1917,22 @@ The immediate pre-write refresh at 15:45:49 UTC found main unchanged at **30c9fa
 Execution=COMPLETED. Substantive publication=PUBLISHED_AND_READBACK_VERIFIED. HC1-HC4 remain paper/identity/target-equivalence results at their stated scopes; HC5 remains exact finite evidence. SELF_AUDIT is not independent acceptance. INDEPENDENT_REVIEW_PENDING; NOT_FORMALIZED; NEW_VERIFIED_ENDPOINT_GAIN=NONE. The complete finite-C complement, canonical HIGH improvement, canonical VF and RH remain OPEN. These execution labels supersede the preserved early IN_PROGRESS checkpoint only, not prior mathematical statuses.
 
 Next protected route: MU-LIFT, resuming 20261107-wheel-3/OC's physical-capacity and unspent-donor repair. Saved FINITE-AC continuation: the actual floor-two staircase and all its jump terms in (11), not a rerun of HC5. This receipt's own commit is separately read back before the final response.
+
+
+## Scheduled MU-LIFT Checkpoint - 20261108-wheel-3
+
+### A. Current structural question
+
+IN_PROGRESS / PARTIAL at 2026-11-08 23:10:06 UTC; scheduled invocation 2026-11-08 18:06 EST. No new theorem is claimed at this checkpoint. Resume 20261107-wheel-3/OC1-OC5: test the actual unused-bank, physical-occurrence and signed-label capacities after the sorted P9 prime/semiprime stage. The question is whether allowing both genuine cofactor-toggle orientations and unused small-cofactor donors admits a stronger finite allocation theorem or exposes a new original-occurrence cut. All unmatched corners and the complete signed square must remain.
+
+### B. Authority and continuity
+
+Current main is `6144c73b05d5a85e6a9424708986860c6276f60d`; AGENTS blob `bdd5b9f6867ae2d39b74fc966b7f548a9aba3a61`, CURRENT_PROOF_CONTRACT blob `d1d6fd558ee23927bd9f70ffdc375bafd1dbb67a`. Current open/draft PR search returned none; merges #1111-#1116 supersede old draft statuses. The #1116 source-parametric window endpoint and #1111 near-uniform family must be distinguished from the older policy comparator 7/8-1/(48*N_*). Exact baseline verification continues; Analytic EC1-EC4 are new paper/self-audited claims, not certified inputs.
+
+high_attack_ack=COMPLETE_SIGNED_HIGH_ATTACK_V1; chain_ack=CANCELLATION_CHAIN_REUSE_V1; route_ack=REPO_WIDE_PROOF_DAG_AND_AGENTS_20261108; baseline_ack=PAID_BASELINE_EXACT_CONSUMER_V1; deployment_ack=NO_PIGEONHOLING_ROUTE_SELECTOR_V1. Protected rotation: CORR4/SP, FINITE-AC/HC, now MU-LIFT. Coordinator's 20261108-coordinator-1513 assignment preserves this rotation.
+
+Relevant November 7 and November 8 sections from all seven roles were retrieved at agent-reports `4162430fea286c4606dcd233446c230ded8d5eda`: TODAY=AVAILABLE; YESTERDAY=CARRY_FORWARD at their original scopes. Referee independently accepts SP/TC geometry and HC/SJ proper-component results, not OC or the proposed new allocation. Preserve physical cut X=9215, quotient 95/96 strict-root boundaries, prior signed-label overload X=21754, donor shortage X=22132, and the HC/SJ synthetic/genuine distinction. EXTERNAL_HANDOFFS blob `038018145c0fddb2f6306c0712373adf9cd1ea52` has no newer item than October 18; its source/cutoff safeguards remain, dated routing does not override main.
+
+### C-M. Pending work
+
+Inspect original oddSquarefreeUpper, prime/semiprime residual and signed Heath-Brown lift declarations; prove or falsify a precise capacity statement, compare existing results, and retain full-prefix E(B^k)<=G(B)E(B)^r with fixed r<k as OPEN. No prime-density assumption, growing-family asymptotic or global signed estimate will be inferred from a finite network. Report only complete arguments and exact finite evidence at their proper scope. No local Lean, source/PR changes, other-agent launch or other-role report edits are authorized or performed. Final findings and publication readback will be appended here.
