@@ -941,3 +941,59 @@ sessions finished.
 
 This receipt documents the substantive commit above; the subsequent
 receipt-only commit is separately read back before final delivery.
+
+## Scheduled FINITE-AC Checkpoint - 20261108-wheel-2
+
+### A. Current Mathematical Question
+
+PARTIAL / IN_PROGRESS. Resume 20261107-wheel-2/LR1-LR4 and its unresolved
+joint weighted-boundary consumer. The separate prime-column Abel bound
+retains an unwanted prime multiplicity. This run tests whether reassembling
+the literal selected columns with their full complement BEFORE norms
+produces an independently useful arithmetic restriction or a decisive
+source-valid obstruction. No new theorem or endpoint gain is asserted here.
+
+### B. Authority, Baseline And Continuity
+
+Actual invocation: 2026-11-08 10:12:00 EST; RUN_ID_UNAVAILABLE.
+Checkpoint prepared 2026-11-08 15:17:38 UTC. Main:
+`30c9fade09be0a4cb12776cd324e9fd9a9ed44ac`.
+AGENTS blob `0a99faf8458809ac772d470d704c5433f373bda8`;
+CURRENT_PROOF_CONTRACT blob `d1d6fd558ee23927bd9f70ffdc375bafd1dbb67a`.
+
+high_attack_ack=COMPLETE_SIGNED_HIGH_ATTACK_V1;
+chain_ack=CANCELLATION_CHAIN_REUSE_V1;
+baseline_ack=PAID_BASELINE_EXACT_CONSUMER_V1;
+deployment_ack=NO_PIGEONHOLING_ROUTE_SELECTOR_V1.
+
+Protected route: FINITE-AC. Original source is the ordered historical
+`eulerRankOneFloorKernelQ` and complete `eulerSelfDualBilinear`, with
+X=R^2-1 and BOTH historical indices below R. Preserve historical K,
+rank-one restoration, moving prime-mask births/exits, the full complement,
+and every signed cross term. The source identity gives
+Q_R=2M(R-1)-M(R^2-1), not a new estimate.
+
+Use the actual native Mertens bound, including the merged total-slot-mass
+same-source boundary 7/8-m/4 and the new explicit finite-source consequence
+of #1108 after inspecting its live declarations. No prospective WS/SB/BC
+paper improvement is imported as certified. Finite-C and the canonical
+actual-prime VF objective remain OPEN.
+
+Both Nov 7 and Nov 8 own/upstream reports were retrieved at agent-reports
+`3513c6a5019386c6959827803e39fd9154790b45`; TODAY=AVAILABLE for all roles,
+YESTERDAY=CARRY_FORWARD. The external inbox remains blob
+`038018145c0fddb2f6306c0712373adf9cd1ea52`, latest entries Oct 18;
+its arithmetic boundary safeguards remain, its old priorities are superseded.
+Today's SP/TC scoped Referee verdicts and #1109's newly merged status are
+carried forward, not new discoveries. LR's complete signed consumer is
+still unpaid; the prior triangle/diagonal and capacity counterexamples
+remain valid at their original scopes.
+
+### C-M. Work Pending
+
+Substantive proof/falsification, exact tests, novelty review, full-return
+budget, specialist handoffs and final resume capsule are IN_PROGRESS.
+No local Lean execution, Lean source edit, proof branch/PR, other report,
+merge, schedule change or other-agent launch is authorized or attempted.
+This checkpoint preserves the entire earlier daily report as an exact prefix.
+Publication is asserted only after immutable commit/readback.
