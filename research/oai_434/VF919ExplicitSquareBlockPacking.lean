@@ -97,7 +97,7 @@ theorem near_uniform_distinct_slot_lengths (L : ℝ) (hL : 0 < L)
     calc
       A ≤ ∑ _j : Fin N, (1 + 1 / (N : ℝ)) :=
         Finset.sum_le_sum (fun j _ => (hw j).2.le)
-      _ = (N : ℝ) * (1 + 1 / (N : ℝ)) := by simp [mul_comm]
+      _ = (N : ℝ) * (1 + 1 / (N : ℝ)) := by simp; ring
       _ = (N : ℝ) + 1 := by field_simp
   have hAp : 0 < A := hNp.trans_le hAlo
   have hLpack : (1 + 1 / (N : ℝ)) / (6 * (N : ℝ)) < L := by
@@ -179,7 +179,8 @@ theorem near_uniform_physical_slot_lengths (dmin dmax mesh R : ℝ)
       (∀ d : ℝ, dmin ≤ d → d ≤ dmax →
         ∀ j, rmin ≤ ell j/d ∧ ell j/d ≤ mesh ∧ ell j/d ≤ R) ∧
       (∀ j, (1 : ℝ)/(8 * (N : ℝ)) ≤ ell j) := by
-  have hN : 0 < N := by exact_mod_cast (lt_of_lt_of_le (by norm_num : 0 < 3) hN1)
+  have hN : 0 < N := by
+    exact_mod_cast (lt_of_lt_of_le (by norm_num : (0 : ℝ) < 3) hN1)
   obtain ⟨ell,hi,he,hS,hslotLower⟩ :=
     near_uniform_distinct_slot_lengths (dmin*min mesh R)
       (mul_pos hdmin (lt_min hm hR)) N hN1 hNL
@@ -247,7 +248,7 @@ theorem exists_near_uniform_high_data_fine :
     have h := nearUniformSlotCount_three_le
     exact_mod_cast h
   have hN : 0 < N := by
-    exact_mod_cast (lt_of_lt_of_le (by norm_num : 0 < 3) hN1)
+    exact_mod_cast (lt_of_lt_of_le (by norm_num : (0 : ℝ) < 3) hN1)
   have hNL :
       1/(6*((1/200:ℝ)*min (min t (mesh t)) t)) + 1 < (N : ℝ) := by
     simpa [N, t, mesh, explicitFineLength] using nearUniformSlotCount_threshold
@@ -345,7 +346,10 @@ theorem native_beta_le_near_uniform_slots :
   have hident : (1 : ℝ) / (32 * (nearUniformSlotCount : ℝ)) =
       ((1 : ℝ) / (8 * (nearUniformSlotCount : ℝ))) / 4 := by ring
   rw [hident]
-  linarith only [hbound, hmin]
+  exact hbound.trans
+    (sub_le_sub_left
+      (div_le_div_of_nonneg_right hmin (by norm_num : (0 : ℝ) ≤ 4))
+      (7 / 8))
 
 end SevenEighths.RHLeanNearUniformSlotPacking
 end
@@ -366,3 +370,4 @@ theorem native_mertens_near_uniform_slots :
     native_mertens_growth_at_hecke_beta
 
 end RHLean.Analysis
+
