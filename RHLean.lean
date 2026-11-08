@@ -608,6 +608,7 @@ import RHLean.Proof.PostRootPartnerLogAlignment
 import RHLean.Proof.PostRootPartnerMellinInterpolation
 import RHLean.Proof.PostRootPartnerReciprocalCompression
 import RHLean.Proof.PrefixCarrierOthelloWalls
+import RHLean.Proof.PrimeAdmissionLogPotential
 import RHLean.Proof.PrimeCombDiscrepancyRecurrence
 import RHLean.Proof.PrimeCombReciprocalBandCancellation
 import RHLean.Proof.PrimeCombVisualizationDynamics
@@ -644,6 +645,7 @@ import RHLean.Proof.SquareBlockPartialMomentBalance
 import RHLean.Proof.SquareBlockSmoothTransportGram
 import RHLean.Proof.SquareBlockTransportBaseline
 import RHLean.Proof.SquareRootAmplificationClosure
+import RHLean.Proof.SquareRootAmplificationLogGrowth
 import RHLean.Proof.SquareRootAncestryExtensionWindows
 import RHLean.Proof.SquareRootAncestryParentFibres
 import RHLean.Proof.SquareRootAncestryRoot

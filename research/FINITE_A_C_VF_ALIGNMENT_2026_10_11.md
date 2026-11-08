@@ -143,6 +143,7 @@ An admissible mathematical completion must provide:
 
 ## 8. Canonical links (read existing theorems before adding analogues)
 
+- [Exact prime-admission logarithmic amplification](PRIME_ADMISSION_LOG_AMPLIFICATION_20261107.md) — original finite historical maximum and endpoint ratio, exact signed logarithmic telescope; the zero-growth limit remains an open proposition.
 - [Current proof contract](../CURRENT_PROOF_CONTRACT.md) — CANONICAL direct VF target and multi-block owner descent.
 - [Research route registry](../RESEARCH_ROUTE_REGISTRY.md) — status of alternative routes.
 - [Finite-C/A original Euler floor kernel](EULER_PRODUCT_SQUARE_ROOT_FINITE_C_A.md) and [standalone handoff](SEQUENTIAL_EULER_SQUARE_BLOCK_FINITE_C_A_RESEARCH_NOTE.md).
