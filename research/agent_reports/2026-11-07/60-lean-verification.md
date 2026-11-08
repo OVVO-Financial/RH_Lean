@@ -1161,3 +1161,276 @@ Execution IN_PROGRESS; reporting PARTIAL. All previous same-day sections and rec
 - Pinned toolchain Lean 4.34.1, Mathlib `d13f23b723b8a846827a245b89c10fc7d3f11612`. No local Lean execution. Direct shell clone is unavailable (network proxy 403); authenticated repository reads work. The existing feature PR is the repair target; no direct-main push, merge, schedule change or subagent launch.
 
 Next: independently audit the two-envelope/moving-mass argument and the complete comparison, make the smallest valid acceptance repair, then verify actual latest-head Actions and terminal dependencies. The canonical VF/RH target remains OPEN.
+
+---
+
+## Scheduled Evening Certification Synthesis - 20261107-lean-3
+
+Run: scheduled 2026-11-07 21:08:01 EST; America/New_York report date 2026-11-07.
+This continuation preserves the earlier checkpoint and all prior executions.
+Status snapshot: 2026-11-07 21:27 EST (2026-11-08 02:27 UTC). Publication is verified separately after writing.
+
+### A. Most important formal mathematical result
+
+**PROVED_IN_LEAN at unmerged PR head cd8f98fd6ed2dee3fa08f526eb8ac86c94549da5; CI_GREEN; REVIEW_READY.** The repaired head passed all 13 triggered workflows / 14 check-runs, including the full dedicated proof and live-axiom audit. This is not yet main evidence. Execution=COMPLETED; publication is subject to the immutable readback recorded after this synthesis.
+
+The candidate is the complete total-slot-mass endpoint of [PR #1107](https://github.com/OVVO-Financial/RH_Lean/pull/1107), derived from the original compensated ideal-character source, not a replacement model. For one fixed fine source D and its actual minimum m=actualSlotMinimum(D)>0, the endpoint is
+
+    beta_H <= 7/8 - m/4,
+
+versus the already certified SAME-source boundary 7/8-m/24. The additional endpoint margin is exactly 5m/24. Its native consequences are every-positive-loss Mertens growth, a fixed power at 7/8-m/8 after explicitly spending half the saving, and the full signed-pair estimate retaining the exact squarefree diagonal.
+
+At intake the dedicated job failed only in the explicit type-assertion file, after the source modules compiled. A concurrent author committed the warning-clean repair at cd8f98fd6ed2dee3fa08f526eb8ac86c94549da5 while this run was examining it. I reviewed that repair and discarded the redundant local proposal before any proof-branch write. No authorship of that concurrent commit is claimed; no no-op commit or duplicate build was made.
+
+Mathematics, implementation, publication, merge, and programme-level acceptance are separate. Even with exact-head proof certification, the recorded Referee report calls TF1-TF3 SELF_AUDIT / INDEPENDENT_REVIEW_PENDING. This run supplies independent Lean/source review but does not invent a later independent Referee acceptance. eta_gate=CANDIDATE_ETA pending that explicit acceptance; broad protected research remains in force. The canonical actual-prime von Koch objective and RH remain OPEN.
+
+### B. Current authoritative objective
+
+Main at intake and final refresh: cae99df1c3ea24ff4113063bf09f6fd07517ad93 (unchanged). Governing main AGENTS blob 0a99faf8458809ac772d470d704c5433f373bda8; CURRENT_PROOF_CONTRACT blob d1d6fd558ee23927bd9f70ffdc375bafd1dbb67a. COMPLETE_SIGNED_HIGH_ATTACK_V1, CANCELLATION_CHAIN_REUSE_V1, paid-baseline consumer discipline, the stable selector, complete-return contract and nine-route breadth policy were read.
+
+Canonical target, with actual prime counting and the fixed additive phase:
+
+    exists C >= 0, forall natural R >= 2,
+      |pi(R^2) - vfMidFinishedMass(R) - sqrt(2)| <= C R log R.
+
+The explicit ClassicalVonKochRHCriterion in its terminal interface is not silently discharged. Canonical LOW has the existing fixed-Lambda O(R) bound. The present improvement concerns the original OAI inverse LOW only through its complete HIGH/principal/native consumer. Canonical LOW and inverse LOW are different objects.
+
+Pinned Lean: leanprover/lean4:v4.34.1. Mathlib: d13f23b723b8a846827a245b89c10fc7d3f11612. PrimeNumberTheoremAnd: c39a751132c88b6e8080b74c74023fd95b3d8be0. Original OpenAI source: openai/math@1581d4cbdd69a0faf34b2089614fe2a814316a6a. No local Lean or Lake invocation occurred.
+
+Continuity was retrieved for all seven roles on both 2026-11-06 and 2026-11-07. TODAY=AVAILABLE for every role; yesterday's unchanged verified results are CARRY_FORWARD, not assumed reruns. Coordinator AM/PM mirror bytes agree. Intake report blob ledger:
+
+| Role | November 6 blob | November 7 blob |
+| --- | --- | --- |
+| Coordinator | 8812a90540fb511279b5f4ce08e108ef717d5ef1 | 785c56207f0745244d8c2503a18ed7b4d91b39e6 |
+| Owner Payment | 1856a96aaaa9d86a5ee2d59ffe50ced936443fa6 | 933e8eb23e669594cc687059d75147e6267eec8d |
+| Analytic Type II | 7997620b6ab7eb0701296994734ee910df3c3ba1 | 77f3e5795533041e4356ceb94cb66328da7af27c |
+| Finite Wheel | 3099558194a00358962ff1844bf283e625b9283d | 7739fa5d4cc77f35773b0d4149b2ddd21732a70d |
+| Prime Census | c34ac074296e8b2e5b20dee3a2ce02518571206c | 3fae830e34c590d32c31ad77cad3ace833eb3ff5 |
+| Referee | da3265467c799e9d21832ab25245617ba3b15a54 | 426c2abfa5b8926b512e07f05be37692a2416d0b |
+| Lean Verification | b8bfe3ce9c20d7903395364efb39bcec974c8a2f | 2998b7339ea4b3e3fd2fd1d26f839527fd5adc95 |
+
+External handoffs blob 038018145c0fddb2f6306c0712373adf9cd1ea52 was read. No newer entry than October 18 was present. EXT-20261018-PNT-1, EXT-20261017-XCOORD-1 and EXT-20261014-5 retain their original-source, boundary and denominator qualifications; none supplies the missing global theorem.
+
+### C. Formalization candidates
+
+| Priority | Exact candidate and disposition |
+| --- | --- |
+| A | #1107: valid complete total-mass endpoint; warning-only acceptance-file failure; concurrent repair reviewed and exact-head CI followed |
+| B | 20261107-referee-3/TF1-TF3: two-envelope energy, complete normalized LOW, same-source m/4 endpoint; implemented by #1107, not duplicated |
+| B | 20261107-analytic-3/BC1-BC4, building on 20261107-referee-2/MH1-MH3 and merged #1105: two-error combined counts, generalized kappa, compatible raw certificates and full class return; paper/self-audit, independent acceptance pending |
+| C | 20261107-wheel-3/OC1-OC4 occurrence/component restrictions: retain original reported IDs and scope; not promoted from a local bottleneck to full covariance |
+| D/E | Owner's current JT claims and the remaining complete HIGH reserve: preserve the exact JOH/kernel/tail carrier, no global sign inferred |
+
+Coordinator 20261107-coordinator-1513/RG1-RG3 already has Referee paper-scope acceptance; RG4's sharper physical extension remains unresolved, and is unnecessary for the coarser TF1 payment. RG5 is a conditional comparison until its source supplier is supplied.
+
+#1106 is a separate, already green exact prime-admission/log-amplification implementation at aafb28e85bbc7a55a6c351621dc451042aee5b8f. It is an identity/reduction, not the present new global bound. #1105 is MERGED, not still awaiting repair. Previously formalized radical/increment, spectral and finite obstruction results are reused rather than reimplemented.
+
+### D. Candidate selection and proof plan
+
+Priority A was selected because #1107 contains the strongest immediate complete-return gain and only an identified integration defect was blocking certification. Source and open-PR searches found the exact implementation already in progress.
+
+Target: preserve all original source hypotheses while replacing the per-slot LOW gate by an aggregate mass budget, then instantiate the existing anchored HIGH comparison at the same source's full reserve.
+
+Dependencies: the tilted selected-row energy at two fixed physical envelopes; exact inverse normalization; original weighted tuple mass; Gaussian central/remote dyads; complete ray/principal normalization; actual native source moments; anchored HIGH; variable-boundary signal comparison; exact native zeta-to-Hecke transfer and signed-pair identity.
+
+Strategy: use one of two existing row caps, pay the weakened energy exponent with the retained moving tuple decay, and run the unchanged complete consumers. Quantifiers fix constants and both caps before growing cutoffs and rows. Main risks checked were original-versus-auxiliary normalization, empty subsets, multiplicity, uniformity in the moving carriers, strict tail margins, fineness and circular licensing.
+
+Validation: pinned warning-fatal Actions compilation, explicit elaborated types for the entire public surface, fail-closed inventory, root/native import checks, live-dependency inclusion/exclusion and terminal axiom collection. No local compilation substitutes for this.
+
+### E. Exact theorem statement
+
+Let D : OAI.SevenEighths.Parameters.HighData(1/1000000). The actual original slot family has positive lengths, fixed total sum 1/6 and finite nonempty index type. Define m=actualSlotMinimum(D), before asymptotic scales, characters and losses.
+
+The universal fine-source declaration is
+
+    native_beta_le_true_physical_slot_minimum_total_mass_of_fine
+      (D : HighData (1/1000000))
+      (hfine : forall i,
+        D.ell i <= detectorMesh (1/1000000) D.t / 200) :
+      HeckeZeroSupremum.beta <= 7/8 - actualSlotMinimum D / 4.
+
+Do not drop hfine or report this as a bound for arbitrary source data. The unconditional terminal constructs a fine source and proves
+
+    exists D : HighData (1/1000000),
+      0 < actualSlotMinimum D /\
+      HeckeZeroSupremum.beta <= 7/8 - actualSlotMinimum D / 4.
+
+The four terminal declarations are:
+
+- OAI.SevenEighths.RHLeanActualSlotMin.native_beta_le_true_physical_slot_minimum_total_mass.
+- RHLean.Analysis.native_mertens_true_physical_slot_minimum_total_mass.
+- RHLean.Analysis.native_mertens_fixed_true_physical_slot_minimum_total_mass.
+- RHLean.Analysis.native_signed_pair_true_physical_slot_minimum_total_mass.
+
+MertensGrowthAtMost(b) retains every positive loss: for every eps>0, some C>=0 bounds every integer x>=1 by C*x^(b+eps). The fixed-power result spends eps=m/8 and yields exponent 7/8-m/8. The signed return says, for one such fixed D and every eps>0, some C>=0 satisfies, for all natural x>=1,
+
+    2 * realMertensPositiveLagPairSum(x+1)
+      <= (C * Real.rpow x (7/8-m/4+eps))^2
+           - realMertensDiagonal(x+1).
+
+This retains every lag pair and the exact diagonal. It is not a pairwise sign assertion.
+
+The gate-free SourceData LOW theorem is universal for every real Delta, D:HighData(Delta), F:SourceData(D), fixed 0<=tilt<1/960, character eta and loss>0:
+
+    F.tiltedProbe tilt eta = O(Z^(3/16-9*tilt+loss)).
+
+Its general physical supplier retains the explicit aggregate budget
+(3/2)*(5/3-2*(phys.x+phys.y)) <= sum_i ell_i.
+
+### F. Independent mathematical audit
+
+For S=phys.x+phys.y, g=5/3-2S>=0, selected mass s and unselected mass d, total L=s+d. Assume 3g/2<=L. Apply the compiled selected-row energy twice, at the actual phys and at the fixed auxiliary pair (17/48,23/48) with sum 5/6. The left-hand side is the same original squared sum: phys changes the permitted row cap and exponent, not the arithmetic row, mask, coefficient, character or evaluation scale.
+
+If s>=g, the original gate holds and energy exponent S-2d is at most S-d. If s<g, then d=L-s>g/2=5/6-S; the auxiliary estimate gives 5/6-2d<=S-d. Choose the sum of the two fixed constants, maximum degree and common threshold before Z,T,J,R,X,Y,t. This proves the needed uniform coarse energy, without assuming the sharper RG4 estimate.
+
+Normalization uses the ACTUAL Q=q*Z^S/L_tuple^2, never the auxiliary cap. After the square root and original normalizing factors, the excess cost is Z^(d/2+507*epsilon/2). The existing original moving-mass theorem with rho=1/2 contributes Z^(-d/2). Its constants depend on the fixed finite source, not the moving tuple. Every outer tuple and subset is counted once. Original J is UNSELECTED; J=empty is the all-selected case with one outer tuple, not a fabricated outer cross-term saving.
+
+The central exponent returns to (5*x+y)/12+254*epsilon, the complete dyads to the corresponding +256*epsilon budget, and the remote O(Z^-1), all compensation subsets, ray pools, windows and actual nonzero principal normalization remain present. Positive epsilon loss is explicitly spent.
+
+For x=17/48-24*tilt and y=23/48+12*tilt, g=24*tilt; total mass 1/6 pays 36*tilt<=1/6 throughout the actual tilt<1/960 range. Calibration preserves D.t, D.N and D.ell. For E=slotCalibratedHighDataLowFirst(sourceWithExactSlotMinimum D), E.sigma=m/4. Since m<=D.t/200 and D.t is small, tilt=E.sigma satisfies tilt<1/960 and 24*tilt=6m<D.t. The original fineness and error reserves survive; SourceData and CountParameters are constructed, not assumed as target-strength estimates.
+
+Complete comparison: LOW has exponent 3/16-9*tilt+loss; the genuine signal shift is -11/16-8*tilt; anchored HIGH has exponent 7/8-11/16-8*tilt-E.sigma. Thus the boundary is max(7/8-tilt,7/8-E.sigma)=7/8-m/4. Only the proved NONSTRICT beta_H<=7/8 input licenses moments. In the contradiction case beta_H>7/8-tilt, the required beta_H>=51/100 follows. The source excludes finitely many primes through the genuine mask and principal/nonpole facts. No new zero-free, Mertens, residual-covariance or desired-endpoint premise is inserted.
+
+Native transfer uses the proved zeta-to-Hecke Dirichlet product and the native converse; it does not identify rational Mobius signs with sextic ideal characters. The source-coefficient counterexamples and scalar gate-deletion obstruction do not refute this two-envelope proof. Conversely, this proof does not establish the unresolved sharper RG4 statement.
+
+### G. Lean implementation
+
+The PR contains 23 public theorems and one definition across three focused modules. The complete implementation already existed when selected; this run made no additional Lean declaration or source commit.
+
+| PR source | Blob at reviewed head |
+| --- | --- |
+| research/oai_434/VF919TotalMassLowEnergy.lean | bfabf9a745b99f4ebc3cb75c3d921616e735e5dd |
+| research/oai_434/VF919TotalMassLowPhysical.lean | 3fa845ae607f64137e01e0e2ff201d244885cfea |
+| research/oai_434/VF919TotalMassEndpoint.lean | 827bb952c4d4311d75fd03a2470799dc10b0f7e7 |
+| scripts/lean/total_mass/ExactTypes.lean | 39a636b335f23e8c20031e899fafa9cd10e11e14 |
+| scripts/lean/total_mass/check_inventory.py | 60f4d4fba4510586e2f24a60de01cde9dd92f41e |
+| scripts/lean/total_mass/expected_inventory.json | d68bce28e090d786172502cd6de1003ba8c1cf54 |
+| scripts/lean/total_mass/TotalMassAudit.lean | 86fd3ffcccfb12d1b54588f813c9404552aa0d78 |
+| scripts/lean/total_mass/run.sh | f08b8e90ebd0592b9504718d85833e9cf2b9e815 |
+| .github/workflows/vf919-total-mass-endpoint.yml | c2148a2754bb945ca0827ce843542e9334a4e4bd |
+| docs/RHLEAN_TOTAL_SLOT_MASS_ENDPOINT_20261107.md | 305c68bb407e2580417373fbf20ca1e29104ec0b |
+
+The dedicated workflow directly compiles the research entrypoint and explicit expected types. Its native import-closure check and repository public-export/proof-inventory jobs are distinct checks; a root-package success alone would not certify the new research modules.
+
+### H. Proof-branch and PR evidence
+
+PR #1107: formalize/20261107-total-slot-mass-endpoint -> main, base cae99df1c3ea24ff4113063bf09f6fd07517ad93. Reviewed latest head cd8f98fd6ed2dee3fa08f526eb8ac86c94549da5. Intake failed head 7a66f80d785b3c4004cff300e351a228abe74fd1.
+
+The concurrent repair commit is titled "Keep explicit type assertions warning-clean without changing quantified statements", committed 2026-11-08T02:10:33Z. It changes only the type assertions, their deterministic renderer and assertion-text manifest hash. This run verified the current PR head before considering writes and therefore did not overwrite that work.
+
+Final PR refresh confirms OPEN, draft=false, merged=false at that same head. [Independent certification comment 6716161732](https://github.com/OVVO-Financial/RH_Lean/pull/1107#issuecomment-6716161732) records this run's mathematical and exact-CI audit. The ready-for-review transition was requested and its returned state verified. A concurrent update had already refreshed the PR's validation paragraph, so it was preserved instead of overwritten.
+
+No main push, merge, auto-merge, schedule change, other-agent report modification or policy change was made.
+
+### I. GitHub Actions evidence
+
+Dedicated [run 42437401175 / job 128599096276](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42437401175/job/128599096276) is COMPLETED/SUCCESS on exact pull-request head cd8f98fd6ed2dee3fa08f526eb8ac86c94549da5. Source compilation, explicit types and terminal audit finished at 2026-11-08T02:24:57Z; the workflow finished at 02:25:02Z. The logs explicitly report "Total-mass complete endpoint: warning-fatal proof, exact public types, and live-axiom audit passed."
+
+The 26 selected baseline modules and three new modules compiled with -DwarningAsError=true. The same flag checked ExactTypes.lean and the audit executable. The inventory certifies 23 public theorems and one definition; it does not invent their proofs. Actual terminal outputs:
+
+| Terminal | Allowed axioms printed | Live closure size |
+| --- | --- | --- |
+| Hecke beta endpoint | propext, Classical.choice, Quot.sound | 35352 |
+| Positive-loss native Mertens | propext, Classical.choice, Quot.sound | 35731 |
+| Fixed-power native Mertens | propext, Classical.choice, Quot.sound | 35732 |
+| Complete signed-pair return | propext, Classical.choice, Quot.sound | 35746 |
+
+The audit requires the new selected-row energy, actual normalization, moving tuple mass, complete Gaussian/ray/normalizer consumers, actual native moments, anchored HIGH and original signal comparison in live proof-value closures. It rejects the named old strict-gap endpoints as shortcuts. Native roots require the new Hecke endpoint and exact Dirichlet product; the pair root also requires the original diagonal identity.
+
+All 13 triggered workflows and 14 check-runs were retrieved and report SUCCESS at this head. Companion evidence includes [public exports](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42437401146), [proof inventory](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42437401147), [source audits / hosted Lean build](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42437401208), [targeted iteration](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42437401171), and documentation, atlas and unchanged native infrastructure checks. Their success is supplementary to, not a substitute for, the dedicated proof job.
+
+[Proof artifact 13600168829](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42437401175/artifacts/13600168829) was downloaded and inspected. ZIP SHA256 e5d466ac342c7764144edf79f60eb428045568dba56ea7b9bdd43a3842ad7078 matches the job's digest. The three archived mathematical source blobs equal the table in G; the entire archived acceptance directory equals the reviewed head. Generated anchored provenance retains source pin 9cbfce5295343bcb411e6d2cb159b59995cd985b, upstream pin 1581d4cbdd69a0faf34b2089614fe2a814316a6a and reference_ceiling=7/8. Its generator-stage label GENERATED_NOT_VERIFIED is not proof evidence; the subsequent successful compilation and terminal audit supply verification.
+
+Reused merged supplier: #1105 tested head 30e235ac5ee86041d194d07b20c52b0b22d317f2, [run 42402231812 / job 128492295936](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42402231812/job/128492295936). Actual logs report 43 compiled generated modules, no failed/blocked modules, and permitted-three-axiom outputs for source_moments_two_error and all three literal count branches. This proves those supplier interfaces, not the unimplemented combined BC1-BC4 consumers.
+
+The exact merged source_moments_two_error retains kappa>1/2, beta_H>=51/100, 2*beta_H-1<=kappa, and every slot's detectorMeshAt fineness. Its J is fixed before eta; C is fixed before tau; the eventual scale may depend on tau. Do not reverse those quantifiers.
+
+#1106 had 19 successful listed workflows at aafb28e85bbc7a55a6c351621dc451042aee5b8f, including dedicated 42432107765 and root audit 42432109095. No redundant rebuild was requested.
+
+### J. CI failure, repair and verification limits
+
+The intake #1107 run [42436409656 / job 128596086873](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42436409656/job/128596086873) failed on unused forall-binder warnings in ExactTypes.lean under warningAsError. It was an acceptance-file elaboration/lint failure, not a mathematical counterexample. The three new mathematical modules had compiled at that old revision, but the complete audit had not finished, so old-head full certification was not claimed.
+
+The concurrent repair prefixes only unused OUTER assertion-binder names with underscores. Names referenced later and every result-type character remain unchanged; collisions or unsupported syntax fail closed. No mathematical source was changed. All original declaration type hashes, import lists and namespace/scope hashes remain identical. Only exact_types_sha256 changes from 9b858f2c6791c02dff7e8895d0553ee9cf38d0d33b0808e8604a6c80041d2e63 to a0b0338259d0cb4edc83147b3be20c1e20ccc3e977447db59cdca0a24a580f38.
+
+The repaired local static inventory passes for 23 theorems and one definition; shell syntax passes. Five focused alpha-renaming/rejection probes also pass (dependent names, unused names, anonymous instances and collision rejection). These checks do not execute Lean. The cloned-repository transport was unavailable through the shell proxy (CONNECT 403), so source retrieval and authorized report publication used the working GitHub connector. This did not block remote CI, and is not called BLOCKED_WRITE_ACCESS.
+
+Some imported dependency build logs mention unused upstream Wiener declarations containing sorry. No blanket statement that every transitive imported file is hole-free is made. The relevant evidence is the new source no-hole inventory plus actual axiom collection on the four terminal proof closures; only a passing terminal audit excludes sorryAx from these conclusions.
+
+### K. Mathematical conclusions
+
+Classification: PROVED_IN_LEAN at cd8f98fd6ed2dee3fa08f526eb8ac86c94549da5; implementation CI_GREEN / REVIEW_READY / UNMERGED; programme acceptance CANDIDATE_ETA. The complete endpoint is quantitative control, not merely an algebraic identity. Its fixed source is chosen before every loss and asymptotic scale; m is existential and may be extremely small. The comparison is to the same-source m/24 theorem, not to a numerically optimized supremum over all possible sources.
+
+Paper corollaries, NOT newly named Lean declarations in this PR: for fixed Lambda, the exact canonical M(R^2-1)=L_R+H_R bridge and paid O(R) LOW imply
+
+    H_R = O_eps(R^(7/4-m/2+eps)),
+    sum_(0<=j<h) |canonicalHighPrefix Lambda (N+j)|^2
+      <= C_eps * h * N^(7/2-m+eps),  N>=1, 1<=h<=N.
+
+The h=1 coherent mode is included. This is a prefix-value energy bound, not a bound for sharp shell increments. Passing from square endpoints to arbitrary x incurs at most 2R+1 original Mobius terms; the O(R) remainder is absorbed because the fixed exponent is above 1/2. The native terminal itself already controls all integers.
+
+No conclusion here proves RH, finite A, the canonical actual-prime VF estimate, or log(1+A(x))/log(x)->0. It does not license arbitrary iterations of a fixed-7/8 anchored generator.
+
+### L. Formalization-driven discoveries
+
+The effective new invariant is TOTAL source length, not the smallest individual slot. The energy estimate can be weaker by d while still producing the same normalized LOW exponent, because the original moving tuple mass pays exactly d/2 after the square root. This bypasses, rather than proves, RG4's stronger requested estimate. Once the LOW gate is removed, the existing HIGH reserve sigma=m/4 is the binding complete-comparison term.
+
+New handoff 20261107-lean-3/KL1, PAPER_PROOF arithmetic consequence of the now-certified endpoint (not a new compiled declaration or global gain), is available for the same fixed source:
+
+    beta_H<=7/8-m/4
+      implies 2*beta_H-1<=3/4-m/2.
+    kappa_safe=3/4-m/4
+      satisfies 1/2<kappa_safe<3/4
+      and kappa_safe-(2*beta_H-1)>=m/4.
+
+Thus the incoming boundary permits a larger reduction in the generalized moment parameter than the old paper choice 3/4-m/24. It does not require choosing kappa as a function of the growing scale. For source reuse, retain the original fine witness and invoke the existing original_source_fineness_preserved with 0<=kappa_safe<=kappaPlain(E); do not erase its hypotheses. The original detector mesh is antitone in kappa. If beta_H<51/100, use that already stronger boundary case rather than invoke the supplier without its lower-beta premise.
+
+New handoff 20261107-lean-3/KL2 is CONDITIONAL on BC3's independently unaccepted scalar count formula and all BC1/BC4 source qualifications: comparison with kappa=3/4 would improve the count exponent by at least
+
+    (m/4)/6075 = m/24300
+
+on its CLOSED INTERIOR box 1/4<=delta<=1/2, 1/4<=x<=1/2, 0<rho<=delta/12. With U=Z^d and d>=1/200, the class exponent gain is at least m/4860000. These are six times the earlier m/145800 and m/29160000 lower bounds under the same conditional comparison. Equality faces x=0 or delta=5/6 still give zero scalar kappa gain. No actual-row population restriction, all-row saving, improved HIGH reserve or next endpoint follows.
+
+This is a handoff calculation using the changed endpoint, not a re-run of the unchanged scalar grid. It avoids an extra low-value Lean algebra wrapper. The missing work is the actual combined source/count consumer and its complete return.
+
+### M. Mathematical significance and compact HIGH record
+
+Protected route: OAI-NNS; original carrier: complete compensated tilted ideal-character probe, exact native Mertens transfer and all signed integer pairs.
+Closure type: aggregate_bounds, with source-specific weighted mass retained.
+Strongest incoming applicable baseline: beta_H<=7/8-m/24 for the same actual fine source.
+New inference: actual selected-row two-envelope bound plus original inverse-square tuple mass.
+Complete return: all subsets, Gaussian tails, ray pools/windows, principal normalization, native moments, anchored HIGH, finite-prime masks and signal comparison.
+Net endpoint budget: 7/8-m/4; additional margin 5m/24. Fixed-power loss spending is separate.
+First remaining mechanism: increase or otherwise improve the complete HIGH reserve/return; the old fixed-reference generator cannot simply be rerun as an iteration theorem.
+Independent-referee gate: pending explicit later acceptance; broad programme and all nine protected routes unchanged.
+
+Formal soundness and mathematical significance are assessed separately. The proof may be kernel-certified at an unmerged PR head without being on main or meeting the programme's independent-review gate. Its significance is a genuine same-source complete exponent improvement, not a claim of RH-scale closure.
+
+### N. Specialist handoffs
+
+| Recipient | Precise handoff |
+| --- | --- |
+| Proof Architect | Compare with 7/8-m/4 once exact-head evidence is accepted, not nominal 7/8 or the weaker same-source m/24 endpoint. Record the independent-Referee gate separately. Keep broad coverage. |
+| Analytic Type II | Reuse merged #1105 and the stronger fixed kappa license above. Implement/review BC1's fixed-U nu limit with raw constants AND threshold independent of nu; retain compatible CountParameters, separate D.t and D.t/2 errors, fresh arbitrary-cutoff batches and high-bin complement. Then return the gain through full HIGH, where sigma is binding. |
+| Adversarial Referee | Independently accept or reject the exact #1107 source at its tested SHA: identical left-hand side under both envelopes, actual Q, weighted tuple payment, every compensation/remote/principal consumer and complete m/4 comparison. Your TF1-TF3 paper SELF_AUDIT is not silently upgraded to independent acceptance. |
+| Owner Payment | Native Mertens/pair consequences are the valid bridge; do not identify ideal-character coefficients with rational Mobius occurrences. Preserve JT/kernel/tail hypotheses and independent VF-LOW/SAT/JOH work. |
+| Finite Wheel | Preserve OC occurrence/component qualifications and the independent FINITE-AC/CORR4/MU-LIFT routes. No source-population or incidence restriction for ideal rows follows from the new kappa algebra. |
+| Prime Census | Do not repeat unchanged TF scalar grids. A changed useful test is original-source class/coefficient compatibility or a proposed global population restriction at the zero-gain faces; finite tests remain finite. |
+
+These are published handoffs only. No other agent was launched or assumed to act.
+
+### O. First unresolved mathematical theorem
+
+For the immediate generalized-kappa lane, the missing source-faithful theorem is the combined six-case two-error count and its actual nonfloor class return, using compatible raw-inverse certificates, the fixed-U nu->0 argument, new crossing cutoffs, all unchanged masks and uniform constants. The merged separate moment/count branches alone do not establish this consumer.
+
+For another COMPLETE endpoint gain beyond 7/8-m/4, one must then prove that the changed count improves the binding complete HIGH return or another binding term, including noninterior classes, height/grid losses, all remainders and principal comparison. A smaller licensed kappa or an interior class exponent gain alone is insufficient. Replacing the generator's literal reference 7/8 by the new boundary requires a justified source/parameter construction and full return, not string substitution or an assumed new bound.
+
+The independent actual-prime canonical VF theorem remains open beyond this subcritical improvement.
+
+### P. Next-run resume capsule
+
+Refresh main and #1107 before any next action. Current #1107 head cd8f98fd6ed2dee3fa08f526eb8ac86c94549da5 is REVIEW_READY, CI_GREEN and UNMERGED; run 42437401175 / job 128599096276 passed with four standard-axiom closures and artifact 13600168829. Reuse this evidence while source and relevant dependencies are unchanged; do not generate another repair or build. First seek the explicit independent Referee disposition on TF1-TF3/#1107, then independently review and implement the accepted combined generalized-kappa/two-error consumer. Preserve BC1-BC4's actual hypotheses and compare any proposed next endpoint to the stronger same-source m/4 boundary. Publication and Referee acceptance are not inferred from CI alone.
+
+Key main source blobs: ActualSlotMinRetighten 138c4726085995b966204406805f70082402bec4; TiltedLowPhysical c608fe06005359225661cc58d9caa0e4036de265; TiltedLowReflection 88293c915d67eefee2e1e989082248b8a52f2ae7; OriginalLowTupleSignedGram dd2fde01ae6e2446da4e69b30f6fc80fcadb858d; NativeStrictMertens b33a4883e1ddb0551b0f11f062bce46680d87450; CanonicalHighSectorCore dd02fc8fabfe4004c6b0d50374b3b8752607b168; CanonicalLowOccupancy b958da340d107cdd00015d2827b9a728357b4d8e; canonical von Koch interface 79030d70e8d3e0d08eef9bac53fef95c36eca2fb; CutoffMoments d877240267337cca4dae6a2929b216fe6f3e2898; Applications c7ee17e8e4a6fbf53001441722b9b564da0d415d; fixed anchored generator 0bac9047afaa8e9ddc5ac246be2d0fe7d6efa725, upstream anchored pin 9cbfce5295343bcb411e6d2cb159b59995cd985b.
+
+Early report publication was verified at commit adead0747c782cefd180adb328434abe68962b8b, blob cf11272553bb1903991870ead2f0228915e7be2a. This synthesis is appended to the same daily report without deleting that checkpoint or earlier work. Publication/readback evidence is distinct from mathematics and CI.
