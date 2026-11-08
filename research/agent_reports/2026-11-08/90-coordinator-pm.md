@@ -645,3 +645,544 @@ Read exact-head AGENTS.md (blob bdd5b9f6867ae2d39b74fc966b7f548a9aba3a61) and CU
 ### C-J. Work pending
 
 Today and yesterday's seven reports and external inbox have been retrieved at report-branch snapshot a618fe4d0ce3c536cf5502efe70b9cb32fde8c18. Detailed consumption, source verification, exact-head CI and independent conceptual research are IN_PROGRESS. The next task is to identify a genuinely new complete-consumer inference without duplicating SB/WS, inherited identities or a target-equivalent bound. All nine viable routes stay protected. No agent launch, schedule change, local Lean, proof-source edit or main write is authorized or attempted.
+
+---
+
+## Scheduled Proof Architect Continuation: 20261108-coordinator-1513-EST
+
+Authority and research snapshot: 2026-11-08T20:30:41Z (15:30:41 EST).
+Actual invocation: 2026-11-08T20:13:01Z (15:13:01 EST).
+Research synthesis: FINISHED; publication: PENDING until the closing verified receipt.
+New mathematics: PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING, plus FINITE_COMPUTATION. No new Lean theorem was written by this role.
+
+### A. What Changed Mathematically?
+
+The curved boundary of the genuine Euler floor-two strip admits a controlled comparison with an ADDITIVE triangular Mobius correlation. The comparison costs at most W+4W^3/(9R), not the O(W^2) cost of discarding the whole jump. At the historical finite-C scale it remains paid up to W^3<=R^2 sqrt(K), subject also to the original historical-width restriction. A failure on this wider proper strip forces a large paired additive Fourier mode at dilation 3. This supplies a precise inverse question, NOT cancellation of that mode, a global endpoint, or a refutation of genuine Mobius finite-C. Claims AF1-AF3 below contain the proofs and all boundaries.
+
+The distinction from today's HC/SJ work is quantitative: HC pays a constant-floor rectangle; SJ counts the whole changing-floor area; AF retains that area's main signed additive triangle and only counts its curvature defect. The distinction from Referee WT is equally important: an envelope-only arbitrary-coefficient theorem is still false. AF leaves exactly the signed arithmetic object that such a theorem cannot dispose of. Existing short-interval uniformity supplies logarithmic savings on this object in a compatible range, but not the required power saving (AF4). No claim of worldwide novelty for Fourier triangular summation is made.
+
+A second, independent source-consumer finding is important for the OAI queue. Main now contains #1111's b_pack=7/8-1/(32*N_pack), not just the older explicit boundary printed in the governing prose. The literal old-family explicit constant in draft #1116 is WEAKER than b_pack. Its source-parametric theorem can instead be combined with #1111's near-uniform family to propose 7/8-5/(64*N_pack), a saving of 3/(64*N_pack) relative to b_pack. The comparison is proved below; the proposed composition remains CONDITIONAL on accepting the repaired draft and its source-compatible complete consumer. Do not announce a new endpoint merely because the old-family draft beats an older comparator.
+
+Preregistered exact tests: 8,413 (R,W) cases passed; 6,376 satisfied the additional historical normalization conditions. No all-scale inference is taken from this evidence. The mathematical program remains SEARCH_BROAD; NEW_VERIFIED_ENDPOINT_GAIN_FROM_THIS_EXECUTION=NONE; canonical VF, zero-log amplification, finite A and RH remain OPEN.
+
+### B. Current Proof Objective And Authority
+
+Verified main, both at intake and the later freshness check:
+`829aa93ec4a2117db4a5920b121c0ed70681b4e5`.
+The branch includes human merges #1111, #1112, #1113 and #1114. Main was not modified by this role.
+
+| Authority | Exact blob SHA |
+| --- | --- |
+| AGENTS.md | bdd5b9f6867ae2d39b74fc966b7f548a9aba3a61 |
+| CURRENT_PROOF_CONTRACT.md | d1d6fd558ee23927bd9f70ffdc375bafd1dbb67a |
+| docs/RHLEAN_REPO_WIDE_PROOF_ATTACKS_20261108.md | 5862ccaffd0e75c25b509c1d246c3aa09b6c345b |
+| docs/PROOF_DEPENDENCY_DAG.md | 455717b6d99da7248c71ada0062dfd6747a7938d |
+
+Acknowledgments: high_attack_ack=COMPLETE_SIGNED_HIGH_ATTACK_V1; chain_ack=CANCELLATION_CHAIN_REUSE_V1; route_ack=REPO_WIDE_PROOF_DAG_AND_AGENTS_20261108; baseline_ack=PAID_BASELINE_EXACT_CONSUMER_V1; deployment_ack=NO_PIGEONHOLING_ROUTE_SELECTOR_V1. The task selector, seven-role prompts, complete-return contract, persistent engine, breadth policy, atlas and external inbox were read. Their research instructions do not authorize Coordinator source, workflow, PR, schedule or other-report edits.
+
+The public theorem is unchanged:
+
+```text
+VFCanonicalSquareVonKochStatement:
+exists C : real, C>=0, forall integer R>=2,
+  |pi(R^2)-vfCanonical(R^2)| <= C R log R.
+vfCanonical = vfMid + sqrt(2).
+```
+
+The inspected canonical file preserves the explicit `ClassicalVonKochRHCriterion` argument in its terminal RH consumer. The arithmetic estimate is not supplied by that conditional theorem. The separately established Mertens-energy consumer is not being replaced by the classical interface.
+
+Retain X_R=R^2-1 and the STRICT history
+
+```text
+K_R=max_(0<=y<R) (M(y)-1)^2/(y+1),
+alpha_R=(M(X_R)-1)^2/(R^2 K_R),
+A(X)=max_(R>=2, X_R<=X) alpha_R.
+```
+
+In particular K_R>=1 comes from y=0. The open zero-log statement is: for every eta>0 there exists C_eta>=0, independent of R, such that (M(X_R)-1)^2<=C_eta X_R^eta R^2 K_R for every R>=2. Uniform finite A is a separate stronger sufficient criterion. Canonical fixed-Lambda LOW is O(R); the complete signed HIGH and all its restoring terms remain the physical target. OAI LOW and the Euler proper strip are not identified with canonical LOW.
+
+**Correct current comparator.** The exact main source and #1111's tested head prove `native_mertens_near_uniform_slots` with `MertensGrowthAtMost(b_pack)`, where N_pack=`nearUniformSlotCount` is fixed before the arithmetic scale and b_pack=7/8-1/(32*N_pack). This means every positive exponent allowance, not a no-loss fixed power at b_pack. Spending 1/(64*N_pack) gives the fixed power 7/8-1/(64*N_pack). The older #1108 result survives but is not the best comparator. Its positive amplification exponents are not zero-log control. For the existing CORR4 consumer beta=7/8-eta/4, beating b_pack requires eta>1/(8*N_pack), replacing the old-family comparison threshold in the policy prose.
+
+### C. Competing Mechanism Portfolio
+
+These are three CURRENT PRIORITY mechanisms, not a declaration that the nine protected routes are equivalent. NYMAN remains an independent protected alternative, with its next allocated turn retained. The approximately three-mechanism portfolio does not override the live nine-route requirement.
+
+| Candidate | Concept and independent input | Exact target route and first unpaid step | Support, obstruction, decisive test, owner, disposition |
+| --- | --- | --- | --- |
+| P1: retained same-source analytic reserve | Spend already justified HIGH window reserve and then retained marked 1+t/2/generalized-kappa information in the same physical probe | Complete LOW/HIGH/principal comparison, zero boundary, native Mertens return; first accept #1116 at the repaired source and compose with the strongest fixed family, then identify an actually new downstream gain | Main #1107/#1111 supplies the current complete baseline. CP1 refutes an outdated-comparator gain claim. Test exact family compatibility and every budget field. Analytic plus Lean, CONTINUE, highest near-term formal priority |
+| P2: actual-prime weighted failure localization | Preserve integrated Johnston kernel and prime-square bias; test whether arithmetic restrictions on the actual dangerous low spectrum or original first moments exclude the inverse configuration | Eventual original G(R^2)<0 through the stated JOH consumer; the missing exclusion of the signed low-zero configuration is NOT known or independently easier merely by naming it | Owner JT pays the high tail on paper but does not exclude low modes; MC/PD show genuine prime/cofactor information and important sign failures. Test the exact remaining weighted configuration, not count-only surrogates. Owner, CONTINUE with explicit no-circularity gate |
+| P3: original recurrence with retained arithmetic boundary | Euler strict-history recursion plus AF's additive-triangle boundary; distinct CORR4 mixed geometry and MU-LIFT corners remain separate suppliers | A proper-strip estimate alone leaves Z; global finite-C or zero-log requires an independent constraint on the COMPLETE return. AF's first unpaid input is a signed bound on L beyond envelope-only control, followed by the unpaid complement | HC/SJ proper components accepted on paper; AF1-AF3 are new self-audited reductions; WT rules out arbitrary-vector extension. Test genuine additive correlation and original factor constraints. Wheel after its protected MU-LIFT turn, REVISE/CONTINUE, no global promotion |
+
+Quantitative sufficiency ranks P1 highest for an incremental endpoint because its source consumer is already complete. P2 and P3 remain strategically necessary alternatives, not six requests for one covariance inequality. None has an independently established RH-strength final input. Repeated local identities alone will not justify keeping a candidate active indefinitely.
+
+| Official route | Current frontier, status and allocation |
+| --- | --- |
+| VF-LOW | Actual-prime original-weight lower wall / #915 first-bad restriction. MC contact payment is not a complement bound. Active Owner portfolio. |
+| SAT | Full signed prime-innovation/composite-removal return; PD source matching is not cancellation. Active Owner portfolio. |
+| CODIV | Complete signed all-pair gain beyond b_pack; GL is a proper-sector estimate and MP retains unpaid coherent/perpendicular terms. Active Analytic portfolio. |
+| OAI-NNS | P1; source-compatible window/family composition and marked/combined-count return. Next protected Analytic turn. |
+| JOH | P2; exact low-spectrum or first-moment obstruction remains open. Next protected Owner turn. |
+| FINITE-AC | P3; AF pays curvature only, not L or global Z. Active Wheel portfolio. |
+| CORR4 | #1109 multiplicity is paid; rays, tails, parent/historical terms, negative daughter energy and mixed bill remain. Active Wheel portfolio. |
+| MU-LIFT | Full-prefix contraction with fixed r<k and all physical corners, not target-defined energy. Next protected Wheel turn. |
+| NYMAN | ND finite full-norm descent and FT are not all-scale density/decay; Burnol constraint retained. Independent Analytic portfolio, next rotation preserved. |
+| BLOCK | Original universal one-block capture REFUTED at R=549. Retired only in that scope; genuinely weaker independently tested proposals remain eligible. |
+
+Rolling coverage, as evidenced by actual dated reports: Owner SAT then VF-LOW today, next JOH; Analytic CODIV then NYMAN today, next OAI-NNS; Wheel CORR4 then FINITE-AC today, next MU-LIFT. No additional invocation was inferred, scheduled or launched.
+
+### D. Conceptual Research Performed
+
+#### AF0. Original Carrier And Quantifiers
+
+Throughout AF1-AF3, R>=2 is an integer, N=R-1, X=R^2-1, and mu is the genuine integer Mobius function, including mu(1)=1 and squareful zeros. Let lo=ceil(R/3), hi=floor((R-1)/2), I2=[lo,hi]. Empty sums are zero. Let W be an integer with 0<=4W<=R, B=R-W, and d=R-b in [1,W]. Preserve every ORDERED (a,b) occurrence, including equal-product multiplicity.
+
+```text
+T_R(a,b)=floor(X/(ab))-(R+1)floor(N/a)/b,
+m2=M(hi)-M(lo-1),
+t_B=sum_(B<=b<R) mu(b)(1-(R+1)/b),
+E2=sum_(a in I2,B<=b<R) mu(a)mu(b)T_R(a,b),
+J2=sum_(a in I2,B<=b<R,3ab<=X) mu(a)mu(b),
+L =sum_(a in I2,B<=b<R,3a+b<=2R) mu(a)mu(b).
+```
+
+SJ1's exact single-jump identity is E2=2m2*t_B+J2. This is an original rational kernel, not a prime-only model or an ideal-character source. Let K>=0 satisfy (M(y)-1)^2<=K(y+1) for EVERY integer 0<=y<R. All historical estimates below are uniform in every such K, not just the finite empirical minimum.
+
+#### AF1. Curvature Payment, PAPER_PROOF
+
+Claim ID `20261108-coordinator-1513/AF1`.
+
+The affine triangle is contained in the true jump. Indeed, writing v=3a-R, its condition is 0<=v<=d, so
+
+```text
+3ab=(R+v)(R-d) <= (R+d)(R-d)=R^2-d^2 <= R^2-1.
+```
+
+For each d, the real upper thresholds differ by
+
+```text
+(R^2-1)/(3(R-d)) - (R+d)/3 = (d^2-1)/(3(R-d)) >= 0.
+```
+
+Capping both thresholds by hi and restricting to a>=lo can only reduce the number of excess integers. Consequently, for the actual signed curvature sum D_mu=J2-L and its unsigned site count D_sites,
+
+```text
+|D_mu| <= D_sites
+ <= W + sum_(1<=d<=W) (d^2-1)/(3(R-d))
+ <= W + W(W+1)(2W+1)/(18(R-W))
+ <= W + 4W^3/(9R).                                      (AF1a)
+```
+
+The last step uses W>=1, W+1<=2W, 2W+1<=3W and R-W>=3R/4; W=0 is immediate. The signed D_mu is NOT presumed nonnegative.
+
+For completeness, the historical interval bound gives |m2|<=2sqrt(KR). Abel summation on the monotone negative weight 1-(R+1)/b, using interval partial sums at most 2sqrt(KR), gives |t_B|<=2sqrt(KR)(W+1)/(R-W). Thus
+
+```text
+|2m2*t_B| <= 8KR(W+1)/(R-W).
+```
+
+If additionally 16KW^2<=R^2, then the last quantity is at most (16/3)R sqrt(K). If also W^3<=R^2 sqrt(K), then (AF1a), K>=1 and W<=R/4 give |D_mu|<=(25/36)R sqrt(K). Therefore, with complete quantifiers as in AF0,
+
+```text
+16KW^2<=R^2 and W^3<=R^2 sqrt(K)
+  ==> |E2-L| <= (217/36)R sqrt(K).                        (AF1b)
+```
+
+This widens the paid BOUNDARY ERROR from SJ's area restriction W^4<=R^2 K to a curvature restriction W^6<=R^4 K. It does not widen a proved bound on E2 itself: L has deliberately been retained and remains unpaid. At K bounded, the curvature width has exponent 2/3 rather than 1/2; the simultaneous historical condition must still be imposed for growing K.
+
+On precisely this domain, a uniform finite-C estimate for E2 is equivalent to one for L, with constants changed by at most 217/36. This is only a proper-strip equivalence, not an established equivalence of L alone with the canonical objective. A failure |E2|>(217/36+lambda)R sqrt(K), lambda>0, forces |L|>lambda R sqrt(K).
+
+#### AF2. Scope And Sharpness Of The Geometric Cost, PAPER_PROOF
+
+Claim ID `20261108-coordinator-1513/AF2`.
+
+For the explicitly SYNTHETIC all-positive site weights, D_sites~W^3/(9R) along integer R->infinity with sqrt(R)<<W<<R. Eventually neither upper cap hi is active. Summing the exact real threshold differences gives W^3/(9R)(1+o(1)); replacement by integer floors costs O(W). The denominator expansion costs O(W^4/R^2), and the lower polynomial terms cost O(W^2/R+W/R). Every error is o(W^3/R) under the two stated limits. This proves the asymptotic, rather than fitting it numerically.
+
+Hence an O(R) absolute-curvature payment using only coefficient magnitude cannot extend to fixed power widths W=R^theta with theta>2/3. This statement does NOT impose a historical envelope on the all-positive model, does NOT refute a genuine signed-curvature improvement, and does NOT refute finite-C, MU-LIFT or RH. It is a sharpness statement for this particular absolute geometric comparison. WT's stronger envelope-only obstruction remains a separate paper result on its non-Mobius carrier.
+
+#### AF3. A Falsifiable Additive-Frequency Inverse Statement, PAPER_PROOF
+
+Claim ID `20261108-coordinator-1513/AF3`.
+
+Assume W>=1 and set q=2W+1. On Z/qZ use representatives 0,...,q-1 and e(t)=exp(2*pi*i*t). Define f(v)=mu((R+v)/3) when 0<=v<=W, R+v is divisible by 3, and (R+v)/3 belongs to I2, and f(v)=0 otherwise. Define g(d)=mu(R-d) for 1<=d<=W, zero otherwise; h(u)=1 for 0<=u<=W, zero otherwise. Define F(k)=sum_v f(v)e(-kv/q), G(k)=sum_d g(d)e(-kd/q), H(k)=sum_u h(u)e(-ku/q).
+
+Since d-v lies between -W and W, a negative difference wraps outside [0,W]. Thus there is no cyclic aliasing, and Fourier inversion gives the EXACT identity
+
+```text
+L = (1/q) sum_(k=0..q-1) H(k) F(k) G(-k).               (AF3a)
+```
+
+The identity itself is IDENTITY_ONLY. The kernel has |H(0)|=W+1 and, for 1<=k<=W, |H(k)|=|H(q-k)|<=q/(2k), by the geometric-series formula and sin(pi*k/q)>=2k/q. Therefore
+
+```text
+(1/q) sum_k |H(k)| <= 1 + sum_(k=1..W) 1/k <= 2+log W.
+```
+
+Combining with AF1 proves the inverse restriction: for every R,W,K in AF1b and every lambda>0, failure |E2|>(217/36+lambda)R sqrt(K) forces at least one k in Z/qZ with
+
+```text
+|F(k)G(-k)| > lambda R sqrt(K)/(2+log W).               (AF3b)
+```
+
+The coherent term k=0 is explicitly (W+1)F(0)G(0)/q and is NOT omitted. No stochastic independence, favorable sign, random-character analogy or independent-prime transfer is used. The actual arithmetic question is paired short-interval additive concentration at dilation 3. This is not the same carrier as a lagged CODIV autocorrelation. AF3b is necessary for a bad strip; it does not prove such a concentration impossible. Imposing its negation without independent justification would merely assume a sufficient bound.
+
+#### AF4. Literature Transfer And Its Quantitative Limit
+
+Claim ID `20261108-coordinator-1513/AF4`; imported theorem plus PAPER_PROOF transfer, not Lean.
+
+Matomaki, Pandey, Pliego, Teravainen and Wang, *Higher order uniformity of the primes and cancellation of the Mobius function in shorter intervals*, arXiv:2610.09567v1 (7 October 2026), Corollary 1.3: for fixed epsilon>0, degree d>=1 and A>0, X>=3 and X^(3/5+epsilon)<=H<=X^(1-epsilon), every real polynomial P of degree at most d satisfies |sum_(X<n<=X+H) mu(n)e(P(n))| <<_(A,d,epsilon) H/(log X)^A, uniformly in P. This is a preprint theorem, not a repository formal result. [Primary paper and exact corollary](https://arxiv.org/html/2610.09567v1).
+
+Fix 3/5<theta<2/3 and W=floor(R^theta). The two factors F and G are degree-one exponential sums on genuine intervals near R/3 and R of lengths comparable to W/3 and W. Choose epsilon small relative to both theta-3/5 and 1-theta; for sufficiently large R both intervals satisfy the corollary, uniformly in k and q. F's congruence encoding disappears on substituting v=3a-R, leaving the original consecutive a interval and a linear phase. G uses b=R-d. Hence AF3a gives |L| <<_(theta,B) W^2/(log R)^B for every fixed B>0, absorbing its logarithmic kernel cost. Constants depend on theta,B, not R,k or q. The curvature term remains O(W+W^3/R).
+
+For bounded K this is insufficient: R^(2theta)/(log R)^B is NOT O(R) for any fixed B when 2theta>1. Nor may B grow with R without uniform constants. The theorem supplies no pointwise square-root cancellation of the factors. Its stronger maximal-AP formulation may also bound the curved source directly with logarithmic savings; AF is not claimed to create cancellation absent from that input. This literature connection therefore clarifies the remaining power-scale gap rather than closing it. No almost-all interval result has been substituted for an every-R theorem.
+
+#### AF5. Full Return, No-Narrowing Review And Finite Evidence
+
+Let E1 denote HC's disjoint floor-one rectangle at the same W: a>=floor(X/(2B))+1, a<R, B<=b<R. Let Z be the original T sum over EVERY other ordered pair outside E1 and E2. Preserve the bounded linear mode P=(R+1)sum_(1<=b<R)mu(b)/b. The exact complete return is
+
+```text
+Q=P+E1+2m2*t_B+L+D_mu+Z,
+M(X)=2M(R-1)-Q,
+HIGH_Lambda(R-1)=2M(R-1)-Q-LOW_Lambda(R-1).
+```
+
+Squaring Q has all six diagonal squares and all fifteen cross terms. Grouping the paid terms into B_paid=P+E1+2m2*t_B+D_mu is legitimate only with all mixed terms between B_paid,L,Z retained. Existing |P|<=3R and HC's |E1|<=(8/3)R sqrt(K), together with AF1, give |B_paid|<=(421/36)R sqrt(K) under AF1b. No sign of any cross term has been inferred from that bound. Neither L nor Z has been paid. Replacing the entire complement by a target-scale hypothesis would again be target-equivalent, not a new supplier.
+
+No-narrowing ledger: SJ1 and the source recurrence are reused identities; AF1a is a genuinely quantified geometric error theorem; AF1b is a proper-source reduction using existing history; AF2 is a scoped synthetic sharpness result; AF3a is an identity, AF3b an inverse restriction; AF4 imports an external quantitative theorem but fails the needed power test. No asserted implication runs from AF's finite evidence alone to any infinite bound. This is an enabling discovery, not a conceptual solution of the full target.
+
+Registration was frozen before execution at observed clock 20:24:07Z. The exact verifier, reproduced in the appendix, used integer and rational arithmetic. It compared independent trial-factor and sieve Mobius values through 8192, direct site sums against prefix reconstruction, original rational E2 against 2m2*t_B+J2, and exact cyclic convolution against L. No floating DFT or fitted exponent was used.
+
+| Check | Result |
+| --- | --- |
+| Every R=2..256, every W=0..floor(R/4), plus thirty held-out width cases | 8,413 total cases, PASS |
+| Direct original sites for R<=64 | 22,695 site visits, exact rational identities PASS |
+| AF1b with the actual strict-history minimum K_R | 6,376 admitted cases, squared rational bound PASS |
+| Replacing <= by < in the affine boundary | REFUTED at R=8,W=1: J2=L=1, strict L=0 |
+| J2=L and J2>=L | REFUTED at R=24,W=5: J2=-1,L=0,D_mu=-1 |
+| J2<=L | REFUTED at R=30,W=7: J2=0,L=-1,D_mu=1 |
+
+Held-out roots were 317,549,1027,2002,4096,8192, at zero, square-root, 3/5, 2/3 and quarter widths, with exact integer roots and duplicate widths removed. At their 2/3 widths the respective (W,J2,L,D_sites) values are (46,-3,1,33), (67,6,7,59), (101,4,7,108), (158,-17,-12,213), (256,7,2,444), (406,-75,-66,886). Their historical K_R=3/2 is a finite observation only. Positive-weight geometric counts at R=4096,65536,1048576 test AF2's geometry, not Mobius cancellation. The unchanged verifier was rerun only to archive its output, not counted as independent reproduction.
+
+SHA-256 provenance: registration `a997e982ed62d3ad57277fae4835ab763719663663a686272a64266d3bdfc5f9`; verifier `a3492b7218e8df16c12246f88ba835806031f64d13cfece2c3079b35ef15fbed`; output JSON `63894621bd828400c5b5e05f63073bab2fac0a67431feca613ff748c71f53a75`; canonical exact-record digest `5ab19d4de032bfb6aac6a506f9cb544ba0f46981df27c2eaf27d68093e5dbf08`. New claims remain SELF_AUDIT / INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED.
+
+#### CP1-CP2. Strongest-Family Consumer Comparison
+
+Claim IDs `20261108-coordinator-1513/CP1` (PAPER_PROOF comparison) and `/CP2` (CONDITIONAL proposed composition).
+
+Write L0=explicitFineLength>0, u=1/(6L0), N_pack=ceil(max(1,u))+2, N_old=ceil(max(1,2u))+2. The actual source has L0<=explicitT/200=1/20000000000, so u>9. Consequently N_pack<u+3, N_old>=2u+2, and 3N_old>5N_pack. Thus
+
+```text
+5/(96N_old) < 1/(32N_pack).
+```
+
+The draft's literal explicit conclusion 7/8-5/(96N_old) therefore does not improve the merged b_pack. This is a comparison of upper bounds, not a claim about the unknown exact Mertens exponent or an obstruction to the general draft theorem.
+
+The source-parametric statement `native_beta_le_window_saturated_five_eighths_of_fine` instead has input D:HighData(1/1000000), the original fine-mesh condition, and output beta<=7/8-(5/8)actualSlotMinimum(D). Main's `exists_near_uniform_high_data_fine` supplies exactly that Delta and fine-mesh condition, with every slot at least 1/(8N_pack). Taking its least slot gives m>=1/(8N_pack). If the repaired draft theorem is accepted with its full original-source dependencies, the literal composition gives
+
+```text
+beta <= 7/8-5/(64N_pack),
+MertensGrowthAtMost(7/8-5/(64N_pack)),
+b_pack - proposed_boundary = 3/(64N_pack) > 0.
+```
+
+The source-parametric consumer is essential: no combination of inequalities for unrelated existential families is used. The existing native Mertens-at-beta transfer preserves the every-positive-loss quantifier. A fixed exponent must still spend a positive loss. This composition is not yet a named or exact-head-verified Lean theorem. No new physical slot, character, moment, prime mask or coefficient is invented by this calculation. It cannot be iterated to 1/2 without a new uniform input; the fixed detector and physical slot cap remain.
+
+Compact HIGH task record: route FINITE-AC; exact object original ordered Euler T at X=R^2-1; strongest global input b_pack with explicit loss spending, plus the full strict historical envelope locally; reused source identities HC/SJ; changed inference AF's retained additive triangle and quantified curvature; complete consumer Q=P+E1+2m2*t_B+L+D_mu+Z and M(X)=2M(R-1)-Q; all quadratic terms retained; net endpoint gain NONE; first unpaid proper-source estimate L, then the independent complete complement Z. CP2 is a separate source-compatible OAI consumer proposal, not a transfer between these carriers.
+
+### E. Specialist Findings And Two-Day Continuity
+
+All six specialists' November 8 reports, both dates' Coordinator reports, and all six November 7 specialist reports were retrieved at immutable `agent-reports@a618fe4d0ce3c536cf5502efe70b9cb32fde8c18`. No current-day stage is fabricated or inferred from a filename. Today's reports are available; independent reviews or implementations not present remain PENDING. The November 7 results below are explicitly dated carry-forward evidence, not new results from this execution.
+
+| Role | November 7 blob | November 8 intake blob |
+| --- | --- | --- |
+| Coordinator | 00a649b70f851ca193e74e5004d0d3390cf9ca18 | b6d5c65aed0537efd0018e11dbcd9a72dea3c15a |
+| Owner Payment | 933e8eb23e669594cc687059d75147e6267eec8d | dc8da662cdafc4bc96bcc3ccb29c3052eb1b4d99 |
+| Analytic Type II | 77f3e5795533041e4356ceb94cb66328da7af27c | 707aea15cc8e09f16cccf874c876bb04ede9ef14 |
+| Finite Wheel | 7739fa5d4cc77f35773b0d4149b2ddd21732a70d | 45e789c59f9165dbdf9dae352d7438dc468e9e70 |
+| Prime Census | 3fae830e34c590d32c31ad77cad3ace833eb3ff5 | c70b0a6dda7278e5e7befca546893314a16530df |
+| Adversarial Referee | 426c2abfa5b8926b512e07f05be37692a2416d0b | 68b1162b59f195722fc34378c0d4a182884025dd |
+| Lean Verification | ec14e2803af8c1e56123682ee61ed927ed4f9450 | 7f394c7ca839386c6692a5ad622f26c299db8abb |
+
+Owner: today's PD primitive-ratio matching is source-faithful but its sparse ratio inverse and complementary prime term are unpaid; the 7:10 weighted sign reversal at R=36/41 blocks a sign shortcut. MC1-MC6 retain the same-site contact K_N=sum u_p(v_p-u_p): the chronological negative action is exactly canceled, not free credit. The proper dense rectangle has contact/event-energy ratio of logarithmic size, refuting constant diagonal absorption in that scope. The selected mixed square-prefix term is paid using inherited native input; a whole-complement near-baseline bound is target-equivalent. November 7 SG/RS supply proper gcd and reserve components; JT1-JT3 supply exact Johnston return, high-tail payment and a dangerous-spectrum inverse on paper. Neither today's activity nor this Coordinator review independently accepts JT's full analytic proof. JOH sign remains open.
+
+Analytic: today's CODIV MP controls a proper common-window component; the coherent and perpendicular complements remain. NYMAN ND1-ND5 retain the full infinite Hilbert norm and null-moment correction. The N=30 and N=42 certified fixtures improve the norm by about 0.426% and 0.770%, respectively, not an all-scale contraction. The best single-step ceiling still depends on the source mass and does not imply iterative density. November 7 GL is an accepted proper large-gcd estimate, already merged as #1102; FT's logarithmic/full-norm work does not pay global density; BC's marked 1+t/2 and generalized-kappa propagation retains the combined-count loss and an unwired complete consumer. BC/ND independent acceptance remains pending.
+
+Wheel and Census: today's SP/TC cutoff geometry is now #1109, source multiplicity only. Today's HC1-HC4 and SJ1-SJ4 have explicit Referee acceptance at their proper-component/synthetic-counterexample scopes; no whole-complement statement was accepted. HC pays the floor-one rectangle, SJ the one-jump strip at safe widths. Genuine wider-strip payment remains open. November 7 DI/LR are restricted incidence/reuse facts, while OC rules out a specified physical-capacity shortcut on reserved cofactors, not all unused-bank repairs or all MU-LIFT. AF reuses these facts; it does not rename them as new discoveries.
+
+Referee: today's DR separates finite-aspect ray bounds from a complete energy endpoint. WT1-WT3 construct a non-Mobius bounded-prefix obstruction for every width exponent theta>1/2; this is a self-audited paper theorem, not an independently accepted statement or a counterexample to genuine mu. November 7 NC/MH/TF checks remain useful: total-slot-mass TF is now formally consumed by #1107 and should not be reproved as a missing input. HC/SJ acceptance does not automatically extend to AF.
+
+Lean: today's exact-head repairs for #1111 and #1113 and registry work #1114 are now MERGED, superseding the report's then-correct unmerged statuses. No new proof from this Coordinator run is PROVED_IN_LEAN. Draft #1115 and #1116 evidence is separated below, including actual checkout identity. Program-level VERIFIED_ETA is not granted solely by this report or an unrelated green job.
+
+Own continuity: earlier today's SB bulk reserve and yesterday's WS window reserve remain PAPER_PROOF / independent review pending at their actual modified-consumer hypotheses. They are distinct from #1116's use of the ORIGINAL window budget. Earlier RG prerequisite is superseded by total-mass TF; do not assign it as missing again. Earlier signed SAT graph PG rules out a coefficient-blind graph norm shortcut, not the genuine source-specific SAT mechanism.
+
+External inbox `research/agent_reports/EXTERNAL_HANDOFFS.md`, blob `038018145c0fddb2f6306c0712373adf9cd1ea52`, has no entry after October 18. Its newest original handoff blob `aeb5fa075701c9c0e38ddf02f6c2f571c13fdbc9` was read. EXT-20261018-PNT-1..3 preserve M=S-L-E and the c=1, q=R, historical and prime masks; EXT-20261017-XCOORD-1 preserves the root-prime correction; EXT-20261014-5's unconditional normalization obstruction is not a conditional first-bad refutation. No new external handoff or absent agent execution is invented.
+
+### F. Precise Mathematical Bottlenecks
+
+P1 first needs verified source-compatible spending of the draft reserve at the current best family, not another identity or old-bound comparison. A more ambitious marked/generalized-kappa gain still needs all combined counts, crossings, heights, conductor, principal and final native terms on one probe. Neither CP2 nor an isolated source improvement is an indefinitely repeatable contraction.
+
+P2 lacks an independent arithmetic or spectral restriction that excludes the original dangerous signed Johnston configuration. Asserting its exclusion wholesale is a sufficient target-strength hypothesis. Weighted first moments and the exact logarithmic kernel cannot be replaced by equal counts, a frozen log or a finite zero list.
+
+P3 lacks genuine signed control of L at finite-C scale even on AF's wider proper domain, and independently lacks control of the complementary Z in the full Euler return. Uniform bounds on a whole renamed residual are not smaller independent inputs. CORR4 separately lacks its complete signed mixed bill; MU-LIFT separately lacks a full-prefix sublinear energy recurrence with every corner. NYMAN lacks all-scale decay/density beyond finite full-norm improvements. No supplied theorem prevents AF3's bad frequency configuration.
+
+### G. Strategy Decisions
+
+Continue P1 using b_pack as the comparator and CP2's same-family consumer. Do not spend the next analytic turn merely optimizing the old slot denominator or reproducing #1111. Retain marked/combined-count research as a separate source-compatible opportunity.
+
+Continue P2 on the protected JOH turn. Reuse the high-tail paper argument only at its actual review status; require a genuinely new restriction on the unresolved low configuration. Stop presenting clock variance or count-only matching as sufficient for the weighted sign.
+
+Revise P3 from envelope-only boundary payment to the retained additive triangle and exact inverse test. AF merits independent scrutiny before implementation, not six synchronized specialist assignments. Preserve Wheel's next MU-LIFT turn. Reuse accepted HC/SJ and #1109 without new unchanged census ranges.
+
+Reject only the statements actually falsified: coefficient-blind whole-strip payment, discarded jump or forced sign of D_mu, original universal BLOCK capture, and any claim that #1116's old-family explicit constant by itself beats b_pack. Suspend target-equivalent complement requests as purported independent suppliers. Preserve useful identities and proper-component estimates from every rejected technique.
+
+### H. Next Specialist Assignments
+
+Assignments are asynchronous published handoffs for the next ACTUAL authorized executions, not launches or reschedules.
+
+| Specialist | Exact question, reused inputs and expected result | Falsification and portfolio consequence |
+| --- | --- | --- |
+| Owner Payment | Protected JOH: starting from JT's original G(N), exact K_rho(N), P_2(N), and current licensed zero boundary, identify one arithmetic/functional constraint on the dangerous LOW spectrum or original unequal-count first moments that is not merely eventual G<0. Return a quantified necessary restriction or a proof that the chosen restriction is target-equivalent. | Restore the exact logarithmic kernel and both zero mates; test whether an allowed adverse signed aggregate survives. A surviving aggregate revises P2 rather than triggering more tail estimates. No new finite zero scan is requested. |
+| Analytic Type II | Protected OAI-NNS: independently verify CP2's exact D/fine-mesh/minimum compatibility, then spend retained BC marked 1+t/2/generalized-kappa strength through the first genuinely unpaid downstream comparison, preserving the complete probe. State the net boundary relative to b_pack (or a subsequently accepted stronger boundary), with constants before scale. | A changed coefficient source, unlicensed contour or combined-count loss that consumes the gain falsifies the proposed improvement. Report the earliest failed inequality, not a conditional endpoint with it assumed. Keep CODIV/NYMAN rotation. |
+| Finite Wheel & Incidence | Protected MU-LIFT: use OC's actual reserved-cofactor obstruction and exact lifted convolution to test whether a disjoint unused-bank allocation can cover all physical corners with the original coefficients and a fixed r<k energy consumer. Return either a complete constructive restriction or an explicit original-occurrence obstruction. | Recheck the 95/96 quotient boundary and once-only capacity, and restore the entire complement. A target-defined reserve or missing corner rejects the proposal. Do not replace this turn by AF formalization. |
+| Prime Census Laboratory | Only after choosing a quantified AF hypothesis: separate k=0 from nonzero paired modes on the genuine L carrier and the admitted historical widths, using exact convolution or certified complex intervals. First propose the smallest held-out test that can falsify the proposed additional ARITHMETIC restriction; use the already published AF regressions as baseline. | Do not repeat the 8,413-case identity scan or fit an infinite exponent. A single sign/coherence counterexample rejects that restriction; absence of one remains finite evidence. No numerical work is required until there is a new falsifiable hypothesis. |
+| Adversarial Referee | Independently ACCEPT/REVISE/REJECT AF1-AF4, especially integer caps, strict history, 217/36, Fourier signs/aliasing and the literature power gap; separately audit CP1-CP2's exact strongest-family comparison. Preserve the different scopes of accepted HC/SJ and self-audited WT. | Start with R=8/24/30 witnesses, large K and empty intervals. Try to make a large paired mode consistent with the existing envelope. Any global claim from proper-strip payment alone must be rejected. No acceptance is presumed. |
+| Lean Verification | At most two implementation-sized packets: (1) audit repaired #1116 at its actual current head, preserving every type/axiom check; after mathematical acceptance, attach the minimal near-uniform-family CP2 consumer rather than the weaker old-family comparator; (2) obtain exact-head proof evidence for #1115 without changing its hgrowth hypothesis or treating the full-band identity as cancellation. | Actual logged failures must be repaired; synthetic-merge checkout is not labeled exact-head evidence. No green conditional premise becomes an unconditional theorem. If CP2 review is not ready, packet (1) stops at honest CI/review status. AF is NOT ready for Lean implementation; accepted HC/SJ remain a later queue, not a third packet. |
+
+### I. Lean, PR And Publication Evidence
+
+Source declarations inspected directly, not inferred from report titles:
+
+| Original source | Blob SHA | Actual scope |
+| --- | --- | --- |
+| research/VF_CANONICAL_SQRT_TWO_VON_KOCH.lean | 79030d70e8d3e0d08eef9bac53fef95c36eca2fb | Canonical equivalences and explicitly conditional classical terminal consumer |
+| RHLean/Proof/SquareRootMertensEndpointAmplification.lean | 7793d7bfd842348facf62a7ad856bc802ffcd15c | Endpoint/complete-Gram/prime-smooth equivalences, not a bound |
+| RHLean/Proof/SquareRootAmplificationLogGrowth.lean | 2599db31079f388229d072ee616957fba6ffc555 | Original K_R, A and zero-log proposition |
+| research/EULER_SELF_DUAL_FINITE_C_BRIDGE_20261027.lean | e97561ef330a9996fd807d8910369f0698147b01 | Full ordered convolution-to-floor equality, not finite-C |
+| research/EULER_RANK_ONE_FRACTIONAL_ROWS_20261027.lean | e482711a3f55c1f59fc771f108671477f51732f2 | Exact T, historical inversion and Q-P residual |
+| research/oai_434/VF919ExplicitSquareBlockPacking.lean | 32999039fdeea99c58a070c1c4ee9c140720dd44 | Genuine near-uniform fixed family and complete native b_pack return |
+| research/oai_434/VF919ExplicitFixedSourceSlotCount.lean | bad5aab0a60e96d19e7c9550cd7c0a072288bc0f | Old source, same fine length and explicit fixed constants |
+
+Merged status verified from the repository, not carried from stale reports: #1111 tested head `20875a55dd9780993c4cdc06624c88be6060e2ee`, merged commit `675e7a959b994a0507f3ac20d22c2d471f3507dd`; #1112 tested head `af9b1eed3db67db387eacfa7feec9ab975b072db`, merged `75dc5a6cc2acec56d7c5bfdcad475d60ec37e04d`; #1113 tested head `43c9ac1235ceed8f40762ad5357486fea27e31bb`, merged `70f633dd60e7e6aa54bbd34ef30196371efd7311`; #1114 registry head `015799c255fc4c645733844411a112346cc2d363`, merged at current main. These four human merges occurred 19:33:49Z through 19:35:07Z.
+
+#1111: all 13 checks green at its tested head. Dedicated run `42512437623`, job `128828203921`, logs read: actual exact-head checkout, warning-fatal build, fixed type assertions, printed closure axioms limited to standard axioms. Its endpoint source blob is unchanged on current main. This supports PROVED_IN_LEAN at the checked source, separate from this report's mathematical review. #1113: all 14 checks green; run `42513839908`, job `128832422955`, actual exact-head checkout and four complete standard-axiom outputs inspected. Its prime-location decomposition and smaller-factor descent are structural/conditional results, not a quantitative late-channel bound or same-bad inheritance theorem.
+
+#1112: all 14 attached checks green; run `42507758523`, job `128813997739`, actual exact-head checkout, full log and eight actual multiline axiom outputs inspected. The signed pair identity and physical diagonal bound <=3H^2 do not establish the assumed all-H signed-pair premise in its 3/4 consumer. No green wrapper discharges that premise.
+
+#1115 remains OPEN DRAFT on `research/twoab-complete-renewal-bands-20261108`, head `7256681db5adfc907426deaef676244aeb4384dd`. All 14 checks are green. Dedicated run `42517562043`, job `128843815559`, however actually checked out synthetic merge `88ac643f175575da58ff130d76cbf7d94ca10c58`, not the bare head. Record CI_GREEN_ON_SYNTHETIC_MERGE, exact-head acceptance PENDING. The complete reciprocal-child renewal identity and consecutive-band difference are exact; the analytic adapter explicitly takes `MertensGrowthAtMost` as hgrowth. A proper band can inherit a subroot component estimate; full-range reconstruction is not new cancellation. Reuse the general adapter with an applicable stronger source instead of forgetting hgrowth.
+
+#1116 remains OPEN DRAFT on `research/oai-window-saturated-low-principal-20261108`. Intake head `cbe0489a414ef45a25482981e5214b5675bd775f` FAILED dedicated run `42518637457`, job `128847058983`, at line 74: `typeclass instance problem is stuck Preorder ?m.349`, on `exact le_refl _`. Actual checkout was synthetic merge `eec11c7a997462cfe44ee1ef9c5f648752bb4359`. The failed elaboration's printed sorryAx artifacts are NOT accepted proof evidence. They do not establish an arithmetic counterexample either.
+
+A concurrent authorized change attempted to repair that line with the concrete real witness `le_refl (E.rmin * (49 / 64 : real))`: new head `a860f0cfa133cce0020c67948719273c0e5d153c`, commit 20:20:57Z. At 20:30:41Z, thirteen attached checks passed and dedicated run `42519672339`, job `128850189148`, was still IN_PROGRESS. The repair changes no theorem type. This role neither repaired the source nor triggered a build.
+
+**Late verified failure, observed 20:35:47Z.** That dedicated job FAILED at 20:34:42Z, on actual synthetic merge checkout `07722261eb0ccb08ffab22e848d673b904260924`. The full log was retrieved. At line 74:4 its expected type is `7/8*(7/8*E.rmin)-E.e+E.e <= 7/8*(7/8*E.rmin)`, whereas the supplied reflexivity witness has type `E.rmin*(49/64) <= E.rmin*(49/64)`. These are mathematically identical but not the required definitional equality. The authorized Lean repair should normalize/cancel the real expression before reflexivity, preserving the declaration type and all audits; a concrete type annotation alone did not repair it. This is an identified proof-elaboration obligation, NOT a newly missing arithmetic estimate. The failed outputs still include sorryAx artifacts, so the candidate remains CI_FAILED / NOT_ACCEPTED. CP2 remains conditional. No further rerun was requested here, and unrelated green checks do not override this failure.
+
+**Checkpoint timestamp correction.** The early checkpoint was actually committed at `2026-11-08T20:15:50Z` as `dc794473fa2d2b033ad12a0aaeeb90eaff418b20`, both report blobs `72134767af7d024d0f4ebef6c962c4806798390a`. Its typed 20:19:00Z/15:19 label was a clerical timestamp error, not a second execution or later event. The observed precommit clock was 20:15:49Z. This correction preserves the original text rather than rewriting history. Both checkpoint mirrors were read back exactly; that commit changed only the two owned report files.
+
+### J. Next-Run Resume Capsule
+
+Resume source authority at main `829aa93ec4a2117db4a5920b121c0ed70681b4e5`, contract `d1d6fd558ee23927bd9f70ffdc375bafd1dbb67a`, and refresh before acting. The publication receipt below supplies the new report commit. Preserve the intake two-day blob ledger and earlier same-day continuations.
+
+New claims: AF1 curvature cost and 217/36 finite-C error; AF2 absolute-geometry sharpness only; AF3 exact Fourier triangle and necessary paired-mode failure; AF4 applicable short-interval logarithmic input with an explicit insufficient power; AF5 finite tests and full return; CP1 old-family comparator obstruction; CP2 conditional near-uniform-family complete-consumer composition. All new paper claims await independent review. Canonical VF, zero-log and finite-A remain unproved.
+
+Most valuable next mathematical action: independently challenge AF3's genuine paired-mode concentration using an actual multiplicative/factor restriction, without erasing k=0 or Z; reject any proposal that merely assumes the required amplitude. Near-term formal action: finish exact-source validation of #1116 and, after acceptance, compose its general theorem with the already merged near-uniform source, comparing with b_pack rather than the older denominator. Protected next investigator turns remain JOH / OAI-NNS / MU-LIFT.
+
+Execution constraints observed: only own Coordinator reports on agent-reports; no Lean code or workflow edit, proof PR, protected branch edit, merge, auto-merge, other-agent report edit, agent launch, schedule modification or local Lean execution. Git clone access was unavailable (403), so immutable source and CI evidence were retrieved through the authorized GitHub connector. This did not prevent the research or report publication path. No background work or future delivery is asserted.
+
+### Reproducibility Appendix: Exact AF Verifier
+
+The following is the exact preregistered Python verifier. It requires only the standard library. Its output includes the finite assertions, held-out records, geometry diagnostics and canonical record digest. Running it does not validate any infinite or Lean claim.
+
+
+```python
+from fractions import Fraction as F
+from math import isqrt
+import hashlib
+import json
+
+
+def mobius_sieve(n):
+    mu = [1] * (n + 1)
+    mu[0] = 0
+    prime = [True] * (n + 1)
+    for p in range(2, n + 1):
+        if prime[p]:
+            for k in range(p, n + 1, p):
+                prime[k] = False
+                mu[k] *= -1
+            for k in range(p * p, n + 1, p * p):
+                mu[k] = 0
+    return mu
+
+
+def mobius_trial(n):
+    out = 1
+    p = 2
+    while p * p <= n:
+        if n % p == 0:
+            n //= p
+            out = -out
+            if n % p == 0:
+                return 0
+            while n % p == 0:
+                n //= p
+        p += 1
+    return -out if n > 1 else out
+
+
+def iroot(n, k):
+    lo, hi = 0, n + 1
+    while hi - lo > 1:
+        mid = (lo + hi) // 2
+        if mid ** k <= n:
+            lo = mid
+        else:
+            hi = mid
+    return lo
+
+
+mu = mobius_sieve(8192)
+assert all(mu[n] == mobius_trial(n) for n in range(1, 8193))
+M = [0] * len(mu)
+for n in range(1, len(mu)):
+    M[n] = M[n - 1] + mu[n]
+historical = [F(0)] * len(mu)
+for R in range(1, len(mu)):
+    historical[R] = max(historical[R - 1], F((M[R - 1] - 1) ** 2, R))
+
+
+def triangle_convolution(R, W):
+    q = 2 * W + 1
+    lo, hi = (R + 2) // 3, (R - 1) // 2
+    f, g = [0] * q, [0] * q
+    for a in range(lo, hi + 1):
+        v = 3 * a - R
+        if 0 <= v <= W:
+            f[v] = mu[a]
+    for d in range(1, W + 1):
+        g[d] = mu[R - d]
+    return sum(g[d] * sum(f[v] for v in range(q)
+                          if (d - v) % q <= W) for d in range(q))
+
+
+first = {}
+rows = []
+checked, direct_sites, normalized = 0, 0, 0
+
+
+def check_root(R, widths, direct=False, cyclic=False):
+    global checked, direct_sites, normalized
+    N, X = R - 1, R * R - 1
+    lo, hi = (R + 2) // 3, N // 2
+    K = historical[R]
+    jump = triangle = count = strict_triangle = 0
+    weighted = F(0)
+    target_widths = set(widths)
+    for W in range(max(target_widths) + 1):
+        if W:
+            b = R - W
+            top = min(hi, X // (3 * b))
+            line = min(hi, (R + W) // 3)
+            strict = min(hi, (R + W - 1) // 3)
+            assert top >= line >= lo - 1
+            jump += mu[b] * (M[top] - M[lo - 1])
+            triangle += mu[b] * (M[line] - M[lo - 1])
+            strict_triangle += mu[b] * (M[max(strict, lo - 1)] - M[lo - 1])
+            count += top - line
+            weighted += mu[b] * (1 - F(R + 1, b))
+        if W not in target_widths:
+            continue
+        checked += 1
+        correction = jump - triangle
+        bound = F(W) + F(4 * W ** 3, 9 * R)
+        assert abs(correction) <= count <= bound
+        E2 = 2 * (M[hi] - M[lo - 1]) * weighted + jump
+        if direct:
+            jd = ld = cd = 0
+            ed = F(0)
+            for a in range(lo, hi + 1):
+                for b in range(R - W, R):
+                    direct_sites += 1
+                    coefficient = mu[a] * mu[b]
+                    j = 3 * a * b <= X
+                    l = 3 * a + b <= 2 * R
+                    assert not l or j
+                    jd += coefficient * j
+                    ld += coefficient * l
+                    cd += int(j and not l)
+                    ed += coefficient * (X // (a * b) - F(R + 1, b) * (N // a))
+            assert (jd, ld, cd, ed) == (jump, triangle, count, E2)
+        if cyclic:
+            assert triangle_convolution(R, W) == triangle
+        if 16 * K * W * W <= R * R and W ** 6 <= R ** 4 * K:
+            normalized += 1
+            assert (E2 - triangle) ** 2 <= F(217, 36) ** 2 * R * R * K
+        for label, failed in [('J_eq_L', jump != triangle),
+                              ('J_ge_L', jump < triangle),
+                              ('J_le_L', jump > triangle),
+                              ('strict_line', strict_triangle != triangle)]:
+            if failed and label not in first:
+                first[label] = dict(R=R, W=W, J=jump, L=triangle,
+                                    strict_L=strict_triangle, defect=correction)
+        record = dict(R=R, W=W, J=jump, L=triangle, defect=correction,
+                      curvature_sites=count, curvature_bound=str(bound),
+                      K=str(K), E2=str(E2))
+        rows.append(record)
+
+
+for R in range(2, 257):
+    check_root(R, range(R // 4 + 1), R <= 64, R <= 64)
+
+small_end = len(rows)
+for R in [317, 549, 1027, 2002, 4096, 8192]:
+    widths = sorted({0, min(R // 4, isqrt(R)), min(R // 4, iroot(R ** 3, 5)),
+                     min(R // 4, iroot(R * R, 3)), R // 4})
+    check_root(R, widths)
+
+geometry = []
+for R in [4096, 65536, 1048576]:
+    for power in [(3, 5), (2, 3), (3, 4)]:
+        W = min(R // 4, iroot(R ** power[0], power[1]))
+        lo, hi, X = (R + 2) // 3, (R - 1) // 2, R * R - 1
+        D = sum(min(hi, X // (3 * (R - d))) - min(hi, (R + d) // 3)
+                for d in range(1, W + 1))
+        assert D <= F(W) + F(4 * W ** 3, 9 * R)
+        geometry.append(dict(R=R, power=f'{power[0]}/{power[1]}', W=W,
+                             sites=D, normalized=str(F(D, R)),
+                             leading_ratio=str(F(9 * R * D, W ** 3))))
+
+encoded = json.dumps(rows, sort_keys=True, separators=(',', ':')).encode()
+print(json.dumps(dict(status='PASS', cases=checked, direct_sites=direct_sites,
+                     finite_C_error_checks=normalized, first_falsifiers=first,
+                     held_out=rows[small_end:], geometry=geometry,
+                     exact_record_sha256=hashlib.sha256(encoded).hexdigest(),
+                     not_proved=['all-scale Mobius cancellation', 'endpoint gain',
+                                 'independent referee acceptance', 'Lean theorem']), indent=2))
+```
+
+### Frozen AF Registration
+
+```text
+# Frozen affine-strip verification
+
+Run: 20261108-coordinator-1513-EST. Recorded before execution.
+
+Question: Does the genuine floor-two jump differ from the affine triangle
+3*a+b<=2*R by exactly the original signed curvature strip, and is its absolute
+cost at most W+4*W^3/(9*R)? Does finite cyclic convolution reconstruct the
+triangle without a wraparound or discarded constant mode?
+
+Original carrier: R>=2, N=R-1, X=R^2-1, lo=ceil(R/3), hi=floor(N/2),
+1<=d<=W<=floor(R/4), b=R-d, lo<=a<=hi, genuine mu(a)*mu(b).
+Jump J has 3*a*b<=X. Triangle L has 3*a+b<=2*R.
+
+Preregistered tests:
+- Every R=2..256 and every W=0..floor(R/4), using exact integers/rationals.
+- Direct site-by-site reconstruction on R<=64 against independent row-prefix sums.
+- Trial-factor Mobius values against a separate prime-factor sieve on n<=8192.
+- Held-out roots 317, 549, 1027, 2002, 4096, 8192 at root, 3/5, 2/3 and quarter widths, using exact integer roots.
+- Full finite-C normalization with K_R on historical y<R only; test the 217/36 error whenever both extra width inequalities hold.
+- Cyclic integer convolution at modulus 2*W+1 for R<=64. No numerical Fourier result will be called certified.
+- Find first exact failures of J=L, J>=L, J<=L, and changing <= to < in the affine boundary, within the fixed small grid. Their existence is not presumed.
+- Positive-weight curvature counts on fixed R=4096, 65536, 1048576 and power widths 3/5, 2/3, 3/4. This tests the quantitative geometry only, not genuine Mobius cancellation.
+
+No asymptotic regression, no endpoint exponent fit, no local Lean, and no enlargement of search domains after results.
+```
