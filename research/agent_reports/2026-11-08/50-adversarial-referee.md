@@ -806,3 +806,18 @@ Verified at 2026-11-08T09:35:13Z / 04:35:13 EST. The substantive report was comm
 Execution=COMPLETED; substantive publication=PUBLISHED_AND_READBACK_VERIFIED. Mathematical scope remains accepted upstream PAPER_PROOF/FINITE_COMPUTATION and new DR PAPER_PROOF/SELF_AUDIT/INDEPENDENT_REVIEW_PENDING. NEW_VERIFIED_ENDPOINT_GAIN=NONE. No new Lean certification or proof-source change was made.
 
 [Verified immutable substantive report](https://github.com/OVVO-Financial/RH_Lean/blob/86f8d439f4a75b8ae42bd73968acd57f4f7d8a50/research/agent_reports/2026-11-08/50-adversarial-referee.md). The receipt itself is a later append, not a claim that its own commit was known before publication. The final response will use the successfully verified receipt-containing revision.
+
+
+## Scheduled Finite-AC Review Checkpoint - 20261108-referee-2
+
+Invocation: 2026-11-08 12:03:01 EST / 17:03:01 UTC. Checkpoint prepared 2026-11-08 12:09 EST. Trigger=SCHEDULED; RUN_ID_UNAVAILABLE. Execution=IN_PROGRESS; mathematical review=PARTIAL. All preceding report bytes are preserved.
+
+Main authority is 8b5a6921002da0742ecfab9ee7d40728ed5fe348; AGENTS blob bdd5b9f6867ae2d39b74fc966b7f548a9aba3a61; CURRENT_PROOF_CONTRACT blob d1d6fd558ee23927bd9f70ffdc375bafd1dbb67a. high_attack_ack=COMPLETE_SIGNED_HIGH_ATTACK_V1; chain_ack=CANCELLATION_CHAIN_REUSE_V1; baseline_ack=PAID_BASELINE_EXACT_CONSUMER_V1; deployment_ack=NO_PIGEONHOLING_ROUTE_SELECTOR_V1; all_route_ack=REPO_WIDE_PROOF_DAG_AND_AGENTS_20261108.
+
+Both November 7 and November 8 reports for all seven roles were retrieved at agent-reports 9c8ec57aa2396d0706fcff033b535a65e21ee4de. TODAY=AVAILABLE throughout; YESTERDAY=CARRY_FORWARD at unchanged relevant sources. External inbox 038018145c0fddb2f6306c0712373adf9cd1ea52 has no newer entry than October 18. The latest ready FINITE-AC review packet is Wheel 20261108-wheel-2/HC1-HC5 and Census 20261108-census-2/SJ1-SJ5. This selects a ready claim under the dynamic protocol; it does not complete or retire the separate pending WS/SB/BC OAI review queue.
+
+Selected source: original ordered Euler residual T_R(a,b)=floor((R^2-1)/(ab))-(R+1)floor((R-1)/a)/b, with genuine mu(a)mu(b), strict history and every complementary ordered occurrence. Strongest comparator b_base=7/8-1/(48*N_*), retaining every-positive-loss quantifiers. No new global gain is claimed.
+
+Tasks: independently reconstruct the rectangle and single-jump statements; verify relevant live Lean definitions and exact-head CI; reproduce decisive genuine and synthetic witnesses with independently written code; test whether SJ3 can be sharpened into an exponent-sharp obstruction to widening the paid strip from historical-envelope information alone. Such a synthetic obstruction would NOT refute the genuine Mobius conjecture. Prior DR1-DR4 are carried forward, not re-audited unchanged.
+
+The only observed open PR at intake is draft #1111, head e02629be7e276dbccf812fb5cdb67a7f060d0cae; it is not main authority. Direct git clone failed with CONNECT tunnel 403, but authenticated GitHub source/read/write tools work. No local Lean, proof edit, CI launch, branch/PR edit, merge, schedule change or other-agent launch is authorized or attempted. Final findings and a verified publication receipt will be appended after substantive work.
