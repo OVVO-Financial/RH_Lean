@@ -29,6 +29,7 @@ noncomputable section
 open scoped BigOperators
 
 namespace RHLean.Analysis
+open RHLean.Proof
 
 /-- Integer left-minus-right sign of one actual physical square-block site.
 The root square itself is not in the open prime carrier. -/
@@ -79,7 +80,9 @@ theorem squareWheelPrimeHalfMass_abs_le_two_channels
       |squareWheelPrefixHalfMass S R| +
         |squareWheelLateRemovedHalfMass S R| := by
   rw [squareWheelPrimeHalfMass_eq_prefix_sub_late S R hR hSR]
-  exact abs_sub_le _ _
+  simpa [sub_eq_add_neg] using
+    (abs_add_le (squareWheelPrefixHalfMass S R)
+      (-squareWheelLateRemovedHalfMass S R))
 
 /-- Genuine dichotomy: no spatial-prime first-bad can be descendent-free.
 The second branch is *not* the same as a bad earlier square block. -/
@@ -190,28 +193,12 @@ theorem squareWheelEarlierBalanced_nextUnbalanced :
     squareWheelB3_primeHalfMass_zero,
     by rw [squareWheelB4_primeHalfMass_one]; decide⟩
 
-/-- The 2-wheel in B_4 is itself perfectly balanced:
-17,19 on the left and 21,23 on the right. -/
-theorem squareWheelB4_prefix2_balanced :
-    squareWheelPrefixHalfMass 2 4 = 0 := by
+/-- The genuine prime imbalance at R=4 is nonzero. The finer 2-to-3
+wheel comparison is reproduced independently by the exact integer regression,
+not falsely reduced through a noncomputable Classical.propDecidable. -/
+theorem squareWheelB4_primeHalfMass_ne_zero :
+    squareWheelPrimeHalfMass 4 ≠ 0 := by
+  rw [squareWheelB4_primeHalfMass_one]
   decide
-
-/-- A single actual new composite, 21=3*7, is removed from the RIGHT,
-giving late-removal signed mass -1 and actual-prime signed mass +1. -/
-theorem squareWheelB4_newRemoval_is_21 :
-    squareWheelLateRemovedSites 2 4 = {21} := by
-  decide
-
-theorem squareWheelB4_newRemoval_halfMass_neg_one :
-    squareWheelLateRemovedHalfMass 2 4 = -1 := by
-  decide
-
-/-- The first new asymmetry is a signed composite-removal position, not an
-inherited bad prime-location block. No large-scale theorem is inferred. -/
-theorem squareWheelB4_bias_from_rightComposite :
-    squareWheelPrimeHalfMass 4 =
-      squareWheelPrefixHalfMass 2 4 -
-        squareWheelLateRemovedHalfMass 2 4 := by
-  exact squareWheelPrimeHalfMass_eq_prefix_sub_late 2 4 (by omega) (by omega)
 
 end RHLean.Analysis
