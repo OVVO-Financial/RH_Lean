@@ -1,0 +1,65 @@
+name: CORR4 cutoff collision and image energy
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    paths:
+      - 'research/CORR4_CUTOFF_COLLISIONS_20261108.lean'
+      - 'research/CORR4_SQUARE_CLOCK_SAMPLING_20261106.lean'
+      - 'research/CANONICAL_ROUGH_Q2_TAIL_REDUCTION.lean'
+      - 'RHLean/Proof/SignedTransportAmplificationAudit.lean'
+      - 'scripts/lean/corr4_collisions/**'
+      - 'scripts/audit_euler_fractional_axioms.py'
+      - '.github/workflows/corr4-cutoff-collisions.yml'
+      - 'lean-toolchain'
+      - 'lake-manifest.json'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: corr4-collisions-${{ github.head_ref || github.ref_name }}-${{ github.event.pull_request.head.sha || github.sha }}
+  cancel-in-progress: true
+
+jobs:
+  cutoff-collision-proof:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Verify exact head and pinned environment
+        env:
+          EXPECTED_HEAD: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$EXPECTED_HEAD"
+          test "$(cat lean-toolchain)" = 'leanprover/lean4:v4.34.1'
+          grep -q 'd13f23b723b8a846827a245b89c10fc7d3f11612' lakefile.lean
+          python3 scripts/lean/corr4_collisions/check.py --static
+          python3 scripts/lean/corr4_collisions/regression.py
+      - name: Pinned Lean and cached Mathlib
+        uses: ./.github/actions/lean-setup
+      - name: Restore native compiled prerequisites
+        uses: ./.github/actions/lean-compiled-cache
+      - name: Compile exact warning-fatal research closure
+        uses: ./.github/actions/research-compile
+        with:
+          build-library: 'true'
+          targets: research/CORR4_CUTOFF_COLLISIONS_20261108.lean
+      - name: Exact public types and terminal-axiom audit
+        id: axioms
+        run: python3 scripts/lean/corr4_collisions/check.py
+      - name: Preserve exact proof evidence
+        if: ${{ !cancelled() && steps.axioms.outcome != 'skipped' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: corr4-collisions-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            corr4-collisions-audit.log
+            research/CORR4_CUTOFF_COLLISIONS_20261108.lean
+            scripts/lean/corr4_collisions/ExactTypes.lean
+            scripts/lean/corr4_collisions/check.py
+          if-no-files-found: error
