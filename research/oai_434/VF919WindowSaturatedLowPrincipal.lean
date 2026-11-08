@@ -71,7 +71,7 @@ noncomputable def windowSaturatedHighData {Delta : ℝ}
   · dsimp only [newSigma]
     linarith only [hmT, E.t_small, E.e_pos, E.t_pos]
   · dsimp [newSigma, m]
-    exact le_refl _
+    exact le_refl (E.rmin * (49 / 64 : ℝ))
   · dsimp only [newSigma]
     linarith only [hmT, heT, heN, E.t_small, E.e_pos, E.t_pos]
   · dsimp only [newSigma]
