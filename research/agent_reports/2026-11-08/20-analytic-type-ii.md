@@ -956,3 +956,797 @@ The consumer is the original all-cell norm sum_(m>=1) r(m)^2/[m(m+1)], not a per
 Perform the new derivation, source/circularity review and a preregistered small finite discriminator with an explicit infinite-tail enclosure. Publish proof, constants, all signed interactions, precise missing theorem and next-run capsule in this exact file. New claims will be SELF_AUDIT / INDEPENDENT_REVIEW_PENDING unless actual independent evidence exists. No local Lean, proof-branch edit, other-role report edit, agent launch or schedule change is authorized or planned.
 
 Protected last turns: November 7 NYMAN FT, November 7 OAI BC, November 8 CODIV MP; this turn is NYMAN. Next distinct route is OAI-NNS. NEW_VERIFIED_ENDPOINT_GAIN=NONE; net_endpoint_gain=UNKNOWN; eta_gate=SEARCH_BROAD.
+
+
+---
+
+## Complete-Norm Correction Descent And Its Uniform Cost - 20261108-analytic-2
+
+Research synthesis for the scheduled 2026-11-08 09:09:01 EST invocation, America/New_York. RUN_ID_UNAVAILABLE. Prepared after 09:23 EST. This continues the checkpoint above and preserves today's earlier CODIV report. Execution is RESEARCH_FINISHED / PUBLICATION_PENDING_READBACK until a separate verified receipt.
+
+### A. Most Important Analytic Development
+
+**The proposed two-moment-preserving correction really improves the COMPLETE infinite Nyman norm on both prescribed fixtures. There is also a uniform upper bound on how much any well-separated three-denominator step can remove.** The finite success therefore survives the missing-tail objection, but does not establish an asymptotic contraction or a new Mertens exponent.
+
+For the genuine flat-taper family of 20261107-analytic-2/FT, write ell=log(N/H), r_h for the original residual, R=ell*r_h, and E(h)=sum_(m>=1)r_h(m)^2/[m(m+1)]. Assume fixed envelope exponent 1/2<b<1 and the explicit Mertens/psi bounds in D. For H=floor(N^(4/5)) and fixed b>=5/6, the new uniform statement is
+
+```text
+sup_(admitted gamma-separated triples) [E(h)-inf_lambda E(h+lambda*d)]
+  <<_(b,C_M,C_psi,gamma) N^(2b-1) log^2(N)/ell^2.         (ND-STEP)
+```
+
+The supremum includes triples chosen after seeing the genuine coefficients, and lambda ranges over ALL real numbers. It does not include gamma tending to zero, a growing collection of simultaneous directions, or an unbudgeted iteration. D-E give the exact finite bound, constants, all parameter ranges, and proof. A separate unconditional high-support norm bound gives
+
+```text
+|sqrt(E(g))-sqrt(E(h))| <= 2*sum|g_k-h_k|/(ell*sqrt(N)).   (ND-MASS)
+```
+
+The actual two-band correction has sum|h_k|<=B*N^b. Thus its entire contribution, not merely its first N cells or period variance, has squared norm <=4*B^2*N^(2b-1)/ell^2. This identifies an explicit coefficient-mass cost that any larger correction-based improvement must pay.
+
+The two original-source finite certificates are:
+
+| N,H; direction support | Fixed rational lambda | Certified complete decrease in E | Fraction of original E |
+| --- | --- | --- | --- |
+| 30,8; (16,19,26) | 319343/500000000 | between 0.000094058779 and 0.000094532548 | between 0.4257% and 0.4281% |
+| 42,10; (22,27,36) | 6759/12500000 | between 0.000161986871 and 0.000163673720 | between 0.7653% and 0.7742% |
+
+These are rigorous rational/logarithm interval bounds INCLUDING the infinite tail, not double-precision optimization results. The table gives outward rounded intervals. Both signs are positive in the Coordinator's prescribed orientation; no uniform sign is inferred.
+
+| Claim ID | New result and scope | Evidence |
+| --- | --- | --- |
+| 20261108-analytic-2/ND1 | Uniform full weighted norm of a high-support residue perturbation, with inverse coefficient-mass cost | PAPER_PROOF; elementary lemma, no literature-priority claim |
+| ND2 | Exact application to the genuine two-band correction and comparison of all bounded-mass high corrections | PAPER_PROOF; proper-source quantitative control |
+| ND3 | Uniform complete-gradient estimate, coercivity, optimal-step ceiling and inverse fractional-descent restriction | PAPER_PROOF; new source-specific quantitative restriction |
+| ND4 | Pair-LCM certified infinite-tail enclosure for the actual centered bilinear and quadratic norms | PAPER_PROOF; enabling estimate, distinct from period-average substitution |
+| ND5 | Both prescribed full-norm descents; 529 exact covariance checks; four finite-tail checks; separate Gram cross-check | FINITE_COMPUTATION; all-scale extrapolation prohibited |
+
+All NEW paper claims are SELF_AUDIT / INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED. The projection algebra and two-null-moment direction were already in the Coordinator handoff and are not claimed as discoveries. NEW_VERIFIED_ENDPOINT_GAIN=NONE; VERIFIED_ETA=NONE; net_endpoint_gain=UNKNOWN; eta_gate=SEARCH_BROAD. The conclusion is NOT that high corrections, full-basis NYMAN, or a fixed-factor descent are impossible.
+
+### B. Current Mathematical Objective And Baseline
+
+Intake main is **bf4af1cd18aff7c3944a75991aa66371c8afc18a**. The authority and policy blobs in the checkpoint govern this continuation. The canonical actual-prime von Koch objective remains OPEN. The shared HIGH target uses the exact split M(R^2-1)=L_R+H_R and the paid fixed-cutoff O(R) LOW estimate, not a new LOW assumption.
+
+The strongest applicable inherited main theorem is
+`RHLean.Analysis.native_mertens_true_physical_slot_minimum_total_mass` in
+[VF919TotalMassEndpoint.lean](https://github.com/OVVO-Financial/RH_Lean/blob/bf4af1cd18aff7c3944a75991aa66371c8afc18a/research/oai_434/VF919TotalMassEndpoint.lean), blob **827bb952c4d4311d75fd03a2470799dc10b0f7e7**. One fixed source D and its actual minimum m_*>0 supply
+
+```text
+b0=7/8-m_*/4,      MertensGrowthAtMost(b0).
+```
+
+This has every-positive-loss quantifiers. No explicit value for the existential m_* is asserted. The theorem `recalibrated_total_mass_tilt_budget` gives 0<m_*/4<1/960. Choose a fixed b>b0 BEFORE N,H and the triple; the constants below may depend on this choice. The same established zero boundary and a classical explicit formula give the required psi envelope with any positive loss. This is not a new zero-free input, an assertion for every Dirichlet L-function, or licensing from a desired output.
+
+The relevant #1107 source was directly checked at exact tested head **cd8f98fd6ed2dee3fa08f526eb8ac86c94549da5**: all 14 returned check-runs succeeded. The [dedicated total-mass job](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42437401175/job/128599096276) reports warning-fatal source/type checks and PASS terminal-axiom audits for the beta, Mertens, fixed-power and full signed-pair endpoints, with only propext, Classical.choice and Quot.sound. Human merge was 2026-11-08T03:26:45Z. This is reused exact-head evidence, not a newly executed whole-main build or certification of ND1-ND5.
+
+### C. Mechanism, Continuity And Novelty
+
+The selected route is the due NYMAN turn, as also requested by 20261108-coordinator-0710-EST. The preceding actual turns were November 7 NYMAN FT, November 7 OAI-NNS BC, and November 8 CODIV MP. Next distinct route: OAI-NNS. This run does not consume its protected coverage by re-auditing OAI counts.
+
+The changed question is whether a legal high correction can materially reduce the entire FT norm. Three pieces are needed, not just a favorable finite derivative: (i) the exact physical size of the correction operator; (ii) a quantitative source-specific bound on its full gradient; (iii) a certificate that restores the infinite tail in the proposed finite tests. The main effort is (ii), using the already supplied Mertens and prime-error envelopes, the actual all-cell floor return, and first-activation coercivity.
+
+All seven November 8 and November 7 reports were retrieved; TODAY=AVAILABLE for every role. Their latest relevant claims and Nyman handoffs were read. Specific continuity retained:
+
+- Coordinator SB/WS concerns a still-unreviewed OAI bulk/window candidate. Its NYMAN three-denominator direction and prescribed fixtures are consumed here, not rebranded as new algebra.
+- Today's own MP1-MP6 controls a genuine small-cofactor CODIV mixed term, not this residue norm. November 7 FT1-FT5 supplies the previous complete-energy envelope and the transition-window question; its paper/self-audit status is not upgraded.
+- Owner MC1-MC6 restores a positive same-site VF bill and pays a proper mixed term from the incoming baseline. Earlier RS/JT retain chronology and low-zero restrictions; none gives a sign for the current Nyman gradient.
+- Wheel SP and Census TC classify genuine CORR4 sampling collisions; Referee DR accepts their scoped parts and treats divisible-root sampling separately. Those findings do not control Nyman coefficients or its full norm.
+- Lean's #1109 is an unmerged source/multiplicity result; #1108 is also open and non-draft. Neither is a new Nyman supplier. Previous Nyman flat-return, correction lower-bound, null-obstruction and radical-increment sources remain at their actual scopes.
+- The external inbox **038018145c0fddb2f6306c0712373adf9cd1ea52** has no entry after October 18. EXT-20261018-PNT-1, EXT-20261017-XCOORD-1 and EXT-20261014-5 retain their source/boundary and conditional-scope safeguards; no new Nyman handoff is invented.
+
+Current-source searches for Nyman correction norm, triple and LCM-tail routes locate the existing exact return, correction COMPONENT LOWER bound, moment-null obstruction, and the old finite digamma Gram formula. ND1 is elementary Hilbert-space analysis; ND2-ND3 are the new source-specific upper/inverse statements. ND4 is a simple elementary certification tool. No novelty claim is made for finite Gram matrices, orthogonal projection, the covariance identity, partial summation, or the classical Nyman criterion.
+
+### D. Exact Mathematical Formulation
+
+Let N=6K with integer K>=1, and 2<=H<=N/2. Use genuine mu and von Mangoldt psi, retaining prime powers. All coefficient sums below are finite. Set
+
+```text
+ell=log(N/H), q_k=log(N/max(H,k)), F_k=mu(k)*q_k,
+T(x)=sum_(k<=x) mu(k)*log(x/k)/k,
+delta=1-T(H), u=sum_(k<=N)F_k/k, F=sum_(k<=N)F_k,
+z=u-delta=T(N)-1, w=2ell+F-delta,
+I1=(3K,4K], I2=(5K,6K], s_i=sum_(k in I_i)1/k,
+A=(z-s2*w/K)/(s1-s2), Z=(s1*w/K-z)/(s1-s2),
+h_k=A*1_I1(k)+Z*1_I2(k),
+c_k=(h_k-F_k)/ell                 (2<=k<=N),
+rho_k(m)=(m mod k)/k,
+r_h(m)=1-sum_(k=2..N)c_k*rho_k(m), R(m)=ell*r_h(m),
+E(h)=sum_(m>=1) r_h(m)^2/[m(m+1)].
+```
+
+Here R(m) is a scaled residual, not the canonical square index. Both exact moment equations are retained:
+
+```text
+sum h_k/k=u-delta,      sum h_k=2ell+F-delta.
+```
+
+Define the Hilbert inner product <f,g>=sum_(m>=1)f(m)g(m)/[m(m+1)]. Every finite residue combination is bounded and periodic, so these sums converge absolutely. No assertion of uniform convergence in growing N is needed without an explicit bound.
+
+For ND2-ND3 assume fixed 1/2<b<1, C_M>=1, C_psi>=0, such that for EVERY integer x>=1,
+
+```text
+|M(x)|<=C_M*x^b,      |psi(x)-x|<=C_psi*x^b.            (ENV)
+```
+
+The first bound also holds for the step M(t) at real t>=1. Define
+
+```text
+k_b=(2-b)/(1-b)^2,       l_b=1/[b*(1-b)^2],
+B=C_M*((52/3)*k_b+32/b),
+A0=2*C_psi+C_M*l_b+2*B,  C0=1+B,
+W(N,H)=[A0*((1-b)*log N+log 4)+C0]*N^(b-1)+4H/N.
+```
+
+These are explicit; none depends on N,H or the triple. They may diverge as b approaches an endpoint. No unproved uniformity in that limit is asserted.
+
+For ND3 fix gamma>0 before the scale and choose integer
+
+```text
+N/2<k1<k2<k3<=N,
+k2-k1>=gamma*N,       k3-k2>=gamma*N,
+d_(k1)=k1*(k2-k3), d_(k2)=k2*(k3-k1), d_(k3)=k3*(k1-k2),
+v(m)=sum d_k*rho_k(m), D_v=<v,v>, B_R=<R,v>.
+```
+
+For the actual correction-only modification require all three denominators to lie in I1 union I2. The bounds themselves hold for any triple in the displayed upper half. A nonempty triple domain implies gamma<1/4. Its exact conclusions are
+
+```text
+D_v >= d_(k1)^2*(1/k1-1/k2) >= gamma^3*N^3/4 > 0,
+|B_R| <= d_(k2)*W(N,H),
+0 <= E(h)-inf_(lambda real)E(h+lambda*d)
+   = B_R^2/(ell^2*D_v)
+   <= 4*N*W(N,H)^2/(gamma^3*ell^2).                    (ND3)
+```
+
+The optimizer is lambda_*=B_R/D_v, not a positive step assumed in advance. A useful inverse consequence, for every 0<theta<=1, is
+
+```text
+E(h+lambda*d) <= (1-theta)*E(h)
+  ==> E(h) <= 4*N*W(N,H)^2/(theta*gamma^3*ell^2).
+```
+
+This is a necessary restriction for a large fractional improvement, NOT a theorem that the genuine E(h) exceeds its right side.
+
+### E. Mathematical Derivation
+
+#### E1. The Entire High-Support Operator: ND1
+
+For every integer k>=2, split its squared norm at m=k. On 1<=m<k the residue is m/k, and thereafter it has magnitude at most one. Hence
+
+```text
+||rho_k||^2
+ <= (k-1)/k^2 + sum_(m>=k)1/[m(m+1)]
+ = (k-1)/k^2+1/k < 2/k.
+```
+
+For every finite real vector e supported on N/2<k<=N, the Hilbert triangle inequality now gives the uniform, full infinite-norm estimate
+
+```text
+||sum e_k rho_k|| <= 2*sum|e_k|/sqrt(N).               (OP)
+```
+
+This absolute-value step is affordable because it is applied to a budgeted correction, not to the unknown full arithmetic residual. With the original coefficient normalization, (OP) and the reverse triangle inequality prove ND-MASS. Neither moment constraint is needed for this norm bound; retaining both is necessary for the proposed source modification, not an erased condition.
+
+For example, if E(g)<=(1-theta)E(h), 0<theta<=1, and g-h is supported in the upper half, then
+
+```text
+sum|g_k-h_k| >= (ell*sqrt(N)/2)
+                    *(1-sqrt(1-theta))*sqrt(E(h)).     (MASS-COST)
+```
+
+This is a necessary coefficient-mass cost on the exact source, not a lower bound for E(h) itself.
+
+#### E2. Actual Correction Mass And Complete Return: ND2
+
+Here are the inputs to the inherited FT mass calculation, reconstructed to make dependencies explicit. From ENV and the expansion of 1/zeta(s) at s=1, partial summation gives
+
+```text
+sum mu(k)/k=0,      sum mu(k)*log(k)/k=-1,
+|T(x)-1| <= C_M*k_b*x^(b-1),      x>=1.
+```
+
+The two naturally ordered series converge under b<1; absolute convergence of them is NOT claimed. For the bound use
+
+```text
+T(x)-1=sum_(k>x)mu(k)*log(k/x)/k
+       =-integral_x^infinity M(t)*(1-log(t/x))/t^2 dt.
+```
+
+The integral is absolutely bounded by C_M*x^(b-1)*[1/(1-b)+1/(1-b)^2]. The derivative series is justified locally near s=1 by the Mertens partial-summation integral. These facts are established arithmetic inputs/reconstructed estimates, not a new zero theorem.
+
+Also F=integral_H^N M(t)dt/t, so |F|<=C_M*N^b/b. The explicit two bands satisfy s1>=1/4, s2<=1/5, s1+s2<=8/15, and s1-s2>=1/20. Therefore
+
+```text
+sum|h_k|=K*(|A|+|Z|)
+ <= (20/3)*N*|z|+(32/3)*|w|
+ <= B*N^b.                                           (MASS)
+```
+
+For the last line use |z|<=C_M*k_b*N^(b-1), |delta|<=C_M*k_b, and
+2ell<=2N^b/b, giving |w|<=C_M*(3/b+k_b)*N^b. Substitution in (OP) proves
+
+```text
+||ell^(-1)*sum h_k rho_k||^2 <= 4*B^2*N^(2b-1)/ell^2.
+```
+
+Let r_0=1+ell^(-1)sum_(k=2..N)F_k rho_k. The original full residual is EXACTLY r_h=r_0-ell^(-1)sum h_k rho_k, with all cross terms retained. Thus
+
+```text
+max(0,sqrt(E(0))-2B*N^(b-1/2)/ell)
+ <= sqrt(E(h)) <= sqrt(E(0))+2B*N^(b-1/2)/ell.          (RAW-COMPARE)
+```
+
+More generally ND-MASS compares ANY two corrections within a stated mass budget, even if their shapes vary with N. The moment-null unboundedness theorem is respected: without a mass budget, this upper bound permits arbitrarily large later energy.
+
+For the triple-gradient estimate we retain the exact all-cell identity from `nyman_flat_complete_return`, then the standard finite divisor inversion:
+
+```text
+R(m)=m-psi(m)-log H-S_H(m)+U_N(m)+sum h_k floor(m/k),
+S_H(m)=sum_(k<=H)mu(k)log(H/k)*rho_k(m),
+U_N(m)=sum_(N<k<=m)mu(k)log(N/k)*floor(m/k).            (RETURN)
+```
+
+This keeps every post-N term and correction floor. |log H+S_H(m)|<=2H follows from sum_(k<=H)log(H/k)<=H-1. To bound U_N, write it as a finite sum over j of tails at m/j. Partial summation gives
+
+```text
+|sum_(N<k<=y)mu(k)log(k/N)|
+ <= C_M*y^b*(log(y/N)+1/b).
+```
+
+The decreasing positive function t^(-b)*(log(y/t)+1/b), 0<t<=y, has integral l_b*y^(1-b). Summing it over j<=m/N yields
+
+```text
+|U_N(m)| <= C_M*l_b*m*N^(b-1),   m>=N;
+U_N(m)=0,                       m<N.
+```
+
+Together with MASS, the correction support k>N/2, and ENV, RETURN gives
+
+```text
+|R(m)| <= A0*m*N^(b-1)+2H,            m>=N/2.          (NEAR)
+```
+
+For every m, a separate finite-source cap is
+
+```text
+|R(m)| <= ell+sum_(k=2..N)|F_k|+sum|h_k|
+       <= N+B*N^b <= C0*N.                           (CAP)
+```
+
+The coefficient estimate uses q_k<=log(N/k) and sum_(k<=N)log(N/k)<=N-1. CAP is used at infinity, never the nonsummable linear bound NEAR alone.
+
+#### E3. First-Activation Coercivity And Uniform Optimal Descent: ND3
+
+Direct algebra gives sum d_k=sum d_k/k=0. Thus v=-sum d_k floor(m/k), and v=0 before k1. For k1<=m<k2, the upper-half condition implies floor(m/k1)=1 while the other two floors vanish. Consequently v=-d_(k1) there, proving
+
+```text
+D_v >= d_(k1)^2*(1/k1-1/k2).
+```
+
+The two gaps imply |d_(k1)|>=gamma*N^2/2 and 1/k1-1/k2>=gamma/N, giving the displayed coercivity. This is a lower bound for the actual weighted quadratic cost, not period variance or an assumed invertible Gram matrix.
+
+Since sum d_k=0, the sum of its positive entries equals the sum of the absolute negative entries and equals d_(k2). Each rho lies in [0,1), hence |v(m)|<=d_(k2)<=N^2. Let Y=ceil(N^(2-b)). Split B_R at Y and apply NEAR only on k1<=m<=Y and CAP afterward:
+
+```text
+|B_R|/d_(k2)
+ <= A0*N^(b-1)*sum_(m=k1..Y)1/(m+1)
+       +2H/k1+C0*N/(Y+1)
+ <= [A0*((1-b)*log N+log 4)+C0]*N^(b-1)+4H/N
+ = W(N,H).
+```
+
+Here Y+1<=2N^(2-b), k1>N/2, and the harmonic sum is at most log((Y+1)/k1). Every estimate is uniform in the allowed moving triple and H. It does not rely on independent coefficients, a sign conjecture, or an incomplete-period average.
+
+The old projection identity is valid for the convergent complete norm:
+
+```text
+E(h+lambda*d)=E(h)-2lambda*B_R/ell^2+lambda^2*D_v/ell^2.
+```
+
+Completing the square proves the optimal lambda and ND3. The inverse fractional-descent statement follows immediately. The optimally added coefficient mass is also controlled:
+
+```text
+sum|lambda_* d_k| <= 8*N*W(N,H)/gamma^3.               (STEP-MASS)
+```
+
+Thus the unrestricted best SINGLE step itself costs at most O(N^b log N+H) for fixed parameters. This does not authorize repeated steps with the original constants: their changed coefficient mass and all mutual Gram terms must be accounted for anew.
+
+#### E4. Rigorous Infinite-Tail Enclosure: ND4
+
+Set f_k(m)=rho_k(m)-(k-1)/(2k) and a_k=F_k-h_k for 2<=k<=N. The two moment equations imply the exact centering
+
+```text
+R(m)=sum a_k f_k(m),      v(m)=sum d_k f_k(m).
+```
+
+For k,l>=2 let P=lcm(k,l) and G_kl=(gcd(k,l)^2-1)/(12kl). The existing period covariance is G_kl. One direct proof conditions on the common residue modulo gcd(k,l): the remaining residue coordinates are independent uniform finite coordinates, and their conditional means leave variance (gcd(k,l)^2-1)/12 divided by kl. This is finite counting, not stochastic independence of arithmetic coefficients.
+
+The P-periodic sequence u_m=f_k(m)f_l(m)-G_kl has period sum zero and |u_m|<=1/3. Its partial sums starting ANYWHERE have absolute value <=P/3. Summation by parts against the decreasing physical weight w_m=1/[m(m+1)] gives, for every integer Y>=1,
+
+```text
+|sum_(m>Y) f_k(m)f_l(m)/[m(m+1)]-G_kl/(Y+1)|
+ <= lcm(k,l)/[3*(Y+1)*(Y+2)].                         (PAIR-TAIL)
+```
+
+The vanishing boundary follows from bounded partial sums and w_m->0. For any two finite coefficient vectors a,d, sum PAIR-TAIL with its actual signed mean term and bound only its error. The error is
+
+```text
+sum_(k,l)|a_k d_l|lcm(k,l)/[3*(Y+1)*(Y+2)].            (BILINEAR-TAIL)
+```
+
+The same formula applies to D_v and ||R||^2. This is not the false statement that a physical window is bounded by its period mean: the signed discrepancy is explicitly retained. No lcm(1,...,N)-sized enumeration or limit of numerical quadrature is needed.
+
+### F. Quantitative Comparison And Complete Endpoint Budget
+
+For H=floor(N^(4/5)), eventually 2<=H<=N/2 and ell is comparable to log N. If b>=5/6, then H/N<=N^(b-1), so ND3 gives ND-STEP. All finite exceptions can be retained separately. The constant depends only on the displayed fixed envelopes and gamma.
+
+At the actual same-source baseline b0=7/8-m_*/4, after explicitly allowing arbitrary small positive losses, the complete correction/one-step energy scale is
+
+```text
+q=2b0-1=3/4-m_*/2,
+```
+
+whereas FT's current complete FAMILY upper-envelope power is
+
+```text
+p=(4b0-1)/3=5/6-m_*/3,
+p-q=1/12+m_*/6>0.
+```
+
+ND3 supplies an UPPER bound on removable energy. FT supplies an UPPER bound on total energy. **Subtracting these two upper bounds would be invalid.** No claim is made that the genuine E(h) attains the FT exponent, that the new direction cannot improve its true exponent, or that the finite percentages persist.
+
+The correct conditional consequence is: on any sequence on which E(h)/(N^(2b-1)log^2(N)/ell^2)->infinity, no gamma-separated triple can remove a fixed positive fraction. Equivalently, a fixed-fraction successful triple forces E(h) into the smaller ND3 budget. Both follow from the uniform inequality; neither assumes such a sequence exists.
+
+Similarly, RAW-COMPARE shows that corrections with mass O(N^b) cannot change a genuinely larger-than-N^(b-1/2)/ell norm by a fixed relative amount. MASS-COST quantifies the necessary larger coefficient mass if such a reduction is sought. This is a scoped inverse theorem, not a route-wide no-go.
+
+Nothing here pays the entire remaining transition-window source. FT's prefix and remote-tail estimates, complete norm power, and first unresolved interval remain as before. Even a full energy power 2b-1 merely returns the inherited zero boundary b in the previously accepted paired-probe comparison; FT's p returns (1+2b)/3>b. Full Nyman density requires a complete norm tending to zero, not a positive growing power. The two finite descents and ND3 do not imply a better canonical HIGH exponent.
+
+### G. Original-Carrier Bridge, Literature And Formal Scope
+
+The original definitions are `nymanResidue`, `nymanResidual`, `nymanFlatCoefficient`, and the arbitrary-m theorem `nyman_flat_complete_return`. The change is literally h -> h+lambda*d on the existing correction support; genuine mu, low coefficients, all integer sites, both correction moments, weights and every infinite-tail interaction are retained. No selected cell, prime-power term, or post-N floor is removed.
+
+The continuous function phi_k(x)={1/(kx)}-{1/x}/k equals rho_k(m) on 1/(m+1)<x<=1/m. These cells have exactly the physical weights 1/[m(m+1)]. Thus our complete discrete norm is exactly the original L2(0,1) norm, with no continuous/discrete error suppressed. This is not an identification with the VF clipped source, a Mertens square-shell norm, or an ideal-character polynomial.
+
+The integer-dilation closure criterion is a classical result, not a theorem proved in this report; see [Baez-Duarte's primary paper](https://arxiv.org/abs/math/0202141). His [arithmetical Nyman-Beurling paper](https://arxiv.org/pdf/math/0011254) also distinguishes fixed natural approximants from full-space density. Its divergence results for other named families are NOT transferred to this changed flat family without a proved map. The old repository note already contains the discrete digamma Gram formula; our certified computation uses PAIR-TAIL instead, and the formula is only a separate numerical cross-check.
+
+For ENV's psi consequence, [Platt and Trudgian, Lemmas 1-2](https://arxiv.org/pdf/1809.03134) give the truncated explicit formula at half-odd-integers x>exp(60), 50<T<x, and the reciprocal zero-height sum for T>=2*pi*e. Set T=x/2, use the inherited real-part ceiling b0, and absorb log^2 x into a chosen positive exponent loss. Passing to the neighboring integer changes the bound by at most the local von Mangoldt jump and O(1). The finite initial interval is absorbed in C_psi. No finite-height RH verification, density conjecture, or numerical effective value is imported.
+
+Material source ledger, all at the stated main pin:
+
+| Path | Blob SHA / role |
+| --- | --- |
+| research/NYMAN_HIGH_COEFFICIENT_INVARIANT_20261104.lean | 2da630c1d5fb9302e2097ec1e170cf41c2b40609; original residue/residual and weighted invariant |
+| research/NYMAN_FLAT_TAPER_RETURN_20261104.lean | 2d23721027ecc44e85b7add02fc632b482f03352; complete floor return and two-band solver |
+| research/NYMAN_CORRECTION_ENERGY_20261105.lean | e5453cd32c3c4ebf9ebf41927bcb92e534b2ece7; COMPONENT lower bound and signed split, not the new full upper bound |
+| research/NYMAN_MOMENT_NULL_OBSTRUCTION_20261106.lean | 301d7286fc2151b5d33bdca9762a6a01c496ff87; unbounded unbudgeted correction warning |
+| research/NYMAN_RADICAL_INCREMENT_20261106.lean | c5ebb3d5d96898549ad039fd32e1a26955c5b8f8; unchanged increment identities, no new norm estimate |
+| research/NYMAN_BEURLING_POSITIVE_RESIDUE_ATTACK_2026_10_15.md | b2775c892edffe920a101651eef6f3581c73c9d4; original norm and existing finite Gram formula |
+| research/oai_434/VF919TotalMassEndpoint.lean | 827bb952c4d4311d75fd03a2470799dc10b0f7e7; strongest used merged Mertens input |
+
+No local Lean was run; no source, feature branch, PR, workflow, other-role report or schedule was changed. No newly proved result is labeled PROVED_IN_LEAN.
+
+### H. Falsification And Executed Certificates
+
+ND5 was preregistered before execution on exactly the two Coordinator fixtures, Y=30000, both original correction bands and the full weighted norm. The rival was that restoring the infinite tail could erase a favorable prefix gradient. Both exact interval certificates refute that rival on their stated finite instances only.
+
+Logarithms use the rational atanh series after reducing the argument to [1,2]. With z in [0,1/3], 100 terms have the explicit positive tail bound
+
+```text
+0<=log((1+z)/(1-z))-2*sum_(j<100)z^(2j+1)/(2j+1)
+ <= 2*z^201/[201*(1-z^2)].
+```
+
+All coefficient arithmetic uses rational intervals. Finite weighted sums are integer-rounded at scale 2^120, including signed products; coefficient and summation rounding errors are carried explicitly. PAIR-TAIL restores the infinite part. The lower activation bound verifies that the denominator D_v is positive before division.
+
+Full certified intervals:
+
+| Quantity | N=30,H=8 | N=42,H=10 |
+| --- | --- | --- |
+| B_R | [0.257612617211,0.258252951052] | [0.618588208471,0.621773020949] |
+| D_v | [403.836945922496,403.860839358285] | [1146.903523891113,1147.005532170060] |
+| E(h) | [0.022087009757,0.022093189898] | [0.021143269662,0.021164180640] |
+| E(h+lambda*d) | [0.021992477210,0.021999131118] | [0.020979595942,0.021002193768] |
+
+Exact checks: 529 full-period covariances for 2<=k,l<=24; four finite-tail discrepancy checks with (k,l)=(2,3),(3,5),(6,7),(7,8); sieve mu independently matched divisor inversion; both moments of d vanish exactly; v vanishes before its first denominator; its first activation and global magnitude bound hold on every computed cell. The script is reproduced below. Syntax compilation of both Python programs also passed; this is not Lean verification.
+
+After the rational certificates succeeded, a disclosed separate double-precision digamma-Gram implementation was run on the SAME two fixtures. It gave B_R approximately 0.257932494034 and 0.620180786011, D_v approximately 403.848906906 and 1146.954231495, and E(h) approximately 0.0220901005950 and 0.0211537327576, all inside the rigorous enclosures. This is a noncertifying coding cross-check, NOT independent mathematical review. No domain enlargement or large exploratory census occurred.
+
+Important boundaries and failed shortcuts:
+
+- Neither the sign of B_R nor a positive all-scale lower bound on B_R^2/D_v follows from two examples.
+- Deleting gamma's lower-gap condition invalidates the uniform coercivity constant; nearby denominators are a separate possible mechanism.
+- Dropping the correction-mass budget contradicts the existing null-obstruction scope. ND1 does not do that.
+- A period covariance is not the weighted norm. PAIR-TAIL includes the indispensable signed error; FT5's old counterexample is not rerun as new work.
+- A growing simultaneous correction frame or iterated descent introduces mutual Gram terms and changed budgets. Single-step bounds do not license summing independent credits.
+- The generic exact projection identity is prior work. ND3's independently bounded gradient and physical coercivity, not completion of a square alone, are the analytic contribution.
+
+Main verifier SHA256: **d71a3dbf1309251d2b767f5ea9e9b06c4cdc329602234e7ea1d855e08fc1b2dc**.
+Canonical result JSON SHA256: **7ee46adee4ef28fda9d15fc37a5d31d02a48d4d2e640716cc3336d017dd2e556**.
+Separate noncertifying Gram script SHA256: **28bf52a8ef4bcc883d47204d53984a579a92097424433de468cb7fbd8b5b64e1**.
+Preregistration including the disclosed cross-check addendum SHA256: **d9166e0f548f6c2d2e0955b30ee1ec6354c44ea4aef2f15723a1967940f155f2**.
+
+### I. Conceptual Interpretation
+
+The high correction is a controllable operator at its actual physical normalization. Its coefficients can change a period mean substantially while its early activation and decaying physical weights keep its full norm small. That distinction explains why period-mean intuition is unreliable and why coefficient mass, denominator spacing, and the complete gradient are the relevant quantities.
+
+The proposed finite optimization is real, so there is no basis for declaring the direction useless. The all-scale inverse restriction says precisely what would make it useful: a fixed fractional descent from such a triple requires the starting residual already to lie in the smaller budget, or a different geometry/collective construction must be investigated. The present FT upper bound does not tell us which case occurs.
+
+The secondary attempt to replace generic Fourier spacing by genuine-coefficient cancellation did not establish a sharper full window theorem. Its obstruction remains the actual signed transition-window energy, not correction centering or a missing tail identity. No speculative spectral gap is assumed.
+
+### J. Specialist Handoffs
+
+| Specialist | Exact useful request |
+| --- | --- |
+| Coordinator | Record ND3 as a uniform source-specific inverse restriction and ND5 as successful finite FULL-norm descent. Do not subtract upper envelopes or promote finite percentages. Continue protected rotation; no strategic policy change is requested. |
+| Adversarial Referee | Independently check NEAR/CAP, first-activation coercivity, the order of fixed gamma/envelope constants, and PAIR-TAIL's arbitrary-start summation by parts. Check the exact rational verifier. Verdicts must distinguish paper inequalities, finite certificates and the still-open lower-gradient/complete-energy question. |
+| Prime Census | The two requested fixtures are now certified with explicit infinite tails. Reproduce independently if desired; do not rerun them as a new discovery. A changed next test should inspect near-colliding triples or a genuinely growing constrained frame, retaining its full Gram and mass cost, with preregistered scale predictions. |
+| Lean Verification | After independent review, ND1's full weighted correction estimate and ND3's first-activation coercivity are implementation-sized candidates. ND3's full analytic envelope needs the explicit arithmetic suppliers, not an assumed final bound. Do not duplicate the moment-null or finite projection identities or start a filler PR solely from this report. |
+| Owner Payment | ND-MASS is a genuine normalized operator bound for these residues. Transfer to VF only with a proved occurrence/weight map; it does not establish a chronological prime-source mixed sign. |
+| Finite Wheel | A potentially useful different NYMAN input is a collective denominator-frame coercivity/gradient theorem with all mutual LCM terms. Existing CORR4 sampling multiplicity is not automatically such a theorem; protect FINITE-AC/CORR4/MU-LIFT coverage. |
+
+### K. First Independently Missing Analytic Theorem
+
+For this proposed correction mechanism, no all-scale LOWER bound on the complete gradient-to-cost ratio has been established. A precise decision problem is whether, for the genuine family and a fixed geometrically separated triple rule or a fully specified larger moment-null frame, one can prove
+
+```text
+projection_energy_of_actual_R >= theta * ||R||^2,
+theta>0 independent of N,
+```
+
+WITH the actual complete Gram, coefficient-mass budget, and all tails. This is a candidate arithmetic statement, not a supplied lemma, not proved by two fixtures, and not claimed to be easier than the remaining family estimate. ND3 restricts the possible single-triple regime; it does not supply this lower bound.
+
+The independently unresolved complete-family estimate remains FT's original transition-window source. Improving only to power 2b-1 does not beat the incoming endpoint. For a genuinely new global result, a valid full-basis/weighted-norm decay or another stronger source-to-endpoint theorem remains necessary. No universal new covariance or inverse-norm prerequisite is imposed on other routes.
+
+Highest-value next NYMAN derivation: use ND2 to separate the fully paid high-correction norm and attack the ORIGINAL low-coefficient transition remainder, or specify a growing moment-null frame whose actual mutual Gram and coefficient growth can be bounded. Do not repeat a fixed triple scan or optimize only a finite prefix.
+
+### L. Resume Capsule And Publication Discipline
+
+Current new claims: ND1-ND4 PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING; ND5 rigorous FINITE_COMPUTATION. No new Lean theorem, full-family exponent improvement, canonical VF bound or RH result. Preserve FT, BC and MP claim IDs and their original evidence status.
+
+Compact HIGH record:
+
+```text
+route: NYMAN; actual full residue norm, both correction moments, infinite tail
+main: bf4af1cd18aff7c3944a75991aa66371c8afc18a
+baseline: native_mertens_true_physical_slot_minimum_total_mass, b0=7/8-m_*/4
+existing input: ENV from inherited boundary; exact flat return; true two-band coefficients
+new step: full correction operator bound plus uniform actual-gradient/activation restriction
+complete return: all m>=1, exact normalized coefficient change, signed Gram and tail enclosure
+net endpoint gain: UNKNOWN / no new verified gain
+remaining: actual complete-energy or collective-projection arithmetic beyond the baseline
+next protected route: OAI-NNS, resume BC retained-certificate/full-consumer work
+next NYMAN: genuine transition remainder or fully costed growing null frame
+```
+
+All seven today/yesterday report hashes were recorded at retrieval; the original today's own blob before this invocation was b32aa501bff08a8da7ecf387f4e9a168f71ea3e5 and yesterday's own blob was 77f3e5795533041e4356ceb94cb66328da7af27c. The early checkpoint was committed as **5109818d5431b9e3422c786022f2c963bdf3c11b**, blob **a6dfbbdc457749a157fccb87f5b4142eb1c77794**, and exact readback was verified. Final publication requires a fresh own-file blob, preservation of all intervening content and separate immutable readback. A receipt is appended only after that succeeds.
+
+### Two-Day Continuity Ledger
+
+| Role report | November 8 retrieved blob | November 7 retrieved blob |
+| --- | --- | --- |
+| 00-coordinator-am.md | b6d5c65aed0537efd0018e11dbcd9a72dea3c15a | 00a649b70f851ca193e74e5004d0d3390cf9ca18 |
+| 10-owner-payment.md | dc8da662cdafc4bc96bcc3ccb29c3052eb1b4d99 | 933e8eb23e669594cc687059d75147e6267eec8d |
+| 20-analytic-type-ii.md | b32aa501bff08a8da7ecf387f4e9a168f71ea3e5 | 77f3e5795533041e4356ceb94cb66328da7af27c |
+| 30-finite-wheel.md | 5b56caa1e7b3463510a7257b10a784ccc8798621 | 7739fa5d4cc77f35773b0d4149b2ddd21732a70d |
+| 40-prime-census.md | 3cc1bbe7e0d9a80bdcaa630a2fb3c31d4b8f90c8 | 3fae830e34c590d32c31ad77cad3ace833eb3ff5 |
+| 50-adversarial-referee.md | 9b691e84eeb8f2f9e2497604dc874935a61d5005 | 426c2abfa5b8926b512e07f05be37692a2416d0b |
+| 60-lean-verification.md | 02647045bf731a52b3c726c9ea690b72fa48c274 | ec14e2803af8c1e56123682ee61ed927ed4f9450 |
+
+Coordinator's 00/90 files were identical by their returned directory blob SHAs at retrieval; the 00 content supplied the handoff. The final source refresh at 2026-11-08T14:28:25Z found main unchanged and #1108/#1109 still open, non-draft, at a0c986c0343a56e98b7344268fdc0b74aa885cdb and fedd203158af32b09cb86fd12f04fec33998408e respectively. The tested #1107 endpoint file was directly re-fetched at its exact CI head and its blob matches main.
+
+### Reproducibility Appendix - ND5
+
+The following are the exact executed registration and scripts. The primary verifier uses only the Python standard library. The separate cross-check additionally uses NumPy/SciPy and is explicitly noncertifying. These are report attachments within this own authorized Markdown file; no repository source/script path was changed.
+
+#### Frozen Registration
+
+~~~markdown
+# ND5: Frozen Nyman Descent Validation
+
+Prepared before execution for 20261108-analytic-2.
+
+- Original family: N=6K, 2<=H<=N/2; F_k=mu(k)log(N/max(H,k)), two-band correction h on (3K,4K] and (5K,6K], delta=1-T(H), and both exact moments retained.
+- Fixed fixtures from Coordinator: (N,H,k1,k2,k3)=(30,8,16,19,26),(42,10,22,27,36).
+- Direction: d=(k1(k2-k3), k2(k3-k1), k3(k1-k2)); no denominator outside the original correction support.
+- Observables: full inner product B=<R,v>, full quadratic D=<v,v>, full E=||R||^2/ell^2; sign of B, optimum B/D, certified energy decrease at a fixed rational nearby step.
+- Rival: apparent prefix descent disappears after the full infinite weighted tail is restored. No preferred sign is assumed.
+- Certification: rational logarithm enclosures from the atanh series; integer fixed-point finite sums at 2^120; exact period covariance and a proved LCM tail error. Initial Y=30000. If an interval does not decide a sign, report unresolved; do not expand the domain without recording a reason.
+- Negative controls: directions must preserve both moments, v vanishes before k1, first activation v=-d1 on [k1,k2), and deleting moment constraints is outside the theorem. The full-period covariance alone is not used as a physical weighted norm.
+- Cross-check: sieve mu against divisor inversion, direct residue versus floor formula for v, period covariance for all pairs k,l<=24, and finite-tail approximation error against a longer exact rational sum for small pairs.
+- Scope: finite certificates only, not an all-scale lower bound for the directional gradient or endpoint improvement. All-scale proof is separate and author SELF_AUDIT.
+
+## Disclosed Cross-Check After The Rational Certificates
+
+The initial fixed domain resolved both signs and full descents. Do not enlarge it. Independently evaluate the established finite digamma Gram formula on the same two fixtures using a separate double-precision implementation. This is a noncertifying coding cross-check only; the rational enclosures remain the evidence.
+~~~
+
+#### Rational Complete-Norm Verifier
+
+~~~python
+"""Rational interval certificates for two original Nyman correction directions."""
+
+from dataclasses import dataclass
+from fractions import Fraction as F
+from functools import lru_cache
+from hashlib import sha256
+from math import gcd, lcm
+import json
+
+
+@dataclass(frozen=True)
+class I:
+    lo: F
+    hi: F
+
+    @staticmethod
+    def point(x):
+        return I(F(x), F(x))
+
+    def __add__(self, other):
+        other = other if isinstance(other, I) else I.point(other)
+        return I(self.lo + other.lo, self.hi + other.hi)
+
+    __radd__ = __add__
+
+    def __neg__(self):
+        return I(-self.hi, -self.lo)
+
+    def __sub__(self, other):
+        return self + -as_i(other)
+
+    def __rsub__(self, other):
+        return as_i(other) + -self
+
+    def __mul__(self, other):
+        other = as_i(other)
+        products = [self.lo * other.lo, self.lo * other.hi,
+                    self.hi * other.lo, self.hi * other.hi]
+        return I(min(products), max(products))
+
+    __rmul__ = __mul__
+
+    def __truediv__(self, other):
+        other = as_i(other)
+        assert other.lo * other.hi > 0
+        return self * I(1 / other.hi, 1 / other.lo)
+
+    def square(self):
+        low = 0 if self.lo <= 0 <= self.hi else min(self.lo**2, self.hi**2)
+        return I(F(low), max(self.lo**2, self.hi**2))
+
+    def absmax(self):
+        return max(abs(self.lo), abs(self.hi))
+
+
+def as_i(x):
+    return x if isinstance(x, I) else I.point(x)
+
+
+def atanh_log(z, terms=100):
+    value = sum((z**(2*j+1) / (2*j+1) for j in range(terms)), F(0)) * 2
+    error = 2 * z**(2*terms+1) / ((2*terms+1) * (1-z*z))
+    return I(value, value + error)
+
+
+@lru_cache(None)
+def log_integer(n):
+    assert n >= 1
+    power = n.bit_length() - 1
+    ratio = F(n, 2**power)
+    z = (ratio-1) / (ratio+1)
+    return power * atanh_log(F(1, 3)) + atanh_log(z)
+
+
+def mobius(limit):
+    mu = [1] * (limit+1)
+    prime = [True] * (limit+1)
+    mu[0] = 0
+    for p in range(2, limit+1):
+        if prime[p]:
+            for n in range(p, limit+1, p):
+                mu[n] = -mu[n]
+                if n > p:
+                    prime[n] = False
+            for n in range(p*p, limit+1, p*p):
+                mu[n] = 0
+    inverse = [0] * (limit+1)
+    inverse[1] = 1
+    for n in range(1, limit+1):
+        for multiple in range(2*n, limit+1, n):
+            inverse[multiple] -= inverse[n]
+    assert mu == inverse
+    return mu
+
+
+def covariance(k, j):
+    return F(gcd(k, j)**2 - 1, 12*k*j)
+
+
+def tail_data(left, right, cutoff):
+    mean = I.point(0)
+    error = F(0)
+    for k, ak in left.items():
+        for j, aj in right.items():
+            mean += as_i(ak) * as_i(aj) * covariance(k, j)
+            error += as_i(ak).absmax() * as_i(aj).absmax() * lcm(k, j)
+    mean /= cutoff + 1
+    error /= 3 * (cutoff+1) * (cutoff+2)
+    return mean + I(-error, error), error
+
+
+def enclosing_decimal(q, digits, upward):
+    scale = 10**digits
+    scaled = q * scale
+    z = scaled.numerator // scaled.denominator
+    if upward and F(z) < scaled:
+        z += 1
+    sign = '-' if z < 0 else ''
+    z = abs(z)
+    return f'{sign}{z // scale}.{z % scale:0{digits}d}'
+
+
+def display(value, digits=12):
+    value = as_i(value)
+    return [enclosing_decimal(value.lo, digits, False),
+            enclosing_decimal(value.hi, digits, True)]
+
+
+def certify(fixture, cutoff=30000):
+    n, h, k1, k2, k3 = fixture
+    assert n % 6 == 0 and 2 <= h <= n//2
+    block = n // 6
+    band1 = list(range(3*block+1, 4*block+1))
+    band2 = list(range(5*block+1, 6*block+1))
+    assert set((k1,k2,k3)) <= set(band1+band2)
+    mu = mobius(n)
+    ell = log_integer(n) - log_integer(h)
+    f = {k: mu[k]*(log_integer(n)-log_integer(max(h,k))) for k in range(1,n+1)}
+    th = sum((mu[k]*(log_integer(h)-log_integer(k))/k for k in range(1,h+1)), I.point(0))
+    delta = 1-th
+    u = sum((f[k]/k for k in f), I.point(0))
+    z = u-delta
+    w = 2*ell+sum(f.values(), I.point(0))-delta
+    s1 = sum((F(1,k) for k in band1), F(0))
+    s2 = sum((F(1,k) for k in band2), F(0))
+    a_height = (z-s2*w/block)/(s1-s2)
+    z_height = (s1*w/block-z)/(s1-s2)
+    corr = {k: a_height if k in band1 else z_height if k in band2 else I.point(0)
+            for k in range(2,n+1)}
+    a = {k: f[k]-corr[k] for k in range(2,n+1)}
+    mean_check = ell+sum((a[k]*F(k-1,2*k) for k in a), I.point(0))
+    assert mean_check.lo <= 0 <= mean_check.hi
+    d = {k1:k1*(k2-k3), k2:k2*(k3-k1), k3:k3*(k1-k2)}
+    assert sum(d.values()) == 0
+    assert sum((F(v,k) for k,v in d.items()), F(0)) == 0
+    vmax = sum(abs(x) for x in d.values())//2
+    assert vmax == d[k2]
+    scale = 2**120
+    p = {}
+    eta = F(0)
+    for k in a:
+        coeff = a[k]/k
+        mid = (coeff.lo+coeff.hi)/2
+        p[k] = (mid*scale).numerator // (mid*scale).denominator
+        error = max(abs(F(p[k],scale)-coeff.lo), abs(F(p[k],scale)-coeff.hi))
+        eta += F(k-1,2)*error
+    rmax = sum((F(abs(p[k])*(k-1),2*scale) for k in p), F(0))
+    bsum = dsum = esum = 0
+    for m in range(1,cutoff+1):
+        rr = sum(p[k]*(2*(m%k)-(k-1)) for k in p)
+        vv = -sum(dk*(m//k) for k,dk in d.items())
+        if m < k1:
+            assert vv == 0
+        if k1 <= m < k2:
+            assert vv == -d[k1]
+        assert abs(vv) <= vmax
+        den = m*(m+1)
+        bsum += (rr*vv)//(2*den)
+        dsum += (vv*vv*scale)//den
+        esum += (rr*rr)//(4*scale*den)
+    partial_b = I(F(bsum,scale)-eta*vmax, F(bsum+cutoff,scale)+eta*vmax)
+    partial_d = I(F(dsum,scale),F(dsum+cutoff,scale))
+    ep = eta*(2*rmax+eta)
+    partial_e = I(F(esum,scale)-ep,F(esum+cutoff,scale)+ep)
+    tb, eb = tail_data(a,d,cutoff)
+    td, ed = tail_data(d,d,cutoff)
+    te, ee = tail_data(a,a,cutoff)
+    bfull, dfull = partial_b+tb,partial_d+td
+    efull = (partial_e+te)/ell.square()
+    lower_d = F(d[k1]**2)*(F(1,k1)-F(1,k2))
+    assert dfull.lo >= lower_d
+    assert bfull.lo*bfull.hi > 0
+    optimum = bfull/dfull
+    mid = (optimum.lo+optimum.hi)/2
+    lam = F(round(mid*10**9),10**9)
+    gain = (2*lam*bfull-lam*lam*dfull)/ell.square()
+    assert gain.lo > 0
+    opt_gain = bfull.square()/(ell.square()*dfull)
+    assert gain.lo <= opt_gain.hi
+    return {'fixture':fixture,'cutoff':cutoff,'direction':d,
+            'B_R':display(bfull),'D':display(dfull),'E_before':display(efull),
+            'lambda_star':display(optimum),'lambda_rational':str(lam),
+            'certified_gain':display(gain),'E_after':display(efull-gain),
+            'gain_fraction':display(gain/efull),'optimal_gain':display(opt_gain),
+            'tail_errors_B_D_Escaled':[display(eb),display(ed),display(ee)],
+            'first_activation_D_lower':str(lower_d),
+            'correction_l1':display(sum((I.point(v.absmax()) for v in corr.values()),I.point(0)))}
+
+
+def independent_checks():
+    checked = 0
+    for k in range(2,25):
+        for j in range(2,25):
+            period = lcm(k,j)
+            actual = sum((F(2*(m%k)-(k-1),2*k)*F(2*(m%j)-(j-1),2*j)
+                          for m in range(1,period+1)),F(0))/period
+            assert actual == covariance(k,j)
+            checked += 1
+    for k,j in [(2,3),(3,5),(6,7),(7,8)]:
+        y,z = 100,2000
+        finite = sum((F(2*(m%k)-(k-1),2*k)*F(2*(m%j)-(j-1),2*j)/F(m*(m+1))
+                      for m in range(y+1,z+1)),F(0))
+        reference = covariance(k,j)*(F(1,y+1)-F(1,z+1))
+        bound = F(lcm(k,j),3)*(F(1,(y+1)*(y+2))+F(1,(z+1)*(z+2)))
+        assert abs(finite-reference) <= bound
+    return {'period_covariances':checked,'finite_tail_checks':4,'status':'PASS'}
+
+
+if __name__ == '__main__':
+    result = {'checks':independent_checks(),
+              'fixtures':[certify(x) for x in [(30,8,16,19,26),(42,10,22,27,36)]]}
+    encoded = json.dumps(result,sort_keys=True,separators=(',',':'))
+    print(json.dumps(result,indent=2,sort_keys=True))
+    print('CANONICAL_RESULT_SHA256='+sha256(encoded.encode()).hexdigest())
+~~~
+
+#### Separate Noncertifying Gram Cross-Check
+
+~~~python
+"""Noncertifying, separate digamma-Gram cross-check of ND5 enclosures."""
+
+import json
+import math
+import numpy as np
+from scipy.special import digamma
+from nyman_descent import mobius
+
+
+def check(n, h, triple):
+    mu = mobius(n)
+    ks = np.arange(2, n+1, dtype=np.int64)
+    ell = math.log(n/h)
+    f = np.array([mu[k]*math.log(n/max(h,k)) for k in range(n+1)])
+    th = sum(mu[k]*math.log(h/k)/k for k in range(1,h+1))
+    delta = 1-th
+    u = sum(f[k]/k for k in range(1,n+1))
+    z = u-delta
+    w = 2*ell+sum(f[1:])-delta
+    block = n//6
+    band1, band2 = range(3*block+1,4*block+1),range(5*block+1,6*block+1)
+    s1,s2 = sum(1/k for k in band1),sum(1/k for k in band2)
+    height1,height2 = (z-s2*w/block)/(s1-s2),(s1*w/block-z)/(s1-s2)
+    a = np.array([f[k]-(height1 if k in band1 else height2 if k in band2 else 0) for k in ks])
+    k1,k2,k3 = triple
+    dd = {k1:k1*(k2-k3),k2:k2*(k3-k1),k3:k3*(k1-k2)}
+    d = np.array([dd.get(k,0) for k in ks])
+    gram = np.zeros((n-1,n-1))
+    for i,k in enumerate(ks):
+        for j in range(i,len(ks)):
+            l = ks[j]
+            period = math.lcm(int(k),int(l))
+            r = np.arange(1,period+1,dtype=np.int64)
+            weights = (digamma((r+1)/period)-digamma(r/period))/period
+            raw = np.sum((r%k)/k*(r%l)/l*weights)
+            mk,ml = (k-1)/(2*k),(l-1)/(2*l)
+            val = raw-mk*math.log(l)/l-ml*math.log(k)/k+mk*ml
+            gram[i,j] = gram[j,i] = val
+    b = float(a@gram@d)
+    quadratic = float(d@gram@d)
+    e = float(a@gram@a/ell**2)
+    return {'N':n,'H':h,'B_R':b,'D':quadratic,'E':e,
+            'lambda':b/quadratic,'optimal_gain':b*b/(quadratic*ell**2),
+            'status':'DOUBLE_PRECISION_CROSSCHECK_ONLY'}
+
+
+if __name__ == '__main__':
+    print(json.dumps([check(30,8,(16,19,26)),check(42,10,(22,27,36))],indent=2))
+~~~
