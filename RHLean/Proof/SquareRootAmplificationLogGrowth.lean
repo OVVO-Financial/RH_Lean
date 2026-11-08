@@ -247,8 +247,10 @@ theorem squareRootAmplificationMax_log_le_iff (X : ℕ) (B : ℝ) (hB : 0 ≤ B)
   · intro h R hR hX
     have hpos : 0 < 1 + squareRootEndpointAmplification R := by
       linarith [squareRootEndpointAmplification_nonneg R]
-    exact (Real.log_le_log hpos
-      (add_le_add_left (squareRootEndpointAmplification_le_max hR hX) 1)).trans h
+    have hmono : 1 + squareRootEndpointAmplification R ≤
+        1 + squareRootAmplificationMax X := by
+      linarith [squareRootEndpointAmplification_le_max hR hX]
+    exact (Real.log_le_log hpos hmono).trans h
   · intro h
     have hexp : 1 ≤ Real.exp B := by
       simpa using (Real.exp_le_exp.mpr hB)
