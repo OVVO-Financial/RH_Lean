@@ -109,7 +109,7 @@ theorem twoABCompleteReciprocalBand_norm_le_endpoints
 /-- For 1 <= y < z < 2*y, no quotient of z by a positive integer is y.
 Thus the strict-descendant coupling is absent in the root-adjacent upper half. -/
 theorem twoAB_quotientKernel_zero_strict_nearRoot
-    {z y : ℕ} (hy : 1 ≤ y) (hyz : y < z) (hz2 : z < 2 * y) :
+    {z y : ℕ} (_hy : 1 ≤ y) (hyz : y < z) (hz2 : z < 2 * y) :
     squareRootReplacementQuotientKernel z y = 0 := by
   classical
   unfold squareRootReplacementQuotientKernel
