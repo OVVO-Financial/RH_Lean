@@ -71,7 +71,7 @@ noncomputable def windowSaturatedHighData {Delta : ℝ}
   · dsimp only [newSigma]
     linarith only [hmT, E.t_small, E.e_pos, E.t_pos]
   · dsimp [newSigma, m]
-    ring
+    exact le_refl _
   · dsimp only [newSigma]
     linarith only [hmT, heT, heN, E.t_small, E.e_pos, E.t_pos]
   · dsimp only [newSigma]
@@ -131,8 +131,7 @@ theorem windowSaturatedHighData_tilt_budget {Delta : ℝ}
   change 0 < E.sigma ∧ E.sigma < 1 / 960 ∧ 24 * E.sigma < E.t
   have hmin : actualSlotMinimum D ≤ D.t / 200 := by
     have h := (D.slots_bounds (leastSlotIndex D)).2.2
-    change D.ell (leastSlotIndex D) ≤ D.t / 200 at h
-    exact h
+    nlinarith only [h]
   have hσ := windowSaturatedHighData_sigma_exact_minimum D
   change E.sigma = (7 / 8 : ℝ) * actualSlotMinimum D - D.e at hσ
   refine ⟨E.sigma_pos, ?_, ?_⟩
@@ -207,8 +206,16 @@ theorem native_beta_le_explicit_window_saturated :
       actualSlotMinimum D := hslotLower (leastSlotIndex D)
   have hident : (5 : ℝ) / (96 * (explicitSlotCount : ℝ)) =
       (5 / 8 : ℝ) * ((1 : ℝ) / (12 * (explicitSlotCount : ℝ))) := by ring
-  rw [hident]
-  linarith only [hbound, hmin]
+  have hscale :
+      (5 / 8 : ℝ) * ((1 : ℝ) / (12 * (explicitSlotCount : ℝ))) ≤
+        (5 / 8 : ℝ) * actualSlotMinimum D :=
+    mul_le_mul_of_nonneg_left hmin (by norm_num)
+  calc
+    HeckeZeroSupremum.beta ≤
+        7 / 8 - (5 / 8 : ℝ) * actualSlotMinimum D := hbound
+    _ ≤ 7 / 8 - (5 / 8 : ℝ) * ((1 : ℝ) / (12 * (explicitSlotCount : ℝ))) :=
+      sub_le_sub_left hscale (7 / 8 : ℝ)
+    _ = (7 / 8 : ℝ) - (5 : ℝ) / (96 * (explicitSlotCount : ℝ)) := by rw [hident]
 
 #print axioms windowSaturatedHighData
 #print axioms windowSaturatedHighData_window_exact
