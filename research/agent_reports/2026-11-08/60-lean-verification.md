@@ -259,3 +259,12 @@ At 2026-11-08T18:18:45Z, existing draft PR #1111 advanced by lease-protected fas
 Four diagnosed repairs preserve all theorem statements: finish the constant-sum algebra with ring, specify real numeral types before the two Nat conversions, and replace the final linarith step by the existing positive-division/subtraction monotonicity proof used in #1108. The initial failed job is 128797297359 in run 42502239742. The new exact-head proof job is **128818866826** in **42509367510**, currently IN_PROGRESS. Status=DRAFT_PR / CI_PENDING; no new PROVED_IN_LEAN claim yet.
 
 Independent mathematical audit: w_j=1+j/N^2, A=sum w_j, ell_j=w_j/(6A) gives N<=A<=N+1, positive distinct slots summing to 1/6, minimum >=1/(8N) for N>=3, and strict cap L under N>1+1/(6L). The original full HighData budgets and complete total-mass supplier are retained. 198 exact rational finite families (N=3..200) passed separate local regression, which is supplementary finite evidence, not Lean execution. The signed square-block grouping lemma is logically separate and is not a quantitative smooth-to-sharp bridge or an input to the analytic endpoint proof.
+
+
+## Strict-Lint Repair Checkpoint - 20261108-lean-2
+
+The first repair run 42509367510/job 128818866826 finished FAILURE at head 562e313ac405b93cf94ba851e314ceef9e64c579: the original normalization equality was already solved by field_simp, so a following ring tactic was rejected as unreachable under warning-fatal lint. The earlier algebra, numeral typing and final inequality failures no longer appeared. No theorem is certified by this failed run.
+
+Only the redundant tactic line was removed in additive commit **b6b637a9395c5f73a034c84474e2f314685d67bb**, current packing-source blob **32999039fdeea99c58a070c1c4ee9c140720dd44**; immutable readback matched exactly. The branch fast-forward used the expected previous head. New dedicated run **42510955610**, job **128823686854**, tests this exact head. At 2026-11-08T18:41:12Z, twelve companion check-runs were SUCCESS and the dedicated proof was IN_PROGRESS. Status remains DRAFT / CI_PENDING; source statements and verification requirements are unchanged.
+
+The complete A-P synthesis and a JSON-first registry/DAG update are being prepared. No registry promotion or program VERIFIED_ETA gate is claimed before exact terminal checks. Mathematical audit distinguishes the fixed improved source from the separate block-grouping identity and distinguishes every-positive-loss Mertens growth from a no-loss endpoint. Finite A, zero-log amplification and RH remain OPEN.
