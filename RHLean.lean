@@ -646,6 +646,7 @@ import RHLean.Proof.SquareBlockSmoothTransportGram
 import RHLean.Proof.SquareBlockTransportBaseline
 import RHLean.Proof.SquareRootAmplificationClosure
 import RHLean.Proof.SquareRootAmplificationLogGrowth
+import RHLean.Proof.SquareRootAmplificationPowerBounds
 import RHLean.Proof.SquareRootAncestryExtensionWindows
 import RHLean.Proof.SquareRootAncestryParentFibres
 import RHLean.Proof.SquareRootAncestryRoot

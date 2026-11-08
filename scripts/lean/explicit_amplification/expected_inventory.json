@@ -1,0 +1,220 @@
+{
+  "schema": 1,
+  "hash_format": "sha256 of comment-free source binders, colon, and result type; whitespace collapsed",
+  "public_theorems": 36,
+  "public_definitions": 0,
+  "files": [
+    {
+      "path": "RHLean/Proof/SquareRootAmplificationPowerBounds.lean",
+      "imports": [
+        "RHLean.Proof.SquareRootAmplificationLogGrowth"
+      ],
+      "scope_sha256": "2f5ce9ee9143d84c63044449d29d91a7b00ab6f498ba8eccb24623607c432bb0",
+      "declarations": [
+        {
+          "kind": "theorem",
+          "name": "RHLean.Proof.mertensCentered_abs_le_of_power",
+          "type_sha256": "518c26c1310b3d75ccdf95e206ac802328ed9697da3794085d9707cefea7ac01"
+        },
+        {
+          "kind": "theorem",
+          "name": "RHLean.Proof.squareRootEndpointAmplification_le_of_mertensPower",
+          "type_sha256": "2b48cbe352857055778ce8f11dd5d256582c94a24b0b65a1466dc52697d658b7"
+        },
+        {
+          "kind": "theorem",
+          "name": "RHLean.Proof.squareRootAmplificationMax_le_of_mertensPower",
+          "type_sha256": "bd223ee2d2bdf7321b23f49660af30cbb513eddff4e0c2de1522235c60d3dee8"
+        },
+        {
+          "kind": "theorem",
+          "name": "RHLean.Proof.squareRootAmplificationLogRatio_le_of_powerBound",
+          "type_sha256": "3d7c9879155dbf54aff13a93d2e765876e3dc09cda70ab5e1ccf5afb54ead52e"
+        },
+        {
+          "kind": "theorem",
+          "name": "RHLean.Proof.squareRootAmplificationLogRatio_le_of_mertensPower",
+          "type_sha256": "626679039577b289795aab7441456252f6d211c77a012e5feac4a89ff3089400"
+        },
+        {
+          "kind": "theorem",
+          "name": "RHLean.Proof.squareRootAmplificationLogRatio_le_of_mertensPower_threshold",
+          "type_sha256": "7a88f8592cbe36b26fbbabfd361a45fe24ae1fff5207b638377bef96c037887b"
+        },
+        {
+          "kind": "theorem",
+          "name": "RHLean.Proof.squareRootAmplificationLogRatio_eventually_le_of_mertensPower",
+          "type_sha256": "7683f39dd065c482c55d56abab4f1645ff3405e829a3a2d8623619c0fe6044a8"
+        },
+        {
+          "kind": "theorem",
+          "name": "RHLean.Proof.squareRootAmplificationMax_lt_of_logRatio_lt_one",
+          "type_sha256": "60825e817b4dde8052442257ea080bc62dfd2a5323285104b3874efc98a6f5ac"
+        },
+        {
+          "kind": "theorem",
+          "name": "RHLean.Proof.squareRootAmplificationMax_eventually_lt_of_mertensPower",
+          "type_sha256": "127161e6f28d0789221a1c44a753d3f3686d6163c4f47de447727dba59c7356f"
+        }
+      ]
+    },
+    {
+      "path": "research/oai_434/VF919ExplicitSlotTotalMass.lean",
+      "imports": [
+        "research.oai_434.VF919ExplicitFixedSourceSlotCount",
+        "research.oai_434.VF919TotalMassEndpoint"
+      ],
+      "scope_sha256": "6d9106a222a7a444a727adc47d11173cc259dd4e7b96e12db2427dcae99da05c",
+      "declarations": [
+        {
+          "kind": "theorem",
+          "name": "OAI.SevenEighths.RHLeanExplicitSlotTotalMass.slot_count_pos",
+          "type_sha256": "74b4787f798f6a938461a1c148ab14b8c45e7ca5f9c8c687bb02d8cd2fa5827f"
+        },
+        {
+          "kind": "theorem",
+          "name": "OAI.SevenEighths.RHLeanExplicitSlotTotalMass.slot_count_cast_pos",
+          "type_sha256": "e0bdd347009ef6245ca843d977f5cb432ed2466f1099fd273d9d9af81a9978fc"
+        },
+        {
+          "kind": "theorem",
+          "name": "OAI.SevenEighths.RHLeanExplicitSlotTotalMass.saving_pos",
+          "type_sha256": "9ea982f800be663c54eb9a14c0cefef81c065950e45c8a646b7bc37b7b9b1e59"
+        },
+        {
+          "kind": "theorem",
+          "name": "OAI.SevenEighths.RHLeanExplicitSlotTotalMass.fixed_saving_pos",
+          "type_sha256": "131b450e0caa0254848b29262faf5ef60d807e27497461ed0149e4883326679d"
+        },
+        {
+          "kind": "theorem",
+          "name": "OAI.SevenEighths.RHLeanExplicitSlotTotalMass.saving_le_one_ninety_sixth",
+          "type_sha256": "fee729677e01f3e95e47743652c1b2d9cc3610395890ea17d3b46ee40fb9d7e2"
+        },
+        {
+          "kind": "theorem",
+          "name": "OAI.SevenEighths.RHLeanExplicitSlotTotalMass.half_le_growth_boundary",
+          "type_sha256": "2ae1481e43ae1c4a472d62e2528a0588710f5fe090660a3081a8f185b769a0e4"
+        },
+        {
+          "kind": "theorem",
+          "name": "OAI.SevenEighths.RHLeanExplicitSlotTotalMass.growth_boundary_lt_seven_eighths",
+          "type_sha256": "fb9ad4eedbeb48355749c1a05c012b0a4fe9e9f2298b3ba272b3082f68af9230"
+        },
+        {
+          "kind": "theorem",
+          "name": "OAI.SevenEighths.RHLeanExplicitSlotTotalMass.growth_boundary_lt_one",
+          "type_sha256": "542c2511c923e2075c651f7ad06e55d8091ac2608b3ecb430fa022079c0f45b3"
+        },
+        {
+          "kind": "theorem",
+          "name": "OAI.SevenEighths.RHLeanExplicitSlotTotalMass.half_le_fixed_boundary",
+          "type_sha256": "66a188c5b2073ded54a455d3732eca792f7088520ffc8ce2a148ac19c77b38b5"
+        },
+        {
+          "kind": "theorem",
+          "name": "OAI.SevenEighths.RHLeanExplicitSlotTotalMass.fixed_boundary_lt_one",
+          "type_sha256": "275417fdebc5d1410a7d3de1d0cbac455b2f2d9cbcd213eaf003fa6496f13fbb"
+        },
+        {
+          "kind": "theorem",
+          "name": "OAI.SevenEighths.RHLeanExplicitSlotTotalMass.gain_is_six_times_old",
+          "type_sha256": "592f7f4affdb673004c4725bf07151d47ddb066107b42a4e598275e8f362559d"
+        },
+        {
+          "kind": "theorem",
+          "name": "OAI.SevenEighths.native_beta_le_explicit_slot_count_total_mass",
+          "type_sha256": "bcf72517ef13d9def1cea29dee4699ea4f03edae3303df50ae8bf9c8699225e6"
+        },
+        {
+          "kind": "theorem",
+          "name": "RHLean.Analysis.native_mertens_explicit_slot_count_total_mass",
+          "type_sha256": "0715841825795548913cbc42b440e622c205ca7e94209bb6805c5626a6429218"
+        },
+        {
+          "kind": "theorem",
+          "name": "RHLean.Analysis.native_mertens_fixed_explicit_slot_count_total_mass",
+          "type_sha256": "38b2283a177f3806212f3d6630aa89ff34b5041c68d67d20efb70b2854f70bcc"
+        }
+      ]
+    },
+    {
+      "path": "research/oai_434/VF919ExplicitAmplificationBound.lean",
+      "imports": [
+        "RHLean.Proof.SquareRootAmplificationPowerBounds",
+        "RHLean.Proof.SquareRootAncestryRoot",
+        "research.oai_434.VF919ExplicitSlotTotalMass"
+      ],
+      "scope_sha256": "a3b985bf26bb7b2ae75170ac56a8af3d695cb3245488d535b4147ca5e28ab1e6",
+      "declarations": [
+        {
+          "kind": "theorem",
+          "name": "RHLean.Analysis.mertens_integer_power_of_native_power",
+          "type_sha256": "0199c5076c484b16ad0acd665dd67edb7d98eee1146fe8d292a9729a5e8289fe"
+        },
+        {
+          "kind": "theorem",
+          "name": "RHLean.Analysis.amplification_power_of_native_power",
+          "type_sha256": "e7cc8cb6200c4a8180bfcef7279d440b42cba34053281a4e2776053c9dd3fca5"
+        },
+        {
+          "kind": "theorem",
+          "name": "RHLean.Analysis.amplification_log_bound_of_native_power",
+          "type_sha256": "c66ea28c3cc8fd14c9767952fc8f5291c3708f36248fd6e9c68d31194d1f93ae"
+        },
+        {
+          "kind": "theorem",
+          "name": "RHLean.Analysis.amplification_log_eventually_le_of_native_growth",
+          "type_sha256": "3e0eaeb45797f9fdee99afe7221a4c6a150a2ede3c6122eea43290937d0f98cb"
+        },
+        {
+          "kind": "theorem",
+          "name": "RHLean.Analysis.amplification_log_limsup_le_of_eventual",
+          "type_sha256": "76a3a810c4f3053b06d8c354a0494e2b265e02345562bcfc9c4f4184c218d987"
+        },
+        {
+          "kind": "theorem",
+          "name": "RHLean.Analysis.amplification_log_limsup_le_of_native_growth",
+          "type_sha256": "ed7d7d225d99035539c469cfbf08976f4240d959714627e7d7989d0018cf80b8"
+        },
+        {
+          "kind": "theorem",
+          "name": "RHLean.Analysis.native_amplification_explicit_slot_count_total_mass",
+          "type_sha256": "44ffbde4947ffca0414e61a184ef67a24a669d08579012fabaf13a216e9e26f8"
+        },
+        {
+          "kind": "theorem",
+          "name": "RHLean.Analysis.native_amplification_fixed_explicit_slot_count_total_mass",
+          "type_sha256": "10af05ad77edf845a3bc80dbb5f7f320f9a12d8fdfe3de618050c6ce004b4228"
+        },
+        {
+          "kind": "theorem",
+          "name": "RHLean.Analysis.native_amplification_log_fixed_explicit_slot_count_total_mass",
+          "type_sha256": "7b7876ab1af592a7e6809e4925c738bf273554701dd1020b0c3474775cda735c"
+        },
+        {
+          "kind": "theorem",
+          "name": "RHLean.Analysis.native_amplification_log_explicit_slot_count_total_mass",
+          "type_sha256": "999a3df99384d66934ae1a37bbb515df3401095a92ec5d906c305b8b919e1b2d"
+        },
+        {
+          "kind": "theorem",
+          "name": "RHLean.Analysis.native_amplification_limsup_explicit_slot_count_total_mass",
+          "type_sha256": "bbf97d040651b1b52e04a5a063ac65210ca360cea86e6fc8b27b4e1b8ff897d0"
+        },
+        {
+          "kind": "theorem",
+          "name": "RHLean.Analysis.native_amplification_limsup_lt_three_quarters",
+          "type_sha256": "2e569860062d65be9a745fbbaf5951ae031707c039f5a8f5015f0132e25da312"
+        },
+        {
+          "kind": "theorem",
+          "name": "RHLean.Analysis.native_amplification_eventually_lt_cutoff",
+          "type_sha256": "ff01895be71045b68319cbc461d4deeae657012de078dad8101acd4929a3665b"
+        }
+      ]
+    }
+  ],
+  "exact_types_sha256": "be6e83ea52a1c34ef30a849c6501a3c64669885eaaf77f3afd1415c43ad4464b",
+  "root_export": "import RHLean.Proof.SquareRootAmplificationPowerBounds"
+}
