@@ -1837,3 +1837,12 @@ print(json.dumps({"local_exponents": list(map(str, local_exponents)),
                   "zero_reserve_negative_control": "retained"}, indent=2))
 
 ```
+
+
+### Verified Publication Receipt: 20261107-coordinator-2309
+
+At 2026-11-08 04:35:35 UTC, substantive commit `af5aee8f729bf545f947b255021f6572336e6029` was successfully published to `agent-reports`. Both owned Coordinator reports were fetched at that immutable commit and matched the intended 167,182-character content exactly, with identical blob `d0810f8c816c64a9a03347ba56d6b88e8b9f6c75`. The commit changed ONLY the two authorized Coordinator paths. The full preceding 114,782-character checkpoint/report was preserved as an exact prefix, including all earlier same-day evidence and revision history.
+
+Execution: COMPLETED. Publication of the substantive synthesis: PUBLISHED / READBACK_VERIFIED. Mathematical status: WS1-WS3 PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED; WS4 CONDITIONAL on OPEN-WS-BULK and accepted components; WS5 FINITE_COMPUTATION. The merged #1107 baseline and its exact-head CI are verified, while the programme's explicit independent-acceptance record remains pending. NEW_VERIFIED_ENDPOINT_GAIN_FROM_THIS_RUN=NONE; canonical objective OPEN.
+
+No Lean source, proof branch, proof PR, central instruction, another role's report, schedule, permission or main was modified. No other agent was launched. No background computation is left running. The next decisive mathematical task is the complete same-source split before the principal-window error, not a repetition of the LOW proof or scalar parameter grid. This receipt records already completed verification of the substantive commit; the receipt append itself is separately read back by this invocation.
