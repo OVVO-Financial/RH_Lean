@@ -1771,3 +1771,510 @@ Live PR refresh found no open/draft PRs. #1111 and #1116 are now merged, superse
 Research plan: consume Coordinator CP1/CP2 with exact source compatibility and current evidence; resume BC1-BC4 retained-half-error/generalized-kappa full-consumer work; identify whether the remaining binding term is the complete count or the principal-window error. Pursue an actual source-level consumer improvement or sharply scoped obstruction, not a repeated scalar cutoff scan or an optimized astronomical slot denominator. Preserve the genuine compensated ideal coefficients, full LOW/HIGH/principal return, and native Mertens transfer. Coordinator WS/SB are existing paper candidates, not new claims of this execution.
 
 No local Lean, proof-source write, feature branch, PR, schedule change or launch of another agent is authorized or performed. The older attached research template's read-only GitHub restriction is superseded only by the current explicit own-report publishing authorization; no broader permission is inferred.
+
+
+## Positive-Error Closure Of The Complete OAI Consumer - 20261108-analytic-3
+
+### A. Most Important Analytic Development
+
+**PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED.** The positive detector-error term in the newly merged complete window-saturated endpoint can be removed from the numerical zero-boundary conclusion. For EVERY fixed fine original source certificate D, with actual slot minimum m=actualSlotMinimum(D)>0, the new result is
+
+```text
+HeckeZeroSupremum.beta <= 7/8 - 7m/8.                    EC2
+```
+
+The strongest incoming SAME-D theorem is `beta <= 7/8-7m/8+D.e`, not the older rounded m/4 or 5m/8 bounds. EC2 improves that displayed ceiling by the strictly positive D.e. This is a complete-consumer improvement using existing analytic cancellation, not a new primitive moment estimate. It completes the explicitly proposed but unproved future optimization at the end of the merged window-saturation research note; that idea is credited to its author.
+
+The necessary source correction is important: fixing the physical slot list does NOT license keeping the same finite prime-exclusion set as e decreases. `SourceData.first` requires `FirstTail(4e) S`. The original `exists_fixed_source` theorem constructs a suitable finite enlargement for each positive e. The proof keeps LOW, HIGH, principal correction, modulus and masks matched at each fixed e, and takes a limit only of a real-number inequality for the SAME beta. There is no infinite-mask source, interchange of an analytic limit, or uniform Big-O constant as e tends to zero.
+
+With N=nearUniformSlotCount fixed before every arithmetic scale, a convenient COARSER corollary is
+
+```text
+MertensGrowthAtMost(7/8 - 7/(64N)).                     EC3
+```
+
+Coordinator `20261108-coordinator-1513/CP2` already proposed the source-compatible 5/(64N) composition. Its source premises are now merged and their compiled evidence was inspected. EC3's difference from that conservative CP2 ceiling is 1/(32N), but this is NOT the size of the new gain over every stronger SAME-D incoming bound. That latter comparison is exactly D.e. No optimization of N or the slot denominator was performed.
+
+EC4 proves that 7m/8 is the supremal reserve obtainable by changing only positive errors/reserves in the EXISTING fixed-reference window gate with these same slots. This localizes the next obstacle for the marked 1+t/2/generalized-kappa work: a better count alone cannot move this unchanged gate. It is not a no-go for a new split-window or joint analytic argument.
+
+Claim ledger: EC1 parameter/source reconstruction, EC2 closed complete endpoint, EC3 native consequences, and EC4 the restricted-consumer ceiling are PAPER_PROOF / SELF_AUDIT. EC5 is FINITE_COMPUTATION. No new claim is PROVED_IN_LEAN or independently Referee-accepted. `NEW_VERIFIED_ENDPOINT_GAIN=NONE`; `PAPER_COMPLETE_CONSUMER_GAIN=POSITIVE`; `eta_gate=CANDIDATE_ETA_REVIEW_PENDING`. Canonical VF, finite A, zero-log amplification and RH remain OPEN.
+
+Actual invocation: 2026-11-08 17:11 EST, America/New_York; run label `20261108-analytic-3`; platform run ID unavailable. Research is finished at preparation of this synthesis; publication is PENDING until the separate immutable readback receipt. Earlier MP, ND, BC, FT and GL findings and their original statuses remain unchanged.
+
+### B. Current Mathematical Objective And Authority
+
+Intake main: `6144c73b05d5a85e6a9424708986860c6276f60d`, tree `b9658cfd8e1aef15c39a9649de944d546b3b7b16`. Governing [AGENTS.md](https://github.com/OVVO-Financial/RH_Lean/blob/6144c73b05d5a85e6a9424708986860c6276f60d/AGENTS.md), blob `bdd5b9f6867ae2d39b74fc966b7f548a9aba3a61`, and [CURRENT_PROOF_CONTRACT.md](https://github.com/OVVO-Financial/RH_Lean/blob/6144c73b05d5a85e6a9424708986860c6276f60d/CURRENT_PROOF_CONTRACT.md), blob `d1d6fd558ee23927bd9f70ffdc375bafd1dbb67a`, were fetched and read. The November 8 all-route directive, complete-HIGH directive, cancellation-chain directive, DAG, atlas, applicable complete-return contract and dynamic research guidance were also retrieved.
+
+```text
+high_attack_ack=COMPLETE_SIGNED_HIGH_ATTACK_V1
+chain_ack=CANCELLATION_CHAIN_REUSE_V1
+baseline_ack=PAID_BASELINE_EXACT_CONSUMER_V1
+deployment_ack=NO_PIGEONHOLING_ROUTE_SELECTOR_V1
+selected_route=OAI-NNS
+rolling_actual_coverage=CODIV(MP), NYMAN(ND), OAI-NNS(EC)
+next_protected_route=CODIV
+```
+
+The canonical goal remains, for genuine primes and every integer R>=2,
+
+```text
+exists C>=0, |pi(R^2)-vfMidFinishedMass(R)-sqrt(2)| <= C R log R.
+```
+
+The exact declaration `VFCanonicalSquareVonKochStatement` and its terminal consumer were inspected. Its classical interface still retains the explicit `ClassicalVonKochRHCriterion` argument. No new proof of that interface or the open prime bound is asserted.
+
+For any fixed Lambda>=0, the genuine arithmetic intermediate is
+
+```text
+X_R=R^2-1, M(n)=sum_(1<=k<=n) mu(k), M(0)=0,
+M(X_R)=L_R+H_R,
+L_R=canonicalLowPrefix Lambda (R-1),
+H_R=canonicalHighPrefix Lambda (R-1),
+|L_R| <= (floor(Lambda)+1) R.
+```
+
+The original birth-height split and LOW occupancy sources were read. Canonical LOW is not OAI reflected-inverse LOW. The historical denominator remains K_R=max_(0<=y<R)(M(y)-1)^2/(y+1), not a current-scale or unshifted envelope.
+
+Live PR collection was empty at intake. #1111 and #1116 are MERGED; this supersedes the latest Coordinator/Lean reports' accurate-at-the-time draft states. The policy's printed 1/(48N_old) baseline is therefore not the strongest current input. Use the actual complete parametric theorem, with D.e retained, as above. CI checkout identities and their limitations are recorded in G, not inferred from human merge.
+
+### C. Mechanism Investigated And Prior Credit
+
+The selected question is whether a positive certificate parameter represents an unavoidable analytic error or a removable cost after source reconstruction. This continues the source document's stated future optimization and the assigned complete-consumer work. It does not repeat BC's already completed six-branch minimax or a literature search.
+
+Two different parameters must not be confused. The present `e` is the positive `HighData.e` used in detector phases, finite exclusions and the window budget. BC's genuine moment allowance rho is D.t, and the proved marked moment has allowance rho/2. **D.t is NOT sent to zero.** Neither is the source mesh, number of slots, or physical slot minimum.
+
+The independently checked mechanism is downward closure of every original HighData field containing e, followed by original finite-source existence and the already complete window-saturated endpoint. The closed conclusion concerns beta, which is independent of the chosen source certificate. The construction has no premise containing the desired new bound.
+
+Prior credit and novelty: Coordinator CP1/CP2 supplies the strongest-family comparison; #1116 supplies the exact positive-e endpoint and explicitly suggests a future monotone cap/limit; EC1 supplies the missing complete parameter and finite-mask audit, EC2 proves the closure, and EC4 determines its exact restricted-consumer limit. The result is a new repository-level paper composition, not a claim of a new general theorem about limits or worldwide mathematical priority. A current-main code search for `window_saturated`, the relevant original declarations, current source note, and both days' reports found no completed positive-error-closure proof.
+
+### D. Exact Mathematical Formulation
+
+Set b0=7/8 and Delta0=1/1000000. For every `D : HighData Delta0` require the ORIGINAL fine condition
+
+```text
+forall i in Fin D.N,
+  D.ell(i) <= detectorMesh(Delta0,D.t)/200.              FINE
+```
+
+All remaining hypotheses are the actual fields of the pinned original HighData, reproduced or audited below. Put t=D.t, e=D.e, and m=min_i D.ell(i). Then 0<t<=10^-8, 0<e<10^-3, and 0<m<=t/200. The minimum is of the fixed nonempty physical slot list.
+
+**EC1.** For every real lambda with 0<lambda<=1, there exists a valid D_lambda with all DATA fields identical to D except
+
+```text
+D_lambda.e=lambda*D.e.
+```
+
+In particular t, N, ell, rmin, epsilon, kappa, cost, eps and sigma are unchanged, FINE is unchanged, and actualSlotMinimum(D_lambda)=m. Proof fields are re-certified. Given any finite initial set S0 of prime ideals, one may choose an actual SourceData for this certificate with a finite exclusion set containing S0, and with the original smooth test functions. This is existence at each fixed lambda, not a uniform estimate in lambda.
+
+**EC2.** Under exactly the displayed D/FINE hypotheses,
+
+```text
+beta_H <= b_D,          b_D=b0-b0*m,
+MertensGrowthAtMost(b_D).
+```
+
+Equivalently the latter conclusion means: for every real epsilon>0 there exists C_epsilon>=0 such that for every natural n>=1, |M(n)|<=C_epsilon*n^(b_D+epsilon). The constant may depend on the fixed geometry and epsilon; it is independent of n. No assertion at fixed exponent b_D without a positive loss is made.
+
+**EC3.** For the already certified near-uniform family, N=nearUniformSlotCount is a fixed natural number >=3 and m>=1/(8N). Hence `MertensGrowthAtMost(b_64)` for b_64=7/8-7/(64N). Spending loss 1/(64N) gives the fixed power
+
+```text
+exists C>=0, forall n>=1, |M(n)| <= C*n^(7/8-3/(32N)).  FIXED
+```
+
+This fixed exponent still improves CP2's conservative 7/8-5/(64N) ceiling. Relative to the sharper SAME-D incoming ceiling b_D+e, the appropriate fixed-power improvement is instead b_D+e/2, obtained by spending e/2.
+
+**EC4.** Fix the same slots, exact-minimum calibration (7/8)rmin=m, and the original fixed-reference HIGH window rule. Among positive-error certificates and physical tilts h licensed by
+
+```text
+e'>0, sigma+e'<=b0*m, 0<h<=sigma,
+```
+
+the best possible threshold from this particular comparison has infimum b0-b0*m. No certificate attains h=b0*m with e'>0. EC1 plus window saturation approaches the infimum while satisfying every other source budget. This is sharpness of a stated certificate class only, not a lower bound on beta_H or a universal barrier to source-specific cancellation.
+
+### E. Mathematical Derivation
+
+#### E1. Every affected HighData field, including its sign
+
+The original [ParametersHighData.lean](https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/NumberTheory/DirichletL/ParametersHighData.lean) is the governing record, not a simplified model. Set e'=lambda*e, so 0<e'<=e. Positivity and e'<1/1000 follow immediately. All six nontrivial fields containing e have a nonnegative coefficient:
+
+| Field | Left side before recertification | Decrease after e becomes e' |
+| --- | --- | --- |
+| detector_budget | 288e+8kappa+2cost | 288(e-e') |
+| phase_budget | 8et+kappa | 8t(e-e') |
+| central_budget | (13/16)(159epsilon+9t)+2t+3t+26e+(N+8)eps+t+t/6+3t+t | 26(e-e') |
+| geometric_budget | sigma+8e+t/8 | 8(e-e') |
+| window_budget | sigma+e | e-e' |
+| floor_budget | 2t+26e+(N+8)eps+t+t/6+t/8+sigma | 26(e-e') |
+
+Their right sides do not contain e. `count_budget`, `principal_budget`, `high_saving`, all slot conditions, epsilon_gap, kappa bounds and eps bounds are unchanged. The entire `height_choice` proposition depends on t,cost,eps,J but NOT e, so its original witnesses remain valid. There is no need to shrink epsilon, cost or the height or to reconstruct the slot list. This proves EC1's HighData assertion for every admissible D, not just a chosen small numerical fixture.
+
+The new record has literally the same finite ell function. The minimum VALUE therefore remains m, even if a formal implementation chooses its minimizing index again. Do not rely on an unproved equality of choice witnesses; compare the two minimum values using their defining inequalities.
+
+#### E2. Reconstruct the actual source; do not reuse its tail premise backwards
+
+The pinned [FinalAssemblyData.lean](https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/NumberTheory/DirichletL/Detector/FinalAssemblyData.lean) has
+
+```text
+SourceData(D).first : FirstTail(4*D.e) S.
+```
+
+Consequently an existing F:SourceData(D) cannot simply be retyped as SourceData(D_lambda). It would require a new assertion at the SMALLER tail allowance. No such reverse monotonicity is assumed.
+
+Instead the original [ParametersFixedSource.exists_fixed_source](https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/NumberTheory/DirichletL/ParametersFixedSource.lean) states, for EVERY e'>0 and EVERY finite S0 consisting of prime ideals, that there exists finite S containing S0 with SourceExclusions(S), FirstTail(4e') S, and all its ideals maximal. Use this theorem with the genuine e'. One may keep the old smooth nonnegative w and its Schwartz representation W: those proof fields contain no e. The modulus becomes the actual finite product over the chosen S; `source_count_parameters` constructs the appropriate counts for that modulus and the unchanged t.
+
+SourceCorrection, excluded characters, prime pools, conductor factors and the principal normalizer are those for this SAME newly admitted S. All finite-deletion identities and correction estimates are then supplied by the existing complete consumer. No rational Mobius coefficient is identified with a Hecke phase. No old F.first, counts or modulus is silently carried across a changed S.
+
+The source order is: fix D and lambda; construct the valid parameter record; fix finite exclusions, windows and count data; apply the native moment suppliers; choose height after their moment-growth index J; then take the eventual arithmetic-scale bound. Each such probe is a genuine original source. The limit argument below comes only AFTER its numerical beta inequality has been proved. There is no request for estimates uniform over a growing exclusion set.
+
+#### E3. Spend the complete window reserve at each positive error
+
+Apply the merged theorem
+
+```text
+native_beta_le_window_saturated_minimum_of_fine
+```
+
+to D_lambda and its unchanged FINE proof. Its exact conclusion is
+
+```text
+beta_H <= b0-(b0*m-lambda*e) = b_D+lambda*e.           (1)
+```
+
+This theorem first calibrates rmin to the actual minimum and caps the other certificate fields as required. Its geometry theorem keeps e unchanged at that stage. It then sets sigma_lambda=b0*m-lambda*e and h=sigma_lambda. The complete existing budget lemmas establish sigma_lambda>0, h<1/960 and 24h<t, and re-certify geometric, principal, floor and HIGH saving conditions. Thus (1) is not obtained by independently improving a local moment or by subtracting two upper bounds.
+
+For clarity, write c_h=-11/16-8h and let J_lambda denote this actual normalized compensated probe. The two complete input bounds are
+
+```text
+J_lambda = O(Z^(3/16-9h+loss)) for every loss>0,
+J_lambda - signal_lambda = O(Z^(b0+c_h-sigma_lambda)).
+```
+
+The signal threshold is max(b0-h+loss,b0-sigma_lambda). The already proved near-supremum-zero argument, with h=sigma_lambda and a positive loss chosen below a hypothetical violation, proves (1). The HIGH bound uses the FIXED reference b0 in this statement; it is not replaced here by beta_H. This exact type, rather than an imprecise explanatory paragraph in a research note, governs the proof.
+
+All central/nonfloor, floor, geometric/remote, height, normalization, exceptional-prime and principal-window costs remain inside that complete theorem. Marked/unmarked and selected/unselected terms are not dropped or independently assumed small.
+
+#### E4. Close only the real-number inequality
+
+Suppose beta_H>b_D and put d=beta_H-b_D>0. Choose
+
+```text
+lambda=min(1,d/(2e)).
+```
+
+Then 0<lambda<=1 and lambda*e<d. If d/(2e)<=1 the product is d/2; otherwise it is e<d/2. Substitution in (1) gives beta_H<=b_D+lambda*e<beta_H, a contradiction. Therefore beta_H<=b_D, proving EC2.
+
+This argument permits the source threshold, modulus, count constants and asymptotic constants to depend arbitrarily on lambda. Their existence for the single lambda selected against the putative strict numerical gap is enough. It neither assumes a limiting SourceData at e=0 nor proves a uniform O(Z^b_D) estimate.
+
+The original `native_mertens_growth_at_hecke_beta`, followed by `growthAtMost_mono`, gives the true-Mobius assertion. Alternatively, for any requested positive Mertens loss eta, first choose lambda so lambda*e<=eta/2 and use the positive-e theorem with the remaining loss eta/2. This is a legitimate quantified choice before n, not a limit of Big-O constants. It gives no no-loss power at the boundary.
+
+#### E5. Complete explicit/native return
+
+The merged `exists_near_uniform_high_data_fine` supplies EXACTLY Delta0, FINE, t=explicitT, N=nearUniformSlotCount and every ell_i>=1/(8N). Thus m>=1/(8N), and EC2 gives EC3 by the native transfer. This consumes the exact same family; it does not combine minima of unrelated existential witnesses. CP2's preceding 5/(64N) composition is valid for the same reason and is retained under its original claim ID.
+
+For any fixed geometry, write b=b_D. For every eta>0, with constants fixed before all indices:
+
+```text
+|M(n)| <= C_eta*n^(b+eta)                       (n>=1),
+|H_R| <= C_(eta,Lambda)*R^(2b+eta)              (R>=2),
+sum_(0<=j<h)|H_(N+j+1)|^2
+  <= C_(eta,Lambda)*h*N^(4b+eta)               (N>=1, 1<=h<=N),
+2 sum_(1<=a<b'<=n) mu(a)mu(b')
+  <= C_eta*n^(2b+eta)-sum_(k<=n)mu(k)^2         (n>=1).
+```
+
+The HIGH statements use the exact split plus the paid O(R) LOW term, which is absorbable since b>1/2. The window bound includes h=1, and follows uniformly from N+j+1<=2N+1<=3N. All epsilon relabelings occur before selecting constants. The signed-pair statement uses the COMPLETE square identity, keeping its squarefree diagonal and every off-diagonal pair. No local sum-of-squares is substituted for the global square.
+
+For A(X)=squareRootAmplificationMax(X) and q(X)=log(1+A(X))/log X, the existing `amplification_power_of_native_power` and `amplification_log_limsup_le_of_native_growth` give
+
+```text
+forall eta>0 exists C_eta>0 forall integers X>=1:
+  A(X) <= C_eta*X^(2b-1+eta),
+limsup_(X->infinity) q(X) <= 2b-1.
+```
+
+Here the ratio itself retains the ORIGINAL strict-history K_R and shifted M(X_R)-1. This downstream upper bound uses only K_R>=1 and consequently retains the positive power 2b-1; it does NOT exploit the full historical envelope. At the convenient explicit b_64 this is 3/4-7/(32N), still positive. Thus neither q(X)->0 nor uniform finite A follows. The native theorem already covers all n, so there is no unpaid square-to-full-prefix interpolation. A reverse use of only square endpoints would additionally cost at most 2R+1 terms.
+
+### F. Quantitative Comparison And The Remaining Marked Consumer
+
+The correct comparisons are separate:
+
+| Scope | Incoming ceiling | New or reused consequence |
+| --- | --- | --- |
+| Fixed original D | b0-7m/8+e, the exact merged #1116 bound | EC2: b0-7m/8, improvement e>0 |
+| Same D, one positive re-certification | b0-7m/8+e | At lambda=1/2: b0-7m/8+e/2; already a strict complete paper improvement |
+| Named near-uniform bound #1111 | b0-1/(32N) | CP2: b0-5/(64N), inherited source composition, not newly invented |
+| Conservative CP2 explicit ceiling | b0-5/(64N) | EC3: b0-7/(64N); the fixed no-loss exponent b0-6/(64N) spends half this displayed difference |
+
+The true m/e source theorem can be stronger than any coarse explicit row. No claim is made that the final row measures the improvement over every previously available unrounded source value. Slot N is not recalculated or optimized. The source construction's e can be extremely small, so the exact new same-D improvement can also be extremely small.
+
+For EC4, the window inequality gives h<=sigma<=b0*m-e'<b0*m for EVERY allowed positive-error record. Hence any threshold certified solely by that reserve comparison is at least b0-b0*m in the infimum. Conversely E1-E3 supply h_lambda=b0*m-lambda*e approaching b0*m from below, with all other conditions restored. This proves the exact infimum for the specified certificate class. The limiting numerical beta conclusion need not be achieved by a single certificate.
+
+This directly answers the assigned marked-consumer question at the CURRENT downstream stage. The compiled `source_moments_two_error` retains the real marked allowance D.t/2 and generalized kappa, while BC1-BC4 already supplies the paper six-case combined count/class argument. Improved counts may enlarge a central or bulk margin, but they do not alter `sigma+e<=b0*m`. With fixed slots and that unchanged gate, they cannot lower the above infimum. The next genuine downstream change must improve/separate the WINDOW error or change another binding source condition with a justified complete return. This statement does not demand a new universal covariance theorem.
+
+Once EC2 is accepted, the existing feedback lemma licenses the numeric marked coefficient
+
+```text
+kappa_fb=3/4-7m/4 > 1/2,
+2*beta_H-1 <= kappa_fb < 3/4.
+```
+
+For the explicit corollary the analogous value is 3/4-7/(32N). This is a reuse of `improved_boundary_licenses_kappa`, not another endpoint theorem. The actual moment supplier still requires beta_H>=51/100, original fine-mesh admission at the chosen kappa, and its full uniformity order. If beta_H<51/100 the source theorem is not invoked outside its hypotheses. The original source-mesh monotonicity lemma may be used with its stated kappa ordering. No new BC scalar scan or claim of a uniform strict per-bin gain is made.
+
+Coordinator WS/SB's separated bulk/window proposal is a distinct, potentially stronger PAPER candidate. It is not needed or assumed in EC1-EC4 and remains subject to its own independent review. The present restricted ceiling is not a refutation of that proposal.
+
+### G. Original-Carrier Bridge And Verified Source Evidence
+
+The bridge is: valid original HighData at a chosen positive error; actual finite source and moments for that record; the SAME compensated physical probe on both LOW and HIGH sides; complete principal comparison; numerical Hecke boundary; compiled native zeta-to-Hecke/Mertens transfer; exact signed arithmetic and historical amplification consumers. The first edge is a new parameter/source proof, not a surrogate coefficient replacement. The terminal source is actual integer mu, including squareful zeros.
+
+**CI nuance, checked from actual logs:** [#1111 run 42512437623](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42512437623), job 128828203921, checked out the EXACT PR head `20875a55dd9780993c4cdc06624c88be6060e2ee`. All 12 queried workflows at that head succeeded. The dedicated log records warning-fatal compilation and standard-axiom PASS entries for groupedSquareBlocks_sum, native_beta_le_near_uniform_slots and native_mertens_near_uniform_slots. The latter two include only propext, Classical.choice, Quot.sound. Source was re-fetched at that head and matches current main.
+
+[#1116 run 42520918799](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42520918799), job 128853972193, succeeded, as did all 13 queried workflows attached to head `1e32da429324c39a791406a0ae1265581df7ea06`. HOWEVER the actual checkout was synthetic merge `60fa59f302f26900435231cd9685f0f6c5f9b82a`, not that PR head. The exact checkout log was read. Its displayed compiled types match the parameterized endpoint used in E3, and the actual multi-line axiom output for that theorem and the explicit native endpoint contains only the three standard axioms. Compilation used `-DwarningAsError=true`. Lake/package and runner deprecation notices in the log are not silently described as absent; they are distinct from Lean theorem warnings.
+
+The complete untruncated tested tree was compared with current main. EVERY file already present at the tested synthetic merge has the same blob on main. Main adds only the five #1115 complete-band files: one dedicated workflow, its mathematical note, two Lean modules and its numerical script. They are not imports of this endpoint. The #1116 source was also re-fetched at the PR head and is byte-identical. This is explicit compiled-source/dependency reuse evidence, NOT a claim that an exact-PR-head or whole-current-main build ran. A formal acceptance workflow that requires exact-head execution must still honor that distinction. No CI was triggered by this agent.
+
+The original OAI pin actually checked out by both jobs is `1581d4cbdd69a0faf34b2089614fe2a814316a6a`. EC1-EC4 have NOT been compiled anywhere in this invocation. Neither green input evidence nor human merge certifies this new paper proof.
+
+| Material source | Blob SHA |
+| --- | --- |
+| research/oai_434/VF919WindowSaturatedLowPrincipal.lean | b7b05069ea013d83b2acaa76a8ea2ed932568930 |
+| research/OAI_WINDOW_SATURATED_LOW_PRINCIPAL_20261108.md | 063573706bb23e71106ffee1e6dd01921afaedc8 |
+| research/oai_434/VF919ExplicitSquareBlockPacking.lean | 32999039fdeea99c58a070c1c4ee9c140720dd44 |
+| research/oai_434/VF919TotalMassEndpoint.lean | 827bb952c4d4311d75fd03a2470799dc10b0f7e7 |
+| research/oai_434/VF919ActualSlotMinRetighten.lean | 138c4726085995b966204406805f70082402bec4 |
+| research/oai_434/VF919ExplicitFixedSourceSlotCount.lean | bad5aab0a60e96d19e7c9550cd7c0a072288bc0f |
+| research/oai_434/VF919NativeStrictMertens.lean | b33a4883e1ddb0551b0f11f062bce46680d87450 |
+| research/oai_434/VF919ExplicitAmplificationBound.lean | f3cb6dbe1eb53c910c9b4b203d98ff849bd27dd3 |
+| research/MERTENS_EXPONENT_ENVELOPES.lean | 655b896e8d5a41c9f8fc3c456eae3944a98bfefe |
+| scripts/lean/retained_slot_feedback/CutoffMoments.lean | d877240267337cca4dae6a2929b216fe6f3e2898 |
+| scripts/lean/retained_slot_feedback/Applications.lean | c7ee17e8e4a6fbf53001441722b9b564da0d415d |
+| research/oai_434/RetainedSlotFeedback.lean | 51628cad59734f948224510f7ac94fd68efaacfb |
+| RHLean/Analysis/CanonicalHighSectorCore.lean | dd02fc8fabfe4004c6b0d50374b3b8752607b168 |
+| RHLean/Analysis/CanonicalLowOccupancy.lean | b958da340d107cdd00015d2827b9a728357b4d8e |
+| research/VF_CANONICAL_SQRT_TWO_VON_KOCH.lean | 79030d70e8d3e0d08eef9bac53fef95c36eca2fb |
+
+Original paths below are relative to `lean/OAI/NumberTheory/DirichletL/` at the pinned openai/math commit:
+
+| Original source | Blob SHA |
+| --- | --- |
+| ParametersHighData.lean | c565dc0a72c7da9a2706cdd835e69a39e8c0dc14 |
+| ParametersDetectorScales.lean | fcc6a547cd6eb0fb5da4e72e3ce926549415a7bf |
+| ParametersFixedSource.lean | d7dc90c32ac1ceafb542191ac782e9ed4e13e9a9 |
+| Detector/FinalAssemblyData.lean | ebc462f5678b6c9dafd55ee8a434d1538d814790 |
+| Detector/FinalAssemblySource.lean | 93c4852b1fae505afd77a4e6b800613fcf253667 |
+| Detector/FinalAssemblyCountParameters.lean | 055b2b222dd291b51deb02161f0e8a53b04412eb |
+| Detector/SourceExclusions.lean | 438bef0305ffa1afef7198d392a664c32afdac80 |
+
+### H. Falsification, Circularity And Executed Checks
+
+1. Setting e=0 is INVALID because e_pos is strict. EC2 never constructs that record.
+2. Keeping positive e and taking h=sigma=7m/8 is INVALID: the window left side exceeds its right side by e. This is the exact negative control behind EC4.
+3. Reusing a fixed SourceData after shrinking e without reproving FirstTail is UNSUPPORTED. E2 pays this by original finite-source existence. It is not asserted that a particular old finite set can never work; only that its existing certificate does not establish the stronger premise.
+4. A limit of Big-O statements cannot erase their positive loss. The synthetic function Z^b log Z satisfies O_lambda(Z^(b+lambda*e)) for every lambda>0 but is not O(Z^b). EC2 concludes a numerical beta ceiling and MertensGrowthAtMost, not that false inference.
+5. Reducing e is not reducing rho=D.t in the marked moment. All BC source, threshold and raw-gate qualifications survive unchanged.
+6. Neither beta_H nor the desired bound is a premise of EC1. The preexisting endpoint is reapplied to genuinely admitted original sources, so the proof is not a wrapper assuming its conclusion.
+7. The no-improvement assertion in EC4 is restricted to the unchanged fixed-reference window certificate and fixed slot geometry. It does not rule out signed joint estimates, the WS/SB split or a new arithmetic mechanism.
+
+EC5 used a fixed exact-rational test script written before its first execution, not an adaptive prime census. Nine SYNTHETIC scalar budget fixtures used t in {10^-8,10^-10,10^-20}, three fixed population multipliers, and the closed near-uniform slot formula. For each, lambda in {1,1/2,1/10,10^-6} tested every affected inequality both before and after window saturation. These fixtures are not asserted to be instantiated prime-ideal SourceData or to satisfy the uncomputed analytic fine mesh. They stress the algebra only; the universal source argument is E1-E4.
+
+Final executed output: 36 contractions, 324 height-choice checks (including 36 baseline checks), 27 strict numerical-gap witnesses, and three explicit exponent comparisons all PASS. The output counter was corrected during self-audit to include those baseline height checks; the mathematical tests already passed. Negative controls retain strict e_pos, the positive window excess and the source-tail re-certification obligation. No existing BC grid or large prime computation was rerun.
+
+Verifier SHA256: `75cf55b9715105082c6714b754cf1e2eb2927069133238015591babe15962148`. Canonical rational record SHA256: `d4030b9cc42fe801fed051d2310af5ad67a027db6c9e598fa190fed1fc4cdc28`. Full final script is included after L. All computation is finite; no local Lean or independent Referee test is claimed.
+
+### I. Interpretation And Research Continuity
+
+The useful distinction is between a cost tied to ONE immutable source mask and a cost removable by choosing ANOTHER admitted finite mask before the scale. Since the zero boundary is common to all these genuine source constructions, independently established numerical bounds can be closed even when analytic constants are nonuniform across the family. This recovers exactly the remaining certificate slack, without claiming that physical cancellation improves at e=0.
+
+All seven roles' latest November 8 and November 7 reports were retrieved. TODAY=PRESENT for all; prior-day findings are dated carry-forward, not invented current-day executions. Coordinator AM/PM mirror equality was checked from their identical directory blob SHAs. Key continuity: CP1/CP2 and WS/SB retain their original IDs/status; own MP/ND/BC/FT are preserved; Wheel HC and Census SJ have Referee paper-scope acceptance, not a complete arithmetic bound; Referee WT is an envelope-only synthetic obstruction; Owner's latest JOH finite-packet work does not establish an RH-scale spectral payment; Lean's recent input repairs are now merged, as verified independently from current PR metadata.
+
+The external inbox remains blob `038018145c0fddb2f6306c0712373adf9cd1ea52`, with no entry after October 18. Its latest linked PNT handoff was read at blob `aeb5fa075701c9c0e38ddf02f6c2f571c13fdbc9`. EXT-20261018-PNT-1..3, EXT-20261017-XCOORD-1 and EXT-20261014-5 remain carrier/endpoint warnings; none supplies this new closure or a missing RH-strength bound. No new literature search was necessary: the new proof uses the retrieved primary Lean sources and elementary order, and does not relabel historical literature as a fresh estimate.
+
+
+Intake report blob ledger (all retrieved in full; own November 8 is the pre-checkpoint blob):
+
+| Role / file stem | November 7 blob | November 8 blob |
+| --- | --- | --- |
+| Coordinator AM and PM | 00a649b70f851ca193e74e5004d0d3390cf9ca18 | 5d14fb5e0eb3e40a479ebb344b9f8a84a169535e |
+| Owner / 10-owner-payment | 933e8eb23e669594cc687059d75147e6267eec8d | 4e1b83a1e5ff8c134e9ca64404397c70c2b07252 |
+| Analytic / 20-analytic-type-ii | 77f3e5795533041e4356ceb94cb66328da7af27c | 707aea15cc8e09f16cccf874c876bb04ede9ef14 |
+| Wheel / 30-finite-wheel | 7739fa5d4cc77f35773b0d4149b2ddd21732a70d | 45e789c59f9165dbdf9dae352d7438dc468e9e70 |
+| Census / 40-prime-census | 3fae830e34c590d32c31ad77cad3ace833eb3ff5 | c70b0a6dda7278e5e7befca546893314a16530df |
+| Referee / 50-adversarial-referee | 426c2abfa5b8926b512e07f05be37692a2416d0b | 68b1162b59f195722fc34378c0d4a182884025dd |
+| Lean / 60-lean-verification | ec14e2803af8c1e56123682ee61ed927ed4f9450 | 7f394c7ca839386c6692a5ad622f26c299db8abb |
+
+The pre-publication refresh at 22:27 UTC confirmed unchanged main, zero open/draft PRs, unchanged upstream November 8 blobs, and own report at the verified early-checkpoint blob. No intervening report was silently overwritten.
+
+### J. Specialist Handoffs
+
+| Recipient | Precise next question |
+| --- | --- |
+| Adversarial Referee | Independently audit EC1 against EVERY original e-dependent field, then attack the finite-mask reconstruction and the order of the numerical closure. Check that no fixed F.first or constant is reused after changing e. Return ACCEPT/REVISE/REJECT at paper scope; self-audit is not that verdict. |
+| Lean Verification | After independent acceptance, implement a positive-error shrinking HighData constructor, equality of minimum VALUES, the pointwise positive-error endpoint, and the numerical closure. Then compose the exact near-uniform family and native consumers. Keep e>0 throughout; do not add an assumed target. Record #1116's synthetic checkout rather than calling it exact-head execution; follow the current exact-head policy for new certification. |
+| Coordinator | Record EC as a complete paper consumer gain, not VERIFIED_ETA. Credit CP2 and #1116's future-optimization note. Compare same-D ceilings using gain e; coarse explicit 1/(32N) is not automatically the gain over every unrounded source. Keep WS/SB and all nine independent routes active. |
+| Prime Census Laboratory | No prime-range extension is requested. A useful independent check is the original HighData/SourceData dependence audit and the scalar strict-boundary negative controls. Do not rerun the unchanged rational grid as a new discovery. |
+| Owner Payment | No physical VF owner coefficients or first-bad masks were identified with these Hecke sources. Continue the independent VF/SAT/JOH program; any desired return to that physical carrier needs its own proved bridge. |
+| Finite Wheel | Preserve FINITE-AC/CORR4/MU-LIFT and their full signed complements. EC's amplification corollary still uses only K_R>=1 and leaves a positive power; it is not a payment for the remaining original mixed source. |
+
+These are published requests, not claims that another agent was launched or accepted the work.
+
+### K. First Independently Missing Analytic Theorem
+
+For EC1-EC3 the paper derivation is complete from the stated current inputs; independent review and formalization remain missing evidence, not an assumed new analytic inequality. The formal source construction must retain its exact tail/mask proof, not just implement the last scalar limit.
+
+For a further OAI gain BEYOND b0-7m/8 on fixed slots, an independently justified extension of the full window consumer is needed. The precise existing candidate is Coordinator WS/SB's separation of the fixed-reference bulk error from an error measured relative to the actual beta_H, with all original principal factors, finite exclusions, contour, height and normalization conditions retained. BC's compiled marked supplier and paper combined-count return should be used only where they improve an actually binding bulk bill. An unchanged count improvement is not a proof of that new window comparison.
+
+For canonical VF or zero-log amplification, the remaining quantitative gap is much larger. None of EC, BC, CP2 or the existing finite-slot source family provides uniform fractional owner contraction, finite A, or every-positive-eta amplification. These are still genuinely open arithmetic targets.
+
+### L. Resume Capsule And Publication Discipline
+
+```text
+run=20261108-analytic-3, actual trigger 17:11 EST
+main=6144c73b05d5a85e6a9424708986860c6276f60d
+route=OAI-NNS; next protected route=CODIV
+new_input=downward closure of HighData.e plus original finite-source reconstruction
+complete_consumer=native_beta_le_window_saturated_minimum_of_fine
+same_geometry_incoming=b0-b0*m+e
+paper_conclusion=b0-b0*m; exact ceiling improvement=e>0
+coarse_explicit_corollary=b0-7/(64*nearUniformSlotCount)
+constant_order=lambda and finite source before scale; no uniform lambda->0 Big-O
+first_next_binding_budget=unchanged fixed-reference principal-window gate
+new_formal_theorems=NONE; independent_review=PENDING
+canonical_VF/finite_A/zero_log/RH=OPEN
+```
+
+Early own-report checkpoint commit `de15bf2c99ec01076388d2d95b2a2f32c788469e`, blob `e9d993299a29b65b1157521f14582c042c531b13`, was verified by immutable full-content readback. The publication step refreshes the own report blob, appends without deleting earlier material, verifies the final commit's file scope and immutable readback, and only then records COMPLETED/PUBLISHED. No source code, feature branch, PR, central contract, other role report, schedule or permission is changed. Network cloning was unavailable (HTTP CONNECT 403); authenticated GitHub reads supplied all material sources, so that limitation did not block the mathematics.
+
+### Reproducibility Appendix - EC5
+
+The following final standard-library Python script was executed in this invocation. It performs finite exact scalar diagnostics only. The source-dependence audit is separately documented in E1-E2 from the exact original files and hashes; the printed mask reminder is not a programmatic theorem about FirstTail.
+
+
+```python
+"""Finite exact diagnostics for the positive-error closure, not a Lean proof."""
+
+from fractions import Fraction as Q
+from hashlib import sha256
+import json
+
+
+B0 = Q(7, 8)
+DELTA = Q(1, 1000000)
+
+
+def budgets(t, n, epsilon, e, kappa, cost, eps, sigma):
+    return {
+        "detector": (288 * e + 8 * kappa + 2 * cost, epsilon / 2),
+        "phase": (8 * e * t + kappa, epsilon),
+        "count": (159 * epsilon + 9 * t, Q(1, 32)),
+        "central": (Q(13, 16) * (159 * epsilon + 9 * t)
+                    + 2 * t + 3 * t
+                    + 26 * e + (n + 8) * eps + t + t / 6
+                    + 3 * t + t, Q(49, 440640)),
+        "geometric": (sigma + 8 * e + t / 8, Q(63, 800)),
+        "principal": (sigma + t / 8, Q(17, 48000)),
+        "floor": (2 * t + 26 * e + (n + 8) * eps
+                  + t + t / 6 + t / 8 + sigma, Q(7, 1200)),
+        "high_saving": (sigma + t / 4, t),
+    }
+
+
+def audit(t, n, rmin, epsilon, e, kappa, cost, eps, sigma):
+    global height_tests
+    assert 0 < t < DELTA / 4 and t <= Q(1, 100000000)
+    assert 0 < epsilon <= Q(1, 1000) and epsilon < rmin * t
+    assert 0 < e < Q(1, 1000)
+    assert 0 < kappa <= 1 and cost > 0
+    assert 0 < eps <= 1 and sigma > 0
+    assert sigma + e <= B0 * B0 * rmin
+    result = budgets(t, n, epsilon, e, kappa, cost, eps, sigma)
+    assert all(lhs <= rhs for lhs, rhs in result.values())
+    for j in [Q(0), Q(1), Q(1000), Q(10**20)]:
+        tau = min(cost / 3200, Q(1, 800), t / (4 * (j + 7)))
+        assert 0 < tau < Q(1, 400)
+        assert 4 * tau < cost / 200 and tau < t
+        assert 2 * tau * (1 + j) <= t
+        assert tau * (2 + 4 * eps) < t
+        height_tests += 1
+    return result
+
+
+records = []
+same_certificate_tests = 0
+height_tests = 0
+for t in [Q(1, 10**8), Q(1, 10**10), Q(1, 10**20)]:
+    for multiplier in [1, 2, 11]:
+        n = multiplier * (200 / t).numerator
+        weight_sum = n + Q(n - 1, 2 * n)
+        m = 1 / (6 * weight_sum)
+        maximum = (1 + Q(n - 1, n * n)) / (6 * weight_sum)
+        assert Q(1, 8 * n) <= m <= maximum <= t / 200
+        rmin = m / B0
+        epsilon = rmin * t / 2
+        e, kappa, cost = epsilon / 10000, epsilon / 1000, epsilon / 1000
+        eps, sigma = t / (2 * (n + 2000)), m / 4
+        original = audit(t, n, rmin, epsilon, e, kappa, cost, eps, sigma)
+        baseline = B0 - B0 * m + e
+        limiting = B0 - B0 * m
+        assert limiting > Q(1, 2)
+        for lam in [Q(1), Q(1, 2), Q(1, 10), Q(1, 10**6)]:
+            new_e = lam * e
+            reduced = audit(t, n, rmin, epsilon, new_e, kappa, cost, eps, sigma)
+            assert all(reduced[k][0] <= original[k][0] for k in original)
+            saturated = B0 * m - new_e
+            audit(t, n, rmin, epsilon, new_e, kappa, cost, eps, saturated)
+            assert 0 < saturated < Q(1, 960) and 24 * saturated < t
+            boundary = B0 - saturated
+            assert baseline - boundary == (1 - lam) * e
+            assert boundary - limiting == lam * e
+            assert saturated + new_e == B0 * m
+            assert B0 * m + new_e > B0 * m  # e>0 forbids exact saturation h=B0*m.
+            records.append([str(t), n, str(lam), str(boundary - limiting)])
+            same_certificate_tests += 1
+        for gap in [e / 100, e, 100 * e]:
+            lam = min(Q(1), gap / (2 * e))
+            assert 0 < lam <= 1 and lam * e < gap
+
+for n in [3, 10, 10**100]:
+    old = B0 - Q(1, 32 * n)
+    cp2 = B0 - Q(5, 64 * n)
+    closed = B0 - Q(7, 64 * n)
+    fixed = B0 - Q(3, 32 * n)
+    assert old - cp2 == Q(3, 64 * n)
+    assert cp2 - closed == Q(1, 32 * n)
+    assert closed < fixed < cp2 < old
+    assert 2 * closed - 1 == Q(3, 4) - Q(7, 32 * n)
+    assert Q(1, 2) < 2 * closed - 1 < Q(3, 4)
+
+print(json.dumps({
+    "status": "PASS",
+    "synthetic_budget_fixtures": 9,
+    "error_contractions": same_certificate_tests,
+    "height_choice_checks": height_tests,
+    "scalar_limit_witnesses": 27,
+    "explicit_exponent_checks": 3,
+    "zero_error_negative_control": "e=0 violates e_pos",
+    "positive_error_ceiling_control": "h=7m/8 violates window_budget",
+    "mask_control": "SourceData.first must be rebuilt, not reused by assertion",
+    "record_sha256": sha256(json.dumps(records, separators=(",", ":")).encode()).hexdigest(),
+    "scope": "exact rational diagnostics; no actual prime experiment or Lean execution",
+}, indent=2))
+```
+
+Executed output:
+
+```json
+{
+  "status": "PASS",
+  "synthetic_budget_fixtures": 9,
+  "error_contractions": 36,
+  "height_choice_checks": 324,
+  "scalar_limit_witnesses": 27,
+  "explicit_exponent_checks": 3,
+  "zero_error_negative_control": "e=0 violates e_pos",
+  "positive_error_ceiling_control": "h=7m/8 violates window_budget",
+  "mask_control": "SourceData.first must be rebuilt, not reused by assertion",
+  "record_sha256": "d4030b9cc42fe801fed051d2310af5ad67a027db6c9e598fa190fed1fc4cdc28",
+  "scope": "exact rational diagnostics; no actual prime experiment or Lean execution"
+}
+
+```
+
