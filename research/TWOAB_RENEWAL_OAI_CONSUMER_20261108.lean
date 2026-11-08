@@ -74,7 +74,7 @@ native_mertens_explicit_slot_count_total_mass is a separately-certified
 application, not a new analytic input or an unconditional assertion here.
 -/
 theorem twoABCompleteReciprocalBand_of_strict_oai_input
-    (N : ℕ) (hN : 0 < N)
+    (N : ℕ) (_hN : 0 < N)
     (hsource : MertensGrowthAtMost
       ((7 / 8 : ℝ) - 1 / (48 * (N : ℝ))))
     (eps : ℝ) (heps : 0 < eps) :
