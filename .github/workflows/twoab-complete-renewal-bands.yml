@@ -1,0 +1,58 @@
+name: TwoAB complete reciprocal renewal bands
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - research/TWOAB_RENEWAL_COMPLETE_BAND_20261108.lean
+      - research/TWOAB_RENEWAL_OAI_CONSUMER_20261108.lean
+      - .github/workflows/twoab-complete-renewal-bands.yml
+      - scripts/twoab_complete_band_probe.py
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: twoab-complete-renewal-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  exact-band-and-oai-consumer:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - name: Reject proof holes and new axioms
+        run: |
+          if grep -nE '^[[:space:]]*(sorry|admit|axiom)([[:space:]]|$)' \
+            research/TWOAB_RENEWAL_COMPLETE_BAND_20261108.lean \
+            research/TWOAB_RENEWAL_OAI_CONSUMER_20261108.lean; then
+            exit 1
+          fi
+      - name: Run independent exact integer regression
+        run: python3 scripts/twoab_complete_band_probe.py
+      - name: Install Lean and Mathlib cache
+        uses: ./.github/actions/lean-setup
+      - name: Warning-fatal compile of full source-closed Lean dependencies
+        run: >-
+          python3 scripts/compile_research_import_closure.py --build-library
+          research/TWOAB_RENEWAL_COMPLETE_BAND_20261108.lean
+          research/TWOAB_RENEWAL_OAI_CONSUMER_20261108.lean
+      - name: Check exact theorem signatures and axiom dependencies
+        run: |
+          cat >/tmp/twoab_complete_band_acceptance.lean <<'LEAN'
+          import «research.TWOAB_RENEWAL_OAI_CONSUMER_20261108»
+          #check RHLean.Proof.twoABCompleteReciprocalPacket_eq_parent
+          #check RHLean.Proof.twoABCompleteReciprocalBand_eq_mertensDifference
+          #check RHLean.Proof.twoABCompleteReciprocalBand_norm_le_endpoints
+          #check RHLean.Proof.twoAB_quotientKernel_diagonal_upperHalf
+          #check RHLean.Proof.twoAB_replacementCoefficient_upperHalf_eq_mertensIncrement
+          #check RHLean.Proof.twoABCompleteReciprocalBand_of_mertensGrowth
+          #check RHLean.Proof.twoABCompleteReciprocalBand_of_strict_oai_input
+          #print axioms RHLean.Proof.twoABCompleteReciprocalBand_eq_mertensDifference
+          #print axioms RHLean.Proof.twoAB_replacementCoefficient_upperHalf_eq_mertensIncrement
+          #print axioms RHLean.Proof.twoABCompleteReciprocalBand_of_mertensGrowth
+          #print axioms RHLean.Proof.twoABCompleteReciprocalBand_of_strict_oai_input
+          LEAN
+          lake env lean -DwarningAsError=true /tmp/twoab_complete_band_acceptance.lean
