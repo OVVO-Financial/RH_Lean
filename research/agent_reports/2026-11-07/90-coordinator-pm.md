@@ -1298,3 +1298,542 @@ The earlier RG source-lift obstacle is no longer the live frontier: human-merged
 - Next work: inspect changed sources/CI, independently test a complete signed endpoint mechanism, preserve three distinct portfolios and nine-route coverage, and publish a source-exact synthesis with at most two implementation-sized Lean tasks.
 
 This continuation preserves all earlier same-day evidence and correction history. The two owned paths contain identical complete report bytes, including this partial continuation. No Lean/source/central-policy/other-agent report or schedule modification is authorized or performed.
+
+
+## 2026-11-07 23:09 EST Scheduled Continuation: Separate the Principal-Window Error
+
+### A. What Changed Mathematically?
+
+**The smallest-slot restriction in the current HIGH comparison need not be the price of the whole endpoint improvement.** It currently enters through the approximation of the original finite principal window by its limiting signal. A new source-level paper argument below bounds that particular error relative to the *actual* Hecke zero boundary, while leaving the other errors on the paid fixed reference line. Any fixed positive saving in the former error is then sufficient for the existing near-supremum-zero contradiction. It need not cover the proposed displacement of the fixed reference line.
+
+The independent quantitative input is not a renamed endpoint assumption: it is the estimate
+
+\[
+ |\operatorname{principalSlot}(Q,A,\eta,s)+1|
+ \leq 1440 Q^{-21/25},\qquad \Re s\geq21/25,
+\]
+
+for the ORIGINAL local factor, with the exact hypotheses in WS1 below. Combined with the already established wide correction and reciprocal bound, it supplies an actual moving-window residue error of order
+\(Z^{\beta_H+c_\tau-\omega}\), with \(\omega>0\) depending on the fixed slot minimum. The new estimate is PAPER_PROOF / SELF_AUDIT, not Lean-certified or independently accepted.
+
+The full-source consequence remains **CONDITIONAL**. The missing statement is a split HIGH assembly bounding the probe minus its exact finite-window residue, without first bundling in the window-to-signal error. I have checked its scalar bills but have NOT asserted that an upper bound on an already bundled error can be subtracted to obtain this statement. This is the next decisive source audit.
+
+The immediate baseline also changed: human-merged #1107 now proves the complete same-source boundary \(7/8-m/4\), where \(m=\operatorname{actualSlotMinimum}(D)>0\). It bypasses the earlier RG4 sharper reflected-energy obstacle using the total-slot-mass LOW proof. RG4 remains unresolved, but is no longer the first unpaid step. The previous \(7/8-m/24\) comparison is superseded on this same source. None of this proves the canonical VF objective or RH.
+
+Run label: `20261107-coordinator-2309`; actual trigger 2026-11-07 23:09:00 EST. Platform run identifier: RUN_ID_UNAVAILABLE. This is one continuation of the actual scheduled invocation, not a second launch. Research status at this text's preparation: RESEARCH_FINISHED / PUBLICATION_PENDING. The successful early checkpoint is commit `81ed2599e31adc135a053e7a01bd16e574b84fdc`; final publication must be verified separately.
+
+### B. Current Proof Objective and Fresh Authority
+
+Main was fetched at intake and refreshed at 2026-11-08 04:26:52 UTC, still **`bf4af1cd18aff7c3944a75991aa66371c8afc18a`**. Its tree is `aa6a5053535dff7f9fcd4abbaac790791e191fe9`. Both fresh open-PR listings were empty, including drafts. This is an observation at those times, not a future guarantee.
+
+| Authority | Verified blob |
+| --- | --- |
+| `AGENTS.md` | `0a99faf8458809ac772d470d704c5433f373bda8` |
+| `CURRENT_PROOF_CONTRACT.md` | `d1d6fd558ee23927bd9f70ffdc375bafd1dbb67a` |
+| Complete signed HIGH directive | `be8168b67584d9d8ebbaa732a30c51509137543e` |
+| Cancellation-chain reuse directive | `28e2ab47c68bc83b91ae02b6112b94867b021b32` |
+
+Acknowledgments: `high_attack_ack=COMPLETE_SIGNED_HIGH_ATTACK_V1`; `chain_ack=CANCELLATION_CHAIN_REUSE_V1`; `baseline_ack=PAID_BASELINE_EXACT_CONSUMER_V1`; `deployment_ack=NO_PIGEONHOLING_ROUTE_SELECTOR_V1`. The live complete-return, persistent-engine, broad-search and protected-rotation instructions were consumed, not inferred from older reports.
+
+The canonical conclusion is `VFCanonicalSquareVonKochStatement`:
+
+\[
+ \exists C\geq0\ \forall R\in\mathbb N,\ R\geq2\Longrightarrow
+ |\pi(R^2)-\operatorname{vfCanonical}(R^2)|\leq C R\log R.
+\]
+
+The canonical anchor remains `vfCanonical = vfMid + sqrt 2`, and the terminal RH implication retains the explicit `ClassicalVonKochRHCriterion`. Its unresolved global estimate is not supplied by a conditional consumer. Status: OPEN.
+
+The common campaign carrier is the COMPLETE canonical HIGH, with original absolute birth-height cutoff, historical restrictions and both ordered orientations. On the established decomposition \(M(R^2-1)=L_R+H_R\), fixed canonical LOW satisfies \(|L_R|\leq(\lfloor\Lambda\rfloor+1)R\). A new complete Mertens boundary would transfer to HIGH by this exact identity. Source-specific OAI LOW is a different object and remains a legitimate supporting estimate. A shell increment, an isolated covariance, or a proper gcd sector is not this full carrier. Any proposed all-window prefix-energy supplier must retain uniformity in \(1\leq h\leq N\), including \(h=1\).
+
+**Strongest applicable baseline used here.** For the same licensed fine original `HighData D`, before changing characters, losses, heights or windows, set \(m=\operatorname{actualSlotMinimum}(D)>0\). The #1107 declarations supply
+
+\[
+ b_{\rm base}=7/8-m/4,\quad \beta_H\leq b_{\rm base},\quad
+ M(x)=O_\epsilon(x^{b_{\rm base}+\epsilon})\quad(\forall\epsilon>0).
+\]
+
+The fixed-power consequence spends half the new saving and uses \(7/8-m/8\). No numerical value of this fixed witness, maximization over all sources, or attainment of an optimized infimum is asserted. The actual boundary \(\beta_H\) could be smaller. Comparison here is to the certified envelope for the SAME witness.
+
+### C. Competing Mechanism Portfolio
+
+There are three prioritized mechanisms below, with NYMAN retained as a distinct protected exploratory route rather than disguised as another version of the first. None is licensed to consume the other investigators' rolling route slots.
+
+| Mechanism | Independent input and exact route | First missing statement, support and obstruction | Decisive experiment, owner and disposition |
+| --- | --- | --- | --- |
+| P1: source-calibrated analytic comparison with separate error references | WS1-WS2: original principal factors remain close to -1 on the wider half-plane; existing total-mass LOW and native moments feed the same probe. WS3 would convert a split HIGH estimate to a smaller full-family boundary, then the native Mertens/HIGH transfer. BC combined counts remain a separate supporting consumer improvement, not a prerequisite to WS1. | WS4 split assembly on the identical probe/residue, with every central, geometric, floor, remote, normalization and height cost. #1107 pays LOW; old common-sigma window bundling loses the candidate gain. A scalar budget is not a source theorem. | Attempt the exact split before the principal-window triangle inequality and audit the one-dimensional contour. Referee first; Lean only after acceptance. CONTINUE, highest near-term priority. |
+| P2: prime-response failure localization | Owner JT1-JT3 preserve the complete logarithmic zero kernel and prime-square term; a certified incoming zero boundary pays a high-zero tail. A hypothetical failure forces a specified negative bounded-height aggregate. A further independent phase/band restriction could exclude it and improve the actual prime/VF return. | Exclude the remaining signed low-zero configuration using real zero information, not a rephrased positivity target. RS proper-sector prime-error energy is useful but does not pay the anchor, complement or cross terms. Logarithmic freezing is refuted at its analytic-mode scope. | Derive a necessary concentration statistic in the remaining moving band and test it with the full kernel. Owner on the next JOH turn; VF-LOW and SAT remain protected. CONTINUE, independent of ideal-slot geometry. |
+| P3: occurrence-capacity and primitive-interaction restrictions | Unique factorization, squarefree masks, exact common-divisor extraction and physical occurrence capacities constrain complete native interactions. GL2 bounds a large-gcd sector; SG gives a separate prime-error incidence theorem; OC exposes a real reserved-donor cut. A valid complete signed recurrence or low-gcd restriction would supply new arithmetic information. | Small-gcd signed concentration and the complete complement/mixed return remain unpaid. Blanket cofactor >29 three-edit matching fails; positive support alone cannot supply the missing power. Occurrences, prime labels and diagonal budgets cannot be reused interchangeably. | Remove only the disproved blanket reservation and test the full residual cut, or isolate low-gcd primitive correlations with all masks. Analytic CODIV, Wheel CORR4/MU-LIFT and Owner SAT use their OWN carriers. REVISE, not abandoned. |
+
+NYMAN's full-basis boundary/correction route is retained for its next protected turn. The Nov 6 coherent-shift obstruction and Nov 7 FT complete-tail analysis prevent calling short finite-difference filtering or moment-preserving high corrections a new full-energy saving. Its next useful input is a genuinely weighted/full-basis restriction, not an isolated favorable block. No additional primary mechanism is manufactured merely to keep a count of three.
+
+Ranking is by independent content, correct carrier, quantitative sufficiency and falsifiability. P1 presently has the shortest precise source test; P2 asks for different analytic information; P3 has strong falsifiers and genuine arithmetic restrictions but still needs a complete return. No numerical probability of success is assigned.
+
+### D. Conceptual Research Performed
+
+All new claims below have prefix **`20261107-coordinator-2309/WS`**. All paper proofs are SELF_AUDIT / INDEPENDENT_REVIEW_PENDING. Established ingredients are credited separately. No local Lean was run.
+
+#### D1. Source Diagnosis: Where the Minimum Is Spent
+
+Let \(b_0=7/8\), \(\alpha=21/25\), and retain the existing physical tilt
+
+\[
+ x=17/48-24\tau,\qquad y=23/48+12\tau,\qquad
+ c_\tau=-11/16-8\tau.
+\]
+
+The complete #1107 LOW estimate on `F.tiltedProbe tau chi` is
+\(J_{\tau,\chi}(Z)=O_\epsilon(Z^{3/16-9\tau+\epsilon})
+=O_\epsilon(Z^{b_0-\tau+c_\tau+\epsilon})\), for every positive loss and \(0\leq\tau<1/960\). It has NO minimum-slot gate.
+
+The original `actual_ray_principal_comparison_tilted` contains the two different errors
+
+\[
+ Z^{\beta_H+c_\tau-17/48000+\nu}
+ \quad\hbox{and}\quad
+ Z^{\beta_H+c_\tau+e-(7/8)\ell_{\min}}.
+\]
+
+Its existing hypotheses include \(7/8<\beta_H+e\); after a strict boundary improvement it cannot simply be reapplied. The additive anchored generator correctly replaces the reference exponent in NEW HIGH statements by \(b_0\), while retaining true zero-free premises for the actual reciprocal. This is sound, but bundling the second term into the common reserve then requires
+\(\sigma+e\leq(7/8)\ell_{\min}\).
+
+The proposed change is NOT to delete this hypothesis or edit the actual beta declaration. It is to compare the finite window to the signal on a wider, separately justified one-dimensional contour. The three-variable physical contour and all other source errors may remain anchored. The original principal window is not discarded, divided out of the probe, or treated as a random model.
+
+#### D2. WS1: Widened Original Local Principal-Slot Estimate
+
+**Statement.** For every real \(Q\geq480\), every \(A,\eta,s\in\mathbb C\) with \(|A|\leq1\), \(|\eta|=1\) and \(a=\Re s\geq\alpha=21/25\), the ORIGINAL `principalSlot Q A eta s` satisfies
+
+\[
+ |\operatorname{principalSlot}(Q,A,\eta,s)+1|\leq1440Q^{-\alpha}.
+ \tag{WS1}
+\]
+
+For fixed Q,A,eta it is analytic on \(\Re s>\alpha\). Constants are independent of the imaginary part and the phases. This is a local rational-factor theorem, not a new Mobius cancellation assumption.
+
+**Proof with the original definitions.** At \(w=1,z=1/6\), use the exact coordinates R,V,W,D,K and B from `PrincipalSlotEstimate`:
+
+\[
+ |R|\leq Q^{3-6a},\quad V=W=Q^{-1},\quad
+ |D|,|K|\leq Q^{-a},\quad |B|=Q^a,\quad BD=1.
+\]
+
+The last identity uses the UNIT target coefficient, not merely norm at most one. Actual prime windows satisfy this after the existing coprimality threshold. Let P be `principalMarked`. The existing parameter-generic marked-factor estimate gives
+
+\[
+ |P+D|\leq24|R|+4|KV|,
+\quad |B|\,|P+D|\leq24Q^{3-5a}+4Q^{-1}.
+\]
+
+At the claimed boundary,
+
+\[
+ 3-6\alpha=-51/25,\quad -\alpha-1=-46/25,
+ \quad 3-5\alpha=-6/5,\quad -1,
+\]
+
+and all four exponents are at most \(-\alpha\). Thus both displayed errors are at most \(28Q^{-\alpha}\). Also \(|V|,|D|\leq Q^{-\alpha}\), and \(|R|,|V|,|D|\leq1/2\). Apply the existing `compensated_unit_error_bound` with \(T=Q^{-\alpha}\):
+
+\[
+ |\operatorname{principalReplacement}+\operatorname{unramifiedClosed}|
+ \leq720Q^{-\alpha}.
+\]
+
+The already compiled `unramifiedClosed_open_region_bound_twenty_one_twenty_fifths`, specialized to the SAME coordinates, gives
+
+\[
+ |\operatorname{unramifiedClosed}-1|\leq240Q^{-17/10}
+ \leq240/Q\leq1/2.
+\]
+
+Its inverse therefore has norm at most 2. Dividing the preceding compensated identity proves WS1. The coordinate powers are entire in s; the denominators 1-R, 1-V, 1-D and the correction are nonzero in this half-plane by these same bounds. The original differentiability proof consequently extends by ordinary sums, products and quotients. No new branch of a complex power is selected: Q is positive real throughout.
+
+**Evidence and novelty.** PAPER_PROOF, not PROVED_IN_LEAN. The original local theorem has boundary 7/8. Main already proves the wider UNMARKED correction but explicitly says it does not generalize the principal-source wrappers. WS1 supplies the missing compensated PRINCIPAL local estimate. The generic 720-bound and the wide correction are reused, not discoveries. No exhaustive literature-priority claim is made.
+
+#### D3. WS2: Actual Finite-Window Error Relative to the True Boundary
+
+**Finite-product statement.** Fix a finite index set of K slots. For each sufficiently large real Z, permit finite moving prime pools and weights, but require the ORIGINAL residue weights
+
+\[
+ w_{j,p}(Z)=W_j(Np/Z^{\ell_j})(Np)^{-5/6}\geq0,
+ \qquad M_j(Z)=\sum_p w_{j,p}(Z)>0.
+\]
+
+Retain actual A phases, unit target coefficients, exclusions and the fixed slot exponents. Suppose every active prime norm is at least \(P_Z=c_*Z^m\), where \(c_*,m>0\) are fixed before Z. For \(P_Z\geq480\) and \(1440P_Z^{-\alpha}\leq1\), WS1 and the existing finite-product estimate imply, uniformly for \(\Re s\geq\alpha\),
+
+\[
+ \left|\operatorname{slotRatio}_Z(s)-1\right|
+ \leq K2^K1440P_Z^{-\alpha}.
+ \tag{WS2a}
+\]
+
+Here `slotRatio` is literally the product of the original weighted principal slots divided by \((-1)^K\prod_jM_j(Z)\). The sign, masses and multiplicity are unchanged. The proof divides each weighted error by its positive mass, then uses \((1+\delta)^K-1\leq K2^K\delta\). It does not take K to grow with Z. Constants and the starting threshold may depend on this fixed K and source; no uniformity as m tends to zero is claimed.
+
+**Contour statement.** Fix one licensed source F and one character chi. Write chi' for its original finite-prime deletion and \(H=\operatorname{sourceCorrection}(\chi,F.S)\). The main theorems give H analytic on \(\Re s>\alpha\) and \(|H-1|\leq1/2\) there. Assume \(\alpha<\beta_H\leq b_0\); the complementary case already beats the candidate boundary below.
+
+Let \(a_*=b_0+e<2\) be the original anchored residue line, and \(\mathcal R_{\tau,\chi}(Z)\) the ORIGINAL `sourceResidueIntegral` on that line, at the tilted physical scales, divided by the SAME `sourceResidueConstant * Probe.principalScalar`. This normalizer is eventually nonzero by the original mass theorem. At \(a_*\), the existing exact principal identity represents it as
+
+\[
+ {1\over2\pi}\int_{\mathbb R}
+ Z^{s+c_\tau}e^{(s-5/6)^2}
+ H(s)\operatorname{reciprocal}(\chi',s)
+ \operatorname{slotRatio}_Z(s)\,dv,
+ \qquad s=a_*+iv.
+ \tag{WS2b}
+\]
+
+The raw inverse and regularized reciprocal have the existing almost-everywhere integral identification; possible exceptional real points are not silently treated as ordinary poles of an analytic reciprocal.
+
+Choose
+
+\[
+ u=\min(e/2,\alpha m/2)>0,\quad a=\beta_H+u,
+ \quad \omega=\alpha m/2>0.
+\]
+
+Then \(\alpha<a<a_*<2\). The EXISTING `polynomial_reciprocal_bound chi' a` has the sole boundary hypothesis \(\beta_H<a\), and supplies
+\(|\operatorname{reciprocal}(\chi',s)|\leq C_{\chi',a}(1+|\Im s|^2)\) for all \(\Re s\geq a\). The same is true throughout the strip, not just on its endpoints.
+
+Apply the Gaussian rectangle-contour argument to the FACTORIZED one-dimensional integrand in WS2b and to its difference from the signal integrand. WS1 makes the ratio analytic; WS2a bounds it throughout the strip, and the original wide bound controls H. For each fixed Z the horizontal integrals tend to zero by a polynomial times \(e^{-v^2}\). At the shifted line,
+
+\[
+ |\mathcal R_{\tau,\chi}(Z)-S_{\tau,\chi}(Z)|
+ \leq C_{F,\chi,a}Z^{a+c_\tau}P_Z^{-\alpha}
+ =O_{F,\chi}(Z^{\beta_H+c_\tau-\omega}).
+ \tag{WS2c}
+\]
+
+For example an admissible coefficient before absorbing \(c_*^{-\alpha}\) is
+\((2\pi)^{-1}e^{(a-5/6)^2}(3/2)C_{\chi',a}K2^K1440
+\int_{\mathbb R}(1+v^2)e^{-v^2}\,dv\), which is finite and independent of the moving pools and masses. Since \(u\leq\alpha m/2\), the exponent claimed in WS2c follows. The choice of u also ensures a is LEFT of the physical line even when e is much smaller than m.
+
+Only the factorized one-dimensional residue is continued. The actual source identity is used on its already licensed line \(a_*\); no unproved three-variable physical contour below 7/8 is invoked. Positive masses, eventual coprimality, the original weights, the finite deletion, and the source normalizer remain essential. The source is fixed before selecting a near-boundary zero; constants may depend on its character as in the existing comparison. There is no exchange of a growing source family with a limiting contour.
+
+**Evidence:** PAPER_PROOF for this normalized principal-window component, not for complete HIGH. The analytic theorem `sourceCorrection_analytic_wide` and the generic reciprocal theorem are established inputs; the widened principalSlot/ratio/contour composition is new and independently unreviewed.
+
+#### D4. WS3: The Mixed-Reference Comparison and Its Negative Controls
+
+**Precise conditional comparison.** Keep \(b_0=7/8\) and \(\alpha=21/25\). Fix \(\alpha\leq\theta=b_0-\tau\) and positive \(\tau,\sigma_B,\omega\). Suppose one fixed admissible source supplies, for EVERY character chi and EVERY positive loss epsilon,
+
+\[
+ J_\chi=O_\epsilon(Z^{\theta+c+\epsilon}),\qquad
+ J_\chi-S_\chi=E_{B,\chi}+E_{W,\chi},
+\]
+\[
+ E_{B,\chi}=O(Z^{b_0+c-\sigma_B}),\qquad
+ E_{W,\chi}=O(Z^{\beta_H+c-\omega}).
+ \tag{WS3a}
+\]
+
+Assume the same analytic/nonvanishing correction and finite-deletion hypotheses as the existing variable-boundary signal theorem, and the established \(\beta_H\leq b_0\). Then
+
+\[
+ \beta_H\leq\max(\theta,b_0-\sigma_B)
+ =b_0-\min(\tau,\sigma_B).
+ \tag{WS3b}
+\]
+
+**Proof.** If beta exceeds the right side, put
+\(d=\min(\beta_H-(b_0-\sigma_B),\omega)>0\) and
+\(\lambda=\min(\beta_H-\theta,d)/4>0\).
+The combined error is \(O(Z^{\beta_H+c-d})\). A primitive zero within lambda of beta has real part greater than both \(\theta+\lambda\) and \(\beta_H-d\). Deletion preserves that nonpole zero in the right half-plane. Apply the existing `nonzero_of_probe_bounds_variable_boundary` with its reference parameter set to the ACTUAL beta, low loss lambda and error saving d. This is a contradiction. In the application theta exceeds 21/25, so the near-beta zero is safely above 1/2 and the hypotheses used to obtain it are satisfied.
+
+This algebraic consequence is PAPER_PROOF, using an EXISTING Mellin/nonzero theorem. It is not advertised as a new Mellin theorem or new cancellation estimate. Its role is to show that \(\omega\geq\tau\) is UNNECESSARY. The input \(\beta_H\) licenses only a line strictly to its right, which the definition and existing reciprocal theorem already supply; the desired improved boundary is not assumed to choose that line.
+
+**Negative controls and no-narrowing.** Replacing the last error in WS3a by \(O(Z^{b_0+c-\omega})\) generally yields only the ceiling \(\max(\theta,b_0-\sigma_B,b_0-\omega)\). If \(\omega<\tau\), it does not give WS3b. With zero saving, the scalar model J=0, S=\(Z^{\beta+c}\), E=-S satisfies the weakened error estimate and allows a boundary at beta; this is a counterexample to the weakened ABSTRACT comparison, not a fabricated Hecke system. Thus positive saving is essential, but a uniform saving as m tends to zero is not.
+
+WS3 alone would be a repackaging of the desired bound if the split estimates were merely assumed without source input. WS1-WS2 independently prove the problematic component using elementary local factors and the established reciprocal bound. The remaining bulk estimate is explicitly unpaid below. It must not be renamed an admissibility condition and called solved.
+
+#### D5. WS4: Candidate Complete Return and the Exact Missing Lemma
+
+Start with the SAME fine original D used by #1107, and let
+`E = slotCalibratedHighDataLowFirst (sourceWithExactSlotMinimum D)`.
+This preserves t,N and every physical slot ell. Take an actual `F : SourceData E`, its actual compatible `CountParameters`, and the native arbitrary-height source moment supplier. These are chosen before characters and moving source rows. Its beta-lower gate is licensed under the proposed contradiction beta_H>theta>21/25>51/100, while the upper gate uses the already proved beta_H<=7/8. Write t=E.t and m=actualSlotMinimum(D), so \(0<m\leq t/200\), \(0<t\leq10^{-8}\).
+
+Use the deliberately nonoptimized calibration
+
+\[
+ \tau=t/100,\quad \sigma_B=t/2,\quad
+ \theta=7/8-t/100,\quad \omega=(21/50)m.
+\]
+
+The first independently UNACCEPTED complete-source statement is
+
+\[
+ \boxed{\ \forall\chi,\quad
+ J_{\tau,\chi}-\mathcal R_{\tau,\chi}
+   =O_{F,\chi}(Z^{7/8+c_\tau-t/2})\ }
+ \tag{OPEN-WS-BULK}
+\]
+
+with J and R exactly those of D1/D3 and ALL actual source contributions restored. It is to be derived from native moments and the existing anchored raw decomposition BEFORE the principal-window error is added. It is not an assumption on an arbitrary model, and it cannot follow by subtracting upper bounds from the compiled final HIGH inequality.
+
+**Scalar return ledger, checked exactly.** The calibrated source has epsilon,e <=t/2000 and (N+8)eps<=t; choose the original height via `chosen_data_height`, preserving 2*height<=t and all conductor/phase gates. Use original normalization/dyadic losses nu=t/8 each, original Delta=1/1000000 and central saving 49/881280.
+
+| Actual bill | Worst-case left side | Paid right side |
+| --- | --- | --- |
+| Physical tail | 24*tau = 6t/25 | <t |
+| Total-mass LOW charge | 36*tau; tau<1/960 | <=1/6 by the existing total-mass theorem |
+| Geometric normalized remainder | sigma_B+8e+nu <=629t/1000 | <=63/800 |
+| Physical principal remainder | sigma_B+nu=5t/8 | <=17/48000 |
+| Floor and row-complement cost | <=(7207/1500)t | <=7/1200 |
+| Remote tail with original saving 1 | sigma_B+nu=5t/8 | <=1+3/16 |
+| Central count gate | <=(18159/2000)t | <=1/32 |
+| Full central budget before target payment | <=(1685449/96000)t+49/881280 | <=49/440640 |
+| Delta plus target/normalization/dyadic payment | 1/1000000+3t/4 | <=49/881280 |
+| Finite principal-window replacement | beta_H+c_tau-omega, omega>0 | WS2/WS3, NOT a common sigma_B charge |
+
+All displayed upper bounds are strict at t=10^-8 where appropriate and improve for smaller t. The central coefficient retains BOTH source-moment height losses, the selected-slot mesh term, count errors, the full plain/marked moment interface and logarithmic costs. It uses the existing conservative supplier; BC's sharper 1+t/2 is not silently borrowed. Constants depending on the fixed source/character are allowed only in the existing order.
+
+Crucially, **E.sigma is not reset to t/2**. Such a fabricated `HighData` would generally violate its window_budget. sigma_B is a new parameter of the split bulk estimate, not a replacement record field. The old window-budget hypothesis remains true of E and is not deleted from any compiled theorem.
+
+If OPEN-WS-BULK is established and WS1-WS2 survive independent review, WS3 and the merged LOW supplier would give
+
+\[
+ b_{\rm cand}=7/8-t/100,
+ \quad\eta=b_{\rm base}-b_{\rm cand}
+ =t/100-m/4\geq7t/800>0.
+ \tag{WS4}
+\]
+
+This is a **CONDITIONAL candidate budget**, not a proved endpoint. It compares the SAME fixed physical source and its exact minimum. The native every-positive-loss transfer would give the corresponding Mertens and complete signed-pair bounds. For a genuine fixed-power improvement over b_base, spend eta/2: exponent \(b_{\rm base}-\eta/2=7/8-t/200-m/8\). At the square clock choose the input loss half the desired root-scale loss; then the complete HIGH target would be \(O_\epsilon(R^{2b_{\rm base}-2\eta+\epsilon})\). No automatic iteration, new uniform numerical t, endpoint at 1/2, or RH consequence is claimed.
+
+**Disposition:** CONTINUE as a concrete falsifiable mechanism; OPEN-WS-BULK is PENDING, independent review PENDING, formalization NOT_STARTED. NEW_VERIFIED_ENDPOINT_GAIN_FROM_THIS_RUN=NONE. This is not yet VERIFIED_ETA.
+
+#### D6. WS5: Preregistered Exact Checks
+
+Before running the new check, I fixed these observables: the four local exponent comparisons; all eight scalar budget endpoints; a near-boundary comparison at three fixed m/t ratios; and the zero-reserve/fixed-reference negative controls. The rival explanation was that the slot-size cap reappears either in an unpayable non-window bill or in the elementary near-beta comparison. No prime-count fit or unchanged broad parameter scan was run.
+
+The exact `fractions.Fraction` script in the reproducibility appendix passed. Its SHA-256 is `22a17861a5f5794363d5bb9c284e2cd4cd70ffe9529b8fcd3cf8d19bbd1c9b49`. It returned local exponents -51/25,-46/25,-6/5,-1; central coefficient 1685449/96000; floor coefficient 7207/1500; eight passing budgets. At m/t=1/200,1/1000000,1/10^12, all mixed-reference ceilings lay strictly below the chosen near-beta line while the fixed-reference window ceiling did not reach theta. The positive gaps were respectively 63/4000000000000, 63/20000000000000000, and 63/20000000000000000000000.
+
+Evidence: FINITE_COMPUTATION for the sample comparisons and exact rational checks. The universal local estimate is the analytic proof WS1; the uniform scalar budgets follow from their displayed monotonic linear bounds, not from sample survival. The script does not construct an actual HighData instance, prove contour analyticity, or certify OPEN-WS-BULK.
+
+#### D7. A Checked Cross-Route Connection and a Rejected One
+
+There is a real scalar transfer from the improved certified Hecke boundary to Owner's JOH input, not an identification of signed sources. The native zeta-to-Hecke and Mertens consequences constrain the actual zeta zero abscissa. Conditional on JT1-JT3's stated density/kernel proof, insert this certified bound b into
+
+\[
+ d_a(b)=2-a(1-b),\qquad \nu_a(b)=(b-1/2)/d_a(b),\qquad a=30/13.
+\]
+
+For \(b_1>b_2>1/2\) with positive denominators,
+
+\[
+ \nu_a(b_1)-\nu_a(b_2)
+ ={(b_1-b_2)(2-a/2)\over d_a(b_1)d_a(b_2)}>0.
+\]
+
+Thus replacing the old same-source b1=7/8-m/24 by the MERGED b2=7/8-m/4 reduces the admissible tail-height threshold by exactly
+\((5m/24)(11/13)/(d_a(b_1)d_a(b_2))\). This composition retains every-positive-loss order: choose a height exponent strictly above the new threshold, then a sufficiently small input loss; do not set the height equal to the infimum. JT's full logarithmic kernel, conjugate-zero sum, prime-square term and low-zero negative aggregate are unchanged. This is an algebraic PAPER_PROOF transfer conditional on the as-yet unreviewed JT supplier, not a new unconditional JOH endpoint.
+
+Conversely GL2 and SG3 cannot be interchanged merely because both split at a gcd threshold. GL2 has triangular additive-lag weight 2(h-gk), interval X<=gm<4X and signs mu(g)^2 mu(m)mu(m+k). SG has actual anchored prime errors e_c=Delta(x_c)-Delta(x_2D) on a dyadic cofactor graph. No occurrence-preserving weighted map between those carriers was supplied. Their proper-sector bounds also omit different complements. Decision: share the inverse-localization method, NOT the numerical estimate or the diagonal budget.
+
+### E. Specialist Findings and Continuity
+
+Both Eastern-date report sets, all six specialist reports and the most recent Coordinator work were retrieved at initial report head `ebc4cffa981cec1b6b31bdb44df6dabca71e2c54`. Relevant full derivations and continuation sections were read. All seven roles have Nov 7 reports; no missing stage was filled by assumption. Census's latest observed substantive invocation is its second, not an invented third. Actual historical invocations in the reports do not authorize another scheduled launch.
+
+| Role | Nov 6 blob | Nov 7 blob at intake |
+| --- | --- | --- |
+| Coordinator | `8812a90540fb511279b5f4ce08e108ef717d5ef1` | `785c56207f0745244d8c2503a18ed7b4d91b39e6` |
+| Owner | `1856a96aaaa9d86a5ee2d59ffe50ced936443fa6` | `933e8eb23e669594cc687059d75147e6267eec8d` |
+| Analytic | `7997620b6ab7eb0701296994734ee910df3c3ba1` | `77f3e5795533041e4356ceb94cb66328da7af27c` |
+| Wheel | `3099558194a00358962ff1844bf283e625b9283d` | `7739fa5d4cc77f35773b0d4149b2ddd21732a70d` |
+| Census | `c34ac074296e8b2e5b20dee3a2ce02518571206c` | `3fae830e34c590d32c31ad77cad3ace833eb3ff5` |
+| Referee | `da3265467c799e9d21832ab25245617ba3b15a54` | `426c2abfa5b8926b512e07f05be37692a2416d0b` |
+| Lean | `b8bfe3ce9c20d7903395364efb39bcec974c8a2f` | `ec14e2803af8c1e56123682ee61ed927ed4f9450` |
+
+**Owner, `20261107-owner-3/JT1-JT5`.** The exact logarithmic zero-kernel return and high-tail estimate localize any remaining sign failure to a bounded-height negative aggregate, with the prime-square contribution intact. PAPER_PROOF / SELF_AUDIT, independent review pending; JT5 is finite computation. Earlier SG properly controls a growing large-gcd sector, and RS controls a selected square-sampled prime-error component. Neither restores the full complement. Nov 6 MS moving-clock bounds and their unfavorable complete exponent remain dated carry-forward evidence, not today's discovery. Next protected route: SAT.
+
+**Analytic, `20261107-analytic-3/BC1-BC5`.** The two-error combined-count argument retains the literal raw gate and eliminates an auxiliary nu only at fixed U with the SAME constants and threshold independent of nu. Its fresh arbitrary-cutoff source batch must precede row selection; an opaque old CountParameters record does not expose that raw witness. The complete scalar functional has independently certified margins even on the x=0 and delta=5/6 faces: the absence of a kappa gain there is NOT a no-go for the whole consumer. BC remains PAPER_PROOF / SELF_AUDIT pending independent acceptance and full physical return. Earlier GL's large-gcd tail is now merged #1102; the small-gcd complement remains open. FT's full NYMAN tail and correction accounting does not prove a new endpoint. Next protected route: CODIV.
+
+**Wheel, `20261107-wheel-3/OC1-OC5`.** Under the tested blanket donor reservation, quotient-95/96 physical occurrence capacity defeats the proposed three-edit matching. The reported lower bound concerns ABSOLUTE residual mass, not |M(X)|. Releasing cofactor-3/5 banks repairs displayed cuts but is not a complete recurrence. OC paper claims remain independently unreviewed; X=9215 and other fixtures are finite computation. Nov 6 GF's label/occurrence distinction and the explicit cross-label repair remain valid carry-forward constraints. Next protected route: CORR4.
+
+**Census, `20261107-census-2/RC1-RC4`.** The rational/Bernstein crossing certificate covers the stated whole rectangle, not merely a grid. Referee has accepted RC1/RC3 and scoped RC2/RC4 at their stated paper/computation levels. The 324 positive coefficients in nine boxes are not the missing analytic source assembly. Earlier SC donor-budget evidence and Nov 6 FW's N=690,H=186 cross-sign counterexample remain finite witnesses. Radical-increment source work is now #1100. No new scan was requested simply to extend its range.
+
+**Referee, `20261107-referee-3/TF1-TF5`.** RG1-RG3 received independent paper-scope acceptance; RG4's sharper source extension was not accepted as proved. TF1-TF3 use two envelopes plus total slot mass to bypass that obstacle. Those paper claims were self-audited in that run; the now-merged exact #1107 implementation has no later recorded explicit independent Referee disposition. Preserve this distinction. A source-level acceptance of WS is requested, not invented here.
+
+**Lean, `20261107-lean-3/KL1-KL2`.** Exact-head compilation of #1107 is freshly corroborated in I. Its report's then-UNMERGED status is superseded by the actual human merge. KL1's safe generalized-kappa license follows arithmetically from the stronger endpoint; KL2's class saving is conditional on BC and does not change the complete endpoint. No new compiled declaration is inferred from those handoffs.
+
+**External inbox.** `EXTERNAL_HANDOFFS.md`, blob `038018145c0fddb2f6306c0712373adf9cd1ea52`, has no newer handoff than the observed Oct 18 entries. `EXT-20261018-PNT-1` supplies the signed cofactor identity, not its uniform correlation bound; `EXT-20261017-XCOORD-1` preserves the q=R boundary and does not supply a source isometry; `EXT-20261014-5` refutes an unconditional strict physical-payment fraction, not every conditional first-bad architecture. Historical PR statuses in the inbox are not live authority. No missing external contribution is invented.
+
+### F. Mathematical Bottlenecks
+
+| Route | First independently missing mathematical input or decisive obstruction |
+| --- | --- |
+| OAI-NNS / WS | OPEN-WS-BULK with exact same residue, followed by independent acceptance of WS1-WS3; no subtraction of norm bounds, no false HighData sigma reassignment. |
+| OAI-NNS / BC | Compatible raw combined-count witness with uniform auxiliary-limit constants, then full original principal/HIGH return; sharper moments alone do not lift an unchanged consumer. |
+| VF-LOW | A bound for the actual demand-weighted return including anchor, terminal mismatches and complements, beyond selected RS energy. |
+| SAT | Small-gcd actual prime-error covariance and the JOINT anchor/interior/complement return; an I-only bound is not enough. |
+| JOH | An independent restriction excluding JT3's negative low-zero aggregate, with full logarithmic kernel and prime squares. |
+| CODIV | Signed primitive correlations below the paid gcd cutoff, uniformly in all required h; positive-support counting is insufficient. |
+| NYMAN | Weighted full-basis/physical-window control surviving coherent shifts, source tail and high corrections; no fresh small correction from a block diagonal alone. |
+| FINITE-AC | Full moving boundary plus complementary columns and rank-one/cross terms; Abel completion currently pays too much prime multiplicity. |
+| CORR4 | Genuine moving sampling/placement control in the physical source, not transfer from a full-period scalar density. |
+| MU-LIFT | An occurrence-capacity-valid complete signed recurrence after legal donor releases, with no historical or label budget reuse. |
+
+### G. Strategy Decisions
+
+1. Retire RG4 as the REQUIRED next endpoint step. Preserve its sharper open question and the accepted RG1-RG3 results; #1107's coarser total-mass payment already supplies the needed complete LOW.
+2. Promote WS as a different consumer mechanism: separate an actual-boundary principal-window error from fixed-reference bulk errors. Do not describe the local extension alone as a global gain.
+3. Keep BC as the live retained-width/generalized-kappa priority on the next due OAI analytic turn. It remains valuable for a stronger bulk reserve or later parameter feedback even if WS succeeds using existing moments. Do not repeat its unchanged rational certificate.
+4. Reject a universal minimum-slot HIGH barrier. The old bundled theorem has such a sufficient gate; WS gives a specific alternative to test. Equally, reject deleting that gate from the old theorem or replacing the source's sigma field illegally.
+5. Retire blanket cofactor >29 three-edit matching at its refuted scope. Continue only after changing the actual donor rules and auditing both physical and signed-label capacities. Do not conclude that every native recurrence is impossible.
+6. Keep independent protected routes and broad research. The programme gate for the existing #1107 advance remains CANDIDATE_ETA pending the explicitly required independent review record; this run adds no VERIFIED_ETA. Human merge and kernel evidence are real, but do not manufacture a missing review.
+
+### H. Next Specialist Assignments
+
+These are asynchronous published handoffs, not claims to launch or synchronize other agents. Next actual protected investigator routes remain Owner SAT, Analytic CODIV, Wheel CORR4. Within the rolling record all nine routes remain covered.
+
+**Owner / SAT, task WS-SAT-LOWGCD.** Resume SG4b with literal \(e_c=\Delta(x_c)-\Delta(x_{2D})\), \(D=\lfloor\sqrt R\rfloor\), and the existing \(G=\lceil\sqrt D\rceil\). Determine whether a hypothetical large COMPLETE return forces concentration in a particular reduced-factor ratio or prime-error increment among gcd<G interactions after restoring A, L+C and every cross term. Reuse SG's paid large-gcd sector and the stronger incoming certified b; do not ask it to prove WS. Required output: an exact necessary inequality with original masks, or a source-valid counterexample to the proposed localization. Test positive-anchor types separately from the (5,6) anchor-cancelling packet. A useful inverse restriction advances P2/P3; a tautological restatement is rejected. On the later JOH turn, apply D7's scalar threshold change without assuming favorable kernel signs.
+
+**Analytic / CODIV, task WS-CODIV-PRIMITIVE.** Resume GL1 on the exact primitive source in D7 with g<G. Identify ONE quantitative restriction on the signed mu(m)mu(m+k) aggregate that survives gcd(m,k)=1, gcd(g,m(m+k))=1, moving common windows and h=1 boundary handling. Reuse #1102's 8Xh^2/G tail; do not reprove the upper tail or hope for an extra power from positive support. Required output: a proved weighted bound, precise inverse condition, or counterexample to a proposed decoupling, with the full complement and terminal cost stated. Next OAI-NNS turn: finish the already developed BC1-BC4 actual-source combined consumer; WS-BULK is an optional mathematically distinct supporting audit, not an excuse to skip CODIV.
+
+**Wheel / CORR4, task WS-CORR4-MOVING.** Use the actual source sampling and placement definitions already in #1097/DI, not a uniform full-period surrogate. Decide whether failure of the desired complete sampled estimate forces a specific admissible concentration pattern across physical locations, and whether the incidence constraints exclude even one nontrivial class of it. Retain weights, endpoints, both orientations and diagonal/complement interactions. Required output: a source-preserving map with its quantitative cost or an exact legal counterconfiguration. On the next MU-LIFT turn, test the released small-cofactor residual network against the quotient-95/96 obstruction, counting a physical donor once. This distinguishes P3's real structural options from label-capacity bookkeeping.
+
+**Census, task WS-WINDOW-FALSIFIER.** Before computing, preregister WS1's actual local factor versus the rival claim that a hidden denominator or target-unit failure destroys the wide estimate. Use the exact original rational functions, actual allowed phases when testing the physical specialization, and certified intervals if numerical complex values are used. Include Re(s)=21/25, large imaginary parts, the Q=480 boundary, moving active pools with very uneven masses, and a deliberately NONunit target as an excluded-domain negative control. A second test may inspect the residual decomposition in OPEN-WS-BULK for a forgotten window term, but must not infer a source theorem from the scalar script. Required output: an actual counterexample, independently checked algebraic certificate, or explicitly finite survival. Do not rerun the old RC rectangle unchanged.
+
+**Referee, task WS-REVIEW and outstanding TF acceptance.** Independently audit WS1's compensated cancellation, WS2's exact normalizer and source-line factorization, the strip-uniform reciprocal bound, character/source quantifier order and WS3's true-boundary comparison. The specific attack is whether a principal/window term has silently remained in J-R or whether a contour hypothesis still pins the claimed window estimate above 7/8. Separately record an explicit disposition on the merged #1107 TF implementation at the tested source; do not treat its author's self-audit as your acceptance. BC's six-case/raw-witness proof is the other pending analytic review. Output ACCEPT_WITH_SCOPE, REVISE or COUNTEREXAMPLE for each claim, never a blanket endorsement from the rational budget.
+
+**Lean Verification: at most TWO conditional implementation-sized tasks.** There is no authorization from this report to treat an unreviewed paper claim as established.
+
+1. **L-WS-WINDOW, review-gated.** After independent acceptance, extend the actual principalSlot and weighted finite-product bound to 21/25, then prove the fixed original normalized residue-to-signal estimate WS2c. Reuse wide correction, exact source normalization and reciprocal growth. Preserve positive masses, unit target, fixed K, finite deletion and character-dependent constants. Falsifier: any required line or denominator hypothesis not covered by WS1. Expected result: a source-faithful component theorem with exact types/axiom audit; not an endpoint wrapper assuming OPEN-WS-BULK.
+2. **L-BC-COMBINED, review-gated.** After BC's independent acceptance, implement the compatible two-error combined-count consumer using merged #1105 and retained generalized-kappa suppliers, including raw constants/threshold independence and fresh arbitrary-cutoff source batches. Preserve full high-bin complement and all admissibility gates. Expected result: the actual count/consumer theorem, not an assumed desired covariance. Falsifier: a count record that cannot expose the raw witness or a hidden dependence on the auxiliary nu.
+
+OPEN-WS-BULK is presently a SOURCE-RESEARCH question, not a third assigned implementation. If it is proved and accepted, it can replace a completed slot in this small queue. No proof branch, PR or schedule is created by Coordinator; Lean retains its authorized non-main Actions-only workflow and the human merge gate.
+
+### I. Lean, PR and Provenance Status
+
+**Freshly verified #1107:** tested head `cd8f98fd6ed2dee3fa08f526eb8ac86c94549da5`, human-merged at 2026-11-08 03:26:45 UTC into current main. Fourteen check runs were completed/success at that EXACT head. The dedicated run is [42437401175, job 128599096276](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42437401175/job/128599096276), created 02:10:42 UTC and completed successfully 02:25:02 UTC. I read the actual job logs, not merely the green summary.
+
+The warning-fatal proof, exact public types, inventory and live-axiom audit passed. The terminal declarations `native_beta_le_true_physical_slot_minimum_total_mass`, `native_mertens_true_physical_slot_minimum_total_mass`, `native_mertens_fixed_true_physical_slot_minimum_total_mass`, and `native_signed_pair_true_physical_slot_minimum_total_mass` each reported only `propext`, `Classical.choice`, `Quot.sound`; closure sizes were respectively 35352,35731,35732,35746. This certifies those tested terminal closures, NOT every unrelated imported file in the repository. The logs also verify the reused wide correction and variable-boundary comparison declarations. No local rebuild or no-op CI was launched.
+
+The compare from tested head to live main contains only #1106 additions and its export/documentation changes; the OAI endpoint files, supplier modules and dedicated audit were unchanged. The root `RHLean.lean` export is among the changed files, so this is exact-source reuse of the endpoint evidence, not a claim of a fresh whole-main kernel rebuild. Source versions: Lean 4.34.1; pinned mathlib `d13f23b723b8a846827a245b89c10fc7d3f11612`; original OAI `openai/math` commit `1581d4cbdd69a0faf34b2089614fe2a814316a6a`.
+
+| Relevant item | Verified status / evidence boundary |
+| --- | --- |
+| #1107 total mass | MERGED; exact head CI_GREEN; formal endpoint PROVED_IN_LEAN at that head; independent programme acceptance record still PENDING |
+| #1106 prime-admission log amplification | MERGED 2026-11-08 03:26:33 UTC, head `aafb28e85bbc7a55a6c351621dc451042aee5b8f`; no fresh complete CI audit claimed here |
+| #1105 two-error arbitrary cutoff | MERGED, head `30e235ac5ee86041d194d07b20c52b0b22d317f2`; dedicated 43-module/axiom evidence carried from today's Lean report, not freshly rerun |
+| #1103 retained feedback; #1102 gcd tail; #1100 radical increment | MERGED; reused at their reported component scopes, no new global theorem inferred |
+| Open/draft proof PRs | None at intake and 04:26 UTC refresh |
+| WS1-WS3 | PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED |
+| WS4 complete candidate | CONDITIONAL on OPEN-WS-BULK and accepted component proofs; no new endpoint certification |
+
+**Source manifest for the new derivation.** RH_Lean entries are at main SHA above; original entries are at the OAI pin above. All were read directly, rather than reconstructed from report summaries.
+
+| Source | Blob / role |
+| --- | --- |
+| `research/oai_434/VF919TotalMassEndpoint.lean` | `827bb952c4d4311d75fd03a2470799dc10b0f7e7`; total LOW and complete current baseline |
+| `research/oai_434/VF919FiniteSlotReflectedGain.lean` | `a5545b5a00958b69f6fbfd79fc555a0476aa6487`; wide correction, exact normalized variable-x identity, variable-boundary consumer |
+| `research/oai_434/VF919TiltedHighPrincipal.lean` | `e123ffa5903a62f6249aafef7a093dc6a7e3eb09`; original two principal errors and source hypotheses |
+| `research/oai_434/VF919TiltedHighTransport.lean` | `50c46fb1c5629865c3b7a6546ed3d9418fff1391`; all normalized transport terms |
+| `research/oai_434/VF919TiltedHighAssembly.lean` | `883141e0af896d4132bfc4ffa076e2d265ece5c9`; full central and target payment |
+| `scripts/lean/slot_anchored/prepare_anchored.py` | `0bac9047afaa8e9ddc5ac246be2d0fe7d6efa725`; explicit new anchored statements, source pin `9cbfce5295343bcb411e6d2cb159b59995cd985b` |
+| Original `ParametersHighData.lean` | `c565dc0a72c7da9a2706cdd835e69a39e8c0dc14`; fixed source, slots and all budgets |
+| Original `PrincipalSlotEstimate.lean` | `f9250c7c4464f374902bbb39ebbb3487d96bea1f`; literal local factor and generic compensated estimate |
+| Original `PrincipalSignalComparison.lean` | `bd252b01e2784f9ec32fe9c1e0380c4b221adc23`; ratio, Gaussian kernel and weighted product |
+| Original `Detector/PrincipalResidueActual.lean` | `2f336d8cfb0e6ec157ad1d43099372eb61961381`; actual residue weights and source identity |
+| Original `Hecke/ReciprocalGrowth.lean` | `d518b9ef91a66af6c0a14711c329d0c5dd83e7ab`; every a>actual beta polynomial bound |
+| Original `Hecke/SignalShift.lean` | `f6f533fe9e38fdec84162bdddc55f60c14fc1dac`; Gaussian contour proof being generalized |
+
+The original code is a primary mathematical source for this investigation. No new outside density theorem is imported to prove WS. D7 expressly leaves JT's literature-dependent input conditional on its review. Reading or citing an external theorem without its hypotheses would not supply this source bridge.
+
+### J. Next-Run Resume Capsule
+
+```text
+ENGINE_VERSION: SEVEN_AGENT_PERSISTENT_RESEARCH_ENGINE
+RUN: 20261107-coordinator-2309; actual scheduled trigger 2026-11-07 23:09 EST
+MAIN: bf4af1cd18aff7c3944a75991aa66371c8afc18a
+POLICY: COMPLETE_SIGNED_HIGH_ATTACK_V1; CANCELLATION_CHAIN_REUSE_V1
+CONTRACT_BLOB: d1d6fd558ee23927bd9f70ffdc375bafd1dbb67a
+SOURCE_PIN: OAI 1581d4cbdd69a0faf34b2089614fe2a814316a6a
+BASELINE: same fine D, m=actualSlotMinimum(D)>0, beta_H<=7/8-m/4
+FORMAL: #1107 cd8f98fd6ed2dee3fa08f526eb8ac86c94549da5, MERGED
+CI: run42437401175/job128599096276; four standard-axiom terminal closures
+NEW: WS1 local principalSlot wide bound; WS2 original moving-window contour
+COMPARISON: WS3 mixed-reference consequence of existing nonzero consumer
+FIRST_OPEN: OPEN-WS-BULK, J_tau minus EXACT original finite-window residue
+CANDIDATE: tau=t/100, sigma_bulk=t/2; beta<=7/8-t/100 only CONDITIONALLY
+LOSS_SPEND: eta=t/100-m/4; spend eta/2 for fixed-power improvement
+DO_NOT: set HighData.sigma=t/2, subtract norm bounds, or move full physical contour
+DO_NOT: claim uniformity in growing K or m->0, or promote scalar checks to source proof
+CURRENT_GATE: existing #1107 CANDIDATE_ETA pending explicit independent acceptance
+NEW_VERIFIED_ENDPOINT_GAIN_FROM_THIS_RUN: NONE
+NEXT_RESEARCH: split raw anchored transport before window error; check every term
+REVIEW: WS1-WS3, OPEN-WS-BULK, exact #1107 implementation, then BC source consumer
+LEAN_QUEUE: at most L-WS-WINDOW and L-BC-COMBINED, both review-gated
+PROTECTED_NEXT: Owner SAT; Analytic CODIV; Wheel CORR4
+EXTERNAL: inbox038018145c0fddb2f6306c0712373adf9cd1ea52, no invented newer handoff
+CANONICAL_OBJECTIVE: OPEN
+PUBLICATION: pending final append/commit/readback receipt below
+```
+
+### Reproducibility Appendix: Exact Scalar Audit
+
+The following is the complete new check script, not a proof of OPEN-WS-BULK. Its finite cases are illustrative negative-control tests; the universal proofs and coefficient bounds are in D2-D5. It uses only the Python standard library and writes no files.
+
+
+```python
+from fractions import Fraction as F
+import json
+
+# Preregistered exact scalar audit, not a scan of arithmetic or Hecke data.
+# Check the widened local exponents, worst-case source budgets, and the
+# proposed comparison; retain a zero-reserve negative control.
+alpha, b0, tmax = F(21, 25), F(7, 8), F(1, 100000000)
+local_exponents = [3 - 6 * alpha, -alpha - 1, 3 - 5 * alpha, F(-1)]
+assert all(q <= -alpha for q in local_exponents)
+assert alpha >= F(1, 2)
+assert F(17, 10) >= 1 and F(240, 480) == F(1, 2)
+
+count_coeff = F(159, 2000) + 9
+central_coeff = F(13, 16) * count_coeff + 2 + 3 + F(26, 2000) + 1 + 1 + F(1, 6) + 3
+floor_coeff = 2 + F(26, 2000) + 1 + 1 + F(1, 6) + F(1, 8) + F(1, 2)
+saving, delta = F(49, 881280), F(1, 1000000)
+budgets = {
+    "count": (count_coeff * tmax, F(1, 32)),
+    "central": (central_coeff * tmax + saving, 2 * saving),
+    "geometric": ((F(1, 2) + F(8, 2000) + F(1, 8)) * tmax, F(63, 800)),
+    "principal": ((F(1, 2) + F(1, 8)) * tmax, F(17, 48000)),
+    "floor": (floor_coeff * tmax, F(7, 1200)),
+    "central_payment": (delta + F(3, 4) * tmax, saving),
+    "remote": (F(5, 8) * tmax, F(19, 16)),
+    "physical": (tmax / 100, F(1, 960)),
+}
+assert all(left < right for left, right in budgets.values())
+assert F(24, 100) < 1
+assert b0 - tmax / 100 > alpha
+assert F(1, 100) - F(1, 800) == F(7, 800)
+
+cases = []
+for m_over_t in [F(1, 200), F(1, 1000000), F(1, 10**12)]:
+    t, m = tmax, tmax * m_over_t
+    e = min(t / 4000, m / 1000)
+    tilt, sigma_bulk = t / 100, t / 2
+    bbase, theta = b0 - m / 4, b0 - tilt
+    eta = bbase - theta
+    assert eta >= 7 * t / 800 > 0
+    beta_test = (theta + bbase) / 2
+    u, omega = min(e / 2, alpha * m / 2), alpha * m / 2
+    assert alpha < beta_test + u < b0 + e < 2
+    assert beta_test + u - alpha * m <= beta_test - omega
+    loss = min(beta_test - theta, beta_test - (b0 - sigma_bulk), omega) / 4
+    assert loss > 0
+    ceiling = max(theta + loss, b0 - sigma_bulk, beta_test - omega)
+    assert ceiling < beta_test - loss
+    assert omega < tilt
+    assert b0 - omega > theta  # Fixed-reference bundling loses this gain.
+    assert theta + eta / 2 == bbase - eta / 2 < bbase
+    cases.append({"m_over_t": str(m_over_t), "eta_over_t": str(eta / t),
+                  "mixed_gap": str(beta_test - loss - ceiling)})
+
+# With omega=0, the scalar model J=0, S=Z**(beta+c), E=-S meets
+# the weakened error estimate and cannot exclude a boundary at beta.
+beta, theta = F(7, 8), F(4, 5)
+assert max(theta, beta - 0) == beta
+print(json.dumps({"local_exponents": list(map(str, local_exponents)),
+                  "central_coefficient": str(central_coeff),
+                  "floor_coefficient": str(floor_coeff),
+                  "budget_checks": len(budgets), "comparison_cases": cases,
+                  "zero_reserve_negative_control": "retained"}, indent=2))
+
+```
