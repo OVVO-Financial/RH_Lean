@@ -7,7 +7,6 @@ on:
       - 'research/VF_MID_PRIME_LOCATION_ANCESTRY_DICHOTOMY_20261108.md'
       - 'scripts/prime_location_ancestry_regression.py'
       - '.github/workflows/prime-location-ancestry.yml'
-      - 'research/VF_MID_PRIME_LOCATION_ANCESTRY_DICHOTOMY_20261108.lean'
   workflow_dispatch:
 permissions:
   contents: read
@@ -37,7 +36,7 @@ jobs:
       - name: Kernel compile exact source, warnings fatal
         run: |
           test "$(cat lean-toolchain)" = 'leanprover/lean4:v4.34.1'
-          python3 scripts/compile_research_import_closure.py --build-library research/SQUARE_ROOT_PRIME_PHASE_RUN_CONTRADICTION_20261108.lean
+          python3 scripts/compile_research_import_closure.py --build-library research/VF_MID_PRIME_LOCATION_ANCESTRY_DICHOTOMY_20261108.lean
       - name: Exact new theorem types and axiom dependencies
         run: |
           cat >/tmp/prime_location_ancestry_types.lean <<'EOF'
