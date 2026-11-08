@@ -120,7 +120,6 @@ theorem near_uniform_distinct_slot_lengths (L : ℝ) (hL : 0 < L)
     have heq : (1 + 1 / (N : ℝ)) / (6 * (N : ℝ)) =
         ((N : ℝ) + 1) / (6 * (N : ℝ) ^ 2) := by
       field_simp
-      <;> ring
     rw [heq]
     exact hfrac
   let ell : Fin N → ℝ := fun j => w j / (6 * A)
