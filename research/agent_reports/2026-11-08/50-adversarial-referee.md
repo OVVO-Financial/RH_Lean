@@ -821,3 +821,573 @@ Selected source: original ordered Euler residual T_R(a,b)=floor((R^2-1)/(ab))-(R
 Tasks: independently reconstruct the rectangle and single-jump statements; verify relevant live Lean definitions and exact-head CI; reproduce decisive genuine and synthetic witnesses with independently written code; test whether SJ3 can be sharpened into an exponent-sharp obstruction to widening the paid strip from historical-envelope information alone. Such a synthetic obstruction would NOT refute the genuine Mobius conjecture. Prior DR1-DR4 are carried forward, not re-audited unchanged.
 
 The only observed open PR at intake is draft #1111, head e02629be7e276dbccf812fb5cdb67a7f060d0cae; it is not main authority. Direct git clone failed with CONNECT tunnel 403, but authenticated GitHub source/read/write tools work. No local Lean, proof edit, CI launch, branch/PR edit, merge, schedule change or other-agent launch is authorized or attempted. Final findings and a verified publication receipt will be appended after substantive work.
+
+
+## Square-Root Width Threshold And Independent HC/SJ Review - 20261108-referee-2
+
+This is the continuation of the scheduled invocation begun 2026-11-08 12:03:01 EST, not another launch. Earlier reports, claims and publication receipts remain unchanged. Mathematical work is finished; final publication is established by the subsequent immutable-readback receipt.
+
+### A. Most Important Mathematical Finding
+
+**The square-root width restriction is optimal at the power-exponent level for a theorem using only bounded coefficients and the shifted historical prefix envelope. One FIXED non-Mobius sequence defeats every fixed super-square-root power width.**
+
+More precisely, there exists one f:N_{>0}->{-1,0,1}, with f(1)=1 and S_f(y)=sum_{n<=y}f(n), such that
+
+```text
+(S_f(y)-1)^2 <= y+1  for every integer y>=0,
+
+for EVERY fixed theta in (1/2,1):
+  limsup_(R->infinity) E2_f(R,floor(R^theta))/R = +infinity.
+```
+
+Here E2_f uses the exact ordered Euler kernel and floor-two strip defined in D, replacing ONLY the coefficients by f(a)f(b). The very same f works for all theta. Constants allowed to depend on f and theta do not rescue an O(R) assertion. Conversely, for every fixed c>0, the same envelope hypotheses give a uniform O_c(R) bound on every width W<=min(R/4,c*sqrt(R)). Thus this is an exponent-sharp limitation of the envelope-only mechanism, NOT an impossibility theorem for genuine Mobius arithmetic.
+
+This strengthens Census SJ3's scale-dependent family at W=R/4. The new content is an independent cycle-count parameter, sharp W*sqrt(R) lower growth on a mesoscopic range, and patching into ONE global sequence. It does not claim the original SJ3 construction as new. The sequence has f(2)=0, so f is explicitly NOT mu and does not obey the Mobius divisor-inversion identity. No counterexample to the actual wide-strip conjecture, finite C, canonical HIGH or RH is asserted.
+
+**Independent upstream verdicts:** ACCEPT Wheel HC1-HC4 and Census SJ1-SJ4 at their paper scopes; ACCEPT the specific HC5/SJ5 witnesses independently reproduced below, without claiming to have rerun their entire censuses. The original Mobius wide-strip estimate remains UNRESOLVED. New claims WT1-WT3 are PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED; WT4 is FINITE_COMPUTATION. NEW_VERIFIED_ENDPOINT_GAIN=NONE; net_endpoint_gain=NONE; eta_gate=SEARCH_BROAD.
+
+### B. Current Authoritative Objective
+
+Pinned main: **8b5a6921002da0742ecfab9ee7d40728ed5fe348**. AGENTS blob **bdd5b9f6867ae2d39b74fc966b7f548a9aba3a61**; CURRENT_PROOF_CONTRACT blob **d1d6fd558ee23927bd9f70ffdc375bafd1dbb67a**. The newly merged all-route directive has blob **5862ccaffd0e75c25b509c1d246c3aa09b6c345b**. Its task priorities supersede historical tickets, not mathematical hypotheses.
+
+The canonical actual-prime objective is unchanged: there is C>=0, independent of integer R>=2, with |pi(R^2)-vfCanonical(R^2)|<=C R log R; vfCanonical=vfMid+sqrt(2), with the actual terminal von Koch hypotheses retained. For fixed Lambda, M(R^2-1)=LOW_Lambda(R-1)+HIGH_Lambda(R-1), with inherited |LOW|<=(floor Lambda+1)R. This report concerns a proper Euler representation of the same prefix, not an identification of its strips with canonical HIGH or OAI LOW.
+
+The strongest consumed merged boundary is
+
+```text
+b_base = 7/8 - 1/(48*N_*),  N_*=explicitSlotCount fixed before scale;
+for every eps>0, |M(n)| <= C_eps*n^(b_base+eps).
+```
+
+A fixed no-loss power must spend a positive loss, for example b_fixed=7/8-1/(96*N_*). The actual amplification baseline is limsup q(X)<=3/4-1/(24*N_*), not q(X)->0. Direct zero-log amplification still requires, for every eta>0, a C_eta independent of R with
+
+```text
+(M(R^2-1)-1)^2 <= C_eta*(R^2-1)^eta*R^2*K_R,
+K_R=max_(0<=y<R)(M(y)-1)^2/(y+1).
+```
+
+Uniform finite A/C is a separate stronger sufficient criterion. No theorem in this report upgrades either open target.
+
+Activation: high_attack_ack=COMPLETE_SIGNED_HIGH_ATTACK_V1; chain_ack=CANCELLATION_CHAIN_REUSE_V1; baseline_ack=PAID_BASELINE_EXACT_CONSUMER_V1; deployment_ack=NO_PIGEONHOLING_ROUTE_SELECTOR_V1; all_route_ack=REPO_WIDE_PROOF_DAG_AND_AGENTS_20261108.
+
+### C. Highest-Risk Mechanisms And Review Selection
+
+Selected ready claims are **20261108-wheel-2/HC1-HC5**, report blob **45e789c59f9165dbdf9dae352d7438dc468e9e70**, and **20261108-census-2/SJ1-SJ5**, blob **c70b0a6dda7278e5e7befca546893314a16530df**, at intake reports commit **9c8ec57aa2396d0706fcff033b535a65e21ee4de**. They continue yesterday's FINITE-AC/LR source and supply a new reviewable quantitative component and falsifier. The dynamic protocol permits this ready packet without resetting investigator coverage.
+
+The dangerous extrapolations are: erase the hyperbolic jump; keep only prime rows/columns while borrowing a complete-population bound; extend a fixed-width payment to many strips with no aggregate cost; or claim that an arbitrary-envelope obstruction disproves a theorem about actual mu. None is accepted. The separate Coordinator WS/SB and Analytic BC review requests remain PENDING in this invocation, not rejected, completed or retired. Previous Referee DR results are carried forward without an unchanged geometry scan.
+
+Review method: I reconstructed the HC floor guards and shifted-prefix/Abel argument from its statement, then read the submitted proofs and the newer SJ report. The review is independent research execution, not a claim of blind testing or statistical independence from a model family. The new checker was written and executed here, not copied from the upstream appendices.
+
+### D. Exact Claims And Verdicts
+
+Let R>=2 be an integer, N=R-1, X=R^2-1, and M(y)=sum_{1<=n<=y}mu(n), M(0)=0. The original source is
+
+```text
+T_R(a,b)=floor(X/(ab))-(R+1)*floor(N/a)/b,
+Q_R=sum_(1<=a,b<R)mu(a)mu(b)floor(X/(ab)),
+P_R=(R+1)sum_(1<=b<R)mu(b)/b.
+H(R,K): K>=0 and (M(y)-1)^2<=K(y+1) for EVERY 0<=y<R.
+```
+
+The live definition LowerMertensCriticalEnvelope is exactly H. In particular K>=1 follows from y=0; it is not assumed to be the entire arithmetic content. The original conditional consumer EulerSelfDualFiniteCStatement quantifies one C>=0 before EVERY R>=2 and EVERY K satisfying H, and asks |Q_R|<=C R sqrt(K).
+
+For integer 0<=4W<=R, write B=R-W, lo=floor(N/3)+1=ceil(R/3), hi=floor(N/2), and
+
+```text
+t_B=sum_(B<=b<R)mu(b)*(1-(R+1)/b),
+E2=sum_(lo<=a<=hi,B<=b<R)mu(a)mu(b)T_R(a,b),
+J2=sum_(lo<=a<=hi,B<=b<R,3ab<=X)mu(a)mu(b).
+```
+
+Empty intervals give zero. For W>=1, put A=floor(X/(2B))+1 and E1=sum_(A<=a<R,B<=b<R)mu(a)mu(b)T_R(a,b); for W=0 define E1=0 without using A. No endpoint is silently rounded or made non-strict.
+
+| Original claim ID | Exact accepted statement and verdict |
+| --- | --- |
+| HC1 | ACCEPT / PAPER_PROOF. For 1<=W and 4W<=R, 1<=A<=B<R, both floors on E1's rectangle equal one, and E1=(M(N)-M(A-1))*t_B. A is minimal for this full rectangle; the assertion is at coefficient level. |
+| HC2 | ACCEPT / PAPER_PROOF. For every H(R,K), |E1|<=4KR(W+1)/(R-W); at W_K=floor(R/(4sqrt K)), including W_K=0, |E1|<=(8/3)R sqrt K. |
+| HC3 | ACCEPT / PAPER_PROOF, conditional only on its explicitly supplied fixed native power. If |M(n)|<=C_b n^b, 1/2<b<1, then |E1|<=4C_b^2 R^(2b)(W+1)/(R-W). For fixed 0<theta<1 and R>=max(2,4^(1/(1-theta))), W=floor(R^theta) gives (32/3)C_b^2 R^(2b+theta-1). |
+| HC4 | ACCEPT / IDENTITY plus PAPER_PROOF of equivalence. Q=P+E1+Z; bounding the complete Z at W_K by C_Z R sqrt K, uniformly over R and H, is equivalent to finite C, with each constant changed by at most 17/3. It is not a smaller solved premise. |
+| HC5 | ACCEPT / FINITE_COMPUTATION for the independently reproduced R=65536 prime-mask witness. Other upstream finite rows retain their prior provenance; no claim of reproducing all 8,140 rectangles or all 1,295 K cases. |
+| SJ1 | ACCEPT / PAPER_PROOF. On the exact strip floor(N/a)=2 and floor(X/(ab))=2+1_(3ab<=X); E2=2(M(hi)-M(lo-1))*t_B+J2. There is only one jump. |
+| SJ2 | ACCEPT / PAPER_PROOF. Under H, 16KW^2<=R^2 and W^4<=R^2K imply |E2|<=(61/9)R sqrt K, including W=0. The added width condition is essential to this proof. |
+| SJ3 | ACCEPT_WITH_SCOPE / PAPER_PROOF. The explicitly NON-MOBIUS bounded-prefix family makes E2_f/R unbounded at W=R/4. This is a refutation of the arbitrary-coefficient extension only. |
+| SJ4 | ACCEPT / PAPER_PROOF. Under the fixed b,C_b premise above, theta=(3b-1)/2 and the same displayed width threshold give |E2|<=((64/3)C_b^2+13/9)R^(3b-1). This is a proper-component saving, not a complete endpoint. |
+| SJ5 | ACCEPT / FINITE_COMPUTATION for reproduced sign changes R=6,15, strict-equality witness R=8, and selected full returns. The larger original census was not rerun. |
+| Genuine E2(R,W_K)=O(R sqrt K) for all H | UNRESOLVED / CONJECTURE. No proof or genuine-Mobius counterexample was established. |
+| WT1-WT3 below | SELF_AUDIT / PAPER_PROOF / INDEPENDENT_REVIEW_PENDING; no new Lean certification. |
+
+The HC continuation's allowance for possible higher jump levels is safely sharpened by SJ1; it was a caution, not a false asserted theorem. The original HC rectangle remains valid.
+
+### E. Independent Mathematical Reconstruction
+
+**HC geometry and payment.** B>=3R/4 gives 2B^2>X, hence A<=B. Since B<=N and X=(R+1)N, A>N/2. On the rectangle ab<=N^2<X and 2ab>=2AB>X, so both floors are one. At (A-1,B), 2(A-1)B<=X, so lowering A is invalid for the full rectangle.
+
+H implies |M(t)-M(s)|<=2sqrt(KR) for 0<=s,t<R: the two shifts by one cancel exactly. The positive decreasing weight w_b=(R+1-b)/b has discrete Abel total variation plus terminal weight equal to w_B=(W+1)/B. Therefore |t_B|<=2sqrt(KR)(W+1)/B. Multiplication gives HC2's first bound. At nonempty W_K, W_K+1<=2W_K and B>=3R/4 give |E1|<=(32/3)K W_K<=(8/3)R sqrt K. The empty case is exact, including arbitrarily large K.
+
+**SJ geometry and payment.** The historical row interval has floor(N/a)=2. Since 2ab<=N^2<X and 4ab>=R^2>X, the endpoint floor is two or three, with equality 3ab=X belonging to three. Thus J2 is the exact single jump, not an approximation.
+
+For b=R-d, 1<=d<=W, the number of admitted a is at most 4d/9+1. Hence the total number of jump sites, including zero Mobius coefficients, is at most
+
+```text
+A2 <= (2W^2+11W)/9 <= (13/9)W^2,  W>=1.
+```
+
+The same shifted-envelope/Abel calculation gives |2(M(hi)-M(lo-1))*t_B|<=8KR(W+1)/(R-W). Under the first SJ2 width inequality this is at most (16/3)R sqrt K. The second gives W^2<=R sqrt K. Adding the two legitimate nonnegative allowances yields 61/9, with no signed term discarded. For SJ4, substitute 2C_b R^b for each interval bound; 2b+theta-1<=2theta=3b-1 for b<1 verifies the stated component exponent and constants.
+
+**HC4 and target-equivalence.** Genuine historical Mobius inversion gives N*sum_(b<=N)mu(b)/b=1+sum_(b<=N)mu(b){N/b}. Thus |P_R|<=2(R+1)<=3R. With HC2, |P+E1|<=(17/3)R sqrt K. Both directions of Q=P+E1+Z use the triangle inequality, so the claimed equivalence and constants are valid. This argument does not prove either full bound. No implication that finite C follows from the new WT obstruction exists.
+
+### F. WT1: Variable-Cycle Infinite Family
+
+This extends the accepted SJ3 construction, with credit to its original triangular-prefix idea. Choose integers m,n with m a positive multiple of eight and 1<=n<=m/8. Set
+
+```text
+R=192m^4, a0=R/3, h=8m^2, L=2hn=16m^2n.
+```
+
+For ANY integer width 3L<=W<=R/4, define f(1)=1, with two other nonzero supports:
+
+```text
+f(a0+x)=+1 if (x-1) mod 2h<h, and -1 otherwise, 1<=x<=L;
+f(R-d)=+1 if h/2<=floor((d-1)/3) mod 2h<3h/2,
+        and -1 otherwise, 1<=d<=3L;
+f=0 elsewhere.
+```
+
+The two supports are disjoint and lie wholly in the original row and column intervals. Every support has sum zero. On the first support the deviation S_f-1 has absolute value at most h, with h^2=a0. In increasing order on the second support its absolute value is at most 3h/2, and
+
+```text
+(3h/2)^2=144m^4 <= R-3L+1.
+```
+
+All gaps have S_f=1, and at y=0 the required square equals one. Thus (S_f(y)-1)^2<=y+1 for EVERY y>=0, not merely selected sample locations. In particular the least historical envelope is K=1, attained already at y=0.
+
+Let F(u) be the row-prefix sum, extended by zero outside [0,L]. It is the triangular function min(r,2h-r), r=u mod 2h, on that interval, and is 1-Lipschitz on the integers. At b=R-d, the exact admitted row cutoff relative to a0 is
+
+```text
+c(d)=floor((Rd-1)/(3(R-d))),  x(d)=floor((d-1)/3).
+```
+
+For d=3x+u with 1<=u<=3, direct subtraction gives c(d)>=x. Also
+
+```text
+c(d)-x <= 1+d^2/[3(R-d)]
+        <= 1+2m^3/(32m-1)
+        <= 1+2m^2/31 <= m^2/4 = h/32.
+```
+
+Here L<=2m^3 and m>=8 justify every inequality. Extension of F by zero handles cutoffs beyond the last row. One cycle satisfies sum s(x)F(x)=h^2/2 for the stated column sign s; each x occurs for exactly three d values. Since L=2hn,
+
+```text
+J0=3Lh/4,
+|J_f-J0|<=3Lh/32,
+E2_f=J_f>=(21/32)Lh,
+E2_f/R >= 7n/16.                                  (WT1)
+```
+
+The equality E2_f=J_f is exact because the row sum vanishes. Coefficients outside the two supports are zero, so enlarging W within the stated range changes neither side. This is a theorem about the original KERNEL with synthetic coefficients, not the genuine complete Euler-convolution identity.
+
+At W=3L, the lower bound is equivalently J_f>=[7/(32sqrt(3))]W sqrt(R). On the other hand every bounded coefficient sequence satisfying the K=1 envelope obeys
+
+```text
+|J_f| <= min((13/9)W^2, 2W sqrt(R)).                 (WT1-upper)
+```
+
+The first inequality counts sites; the second bounds each actual row-prefix difference by 2sqrt(R) and sums over W columns. Thus the W*sqrt(R) order is attained, up to an absolute constant, on the displayed mesoscopic family. No sharp constant or all-width extremal formula is asserted.
+
+### G. WT2: One Fixed Sequence And Original-Carrier Scope
+
+For each integer j>=1 choose
+
+```text
+m_j=8*2^(j^2), n_j=j,
+R_j=192m_j^4, h_j=8m_j^2, L_j=2h_j*j.
+```
+
+Install WT1's two supports at every j in a SINGLE sequence f, setting f(1)=1 only once and setting every remaining coefficient to zero. Since R_j/3>R_(j-1), the supports of successive stages are separated. Since each support sums to zero, all completed stages contribute only the original anchor 1. The preceding envelope proof therefore holds at every integer y globally, including all gaps. There is no growing hidden envelope constant.
+
+Fix any theta with 1/2<theta<1. Then
+
+```text
+3L_j / R_j^theta = [48/192^theta]*j*m_j^(2-4theta) -> 0,
+R_j^theta/R_j -> 0.
+```
+
+Consequently 3L_j<=floor(R_j^theta)<=R_j/4 for every sufficiently large j. Earlier stages lie below the strip's row interval, and later stages lie above R_j. Therefore E2_f on this strip is exactly the j-th WT1 contribution, giving
+
+```text
+E2_f(R_j,floor(R_j^theta))/R_j >= 7j/16 -> infinity.  (WT2)
+```
+
+The same globally defined f works for EVERY such theta; theta changes only the eventual threshold. This explicitly refutes even the assertion that each admissible f has its own finite constant C_(f,theta) at a super-root power width.
+
+**Carrier limitation:** f is nonmultiplicative, has f(2)=0 instead of mu(2)=-1, and has no established Mobius divisor-inversion or Q=2M(N)-M(X) identity. The theorem rules out proofs valid for ALL bounded-envelope sequences on this exact strip. Methods using genuine multiplicativity, divisor inversion, further correlations or a different joint complete-source estimate remain unaffected. Nothing about the actual signs of Mertens coefficients is inferred from this construction.
+
+### H. WT3: Quantifier And Sharp-Width Audit
+
+Let f be ANY real coefficient sequence with |f(n)|<=1 and (S_f(y)-1)^2<=y+1 for all historical y. Fix c>0 before R. For every integer 0<=W<=min(R/4,c sqrt(R)), the independently verified SJ2 argument gives
+
+```text
+|E2_f(R,W)| <= ((48+13c^2)/9)R.                    (WT3)
+```
+
+Indeed, for W>=1 the separable term is at most (16/3)R and the area term is at most (13/9)c^2 R; the empty case is zero. For c=1 this is exactly the accepted 61/9 constant. WT2 shows that no replacement of sqrt(R) by R^(1/2+epsilon), for any fixed 0<epsilon<1/2, follows from these same hypotheses, even with an f-dependent constant. This is sharpness at the WIDTH POWER, not a claim about logarithmic refinements or the actual Mobius source.
+
+The genuine local equivalence is still
+
+```text
+E2(R,W_K)=O(R sqrt K)  iff  J2(R,W_K)=O(R sqrt K),
+```
+
+with the two constants differing by at most 16/3, uniformly over all R and H. This is only a proper-strip equivalence; no reverse implication from it to finite C has been established. The separate full-complement equivalence in HC4 IS target-equivalent to finite C. Finite C, zero-log amplification, and a new strict exponent gain are not interchangeable targets.
+
+The new result is not obtained by assuming the desired Mobius estimate, and it is not a restatement of RH. It supplies an explicit independent counterexample to a precisely delimited broader theorem. It also explains why summing an increasing number of paid narrow strips needs an additional aggregate argument.
+
+### I. Strongest Surviving Repair And Complete Return
+
+Retain HC2's complete rectangle and SJ2's narrower complete floor-two strip with ALL prime and nonprime coefficients. At any common safe width, let Z denote all other ordered pairs. Then
+
+```text
+Q=P+E1+E2+Z,
+Q^2=P^2+E1^2+E2^2+Z^2
+    +2PE1+2PE2+2PZ+2E1E2+2E1Z+2E2Z,
+M(X)=2M(N)-Q,
+HIGH=2M(N)-P-E1-E2-Z-LOW.
+```
+
+Every interaction is retained; diagonal pairs and both orientations remain distinct occurrences. A reduction of W moves actual signed columns into Z, rather than deleting them. No #915 clipping, Hecke phase, conductor term or ray population is silently identified with this Euler carrier.
+
+With the supplied fixed b, HC3 and SJ4 give proper-component gains at their explicit widths. Z still has only the incoming complete O_b(R^(2b)) bound from the established source identity. The complete root exponent therefore remains 2b. No bound was obtained by subtracting upper envelopes, and no favorable local sign was used to pay Z.
+
+### J. Competing Proof-Strategy Assessment
+
+FINITE-AC has a valid paid proper component and a precise genuine boundary question, but prefix control alone cannot extend it as a general bounded-coefficient theorem. Genuine factor structure is a credible next input; arbitrary-vector optimism is not. This conclusion does not challenge the fixed-source OAI total-mass bound, its native Mertens consequence, the actual-prime VF/SAT/JOH carriers, CORR4's signed mixed return, full-prefix MU-LIFT, CODIV or full-basis NYMAN. Their exact transfer obligations remain separate.
+
+Do not use the synthetic no-go to demand a new universal covariance lemma from every route. Do not reinterpret ND's finite full-norm descents, MC's paid mixed component, or the present strip estimates as a common completed endpoint. The nine viable routes remain independently active; BLOCK's known universal R=549 failure is unchanged.
+
+### K. WT4: Independent Computation And Falsifiers
+
+All computations used arbitrary-precision integer or rational arithmetic. No floating sign, probabilistic primality, fitted exponent or local Lean execution was used. The frozen registration was written before this run's tests; upstream witnesses were already known and are NOT described as held-out predictions.
+
+The independently written verifier passed **559** literal genuine strip/rectangle cases, every R=2..64 and every 0<=W<=floor(R/4); **385** of these satisfy the tested safe-width inequalities at their exact K_min. This is not a finite test of every real K. The all-K assertion rests on the proof. The record-stream SHA256 is **c6b00d43d8a370cc4672e007a9dad2b72ff9ad80aaff14d2ea48e9f94c459f4f**.
+
+Independent trial factorization checked mu on 1..4096. Five directly enumerated full-source partitions, at R=6,8,15,40,99, matched Q=2M(N)-M(X) and all ten square terms. At R=6 the exact parts are P=-7/30, E1=-2/5, E2=1/5, Z=-77/30, Q=-3. The R=6 erased-jump value is -4/5, opposite the true +1/5. At R=15,W=1 the true value is -5/7. At R=8,a=3,b=7, equality 3ab=X=63 must be included and T=3/7.
+
+The decisive HC5 genuine prime-mask witness was reproduced using separately trial-tested primes: R=65536, K_min=3/2, W=13377, A=41172, B=52159, with 2235 prime rows and 1210 prime columns. Exact rational arithmetic proves |E_PP|>324450, 9*(324450)^2>64*R^2*K, and |E1|<95. Therefore the complete-rectangle constant cannot be transferred to the prime-prime mask; the original full-population theorem is not refuted.
+
+Twelve synthetic (m,n) pairs were checked by TWO distinct evaluations, forward columns and inverse rows, with exact equality. Each nonzero support's full prefix was checked, and zero gaps are handled by the explicit proof. Selected outputs are:
+
+| m | n | R | W=3L | Exact J_f=E2_f | Certified lower J_f/R |
+| --- | --- | --- | --- | --- | --- |
+| 8 | 1 | 786432 | 3072 | 394652 | 7/16 |
+| 16 | 1 | 12582912 | 12288 | 6297245 | 7/16 |
+| 16 | 2 | 12582912 | 24576 | 12606532 | 7/8 |
+| 32 | 4 | 201326592 | 196608 | 403025357 | 7/4 |
+| 64 | 8 | 3221225472 | 1572864 | 12890559217 | 7/2 |
+
+The same exact values at the maximal n recover SJ3's corresponding fixtures while using the much smaller width 3L; the intermediate n values test the new parameter. Twelve symbolic integer parameter/separation checks for the global patch construction also passed. They are not a computational proof of all j or all theta. Every substantive assertion passed on the first execution. The two synthetic evaluations are different implementations within THIS referee execution, not a second independent agent.
+
+Verifier SHA256: **f52b9b9910ceb409460f208e8a214cf6a2190e3e686fe7f5db2404df04a433ff**. Registration SHA256: **774ba768227fba5ebdae2313f76999e8cd5f787136fdc5a0a0bcb20c46c79f46**. The complete executed verifier is appended below for reproduction.
+
+### L. Formalization And Actual GitHub Evidence
+
+The original declarations were inspected, including eulerRankOneFloorKernelQ, eulerRankOneResidualQ_eq_floor_sub_linear, eulerHistoricalFloorInversionQ, LowerMertensCriticalEnvelope, eulerSelfDualBilinear_eq_two_mertens_sub_endpoint and EulerSelfDualFiniteCStatement. The conditional theorem riemannHypothesis_of_eulerSelfDualFiniteC explicitly requires the unproved finite-C premise. It is not an unconditional RH proof.
+
+**CI provenance correction:** the successful older Euler run **42084042187**, job **127444267657**, actually checked out PR merge snapshot **55968fd690fea8b12f4602ab9dc9adf58bf00c60**, combining PR head 46e68178192c6e429a02abee9d5b8ebca5de46c8 with its then-base. The log explicitly fetches refs/remotes/pull/1095/merge. It reports seven compiled research modules and exact coverage of eight Euler declarations with standard axioms. This is valid tested-snapshot evidence, but it must NOT be called an exact PR-head build. I independently fetched the rank-one and fractional modules at that actual snapshot; both blobs match current main. This observation corrects provenance, not the theorem or the permitted axiom set. No fresh whole-main or exact-PR-head rebuild was performed.
+
+The newer explicit amplification run **42451075330**, job **128640229840**, really checked out **a0c986c0343a56e98b7344268fdc0b74aa885cdb**. Its successful log contains the warning-fatal complete endpoint audit, 36 fixed public types, and ten explicit-amplification terminal dependency audits, all with propext, Classical.choice and Quot.sound only. The total-mass, explicit-slot and amplification module blobs were compared directly to current main and match. This is the inherited certified baseline, not certification of HC/SJ/WT.
+
+The CORR4 run **42471452039**, job **128702933142**, really checked out **fedd203158af32b09cb86fd12f04fec33998408e**, passed its warning-fatal closure, and printed all nine standard-axiom closures. Its module matches main. It certifies cutoff/multiplicity statements, not a signed mixed-tail estimate. No unchanged CORR4 theorem was re-proved here.
+
+Live metadata confirmed human merges #1095, #1106, #1107, #1108, #1109 and #1110. #1110's five returned PR-triggered workflows are successful. The workflow listing returns the first page only; that observation is not an invented exhaustive repository-wide check count.
+
+The only observed open PR is draft **#1111**, head **e02629be7e276dbccf812fb5cdb67a7f060d0cae**. Its explicit-amplification run **42502239742**, job **128797297359**, is **FAILED**, despite successful companion workflows. The actual log reports an unsolved goal and unused simp argument at VF919ExplicitSquareBlockPacking.lean:100, application type mismatches at lines 182 and 250, and failed linarith at line 348. These are proof-build failures, NOT a mathematical refutation of the proposed slot construction. Its proposed stronger endpoint remains unverified and unmerged; it does not replace b_base. No repair, workflow rerun, PR change or merge was attempted by this role.
+
+Accepted HC1/HC2 and SJ1/SJ2 are eligible small formalization candidates only when an active consumer warrants them. They do not override the Coordinator's two existing OAI implementation slots. WT1-WT3 need separate independent mathematical review before any claim of independent acceptance. No new Lean file or conditional wrapper was created.
+
+### M. Specialist Handoffs
+
+| Recipient | Precise continuation |
+| --- | --- |
+| Proof Architect | Record scoped HC/SJ acceptance and the stronger WT width obstruction. Preserve WS/SB/BC as a separate pending queue. Do not count either accepted local payment or WT as a new global exponent. |
+| Owner Payment | The exact R=65536 prime-mask failure forbids borrowing the complete Euler rectangle constant after prime projection. Any transfer to owned/clipped actual-prime events needs its own occurrence/weight bridge. |
+| Analytic Type II | For this optional FINITE-AC consumer, identify an actual Mobius correlation restriction on the moving boundary. A uniform arbitrary-envelope extension at R^(1/2+epsilon) is now ruled out even with sequence-dependent constants. This is not a prerequisite imposed on CODIV/OAI/NYMAN. |
+| Finite Wheel | HC1-HC4 are accepted at paper scope; SJ1-SJ4 are accepted with synthetic/genuine separation. Continue the already assigned MU-LIFT rotation; a later FINITE-AC turn should target the genuine omitted boundary, not repeat geometry or assume unbudgeted strip aggregation. |
+| Prime Census | SJ1-SJ4 passed independent review. Preserve original SJ claim IDs. The next useful falsifier is a changed factor-sensitive claim for genuine mu, not a larger version of the same synthetic scan. WT's one-sequence extension is new and awaits independent review. |
+| Lean Verification | Keep accepted upstream scopes separate from WT self-audit. Correct the older Euler CI receipt to the actual merge snapshot. Draft #1111 has concrete build failures at the recorded head; do not promote its terminal bound before repaired exact-head evidence. No new job was launched here. |
+
+### N. First Independently Missing Mathematical Ingredient
+
+For the selected proper-source route, the first missing estimate is the genuine signed boundary
+
+```text
+exists C_J>=0, for every R>=2 and every H(R,K),
+abs(sum_(R-W_K<=b<R) mu(b)
+    *[M(max(lo-1,min(hi,floor((R^2-1)/(3b)))))-M(lo-1)])
+ <= C_J R sqrt(K),
+W_K=floor(R/(4sqrt K)), lo=ceil(R/3), hi=floor((R-1)/2).
+```
+
+This is explicitly UNRESOLVED, not an assumed theorem and not known equivalent to finite C. Proving it still leaves every other row class and the b<B complement. A credible route must use an independently justified genuine-Mobius property absent from WT's synthetic sequence, or bound it jointly with complementary signed populations. The complete Z estimate remains the larger finite-C difficulty.
+
+### O. Resume Capsule And Publication Discipline
+
+RUN=20261108-referee-2; trigger=SCHEDULED; invocation=2026-11-08T12:03:01-05:00; RUN_ID_UNAVAILABLE. Resume WT1-WT3 and the original genuine J2 boundary, not another unchanged HC/SJ census. New mathematical status=PAPER_PROOF/SELF_AUDIT, not independent acceptance or Lean certification. Upstream HC/SJ verdicts are the scoped independent decisions in D. Complete endpoint gain=NONE.
+
+```text
+route: FINITE-AC, ready independent HC/SJ review
+original_object: ordered Euler T_R with genuine mu(a)mu(b); exact strict history
+existing_input: LowerMertensCriticalEnvelope; fixed native power after loss spending
+consumer: HC rectangle and SJ floor-two strip, with full complementary Z
+changed_inference: variable-cycle obstruction plus one fixed global sequence
+new_scope: bounded-envelope method class, explicitly NOT genuine mu
+baseline: b_base=7/8-1/(48*N_*), every positive loss; no new endpoint
+complete_return: Q=P+E1+E2+Z; all ten square terms; M(X)=2M(N)-Q; LOW restored
+first_falsifier: genuine erased-jump sign reversal R=6; synthetic WT1 at declared parameters
+first_unpaid_step: genuine wide J2, then complete remaining Z
+source_status: inherited tested Lean modules; accepted upstream paper; new WT self-audit
+```
+
+All seven roles had reports on both November 7 and November 8: TODAY=AVAILABLE; relevant unchanged prior results=YESTERDAY=CARRY_FORWARD. Coordinator AM/PM are byte-identical mirrors on each date and were counted once. Relevant prior IDs read: Coordinator WS/SB; Owner SG/RS/JT and PD/MC; Analytic GL/FT/BC and MP/ND; Wheel DI/LR/OC and SP/HC; Census SC/RC and TC/SJ; own MH/TF and DR; Lean total-mass and CC. Only the selected HC/SJ claims receive new independent mathematical verdicts here.
+
+External inbox blob **038018145c0fddb2f6306c0712373adf9cd1ea52** has no entry newer than October 18. EXT-20261018-PNT-1..3 and EXT-20261017-XCOORD-1 remain historical source/boundary safeguards; no new external theorem was imported. Prior reviews were not reopened without changed hypotheses. The scoped novelty claim is relative to retrieved current source and these reports, not a literature-priority certification.
+
+Early checkpoint commit **314ee64f1c0f0328d68715157611bcacbcc7cd49**, blob **49139b8648a26ca26dc985f00705d2c4ba08ff1e**, was read back byte-for-byte. Final publication must preserve that checkpoint and all earlier report text. The final commit/readback receipt follows only after the write succeeds.
+
+Prepublication refresh confirmed unchanged main 8b5a6921002da0742ecfab9ee7d40728ed5fe348 and unchanged open/draft #1111 head e02629be7e276dbccf812fb5cdb67a7f060d0cae. The failed job above belongs to that same head; a successful targeted companion is not a replacement for the failed terminal audit.
+
+Tool limits: direct git clone returned CONNECT tunnel 403; authenticated GitHub tools supplied source, metadata, logs and authorized report writes. One slow generic metadata retrieval was stopped and replaced with the dedicated PR-info lookup, which succeeded. No local Lean, new CI execution, source modification, issue, proof branch, PR edit, merge, schedule change, tool-permission change or other-agent launch occurred. All finite command sessions completed.
+
+### Immutable Source Ledger
+
+All following main sources are pinned to 8b5a6921002da0742ecfab9ee7d40728ed5fe348.
+
+| Source | Blob SHA |
+| --- | --- |
+| AGENTS.md | bdd5b9f6867ae2d39b74fc966b7f548a9aba3a61 |
+| CURRENT_PROOF_CONTRACT.md | d1d6fd558ee23927bd9f70ffdc375bafd1dbb67a |
+| docs/RHLEAN_REPO_WIDE_PROOF_ATTACKS_20261108.md | 5862ccaffd0e75c25b509c1d246c3aa09b6c345b |
+| docs/PROOF_DEPENDENCY_DAG.md | 0c93d79ee24c2ad4da158282706c256c76f266da |
+| docs/COORDINATE_ATLAS.md | cd0419d00a37739fe5a292f5cb738e33213949d5 |
+| docs/RHLEAN_COMPLETE_SIGNED_HIGH_ATTACK_20261107.md | 53a4685d7260e4f3abd05f60fdd0221b5ea5c603 |
+| research/EULER_RANK_ONE_FRACTIONAL_ROWS_20261027.lean | e482711a3f55c1f59fc771f108671477f51732f2 |
+| research/EULER_FRACTIONAL_COUPLED_20261027.lean | e6c4b1690e497760d366e36b28a1f7aa60e19f85 |
+| research/EULER_SELF_DUAL_FINITE_C_BRIDGE_20261027.lean | e97561ef330a9996fd807d8910369f0698147b01 |
+| research/EULER_SELF_DUAL_ENDPOINT_GATE_20261027.lean | e7ee8f77ffd59bccaa49dd6d74fbe0d7952c2d73 |
+| RHLean/Proof/SquareRootLegalAncestryGramReduction.lean | 1270d4d91c53b50b110d10014f223f427fb7a575 |
+| RHLean/Proof/SquareRootAmplificationLogGrowth.lean | 2599db31079f388229d072ee616957fba6ffc555 |
+| research/oai_434/VF919TotalMassEndpoint.lean | 827bb952c4d4311d75fd03a2470799dc10b0f7e7 |
+| research/oai_434/VF919ExplicitSlotTotalMass.lean | 71c5b7b5b8032ca3558467126fdf97d3caf1a7df |
+| research/oai_434/VF919ExplicitAmplificationBound.lean | f3cb6dbe1eb53c910c9b4b203d98ff849bd27dd3 |
+| research/CORR4_CUTOFF_COLLISIONS_20261108.lean | a5ece19a328d3f3c5213f6482d7eb09c4638fb0e |
+
+### Two-Day Report Blob Ledger
+
+| Role | November 7 | November 8 intake |
+| --- | --- | --- |
+| Coordinator 00/90 | 00a649b70f851ca193e74e5004d0d3390cf9ca18 | b6d5c65aed0537efd0018e11dbcd9a72dea3c15a |
+| Owner | 933e8eb23e669594cc687059d75147e6267eec8d | dc8da662cdafc4bc96bcc3ccb29c3052eb1b4d99 |
+| Analytic | 77f3e5795533041e4356ceb94cb66328da7af27c | 707aea15cc8e09f16cccf874c876bb04ede9ef14 |
+| Wheel | 7739fa5d4cc77f35773b0d4149b2ddd21732a70d | 45e789c59f9165dbdf9dae352d7438dc468e9e70 |
+| Census | 3fae830e34c590d32c31ad77cad3ace833eb3ff5 | c70b0a6dda7278e5e7befca546893314a16530df |
+| Referee | 426c2abfa5b8926b512e07f05be37692a2416d0b | 9b691e84eeb8f2f9e2497604dc874935a61d5005 |
+| Lean | ec14e2803af8c1e56123682ee61ed927ed4f9450 | 02647045bf731a52b3c726c9ea690b72fa48c274 |
+
+### Reproducibility Appendix - WT4
+
+The following is the complete independently written and executed verifier. Finite checks corroborate the declared finite cases; E-H give the universal proofs. It requires only Python's standard library.
+
+```python
+from fractions import Fraction as F
+from math import isqrt
+import hashlib
+import json
+
+
+def mobius_sieve(limit):
+    mu = [1] * (limit + 1)
+    prime = [True] * (limit + 1)
+    mu[0] = 0
+    prime[0] = prime[1] = False
+    for p in range(2, limit + 1):
+        if prime[p]:
+            for n in range(p, limit + 1, p):
+                mu[n] = -mu[n]
+                if n > p:
+                    prime[n] = False
+            for n in range(p * p, limit + 1, p * p):
+                mu[n] = 0
+    M = [0] * (limit + 1)
+    for n in range(1, limit + 1):
+        M[n] = M[n - 1] + mu[n]
+    return mu, M, prime
+
+
+def trial_mu(n):
+    sign, p = 1, 2
+    while p * p <= n:
+        if n % p == 0:
+            n //= p
+            sign = -sign
+            if n % p == 0:
+                return 0
+        p += 1
+    return -sign if n > 1 else sign
+
+
+def trial_prime(n):
+    return n >= 2 and all(n % p for p in range(2, isqrt(n) + 1))
+
+
+mu, M, prime = mobius_sieve(65536)
+assert all(mu[n] == trial_mu(n) for n in range(1, 4097))
+
+
+def envelope(R):
+    return max(F((M[y] - 1) ** 2, y + 1) for y in range(R))
+
+
+def kernel(R, a, b):
+    return F((R * R - 1) // (a * b)) - F((R + 1) * ((R - 1) // a), b)
+
+
+def components(R, W, literal=False):
+    N, X, B = R - 1, R * R - 1, R - W
+    lo, hi = N // 3 + 1, N // 2
+    t = sum((F(mu[b] * (b - R - 1), b) for b in range(B, R)), F(0))
+    J = sum(mu[a] * mu[b] for a in range(lo, hi + 1)
+            for b in range(B, R) if 3 * a * b <= X)
+    E2 = 2 * (M[hi] - M[lo - 1]) * t + J
+    A = X // (2 * B) + 1 if W else R
+    E1 = (M[N] - M[A - 1]) * t if W else F(0)
+    if literal:
+        for a in range(lo, hi + 1):
+            for b in range(B, R):
+                assert N // a == 2
+                assert X // (a * b) == 2 + int(3 * a * b <= X)
+        assert E2 == sum((mu[a] * mu[b] * kernel(R, a, b)
+                         for a in range(lo, hi + 1) for b in range(B, R)), F(0))
+        assert E1 == sum((mu[a] * mu[b] * kernel(R, a, b)
+                         for a in range(A, R) for b in range(B, R)), F(0))
+    area = sum(1 for a in range(lo, hi + 1) for b in range(B, R) if 3 * a * b <= X)
+    assert area <= F(2 * W * W + 11 * W, 9)
+    return E1, E2, J, t, A
+
+
+records, count, safe_count = [], 0, 0
+for R in range(2, 65):
+    K = envelope(R)
+    for W in range(R // 4 + 1):
+        E1, E2, J, t, A = components(R, W, True)
+        assert abs(E1) <= F(4 * R * (W + 1), R - W) * K
+        if 16 * K * W * W <= R * R and W ** 4 <= R * R * K:
+            assert E2 * E2 <= F(61 * 61, 81) * R * R * K
+            safe_count += 1
+        records.append(f"{R},{W},{E1},{E2},{J}")
+        count += 1
+
+for R in [6, 8, 15, 40, 99]:
+    K = envelope(R)
+    W = isqrt((R * R * K.denominator) // (16 * K.numerator))
+    E1, E2, J, t, A = components(R, W, True)
+    P = (R + 1) * sum((F(mu[b], b) for b in range(1, R)), F(0))
+    Q = sum(mu[a] * mu[b] * ((R * R - 1) // (a * b))
+            for a in range(1, R) for b in range(1, R))
+    lo, hi, B = (R - 1) // 3 + 1, (R - 1) // 2, R - W
+    Z = sum((mu[a] * mu[b] * kernel(R, a, b)
+             for a in range(1, R) for b in range(1, R)
+             if not (b >= B and (a >= A or lo <= a <= hi))), F(0))
+    parts = [P, E1, E2, Z]
+    assert sum(parts) == Q == 2 * M[R - 1] - M[R * R - 1]
+    assert sum(p * p for p in parts) + 2 * sum(parts[i] * parts[j]
+            for i in range(4) for j in range(i + 1, 4)) == Q * Q
+    print("full-return", R, "W", W, "parts", list(map(str, parts)), "J", J)
+
+assert components(6, 1)[1] == F(1, 5)
+assert components(6, 1)[1] - components(6, 1)[2] == F(-4, 5)
+assert components(15, 1)[1] == F(-5, 7)
+assert kernel(8, 3, 7) == F(3, 7) and 3 * 3 * 7 == 8 * 8 - 1
+print("genuine-cases", count, "safe-cases", safe_count,
+      "sha256", hashlib.sha256("\n".join(records).encode()).hexdigest())
+
+R = 65536
+K = envelope(R)
+assert K == F(3, 2)
+W = isqrt((R * R * K.denominator) // (16 * K.numerator))
+B, A = R - W, (R * R - 1) // (2 * (R - W)) + 1
+rows = [p for p in range(A, R) if trial_prime(p)]
+cols = [p for p in range(B, R) if trial_prime(p)]
+assert len(rows) == 2235 and len(cols) == 1210
+assert all(prime[p] == trial_prime(p) for p in range(A, R))
+PP = -len(rows) * sum((F(R + 1 - p, p) for p in cols), F(0))
+t = sum((F(mu[b] * (b - R - 1), b) for b in range(B, R)), F(0))
+E = (M[R - 1] - M[A - 1]) * t
+assert abs(PP) > 324450 and abs(E) < 95
+assert 9 * 324450 ** 2 > 64 * R ** 2 * K
+print("prime-mask", "R", R, "K", str(K), "W", W, "A", A, "B", B,
+      "PP_abs_gt", 324450, "E_abs_lt", 95)
+
+
+def synthetic(m, n):
+    assert m % 8 == 0 and 1 <= n <= m // 8
+    R, h = 192 * m ** 4, 8 * m * m
+    L = 2 * h * n
+    a0, W = R // 3, 3 * L
+    assert 4 * W <= R and a0 + L <= (R - 1) // 2
+    assert a0 + L < R - 3 * L
+    assert h * h == a0 and (3 * h // 2) ** 2 <= R - 3 * L + 1
+    def row_prefix(u):
+        if u <= 0 or u >= L:
+            return 0
+        r = u % (2 * h)
+        return min(r, 2 * h - r)
+    J, total, max_prefix = 0, 0, 0
+    for d in range(1, 3 * L + 1):
+        x = (d - 1) // 3
+        g = 1 if h // 2 <= x % (2 * h) < 3 * h // 2 else -1
+        total += g
+        max_prefix = max(max_prefix, abs(total))
+        c = (R * d - 1) // (3 * (R - d))
+        assert 0 <= c - x <= h // 32
+        J += g * row_prefix(c)
+    assert total == 0 and max_prefix <= 3 * h // 2
+    def column_prefix(D):
+        D = max(0, min(3 * L, D))
+        r = D % (6 * h)
+        if r <= 3 * h // 2:
+            return -r
+        if r <= 9 * h // 2:
+            return r - 3 * h
+        return 6 * h - r
+    J_inverse, row_sum, max_row_prefix = 0, 0, 0
+    for x in range(1, L + 1):
+        f = 1 if (x - 1) % (2 * h) < h else -1
+        row_sum += f
+        max_row_prefix = max(max_row_prefix, abs(row_sum))
+        d_min = R - (R * R - 1) // (3 * (a0 + x))
+        J_inverse -= f * column_prefix(d_min - 1)
+    assert row_sum == 0 and max_row_prefix <= h
+    assert J == J_inverse and 16 * J >= 7 * n * R
+    J0 = 3 * L * h // 4
+    assert 32 * abs(J - J0) <= 3 * L * h
+    return {"m": m, "n": n, "R": R, "W": W, "J": J,
+            "J_over_R": str(F(J, R)), "lower": str(F(7 * n, 16))}
+
+
+syn = []
+for m in [8, 16, 24, 32, 64]:
+    for n in [1, 2, 4, 8]:
+        if n <= m // 8:
+            syn.append(synthetic(m, n))
+print("synthetic", json.dumps(syn, sort_keys=True))
+previous_R = 0
+for j in range(1, 13):
+    m = 8 * 2 ** (j * j)
+    R, h = 192 * m ** 4, 8 * m ** 2
+    L = 2 * h * j
+    assert j <= m // 8 and previous_R < R // 3
+    assert 12 * L <= R and R // 3 + L < R - 3 * L
+    assert (3 * h // 2) ** 2 <= R - 3 * L + 1
+    previous_R = R
+print("global-patch-parameter-checks", 12)
+print("ALL EXACT CHECKS PASSED")
+```
