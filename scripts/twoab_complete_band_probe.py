@@ -68,7 +68,7 @@ def audit(R):
         assert W[y] == (y == R - 1) + t[y]
         assert abs(t[y]) <= 4
         for z in range((R + 1) // 2, R):
-            K = sum(z // k == y for k in range(1, z + 1))
+            K = z // y - z // (y + 1)
             assert K == int(z == y)
 
     assert sum(t[1:]) == M[X] - M[R - 1]
