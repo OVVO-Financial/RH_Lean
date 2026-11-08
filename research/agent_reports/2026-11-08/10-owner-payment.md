@@ -2227,3 +2227,12 @@ print(json.dumps({
     "all_assertions": "PASS"
 }, indent=2))
 ```
+
+
+### Verified Publication Receipt - 20261108-owner-3
+
+Substantive commit **7e78ed513063a4dfe61680ffc0095218daf53384**, report blob **7e729a483dd3ea00dcdcea8313376f14a5017835**, was verified at **2026-11-08 21:31:50 UTC** by immutable exact-content readback. The commit changed ONLY `research/agent_reports/2026-11-08/10-owner-payment.md`. All earlier daily bytes, including PD/MC, their reproducibility records and receipts, and this run's early checkpoint, remain an exact prefix. The complete JS proof, source/continuity manifests, frozen diagnostic registration and executed verifier are present.
+
+Execution=COMPLETED. Substantive publication=PUBLISHED / READBACK_VERIFIED. New mathematics: **PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED**; JS3 is TARGET_EQUIVALENT; JS4 is an explicitly conditional inverse theorem; JS5 is FINITE_COMPUTATION on its disclosed analytic-mode domain. No actual off-critical zero or new endpoint gain is asserted. NEW_VERIFIED_ENDPOINT_GAIN=NONE; canonical VF, JOH sign, q(X)->0, finite A and RH remain OPEN.
+
+No source, proof branch/PR, main, shared policy, another report, workflow, permission or schedule was edited. No agent was launched or local Lean run. No background process remains. Next protected Owner route: SAT. This receipt records completed verification of the substantive commit; its own append is separately read back during the same invocation.
