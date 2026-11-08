@@ -1907,3 +1907,13 @@ print(json.dumps(dict(status='PASS',direct_occurrence_sites=checked,
   "trial_prefix": 65535
 }
 ```
+
+### Verified Publication Receipt - 20261108-wheel-2
+
+At **2026-11-08 15:46:20 UTC** (10:46:20 EST), the substantive append was re-fetched at immutable commit **8fd4731a9d4a31e32d4d23ba01d701a7f2e613a5**, report blob **eb0727633945e35f8b6e133bca775317179b14a0**. The returned 113,088-character content exactly matched the submitted content. The entire earlier Nov 8 report and this invocation's early checkpoint remained byte-for-byte prefixes. Commit metadata confirmed exactly one changed file: research/agent_reports/2026-11-08/30-finite-wheel.md on agent-reports.
+
+The immediate pre-write refresh at 15:45:49 UTC found main unchanged at **30c9fade09be0a4cb12776cd324e9fd9a9ed44ac** and no intervening report-branch changes. All input blob-table entries matched the retrieved trees; all five embedded reproducibility artifacts matched their local bytes; A-M headings and Markdown fences passed validation. All registered finite checks finished successfully. No new Lean execution or unauthorized GitHub action occurred.
+
+Execution=COMPLETED. Substantive publication=PUBLISHED_AND_READBACK_VERIFIED. HC1-HC4 remain paper/identity/target-equivalence results at their stated scopes; HC5 remains exact finite evidence. SELF_AUDIT is not independent acceptance. INDEPENDENT_REVIEW_PENDING; NOT_FORMALIZED; NEW_VERIFIED_ENDPOINT_GAIN=NONE. The complete finite-C complement, canonical HIGH improvement, canonical VF and RH remain OPEN. These execution labels supersede the preserved early IN_PROGRESS checkpoint only, not prior mathematical statuses.
+
+Next protected route: MU-LIFT, resuming 20261107-wheel-3/OC's physical-capacity and unspent-donor repair. Saved FINITE-AC continuation: the actual floor-two staircase and all its jump terms in (11), not a rerun of HC5. This receipt's own commit is separately read back before the final response.
