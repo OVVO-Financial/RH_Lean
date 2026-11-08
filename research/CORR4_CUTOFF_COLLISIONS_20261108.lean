@@ -26,7 +26,10 @@ theorem corr4_cutoff_placement {R q : ℕ} (hR : 0 < R) (hq : 0 < q) :
   have hm := Nat.mod_lt (R ^ 2 - 1) hd
   have hv := Nat.div_add_mod (R ^ 2 - 1) (q * q)
   unfold rawQ2ChildCutoff squareRootEndpoint
-  constructor <;> nlinarith
+  constructor
+  · have hlo := Nat.div_mul_le_self (R ^ 2 - 1) (q * q)
+    omega
+  · nlinarith
 
 private theorem cutoff_collision_square_lt {R S q r : ℕ}
     (hR : 0 < R) (hS : 0 < S) (hq : 0 < q) (hr : 0 < r)
