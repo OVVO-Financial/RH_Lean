@@ -1,0 +1,78 @@
+name: Actual prime location ancestry through nested square wheels
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'research/VF_MID_PRIME_LOCATION_ANCESTRY_DICHOTOMY_20261108.lean'
+      - 'research/VF_MID_PRIME_LOCATION_ANCESTRY_DICHOTOMY_20261108.md'
+      - 'scripts/prime_location_ancestry_regression.py'
+      - '.github/workflows/prime-location-ancestry.yml'
+      - 'research/VF_MID_PRIME_LOCATION_ANCESTRY_DICHOTOMY_20261108.lean'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  location-ancestry:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - uses: ./.github/actions/lean-setup
+      - name: Restore pinned PNT+ cache
+        uses: actions/cache/restore@v5
+        with:
+          path: .lake/packages/PrimeNumberTheoremAnd/.lake/build
+          key: pntplus-build-v1-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
+      - name: Prebuild PNT prerequisite
+        run: lake build PrimeNumberTheoremAnd.StrongPNT
+      - name: Restore native Lean build cache
+        uses: actions/cache/restore@v5
+        with:
+          path: .lake/build
+          key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'RHLean.lean', 'RHLean/**/*.lean') }}
+          restore-keys: |
+            rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-
+      - name: Kernel compile exact source, warnings fatal
+        run: |
+          test "$(cat lean-toolchain)" = 'leanprover/lean4:v4.34.1'
+          python3 scripts/compile_research_import_closure.py --build-library research/SQUARE_ROOT_PRIME_PHASE_RUN_CONTRADICTION_20261108.lean
+      - name: Exact new theorem types and axiom dependencies
+        run: |
+          cat >/tmp/prime_location_ancestry_types.lean <<'EOF'
+          import «research.VF_MID_PRIME_LOCATION_ANCESTRY_DICHOTOMY_20261108»
+          #check RHLean.Analysis.squareWheelPrimeHalfMass_eq_prefix_sub_late
+          #check RHLean.Analysis.squareWheelPrimeHalfMass_abs_le_two_channels
+          #check RHLean.Analysis.squareWheelPrimeLarge_forces_prefix_or_late
+          #check RHLean.Analysis.squareWheelPrimeLarge_forces_late_given_prefix
+          #check RHLean.Analysis.squareWheelLateRemoved_has_new_prime_factor
+          #check RHLean.Analysis.squareWheelLateRemoved_has_smaller_prime_root
+          #check RHLean.Analysis.squareWheelLateRemoved_full_empty
+          #check RHLean.Analysis.squareWheelEarlierBalanced_nextUnbalanced
+          #check RHLean.Analysis.squareWheelB4_bias_from_rightComposite
+          #print axioms RHLean.Analysis.squareWheelPrimeHalfMass_eq_prefix_sub_late
+          #print axioms RHLean.Analysis.squareWheelLateRemoved_has_new_prime_factor
+          #print axioms RHLean.Analysis.squareWheelLateRemoved_has_smaller_prime_root
+          #print axioms RHLean.Analysis.squareWheelEarlierBalanced_nextUnbalanced
+          EOF
+          lake env lean -DwarningAsError=true /tmp/prime_location_ancestry_types.lean |
+            tee /tmp/prime_location_ancestry_types.log
+          python3 - <<'PY'
+          import pathlib, re
+          s=pathlib.Path('/tmp/prime_location_ancestry_types.log').read_text()
+          assert 'sorryAx' not in s
+          allow={'propext','Classical.choice','Quot.sound'}
+          for x in re.finditer(r'depends on axioms: \[(.*?)\]',s):
+              observed={v.strip() for v in x.group(1).split(',') if v.strip()}
+              assert observed <= allow, f'Unexpected axioms: {observed-allow}'
+          code=pathlib.Path(
+              'research/VF_MID_PRIME_LOCATION_ANCESTRY_DICHOTOMY_20261108.lean'
+          ).read_text()
+          code=re.sub(r'/-.*?-/', '',code,flags=re.S)
+          code=re.sub(r'--.*','',code)
+          assert not re.search(r'\b(sorry|admit|axiom)\b',code)
+          print('PASS declaration types, standard axioms, and no proof holes')
+          PY
+      - name: Independently reproduce large actual primes and unbounded CRT roots
+        run: python3 scripts/prime_location_ancestry_regression.py
