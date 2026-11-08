@@ -1363,3 +1363,83 @@ Verified at 2026-11-08 08:40:30 UTC / 03:40:30 EST.
 This receipt attests the verified preceding substantive commit. The follow-up
 receipt commit is checked separately after writing; no self-referential future
 commit or unobserved publication is asserted here.
+
+
+## Scheduled Floor-Two Checkpoint - 20261108-census-2
+
+Execution=PARTIAL / IN_PROGRESS. Trigger: 2026-11-08 11:00:01 EST. RUN_ID_UNAVAILABLE.
+Checkpoint: 2026-11-08 16:06:25 UTC. Source main 30c9fade09be0a4cb12776cd324e9fd9a9ed44ac; reports intake e9b83d9687ae3e7585353eda7c910a48d1d91d84.
+AGENTS blob 0a99faf8458809ac772d470d704c5433f373bda8; contract d1d6fd558ee23927bd9f70ffdc375bafd1dbb67a.
+high_attack_ack=COMPLETE_SIGNED_HIGH_ATTACK_V1; chain_ack=CANCELLATION_CHAIN_REUSE_V1;
+baseline_ack=PAID_BASELINE_EXACT_CONSUMER_V1; deployment_ack=NO_PIGEONHOLING_ROUTE_SELECTOR_V1.
+
+Both November 7 and November 8 reports from every role are AVAILABLE. The latest
+Wheel HC handoff at 15:46 UTC supplies a new proper-strip question. Existing TC
+geometry, now partially merged through #1109, is not rerun. The Coordinator's
+prescribed NYMAN fixtures were already executed in Analytic ND; independent review
+remains pending and is not claimed completed by this run. The source selector permits
+this ready nonduplicate HC follow-up without changing any investigator's coverage.
+External inbox 038018145c0fddb2f6306c0712373adf9cd1ea52 has no post-Oct-18 entry.
+
+Original Euler kernel, finite-C endpoint, historical envelope and canonical HIGH
+sources have been retrieved at current main. #1108 and #1109 are human-merged;
+open/draft PR discovery is empty. Baseline #1108 run 42451075330 is successful at
+a0c986c0343a56e98b7344268fdc0b74aa885cdb; job 128640229840 was read and its exact
+type/terminal standard-axiom checks passed. This is inherited evidence, not a new
+build. Use the actual beta growth theorem and total-slot m/4 boundary; a concrete
+available fixed power is 7/8-1/(96*explicitSlotCount). No new gain is asserted.
+
+### Frozen Question And Methods
+
+
+Run: 20261108-census-2, scheduled 2026-11-08 11:00:01 EST.
+Source: main 30c9fade09be0a4cb12776cd324e9fd9a9ed44ac.
+Purpose: test the j=2 moving-boundary inference in 20261108-wheel-2/HC.
+
+Original definitions: N=R-1, X=R^2-1; genuine Mobius mu;
+T(a,b)=floor(X/(ab))-(R+1)floor(N/a)/b.
+K>=0 satisfies (M(y)-1)^2<=K(y+1) for every 0<=y<R.
+W=floor(R/(4sqrt(K))), B=R-W, I2=[floor(N/3)+1,floor(N/2)].
+E2=sum_(a in I2,B<=b<R) mu(a)mu(b)T(a,b).
+J2=sum mu(a)mu(b)(floor(X/(ab))-2).
+W=0 means empty strip; ordered occurrences, squareful zeros retained.
+
+Competing hypotheses, before execution:
+1. The staircase can be erased without changing sign or payment: seek a
+   smallest genuine nonzero jump and strict sign reversal.
+2. The exact endpoint admits only a single jump, with an explicit
+   moving-boundary bilinear form, not an unrestricted multilevel floor.
+3. Historical prefix control alone gives a uniform O(R sqrt(K)) strip
+   bound even for bounded nonmultiplicative coefficients. This is an
+   explicitly synthetic diagnostic, not a statement about genuine mu.
+4. A genuine-mu O(R sqrt(K)) strip estimate survives, but needs a new
+   boundary estimate beyond the already paid separable term.
+
+Discovery: all R=2..256 and all W=0..floor(R/4); adaptive valid K in
+{Kmin,2Kmin,R,R^2,100R^2}; include strict equality boundaries.
+Held-out: R in {317,549,1027,2002,4096,8192}; adaptive K values as above.
+Literal complete source and all square cross terms: R=2..80 plus 99,317.
+Independent algorithm: forward floor enumeration versus inverse hyperbola
+row-prefix enumeration, independently trial-factored Mobius values.
+All accept/reject comparisons exact integers/rationals; no decimal signs.
+
+Synthetic investigation: derive a bounded-prefix block construction in the
+same strip to discriminate envelope-only reasoning. Freeze its formula and
+test domain in a dated addendum before executing it; it must not be
+substituted for genuine mu or the complete Mertens identity.
+
+Stop: once the minimal genuine falsifier and boundary structure are verified,
+do not extend an unchanged census. Do not fit an exponent or universal
+constant from a finite maximum. Full complement remains in Q=P+E1+E2+Z.
+Unfinished Coordinator NYMAN independent review is not declared completed:
+Analytic ND has already executed those prescribed fixtures; this run selects
+the newer, nonduplicate HC handoff under the live route selector.
+
+
+### Complete Return And Permissions
+
+Q_R=P_R+E1_R+E2_R+Z_R and M(R^2-1)=2M(R-1)-Q_R; the complete four-component
+square and fixed-cutoff canonical LOW remain present. No bound on Z is assumed.
+Only this own report is written remotely. No Lean execution, source change,
+other-report edit, branch/PR/workflow/schedule mutation or agent launch.
+Verified results, code, precise evidence grades and a continuation capsule follow.
