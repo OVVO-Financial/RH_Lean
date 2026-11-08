@@ -277,3 +277,185 @@ Run 42510955610/job 128823686854 at b6b637a9395c5f73a034c84474e2f314685d67bb com
 Commit **20875a55dd9780993c4cdc06624c88be6060e2ee** changes only that audit's module argument to Name.mkSimple "research.oai_434.VF919ExplicitSquareBlockPacking", following the existing working AmplificationAudit.lean convention. Audit blob **732b3dbfe2b4e8137d254cebd49dc8df2692c40e** was verified by immutable readback; proof-source blob remains **32999039fdeea99c58a070c1c4ee9c140720dd44**. The lease-protected branch advance is additive. Exact-head run **42512437623**, job **128828203921**, has started. Status=DRAFT / CI_PENDING. No source assertion or validation gate was weakened.
 
 The separate status branch agent/lean-verification/20261108-slot-repair-status was created at unchanged main 8b5a6921002da0742ecfab9ee7d40728ed5fe348; no status PR or registry promotion has yet been published. Local JSON/DAG checks and 19 unit tests pass, including a new test that rejects reporting an unmerged proof as on-main. The complete A-P synthesis is prepared for the final evidence receipt. No local Lean execution or merge occurred.
+
+
+## Scheduled Research Synthesis - 20261108-lean-2
+
+Actual invocation: 2026-11-08 13:14:01 EST, America/New_York. This is the second recorded Lean execution today, not a replacement of the first report. Original PR #1111 is the source claim; 20261108-lean-2/REPAIR-NUP identifies this repair and certification work, not authorship of the original construction.
+
+### A. Strongest Result And Status
+
+PROVED_IN_LEAN / CI_GREEN / REVIEW_READY at the exact unmerged head. Existing [PR #1111](https://github.com/OVVO-Financial/RH_Lean/pull/1111) now has repaired source and audit at 20875a55dd9780993c4cdc06624c88be6060e2ee. The verified result is a full fixed-source bound beta <= 7/8-1/(32*N_pack), with the corresponding native Mertens bound at every positive exponent loss. It uses the complete existing compensated source theorem, not a local moment improvement promoted to an endpoint. The square-block regrouping in the same module is a separate structural identity. The new source has not been merged, and no RH, finite-A or zero-log claim is made.
+
+### B. Authority And Continuity
+
+Main at intake and subsequent refresh: 8b5a6921002da0742ecfab9ee7d40728ed5fe348. AGENTS blob bdd5b9f6867ae2d39b74fc966b7f548a9aba3a61; CURRENT_PROOF_CONTRACT blob d1d6fd558ee23927bd9f70ffdc375bafd1dbb67a; current all-route directive blob 5862ccaffd0e75c25b509c1d246c3aa09b6c345b. Acknowledgments: REPO_WIDE_PROOF_DAG_AND_AGENTS_20261108, COMPLETE_SIGNED_HIGH_ATTACK_V1, CANCELLATION_CHAIN_REUSE_V1, PAID_BASELINE_EXACT_CONSUMER_V1 and NO_PIGEONHOLING_ROUTE_SELECTOR_V1. The canonical actual-prime VF/von Koch estimate remains OPEN. Nine viable routes remain independent; only universal literal BLOCK capture at R=549 is refuted.
+
+Both days were retrieved for all seven roles; TODAY=AVAILABLE throughout. The earlier run's Coordinator TODAY=PENDING is superseded by actual retrieval, not by assuming a scheduled run happened. November 7 results are retained as verified continuity, not attributed to today.
+
+| Role | November 8 report blob | November 7 report blob |
+| --- | --- | --- |
+| Coordinator | b6d5c65aed0537efd0018e11dbcd9a72dea3c15a | 00a649b70f851ca193e74e5004d0d3390cf9ca18 |
+| Owner | dc8da662cdafc4bc96bcc3ccb29c3052eb1b4d99 | 933e8eb23e669594cc687059d75147e6267eec8d |
+| Analytic | 707aea15cc8e09f16cccf874c876bb04ede9ef14 | 77f3e5795533041e4356ceb94cb66328da7af27c |
+| Wheel | 45e789c59f9165dbdf9dae352d7438dc468e9e70 | 7739fa5d4cc77f35773b0d4149b2ddd21732a70d |
+| Census | c70b0a6dda7278e5e7befca546893314a16530df | 3fae830e34c590d32c31ad77cad3ace833eb3ff5 |
+| Referee | 68b1162b59f195722fc34378c0d4a182884025dd | 426c2abfa5b8926b512e07f05be37692a2416d0b |
+| Lean, intake before appended checkpoints | 02647045bf731a52b3c726c9ea690b72fa48c274 | ec14e2803af8c1e56123682ee61ed927ed4f9450 |
+
+External inbox blob 038018145c0fddb2f6306c0712373adf9cd1ea52 has no new entry after October 18. EXT-20261018-PNT-1 through -3, EXT-20261017-XCOORD-1 and EXT-20261014-5 remain source-preservation safeguards, not new proof suppliers. Main now contains human merges #1106, #1107, #1108 and #1109; the earlier own-report descriptions of #1108/#1109 as unmerged are historical.
+
+Pinned Lean is leanprover/lean4:v4.34.1, toolchain blob ba8ebf2dbaf6a668cd2a0e086186d6d569b69ff5. Mathlib is d13f23b723b8a846827a245b89c10fc7d3f11612, lake-manifest blob a34d142c3d75a602a8b0f8241a4fb504d5c7c5a4. Original OpenAI source remains 1581d4cbdd69a0faf34b2089614fe2a814316a6a and PNT remains c39a751132c88b6e8080b74c74023fd95b3d8be0. No dependency pin was changed.
+
+### C. Evidence-Based Queue
+
+Priority A selected #1111: legitimate complete-source mathematics, existing active draft, exact failed proof logs and small repairable proof bodies. No duplicate implementation was created. #1112 at af9b1eed3db67db387eacfa7feec9ab975b072db already had successful dedicated run 42507758523/job 128813997739; its log was inspected. Its signed-source phase/energy equalities and conditional consumer do not independently establish the needed signed bound or a new exponent. It was not modified or redundantly rerun.
+
+Priority B next candidates are 20261108-wheel-2/HC1-HC4 and 20261108-census-2/SJ1-SJ4, explicitly accepted with scope by 20261108-referee-2. HC2's ordered original Euler residual rectangle gives an (8/3)*R*sqrt(K) bound under its historical envelope and width floor(R/(4*sqrt(K))); all prime and nonprime classes belong to that original carrier. SJ1 is a floor-two single-jump restriction and SJ2 gives its safe-width constant 61/9. These are proper-component results: neither disposes of the complementary finite-C difficulty. WT remains Referee SELF_AUDIT, not a separately accepted theorem. WS/SB, BC, ND and MC retain their stated review-pending/self-audit qualifications. No speculative placeholder or filler PR was added.
+
+### D. Selection And Proof Plan
+
+Repair before new work. Retrieve the complete #1111 diff, original source and test runners; verify the elementary slot construction independently; inspect the full source budgets and the merged total-mass consumer; preserve exact theorem signatures; correct elaboration and proof-strategy errors; then require pinned warning-fatal compilation, fixed public types and actual axiom closures. Reuse the authorized original branch with lease protection. Record any certified unmerged result in JSON first and regenerate the DAG/milestones in a separate reviewable documentation PR, so bookkeeping does not force an unnecessary new analytic build.
+
+### E. Exact Theorem Semantics
+
+Let L=explicitFineLength>0 and N_pack=ceil(max(1,1/(6*L)))+2. This is one fixed natural number, independent of the Mertens cutoff. The terminal declarations are:
+
+```lean
+OAI.SevenEighths.RHLeanNearUniformSlotPacking.native_beta_le_near_uniform_slots :
+  OAI.SevenEighths.HeckeZeroSupremum.beta <=
+    (7 / 8 : Real) - 1 / (32 * (nearUniformSlotCount : Real))
+
+RHLean.Analysis.native_mertens_near_uniform_slots :
+  MertensGrowthAtMost
+    ((7 / 8 : Real) - 1 / (32 * (nearUniformSlotCount : Real)))
+```
+
+The displayed names/types use readable ASCII notation; the repository exact-type file is authoritative Lean syntax. MertensGrowthAtMost b means forall eps>0, exists C>=0, forall natural n>=1, norm(M(n))<=C*n^(b+eps), with the original native arithmetic Mertens sum. It does not mean a fixed no-loss O(n^b) theorem. The separate groupedSquareBlocks_sum quantifies every f:Nat->Int and a<=b and partitions [a^2,b^2) into [r^2,(r+1)^2); it preserves signed weights and endpoints but supplies no inequality.
+
+### F. Independent Mathematics And Circularity Audit
+
+For N>=3, w_j=1+j/N^2 for j in Fin N and A=sum w_j give N<=A<=N+1 and 1<=w_j<1+1/N. Set ell_j=w_j/(6*A). The denominator is positive; widths are positive and injective; their sum is exactly 1/6. Every width is at least 1/(6*(N+1))>=1/(8*N). The upper bound is strict:
+
+```text
+ell_j < (N+1)/(6*N^2) < 1/(6*(N-1)) < L
+```
+
+Here (N+1)*(N-1)<N^2 and N>1+1/(6*L), supplied by the buffered ceiling. These facts construct the actual original HighData with unchanged explicitDelta=1e-6 and explicitT=1e-8, detector mesh, normalization, distinct slots, window, phase, height, central, epsilon and principal budgets. The positive geometric minimum and every rescaling bound are constructed, not hypothesized. The complete merged total-mass theorem gives beta<=7/8-actualSlotMinimum(D)/4, and the explicit minimum yields the claimed endpoint. The native beta-to-Mertens transfer preserves the original arithmetic carrier.
+
+No desired global bound is a hypothesis. The construction is an independent finite source witness, not a target-equivalent admissibility assumption. No identification of rational Mobius signs with Hecke phases, truncation of cross terms, changed frozen historical coefficient or omitted residual is used. The block partition has no role in the endpoint's dependency chain; it cannot be advertised as the missing smooth-to-sharp quantitative transfer.
+
+### G. Implementation And Source Provenance
+
+The first two repairs modified only research/oai_434/VF919ExplicitSquareBlockPacking.lean; the third modifies only scripts/lean/explicit_amplification/SquarePackingAudit.lean. The original PR's five-file implementation/integration remains scoped: source, exact types, axiom runner, existing explicit-amplification runner and mathematical note. No theorem statement, workflow policy, dependency pin or validator was weakened. Existing branch research/20261108-square-block-oai-slot-packing and its author history were preserved under live main's full task-relevant non-main repair permission.
+
+| Source | Blob SHA |
+| --- | --- |
+| Repaired packing source, current head | 32999039fdeea99c58a070c1c4ee9c140720dd44 |
+| Merged explicit fixed-source slot count | bad5aab0a60e96d19e7c9550cd7c0a072288bc0f |
+| Merged explicit total-mass consumer | 71c5b7b5b8032ca3558467126fdf97d3caf1a7df |
+| Merged complete total-mass endpoint | 827bb952c4d4311d75fd03a2470799dc10b0f7e7 |
+| Merged explicit amplification | f3cb6dbe1eb53c910c9b4b203d98ff849bd27dd3 |
+| Mertens exponent envelope definitions | 655b896e8d5a41c9f8fc3c456eae3944a98bfefe |
+| Existing explicit-amplification workflow | b9a95e4e42ead736a3f7e8ed295b0c4da54102c9 |
+| New square-packing fixed public types | 6e1ecf7e8480b2a2536e67b382a1906d6a80218c |
+| Corrected square-packing axiom audit | 732b3dbfe2b4e8137d254cebd49dc8df2692c40e |
+| Integrated explicit-amplification runner | 1b120b790da24b27a68c64f6795c4fa7f08a7f8a |
+| Original PR mathematical note | 39b2e421cee76c3d6ef9dc64681998c6d3f3d707 |
+
+Local supplementary checks used exact rational arithmetic on 198 families N=3..200 and 28 positive rational cap samples. They verified positivity, distinctness, normalization, cap/minimum and ceiling comparisons on those finite examples. They are not Lean execution or an all-scale proof. No local Lean, Lake or compiler invocation occurred.
+
+### H. PR And Branch State
+
+Original head e02629be7e276dbccf812fb5cdb67a7f060d0cae was advanced to 562e313ac405b93cf94ba851e314ceef9e64c579, b6b637a9395c5f73a034c84474e2f314685d67bb and finally 20875a55dd9780993c4cdc06624c88be6060e2ee. All were additive fast-forwards with expected-head checks; all changed-file writes were verified by immutable-commit readback. Latest proof status and review readiness: PROVED_IN_LEAN / CI_GREEN / REVIEW_READY at the exact unmerged head. No merge or auto-merge was performed.
+
+Separate [status-registry PR #1114](https://github.com/OVVO-Financial/RH_Lean/pull/1114), head **015799c255fc4c645733844411a112346cc2d363**, is also CI_GREEN / REVIEW_READY / UNMERGED. It changes only the JSON registry, generated DAG, generated milestone page and a focused regression test. All four GitHub checks pass. Dedicated portfolio [run 42514583325/job 128834693388](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42514583325/job/128834693388) validates the full repository index, 97 nodes, 47 typed edges, all 19 tests and the retained BLOCK/CORR4/JOH falsifiers. This documentation job uses synthetic merge 7eaedc0cf1a305f80a13c51dd34fe3b22d339b46 with unchanged main, not a replacement for the two exact-head Lean jobs. All four changed files matched immutable readback: registry ce3d715d1158d40965c47524eafe2467ec3dd646; DAG 455717b6d99da7248c71ada0062dfd6747a7938d; milestones 62af2530a488240c3e9573b189afad20dd11569d; tests f99bf6672e4b4d3516f4147fd63acb38819c450a.
+
+The registry distinguishes certified main, exact-head green unmerged work, paper corollaries and open arithmetic. Its stable next-gain node now compares with the strongest verified b_pack and preserves the previous numeric target as history; the canonical VF/RH contract is unchanged. No proof status or source premise was changed merely to make the validator pass. The initial status draft's conservative pending-check tally is superseded by the actual final 13/13 and 14/14 observations.
+
+### I. GitHub Actions Evidence
+
+Current dedicated [run 42512437623](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42512437623), [job 128828203921](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42512437623/job/128828203921), passed on head 20875a55dd9780993c4cdc06624c88be6060e2ee. The actual log confirms exact-head checkout, pinned source/toolchain, warning-fatal source and three fixed new public types. At 19:11:02Z, all three new terminal axiom lists were printed and each contained only propext, Classical.choice and Quot.sound. The inherited 23-public-theorem total-mass inventory/four-root audit and 36-public-theorem explicit-amplification inventory/ten-root audit passed as well. These scopes are distinguished from the eight new source theorems and one definition. At 19:13:06Z all 13 current-head checks were green, the head was rechecked unchanged, and the PR was marked ready for human review. Status=PROVED_IN_LEAN / CI_GREEN / REVIEW_READY, UNMERGED. The review receipt is also posted on the PR; no merge occurred.
+
+Inherited #1108 evidence was retrieved: run 42451075330/job 128640229840 at exact head a0c986c0343a56e98b7344268fdc0b74aa885cdb, including 36 public types and ten terminal axiom closures. This remains evidence for that exact source/dependency closure, not a claim that the present change was already checked. The earlier Euler proof run 42084042187/job 127444267657 used synthetic merge 55968fd..., as corrected by Referee; it is not misreported here as an exact PR-head test.
+
+### J. Failures And Focused Repairs
+
+Initial run 42502239742/job 128797297359 failed on constant-sum algebra, natural-versus-real numeral inference at two positivity casts, and the terminal division inequality. Commit 562e313ac405b93cf94ba851e314ceef9e64c579 supplies ring after the constant-sum simplification, explicitly types positive real numerals before exact_mod_cast, and uses monotonic division/subtraction as in the already merged consumer. No hypotheses changed.
+
+That revision's run 42509367510/job 128818866826 passed those proof obligations but failed warning-fatal lint at line 123: field_simp had already proved the normalization identity, leaving the following ring tactic unreachable. Commit b6b637a9395c5f73a034c84474e2f314685d67bb removes only the redundant line. This is a strict-lint failure, not a mathematical counterexample.
+
+Run 42510955610/job 128823686854 then compiled the corrected source and fixed public types and passed the inherited ten-root amplification audit. It failed at 18:54:31Z when the new square-packing axiom runner attempted to import a hierarchical research module: unknown module prefix 'research'. The compiled research object uses a literal dotted module name. Commit 20875a55dd9780993c4cdc06624c88be6060e2ee changes only the module argument to Name.mkSimple "research.oai_434.VF919ExplicitSquareBlockPacking", exactly matching the existing working audit convention. This is an audit-loading infrastructure failure, not a false mathematical statement. Source/type success alone was not promoted while the mandatory new axiom audit was missing. All source-integrity and lint checks remain enabled; each new build follows an actual focused repair, not a no-op rerun.
+
+### K. Mathematical Conclusion
+
+The new endpoint is quantitative control of the complete existing source. Its significance is a small improved fixed-source constant in the already established strict sub-7/8 boundary, not new primitive signed cancellation. The grouping theorem is structural control. Formal certification status is PROVED_IN_LEAN / CI_GREEN / REVIEW_READY at the exact unmerged head. Independent implementation/Referee review is distinct from this agent's mathematical audit and remains pending; no VERIFIED_ETA program gate is asserted solely from a green build.
+
+Elementary comparison, classified PAPER_COROLLARY / SELF_AUDIT rather than a separately named Lean theorem: N_pack<=N_old=explicitSlotCount by reciprocal, maximum and natural-ceiling monotonicity. Therefore
+
+```text
+eta = 1/(32*N_pack) - 1/(48*N_old)
+    >= 1/(96*N_old) > 0.
+b_pack = b_main - eta.
+```
+
+Spending positive loss eps=eta/2 yields the fixed exponent b_main-eta/2 using the now-certified endpoint. Spending eps=1/(64*N_pack) instead yields fixed exponent 7/8-1/(64*N_pack). Neither statement is a no-loss bound at b_pack. This repacking cannot approach 1/2 by itself: the unchanged physical cap ell<=t/200 implies the minimum-slot reserve is at most t/800 for this fixed source.
+
+### L. What Formalization Revealed
+
+The failed casts were technical type inference, not missing positivity. The failed terminal tactic hid only monotonicity under division by positive four, not a new analytic obligation. The lint failure confirms the algebraic normalizer already closes its equality; retaining a redundant tactic is rightly rejected by the repository policy. The subsequent module-loading failure shows why a completed compiler invocation is not a completed axiom audit. All mathematical statements survive unchanged.
+
+The important source distinction is substantive: natural square blocks are a partition of integers, while analytic slots are fixed real exponent widths on the original prime-ideal source. The finite count must not grow with the arithmetic cutoff. Replacing N_pack by a count of physical square blocks would erase the fixed saving and would not preserve the theorem.
+
+### M. Compact HIGH Record
+
+Route: OAI-NNS with its native Mertens/CODIV consequence, without displacing other routes. Exact signed object: the original complete compensated LOW/HIGH/principal probe and its certified native return. Main comparator: b_main=7/8-1/(48*N_old). Existing input: complete total-slot-mass beta<=7/8-m/4 and original fixed-data detector estimates. Actual consumer: native_beta_le_true_physical_slot_minimum_total_mass_of_fine, then the native beta-to-Mertens transfer. New inference: construct a positive distinct family with fewer slots and minimum m>=1/(8*N_pack). Verified endpoint: b_pack=7/8-1/(32*N_pack), every positive loss; comparison eta above is explicit and scale-independent. No complementary term is dropped; no new unproved source bound is introduced.
+
+The strict historical amplification is still K_R=max_{0<=y<R}(M(y)-1)^2/(y+1), X_R=R^2-1. The existing #1108 positive-power amplification bound is not subpower control, and the crude K_R>=1 substitution loses historical information. This PR does not add a new named amplification theorem. Complete HIGH at RH scale, uniform finite A and q(X)->0 remain open.
+
+### N. Specialist Handoffs
+
+- Coordinator: record the exact proof head and its separate merge/review status; retain the old main baseline and the strongest certified unmerged comparator without calling either RH. Reuse all four November 8 merges. Do not count square grouping as an independent analytic route.
+- Owner: no actual-prime VF/SAT/JOH payment was proved here. Keep frozen coefficients, original source admission and the complete signed historical return. A better global Mertens envelope is a legitimate input only through an existing exact consumer.
+- Analytic: reuse the complete endpoint instead of repeating its proof. Further improvement needs a valid source-compatible consumer beyond the strongest certified comparator; marked 1+t/2, generalized kappa and combined counts retain their full qualifications. Fixed repacking alone is not a repeatable contraction.
+- Wheel: HC1-HC4 remain accepted formalization candidates on their proper Euler carrier; the paid rectangle does not cover the complementary masks/classes. CORR4 occurrence upper bounds cannot be inserted backwards into negative energy credit.
+- Census: SJ1-SJ4 remain accepted finite/structural inputs with their stated domain. Exact rational slot regressions are supplementary checks, not new all-scale arithmetic evidence. Seek a falsifier for the next actual consumer, not another count of this identity.
+- Referee: independently review the exact #1111 source and paper ceiling comparison. This report's audit is not a fabricated acceptance on your behalf. Review HC/SJ complement restoration separately from their accepted proper-component estimates; WT/WS/BC/ND/MC statuses are not silently promoted.
+
+### O. First Unresolved Mathematics
+
+Beyond any certified b_pack, a genuine further endpoint requires some fixed delta>0 and, for every eps>0, C_eps>=0 such that |M(n)|<=C_eps*n^(b_pack-delta+eps) for all natural n>=1, with a complete independently proved source consumer. The existing code does not supply that delta. A quantitative smooth-to-sharp transfer, when used, must retain actual Hecke weights, norm fibres, collars, heights, signed mixed terms and complete complementary costs; the grouping equality alone is insufficient and that route is not compulsory for the other programs.
+
+At the RH-scale historical-amplification frontier the exact unpaid target remains: forall eta>0, exists C_eta>=0, forall R>=2,
+
+```text
+(M(R^2-1)-1)^2 <= C_eta * (R^2-1)^eta * R^2 * K_R.
+```
+
+A single finite A uniform in R is a separate stronger sufficient criterion. Neither follows from the new fixed positive-power bound or from local accepted HC/SJ estimates without complementary control.
+
+### P. Resume Capsule And Publication
+
+Resume #1111 at 20875a55dd9780993c4cdc06624c88be6060e2ee, source blob 32999039fdeea99c58a070c1c4ee9c140720dd44 and audit blob 732b3dbfe2b4e8137d254cebd49dc8df2692c40e, run 42512437623/job 128828203921. Also retain #1113 at 43c9ac1235ceed8f40762ad5357486fea27e31bb, source blob 95951a5aefedadf2e2b4c51bde7bdb8e79deb544 and workflow blob 14eae49f93744e19c723af40dc10f6ef06d11bf5, run 42513839908/job 128832422955. Both are PROVED_IN_LEAN / CI_GREEN / REVIEW_READY at the exact UNMERGED heads. #1114 at 015799c255fc4c645733844411a112346cc2d363 is the green review-ready registry update. Reuse unchanged green evidence; independent review and human merge remain required. The next accepted implementation queue is HC/SJ at its proper-source scope, not a duplicate of either repair. No direct main push, merge, auto-merge, other-role report edit, agent launch, schedule change or local Lean invocation occurred.
+
+Early publication commits 2ddbd906e9a7c64b5abe7fa4d415635e56af33bd, e643740cd0bd62345a891bb4f5ab932f7fcc3b9e, 648e6977c8e3efe21898a73b44807f0a0b1b6c65 and 4128712b7a4f4b27b2d7f70e08578063121e8214 preserved all prior daily content and were verified by readback. This synthesis is PENDING publication until its own append commit and immutable readback are observed. Final receipt follows only after that verification.
+
+### Late-Arrival Priority-A Repair: Original Prime Location Ancestry
+
+PR [#1113](https://github.com/OVVO-Financial/RH_Lean/pull/1113) appeared after the initial open-PR intake. Source claim is the original PR, with this run's repair tracked as 20261108-lean-2/REPAIR-ANCESTRY. Its initial head e7309fd99881bff66ca51586a3c427e8af9f0cac failed dedicated run 42510188604/job 128821370530 and targeted run 42510188619/job 128821370784 because primesUpTo and mem_primesUpTo were not in the local namespace. Full source/diff and both actual failure logs were read before modification.
+
+The source carrier is the original open integer square block R^2<n<(R+1)^2, with integer sign +1 for n<=R^2+R and -1 otherwise. For every R>=2 and S<=R, genuine primes are a subset of prefix-wheel survivors; the exact signed sum over the latter is the prime sum plus the sum over removed composite sites. This proves C_prime=C_prefix-C_late, its triangle bound, the integer-threshold two-channel dichotomy and the conditional forcing |C_prime|>T+C, |C_prefix|<=C => |C_late|>T. These are structural identities/conditional consequences, not independently new bounds on either channel.
+
+For every removed site, the existing square-wheel theorem supplies a genuine prime divisor q<=R. Survival at prefix S rules out q<=S, so S<q<=R, q divides the original n, and sqrt(q)<R because R<R^2 for R>=2. This establishes a smaller factor root, not a smaller block inheriting the same bias, sign, norm or threshold. It neither proves unique first ownership nor a same-bad-event descent. The finite witnesses C_prime(2)=C_prime(3)=0 and C_prime(4)=1 refute only exact one-block inheritance of perfect balance, not an asymptotic supercritical anti-clustering theorem. The note's fixed-modulus bound |C_prefix|<W_S and its unbounded CRT family are not new Lean declarations in this PR.
+
+The proof plan was to resolve the existing original definitions, preserve the signed carrier and quantifiers, change only the missing namespace, then verify the actual logged theorem types, axiom outputs, no-hole scan and finite regression. Commit **8f9fd140c6a74ddc370f1c2952d60e758478f51c** adds RHLean.Arithmetic to the open declaration and changes no theorem body or statement. It was pushed by lease-protected fast-forward on research/20261108-prime-location-ancestry-wheel-descent. New source blob **95951a5aefedadf2e2b4c51bde7bdb8e79deb544** matched immutable readback.
+
+Original dependency blobs: VF_MID_SQUARE_WHEEL_BACKLOG.lean 9d9ee8707000f10fb74b53d6d1b35f13aa08d0c3; PrimesUpToFrontier.lean ad6776cc60cfed52e2e27acc4a11787dc37b4039; LowWheelHighPrimeSurvivor.lean 5f4966bad68cc794385eb81dac298d15e955d615; VF_MID_UNIFORMITY_BIAS_CORRELATION.lean 8932f4e66d650d708792099eab8119e663d33841; VF_MID_RECURSIVE_SCALE_DESCENT.lean 9d54150f2efb8921802718c50921935fc601e475. These are original source dependencies, not substituted prime models.
+
+The namespace repair passed exact-head [run 42513026319](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42513026319), [job 128829995271](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42513026319/job/128829995271). The actual log confirms head 8f9fd140c6a74ddc370f1c2952d60e758478f51c, 27 research modules compiled warning-fatal, nine logged elaborated theorem types, four printed standard-axiom closures and the genuine-prime/finite-wheel regression. All fourteen check-runs passed at that head. The multiline axiom list for the smaller-prime-root theorem was manually inspected and contained only the three permitted axioms.
+
+The existing automatic regex lacked multiline matching and therefore skipped that wrapped list. Before marking ready, commit **43c9ac1235ceed8f40762ad5357486fea27e31bb** strengthened only the new dedicated workflow: use re.S and require exactly four complete printed lists before checking allowed axioms. Workflow blob **14eae49f93744e19c723af40dc10f6ef06d11bf5** matched readback. The proof source is byte-identical to the successful namespace repair. A local non-Lean parser test accepted the actual four lists and rejected both a missing list and a forbidden axiom placed on a wrapped line. This repairs a validation gap; no audit is relaxed.
+
+Latest exact-head [run 42513839908](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42513839908), [job 128832422955](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42513839908/job/128832422955), passed at 43c9ac1235ceed8f40762ad5357486fea27e31bb. The actual log confirms all 27 research modules recompiled, all nine displayed types retained, all four complete axiom lists accepted by the strengthened checker, and the finite genuine-prime/wheel regression passing. At 19:18:49Z, all fourteen current-head checks were green and the unchanged head was marked ready for human review. A verification/scope receipt was posted on #1113. Status=PROVED_IN_LEAN / CI_GREEN / REVIEW_READY, UNMERGED.
+
+The theorem statements remain unchanged, including an unnecessary S<=R premise on the factor lemma; it was not removed opportunistically during a namespace repair. The complete source contains twelve theorems and six definitions. Formal status is separate from significance: no new global Mertens exponent, VF payment, signed late-channel bound, normalized same-bad selector or RH follows from this repair. The relevant mathematical review is this agent's independent source audit, not an invented Referee acceptance. Reuse the exact successful checks while relevant bytes remain unchanged; human review/merge remains separate.
