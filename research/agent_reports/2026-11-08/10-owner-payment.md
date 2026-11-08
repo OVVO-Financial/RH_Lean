@@ -1695,3 +1695,22 @@ Substantive research commit **25db3c0e3215dcb557efb1ae75c70184e0d6192b**, report
 Final research status: **PAPER_PROOF / FINITE_COMPUTATION; SELF_AUDIT; INDEPENDENT_REVIEW_PENDING; NOT_FORMALIZED**. Identity-only and target-equivalent portions are individually labeled. MC3 rejects uniform event-diagonal absorption; MC6 rejects universal finite grouped-contact signs. MC4 pays a proper mixed term from inherited suppliers, not the remaining complete complement. **NEW_VERIFIED_ENDPOINT_GAIN=NONE; canonical VF/RH OPEN.** Next protected Owner route: **JOH**.
 
 This receipt is appended with a fresh report blob lease; its commit and exact readback are checked before the user-facing completion message. All computational sessions have finished. No unauthorized repository or scheduling action was taken.
+
+
+## Scheduled JOH Continuation Checkpoint - 20261108-owner-3
+
+### A. Most Important Mathematical Development
+IN_PROGRESS / PARTIAL. The new investigation asks whether functional-equation pairing and the exact logarithmic Johnston kernel impose a useful restriction on the dangerous low spectrum from 20261107-owner-3/JT1-JT5. The decisive alternatives are a genuinely proved quantitative restriction, or an explicit allowed adverse aggregate showing that symmetry alone cannot supply the missing sign. No new theorem or endpoint improvement is claimed at this checkpoint.
+
+### B. Current Authoritative Objective
+Actual scheduled trigger: 2026-11-08 16:15:01 EST (UTC-05:00), America/New_York; RUN_ID_UNAVAILABLE. Main refreshed at 829aa93ec4a2117db4a5920b121c0ed70681b4e5. AGENTS blob bdd5b9f6867ae2d39b74fc966b7f548a9aba3a61; proof contract d1d6fd558ee23927bd9f70ffdc375bafd1dbb67a; all-route directive 5862ccaffd0e75c25b509c1d246c3aa09b6c345b. Acknowledgments: REPO_WIDE_PROOF_DAG_AND_AGENTS_20261108; COMPLETE_SIGNED_HIGH_ATTACK_V1; CANCELLATION_CHAIN_REUSE_V1; PAID_BASELINE_EXACT_CONSUMER_V1; NO_PIGEONHOLING_ROUTE_SELECTOR_V1.
+
+Fresh PR evidence supersedes the DAG's stale unmerged label: #1111 is merged, and its exact tested head 20875a55dd9780993c4cdc06624c88be6060e2ee has 13/13 successful checks. Current source research/oai_434/VF919ExplicitSquareBlockPacking.lean, blob 32999039fdeea99c58a070c1c4ee9c140720dd44, proves native_beta_le_near_uniform_slots and native_mertens_near_uniform_slots at b_pack=7/8-1/(32*N_pack). This is a supplied baseline, not today's Owner discovery. #1112-#1114 are also merged. #1115 and #1116 are draft/open at intake; no theorem is promoted from their status alone.
+
+### C. Exact Source And First Research Question
+G(N)=sum_(2<=n<N)[pi(n)-floor(Li_2(n))-1], with the true triangular event weights, strict prime-power cutoffs, odd-square owner terms, and classical li(2) restoration. The exact JT carrier is G(N)=-sum_rho K_rho(N)-P_2(N)-P_ge3(N)+U(N), where K is the full positive logarithmic transform, not its frozen leading term. The new task is to investigate a functional or arithmetic restriction on the remaining signed low spectrum, not repeat the already paid high-tail estimate or assume eventual G<0.
+
+### D-K. Pending Work, Continuity And Handoff
+November 7 and November 8 reports for all seven roles are retrieved: TODAY=AVAILABLE; YESTERDAY=CARRY_FORWARD at original scopes. Latest Coordinator 20261108-coordinator-1513-EST expressly assigns this protected JOH question. Own SAT PD and VF-LOW MC results are preserved; the last three protected routes will be SAT/VF-LOW/JOH, next SAT. JT analytic claims remain SELF_AUDIT / INDEPENDENT_REVIEW_PENDING, not automatically accepted by the new invocation. The external inbox 038018145c0fddb2f6306c0712373adf9cd1ea52 has no newer entry after October 18. Its source-preservation qualifications remain in force.
+
+Next: derive the exact paired-kernel response, attempt to disprove a favorable symmetry sign, and determine any complete-return consequence with every square cross term restored. No new zero scan is planned. Canonical VF, eventual JOH sign, q(X)->0, finite A and RH remain OPEN. Publication verification for this checkpoint follows from actual commit/readback, not this text. No local Lean, other-agent launch, source/PR/main edit or schedule change is authorized or performed.
