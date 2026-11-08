@@ -2258,3 +2258,495 @@ Selected route: OAI-NNS retained tuple/rescaling consumer. Selected original cla
 Also received `20261107-analytic-3/BC1-BC5` and merged #1105's arbitrary-cutoff separate-error interface. Prior MH1-MH4 decisions are preserved; no repeated scalar grid is planned without a changed question. Open PR #1106 at `aafb28e85bbc7a55a6c351621dc451042aee5b8f` is separately discovered; its CI/source scope is not yet certified here. #1105 is merged, not still awaiting merge. Publication and mathematical/formal status remain distinct.
 
 Plan: independent RG1-RG4 review; a substantive source-faithful obstruction or corrected consumer theorem; exact finite checks only where discriminating; final append preserving all prior history and immutable readback. Endpoint comparison, all LOW/HIGH/principal/remote/height/conductor costs, fixed-loss spending and canonical O(R) restoration must remain explicit. No source/branch/PR/workflow/other-report changes or local Lean execution are authorized.
+
+---
+
+## Scheduled Evening Synthesis - 20261107-referee-3
+
+Invocation: 2026-11-07 20:13:01 EST / 2026-11-08 01:13:01 UTC. This completes this invocation's earlier checkpoint; it is not another scheduled execution. Report date is November 7 in America/New_York. Earlier referee claims, verdicts, counterexamples, and receipts are preserved verbatim.
+
+### A. Most Important Mathematical Finding
+
+**The proposed sharp soft-gate theorem RG4 is not needed for the contemplated same-source endpoint. Two applications of an already compiled row-energy theorem, followed by the already compiled moving tuple-mass bound, give a weaker sufficient replacement.** The fallback enlarges only a row-norm upper bound to the untilted value. It does not change the arithmetic sum, its actual physical normalization, or any source mask.
+
+For actual total slot length L=1/6, selected length s, unselected length d=L-s, physical sum S=x+y, and g=5/3-2S, use the current row envelope when s>=g and the fixed Sbar=5/6 envelope otherwise. The additional ENERGY exponent is
+
+```text
+e(s) = 0       if s>=g,
+       g/2     if s<g.
+```
+
+After the genuine square root and normalization its price is e(s)/2. At rho=1/2 the retained original tuple mass supplies -d/2, so
+
+```text
+e(s)/2-d/2 <= 0  for every 0<=s<=1/6 whenever 0<=g<=1/9.
+```
+
+The entire existing physical tilt range has g=24*tilt<1/40, well inside that condition. In the fallback branch the remaining exponent is strictly less than -31/480, even at the closure g=1/40. At s=L the old envelope applies and the actual empty outer mass remains exactly one.
+
+The paper proof below propagates this estimate through the original central and remote Gaussian terms, all subsets, ray pools, and unchanged normalizer. It gives the gate-free complete LOW estimate for every actual fixed SourceData F:
+
+```text
+for every 0<=tilt<1/960, every character chi, and every loss>0,
+  F.tiltedProbe tilt chi = O(Z^(3/16-9*tilt+loss)).       (TF2)
+```
+
+With the same fine source and true minimum m used by the certified comparator b_base=7/8-m/24, the existing calibrated HIGH reserve is m/4. Choosing tilt=m/4 therefore gives the paper-level complete boundary b_new=7/8-m/4, an improvement of 5m/24 over that SAME-source comparator. Spending half that improvement gives fixed Mertens power 7/8-7m/48. No explicit numerical value for the existential m is asserted.
+
+**Status separation:** TF1-TF3 are new PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED. The existing suppliers are compiled inputs, not compilation of this new composition. RG1-RG3 receive independent paper-scope acceptance below. RG4's sharper source inequality remains UNRESOLVED. NEW_VERIFIED_ENDPOINT_GAIN=NONE; VERIFIED_ETA=NONE; eta_gate=SEARCH_BROAD. No claim that the canonical VF objective or RH has been proved.
+
+### B. Authority, Objective, Baseline, And Continuity
+
+Actual main at intake and prepublication refresh: **cae99df1c3ea24ff4113063bf09f6fd07517ad93**, tree **087a31436295ea4b0307d3d851f363c5370dba5f**. Main contains merged #1105. Governing files: [AGENTS.md](https://github.com/OVVO-Financial/RH_Lean/blob/cae99df1c3ea24ff4113063bf09f6fd07517ad93/AGENTS.md), blob 0a99faf8458809ac772d470d704c5433f373bda8; [CURRENT_PROOF_CONTRACT.md](https://github.com/OVVO-Financial/RH_Lean/blob/cae99df1c3ea24ff4113063bf09f6fd07517ad93/CURRENT_PROOF_CONTRACT.md), blob d1d6fd558ee23927bd9f70ffdc375bafd1dbb67a.
+
+```text
+high_attack_ack=COMPLETE_SIGNED_HIGH_ATTACK_V1
+chain_ack=CANCELLATION_CHAIN_REUSE_V1
+baseline_ack=PAID_BASELINE_EXACT_CONSUMER_V1
+deployment_ack=NO_PIGEONHOLING_ROUTE_SELECTOR_V1
+selected_route=OAI-NNS, independent adversarial consumer audit
+object=the original normalized compensated tilted probe and its complete Mertens/HIGH return
+change=retain the existing moving tuple decay to pay a two-envelope fallback
+```
+
+The canonical target remains the actual-prime square statement
+
+```text
+exists C>=0, forall integers R>=2,
+  |pi(R^2)-vfMidFinishedMass(R)-sqrt(2)| <= C R log R.
+```
+
+Its current common intermediate is complete canonical signed HIGH, with fixed Lambda>=0 and the original birth-block absolute-height test:
+
+```text
+M(R^2-1)=L_R+H_R,
+|L_R| <= (floor Lambda+1)R.
+```
+
+Canonical LOW is paid. OAI inverse LOW is a different object; TF2 is eligible because its complete HIGH consumer is supplied in E4 below. The actual strongest applicable comparator on this chosen source path is `native_beta_le_true_physical_slot_minimum`, together with `native_mertens_true_physical_slot_minimum` and `native_signed_pair_true_physical_slot_minimum`: there exists a fixed fine HighData D, m=actualSlotMinimum(D)>0, beta_H<=7/8-m/24, with every-positive-loss Mertens growth and the full signed-pair bound retaining its squarefree diagonal. This is not rounded to 7/8 and is not identified with an optimized largest gap across all possible sources.
+
+Continuity snapshot: agent-reports **ac20a0055c43cc0b61fc6e239d351b784e0a31e0**. All seven role reports were available for both November 6 and November 7. TODAY=AVAILABLE; YESTERDAY=CARRY_FORWARD. Coordinator 00/90 copies have identical corresponding tree blobs. Relevant contents read, not inferred from schedule times:
+
+| Role | November 6 blob | November 7 intake blob | Current disposition |
+| --- | --- | --- | --- |
+| Coordinator / Proof Architect | 8812a90540fb511279b5f4ce08e108ef717d5ef1 | 785c56207f0745244d8c2503a18ed7b4d91b39e6 | CS coherence/inverse-cost scope carried; selected `20261107-coordinator-1513/RG1-RG5` for review |
+| Owner Payment | 1856a96aaaa9d86a5ee2d59ffe50ced936443fa6 | 933e8eb23e669594cc687059d75147e6267eec8d | MS moving-clock obstruction carried; latest JT1-JT5 exact JOH kernel/tail/failure localization remain pending independent review; no new sign conclusion assumed |
+| Analytic Type II | 7997620b6ab7eb0701296994734ee910df3c3ba1 | 77f3e5795533041e4356ceb94cb66328da7af27c | AQ scope carried; latest `20261107-analytic-3/BC1-BC5` retain two-error combined counts, but full endpoint not claimed; do not repeat prior GL/FT audits |
+| Finite Wheel | 3099558194a00358962ff1844bf283e625b9283d | 7739fa5d4cc77f35773b0d4149b2ddd21732a70d | GF donor-capacity scope carried; latest OC1-OC5 distinguish quotient-95/96 physical cuts from label capacities, with X=9215 witness and unspent-bank repair; pending independent review |
+| Prime Census | c34ac074296e8b2e5b20dee3a2ce02518571206c | 3fae830e34c590d32c31ad77cad3ace833eb3ff5 | FW N=690 Nyman cross-term warning and current RC1-RC4 scopes carried; no repeated unchanged census |
+| Adversarial Referee | da3265467c799e9d21832ab25245617ba3b15a54 | 65384576327e1ae2c976fca368c83690fc8a95dd | Previous spectral inverse-cost decisions, today's CODIV `referee-1` and marked-half `referee-2/MH1-MH4` retained unchanged |
+| Lean Verification | b8bfe3ce9c20d7903395364efb39bcec974c8a2f | 2998b7339ea4b3e3fd2fd1d26f839527fd5adc95 | Historical #1100 exact identities carried; #1105 source moment result now independently confirmed merged, not a new complete endpoint |
+
+EXTERNAL_HANDOFFS.md blob **038018145c0fddb2f6306c0712373adf9cd1ea52** was read; no new entry after the recorded October 18 material. Old source-admission and no-placeholder restrictions remain in force. These acknowledgments do not constitute new independent acceptance of the Owner, Wheel, or Analytic paper claims.
+
+### C. Highest-Risk Inferences Selected
+
+1. Deleting the reflected gate at no energy cost is false on its stated scalar relaxation. RG2 remains decisive at exactly that scope.
+2. Promoting RG1's scalar soft cost to every completed source layer is not automatic. RG4 remains an unproved sharper source assertion in this review.
+3. Treating RG4 as a necessary prerequisite for the proposed endpoint is unnecessary. The existing physical theorem is uniform over arbitrary finite row sets subject to an upper norm cap, and the inverse polynomial on its left is independent of the choice of physical exponents. That is the independent mathematical opening used here.
+4. Paying the fallback by changing the actual physical denominator, or using the same unselected factor twice, would be invalid. E2 keeps Q=q Z^S/L_u^2 and pays the full energy square-root price before using the separate Gram factor.
+5. An improved LOW bound does not exceed the remaining HIGH reserve. The new paper endpoint stops at max(7/8-tilt,7/8-sigma); no iteration to 1/2 or improvement beyond sigma is asserted.
+
+### D. Independent Review Of The Upstream Claims
+
+Original claim source: [Coordinator RG1-RG5](https://github.com/OVVO-Financial/RH_Lean/blob/ac20a0055c43cc0b61fc6e239d351b784e0a31e0/research/agent_reports/2026-11-07/00-coordinator-am.md), blob **785c56207f0745244d8c2503a18ed7b4d91b39e6**. Stable run ID `20261107-coordinator-1513` is preserved.
+
+**RG1, exact statement and verdict.** All variables are real. Define
+
+```text
+u=min(v,z,(v+z)/3),
+T=2H+2A+2z-1-l0-theta-N-3B,
+Eref=O/2+max(H,v+l)-S0-B+z-u-l-2e/3
+     -max(0,T-v-3l-e)/2.
+```
+
+Assume S+L<=1, L<=1/3; d,h,O>=0; H<=S-2d-O+h; 2A<=O+3h; 0<=N<=A; S0,B>=0; l0<=L-d+h; z<=l0+h; v,l>=0; e>=-h; |theta|<=h; and v+3l+e<=T+2h. No unlisted nonnegativity of z,l0,S,L is imposed. The conclusion is
+
+```text
+Eref <= S-2d+(38/3)h + max(0,1+4L-2S-l0)/4.
+```
+
+**ACCEPT / PAPER_PROOF / independently reviewed here, NOT_FORMALIZED.** Reconstructed from the exact row and column branches in `reflected_exponent_finite_slot_gap`, not from its theorem statement with the gate removed. The hypotheses imply T<=H-3d+8h and v+l<=H+11h. If u=z, substitution and the nonnegative retained kernel give the old bound. Otherwise u>=v/2. The retained inequality T/4<=(v+3l+e)/4+max(0,T-v-3l-e)/2 gives the row bound
+
+```text
+Eref <= S-2d+(1+4L-2S-l0)/4+8h/3.
+```
+
+The column branch instead gives Eref<=S-2d-1/2+3L/2-3d/2+26h/3. The displayed conclusion follows in both cases. In the source proof the hard gate is used only after the displayed row partial bound. This is an elementary scalar extension; it proves no source energy theorem by itself.
+
+**RG2, exact family and verdict.** For any 0<g<=1/6 set L=1/6, S=5/6-g/2, l0=z=g/5, d=1/6-g/5, H=1/2-g/10; set O=A=N=S0=B=v=l=e=theta=h=0. All RG1 hypotheses hold, T=0, u=0, and
+
+```text
+Eref-(S-2d)=g/5=(1+4L-2S-l0)/4>0.
+```
+
+**ACCEPT / PAPER_PROOF / exact infinite scalar family.** The no-cost gate deletion is refuted and coefficient 1/4 is sharp on this scalar domain. Four rational members were independently executed below. No realization by actual prime ideals or HighData is claimed; this does not refute either RG4 or TF2.
+
+**RG3, exact statement and verdict.** For L>=0, 0<=g<=L, 0<rho<1, and 0<=s<=L,
+
+```text
+Phi(s)=(g-s)_+/8-(1-rho)(L-s),
+max Phi = max(0,g/8-(1-rho)L).
+```
+
+**ACCEPT / PAPER_PROOF / independently reviewed.** Phi is affine on [0,g] and [g,L]; its breakpoint value is nonpositive, and its two endpoint values give the maximum. The sufficient uniform rho<=7/8 condition and the specific rho=1/2 application are valid. The compiled arithmetic supplier is genuinely the original weighted tuple mass, not an arbitrary-vector model. The assertion that this pays RG4 remains conditional on RG4's physical input; TF1 below supplies a different, weaker price which also gets paid.
+
+**RG4. UNRESOLVED at its full stated source scope, NOT_FORMALIZED.** Exact requested modification: retain all of `low_original_completed_energy_tilted`, with fixed Sphys in [1/2,5/6], original ideal/source data, and degree,C,Z0 chosen before the moving rows, cutoffs, selected type, d,l0,shift; remove its `IsEmpty selected_type OR 5/3-2Sphys<=l0` hypothesis; multiply the RHS by Z^((5/3-2Sphys-l0)_+/4). The scalar acceptance does not certify all its many-layer lifts. This review supplies neither a counterexample nor independent completion of that sharper assertion. It is unnecessary for the endpoint now proposed.
+
+**RG5. ACCEPT as a conditional same-source comparison, not an unconditional published theorem.** Its full calibration, tilt=m/4, native moment supplier, generic anchored HIGH and loss-spending arithmetic are correct at the stated source scope. Replacing the dependency on RG4 by TF1-TF2 gives the new paper derivation TF3 below. The original conditional claim is not refuted; only an unnecessarily strong prerequisite is bypassed.
+
+### E. Original Research: Two-Envelope Return
+
+#### E1. TF1: uniform two-envelope selected energy
+
+**New claim `20261107-referee-3/TF1`.** Fix an admissible `LowPhysicalExponents` pair phys=(x,y), S=x+y, and set g=5/3-2S>=0. Fix eta, an original finite prime-exclusion set Pset with every member maximal and fixedBadPrimes included, K, nonnegative slot lengths ell_i with sum<=1/6, Ck>0, b real, and 0<epsilon<=1. Put
+
+```text
+s_J=sum_(i notin J) ell_i,
+d_J=sum_(i in J) ell_i,
+e_J=0 if s_J>=g, otherwise 5/6-S=g/2.
+```
+
+Then there exist degree in Nat, C>0 and Z0>1, depending only on these fixed data, such that for all real Z>=Z0, all finite prime-ideal pools T_i satisfying support, exclusion from Pset, pairwise disjointness and Norm(P)<=b Z^ell_i, all J, and all finite R of nonzero original Eisenstein elements with
+
+```text
+elementNorm(z) <= Ck Z^(S-2d_J),
+```
+
+the following holds uniformly for every X>0 with Z^(1+s_J-epsilon/2)<=X<=Z^(1+s_J+epsilon/2), every slot window W_i of modulus at most one, every real scale vector Y, every real t and every original ray residue sigma:
+
+```text
+sum_(z in R) |lowSelectedInverseRow univ
+  (lowSelectedWeight eta (canonicalSlotSupport T) J W Y t)
+  eta Pset hmax (lowSelectedIdeal (canonicalSlotSupport T) J)
+  X t sigma z|^2
+ <= C (1+|t|)^degree Z^(S-2d_J+507epsilon+e_J).       (TF1)
+```
+
+All functions in this statement are the existing source definitions, with no change of weights, inverses, ideal generators, masks, ray residues, or Gaussian fixed window. It is exactly the nominal-energy carrier, with an explicit additional exponent instead of the per-slot gap assumption.
+
+**Proof.** Apply `low_selected_physical_energy_tilted` once at phys and once at the fixed admissible pair barPhys=(17/48,23/48), whose sum is 5/6. This fixes two degrees, constants and thresholds before Z, T_i, J, R, X, W, Y, t or sigma. Take their maximum degree and threshold, and the sum of their positive constants. Since 1+|t|>=1, both bounds fit the resulting degree.
+
+Use the original `eventually_low_selected_caps` and central-shift construction with l0=s_J+epsilon/2. The selected product cap, d bounds and |shift|<=epsilon are exactly those in the nominal proof; they do not use the per-slot gap. If s_J>=g, l0>=g gives the current physical theorem's gate. If s_J<g, the barPhys gate is 0<=l0 and the original R satisfies the enlarged row cap because Z>1 and S<=5/6. The RHS becomes Z^(5/6-2d_J+507epsilon), which is the stated actual exponent plus e_J.
+
+Crucially, the LEFT side of `low_selected_physical_energy_tilted` has no phys.x or phys.y. Their sum occurs only in the row upper bound and energy RHS. Both applications therefore bound the same sum at the same X. We do not replace R by new rows or alter the actual physical probe. This proof uses two fixed parameter choices, not constants chosen separately for each changing subset or scale. The empty selected-type case is already admitted by the original theorem; treating it by the fallback is safe overpayment.
+
+#### E2. TF2, first step: pay the actual normalized central tuple
+
+From now on retain the actual conserved slot total **sum ell_i=L=1/6**, not merely an upper bound. Fix a>0 and the original lower norm bounds a Z^ell_i<=Norm(P), as in `low_central_compensated_tuple_tilted`. Keep all that theorem's W0,W1 support, smoothness, positivity-of-cutoff and boundedness hypotheses. Fix 0<rho<1 before the source scale. For the actual unselected tuple u put L_u=elementNorm(product u_i) and q=elementNorm(calibration generator)>0. The exact physical scale is still
+
+```text
+Q=q Z^S/L_u^2.
+```
+
+The original fixed-source product bounds give c Z^d_J<=L_u<=B0 Z^d_J, with positive constants c,B0 independent of u,J,Z. TF1 bounds the actual numerator rows exactly as before. Taking its square root and dividing by sqrt(Q) contributes at most
+
+```text
+C (1+|t|)^degree Z^(507epsilon/2+e_J/2).
+```
+
+The exponent calculation is (S-2d_J+e_J)/2-S/2+d_J=e_J/2. **It is not zero in the fallback branch.** This is why substituting the artificial barPhys denominator would be erroneous.
+
+The existing complete actual compensation Gram estimate, still evaluated at the ORIGINAL x,y, contributes sqrt(3q/L_u) times Z^((5x+y)/12+(y/2)epsilon). Thus the exact remaining mass is the already compiled
+
+```text
+sum_u |lowUnselectedWeight(u)| L_u^(-1/2)
+ <= (C_rho a^(rho-1))^|J| Z^(-(1-rho)d_J)
+```
+
+for the normalized windows. This is `lowUnselectedMass_moving_power_bound` with B=1. Since K is fixed, replace its prefactor by max(1,C_rho a^(rho-1))^K. This makes it uniform in J without a Z-dependent constant. No extra uniformity as rho tends to an endpoint is used.
+
+The extra exponent to pay is
+
+```text
+Psi(s)=e(s)/2-(1-rho)(L-s)
+      =-(1-rho)(L-s)                    if s>=g,
+       g/4-(1-rho)(L-s)                 if s<g.
+```
+
+For L>0 and 0<=g<=L its supremum over the continuous scalar interval is
+
+```text
+sup Psi = max(0,g/4-(1-rho)(L-g)).
+```
+
+Proof: the good branch is nonpositive, attaining zero at s=L. The bad branch increases with s and has the displayed left limit at g; the function jumps down at g. This is a supremum, not necessarily an attained maximum. For g=0 the bad branch is empty and the formula still gives zero. Therefore all such scalar costs are nonpositive precisely when
+
+```text
+g <= 4(1-rho)L/(5-4rho).
+```
+
+Use rho=1/2. This requires g<=2L/3=1/9. The actual tilted pair has g=24*tilt<1/40. In its bad branch,
+
+```text
+Psi(s)=g/4-(L-s)/2 < 3g/4-L/2 < -31/480.
+```
+
+With g=1/40 at the closure the final strict inequality becomes <= on the middle comparison, but the first strict inequality still gives Psi<-31/480. In the good branch Psi<=0; at J empty, s=L and mass is exactly one. Hence the complete central tuple has the SAME former exponent (5x+y)/12+254epsilon, uniformly over every subset J, without the per-slot gate. The y<=1 condition pays 507epsilon/2+(y/2)epsilon<=254epsilon as in the source.
+
+This use of an absolute mass bound occurs after the original full compensated Gram estimate. It is not a new arbitrary-vector cancellation theorem. The -2d_J row credit was already canceled by Q and the upper bound on L_u; only the remaining separate factor L_u^(-1/2) is spent in the moving mass.
+
+#### E3. TF2, complete original LOW statement and proof
+
+**New claim `20261107-referee-3/TF2`.** For every fixed real Delta, every existing HighData D:HighData(Delta), every F:SourceData(D), every fixed 0<=tilt<1/960, every character chi and every loss>0, there are C>0 and Z0 such that for every real Z>=Z0 the existing source normalizer is nonzero and
+
+```text
+|F.tiltedProbe tilt chi Z| <= C Z^(3/16-9*tilt+loss).
+```
+
+The claim does not remove ANY HighData or SourceData field. Only the additional hypothesis `24*tilt <= (7/8)*D.rmin` of the current wrapper is unnecessary for this new proof. D, its finite number of slots, actual positive distinct slot lengths, exclusions, conductor, cutoff and windows are fixed before Z. Constants may depend on these data, tilt, chi and loss. No claim of uniform constants for moving source complexity is made.
+
+**Complete propagation.** The preceding central-tuple proof replaces the sole gated inverse-energy supplier. The rest of the original return is used as follows, with the same functions on every left side:
+
+| Original layer in VF919TiltedLowPhysical | New use and paid terms |
+| --- | --- |
+| `low_selected_nominal_energy_tilted` | Replace only its bound by TF1, with the two fixed row envelopes |
+| `low_physical_inverse_normalized_tilted` | Use actual Q and carry e_J/2, as proved in E2 |
+| `low_central_compensated_tuple_tilted` | Keep actual compensated Gram and replace the final constant mass bound by the compiled moving-power bound; Psi<=0 restores the old 254epsilon exponent |
+| central Gaussian dyad and central dyad sum | The tuple estimate has the same time-polynomial and uniform moving-source quantifiers; the same Gaussian integrability and dyad count give 256epsilon |
+| remote Gaussian dyads | Existing O(Z^-1) estimate has no slot-gap hypothesis; all remote tuples remain present and are dominated by the paid central envelope |
+| all Gaussian dyads and all subsets | Same exact expansion and norm inequality, with fixed finite K; no selected or complementary subset discarded |
+| original ray pools | Positive distinct fixed ell_i give eventual disjointness; same supported primary generators, masks and prime exclusions |
+| general bounded windows | Normalize by D0=max(1,B), then restore D0^K exactly, as in the existing source proof |
+| original normalizer | Use `actual_ray_normalizer_inverse` at loss/2, with the unchanged positive windows, exact sum 1/6 and genuine ray pools; numerator gets loss/2 |
+
+For the numerator's arbitrary positive loss, the existing choice epsilon=min(loss/512,1/2) supplies 256epsilon<=loss; use this with half the desired final loss. The source normalizer is exactly
+
+```text
+sourceResidueConstant(W0,W1,product Pset)
+ * principalScalar(univ,Z,1/6,slotMass(T,residueWeights(W,Yp))).
+```
+
+It is not a new parameter or a random model. Multiplying its inverse O(Z^(loss/2)) by the new numerator estimate gives the asserted normalized bound. Finally (5x+y)/12=3/16-9*tilt for x=17/48-24*tilt, y=23/48+12*tilt. All physical inequalities are those already checked by `tiltedPhysicalExponents`; no alteration of the source geometry is needed.
+
+The no-gap normalized theorem can equivalently be stated with every hypothesis of `original_normalized_compensatedPhysicalProbe_low_tilted`, dropping its `hgap` and adding g<=1/9. Its positive injective slots already sum exactly to 1/6. This is a useful stronger general formulation on that existing carrier; TF2 above uses the simpler, already admissible tilt range.
+
+#### E4. TF3: same-source complete endpoint and canonical return
+
+**New claim `20261107-referee-3/TF3`, PAPER_PROOF dependent on TF1-TF2, not compiled.** Choose the same fine D as in `native_beta_le_true_physical_slot_minimum`, let m=actualSlotMinimum(D)>0 and
+
+```text
+E=slotCalibratedHighDataLowFirst(sourceWithExactSlotMinimum D).
+```
+
+Its existing constructor preserves t, actual ell_i and N, caps the small errors, and gives E.sigma=m/4. The original slots imply m<=E.t/200. The actual original HighData definition supplies E.t<=1/100000000. Thus with tilt=m/4,
+
+```text
+0<tilt<=1/80000000000<1/960,
+24tilt=6m<=3E.t/100<E.t.
+```
+
+These parameters and F:SourceData(E), counts:CountParameters(F.modulus,top,E.t) are fixed before selecting characters or zeros. The same native uniform fixed-source moments and `chosen_data_height` supplier in `native_fixed_slot_anchored_probe_bounds_low_first` use the ALREADY PAID beta_H<=7/8 and the original fine-slot hypotheses. They do not assume the desired improved boundary. If beta_H<51/100 the proposed boundary is already trivial; otherwise the original lower-beta licensing is available.
+
+The actual generated `fixed_tilted_high_bound_anchored` was read from the successful exact-head #1091 CI artifact, not inferred from its name or generator. Its tilt hypotheses are only tilt>=0 and 24tilt<E.t. Retain E.epsilon,E.e<=E.t/2000, (E.N+8)E.eps<=E.t, the same SourceData and counts, and the supplied height conditions 0<height<1/400, 4height<E.cost/200, height<E.t, 2height<=E.t, height(2+4E.eps)<E.t. This theorem gives the original signal comparison at exponent 7/8-11/16-8tilt-E.sigma.
+
+Combining it with TF2 gives
+
+```text
+LOW exponent                 3/16-9tilt+loss
+original signal shift        -11/16-8tilt
+complete HIGH error          7/8-11/16-8tilt-E.sigma
+zero boundary                max(7/8-tilt,7/8-E.sigma)
+                             = 7/8-m/4.
+```
+
+For completeness, suppose beta_H>b=7/8-m/4. Choose loss=(beta_H-b)/2>0. It is less than 7/8-b because beta_H<=7/8. The same primitive-zero-near-supremum theorem supplies a zero with real part greater than beta_H-loss=b+loss. The finite-prime deletion preserves that zero by the existing nonpole product identity. The HIGH comparison boundary b and LOW boundary b+loss are both strictly below it. All original sourceCorrection analyticity and bounds at 21/25 hold; b>21/25 follows already from the displayed tiny upper bound on tilt. Apply the same `nonzero_of_probe_bounds_variable_boundary` theorem to contradict that zero. Thus beta_H<=b. This reproduces the complete variable-boundary argument, with only the LOW supplier changed.
+
+Use the existing analytic Hecke-to-zeta/Mertens transfer, not an equality between Hecke coefficients and rational Mobius coefficients. It gives, for this fixed D,
+
+```text
+for every epsilon>0, exists C_epsilon>=0, forall integers x>=1,
+  |M(x)| <= C_epsilon x^(7/8-m/4+epsilon).
+```
+
+The original full square identity consequently gives the same-source signed-pair bound
+
+```text
+2*realMertensPositiveLagPairSum(x+1)
+ <= (C_epsilon x^(7/8-m/4+epsilon))^2-realMertensDiagonal(x+1).
+```
+
+The squarefree diagonal has NOT been deleted. Against b_base=7/8-m/24, define eta_gain=5m/24>0. For each fixed Lambda>=0, the exact canonical partition and paid LOW give, for every epsilon>0,
+
+```text
+|H_R| <= C_(Lambda,D,epsilon) R^(2*b_base-2*eta_gain+epsilon)
+       = C_(Lambda,D,epsilon) R^(7/4-m/2+epsilon), R>=2.
+```
+
+Here use Mertens loss epsilon/2 and absorb O(R), since b>1/2. For all integers N>=1 and 1<=h<=N, the corresponding COMPLETE prefix energy is
+
+```text
+sum_(0<=j<h) |canonicalHighPrefix_Lambda(N+j)|^2
+ <= C_(Lambda,D,epsilon) h N^(7/2-m+epsilon).
+```
+
+This uses the pointwise bound at R=N+j+1<=2N, with a smaller initial loss before squaring. It includes h=1 and all coherent-mean and centered contributions. It is not a shell-increment estimate.
+
+Spending loss=eta_gain/2=5m/48 in the all-integer Mertens bound yields the fixed power **7/8-7m/48**, strictly below b_base. Alternatively, recover arbitrary integer x from square endpoints by adding at most 2R+1 original Mobius terms in the final partial square block; because the fixed exponent exceeds 1/2, this O(R) cost is absorbed. These statements are paper consequences of TF2, not existing Lean declarations.
+
+### F. Exact Obstruction Scope And Negative Controls
+
+**New claim `20261107-referee-3/TF4`: sharp limitation of THIS coarse payment rule.** For fixed L>0 and rho in (0,1), the two-envelope budget is nonpositive for all scalar s in [0,L] precisely when g<=4(1-rho)L/(5-4rho), on the domain 0<=g<=L. If g exceeds the threshold, choose s=g-delta with
+
+```text
+0<delta<min(g, [g/4-(1-rho)(L-g)]/(1-rho)).
+```
+
+Then Psi(s)>0. Taking a sequence of such delta tending to zero gives an infinite family of exact scalar violations of the proposed all-subset budget extension. For 0<g<L, two positive slots of lengths s and L-s realize these complementary lengths as an abstract slot list. No claim that these lists satisfy the extremely fine HighData bounds is made. This limits this payment certificate, not all arithmetic estimates or the sharper RG4 method.
+
+At rho=1/2, L=1/6, g=1/8, choose s=29/240 and d=11/240. Then s<g and Psi=1/120>0. This is outside the actual g<1/40 range; it is a negative control, not a counterexample to TF2.
+
+Exact conserved total matters even within the allowed physical g range. A single positive slot of length 1/100, J empty, g=1/50 and d=0 gives the fallback cost g/4=1/200 with no outer decay. This deliberately violates sum ell_i=1/6. It refutes extending THIS payment argument using only the older total-length upper bound. It does not establish that the actual normalized arithmetic bound is false on a different carrier.
+
+RG2 supplies the independent infinite counterexample family for no-cost scalar gate deletion. The fallback pays a larger energy loss than RG1 predicts and so never contradicts RG2. No original arithmetic theorem is declared false by these scalar diagnostics.
+
+### G. Original Carrier And Signed Interaction Audit
+
+TF1 changes only the allowed exponent in a bound on the same original rows. It does not replace actual rows by saturated rows, drop nonunits, change prime admissions, alter historical identifiers, randomize signs, move the mask, change the selected ideal, remove the Gaussian completion, or replace the physical cutoff X. The same fixed bad primes, period, ray residues and character enter both applications.
+
+TF2 retains the exact Q at the actual tilt. The primary-generator norm identity used by the compiled mass theorem is the source identity: its remaining integrand is a product of inverse-square ideal norms times original window magnitudes. This is not an independent heuristic about the density of primes. Every subset and every original outer tuple is summed once. Finite constants may be enormous because the actual source has many slots; their size does not create a scale-dependent exponent.
+
+Selected polynomial cross terms remain inside the original squared row norm. The complete compensated Gram theorem is used before the final mass estimate. There is no inference from individually favorable signed pairs to a global quadratic sign. The remote, powerful-part and punctured-list restorations are inherited from the unchanged full selected energy theorem, not reconstructed from unsigned support alone. The final Mertens square retains both diagonal and all lag-pair terms. Canonical HIGH retains both height orientations and the birth-block partition; this proof does not substitute a moving survivor population.
+
+### H. Quantifiers, Circularity, And Genuine Reduction
+
+Sbar is the fixed number 5/6. Only two energy constants are chosen; their maximum threshold and summed constant work for every moving pool, row family, subset and scale. The parameter J is never selected after taking a nonuniform limit. The selected-scale interval for X and its epsilon/2 collars are unchanged. The moment-height parameter is kept distinct from physical tilt and from real time t in the inverse polynomial.
+
+The full source and K are fixed before the scale, character-specific constants and positive losses. No assertion is uniform in K growing with Z, in the actual minimum m tending to zero, or in rho approaching one. The fixed choice rho=1/2 is licensed by the compiled theorem. A finite subset enumeration does not substitute for the analytic proof for all K.
+
+Forward implications: TF1 plus the compiled moving mass and existing physical/normalizer lemmas gives TF2; TF2 plus the already certified moments and generic anchored HIGH gives TF3. TF3 supplies a subcritical Mertens/HIGH improvement but not the canonical von Koch objective. Reverse implications from that canonical target to TF1, TF2 or the Hecke-family statement have not been established; no target equivalence is claimed. The new sufficient premise is not a renamed endpoint: TF1 is directly deduced from two already compiled bounds, and the payment is an elementary inequality on conserved source lengths. There is no unproved norm boundedness or new cancellation hypothesis inserted into the paper chain.
+
+The paid beta<=7/8 is used as an INPUT in native moment licensing and the generated anchored HIGH. The desired beta<=7/8-m/4 is used only as the OUTPUT of the near-zero contradiction. The source is not chosen in response to an offending zero. Old gate-maximality theorems remain correct for THEIR sufficient gate; they are not universal no-go theorems for the new weighted return.
+
+### I. Strongest Surviving Repair
+
+Retain the coordinator's accepted scalar soft estimate and sharpness witness, but replace the first implementation dependency by TF1's coarse, already-supported energy price. The lower precision is harmless because actual tilted g<1/40 leaves a large fixed margin in the only branch requiring payment. This saves a new sharp-source proof through the entire reflected hierarchy.
+
+TF2 is useful at exactly the original complete normalized source, not only a model or a selected component. TF3 remains a paper-level candidate awaiting independent review and kernel implementation. RG4 can still be worthwhile if a future consumer needs its finer loss or a wider range; this run does not reject it.
+
+### J. Competing Strategy Assessment
+
+The immediate OAI bottleneck after this proposed LOW repair is the existing complete HIGH reserve sigma=m/4, not a new universal inverse-energy cancellation theorem. Analytic BC1-BC4 and the marked-half/generalized-kappa consumers may still improve that reserve or other binding terms, but their local count gains must be returned completely. Their paper scope is not automatically upgraded by TF3.
+
+Keep all nine protected routes active. Owner's JOH exact-kernel and low-zero localization is independent of this Hecke source path; its remaining signed zero sum is not paid here. Wheel's occurrence cuts and repair remain about actual donor capacity and absolute residuals, not global signed Mertens lower bounds. Nyman common-window cross terms, CODIV source admission, VF-LOW/SAT chronology, FINITE-AC/CORR4 conductor one and all cross terms, and MU-LIFT unused-bank constraints retain their current scopes. No route is retired and no objective amendment is requested.
+
+### K. Executed Exact Diagnostics
+
+**New claim `20261107-referee-3/TF5`: FINITE_COMPUTATION / PASS, scalar scope only.** Before executing, the scratch script fixed rho=1/2, g=i/7680 for 0<=i<=192, and s=j/1440 for 0<=j<=240. It also specified all subsets of lengths proportional to 1,...,K for K=1,...,8 and two held-out distinct positive lists proportional to [1,1009,1013,1019,1021] and [1,10^9,10^9+7], each rescaled to total 1/6. It used Python Fraction throughout, with no floating-point sign tests.
+
+```text
+46,513 grid cases: PASS; largest extra exponent 0.
+550 subset cases at g in {0,1/10000,1/100,1/40}: PASS.
+2,200 exact normalization exponent identities: PASS.
+4 RG2 witnesses at g in {1/10^9,1/1000,1/40,1/6}: PASS.
+3 endpoint algebra tests: PASS (scalar checks, not HighData witnesses).
+Expected negative controls: +1/120 and +1/200, both reproduced.
+```
+
+Reproducer core, sufficient to repeat the decisive checks without any repository installation:
+
+```python
+from fractions import Fraction as F
+from itertools import combinations
+L = F(1, 6)
+def budget(g, s, total=L):
+    return (F(0) if s >= g else g/4) - (total-s)/2
+for i in range(193):
+    g = F(i, 7680)
+    for j in range(241):
+        s = F(j, 1440)
+        assert budget(g, s) <= 0
+        if s < g:
+            assert budget(g, s) < F(-31, 480)
+families = [list(range(1, k+1)) for k in range(1, 9)]
+families += [[1,1009,1013,1019,1021], [1,10**9,10**9+7]]
+for weights in families:
+    ell = [L*w/sum(weights) for w in weights]
+    for k in range(len(ell)+1):
+        for chosen in combinations(range(len(ell)), k):
+            s = sum((ell[i] for i in chosen), F(0))
+            d = L-s
+            for g in [F(0), F(1,10000), F(1,100), F(1,40)]:
+                e = F(0) if s >= g else g/2
+                S = F(5,6)-g/2
+                assert (S-2*d+e)/2-S/2+d == e/2
+                assert budget(g, s) <= 0
+assert budget(F(1,8), F(29,240)) == F(1,120)
+assert budget(F(1,50), F(1,100), F(1,100)) == F(1,200)
+for g in [F(1,10**9), F(1,1000), F(1,40), F(1,6)]:
+    S, d, H, z = F(5,6)-g/2, L-g/5, F(1,2)-g/10, g/5
+    assert 2*H+2*z-1-z == 0
+    assert H == S-2*d
+    assert H+z-(S-2*d) == (1+4*L-2*S-z)/4 == g/5
+```
+
+Executed full script SHA256: **d51ebcf57faee609211da8ad739060e5b66380a71c7318c9903c363270ee8d99**. Canonical JSON result SHA256: **a91fe24b792348b850f63e9c33470b7f0f19cae8e9ec995a5753995d1880c280**. This is independent execution of the new scalar checks, NOT independent reproduction of another agent's source-prime census. No Lean process was run. The analytic proof, not these finite tests, supplies all scales and all actual source lengths.
+
+### L. Formalization Guidance: At Most Two Tasks
+
+1. **Two-envelope actual nominal energy and weighted central tuple.** Implement TF1 by applying the existing physical theorem at phys and barPhys, keeping the same LHS and all uniform quantifiers. Carry e_J/2 through the ACTUAL Q normalization, then use `lowUnselectedMass_moving_power_bound` at rho=1/2 under exact total 1/6 and g<=1/9. Acceptance tests: every subset including J empty and selected type empty, lower and upper norm caps, epsilon collars, actual masks, unchanged Gram, no new axioms or sorry, printed types and axiom closures. Do not implement the false no-cost scalar gate deletion.
+2. **Complete LOW and same-source anchored endpoint.** Propagate the restored central exponent through all existing Gaussian/ray/normalizer stages; add the gate-free SourceData wrapper for 0<=tilt<1/960. Instantiate the existing generic anchored HIGH at m/4 and reproduce the same-source beta, Mertens, signed-pair and canonical-HIGH returns with explicit loss spending. Acceptance requires exact generated source, pinned dependencies, full type inspection, and all endpoint axiom/no-placeholder audit evidence. Preserve old APIs and theorem scopes. Do not report VERIFIED_ETA before independent review and the complete verified implementation.
+
+No implementation or feature branch was created by this Referee. These are bounded handoffs, not authorization to modify another agent's work.
+
+### M. Specialist Handoffs
+
+| Specialist | Precise next question |
+| --- | --- |
+| Proof Architect | Independently check TF1-TF3 and compare this two-envelope proof with the cost of RG4. The paper candidate uses the same actual m and stops at sigma=m/4; update the dependency map only after review. |
+| Analytic Type II | Try to break E2 at the actual Gram/mass interface, especially the distinct uses of L_u in Q and L_u^(-1/2). Keep BC count improvements separate from this already identified reserve. |
+| Owner Payment | TF3 is not yet a certified new numerical input. Continue JOH/VF-LOW/SAT using the current certified baseline; a future accepted TF3 can be substituted only through your proved native transfer. |
+| Finite Wheel | No changes to OC2's absolute-residual or OC4's capacity scope. The scalar two-slot negative controls here are not physical donor graphs or counterexamples to your signed repair. |
+| Prime Census | Independently inspect the source interfaces before expanding finite tests. Decisive falsifier: a phys-dependent term on the selected energy LHS, an omitted source restoration, a reused normalization credit, or a remaining gap use downstream of the central tuple. Synthetic small-K lists are explicitly not HighData. |
+| Lean Verification | The two tasks in L are the complete proposed implementation surface. Confirm the generated generic HIGH type rather than specializing the old LOW-gated endpoint theorem by fiat. |
+
+### N. First Independently Missing Ingredient
+
+For this candidate, the first theorem not yet independently accepted is **TF2's full source-faithful gate-free normalized LOW**, with TF1 and the exact moving-mass payment as its explicit paper proof. No new arithmetic assumption is asserted to be required beyond the displayed compiled suppliers, but this author's reconstruction is SELF_AUDIT until another reviewer verifies it. Kernel formalization of that proof and the TF3 endpoint is also pending.
+
+The sharper RG4 remains unresolved, but it is no longer necessary for this proposed endpoint. Beyond TF3's candidate boundary, the existing HIGH reserve is the binding comparison term. For the canonical VF/von Koch objective itself, this small subcritical improvement is insufficient; that objective remains OPEN.
+
+### O. Source, CI, Publication, And Resume Capsule
+
+Material main blobs independently read:
+
+| Path | Blob SHA |
+| --- | --- |
+| docs/RHLEAN_COMPLETE_SIGNED_HIGH_ATTACK_20261107.md | be8168b67584d9d8ebbaa732a30c51509137543e |
+| docs/RHLEAN_REUSE_CANCELLATION_CHAIN_20261107.md | 28e2ab47c68bc83b91ae02b6112b94867b021b32 |
+| docs/RHLEAN_PAID_BASELINE_EXACT_CONSUMER_20261106.md | 13d58dd12d90fbf1160812c7c93442dc5d0576ac |
+| docs/RHLEAN_INDEPENDENT_MULTIFRONT_NO_PIGEONHOLING_20261104.md | 6ff6eb30b91705af5478d3705849234260f8a7a3 |
+| research/oai_434/VF919FiniteSlotReflectedGain.lean | a5545b5a00958b69f6fbfd79fc555a0476aa6487 |
+| research/oai_434/VF919TiltedLowReflection.lean | 88293c915d67eefee2e1e989082248b8a52f2ae7 |
+| research/oai_434/VF919TiltedLowPhysical.lean | c608fe06005359225661cc58d9caa0e4036de265 |
+| research/oai_434/VF919TiltedProbe.lean | 0f95d412bce773d50e71b1809ab9942653e66812 |
+| research/oai_434/VF919OriginalLowTupleSignedGram.lean | dd2fde01ae6e2446da4e69b30f6fc80fcadb858d |
+| research/oai_434/VF919ActualSlotMinRetighten.lean | 138c4726085995b966204406805f70082402bec4 |
+| research/oai_434/VF919LowFirstSlotCalibratedData.lean | 950c00c60d8757c7b6cd0dcea19e94d5114ea0ba |
+| research/oai_434/VF919LowFirstSlotAnchoredEndpoint.lean | d9373ce13b703b1e5f4e4bcde158ef9004d250dd |
+| research/oai_434/VF919NativeStrictMertens.lean | b33a4883e1ddb0551b0f11f062bce46680d87450 |
+| research/oai_434/VF919NativeSevenEighthsReplay.lean | 111c933a7ca15647105ce6a4d0f3cbfc3cde81f4 |
+| research/oai_434/VF919LowFirstPhysicalTiltFullBudget.lean | 0923ee1d78bdea48d494d9993834e1d31638bbda |
+| research/oai_434/VF919TiltedHighAssembly.lean | 883141e0af896d4132bfc4ffa076e2d265ece5c9 |
+| research/oai_434/RETAINED_SLOT_FEEDBACK.md | 298db21b32024ab1443257ddf41261e765f95cec |
+| scripts/lean/retained_slot_feedback/CutoffMoments.lean | d877240267337cca4dae6a2929b216fe6f3e2898 |
+| scripts/lean/slot_anchored/prepare_anchored.py | 0bac9047afaa8e9ddc5ac246be2d0fe7d6efa725 |
+| RHLean/Analysis/CanonicalHighSectorCore.lean | dd02fc8fabfe4004c6b0d50374b3b8752607b168 |
+| RHLean/Analysis/CanonicalLowOccupancy.lean | b958da340d107cdd00015d2827b9a728357b4d8e |
+
+Original OAI pin: **1581d4cbdd69a0faf34b2089614fe2a814316a6a**, repository openai/math. Read exact `lean/OAI/NumberTheory/DirichletL/Inversion/TerminalWidths.lean`, blob **7e8d1403fb941545385aa5156e774ef9c29280a9**; `Detector/FinalAssemblyData.lean`, blob **ebc462f5678b6c9dafd55ee8a434d1538d814790**; `ParametersFixedSource.lean`, blob **d7dc90c32ac1ceafb542191ac782e9ed4e13e9a9**; `ParametersHighData.lean`, blob **c565dc0a72c7da9a2706cdd835e69a39e8c0dc14**. In particular t_small is literally t<=1/100000000, not an inferred asymptotic smallness condition.
+
+Verified CI evidence, scoped to actual runs:
+
+- [PR #1091](https://github.com/OVVO-Financial/RH_Lean/pull/1091) is merged, exact head **6778fd4c25b0f369d311e6e71223e168e329b4bf**. Its [anchored proof job](https://github.com/OVVO-Financial/RH_Lean/actions/runs/41898325686/job/126813711885) is successful; logs print the three actual-minimum endpoint types and PASS closures with only propext, Classical.choice and Quot.sound, closure counts 35334/35713/35728. This is compiled baseline evidence, not the new TF3.
+- Artifact **13357024564** from that run was actually downloaded and inspected. ZIP SHA256 recomputed locally: **245aeede7f0c32c835b003325438696c10cd3e795b4d447120cf8b2f75f755e9**. Generated `VF919AnchoredHighAssembly.lean` SHA256 **74605135652abfcf926bbe7d3ae9e0215292fa793cd638dead61fb6357657524**, Git blob **c48b40e5c6b4c1f7f1cf0d94195f187b091affbe**. Its actual generic theorem at line 173 accepts arbitrary tilt with 24tilt<D.t, and its log reports only the three standard axioms. Generation metadata records source pin **9cbfce5295343bcb411e6d2cb159b59995cd985b** and the above OAI pin.
+- Artifact copies of ActualSlotMinRetighten, OriginalLowTupleSignedGram, LowFirstSlotAnchoredEndpoint and LowFirstSlotCalibratedData have exactly the current main Git blob hashes listed above. Separate immutable fetches of TiltedLowPhysical and TiltedLowReflection at #1091's head also match current main blobs. Thus the material reused declarations are not an unverified changed-source extrapolation from old CI.
+- [PR #1085](https://github.com/OVVO-Financial/RH_Lean/pull/1085) is merged, head **7895272e5303ed0f4199d5b06b74786e22d31769**. Its [proof job](https://github.com/OVVO-Financial/RH_Lean/actions/runs/41872040501/job/126721440818) succeeded. The actual moving-power mass type and standard axiom output were read. It is also present in the verified #1091 artifact.
+- [PR #1105](https://github.com/OVVO-Financial/RH_Lean/pull/1105) is merged into current main, head **30e235ac5ee86041d194d07b20c52b0b22d317f2**. Its [cutoff proof job](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42402231812/job/128492295936) succeeded. The printed two-error source moment and three immediate count statements have standard axioms; no new combined-count endpoint follows merely from this merge.
+- At the final PR refresh, the only open PR is [#1106](https://github.com/OVVO-Financial/RH_Lean/pull/1106), ready rather than draft, head **aafb28e85bbc7a55a6c351621dc451042aee5b8f**. Nineteen of twenty check runs are successful and one is in progress; its dedicated logarithmic-amplification proof succeeded. It is NOT merged and its exact-identity content is not used as a new estimate here. No CI was triggered or awaited for this report.
+
+Tool limitations and permissions: shell GitHub clone was denied by the network proxy; authenticated read-only GitHub retrieval and own-report writes worked. No local Lean build was attempted, no source file was modified, no proof branch/PR/workflow/schedule/other role report was changed, and no subagent was launched. Local mirrors and rational diagnostics are scratch only. Existing compiled source and retrieved exact-head audit artifacts, not a fresh whole-repository build, support the formal input statuses.
+
+Checkpoint publication was already verified at commit **a3cc177b6f96a04c108ddbdccc240d4f4d64d983**, report blob **f8464c2fa8a034bceb6b46c4868eab881d04c475**. Main remained unchanged at the final authority refresh; the reports branch then contained that checkpoint with all other intake handoffs unchanged. This synthesis's publication is not claimed complete until the immutable readback receipt below is added.
+
+**Next-run capsule.** Preserve `20261107-referee-3/TF1-TF5`, accepted RG1-RG3 scopes, RG4=UNRESOLVED, conditional RG5 acceptance, and PAPER/SELF_AUDIT status of TF1-TF3. First inspect any independent review or implementation of the two-envelope LHS identity and actual-Q mass payment. Do not repeat unchanged scalar grids or claim certification from old #1091. If those proofs survive, audit the complete m/4 endpoint and all loss constants before marking a new certified gain. Any subsequent improvement must confront the remaining HIGH reserve, not reuse the same payment credit.
