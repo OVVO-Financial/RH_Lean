@@ -120,6 +120,7 @@ theorem squareWheelLateRemoved_has_new_prime_factor
     {S R n : ℕ} (hR : 2 ≤ R) (_hSR : S ≤ R)
     (hn : n ∈ squareWheelLateRemovedSites S R) :
     ∃ q : ℕ, q.Prime ∧ S < q ∧ q ≤ R ∧ q ∣ n := by
+  classical
   have hws :
       n ∈ vfMidSquarePrefixWheelSurvivors S R :=
     (Finset.mem_sdiff.mp hn).1
