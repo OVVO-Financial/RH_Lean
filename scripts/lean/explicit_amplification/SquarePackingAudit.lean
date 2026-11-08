@@ -7,7 +7,7 @@ def main (_args : List String) : IO UInt32 := do
   initSearchPath (← findSysroot)
   unsafe enableInitializersExecution
   let env ← importModules
-    #[{ module := `research.oai_434.VF919ExplicitSquareBlockPacking }]
+    #[{ module := Name.mkSimple "research.oai_434.VF919ExplicitSquareBlockPacking" }]
     Options.empty 1024 (loadExts := true)
   let allowed : Array Name := #[`propext, `Classical.choice, `Quot.sound]
   let roots : Array Name := #[
