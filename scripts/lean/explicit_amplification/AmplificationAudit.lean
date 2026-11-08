@@ -28,24 +28,35 @@ def reduceBeforeCollecting (n : Name) : Bool :=
     (`RHLean.Analysis).isPrefixOf n ||
     n.toString.endsWith "_total_mass"
 
+/-- Dependencies depend only on the fixed imported environment and declaration.
+The normalization and expansion policy is identical for every terminal. -/
+def declarationDependencies (env : Environment) (n : Name) : List Name :=
+  if shouldExpand n then
+    match env.find? n with
+    | none => []
+    | some info => match info.value? (allowOpaque := true) with
+      | none => []
+      | some value =>
+        let live := if reduceBeforeCollecting n then reduceAdmin value else value
+        live.getUsedConstants.toList
+  else []
+
+/-- Reuse normalized dependency lists, while keeping the reached set local to
+one terminal.  The cache stores neither reached sets nor audit verdicts. -/
 partial def closure (env : Environment) (pending : List Name)
-    (seen : NameSet := {}) : NameSet :=
+    (seen : NameSet := {}) (cache : NameMap (List Name) := {}) :
+    NameSet × NameMap (List Name) :=
   match pending with
-  | [] => seen
+  | [] => (seen, cache)
   | n :: rest =>
-    if seen.contains n then closure env rest seen
+    if seen.contains n then closure env rest seen cache
     else
       let seen' := seen.insert n
-      let refs := if shouldExpand n then
-        match env.find? n with
-        | none => []
-        | some info => match info.value? (allowOpaque := true) with
-          | none => []
-          | some value =>
-            let live := if reduceBeforeCollecting n then reduceAdmin value else value
-            live.getUsedConstants.toList
-        else []
-      closure env (refs ++ rest) seen'
+      match cache.find? n with
+      | some refs => closure env (refs ++ rest) seen' cache
+      | none =>
+        let refs := declarationDependencies env n
+        closure env (refs ++ rest) seen' (cache.insert n refs)
 
 def rootHecke : Name :=
   `OAI.SevenEighths.native_beta_le_explicit_slot_count_total_mass
@@ -87,13 +98,15 @@ def main (_args : List String) : IO UInt32 := do
     #[{ module := Name.mkSimple "research.oai_434.VF919ExplicitAmplificationBound" }]
     Options.empty 1024 (loadExts := true)
   let allowed : Array Name := #[`propext, `Classical.choice, `Quot.sound]
+  let mut dependencyCache : NameMap (List Name) := {}
   for root in #[rootHecke] ++ nativeRoots ++ ratioRoots do
     let axioms ← (Lean.collectAxioms root : CoreM (Array Name)).toIO'
       { fileName := "<explicit-amplification-axioms>", fileMap := default } { env := env }
     for ax in axioms do
       unless allowed.contains ax do
         throw (IO.userError s!"Unapproved axiom for {root}: {ax}")
-    let reached := closure env [root]
+    let (reached, nextCache) := closure env [root] {} dependencyCache
+    dependencyCache := nextCache
     for required in finiteSourceNeeded do
       unless reached.contains required do
         throw (IO.userError s!"Missing live finite-source dependency for {root}: {required}")

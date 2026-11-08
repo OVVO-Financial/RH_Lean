@@ -11,6 +11,17 @@ total-mass endpoint to that same source gives
 \beta_{\mathrm{Hecke}}\le\frac78-\frac1{48N}.
 \]
 
+The count is specifically defined. With `Delta = 10^(-6)`, `t = 10^(-8)`,
+and `h = detectorMesh Delta t`, its definition is equivalently
+
+\[
+L=\frac{\min(t,h)}{200},\qquad
+N=\left\lceil\max\left(1,\frac1{3L}\right)\right\rceil_{\mathbb N}+2.
+\]
+
+The source proves `L > 0` and `N >= 2`. The count is chosen once, independently
+of the outer cutoff. Its decimal value is not evaluated in this development.
+
 This composes existing arithmetic theorems. The coefficient `1/4` in the
 complete total-mass theorem replaces the older `1/24`, increasing this
 particular explicit saving by six. The count is a fixed number of source
@@ -113,6 +124,36 @@ The development does not assert that the limsup equals its upper bound,
 that the original amplification has a single constant upper bound, or that
 `q(X)` tends to zero. Those conclusions are stronger than these statements.
 
+## Interpreting the exponents
+
+The Mertens-to-amplification exponent conversion is `b -> 2*b - 1`.
+For example, squaring a bound of size `X^(7/8)` and dividing by `X`
+gives size `X^(3/4)`. The exponent `3/4` in an amplification conclusion is
+therefore not a Mertens exponent of `3/4`.
+
+The exact reverse identity at `X = R^2 - 1` also retains the historical factor:
+
+\[
+|M(X)-1|=\sqrt{(X+1)K_R\alpha_R}.
+\]
+
+An upper bound on the normalized amplification does not remove `K_R` from
+this identity. The new Mertens boundary is `7/8 - 1/(48*N)` with every positive
+exponent allowance; its amplification boundary is `3/4 - 1/(24*N)`.
+
+Eventual `A(X) < X` alone does not imply the requested logarithmic limit.
+For the example function `F(X) = sqrt(X)`, one has `F(X) < X` for `X > 1`,
+but `log(1 + F(X)) / log(X)` tends to `1/2`. The original zero-growth target
+requires bounds below every positive power, equivalently
+
+\[
+\forall\eta>0\;\exists C_\eta>0\;\forall X\ge1:
+\quad\mathcal A(X)\le C_\eta X^\eta.
+\]
+
+This PR supplies a particular positive exponent ceiling. It does not supply
+the displayed every-positive-power statement.
+
 ## Files and verification
 
 - `RHLean/Proof/SquareRootAmplificationPowerBounds.lean`: generic exact
@@ -133,3 +174,11 @@ and `Quot.sound`. Live proof dependencies must include the explicit source,
 the new total-mass theorem, the native Mertens transfer, and the exact integer
 and historical-amplification consumers. Compilation status is established by
 the corresponding Actions run, not by source generation.
+
+The existing native and original analytic build caches remain source-pinned.
+Within the new audit, normalized dependency lists are cached by declaration
+name in one fixed imported environment, so the ten terminal checks reuse the
+expensive dependency extraction. Every terminal still starts with its own
+empty reached set, collects its axioms independently, and executes every
+required and forbidden dependency check. The cache contains dependency lists,
+not prior audit verdicts.
