@@ -40,3 +40,21 @@ Today's Lean report identifies PR #1124 as CI_GREEN/REVIEW_READY at 1b80f147dab3
 
 ### J. Next-Run Resume Capsule
 Continue the same invocation: inspect relevant original Lean and PR/CI; read applicable complete report derivations; perform one substantial independent test; append an A-J synthesis and precise assignments; verify publication/readback of identical 00/90 mirrors. Direct git transport returned CONNECT tunnel 403, while authorized GitHub connector reads work. Publication is not claimed before commit and readback.
+
+
+## Registered Modal Investigation - 20261109-coordinator-0710-EST/MP
+
+# Frozen Modal Diagnostic - 20261109-coordinator-0710-EST/MP
+
+Registered before execution. The mathematical target is the exact proper cross-root hyperbola, not the complete finite-wheel discrepancy. No prime or zero census is being conducted.
+
+- Carrier: A=[R/2,R), B=[R,2R], uv<=R^2-1; a smooth conjugate-pair measure -(u^(rho-1)+u^(conj(rho)-1))/log(u) du.
+- Candidate: its normalized quadratic equals 2 Re(R^(2i gamma) J(rho,rho)) + 2 Re J(rho,conj(rho)), to absolute error at most 8 log(2)*(1/log(R)+1/R^2).
+- Kernel: J(z,w)=(A(z-w)-A(z))/w, A(z)=(1-2^(-z))/z with A(0)=log(2).
+- Fixed modes: beta in {1/4,1/2,3/4}, gamma in {1,3,17}. All are synthetic, not asserted zeta zeros.
+- Fixed roots: 8,12,37,256,10^4,10^8,10^16,10^32.
+- Independent numerical reconstruction: direct two-dimensional Gauss integration versus the elementary kernel formula; orders 80 and 120. Reject implementation/formula if kernel difference exceeds 2e-12, refinement difference exceeds 2e-11, or the explicit-bound ratio exceeds 1+1e-11. These are diagnostics, not rigorous transcendental enclosures.
+- Exact negative control: a three-by-three rational atomic triangle must retain BOTH unequal mixed orientations when a measure is split into packet plus remainder.
+- No inference to the full prime-discrepancy quadratic, infinite zero expansion, RH, or complete finite-wheel bound is authorized by passing these tests. The all-scale obstruction requires the paper argument separately.
+
+The proposed paper question is whether a per-conjugate-zero-pair RH-scale estimate is already RH-equivalent on this exact proper quadratic, and whether the paid finite-frequency smoothing changes that obstruction. No off-critical zero or bound on the actual complete prime error is asserted. Source, endpoint, and residual transfers must remain explicit. Registered 2026-11-09 07:23 EST; computation has not started.
