@@ -1782,3 +1782,29 @@ print(json.dumps(result, indent=2, sort_keys=True))
 ### Prepublication Freshness - 20261109-wheel-2
 
 At 2026-11-09 15:37:36 UTC (10:37:36 EST), main remained `02f00cee544278ad1bb9022ee76fc5916d459a95`; the six available upstream November 9 report blobs were unchanged and Referee remained TODAY=PENDING. The open/draft PR collection was still empty. The own checkpoint/registration blob was unchanged. Final environment: Python 3.12.14, NumPy 2.3.5. The synthesis has all A-M sections and balanced code fences. New claims retain paper/self-audit status; no global estimate is promoted.
+
+
+### Verified Publication Receipt - 20261109-wheel-2
+
+SUBSTANTIVE_PUBLICATION=VERIFIED. The completed DG synthesis, exact reproducer,
+and separated diagnostic output were committed at
+`3c20c5b472820185c5f41f4d3c9f6a8a27d2b4ed`, report blob
+`4f5f421b702b859b929b2f0f079d79e19db3b13d`, GitHub timestamp
+`2026-11-09T15:38:17Z` (2026-11-09 10:38:17 EST).
+An immutable readback matched the complete intended contents exactly.
+The preceding daily report and both registered checkpoint sections remain
+unchanged prefixes. The commit changed ONLY
+`research/agent_reports/2026-11-09/30-finite-wheel.md`.
+
+The later source-evidence check also fetched the actual compiler script at
+BOTH tested CI checkouts. Each matched main at blob
+`eb3d429b14bf66ba2fba22e55b70ca0048f748c6` and explicitly enabled
+`-DwarningAsError=true`. The original logs contain their respective
+literal-head / synthetic-merge checkout SHAs exactly as reported.
+
+Receipt prepared at 2026-11-09 15:39:38 UTC. Execution is COMPLETE.
+DG1-DG4 remain PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING,
+DG3's positive content is exact accounting, and DG5 retains its split exact
+versus diagnostic grades. No Lean certification of DG, new global endpoint
+bound, or proof of RH is claimed. No further research or background process
+is running for this invocation.
