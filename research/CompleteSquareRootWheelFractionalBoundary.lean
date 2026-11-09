@@ -236,4 +236,241 @@ theorem finiteWheelFract_sub_density_eq_physical_floorError
 
 -- All divisor identities above are RH-free and preserve the complete wheel.
 
+
+/-! ## Exact prime-counting specialization at square-prefix endpoints -/
+
+/-- Every positive survivor below R squared is 1 or a prime above R-1. -/
+private theorem finiteWheel_squareSurvivor_iff_one_or_highPrime
+    {R n : ℕ} (hR : 2 ≤ R) (hnpos : 0 < n)
+    (hnX : n ≤ squareRootEndpoint R) :
+    lowWheelHighSurvivor (R - 1) n ↔
+      n = 1 ∨ (n.Prime ∧ R - 1 < n) := by
+  have hnLtSq : n < R ^ 2 := by
+    unfold squareRootEndpoint at hnX
+    have hsq : 0 < R ^ 2 := by positivity
+    omega
+  by_cases hnOne : n = 1
+  · subst n
+    constructor
+    · intro _
+      exact Or.inl rfl
+    · intro _
+      intro p hp hpd
+      exact (prime_of_mem_primesUpTo hp).not_dvd_one hpd
+  by_cases hnPrime : n.Prime
+  · constructor
+    · intro hsurv
+      have hlarge : R - 1 < n := by
+        by_contra hnot
+        have hlow : n ∈ primesUpTo (R - 1) :=
+          mem_primesUpTo.mpr ⟨hnPrime, Nat.le_of_not_gt hnot⟩
+        exact hsurv n hlow (dvd_refl n)
+      exact Or.inr ⟨hnPrime, hlarge⟩
+    · rintro (hOne | ⟨_hnP, hlarge⟩)
+      · exact False.elim (hnOne hOne)
+      · intro p hp hpDiv
+        have hpPrime := prime_of_mem_primesUpTo hp
+        have hpLe : p ≤ R - 1 := (mem_primesUpTo.mp hp).2
+        have hpEq : p = n :=
+          (Nat.prime_dvd_prime_iff_eq hpPrime hnPrime).mp hpDiv
+        omega
+  · let p := n.minFac
+    have hp : p.Prime := by
+      simpa [p] using Nat.minFac_prime hnOne
+    have hpd : p ∣ n := by
+      simpa [p] using Nat.minFac_dvd n
+    have hpSq : p ^ 2 ≤ n := by
+      simpa [p] using Nat.minFac_sq_le_self hnpos hnPrime
+    have hpLtR : p < R := by
+      by_contra hnot
+      have hRp : R ≤ p := Nat.le_of_not_gt hnot
+      have hpow : R ^ 2 ≤ p ^ 2 := Nat.pow_le_pow_left hRp 2
+      omega
+    have hpMem : p ∈ primesUpTo (R - 1) :=
+      mem_primesUpTo.mpr ⟨hp, by omega⟩
+    constructor
+    · intro hsurv
+      exact False.elim (hsurv p hpMem hpd)
+    · rintro (hOne | ⟨hPrime, _⟩)
+      · exact False.elim (hnOne hOne)
+      · exact False.elim (hnPrime hPrime)
+
+/-- Native primeCounting agrees with the genuine finite prime filter. -/
+private theorem finiteWheel_primeCount_range (N : ℕ) :
+    ((Finset.range (N + 1)).filter Nat.Prime).card =
+      Nat.primeCounting N := by
+  unfold Nat.primeCounting Nat.primeCounting'
+  rw [Nat.count_eq_card_filter_range]
+
+/-- Actual prime counts split exactly across any ordered walls. -/
+private theorem finiteWheel_primeCount_split
+    (L U : ℕ) (hLU : L ≤ U) :
+    ((Finset.Ioc L U).filter Nat.Prime).card +
+      Nat.primeCounting L = Nat.primeCounting U := by
+  let A : Finset ℕ := (Finset.range (L + 1)).filter Nat.Prime
+  let B : Finset ℕ := (Finset.Ioc L U).filter Nat.Prime
+  let C : Finset ℕ := (Finset.range (U + 1)).filter Nat.Prime
+  have hdisj : Disjoint A B := by
+    apply Finset.disjoint_left.mpr
+    intro p hpA hpB
+    have hpL : p ≤ L := by
+      have hp := (Finset.mem_filter.mp hpA).1
+      simpa only [Finset.mem_range, Nat.lt_succ_iff] using hp
+    have hpGT : L < p :=
+      (Finset.mem_Ioc.mp (Finset.mem_filter.mp hpB).1).1
+    omega
+  have hUnion : A ∪ B = C := by
+    ext p
+    simp only [A, B, C, Finset.mem_union, Finset.mem_filter,
+      Finset.mem_range, Finset.mem_Ioc, Nat.lt_succ_iff]
+    constructor
+    · rintro (⟨hpL, hpPrime⟩ | ⟨⟨hpL, hpU⟩, hpPrime⟩)
+      · exact ⟨hpL.trans hLU, hpPrime⟩
+      · exact ⟨hpU, hpPrime⟩
+    · rintro ⟨hpU, hpPrime⟩
+      by_cases hpL : p ≤ L
+      · exact Or.inl ⟨hpL, hpPrime⟩
+      · exact Or.inr ⟨⟨by omega, hpU⟩, hpPrime⟩
+  have hcard := congrArg Finset.card hUnion
+  rw [Finset.card_union_of_disjoint hdisj] at hcard
+  rw [finiteWheel_primeCount_range L,
+    finiteWheel_primeCount_range U] at hcard
+  simpa [A, B, C, add_comm] using hcard
+
+/-- The square-prefix survivor population is 1 plus precisely the actual
+primes above the small-prime cutoff. -/
+theorem finiteWheel_squareSurvivorCount_eq_primeCount
+    (R : ℕ) (hR : 2 ≤ R) :
+    vfMidPrefixWheelCounting (R - 1) (squareRootEndpoint R) +
+      Nat.primeCounting (R - 1) =
+        Nat.primeCounting (squareRootEndpoint R) + 1 := by
+  classical
+  let X := squareRootEndpoint R
+  let y := R - 1
+  have hRsq : R ≤ R ^ 2 := by nlinarith
+  have hX0 : 1 ≤ X := by
+    dsimp [X, squareRootEndpoint]
+    have hRsq4 : 4 ≤ R ^ 2 := by nlinarith
+    omega
+  have hyX : y ≤ X := by
+    dsimp [X, y, squareRootEndpoint]
+    omega
+  have hset :
+      (Finset.Ioc 0 X).filter (lowWheelHighSurvivor y) =
+        insert 1 ((Finset.Ioc y X).filter Nat.Prime) := by
+    ext n
+    simp only [Finset.mem_filter, Finset.mem_Ioc, Finset.mem_insert]
+    constructor
+    · rintro ⟨⟨hn0, hnX⟩, hsurv⟩
+      rcases (finiteWheel_squareSurvivor_iff_one_or_highPrime
+        hR hn0 hnX).mp hsurv with hOne | ⟨hnPrime, hny⟩
+      · exact Or.inl hOne
+      · exact Or.inr ⟨⟨hny, hnX⟩, hnPrime⟩
+    · rintro (hOne | ⟨⟨hny, hnX⟩, hnPrime⟩)
+      · subst n
+        exact ⟨⟨by omega, hX0⟩,
+          (finiteWheel_squareSurvivor_iff_one_or_highPrime
+            hR (by omega) hX0).mpr (Or.inl rfl)⟩
+      · have hnpos : 0 < n := hnPrime.pos
+        exact ⟨⟨hnpos, hnX⟩,
+          (finiteWheel_squareSurvivor_iff_one_or_highPrime
+            hR hnpos hnX).mpr (Or.inr ⟨hnPrime, hny⟩)⟩
+  have hOneNot :
+      1 ∉ ((Finset.Ioc y X).filter Nat.Prime) := by
+    simp
+  have hsurv :
+      vfMidPrefixWheelCounting y X =
+        1 + ((Finset.Ioc y X).filter Nat.Prime).card := by
+    unfold vfMidPrefixWheelCounting
+    rw [hset, Finset.card_insert_of_notMem hOneNot]
+    omega
+  have hprime := finiteWheel_primeCount_split y X hyX
+  dsimp [X, y] at hsurv hprime ⊢
+  omega
+
+/-- Legendre's exact finite square-root prime-counting identity; R>=2 keeps
+the cofactor-one atom in the physical prefix. -/
+theorem finiteWheel_squareLegendre_identity
+    (R : ℕ) (hR : 2 ≤ R) :
+    (Nat.primeCounting (squareRootEndpoint R) : ℤ) =
+      (Nat.primeCounting (R - 1) : ℤ) - 1 +
+        ∑ d ∈ (primorial (R - 1)).divisors,
+          (ArithmeticFunction.moebius d : ℤ) *
+            ((squareRootEndpoint R / d : ℕ) : ℤ) := by
+  have hcount := finiteWheel_squareSurvivorCount_eq_primeCount R hR
+  have hfloor :=
+    finiteWheel_divisorFloor_eq_survivorCount
+      (R - 1) (squareRootEndpoint R)
+  have hcountZ :
+      (vfMidPrefixWheelCounting (R - 1) (squareRootEndpoint R) : ℤ) +
+        (Nat.primeCounting (R - 1) : ℤ) =
+      (Nat.primeCounting (squareRootEndpoint R) : ℤ) + 1 := by
+    exact_mod_cast hcount
+  rw [hfloor]
+  omega
+
+/-- Full fractional boundary minus finite Euler bulk equals the negative
+of the complete Legendre floor sum, including every virtual divisor. -/
+theorem finiteWheelFract_sub_density_eq_neg_floor (z X : ℕ) :
+    finiteWheelFract z X - (X : ℝ) * vfMidPrefixWheelDensity z =
+      -(∑ d ∈ (primorial z).divisors,
+        (ArithmeticFunction.moebius d : ℝ) * ((X / d : ℕ) : ℝ)) := by
+  classical
+  unfold finiteWheelFract
+  rw [← finiteWheel_divisorReciprocal_eq_eulerProduct,
+    Finset.mul_sum, ← Finset.sum_sub_distrib]
+  calc
+    (∑ d ∈ (primorial z).divisors,
+      (ArithmeticFunction.moebius d : ℝ) *
+        Int.fract ((X : ℝ) / (d : ℝ)) -
+      (X : ℝ) * ((ArithmeticFunction.moebius d : ℝ) / (d : ℝ))) =
+        ∑ d ∈ (primorial z).divisors,
+          -((ArithmeticFunction.moebius d : ℝ) *
+            ((X / d : ℕ) : ℝ)) := by
+      apply Finset.sum_congr rfl
+      intro d _hd
+      rw [finiteWheel_fract_eq_div_sub_natDiv X d]
+      ring
+    _ = _ := by rw [Finset.sum_neg_distrib]
+
+/-- Deterministic main-term ledger for an arbitrary real reference L.
+Choosing L=li(X) specializes it to the conventional prime discrepancy. -/
+def finiteWheelSquareDeterministic (R : ℕ) (L : ℝ) : ℝ :=
+  (squareRootEndpoint R : ℝ) *
+      vfMidPrefixWheelDensity (R - 1) +
+    (Nat.primeCounting (R - 1) : ℝ) - 1 - L
+
+/-- Exact centered finite-prime discrepancy, independently of the choice of
+real reference L. This theorem makes NO RH or numerical bound claim. -/
+theorem finiteWheel_squareFractional_centered_eq_reference_sub_pi
+    (R : ℕ) (hR : 2 ≤ R) (L : ℝ) :
+    finiteWheelFract (R - 1) (squareRootEndpoint R) -
+        finiteWheelSquareDeterministic R L =
+      L - (Nat.primeCounting (squareRootEndpoint R) : ℝ) := by
+  have hleg := finiteWheel_squareLegendre_identity R hR
+  have hlegR :
+      (Nat.primeCounting (squareRootEndpoint R) : ℝ) =
+        (Nat.primeCounting (R - 1) : ℝ) - 1 +
+          (∑ d ∈ (primorial (R - 1)).divisors,
+            (ArithmeticFunction.moebius d : ℝ) *
+              ((squareRootEndpoint R / d : ℕ) : ℝ)) := by
+    exact_mod_cast hleg
+  rw [finiteWheelFract_sub_density_eq_neg_floor]
+  unfold finiteWheelSquareDeterministic
+  linarith
+
+/-- The absolute RH-scale target is now literally the classical discrepancy.
+This is an identity, NOT a bound. -/
+theorem finiteWheel_squareFractional_centered_abs
+    (R : ℕ) (hR : 2 ≤ R) (L : ℝ) :
+    |finiteWheelFract (R - 1) (squareRootEndpoint R) -
+        finiteWheelSquareDeterministic R L| =
+      |L - (Nat.primeCounting (squareRootEndpoint R) : ℝ)| := by
+  rw [finiteWheel_squareFractional_centered_eq_reference_sub_pi R hR L]
+
+-- Exact sign and virtual-divisor compensation; no sign estimate or RH claimed.
+
+#print axioms finiteWheel_squareFractional_centered_eq_reference_sub_pi
+#print axioms finiteWheelFract_sub_density_eq_physical_floorError
+
 end RHLean.Analysis
