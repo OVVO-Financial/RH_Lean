@@ -953,3 +953,832 @@ and SHIFT. The three pair roots 4096,16384,65536 are fixed; using them again
 is justified only by the new ONE-MEASURE assembly, not a new census or an
 independent rediscovery of MB4. All exact arithmetic cases in the original
 registration are unchanged.
+
+## Dyadic Product Rigidity And Cross-Scale Potential Limits - 20261109-wheel-2/DG
+
+### A. Most Important Structural Discovery
+
+**Genuine prime-product phases at adjacent dyadic roots can coincide only at one explicitly characterized square-boundary configuration. Nevertheless, distinct phases with a shared prime can reinforce each other on the ENTIRE relevant finite frequency band.** Unique factorization supplies exact rigidity, not the quantitative separation needed for a cancellation estimate.
+
+There is also a stronger, precisely scoped continuation of Analytic MB4: its separate scale-dependent countermodels can be assembled into **ONE fixed signed measure**, consistent across all dyadic scales, with zero mass on every aligned dyadic interval, half-reference density domination, and the exact SHIFT relation. Its prescribed middle-band response still exceeds the RH scale along an infinite subsequence. Thus cross-scale consistency does not repair the density-and-zero-marginal shortcut. This is a NON-PRIME method obstruction, not a counterexample to actual prime arithmetic, the complete wheel, or RH.
+
+| Claim ID | Result | Evidence and scope |
+| --- | --- | --- |
+| 20261109-wheel-2/DG1 | Exact adjacent-scale normalized-product resonance classification; only the simultaneous pairs (R-1,R+1) and (2R-1,2R+1) can coincide | PAPER_PROOF; genuine-prime structural theorem |
+| DG2 | Shared-prime chains with outer relation r=4p+/-1 have strictly positive cross-phase response throughout [sqrt(R),2sqrt(R)]; actual admitted witnesses at R=8 and 64 | PAPER_PROOF plus exact rational FINITE_COMPUTATION; refutes a termwise decorrelation shortcut |
+| DG3 | Exact weighted signed-square potential accounting, including all interior and endpoint terms | IDENTITY_ONLY; the specified boundary-only telescope is REFUTED, not all possible potentials |
+| DG4 | One fixed globally consistent half-density, dyadic-zero-mass measure retains MB4's oversized moving-band responses on R=4096*4^j | PAPER_PROOF; new global assembly of the credited MB4 local example, NON-PRIME |
+| DG5 | Registered exact phase intersections, rational whole-band witnesses, potential algebra, SHIFT endpoints, and separate floating diagnostics | FINITE_COMPUTATION; no inference of an infinite theorem from the sample |
+
+All NEW paper claims are SELF_AUDIT / INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED. No literature-priority claim is made for unique factorization, polarization, Fourier integrals, or patching disjoint intervals. NEW_VERIFIED_ENDPOINT_GAIN=NONE. The uniform complete-wheel bound, canonical VF, finite A/C and RH remain OPEN.
+
+### B. Current Authoritative Objective
+
+Actual invocation: scheduled 2026-11-09 10:12:01 EST, America/New_York; RUN_ID_UNAVAILABLE. This is the continuation of the registered checkpoint, not another launch. Source and validation refresh through 2026-11-09 15:31 UTC found main unchanged:
+
+```text
+MAIN=02f00cee544278ad1bb9022ee76fc5916d459a95
+finite_wheel_ack=FINITE_WHEEL_CENTERED_RH_V1
+AGENTS=6695522a45d67fd1e80a7cff1f98d909405036e2
+CURRENT_PROOF_CONTRACT=95566e37c8eaeb99ee680660df4f9d2e06ea5038
+FINITE_WHEEL_DIRECTIVE=e505f35522b675c6b5b263eac73618d717346973
+DYNAMIC_PROTOCOL=e8d913ff9663bb5163eaf0eddca9f76e0508a7ef
+```
+
+For every integer R>=2, X_R=R^2-1, y=R-1, preserve the COMPLETE original source:
+
+```text
+F_R=sum_(d|P_y) mu(d)*fract(X_R/d),
+D_R=X_R*prod_(p<=y)(1-1/p)+pi(y)-1-li(X_R),
+Z_R=F_R-D_R=li(X_R)-pi(X_R).
+OPEN: exists ONE C>=0, forall integers R>=2, |Z_R|<=C R log R.
+```
+
+The reference is principal-value li; its anchor is not silently replaced by Li_2. All virtual d>X_R cancel against their Euler reciprocal terms BEFORE the physical carrier is used. The inspected `finiteWheel_squareFractional_centered_eq_reference_sub_pi` accepts arbitrary real reference L and supplies an equality, not an estimate. The public `VFCanonicalSquareVonKochStatement` remains unchanged; the inspected terminal `riemannHypothesis_of_vfCanonicalSquare` still takes `ClassicalVonKochRHCriterion` explicitly.
+
+| Original source read at main | Blob SHA |
+| --- | --- |
+| research/CompleteSquareRootWheelFractionalBoundary.lean | ecb482e52deeee5e9b3853592a3ffdace662d2ff |
+| research/CompleteWheelRootAdmission.lean | a412632c1028d7728cd8d87ee6e5ac365377d338 |
+| research/CompleteWheelRootAdmissionAcceptance.lean | d0b22fa38c254a22b38b678e77bb520a70eae1af |
+| research/VF_MID_DYADIC_PREFIX_OWNER.lean | c499ca7bd7d90fb32f9cd99d652961ea023bed58 |
+| research/VF_CANONICAL_SQRT_TWO_VON_KOCH.lean | 79030d70e8d3e0d08eef9bac53fef95c36eca2fb |
+
+These are inherited declarations, not this run's new mathematics. [Pinned complete-wheel source](https://github.com/OVVO-Financial/RH_Lean/blob/02f00cee544278ad1bb9022ee76fc5916d459a95/research/CompleteSquareRootWheelFractionalBoundary.lean).
+
+### C. Structural Mechanism Investigated
+
+The immediate handoff is Coordinator `20261109-coordinator-0710-EST/SHIFT`: with dnu=dpi-du/log u,
+
+```text
+A_R(t)=integral_[R/2,R) (u/R)^(-it) dnu(u),
+B_R(t)=integral_[R,2R] (u/R)^(-it) dnu(u),
+B_R(t)=2^(-it)*A_(2R)(t),                 integer R>=8.
+```
+
+The upper endpoint 2R is composite at integer roots. At half-integer roots with 2R prime the correction is exactly `2^(-it)`, not zero. SHIFT is reused, not presented as a new theorem.
+
+The attempted mechanism is to use this shared middle interval to organize signed dyadic interactions. Two distinct issues must be separated: exact equality of product phases, and their resolution on a finite band of length about sqrt(R). The former admits an arithmetic theorem; the latter admits actual positive shared-prime cross terms. The registered signed-square potential is then audited without introducing a conjugate into the original product. Finally, DG4 tests whether a SINGLE consistent measure across scales, rather than MB4's separate rootwise measures, would itself supply the missing saving.
+
+### D. Exact Theorem Statements
+
+#### DG1. Normalized-Product Resonance Rigidity
+
+For every integer R>=8 define
+
+```text
+E_R={(p,q): p,q prime, R/2<=p<R<=q<2R},
+omega_R(p,q)=log((R^2-1)/(pq)).
+```
+
+The right endpoint 2R can be written closed without changing this prime set, since 2R is composite. A physical cross-root occurrence is identified by (R,p,q), with least prime p; the root label is retained. Distinct pairs in E_R have distinct products. Products in E_R are below 2R^2, whereas products in E_(2R) are at least 2R^2, so these adjacent-scale physical values are disjoint. An occurrence is admitted under its product wall precisely when pq<=R^2-1. The frequency representation uses the FULL rectangle E_R, including its above-wall part; it must not be silently truncated.
+
+For (p,q) in E_R and (u,v) in E_(2R),
+
+```text
+omega_R(p,q)=omega_(2R)(u,v)
+  iff (p,q)=(R-1,R+1) and (u,v)=(2R-1,2R+1).
+```
+
+The right side includes primality of all four displayed numbers through the membership hypotheses. Thus the intersection of the two phase sets is EMPTY unless those four integers are prime; in that exceptional case it is exactly {0}, with one occurrence in each rectangle. This is an exact all-root theorem, not a statement about how often the four-prime pattern occurs.
+
+As a limited corollary, for the finite pure-prime phase polynomial
+
+```text
+H_R(t)=sum_((p,q) in E_R) exp(it*omega_R(p,q)),
+lim_(T->infinity) (1/T) integral_0^T H_R(t)*conj(H_(2R)(t)) dt
+  = indicator(R-1,R+1,2R-1,2R+1 all prime).
+```
+
+Here R is FIXED before T tends to infinity. No useful uniform rate at T=sqrt(R) is claimed. This Hermitian cross-scale diagnostic is not the original nonconjugated wheel integrand.
+
+#### DG2. Actual Shared-Prime Near Resonances
+
+For every integer R>=8 and primes p,q,r satisfying (p,q) in E_R, (q,r) in E_(2R), and r=4p+k with k in {-1,1}, put
+
+```text
+Delta=omega_R(p,q)-omega_(2R)(q,r).
+```
+
+Then
+
+```text
+Delta != 0,
+|Delta| <= 1/(R-1),
+forall t in [sqrt(R),2sqrt(R)],
+  Re(exp(it*omega_R(p,q))*conj(exp(it*omega_(2R)(q,r))))
+    =cos(t*Delta)>=1-2R/(R-1)^2>=33/49>1/2.
+```
+
+Every nonnegative weighted average of these two phases on this band therefore retains a positive lower bound after normalization by its total weight. No theorem asserting infinitely many primes r=4p+/-1 is assumed. The following two examples are actual primes and BOTH products are physically admitted:
+
+| R | (p,q,r) | (pq,qr) | (X_R,X_(2R)) | exp(Delta) | Certified cosine lower bound on the whole band |
+| --- | --- | --- | --- | --- | --- |
+| 8 | (5,11,19) | (55,209) | (63,255) | 399/425 | 148385/159201 |
+| 64 | (37,67,149) | (2479,9983) | (4095,16383) | 203385/202057 | 40066392689/40292131441 |
+
+This refutes the specific rule that distinct adjacent-scale prime-product phases, or shared-prime chains, have zero or nonpositive termwise cross-phase averages on the relevant band. It does NOT establish the sign of the COMPLETE discrepancy Gram, of A_R*B_R, or of the full source return.
+
+#### DG3. The Registered Potential Does Not Telescope To Endpoints Alone
+
+Fix integer R0>=8 and m>=1; put R_j=2^j R0, a_j=log(1-R_j^(-2)), theta_0=0, theta_(j+1)=a_j-log 2-theta_j. For real t define
+
+```text
+z_j=exp(it*theta_j)*A_(R_j)(t),
+q_j=Im(z_j^2), d_j=Im((z_(j+1)-z_j)^2).
+```
+
+For ANY real weights w_0,...,w_(m-1), the exact identity is
+
+```text
+2 sum_(j=0..m-1) w_j Im(exp(it*a_j)*A_(R_j)(t)*B_(R_j)(t))
+ =w_0 q_0+w_(m-1) q_m
+  +sum_(j=1..m-1)(w_(j-1)+w_j)q_j
+  -sum_(j=0..m-1)w_j d_j.                         POT
+```
+
+The interior coefficients ADD for the actual nonnegative frequency weights. Alternating the scale weights can cancel them algebraically, but changes the statistic. Both q_j and d_j are signed imaginary squares, not nonnegative energies. POT contains no independently established favorable-sign inequality. The separate SC constant-frequency term A_R(0)B_R(0)/2 is not supplied by a positive-frequency imaginary-part identity and must still be retained.
+
+#### DG4. One Fixed Measure With All Dyadic Dependencies Still Fails The Generic Bound
+
+There exists ONE locally finite, absolutely continuous real signed measure sigma on [2,infinity) with all the following properties. It is fixed before R is queried:
+
+```text
+|dsigma| <= (1/2) du/log u;
+sigma([4096*2^(k-1),4096*2^k))=0 for every integer k>=0;
+B_R^sigma(t)=2^(-it)*A_(2R)^sigma(t) for every integer R>=8 and every real t.
+```
+
+In particular dli+dsigma is a positive measure. Define A^sigma,B^sigma by replacing dnu with dsigma in the original transforms, and use the ORIGINAL nonconjugated phase and spline:
+
+```text
+M_sigma(R)=(1/pi) integral_(sqrt R)^(2sqrt R)
+  b(t/R)*Im(exp(it*log(1-R^(-2)))*A_R^sigma(t)*B_R^sigma(t))/t dt.
+```
+
+Here b(w)=1-6w^2+6|w|^3 for |w|<=1/2, b(w)=2(1-|w|)^3 for 1/2<=|w|<=1, and b=0 outside. For EVERY integer j>=0, with S_j=4096*4^j,
+
+```text
+M_sigma(S_j) <= - S_j^(3/2)/(32768*log(S_j)^2).
+```
+
+Consequently no constant C bounds |M_sigma(R)| by C R log R for all integer R. The new content over `20261109-analytic-2/MB4` is the ONE-MEASURE quantifier and exact consistency at the intermediate roots 2S_j; the local packet and its lower-bound mechanism are credited to MB4 and rechecked below. Sigma is piecewise smooth, NOT asserted globally smooth at the dyadic joins, NOT a prime measure, and NOT a wheel/divisor-inversion model.
+
+### E. Mathematical Proofs
+
+#### DG1: GCD, Integer Multiplicity And Prime Factorization
+
+Put X=R^2-1 and Y=4R^2-1=4X+3. Equality of the phases is equivalent to `X*uv=Y*pq`. Set g=gcd(X,Y)=gcd(X,3), so g is 1 or 3. Coprimality after dividing by g implies `(X/g) divides pq`. Write pq=hX/g. The interval restrictions give
+
+```text
+R^2/2 <= pq < 2R^2.
+```
+
+If g=1, these bounds imply h is 1 or 2. The product pq is odd, so h cannot be 2. Thus pq=X and the equality gives uv=Y.
+
+If g=3, the same bounds and R>=8 imply 2<=h<=6. The primes p and q are at least 5, so pq is divisible by neither 2 nor 3. This excludes h=2,3,4,6. If h=5, unique factorization forces p=5, q=X/3; but `(R^2-1)/3>2R` for R>=8, contradicting q<2R. Thus g=3 is impossible.
+
+Finally `(R-1)(R+1)=pq` is the product of two primes, while both R-1 and R+1 exceed one. Each must therefore be prime, and the increasing order gives p=R-1,q=R+1. Apply the same argument to Y. The converse follows immediately. Each product has exactly one orientation because the two prime intervals are disjoint. This proves coverage, uniqueness, and the complete resonance classification, including the equality wall.
+
+For the long-interval corollary expand the two FINITE sums. The normalized integral of exp(it*d) tends to zero when d!=0 and equals one when d=0. DG1 counts the latter exactly. This limit exchanges no growing prime population with an integral. It cannot be evaluated at a growing R with T=sqrt(R) without a NEW quantitative estimate.
+
+#### DG2: Shared Factors Cancel, But The Remaining Phase Is Unresolved
+
+Cancel the shared prime q and use r=4p+k:
+
+```text
+exp(Delta)=X*r/(Y*p)=1+epsilon,
+epsilon=(kX-3p)/(Yp).
+```
+
+For k=1 the numerator is positive because X>3p at R>=8; for k=-1 it is negative. Thus Delta is nonzero. Since p>=R/2 and p<R,
+
+```text
+|epsilon| <= (R^2+3R)/[(4R^2-1)R/2] <= 1/R.
+```
+
+The last elementary inequality holds for R>=8. Integrating 1/(1+s) between 0 and epsilon gives `|log(1+epsilon)|<=|epsilon|/(1-|epsilon|)<=1/(R-1)`. The inequality cos x>=1-x^2/2 now proves the stated whole-band bound. The final inequality is equivalent to `(R-8)(8R-1)>=0`.
+
+The sharper witness bounds use exact epsilon values -26/425 and 1328/202057. The respective rational bounds for |Delta| are 26/399 and 1328/200729. Substituting these into `1-2R*bound^2` gives the table. No numerical logarithm, sampled cosine, or statistical inference certifies these signs.
+
+Conjugation in this calculation is ONLY the correctly stated cross-scale phase comparison. The original signed band still uses A_R B_R without conjugation. The two physical witness products have distinct values and different root labels; the common prime q is an incidence relation, not a historical occurrence spent twice.
+
+#### DG3: Exact Accounting Of The Proposed Potential
+
+The theta recurrence and SHIFT give `z_j z_(j+1)=exp(it*a_j)A_(R_j)B_(R_j)`. The algebraic identity
+
+```text
+2 z_j z_(j+1)=z_j^2+z_(j+1)^2-(z_(j+1)-z_j)^2
+```
+
+then proves POT by taking imaginary parts and collecting each interior q_j twice with its two respective weights. For w_j=1 there is a full interior sum, not a telescoping difference. The exact constant-chain negative control z_j=1+i has every edge imaginary part 2, every q_j=2 and every d_j=0. Three edges therefore sum to 6, whereas keeping just half the two endpoint q values gives 2. This is an algebraic negative control, not alleged prime data.
+
+A separate fixed smooth power-density diagnostic uses dsigma=u^(-1/4)du. Its transforms satisfy SHIFT but `|A_(2R)(t)|^2=2^(3/2)|A_R(t)|^2`, so SHIFT does not express energy contraction. This elementary diagnostic is not a replacement for DG4, which also retains zero dyadic marginals and reference domination.
+
+#### DG4: Global Assembly And Rechecked Local Lower Bound
+
+Fix S_j=4096*4^j, U_j=sqrt(S_j), L_j=log S_j, ell=log 2, and
+
+```text
+c_j=S_j/(4L_j),
+n_j=ceil(5U_j*ell/(8pi)), t_j=2pi*n_j/ell.
+```
+
+Because U_j>=64 and 2pi/ell<10, `5U_j/4<=t_j<=7U_j/4`. Define sigma to be zero on [2,2048), and on the disjoint successive interval pairs put
+
+```text
+dsigma(u)=c_j*cos(t_j*log(S_j/u))*du/u,  S_j/2<=u<S_j;
+dsigma(u)=c_j*sin(t_j*log(u/S_j))*du/u,  S_j<=u<2S_j.
+```
+
+The next pair starts at S_(j+1)/2=2S_j, so these rules define ONE measure on the whole half-line without overlaps, gaps, or contradictory assignments to a shared middle interval. Values at the endpoints have no measure-theoretic effect. Local finiteness is immediate on compact intervals.
+
+Each half-annulus has zero mass since t_j*ell=2pi*n_j. On both half-annuli `u/log u>=S_j/(2L_j)`, so `c_j/u<=1/(2log u)`. This proves the density domination and positivity of dli+dsigma. The endpoints have no atoms, hence SHIFT holds for this measure at ALL roots where its integrals are defined, in particular every specified integer root. At intermediate roots 2S_j, its left interval is the previous sine packet and its right interval is the NEXT cosine packet; they are not chosen independently after seeing that root.
+
+At a paired root S=S_j let c=c_j, U=U_j, t0=t_j and define
+
+```text
+F(w)=integral_0^ell exp(-iws)ds,
+G=F(t-t0), H=F(t+t0).
+A_S^sigma=c*(conj(G)+conj(H))/2,
+B_S^sigma=c*(G-H)/(2i).
+```
+
+Consequently
+
+```text
+Im(A_S^sigma B_S^sigma)=-c^2*(|G|^2-|H|^2)/4 <=0, t>0.
+```
+
+For the sign, F(t-t0) and F(t+t0) have the same numerator 1-exp(-it*ell), and `|t-t0|<=t+t0`; the removable point t=t0 is included by continuity. On the interval |t-t0|<=1, contained in [U,2U], one has `|G|>=ell/2`, `|H|<=1/U<=ell/4`. Thus the negative imaginary part has magnitude at least c^2*ell^2/32 there. Also b(t/S)>=1/2 throughout the band, since 2U/S=2/U<=1/32. If the small original phase a_S=log(1-S^(-2)) is temporarily set to zero, the NONPOSITIVE integrand on the whole band and this width-two interval give
+
+```text
+M_sigma,0(S) <= -c^2*ell^2/(64pi U).
+```
+
+Restoring the phase costs at most
+
+```text
+|M_sigma(S)-M_sigma,0(S)|
+ <= |a_S| c^2 ell^2 U/pi
+ <= 2c^2 ell^2 U/(pi S^2).
+```
+
+Its ratio to the preceding lower magnitude is at most 128/S<=1/2. Therefore `M_sigma(S)<=-c^2 ell^2/(128pi U)`. Substitute c=S/(4log S), ell>1/2 and pi<4 to obtain DG4. Every constant is fixed before j. Dividing its magnitude by S log S leaves `sqrt(S)/(32768 log(S)^3)`, which tends to infinity. The finite diagnostics are not used in this proof.
+
+The pairwise local construction and estimates are MB4's mechanism. The new logical strengthening is that the model is now fixed globally, has shared intervals at every intermediate scale, and satisfies the exact dyadic dependence relation simultaneously. It still lacks the discrete prime atoms and arithmetic divisor inversion required by the genuine source.
+
+### F. Structural Consequence
+
+DG1 rules out every nonboundary exact cross-scale resonance on this genuine prime carrier, even when the rectangles share a prime interval. It is stronger than an unsigned degree bound, but not a lower bound on spectral spacing of the size needed by OPEN-MIDBAND. DG2 proves directly on admitted arithmetic occurrences that the two notions differ: neighboring phases separated on the order of 1/R remain coherent during an observation band of length sqrt(R).
+
+DG3 locates the exact unpaid terms in the registered potential. DG4 rules out the specific rescue that merely requiring one globally consistent centered measure and the full SHIFT chain supplies the missing signed saving. Neither theorem forbids a different potential using additional prime-specific restrictions. No general sieve-parity impossibility or universal no-go for combinatorics is claimed.
+
+### G. Signed And Quantitative Relevance
+
+The new arithmetic rigidity is a structural theorem, not a new bound for the full signed response. The proper transform uses the same actual prime-minus-li measure as Owner FW/CT and Analytic SC/MB. To keep the complete return visible, let n_R count primes in [R/2,R), let E_R^wheel=sum_(prime p in [R/2,R))delta(p-1)/p, and let F_other be the sum of all remaining original first-owner fractional packets. On the SAME closed hyperbola uv<=X_R write I_LL,I_Lnu,I_nuL for the reference and two mixed integrals. Then the exact physical source accounting is
+
+```text
+C_rest=F_other-D_R+n_R(n_R+3)/2-X_R*E_R^wheel+I_LL,
+Z_R=C_rest+I_Lnu+I_nuL+Q_R,
+Q_R=integral_(u in [R/2,R),v in [R,2R],uv<=X_R) dnu(u)dnu(v).
+```
+
+The historical n_R(n_R+3)/2 term retains units, prime squares and historical distinct-prime pairs. Virtual compensation occurs before this adapter, not after a norm. DG1-DG2 do not omit any owners, post-wall rectangle atoms, or either linear orientation.
+
+Using the PREVIOUSLY REPORTED SC paper decomposition at T=R, with U=sqrt(R),
+
+```text
+Q_R=A_R(0)B_R(0)/2+I_[0,U]+M_R+I_[2U,R]+e_R,
+|e_R|<=6144 R/log R,
+Z_R=S_rest+M_R+e_R,
+S_rest=C_rest+I_Lnu+I_nuL+A_R(0)B_R(0)/2+I_[0,U]+I_[2U,R].
+```
+
+These SC and MB error bills retain their inherited PAPER_PROOF / independent-review-pending status; they are NOT newly certified Lean results. MB2 separately gives M_R=J_mid(R)+delta_R with |delta_R|<=40R for its precise weight and band. DG4 does not claim that this prime-specific reference payment applies to its artificial measure.
+
+The full square remains `Z_R^2=S_rest^2+M_R^2+e_R^2+2S_rest*M_R+2S_rest*e_R+2M_R*e_R`. Restoring delta_R likewise restores every cross term. No favorable local cross sign pays this full square. No upper bound is supplied for S_rest, M_R, J_mid or the whole Z_R by the new results. The already Lean-proved root-admission cost remains a paid O(R) PROPER component and is not re-proved here.
+
+### H. Falsification, Novelty And No-Circularity Review
+
+**Exact registered results.** Sieve and independent trial division agreed for all 4,097 integers 0..4096. All 251 registered root cases passed DG1: R=8..256 plus 257 and 1024, inspecting 443,539 pair occurrences across the two scales. The ONLY collision among those roots was R=30, with (29,31) and (59,61), both at their respective closed product boundaries. This also refutes the overstrong claim that ALL cross-scale phases are disjoint. It is the first such root in the tested consecutive domain R>=8, not a statement about larger untested roots.
+
+The two DG2 witnesses passed primality, interval, shared-factor, physical admission and exact rational whole-band checks. Eighteen exact Gaussian-integer weighted potential checks passed; the constant-chain boundary-only negative control failed as predicted. No logarithm was approximated for the DG1 intersections or DG2 signs.
+
+**Separate diagnostics, not certificates.** Twenty-eight actual A/B SHIFT cases used roots 8,12,30,64,257,11/2,13/2 and t=0,1,3,8. Maximum identity residual was below 9.4e-15; Gauss orders 96/144 differed below 5.0e-14. The two half-integer t=0 omissions were exactly one in the discrete arithmetic. Sixteen fixed power-mode checks gave energy ratio 2^(3/2), not contraction. These continuous calculations are binary64 diagnostics only.
+
+The fixed global model was tested on paired AND intermediate roots, so it is not merely a rerun of MB4's isolated packets:
+
+| Root | Role in the ONE measure | M_sigma diagnostic | M_sigma*log(R)^2/R^(3/2) |
+| --- | --- | --- | --- |
+| 4096 | paired | -61.8395277841 | -0.0163207329 |
+| 8192 | intermediate | 2.3133841512 | 0.0002533381 |
+| 16384 | paired | -371.0987277235 | -0.0166635124 |
+| 32768 | intermediate | 6.9920833210 | 0.0001274281 |
+| 65536 | paired | -2295.6200776895 | -0.0168294920 |
+
+No all-scale estimate or sign is inferred for the intermediate roots. Analytic transforms were independently compared with direct 384-point logarithmic quadrature; maximum absolute difference was below 1.7e-11. The six window zero-mass residuals were below 4.0e-14. Frequency integration orders 20/28 differed below 4.6e-13. The paper proof, not these numbers, establishes DG4.
+
+**Novelty audit.** Current repository searches for normalized-prime/dyadic, GCD/square-root endpoints, and cross-scale potential statements found no matching DG1-DG4 declaration. `PrimeFaceProductUniqueness.lean` (24d66c70db26dd284b2e2391cfb703e26b7c3f1f) already supplies ordinary prime-product uniqueness; that is credited, not rediscovered. `DyadicCompressedPacketGram.lean` (9ec545502a4b1c5dae1b0a6030ae8606daec3dcc) concerns the different doubled-cofactor transport and restores both cross orientations, not the present normalized prime-product phases. `SpectralEndpointGramBridge.lean` (be856466f3cca1ed7c5ef5a38789f16524a31b6e) explicitly ASSUMES local separation and coherent/orthogonal controls; it is not an independent supplier here. This is a scoped source/report search, not exhaustive literature novelty certification.
+
+Prior credit: Coordinator SHIFT and MP remain exact identity / scoped mode obstruction; Analytic MB4 supplies DG4's local model; Owner FW and CT retain their physical bridges and paid curvature error; Census CR retains R=9 reinforcement and R=37 overshoot; RA2's centered-step statement and RA3's cumulative bound are now formalized, but the full physical-set classification and RA4's actual-li contraction witness are not additional Lean declarations. DG2's conjugated diagnostic is not substituted for the original nonconjugated phase. The model has no genuine-prime or full-wheel claim. No desired uniform estimate is used as a premise.
+
+### I. Conceptual Interpretation
+
+The arithmetic distinction exposed here is exact resonance versus resolvable separation. Unique factorization and the square endpoint's GCD restrict exact coincidences sharply. A shared prime still couples neighboring scales strongly enough to defeat a termwise orthogonality shortcut at the target bandwidth. The full dyadic dependence of a measure is a further exact constraint, but DG4 shows that it does not by itself force the missing signed saving, even with every aligned marginal zero.
+
+This makes the next structural requirement more precise: a useful potential must exploit something beyond SHIFT, density domination, marginal centering, and exact noncoincidence. Discrete prime-product balance or a genuinely quantitative signed interaction is still needed. Its existence is not established by this report.
+
+### J. Competing Structural Hypotheses
+
+- Continue the genuine-prime signed product-band investigation. DG1 can organize its resonances, but supplies no free power saving at U=sqrt(R).
+- Reject boundary-only polarization, universal nonpositive shared-prime cross averages, and the globally-consistent-density-only version of the proposed bound, at their exact stated scopes.
+- Preserve potentials using new prime-specific inequalities, longer-range interactions, or retained mixed terms. No theorem here excludes them.
+- Preserve Owner CT's proper curved-to-additive transfer and Analytic MB's paid reference terms without identifying their spatial and frequency projections by analogy.
+- Do not resume the old root-admission proof or unchanged wheel census. Yesterday's FD allocation results remain valid at their MU-LIFT scope but are not the current task selector.
+
+### K. Specialist Handoffs
+
+**Coordinator:** add DG1 as a genuine arithmetic exact-restriction edge, DG2 as a finite-band sign obstruction, and DG4 as the ONE-MEASURE strengthening of MB4. The registered POT is not an endpoint telescope. No positive endpoint budget or new sufficient RH lemma was obtained; keep OPEN-MIDBAND and the full return open.
+
+**Analytic Type II:** DG4 explicitly reuses and credits MB4, but removes the root-dependent-family qualification by disjoint annular assembly. Intermediate scales share the very same measure. A saving from SHIFT plus centered half-density alone is therefore unavailable. DG1 does not provide a large-sieve spacing hypothesis at sqrt(R); DG2 gives admitted near-resonant shared-prime rows. A prospective quantitative potential must retain these rows and both physical linear responses.
+
+**Owner Payment:** both DG2 witness chains are admitted at BOTH product walls, so their positive cross-phase terms cannot be rejected merely as above-wall rectangle artifacts. This is not a returned-cell or original #915 admission theorem. The shared prime is not a repeated physical occurrence. Preserve FW's historical triangle and CT's continuous corner when adapting any potential.
+
+**Prime Census:** no wider unchanged phase or sign scan is requested. A useful next test needs a NEW quantified proposed near-resonant signed restriction, with weights, common frequency interval and full returned complement specified in advance. Keep R=8/30/64, the zero-log-phase boundary, and the half-integer endpoint correction as regression cases.
+
+**Adversarial Referee:** independently reconstruct DG1's g=1/3 and h=5 cases; DG2's whole-band constants and Hermitian-versus-original distinction; POT's interior coefficients; and DG4's single-measure quantifier, disjoint annuli, density bound, zero masses, phase restoration and NON-PRIME scope. None is preapproved. In particular do not interpret DG4 as a new fixed zeta-zero counterexample or a full-wheel surrogate.
+
+**Lean Verification:** no source or PR action is requested before independent acceptance and an assessment of quantitative usefulness. DG1 is a precise finite-factorization candidate, not an RH-strength estimate. Reuse #1124 rather than create a duplicate root-admission branch. Do not formalize a hypothesis asserting spectral separation or OPEN-MIDBAND and call its conditional wrapper a new bound.
+
+These are asynchronous handoffs published only in the owned report. No other agent was launched, synchronized or rescheduled.
+
+### L. First Independently Missing Theorem
+
+No new independently sufficient smaller lemma for the COMPLETE target was proved. The first retained proper quantitative obligation remains the genuine signed prime-product band:
+
+```text
+exists C>=0, forall integer R>=8,
+ |sum_(prime R/2<=p<R, prime R<=q<=2R) K_R(pq)| <= C R log R,
+K_R(z)=(1/pi) integral_(sqrt R)^(2sqrt R)
+       b(t/R)*sin(t*log((R^2-1)/z))/t dt.
+```
+
+This is Analytic's J_mid / Coordinator OPEN-MIDBAND after the paid MB2 reference correction, not a renamed NEW result. Neither equivalence nor non-equivalence of this proper statement with RH has been established. Even its proof would leave S_rest. DG1-DG4 identify restrictions and invalid shortcuts, but provide no valid bound for this signed sum or its complete complement.
+
+For the SPECIFIC potential attempt, the missing ingredient is a genuine arithmetic estimate on the FULL joint interior-and-difference expression in POT with the actual scale-dependent weights, not a favorable sign assumed for either family. No claim is made that estimating this entire renamed expression is automatically easier than estimating the original band.
+
+### M. Continuity, Formal Evidence And Resume Capsule
+
+Both required America/New_York dates were retrieved at reporting snapshot `5fe5e114d31c9d7f37548e2097f0c03fa15b1fdc`. Applicable newest results, source scopes, handoffs and resume capsules were read; unrelated embedded programs were not all rerun. Coordinator 00/90 mirrors had identical blobs and were counted once.
+
+| Role | November 9 intake blob and consumed claims | November 8 verified carry-forward blob |
+| --- | --- | --- |
+| Coordinator | 9e7253329c409aa920d7e1d43e2fab8971bdc93b; FB1-FB2, MP1-MP3, SHIFT and dyadic-potential assignment | 8b640304f6c233a2c4409b9882799de485888a9e; FM's exact non-Mobius scope |
+| Owner | cfc6b8f473f7702c6e0759746095f048c1378756; FW and CT1-CT6 | 4e1b83a1e5ff8c134e9ca64404397c70c2b07252; JS finite-packet obstruction |
+| Analytic | 0f9b1362677ac9adbcec45225e5d6b172cf84cb9; SC and MB1-MB5 | edecba8785a45cda87c0035d0348695941f1b8ea; EC complete-consumer closure |
+| Wheel | dbb85c912cb56a3a1203e1276bbac55d02ab4c93; RA1-RA5 | 60d4cf1b65d4b1b2cc4f13f6c0940c14cb2c50fd; FD1-FD5 allocation work |
+| Census | 185b493a7c4bdc4dda79254f63c6541562e1140f; CR1-CR5 | 00f4f9c0d670821a0c9d1da31fd1c4d0afd09142; FR scoped frequency falsifiers |
+| Referee | TODAY=PENDING, no present-day report or verdict inferred | 5371324ebbdbd88afb9abf843e83da2ce86b752f; EC accepted with scope, SG separately self-audited |
+| Lean | 873cc077a0eafb87a39c1c9c12ff22ad891d7ba7; RA2-RA3 implementation | 5a110685bbe375d8ebff42df7391162914e52cef; exact EC implementation and repair record |
+
+External inbox `038018145c0fddb2f6306c0712373adf9cd1ea52` contains no entry after October 18. Carry forward original EXT-20261018-PNT-1..3, EXT-20261017-XCOORD-1 and EXT-20261014-5 for signed-source, prime-root endpoint and unconditional-versus-first-bad safeguards, not their superseded routing or stale PR descriptions.
+
+**Formal evidence actually checked.** #1124 is human-merged at 2026-11-09T12:30:32Z. Its literal proof head `1b80f147dab3c0c2525052b3c6c3f8c447089da1` has 13 successful completed checks. The [targeted log](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42600910899/job/129104842737) was read: Lean 4.34.1, two newly emitted modules, standard terminal axioms `[propext, Classical.choice, Quot.sound]`, and live dependency closures 746/772. Both source files were fetched at that tested head and matched current main byte-for-byte. The original [#1122 targeted log](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42561949462/job/128980092032) uses synthetic checkout `1e3c182076a6e1a23ef132c41a78b0f26adab507`, not a falsely labeled literal head. Its full-wheel source was fetched at the tested checkout and matched current main. The compiler script blob `eb3d429b14bf66ba2fba22e55b70ca0048f748c6` explicitly sets `-DwarningAsError=true`. This is reused exact-source verification, not a new full-main build or a certification of DG.
+
+Live open/draft PR collection was empty at intake. Recent merge metadata confirms #1118-#1124 at their actual respective heads. The inherited Mertens/OAI result is not transported to the present source by analogy. No local Lean, source edit, branch/PR action, other report edit, merge, auto-merge, workflow trigger, schedule change or agent launch occurred. Direct git transport failed with CONNECT tunnel 403; the connector supplied source and publication access. No missing execution was inferred from a schedule.
+
+**Publication and registration.** The early checkpoint was committed at `2288c2b07d485c2e9bc2e7332859e91b1ce2665e`, blob `d916e5f9018bdacd2ccbd3570dd75d11759bae1c`, and re-fetched byte-for-byte. GitHub's actual commit time is **2026-11-09T15:20:47Z = 10:20:47 EST**; this is the authoritative publication time, correcting the checkpoint's unverified 10:18 preparation label. The disclosed one-measure extension was committed at `7d7f4862c49cc81fd25224c72d4a00590eedb2c3`, blob `bb769e3aab12e11bc0c6a2e8bea726b8ac4750b2`, at 15:24:39Z, and likewise read back before arithmetic execution. Both commits changed ONLY the owned daily report.
+
+The exact executed script follows. Its final SHA-256 is `62bd0fe79c28c73c2038ffa6871132ec5db9a0e117a577b15f952148f803570b`; Python syntax validation passed. The first execution already passed the registered arithmetic, potential, actual SHIFT and assembled-model checks. The final small edit completed the separately registered fixed-power-mode diagnostic; no theorem constant, sample range, or hypothesis was fitted to output. All computation sessions completed.
+
+```text
+RUN=20261109-wheel-2; scheduled 10:12:01 EST; one actual invocation.
+MAIN=02f00cee544278ad1bb9022ee76fc5916d459a95.
+ACK=FINITE_WHEEL_CENTERED_RH_V1.
+NEW=DG1 exact arithmetic rigidity; DG2 positive shared-prime phase terms;
+    DG3 complete potential accounting; DG4 ONE fixed non-prime stress measure.
+EVIDENCE=PAPER_PROOF/SELF_AUDIT, exact finite checks, separate float diagnostics.
+REVIEW=INDEPENDENT_REVIEW_PENDING; NOT_FORMALIZED.
+PAID_PRIOR=#1122 complete source; #1124 proper root-admission cost;
+           SC/CT/FB/MB proper paper estimates at their own scopes.
+OPEN=actual J_mid, all complementary signed return, canonical VF, finite A/C, RH.
+NO_GO_SCOPE=boundary-only POT, pairwise nonpositive phase averages,
+            SHIFT plus fixed centered half-density as a generic band supplier.
+DO_NOT_REPEAT=RA census, DG phase scan, MB4 packet tests without a new hypothesis.
+BEST_NEXT=prime-specific quantitative control of near-resonant signed products,
+          with DG2 rows, constant term and complete complement retained.
+NO_GLOBAL_ENDPOINT_GAIN.
+```
+
+This synthesis preserves all preceding report bytes and claim IDs. SUBSTANTIVE_PUBLICATION=PENDING until its own immutable commit/readback; a verified receipt will be appended only after success.
+
+### Reproducibility Appendix - DG5
+
+The following is the exact final executed Python script. It uses only the standard library and NumPy. Exact arithmetic and binary64 diagnostics are separated in its JSON output; the universal proofs above do not depend on the diagnostics.
+
+```python
+"""Registered DG checks: exact arithmetic plus separately labeled diagnostics.
+
+No finite computation here establishes a uniform analytic estimate.
+"""
+
+import cmath
+import json
+import math
+from fractions import Fraction
+from functools import lru_cache
+
+import numpy as np
+from numpy.polynomial.legendre import leggauss
+
+
+LIMIT = 4096
+ELL = math.log(2)
+R0 = 4096
+flags = [True] * (LIMIT + 1)
+flags[0:2] = [False, False]
+for d in range(2, math.isqrt(LIMIT) + 1):
+    if flags[d]:
+        for n in range(d * d, LIMIT + 1, d):
+            flags[n] = False
+primes = [n for n, yes in enumerate(flags) if yes]
+
+
+def trial(n):
+    return n >= 2 and all(n % d for d in range(2, math.isqrt(n) + 1))
+
+
+assert all(flags[n] == trial(n) for n in range(LIMIT + 1))
+
+
+@lru_cache(None)
+def phases(root):
+    x = root * root - 1
+    pairs = [(p, q) for p in primes if root <= 2 * p < 2 * root
+             for q in primes if root <= q < 2 * root]
+    result = {Fraction(x, p * q): (p, q) for p, q in pairs}
+    assert len(result) == len(pairs)
+    return result
+
+
+roots = list(range(8, 257)) + [257, 1024]
+collisions = []
+pair_count = 0
+for root in roots:
+    left, right = phases(root), phases(2 * root)
+    pair_count += len(left) + len(right)
+    intersection = left.keys() & right.keys()
+    expected = all(flags[n] for n in
+                   [root - 1, root + 1, 2 * root - 1, 2 * root + 1])
+    assert intersection == ({Fraction(1)} if expected else set())
+    if intersection:
+        collisions.append({"root": root, "left": left[Fraction(1)],
+                           "right": right[Fraction(1)]})
+
+
+certificates = []
+for root, p, q, r in [(8, 5, 11, 19), (64, 37, 67, 149)]:
+    assert all(trial(n) for n in [p, q, r])
+    assert root <= 2 * p < 2 * root <= 2 * q < 4 * root
+    assert 2 * root <= r < 4 * root and abs(r - 4 * p) == 1
+    x, y = root * root - 1, 4 * root * root - 1
+    assert p * q <= x and q * r <= y
+    ratio = Fraction(x * r, y * p)
+    eps = ratio - 1
+    assert eps and abs(eps) <= Fraction(1, root)
+    log_upper = abs(eps) / (1 - abs(eps))
+    cosine_lower = 1 - 2 * root * log_upper**2
+    assert log_upper <= Fraction(1, root - 1)
+    assert cosine_lower > Fraction(1, 2)
+    certificates.append({
+        "root": root, "primes": [p, q, r],
+        "products": [p * q, q * r], "endpoints": [x, y],
+        "phase_ratio": str(ratio), "epsilon": str(eps),
+        "log_abs_upper": str(log_upper),
+        "cosine_lower_whole_band": str(cosine_lower),
+    })
+
+
+def gadd(a, b):
+    return a[0] + b[0], a[1] + b[1]
+
+
+def gsub(a, b):
+    return a[0] - b[0], a[1] - b[1]
+
+
+def gmul(a, b):
+    return a[0] * b[0] - a[1] * b[1], a[0] * b[1] + a[1] * b[0]
+
+
+polarization_checks = 0
+for m in range(1, 7):
+    z = [(j * j - 2, 3 * j + 1) for j in range(m + 1)]
+    for weights in [[1] * m, [(-1)**j for j in range(m)],
+                    [j + 1 for j in range(m)]]:
+        q = [gmul(v, v)[1] for v in z]
+        d = [gmul(gsub(z[j + 1], z[j]), gsub(z[j + 1], z[j]))[1]
+             for j in range(m)]
+        lhs = 2 * sum(weights[j] * gmul(z[j], z[j + 1])[1]
+                      for j in range(m))
+        rhs = weights[0] * q[0] + weights[-1] * q[-1]
+        rhs += sum((weights[j - 1] + weights[j]) * q[j]
+                   for j in range(1, m))
+        rhs -= sum(weights[j] * d[j] for j in range(m))
+        assert lhs == rhs
+        polarization_checks += 1
+constant_chain = {"edges": 3, "true_sum": 6, "boundary_only": 2}
+assert constant_chain["true_sum"] != constant_chain["boundary_only"]
+
+
+@lru_cache(None)
+def quadrature(order):
+    return leggauss(order)
+
+
+def continuous(root, lower, upper, t, order):
+    nodes, weights = quadrature(order)
+    u = lower + (upper - lower) * (nodes + 1) / 2
+    values = np.exp(-1j * t * np.log(u / root)) / np.log(u)
+    return (upper - lower) * np.sum(weights * values) / 2
+
+
+def actual_A(root, t, order):
+    discrete = sum(cmath.exp(-1j * t * math.log(p / root))
+                   for p in primes if root / 2 <= p < root)
+    return discrete - continuous(root, root / 2, root, t, order)
+
+
+def actual_B(root, t, order):
+    discrete = sum(cmath.exp(-1j * t * math.log(p / root))
+                   for p in primes if root <= p <= 2 * root)
+    return discrete - continuous(root, root, 2 * root, t, order)
+
+
+shift_error = 0.0
+refinement_error = 0.0
+half_atoms = []
+for root in [8, 12, 30, 64, 257, 5.5, 6.5]:
+    for t in [0, 1, 3, 8]:
+        phase = cmath.exp(-1j * t * ELL)
+        atom = phase if trial(int(2 * root)) else 0
+        b = actual_B(root, t, 144)
+        a = actual_A(2 * root, t, 144)
+        residual = b - phase * a
+        shift_error = max(shift_error, abs(residual - atom))
+        refinement_error = max(refinement_error,
+                               abs(b - actual_B(root, t, 96)))
+        if root in [5.5, 6.5] and t == 0:
+            half_atoms.append({"root": root, "omitted_atom": residual.real})
+assert shift_error < 1e-10 and refinement_error < 1e-10
+
+
+fixed_mode_error = 0.0
+fixed_mode_checks = 0
+beta = 0.75
+for root in [8, 16, 64, 256]:
+    for t in [0, 1, 3, 8]:
+        z = complex(beta, -t)
+        a = root**beta * (1 - 2**(-z)) / z
+        b = root**beta * (2**z - 1) / z
+        a_next = (2 * root)**beta * (1 - 2**(-z)) / z
+        error = abs(b - cmath.exp(-1j * t * ELL) * a_next)
+        fixed_mode_error = max(fixed_mode_error, error)
+        assert abs(abs(a_next)**2 / abs(a)**2 - 2**(2 * beta)) < 1e-12
+        fixed_mode_checks += 1
+
+
+def F(t):
+    arr = np.asarray(t, dtype=float)
+    return ELL * np.exp(-0.5j * arr * ELL) * np.sinc(arr * ELL / (2 * math.pi))
+
+
+def model_parameters(k):
+    pair_root = R0 * 4**(k // 2)
+    u = math.sqrt(pair_root)
+    n = math.ceil(5 * u * ELL / (8 * math.pi))
+    freq = 2 * math.pi * n / ELL
+    assert 5 * u / 4 <= freq <= 7 * u / 4
+    return pair_root / (4 * math.log(pair_root)), freq
+
+
+def model_window(k, t):
+    c, freq = model_parameters(k)
+    g, h = F(t - freq), F(t + freq)
+    return c * (g + h) / 2 if k % 2 == 0 else c * (g - h) / (2j)
+
+
+def model_direct(k, t, order):
+    c, freq = model_parameters(k)
+    nodes, weights = quadrature(order)
+    s = ELL * (nodes + 1) / 2
+    density = c * (np.cos(freq * s) if k % 2 == 0 else np.sin(freq * s))
+    return ELL * np.sum(weights * density * np.exp(-1j * t * s)) / 2
+
+
+def spline(w):
+    w = np.abs(w)
+    return np.where(w <= 0.5, 1 - 6 * w**2 + 6 * w**3,
+                    np.where(w <= 1, 2 * (1 - w)**3, 0))
+
+
+def model_band(k, order):
+    root = R0 * 2**k
+    u = math.sqrt(root)
+    panels = math.ceil(u / 4)
+    nodes, weights = quadrature(order)
+    total = 0.0
+    for j in range(panels):
+        lo, hi = u * (1 + j / panels), u * (1 + (j + 1) / panels)
+        t = lo + (hi - lo) * (nodes + 1) / 2
+        a = np.exp(1j * t * ELL) * model_window(k, t)
+        b = model_window(k + 1, t)
+        original_phase = np.exp(1j * t * math.log1p(-1 / root**2))
+        integrand = spline(t / root) * (original_phase * a * b).imag / t
+        total += (hi - lo) * np.sum(weights * integrand) / (2 * math.pi)
+    return total
+
+
+model_rows = []
+model_transform_error = 0.0
+model_zero_error = 0.0
+model_refinement_error = 0.0
+for k in range(6):
+    c, freq = model_parameters(k)
+    model_zero_error = max(model_zero_error, abs(model_window(k, 0)))
+    for t in [0, 1, freq - 1, freq, freq + 1]:
+        analytic = model_window(k, t)
+        direct = model_direct(k, t, 384)
+        model_transform_error = max(model_transform_error, abs(analytic - direct))
+        assert abs(analytic - direct) < 1e-8 * max(1, c)
+    if k <= 4:
+        root = R0 * 2**k
+        value = model_band(k, 28)
+        coarse = model_band(k, 20)
+        model_refinement_error = max(model_refinement_error, abs(value - coarse))
+        lower = root**1.5 / (32768 * math.log(root)**2)
+        if k % 2 == 0:
+            assert value < -lower
+        model_rows.append({"root": root, "paired_scale": k % 2 == 0,
+                           "band_diagnostic": value,
+                           "normalized": value * math.log(root)**2 / root**1.5,
+                           "paper_lower_bound": lower if k % 2 == 0 else None})
+
+
+result = {
+    "exact": {"prime_checks": LIMIT + 1, "phase_root_cases": len(roots),
+              "pair_occurrences_inspected": pair_count,
+              "shared_phase_cases": collisions,
+              "whole_band_rational_certificates": certificates,
+              "polarization_cases": polarization_checks,
+              "boundary_only_negative_control": constant_chain},
+    "diagnostic_only": {"actual_shift_cases": 28,
+                        "actual_shift_max_error": shift_error,
+                        "actual_quadrature_refinement_error": refinement_error,
+                        "half_integer_atoms": half_atoms,
+                        "fixed_power_mode_cases": fixed_mode_checks,
+                        "fixed_power_mode_shift_max_error": fixed_mode_error,
+                        "fixed_power_mode_energy_ratio": 2**(2 * beta),
+                        "fixed_model_rows": model_rows,
+                        "model_zero_mass_max_error": model_zero_error,
+                        "model_transform_max_error": model_transform_error,
+                        "model_band_refinement_error": model_refinement_error},
+}
+print(json.dumps(result, indent=2, sort_keys=True))
+```
+
+### Executed JSON Output - DG5
+
+```json
+{
+  "diagnostic_only": {
+    "actual_quadrature_refinement_error": 4.9547302015829164e-14,
+    "actual_shift_cases": 28,
+    "actual_shift_max_error": 9.349633632383858e-15,
+    "fixed_model_rows": [
+      {
+        "band_diagnostic": -61.839527784071755,
+        "normalized": -0.01632073288136112,
+        "paired_scale": true,
+        "paper_lower_bound": 0.11563161005586713,
+        "root": 4096
+      },
+      {
+        "band_diagnostic": 2.313384151175358,
+        "normalized": 0.0002533380755672015,
+        "paired_scale": false,
+        "paper_lower_bound": null,
+        "root": 8192
+      },
+      {
+        "band_diagnostic": -371.09872772349365,
+        "normalized": -0.016663512435154272,
+        "paired_scale": true,
+        "paper_lower_bound": 0.6796306876753007,
+        "root": 16384
+      },
+      {
+        "band_diagnostic": 6.992083320970647,
+        "normalized": 0.0001274280779979272,
+        "paired_scale": false,
+        "paper_lower_bound": null,
+        "root": 32768
+      },
+      {
+        "band_diagnostic": -2295.6200776895275,
+        "normalized": -0.016829491960709674,
+        "paired_scale": true,
+        "paper_lower_bound": 4.1627379620112155,
+        "root": 65536
+      }
+    ],
+    "fixed_power_mode_cases": 16,
+    "fixed_power_mode_energy_ratio": 2.8284271247461903,
+    "fixed_power_mode_shift_max_error": 1.4210854715202004e-14,
+    "half_integer_atoms": [
+      {
+        "omitted_atom": 1.0,
+        "root": 5.5
+      },
+      {
+        "omitted_atom": 1.0,
+        "root": 6.5
+      }
+    ],
+    "model_band_refinement_error": 4.547473508864641e-13,
+    "model_transform_max_error": 1.6816876859565095e-11,
+    "model_zero_mass_max_error": 3.9917279564998405e-14
+  },
+  "exact": {
+    "boundary_only_negative_control": {
+      "boundary_only": 2,
+      "edges": 3,
+      "true_sum": 6
+    },
+    "pair_occurrences_inspected": 443539,
+    "phase_root_cases": 251,
+    "polarization_cases": 18,
+    "prime_checks": 4097,
+    "shared_phase_cases": [
+      {
+        "left": [
+          29,
+          31
+        ],
+        "right": [
+          59,
+          61
+        ],
+        "root": 30
+      }
+    ],
+    "whole_band_rational_certificates": [
+      {
+        "cosine_lower_whole_band": "148385/159201",
+        "endpoints": [
+          63,
+          255
+        ],
+        "epsilon": "-26/425",
+        "log_abs_upper": "26/399",
+        "phase_ratio": "399/425",
+        "primes": [
+          5,
+          11,
+          19
+        ],
+        "products": [
+          55,
+          209
+        ],
+        "root": 8
+      },
+      {
+        "cosine_lower_whole_band": "40066392689/40292131441",
+        "endpoints": [
+          4095,
+          16383
+        ],
+        "epsilon": "1328/202057",
+        "log_abs_upper": "1328/200729",
+        "phase_ratio": "203385/202057",
+        "primes": [
+          37,
+          67,
+          149
+        ],
+        "products": [
+          2479,
+          9983
+        ],
+        "root": 64
+      }
+    ]
+  }
+}
+```
+
+### Prepublication Freshness - 20261109-wheel-2
+
+At 2026-11-09 15:37:36 UTC (10:37:36 EST), main remained `02f00cee544278ad1bb9022ee76fc5916d459a95`; the six available upstream November 9 report blobs were unchanged and Referee remained TODAY=PENDING. The open/draft PR collection was still empty. The own checkpoint/registration blob was unchanged. Final environment: Python 3.12.14, NumPy 2.3.5. The synthesis has all A-M sections and balanced code fences. New claims retain paper/self-audit status; no global estimate is promoted.
