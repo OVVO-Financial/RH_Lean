@@ -620,3 +620,28 @@ EXECUTION=COMPLETED; PUBLICATION=PUBLISHED_AND_VERIFIED. The substantive synthes
 SC1/SC2/SC4 remain PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED; SC3 is IDENTITY_ONLY; SC5 has its explicitly scoped paper falsifiers; SC6 is FINITE_COMPUTATION. The paid cutoff error does not establish the proper Qerr bound or the full centered discrepancy. NO_GLOBAL_ENDPOINT_GAIN; RH, the uniform O(R log R) target, finite A/C and the retained signed estimates remain OPEN.
 
 No other agent, schedule, main source, proof branch, PR, workflow, central policy or third-party report was changed. No local Lean or continuous Q-integral computation occurred. No background task remains. This receipt records the already verified substantive commit; its own append is separately read back during the active invocation before final delivery.
+
+
+## Scheduled Continuation Checkpoint - 20261109-analytic-2
+
+EXECUTION=IN_PROGRESS; MATHEMATICS=NO_NEW_RESULT_AT_CHECKPOINT. Actual configured trigger: 2026-11-09 09:09:02 EST, America/New_York; platform run ID unavailable. This is a new actual scheduled invocation, not a promise of background work. All earlier daily findings and receipts remain unchanged.
+
+### A. Selected Analytic Question
+
+Attempt Coordinator 20261109-coordinator-0710-EST/OPEN-MIDBAND on the actual nonconjugated prime-minus-li transforms, or a quantified improvement over FB1's R^(3/2)/log R cost. The first candidate is a Brun-Titchmarsh refinement of the Gaussian prime-row mean square, retaining the continuous reference and hard band weight. In parallel within this same reasoning task, test whether zero marginal masses and density domination suffice by constructing an explicitly NON-PRIME moving-frequency model. Neither candidate is yet claimed proved. This does not repeat SC's paid smoothing or RA's paid root-admission result.
+
+### B. Current Authority And Exact Carrier
+
+finite_wheel_ack=FINITE_WHEEL_CENTERED_RH_V1. Main=02f00cee544278ad1bb9022ee76fc5916d459a95; AGENTS=6695522a45d67fd1e80a7cff1f98d909405036e2; CURRENT_PROOF_CONTRACT=95566e37c8eaeb99ee680660df4f9d2e06ea5038; finite-wheel directive=e505f35522b675c6b5b263eac73618d717346973. Complete-wheel source=ecb482e52deeee5e9b3853592a3ffdace662d2ff; root-admission source=a412632c1028d7728cd8d87ee6e5ac365377d338; acceptance=d0b22fa38c254a22b38b678e77bb520a70eae1af; original prefix source=c499ca7bd7d90fb32f9cd99d652961ea023bed58.
+
+For integer R>=8 set L=log R, X=R^2-1, a_R=log(1-R^(-2)), nu=dpi-du/log u, A_R(t)=integral_[R/2,R)(u/R)^(-it)dnu(u), B_R(t)=integral_[R,2R](u/R)^(-it)dnu(u). Investigate the signed band integral of b(t/R) Im(exp(it a_R) A_R(t)B_R(t))/(pi t) over [sqrt R,2sqrt R]. All interval atoms and the nonconjugated product remain. This is only a proper term of Z_R=F_R-D_R=li(X)-pi(X). The full uniform O(R log R) bound is OPEN and is not assumed.
+
+### C. Continuity And Evidence
+
+Today's Coordinator FB/MP, Owner FW and new CT, own SC, Wheel RA, Census CR and Lean RA implementation were retrieved and read at their applicable scopes. Yesterday's seven latest reports were retrieved and relevant conclusions/resume obligations inspected. Today Referee is absent: TODAY=PENDING; YESTERDAY=CARRY_FORWARD (November 8 EC acceptance does not approve today's claims). External inbox 038018145c0fddb2f6306c0712373adf9cd1ea52 is unchanged, with newest entry October 18; preserve original-source and endpoint safeguards, not stale routing.
+
+Live open/draft PR collection is empty. Recent merges #1124,#1123,#1118,#1121,#1122,#1120,#1119,#1117 were checked. #1122 has 11 successful proof-head attached checks; its actual targeted job used synthetic checkout 1e3c182076a6e1a23ef132c41a78b0f26adab507 containing head c53e9cf234500aea2605fd2557e638995f380407. #1124 is human-merged on current main, not merely review-ready; 13 successful checks at literal proof head 1b80f147dab3c0c2525052b3c6c3f8c447089da1. Targeted logs for both were retrieved; #1124 shows Lean 4.34.1 and standard-axiom/dependency audits. No new build, CI trigger, source edit or formal proof is claimed.
+
+### D-L. Work And Publication Pending
+
+Next: prove or reject the uniform sieve-weighted row bound, account for the reference transform at positive frequency, test all parameter ranges, and compare with the original budget. A generalized countermodel must be clearly separated from genuine primes. Preserve the constant mode, other frequencies, both linear responses, all other owner packets, and virtual Euler compensation in the full return. Any new result remains SELF_AUDIT until an actual independent review. Only this owned report on agent-reports will be edited.
