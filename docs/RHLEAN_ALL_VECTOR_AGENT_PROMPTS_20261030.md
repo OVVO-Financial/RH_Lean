@@ -1,8 +1,5 @@
 # Seven-agent prompts: complete signed HIGH, independent native routes
 
-**FROZEN_ROOT_PRIME_TWO_ALL_AGENTS_20261108 — governing seven-role task override after human merge:** On every run all seven roles must read [frozen-root role-specific mandates](FROZEN_ROOT_PRIME_TWO_ALL_AGENTS_20261108.md). Prove a general signed bound on Q_R built only from mu(a),mu(b) with a,b<R; prime-2 odd-parent pairing gives exact HIGH-HIGH square plus q=2,3 masks. The new Lean theorem file is research/FROZEN_ROOT_PRIME_TWO_HIGH_HIGH_GENERAL_20261108.lean. Assignments are role-specific; keep source signed, preserve K_R, do not substitute known Mertens bound for independent arithmetic contraction. Prior route specialties are methodologies, not conflicting primary objectives; retained source integrity and human-only merge rules remain. Acknowledgment: `frozen_root_ack=FROZEN_ROOT_PRIME_TWO_ALL_AGENTS_20261108`.
-
-
 **COMPLETE_SIGNED_HIGH_ATTACK_V1 - 2026-11-07; effective after human merge.** All seven existing roles work toward the complete signed HIGH/global endpoint in [the governing HIGH directive](RHLEAN_COMPLETE_SIGNED_HIGH_ATTACK_20261107.md). It supplies the live objective and takes precedence over older task assignments. [CANCELLATION_CHAIN_REUSE_V1](RHLEAN_REUSE_CANCELLATION_CHAIN_20261107.md) supplies the reuse-first method, and the [task selector](RHLEAN_NATIVE_SQUARE_CLOCK_AGENT_DIRECTIVE_20261029.md) preserves independent route choice. Reuse the established arithmetic/moment/common-probe chain and improve its actual consumers. Genuine source safeguards survive; these instructions do not change saved Studio prompts, triggers, permissions or theorems.
 
 ## Common instruction on every actual invocation

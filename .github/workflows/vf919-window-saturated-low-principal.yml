@@ -4,6 +4,8 @@ on:
   pull_request:
     paths:
       - 'research/oai_434/VF919WindowSaturatedLowPrincipal.lean'
+      - 'research/oai_434/VF919WindowErrorClosure.lean'
+      - 'scripts/lean/window_error_closure/**'
       - '.github/workflows/vf919-window-saturated-low-principal.yml'
   workflow_dispatch:
 
@@ -21,6 +23,8 @@ jobs:
     timeout-minutes: 150
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
       - name: Verify the pinned Lean and Mathlib versions
         shell: bash
         run: |
@@ -125,6 +129,33 @@ jobs:
           env LEAN_PATH="$RH_PATH:$OAI_PATH" lean -DwarningAsError=true \
             /tmp/window_saturated_gain_acceptance.lean 2>&1 | tee window-saturated-acceptance.log
           if grep -E 'sorryAx|admitAx' window-saturated-acceptance.log; then exit 1; fi
+      - name: Compile positive-error closure and original fixed-family inputs
+        shell: bash
+        run: |
+          set -euo pipefail
+          OAI_PATH="$(cd oai-upstream/lean && lake env python3 -c 'import os; print(os.pathsep.join(os.path.abspath(p) for p in os.environ["LEAN_PATH"].split(os.pathsep) if p))')"
+          RH_PATH="$(lake env python3 -c 'import os; print(os.pathsep.join(os.path.abspath(p) for p in os.environ["LEAN_PATH"].split(os.pathsep) if p))')"
+          for name in VF919ExplicitSlotTotalMass VF919ExplicitSquareBlockPacking VF919WindowErrorClosure; do
+            source="research/oai_434/${name}.lean"
+            if grep -nE '^[[:space:]]*(sorry|admit|axiom)([[:space:]]|$)' "$source"; then exit 1; fi
+            env LEAN_PATH="$RH_PATH:$OAI_PATH" lean -DwarningAsError=true \
+              -o ".lake/build/lib/lean/research.oai_434.${name}.olean" "$source" \
+              2>&1 | tee -a window-error-closure-lean.log
+            test -s ".lake/build/lib/lean/research.oai_434.${name}.olean"
+          done
+      - name: Verify closed endpoint types and live source and axiom dependencies
+        shell: bash
+        run: |
+          set -euo pipefail
+          OAI_PATH="$(cd oai-upstream/lean && lake env python3 -c 'import os; print(os.pathsep.join(os.path.abspath(p) for p in os.environ["LEAN_PATH"].split(os.pathsep) if p))')"
+          RH_PATH="$(lake env python3 -c 'import os; print(os.pathsep.join(os.path.abspath(p) for p in os.environ["LEAN_PATH"].split(os.pathsep) if p))')"
+          env LEAN_PATH="$RH_PATH:$OAI_PATH" lean -DwarningAsError=true \
+            scripts/lean/window_error_closure/ExactTypes.lean \
+            2>&1 | tee window-error-closure-types.log
+          env LEAN_PATH="$RH_PATH:$OAI_PATH" lean -DwarningAsError=true \
+            --run scripts/lean/window_error_closure/WindowErrorClosureAudit.lean \
+            2>&1 | tee window-error-closure-audit.log
+          if grep -E 'sorryAx|admitAx' window-error-closure-{lean,types,audit}.log; then exit 1; fi
       - name: Preserve generated proofs, exact provenance, and diagnostics
         if: ${{ !cancelled() && steps.slot_proof.outcome != 'skipped' && steps.slot_proof.outcome != '' }}
         uses: actions/upload-artifact@v4
@@ -138,10 +169,16 @@ jobs:
             window-saturated-lean.log
             window-saturated-explicit-input.log
             window-saturated-acceptance.log
+            window-error-closure-lean.log
+            window-error-closure-types.log
+            window-error-closure-audit.log
             research/oai_434/VF919WindowSaturatedLowPrincipal.lean
+            research/oai_434/VF919WindowErrorClosure.lean
             research/oai_434/VF919TotalMass*.lean
             research/oai_434/VF919Anchored*.lean
             scripts/lean/total_mass/
+            scripts/lean/window_error_closure/
           if-no-files-found: error
           retention-days: 30
+
 
