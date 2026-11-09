@@ -1,0 +1,57 @@
+name: Finite directional Gram algebra
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'research/DerivativeWeightedKernelIndefinite.lean'
+      - 'research/FiniteDirectionalBudgetCosineBridge.lean'
+      - 'research/SquareRootPrimeReconstruction.lean'
+      - '.github/workflows/finite-directional-gram.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  finite-directional-gram:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Lean and Mathlib
+        uses: ./.github/actions/lean-setup
+      - name: Reject proof holes
+        run: |
+          if grep -nE '^[[:space:]]*(sorry|admit|axiom)([[:space:]]|$)' \
+            research/DerivativeWeightedKernelIndefinite.lean \
+            research/FiniteDirectionalBudgetCosineBridge.lean \
+            research/SquareRootPrimeReconstruction.lean; then
+            echo 'No proof holes permitted in this algebra package.'
+            exit 1
+          fi
+      - name: Build the Lean library and the standalone research file
+        run: |
+          python3 scripts/compile_research_import_closure.py --build-library \
+            research/DerivativeWeightedKernelIndefinite.lean \
+            research/FiniteDirectionalBudgetCosineBridge.lean \
+            research/SquareRootPrimeReconstruction.lean
+      - name: Check exact theorem signatures and kernel axioms
+        run: |
+          cat > /tmp/DirectionalGramAudit.lean <<'LEAN'
+          import «research.DerivativeWeightedKernelIndefinite»
+          import «research.FiniteDirectionalBudgetCosineBridge»
+          import «research.SquareRootPrimeReconstruction»
+          #check RHLean.Analysis.derivative_weighted_kernel_det_algebra
+          #check RHLean.Analysis.derivative_weighted_kernel_indefinite
+          #print axioms RHLean.Analysis.derivative_weighted_kernel_det_algebra
+          #print axioms RHLean.Analysis.derivative_weighted_kernel_indefinite
+          #check RHLean.Analysis.finite_symmetrized_weighted_product
+          #check RHLean.Analysis.finite_real_directional_gram
+          #check RHLean.Analysis.finite_directional_budget_cosine_realified
+          #print axioms RHLean.Analysis.finite_directional_budget_cosine_realified
+          #check RHLean.Analysis.squarefree_decomposition
+          #check RHLean.Analysis.coprime_root_survivor_is_prime
+          #print axioms RHLean.Analysis.squarefree_decomposition
+          LEAN
+          lake env lean -DwarningAsError=true /tmp/DirectionalGramAudit.lean
