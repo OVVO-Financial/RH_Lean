@@ -170,7 +170,7 @@ theorem dyadicPrimePhase_near_resonance (R p q r : ℕ) (hR : 8 ≤ R)
     rw [← heq, h, sub_self]
   · intro t ht
     apply cosine_bound_of_phase hR' _ ht
-    rwa [heq]
+    simpa only [heq] using hb.2
 
 /-- The cosine is exactly the real Hermitian cross-phase response. -/
 theorem dyadicPrimePhase_hermitian_eq_cos (R p q r : ℕ) (t : ℝ) :
