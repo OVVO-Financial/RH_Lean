@@ -1209,3 +1209,538 @@ For R>=2, X=R^2-1, K_R=max_{0<=y<R}(M(y)-1)^2/(y+1), the open objective is one C
 Both November 7 and November 8 reports for all six specialists and Coordinator, plus EXTERNAL_HANDOFFS.md, have been retrieved at agent-reports@37171160ffc852d53373df2fa893f18547d86e42. Relevant sections are being audited; no missing review is assumed complete. The inbox has no entry later than October 18. Today’s latest Lean report records accepted EC error closure at #1119 and an unresolved duplicate-carrier/current-head integration issue in #1118. These are report evidence until direct source/CI verification below. Open PR discovery also includes #1120 and #1121. No PR is merged or changed by this role.
 
 Next work: independently test whether historical prefix control plus the exact prime-two relation can bound the complete signed kernel, or whether a concrete arithmetic-preserving obstruction identifies the missing information. Audit earlier AF/HC/WT claims before attributing novelty. Publish the resulting argument, falsification, complete consumer map and six nonredundant handoffs in both byte-identical mirrors. No Lean, central-policy, other-role, schedule or protected-branch changes are authorized or planned.
+
+
+## Scheduled Proof Architect Synthesis - 20261108-coordinator-2309-EST
+
+### A. What Changed Mathematically?
+
+**A fixed finite-prime folding argument cannot obtain the complete frozen-root finite-C bound from squarefree support, multiplicativity, the selected prime-flip laws, and even an all-scale square-root prefix bound alone.** For EVERY fixed finite prime set P, I construct ONE fixed multiplicative sequence a_P with values in {-1,0,1}, exactly the genuine squarefree support, a_P(pn)=-a_P(n) for p in P and p not dividing n, and bounded shifted historical K. Nevertheless its COMPLETE ordered historical floor form satisfies
+
+```text
+Q_R[a_P]/R^2 -> Lambda_P^2 > 0,
+|Q_R[a_P]|/(R sqrt(K_R[a_P])) -> infinity.
+```
+
+This is claim FM1-FM3 below: PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING, supported by new exact FINITE_COMPUTATION. It is a counterexample to the displayed GENERALIZED method, NOT to actual mu, the repository's finite-C conjecture, any accepted reciprocal-energy theorem, or RH. The model does NOT satisfy full Mobius divisor inversion. That distinction is the useful output: an argument that only invokes the fixed wheel and a historical envelope has discarded an essential arithmetic restriction.
+
+The new scope differs from Referee WT: WT was a nonmultiplicative, non-Mobius proper-strip example with f(2)=0; FM keeps exact squarefree support and all selected prime laws, and estimates the entire bilinear, including LL, both mixed orientations and HH. It also differs from #1117's neutral-cofactor periodic drift: FM has square-root prefix control and kills EVERY square, not just squares of a few selected primes. This is not a claim of literature priority for character twists or hyperbola summation.
+
+**Important limit:** the nonzero coherent residue in FM is already excluded by the actual historical divisor identities. FM therefore does NOT defeat the existing rank-one-subtracted route, and is not an independent positive estimate on its residual. The next attempt must explicitly use that existing arithmetic input before proposing a universal geometric norm transfer. No new surviving RH-strength positive mechanism was established in this execution.
+
+The independent formal status audit verifies #1119's removal of the positive detector error at its exact source head, while #1118's extended head has no attached current-head checks and conflicts with main. New mathematics from THIS execution: scoped method obstruction, not a new exponent, finite C/A or RH. Gate: SEARCH_BROAD within the new frozen-root focus; NEW_VERIFIED_ENDPOINT_GAIN_FROM_THIS_EXECUTION=NONE.
+
+Run: scheduled November 8, 2026, 23:09 EST, America/New_York; UTC trigger 2026-11-09T04:09:00Z; platform RUN_ID_UNAVAILABLE. Research is finished; substantive publication is PENDING until the immutable readback receipt appended below. This is the same invocation as checkpoint 314e03948ec5f5c83bdbc85b0776392c6317e4e0, not an additional launch.
+
+### B. Current Proof Objective
+
+Pinned live main: **7aa0fcb12f7e8fe67e809d8f94cda384506d61b5**, human merge #1117 at 2026-11-09T02:14:33Z. The unchanged contract blob is **d1d6fd558ee23927bd9f70ffdc375bafd1dbb67a**. Immediate authority is the merged AGENTS frozen-root section and directive **f07cfca27be988f11a1ae9c86bb530313a96927b**, which supersede older task-selection prose, not theorem signatures or permissions.
+
+Activation: FROZEN_ROOT_SQUARE_ROOT_SOURCE_FIRST_20261108; retain COMPLETE_SIGNED_HIGH_ATTACK_V1, CANCELLATION_CHAIN_REUSE_V1, PAID_BASELINE_EXACT_CONSUMER_V1 and the nine-route safeguards. The all-route directive, DAG, atlas, task selector, seven-role prompts, complete-return contract, research engine, breadth and dynamic protocols were retrieved at this source. Coordinator can update its own report ledger only; generated DAG/registry edits remain a Lean/human handoff.
+
+Canonical public target remains `VFCanonicalSquareVonKochStatement`:
+
+```text
+exists C>=0, forall integers R>=2,
+  |pi(R^2)-vfCanonical(R^2)| <= C R log R;
+vfCanonical = vfMid + sqrt(2).
+```
+
+The inspected canonical RH implication retains its explicit `ClassicalVonKochRHCriterion` input. The independent native Mertens-energy-to-RH consumer is already implemented and does not require silently supplying that classical interface.
+
+The immediate exact source is, for every integer R>=2,
+
+```text
+N=R-1, X=R^2-1,
+M(t)=sum_{1<=n<=t}mu(n), M(0)=0,
+K_R=max_{0<=y<R}(M(y)-1)^2/(y+1),
+Q_R=sum_{1<=a,b<R}mu(a)mu(b)floor(X/(ab)).
+```
+
+Every independently estimated coefficient has index below R. The already implemented identity is `Q_R=2M(N)-M(X)`. The open theorem is ONE C>=0 before ALL R with `|Q_R|<=C R sqrt(K_R)`. Equivalently the Lean predicate quantifies every K satisfying `LowerMertensCriticalEnvelope R K`: the displayed finite maximum is its least admissible K, and the right side is monotone in K. This equivalence is elementary bookkeeping, not a new estimate.
+
+For odd parents set h(m)=1_{2m<R}, L={odd m:1<=m<R,2m<R}, H={odd m:1<=m<R,2m>=R}, and retain
+
+```text
+k_R(m,n)=floor(X/(mn))-(h(m)+h(n))*floor(X/(2mn))
+          +h(m)h(n)*floor(X/(4mn)).
+Q_LL=sum_{LxL}mu(m)mu(n)k_R(m,n),
+Q_LH=sum_{LxH}..., Q_HL=sum_{HxL}...,
+Hq=sum_{HxH,qmn<=X}mu(m)mu(n), q=2,3.
+Q_R=Q_LL+Q_LH+Q_HL+M(N)^2+H2+H3.
+M(X)-1=-(M(N)-1)^2-(Q_LL+Q_LH+Q_HL+H2+H3).
+```
+
+These full formulas have paper derivations; main's separately certified HH identity is narrower. The full weighted double-fold adapter to `eulerSelfDualBilinear` is still the formal integration task. No separate absolute bound is imposed on H2, H3, the historical square, or a mixed orientation.
+
+The terminal DAG is unchanged: independently prove finite C -> `squareRootEndpointAmplification_of_eulerFiniteC`, with A=(C+3)^2 -> `mertensEnergyBounded_of_squareRootEndpointAmplification` -> `riemannHypothesis_of_eulerSelfDualFiniteC`. The centered full expression instead gives A=C^2 directly. Constants need not be less than one. The first arrow consumes the OPEN estimate.
+
+Current analytic comparators must retain their source and scope. On main, #1116 gives the fine-source ceiling beta<=7/8-(7/8)m+e; #1111 supplies the fixed near-uniform family and named bound 7/8-1/(32N_pack). Their already accepted paper composition gives the conservative 7/8-5/(64N_pack). At UNMERGED verified #1119, the same-D ceiling is 7/8-(7/8)m, and its named fixed-family corollary is 7/8-7/(64N_pack). These are every-positive-loss Mertens bounds. They are not no-loss bounds, zero-log amplification, or finite C. Referee SG's 7/8-7/(48N_pack) remains an independently unreviewed paper proposal, not the certified baseline.
+
+### C. Competing Mechanism Portfolio
+
+The focus is now common, but the methods are not interchangeable. There are two exploratory frozen-root mechanisms with identifiable tests and one independent certified analytic comparator. I do NOT pretend all three currently have an independently sufficient finite-C input.
+
+| Mechanism | Independent Input And Complete Consumer | First Unproved Step, Support, Test, Owner, Disposition |
+| --- | --- | --- |
+| M1: arithmetic-first owner transfer | Use the genuine divisor annihilator BEFORE first-owner rank descent; preserve the original floor kernel and all clipping terms while transferring an existing reciprocal estimate | Missing: an actual source-preserving transfer with a quantitatively affordable change of weights and full signed assembly. Rank drop, four-corner equalities and reciprocal contraction exist; FM rejects reliance on fixed-prime laws alone. Test the same proposed inequality on FM and locate the exact full-inversion step that excludes it. Owner/Wheel; REVISE and CONTINUE as exploration, not a new bound. |
+| M2: coupled moving-boundary bilinear cancellation | Keep AF's signed additive triangle and pay only its curvature error, then seek a source-exact disjoint partition with aggregate error control | Missing: a genuine signed estimate beyond envelope-only control and payment of the entire complement. HC/SJ are independently accepted proper components; AF inverse reduction is paper; FR refutes automatic favorable frequency signs. Test complete signed boundary packets, not isolated positive modes. Analytic/Census; CONTINUE narrowly; no global promotion. |
+| M3: complete native analytic consumer | Preserve already proved weighted suppliers through the same LOW/HIGH/principal comparison, then native Mertens return | #1119 is a genuine verified fixed positive-power improvement; SG is pending review. Missing for the immediate objective: a source-faithful argument exploiting K_R beyond the inherited power bound. A new assumed full covariance is not that argument. Retain as comparator and independent toolkit; SUSPEND any claim that it alone solves frozen finite C. |
+
+The fixed-wheel-only, arbitrary-vector finite-C mechanism is REJECTED at its precise FM hypotheses. A growing-prime argument using full arithmetic is not rejected. A pure renaming of the complete residual as a bounded norm is TARGET_EQUIVALENT, not a fourth mechanism. If M1/M2 cannot supply a concrete independent estimate, the next Coordinator task is discovery, not another exact-decomposition campaign.
+
+| Route | Last Substantive Evidence And Remaining Role Under The New Focus |
+| --- | --- |
+| VF-LOW | Nov 8 Owner MC: paid selected mixed return, unavoidable same-site bill; retain original source/admission expertise for M1. Complete prime error still open. |
+| SAT | Nov 8 Owner PD: primitive-ratio restrictions; supply once-only ownership and clipping, not a prime-count substitution for Q_R. |
+| CODIV | Nov 8 Analytic MP: signed small-cofactor mixed estimate, not complete covariance; possible proper-source bilinear supplier for M2 only after a bridge. |
+| OAI-NNS | Nov 8 Analytic EC / Lean #1119 verified; SG review pending. M3, with all true coefficients and positive losses retained. |
+| JOH | Nov 8 Owner JS: finite symmetry-packet payment is reported RH-equivalent; retire that payment as an assumed independent shortcut, not the whole route. |
+| FINITE-AC | Nov 8 HC/SJ/AF/FR plus present FM; immediate Q_R and K_R source remains open. |
+| CORR4 | Nov 8 SP/TC/DR and merged #1113: image multiplicity paid in its range, signed mixed bill and source transfer remain open. |
+| MU-LIFT | Nov 8 FD: semiprime-only donor repair has an eventual capacity deficit; retain exact factor-depth accounting, not post-root independent inputs to Q_R. |
+| NYMAN | Nov 8 ND: finite complete-norm descents and uniform step-cost ceiling; retain all infinite-tail and basis restrictions. No current frozen-kernel bridge. |
+| BLOCK | Original universal one-block capture remains REFUTED at R=549. Only independently justified weaker variants remain eligible. |
+
+Actual investigator coverage today is Owner SAT/VF-LOW/JOH, Analytic CODIV/NYMAN/OAI-NNS, Wheel CORR4/FINITE-AC/MU-LIFT. The new directive changes next tasks; it does not fabricate another rotation, authorize extra launches, or erase these independent toolkits.
+
+### D. Conceptual Research Performed
+
+#### FM0. Precise Question And Carrier
+
+Can the complete finite-C estimate follow from a fixed finite list of prime laws, exact squarefree support, multiplicativity, and critical historical prefix control? This is a stronger test than checking an arbitrary vector on one proper strip. The following is deliberately a SYNTHETIC countermodel; actual mu is never replaced inside a claimed arithmetic theorem.
+
+For a real sequence a on positive integers define
+
+```text
+A_a(t)=sum_{1<=n<=t}a(n), A_a(0)=0,
+K_R[a]=max_{0<=y<R}(A_a(y)-1)^2/(y+1),
+Q_R[a]=sum_{1<=m,n<R}a(m)a(n)floor((R^2-1)/(mn)).
+```
+
+The generalized claim being refuted permits one constant depending on the fixed sequence and selected finite prime set, but NOT on R. It is stronger than the genuine-Mobius conjecture and is not attributed to any specialist as an accepted theorem.
+
+#### FM1. One Multiplicative Countermodel For Every Fixed Finite Prime Set
+
+Let P be ANY fixed finite set of primes. Put E={p in P:p=1 mod 4}. Let chi_4(n)=0 for even n, +1 for n=1 mod 4 and -1 for n=3 mod 4. Define a_P multiplicatively by
+
+```text
+a_P(1)=1,
+a_P(p)=-1 if p=2 or p in P;
+a_P(p)=chi_4(p) for odd primes p not in P;
+a_P(p^j)=0 for every prime p and integer j>=2.
+```
+
+Then |a_P(n)|=mu(n)^2 for EVERY n. For each p in P, p not dividing n implies a_P(pn)=-a_P(n), including the zero cases. In particular the exact prime-two fold, high-mass identity and three-floor HH formula hold for this sequence, with A_a in place of M. Taking P to contain all primes <=T also makes a_P(n)=mu(n) for every n<=T. This latter observation concerns a FIXED initial segment; it is not agreement with the genuine growing history for all R.
+
+There is an explicit constant B_P, fixed before every t, such that
+
+```text
+|A_a(t)| <= B_P sqrt(t),
+B_P=(1+1/sqrt(2))*product_{p in E}(1+p^(-1/2))/(1-p^(-1/2)),
+1 <= K_R[a] <= (B_P+1)^2 for all R>=2.
+```
+
+Proof: begin with b(n)=mu(n)^2 chi_4(n). The squarefree identity gives
+
+```text
+sum_{n<=t}b(n)
+ = sum_{d<=sqrt(t),d odd}mu(d)*sum_{m<=t/d^2}chi_4(m).
+```
+
+The inner character prefix has absolute value at most one, so the total is at most sqrt(t). Adding the prime-two local factor 1-2^(-s) replaces b(n) by b(n)-1_{2|n}b(n/2), costing 1+1/sqrt(2) in this bound. For each p in E, changing the local factor 1+p^(-s) to 1-p^(-s) corresponds to convolution with coefficients 1 at 1 and 2(-1)^j at p^j, j>=1. Their absolute 1/sqrt(d)-weighted mass is (1+p^(-1/2))/(1-p^(-1/2)). Finite convolution gives the stated B_P. This is a coefficientwise argument; the generating series merely records the convolution. Finally (|A_a(y)|+1)/sqrt(y+1)<=B_P+1, and y=0 gives K_R[a]>=1.
+
+The convergent reciprocal sum has a strictly positive value:
+
+```text
+Lambda_P=sum_{n>=1}a_P(n)/n
+ =(1/pi)*product_{p in E}(p-1)/(p+1)>0.
+```
+
+To verify it, for real s>1 the ordinary absolutely convergent Euler product is
+
+```text
+sum a_P(n)n^(-s)
+ = L(s,chi_4)/(zeta(2s)*(1+2^(-s)))
+   * product_{p in E}(1-p^(-s))/(1+p^(-s)).
+```
+
+Abel summation and the just-proved square-root prefix bound make the series continuous as s decreases to 1, so this boundary evaluation does not assume absolute convergence there. Use L(1,chi_4)=1-1/3+1/5-...=pi/4 and zeta(2)=pi^2/6. The primary references for the standard Euler-product notation and constants are [DLMF 25.15](https://dlmf.nist.gov/25.15), [DLMF 25.6.1](https://dlmf.nist.gov/25.6#E1), and [DLMF 4.24.3](https://dlmf.nist.gov/4.24#E3). No zero-free region, RH, nonvanishing theorem, or statistical character model is imported. The finite-P constant is NOT claimed uniform as P grows with R.
+
+#### FM2. Complete Truncated-Bilinear Asymptotic, With The Missing Wings Paid
+
+Here is a reusable elementary statement, proved rather than inferred from computation. If |a(n)|<=1 and |A_a(t)|<=B sqrt(t) for all positive integers t, and Lambda=sum a(n)/n, then
+
+```text
+Q_R[a]=Lambda^2*(R^2-1)+O_B(R^(7/4)+R^(3/2)*log(2R)).
+```
+
+All implied constants are independent of R; no multiplicativity is needed for this lemma. The exponent is deliberately unoptimized.
+
+Let c=a*a be Dirichlet convolution and C(t)=sum_{n<=t}c(n). The exact hyperbola identity, with v=floor(sqrt(t)), gives
+
+```text
+C(t)=2*sum_{n<=v}a(n)A_a(floor(t/n))-A_a(v)^2,
+|C(t)| <= (4B+B^2)*t^(3/4) = D*t^(3/4).
+```
+
+Use sum_{n<=v}n^(-1/2)<=2sqrt(v). Abel summation shows that sum c(n)/n converges, its tail after Y is at most 5D Y^(-1/4), and its value is Lambda^2. For the last equality use the ordinary product for s>1 and then continuity at s=1 supplied by both prefix bounds; no invalid multiplication of arbitrary conditionally convergent series is used.
+
+Set T(X)=sum_{abk<=X}a(a)a(b). For Y=floor(sqrt(X)), split the divisor sum exactly:
+
+```text
+T(X)=sum_{n<=Y}c(n)floor(X/n)
+    +sum_{k<=floor(X/(Y+1))}(C(floor(X/k))-C(Y)).
+```
+
+The first term differs from X*sum_{n<=Y}c(n)/n by at most sum_{n<=Y}|c(n)|<=Y(1+log Y). The second is O_D(X Y^(-1/4)), using sum_{k<=K}k^(-3/4)<=4K^(1/4). Extending the reciprocal sum to infinity has the same O_D(X Y^(-1/4)) cost. Thus T(X)=Lambda^2 X+O_B(X^(7/8)+sqrt(X)log(2X)).
+
+Crucially T(X) is not Q_R[a]. At X=R^2-1, the excluded a>=R and b>=R wings are disjoint, so their exact difference is
+
+```text
+T(X)-Q_R[a]
+ =2*sum_{b<=floor(X/R)}a(b)
+      *sum_{k<=floor(X/(Rb))}(A_a(floor(X/(bk)))-A_a(R-1)).
+```
+
+The absolute value is at most
+
+```text
+6B*(X/sqrt(R))*sum_{b<=floor(X/R)}1/b
+ <=6B*(X/sqrt(R))*(1+log R).
+```
+
+Indeed, sum_{k<=K}k^(-1/2)<=2sqrt(K) pays the first prefix, and the second prefix costs B sqrt(R) per occurrence. This restores both entire wings with their original ordered multiplicity. Substitution proves FM2. Nothing was discarded from LL/LH/HL/HH or from a boundary/diagonal.
+
+Applying FM2 to FM1 gives Q_R[a_P]/R^2 -> Lambda_P^2. Since K_R[a_P] is uniformly bounded, the generalized finite-C ratio diverges. The complete centered analogue also fails: Q_R[a_P]-2A_a(R-1)+1 has the same leading R^2 term. This establishes the method obstruction without substituting a post-root estimator.
+
+#### FM3. Exact Scope, No-Circularity, And The Arithmetic Gate Already Paid On Main
+
+For P={2} or {2,3}, Lambda=1/pi. For P={2,3,5} or {2,3,5,7}, Lambda=2/(3pi). Thus the limiting Q_R/R^2 values are respectively 1/pi^2 and 4/(9pi^2). The latter model agrees with mu through 12 but has a(13)=+1. Its divisor sum at 13 is 2, not 0. The former has the same defect at 5. Every finite P leaves a prime q=1 mod 4 outside P: a prime divisor of (2*product_{p in P}p)^2+1 is odd, is not in P, and has -1 as a quadratic residue, hence is 1 mod 4. At such q the model has positive sign. The positive residue proof detects this missing all-prime constraint.
+
+For actual mu, the existing declaration `eulerHistoricalFloorInversionQ` proves
+
+```text
+sum_{a<R}mu(a)floor((R-1)/a)=1.
+```
+
+Let S_a(N)=sum_{n<=N}a(n)/n and H_a(N)=sum_{n<=N}a(n)floor(N/n). For an arbitrary sequence, the exact rank-one split is
+
+```text
+Q_R[a]=(R+1)*S_a(N)*H_a(N)
+  +sum_{m,n<R}a(m)a(n)
+       [floor(X/(mn))-(R+1)*floor(N/m)/n].
+```
+
+Only for actual mu may H_a(N) be replaced by 1. In the FM model, H_a(N)=Lambda_P*N+O_P(N^(3/4)), by the same one-variable split and Abel bound, so the discarded H factor carries a genuine order-R^2 main term. This is an explicit test for a false transfer, not an argument that the correctly centered remainder is large.
+
+The actual model-excluding identity is already paid. For genuine mu, historical inversion also gives |S_mu(N)|<=1+1/N<=2 and hence the linear mode |(R+1)S_mu(N)|<=3R. The original `eulerRankOneResidualQ_eq_floor_sub_linear` retains the COMPLETE remainder. Its finite-C bound is equivalent, up to a constant 3, to the open Q_R bound. We do not assume it or call it a smaller solved lemma.
+
+No-narrowing ledger: FM1 is a new-to-this-investigation explicit arithmetic countermodel; FM2 is an elementary complete-source asymptotic; FM3 classifies exactly which hypothetical generalized proof is refuted. The existing divisor identity and rank-one split are REUSED formal structure, not discoveries. A proof that assumes all growing-prefix divisor identities has already specialized to genuine mu; FM supplies no no-go for it. A proof using more than finitely many prime signs is not covered by the fixed-P theorem. No new quantitative input for the true residual has survived this audit.
+
+#### FM4. Decisive Finite Test
+
+The test design was frozen in the source before execution: actual mu plus the two explicitly synthetic models; every root R=2,...,128 for complete folding; support, prime-flip and coprime multiplicativity checks through 16384; and synthetic complete Q at roots 257,1025,4096,8192,16384. No threshold or root was changed after output. These computations test the proof's exact carriers; the infinite conclusion comes from FM1-FM2, not fitting a trend.
+
+The C++ verifier used an independent trial-factor Mobius function to check the sieve through 16384. It checked 381 complete folds, both mixed orientations, HH mass, masks 2/3, and equality of direct ordered-pair and quotient-grouped sums. The two algorithms share coefficients; this is an independent implementation cross-check, NOT independent mathematical peer review. All input indices to Q are <R. K is computed as an exact rational maximum including y=0.
+
+| Synthetic Model | R | Exact Q_R | Exact K_R | Q_R/R^2, Display Only |
+| --- | ---: | ---: | ---: | ---: |
+| P=2/6 | 257 | 6906 | 1 | 0.104558736695 |
+| P=2/6 | 1025 | 104136 | 1 | 0.099118143962 |
+| P=2/6 | 4096 | 1703591 | 1 | 0.101541936398 |
+| P=2/6 | 8192 | 6802675 | 1 | 0.101367756724 |
+| P=2/6 | 16384 | 27220915 | 1 | 0.101405810565 |
+| P=30/210 | 257 | 3314 | 3/2 | 0.050174870172 |
+| P=30/210 | 1025 | 49044 | 3/2 | 0.046680785247 |
+| P=30/210 | 4096 | 754339 | 3/2 | 0.044962108135 |
+| P=30/210 | 8192 | 3019607 | 3/2 | 0.044995650649 |
+| P=30/210 | 16384 | 12098527 | 3/2 | 0.045070525259 |
+
+At R=16384 the displayed normalized finite-C ratios are about 1661.43 and 602.93. Empirical K=1 or 3/2 is claimed ONLY for these tested prefixes; the all-scale proof uses B_P. The model's divisor-annihilator failures at 5 and 13 were checked exactly. Reproduction: compile the complete appendix with `g++ -O2 -std=c++17 -Wall -Wextra -Werror frozen_model_test.cpp -o frozen_model_test`, then run the executable. Source SHA-256: `a9d26f0a87655b1601033e44440a0c0d7bb283373daf1d0742b18cfbb31f1f87`. No Lean was run locally.
+
+### E. Specialist Findings And Continuity
+
+All six specialists and both Coordinator mirrors are present for BOTH November 7 and November 8 at intake agent-reports@37171160ffc852d53373df2fa893f18547d86e42. Applicable synthesis, claim and resume sections were read; existing large experiment appendices were not rerun. Today's earlier executions are real published evidence, not missing stages. Their NEXT frozen-root quantitative assignments remain PENDING unless a later actual execution establishes them.
+
+| Specialist | November 7 Carry-Forward | November 8 Finding Consumed | Current Classification |
+| --- | --- | --- | --- |
+| Owner | RS square-sampled reserve restriction; JT complete high-zero tail and inverse localization | PD primitive-ratio restriction, MC same-site conservation, JS finite symmetry-packet obstruction | Paper scopes retained; no invented independent acceptance of JS. Packetwise RH-equivalent payment is not an independent supplier. |
+| Analytic | GL signed/absolute large-gcd distinction; FT complete Nyman tail; BC retained marked-count information | MP proper signed mixed control; ND complete-norm step cost; EC fresh-positive-error closure | EC has separate Referee acceptance and #1119 certification. MP/ND remain reported paper work; no full-source gain inferred. |
+| Wheel | DI overlap/sign obstruction; LR cofactor reuse; OC occurrence-capacity obstruction and donor repair | SP moving samples; HC paid rectangle; FD all-donor factor-depth deficit and exact compressed matching | HC independently accepted on paper; FD new paper review pending. Actual post-root FD carrier is not independent frozen-root input. |
+| Census | Signed label-capacity counterexamples; retained-capacity parameter certificate | TC determinant-one collision; SJ exact floor-two jump; FR nonzero/third-root reinforcement and paid paired mode | FINITE_COMPUTATION, with distinct paper identities/bounds. FR rejects favorable-sign hypotheses, not AF or finite C. |
+| Referee | GL scopes; MH marked half-error; total-mass fallback | DR ray/off-ray restrictions; HC/SJ accepted and WT no-go; EC accepted, SG new averaging proposal | EC independently accepted; SG remains SELF_AUDIT / INDEPENDENT_REVIEW_PENDING. FM is not automatically accepted by this report. |
+| Lean | GL2, marked-cutoff interface, #1107 total-mass certification | #1113 sampling, #1111 near-uniform packing, #1119 error closure, #1118 integration warning | Directly refreshed source and CI below; old draft/merge statuses are not carried forward as current. |
+| Coordinator | WS moving-window argument and earlier complete-consumer work | SB bulk separation, AF curvature/inverse frequency, CP2 same-family comparison | Prior history preserved. CP2 accepted in Referee-3; AF remains paper. FM adds a different complete-kernel method test. |
+
+EXTERNAL_HANDOFFS.md blob **038018145c0fddb2f6306c0712373adf9cd1ea52** has no entry after October 18. EXT-20261018-PNT-1/3 and EXT-20261017-XCOORD-1/3 retain their exact-carrier/no-silent-transfer warnings; the frozen directive supersedes their routing. EXT-20261014-5 concerns the original #915 all-R denominator and is not transferred to Q_R. No missing new external handoff or new specialist launch is inferred.
+
+### F. Mathematical Bottlenecks And Checked Consumer Map
+
+The complete signed centered formula in B is still the exact missing quantitative statement. Its equality with -(M(X)-1) prevents describing it as an independently easier final lemma. The smallest useful NEW enabling theorem is the full original weighted double fold, with both mixed orientations and the high-mass adapter; its significance is integration, not a bound. The smallest independently missing POSITIVE arithmetic principle has not been identified in a demonstrably easier form.
+
+| Existing Source Result | Actual Scope | Missing Transfer To Frozen Q_R |
+| --- | --- | --- |
+| `frozenOddHighHigh_eq_square_add_two_masks` | All-R actual-mu HH identity; main, matched tested source | Full odd-parent LL/LH/HL adapter and quantitative joint estimate. No sign of H2+H3 follows. |
+| `mertensSummatory_eq_dyadicCofactorBoundaryMass` | Exact dyadic historical mass | Reuse at N=R-1; do not introduce mu above R as independent input or duplicate the mass definition. |
+| `lowOwnerFirstOwnerGreatestOwnerPositivePair_parent_rank_add_one` | Exact rank drop on its admitted greatest-owner positive-pair fibre | Show original frozen pair admission, coefficients, signs, masks and multiplicity before using the rank; finite rank alone is no norm bound. |
+| `lowOwnerFirstOwnerCompensatedInterior_sq_eq_sum_fourCornerMass` | Complete ordered square of an actual AMP first-owner cell | Match its crossing weight to sharp unweighted k_R; geometric similarity is not coefficient equality. |
+| `sum_lowOwnerRetainedCoefficientChildEnergy_le_two_ninths` | At most two children and reciprocal child energy parent/r^2, r>=3; coefficient retained unchanged | A raw-count or sharp-floor weight does not inherit 1/r^2 for free. Reweighting, changing coefficients and all boundary terms require a proved bill. |
+| `lowOwnerZeroTargetHistoryAboveFirst_recursive_add_clipped_le_threeQuarters` | Reciprocal-weighted recursive SIDE ledger plus genuine positive clipped exits | Source explicitly says NOT a bound on a full signed continuation generation. Same-branch, polarization and remaining terminal terms cannot be erased. |
+| `eulerHistoricalFloorInversionQ` and `eulerRankOneResidualQ_eq_floor_sub_linear` | Actual divisor inversion plus exact complete residual and O(R) linear mode | Residual estimate remains open; FM shows why the H=1 arithmetic premise cannot be replaced by selected-prime laws. |
+| `riemannHypothesis_of_eulerSelfDualFiniteC` | Existing conditional terminal theorem | Its finite-C hypothesis is the whole unpaid payload. A green consumer is not a proof of the input. |
+
+These sources were inspected at main. Freshly rechecked CI is limited to the explicit jobs in I; no new whole-repository certification is claimed. The local 2/9 and 3/4 facts survive FM because they concern different weighted objects. They are not mathematically refuted by failure of an unproved transfer.
+
+### G. Strategy Decisions
+
+1. Retire fixed-wheel-only universal finite-C claims at FM's hypotheses. Keep exact finite-wheel folding as useful algebra, and keep full-prime arithmetic methods eligible.
+2. Require M1 to expose the exact use of full divisor inversion before any coefficient-agnostic norm comparison. Reuse the existing rank-one theorem rather than rediscovering it. Do not call its complete residual bound independent.
+3. Keep M2's signed curvature/additive programme only with a genuinely new arithmetic restriction or a complete coverage budget. FR already rules out a default favorable-frequency sign. No additional unchanged AF identity census is requested.
+4. Preserve #1119 as a verified complete native improvement, not finite C. SG stays in the review queue without displacing the current frozen-root priority. No new OAI or Nyman estimate is transferred to rational mu without a source bridge.
+5. Prioritize deduplicating #1118 and completing the original adapter over another HH theorem. Human merge remains a separate decision. No mathematical conclusion or central instruction was edited by this role.
+
+### H. Next Specialist Assignments
+
+These are asynchronous published handoffs for the next ACTUAL authorized executions, not launches or schedule changes. Each specialist must refresh authority first.
+
+| Role / Ticket | Exact Question And Reused Definitions | Valid Output, Falsifier, And Portfolio Consequence |
+| --- | --- | --- |
+| Owner / NEXT-FROZEN-ROW-ADMISSION | Fold the ORIGINAL rank-one kernel T_R(m,n)=floor(X/(mn))-(R+1)floor(N/m)/n through mu(2u)=-mu(u), retaining strict h(u), LL/LH/HL/HH, both orientations and H_mu(N)=1. Which literal owner/ancestor and clipping masks survive? Reuse the existing rank-one and dyadic declarations. | An exact occurrence/coefficient ledger, not a prime-count model; first test R=4 and R=137 and the FM model with H_a left symbolic. Missing input: original carrier admission, not a desired norm. If the proposed map needs H_a=1 without proof or loses a cross orientation, reject it. This decides whether M1 has a legal source map. |
+| Analytic / NEXT-FROZEN-COUPLED-BOUND | On the genuine T_R source after the paid linear mode, can AF's retained triangle and a genuinely licensed signed bilinear estimate pay a new disjoint UNION of boundary strips with an aggregate bound, constants fixed before R and the actual K_R retained? Reuse HC/SJ/AF; do not assume independence or post-root mu. | State exact union, signed coefficients, all remaining complement, and the net exponent/constant against the same native baseline. A proper-strip theorem alone is not completion. Falsify any step that remains valid for FM without using its missing inversion constraint, or that hides the full target in the complement. This promotes M2 only on a real quantitative gain. |
+| Wheel / NEXT-FROZEN-TRANSFER-TAX | For each proposed first-owner image of the complete sharp kernel, compute the EXACT change from reciprocal inherited energy to its physical coefficient, including same-branch, polarization and clipping. Does a proved 2/9 or 3/4 side bound survive with a uniformly affordable restoration? Reuse the named rank/four-corner declarations in F. | A coefficient equality plus a full restoration bound, or a source-exact counterexample to the proposed tax; no new universal contraction premise. The r^-2 factor must appear in the actual algebra, not by analogy. FM is the fixed-prime negative control, not a refutation of all-prime arithmetic. This decides whether M1 is viable beyond identities. |
+| Census / NEXT-FROZEN-DISCRIMINATOR | Given the first concrete Owner/Wheel candidate, freeze its inequality and compare complete Q, LL, LH, HL, HH, H2, H3, K_R and the historical annihilator using mu(<R) only. Include R=4,137 and a fresh held-out range; compare the exact candidate with FM, not just total ratios. | Reproducible integer/rational first-failure packet with all coefficients, masks and square cross terms. Do not rerun an unchanged large census or infer infinity from finite maxima. If no candidate inequality has yet been supplied, mark that test PENDING and test only the new source equality. This separates arithmetic input from geometric artifacts. |
+| Referee / NEXT-FROZEN-FM-REVIEW | Independently audit FM1-FM3, especially conditional-series multiplication, both truncated wings, all-R prefix bound, fixed-P quantifiers, and the fact that H_a is not 1. Compare its scope with WT and #1117. | ACCEPT/REVISE/REJECT with a checkable proof or smallest counterexample. Explicitly reject any interpretation as a genuine-mu counterexample or as an obstruction to the correctly centered residual. SG remains a distinct secondary review item, not silently accepted. This controls whether the new stop rule is adopted. |
+| Lean / NEXT-FROZEN-ADAPTER | Resolve #1118's duplicate RHLean.Proof.frozenOddHighMass against merged #1117, reuse the canonical high set/mass and dyadic theorem, and kernel-check the complete weighted Q adapter and centered identity. Inspect current author work before changing a branch. | Warning-fatal JOINT imports, exact types, dependency/standard-axiom audits and literal-head evidence; tests at R=4,137 are regressions, not theorem proofs. No duplicate HH proof and no assumed finite-C theorem presented as progress. This removes a formal integration gap only. |
+
+Only ONE implementation-sized Lean task is active here: the adapter/consolidation package. No second speculative formalization is assigned. A reviewed new quantitative theorem may enter the next slot; FM and SG require their stated independent reviews. Coordinator did not write Lean, create a proof PR, launch another agent, or change shared files.
+
+### I. Lean And PR Status
+
+Direct current-head check discovery and actual logs were inspected. Source identity is distinguished from tested synthetic merge and from a literal PR-head checkout.
+
+| PR | Live State And Head | Verified Evidence / Remaining Issue |
+| --- | --- | --- |
+| #1117 | MERGED; main 7aa0fcb12f7e8fe67e809d8f94cda384506d61b5; proof parent efbc636d7430caa19e30924b5b371ef790e37fa1 | Dedicated run 42548702555/job 128939234329 succeeded at synthetic merge b3d779b62b8af3743f6ab8f47ba36084d9980711. Actual HH theorem types and only propext/Classical.choice/Quot.sound were read. Source equality to main is checked separately; this is not a fresh literal-main build. |
+| #1118 | OPEN / DRAFT; 2cf509ad4893efa0250e0ec47a008858c4fa6378 | Current head has ZERO attached check-runs in this snapshot; mergeable=false, mergeable_state=dirty. GENERAL module duplicates main's frozenOddHighMass name and has newly added Mertens adapters. Prior green 2216d946 does not certify this head or joint integration. Repair/consolidation required. |
+| #1119 | OPEN / non-draft; 77ee815846d6d534c866f0752aa33b84c385610a | 14/14 current-head checks SUCCESS. Dedicated run 42552018910/job 128949473700 literally checks out this head. Warning-fatal source/types and all five live dependency closures passed with only permitted standard axioms. PROVED_IN_LEAN / CI_GREEN / REVIEW_READY / UNMERGED. |
+| #1120 | OPEN / DRAFT; 662a4d696a667f227b398168b0e4d11cdddd091f | Initial audit: 12 completed checks succeeded and the dedicated check was running. Final refresh: 13/13 SUCCESS, including finite-directional-gram run 42559519335/job 128972634033. CI_GREEN at this head; no separate full mathematical/dependency audit was performed here. Finite arbitrary-alpha algebra is not a frozen finite-C theorem. |
+| #1121 | OPEN / non-draft; 82719ae3dc61bcb80d19b5349af1fb9dcab25b34 | 4/4 checks SUCCESS. Docs-only registry stack on #1119; no new Lean proof. Human merge/retarget after the proof stack remains separate. |
+| #1122 | Newly discovered OPEN / DRAFT; c53e9cf234500aea2605fd2557e638995f380407 | 10 checks SUCCESS and Hosted Lean build IN_PROGRESS at the final snapshot. Pinned source blob ecb482e52deeee5e9b3853592a3ffdace662d2ff was read: finite-wheel divisor reindexing, virtual-term compensation, square-prefix Legendre identity, and arbitrary-reference centered discrepancy equality. No current certification or quantitative estimate inferred. |
+
+The directly read #1119 declarations are `native_beta_le_window_error_closed_of_fine`, `native_beta_le_near_uniform_window_error_closed`, and the corresponding native Mertens theorems. The proof chooses a new positive e<=D.e, constructs a valid HighData record, invokes the complete consumer on a fresh finite source, and closes only the real beta inequality. It neither assumes a zero-error source nor takes a uniform limit of Big-O constants. Its actual five terminal audits have dependency closure sizes 35358,35375,35736,35737,35753. No unsupported project axiom is reported by those audits.
+
+Main's generated DAG still has historical status prose; #1121 is the reviewable correction. This Coordinator report supplies the current ledger without modifying the generated registry or claiming that documentation repairs prove mathematics.
+
+Freshness update: main remained 7aa0fcb12f7e8fe67e809d8f94cda384506d61b5 at the closing authority check. #1122 appeared during this invocation; its current source already contains the square-prefix specialization even though its body describes that as a next patch. The source, not that stale prose, governs scope. Its prime set grows with R, so FM does NOT refute it. Its final absolute-value equality is IDENTITY_ONLY: for arbitrary real L it equals |L-pi(R^2-1)|. Choosing L=li(R^2-1) merely restates the classical discrepancy target and supplies no bound or bridge to Q_R. The virtual d>X cancellation is retained termwise; neither those terms nor the physical remainder may be silently deleted. This is existing author work to track, not a second Coordinator-assigned implementation task.
+
+### J. Next-Run Resume Capsule
+
+Re-fetch live main and both authority files before choosing work. This run's main is 7aa0fcb12f7e8fe67e809d8f94cda384506d61b5; two-day report intake is 37171160ffc852d53373df2fa893f18547d86e42. Early checkpoint 314e03948ec5f5c83bdbc85b0776392c6317e4e0 was read back identically in both mirrors as blob a36ec9e069474bb8b8382ef746d3d8503d95394b.
+
+Surviving new claims: FM1 fixed-P squarefree multiplicative countermodel with bounded K; FM2 complete truncated-floor asymptotic; FM3 precise missing-divisor-inversion diagnosis; FM4 finite verification. All new paper claims remain SELF_AUDIT / INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED. No new positive finite-C, zero-log, canonical VF or RH result. The full frozen-source integration is OPEN; a smaller genuinely independent quantitative lemma has not been established.
+
+Highest-value next reasoning question: after using the ALREADY PROVED H_mu(N)=1 exactly, what genuinely arithmetic restriction pays the complete rank-one residual under the sharp prime-two masks? A fixed-wheel geometric inequality must identify why FM is excluded; it must then estimate the residual rather than merely rename it. Do not repeat the character construction, HH identity, AF census, finite-C consumer, or old sign counterexamples as new research.
+
+Formal resume: #1118 consolidation and full adapter first; preserve #1119's exact-head evidence and human review; SG independent review pending. Do not promote #1120's finite determinant algebra to an analytic theorem. Keep first-owner, additive-bilinear and complete analytic source methods distinct. Next six frozen assignments are PENDING actual execution. No additional schedule or background work is asserted.
+
+### Provenance Appendix
+
+The following ledger is generated from actual pinned source blobs and GitHub commit metadata, not inferred from report headings. Report dates are Eastern; timestamps below are UTC. The latest commit for each dated path was queried at the frozen intake report SHA, so later edits cannot alter this evidence snapshot.
+
+| Dated Handoff | Blob At Intake | Latest Path Commit | Verified Commit UTC |
+| --- | --- | --- | --- |
+| research/agent_reports/2026-11-07/10-owner-payment.md | 933e8eb23e669594cc687059d75147e6267eec8d | 2da42627280e886d7bac93952c01dc5517005b77 | 2026-11-07T21:37:18Z |
+| research/agent_reports/2026-11-07/20-analytic-type-ii.md | 77f3e5795533041e4356ceb94cb66328da7af27c | 6af83a15b929d1842baf1454faae7e851ebeb001 | 2026-11-07T22:34:08Z |
+| research/agent_reports/2026-11-07/30-finite-wheel.md | 7739fa5d4cc77f35773b0d4149b2ddd21732a70d | ac20a0055c43cc0b61fc6e239d351b784e0a31e0 | 2026-11-07T23:33:12Z |
+| research/agent_reports/2026-11-07/40-prime-census.md | 3fae830e34c590d32c31ad77cad3ace833eb3ff5 | f9e1fa6cc8cefa064ba883c5a5dc2ff3768917ea | 2026-11-07T16:25:27Z |
+| research/agent_reports/2026-11-07/50-adversarial-referee.md | 426c2abfa5b8926b512e07f05be37692a2416d0b | 6652e811234ec5f84e2560dd192b63b593abc0e7 | 2026-11-08T01:33:57Z |
+| research/agent_reports/2026-11-07/60-lean-verification.md | ec14e2803af8c1e56123682ee61ed927ed4f9450 | ebc4cffa981cec1b6b31bdb44df6dabca71e2c54 | 2026-11-08T02:29:20Z |
+| research/agent_reports/2026-11-07/90-coordinator-pm.md | 00a649b70f851ca193e74e5004d0d3390cf9ca18 | 9475245d5e4c834a7826019e47e34a778f624a2e | 2026-11-08T04:36:10Z |
+| research/agent_reports/2026-11-08/10-owner-payment.md | 4e1b83a1e5ff8c134e9ca64404397c70c2b07252 | a9c0733a51b772bee3fed75c7f21cdcee99c9797 | 2026-11-08T21:31:53Z |
+| research/agent_reports/2026-11-08/20-analytic-type-ii.md | edecba8785a45cda87c0035d0348695941f1b8ea | 4162430fea286c4606dcd233446c230ded8d5eda | 2026-11-08T22:29:14Z |
+| research/agent_reports/2026-11-08/30-finite-wheel.md | 60d4cf1b65d4b1b2cc4f13f6c0940c14cb2c50fd | 1dcde5441a9e157cf964d38745f867b44811f75b | 2026-11-08T23:33:10Z |
+| research/agent_reports/2026-11-08/40-prime-census.md | 00f4f9c0d670821a0c9d1da31fd1c4d0afd09142 | 5458f44dcf93c49a2d6dfb3b51376d050f975037 | 2026-11-09T00:19:13Z |
+| research/agent_reports/2026-11-08/50-adversarial-referee.md | 5371324ebbdbd88afb9abf843e83da2ce86b752f | e56eb3b3e1393da544053a3e65a88c719e5265f7 | 2026-11-09T01:31:54Z |
+| research/agent_reports/2026-11-08/60-lean-verification.md | 5a110685bbe375d8ebff42df7391162914e52cef | 37171160ffc852d53373df2fa893f18547d86e42 | 2026-11-09T03:12:24Z |
+| research/agent_reports/2026-11-08/90-coordinator-pm.md | 5d14fb5e0eb3e40a479ebb344b9f8a84a169535e | 04ca8b68318f37a6aa933bf0d2866799860763ad | 2026-11-08T20:38:55Z |
+
+The November 7 AM mirror is byte-identical to its PM blob above; the November 8 AM mirror was likewise identical at intake and is kept identical by this run's atomic two-path updates. No specialist report was edited.
+
+| Inspected Main Source | Git Blob |
+| --- | --- |
+| AGENTS.md | 47d47a13b3325b741c871e3bdf05067462b215bb |
+| CURRENT_PROOF_CONTRACT.md | d1d6fd558ee23927bd9f70ffdc375bafd1dbb67a |
+| docs/RHLEAN_SEVEN_AGENT_FROZEN_ROOT_PRIME_TWO_DIRECTIVE_20261108.md | f07cfca27be988f11a1ae9c86bb530313a96927b |
+| docs/RHLEAN_REPO_WIDE_PROOF_ATTACKS_20261108.md | 5862ccaffd0e75c25b509c1d246c3aa09b6c345b |
+| docs/PROOF_DEPENDENCY_DAG.md | 455717b6d99da7248c71ada0062dfd6747a7938d |
+| docs/COORDINATE_ATLAS.md | cd0419d00a37739fe5a292f5cb738e33213949d5 |
+| research/FROZEN_ROOT_PRIME_TWO_HIGH_HIGH_THREE_FLOOR_20261108.lean | 7fdf5974f611dae6232c2aad2d81e572ce05e73b |
+| research/EULER_HYBRID_ABEL_GRAM_20261027.lean | 2a94dd8fd56fc03e95f732fb44b778a8d4f83e26 |
+| research/EULER_SELF_DUAL_ENDPOINT_GATE_20261027.lean | e7ee8f77ffd59bccaa49dd6d74fbe0d7952c2d73 |
+| RHLean/Proof/SquareRootAmplificationClosure.lean | 8949e3925695353635f67b2b611a9c21bacbd9ea |
+| research/VF_CANONICAL_SQRT_TWO_VON_KOCH.lean | 79030d70e8d3e0d08eef9bac53fef95c36eca2fb |
+| research/EULER_RANK_ONE_FRACTIONAL_ROWS_20261027.lean | e482711a3f55c1f59fc771f108671477f51732f2 |
+| RHLean/Analysis/DyadicTransportCanonicalForm.lean | 90df0b8187f628b4f4e886a1271955955245b8a6 |
+| research/GLOBAL_RETURNED_CORE_UNIQUE_OWNER_RANK_DROP.lean | 7193a774426a012587ae7d3badbe9241bb7db629 |
+| research/GLOBAL_RETURNED_CORE_COMPENSATED_FOUR_CORNER.lean | 5e3e0fbf35a326ff83c976fdb9fd388898673f11 |
+| research/GLOBAL_RETURNED_CORE_GENERIC_GREATEST_OWNER_CONTRACTION.lean | 68ed4190abbda3e1201752fd8c299f103fe50a69 |
+| research/GLOBAL_RETURNED_CORE_THRESHOLD_FOUR_CORNER_ENERGY_BRIDGE.lean | eba2cf7f083685d9f98326222ad3a6c5ea48854b |
+| research/GLOBAL_RETURNED_CORE_ZERO_TARGET_CLIPPED_HISTORY_CONTRACTION.lean | eda73b97e4cca853b638876613b7686d5cb3b347 |
+| research/FOUR_PRIME_FIXED_SQUARE_BLOCK_PHYSICAL_DRIFT_20261108.md | bbbe48ad14b216d86c29eff3b9bab5eb116ac533 |
+
+### FM Reproducer
+
+C++17, no external libraries. Compile with `g++ -O2 -std=c++17 frozen_model_test.cpp -o frozen_model_test` and run `./frozen_model_test`. Assertions must remain enabled. Source SHA-256: a9d26f0a87655b1601033e44440a0c0d7bb283373daf1d0742b18cfbb31f1f87. This is reproducible synthetic-model evidence, not an outsourced agent execution or Lean proof.
+
+```cpp
+#include <algorithm>
+#include <cassert>
+#include <cmath>
+#include <cstdint>
+#include <iomanip>
+#include <iostream>
+#include <numeric>
+#include <vector>
+
+// Frozen design: actual mu and two synthetic multiplicative squarefree models.
+// All bilinear inputs are strictly below R. No post-root coefficients are used.
+using I = long long;
+
+std::vector<int> mobius(int n) {
+  std::vector<int> mu(n + 1, 1), lp(n + 1), primes;
+  mu[0] = 0;
+  for (int i = 2; i <= n; ++i) {
+    if (!lp[i]) { lp[i] = i; primes.push_back(i); mu[i] = -1; }
+    for (int p : primes) {
+      if (I(i) * p > n) break;
+      lp[i * p] = p;
+      if (i % p == 0) { mu[i * p] = 0; break; }
+      mu[i * p] = -mu[i];
+    }
+  }
+  return mu;
+}
+
+int trial_mu(int n) {
+  int s = 1;
+  for (int p = 2; p <= n / p; ++p) {
+    if (n % p) continue;
+    n /= p; s = -s;
+    if (n % p == 0) return 0;
+    while (n % p == 0) n /= p;
+  }
+  return n > 1 ? -s : s;
+}
+
+I original(int R, const std::vector<int>& a) {
+  I X = I(R) * R - 1, q = 0;
+  for (int i = 1; i < R; ++i) if (a[i]) {
+    q += a[i] * a[i] * (X / (I(i) * i));
+    for (int j = i + 1; j < R; ++j) if (a[j])
+      q += 2LL * a[i] * a[j] * (X / (I(i) * j));
+  }
+  return q;
+}
+
+I grouped(int R, const std::vector<int>& a) {
+  std::vector<I> s(R);
+  for (int n = 1; n < R; ++n) s[n] = s[n - 1] + a[n];
+  I X = I(R) * R - 1, q = 0;
+  for (int i = 1; i < R; ++i) if (a[i]) {
+    I T = X / i;
+    for (I l = 1; l < R;) {
+      I v = T / l, r = std::min<I>(R - 1, T / v);
+      q += a[i] * v * (s[r] - s[l - 1]);
+      l = r + 1;
+    }
+  }
+  return q;
+}
+
+void fold_test(int R, const std::vector<int>& a) {
+  I X = I(R) * R - 1, parts[2][2] = {}, mass = 0, m = 0, h2 = 0, h3 = 0;
+  for (int n = 1; n < R; ++n) m += a[n];
+  for (int i = 1; i < R; i += 2) {
+    bool li = 2 * i < R;
+    if (!li) mass += a[i];
+    for (int j = 1; j < R; j += 2) {
+      bool lj = 2 * j < R;
+      I ij = I(i) * j;
+      I k = X / ij - (int(li) + int(lj)) * (X / (2 * ij))
+            + int(li && lj) * (X / (4 * ij));
+      parts[!li][!lj] += a[i] * a[j] * k;
+      if (!li && !lj) {
+        assert(1 <= X / ij && X / ij <= 3);
+        h2 += a[i] * a[j] * int(2 * ij <= X);
+        h3 += a[i] * a[j] * int(3 * ij <= X);
+      }
+    }
+  }
+  assert(mass == m);
+  assert(parts[0][1] == parts[1][0]);
+  assert(parts[1][1] == mass * mass + h2 + h3);
+  assert(original(R, a) == parts[0][0] + parts[0][1] + parts[1][0] + parts[1][1]);
+  assert(original(R, a) == grouped(R, a));
+}
+
+int main() {
+  const int top = 16384;
+  const auto mu = mobius(top);
+  for (int n = 1; n <= top; ++n) assert(mu[n] == trial_mu(n));
+  std::vector<std::vector<int>> seq(3, std::vector<int>(top + 1));
+  seq[0] = mu;
+  for (int n = 1; n <= top; ++n) if (mu[n]) {
+    int o = n % 2 ? n : n / 2;
+    int v = o % 4 == 1 ? 1 : -1;
+    if (n % 2 == 0) v = -v;
+    seq[1][n] = v;
+    seq[2][n] = n % 5 == 0 ? -v : v;
+  }
+  for (int id = 0; id < 3; ++id) {
+    const auto& a = seq[id];
+    I s = 0;
+    for (int n = 1; n <= top; ++n) {
+      assert(std::abs(a[n]) == std::abs(mu[n]));
+      s += a[n];
+      if (id) assert(s * s <= I(id == 1 ? 4 : 25) * n);
+    }
+    for (int p : {2, 3, 5, 7}) {
+      if (id == 1 && p == 5) continue;
+      for (int n = 1; p * n <= top; ++n) if (n % p != 0)
+        assert(a[p * n] == -a[n]);
+    }
+    for (int i = 1; i <= 128; ++i)
+      for (int j = 1; i * j <= top; ++j)
+        if (std::gcd(i, j) == 1) assert(a[i * j] == a[i] * a[j]);
+    for (int R = 2; R <= 128; ++R) fold_test(R, a);
+  }
+  for (int id : {1, 2}) {
+    const auto& a = seq[id];
+    const int p = id == 1 ? 5 : 13;
+    I annihilator = 0;
+    for (int d = 1; d <= p; ++d) if (p % d == 0) annihilator += a[d];
+    assert(annihilator == 2);
+    for (int R : {257, 1025, 4096, 8192, 16384}) {
+      I s = 0, kn = 1, kd = 1;
+      long double harmonic = 0;
+      for (int y = 0; y < R; ++y) {
+        if (y) { s += a[y]; harmonic += (long double)a[y] / y; }
+        I num = (s - 1) * (s - 1), den = y + 1;
+        if (num * kd > kn * den) { kn = num; kd = den; }
+      }
+      I g = std::gcd(kn, kd); kn /= g; kd /= g;
+      I q = original(R, a);
+      assert(q == grouped(R, a));
+      std::cout << "model=" << (id == 1 ? "2/6" : "30/210")
+                << " R=" << R << " Q=" << q << " K=" << kn << '/' << kd
+                << " Q/R2=" << std::setprecision(12) << (long double)q / (I(R) * R)
+                << " ratio=" << q / (R * std::sqrt((long double)kn / kd))
+                << " sum_a_over_n=" << harmonic << '\n';
+    }
+  }
+  std::cout << "PASS: 381 complete folds; trial/sieve support; local flips; multiplicativity; exact Q cross-checks.\n";
+}
+```
+
+
