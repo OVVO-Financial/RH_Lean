@@ -30,12 +30,12 @@ private theorem finiteWheel_faces_sum_eq_primorial_divisors
       ∑ d ∈ (primorial z).divisors, f d := by
   classical
   let S : Finset ℕ := primesUpTo z
-  let W : ℕ := primorialWheelProduct S
+  let W : ℕ := S.prod id
   have hprime : ∀ p ∈ S, p.Prime :=
     fun p hp => prime_of_mem_primesUpTo hp
   have hW : W = primorial z := rfl
   have hW0 : W ≠ 0 := by
-    dsimp [W, primorialWheelProduct]
+    dsimp [W]
     exact Finset.prod_ne_zero_iff.mpr (fun p hp => (hprime p hp).ne_zero)
   have hWsf : Squarefree W := by
     rw [hW]
@@ -46,7 +46,7 @@ private theorem finiteWheel_faces_sum_eq_primorial_divisors
   · intro t ht
     have hsub : t ⊆ S := Finset.mem_powerset.mp ht
     have hdiv : primeFaceProduct t ∣ W := by
-      unfold primeFaceProduct W primorialWheelProduct
+      unfold primeFaceProduct W
       exact Finset.prod_dvd_prod_of_subset t S id hsub
     exact Nat.mem_divisors.mpr ⟨hdiv, hW0⟩
   · intro t ht u hu htu
@@ -254,8 +254,7 @@ private theorem finiteWheel_squareSurvivor_iff_one_or_highPrime
     constructor
     · intro _
       exact Or.inl rfl
-    · intro _
-      intro p hp hpd
+    · intro _ p hp hpd
       exact (prime_of_mem_primesUpTo hp).not_dvd_one hpd
   by_cases hnPrime : n.Prime
   · constructor
@@ -377,7 +376,9 @@ theorem finiteWheel_squareSurvivorCount_eq_primeCount
             hR hnpos hnX).mpr (Or.inr ⟨hnPrime, hny⟩)⟩
   have hOneNot :
       1 ∉ ((Finset.Ioc y X).filter Nat.Prime) := by
-    simp
+    intro h
+    have hp : Nat.Prime 1 := (Finset.mem_filter.mp h).2
+    exact (by norm_num : ¬ Nat.Prime 1) hp
   have hsurv :
       vfMidPrefixWheelCounting y X =
         1 + ((Finset.Ioc y X).filter Nat.Prime).card := by
@@ -416,17 +417,24 @@ theorem finiteWheelFract_sub_density_eq_neg_floor (z X : ℕ) :
       -(∑ d ∈ (primorial z).divisors,
         (ArithmeticFunction.moebius d : ℝ) * ((X / d : ℕ) : ℝ)) := by
   classical
-  unfold finiteWheelFract
-  rw [← finiteWheel_divisorReciprocal_eq_eulerProduct,
-    Finset.mul_sum, ← Finset.sum_sub_distrib]
+  have hsum :
+      finiteWheelFract z X - (X : ℝ) * vfMidPrefixWheelDensity z =
+        ∑ d ∈ (primorial z).divisors,
+          ((ArithmeticFunction.moebius d : ℝ) *
+            Int.fract ((X : ℝ) / (d : ℝ)) -
+            (X : ℝ) * ((ArithmeticFunction.moebius d : ℝ) / (d : ℝ))) := by
+    unfold finiteWheelFract
+    rw [← finiteWheel_divisorReciprocal_eq_eulerProduct,
+      Finset.mul_sum, ← Finset.sum_sub_distrib]
+  rw [hsum]
   calc
     (∑ d ∈ (primorial z).divisors,
-      (ArithmeticFunction.moebius d : ℝ) *
-        Int.fract ((X : ℝ) / (d : ℝ)) -
-      (X : ℝ) * ((ArithmeticFunction.moebius d : ℝ) / (d : ℝ))) =
-        ∑ d ∈ (primorial z).divisors,
-          -((ArithmeticFunction.moebius d : ℝ) *
-            ((X / d : ℕ) : ℝ)) := by
+        ((ArithmeticFunction.moebius d : ℝ) *
+          Int.fract ((X : ℝ) / (d : ℝ)) -
+          (X : ℝ) * ((ArithmeticFunction.moebius d : ℝ) / (d : ℝ)))) =
+      ∑ d ∈ (primorial z).divisors,
+        -((ArithmeticFunction.moebius d : ℝ) *
+          ((X / d : ℕ) : ℝ)) := by
       apply Finset.sum_congr rfl
       intro d _hd
       rw [finiteWheel_fract_eq_div_sub_natDiv X d]
@@ -454,8 +462,11 @@ theorem finiteWheel_squareFractional_centered_eq_reference_sub_pi
           (∑ d ∈ (primorial (R - 1)).divisors,
             (ArithmeticFunction.moebius d : ℝ) *
               ((squareRootEndpoint R / d : ℕ) : ℝ)) := by
-    exact_mod_cast hleg
-  rw [finiteWheelFract_sub_density_eq_neg_floor]
+    have hcast := congrArg (fun a : ℤ => (a : ℝ)) hleg
+    push_cast at hcast
+    exact hcast
+  have hfrac := finiteWheelFract_sub_density_eq_neg_floor
+    (R - 1) (squareRootEndpoint R)
   unfold finiteWheelSquareDeterministic
   linarith
 
