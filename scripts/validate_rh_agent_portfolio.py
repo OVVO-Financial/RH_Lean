@@ -167,6 +167,25 @@ def main() -> None:
     assert "own-report-only" in engine
     blocks = re.split(r"^### Agent \d+[^\n]*\n", prompts, flags=re.MULTILINE)[1:]
     assert len(blocks) == 7
+    # Latest interactive user directive: all seven saved repository templates
+    # target the exact complete finite-wheel centered remainder, but keep
+    # their distinct methods and prior source/permission safeguards.
+    wheel_name = "RHLEAN_SEVEN_AGENT_FINITE_WHEEL_BOUNDARY_20261108.md"
+    wheel_tag = "FINITE_WHEEL_CENTERED_RH_V1"
+    wheel = read("docs/" + wheel_name)
+    for needle in ("finiteWheel_squareFractional_centered_eq_reference_sub_pi",
+                   "finiteWheelFract_sub_density_eq_physical_floorError",
+                   "d>X", "R log R", "1.", "7.", "own-report-only",
+                   "Human-only", "OPEN"):
+        assert needle.lower() in wheel.lower(), f"wheel directive missing: {needle}"
+    for label, doc in (("AGENTS", agent_policy), ("CONTRACT", proof_contract),
+                       ("DYNAMIC", dynamic), ("ENGINE", engine),
+                       ("ROLE PROMPTS", role_prompts), ("STUDIO PROMPTS", prompts)):
+        assert wheel_tag in doc and wheel_name in doc, f"{label} lost live finite-wheel routing"
+    assert agent_policy.index(wheel_tag) < agent_policy.index("FROZEN_ROOT_SQUARE_ROOT_SOURCE_FIRST_20261108")
+    for index, block in enumerate(blocks, start=1):
+        assert "finite_wheel_ack=" + wheel_tag in block, f"agent {index} lost finite-wheel acknowledgment"
+        assert wheel_name in block, f"agent {index} lacks source-specific directive"
     for index, block in enumerate(blocks, start=1):
         assert high_tag in block and high_name in block, f"agent {index} lost HIGH objective"
         assert "high_attack_ack" in block, f"agent {index} lacks HIGH consumption evidence"
