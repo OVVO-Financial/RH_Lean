@@ -1389,3 +1389,614 @@ Before numerical execution: check source and exact-head CI for any reused baseli
 ### D-L. Work Pending
 
 The new theorem, quantitative budget, falsification, complete return, specialist handoffs and resume capsule are pending. Existing SC/MB/SA/CF/DG/BL claims retain their original author/reviewer statuses. No new global exponent, finite A/C, canonical VF bound or RH result is asserted.
+
+
+---
+
+## Arithmetic Zero-Density Transfer To The Genuine Middle Band - 20261109-analytic-3/ZD
+
+### A. Most Important Analytic Development
+
+**The existing certified zero boundary can be transferred to a power-saving bound for the actual centered prime middle band.** This is a new proper-source application of classical zero density, not a new zero-density theorem or a new global Mertens exponent. For every epsilon>0 there is an effective C_epsilon, independent of the integer root R>=8, such that
+
+```text
+|M_mid(R)| <= C_epsilon R^(17/12+epsilon).
+```
+
+Here M_mid is EXACTLY today's OPEN-MIDBAND source: the nonconjugated product A_R(t)B_R(t), original phase log(1-R^(-2)), original intervals, and original spline, integrated over sqrt(R)<=t<=2sqrt(R). All prime-power, sharp-endpoint and remote-zero terms are retained. In fact the proof gives an absolute effective C with
+
+```text
+|M_mid(R)| <= C R^kappa(b_*) (log R)^12,
+kappa(b)=2b-1/2+3(1-b)/(2(2-b)),
+b_*=7/8-7/(64 N_*),  N_*=nearUniformSlotCount fixed before R.
+```
+
+The explicit coarser 17/12 exponent uses b_*<=7/8. It loses the small existing strict improvement, rather than inventing or optimizing a new slot count. More precisely, kappa(b_*)<=17/12-77/(864 N_*). Every epsilon loss in the simpler power statement is retained. For example epsilon=1/48 gives the single fixed power 23/16, with its own fixed constant.
+
+The previous SAME-BAND MB3 bound was `384 R^(3/2)/(log R)^2+40R`. The new estimate is an asymptotic power improvement when epsilon<1/12, not a demonstrated numerical improvement of MB3's explicit constant at small roots. Their minimum remains available. **This does not prove O(R log R), bound the complete wheel, or improve the global zero/Mertens boundary.** The remaining proper-band exponent gap is 5/12 before epsilon; the full complementary return is still unpaid.
+
+| Claim ID | Result | Evidence |
+| --- | --- | --- |
+| 20261109-analytic-3/ZD1 | Endpoint-faithful finite zero expansion of the genuine prime-minus-Li transform; prime-power and boundary amplitude O(sqrt R) | PAPER_PROOF; exact adapter plus independent bound |
+| ZD2 | Uniform resonant and nonresonant zero-energy ledger using the actual certified zero boundary and classical zero density | PAPER_PROOF; quantitative |
+| ZD3 | Actual nonconjugated middle-band bound with kappa(b_*), and the coarser 17/12+epsilon consequence | PAPER_PROOF; proper-band power gain only |
+| ZD4 | Quantified inverse restriction above the explicitly stated nonresonant budget | PAPER_PROOF; not an RH-scale inverse theorem |
+| ZD5 | Exact coefficient/exponent checks and separately labeled floating kernel diagnostics | FINITE_COMPUTATION, not Lean or asymptotic evidence |
+
+New mathematics: **SELF_AUDIT / INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED**. The parameterized transfer is conditional on the explicitly stated zero-boundary input; its repository instantiation uses an already verified theorem, not a new unproved hypothesis. NEW_PAPER_PROPER_BAND_POWER_GAIN=YES. NEW_VERIFIED_GLOBAL_ENDPOINT_GAIN=NONE. Canonical VF, uniform complete-wheel discrepancy, finite A/C and RH remain OPEN.
+
+### B. Current Mathematical Objective And Authority
+
+Actual invocation: scheduled 2026-11-09 17:11:01 EST, America/New_York. Run label 20261109-analytic-3; platform RUN_ID_UNAVAILABLE. This is a continuation of the same day's preserved report, not an additional agent launch. `finite_wheel_ack=FINITE_WHEEL_CENTERED_RH_V1`.
+
+Pinned actual main: **02f00cee544278ad1bb9022ee76fc5916d459a95**. For every integer R>=2 preserve
+
+```text
+X=R^2-1, y=R-1, P_y=product_(prime p<=y)p,
+F_R=sum_(d|P_y)mu(d)fract(X/d),
+D_R=X product_(prime p<=y)(1-1/p)+pi(y)-1-li(X),
+Z_R=F_R-D_R=li(X)-pi(X).
+OPEN: exists ONE C>=0, forall integer R>=2, |Z_R|<=C R log R.
+```
+
+The complete-wheel definition, virtual/physical split, finite Euler compensation, Legendre identity and arbitrary-reference centered theorem were read directly in [the original Lean module](https://github.com/OVVO-Financial/RH_Lean/blob/02f00cee544278ad1bb9022ee76fc5916d459a95/research/CompleteSquareRootWheelFractionalBoundary.lean). All d>X cancel against their own Euler mass BEFORE truncation; d=X is included. Those identities are not new ZD results. The main contract retains the explicit classical-criterion interface for its canonical VF-to-RH formal route; this investigation does not discharge that interface or the arithmetic target.
+
+| Material file at pinned main | Blob SHA |
+| --- | --- |
+| AGENTS.md | 6695522a45d67fd1e80a7cff1f98d909405036e2 |
+| CURRENT_PROOF_CONTRACT.md | 95566e37c8eaeb99ee680660df4f9d2e06ea5038 |
+| docs/RHLEAN_SEVEN_AGENT_FINITE_WHEEL_BOUNDARY_20261108.md | e505f35522b675c6b5b263eac73618d717346973 |
+| research/CompleteSquareRootWheelFractionalBoundary.lean | ecb482e52deeee5e9b3853592a3ffdace662d2ff |
+| research/CompleteWheelRootAdmission.lean | a412632c1028d7728cd8d87ee6e5ac365377d338 |
+| research/oai_434/VF919WindowErrorClosure.lean | f629db1b2b65d6ec042ac9432397d4b6316200c6 |
+| research/oai_434/VF919NativeStrictMertens.lean | b33a4883e1ddb0551b0f11f062bce46680d87450 |
+| research/MERTENS_EXPONENT_STRIP_MAP.lean | 4e1bb2fde30e69591d62bcdaf1208b845597e573 |
+| research/MERTENS_CONVERSE_IDENTIFICATION.lean | 768c8255850bf4074aff265c3fe17a1f5c43979b |
+| scripts/lean/window_error_closure/ExactTypes.lean | c4dca8392e61ab6778a0f2cb9f013b0d0e0410f2 |
+
+### C. Mechanism, Existing Input And Novelty
+
+The arithmetic ingredient absent from the density/spacing countermodels is the exact von Mangoldt logarithmic-derivative formula for the SAME genuine primes, together with the already bounded real parts of its actual zeta zeros. Classical zero density then limits how many large-real-part resonances can contribute in the moving frequency band. Neither a prime-density substitution nor independence of the two prime polynomials is used.
+
+The exact native chain is:
+
+```text
+native_beta_le_near_uniform_window_error_closed
+    => HeckeZeroSupremum.beta <= b_*
+native_zeta_zero_re_le_hecke_beta
+    => every NontrivialZetaZero rho has Re(rho)<=b_*.
+```
+
+The second declaration in [VF919NativeStrictMertens.lean](https://github.com/OVVO-Financial/RH_Lean/blob/02f00cee544278ad1bb9022ee76fc5916d459a95/research/oai_434/VF919NativeStrictMertens.lean) uses the exact modulus-one Dirichlet-to-Hecke L-function product. It does NOT identify rational Mobius coefficients with ideal-character phases. `NontrivialZetaZero` in the directly read strip-map source is literally `riemannZeta rho=0 and 0<rho.re<1`. The first theorem in [VF919WindowErrorClosure.lean](https://github.com/OVVO-Financial/RH_Lean/blob/02f00cee544278ad1bb9022ee76fc5916d459a95/research/oai_434/VF919WindowErrorClosure.lean) has no free source-bound hypothesis. The source supplies `HeckeZeroSupremum.half_le_beta`, so 1/2<=b_*<=7/8. The fixed slot count is positive, and no scale-dependent source is introduced.
+
+This reuses the certified input and proves a new consumer on the current prime carrier. It does not re-prove EC, transfer the old signed covariance by resemblance, or claim a new imported theorem. Earlier MB1-MB3 use interval counting and mean-square spacing only. The present transfer uses genuinely additional arithmetic spectral information. GitHub default-branch searches for `Ingham`, `zero density`, `17 / 12` and `23 / 12`, the source tree, and today's relevant reports found no existing implementation of this exact band consumer. This is a scoped duplicate check, not a claim of literature priority. Zero-density/explicit-formula mean-square arguments are classical.
+
+### D. Exact Formulation And External Inputs
+
+Let R>=8 be an integer, L=log R, U=sqrt R, X=R^2-1, and a_R=log(1-R^(-2)). Set
+
+```text
+I_-=[R/2,R), I_+=[R,2R], dnu=dpi-du/log u,
+A_R(t)=integral_(I_-) (u/R)^(-it) dnu(u),
+B_R(t)=integral_(I_+) (u/R)^(-it) dnu(u),
+M_eta(R)=(1/pi) integral_U^(2U)
+              eta(t) Im(exp(it a_R) A_R(t) B_R(t))/t dt.
+```
+
+Here eta is any real measurable function on [U,2U] with |eta|<=1. The factors are NOT conjugated. The circle constant pi in the integral is distinct from prime counting. This includes eta(t)=b(t/R), where b is the original cubic spline displayed in MB and Referee DA. No monotonicity of eta is needed for ZD.
+
+**Parameterized theorem.** Suppose 1/2<=b<=7/8 is fixed and every nontrivial zeta zero rho=beta+i gamma satisfies beta<=b. There is an absolute effective C, uniform in b,R,eta, such that for either I=I_- or I_+,
+
+```text
+(1/U) integral_U^(2U) |integral_I (u/R)^(-it)dnu(u)|^2 dt
+    <= C R^kappa(b) L^12,                              (ZD.1)
+|M_eta(R)| <= C R^kappa(b) L^12.                       (ZD.2)
+```
+
+The value of C is computable from the classical constants below and the displayed elementary inequalities; no numerical value for C is claimed. For every epsilon>0 one can take `C_epsilon=C*(12/(e*epsilon))^12` after enlarging the same absolute C once, since `L^12<= (12/(e*epsilon))^12 R^epsilon`. There is no hidden R-, wheel-size-, prime-gap-, eta- or growing-b-dependence.
+
+Only the following classical facts are imported, separately from the native zero boundary:
+
+1. **Ingham density:** with multiplicity, `N(sigma,V)<=C_D V^a(sigma)(log(2V))^5`, `a(sigma)=3(1-sigma)/(2-sigma)`, uniformly for 1/2<=sigma<=7/8 and V>=2, with an effective absolute constant. Original: A. E. Ingham, *On the estimation of N(sigma,T)*, Q. J. Math. (1940), 201-202. A primary-source explicit reconstruction is Chourasiya-Simonic, [Corollary 1 and Section 2.1](https://arxiv.org/html/2507.15184v1). Their finite threshold can be covered below by the ordinary zero count; this application does NOT assume a numerical verification of RH at small height or their sharper logarithmic factor.
+2. **Truncated explicit formula:** `psi(x)=x-sum_(|gamma|<=T)x^rho/rho+O(x log^2(xT)/T+log x)`, uniformly for x>=2 and a permissible truncation T>=2. Use T in [R^2,R^2+1] if an avoidance height is needed. The version before equation (3.18), printed page 399 of [Languasco-Settimi, Acta Arith. 154 (2012)](https://www.impan.pl/shop/en/publication/transaction/download/product/83272), states this uniform error and cites Davenport, Chapter 17, equations (9)-(10). Midpoint versus right-continuous prime-power values differ by at most half a jump and are retained below. No infinite zero-sum interchange is made.
+3. **Zero counting:** `N(V)=O(V log(2V))` and `#{rho:|gamma-t|<=1}=O(log(2+|t|))`, with multiplicities and effective absolute constants. The latter follows by differencing the Riemann-von Mangoldt count with O(log V) remainder; [Fiori-Kadiri-Swidinsky, Section 2.1](https://arxiv.org/pdf/2204.02588) records effective versions. Conjugate zeros are counted, not silently discarded.
+
+These are standard zeta results on their actual zeta carrier, not the zeta density hypothesis, pair correlation, RH, or an assumption about the distribution of an artificially selected population. There are no nontrivial real zeros: for real 0<s<1, the convergent alternating eta series is positive by pairing successive terms, while 1-2^(1-s)<0, so zeta(s)=eta(s)/(1-2^(1-s))<0. Thus the zero counts with 0<|gamma| omit no real zero.
+
+### E. Mathematical Derivation
+
+#### ZD1. Sharp Prime Transform And Every Prime Power
+
+For either original interval I put `P_I(t)=sum_(p in I)(p/R)^(-it)` and `C_I(t)=integral_I (u/R)^(-it)du/log u`. Define the finite proper-prime-power polynomial
+
+```text
+H_I(t)=sum_(p^k in I, k>=2) (1/k)(p^k/R)^(-it).
+```
+
+The exact arithmetic identity is
+
+```text
+P_I(t)+H_I(t)=integral_I (u/R)^(-it)/log u dpsi(u).     (ZD.3)
+```
+
+This holds with the SAME half-open/closed endpoints. In particular R may be prime and belongs only to I_+; 2R is composite but can be a proper prime power and must NOT be deleted from the psi adapter. Prime squares and every higher power carry their actual 1/k coefficient.
+
+For x=2R>=16, counting all possible bases gives
+
+```text
+sum_(p^k<=x,k>=2)1/k
+ <= sqrt(x)/2+x^(1/3)*log(x)/log 2 <=4sqrt(x).
+```
+
+The last inequality follows from `log(x)<= (6/e)x^(1/6)` and `1/2+6/(e log 2)<4`. Thus `|H_I(t)|<=4sqrt(2R)` uniformly, without a prime-distribution estimate.
+
+Choose a single T in [R^2,R^2+1] as above. On the entire interval [R/2,2R], the explicit formula's remainder E_T(x) is O(L): `x log^2(xT)/T=O(L^2/R)=O(L)`. Both one-sided values remain O(L) after any half-jump correction. This is uniform in x, including prime-power endpoints.
+
+For `w_t(u)=(u/R)^(-it)/log u`, its endpoint sizes and derivative satisfy
+
+```text
+sup |w_t| <= 3/(2L),
+integral_(R/2)^(2R)|w_t'(u)|du <= C(1+|t|)/L.
+```
+
+Stieltjes integration by parts bounds `integral_I w_t dE_T` by `C(1+|t|)`. It does not differentiate an O-term without this estimate, nor bound dE_T by its total variation. E_T is of bounded variation on the compact interval, being the difference of a finite-jump function and a finite smooth sum.
+
+Differentiating the FINITE zero sum in the Stieltjes identity is legitimate. Its pole contribution is exactly C_I, which cancels the continuous reference. Consequently
+
+```text
+A_I(t):=P_I(t)-C_I(t)
+      =-sum_(|gamma|<=T) K_I(rho,t)+r_I(t),
+K_I(rho,t)=integral_I (u/R)^(-it) u^(rho-1)/log u du,
+|r_I(t)|<=C(1+|t|+sqrt R)<=C sqrt R, U<=t<=2U.       (ZD.4)
+```
+
+The error includes H_I, both endpoint corrections and the explicit-formula remainder. Its normalized squared energy is O(R). This is not a claim that every mixed bilinear term with r_I separately costs O(R); the mixed terms are retained by the quadratic inequalities below.
+
+For s=log(u/R), K_I equals `R^rho integral_J e^(beta s+i(gamma-t)s)/(L+s) ds`, where J is [-log 2,0] or [0,log 2]. The phase R^(i gamma) is retained. For g(s)=e^(beta s)/(L+s), 0<beta<1 gives `g<=3/L` and `|g'|<=2g`. Its integral is <=3/L, and integration by parts gives <=12/(L|gamma-t|). Hence
+
+```text
+|K_I(rho,t)| <=16 R^beta/[L(1+|gamma-t|)].            (ZD.5)
+```
+
+No reciprocal singularity is introduced when t=gamma, and no interval endpoint is smoothed away.
+
+#### ZD2. Resonances, Remote Zeros And Uniformity
+
+Let `G_R={rho: U/2<=gamma<=4U}` (positive ordinates, with multiplicities) and
+
+```text
+S_R(b)=sum_(rho in G_R) R^(2beta),
+f(sigma)=2sigma+a(sigma)/2,
+g(sigma)=sigma+(a(sigma)-1)/2,
+g_b=max_(1/2<=sigma<=b)g(sigma).
+```
+
+The symbol S_R here is a positive spectral weight, NOT Owner's physical source or any historical Mertens quantity. It is used only in this subsection and the explicitly labeled inverse statement.
+
+By the local zero count, for U<=t<=2U,
+
+```text
+sum_(rho in G_R) 1/(1+|gamma-t|) <= C L^2,
+integral_U^(2U) dt/(1+|gamma-t|) <= C L.
+```
+
+Weighted Cauchy-Schwarz in (ZD.5), followed by integration, therefore proves
+
+```text
+integral_U^(2U)|sum_(rho in G_R)K_I(rho,t)|^2dt
+    <= C L S_R(b).                                  (ZD.6)
+```
+
+Multiplicity and every cross term are present on the left. No separation of simple zeros or random phases is assumed.
+
+Layer-cake summation in beta, using the density theorem, gives
+
+```text
+S_R(b) <= R N(4U)+2L integral_(1/2)^b R^(2sigma)N(sigma,4U)dsigma
+       <= C R^f(b) L^5.                             (ZD.7)
+```
+
+Zeros below 1/2 are covered by the first term, not identified individually with reflected zeros. To justify the last integral uniformly, observe
+
+```text
+f'(sigma)=2-3/[2(2-sigma)^2] >=22/27
+    for 1/2<=sigma<=7/8,
+f(1/2)=3/2,
+integral_(1/2)^b R^f(sigma)dsigma
+    <=(27/(22L)) R^f(b).
+```
+
+This works also at b=1/2, when the integral is empty. The count at 4U costs only an absolute constant because 0<=a(sigma)<=1.
+
+It remains essential to pay every other zero, not simply cut the explicit formula at the moving resonance height. Zeros with |gamma|<=4U outside G_R are at distance at least U/2 from [U,2U]. Zeros with |gamma|>4U have distance at least |gamma|/2. For any V>=2,
+
+```text
+sum_(0<|gamma|<=V)R^beta
+ <= C R^(1/2)V log(2V)
+       +C L integral_(1/2)^b R^sigma V^a(sigma)(log(2V))^5 dsigma.
+```
+
+Apply this once at V=4U and then on dyadic heights V from 4U through T. There are O(L) such heights, and log(2V)=O(L) because T<=R^2+1. For V>=4U and sigma>=1/2, `a(sigma)<=1`, so
+
+```text
+R^sigma V^(a(sigma)-1) <= C R^g(sigma).
+```
+
+Together with the factor 1/L in (ZD.5), this proves the uniform pointwise bound
+
+```text
+|sum_(|gamma|<=T, rho not in G_R)K_I(rho,t)|
+    <= C R^g_b L^6, U<=t<=2U.                       (ZD.8)
+```
+
+The small-real-part term is O(R^(1/2)L), which is included because g_b>=g(1/2)=1/2. Negative ordinates, small positive ordinates and the entire high truncation tail have now been accounted for. Only finite sums were rearranged; this is NOT an assertion of absolute convergence of the infinite zero expansion.
+
+For all sigma in [1/2,b],
+
+```text
+2g(sigma)=2sigma+a(sigma)-1
+         <=2sigma+a(sigma)/2-1/2
+         <=f(b)-1/2=kappa(b).                       (ZD.9)
+```
+
+The first inequality uses a<=1; the second uses the proved monotonicity. For the coarse b=7/8 one can additionally calculate `g_b=3-sqrt(6)`, attained at sigma=2-sqrt(6)/2. This sharpens the displayed remote budget but is not needed for (ZD.1).
+
+#### ZD3. Return To The Original Nonconjugated Band
+
+Split (ZD.4) into its resonant sum, nonresonant sum and r_I. The valid inequality `|v1+v2+v3|^2<=3(|v1|^2+|v2|^2+|v3|^2)` retains all their interactions at a quantified constant cost. Equations (ZD.6)-(ZD.9) give the stronger intermediate ledger
+
+```text
+(1/U)integral_U^(2U)|A_I(t)|^2dt
+ <=C[(L/U) S_R(b)+R^(2g_b)L^12+R]
+ <=C[R^kappa(b)L^6+R^(2g_b)L^12+R]
+ <=C R^kappa(b)L^12.                               (ZD.10)
+```
+
+This proves (ZD.1). For the actual signed, nonconjugated statistic, use only
+
+```text
+|M_eta| <= (1/(pi U)) integral_U^(2U)|A_R(t)B_R(t)|dt
+        <= (1/pi) sqrt(E_-(R)E_+(R)),
+E_+=(1/U)integral|B_R|^2, E_-=(1/U)integral|A_R|^2.
+```
+
+This Cauchy-Schwarz loss is explicitly affordable for the claimed proper power saving, though insufficient for RH scale. It does not replace the source by a Hermitian statistic. The original phase has modulus one, so it is retained before this inequality and creates no extra cost. The estimate is uniform over |eta|<=1.
+
+Finally `f(7/8)=23/12`, so `kappa(7/8)=17/12`. Since `kappa'=f'>=22/27`, substituting the existing b_* gives
+
+```text
+17/12-kappa(b_*) >= (22/27)*(7/(64N_*))=77/(864N_*).
+```
+
+No new zero boundary follows by feeding this proper-band consequence back into its own premise.
+
+#### ZD4. A Limited Quantitative Inverse Statement
+
+Before substituting density, (ZD.10) implies, with one fixed effective C_0,
+
+```text
+|M_eta(R)|<=C_0[(L/U)S_R(b)+R^(2g_b)L^12+R].        (ZD.11)
+```
+
+Thus, if `|M_eta(R)|>=2C_0[R^(2g_b)L^12+R]`, then
+
+```text
+S_R(b)>= |M_eta(R)| U/(2C_0 L).                     (ZD.12)
+```
+
+A sufficiently large actual response requires correspondingly large weighted mass of genuine zeros in the declared moving annulus. This is an arithmetic restriction absent from arbitrary counting paths. It does not assert such zeros exist, contradict classical density, or localize every failure of the R log R target. In particular `2g_(7/8)=6-2sqrt(6)>1`, so its nonresonant threshold itself exceeds RH scale. That limitation is not hidden in O(1).
+
+### F. Quantitative Comparison
+
+| Quantity | Established uniform bound | Scope / remaining cost |
+| --- | --- | --- |
+| Prime powers plus sharp explicit-formula adapter | amplitude O(sqrt R) on [sqrt R,2sqrt R] | Mixed bilinear terms retained via (ZD.10), not separately discarded |
+| Resonant weighted zero mass | O(R^f(b)L^5) | Uses actual zero boundary plus unconditional density |
+| Resonant transform energy | O(R^f(b)L^6) | All zero multiplicities/cross interactions included |
+| Nonresonant transform amplitude | O(R^g_b L^6) | Both signs, low ordinates and heights up to R^2+1 |
+| Actual middle band | O(R^kappa(b_*)L^12), hence O_epsilon(R^(17/12+epsilon)) | New proper-component power gain |
+| Earlier MB3 same band | <=384 R^(3/2)/L^2+40R | Still useful explicit finite-scale bound |
+| Required proper RH-sized band | O(R L) | Not proved |
+| Complete Z_R | No new global bound | Remaining frequencies, constant mode, both physical mixed terms and other owners unpaid |
+
+Constants are effective but not numerically evaluated; the stated 17/12 is not a fixed no-loss power theorem without the displayed logarithms. A fixed epsilon precedes all R. The R>=8 theorem leaves only finitely many roots 2..7 outside this band construction; those do not obstruct existence of a global constant, but no global bound for R>=8 has been obtained here.
+
+### G. Original-Carrier Bridge And Complete Return
+
+Reuse the original Owner FW1/Referee DA exact packet bridge, not a new surrogate. Let n_R count primes p in I_-, `E_R^wheel=sum_(prime p in I_-)delta(p-1)/p`, and F_other contain every other complete first-owner packet. With the SAME hyperbola uv<=X on I_- x I_+, let I_LL, I_Lnu and I_nuL denote its reference/reference and two distinct mixed integrals. Then
+
+```text
+C_rest=F_other-D_R+n_R(n_R+3)/2-X E_R^wheel+I_LL,
+Q_R=integral_(uv<=X)dnu(u)dnu(v),
+Z_R=C_rest+I_Lnu+I_nuL+Q_R.                          (RETURN-1)
+```
+
+This Q_R is not the frozen-Mobius floor sum. The historical triangle retains units, prime squares and distinct historical pairs. Virtual Euler cancellation occurs before this count, and no physical prime has been cloned.
+
+The inherited SC kernel at T=R gives its exact decomposition
+
+```text
+Q_R=A_R(0)B_R(0)/2+I_[0,U]+M_mid+I_[2U,R]+e_R,
+|e_R|<=6144R/L, U=sqrt R.
+```
+
+SC's smoothing estimate retains its existing PAPER_PROOF / author status; the Referee reconstructed the exact kernel/adapter, not blanket approval of its whole sieve proof. ZD.1-ZD.3 do not depend on SC's error estimate: they bound the explicitly defined actual band directly. Reusing SC as an upstream paper input, set
+
+```text
+S_rest=C_rest+I_Lnu+I_nuL+A_R(0)B_R(0)/2
+       +I_[0,U]+I_[2U,R],
+Z_R=S_rest+M_mid+e_R.                               (RETURN-2)
+```
+
+ZD improves the proved budget on M_mid only. S_rest is not bounded by this argument. In particular the whole physical I_Lnu/I_nuL are not MB2's three proper-band reference terms. If RETURN-2 is squared, its three squares and all three doubled cross terms, plus all internal interactions, remain. No sum of local squares is substituted for the complete square. The original principal-value li anchor stays in D_R; using its derivative locally does not change its constant.
+
+This makes the exact missing implication visible: the theorem DOES NOT yield the complete O(R log R) consumer. Calling a bound on all of RETURN-2 a new easier supporting lemma would be TARGET_EQUIVALENT.
+
+### H. Falsification, Validation And Circularity
+
+The null control is the credited Referee DA unit-atom fixed-wheel family, built from Analytic MB4 and Wheel DG4. Its claimed middle-band magnitude is of order R^(3/2)/L^2 on a subsequence despite good counting primitives and exact SHIFT. Such a family cannot simultaneously satisfy (ZD.3)-(ZD.4) with the actual zeta-zero population, its classical density and the certified b_* boundary: ZD3 with any fixed epsilon<1/12 would contradict that lower bound. This is an explicit use of arithmetic information missing from the model, not a transfer of model conclusions to primes. Coordinator SA's full sharp-area obstruction is not, by itself, a middle-band theorem; the applicable band input is DA.
+
+Other self-audit checks:
+
+- The logarithmic derivative gives prime powers, not primes. Their 1/k weights and the possible 2R power are restored explicitly.
+- Sharp roots and prime-power half-jumps are handled by one-sided Stieltjes values, not by assuming smooth prime counting.
+- The explicit formula is truncated at a height growing like R^2; all omitted resonances below that height are bounded, and no infinite absolute summation is asserted.
+- Zero multiplicities are included in both density and local counting. No simplicity, gap, pair-correlation or independent-phase assumption enters.
+- Cauchy-Schwarz is used only after the true arithmetic zero expansion; its exact exponent loss is displayed and is not claimed RH-affordable.
+- Native b_* is an already proved input; the new band estimate is never used to prove its own zero boundary. No new global Mertens claim follows.
+- The spectral S_R inverse threshold is above RH scale; no failure-localization theorem at R log R is asserted.
+
+**ZD5 executed checks.** The checkpoint and validation specification were committed and read back at `bad069d43b2dba9f5de316123dcfdbb3a8d7208b`, blob `df96d0babd49e86eb4781f78efc1f6fdb5b48970`, before numerical execution. The exact executed program is appended below. SHA-256: `e910ef81d2f7cb19096e58007876d8d2745b46ead9b6f6e049a2c0e611e1f521`.
+
+| Check | Executed result | Evidence class |
+| --- | --- | --- |
+| Symbolic derivative and exponent identities | Exact rational polynomial coefficient identities, including kappa(7/8)=17/12 and minimum derivative 22/27 | FINITE exact algebra certificate; accompanying interval proof above is the theorem |
+| Rational parameter grid | 12,416 rational cases, denominators 2..256, 1/2<=sigma<=7/8; all passed | FINITE_COMPUTATION, not proof of the continuum |
+| Genuine prime / Mangoldt adapter | Independent trial division versus sieve through 1,098; exact Fraction coefficients, 60 roots: 8..64 and held-out 127,257,549 | Exact finite coefficient and endpoint check |
+| Prime-power amplitude | Maximum observed ratio to 4sqrt(2R): 0.06770833333333333 | Floating diagnostic of a separately proved bound |
+| Complex prime adapter | 480 interval/frequency cases; maximum residual 5.551115123125783e-15 | Floating diagnostic; exact coefficient identity checked separately |
+| Kernel inequality | 720 SYNTHETIC complex-parameter cases; maximum ratio to (ZD.5) 0.18700627338449363 | No claimed zeta-zero data |
+| Quadrature refinement | Gauss orders 48/96; maximum relative change 6.244509046536633e-14 | Not interval certification |
+| Sign negative control | Nonconjugated versus Hermitian imaginary parts differ | Exact integer-complex check |
+
+The first attempted test process stopped before computation because optional SymPy was unavailable. It was replaced by exact Fraction polynomial coefficient identities; no package installation or weakened mathematical test was used. Syntax compilation and two corrected executions passed with matching diagnostic results. Measured runtime versions: Python 3.12.14 and NumPy 2.3.5. No local Lean, numerical zero census, new large prime scan, or workflow rerun occurred.
+
+### I. Conceptual Interpretation
+
+The useful new principle at this source is a **moving resonance budget**: centering exactly cancels the explicit formula's pole; the remaining prime transform can have large amplitude only where genuine zero ordinates lie close to the queried frequency, and classical zero density restricts their weighted total. That is substantially more information than density centering or spacing of prime atoms. It is still not a sign theorem for the nonconjugated product.
+
+The present exponent is deliberately not advertised as optimal among all classical density theorems. Sharper verified density suppliers could be inserted into the same displayed ledger, but changing that supplier alone is not a solution to the complete return. The highest-value next work is to retain genuine signed spectral/owner interactions, not to infer RH from one improved band or repeat generic fixed-wheel countermodels.
+
+### J. Specialist Handoffs
+
+**Coordinator:** add ZD as a PAPER quantitative edge from the existing native b_* theorem plus classical zero density to the current genuine-prime middle band. Keep kappa(b_*) and the coarser 17/12+epsilon distinct. This is not VERIFIED_ETA for the global endpoint. RETURN-2 and all current source guards remain open.
+
+**Referee:** independently audit (ZD.3)-(ZD.12), especially the all-x explicit-formula remainder at a common growing T, one-sided endpoints, 2R prime powers, density uniformity, multiplicities, the moving annulus, every remote zero, logs 5/6/12, the nonconjugated product and the exact native zero identification. No acceptance is preclaimed. Try a fixed low zero and a near-resonant high zero separately; a model not satisfying the actual explicit formula is not a counterexample to this theorem.
+
+**Owner Payment:** this bounds the proper centered band without a same-q compensation assumption. CF1-CF4 remain valid at their stated scope. The physical I_Lnu/I_nuL and lower-owner complement are still present. A useful new supplier would relate those actual terms to the resonant contribution with their precise signs, not change the Euler allocation to force agreement.
+
+**Finite Wheel:** the arithmetic condition missing from DG4/DA is now explicit: the exact Mangoldt/prime-power spectral adapter with the actual zeta population. Investigate a finite source-faithful counterpart only if it retains all prime powers and the complete signed owner complement. Exact phase noncoincidence alone was not used as cancellation.
+
+**Census:** do not extend the old band sign scan or fabricate zeta zeros to test this asymptotic theorem. Independent reproduction of the finite adapter and endpoint tests is sufficient until review identifies a new arithmetic falsifier. Constants are not numerically optimized and finite samples cannot validate the all-R power.
+
+**Lean Verification:** ZD is NOT ready for a theorem-assumption wrapper. Repair #1125's actual execution problem first under your existing authorization. After independent acceptance, assess whether classical zero density and the needed uniform truncated explicit formula exist in the pinned environment. If not, formal status is missing analytic infrastructure, not an excuse to postulate the desired bound. The existing native zero boundary and its public types are already verified; no reimplementation is requested.
+
+### K. First Independently Missing Analytic Theorem
+
+For the narrow middle-band route, the remaining objective is still the genuine `|M_mid(R)|=O(R log R)`. ZD3 is stronger than the old available bound but does not supply it. The inverse threshold (ZD.12) is explicitly too large to explain every RH-scale failure. A stronger density theorem alone must be passed through the SAME near/far/error ledger before being credited; ordinary classical improvements should not be relabeled open conjectures.
+
+For the actual canonical target, **no independently weaker closing supplier has been established here**. One still needs a genuine signed arithmetic restriction on the combination of this response with the constant/low/remaining-high frequencies, both physical mixed terms and complementary owners. The inequality for that whole combination is target-equivalent and is not assumed. The next substantive question is whether the nonconjugated resonant interaction can be coupled to a specified physical complementary term before the Cauchy-Schwarz step, with an independently proved saving. This is a research question, not a theorem or a claim that any one selected component is necessary.
+
+### L. Continuity, Exact GitHub Evidence And Resume Capsule
+
+At intake the report branch was `ccad78a617025542d8e2245506407e650c4cdbba`. All seven roles on BOTH November 9 and November 8 were retrieved. TODAY=PRESENT; YESTERDAY=CARRY_FORWARD with original dates and claim IDs. Current handoffs consumed: Coordinator SA1-SA5 and analytic assignment; Owner CF1-CF5; own SC/MB; Wheel DG1-DG5; Census BL; Referee DA and scoped acceptance; Lean's exact-head infrastructure limitation. Historical carry-forward includes Coordinator FM, Owner JS, own EC (now implemented by #1119), Wheel FD, Census AF, Referee SG and Lean EC. None is silently transferred to a new carrier or newly independently accepted by this report.
+
+The external inbox `038018145c0fddb2f6306c0712373adf9cd1ea52` was read; it contains no handoff later than October 18. Its signed-error, normalization and original-denominator safeguards remain relevant. Historical campaign instructions are superseded by the current complete-wheel directive, and no November external handoff was invented.
+
+| Role file suffix | November 8 blob | November 9 intake blob |
+| --- | --- | --- |
+| 00-coordinator-am.md; identical 90 mirror | 8b640304f6c233a2c4409b9882799de485888a9e | 35edd925446bfaf4babab99017ad8019db322915 |
+| 10-owner-payment.md | 4e1b83a1e5ff8c134e9ca64404397c70c2b07252 | 643e8a004d9d8e0be102b03e2f79bb3b217ae916 |
+| 20-analytic-type-ii.md | edecba8785a45cda87c0035d0348695941f1b8ea | 0f9b1362677ac9adbcec45225e5d6b172cf84cb9 |
+| 30-finite-wheel.md | 60d4cf1b65d4b1b2cc4f13f6c0940c14cb2c50fd | 932fe82483d30c49b6277baeaede629d29445b1e |
+| 40-prime-census.md | 00f4f9c0d670821a0c9d1da31fd1c4d0afd09142 | 6ad4c84512730dfc1cb7fc79540c248931cb8ddf |
+| 50-adversarial-referee.md | 5371324ebbdbd88afb9abf843e83da2ce86b752f | 01869acbc9d0535fe4791354a0029b8f77981723 |
+| 60-lean-verification.md | 5a110685bbe375d8ebff42df7391162914e52cef | 4402811bbc7198731f83036f73836ef336c2015a |
+
+**Verified relevant Actions, not inferred from report prose:**
+
+- #1119 is merged. At proof head `77ee815846d6d534c866f0752aa33b84c385610a`, all 13 returned workflow runs succeeded. The dedicated [run 42552018910](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42552018910), job 128949473700, executed warning-fatal compilation, exact public types and live dependency/axiom audits. Actual logs show `native_beta_le_near_uniform_window_error_closed` and `native_mertens_near_uniform_window_error_closed` with only `[propext, Classical.choice, Quot.sound]`; respective audited closures 35375 and 35753. Main's WindowErrorClosure and ExactTypes blob SHAs match the tested PR file blobs. The new ZD theorem is NOT part of that CI.
+- #1122 is merged. At `c53e9cf234500aea2605fd2557e638995f380407`, all 10 returned workflows succeeded. [Targeted run 42561949462](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42561949462), job 128980092032, actually compiled CompleteSquareRootWheelFractionalBoundary. Its centered and physical-compensation declarations report only the permitted three terminal axioms.
+- #1124 is merged into the pinned main. At `1b80f147dab3c0c2525052b3c6c3f8c447089da1`, all 12 returned workflows succeeded. [Root-admission run 42600910899](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42600910899), job 129104842737, passed exact-type/live-dependency checks; logs show standard axioms for the root and cumulative results. This does not bound the remaining complete discrepancy.
+- #1125 remains OPEN, UNMERGED, and is currently **non-draft**, correcting the older Lean report's draft metadata only. Head `538aa743a3e0de86b5ec44c9b4f159df3f5bd050` has 12 failed returned workflows. The dedicated [run 42674337064](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42674337064) returns zero jobs. No current proof execution or certification is inferred; no rerun was requested.
+
+Pre-publication refresh at 2026-11-09 17:35:30 EST (22:35:30 UTC) found main still at 02f00cee544278ad1bb9022ee76fc5916d459a95 and agent-reports at the verified own checkpoint bad069d43b2dba9f5de316123dcfdbb3a8d7208b. All other today's report blobs in the table were unchanged. PR #1125 still had the same head and remained open, unmerged and non-draft.
+
+Only this owned report is changed on GitHub. No main, Lean, workflow, central policy, other report, issue, PR or schedule was edited. A direct read-only clone attempt was rejected by the network proxy; GitHub connector reads supplied all required sources and publication. This did not block mathematical work. Publication status stays separate from mathematical review and is verified in the appended receipt.
+
+```text
+RESUME 20261109-analytic-3/ZD
+main=02f00cee544278ad1bb9022ee76fc5916d459a95
+finite_wheel_ack=FINITE_WHEEL_CENTERED_RH_V1
+NEW_PAPER=ZD1 actual prime/psi/zero adapter;
+          ZD2 near/far spectral accounting;
+          ZD3 |M_mid|<=C R^kappa(b_*) log^12 R;
+          ZD4 inverse only above the nonresonant budget.
+COARSE_POWER=17/12+epsilon for every fixed epsilon>0.
+NEW_FINITE=ZD5 exact algebra/coefficient checks; floating kernels separate.
+STATUS=SELF_AUDIT, INDEPENDENT_REVIEW_PENDING, NOT_FORMALIZED.
+GLOBAL_ENDPOINT_GAIN=NONE; finite wheel, finite A/C, canonical VF, RH OPEN.
+FIRST_MISSING=source-specific signed joint control of the unestimated return;
+              no independently weaker closing lemma was proved.
+NEXT=independent review of ZD; then examine actual resonant/complementary
+     signed interactions before norms. Do not repeat density-only no-gos,
+     unchanged scans, or assume a spectral norm containing the target.
+```
+
+### Reproducibility Appendix - ZD5
+
+The following is the exact corrected executed script. It contains no measured or invented zeta-zero list. Its synthetic kernel parameters are explicitly not asserted to be zeros. All large-scale statements rest on the proofs above, not the finite checks.
+
+```python
+"""Finite falsification of ZD algebra and the genuine-prime adapter, not a proof."""
+
+from fractions import Fraction as F
+from math import isqrt, log, sqrt
+import json
+import platform
+
+import numpy as np
+
+
+def trial_prime(n):
+    return n >= 2 and all(n % d for d in range(2, isqrt(n) + 1))
+
+
+roots = list(range(8, 65)) + [127, 257, 549]
+limit = 2 * max(roots)
+sieve = [True] * (limit + 1)
+sieve[0] = sieve[1] = False
+for p in range(2, isqrt(limit) + 1):
+    if sieve[p]:
+        for n in range(p * p, limit + 1, p):
+            sieve[n] = False
+assert sieve == [trial_prime(n) for n in range(limit + 1)]
+
+# Two separate constructions of the prime and prime-power coefficient vectors.
+psi_over_log = [F(0) for _ in range(limit + 1)]
+proper_powers = [F(0) for _ in range(limit + 1)]
+for p in range(2, limit + 1):
+    if not sieve[p]:
+        continue
+    n, k = p, 1
+    while n <= limit:
+        psi_over_log[n] = F(1, k)
+        if k >= 2:
+            proper_powers[n] = F(1, k)
+        n *= p
+        k += 1
+for n in range(2, limit + 1):
+    assert psi_over_log[n] - proper_powers[n] == int(trial_prime(n))
+
+adapter_max_error = 0.0
+power_max_ratio = 0.0
+endpoint_checks = []
+for R in roots:
+    U = sqrt(R)
+    for side in [-1, 1]:
+        ns = [n for n in range(2, 2 * R + 1)
+              if (R <= n <= 2 * R if side == 1 else R <= 2 * n and n < R)]
+        assert (R in ns) == (side == 1)
+        assert (2 * R in ns) == (side == 1)
+        exact_mass = sum((proper_powers[n] for n in ns), F(0))
+        power_max_ratio = max(power_max_ratio, float(exact_mass) / (4 * sqrt(2 * R)))
+        for t in [0.0, U, 1.5 * U, 2 * U]:
+            phase = np.exp(-1j * t * np.log(np.array(ns, dtype=float) / R))
+            prime_sum = sum(phase[j] for j, n in enumerate(ns) if trial_prime(n))
+            weighted = sum(float(psi_over_log[n]) * phase[j] for j, n in enumerate(ns))
+            correction = sum(float(proper_powers[n]) * phase[j] for j, n in enumerate(ns))
+            adapter_max_error = max(adapter_max_error, abs(prime_sum - weighted + correction))
+    if R in [8, 11, 12, 16, 25, 49, 127, 257, 549]:
+        endpoint_checks.append({"R": R, "root_prime": sieve[R],
+                                "root_power_coefficient": str(proper_powers[R]),
+                                "right_endpoint_power": str(proper_powers[2 * R])})
+
+def poly_add(p, q):
+    return [sum(x) for x in zip(p + [F(0)] * (max(len(p), len(q)) - len(p)),
+                                q + [F(0)] * (max(len(p), len(q)) - len(q)))]
+
+
+def poly_mul(p, q):
+    out = [F(0)] * (len(p) + len(q) - 1)
+    for i, x in enumerate(p):
+        for j, y in enumerate(q):
+            out[i + j] += x * y
+    return out
+
+
+def poly_scale(c, p):
+    return [c * x for x in p]
+
+
+# Exact coefficient certificates, independent of the finite rational grid.
+d = [F(2), F(-1)]
+f_num = [F(3, 2), F(5, 2), F(-2)]
+derivative_num = poly_add(poly_mul([F(5, 2), F(-4)], d), f_num)
+assert derivative_num == poly_add(poly_scale(F(2), poly_mul(d, d)), [F(-3, 2)])
+kappa_num = poly_add(f_num, poly_scale(F(-1, 2), d))
+g_num = [F(1, 2), F(1), F(-1)]
+assert poly_add(kappa_num, poly_scale(F(-2), g_num)) == [F(-1, 2), F(1), F(0)]
+assert g_num == poly_add(poly_mul([F(1), F(1)], d), [F(-3, 2)])
+b = F(7, 8)
+ab = 3 * (1 - b) / (2 - b)
+assert 2 * b + ab / 2 == F(23, 12)
+assert 2 * b + ab / 2 - F(1, 2) == F(17, 12)
+assert 2 - F(3, 2) / (2 - b) ** 2 == F(22, 27)
+
+exponent_cases = 0
+for denominator in range(2, 257):
+    for numerator in range(denominator // 2, denominator + 1):
+        sigma = F(numerator, denominator)
+        if not F(1, 2) <= sigma <= F(7, 8):
+            continue
+        aa = 3 * (1 - sigma) / (2 - sigma)
+        ff = 2 * sigma + aa / 2
+        gg = sigma + (aa - 1) / 2
+        derivative = 2 - F(3, 2) / (2 - sigma) ** 2
+        assert 0 <= aa <= 1
+        assert F(3, 2) <= ff <= F(23, 12)
+        assert derivative >= F(22, 27)
+        assert 2 * gg <= ff - F(1, 2)
+        exponent_cases += 1
+
+# Kernel checks use synthetic complex parameters, never alleged zeta zeros.
+kernel_max_ratio = 0.0
+kernel_refinement = 0.0
+kernel_cases = 0
+for R in [8, 11, 16, 127, 549]:
+    U = sqrt(R)
+    L = log(R)
+    for beta in [0.125, 0.5, 0.75, 0.875]:
+        for t in [U, 1.5 * U, 2 * U]:
+            for delta in [0.0, 0.125, 1.0, 3.0, 10.0, 40.0]:
+                for lo, hi in [(-log(2), 0.0), (0.0, log(2))]:
+                    values = []
+                    for order in [48, 96]:
+                        z, w = np.polynomial.legendre.leggauss(order)
+                        xx = lo + (z + 1) * (hi - lo) / 2
+                        value = R ** beta * sum(w * np.exp((beta + 1j * delta) * xx)
+                                                / (L + xx)) * (hi - lo) / 2
+                        values.append(value)
+                    ratio = abs(values[1]) * L * (1 + abs(delta)) / (16 * R ** beta)
+                    kernel_max_ratio = max(kernel_max_ratio, ratio)
+                    kernel_refinement = max(kernel_refinement,
+                                            abs(values[0] - values[1]) / max(1, abs(values[1])))
+                    assert ratio < 1
+                    kernel_cases += 1
+
+# The sign-sensitive statistic is not its Hermitian replacement.
+z1, z2 = complex(1, 2), complex(3, -1)
+assert (z1 * z2).imag != (z1 * z2.conjugate()).imag
+
+print(json.dumps({
+    "python": platform.python_version(),
+    "numpy": np.__version__,
+    "symbolic_check": "exact rational polynomial coefficient identities, no CAS required",
+    "roots": roots,
+    "coefficient_domain": [2, limit],
+    "exact_exponent_cases": exponent_cases,
+    "exponents": {"near_energy": "23/12", "band": "17/12", "derivative_min": "22/27",
+                  "far_amplitude_max": "3-sqrt(6)", "fixed_loss_example": "23/16 with epsilon=1/48"},
+    "prime_power_bound_max_ratio": power_max_ratio,
+    "complex_adapter_max_abs_error": adapter_max_error,
+    "synthetic_kernel_cases": kernel_cases,
+    "kernel_bound_max_ratio": kernel_max_ratio,
+    "kernel_quadrature_refinement": kernel_refinement,
+    "endpoint_checks": endpoint_checks,
+    "negative_control": "nonconjugated and Hermitian imaginary parts differ",
+    "status": "FINITE_DIAGNOSTICS_ONLY_NO_ZERO_CENSUS_NO_ASYMPTOTIC_PROOF"
+}, indent=2))
+
+```
+
+Both completed corrected executions returned the diagnostics recorded in Section H. Run with `python zd_validate.py` after extracting the exact fenced script; NumPy is the only non-standard dependency.
