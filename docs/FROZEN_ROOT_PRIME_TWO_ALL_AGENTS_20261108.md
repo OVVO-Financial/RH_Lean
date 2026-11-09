@@ -49,6 +49,29 @@ the exact-head warning-fatal GitHub CI plus `#print axioms` pass.**
 This proves the HIGH-HIGH subpacket identity; it does not yet prove the
 full historical Q_R odd-parent decomposition or a finite-A bound.
 
+
+### Composed source-faithful Mertens theorem (new exact-head check)
+
+The Lean module also composes the **already established** dyadic annulus
+`mertensSummatory_eq_dyadicCofactorBoundaryMass` with the root odd-HIGH carrier:
+
+```text
+frozenOddHighParents_eq_dyadicBoundary:
+  H_R = dyadicCofactorBoundary (R-1)
+
+frozenOddHighMass_cast_eq_mertensSummatory:
+  (sum_{m in H_R} mu(m):Complex) = M(R-1)
+
+frozenOddHighPairFloor_cast_eq_historicalMertens_square_add_masks:
+  (Q_HH(R):Complex) = M(R-1)^2 + (H2(R):Complex) + (H3(R):Complex).
+```
+
+These statements make the original Mertens principal square directly
+available downstream, rather than introducing a new "odd-high mass" surrogate.
+**Acceptance remains warning-fatal exact-head Lean + #print axioms; no claim
+of new full Q_R bound or RH.** The full LOW-LOW and mixed LOW-HIGH
+reconstruction remains the next open new-module formalization target.
+
 ### Sufficient terminal for RH: one UNIFORM fixed constant
 
 Prove directly from the actual signed frozen historical source
