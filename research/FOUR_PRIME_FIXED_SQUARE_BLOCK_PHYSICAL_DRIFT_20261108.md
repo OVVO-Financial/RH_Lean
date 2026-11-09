@@ -115,3 +115,64 @@ This packet refines the older parity-only
 `RHLean/Arithmetic/FourPrimeWheelCancellation.lean` without identifying its
 field with ordinary Mobius. It is not a repeat of the withdrawn tautological
 roughness telescope as an independent power-saving theorem.
+
+
+## Nested subwheel stress test: one prime already carries the entire Mobius problem
+
+The fixed cancellation prime set need not be enlarged and may be reduced even
+further. The exact 2/6/30/210 subwheel proof packet is
+`research/FOUR_PRIME_SUBWHEEL_LOG_DIFFERENCES_20261108.lean`, checked by
+`scripts/four_prime_subwheel_comparison.py`.
+
+| selected coordinates P | W | physical period W^2 | signed mass / period | density rho_P | sharp max |S_P| | parity square-block max | last nonpositive physical block R |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| {2} | 2 | 4 | 1 | 1/4 | 1 | 1 | none |
+| {2,3} | 6 | 36 | 4 | 1/9 | 1 | 1 | 9 |
+| {2,3,5} | 30 | 900 | 64 | 16/225 | 2 | 7 | 39 |
+| {2,3,5,7} | 210 | 44100 | 2304 | 64/1225 | 2 | 13 | 102 |
+
+Each physical square-killing density is
+`rho_P = product_{p in P} (1 - 1/p)^2 > 0`.
+The exact infinite family at `R=W^2*t` has block mass
+`2*t*(W^2*rho_P)`. The prime-2 model is **exactly**
+`B_{g_2}(R)=ceil(R/2)` for all roots R.
+Thus bounded square-block cancellation of the parity-only wheel holds already
+for {2}, but it does not remain bounded once its p^2 square-kill condition is
+restored. No finite P can use its sign/kill rules alone to force a sublinear
+full-Mobius envelope.
+
+The actual Mobius function nevertheless has **exact one-prime cancellation**:
+`M(x)=sum_{x/2 < m <= x, m odd} mu(m)`. This follows by pairing every
+odd m with 2m when 2m<=x; squareful m have mu=0 on both sides.
+For every beta>0, the odd-rough sum and Mertens sum have the same admissible
+O(x^beta) exponent, by the finite two-corner difference and its exact dyadic
+inverse. This is an RH-equivalent reformulation, NOT a new estimate.
+
+At the real square block R=137, `B_mu=+44` while the four neutral-cofactor
+control block values are `69,30,22,2` respectively for W=2,6,30,210.
+The last two corrections `B_mu-B_g` are **positive**, refuting any local
+negative-correction assertion. The exact first one-prime correction is -25.
+
+## What four coordinates genuinely buy: four orders of log-mode cancellation
+
+On a log coordinate u, define `D_h f(u) = f(u)-f(u-h)`.
+The finite prime Euler operator is
+`D_{log 7} D_{log 5} D_{log 3} D_{log 2}`.
+Its exact polynomial cancellations are:
+
+* one shift kills constants and sends `u` to `h2`;
+* two shifts kill degree <2 and send `u^2` to `2*h2*h3`;
+* three shifts kill degree <3 and send `u^3` to `6*h2*h3*h5`;
+* four shifts kill degree <4 and send `u^4` to `24*h2*h3*h5*h7`.
+
+These are Lean statements for arbitrary real shifts h, so logarithmic
+specialization needs no additional analytic theorem. This is a genuine
+distinction among 1,2,3,4 fixed prime coordinates: four primes kill cubic
+smooth-log principal profiles, while one kills only constants.
+
+**However**, a positive-power mode `x^beta`, beta>0, survives with
+the *nonzero* factor `product_{p in P}(1-p^(-beta))`.
+So the log-cancellation order alone cannot improve a Mertens exponent.
+The remaining signed rough cofactor source and physical clipping must still
+be estimated jointly. Do not confuse the nonzero scalar power-mode multiplier
+with a verified operator contraction on the full original Mertens source.
