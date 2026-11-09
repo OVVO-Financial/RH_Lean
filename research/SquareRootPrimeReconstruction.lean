@@ -100,10 +100,10 @@ theorem squarefree_decomposition (X : ℕ) (n : ℕ)
     dsimp [r, d]
     exact Nat.coprime_div_gcd_of_squarefree hsf (P_y_ne_zero X)
   have hrpos : 0 < r := by
-    by_contra hnot
-    have hr0 : r = 0 := by omega
-    rw [hr0, mul_zero] at hprod
-    exact hn0 hprod.symm
+    rcases Nat.eq_zero_or_pos r with hrzero | hrpositive
+    · rw [hrzero, mul_zero] at hprod
+      exact False.elim (hn0 hprod.symm)
+    · exact hrpositive
   have hrle : r ≤ X := by
     dsimp [r]
     exact (Nat.div_le_self n d).trans hn
