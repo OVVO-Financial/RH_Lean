@@ -283,9 +283,9 @@ private theorem finiteMobiusComplexTerm_largePrime
     ring
   have hp :
       ((d * r : ℕ) : ℂ) ^ s = (d : ℂ) ^ s * (r : ℂ) ^ s :=
-    Complex.natCast_mul_natCast_cpow d r s
+    by simpa only [Nat.cast_mul] using Complex.natCast_mul_natCast_cpow d r s
   simp only [finiteMobiusComplexTerm, hmu, hp, Int.cast_neg,
-    div_eq_mul_inv, mul_inv_rev, one_mul]
+    div_eq_mul_inv, mul_inv_rev]
   ring
 
 private theorem rootPrimeHighSource_sum (X : ℕ) (s : ℂ) :
@@ -301,7 +301,9 @@ private theorem rootPrimeHighSource_sum (X : ℕ) (s : ℂ) :
     refine Finset.sum_bij (fun dr _hdr => dr.1 * dr.2)
       (fun dr hdr => rootPrimePair_to_high hdr)
       (fun a ha b hb heq => rootPrimePair_injective X ha hb heq)
-      (fun n hn => highSource_to_rootPrimePair X n hn)
+      (fun n hn => by
+        obtain ⟨dr, hdr, heq⟩ := highSource_to_rootPrimePair X n hn
+        exact ⟨dr, hdr, heq⟩)
       ?_
     intro dr hdr
     obtain ⟨hdD, hrR⟩ := Finset.mem_sigma.mp hdr
