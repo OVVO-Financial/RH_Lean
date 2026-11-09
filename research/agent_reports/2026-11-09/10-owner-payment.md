@@ -837,3 +837,905 @@ Intake agent-reports head 813987599c01371b78e1d21a1fd5f18705d82f65. Today's Owne
 No open or draft PRs at intake. Recent merged #1122/#1123/#1124 distinguish source identity, routing, and one proper-component bound. Exact-head check metadata will be verified before final certification claims. Direct git clone returned CONNECT tunnel 403; connector reads work. No local Lean, proof/source/central-policy/other-report/PR/schedule edit or agent launch. Handoffs are asynchronous report entries only.
 
 Next: derive the quantitative curvature bound with explicit uniform constants; test its signs and all four measure products; determine whether the transformed proper source offers a smaller noncircular next lemma. A paid curvature correction alone will NOT be described as an estimate of the retained additive triangle or of Z_R. Publication is PENDING until this checkpoint's commit and immutable readback.
+
+
+## Mesoscopic Owner Triangle Transfer And Signed-Curvature Falsifiers - 20261109-owner-2/CT
+
+### A. Most Important Mathematical Development
+
+**A proper near-root packet can be converted from its exact multiplicative boundary to an additive prime-pair triangle with an independently bounded error, but the centered correction has no universal sign.** For every integer R>=64, W=floor(R^(2/3)), the transfer cost is at most
+
+```text
+288 R/(log R)^2.
+```
+
+The bound holds both for the original extra physical prime-pair count and, in absolute value, for the corresponding prime-minus-li quadratic correction. It is uniform, uses the actual primes, and has no desired-discrepancy hypothesis. The complete wheel return below retains the original Euler mass, all other owners, units, prime squares, historical triangle, both linear responses and every mixed square term.
+
+**This is a new quantitative proper-source transfer, NOT a proof of signed cancellation in the retained triangle or an improvement of the global endpoint.** The curved-to-additive comparison is distinct from SC's smoothing and FB's frequency-band payment, but it uses the same classical interval-sieve toolkit. It is not advertised as a new sieve theorem or a discovery of Goldbach convolution.
+
+Two useful limits accompany it. Certified rational enclosures give opposite signs for the centered correction at (R,W)=(8,4) and (11,4), although the physical extra count is nonnegative. Also, the continuous reference alone proves that an unsigned version of this transfer cannot remain RH-affordable for widths W=floor(R^theta), any fixed 2/3<theta<1. The corrected theorem survives both tests.
+
+| Claim | Result | Classification |
+| --- | --- | --- |
+| 20261109-owner-2/CT1 | Exact integer packet admission, continuous-corner correction and complete signed return | IDENTITY_ONLY / source adapter |
+| CT2 | Uniform explicit curved-to-additive error bound; 288 R/log^2 R at width floor(R^(2/3)) | PAPER_PROOF / independent quantitative proper-source result |
+| CT3 | Reflected-triangle polarization with the actual positive Goldbach diagonal and a paid diagonal bound | IDENTITY_ONLY plus elementary proper-component bound |
+| CT4 | Continuous curvature asymptotic and obstruction to unsigned widening beyond exponent 2/3 | PAPER_PROOF; REFUTED scoped auxiliary method |
+| CT5 | Both universal centered-correction signs fail on the genuine arithmetic source | REFUTED by certified FINITE_COMPUTATION |
+| CT6 | 4,084 exact packet cases, three fixed larger cases, six rational sign enclosures and independent quadrature cross-check | FINITE_COMPUTATION |
+
+All new paper claims are **SELF_AUDIT / INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED**. NEW_VERIFIED_ENDPOINT_GAIN=NONE. The complete uniform finite-wheel bound, canonical VF, finite A/C and RH remain OPEN. This appended synthesis supersedes this invocation's checkpoint; all preceding daily findings and receipts are preserved unchanged.
+
+### B. Current Authoritative Objective
+
+Invocation: scheduled 2026-11-09 08:09:02 EST, America/New_York; platform run ID unavailable. Pinned main is **02f00cee544278ad1bb9022ee76fc5916d459a95**. The newest authority was fetched at the beginning, not inferred from a report.
+
+```text
+finite_wheel_ack=FINITE_WHEEL_CENTERED_RH_V1
+AGENTS=6695522a45d67fd1e80a7cff1f98d909405036e2
+CURRENT_PROOF_CONTRACT=95566e37c8eaeb99ee680660df4f9d2e06ea5038
+FINITE_WHEEL_DIRECTIVE=e505f35522b675c6b5b263eac73618d717346973
+```
+
+For integer R>=2, let X=R^2-1, y=R-1, P_y=product_(prime p<=y)p, and delta(y)=product_(p<=y)(1-1/p). Preserve the ORIGINAL definitions
+
+```text
+F_R=sum_(d|P_y)mu(d)fract(X/d),
+D_R=X delta(y)+pi(y)-1-li(X),
+Z_R=F_R-D_R=li(X)-pi(X).
+TARGET: exists ONE C>=0, forall integer R>=2, |Z_R|<=C R log R.
+```
+
+The reference is principal-value li. Its derivative measure is dt/log t; using that derivative does not remove the fixed li anchor in D_R. The target is OPEN. The canonical formal von Koch terminal still has its explicit classical-criterion interface; no new unconditional Lean RH inference is asserted.
+
+Read original source [CompleteSquareRootWheelFractionalBoundary.lean](https://github.com/OVVO-Financial/RH_Lean/blob/02f00cee544278ad1bb9022ee76fc5916d459a95/research/CompleteSquareRootWheelFractionalBoundary.lean), including finiteWheelFract, finiteWheelSquareDeterministic, the virtual/physical decomposition, finite Euler identity, compensated floor source, square Legendre theorem and arbitrary-reference centered identity. Their exact statements are established infrastructure, not today's result.
+
+Also read the original prefix counting/density definitions and the now-merged CompleteWheelRootAdmission plus its exact-type/axiom acceptance module. #1124 pays only the root-admission component. Neither that theorem nor the existing Mertens/Hecke boundary is a supplier for the retained triangle by analogy.
+
+### C. Structural Hypothesis Investigated
+
+The greatest-divisor-prime / least-physical-prime adapter FW1 is reused. A physical cross-root occurrence has one owner p<R and one cofactor q>=R, with p<q. When p is close to R, the original product boundary lies near the additive boundary p+q=2R. This may expose additive prime incidence without pretending the two prime populations are independent.
+
+The quantitative question is not whether one can merely redraw the region. It is whether the complete signed transfer has an independently proved, uniform cost on a window substantially wider than sqrt(R), and whether positive physical admission gives any sign to the centered correction. CT2 answers the first question at width R^(2/3); CT5 rejects the second inference. CT4 prevents silently extending the same unsigned argument to a proportional band.
+
+The checkpoint and fixed tests were committed BEFORE execution at **47f79252b561e6a6430eabbd0684f23f81fad609**, blob **905badf6e5785bbb78d6d8faad8e3935f529e00c**. Immutable readback matched, and the commit changed only the owned report. The CT3 polarization and CT4 width obstruction are disclosed proof-led extensions developed afterward; they do not change the registered samples or fit constants to outcomes.
+
+### D. Mathematical Derivation
+
+#### CT1. Exact Admission And Full Return
+
+Throughout CT1-CT3 fix integers R>=8 and 1<=W<=R/2. Define
+
+```text
+A_W=[R-W,R), B=[R,2R],
+dP=dpi, dL=du/log u, dnu=dP-dL, dm=dP+dL,
+H(u,v)=1_(uv<=X), T(u,v)=1_(u+v<=2R), (u,v) in A_W x B.
+```
+
+The inequalities are CLOSED at the product and additive boundaries. A prime at R-W belongs to the owner interval; p=R does not. A prime q=R is included. Define E_ab=integral_(A_W x B)(H-T) da(u)db(v), for a,b in {P,L,nu}. In particular
+
+```text
+N_H=integral H dP dP, N_T=integral T dP dP,
+E_PP=N_H-N_T,
+Q_H=integral H dnu dnu, Q_T=integral T dnu dnu,
+Q_H-Q_T=E_nunu=E_PP-E_PL-E_LP+E_LL.                 (CT1.1)
+```
+
+For an ACTUAL integer owner p<R, put a=R-p>=1. If p+q<=2R, then
+
+```text
+pq<=p(2R-p)=R^2-a^2<=R^2-1=X.
+```
+
+Therefore **E_PP>=0**, and every extra occurrence is counted once. As p>=R/2 and R>=8, p^3>X; the original physical cofactor population consists of one and primes >=p. Thus these are genuinely admitted least-prime packets, not eligible-but-unadmitted descendants. Unique factorization makes (p,q)->pq injective on this cross-root carrier.
+
+The same containment is FALSE for arbitrary real u near R. With a=R-u, the untruncated height difference is
+
+```text
+X/u-(2R-u)=(a^2-1)/(R-a).                          (CT1.2)
+```
+
+It is negative for 0<a<1. Moreover H has no support when u>X/R. The proof and tests retain both portions of this continuous corner. In particular, at q=R prime the continuous-first mixed difference includes the negative interval (X/R,R); its length is 1/R. Dropping it would alter E_LP.
+
+The product-equality atom is also retained. For cross-root primes and R>=8, pq=X implies (p,q)=(R-1,R+1), both prime: the two nontrivial factors R-1,R+1 must be the two prime factors of pq. This is an endpoint check, not a newly claimed twin-prime theorem. At R=12 it includes (11,13). The divisor d=X=195 at R=14 is a DIFFERENT, already retained FW witness; it is not a cross-root prime pair.
+
+To return to the entire wheel, reuse the complete signed packet
+
+```text
+B_R(p)=-sum_(e|P_(p-1))mu(e)fract(X/(pe))
+      =Phi(X/p,p-1)-(X/p)delta(p-1).
+```
+
+Every virtual pe>X is still present until its fractional and Euler terms cancel. No new truncation is made. Put
+
+```text
+n=#{prime p in A_W}, E_W=sum_(prime p in A_W)delta(p-1)/p,
+F_other=sum_(prime p<R-W)B_R(p).
+```
+
+The complete physical count for these owners is n(n+3)/2+N_H. The first term comprises n cofactor-one atoms, n prime squares and n(n-1)/2 distinct historical pairs. Thus, writing T_ab=integral T da db and
+
+```text
+C_W=F_other-D_R+n(n+3)/2-X E_W+T_LL,
+V_W=C_W+T_Lnu+T_nuL+Q_T,
+```
+
+one obtains EXACTLY
+
+```text
+Z_R=V_W+E_PP.                                       (CT1.3)
+```
+
+Both mixed orientations remain. The four transfer errors recombine to E_PP; taking their norms separately is unnecessary. If the return is squared, retain
+
+```text
+Z_R^2=V_W^2+2 V_W E_PP+E_PP^2,
+```
+
+and all four diagonals and six pairwise cross terms inside V_W^2. E_PP>=0 gives no favorable sign to 2 V_W E_PP. This is the current complete-wheel carrier, not a substitution for the historically different #915 NNS normalization.
+
+#### CT2. Uniform Quantitative Transfer
+
+For every R,W in CT1 define
+
+```text
+h=(W^2+1)/(R-W),
+B(R,W)=32 W*(h+1)/[log(W+2)*log(h+2)].
+```
+
+Then
+
+```text
+0<=E_PP<=B(R,W),
+|Q_H-Q_T|<=B(R,W),
+integral |H-T| dm dm<=B(R,W).                        (CT2.1)
+```
+
+The last inequality also controls each of the other individual transfer errors in absolute value. It is used ONLY for the changed-boundary cost, not for the retained signed source.
+
+The independent number-theory input is the unconditional Brun-Titchmarsh interval estimate: for every x>0 and h0>1, pi(x+h0)-pi(x)<2h0/log h0. The original statement was freshly retrieved: Montgomery and Vaughan, *The large sieve*, Mathematika 20 (1973), printed p.121, Theorem 2 and equation (1.12), [institutional full text](https://backend.production.deepblue-documents.lib.umich.edu/server/api/core/bitstreams/5adbb05b-05d0-4779-b1fd-304ec1ec257a/content). Its constants are uniform in location and length; no PNT, RH, conjectural prime correlation or post-root independent-sign premise occurs.
+
+Proof of the bound: enlarge A_W to (R-W-1,R+1], of length W+2. Since its lower endpoint is positive,
+
+```text
+P(A_W)<=2(W+2)/log(W+2)<=6W/log(W+2).
+```
+
+Also log(R-W)>=log(R/2)>=(2/3)log R, and log(W+2)<=log R. Consequently
+
+```text
+m(A_W)<=8W/log(W+2).                                (CT2.2)
+```
+
+For each real u in A_W, the vertical support of |H-T| lies in a closed interval of length at most h. This follows from (CT1.2); clipping X/u below R only decreases that length. Both upper heights are <=2R. Cover the support by an interval of EXACT length h+2, extending one unit below its lower endpoint and the remaining slack above. Its left endpoint is positive. Brun-Titchmarsh bounds its prime mass by 2(h+2)/log(h+2). This argument does NOT incorrectly use monotonicity of t/log t near t=2.
+
+Since h<=R/2+2/R, h+2<=R for R>=8. Its continuous mass in B is at most h/log R. Therefore the vertical m-mass is at most
+
+```text
+2(h+2)/log(h+2)+h/log R
+ <=(3h+4)/log(h+2)<=4(h+1)/log(h+2).
+```
+
+Integrate against (CT2.2). This gives the last assertion of (CT2.1), with constant 32, and hence the signed bound because |nu|<=m. The physical sign comes from integer admission, not from this norm estimate. Every constant precedes R and W.
+
+Now let R>=64 and W=floor(R^(2/3)). Then W<=R/4. Put a=R^(1/3)>=4. Elementary inequalities give
+
+```text
+W+2>=a^2, h+2>=a, h+1<=2a.
+```
+
+For the middle inequality, W>=a^2-1 yields h+2>=W^2/R+2>=a-2/a+1/a^3+2>=a. For the last, R-W>=3R/4 yields h+1<=(4/3)a+4/(3R)+1<=2a. Substitution gives
+
+```text
+B(R,W)<=32*a^2*(2a)/[((2/3)log R)*((1/3)log R)]
+        =288 R/(log R)^2.                            (CT2.3)
+```
+
+Together with (CT1.3), this is a complete original-source return with a paid, nonnegative proper error. It does NOT bound V_W. Constants for roots 2..63 would require a separate finite adjustment only if a valid final all-large-root theorem were obtained; none is claimed here.
+
+#### CT3. Actual Additive Diagonal And The Unpaid Orientation
+
+The additive triangle uses only B_W=[R,R+W]. Push dnu on A_W to the gap a=R-u in (0,W], calling the signed measure alpha. Push dnu on B_W to b=v-R in [0,W], calling it beta. Define
+
+```text
+A0=alpha([0,W]), B0=beta([0,W]),
+J=integral sgn(a-b) dalpha(a)dbeta(b),
+G=#{integers 1<=a<=W: R-a and R+a are both prime}.
+```
+
+The kernel identity 2*1_(b<=a)=1+sgn(a-b)+1_(a=b) proves
+
+```text
+2 Q_T=A0*B0+J+G.                                   (CT3.1)
+```
+
+The continuous and mixed measures charge no diagonal. The actual prime atoms have weight +1, so the remaining diagonal is exactly G>=0, not an arbitrary signed diagonal. The left root is excluded, so there is no fictitious a=0 prime-square atom in G; the original prime squares remain in n(n+3)/2. The upper a=W atoms ARE included. This is finite measure algebra plus actual source admission, not an independence assertion.
+
+Every diagonal pair has a distinct left prime. Hence
+
+```text
+0<=G<=n<=6W/log(W+2).
+```
+
+At W=floor(R^(2/3)), G/2<=(9/2)R^(2/3)/log R, independently affordable. The remaining A0*B0+J has no sign or size supplied by this identity. It contains the orientation-sensitive interaction that an arbitrary marginal-sign model loses. Keeping only G, only the marginal product, or one reflected orientation would change the source.
+
+#### CT4. Why Unsigned Widening Has A Real Limitation
+
+This proof-led extension does not use any prime-distribution theorem or finite trend. Let integer W=W(R) tend to infinity with W/R->0. On the positive part of H-T, use a=R-u in [1,W]. Its unweighted area is
+
+```text
+integral_1^W (a^2-1)/(R-a) da
+ =(1+o(1)) W^3/(3R).
+```
+
+Indeed 1/(R-a)=(1+O(W/R))/R uniformly, and integral_1^W(a^2-1)da=W^3/3-W+2/3. The negative continuous corner a in (0,1) has area O(1/R): for 1/R<=a<=1 its width is (1-a^2)/(R-a), and for 0<=a<=1/R it is a. On both regions the density product is uniformly (1+o(1))/(log R)^2. Therefore
+
+```text
+E_LL=(1+o(1)) W^3/[3R(log R)^2].                     (CT4.1)
+```
+
+In particular, since dm dominates dL,
+
+```text
+M_abs=integral |H-T| dm dm
+ >=(1+o(1)) W^3/[3R(log R)^2].
+```
+
+For EVERY fixed theta with 2/3<theta<1 and W=floor(R^theta), M_abs/(R log R)->infinity. Thus the proposed universal RH-scale payment of this **absolute curvature majorant** over such widths is REFUTED. More finely, widths R^(2/3)*log(R)^A with fixed A>1 have the same obstruction; the leading ratio grows as log(R)^(3A-3)/3.
+
+This is NOT a lower bound on |E_nunu| or on E_PP, not a disproof of a better signed transfer, and not an obstruction to a multiscale or piecewise-linear construction with its actual aggregate cost proved. It prevents only the unwarranted claim that the same one-packet unsigned replacement can be widened for free. The leading continuous contribution is part of the true centered arithmetic representation, not a stochastic substitute.
+
+### E. Quantitative Consequence
+
+CT2 improves the boundary-replacement cost from the direct rectangular-majorant scale O(W^2/log^2 R), which is O(R^(4/3)/log^2 R) at the selected width, to O(R/log^2 R). This is a gain for the transfer error ONLY. No estimate is proved for Q_T, the two additive linear responses, C_W, their combined V_W, or Z_R.
+
+With W=floor(R^(2/3)), (CT1.3) implies
+
+```text
+|Z_R-V_W|<=288R/log^2 R,
+Q_H=Q_T+O(R/log^2 R),
+2Q_T=A0*B0+J+G, 0<=G<=9R^(2/3)/log R.
+```
+
+The uniform |V_W|=O(R log R) assertion is TARGET_EQUIVALENT to the full target after this paid error and finite-root constants. It is not the new missing lemma being assumed. A bound for the proper Q_T would pay only one component. The near-root owner mass and its complement can be large; earlier FW3-FW4 are not contradicted or bypassed by this comparison.
+
+The connection to Coordinator OPEN-MIDBAND is exact but LIMITED: restricting the left measure to A_W gives A_R=A_W+A_far and the corresponding unsmoothed quadratic splits linearly. CT2 applies to that restricted sharp physical source. It does not, without a new frequency-localized comparison, assert the same transfer bound for the particular b(t/R)/t midband projection. No conjugation is inserted, no frequency packet is silently equated with this spatial packet, and the far owners remain.
+
+### F. Falsification And Circularity Review
+
+**CT5: neither centered sign survives.** The pre-registered cases were evaluated with rigorous rational logarithm and integration enclosures. Let E=Q_H-Q_T. The following decimal endpoints are rational outward-rounded enclosures, not fitted floating-point values.
+
+| R | W | E_PP | Certified interval for E | Conclusion |
+| --- | --- | --- | --- | --- |
+| 8 | 4 | 0 | [-0.7378287822,-0.6648507296] | E<0 |
+| 9 | 4 | 0 | [-1.4548782357,-1.4150826838] | E<0 |
+| 11 | 4 | 1 | [0.5301927775,0.5456531201] | E>0 |
+| 12 | 5 | 1 | [-0.3666046968,-0.3294094020] | E<0 despite E_PP>0 |
+| 14 | 5 | 0 | [-0.4735281466,-0.4548166609] | E<0 |
+| 37 | 11 | 1 | [0.3345075260,0.3591596670] | E>0 |
+
+Thus universal E>=0 fails already at the smallest permitted ROOT R=8 with W=4, and universal E<=0 fails at R=11,W=4. No minimality claim is made for the latter or for width. These widths also equal floor(R^(2/3)) in the listed cases. R=12 shows that even STRICTLY positive extra physical admission does not determine the centered sign. Its extra pair is (7,19); the equality pair (11,13) belongs to both regions and is not an extra count.
+
+At R=11 the unique extra pair is (7,17). Keeping q=R=11 also keeps the negative continuous-first root slice. Both mixed orientations and the corner are present in the reported interval. These new witnesses concern the TRANSFER DIFFERENCE, not Census CR's original whole Q sign claims; neither is silently attributed to the other.
+
+**CT6 exact tests:** every R=8..128 and every integer 1<=W<=floor(R/2), 4,084 cases, passed containment, once-only products, strict endpoints, historical triangle, original semiprime owner count and the reflected-triangle diagonal identity. Three registered larger cases passed without enumerating an exponential divisor cube:
+
+| R | W | N_T | E_PP | G |
+| --- | --- | --- | --- | --- |
+| 257 | 40 | 37 | 2 | 2 |
+| 1024 | 101 | 111 | 5 | 2 |
+| 4096 | 256 | 499 | 15 | 4 |
+
+These exact prime counts use a sieve only through 8192. They do not estimate the full pi(R^2-1) at the larger roots or introduce independent post-root signs into a bound. The prior FW complete-cube/virtual tests and #1122 identities are reused; no claim is made to have rerun those old experiments.
+
+For the six signed cases, each logarithm is range-reduced to [1,2] and enclosed by the first 40 terms of 2*sum z^(2j+1)/(2j+1), z=(x-1)/(x+1), with tail at most 2*z^81/[81*(1-z^2)]. Integer arithmetic with common scale 10^30 rounds EACH term and each integral rectangle outward. Density integrals use monotone endpoint bounds. The continuous-continuous correction is split at u=R-1 and u=X/R; monotonic width and density extrema bound each positive or negative slice. It intentionally keeps a coarse vertical-density enclosure, sufficient for all six signs. Refining 256 to 512 panels nested every final enclosure. No floating-point transcendental value certifies a sign.
+
+A disclosed follow-up computed the same four correction parts independently by nested Gauss-Legendre quadrature, orders 32 and 64. All six centered values lay inside the rigorous enclosures; largest refinement difference was below 2.0e-15. This second check is binary64 DIAGNOSTIC ONLY. It shared the exact prime list but used different continuous integration formulas. It is not independent Referee acceptance or a second interval library.
+
+The exact script was rerun unchanged and passed again; both scripts passed syntax compilation. The numerical check of CT2.3 for R=64..4096 is explicitly only a binary64 sanity check; the uniform constant follows from D, not the table. Actual runtime was Python 3.12.14, NumPy 2.3.5.
+
+Scoped duplicate search read today's FW/SC/RA/CR/FB/MP and the original sources, and searched current main for Goldbach/curvature. Returned older #915 four-term log-response curvature has a different kernel, weights and carrier; no matching curved-to-additive bound appeared in these searched results. This is NOT an exhaustive novelty assertion. Prior source-admission, R=10 band sign, R=14 divisor endpoint, FM non-Mobius, and EC/SG scope safeguards remain unchanged.
+
+### G. Conceptual Interpretation
+
+Near the root, integer least-prime packets carry an exact additive inclusion that real reference measures do not share. That distinction creates a nonnegative physical correction but a sign-changing centered correction. The reference's curvature and the actual prime pairs must therefore be recombined before drawing a sign conclusion.
+
+The new quantitative information is an affordable transfer on a mesoscopic owner window, together with a rigorous limitation on widening it by absolute values. The additive representation exposes a positive actual-prime diagonal and an orientation-sensitive signed remainder. It does not make that remainder small. This supplies a different, source-faithful object for further arithmetic work, not a claimed hidden conservation law proving RH.
+
+### H. Competing Mechanisms
+
+| Mechanism | Established input | Missing ingredient / obstruction | Disposition |
+| --- | --- | --- | --- |
+| Mesoscopic additive packet interaction | CT1-CT3, exact original return, independently bounded transfer cost | Uniform control of the actual signed retained triangle; neither marginals nor G controls J | CONTINUE as discovery lane; not promoted above OPEN-MIDBAND |
+| Nonnegative physical curvature implies centered sign | Exact E_PP>=0 | CT5 gives both signs, including E_PP>0 with negative centered correction | ABANDON this inference |
+| One broad additive replacement paid by an absolute curvature norm | CT2 at its exact widths | CT4 gives a continuous lower obstruction when theta>2/3 | REVISE; any signed or multiscale repair must state its new aggregate theorem |
+| Assume the entire new V_W is RH-affordable | Exact CT1.3 | This is TARGET_EQUIVALENT, not an independent arithmetic input | DO NOT treat as a paid lemma |
+
+No departure from the finite-wheel campaign is proposed. No claim is made that the new additive lane is more promising than the Coordinator's live analytic midband attempt; its new advantage is a proved transfer and a concrete incidence structure, not a successful global supplier.
+
+### I. Specialist Handoffs
+
+**Coordinator / Proof Architect:** add CT2 as a proper-source quantitative edge and CT4/CT5 as scoped method constraints. Keep the full return node OPEN. Do not count CT1 or CT3 as new global cancellation. The best new question from this lane is a genuine additive-prime restriction on A0*B0+J, with all other terms still displayed, not a new name for V_W. OPEN-MIDBAND remains a distinct projection with no inferred transfer.
+
+**Adversarial Referee:** independently check the integer-versus-real nesting distinction, q=R slice, h+2<=R, exact-length padded interval, constants 8/4/32/288, density normalization, and CT4's negative corner. Reproduce R=8,11,12 from the two mixed integrals and continuous correction. Verify that CT4 refutes only the absolute-majorant extension, and that CT2 does not assert the signed triangle bound. Acceptance is currently PENDING.
+
+**Analytic Type II:** the new proper carrier is the original prime-minus-li additive triangle at W=floor(R^(2/3)), or equivalently its exact A0*B0+J+G form. A native additive or bilinear theorem must apply to these actual intervals and measures, including the root atom, before use. A bound only for J leaves A0*B0; a bound on the joint term pays only Q_T. No duplication of your OPEN-MIDBAND assignment is requested.
+
+**Finite Wheel & Incidence:** the reflected diagonal counts actual pairs R-a,R+a; no physical square or root atom may be moved into it. A proposed larger-window or multiscale construction must pay the total curvature error and every shared boundary once. CT4 is a stress test, not a ban on signed multiscale work. Reuse #1124 rather than rederive root admission.
+
+**Prime Census Laboratory:** no extension of the six sign tests or old leading-bias table is needed. A useful future registered experiment would compare A0*B0, J and G on declared growing windows and check any explicit proposed signed constant. Preserve actual prime/continuous measures and the entire return at roots where a global claim is made. An unspecified existential all-root constant cannot be validated or refuted by a finite maximum.
+
+**Lean Verification:** no speculative proof/PR request is issued. After independent review, CT2 is a possible quantitative candidate only if the pinned interval-sieve infrastructure and original signed-measure bridge justify the effort. Do not create an isolated easy triangle identity merely to increase theorem count. The full source estimate and a uniform bound for J are not asserted. Current #1124 needs no duplicate repair.
+
+These are asynchronous handoffs published only in this owned report. No specialist was launched or rescheduled, and no other report or shared queue was edited.
+
+### J. First Independently Missing Lemma
+
+No independently established smaller SUFFICIENT lemma for the complete RH target was obtained. The exact proper-source research question now available is
+
+```text
+For W=floor(R^(2/3)), alpha,beta,J as in CT3:
+exists C>=0, forall integer R>=64,
+  |alpha([0,W])*beta([0,W])+J(R,W)|<=C R log R.
+```
+
+Status: **CONJECTURE / EXPLORATORY**, not an assumed input. By the paid G bound it is equivalent to the RH-scale bound for this particular additive quadratic, and by CT2 to its restricted hyperbolic counterpart. It is not claimed logically independent of, strictly weaker than, or equivalent to RH; none of those implications has been proved. It is a proper geometric packet, not the entire Z_R. Both linear terms, C_W and the far-owner source remain after it.
+
+To advance beyond the present transfer, a proof must use a real arithmetic restriction on the orientation-sensitive signed prime interaction. Generic symmetry, positive Goldbach diagonal, marginal signs, or the unproved bound itself is not such a restriction. Alternatively, a source-faithful signed multiscale argument could address the CT4 obstruction, but it needs a genuinely new quantitative theorem.
+
+### K. Next-Run Resume Capsule, Provenance And Publication
+
+Resume from CT2's proved paper transfer, CT4's unsigned-width limitation, CT5's exact-source sign falsifiers and J's still-unpaid proper signed question. Do not repeat FW asymptotics, SC smoothing, RA admission or the registered finite tests without a changed hypothesis. All earlier daily evidence remains an unchanged prefix.
+
+| Material source | Blob SHA |
+| --- | --- |
+| CompleteSquareRootWheelFractionalBoundary.lean | ecb482e52deeee5e9b3853592a3ffdace662d2ff |
+| VF_MID_DYADIC_PREFIX_OWNER.lean | c499ca7bd7d90fb32f9cd99d652961ea023bed58 |
+| CompleteWheelRootAdmission.lean | a412632c1028d7728cd8d87ee6e5ac365377d338 |
+| CompleteWheelRootAdmissionAcceptance.lean | d0b22fa38c254a22b38b678e77bb520a70eae1af |
+| .github/workflows/finite-wheel-root-admission.yml | cf91b1a136320989e66dbafa92e8082d7962ce20 |
+| scripts/compile_research_import_closure.py | eb3d429b14bf66ba2fba22e55b70ca0048f748c6 |
+
+**Formal evidence actually checked:** #1122 merged at 8c9e54ec3dffbe8c0a4136e835814a0c041054a1, feature head c53e9cf234500aea2605fd2557e638995f380407, 11/11 current attached checks successful. Its [actual targeted log](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42561949462/job/128980092032) used synthetic checkout 1e3c182076a6e1a23ef132c41a78b0f26adab507; its source was fetched and matched current main byte-for-byte. #1124 merged at current main, tested literal head 1b80f147dab3c0c2525052b3c6c3f8c447089da1, 13/13 attached checks successful. Its [actual dedicated log](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42600910899/job/129104842737) confirms Lean 4.34.1, exact public types, standard terminal axioms propext/Classical.choice/Quot.sound, and live dependency closures 746/772. The compiler source explicitly enables warningAsError. This reuses checked source evidence; it is NOT a newly run build of main or any CT claim.
+
+Initial report snapshot: 813987599c01371b78e1d21a1fd5f18705d82f65. Both dates' relevant reports and the inbox were retrieved; current originals, not reports alone, supplied source authority.
+
+| Role | November 9 intake blob / consumed claims | November 8 carry-forward blob |
+| --- | --- | --- |
+| Coordinator, matching 00/90 | 9e7253329c409aa920d7e1d43e2fab8971bdc93b; FB/MP, actual packet handoff | 8b640304f6c233a2c4409b9882799de485888a9e; SB/AF/FM, retain non-Mobius scope |
+| Owner | bb695ee0ba98f44038cce54d3ae3039e1c28c7f2; FW1-FW6, R=10/R=14 | 4e1b83a1e5ff8c134e9ca64404397c70c2b07252; PD/MC/JS on their different carriers |
+| Analytic | f17f13f252d8855accc04cf5c2b5e2ebd1297522; SC1-SC6 | edecba8785a45cda87c0035d0348695941f1b8ea; MP/ND/EC, EC subsequently formalized |
+| Wheel | dbb85c912cb56a3a1203e1276bbac55d02ab4c93; RA1-RA5 | 60d4cf1b65d4b1b2cc4f13f6c0940c14cb2c50fd; SP/HC/FD, original scopes |
+| Census | 185b493a7c4bdc4dda79254f63c6541562e1140f; CR1-CR5, R=9/37/68 | 00f4f9c0d670821a0c9d1da31fd1c4d0afd09142; TC/SJ/FR, not today's prime carrier |
+| Referee | TODAY=PENDING at intake; YESTERDAY=CARRY_FORWARD | 5371324ebbdbd88afb9abf843e83da2ce86b752f; scoped prior acceptance, SG self-audit not promoted |
+| Lean | 873cc077a0eafb87a39c1c9c12ff22ad891d7ba7; RA implementation, live merge supersedes old unmerged prose | 5a110685bbe375d8ebff42df7391162914e52cef; prior repairs/EC source evidence |
+
+External inbox blob 038018145c0fddb2f6306c0712373adf9cd1ea52 has no entry after October 18. EXT-20261018-PNT-1..3 preserve actual signed source and errors; EXT-20261017-XCOORD-1 preserves root-prime endpoints; EXT-20261014-5 remains a scoped original-denominator obstruction. None supplies CT's unpaid triangle or overrides the current campaign. Today's absent Referee stage is not silently treated as approval.
+
+No open/draft PR at intake. All GitHub writes in this invocation are restricted to this daily Owner report on agent-reports. Direct git transport failed with CONNECT tunnel 403; connector reads/writes worked. No local Lean, source/policy/workflow/other-report/PR edit, branch creation, main push, merge, auto-merge, schedule change or agent launch occurred.
+
+Reproduction SHA-256 values:
+
+```text
+owner_curvature_check.py
+390a8294b886cdc7fec6cbb97b8680996b7c78af4756b14d8b87b959f51d08d9
+owner_curvature_diagnostic.py
+7648009fd8ae733f71c739dc2e0b411982f9f180f1521763f09bb73448085418
+```
+
+Prepublication refresh at 2026-11-09 13:36:07 UTC: main is unchanged at 02f00cee544278ad1bb9022ee76fc5916d459a95; all upstream November 9 report blobs are unchanged; Referee TODAY=PENDING, YESTERDAY=CARRY_FORWARD; open/draft PR collection is empty. The own report contains exactly the verified checkpoint after the preserved prior daily text. No newer stage or source change was inferred.
+
+The complete executed scripts and exact primary output follow in the reproducibility appendix. Mathematical work is completed at paper/finite scope; substantive publication remains PENDING until this synthesis's own commit and immutable readback. A verified receipt is appended only after those actions succeed. No background work is promised.
+
+
+### Reproducibility Appendix - CT6
+
+#### Exact Prime And Rational Enclosure Verifier
+
+```python
+"""Registered exact prime-packet checks and rational integration enclosures.
+
+Only the six registered small cases use transcendental functions. Logarithms
+are enclosed by a finite rational atanh series, never by floating-point ln.
+"""
+
+from bisect import bisect_left, bisect_right
+from fractions import Fraction as Q
+from functools import lru_cache
+from math import isqrt, log
+import json
+
+
+SCALE = 10**30
+LOG_TERMS = 40
+
+
+def floorq(x):
+    return x.numerator // x.denominator
+
+
+def ceilq(x):
+    return -((-x.numerator) // x.denominator)
+
+
+def small_log_bounds(n, d):
+    a, b = n - d, n + d
+    lo = 0
+    for j in range(LOG_TERMS):
+        lo += (2 * pow(a, 2*j+1) * SCALE) // (pow(b, 2*j+1) * (2*j+1))
+    tail = Q(2 * pow(a, 2*LOG_TERMS+1),
+             pow(b, 2*LOG_TERMS+1) * (2*LOG_TERMS+1)) / (1-Q(a, b)**2)
+    return lo, lo + LOG_TERMS + ceilq(tail * SCALE)
+
+
+LOG_TWO = small_log_bounds(2, 1)
+
+
+@lru_cache(maxsize=None)
+def log_bounds(x):
+    x = Q(x)
+    assert x >= 1
+    n, d = x.numerator, x.denominator
+    k = 0
+    while n >= 2*d:
+        d *= 2
+        k += 1
+    lo, hi = small_log_bounds(n, d)
+    return lo + k*LOG_TWO[0], hi + k*LOG_TWO[1]
+
+
+def add(*bounds):
+    return sum(x[0] for x in bounds), sum(x[1] for x in bounds)
+
+
+def neg(bounds):
+    return -bounds[1], -bounds[0]
+
+
+def integral_density(a, b, panels):
+    a, b = Q(a), Q(b)
+    if b < a:
+        return neg(integral_density(b, a, panels))
+    if a == b:
+        return 0, 0
+    step = (b-a)/panels
+    lo = hi = 0
+    for i in range(panels):
+        left, right = a+i*step, a+(i+1)*step
+        lo += floorq(step*SCALE**2/log_bounds(right)[1])
+        hi += ceilq(step*SCALE**2/log_bounds(left)[0])
+    return lo, hi
+
+
+def continuous_correction(R, W, panels):
+    X = R*R-1
+    total = (0, 0)
+    # On each interval the width has the stated monotonicity. Bounds on
+    # both density factors and on the width give rigorous rectangle sums.
+    regions = [
+        (Q(R-W), Q(R-1), 1, "positive"),
+        (Q(R-1), Q(X, R), -1, "negative_increasing"),
+        (Q(X, R), Q(R), -1, "negative_decreasing"),
+    ]
+    for start, end, sign, kind in regions:
+        if start == end:
+            continue
+        step = (end-start)/panels
+        lo = hi = 0
+        for i in range(panels):
+            left, right = start+i*step, start+(i+1)*step
+            if kind == "positive":
+                wlo = Q(X, right)-(2*R-right)
+                whi = Q(X, left)-(2*R-left)
+                vlo, vhi = 2*R-right, Q(X, left)
+            elif kind == "negative_increasing":
+                wlo = 2*R-left-Q(X, left)
+                whi = 2*R-right-Q(X, right)
+                vlo, vhi = Q(X, right), 2*R-left
+            else:
+                wlo, whi = R-right, R-left
+                vlo, vhi = Q(R), 2*R-left
+            assert 0 <= wlo <= whi
+            lo += floorq(step*wlo*SCALE**3 /
+                         (log_bounds(right)[1]*log_bounds(vhi)[1]))
+            hi += ceilq(step*whi*SCALE**3 /
+                        (log_bounds(left)[0]*log_bounds(vlo)[0]))
+        total = add(total, (lo, hi) if sign == 1 else (-hi, -lo))
+    return total
+
+
+def primes_up_to(n):
+    sieve = bytearray(b"\x01")*(n+1)
+    sieve[0:2] = b"\x00\x00"
+    for p in range(2, isqrt(n)+1):
+        if sieve[p]:
+            sieve[p*p:n+1:p] = b"\x00"*((n-p*p)//p+1)
+    return [p for p in range(2, n+1) if sieve[p]]
+
+
+PRIMES = primes_up_to(8192)
+PSET = set(PRIMES)
+
+
+def pair_case(R, W):
+    X = R*R-1
+    left = [p for p in PRIMES if R-W <= p < R]
+    right = [q for q in PRIMES if R <= q <= 2*R]
+    h = {(p, q) for p in left for q in right if p*q <= X}
+    t = {(p, q) for p in left for q in right if p+q <= 2*R}
+    assert t <= h
+    assert all(p < q and (p*q)//p == q for p, q in h)
+    assert len({p*q for p, q in h}) == len(h)
+    assert all(p*q != R*R for p in left for q in right)
+    eq = {(p, q) for p, q in h if p*q == X}
+    expected = {(R-1, R+1)} if R-1 in left and R+1 in PSET else set()
+    assert eq == expected
+    short_right = [q for q in right if q <= R+W]
+    rev = {(p, q) for p in left for q in short_right if p+q >= 2*R}
+    diag = {(p, q) for p in left for q in short_right if p+q == 2*R}
+    assert len(t)+len(rev) == len(left)*len(short_right)+len(diag)
+    historical = {(p, q) for p in left for q in left if p <= q}
+    assert len(left)+len(historical) == len(left)*(len(left)+3)//2
+    exact_owner_total = sum(1+bisect_right(PRIMES, X//p)-bisect_left(PRIMES, p)
+                            for p in left)
+    assert exact_owner_total == len(left)*(len(left)+3)//2+len(h)
+    return left, right, h, t, len(diag)
+
+
+def outward(bounds, digits=10):
+    factor = 10**digits
+    a = bounds[0]*factor//SCALE
+    b = -((-bounds[1]*factor)//SCALE)
+    def show(n):
+        return ("-" if n < 0 else "") + str(abs(n)//factor) + "." + str(abs(n)%factor).zfill(digits)
+    return [show(a), show(b)]
+
+
+def signed_case(R, W, panels):
+    left, right, h, t, diagonal = pair_case(R, W)
+    PL = add(*(integral_density(2*R-p, Q(R*R-1, p), panels) for p in left))
+    LP = (0, 0)
+    for q in right:
+        a = max(Q(R-W), min(Q(R), Q(2*R-q)))
+        b = max(Q(R-W), min(Q(R), Q(R*R-1, q)))
+        LP = add(LP, integral_density(a, b, panels))
+    LL = continuous_correction(R, W, panels)
+    count = len(h)-len(t)
+    centered = add((count*SCALE, count*SCALE), neg(PL), neg(LP), LL)
+    width = Q(W*W+1, R-W)
+    logw = log_bounds(Q(W+2))
+    logh = log_bounds(width+2)
+    bound_lower = floorq(32*W*(width+1)*SCALE**3/(logw[1]*logh[1]))
+    assert max(abs(centered[0]), abs(centered[1])) <= bound_lower
+    assert count*SCALE <= bound_lower
+    return {
+        "R": R, "W": W, "panels_per_integral": panels,
+        "N_hyperbola": len(h), "N_triangle": len(t), "E_PP": count,
+        "E_PL": outward(PL), "E_LP": outward(LP), "E_LL": outward(LL),
+        "E_nunu": outward(centered),
+        "certified_sign": -1 if centered[1] < 0 else 1 if centered[0] > 0 else 0,
+        "goldbach_diagonal": diagonal,
+        "pair_correction_atoms": sorted(h-t),
+    }, centered
+
+
+def integer_root_two_thirds(R):
+    lo, hi = 0, R
+    while lo+1 < hi:
+        mid = (lo+hi)//2
+        if mid**3 <= R*R:
+            lo = mid
+        else:
+            hi = mid
+    return lo
+
+
+def main():
+    checks = 0
+    for R in range(8, 129):
+        for W in range(1, R//2+1):
+            pair_case(R, W)
+            checks += 1
+    large = []
+    for R in (257, 1024, 4096):
+        W = integer_root_two_thirds(R)
+        _, _, h, t, diag = pair_case(R, W)
+        large.append({"R": R, "W": W, "E_PP": len(h)-len(t),
+                      "N_triangle": len(t), "diagonal": diag})
+    rows = []
+    for R, W in ((8, 4), (9, 4), (11, 4), (12, 5), (14, 5), (37, 11)):
+        row, enclosure = signed_case(R, W, 256)
+        refined, enclosure2 = signed_case(R, W, 512)
+        assert enclosure[0] <= enclosure2[0] <= enclosure2[1] <= enclosure[1]
+        rows.append(refined)
+    # Finite constant sanity checks supplement, never replace, the proof.
+    for R in range(64, 4097):
+        W = integer_root_two_thirds(R)
+        x = R**(1/3)
+        H = (W*W+1)/(R-W)
+        assert H+1 <= 2*x+1e-10
+        assert H+2 >= x-1e-10
+        assert W+2 >= R**(2/3)-1e-9
+        assert 32*W*(H+1)/(log(W+2)*log(H+2)) <= 288*R/log(R)**2+1e-9
+    print(json.dumps({
+        "status": "PASS", "exact_packet_cases": checks,
+        "root_range": [8, 128], "large_cases": large,
+        "signed_curvature_cases": rows,
+        "rounding": {"fixed_scale": str(SCALE), "atanh_terms": LOG_TERMS,
+                     "quadrature": "rational monotone rectangle bounds",
+                     "all_signs_certified": all(x["certified_sign"] for x in rows)},
+        "constant_checks": "binary64 diagnostics only; inequalities proved separately",
+        "scope": "finite evidence; no Lean or all-scale estimate inferred from tests",
+    }, indent=2))
+
+
+if __name__ == "__main__":
+    main()
+```
+
+#### Independent Diagnostic Cross-Check
+
+```python
+"""Independent binary64 quadrature cross-check; not a rigorous certificate."""
+
+import json
+import numpy as np
+from numpy.polynomial.legendre import leggauss
+from owner_curvature_check import pair_case, signed_case, SCALE
+
+
+def evaluate(R, W, order):
+    nodes, weights = leggauss(order)
+
+    def integrate(f, a, b):
+        x = a+(b-a)*(nodes+1)/2
+        return (b-a)/2*np.dot(weights, f(x))
+
+    def li_difference(a, b):
+        return integrate(lambda t: 1/np.log(t), a, b)
+
+    X = R*R-1
+    left, right, h, t, _ = pair_case(R, W)
+    PL = sum(li_difference(2*R-p, X/p) for p in left)
+    LP = sum(li_difference(max(R-W, min(R, 2*R-q)),
+                           max(R-W, min(R, X/q))) for q in right)
+    CH = integrate(lambda us: np.array([li_difference(R, X/u)/np.log(u)
+                                        for u in us]), R-W, X/R)
+    CT = integrate(lambda us: np.array([li_difference(R, 2*R-u)/np.log(u)
+                                        for u in us]), R-W, R)
+    return np.array([PL, LP, CH-CT, len(h)-len(t)-PL-LP+CH-CT])
+
+
+rows = []
+for R, W in ((8, 4), (9, 4), (11, 4), (12, 5), (14, 5), (37, 11)):
+    first, second = evaluate(R, W, 32), evaluate(R, W, 64)
+    row, certified = signed_case(R, W, 512)
+    assert np.max(abs(first-second)) < 1e-11
+    assert certified[0]/SCALE <= second[-1] <= certified[1]/SCALE
+    rows.append({"R": R, "W": W, "components": second.tolist(),
+                 "refinement_difference": float(np.max(abs(first-second)))})
+print(json.dumps({"status": "PASS_DIAGNOSTIC_ONLY", "cases": rows}, indent=2))
+```
+
+#### Primary Verifier Output
+
+```json
+{
+  "status": "PASS",
+  "exact_packet_cases": 4084,
+  "root_range": [
+    8,
+    128
+  ],
+  "large_cases": [
+    {
+      "R": 257,
+      "W": 40,
+      "E_PP": 2,
+      "N_triangle": 37,
+      "diagonal": 2
+    },
+    {
+      "R": 1024,
+      "W": 101,
+      "E_PP": 5,
+      "N_triangle": 111,
+      "diagonal": 2
+    },
+    {
+      "R": 4096,
+      "W": 256,
+      "E_PP": 15,
+      "N_triangle": 499,
+      "diagonal": 4
+    }
+  ],
+  "signed_curvature_cases": [
+    {
+      "R": 8,
+      "W": 4,
+      "panels_per_integral": 512,
+      "N_hyperbola": 1,
+      "N_triangle": 1,
+      "E_PP": 0,
+      "E_PL": [
+        "0.6486024580",
+        "0.6486723086"
+      ],
+      "E_LP": [
+        "1.0037980377",
+        "1.0040116642"
+      ],
+      "E_LL": [
+        "0.9148551905",
+        "0.9875497662"
+      ],
+      "E_nunu": [
+        "-0.7378287822",
+        "-0.6648507296"
+      ],
+      "certified_sign": -1,
+      "goldbach_diagonal": 1,
+      "pair_correction_atoms": []
+    },
+    {
+      "R": 9,
+      "W": 4,
+      "panels_per_integral": 512,
+      "N_hyperbola": 3,
+      "N_triangle": 3,
+      "E_PP": 0,
+      "E_PL": [
+        "1.3003900250",
+        "1.3005665809"
+      ],
+      "E_LP": [
+        "0.8115979435",
+        "0.8117632241"
+      ],
+      "E_LL": [
+        "0.6574515692",
+        "0.6969052848"
+      ],
+      "E_nunu": [
+        "-1.4548782357",
+        "-1.4150826838"
+      ],
+      "certified_sign": -1,
+      "goldbach_diagonal": 2,
+      "pair_correction_atoms": []
+    },
+    {
+      "R": 11,
+      "W": 4,
+      "panels_per_integral": 512,
+      "N_hyperbola": 3,
+      "N_triangle": 2,
+      "E_PP": 1,
+      "E_PL": [
+        "0.7719513130",
+        "0.7720239387"
+      ],
+      "E_LP": [
+        "0.0966098764",
+        "0.0966127233"
+      ],
+      "E_LL": [
+        "0.3988294394",
+        "0.4142143096"
+      ],
+      "E_nunu": [
+        "0.5301927775",
+        "0.5456531201"
+      ],
+      "certified_sign": 1,
+      "goldbach_diagonal": 0,
+      "pair_correction_atoms": [
+        [
+          7,
+          17
+        ]
+      ]
+    },
+    {
+      "R": 12,
+      "W": 5,
+      "panels_per_integral": 512,
+      "N_hyperbola": 4,
+      "N_triangle": 3,
+      "E_PP": 1,
+      "E_PL": [
+        "1.1713184222",
+        "1.1714623543"
+      ],
+      "E_LP": [
+        "0.9577390726",
+        "0.9578802897"
+      ],
+      "E_LL": [
+        "0.7627379471",
+        "0.7996480929"
+      ],
+      "E_nunu": [
+        "-0.3666046968",
+        "-0.3294094020"
+      ],
+      "certified_sign": -1,
+      "goldbach_diagonal": 2,
+      "pair_correction_atoms": [
+        [
+          7,
+          19
+        ]
+      ]
+    },
+    {
+      "R": 14,
+      "W": 5,
+      "panels_per_integral": 512,
+      "N_hyperbola": 1,
+      "N_triangle": 1,
+      "E_PP": 0,
+      "E_PL": [
+        "0.2547994501",
+        "0.2548067551"
+      ],
+      "E_LP": [
+        "0.7525164717",
+        "0.7525863831"
+      ],
+      "E_LL": [
+        "0.5338649914",
+        "0.5524992609"
+      ],
+      "E_nunu": [
+        "-0.4735281466",
+        "-0.4548166609"
+      ],
+      "certified_sign": -1,
+      "goldbach_diagonal": 1,
+      "pair_correction_atoms": []
+    },
+    {
+      "R": 37,
+      "W": 11,
+      "panels_per_integral": 512,
+      "N_hyperbola": 7,
+      "N_triangle": 6,
+      "E_PP": 1,
+      "E_PL": [
+        "0.8662906218",
+        "0.8663082703"
+      ],
+      "E_LP": [
+        "0.9649428163",
+        "0.9649747465"
+      ],
+      "E_LL": [
+        "1.1657905428",
+        "1.1903931052"
+      ],
+      "E_nunu": [
+        "0.3345075260",
+        "0.3591596670"
+      ],
+      "certified_sign": 1,
+      "goldbach_diagonal": 1,
+      "pair_correction_atoms": [
+        [
+          29,
+          47
+        ]
+      ]
+    }
+  ],
+  "rounding": {
+    "fixed_scale": "1000000000000000000000000000000",
+    "atanh_terms": 40,
+    "quadrature": "rational monotone rectangle bounds",
+    "all_signs_certified": true
+  },
+  "constant_checks": "binary64 diagnostics only; inequalities proved separately",
+  "scope": "finite evidence; no Lean or all-scale estimate inferred from tests"
+}
+```
