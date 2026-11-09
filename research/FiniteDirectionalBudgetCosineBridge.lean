@@ -297,12 +297,12 @@ private theorem finiteMobiusComplexTerm_phase
         (Complex.log (n : ℂ) *
           (-((sigma : ℂ) + 2 * tau * Complex.I))).re = -sigma * L := by
       rw [hlog]
-      simp [Complex.mul_re, Complex.mul_im] <;> ring
+      simp [Complex.mul_re, Complex.mul_im] ; ring
     have hIm :
         (Complex.log (n : ℂ) *
           (-((sigma : ℂ) + 2 * tau * Complex.I))).im = -theta := by
       rw [hlog]
-      simp [Complex.mul_re, Complex.mul_im, theta] <;> ring
+      simp [Complex.mul_re, Complex.mul_im, theta] ; ring
     rw [hRe, hIm]
     rw [← Complex.ofReal_exp, ← Complex.ofReal_cos, ← Complex.ofReal_sin,
       Real.cos_neg, Real.sin_neg, hreal]
