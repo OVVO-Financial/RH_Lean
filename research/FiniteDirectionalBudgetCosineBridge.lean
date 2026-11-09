@@ -282,7 +282,7 @@ private theorem finiteMobiusComplexTerm_phase
   let L : ℝ := Real.log (n : ℝ)
   let theta : ℝ := 2 * tau * L
   have hlog : Complex.log (n : ℂ) = (L : ℂ) := by
-    simpa only [L] using (Complex.ofReal_log hnR.le).symm
+    simpa [L] using (Complex.ofReal_log hnR.le).symm
   have hreal : Real.exp (-sigma * L) = (n : ℝ) ^ (-sigma) := by
     rw [Real.rpow_def_of_pos hnR]
     congr 1
@@ -320,7 +320,7 @@ private theorem finiteMobiusComplexTerm_phase
   unfold finiteMobiusComplexTerm
   rw [div_eq_mul_inv, ← Complex.cpow_neg, hpow]
   simp only [finiteMobiusCos, finiteMobiusSin, hradial,
-    Complex.ofReal_mul, Complex.ofReal_sub]
+    Complex.ofReal_mul]
   dsimp [L, theta]
   ring
 
@@ -349,8 +349,7 @@ private theorem finiteMobiusComplexTerm_phase_pair
     _ = finiteMobiusCos s.re tau n * finiteMobiusCos s.re tau m +
         finiteMobiusSin s.re tau n * finiteMobiusSin s.re tau m := by
           rw [hnphase, hmphase]
-          simp [Complex.star_def, Complex.mul_re, Complex.mul_im]
-          ring
+          simp [Complex.mul_re, Complex.mul_im]
     _ = _ := finiteMobiusCos_sin_pair_eq_kernel s.re tau hn hm
 
 /-- Equation (13): the exact complex derivative budget, including zero-index
