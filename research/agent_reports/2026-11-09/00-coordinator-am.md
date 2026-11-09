@@ -745,3 +745,17 @@ print(json.dumps({
 }, indent=2))
 ```
 
+
+
+### Verified Publication Receipt - 2026-11-09 12:47:30 UTC
+
+**Execution/publication status: COMPLETED.** This means the Coordinator research execution and report publication completed; it does NOT mean the mathematical target is proved or the paper claims independently accepted.
+
+- Substantive synthesis commit: `e51dddadc96ab7b7c061062012a6a67f39e79dc3`.
+- Immutable readback: both complete Coordinator mirrors matched the intended content exactly, with identical blob `81defe3a787bbb2b7e48ba8fa994058818623b91` (54,291 characters each).
+- Commit diff verified: exactly the two authorized November 9 Coordinator paths, 687 added lines each and zero deleted lines. Earlier checkpoints and registration preserved unchanged.
+- Final authority reviewed: main `02f00cee544278ad1bb9022ee76fc5916d459a95`; #1124 human merge retained. No source, contract, other report, workflow, PR, merge or schedule operation was performed by this role.
+- Mathematics: FB/MP results remain `PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED`; diagnostics remain finite evidence. Today's Referee stage is `PENDING`. The complete uniform bound and RH remain `OPEN`.
+- Resume from J and the six asynchronous assignments in H. The next highest-value task is independent validation followed by a genuine-prime OPEN-MIDBAND argument, not another root-admission identity.
+
+This receipt records the already verified substantive commit. Its own append is verified externally by a further immutable readback before the user-facing completion message; no self-referential commit identity is claimed.
