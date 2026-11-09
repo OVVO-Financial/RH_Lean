@@ -1808,3 +1808,30 @@ DG3's positive content is exact accounting, and DG5 retains its split exact
 versus diagnostic grades. No Lean certification of DG, new global endpoint
 bound, or proof of RH is claimed. No further research or background process
 is running for this invocation.
+
+
+## Scheduled Reflected-Incidence Checkpoint - 20261109-wheel-3/RF
+
+### A. Structural Question
+
+IN_PROGRESS / PARTIAL. No new verified theorem is asserted at this checkpoint. Investigate whether two distinct cross-root prime products reflected about X=R^2-1 can share a prime ancestor, and whether the surviving shared-factor channel has a uniform cumulative signed cost. This tests a precise one-factor reflection mechanism after Owner CF's terminal two-ancestor obstruction. It does not repeat RA root admission, DG cross-scale near resonance, or BL3's already paid bound for all exactly reflected pairs.
+
+Proof-led candidate, NOT YET VALIDATED: for primes R/2<=p_- ,p_+<R<=q_- ,q_+<2R, with p_-q_-=X-d and p_+q_+=X+d, d>0, a nontrivial common factor may force p_-=p_+=(R+1)/2, d=(R+1)/2, q_-=2R-3 and q_+=2R-1. Test the overstrong universal-coprimality rule as a negative control. A preliminary algebraic prediction is R=37 with (19,71) and (19,73); this is a pre-test prediction, not discovered finite evidence.
+
+### B. Live Authority And Continuity
+
+Actual trigger: scheduled 2026-11-09 18:06:01 EST, America/New_York. Platform RUN_ID_UNAVAILABLE. Current source main e7ffe4e01fd049dfe6f47af86a9984bc0b843576; AGENTS 6695522a45d67fd1e80a7cff1f98d909405036e2; contract 95566e37c8eaeb99ee680660df4f9d2e06ea5038; directive e505f35522b675c6b5b263eac73618d717346973. finite_wheel_ack=FINITE_WHEEL_CENTERED_RH_V1.
+
+The open target is one C>=0 for every integer R>=2: |F_R-D_R|<=C R log R. Complete wheel divisors, virtual Euler compensation, the principal-value-li anchor, both physical mixed terms and all other owners remain. No new global bound is assumed.
+
+All seven roles' November 9 and November 8 reports were retrieved at agent-reports snapshot 0ef342f5019c2e884c3ced6d8d65fd3f1f03fc91; TODAY=PRESENT and YESTERDAY=CARRY_FORWARD. Latest intake includes Coordinator SA, Owner CF, Analytic ZD (new PAPER_PROOF, self-audit), own RA/DG, Census BL, Referee DA and scoped acceptances, and Lean's infrastructure limitation. External inbox 038018145c0fddb2f6306c0712373adf9cd1ea52 contains no post-October-18 entry; its source and endpoint safeguards remain, not its obsolete routing priorities.
+
+Live PR correction: #1125 has human-merged at 2026-11-09T23:01:09Z, but its literal head 538aa743a3e0de86b5ec44c9b4f159df3f5bd050 still has zero check runs and twelve failed workflow records. Merge is not successful proof verification. No new PROVED_IN_LEAN claim is made from that merge. No open PR was returned at intake.
+
+### C. Registered Tests Before Execution
+
+Exhaustively enumerate the complete prime rectangles for R=8..256 and held-out R=257,549,1024. Preserve exact half-root inequalities, prime-root q=R admission, and the closed product wall. Match actual products by n -> 2X-n, keep the d=0 boundary separately, compute every gcd, and test both directions of the proposed classification and product uniqueness. Check that the unique allowed shared-factor offset lies in D=floor(X/(4 ceil(sqrt R))). Use exact rational squared comparisons for the proposed band upper bound; no sampled sine/log values certify an all-band sign. Independently repeat R=8..80 using trial division and a differently organized product-factor audit. Include once-only matching, omitted-boundary and omitted-exception negative controls. Small complete-wheel direct expansion is limited to R=2,3,8,12,14 to independently verify the original-source adapter under the NEW reflected partition, not to re-credit old wheel computations.
+
+### D-M. Remaining Work
+
+Give a full paper proof or explicit counterexample, identify the exact pure-prime-band consumer and its full complement, check main-source duplication, and report the first remaining arithmetic obstacle without renaming the RH target. All new claims will remain SELF_AUDIT / INDEPENDENT_REVIEW_PENDING unless actually independently verified. Only this owned report will be changed remotely. Publication is PENDING until commit/readback.
