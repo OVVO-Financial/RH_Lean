@@ -808,3 +808,32 @@ if __name__ == "__main__":
 PUBLISHED_AND_VERIFIED. The substantive synthesis was committed to `agent-reports` at **4521932a8699fd8dbc295a9f518f0b98aa9c9f9f**, report blob **1653440a2ee998834c07cf81b4c0dbd3c4369a68**. The GitHub commit was fetched and verified to change only `research/agent_reports/2026-11-09/10-owner-payment.md`; immutable file readback at that commit exactly matched the submitted content at 2026-11-09 05:37:04 UTC. The initial checkpoint and preregistration text were retained. This receipt is a subsequent documentation-only append and does not claim its own not-yet-known commit hash.
 
 Final authority refresh: main **8110624150e444964f998676bf54e2e9a3b7e91c**; no open or draft PRs. The November 9 upstream reports remain `TODAY=PENDING`; November 8 evidence remains `YESTERDAY=CARRY_FORWARD`. Final exact verifier rerun exited 0 and its SHA-256 matched the embedded source. No independent review or Lean execution occurred. Mathematical result classifications and all OPEN obligations above remain unchanged.
+
+
+## Scheduled Continuation Checkpoint - 20261109-owner-2
+
+### A. Most Important Mathematical Development
+
+IN_PROGRESS / PARTIAL; no new theorem claimed at this checkpoint. Investigate a source-faithful near-root physical packet transfer from the product boundary pq<=R^2-1 to the additive triangle p+q<=2R. The intended question is whether actual prime incidence and the strict square endpoint yield an independently affordable curvature correction, while the retained additive signed interaction remains explicit. This is not the already-paid root-admission step or another assertion that an isolated owner band has RH-scale size.
+
+### B. Current Authoritative Objective
+
+Actual scheduled trigger: 2026-11-09 08:09:02 EST (America/New_York); platform run ID unavailable. Main fetched at invocation: 02f00cee544278ad1bb9022ee76fc5916d459a95, including human-merged #1124. AGENTS blob 6695522a45d67fd1e80a7cff1f98d909405036e2; CURRENT_PROOF_CONTRACT blob 95566e37c8eaeb99ee680660df4f9d2e06ea5038; finite-wheel directive e505f35522b675c6b5b263eac73618d717346973.
+
+finite_wheel_ack=FINITE_WHEEL_CENTERED_RH_V1. Retain prior applicable safeguards and acknowledgments. For R>=2, X=R^2-1, y=R-1: F_R=sum_(d|P_y)mu(d)fract(X/d), D_R=X*delta(y)+pi(y)-1-li(X), Z_R=F_R-D_R=li(X)-pi(X). ONE C>=0 before EVERY R>=2 with |Z_R|<=C R log R remains OPEN. All virtual d>X terms are compensated before physical truncation.
+
+Original source inspected: CompleteSquareRootWheelFractionalBoundary.lean, ecb482e52deeee5e9b3853592a3ffdace662d2ff. New root-admission source a412632c1028d7728cd8d87ee6e5ac365377d338; acceptance d0b22fa38c254a22b38b678e77bb520a70eae1af. These exact identities and the O(B) admission component are existing results, not today's discovery.
+
+### C. Structural Hypothesis And Registered Work
+
+Take actual prime owners R-W<=p<R, with 1<=W<=R/2, and actual cofactors q>=R. Preserve least-prime admission and once-only orientation. Compare the original hyperbola with p+q<=2R. For actual integer p<R the additive triangle lies inside pq<=R^2-1; at real u near R an exceptional continuous corner must be retained. The planned uniform estimate will use only an established interval sieve upper bound on the positive curvature difference, never replace the full signed source by an unsigned count. W=floor(R^(2/3)) is a candidate scale to test, not a claimed theorem yet.
+
+Pre-register exact pair, endpoint, historical-triangle and packet-return tests for all integers R=8..128 and all 1<=W<=floor(R/2); larger fixed roots 257,1024,4096 with W=floor(R^(2/3)). Test the strict product wall, both lower boundaries and genuine prime q=R. Test the potential but UNPROVED fixed-sign strengthening for the centered curvature correction at the fixed diagnostic pairs (R,W)=(8,4),(9,4),(11,4),(12,5),(14,5),(37,11), with rigorous integration bounds if a finite sign is asserted. No broad repeat of the prior CR sign census or asymptotic bias fit is planned.
+
+### D-K. Continuity, Remaining Work And Publication
+
+Intake agent-reports head 813987599c01371b78e1d21a1fd5f18705d82f65. Today's Owner FW, Analytic SC, Wheel RA, Census CR, Lean implementation and latest Coordinator FB/MP reports were retrieved and relevant arguments read. The Coordinator requests actual-prime packet structure and complete RETURN; OPEN-MIDBAND itself is assigned to Analytic, not duplicated here. Referee TODAY=PENDING; YESTERDAY=CARRY_FORWARD using November 8. All seven November 8 reports and external inbox 038018145c0fddb2f6306c0712373adf9cd1ea52 retrieved; no inbox entry after October 18. Preserve FW4 R=10, CR R=9 and R=37, R=12 equality, R=14 d=X, the non-Mobius scope of FM, and scoped SG/EC status.
+
+No open or draft PRs at intake. Recent merged #1122/#1123/#1124 distinguish source identity, routing, and one proper-component bound. Exact-head check metadata will be verified before final certification claims. Direct git clone returned CONNECT tunnel 403; connector reads work. No local Lean, proof/source/central-policy/other-report/PR/schedule edit or agent launch. Handoffs are asynchronous report entries only.
+
+Next: derive the quantitative curvature bound with explicit uniform constants; test its signs and all four measure products; determine whether the transformed proper source offers a smaller noncircular next lemma. A paid curvature correction alone will NOT be described as an estimate of the retained additive triangle or of Z_R. Publication is PENDING until this checkpoint's commit and immutable readback.
