@@ -176,3 +176,107 @@ So the log-cancellation order alone cannot improve a Mertens exponent.
 The remaining signed rough cofactor source and physical clipping must still
 be estimated jointly. Do not confuse the nonzero scalar power-mode multiplier
 with a verified operator contraction on the full original Mertens source.
+
+
+## 2026-11-08: CRITICAL CORRECTION — operate only below the square root
+
+The true frozen-history theorem must **not** be replaced by the post-root
+identity `M(X)=sum_{X/2<m<=X,m odd} mu(m)`; that expression introduces
+unknown post-root cofactor values. Instead set `X=R^2-1` and use only
+`mu(a)` for `1<=a<R`:
+
+```text
+Q_R := sum_{a,b < R, a,b >=1} mu(a)*mu(b)*floor(X/(a*b)).
+M(X) = 2*M(R-1) - Q_R.
+```
+
+The strengthened **pointwise** form is
+
+```text
+c_R(n) := sum_{1<=a,b<R; a*b | n} mu(a)*mu(b)
+c_R(n) = mu(n)   for 1<=n<R;
+c_R(n) = -mu(n)  for R<=n<R^2.
+```
+
+Proof: write `Z_R(s)=sum_{n<R}mu(n)n^-s`,
+`T_R(s)=sum_{n>=R}mu(n)n^-s`. The Dirichlet-series identity
+`zeta*Z_R^2 = muSeries - 2*T_R + zeta*T_R^2` is coefficientwise valid
+formally, and `T_R^2` has zero coefficients at every `n<R^2`.
+This is **exact reconstruction**, not an estimate and not a prime-count
+hypothesis. The square-block source follows by subtracting consecutive R:
+`B_R = 2*mu(R) - (Q_(R+1)-Q_R)`.
+
+### Prime-two exact reduction within the *historical* sum
+
+For each odd `m<R` define `h_R(m)=1` if `2m<R`, else 0.
+Mobius square-killing and the 2-flip give
+
+```text
+Q_R = sum_{odd 1<=m,n<R} mu(m)*mu(n)*H_R(m,n)
+H_R(m,n)=floor(X/(mn))
+         -(h_R(m)+h_R(n))*floor(X/(2mn))
+         +h_R(m)h_R(n)*floor(X/(4mn)).
+```
+
+No `mu` at index `>=R` appears. The *historical* first-corner
+completion region is `m<R/2` for {2}; for {2,3,5,7} it is only
+`m<R/210`. Therefore the smaller fixed prime set genuinely expands
+the fully admitted root-carrier range; earlier whole-period toy-model
+tests did not capture this advantage.
+
+Split odd parents into L=`2m<R`, H=`2m>=R`.
+For `m,n in H`, `1<=floor(X/(mn))<=3`, so
+
+```text
+Q_R(H,H) = M(R-1)^2 + H2_R + H3_R
+Hq_R = sum_{m,n in H, mn<=floor(X/q)} mu(m)*mu(n), q=2,3.
+```
+
+The constant term is exactly the *historical* square because
+`sum_{m in H}mu(m) = M(R-1)`, using only the prime-two pairing at
+`R-1`. This separates the root-adjacent High-High source into one
+already-paid square and precisely **two signed hyperbola masks**.
+For clarity the full root kernel is
+
+`Q_R = Q_LL(R) + Q_LH(R) + M(R-1)^2 + H2_R + H3_R`
+
+where `Q_LH` contains both orientation orders and all terms use
+`mu(m),mu(n)` with `m,n<R`.
+
+Combining the exact bridge gives
+
+```text
+M(R^2-1)-1 = -(M(R-1)-1)^2
+             -(Q_LL+Q_LH+H2_R+H3_R).
+```
+
+The **genuinely OPEN** source-faithful finite-A theorem is one
+unconditional fixed `C` such that the absolute value of the right side
+is at most `C*R*sqrt(K_R)` for every R>=2, where
+`K_R=max_{0<=y<R}(M(y)-1)^2/(y+1)>=1`.
+No sign or separate absolute-value estimate on H2/H3 is substituted for
+the complete signed sum. This is exactly the already Lean-certified
+finite-A => RH consumer, not a proposed changed criterion.
+
+### Independently computed finite census from only the frozen mu prefix
+
+The C++ certificate `frozen_root_two_coordinate_census.cpp` is
+available in the chat artifact and reproduces the following arithmetic:
+
+| R | Q_LL | Q_LH (both orientations) | M(R-1)^2 | H2 | H3 | Q_R | M(R^2-1) |
+|---:|---:|---:|---:|---:|---:|---:|---:|
+|317|29|-32|9|4|12|22|-28|
+|1027|-179|-70|16|-73|-69|-375|367|
+|5561|484|1106|25|462|477|2554|-2544|
+|10000|654|-2314|529|-831|-12|-1974|1928|
+
+No Mobius coefficients above R-1, no pi(x) estimate, and no zeta-zero
+assumption are used in this reconstruction. The numerical table is a
+finite test, not a universal bound. These new general exact identities
+are paper-level in this packet until added to the Lean theorem DAG.
+
+**Research direction:** invoke the existing unique first-owner
+triangular rank-drop, completed four-corner, same-branch and signed
+polarization results on the **root-truncated odd-parent** kernel.
+Target one complete signed `Q_LL+Q_LH+H2+H3` estimate with the
+historical square retained; do not re-introduce post-root Mobius values.
