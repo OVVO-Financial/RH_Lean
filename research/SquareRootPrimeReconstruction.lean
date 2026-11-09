@@ -201,9 +201,11 @@ private theorem rootPrimePair_to_high {X : ℕ}
     have hrP : dr.2 ∣ P_y X := hrD.trans hprodP
     have hr1 : dr.2 ∣ 1 := by
       have hh := Nat.dvd_gcd (dvd_refl dr.2) hrP
-      rw [hrCoprime] at hh
+      have hgg : Nat.gcd dr.2 (P_y X) = 1 := hrCoprime
+      rw [hgg] at hh
       exact hh
-    exact (by omega : False)
+    have hrOne : dr.2 = 1 := Nat.dvd_one.mp hr1
+    omega
   exact Finset.mem_filter.mpr
     ⟨Finset.mem_filter.mpr
       ⟨Finset.mem_range.mpr (by omega), hSF⟩, hnP⟩
