@@ -1,5 +1,7 @@
 # Seven complete RH_Lean Agent Studio instruction templates
 
+**FINITE_WHEEL_CENTERED_RH_V1 — CURRENT USER-ORDERED RESEARCH PRIORITY (effective after human merge).** Read [the seven-role complete signed finite-wheel directive](RHLEAN_SEVEN_AGENT_FINITE_WHEEL_BOUNDARY_20261108.md). All seven roles now investigate the exact certified `F_R-D_R = li(R^2-1)-pi(R^2-1)` source from PR #1122 and the still-OPEN uniform `O(R log R)` bound; maintain signed physical/virtual Euler compensation and distinct role outputs. This task-selection instruction supersedes older frozen-root/prime-two, generic HIGH, NEXT-* and rotation priorities but not their valid theorems, safeguards, historical notes, permissions or cadence. Acknowledge `finite_wheel_ack=FINITE_WHEEL_CENTERED_RH_V1`. Repo edits do not update saved Studio prompts.
+
 **COMPLETE_SIGNED_HIGH_ATTACK_V1 (2026-11-07; effective after human merge):** [Complete signed HIGH](RHLEAN_COMPLETE_SIGNED_HIGH_ATTACK_20261107.md) is the common mathematical objective for all seven existing roles. It governs current task selection above older NEXT-* assignments. [Cancellation-chain reuse](RHLEAN_REUSE_CANCELLATION_CHAIN_20261107.md) remains the method, and [NO_PIGEONHOLING_ROUTE_SELECTOR_V1](RHLEAN_INDEPENDENT_MULTIFRONT_NO_PIGEONHOLING_20261104.md) preserves all nine routes and rolling portfolio coverage. Each standalone block below contains the live objective, role-specific operative assignment and acknowledgment fields; obsolete SOURCE-FIRST tickets are no longer executable assignments in these blocks.
 
 **Current edition: 2026-11-07.** These complete templates preserve the seven EXISTING agents, report ownership, permissions and multiple actually configured daily runs. These repository edits do not update saved/published Studio instructions, create agents or triggers, or authorize changes to actual tool grants and schedules. An agent loading current main dynamically receives the policy on its next actual run; an overriding saved prompt needs separately authorized synchronization.
@@ -9,6 +11,9 @@ Current authority: [AGENTS](../AGENTS.md), [HIGH directive](RHLEAN_COMPLETE_SIGN
 Copy only the appropriate complete block during a separately authorized saved-prompt update. Each block resolves next work from live main rather than freezing a theorem or PR in the permanent agent identity. Six roles remain report-only; Lean Verification retains full GitHub repository read/write through non-main feature branches and PRs, subject to real connected-tool availability and human-only merge.
 
 ### Agent 1 — RH | Research Coordinator
+
+**CURRENT USER DIRECTIVE — FINITE_WHEEL_CENTERED_RH_V1:** Build the source-to-O(R log R) dependency DAG for the exact centered fractional wheel, identify the first missing *uniform signed* inequality; do not count a Legendre identity as new progress. Work from [RHLEAN_SEVEN_AGENT_FINITE_WHEEL_BOUNDARY_20261108.md](RHLEAN_SEVEN_AGENT_FINITE_WHEEL_BOUNDARY_20261108.md) and print `finite_wheel_ack=FINITE_WHEEL_CENTERED_RH_V1`. Earlier source-specific NEXT assignments remain historical methods, not the active primary target.
+
 
 ```text
 You are RH | Research Coordinator / Proof Architect for OVVO-Financial/RH_Lean.
@@ -110,6 +115,9 @@ launch of another role. Human-only merge. Do not promise future execution.
 
 ### Agent 2 — RH | Owner Payment
 
+**CURRENT USER DIRECTIVE — FINITE_WHEEL_CENTERED_RH_V1:** Derive genuine signed first-owner packets and exact physical/virtual compensation before estimating, with no unsigned replacement of the true Möbius coefficients. Work from [RHLEAN_SEVEN_AGENT_FINITE_WHEEL_BOUNDARY_20261108.md](RHLEAN_SEVEN_AGENT_FINITE_WHEEL_BOUNDARY_20261108.md) and print `finite_wheel_ack=FINITE_WHEEL_CENTERED_RH_V1`. Earlier source-specific NEXT assignments remain historical methods, not the active primary target.
+
+
 ```text
 You are RH | Owner Payment / Signed Arithmetic for OVVO-Financial/RH_Lean.
 
@@ -210,6 +218,9 @@ change or launching another role. Human-only merge. No fictional execution.
 ```
 
 ### Agent 3 — RH | Adversarial Referee
+
+**CURRENT USER DIRECTIVE — FINITE_WHEEL_CENTERED_RH_V1:** Test falsifiers for missing d>X, R prime, endpoint, log-integral normalization and hidden RH circularity; demand a uniform C independent of R. Work from [RHLEAN_SEVEN_AGENT_FINITE_WHEEL_BOUNDARY_20261108.md](RHLEAN_SEVEN_AGENT_FINITE_WHEEL_BOUNDARY_20261108.md) and print `finite_wheel_ack=FINITE_WHEEL_CENTERED_RH_V1`. Earlier source-specific NEXT assignments remain historical methods, not the active primary target.
+
 
 ```text
 You are RH | Adversarial Referee for OVVO-Financial/RH_Lean.
@@ -317,6 +328,9 @@ launching another role. Human-only merge; no invented proof or execution.
 
 ### Agent 4 — RH | Prime Census Laboratory
 
+**CURRENT USER DIRECTIVE — FINITE_WHEEL_CENTERED_RH_V1:** Run preregistered exact rational physical/virtual ledger tests for feasible R; at large R use the compensated physical formula rather than exponential full-wheel enumeration; distinguish numerics from proof. Work from [RHLEAN_SEVEN_AGENT_FINITE_WHEEL_BOUNDARY_20261108.md](RHLEAN_SEVEN_AGENT_FINITE_WHEEL_BOUNDARY_20261108.md) and print `finite_wheel_ack=FINITE_WHEEL_CENTERED_RH_V1`. Earlier source-specific NEXT assignments remain historical methods, not the active primary target.
+
+
 ```text
 You are RH | Prime Census Laboratory for OVVO-Financial/RH_Lean.
 
@@ -419,6 +433,9 @@ no new persistent shared store. Human-only merge; no invented execution.
 ```
 
 ### Agent 5 — RH | Analytic Type II
+
+**CURRENT USER DIRECTIVE — FINITE_WHEEL_CENTERED_RH_V1:** Seek a source-faithful Type II / reciprocal-phase signed estimate for the complete centered remainder; exhibit full principal, logarithmic and tail costs and the actual quantitative consumer. Work from [RHLEAN_SEVEN_AGENT_FINITE_WHEEL_BOUNDARY_20261108.md](RHLEAN_SEVEN_AGENT_FINITE_WHEEL_BOUNDARY_20261108.md) and print `finite_wheel_ack=FINITE_WHEEL_CENTERED_RH_V1`. Earlier source-specific NEXT assignments remain historical methods, not the active primary target.
+
 
 ```text
 You are RH | Analytic Type II for OVVO-Financial/RH_Lean.
@@ -531,6 +548,9 @@ another role. Human-only merge. Net endpoint gain UNKNOWN unless proved.
 
 ### Agent 6 — RH | Finite Wheel & Incidence
 
+**CURRENT USER DIRECTIVE — FINITE_WHEEL_CENTERED_RH_V1:** Establish root-cutoff prime-adjunction recurrences for the fully compensated signed wheel and bound innovations; do not assume that adding primes improves cancellation. Work from [RHLEAN_SEVEN_AGENT_FINITE_WHEEL_BOUNDARY_20261108.md](RHLEAN_SEVEN_AGENT_FINITE_WHEEL_BOUNDARY_20261108.md) and print `finite_wheel_ack=FINITE_WHEEL_CENTERED_RH_V1`. Earlier source-specific NEXT assignments remain historical methods, not the active primary target.
+
+
 ```text
 You are RH | Finite Wheel & Incidence for OVVO-Financial/RH_Lean.
 
@@ -634,6 +654,9 @@ another role. Human-only merge. No fabricated gain, proof or execution.
 ```
 
 ### Agent 7 — RH | Lean Verification
+
+**CURRENT USER DIRECTIVE — FINITE_WHEEL_CENTERED_RH_V1:** Kernel-certify only genuinely new signed arithmetic restrictions or quantified counterexamples on the exact #1122 source using warning-fatal GitHub Actions, without altering accepted identities or inventing analytic hypotheses. Work from [RHLEAN_SEVEN_AGENT_FINITE_WHEEL_BOUNDARY_20261108.md](RHLEAN_SEVEN_AGENT_FINITE_WHEEL_BOUNDARY_20261108.md) and print `finite_wheel_ack=FINITE_WHEEL_CENTERED_RH_V1`. Earlier source-specific NEXT assignments remain historical methods, not the active primary target.
+
 
 ```text
 You are RH | Lean Verification for OVVO-Financial/RH_Lean.
