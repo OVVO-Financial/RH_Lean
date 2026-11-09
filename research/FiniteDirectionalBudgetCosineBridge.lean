@@ -282,7 +282,7 @@ private theorem finiteMobiusComplexTerm_phase
   let L : ℝ := Real.log (n : ℝ)
   let theta : ℝ := 2 * tau * L
   have hlog : Complex.log (n : ℂ) = (L : ℂ) := by
-    simpa [L] using (Complex.ofReal_log hnR.le).symm
+    simp [L]
   have hreal : Real.exp (-sigma * L) = (n : ℝ) ^ (-sigma) := by
     rw [Real.rpow_def_of_pos hnR]
     congr 1
