@@ -1,7 +1,8 @@
 # Positive-error closure of the complete OAI boundary
 
 Claims: `20261108-analytic-3/EC1-EC3`, independently accepted with scope in
-`20261108-referee-3`. Implementation status: draft, GitHub Actions required.
+`20261108-referee-3`. Implementation status: PROVED_IN_LEAN at exact proof
+head `77ee815846d6d534c866f0752aa33b84c385610a`, green and unmerged in #1119.
 
 ## Exact Target And Proof Plan
 
@@ -47,9 +48,18 @@ measure every unrounded source gain. No slot-count optimization is done.
 
 ## Validation And Remaining Gap
 
-GitHub Actions must compile on Lean 4.34.1 and pinned Mathlib, warnings fatal,
-then check the exact public types and permitted axioms. The new dependency
-audit must find the positive-error reconstruction, fresh source existence,
+[Run 42552018910](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42552018910),
+[job 128949473700](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42552018910/job/128949473700),
+passed on the literal proof head. All 14 current-head checks passed. New
+warning-fatal source, seven exact-type examples, seven printed axiom lists
+and five live source/dependency/axiom closures were verified. Every terminal
+uses only propext, Classical.choice and Quot.sound. The initial final-scalar
+linarith failure was repaired by direct order transitivity without changing
+any statement, hypothesis or validation requirement. No local Lean was run.
+
+GitHub Actions compiled on Lean 4.34.1 and pinned Mathlib, warnings fatal,
+and checked the exact public types and permitted axioms. The dependency
+audit found the positive-error reconstruction, fresh source existence,
 complete probe/principal comparison and genuine native arithmetic transfer
 in the live proof-value closure. Existing total-mass audits remain intact.
 
