@@ -1,5 +1,12 @@
 # RH_Lean research-agent instructions
 
+## 2026-11-08 user-directed FROZEN-ROOT / PRIME-TWO seven-agent priority (on human merge)
+
+**FROZEN_ROOT_PRIME_TWO_ALL_AGENTS_20261108**: Every one of the seven roles MUST read [the all-agent theorem attack mandate](docs/FROZEN_ROOT_PRIME_TWO_ALL_AGENTS_20261108.md) at the next actual invocation and center its work on the true frozen μ(<R) source → Q_R → M(R²-1), using **only the prime-2 pairing** as default finite coordinate. Preserve independent methods and exact original coefficients. The general HIGH-HIGH theorem is proposed in `research/FROZEN_ROOT_PRIME_TWO_HIGH_HIGH_GENERAL_20261108.lean`; it is not fully certified until exact-head warning-fatal CI passes. Target ∃C<∞ ∀R≥2, |Q_R|≤CR√K_R, which the existing Lean consumer proves implies RH. Do not assume that target, do not replace it with circular known Mertens bounds, and do not use post-root Möbius values as independent Q_R inputs. Assignments for Coordinator, Owner, Referee, Census, Analytic, Wheel and Lean Verification are mandatory; previous independent route portfolios remain protected as methods. Record `frozen_root_ack=FROZEN_ROOT_PRIME_TWO_ALL_AGENTS_20261108` after first actual post-merge consumption. This GitHub edit does not change saved Studio prompts or agent schedules.
+
+---
+
+
 ## 2026-11-08 governing all-route proof contract (current merged baseline)
 
 **REPO_WIDE_PROOF_DAG_AND_AGENTS_20261108; effective only after a reviewed human merge.** First read [the current route-wide status and exact seven-role assignments](docs/RHLEAN_REPO_WIDE_PROOF_ATTACKS_20261108.md) together with the [generated proof-obligation DAG](docs/PROOF_DEPENDENCY_DAG.md) and the [coordinate atlas](docs/COORDINATE_ATLAS.md). This section supersedes dated task-selection and baseline claims below, not proof signatures, counterexamples, scientific uncertainty, permissions, schedules, configured agents or source-integrity checks.
