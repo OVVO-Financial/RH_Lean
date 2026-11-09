@@ -46,3 +46,25 @@ All seven November 8 role reports and EXTERNAL_HANDOFFS.md were retrieved; relev
 Current open PRs: #1118 draft at 0a19a847374f5b8d6d1ea311775857d28fc86815; #1123 non-draft at eb242596a9696a9984f91f9b64238240724e3db2. Neither open PR is main authority. Main includes the merged #1121 error-closure milestone; exact declarations and check evidence will govern claims.
 Tool limitation: direct git clone failed with CONNECT tunnel 403; GitHub connector reads work. No local Lean, proof/source/central-policy/PR/schedule edits are performed.
 Publication status requires the ensuing commit and immutable readback.
+
+
+## Authority Change And Registered Test - 20261109-owner-1/FW
+
+During this same invocation, human merges #1118 (2026-11-09T05:12:59Z) and #1123 (05:14:45Z) advanced main to 8110624150e444964f998676bf54e2e9a3b7e91c. The current AGENTS blob is 6695522a45d67fd1e80a7cff1f98d909405036e2; CURRENT_PROOF_CONTRACT is 95566e37c8eaeb99ee680660df4f9d2e06ea5038; finite-wheel directive is e505f35522b675c6b5b263eac73618d717346973. Both authority files and the directive were retrieved. finite_wheel_ack=FINITE_WHEEL_CENTERED_RH_V1.
+
+The new priority supersedes task selection, so the unfinished prime-two diagonal investigation is NOT presented as a completed result. It did not produce an experiment or a new theorem. This invocation now investigates the actual complete finite-wheel source, preserving the early checkpoint above.
+
+Source: research/CompleteSquareRootWheelFractionalBoundary.lean, blob ecb482e52deeee5e9b3853592a3ffdace662d2ff. For X=R^2-1, y=R-1, complete F=sum_(d|P_y)mu(d)fract(X/d), D=X*delta(y)+pi(y)-1-li(X). The certified arbitrary-reference identity gives F-D=li(X)-pi(X); the uniform O(R log R) bound remains OPEN. All d>X terms must be compensated before truncation.
+
+Proposed owner packet: assign every nonunit divisor d to p=P+(d), writing d=p*e with e|P_(p-1). Define
+B_p=-sum_(e|P_(p-1))mu(e)fract(X/(pe))
+    =Phi(floor(X/p),p-1)-(X/p)*delta(p-1).
+This is an exact signed equality, not substitution of an unsigned upper bound. After full inclusion-exclusion, Phi counts actual integers whose least prime is p after multiplication by p, including cofactor one.
+
+Hypothesis under investigation: the disjoint upper owner band R/2<=p<R and adjacent band R/4<=p<R/2 carry opposite nonzero deterministic biases of order R^2/log^2 R. For fixed alpha and alpha R<=p<R, p^3>X for all sufficiently large R, so the exact packet reduces to 1+pi(floor(X/p))-pi(p-1) minus its original finite Euler mass. PNT and Mertens' product theorem predict coefficient
+c(alpha)=(1-exp(-gamma))*log(1/alpha)-(1-alpha^2)/2.
+A proof, not trend fitting, is required. The upper-half coefficient is negative; the adjacent-quarter coefficient is positive. A naive universal nonpositive upper-band sign and a separate O(R log R) budget will be tested, not assumed.
+
+Pre-registered finite checks: exhaustive complete Boolean-divisor wheels for every R=2..43, with exact rational physical/virtual packet ledgers; compare independent least-prime counts and exact integer floor sums, including d=X and prime-root cutoffs. Test upper-band sign for every R=8..256. Confirm exact band formulas at R=65,137,257,317,549,1027,4096,5561,10000; larger roots use only the proved compensated packet formula and prime counts up to 4R, never enumerate the full exponential wheel. Numerical scaled asymptotic values are diagnostics only. Check invalid omission of cofactor-one, virtual terms, and the strict p^3>X guard. Every finite claim will record its actual executed scope.
+
+Publication of this registration precedes the arithmetic test. Research remains IN_PROGRESS; no independent acceptance, formalization, endpoint improvement or RH proof is claimed.
