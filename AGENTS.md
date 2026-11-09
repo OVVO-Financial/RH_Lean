@@ -1,5 +1,9 @@
 # RH_Lean research-agent instructions
 
+## 2026-11-08 current user-directed priority: complete signed finite-wheel RH bound
+
+**FINITE_WHEEL_CENTERED_RH_V1 (governing on merge).** All seven specialists work on the certified complete fractional-wheel source from PR #1122, not the former frozen-root, generic HIGH or OAI-next task. Read [the seven-agent assignments](docs/RHLEAN_SEVEN_AGENT_FINITE_WHEEL_BOUNDARY_20261108.md) on the next genuinely configured invocation. Exact target: F_R-D_R=li(R^2-1)-pi(R^2-1), and prove a source-independent *uniform* |F_R-D_R| <= C R log R (R>=2), including every virtual d>X and its Euler compensation. This is OPEN and equivalent to RH. Preserve independent mathematical approaches, full signed source, all existing source guards, roles, schedules, and human-only merge rules. Acknowledge `finite_wheel_ack=FINITE_WHEEL_CENTERED_RH_V1`. A repository instruction change cannot alter an external saved Studio prompt or launch an agent.
+
 ## 2026-11-08 immediate user-directed seven-agent priority: frozen-root Möbius / prime-two three-floor
 
 **FROZEN_ROOT_SQUARE_ROOT_SOURCE_FIRST_20261108.** Upon the next actual invocation after reviewed human merge, **ALL SEVEN agents** read and execute [the seven-role frozen-root directive](docs/RHLEAN_SEVEN_AGENT_FROZEN_ROOT_PRIME_TWO_DIRECTIVE_20261108.md) before selecting work from dated priority queues. Shared original source: `X_R=R^2-1`, `mu(n)` known only for `n<R`, `K_R=max_{0<=y<R}(M(y)-1)^2/(y+1)`, and `Q_R=sum_{a,b<R}mu(a)mu(b)floor(X_R/(ab))=2M(R-1)-M(X_R)`. Begin with the prime-2 odd-parent high/high theorem, exactly two signed quotient masks 2 and 3, both cross orientations and all low/low terms. Target one complete signed fixed-`C` estimate `|Q_R|<=C R sqrt(K_R)` (or the equivalent complete centered expression) and consume the already-proved conditional finite-A -> RH chain. **Do not claim a new exponent, finite C, or RH from exact decomposition alone.**
