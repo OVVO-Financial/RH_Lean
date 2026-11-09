@@ -68,7 +68,7 @@ private theorem finiteWheel_faces_sum_eq_primorial_divisors
     have hdsub : d.primeFactors ⊆ S := by
       have h := Nat.primeFactors_mono hdW hW0
       have hpf : W.primeFactors = S := by
-        dsimp [W, primorialWheelProduct]
+        dsimp [W]
         exact Nat.primeFactors_prod hprime
       rwa [hpf] at h
     refine ⟨d.primeFactors, Finset.mem_powerset.mpr hdsub, ?_⟩
