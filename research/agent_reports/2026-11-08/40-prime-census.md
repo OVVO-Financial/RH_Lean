@@ -3967,3 +3967,12 @@ print(json.dumps(out,indent=2))
 ### Prepublication Freshness - 20261108-census-3
 
 At 2026-11-09 00:18:35 UTC, main was 6144c73b05d5a85e6a9424708986860c6276f60d, unchanged from intake, and the direct open-PR collection was empty. The prior report/checkpoint prefix is unchanged. Validation passed fourteen A-N sections, balanced fences, consistent table columns, identical independent row files and compilation of both Python programs. This run's complete scripts, exact JSON certificates and hashes are embedded above. All local computation sessions are finished. Publication remains subject to the actual write and immutable readback, not inferred from this prose.
+
+
+### Verified Publication Receipt - 20261108-census-3
+
+At 2026-11-09 00:19:10 UTC, immutable readback verified substantive commit **d818ddb3c8582c6774a8c37e360db54dbbf7edfc**, report blob **5ebe44386bd4b5661a9489c8a300f155a8a62103**, against all **199067 characters** submitted. The commit changed exactly the owned path research/agent_reports/2026-11-08/40-prime-census.md: 1334 additions and zero deletions. Every earlier daily-report byte, including checkpoint 270bf08aadd32af4a6a70735b4ddc3a0ff9d9338, is an unchanged prefix. Main remained 6144c73b05d5a85e6a9424708986860c6276f60d; the open-PR collection was empty at the final refresh.
+
+Execution=COMPLETED; substantive publication=PUBLISHED / READBACK_VERIFIED. FR1-FR3 remain PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED. FR4 refutes only the stated auxiliary sign candidates. FR5 is FINITE_COMPUTATION. NEW_VERIFIED_ENDPOINT_GAIN=NONE; canonical VF, finite A, zero-log amplification and RH remain OPEN. Resume the weighted residual-frequency question, not another unchanged scan. No other report, Lean source, PR, workflow, schedule or setting was modified, and no agent was launched. All computation sessions are finished.
+
+This receipt records the already verified substantive commit. Its own append is checked by a separate immutable readback before the completion response.
