@@ -1009,3 +1009,9 @@ if __name__ == '__main__':
     main()
 ```
 
+
+### Verified Publication Receipt - 2026-11-09 03:35 EST
+
+The complete synthesis was published to the owned report on agent-reports at commit **32b779e69604804c2b314214e9d4031deefa1129**, blob **91a376f41bf0e936fe97eb1dea16c731d3e495be**. Immutable readback at 2026-11-09 08:35:20 UTC matched the entire prepared document byte-for-byte and preserved the preregistration as an unchanged prefix. This receipt is an append-only continuation of that verified publication, not another research invocation.
+
+Final research status: COMPLETED finite experiment; CR1/CR3 scoped assertions REFUTED; CR2/CR4 FINITE_COMPUTATION; independent mathematical review PENDING. The uniform proper-Q and complete RH-scale estimates remain OPEN. No new formal theorem or global exponent improvement is claimed.
