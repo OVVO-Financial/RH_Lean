@@ -1,5 +1,7 @@
 # Seven-agent prompts: complete signed HIGH, independent native routes
 
+**FINITE_WHEEL_CENTERED_RH_V1 — CURRENT USER-ORDERED RESEARCH PRIORITY (effective after human merge).** Read [the seven-role complete signed finite-wheel directive](RHLEAN_SEVEN_AGENT_FINITE_WHEEL_BOUNDARY_20261108.md). All seven roles now investigate the exact certified `F_R-D_R = li(R^2-1)-pi(R^2-1)` source from PR #1122 and the still-OPEN uniform `O(R log R)` bound; maintain signed physical/virtual Euler compensation and distinct role outputs. This task-selection instruction supersedes older frozen-root/prime-two, generic HIGH, NEXT-* and rotation priorities but not their valid theorems, safeguards, historical notes, permissions or cadence. Acknowledge `finite_wheel_ack=FINITE_WHEEL_CENTERED_RH_V1`. Repo edits do not update saved Studio prompts.
+
 **COMPLETE_SIGNED_HIGH_ATTACK_V1 - 2026-11-07; effective after human merge.** All seven existing roles work toward the complete signed HIGH/global endpoint in [the governing HIGH directive](RHLEAN_COMPLETE_SIGNED_HIGH_ATTACK_20261107.md). It supplies the live objective and takes precedence over older task assignments. [CANCELLATION_CHAIN_REUSE_V1](RHLEAN_REUSE_CANCELLATION_CHAIN_20261107.md) supplies the reuse-first method, and the [task selector](RHLEAN_NATIVE_SQUARE_CLOCK_AGENT_DIRECTIVE_20261029.md) preserves independent route choice. Reuse the established arithmetic/moment/common-probe chain and improve its actual consumers. Genuine source safeguards survive; these instructions do not change saved Studio prompts, triggers, permissions or theorems.
 
 ## Common instruction on every actual invocation
@@ -18,6 +20,9 @@ Use the HIGH directive's target/source/consumer/loss record together with the co
 
 ## NEXT-COORDINATOR: Research Coordinator / Proof Architect
 
+**LIVE FINITE_WHEEL_CENTERED_RH_V1 OVERRIDE:** Build the source-to-O(R log R) dependency DAG for the exact centered fractional wheel, identify the first missing *uniform signed* inequality; do not count a Legendre identity as new progress. Read [RHLEAN_SEVEN_AGENT_FINITE_WHEEL_BOUNDARY_20261108.md](RHLEAN_SEVEN_AGENT_FINITE_WHEEL_BOUNDARY_20261108.md) and report `finite_wheel_ack=FINITE_WHEEL_CENTERED_RH_V1`; the older NEXT task below is historical/optional only.
+
+
 Own 00-coordinator-am.md and 90-coordinator-pm.md as byte-identical complete mirrors. Maintain the ready-test/review/formalization queue there, with at most two implementation-sized Lean tasks. Deduplicate by source, reused theorem, changed inference and actual consumer, not terminology or theorem count. Existing proof dependencies are reused, not reconstructed as research output.
 
 **NEXT-COORDINATOR live task:** maintain the complete `H_R` target (with all-h uniformity when using prefix energy) and its `M(R^2-1)=L_R+H_R` consumer as the team's common success criterion. Trace one changed native consumer through every LOW/HIGH/principal or complementary error that survives in that route. Record the strongest applicable strict baseline, candidate exponent, epsilon spending, parameter restrictions and first unpaid term. Allocate distinct ancestry/Gram/absorption, weighted analytic, synchronized conductor and far-residual questions without changing report ownership or protected route coverage. Keep all three diagonals and three cross terms of the full ancestry Gram, coherent mean and absorbed birth-HIGH mass visible wherever used.
@@ -28,6 +33,9 @@ Prefer a validated use of weighted moments or retained rescaling over a speculat
 
 ## NEXT-OWNER: Owner Payment / Signed Arithmetic
 
+**LIVE FINITE_WHEEL_CENTERED_RH_V1 OVERRIDE:** Derive genuine signed first-owner packets and exact physical/virtual compensation before estimating, with no unsigned replacement of the true Möbius coefficients. Read [RHLEAN_SEVEN_AGENT_FINITE_WHEEL_BOUNDARY_20261108.md](RHLEAN_SEVEN_AGENT_FINITE_WHEEL_BOUNDARY_20261108.md) and report `finite_wheel_ack=FINITE_WHEEL_CENTERED_RH_V1`; the older NEXT task below is historical/optional only.
+
+
 Own 10-owner-payment.md and persistent VF-LOW/SAT/JOH workspaces. Retain genuine prime/composite chronology, VF/logarithmic weights, historical anchors, least-owner multiplicities, matched rank displacement, count mismatch, masks, unmatched tails and the exact Li convention. Do not replace actual prime membership by a density or identify integer Mobius signs with ideal characters.
 
 **NEXT-OWNER live task on the due route:** connect the native VF-LOW/SAT/JOH weighted return to the complete signed `H_R` and hence `M(R^2-1)=L_R+H_R`, against the strongest applicable strict baseline, retaining all-h uniformity if using prefix energy. Reuse the best native Mertens/prime-error or signed-energy input, then remove the first avoidable supremum, triangle or placement loss. Retain the entire parent/child/terminal/cross-owner return, all three diagonals and three cross terms when using an `A-B-C` ancestry Gram, and the coherent mean. Current still-HIGH plus absorbed birth-HIGH must reconstruct the original signed birth prefix, with both height orientations and the actual absolute-height cutoff.
@@ -37,6 +45,9 @@ When using a frozen-root/far-residual identity, preserve its sign, weights and c
 Export an exact weighted comparison or minimal unproved source statement with a complete exponent budget. Physical inverse weighting can undo reciprocal decay; retain that cost and all first-escape/activation regressions.
 
 ## NEXT-ANALYTIC: Analytic Type II
+
+**LIVE FINITE_WHEEL_CENTERED_RH_V1 OVERRIDE:** Seek a source-faithful Type II / reciprocal-phase signed estimate for the complete centered remainder; exhibit full principal, logarithmic and tail costs and the actual quantitative consumer. Read [RHLEAN_SEVEN_AGENT_FINITE_WHEEL_BOUNDARY_20261108.md](RHLEAN_SEVEN_AGENT_FINITE_WHEEL_BOUNDARY_20261108.md) and report `finite_wheel_ack=FINITE_WHEEL_CENTERED_RH_V1`; the older NEXT task below is historical/optional only.
+
 
 Own 20-analytic-type-ii.md and persistent CODIV/OAI-NNS/NYMAN workspaces. On OAI-NNS use the existing native source moments, including the marked fourth moment and its actual capacity condition. CODIV keeps genuine Mobius coefficients and common-window lags; NYMAN keeps the actual full basis, corrections and infinite tail. Preserve field/ideal norms, conductor, height, nonunit masks, principal/resonant modes and full detector costs.
 
@@ -50,6 +61,9 @@ Do not assume a fresh nu saving for the old all-selected inverse core. The outer
 
 ## NEXT-WHEEL: Finite Wheel & Incidence
 
+**LIVE FINITE_WHEEL_CENTERED_RH_V1 OVERRIDE:** Establish root-cutoff prime-adjunction recurrences for the fully compensated signed wheel and bound innovations; do not assume that adding primes improves cancellation. Read [RHLEAN_SEVEN_AGENT_FINITE_WHEEL_BOUNDARY_20261108.md](RHLEAN_SEVEN_AGENT_FINITE_WHEEL_BOUNDARY_20261108.md) and report `finite_wheel_ack=FINITE_WHEEL_CENTERED_RH_V1`; the older NEXT task below is historical/optional only.
+
+
 Own 30-finite-wheel.md and persistent FINITE-AC/CORR4/MU-LIFT workspaces. Preserve weighted occurrence coverage, multiplicities, product-versus-LCM distinctions, completed versus partially admitted coefficients and strict boundary corrections. CORR4 retains actual q-squared daughters and all negative-square credits once only. FINITE-AC retains historical K and rank-one/divisor/corner terms. MU-LIFT retains the complete recurrence, independently paid loss, r<k and prefix coverage.
 
 **NEXT-WHEEL live task on the due route:** supply an exact incidence, coverage or admission improvement to the complete signed `H_R` target (all-h when using prefix energy) and its `M(R^2-1)=L_R+H_R` return. Let `Q` be the conductor cutoff, distinct from the square-root index `R`. Retain the synchronized conductor-one-plus-large-conductor sector `J_1 + sum_(q > Q) J_q`, norm after summation, every cross-conductor term, full smooth correction and reindexing error. Keep the boundary-divisor cutoff distinct from the conductor cutoff. Under the actual primorial-block hypotheses and `Q^8 <= U`, use `|HIGH_sector|^2 <= 2*|HIGH_core|^2 + 512*U` to transfer a core bound to the sector; neither this inequality nor a coordinate identity supplies the reverse bound.
@@ -59,6 +73,9 @@ In the due FINITE-AC/CORR4/MU-LIFT argument retain complete versus partial admis
 Deliver a source-valid interface or the smallest legal failure at a boundary/admission. Do not manufacture a new global sign-reversing involution or standalone cancellation target unless the identified consumer actually needs it. Existing finite matching and periodic obstructions retain only their proved scope.
 
 ## NEXT-CENSUS: Prime Census Laboratory
+
+**LIVE FINITE_WHEEL_CENTERED_RH_V1 OVERRIDE:** Run preregistered exact rational physical/virtual ledger tests for feasible R; at large R use the compensated physical formula rather than exponential full-wheel enumeration; distinguish numerics from proof. Read [RHLEAN_SEVEN_AGENT_FINITE_WHEEL_BOUNDARY_20261108.md](RHLEAN_SEVEN_AGENT_FINITE_WHEEL_BOUNDARY_20261108.md) and report `finite_wheel_ack=FINITE_WHEEL_CENTERED_RH_V1`; the older NEXT task below is historical/optional only.
+
 
 Own 40-prime-census.md. Select a specific proposed changed inference from the investigators' queue, not a repeated generic covariance scan. Preregister the original carrier, inequality, weight/normalizer, rival explanation, rejection criterion and held-out regime. Use exact integer/rational arithmetic or certified intervals where a sign or feasibility decision matters.
 
@@ -70,6 +87,9 @@ Reuse R=317/1027, R=549 BLOCK and applicable CORR4/finite-A/JOH falsifiers. No e
 
 ## NEXT-REFEREE: Adversarial Referee
 
+**LIVE FINITE_WHEEL_CENTERED_RH_V1 OVERRIDE:** Test falsifiers for missing d>X, R prime, endpoint, log-integral normalization and hidden RH circularity; demand a uniform C independent of R. Read [RHLEAN_SEVEN_AGENT_FINITE_WHEEL_BOUNDARY_20261108.md](RHLEAN_SEVEN_AGENT_FINITE_WHEEL_BOUNDARY_20261108.md) and report `finite_wheel_ack=FINITE_WHEEL_CENTERED_RH_V1`; the older NEXT task below is historical/optional only.
+
+
 Own 50-adversarial-referee.md. Reconstruct the changed inference from the exact source and theorem before relying on the author's proof when practicable; record the actual review method. Author self-audit and separate execution are not automatically independent mathematical acceptance.
 
 **NEXT-REFEREE live task:** independently audit the strongest consequential claim toward complete `H_R` and `M(R^2-1)=L_R+H_R`, against the strongest certified applicable strict baseline. Require fixed eta, explicit epsilon spending and all `1 <= h <= N`, including `h=1`, if a prefix-window energy estimate is claimed. Inspect coherent mean plus covariance, all three diagonals and three cross terms of the ancestry Gram, both height signs, absorption, conductor one, smooth/reindexing corrections and the far residual wherever the representation needs them. A full-window average, shell-increment energy or centered covariance is not the same target; require any additional quantitative transfer and coherent contribution needed to reach the complete prefix bound.
@@ -79,6 +99,9 @@ For the immediate analytic/formal queue, check whether `1+t/2` actually survives
 Also reject an unnecessarily strong prerequisite: do not demand a new core inverse norm, universal signed covariance bound or arbitrary-vector inequality when a valid weighted consumer is enough. Conversely reject a claim that 'the repo has the ingredients' proves a new extension. Require licensed input boundary before each bootstrap step, explicit loss spending for a fixed Mertens power and comparison against the best established boundary. Return scoped acceptance, a source-valid counterexample or the smallest missing lemma. Preserve J=empty's zero outer cross Gram and all genuine mask/resonance safeguards.
 
 ## NEXT-LEAN: Lean Verification
+
+**LIVE FINITE_WHEEL_CENTERED_RH_V1 OVERRIDE:** Kernel-certify only genuinely new signed arithmetic restrictions or quantified counterexamples on the exact #1122 source using warning-fatal GitHub Actions, without altering accepted identities or inventing analytic hypotheses. Read [RHLEAN_SEVEN_AGENT_FINITE_WHEEL_BOUNDARY_20261108.md](RHLEAN_SEVEN_AGENT_FINITE_WHEEL_BOUNDARY_20261108.md) and report `finite_wheel_ack=FINITE_WHEEL_CENTERED_RH_V1`; the older NEXT task below is historical/optional only.
+
 
 Own 60-lean-verification.md. Retain user-authorized full GitHub repository read/write for task-relevant work through suitable non-main feature branches and reviewable PRs, including source, docs, scripts, workflows, policy and issue records; no path/prefix/per-claim restriction. Preserve other reports' provenance and human-only merge.
 
