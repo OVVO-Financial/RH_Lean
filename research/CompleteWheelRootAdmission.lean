@@ -32,7 +32,7 @@ private theorem compensated_eq_neg_count (z N : ℕ) :
       -(vfMidPrefixWheelCounting z N : ℝ) := by
   have h := congrArg (fun a : ℤ => (a : ℝ))
     (finiteWheel_divisorFloor_eq_survivorCount z N)
-  push_cast at h
+  simp only [Int.cast_sum, Int.cast_mul, Int.cast_natCast] at h
   rw [finiteWheelFract_sub_density_eq_neg_floor, h]
 
 private theorem centered_eq_count (z N : ℕ) (L : ℝ) :
@@ -178,11 +178,8 @@ theorem finiteWheel_pred_count_prime_add_two {p : ℕ}
     by_cases ht : (p + 2).Prime <;> simp [ht]
   unfold vfMidPrefixWheelCounting
   rw [hset]
-  have hp1 : p ≠ 1 := by omega
-  have hp21 : p + 2 ≠ 1 := by omega
   have h1p : 1 ≠ p := by omega
-  have h1p2 : 1 ≠ p + 2 := by omega
-  by_cases ht : (p + 2).Prime <;> simp [ht, hp1, hp21, h1p, h1p2]
+  by_cases ht : (p + 2).Prime <;> simp [ht, h1p]
 
 private theorem next_endpoint_div (r : ℕ) (hr : 2 ≤ r) :
     squareRootEndpoint (r + 1) / r = r + 2 := by
@@ -270,7 +267,7 @@ theorem finiteWheel_rootAdmission_sum_bounds (A B : ℕ)
         have hmem : 2 ∈ Finset.Ico A B ↔ A = 2 ∧ A < B := by
           simp only [Finset.mem_Ico]
           omega
-        rw [hmem]
+        simp only [hmem]
 
 /-- Full scalar root step. The physical-shell term remains present and unpaid. -/
 theorem finiteWheel_centered_root_return (r : ℕ) (L₀ L₁ : ℝ) :

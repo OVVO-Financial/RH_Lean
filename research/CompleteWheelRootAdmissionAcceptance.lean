@@ -1,3 +1,4 @@
+import Lean
 import «research.CompleteWheelRootAdmission»
 
 /-! Exact public types and axiom checks for the complete-wheel component bound.
@@ -66,6 +67,53 @@ example (r : ℕ) (L : ℝ) :
 /-- info: 'RHLean.Analysis.finiteWheel_centered_root_return' depends on axioms: [propext, Classical.choice, Quot.sound] -/
 #guard_msgs in
 #print axioms finiteWheel_centered_root_return
+
+namespace CompleteWheelRootAdmissionAudit
+
+open Lean Elab Command
+
+private partial def reduceAdmin : Expr → Expr
+  | .letE _ _ value body _ => reduceAdmin (body.instantiate1 value)
+  | .app fn arg =>
+    match reduceAdmin fn with
+    | .lam _ _ body _ => reduceAdmin (body.instantiate1 arg)
+    | other => .app other (reduceAdmin arg)
+  | .lam n t b bi => .lam n (reduceAdmin t) (reduceAdmin b) bi
+  | .forallE n t b bi => .forallE n (reduceAdmin t) (reduceAdmin b) bi
+  | .mdata _ b => reduceAdmin b
+  | .proj n i b => .proj n i (reduceAdmin b)
+  | other => other
+
+private partial def proofClosure (env : Environment) (pending : List Name)
+    (seen : NameSet := {}) : NameSet :=
+  match pending with
+  | [] => seen
+  | n :: rest =>
+    if seen.contains n then proofClosure env rest seen
+    else
+      let refs := if (`RHLean).isPrefixOf n || (`_private).isPrefixOf n then
+        match env.find? n with
+        | none => []
+        | some info => match info.value? (allowOpaque := true) with
+          | none => []
+          | some value => (reduceAdmin value).getUsedConstants.toList
+        else []
+      proofClosure env (refs ++ rest) (seen.insert n)
+
+run_cmd do
+  let env ← getEnv
+  for root in #[`RHLean.Analysis.finiteWheel_centered_next_root_step,
+      `RHLean.Analysis.finiteWheel_rootAdmission_sum_bounds] do
+    let reached := proofClosure env [root]
+    for required in #[`RHLean.Analysis.finiteWheelFract_sub_density_eq_neg_floor,
+        `RHLean.Analysis.finiteWheel_divisorFloor_eq_survivorCount,
+        `RHLean.Analysis.vfMidPrefixWheelCounting_cast_int_prime_step,
+        `RHLean.Analysis.finiteWheel_pred_count_prime_add_two] do
+      unless reached.contains required do
+        throwError "Missing live source dependency in {root}: {required}"
+    logInfo m!"PASS complete-wheel live dependencies: {root}, closure={reached.size}"
+
+end CompleteWheelRootAdmissionAudit
 
 /-- info: 'RHLean.Analysis.finiteWheel_centeredAt_square_source' depends on axioms: [propext, Classical.choice, Quot.sound] -/
 #guard_msgs in
