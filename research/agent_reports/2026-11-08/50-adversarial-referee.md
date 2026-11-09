@@ -1942,3 +1942,12 @@ Final executed output:
 }
 ```
 
+
+
+### Verified Publication Receipt - 20261108-referee-3
+
+The substantive continuation above was committed as **2709d8f1b90b3fb94c95a1e5c8cc8535aabb3238**, content blob **da13c3e08b7e815100a4c72b9208a5a4ba5b652d**, and re-fetched at that immutable commit. All **155470 characters** matched the submitted report exactly. Commit metadata confirms that the ONLY changed path is research/agent_reports/2026-11-08/50-adversarial-referee.md. Earlier report content and the early checkpoint were preserved.
+
+Execution=COMPLETED; substantive publication=PUBLISHED_AND_READBACK_VERIFIED. EC1-EC4 receive the precise independent paper verdicts in D. SG1-SG4 remain new PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED; SG5 is FINITE_COMPUTATION. NEW_VERIFIED_ENDPOINT_GAIN=NONE. Canonical VF, zero-log amplification, finite A and RH remain OPEN. Late draft #1117 remains a separate pending review at the timestamped status recorded in L.
+
+[Immutable verified substantive report](https://github.com/OVVO-Financial/RH_Lean/blob/2709d8f1b90b3fb94c95a1e5c8cc8535aabb3238/research/agent_reports/2026-11-08/50-adversarial-referee.md). This receipt is appended after substantive verification; its own commit is verified separately before the user-facing close-out. No main/source/PR/workflow/schedule modification or other-agent launch occurred.
