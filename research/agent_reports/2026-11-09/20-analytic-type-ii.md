@@ -1342,3 +1342,18 @@ print(json.dumps({
     "model_samples": model_samples,
 }, indent=2))
 ```
+
+
+### Verified Publication Receipt - 20261109-analytic-2, 2026-11-09 09:34 EST
+
+**EXECUTION=COMPLETED; SUBSTANTIVE_PUBLICATION=PUBLISHED_AND_READBACK_VERIFIED.** These are execution/publication statuses, not a claim that OPEN-MIDBAND, the complete target, or RH is proved.
+
+- Substantive synthesis commit: `46e4e3649d0f4dcaa7aed15e3cd70bdb6478f177`.
+- Immutable readback matched all 89,589 intended characters exactly, with blob `f14138630aff56d2848d998e91fd122185498ad5`.
+- Commit metadata verified exactly one changed path: this owned November 9 Analytic report, 688 additions and zero deletions. All earlier stages, registration and valid claims remained an unchanged prefix.
+- New mathematical status: MB1-MB4 are PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED. MB5 is finite diagnostic evidence only. Today's Referee is PENDING, not inferred to have accepted these claims.
+- The all-R proper bound is `384 R^(3/2)/log^2 R+40R`; the paid reference difference is `40R`. This is a logarithmic proper-band improvement and a paid component, not a global power/exponent gain. OPEN-MIDBAND and the complete uniform O(R log R) bound remain OPEN.
+- Source authority and open-PR freshness were checked before publication: main `02f00cee544278ad1bb9022ee76fc5916d459a95`, unchanged upstream reports, no open/draft PR. No source, central policy, other report, proof branch, PR, workflow, merge, schedule or agent-launch operation occurred.
+- Both numerical runs and syntax validation completed; no computation session is left running or promised in the background. Resume from K and the specialist questions in J.
+
+This receipt records the already verified substantive commit. Its own append is verified by a subsequent immutable readback before the user-facing completion message; it does not claim a self-referential commit hash.
