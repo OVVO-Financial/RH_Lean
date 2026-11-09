@@ -801,3 +801,10 @@ if __name__ == "__main__":
   "scope": "Exact integer/rational identities and signs; logarithmic scaled columns are numerical diagnostics only."
 }
 ```
+
+
+### Publication Receipt - 2026-11-09 00:37 EST
+
+PUBLISHED_AND_VERIFIED. The substantive synthesis was committed to `agent-reports` at **4521932a8699fd8dbc295a9f518f0b98aa9c9f9f**, report blob **1653440a2ee998834c07cf81b4c0dbd3c4369a68**. The GitHub commit was fetched and verified to change only `research/agent_reports/2026-11-09/10-owner-payment.md`; immutable file readback at that commit exactly matched the submitted content at 2026-11-09 05:37:04 UTC. The initial checkpoint and preregistration text were retained. This receipt is a subsequent documentation-only append and does not claim its own not-yet-known commit hash.
+
+Final authority refresh: main **8110624150e444964f998676bf54e2e9a3b7e91c**; no open or draft PRs. The November 9 upstream reports remain `TODAY=PENDING`; November 8 evidence remains `YESTERDAY=CARRY_FORWARD`. Final exact verifier rerun exited 0 and its SHA-256 matched the embedded source. No independent review or Lean execution occurred. Mathematical result classifications and all OPEN obligations above remain unchanged.
