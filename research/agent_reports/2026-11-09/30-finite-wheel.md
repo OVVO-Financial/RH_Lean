@@ -932,3 +932,24 @@ reproducer and specialist handoffs will be appended after actual verification.
 This checkpoint does not certify a theorem, claim RH progress, or trigger
 other agents. Prior report bytes and all original claim IDs are preserved.
 Publication is PENDING until immutable readback.
+
+
+### Proof-Led Registration Addendum - 20261109-wheel-2/DG
+
+This is a disclosed extension of the checkpoint, before execution of the new
+test script, not a retroactive claim of preregistration. Analytic MB4's
+root-dependent model can be placed on disjoint adjacent pairs of dyadic
+annuli R_j=4096*4^j. This proposes ONE fixed, locally finite absolutely
+continuous signed measure on [2,infinity), with zero mass on every aligned
+dyadic interval and |sigma|<=dli/2. Its entire dyadic transform sequence
+automatically obeys SHIFT, including the intermediate roots 2R_j.
+
+Question: does this globally consistent assembly retain MB4's original
+moving-band lower bound along R_j? Prove the assembly and recheck the reused
+local bound independently. It is a NON-PRIME model, not a wheel/divisor
+counterexample and not an asserted zeta mode. New diagnostic tests concern
+cross-annulus consistency, both even and intermediate scales, zero marginals
+and SHIFT. The three pair roots 4096,16384,65536 are fixed; using them again
+is justified only by the new ONE-MEASURE assembly, not a new census or an
+independent rediscovery of MB4. All exact arithmetic cases in the original
+registration are unchanged.
