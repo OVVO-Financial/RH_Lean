@@ -4548,3 +4548,14 @@ The primary and refined records omit only the verbose complete collar pair lists
   }
 }
 ```
+
+
+### Verified Publication Receipt - 20261109-census-2
+
+Substantive findings were published at **2026-11-09 16:27:51 UTC (11:27:51 EST)** in commit **dd0624f85eaf5941ab756df14667abce8f70a8ef**, report blob **1c81fba8b27f02fc306c636b83935453d45b3bc7**. Immutable full-content readback matched the intended report byte-for-byte. Commit metadata verifies exactly one changed path: research/agent_reports/2026-11-09/40-prime-census.md.
+
+The initial registration commit 075800ea1d8657f7e60b8dbf6922bd7decb5749a was created at 16:08:40 UTC; the disclosed pair-extension commit 732779322bfe307546eb58f79c244f3330dd7017 at 16:16:56 UTC. Both were read back before their respective arithmetic tests, and both commit records also show only the owned report changed.
+
+All computation sessions completed. The six embedded source blocks match the actual executed program files, the 50 continuation fence markers are balanced, and all required A-N sections are present. An initial shell-quoted report-lint command failed before execution; the subsequent direct content validation passed. This was a presentation check, not a failed mathematical run.
+
+EXECUTION=COMPLETE. PUBLICATION=VERIFIED for the substantive commit above. NEW_LEAN_PROOF=NONE. NEW_GLOBAL_ENDPOINT_GAIN=NONE. BL3 remains PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING. BL1-BL2/BL4-BL5 retain their stated finite scopes. This receipt preserves the prior report and will itself be verified after its append.
