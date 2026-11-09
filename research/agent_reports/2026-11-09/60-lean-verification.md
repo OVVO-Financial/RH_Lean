@@ -504,3 +504,12 @@ NO_MAIN_PUSH; NO_MERGE; NO_AUTO_MERGE; NO_LOCAL_LEAN; NO_AGENT_LAUNCH.
 ```
 
 Execution=COMPLETE_WITH_INFRASTRUCTURE_BLOCKER; formalization remains PARTIAL. No background build or local command session is left running, and no automatic continuation is promised. The early checkpoint commit `22829bce0472f61ab595d7f1b0003f652e76b9e7` and draft milestone commit `a07405f520468b69558e75dd199c5195042618e9` were each read back immutably. This final synthesis is prepared for append-only publication; success will be asserted only after its own commit/readback. All previous daily history is preserved.
+
+
+### Verified Publication Receipt - 20261109-lean-2
+
+The substantive A-P synthesis was published at commit **202a4cff5e8a701baf2fee003e6ead2eeb5bada9**, report blob **9ec02d4a67a81e3f7a617a24f39bb31bbf7cb7de**, and re-fetched at that immutable commit. All 56636 characters matched the prepared report exactly; the complete previous report is an unchanged prefix. Only this role's dated report was updated. SUBSTANTIVE_PUBLICATION=PUBLISHED_AND_READBACK_VERIFIED.
+
+The [draft proof PR #1125](https://github.com/OVVO-Financial/RH_Lean/pull/1125) remains at **538aa743a3e0de86b5ec44c9b4f159df3f5bd050**, unmerged and NOT review-ready. Its metadata now prominently records the latest-head zero-job Actions failures and rejected retry. No source revision or successful verification is implied by report publication. NEW_PROOF_STATUS=IMPLEMENTED_NOT_VERIFIED; no new PROVED_IN_LEAN result. The full discrepancy bound and RH remain OPEN.
+
+Execution ended with the documented CI infrastructure blocker, not a mathematical refutation or a completed Lean proof. Resume this existing branch after refreshing live evidence. No main push, merge, auto-merge, local Lean execution, schedule change or agent launch occurred. This receipt records the already verified substantive commit; its own append is separately checked by immutable readback.
