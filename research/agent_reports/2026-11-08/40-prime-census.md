@@ -2633,3 +2633,1337 @@ Full original Euler return at R=257,263 and each primary first falsifier <=1024:
 
 Stop after decisive falsifiers and the fixed confirmation range. Do not fit a constant or infer an infinite estimate. Any new universal lemma is separately proved and labeled PAPER_PROOF / SELF_AUDIT, not Lean or independent Referee acceptance. No original-source code or report other than the owned daily report may be published.
 
+
+
+## Exact Additive-Frequency Synthesis - 20261108-census-3
+
+Run `20261108-census-3`. Scheduled trigger: November 8, 2026, 19:00:01 EST (America/New_York). RUN_ID_UNAVAILABLE. This is the completion of that invocation, not an additional launch.
+
+### A. Most Important Discovery
+
+**Nonzero additive frequencies can reinforce the coherent frequency on the genuine Mobius triangle. The factor-3 frequency pair can do the same, but its actual weighted contribution is uniformly small without any favorable-sign hypothesis.** Its sign is controlled by a specific backward residue-class sum, not by multiplicativity alone.
+
+Both laboratory candidates registered before execution are REFUTED. The first failures in the held-out root range are R=258 for all-nonzero anti-alignment and R=307 for third-root anti-alignment under R=1 mod 3. A subsequent, explicitly retrospective minimization gives R=6 and R=28, respectively, for the frozen width rule. These are auxiliary sign counterexamples, not counterexamples to Coordinator AF, finite-C, the canonical VF statement, first-bad payment, or RH.
+
+The surviving replacement is exact. With the notation below,
+
+```text
+C3 = F0*(G0-3*B_c)/q,   c=(2R-2) mod 3,
+|C3| <= (2W/q)*|F0| <= |F0| <= 2*sqrt(KR).
+```
+
+The first equality and bound apply to every original AF triangle with W>=1 and W=1 mod 3, not just the tested roots. The last bound uses the full strict-history envelope. The proof is given below; its status is PAPER_PROOF / SELF_AUDIT, independent review PENDING, NOT_FORMALIZED. The finite results are FINITE_COMPUTATION. **NEW_VERIFIED_ENDPOINT_GAIN=NONE; canonical VF, zero-log amplification, uniform finite A, and RH remain OPEN.**
+
+### B. Authority And Current Objective
+
+Pinned main: `6144c73b05d5a85e6a9424708986860c6276f60d`. Intake agent-reports: `1dcde5441a9e157cf964d38745f867b44811f75b`. Main was first retrieved at the beginning of this invocation, shortly after 2026-11-09 00:00 UTC. The governing AGENTS blob is `bdd5b9f6867ae2d39b74fc966b7f548a9aba3a61`; CURRENT_PROOF_CONTRACT blob is `d1d6fd558ee23927bd9f70ffdc375bafd1dbb67a`.
+
+Canonical target: `VFCanonicalSquareVonKochStatement`, namely exists C>=0, for every integer R>=2, |pi(R^2)-VF_can(R^2)|<=C R log R. The selected proper-source investigation serves FINITE-AC through the original ordered Euler kernel, without claiming to pay the full consumer. The strict-history target is retained; K_R is not replaced by 1.
+
+Recent PRs #1111, #1115 and #1116 are all human-merged. #1111 supplies the near-uniform explicit boundary b_pack=7/8-1/(32*N_pack). The actual #1116 same-source statement is beta<=7/8-(7m/8-e), for a fixed fine HighData certificate and its original minimum m and error e. Its coarse explicit old-family bound must not displace a stronger comparator from another verified family. Coordinator CP2's composition and Analytic EC's e->0 argument retain their own paper/review status; neither is a new formal result of this run. No change of arithmetic source is inferred from these analytic facts.
+
+**CI precision correction to the checkpoint:** 13 successful checks were attached to #1111 head `20875a55dd9780993c4cdc06624c88be6060e2ee`, and 14 to #1116 head `1e32da429324c39a791406a0ae1265581df7ea06`. Attached-head success is not proof of an exact-head checkout. The retrieved #1116 dedicated log actually checks synthetic merge `60fa59f302f26900435231cd9685f0f6c5f9b82a`, incorporating that head. Its source blob `b7b05069ea013d83b2acaa76a8ea2ed932568930` was fetched and equals current main byte-for-byte. The log shows warning-fatal Lean invocation and only propext, Classical.choice, Quot.sound for the five displayed declarations. Dependency-checkout and action-runtime warnings also occur; they are not silently described as a warning-free log. No new current-main or exact-PR-head Lean build is claimed. Evidence: run 42520918799, job 128853972193.
+
+### C. Competing Hypotheses And Registration
+
+Registration was published and immutably read back at commit `270bf08aadd32af4a6a70735b4ddc3a0ff9d9338`, blob `4e95c64fb6fe9a8fee3463a9e8ede7cb94726307`, before any arithmetic test output. The existing daily report remained an unchanged prefix.
+
+H_DC: for every admitted root, C0*(L-C0)<=0. Rival: genuine nonzero modes sometimes reinforce the average. A strictly positive exact product rejects H_DC.
+
+H_3: under the additional R=1 mod 3 condition, C0*C3<=0. The relation mu(3n)=-mu(n) for 3 not dividing n motivates testing this sign, but does not imply it. Rival: a backward residue sum, with no forced relation to the forward sum, governs the sign. A strictly positive exact product rejects H_3.
+
+These were new laboratory candidates, NOT claims attributed to the Coordinator. No previously accepted source theorem is refuted. The exact factor-3 identity was written down before execution. Its amplitude bound and the small-root minimization were developed after the first output and are disclosed as post-discovery work.
+
+### D. Original Carrier And Domain
+
+Use N=R-1, X=R^2-1 and genuine mu, including mu(1)=1 and squareful zeros. Set I2=[ceil(R/3),floor((R-1)/2)], B=R-W. Empty sums are zero. Preserve ordered pairs and equal-product multiplicity.
+
+```text
+T_R(a,b)=floor(X/(ab))-(R+1)*floor(N/a)/b,
+J2=sum_(a in I2,B<=b<R,3ab<=X) mu(a)mu(b),
+L =sum_(a in I2,B<=b<R,3a+b<=2R) mu(a)mu(b),
+K_R=max_(0<=y<R) (M(y)-1)^2/(y+1).
+```
+
+The width is the LARGEST integer W>=1 congruent to 1 mod 3 satisfying
+
+```text
+4W<=R,   16*K_R*W^2<=R^2,   W^6<=R^4*K_R.
+```
+
+All comparisons are integer/rational. The last condition is exactly the squared AF curvature condition because K_R>=0. The registered primary roots are every R=257..4095 except 317,549,1027,2002, which were previously inspected. There are 3,835 primary roots. The five fixed confirmation roots are 8209,10007,16381,20011,32771. No endpoint was changed after seeing a failure. This is a new frequency-sign test, not another run of AF's 8,413-case identity census.
+
+Let q=2W+1, so 3 divides q. On Z/qZ, put f(v)=mu((R+v)/3) for 0<=v<=W with 3 dividing R+v and (R+v)/3 in I2, and zero otherwise; g(d)=mu(R-d) for 1<=d<=W; h(u)=1 for 0<=u<=W. Use F(k)=sum f(v)e(-kv/q), and similarly G,H. AF gives L=q^-1 sum_k H(k)F(k)G(-k). Define C0=(W+1)F0*G0/q, C3 as the sum of k=q/3 and 2q/3, and Crest=L-C0-C3. The two nonzero members are kept together as one exact real sector. These additive orders are NOT Hecke conductors or original #915 source masks.
+
+### E. Executed Results
+
+The sieve/prefix implementation and separate C++ trial-factor/direct-pair implementation produced byte-identical 3,840-row integer files. SHA-256: `c112800c4e2bff84aebde90c10f4702950ba986019df6af058538a5cfb72f165`. The independent C++ run visited 296,585,703 ordered sites and trial-factored all coefficients through 32771. A third, exact cube-root-ring implementation independently verified all 3,840 C3 numerators using trial-factored coefficients, not the proposed residue formula.
+
+Across the complete registered set, the C0/nonzero product is positive in 1,710 rows, negative in 1,744, and zero in 386. Among 1,280 rows with R=1 mod 3, C0*C3 is positive in 612, negative in 501, and zero in 167. These counts are finite classifications, not a probabilistic independence claim. K_R=3/2 throughout the registered set is likewise finite evidence only.
+
+All entries C0,C3,Crest below share the denominator q shown in the table.
+
+| R | W | q | q*C0 | q*C3 | q*Crest | L | J2 |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| 258 | 43 | 87 | -352 | -20 | -237 | -7 | -15 |
+| 307 | 46 | 93 | -188 | -4 | 1308 | 12 | 9 |
+| 8209 | 433 | 867 | -101556 | 63 | -99651 | -232 | -187 |
+| 10007 | 496 | 993 | 2485 | 80 | 27225 | 30 | 24 |
+| 16381 | 688 | 1377 | 0 | 0 | 17901 | 13 | 31 |
+| 20011 | 787 | 1575 | 80376 | -186 | -138465 | -37 | 19 |
+| 32771 | 1093 | 2187 | -136750 | 115 | 165066 | 13 | -21 |
+
+Nine fixtures also have complete exact decompositions by additive order d dividing q, reconstructed by two residue-convolution methods. Every sector square and cross term sums to L^2. In particular R=32771 has order numerators, in orders 1,3,9,27,81,243,729,2187,
+
+```text
+[-136750, 115, -660, -4644, -14958, 10125, -139725, 314928].
+```
+
+Their sum is 28431=q*13. The sector diagonal is 137751556259/4782969, while all mixed terms sum to -136943234498/4782969, leaving exactly 169. Neither the signs nor the large individual sectors can be interpreted without that mixed contribution.
+
+### F. Exact Falsifiers And Extremes
+
+At the first primary H_DC failure R=258,W=43, F0=4, G0=-2, and the relevant backward residue sum B_1=1. Thus C0=-352/87 and L-C0=-257/87; the retained square cross term is **2*C0*(L-C0)=180928/7569>0**. The genuine positive row sites are 86,87,91,93,94,95; negative row sites are 89,97; squareful row sites contribute zero. The backward interval is [215,257], with residue sums (-1,1,-2) in classes 0,1,2.
+
+At the first primary H_3 failure R=307,W=46, R=1 mod 3, F0=-4,G0=1,B_0=0. Hence C0=-188/93, C3=-4/93, and **2*C0*C3=1504/8649>0**. The backward residue sums are (0,2,-1). The remaining frequencies reverse the overall sign: Crest=436/31 and L=12. Local reinforcement and total cancellation are different statements.
+
+The strongest positive C0/nonzero cross term in the primary domain occurs at R=2899,W=217: C0=20928/145, L-C0=10102/145, L=214, and their square cross term is 422829312/21025. This is a declared finite extremum, not an inferred universal constant.
+
+Retrospective direct enumeration of every R=2..256, under the SAME frozen width rule, yields 253 admitted roots and the smaller witnesses:
+
+* R=6,W=1,K=3/2: the sole affine pair is (a,b)=(2,5), both signs -1. L=1,C0=2/3,C3=1/3. This is the first H_DC failure for that rule.
+* R=28,W=4,K=3/2: F0=mu(10)=1, the backward interval [24,27] has only mu(26)=1 nonzero, and B_0=0. L=1,C0=5/9,C3=1/9. This is the first H_3 failure for that rule.
+
+The word "first" does not claim minimization over arbitrary width-selection rules. These small examples were NOT held out and are not credited as a second independent discovery. At R=263,W=43, C0=C3=0 but L=-12, with the whole value in additive order 87. Thus a bound on L by any finite multiple of |C0|+|C3| is also impossible on this carrier; this is a post-discovery consequence, not a registered third test.
+
+### G. Hidden Variable: A Backward Residue Sum
+
+Claim `20261108-census-3/FR1` (PAPER_PROOF, self-audit): for every original AF triangle with W>=1, W=1 mod 3 and 4W<=R, let
+
+```text
+F0=sum_(a in I2,0<=3a-R<=W) mu(a),
+G0=sum_(R-W<=b<R) mu(b),
+B_c=sum_(R-W<=b<R,b=c mod 3) mu(b),  c=(2R-2) mod 3.
+```
+
+Then q*C3=F0*(G0-3B_c). To prove this, write W=3j+1. The counts of h in residue classes 0,1,2 are j+1,j+1,j. Since every supported v is congruent to -R mod 3, summing the two nontrivial cube-root characters gives weights +1 unless 2R-b=2 mod 3, when it gives -2. This yields the formula with no floating approximation and with all physical sites retained.
+
+Consequently
+
+```text
+q^2*C0*C3=(W+1)*F0^2*G0*(G0-3B_c).
+```
+
+That is a complete sign classification. Under R=1 mod 3,
+
+```text
+B_0 = -sum_(ceil((R-W)/3)<=n<=floor((R-1)/3),3 not dividing n) mu(n).
+```
+
+It uses multiplicativity at the actual backward interval. F0 instead uses a forward interval near R/3. Their different endpoints are indispensable. If B_0=0 and F0*G0!=0, then C3=C0/(W+1), so reinforcement is forced. Exactly 80 registered rows satisfy this condition, independently checked in the audit. The residue sum explains these instances; no statistical causality or independence is claimed.
+
+### H. Exact Frequency Reconstruction
+
+Claim `20261108-census-3/FR2` (PAPER_PROOF for the algebra; FINITE_COMPUTATION for the nine certificates). For e dividing q, define
+
+```text
+A_e=sum_(v,d,u) f(v)g(d)h(u) * 1_(e divides d-v-u).
+N_e=sum_(j divides e) mu(e/j)*j*A_j.
+```
+
+Character orthogonality gives e*A_e as the sum over frequencies whose additive order divides e; divisor inversion therefore gives the EXACT order-e numerator N_e. Hence the order-e contribution is N_e/q and sum_(e divides q)N_e=qL. This is a transparent finite Fourier projection, not a new arithmetic cancellation theorem or a transfer to Hecke phases.
+
+The primary certificate builds the cyclic correlation of f and g, then counts the h residues. The second certificate separately groups f,g,h by residues before multiplication. The third-root check is more independent: it works in Z[z]/(z^2+z+1), directly evaluates F,G,H and takes the trace 2a-b of a+bz. It shares neither the inferred residue formula nor a floating Fourier transform. The independent C++ reconstruction uses direct physical (a,b) pairs, not either spectral array.
+
+### I. Corrected Theorem And Surviving Question
+
+Claim `20261108-census-3/FR3` (PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING): for every R,W as in FR1 and every valid LowerMertensCriticalEnvelope R K,
+
+```text
+|C3| <= (2W/(2W+1))*|F0| <= 2*sqrt(KR).
+```
+
+Proof: each coefficient in G0-3B_c has magnitude at most 2 and there are W integers. Thus |G0-3B_c|<=2W. F0 is M(A)-M(lo-1), with A=min(floor((R-1)/2),floor((R+W)/3))<R. In a nonempty interval, subtracting the two shifted-history values and applying the original envelope gives |F0|<=sqrt(K(A+1))+sqrt(K*lo)<=2sqrt(KR). If the interval is empty, F0=0 and the claim is immediate. No empirical constant is used. The proof uses absolute coefficient bounds for the amplitude, not multiplicativity or a favorable sign.
+
+On the additional AF1 domain, its already proposed paper bound |E2-L|<=(217/36)R sqrt(K), together with R>=4 when W>=1, gives the proper-source corollary
+
+```text
+|E2-(C0+Crest)| <= (253/36)*R*sqrt(K).
+```
+
+This corollary retains AF1's paper/review dependency and only treats widths W=1 mod 3. It removes a paid frequency pair, not the whole nonzero spectrum, and not the Euler complement. It does not extend an estimate to unregistered widths by rounding without paying the difference.
+
+The surviving OPEN proper-strip question remains whether |C0+Crest|<=C R sqrt(K) uniformly on this domain, with one C independent of R,W,K. This is a local target reformulation, NOT an independent input proved by the report. Finite survival of any such bound is not advertised as evidence for a particular universal constant. The meaningful gain here is eliminating two false sign shortcuts and isolating an explicitly paid contribution.
+
+### J. Complete Signed Return
+
+Reuse the original E1 constant-floor rectangle, with a>=floor(X/(2B))+1 and B<=b<R, and define Z by summing T_R directly over EVERY other ordered pair outside E1 and E2. Let P=(R+1)sum_(1<=b<R)mu(b)/b, m2=sum_(a in I2)mu(a), and t_B=sum_(B<=b<R)mu(b)*(1-(R+1)/b). Then
+
+```text
+Q=P+E1+2*m2*t_B+L+(J2-L)+Z,
+Q=P+E1+2*m2*t_B+C0+C3+Crest+(J2-L)+Z,
+M(X)=2*M(R-1)-Q.
+```
+
+Both recombinations were checked exactly at four original-source fixtures. Z was computed directly, not defined by subtracting the answer. The six-part version retains six diagonal squares and all fifteen cross terms; the eight-part version retains eight squares and all twenty-eight cross terms. The total is exactly Q^2 in both cases.
+
+| R | M(R-1) | M(R^2-1) | Q | Q^2 | alpha_R |
+| --- | --- | --- | --- | --- | --- |
+| 257 | -1 | 4 | -6 | 36 | 6/66049 |
+| 258 | -2 | 23 | -27 | 729 | 242/49923 |
+| 263 | -1 | 64 | -66 | 4356 | 2646/69169 |
+| 307 | -1 | -67 | 65 | 4225 | 9248/282747 |
+
+Here alpha_R=(M(X)-1)^2/(R^2*K_R), with the actual K_R=3/2 at these roots. A separate trial-factor calculation through 94248 independently checks M, Q and these complete endpoints. The full source pass visits 293865 ordered sites. Canonical LOW, coherent modes, and Z are not discarded; nothing in the frequency experiment supplies a bound for the complete HIGH return. No #915 source admission or conditional first-bad premise is asserted.
+
+### K. Falsification And Execution Audit
+
+Claim `20261108-census-3/FR4`: H_DC and H_3 are REFUTED at the exact stated scopes. FR5: the registered table, spectral certificates and full-return checks are FINITE_COMPUTATION. FR1-FR3 are newly written paper arguments, not independently accepted mathematics or Lean declarations. Independent algorithmic verification does not impersonate independent Referee acceptance.
+
+No floating-point arithmetic, numerical logarithms, probable-prime tests, randomized signs, fitted thresholds, or uncertified complex values enter a sign claim. Discrete primality and factorization are deterministic throughout the declared finite ranges. Python 3.12.14 and g++ 13.3.0 were observed. C++ flags: -O2 -std=c++17 -Wall -Wextra -Werror. Observed timings: main Python calculation 0.787691538 seconds; independent C++ run, shell timing 0.454 seconds; final independent audit 0.546382974 seconds. They are run measurements, not benchmarks.
+
+The first timing command failed because /usr/bin/time was absent, and the prematurely attempted comparison then found no C++ output file. The executable was subsequently run successfully with the shell's time command, and cmp returned exit status 0. This was an execution-wrapper issue, not a numerical mismatch; no failed comparison is hidden as agreement.
+
+Original source definitions are unchanged at the inspected blobs. Prior HC/SJ/TC computations were reused at their verified scope. The new observations do not supersede Referee WT's explicitly NON-Mobius obstruction. No local Lean, new proof branch, PR, issue, workflow, schedule, other-agent launch, or other report edit occurred.
+
+### L. Specialist Handoffs
+
+* Proof Architect: reject the two laboratory sign restrictions, retain AF's actual inverse statement, and record FR3 as a proper-component payment only. R=263 and R=16381 show that vanishing C0 and C3 do not eliminate the triangle. No campaign change or global advance is requested.
+* Owner: the factor-3 backward sum is genuine arithmetic, but not Johnston's first moment or #915 masked source. No prime/floor-Li or physical admission transfer is licensed.
+* Analytic: a large unweighted paired Fourier product at k=q/3 can be harmless after its true H/q weight. Any new inverse restriction should keep that weight and the complete sum; do not transfer these rational-mu frequencies to ideal-character sources. EC's stronger endpoint remains separately review-pending.
+* Wheel: residue-specific retained cofactors, not aggregate signs alone, control FR1. Your FD occurrence-capacity obstruction remains on its distinct odd-boundary carrier; no inference between the two follows without a proved map.
+* Referee: independently check the residue c=2R-2, both cube-root modes, caps and <= endpoints, the history-shift cancellation, and the all-W FR3 proof. Small falsifiers R=6,28 and held-out R=258,307 are exact. AF1 is a paper dependency of the displayed 253/36 corollary, not a new accepted theorem here.
+* Lean: no implementation request before mathematical acceptance. A future finite frequency-projection lemma would need the original f/g/h carrier and both modes. These are not compiled claims, and green analytic CI does not certify the numerical arrays.
+
+### M. Ranked Hypothesis Portfolio
+
+| Candidate | Evidence and independent ingredient | Disposition and next requirement |
+| --- | --- | --- |
+| Universal C0/nonzero anti-alignment | Exact positive cross term at R=258; retrospective R=6 | REJECT. Do not revive by averaging signs without a new hypothesis. |
+| R=1 mod 3 forces third-root anti-alignment | R=307 and retrospective R=28; B_0=0 forces reinforcement | REJECT. Replace by the exact residue classification FR1. |
+| Third-root amplitude is paid without a sign rule | Exact formula; bounded coefficients; full strict-history envelope | PAPER_PROOF, pending independent review. Check all caps and both modes before formalization. |
+| Only C0 and C3 control the original triangle | R=263 has C0=C3=0,L=-12; confirmation R=16381 has L=13 | REJECT every bound vanishing when those two vanish. Keep the remaining spectrum. |
+| Full AF proper-strip bound | Still needs a uniform arithmetic restriction on C0+Crest | OPEN, no empirically selected constant and no completed global consumer. |
+
+### N. Resume Capsule And Publication
+
+Resume from main `6144c73b05d5a85e6a9424708986860c6276f60d`, the report checkpoint above, and FR1-FR5. All 3,840 registered rows, nine exact spectral returns, four complete Euler returns, and the retrospective 253-root minimization are complete. Reuse their hashes; do not repeat these scans unchanged.
+
+The single highest-value next experimental task is to choose a NEW quantified restriction on the weighted residual spectrum after removing the provably paid third-root pair. A suitable source-directed continuation would separate frequencies near zero from the rest using the actual triangular multiplier and certify any complex comparisons, with C0 and Z retained. Freeze that restriction and new roots before computation; mere measurement of another maximum is not a theorem. No specific finite sample is claimed to establish the missing all-scale restriction.
+
+All seven roles' November 7 and November 8 reports were retrieved at the pinned intake snapshot. Relevant latest claims, handoffs, review dispositions and resume sections were read; historical embedded programs were not all reexecuted. TODAY=AVAILABLE for every role; prior results remain at their original dates and evidence grades. Equal Coordinator mirrors were counted once. External inbox blob `038018145c0fddb2f6306c0712373adf9cd1ea52` has no post-October-18 entry. EXT-20261018-PNT-1..3, EXT-20261017-XCOORD-1 and EXT-20261014-5 were carried forward solely for their signed-source, root-boundary and unconditional/first-bad safeguards; they do not supply the new frequency estimate.
+
+The source/report hash ledger, complete executed programs and captured results follow in the published append. This report preserves prior daily content. Final publication is PENDING until an actual commit and immutable byte-for-byte readback are observed. No background continuation is promised.
+
+
+## Source And Continuity Ledger
+
+### Main Sources
+
+| Path | Blob SHA |
+| --- | --- |
+| AGENTS.md | `bdd5b9f6867ae2d39b74fc966b7f548a9aba3a61` |
+| CURRENT_PROOF_CONTRACT.md | `d1d6fd558ee23927bd9f70ffdc375bafd1dbb67a` |
+| docs/RHLEAN_REPO_WIDE_PROOF_ATTACKS_20261108.md | `5862ccaffd0e75c25b509c1d246c3aa09b6c345b` |
+| docs/PROOF_DEPENDENCY_DAG.md | `455717b6d99da7248c71ada0062dfd6747a7938d` |
+| docs/COORDINATE_ATLAS.md | `cd0419d00a37739fe5a292f5cb738e33213949d5` |
+| research/EULER_HYBRID_ABEL_GRAM_20261027.lean | `2a94dd8fd56fc03e95f732fb44b778a8d4f83e26` |
+| research/EULER_RANK_ONE_FRACTIONAL_ROWS_20261027.lean | `e482711a3f55c1f59fc771f108671477f51732f2` |
+| research/EULER_FRACTIONAL_COUPLED_20261027.lean | `e6c4b1690e497760d366e36b28a1f7aa60e19f85` |
+| research/EULER_SELF_DUAL_FINITE_C_BRIDGE_20261027.lean | `e97561ef330a9996fd807d8910369f0698147b01` |
+| research/EULER_SELF_DUAL_ENDPOINT_GATE_20261027.lean | `e7ee8f77ffd59bccaa49dd6d74fbe0d7952c2d73` |
+| RHLean/Proof/SquareRootLegalAncestryGramReduction.lean | `1270d4d91c53b50b110d10014f223f427fb7a575` |
+| research/oai_434/VF919WindowSaturatedLowPrincipal.lean | `b7b05069ea013d83b2acaa76a8ea2ed932568930` |
+
+### Two-Day Reports
+
+| Path | Intake Blob SHA |
+| --- | --- |
+| research/agent_reports/2026-11-07/00-coordinator-am.md | `00a649b70f851ca193e74e5004d0d3390cf9ca18` |
+| research/agent_reports/2026-11-07/10-owner-payment.md | `933e8eb23e669594cc687059d75147e6267eec8d` |
+| research/agent_reports/2026-11-07/20-analytic-type-ii.md | `77f3e5795533041e4356ceb94cb66328da7af27c` |
+| research/agent_reports/2026-11-07/30-finite-wheel.md | `7739fa5d4cc77f35773b0d4149b2ddd21732a70d` |
+| research/agent_reports/2026-11-07/40-prime-census.md | `3fae830e34c590d32c31ad77cad3ace833eb3ff5` |
+| research/agent_reports/2026-11-07/50-adversarial-referee.md | `426c2abfa5b8926b512e07f05be37692a2416d0b` |
+| research/agent_reports/2026-11-07/60-lean-verification.md | `ec14e2803af8c1e56123682ee61ed927ed4f9450` |
+| research/agent_reports/2026-11-08/00-coordinator-am.md | `5d14fb5e0eb3e40a479ebb344b9f8a84a169535e` |
+| research/agent_reports/2026-11-08/10-owner-payment.md | `4e1b83a1e5ff8c134e9ca64404397c70c2b07252` |
+| research/agent_reports/2026-11-08/20-analytic-type-ii.md | `edecba8785a45cda87c0035d0348695941f1b8ea` |
+| research/agent_reports/2026-11-08/30-finite-wheel.md | `60d4cf1b65d4b1b2cc4f13f6c0940c14cb2c50fd` |
+| research/agent_reports/2026-11-08/40-prime-census.md | `c70b0a6dda7278e5e7befca546893314a16530df` |
+| research/agent_reports/2026-11-08/50-adversarial-referee.md | `68b1162b59f195722fc34378c0d4a182884025dd` |
+| research/agent_reports/2026-11-08/60-lean-verification.md | `7f394c7ca839386c6692a5ad622f26c299db8abb` |
+
+Coordinator 90 mirrors have the same blob as 00 on both dates. Report findings were consumed at their stated scopes, not converted into source authority.
+
+
+## Reproduction
+
+```sh
+python af_probe.py
+g++ -O2 -std=c++17 -Wall -Wextra -Werror af_reference.cpp -o af_reference
+time ./af_reference
+cmp /workspace/af-rows-python.tsv /workspace/af-rows-cpp.tsv
+python af_audit.py
+```
+
+The programs use /workspace for generated output, matching the actual execution environment. No network, external data, randomized seed or Lean installation is required. Full raw rows are regenerable; their shared SHA-256 is c112800c4e2bff84aebde90c10f4702950ba986019df6af058538a5cfb72f165.
+
+
+### Executed File Hashes
+
+```text
+d43337a1bb3f894958182d1c3b03f3dcfd8fc24196d3caec58a1de288f18a215  /workspace/af-registration.md
+8dc36326c09031be6704c6d553b6decab673bb7d94272fcfbbdb23a0abc46641  /workspace/af_probe.py
+fa41e9d66aa7189ad6ca097b3c8c74e629373727017aeddf728447b1c0621d0b  /workspace/af_reference.cpp
+9eb6650a3052fe6989aa09d9fbd972aaa697dde578de5acbd65552421404cc0d  /workspace/af_audit.py
+f2413e6b40eeaedd1fd754fc8043077641e0ecad41b2a33d941dbd59b5b7710e  /workspace/af-results.json
+464e8f9c3d69df002f1115d2444d85d7ceef7adaaa6afb5203edd811465dd593  /workspace/af-audit-results.json
+5be59674a07ce758654c140973f81888849c829fc143fe1d0b358ff4a03e8842  /workspace/af-provenance.json
+```
+
+
+### Executed Artifact: af-registration.md
+
+~~~markdown
+# Frozen AF Frequency Test: 20261108-census-3
+
+Scheduled trigger: 2026-11-08 19:00:01 EST. No platform run ID supplied.
+Source main: 6144c73b05d5a85e6a9424708986860c6276f60d.
+Question: does genuine arithmetic force nonzero additive frequencies to oppose the coherent frequency on the AF floor-two triangle?
+
+Use genuine Mobius mu, N=R-1, X=R^2-1, I2=[ceil(R/3),floor((R-1)/2)], B=R-W. Define L=sum mu(a)mu(b) over a in I2, B<=b<R, 3a+b<=2R. Use q=2W+1 and the exact f,g,h conventions of Coordinator AF3, including the <= boundary and squareful zeros. K_R=max_{0<=y<R}(M(y)-1)^2/(y+1).
+
+Choose the largest integer W>=1 with W=1 mod 3 and 4W<=R, 16K_R W^2<=R^2, W^6<=R^4 K_R. Empty admissible width means no test row. Thus 3 divides q. The width rule is fixed before any data.
+
+Candidate H_DC: C0*(L-C0)<=0 for every admitted R, where C0=(W+1)F(0)G(0)/q. A strict positive rational product refutes it. This is a new laboratory candidate, NOT an assertion made by AF.
+Candidate H_3: if R=1 mod 3, then C0*C3<=0, where C3 is the sum of the Fourier k=q/3 and 2q/3 contributions. The multiplicative sign mu(3n)=-mu(n) when 3 does not divide n motivates, but does not prove, this candidate. A strict positive rational product refutes it.
+Rival mechanism: the third-root sector is controlled by a residue-specific backward prefix, not merely its sign or the zero-frequency sum. Test the pencil identity q*C3=F(0)*(G(0)-3*B_c), c=(2R-2) mod 3, B_c=sum_{B<=b<R,b=c mod 3}mu(b). Preserve both zero and nonzero sectors.
+
+Primary held-out root range: every R=257..4095, excluding the previously inspected roots 317,549,1027,2002. A new question is tested; the old AF identity census is not rerun. Confirmation roots fixed now: 8209,10007,16381,20011,32771. Report first violations in the registered range, not smallest global violations. Development R<=256 may be searched ONLY afterwards and must be labeled retrospective.
+
+Exact methods: multiplicative Mobius sieve and rational prefix sums; independent C++ trial factorization and direct ordered triangle enumeration. Compare all primary and confirmation rows byte-for-byte. At first falsifiers and confirmation fixtures, recover complete conductor-grouped Fourier contributions with exact residue convolution and Ramanujan sums; no floating DFT is needed. Keep the k=0 term and every mixed square term.
+
+Full original Euler return at R=257,263 and each primary first falsifier <=1024: Q=P+E1+2m2*t_B+L+(J2-L)+Z and M(X)=2M(R-1)-Q. Compute Z directly from the complement, not by defining it as a remainder. Recombine all six squares and fifteen cross terms exactly. These fixtures are scope checks, not a complete-source bound.
+
+Stop after decisive falsifiers and the fixed confirmation range. Do not fit a constant or infer an infinite estimate. Any new universal lemma is separately proved and labeled PAPER_PROOF / SELF_AUDIT, not Lean or independent Referee acceptance. No original-source code or report other than the owned daily report may be published.
+~~~
+
+
+### Executed Artifact: af_probe.py
+
+~~~python
+"""Exact held-out AF mode experiment. No floating-point sign decisions."""
+
+from collections import Counter
+from fractions import Fraction as F
+from hashlib import sha256
+from math import gcd
+from pathlib import Path
+import json
+import platform
+import time
+
+
+CONFIRM = [8209, 10007, 16381, 20011, 32771]
+PRIMARY = [r for r in range(257, 4096) if r not in {317, 549, 1027, 2002}]
+
+
+def sieve(limit):
+    mu = [1] * (limit + 1)
+    mu[0] = 0
+    prime = bytearray(b'\x01') * (limit + 1)
+    prime[0:2] = b'\x00\x00'
+    for p in range(2, limit + 1):
+        if prime[p]:
+            for n in range(p, limit + 1, p):
+                mu[n] = -mu[n]
+                if n > p:
+                    prime[n] = 0
+            for n in range(p * p, limit + 1, p * p):
+                mu[n] = 0
+    return mu
+
+
+def prefixes(mu):
+    m = [0] * len(mu)
+    for n in range(1, len(mu)):
+        m[n] = m[n - 1] + mu[n]
+    return m
+
+
+def histories(m):
+    out, k = [F(0)] * len(m), F(0)
+    for r in range(1, len(m)):
+        k = max(k, F((m[r - 1] - 1) ** 2, r))
+        out[r] = k
+    return out
+
+
+def width(r, k):
+    low, high = 0, r // 4
+    while low < high:
+        w = (low + high + 1) // 2
+        if 16 * k.numerator * w * w <= r * r * k.denominator and w ** 6 * k.denominator <= r ** 4 * k.numerator:
+            low = w
+        else:
+            high = w - 1
+    return low - (low - 1) % 3 if low else 0
+
+
+def row(r, mu, m, k):
+    w = width(r, k)
+    assert w > 0 and w % 3 == 1
+    q, lo, hi, b0 = 2 * w + 1, (r + 2) // 3, (r - 1) // 2, r - w
+    top = min(hi, (r + w) // 3)
+    f0, g0 = m[top] - m[lo - 1], m[r - 1] - m[b0 - 1]
+    c = (2 * r - 2) % 3
+    bc = sum(mu[b] for b in range(b0, r) if b % 3 == c)
+    l = sum(mu[b] * (m[min(hi, (2 * r - b) // 3)] - m[lo - 1]) for b in range(b0, r))
+    j = sum(mu[b] * (m[min(hi, (r * r - 1) // (3 * b))] - m[lo - 1]) for b in range(b0, r))
+    n0, n3 = (w + 1) * f0 * g0, f0 * (g0 - 3 * bc)
+    nr = q * l - n0 - n3
+    assert abs(n3) <= 2 * w * abs(f0) < q * (abs(f0) + 1)
+    assert abs(F(n3, q)) <= abs(f0)
+    if r % 3 == 1:
+        restricted = sum(mu[n] for n in range((b0 + 2) // 3, (r - 1) // 3 + 1) if n % 3)
+        assert bc == -restricted
+    return [r, w, k.numerator, k.denominator, f0, g0, bc, l, j, n0, n3, nr]
+
+
+def divisors(n):
+    return [d for d in range(1, n + 1) if n % d == 0]
+
+
+def conductor_certificate(rec, mu):
+    r, w = rec[:2]
+    q = 2 * w + 1
+    lo, hi = (r + 2) // 3, (r - 1) // 2
+    fv = [(3 * a - r, mu[a]) for a in range(lo, min(hi, (r + w) // 3) + 1)]
+    gd = [(d, mu[r - d]) for d in range(1, w + 1)]
+    correlation = [0] * q
+    for v, f in fv:
+        for d, g in gd:
+            correlation[(d - v) % q] += f * g
+    assert sum(correlation[:w + 1]) == rec[7]
+    ds = divisors(q)
+    residue = {}
+    for e in ds:
+        hc = [0] * e
+        for u in range(w + 1):
+            hc[u % e] += 1
+        residue[e] = sum(z * hc[s % e] for s, z in enumerate(correlation))
+        # Separate residue aggregation: no circular correlation table used.
+        ff, gg = [0] * e, [0] * e
+        for v, f in fv:
+            ff[v % e] += f
+        for d, g in gd:
+            gg[d % e] += g
+        alt = sum(f * g * hc[(d - v) % e] for v, f in enumerate(ff) if f for d, g in enumerate(gg) if g)
+        assert alt == residue[e]
+    numerators = {e: sum(mu[e // d] * d * residue[d] for d in divisors(e)) for e in ds}
+    assert sum(numerators.values()) == q * rec[7]
+    assert numerators[1] == rec[9] and numerators[3] == rec[10]
+    vals = [F(numerators[e], q) for e in ds]
+    diag = sum(v * v for v in vals)
+    cross = sum(2 * vals[i] * vals[j] for i in range(len(vals)) for j in range(i + 1, len(vals)))
+    assert diag + cross == rec[7] ** 2
+    return dict(R=r, W=w, q=q, L=rec[7], numerators=numerators,
+                diagonal=str(diag), cross=str(cross), reconstructed_square=str(diag + cross))
+
+
+def full_return(rec, mu, m):
+    r, w = rec[:2]
+    x, n, b0 = r * r - 1, r - 1, r - w
+    lo, hi, a1 = (r + 2) // 3, n // 2, x // (2 * b0) + 1
+    parts = [F(0), F(0), F(0)]
+    total, sites = 0, Counter()
+    for b in range(1, r):
+        fl, hist = [0, 0, 0], [0, 0, 0]
+        for a in range(1, r):
+            sector = 0 if b >= b0 and a >= a1 else 1 if b >= b0 and lo <= a <= hi else 2
+            fl[sector] += mu[a] * (x // (a * b))
+            hist[sector] += mu[a] * (n // a)
+            sites[sector] += 1
+        total += mu[b] * sum(fl)
+        for sector in range(3):
+            parts[sector] += mu[b] * (fl[sector] - F((r + 1) * hist[sector], b))
+    p = (r + 1) * sum((F(mu[b], b) for b in range(1, r)), F(0))
+    tb = sum((F(mu[b] * (b - r - 1), b) for b in range(b0, r)), F(0))
+    sep = 2 * (m[hi] - m[lo - 1]) * tb
+    assert parts[1] == sep + rec[8]
+    six = [p, parts[0], sep, F(rec[7]), F(rec[8] - rec[7]), parts[2]]
+    q = 2 * w + 1
+    eight = six[:3] + [F(rec[9], q), F(rec[10], q), F(rec[11], q)] + six[4:]
+    for terms in [six, eight]:
+        diag = sum(t * t for t in terms)
+        cross = sum(2 * terms[i] * terms[j] for i in range(len(terms)) for j in range(i + 1, len(terms)))
+        assert sum(terms) == total == 2 * m[n] - m[x]
+        assert diag + cross == total * total
+    k = F(rec[2], rec[3])
+    return dict(R=r, W=w, M_N=m[n], M_X=m[x], Q=total, K=str(k),
+                alpha=str(F((m[x] - 1) ** 2, r * r) / k), ordered_sites=sum(sites.values()),
+                sector_sites=dict(sites), six_parts=list(map(str, six)),
+                eight_parts=list(map(str, eight)), diagonal=str(diag), cross=str(cross), square=total * total)
+
+
+def main():
+    started = time.perf_counter()
+    mu = sieve(max(CONFIRM))
+    m = prefixes(mu)
+    ks = histories(m)
+    rows = [row(r, mu, m, ks[r]) for r in PRIMARY + CONFIRM]
+    text = ''.join('\t'.join(map(str, rec)) + '\n' for rec in rows)
+    Path('/workspace/af-rows-python.tsv').write_text(text)
+    first_dc = next(rec for rec in rows[:len(PRIMARY)] if rec[9] * ((2 * rec[1] + 1) * rec[7] - rec[9]) > 0)
+    first_3 = next(rec for rec in rows[:len(PRIMARY)] if rec[0] % 3 == 1 and rec[9] * rec[10] > 0)
+    counts = Counter()
+    for rec in rows:
+        r, w = rec[:2]
+        n0, n3 = rec[9:11]
+        nn = (2 * w + 1) * rec[7] - n0
+        counts['rows'] += 1
+        counts['dc_zero'] += n0 == 0
+        counts['dc_amplifies'] += n0 * nn > 0
+        counts['dc_opposes'] += n0 * nn < 0
+        counts['dc_product_zero'] += n0 * nn == 0
+        counts['third_applicable'] += r % 3 == 1
+        counts['third_amplifies'] += r % 3 == 1 and n0 * n3 > 0
+        counts['third_opposes'] += r % 3 == 1 and n0 * n3 < 0
+        counts['third_zero'] += r % 3 == 1 and n0 * n3 == 0
+    fixture_rs = sorted({257, 263, first_dc[0], first_3[0], *CONFIRM})
+    by_r = {rec[0]: rec for rec in rows}
+    spectra = [conductor_certificate(by_r[r], mu) for r in fixture_rs]
+    full_rs = sorted({257, 263, *[r for r in [first_dc[0], first_3[0]] if r <= 1024]})
+    full_mu = sieve(max(full_rs) ** 2 - 1)
+    full_m = prefixes(full_mu)
+    full = [full_return(by_r[r], full_mu, full_m) for r in full_rs]
+    strongest = max(rows[:len(PRIMARY)], key=lambda a: F(a[9] * ((2 * a[1] + 1) * a[7] - a[9]), (2 * a[1] + 1) ** 2))
+    out = dict(status='PASS', python=platform.python_version(), primary_rows=len(PRIMARY), confirmation_rows=len(CONFIRM),
+               row_columns=['R','W','K_num','K_den','F0','G0','B_c','L','J2','qC0','qC3','qCrest'],
+               counts=dict(counts), first_dc=first_dc, first_3=first_3, strongest_dc_cross=strongest,
+               confirmation=rows[-len(CONFIRM):], spectra=spectra, full=full,
+               rows_sha256=sha256(text.encode()).hexdigest(), elapsed_seconds=time.perf_counter() - started)
+    Path('/workspace/af-results.json').write_text(json.dumps(out, indent=2) + '\n')
+    print(json.dumps({k:v for k,v in out.items() if k not in {'full','spectra'}}, indent=2))
+
+
+if __name__ == '__main__':
+    main()
+~~~
+
+
+### Executed Artifact: af_reference.cpp
+
+~~~cpp
+#include <algorithm>
+#include <cassert>
+#include <cstdint>
+#include <fstream>
+#include <iostream>
+#include <numeric>
+#include <set>
+#include <vector>
+
+using i64 = std::int64_t;
+using i128 = __int128_t;
+
+int trial_mu(int n) {
+    int sign = 1;
+    for (int p = 2; p * p <= n; ++p) {
+        if (n % p == 0) {
+            n /= p;
+            sign = -sign;
+            if (n % p == 0) return 0;
+        }
+    }
+    return n > 1 ? -sign : sign;
+}
+
+int main() {
+    const int limit = 32771;
+    std::vector<int> mu(limit + 1), m(limit + 1);
+    for (int n = 1; n <= limit; ++n) {
+        mu[n] = trial_mu(n);
+        m[n] = m[n - 1] + mu[n];
+    }
+    std::vector<int> roots;
+    const std::set<int> omitted{317, 549, 1027, 2002};
+    for (int r = 257; r <= 4095; ++r) if (!omitted.count(r)) roots.push_back(r);
+    for (int r : {8209, 10007, 16381, 20011, 32771}) roots.push_back(r);
+    std::ofstream out("/workspace/af-rows-cpp.tsv");
+    i64 kn = 0, kd = 1, y = 0, visits = 0;
+    for (int r : roots) {
+        while (y < r) {
+            const i64 num = static_cast<i64>(m[y] - 1) * (m[y] - 1), den = y + 1;
+            if (num * kd > kn * den) {
+                const i64 g = std::gcd(num, den);
+                kn = num / g;
+                kd = den / g;
+            }
+            ++y;
+        }
+        i64 w = 1, best = 0;
+        for (; 4 * w <= r; w += 3) {
+            i128 w6 = static_cast<i128>(w) * w * w * w * w * w;
+            i128 r4 = static_cast<i128>(r) * r * r * r;
+            if (16 * kn * w * w <= static_cast<i64>(r) * r * kd && w6 * kd <= r4 * kn) best = w;
+        }
+        w = best;
+        assert(w > 0);
+        const i64 q = 2 * w + 1, lo = (r + 2) / 3, hi = (r - 1) / 2, b0 = r - w;
+        i64 f0 = 0, g0 = 0, bc = 0, l = 0, j = 0;
+        for (i64 a = lo; a <= hi; ++a) if (3 * a - r <= w) f0 += mu[a];
+        for (i64 b = b0; b < r; ++b) {
+            g0 += mu[b];
+            if (b % 3 == (2 * r - 2) % 3) bc += mu[b];
+            for (i64 a = lo; a <= hi; ++a) {
+                if (3 * a + b <= 2 * r) l += mu[a] * mu[b];
+                if (3 * a * b <= static_cast<i64>(r) * r - 1) j += mu[a] * mu[b];
+                ++visits;
+            }
+        }
+        const i64 n0 = (w + 1) * f0 * g0, n3 = f0 * (g0 - 3 * bc), nr = q * l - n0 - n3;
+        out << r << '\t' << w << '\t' << kn << '\t' << kd << '\t' << f0 << '\t' << g0 << '\t' << bc
+            << '\t' << l << '\t' << j << '\t' << n0 << '\t' << n3 << '\t' << nr << '\n';
+    }
+    std::cout << "PASS rows=" << roots.size() << " trial_coefficients=" << limit << " direct_ordered_visits=" << visits << '\n';
+}
+~~~
+
+
+### Executed Artifact: af_audit.py
+
+~~~python
+"""Independent exact cube-root arithmetic and post-discovery minimization."""
+
+from fractions import Fraction as F
+from hashlib import sha256
+from pathlib import Path
+import json
+import time
+
+
+def trial_mu(n):
+    value, p = 1, 2
+    while p * p <= n:
+        if n % p == 0:
+            n //= p
+            value = -value
+            if n % p == 0:
+                return 0
+        p += 1
+    return -value if n > 1 else value
+
+
+def mul(x, y):
+    a, b = x
+    c, d = y
+    return a * c - b * d, a * d + b * c - b * d
+
+
+ROOT = [(1, 0), (0, 1), (-1, -1)]
+
+
+def poly(terms):
+    a = b = 0
+    for coefficient, exponent in terms:
+        c, d = ROOT[exponent % 3]
+        a += coefficient * c
+        b += coefficient * d
+    return a, b
+
+
+def cube_numerator(r, w, mu):
+    lo, hi = (r + 2) // 3, (r - 1) // 2
+    ff = poly((mu[a], -(3 * a - r)) for a in range(lo, min(hi, (r + w) // 3) + 1))
+    gg = poly((mu[r - d], d) for d in range(1, w + 1))
+    hh = poly((1, -u) for u in range(w + 1))
+    a, b = mul(mul(ff, gg), hh)
+    return 2 * a - b
+
+
+def minimal_row(r, mu):
+    m, partial = [0], 0
+    for n in range(1, r):
+        partial += mu[n]
+        m.append(partial)
+    k = max(F((m[y] - 1) ** 2, y + 1) for y in range(r))
+    ws = [w for w in range(1, r // 4 + 1, 3) if 16 * k * w * w <= r * r and w ** 6 <= r ** 4 * k]
+    if not ws:
+        return None
+    w = max(ws)
+    lo, hi, q = (r + 2) // 3, (r - 1) // 2, 2 * w + 1
+    f0 = sum(mu[a] for a in range(lo, min(hi, (r + w) // 3) + 1))
+    g0 = sum(mu[b] for b in range(r - w, r))
+    l = sum(mu[a] * mu[b] for a in range(lo, hi + 1) for b in range(r - w, r) if 3 * a + b <= 2 * r)
+    n0 = (w + 1) * f0 * g0
+    n3 = cube_numerator(r, w, mu)
+    return dict(R=r, W=w, K=str(k), F0=f0, G0=g0, L=l, q=q, C0=str(F(n0, q)), C3=str(F(n3, q)),
+                nonzero=str(F(q*l-n0, q)), dc_failure=n0*(q*l-n0)>0,
+                third_failure=(r % 3 == 1 and n0*n3>0))
+
+
+start = time.perf_counter()
+raw = Path('/workspace/af-rows-python.tsv').read_text()
+rows = [list(map(int, line.split())) for line in raw.splitlines()]
+results = json.loads(Path('/workspace/af-results.json').read_text())
+limit = max(max(r[0] for r in rows), max(item['R']**2-1 for item in results['full']))
+mu = [0] + [trial_mu(n) for n in range(1, limit + 1)]
+zero_residue_coherence = 0
+for rec in rows:
+    assert cube_numerator(rec[0], rec[1], mu) == rec[10]
+    r, w, _, _, f0, g0, bc = rec[:7]
+    assert rec[9] * rec[10] == (w + 1) * f0 * f0 * g0 * (g0 - 3 * bc)
+    assert abs(rec[10]) <= 2 * w * abs(f0)
+    if r % 3 == 1 and bc == 0 and f0 * g0 != 0:
+        assert rec[9] == (w + 1) * rec[10]
+        zero_residue_coherence += 1
+small = [v for r in range(2, 257) if (v := minimal_row(r, mu)) is not None]
+dc = next(v for v in small if v['dc_failure'])
+third = next(v for v in small if v['third_failure'])
+full = []
+for expected in results['full']:
+    r = expected['R']
+    x = r*r-1
+    mn = sum(mu[1:r])
+    mx = sum(mu[1:x+1])
+    q = sum(mu[a]*mu[b]*(x//(a*b)) for a in range(1,r) for b in range(1,r))
+    assert (mn,mx,q) == (expected['M_N'],expected['M_X'],expected['Q'])
+    full.append(dict(R=r, M_N=mn, M_X=mx, Q=q))
+certificates = []
+for r in [258,307]:
+    rec = next(row for row in rows if row[0]==r)
+    w, q = rec[1], 2*rec[1]+1
+    lo, hi = (r+2)//3, min((r-1)//2,(r+w)//3)
+    positive = [a for a in range(lo,hi+1) if mu[a]==1]
+    negative = [a for a in range(lo,hi+1) if mu[a]==-1]
+    by_residue = [sum(mu[b] for b in range(r-w,r) if b%3==c) for c in range(3)]
+    certificates.append(dict(R=r,W=w,row_interval=[lo,hi],column_interval=[r-w,r-1],
+                             positive_rows=positive,negative_rows=negative,backward_residue_sums=by_residue,
+                             C0=str(F(rec[9],q)),C3=str(F(rec[10],q)),Crest=str(F(rec[11],q)),
+                             nonzero=str(F(q*rec[7]-rec[9],q)),
+                             dc_cross=str(2*F(rec[9],q)*F(q*rec[7]-rec[9],q)),
+                             third_cross=str(2*F(rec[9],q)*F(rec[10],q))))
+out=dict(status='PASS', independent_trial_coefficients=limit, exact_cyclotomic_cases=len(rows),
+         zero_residue_coherence=zero_residue_coherence,
+         retrospective_roots=[2,256], retrospective_admitted=len(small), retrospective_first_dc=dc,
+         retrospective_first_third=third, full=full, certificates=certificates,
+         rows_sha256=sha256(raw.encode()).hexdigest(),elapsed_seconds=time.perf_counter()-start)
+Path('/workspace/af-audit-results.json').write_text(json.dumps(out,indent=2)+'\n')
+print(json.dumps(out,indent=2))
+~~~
+
+
+### Executed Artifact: af-results.json
+
+~~~json
+{
+  "status": "PASS",
+  "python": "3.12.14",
+  "primary_rows": 3835,
+  "confirmation_rows": 5,
+  "row_columns": [
+    "R",
+    "W",
+    "K_num",
+    "K_den",
+    "F0",
+    "G0",
+    "B_c",
+    "L",
+    "J2",
+    "qC0",
+    "qC3",
+    "qCrest"
+  ],
+  "counts": {
+    "rows": 3840,
+    "dc_zero": 386,
+    "dc_amplifies": 1710,
+    "dc_opposes": 1744,
+    "dc_product_zero": 386,
+    "third_applicable": 1280,
+    "third_amplifies": 612,
+    "third_opposes": 501,
+    "third_zero": 167
+  },
+  "first_dc": [
+    258,
+    43,
+    3,
+    2,
+    4,
+    -2,
+    1,
+    -7,
+    -15,
+    -352,
+    -20,
+    -237
+  ],
+  "first_3": [
+    307,
+    46,
+    3,
+    2,
+    -4,
+    1,
+    0,
+    12,
+    9,
+    -188,
+    -4,
+    1308
+  ],
+  "strongest_dc_cross": [
+    2899,
+    217,
+    3,
+    2,
+    -12,
+    -24,
+    -6,
+    214,
+    227,
+    62784,
+    72,
+    30234
+  ],
+  "confirmation": [
+    [
+      8209,
+      433,
+      3,
+      2,
+      -9,
+      26,
+      11,
+      -232,
+      -187,
+      -101556,
+      63,
+      -99651
+    ],
+    [
+      10007,
+      496,
+      3,
+      2,
+      -5,
+      -1,
+      5,
+      30,
+      24,
+      2485,
+      80,
+      27225
+    ],
+    [
+      16381,
+      688,
+      3,
+      2,
+      0,
+      -7,
+      -10,
+      13,
+      31,
+      0,
+      0,
+      17901
+    ],
+    [
+      20011,
+      787,
+      3,
+      2,
+      -6,
+      -17,
+      -16,
+      -37,
+      19,
+      80376,
+      -186,
+      -138465
+    ],
+    [
+      32771,
+      1093,
+      3,
+      2,
+      5,
+      -25,
+      -16,
+      13,
+      -21,
+      -136750,
+      115,
+      165066
+    ]
+  ],
+  "spectra": [
+    {
+      "R": 257,
+      "W": 43,
+      "q": 87,
+      "L": 1,
+      "numerators": {
+        "1": 0,
+        "3": 12,
+        "29": -58,
+        "87": 133
+      },
+      "diagonal": "21197/7569",
+      "cross": "-13628/7569",
+      "reconstructed_square": "1"
+    },
+    {
+      "R": 258,
+      "W": 43,
+      "q": 87,
+      "L": -7,
+      "numerators": {
+        "1": -352,
+        "3": -20,
+        "29": -344,
+        "87": 107
+      },
+      "diagonal": "254089/7569",
+      "cross": "116792/7569",
+      "reconstructed_square": "49"
+    },
+    {
+      "R": 263,
+      "W": 43,
+      "q": 87,
+      "L": -12,
+      "numerators": {
+        "1": 0,
+        "3": 0,
+        "29": 0,
+        "87": -1044
+      },
+      "diagonal": "144",
+      "cross": "0",
+      "reconstructed_square": "144"
+    },
+    {
+      "R": 307,
+      "W": 46,
+      "q": 93,
+      "L": 12,
+      "numerators": {
+        "1": -188,
+        "3": -4,
+        "31": -246,
+        "93": 1554
+      },
+      "diagonal": "2510792/8649",
+      "cross": "-1265336/8649",
+      "reconstructed_square": "144"
+    },
+    {
+      "R": 8209,
+      "W": 433,
+      "q": 867,
+      "L": -232,
+      "numerators": {
+        "1": -101556,
+        "3": 63,
+        "17": -376,
+        "51": -4058,
+        "289": -10778,
+        "867": -84439
+      },
+      "diagonal": "17576343850/751689",
+      "cross": "22882564886/751689",
+      "reconstructed_square": "53824"
+    },
+    {
+      "R": 10007,
+      "W": 496,
+      "q": 993,
+      "L": 30,
+      "numerators": {
+        "1": 2485,
+        "3": 80,
+        "331": -7781,
+        "993": 35006
+      },
+      "diagonal": "1292145622/986049",
+      "cross": "-404701522/986049",
+      "reconstructed_square": "900"
+    },
+    {
+      "R": 16381,
+      "W": 688,
+      "q": 1377,
+      "L": 13,
+      "numerators": {
+        "1": 0,
+        "3": 0,
+        "9": -396,
+        "17": -1972,
+        "27": -2358,
+        "51": 2839,
+        "81": -23490,
+        "153": -28776,
+        "459": 72891,
+        "1377": -837
+      },
+      "diagonal": "6711302411/1896129",
+      "cross": "-6390856610/1896129",
+      "reconstructed_square": "169"
+    },
+    {
+      "R": 20011,
+      "W": 787,
+      "q": 1575,
+      "L": -37,
+      "numerators": {
+        "1": 80376,
+        "3": -186,
+        "5": -1031,
+        "7": 1566,
+        "9": -1557,
+        "15": -1609,
+        "21": 1488,
+        "25": -3245,
+        "35": 5574,
+        "45": -6378,
+        "63": -291,
+        "75": -8380,
+        "105": 2337,
+        "175": -1340,
+        "225": -78690,
+        "315": -16659,
+        "525": 15800,
+        "1575": -46050
+      },
+      "diagonal": "1718978231/275625",
+      "cross": "-1341647606/275625",
+      "reconstructed_square": "1369"
+    },
+    {
+      "R": 32771,
+      "W": 1093,
+      "q": 2187,
+      "L": 13,
+      "numerators": {
+        "1": -136750,
+        "3": 115,
+        "9": -660,
+        "27": -4644,
+        "81": -14958,
+        "243": 10125,
+        "729": -139725,
+        "2187": 314928
+      },
+      "diagonal": "137751556259/4782969",
+      "cross": "-136943234498/4782969",
+      "reconstructed_square": "169"
+    }
+  ],
+  "full": [
+    {
+      "R": 257,
+      "W": 43,
+      "M_N": -1,
+      "M_X": 4,
+      "Q": -6,
+      "K": "3/2",
+      "alpha": "6/66049",
+      "ordered_sites": 65536,
+      "sector_sites": {
+        "2": 59301,
+        "1": 1849,
+        "0": 4386
+      },
+      "six_parts": [
+        "292411769188101778286374124798202906425056742896535284600896101987447219213750783076400525391746612/249094305883366840590428818713591912057675141827942667109475808840690505301863190513663568772226435",
+        "-81518364952728852615093749863438437867070876/257105190981748683574851171866576472649853645",
+        "-163036729905457705230187499726876875734141752/257105190981748683574851171866576472649853645",
+        "1",
+        "-9",
+        "63244584044213462883738792786967569422417512482927614981442407138423837136821702953631188782381906/35584900840480977227204116959084558865382163118277523872782258405812929328837598644809081253175205"
+      ],
+      "eight_parts": [
+        "292411769188101778286374124798202906425056742896535284600896101987447219213750783076400525391746612/249094305883366840590428818713591912057675141827942667109475808840690505301863190513663568772226435",
+        "-81518364952728852615093749863438437867070876/257105190981748683574851171866576472649853645",
+        "-163036729905457705230187499726876875734141752/257105190981748683574851171866576472649853645",
+        "0",
+        "4/29",
+        "25/29",
+        "-9",
+        "63244584044213462883738792786967569422417512482927614981442407138423837136821702953631188782381906/35584900840480977227204116959084558865382163118277523872782258405812929328837598644809081253175205"
+      ],
+      "diagonal": "41868054244972637385928863293831647316948185563272951554056730219215630697055868095741452545414071394554016774608875615745345145561618294123031604617833799675903747862261671696130187436008550402/482341849855147538570529058478240835110493034882391614545550934905793289703162089062626487912478770370461753768458584531436776192862368828422017781682535706184364038797891982020199227091526775",
+      "cross": "-24503747650187325997389817188614977252970436307506853430416896562607072267742032889486898980564835661217393638944366572613621202618573016299838964477262514253266642465537560343403015260713586502/482341849855147538570529058478240835110493034882391614545550934905793289703162089062626487912478770370461753768458584531436776192862368828422017781682535706184364038797891982020199227091526775",
+      "square": 36
+    },
+    {
+      "R": 258,
+      "W": 43,
+      "M_N": -2,
+      "M_X": 23,
+      "Q": -27,
+      "K": "3/2",
+      "alpha": "242/49923",
+      "ordered_sites": 66049,
+      "sector_sites": {
+        "2": 59771,
+        "1": 1849,
+        "0": 4429
+      },
+      "six_parts": [
+        "5441746881716756073633757422515716820179698166400180014092769764937892485026624049054867141222229527/31885032907147725351716164582284604866594996050277155377144600349403136379431159672198796507743718145",
+        "0",
+        "-61655591800938947599266446591535462133609861/307574365699055104339372890011641099764031245",
+        "-7",
+        "-8",
+        "-29359272879399930887122216928453007731983333966562012928245662628477768174559118149199946943353355122/2452694839011363488593551121714200374353461234636704259780353873031010490725473820938368962134132165"
+      ],
+      "eight_parts": [
+        "5441746881716756073633757422515716820179698166400180014092769764937892485026624049054867141222229527/31885032907147725351716164582284604866594996050277155377144600349403136379431159672198796507743718145",
+        "0",
+        "-61655591800938947599266446591535462133609861/307574365699055104339372890011641099764031245",
+        "-352/87",
+        "-20/87",
+        "-79/29",
+        "-8",
+        "-29359272879399930887122216928453007731983333966562012928245662628477768174559118149199946943353355122/2452694839011363488593551121714200374353461234636704259780353873031010490725473820938368962134132165"
+      ],
+      "diagonal": "12371033777124252331506939505983884491829071736180691877698283813756016095357572320890153839317504746541619594223037466283511322905286104467784852652545003647510987385889603686709098682601134204401128469/53508174920520701371071470317867617650097052799462696939404111088224851836389489403480607800265599288807244189984603141001305332431353234097202569881361856324164992322650942758336582546850300484328475",
+      "cross": "26636425739935338968004162355741608775091679754627614191127313169559900893370365454247209247076117134998861420275738223506440264437170403189075820790967789612805292017322933584118269994052734848674329806/53508174920520701371071470317867617650097052799462696939404111088224851836389489403480607800265599288807244189984603141001305332431353234097202569881361856324164992322650942758336582546850300484328475",
+      "square": 729
+    },
+    {
+      "R": 263,
+      "W": 43,
+      "M_N": -1,
+      "M_X": 64,
+      "Q": -66,
+      "K": "3/2",
+      "alpha": "2646/69169",
+      "ordered_sites": 68644,
+      "sector_sites": {
+        "2": 62237,
+        "1": 1892,
+        "0": 4515
+      },
+      "six_parts": [
+        "294704788746822704652769439769126657683582438530378605850684592495060599779016233741814864173439813816/250249197665189723214984443236718565468124362940054037656983378499860979462808192578772372591079484835",
+        "1017605431299469405894447937658816344489301/1282024146380544281221558887967715384401055",
+        "-4070421725197877623577791750635265377957204/1282024146380544281221558887967715384401055",
+        "-12",
+        "0",
+        "-139076381935504570617973268204128550967067927106323242027979393213926693416518932882427252449566264777/2634202080686207612789309928807563847032888030947937238494561878945905046976928342934446027274520893"
+      ],
+      "eight_parts": [
+        "294704788746822704652769439769126657683582438530378605850684592495060599779016233741814864173439813816/250249197665189723214984443236718565468124362940054037656983378499860979462808192578772372591079484835",
+        "1017605431299469405894447937658816344489301/1282024146380544281221558887967715384401055",
+        "-4070421725197877623577791750635265377957204/1282024146380544281221558887967715384401055",
+        "0",
+        "0",
+        "-12",
+        "0",
+        "-139076381935504570617973268204128550967067927106323242027979393213926693416518932882427252449566264777/2634202080686207612789309928807563847032888030947937238494561878945905046976928342934446027274520893"
+      ],
+      "diagonal": "184339268274794216761198155053656757259234145492507973226748108608509893943619756705863339587939101450740208779898905549470648397760798984039607652628735640561214582287358740464271769369521679320077348389234/62624660932071197616881598445789417384882504662970051693710905732116634007989002235833581620884037329620841324755542794057541503298185968441702907450891697885716184710669614262871946356914632808994977225",
+      "cross": "88453754745307920057938087776201944869314044819389571951056596760590163795180337033427741952631765157088176030736238861444002390606099094492450212227348595428965118312318099264798428961198461195904772402866/62624660932071197616881598445789417384882504662970051693710905732116634007989002235833581620884037329620841324755542794057541503298185968441702907450891697885716184710669614262871946356914632808994977225",
+      "square": 4356
+    },
+    {
+      "R": 307,
+      "W": 46,
+      "M_N": -1,
+      "M_X": -67,
+      "Q": 65,
+      "K": "3/2",
+      "alpha": "9248/282747",
+      "ordered_sites": 93636,
+      "sector_sites": {
+        "2": 85494,
+        "1": 2346,
+        "0": 5796
+      },
+      "six_parts": [
+        "8426200527571782374668815180898329907919612406903915478614464804036730084699558765506845916939771838871641100708376/10123033661253699873485036855442975305004562734269236534366357397918166491119599083034433697462982329114885676830215",
+        "173127275071071507433929832515924725044686956080022/236533354191143274587841220500415492839227750442645",
+        "0",
+        "12",
+        "-3",
+        "144486430072517104444592385401364756360174772434681899083251625372752578097941028758864022863977761640028945165077740058/2654259425980720106827776663497148124972196348925393819310858909734143253971558879571628515474793966693923024464882373"
+      ],
+      "eight_parts": [
+        "8426200527571782374668815180898329907919612406903915478614464804036730084699558765506845916939771838871641100708376/10123033661253699873485036855442975305004562734269236534366357397918166491119599083034433697462982329114885676830215",
+        "173127275071071507433929832515924725044686956080022/236533354191143274587841220500415492839227750442645",
+        "0",
+        "-188/93",
+        "-4/93",
+        "436/31",
+        "-3",
+        "144486430072517104444592385401364756360174772434681899083251625372752578097941028758864022863977761640028945165077740058/2654259425980720106827776663497148124972196348925393819310858909734143253971558879571628515474793966693923024464882373"
+      ],
+      "diagonal": "559269667344222216526494655213306165025116832151183814864416627375860956832883618391454623343454285531760092495888149798436543398134257416178474113244653957444561163748964762117930404189348550884274592497864905110621753993140404330070861617/176127327510187544990776951242525085342019328211074210882164463457464789213507590676333796945998896060737322111097394928458502019054999434412134442401889178174107271367049684271397953144569779119214532641360327070309409225688118152778225",
+      "cross": "184868291386320161059537963786362320544914829540604726112728230731927777594185952216055668753391050324855093423498343774300627632373115194212793905903327820341042057776820153928725947846458765894406807911882476761435499985391894865417139008/176127327510187544990776951242525085342019328211074210882164463457464789213507590676333796945998896060737322111097394928458502019054999434412134442401889178174107271367049684271397953144569779119214532641360327070309409225688118152778225",
+      "square": 4225
+    }
+  ],
+  "rows_sha256": "c112800c4e2bff84aebde90c10f4702950ba986019df6af058538a5cfb72f165",
+  "elapsed_seconds": 0.78769153799999
+}
+~~~
+
+
+### Executed Artifact: af-audit-results.json
+
+~~~json
+{
+  "status": "PASS",
+  "independent_trial_coefficients": 94248,
+  "exact_cyclotomic_cases": 3840,
+  "zero_residue_coherence": 80,
+  "retrospective_roots": [
+    2,
+    256
+  ],
+  "retrospective_admitted": 253,
+  "retrospective_first_dc": {
+    "R": 6,
+    "W": 1,
+    "K": "3/2",
+    "F0": -1,
+    "G0": -1,
+    "L": 1,
+    "q": 3,
+    "C0": "2/3",
+    "C3": "1/3",
+    "nonzero": "1/3",
+    "dc_failure": true,
+    "third_failure": false
+  },
+  "retrospective_first_third": {
+    "R": 28,
+    "W": 4,
+    "K": "3/2",
+    "F0": 1,
+    "G0": 1,
+    "L": 1,
+    "q": 9,
+    "C0": "5/9",
+    "C3": "1/9",
+    "nonzero": "4/9",
+    "dc_failure": true,
+    "third_failure": true
+  },
+  "full": [
+    {
+      "R": 257,
+      "M_N": -1,
+      "M_X": 4,
+      "Q": -6
+    },
+    {
+      "R": 258,
+      "M_N": -2,
+      "M_X": 23,
+      "Q": -27
+    },
+    {
+      "R": 263,
+      "M_N": -1,
+      "M_X": 64,
+      "Q": -66
+    },
+    {
+      "R": 307,
+      "M_N": -1,
+      "M_X": -67,
+      "Q": 65
+    }
+  ],
+  "certificates": [
+    {
+      "R": 258,
+      "W": 43,
+      "row_interval": [
+        86,
+        100
+      ],
+      "column_interval": [
+        215,
+        257
+      ],
+      "positive_rows": [
+        86,
+        87,
+        91,
+        93,
+        94,
+        95
+      ],
+      "negative_rows": [
+        89,
+        97
+      ],
+      "backward_residue_sums": [
+        -1,
+        1,
+        -2
+      ],
+      "C0": "-352/87",
+      "C3": "-20/87",
+      "Crest": "-79/29",
+      "nonzero": "-257/87",
+      "dc_cross": "180928/7569",
+      "third_cross": "14080/7569"
+    },
+    {
+      "R": 307,
+      "W": 46,
+      "row_interval": [
+        103,
+        117
+      ],
+      "column_interval": [
+        261,
+        306
+      ],
+      "positive_rows": [
+        106,
+        111,
+        115
+      ],
+      "negative_rows": [
+        103,
+        105,
+        107,
+        109,
+        110,
+        113,
+        114
+      ],
+      "backward_residue_sums": [
+        0,
+        2,
+        -1
+      ],
+      "C0": "-188/93",
+      "C3": "-4/93",
+      "Crest": "436/31",
+      "nonzero": "1304/93",
+      "dc_cross": "-490304/8649",
+      "third_cross": "1504/8649"
+    }
+  ],
+  "rows_sha256": "c112800c4e2bff84aebde90c10f4702950ba986019df6af058538a5cfb72f165",
+  "elapsed_seconds": 0.5463829739999255
+}
+~~~
+
+
+### Prepublication Freshness - 20261108-census-3
+
+At 2026-11-09 00:18:35 UTC, main was 6144c73b05d5a85e6a9424708986860c6276f60d, unchanged from intake, and the direct open-PR collection was empty. The prior report/checkpoint prefix is unchanged. Validation passed fourteen A-N sections, balanced fences, consistent table columns, identical independent row files and compilation of both Python programs. This run's complete scripts, exact JSON certificates and hashes are embedded above. All local computation sessions are finished. Publication remains subject to the actual write and immutable readback, not inferred from this prose.
