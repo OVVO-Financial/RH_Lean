@@ -1,5 +1,7 @@
 # Seven-agent persistent research engine and next-run attack plan
 
+**FINITE_WHEEL_CENTERED_RH_V1 — CURRENT USER-ORDERED RESEARCH PRIORITY (effective after human merge).** Read [the seven-role complete signed finite-wheel directive](RHLEAN_SEVEN_AGENT_FINITE_WHEEL_BOUNDARY_20261108.md). All seven roles now investigate the exact certified `F_R-D_R = li(R^2-1)-pi(R^2-1)` source from PR #1122 and the still-OPEN uniform `O(R log R)` bound; maintain signed physical/virtual Euler compensation and distinct role outputs. This task-selection instruction supersedes older frozen-root/prime-two, generic HIGH, NEXT-* and rotation priorities but not their valid theorems, safeguards, historical notes, permissions or cadence. Acknowledge `finite_wheel_ack=FINITE_WHEEL_CENTERED_RH_V1`. Repo edits do not update saved Studio prompts.
+
 **COMPLETE_SIGNED_HIGH_ATTACK_V1 (2026-11-07; effective after human merge):** [Complete signed HIGH directive](RHLEAN_COMPLETE_SIGNED_HIGH_ATTACK_20261107.md) supplies the current common objective, seven-role outputs and compact task record. Preserve this engine's persistent workspaces, report ownership and nine-route rotation. Historical NEXT-* tickets below do not override the new directive or the live role prompts. Canonical LOW is already O(R); attack the complete signed HIGH/global endpoint using the strongest applicable baseline, while allowing source-specific supporting LOW estimates and bridge development. Record `high_attack_ack=COMPLETE_SIGNED_HIGH_ATTACK_V1` on first actual consumption with the main/policy SHA and prior deployment acknowledgments.
 
 **NO_PIGEONHOLING_ROUTE_SELECTOR_V1 (current routing):** [Independent multi-front research policy](RHLEAN_INDEPENDENT_MULTIFRONT_NO_PIGEONHOLING_20261104.md). All NEXT-* sections below are optional historical mathematical tickets, never mandatory next jobs. Seven roles pursue DISTINCT independent proof mechanisms across nine routes; OAI LOW/J=empty is one elective candidate. Do not use a source-first comparison as a team-wide requirement, do not optimize the astronomically tiny slot denominator, and do not curtail genuine new approaches.
@@ -98,13 +100,22 @@ These are role-specific bootstrap tasks and not permanent assignments, proof cla
 
 ### NEXT-COORDINATOR: OPTIONAL HISTORICAL OAI CANDIDATE — original OAI source-to-power map and nonduplicate assignments
 
+**LIVE FINITE_WHEEL_CENTERED_RH_V1 OVERRIDE:** Build the source-to-O(R log R) dependency DAG for the exact centered fractional wheel, identify the first missing *uniform signed* inequality; do not count a Legendre identity as new progress. Read [RHLEAN_SEVEN_AGENT_FINITE_WHEEL_BOUNDARY_20261108.md](RHLEAN_SEVEN_AGENT_FINITE_WHEEL_BOUNDARY_20261108.md) and report `finite_wheel_ack=FINITE_WHEEL_CENTERED_RH_V1`; the older NEXT task below is historical/optional only.
+
+
 Write one exact dependency graph for original LOW versus principal and HIGH. Identify the true 5/6-2d inverse squared energy, sqrt(Q) normalization, the exact LowSlotPolynomial tuple source, LowTupleGram norm_sum_le, Gaussian 3/16, the 1/8 separation at beta=1, and the actual returned threshold at 7/8. Distinguish the marked-HIGH 1+t/2 widening, physical slot one-off tilt, and any alternate canonical -cstar/16 path lacking a source transport. Issue THREE nonoverlapping math tickets: selected-inverse conditional-gain test, source-faithful cross-unselected-tuple signed pairing, and canonical-to-terminal source mismatch/equivalence. Include exact target theorem, original labels and weights, exponents, falsifier, next proof step, owner and reviewer. Track PR #1083 as LIVE DRAFT/merged/CI, never infer status from prose. Preserve portfolio rotation and place this synthesis in byte-identical Coordinator report mirrors.
 
 ### NEXT-OWNER: OPTIONAL HISTORICAL OAI CANDIDATE — genuine first-owner incidence to original LOW tuple map
 
+**LIVE FINITE_WHEEL_CENTERED_RH_V1 OVERRIDE:** Derive genuine signed first-owner packets and exact physical/virtual compensation before estimating, with no unsigned replacement of the true Möbius coefficients. Read [RHLEAN_SEVEN_AGENT_FINITE_WHEEL_BOUNDARY_20261108.md](RHLEAN_SEVEN_AGENT_FINITE_WHEEL_BOUNDARY_20261108.md) and report `finite_wheel_ack=FINITE_WHEEL_CENTERED_RH_V1`; the older NEXT task below is historical/optional only.
+
+
 Take actual first-owner VF/SAT arithmetic and OAI LowSlotPolynomial physical ideal-tuple definitions. Attempt an explicit occurrence-preserving map for selected/unselected prime slots, or prove a precise obstruction: compare original Hecke phase, Mobius coefficients, masks, good/bad ideal pool, row locations and multiplicities. Track empty/full/partial J, changing admission, first-owner boundary, terminal return and unmatched companions. Do NOT call NNS/owner terms the same source solely by verbal analogy. Deliver a real weighted finite equality or mismatch with one legal counterconfiguration and the quantitative impact on the full LOW source, then resume whichever of VF-LOW/SAT/JOH is due.
 
 ### NEXT-ANALYTIC: OPTIONAL HISTORICAL OAI CANDIDATE — actually reduce the binding signed OAI LOW source
+
+**LIVE FINITE_WHEEL_CENTERED_RH_V1 OVERRIDE:** Seek a source-faithful Type II / reciprocal-phase signed estimate for the complete centered remainder; exhibit full principal, logarithmic and tail costs and the actual quantitative consumer. Read [RHLEAN_SEVEN_AGENT_FINITE_WHEEL_BOUNDARY_20261108.md](RHLEAN_SEVEN_AGENT_FINITE_WHEEL_BOUNDARY_20261108.md) and report `finite_wheel_ack=FINITE_WHEEL_CENTERED_RH_V1`; the older NEXT task below is historical/optional only.
+
 
 See the [2026-11-04 all-selected original inverse attack](RHLEAN_ALL_SELECTED_INVERSE_SOURCE_ATTACK_20261104.md) for exact CF1/CF2 support, negative counting-mask tests, quantifiers and return bills.
 
@@ -112,17 +123,29 @@ Concentrate the next due OAI-NNS turn on the **binding J=empty / all-selected or
 
 ### NEXT-WHEEL: OPTIONAL HISTORICAL OAI CANDIDATE — original physical LOW collision classes, exact masks and weights
 
+**LIVE FINITE_WHEEL_CENTERED_RH_V1 OVERRIDE:** Establish root-cutoff prime-adjunction recurrences for the fully compensated signed wheel and bound innovations; do not assume that adding primes improves cancellation. Read [RHLEAN_SEVEN_AGENT_FINITE_WHEEL_BOUNDARY_20261108.md](RHLEAN_SEVEN_AGENT_FINITE_WHEEL_BOUNDARY_20261108.md) and report `finite_wheel_ack=FINITE_WHEEL_CENTERED_RH_V1`; the older NEXT task below is historical/optional only.
+
+
 Construct a legal finite partition of actual OAI selected/unselected prime-ideal tuples into diagonal, repeated-ideal, resonance, nonresonance and partially admitted classes, retaining first-owner multiplicities, W0/W1 coefficients, character phases, disallowed primes and moving supports. Prove exact occurrence count and complete weighted pairing identity or show where the map to native first-owner/CORR4 daughters fails. Do not assume all off-diagonals negative, reuse a negative-square reserve, or import a local canonical -cstar saving from a different family. Specify a joint signed source interaction or exact mismatch, then resume due FINITE-AC/CORR4/MU-LIFT route with original R=2002 regression where relevant.
 
 ### NEXT-CENSUS: OPTIONAL HISTORICAL OAI CANDIDATE — falsify favorable signs on the actual original ideal-tuple Gram
+
+**LIVE FINITE_WHEEL_CENTERED_RH_V1 OVERRIDE:** Run preregistered exact rational physical/virtual ledger tests for feasible R; at large R use the compensated physical formula rather than exponential full-wheel enumeration; distinguish numerics from proof. Read [RHLEAN_SEVEN_AGENT_FINITE_WHEEL_BOUNDARY_20261108.md](RHLEAN_SEVEN_AGENT_FINITE_WHEEL_BOUNDARY_20261108.md) and report `finite_wheel_ack=FINITE_WHEEL_CENTERED_RH_V1`; the older NEXT task below is historical/optional only.
+
 
 Preregister a finite OAI source hypothesis, rival null mechanism, legal character/prime-ideal/slot J/mask configuration, exact U_a computation or certified error enclosure, and rejection rule. Compare full |sum_a U_a|^2 with D_low and ordered C_low BEFORE norm_sum_le; include J empty, all, partial, principal/nonprincipal and a positive C_low search as feasible. If source integral is not computable with certified error, explicitly label UNSUPPORTED_DIRECT_OAI and test only a lawful exact finite algebra sub-identity or a separate native integer diagnostic; NEVER identify R=317/1027 Mobius values with OAI Hecke U_a. Return a reproducible counterexample or checked scope-limited observation, not another generic large scan.
 
 ### NEXT-REFEREE: OPTIONAL HISTORICAL OAI CANDIDATE — independently audit first LOW sign loss and circular shortcuts
 
+**LIVE FINITE_WHEEL_CENTERED_RH_V1 OVERRIDE:** Test falsifiers for missing d>X, R prime, endpoint, log-integral normalization and hidden RH circularity; demand a uniform C independent of R. Read [RHLEAN_SEVEN_AGENT_FINITE_WHEEL_BOUNDARY_20261108.md](RHLEAN_SEVEN_AGENT_FINITE_WHEEL_BOUNDARY_20261108.md) and report `finite_wheel_ack=FINITE_WHEEL_CENTERED_RH_V1`; the older NEXT task below is historical/optional only.
+
+
 Independently challenge Analytic's next coefficient-sensitive estimate on the actual J=empty ALL-SELECTED inverse row, not the already-verified #1083 outer signed Gram. Reconstruct CF1 cube-cofactor valuation/phase reduction and the actual completed source; test proposed fixed nu against all Hecke coefficients, character/ray modes, principal/resonant exceptions, moving numerator rows, masks, same-norm and cube-sharing collisions, Gaussian/height costs and complete return. Today's ambient counting Q_cube is nearly diagonal for arbitrary coefficients, but retaining density-one ambient rows may delete EVERY marked occurrence: demand actual per-tuple WEIGHTED coverage or a proved transform/phase correlation before promoting a counting bound to inverse energy. Audit moving-mass PR #1085 at its exact changed head separately (kernel-verified vs paper vs uncompiled). Verify 1/8 gap, 3/16 baseline, sqrt(Q), nu/2 amplitude, nonempty-J bills and principal/HIGH/remote, and produce a concrete lawful counterconfiguration or independent proof with precise quantifiers. Preserve independently reviewed scope and full route breadth.
 
 ### NEXT-LEAN: OPTIONAL HISTORICAL OAI CANDIDATE — original OAI LOW source equality, NNS bridge and exact-head audit
+
+**LIVE FINITE_WHEEL_CENTERED_RH_V1 OVERRIDE:** Kernel-certify only genuinely new signed arithmetic restrictions or quantified counterexamples on the exact #1122 source using warning-fatal GitHub Actions, without altering accepted identities or inventing analytic hypotheses. Read [RHLEAN_SEVEN_AGENT_FINITE_WHEEL_BOUNDARY_20261108.md](RHLEAN_SEVEN_AGENT_FINITE_WHEEL_BOUNDARY_20261108.md) and report `finite_wheel_ack=FINITE_WHEEL_CENTERED_RH_V1`; the older NEXT task below is historical/optional only.
+
 
 Read current PR #1085 and the 2026-11-04 Lean report integration patch, diagnose the latest pinned LOW-first CI for low_central_compensated_tuple_moving_mass, and fix actual compilation/axiom/type issues on an appropriate writable non-main branch; preserve original #1083 theorem source. Do not call an uncompiled proof attempt proved. Once source-faithful moving-mass central return passes, prioritize genuine J=empty selected-inverse coefficient-sensitive nu theorem arising from Analytic and independently reviewed by Referee. No generic norm identities or assumed nu. **FULL GitHub repository READ/WRITE user authorization:** may read/write all repo files including Lean, docs/policy, workflows, scripts, issue/PR metadata, and create/update any feature branch or PR without per-claim or prefix restriction. Honor human-only main merge and exact-head CI, no local Lean, no sorry/axioms; if actual tool lacks write permission, document the failing action precisely instead of misclassifying mathematical readiness.
 
