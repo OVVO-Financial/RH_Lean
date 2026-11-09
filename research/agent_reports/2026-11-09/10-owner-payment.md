@@ -1792,3 +1792,660 @@ Check physical disjointness, cofactor-one primes, prime-square and squareful mul
 All seven November 9 reports are available and their relevant stages were retrieved: TODAY=AVAILABLE. November 8 reports were retrieved: YESTERDAY=CARRY_FORWARD at their stated scopes. The latest Coordinator SA handoff prioritizes actual cross-owner factor incidence; its SA4 countermodel is not an arithmetic substitute. Owner FW and CT remain credited, CT independently unreviewed. Analytic MB1-MB3 are proper-band paper bounds, not the endpoint; Referee accepts FB1, DG and BL3 at their scoped statements. Lean's older draft/failed description of #1125 is not current PR metadata: live intake finds #1125 OPEN, non-draft, head 538aa743a3e0de86b5ec44c9b4f159df3f5bd050; current checks still need direct inspection. #1124 is merged on main. External inbox blob 038018145c0fddb2f6306c0712373adf9cd1ea52 has no entry newer than October 18; older mathematical safeguards persist, routing priorities do not override the current directive.
 
 Run trigger: 2026-11-09 16:15:01 EST, America/New_York; platform run ID unavailable. Only this daily owned report may be changed remotely. No Lean execution, source/PR edit, merge, schedule change or agent launch is authorized. This checkpoint's publication is pending until its commit and immutable readback are verified. Next action: derive the exact fibre conservation and assess the two signed owner populations, then run the frozen tests.
+
+
+## Cofactor-Fibre Conservation And The Failure Of Same-Prime Compensation - 20261109-owner-3/CF
+
+### A. Most Important Mathematical Development
+
+**Sharing a large prime does not force the specified upper and lower owner packets to compensate. After an exact allocation of the original Euler reference, they eventually reinforce each other at order R^2/log^2 R.** The registered sign rule already fails at the smallest permitted root R=8. Its positive-upper version first fails at R=11.
+
+There is an independent all-scale restriction, not just a numerical sign observation. Every complete admitted large-prime fibre has nonnegative signed total for R>=64. Its value is constrained to an interval of length one after the explicit Euler term and its once-only prime atom are restored. A fixed lower-prime prefix, in contrast, has only a bounded finite-wheel error per fibre. It cannot compensate the macroscopic upper packet. Any such successful prefix bank must grow with R at a quantified rate.
+
+This rejects a concrete local compensation mechanism requested for investigation by the latest Coordinator SA handoff. It does NOT reject nonlocal compensation, bound the Li-centered proper quadratic, improve the complete discrepancy, or prove RH.
+
+| Claim | Result | Classification |
+| --- | --- | --- |
+| 20261109-owner-3/CF1 | Exact cofactor mask, original Euler allocation, no cloned prime atoms, and complete signed return | IDENTITY_ONLY / source bridge |
+| CF2 | Uniform complete-fibre sign and explicit two-sided signed bound; no prime-distribution premise | PAPER_PROOF / independent proper-source restriction |
+| CF3 | Uniform signed capacity of a lower-owner prefix; exact nonpositive owner-two contribution | PAPER_PROOF; classical cube bound transported to the new mask |
+| CF4 | Eventual positive upper/lower alignment; all-scale no-go for RH-sized same-fibre totals or fixed-prefix payment | PAPER_PROOF / REFUTED scoped mechanisms, using established PNT and Mertens product |
+| CF5 | Exact minimal sign witnesses, 126 registered root checks and an independent small-case implementation | FINITE_COMPUTATION / REFUTED sign rule |
+
+All new paper claims are **SELF_AUDIT / INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED**. NEW_VERIFIED_ENDPOINT_GAIN=NONE. The complete uniform finite-wheel bound, canonical VF, finite A/C and RH remain OPEN. No literature-priority claim is made for inclusion-exclusion, finite-product bounds or PNT partial summation.
+
+### B. Current Authoritative Objective
+
+Actual scheduled trigger: 2026-11-09 16:15:01 EST, America/New_York, UTC-05:00; platform RUN_ID_UNAVAILABLE. This continues the same daily report without changing earlier evidence. Latest main fetched at intake: **02f00cee544278ad1bb9022ee76fc5916d459a95**, human merge of #1124. `finite_wheel_ack=FINITE_WHEEL_CENTERED_RH_V1`.
+
+For integer R>=2, retain exactly
+
+```text
+X=R^2-1, y=R-1, P_y=product_(prime p<=y)p,
+delta(y)=product_(prime p<=y)(1-1/p),
+F_R=sum_(d|P_y)mu(d)fract(X/d),
+D_R=X delta(y)+pi(y)-1-li(X),
+Z_R=F_R-D_R=li(X)-pi(X).
+OPEN: exists ONE C>=0, forall integer R>=2, |Z_R|<=C R log R.
+```
+
+The reference is principal-value li. All virtual d>X cancel against their own Euler terms BEFORE physical counting; d=X is not removed. The original [complete-wheel source](https://github.com/OVVO-Financial/RH_Lean/blob/02f00cee544278ad1bb9022ee76fc5916d459a95/research/CompleteSquareRootWheelFractionalBoundary.lean) was read directly, including its definitions, complete reciprocal identity, virtual split, compensated floor source, square Legendre theorem and arbitrary-reference centered identity. Those established equalities are not new CF claims.
+
+The original prefix-count/density source and the merged root-admission module were also read. The public `VFCanonicalSquareVonKochStatement` remains unchanged; the directly inspected `riemannHypothesis_of_vfCanonicalSquare` still takes `ClassicalVonKochRHCriterion` explicitly. No missing formal interface or arithmetic bound is silently discharged.
+
+| Material source at pinned main | Blob SHA |
+| --- | --- |
+| AGENTS.md | 6695522a45d67fd1e80a7cff1f98d909405036e2 |
+| CURRENT_PROOF_CONTRACT.md | 95566e37c8eaeb99ee680660df4f9d2e06ea5038 |
+| docs/RHLEAN_SEVEN_AGENT_FINITE_WHEEL_BOUNDARY_20261108.md | e505f35522b675c6b5b263eac73618d717346973 |
+| docs/DYNAMIC_RESEARCH_AGENTS.md | e8d913ff9663bb5163eaf0eddca9f76e0508a7ef |
+| research/CompleteSquareRootWheelFractionalBoundary.lean | ecb482e52deeee5e9b3853592a3ffdace662d2ff |
+| research/CompleteWheelRootAdmission.lean | a412632c1028d7728cd8d87ee6e5ac365377d338 |
+| research/VF_MID_DYADIC_PREFIX_OWNER.lean | c499ca7bd7d90fb32f9cd99d652961ea023bed58 |
+| research/VF_CANONICAL_SQRT_TWO_VON_KOCH.lean | 79030d70e8d3e0d08eef9bac53fef95c36eca2fb |
+
+### C. Structural Hypothesis Investigated
+
+The latest Coordinator `20261109-coordinator-1513-EST/SA` asks for a genuine factor-incidence relation between the upper owner response and a specified disjoint complementary owner population. The chosen population is NOT an unspecified full residual: it consists of lower least-prime owners sharing a greatest prime q in [R,2R) with the upper cross-root semiprimes. This is a natural test of ancestry-based compensation.
+
+The registered hypothesis H_CF was
+
+```text
+forall integer R>=8, U_Q(R)*L_Q(R)<=0,
+```
+
+with the exact definitions below. Its rival was that the two signed populations can reinforce after both reference allocations are retained. The registration also asked whether their combined total can be RH-affordable and what a fixed lower-owner bank can supply.
+
+Checkpoint **7bba8f4074c7f329765dfe14bb7e27bdef5f75d4**, blob **823e222d823a17533a9102e44948ecd3751502cd**, was committed and read back exactly BEFORE executing arithmetic tests. The commit changed only this owned report, with 38 added lines and no deletions. Discovery roots were every R=8..128; held-out roots were fixed as 257,549,1024. Root 2/3 and the named 8/11/12/14 endpoint checks were declared beforehand.
+
+The elementary density lower bound, growing-prefix necessity and terminal two-ancestor observation are disclosed proof-led consequences developed after registration. They do not change the original sign rule or fit a constant to the samples.
+
+### D. Mathematical Derivation
+
+#### CF1. A True Physical Mask, With Its Exact Reference
+
+Fix R>=2 and let
+
+```text
+Q={prime q:R<=q<2R}, m=#Q,
+x_q=X/q, t_q=floor(x_q), rho=sum_(q in Q)fract(x_q),
+V=sum_(q in Q)x_q,
+w_p=delta(p-1)/p, for prime p<R,
+N_p(t)=#{integers 2<=a<=t: leastPrime(a)=p}.
+```
+
+For every q in Q, 1<=t_q<R<=q. Every n<=X divisible by q has the UNIQUE form n=a*q with 1<=a<=t_q. Its greatest prime factor is q; if a>=2 its least prime factor is leastPrime(a). Two distinct q,q' in Q cannot occur in the same n<=X because qq'>=R^2>X. Also q^2>X, so the q occurrence has multiplicity one. Squareful a, such as a=4, are retained. The a=1 site is the actual prime q, counted once, not once per descendant.
+
+Reuse the original FW1 packet B_R(p)=N_p(X)-X*w_p, equivalent to its complete signed divisor formula. Define
+
+```text
+b_Q(p)=sum_(q in Q)N_p(t_q)-V*w_p,
+B_rest(p)=B_R(p)-b_Q(p).
+```
+
+This is not a stochastic independence assumption. For each original divisor p*e, the mask q|n changes its physical floor count to floor(X/(p*e*q)), because q is coprime to p*e. Allocate exactly X/(p*e*q) of its reciprocal reference to that mask and leave the rest in B_rest. Inclusion-exclusion then gives
+
+```text
+b_Q(p)=-sum_(q in Q)sum_(e|P_(p-1))
+                  mu(e)*fract(X/(p*q*e)).                 (CF1.1)
+```
+
+The coefficient remains mu(e). **It is not mu(q*e): q is a physical mask, not a newly adjoined wheel coordinate.** Thus no artificial sign flip is licensed by the fact that q is prime. Terms with p*e*q>X cancel against their own allocated Euler terms before counting, exactly as in the original source. No virtual term is deleted.
+
+The reference split is well-defined with nonnegative complementary reference volume. For R>=3 all q are odd, so sum_(q in Q)1/q<=ceil(R/2)/R<1; for R=2 it equals 5/6. Hence 0<=V<X. The complementary physical population and reference X-V are kept explicitly, not re-fitted to force a favorable sign.
+
+Every integer a from 2 through t_q has exactly one prime owner below R. The Euler first-owner telescope gives sum_(p<R)w_p=1-delta(y). Therefore
+
+```text
+S_Q=sum_(p<R)b_Q(p)
+   =sum_(q in Q)[t_q-1-(1-delta(y))*x_q]
+   =delta(y)*V-m-rho.                                   (CF1.2)
+```
+
+The term m is essential: it is the once-only list of actual a=1 primes. For a SINGLE q the complete signed owner total is
+
+```text
+s_q=delta(y)*x_q-1-fract(x_q).                           (CF1.3)
+```
+
+Equivalently the full wheel through y leaves only a=1 below t_q<R. This root-saturation property, together with the exact incidence mask, is the arithmetic dependence used here. No Möbius sign of the physical integer a*q is substituted for its first-owner contribution.
+
+For R>=8 let U_Q sum b_Q(p) over R/2<=p<R, and let L_Q sum the DISJOINT remaining owners p<R/2. If p>=R/2 and a<=t_q<R, a with least prime p cannot be composite: p^2>=R^2/4>R. Thus
+
+```text
+U_Q=N_cross-V*W_U,
+N_cross=#{prime pairs:R/2<=p<R<=q<2R, pq<=X},
+W_U=sum_(prime R/2<=p<R)w_p,
+U_Q+L_Q=S_Q.                                           (CF1.4)
+```
+
+The q=R atom is included when R is prime; pq=X is included. There is a further exact terminal restriction: any physical lower-owner donor preserving BOTH prime ancestors p and q would be a different multiple of pq, hence at least 2pq>=R^2>X. Such a same-endpoint, two-ancestor-preserving donor does not exist. This does not exclude a transfer sharing only one factor, changing factors, or crossing scales.
+
+#### CF2. Uniform Sign Of The Complete Fibre
+
+For every R>=2,
+
+```text
+delta(y)*V-2m <= S_Q <= delta(y)*V-m,
+|S_Q-delta(y)*V+(3/2)m| <= m/2.                         (CF2.1)
+```
+
+For an admitted q, the lower endpoint delta(y)*x_q-2 is STRICTLY below s_q. These follow from 0<=fract(x_q)<1, with no number-theoretic estimate assumed.
+
+The useful independent sign follows from a uniform elementary finite-product lower bound:
+
+```text
+delta(z)>=1/(2 sqrt(z)), every integer z>=2.             (CF2.2)
+```
+
+Proof: include every odd integer 3,5,...,2j+1<=z in the Euler product instead of only the odd primes. This adds factors between zero and one and can only decrease the product. Put P_j=product_(i=1..j)2i/(2i+1). Induction proves P_j^2(2j+1)>=1: the induction ratio is 4j^2/((2j-1)(2j+1))>=1. Multiplying by the prime-two factor 1/2 gives (CF2.2), also when the odd product is empty.
+
+For R>=64 and q<2R, q<=2R-1 and x_q=(R^2-1)/q>R/2. Hence
+
+```text
+s_q > R/(4 sqrt(R-1))-2 > 0,
+S_Q >= m*[R/(4 sqrt(R-1))-2] >= 0.                     (CF2.3)
+```
+
+The final strict comparison follows from R/sqrt(R-1)>sqrt(R)>=8. The aggregate inequality is valid even for an empty set Q; each actually admitted fibre is strictly positive. No Bertrand theorem, PNT, RH, post-root independence or empirical threshold is used. The explicit constant 64 is sufficient, not asserted optimal.
+
+This is a signed restriction on the COMPLETE masked owner collection. It is not a favorable upper bound for Z_R. In particular, interpreting the lower owners of this fibre as an automatically negative bank would contradict its known complete signed total.
+
+#### CF3. What A Lower-Owner Prefix Can Supply
+
+For integers 2<=z<R/2, put k=pi(z)>=1 and K_z=sum_(prime p<=z)b_Q(p). Complete finite inclusion-exclusion, with the unit divisor separated, gives
+
+```text
+K_z=sum_(q in Q)sum_(d|P_z, d>1)mu(d)fract(X/(q*d)).    (CF3.1)
+```
+
+There are 2^(k-1) negative signs and 2^(k-1)-1 positive signs among those nonunit divisors. Consequently, uniformly in R,z and every genuine admitted Q,
+
+```text
+-m*2^(k-1) <= K_z <= m*(2^(k-1)-1),
+|K_z|<=m*2^(k-1).                                    (CF3.2)
+```
+
+For owner two specifically,
+
+```text
+K_2=-sum_(q in Q)fract(X/(2q)),   -m<=K_2<=0.           (CF3.3)
+```
+
+The finite-cube bound is established elementary infrastructure; the new use is its exact transfer to this masked physical donor bank, with its original reference and prime units intact. Counting all even descendants as free positive or negative payment would omit their allocated Euler mass. No general sign is asserted for a longer prefix.
+
+#### CF4. Upper And Lower Owners Eventually Reinforce
+
+Put T_R=R^2/log^2 R, c=exp(-gamma), and ell=log 2. Then, as integer R tends to infinity,
+
+```text
+S_Q/T_R -> c*ell,
+U_Q/T_R -> u=ell-1/2 >0,
+L_Q/T_R -> l=1/2-(1-c)*ell >0.                        (CF4.1)
+```
+
+The independent inputs are the ordinary prime number theorem and Mertens' finite-product formula delta(t)log t->exp(-gamma). The latter is stated in [Diamond and Pintz, equation (1.1)](https://www.numdam.org/article/JTNB_2009__21_3_523_0.pdf); the prime asymptotic and its non-RH error are stated in [DLMF 27.12](https://dlmf.nist.gov/27.12). These classical inputs were freshly retrieved, not inferred from a numerical trend. They are not RH-strength assumptions.
+
+Proof with the actual uniformity: PNT partial summation on the FIXED proportional interval [R,2R) gives
+
+```text
+m~R/log R,  V~ell*R^2/log R,  0<=rho<m.
+```
+
+Together with Mertens' product this proves the first limit. For p in [R/2,R), the arguments X/p and R-1 lie in a fixed proportional range. Uniform PNT gives
+
+```text
+pi(floor(X/p))-pi(R-1)
+  =(R/log R)*(1/(p/R)-1)+o(R/log R),
+N_cross/T_R -> integral_(1/2)^1 (1/v-1)dv=ell-1/2.
+```
+
+The uniform little-o summed over O(R/log R) owners remains o(T_R). The exact physical endpoint p*q=X and possible prime q=R remain in the count; their lower-order contributions are not silently removed from any identity. Uniform Mertens and prime partial summation, as already used in FW3, give
+
+```text
+W_U~c*ell/log^2 R,
+V*W_U=O(R^2/log^3 R)=o(T_R).
+```
+
+This proves the upper limit; subtract from S_Q to obtain the lower limit. For a nondecimal sign proof, 1/2<ell<3/4 by integral comparison. Convexity of 1/t gives gamma<=1-log(3/2); since e<3, c>=3/(2e)>1/2. Thus l>1/8 and u>0. All constants and thresholds precede R. No effective threshold for the individual eventual signs is claimed.
+
+Consequences are precise:
+
+1. There is a fixed R_0 such that U_Q>0 and L_Q>0 for ALL integer R>=R_0. In particular U_Q*L_Q/T_R^2->u*l>0, not a negative covariance.
+2. For EVERY fixed C>=0, |U_Q+L_Q|>C R log R for all sufficiently large R. This refutes that proper-source strengthening, not the full Z_R target.
+3. For every FIXED lower cutoff z, |K_z|=O_z(R/log R)=o(T_R), so U_Q+K_z~u*T_R. Such a signed prefix bank cannot pay U_Q at RH scale.
+4. More generally, if z=z(R)<R/2 and 2^pi(z)=o(R/log R), the same nonpayment conclusion holds. If instead |U_Q+K_z|<=C R log R eventually with fixed C, the NECESSARY condition is liminf_(R->infinity) [2^pi(z(R))*log R/R]>=2u. This does not prove a sufficiently large bank can pay anything.
+
+These are about the specified complete-prefix donor bank and exact reference allocation. They do not forbid arbitrary weighted, cross-fibre, other-scale or jointly recentered mechanisms.
+
+#### Complete Return And Every Cross Term
+
+Set C_Q=F_R-S_Q-D_R, including every complementary physical owner site and its reference. Then exactly
+
+```text
+Z_R=U_Q+L_Q+C_Q,
+Z_R^2=U_Q^2+L_Q^2+C_Q^2+2U_Q L_Q+2U_Q C_Q+2L_Q C_Q.   (RETURN)
+```
+
+No original #915 compressed NNS quantity is substituted for this square. Inside U_Q,L_Q,C_Q all within-owner and cross-owner terms remain implicit in the exact sums, not dropped by a sum-of-squares replacement.
+
+For comparison with Owner FW's unmasked upper packet H_R, if n is the number of upper owners, the prior exact historical triangle gives
+
+```text
+H_R-U_Q=n(n+3)/2-(X-V)*W_U.                            (CF4.2)
+```
+
+Thus FW's eventual H_R<0 and CF's eventual U_Q>0 are consistent: the omitted historical/reference portion is large and signed. This is not a contradiction or a change in original weights.
+
+For the latest Coordinator's proper Li-centered hyperbolic quadratic Q_R^nu, retain its two mixed terms and continuous term on [R/2,R) x [R,2R]:
+
+```text
+U_Q=Q_R^nu+I_Lnu+I_nuL+I_LL-V*W_U.                    (CF4.3)
+```
+
+The new signs and bounds do NOT bound Q_R^nu alone. They constrain this explicit joined quantity. The principal-value li anchor remains in D_R. In particular the SA4 synthetic counting model is not being identified with our physical first-owner or complete-wheel source.
+
+The known non-RH global PNT error gives Z_R=o(T_R), hence C_Q/T_R->-c*ell. This locates the leading compensation OUTSIDE the chosen complete q-fibre collection: U_Q*C_Q/T_R^2->-u*c*ell and L_Q*C_Q/T_R^2->-l*c*ell. This last observation uses an already established global PNT theorem; it is not a new independent discrepancy bound. The six leading terms in RETURN cancel because u+l=c*ell, not because any cross term was omitted.
+
+### E. Quantitative Consequence
+
+The genuinely uniform proper-source conclusions are CF2.1-CF2.3 and CF3.2-CF3.3. The elementary sign is valid for every R>=64, with the exact admitted prime set; the lower-prefix bound is valid for every allowed R,z. CF4 supplies asymptotic restrictions and rigorous failures of proposed auxiliary estimates.
+
+The conclusion changes the local strategy: common large-prime ancestry does not provide the proposed signed donor bank. The full lower-owner population in that mask eventually reinforces the upper one, while any fixed prefix has insufficient signed capacity even though it has many physical descendants.
+
+There is **no improved exponent or constant for the complete target**. Asking for |C_Q+S_Q|<=C R log R is exactly the original target in new notation. Subtracting the explicit leading fibre mass and assuming the remaining full compensation is small is likewise not an independent proof. A joint estimate may still succeed, but requires new arithmetic beyond these exact identities and signs.
+
+### F. Falsification And Circularity Review
+
+The registered sign hypothesis H_CF fails at R=8, the smallest root in its stated domain:
+
+```text
+Q={11,13}, V=1512/143,
+U_Q=-7/65, L_Q=-150/143, S_Q=-827/715.
+```
+
+Both groups have the same negative sign. At R=11 the stronger test with positive upper mass also fails:
+
+```text
+U_Q=557169/323323>0,
+L_Q=1775/4199>0,
+S_Q=693844/323323>0.
+```
+
+R=9 and R=10 have U_Q>0 and L_Q<0, so R=11 is the smallest positive-upper/positive-lower witness in R>=8. These exact rational values were reproduced by a second implementation using trial division and original masked divisor fractions, not the first implementation's sieve counts.
+
+| Root | U_Q | L_Q | S_Q | Meaning |
+| --- | --- | --- | --- | --- |
+| 8 | -7/65 | -150/143 | -827/715 | Smallest H_CF failure |
+| 11 | 557169/323323 | 1775/4199 | 693844/323323 | Smallest positive-upper failure |
+| 12 | 31324/15295 | -11664/37145 | 90172/52003 | No universal individual lower sign |
+| 257 | 311.555800 | 400.949789 | 712.505588 | Held-out; both positive |
+| 549 | 1112.919732 | 1570.298664 | 2683.218396 | Held-out; both positive |
+| 1024 | 3202.869393 | 4493.198530 | 7696.067922 | Held-out; both positive |
+
+Large-row decimals are DISPLAY ONLY. All sign decisions, equations and inequalities in the programs use integers and exact rational arithmetic. There was no numerical evaluation of li, no fitted threshold, and no inference of CF4 from the table.
+
+CF5 executed 126 registered root cases: R=2,3, every R=8..128, and the three held-outs. Every case checked the direct physical least/greatest-prime mask against cofactor counting, original owner/reference reassembly, all quadratic cross terms using an arbitrary rational reference, fixed prefix banks z=2,3,5,7,13 when admissible, and terminal product nonextension. Of the 121 discovery roots, 115 had U_Q*L_Q>0; 114 had both positive. These counts are finite evidence only.
+
+The full original divisor cube was evaluated only at the 11 declared small roots 2,3,8..16. Every masked owner was also checked directly through CF1.1 there. Larger cases used the certified physical form, not exponential cube enumeration. The independent trial-division audit covered those same 11 small roots. Both programs passed Python syntax compilation; the complete primary verifier was rerun after adding the first-positive witness to its output and passed unchanged mathematical assertions.
+
+Boundary and negative controls:
+
+- At R=2 the wheel is empty and S_Q=0; the two actual primes still require two cofactor-one corrections.
+- At R=11, deleting q=R omits signed contribution 45/77. The squareful site 44=4*11 is retained with owner two.
+- At R=12, the physical product 143=11*13 is included. This is not a divisor of the wheel primorial, because 13 is above the cutoff; physical-product equality and divisor equality are distinct.
+- At R=14, d=X=195 is an actual wheel divisor with mu(d)=-1 and floor(X/d)=1; it remains in the original complementary source.
+- At R=8, the original physical fractional sum is 3/5, the virtual correction is -6/5 and their complete sum is -3/5. Omitting virtual terms reverses this sign. This is a verification control, not a newly discovered FW counterexample.
+- Omitting one cofactor-one subtraction per q changes the total by exactly m. Replacing the inherited coefficient by mu(q*e) would change the sign of the masked packet and is not the original mask.
+
+A scoped main-source search for cofactor fibres, complete-wheel lower owners and the density bound found existing survivor/fibre infrastructure on other carriers and the already read complete-wheel modules, but no matching CF quantitative assertion in the returned results. This is NOT an exhaustive novelty claim. Today's FW/CT/SA/MB/DG/BL/DA and yesterday's different-carrier results are credited rather than rerun as new theorems. In particular, old same-tag raw-VF and frozen-Mobius obstructions are not claimed to be this mask's result.
+
+### G. Conceptual Interpretation
+
+Conditioning on a prime q>=R forces every remaining cofactor below the historical root. The complete moving wheel then accounts for EVERY nonunit cofactor. Its signed aggregate is therefore almost rigid: only the explicit Euler mass, one actual prime, and a fractional error remain. This is a deterministic arithmetic restriction, not probabilistic orthogonality.
+
+The distinction between physical abundance and signed capacity is decisive. Owner two supplies many even descendants in the same fibres, but after the exact reference it contributes only a sum of negative fractional parts. The entire lower-owner group eventually has the opposite behavior: it reinforces the upper group. Neither fact can be inferred from an unsigned descendant count. Any useful global mechanism must recover the complementary reference and physical sources explicitly.
+
+### H. Competing Mechanisms
+
+| Hypothesis | Established evidence / missing ingredient | Disposition |
+| --- | --- | --- |
+| Same-q upper/lower anti-alignment | CF5 refutes it at R=8 and R=11; CF4 proves eventual positive alignment | ABANDON this precise sign rule |
+| Pay the upper masked packet with a fixed low-prime prefix | CF3 bounds its signed capacity; CF4 leaves a positive order-T_R residual | ABANDON at this stated scope; growing/weighted/nonlocal repairs require a new theorem |
+| Preserve both large prime ancestors in a lower-owner donor at the same endpoint | CF1 proves no physical donor can exist | ABANDON this incidence map, not one-factor substitutions |
+| Cross-fibre or jointly centered compensation with growing owners | RETURN preserves the source and CF4 identifies the required leading negative complement; no independent fine-scale supplier found | CONTINUE DISCOVERY, not a successful mechanism or compulsory norm |
+
+The previously paid CT curved-to-additive adapter remains available but supplies no sign contradiction to CF. No departure from the current finite-wheel campaign is proposed.
+
+### I. Specialist Handoffs
+
+**Coordinator / Proof Architect:** the new restriction is CF2's complete-fibre sign, with CF4's asymptotic same-q reinforcement. It answers the specified disjoint-complement question negatively for this natural mask. Add the exact source edge CF1.1 and the failed H_CF rule, but do not promote CF to an endpoint improvement or identify it with the standalone Q_R^nu. A viable successor must cross the q mask or combine its deterministic bias with a specified complementary source. Do not treat another entire-residual bound as a narrower lemma.
+
+**Adversarial Referee:** review the mask coefficient mu(e), not mu(qe); disjoint q incidence; the a=1 atom and p/q boundary conventions; nonnegative reference volume; the odd-integer finite-product lower bound; constant 64; both PNT uniformity steps; and all three leading coefficients in CF4. Independently check R=8 and R=11. The second program is an implementation cross-check by this author, not your independent acceptance.
+
+**Finite Wheel & Incidence:** CF1's terminal two-ancestor obstruction and CF3's capacity bound constrain a proposed donor map. A one-factor substitution could escape the terminal obstruction, but it must preserve actual admission and pay its changed Euler reference. No proof of such a signed transfer is supplied. Reuse #1124 rather than rederive root admission.
+
+**Analytic Type II:** CF4.3 is the precise bridge to your and the Coordinator's proper quadratic. The positive asymptotic applies to the joined quadratic/mixed/reference expression, NOT Q_R^nu or M_mid alone. PNT and Mertens prove only leading-scale alignment here. Any use of the spectral bounds must retain both physical mixed terms and the distinct complement C_Q.
+
+**Prime Census Laboratory:** the registered H_CF has already been decisively refuted; extending these sign scans has no research purpose. A useful independent check is the exact two minimal witnesses or, once an explicit one-factor donor rule is proposed, its admission, reference-defect and once-only capacity tests on held-out roots. Do not search for a fitted all-root constant.
+
+**Lean Verification:** no new proof branch or speculative RH theorem is requested. CF2/CF3 are candidates only after independent scope review and if the precise source-mask adapter has a real consumer. Existing #1125 infrastructure remains the first relevant verification issue; non-draft status alone is not certification. Do not create a collection of easy identities solely to inflate proof counts.
+
+These are asynchronous report handoffs only. No agent was launched, rescheduled or promised background work; no other report or shared queue was edited.
+
+### J. First Independently Missing Lemma
+
+**No new smaller sufficient lemma for the complete RH target was obtained. The selected local supplier is refuted, not merely awaiting a proof.** A bound for C_Q+S_Q is TARGET_EQUIVALENT and is not proposed as independent progress.
+
+One precise, already stated OPTIONAL proper-source question remains Owner CT3's additive-triangle interaction. For W=floor(R^(2/3)), alpha and beta are the pushforwards of the actual prime-minus-li measures on [R-W,R) and [R,R+W] to the two gap coordinates, and J=int sgn(a-b)dalpha(a)dbeta(b). The unproved statement is
+
+```text
+exists C>=0, forall integer R>=64,
+  |alpha([0,W])*beta([0,W])+J(R,W)|<=C R log R.
+```
+
+Status remains CONJECTURE / EXPLORATORY, not a new CF conjecture or a requirement that all investigators prove this norm. The paid positive diagonal and CT2 transfer control only their stated proper costs; both linear terms, other owners and the complete complement remain. CF does not supply this inequality, prove it weaker than RH, or establish its necessity. It is recorded to distinguish an exact surviving proper-source question from renaming the full target.
+
+For the higher-priority joint-owner mechanism, the first missing ingredient is an actual signed, reference-preserving transfer across the q partition. No concrete non-tautological all-scale inequality for that transfer has yet survived this execution. This lack is reported honestly rather than filled by an assumed cancellation principle.
+
+### K. Next-Run Resume Capsule, Evidence And Publication
+
+Resume from CF2-CF4 and the exact mask CF1.1. Do not rerun the H_CF sign census, confuse b_Q(p) with full B_R(p), assign mu(a*q) to a physical unit, or drop V*w_p. Preserve the original FW R=10 and d=X=195 witnesses and CT's opposite signed-curvature witnesses on THEIR different quantities. The best next conceptual move is a genuine cross-mask or one-factor substitution theorem with its reference defect calculated before claiming cancellation. No independently promising new positive endpoint mechanism is asserted.
+
+Two-day continuity: TODAY=AVAILABLE for every role; YESTERDAY=CARRY_FORWARD at the actual mathematical scope. The latest November 9 Coordinator SA stage, not its morning-only status, supplied the assignment. No missing scheduled run was presumed successful.
+
+| Role | November 9 intake blob | November 8 carried-forward blob |
+| --- | --- | --- |
+| Coordinator 00/90 | 35edd925446bfaf4babab99017ad8019db322915 | 8b640304f6c233a2c4409b9882799de485888a9e |
+| Owner | cfc6b8f473f7702c6e0759746095f048c1378756 | 4e1b83a1e5ff8c134e9ca64404397c70c2b07252 |
+| Analytic | 0f9b1362677ac9adbcec45225e5d6b172cf84cb9 | edecba8785a45cda87c0035d0348695941f1b8ea |
+| Wheel | 932fe82483d30c49b6277baeaede629d29445b1e | 60d4cf1b65d4b1b2cc4f13f6c0940c14cb2c50fd |
+| Census | 6ad4c84512730dfc1cb7fc79540c248931cb8ddf | 00f4f9c0d670821a0c9d1da31fd1c4d0afd09142 |
+| Referee | 01869acbc9d0535fe4791354a0029b8f77981723 | 5371324ebbdbd88afb9abf843e83da2ce86b752f |
+| Lean | 4402811bbc7198731f83036f73836ef336c2015a | 5a110685bbe375d8ebff42df7391162914e52cef |
+
+Consumed current claims: Owner FW/CT; Coordinator FB/MP/SA; Analytic SC/MB; Wheel RA/DG; Census CR/BL; Referee DA and its scoped FB/DG/BL3 acceptance; Lean RA and DG2 implementation evidence. CT/MB1-MB3/SA retain their paper self-audit status. Yesterday's Owner JS, Coordinator FM, Analytic EC, Wheel FD, Census FR and Referee SG have distinct carriers and do not supply this estimate; EC's later formalization is not transferred by analogy. The external inbox blob 038018145c0fddb2f6306c0712373adf9cd1ea52 has no entry after October 18. EXT-20261018-PNT-1..3, EXT-20261017-XCOORD-1 and EXT-20261014-5 retain their source/endpoint/denominator safeguards, not their obsolete routing priorities.
+
+Actual GitHub evidence read this run:
+
+- #1124 is merged as the pinned main. Its exact source head 1b80f147dab3c0c2525052b3c6c3f8c447089da1 has 13 successful check runs. The actual root-admission proof log, job 129104842737, reports successful compilation, live dependency closures 746/772 and standard terminal axioms propext/Classical.choice/Quot.sound. This is reused evidence for RA, not a new build or certification of CF.
+- #1122 is merged; its exact head c53e9cf234500aea2605fd2557e638995f380407 has 11 successful check runs. Its original source statements were read directly.
+- The sole open PR at intake is #1125, head 538aa743a3e0de86b5ec44c9b4f159df3f5bd050, now NON-DRAFT. Direct current-head checks return ZERO check runs; all twelve attached workflow records report failure. This supersedes the report's old draft metadata but does not prove the implementation. The Lean report records zero-job infrastructure failure; this execution did not rerun CI or diagnose a compiler error.
+
+Reproducibility SHA-256 values:
+
+```text
+cofactor_fibre_check.py
+5c2db6587a79af66fe215b10fff9c7a1ef41294901b5e29ff215b3205396e028
+cofactor_fibre_audit.py
+a2fee2724157629f051223fa3ea9102261c34ab259ca837d19e365e7e90d86b3
+cofactor_fibre_results.json
+977bfacb146d6e2c68a9eb097cde3bb5515efc999017e569572dfc951f824e84
+```
+
+The exact executed programs follow so the finite evidence can be reproduced from this report. No local Lean was run. No source, central instruction, other report, PR, proof branch, workflow, schedule, permission or main was changed. Only this Owner daily report is published remotely. Mathematical work is complete at the stated paper/finite scope; substantive publication is PENDING until commit inspection and immutable readback. The receipt below will record verified publication without claiming any future background continuation.
+
+
+### Prepublication Refresh - 20261109-owner-3/CF
+
+At 2026-11-09 21:36:11 UTC (16:36:11 EST), main remained 02f00cee544278ad1bb9022ee76fc5916d459a95. All six upstream November 9 report blobs were unchanged; the Coordinator mirrors still share the same blob. The owned report contained the verified checkpoint above. #1125 remained open, non-draft and at the same unchecked head. No source or authority change requires a different mathematical baseline. Local runtime: Python 3.12.13. Both scripts and every required computation session completed successfully.
+
+### Reproducibility Appendix - CF5
+
+The two programs are independent implementations by the same author, not independent specialist acceptance. The primary program's JSON output is deterministic; its SHA-256 is recorded above. Display floats are never used in an assertion.
+
+#### Primary Exact Verifier
+
+```python
+"""Exact registered tests for 20261109-owner-3/CF; no Lean or li numerics."""
+
+from collections import Counter
+from fractions import Fraction as Q
+from math import isqrt
+import json
+
+
+ROOTS = [2, 3] + list(range(8, 129)) + [257, 549, 1024]
+MAX_N = max(ROOTS)**2 - 1
+SPF = list(range(MAX_N + 1))
+LPF = [0] * (MAX_N + 1)
+for p in range(2, MAX_N + 1):
+    if SPF[p] == p:
+        for n in range(p, MAX_N + 1, p):
+            if SPF[n] == n:
+                SPF[n] = p
+            LPF[n] = p
+PRIMES = [p for p in range(2, 2 * max(ROOTS)) if SPF[p] == p]
+
+
+def cube(primes):
+    out = [(1, 1)]
+    for p in primes:
+        out += [(d*p, -mu) for d, mu in out[:]]
+    return out
+
+
+def fract(x):
+    return x - x.numerator // x.denominator
+
+
+def brief(x):
+    return {"exact": str(x), "approx_diagnostic_only": float(x)}
+
+
+def evaluate(R):
+    X = R*R - 1
+    owners = [p for p in PRIMES if p < R]
+    large = [q for q in PRIMES if R <= q < 2*R]
+    weights, delta = {}, Q(1)
+    for p in owners:
+        weights[p] = delta/p
+        delta *= Q(p-1, p)
+    assert sum(weights.values(), Q(0)) == 1-delta
+    V = sum((Q(X, q) for q in large), Q(0))
+    rho = sum((fract(Q(X, q)) for q in large), Q(0))
+    assert 0 < V < X
+    masked = Counter()
+    all_counts = Counter()
+    direct_masked = Counter()
+    seen = set()
+    pairs = []
+    fibre_totals = []
+    for q in large:
+        x = Q(X, q)
+        t = X//q
+        assert 1 <= t < R <= q
+        for a in range(2, t+1):
+            n = a*q
+            assert n not in seen and n <= X
+            assert SPF[n] == SPF[a] and LPF[n] == q
+            seen.add(n)
+            masked[SPF[a]] += 1
+            if 2*SPF[a] >= R:
+                assert a == SPF[a]
+                pairs.append((a, q))
+        fibre = (t-1) - (1-delta)*x
+        assert fibre == delta*x - 1 - fract(x)
+        assert delta*x-2 < fibre <= delta*x-1
+        if R >= 64:
+            assert fibre > 0
+        fibre_totals.append(fibre)
+    # An independent physical-n pass checks the mask and all squareful sites.
+    for n in range(2, X+1):
+        p = SPF[n]
+        if p < R:
+            all_counts[p] += 1
+            if R <= LPF[n] < 2*R:
+                direct_masked[p] += 1
+    assert masked == direct_masked
+    assert sum(masked.values()) == sum(X//q-1 for q in large)
+    b = {p: masked[p]-V*weights[p] for p in owners}
+    B = {p: all_counts[p]-X*weights[p] for p in owners}
+    upper = [p for p in owners if 2*p >= R]
+    U = sum((b[p] for p in upper), Q(0))
+    L = sum((b[p] for p in owners if 2*p < R), Q(0))
+    total = sum(b.values(), Q(0))
+    F = sum(B.values(), Q(0))
+    assert total == U+L == delta*V-len(large)-rho
+    assert total == sum(fibre_totals, Q(0))
+    assert sum((B[p]-b[p] for p in owners), Q(0))+total == F
+    # Rational arbitrary reference exercises the full signed square exactly.
+    reference = Q(7, 3)
+    D = X*delta+len(owners)-1-reference
+    rest = F-total-D
+    Z = F-D
+    assert Z == U+L+rest
+    assert Z*Z == U*U+L*L+rest*rest+2*U*L+2*U*rest+2*L*rest
+    pi_X = sum(SPF[n] == n for n in range(2, X+1))
+    assert Z == reference-pi_X
+    if R >= 8:
+        n_upper = len(upper)
+        W_upper = sum((weights[p] for p in upper), Q(0))
+        history = n_upper*(n_upper+3)//2
+        assert sum(all_counts[p] for p in upper) == history+len(pairs)
+        assert U == len(pairs)-V*W_upper
+        assert sum((B[p] for p in upper), Q(0))-U == history-(X-V)*W_upper
+        # Preserving both prime ancestors cannot admit any extra factor.
+        assert all(2*p*q > X for p, q in pairs)
+    assert 4*(R-1)*delta*delta >= 1 if R >= 3 else True
+    bank_rows = []
+    for z in [2, 3, 5, 7, 13]:
+        if not z < R/2:
+            continue
+        ps = [p for p in owners if p <= z]
+        k = len(ps)
+        bank = sum((b[p] for p in ps), Q(0))
+        direct = sum((mu*fract(Q(X, q*d)) for q in large
+                      for d, mu in cube(ps) if d != 1), Q(0))
+        assert bank == direct
+        assert -len(large)*2**(k-1) < bank <= len(large)*(2**(k-1)-1)
+        if z == 2:
+            assert bank == -sum((fract(Q(X, 2*q)) for q in large), Q(0))
+            assert bank <= 0
+        bank_rows.append({"z": z, "value": brief(bank)})
+    cube_data = None
+    if R <= 16:
+        terms = cube(owners)
+        whole = sum((mu*fract(Q(X, d)) for d, mu in terms), Q(0))
+        physical = sum((mu*fract(Q(X, d)) for d, mu in terms if d <= X), Q(0))
+        virtual = sum((mu*Q(X, d) for d, mu in terms if d > X), Q(0))
+        assert whole == physical+virtual == F
+        for p in owners:
+            expected = -sum((mu*fract(Q(X, p*q*e)) for q in large
+                             for e, mu in cube([v for v in owners if v < p])), Q(0))
+            assert b[p] == expected
+        cube_data = {"divisors": len(terms),
+                     "physical": brief(physical), "virtual": brief(virtual),
+                     "has_d_equal_X": any(d == X for d, _ in terms)}
+    return {"R": R, "q_count": len(large), "cross_pairs": len(pairs),
+            "U": brief(U), "L": brief(L), "total": brief(total),
+            "same_sign": U*L > 0, "both_positive": U > 0 and L > 0,
+            "banks": bank_rows, "cube": cube_data,
+            "min_fibre_positive": min(fibre_totals) > 0,
+            "physical_masked_count": sum(masked.values()),
+            "root_prime_included": R in large}
+
+
+def main():
+    rows = [evaluate(R) for R in ROOTS]
+    discovery = [r for r in rows if 8 <= r["R"] <= 128]
+    first = next(r for r in discovery if r["same_sign"])
+    first_positive = next(r for r in discovery if r["both_positive"])
+    selected = [r for r in rows if r["R"] in [2, 3, 8, 11, 12, 14, 64, 257, 549, 1024]]
+    print(json.dumps({"status": "PASS_EXACT", "roots_tested": len(ROOTS),
+                      "discovery": [8, 128], "held_out": [257, 549, 1024],
+                      "first_H_CF_counterexample": first,
+                      "first_positive_U_positive_L": first_positive,
+                      "same_sign_count_discovery": sum(r["same_sign"] for r in discovery),
+                      "both_positive_count_discovery": sum(r["both_positive"] for r in discovery),
+                      "selected": selected,
+                      "precision": "All assertions use integers/Fraction; floats are display only.",
+                      "scope": "Finite checks, not a uniform bound or Lean certification."}, indent=2))
+
+
+if __name__ == "__main__":
+    main()
+```
+
+#### Independent Small-Case Implementation
+
+```python
+"""Independent trial-division and divisor-cube audit of the small witnesses."""
+
+from fractions import Fraction as Q
+from math import isqrt
+import json
+
+
+def prime(n):
+    return n >= 2 and all(n % d for d in range(2, isqrt(n)+1))
+
+
+def factors(n):
+    return [p for p in range(2, n+1) if n % p == 0 and prime(p)]
+
+
+def frac(a, b):
+    return Q(a % b, b)
+
+
+def audit(R):
+    X = R*R-1
+    ps = [p for p in range(2, R) if prime(p)]
+    qs = [q for q in range(R, 2*R) if prime(q)]
+    divisors = [(1, 1)]
+    weights, density = {}, Q(1)
+    for p in ps:
+        weights[p] = density/p
+        density *= Q(p-1, p)
+        divisors += [(d*p, -s) for d, s in divisors[:]]
+    V = sum((Q(X, q) for q in qs), Q(0))
+    by_owner = {}
+    for p in ps:
+        raw = sum(min(factors(n)) == p and max(factors(n)) in qs
+                  for n in range(2, X+1))
+        face = -sum((s*frac(X, p*q*d) for q in qs
+                     for d, s in divisors if all(v < p for v in factors(d))), Q(0))
+        assert face == raw-weights[p]*V
+        by_owner[p] = face
+    U = sum((v for p, v in by_owner.items() if 2*p >= R), Q(0))
+    L = sum((v for p, v in by_owner.items() if 2*p < R), Q(0))
+    rho = sum((frac(X, q) for q in qs), Q(0))
+    assert U+L == density*V-len(qs)-rho
+    assert (U+L)-(density*V-rho) == -len(qs)
+    physical_F = sum((s*frac(X, d) for d, s in divisors if d <= X), Q(0))
+    virtual_F = sum((s*Q(X, d) for d, s in divisors if d > X), Q(0))
+    F = sum((s*frac(X, d) for d, s in divisors), Q(0))
+    assert F == physical_F+virtual_F
+    if R == 8:
+        assert (U, L, F, physical_F, virtual_F) == (
+            Q(-7, 65), Q(-150, 143), Q(-3, 5), Q(3, 5), Q(-6, 5))
+    root_fibre = None
+    if R in qs:
+        root_fibre = density*Q(X, R)-1-frac(X, R)
+        assert root_fibre == sum(sum(min(factors(a)) == p
+                                         for a in range(2, X//R+1))
+                                 - weights[p]*Q(X, R) for p in ps)
+    if R == 11:
+        assert root_fibre == Q(45, 77)
+        assert 44 <= X and min(factors(44)) == 2 and max(factors(44)) == 11
+    if R == 14:
+        assert (195, -1) in divisors
+        assert X//195 == 1 and frac(X, 195)-Q(X, 195) == -1
+    return {"R": R, "U": str(U), "L": str(L),
+            "unit_omission_error": -len(qs),
+            "root_fibre": None if root_fibre is None else str(root_fibre)}
+
+
+rows = [audit(R) for R in [2, 3] + list(range(8, 17))]
+assert next(x["R"] for x in rows if x["R"] >= 8 and Q(x["U"])*Q(x["L"]) > 0) == 8
+assert next(x["R"] for x in rows if x["R"] >= 8 and Q(x["U"]) > 0 and Q(x["L"]) > 0) == 11
+print(json.dumps({"status": "PASS_INDEPENDENT_IMPLEMENTATION", "cases": rows,
+                  "scope": "Self-audit, not independent specialist review."}, indent=2))
+```
+
+#### Executed Summary
+
+```json
+{"primary":"PASS_EXACT","roots_tested":126,"discovery_roots":[8,128],"held_out_roots":[257,549,1024],"first_H_CF_failure":8,"first_positive_upper_positive_lower":11,"discovery_same_sign":115,"discovery_both_positive":114,"small_cube_cases":11,"independent_small_audit":"PASS_INDEPENDENT_IMPLEMENTATION","independent_cases":11,"syntax_checks":"PASS","uniform_claims":"proved separately on paper; not inferred from this computation","Lean":"NOT_RUN"}
+```
