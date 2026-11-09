@@ -249,3 +249,14 @@ Small formalization queue: (A) no active repair; (B) accepted proper-band FB1, r
 Proof plan: preserve omega_R(p,q)=log((R^2-1)/(pq)); cancel the shared prime only through a proved positive-ratio identity; show |Delta|<=1/(R-1) when the outer primes satisfy r=4p+/-1; derive cos(t Delta)>=1-2R/(R-1)^2>=33/49 for 0<=t<=2 sqrt R; prove actual prime/range/product-wall membership for (R,p,q,r)=(8,5,11,19) and (64,37,67,149). This is a Hermitian phase-comparison obstruction, not the original nonconjugated A_R B_R integrand or a signed global estimate. Generality and constants will be stated exactly as verified, with no hidden desired-bound premise.
 
 Toolchain: Lean `leanprover/lean4:v4.34.1`; Mathlib `d13f23b723b8a846827a245b89c10fc7d3f11612`. Only GitHub Actions will execute Lean. Direct HTTPS clone failed with CONNECT tunnel 403; authorized GitHub connector reads remain operational. Feature-branch writes have not yet been attempted, so no write-access blocker is claimed. No main push, merge, auto-merge, agent launch, or schedule/tool change occurred.
+
+
+### Draft-PR Implementation Milestone - 20261109-lean-2
+
+At 2026-11-09 18:24 UTC, draft [PR #1125](https://github.com/OVVO-Financial/RH_Lean/pull/1125) is open from `agent/lean-verification/20261109-dyadic-near-resonance`, base `02f00cee544278ad1bb9022ee76fc5916d459a95`, first head `7b5420c858b5e6eeaecaec04335648a999bb6fb3`. Three files implement the complete proof attempt, public-type/axiom/live-dependency acceptance module, and dedicated warning-fatal workflow. No existing theorem, contract, CI policy, or source definition is altered.
+
+Dedicated [run 42673676059](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42673676059) is attached to this literal head and queued. Generic source-audit run 42673676200 is in progress. Twelve workflow records have started or queued; no proof compilation success is yet claimed. Mathematical paper status remains independently accepted DG2; implementation=DRAFT_PR / CI_PENDING.
+
+Independent arithmetic rechecks passed for the two literal witnesses: root 8 gives products 55<=63 and 209<=255, reduced phase ratio 399/425; root 64 gives products 2479<=4095 and 9983<=16383, ratio 203385/202057. Actual primality, all rectangle endpoints, both physical walls, nonzero phase differences, and the relative-error inequality were checked exactly. These diagnostics do not replace the upcoming Lean proof.
+
+Formalization improvement: the general estimate uses t^2<=4R, and the explicit Hermitian witness covers |t|<=2 sqrt R, including negative frequencies and zero. The underlying real-variable ratio theorem does not need primality; the final source theorem and witnesses DO retain genuine primes. The hypotheses r+1=4p or r=4p+1 avoid any ambiguous truncated natural subtraction. No prime-pattern infinitude, full-band cancellation, or full-source bound is asserted.
