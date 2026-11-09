@@ -8,6 +8,7 @@ on:
       - research/FOUR_PRIME_FIXED_SQUARE_BLOCK_PHYSICAL_DRIFT_20261108.md
       - research/FOUR_PRIME_SUBWHEEL_LOG_DIFFERENCES_20261108.lean
       - scripts/four_prime_subwheel_comparison.py
+      - scripts/frozen_root_two_coordinate_census.cpp
       - scripts/four_prime_fixed_squareblock_certificate.py
       - .github/workflows/four-prime-fixed-squareblock-drift.yml
   workflow_dispatch:
@@ -36,6 +37,10 @@ jobs:
         run: |
           python3 scripts/four_prime_fixed_squareblock_certificate.py
           python3 scripts/four_prime_subwheel_comparison.py
+      - name: Verify the exact frozen sqrt-only two-coordinate endpoint reconstructions
+        run: |
+          g++ -O3 -std=c++17 scripts/frozen_root_two_coordinate_census.cpp -o /tmp/frozen_root_two
+          /tmp/frozen_root_two
       - name: Install pinned Lean and Mathlib
         uses: ./.github/actions/lean-setup
       - name: Warning-fatal compile of original finite source
