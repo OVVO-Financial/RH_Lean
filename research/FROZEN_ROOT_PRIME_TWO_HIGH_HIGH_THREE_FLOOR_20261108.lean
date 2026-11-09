@@ -67,6 +67,8 @@ theorem frozenOddHigh_floor_bounds
     omega
   have hlarge : R * R ≤ (2 * m) * (2 * n) :=
     Nat.mul_le_mul hmhalf hnhalf
+  have hlarge' : R ^ 2 ≤ 4 * (m * n) := by
+    nlinarith only [hlarge]
   have hfar : R ^ 2 - 1 < 4 * (m * n) := by
     have hRpos : 0 < R ^ 2 := by positivity
     omega
@@ -102,6 +104,11 @@ theorem frozenOddHighHigh_eq_square_add_two_masks
         frozenOddHighMass R ^ 2 := by
     unfold frozenOddHighMass
     simp only [pow_two, Finset.sum_mul, Finset.mul_sum]
+    apply Finset.sum_congr rfl
+    intro m _hm
+    apply Finset.sum_congr rfl
+    intro n _hn
+    ring
   calc
     frozenOddHighHigh R =
       (∑ m ∈ frozenOddHighSet R,
