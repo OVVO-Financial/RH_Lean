@@ -1072,3 +1072,20 @@ X*(delta(R-1)-sum_(physical d)mu(d)/d).
 Do not enumerate a large complete cube. Numerical |Z_R|/(R log R) remains NUMERICAL ONLY. A proper middle-band certificate does not pay the constant mode, other bands, physical linear responses, other owners, or original #915 covariance.
 
 Stop after the registered domain and decisive checks. Publish code, actual outputs, uncertainty, limitations and one precise next lemma. No local Lean, no source/branch/PR/other-report edits, no agent launch or schedule change.
+
+
+### Disclosed Proof-Led Extension - 20261109-census-2/BL-Pair
+
+After the first registered R=16 reversal was independently verified by exact rational series, a new proper-component lemma emerged. This was NOT part of the initial registration; it is disclosed before its pair-specific arithmetic validation. The original domain, samples and hypothesis are unchanged.
+
+Let h=ceil(sqrt R), X=R^2-1 and D=floor(X/(4h)), R>=16. Products pq in the original cross-root rectangle have unique prime-pair occurrences. Pair a product X-d with X+d only if BOTH original occurrences exist, 1<=d<=D; each is used once. Let J_match be the sum of their original K_R contributions. The proposed PAPER_PROOF is
+
+0<=J_match<=4R/765, uniformly for every integer R>=16.
+
+Indeed t*abs(log(X/(X+/-d)))<=2sqrt(R)/(4h-1)<=8/15 on the full band, so the sine response is strictly increasing in log phase. Each reflected pair is positive, not exactly cancelling, and is at most
+sqrt(R)*d^2/[pi*(X^2-d^2)].
+Summing at most D distinct offsets and using h>=sqrt R, h>=4, X<R^2 and pi>3 gives the displayed 4R/765 bound. No prime-distribution estimate or desired discrepancy bound is used.
+
+This is only a quantitatively paid subset of the NEAR collar. The unmatched collar and ALL far products remain, as do both reference orientations and the full wheel complement. It is not a bound for J_mid or Z_R. Exact reflection is additive in product, not logarithmic; the latter distinction creates the positive curvature bias.
+
+Validation: classify matched/unmatched occurrences at the already-registered 39 roots, verify one-use/injective accounting and total reconstruction, test the sign and explicit bound numerically with separate certificates at selected nonempty cases, and keep the zero-offset product atom separate. No new root is selected to improve the constant.
