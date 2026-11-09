@@ -142,7 +142,11 @@ theorem frozenOddHighParents_eq_dyadicBoundary (R : ℕ) (hR : 2 ≤ R) :
   ext m
   simp only [frozenOddHighParents, Finset.mem_filter, Finset.mem_Ico,
     mem_dyadicCofactorBoundary]
-  omega
+  constructor
+  · rintro ⟨⟨hm1, hmR⟩, hOdd, hR2m⟩
+    exact ⟨hm1, by omega, hOdd, by omega⟩
+  · rintro ⟨hm1, hmR, hOdd, hm2⟩
+    exact ⟨⟨hm1, by omega⟩, hOdd, by omega⟩
 
 /-- The historical odd-HIGH mass IS the original Mertens prefix, in the
 repository's exact complex source coordinate. No post-root Mobius value. -/
