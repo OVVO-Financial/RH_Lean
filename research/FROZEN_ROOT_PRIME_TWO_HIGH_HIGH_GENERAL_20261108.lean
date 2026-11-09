@@ -1,5 +1,5 @@
 import Mathlib
-import RHLean.Analysis.DyadicTransportCompression
+import RHLean.Analysis.DyadicTransportCanonicalForm
 
 /-!
 # Frozen square-root history: exact prime-two HIGH-HIGH packet
@@ -133,5 +133,49 @@ theorem frozenOddHighPairFloor_sub_mass_square
       frozenOddHighPairMask R 2 + frozenOddHighPairMask R 3 := by
   rw [frozenOddHighPairFloor_eq_mass_square_add_two_masks R hR]
   ring
+
+
+/-- The odd root-adjacent carrier is exactly the established dyadic annulus
+at B=R-1. This is a set equality, not a statistical approximation. -/
+theorem frozenOddHighParents_eq_dyadicBoundary (R : ℕ) (hR : 2 ≤ R) :
+    frozenOddHighParents R = dyadicCofactorBoundary (R - 1) := by
+  ext m
+  simp only [frozenOddHighParents, Finset.mem_filter, Finset.mem_Ico,
+    mem_dyadicCofactorBoundary]
+  omega
+
+/-- The historical odd-HIGH mass IS the original Mertens prefix, in the
+repository's exact complex source coordinate. No post-root Mobius value. -/
+theorem frozenOddHighMass_cast_eq_mertensSummatory
+    (R : ℕ) (hR : 2 ≤ R) :
+    (frozenOddHighMass R : ℂ) =
+      RHLean.Analysis.mertensSummatory (R - 1) := by
+  have hset := frozenOddHighParents_eq_dyadicBoundary R hR
+  calc
+    (frozenOddHighMass R : ℂ) =
+      ∑ m ∈ frozenOddHighParents R, (((μ m : ℤ) : ℂ)) := by
+        simp [frozenOddHighMass]
+    _ = dyadicCofactorBoundaryMass (R - 1) := by
+      rw [hset]
+      rfl
+    _ = RHLean.Analysis.mertensSummatory (R - 1) :=
+      (mertensSummatory_eq_dyadicCofactorBoundaryMass (R - 1)).symm
+
+/-- DIRECT ALL-ROOT MERTENS VERSION: the HIGH-HIGH physical floor packet
+is the genuine historical M(R-1)^2 plus ONLY the q=2,3 signed hyperbola
+masks. This composes two separately proved exact source identities. -/
+theorem frozenOddHighPairFloor_cast_eq_historicalMertens_square_add_masks
+    (R : ℕ) (hR : 2 ≤ R) :
+    (frozenOddHighPairFloor R : ℂ) =
+      RHLean.Analysis.mertensSummatory (R - 1) ^ 2 +
+        (frozenOddHighPairMask R 2 : ℂ) +
+        (frozenOddHighPairMask R 3 : ℂ) := by
+  have h : (frozenOddHighPairFloor R : ℂ) =
+      (frozenOddHighMass R : ℂ) ^ 2 +
+        (frozenOddHighPairMask R 2 : ℂ) +
+        (frozenOddHighPairMask R 3 : ℂ) := by
+    exact_mod_cast (frozenOddHighPairFloor_eq_mass_square_add_two_masks R hR)
+  rw [frozenOddHighMass_cast_eq_mertensSummatory R hR] at h
+  exact h
 
 end RHLean.Proof
