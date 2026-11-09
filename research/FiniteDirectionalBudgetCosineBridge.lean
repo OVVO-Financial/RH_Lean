@@ -206,7 +206,7 @@ noncomputable def C_X (X : ℕ) (s : ℂ) : ℂ :=
 /-- Original finite directional budget, with the ordinary complex derivative. -/
 noncomputable def ℬ_X (X : ℕ) (s : ℂ) : ℝ :=
   α s * Complex.normSq (C_X X s) -
-    ((deriv (C_X X) s) * Complex.conj (C_X X s)).re
+    ((deriv (C_X X) s) * star (C_X X s)).re
 
 private theorem finiteMobiusComplexTerm_hasDerivAt
     (n : ℕ) (s : ℂ) :
@@ -233,17 +233,19 @@ theorem deriv_C_X (X : ℕ) (s : ℂ) :
       (∑ n ∈ Finset.range (X + 1),
         -((Real.log (n : ℝ) : ℂ) * finiteMobiusComplexTerm n s)) s :=
     HasDerivAt.fun_sum (fun n _ => finiteMobiusComplexTerm_hasDerivAt n s)
-  simpa only [C_X, Finset.sum_neg_distrib] using h.deriv
+  change deriv (fun z : ℂ => ∑ n ∈ Finset.range (X + 1),
+    finiteMobiusComplexTerm n z) s = _
+  simpa only [Finset.sum_neg_distrib] using h.deriv
 
 /-- Realification of the *complete* signed complex finite Gram. -/
 private theorem finite_complex_directional_gram
     (S : Finset ℕ) (f : ℕ → ℂ) (w : ℕ → ℝ) (a : ℝ) :
     a * Complex.normSq (∑ n ∈ S, f n) +
       ((∑ n ∈ S, (w n : ℂ) * f n) *
-        Complex.conj (∑ n ∈ S, f n)).re =
+        star (∑ n ∈ S, f n)).re =
       ∑ n ∈ S, ∑ m ∈ S,
         (a + (w n + w m) / 2) *
-          (f n * Complex.conj (f m)).re := by
+          (f n * star (f m)).re := by
   have h := finite_real_directional_gram S
     (fun n => (f n).re) (fun n => (f n).im) w a
   calc
@@ -251,10 +253,10 @@ private theorem finite_complex_directional_gram
               (∑ n ∈ S, (f n).im) ^ 2) +
         (∑ n ∈ S, w n * (f n).re) * (∑ n ∈ S, (f n).re) +
         (∑ n ∈ S, w n * (f n).im) * (∑ n ∈ S, (f n).im) := by
-        simp only [Complex.normSq_apply, Complex.mul_re, Complex.mul_im,
-          Complex.conj_re, Complex.conj_im, Complex.re_sum, Complex.im_sum,
-          Complex.ofReal_re, Complex.ofReal_im, zero_mul, sub_zero,
-          mul_zero, add_zero]
+        simp only [Complex.star_def, Complex.normSq_apply, Complex.mul_re,
+          Complex.mul_im, Complex.conj_re, Complex.conj_im, Complex.re_sum,
+          Complex.im_sum, Complex.ofReal_re, Complex.ofReal_im,
+          zero_mul, sub_zero, add_zero]
         ring
     _ = ∑ n ∈ S, ∑ m ∈ S,
         (a + (w n + w m) / 2) *
@@ -264,7 +266,8 @@ private theorem finite_complex_directional_gram
         intro n _hn
         apply Finset.sum_congr rfl
         intro m _hm
-        simp only [Complex.mul_re, Complex.conj_re, Complex.conj_im]
+        simp only [Complex.star_def, Complex.mul_re,
+          Complex.conj_re, Complex.conj_im]
         ring
 
 /-- Complex powers at a positive integer carry precisely the real cosine
@@ -278,6 +281,8 @@ private theorem finiteMobiusComplexTerm_phase
   have hnC : (n : ℂ) ≠ 0 := Nat.cast_ne_zero.mpr hn.ne'
   let L : ℝ := Real.log (n : ℝ)
   let theta : ℝ := 2 * tau * L
+  have hlog : Complex.log (n : ℂ) = (L : ℂ) := by
+    simpa only [L] using (Complex.ofReal_log hnR.le).symm
   have hreal : Real.exp (-sigma * L) = (n : ℝ) ^ (-sigma) := by
     rw [Real.rpow_def_of_pos hnR]
     congr 1
@@ -291,17 +296,17 @@ private theorem finiteMobiusComplexTerm_phase
     have hRe :
         (Complex.log (n : ℂ) *
           (-((sigma : ℂ) + 2 * tau * Complex.I))).re = -sigma * L := by
-      simp only [← Complex.natCast_log]
-      simp [Complex.mul_re, Complex.mul_im, L]
-      ring
+      rw [hlog]
+      simp [Complex.mul_re, Complex.mul_im] <;> ring
     have hIm :
         (Complex.log (n : ℂ) *
           (-((sigma : ℂ) + 2 * tau * Complex.I))).im = -theta := by
-      simp only [← Complex.natCast_log]
-      simp [Complex.mul_re, Complex.mul_im, theta, L]
-      ring
-    rw [hRe, hIm, Real.cos_neg, Real.sin_neg, hreal]
-    push_cast
+      rw [hlog]
+      simp [Complex.mul_re, Complex.mul_im, theta] <;> ring
+    rw [hRe, hIm]
+    rw [← Complex.ofReal_exp, ← Complex.ofReal_cos, ← Complex.ofReal_sin,
+      Real.cos_neg, Real.sin_neg, hreal]
+    push_cast only [Complex.ofReal_neg, Complex.ofReal_sub, Complex.ofReal_mul]
     ring
   have hradial :
       finiteMobiusRadial sigma n =
@@ -314,8 +319,9 @@ private theorem finiteMobiusComplexTerm_phase
     field_simp
   unfold finiteMobiusComplexTerm
   rw [div_eq_mul_inv, ← Complex.cpow_neg, hpow]
-  simp only [finiteMobiusCos, finiteMobiusSin, hradial]
-  push_cast
+  simp only [finiteMobiusCos, finiteMobiusSin, hradial,
+    Complex.ofReal_mul, Complex.ofReal_sub]
+  dsimp [L, theta]
   ring
 
 private theorem finiteMobiusComplexTerm_phase_pair
@@ -323,7 +329,7 @@ private theorem finiteMobiusComplexTerm_phase_pair
     (h : s = (s.re : ℂ) + 2 * tau * Complex.I)
     (hn : 0 < n) (hm : 0 < m) :
     (finiteMobiusComplexTerm n s *
-      Complex.conj (finiteMobiusComplexTerm m s)).re =
+      star (finiteMobiusComplexTerm m s)).re =
       (((μ n : ℤ) : ℝ) * ((μ m : ℤ) : ℝ)) *
         ((n : ℝ) ^ (1 - s.re)) * ((m : ℝ) ^ (1 - s.re)) *
         K_τ n m tau := by
@@ -343,8 +349,7 @@ private theorem finiteMobiusComplexTerm_phase_pair
     _ = finiteMobiusCos s.re tau n * finiteMobiusCos s.re tau m +
         finiteMobiusSin s.re tau n * finiteMobiusSin s.re tau m := by
           rw [hnphase, hmphase]
-          simp [Complex.mul_re, Complex.mul_im,
-            Complex.conj_re, Complex.conj_im]
+          simp [Complex.star_def, Complex.mul_re, Complex.mul_im]
           ring
     _ = _ := finiteMobiusCos_sin_pair_eq_kernel s.re tau hn hm
 
@@ -369,7 +374,7 @@ theorem finite_directional_budget_cosine
         ∑ n ∈ Finset.range (X + 1), ∑ m ∈ Finset.range (X + 1),
           (α s + (Real.log (n : ℝ) + Real.log (m : ℝ)) / 2) *
             (finiteMobiusComplexTerm n s *
-              Complex.conj (finiteMobiusComplexTerm m s)).re := by
+              star (finiteMobiusComplexTerm m s)).re := by
     unfold ℬ_X
     rw [deriv_C_X X s]
     simpa only [C_X, neg_mul, Complex.neg_re, sub_neg_eq_add] using hg
