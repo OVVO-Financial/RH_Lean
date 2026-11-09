@@ -1,5 +1,14 @@
 # RH_Lean research-agent instructions
 
+## 2026-11-08 immediate user-directed seven-agent priority: frozen-root Möbius / prime-two three-floor
+
+**FROZEN_ROOT_SQUARE_ROOT_SOURCE_FIRST_20261108.** Upon the next actual invocation after reviewed human merge, **ALL SEVEN agents** read and execute [the seven-role frozen-root directive](docs/RHLEAN_SEVEN_AGENT_FROZEN_ROOT_PRIME_TWO_DIRECTIVE_20261108.md) before selecting work from dated priority queues. Shared original source: `X_R=R^2-1`, `mu(n)` known only for `n<R`, `K_R=max_{0<=y<R}(M(y)-1)^2/(y+1)`, and `Q_R=sum_{a,b<R}mu(a)mu(b)floor(X_R/(ab))=2M(R-1)-M(X_R)`. Begin with the prime-2 odd-parent high/high theorem, exactly two signed quotient masks 2 and 3, both cross orientations and all low/low terms. Target one complete signed fixed-`C` estimate `|Q_R|<=C R sqrt(K_R)` (or the equivalent complete centered expression) and consume the already-proved conditional finite-A -> RH chain. **Do not claim a new exponent, finite C, or RH from exact decomposition alone.**
+
+Seven distinct concurrent roles: Coordinator = DAG/consumer; Owner = genuine first-owner source and clipping; Referee = counterexamples/quantifiers; Census = frozen-`mu(<R)` exact tests; Analytic = original-source signed bilinear saving; Wheel = 2/6/30/210 rank/cross-term transfer; Lean Verification = kernel-check new general source identities and original-source bridge. The common objective does not erase the nine proven route toolkits, and does not impose a false norm on uncombined pieces. No agent may ask for primes or Möbius values beyond the historical root as an **independent bound**; the exact endpoint is already reconstructed by the bilinear floor source. All assistants must explicitly distinguish certified identity, numerical test, conditional RH consumer, and OPEN source inequality.
+
+This is a repository research-direction change only. It does **not** itself reconfigure Studio, start scheduled runs, enlarge permissions, or authorize automated merges. Preserve exact-head CI and human review; external saved agent prompts require a separate update if not refreshed from AGENTS.md.
+
+
 ## 2026-11-08 governing all-route proof contract (current merged baseline)
 
 **REPO_WIDE_PROOF_DAG_AND_AGENTS_20261108; effective only after a reviewed human merge.** First read [the current route-wide status and exact seven-role assignments](docs/RHLEAN_REPO_WIDE_PROOF_ATTACKS_20261108.md) together with the [generated proof-obligation DAG](docs/PROOF_DEPENDENCY_DAG.md) and the [coordinate atlas](docs/COORDINATE_ATLAS.md). This section supersedes dated task-selection and baseline claims below, not proof signatures, counterexamples, scientific uncertainty, permissions, schedules, configured agents or source-integrity checks.
