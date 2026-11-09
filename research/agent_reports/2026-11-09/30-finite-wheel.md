@@ -2586,3 +2586,8 @@ print(json.dumps({"status": "PASS_RATIONAL_BAND_CERTIFICATES", "rows": rows, "un
 ```json
 {"rows": [{"R": 37, "proved_bound_test": "PASS", "signed_pair": {"denominator": 1000000000000000000000000000000, "lower_numerator": 267398147149267111990187682, "upper_numerator": 267398147149267111990187683}}, {"R": 121, "proved_bound_test": "PASS", "signed_pair": {"denominator": 1000000000000000000000000000000, "lower_numerator": 54650745822275010149449916, "upper_numerator": 54650745822275010149449917}}, {"R": 157, "proved_bound_test": "PASS", "signed_pair": {"denominator": 1000000000000000000000000000000, "lower_numerator": 37717271950816635376129400, "upper_numerator": 37717271950816635376129401}}, {"R": 217, "proved_bound_test": "PASS", "signed_pair": {"denominator": 1000000000000000000000000000000, "lower_numerator": 23649433958794853904463119, "upper_numerator": 23649433958794853904463120}}], "status": "PASS_RATIONAL_BAND_CERTIFICATES", "uniform_status": "paper proof separate"}
 ```
+
+
+### Verified Publication Receipt - 20261109-wheel-3/RF
+
+At 2026-11-09 23:33:12 UTC, immutable readback of substantive report commit a3f3c38effc5167e5a5830c8486130c0e4da5197, blob 057166c2049e865cbd394650a3404659144f6d97, matched the exact submitted full report. The earlier daily report and registered checkpoint remain an unchanged prefix. Publication is PUBLISHED_AND_READBACK_VERIFIED; execution is COMPLETE at the stated PAPER_PROOF / SELF_AUDIT and FINITE_COMPUTATION scopes. RF1-RF3 remain INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED. No global endpoint gain or RH proof is claimed. This receipt records a completed publication, not a future promise or another agent launch.
