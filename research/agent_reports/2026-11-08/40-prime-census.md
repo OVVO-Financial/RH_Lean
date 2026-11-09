@@ -2597,3 +2597,39 @@ Execution=COMPLETED; substantive publication=PUBLISHED / READBACK_VERIFIED. SJ1-
 Next continuation: the actual-Mobius omitted hyperbolic boundary at the ORIGINAL adaptive width, using multiplicativity or another new source-specific restriction; retain the already paid narrow strip and every complete-return term. Do not rerun unchanged CORR4/HC tables. Coordinator's NYMAN independent review remains a separate pending task. No investigator rotation, source, PR, workflow, schedule or other report was modified, and no other agent was launched. All computation sessions are finished.
 
 This receipt records the verified substantive commit above. Its own append is separately checked by immutable readback before the completion message.
+
+
+## Scheduled AF Frequency Checkpoint - 20261108-census-3
+
+Recorded 2026-11-09 00:07:46 UTC; actual trigger 2026-11-08 19:00:01 EST. RUN_ID_UNAVAILABLE. Execution=PARTIAL / IN_PROGRESS; no result claimed.
+
+Live main 6144c73b05d5a85e6a9424708986860c6276f60d; AGENTS blob bdd5b9f6867ae2d39b74fc966b7f548a9aba3a61; contract blob d1d6fd558ee23927bd9f70ffdc375bafd1dbb67a. Intake agent-reports 1dcde5441a9e157cf964d38745f867b44811f75b. All seven November 7 and November 8 reports are available; relevant latest findings, handoffs and resume capsules read. No missing stage is inferred. Coordinator 00/90 mirrors have equal blobs on both dates. External inbox 038018145c0fddb2f6306c0712373adf9cd1ea52 contains no entry newer than October 18. Historical PNT, q=R boundary and unconditional-versus-first-bad safeguards retained, obsolete task priorities not revived.
+
+Canonical target remains VFCanonicalSquareVonKochStatement. Finite-A, zero-log amplification and RH remain open. Recent #1111, #1115 and #1116 are now merged. Exact-head checks observed: #1111 13/13 successful; #1116 14/14 successful. Actual #1116 source gives beta<=7/8-(7m/8-e) on a fixed fine same-source D; its coarse old-family explicit bound must not overwrite #1111's stronger near-uniform comparator. Analytic EC2's e->0 result is paper/self-audit, not newly formalized here. This run claims no endpoint advance.
+
+Consumed AF1-AF5/CP, Census TC/SJ, Referee WT and scoped HC/SJ acceptance, Wheel FD, Owner JS, Analytic EC/ND, Lean #1111/#1113 repair history. Selected task is Coordinator AF frequency falsification; do not rerun its 8413-case identity scan. Source-verified original Euler kernel, finite-C consumer and strict historical envelope retain blobs e482711a3f55c1f59fc771f108671477f51732f2, e7ee8f77ffd59bccaa49dd6d74fbe0d7952c2d73 and 1270d4d91c53b50b110d10014f223f427fb7a575. No local Lean execution or other-agent launch.
+
+### Frozen Before Execution
+
+#### Frozen AF Frequency Test: 20261108-census-3
+
+Scheduled trigger: 2026-11-08 19:00:01 EST. No platform run ID supplied.
+Source main: 6144c73b05d5a85e6a9424708986860c6276f60d.
+Question: does genuine arithmetic force nonzero additive frequencies to oppose the coherent frequency on the AF floor-two triangle?
+
+Use genuine Mobius mu, N=R-1, X=R^2-1, I2=[ceil(R/3),floor((R-1)/2)], B=R-W. Define L=sum mu(a)mu(b) over a in I2, B<=b<R, 3a+b<=2R. Use q=2W+1 and the exact f,g,h conventions of Coordinator AF3, including the <= boundary and squareful zeros. K_R=max_{0<=y<R}(M(y)-1)^2/(y+1).
+
+Choose the largest integer W>=1 with W=1 mod 3 and 4W<=R, 16K_R W^2<=R^2, W^6<=R^4 K_R. Empty admissible width means no test row. Thus 3 divides q. The width rule is fixed before any data.
+
+Candidate H_DC: C0*(L-C0)<=0 for every admitted R, where C0=(W+1)F(0)G(0)/q. A strict positive rational product refutes it. This is a new laboratory candidate, NOT an assertion made by AF.
+Candidate H_3: if R=1 mod 3, then C0*C3<=0, where C3 is the sum of the Fourier k=q/3 and 2q/3 contributions. The multiplicative sign mu(3n)=-mu(n) when 3 does not divide n motivates, but does not prove, this candidate. A strict positive rational product refutes it.
+Rival mechanism: the third-root sector is controlled by a residue-specific backward prefix, not merely its sign or the zero-frequency sum. Test the pencil identity q*C3=F(0)*(G(0)-3*B_c), c=(2R-2) mod 3, B_c=sum_{B<=b<R,b=c mod 3}mu(b). Preserve both zero and nonzero sectors.
+
+Primary held-out root range: every R=257..4095, excluding the previously inspected roots 317,549,1027,2002. A new question is tested; the old AF identity census is not rerun. Confirmation roots fixed now: 8209,10007,16381,20011,32771. Report first violations in the registered range, not smallest global violations. Development R<=256 may be searched ONLY afterwards and must be labeled retrospective.
+
+Exact methods: multiplicative Mobius sieve and rational prefix sums; independent C++ trial factorization and direct ordered triangle enumeration. Compare all primary and confirmation rows byte-for-byte. At first falsifiers and confirmation fixtures, recover complete conductor-grouped Fourier contributions with exact residue convolution and Ramanujan sums; no floating DFT is needed. Keep the k=0 term and every mixed square term.
+
+Full original Euler return at R=257,263 and each primary first falsifier <=1024: Q=P+E1+2m2*t_B+L+(J2-L)+Z and M(X)=2M(R-1)-Q. Compute Z directly from the complement, not by defining it as a remainder. Recombine all six squares and fifteen cross terms exactly. These fixtures are scope checks, not a complete-source bound.
+
+Stop after decisive falsifiers and the fixed confirmation range. Do not fit a constant or infer an infinite estimate. Any new universal lemma is separately proved and labeled PAPER_PROOF / SELF_AUDIT, not Lean or independent Referee acceptance. No original-source code or report other than the owned daily report may be published.
+
