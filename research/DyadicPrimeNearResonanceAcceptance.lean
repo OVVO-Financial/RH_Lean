@@ -104,7 +104,7 @@ run_cmd do
       `RHLean.Analysis.dyadicPrimePhase_near_resonance,
       `RHLean.Analysis.dyadicPrimePhase_hermitian_eq_cos,
       `RHLean.Analysis.dyadicPrimeNearResonance_eight_admitted,
-      `RHLean.Analysis.squareRootEndpoint,
+      `RHLean.Proof.squareRootEndpoint,
       `Real.log_le_sub_one_of_pos,
       `Real.one_sub_sq_div_two_le_cos] do
     unless reached.contains required do

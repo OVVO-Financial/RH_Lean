@@ -15,6 +15,8 @@ noncomputable section
 
 namespace RHLean.Analysis
 
+open RHLean.Proof
+
 /-- The full cross-root prime rectangle; no floor-half convention is used. -/
 def dyadicPrimePair (R p q : ℕ) : Prop :=
   p.Prime ∧ q.Prime ∧ R ≤ 2 * p ∧ p < R ∧ R ≤ q ∧ q < 2 * R
