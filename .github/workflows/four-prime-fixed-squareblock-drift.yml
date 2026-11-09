@@ -6,6 +6,8 @@ on:
     paths:
       - research/FOUR_PRIME_FIXED_SQUARE_BLOCK_PHYSICAL_DRIFT_20261108.lean
       - research/FOUR_PRIME_FIXED_SQUARE_BLOCK_PHYSICAL_DRIFT_20261108.md
+      - research/FOUR_PRIME_SUBWHEEL_LOG_DIFFERENCES_20261108.lean
+      - scripts/four_prime_subwheel_comparison.py
       - scripts/four_prime_fixed_squareblock_certificate.py
       - .github/workflows/four-prime-fixed-squareblock-drift.yml
   workflow_dispatch:
@@ -26,21 +28,26 @@ jobs:
       - name: Reject proof holes and new axioms
         run: |
           if grep -nE '^[[:space:]]*(sorry|admit|axiom)([[:space:]]|$)' \
-            research/FOUR_PRIME_FIXED_SQUARE_BLOCK_PHYSICAL_DRIFT_20261108.lean; then
+            research/FOUR_PRIME_FIXED_SQUARE_BLOCK_PHYSICAL_DRIFT_20261108.lean \
+            research/FOUR_PRIME_SUBWHEEL_LOG_DIFFERENCES_20261108.lean; then
             exit 1
           fi
       - name: Verify independent exact CRT and true-Mobius tests
-        run: python3 scripts/four_prime_fixed_squareblock_certificate.py
+        run: |
+          python3 scripts/four_prime_fixed_squareblock_certificate.py
+          python3 scripts/four_prime_subwheel_comparison.py
       - name: Install pinned Lean and Mathlib
         uses: ./.github/actions/lean-setup
       - name: Warning-fatal compile of original finite source
         run: >-
           python3 scripts/compile_research_import_closure.py --build-library
           research/FOUR_PRIME_FIXED_SQUARE_BLOCK_PHYSICAL_DRIFT_20261108.lean
+          research/FOUR_PRIME_SUBWHEEL_LOG_DIFFERENCES_20261108.lean
       - name: Verify exact theorem signatures and axiom closure
         run: |
           cat >/tmp/four_prime_fixed_squareblock_acceptance.lean <<'LEAN'
           import «research.FOUR_PRIME_FIXED_SQUARE_BLOCK_PHYSICAL_DRIFT_20261108»
+          import «research.FOUR_PRIME_SUBWHEEL_LOG_DIFFERENCES_20261108»
           #check RHLean.Arithmetic.fourPrimeSquarekillSign_add_period
           #check RHLean.Arithmetic.fourPrimeSquarekill_completePeriod
           #check RHLean.Arithmetic.fourPrimeReciprocalLinearFactor
@@ -49,5 +56,12 @@ jobs:
           #print axioms RHLean.Arithmetic.fourPrimeSquarekill_completePeriod
           #print axioms RHLean.Arithmetic.fourPrimeSquarekill_squareBlock_at_periodRoot
           #print axioms RHLean.Arithmetic.fourPrimeSquarekill_squareBlock_at_periodRoot_pos
+          #check RHLean.Arithmetic.twoPrimeSquarekill_periodMass
+          #check RHLean.Arithmetic.sixPrimeSquarekill_periodMass
+          #check RHLean.Arithmetic.thirtyPrimeSquarekill_periodMass
+          #check RHLean.Arithmetic.fourPrime_logCubic_zero
+          #check RHLean.Arithmetic.fourPrime_logQuartic_leading
+          #print axioms RHLean.Arithmetic.fourPrime_logCubic_zero
+          #print axioms RHLean.Arithmetic.fourPrime_logQuartic_leading
           LEAN
           lake env lean -DwarningAsError=true /tmp/four_prime_fixed_squareblock_acceptance.lean
