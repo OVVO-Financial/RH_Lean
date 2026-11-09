@@ -654,3 +654,691 @@ Registered before numerical execution. Candidate paper claims, not certified by 
 Fixed genuine-prime roots: 8,11,12,64,256,1024,4096. Positive-frequency tests: U=1,sqrt(R),R/2; weights eta=1 and eta=b(t/R). Direct signed prime-minus-continuous transforms are evaluated with Gauss orders 96 and 144; split frequency integration into panels of length at most 4 with orders 20 and 28. Verify the Gaussian prime-row bound at U=1,sqrt(R),R/2,2R, every row, plus exact sieve/trial primality agreement through 8192. Verify BOTH unequal mixed terms, full PP-PC-CP+CC reconstruction, the reference-removal bound, and the improved mean-square/band bounds. A conjugated-product negative control must differ from the required product. R=11 includes the root-prime atom; R=12 includes the (11,13) sharp-boundary pair, but these band diagnostics do not compute the full sharp Q_R or Z_R.
 
 Separate generalized negative control: use real logarithmic densities with zero marginals, amplitudes c=R/(4 log R), cosine on the reflected left interval and sine on the right. Put ell=log 2, U=sqrt R, t0=2*pi*n/ell in [5U/4,7U/4], n=ceil(5U*ell/(8*pi)). Fixed roots 4096,16384,65536,1000000. Test the exact transform product identity and candidate all-scale lower bound |M_model|>=R^(3/2)/(32768 log^2 R), with and without a_R. This is deliberately NON-PRIME, root-dependent smooth data; it must never be reported as a counterexample to actual OPEN-MIDBAND, SC, FB1, or RH. Passing diagnostics is not an all-R proof or certified transcendental enclosure. No constant or sample range will be fitted from the output.
+
+
+## Sieve-Refined Middle Band And Paid Reference Terms - 20261109-analytic-2/MB
+
+### A. Most Important Analytic Development
+
+**A logarithm is gained on the actual signed middle-frequency band, and all three continuous-reference terms on that band are independently affordable.** For every integer R>=8, put L=log R and use precisely Coordinator OPEN-MIDBAND's source and spline b. This invocation proves
+
+```text
+|M_mid(R)| <= 384 R^(3/2)/L^2 + 40R.                 MB3
+```
+
+The earlier FB1 estimate on this same band was `8R/L+49R^(3/2)/L`. MB3 is an asymptotic logarithmic improvement, not a pointwise improvement of the displayed numerical constant at every small R. Both estimates remain valid, so their minimum may be used. The power 3/2 is unchanged. Dividing MB3 by the required R L leaves `384 sqrt(R)/L^3+40/L`, which is unbounded. **OPEN-MIDBAND is not proved, and there is NO global endpoint gain.**
+
+A separate quantitative result is
+
+```text
+|M_mid(R)-J_mid(R)| <= 40R,                          MB2
+```
+
+where J_mid uses the two actual prime polynomials without subtracting their continuous references. This is not a density substitution: each of the three removed band terms is independently bounded, including endpoint resonances. The two physical linear responses in the full wheel return are DIFFERENT objects and remain unpaid.
+
+The new restriction behind MB3 is a uniform interval-sieve estimate inside the Gaussian prime-pair rows. The new input behind MB2 is twice integrating the continuous reference by parts, followed by a discrete endpoint-distance sum. Neither assumes prime-counting error, RH, independence, a Mertens gain, or an unproved covariance theorem.
+
+| Claim ID | Result | Evidence and scope |
+| --- | --- | --- |
+| 20261109-analytic-2/MB1 | Sieve-weighted Gaussian row and actual-prime mean-square bound, all U>0 | PAPER_PROOF; proper-source estimate |
+| MB2 | Sum of the absolute values of all three reference band terms <=40 R^2/U^2 | PAPER_PROOF; 1<=U<=R/2, monotone weights |
+| MB3 | Actual signed band <=128 R f(R/U)/L+40 R^2/U^2; displayed middle-band consequence | PAPER_PROOF; complete proper-band recombination |
+| MB4 | Zero marginal masses and domination by the reference density do not force an RH-scale moving-band bound | PAPER_PROOF / scoped generalized assertion REFUTED; explicitly NON-PRIME models |
+| MB5 | Registered actual-prime, reference, Gaussian-row, and model diagnostics | FINITE_COMPUTATION; floating diagnostics, not interval or Lean certification |
+
+All new paper results are **SELF_AUDIT / INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED**. The classical tools are credited below; no literature-priority claim is made. Canonical VF, the complete finite-wheel bound, finite A/C and RH remain OPEN.
+
+### B. Current Mathematical Objective And Authority
+
+Actual scheduled invocation: 2026-11-09 09:09:02 EST, America/New_York; platform run ID unavailable. `finite_wheel_ack=FINITE_WHEEL_CENTERED_RH_V1`. Pinned main is **02f00cee544278ad1bb9022ee76fc5916d459a95**, the human merge of #1124. Original files were read directly.
+
+For every integer R>=2, retain
+
+```text
+X=R^2-1, y=R-1, P_y=product_(prime p<=y)p,
+delta(y)=product_(prime p<=y)(1-1/p),
+F_R=sum_(d|P_y)mu(d)fract(X/d),
+D_R=X delta(y)+pi(y)-1-li(X),
+Z_R=F_R-D_R=li(X)-pi(X).
+TARGET: exists one C>=0, forall integer R>=2, |Z_R|<=C R log R.
+```
+
+Here li is the principal-value logarithmic integral. The derivative reference `du/log u` used in the proper band does not change this global anchor. Every virtual divisor d>X is retained until its exact cancellation against the full finite Euler product. The compiled arbitrary-reference identity does not prove a discrepancy bound.
+
+| Material at pinned main | Blob SHA |
+| --- | --- |
+| AGENTS.md | 6695522a45d67fd1e80a7cff1f98d909405036e2 |
+| CURRENT_PROOF_CONTRACT.md | 95566e37c8eaeb99ee680660df4f9d2e06ea5038 |
+| docs/RHLEAN_SEVEN_AGENT_FINITE_WHEEL_BOUNDARY_20261108.md | e505f35522b675c6b5b263eac73618d717346973 |
+| research/CompleteSquareRootWheelFractionalBoundary.lean | ecb482e52deeee5e9b3853592a3ffdace662d2ff |
+| research/VF_MID_DYADIC_PREFIX_OWNER.lean | c499ca7bd7d90fb32f9cd99d652961ea023bed58 |
+| research/CompleteWheelRootAdmission.lean | a412632c1028d7728cd8d87ee6e5ac365377d338 |
+| research/CompleteWheelRootAdmissionAcceptance.lean | d0b22fa38c254a22b38b678e77bb520a70eae1af |
+| scripts/compile_research_import_closure.py | eb3d429b14bf66ba2fba22e55b70ca0048f748c6 |
+
+The original [complete-wheel source](https://github.com/OVVO-Financial/RH_Lean/blob/02f00cee544278ad1bb9022ee76fc5916d459a95/research/CompleteSquareRootWheelFractionalBoundary.lean) supplies `finiteWheelFract`, `finiteWheelSquareDeterministic`, the complete reciprocal identity, the physical/virtual split, `finiteWheelFract_sub_density_eq_physical_floorError`, `finiteWheel_squareLegendre_identity`, and `finiteWheel_squareFractional_centered_eq_reference_sub_pi`. The original prefix file defines the actual survivor count and Euler product. These are inherited identities, not new claims here.
+
+### C. Analytic Mechanism And Prior Credit
+
+Coordinator `20261109-coordinator-0710-EST/FB1` bounded a Gaussian row by integer spacing. At frequency U this treats O(R/U) possible nearby integers alike. Actual prime positions obey a stronger uniform interval bound: the same row costs O((1+R/U)/log(2+R/U)). At U=sqrt R this saves one log R. No pointwise replacement of primes by their density occurs.
+
+For the continuous reference, Cauchy-Schwarz alone would leave a larger mixed-term bill. Its compact logarithmic density instead has controlled first and second derivatives. Integration by parts isolates four endpoint phases. An actual prime can be arbitrarily close to a reference endpoint after the exact shift a_R, so each oscillatory integral is bounded by the MINIMUM of an unoscillatory bound and an inverse-distance bound. This preserves root-prime and half-root resonances and makes the three reference terms O(R) at the selected band.
+
+Credit retained: Owner FW supplies the exact upper-owner packet bridge; Analytic SC supplies the finite-frequency representation and already-paid smoothing; Coordinator FB supplies the Gaussian framework and the proper OPEN-MIDBAND assignment. Owner's newest CT is a separate curved-to-additive transfer at width R^(2/3), not a premise or duplicate of this spectral estimate. Wheel RA's root-admission bound, now merged as #1124, is also distinct.
+
+Default-branch searches for OPEN-MIDBAND, Brun-Titchmarsh and Gaussian-prime combinations found no matching current-source MB theorem. Retrieved hits concern older quotient bands or different Hecke sources. Today's reports were separately searched/read because default-branch code search does not search agent-reports. This is a scoped novelty check, not a claim of exhaustive mathematical novelty. No imported 7/8 theorem is transferred by analogy.
+
+### D. Exact Formulation And Quantifiers
+
+Fix an integer R>=8, L=log R, X=R^2-1, ell=log 2, and a_R=log(1-R^(-2)). Define
+
+```text
+I_-=[R/2,R), I_+=[R,2R], dnu(u)=dpi(u)-du/log u,
+P_-(t)=sum_(prime p in I_-)(p/R)^(-it),
+P_+(t)=sum_(prime p in I_+)(p/R)^(-it),
+C_-(t)=integral_(I_-)(u/R)^(-it)du/log u,
+C_+(t)=integral_(I_+)(u/R)^(-it)du/log u,
+A_R=P_--C_-, B_R=P_+-C_+,
+f(h)=(1+h)/log(2+h), h>=0.
+```
+
+For U>0 and a bounded measurable real eta on [U,2U], put
+
+```text
+T_eta(V,W)=(1/pi) integral_U^(2U)
+       eta(t) Im(exp(it a_R)V(t)W(t))/t dt.
+M_eta=T_eta(A_R,B_R), J_eta=T_eta(P_-,P_+).
+```
+
+The factors are NOT conjugated. The circle constant pi in integrals is not prime counting. MB1 and the prime-only band estimate hold for every U>0 and |eta|<=1. MB2 and MB3 require `1<=U<=R/2` and eta absolutely continuous, nonincreasing, with `0<=eta<=1`. Every constant below is absolute and effective, uniform in R,U and eta.
+
+The prescribed spline is
+
+```text
+b(w)=1-6w^2+6|w|^3       (|w|<=1/2),
+     2(1-|w|)^3         (1/2<=|w|<=1),
+     0                  (|w|>=1).
+```
+
+It satisfies the MB2 hypotheses on every positive band. `M_mid=M_eta` and `J_mid=J_eta` with U=sqrt R and eta(t)=b(t/R). There are no asymptotic-only parameter qualifications in MB1-MB3. Finite roots 2..7 remain outside this proper-source theorem.
+
+### E. Mathematical Derivation
+
+#### MB1. Interval Sieve Inside The Gaussian Row
+
+The external arithmetic input is the k=1 case of Montgomery and Vaughan, *The large sieve*, Mathematika 20 (1973), Theorem 2, equation (1.12), printed page 121: for all real a>0 and d>1,
+
+```text
+pi(a+d)-pi(a) < 2d/log d.
+```
+
+The [original institutional copy](https://backend.production.deepblue-documents.lib.umich.edu/server/api/core/bitstreams/5adbb05b-05d0-4779-b1fd-304ec1ec257a/content) was retrieved and the stated real-variable hypotheses checked. This is unconditional and has no asymptotic threshold. Closed endpoints below are padded by one at each end, so its positive-left-endpoint hypothesis holds. Its proof is not claimed as new work here.
+
+For either prime interval I, let n_I be its prime count. Intervals of lengths R/2+2 and R+2 enclosing I_- and I_+, respectively, give `n_-<=9R/(4L)` and `n_+<=5R/(2L)`, hence `n_I<=4R/L`. Here `log(R/2)>=2L/3`, R+4<=3R/2 and R+2<=5R/4 are valid for R>=8. For any real p in [R/2,2R] and s>=0, the prime count N_p(s) in `I intersect [p-s,p+s]` obeys
+
+```text
+N_p(s)<=4(s+1)/log(s+2)=4f(s).                       (1)
+```
+
+Indeed the intersection has length at most 2s and lies at or above 4. Starting one unit below its left endpoint, take an interval of EXACT length 2s+2; it contains the entire closed intersection and has positive left endpoint. Apply the sieve at this exact length, then use `log(2s+2)>=log(s+2)`. Empty intersections cause no difficulty. No monotonicity of x/log x near x=2 is needed or asserted. The elementary function f is increasing, and `f(ch)<=c f(h)` for c>=1.
+
+For every h>0, partition the Gaussian row into distance <=4h and the annuli `(4*2^k*h,8*2^k*h]`, k>=0. Then
+
+```text
+sum_(prime q in I) exp(-(p-q)^2/(16h^2))
+ <=16f(h)+32f(h) sum_(k>=0)2^k exp(-4^k)
+ <=32f(h).                                         (2)
+```
+
+For the last constant, `exp(-1)<3/8`, while `4^k>=4k` for k>=1 and `exp(4)>32` imply the remaining series is at most `sum_(k>=1)16^(-k)=1/15`; thus the full series is less than 1/2. This absolute annular sum is uniformly convergent. No conditional arithmetic rearrangement occurs.
+
+Set h=R/U. The Gaussian majorant of [U,2U], centered at m=3U/2, gives
+
+```text
+integral_U^(2U)|P_I(t)|^2 dt
+ <= exp(1/4) U sqrt(pi)
+       sum_(p,q in I) exp(-U^2 log(p/q)^2/4).
+```
+
+This follows by expanding the finite polynomial under the positive majorant `exp(1/4) exp(-(t-m)^2/U^2)`, evaluating the elementary Gaussian Fourier integral, and then bounding its complex phase by one. Since p,q<=2R,
+
+```text
+|log(p/q)|>=|p-q|/(2R),
+exp(1/4)sqrt(pi)<3.
+```
+
+Equation (2) therefore proves the explicit mean-square theorem
+
+```text
+integral_U^(2U)|P_I(t)|^2 dt
+ <=96 U n_I f(R/U)
+ <=384 U R f(R/U)/L.                               (3)
+```
+
+Cauchy-Schwarz is taken only on this stated proper band; its cost is displayed. For every measurable |eta|<=1,
+
+```text
+|J_eta| <=128 R f(R/U)/L.                           (4)
+```
+
+This follows from (3), t>=U and pi>3. It neither controls the constant frequency nor discards a mixed term of the full wheel.
+
+#### MB2. Independent Payment Of The Three Reference Band Terms
+
+In logarithmic coordinates s=log(u/R), the density is
+
+```text
+g(s)=R exp(s)/(L+s).
+```
+
+On either logarithmic interval, `L+s>=log 4>1`. Consequently
+
+```text
+0<=g'(s)=g(s)(1-1/(L+s))<=g(s),
+0<g''(s)=g(s)(1-2/(L+s)+2/(L+s)^2)<=g(s).
+```
+
+Writing the endpoints as a,b, integration by parts twice yields
+
+```text
+C_I(t)=[g(a)exp(-ita)-g(b)exp(-itb)]/(it)+E_I(t),
+|E_I(t)|<=2g'(b)/t^2<=4R/(L t^2),
+|C_I(t)|<=2g(b)/t<=4R/(L t), t>0.                  (5)
+```
+
+Here the endpoint coefficient sum `g(a)+g(b)` is at most 3R/L for either interval. For I_- use `log(R/2)>=2L/3`; for I_+ use `log(2R)>=L`. Equation (5) is a bound for the exact reference, not an expansion with an uncontrolled remainder.
+
+For real v let
+
+```text
+H_eta(v)=integral_U^(2U) eta(t) exp(itv)/t^2 dt.
+```
+
+Since eta(t)/t^2 is nonnegative and nonincreasing, direct integration and one integration by parts give, including v=0 by the first bound,
+
+```text
+|H_eta(v)|<=min(1/U, 2/(U^2 |v|)).                  (6)
+```
+
+In an endpoint contribution paired with a prime p, the EXACT phase is `v=log(X/(pe))`, with `e in {R/2,R,2R}`. Put r_*=X/e. Both p and r_* are positive and at most 2R, hence `|v|>=|p-r_*|/(2R)`. At most two integers have distance <1 from r_*, and at most two occur in each subsequent unit-distance bin. Thus, for either prime interval,
+
+```text
+sum_p |H_eta(log(X/(pe)))|
+ <=2/U+(8R/U^2) H_(2R)
+ <=16 L R/U^2,              1<=U<=R/2, R>=8.         (7)
+```
+
+The final inequality uses `H_(2R)<=1+log(2R)`, `2U<=R`, and `9+8log(2R)<=16log R`. The near-root atom is not thrown into an inverse-distance singularity. This step uses integer locations, not an equidistribution assertion or an unjustified prime asymptotic.
+
+Combine (5)-(7). For each of the TWO distinct mixed terms,
+
+```text
+|T_eta(P_-,C_+)|, |T_eta(C_-,P_+)|
+ <=16 R^2/U^2 + 2 R^2/(U^2 L^2)
+ <=17 R^2/U^2.                                      (8)
+```
+
+The second summand is the remainder in (5): use n_I<=4R/L and `integral_U^(2U)t^(-3)dt=3/(8U^2)`. Also (5) directly gives
+
+```text
+|T_eta(C_-,C_+)|<=2 R^2/(U^2 L^2)<=R^2/(2U^2).       (9)
+```
+
+The exact expansion retains both orientations:
+
+```text
+M_eta=J_eta-T_eta(P_-,C_+)-T_eta(C_-,P_+)
+           +T_eta(C_-,C_+).
+```
+
+Therefore the SUM of the three absolute reference bills is at most `40 R^2/U^2`. This proves MB2 with spare numerical room. Arbitrary measurable oscillating eta is NOT licensed in (6)-(9); monotonicity is an actual hypothesis. No result here is a pointwise estimate on A_R or B_R.
+
+#### MB3. Recombination And The Genuine Remaining Gap
+
+Equations (4) and MB2 establish, on the full MB2 domain,
+
+```text
+|M_eta|<=128 R f(R/U)/L+40 R^2/U^2.                 (10)
+```
+
+At U=sqrt R, `f(sqrt R)<=3sqrt R/L`; b(t/R) is absolutely continuous and nonincreasing. Equations (10) and MB2 prove the two estimates in A, with one absolute constant valid for every integer R>=8. No fixed-U estimate has been silently extrapolated to growing U.
+
+For a concrete arithmetic description of the remaining proper term, define
+
+```text
+K_R(z)=(1/pi) integral_(sqrt R)^(2sqrt R)
+                  b(t/R) sin(t log(X/z))/t dt,
+J_mid(R)=sum_(prime p in I_-, prime q in I_+) K_R(pq).
+```
+
+This finite-sum equality is IDENTITY_ONLY. Its signed, oscillatory kernel is retained; replacing it by absolute values has not solved the problem. A pair pq=X has zero contribution to this one band, not zero contribution to the sharp full source. In particular the (11,13) pair at R=12 remains in the original hyperbola through the other frequency/constant/smoothing terms.
+
+#### MB4. A Moving-Frequency Obstruction To Density-Only Reasoning
+
+The following is an explicitly generalized method test, NOT genuine prime data and NOT a fixed multiplicative sequence. For EVERY integer R>=4096 construct two real, absolutely continuous signed measures sigma_-,sigma_+ on the same intervals. They have zero total masses and satisfy `|sigma_+|<=dli/2`, `|sigma_-|<=dli/2`, yet their prescribed moving-band value obeys
+
+```text
+|M_model(R)|>=R^(3/2)/(32768 log^2 R).               (11)
+```
+
+Thus no uniform `C R log R` bound follows for all such measure pairs from density domination and zero marginals alone. There is no claim that prime data or an actual zeta-zero component equals this model.
+
+Proof: put U=sqrt R, c=R/(4L), and choose
+
+```text
+n=ceil(5U ell/(8pi)), t0=2pi n/ell,
+5U/4<=t0<=7U/4.
+```
+
+The last inequality follows since U>=64 and the frequency lattice has spacing `2pi/ell<10`. In the left reflected variable s=log(R/u) in [0,ell], give sigma_- density `c cos(t0 s) ds`; in the right variable s=log(v/R) give sigma_+ density `c sin(t0 s) ds`. In ordinary increasing u coordinates the left measure is `c cos(t0 log(R/u)) du/u`. Both total masses vanish because t0 ell is an integer multiple of 2pi. The corresponding positive reference logarithmic densities are at least R/(2L), so the claimed half-density domination follows. Even `dli+sigma` stays positive.
+
+Let F(w)=integral_0^ell exp(-iws)ds, G=F(t-t0), H=F(t+t0). The exact transforms are
+
+```text
+A_sigma(t)=c*(conj(G)+conj(H))/2,
+B_sigma(t)=c*(G-H)/(2i),
+Im(A_sigma B_sigma)=-c^2*(|G|^2-|H|^2)/4.            (12)
+```
+
+Because t0 ell is a multiple of 2pi, the two F values have the same numerator `1-exp(-it ell)`. For t>0, `|t-t0|<=t+t0`, so (12) is nonpositive. On `|t-t0|<=1`, `|G|>=ell/2`, while `|H|<=1/U<=ell/4`. Therefore `-Im(A_sigma B_sigma)>=c^2 ell^2/32` on an interval of length two contained in [U,2U]. Also b(t/R)>=1/2 throughout that band. Without the phase a_R this gives
+
+```text
+|M_model,0|>=c^2 ell^2/(64 pi U).
+```
+
+Restoring the ORIGINAL phase costs at most
+
+```text
+|M_model-M_model,0|
+ <=|a_R| c^2 ell^2 U/pi
+ <=2 c^2 ell^2 U/(pi R^2).
+```
+
+Its ratio to the displayed lower bound is at most 128/R<=1/2. Consequently `|M_model|>=c^2 ell^2/(128 pi U)`. Substituting c, using ell>1/2 and pi<4, proves (11). All estimates are uniform in R; no infinite-frequency interchange is used.
+
+The lower bound divided by R log R tends to infinity. This disproves ONLY the asserted universal density-and-zero-mass implication. It does not prove optimality of MB3 for actual primes, refute OPEN-MIDBAND, or turn Coordinator MP's fixed-zero-pair obstruction into an assertion about this moving projection. It explains why a further power saving must use additional source structure, not just centered marginals.
+
+### F. Quantitative Accounting And Comparison
+
+| Item | Uniform established cost | What remains |
+| --- | --- | --- |
+| Actual prime-polynomial energy | 384 U R f(R/U)/L | No RH-scale energy hypothesis is used |
+| Pure prime signed band | 128 R f(R/U)/L | Cauchy-Schwarz still loses arithmetic phase information |
+| Both mixed reference terms plus reference-reference | 40 R^2/U^2 | Only this positive-frequency band is covered |
+| Actual middle band | 384 R^(3/2)/L^2+40R | Desired O(R log R) still unproved |
+| Generalized dominated zero-mass model | At least R^(3/2)/(32768 L^2) | Not an arithmetic counterexample |
+| Complete wheel | No new global upper bound | Other frequencies, constant mode, two physical linear responses, other owners |
+
+The sieve series is absolutely convergent, the prime sums are finite, and all integrations are over compact positive-frequency intervals except the elementary integrable Gaussian used as a majorant. Constants do not depend on wheel size, prime gaps, scale, U, or an unproved error bound. No off-diagonal family, endpoint atom, root-prime term, or continuous remainder was omitted. The one-logarithm gain is a proper-component improvement, not a new Mertens exponent.
+
+### G. Original-Carrier Bridge And Complete Return
+
+Reuse Owner FW and SC, without re-proving their existing adapter. Write n_R for the prime count in I_-, `E_R^wheel=sum_(prime p in I_-)delta(p-1)/p`, and F_other for the exact remaining owner packets. On the SAME region `I_- x I_+, uv<=X`, let I_LL,I_Lnu,I_nuL be the reference/reference and two physical mixed integrals. Then
+
+```text
+C_rest=F_other-D_R+n_R(n_R+3)/2-X E_R^wheel+I_LL,
+Z_R=C_rest+I_Lnu+I_nuL+Q_R.
+```
+
+The historical triangle includes units, prime squares and distinct historical pairs. All virtual compensation occurred before this count. The proper Q_R is not the full source.
+
+Use the already-proved PAPER SC representation at T=R, not a new smoother. It gives
+
+```text
+Q_R=A_R(0)B_R(0)/2 + I_[0,U] + M_mid + I_[2U,R] + e_R,
+U=sqrt R,
+|e_R|<=3072 R/L * 2/log 3 <=6144 R/L.
+```
+
+The I terms denote the SC spline-weighted signed integral on their displayed intervals. Its imaginary numerator is O(t) at zero; no separately divergent complex integral is introduced. MB2 supplies an ACTUAL independently bounded delta_R with
+
+```text
+M_mid=J_mid+delta_R, |delta_R|<=40R.
+Z_R=S_rest+J_mid+delta_R+e_R,
+S_rest=C_rest+I_Lnu+I_nuL+A_R(0)B_R(0)/2
+       +I_[0,U]+I_[2U,R].                            RETURN
+```
+
+This is the complete signed return. Nothing bounds S_rest here. The new reference terms in MB2 must NOT be confused with I_Lnu and I_nuL, which cover the full physical hyperbola and remain in S_rest. If squared, RETURN retains every diagonal and cross term, including error interactions. No global sum-of-squares surrogate is used.
+
+Even an independent proof of the desired proper bound for J_mid would pay only this band. A bound on the entire joint `S_rest+J_mid` at RH scale would, after these paid errors, again be target-equivalent; it is not assumed or called a new supporting lemma. The li normalization, the finite roots 2..7, and the explicit classical-criterion interface at the formal canonical VF/RH terminal are unchanged.
+
+### H. Falsification, Computation And Evidence
+
+Checkpoint commit `28544ec9332c8f028fc6acc6fae843e36f805b12`, blob `38103de83f6273c79bde638ce245b158bdb42215`, and validation registration commit `320cff6a08a4d92599d4396a17496edb7758d18e`, blob `c0ae6b25a25449d865d07b6ecf00a06c847c1730`, were each fetched at immutable commits and matched the intended complete contents before numerical work.
+
+The registered script uses genuine primes at R=8,11,12,64,256,1024,4096; U=1,sqrt R,R/2 for the signed bands; weights 1 and b(t/R); and U=2R additionally for the Gaussian-row test. Sieve/trial primality agreement through 8192 is exact. Floating integration uses continuous logarithmic Gauss orders 96/144 and frequency-panel orders 20/28, with panel length at most 4. The full four-term signed decomposition, both unequal mixed orientations and a deliberately wrong conjugated-product control are tested.
+
+The first run passed. A disclosed numerical implementation refinement split frequency panels at the known spline join t=R/2 and additionally checked the SUM of the three absolute reference bills. No sample, theorem constant, hypothesis or model was changed. This avoids a known piecewise-polynomial join and is not fitting to the observed signs. Final values and the exact executed script appear in the appended validation record.
+
+Proof self-audit corrected a draft shortcut in the interval step: x/log x is not increasing throughout [2,infinity). The final proof uses an enclosing interval of EXACT prescribed length 2s+2, so the stated all-s bound does not rely on that false shortcut. No claimed theorem or constant was changed.
+
+The separate smooth model tests at R=4096,16384,65536,1000000 check (12), the a_R phase restoration, zero marginal transforms, and the explicit lower bound. They are NON-PRIME and root-dependent. MB4's all-R proof, not the finite samples, establishes the method obstruction.
+
+Evidence limits: these quadrature calculations are binary64 diagnostics, not certified numerical enclosures and not Lean proofs. No continuous-integral all-scale conclusion is inferred from a finite maximum. No Z_R or full sharp Q_R census was rerun. The R=12 exact prime-product boundary is checked as a source regression; it is not a claim to have numerically certified the whole sharp cutoff. Self-audit is not independent Referee approval.
+
+### I. Conceptual Interpretation
+
+The changed conclusion is modest but genuine: prime sparsity improves the existing mean-square argument by a logarithm, and the continuous reference on this moving band can be paid more efficiently than a raw norm estimate suggested. The remaining proper term is a genuinely arithmetic signed prime-product kernel. Its required power saving is not supplied by centered marginals, benign local density, or deleting the constant mode.
+
+This does not repeat SC's boundary estimate, FB's integer-spacing argument unchanged, a root-adjunction identity, or CT's curved-to-additive transfer. It also does not claim that the same method can now be iterated to RH. The protected historical Mertens, CORR4 and finite-wheel results keep their actual carriers and statuses.
+
+### J. Specialist Handoffs
+
+**Coordinator:** add MB1-MB3 as proper quantitative edges, retaining the minimum with FB1 when comparing explicit constants. The gain is one logarithm, not a power or global endpoint. MB2 pays reference terms only inside OPEN-MIDBAND. MB4 rules out a precise generalized shortcut, not the actual-prime conjecture. Keep the complete RETURN open.
+
+**Adversarial Referee:** independently reconstruct constants 4/32/384/128 and 16/17/40; check the real-interval padding, near-resonant root atoms, monotone-weight hypothesis, both unequal mixed orientations, and the exact a_R phase. In MB4 check t0's lattice choice, conjugations in (12), zero masses, reference domination, all-R quantifiers and the root-dependent NON-PRIME scope. No acceptance is preclaimed.
+
+**Owner Payment:** MB2 does not pay your physical I_Lnu/I_nuL or CT's additive triangle. The prime-product kernel now needs a source-specific signed restriction across its exact product wall. An owner-incidence constraint useful here must survive the kernel signs and the other-owner return; mere density centering is excluded as a sufficient generic principle.
+
+**Finite Wheel:** SHIFT remains an exact dependence identity, not a free contraction. A proposed cross-scale potential should be tested against MB4's moving modes as well as Coordinator MP's fixed modes, at the appropriate generalized scope. No model is asserted to satisfy genuine wheel/divisor inversion.
+
+**Prime Census:** no broader rerun of these generous inequality checks is needed. A useful next declared experiment would compare the signed prime-only J_mid, the paid reference correction, and a specific arithmetic packet subdivision proposed by a proof argument. Preserve nonconjugation and both orientations; do not fit a universal constant or infer an existential all-R bound from samples.
+
+**Lean Verification:** no source/PR action is requested before independent mathematical acceptance. If MB2 is accepted, assess its genuine prime-polynomial/reference interface and integration-by-parts infrastructure before formalization. Do not create a target-equivalent conditional wrapper or easy kernel algebra merely to increase theorem count. MB1 requires a properly available interval-sieve theorem; no unproved replacement premise may be inserted.
+
+These are asynchronous published handoffs only. No agent was launched, synchronized or rescheduled.
+
+### K. First Independently Missing Analytic Input
+
+The precise remaining proper question is
+
+```text
+exists C>=0, forall integer R>=8,
+  |sum_(prime p in [R/2,R), prime q in [R,2R]) K_R(pq)|
+    <=C R log R.
+```
+
+By MB2 this is equivalent, up to the explicit additive 40R, to Coordinator OPEN-MIDBAND, not a solved or allegedly weaker version of that same proper conjecture. No equivalence or non-equivalence to RH has been proved for either proper statement. The new independent advances are MB1's improved bound and MB2's paid terms, not naming this sum.
+
+A further improvement must exploit actual prime-product balance under the odd logarithmic kernel beyond the interval upper-count input. Such a signed arithmetic restriction is NOT established in this execution. Even if found, all terms in S_rest would remain before the full target. This is the exact point at which the current proof attempt stops.
+
+### L. Continuity, Formal Evidence And Resume Capsule
+
+Both required Eastern dates' reports were retrieved. Applicable latest mathematical findings, source scopes and handoffs were read; large unrelated historical code appendices were not rerun. Today's Referee stage is absent at intake: TODAY=PENDING, YESTERDAY=CARRY_FORWARD. No missing handoff or reviewer verdict was invented.
+
+| Role | November 9 intake blob and consumed work | November 8 carry-forward blob |
+| --- | --- | --- |
+| Coordinator, matching 00/90 | 9e7253329c409aa920d7e1d43e2fab8971bdc93b; FB/MP and OPEN-MIDBAND | 8b640304f6c233a2c4409b9882799de485888a9e; FM's non-Mobius scope |
+| Owner | cfc6b8f473f7702c6e0759746095f048c1378756; FW and latest CT | 4e1b83a1e5ff8c134e9ca64404397c70c2b07252; PD/MC/JS |
+| Analytic | f17f13f252d8855accc04cf5c2b5e2ebd1297522; SC1-SC6 | edecba8785a45cda87c0035d0348695941f1b8ea; MP/ND/EC |
+| Wheel | dbb85c912cb56a3a1203e1276bbac55d02ab4c93; RA1-RA5 | 60d4cf1b65d4b1b2cc4f13f6c0940c14cb2c50fd; SP/HC/FD |
+| Census | 185b493a7c4bdc4dda79254f63c6541562e1140f; CR1-CR5 | 00f4f9c0d670821a0c9d1da31fd1c4d0afd09142; TC/SJ/FR |
+| Referee | TODAY=PENDING; no present-day approval | 5371324ebbdbd88afb9abf843e83da2ce86b752f; EC accepted, SG separately self-audited |
+| Lean | 873cc077a0eafb87a39c1c9c12ff22ad891d7ba7; RA implementation, live merge supersedes old pending prose | 5a110685bbe375d8ebff42df7391162914e52cef; accepted EC implementation and repairs |
+
+Prior claims retain their identifiers and scopes. EC's later merged implementation is not a new result of this run; SG is not silently promoted. The external inbox at blob `038018145c0fddb2f6306c0712373adf9cd1ea52` has no entry after October 18. EXT-20261018-PNT-1..3, EXT-20261017-XCOORD-1 and EXT-20261014-5 retain their original-source, endpoint and no-go qualifications, not obsolete task priorities.
+
+Actual CI/source evidence checked:
+
+- #1122 is merged. Eleven proof-head attached checks are successful at `c53e9cf234500aea2605fd2557e638995f380407`. The actual [targeted job](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42561949462/job/128980092032) checked synthetic merge `1e3c182076a6e1a23ef132c41a78b0f26adab507`, not a literal-head checkout. The complete-wheel file at that tested SHA was fetched and matches current main's blob exactly. The actual output prints only propext, Classical.choice and Quot.sound for the two guarded source declarations.
+- #1124 is human-merged at current main. All thirteen checks passed at literal head `1b80f147dab3c0c2525052b3c6c3f8c447089da1`. The [dedicated job](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42600910899/job/129104842737) confirms exact checkout, Lean 4.34.1, dependency closures 746/772 and standard terminal axioms. Its original source was fetched at tested head and current main with matching blob. The acceptance source and compiler flag `-DwarningAsError=true` were inspected.
+- The open/draft collection was empty at intake. Recent merge metadata for #1124,#1123,#1118,#1121,#1122,#1120,#1119,#1117 was checked. No new CI was triggered and no fresh full-main build is claimed. No MB theorem has been compiled.
+
+```text
+RUN=20261109-analytic-2; actual scheduled trigger 09:09:02 EST.
+MAIN=02f00cee544278ad1bb9022ee76fc5916d459a95.
+ACK=FINITE_WHEEL_CENTERED_RH_V1.
+NEW_PAPER=MB1 sieve row/energy; MB2 paid reference band;
+          MB3 logarithmic actual-band improvement;
+          MB4 generalized moving-mode obstruction.
+NEW_FINITE=MB5 registered diagnostics; not interval or Lean evidence.
+NO_GLOBAL_ENDPOINT_GAIN; OPEN-MIDBAND and full RH target remain OPEN.
+NEXT=independent MB review, then actual-prime signed K_R(pq) control.
+DO_NOT_REPEAT=SC smoothing, RA admission, old sign census, unchanged MB scans.
+KEEP=constant frequency, other bands, both physical linear terms,
+     other owners, virtual Euler compensation, root and product atoms.
+```
+
+Only this daily Analytic report on agent-reports is authorized for publication. Direct git transport failed with CONNECT tunnel 403; connector reads and report writes worked. No local Lean, proof/source/main/policy/workflow/other-report/PR/branch edit, merge, auto-merge, schedule change or agent launch occurred. The attached older role-contract prohibitions and historical target wording do not override the current explicit own-report publication authority and finite-wheel assignment.
+
+Mathematical investigation is finished at paper/finite scope. Substantive publication remains PENDING until the actual commit and immutable readback. A receipt will record only successfully verified operations. The complete earlier report is preserved as an unchanged prefix.
+
+### Final Validation Record - MB5
+
+Both executed runs completed with exit code zero, and the final script passed Python syntax validation. Actual runtime reported Python 3.12.14 and NumPy 2.3.5. No optional symbolic package or local Lean was used.
+
+- Exact sieve/trial comparison: all 1,028 primes through 8,192 matched.
+- Gaussian-row diagnostics: 4,128 rows passed; largest ratio to the stated row bound was 0.11768713534833623.
+- Actual source: 21 band cases, 42 signed weighted bands, all passed. Largest energy-bound ratio was 0.002110852176791391; largest new-band-bound ratio was 0.00011673441317502325.
+- Reference payment: largest ratio for the difference was 0.001547473452045498; largest ratio for the SUM of the three absolute reference bills was 0.003251528939812244.
+- Final quadrature refinement difference across all actual-source quantities was 6.984919309616089e-10. The first run's maximum was 2.5808029172069702e-8 before the disclosed split at the known spline join.
+- The wrong conjugated product differed by as much as 5.223154058611739, and the two mixed orientations differed by as much as 66.45102351813284. These controls forbid silently identifying either pair of expressions.
+- Four NON-PRIME model cases passed the explicit lower and phase-error bounds; largest quadrature refinement difference was 4.3655745685100555e-11. Their lower-bound ratios ranged from about 535 to 566; no constants were fitted to them.
+
+Selected final moving-band diagnostics, not certified enclosures:
+
+| R | M_mid | J_mid | M_mid-J_mid |
+| --- | ---: | ---: | ---: |
+| 8 | 0.00528111104322 | -0.07199405392284 | 0.07727516496606 |
+| 11 | -0.07369522374161 | 0.11349465061082 | -0.18718987435243 |
+| 12 | 0.00895016414511 | -0.08245219383248 | 0.09140235797759 |
+| 64 | -0.20278900085366 | -0.47792057241249 | 0.27513157155883 |
+| 256 | 0.32265935811257 | 1.10094774069253 | -0.77828838257996 |
+| 1024 | -4.44119328038114 | -6.31432330161717 | 1.87313002123603 |
+| 4096 | -0.54114640257608 | -9.02246037746730 | 8.48131397489122 |
+
+The conservative all-scale bounds are much larger than these finite values. This is neither evidence for an optimal constant nor a validation of the existential OPEN-MIDBAND conjecture.
+
+Exact final script SHA-256:
+
+```text
+midband_check.py
+141b1470115355b215b9c79ebebc603c40a526b7ca23104719aa4935de5c42d4
+```
+
+Prepublication freshness: main remained 02f00cee544278ad1bb9022ee76fc5916d459a95, all upstream November 9 report blobs remained unchanged, the Referee remained TODAY=PENDING, and the open/draft PR collection remained empty. Intake report-branch snapshot was f74852e2acd928799b02568c63dd8764f8f8262f. Publication refreshes the owned file's current blob separately before the write.
+
+### Reproducibility Appendix - Exact Executed Script
+
+The following final source is sufficient to reproduce the diagnostics with Python and NumPy. It prints results only; no generated data file or undocumented external arithmetic input is required. The paper proofs above do not depend on its floating-point output.
+
+
+```python
+"""Registered diagnostics for analytic-2/MB, not interval or Lean proofs."""
+
+import json
+import math
+
+import numpy as np
+from numpy.polynomial.legendre import leggauss
+
+
+ROOTS = (8, 11, 12, 64, 256, 1024, 4096)
+MODEL_ROOTS = (4096, 16384, 65536, 1000000)
+ELL = math.log(2)
+
+
+def primes_through(n):
+    sieve = bytearray(b"\x01") * (n + 1)
+    sieve[:2] = b"\x00\x00"
+    for p in range(2, math.isqrt(n) + 1):
+        if sieve[p]:
+            sieve[p * p:n + 1:p] = b"\x00" * ((n - p * p) // p + 1)
+    answer = [p for p in range(n + 1) if sieve[p]]
+    trial = [p for p in range(2, n + 1)
+             if all(p % d for d in range(2, math.isqrt(p) + 1))]
+    assert answer == trial
+    return answer
+
+
+def grid(a, b, order, max_width=None):
+    count = 1 if max_width is None else max(1, math.ceil((b - a) / max_width))
+    nodes, weights = leggauss(order)
+    walls = np.linspace(a, b, count + 1)
+    half = (walls[1:] - walls[:-1]) / 2
+    mid = (walls[1:] + walls[:-1]) / 2
+    return ((mid[:, None] + half[:, None] * nodes).ravel(),
+            (half[:, None] * weights).ravel())
+
+
+def spline(w):
+    w = np.abs(np.asarray(w))
+    return np.where(w <= 0.5, 1 - 6 * w**2 + 6 * w**3,
+                    np.where(w < 1, 2 * (1 - w)**3, 0))
+
+
+def band_grid(root, U, order):
+    # Respect the known spline join instead of integrating across its kink.
+    walls = sorted({U, 2 * U} | ({root / 2} if U < root / 2 < 2 * U else set()))
+    parts = [grid(a, b, order, max_width=4) for a, b in zip(walls, walls[1:])]
+    return np.concatenate([p[0] for p in parts]), np.concatenate([p[1] for p in parts])
+
+
+def prime_transform(root, primes, t):
+    logs = np.log(np.asarray(primes, dtype=float) / root)
+    return np.array([np.exp(-1j * v * logs).sum() for v in t])
+
+
+def continuous_transform(root, lo, hi, t, order):
+    # Composite oscillatory quadrature limits each log-panel's phase span.
+    s, ws = grid(math.log(lo / root), math.log(hi / root), order,
+                 max_width=12 / max(1, float(max(t))))
+    density = root * np.exp(s) / (math.log(root) + s)
+    result = np.empty(len(t), dtype=complex)
+    for start in range(0, len(t), 16):
+        tt = t[start:start + 16]
+        result[start:start + 16] = (
+            np.exp(-1j * tt[:, None] * s[None, :]) @ (ws * density))
+    return result
+
+
+def actual_case(root, U, left, right, s_order, t_order):
+    t, wt = band_grid(root, U, t_order)
+    pm = prime_transform(root, left, t)
+    pp = prime_transform(root, right, t)
+    cm = continuous_transform(root, root / 2, root, t, s_order)
+    cp = continuous_transform(root, root, 2 * root, t, s_order)
+    aa, bb = pm - cm, pp - cp
+    phase = np.exp(1j * t * math.log1p(-1 / root**2))
+    results = []
+    for eta in (np.ones(len(t)), spline(t / root)):
+        def band(z):
+            return float(np.dot(wt, eta * (phase * z).imag / (math.pi * t)))
+        terms = [band(pm * pp), band(pm * cp), band(cm * pp), band(cm * cp)]
+        value = band(aa * bb)
+        assert abs(value - (terms[0] - terms[1] - terms[2] + terms[3])) < 1e-8
+        results.extend([value, *terms, band(aa * np.conjugate(bb))])
+    results.extend([float(np.dot(wt, abs(pm)**2)),
+                    float(np.dot(wt, abs(pp)**2))])
+    return np.array(results)
+
+
+def box_transform(w):
+    w = np.asarray(w, dtype=float)
+    return ELL * np.exp(-0.5j * ELL * w) * np.sinc(ELL * w / (2 * math.pi))
+
+
+def model_case(root, order):
+    U = math.sqrt(root)
+    n = math.ceil(5 * U * ELL / (8 * math.pi))
+    t0 = 2 * math.pi * n / ELL
+    assert 5 * U / 4 <= t0 <= 7 * U / 4
+    c = root / (4 * math.log(root))
+    t, wt = grid(U, 2 * U, order, max_width=4)
+    gg, hh = box_transform(t - t0), box_transform(t + t0)
+    aa = c * (np.conjugate(gg) + np.conjugate(hh)) / 2
+    bb = c * (gg - hh) / (2j)
+    exact_imag = -(c**2 / 4) * (abs(gg)**2 - abs(hh)**2)
+    assert np.max(abs((aa * bb).imag - exact_imag)) < 1e-12 * c**2
+    assert np.max(exact_imag) <= 1e-10 * c**2
+    weights = wt * spline(t / root) / (math.pi * t)
+    raw = float(np.dot(weights, exact_imag))
+    phase = np.exp(1j * t * math.log1p(-1 / root**2))
+    shifted = float(np.dot(weights, (phase * aa * bb).imag))
+    lower = root**1.5 / (32768 * math.log(root)**2)
+    assert abs(shifted) >= lower
+    phase_bound = 2 * c**2 * ELL**2 * U / (math.pi * root**2)
+    assert abs(shifted - raw) <= phase_bound * (1 + 1e-9)
+    assert abs(box_transform(t0)) <= 1e-12
+    return np.array([raw, shifted, lower, abs(shifted) / lower, phase_bound])
+
+
+all_primes = primes_through(2 * max(ROOTS))
+rows_checked = 0
+max_row_ratio = 0.0
+max_energy_ratio = 0.0
+max_reference_ratio = 0.0
+max_reference_absolute_ratio = 0.0
+max_band_ratio = 0.0
+max_refinement = 0.0
+nonconjugation_difference = 0.0
+mixed_orientation_difference = 0.0
+samples = []
+
+for root in ROOTS:
+    left = [p for p in all_primes if root <= 2 * p and p < root]
+    right = [p for p in all_primes if root <= p <= 2 * root]
+    L = math.log(root)
+    assert max(len(left), len(right)) <= 4 * root / L
+    assert (root in right) == (root in all_primes)
+    if root == 12:
+        assert 11 in left and 13 in right and 11 * 13 == root**2 - 1
+    for U in (1, math.sqrt(root), root / 2, 2 * root):
+        h = root / U
+        f = (1 + h) / math.log(2 + h)
+        for primes in (left, right):
+            for p in primes:
+                row = sum(math.exp(-(p - q)**2 / (16 * h**2)) for q in primes)
+                max_row_ratio = max(max_row_ratio, row / (32 * f))
+                assert row <= 32 * f
+                rows_checked += 1
+    for U in (1, math.sqrt(root), root / 2):
+        base = actual_case(root, U, left, right, 96, 20)
+        refined = actual_case(root, U, left, right, 144, 28)
+        error = float(max(abs(base - refined)))
+        max_refinement = max(max_refinement, error)
+        assert error < 1e-7
+        h = root / U
+        f = (1 + h) / math.log(2 + h)
+        energy_bound = 384 * U * root * f / L
+        max_energy_ratio = max(max_energy_ratio, max(base[-2:]) / energy_bound)
+        assert max(base[-2:]) <= energy_bound
+        for offset in (0, 6):
+            val, pp, pc, cp, cc, conjugated = base[offset:offset + 6]
+            ref_ratio = abs(val - pp) / (40 * root**2 / U**2)
+            absolute_ref_ratio = (abs(pc) + abs(cp) + abs(cc)) / (40 * root**2 / U**2)
+            band_ratio = abs(val) / (128 * root * f / L + 40 * root**2 / U**2)
+            max_reference_ratio = max(max_reference_ratio, ref_ratio)
+            max_reference_absolute_ratio = max(max_reference_absolute_ratio, absolute_ref_ratio)
+            max_band_ratio = max(max_band_ratio, band_ratio)
+            assert ref_ratio < 1 and absolute_ref_ratio < 1 and band_ratio < 1
+            nonconjugation_difference = max(nonconjugation_difference, abs(val - conjugated))
+            mixed_orientation_difference = max(mixed_orientation_difference, abs(pc - cp))
+        if U == math.sqrt(root):
+            assert abs(base[6]) <= 384 * root**1.5 / L**2 + 40 * root
+            samples.append({"R": root, "M_mid": float(base[6]),
+                            "prime_prime": float(base[7]),
+                            "reference_difference": float(base[6] - base[7]),
+                            "new_bound": 384 * root**1.5 / L**2 + 40 * root})
+    print(json.dumps({"progress_root_complete": root}), flush=True)
+
+assert nonconjugation_difference > 1e-5
+assert mixed_orientation_difference > 1e-5
+model_samples = []
+model_refinement = 0.0
+for root in MODEL_ROOTS:
+    x, y = model_case(root, 20), model_case(root, 28)
+    error = float(max(abs(x - y)))
+    model_refinement = max(model_refinement, error)
+    assert error < 1e-7
+    model_samples.append({"R": root, "band": float(x[1]),
+                          "lower_bound": float(x[2]), "ratio": float(x[3])})
+
+print(json.dumps({
+    "status": "PASS_DIAGNOSTIC_NOT_INTERVAL_OR_LEAN_CERTIFICATE",
+    "prime_bound": 2 * max(ROOTS), "prime_and_trial_count": len(all_primes),
+    "actual_roots": len(ROOTS), "actual_band_cases": 3 * len(ROOTS),
+    "signed_weighted_bands": 6 * len(ROOTS), "prime_rows_checked": rows_checked,
+    "max_row_bound_ratio": max_row_ratio, "max_energy_bound_ratio": max_energy_ratio,
+    "max_reference_bound_ratio": max_reference_ratio, "max_new_band_bound_ratio": max_band_ratio,
+    "max_reference_absolute_bound_ratio": max_reference_absolute_ratio,
+    "max_actual_refinement_difference": max_refinement,
+    "nonconjugation_negative_control_difference": nonconjugation_difference,
+    "mixed_orientation_difference": mixed_orientation_difference,
+    "midband_samples": samples,
+    "model_type": "root-dependent smooth NON-PRIME zero-mass measures",
+    "max_model_refinement_difference": model_refinement,
+    "model_samples": model_samples,
+}, indent=2))
+```
