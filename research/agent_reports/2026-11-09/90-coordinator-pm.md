@@ -786,3 +786,778 @@ Prepared before arithmetic execution, 2026-11-09 15:24 EST. This is a proof-led 
 - Smooth tests: R=4096,16384,65536, frequencies t=2pi*ceil(5sqrt(R)log2/(8pi))/log2. Compare direct integration with the exact shifted triangle formula, at Gauss orders 512/768; reject at relative discrepancy 1e-9. These are synthetic nonzero modes, not zeta zeros.
 - Exact controls: rational finite atoms test the signed area identity WITH its shared-atom diagonal; a deliberate shared atom must fail the diagonal-free formula. Test the sharp stability inequality on declared finite signed arrays by exhaustive small-coefficient enumeration.
 - No empirical constant will be fitted and no finite maximum will be called an all-root theorem. Scope/independent review/Lean status remains pending.
+
+---
+
+# RH | Proof Architect: Sharp Cross-Root Area And Its Arithmetic Obstruction
+
+## Continuation Of 2026-11-09 15:13 EST Scheduled Execution
+
+### A. What Changed Mathematically?
+
+**The obstruction is not confined to an inconvenient Fourier band.** The full, sharp cross-root quadratic has an oriented second-order area. A single fixed unit-atom integer sequence can have a global counting error `O_W(sqrt(x)/log x)`, exclude every prime factor of any fixed even wheel `W`, satisfy the original dyadic shift identity, and nevertheless have this sharp quadratic of magnitude at least `R^(3/2)/(224 log(R)^2)` on infinitely many declared roots. This extends, with full credit, today's Analytic MB4, Wheel DG4 and Referee DA construction from a moving-frequency band to the entire sharp product kernel. The model is NOT the primes and does NOT satisfy the complete moving-wheel survivor identity.
+
+A second obstruction concerns the genuine primes: for any fixed Young exponents `p,q>=1` with `1/p+1/q>1`, the ordinary variation-norm product of the two prime-error paths is eventually larger than every `C R log R`. The unit prime jumps themselves force this. An estimate through that norm product cannot supply the endpoint; signed area or joint owner compensation could still do so.
+
+There is also a useful paid approximation, not a new cancellation theorem: replacing the continuous Li reference in the proper sharp quadratic by the repository's exact floor-Li mismatch atoms costs at most `49R/log R+16`, for every integer `R>=8`. The physical site `m` uses `vfMidFloorLiPrimitiveMismatch (m-1)`, not index `m`.
+
+New claims `20261109-coordinator-1513-EST/SA1-SA5` have the status **PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED**. SA1's area equality alone is `IDENTITY_ONLY`. SA6 denotes the separately classified finite checks. The refutations concern precisely stated proposed norm/model implications, not RH or the genuine full quadratic estimate. No new all-root arithmetic cancellation, Mertens exponent, finite A/C or RH result is claimed.
+
+Execution metadata: actual trigger `2026-11-09 15:13:01 EST`, America/New_York, UTC-05:00; platform `RUN_ID_UNAVAILABLE`. This is one actual invocation, continuing the same day's preserved report history. `finite_wheel_ack=FINITE_WHEEL_CENTERED_RH_V1`. Substantive publication is pending until the receipt appended after immutable remote readback; no claim below depends on publication status.
+
+### B. Current Proof Objective
+
+Latest main, fetched at intake and rechecked before synthesis: `02f00cee544278ad1bb9022ee76fc5916d459a95`, human merge of #1124 at `2026-11-09T12:30:32Z`.
+
+| Authority | Verified blob |
+| --- | --- |
+| `AGENTS.md` | `6695522a45d67fd1e80a7cff1f98d909405036e2` |
+| `CURRENT_PROOF_CONTRACT.md` | `95566e37c8eaeb99ee680660df4f9d2e06ea5038` |
+| `docs/RHLEAN_SEVEN_AGENT_FINITE_WHEEL_BOUNDARY_20261108.md` | `e505f35522b675c6b5b263eac73618d717346973` |
+| `docs/DYNAMIC_RESEARCH_AGENTS.md` | `e8d913ff9663bb5163eaf0eddca9f76e0508a7ef` |
+
+For every integer `R>=2`, put `X=R^2-1`, `y=R-1`, `P_y=product_(prime p<=y)p`, and `delta(y)=product_(prime p<=y)(1-1/p)`. The complete source and goal are
+
+```text
+F_R = sum_(d|P_y) mu(d) fract(X/d),
+D_R = X delta(y) + pi(y) - 1 - li(X),
+Z_R = F_R-D_R = li(X)-pi(X).
+OPEN: exists ONE C>=0, forall integer R>=2, |Z_R|<=C R log R.
+```
+
+The principal-value `li` anchor is retained. Its derivative on the intervals below is `du/log u`; using that derivative does not change the anchor in `D_R`. Every virtual divisor `d>X` cancels against its own finite Euler reciprocal contribution BEFORE truncation or an unsigned estimate. The source includes `d=X`, empty-wheel root `R=2`, squares and prime-root admission.
+
+Original source `research/CompleteSquareRootWheelFractionalBoundary.lean`, blob `ecb482e52deeee5e9b3853592a3ffdace662d2ff`, was read directly. Existing certified declarations include `finiteWheel_divisorReciprocal_eq_eulerProduct`, `finiteWheelFract_eq_physical_add_virtual`, `finiteWheelFract_sub_density_eq_physical_floorError`, `finiteWheel_divisorFloor_eq_survivorCount`, `finiteWheel_squareLegendre_identity`, and `finiteWheel_squareFractional_centered_eq_reference_sub_pi`. The last accepts an arbitrary real reference, not a bound on that reference error.
+
+The public canonical objective remains `VFCanonicalSquareVonKochStatement`. Source `research/VF_CANONICAL_SQRT_TWO_VON_KOCH.lean`, blob `79030d70e8d3e0d08eef9bac53fef95c36eca2fb`, preserves the explicit `ClassicalVonKochRHCriterion` argument of `riemannHypothesis_of_vfCanonicalSquare`. Classical target equivalence is not an internally discharged version of that formal interface. The new work does not alter any theorem signature or use the old 7/8 baseline on a new carrier by resemblance.
+
+### C. Competing Mechanism Portfolio
+
+The portfolio has narrowed. There are two distinct exploratory inputs worth seeking, not three independently viable proof routes. The floor-Li representation is an instrument, not a third mechanism, and the already-paid root-admission channel does not independently bound the remaining shell.
+
+| Mechanism | Independent input sought and target route | Support and obstruction | Decisive next step / owner / disposition |
+| --- | --- | --- | --- |
+| **1. Joint physical owner compensation** | A prime-factor/incidence restriction coupling the oriented cross-root response to the actual lower-owner and mixed terms. Insert that restriction in the exact four-term return in D1, with every coefficient and cost retained. | The owner adapter is exact; SA1 locates the second-order object. A bound assumed for the entire remaining combination is still TARGET_EQUIVALENT. No independent arithmetic supplier has yet been found. | Seek one explicit finite packet interaction or inverse implication that fails for SA4's sequence because of genuine factorization. Owner and Wheel investigate different aspects; Referee tests it. **CONTINUE DISCOVERY, highest priority.** |
+| **2. Signed analytic response using prime arithmetic** | A genuine signed bilinear estimate, or a joint estimate with the physical reference/complement, whose hypothesis is stronger than generic density but independently provable. Its complete return must specify all remaining frequencies and owners. | FB1 pays a top band. MB1-MB3 propose a logarithmic middle-band improvement. SA4 rules out generic counting-envelope suppliers even for the sharp quadratic; MP2 rules out treating an RH-equivalent per-zero condition as an easier input. | Identify the first arithmetic step absent from density/spacing arguments and test it on the original nonconjugated statistic. Analytic leads. **REVISE; proper bands remain optional, not a team-wide compulsory norm.** |
+| **Representation and retired shortcuts** | Floor-Li mismatch via SA3; root-admission via #1124; exact dyadic identities. | These pay adapters or proper costs, not the whole endpoint. Ordinary fixed Young-exponent norms fail on genuine primes by SA5; fixed-wheel/counting-only control fails by SA4; the previously proposed endpoint-only dyadic telescope fails by DG3. | Use the paid tools only when an actual arithmetic inference needs them. **RETAIN TOOLS; REJECT the stated shortcuts.** |
+
+This is a narrowing of unproved suppliers, not a prohibition on alternative independent mathematics within the current finite-wheel campaign. It does not authorize a return to superseded campaigns or a change of the human-controlled proof contract.
+
+### D. Conceptual Research Performed
+
+#### D1. Original Carrier And Complete Return
+
+Throughout SA1-SA3 and SA5, `R` is an integer at least 8, `L=log R`, `ell=log 2`, `I_-=[R/2,R)`, `I_+=[R,2R]`, `dnu=dpi-du/log u`. For any real `T`, set
+
+```text
+Q_T(mu,lambda) = integral_(I_- x I_+) 1_(uv<=T) dmu(u) dlambda(v),
+Q_R = Q_(R^2-1)(nu,nu),
+Q_sq = Q_(R^2)(nu,nu).
+```
+
+This `Q_R` is not the older frozen-Mobius floor bilinear with the same letter. Both mixed orientations are different objects. The root atom belongs to `I_+`; the right endpoint `2R` remains in the definition, even in approximating measures that can have an atom there.
+
+Reconstruct today's Owner packet, without creating a new theorem by renaming it:
+
+```text
+B_owner(p) = -sum_(e|P_(p-1)) mu(e) fract(X/(pe))
+           = Phi(X/p,p-1) - (X/p)delta(p-1).
+```
+
+For prime `p` in `I_-`, `p^3>X`, so the surviving cofactor is one or a prime at least `p`. If `n_R` counts such owners, their units, squares and distinct historical pairs total `n_R(n_R+3)/2`. Let `E_R^wheel=sum_(prime p in I_-)delta(p-1)/p` and define `F_other=F_R-sum_(prime p in I_-)B_owner(p)` exactly. This retains every remaining complete owner packet; no additional Euler subtraction is hidden in `F_other`. With `H=1_(uv<=X)` define
+
+```text
+I_LL  = integral H dli dli,
+I_Lnu = integral H dli dnu,
+I_nuL = integral H dnu dli,
+C_rest = F_other-D_R+n_R(n_R+3)/2-X E_R^wheel+I_LL.
+EXACT: Z_R = C_rest + I_Lnu + I_nuL + Q_R.             (RETURN)
+```
+
+This keeps the once-only prime product occurrences, both physical mixed terms, the lower owners, historical units and squares, Euler density and the original Li anchor. It does not infer a full quadratic bound from a favorable piece. Squaring RETURN retains four square terms and all six doubled cross terms.
+
+#### SA1. Paid Square Alignment And Exact Oriented Area
+
+**Statement.** For every integer `R>=8`,
+
+```text
+|Q_sq-Q_R| <= 16/L^2.                                (SA1.1)
+```
+
+Proof: the difference is the strip `R^2-1<uv<=R^2`. For actual prime pairs, an integer product in this strip must equal `R^2`. Unique factorization then forces both primes to equal `R`, contrary to `u<R`. Thus its prime-prime mass is exactly zero. This does NOT discard the possible prime product at `uv=X`; at `R=12`, `(11,13)` remains included.
+
+Reuse the independently accepted FB1 elementary binomial count `#primes(I_-), #primes(I_+)<=4R/L`. For each left prime the strip's right width is at most `1/p<=2/R` and its Li density at most `1/L`, giving `8/L^2`. For each right prime the left width is at most `1/q<=1/R`, and left density is at most `1/(L-ell)<=3/(2L)`, giving `6/L^2`. The Li-Li strip is at most `(R/2)*(3/(2L))*(2/(RL))=3/(2L^2)`. Sum the three absolute costs: `15.5/L^2<=16/L^2`. Both mixed terms are present.
+
+Reflect the left logarithmic coordinate, `s=log(R/u)`, and use `t=log(v/R)` on the right. Let `alpha,beta` be the pushforwards of the restrictions of `nu`, with `alpha` on `(0,ell]`, `beta` on `[0,ell]`. Define right-continuous cumulative paths `A(s)=alpha([0,s])`, `B(s)=beta([0,s])`, both with zero initial value just before 0. Then
+
+```text
+Q_sq = integral_[0,ell] B(s) dA(s),
+Omega_R = integral B dA - integral A dB,
+2 Q_sq = A(ell)B(ell) + Omega_R + D_shared,
+D_shared = sum_s Delta A(s) Delta B(s).              (SA1.2)
+```
+
+This is the inclusive Stieltjes product formula for finite signed measures; it also follows by partitioning the rectangle into `t<s`, `t=s`, `t>s`. For the actual prime source, shared logarithmic atoms again require `pq=R^2`, which is impossible on the chosen intervals. Consequently `D_shared=0`, including prime-root `R` because `alpha` has no atom at 0. The continuous terms have no atomic diagonal. If `e_align=Q_sq-Q_R`, RETURN becomes
+
+```text
+Z_R = C_rest+I_Lnu+I_nuL
+      +(A(ell)B(ell)+Omega_R)/2-e_align,
+|e_align|<=16/L^2.                                  (SA1.3)
+```
+
+The new quantitative part is the original-wall error bound. The area formula is an exact coordinate identity, not a bound on `Omega_R`, and a general atomic source needs `D_shared`. The deliberate shared-atom negative control in SA6 detects precisely that omission.
+
+#### SA2. Sharp-Kernel Stability Under Bounded Cumulative Error
+
+**Statement.** Let `I,J` be bounded intervals in the positive half-line with any fixed endpoint convention, and let `nu,sigma` be finite real signed measures on their union. Suppose `nu-sigma=dE`, where every cumulative one-sided value needed at interval endpoints and interior cutoff points has absolute value at most `K>=0`. For every real `T`,
+
+```text
+|Q_T(nu,nu)-Q_T(sigma,sigma)|
+ <= 2K [ TV(sigma|J) + TV(nu|I) ].                   (SA2)
+```
+
+Here the first factor is restricted to `I`, the second to `J`; `TV` is total variation. The hypotheses may equivalently be stated with separate cumulative primitives on the two intervals with this same bound. No density or positivity assumption on the signed measures is made.
+
+Proof: write exactly
+
+```text
+Q_T(nu,nu)-Q_T(sigma,sigma)
+  = Q_T(dE,sigma) + Q_T(nu,dE).
+```
+
+At fixed positive `v`, the permitted `u` form an initial subinterval of `I`, whose `dE` mass is a difference of two appropriate one-sided values and has magnitude at most `2K`. Fubini and total variation bound the first term. Interchanging the roles gives the second term. This asymmetric expansion includes both mixed corrections AND the error-error interaction; it has not dropped a quadratic term. Finite total variation justifies Fubini.
+
+The registration gave the weaker coefficient `3K TV(sigma|J)+2K TV(nu|I)`. The direct prefix proof supplies the stronger displayed `2K` coefficient without fitting to data. The later applications deliberately retain conservative constants.
+
+#### SA3. Source-Faithful Quadratic Floor-Li Approximation
+
+Let `Li_2(x)=integral_2^x du/log u` and `H(x)=floor(Li_2(floor x))`. On `x>=4`, including required left limits at 4, write `H-Li_2=E`. The fractional part costs less than one and the final unit interval costs at most `1/log 3<1`, so `|E|<2`. Moreover
+
+```text
+b_m = floor(Li_2(m))-floor(Li_2(m-1)) in {0,1}, m>=4,
+eta_m = 1_Prime(m)-b_m in {-1,0,1},
+dnu_hat = dpi-dH,
+Qhat_R = sum_(m in I_- intersect Z, n in I_+ intersect Z, mn<=X)
+            eta_m eta_n.
+```
+
+**Statement.** For every integer `R>=8`,
+
+```text
+|Q_R-Qhat_R| <= 49R/L+16.                            (SA3)
+```
+
+Proof: apply SA2 to `nu=nu_hat`, `sigma=nu`, `K=2` (reversing the sign of `E` is harmless). FB1's count gives `TV(nu|I_+)<=5R/L`. On the left, `Li_2(I_-)<=3R/(4L)` and cumulative error at both endpoints costs at most four, hence
+
+```text
+TV(nu_hat|I_-) <= 4R/L+3R/(4L)+4 = 19R/(4L)+4.
+```
+
+The preregistered weaker SA2 coefficients yield `6*(5R/L)+4*(19R/(4L)+4)=49R/L+16`. The sharper SA2 also works; no improvement to the conservative displayed budget is needed.
+
+Original source `research/VF_MID_FLOOR_LI_SIGNED_POPULATION_BALANCE.lean`, blob `9a9336dad72171b6d572a1c1ae88d1ae8b56b530`, defines the mismatch as backlog at `n+1` minus backlog at `n`. Thus `eta_m=vfMidFloorLiPrimitiveMismatch(m-1)`. Its existing scalar telescopes, rounding facts and Abel identities are reused, not claimed anew. Its stated automatic ternary range starts at mismatch index 4; the single physical site 4 needed here is covered directly by `log 3>1`. The quadratic sharp-kernel estimate SA3 is the additional paper argument.
+
+The approximation retains `mn<=R^2-1`, the interval wall `m<R`, root site `n=R`, and possible reference atom `n=2R`. The atomic mismatch is NOT the Mobius function. SA1's absence of a shared prime diagonal must NOT be transferred to `nu_hat`, whose negative reference atoms can create one. The full source return is
+
+```text
+Z_R=C_rest+I_Lnu+I_nuL+Qhat_R+e_round,
+|e_round|<=49R/L+16.
+```
+
+All three other terms remain. An `O(R log R)` bound on `Qhat_R` is equivalent to that bound on this proper `Q_R` by SA3, not an independently solved smaller theorem. Neither equivalence nor nonequivalence of this proper-component bound with RH is asserted.
+
+#### SA4. One Fixed Discrete Countermodel For The Entire Sharp Quadratic
+
+**Quantifiers.** For every fixed even integer `W>=2`, there exists ONE sequence `(a_n)_(n>=1)` with `a_n in {0,1}` and `a_n=0` if `gcd(n,W)>1`, fixed before any queried root, and a sequence `S_j=S_0*4^j` of integer roots, such that
+
+```text
+N(x):=sum_(n<=x)a_n,
+N(x)-li(x)=O_W(sqrt(x)/log x), x>=2,
+Q_(S_j^2-1)(dN-dli,dN-dli)
+  <= -S_j^(3/2)/(224 log(S_j)^2), whenever S_j>=2^40. (SA4)
+```
+
+The intervals in this quadratic are the original `[S_j/2,S_j)` and `[S_j,2S_j]`. The transform shift `B_R^a(t)=2^(-it)A_(2R)^a(t)` holds for every integer `R>=8`, because the same global sequence is used and the possible extra endpoint `2R` has no atom. Here the transforms use `(u/R)^(-it)` and `dN-dli`, exactly as in the prime source. In particular `|Q|/(S_j log S_j)` is unbounded although the model's own scalar square-endpoint discrepancy is `O_W(R/log R)`.
+
+**Credit and new content.** The continuous packets are Analytic `20261109-analytic-2/MB4`, globally assembled by Wheel `20261109-wheel-2/DG4`. Their small primitive and fixed-wheel cumulative quantization are Referee `20261109-referee-1/DA1-DA2`; these were read and reconstructed here. The new claim is the closed-form full SHARP quadratic, its original-wall correction, the SA2 discrete transfer and the resulting infinite-family bound. This is not a new claim of priority for cumulative rounding or oriented area.
+
+Choose `J>=0` so `S_0=4096*4^J` has `log(S_0/2)>=3W`. Write `a=S_0/2`, `U_j=sqrt(S_j)`, `L_j=log S_j`, `c_j=S_j/(4L_j)`, and
+
+```text
+n_j=ceil(5 U_j ell/(8pi)),
+t_j=2pi n_j/ell,
+5U_j/4<=t_j<=7U_j/4.
+```
+
+The upper bound follows from the ceiling error and `U_j>=64`. Let `sigma=0` below `a`, and on successive half-annuli define
+
+```text
+dsigma(u)=c_j cos(t_j log(S_j/u)) du/u, S_j/2<=u<S_j,
+dsigma(u)=c_j sin(t_j log(u/S_j)) du/u, S_j<=u<2S_j.
+```
+
+The next pair starts at `2S_j`; this is one fixed locally finite measure. Each half-annulus has zero total signed mass and `|dsigma|<=dli/2`. Indeed `u/log u>=S_j/(2L_j)` throughout the pair. The global primitive `Sigma(x)=sigma([a,x])` equals `-(c_j/t_j)sin(t_j log(S_j/x))` on a left half and `(c_j/t_j)(1-cos(t_j log(x/S_j)))` on a right half. Therefore
+
+```text
+|Sigma(x)|<=2sqrt(S_j)/(5L_j)<=sqrt(x)/log x, x>=a.
+```
+
+For the second inequality use `sqrt(S_j/x)<=sqrt 2`, `log x/L_j<=13/12`, and `(2/5)sqrt(2)*(13/12)<1`.
+
+Put `dLambda=dli+dsigma` above `a`, `Lambda(a)=0`. Its density lies between `1/(2log u)` and `3/(2log u)<=1/(2W)`. Enumerate allowed integers `n>a`, `gcd(n,W)=1`, with `a` as an initial sentinel, not an atom. The gaps are at most `W`. Set `a_n=floor Lambda(n)-floor Lambda(n_prev)` at allowed sites and zero elsewhere. Each increment of `Lambda` is in `[0,1/2]`, so `a_n` is zero or one. Telescoping and the final incomplete gap give
+
+```text
+-2<E(x):=N(x)-Lambda(x)<=0
+```
+
+with the corresponding one-sided values as well. This is a construction with exact real floors, not numerical floor certification. Consequently
+
+```text
+N(x)-li(x)=Sigma(x)+E(x)-li(a), x>=a.
+```
+
+The fixed anchor is retained; the bounded initial interval is absorbed into the constant depending on `W`. The continuous zero marginals become bounded atomic marginals, not exact zero marginals. No continuous-density domination is asserted for the atomic signed measure.
+
+Now fix `S=S_j`, `c=c_j`, `t=t_j`, `L=log S`. On the reflected logarithmic square, `dalpha=c cos(ts)ds`, `dbeta=c sin(ts)ds`, and
+
+```text
+A(s)=c sin(ts)/t,
+B(s)=c(1-cos(ts))/t,
+Q_(S^2)(sigma,sigma)=-c^2 ell/(2t).
+```
+
+Thus the path completes `n_j` oriented loops although each total marginal vanishes. For the ORIGINAL wall set `delta=-log(1-S^(-2))`. Its permitted triangle is `0<=v_log<=s-delta`, and direct integration gives the exact formula
+
+```text
+Q_(S^2-1)(sigma,sigma)
+ = integral_delta^ell c^2 cos(ts)[1-cos(t(s-delta))]/t ds
+ = -c^2/(2t) * [(ell-delta)cos(t delta)+sin(t delta)/t]. (SA4.1)
+```
+
+Use `t ell=2pi n_j` to evaluate the two trigonometric integrals. Independently, the removed strip has area at most `ell delta` and density magnitude at most `c^2`; since `delta<=2/S^2`,
+
+```text
+|Q_(S^2-1)(sigma,sigma)-Q_(S^2)(sigma,sigma)|<=1/(8L^2).
+-Q_(S^2)(sigma,sigma)>=S^(3/2)/(112L^2).
+```
+
+The latter uses `ell>1/2` and `t<=7sqrt(S)/4`. These are signed full-source computations, not a single frequency-band lower bound.
+
+Apply SA2 on this pair of intervals to `nu_a=dN-dli`, `sigma` and `K=2`. Since
+
+```text
+TV(sigma|I_+)<=c ell<=S/(4L),
+TV(nu_a|I_-)<= (5/2)Li_2(I_-)+4 <=15S/(8L)+4,
+```
+
+the entire discrete replacement costs at most `9S/L+16`. Both mixed errors and error-error are covered. For `S>=2^40`, these two error budgets together are smaller than `S^(3/2)/(224L^2)`: after division their sum is bounded by
+
+```text
+2016 L/sqrt(S) + 3584 L^2/S^(3/2) + 28/S^(3/2) < 1.
+```
+
+Each ratio decreases beyond `2^40`, and at that point `L<40` suffices. Subtracting this error from the lower magnitude `S^(3/2)/(112L^2)` proves SA4.
+
+**Exact scope.** This refutes the generalized implication from unit integer atoms, any ONE fixed small-prime wheel, exact shift and a strong global counting envelope to sharp-quadratic control. The model can contain composites coprime to `W`; it has neither genuine prime-product uniqueness nor a complete growing-wheel divisor inversion. It is not substituted into RETURN. It does not refute a genuine-prime bound or compensation between `Q_R`, physical mixed terms and the complementary owners. It does establish that cancellation among the omitted Fourier bands alone cannot rescue the claimed generic implication: the entire sharp quadratic is already large.
+
+#### SA5. Ordinary Fixed Young-Variation Products Fail On Actual Primes
+
+Fix finite real `p,q>=1` with `s=1/p+1/q>1`. Let `V_p(A)` and `V_q(B)` be ordinary variation seminorms on `[0,ell]`, namely the supremum of the `p`th or `q`th power sum over finite partitions, followed by the corresponding root. Then
+
+```text
+forall C>0, exists R_0, forall integer R>=R_0,
+V_p(A_R) V_q(B_R) > C R log R.                       (SA5)
+```
+
+Proof: every actual prime atom gives a jump of size one. Partition immediately before and at any finite collection of such jumps and take the left-limit approximation. The continuous Li part cannot remove these jumps. Allowing for the initial endpoint, `V_p(A)^p>=n_--1` and `V_q(B)^q>=n_+-1`. The unconditional prime number theorem gives `n_-~R/(2L)`, `n_+~R/L`; hence eventually
+
+```text
+V_p(A)V_q(B) >= (R/(3L))^(1/p) (R/(2L))^(1/q).
+```
+
+Its ratio to `RL` is a positive fixed constant times `R^(s-1)/L^(s+1)`, which tends to infinity. The PNT is used only for actual counts on fixed-ratio intervals, not an RH-strength error or shrinking-interval estimate. This is a statement with fixed `p,q` BEFORE the scale; no quantitative threshold is invented.
+
+Thus the proposed upper estimate `V_p(A)V_q(B)=O(R log R)` is **REFUTED on the genuine carrier** in this range. The result does not disprove a signed Young integral estimate, an arithmetic subtraction of jumps, a critical-variation argument, scale-dependent exponents with their constants controlled, or a joint owner bound. Such repairs require new work; none is asserted here. SA5 was a proof-led extension after the registered diagnostics, not a fitted numerical claim.
+
+#### Literature Bridge And No-Narrowing Audit
+
+The first-level/area distinction is established mathematics, not a newly invented principle. Friz and Hairer's *A Course on Rough Paths*, Exercise 2.10 (printed page 32), gives a pure-area example in which small paths retain a second-order effect. This supplied conceptual context only; no rough-path theorem was applied to discontinuous prime-counting data, and every bound above was derived directly for finite signed measures. [Author-hosted text](https://www.hairer.org/notes/RoughPaths.pdf).
+
+SA5 uses only the unconditional asymptotic `pi(x)~x/log x`, with `x` tending to infinity on fixed-ratio intervals. This follows, for example, from the first term of the asymptotic expansion in [DLMF 27.12.4](https://dlmf.nist.gov/27.12.E4). No quantitative RH error is imported.
+
+SA1.2 is `IDENTITY_ONLY`; SA1.1, SA2 and SA3 are independently proved proper costs. SA4 is a quantified model no-go; SA5 is an actual-prime norm no-go. None proves the missing signed area bound. Defining a norm to include the entire RETURN and then assuming its endpoint bound would be `TARGET_EQUIVALENT`. The explicit fixed-sequence model and jump lower bound are the falsification mechanisms, not heuristic independence or finite absence of bad roots.
+
+#### SA6. Registered Validation And Its Limits
+
+Early accurate `IN_PROGRESS` checkpoint: commit `d7ebef821e566198f7ca94f9f22b55135872e0b6`, both mirrors blob `9c98b844850171d2d437c85fa2aafc51df2f75af`, identical immutable readback. The sharp-area registration was committed before arithmetic execution at `b18c3420ce1fb541c71a7a578285dd7496ccc35d`, both mirrors blob `80302b7f060049115dbaa469de32291d1199c2a3`.
+
+**Timestamp correction:** the registration prose incorrectly said prepared `15:24 EST`. The verified server commit time is `2026-11-09T20:22:49Z`, or `15:22:49 EST`, before the executed checks. The earlier bytes are preserved; the server timestamp, not that transcription error, governs the chronology.
+
+The exact executed Python program is included in the reproducibility appendix. SHA-256: `8edff9c9f66e4a2c1ae41e14f2590a6def3bef9d19ce379d8bb1c63ec6688b74`. Measured runtime: Python `3.12.14`, NumPy `2.3.5`. Syntax check and two unchanged executions passed. No local Lean ran.
+
+| Check | Executed range and result | Evidence classification |
+| --- | --- | --- |
+| Sharp-kernel stability | All `3^6` error arrays with entries `-1,0,1`, five thresholds `8,10,12,15,18`: 3,645 exact integer/rational cases; maximum ratio to the stronger SA2 bound `3/7`. | FINITE_COMPUTATION, not an all-measure proof. |
+| Atomic diagonal negative control | Triangle `9`, marginal product `8`, orientation `7`, diagonal `3`; `18=8+7+3`, while omission of `3` fails. | FINITE_COMPUTATION, exact. |
+| Actual prime products | All integer roots `8..96` and `127,257,549,1024,4096`, 94 roots; sieve through 8,192. No product at `R^2`; retained `(11,13)` at `R=12`, `X=143`. | FINITE_COMPUTATION, exact integer part. |
+| Actual sharp integrals and floor-Li approximation | Gauss orders 32/64; maximum relative refinement `1.0766064020668048e-12`; maximum strip-bound ratio `0.04496153514735429`; maximum rounding-bound ratio `0.009100869555690807`. | Floating diagnostics only. |
+| Floor-Li atoms | Floors unchanged between both quadrature orders; smallest computed distance to an integer `4.692251218330057e-05`. | NOT certified real floors; no interval enclosure claimed. |
+| Smooth sharp formula | `S=4096,16384,65536`, orders 512/768; maximum relative discrepancy `2.6966533455823588e-14`. | Floating diagnostics only; frequencies are synthetic, not zeta zeros. |
+
+No empirical constant was fitted. No roots as large as `2^40` were enumerated; the infinite-family threshold is justified by the paper inequalities, not by extrapolation. Existing specialists' large or exact-rational computations were not rerun or relabeled as this execution's work.
+
+### E. Specialist Findings
+
+Intake report branch was `09c69de9a41214c01ec8408b6622ddd5a9125e9a`. Both calendar dates, all six specialist reports, both Coordinator mirrors and the external inbox were retrieved. Applicable mathematical derivations, corrections and status sections were read; historical program appendices were not all rerun. Today's Referee is now present, superseding the morning Coordinator's accurate-at-the-time `PENDING` statement.
+
+| Specialist / current claim | Accepted information and remaining limit |
+| --- | --- |
+| Owner, original wheel packet and `20261109-owner-2/CT1-CT6` | Exact RETURN is reconstructed above. The mesoscopic additive-triangle transfer costs `<=288R/log(R)^2`; centered curvature has both signs despite nonnegative extra prime-pair mass. The complete remainder remains open. CT1-CT6 retain author/self-audit status, not blanket referee acceptance. |
+| Analytic, `20261109-analytic-2/MB1-MB3` | Reports `|M_mid|<=384R^(3/2)/log(R)^2+40R`, and a `40R` cost for the THREE reference terms of that band. This is a proper logarithmic gain, not a power gain or payment of both full physical mixed terms. Independent review remains pending. The complete SC sieve proof is likewise not newly accepted here. |
+| Analytic MB4 and Wheel `20261109-wheel-2/DG1-DG4` | Referee accepts the model and scope, exact resonance rigidity, genuine shared-prime near-resonance obstruction, failure of the proposed endpoint-only telescope, and one fixed continuous model. A shared-prime phase comparison is Hermitian; it is not a sign theorem for the original nonconjugated product. SA4 extends their construction, not its novelty claim. |
+| Census `20261109-census-2/BL1-BL3` | The local-to-band sign rule fails already at `R=16`; Referee independently reproduced that witness, not all later examples. The `R=257` reversal remains Census evidence. `0<=J_match<=4R/765` for once-only exact reflected collar pairs is independently accepted paper mathematics; unmatched and far products remain. |
+| Referee `20261109-referee-1/DA1-DA4` | One fixed unit-atom, fixed-wheel model has a strong global primitive and a large moving band; new DA claims remain self-audited pending independent review. This run reconstructs the primitive/quantization and supplies a different, full sharp-kernel calculation. It does not independently certify every DA Fourier calculation. |
+| Lean `20261109-lean-2` | #1124 is now merged and source-certified. #1125 implements intended DG2 statements but has no successful compile evidence. FB1 has an explicit source/L2 implementation plan; general L2 Fourier infrastructure exists. |
+| Own morning `20261109-coordinator-0710-EST/FB1-FB2, MP1-MP3` | Referee accepts FB1's proper band bound and scoped top-band `100R log R` consequence. MP's per-conjugate-zero-pair bound is RH-equivalent even allowing a constant per zero; no equivalence for actual whole `Q_R` follows. These are accepted paper results, not newly Lean-certified here. |
+
+November 8 carry-forward remains explicitly dated: Coordinator's fixed-multiplicative model obstruction; Owner's signed primitive/mixed accounting and finite-zero-packet analysis; Analytic's proper mixed saving, full Nyman consumer and EC closure; Wheel's collision, proper rectangle and forced-donor analysis; Census's collision/strip/additive-frequency falsifiers; Referee's ray, width and geometry limitations; Lean's EC implementation history. Their exact carriers and unchanged qualifications remain, and none is silently transferred to the newly selected finite-wheel source.
+
+The external inbox, blob `038018145c0fddb2f6306c0712373adf9cd1ea52`, has no entry after October 18. Its relevant complete signed prime-error, normalization and original-denominator safeguards remain context. There is no invented November handoff.
+
+#### Immutable Continuity Ledger
+
+At the intake commit above, file suffixes name the standard role paths under `research/agent_reports/YYYY-MM-DD/`.
+
+| Role file | November 8 blob | November 9 intake blob |
+| --- | --- | --- |
+| `00-coordinator-am.md` and `90-coordinator-pm.md` | `8b640304f6c233a2c4409b9882799de485888a9e` | `9e7253329c409aa920d7e1d43e2fab8971bdc93b` |
+| `10-owner-payment.md` | `4e1b83a1e5ff8c134e9ca64404397c70c2b07252` | `cfc6b8f473f7702c6e0759746095f048c1378756` |
+| `20-analytic-type-ii.md` | `edecba8785a45cda87c0035d0348695941f1b8ea` | `0f9b1362677ac9adbcec45225e5d6b172cf84cb9` |
+| `30-finite-wheel.md` | `60d4cf1b65d4b1b2cc4f13f6c0940c14cb2c50fd` | `932fe82483d30c49b6277baeaede629d29445b1e` |
+| `40-prime-census.md` | `00f4f9c0d670821a0c9d1da31fd1c4d0afd09142` | `6ad4c84512730dfc1cb7fc79540c248931cb8ddf` |
+| `50-adversarial-referee.md` | `5371324ebbdbd88afb9abf843e83da2ce86b752f` | `01869acbc9d0535fe4791354a0029b8f77981723` |
+| `60-lean-verification.md` | `5a110685bbe375d8ebff42df7391162914e52cef` | `4402811bbc7198731f83036f73836ef336c2015a` |
+
+At the pre-synthesis report-head refresh `b18c3420ce1fb541c71a7a578285dd7496ccc35d`, all six November 9 specialist blobs remain those above. Only the authorized Coordinator checkpoint/registration mirrors were added during this execution so far.
+
+### F. Mathematical Bottlenecks
+
+The following is the typed dependency DAG for this investigation, not a new central registry edit.
+
+```text
+Certified complete divisor source
+  -> exact physical/virtual Euler compensation          PROVED_IN_LEAN
+  -> finite-wheel centered identity with arbitrary L    PROVED_IN_LEAN
+  -> Owner's complete four-term RETURN                  PAPER identity, reconstructed
+       -> R^2-1 to R^2 strip payment                    SA1 PAPER_PROOF
+       -> logarithmic oriented-area representation      SA1 IDENTITY_ONLY
+       -> exact-index floor-Li quadratic approximation  SA2-SA3 PAPER_PROOF
+       -> independently justified signed arithmetic     OPEN: no supplier
+       -> uniform full |Z_R|<=C R log R                 OPEN / TARGET_EQUIVALENT
+  -> canonical VF/von Koch consumer                     existing qualified interface
+  -> RH                                                bound + explicit criterion unpaid
+```
+
+For the joint owner mechanism the missing input is an actual arithmetic restriction on how negative and positive interactions in RETURN compensate, not the identity RETURN itself. For the analytic mechanism, the first unsupported step is a signed, prime-specific estimate below the density/spacing scale, with its complementary return. No theorem found in this execution pays either step.
+
+Budget: SA1 costs `O(1/log^2 R)`, SA3 costs `O(R/log R)`, the accepted top band costs `O(R log R)`, the reported mesoscopic curvature costs `O(R/log^2 R)`, and #1124 pays only cumulative root admission `O(B-A)+O(1)`. These proper costs are compatible with the target, but adding them does not bound the unestimated remainder. In particular the reported middle-band scale `R^(3/2)/log^2 R` still exceeds the endpoint budget. No new endpoint exponent or constant is obtained.
+
+An inverse statement presently justified is negative: small first-order counting paths plus fixed-wheel consistency do not prohibit large sharp area. The next inverse question must exploit a condition the countermodel lacks. Failure of the full target cannot be localized to one favorable owner or frequency without an independent localization theorem; asserting that localization would merely introduce another unpaid premise.
+
+### G. Strategy Decisions
+
+1. **Best mathematical move:** seek a genuine prime-factor restriction linking cross-root area to the physical owner complement, or a signed analytic restriction using that arithmetic. Request a precise finite relation before requesting a global bound. No such restriction is claimed proved today.
+2. Stop treating global counting envelopes, fixed wheels, exact SHIFT or small dyadic marginals as suppliers for either a full sharp quadratic or its middle band. SA4 is an explicit counterexample within those generic hypotheses. The genuine moving-wheel source remains open.
+3. Reject ordinary fixed Young-exponent variation products as an endpoint supplier on actual primes. Do not replace this failed norm by a newly named norm containing the desired conclusion.
+4. Keep SA3 as a paid exact-index adapter for a genuinely new arithmetic question. Do not spend six agents rediscovering the mismatch telescope, and do not identify its coefficients with Mobius values.
+5. Preserve FB1, BL3, root admission and all accepted local identities. They can be useful without being sufficient. No third independent proof mechanism is invented to fill a portfolio quota.
+6. Prioritize repair and evidence for the existing Lean task. New SA claims require separate adversarial review before implementation. No new proof branch, central-policy edit or schedule change is made by the Coordinator.
+
+### H. Next Specialist Assignments
+
+These are asynchronous handoffs for the next actually authorized executions. No agent was launched, rescheduled or promised a future delivery.
+
+**Owner Payment: physical cross-owner interaction.** Starting with the exact `B_owner(p)` and RETURN in D1, determine whether a nontrivial relation between an upper-owner signed interaction and a *specified disjoint set* of complementary physical owner contributions follows from factorization. Reuse CT's compensated source and do not charge the same historical unit twice. The missing input must be an independently justified relation, not an assumed bound for all of RETURN. Return either a complete finite identity plus a new inequality with coefficients and endpoint conditions, or a smallest explicit counterexample to a clearly stated candidate. Test `R=8,11,12` and prime-root admission, then a preregistered held-out root. A true restriction absent in SA4 promotes mechanism 1; another bare full-residual renaming does not.
+
+**Analytic Type II: isolate the genuinely arithmetic step.** Audit which step beyond FB1/MB1-MB3 could use actual prime factorization or a signed correlation with the physical mixed/complementary terms. Preserve the nonconjugated `A_R B_R`, original phase, Li anchor and all frequencies. The requested result is one explicit inequality with uniform constants and the complete downstream cost, or a proof that the selected input is insufficient. Apply the SA4 fixed sequence as a null control: a proof using only its listed generic properties cannot succeed. Do not make an absolute proper-band bound compulsory for the whole team. A source-specific saving changes mechanism 2's priority; further unsigned row-count improvements without a power-relevant return stay secondary.
+
+**Finite Wheel & Incidence: identify arithmetic information the loop model violates.** Work from physical complete-wheel divisors and the once-only factor incidences in RETURN, not just 2/6/30/210 coprimality or exact phase noncoincidence. Can a finite, non-tautological incidence constraint couple successive sign changes of the two logarithmic paths to a specified lower-owner contribution? State all multiplicities and chronological conditions. Return one candidate invariant with proof or its first finite counterexample; distinguish a necessary prime property from a property strong enough to bound the weighted area. Reuse DG1-DG3 and #1124 instead of reproducing them. A genuine restriction excludes an obstruction mechanism; an exact recurrence with no inequality does not pay cumulative innovation.
+
+**Prime Census Laboratory: test a new arithmetic proposal, not another sign scan.** Once a specific Owner/Wheel inequality is available, preregister its fixed constants, complete original carrier and held-out roots. Measure the proposed relation together with BOTH physical mixed terms and the specified complementary owners. If using SA3, site `m` is mismatch index `m-1`, retain `n=2R`, and certify Li floors by intervals before calling the computation exact. Reject the claim at the first counterexample; an observed finite maximum is not a uniform supplier. The existing 94-root diagnostics and previous BL witnesses do not need expansion without a changed hypothesis. If no new inequality is available, a useful fallback is exact independent reproduction of the atomic diagonal/stability negative controls, explicitly labeled verification rather than new arithmetic discovery.
+
+**Adversarial Referee: independent review of SA1-SA5.** Reconstruct the statements from the original source before using this proof where practicable. Check original-wall inclusion, both mixed strip costs, shared logarithmic atoms, one-sided cumulative values, the asymmetric SA2 expansion, mismatch indexing, the single fixed sequence and `W` quantifiers, the full sharp formula and `2^40` error budget, and the actual-prime unit-jump argument. Return scoped accept/revise/refute verdicts, not a blanket formal status. The falsifiers are a shared-atom diagonal, the `R=12` product at X, a rounded reference endpoint atom and any model transfer silently invoking genuine factorization. MB1-MB3 and CT's quantitative estimates remain distinct pending review tasks; reading this synthesis does not accept them automatically.
+
+**Lean Verification: existing repair first, then one quantitative implementation candidate.** Keep at most two active implementation-sized tasks. First obtain actual exact-head jobs and proof/axiom evidence for #1125, preserving its original hypotheses and human merge gate; do not diagnose a Lean type failure when no compiler ran. Second retain independently accepted FB1 as the quantitative candidate: the latest Lean report already identifies general L2 Fourier infrastructure and the needed source-specific angular-transform identification, plus the finite-prime Gaussian/count half. Do not repeat the infrastructure triage or create an assumed-bound wrapper. SA2/SA3 are only prospective alternatives after independent acceptance and duplicate-source checking, not additional live tasks. No speculative area/RH theorem is authorized as though proved.
+
+### I. Lean And PR Status
+
+Formal status is based on source bytes and actual job evidence, not report titles. Original source and selected acceptance/workflow files were inspected; no Coordinator Lean edits or local Lean builds were made.
+
+| Item | Verified evidence | Status and scope |
+| --- | --- | --- |
+| #1122 complete wheel | PR head `c53e9cf234500aea2605fd2557e638995f380407`; targeted run `42561949462`, job `128980092032` compiled synthetic merge `1e3c182076a6e1a23ef132c41a78b0f26adab507` containing that head. Source bytes match current main. Compiler script blob `eb3d429b14bf66ba2fba22e55b70ca0048f748c6` uses `-DwarningAsError=true`; logs show Lean 4.34.1 and only standard terminal axioms. | **MERGED / PROVED_IN_LEAN** at the source-specific identity scope. This is not a claimed fresh full-main build. |
+| #1124 root admission | Head `1b80f147dab3c0c2525052b3c6c3f8c447089da1`; literal-head run `42600910899`, job `129104842737`, 13 attached successful checks. Logs show Lean 4.34.1, dependency closures 746/772 and standard axioms. Source blob `a412632c1028d7728cd8d87ee6e5ac365377d338`, acceptance `d0b22fa38c254a22b38b678e77bb520a70eae1af`, match current main. | **MERGED / PROVED_IN_LEAN**. Admission is 3 at root 2, `1+1_Prime(r+2)` at odd prime r, 0 at composite r. Cumulative cost for natural `A>=2,B` is between 0 and `2*(B-A : Nat)+1_(A=2 and A<B)`. The signed shell remains unpaid. |
+| #1125 near resonance | Branch `agent/lean-verification/20261109-dyadic-near-resonance`; head `538aa743a3e0de86b5ec44c9b4f159df3f5bd050`; source blob `0080496ada9c7ce230690ed773ee52df9575c245`. Live metadata is **open, draft=false, unmerged**, despite older body/report wording calling it draft. Twelve latest-head workflow records are completed/failure, with zero attached check runs. Dedicated run `42674337064` returns zero jobs. | **BLOCKED / NOT_PROVED_IN_LEAN / NOT_CI_GREEN / NOT_REVIEW_READY**. No compiler/axiom evidence at this head. Server-side no-job failures are not evidence of a theorem error. Human action or supported CI recovery is needed, but no merge or retry is performed by this role. |
+
+The accepted standard terminal axioms are `propext`, `Classical.choice`, `Quot.sound`, not a new project axiom or unproved estimate. #1125's intended seven public declarations were inspected but are not promoted without execution. No source, workflow or report was altered to evade CI.
+
+The generated DAG and atlas were consulted as navigation, not authority over later merges. A stale unmerged label for an older item does not override current main or PR evidence. No central registry correction is made under this role's report-only permissions.
+
+### J. Next-Run Resume Capsule
+
+```text
+RUN: 20261109-coordinator-1513-EST; actual scheduled invocation; RUN_ID_UNAVAILABLE.
+ACK: FINITE_WHEEL_CENTERED_RH_V1.
+MAIN: 02f00cee544278ad1bb9022ee76fc5916d459a95.
+CONTRACT: 95566e37c8eaeb99ee680660df4f9d2e06ea5038.
+SOURCE: complete wheel ecb482e52deeee5e9b3853592a3ffdace662d2ff.
+FLOOR-LI SOURCE: 9a9336dad72171b6d572a1c1ae88d1ae8b56b530; site m -> index m-1.
+INTAKE REPORT HEAD: 09c69de9a41214c01ec8408b6622ddd5a9125e9a.
+EARLY CHECKPOINT: d7ebef821e566198f7ca94f9f22b55135872e0b6.
+PREREGISTRATION: b18c3420ce1fb541c71a7a578285dd7496ccc35d, 20:22:49Z.
+NEW PAPER CLAIMS: SA1 paid square wall and exact area; SA2 bounded-prefix stability;
+SA3 paid sharp floor-Li approximation; SA4 full-sharp fixed-sequence no-go;
+SA5 genuine-prime fixed-Young-variation obstruction; all independent review PENDING.
+FINITE CHECKS: SA6; exact controls separate from floating Li/quadrature diagnostics.
+UPSTREAM ACCEPTED PAPER: FB1, scoped MP/DG, BL3; original scopes unchanged.
+UPSTREAM NOT BLANKET ACCEPTED: CT, MB1-MB3, full SC sieve proof, new DA Fourier claims.
+FORMAL: #1122 and #1124 merged with source-specific CI/axiom evidence.
+OPEN PR: #1125 head 538aa743a3e0de86b5ec44c9b4f159df3f5bd050;
+live draft=false; no successful jobs; not a paid theorem.
+BEST NEXT REASONING: find one genuine prime-factor restriction coupling oriented
+cross-root area to an explicitly specified physical owner complement, or a signed
+analytic estimate using that restriction. Do not assume the whole returned bound.
+BLOCKED EDGES: no independently proved full signed supplier; no endpoint gain.
+RH / CANONICAL VF / COMPLETE FINITE-WHEEL UNIFORM BOUND: OPEN.
+```
+
+On the next actual invocation, refresh main and the latest two Eastern calendar dates before reusing these results. Preserve the earlier report bytes, this timestamp correction and all scoped no-go qualifications. Publication details are recorded in the verified receipt, not inferred from this file's existence.
+
+## Reproducibility Appendix: SA6
+
+This is the exact executed scratch program, embedded here so no extra repository path or another role's file is needed. It uses no network data. Run with Python and NumPy; its assertions are diagnostic checks, not substitutes for the paper proofs above.
+
+```python
+"""Registered finite diagnostics for the complete sharp cross-root source.
+
+Exact integer tests are separated from floating quadrature diagnostics.
+No finite test asserts an all-root bound or certifies a floor of Li_2.
+"""
+
+import itertools
+import json
+import math
+from fractions import Fraction
+
+import numpy as np
+from numpy.polynomial.legendre import leggauss
+
+
+ROOTS = list(range(8, 97)) + [127, 257, 549, 1024, 4096]
+SMOOTH_ROOTS = [4096, 16384, 65536]
+
+
+def sieve(n):
+    a = np.ones(n + 1, dtype=bool)
+    a[:2] = False
+    for p in range(2, math.isqrt(n) + 1):
+        if a[p]:
+            a[p * p :: p] = False
+    return a
+
+
+class Quadrature:
+    def __init__(self, order):
+        self.nodes, self.weights = leggauss(order)
+
+    def integral(self, f, a, b):
+        a, b = np.broadcast_arrays(np.asarray(a), np.asarray(b))
+        h = np.maximum(b - a, 0) / 2
+        x = (a + h)[..., None] + h[..., None] * self.nodes
+        return h * np.sum(f(x) * self.weights, axis=-1)
+
+    def li(self, a, b):
+        return self.integral(lambda x: 1 / np.log(x), a, b)
+
+    def li_grid(self, n):
+        result = np.zeros(n + 1)
+        starts = np.arange(2, n)
+        result[3:] = np.cumsum(self.li(starts, starts + 1))
+        return result
+
+    def continuous_pair(self, r, cutoff):
+        lo = r / 2
+        hi = min(r, cutoff / r)
+        if hi <= lo:
+            return 0.0
+        return float(self.integral(
+            lambda x: self.li(r, np.minimum(2 * r, cutoff / x)) / np.log(x),
+            lo, hi,
+        ))
+
+    def strip_pair(self, r):
+        x = r * r - 1
+        split = x / r
+        total = self.integral(
+            lambda u: self.li(x / u, r * r / u) / np.log(u), r / 2, split
+        )
+        total += self.integral(
+            lambda u: self.li(r, r * r / u) / np.log(u), split, r
+        )
+        return float(total)
+
+
+def actual(r, primes, quad, li_values):
+    left = np.arange((r + 1) // 2, r)
+    right = np.arange(r, 2 * r + 1)
+    ps, qs = left[primes[left]], right[primes[right]]
+    x = r * r - 1
+    products = ps[:, None] * qs[None, :]
+    assert not np.any(products == r * r)
+    pp = int(np.count_nonzero(products <= x))
+    equal_x = [(int(p), int(q)) for p in ps for q in qs if p * q == x]
+    pl = float(np.sum(quad.li(r, np.maximum(r, np.minimum(2 * r, x / ps)))))
+    lp = float(np.sum(quad.li(r / 2, np.maximum(r / 2, np.minimum(r, x / qs)))))
+    ll = quad.continuous_pair(r, x)
+    q = pp - pl - lp + ll
+
+    sp = float(np.sum(quad.li(np.maximum(r, x / ps), np.minimum(2 * r, r * r / ps))))
+    sl = float(np.sum(quad.li(np.maximum(r / 2, x / qs), np.minimum(r, r * r / qs))))
+    strip = -sp - sl + quad.strip_pair(r)
+    assert abs(strip) <= 16 / math.log(r) ** 2 + 1e-8
+
+    floor_li = np.floor(li_values).astype(np.int64)
+    reference = floor_li[1:] - floor_li[:-1]
+    coeff = primes[1:].astype(np.int64) - reference
+    assert np.all(np.abs(coeff[3:]) <= 1)
+    # A site m has the repository mismatch index m-1, not m.
+    lcoef, rcoef = coeff[left - 1], coeff[right - 1]
+    rcum = np.concatenate(([0], np.cumsum(rcoef)))
+    uppers = np.minimum(2 * r, x // left)
+    counts = np.maximum(uppers - r + 1, 0)
+    qhat = int(np.sum(lcoef * rcum[counts]))
+    bound = 49 * r / math.log(r) + 16
+    assert abs(q - qhat) <= bound + 1e-8
+    return {"R": r, "Q": q, "Qhat_float_floor": qhat,
+            "strip": strip, "strip_ratio": abs(strip) * math.log(r) ** 2 / 16,
+            "rounding_ratio": abs(q - qhat) / bound, "equal_X": equal_x}
+
+
+def smooth(r, order):
+    ell, u, ll = math.log(2), math.sqrt(r), math.log(r)
+    n = math.ceil(5 * u * ell / (8 * math.pi))
+    t, c = 2 * math.pi * n / ell, r / (4 * ll)
+    delta = -math.log1p(-1 / r ** 2)
+    quad = Quadrature(order)
+    direct = float(quad.integral(
+        lambda s: c * c * np.cos(t * s) * (1 - np.cos(t * (s - delta))) / t,
+        delta, ell,
+    ))
+    formula = -c * c / (2 * t) * ((ell - delta) * math.cos(t * delta)
+                                  + math.sin(t * delta) / t)
+    qzero = -c * c * ell / (2 * t)
+    assert abs(direct - formula) <= 1e-9 * (1 + abs(formula))
+    assert abs(formula - qzero) <= 1 / (8 * ll ** 2) + 1e-8
+    assert -qzero >= r ** 1.5 / (112 * ll ** 2)
+    return {"R": r, "n": n, "t": t, "Q_shifted": formula,
+            "relative_quadrature_error": abs(direct-formula)/(1+abs(formula))}
+
+
+def exact_controls():
+    alpha = [0, 1, -2, 3]
+    beta = [2, -1, 1, 2]
+    triangular = sum(alpha[i] * beta[j] for i in range(4) for j in range(i + 1))
+    orientation = sum((1 if i > j else -1 if i < j else 0) * alpha[i] * beta[j]
+                      for i in range(4) for j in range(4))
+    diagonal = sum(a * b for a, b in zip(alpha, beta))
+    mass = sum(alpha) * sum(beta)
+    assert 2 * triangular == mass + orientation + diagonal
+    assert 2 * triangular != mass + orientation
+
+    sigma = [1, -2, 1, 2, -1, 1]
+    left, right = [1, 2, 3], [4, 5, 6]
+
+    def pair(a, b, wall):
+        return sum(a[i] * b[j] for i, p in enumerate(left)
+                   for j, q in enumerate(right) if p * q <= wall)
+
+    count = 0
+    largest = Fraction(0)
+    for error in itertools.product((-1, 0, 1), repeat=6):
+        prefix = list(itertools.accumulate(error))
+        k = max([0] + [abs(e) for e in prefix])
+        nu = [s + e for s, e in zip(sigma, error)]
+        bound = 2 * k * (sum(map(abs, sigma[3:])) + sum(map(abs, nu[:3])))
+        for wall in [8, 10, 12, 15, 18]:
+            change = abs(pair(nu[:3], nu[3:], wall) - pair(sigma[:3], sigma[3:], wall))
+            assert change <= bound
+            if bound:
+                largest = max(largest, Fraction(change, bound))
+            count += 1
+    return {"triangle": triangular, "mass_product": mass, "orientation": orientation,
+            "diagonal": diagonal, "stability_cases": count,
+            "max_stability_ratio": str(largest)}
+
+
+def main():
+    ps = sieve(2 * max(ROOTS))
+    outputs = []
+    grids = []
+    for order in [32, 64]:
+        quad = Quadrature(order)
+        values = quad.li_grid(2 * max(ROOTS))
+        grids.append(values)
+        outputs.append([actual(r, ps, quad, values) for r in ROOTS])
+    max_refine = max(abs(a["Q"] - b["Q"]) / (1 + abs(b["Q"]))
+                     for a, b in zip(*outputs))
+    assert max_refine <= 1e-8
+    assert np.array_equal(np.floor(grids[0]), np.floor(grids[1]))
+    min_floor_margin = float(np.min(np.abs(grids[1][4:] - np.rint(grids[1][4:]))))
+    smooth_rows = [smooth(r, order) for r in SMOOTH_ROOTS for order in [512, 768]]
+    result = {
+        "status": "PASS",
+        "exact_controls": exact_controls(),
+        "actual_roots": len(ROOTS),
+        "exact_square_product_absence": True,
+        "actual_quad_refinement": max_refine,
+        "floor_Li_status": "FLOAT_DIAGNOSTIC_ONLY; stable across two quadrature orders",
+        "min_Li_integer_margin_float": min_floor_margin,
+        "max_strip_ratio": max(x["strip_ratio"] for x in outputs[1]),
+        "max_rounding_ratio": max(x["rounding_ratio"] for x in outputs[1]),
+        "selected_actual": [x for x in outputs[1] if x["R"] in [8, 11, 12, 37, 257, 4096]],
+        "smooth": smooth_rows,
+    }
+    print(json.dumps(result, indent=2))
+
+
+if __name__ == "__main__":
+    main()
+```
+
+### Recorded Output
+
+```json
+{
+  "status": "PASS",
+  "exact_controls": {
+    "triangle": 9,
+    "mass_product": 8,
+    "orientation": 7,
+    "diagonal": 3,
+    "stability_cases": 3645,
+    "max_stability_ratio": "3/7"
+  },
+  "actual_roots": 94,
+  "exact_square_product_absence": true,
+  "actual_quad_refinement": 1.0766064020668048e-12,
+  "floor_Li_status": "FLOAT_DIAGNOSTIC_ONLY; stable across two quadrature orders",
+  "min_Li_integer_margin_float": 4.692251218330057e-05,
+  "max_strip_ratio": 0.04496153514735429,
+  "max_rounding_ratio": 0.009100869555690807,
+  "selected_actual": [
+    {
+      "R": 8,
+      "Q": 0.011431963986392457,
+      "Qhat_float_floor": 1,
+      "strip": -0.07844509357758242,
+      "strip_ratio": 0.021200164670500204,
+      "rounding_ratio": 0.004833786287514734,
+      "equal_X": []
+    },
+    {
+      "R": 11,
+      "Q": -0.6987404148324421,
+      "Qhat_float_floor": -1,
+      "strip": -0.05770040086736675,
+      "strip_ratio": 0.020735727206630344,
+      "rounding_ratio": 0.0012511795452449831,
+      "equal_X": []
+    },
+    {
+      "R": 12,
+      "Q": 0.9706344902969146,
+      "Qhat_float_floor": 0,
+      "strip": -0.07719145932226493,
+      "strip_ratio": 0.02978992606535696,
+      "rounding_ratio": 0.0038421400504743872,
+      "equal_X": [
+        [
+          11,
+          13
+        ]
+      ]
+    },
+    {
+      "R": 37,
+      "Q": 0.5063818607020423,
+      "Qhat_float_floor": 3,
+      "strip": -0.04492138786858222,
+      "strip_ratio": 0.03660736034505656,
+      "rounding_ratio": 0.004813113236441655,
+      "equal_X": []
+    },
+    {
+      "R": 257,
+      "Q": 0.5048332199439187,
+      "Qhat_float_floor": 2,
+      "strip": -0.021193680003000107,
+      "strip_ratio": 0.04078756221848413,
+      "rounding_ratio": 0.00065422920195673,
+      "equal_X": []
+    },
+    {
+      "R": 4096,
+      "Q": 19.274700949805265,
+      "Qhat_float_floor": 15,
+      "strip": -0.00984892374735509,
+      "strip_ratio": 0.042587505884405685,
+      "rounding_ratio": 0.0001770388325660966,
+      "equal_X": []
+    }
+  ],
+  "smooth": [
+    {
+      "R": 4096,
+      "n": 9,
+      "t": 81.58248255288949,
+      "Q_shifted": -64.3850515453527,
+      "relative_quadrature_error": 3.694797579089848e-15
+    },
+    {
+      "R": 4096,
+      "n": 9,
+      "t": 81.58248255288949,
+      "Q_shifted": -64.3850515453527,
+      "relative_quadrature_error": 1.4996531350423502e-14
+    },
+    {
+      "R": 16384,
+      "n": 18,
+      "t": 163.16496510577898,
+      "Q_shifted": -378.4264254138242,
+      "relative_quadrature_error": 2.6966533455823588e-15
+    },
+    {
+      "R": 16384,
+      "n": 18,
+      "t": 163.16496510577898,
+      "Q_shifted": -378.4264254138242,
+      "relative_quadrature_error": 2.6966533455823588e-14
+    },
+    {
+      "R": 65536,
+      "n": 36,
+      "t": 326.32993021155795,
+      "Q_shifted": -2317.861855660094,
+      "relative_quadrature_error": 1.0785939765107651e-14
+    },
+    {
+      "R": 65536,
+      "n": 36,
+      "t": 326.32993021155795,
+      "Q_shifted": -2317.861855660094,
+      "relative_quadrature_error": 2.235631151313222e-14
+    }
+  ]
+}
+```
