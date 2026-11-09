@@ -68,8 +68,12 @@ theorem frozenOddHigh_floor_one_to_three
     omega
   have h4 : R * R ≤ (2 * m) * (2 * n) :=
     Nat.mul_le_mul hmhi hnhi
-  have hXlo : m * n ≤ R ^ 2 - 1 := by nlinarith
-  have hXhi : R ^ 2 - 1 < 4 * (m * n) := by nlinarith
+  have hsq : 1 ≤ R ^ 2 := by nlinarith
+  have hXeq : (R ^ 2 - 1) + 1 = R ^ 2 := Nat.sub_add_cancel hsq
+  have hmnR2 : m * n < R ^ 2 := by nlinarith [hmnRR]
+  have hXlo : m * n ≤ R ^ 2 - 1 := by omega
+  have hfour : R ^ 2 ≤ 4 * (m * n) := by nlinarith [h4]
+  have hXhi : R ^ 2 - 1 < 4 * (m * n) := by omega
   constructor
   · apply (Nat.le_div_iff_mul_le hmn).2
     simpa using hXlo
@@ -110,7 +114,7 @@ theorem frozenOddHighPairFloor_eq_mass_square_add_two_masks
       frozenOddHighMass R ^ 2 +
         frozenOddHighPairMask R 2 + frozenOddHighPairMask R 3 := by
   unfold frozenOddHighPairFloor frozenOddHighMass frozenOddHighPairMask
-  rw [pow_two, Finset.sum_mul]
+  rw [pow_two (∑ m ∈ frozenOddHighParents R, (μ m : ℤ)), Finset.sum_mul]
   rw [← Finset.sum_add_distrib, ← Finset.sum_add_distrib]
   apply Finset.sum_congr rfl
   intro m hm
