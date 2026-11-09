@@ -1835,3 +1835,754 @@ Exhaustively enumerate the complete prime rectangles for R=8..256 and held-out R
 ### D-M. Remaining Work
 
 Give a full paper proof or explicit counterexample, identify the exact pure-prime-band consumer and its full complement, check main-source duplication, and report the first remaining arithmetic obstacle without renaming the RH target. All new claims will remain SELF_AUDIT / INDEPENDENT_REVIEW_PENDING unless actually independently verified. Only this owned report will be changed remotely. Publication is PENDING until commit/readback.
+
+
+## Reflected Prime Products: Exceptional Shared Ancestry And Summable Band Cost - 20261109-wheel-3/RF
+
+### A. Most Important Structural Discovery
+
+**Two distinct genuine cross-root prime products reflected about R^2-1 almost never share a prime factor: there is exactly one possible configuration, not an arbitrary incidence graph.** If both reflected products occur in the original prime rectangle and their gcd exceeds one, they must be
+
+```text
+R=2p-1,
+n_-=p(4p-5)=R^2-1-p,
+n_+=p(4p-3)=R^2-1+p,
+with p,4p-5,4p-3 all prime.
+```
+
+There is at most one such edge per root, and its integer product vertices are never reused at a different root. The resulting exact-reflection graph on product VALUES is a matching, not a chain capable of transporting a large population. Its signed contribution to the original middle-frequency prime-product band is positive and absolutely summable over ALL integer roots:
+
+```text
+0 <= J_shared(R) <= sqrt(R)/(pi*(4*(R-1)^2-1))
+                  <= 1/(3*pi*R^(3/2)),            R>=8,
+sum_(A<=R<B) J_shared(R) <= 2/(3*pi*sqrt(A-1)),    B>=A>=8.
+```
+
+Here pi in the denominator is the circle constant. The result uses unique prime factorization and exact integer endpoints, not a wheel-density or independence hypothesis. The overstrong statement that ALL distinct reflected products are coprime is false: the smallest root in the stated domain is R=37, with 1349=19*71 and 1387=19*73, centered at X=1368.
+
+| Claim | New result | Evidence |
+| --- | --- | --- |
+| 20261109-wheel-3/RF1 | Complete gcd classification of reflected genuine prime products | PAPER_PROOF / SELF_AUDIT |
+| RF2 | Global once-only product matching; exact next-root admission retains the same owner | PAPER_PROOF; restricted allocation obstruction |
+| RF3 | Uniform signed bound and absolute summability of the shared-factor band channel, also for arbitrary bounded real band weights | PAPER_PROOF; proper-component inequality |
+| RF4 | Registered integer classification, independent trial-factor check, exact original-source algebra and rational band enclosures | FINITE_COMPUTATION |
+
+All new paper claims are INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED. The elementary techniques carry no literature-priority claim. **NEW_VERIFIED_GLOBAL_ENDPOINT_GAIN=NONE.** Census BL3 already pays the ENTIRE exactly reflected collar at O(R). RF3 is a stronger bound on a narrower subpopulation of that paid channel, not a solution of its unmatched complement or a new global exponent. The canonical VF estimate, complete-wheel O(R log R), finite A/C and RH remain OPEN.
+
+### B. Current Authoritative Objective
+
+Actual trigger: scheduled 2026-11-09 18:06:01 EST, America/New_York, UTC-05:00. Run label 20261109-wheel-3; platform RUN_ID_UNAVAILABLE. This is the completion of the existing registered checkpoint, not another launch. finite_wheel_ack=FINITE_WHEEL_CENTERED_RH_V1.
+
+Main retrieved at intake is **e7ffe4e01fd049dfe6f47af86a9984bc0b843576**, the human merge of #1125. For integer R>=2, preserve
+
+```text
+X=R^2-1, y=R-1, P_y=product_(prime p<=y)p,
+F_R=sum_(d|P_y)mu(d)*fract(X/d),
+D_R=X*product_(prime p<=y)(1-1/p)+pi(y)-1-li(X),
+Z_R=F_R-D_R=li(X)-pi(X).
+OPEN: exists ONE C>=0, forall integer R>=2, |Z_R|<=C R log R.
+```
+
+The reference is principal-value li. Every virtual d>X is retained until its Euler term cancels. The canonical VF statement is still `VFCanonicalSquareVonKochStatement`; the inspected terminal `riemannHypothesis_of_vfCanonicalSquare` still has the explicit `ClassicalVonKochRHCriterion` argument. No arithmetic estimate or formal classical interface is silently supplied by RF.
+
+| Read source at pinned main | Blob SHA |
+| --- | --- |
+| AGENTS.md | 6695522a45d67fd1e80a7cff1f98d909405036e2 |
+| CURRENT_PROOF_CONTRACT.md | 95566e37c8eaeb99ee680660df4f9d2e06ea5038 |
+| docs/RHLEAN_SEVEN_AGENT_FINITE_WHEEL_BOUNDARY_20261108.md | e505f35522b675c6b5b263eac73618d717346973 |
+| docs/DYNAMIC_RESEARCH_AGENTS.md | e8d913ff9663bb5163eaf0eddca9f76e0508a7ef |
+| research/CompleteSquareRootWheelFractionalBoundary.lean | ecb482e52deeee5e9b3853592a3ffdace662d2ff |
+| research/CompleteWheelRootAdmission.lean | a412632c1028d7728cd8d87ee6e5ac365377d338 |
+| research/VF_MID_DYADIC_PREFIX_OWNER.lean | c499ca7bd7d90fb32f9cd99d652961ea023bed58 |
+| research/VF_MID_PHI_OWNER_BRIDGE.lean | 5c81e968179c8b069ff86570002555ba54f8b789 |
+| research/DyadicPrimeNearResonance.lean | 0080496ada9c7ce230690ed773ee52df9575c245 |
+| research/DyadicPrimeNearResonanceAcceptance.lean | 76522788cefb3201b98e4ccbc419bb2bfca6c059 |
+| research/VF_CANONICAL_SQRT_TWO_VON_KOCH.lean | 79030d70e8d3e0d08eef9bac53fef95c36eca2fb |
+
+The current `finiteWheelFract`, `finiteWheelSquareDeterministic`, `finiteWheelCenteredAt`, `vfMidPrefixWheelCounting`, `vfMidPrefixWheelDensity`, `dyadicPrimePair`, and `admittedDyadicPrimePair` definitions were read. In particular the prime rectangle uses the exact condition R<=2p, not a rounded-down half-root cutoff. The complete-wheel centered identity has an arbitrary real-reference parameter; it is an equality, not a bound.
+
+### C. Structural Mechanism Investigated
+
+Coordinator SA asks for an actual arithmetic restriction beyond the fixed-wheel counting-path model. Owner CF proves that a different same-endpoint donor cannot retain BOTH ancestors p and q of an upper cross-root product, and leaves one-factor substitutions open. Census BL3 has an actual additive-product reflection n -> 2X-n with a paid small curvature cost, but does not assert that partners preserve an ancestor or even exist.
+
+This run tests that particular one-factor refinement. It does NOT assert that every possible useful substitution must be an exact reflection. It also does not relabel the upper reflected product as an original physical site: n_+>X is part of the FULL Fourier prime rectangle, not the sharp physical count at root R. RF2 states exactly when it becomes physical at the next root and what happens to its owner.
+
+The hypotheses being falsified are: (i) all nonzero reflected prime products are coprime; and (ii) every reflected pair can be realized by changing only one prime factor. Neither is a theorem of the source. RF1 gives the exact replacement, while RF3 quantifies its actual signed contribution.
+
+### D. Exact Theorem Statements
+
+#### RF1. The Complete Shared-Factor Classification
+
+For every integer R>=8 let X=R^2-1 and
+
+```text
+E_R={(p,q): p,q prime, R<=2p, p<R, R<=q<2R}.
+```
+
+For d>0 and (p_-,q_-),(p_+,q_+) in E_R satisfying p_-q_-=X-d and p_+q_+=X+d,
+
+```text
+gcd(X-d,X+d)>1
+  iff R is odd,
+      p_-=p_+=d=(R+1)/2,
+      q_-=2R-3, q_+=2R-1.
+```
+
+Primality of all three displayed factors is part of the membership hypotheses. Conversely, whenever R is odd and (R+1)/2,2R-3,2R-1 are prime, those formulas give the unique nonzero shared-factor reflection. Its gcd is exactly (R+1)/2. Hence such a root necessarily has R=1 mod 12. No infinitude or density of that prime triple is asserted.
+
+There is at most one edge per root. The d=0 case is separate: a product in E_R equals X exactly iff p=R-1 and q=R+1 are prime. That original sharp-wall atom is not removed by RF1.
+
+#### RF2. Once-Only Matching And Chronological Scope
+
+Form a graph whose vertices are the INTEGER PRODUCT VALUES occurring in the nonzero shared-factor pairs of RF1, across ALL roots R>=8, and whose edges are those pairs. Each vertex belongs to exactly one edge. In particular there are no paths of two or more edges in this graph. This statement does not forbid paths in a different graph whose vertices are individual primes.
+
+Put h=ceil(sqrt R) and D=floor(X/(4h)). Every exceptional offset d=(R+1)/2 lies in 1<=d<=D. The lower product is admitted at root R. The upper product is not admitted there but satisfies
+
+```text
+X<n_+<= (R+1)^2-1.
+```
+
+Its least prime factor at the next root is still p=(R+1)/2, exactly the lower product's least prime. Thus this reflection supplies neither a same-root physical donor nor a descent to a lower owner. A matching confined to exact reflections that preserve any prime ancestor can use at most one pair per root; every other exact reflected pair replaces BOTH prime factors.
+
+#### RF3. Original Signed Band And Uniform Accumulation
+
+Let U=sqrt R. For any real measurable eta_R on [U,2U] with |eta_R|<=1 define the original product-phase kernel
+
+```text
+k_(R,eta)(n)=(1/pi) integral_U^(2U)
+              eta_R(t)*sin(t*log(X/n))/t dt.
+```
+
+Let J_shared,eta(R) sum k(X-d)+k(X+d) over exactly the common-factor pairs classified in RF1. The sum is empty or has one term. Then, uniformly in R and in the choice of eta_R,
+
+```text
+|J_shared,eta(R)| <= U/[pi*(4*(R-1)^2-1)]
+                    <= 1/(3*pi*R^(3/2)).              RF3.1
+sum_(A<=R<B)|J_shared,eta(R)|
+                    <= 2/(3*pi*sqrt(A-1)),            RF3.2
+```
+
+for all integers B>=A>=8. The same tail bound holds for the infinite sum.
+
+For the ACTUAL source take eta_R(t)=b(t/R), where
+
+```text
+b(w)=1-6w^2+6|w|^3, |w|<=1/2;
+     2(1-|w|)^3,    1/2<=|w|<=1;
+     0,            |w|>=1.
+```
+
+Then J_shared(R)>=0, and it is strictly positive exactly when the prime triple exists. All phases retain X=R^2-1. This is a real signed pair sum arising from the original NONCONJUGATED product of the two prime transforms, not a Hermitian substitute.
+
+### E. Mathematical Proofs
+
+#### RF1: Factorization Leaves Only One Configuration
+
+All four primes are odd and at least five. The intervals p<R<=q are disjoint, so a shared factor must be either a shared lower prime p or a shared upper prime q; cross-identification is impossible. It divides both products and hence 2X. Being odd and prime, it divides X=(R-1)(R+1), and therefore one of R-1,R+1.
+
+If the common factor is an upper q>=R, it can divide only R+1 and must equal R+1. The relation q(p_-+p_+)=2X forces p_-+p_+=2(R-1). Since both lower primes are <=R-1, both equal R-1. The products are equal to X, contradicting d>0. There are no nonzero shared-UPPER-prime reflections.
+
+If the common factor is a lower p in [R/2,R), divisibility of R-1 forces p=R-1, because (R-1)/p<2. Divisibility of R+1 forces p=(R+1)/2: its positive integer quotient is less than three, and quotient one would put p outside the interval. In the first case R is even, both q values are odd and >=R+1, and their sum is 2(R+1). Again both equal R+1 and d=0, impossible.
+
+In the remaining case p=(R+1)/2 and q_-+q_+=4(R-1). The strict product order gives q_-<q_+. Both are odd and <=2R-1. Thus q_->=2R-3 and q_-<=2R-3, forcing q_-=2R-3 and q_+=2R-1. Substitution gives d=p. Their distinct prime factors imply gcd(n_-,n_+)=p. The converse is direct integer multiplication. Since p is odd, R=1 mod 4. Since neither q is divisible by three, R=1 mod 3, proving the necessary mod-12 condition. This congruence is not used as a prime-distribution estimate.
+
+For d=0, X=(R-1)(R+1) is a product of two primes, with both displayed factors greater than one. Unique factorization forces each of R-1,R+1 to be prime and fixes their interval orientation. This includes the strict versus nonstrict wall convention exactly.
+
+#### RF2: Global Product Values, Not Duplicated Labels
+
+Every exceptional product has least prime factor p=(R+1)/2. If the same integer product occurred in an exceptional pair at another root S, its unique least prime factor would also be (S+1)/2, so S=R. Within that root, n_- and n_+ differ by 2p>0. This proves global vertex disjointness, without identifying distinct physical values merely because they share a prime.
+
+For R>=8, 2ceil(sqrt R)<=R-1. R=8 is immediate; for R>=9 use 2sqrt R+3<=R and ceil(sqrt R)<=sqrt R+1. Therefore d=(R+1)/2<=X/(4h); since d is an integer, d<=D. Also d<R<2R+1, proving n_+<=X+2R+1=(R+1)^2-1. Its two factors are still ordered p<q_+, so its least owner has not changed. These facts do not create an extra occurrence in the root-R physical source.
+
+#### RF3: The Actual Pair Bias Has A Summable Size
+
+If there is no exceptional pair, the result is trivial. Otherwise put
+
+```text
+u=d/X=1/[2(R-1)],
+a=-log(1-u)>0, c=log(1+u)>0.
+```
+
+Then a>c and the two original phases are a and -c. For U<=t<=2U,
+
+```text
+0<t*c<t*a<= 2sqrt R/(2R-3)<1.
+```
+
+The first upper bound uses -log(1-u)<=u/(1-u). The last follows by squaring, since (2R-3)^2-4R>0 for R>=8. On this whole phase interval, 0<cos s<=1; for example cos s>=1-s^2/2>1/2. Therefore
+
+```text
+0<sin(t*a)-sin(t*c)<=t*(a-c),
+a-c=-log(1-u^2)<=u^2/(1-u^2).
+```
+
+The original phase signs have been retained before taking absolute values. Integrating against any |eta_R|<=1 yields
+
+```text
+|k(X-d)+k(X+d)|
+ <= (U/pi)*u^2/(1-u^2)
+ = U/[pi*(4*(R-1)^2-1)].
+```
+
+For the original spline b, its first positive-axis piece decreases from 1 to 1/4 on [0,1/2], and its second is 2(1-w)^3. Since 0<t/R<=2/sqrt R<1, its values are in (0,1] throughout this band. The strict pointwise sign therefore proves positive pair bias, not exact cancellation. Finally
+
+```text
+4*(R-1)^2-1-3R^2=R*(R-8)+3>0.
+```
+
+This gives RF3.1. Comparison with the decreasing integrand x^(-3/2) gives
+
+```text
+sum_(R>=A) R^(-3/2) <= integral_(A-1)^infinity x^(-3/2)dx
+                      =2/sqrt(A-1),
+```
+
+which proves RF3.2. All constants precede R. There is no fixed/growing-modulus transfer, assumed triple infinitude, or finite-to-infinite extrapolation.
+
+### F. Structural Consequence
+
+The original arithmetic forbids a rich exact-reflection network with shared prime ancestry. It permits only a very specific lower-prime/twin-upper-prime edge, with no repeated product values and no lowering of its physical owner. This is more precise than an unsigned degree bound and directly falsifies the proposed one-factor version of the reflection mechanism.
+
+The useful signed consequence is that this entire shared-factor subchannel is uniformly summable. The theorem says nothing favorable about the signs of all coprime pairs, unmatched products, the centered quadratic, or their interactions with lower owners. It is not a proof that the Coordinator's loop countermodel violates this particular restriction: a synthetic population could satisfy it vacuously. RF supplies a necessary genuine-prime incidence fact, not a sufficient exclusion of every large-area model.
+
+### G. Original Source And Complete Signed Return
+
+The following adapter is credited to Owner FW/CF, Analytic SC/MB and Referee DA. It is restated to fix exactly where RF enters, not counted as new RF mathematics.
+
+Partition every nonunit wheel DIVISOR by its GREATEST prime coordinate p. Writing it as p*e with e|P_(p-1) gives
+
+```text
+B_owner(p)=-sum_(e|P_(p-1))mu(e)*fract(X/(p*e))
+          =N_p(X)-X*delta(p-1)/p,
+F_R=sum_(prime p<R)B_owner(p),
+N_p(X)=#{2<=n<=X: leastPrime(n)=p}.
+```
+
+The largest prime of the divisor coordinate is NOT being identified with the largest prime of a physical integer. Inclusion-exclusion is what converts it to the physical LEAST-prime owner. All virtual p*e>X cancel with their Euler terms before N_p is used.
+
+For p in [R/2,R), p^3>X. Thus its physical cofactors are one or a prime >=p. If n_R counts these upper owners and E_R^wheel=sum_p delta(p-1)/p, their historical units, squares and distinct pairs contribute exactly n_R(n_R+3)/2, and their remaining physical count is the closed hyperbola on E_R. Let I_-=[R/2,R), I_+=[R,2R], dnu=dpi-dell, dell=du/log u, and H(u,v)=1_(uv<=X). Define
+
+```text
+I_LL=integral H dell dell,
+I_Lnu=integral H dell dnu,
+I_nuL=integral H dnu dell,
+Q_sharp=integral H dnu dnu,
+C_rest=F_other-D_R+n_R(n_R+3)/2-X*E_R^wheel+I_LL.
+Z_R=C_rest+I_Lnu+I_nuL+Q_sharp.                     RETURN1
+```
+
+Both mixed orientations remain different. q=R is included when prime. 2R is composite but is retained as a reference endpoint. The products above X occur only in the full rectangle used by the Fourier representation, not in the physical count.
+
+For a self-contained exact frequency return, put
+
+```text
+A_R(t)=integral_(I_-) (u/R)^(-it)dnu(u),
+B_R(t)=integral_(I_+) (u/R)^(-it)dnu(u),
+a_R=log(1-R^(-2)),
+W_R(s)=1/2+(1/pi)integral_0^R b(t/R)*sin(ts)/t dt,
+Q_smooth=integral W_R(log(X/(uv)))dnu(u)dnu(v),
+epsilon_sharp=Q_sharp-Q_smooth.
+```
+
+This DEFINES and retains the whole sharp-wall error; no new bound for it is assumed. Finite-variation Fubini, with the removable t=0 value retained, gives
+
+```text
+Q_smooth=A_R(0)*B_R(0)/2+I_low+M_mid+I_high,
+I_low: 0<=t<=sqrt R; I_high: 2sqrt R<=t<=R,
+integrand=b(t/R)*Im(exp(it*a_R)*A_R(t)*B_R(t))/(pi*t).
+```
+
+There is NO conjugation. Decompose A=P_--C_- and B=P_+-C_+, where P are the actual prime sums and C the exact Li transforms. Then M_mid=J_prime+delta_ref with
+
+```text
+delta_ref=middle-band integral of
+  exp(it*a_R)*(-P_-*C_+-C_-*P_++C_-*C_+),
+with the same imaginary part, spline and 1/(pi*t).
+```
+
+These band-reference terms are not the physical mixed integrals I_Lnu,I_nuL. Partition J_prime into shared reflected pairs, coprime reflected pairs in the collar, unmatched collar occurrences, and far occurrences. The zero-offset band value is zero, but its SHARP wall atom is still present in RETURN1 and epsilon_sharp. RF2 proves that all shared reflected pairs lie inside the collar. Hence exactly
+
+```text
+Z_R=T_rest(R)+J_shared(R),
+T_rest=C_rest+I_Lnu+I_nuL+A_R(0)*B_R(0)/2
+       +I_low+I_high+epsilon_sharp+delta_ref
+       +J_reflected_coprime+J_unmatched+J_far.        RETURN2
+Z_R^2=T_rest^2+2*T_rest*J_shared+J_shared^2.           RETURN3
+```
+
+Every interaction within T_rest remains part of its square; it is not a sum of individual squares. RF3 pays only J_shared and its absolute cumulative magnitude, not the mixed term 2*T_rest*J_shared without a bound on T_rest. The prime-adjunction/root-admission channel RA is distinct; summability here is not a new bound for the entire physical-shell innovation in `finiteWheel_centered_root_return`.
+
+The scalar complete-wheel baseline is unchanged. BL3 already controls the total exact reflected collar at O(R), with its original hypotheses; RF3 is not advertised as a new endpoint improvement over that stronger coverage. Analytic ZD's newly reported O_epsilon(R^(17/12+epsilon)) for M_mid remains PAPER_PROOF / SELF_AUDIT, and is neither assumed nor independently certified by this argument.
+
+### H. Falsification, Novelty And No-Circularity Review
+
+The verified checkpoint commit **5e55580da53959c9422c534601cdc7f2847b645d**, blob **c74b8a6822169f0259a1b29b6f577022ef5d0a75**, registered the theorem, domains and R=37 prediction BEFORE running the arithmetic scripts. Immutable readback matched the original report plus the append exactly.
+
+RF4 checked 252 roots: every R=8..256 and held-outs 257,549,1024. It inspected 107,547 root-labelled prime-product occurrences and 1,909 exact nonzero reflected pairs. Every product map was injective, every reflection used both occurrences once, both directions of RF1 held, all exceptional pairs lay in the collar and next-root physical shell, and no exceptional product value was reused. The only shared-factor roots in this declared domain were:
+
+| R | d=p | q_- | q_+ |
+| --- | --- | --- | --- |
+| 37 | 19 | 71 | 73 |
+| 121 | 61 | 239 | 241 |
+| 157 | 79 | 311 | 313 |
+| 217 | 109 | 431 | 433 |
+
+The independently implemented trial-factor audit scanned INTEGER VALUES, not the primary program's prime rectangles, for all 73 roots R=8..80. It independently found all 104 reflected pairs in that smaller domain and the sole shared pair at R=37. Thus the first failure of universal coprimality in R>=8 is certified by exhaustive exclusion of 8..36, not guessed from a large scan. This is independent IMPLEMENTATION by this author, not independent Referee acceptance.
+
+The held-outs contain 14,29,163 full reflected pairs and 2,1,3 collar pairs respectively; none is shared. These finite counts are not population asymptotics. The already known BL3 R=20 pair 391=17*23 and 407=11*37 was reused for the NEW gcd test: gcd=1, so the universal one-factor reflection rule fails even in the collar. Its existence and previous signed evaluation are credited to Census, not rediscovered here.
+
+Additional exact controls retained R=18's d=0 wall pair (17,19), genuine prime-root admission, and the original full divisor cubes at R=2,3,8,12,14. The latter checks verify the new partition's adapter, not new wheel theorems. They include virtual terms, all upper-owner historical units/squares/pairs, and all six doubled cross terms in the four-part rational-reference version of RETURN1. The rational reference in that algebra test is explicitly synthetic; it is not a claimed numerical evaluation of Li. At R=14 the actual wheel divisor d=X=195 is not discarded; squareful physical integers remain in complementary owner counts.
+
+One test fixture failed: the first program typed the old R=20 offset as 16, whereas 399-391=8. The fixture was corrected to 8 and the complete program rerun. Its RF1 classification checks had already passed before that unrelated assertion. This failure is recorded rather than described as a mathematical counterexample or a completely clean first run.
+
+After classification, a disclosed proof-led extension evaluated the ACTUAL band at the four exceptional discovery roots using rational intervals. These are not held-outs. The calculation uses integer square-root brackets, the convergent atanh series for log, Machin's pi formula with alternating tails, and the exactly integrated sine polynomial. For R>=16 the whole band has t/R<=1/2, so the actual spline is exactly 1-6(t/R)^2+6(t/R)^3. The omitted sine tail is bounded using 0<=b<=1 before integration. Every interval is strictly positive and strictly below the analytic bound in RF3.1. For example,
+
+```text
+267398147149267111990187682 / 10^30
+  <= J_shared(37) <=
+267398147149267111990187683 / 10^30.
+```
+
+No floating-point logarithm, sine, primality guess, or sampled sign certifies the theorem. The all-root result follows from E, separately from all finite tests. Python syntax checks passed; all required computation sessions completed.
+
+Novelty review: searched main for reflected prime products, shared-prime and reflection/gcd statements, examined the current source tree and newly merged DG2 source, and searched the full retrieved current reports for matching formulas. The GitHub search index returned the older 02f00c snapshot for some results; the changed e7ffe4 modules were therefore read directly. No equivalent RF classification was found in that scoped review. This is not an exhaustive literature/repository priority claim. DG1 classifies cross-SCALE equal normalized phases; RF1 classifies same-root ADDITIVE product reflections. BL3 bounds all matched offsets but has no gcd classification. CF addresses genuine masked cofactor banks, not this Fourier pairing. Those results are credited at their own scopes.
+
+Also inspected the source statements and scope of `PrimeBoundaryCollisionQuotientNoGo.lean` (blob 4b024c9355156a7166499e0108f326a752e1fb53) and `PrimeSquareCollisionPhysicalFibreNoGo.lean` (8e9696482b313934c18a8a520f10984c23186e74). Their literal square-hit corrected-weight obstructions concern a different carrier; RF does not evade them by assigning a new physical meaning to a symbolic label. Earlier R=549 BLOCK, fixed-wheel FM, and DG/DA/SA countermodels remain at their stated scopes.
+
+### I. Conceptual Interpretation
+
+Common ancestry and cancellation are distinct. The exact reflection that gives opposite logarithmic-phase signs can almost never preserve a prime ancestor, and its one surviving ancestry pattern gives a SMALL POSITIVE curvature bias. The arithmetic also fixes its chronology: an above-wall partner is a new shell occurrence with the SAME least owner, not a lower-owner payment.
+
+This provides an exact restriction on a specific incidence mechanism. It does not couple all sign changes of the two prime-error paths to lower-owner compensation, and it does not disprove every nonlocal matching, approximate reflection, weighted transport or spectral method. That broader requested coupling remains undiscovered in this execution.
+
+### J. Competing Structural Hypotheses
+
+| Mechanism | Decision and reason |
+| --- | --- |
+| Every reflected pair is coprime | REFUTED at R=37; replace by RF1 |
+| Complete exact reflection by changing only one prime factor | REFUTED in the genuine collar by the credited R=20 pair; RF1/RF2 bound all surviving edges |
+| Shared-factor reflection produces a long cross-root payment chain | REFUTED for the explicitly defined product-value graph; its components have two vertices |
+| Shared-factor band channel is harmless cumulatively | PROVED ON PAPER with fixed constants in RF3; narrower than the already paid whole matched sector |
+| Coprime reflection and unmatched/far terms have sufficient joint compensation | OPEN; RF supplies no estimate for this return |
+| A more flexible cross-owner transfer with changed factors and its exact reference defect | Still admissible; must specify the map, capacities and actual signed consumer before new scans |
+
+No campaign change is proposed, and no universal sieve-parity or combinatorial impossibility conclusion is asserted.
+
+### K. Specialist Handoffs
+
+**Coordinator / Proof Architect:** record RF1/RF2 as the exact obstruction to one-factor additive reflection and RF3 as a summable proper-channel consequence. Do not mark the SA loop model excluded, the lower-owner coupling solved, or the complete target improved. This refines the mechanism map, not the global quantitative frontier.
+
+**Owner Payment:** any exact reflected partner retaining one factor is the displayed exceptional pair. Its upper member is outside the root-R physical source and, when admitted at R+1, keeps the same least owner. Thus a useful lower-owner map must alter the geometry or factors and restore its exact reference; CF's common-q mask is not identified with this channel.
+
+**Analytic Type II:** RF3 applies to arbitrary measurable real band weights of modulus at most one, including the original spline. It preserves the true nonconjugated product phase. The shared-factor tail is summable but already lies inside BL3's paid sector; no saving for OPEN-MIDBAND, the zero-density return, or the full source should be inferred. ZD1-ZD4 were consumed as new unreviewed paper work, not as premises here.
+
+**Prime Census Laboratory:** the classification now has a proof and a decisive small falsifier; a larger unchanged scan has no purpose. Useful independent verification is R=37 and the interval certificate, or a NEW precisely specified approximate/cross-owner map with exact admission and reference costs. Preserve R=20's existing credit and R=18's zero-offset atom.
+
+**Adversarial Referee:** check all shared-factor cases, especially the exclusion of a shared upper prime, R odd versus even, strict q<2R, d=0, the global product-value uniqueness rather than prime-label uniqueness, collar inclusion, owner preservation, and the all-band cosine range. Audit RF3's arbitrary signed eta scope separately from positivity for b. No independent acceptance is claimed by the author.
+
+**Lean Verification:** RF1/RF2 are compact possible structural statements, but no new implementation task is requested before independent review and a useful consumer. RF3 is paper analysis, not Lean. First resolve the exact coverage of merged #1125: generic post-merge green checks do not replace its missing dedicated proof/type/axiom execution. Do not implement an assumed bound on T_rest and call that arithmetic progress.
+
+These are asynchronous handoffs in this report only. No agent was launched, rescheduled, or promised background work.
+
+### L. First Independently Missing Theorem
+
+**No new smaller sufficient lemma for the complete RH target was obtained.** For the tested mechanism, the missing step is no longer an unproved rich one-factor reflection matching: RF1/RF2 rule it out. The remaining exact reflected pairs are coprime, while unmatched/far and both physical mixed terms still need genuine arithmetic control or a different joint representation.
+
+The prior optional proper-band question remains precise: does ONE C>=0 satisfy |M_mid(R)|<=C R log R for every integer R>=8, for the exact A_R,B_R,a_R,b in G? ZD reports a strictly weaker proper-band power bound, still awaiting independent review. RF does not prove this question weaker than RH, necessary for the whole source, or a new hypothesis supplied by incidence. A bound for the whole T_rest+J_shared would simply rename the original target and is not proposed as an independent lemma.
+
+The next structural investigation should begin only after a concrete cross-owner or approximate-reflection rule is specified, with its once-only occurrence map and reference defect. The current theorem rules out an exact one-factor shortcut; it does not provide that missing rule.
+
+### M. Continuity, Formal Evidence And Resume Capsule
+
+All seven roles on BOTH November 9 and November 8 were retrieved at report snapshot 0ef342f5019c2e884c3ced6d8d65fd3f1f03fc91. TODAY=PRESENT; YESTERDAY=CARRY_FORWARD. Coordinator mirrors had identical blobs and were counted once. Relevant newest mathematical claims, assignments, counterexamples and verdicts were read; historical embedded programs were not all rerun.
+
+| Role | November 9 intake blob | November 8 carried-forward blob |
+| --- | --- | --- |
+| Coordinator | 35edd925446bfaf4babab99017ad8019db322915 | 8b640304f6c233a2c4409b9882799de485888a9e |
+| Owner | 643e8a004d9d8e0be102b03e2f79bb3b217ae916 | 4e1b83a1e5ff8c134e9ca64404397c70c2b07252 |
+| Analytic | d1d0d86d444b9c447cf6acf4bd18fdcaf02e56a3 | edecba8785a45cda87c0035d0348695941f1b8ea |
+| Wheel | 932fe82483d30c49b6277baeaede629d29445b1e | 60d4cf1b65d4b1b2cc4f13f6c0940c14cb2c50fd |
+| Census | 6ad4c84512730dfc1cb7fc79540c248931cb8ddf | 00f4f9c0d670821a0c9d1da31fd1c4d0afd09142 |
+| Referee | 01869acbc9d0535fe4791354a0029b8f77981723 | 5371324ebbdbd88afb9abf843e83da2ce86b752f |
+| Lean | 4402811bbc7198731f83036f73836ef336c2015a | 5a110685bbe375d8ebff42df7391162914e52cef |
+
+Consumed current claims: Coordinator FB/MP/SA; Owner FW/CT/CF; Analytic SC/MB/ZD; own RA/DG; Census CR/BL; Referee DA and its ACCEPT_WITH_SCOPE decisions for DG1-DG4, BL3 and RA2-RA3; Lean RA implementation and DG2 infrastructure limitation. CF/SA/ZD retain paper self-audit status. Yesterday's Coordinator FM, Owner JS, Analytic EC, Wheel FD, Census FR and Referee SG concern other carriers. EC has since been implemented by #1119; that is not a certification of SG, ZD or RF.
+
+External inbox blob 038018145c0fddb2f6306c0712373adf9cd1ea52 has no entry later than October 18. EXT-20261018-PNT-1..3, EXT-20261017-XCOORD-1 and EXT-20261014-5 were consumed for their original signed-source, prime-root endpoint and unconditional-versus-first-bad safeguards, not obsolete task selection. No external claim was upgraded to a new theorem.
+
+GitHub evidence verified in this run:
+
+- #1125 merged at 2026-11-09T23:01:09Z as e7ffe4e01fd049dfe6f47af86a9984bc0b843576. Its old literal PR head 538aa743a3e0de86b5ec44c9b4f159df3f5bd050 still has zero check runs and twelve failed workflow records. The dedicated run 42674337064 has zero jobs. This supersedes the old report's DRAFT/unmerged metadata, not its missing formal evidence.
+- The MERGE head has ten successful general checks. The retrieved Hosted Lean job 129500775818 checked out that exact merge and succeeded, but its log contains no DyadicPrimeNearResonance compilation, new theorem types or near-resonance axiom audit. No dedicated DG2 certification is inferred from those generic successes. The checkpoint's PR-head statement remains accurate; its evidence was incomplete about the distinct merge head and is supplemented here.
+- #1124's literal head 1b80f147dab3c0c2525052b3c6c3f8c447089da1 has thirteen successful checks. The actual dedicated log, job 129104842737, checks out that head, emits CompleteWheelRootAdmission and its acceptance module, prints live dependency closures 746/772 and standard terminal axioms propext/Classical.choice/Quot.sound for the root-step, cumulative bound and return. This is inherited RA evidence, not RF proof.
+- #1122's literal head c53e9cf234500aea2605fd2557e638995f380407 has eleven successful checks; its source definitions and theorem statements were read. This run does not claim a new compilation or a new axiom audit for that source. Recent merged metadata also confirms #1119-#1123. No open/draft PR was returned at intake.
+
+Observed local runtime: Python 3.12.14. No local Lean was run. Direct git access returned CONNECT tunnel HTTP 403, so all authority and publication used the authorized GitHub connector; this did not prevent pinned reads or own-report writes. No Lean, main, proof branch, PR, shared instruction, other report, workflow, permission or schedule was changed.
+
+Reproducibility SHA-256 values:
+
+```text
+reflected_incidence_check.py
+bc0fb863649fea32cb96db5c1539fc2a5a3ace99d6ef5f1e6f79870d94cd61de
+reflected_incidence_audit.py
+6aefec2eade5ecd3528c9fe29efa5becf4379dc292e7ea4b89009c4cb0e8cda1
+reflected_band_certificate.py
+598d6893f336eb646ac93ed44c49e2c157c0366d2c774944aa352e2a211a558b
+```
+
+Resume from RF1-RF3, not another unchanged reflected-pair scan. Preserve the R=37 exception, coprime R=20 pair, wall R=18 atom, complete virtual compensation, largest-divisor versus least-physical-owner distinction, and the unpaid RETURN2. The strongest new outcome is a specific incidence/matching restriction with a summable signed subchannel, not global cancellation. Mathematical work is complete at this paper/finite scope. Substantive publication is PENDING until the immutable commit/readback receipt below.
+
+
+### Prepublication Freshness - 20261109-wheel-3/RF
+
+At 2026-11-09 23:31:42 UTC (18:31:42 EST), main remained e7ffe4e01fd049dfe6f47af86a9984bc0b843576. All six upstream November 9 report blobs and both Coordinator mirrors were unchanged from intake. The owned report was still the verified checkpoint blob c74b8a6822169f0259a1b29b6f577022ef5d0a75. Direct open-PR enumeration returned none. The final report has all thirteen A-M sections, balanced code fences, three byte-exact executable script blocks and their recorded SHA-256 values, complete captured outputs, and an explicit unpaid full return. The independent programs agree on all 104 reflected pairs in their common smaller domain. No further source change or mathematical assumption was introduced.
+
+
+### Reproducibility Appendix - RF4
+
+Run each Python program below. They use only the standard library and exact integers/rationals. The first two implement different enumeration paths; the third certifies the actual band, not a surrogate.
+
+#### reflected_incidence_check.py
+
+```python
+"""Registered RF integer/rational audit. No Lean or numerical Li evaluation."""
+
+from fractions import Fraction as F
+from math import gcd, isqrt
+import json
+
+
+def sieve(limit):
+    flags = [True] * (limit + 1)
+    flags[:2] = [False, False]
+    for p in range(2, isqrt(limit) + 1):
+        if flags[p]:
+            for n in range(p * p, limit + 1, p):
+                flags[n] = False
+    return flags
+
+
+def faces(primes):
+    result = [(1, 1)]
+    for p in primes:
+        result += [(d * p, -mu) for d, mu in result[:]]
+    return result
+
+
+def frac(x):
+    return x - x.numerator // x.denominator
+
+
+def audit_root(r, prime):
+    x = r * r - 1
+    left = [p for p in range((r + 1) // 2, r) if prime[p]]
+    right = [q for q in range(r, 2 * r) if prime[q]]
+    products = {}
+    for p in left:
+        for q in right:
+            assert p * q not in products
+            products[p * q] = (p, q)
+    reflected = []
+    used = set()
+    for n, pair in sorted(products.items()):
+        mate = 2 * x - n
+        if n >= x or mate not in products:
+            continue
+        assert n not in used and mate not in used
+        used.update((n, mate))
+        d = x - n
+        p, q = pair
+        pp, qq = products[mate]
+        common = gcd(n, mate)
+        exceptional = (
+            2 * p == r + 1 and pp == p and d == p
+            and q == 2 * r - 3 and qq == 2 * r - 1
+        )
+        assert (common > 1) == exceptional
+        if common > 1:
+            assert common == p
+        reflected.append((d, pair, products[mate], common))
+    shared = [row for row in reflected if row[-1] > 1]
+    expected = (
+        r % 2 == 1 and prime[(r + 1) // 2]
+        and prime[2 * r - 3] and prime[2 * r - 1]
+    )
+    assert len(shared) == int(expected)
+    h = isqrt(r)
+    h += h * h < r
+    collar = x // (4 * h)
+    for d, pair, mate, common in shared:
+        assert d <= collar
+        assert x + d <= (r + 1) ** 2 - 1
+        assert pair[0] == mate[0]  # Chronological admission does not lower owner.
+        u = F(d, x)
+        assert 4 * r * (u / (1 - u)) ** 2 < 1
+        assert u * u / (1 - u * u) == F(1, 4 * (r - 1) ** 2 - 1)
+    assert 4 * (r - 1) ** 2 - 1 >= 3 * r * r
+    if x in products:
+        assert products[x] == (r - 1, r + 1)
+    return {
+        "R": r, "products": len(products), "reflected_pairs": len(reflected),
+        "shared": shared, "wall": products.get(x),
+        "collar_pairs": sum(d <= collar for d, *_ in reflected),
+    }
+
+
+def original_source_audit(r, prime):
+    x = r * r - 1
+    ps = [p for p in range(2, r) if prime[p]]
+    cube = faces(ps)
+    density = sum((F(mu, d) for d, mu in cube), F(0))
+    full = sum((mu * frac(F(x, d)) for d, mu in cube), F(0))
+    physical = sum((mu * frac(F(x, d)) for d, mu in cube if d <= x), F(0))
+    virtual = sum((F(mu * x, d) for d, mu in cube if d > x), F(0))
+    survivor = sum(all(n % p for p in ps) for n in range(1, x + 1))
+    assert full == physical + virtual
+    assert full - x * density == -survivor
+    pi_x = sum(prime[:x + 1])
+    assert survivor + len(ps) == pi_x + 1
+    owners = {}
+    for p in ps:
+        lower = [ell for ell in ps if ell < p]
+        owners[p] = -sum((mu * frac(F(x, p * e)) for e, mu in faces(lower)), F(0))
+    assert sum(owners.values(), F(0)) == full
+    if r < 8:
+        return {"R": r, "full": str(full), "virtual": str(virtual)}
+    left = list(range((r + 1) // 2, r))
+    right = list(range(r, 2 * r + 1))
+    nleft = sum(prime[p] for p in left)
+    ew = sum((sum((F(mu, e) for e, mu in faces([ell for ell in ps if ell < p])), F(0)) / p
+              for p in left if prime[p]), F(0))
+    cross = sum(prime[p] and prime[q] and p * q <= x for p in left for q in right)
+    upper = sum((owners[p] for p in left if prime[p]), F(0))
+    historical = F(nleft * (nleft + 3), 2)
+    assert upper == historical + cross - x * ew
+    # Arbitrary rational reference tests the full bilinear algebra, not Li values.
+    ll = ln = nl = nn = F(0)
+    for p in left:
+        for q in right:
+            if p * q > x:
+                continue
+            a, b = F(1, p + 1), F(1, q + 1)
+            da, db = int(prime[p]) - a, int(prime[q]) - b
+            ll += a * b
+            ln += a * db
+            nl += da * b
+            nn += da * db
+    assert ll + ln + nl + nn == cross
+    reference = F(17, 3)
+    deterministic = x * density + len(ps) - 1 - reference
+    z = full - deterministic
+    rest = full - upper - deterministic + historical - x * ew + ll
+    terms = [rest, ln, nl, nn]
+    assert sum(terms) == z == reference - pi_x
+    all_cross = sum(a * a for a in terms) + 2 * sum(
+        terms[i] * terms[j] for i in range(4) for j in range(i + 1, 4)
+    )
+    assert z * z == all_cross
+    return {"R": r, "full": str(full), "virtual": str(virtual), "return": "PASS"}
+
+
+def main():
+    roots = list(range(8, 257)) + [257, 549, 1024]
+    prime = sieve(max(2 * max(roots), 14 ** 2))
+    rows = [audit_root(r, prime) for r in roots]
+    shared = [row for row in rows if row["shared"]]
+    physical_values = []
+    for row in shared:
+        for d, left, right, _ in row["shared"]:
+            assert row["R"] == 2 * left[0] - 1
+            physical_values.extend([left[0] * left[1], right[0] * right[1]])
+    assert len(physical_values) == len(set(physical_values))
+    assert shared[0]["R"] == 37
+    assert shared[0]["shared"] == [(19, (19, 71), (19, 73), 19)]
+    assert rows[18 - 8]["wall"] == (17, 19)
+    assert (8, (17, 23), (11, 37), 1) in [
+        (399 - n, (p, q), (pp, qq), gcd(n, nn))
+        for p in range(10, 20) for q in range(20, 40)
+        for pp in range(10, 20) for qq in range(20, 40)
+        if prime[p] and prime[q] and prime[pp] and prime[qq]
+        and (n := p * q) < 399 and (nn := pp * qq) + n == 798
+    ]
+    source = [original_source_audit(r, prime) for r in [2, 3, 8, 12, 14]]
+    print(json.dumps({
+        "status": "PASS_EXACT", "root_cases": len(rows),
+        "product_occurrences": sum(row["products"] for row in rows),
+        "reflected_pairs": sum(row["reflected_pairs"] for row in rows),
+        "independent_domain_pairs": sum(row["reflected_pairs"] for row in rows if row["R"] <= 80),
+        "shared_roots": [{"R": row["R"], "pairs": row["shared"]} for row in shared],
+        "held_out": [row for row in rows if row["R"] in [257, 549, 1024]],
+        "source_checks": source,
+        "global_shared_product_reuse": False,
+        "negative_controls": ["universal coprimality false at R=37", "zero offset retained at R=18", "coprime reflected pair at R=20"],
+        "uniform_proof": "separate paper proof; not inferred from finite enumeration",
+    }, sort_keys=True))
+
+
+if __name__ == "__main__":
+    main()
+```
+
+#### reflected_incidence_audit.py
+
+```python
+"""Independent trial-factor audit; scans integer products, not prime rectangles."""
+
+from math import gcd, isqrt
+import json
+
+
+def factors(n):
+    result = []
+    p = 2
+    while p * p <= n:
+        while n % p == 0:
+            result.append(p)
+            n //= p
+        p += 1
+    if n > 1:
+        result.append(n)
+    return result
+
+
+def pair_at(n, r):
+    fs = factors(n)
+    if len(fs) != 2:
+        return None
+    p, q = fs
+    return (p, q) if r <= 2 * p and p < r <= q < 2 * r else None
+
+
+rows = []
+total_pairs = 0
+for r in range(8, 81):
+    x = r * r - 1
+    pairs = []
+    # The smaller reflected product is at least ceil(R^2/2).
+    for n in range((r * r + 1) // 2, x):
+        a, b = pair_at(n, r), pair_at(2 * x - n, r)
+        if a is None or b is None:
+            continue
+        g = gcd(n, 2 * x - n)
+        if g > 1:
+            assert 2 * g == r + 1
+            assert a == (g, 2 * r - 3) and b == (g, 2 * r - 1)
+            assert x - n == g
+        pairs.append((x - n, a, b, g))
+    shared = [p for p in pairs if p[-1] > 1]
+    total_pairs += len(pairs)
+    assert len(shared) <= 1
+    if shared:
+        rows.append({"R": r, "pair": shared[0]})
+assert rows[0] == {"R": 37, "pair": (19, (19, 71), (19, 73), 19)}
+print(json.dumps({"status": "PASS_INDEPENDENT_TRIAL_FACTOR", "roots": 73, "reflected_pairs": total_pairs, "shared": rows}, sort_keys=True))
+```
+
+#### reflected_band_certificate.py
+
+```python
+"""Exact rational enclosures of the original nonconjugated pair kernel."""
+
+from fractions import Fraction as F
+from math import factorial, isqrt
+import json
+
+
+def add(a, b):
+    return a[0] + b[0], a[1] + b[1]
+
+
+def mul(a, b):
+    xs = [a[i] * b[j] for i in range(2) for j in range(2)]
+    return min(xs), max(xs)
+
+
+def scale(a, b):
+    return mul(a, (F(b), F(b)))
+
+
+def power(a, n):
+    out = (F(1), F(1))
+    for _ in range(n):
+        out = mul(out, a)
+    return out
+
+
+def logarithm_ratio(a, b):
+    z = F(a - b, a + b)
+    n = 14
+    center = 2 * sum((z ** (2 * k + 1) / (2 * k + 1) for k in range(n)), F(0))
+    tail = 2 * abs(z) ** (2 * n + 1) / ((2 * n + 1) * (1 - z * z))
+    return center - tail, center + tail
+
+
+def atan_inverse(q, n):
+    center = sum((F((-1) ** k, (2 * k + 1) * q ** (2 * k + 1)) for k in range(n)), F(0))
+    nxt = F((-1) ** n, (2 * n + 1) * q ** (2 * n + 1))
+    return min(center, center + nxt), max(center, center + nxt)
+
+
+PI = add(scale(atan_inverse(5, 48), 16), scale(atan_inverse(239, 20), -4))
+assert 3 < PI[0] < PI[1] < 4
+
+
+def sqrt_interval(r):
+    den = 10 ** 36
+    low = isqrt(r * den * den)
+    return F(low, den), F(low + 1, den)
+
+
+def integrated_power(t, exponent):
+    return scale(power(t, exponent), F(2 ** exponent - 1, exponent))
+
+
+def kernel(r, n):
+    assert r >= 16
+    t = sqrt_interval(r)
+    s = logarithm_ratio(r * r - 1, n)
+    count = 12
+    total = (F(0), F(0))
+    for k in range(count):
+        e = 2 * k + 1
+        moment = add(integrated_power(t, e), scale(integrated_power(t, e + 2), F(-6, r * r)))
+        moment = add(moment, scale(integrated_power(t, e + 3), F(6, r ** 3)))
+        total = add(total, scale(mul(power(s, e), moment), F((-1) ** k, factorial(e))))
+    # b(t/R) lies in [0,1]; Taylor degree 2*count has zero even term.
+    e = 2 * count + 1
+    smax = max(abs(s[0]), abs(s[1]))
+    tail = (2 * t[1] * smax) ** e / (e * factorial(e))
+    total = (total[0] - tail, total[1] + tail)
+    return mul(total, (1 / PI[1], 1 / PI[0]))
+
+
+def display_interval(a):
+    den = 10 ** 30
+    low = (a[0] * den).numerator // (a[0] * den).denominator
+    high = -((-a[1] * den).numerator // (-a[1] * den).denominator)
+    return {"lower_numerator": low, "upper_numerator": high, "denominator": den}
+
+
+rows = []
+for r in [37, 121, 157, 217]:
+    x = r * r - 1
+    d = (r + 1) // 2
+    pair = add(kernel(r, x - d), kernel(r, x + d))
+    lower_upper_bound = sqrt_interval(r)[0] / (PI[1] * (4 * (r - 1) ** 2 - 1))
+    assert 0 < pair[0] <= pair[1] < lower_upper_bound
+    rows.append({"R": r, "signed_pair": display_interval(pair), "proved_bound_test": "PASS"})
+print(json.dumps({"status": "PASS_RATIONAL_BAND_CERTIFICATES", "rows": rows, "uniform_status": "paper proof separate"}, sort_keys=True))
+```
+
+#### Executed Outputs
+
+```json
+{"global_shared_product_reuse": false, "held_out": [{"R": 257, "collar_pairs": 2, "products": 989, "reflected_pairs": 14, "shared": [], "wall": null}, {"R": 549, "collar_pairs": 1, "products": 3569, "reflected_pairs": 29, "shared": [], "wall": null}, {"R": 1024, "collar_pairs": 3, "products": 10275, "reflected_pairs": 163, "shared": [], "wall": null}], "independent_domain_pairs": 104, "negative_controls": ["universal coprimality false at R=37", "zero offset retained at R=18", "coprime reflected pair at R=20"], "product_occurrences": 107547, "reflected_pairs": 1909, "root_cases": 252, "shared_roots": [{"R": 37, "pairs": [[19, [19, 71], [19, 73], 19]]}, {"R": 121, "pairs": [[61, [61, 239], [61, 241], 61]]}, {"R": 157, "pairs": [[79, [79, 311], [79, 313], 79]]}, {"R": 217, "pairs": [[109, [109, 431], [109, 433], 109]]}], "source_checks": [{"R": 2, "full": "0", "virtual": "0"}, {"R": 3, "full": "0", "virtual": "0"}, {"R": 8, "full": "-3/5", "return": "PASS", "virtual": "-6/5"}, {"R": 12, "full": "-2/7", "return": "PASS", "virtual": "-39/35"}, {"R": 14, "full": "-123/77", "return": "PASS", "virtual": "-19/154"}], "status": "PASS_EXACT", "uniform_proof": "separate paper proof; not inferred from finite enumeration"}
+```
+
+```json
+{"reflected_pairs": 104, "roots": 73, "shared": [{"R": 37, "pair": [19, [19, 71], [19, 73], 19]}], "status": "PASS_INDEPENDENT_TRIAL_FACTOR"}
+```
+
+```json
+{"rows": [{"R": 37, "proved_bound_test": "PASS", "signed_pair": {"denominator": 1000000000000000000000000000000, "lower_numerator": 267398147149267111990187682, "upper_numerator": 267398147149267111990187683}}, {"R": 121, "proved_bound_test": "PASS", "signed_pair": {"denominator": 1000000000000000000000000000000, "lower_numerator": 54650745822275010149449916, "upper_numerator": 54650745822275010149449917}}, {"R": 157, "proved_bound_test": "PASS", "signed_pair": {"denominator": 1000000000000000000000000000000, "lower_numerator": 37717271950816635376129400, "upper_numerator": 37717271950816635376129401}}, {"R": 217, "proved_bound_test": "PASS", "signed_pair": {"denominator": 1000000000000000000000000000000, "lower_numerator": 23649433958794853904463119, "upper_numerator": 23649433958794853904463120}}], "status": "PASS_RATIONAL_BAND_CERTIFICATES", "uniform_status": "paper proof separate"}
+```
