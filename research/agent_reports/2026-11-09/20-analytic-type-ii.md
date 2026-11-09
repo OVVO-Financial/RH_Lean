@@ -34,3 +34,13 @@ No open or draft PRs at intake. Recent merges #1123, #1118, #1121, #1122, #1120 
 ### E. Next Obligation
 
 Derive an explicit all-R smoothing error using actual prime and continuous measures, identify exact spectral costs, test boundary atoms and possible slow coherent modes, and then state the first unpaid proper-source inequality. If only an equivalent transformed target survives, label it accordingly. Publication and mathematical proof statuses remain separate. Only this owned report on agent-reports may be changed.
+
+## Frozen Validation Plan - 20261109-analytic-1/SC
+
+Registered before numerical execution. Candidate paper theorem: for R>=8, A=[R/2,R), B=[R,2R], X=R^2-1, nu=dpi-dt/log(t), Q=integral_(A x B)1_(uv<=X)dnu(u)dnu(v), and the normalized sinc^4 logarithmic smoothing Q_T, investigate
+|Q-Q_T| <= 3072 R/log(R) * (1+R/T)/log(2+R/T), every real T>0.
+Candidate choice T=R/log^2(R) gives error at most 1920 R log(R)/loglog(R). This is a proper-term boundary estimate, NOT the bound for Q or the full wheel.
+
+Finite validation domain: every integer R=8..256 and R in {257,317,549,1027,4096}; genuine prime pairs in A x B; exact product-strip widths H=R*k for k in {0,1,2,4,8,16,32}; compare direct and row-bucket counts, all closed boundary atoms, rational triangular product smoothing and its support-error inequality. Independently trial-check the sieve through 8192. Do not fit any constant from the output. Test the R=12 pair (11,13) at pq=X, prime-root R=11 admission, and exact dyadic kernel-cost algebra. Kernel Fourier polynomials are checked symbolically; optional high-precision kernel evaluation is NUMERICAL ONLY, not a certificate of the all-scale measure theorem. The real continuous prime-error integrals are not being computed in this finite test.
+
+Negative controls: zero-frequency deletion is challenged using the actual R=8 interval counts and rational exponential inequalities; zero total masses alone are challenged on an explicitly synthetic four-atom signed-measure fixture, not on genuine primes. Preserve all failures if found. Self-audit is not an independent Referee review.
