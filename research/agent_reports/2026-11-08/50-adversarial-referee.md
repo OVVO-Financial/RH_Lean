@@ -1413,3 +1413,532 @@ Both November 8 and November 7 reports for all seven roles were retrieved at age
 Selected high-risk packet: **20261108-analytic-3/EC1-EC5**, particularly every original HighData e-dependent field, reconstruction of finite exclusions, order of constants and scales, and the fixed-reference window certificate ceiling. Its report blob is **edecba8785a45cda87c0035d0348695941f1b8ea**. Independent acceptance is NOT asserted at this checkpoint. Original research will investigate whether the fixed-geometry ceiling remains a genuine obstruction after allowing the source geometry itself to vary, without introducing an unproved endpoint assumption.
 
 Canonical VF, q(X)->0, uniform finite A and RH remain OPEN. Source-compatible #1116/#1111 comparisons must use the actual current declarations, not only the older policy headline. No local Lean, source/workflow/PR/branch modification, other-report edit, merge, schedule change or agent launch is authorized or attempted. Direct clone returned CONNECT tunnel HTTP 403; authenticated GitHub retrieval works. The final report will provide exact proofs or precise limitations, source/CI evidence and a verified publication receipt.
+
+
+## Mean-Slot Closure And Independent EC Review - 20261108-referee-3
+
+Actual invocation: 2026-11-08 20:13:00 EST, America/New_York; trigger=SCHEDULED; platform RUN_ID_UNAVAILABLE. This continuation preserves the earlier DR and WT investigations and their publication receipts. Research finished; publication remains PENDING until immutable readback below.
+
+### A. Most Important Mathematical Finding
+
+**The positive-error closure is valid, and the fixed-geometry ceiling is not the ceiling for all geometries with the SAME number of slots.** Independent review accepts 20261108-analytic-3/EC1-EC4 at their precise paper scopes. A further source-admissible averaging of the slot lengths gives the new complete-consumer paper conclusion
+
+```text
+For every D : HighData(1/1000000) satisfying the original FINE condition,
+N=D.N, b_N=7/8-7/(48N):
+    HeckeZeroSupremum.beta <= b_N,
+    MertensGrowthAtMost(b_N).
+```
+
+Here N is fixed before every arithmetic scale. It is not optimized or made scale-dependent. All slots remain positive and distinct at every actual invocation of the analytic theorem. The equal-slot record and the zero-error record are NEVER invoked. Only numerical inequalities for the same beta are closed.
+
+The new claims **20261108-referee-3/SG1-SG4** are PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED. **SG5** is exact FINITE_COMPUTATION, not a prime-ideal experiment. EC receives independent paper acceptance; that does not independently certify this continuation's new SG work.
+
+For the existing N=nearUniformSlotCount, the convenient EC3 ceiling 7/8-7/(64N) improves by 7/(192N). This is a comparison of two COARSE explicit corollaries. Against EC2 on any particular incoming geometry, the genuine improvement is instead
+
+```text
+(7/8)*(1/(6N)-actualSlotMinimum(D)) > 0.
+```
+
+Against the exact positive-error #1116 ceiling on that D, add D.e to this difference. Do not advertise the coarse 1/N comparison as the improvement over every already available unrounded source bound.
+
+This is a new application of existing cancellation through a complete consumer, not new primitive cancellation, not an RH proof, and not a reason to collapse the nine-route portfolio. PAPER_COMPLETE_CONSUMER_GAIN=POSITIVE; NEW_VERIFIED_ENDPOINT_GAIN=NONE; VERIFIED_ETA=NONE; eta_gate=CANDIDATE_ETA_REVIEW_AND_FORMALIZATION_PENDING. Finite A, q(X)->0, canonical VF and RH remain OPEN.
+
+### B. Current Authoritative Objective
+
+Main was fetched at **6144c73b05d5a85e6a9424708986860c6276f60d**, and the pre-draft refresh was unchanged. AGENTS blob **bdd5b9f6867ae2d39b74fc966b7f548a9aba3a61**; CURRENT_PROOF_CONTRACT blob **d1d6fd558ee23927bd9f70ffdc375bafd1dbb67a**. The all-route directive, complete-HIGH and cancellation-chain policies, DAG, atlas, selector, role prompts, complete-return, persistent-engine and breadth safeguards were retrieved and their applicable instructions inspected.
+
+Acknowledgments: REPO_WIDE_PROOF_DAG_AND_AGENTS_20261108; COMPLETE_SIGNED_HIGH_ATTACK_V1; CANCELLATION_CHAIN_REUSE_V1; PAID_BASELINE_EXACT_CONSUMER_V1; NO_PIGEONHOLING_ROUTE_SELECTOR_V1. Selected route=OAI-NNS. Prior actual Referee invocations today reviewed CORR4 and FINITE-AC; those conclusions are carried forward, not rerun.
+
+The canonical objective is one C>=0 such that, for every integer R>=2,
+
+```text
+|pi(R^2)-vfCanonical(R^2)| <= C R log R,
+vfCanonical(R^2)=vfMidFinishedMass(R)+sqrt(2).
+```
+
+The retrieved canonical consumer retains its explicit ClassicalVonKochRHCriterion argument. The native Mertens route has its separate already-proved consumer. Preserve X_R=R^2-1, K_R=max_(0<=y<R)(M(y)-1)^2/(y+1), alpha_R=(M(X_R)-1)^2/(R^2 K_R), A(X)=max_(R>=2,X_R<=X) alpha_R and q(X)=log(1+A(X))/log X. The open zero-log statement requires every eta>0 with a constant independent of R; uniform finite A is stronger.
+
+Both days' seven-role reports were retrieved at agent-reports **5458f44dcf93c49a2d6dfb3b51376d050f975037**. TODAY=AVAILABLE for all roles; YESTERDAY=CARRY_FORWARD at the recorded scopes. AM/PM Coordinator blobs match on both dates. The external inbox has no entry newer than October 18; its unchanged blob is **038018145c0fddb2f6306c0712373adf9cd1ea52**. No new external theorem is invoked in SG: the proof uses the original retrieved records, existing complete consumer and finite-dimensional order/algebra.
+
+### C. Highest-Risk Mechanisms
+
+The decisive risks are reversing the FirstTail implication after shrinking e, silently losing slot injectivity, keeping an old source/probe after changing its physical lengths, taking an unjustified uniform limit of Big-O constants, and treating a positive amplification exponent as zero. A second risk is overstating a valid no-go: EC4 fixes the slot list, not merely its cardinality. This distinction permits SG without contradicting EC4.
+
+Current strongest selected inputs are the literal #1116 bound b0-b0*m+e and #1111's near-uniform fine family, not just the dated policy headline b_base=7/8-1/(48*N_old). Put b0=7/8, m=actualSlotMinimum(D). #1111 also has the named native boundary b_pack=7/8-1/(32*N_pack). Coordinator CP2's source-compatible composition gives 7/8-5/(64*N_pack) on paper. These comparisons are kept separate.
+
+### D. Claims Reviewed And Verdicts
+
+The selected upstream report is 20261108-analytic-3, blob **edecba8785a45cda87c0035d0348695941f1b8ea**. Its argument was read before the independent source reconstruction: this is not a claim-first or blind review.
+
+| Claim | Independent verdict | Exact accepted scope |
+| --- | --- | --- |
+| EC1 | ACCEPT | PAPER_PROOF: every positive error contraction lambda<=1 preserves HighData with the same other data; reconstruct finite exclusions and source counts. No uniform source as lambda->0. |
+| EC2 | ACCEPT | PAPER_PROOF: for every original fine D, beta_H<=b0-b0*m and native every-positive-loss Mertens growth. No no-loss power at that boundary. |
+| EC3 | ACCEPT_WITH_SCOPE | PAPER_PROOF: compose the SAME near-uniform witness and return all native signed terms; the stated coarse explicit, fixed-power, HIGH and amplification consequences follow. Amplification remains a positive-power upper bound. |
+| EC4 | ACCEPT_WITH_SCOPE | PAPER_PROOF: exact infimum b0-b0*m for the unchanged fixed-reference window certificate with FIXED slots; neither a lower bound on beta_H nor a barrier after changing geometry. |
+| EC5 | ACCEPT_WITH_SCOPE | The scalar negative controls are valid. Its reported original run totals were not independently rerun; SG5 is a separately written computation with a different declared domain. No direct prime-ideal evidence is inferred. |
+| 20261108-coordinator-1513/CP2 | ACCEPT_WITH_SCOPE | PAPER_PROOF composition of the inspected #1116 source-parametric theorem with the inspected #1111 fine witness; 5/(64N) is a conservative corollary, not the strongest unrounded bound. |
+| SG1-SG4 | SELF_AUDIT | New paper results proved below; independent acceptance and formalization remain pending. |
+
+No independent verdict is newly assigned to WS/SB, BC, Owner JS, Wheel FD, or Census FR merely because their current reports were read. Prior DR, HC/SJ and WT scopes are not enlarged.
+
+### E. Independent EC Reconstruction
+
+For D : HighData(Delta0), Delta0=1/1000000, the exact fine condition is ell_i<=detectorMesh(Delta0,t)/200 for every i in Fin N. Keep the full original record, including t>0, t<=10^-8, t<Delta0/4, N>0, injective positive ell, sum ell=1/6, (7/8)rmin<=ell_i<=t/200, positive epsilon,e,kappa,cost,eps,sigma, epsilon<rmin*t, every displayed budget and the quantified height_choice.
+
+For 0<lambda<=1, set e'=lambda*e. Original ParametersHighData.lean contains exactly the following nontrivial e-dependent budget fields. The change in the left side is nonpositive; the right sides do not change.
+
+| Field | Amount subtracted from its left side |
+| --- | --- |
+| detector_budget | 288(e-e') |
+| phase_budget | 8t(e-e') |
+| central_budget | 26(e-e') |
+| geometric_budget | 8(e-e') |
+| window_budget | e-e' |
+| floor_budget | 26(e-e') |
+
+The strict e_pos and e_small conditions remain valid. count_budget, principal_budget, high_saving, all slot conditions, epsilon_gap and the ENTIRE height_choice proposition are unchanged. In particular the moment allowance t is not shrunk. The physical ell function is identical, so the minimum VALUE is unchanged; no equality of arbitrary minimizing-index choices is required.
+
+SourceData.first is FirstTail(4e) S. It does not imply FirstTail(4e') S in the needed direction. The original exists_fixed_source(e',he',S0,hS0) provides a finite S containing any given finite prime-ideal S0, SourceExclusions S, FirstTail(4e') S and maximality of every member. The smooth window can be retained, but the source modulus, correction and counts belong to this newly chosen S. The complete existing existence and count constructors certify that source.
+
+The literal merged native_beta_le_window_saturated_minimum_of_fine applied to the new record gives
+
+```text
+beta_H <= b0-b0*m+lambda*e.
+```
+
+If d=beta_H-(b0-b0*m)>0, choose lambda=min(1,d/(2e)); then lambda*e<d, a contradiction. This closes a real-number inequality. It never takes a limit of probes, masks, constants or norms. native_mertens_growth_at_hecke_beta and growthAtMost_mono supply the true arithmetic consequence.
+
+The complete probe bounds used at each fixed certificate are LOW O(Z^(3/16-9h+loss)) for every loss>0 and probe-minus-signal O(Z^(b0-11/16-8h-sigma)). The source theorem sets h=sigma=b0*m-e' after exact-minimum/cap calibration. The signal comparison retains both branches, max(b0-h+loss,b0-sigma), and selects a strictly positive loss below a hypothetical gap. No upper bound is subtracted from another upper bound.
+
+### F. SG1-SG2: A Stronger Complete Source Closure
+
+**SG1, admissible averaging.** For any such D set a=1/(6N). For every real 0<theta<=1 define
+
+```text
+ell_theta(i)=(1-theta)*a+theta*ell(i).
+```
+
+Replace ONLY ell and its proofs; keep t,N,rmin,epsilon,e,kappa,cost,eps,sigma unchanged. This gives another HighData record and preserves FINE.
+
+Proof: averaging the original lower and upper slot inequalities gives (7/8)rmin<=a<=t/200. Averaging FINE gives a<=detectorMesh(Delta0,t)/200. Each new slot is a convex combination in those same intervals, hence positive and within both caps. Its sum is (1-theta)*N*a+theta/6=1/6. Equality of two new slots implies theta*(ell_i-ell_j)=0, hence i=j because theta>0 and original ell is injective. No other original field depends on ell, as verified in the full HighData declaration. In particular epsilon_gap means epsilon<rmin*t, NOT a bound on pairwise slot spacing.
+
+Let m=min_i ell_i. Monotonicity of this affine map and a minimizing original index give the exact VALUE
+
+```text
+m_theta=a+theta*(m-a).
+```
+
+Every admissible record has N>1: if N=1, its unique slot would be 1/6, contradicting ell<=t/200<=1/(200*10^8). Injectivity then implies m<a, since at least one slot is strictly greater than the minimum. Thus m_theta>m whenever theta<1. This is a genuine admissible geometry change, not an assumed improvement of an arithmetic norm.
+
+**SG2, fixed-count closed endpoint.** Apply EC1 to the averaged record with 0<lambda<=1, and apply the COMPLETE #1116 theorem to that valid record. Rebuild the actual finite source as necessary. For every pair of fixed positive parameters,
+
+```text
+beta_H <= b0-b0*m_theta+lambda*e
+       = b_N+theta*d_geom+lambda*e,
+b_N=b0-b0*a=7/8-7/(48N),
+d_geom=b0*(a-m)>0.
+```
+
+If beta_H>b_N, put d=beta_H-b_N and select theta=min(1,d/(4*d_geom)) and lambda=min(1,d/(4e)). Both are strictly positive and at most one, and theta*d_geom+lambda*e<=d/2<d. The displayed bound contradicts the proposed gap. Therefore beta_H<=b_N. Native MertensGrowthAtMost(b_N) follows by the original zeta-to-Hecke product/converse, not an identification of Mobius signs and ideal-character phases.
+
+This also proves the result directly from #1116 without treating the yet-unformalized EC2 conclusion as an additional analytic axiom. EC1 and SG1 are elementary record constructions; the genuine source and full analytic return already exist for every positive pair. Source selection occurs before the arithmetic scale. An arbitrary sequence of growing moduli at that scale is not used.
+
+### G. SG3: Complete Arithmetic Return And Comparisons
+
+Fix one supplied D and N=D.N. The compiled native interface and the proof above give, for every eta>0, a C_eta>=0 independent of all n>=1,
+
+```text
+|M(n)| <= C_eta*n^(b_N+eta).
+```
+
+Choose the #1111 witness to obtain the same statement with the already defined N_pack=nearUniformSlotCount. No new N or mesh optimization is performed. Its explicit upper bound and distinctness remain legal after every positive contraction.
+
+For the specific displayed #1111 constructor, w_j=1+j/N^2 and ell_j=w_j/(6*sum_i w_i). Direct summation gives
+
+```text
+sum_i w_i=N+(N-1)/(2N),
+m=N/[3*(2N^2+N-1)],
+d_geom=7*(N-1)/[48*N*(2N^2+N-1)].
+```
+
+Thus the unrounded geometric improvement for that construction is of order 1/N^2, not the order-1/N difference between coarse corollaries. This explicit comparison is paper algebra about the displayed witness, not a formula asserted by the existing existential Lean signature.
+
+| Comparator at the SAME N_pack | Closed paper bound | Difference of displayed ceilings |
+| --- | --- | --- |
+| Named #1111: b0-1/(32N) | b_N | 11/(96N) |
+| Conservative CP2: b0-5/(64N) | b_N | 13/(192N) |
+| Conservative EC3: b0-7/(64N) | b_N | 7/(192N) |
+| Exact EC2 on D: b0-b0*m | b_N | d_geom |
+| Exact #1116 on D: b0-b0*m+e | b_N | d_geom+e |
+
+For a fixed no-loss power strictly improving the coarse EC3 ceiling, spend eta=7/(384N), yielding exponent 7/8-49/(384N). For a strict improvement relative to the EXACT EC2 geometry, instead spend d_geom/2, yielding b_N+d_geom/2. These are different benchmarks; no positive loss is silently discarded.
+
+The source-exact native returns, with constants chosen after eta and fixed Lambda>=0, are:
+
+```text
+2*sum_(1<=u<v<=n) mu(u)*mu(v)
+  <= C_eta*n^(2*b_N+eta)-sum_(k<=n)mu(k)^2;
+
+H_R=canonicalHighPrefix(Lambda,R-1), X_R=R^2-1,
+|H_R| <= C_(eta,Lambda)*R^(2*b_N+eta)             (R>=2);
+sum_(0<=j<h)|H_(T+j+1)|^2
+  <= C_(eta,Lambda)*h*T^(4*b_N+eta)              (T>=1, 1<=h<=T);
+
+A(X) <= C_eta*X^(2*b_N-1+eta)                   (integer X>=1);
+limsup q(X) <= 2*b_N-1=3/4-7/(24N).
+```
+
+The signed-pair inequality is exactly M(n)^2=diagonal+2*pairs followed by the positive-loss estimate; eta is relabeled before the constant is fixed. The original squarefree diagonal and all pairs survive. The HIGH return uses the exact original birth-height split M(X_R)=L_R+H_R and |L_R|<=(floor Lambda+1)R. Since b_N>1/2, this residual is absorbed. The window consequence includes h=1, and T+j+1<=3T gives its uniformity. There is no local-increment sum-of-squares substitution.
+
+The amplification source is the original shifted endpoint and strict-history denominator. This particular upper bound uses K_R>=1, and therefore loses its finer historical information: the displayed exponent is still positive. The native bound already holds at every integer, so no square-to-full-prefix interpolation is missing. These are paper consequences of SG2, not new compiled declarations.
+
+### H. SG4: Sharp Restricted Ceiling, Quantifiers And Falsifiers
+
+Fix N and consider only certificates licensed by the current fixed-reference window comparison, with positive distinct slots summing to 1/6, exact-minimum rmin calibration, e'>0, sigma+e'<=b0*m and h<=sigma. Every such certificate satisfies
+
+```text
+h < b0*m < b0/(6N),
+b0-h > b_N.
+```
+
+Conversely SG1 and EC1, followed by the already-proved saturation, approach b0/(6N) from below while all other conditions remain valid. The exact INFIMUM of thresholds for this class at fixed N is b_N. It is not achieved by an actual positive-error distinct-slot certificate, but the common numerical beta upper bound can equal the infimum. This is sharpness of the proof certificate, NOT beta_H>=b_N.
+
+EC4 therefore remains correct with FIXED geometry. Its hypothetical extension to fixed cardinality would be false: theta<1 strictly increases the actual minimum without violating any original record field. No upstream author is alleged to have asserted that stronger statement.
+
+The boundary controls have exact scope:
+
+- theta=0 makes all N>1 slots equal and violates slots_injective. This is a rejected source record, not a counterexample to RH.
+- e'=0 violates e_pos. Taking h=b0/(6N) at any finite positive theta,lambda violates the actual window budget by b0*(a-m_theta)+lambda*e>0.
+- Raising every ell_i by a-m without compensation changes total slot mass by N*(a-m)>0; it cannot replace SG1.
+- Reusing an old FirstTail proof at a smaller allowance is unsupported. Rebuilding the finite exclusions is essential.
+- A uniform scale threshold in theta is not justified. For any two distinct original exponents with gap g>0, their literal real windows [Z^ell,2Z^ell] separate only when theta*g*log Z>log 2. For every fixed Z>1, sufficiently small positive theta makes these windows overlap. This is a real-window separation diagnostic, not an assertion that admitted prime-ideal populations necessarily overlap.
+- f(Z)=Z^b log Z satisfies O_delta(Z^(b+delta)) for every delta>0 but not O(Z^b). Thus the closed numerical bound does not remove the Mertens positive exponent allowance.
+
+Even allowing different admissible N, this particular certificate class cannot iterate to RH merely by error or geometry closure: a<=t/200<=1/(200*10^8), so its available reserve is at most 7/(160000000000). The additional FINE restriction can only reduce that cap. This is a bound on the unchanged construction, not a universal impossibility theorem for analytic methods, WS/SB's revised window, or actual primes. No denominator optimization is proposed.
+
+No target-size estimate, finite-A assertion, fractional owner contraction, or new zero-free hypothesis is assumed. The native conclusion is at b_N>1/2; it is not asserted TARGET_EQUIVALENT to the canonical objective. No reverse transfer from a rational Mertens bound to all Hecke zeros is used or claimed.
+
+### I. Strongest Surviving Repair
+
+Accept EC with its finite-source reconstruction. Distinguish the fixed-slot ceiling b0-b0*m from the fixed-N ceiling b_N. Use the convex averaging constructor to approach the latter while retaining injectivity, then close only beta. Do not implement a degenerate equal-slot or zero-error source.
+
+After this fixed-N closure, repeated iterations of the same averaging/error argument recover no further gain. A further meaningful consumer improvement must alter a genuinely binding window/return estimate or use a distinct independent route. WS/SB's separation of bulk error from actual-boundary window error remains a specific candidate, not an established input and not a compulsory programme-wide task.
+
+### J. Competing Strategy Assessment And Continuity
+
+This run uses existing OAI cancellation to strengthen a full consumer. BC's marked-moment/count improvement is not silently credited with a window improvement. EC4/SG4 concern only that unchanged window and do not refute BC's actual count results or WS/SB's different assembly.
+
+Read continuity includes Coordinator 20261107-coordinator-2309/WS and 20261108-coordinator-1513/AF/CP; Analytic 20261107-analytic-3/BC and 20261108-analytic-3/EC; Owner 20261107-owner-3/JT and 20261108-owner-3/JS; Wheel 20261107-wheel-3/OC and 20261108-wheel-3/FD; Census 20261107-census-2/RC and 20261108-census-3/FR; own 20261107-referee-3/TF and today's DR/WT; Lean #1107 and #1111/#1113 repair evidence. These reports are not all independently accepted by this review.
+
+Owner's fixed-packet JOH oscillation and Wheel's physical donor deficit remain different mathematical carriers. Census's newest genuine sign falsifiers R=6/28 and held-out R=258/307 retain their stated auxiliary-frequency scope, pending independent review. None is replaced by OAI source geometry. The nine viable routes remain active; universal BLOCK remains refuted at R=549.
+
+### K. SG5: Original Research And Executed Checks
+
+The new research question was whether EC4's geometry restriction, rather than a new moment inequality, left a legal complete-consumer improvement. SG1-SG4 answer that question and identify the sharp restricted replacement. The proofs are universal; the finite diagnostics are supplementary.
+
+A separately written Python Fraction verifier used nine closed-form scalar HighData fixtures: t in {10^-8,10^-10,10^-20}, N in {100/t,10000/t,10^8/t}. It checked all original scalar budgets and slot extrema/sums exactly, with no enumeration of an astronomical slot set. An arbitrary common upper cap was preserved, which tests the algebra used to preserve FINE but does not instantiate the actual detector mesh. No prime-ideal integral, source moment or all-scale arithmetic bound was numerically computed.
+
+The fixed test domain included theta in {1,1/2,1/10,10^-6}, lambda in {1,1/3,10^-9}, four height indices per record, and independent finite enumeration of distinct slot vectors for N=2..32 with three weight profiles. The script was written before its first execution; explicit expected-failure e=0/theta=0 assertions were added after the first pass and the entire script rerun. No successful or failed run is relabeled preregistered blind evidence.
+
+Final exact results: **108 contracted/error-shrunk records, 108 saturated records, 900 height checks, 279 directly enumerated geometries, 27 strict-gap choices and 18 rejected invalid boundary records: PASS.** No floating-point sign, primality assertion, fitted exponent or infinite-domain extrapolation is involved.
+
+Verifier SHA256: **9b8aa282e951bc36e352b332b90fe0e759f0002eac67f7f27b983c9b4b273bf4**. Canonical rational-record SHA256: **240a7e3945e1094c5eef330a8db175325b044318675c381487f11f53f927e33b**. The full final verifier follows the source ledger for reproduction. EC5's separate original experiment was not rerun.
+
+### L. Formalization And Actual CI Evidence
+
+PR #1111 is human-merged at **675e7a959b994a0507f3ac20d22c2d471f3507dd**, head **20875a55dd9780993c4cdc06624c88be6060e2ee**. The actual dedicated job **128828203921**, run **42512437623**, checked out that EXACT head. Its terminal PASS lines for groupedSquareBlocks_sum, native_beta_le_near_uniform_slots and native_mertens_near_uniform_slots report only propext, Classical.choice and Quot.sound. All 12 returned PR-triggered workflow runs succeeded. The API is first-page-limited; this is not an invented exhaustive total of all check types.
+
+PR #1116 is human-merged as current main, head **1e32da429324c39a791406a0ae1265581df7ea06**. All 13 returned PR-triggered workflows succeeded. The actual dedicated job **128853972193**, run **42520918799**, checked out synthetic merge **60fa59f302f26900435231cd9685f0f6c5f9b82a**, NOT the PR head. The log was read, including its warning-fatal commands, displayed terminal types and multiline axiom output. The new parametric beta theorem and native explicit theorem use only the three permitted axioms.
+
+Independent full recursive-tree comparison, neither tree truncated: the tested snapshot had 3710 entries, current main 3715; every existing blob is identical, with only the five #1115 files added. None is imported by this endpoint. The proof source, original OAI pin **1581d4cbdd69a0faf34b2089614fe2a814316a6a**, workflow and dependencies therefore have explicit compiled-snapshot reuse evidence. This is NOT described as exact-PR-head or whole-current-main execution. Under the strict exact-head gate, that distinction must remain visible; a human merge does not erase it.
+
+Both logs also contain upstream Wiener.lean warnings about two sorry declarations. They are not hidden or described as absent. The inspected terminal axiom closures exclude sorryAx; unrelated build warnings are not evidence that the selected terminal theorems depend on those declarations. No repository-wide placeholder-free claim is made from these logs.
+
+#1115 is merged at **93ea6feabc968a99b9fc36cedb7e91ec5d5558ab**; its reciprocal-band mathematics was not independently audited in this run. The open/draft collection was empty at intake. Earlier report claims that #1111 was failed/draft are preserved as historical observations, superseded for current status only.
+
+**Late-arrival refresh, 20:30 EST:** main remains unchanged, and all six upstream November 8 report blobs are unchanged. New draft **#1117**, head **f7a8e62598a5e73f755e50dc9d91644e840fdec6**, appeared at 20:27 EST. Its subject is fixed four-prime square-block physical drift and genuine rough-cofactor cancellation, not the selected EC/SG source. Metadata and changed-file list were retrieved. The dedicated run **42545864597** was IN_PROGRESS; among the 13 returned workflows, one policy check had succeeded and the others were in progress, pending or queued. Its mathematics is NOT newly independently accepted or Lean-certified by this report, and its reported R=137 witness was NOT reproduced here. No wait loop, rerun, source/PR edit or assumption of eventual success is made. This is a separate next-review candidate, not a reason to discard the completed selected investigation.
+
+Two implementation-sized handoffs, with review boundaries:
+
+1. EC1-EC3 are independently accepted at paper scope: formalize a positive-error-shrinking HighData constructor, minimum-value invariance, the closed beta inequality and native consequence. Reconstruct SourceData through the original existence theorem; do not assume the smaller FirstTail.
+2. SG1-SG4 need another independent review before formalization: a mean-slot contraction constructor, exact minimum identity, fixed-N beta closure, and same-witness nearUniformSlotCount corollary. Preserve theta>0 and e'>0; prove closure without a limiting source. Include the nonattainment and exact comparison tests.
+
+No Lean file, feature branch, PR, workflow or schedule was modified and no local Lean or CI run was launched. Existing proofs are inputs; neither EC nor SG is declared newly PROVED_IN_LEAN by this report.
+
+### M. Specialist Handoffs
+
+| Recipient | Exact continuation |
+| --- | --- |
+| Proof Architect | Record independent EC acceptance separately from new SG self-audit. Compare unrounded same-D gains using d_geom, not only coarse 1/N constants. Retain broad coverage and the exact-head qualification. |
+| Analytic Type II | Independently attack SG1 against every ell-dependent requirement and SG2's source order. Keep BC and WS/SB distinct; after fixed-N closure the unchanged gate cannot yield more by repetition. |
+| Lean Verification | EC is ready for scoped implementation; SG requires independent acceptance first. Use the two tasks above and actual exact-head/type/axiom checks. No target premise, e=0 or equal-slot record. |
+| Prime Census Laboratory | A useful check is a fresh symbolic/record audit of SG1, not another large prime range or repetition of this scalar grid. Keep FR's original residue, cube-root modes and exact historical shift for its separate review. |
+| Owner Payment | Continue original VF/SAT/JOH. The Hecke source geometry has no asserted occurrence-preserving bridge to #915 masks or Johnston first moments. JS/JT remain queued at their stated scopes. |
+| Finite Wheel | Preserve FINITE-AC/CORR4/MU-LIFT and FD's physical occurrences. SG's amplification corollary still spends only K_R>=1 and does not pay the remaining signed mixed source or daughter credit. |
+
+These are published handoffs for future authorized invocations, not claims that another agent was launched or accepted this work.
+
+### N. First Independently Missing Ingredient
+
+For EC, the independent mathematical review is now supplied; formal implementation and relevant exact-head certification remain. For SG, independent review and formalization remain. No new unproved analytic estimate is concealed in their displayed complete-consumer paper derivations.
+
+For a further fixed-N OAI improvement, the current gate must be strengthened in a source-valid full return; separating bulk and actual-boundary window errors remains a precise possible investigation. For zero-log amplification or finite A, an independent estimate exploiting the real historical envelope is still absent. The positive exponent 3/4-7/(24N) is not a partial proof of zero merely because it is smaller than its predecessor.
+
+### O. Resume Capsule And Publication Discipline
+
+```text
+run=20261108-referee-3; actual trigger=2026-11-08 20:13:00 EST
+main=6144c73b05d5a85e6a9424708986860c6276f60d
+selected_route=OAI-NNS; reviewed=20261108-analytic-3/EC1-EC4
+review=ACCEPT / ACCEPT_WITH_SCOPE at PAPER_PROOF
+new_claims=20261108-referee-3/SG1-SG5
+new_geometry=ell_theta=(1-theta)/(6N)+theta*ell, 0<theta<=1
+new_closed_boundary=7/8-7/(48N), fixed existing N
+exact_same_D_gain_over_EC2=(7/8)*(1/(6N)-m)>0
+source_order=positive parameters, valid records, finite masks, complete probe, numerical closure
+original_high_return=all prefixes and all h including h=1
+amplification_limsup=3/4-7/(24N)>0; no finite-A or RH conclusion
+new_status=PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING
+formal_execution=NONE; VERIFIED_ETA=NONE
+next=independent SG review; avoid repeated fixed-N optimization
+distinct_pending_reviews=Owner JS/JT, Census FR/Coordinator AF, Wheel FD, WS/SB
+```
+
+Early checkpoint **e04cf369501724709e0a2c54a670ebfc809e030a**, blob **8f590d28e2b6d68fdded1bdf2ccb17831efdb997**, was verified by immutable full-content readback. This synthesis is appended only after refreshing the current own-report blob; preserve intervening content and reconcile a conflict once if necessary. Final publication is claimed only after the actual commit/readback and changed-path verification.
+
+Direct git clone failed with CONNECT tunnel HTTP 403; authenticated GitHub tools supplied the original sources and publication path. No source retrieval needed for the selected proof remained blocked. The exact math, new self-audit, inherited compilation evidence, pending formal work and publication status are deliberately separate.
+
+### Immutable Source And Continuity Ledger
+
+The tables below are generated from the actual retrieved metadata, not copied from a historical status narrative. All RH_Lean sources are pinned to the main SHA above; original OAI sources are pinned to 1581d4cbdd69a0faf34b2089614fe2a814316a6a. Report blobs are the intake snapshot before this continuation's own checkpoint.
+
+
+| Source at main | Blob SHA |
+| --- | --- |
+| [AGENTS.md](https://github.com/OVVO-Financial/RH_Lean/blob/6144c73b05d5a85e6a9424708986860c6276f60d/AGENTS.md) | bdd5b9f6867ae2d39b74fc966b7f548a9aba3a61 |
+| [CURRENT_PROOF_CONTRACT.md](https://github.com/OVVO-Financial/RH_Lean/blob/6144c73b05d5a85e6a9424708986860c6276f60d/CURRENT_PROOF_CONTRACT.md) | d1d6fd558ee23927bd9f70ffdc375bafd1dbb67a |
+| [docs/RHLEAN_REPO_WIDE_PROOF_ATTACKS_20261108.md](https://github.com/OVVO-Financial/RH_Lean/blob/6144c73b05d5a85e6a9424708986860c6276f60d/docs/RHLEAN_REPO_WIDE_PROOF_ATTACKS_20261108.md) | 5862ccaffd0e75c25b509c1d246c3aa09b6c345b |
+| [docs/PROOF_DEPENDENCY_DAG.md](https://github.com/OVVO-Financial/RH_Lean/blob/6144c73b05d5a85e6a9424708986860c6276f60d/docs/PROOF_DEPENDENCY_DAG.md) | 455717b6d99da7248c71ada0062dfd6747a7938d |
+| [docs/COORDINATE_ATLAS.md](https://github.com/OVVO-Financial/RH_Lean/blob/6144c73b05d5a85e6a9424708986860c6276f60d/docs/COORDINATE_ATLAS.md) | cd0419d00a37739fe5a292f5cb738e33213949d5 |
+| [docs/RHLEAN_COMPLETE_SIGNED_HIGH_ATTACK_20261107.md](https://github.com/OVVO-Financial/RH_Lean/blob/6144c73b05d5a85e6a9424708986860c6276f60d/docs/RHLEAN_COMPLETE_SIGNED_HIGH_ATTACK_20261107.md) | 53a4685d7260e4f3abd05f60fdd0221b5ea5c603 |
+| [docs/RHLEAN_REUSE_CANCELLATION_CHAIN_20261107.md](https://github.com/OVVO-Financial/RH_Lean/blob/6144c73b05d5a85e6a9424708986860c6276f60d/docs/RHLEAN_REUSE_CANCELLATION_CHAIN_20261107.md) | 28e2ab47c68bc83b91ae02b6112b94867b021b32 |
+| [research/oai_434/VF919WindowSaturatedLowPrincipal.lean](https://github.com/OVVO-Financial/RH_Lean/blob/6144c73b05d5a85e6a9424708986860c6276f60d/research/oai_434/VF919WindowSaturatedLowPrincipal.lean) | b7b05069ea013d83b2acaa76a8ea2ed932568930 |
+| [research/oai_434/VF919ExplicitSquareBlockPacking.lean](https://github.com/OVVO-Financial/RH_Lean/blob/6144c73b05d5a85e6a9424708986860c6276f60d/research/oai_434/VF919ExplicitSquareBlockPacking.lean) | 32999039fdeea99c58a070c1c4ee9c140720dd44 |
+| [research/oai_434/VF919ActualSlotMinRetighten.lean](https://github.com/OVVO-Financial/RH_Lean/blob/6144c73b05d5a85e6a9424708986860c6276f60d/research/oai_434/VF919ActualSlotMinRetighten.lean) | 138c4726085995b966204406805f70082402bec4 |
+| [research/oai_434/VF919TotalMassEndpoint.lean](https://github.com/OVVO-Financial/RH_Lean/blob/6144c73b05d5a85e6a9424708986860c6276f60d/research/oai_434/VF919TotalMassEndpoint.lean) | 827bb952c4d4311d75fd03a2470799dc10b0f7e7 |
+| [research/oai_434/VF919ExplicitFixedSourceSlotCount.lean](https://github.com/OVVO-Financial/RH_Lean/blob/6144c73b05d5a85e6a9424708986860c6276f60d/research/oai_434/VF919ExplicitFixedSourceSlotCount.lean) | bad5aab0a60e96d19e7c9550cd7c0a072288bc0f |
+| [research/oai_434/VF919NativeStrictMertens.lean](https://github.com/OVVO-Financial/RH_Lean/blob/6144c73b05d5a85e6a9424708986860c6276f60d/research/oai_434/VF919NativeStrictMertens.lean) | b33a4883e1ddb0551b0f11f062bce46680d87450 |
+| [research/oai_434/VF919ExplicitAmplificationBound.lean](https://github.com/OVVO-Financial/RH_Lean/blob/6144c73b05d5a85e6a9424708986860c6276f60d/research/oai_434/VF919ExplicitAmplificationBound.lean) | f3cb6dbe1eb53c910c9b4b203d98ff849bd27dd3 |
+| [research/OAI_WINDOW_SATURATED_LOW_PRINCIPAL_20261108.md](https://github.com/OVVO-Financial/RH_Lean/blob/6144c73b05d5a85e6a9424708986860c6276f60d/research/OAI_WINDOW_SATURATED_LOW_PRINCIPAL_20261108.md) | 063573706bb23e71106ffee1e6dd01921afaedc8 |
+| [research/MERTENS_EXPONENT_ENVELOPES.lean](https://github.com/OVVO-Financial/RH_Lean/blob/6144c73b05d5a85e6a9424708986860c6276f60d/research/MERTENS_EXPONENT_ENVELOPES.lean) | 655b896e8d5a41c9f8fc3c456eae3944a98bfefe |
+| [research/VF_CANONICAL_SQRT_TWO_VON_KOCH.lean](https://github.com/OVVO-Financial/RH_Lean/blob/6144c73b05d5a85e6a9424708986860c6276f60d/research/VF_CANONICAL_SQRT_TWO_VON_KOCH.lean) | 79030d70e8d3e0d08eef9bac53fef95c36eca2fb |
+| [RHLean/Analysis/CanonicalHighSectorCore.lean](https://github.com/OVVO-Financial/RH_Lean/blob/6144c73b05d5a85e6a9424708986860c6276f60d/RHLean/Analysis/CanonicalHighSectorCore.lean) | dd02fc8fabfe4004c6b0d50374b3b8752607b168 |
+| [RHLean/Analysis/CanonicalLowOccupancy.lean](https://github.com/OVVO-Financial/RH_Lean/blob/6144c73b05d5a85e6a9424708986860c6276f60d/RHLean/Analysis/CanonicalLowOccupancy.lean) | b958da340d107cdd00015d2827b9a728357b4d8e |
+| [RHLean/Proof/SquareRootAmplificationLogGrowth.lean](https://github.com/OVVO-Financial/RH_Lean/blob/6144c73b05d5a85e6a9424708986860c6276f60d/RHLean/Proof/SquareRootAmplificationLogGrowth.lean) | 2599db31079f388229d072ee616957fba6ffc555 |
+
+| Original OAI source | Blob SHA |
+| --- | --- |
+| [ParametersHighData.lean](https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/NumberTheory/DirichletL/ParametersHighData.lean) | c565dc0a72c7da9a2706cdd835e69a39e8c0dc14 |
+| [ParametersDetectorScales.lean](https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/NumberTheory/DirichletL/ParametersDetectorScales.lean) | fcc6a547cd6eb0fb5da4e72e3ce926549415a7bf |
+| [ParametersFixedSource.lean](https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/NumberTheory/DirichletL/ParametersFixedSource.lean) | d7dc90c32ac1ceafb542191ac782e9ed4e13e9a9 |
+| [Detector/FinalAssemblyData.lean](https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/NumberTheory/DirichletL/Detector/FinalAssemblyData.lean) | ebc462f5678b6c9dafd55ee8a434d1538d814790 |
+| [Detector/FinalAssemblySource.lean](https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/NumberTheory/DirichletL/Detector/FinalAssemblySource.lean) | 93c4852b1fae505afd77a4e6b800613fcf253667 |
+| [Detector/FinalAssemblyCountParameters.lean](https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/NumberTheory/DirichletL/Detector/FinalAssemblyCountParameters.lean) | 055b2b222dd291b51deb02161f0e8a53b04412eb |
+| [Detector/SourceExclusions.lean](https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/NumberTheory/DirichletL/Detector/SourceExclusions.lean) | 438bef0305ffa1afef7198d392a664c32afdac80 |
+
+| Report | November 7 blob | November 8 intake blob |
+| --- | --- | --- |
+| 00-coordinator-am.md | 00a649b70f851ca193e74e5004d0d3390cf9ca18 | 5d14fb5e0eb3e40a479ebb344b9f8a84a169535e |
+| 10-owner-payment.md | 933e8eb23e669594cc687059d75147e6267eec8d | 4e1b83a1e5ff8c134e9ca64404397c70c2b07252 |
+| 20-analytic-type-ii.md | 77f3e5795533041e4356ceb94cb66328da7af27c | edecba8785a45cda87c0035d0348695941f1b8ea |
+| 30-finite-wheel.md | 7739fa5d4cc77f35773b0d4149b2ddd21732a70d | 60d4cf1b65d4b1b2cc4f13f6c0940c14cb2c50fd |
+| 40-prime-census.md | 3fae830e34c590d32c31ad77cad3ace833eb3ff5 | 00f4f9c0d670821a0c9d1da31fd1c4d0afd09142 |
+| 50-adversarial-referee.md | 426c2abfa5b8926b512e07f05be37692a2416d0b | 68b1162b59f195722fc34378c0d4a182884025dd |
+| 60-lean-verification.md | ec14e2803af8c1e56123682ee61ed927ed4f9450 | 7f394c7ca839386c6692a5ad622f26c299db8abb |
+
+External inbox: 038018145c0fddb2f6306c0712373adf9cd1ea52. Coordinator PM mirrors have the same blobs as AM in both columns.
+
+### Reproducibility Appendix - SG5
+
+The following is the final executed diagnostic, including the explicitly added invalid-boundary tests. It is ordinary Python exact arithmetic, not Lean source.
+
+```python
+"""Exact scalar diagnostics, not Lean execution or prime-ideal experiments."""
+
+from fractions import Fraction as F
+from hashlib import sha256
+import json
+
+
+B = F(7, 8)
+T = F(1, 6)
+records = []
+height_checks = 0
+rejected_records = 0
+
+
+def budgets(d):
+    t, n, r = d['t'], d['n'], d['rmin']
+    ep, e, k, c, eps, s = (d[x] for x in
+                          ['epsilon', 'e', 'kappa', 'cost', 'eps', 'sigma'])
+    return {
+        'detector': (288 * e + 8 * k + 2 * c, ep / 2),
+        'phase': (8 * e * t + k, ep),
+        'count': (159 * ep + 9 * t, F(1, 32)),
+        'central': (F(13, 16) * (159 * ep + 9 * t) + 2 * t + 3 * t
+                    + 26 * e + (n + 8) * eps + t + t / 6 + 3 * t + t,
+                    F(49, 440640)),
+        'geometric': (s + 8 * e + t / 8, F(63, 800)),
+        'principal': (s + t / 8, F(17, 48000)),
+        'window': (s + e, B * B * r),
+        'floor': (2 * t + 26 * e + (n + 8) * eps + t + t / 6 + t / 8 + s,
+                  F(7, 1200)),
+        'saving': (s + t / 4, t),
+    }
+
+
+def check(d):
+    global height_checks
+    n, t, m, step = (d[x] for x in ['n', 't', 'minimum', 'step'])
+    top = m + (n - 1) * step
+    assert 0 < t < F(1, 4000000) and t <= F(1, 10**8)
+    assert n > 1 and m > 0 and step > 0
+    assert n * m + step * F(n * (n - 1), 2) == T
+    assert B * d['rmin'] <= m <= top <= t / 200
+    assert top <= d['cap']
+    assert d['rmin'] > 0
+    assert 0 < d['epsilon'] <= F(1, 1000)
+    assert d['epsilon'] < d['rmin'] * t
+    assert 0 < d['e'] < F(1, 1000)
+    assert 0 < d['kappa'] <= 1
+    assert d['cost'] > 0 and 0 < d['eps'] <= 1 and d['sigma'] > 0
+    assert all(lhs <= rhs for lhs, rhs in budgets(d).values())
+    for j in [F(0), F(1, 3), F(1), F(10**6)]:
+        tau = min(d['cost'] / 3200, F(1, 1600), t / (4 * (j + 7)))
+        assert 0 < tau < F(1, 400)
+        assert 4 * tau < d['cost'] / 200 and tau < t
+        assert 2 * tau * (1 + j) <= t
+        assert tau * (2 + 4 * d['eps']) < t
+        height_checks += 1
+
+
+for tden in [10**8, 10**10, 10**20]:
+    t = F(1, tden)
+    for multiple in [100, 10000, 10**8]:
+        n = multiple * tden
+        a = F(n) + F(n - 1, 2 * n)
+        m = 1 / (6 * a)
+        step = 1 / (6 * a * n * n)
+        mean = T / n
+        rmin = m / (2 * B)
+        epsilon = min(rmin * t / 8, t / (10 * (n + 2000)))
+        d = dict(t=t, n=n, minimum=m, step=step, rmin=rmin,
+                 epsilon=epsilon, e=epsilon / 10**6,
+                 kappa=epsilon / 1000, cost=epsilon / 1000,
+                 eps=t / (100 * (n + 2000)), sigma=m / 16,
+                 cap=m + (n - 1) * step)
+        check(d)
+        for bad in [dict(d, e=F(0)), dict(d, minimum=mean, step=F(0))]:
+            try:
+                check(bad)
+            except AssertionError:
+                rejected_records += 1
+            else:
+                raise AssertionError('Invalid boundary record was accepted')
+        exact_gap = B * (mean - m)
+        assert exact_gap == F(7 * (n - 1), 48 * n * (2 * n * n + n - 1))
+        assert exact_gap > 0
+        for theta in [F(1), F(1, 2), F(1, 10), F(1, 10**6)]:
+            for lam in [F(1), F(1, 3), F(1, 10**9)]:
+                q = dict(d, minimum=(1 - theta) * mean + theta * m,
+                         step=theta * step, e=lam * d['e'])
+                check(q)
+                assert all(budgets(q)[key][0] <= val[0]
+                           for key, val in budgets(d).items())
+                sat = dict(q, rmin=q['minimum'] / B,
+                           sigma=B * q['minimum'] - q['e'])
+                check(sat)
+                assert sat['sigma'] < F(1, 960) and 24 * sat['sigma'] < t
+                threshold = B - sat['sigma']
+                closed = B - B * mean
+                assert threshold - closed == theta * exact_gap + lam * d['e']
+                assert threshold > closed
+                assert B * mean + q['e'] > B * q['minimum']
+                records.append([str(t), str(n), str(theta), str(lam),
+                                str(threshold - closed)])
+
+        # A strict putative violation is contradicted by one fixed certificate.
+        for gap in [exact_gap / 100, d['e'] / 100, F(1, 10**100)]:
+            theta = min(F(1), gap / (4 * exact_gap))
+            lam = min(F(1), gap / (4 * d['e']))
+            assert 0 < theta <= 1 and 0 < lam <= 1
+            assert theta * exact_gap + lam * d['e'] <= gap / 2 < gap
+
+# Direct finite enumeration tests the affine minimum without the closed formula.
+enumerated = 0
+for n in range(2, 33):
+    for power in [1, 2, 3]:
+        weights = [F((j + 1)**power) for j in range(n)]
+        ell = [w / (6 * sum(weights)) for w in weights]
+        mean, m = T / n, min(ell)
+        for theta in [F(1), F(3, 5), F(1, 1000)]:
+            new = [(1 - theta) * mean + theta * x for x in ell]
+            assert sum(new) == T and len(set(new)) == n
+            assert min(new) == mean + theta * (m - mean)
+            assert min(ell) <= min(new) and max(new) <= max(ell)
+            assert min(new) < mean
+            enumerated += 1
+        assert len(set([mean for _ in ell])) == 1  # theta=0 violates injectivity.
+        assert sum(x + mean - m for x in ell) > T  # naive raising changes mass.
+
+for n in [3, 17, 10**10, 10**30]:
+    closed = B - F(7, 48 * n)
+    ec_coarse = B - F(7, 64 * n)
+    cp_coarse = B - F(5, 64 * n)
+    assert ec_coarse - closed == F(7, 192 * n)
+    assert cp_coarse - closed == F(13, 192 * n)
+    assert (B - F(1, 32 * n)) - closed == F(11, 96 * n)
+    fixed = closed + F(7, 384 * n)
+    assert fixed == B - F(49, 384 * n) and fixed < ec_coarse
+    assert 2 * closed - 1 == F(3, 4) - F(7, 24 * n) > 0
+
+result = dict(
+    scalar_fixtures=9, contracted_and_error_shrunk= len(records),
+    saturated_records=len(records), height_checks=height_checks,
+    enumerated_geometries=enumerated, strict_gap_witnesses=27,
+    rejected_boundary_records=rejected_records,
+    source_scope='Exact scalar HighData fixtures; no instantiated fine mesh or prime-ideal integral.',
+    negative_controls=['zero geometry parameter loses injectivity',
+                       'zero error loses strict positivity',
+                       'finite certificate cannot attain mean-slot window reserve',
+                       'raising all minima without averaging changes total mass'],
+    records_sha256=sha256(json.dumps(records, separators=(',', ':')).encode()).hexdigest(),
+    status='ALL EXACT CHECKS PASSED')
+print(json.dumps(result, indent=2, sort_keys=True))
+```
+
+Final executed output:
+
+```json
+{
+  "contracted_and_error_shrunk": 108,
+  "enumerated_geometries": 279,
+  "height_checks": 900,
+  "negative_controls": [
+    "zero geometry parameter loses injectivity",
+    "zero error loses strict positivity",
+    "finite certificate cannot attain mean-slot window reserve",
+    "raising all minima without averaging changes total mass"
+  ],
+  "records_sha256": "240a7e3945e1094c5eef330a8db175325b044318675c381487f11f53f927e33b",
+  "rejected_boundary_records": 18,
+  "saturated_records": 108,
+  "scalar_fixtures": 9,
+  "source_scope": "Exact scalar HighData fixtures; no instantiated fine mesh or prime-ideal integral.",
+  "status": "ALL EXACT CHECKS PASSED",
+  "strict_gap_witnesses": 27
+}
+```
+
