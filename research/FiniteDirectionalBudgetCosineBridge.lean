@@ -68,27 +68,22 @@ theorem finite_symmetrized_weighted_product
         intro m _hm
         ring
       _ = (∑ n ∈ S, w n * x n) * (∑ m ∈ S, x m) := by ring
-  have hsplit :
-      (∑ n ∈ S, ∑ m ∈ S,
-        (a + (w n + w m) / 2) * x n * x m) =
+  calc
+    a * (∑ n ∈ S, x n) ^ 2 +
+        (∑ n ∈ S, w n * x n) * (∑ n ∈ S, x n) =
       (∑ n ∈ S, ∑ m ∈ S, a * x n * x m) +
         (1 / 2 : ℝ) * (∑ n ∈ S, ∑ m ∈ S, w n * x n * x m) +
         (1 / 2 : ℝ) * (∑ n ∈ S, ∑ m ∈ S, w m * x n * x m) := by
-    calc
-      _ = ∑ n ∈ S, ∑ m ∈ S,
-            (a * x n * x m) +
-            (1 / 2 : ℝ) * (w n * x n * x m) +
-            (1 / 2 : ℝ) * (w m * x n * x m) := by
-        apply Finset.sum_congr rfl
-        intro n _hn
-        apply Finset.sum_congr rfl
-        intro m _hm
-        ring
-      _ = _ := by
-        simp only [Finset.sum_add_distrib, ← Finset.mul_sum]
-        ring
-  rw [hsplit, hA, hWn, hWm]
-  ring
+          rw [hA, hWn, hWm]
+          ring
+    _ = ∑ n ∈ S, ∑ m ∈ S,
+        (a + (w n + w m) / 2) * x n * x m := by
+          simp only [Finset.mul_sum, ← Finset.sum_add_distrib]
+          apply Finset.sum_congr rfl
+          intro n _hn
+          apply Finset.sum_congr rfl
+          intro m _hm
+          ring
 
 /-- The complete two-channel real Gram retains both coordinate energies
 and every cross term before any sign estimate. -/
@@ -114,10 +109,10 @@ theorem finite_real_directional_gram
             (a + (w n + w m) / 2) * y n * y m) := by
       rw [hx, hy]
     _ = _ := by
-      simp only [mul_add, Finset.sum_add_distrib]
-      congr 1
+      rw [← Finset.sum_add_distrib]
       apply Finset.sum_congr rfl
       intro n _hn
+      rw [← Finset.sum_add_distrib]
       apply Finset.sum_congr rfl
       intro m _hm
       ring
@@ -146,7 +141,9 @@ theorem finiteMobiusCos_sin_pair_eq_kernel
         K_τ n m tau := by
   rw [K_τ_eq_log_cosine n m tau hn hm]
   unfold finiteMobiusCos finiteMobiusSin finiteMobiusRadial
-  rw [Real.cos_sub]
+  rw [show 2 * tau * (Real.log (n : ℝ) - Real.log (m : ℝ)) =
+      2 * tau * Real.log (n : ℝ) - 2 * tau * Real.log (m : ℝ) by ring,
+    Real.cos_sub]
   ring
 
 /-- Equation (13): exact realified finite-source cosine expansion, with
