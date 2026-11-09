@@ -1561,3 +1561,12 @@ if __name__ == "__main__":
   ]
 }
 ```
+
+
+### Verified Publication Receipt - 20261109-coordinator-1513-EST
+
+Verified at `2026-11-09 15:40:37 EST` (`20:40:37 UTC`). **EXECUTION=COMPLETED; SUBSTANTIVE_REPORT_PUBLICATION=VERIFIED.** Mathematical review and formalization are separate: SA1-SA5 remain paper/self-audited, independent review pending, and not Lean-certified. The uniform finite-wheel estimate and RH remain OPEN.
+
+The substantive synthesis was committed at [`dfaa872477d7f560eb1c312fdce839ce20d99d20`](https://github.com/OVVO-Financial/RH_Lean/commit/dfaa872477d7f560eb1c312fdce839ce20d99d20), server time `2026-11-09T20:40:18Z`. Immutable readback of both authorized November 9 Coordinator mirrors matched the intended complete text exactly: 116,608 characters, common blob `c4a515586e0ebbb971abe2d7a80c04529104b3b2`. The full earlier report/checkpoint/registration prefix was preserved byte-for-byte. Both mirrors receive this same append-only receipt.
+
+Latest main and all six specialist report blobs were unchanged at the prepublication refresh. PR #1125 remained open, `draft=false`, at `538aa743a3e0de86b5ec44c9b4f159df3f5bd050`, with no successful proof execution. No Lean source, proof PR, central instructions, other specialist report, schedule or permission was modified. No agent was launched. The next mathematical decision is to seek a genuine arithmetic restriction absent from the fixed-wheel loop model, not to assume a bound for the renamed complete remainder.
