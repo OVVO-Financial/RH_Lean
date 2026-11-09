@@ -612,3 +612,11 @@ Executed output:
 ### Prepublication Freshness - 2026-11-09 01:24 EST
 
 Main was re-fetched at 2026-11-09 06:24:14 UTC and remains 8110624150e444964f998676bf54e2e9a3b7e91c. There are no open or draft PRs. Today's directory contains only Owner and this Analytic report; the Owner blob is unchanged and other upstream stages remain TODAY=PENDING. The owned checkpoint/registration prefix is preserved exactly. The full A-L synthesis has one section for each required letter, balanced code fences, original-source provenance, the complete proof and explicit unpaid terms. The exact verifier rerun exited zero and reproduced the same record digest. No continuous Q integral or new Lean build is claimed. This subsection records prepublication checks, not a successful publication that has not yet occurred.
+
+### Verified Publication Receipt - 2026-11-09 01:25 EST
+
+EXECUTION=COMPLETED; PUBLICATION=PUBLISHED_AND_VERIFIED. The substantive synthesis was committed at **fbabf0e0bbb955884e20d788192f59074053a294**, report blob **4bff9a2f22018ad9051a0b85ec902d4ada17188b**, at 2026-11-09T06:25:06Z. Immutable commit-pinned readback matched all 38439 submitted characters exactly. Commit metadata confirmed that ONLY this authorized report changed: 568 additions, zero deletions. The checkpoint and preregistration remain an exact prefix.
+
+SC1/SC2/SC4 remain PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED; SC3 is IDENTITY_ONLY; SC5 has its explicitly scoped paper falsifiers; SC6 is FINITE_COMPUTATION. The paid cutoff error does not establish the proper Qerr bound or the full centered discrepancy. NO_GLOBAL_ENDPOINT_GAIN; RH, the uniform O(R log R) target, finite A/C and the retained signed estimates remain OPEN.
+
+No other agent, schedule, main source, proof branch, PR, workflow, central policy or third-party report was changed. No local Lean or continuous Q-integral computation occurred. No background task remains. This receipt records the already verified substantive commit; its own append is separately read back during the active invocation before final delivery.
