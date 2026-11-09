@@ -1754,3 +1754,41 @@ print(json.dumps({"status": "PASS_DIAGNOSTIC_ONLY", "cases": rows}, indent=2))
 - All computation sessions finished. No source, other report, policy, proof branch/PR, workflow, main, merge or schedule mutation occurred. Resume from CT2/CT4/CT5 and section J, not an unchanged test rerun.
 
 This receipt refers to the already verified substantive commit. Its own documentation-only append is separately verified by immutable readback before the user-facing completion message; it does not claim its own not-yet-known commit hash.
+
+
+## Scheduled Continuation Checkpoint - 20261109-owner-3/CF
+
+### A. Most Important Mathematical Development
+
+**IN_PROGRESS; no new theorem or endpoint improvement claimed yet.** The selected arithmetic question is whether a specified disjoint lower-owner population sharing the SAME large prime can compensate the upper-half physical owner packet after both are centered with an explicitly allocated part of the ORIGINAL Euler reference. Counts without their reference, or copies of one large-prime occurrence, are not signed payment.
+
+The mechanism to investigate is complete cofactor-fibre conservation. For integer R>=8 and X=R^2-1, freeze Q_R={prime q:R<=q<2R}, t_q=floor(X/q), and V_Q=sum_(q in Q_R)X/q. Because q>=R, every n<=X divisible by q is uniquely n=a*q, 1<=a<=t_q<R<=q. Distinct q in Q_R cannot divide one such n. A composite occurrence has owner p=leastPrime(a), and the a=1 prime is retained separately.
+
+Let w_p=delta(p-1)/p and N_p(t)=#{2<=a<=t:leastPrime(a)=p}. Define the genuine masked owner piece
+b_Q(p)=sum_(q in Q_R)N_p(t_q)-w_p*V_Q.
+Its complement is the original B_R(p)-b_Q(p), not a newly chosen reference. Investigate the exact sum over all p<R and the disjoint upper/lower sums U_Q over R/2<=p<R and L_Q over p<R/2. The first falsifiable shortcut is H_CF: U_Q*L_Q<=0 for every integer R>=8. The competing prediction is that same-cofactor lower owners can reinforce the upper piece after exact reference restoration. A stronger putative RH-scale bound for U_Q+L_Q will be assessed from the exact identity, never inferred from a finite maximum.
+
+### B. Current Authoritative Objective
+
+MAIN=02f00cee544278ad1bb9022ee76fc5916d459a95.
+finite_wheel_ack=FINITE_WHEEL_CENTERED_RH_V1.
+AGENTS=6695522a45d67fd1e80a7cff1f98d909405036e2.
+CURRENT_PROOF_CONTRACT=95566e37c8eaeb99ee680660df4f9d2e06ea5038.
+FINITE_WHEEL_DIRECTIVE=e505f35522b675c6b5b263eac73618d717346973.
+CompleteSquareRootWheelFractionalBoundary=ecb482e52deeee5e9b3853592a3ffdace662d2ff.
+CompleteWheelRootAdmission=a412632c1028d7728cd8d87ee6e5ac365377d338.
+VF_MID_DYADIC_PREFIX_OWNER=c499ca7bd7d90fb32f9cd99d652961ea023bed58.
+
+Original source: F_R=sum_(d|P_(R-1))mu(d)fract(X/d), D_R=X*delta(R-1)+pi(R-1)-1-li(X), Z_R=F_R-D_R=li(X)-pi(X). The ONE-constant uniform |Z_R|<=C R log R assertion is OPEN. All d>X virtual terms are canceled against their own Euler terms before using the physical identity; d=X and prime-root cofactors remain.
+
+### C. Registered Investigation And Tests
+
+Discovery roots: EVERY integer R=8..128. Fixed held-out roots: 257,549,1024. Mandatory endpoint audits: R=2,3 for the general fibre identity; R=8,11,12 for the upper-half partition; R=14 for d=X=195; R=11 for q=R prime. Exact integer/rational arithmetic only is required for signs, source splits and failures. No li evaluation is necessary for these claims. Do not increase the range after finding a counterexample merely to claim novelty.
+
+Check physical disjointness, cofactor-one primes, prime-square and squareful multiplicities, full owner/Euler reassembly, U_Q+L_Q, each fixed lower-owner bank, and all quadratic cross terms. If the complete-cube verification is used, restrict it to R<=16; larger roots use the certified compensated physical form. Any uniform statement must have a proof separate from these tests. Tests are not yet executed.
+
+### D-K. Continuity, Remaining Work And Publication
+
+All seven November 9 reports are available and their relevant stages were retrieved: TODAY=AVAILABLE. November 8 reports were retrieved: YESTERDAY=CARRY_FORWARD at their stated scopes. The latest Coordinator SA handoff prioritizes actual cross-owner factor incidence; its SA4 countermodel is not an arithmetic substitute. Owner FW and CT remain credited, CT independently unreviewed. Analytic MB1-MB3 are proper-band paper bounds, not the endpoint; Referee accepts FB1, DG and BL3 at their scoped statements. Lean's older draft/failed description of #1125 is not current PR metadata: live intake finds #1125 OPEN, non-draft, head 538aa743a3e0de86b5ec44c9b4f159df3f5bd050; current checks still need direct inspection. #1124 is merged on main. External inbox blob 038018145c0fddb2f6306c0712373adf9cd1ea52 has no entry newer than October 18; older mathematical safeguards persist, routing priorities do not override the current directive.
+
+Run trigger: 2026-11-09 16:15:01 EST, America/New_York; platform run ID unavailable. Only this daily owned report may be changed remotely. No Lean execution, source/PR edit, merge, schedule change or agent launch is authorized. This checkpoint's publication is pending until its commit and immutable readback are verified. Next action: derive the exact fibre conservation and assess the two signed owner populations, then run the frozen tests.
