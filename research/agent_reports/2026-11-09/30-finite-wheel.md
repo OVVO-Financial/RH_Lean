@@ -843,3 +843,92 @@ EXECUTION=COMPLETE; SUBSTANTIVE_PUBLICATION=PUBLISHED_AND_READBACK_VERIFIED. RA2
 No main, Lean source, proof branch, PR, issue, workflow, policy, other report, schedule or permission was changed. No agent was launched and no local Lean executed. Every required command session finished. Resume with independent audit of the exact root-support and actual-li contraction falsifiers, then a new joint-source arithmetic hypothesis, not another generic recurrence or unchanged root scan.
 
 This receipt records the already completed substantive verification. Its own append is separately checked by immutable readback before the final user-facing response.
+
+
+## Early Dyadic Incidence Checkpoint - 20261109-wheel-2
+
+### A. Most Important Structural Question
+
+IN_PROGRESS / PARTIAL. Investigate whether unique factorization restricts exact normalized prime-product resonances between adjacent dyadic roots, and whether this restriction can justify a signed cross-scale potential. Distinct frequencies alone will not be assumed to be orthogonal on a finite band. No new global estimate or independently reviewed theorem is claimed at this checkpoint.
+
+### B. Current Authority And Continuity
+
+Actual scheduled trigger: 2026-11-09 10:12:01 EST, America/New_York; RUN_ID_UNAVAILABLE. Checkpoint prepared after source intake, 2026-11-09 10:18 EST (timestamp will be verified in the final receipt).
+finite_wheel_ack=FINITE_WHEEL_CENTERED_RH_V1.
+Main=02f00cee544278ad1bb9022ee76fc5916d459a95.
+AGENTS=6695522a45d67fd1e80a7cff1f98d909405036e2.
+CURRENT_PROOF_CONTRACT=95566e37c8eaeb99ee680660df4f9d2e06ea5038.
+Directive=e505f35522b675c6b5b263eac73618d717346973.
+Complete-wheel source=ecb482e52deeee5e9b3853592a3ffdace662d2ff.
+
+The original target remains one C>=0 before all integers R>=2 with
+|F_R-D_R|=|li(R^2-1)-pi(R^2-1)|<=C R log R. OPEN.
+Every virtual divisor and its Euler compensation, the li anchor, full physical
+owner complement, both linear orientations and all square cross terms remain.
+
+Report intake agent-reports@5fe5e114d31c9d7f37548e2097f0c03fa15b1fdc:
+today Coordinator FB/MP/SHIFT, Owner FW/CT, Analytic SC/MB, own RA,
+Census CR and Lean RA implementation are available and read at their stated scopes.
+Referee TODAY=PENDING; November 8 EC acceptance/SG is YESTERDAY=CARRY_FORWARD.
+All seven relevant November 8 reports were also retrieved and their latest
+results/resume capsules read. Yesterday's FD allocation problem is preserved
+but superseded for task selection by the live complete-wheel directive.
+External inbox 038018145c0fddb2f6306c0712373adf9cd1ea52 is unchanged since its
+October 18 entry; original EXT-PNT and prime-root endpoint safeguards remain.
+
+Live open/draft PR collection is empty. #1124 is human-merged, not pending:
+its literal-head 1b80f147dab3c0c2525052b3c6c3f8c447089da1 has 13 successful
+checks, and the targeted log prints the standard terminal axioms and live
+dependency audits. Its root cost is a PAID proper component, not this run's
+discovery. #1122's actual synthetic checkout and source evidence were read.
+No local Lean, source edit, PR or CI launch.
+
+### C. Registered Structural Attempt
+
+For integer R>=8 put X=R^2-1, Y=4R^2-1 and define the actual prime pairs
+E_R={(p,q): p,q prime, R/2<=p<R<=q<2R}.
+Each product is a unique cross-root semiprime occurrence; it is physically
+admitted at X precisely when pq<=X. The larger rectangle remains necessary
+for the frequency representation, and its inadmitted portion is not deleted.
+
+Test whether equality X/(pq)=Y/(uv), with (p,q) in E_R and (u,v) in E_(2R),
+forces pq=X and uv=Y. If true, characterize the boundary atoms and exploit
+gcd(X,Y)=gcd(X,3), rather than assume generic phase separation.
+
+Test the competing hypothesis that such exact resonance rigidity supplies
+finite-band orthogonality or nonpositive shared-prime cross terms. Examine
+actual chains p,q,r with r=4p+1 or 4p-1 and overlapping middle prime q.
+No assertion of infinitely many such chains is required or presumed.
+
+For the proposed dyadic potential set R_j=2^j R0, a_j=log(1-R_j^(-2)),
+theta_0=0, theta_(j+1)=a_j-log 2-theta_j, z_j(t)=exp(it theta_j)A_(R_j)(t).
+Inspect the exact polarization of Im(z_j z_(j+1)) using Im(z_j^2) and
+Im((z_(j+1)-z_j)^2). Keep all interior, first/last and constant-frequency
+terms; do not silently alternate the original scale weights or conjugate
+the original product. Fixed smooth modes and MB4 remain required scope tests.
+
+### D. Frozen Validation Before Arithmetic Execution
+
+- Exact rational phase-set intersections for every R=8..128 and held-out
+  R=129..256, plus fixed R=257 and 1024, retaining pq=X and uv=Y.
+- Independently compare prime sieving and trial division through 4096.
+- Exact shared-prime witnesses at R=8 and 64, with closed physical product
+  admission checked at both roots; derive rational bounds certifying the
+  sign over the ENTIRE common band [sqrt(R),2sqrt(R)], not sampled cosines.
+- Actual A/B SHIFT diagnostics at integer roots 8,12,30,64,257 and frequencies
+  0,1,3,8; half-integer R=11/2 and 13/2 retain the prime atom at 2R.
+  Continuous integrals are diagnostic unless separately enclosed.
+- Exact Gaussian-integer polarization checks for chain lengths 1..6,
+  including a constant chain which would falsify a boundary-only telescope.
+- A fixed smooth power-density mode, on one global measure across scales,
+  tests the claimed source-generic potential; it is explicitly NON-PRIME.
+- Search current source and report statements for duplication before claiming
+  novelty. No unchanged wheel census or accepted root-admission proof rerun.
+
+### E-M. Pending Work And Publication
+
+The final A-M derivation, complete signed return, precise no-go scope,
+reproducer and specialist handoffs will be appended after actual verification.
+This checkpoint does not certify a theorem, claim RH progress, or trigger
+other agents. Prior report bytes and all original claim IDs are preserved.
+Publication is PENDING until immutable readback.
