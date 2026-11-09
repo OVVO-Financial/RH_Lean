@@ -1015,3 +1015,60 @@ if __name__ == '__main__':
 The complete synthesis was published to the owned report on agent-reports at commit **32b779e69604804c2b314214e9d4031deefa1129**, blob **91a376f41bf0e936fe97eb1dea16c731d3e495be**. Immutable readback at 2026-11-09 08:35:20 UTC matched the entire prepared document byte-for-byte and preserved the preregistration as an unchanged prefix. This receipt is an append-only continuation of that verified publication, not another research invocation.
 
 Final research status: COMPLETED finite experiment; CR1/CR3 scoped assertions REFUTED; CR2/CR4 FINITE_COMPUTATION; independent mathematical review PENDING. The uniform proper-Q and complete RH-scale estimates remain OPEN. No new formal theorem or global exponent improvement is claimed.
+
+
+## Scheduled Continuation And Frozen Band Test - 20261109-census-2/BL
+
+Execution IN_PROGRESS; mathematical findings PENDING. Actual trigger 2026-11-09 11:00:01 EST, America/New_York; platform RUN_ID_UNAVAILABLE. This is a continuation of the same dated report, preserving the earlier CR findings and publication receipts.
+
+finite_wheel_ack=FINITE_WHEEL_CENTERED_RH_V1.
+MAIN=02f00cee544278ad1bb9022ee76fc5916d459a95.
+AGENTS=6695522a45d67fd1e80a7cff1f98d909405036e2.
+CONTRACT=95566e37c8eaeb99ee680660df4f9d2e06ea5038.
+DIRECTIVE=e505f35522b675c6b5b263eac73618d717346973.
+COMPLETE_WHEEL=ecb482e52deeee5e9b3853592a3ffdace662d2ff.
+ROOT_ADMISSION=a412632c1028d7728cd8d87ee6e5ac365377d338.
+Intake agent-reports=2b7df755c4d16de12b63398c66a04f3c13ab2827.
+
+### Authority And Continuity
+
+Current source retains X=R^2-1, all d dividing the full primorial, physical and virtual ledgers reunited before Euler compensation, and Z_R=F_R-D_R=li(X)-pi(X). The uniform ONE-C bound |Z_R|<=C R log R remains OPEN. The canonical VF terminal keeps its explicit classical-criterion interface.
+
+Read November 9 Coordinator FB/MP/SHIFT, Owner FW/CT, Analytic SC/MB, Wheel RA/DG, own CR and Lean root-admission implementation. Read applicable November 8 summaries/handoffs for all seven roles. Today's Referee is TODAY=PENDING; YESTERDAY=CARRY_FORWARD at its reported scopes, not approval of today's papers. External inbox 038018145c0fddb2f6306c0712373adf9cd1ea52 has no newer entry than October 18. There are no open/draft PRs at intake; #1124 is human-merged. No upstream paper theorem is promoted merely because its report exists.
+
+### Exact New Question And Pre-Registration
+
+This resumes the unfinished certified finite-frequency follow-up from CR, updated to Coordinator OPEN-MIDBAND and Analytic MB's precise source. It is not another sharp-Q sign census or a broader repetition of MB's generous bound checks.
+
+For every tested integer R>=16, U=sqrt(R), X=R^2-1,
+I_-=[R/2,R), I_+=[R,2R], and dnu=dpi-du/log(u), define
+A(t)=integral_(I_-)(u/R)^(-it)dnu(u), B(t)=integral_(I_+)(u/R)^(-it)dnu(u).
+Use the ORIGINAL nonconjugated product and the exact phase a=log(X/R^2).
+The weight is b(t/R), with b(w)=1-6w^2+6w^3 on this entire band.
+M_mid=(1/pi)integral_U^(2U)b(t/R) Im(exp(ita) A(t)B(t))/t dt.
+J_mid uses the two prime polynomials instead, retaining both mixed reference orientations in M=J-PC-CP+CC.
+
+For the full prime rectangle define the EXACT rational collar
+C_R={(p,q): abs(pq-X)<=floor(X/(4*ceil(sqrt(R))))}.
+Keep p=R/2 when prime, exclude p=R, include q=R and pq=X. Above-wall pairs are essential to the frequency source and are NOT discarded. Each pair has its actual occurrence multiplicity. Define J_close as the same K_R(pq) sum on C_R, J_far=J_mid-J_close.
+
+New laboratory localization hypothesis, not attributed to an upstream author:
+H_LOCAL: J_mid(R)*J_close(R)>=0 for EVERY integer R>=16.
+Record the stronger dominance test abs(J_far)<=abs(J_close), but do not confuse it with the sign assertion.
+Competing explanation: the oscillatory complement can reverse the near-wall contribution. A certified opposite product falsifies H_LOCAL. An interval containing zero is unresolved. No universal amplitude constant is fitted or claimed.
+
+Discovery roots: every R=16..48.
+Held-out roots: 64,127,257,549,1024,4096.
+Compute exact collar counts and below/on/above wall classifications. Rank signed and absolute packet contributions; inspect the smallest counterexample in the declared domain, if any. Independently certify that witness and its predecessors needed for minimality. At the six held-out roots compute certified M_mid, J_mid, both mixed reference terms, CC, and the two weighted discrepancy-transform energies. Binary64 exploratory packet totals are diagnostic until enclosed.
+
+### Numerical And Source Validation Plan
+
+Use a transparent exact sieve, independently checked by trial division / C++ enumeration. For transcendental certificates use directed Decimal interval arithmetic, exact rational bracketing of Gauss-Legendre nodes, interval trigonometry with an explicit Taylor remainder, and explicit high-order quadrature remainder bounds. Recompute key results at increased precision / quadrature refinement. An independent SciPy direct-product kernel / separate factored-transform calculation checks the central values but is not itself a certificate.
+
+The source adapter b is piecewise in general, but R>=16 ensures t/R<=1/2 on [U,2U], including equality at R=16; this avoids silently integrating across a polynomial join. Track the wrong conjugated-product diagnostic and pq=X zero-band contribution while retaining that atom in the sharp source.
+
+Reuse CR's verified complete physical/virtual and full-return checks where hashes match. For any newly reported global Z_R comparison, independently reconstruct the compensated physical floor total and retain the symbolic virtual correction
+X*(delta(R-1)-sum_(physical d)mu(d)/d).
+Do not enumerate a large complete cube. Numerical |Z_R|/(R log R) remains NUMERICAL ONLY. A proper middle-band certificate does not pay the constant mode, other bands, physical linear responses, other owners, or original #915 covariance.
+
+Stop after the registered domain and decisive checks. Publish code, actual outputs, uncertainty, limitations and one precise next lemma. No local Lean, no source/branch/PR/other-report edits, no agent launch or schedule change.
