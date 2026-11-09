@@ -117,7 +117,6 @@ theorem fourPrimeSquarekill_squareBlock_at_periodRoot (t : ℕ) :
           ring
     _ = (4608 : ℤ) * (t : ℤ) := by
           rw [hcell, hzero]
-          push_cast
           ring
 
 /-- The complete four-prime physical model has positive square-block drift
