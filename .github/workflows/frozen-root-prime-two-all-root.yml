@@ -40,9 +40,15 @@ jobs:
           #check RHLean.Proof.frozenOddHigh_floor_eq_three_masks
           #check RHLean.Proof.frozenOddHighPairFloor_eq_mass_square_add_two_masks
           #check RHLean.Proof.frozenOddHighPairFloor_sub_mass_square
+          #check RHLean.Proof.frozenOddHighParents_eq_dyadicBoundary
+          #check RHLean.Proof.frozenOddHighMass_cast_eq_mertensSummatory
+          #check RHLean.Proof.frozenOddHighPairFloor_cast_eq_historicalMertens_square_add_masks
           #print axioms RHLean.Proof.frozenOddHigh_floor_one_to_three
           #print axioms RHLean.Proof.frozenOddHigh_floor_eq_three_masks
           #print axioms RHLean.Proof.frozenOddHighPairFloor_eq_mass_square_add_two_masks
           #print axioms RHLean.Proof.frozenOddHighPairFloor_sub_mass_square
+          #print axioms RHLean.Proof.frozenOddHighParents_eq_dyadicBoundary
+          #print axioms RHLean.Proof.frozenOddHighMass_cast_eq_mertensSummatory
+          #print axioms RHLean.Proof.frozenOddHighPairFloor_cast_eq_historicalMertens_square_add_masks
           LEAN
           lake env lean -DwarningAsError=true /tmp/frozen_root_prime_two_acceptance.lean
