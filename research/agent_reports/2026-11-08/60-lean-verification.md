@@ -661,3 +661,12 @@ Execution of the selected proof task is COMPLETE; #1119 is PROVED_IN_LEAN, CI_GR
 Paid inputs to inspect/reuse: MoebiusDoubling.moebius_two_mul_of_odd, source blob bdc8a12e2e2accab6ef230420997c8d78e91c9c3; DyadicTransportCompression, 7a73a7360a7b96bec605da16e08da646676fe98c; DyadicTransportCanonicalForm, 90df0b8187f628b4f4e886a1271955955245b8a6; EULER_HYBRID_ABEL_GRAM_20261027.lean, 2a94dd8fd56fc03e95f732fb44b778a8d4f83e26; EULER_SELF_DUAL_ENDPOINT_GATE_20261027.lean, e7ee8f77ffd59bccaa49dd6d74fbe0d7952c2d73. The weighted double fold still needs its precise original-source theorem; do not create another duplicate high-mass definition.
 
 Early checkpoint receipt 005a2a515e30f477e7e8c4d4be9bcb606b1dadae; implementation receipt 21b67cb9fd2cad99331a0b72dae3a2560e5d3221; failed-CI repair receipt 1410db8dffd186586ded23feaf9b2419efacded8. Each was read back immutably. Final publication and immutable readback are recorded in the closing receipt below.
+
+
+### Closing Verification And Publication Receipt - 20261108-lean-3
+
+At 2026-11-09 03:11 UTC, the A-P synthesis was published as cdf41fa7cdd587adb9b79bcf58c8358d9d01b4bc, report blob 0095524e7d25778853a8cf67717742358986b753. Immutable readback matched exactly; the complete previous report contents remain a byte-for-byte prefix.
+
+Final owned proof state: #1119 head 77ee815846d6d534c866f0752aa33b84c385610a, 14/14 checks GREEN, five actual source/dependency/standard-axiom audits passed, REVIEW_READY / UNMERGED. Registry #1121 head 82719ae3dc61bcb80d19b5349af1fb9dcab25b34, 4/4 checks GREEN, actual hosted 20-test suite passed, REVIEW_READY / UNMERGED. The registry is deliberately stacked on the unchanged proof branch; human merge/retarget remains separate. No required check is pending or failed on either owned head. No source, test or audit was changed after its respective successful certification.
+
+Execution=COMPLETE for the selected accepted EC1-EC3 formalization and associated proof records; publication=PUBLISHED / READBACK_VERIFIED. Earlier CI_PENDING checkpoints are superseded without deleting the failure history. No main push, agent merge, auto-merge, schedule change or local Lean execution occurred. The finite-C frozen-root estimate, uniform finite A, zero-log amplification, actual-prime VF and RH remain OPEN. Resume with the next-invocation frozen-root directive and the existing all-root HIGH-HIGH theorem, not a duplicate proof.
