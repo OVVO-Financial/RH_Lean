@@ -2449,3 +2449,19 @@ print(json.dumps({"status": "PASS_INDEPENDENT_IMPLEMENTATION", "cases": rows,
 ```json
 {"primary":"PASS_EXACT","roots_tested":126,"discovery_roots":[8,128],"held_out_roots":[257,549,1024],"first_H_CF_failure":8,"first_positive_upper_positive_lower":11,"discovery_same_sign":115,"discovery_both_positive":114,"small_cube_cases":11,"independent_small_audit":"PASS_INDEPENDENT_IMPLEMENTATION","independent_cases":11,"syntax_checks":"PASS","uniform_claims":"proved separately on paper; not inferred from this computation","Lean":"NOT_RUN"}
 ```
+
+
+### Verified Publication Receipt And Runtime Correction - 20261109-owner-3/CF
+
+**EXECUTION=COMPLETED; SUBSTANTIVE_PUBLICATION=PUBLISHED_AND_READBACK_VERIFIED.** This means the research invocation and publication completed, not that the RH target was proved.
+
+- Substantive commit: **64d397c48f5db3ea509a61d7a75bffd240dc99c4**.
+- Immutable report blob: **2abf71b32332ef07e486578f13f0cfe2b06b833f**, 148,325 characters.
+- GitHub commit inspection verified exactly one changed path, this owned daily report, with 657 added lines and zero deleted lines.
+- Immutable readback verified at 2026-11-09 21:37:53 UTC matched the entire intended content exactly. Both the earlier daily report and the registered checkpoint are exact preserved prefixes.
+- **Runtime correction:** the prepublication note's Python 3.12.13 was a stale environment-description value and is incorrect. The actual executed command `python --version` returned **Python 3.12.14**. That is the runtime used by both exact verifiers and syntax checks. This correction changes no mathematical claim, test input, output, or recorded file hash.
+- Final authority refresh: main 02f00cee544278ad1bb9022ee76fc5916d459a95, unchanged upstream reports, and #1125 open/non-draft at the same head with no successful current-head proof checks. No certification is inferred from PR metadata.
+- CF1 remains IDENTITY_ONLY; CF2-CF4 are PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED; CF5 is exact FINITE_COMPUTATION with the stated REFUTED sign rule. NEW_VERIFIED_ENDPOINT_GAIN=NONE; the full uniform finite-wheel bound, canonical VF, finite A/C and RH remain OPEN.
+- All computation sessions finished. Only the owned report was modified remotely. No Lean execution, source/policy/other-report/PR/workflow change, main push, merge, schedule change or agent launch occurred.
+
+This receipt documents the already verified substantive commit. Its own documentation-only append is verified by immutable readback before the user-facing completion message; it does not assert its own not-yet-known commit hash.
