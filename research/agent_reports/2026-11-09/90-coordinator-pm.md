@@ -771,3 +771,18 @@ Actual scheduled trigger: 2026-11-09 15:13:01 EST, America/New_York; RUN_ID_UNAV
 
 ### C-J. Work In Progress
 Pinned report intake: agent-reports@09c69de9a41214c01ec8408b6622ddd5a9125e9a. All six specialists and the Coordinator have available November 8 and November 9 reports; they have been retrieved, and applicable mathematical sections are being examined. Today's Referee is now available, superseding this morning's PENDING intake. External inbox 038018145c0fddb2f6306c0712373adf9cd1ea52 has no entry later than October 18. Main contains merged #1124; the sole open PR at intake is #1125, nondraft, head 538aa743a3e0de86b5ec44c9b4f159df3f5bd050. Original-source and exact-head CI audit remains in progress. No specialist execution is launched or scheduled, and no Lean or protected source will be edited. The earlier complete morning synthesis and publication evidence are preserved unchanged. This continuation is not yet complete or independently reviewed.
+
+
+## Registered Sharp-Area Investigation - 20261109-coordinator-1513-EST/SA
+
+Prepared before arithmetic execution, 2026-11-09 15:24 EST. This is a proof-led continuation of the checkpoint, not another invocation.
+
+- Original proper carrier: Q_R=integral_[R/2,R) x [R,2R] 1_(uv<=R^2-1) (dpi-dli)(u)(dpi-dli)(v), integer R>=8. Keep the separate complete wheel return and all virtual compensation.
+- Proposed paid boundary comparison: replacing R^2-1 by R^2 changes Q by at most 16/log(R)^2; the actual prime-prime difference is exactly zero. This is not asserted for arbitrary model atoms.
+- Proposed sharp-kernel stability: if the cumulative signed error e has both one-sided values bounded by K, then replacing sigma by nu=sigma+de on the two intervals costs at most 3K*TV(sigma_right)+2K*TV(nu_left). Both mixed errors and error-error are included.
+- Proposed actual-source application: with Qhat built from eta(m-1)=1_Prime(m)-[floor(Li_2(m))-floor(Li_2(m-1))], retain the original product cutoff and both original interval endpoints; test the candidate cost |Q-Qhat|<=49R/log R+16. This is a paid approximation, not a bound on Qhat.
+- Proposed obstruction: for the credited MB4/DG4/DA fixed-measure construction, the full SHARP cross-root quadratic, not merely a frequency band, has an exact circular-area formula. Independently examine its fixed-W unit-atom realization and all rounding terms before claiming a uniform model no-go. No model is claimed to satisfy the genuine complete-wheel identity or prime factorization.
+- Actual prime tests: every R=8..96, plus 127,257,549,1024,4096. Check exact no product at R^2, retained products at R^2-1, all signed pair multiplicities, and the source indexing eta(m-1). Compute reference-strip and rounding differences with independent Gauss orders 32/64, labeled floating diagnostics; reject if the proposed envelope is exceeded beyond 1e-8 or refinement exceeds 1e-8 relative to 1+abs(value).
+- Smooth tests: R=4096,16384,65536, frequencies t=2pi*ceil(5sqrt(R)log2/(8pi))/log2. Compare direct integration with the exact shifted triangle formula, at Gauss orders 512/768; reject at relative discrepancy 1e-9. These are synthetic nonzero modes, not zeta zeros.
+- Exact controls: rational finite atoms test the signed area identity WITH its shared-atom diagonal; a deliberate shared atom must fail the diagonal-free formula. Test the sharp stability inequality on declared finite signed arrays by exhaustive small-coefficient enumeration.
+- No empirical constant will be fitted and no finite maximum will be called an all-root theorem. Scope/independent review/Lean status remains pending.
