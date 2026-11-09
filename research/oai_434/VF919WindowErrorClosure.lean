@@ -95,7 +95,7 @@ theorem native_beta_le_near_uniform_window_error_closed :
   have hident : (7 / 8 : ℝ) * ((1 : ℝ) / (8 * (nearUniformSlotCount : ℝ))) =
       (7 : ℝ) / (64 * (nearUniformSlotCount : ℝ)) := by ring
   rw [hident] at hscale
-  linarith only [hbound, hscale]
+  exact hbound.trans (sub_le_sub_left hscale (7 / 8 : ℝ))
 
 end SevenEighths.RHLeanWindowSaturated
 end
