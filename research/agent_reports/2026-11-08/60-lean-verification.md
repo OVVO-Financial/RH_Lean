@@ -497,3 +497,167 @@ Mid-run main advanced to 7aa0fcb12f7e8fe67e809d8f94cda384506d61b5 by human merge
 At 2026-11-09 02:38 UTC the initial #1119 source revision failed only the final near-uniform scalar comparison (`linarith`, line 98), after the complete prerequisite total-mass/window proof passed. Actual run 42550166116/job 128943728706 was read; the new terminal audit did NOT run, so no terminal is certified yet. Commit 77ee815846d6d534c866f0752aa33b84c385610a changes only that tactic to direct transitivity and `sub_le_sub_left`, preserving all statements and hypotheses. New source blob f629db1b2b65d6ec042ac9432397d4b6316200c6 was read back exactly. Fresh dedicated run https://github.com/OVVO-Financial/RH_Lean/actions/runs/42552018910 is running. Status DRAFT / CI_PENDING; no local Lean.
 
 Concurrent #1118 latest head 2cf509ad4893efa0250e0ec47a008858c4fa6378 has no attached current-head runs and GitHub mergeable_state=dirty. Its GENERAL source blob 084192a06efbf0bbdae03cfb99ca7476f237c370 duplicates the declaration RHLean.Proof.frozenOddHighMass already in main's THREE_FLOOR module (blob 7fdf5974f611dae6232c2aad2d81e572ce05e73b). Posted integration review https://github.com/OVVO-Financial/RH_Lean/pull/1118#issuecomment-6730784138; no overwrite of the concurrently authored branch. Older 2216d946 all-root evidence remains scoped to its four original lemmas.
+
+## Scheduled Formal Proof Synthesis - 20261108-lean-3
+
+Invocation: 2026-11-08 21:08 EST / 2026-11-09 02:08 UTC. This is the scheduled continuation, not a new agent or schedule. The earlier checkpoints and failures above are retained.
+
+### A. Most Important Formal Mathematical Result
+
+**PROVED_IN_LEAN / CI_GREEN / REVIEW_READY, UNMERGED**, at exact proof head 77ee815846d6d534c866f0752aa33b84c385610a. All 14 current-head checks passed; actual logs, exact types and permitted-axiom outputs were read. Accepted claims **20261108-analytic-3/EC1-EC3**, independently accepted with scope in **20261108-referee-3**, have been implemented in [PR #1119](https://github.com/OVVO-Financial/RH_Lean/pull/1119). For every original fine HighData D with actual slot minimum m, the new theorem establishes beta <= 7/8-(7/8)m, removing the +D.e term from the previous exact complete bound. The fixed original near-uniform family gives MertensGrowthAtMost(7/8-7/(64*N_pack)). Every positive exponent loss remains explicit.
+
+### B. Current Authoritative Objective
+
+Intake main: 6144c73b05d5a85e6a9424708986860c6276f60d. During execution the human merged #1117; refreshed main is 7aa0fcb12f7e8fe67e809d8f94cda384506d61b5. Intake AGENTS blob bdd5b9f6867ae2d39b74fc966b7f548a9aba3a61; updated AGENTS 47d47a13b3325b741c871e3bdf05067462b215bb. CURRENT_PROOF_CONTRACT remains d1d6fd558ee23927bd9f70ffdc375bafd1dbb67a. Final 03:09 UTC main/instruction refresh is unchanged from this updated baseline.
+
+Canonical actual-prime VF/von Koch, finite A, zero-log amplification, and RH remain OPEN. Acknowledgments consumed at intake: REPO_WIDE_PROOF_DAG_AND_AGENTS_20261108; high_attack_ack=COMPLETE_SIGNED_HIGH_ATTACK_V1; chain_ack=CANCELLATION_CHAIN_REUSE_V1; PAID_BASELINE_EXACT_CONSUMER_V1; NO_PIGEONHOLING_ROUTE_SELECTOR_V1. Ten route IDs and nine viable routes are preserved.
+
+The newly merged frozen-root directive (blob f07cfca27be988f11a1ae9c86bb530313a96927b) applies on the next actual invocation. It was read during this execution while finishing the already-started accepted EC implementation. Its source-faithful objective is one C>=0 such that, for every integer R>=2,
+Q_R=sum_{1<=a,b<R} mu(a)mu(b) floor((R^2-1)/(ab)),
+K_R=max_{0<=y<R}(M(y)-1)^2/(y+1),
+and |Q_R|<=C*R*sqrt(K_R).
+The pre-existing implication from this premise to finite A and RH remains conditional; the new OAI exponent is not a substitute for that premise.
+
+Toolchain: Lean 4.34.1; Mathlib d13f23b723b8a846827a245b89c10fc7d3f11612; original openai/math 1581d4cbdd69a0faf34b2089614fe2a814316a6a. All Lean execution is GitHub Actions, never local.
+
+### C. Formalization Candidates And Two-Day Continuity
+
+All seven roles' November 8 and November 7 reports were retrieved. TODAY=AVAILABLE for every role; YESTERDAY=CARRY_FORWARD at verified scope, not at stale PR status. Refreshes at 02:33 and 03:09 UTC found the six upstream November 8 blobs unchanged. No scheduled agent's completion was assumed.
+
+| Role | November 8 blob | November 7 blob | Current intake |
+| --- | --- | --- | --- |
+| Coordinator, identical AM/PM mirrors | 5d14fb5e0eb3e40a479ebb344b9f8a84a169535e | 00a649b70f851ca193e74e5004d0d3390cf9ca18 | CP2 composition accepted; AF affine-strip investigation remains paper/self-audit |
+| Owner Payment | 4e1b83a1e5ff8c134e9ca64404397c70c2b07252 | 933e8eb23e669594cc687059d75147e6267eec8d | JT necessary low-zero restriction carried forward; JS symmetry obstruction, not a signed global bound |
+| Analytic Type II | edecba8785a45cda87c0035d0348695941f1b8ea | 77f3e5795533041e4356ceb94cb66328da7af27c | EC1-EC3 selected; complete error closure, not old-source retyping |
+| Finite Wheel | 60d4cf1b65d4b1b2cc4f13f6c0940c14cb2c50fd | 7739fa5d4cc77f35773b0d4149b2ddd21732a70d | Original factor-depth capacities are not full signed control; new FD needs independent review |
+| Prime Census | 00f4f9c0d670821a0c9d1da31fd1c4d0afd09142 | 3fae830e34c590d32c31ad77cad3ace833eb3ff5 | RC finite certificates and FR additive-frequency sign refutations; no empirical all-scale bound |
+| Adversarial Referee | 5371324ebbdbd88afb9abf843e83da2ce86b752f | 426c2abfa5b8926b512e07f05be37692a2416d0b | EC accepted with quantifier safeguards; new SG geometry contraction remains independently unreviewed |
+| Lean Verification, intake | 7f394c7ca839386c6692a5ad622f26c299db8abb | ec14e2803af8c1e56123682ee61ed927ed4f9450 | Reuse repaired #1111/#1113; both subsequently human-merged |
+
+External inbox blob 038018145c0fddb2f6306c0712373adf9cd1ea52 has no new entry after October 18. No external claim bypassed independent review. Accepted older HC/SJ proper-source candidates remain lower in the queue; do not duplicate already implemented identities.
+
+At final open-PR discovery, newly authored #1120 (59f8a8134c14d48d888914f8be27aa185081030f) was a draft finite directional-Gram algebra implementation with dedicated run 42554488719 in progress. Its stated scope is an arbitrary-alpha finite determinant identity, not analytic continuation or an RH bound. It was not independently certified or duplicated in this execution; refresh its actual state next run.
+
+### D. Selection And Repair-First Audit
+
+Priority A was inspected first. #1118 initially failed at head 749915d7a52c8e6b7dd2e37386862f54923eecca. While its actual diagnostics were being reviewed, its author supplied a valid repair at 2216d946efb6ed9edffbeb77b1335fdd226bc655. I verified that run and did not duplicate or claim authorship of the repair.
+
+Priority B selected EC: it removes a genuine positive loss in an existing COMPLETE consumer, has independent Referee acceptance, and preserves the original source. It is not a filler identity, renewed copy of the old boundary, or assumed RH-strength estimate. The separately unreviewed SG family-changing improvement was not silently implemented.
+
+### E. Exact Statements And Quantifiers
+
+Put Delta=1/1000000 and let D:HighData Delta satisfy
+forall i:Fin D.N, D.ell i <= detectorMesh Delta D.t / 200.
+Let m=actualSlotMinimum D=D.ell(leastSlotIndex D).
+
+The declarations in namespace OAI.SevenEighths.RHLeanWindowSaturated are:
+- withSmallerError: for every real e with 0<e<=D.e, an original HighData Delta with only the error field changed and its affected budgets recertified.
+- withSmallerError_geometry: t, N, ell and sigma are unchanged, and the new error equals e.
+- withSmallerError_minimum: the actual minimum value is unchanged.
+- native_beta_le_window_error_closed_of_fine: beta <= 7/8-(7/8)*m.
+- native_beta_le_near_uniform_window_error_closed: beta <= 7/8-7/(64*N_pack).
+
+The RHLean.Analysis declarations are:
+- native_mertens_window_error_closed_of_fine: MertensGrowthAtMost(7/8-(7/8)*m).
+- native_mertens_fixed_window_error_closed_of_fine: MertensPowerBound(7/8-(7/8)*m+D.e/2).
+- native_mertens_near_uniform_window_error_closed: MertensGrowthAtMost(7/8-7/(64*N_pack)).
+
+The fixed-power theorem elaborates to RHLean.Analysis.MertensPowerBound; its exact-type example also verifies definitional equality with the MertensExponent version of the same quantified predicate.
+
+Here MertensGrowthAtMost(b) means forall eps>0, exists C>=0, forall integers n>=1, ||M(n)||<=C*n^(b+eps). A fixed power means one C before all n. N_pack=nearUniformSlotCount is the pre-existing fixed ceiling construction, independent of n, not a number of exceptional primes. No exact-boundary no-loss Big-O is asserted.
+
+### F. Independent Mathematics And No-Circularity Audit
+
+For any 0<e<=D.e, every error-dependent original budget is monotone in the required direction; the phase term also uses D.t>0. Keep the remaining fields. Compare actual minimum VALUES in both directions using leastSlotIndex_le; do not assert equality of arbitrary classical choice witnesses.
+
+Apply the existing complete theorem to the new record. That theorem constructs fresh SourceData and counts, so its FirstTail(4e) condition is proved at the new tolerance. The old finite exclusion set with FirstTail(4D.e) is not reused by assertion. Every LOW/HIGH/principal term uses the same newly constructed source.
+
+If beta exceeded L=7/8-(7/8)m by d>0, take e=min(D.e,d/2)>0. The complete theorem gives beta<=L+e<=L+d/2, contradicting d>0. This is numerical order closure, not a limit of sources or Big-O constants. Dependence of this contradiction witness on beta is legitimate and does not assume its bound.
+
+The same-D exact ceiling improves by D.e. Spending D.e/2 yields a fixed power strictly below that old ceiling. The near-uniform corollary uses the already proved m>=1/(8N_pack), not a new slot optimization. The theorem is a new quantitative consequence of the complete imported/source-faithful chain, not an independent reproduction of the imported analytic theorem.
+
+### G. Lean Implementation And Dependencies
+
+[New source](https://github.com/OVVO-Financial/RH_Lean/blob/77ee815846d6d534c866f0752aa33b84c385610a/research/oai_434/VF919WindowErrorClosure.lean) blob f629db1b2b65d6ec042ac9432397d4b6316200c6. Supporting exact types: c4dca8392e61ab6778a0f2cb9f013b0d0e0410f2. New live source/axiom audit: 1f17f9401a63d16227db2e2aad020b9f74bc5f4e. Proof note: 927c1a370898f8dc27c7bdd8dfd84e29474f6a3f. Workflow: bf53637ed649b2c8c7517ad3b81c33620f3bffa9.
+
+Reuse merged #1116 source VF919WindowSaturatedLowPrincipal.lean, blob b7b05069ea013d83b2acaa76a8ea2ed932568930, and merged #1111 packing, blob 32999039fdeea99c58a070c1c4ee9c140720dd44. The new workflow explicitly checks out the PR head, retains the full existing total-mass prerequisite audit, and checks fresh source/count existence, full probe/principal comparison and genuine native zeta/Mertens transfer in proof values. No root audit or warning check is weakened.
+
+Registry follow-up [PR #1121](https://github.com/OVVO-Financial/RH_Lean/pull/1121), head 82719ae3dc61bcb80d19b5349af1fb9dcab25b34, is a docs-only stack on the unchanged verified #1119 branch. It changes only the registry, two generated documents, status-consistency tests and verification note. All four hosted checks are GREEN and the follow-up is REVIEW_READY / UNMERGED. The actual [portfolio/DAG job](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42554513429/job/128957130569) confirms all 20 tests and the generated registry; documentation, inventory and atlas also passed. Local non-Lean validation passes: 99 nodes, 50 typed edges, 94 equivalence classes, 10 routes, 10 open arithmetic route inputs, and all 20 unit tests. Registry blob c8cbb19c1b1af5fc81c5dd1e978dfe2ed55b3084; DAG eee764cefe70035a9f6c7df26ad787fbfd0fb233; milestones a8aaa9ff2fea82cf25a725f7389cbddf80d98826; test b34ccc8a024bad944e12a458f85e756b58b81132; revised proof note aebd709017f0d714388a56773aec642eb191b2f3. All five blobs matched immutable readback. After human merge of #1119, retarget the follow-up to main; no duplicate Lean build or agent merge is performed. JSON is the source of truth; generated DAG/milestone blocks are produced by the existing generator, not manually edited. Existing #1111/#1113 merge statuses and #1116's exact scope are reconciled.
+
+### H. Branch And PR Evidence
+
+Branch: agent/lean-verification/20261108-window-error-closure. PR #1119 targets main, created from intake main 6144c73b05d5a85e6a9424708986860c6276f60d. Initial source commit 0567b1ecbf44a8821e34a4ae067b24bd659cf5c1; focused repair 77ee815846d6d534c866f0752aa33b84c385610a. Current mathematical proof head remains the green 77ee815846d6d534c866f0752aa33b84c385610a. The separately stacked registry branch is agent/lean-verification/20261108-window-error-registry, head 82719ae3dc61bcb80d19b5349af1fb9dcab25b34, targeting the proof branch so its five-file diff contains no Lean or workflow changes. All pushed source bytes were read back at immutable commit SHAs. No direct main push, merge, auto-merge, other-role report edit, agent launch, or schedule change occurred.
+
+### I. Actual GitHub Actions Evidence
+
+Successful dedicated [run 42552018910](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42552018910), [job 128949473700](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42552018910/job/128949473700). The actual log confirms literal checkout 77ee815846d6d534c866f0752aa33b84c385610a. All 14 check-runs succeeded, including source audits, proof inventory, public export, targeted Lean and documentation. New source and prerequisites compiled warning-fatal; seven exact-type examples, six displayed types and seven printed axiom lists passed. All five new terminal live source/dependency/axiom checks passed at 03:01:16 UTC with closure sizes 35358, 35375, 35736, 35737 and 35753. Every terminal depends only on propext, Classical.choice and Quot.sound. Fresh source/count, complete LOW/HIGH/principal and native arithmetic transfer were found. The audit took about nine minutes but succeeded unchanged: it was neither disabled nor relaxed.
+
+The reused #1116 successful run is 42520918799/job 128853972193. Its actual checkout was synthetic merge 60fa59f302f26900435231cd9685f0f6c5f9b82a containing head 1e32da429324c39a791406a0ae1265581df7ea06; its source blob equals main. This distinction is recorded rather than falsely describing that older job as a literal head checkout. Our new workflow checks the literal head and rechecks the complete prerequisite.
+
+The latest merged #1117 has 15 successful workflow runs at efbc636d7430caa19e30924b5b371ef790e37fa1. I read dedicated run 42548702555/job 128939234329: warning-fatal original-source closure, all three frozenOddHigh theorem types, and permitted standard axioms for frozenOddHighHigh_eq_square_add_two_masks. Its tested synthetic merge is b3d779b62b8af3743f6ab8f47ba36084d9980711, and the THREE_FLOOR source blob equals main. The all-root HIGH-HIGH identity is already paid; do not duplicate it.
+
+### J. Failures, Repairs And Concurrent Integration Finding
+
+#1119 initial run [42550166116](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42550166116)/[job 128943728706](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42550166116/job/128943728706) failed at line 98: linarith could not close the final near-uniform scalar comparison. The displayed hbound and hscale imply the result directly. Repair 77ee8158 uses hbound.trans (sub_le_sub_left hscale (7/8)). No hypothesis or theorem was changed. This is a proof-strategy/tactic failure, not a false mathematical theorem. No terminal audit success is claimed for the failed revision.
+
+#1118 original failure: run 42548962848/job 128940025871, natural truncated subtraction at lines 71/72 and an untargeted pow_two rewrite at line 113. Its author's repair established Nat.sub_add_cancel and targeted the mass-square expression. Successful run 42549485929/job 128941627759 at 2216d946 compiled the four original all-root lemmas warning-fatal and printed only propext, Classical.choice and Quot.sound.
+
+Later #1118 head 2cf509ad4893efa0250e0ec47a008858c4fa6378 adds Mertens bridges, has no current-head runs in the snapshot, and GitHub reports mergeable_state=dirty. It also duplicates RHLean.Proof.frozenOddHighMass from main's THREE_FLOOR module. GENERAL blob 084192a06efbf0bbdae03cfb99ca7476f237c370; main THREE_FLOOR 7fdf5974f611dae6232c2aad2d81e572ce05e73b. [Integration review posted](https://github.com/OVVO-Financial/RH_Lean/pull/1118#issuecomment-6730784138): reconcile the carrier and joint import before treating isolated-module passes as integration certification. No overwrite of the concurrently authored branch; no older green result promoted to the extended head.
+
+### K. Mathematical Conclusions
+
+The EC proof removes the detector-error loss in the numerical complete boundary and transfers it to genuine Mertens growth, certified at the exact proof SHA above. It supplies quantitative control, while its constructor/minimum lemmas are supporting infrastructure. It supplies neither a zero-error finite source nor uniform constants across error choices.
+
+Unresolved: finite C on the frozen bilinear source, uniform finite A, zero-log amplification, canonical actual-prime VF, critical exponent 1/2, repeatable contraction and RH. Frozen HIGH-HIGH identities, finite computations and source decompositions are not those estimates.
+
+### L. Formalization-Driven Findings And Falsification
+
+The essential representation distinction is fresh source existence at each e versus retyping one old source; the latter is unjustified. Minimum VALUE equality suffices, so no equality of classical minimizer indices is needed. The original fine geometry and all other HighData fields remain intact.
+
+For the next frozen-root adapter, define O_R={odd m:1<=m<R}, h_m=1_{2m<R}, and
+k_R(m,n)=floor(X_R/(mn))-(h_m+h_n)floor(X_R/(2mn))+h_m*h_n*floor(X_R/(4mn)).
+The prospective ordered identity is Q_R=sum_{m,n in O_R}mu(m)mu(n)k_R(m,n), then LL+LH+HL+HH. Both mixed orientations survive.
+
+An independent finite integer computation checked every R=2,...,200 using ONLY mu(1),...,mu(R-1) as input. It compared the original double floor sum, the complete odd-parent kernel, the HIGH-HIGH three-floor formula and high mass=M(R-1). All checks passed; this is finite computation, not Lean or an all-root proof.
+
+| R | Q_R | LL | LH | HL | HH | H2 | H3 | high mass |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 4 | -1 | 4 | -3 | -3 | 1 | 0 | 0 | -1 |
+| 137 | -2 | -2 | -2 | -2 | 4 | 4 | -1 | -1 |
+| 200 | -6 | 21 | -58 | -58 | 89 | 23 | 2 | -8 |
+
+At R=4, discarding mixed terms would turn -1 into 5. At R=137, the signed HIGH correction H2+H3=3 is positive; termwise nonpositivity is false. No post-root Moebius value or prime-count surrogate was introduced. These examples refute shortcuts, not RH or the uniform finite-C conjecture.
+
+### M. Significance
+
+This implementation converts an accepted mathematical argument into an exact original-source quantitative endpoint, reusing the difficult full analytic consumer. The source-independent positive error is removed at the numerical boundary without claiming new source uniformity. Its significance is the genuine same-D gain, not the number of declarations or the difficulty of the final tactic.
+
+The stronger fixed-family exponent should update all comparisons only at its verified scope. An elementary squared-growth consequence is not a separately Lean-named signed-pair theorem. Independent paper acceptance is credited to the Referee report; this agent's own implementation audit is SELF_AUDIT, not an invented second referee decision.
+
+### N. Specialist Handoffs
+
+- Coordinator: consume the exact #1119 evidence and statuses, preserve the complete source chain, keep the next frozen finite-C objective independent of the OAI exponent, and reconcile #1118 with already merged #1117.
+- Analytic: EC1-EC3 are implemented at the exact declarations above; SG remains separate and requires independent review. For frozen Q_R, estimates must control LL, both mixed orientations, the historical square and both masks jointly.
+- Owner: transport actual moving-block/owner quantities through B_R=2mu(R)-(Q_(R+1)-Q_R), retaining historical coefficients and masks; no new mu above the permitted root as independent Q_R input.
+- Wheel: retain the prime-two odd-parent coordinate and original clipped double-child admission. Existing unsigned capacities do not pay the complete signed kernel.
+- Census: reproduce the listed historical-only examples, then held-out R using the same original Q_R and complete ordered split. Record H2/H3 separately; empirical boundedness is not all-scale control.
+- Referee: review exact fresh-source quantifiers and distinguish every-positive-loss growth from fixed-power control. Resolve SG independently; test proposed frozen termwise claims against R=4 and R=137.
+
+### O. First Unresolved Mathematical Theorem
+
+The quantitative missing result under the newly merged directive is:
+exists C>=0, forall integers R>=2,
+|sum_{1<=a,b<R}mu(a)mu(b)floor((R^2-1)/(ab))| <= C*R*sqrt(K_R),
+with K_R from strict history and one constant before all roots. It is not established by the HIGH-HIGH identity or by the new fixed positive-power Mertens bound.
+
+The nearer FORMALIZATION task is the complete weighted prime-two fold and ordered LL/LH/HL/HH adapter, followed by the exact centered identity:
+M(X_R)-1=-(M(R-1)-1)^2-(Q_LL+Q_LH+Q_HL+H2+H3).
+The full source proof, not just its HIGH-HIGH subpacket, must be connected to the existing eulerSelfDualBilinear. None of these exact identities alone supplies the finite-C estimate.
+
+### P. Resume Capsule
+
+Execution of the selected proof task is COMPLETE; #1119 is PROVED_IN_LEAN, CI_GREEN and REVIEW_READY, UNMERGED. Registry follow-up #1121 preserves its exact tested proof SHA and carries only documentation/status work. No new source or validation failure remains on #1119. The #1118 integration issue and its extended uncertified head are separately recorded, not hidden by this success. Re-fetch main, both instruction files, both calendar days' reports, external inbox and open PRs. Reuse unchanged successful proof evidence; do not launch no-op CI. Read the next-actual-invocation frozen-root directive and record its activation in that invocation.
+
+Paid inputs to inspect/reuse: MoebiusDoubling.moebius_two_mul_of_odd, source blob bdc8a12e2e2accab6ef230420997c8d78e91c9c3; DyadicTransportCompression, 7a73a7360a7b96bec605da16e08da646676fe98c; DyadicTransportCanonicalForm, 90df0b8187f628b4f4e886a1271955955245b8a6; EULER_HYBRID_ABEL_GRAM_20261027.lean, 2a94dd8fd56fc03e95f732fb44b778a8d4f83e26; EULER_SELF_DUAL_ENDPOINT_GATE_20261027.lean, e7ee8f77ffd59bccaa49dd6d74fbe0d7952c2d73. The weighted double fold still needs its precise original-source theorem; do not create another duplicate high-mass definition.
+
+Early checkpoint receipt 005a2a515e30f477e7e8c4d4be9bcb606b1dadae; implementation receipt 21b67cb9fd2cad99331a0b72dae3a2560e5d3221; failed-CI repair receipt 1410db8dffd186586ded23feaf9b2419efacded8. Each was read back immutably. Final publication and immutable readback are recorded in the closing receipt below.
