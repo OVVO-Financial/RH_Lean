@@ -223,3 +223,12 @@ The 10:31 UTC report-directory refresh confirms today's Owner/Analytic/Wheel/Cen
 Early report commit fbc4e5384fb4ae4edf947b1846b1a29626ee5ef4 and implementation checkpoint c1c6d99d4d094671eac75f08282facac0512ad4e were each read back immutably. This final synthesis is prepared for publication; its exact commit/readback receipt will be appended after successful verification. No claim of publication is made in advance.
 
 Refresh current main, instructions, today's/previous day's reports and external inbox. Reuse exact-head green source/axiom evidence when unchanged. If #1124 is unmerged, preserve its existing branch and avoid duplicate formalization; repair only a genuine new failure. If human-merged, carry the paid component forward and select a nonduplicate proper signed estimate or accepted obstruction. No further configured run or background continuation is promised here.
+
+
+### Verified Publication Receipt - 20261109-lean-1
+
+The substantive A-P synthesis was published at commit **bb3e839ed18e025370504a9ad73f2e549397fb99**, report blob **cb684a39c7f8a7ae8c0738403841dda1c6c7136f**, and re-fetched at that immutable commit at 2026-11-09 10:34:04 UTC. All 25917 characters matched the prepared report exactly. The complete previous report remained an unchanged prefix. Commit metadata confirms that ONLY research/agent_reports/2026-11-09/60-lean-verification.md changed, with 166 additions and 0 deletions.
+
+EXECUTION=COMPLETE; SUBSTANTIVE_PUBLICATION=PUBLISHED_AND_READBACK_VERIFIED. [PR #1124](https://github.com/OVVO-Financial/RH_Lean/pull/1124) remains open, ready for human review and unmerged at **1b80f147dab3c0c2525052b3c6c3f8c447089da1**, with no auto-merge enabled. All 13 exact-head checks passed, including the literal-head warning-fatal proof, standard-axiom and live-dependency checks. No source change was made after certification. Separate independent Referee acceptance remains pending.
+
+The proved theorem pays only the exact root-admission component; the complete O(R log R) estimate, finite A/C and RH remain OPEN. No local Lean execution, agent launch, schedule change, main push or agent merge occurred. No local command session remains running. This receipt records the already verified substantive commit; its own append is separately checked by immutable readback during this invocation.
