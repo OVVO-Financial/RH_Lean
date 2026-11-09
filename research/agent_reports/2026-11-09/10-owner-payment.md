@@ -1739,3 +1739,18 @@ print(json.dumps({"status": "PASS_DIAGNOSTIC_ONLY", "cases": rows}, indent=2))
   "scope": "finite evidence; no Lean or all-scale estimate inferred from tests"
 }
 ```
+
+
+### Verified Publication Receipt - 20261109-owner-2, 2026-11-09 08:37 EST
+
+**EXECUTION=COMPLETED; SUBSTANTIVE_PUBLICATION=PUBLISHED_AND_READBACK_VERIFIED.** This records completion of this research invocation and publication, not completion of the RH-scale mathematical objective.
+
+- Substantive commit: **88e899fee9319a0a25cb8a936be45988a9b79d01**.
+- Immutable report blob: **4b4fead386b27569a7ac6114fb1b4936bf80258f**, 98,988 characters.
+- GitHub commit inspection confirmed exactly one changed path, `research/agent_reports/2026-11-09/10-owner-payment.md`, with 902 added lines and zero deleted lines.
+- Immutable content readback at 2026-11-09 13:37:48 UTC matched the entire intended report exactly. The earlier daily report and this invocation's verified checkpoint remain exact prefixes.
+- Final authority checked: main **02f00cee544278ad1bb9022ee76fc5916d459a95**; all upstream blobs unchanged, no open/draft PRs. Referee TODAY=PENDING; YESTERDAY=CARRY_FORWARD. No independent approval of CT is invented.
+- New results remain PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED, with separate certified finite falsifiers and diagnostic checks. The complete uniform bound, canonical VF and RH remain OPEN; NEW_VERIFIED_ENDPOINT_GAIN=NONE.
+- All computation sessions finished. No source, other report, policy, proof branch/PR, workflow, main, merge or schedule mutation occurred. Resume from CT2/CT4/CT5 and section J, not an unchanged test rerun.
+
+This receipt refers to the already verified substantive commit. Its own documentation-only append is separately verified by immutable readback before the user-facing completion message; it does not claim its own not-yet-known commit hash.
