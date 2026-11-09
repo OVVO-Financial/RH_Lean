@@ -24,21 +24,28 @@ jobs:
       - name: Reject proof holes
         run: |
           if grep -nE '^[[:space:]]*(sorry|admit|axiom)([[:space:]]|$)' \
-            research/DerivativeWeightedKernelIndefinite.lean; then
+            research/DerivativeWeightedKernelIndefinite.lean \
+            research/FiniteDirectionalBudgetCosineBridge.lean; then
             echo 'No proof holes permitted in this algebra package.'
             exit 1
           fi
       - name: Build the Lean library and the standalone research file
         run: |
           python3 scripts/compile_research_import_closure.py --build-library \
-            research/DerivativeWeightedKernelIndefinite.lean
+            research/DerivativeWeightedKernelIndefinite.lean \
+            research/FiniteDirectionalBudgetCosineBridge.lean
       - name: Check exact theorem signatures and kernel axioms
         run: |
           cat > /tmp/DirectionalGramAudit.lean <<'LEAN'
           import «research.DerivativeWeightedKernelIndefinite»
+          import «research.FiniteDirectionalBudgetCosineBridge»
           #check RHLean.Analysis.derivative_weighted_kernel_det_algebra
           #check RHLean.Analysis.derivative_weighted_kernel_indefinite
           #print axioms RHLean.Analysis.derivative_weighted_kernel_det_algebra
           #print axioms RHLean.Analysis.derivative_weighted_kernel_indefinite
+          #check RHLean.Analysis.finite_symmetrized_weighted_product
+          #check RHLean.Analysis.finite_real_directional_gram
+          #check RHLean.Analysis.finite_directional_budget_cosine_realified
+          #print axioms RHLean.Analysis.finite_directional_budget_cosine_realified
           LEAN
           lake env lean -DwarningAsError=true /tmp/DirectionalGramAudit.lean
