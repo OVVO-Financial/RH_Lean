@@ -750,3 +750,10 @@ with localcontext() as ctx:
 
 print(json.dumps({"last_nonpositive_allq": last_integer, "last_nonpositive_primeq": last_prime, "positive_allq_minima_R19_to_46": mins_integer, "positive_primeq_minima_R18_to_46": mins_prime, "polynomial_orders_checked": 9, "moment_diagnostics_not_certified": diagnostic}, indent=2))
 ```
+
+
+### Verified Publication Receipt - 2026-11-10 04:35:30 EST
+
+Execution status: COMPLETE / PUBLISHED. Final synthesis and both exact executed programs were committed at **aac2ecf05e10ac304057706e9079a7ec7a07de9b**, then fetched at that immutable commit and compared byte-for-byte successfully. Verified report blob: **16c64c8655a9ff26587d45e85de058db6b748f01**; 52,350 characters. The original early-checkpoint prefix remains unchanged. This receipt is appended only after that successful readback.
+
+Mathematical status remains separate: UC1-UC3 and the specified #1127 statements have independent acceptance at their stated scopes; LC1-LC4 remain this invocation's SELF_AUDIT paper results with the finite certificates explicitly identified. No new LC theorem is Lean-certified. #1127 is unmerged; #1125's missing proof-head certification caveat is retained. Complete finite-wheel bound and RH remain OPEN. No unrelated repository or agent configuration was changed.
