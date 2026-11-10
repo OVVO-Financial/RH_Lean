@@ -993,3 +993,27 @@ A local append-prefix guard detected two displaced trailing blank lines; they we
 
 
 
+
+## Scheduled Cross-Route Checkpoint - 20261110-wheel-2/JC
+
+### A. Structural Question And Current Status
+
+IN_PROGRESS / NO_NEW_RESULT_YET. Test the complete historical Q_R against the actual CORR4 daughter/mixed expressions and the already-proved complete reciprocal-band telescope. The proposed recovery must preserve literal coefficients, both mixed orientations, squareful zeros, root-prime boundaries and all long-cofactor parents. No local positive fibre or negative daughter square is treated as a complete signed estimate.
+
+### B. Authority And Continuity
+
+Actual scheduled trigger: 2026-11-10 10:12:01 EST, America/New_York; platform RUN_ID_UNAVAILABLE. This is the second recorded Wheel invocation today. Main=655f897e274a8ba8a2fed80ecc1fc75a0d849174. cross_route_ack=CROSS_ROUTE_SIGNED_RECOVERY_V1. AGENTS=c9c89f01b90b526de9f3e8ea92478e36504711b6; CURRENT_PROOF_CONTRACT=95566e37c8eaeb99ee680660df4f9d2e06ea5038; governing directive=e922d4ba9362a1ae196af8f6de88f7417f92087c.
+
+Both November 9 and November 10 role reports were retrieved at agent-reports bb52e26c1dac8bd7222f74fd34969392ba1f6127. TODAY=AVAILABLE for all roles; YESTERDAY=CARRY_FORWARD. Read the relevant latest CD/CF/ZD/RF/NC/AP/Lean sections and today's UB/CR, BR, RD, PC, UC, LC, and repaired DG evidence. Analytic 20261110-analytic-2/RD's claimed candidate exponent is PAPER_PROOF / INDEPENDENT_REVIEW_PENDING, not a certified replacement baseline. The external inbox 038018145c0fddb2f6306c0712373adf9cd1ea52 has no entry newer than October 18; its original root-boundary, physical-lift, and denominator cautions remain.
+
+Open/draft PR collection is empty at intake. #1127 and #1128 are merged, superseding only earlier PR-state prose. #1115's actual new source is TWOAB_RENEWAL_COMPLETE_BAND_20261108.lean (028d9f2bbfa1a8de1fe63e9bd368aca13aae6825), not the separate PrimeCombReciprocalBandCancellation module; credit Owner BR for identifying this attribution correction. Original Q_R endpoint theorem e7ee8f77ffd59bccaa49dd6d74fbe0d7952c2d73 and complete wheel ecb482e52deeee5e9b3853592a3ffdace662d2ff were read.
+
+### C. Registered Investigation
+
+Use X=R^2-1, Q_R=sum_(1<=a,b<R)mu(a)mu(b)floor(X/(ab))=2M(R-1)-M(X), and exact K_R=max_(0<=y<R)(M(y)-1)^2/(y+1). Read the original CORR4 source before proposing an identification. Candidate: the full mixed/daughter bookkeeping supplies a quantitative restriction not already equivalent to the original Q_R bound. Rival: the coefficient map has missing roots, squareful weights, or a complete same-order signed remainder.
+
+First tests, after deriving a precise assertion: exhaustive small roots and original integer masks, plus targeted R=549 and R=5561 where relevant. Preserve top cofactor-one contributions, q=R, repeated factors, diagonal and both cross orientations. Finite survival will not establish uniformity. Do not rerun PC/UB local-cutoff scans, expand a wheel, or fabricate a proof route.
+
+### D. Remaining Work And Permissions
+
+Baseline exact theorem/dependency/CI receipt, four-way source map, signed-loss ledger, paid recovery test, proof/falsifier, and full return are PENDING. Canonical VF, complete wheel RH bound, finite A/C and RH remain OPEN. Own-report-only writes; no Lean edit, proof branch, PR, issue, merge, workflow, schedule change or agent launch. Direct git transport returned HTTP 403; the GitHub connector works. No local Lean execution.
