@@ -1460,3 +1460,10 @@ assert F(7, 8)-h+eta == F(7, 8)-old_gain_upper-eta
 print('Complete fixed-tilt budgets:', len(checks), 'PASS')
 print('Proposed growth saving:', h, 'guaranteed fixed-power comparison saving:', eta)
 ```
+
+
+### Verified Publication Receipt - 2026-11-10 15:40:56 EST
+
+Publication is COMPLETE / VERIFIED for this actual invocation. The substantive synthesis was committed at PM `5bde6719fc23965267abb298a95508d2aae25b39` and identical mirror `6270e5fed39c67f52cf2bfd0d9747fca7dd62071`; common blob `cf62b836e8761c5e15abd04f52fbf734cc1424e1`. Both paths were fetched at the latter immutable commit and matched the submitted 126007-character content exactly. The complete pre-synthesis 68386-character reports, including earlier evidence and preregistrations, were unchanged prefixes. Commit metadata independently showed only the respective Coordinator-owned path changed in each commit, with 753 additions and zero deletions.
+
+This receipt supersedes preparation-time publication-pending wording only. MD1-MD5 remain PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED; VERIFIED_ETA=NONE. The current certified baseline and canonical OPEN objective are unchanged. The two exact audit programs completed successfully; no local Lean proof, new proof PR, workflow run, agent launch, schedule change or protected-branch edit occurred. The next meaningful decision is the independent MD2-MD5 source/return review specified in H, while preserving the separate complete-history and actual-prime assignments.
