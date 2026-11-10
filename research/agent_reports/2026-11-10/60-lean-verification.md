@@ -307,3 +307,20 @@ No open/draft PR exists at intake. Prior #1127 and repaired #1128 are now human-
 Today and yesterday reports for all seven roles were retrieved. TODAY=AVAILABLE; YESTERDAY=CARRY_FORWARD. Latest read topics include CR/UB, BR, RD, JC, UC, SR and own earlier repair; yesterday CD/CF/ZD/RF/NC/AP and own CF2 implementation. The external inbox 038018145c0fddb2f6306c0712373adf9cd1ea52 has no entry after October 18; its source safeguards remain, its stale task priorities do not.
 
 Baseline receipt, original source/type audit, exact proof plan, implementation and CI are PENDING. Git clone was unavailable through the container network (CONNECT tunnel 403); authorized GitHub connector source reads work. No local Lean execution will occur.
+
+
+### Draft Implementation Milestone - 20261110-lean-2/RD
+
+[Draft PR #1130](https://github.com/OVVO-Financial/RH_Lean/pull/1130) is open on agent/lean-verification/20261110-principal-signed-remainder, baseline 655f897e274a8ba8a2fed80ecc1fc75a0d849174, initial head 5afd156c56e6d0142500bca018d11d224aa424a5. Actual dedicated run [42875005367/job 130035843590](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42875005367/job/130035843590) has started. Implementation=DRAFT_PR / CI_PENDING; no new Lean-certified result yet.
+
+The complete RD1 proof attempt preserves the exact principalSlot and coordK. It proves the signed residual <=12 Q^(-11/8), its genuine Hecke-coefficient specialization, and a nonnegative weighted-mask version. The proof uses the original principal_slot_eq_raw and principal_coord_cancellation, a derived inverse denominator bound <=2, and five explicit monomial estimates. It does not assume a signed estimate. A further normalized-slot adapter is being checked to expose the PLUS linear response under the original negative mass normalizer.
+
+An independent finite diagnostic using exact Gaussian-rational arithmetic passed 240 cases of the original nested marked/correction/replacement formulas, the signed numerator, the 12-bound, and normalization sign. This is FINITE_COMPUTATION, not kernel evidence. It is additional to the accepted infinite paper proof.
+
+BASELINE RECEIPT: #1119 exact-head run 42552018910 succeeded at 77ee815846d6d534c866f0752aa33b84c385610a. Its actual log, five endpoint types, five live dependency traversals and standard terminal axioms were retrieved. All 14 attached checks succeed. Ninety-two current source/audit/workflow tree entries in the relevant OAI/anchored/total-mass/window-error surfaces match that tested tree. The source-defined counts are N_pack=ceil(max(1,1/(6L)))+2 and N_old=ceil(max(1,1/(3L)))+2 with L>0, so N_pack<=N_old; the baseline 7/8-7/(64N_pack) is stronger than 7/8-1/(48N_old), without identifying the counts.
+
+The baseline log has unrelated Wiener dependency-build placeholder warnings at lines 325 and 344. The audited endpoint's transitive axioms exclude sorryAx; do not describe the whole dependency repository as placeholder-free. Pins remain Lean 4.34.1 / 5045d0056413266e57c625dcd7c365b10e377c52; Mathlib d13f23b723b8a846827a245b89c10fc7d3f11612; PNT+ c39a751132c88b6e8080b74c74023fd95b3d8be0; openai/math 1581d4cbdd69a0faf34b2089614fe2a814316a6a.
+
+Latest relevant merged work was refreshed: #1127 has 13/13 successful check-runs at 866b3d2121309cdd854f9d64e2a6adbbc708ef9b; #1128 has 12/12 at d5b8003f6239611a457560b6fd16e29f16255e75. They remain proper-source results. No rerun of unchanged proofs was requested.
+
+Remaining implementation after RD1: exact normalized finite-product response, same-fixed-signal Mellin dilation with outer weights frozen, locally bounded delay absorption, six-bill raw anchored assembly, and beta/zeta/Mertens consumer. These are accepted PAPER_PROOF, not newly open arithmetic premises and not yet formalized in #1130. The stronger SR3-SR4 remain independent-review-pending. Global baseline and RH status are unchanged.
