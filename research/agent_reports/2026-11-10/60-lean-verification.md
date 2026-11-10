@@ -50,3 +50,13 @@ The actual dedicated run [42797571060](https://github.com/OVVO-Financial/RH_Lean
 Independent mathematical reconstruction rechecked the accepted DG2 argument: cancellation of the shared q gives exp(Delta)=1+[k*(R^2-1)-3p]/[(4R^2-1)p], k=+/-1. Under R>=8, R/2<=p<=R, its error has magnitude <=1/R; logarithmic comparison gives |Delta|<=1/(R-1), and cosine >=1-(t Delta)^2/2 supplies the stated bound. Exact admitted witnesses have ratios 399/425<1 and 203385/202057>1. Their opposite phase signs rule out a one-sided interpretation; the common positive Hermitian response is distinct from the nonconjugated signed target.
 
 The latest #1127 dedicated job 129590019152 was independently read: literal head 866b3d2121309cdd854f9d64e2a6adbbc708ef9b, Lean 4.34.1, both modules compiled, live closure 828 passed. Its acceptance source executes six standard-axiom guards, and the actual compiler driver uses -DwarningAsError=true. The theorem types and source hashes match yesterday's reported evidence; no redundant build is needed. It remains unmerged.
+
+## Actual Compiler Diagnosis And Repair - 2026-11-10 05:20 EST
+
+The first dedicated job DID execute and failed in the unchanged merged proof source: [run 42797571060/job 129766542712](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42797571060/job/129766542712), head 7c034c6c5304a5deb1ed0ff19d03ce5798cbfdef. This supersedes "missing execution evidence" with actual CI_FAILED evidence for the initial proof bytes, not a refutation of the accepted mathematics.
+
+Diagnostics at original lines 60/75: two unnecessary tactic-sequencing warnings, fatal under the existing policy. Line 111: the denominator factor 4*R^2-1 was not discharged as nonzero. Line 139: the cosine comparison needed an explicit division-by-two normalization. Line 179: expanding a complex exponential produced complex sine/cosine expressions instead of the needed real/imaginary identities. Line 211: natural 8 and real 8 remained distinct under sqrt before the polynomial tactic.
+
+Focused repair commit **90a71ca1c35e0d234ea5a326bfc2cc50418afceb** on #1128 replaces unnecessary sequencing, supplies the ALREADY PROVED nonzero denominator factors, makes the cosine comparison a short explicit calculation, uses pinned Mathlib Complex.exp_re/exp_im, and normalizes the natural cast before squaring. No statement, hypothesis, constant, occurrence, endpoint, audit, workflow or toolchain changes.
+
+Pinned Mathlib Trigonometric source d2ba6ae2970b5c003f4abb20b7b7d536b9f1297c was inspected at d13f23b723b8a846827a245b89c10fc7d3f11612. The repair is IMPLEMENTED / CI_PENDING, not yet certified. No local Lean was run. The first-run failure history remains preserved.
