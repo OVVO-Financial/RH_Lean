@@ -696,3 +696,14 @@ Proof-led hypothesis: the next literal principal-slot term is `B*Rloc=A*conj(eta
 Planned checks: independently evaluate nested original local formulas using exact Gaussian rationals at Q=k^8, k in {3,4,7,11,19}, unit eta and Q^(-s) phases in {1,-1,i,-i}, and A in {0,1,-1,i,-i}; test the cleared six-term residual identity, the squared constant-14 bound, original negative-normalizer signs, and small three-slot products. Separately test all changed rational budgets at t<=10^-8, m<=t/200, h<=7m/4, e<=t/2000, with h+e<=7m/4. Coherent A=0 must retain the next D^2 obstruction. A synthetic one-slot negative-phase example at theta=3/5 is a falsifier for an unrestricted threshold extension, not a genuine Hecke example. These tests do not supply an infinite arithmetic theorem.
 
 Acceptance target: a complete paper derivation (or an exact failed gate), not a global gain from a local residual alone. Mathematical status remains PENDING / SELF_AUDIT until derivation and checks finish; no new certified baseline is asserted.
+
+
+## Proof-Led Extension Registered - 20261110-coordinator-1513-EST/MD
+
+This extends QD after its 400 exact local and 64 weighted-product tests passed; it was NOT part of the earlier preregistration. Before new finite-symbol/budget checks, record the new question: can one retain all original principal-symbol monomials with weighted Mellin decay below a fixed rho, rather than stop at one or two local terms?
+
+Exact generators are q=Q^-1, D=eta Q^-s, G=q*Rloc=A Q^(2-6s), and W=B*Rloc=A*conj(eta)Q^(3-5s). The original negative-normalized slot is q+(1-q)(1-W)/(1-G-(1-q)D). The q-only constant cancels exactly. Every remaining polynomial monomial Q^(u-vs) has v>=1 and u<=3v/5. At a0=7/8, a monomial retained at total weighted decay lambda<rho has total delay exponent d<40*rho/11. For 0<rho<11/40 this should keep every retained inner argument Z/T>=1 eventually. All slots, weighted expectations and mixed products must be included.
+
+Proposed decisive result: finite geometric truncation, then a source-fixed weighted-degree cutoff, gives the COMPLETE principal ratio as 1 plus a finite contractive same-signal response plus O(Z^-rho), for arbitrary fixed rho<11/40. Constants may depend on fixed source and truncation; no growing-slot or zero-error limit is claimed. If valid, rho=2h, h=t/100, e<=t/2000 should pay the full original return without a minimum-slot-sized h. The full analytic proof and independent review are still required; this is not a certified exponent claim.
+
+New tests: exact sparse symbolic generator expansion and absence of nonconstant v=0 terms; slope u<=3v/5 for every generated term; full small weighted-product cutoff and all discarded-term classifications; exact rational six-bill/source budgets at h=t/100, rho=t/50; explicit comparison to N_pack using explicitFineLength<=t/200. The unexpanded infinite series is NOT assumed to evaluate f below 1, and a proper-slot test is NOT the complete-source proof.
