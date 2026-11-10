@@ -1,0 +1,73 @@
+name: OAI original principal signed remainder
+
+on:
+  pull_request:
+    paths:
+      - 'research/oai_434/VF919PrincipalSignedRemainder.lean'
+      - 'scripts/lean/principal_signed_remainder/**'
+      - '.github/workflows/vf919-principal-signed-remainder.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: principal-signed-${{ github.head_ref || github.ref_name }}-${{ github.event.pull_request.head.sha || github.sha }}
+  cancel-in-progress: true
+
+jobs:
+  original-principal-signed-proof:
+    runs-on: ubuntu-latest
+    timeout-minutes: 100
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - uses: ./.github/actions/lean-setup
+      - uses: actions/checkout@v4
+        with:
+          repository: openai/math
+          ref: 1581d4cbdd69a0faf34b2089614fe2a814316a6a
+          path: oai-upstream
+          persist-credentials: false
+      - name: Restore source-pinned original analytic shared cache
+        uses: ./.github/actions/oai-434-shared-cache
+      - name: Verify the exact toolchain and original slot source
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(cat lean-toolchain)" = 'leanprover/lean4:v4.34.1'
+          test "$(git -C oai-upstream rev-parse HEAD)" = '1581d4cbdd69a0faf34b2089614fe2a814316a6a'
+          test "$(git hash-object oai-upstream/lean/OAI/NumberTheory/DirichletL/PrincipalSlotEstimate.lean)" = 'f9250c7c4464f374902bbb39ebbb3487d96bea1f'
+          python3 scripts/check_shared_lean_packages.py . oai-upstream/lean PrimeNumberTheoremAnd mathlib
+          lean --version
+      - name: Build the unchanged original slot prerequisites
+        shell: bash
+        working-directory: oai-upstream/lean
+        run: lake build OAI.NumberTheory.DirichletL.PrincipalSlotEstimate
+      - name: Compile signed source theorem and exact types with warnings fatal
+        shell: bash
+        run: |
+          set -euo pipefail
+          OAI_PATH="$(cd oai-upstream/lean && lake env python3 -c 'import os; print(os.pathsep.join(os.path.abspath(p) for p in os.environ["LEAN_PATH"].split(os.pathsep) if p))')"
+          RH_PATH="$(lake env python3 -c 'import os; print(os.pathsep.join(os.path.abspath(p) for p in os.environ["LEAN_PATH"].split(os.pathsep) if p))')"
+          mkdir -p .lake/build/lib/lean
+          env LEAN_PATH="$RH_PATH:$OAI_PATH" lean -DwarningAsError=true \
+            -o .lake/build/lib/lean/research.oai_434.VF919PrincipalSignedRemainder.olean \
+            research/oai_434/VF919PrincipalSignedRemainder.lean 2>&1 | tee principal-signed-proof.log
+          env LEAN_PATH="$RH_PATH:$OAI_PATH" lean -DwarningAsError=true \
+            scripts/lean/principal_signed_remainder/ExactTypes.lean 2>&1 | tee principal-signed-types.log
+          env LEAN_PATH="$RH_PATH:$OAI_PATH" lean -DwarningAsError=true \
+            --run scripts/lean/principal_signed_remainder/Audit.lean 2>&1 | tee principal-signed-audit.log
+          if grep -E 'sorryAx|admitAx' principal-signed-{proof,types,audit}.log; then exit 1; fi
+      - name: Preserve exact proof diagnostics
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: principal-signed-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            principal-signed-*.log
+            research/oai_434/VF919PrincipalSignedRemainder.lean
+            scripts/lean/principal_signed_remainder/
+          if-no-files-found: error
+          retention-days: 30
