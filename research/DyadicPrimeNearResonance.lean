@@ -57,7 +57,7 @@ theorem dyadicPrimePhase_shared (R p q r : ℕ) (hR : 2 ≤ R)
     (ne_of_gt (div_pos hY (mul_pos hq' hr')))]
   congr 1
   field_simp
-  <;> ring
+  ring
 
 private theorem abs_log_of_relative_error {R z : ℝ}
     (hR : 1 < R) (hz : 0 < z) (he : |z - 1| ≤ 1 / R) :
@@ -72,7 +72,7 @@ private theorem abs_log_of_relative_error {R z : ℝ}
     nlinarith
   have hfrac : R / (R - 1) - 1 = 1 / (R - 1) := by
     field_simp
-    <;> ring
+    ring
   have hupper : 1 / R ≤ 1 / (R - 1) := by
     apply (div_le_div_iff₀ hR0 hRm).mpr
     linarith
@@ -110,7 +110,8 @@ theorem sharedPrime_ratio_bounds (R p r : ℝ) (hR : 8 ≤ R)
       1 / R := by
     rw [show ((R ^ 2 - 1) * r) / ((4 * R ^ 2 - 1) * p) - 1 =
         ((R ^ 2 - 1) * r - (4 * R ^ 2 - 1) * p) /
-          ((4 * R ^ 2 - 1) * p) by field_simp; ring]
+          ((4 * R ^ 2 - 1) * p) by
+            rw [sub_div, div_self hD.ne']]
     rw [abs_div, abs_of_pos hD]
     apply (div_le_div_iff₀ hD hR0).mpr
     nlinarith [mul_le_mul_of_nonneg_right hnum hR0.le]
@@ -136,7 +137,11 @@ private theorem cosine_bound_of_phase {R d t : ℝ} (hR : 8 ≤ R)
     simpa only [mul_pow, div_pow, one_pow, mul_one_div] using h
   have hc := Real.one_sub_sq_div_two_le_cos (x := t * d)
   have hfirst : 1 - 2 * R / (R - 1) ^ 2 ≤ Real.cos (t * d) := by
-    nlinarith
+    calc
+      1 - 2 * R / (R - 1) ^ 2 =
+          1 - (4 * R / (R - 1) ^ 2) / 2 := by ring
+      _ ≤ 1 - (t * d) ^ 2 / 2 := by linarith only [htd]
+      _ ≤ Real.cos (t * d) := hc
   have hratio : 2 * R / (R - 1) ^ 2 ≤ (16 : ℝ) / 49 := by
     apply (div_le_iff₀ (sq_pos_of_pos hRm)).mpr
     nlinarith [mul_nonneg (show 0 ≤ R - 8 by linarith)
@@ -177,7 +182,8 @@ theorem dyadicPrimePhase_hermitian_eq_cos (R p q r : ℕ) (t : ℝ) :
     (dyadicPrimePhaseWave R p q t *
       star (dyadicPrimePhaseWave (2 * R) q r t)).re =
       Real.cos (t * (dyadicPrimePhase R p q - dyadicPrimePhase (2 * R) q r)) := by
-  simp [dyadicPrimePhaseWave, Complex.exp_mul_I, Complex.mul_re, Real.cos_sub, mul_sub]
+  simp [dyadicPrimePhaseWave, Complex.mul_re, Complex.exp_re, Complex.exp_im,
+    Real.cos_sub, mul_sub]
 
 /-- Both occurrences in the first witness are actual admitted prime products. -/
 theorem dyadicPrimeNearResonance_eight_admitted :
@@ -203,6 +209,7 @@ theorem dyadicPrimeNearResonance_counterexample :
     hpq.1 hqr.1 (by omega)
   refine ⟨8, 5, 11, 19, by omega, hpq, hqr, h.1, ?_⟩
   intro t ht
+  norm_num only [Nat.cast_ofNat] at ht
   have ht2 : t ^ 2 ≤ 4 * (8 : ℝ) := by
     have hs := Real.sq_sqrt (show (0 : ℝ) ≤ 8 by norm_num)
     have hn := Real.sqrt_nonneg (8 : ℝ)
@@ -213,3 +220,4 @@ theorem dyadicPrimeNearResonance_counterexample :
   exact (h.2 t ht2).2
 
 end RHLean.Analysis
+
