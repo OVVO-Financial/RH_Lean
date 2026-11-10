@@ -46,3 +46,15 @@ Live open PR: #1129, draft policy only, head 45b0fbdc564c7cd063e2de2cc98c0051ee0
 ### J. Next-Run Resume Capsule
 
 Continue the current run by auditing latest HF/HM/PC/UC/LC claims, the near-resonance repair, and yesterday's CD conclusion. Then perform an original falsifiable investigation, rank at most three independent surviving mechanisms, publish identical Coordinator mirrors, and verify immutable readback. This checkpoint is not a completed daily report.
+
+## Registered All-Cutoff Investigation - 20261110-coordinator-0710-EST/UB
+
+Registration time: 2026-11-10 07:23 EST; proof-led, BEFORE executing new arithmetic tests. This is continuation of the same scheduled run.
+
+Exact carrier: the existing CF/AP/HM/UC rows T_q(z)=sum_(p<=z or R/2<=p<R)[N_p(floor((R^2-1)/q))-(R^2-1)w_p/q], genuine prime R<=q<2R, ALL integer 2<=z<=h=floor((R-1)/2). Original reference and rough-composite cofactors stay unchanged. Let a=ceil(sqrt R), v_sat=min_(a<=z<=h)T_q(z).
+
+Candidate UB theorem: there exists R_0 such that for every R>=R_0, every admitted q, and EVERY 2<=z<a, T_q(z)>=v_sat+R/(20 log R). Therefore eventual signed minimizers are saturated even when every cutoff is allowed. This does NOT assert all-root equality of minima, which UC already refutes at R=8, or equality of absolute minima.
+
+Independent new input: Weingartner, arXiv:2101.11585v2, Lemma 6, uniform rough-count expansion with the EXACT finite Euler product. Proposed elementary delay-equation envelope u(omega(u)-exp(-gamma))<=1/4 for u>=2 gives Phi(t,z)-t delta(z)<=1+t/(4 log t)+O(t/log^2 t), uniformly 2<=z<=sqrt t. The uniformity proof and all source adapters must be written explicitly.
+
+Frozen test plan: discovery every R=8..96; held-outs 127,257,509,1021. Check every distinct prime-cutoff state plus a and h, with independent direct physical least-owner counts versus the rough-composite formula. Compute exact signed minima, absolute minima, and excluded-cutoff gap. Reproduce UC's R=8,q=11 signed and R=10,q=11 absolute exceptions, and R=29,z=2 rough correction. No finite range will be called an asymptotic onset. Rational logarithm/harmonic bounds will certify 11/20<exp(-gamma)<3/5 and the elementary Buchstab envelope constants. Complete original-wheel controls at R=2,3,8,12,14 retain d=X and virtual terms. Falsification: a source mismatch invalidates UB transfer; a flaw in the uniform rough estimate or limit quantifiers blocks the theorem. A small-root negative gap only refutes an all-root strengthening, not the stated eventual claim.
