@@ -7,6 +7,37 @@ open RHLean.Analysis
 
 noncomputable section
 
+example (R p q r : ℕ) (hR : 2 ≤ R)
+    (hp : 0 < p) (hq : 0 < q) (hr : 0 < r) :
+    dyadicPrimePhase R p q - dyadicPrimePhase (2 * R) q r =
+      Real.log ((((R : ℝ) ^ 2 - 1) * r) /
+        ((4 * (R : ℝ) ^ 2 - 1) * p)) :=
+  dyadicPrimePhase_shared R p q r hR hp hq hr
+
+example (R p r : ℝ) (hR : 8 ≤ R)
+    (hp : R ≤ 2 * p) (hpR : p ≤ R)
+    (hstep : r = 4 * p - 1 ∨ r = 4 * p + 1) :
+    Real.log (((R ^ 2 - 1) * r) / ((4 * R ^ 2 - 1) * p)) ≠ 0 ∧
+      |Real.log (((R ^ 2 - 1) * r) / ((4 * R ^ 2 - 1) * p))| ≤
+        1 / (R - 1) :=
+  sharedPrime_ratio_bounds R p r hR hp hpR hstep
+
+/-- The minus-step witness tests the negative side of the absolute-log bound. -/
+example : dyadicPrimePhase 8 5 11 - dyadicPrimePhase 16 11 19 < 0 := by
+  have h := dyadicPrimePhase_shared 8 5 11 19 (by omega)
+    (by omega) (by omega) (by omega)
+  norm_num at h
+  rw [h]
+  exact Real.log_neg (by norm_num) (by norm_num)
+
+/-- The plus-step witness tests the positive side; neither sign can be assumed. -/
+example : 0 < dyadicPrimePhase 64 37 67 - dyadicPrimePhase 128 67 149 := by
+  have h := dyadicPrimePhase_shared 64 37 67 149 (by omega)
+    (by omega) (by omega) (by omega)
+  norm_num at h
+  rw [h]
+  exact Real.log_pos (by norm_num)
+
 example (R p q r : ℕ) (hR : 8 ≤ R)
     (hpq : dyadicPrimePair R p q) (hqr : dyadicPrimePair (2 * R) q r)
     (hstep : r + 1 = 4 * p ∨ r = 4 * p + 1) :
@@ -117,3 +148,4 @@ end DyadicPrimeNearResonanceAudit
 #print axioms dyadicPrimeNearResonance_sixtyFour_admitted
 #print axioms dyadicPrimePhase_near_resonance
 #print axioms dyadicPrimeNearResonance_counterexample
+
