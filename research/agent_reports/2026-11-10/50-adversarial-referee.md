@@ -1458,3 +1458,12 @@ print(json.dumps({'local_exact_cases': checked, 'weighted_product_cases': produc
 
 Recorded terminal summary: `local_exact_cases=5760`, `weighted_product_cases=108`, `failures=0`; eleven strictly positive rational budget margins; six nonnegative target gaps, with equality only in the retained-response remainder and supported floor rows. The process completed with exit code 0.
 
+
+
+### Verified Publication Receipt - 20261110-referee-2/SR
+
+At 2026-11-10 12:28:52 EST (17:28:52 UTC), the complete substantive continuation was verified at immutable [commit af8d304f19985eadb8c7a2683a5a029dcd905daa](https://github.com/OVVO-Financial/RH_Lean/commit/af8d304f19985eadb8c7a2683a5a029dcd905daa), report blob `dd285b1fd74ccf7a8710e99b04e088e2e983561e`. The GitHub file read matched all submitted content exactly, preserved the earlier daily report and checkpoint as an unchanged prefix, and the commit's changed-file list contained only this authorized report.
+
+The new continuation passed A-O/five-stage coverage, code-fence and exact embedded-code checks. Its prepublication text SHA-256 is `50964255802c6e3fee31b220df9ff61cf35adbcf592effbf42b44929d93147ae`; the executed program SHA remains `335ce5b48f63c4f07526a4793ccfa0ddd628141440fe83987dd4930c0afd94b8`. Mathematical checks completed with zero failures and no running computation session. No local Lean build or unauthorized remote mutation occurred.
+
+`RUN_STATUS=COMPLETE`; `SUBSTANTIVE_REPORT=PUBLISHED_READBACK_VERIFIED`. RD1-RD5 are independently ACCEPTED/PAPER_PROOF; SR1-SR4 remain SELF_AUDIT/INDEPENDENT_REVIEW_PENDING; SR5 is exact finite verification. Formal implementation of the new RD/SR arguments remains pending, `VERIFIED_ETA=NONE`, certified main baseline unchanged, canonical RH objective OPEN. The next run should refresh actual main and review new source or objections, not repeat the unchanged arithmetic scans.
