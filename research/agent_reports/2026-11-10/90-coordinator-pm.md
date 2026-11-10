@@ -707,3 +707,756 @@ Exact generators are q=Q^-1, D=eta Q^-s, G=q*Rloc=A Q^(2-6s), and W=B*Rloc=A*con
 Proposed decisive result: finite geometric truncation, then a source-fixed weighted-degree cutoff, gives the COMPLETE principal ratio as 1 plus a finite contractive same-signal response plus O(Z^-rho), for arbitrary fixed rho<11/40. Constants may depend on fixed source and truncation; no growing-slot or zero-error limit is claimed. If valid, rho=2h, h=t/100, e<=t/2000 should pay the full original return without a minimum-slot-sized h. The full analytic proof and independent review are still required; this is not a certified exponent claim.
 
 New tests: exact sparse symbolic generator expansion and absence of nonconstant v=0 terms; slope u<=3v/5 for every generated term; full small weighted-product cutoff and all discarded-term classifications; exact rational six-bill/source budgets at h=t/100, rho=t/50; explicit comparison to N_pack using explicitFineLength<=t/200. The unexpanded infinite series is NOT assumed to evaluate f below 1, and a proper-slot test is NOT the complete-source proof.
+
+---
+
+## 20261110-coordinator-1513-EST: Complete Mellin-Symbol Recovery
+
+### A. What Changed Mathematically?
+
+The minimum slot length need not be the accuracy limit of the original principal residue. A finite expansion of the EXACT normalized local factor, followed by a cutoff on the TOTAL weighted Mellin degree, retains every interaction too large to discard. Its retained terms act on smaller arguments of the SAME signal. A support inequality for the original monomials proves that this complete finite response is contractive at every growth exponent theta>3/5. This is the new proposed mechanism, not an assumption that prime phases cancel.
+
+Claims `20261110-coordinator-1513-EST/MD1-MD5` below give a paper argument for a principal error O(Z^-rho), for any fixed 0<rho<11/40, with the number and lengths of slots fixed before Z. Constants can be very large. Applying the existing raw anchored return with h=t/100 and rho=t/50 proposes the genuinely stronger all-prefix consequence
+
+    MertensGrowthAtMost (7/8 - 1/10000000000).
+
+This means every positive exponent loss, NOT a no-loss power bound. A fixed-power comparison with the certified baseline is also explicitly paid below. Mathematical status: **PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED**. `VERIFIED_ETA=NONE`; this report does not change the certified baseline or prove RH. The formalization and independent-review obligations are substantive, especially the complete anchored return.
+
+The earlier two-response calculation `QD` led to MD; it remains useful support but is not a separate independent research route. The full finite-symbol argument is more than a renamed RD/SR remainder: it removes the minimum-slot restriction from the principal accuracy by retaining all low weighted-degree cross-slot terms. It does not remove the independently binding physical-tail, correction-domain or source-moment restrictions.
+
+Run metadata: actual configured trigger 2026-11-10 15:13:01 EST, not a second invocation inferred from the AM filename. Eastern reporting date 2026-11-10. This is an append-only continuation preserving earlier today's findings and timestamp corrections. `cross_route_ack=CROSS_ROUTE_SIGNED_RECOVERY_V1`; `high_attack_ack=COMPLETE_SIGNED_HIGH_ATTACK_V1`; `chain_ack=CANCELLATION_CHAIN_REUSE_V1`. Preparation status is IN_PROGRESS until immutable publication/readback is recorded. No agents, schedules, workflows or proof branches were launched.
+
+### B. Current Proof Objective And Five-Stage Capsule
+
+**Authority.** Main was fetched at intake and refreshed before synthesis: `f7947bee036c4dddb0c36fc9f53ab46b4fa90995`, the human merge of #1130 at 2026-11-10T19:28:09Z. Read live `AGENTS.md` (`c9c89f01b90b526de9f3e8ea92478e36504711b6`), `CURRENT_PROOF_CONTRACT.md` (`95566e37c8eaeb99ee680660df4f9d2e06ea5038`) and `docs/RHLEAN_CROSS_ROUTE_SIGNED_RECOVERY_20261110.md` (`e922d4ba9362a1ae196af8f6de88f7417f92087c`). The cross-route directive supersedes single-route priorities, not source safeguards or human merge gates. Historical claims that #1119 or #1130 are unmerged are superseded by the verified live records.
+
+The canonical `VFCanonicalSquareVonKochStatement` remains OPEN:
+
+    exists C >= 0, forall integers R >= 2,
+      abs(pi(R^2) - VF_can(R^2)) <= C * R * log R.
+
+The terminal classical-RH consumer still requires its explicit `ClassicalVonKochRHCriterion` and arithmetic premise. None is silently supplied by the proposed finite Mertens improvement.
+
+#### Stage 1: BASELINE / DEPENDENCY RECEIPT
+
+The strongest verified explicit theorem found is `RHLean.Analysis.native_mertens_near_uniform_window_error_closed`:
+
+    b_base = 7/8 - 7/(64*N_pack),
+    forall epsilon>0, exists C_epsilon>=0, forall n>=1,
+      abs(M(n)) <= C_epsilon*n^(b_base+epsilon).
+
+Here L=`explicitFineLength`, N_pack=ceil_nat(max(1,1/(6L)))+2. The prior family used N_old=ceil_nat(max(1,1/(3L)))+2. Since N_pack<=N_old, this improves the historical 7/8-1/(48N_old) and #1116's 7/8-5/(96N_old); a stale formula in a navigation document does not override the live theorem. This comparison was already known as CR1, not rediscovered progress.
+
+Checked #1119 head `77ee815846d6d534c866f0752aa33b84c385610a`, run `42552018910`, audit job `128949473700`, and 14/14 check conclusions SUCCESS. The audit reports five passing selected transitive closures of sizes 35358, 35375, 35736, 35737 and 35753, with only `[propext, Classical.choice, Quot.sound]`. All 911 pre-existing relevant blobs under RHLean/, research/oai_434/, and the two audited preparation/audit script families matched that tested head at current main. Later-added files are not retroactively certified by this comparison.
+
+Verified environment pins: Lean 4.34.1 / compiler `5045d0056413266e57c625dcd7c365b10e377c52`; Mathlib `d13f23b723b8a846827a245b89c10fc7d3f11612`; PrimeNumberTheoremAnd `c39a751132c88b6e8080b74c74023fd95b3d8be0`; openai/math `1581d4cbdd69a0faf34b2089614fe2a814316a6a`; anchored generator RH source pin `9cbfce5295343bcb411e6d2cb159b59995cd985b`. The dependency build log contains pre-existing Wiener.lean sorry warnings. The selected endpoint's transitive audit excludes sorryAx; this is NOT a claim that the entire dependency repository is placeholder-free. No local Lean execution was performed.
+
+#### Stage 2: FOUR-WAY SOURCE MAP
+
+| Coordinate | Literal object and proved edge | Transfer barrier retained |
+| --- | --- | --- |
+| Euler/history | X=R^2-1; Q_R=sum_(1<=a,b<R) mu(a)mu(b) floor(X/(ab))=2M(R-1)-M(X). Native Mertens bounds control this complete identity. K_R=max_(0<=u<R)(M(u)-1)^2/(u+1) remains the actual historical normalizer. | The identity alone supplies no normalized finite-A or q(X)->0 endpoint. K_R cannot be replaced by 1. Complete reciprocal-band, diagonal and mixed interactions remain required. |
+| Actual-prime VF/wheel | For y=R-1, F=sum_(d divides P_y) mu(d) frac(X/d), D=X*delta(y)+pi(y)-1-li(X), F-D=li(X)-pi(X). Retain d=X and virtual d>X until the matching Euler cancellation. | This is not an equality between the Hecke principal integrand and an actual-prime innovation. The floor-Li event clock and prime clock differ; BR's defect must be paid. |
+| NNS/signed pairs | The native bridge passes through the exact modulus-one Dirichlet/Hecke L-product and the native Mertens converse. Then M(n)^2 equals its squarefree diagonal plus twice the complete rational-Mobius signed pair sum. Original LOW tuple Gram is a separate exact source identity. | Do not identify ideal-character phases with rational mu. A complete pair bound does not separately bound favorable/positive subpieces. The all-selected LOW outer Gram has one tuple, so an outer off-diagonal slogan adds nothing there. |
+| Square blocks | Increments M((R+1)^2-1)-M(R^2-1), or their exact completed history, follow from all-prefix envelopes with the resulting powers and both endpoint costs. | A Mertens envelope at b near 7/8 is not sharp O(R log R) square-shell control. Proper fibres, missing upper bands and cross-block products cannot be dropped. |
+
+The identity declarations read include `eulerSelfDualBilinear_eq_two_mertens_sub_endpoint`, `finiteWheel_squareFractional_centered_eq_reference_sub_pi`, and `vfCanonicalSquareVonKoch_iff_primeLiVonKoch`. The missing principal-Hecke-to-weighted-prime-innovation and local-packet-to-complete-source transfers are explicitly **OPEN_BRIDGE**, not silently inferred from these identities. The canonical square target is not proved equivalent to the proposed MD estimate. It is much stronger. No route is made to pass a compulsory OAI source test.
+
+#### Stage 3: FIRST SIGNED LOSS
+
+The original normalized principal ratio is a product of weighted slot averages. The first binding local loss in the old principal comparison replaces each slot by -1 and takes an absolute error, discarding -eta*Q^-s. RD retains that linear response; SR observes the 11/8 local residual. QD retains the next A*conj(eta)*Q^(3-5s) response. A further local truncation alone still leaves errors measured in the smallest slot length. MD changes the truncation rule: expand finitely, then keep EVERY monomial with total weighted decay below rho, including all mixed products.
+
+The earlier triangle inequalities in tail and central-row suppliers are recorded but not claimed to be reversed here. The marked 1+t/2 input and native moment suppliers remain paid upstream inputs. No independently verified theorem was found that already states MD's complete cutoff and signal return.
+
+#### Stage 4: PAID RECOVERY TEST
+
+Already-proved #1130 supplies the original local signed remainder and weighted relative adapter, not a global response theorem. The exact source normalization, contour shift, LOW total-mass bound, raw anchored tails, floor/nonfloor suppliers and native source moments are reused at their original masks and heights. MD1-MD4 below supply the additional finite-symbol and response argument; MD5 pays all remaining return costs. The complete response is derived from the physical probe, not postulated as a new hypothesis.
+
+#### Stage 5: NET RESULT / ADMISSION VERDICT
+
+MD proposes a strictly stronger global exponent with a fixed numerical comparison saving; it therefore meets the mathematical admission test on paper, subject to independent review. It is not yet a verified route improvement. The certified baseline stays b_base. Euler-history and actual-prime mechanisms remain separately active. All nine protected families remain eligible: VF-LOW, SAT, CODIV, OAI-NNS, JOH, FINITE-AC, CORR4, MU-LIFT and NYMAN. No substantive new CODIV/NYMAN attempt is falsely credited to this execution.
+
+### C. Competing Mechanism Portfolio
+
+| Mechanism | Independent input, target implication and first missing step | Support, obstruction, decisive test, owner and disposition |
+| --- | --- | --- |
+| M1: Complete finite Mellin-symbol recovery, OAI-NNS | Exact local support cone plus finite weighted cutoff -> full same-signal response -> anchored return -> smaller Hecke zero ceiling -> native all-prefix Mertens gain. MD supplies a paper derivation, with independent validation and formalization outstanding. It does not yet imply the canonical RH endpoint. | RD is independently accepted on paper and RD1 is merged/checked. MD is new self-audited work. The decisive challenge is a source or uniformity failure in MD1-MD5, not an arbitrary rational-Mobius phase comparison. Analytic/Referee review; Lean only accepted parts. CONTINUE at highest review priority. |
+| M2: Completed Euler history and incidence, FINITE-AC/CORR4/MU-LIFT | A genuinely new restriction on the complete signed reciprocal-band source, including upper bands and all mixed/diagonal terms, could feed the original finite-A, CORR4 or full subcritical recurrence consumer. The first arithmetic estimate is still OPEN; completing the incidence identity is not that estimate. | #1115 bands, #1127 cofactor positivity, #1128 repaired resonance, and JC source bridges are available. Daughter-only credit and omitted-diagonal shortcuts fail. Test a newly quantified complete-source inequality against R=56 and existing held-out regressions before extending a census. Wheel, with targeted Census falsification. REVISE to complete-source restrictions, not positive packet accumulation. |
+| M3: Actual-prime weighted innovation, VF-LOW/SAT/JOH | Obtain an independently bounded, complete weighted innovation on the original prime/floor-Li clocks and #915 owner masks. Only then transfer through the route's actual source consumer. The first missing input is a restriction on the complete clock-defect/weighted backlog, not its renamed norm. | BR classifies literal mu(aq)=-mu(a) admission and exposes composite event defects; prior saturated HM/PC remain distinct from refuted UC extensions. Actual-prime HF is a proper high-frequency-sector proposal with unpaid complement. Owner leads; independent event-law counterexample first. CONTINUE as a distinct arithmetic route. |
+
+M1 wins on a new independently demonstrated local restriction and a complete proposed return, not on theorem count. M2 and M3 are not versions of MD under new notation. The portfolio is three investigation mechanisms, not a claim of three complete proofs. Support review must preserve investigator rotations within three actual invocations; missing prerequisite work is marked as such, not fabricated route coverage.
+
+### D. Conceptual Research Performed
+
+#### MD1: Exact Principal Symbol And Its Support Cone
+
+Quantifiers: for every real Q>=480, complex s with a=Re(s)>=a0=7/8, |A|<=1 and |eta|=1, use the ORIGINAL `principalSlot`. Write
+
+    q=Q^-1, z=Q^-s, D=eta*z,
+    Rloc=A*Q^3*z^6, B=conj(eta)/z,
+    G=q*Rloc=A*Q^(2-6s), W=B*Rloc=A*conj(eta)*Q^(3-5s),
+    H=G+(1-q)*D.
+
+The actual residue uses K=(1-q)D, not K=D. From the literal marked factor,
+
+    principalMarked=(1+q)*(Rloc-D)/(1-Rloc),
+    principalSlot=(1-q)*(B*Rloc-1)/(1-H)-q,
+    S := -principalSlot = q+(1-q)*(1-W)/(1-H).                 (MD1)
+
+These identities are valid with the nonzero denominators already controlled in RD1; B*D=1 uses |eta|=1. For genuine source primes use A=`actualAPhase eta p`, eta_p=`HeckeFamily.elementCoeff eta p` and Q=Norm(p), with the original unit/exclusion hypotheses. No artificial phase distribution is introduced.
+
+For a>=a0, |G|<=Q^(-13/4)<=Q^-a0, |D|<=Q^-a0, |W|<=Q^(-11/8)<=1, and |H|<=2Q^-a0<=1/2. For any fixed integer K>=0 define
+
+    S_K=q+(1-q)*(1-W)*sum_(k=0..K) H^k.
+
+The EXACT tail is (1-q)(1-W)H^(K+1)/(1-H); hence
+
+    |S-S_K| <= 4*2^(K+1)*Q^(-a0*(K+1)),                    (1)
+
+uniformly over imaginary height, A and eta. This is a bound, not just an identity.
+
+Expand S_K as a finite polynomial in q,D,G,W. The constant is exactly 1 because q+(1-q)=1. Every remaining monomial q^alpha D^b G^r W^d has nonnegative integer exponents, v=b+6r+5d>=1, and the form
+
+    coefficient * A^(r+d)*eta^(b-d)*Q^(u-vs),
+    u=-alpha+2r+3d <= (3/5)*v.                              (2)
+
+The coefficient is an integer from the exact binomial expansion. Terms containing q alone cancel before any estimate. This support inequality is the independent structural restriction: it prevents a large retained Mellin delay from having a small decay exponent. It does not require independence or cancellation of prime phases. Status MD1: PAPER_PROOF / SELF_AUDIT; the raw ratio algebra overlaps existing source identities, while (1)-(2) are the stated new quantitative use.
+
+#### MD2: The COMPLETE Finite-Product Cutoff
+
+Fix N>=1, positive slot lengths ell_j with sum ell_j=1/6, m=min ell_j>0, and 0<rho<11/40. These are chosen BEFORE Z. At each sufficiently large Z retain the actual finite pools with Z^ell_j<=Q_(j,p)<=2Z^ell_j and original normalized weights alpha_(j,p)(Z)>=0, sum_p alpha_(j,p)(Z)=1. The weights and pools may depend on Z, but are never reselected at an inner argument. They are the original nonnegative residue masks divided by their positive masses.
+
+Choose an integer K such that a0*(K+1)*m>=rho. This is finite even if m is very small. By (1), replacing every S by S_K in the COMPLETE product
+
+    P_Z(s)=product_j sum_p alpha_(j,p)(Z)*S_(j,p)(s)
+
+costs O_D(Z^-rho). To see this, each original/finite averaged slot is bounded for all sufficiently large Z, and the finite product difference telescopes into N such errors. All constants may depend on the fixed source, N,K,rho, but not Z or height.
+
+Now expand the entire finite product, including every mixed-slot term and every within-slot power. For a nonconstant global monomial define
+
+    lambda=sum_j (a0*v_j-u_j)*ell_j,
+    delta=sum_j v_j*ell_j.
+
+By (2), lambda>0 and lambda>=(11/40)*delta. Keep precisely the nonconstant monomials with lambda<rho. Discard every other monomial into O_D(Z^-rho), since each u_j-a*v_j is negative and Q_(j,p)>=Z^ell_j. There are finitely many terms; the original product weights sum to one, so moving pools do not multiply the coefficient mass by their cardinality.
+
+For every retained monomial,
+
+    m<=delta<40*rho/11<1,
+    T=product_j Q_(j,p)^(v_j),
+    1<=T<=2^(sum_j v_j)*Z^delta<=Z eventually.               (3)
+
+The last threshold is uniform across the finitely many exponent patterns and all choices from the pools. Consequently Z/T is in [1,Z]. We have NOT expanded an infinite response and then invoked the signal at illegal arguments below 1. MD2 yields a complete identity
+
+    P_Z(s)=1+sum_(retained patterns and original tuples)
+                    c_tuple(Z)*T_tuple^(-s)+E_Z(s),
+    |E_Z(s)|<=C_D*Z^-rho,   Re(s)>=7/8.                     (4)
+
+Here c_tuple is the original product weight times the exact integer coefficient, phase and product Q_j^u_j. Terms may be kept separately; any accidental extra cancellation only helps. Equality-boundary lambda=rho terms are paid in E_Z. Status MD2: PAPER_PROOF / SELF_AUDIT, complete rather than proper-packet scope.
+
+#### MD3: Exact Same-Signal Return And Eventual Inversion
+
+Fix the actual source F, character chi=eta.excludePrimes(F.S), correction H0=`sourceCorrection eta F.S`, real c, and f(x)=`HeckeSignal.signal chi H0 c x`. On a legal contour a=7/8+e with e>0, actual beta<a and a<=2, the original contour-shift theorem identifies its Mellin integral. The source normalization is exactly `normalized_source_double_residue_variable_x`; the Gaussian, excluded primes, H0 and c remain unchanged. For each retained term,
+
+    Z^(s+c) * (product_j Q_j^(u_j-v_j*s))
+      = (product_j Q_j^u_j)*T^c*(Z/T)^(s+c).                (5)
+
+Thus the normalized principal residue is
+
+    f(Z)+(T_response f)(Z)+O_(F,eta)(Z^(a+c-rho)),          (6)
+
+where the response is the finite sum from (4), with factor T^c and the SAME f(Z/T). Outer weights alpha(Z) are frozen, never alpha(Z/T). Finite summation and the Gaussian-weighted reciprocal bound justify integration; no infinite interchange or unproved stochastic step occurs. The [NIST DLMF section on Mellin transforms](https://dlmf.nist.gov/1.14#iv) provides background only; (5) is proved directly from the repository kernel, and no external number-theoretic estimate is imported.
+
+For any fixed theta>3/5 the weighted absolute row mass satisfies
+
+    kappa_theta(Z)
+      <= C_D*Z^(-(theta-3/5)*m) -> 0.                      (7)
+
+Indeed division by Z^(theta+c) multiplies a term evaluated at Z/T by T^(-theta); each Q_j exponent is u_j-theta*v_j<=-(theta-3/5)v_j, and every nonconstant pattern has delta>=m. Fixed N,K and original normalized product weights are essential. Astronomical constants and starting thresholds are permitted; an N(Z) or K(Z) argument is NOT claimed.
+
+Suppose an independently derived complete bound |f(Z)+T_response f(Z)|<=C*Z^(theta+c) holds eventually. Let B_X=sup_(1<=x<=X)|f(x)|/x^(theta+c). It is finite by the existing signal continuity on compact intervals. After enlarging a fixed starting scale so (3) and kappa<=1/2 hold,
+
+    B_X <= max(B_initial, C+B_X/2),
+    hence B_X <= max(B_initial,2C) for every X.
+
+This proves f=O(x^(theta+c)) without assuming that its global weighted supremum is finite. The complete bound in this conditional inversion lemma is supplied in MD4, not treated as new arithmetic input. Conversely f of that growth gives the response bound by (7); inversion ALONE is therefore a growth reformulation, not a breakthrough claim. The independent content is (1)-(4) and the paid physical return. Status MD3: PAPER_PROOF / SELF_AUDIT.
+
+#### MD4: Full Anchored Physical Return, With Every Bill
+
+Let D be the original fine `HighData (1/1000000)`, 0<t=D.t<=10^-8, ell_j<=detectorMesh(Delta,t)/200 and ell_j<=t/200. Retain the actual ell_j,N,t and all detector conditions, choosing the legal detector epsilon parameter sufficiently small that (N+8)*eps<=t. The existing small-error facts give D.e,D.epsilon<=t/2000. Construct fresh valid SourceData F and CountParameters before eta and Z; do not take a limit of an old exclusion mask. Stored D.sigma is unchanged and is NOT enlarged to h.
+
+Choose
+
+    b0=7/8, h=t/100, rho=t/50=2h, c=-11/16-8h,
+    a=b0+e, nu=dyadCost=t/8,
+    zeta=mesh=margin=loss=t, R_source=t,
+    dmin=1/200, dmax=7/8, mu_margin=2t,
+    logCost=momentCost=t, s0=49/881280.
+
+Use the original height-choice argument: choose tau>0 small enough for all finitely many detector inequalities and native polynomial height losses, with heightCost=2tau<=t. The native source moments require beta>=51/100 and beta<=b0. The upper bound is already proved; the lower bound is used ONLY in the contradiction branch beta>b0-h, where it follows. The source moments retain their external 17/50 profile, capacity, character and conductor restrictions. They are not identified with the principal residue's 1/6 profile.
+
+The actual source permits free nonnegative physical tilt in the raw leaves. Use the anchored versions generated by the pinned `slot_anchored/prepare_anchored.py`, not the old bundled HIGH theorem with its actual-beta>=7/8 premise or its D.sigma reserve. The generator replaces only the reference coordinate in new lemmas and pays the actual reciprocal upper bound using the already-proved native_beta_le_seven_eighths. This was checked in the source and exact-head audit; it does not change the true beta definition.
+
+After division by the original normalizer, the SIX bills are:
+
+| Complete component | Original normalized exponent | Sufficient condition to be <=3/16-9h |
+| --- | --- | --- |
+| Small tails | b0+c-63/800+8e+nu | h+8e+nu<=63/800 |
+| Large tails | -1-8h+nu | h+nu<=19/16 |
+| Principal w/z remainders | b0+c-17/48000+nu | h+nu<=17/48000 |
+| Complete symbol remainder (6) | b0+c+e-rho | h+e<=rho |
+| Complete floor rows, free saving=h | 3/16-h-8h | equality |
+| Complete nonfloor rows, saving=s0 | 3/16+Delta-s0-8h+nu+dyadCost | Delta+h+t/4<=s0 |
+
+The principal physical supplier is `physical_principal_residue_remainder_tilted` and the tails use `canonical_probe_exists_ray_cube_tilted`; both are taken in their actual anchored incarnations. The central suppliers are `actual_floor_rows_saving_tilted` and `actual_nonfloor_rows_saving_tilted`. In particular, saving=h is legal in the RAW floor theorem and is not an unsupported substitution in the already bundled D.sigma theorem.
+
+Other sufficient budgets, all checked at the conservative maxima t=10^-8, e=epsilon=t/2000, are
+
+    24h<t; h<1/960;
+    18t+s0<49/440640;
+    2t+26e+t+t+t/6+t/8+h<7/1200;
+    159epsilon+9t<1/32;
+    13/16+3t<7/8;
+    40rho/11<1;
+    21/25<b0-h and 3/5<b0-h.
+
+The source-moment height coefficient is polynomial; choosing tau after its finite degree pays it with the displayed positive momentCost. All other small detector inequalities are those of the original fine D and chosen-height construction. None asks h<=m or h<=D.sigma. Monotonicity in 0<t<=10^-8 proves the listed numerical budgets beyond the exact test endpoint.
+
+The original LOW theorem `SourceData.tiltedProbe_low_total_mass` already supplies, for every omega>0,
+
+    J=F.tiltedProbe(h,eta)=O(Z^(3/16-9h+omega)).
+
+Combining the COMPLETE six-bill decomposition and (6) therefore gives
+
+    J-(I+T_response)f=O(Z^(3/16-9h)),
+    (I+T_response)f=O(Z^(g+c+omega)), g=b0-h.
+
+Apply MD3 with theta=g+omega>3/5 to get f=O(Z^(g+c+omega)) for every positive omega. Constants precede Z and may depend on D,F,eta,omega,K. This is a paper assembly of raw existing suppliers plus MD2, not a new assumed HIGH estimate. Status MD4: PAPER_PROOF / SELF_AUDIT; first independent review target is the complete source/height/parameter instantiation, followed by actual Lean implementation.
+
+#### MD5: Genuine Mertens Consequence And Fixed Positive Comparison
+
+If beta<=g there is nothing to prove. Otherwise beta>g>51/100 makes the native moment premise legal. Choose omega=(beta-g)/2 and an actual nontrivial Hecke zero with real part >g+omega, by the definition of beta. Excluding the original finite prime set preserves that zero in this region. The SAME correction H0 is analytic and within 1/2 of 1 for Re(s)>21/25, so it cannot cancel the zero.
+
+Apply `nonzero_of_probe_bounds_variable_boundary` with analytic boundary 21/25, theta=g, beta_reference=b0, sigma=h, J=f, and error identically zero. We have 0<omega<b0-g because beta<=b0, and max(g+omega,b0-h)=g+omega. This contradicts the chosen zero. Thus the proposed paper argument yields beta<=g.
+
+The exact modulus-one L-product and native Mertens converse then yield `MertensGrowthAtMost(g)`, not an identification of rational mu with ideal phases. For the existing explicit source, t=10^-8, hence
+
+    b_MD=7/8-10^-10.
+
+To compare with the certified same explicit family, L<=t/200 and N_pack>=1/(6L)>=200/(6t). Consequently
+
+    7/(64N_pack)<=21t/6400,
+    h-7/(64N_pack)>=43t/6400.
+
+Spend eta_fixed=43t/12800=43/1280000000000 of the proposed positive-loss allowance. Monotonicity then gives the fixed-power statement
+
+    exists C>=0, forall n>=1,
+      abs(M(n))<=C*n^(b_base-eta_fixed).                    (8)
+
+No zero-loss statement at b_MD is asserted. Neither (8) nor MD1-MD5 is PROVED_IN_LEAN. No claim of literature priority is made. The gain is small, but unlike a locally improved slot bound it is a quantified proposed global gain with complementary costs accounted for.
+
+#### QD: Supporting Calculation, Sharpness And A Reverse-Direction Check
+
+Before MD, the second retained response gave the exact identity
+
+    E2=principalSlot+1+D-W
+      =[-q*W+q*B*Rloc^2+(1-q)^2*Rloc+(2q-q^2)*D
+         -q*Rloc*D-(1-q)*D^2]/(1-H).
+
+For a>=7/8,
+
+    |E2|<=2[Q^(2-5a)+Q^(5-11a)+Q^(3-6a)
+                 +2Q^(-1-a)+Q^(2-7a)+Q^(-2a)]
+         <=14Q^(-7/4).
+
+The normalized full product has linear +D and -W responses, all residual cross products O_D(Z^(-7m/4)). Mellin return is f+T1f-T5f, where
+
+    T1f=sum_(j,p) alpha*eta_p*Q^c*f(Z/Q),
+    T5f=sum_(j,p) alpha*A_p*conj(eta_p)*Q^(3+5c)*f(Z/Q^5).
+
+The weighted mass is at most N[Z^(-theta*m)+Z^(-(5theta-3)*m)], hence contracts for theta>3/5. Fine slots satisfy 5max ell<1. This gives a conservative QD return with h=7m/4-e; the MD cutoff supersedes it strategically. QD is not counted as a distinct third mechanism.
+
+The 7/4 residual cannot simply be improved without retaining another term: at A=0, eta=1, Q=k^8, s=7/8, k^14 E2 tends to -1. More importantly, the contraction threshold is not a license to bootstrap to RH. In the abstract one-slot response model Q(Z)=Z^m, 0<m<1/5, A=eta=1, let
+
+    f(x)=x^(3/5+c)*log(1+log x), x>=1.
+
+Then (f+T1f-T5f)/Z^(3/5+c) is bounded: the first and quintic terms reduce to the difference of logs with arguments 1+log Z and 1+(1-5m)log Z; the T1 contribution decays like Z^(-3m/5)log log Z. Yet f is not O(x^(3/5+c)). This REFUTES unrestricted endpoint inversion at theta=3/5 for that model. It is not a counterexample on a genuine prime-ideal pool or the repository's full fine source. Physical h<t/24 and the correction domain >21/25 are separate limits even above this operator threshold.
+
+This is the failure-backward lesson: a hypothetical too-large signal is incompatible with a contractive finite response only AFTER the physical remainder is paid. At the threshold, a slowly varying resonant mode defeats that inference. No claim that an unobserved bad arithmetic configuration is impossible is used.
+
+#### Self-Audit And No-Circularity Verdict
+
+QD was preregistered before its tests at PM `9ec2732591967fb5bb5b24fe61a824e7e31a1c63` / mirror `0e9ccaa6c916a8c65d6956f7685d8a959d860701`. MD was a proof-led extension registered AFTER QD results but BEFORE its own tests at PM `431619b5fd2947a6710324151360f9e686db1bed` / mirror `4b6384bc290d85e02332480a5c9dc0db44cd877c`, common blob `c534dc51fef405379fa64df2e9b65bdf0b58393e`. This distinction is deliberate, not retrospective preregistration.
+
+QD exact checks: original nested rational factors on 400 Gaussian-rational cases, Q=k^8 for k=3,4,7,11,19, eta and z phase in {1,-1,i,-i}, A in {0,1,-1,i,-i}; exact cleared identity; constant-14 squared bound; 64 weighted full three-slot products; 13 return/endpoint budgets. All passed. Largest displayed scaled squared remainder was approximately 2.8296338258198346, below 196. The sampled Q values need not be norms of genuine admitted primes.
+
+MD exact checks: geometric identities for K=0..8 and the support restriction on 1302 nonconstant terms; a FULL three-slot toy expansion with lengths (1/30,1/20,1/12), rho=1/12, K=2, giving 10 retained terms, 29780 discarded terms, one retained cross-slot term, maximum retained delay exponent 1/4; 35 rational tail identities/bounds; 14 complete budgets. All passed. The toy slots are NOT the actual detector fine family; their purpose is to catch incomplete-product cutoff errors. Proofs above, not these tests, supply all-scale quantifiers.
+
+Reproducible Python sources follow this synthesis. SHA256: QD `65851a0bbb2feb3bcfff2fb273e203dd61261ba7913d0c628bd7e6ebbdd0b0af`; MD `0c633f9f553c3a517ec79af74fed4914e92bb16ec3c077f058eaa97ebabd67ef`. They use standard-library exact arithmetic, not Lean or floating-point acceptance tests. FINITE_COMPUTATION is separate from PAPER_PROOF and independent review.
+
+No-narrowing classification: raw slot algebra is IDENTITY_ONLY until combined with (1)-(2); the abstract inversion is a conditional equivalence in its growth class; MD2's finite support/truncation theorem is a genuine independently provable restriction; MD4 supplies the formerly missing complete input rather than naming it as a premise. The proposed endpoint is strictly weaker than RH, not target-equivalent. A formal theorem assuming MD4 would remain CONDITIONAL and would not count as implementation of the proposed advance.
+
+### E. Specialist Findings And Continuity
+
+All seven role reports for BOTH 2026-11-09 and 2026-11-10 were fetched at intake `agent-reports` head `d2c2e7836396f1fa012b3c6b941d447d8410d248`. No today's role report was missing. Their sections may represent earlier actual invocations; no additional execution is inferred. External inbox blob `038018145c0fddb2f6306c0712373adf9cd1ea52` has no handoff after October 18. EXT-20261018-PNT-1's weighted cofactor identity and prime/floor-Li distinction, and #915 denominator/mask cautions, remain safeguards, not new results today.
+
+| Role | Dated finding and current acceptance scope |
+| --- | --- |
+| Analytic | `20261110-analytic-2/RD1-RD5`: complete first-response paper derivation, independently accepted by today's Referee. RD1 now certified by merged #1130; RD2-RD5 remain unformalized. The earlier HF bound O_epsilon(R^(71/52+epsilon)) concerns the proper sqrt(R)..R high-frequency sector, not the full actual-prime error; independent review remains pending. |
+| Referee | `20261110-referee-2/SR`: RD independently accepted; general weighted contraction and residual sharpness checked. SR3/SR4's proposed h=11m/8-e and b_SR=7/8-11/(64N_pack) are the Referee's OWN paper extension, not automatically independently reviewed by that role. Coordinator source comparison is supportive but this report does not substitute an unperformed separate referee execution. MD is new and awaits independent review. Earlier LC accepts UC1-UC3 at their stated scope, with only partial reproduction of UC4. |
+| Owner | Latest BR: for integers 2<=q<=X, literal mu(aq)=-mu(a) for all integers 1<=a<=floor(X/q) holds exactly when mu(q)=-1 and q*leastPrime(q)>X; the post-root q^2>X, q^4<=X^3 case is prime-only. Floor-Li events can be composite and the literal lift has nonzero defects of both signs. Completed convolution is an unweighted identity, not the weighted estimate. PAPER_PROOF / author self-audit; not a new global bound. |
+| Wheel | Latest JC: daughter M(floor(X/q^2)) is M(R-1) plus specified completed band increments; odd q>=3 omit upper bands z=1..8. At R=56 the omitted mixed interaction 5312/105 exceeds twice daughter energy 12, while restoring upper diagonal 1698 changes the combined test to -172978/105. The isolated H_SIGN/H_CREDIT shortcuts are refuted, NOT full CORR4. Source bridge plus declared finite 247-root checks; no complete estimate. |
+| Census | Today's UC exact small-cutoff failures R=8,10,29 and fixed-z transverse energy scale kappa R^3/log^5 R refute the named unsaturated extensions. Saturated HM/PC are not refuted by those examples. Prior NC nearest-centre counterexample and an O(R) selected subset leave their complement unpaid. No giant census was repeated in this run. |
+| Lean | Today's report completed local RD1 formalization, merged #1130. Live CI/merge status supersedes any earlier draft wording. No proof of RD2-RD5, SR or MD is claimed. The next useful implementation is accepted complete product/Mellin response and inversion, not a duplicate local lemma. |
+| Coordinator | Yesterday's accepted cofactor/AP support and today's prior CR/UB records are retained, not overwritten. UB's all-cutoff greedy obstruction remains its stated paper/self-audit claim; positive proper-fibre packets and adaptive prefixes do not pay the unselected complement. This run contributes MD, QD and the scoped endpoint obstruction above. |
+
+Continuity receipts, in role order Coordinator, Owner, Analytic, Wheel, Census, Referee, Lean:
+
+    2026-11-09:
+    6fba43130391ad4a606aa3809c20f344d668c709
+    643e8a004d9d8e0be102b03e2f79bb3b217ae916
+    d1d0d86d444b9c447cf6acf4bd18fdcaf02e56a3
+    0624246d03b19cf76c01e186b7d868a248d896ef
+    8c927cc6c323533ba1cfd369404b25aa4f9cef91
+    a5d0192eb31c0efb3767187a7752f1a0d07f8534
+    8b60c6136ac151774be2db0aee8f543f286b53aa
+    2026-11-10 intake:
+    1cf71a74d0e80d5dc05ab1ef08f1ad6fcf134c9a
+    ece5b3cd8d25b45e64c48812c81d71f6eddf23a9
+    a2675374a7160955917d42797eef5a3e2358056f
+    a6a05ab41daeeaf7b3d285833028075cf253d47c
+    8a89d1a899850e39320a96bf35a6f221060fc8a7
+    988a4a74e40a48d8d4c868c03263e66c129a6f1a
+    d2f8fd346b7aaab57f3bd3676ed7b1d8c8abb3f8
+
+The two Coordinator paths shared each listed Coordinator blob. Read current reports again before acting; these are timestamped evidence receipts, not frozen authority.
+
+### F. Mathematical Bottlenecks
+
+For MD's proposed finite gain the paper argument now identifies no additional conjectural arithmetic premise: the outstanding tasks are independent checking of the complete assembly and kernel implementation. That assertion itself is subject to review, not a declaration that the result is established. The first risky bridge is the use of the raw anchored leaves and native height supplier with h=t/100 while leaving D.sigma untouched.
+
+For the canonical objective, no mechanism here supplies the complete centered wheel/VF O(R log R) bound or an independently sufficient equivalent endpoint. M2 still lacks a quantitative restriction on the entire historical source, including upper bands. M3 still lacks complete weighted clock-defect/backlog control. The local complete-symbol support cannot be exported to either source without a separately proved bridge.
+
+For further analytic progress, physical tilt h<t/24, original correction analyticity >21/25, complete central/tail costs and native source moments must all be revisited. The support threshold theta>3/5 is not a proved RH route. No iteration, vanishing-error limit or evolving source family is licensed by fixed-source MD.
+
+### G. Strategy Decisions
+
+1. Promote MD to independent analytic/referee review because it proposes a net global gain and has a finite falsifiable proof. Do not alter the certified exponent, central contract or Lean claims yet.
+2. Keep accepted RD2/RD3 formalization useful: complete weighted products, same-signal Mellin dilation and compact-prefix inversion are reusable foundations. Do not spend another execution reproducing merged RD1.
+3. Retire the demand that every retained coherent term cancel prime-by-prime. It is unnecessary for this principal source. Retire the specific JC daughter-only credit and false unsaturated UC extensions, not CORR4 or saturated mechanisms generally.
+4. Keep Owner and Wheel on distinct actual arithmetic obligations, with Census tests only after a new precise hypothesis. Protect CODIV/NYMAN and the other route rotations on subsequent actual investigator runs; MD is not compulsory for every role.
+5. Preserve all source safeguards, human review/merge gates and existing reports. This role writes only its two daily mirrors. No central policy change is proposed as necessary for this work.
+
+### H. Next Specialist Assignments
+
+These are asynchronous report handoffs, not launches or claims of control over other agents.
+
+**Analytic Type II.** Independently derive or break MD2-MD5 on the exact residue-weighted pools. Reuse #1130, source normalization, anchored raw leaves, native moments and total-mass LOW. Resolve whether all terms below lambda<rho form the stated legal same-signal response and whether h=t/100 survives the complete return. Expected output: quantified proof with all constants before Z, or the first failed original hypothesis. Falsifiers: a missing retained mixed monomial; an inner argument below 1 despite (3); a hidden h<=sigma requirement; an unpaid source-height cost. A valid proof promotes MD to formalization; a failure narrows it back to accepted RD/SR scope. Keep CODIV/NYMAN rotation explicit, with no fabricated work in those families.
+
+**Adversarial Referee.** Review MD1-MD5 claim by claim, independently of the author's exact tests. Start with q-only cancellation, slope u<=3v/5, nonnegative original normalized weights, product truncation uniformity, frozen outer masks, compact-prefix inversion, and the six-bill ledger. Check both directions of the abstract inversion and ensure its premise is actually derived. Attempt a counterexample within the STATED source/quantifier class before invoking a different carrier. Expected output ACCEPT/REVISE/REJECT per claim with exact failed line or theorem. Distinguish model theta=3/5 obstruction from a genuine-prime counterexample. No MD formalization should be called accepted merely from this report.
+
+**Owner Payment.** On M3, investigate the complete weighted floor-Li innovation defect exposed by BR, with actual #915 masks, multiplicities and first moments. Reuse the precise prime-only admission theorem and completed convolution identity. The missing input is a new arithmetic restriction on the weighted defect, not a restatement that its final norm is small. Expected result: an exact factor/multiplicity constraint that pays a named part of the ORIGINAL complete expression, or an explicit counterexample to the proposed constraint. Composite floor-Li events and both defect signs are mandatory regression cases. A negative result should retire that lifting rule while leaving genuine prime-boundary structure available.
+
+**Finite Wheel & Incidence.** On M2, determine what complete-source condition, if any, links the omitted z=1..8 bands to the daughter-visible bands without discarding the upper diagonal or negative credits. Reuse completed reciprocal-band identities, repaired shared-prime resonance and JC's actual Q_R/Mertens bridges. The missing input must constrain genuine complete coefficients, not an arbitrary daughter-energy norm. Expected result: a source theorem or a nullspace/no-go statement for that transfer. R=56, existing R=60/R=5561 regressions and the literal K_R are mandatory checks when applicable. A no-go retires the daughter-only mechanism; a valid restriction earns a separate finite-AC/CORR4 consumer audit. Preserve MU-LIFT's full-prefix recurrence and chain-coverage obligations.
+
+**Prime Census Laboratory.** Do not extend an unchanged range. First read the next precise Owner/Wheel candidate and preregister the smallest held-out exact falsification test, including all omitted-band and clock-defect terms named in that candidate. If no new candidate is yet available, mark that dependency PENDING rather than rerunning accepted tables. A secondary distinct bookkeeping test of MD may use nonuniform normalized masks and highly unequal slot lengths, deliberately forcing retained mixed terms near lambda=rho; report it as a toy algebra test, never genuine-prime evidence for the endpoint. Expected output is a reproducible counterexample or exact pass at declared scope, with a concrete effect on M2/M3 or MD's bookkeeping.
+
+**Lean Verification.** #1130 RD1 is already merged; do not duplicate it. Next formalization candidate is independently accepted RD2/RD3: the COMPLETE weighted finite product, exact frozen-weight Mellin response and compact-prefix absorption, using original source definitions. Then assemble the accepted RD return without adding its desired conclusion as a premise. Maintain one coherent implementation sequence with exact-head warning-fatal CI and dependency/axiom checks; repair actual failures and preserve human merge. MD remains a review queue item, not an accepted theorem to encode. If review finds a missing arithmetic hypothesis, return its exact type and NO_NEW_THEOREM_TO_FORMALIZE at that step rather than proving a conditional shell.
+
+### I. Lean, PR And Source Status
+
+No open or draft PR was present at intake or the final source refresh. Recent records were checked directly, not inherited from reports:
+
+| PR | Verified live state | Mathematical scope |
+| --- | --- | --- |
+| #1119 | MERGED 2026-11-09T04:57:27Z; head 77ee815846d6d534c866f0752aa33b84c385610a; 14/14 checks SUCCESS | Certified b_base supplier and exact dependency audit above. |
+| #1126 | MERGED 2026-11-10T02:10:09Z; head e8969ad76d4c5694273cefc934316fc528c56648 | Conditional finite-AC amplification consumer, not proof of its arithmetic premise. |
+| #1127 | MERGED 2026-11-10T10:38:28Z; head 866b3d2121309cdd854f9d64e2a6adbbc708ef9b | Cofactor positivity at its proper-fibre scope, not global wheel error control. |
+| #1128 | MERGED 2026-11-10T10:40:04Z; head d5b8003f6239611a457560b6fd16e29f16255e75 | Repaired shared-prime/near-resonance scope. |
+| #1129 | MERGED 2026-11-10T12:11:24Z | Current cross-route instruction, not a mathematical theorem. |
+| #1130 | MERGED 2026-11-10T19:28:09Z; head 4aa22782d10b3ad77dc970d6bb610eaab93a228c; 13/13 checks SUCCESS | Local principal signed remainder and weighted adapters only. |
+
+#1130 exact-head run `42877550772`, job `130044786387`, reports four quantitative audit roots with closure sizes 628, 984, 653 and 657 and the standard axiom set. Five declaration types are printed. `principal_slot_signed_error` and the actual/weighted adapters are PROVED_IN_LEAN at this tested head and present unchanged in main. This is NOT certification of complete RD/SR/MD endpoints. For #1126-#1129 this execution verified merge/head records and source usage, not a fresh exhaustive CI log audit; do not infer stronger receipts.
+
+Material source receipts beyond the authority and dependency pins above:
+
+| Source | Blob |
+| --- | --- |
+| research/oai_434/VF919PrincipalSignedRemainder.lean | a41fee91754d5f6e5606f3f6f3dfe66031d81cbf |
+| research/oai_434/VF919WindowErrorClosure.lean | f629db1b2b65d6ec042ac9432397d4b6316200c6 |
+| research/oai_434/VF919FiniteSlotReflectedGain.lean | a5545b5a00958b69f6fbfd79fc555a0476aa6487 |
+| research/oai_434/VF919TiltedHighTails.lean | 6ae8ea83aca3d3f8ba8d65d42f2a6a4428e6b84f |
+| research/oai_434/VF919TiltedHighCentral.lean | 6f75563d84161a023e4750df69ad0def460c0513 |
+| research/oai_434/VF919TiltedHighPrincipal.lean | e123ffa5903a62f6249aafef7a093dc6a7e3eb09 |
+| research/oai_434/VF919TiltedHighTransport.lean | 50c46fb1c5629865c3b7a6546ed3d9418fff1391 |
+| research/oai_434/VF919TotalMassEndpoint.lean | 827bb952c4d4311d75fd03a2470799dc10b0f7e7 |
+| research/oai_434/VF919NativeSourceMoments.lean | 4e5326b983f5110f7138d222f7b1be71c5694dfc |
+| research/oai_434/VF919ExplicitSquareBlockPacking.lean | 32999039fdeea99c58a070c1c4ee9c140720dd44 |
+| research/oai_434/VF919ExplicitFixedSourceSlotCount.lean | bad5aab0a60e96d19e7c9550cd7c0a072288bc0f |
+| research/oai_434/VF919NativeStrictMertens.lean | b33a4883e1ddb0551b0f11f062bce46680d87450 |
+| research/oai_434/VF919OriginalLowTupleSignedGram.lean | dd2fde01ae6e2446da4e69b30f6fc80fcadb858d |
+| research/EULER_SELF_DUAL_ENDPOINT_GATE_20261027.lean | e7ee8f77ffd59bccaa49dd6d74fbe0d7952c2d73 |
+| research/CompleteSquareRootWheelFractionalBoundary.lean | ecb482e52deeee5e9b3853592a3ffdace662d2ff |
+| research/VF_CANONICAL_SQRT_TWO_VON_KOCH.lean | 79030d70e8d3e0d08eef9bac53fef95c36eca2fb |
+| research/MERTENS_EXPONENT_ENVELOPES.lean | 655b896e8d5a41c9f8fc3c456eae3944a98bfefe |
+| scripts/lean/slot_anchored/prepare_anchored.py | 0bac9047afaa8e9ddc5ac246be2d0fe7d6efa725 |
+| scripts/lean/window_error_closure/WindowErrorClosureAudit.lean | 1f17f9401a63d16227db2e2aad020b9f74bc5f4e |
+| scripts/lean/principal_signed_remainder/Audit.lean | e30dd1e3a36b049cbf93359a7a39857651171715 |
+
+Upstream receipts at openai/math pin `1581d4cbdd69a0faf34b2089614fe2a814316a6a`, paths relative to `lean/OAI/NumberTheory/DirichletL/`:
+
+| Source | Blob |
+| --- | --- |
+| PrincipalSlotEstimate.lean | f9250c7c4464f374902bbb39ebbb3487d96bea1f |
+| Detector/Local.lean | 599ab7884122342f9d200a81119ea5a410114e0a |
+| Detector/Euler.lean | ce1309a4da0b0b3ccd703946aef504b96f95e6f5 |
+| Detector/PrincipalResidueActual.lean | 2f336d8cfb0e6ec157ad1d43099372eb61961381 |
+| PrincipalSignalComparison.lean | bd252b01e2784f9ec32fe9c1e0380c4b221adc23 |
+| Hecke/Signal.lean | 9b0f1f6ff5f74c77fee06327c4936c2a9e180df5 |
+| Hecke/SignalBounds.lean | 8b0f3faf87c2649dfccfc7c6eb4349259ff34d7e |
+
+Read-only tooling note: a large recursive upstream-tree response was unavailable; targeted directory and file reads recovered the required sources. This did not prevent the mathematical audit. No write-access or proof-CI blocker was invented.
+
+### J. Next-Run Resume Capsule
+
+Resume from `20261110-coordinator-1513-EST/MD1-MD5`, not an upgraded certified baseline. Main/source pin is f7947bee036c4dddb0c36fc9f53ab46b4fa90995. Strongest certified b_base=7/8-7/(64N_pack), #1119 exact-head receipt above; #1130 certifies RD1 only. New proposed b_MD=7/8-10^-10 and fixed eta=43/1280000000000 are PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING. QD's theta=3/5 obstruction is model-scoped; no RH impossibility or bootstrap is asserted.
+
+Highest-value next reasoning task: independently audit the total weighted-degree cutoff and raw anchored return for h=t/100, especially fixed-source uniformity, all mixed terms, source heights and free floor saving. If it fails, identify the first invalid statement and retain the surviving finite-symbol theorem. If it survives independent review, implement through the authorized Lean role and exact-head CI, preserving the human merge gate.
+
+Maintain M2 complete historical-band restrictions and M3 actual-prime weighted clock-defect restrictions. Keep all nine protected families and investigator rotations; do not confuse pending coverage with completed work. Read latest main, both dates' reports, external handoffs and current PRs again on the next actual invocation.
+
+The entire earlier daily report and both preregistrations are preserved as prefixes. Final publication must update only the two Coordinator mirrors from their current blob SHAs, then verify immutable readback and byte equality. A separate receipt below will mark publication COMPLETE only after those checks succeed. Mathematical acceptance status remains separate from publication status.
+
+
+### Reproducible QD Audit Source
+
+Standard-library Python 3; no network/file writes or Lean execution. SHA256 is recorded above.
+
+```python
+from dataclasses import dataclass
+from fractions import Fraction as F
+from itertools import product
+from math import prod
+
+
+@dataclass(frozen=True)
+class G:
+    r: F = F(0)
+    i: F = F(0)
+
+    @staticmethod
+    def cast(x):
+        return x if isinstance(x, G) else G(F(x))
+
+    def __add__(self, x):
+        x = self.cast(x)
+        return G(self.r + x.r, self.i + x.i)
+
+    __radd__ = __add__
+
+    def __neg__(self):
+        return G(-self.r, -self.i)
+
+    def __sub__(self, x):
+        return self + -self.cast(x)
+
+    def __rsub__(self, x):
+        return self.cast(x) - self
+
+    def __mul__(self, x):
+        x = self.cast(x)
+        return G(self.r * x.r - self.i * x.i,
+                 self.r * x.i + self.i * x.r)
+
+    __rmul__ = __mul__
+
+    def conjugate(self):
+        return G(self.r, -self.i)
+
+    def norm2(self):
+        return self.r**2 + self.i**2
+
+    def __truediv__(self, x):
+        x = self.cast(x)
+        z = x.norm2()
+        assert z > 0
+        return self * G(x.r / z, -x.i / z)
+
+    def __rtruediv__(self, x):
+        return self.cast(x) / self
+
+    def __pow__(self, n):
+        if n < 0:
+            return (1 / self)**(-n)
+        answer = G(F(1))
+        for _ in range(n):
+            answer *= self
+        return answer
+
+
+UNITS = (G(F(1)), G(F(-1)), G(F(0), F(1)), G(F(0), F(-1)))
+
+
+def original(k, eta, phase, A):
+    Q = k**8
+    q = F(1, Q)
+    z = phase / k**7
+    D = eta * z
+    R = A * Q**3 * z**6
+    B = eta.conjugate() / z
+    K = (1 - q) * D
+    J = -D + q * R
+    marked = ((R * (1 - q) - K * q) / (1 - q) + J) / (1 - R)
+    correction = (1 - q*q + (1 - q)**2 * marked) / (1 - D)
+    replacement = ((B - q) * (1 - q)**2 * marked - q * (1 - q*q)) / (1 - D)
+    slot = replacement / correction
+    U = 1 - q * R - (1 - q) * D
+    residual = slot + 1 + D - B * R
+    numerator = (-q * B * R + q * B * R**2 + (1 - q)**2 * R
+                 + (2*q - q*q) * D - q * R * D - (1 - q) * D**2)
+    assert B * D == G(F(1))
+    assert residual * U == numerator
+    assert residual.norm2() <= F(196, k**28)
+    assert -slot == 1 + D - B * R - residual
+    return slot, D, B * R, residual
+
+
+def polynomial_check():
+    def add(a, b):
+        result = dict(a)
+        for key, value in b.items():
+            result[key] = result.get(key, 0) + value
+        return {key: value for key, value in result.items() if value}
+
+    def mul(a, b):
+        result = {}
+        for x, cx in a.items():
+            for y, cy in b.items():
+                key = tuple(i + j for i, j in zip(x, y))
+                result[key] = result.get(key, 0) + cx * cy
+        return {key: value for key, value in result.items() if value}
+
+    def neg(a):
+        return {key: -value for key, value in a.items()}
+
+    def sub(a, b):
+        return add(a, neg(b))
+
+    one, q, d, r, b = ({(0, 0, 0): 1}, {(1, 0, 0): 1},
+                       {(0, 1, 0): 1}, {(0, 0, 1): 1}, {(0, -1, 0): 1})
+    omq = sub(one, q)
+    br = mul(b, r)
+    u = sub(sub(one, mul(q, r)), mul(omq, d))
+    lhs = add(mul(omq, sub(br, one)), mul(sub(add(omq, d), br), u))
+    rhs = neg(mul(q, br))
+    for term in (mul(mul(q, br), r), mul(mul(omq, omq), r),
+                 mul(sub(add(q, q), mul(q, q)), d),
+                 neg(mul(mul(q, r), d)), neg(mul(omq, mul(d, d)))):
+        rhs = add(rhs, term)
+    assert lhs == rhs
+    print('Laurent-polynomial cleared numerator: PASS')
+
+
+polynomial_check()
+cases = 0
+max_scaled_norm2 = F(0)
+for k, eta, phase, A in product((3, 4, 7, 11, 19), UNITS, UNITS, (G(),) + UNITS):
+    slot, d, br, residual = original(k, eta, phase, A)
+    max_scaled_norm2 = max(max_scaled_norm2, residual.norm2() * k**28)
+    cases += 1
+print('Original Gaussian-rational local cases:', cases, 'PASS')
+print('Largest scaled norm squared (display only):', float(max_scaled_norm2))
+
+product_cases = 0
+for phases in product(range(4), repeat=3):
+    slots, ds, bs, rs = [], [], [], []
+    for j, (k1, k2) in enumerate(((3, 4), (7, 11), (19, 3))):
+        eta = UNITS[phases[j]]
+        A = UNITS[(phases[j] + j) % 4]
+        terms = (original(k1, eta, UNITS[0], A), original(k2, eta, UNITS[0], -A))
+        averaged = [terms[0][v] / 3 + terms[1][v] * F(2, 3) for v in range(4)]
+        slot, d, br, residual = averaged
+        slots.append(-slot)
+        ds.append(d)
+        bs.append(br)
+        rs.append(residual)
+        assert -slot == 1 + d - br - residual
+    actual = prod(slots, start=G(F(1)))
+    linear = 1 + sum(ds, G()) - sum(bs, G())
+    u = [d - b - r for d, b, r in zip(ds, bs, rs)]
+    higher = sum((u[i] * u[j] for i in range(3) for j in range(i + 1, 3)), G()) + prod(u)
+    assert actual - linear == -sum(rs, G()) + higher
+    # exp(1)<3 turns the analytic fixed-product constant into a rational upper bound.
+    bound = F(14*3 + 384*9, 3**14)
+    assert (actual - linear).norm2() <= bound**2
+    product_cases += 1
+print('Weighted three-slot full mixed-product checks:', product_cases, 'PASS')
+
+t = F(1, 10**8)
+m = t / 200
+h = 7 * m / 4
+e = t / 2000
+nu = dyad = t / 8
+s0 = F(49, 881280)
+checks = {
+    'small tail': h + 8*e + nu < F(63, 800),
+    'large tail': h + nu < F(19, 16),
+    'principal contours': h + nu < F(17, 48000),
+    'nonfloor comparison': F(1, 10**6) + h + nu + dyad < s0,
+    'physical tilt': 24*h < t,
+    'LOW tilt': h < F(1, 960),
+    'nonfloor supplier': 18*t + s0 < F(49, 440640),
+    'floor supplier': 2*t + 26*e + t + t + t/6 + nu + h < F(7, 1200),
+    'row count': 159*t/2000 + 9*t < F(1, 32),
+    'conductor': F(13, 16) + 3*t < F(7, 8),
+    'quintic domain': 5*t/200 < 1,
+    'analytic boundary': F(21, 25) < F(7, 8) - h,
+    'quintic absorption': F(3, 5) < F(7, 8) - h,
+}
+assert all(checks.values()), checks
+e_actual = m/64
+h_actual = 7*m/4 - e_actual
+c = -F(11, 16) - 8*h_actual
+assert F(7, 8) + c + e_actual - 7*m/4 == F(3, 16) - 9*h_actual
+assert F(7, 32) - F(11, 64) == F(3, 64)
+assert F(7, 32) - F(7, 64) == F(7, 64)
+assert -F(7, 32) + F(7, 128) == -F(7, 64) - F(7, 128)
+print('Complete-return rational budgets:', len(checks), 'PASS; response equality and gain: PASS')
+for k in (3, 11, 101):
+    residual = original(k, UNITS[0], UNITS[0], G())[3]
+    assert residual.i == 0
+    print('A=0 sharpness sample k=', k, 'scaled residual=', float(residual.r * k**14))
+```
+
+### Reproducible MD Audit Source
+
+Standard-library Python 3; exact finite/symbolic self-audit, not an all-scale arithmetic certificate.
+
+```python
+from fractions import Fraction as F
+from itertools import product
+
+
+def add(a, b):
+    out = dict(a)
+    for key, value in b.items():
+        out[key] = out.get(key, 0) + value
+    return {key: value for key, value in out.items() if value}
+
+
+def mul(a, b):
+    out = {}
+    for x, cx in a.items():
+        for y, cy in b.items():
+            key = tuple(i+j for i, j in zip(x, y))
+            out[key] = out.get(key, 0) + cx*cy
+    return {key: value for key, value in out.items() if value}
+
+
+def sub(a, b):
+    return add(a, {key: -value for key, value in b.items()})
+
+
+def power(a, n):
+    answer = {(0,)*len(next(iter(a))): 1}
+    for _ in range(n):
+        answer = mul(answer, a)
+    return answer
+
+
+one = {(0, 0, 0, 0): 1}
+q, d, g, w = ({tuple(int(i == j) for i in range(4)): 1} for j in range(4))
+omq = sub(one, q)
+H = add(g, mul(omq, d))
+
+
+def slot(K):
+    geom = {}
+    for k in range(K+1):
+        geom = add(geom, power(H, k))
+    return add(q, mul(mul(omq, sub(one, w)), geom))
+
+
+total_terms = 0
+for K in range(9):
+    s = slot(K)
+    assert mul(sub(s, q), sub(one, H)) == mul(mul(omq, sub(one, w)), sub(one, power(H, K+1)))
+    assert s[(0, 0, 0, 0)] == 1
+    for (a, b, c, e), coefficient in s.items():
+        if not (a or b or c or e):
+            continue
+        u, v = -a+2*c+3*e, b+6*c+5*e
+        assert v >= 1
+        assert 5*u <= 3*v
+        total_terms += 1
+print('Exact geometric identities K=0..8 and generator slope:', total_terms, 'nonconstant terms PASS')
+
+lengths = (F(1, 30), F(1, 20), F(1, 12))
+assert sum(lengths) == F(1, 6)
+a0, rho, K = F(7, 8), F(1, 12), 2
+assert a0*(K+1)*min(lengths) > rho
+S = slot(K)
+kept = discarded = cross_kept = 0
+max_delay = F(0)
+for terms in product(S.items(), repeat=3):
+    if all(key == (0, 0, 0, 0) for key, coefficient in terms):
+        continue
+    decay, delay, active = F(0), F(0), 0
+    for ell, (key, coefficient) in zip(lengths, terms):
+        a, b, c, e = key
+        u, v = -a+2*c+3*e, b+6*c+5*e
+        if v:
+            active += 1
+        assert 5*u <= 3*v
+        decay += ell*(a0*v-u)
+        delay += ell*v
+    assert decay > 0 and delay > 0
+    if decay < rho:
+        kept += 1
+        cross_kept += active > 1
+        assert delay < 40*rho/11 < 1
+        max_delay = max(max_delay, delay)
+    else:
+        discarded += 1
+assert cross_kept > 0
+print('Full three-slot symbolic product:', kept, 'retained;', discarded, 'discarded;', cross_kept, 'retained cross-slot terms; max delay=', max_delay)
+
+numeric = 0
+for k, K in product((3, 4, 7, 11, 19), range(7)):
+    Q = k**8
+    q0, d0, g0, w0 = F(1, Q), F(1, k**7), F(1, k**26), F(1, k**11)
+    h0 = g0+(1-q0)*d0
+    exact = q0+(1-q0)*(1-w0)/(1-h0)
+    finite = q0+(1-q0)*(1-w0)*sum(h0**j for j in range(K+1))
+    error = (1-q0)*(1-w0)*h0**(K+1)/(1-h0)
+    assert exact-finite == error
+    assert abs(error) <= 4*2**(K+1)*d0**(K+1)
+    numeric += 1
+print('Exact rational geometric-tail checks:', numeric, 'PASS')
+
+t = F(1, 10**8)
+h, rho, e, nu = t/100, t/50, t/2000, t/8
+s0 = F(49, 881280)
+checks = {
+    'small tail': h+8*e+nu < F(63, 800),
+    'large tail': h+nu < F(19, 16),
+    'principal contours': h+nu < F(17, 48000),
+    'symbol tail': h+e < rho,
+    'nonfloor comparison': F(1, 10**6)+h+t/4 < s0,
+    'physical cutoff': 24*h < t,
+    'LOW tilt': h < F(1, 960),
+    'nonfloor supplier': 18*t+s0 < F(49, 440640),
+    'floor supplier': 2*t+26*e+t+t+t/6+nu+h < F(7, 1200),
+    'row count': 159*t/2000+9*t < F(1, 32),
+    'conductor': F(13, 16)+3*t < F(7, 8),
+    'all retained arguments': 40*rho/11 < 1,
+    'signal analytic domain': F(21, 25) < F(7, 8)-h,
+    'response contraction': F(3, 5) < F(7, 8)-h,
+}
+assert all(checks.values()), checks
+old_gain_upper = F(7, 64)*6*t/200
+eta = 43*t/12800
+assert h-old_gain_upper == 2*eta
+assert F(7, 8)-h+eta == F(7, 8)-old_gain_upper-eta
+print('Complete fixed-tilt budgets:', len(checks), 'PASS')
+print('Proposed growth saving:', h, 'guaranteed fixed-power comparison saving:', eta)
+```
