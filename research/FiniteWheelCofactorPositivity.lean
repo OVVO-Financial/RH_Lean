@@ -177,7 +177,7 @@ theorem finiteWheel_cofactor_eq_count (z X q : ℕ) :
         (vfMidPrefixWheelCounting z (X / q) : ℝ) := by
     have hfloor := congrArg (fun a : ℤ => (a : ℝ))
       (finiteWheel_divisorFloor_eq_survivorCount z (X / q))
-    push_cast at hfloor
+    simp only [Int.cast_sum, Int.cast_mul, Int.cast_natCast] at hfloor
     calc
       _ = ∑ d ∈ (primorial z).divisors,
           (((X : ℝ) / q) * ((ArithmeticFunction.moebius d : ℝ) / d) -
