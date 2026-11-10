@@ -389,6 +389,7 @@ import RHLean.Proof.ActualResidualDecomposition
 import RHLean.Proof.ActualStartLocalSignedFrame
 import RHLean.Proof.ActualStartSignedFrame
 import RHLean.Proof.AdaptivePrimeMatching
+import RHLean.Proof.AmplificationExponentIteration
 import RHLean.Proof.AlternatingSignMatchingParity
 import RHLean.Proof.BalancedCanonicalGap
 import RHLean.Proof.BirthMovingAbsorption
@@ -647,6 +648,7 @@ import RHLean.Proof.SquareBlockTransportBaseline
 import RHLean.Proof.SquareRootAmplificationClosure
 import RHLean.Proof.SquareRootAmplificationLogGrowth
 import RHLean.Proof.SquareRootAmplificationPowerBounds
+import RHLean.Proof.SquareRootAmplificationZeroLogConsumer
 import RHLean.Proof.SquareRootAncestryExtensionWindows
 import RHLean.Proof.SquareRootAncestryParentFibres
 import RHLean.Proof.SquareRootAncestryRoot
