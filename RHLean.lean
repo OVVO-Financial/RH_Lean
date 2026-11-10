@@ -389,8 +389,8 @@ import RHLean.Proof.ActualResidualDecomposition
 import RHLean.Proof.ActualStartLocalSignedFrame
 import RHLean.Proof.ActualStartSignedFrame
 import RHLean.Proof.AdaptivePrimeMatching
-import RHLean.Proof.AmplificationExponentIteration
 import RHLean.Proof.AlternatingSignMatchingParity
+import RHLean.Proof.AmplificationExponentIteration
 import RHLean.Proof.BalancedCanonicalGap
 import RHLean.Proof.BirthMovingAbsorption
 import RHLean.Proof.BlockLyapunovClosure
