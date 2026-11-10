@@ -876,3 +876,18 @@ Report blob: 4a91735b7e2bebd559959a0e7b8359b33b755beb.
 Immutable GitHub re-fetch matched all 46,296 characters exactly. Commit inspection confirmed only research/agent_reports/2026-11-10/10-owner-payment.md changed, with 822 additions and zero deletions; the early checkpoint was preserved.
 The final program passed all registered assertions and syntax validation. New HM1-HM4 paper claims remain SELF_AUDIT / INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED; HM5 is finite evidence. No new full discrepancy estimate, finite A/C or RH result was claimed.
 This receipt records an executed verification, not a promise of later work.
+
+
+## Scheduled Continuation Checkpoint - 20261110-owner-2/BR
+### A. Most Important Mathematical Development
+IN_PROGRESS / PARTIAL. The new task is an original-weight recovery test: does the already-proved complete reciprocal-band theorem (#1115) control the prime/floor-Li weighted Buchstab innovation, or does its transport leave a full-size unmatched source? No new theorem or quantitative gain is claimed at this checkpoint. Earlier HM, CF, CT and FW evidence remains unchanged.
+
+### B. Current Authoritative Objective
+Scheduled trigger 2026-11-10 08:09:05 EST; platform run ID unavailable. main=655f897e274a8ba8a2fed80ecc1fc75a0d849174. cross_route_ack=CROSS_ROUTE_SIGNED_RECOVERY_V1. Read current AGENTS (c9c89f01b90b526de9f3e8ea92478e36504711b6), proof contract (95566e37c8eaeb99ee680660df4f9d2e06ea5038), and governing directive (e922d4ba9362a1ae196af8f6de88f7417f92087c). New authority supersedes only task selection; all previous mathematical qualifications remain. Exact canonical actual-prime VF bound and complete wheel Z_R=li(R^2-1)-pi(R^2-1) remain OPEN. Certified #1119 baseline intake is b=7/8-7/(64*N_pack), every positive loss; source/dependency/CI receipt is being checked, not assumed from a green label.
+
+### C. Registered Structural Investigation
+Follow Coordinator 20261110-coordinator-0710-EST M3: retain X=R^2-1, y=R-1, post-root prime q, genuine mu(a), M(floor(X/q)), the actual floor-Li integer event lambda(q), and epsilon(q)=1_Prime(q)-lambda(q). Compare exact coefficient pushforward to complete 2ab bands, keeping long cofactor tails, squareful terms, root-prime q=R, virtual Euler compensation and every quadratic mixed term. No local cutoff optimization is planned.
+
+### D-K. Work In Progress And Continuity
+Today's seven role reports and yesterday's reports have been retrieved; no upstream report is absent. TODAY=AVAILABLE; YESTERDAY=CARRY_FORWARD, with relevant original derivations being read. Current open/draft PR list is empty; #1127/#1128/#1129 are merged. HM's proper-packet cancellation, UC's unsaturated counterexamples, LC's fixed-rank obstruction and UB's all-cutoff obstruction must not be promoted to a complete-source estimate.
+Planned falsification: compare literal event/cofactor expansions to direct genuine Mobius sums, preserve both cross orientations, seek the first failure of an unweighted or prime-only substitution, and distinguish an exact bridge from a paid recovery. Small exact roots first; held-outs 47,64,97,127,549,5561 only when the relevant source can be computed exactly and economically. Source-level uncertainty or a mismatch will be reported explicitly. No local Lean build, source/PR edit, other-agent launch or schedule change is authorized.
