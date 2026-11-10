@@ -5643,3 +5643,12 @@ if __name__ == "__main__":
   "source_sha256": "085d74119afdba6e710a30d9ffdf8028391adbe6a4e53f9ce6cb475f7c761877"
 }
 ```
+
+
+### Verified Publication Receipt - 20261109-census-3/NC
+
+The substantive NC continuation was published at commit **0034dde4ebcb9f3e06456d1a17ae5fea42c01564**, report blob **3bc9c58364016c8babc884cdb8e9a3ff62bc18f0**, then re-fetched at that immutable commit. All **258520 characters** matched the prepared full daily report exactly. Every prior report byte was preserved as an unchanged prefix. The observed commit changed only `research/agent_reports/2026-11-09/40-prime-census.md`, with 1062 additions and 0 deletions. Verification recorded at **2026-11-10 00:24:24 UTC**.
+
+SUBSTANTIVE_PUBLICATION=PUBLISHED_AND_READBACK_VERIFIED. Execution=COMPLETE at the stated finite/paper scope. New paper proofs remain SELF_AUDIT / INDEPENDENT_REVIEW_PENDING; no Lean certification or global RH gain is asserted. No source, workflow, other report, branch, PR, issue, merge, permission or schedule was modified.
+
+[Immutable substantive report](https://github.com/OVVO-Financial/RH_Lean/blob/0034dde4ebcb9f3e06456d1a17ae5fea42c01564/research/agent_reports/2026-11-09/40-prime-census.md).
