@@ -251,7 +251,9 @@ theorem weighted_principal_slot_signed_relative_error {i : Type*} (S : Finset i)
       -((∑ j ∈ S, (w j : ℂ) * principalSlot (Q j) (A j) (eta j) s) +
           (∑ j ∈ S, w j : ℝ) +
           ∑ j ∈ S, (w j : ℂ) * eta j * (Q j : ℂ) ^ (-s)) /
-        (∑ j ∈ S, w j : ℝ) := by field_simp
+        (∑ j ∈ S, w j : ℝ) := by
+    field_simp
+    ring
   rw [hid, norm_div, norm_neg, Complex.norm_real, Real.norm_eq_abs, abs_of_pos hM]
   exact (div_le_iff₀ hM).mpr
     (weighted_principal_slot_signed_error S w Q A eta s P hP hw hQ hA heta hs)
