@@ -1,0 +1,42 @@
+# RH | Lean Verification - 2026-11-10
+
+## Early Checkpoint - 20261110-lean-1
+
+Scheduled trigger: 2026-11-10 05:10:00 EST, America/New_York. One actual scheduled invocation. Status: IN_PROGRESS / PARTIAL. Publication is claimed only after immutable commit readback.
+
+### A. Most Important Finding
+
+The latest Coordinator handoff identifies a real formal-evidence gap: merged PR #1125's near-resonance research leaf has never executed its required dedicated Lean proof check. Fresh Actions data confirms all twelve literal-head workflows failed; the dedicated run is 42674337064. This is not yet a compiler diagnosis or a mathematical refutation. The current priority is a focused current-main validation and any necessary mathematically faithful repair. Existing #1127 is green at its unchanged head and does not need a duplicate proof.
+
+### B. Authoritative Objective
+
+main=7c7e0a4f54ee2972d3993abc42e5c7c4e1b405c9.
+AGENTS=6695522a45d67fd1e80a7cff1f98d909405036e2.
+CURRENT_PROOF_CONTRACT=95566e37c8eaeb99ee680660df4f9d2e06ea5038.
+FINITE_WHEEL_DIRECTIVE=e505f35522b675c6b5b263eac73618d717346973.
+finite_wheel_ack=FINITE_WHEEL_CENTERED_RH_V1.
+
+For every integer R>=2, X=R^2-1 and y=R-1, preserve the complete F_R=sum_(d|P_y)mu(d)fract(X/d), D_R=X delta(y)+pi(y)-1-li(X), and certified Z_R=F_R-D_R=li(X)-pi(X). The ONE-C uniform |Z_R|<=C R log R remains OPEN. Virtual terms cancel against their own Euler contribution before truncation. Near-resonance is a proper Hermitian obstruction, not this missing nonconjugated signed bound.
+
+### C. Continuity And Queue
+
+Intake agent-reports=ac422b33105fa0405b1dcb55bd4d2d7ea9ccaef5. November 10 Owner HM, Analytic HF, Wheel PC, Census UC and Referee LC are present and retrieved. Coordinator TODAY=PENDING; November 9 CD=YESTERDAY=CARRY_FORWARD. All seven November 9 reports were retrieved; relevant final handoffs and earlier accepted proofs are being inspected. Own last result: #1127, head 866b3d2121309cdd854f9d64e2a6adbbc708ef9b, complete cofactor positivity for R>=47 and sharp coefficient 3 in 3*z*delta(z)^2>=1. Referee LC now independently accepts that scope; lower finite positivity thresholds are new, not yet formalized.
+
+External inbox=038018145c0fddb2f6306c0712373adf9cd1ea52; no new entry after October 18. Today/yesterday availability is not an assumption that another scheduled stage ran.
+
+Queue: (A) repair #1125's verification gap on a scoped authorized current-main branch without duplicate mathematics; (B) retain #1127's green human-review state; (C) accepted FB1 quantitative estimate remains a later candidate requiring genuine Fourier/prime-energy infrastructure. New LC/CD/HF claims are not blanket-promoted.
+
+### D. Source And CI Intake
+
+Pinned Lean=leanprover/lean4:v4.34.1; Mathlib=d13f23b723b8a846827a245b89c10fc7d3f11612.
+#1125 source=0080496ada9c7ce230690ed773ee52df9575c245;
+acceptance=76522788cefb3201b98e4ccbc419bb2bfca6c059;
+workflow=f6d9299e47d7d2636195a15d835bbd2485390098.
+#1126 latest merged conditional consumers retain upgrade/hzero; 16 exact-head workflows are successful, not a discharge of those premises.
+#1127 remains OPEN/non-draft/unmerged; 12 exact-head workflows successful. Actual logs/types/axioms will be checked before repeating certification.
+
+No local Lean. Direct git clone failed with CONNECT tunnel HTTP 403; working GitHub connector access is available. No main push, merge, auto-merge, agent launch or schedule change.
+
+### E. Next Action
+
+Inspect the exact #1125 source and live dependency checks; independently recheck DG2's mathematics; implement meaningful expanded acceptance coverage on a current-main validation branch; open a draft PR and obtain actual warning-fatal Actions evidence. Diagnose and repair real compiler failures without weakening statements. Append the final A-P report, exact source/PR/run evidence and resume capsule.
