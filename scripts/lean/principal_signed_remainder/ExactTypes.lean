@@ -11,6 +11,8 @@ example : ∀ {Q : ℝ} {A eta s : ℂ}, 480 ≤ Q → ‖A‖ ≤ 1 → ‖eta�
 #check principal_slot_signed_error
 #check actual_principal_slot_signed_error
 #check weighted_principal_slot_signed_error
+#check weighted_principal_slot_signed_relative_error
 #print axioms principal_slot_signed_error
 #print axioms actual_principal_slot_signed_error
 #print axioms weighted_principal_slot_signed_error
+#print axioms weighted_principal_slot_signed_relative_error

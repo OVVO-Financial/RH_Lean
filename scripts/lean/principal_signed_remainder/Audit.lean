@@ -26,7 +26,8 @@ def root : Name := `OAI.SevenEighths.PrincipalSlotEstimate.principal_slot_signed
 def roots : Array Name := #[
   root,
   `OAI.SevenEighths.PrincipalSlotEstimate.actual_principal_slot_signed_error,
-  `OAI.SevenEighths.PrincipalSlotEstimate.weighted_principal_slot_signed_error
+  `OAI.SevenEighths.PrincipalSlotEstimate.weighted_principal_slot_signed_error,
+  `OAI.SevenEighths.PrincipalSlotEstimate.weighted_principal_slot_signed_relative_error
 ]
 
 end PrincipalSignedAudit

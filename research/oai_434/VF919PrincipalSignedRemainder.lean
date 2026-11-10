@@ -26,7 +26,6 @@ theorem principal_K_signed {Q : ℝ} (hQ : 0 < Q) (eta s : ℂ) :
   rw [show -s - 1 = -s + (-1 : ℂ) by ring,
     Complex.cpow_add _ _ hQc, Complex.cpow_neg_one]
   field_simp
-  ring
 
 /-- Recover the first signed correction before taking the absolute value.
 The hypotheses and carrier are exactly those of the original slot estimate. -/
@@ -68,7 +67,10 @@ theorem principal_slot_signed_error {Q : ℝ} {A eta s : ℂ}
       abs_of_nonneg (by nlinarith : 0 ≤ 2 * Q⁻¹ - (Q⁻¹) ^ 2), Real.rpow_neg_one]
     nlinarith [sq_nonneg (Q⁻¹)]
   have hR : ‖R‖ ≤ Q ^ (3 - 6 * s.re) := by
-    convert coordR_norm_le Q hQ0 A s (1 / 6) hA using 1 <;> norm_num <;> ring
+    convert coordR_norm_le Q hQ0 A s (1 / 6) hA using 1
+    norm_num
+    congr 1
+    ring
   have hD : ‖D‖ ≤ Q ^ (-s.re) :=
     coordD_norm_le Q hQ0 eta 1 s heta.le (by simp)
   have hB : ‖B‖ = Q ^ s.re := principal_B_norm hQ0 eta s heta
@@ -114,15 +116,15 @@ theorem principal_slot_signed_error {Q : ℝ} {A eta s : ℂ}
       ring
     rw [hraw]
     calc
-      _ = (1 - q) * (B * R - B * D) / U - q := by field_simp; ring
+      _ = (1 - q) * (B * R - B * D) / U - q := by field_simp
       _ = _ := by rw [show B * D = 1 from principal_coord_cancellation hQ0 eta s heta]
   have hid : principalSlot Q A eta s + 1 + D =
       ((1 - q) * (B * R) - q * (1 - q) * R + (2 * q - q ^ 2) * D -
         q * R * D - (1 - q) * D ^ 2) / U := by
     rw [hratio]
     apply (eq_div_iff hU).mpr
+    rw [add_mul, add_mul, sub_mul, div_mul_cancel₀ _ hU]
     dsimp only [U]
-    field_simp
     ring
   have hBR : ‖B * R‖ ≤ T := by
     rw [norm_mul, hB]
@@ -228,6 +230,31 @@ theorem weighted_principal_slot_signed_error {i : Type*} (S : Finset i)
           (by linarith) (hQ j hj) (by norm_num)) (by norm_num))
       simpa only [mul_comm] using mul_le_mul_of_nonneg_left ht (hw j hj)
     _ = _ := by rw [Finset.mul_sum]
+
+/-- The original negative normalizer turns the retained correction into a
+PLUS response. No outer-scale weights are changed. -/
+theorem weighted_principal_slot_signed_relative_error {i : Type*} (S : Finset i)
+    (w Q : i → ℝ) (A eta : i → ℂ) (s : ℂ) (P : ℝ) (hP : 480 ≤ P)
+    (hw : ∀ j ∈ S, 0 ≤ w j) (hQ : ∀ j ∈ S, P ≤ Q j)
+    (hA : ∀ j ∈ S, ‖A j‖ ≤ 1) (heta : ∀ j ∈ S, ‖eta j‖ = 1)
+    (hs : 7 / 8 ≤ s.re) (hM : 0 < ∑ j ∈ S, w j) :
+    ‖(∑ j ∈ S, (w j : ℂ) * principalSlot (Q j) (A j) (eta j) s) /
+          (-(∑ j ∈ S, w j : ℝ) : ℂ) - 1 -
+        (∑ j ∈ S, (w j : ℂ) * eta j * (Q j : ℂ) ^ (-s)) /
+          (∑ j ∈ S, w j : ℝ)‖ ≤ 12 * P ^ (-(11 / 8 : ℝ)) := by
+  have hMc : ((∑ j ∈ S, w j : ℝ) : ℂ) ≠ 0 := Complex.ofReal_ne_zero.mpr hM.ne'
+  have hid :
+      (∑ j ∈ S, (w j : ℂ) * principalSlot (Q j) (A j) (eta j) s) /
+          (-(∑ j ∈ S, w j : ℝ) : ℂ) - 1 -
+        (∑ j ∈ S, (w j : ℂ) * eta j * (Q j : ℂ) ^ (-s)) /
+          (∑ j ∈ S, w j : ℝ) =
+      -((∑ j ∈ S, (w j : ℂ) * principalSlot (Q j) (A j) (eta j) s) +
+          (∑ j ∈ S, w j : ℝ) +
+          ∑ j ∈ S, (w j : ℂ) * eta j * (Q j : ℂ) ^ (-s)) /
+        (∑ j ∈ S, w j : ℝ) := by field_simp
+  rw [hid, norm_div, norm_neg, Complex.norm_real, Real.norm_eq_abs, abs_of_pos hM]
+  exact (div_le_iff₀ hM).mpr
+    (weighted_principal_slot_signed_error S w Q A eta s P hP hw hQ hA heta hs)
 
 end SevenEighths.PrincipalSlotEstimate
 end
