@@ -1595,3 +1595,714 @@ B_power(theta_0)=-1+ell/4-c*ell^2.
 Independent inputs to verify: ordinary strong PNT error, its actual uniform partial-summation consequences, and the Mertens product constant; no RH or imported 7/8 premise.
 
 Registered checks: exact Fraction reconstruction of AP1 and every admissible cutoff jump at R=64,65,127,128,257, with direct least-factor cofactor counts as the independent method; exact polynomial-coefficient algebra and rational certificates for 0.56<c<0.57 and the nonzero coefficient signs; separate FLOAT_DIAGNOSTIC_ONLY evaluations at R=1024,4096,16384,65536, including the critical cutoffs and first crossing when it exists. No onset threshold or uniform bound will be inferred from those roots. Fail the candidate upon any source/algebra mismatch; retain and report pre-asymptotic sign/crossing failures instead of changing the registered domain. A tuned moving cutoff and the complete unselected complement remain distinct and unpaid.
+
+
+## Critical Fixed Cutoffs Fail; The Adaptive Cutoff Must Track Prime Rank
+### Scheduled Synthesis - 20261109-coordinator-2309-EST
+
+### A. What Changed Mathematically?
+
+**Both exceptional fixed cutoffs left open by Referee AP4 fail on the genuine masked owner source.** The leading cancellation at alpha_0=1/2-exp(-gamma)log 2 and theta_0=2exp(-gamma)log 2 leaves a NONZERO residual of order R^2/log^3 R. Thus neither floor(alpha_0 R) nor floor(R^theta_0) can replace the proved adaptive prefix at O(R log R). Together with AP4, this eliminates every fixed pure proportional cutoff and every fixed pure power cutoff in the stated domains, not just most parameters.
+
+The adaptive construction survives. Its proportional crossing drifts by -B_0 R/log R, where B_0>311/10000. Moreover, eventually throughout the original proportional bracket, every added prime changes the residual by between m/2 and m, where m counts the actual primes in [R,2R). This gives a precise inverse restriction: an RH-sized PROPER-PACKET residual requires prime-rank distance O(log^2 R) from that crossing. It does not require, or prove, a short prime-gap theorem.
+
+These are scoped mathematical advances, not a new RH mechanism. The main cancellation is still transferred to the unselected owners and outside-mask complement. No new complete endpoint bound, finite A/C, or RH result is obtained. The most promising independent input in today's portfolio remains the proposed actual-zero-density transfer, subject to review and a complete return.
+
+| Claim | Evidence and scope |
+| --- | --- |
+| 20261109-coordinator-2309-EST/CD1 | PAPER_PROOF: uniform second-order expansion of the exact AP residual, using established strong PNT and the Mertens product constant. Those classical inputs are not new theorems. |
+| CD2 | PAPER_PROOF / REFUTED: both critical fixed-cutoff O(R log R) strengthenings, hence the entire two specified fixed-cutoff families. Not a refutation of adaptive or jointly centered methods. |
+| CD3 | PAPER_PROOF: first correction to the adaptive proportional cutoff and its prime rank. |
+| CD4 | PAPER_PROOF: eventual two-sided prime-rank stability and inverse restriction on the proper packet. Its rank criterion is an equivalence for that packet, not an independent RH supplier. |
+| CD5 | FINITE_COMPUTATION: three exact polynomial identities, rational sign certificates, 264 exact cutoff identities and 64 prime jumps. Large-root real-valued tests are separately FLOAT_DIAGNOSTIC_ONLY. |
+
+New CD paper results are SELF_AUDIT / INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED. This is one scheduled execution, triggered 2026-11-09 23:09:01 EST, America/New_York, UTC-05:00; RUN_ID_UNAVAILABLE. Research is finished; publication remains PENDING until the immutable readback receipt. Earlier executions, failures and corrections are preserved.
+
+### B. Current Proof Objective
+
+Pinned main is **7c7e0a4f54ee2972d3993abc42e5c7c4e1b405c9**, human merge of #1126. Authority blobs: AGENTS 6695522a45d67fd1e80a7cff1f98d909405036e2; CURRENT_PROOF_CONTRACT 95566e37c8eaeb99ee680660df4f9d2e06ea5038; current finite-wheel directive e505f35522b675c6b5b263eac73618d717346973. Acknowledgment: finite_wheel_ack=FINITE_WHEEL_CENTERED_RH_V1.
+
+Final freshness check at 2026-11-09 23:30:40 EST (2026-11-10 04:30:40 UTC): main is unchanged; all six November 9 specialist blobs match the intake table below; the only open PR is still non-draft #1127 at the same tested head. The report branch is d781a28616c836f007a0a376fae3658ce3ff4dcf before this synthesis. Existing mirrors agree at blob 3902e855ce049faed76e89df36d842f41151263a.
+
+For every integer R>=2:
+~~~text
+X=R^2-1, y=R-1, P_y=product_(prime p<=y) p,
+delta(y)=product_(prime p<=y)(1-1/p),
+F_R=sum_(d|P_y)mu(d)fract(X/d),
+D_R=X delta(y)+pi(y)-1-li(X),
+Z_R=F_R-D_R=li(X)-pi(X).
+
+OPEN: exists ONE C>=0, forall integer R>=2, |Z_R|<=C R log R.
+~~~
+
+All virtual d>X remain until their Euler mass cancels termwise. The divisor d=X is included. The original source theorem accepts arbitrary real L; substituting principal-value li is not an estimate. Its fixed offset from Li_2 is not zero.
+
+The unchanged public canonical theorem is VFCanonicalSquareVonKochStatement. The inspected terminal riemannHypothesis_of_vfCanonicalSquare still requires ClassicalVonKochRHCriterion explicitly. At R>=2, R^2 is composite, so replacing pi(R^2-1) by pi(R^2) changes no count; the Li endpoint and VF/Li normalization still require their stated bounded adapters.
+
+Original source and consumer declarations read this run include:
+
+| Source | Blob / exact scope |
+| --- | --- |
+| research/CompleteSquareRootWheelFractionalBoundary.lean | ecb482e52deeee5e9b3853592a3ffdace662d2ff: complete reciprocal/floor identities, physical/virtual split, square Legendre identity, centered arbitrary-reference equality. |
+| research/VF_MID_DYADIC_PREFIX_OWNER.lean | c499ca7bd7d90fb32f9cd99d652961ea023bed58: actual survivor counting and finite Euler density. |
+| research/CompleteWheelRootAdmission.lean | a412632c1028d7728cd8d87ee6e5ac365377d338: proper admission cost, not the entire shell innovation. |
+| research/VF_CANONICAL_SQRT_TWO_VON_KOCH.lean | 79030d70e8d3e0d08eef9bac53fef95c36eca2fb: canonical statement and explicit classical-criterion consumer. |
+| research/oai_434/VF919WindowErrorClosure.lean | f629db1b2b65d6ec042ac9432397d4b6316200c6: existing certified b_*=7/8-7/(64 nearUniformSlotCount), with every positive Mertens exponent loss. |
+| research/oai_434/VF919NativeStrictMertens.lean | b33a4883e1ddb0551b0f11f062bce46680d87450: native zeta-zero transfer, not an identification of unrelated coefficients. |
+| RHLean/Proof/AmplificationExponentIteration.lean | d78be4509e5dcc35b833c3786258b94fc6e71915: abstract upgrade remains a hypothesis. |
+| RHLean/Proof/SquareRootAmplificationZeroLogConsumer.lean | b7e6b9170a22a77ac1be56c5d1da2956906e99c6: zero-log premise remains open. |
+
+The generated DAG and coordinate atlas were read as navigation. Their historical "unmerged #1119" and frozen-root priority prose does not override actual source or the newest directive. No central document is edited by this role.
+
+### C. Competing Mechanism Portfolio
+
+There are two active discovery mechanisms and one suspended matching mechanism. Three successful RH mechanisms are not claimed merely to fill the portfolio.
+
+| Priority / concept | Independent input and target route | First missing input, obstacle and decisive test | Assignment / disposition |
+| --- | --- | --- | --- |
+| 1. Actual-prime spectral control | ZD uses the genuine von Mangoldt explicit formula, an existing zero boundary and classical zero density to bound the nonconjugated middle band. Exact complete RETURN then connects it to Z_R. | ZD's reported R^(17/12+epsilon) is still above R log R, and other frequencies, both physical mixed terms, constant mode and owners are unpaid. A new signed estimate must control a specified joined contribution, not assume the whole returned remainder. Review ZD's uniform truncation, density and remote-zero ledger first. | Analytic; independent Referee review. CONTINUE, without a global-gain promotion. |
+| 2. Genuine owner saturation and adaptive allocation | CF/AP use actual factorization, finite Euler references, cofactor saturation and bounded prefix jumps. AP supplies a proper O(R/log R) cancellation; CD now determines why fixed replacements fail and what rank accuracy is needed. | The unselected same-fibre mass is still order R^2/log^2 R and must interact with the outside-mask complement. No independently justified fine-scale transfer across that partition exists. Test a specifically defined disjoint transfer and its reference defect before a global norm. | Owner, with structural Wheel support. REVISE: adaptive only; retire the two pure fixed-cutoff families. |
+| 3. Reflected product matching | BL/RF/NC give genuine once-only matched subsets with O(R) or smaller band cost; RF has a factorization classification, NC has a sign-independent cost. | Missing partners, unmatched/far products and the full return are not controlled. The summable shared-ancestor subchannel was already inside a paid O(R) channel. A new matching must prove weighted coverage and no reuse, not another favorable pair sign. | Wheel/Census. SUSPEND as an endpoint supplier until a new coverage statement is proposed. Preserve all valid local results. |
+
+The methods have different independent inputs: actual zeta arithmetic, saturated cofactor arithmetic, and prime-product incidence. They are not three names for a generic covariance hypothesis. Current authority keeps all work within the finite-wheel campaign; no broader-priority amendment is made.
+
+### D. Conceptual Research Performed
+
+#### D1. Reconstruct The Exact Carrier Before Expanding
+
+Credit: CF1 and AP1-AP3 are the upstream discoveries. I reconstructed their saturated formula and crossing proof from the original counts, then read the submitted arguments; this is not claimed to be blind review. The following source reconstruction is independently accepted here at PAPER_PROOF scope, not a new Referee execution or Lean result.
+
+For integer R>=8, define
+~~~text
+Q={prime q:R<=q<2R}, m=#Q,
+x_q=X/q, t_q=floor(x_q),
+V=sum_Q x_q, rho=sum_Q fract(x_q), 0<=rho<=m,
+h=floor((R-1)/2), H=pi(h),
+w_p=delta(p-1)/p, W_U=delta(h)-delta(R-1),
+b_Q(p)=sum_Q N_p(t_q)-V w_p,
+N_p(t)=#{2<=a<=t: leastPrime(a)=p},
+U_Q=sum_(prime R/2<=p<R)b_Q(p),
+K_R^Q(z)=sum_(prime p<=z)b_Q(p), T_R(z)=U_Q+K_R^Q(z).
+~~~
+
+This K is an OWNER PREFIX, not the Mertens historical envelope. The q mask is a physical mask, not a new wheel sign: its inherited coefficient is mu(e), never mu(qe). Each a*q is unique, since a<R<=q and two such q cannot divide an integer below R^2. Squareful cofactors stay; the cofactor-one prime is subtracted once per q.
+
+If 2<=z<R/2 and z^2>=R, every composite a<=t_q<R has least factor <=z, while t_q>=z. Therefore the surviving cofactors are exactly one and primes above z. Summing their exact counts gives
+~~~text
+K_R^Q(z)=delta(z)V-rho-m-sum_Q pi(t_q)+m pi(z),
+U_Q=sum_Q[pi(t_q)-H]-V W_U,
+T_R(z)=V[delta(z)-W_U]+m[pi(z)-H-1]-rho.       (CD.1)
+~~~
+
+No actual prime count is replaced by Li in this equality. The pq=X and q=R endpoints remain. The original virtual compensation is already included in b_Q.
+
+At consecutive admissible cutoffs:
+~~~text
+T_R(z)-T_R(z-1)=0                           if z is composite,
+T_R(p)-T_R(p-1)=m-V delta(p-1)/p             if p is prime.  (CD.2)
+~~~
+The latter is <=m but need not be positive at small roots. AP's first-crossing proof only needed that upper bound.
+
+#### D2. Independent Analytic Inputs And Their Uniformity
+
+Only the unconditional strong PNT error and the Mertens product constant are imported. The former gives, for every fixed A>0, pi(x)=li(x)+O_A(x/log^A x), uniformly for real x sufficiently large; the usual asymptotic expansion follows by integration by parts. The constant in delta(x)log x -> c is c=exp(-gamma). See [NIST DLMF 27.12.4-5](https://dlmf.nist.gov/27.12) and [Diamond-Pintz, formula (1.1)](https://www.numdam.org/article/JTNB_2009__21_3_523_0.pdf). No RH, numerical RH verification or 7/8 input is used in CD.
+
+It is important to prove the extra precision for delta, rather than subtract two first-order equivalents. Put E(x)=pi(x)-li(x). Partial summation gives
+~~~text
+sum_(p<=x)1/p-loglog x-B
+   = E(x)/x - integral_x^infinity E(t)/t^2 dt.
+~~~
+For every A the right side is O_A(log^(-A) x), after choosing a stronger PNT logarithmic error. The higher-prime-power series sum_p sum_(k>=2)1/(k p^k) has tail O(1/x). Hence
+~~~text
+log delta(x)=-loglog x-gamma+O_A(log^(-A) x),
+delta(x)=c/log x+O_A(log^(-A) x)                    (CD.3)
+~~~
+for every fixed A, with a harmless reindexing of A. The constant is identified by the known Mertens limit. This derivation does not assert a pointwise prime density or an RH-sized error.
+
+All uses below are uniform on fixed compact proportional ranges; for x=R^theta the exponent theta is fixed before R. Constants may depend on that compact range or theta, never on the subsequently chosen cutoff. All rounded endpoints introduce only lower-order errors and remain in CD.1.
+
+#### D3. CD1-CD2: Close Both Critical Fixed-Cutoff Exceptions
+
+Write L=log R, ell=log 2, d=c ell, alpha_0=1/2-d and theta_0=2d. Uniformly for integers z with aR<=z<=bR, for any fixed 0<a<b<1/2, put alpha=z/R. Strong PNT and CD.3 give
+~~~text
+m=R/L+(1-2ell)R/L^2+O(R/L^3),
+V=R^2[ell/L-ell^2/(2L^2)+O(L^-3)],
+delta(z)-W_U=c/L-c(log alpha+ell)/L^2+O_(a,b)(L^-3),
+pi(z)-H=R[(alpha-1/2)/L
+       +{alpha(1-log alpha)-(1+ell)/2}/L^2+O_(a,b)(L^-3)].
+~~~
+The V formula comes from the actual reciprocal-prime sum over [R,2R), whose continuous main term is log(1+ell/L). The -1 in X, the prime endpoints, -m and -rho contribute within the stated final error; none is erased from CD.1.
+
+Multiplication yields the uniform quantified statement: there exist C_(a,b),R_(a,b) such that for every integer R>=R_(a,b) and every integer aR<=z<=bR,
+~~~text
+|T_R(z)-R^2[(alpha-alpha_0)/L^2+B(alpha)/L^3]|
+   <=C_(a,b) R^2/L^4,                              (CD.4)
+
+B(alpha)=-c ell log alpha-(3/2)c ell^2
+         +alpha(2-2ell-log alpha)-1+ell/2.
+~~~
+
+At the previously undecided proportional constant,
+~~~text
+B_0=B(alpha_0)
+   =[-log(alpha_0)-ell-4c ell+c ell^2]/2 >311/10000,
+T_R(floor(alpha_0 R))
+   =B_0 R^2/L^3+O(R^2/L^4).                       (CD.5)
+~~~
+
+Here is a non-floating sign certificate. The elementary harmonic brackets H_256-log257 < gamma < H_256-log256, together with convergent rational logarithm bounds, give 14/25<c<57/100 and 69/100<ell<7/10. Thus 38/100<d<2/5 and alpha_0<3/25. Since log(25/3)>21/10,
+~~~text
+B_0 >21/20-7/20-4/5+(38/100)(69/100)/2
+    =311/10000>0.
+~~~
+The attached program checks each transcendental comparison using exact rational series and an explicit tail bound. The displayed decimal B_0 about 0.1098529436 is diagnostic, not the proof.
+
+For every fixed theta in (1/2,1), the same source gives
+~~~text
+T_R(floor(R^theta))
+ =R^2/L^2[d/theta-1/2]+R^2/L^3 C(theta)+O_theta(R^2/L^4),
+C(theta)=-c ell^2(1+1/(2theta))-1+ell/2.             (CD.6)
+~~~
+In this range m*pi(R^theta)=O_theta(R^(1+theta)/L^2), which is absorbed into O_theta(R^2/L^4) only asymptotically. It is not small at every displayed finite root.
+
+At theta=theta_0 the remaining coefficient is
+~~~text
+C_0=-1+ell/4-c ell^2 < -3/4,
+T_R(floor(R^theta_0))
+   =C_0 R^2/L^3+O(R^2/L^4).                       (CD.7)
+~~~
+
+Since R^2/L^3 divided by R L tends to infinity, BOTH exceptional cutoffs fail every fixed C R L bound for all sufficiently large integer R. For alpha!=alpha_0 and theta!=theta_0 the already-proved leading coefficients are nonzero. Therefore:
+
+* For EVERY fixed alpha in (0,1/2), T_R(floor(alpha R)) is not O(R log R).
+* For EVERY fixed theta in (1/2,1), T_R(floor(R^theta)) is not O(R log R).
+
+This is the scoped all-parameter no-go. It does not address a tuned multiplicative factor times R^theta, additional logarithmic corrections, adaptive cutoffs, arbitrary weights or the complete Z_R. No claim that every finite asymptotic correction fails is made.
+
+#### D4. CD3: What The Surviving Adaptive Cutoff Actually Does
+
+Reuse the exact AP rule: on A=floor(R/16), B=floor(R/4), take the first nonnegative cutoff and choose it or its predecessor by the smaller absolute residual, with ties toward the predecessor. The independently reconstructed AP argument proves the required bracket eventually from
+T_R(z)L^2/R^2 -> z/R-alpha_0 uniformly. It uses only strong PNT/Mertens and 1/16<alpha_0<1/4, not a hypothetical sign crossing.
+
+Thus, for all sufficiently large R, the chosen z_R^* obeys |T_R(z_R^*)|<=m/2. Substituting this actual residual in CD.4 first gives alpha_R-alpha_0=O(1/L); smoothness of B on the bracket then gives
+~~~text
+z_R^*/R=alpha_0-B_0/L+O(L^-2),                     (CD.8)
+pi(floor(alpha_0 R))-pi(z_R^*)
+   =B_0 R/L^2+O(R/L^3).                           (CD.9)
+~~~
+The latter follows from the same uniform two-term pi expansion, not from an unproved small-gap estimate. In particular z_R^*=floor(alpha_0 R)+O(1) is false. A one-term logarithmic correction is a better approximation, but CD.8 does NOT show it accurate enough for the target packet budget.
+
+#### D5. CD4: A Prime-Rank Inverse Restriction
+
+Uniformly for primes p in the fixed proportional bracket,
+~~~text
+0 <= V delta(p-1)/(p m)=O(1/L).
+~~~
+This follows from V=O(R^2/L), delta(p-1)=O(1/L), p>=R/16+O(1) and m~R/L. Consequently there is ONE R_1 such that for every integer R>=R_1 and every prime A<p<=B,
+~~~text
+m/2 <= T_R(p)-T_R(p-1) <= m.                       (CD.10)
+~~~
+This is new eventual monotonicity, not a correction to AP's allowance of small-root negative jumps.
+
+Let k=|pi(z)-pi(z_R^*)| for any integer A<=z<=B. Sum the positive original jumps, then use |T_R(z_R^*)|<=m/2:
+~~~text
+(m/2)(k-1) <= |T_R(z)| <= m(k+1/2).                (CD.11)
+~~~
+
+This is an explicit two-sided finite inequality under the eventual arithmetic hypotheses, including every prime admission. It works with prime rank, not integer distance. For ANY cutoff sequence in that bracket, it follows in both directions that
+~~~text
+T_R(z_R)=O(R log R)
+  iff |pi(z_R)-pi(z_R^*)|=O(log^2 R).              (CD.12)
+~~~
+For example, if |T_R(z)|<=C R L and m>=R/(2L), then k<=4C L^2+1. Conversely k<=K L^2 and m<=2R/L gives |T_R(z)|<=(2K+1)R L for L>=1. Large residuals also force k>=|T_R(z)|/m-1/2.
+
+CD.12 is a PROPER-PACKET equivalence, explicitly not a new sufficient theorem for RH. The independent content is the source-specific jump lower bound and the calculated drift. It tells us how precise any replacement rule must be, but it does not supply the remaining global cancellation.
+
+#### D6. Full Return, No Circularity, And Endpoint Budget
+
+Let L_Q be the unselected lower-owner total before choosing a cutoff, S_Q=U_Q+L_Q and C_Q=F_R-S_Q-D_R. Set
+~~~text
+E_R=T_R(z_R^*), J_R=L_Q-K_R^Q(z_R^*),
+Z_R=E_R+J_R+C_Q,
+Z_R^2=E_R^2+J_R^2+C_Q^2
+     +2E_R J_R+2E_R C_Q+2J_R C_Q.                 (CD.13)
+~~~
+All internal interactions remain inside these exact sums. This is not the original #915 compressed statistic. The once-only allocation is within one R; reuse across different roots has not been authorized by any conservation theorem.
+
+AP already proves E_R=O(R/log R), after finite-exception absorption. CF/AP give J_R~c ell R^2/L^2; the corresponding negative outside compensation is visible at ordinary PNT scale, not RH precision. Therefore
+~~~text
+J_R+C_Q=O(R log R) iff Z_R=O(R log R).
+~~~
+This full remaining bound is TARGET_EQUIVALENT. CD does not assume it, improve its constant or reduce it to rank tracking. The new fixed-cutoff errors exceed the allowed packet budget; the adaptive packet was already paid. Net new global endpoint gain: NONE.
+
+#### D7. Registered Validation And Its Limits
+
+Registration was committed BEFORE arithmetic execution at d781a28616c836f007a0a376fae3658ce3ff4dcf, common mirror blob 3902e855ce049faed76e89df36d842f41151263a. The candidate coefficients were proof-led and disclosed before testing. No empirical constant or threshold was fitted.
+
+Exact checks all passed:
+* Three polynomial identities checked coefficient-by-coefficient over rational multivariate polynomials, not just sampled parameter values.
+* Rational logarithm tails and harmonic gamma brackets certify the signs in CD.5/CD.7.
+* At R=64,65,127,128,257, direct least-factor cofactor counts independently match every admissible saturated-prefix formula: 264 cutoffs and 64 prime jumps.
+* The complete masked total was checked against delta(R-1)V-m-rho in each root. Small tests use exact fractions; no li evaluation occurs.
+
+The separate floating diagnostics are deliberately NOT promoted to exact real-floor certificates:
+| R | T(floor(alpha_0 R))*L^3/R^2 | T(floor(R^theta_0))*L^3/R^2 | AP bracket signs |
+| --- | --- | --- | --- |
+| 1024 | 0.322615 | 0.708716 | positive, positive |
+| 4096 | 0.300843 | 0.566506 | positive, positive |
+| 16384 | 0.272543 | 0.305475 | positive, positive |
+| 65536 | 0.246855 | 0.059680 | negative, positive |
+
+The power-cutoff residual is still POSITIVE at all four test roots, although CD.7 proves eventual negativity. This exposes the finite-size m*pi(R^theta) term and prevents inventing an onset threshold. At 65536 the floating adaptive cutoff is 4956 with residual/m about -0.040545; its scaled drift is about -0.390418, not yet the limiting -0.109853. Even the smallest jump in the bracket is only about 0.250789m, so CD.10 is not claimed on this finite range.
+
+The script passed syntax compilation and an unchanged repeat run. SHA-256: b1f47528a09ced8015f532ba55b3ed6ca21ff975af2f87013c24c5d3ef23c42a. No local Lean, expensive larger census, or claim of independent Referee acceptance occurred.
+
+### E. Specialist Findings And Research Continuity
+
+All six November 9 specialist reports and all six November 8 reports were retrieved, along with the own report history and external inbox. Relevant mathematical claims and prior status corrections were read; historical large computations were not rerun. TODAY=AVAILABLE for every role. This does not imply an unobserved future execution has completed.
+
+| Role / newest consumed claims | Accepted information and limitation |
+| --- | --- |
+| Owner CF1-CF4 | Independently accepted by Referee AP at the exact masked source. Complete fibres eventually reinforce, while fixed small prefix banks fail. Do not extrapolate this to every adaptive prefix. |
+| Analytic ZD1-ZD4 | New author-level PAPER_PROOF of the genuine middle-band R^(17/12+epsilon) bound using the actual zero boundary and Ingham density. Complete proof and stated sources were read; no blanket independent acceptance or full-return gain is assigned here. SC's full smoothing estimate likewise retains its earlier review qualification. |
+| Wheel RF1-RF3 | Author-level paper classification of the unique shared-factor reflection and its summable narrow contribution. It neither supplies all partners nor improves coverage beyond the already paid reflected collar. |
+| Census NC1-NC5 | Author-level paper O(R) nearest-centre matching cost, sign discriminator and exact finite falsifiers. Both old/new matching overlaps must be removed; the unmatched remainder stays open. |
+| Referee AP1-AP4 | Its CF acceptance is an actual independent upstream review. AP's own saturated formula, finite crossing and eventual adaptive bound are independently reconstructed here at paper scope. CD resolves the two intentionally open critical fixed-cutoff cases; AP's own new claims were not previously independently certified by its author. |
+| Lean #1127 | Actual exact-head proof of the sharper density coefficient 3 and positivity for R>=47, on an unmerged branch. This formal evidence is separate from the older CF2 paper threshold 64 and separate from full discrepancy control. |
+| Earlier own FB/MP/SA | FB's proper band is independently accepted in Referee DA; per-zero-pair control is target-equivalent; SA's full sharp-area and fixed-wheel model obstruction remain scoped paper claims, not genuine-prime counterexamples. No repetition is claimed as new progress. |
+
+Explicit November 8 carry-forward: Owner PD/MC/JS (ratio dispersion, same-site restoration, finite zero-packet obstruction); Analytic MP/ND/EC (proper mixed estimate, full Nyman norm corrections, positive-error closure); Wheel SP/HC/FD (sampling collisions, historical rectangle, factor-depth donor limitations); Census TC/SJ/FR (collision, floor-two and additive-frequency falsifiers); Referee DR/WT/SG (ray, width and geometry qualifications); Lean CC/repair/EC implementation; Coordinator CP/AF/FM (complete consumer, triangular adapter, fixed multiplicative-model obstruction). These concern their original carriers. EC was later compiled/merged; SG's distinct stronger mean-slot proposal is not silently given that formal status.
+
+The external inbox blob 038018145c0fddb2f6306c0712373adf9cd1ea52 has no entry after October 18. EXT-20261018-PNT-1..3, EXT-20261017-XCOORD-1 and EXT-20261014-5 remain relevant sign, endpoint, complete-return and original-denominator safeguards. No November external handoff is invented.
+
+Immutable report intake: agent-reports@7dd33a3f057c355e99d29c0397a5950dc1f925f3.
+| Role file | November 8 blob | November 9 intake blob |
+| --- | --- | --- |
+| Coordinator 00/90 | 8b640304f6c233a2c4409b9882799de485888a9e | 35edd925446bfaf4babab99017ad8019db322915 |
+| 10-owner-payment.md | 4e1b83a1e5ff8c134e9ca64404397c70c2b07252 | 643e8a004d9d8e0be102b03e2f79bb3b217ae916 |
+| 20-analytic-type-ii.md | edecba8785a45cda87c0035d0348695941f1b8ea | d1d0d86d444b9c447cf6acf4bd18fdcaf02e56a3 |
+| 30-finite-wheel.md | 60d4cf1b65d4b1b2cc4f13f6c0940c14cb2c50fd | 0624246d03b19cf76c01e186b7d868a248d896ef |
+| 40-prime-census.md | 00f4f9c0d670821a0c9d1da31fd1c4d0afd09142 | 8c927cc6c323533ba1cfd369404b25aa4f9cef91 |
+| 50-adversarial-referee.md | 5371324ebbdbd88afb9abf843e83da2ce86b752f | a5d0192eb31c0efb3767187a7752f1a0d07f8534 |
+| 60-lean-verification.md | 5a110685bbe375d8ebff42df7391162914e52cef | 8b60c6136ac151774be2db0aee8f543f286b53aa |
+
+### F. Mathematical Bottlenecks And Typed DAG
+
+~~~text
+#1122 complete divisor source
+  -> physical/virtual Euler compensation                  PROVED_IN_LEAN
+  -> arbitrary-reference centered identity                 PROVED_IN_LEAN
+  -> exact CF/AP physical mask and prefix identity          PAPER / reconstructed
+       -> adaptive proper packet O(R/log R)                 PAPER / reconstructed
+       -> CD critical-cutoff obstructions and rank inverse  PAPER / review pending
+       -> signed cross-mask/unselected-complement control   OPEN: no supplier
+  -> complete uniform |Z_R|<=C R log R                     OPEN / RH-strength
+
+actual zero boundary + genuine explicit formula + density
+  -> ZD complete specified middle band                     PAPER / review pending
+  -> all frequencies + physical mixed/owner return         OPEN
+
+actual product matching + signed kernel
+  -> matched-subset cost                                  PAPER / scoped
+  -> uniform weighted unmatched/far coverage               OPEN
+~~~
+
+The bottleneck is a genuinely new joint arithmetic restriction on unpaid interactions. AP's successful selection, CD's prime-rank localization, and #1127's positive fibres do not constitute such a restriction. A bound on the entire residual is target-equivalent in both directions. Neither a positive sum of local savings nor a green conditional consumer pays it.
+
+### G. Strategy Decisions
+
+1. Retire all fixed pure alpha R and R^theta owner-prefix suppliers in the displayed domains, including their formerly exceptional parameters. Preserve adaptive and more complicated moving rules; do not exaggerate CD into a universal cutoff no-go.
+2. Keep AP as a paid proper-source tool, but do not spend another cycle refining cutoff constants unless a specified joint consumer needs that accuracy. An asymptotic series alone does not give O(log^2 R) prime-rank tracking.
+3. Give the analytic route the next highest-value quantitative review: it introduces arithmetic spectral information absent from earlier counting-path models. Demand the full proposed join and actual complementary costs before treating a proper band as global progress.
+4. Suspend new isolated reflected-pair refinements as endpoint work until a coverage statement is available. RF/NC remain correct-looking proper results at their declared review status.
+5. Repair the missing verification evidence for already-merged #1125 without rewriting history or weakening checks. #1127 stays at the human review gate.
+6. No new positive RH mechanism survived this run. The strongest new finding is a precise genuine-source obstruction and a quantitative inverse restriction, not a breakthrough claim.
+
+### H. Next Specialist Assignments
+
+These are asynchronous handoffs for the next actually authorized executions. No agent was launched, rescheduled or promised background work.
+
+**Owner Payment:** On CD.13, use the actual AP-selected prefix and specify one disjoint class inside J_R and one outside-Q class inside C_Q that can be related by an admitted factor map. Reuse CF's exact reference allocation and AP's bounded residual. The missing input is an inequality for those specified joined classes, not all J_R+C_Q. Return the map, every reference defect and a uniform cost, or a counterexample. Test q=R, squareful cofactors and double use across masks. A genuine new joined restriction promotes mechanism 2; another exact full-residual rewrite does not.
+
+**Analytic Type II:** First secure independent review of ZD's sharp explicit formula and all-zero energy ledger. Then choose one explicitly defined joined frequency/physical term from RETURN-2 and derive a source-faithful estimate using actual arithmetic, with all remaining costs displayed. Reuse the actual b_* and density hypotheses, rather than treating the newly bounded middle band as a free contraction. A fixed synthetic zero mode and SA's fixed-wheel model are null controls for any step using weaker data. A full signed joined improvement promotes mechanism 1; better constants on an already paid piece do not.
+
+**Finite Wheel & Incidence:** RF proves an exact shared-factor reflection cannot provide broad coverage. Investigate a NEW finite incidence rule for unpaired genuine products or the CD.13 cross-mask classes, with product values, root labels, reference changes and capacities explicit. Do not assume an absent partner. Return a coverage/capacity theorem or an exact failed instance. Any alleged transport must distinguish an above-wall spectral term from a physical donor. Retain matching as suspended unless this changes weighted coverage.
+
+**Prime Census Laboratory:** Independently check the CD coefficient algebra and the direct masked source at the registered five small roots; this is verification, not a new large census. For a new Owner/Wheel proposal, preregister its fixed inequality and held-out roots, then include both joined classes and the complement bookkeeping. Do not enlarge the critical-power scan to search for a favorable sign: the displayed positive finite values do not refute its asymptotic negative coefficient. The decisive falsifier is a source or coefficient mismatch, not an estimated onset.
+
+**Adversarial Referee:** Review CD1-CD4 independently: the strengthened Mertens product error must follow from strong PNT, CD.4 must be uniform in moving alpha, m*pi(R^theta) must be absorbed only at fixed theta, both coefficient signs must be rigorous, and rank stability must be eventual rather than asserted on the finite test range. Also check the exact scope of the two retired families and the surviving adaptive rule. Return scoped ACCEPT/REVISE/REFUTE. ZD remains a separate high-value review request; neither report may be blanket-accepted from its title.
+
+**Lean Verification:** Keep at most two implementation-sized tasks. First obtain actual warning-fatal compilation, exact types and standard-axiom/dependency evidence for the unchanged #1125 research leaf on an authorized current non-main validation branch or supported current CI path; its merge is not proof evidence. Do not create a duplicate theorem or rerun jobs that never existed. Second maintain #1127's exact-head human-review status and repair only actual new failures. FB1 remains an accepted quantitative candidate after these tasks; CD's new asymptotics/rank theorem is NOT sent as an accepted formalization task before independent review.
+
+### I. Lean And PR Status
+
+Only one open PR was found: #1127, non-draft. No Lean source, proof branch/PR, central policy, other role report, issue, schedule or permission was changed by this Coordinator.
+
+| Item | Verified status and scope |
+| --- | --- |
+| #1122 | MERGED. Unchanged original source ecb482e52deeee5e9b3853592a3ffdace662d2ff; reused earlier available exact-head/standard-axiom evidence for the source identities. Not a fresh complete-main build or an arithmetic estimate. |
+| #1124 | MERGED at 02f00cee544278ad1bb9022ee76fc5916d459a95. Original admission source unchanged; prior exact-head proof evidence retained. The full physical-shell residual is not paid by its cumulative admission bound. |
+| #1125 | MERGED at e7ffe4e01fd049dfe6f47af86a9984bc0b843576, proof head 538aa743a3e0de86b5ec44c9b4f159df3f5bd050. Fresh all-event head-filtered Actions response still lists TWELVE failures; check-runs is empty; dedicated run 42674337064 has ZERO jobs. IMPLEMENTED / MERGED / VERIFICATION_BLOCKED, not PROVED_IN_LEAN or CI_GREEN. This is missing execution evidence, not a demonstrated Lean theorem error. |
+| #1126 | MERGED, current main. Tested PR head e8969ad76d4c5694273cefc934316fc528c56648 has 16 successful workflows and 17 successful check-runs. Actual hosted build job 129565299363 was read: Lean 4.34.1, 9786-job build, elaborated graph and owned-warning gate passed. Checkout was the PR synthetic merge 5f5d8dc containing that head, not a claimed literal current-main checkout. Source declarations retain upgrade/hzero. CONDITIONAL consumers only. |
+| #1127 | OPEN / non-draft / CI_GREEN / REVIEW_READY / UNMERGED at 866b3d2121309cdd854f9d64e2a6adbbc708ef9b, branch agent/lean-verification/20261109-cofactor-positivity. Twelve successful workflows and thirteen successful checks. PROVED_IN_LEAN at that exact head, not on main. |
+
+For #1127 the actual [dedicated proof job](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42743502306/job/129590019152) was read. It checks out the literal head, runs Lean 4.34.1, emits both new modules and passes source-dependency closure 828. The acceptance source contains six executed guards for precisely [propext, Classical.choice, Quot.sound]. The inspected compiler driver uses -DwarningAsError=true. Its code and exact types certify 3*z*delta(z)^2>=1 for z>=2, sharp coefficient 3 at z=3, complete cofactor identity and positivity for R>=47. Original source blob f83a3daefc2b9d603014af912ec82b4a7f52cfac; acceptance 94eecdbf8cea32bf80e7e0939e40c951bc72febd. The sharper threshold is sufficient, not optimal; the final prime-mask sum is distinct from the more general q algebra.
+
+The positive component does not bound its complement or mixed product. Green proof status and human merge approval remain separate. No local Lean was run. Git transport was unavailable (CONNECT 403), but connector reads and authorized report writes succeeded; this did not block source/CI verification or publication.
+
+### J. Next-Run Resume Capsule
+
+~~~text
+RUN=20261109-coordinator-2309-EST; SCHEDULED; RUN_ID_UNAVAILABLE.
+finite_wheel_ack=FINITE_WHEEL_CENTERED_RH_V1.
+MAIN=7c7e0a4f54ee2972d3993abc42e5c7c4e1b405c9.
+CONTRACT=95566e37c8eaeb99ee680660df4f9d2e06ea5038.
+WHEEL_SOURCE=ecb482e52deeee5e9b3853592a3ffdace662d2ff.
+INTAKE_REPORT_HEAD=7dd33a3f057c355e99d29c0397a5950dc1f925f3.
+EARLY_CHECKPOINT=5f1b0bd10a29f0e5f58b16938437df2fe88ca755.
+REGISTRATION=d781a28616c836f007a0a376fae3658ce3ff4dcf.
+NEW=CD1 uniform expansion; CD2 both critical fixed-cutoff no-gos;
+CD3 adaptive drift; CD4 eventual prime-rank inverse; CD5 checks.
+REVIEW=CD paper/self-audit; independent review pending; no Lean claim.
+SURVIVES=AP adaptive proper payment; actual-zero-density mechanism pending review.
+RETIRED=all fixed pure alpha R and R^theta prefix suppliers in stated domains.
+NOT_RETIRED=adaptive, logarithmically corrected, weighted or jointly centered rules.
+BLOCKED_MATH=joint unselected/outside-mask arithmetic; full signed return unpaid.
+FORMAL=#1126 merged conditional; #1127 green unmerged; #1125 merged but unverified.
+NEXT_REASONING=one genuinely signed cross-mask or joined spectral restriction,
+with complete source costs, not a new name for the final residual.
+RH / CANONICAL VF / COMPLETE UNIFORM FINITE-WHEEL BOUND=OPEN.
+~~~
+
+### Reproducibility Appendix - CD5
+
+The following complete scratch program is part of this owned report, not a new repository script or Lean edit. It uses only Python's standard library. Exact proof checks and floating diagnostics are explicitly separated.
+
+~~~python
+import json
+import math
+from fractions import Fraction as F
+
+
+class Poly:
+    def __init__(self, terms=0):
+        self.terms = terms if isinstance(terms, dict) else {(0, 0, 0, 0): F(terms)}
+        self.terms = {k: v for k, v in self.terms.items() if v}
+
+    def __add__(self, other):
+        other = other if isinstance(other, Poly) else Poly(other)
+        out = self.terms.copy()
+        for k, v in other.terms.items():
+            out[k] = out.get(k, F(0)) + v
+        return Poly(out)
+
+    __radd__ = __add__
+
+    def __neg__(self):
+        return Poly({k: -v for k, v in self.terms.items()})
+
+    def __sub__(self, other):
+        return self + (-other if isinstance(other, Poly) else -Poly(other))
+
+    def __rsub__(self, other):
+        return Poly(other) - self
+
+    def __mul__(self, other):
+        other = other if isinstance(other, Poly) else Poly(other)
+        out = {}
+        for k, v in self.terms.items():
+            for l, w in other.terms.items():
+                key = tuple(a + b for a, b in zip(k, l))
+                out[key] = out.get(key, F(0)) + v * w
+        return Poly(out)
+
+    __rmul__ = __mul__
+
+    def __truediv__(self, scalar):
+        return self * (F(1) / scalar)
+
+
+def polynomial_checks():
+    c, ell, a, v = [Poly({tuple(int(i == j) for j in range(4)): F(1)})
+                     for i in range(4)]
+    assembled = ell * (-c * (v + ell)) - ell * ell * c / 2
+    assembled += a * (1 - v) - (1 + ell) / 2 + (1 - 2 * ell) * (a - F(1, 2))
+    claimed = -c * ell * v - F(3, 2) * c * ell * ell
+    claimed += a * (2 - 2 * ell - v) - 1 + ell / 2
+    assert not (assembled - claimed).terms
+    critical_a = F(1, 2) - c * ell
+    critical = -c * ell * v - F(3, 2) * c * ell * ell
+    critical += critical_a * (2 - 2 * ell - v) - 1 + ell / 2
+    reduced = (-v - ell - 4 * c * ell + c * ell * ell) / 2
+    assert not (critical - reduced).terms
+    theta = 2 * c * ell
+    multiplied = -2 * theta * c * ell * ell - c * ell * ell - 2 * theta + theta * ell
+    power_claim = 2 * theta * (-1 + ell / 4 - c * ell * ell)
+    assert not (multiplied - power_claim).terms
+    return 3
+
+
+def log_interval(x, terms=40):
+    x = F(x)
+    if x < 1:
+        lo, hi = log_interval(1 / x, terms)
+        return -hi, -lo
+    k = 0
+    while x > 2:
+        x /= 2
+        k += 1
+    t = (x - 1) / (x + 1)
+    lo = 2 * sum((t ** (2 * j + 1) / (2 * j + 1) for j in range(terms)), F(0))
+    hi = lo + 2 * t ** (2 * terms + 1) / ((2 * terms + 1) * (1 - t * t))
+    if k:
+        l2, h2 = log_interval(F(2), terms)
+        lo += k * l2
+        hi += k * h2
+    return lo, hi
+
+
+def sign_certificates():
+    harmonic = sum((F(1, n) for n in range(1, 257)), F(0))
+    g_lo = harmonic - log_interval(F(257))[1]
+    g_hi = harmonic - log_interval(F(256))[0]
+    assert g_lo > log_interval(F(100, 57))[1]
+    assert g_hi < log_interval(F(25, 14))[0]
+    lo, hi = log_interval(F(2))
+    assert F(69, 100) < lo < hi < F(7, 10)
+    assert F(14, 25) * F(69, 100) > F(38, 100)
+    assert F(57, 100) * F(7, 10) < F(2, 5)
+    assert log_interval(F(25, 3))[0] > F(21, 10)
+    b_lower = F(21, 20) - F(7, 20) - F(4, 5) + F(38, 100) * F(69, 100) / 2
+    assert b_lower == F(311, 10000) > 0
+    return {"c_interval": ["14/25", "57/100"], "B_alpha_lower": str(b_lower),
+            "B_power_upper": "-3/4", "method": "exact rational logarithm tails and harmonic gamma brackets"}
+
+
+def sieve(n):
+    spf = list(range(n + 1))
+    spf[0] = spf[1] = 0
+    for p in range(2, math.isqrt(n) + 1):
+        if spf[p] == p:
+            for k in range(p * p, n + 1, p):
+                if spf[k] == k:
+                    spf[k] = p
+    primes = [p for p in range(2, n + 1) if spf[p] == p]
+    pi = [0] * (n + 1)
+    for k in range(2, n + 1):
+        pi[k] = pi[k - 1] + int(spf[k] == k)
+    return spf, primes, pi
+
+
+def exact_source(r):
+    spf, primes, pi = sieve(2 * r)
+    x, h = r * r - 1, (r - 1) // 2
+    qs = [q for q in primes if r <= q < 2 * r]
+    m = len(qs)
+    v = sum((F(x, q) for q in qs), F(0))
+    rho = sum((F(x % q, q) for q in qs), F(0))
+    density = [F(1)] * r
+    counts = [0] * r
+    for q in qs:
+        for a in range(2, x // q + 1):
+            counts[spf[a]] += 1
+    b = [F(0)] * r
+    for p in range(2, r):
+        density[p] = density[p - 1]
+        if spf[p] == p:
+            b[p] = counts[p] - v * density[p - 1] / p
+            density[p] *= F(p - 1, p)
+    upper = sum(b[h + 1:], F(0))
+    wu = density[h] - density[r - 1]
+    assert sum(b, F(0)) == density[r - 1] * v - m - rho
+    prefix = F(0)
+    cases, jumps = 0, 0
+    last = None
+    for z in range(2, h + 1):
+        prefix += b[z]
+        if z * z < r:
+            continue
+        direct = upper + prefix
+        saturated = v * (density[z] - wu) + m * (pi[z] - pi[h] - 1) - rho
+        assert direct == saturated
+        cases += 1
+        if last is not None:
+            step = m - v * density[z - 1] / z if spf[z] == z else F(0)
+            assert direct - last == step <= m
+            jumps += int(spf[z] == z)
+        last = direct
+    return {"R": r, "cutoffs": cases, "prime_jumps": jumps}
+
+
+def floating_diagnostics(r):
+    spf, primes, pi = sieve(2 * r)
+    x, h = r * r - 1, (r - 1) // 2
+    qs = [q for q in primes if r <= q < 2 * r]
+    m = len(qs)
+    v = math.fsum(x / q for q in qs)
+    rho = math.fsum((x % q) / q for q in qs)
+    density = [1.0] * r
+    for p in range(2, r):
+        density[p] = density[p - 1] * (1 - 1 / p if spf[p] == p else 1)
+    wu = density[h] - density[r - 1]
+
+    def t(z):
+        return v * (density[z] - wu) + m * (pi[z] - pi[h] - 1) - rho
+
+    c, ell, log_r = math.exp(-0.5772156649015329), math.log(2), math.log(r)
+    alpha, theta = 0.5 - c * ell, 2 * c * ell
+    b = (-math.log(alpha) - ell - 4 * c * ell + c * ell * ell) / 2
+    cuts = [math.floor(alpha * r), math.floor(r ** theta)]
+    a, end = r // 16, r // 4
+    crossing = None
+    if a * a >= r and t(a) <= 0 <= t(end):
+        p = next(z for z in range(a, end + 1) if t(z) >= 0)
+        zstar = min((p - 1, p), key=lambda z: (abs(t(z)), z))
+        crossing = {"z": zstar, "residual_over_m": t(zstar) / m,
+                    "drift_log_scaled": (zstar / r - alpha) * log_r,
+                    "predicted_drift": -b}
+    upward = [m - v * density[p - 1] / p for p in primes if a < p <= end]
+    return {"R": r, "critical_cutoffs_float_only": cuts,
+            "scaled_T_alpha": t(cuts[0]) * log_r ** 3 / r ** 2,
+            "scaled_T_power": t(cuts[1]) * log_r ** 3 / r ** 2,
+            "bracket_signs": [math.copysign(1, t(a)), math.copysign(1, t(end))],
+            "min_jump_over_m": min(upward) / m, "crossing": crossing}
+
+
+def main():
+    c, ell = math.exp(-0.5772156649015329), math.log(2)
+    alpha = 0.5 - c * ell
+    print(json.dumps({
+        "status": "PASS", "polynomial_identities": polynomial_checks(),
+        "rational_certificates": sign_certificates(),
+        "exact_source_checks": [exact_source(r) for r in [64, 65, 127, 128, 257]],
+        "float_status": "FLOAT_DIAGNOSTIC_ONLY; no certified real floors or asymptotic onset",
+        "coefficient_display": {"alpha0": alpha, "theta0": 2 * c * ell,
+                                "B_alpha": (-math.log(alpha) - ell - 4*c*ell + c*ell*ell)/2,
+                                "B_power": -1 + ell/4 - c*ell*ell},
+        "diagnostics": [floating_diagnostics(r) for r in [1024, 4096, 16384, 65536]],
+    }, indent=2))
+
+
+if __name__ == "__main__":
+    main()
+~~~
+
+### Recorded Output - CD5
+
+~~~json
+{
+  "status": "PASS",
+  "polynomial_identities": 3,
+  "rational_certificates": {
+    "c_interval": [
+      "14/25",
+      "57/100"
+    ],
+    "B_alpha_lower": "311/10000",
+    "B_power_upper": "-3/4",
+    "method": "exact rational logarithm tails and harmonic gamma brackets"
+  },
+  "exact_source_checks": [
+    {
+      "R": 64,
+      "cutoffs": 24,
+      "prime_jumps": 7
+    },
+    {
+      "R": 65,
+      "cutoffs": 24,
+      "prime_jumps": 7
+    },
+    {
+      "R": 127,
+      "cutoffs": 52,
+      "prime_jumps": 13
+    },
+    {
+      "R": 128,
+      "cutoffs": 52,
+      "prime_jumps": 13
+    },
+    {
+      "R": 257,
+      "cutoffs": 112,
+      "prime_jumps": 24
+    }
+  ],
+  "float_status": "FLOAT_DIAGNOSTIC_ONLY; no certified real floors or asymptotic onset",
+  "coefficient_display": {
+    "alpha0": 0.11082594196697065,
+    "theta0": 0.7783481160660587,
+    "B_alpha": 0.10985294358928346,
+    "B_power": -1.0964681059326804
+  },
+  "diagnostics": [
+    {
+      "R": 1024,
+      "critical_cutoffs_float_only": [
+        113,
+        220
+      ],
+      "scaled_T_alpha": 0.32261476446315657,
+      "scaled_T_power": 0.7087156239043576,
+      "bracket_signs": [
+        1,
+        1
+      ],
+      "min_jump_over_m": -0.4039675755276353,
+      "crossing": null
+    },
+    {
+      "R": 4096,
+      "critical_cutoffs_float_only": [
+        453,
+        648
+      ],
+      "scaled_T_alpha": 0.3008431263370605,
+      "scaled_T_power": 0.5665057470749678,
+      "bracket_signs": [
+        1,
+        1
+      ],
+      "min_jump_over_m": -0.1131007316222539,
+      "crossing": null
+    },
+    {
+      "R": 16384,
+      "critical_cutoffs_float_only": [
+        1815,
+        1906
+      ],
+      "scaled_T_alpha": 0.27254255778397246,
+      "scaled_T_power": 0.30547516899206434,
+      "bracket_signs": [
+        1,
+        1
+      ],
+      "min_jump_over_m": 0.10846366212479139,
+      "crossing": null
+    },
+    {
+      "R": 65536,
+      "critical_cutoffs_float_only": [
+        7263,
+        5609
+      ],
+      "scaled_T_alpha": 0.24685512340682078,
+      "scaled_T_power": 0.05968018169223982,
+      "bracket_signs": [
+        -1,
+        1
+      ],
+      "min_jump_over_m": 0.2507894734597746,
+      "crossing": {
+        "z": 4956,
+        "residual_over_m": -0.040544718543347374,
+        "drift_log_scaled": -0.3904180149011,
+        "predicted_drift": -0.10985294358928346
+      }
+    }
+  ]
+}
+~~~
+
