@@ -40,3 +40,13 @@ No local Lean. Direct git clone failed with CONNECT tunnel HTTP 403; working Git
 ### E. Next Action
 
 Inspect the exact #1125 source and live dependency checks; independently recheck DG2's mathematics; implement meaningful expanded acceptance coverage on a current-main validation branch; open a draft PR and obtain actual warning-fatal Actions evidence. Diagnose and repair real compiler failures without weakening statements. Append the final A-P report, exact source/PR/run evidence and resume capsule.
+
+## Draft Validation Milestone - 2026-11-10 05:15 EST
+
+PR [#1128](https://github.com/OVVO-Financial/RH_Lean/pull/1128), branch agent/lean-verification/20261110-near-resonance-validation, is OPEN/DRAFT at 7c034c6c5304a5deb1ed0ff19d03ce5798cbfdef, based on current main 7c7e0a4f54ee2972d3993abc42e5c7c4e1b405c9. It adds two exact public-type tests and two opposite-sign genuine-prime regressions to the existing acceptance module. The original theorem source and CI are initially unchanged. This meaningfully expands validation rather than duplicating the theorem or producing a no-op rerun.
+
+The actual dedicated run [42797571060](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42797571060), job [129766542712](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42797571060/job/129766542712), has started and passed literal-head and pinned-toolchain verification. Proof compilation is still pending. Targeted iteration run 42797571128/job 129766544173 also started. Status=CI_PENDING; NOT_YET_PROVED_IN_LEAN.
+
+Independent mathematical reconstruction rechecked the accepted DG2 argument: cancellation of the shared q gives exp(Delta)=1+[k*(R^2-1)-3p]/[(4R^2-1)p], k=+/-1. Under R>=8, R/2<=p<=R, its error has magnitude <=1/R; logarithmic comparison gives |Delta|<=1/(R-1), and cosine >=1-(t Delta)^2/2 supplies the stated bound. Exact admitted witnesses have ratios 399/425<1 and 203385/202057>1. Their opposite phase signs rule out a one-sided interpretation; the common positive Hermitian response is distinct from the nonconjugated signed target.
+
+The latest #1127 dedicated job 129590019152 was independently read: literal head 866b3d2121309cdd854f9d64e2a6adbbc708ef9b, Lean 4.34.1, both modules compiled, live closure 828 passed. Its acceptance source executes six standard-axiom guards, and the actual compiler driver uses -DwarningAsError=true. The theorem types and source hashes match yesterday's reported evidence; no redundant build is needed. It remains unmerged.
