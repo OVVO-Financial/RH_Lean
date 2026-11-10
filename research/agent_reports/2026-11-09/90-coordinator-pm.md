@@ -2306,3 +2306,11 @@ if __name__ == "__main__":
 }
 ~~~
 
+
+### Verified Publication Receipt - 2026-11-09 23:31:59 EST
+
+EXECUTION=COMPLETED. SUBSTANTIVE_REPORT_PUBLICATION=VERIFIED. Mathematical status remains CD1-CD4 PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING, CD5 FINITE_COMPUTATION with separate floating diagnostics; the canonical RH-strength estimate remains OPEN.
+
+The substantive synthesis was committed at [8ac29c35f98a2014cb2254553731d54268c7b054](https://github.com/OVVO-Financial/RH_Lean/commit/8ac29c35f98a2014cb2254553731d54268c7b054), timestamp 2026-11-10T04:31:33Z. Both authorized Coordinator reports were fetched at that immutable commit and compared with the intended complete content. Both have blob 78e6e703f0b77ed360b78f8ac51421a28ad60a35 and are byte-identical. All earlier Coordinator evidence and revision history remain as an exact prefix. The commit changes ONLY the two authorized November 9 Coordinator mirrors.
+
+This receipt records that completed readback; it does not promote any paper claim to independent acceptance, certify #1125, merge #1127, or assert a new endpoint bound. The next highest-value research task is the source-faithful joined estimate described in H, after scoped review of CD and ZD. No background execution was launched.
