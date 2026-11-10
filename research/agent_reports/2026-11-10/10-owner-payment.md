@@ -2107,3 +2107,11 @@ if __name__=='__main__':
 }
 
 ~~~
+
+### Verified Publication Receipt - 2026-11-10 08:43:47 EST
+
+PUBLISHED / COMPLETE for this invocation at PAPER_PROOF + IDENTITY_ONLY + FINITE_COMPUTATION / REFUTED scope. NO_NEW_GLOBAL_GAIN; canonical VF, complete-wheel RH bound, finite A/C and RH remain OPEN. New paper claims are SELF_AUDIT / INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED.
+
+Substantive publication commit: 7a859de76f9db95d87a6bf7cfd233dd58eab3c11. Report blob: 7c9dd5e5b15b5684c81a12a0c6c5457f6f9e8f46. Immutable re-fetch matched all 116,961 characters exactly, including all earlier evidence and the IN_PROGRESS checkpoint. Commit metadata confirmed only research/agent_reports/2026-11-10/10-owner-payment.md changed, with 1,216 additions and zero deletions. Both certificate programs completed successfully; no local Lean or proof-source edit was performed. This receipt records completed verification, not a promise of later validation.
+
+Next meaningful action is independent review of BR1-BR2 and a coefficient-faithful assessment of the remaining parity/gcd residual, as specified in I-J. The valid full renewal is already paid algebra, not an unproved endpoint improvement. No background continuation or specialist launch is asserted.
