@@ -867,3 +867,12 @@ print(json.dumps(stats, indent=2))
   }
 }
 ~~~
+
+### Verified Publication Receipt - 2026-11-10 00:25:50 EST
+
+PUBLISHED / COMPLETE at PAPER_PROOF + FINITE_COMPUTATION scope, not a Lean theorem or an RH proof.
+Substantive commit: 09ad4d12a4cbe2df0155ca1bdd63a034562144aa.
+Report blob: 4a91735b7e2bebd559959a0e7b8359b33b755beb.
+Immutable GitHub re-fetch matched all 46,296 characters exactly. Commit inspection confirmed only research/agent_reports/2026-11-10/10-owner-payment.md changed, with 822 additions and zero deletions; the early checkpoint was preserved.
+The final program passed all registered assertions and syntax validation. New HM1-HM4 paper claims remain SELF_AUDIT / INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED; HM5 is finite evidence. No new full discrepancy estimate, finite A/C or RH result was claimed.
+This receipt records an executed verification, not a promise of later work.
