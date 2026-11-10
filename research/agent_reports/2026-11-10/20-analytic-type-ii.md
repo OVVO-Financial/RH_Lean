@@ -1736,3 +1736,26 @@ Verified 2026-11-10 09:49:11 EST / 14:49:11 UTC. The final research continuation
 Publication status is COMPLETE / VERIFIED. This supersedes the preparation-time pending-publication wording, not any mathematical scope limitation. RD1-RD5 remain PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED; VERIFIED_ETA remains NONE. No independent reviewer or Lean run was launched. The sole remote write target was this daily report. The next handoff is independent review of the full RD4/RD5 return; the canonical RH objective remains OPEN.
 
 
+
+
+## Scheduled Continuation Checkpoint - 20261110-analytic-3/IR
+
+### A. Registered Analytic Investigation
+
+IN_PROGRESS / PARTIAL. Independently check Coordinator 20261110-coordinator-1513-EST/MD1-MD5 against the literal principal source, then investigate whether the ORIGINAL Mellin signal's small-argument decay permits the COMPLETE absolutely convergent principal response, without a finite degree cutoff or an omitted mixed tail. Candidate: retain the rational symbol S=q+(1-q)(1-W)/(1-G-(1-q)D) as an infinite dilation series; prove its weighted row mass tends to zero for theta>3/5, including every inner argument below 1. This is a proposed theorem to prove/falsify, not a result already obtained. The physical LOW/HIGH, source-height, conductor and correction-domain bills must still be audited independently.
+
+### B. Authority And Continuity
+
+Actual trigger: 2026-11-10 17:11:01 EST, America/New_York. Run label 20261110-analytic-3/IR; platform RUN_ID_UNAVAILABLE. cross_route_ack=CROSS_ROUTE_SIGNED_RECOVERY_V1. Main fetched at f7947bee036c4dddb0c36fc9f53ab46b4fa90995. AGENTS blob c9c89f01b90b526de9f3e8ea92478e36504711b6; CURRENT_PROOF_CONTRACT blob 95566e37c8eaeb99ee680660df4f9d2e06ea5038; governing directive e922d4ba9362a1ae196af8f6de88f7417f92087c. Canonical VF, complete finite-wheel RH scale, finite A/C and RH remain OPEN.
+
+All seven roles' November 10 and November 9 reports were retrieved; TODAY=AVAILABLE, YESTERDAY=CARRY_FORWARD at their actual scopes. Latest upstream claims include Coordinator MD, Owner DR, Wheel JC, Census UC, Referee SR and Lean RD. Own RD1-RD5 are independently paper-accepted in SR; merged #1130 certifies RD1 and its weighted adapters only. MD and SR's stronger endpoint proposals remain paper/self-audited until an actual independent review. External inbox remains 038018145c0fddb2f6306c0712373adf9cd1ea52, with no new entry after October 18; historical source/mask safeguards remain, not their stale task routing.
+
+Direct hosted receipts checked: #1119 run 42552018910/job 128949473700 at 77ee815846d6d534c866f0752aa33b84c385610a SUCCESS, five transitive closures with standard axioms; #1130 run 42877550772/job 130044786387 at 4aa22782d10b3ad77dc970d6bb610eaab93a228c SUCCESS, four quantitative closures with standard axioms. Latest fifteen updated PR records are merged; a dedicated open collection and source-blob consistency check will be completed before final publication. The certified baseline remains b_base=7/8-7/(64*N_pack), with every positive exponent loss. No paper proposal is substituted for it.
+
+### C. Preregistered Falsification And Work Remaining
+
+Check the exact original signal definition for x>0, not merely x>=1. Check absolute convergence of the infinite kernel on the legal Mellin contour and in the proposed weighted growth class; retain frozen outer weights, phase, Gaussian, correction and exclusion masks. Test all local signs and all cross-slot products. A failure at small arguments, divergent kernel mass, or an unpaid raw-source hypothesis rejects the proposed extension.
+
+Before numerical work: targeted tests will use exact Gaussian-rational phases, Q=k^8 with k in {3,4,7,11}, A in {0,1,-1,i,-i}, Mellin eighth-power samples, several finite geometric truncations, and complete two/three-slot weighted products. They test algebra/majorants, not prime-ideal distribution or an infinite theorem. Check the theta=3/5 boundary separately. No unchanged prime census or accepted RD1 scan will be repeated as purported novelty; all new tests must address the infinite-tail or small-argument question.
+
+No new Lean, branch, PR, issue, workflow run, merge, agent launch or schedule change is authorized or performed. New derivation, complete-return audit, original-source bridge, independent review distinctions and final resume capsule are PENDING. Preserve all previous report content and claim IDs.
