@@ -2115,3 +2115,30 @@ PUBLISHED / COMPLETE for this invocation at PAPER_PROOF + IDENTITY_ONLY + FINITE
 Substantive publication commit: 7a859de76f9db95d87a6bf7cfd233dd58eab3c11. Report blob: 7c9dd5e5b15b5684c81a12a0c6c5457f6f9e8f46. Immutable re-fetch matched all 116,961 characters exactly, including all earlier evidence and the IN_PROGRESS checkpoint. Commit metadata confirmed only research/agent_reports/2026-11-10/10-owner-payment.md changed, with 1,216 additions and zero deletions. Both certificate programs completed successfully; no local Lean or proof-source edit was performed. This receipt records completed verification, not a promise of later validation.
 
 Next meaningful action is independent review of BR1-BR2 and a coefficient-faithful assessment of the remaining parity/gcd residual, as specified in I-J. The valid full renewal is already paid algebra, not an unproved endpoint improvement. No background continuation or specialist launch is asserted.
+
+
+## Scheduled Continuation Checkpoint - 20261110-owner-3/DR
+
+### A. Most Important Mathematical Development
+
+IN_PROGRESS / PARTIAL. Resume the complete weighted floor-Li defect exposed by 20261110-owner-2/BR, not a fresh prime-like lift. The registered test is whether the exact coprime-prefix / shared-factor decomposition provides a controlled smaller-scale response on the SAME genuine Mobius source, and whether its full event aggregation preserves cancellation. Competing predictions: a uniform contractive response versus a multiplicity/coherent obstruction. No result or global gain is claimed at this checkpoint.
+
+### B. Current Authoritative Objective
+
+Actual trigger: 2026-11-10 16:15:01 EST; America/New_York reporting date 2026-11-10; platform run ID unavailable. Main f7947bee036c4dddb0c36fc9f53ab46b4fa90995. cross_route_ack=CROSS_ROUTE_SIGNED_RECOVERY_V1. Read main AGENTS.md (c9c89f01b90b526de9f3e8ea92478e36504711b6), CURRENT_PROOF_CONTRACT.md (95566e37c8eaeb99ee680660df4f9d2e06ea5038), and governing cross-route directive (e922d4ba9362a1ae196af8f6de88f7417f92087c).
+
+Canonical actual-prime VF and complete compensated wheel O(R log R) targets remain OPEN. Strongest certified explicit baseline retained: native_mertens_near_uniform_window_error_closed, b_base=7/8-7/(64*N_pack), every positive exponent loss. Original declaration and hosted job 128949473700 live-dependency/standard-axiom checks were retrieved. Latest #1130 is MERGED and certifies the local signed principal remainder only, not RD2-RD5 or Coordinator MD. No open/draft PR was present at intake.
+
+### C. Registered Structural Investigation
+
+Use X=R^2-1, y=R-1, lambda(q)=floor(Li_2(q))-floor(Li_2(q-1)), t_q=floor(X/q), and the literal full defect
+mathcalD=sum_(y<q<=X)lambda(q)[M(t_q)+mu(q)*sum_(a<=t_q,gcd(a,q)=1)mu(a)].
+Preserve the composite event, every (q,a) occurrence, squareful and even-parity companions, original J and A, and every mixed term in M(X)=A+J+mathcalD.
+
+First derive the exact prime-factor recurrence for the coprime prefix; test any claimed contraction, sign, one-use property or small aggregate against actual admitted floor-Li events and a complete coefficient reconstruction. Existing BR completion and within-event renewal are paid inputs, not new discoveries. Before computation, freeze the proposed inequalities and smallest witness ranges. Any #915 source claim requires its own unchanged clipping/anchor/normalizer bridge.
+
+### D-K. Continuity And Work Pending
+
+TODAY=AVAILABLE for all six upstream roles; YESTERDAY=CARRY_FORWARD for 2026-11-09. Latest Coordinator 20261110-coordinator-1513-EST/MD and M3 assignment consumed; prior BR/HM/CF, Analytic RD and ZD, Wheel JC/RF, Census UC/NC, Referee SR/AP, and Lean #1130/#1127 evidence retained at their individual scopes. MD and SR extensions remain paper/self-audited, not a certified baseline upgrade. EXTERNAL_HANDOFFS.md is unchanged at 038018145c0fddb2f6306c0712373adf9cd1ea52; no new entry after October 18.
+
+Direct clone is unavailable (proxy CONNECT 403); authenticated repository reads work. No local Lean, source/policy edits, other-report edits, proof branch, PR, workflow, schedule, permission change or agent launch. Only this owned report is authorized for publication. Substantive derivation, falsification, quantitative relevance and final handoffs remain IN_PROGRESS. This append preserves all earlier daily evidence byte-for-byte.
