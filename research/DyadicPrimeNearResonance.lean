@@ -111,8 +111,7 @@ theorem sharedPrime_ratio_bounds (R p r : ℝ) (hR : 8 ≤ R)
     rw [show ((R ^ 2 - 1) * r) / ((4 * R ^ 2 - 1) * p) - 1 =
         ((R ^ 2 - 1) * r - (4 * R ^ 2 - 1) * p) /
           ((4 * R ^ 2 - 1) * p) by
-            field_simp [hY.ne', hp0.ne']
-            ring]
+            rw [sub_div, div_self hD.ne']]
     rw [abs_div, abs_of_pos hD]
     apply (div_le_div_iff₀ hD hR0).mpr
     nlinarith [mul_le_mul_of_nonneg_right hnum hR0.le]
