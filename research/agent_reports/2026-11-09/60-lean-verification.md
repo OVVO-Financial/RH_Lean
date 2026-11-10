@@ -537,3 +537,226 @@ Formalization-driven mathematical improvement, currently PAPER_PROOF / SELF_AUDI
 Executed exact diagnostics: 511 density cutoffs z=2..512; equality only at z=3 in that finite range; 135 complete divisor-mask checks R=2..16; 466 roots R=47..512 checked against the minimum quotient over ALL integer masks. Script SHA-256 a5b96fd999a1ed5b99606ac9cd34084e62411e0f172a1a2c9d9bed6bbb720845. One initial diagnostic asserted a mistaken hand-written negative-control value; the correctly computed R=8,q=13 total is -48/65. Correcting only that expected literal made the complete script pass. These are diagnostics, not the all-scale proof or Lean certification.
 
 No main push, merge, local Lean, agent launch or schedule change occurred. Current source and acceptance modules plus a dedicated existing-action workflow are the only three PR files. Actual source audits, proof inventory and public exports passed on the initial head; they must be rechecked at the repaired head.
+
+---
+
+
+## Formal Proof Synthesis - 20261109-lean-3 (2026-11-10 02:42:54 UTC)
+
+### A. Most Important Formal Mathematical Result
+
+**PROVED_IN_LEAN at unmerged PR #1127 head 866b3d2121309cdd854f9d64e2a6adbbc708ef9b.** Both new modules actually compiled in GitHub Actions. All twelve latest-head workflow records passed. The PR was opened as draft, repaired through actual failures, then marked ready for human review. It remains unmerged; human merge authority is unchanged.
+
+The selected result strengthens accepted **20261109-owner-3/CF2**, independently accepted in **20261109-referee-2/AP**. For the actual finite prime density delta(z)=vfMidPrefixWheelDensity(z), all integer z>=2 satisfy **3*z*delta(z)^2>=1**, equivalently delta(z)>=1/sqrt(3z). The coefficient 3 is sharp at z=3. The complete nonunit masked divisor source is strictly positive for EVERY integer R>=47 and R<=q<2R, including the root-prime endpoint. Its sum over the genuine prime mask is nonnegative. This improves the paper's sufficient threshold 64 without PNT or an unproved cancellation premise. Threshold 47 is sufficient, not asserted optimal.
+
+The original CF2 paper acceptance does not automatically constitute independent Referee acceptance of the sharper constant/threshold: that strengthening was SELF_AUDIT during this invocation. Its formal status is determined separately by the exact-head evidence below. No literature-priority claim is made.
+
+### B. Current Authoritative Objective
+
+Actual scheduled invocation: November 9, 2026, 21:08:01 EST, America/New_York. Run 20261109-lean-3; no additional launch inferred or performed. finite_wheel_ack=FINITE_WHEEL_CENTERED_RH_V1. Initial main e7ffe4e01fd049dfe6f47af86a9984bc0b843576 advanced during intake to **7c7e0a4f54ee2972d3993abc42e5c7c4e1b405c9**, the human merge of #1126. The proof branch originates at the latter baseline.
+
+For X=R^2-1, y=R-1 and P_y=product_(prime p<=y)p, preserve the complete F_R=sum_(d|P_y)mu(d)fract(X/d) and D_R=X*delta(y)+pi(y)-1-li(X). The certified source identity F_R-D_R=li(X)-pi(X) is not the OPEN uniform bound |F_R-D_R|<=C R log R with ONE C for every R>=2. Principal-value li, d=X, every virtual divisor and every complementary term remain unchanged.
+
+| Authority or source | Blob SHA |
+| --- | --- |
+| AGENTS.md | 6695522a45d67fd1e80a7cff1f98d909405036e2 |
+| CURRENT_PROOF_CONTRACT.md | 95566e37c8eaeb99ee680660df4f9d2e06ea5038 |
+| Seven-role complete-wheel directive | e505f35522b675c6b5b263eac73618d717346973 |
+| docs/DYNAMIC_RESEARCH_AGENTS.md | e8d913ff9663bb5163eaf0eddca9f76e0508a7ef |
+| research/CompleteSquareRootWheelFractionalBoundary.lean | ecb482e52deeee5e9b3853592a3ffdace662d2ff |
+| research/VF_MID_DYADIC_PREFIX_OWNER.lean | c499ca7bd7d90fb32f9cd99d652961ea023bed58 |
+| research/CompleteWheelRootAdmission.lean | a412632c1028d7728cd8d87ee6e5ac365377d338 |
+| RHLean/Arithmetic/PrimesUpToFrontier.lean | ad6776cc60cfed52e2e27acc4a11787dc37b4039 |
+| lean-toolchain | ba8ebf2dbaf6a668cd2a0e086186d6d569b69ff5 |
+| lakefile.lean | 6ef95e9ebf184d5846fee88a9cdf2db3a38afc97 |
+| lake-manifest.json | a34d142c3d75a602a8b0f8241a4fb504d5c7c5a4 |
+
+Both declared and resolved pins are Lean 4.34.1, Mathlib d13f23b723b8a846827a245b89c10fc7d3f11612 and PNT+ c39a751132c88b6e8080b74c74023fd95b3d8be0. PNT is not a mathematical premise of this proof.
+
+### C. Formalization Candidates And Continuity
+
+All seven November 9 and November 8 report files were retrieved. TODAY=AVAILABLE, YESTERDAY=CARRY_FORWARD at their verified scopes, not an assertion that every possible scheduled stage has finished. The Coordinator AM/PM mirrors have identical listed blobs, so their common content was read once. External inbox 038018145c0fddb2f6306c0712373adf9cd1ea52 retains the October external handoffs; no new entry changes this task.
+
+The live intake queue was: repair any active valid proof PR; accepted CF2 proper-source estimate; accepted FB1 original Fourier/energy interface. #1125 and #1126 were both human-merged during/by intake, and a refreshed open-PR collection was empty before #1127 was created. No duplicate active proof was found in PRs, original source, source search, proof DAG or coordinate atlas.
+
+New handoffs were read with distinct scopes: Coordinator SA sharp-area/model obstruction and floor-Li adapter; Owner CF exact cofactor conservation/sign; Analytic ZD proposed 17/12+epsilon proper-band transfer; Wheel RF shared-factor reflection classification; Census NC signed nearest-centre matching and 8R/85 subset cost; Referee AP adaptive prefix repair. AP independently accepts CF1-CF4 but does not blanket-accept ZD/RF/NC. AP's moving-prefix result is not refuted by CF's fixed-prefix obstruction.
+
+Previous-day continuity includes FM fixed-wheel multiplicative countermodels, JS finite-zero-packet target equivalence, EC/SG complete-consumer improvements, FD factor-depth matching restrictions, AF sign falsifiers and the Lean EC implementation. These are retained on their own carriers, not reinterpreted as new wheel bounds.
+
+Verified continuity source receipts (upstream November 9 blobs unchanged at close; own report subsequently has append-only updates):
+
+| Report | November 9 intake blob | November 8 blob |
+| --- | --- | --- |
+| Coordinator | 35edd925446bfaf4babab99017ad8019db322915 | 8b640304f6c233a2c4409b9882799de485888a9e |
+| Owner | 643e8a004d9d8e0be102b03e2f79bb3b217ae916 | 4e1b83a1e5ff8c134e9ca64404397c70c2b07252 |
+| Analytic | d1d0d86d444b9c447cf6acf4bd18fdcaf02e56a3 | edecba8785a45cda87c0035d0348695941f1b8ea |
+| Wheel | 0624246d03b19cf76c01e186b7d868a248d896ef | 60d4cf1b65d4b1b2cc4f13f6c0940c14cb2c50fd |
+| Census | 8c927cc6c323533ba1cfd369404b25aa4f9cef91 | 00f4f9c0d670821a0c9d1da31fd1c4d0afd09142 |
+| Referee | a5d0192eb31c0efb3767187a7752f1a0d07f8534 | 5371324ebbdbd88afb9abf843e83da2ce86b752f |
+| Lean, intake | 4402811bbc7198731f83036f73836ef336c2015a | 5a110685bbe375d8ebff42df7391162914e52cef |
+
+### D. Candidate Selection And Proof Plan
+
+CF2 is independently accepted, gives an unconditional quantitative restriction on the actual complete masked source, and has a contained finite proof. It therefore outranks speculative new analytic code or duplicate elementary wheel identities. FB1 remains valid accepted mathematics requiring a substantial original-source L1/L2 Fourier identification and finite prime-energy implementation; it is not dismissed as an open paper theorem.
+
+Plan: prove the density invariant by strong induction; at a prime z>=5 use that z-1 is even and composite, hence density only changes from z-2 by (z-1)/z. Then reuse original divisor reciprocal/floor theorems to transport the complete nonunit fractional source, prove cofactor saturation, and derive strict positivity from the exact endpoint and density. Validation is the dedicated warning-fatal acceptance module plus existing repository audits, not a local Lean run.
+
+### E. Exact Theorem Statements
+
+Write delta(z)=vfMidPrefixWheelDensity z, X=squareRootEndpoint R and
+
+```text
+S(z,X,q) =
+  sum_(d in divisors(primorial z), d != 1)
+    (mu(d):Real)*fract((X:Real)/((q:Real)*d)).
+```
+
+The definition is **finiteWheelCofactorTotal**. The q mask is not a wheel coordinate; the coefficient is mu(d), never mu(q*d). Every divisor is present regardless of q*d>X.
+
+Eight public declarations in RHLean.Analysis are implemented:
+
+- finiteWheel_density_sq_lower: forall natural z>=2, 1<=3*z*delta(z)^2.
+- finiteWheel_density_lower: forall natural z>=2, 1/sqrt(3*z)<=delta(z).
+- finiteWheel_density_coefficient_sharp: if a real c works in 1<=c*z*delta(z)^2 for every natural z>=2, then 3<=c.
+- finiteWheel_cofactor_eq_count: for ALL natural z,X,q, S(z,X,q)=delta(z)*X/q-prefixSurvivorCount(z,X/q)-fract(X/q). Natural floor divisions remain natural; q=0 is covered by Lean's totalized division convention.
+- finiteWheel_cofactor_square_eq: for R>=2 and R<=q<2R, S(R-1,X,q)=delta(R-1)*X/q-1-fract(X/q).
+- finiteWheel_cofactor_square_bounds: under the same domain, delta(R-1)*X/q-2<S(R-1,X,q)<=delta(R-1)*X/q-1.
+- finiteWheel_cofactor_pos: for R>=47 and R<=q<2R, 0<S(R-1,X,q).
+- finiteWheel_primeFibre_sum_nonneg: for R>=47, the sum of these S over genuine primes in [R,2R) is nonnegative.
+
+The cofactor identities and positivity need no primality of q. The genuine-prime aggregate is explicitly filtered; arbitrary composite q are not relabeled as distinct physical prime fibres. The sharpness theorem is about the best coefficient in this specific invariant, not an assumed bound used to prove positivity. The root theorem has no desired-estimate premise.
+
+### F. Independent Mathematical And Circularity Audit
+
+Base densities are delta(2)=1/2 and delta(3)=1/3. At prime z>=5 the step is delta(z)=delta(z-2)*(z-1)/z, and (z-1)^2-z*(z-2)=1 proves the squared invariant. At a composite cutoff, density is unchanged and its positive multiplier only increases. Equality at z=3 proves coefficient sharpness. This replaces the paper's all-odd-product comparison by a stronger exact induction.
+
+For every R>=2 and R<=q<2R, 1<=floor(X/q)<R. A positive survivor of ALL primes through R-1 in that cofactor interval is necessarily 1, using its least prime divisor otherwise. The unit face is removed exactly once. The full floor expansion is applied at the NATURAL quotient X/q; all virtual contributions are canceled algebraically before any inequality.
+
+For R>=47, R^2-48(R-1)=(R-47)(R-1)+1>0. Combining with 3(R-1)delta(R-1)^2>=1 gives R*delta(R-1)>4. The exact integer wall q<=2R-1 gives X/q>R/2. Therefore delta(R-1)*X/q>2 and the strict fractional-part bound proves positivity. No post-root independence, PNT, RH, prime-density substitution or residual bound is assumed.
+
+The result does not say that every individual lower owner is positive, that upper and lower packets always reinforce, or that the full centered sum is small. CF4's asymptotic assertions and AP's adaptive asymptotics are not part of the new Lean certification.
+
+### G. Lean Implementation And Integration
+
+| Added file at proof head 866b3d2121309cdd854f9d64e2a6adbbc708ef9b | Blob SHA |
+| --- | --- |
+| research/FiniteWheelCofactorPositivity.lean | f83a3daefc2b9d603014af912ec82b4a7f52cfac |
+| research/FiniteWheelCofactorPositivityAcceptance.lean | 94eecdbf8cea32bf80e7e0939e40c951bc72febd |
+| .github/workflows/finite-wheel-cofactor-positivity.yml | ec1a1898542d36944db9492064865ce43c56123f |
+
+All three remote files were fetched at the immutable head and matched the local prepared contents exactly. The research module imports the existing complete-wheel source and reuses finiteWheel_divisorReciprocal_eq_eulerProduct and finiteWheel_divisorFloor_eq_survivorCount. No native root module, central contract, historical normalization or pre-existing theorem changed.
+
+The existing research import-closure action compiles 12 research modules and verifies seven native import targets. The dedicated workflow checks the literal PR head and pinned toolchain, uses the existing trusted caches, and does not disable warnings, axioms or source audits. The acceptance file checks public types, the R=47 root boundary, a composite q=93 generalization, six standard-axiom guards and a reduced proof-value dependency closure linking the final genuine-prime sum to the actual density, endpoint and both original divisor identities. Expected guard text alone was never treated as observed evidence.
+
+### H. Branch And PR Evidence
+
+[PR #1127](https://github.com/OVVO-Financial/RH_Lean/pull/1127), branch agent/lean-verification/20261109-cofactor-positivity, base 7c7e0a4f54ee2972d3993abc42e5c7c4e1b405c9. Additive commit history:
+
+1. 6c586d75ac1dfc3743ae978a18bb2baf338257b2: complete initial proof, acceptance and workflow.
+2. 0d4bbe397ff778abf18d73764871cd507de29b9a: actual compiler repairs to finite bases, summand scope and pinned Möbius lemma.
+3. 866b3d2121309cdd854f9d64e2a6adbbc708ef9b: explicit coercions preserving natural floor quotients.
+
+All ref updates checked the expected previous head and were non-forced. No no-op rerun commit, direct main push, merge or auto-merge occurred.
+
+### I. GitHub Actions Evidence
+
+Verified at 2026-11-10 02:42:54 UTC; latest PR head is **866b3d2121309cdd854f9d64e2a6adbbc708ef9b**. After marking ready, the Actions collection still lists the same twelve successful exact-head runs:
+
+| Workflow | Exact-head run | Result |
+| --- | --- | --- |
+| Coordinate atlas and static search corpus | [42743502137](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42743502137) | SUCCESS |
+| Public export verification | [42743502213](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42743502213) | SUCCESS |
+| VF first-bad source to sector-six inlet | [42743502122](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42743502122) | SUCCESS |
+| Prevent new cold-only Lean and OpenAI CI | [42743502128](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42743502128) | SUCCESS |
+| VF first-bad final aggregate contraction | [42743502260](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42743502260) | SUCCESS |
+| VF recursive child population and complement capacity | [42743502236](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42743502236) | SUCCESS |
+| VF first-bad normalized infrastructure | [42743502414](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42743502414) | SUCCESS |
+| VF pre-914 consolidation | [42743502473](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42743502473) | SUCCESS |
+| Complete-wheel cofactor positivity | [42743502306](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42743502306) | SUCCESS |
+| Targeted Lean iteration | [42743502129](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42743502129) | SUCCESS |
+| Lean source audits | [42743502364](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42743502364) | SUCCESS |
+| Proof inventory | [42743502287](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42743502287) | SUCCESS |
+
+Actual job evidence was retrieved, not inferred from a badge:
+
+- [Dedicated cofactor-proof job 129590019152](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42743502306/job/129590019152): exact-head and pinned-toolchain step passed. Native prerequisites built successfully (9059 jobs); research closure had 12 modules and seven native targets. The two NEW modules were emitted, ten unchanged prerequisites reused. All exact-type examples and six #print axioms guards executed successfully. Their actual outputs matched **[propext, Classical.choice, Quot.sound]**; guards consume the messages, so this is a successful machine-checked match, not an unguarded log listing. No placeholder or project-local axiom occurs in those theorem closures.
+- The same job printed **PASS complete cofactor source dependencies: RHLean.Analysis.finiteWheel_primeFibre_sum_nonneg, closure=828**. The reduced proof-value closure includes the density theorem, exact cofactor transport, original reciprocal/floor identities, unmodified wheel density and original endpoint. The leaf emits/acceptance completed at 02:35:03 UTC with compiled=2 cached=10.
+- [Targeted iteration job 129590015384](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42743502129/job/129590015384) also independently compiled both new modules with the same closure PASS and then verified source-addressed cache reuse with compiled=0 cached=12. Existing warning-fatal compilation policy was retained.
+- [Hosted Lean build job 129590016940](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42743502364/job/129590016940) passed the 9786-job native build, exact elaborated declaration-graph check (8924 named proofs) and RHLean-owned warning gate. This certifies the native root separately from the dedicated research leaf.
+- [Audit job 129590016560](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42743502364/job/129590016560) passed unfinished-proof/axiom, paper boundary, root-manifest and cache-regression checks.
+- [Inventory job 129590019598](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42743502287/job/129590019598) passed inventory, source index/import graph, current frontier and graph regressions; native inventory reports zero project axiom declarations.
+- [Public-export job 129590016512](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42743502213/job/129590016512) passed export closure, source-hole/axiom and provenance checks. This is export integrity evidence, not substituted for Lean compilation.
+
+The GitHub platform's checkout-action Node deprecation notice is distinct from Lean proof warnings; all required Lean warning gates succeeded. No local Lean execution, artificial rerun, disabled safeguard or borrowed older-head certification was used.
+
+The inherited complete-wheel prerequisites were actually compiled in the first dedicated run before the new leaf failed, with the permitted axioms printed. Later reuse was source-addressed, not a claim that an old green result certifies modified code.
+
+Latest merged #1126 was independently checked at head e8969ad76d4c5694273cefc934316fc528c56648: sixteen successful workflow records; source-audit run 42736008534, actual Hosted Lean build job 129565299363 and audit job 129565299067. Logs show successful build, elaborated graph and owned-warning checks. Original declarations retain the explicit upgrade/hzero premises. Their sources are d78be4509e5dcc35b833c3786258b94fc6e71915 and b7e6b9170a22a77ac1be56c5d1da2956906e99c6; these conditional consumers do not prove zero-log growth or RH.
+
+Important correction to any merge-only inference: #1125 is human-merged with source head 538aa743a3e0de86b5ec44c9b4f159df3f5bd050 unchanged, but the all-event, exact-head Actions API still listed twelve failed workflow records at intake. No newly successful dedicated compilation was retrieved. This invocation does NOT upgrade that result merely because it merged, nor claim that #1126's native-root build compiled that separate research leaf.
+
+### J. Failures And Focused Repairs
+
+Initial [run 42742357376/job 129586250706](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42742357376/job/129586250706) failed after compiling the original prerequisites. Diagnostics: unknown Finset.range_succ; a second summand escaped its binder without parentheses; unknown ArithmeticFunction.moebius_one. The repaired source proves the finite prime sets directly and uses pinned ArithmeticFunction.moebius_apply_one, checked in Mathlib blob 05f76c89adb09318abbec6ada574be955267b03d.
+
+Second [run 42743026842/job 129588465421](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42743026842/job/129588465421) reduced the failure to one coercion mismatch: push_cast rewrote natural floor quotients into integer quotients, preventing the real floor identity from matching. The final source restricts simplification to Int.cast_sum, Int.cast_mul and Int.cast_natCast. No semantic theorem change was made, and no audit was disabled.
+
+The diagnostic Python check initially had one wrong hand-written expected negative-control value. The exact value at R=8,q=13 is -48/65. Only that expected literal was corrected; the independently computed source identities had already passed. This is not a Lean error or mathematical counterexample to the R>=47 theorem.
+
+### K. Mathematical Conclusions
+
+This is an independent uniform **proper-source quantitative restriction**, plus an exact structural bridge and sharpness result. It certifies a positive total for the selected complete cofactor fibres, not a useful upper bound for the full centered wheel. No new global exponent, finite-A conclusion or RH-scale discrepancy bound is obtained. The complete finite-wheel target, canonical VF target and RH remain OPEN.
+
+For Q the genuine prime mask, let S_Q be the new nonnegative component and C_Q=F_R-D_R-S_Q the exact unmodified complement. The complete square remains S_Q^2+C_Q^2+2*S_Q*C_Q. The new theorem does not control C_Q or the mixed term. Asking for |S_Q+C_Q|<=C R log R without a new supplier merely restates the target.
+
+### L. Formalization-Driven Discoveries
+
+The optimal coefficient 3, rather than the paper's 4 after squaring, follows from prime parity and the exact z=3 base. This lowers a sufficient positivity threshold from 64 to 47. Primality of q is unnecessary for the cofactor algebra and sign theorem, but remains essential to interpreting the aggregate as the specified disjoint genuine-prime physical mask. The floor-coercion failure exposed a representation mismatch, not a false claim or missing mathematical hypothesis.
+
+Finite diagnostics, separately from Lean: 511 cutoffs z=2..512, 135 full divisor-mask checks R=2..16, and 466 positivity checks R=47..512 using the smallest quotient over all integer masks. Exact Fraction arithmetic, no li numerics or inferred asymptotics. Reproducer SHA-256 a5b96fd999a1ed5b99606ac9cd34084e62411e0f172a1a2c9d9bed6bbb720845. The Lean proof is itself the all-scale reproducible certificate; diagnostics are not its logical inputs.
+
+### M. Mathematical Significance
+
+The result removes a particular unjustified intuition: collecting all lower owners with the same admitted large prime does not automatically produce a negative compensating bank. Their combined signed fibre is eventually positive by elementary arithmetic alone. It does not eliminate moving-prefix, cross-fibre, cross-root or joint signed compensation. In particular AP's adaptive-prefix repair remains consistent. This is accepted bounded proof work on the current source, not a repeated Legendre identity or a renamed global target.
+
+### N. Specialist Handoffs
+
+- Coordinator: record CF2's exact strengthened scope and PR/CI state, but do not promote OPEN-MIDBAND or any complete-return node. The current code does not formalize CF4 or AP3.
+- Owner and Referee: review the sharper optimal density coefficient and sufficient R>=47 threshold. Original CF2 acceptance and the new SELF_AUDIT strengthening are distinct evidence.
+- Analytic: FB1 remains a valid quantitative implementation candidate; ZD needs its separate independent review and source-specific analytic interfaces. The density theorem supplies no missing prime-discrepancy cancellation.
+- Wheel: RF classification and summable restricted band remain distinct from the new all-cofactor sign restriction; no ancestry graph claim is inferred.
+- Census: retain R=8,q=13 as a negative small-root control and q=R in boundary tests. No expanded census is requested merely to reconfirm the all-scale proof.
+
+These are report handoffs, not agent launches or schedule changes.
+
+### O. First Unresolved Mathematical Theorem
+
+For this mechanism, the unpaid mathematical step is a genuinely independent signed interaction linking specified complementary owners/fibres to the positive complete mask, with original coefficients and once-only occurrences and a full cost for the unselected complement. No such supplier was proved here. The full S_Q+C_Q bound is target-equivalent, not an easier assumed premise.
+
+The separate accepted FB1 paper estimate can be formalized without solving that global obstacle, but needs the original discontinuous density's Fourier identification and prime-energy proof. The claimed ZD proper-band saving is not substituted for its independent review. The unobserved successful #1125 dedicated check is a formal-evidence gap, not a new open arithmetic conjecture.
+
+### P. Next-Run Resume Capsule
+
+```text
+RUN=20261109-lean-3; trigger=2026-11-09 21:08:01 EST.
+MAIN_BASE=7c7e0a4f54ee2972d3993abc42e5c7c4e1b405c9.
+ACK=FINITE_WHEEL_CENTERED_RH_V1.
+CLAIM=20261109-owner-3/CF2; accepted by 20261109-referee-2/AP.
+STRENGTHENING=3*z*delta(z)^2>=1; coefficient sharp; sufficient R>=47.
+PR=1127; BRANCH=agent/lean-verification/20261109-cofactor-positivity.
+HEAD=866b3d2121309cdd854f9d64e2a6adbbc708ef9b.
+SOURCE=f83a3daefc2b9d603014af912ec82b4a7f52cfac.
+ACCEPTANCE=94eecdbf8cea32bf80e7e0939e40c951bc72febd.
+WORKFLOW=ec1a1898542d36944db9492064865ce43c56123f.
+STATUS=PROVED_IN_LEAN_AT_HEAD; REVIEW_READY; UNMERGED; 12_SUCCESSFUL_WORKFLOWS.
+DEDICATED_RUN=42743502306; JOB=129590019152; SOURCE_CLOSURE=828.
+AXIOMS=propext,Classical.choice,Quot.sound; SIX_GUARDS_PASS.
+CURRENT_MAIN=7c7e0a4f54ee2972d3993abc42e5c7c4e1b405c9; unchanged at close.
+UPSTREAM_NOV9_REPORT_BLOBS=unchanged on final directory refresh.
+NEXT=refresh main/PR/exact checks; reuse unchanged verified evidence.
+     Human review/merge only. Do not duplicate the proof.
+     Retain #1125's explicit missing-success evidence; triage accepted FB1 next.
+NO_MAIN_PUSH; NO_MERGE; NO_AUTO_MERGE; NO_LOCAL_LEAN; NO_AGENT_LAUNCH.
+```
+
+Earlier publication receipts: checkpoint commit 7ce1e95ec54226dbe97837dc53f4d6685f722dfa / blob 5b9879b2eb54113860654b008a69415fc04ccd0d; substantive milestone commit a0ad2d5a30da9b8f008c20f48633d6491c2a43ec / blob d3f029823e2b671c4bb16194c56d5d8e8e0b0903. Both were read back at immutable commits. All earlier report history and repair checkpoints are preserved. Publication is claimed only after the final append is read back at its immutable GitHub commit.
