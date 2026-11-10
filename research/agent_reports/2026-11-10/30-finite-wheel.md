@@ -3221,3 +3221,14 @@ if __name__ == "__main__":
 }
 ```
 
+
+
+### Verified Publication Receipt - 20261110-wheel-3/RC
+
+Verified **2026-11-10 23:34:46 UTC / 18:34:46 EST**. Substantive research was published at [commit 4769b57101fbc0821dbc43110e837b05b7442302](https://github.com/OVVO-Financial/RH_Lean/commit/4769b57101fbc0821dbc43110e837b05b7442302), report blob **3fa7b1c60fbba5dc6ada22ae3961d059f3474e9d**. Immutable-commit readback matched all **195962 characters** exactly and preserved the previous **126792-character** report as an unchanged prefix. Commit inspection confirmed exactly this authorized report path, **1177 additions and zero deletions**. A fresh current-branch fetch retained the synthesis before this receipt. Final main recheck remained f7947bee036c4dddb0c36fc9f53ab46b4fa90995.
+
+The new synthesis passed A-M/five-stage coverage, balanced-fence/table checks and byte-for-byte comparison of both embedded executed programs. Its prepublication text SHA-256 is **8625207aa69e57c5d28b38eefa89f76109a471b028614fb6bd296f9ded02deb3**. The final exact test run exited 0 with PASS_EXACT_SELF_AUDIT; no computation is left running.
+
+EXECUTION=COMPLETE; SUBSTANTIVE_PUBLICATION=PUBLISHED_READBACK_VERIFIED. RC1 remains a supporting identity derived from credited existing theorems; RC2-RC4 remain paper/self-audited at their stated scopes, with independent review and formalization pending; RC5 is exact finite evidence. The complete auxiliary improvement does not change the global exponent, b_base, canonical VF or RH status: **NO_NEW_GLOBAL_GAIN / NO_NEW_ACCEPTED_ROUTE / VERIFIED_ETA=NONE**. Only this owned report was modified remotely. No Lean execution, main/source/other-report edit, PR, merge, agent launch, permission or schedule change occurred.
+
+This receipt records the already verified substantive commit. Its own update is re-fetched at its returned immutable commit before user-facing completion; no future commit hash is guessed here.
