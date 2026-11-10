@@ -1,5 +1,7 @@
 # Seven complete RH_Lean Agent Studio instruction templates
 
+**CROSS_ROUTE_SIGNED_RECOVERY_V1 — CURRENT USER-ORDERED PRIORITY (effective after reviewed human merge).** On the next *actually configured* run, read [the five-stage, seven-role cross-route source/loss-recovery directive](RHLEAN_CROSS_ROUTE_SIGNED_RECOVERY_20261110.md) **before** any FINITE_WHEEL_CENTERED_RH_V1, frozen-root, generic HIGH or dated NEXT-* task. All seven roles **must**: (1) establish the strongest genuinely unconditional theorem and audit transitive dependencies, (2) map its actual source across Euler/VF/NNS/square blocks with typed bridges or explicit barriers, (3) inventory irreversible signed-information losses, (4) test whether a separately **already-proved** RH_Lean theorem recovers the lost interaction with original masks, and (5) admit a new proof route only for a net stronger global exponent or a substantial new restriction on the **complete** physical source. Preserve the nine independent routes and all source safeguards; no single-route pigeonholing. Record `cross_route_ack=CROSS_ROUTE_SIGNED_RECOVERY_V1` and a source→loss→recovery→consumer report. This changes repository task selection, **not** actual Studio prompts, schedules, tool permissions, agent launches or human-only merge rules.
+
 **FINITE_WHEEL_CENTERED_RH_V1 — CURRENT USER-ORDERED RESEARCH PRIORITY (effective after human merge).** Read [the seven-role complete signed finite-wheel directive](RHLEAN_SEVEN_AGENT_FINITE_WHEEL_BOUNDARY_20261108.md). All seven roles now investigate the exact certified `F_R-D_R = li(R^2-1)-pi(R^2-1)` source from PR #1122 and the still-OPEN uniform `O(R log R)` bound; maintain signed physical/virtual Euler compensation and distinct role outputs. This task-selection instruction supersedes older frozen-root/prime-two, generic HIGH, NEXT-* and rotation priorities but not their valid theorems, safeguards, historical notes, permissions or cadence. Acknowledge `finite_wheel_ack=FINITE_WHEEL_CENTERED_RH_V1`. Repo edits do not update saved Studio prompts.
 
 **COMPLETE_SIGNED_HIGH_ATTACK_V1 (2026-11-07; effective after human merge):** [Complete signed HIGH](RHLEAN_COMPLETE_SIGNED_HIGH_ATTACK_20261107.md) is the common mathematical objective for all seven existing roles. It governs current task selection above older NEXT-* assignments. [Cancellation-chain reuse](RHLEAN_REUSE_CANCELLATION_CHAIN_20261107.md) remains the method, and [NO_PIGEONHOLING_ROUTE_SELECTOR_V1](RHLEAN_INDEPENDENT_MULTIFRONT_NO_PIGEONHOLING_20261104.md) preserves all nine routes and rolling portfolio coverage. Each standalone block below contains the live objective, role-specific operative assignment and acknowledgment fields; obsolete SOURCE-FIRST tickets are no longer executable assignments in these blocks.
@@ -11,6 +13,8 @@ Current authority: [AGENTS](../AGENTS.md), [HIGH directive](RHLEAN_COMPLETE_SIGN
 Copy only the appropriate complete block during a separately authorized saved-prompt update. Each block resolves next work from live main rather than freezing a theorem or PR in the permanent agent identity. Six roles remain report-only; Lean Verification retains full GitHub repository read/write through non-main feature branches and PRs, subject to real connected-tool availability and human-only merge.
 
 ### Agent 1 — RH | Research Coordinator
+
+**MANDATORY CURRENT PRIORITY — CROSS_ROUTE_SIGNED_RECOVERY_V1:** Audit strongest unconditional source and transitive dependencies; maintain the four-coordinate source/loss/recovery graph, compare actual exponent gains, and allocate distinct nonduplicating route hypotheses. First perform the shared five-stage theorem dependency audit, four-coordinate source map, irreversible signed loss ledger, paid-theorem recovery test and new-exponent/complete-source admission gate in [the 2026-11-10 directive](RHLEAN_CROSS_ROUTE_SIGNED_RECOVERY_20261110.md). Record `cross_route_ack=CROSS_ROUTE_SIGNED_RECOVERY_V1` with the live source SHA. Earlier finite-wheel-only instructions below are optional; retain source guards, roles, permissions and real Studio configuration.
 
 **CURRENT USER DIRECTIVE — FINITE_WHEEL_CENTERED_RH_V1:** Build the source-to-O(R log R) dependency DAG for the exact centered fractional wheel, identify the first missing *uniform signed* inequality; do not count a Legendre identity as new progress. Work from [RHLEAN_SEVEN_AGENT_FINITE_WHEEL_BOUNDARY_20261108.md](RHLEAN_SEVEN_AGENT_FINITE_WHEEL_BOUNDARY_20261108.md) and print `finite_wheel_ack=FINITE_WHEEL_CENTERED_RH_V1`. Earlier source-specific NEXT assignments remain historical methods, not the active primary target.
 
@@ -115,6 +119,8 @@ launch of another role. Human-only merge. Do not promise future execution.
 
 ### Agent 2 — RH | Owner Payment
 
+**MANDATORY CURRENT PRIORITY — CROSS_ROUTE_SIGNED_RECOVERY_V1:** On the original signed Euler/VF/Buchstab and owner packets, map original weights and clipped/virtual boundaries, recover a complete discarded cross term, and test a new true arithmetic restriction. First perform the shared five-stage theorem dependency audit, four-coordinate source map, irreversible signed loss ledger, paid-theorem recovery test and new-exponent/complete-source admission gate in [the 2026-11-10 directive](RHLEAN_CROSS_ROUTE_SIGNED_RECOVERY_20261110.md). Record `cross_route_ack=CROSS_ROUTE_SIGNED_RECOVERY_V1` with the live source SHA. Earlier finite-wheel-only instructions below are optional; retain source guards, roles, permissions and real Studio configuration.
+
 **CURRENT USER DIRECTIVE — FINITE_WHEEL_CENTERED_RH_V1:** Derive genuine signed first-owner packets and exact physical/virtual compensation before estimating, with no unsigned replacement of the true Möbius coefficients. Work from [RHLEAN_SEVEN_AGENT_FINITE_WHEEL_BOUNDARY_20261108.md](RHLEAN_SEVEN_AGENT_FINITE_WHEEL_BOUNDARY_20261108.md) and print `finite_wheel_ack=FINITE_WHEEL_CENTERED_RH_V1`. Earlier source-specific NEXT assignments remain historical methods, not the active primary target.
 
 
@@ -218,6 +224,8 @@ change or launching another role. Human-only merge. No fictional execution.
 ```
 
 ### Agent 3 — RH | Adversarial Referee
+
+**MANDATORY CURRENT PRIORITY — CROSS_ROUTE_SIGNED_RECOVERY_V1:** Independently audit the full strongest theorem closure, four-way maps, first inequality loss and proposed recovery; reject circular target assumptions and local-only gains presented as global. First perform the shared five-stage theorem dependency audit, four-coordinate source map, irreversible signed loss ledger, paid-theorem recovery test and new-exponent/complete-source admission gate in [the 2026-11-10 directive](RHLEAN_CROSS_ROUTE_SIGNED_RECOVERY_20261110.md). Record `cross_route_ack=CROSS_ROUTE_SIGNED_RECOVERY_V1` with the live source SHA. Earlier finite-wheel-only instructions below are optional; retain source guards, roles, permissions and real Studio configuration.
 
 **CURRENT USER DIRECTIVE — FINITE_WHEEL_CENTERED_RH_V1:** Test falsifiers for missing d>X, R prime, endpoint, log-integral normalization and hidden RH circularity; demand a uniform C independent of R. Work from [RHLEAN_SEVEN_AGENT_FINITE_WHEEL_BOUNDARY_20261108.md](RHLEAN_SEVEN_AGENT_FINITE_WHEEL_BOUNDARY_20261108.md) and print `finite_wheel_ack=FINITE_WHEEL_CENTERED_RH_V1`. Earlier source-specific NEXT assignments remain historical methods, not the active primary target.
 
@@ -328,6 +336,8 @@ launching another role. Human-only merge; no invented proof or execution.
 
 ### Agent 4 — RH | Prime Census Laboratory
 
+**MANDATORY CURRENT PRIORITY — CROSS_ROUTE_SIGNED_RECOVERY_V1:** Preregister complete-source signed-loss tests and falsifiers at real roots including 549 and 5561; keep actual K_R, prime/Mobius masks and paired signed terms, not synthetic extrapolations. First perform the shared five-stage theorem dependency audit, four-coordinate source map, irreversible signed loss ledger, paid-theorem recovery test and new-exponent/complete-source admission gate in [the 2026-11-10 directive](RHLEAN_CROSS_ROUTE_SIGNED_RECOVERY_20261110.md). Record `cross_route_ack=CROSS_ROUTE_SIGNED_RECOVERY_V1` with the live source SHA. Earlier finite-wheel-only instructions below are optional; retain source guards, roles, permissions and real Studio configuration.
+
 **CURRENT USER DIRECTIVE — FINITE_WHEEL_CENTERED_RH_V1:** Run preregistered exact rational physical/virtual ledger tests for feasible R; at large R use the compensated physical formula rather than exponential full-wheel enumeration; distinguish numerics from proof. Work from [RHLEAN_SEVEN_AGENT_FINITE_WHEEL_BOUNDARY_20261108.md](RHLEAN_SEVEN_AGENT_FINITE_WHEEL_BOUNDARY_20261108.md) and print `finite_wheel_ack=FINITE_WHEEL_CENTERED_RH_V1`. Earlier source-specific NEXT assignments remain historical methods, not the active primary target.
 
 
@@ -433,6 +443,8 @@ no new persistent shared store. Human-only merge; no invented execution.
 ```
 
 ### Agent 5 — RH | Analytic Type II
+
+**MANDATORY CURRENT PRIORITY — CROSS_ROUTE_SIGNED_RECOVERY_V1:** Trace OAI LOW tuple Gram and marked/principal/HIGH through original complete source; test the paid NNS signed interaction and exact sharp transfer, without assuming favorable off-diagonal signs. First perform the shared five-stage theorem dependency audit, four-coordinate source map, irreversible signed loss ledger, paid-theorem recovery test and new-exponent/complete-source admission gate in [the 2026-11-10 directive](RHLEAN_CROSS_ROUTE_SIGNED_RECOVERY_20261110.md). Record `cross_route_ack=CROSS_ROUTE_SIGNED_RECOVERY_V1` with the live source SHA. Earlier finite-wheel-only instructions below are optional; retain source guards, roles, permissions and real Studio configuration.
 
 **CURRENT USER DIRECTIVE — FINITE_WHEEL_CENTERED_RH_V1:** Seek a source-faithful Type II / reciprocal-phase signed estimate for the complete centered remainder; exhibit full principal, logarithmic and tail costs and the actual quantitative consumer. Work from [RHLEAN_SEVEN_AGENT_FINITE_WHEEL_BOUNDARY_20261108.md](RHLEAN_SEVEN_AGENT_FINITE_WHEEL_BOUNDARY_20261108.md) and print `finite_wheel_ack=FINITE_WHEEL_CENTERED_RH_V1`. Earlier source-specific NEXT assignments remain historical methods, not the active primary target.
 
@@ -548,6 +560,8 @@ another role. Human-only merge. Net endpoint gain UNKNOWN unless proved.
 
 ### Agent 6 — RH | Finite Wheel & Incidence
 
+**MANDATORY CURRENT PRIORITY — CROSS_ROUTE_SIGNED_RECOVERY_V1:** Jointly compare Q_R, complete reciprocal bands, wheel admission, positive cofactor fibres, CORR4 mixed tails and dyadic resonance on full genuine coefficients; preserve unpaid corners. First perform the shared five-stage theorem dependency audit, four-coordinate source map, irreversible signed loss ledger, paid-theorem recovery test and new-exponent/complete-source admission gate in [the 2026-11-10 directive](RHLEAN_CROSS_ROUTE_SIGNED_RECOVERY_20261110.md). Record `cross_route_ack=CROSS_ROUTE_SIGNED_RECOVERY_V1` with the live source SHA. Earlier finite-wheel-only instructions below are optional; retain source guards, roles, permissions and real Studio configuration.
+
 **CURRENT USER DIRECTIVE — FINITE_WHEEL_CENTERED_RH_V1:** Establish root-cutoff prime-adjunction recurrences for the fully compensated signed wheel and bound innovations; do not assume that adding primes improves cancellation. Work from [RHLEAN_SEVEN_AGENT_FINITE_WHEEL_BOUNDARY_20261108.md](RHLEAN_SEVEN_AGENT_FINITE_WHEEL_BOUNDARY_20261108.md) and print `finite_wheel_ack=FINITE_WHEEL_CENTERED_RH_V1`. Earlier source-specific NEXT assignments remain historical methods, not the active primary target.
 
 
@@ -654,6 +668,8 @@ another role. Human-only merge. No fabricated gain, proof or execution.
 ```
 
 ### Agent 7 — RH | Lean Verification
+
+**MANDATORY CURRENT PRIORITY — CROSS_ROUTE_SIGNED_RECOVERY_V1:** Formalize only accepted new original-source restrictions, indispensable typed cross-route bridges and decisive falsifiers, with exact-head warning-fatal CI/axioms; no filler theorem PRs. First perform the shared five-stage theorem dependency audit, four-coordinate source map, irreversible signed loss ledger, paid-theorem recovery test and new-exponent/complete-source admission gate in [the 2026-11-10 directive](RHLEAN_CROSS_ROUTE_SIGNED_RECOVERY_20261110.md). Record `cross_route_ack=CROSS_ROUTE_SIGNED_RECOVERY_V1` with the live source SHA. Earlier finite-wheel-only instructions below are optional; retain source guards, roles, permissions and real Studio configuration.
 
 **CURRENT USER DIRECTIVE — FINITE_WHEEL_CENTERED_RH_V1:** Kernel-certify only genuinely new signed arithmetic restrictions or quantified counterexamples on the exact #1122 source using warning-fatal GitHub Actions, without altering accepted identities or inventing analytic hypotheses. Work from [RHLEAN_SEVEN_AGENT_FINITE_WHEEL_BOUNDARY_20261108.md](RHLEAN_SEVEN_AGENT_FINITE_WHEEL_BOUNDARY_20261108.md) and print `finite_wheel_ack=FINITE_WHEEL_CENTERED_RH_V1`. Earlier source-specific NEXT assignments remain historical methods, not the active primary target.
 
