@@ -692,3 +692,31 @@ Verified at 2026-11-09 12:26:37 EST (17:26:37 UTC), America/New_York.
 - Closing main refresh: 02f00cee544278ad1bb9022ee76fc5916d459a95, unchanged. Current open/draft PR collection: empty. The closing two-day report-tree comparison found no changed upstream November 9 blobs.
 - Mathematical state: upstream scoped paper acceptances and reproduced finite falsifier; DA1-DA4 remain PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED. Formal evidence is the separately verified inherited source, not certification of DA.
 - Execution=COMPLETE; substantive publication=VERIFIED. No new complete-source bound, finite A/C or RH proof. No pending local process, local Lean execution, CI trigger, source modification, branch/PR/issue action, merge, schedule change or other-agent launch.
+
+
+## Scheduled Moving-Prefix Review Checkpoint - 20261109-referee-2/AP
+
+Actual trigger: 2026-11-09 20:13:00 EST, America/New_York (UTC-05:00); platform RUN_ID_UNAVAILABLE. Execution=IN_PROGRESS; mathematics=PENDING independent derivation and tests. This is an append-only continuation of today's earlier DA review.
+finite_wheel_ack=FINITE_WHEEL_CENTERED_RH_V1.
+Main pinned at intake: e7ffe4e01fd049dfe6f47af86a9984bc0b843576.
+AGENTS blob 6695522a45d67fd1e80a7cff1f98d909405036e2; proof contract 95566e37c8eaeb99ee680660df4f9d2e06ea5038; current directive e505f35522b675c6b5b263eac73618d717346973; complete-wheel source ecb482e52deeee5e9b3853592a3ffdace662d2ff.
+The complete signed target remains ONE constant C for all integer R>=2, abs(F_R-D_R)<=C R log R, with all virtual Euler terms, principal-value li and d=X preserved. This is OPEN.
+
+### A. Selected Review And Original Investigation
+
+Review Owner 20261109-owner-3/CF1-CF4 on its actual masked cofactor/first-owner carrier, including its exact R=8 and R=11 sign witnesses. Test a stronger extrapolation separately: whether the failure of a fixed or very slowly growing prefix rules out every scale-dependent lower-owner prefix. It does not follow from the reported CF theorem.
+
+Candidate repair under investigation: for Q={prime q:R<=q<2R}, m=#Q, V=sum X/q, rho=sum fract(X/q), h=ceil(R/2)-1, and original upper packet U_Q, derive an exact formula for T_R(z)=U_Q+K_z when z*z>=R and z<R/2. Determine whether a first sign crossing as z moves through genuine prime owners gives a small residual without fractional weights, duplicated primes or an assumed RH-size bound. Every complementary source and cross term must remain. No accepted result or global gain is claimed at checkpoint.
+
+### B. Frozen Validation Before Execution
+
+Discovery roots: every integer R=8..256. Held-out roots: 257, 549, 1024, 4096, 16384. Boundary controls: R=2,3,8,11,12,14, including empty wheel, root-prime admission, squareful cofactors, physical product equal to X and wheel divisor d=X. Direct complete divisor cubes only at R<=16; larger roots use the proven compensated physical representation.
+Use exact integer/rational arithmetic to compare original masked least-prime counts, complete signed fractional packets and the proposed closed prefix formula. Verify every allowable z with z*z>=R and z<R/2 in the discovery range; independently reconstruct small cases by trial division. Test the deterministic finite crossing statement whenever its bracket hypotheses hold, without inferring an eventual threshold from samples.
+Candidate proportional bracket is floor(R/16) through floor(R/4), used only when its domain conditions hold. Observe prefix residuals and selected cutoffs; do not fit or certify an all-scale onset. Test complete linear and quadratic reassembly with a declared rational reference. Record smallest boundary failures of unjustified all-root strengthening, not counterexamples to an eventual theorem.
+
+### C. Continuity And Status
+
+All seven November 9 stage reports are AVAILABLE at intake; relevant November 8 sections are CARRY_FORWARD. Original IDs and prior independent decisions remain in force on unchanged source bytes. The external inbox remains blob 038018145c0fddb2f6306c0712373adf9cd1ea52 with no entry newer than October 18.
+New upstream CF, ZD, RF, NC and Coordinator SA were retrieved; only selected claims will receive independent verdicts, not blanket approval.
+Live #1125 is human-merged, but the queried literal proof-head workflows still report failures; merged source alone is not newly verified compilation. Draft #1126 was discovered at head 7710a97a0bc39a647885a49ddb42ee1d996e1bf6. Exact proof/CI evidence and final source freshness will be recorded.
+Only this owned report on agent-reports will be changed. No Lean execution, source/PR/policy edits, merges, schedule changes or agent launches.
