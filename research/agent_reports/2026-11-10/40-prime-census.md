@@ -1503,3 +1503,12 @@ if __name__ == "__main__":
   "limitations": "Transcendentals and quadrature are approximations, not interval certificates or proof of onset."
 }
 ```
+
+
+## Verified Publication Receipt - 20261110-census-1/UC
+
+At 2026-11-10 08:45:53 UTC, substantive commit `8cc9788cee79c34a1c83f45af4e87ae654abb78b`, report blob `8c093df87db4e787c230faf5a289a2df591182fb`, was re-fetched at that IMMUTABLE commit and all 71,860 characters matched the intended report exactly. Commit inspection confirmed exactly one changed path, `research/agent_reports/2026-11-10/40-prime-census.md`, with 1,460 additions and zero deletions. The early preregistration checkpoint is an unchanged prefix.
+
+Execution=COMPLETE. Substantive publication=PUBLISHED_AND_READBACK_VERIFIED. UC2 retains its exact REFUTED-extension scope, UC4 is FINITE_COMPUTATION, and UC1/UC3 paper arguments remain SELF_AUDIT with INDEPENDENT_REVIEW_PENDING and no new Lean certification. The full uniform finite-wheel estimate, canonical endpoint and RH remain OPEN.
+
+The report includes all three final executed programs, their observed hashes, exact witnesses, complete-source tests, numerical precision limits and the next-run capsule. No other report, source, policy, branch, PR, issue, workflow, merge, permission or schedule was changed; no agent was launched. All required computation sessions have finished. This receipt records already completed verification, not a prospective promise; its own append is separately read back before the final user response.
