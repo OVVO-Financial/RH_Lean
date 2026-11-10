@@ -287,3 +287,8 @@ Intake agent-reports commit=ac422b33105fa0405b1dcb55bd4d2d7ea9ccaef5. The five N
 Additional inspected source blobs: TwoABPrimeDilation=ff50326a23fb44c0ecb3bbb898731316b23980da; proof DAG=eee764cefe70035a9f6c7df26ad787fbfd0fb233; dynamic protocol=e8d913ff9663bb5163eaf0eddca9f76e0508a7ef; amplification iteration=d78be4509e5dcc35b833c3786258b94fc6e71915; zero-log consumer=b7e6b9170a22a77ac1be56c5d1da2956906e99c6. No instruction, canonical target or shared status document was changed.
 
 Publication protocol: earlier own-report bytes are preserved. The final report is validated and re-fetched at the returned immutable commit before publication is claimed. Research execution=COMPLETED; publication confirmation follows the readback receipt.
+
+
+### Verified Publication Receipt
+
+The substantive final report was published in commit `7f7187352f5bb8d6202af358a7d50e7db921d2dd`, report blob `758856ae029e68810403f25f267ab6d2a450b920`, and re-fetched at that immutable commit. Readback matched the submitted contents exactly; prior checkpoints were preserved, all A-P sections were present, and Markdown fences were balanced. Publication status: **PUBLISHED_VERIFIED**. Research execution: **COMPLETED**. PR #1128 remains **REVIEW_READY / UNMERGED** at `d5b8003f6239611a457560b6fd16e29f16255e75`; the complete uniform finite-wheel bound remains **OPEN**.
