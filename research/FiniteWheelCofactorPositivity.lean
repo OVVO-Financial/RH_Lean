@@ -66,6 +66,22 @@ private theorem density_prime_step {p : ℕ} (hp : p.Prime) :
   simp only [vfMidPrefixWheelDensity, hs, Finset.prod_insert hn]
   ring
 
+private theorem density_two : vfMidPrefixWheelDensity 2 = (1 / 2 : ℝ) := by
+  have hs : primesUpTo 2 = {2} := by
+    ext p
+    simp only [mem_primesUpTo, Finset.mem_singleton]
+    constructor
+    · rintro ⟨hp, hp2⟩
+      have := hp.two_le
+      omega
+    · rintro rfl
+      exact ⟨Nat.prime_two, le_rfl⟩
+  norm_num [vfMidPrefixWheelDensity, hs]
+
+private theorem density_three : vfMidPrefixWheelDensity 3 = (1 / 3 : ℝ) := by
+  rw [density_prime_step Nat.prime_three]
+  norm_num [density_two]
+
 /-- Sharp in its coefficient: equality occurs at z=3. No PNT is used. -/
 theorem finiteWheel_density_sq_lower (z : ℕ) (hz : 2 ≤ z) :
     1 ≤ 3 * (z : ℝ) * vfMidPrefixWheelDensity z ^ 2 := by
@@ -73,10 +89,10 @@ theorem finiteWheel_density_sq_lower (z : ℕ) (hz : 2 ≤ z) :
   | h z ih =>
     by_cases h2 : z = 2
     · subst z
-      norm_num [vfMidPrefixWheelDensity, primesUpTo, Finset.range_succ]
+      norm_num [density_two]
     by_cases h3 : z = 3
     · subst z
-      norm_num [vfMidPrefixWheelDensity, primesUpTo, Finset.range_succ]
+      norm_num [density_three]
     have hz4 : 4 ≤ z := by omega
     have hzR : (0 : ℝ) < z := by positivity
     by_cases hp : z.Prime
@@ -130,7 +146,7 @@ theorem finiteWheel_density_coefficient_sharp {c : ℝ}
     (h : ∀ z : ℕ, 2 ≤ z → 1 ≤ c * z * vfMidPrefixWheelDensity z ^ 2) :
     3 ≤ c := by
   have h3 := h 3 (by omega)
-  norm_num [vfMidPrefixWheelDensity, primesUpTo, Finset.range_succ] at h3
+  norm_num [density_three] at h3
   linarith
 
 /-- Complete nonunit divisor source for one cofactor mask. The mask q is not
@@ -164,8 +180,8 @@ theorem finiteWheel_cofactor_eq_count (z X q : ℕ) :
     push_cast at hfloor
     calc
       _ = ∑ d ∈ (primorial z).divisors,
-          ((X : ℝ) / q) * ((ArithmeticFunction.moebius d : ℝ) / d) -
-            (ArithmeticFunction.moebius d : ℝ) * (((X / q) / d : ℕ) : ℝ) := by
+          (((X : ℝ) / q) * ((ArithmeticFunction.moebius d : ℝ) / d) -
+            (ArithmeticFunction.moebius d : ℝ) * (((X / q) / d : ℕ) : ℝ)) := by
         apply Finset.sum_congr rfl
         intro d _hd
         rw [← Nat.cast_mul, fract_nat_quotient, Nat.cast_mul,
@@ -180,7 +196,7 @@ theorem finiteWheel_cofactor_eq_count (z X q : ℕ) :
   have hsplit := Finset.sum_erase_add (s := (primorial z).divisors)
     (fun d => (ArithmeticFunction.moebius d : ℝ) *
       Int.fract ((X : ℝ) / ((q : ℝ) * d))) h1
-  simp only [ArithmeticFunction.moebius_one, Int.cast_one, Nat.cast_one,
+  simp only [ArithmeticFunction.moebius_apply_one, Int.cast_one, Nat.cast_one,
     mul_one, one_mul] at hsplit
   rw [hfull] at hsplit
   unfold finiteWheelCofactorTotal
