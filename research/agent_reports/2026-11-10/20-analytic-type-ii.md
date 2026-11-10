@@ -1028,3 +1028,10 @@ Registered tests: exact exponent/range algebra; independent prime and prime-powe
 Original Lean declarations and current PR metadata were retrieved. Main includes human merges #1122, #1124, #1125, #1126; #1127 is the only open PR, non-draft, head 866b3d2121309cdd854f9d64e2a6adbbc708ef9b, with twelve successful exact-head workflow records, including dedicated run 42743502306. Its content is not on main. Dedicated proof/axiom evidence will be checked before any new certification assertion; merge metadata alone is insufficient. No local Lean execution is permitted or planned.
 
 Only this owned report is authorized for remote writes. No source, other report, policy, branch, PR, issue, workflow, schedule or agent launch will be changed. The Git clone transport returned HTTP 403; the authenticated read connector works and source retrieval is not blocked. This checkpoint will be claimed published only after immutable readback.
+
+
+## Verified Publication Receipt - 20261110-analytic-1/HF
+
+EXECUTION=COMPLETED; substantive report publication=PUBLISHED_VERIFIED. At **2026-11-10 01:38:35 EST** (06:38:35 UTC), the complete research text, exact verifier, recorded output and preserved checkpoint were re-fetched at immutable commit `d36f0a968667da43a87e38a823b3f230b05be477`, blob `331df1515399a967795e522b16a9760ce68dab12`, and matched the submitted contents exactly. The commit file list contains only `research/agent_reports/2026-11-10/20-analytic-type-ii.md`. Main was rechecked immediately before publication at 06:38:21 UTC and remained `7c7e0a4f54ee2972d3993abc42e5c7c4e1b405c9`.
+
+HF1-HF5 remain paper/self-audit results with INDEPENDENT_REVIEW_PENDING and NOT_FORMALIZED; HF6 retains its declared finite/diagnostic scope. The full centered finite-wheel bound and RH remain OPEN. No proof-source, other-report, PR, issue, branch, workflow, merge, schedule or agent-launch action was taken. This receipt records the already verified substantive commit; the receipt update itself is read back before the user-facing completion message.
