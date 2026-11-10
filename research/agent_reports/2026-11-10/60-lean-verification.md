@@ -324,3 +324,318 @@ The baseline log has unrelated Wiener dependency-build placeholder warnings at l
 Latest relevant merged work was refreshed: #1127 has 13/13 successful check-runs at 866b3d2121309cdd854f9d64e2a6adbbc708ef9b; #1128 has 12/12 at d5b8003f6239611a457560b6fd16e29f16255e75. They remain proper-source results. No rerun of unchanged proofs was requested.
 
 Remaining implementation after RD1: exact normalized finite-product response, same-fixed-signal Mellin dilation with outer weights frozen, locally bounded delay absorption, six-bill raw anchored assembly, and beta/zeta/Mertens consumer. These are accepted PAPER_PROOF, not newly open arithmetic premises and not yet formalized in #1130. The stronger SR3-SR4 remain independent-review-pending. Global baseline and RH status are unchanged.
+
+
+## Signed Principal Remainder Certification - 20261110-lean-2/RD
+
+Scheduled invocation: 2026-11-10 13:14:01 EST, America/New_York. Platform RUN_ID_UNAVAILABLE. This continues the same actual invocation as the two checkpoints above; all previous bytes and failure evidence are preserved. Final verification receipt reviewed at 13:48:10 EST (18:48:10 UTC). Research execution=COMPLETED at the scoped result below; publication is verified separately by immutable readback.
+
+### A. Most Important Formal Development
+
+Implemented accepted claim `20261110-analytic-2/RD1` on the ORIGINAL principal slot, not a surrogate phase model:
+
+```text
+Q >= 480, norm(A) <= 1, norm(eta) = 1, Re(s) >= 7/8
+  ==> norm(principalSlot Q A eta s + 1 + eta Q^(-s))
+        <= 12 Q^(-11/8).
+```
+
+The genuine Hecke-coefficient specialization and arbitrary nonnegative finite-weight versions preserve the signed response. Dividing by the original NEGATIVE total mass gives the PLUS first-order term, with a separately stated positive-mass hypothesis. The proof supplies quantitative local control needed by the independently accepted RD program. It is not RD2-RD5, a new global endpoint, or RH.
+
+Formal status: **PROVED_IN_LEAN_AT_HEAD / CI_GREEN / REVIEW_READY / UNMERGED**, head `4aa22782d10b3ad77dc970d6bb610eaab93a228c`. Mathematical status: independently accepted PAPER_PROOF for RD1-RD5; this PR certifies RD1 and its source-weight/normalization adapters only. `NO_NEW_GLOBAL_GAIN`; `VERIFIED_ETA=NONE`.
+
+### B. Live Authority And Continuity
+
+`cross_route_ack=CROSS_ROUTE_SIGNED_RECOVERY_V1`; retain `high_attack_ack=COMPLETE_SIGNED_HIGH_ATTACK_V1` and `chain_ack=CANCELLATION_CHAIN_REUSE_V1` as supporting safeguards, not superseding priorities. Main baseline `655f897e274a8ba8a2fed80ecc1fc75a0d849174`, tree `a4889160114bebe7f7e3bf240122db7dffe44c2f`. AGENTS blob `c9c89f01b90b526de9f3e8ea92478e36504711b6`; contract `95566e37c8eaeb99ee680660df4f9d2e06ea5038`; cross-route directive `e922d4ba9362a1ae196af8f6de88f7417f92087c`.
+
+The canonical `VFCanonicalSquareVonKochStatement`, complete signed finite-wheel O(R log R), finite A/C input and RH remain OPEN. No instruction, canonical target, existing audit policy, saved schedule or other agent's report was modified. GitHub Actions was the sole Lean execution environment. No subagent was launched.
+
+Both November 10 and November 9 reports were retrieved for every role. TODAY=AVAILABLE for all seven; YESTERDAY=CARRY_FORWARD at the original scope. Intake own report blob `0355c3203ede834e1abbe9bc2fc161bc7d7ece04` includes the prior #1128 repair. Latest read handoffs are Coordinator CR/UB, Owner BR, Analytic RD, Wheel JC, Census UC, Referee SR; previous-day CD/CF/ZD/RF/NC/AP and own CF2 remain scoped evidence.
+
+| Role file | November 10 blob | November 9 blob |
+| --- | --- | --- |
+| 00-coordinator-am, mirrored 90-coordinator-pm | 1cf71a74d0e80d5dc05ab1ef08f1ad6fcf134c9a | 6fba43130391ad4a606aa3809c20f344d668c709 |
+| 10-owner-payment | ece5b3cd8d25b45e64c48812c81d71f6eddf23a9 | 643e8a004d9d8e0be102b03e2f79bb3b217ae916 |
+| 20-analytic-type-ii | a2675374a7160955917d42797eef5a3e2358056f | d1d0d86d444b9c447cf6acf4bd18fdcaf02e56a3 |
+| 30-finite-wheel | a6a05ab41daeeaf7b3d285833028075cf253d47c | 0624246d03b19cf76c01e186b7d868a248d896ef |
+| 40-prime-census | 8a89d1a899850e39320a96bf35a6f221060fc8a7 | 8c927cc6c323533ba1cfd369404b25aa4f9cef91 |
+| 50-adversarial-referee | 988a4a74e40a48d8d4c868c03263e66c129a6f1a | a5d0192eb31c0efb3767187a7752f1a0d07f8534 |
+| 60-lean-verification, before this invocation | 0355c3203ede834e1abbe9bc2fc161bc7d7ece04 | 8b60c6136ac151774be2db0aee8f543f286b53aa |
+
+External inbox `038018145c0fddb2f6306c0712373adf9cd1ea52` was read; no entry after October 18. Its original-source warnings remain applicable, not its obsolete task priorities. No missing upstream completion was invented.
+
+Supporting role/return safeguards were checked against current selector `d4d24d74c6b424d6381a086f5701d086a74d08c1`, role prompts `af03ff7b769fd133bd3a91b3cf73bc73d942593e`, complete-return contract `4775ee5fd95f279beab08a75d1e17127078b19a6`, persistent engine `df7a96a38ee62f53745503df1b68d9caac23a25f`, breadth policy `469caefcd2d82f8d59044f67c78c89ebbe613ac7` and dynamic protocol `0f0b63a82380e18068ab7f3c317feafd66939290`. The newer cross-route directive controls task priority. Navigation DAG `eee764cefe70035a9f6c7df26ad787fbfd0fb233` still has dated unmerged #1119 prose; actual source and current PR evidence, not that stale label, establish its merged baseline status. Atlas `cd0419d00a37739fe5a292f5cb738e33213949d5` is a typed navigation map, not evidence of 41 independent mechanisms.
+
+### C. Formalization Queue And Selection
+
+At intake there was no open/draft proof PR to repair. #1127 and #1128 are now human-merged, correcting the earlier unmerged state in this same daily report. Their tested heads `866b3d2121309cdd854f9d64e2a6adbbc708ef9b` and `d5b8003f6239611a457560b6fd16e29f16255e75` have respectively 13 and 12 successful check-runs; unchanged evidence was reused. #1126 remains a conditional finite-AC consumer and does not supply its arithmetic hypothesis.
+
+Selected priority B: RD1, accepted by the independent `20261110-referee-2/SR` reconstruction, is a necessary quantitative supplier for the complete RD response mechanism. Source and PR searches found no existing declaration implementing this signed remainder. Original `principal_slot_error` only bounded the entire deviation by `1440 Q^(-7/8)`. The existing three-tier central-contour theorem has different profile/contour hypotheses and does not duplicate this residue estimate.
+
+Next accepted implementation queue: RD2 finite-product response; RD3 same-fixed-signal Mellin dilation and locally bounded delay absorption; RD4 full anchored six-bill comparison; RD5 existing beta/zeta/Mertens consumer. Earlier HF/FB work remains available but is not a duplicate implementation priority. Referee's stronger SR3-SR4 proposal is SELF_AUDIT / INDEPENDENT_REVIEW_PENDING; this run does not silently promote it.
+
+### D. Independent Review And Exact Semantics
+
+The original claim, Referee reconstruction, original `principalSlot`, `principalMarked`, `principalRawFactor`, `coordK`, `coordR`, `coordD`, and source-to-raw identity were read. All variables in the main theorem have their original domains: Q real, A/eta/s complex. Q is not silently assumed prime; the stronger real-variable lemma is valid, while the physical specialization explicitly uses `Ideal.absNorm`, `HeckeFamily.elementCoeff`, `actualAPhase`, and a unit-modulus admission hypothesis.
+
+No target-equivalent bound, phase independence, omitted cross-term sign, global covariance assumption or desired conclusion appears among the hypotheses. Unit norm of eta is essential to the exact cancellation B*D=1. The mask theorem uses only nonnegative real weights and retains the entire signed first-order sum. Normalization requires positive total mass explicitly; no division-by-zero case is hidden. The finite weighted theorem does not claim that a particular eventual source pool has positive mass without its existing source theorem.
+
+Classification: `principal_K_signed` is STRUCTURAL_CONTROL; `principal_slot_signed_error` and its actual/weighted/relative specializations are QUANTITATIVE_CONTROL on a local supplier. They are neither a conditional wrapper around the global target nor a bound for the whole compensated probe.
+
+### E. Proof Plan And Mathematical Argument
+
+Put q=1/Q, R=coordR(Q,A,s,1/6), D=eta Q^(-s), B=star(eta) Q^s, U=1-qR-(1-q)D and T=Q^(-11/8). Original source gives B*D=1 and
+
+```text
+coordK = (1-q)D,
+principalMarked = (1+q)(R-D)/(1-R),
+principalSlot = (1-q)(BR-1)/U - q,
+principalSlot+1+D
+ = ((1-q)BR - q(1-q)R + (2q-q^2)D - qRD - (1-q)D^2)/U.
+```
+
+The Q-1 factor in coordK, original normalizers and all five signed numerator terms are retained. From Q>=480 and Re(s)>=7/8, norm(q),norm(R),norm(D)<=1/4 and norm(1-q)<=1. Thus norm(qR+(1-q)D)<=5/16<=1/2, U is nonzero and norm(U^-1)<=2. The five numerator terms are bounded respectively by T,T,2T,T,T, using R<=Q^(3-6Re(s)), norm(B)=Q^Re(s) and norm(D)<=Q^(-Re(s)). This gives 12T without assuming the claimed estimate.
+
+For finite S and nonnegative w, write M=sum w, W=sum w*slot and V=sum w*eta*Q^(-s). Applying the local theorem only to the residual proves norm(W+M+V)<=12 P^(-11/8) M for all Q_j>=P>=480. For M>0, the exact identity
+
+```text
+W/(-M) - 1 - V/M = -(W+M+V)/M
+```
+
+proves the normalized error bound. The leading response is PLUS V/M in W/(-M). We do not change the outer-scale weights or impose a cancellation assumption on V.
+
+Implementation dependencies are the original raw-factor identity, exact principal coordinate cancellation, norm estimates, positive-real power monotonicity and finite-sum triangle inequality. Potential endpoint/coercion/denominator issues were handled explicitly. The finite product, Mellin integral and delay argument are deliberately not asserted by this proof.
+
+### F. Required Five-Stage Cross-Route Capsule
+
+#### 1. BASELINE / DEPENDENCY RECEIPT
+
+Strongest applicable compiled theorem found: `RHLean.Analysis.native_mertens_near_uniform_window_error_closed`, with `MertensGrowthAtMost (7/8-7/(64*N_pack))`. Exact quantifiers are forall eps>0, exists C>=0, forall integers n>=1, norm(M(n))<=C*n^(b_base+eps). It is NOT a fixed no-loss bound at b_base.
+
+The source-defined counts use the same positive L=explicitFineLength: N_pack=ceil_nat(max(1,1/(6L)))+2 and N_old=ceil_nat(max(1,1/(3L)))+2. Monotonicity proves N_pack<=N_old, hence the #1119 boundary is stronger than the older `7/8-1/(48*N_old)`. This is a checked comparison of distinct counts, not an invented identification.
+
+Exact #1119 head `77ee815846d6d534c866f0752aa33b84c385610a`; [run 42552018910/job 128949473700](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42552018910/job/128949473700) succeeded. The actual log contains the five audited endpoint types, standard terminal axioms and live closure sizes 35358, 35375, 35736, 35737, 35753. All 14 attached checks succeed. Ninety-two relevant current OAI source/anchored/total-mass/window-error audit/workflow entries were compared with the tested tree and are unchanged. No no-op rebuild was requested.
+
+Pinned Lean 4.34.1, compiler `5045d0056413266e57c625dcd7c365b10e377c52`; Mathlib `d13f23b723b8a846827a245b89c10fc7d3f11612`; PNT+ `c39a751132c88b6e8080b74c74023fd95b3d8be0`; openai/math `1581d4cbdd69a0faf34b2089614fe2a814316a6a`. The anchored generator retains RH source pin `9cbfce5295343bcb411e6d2cb159b59995cd985b`. Baseline dependencies include imported original OAI analysis and the actual beta<=7/8 input to the anchored return, not a claim to have independently re-proved every imported declaration.
+
+Scope caveat: the baseline's dependency BUILD emits unrelated Wiener.lean placeholder warnings at lines 325 and 344. The audited endpoint's transitive axiom set excludes sorryAx. This does not certify the entire dependency repository as placeholder-free. The actual-prime VF/RH and finite-AC interfaces still require their explicit classical/arithmetic premises.
+
+#### 2. FOUR-WAY SOURCE MAP
+
+Selected source is the fixed-source compensated OAI probe and its existing one-way return to genuine Mertens sums. These columns are NOT four equal expressions. Euler and finite-wheel identities below have integer R>=2. All Mertens prefixes retain their natural-number cutoffs.
+
+| Euler / finite AC | VF / prime discrepancy | NNS / OAI | Square blocks / native HIGH | Prime/Mobius coupling |
+| --- | --- | --- | --- | --- |
+| X=R^2-1, Q_R=sum_(a,b<R) mu(a)mu(b) floor(X/(ab)) = 2M(R-1)-M(X); K_R retains all y<R. EXACT_IDENTITY: `eulerSelfDualBilinear_eq_two_mertens_sub_endpoint`. Finite-AC bound remains OPEN. | All primorial divisors d, including virtual d>X, and the unit survivor are retained. EXACT_IDENTITY: `finiteWheel_squareFractional_centered_eq_reference_sub_pi`, for its arbitrary reference L. Choosing li does not prove a bound. Historical/clipped #915 weights are a separate carrier. | Original source `SourceData.tiltedProbe`, actual ideals and Hecke coefficients, ray-class pools outside the fixed exclusion set, actual source correction, selected/unselected masks, negative principal mass normalizer. The signed Gram is an EXACT_IDENTITY; RD1 bounds the original local principal residual. | `groupedSquareBlocks_sum` is an EXACT_IDENTITY for signed prefixes. It does not bound M(R^2-1) by one shell, nor exchange square-of-sum and sum-of-squares. Mellin Z is a real source scale, not silently the integer root R. | Hecke ideal coefficients are NOT rational Mobius coefficients. `native_zeta_zero_re_le_hecke_beta` and the native Mertens converse provide the ONE_WAY analytic implication through the modulus-one Dirichlet/Hecke product. No coefficientwise equality is asserted. |
+| Genuine Mobius weights, strict root cutoff and complete tails survive. | The physical and virtual terms compensate before norms; actual prime versus floor-Li events require their cofactor-weighted bracket. | Q=ideal norm; physical scales Z^(17/48-24h), Z^(23/48+12h), total slot length 1/6. Outer weights are frozen during any proposed dilation. | No square-shell second moment is manufactured from a global prefix theorem. | Direct marked-moment-to-wheel or arbitrary LOW-Gram-to-Mobius maps remain OPEN_BRIDGE. |
+
+Important current source blobs: Euler `e7ee8f77ffd59bccaa49dd6d74fbe0d7952c2d73`; complete wheel `ecb482e52deeee5e9b3853592a3ffdace662d2ff`; signed LOW Gram `dd2fde01ae6e2446da4e69b30f6fc80fcadb858d`; native Mertens `b33a4883e1ddb0551b0f11f062bce46680d87450`; window-error closure `f629db1b2b65d6ec042ac9432397d4b6316200c6`. These are source/dependency receipts, not a claim that the displayed bridge supplies a new exponent.
+
+For the intended RD application, literal outer-scale weights are w_jp(Z)=w(Q_p/Z^ell_j)*Q_p^(-5/6), M_j=sum_p w_jp, alpha_jp=w_jp/M_j, on the original ray-class pool outside the fixed exclusion set. The full probe normalizer remains sourceResidueConstant(F.W,F.W,product F.S) times Probe.principalScalar(univ,Z,1/6,slotMass(T,residueWeights(w,Z^ell))). The new finite-weight lemma does not change these weights; showing eventual pool admission/positive mass and identifying the full product remains the next source-level application.
+
+#### 3. FIRST SIGNED LOSS
+
+| Declaration / signed input | Irreversible inequality and discarded information | Power/constant and consumer | Recovery status, unpaid complement, falsifier |
+| --- | --- | --- | --- |
+| Upstream `compensation_tuple_actual_gram`, Detector/LowTupleGram.lean:74; native `actual_low_tuple_polynomial_sq_eq_signed_gram` | Triangle discards both orientations of Hermitian cross terms between unselected tuples. | Complete LOW envelope with its actual weights. | Signed Gram restores equality only. At J=empty there is exactly one outer tuple, so the outer off-diagonal is zero; no extra saving can be inferred there. |
+| `principal_slot_error`; original principalSlot+1 | The signed term -eta Q^(-s) is put inside the norm with all residuals. | 1440 Q^(-7/8); after product and contour, Z^(7/8+c+e-(7/8)m). This is a binding error bill in #1119. | RD1 retains -eta Q^(-s) and bounds only the residual by 12 Q^(-11/8). For coherent eta=1, A=0, raw slot+1 has a nonzero Q^(-s) leading term; a faster raw estimate would be false. |
+| `fixed_product_relative_error` / `slotRatio_error` | Product flattened into an unsigned error envelope; first-order signed response no longer visible. | Fixed-N constant, old Z^(-(7/8)m) decay. | The new normalized adapter fixes the PLUS sign but does not implement the product. RD2 must retain every linear response and bound every higher product. |
+| `slotResidue_bound_of_reciprocal_bound` | Norm taken before recognizing Q^(-s) as dilation of the SAME fixed signal. | Old principal-window bill, with Gaussian contour envelope. | RD3 requires f(Z/Q) with the same correction/exclusion set and OUTER alpha(Z). It is not f with freshly selected source at Z/Q. |
+| Complete anchored LOW/HIGH, floor and tails | Positive moment/mass envelopes, dyadic/height costs, then triangle after exact complete decomposition. | Existing six-bill return and all positive epsilon costs. | Reuse certified suppliers; RD4 still needs the complete comparison. No proper-band theorem or standalone RD1 gives the full result. |
+| beta -> zeta -> Mertens | One-way analytic continuation/growth implication, not an isometry of coefficients. | Every positive final loss remains. | RD5 must spend a positive loss explicitly for any fixed gain. No RH claim or loss-free boundary estimate. |
+
+The weighted theorem still uses triangle, but only AFTER separating the original linear response. It does not claim that residual cross terms are negative. This replaces a local supplier, not all losses in the endpoint argument.
+
+#### 4. PAID RECOVERY TEST
+
+Checked existing signed LOW Gram, original one-prime power-gain decomposition, marked 1+t/2 source supplier and the actual principal residue algebra. The Gram is not a signed upper bound; marked estimates have specific Batch/profile/capacity/height conditions and do not control an arbitrary residue profile. The central-contour one-prime theorem is not the z=1/6 residue statement. None supplies the claimed remainder by a mere renaming.
+
+The paid recovery used here is the original `principal_slot_eq_raw`, `principal_coord_cancellation`, `coordR_norm_le`, `principal_B_norm` and genuine phase norm lemmas, followed by the explicit new five-term estimate. This is source-compatible and does not borrow arithmetic cancellation from another carrier. #1115 reciprocal bands, #1122/#1124 full wheel compensation, #1127 proper-source positivity and #1128 genuine near-resonance have no proved coefficientwise map into the principal Hecke residual. No global saving is imported from them.
+
+#### 5. NET RESULT / ADMISSION VERDICT
+
+`NO_NEW_GLOBAL_GAIN / NECESSARY_ACCEPTED_SOURCE_SUPPLIER`. The five declarations do not qualify as a new accepted RH route or a complete-source global restriction by themselves. Certified b_base remains unchanged. The independently accepted RD paper candidate is b_RD=7/8-1/(8*N_pack), boundary difference 1/(64*N_pack), but that candidate is NOT Lean-certified by #1130. The stronger Referee SR3/SR4 proposal is still separately review-pending.
+
+The smallest next formal obligation is RD2 on the literal original finite product: each normalized slot is 1+V_j/M_j+rho_j, with the established rho bound; prove the product equals 1+sum_j V_j/M_j plus all higher terms bounded at O_D(Z^(-(11/8)m)). Then identify its Mellin response with the same fixed f and prove delay absorption from local boundedness. These are accepted paper statements awaiting implementation, not newly assumed arithmetic facts.
+
+### G. Implemented Declarations And Source Receipts
+
+All five declarations are in `OAI.SevenEighths.PrincipalSlotEstimate`, file `research/oai_434/VF919PrincipalSignedRemainder.lean`:
+
+| Declaration | Exact new content |
+| --- | --- |
+| principal_K_signed | coordK=(1-Q^-1)*coordD at the principal residue. |
+| principal_slot_signed_error | Uniform signed residual <=12 Q^(-11/8) on the original real-Q slot. |
+| actual_principal_slot_signed_error | Genuine ideal-norm/element-coefficient specialization, with actual unit admission. |
+| weighted_principal_slot_signed_error | Original nonnegative weights; retains complete signed linear response. |
+| weighted_principal_slot_signed_relative_error | Positive total mass; negative normalizer exposes PLUS first response. |
+
+Original upstream pin `1581d4cbdd69a0faf34b2089614fe2a814316a6a`; `lean/OAI/NumberTheory/DirichletL/PrincipalSlotEstimate.lean` blob `f9250c7c4464f374902bbb39ebbb3487d96bea1f`; Detector Euler `ce1309a4da0b0b3ccd703946aef504b96f95e6f5`; EulerCoordinates `75a2a5a3801939489102d6e7cce2ef1cab479057`; Local `599ab7884122342f9d200a81119ea5a410114e0a`; LowTupleGram `710598c8bef4d1a1ec98aa7e68b00369962c3d17`.
+
+All four committed files were re-fetched at `4aa22782d10b3ad77dc970d6bb610eaab93a228c` and exactly matched the local submitted bytes:
+
+| File | Blob SHA |
+| --- | --- |
+| research/oai_434/VF919PrincipalSignedRemainder.lean | a41fee91754d5f6e5606f3f6f3dfe66031d81cbf |
+| scripts/lean/principal_signed_remainder/ExactTypes.lean | db112c0662ef0e691a3c7c4806fae20336990c0e |
+| scripts/lean/principal_signed_remainder/Audit.lean | e30dd1e3a36b049cbf93359a7a39857651171715 |
+| .github/workflows/vf919-principal-signed-remainder.yml | 5cd287ebc659ae1e61381270a13628c7e04e2d6a |
+
+### H. Proof Branch And Integration
+
+[PR #1130](https://github.com/OVVO-Financial/RH_Lean/pull/1130), branch `agent/lean-verification/20261110-principal-signed-remainder`, originated at the current main baseline. Four focused added files: the source theorem, exact-type acceptance, live dependency/axiom audit and dedicated source-pinned workflow. No existing theorem, root, security policy or CI gate was weakened. The external OAI research leaf is deliberately compiled by its exact dedicated workflow, with generic inventory/import/root/public-export checks retained; it is not silently assumed reachable from the native root.
+
+Current head `4aa22782d10b3ad77dc970d6bb610eaab93a228c`; state **REVIEW_READY / UNMERGED**. The PR was marked ready only after all 13 check-runs were read as successful and the actual proof log/type/axiom output was inspected. No merge or auto-merge was performed. No global proof-obligation status changed; generated navigation documents were not hand-edited. Existing inventory/graph/atlas validation remains intact.
+
+### I. Actual GitHub Actions Evidence
+
+All **12 attached workflows and 13 check-runs** are successful at the final head. The dedicated run's actual event is pull_request and its head_sha equals `4aa22782d10b3ad77dc970d6bb610eaab93a228c`. This is actual Lean execution, not a documentation-only check.
+
+| Check | Observed exact evidence |
+| --- | --- |
+| New source, exact types and live axioms | [42877550772/job 130044786387](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42877550772/job/130044786387): literal PR head checkout; exact complete shared cache; pinned package/upstream blob checks; original 4385-job prerequisite build; warning-fatal new source, acceptance and audit all succeeded. |
+| Native hosted build | [42877550549/job 130044785005](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42877550549/job/130044785005): 9786-job native build succeeded, with elaborated inventory agreeing on 8924 named proofs. Synthetic merge `28e2de0d68a8ae3f0e1a48416376cd124571653b` contains the exact tested head. This is not the sole certification of the external research leaf. |
+| Source/root/import audit | [42877550549/job 130044785537](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42877550549/job/130044785537): source audit, root-manifest and research-cache regressions passed. |
+| Proof inventory and graph | [42877550610/job 130044785294](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42877550610/job/130044785294): inventory and graph checks passed; validated ten tracks with 836 local modules and 1716 importer-to-dependency edges. |
+| Static public-export verification | [42877550793/job 130044785281](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42877550793/job/130044785281): existing export/source consistency checks passed. Standalone export Lean compilation is not claimed and no export source was changed. |
+| Cache policy and coordinate atlas | [42877550872/job 130044785517](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42877550872/job/130044785517), [42877551061/job 130044792814](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42877551061/job/130044792814): both successful. |
+
+The actual log prints the intended five theorem types. Each of the four quantitative roots has exactly `[propext, Classical.choice, Quot.sound]`. Its checked original-source live closure sizes are respectively **628, 984, 653, 657** for the principal, actual, weighted and normalized theorems. Every required original-source dependency is present. No owned Lean warning or unapproved axiom appears. Dependency checkout dirty-tree notices and action runtime deprecations are not misreported as Lean proof warnings.
+
+The source dependency traversal follows OAI and private proof-value constants; the separate Lean.collectAxioms call traverses the full axiom dependencies. Allowed terminal axioms are only propext, Classical.choice, Quot.sound. The actual specialization must reach actual_target_norm and actualAPhase_norm_le_one. No new project axiom or placeholder is permitted.
+
+### J. Actual Failures And Focused Repairs
+
+Initial head `5afd156c56e6d0142500bca018d11d224aa424a5`, [run 42875005367/job 130035843590](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42875005367/job/130035843590), reached actual compilation after a successful shared-cache restore and original prerequisite build. The new module failed at two redundant tactic calls and one denominator-normalization goal. This was an actual source failure, not an infrastructure-only run and not evidence of a false mathematical claim.
+
+Repair `4bdd58b5ec3cbc4eab2bb09bdbf0f6d09c9dfc42` removes the redundant calls and uses the already-proved nonzero U in eq_div_iff before clearing the denominator. It also adds the normalized finite-weight corollary and its acceptance/axiom roots. The original local theorem's hypotheses and conclusion are unchanged. [Second run 42876112328/job 130039724983](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42876112328/job/130039724983) cleared all original failures but failed at the new corollary's remaining additive identity `-W-M-V=-(W+M+V)` after denominator cancellation.
+
+Final focused repair `4aa22782d10b3ad77dc970d6bb610eaab93a228c` closes that polynomial goal with ring. No statement or audit gate changed. [Third run 42877550772/job 130044786387](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42877550772/job/130044786387) final result: **SUCCESS**, including all exact-type and axiom/dependency checks. Earlier failed heads remain failed; their evidence is not retroactively upgraded.
+
+### K. Finite Diagnostic And Falsifier Check
+
+An additional exact Gaussian-rational check evaluated 240 cases from Q=k^8, k in {3,4,7}; four rational unit phases for eta and the phase of Q^(-s), and A=0 or one of four unit phases. It reconstructed the ORIGINAL nested marked/correction/replacement formulas, checked the displayed signed numerator, the squared 12-bound and the unit-mass negative-normalizer sign. All passed. Arithmetic used exact fractions, not a floating threshold. This is FINITE_COMPUTATION and is not substituted for Lean or an infinite proof.
+
+The first falsifier is the coherent A=0, eta=1 family: exactly `slot+1=-(1-q)^2 D/(1-(1-q)D)`. With real s=7/8 and Q tending to infinity, `(slot+1)/D` tends to -1. Thus deleting that response or asserting the improved exponent for the old raw error would fail. This displayed asymptotic observation is mathematical review, not an additional Lean theorem in the PR. In the weighted normalization W/(-M), retaining a negative rather than positive linear response is an algebraic sign error. The new relative theorem records that distinction explicitly.
+
+<details>
+<summary>Exact finite diagnostic, Python standard library only</summary>
+
+```python
+from fractions import Fraction as F
+from itertools import product
+
+class G:
+    def __init__(self, r=0, i=0):
+        self.r, self.i = F(r), F(i)
+    def __add__(self, b):
+        b = b if isinstance(b, G) else G(b)
+        return G(self.r + b.r, self.i + b.i)
+    __radd__ = __add__
+    def __neg__(self):
+        return G(-self.r, -self.i)
+    def __sub__(self, b):
+        return self + -b
+    def __rsub__(self, b):
+        return -self + b
+    def __mul__(self, b):
+        b = b if isinstance(b, G) else G(b)
+        return G(self.r*b.r-self.i*b.i, self.r*b.i+self.i*b.r)
+    __rmul__ = __mul__
+    def norm2(self):
+        return self.r**2 + self.i**2
+    def __truediv__(self, b):
+        b = b if isinstance(b, G) else G(b)
+        return self * G(b.r/b.norm2(), -b.i/b.norm2())
+    def __rtruediv__(self, b):
+        return G(b) / self
+    def __pow__(self, n):
+        out = G(1)
+        for _ in range(n):
+            out = out * self
+        return out
+    def __eq__(self, b):
+        b = b if isinstance(b, G) else G(b)
+        return self.r == b.r and self.i == b.i
+
+phases = [G(1), G(-1), G(0,1), G(F(3,5),F(4,5))]
+count = 0
+for k, phase, eta, A in product([3,4,7], phases, phases, [G(0)]+phases):
+    Q = k**8
+    q = G(F(1,Q))
+    z = phase * F(1,k**7)
+    D, R, B = eta*z, A*Q**3*z**6, 1/(eta*z)
+    K, V, W = (1-q)*D, q, q
+    marked = ((R*(1-q)-K*V)/(1-V)-D+W*R)/(1-R)
+    correction = (1-V*W+(1-V)*(1-W)*marked)/(1-D)
+    replacement = ((B-q)*(1-V)*(1-W)*marked-q*(1-V*W))/(1-D)
+    slot = replacement/correction
+    U = 1-q*R-(1-q)*D
+    numerator = (1-q)*B*R-q*(1-q)*R+(2*q-q**2)*D-q*R*D-(1-q)*D**2
+    assert marked == (1+q)*(R-D)/(1-R)
+    assert slot+1+D == numerator/U
+    assert (slot+1+D).norm2() <= F(144,k**22)
+    assert -slot-1-D == -(slot+1+D)
+    count += 1
+print(f"PASS: {count} exact Gaussian-rational cases")
+```
+
+Recorded output: `PASS: 240 exact Gaussian-rational cases`. This embedded compact checker was also extracted and executed verbatim successfully; the original diagnostic used the same exact operations and assertions and additionally named the four checks in its output.
+
+</details>
+
+### L. Formalization-Driven Findings
+
+The original Q-1 factor is essential to the exact numerator and was not replaced by Q. Denominator nonvanishing is a mathematical input proved from the source estimates; expressing it explicitly made the Lean normalization robust. No mathematical hypothesis was added to repair compilation.
+
+The normalized weighted result makes the sign convention explicit before any product or Mellin step. It generalizes over arbitrary finite nonnegative masks but does not erase physical admission requirements in applications. The actual-coefficient specialization preserves its original unit hypothesis and is not presented as a theorem about arbitrary rational prime phases.
+
+### M. Formal Soundness Versus Mathematical Significance
+
+Formal soundness: **PROVED_IN_LEAN_AT_HEAD**, with standard axioms, exact types, genuine-source dependencies and warning-fatal checks actually read. All five declarations are at the review-ready PR head; they are not on main until the human merges the PR.
+
+Mathematical significance: this is a new quantitative local supplier that avoids a binding signed-information loss in an independently accepted complete paper mechanism. Its value is the retained first response and faster residual, not the number of declarations or difficulty of tactics. It does not yet improve the global Mertens boundary and does not pay full product/integral/anchored return costs.
+
+### N. Specialist Handoffs
+
+- Coordinator: use #1130 only at its verified final head and local scope. b_base is unchanged; RD remains an accepted paper global candidate until RD2-RD5 are implemented and checked. Prior #1127/#1128 are now merged, with exact evidence reused.
+- Analytic: the original signed residual, genuine coefficient and negative-normalizer sign are implemented. Next preserve the literal fixed product, all outer alpha(Z), and the same fixed correction/exclusion set under Z/Q. No independent global boundedness premise is acceptable in delay absorption.
+- Referee: your SR acceptance of RD1-RD5 was consumed; your stronger SR3/SR4 remains SELF_AUDIT / INDEPENDENT_REVIEW_PENDING. Review can focus on exact source/type and next complete-return assembly, not a claimed global result from this local PR.
+- Owner and Wheel: no Euler/VF cofactor positivity or proper-band control was promoted to the Hecke residue, and no direct Möbius/ideal-phase equality was used. Preserve BR/JC source and review statuses and all complementary coefficients.
+- Census: the 240 exact checks are local algebra diagnostics only; no held-out root experiment or infinite extrapolation is claimed. Existing UC counterexamples and full-source complements remain intact.
+
+These are report handoffs only; no other agent was launched or its report changed.
+
+### O. First Remaining Obligation
+
+For this accepted formalization program the first remaining theorem is RD2, not an open new arithmetic estimate: on the original finite product, retain sum_j(V_j/M_j) and prove the uniform higher-order remainder at the stated source-scale power. RD3 then needs exact same-signal Mellin dilation, followed by a locally bounded delay argument with theta>0 and constants chosen before Z. RD4 must reassemble all six original anchored bills; RD5 must use the actual beta/zeta/Mertens consumer and spend the positive loss. None is replaced by an assumed desired endpoint.
+
+For the canonical research objective, a new independently proved complete source estimate remains open. The local remainder does not establish the finite-wheel O(R log R) bound, complete finite A/C input, a coefficientwise cross-route identification, or RH. No conditional bootstrap is presented as closure.
+
+### P. Resume Capsule
+
+```text
+RUN=20261110-lean-2/RD; scheduled 2026-11-10 13:14:01 EST.
+PLATFORM_RUN_ID=UNAVAILABLE.
+ACK=CROSS_ROUTE_SIGNED_RECOVERY_V1.
+MAIN=655f897e274a8ba8a2fed80ecc1fc75a0d849174.
+CLAIM=20261110-analytic-2/RD1; independent acceptance 20261110-referee-2/SR.
+PR=1130; BRANCH=agent/lean-verification/20261110-principal-signed-remainder.
+HEAD=4aa22782d10b3ad77dc970d6bb610eaab93a228c.
+STATUS=PROVED_IN_LEAN_AT_HEAD / CI_GREEN / REVIEW_READY / UNMERGED.
+SOURCE=a41fee91754d5f6e5606f3f6f3dfe66031d81cbf.
+ACCEPTANCE=db112c0662ef0e691a3c7c4806fae20336990c0e.
+AUDIT=e30dd1e3a36b049cbf93359a7a39857651171715.
+DEDICATED_RUN=42877550772; JOB=130044786387; RESULT=SUCCESS.
+CHECKS=12 workflows / 13 check-runs, all successful.
+AXIOMS=propext,Classical.choice,Quot.sound.
+LIVE_SOURCE_CLOSURES=628,984,653,657.
+BASELINE=b_base=7/8-7/(64*N_pack), with every positive exponent loss.
+NEW_GLOBAL_GAIN=NONE; RD2-RD5=ACCEPTED_PAPER_NOT_IMPLEMENTED_HERE.
+NEXT=refresh main/head/checks; reuse unchanged verified proof;
+     implement original normalized finite-product first response, then same-signal delay.
+RH / COMPLETE FINITE-WHEEL BOUND / FINITE A-C=OPEN.
+NO_LOCAL_LEAN; NO_MAIN_PUSH; NO_MERGE; NO_AUTO_MERGE; NO_AGENT_LAUNCH.
+```
+
+Publication protocol: the existing owned daily report is fetched immediately before append; previous content is preserved, and the submitted content is re-fetched at the immutable returned commit. Research execution=COMPLETED. Publication confirmation is recorded separately after successful identical readback. Final main and all six upstream report blobs were unchanged at the closing refresh; Coordinator mirrors were identical. No further baseline rebuild or no-op source commit is requested.
