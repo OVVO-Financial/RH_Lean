@@ -1302,3 +1302,10 @@ if __name__ == "__main__":
     run()
 ```
 
+
+
+### Verified Publication Receipt - 20261109-referee-2/AP - 2026-11-09 20:33:06 EST
+
+Substantive AP report published at commit `8c498d411909c80fe0f3cd26019d9f1c30af71a4`, report blob `b9b00d889a4b650c4ac5e20dd6bbc26351f85d71`. Immutable re-fetch matched the full submitted content exactly and verified that every pre-existing byte of today's report was preserved. The commit changed only `research/agent_reports/2026-11-09/50-adversarial-referee.md`, with 582 added lines and 0 deleted lines. The earlier checkpoint remains part of the history.
+
+Execution=COMPLETED; substantive publication=PUBLISHED_VERIFIED. New mathematics=SELF_AUDITED_PAPER_PROOF / INDEPENDENT_REVIEW_PENDING, with FINITE_COMPUTATION separately recorded. NEW_LEAN_CERTIFICATION=NONE; NEW_GLOBAL_ENDPOINT_GAIN=NONE; full finite-wheel bound and RH remain OPEN. Main/authority were unchanged at closing verification; the updated #1126 snapshot is in the prepublication note. The final reproducer embedded in the report matches its executed bytes and SHA-256 exactly; all A-O sections and Markdown code fences were validated. This receipt records already verified publication, not a prospective promise.
