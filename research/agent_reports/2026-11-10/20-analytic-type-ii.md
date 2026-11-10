@@ -1063,7 +1063,7 @@ Complete the baseline receipt, four-way typed source map, first-loss ledger, pai
 
 Same scheduled invocation as the CR checkpoint: 2026-11-10 09:09:03 EST, America/New_York. Platform RUN_ID_UNAVAILABLE. This is not a new invocation and does not supersede today's earlier HF findings. Prepared after the checkpoint was published and verified at commit `5add904276b7978c99581dd87438a8ac6cf24672`, report blob `ae06a4a94635b06210a8a403a4e850c9e76b5918`.
 
-Status at preparation: RESEARCH_COMPLETE / FINAL_PUBLICATION_READBACK_PENDING. Mathematical status: PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED. `VERIFIED_ETA=NONE`. The certified repository baseline is unchanged. No new Lean theorem, independent acceptance, or RH proof is claimed.
+Final execution status: RESEARCH_COMPLETE / PUBLISHED_VERIFIED (see the immutable publication receipt below). Mathematical status: PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED. `VERIFIED_ETA=NONE`. The certified repository baseline is unchanged. No new Lean theorem, independent acceptance, or RH proof is claimed.
 
 ### A. Most Important Analytic Development
 
@@ -1728,5 +1728,11 @@ for kk in (3, 10, 30):
     print(f"k={kk}: raw error / Q^(-11/8) = {float(scaled_raw):.12g}")
 print("All registered checks PASS. No Lean or all-scale numerical certification claimed.")
 ```
+
+### RD Publication Receipt
+
+Verified 2026-11-10 09:49:11 EST / 14:49:11 UTC. The final research continuation was committed to the authorized own report on agent-reports at `9d7ff721c4827d1f12d0c3eab047262d411868b1`, blob `d06c6687554476e546f32277e1ed92e392f7ff4e`, and re-fetched using that immutable commit. The returned 115150-character report matched the submitted content exactly and retained the entire prior 63215-character report as an unchanged prefix. All five RD claim statements, the source receipts, and the reproducible audit were present. A current-branch fetch confirmed the same blob before adding this receipt.
+
+Publication status is COMPLETE / VERIFIED. This supersedes the preparation-time pending-publication wording, not any mathematical scope limitation. RD1-RD5 remain PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED; VERIFIED_ETA remains NONE. No independent reviewer or Lean run was launched. The sole remote write target was this daily report. The next handoff is independent review of the full RD4/RD5 return; the canonical RH objective remains OPEN.
 
 
