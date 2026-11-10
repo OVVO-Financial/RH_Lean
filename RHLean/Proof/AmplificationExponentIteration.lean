@@ -93,7 +93,10 @@ theorem amplificationIterateExponent_tendsto_half :
       (fun n : ℕ => (1 / 2 : ℝ) + (1 / 2 : ℝ) * (3 / 4 : ℝ) ^ n)
       Filter.atTop (nhds (1 / 2 : ℝ)) := by
     simpa only [add_zero] using hconst.add hscaled
-  simpa only [amplificationIterateExponent] using hsum
+  change Filter.Tendsto
+    (fun n : ℕ => (1 / 2 : ℝ) + (1 / 2 : ℝ) * (3 / 4 : ℝ) ^ n)
+    Filter.atTop (nhds (1 / 2 : ℝ))
+  exact hsum
 
 /-- General logical consumer for the amplification exponent mechanism.
 
