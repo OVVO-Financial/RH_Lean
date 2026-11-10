@@ -639,3 +639,8 @@ NO_LOCAL_LEAN; NO_MAIN_PUSH; NO_MERGE; NO_AUTO_MERGE; NO_AGENT_LAUNCH.
 ```
 
 Publication protocol: the existing owned daily report is fetched immediately before append; previous content is preserved, and the submitted content is re-fetched at the immutable returned commit. Research execution=COMPLETED. Publication confirmation is recorded separately after successful identical readback. Final main and all six upstream report blobs were unchanged at the closing refresh; Coordinator mirrors were identical. No further baseline rebuild or no-op source commit is requested.
+
+
+### Verified Publication Receipt - 20261110-lean-2/RD
+
+The substantive report was committed as `d69719a9bee595c3ed5871a692a62e56f15a28c2`, blob `081df7bc8d251f7216e599d94508f11ce1bb0288`, and re-fetched at that immutable commit with exact content equality. Previous daily content was preserved; all 16 A-P sections and five cross-route stages were present, and Markdown fences were balanced. **PUBLISHED_VERIFIED / RESEARCH_COMPLETED**. PR #1130 is **PROVED_IN_LEAN_AT_HEAD / CI_GREEN / REVIEW_READY / UNMERGED** at `4aa22782d10b3ad77dc970d6bb610eaab93a228c`, with 12 successful workflows and 13 successful check-runs. Main and upstream report receipts remained unchanged at final refresh. RD2-RD5 remain accepted paper work awaiting implementation; b_base and the open RH objective are unchanged. This receipt update is itself read back before user-facing completion.
