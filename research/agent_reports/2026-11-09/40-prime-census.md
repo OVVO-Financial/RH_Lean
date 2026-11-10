@@ -4581,3 +4581,1065 @@ Frozen domains: discovery EVERY integer R=16..128; held-out roots EXACTLY 193,38
 Record first negative and first positive witnesses, largest exact matching coverage/defect and any e_p>0 positive witness. This is a finite specified search, not a fitted global density law. Use rational log/sine series to enclose decisive pair values independently of a floating scout; use 50/80-digit li only for explicitly NUMERICAL ONLY normalized full-source diagnostics. No floating sign becomes a finite certificate without an error bound. The original complete return, BOTH physical mixed terms and complementary owners remain explicit and unbounded; only the matched-subset replacement is proposed. No global inequality or first-bad hypothesis is being refuted.
 
 New work and reproducible programs will be appended after execution. Only this report may be changed remotely. No Lean, main, other report, branch, PR, issue, workflow, schedule or permission edits; no agent launches or local Lean.
+
+
+## Nearest-Centre Prime Pairing: Exact Sign And Uniform Cost - 20261109-census-3/NC
+
+### A. Most Important Mathematical Discovery
+
+**Moving a reflection to the nearest centre allowed by a shared prime does not preserve positivity. It does preserve an affordable total cost.** For the exact same-lower-prime matching defined below, every individual pair has the sign of the INTEGER
+`G=X^2-n_-n_+=v^2-2Xe-e^2`. The smallest negative example in the stated domain is R=31. At R=114, two pairs have the SAME centre and SAME positive rounding offset e=3 but opposite signs: their different spans cross the exact quadratic threshold.
+
+There is also a uniform paper bound for the ENTIRE selected population, not merely for one pair:
+
+```text
+forall integer R>=16:
+  sum_(selected pairs) |K_R(n_-)+K_R(n_+)| <= 8R/85.
+```
+
+Thus no favorable-sign hypothesis is needed to control this subset. The bound remains valid for any measurable real band weight of absolute value at most one. It does NOT supply partners for the unmatched products, control the far products, or bound the complete centered wheel.
+
+| Claim | Result | Evidence |
+| --- | --- | --- |
+| 20261109-census-3/NC1 | Exact one-use nearest-centre matching and geometric-mean sign law | PAPER_PROOF; SELF_AUDIT, independent review pending |
+| NC2 | Uniform sum of absolute pair totals <=8R/85; overlap-safe combination with BL costs <=76R/765 | PAPER_PROOF; proper subset only |
+| NC3 | H_POS refuted at the smallest admissible failing root R=31; offset-only classification also fails | REFUTED, exact finite arithmetic and rational band certificates |
+| NC4 | Positive pairs above the wall centre require 0<e<R/32; same-centre opposite-sign witness at R=114 | PAPER_PROOF for the restriction; FINITE_COMPUTATION for the witnesses |
+| NC5 | Two independent reconstructions agree at all 118 registered roots; complete physical/virtual source checks | FINITE_COMPUTATION |
+
+No literature-priority claim is made for the sine addition formula, Taylor bounds, or integer reflection. The new laboratory result is this precisely admitted, once-only source reduction and its exact sign discriminator. **NEW_VERIFIED_GLOBAL_ENDPOINT_GAIN=NONE; NEW_LEAN_PROOF=NONE.** The complete finite-wheel bound, canonical VF estimate, finite A/C and RH remain OPEN.
+
+### B. Authority And Current Objective
+
+Actual trigger: **2026-11-09 19:00:01 EST**, America/New_York, UTC-05:00. Run label 20261109-census-3; platform RUN_ID_UNAVAILABLE. This is a scheduled continuation of the preserved daily report, not a new agent launch. `finite_wheel_ack=FINITE_WHEEL_CENTERED_RH_V1`.
+
+Main was fetched at intake and again before synthesis: **e7ffe4e01fd049dfe6f47af86a9984bc0b843576**, unchanged. Reporting intake: **2790c7061df77c4ba3c27fd290cc539128611273**. Retrieval began shortly after 2026-11-10 00:00 UTC, which is November 9 in the reporting timezone.
+
+For every integer R>=2 retain the original definitions
+
+```text
+X=R^2-1, y=R-1, P_y=product_(prime p<=y)p,
+delta(y)=product_(prime p<=y)(1-1/p),
+F_R=sum_(d|P_y)mu(d)fract(X/d),
+D_R=X delta(y)+pi(y)-1-li(X),
+Z_R=F_R-D_R=li(X)-pi(X).
+OPEN: exists ONE C>=0, forall R>=2, |Z_R|<=C R log R.
+```
+
+Here li is principal-value li. Li_2 differs by a fixed constant. Every virtual divisor d>X remains until it cancels against its own Euler term; d=X is included. The public canonical target remains `VFCanonicalSquareVonKochStatement`. The directly inspected terminal `riemannHypothesis_of_vfCanonicalSquare` still requires its explicit `ClassicalVonKochRHCriterion`.
+
+| Inspected current source | Blob SHA |
+| --- | --- |
+| AGENTS.md | 6695522a45d67fd1e80a7cff1f98d909405036e2 |
+| CURRENT_PROOF_CONTRACT.md | 95566e37c8eaeb99ee680660df4f9d2e06ea5038 |
+| Complete-wheel seven-role directive | e505f35522b675c6b5b263eac73618d717346973 |
+| Dynamic research protocol | e8d913ff9663bb5163eaf0eddca9f76e0508a7ef |
+| research/CompleteSquareRootWheelFractionalBoundary.lean | ecb482e52deeee5e9b3853592a3ffdace662d2ff |
+| research/VF_MID_DYADIC_PREFIX_OWNER.lean | c499ca7bd7d90fb32f9cd99d652961ea023bed58 |
+| research/CompleteWheelRootAdmission.lean | a412632c1028d7728cd8d87ee6e5ac365377d338 |
+| research/DyadicPrimeNearResonance.lean | 0080496ada9c7ce230690ed773ee52df9575c245 |
+| research/VF_CANONICAL_SQRT_TWO_VON_KOCH.lean | 79030d70e8d3e0d08eef9bac53fef95c36eca2fb |
+
+[Immutable complete-wheel source](https://github.com/OVVO-Financial/RH_Lean/blob/e7ffe4e01fd049dfe6f47af86a9984bc0b843576/research/CompleteSquareRootWheelFractionalBoundary.lean). Definitions `finiteWheelFract`, `finiteWheelSquareDeterministic`, `vfMidPrefixWheelCounting`, `vfMidPrefixWheelDensity`, `finiteWheelCenteredAt`, `dyadicPrimePair` and `admittedDyadicPrimePair` were read, not reconstructed from theorem names alone.
+
+### C. Competing Hypotheses And Prior Credit
+
+The registration was published BEFORE arithmetic execution at **3f37ca15ffbbe233abcf5b0fc5f935709009fd40**, report blob **59d7729b12f12af15679baaba0f2442a432bb07a**, then re-fetched at that immutable commit. All bytes matched, with the previous report preserved as an unchanged prefix.
+
+H_POS asserted that EVERY nearest-centre selected pair has nonnegative original band contribution. The competing explanation was that centre rounding can outweigh the positive curvature seen in exact reflection. The geometric-mean discriminator and constant 8/85 were derived as analytical candidates before execution and stated in the registration; this was not a blind discovery of their formulas. Discovery roots were EVERY integer 16..128; held-out roots were EXACTLY 193,383,769,1531,3079. No cutoff or constant was fitted afterward.
+
+The existing BL3 exact-reflection O(R) bound is credited, including Referee DA's scoped independent acceptance. Wheel RF1-RF3 classifies the narrow exactly reflected shared-factor population and explicitly requests a NEW approximate map, not a larger repetition of that scan. NC changes the reflection centre and therefore selects a different population. The old CR and full BL sign scans were not repeated. Computing BL overlap here is necessary to prevent duplicate credit.
+
+The e<R/32 inverse restriction and the same-centre interpretation at R=114 are disclosed post-result deductions, not retroactively preregistered thresholds. They follow from the displayed algebra, not a fitted regression.
+
+### D. Exact Carrier And Matching
+
+For integer R>=16, set U=sqrt(R), h=ceil(sqrt(R)), D=floor(X/(4h)). The actual prime rectangle is
+
+```text
+E_R={(p,q): p,q prime, R<=2p, p<R, R<=q<2R}.
+Collar={(p,q) in E_R: |pq-X|<=D}.
+k_p=floor(X/p+1/2), c_p=p*k_p, e_p=c_p-X.
+```
+
+Every lower p is odd. There is no half-integer rounding tie because p cannot divide 2X without dividing X. Thus `2|e_p|<p<R`. Pair distinct actual primes q_-<q_+ when
+
+```text
+q_-+q_+=2k_p,
+(p,q_-),(p,q_+) BOTH belong to the original collar.
+n_-=p*q_-, n_+=p*q_+, v=p*(q_+-q_-)/2.
+```
+
+No absent prime is manufactured. The involution has at most one partner per occurrence; a prime fixed point q=k_p is kept unpaired. Since distinct odd primes differ by at least two, v>=p>|e_p|, so n_-<X<n_+. Unique factorization and p<R<=q make the product map injective across rows. Each selected occurrence is used once.
+
+The upper product is a genuine spectral rectangle term but is NOT a sharp physical site below X. Likewise q>=R is not a divisor coordinate of P_(R-1). A spectral pairing is not automatically an owner-payment map.
+
+Keep the actual BL/MB kernel
+
+```text
+K_R(n)=(1/pi_circle) integral_U^(2U)
+       b(t/R)*sin(t log(X/n))/t dt,
+b(w)=1-6w^2+6w^3 on 0<=w<=1/2.
+```
+
+For this domain t/R<=1/2, including equality at R=16. There is no conjugation. The full piecewise spline outside this domain is not replaced by this polynomial. The integer-root upper endpoint 2R is composite, so the earlier closed prime interval and the present strict q<2R contain the same primes.
+
+### E. Paper Proofs
+
+**NC1, exact sign.** Write a=log(X/n_-), b=log(X/n_+). Both absolute phases satisfy, for U<=t<=2U,
+
+```text
+|t*a|, |t*b| <= 2sqrt(R)/(4h-1) <= 8/15 < pi_circle/2.
+sin(t*a)+sin(t*b)
+  =2 sin(t*(a+b)/2) cos(t*(a-b)/2).
+```
+
+The cosine is strictly positive and the sine has the sign of a+b. The spline is strictly positive on this interval. Therefore
+
+```text
+sign(K_R(n_-)+K_R(n_+))
+ =sign(log(X^2/(n_-n_+)))
+ =sign(G),  G=v^2-2Xe_p-e_p^2.
+```
+
+G cannot vanish for these distinct prime pairs: n_-n_+=p^2 q_-q_+ is not a square, whereas X^2 is a square. This is a sign theorem for the pair, not for a full row, band, centered band, or global covariance.
+
+**NC2, total cost with no sign assumption.** The proof works with b replaced by ANY measurable real eta_R(t), |eta_R|<=1. Put
+
+```text
+f(s)=(1/pi_circle) integral_U^(2U) eta_R(t) sin(ts)/t dt.
+```
+
+Then f is odd and has Lipschitz constant at most U/pi_circle. For a selected n_-=X-w, 0<w<=D, let n_*=X+w be its exact geometric reflection in product position. This comparison point need not be a prime product and is used only inside an analytic inequality, never added to the arithmetic carrier. Since n_+-n_*=2e_p,
+
+```text
+|K(n_-)+K(n_+)|
+ <= (U/pi_circle) *
+    [ 2|e_p|/(X-D) + w^2/(X^2-w^2) ]
+ <= (h/pi_circle) *
+    [ R/(X-D) + D^2/(X^2-D^2) ].
+```
+
+The first term uses the logarithm's derivative on [X-D,X+D]. The second uses
+`-log(1-w^2/X^2)<=w^2/(X^2-w^2)`, with the two original signs combined BEFORE absolute values.
+
+There are at most D selected pairs because their distinct lower products lie in the D integers X-D,...,X-1. Also h>=4, D<=X/(4h), h^2>=R and X<R^2. Consequently
+
+```text
+sum_pairs |pair contribution|
+ <= h*D*R/[pi_circle*(X-D)]
+      +h*D^3/[pi_circle*(X^2-D^2)]
+ <= 4R/(15*pi_circle)+4R/(255*pi_circle)
+  =24R/(85*pi_circle) < 8R/85.
+```
+
+All constants are fixed before R. This is an aggregate estimate with all multiplicities accounted for. No PNT, prime gap distribution, independence, RH-strength premise or all-interval equidistribution is used.
+
+**Overlap-safe combination.** Select NC pairs first. Keep only old BL exact-reflection pairs whose TWO endpoints avoid every NC endpoint. Call this disjoint submatching BL_free. Its contribution is nonnegative and at most 4R/765 by BL3. Hence
+
+```text
+|J_NC+J_BL_free| <= 8R/85+4R/765 = 76R/765.
+```
+
+A common edge and an edge sharing just one endpoint both require exclusion. Adding J_NC to the entire old J_match is invalid. The chosen priority rule is not asserted to maximize coverage or increase it at every possible root.
+
+**NC4, inverse restriction.** If e<=0 then G>0, because v>|e|. If e>0 and G>0, both collar endpoints give v+e<=D, while G>0 gives v^2>2Xe+e^2. Thus
+
+```text
+0<e< D^2/[2(X+D)] < X/(32h^2) < R/32.
+```
+
+In particular e>=R/32 forces a negative pair. A small positive e is only necessary for positivity, not sufficient. These proofs are PAPER_PROOF / SELF_AUDIT, not independently accepted or Lean-certified.
+
+### F. Executed Results And Exceptions
+
+Both programs agree on every pair list, collar count, fixed-point list, exact BL edge list, and every compensated integer total at all **118 roots**. The domain contains 2,557 collar occurrences and 277 NC pairs: 145 positive and 132 negative by exact G. NC is nonempty at 73 roots; 49 roots have a negative pair. There are five e>0, G>0 pairs in the frozen domain.
+
+The first selected pair is positive at R=24. The smallest H_POS violation is
+
+```text
+R=31, X=960, h=6, D=40,
+p=23, q_-=41, q_+=43,
+k=42, c=966, e=6, v=23,
+n_-=943, n_+=989,
+G=960^2-943*989=-11027.
+```
+
+These are the ONLY two collar products at R=31, so the entire collar is selected. Independent rational series give the closed enclosure
+
+```text
+K_31(943)+K_31(989) in
+[-0.014025385832055518207283,
+ -0.014025385832055518207282].
+```
+
+All smaller roots 16..30 were checked independently. This refutes H_POS at its smallest admissible failing root, NOT RH, OPEN-MIDBAND, a full first-bad theorem, or an existential constant in the complete target.
+
+At **R=114**, X=12995 and D=295, the pair (67;191,197) and the pair (97;131,137) have the SAME centre c=12998=2*67*97 and SAME e=3:
+
+| Pair | v | G | Certified pair contribution |
+| --- | ---: | ---: | --- |
+| (67;191,197) | 201 | -37578 | [-0.000656211617438955193138, -0.000656211617438955193137] |
+| (97;131,137) | 291 | 6702 | [0.000112975601926191614543, 0.000112975601926191614544] |
+
+The exact threshold is 2Xe+e^2=77979, between 201^2=40401 and 291^2=84681. This is the smallest root in the frozen discovery range having e>0 but G>0. It explains why conditioning on rounding direction ALONE is insufficient.
+
+| Held-out R | Collar | NC pairs | Negative pairs | BL_free pairs | Remaining collar atoms | Certified J_NC, rounded display |
+| ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| 193 | 30 | 3 | 1 | 0 | 24 | -0.001733198515 |
+| 383 | 70 | 6 | 2 | 2 | 54 | 0.011369288934 |
+| 769 | 148 | 20 | 12 | 1 | 106 | -0.010180570815 |
+| 1531 | 371 | 42 | 22 | 8 | 271 | -0.007277180243 |
+| 3079 | 878 | 90 | 38 | 11 | 676 | 0.017552869525 |
+
+Each last-column display has absolute error <1e-12; full rational outward decimal enclosures are included below. They certify matched sums only, not J_mid or M_mid. In total, 167 selected pair contributions at the nine declared certificate roots were individually enclosed.
+
+Across the whole frozen domain, BL has 64 pairs: two are common NC edges, 19 other BL edges touch NC endpoints, and 43 remain disjoint. The resulting partition uses 640 of 2,557 collar occurrences once and leaves 1,917 occurrences. No asymptotic coverage claim follows.
+
+The first partial-overlap example is R=65. NC pairs products 4189=59*71 and 4307=59*73. BL pairs 4141=41*101 with 4307. Adding both credits would count the physical PRODUCT OCCURRENCE 4307 twice. At R=37, the common NC/BL edge is exactly Wheel RF's inherited 1349,1387 example; it is counted once, not rediscovered as new arithmetic.
+
+Largest exact G values in this finite search occur at R=3079: G=23029239683 for (2683;3527,3539), e=-1201, v=16098; and G=-25076973511 for (2963;3191,3209), e=1360, v=26667. These rank the algebraic discriminator, not the size of the full band. The maximum NC coverage is 100% at R=31. None supplies a universal coverage or amplitude constant.
+
+### G. Independent Methods And Numerical Control
+
+Primary exact reconstruction: Python 3.12.14, Eratosthenes prime flags, integer partner lookup and Fraction arithmetic. Secondary reconstruction: g++ 13.3.0, C++17, `-O2 -Wall -Wextra -Werror`; trial division independently tests the prime pair factors and enumerates BOTH upper factors, rather than looking up a reflected partner. Its separate linear sieve builds actual Mobius values and greatest-prime factors for the physical floor source.
+
+The largest finite endpoint is X=9,480,240. Python sieves each original low-prime survivor population directly; C++ independently sums
+
+```text
+sum_(1<=d<=X, mu(d)!=0, greatestPrime(d)<R) mu(d)*floor(X/d).
+```
+
+The values agree at every registered root. The unit d=1 is included. Squareful physical integers remain in the survivor population; only squareful DIVISORS have zero Mobius coefficient. Prime classification throughout the stated finite domain is deterministic, not probable-prime testing.
+
+The numerical sign certificates do NOT depend on mpmath, floating quadrature, or a library logarithm. They use Fraction arithmetic, the atanh power series for log(X/n) with explicit geometric remainder, rational brackets for sqrt(R), and Machin's alternating arctangent formula for pi. The exact cubic spline times 15 sine monomials is integrated symbolically. With V>=2sqrt(R)|log(X/n)|<1, the integrated remainder is at most
+
+```text
+V^31/(3*31!),
+```
+
+because 0<=b<=1, integral_U^(2U)dt/t=log(2)<1, and pi>3. Every operation is rounded OUTWARD on an exact rational 10^-200 grid. Thus finite denominator control does not lose enclosure. Log series use 36 terms and square-root brackets use 60 decimal digits. R=31 and the R=114 positive-e witness were refined to 20 sine terms, 48 log terms and 72 square-root digits; refined intervals lie inside the primary intervals.
+
+Two implementation issues were exposed and resolved, not hidden. The initial optional mpmath import failed; package retrieval was blocked by HTTP 403. No mathematical result was obtained from that path. The final programs use only the standard library. An unrounded Fraction aggregate was stopped because unrelated denominators made exact addition unnecessarily expensive. A first outward 10^-80 grid was valid but its absolute rounding errors grew under high-power refinement, so the required interval-nesting check failed (the intervals overlapped). The final 10^-200 grid passes the stronger nesting test. No sign, root, coefficient, constant or hypothesis was changed to obtain agreement.
+
+Observed Python main elapsed time: 0.2813678219999929 seconds; final certificate elapsed time: 4.8044845439999335 seconds, as measured inside the executed programs. These are measurements from this environment, not performance guarantees. C++ execution completed successfully; no independently instrumented CPU/memory benchmark is asserted.
+
+### H. Complete Original Source And Signed Return
+
+The new mechanism is a proper spectral subset, not the complete first-owner ledger. To guard the source distinction, the original compensated integer total was reconstructed independently at all 118 roots. The full divisor cube was evaluated with exact rationals ONLY at R=2,3,14,16,31. At larger roots the virtual correction remains explicitly
+
+```text
+F_virtual=X*(delta(y)-sum_(physical d|P_y,d<=X)mu(d)/d),
+F_physical=X*sum_(physical d)mu(d)/d - floor_source,
+F_R-X*delta(y)=-floor_source.
+```
+
+No exponential cube was enumerated at the larger roots, and no virtual term was simply discarded.
+
+At the decisive R=31, all 1,024 divisors split into 131 physical and 893 virtual entries:
+
+```text
+delta(30)=442368/2800733,
+F_physical=-492645169/215656441,
+F_virtual=197052256/215656441,
+F_R=-3838869/2800733,
+F_R-960*delta(30)=-153,
+pi(960)=162=10-1+153.
+```
+
+R=2 has the empty prime wheel and the unit divisor. R=14 retains d=X=195. These and the prior R=16 ledger were narrow boundary regressions for the changed matching experiment, not new claims of the certified identities.
+
+| R | pi(X) | pi(R-1) | Exact floor source | Normalized absolute Z_R, NUMERICAL ONLY |
+| ---: | ---: | ---: | ---: | ---: |
+| 31 | 162 | 10 | 153 | 0.092077712425 |
+| 193 | 3945 | 43 | 3903 | 0.027015118431 |
+| 383 | 13566 | 75 | 13492 | 0.021466425190 |
+| 769 | 48446 | 135 | 48312 | 0.015083593161 |
+| 1531 | 172482 | 241 | 172242 | 0.013177097448 |
+| 3079 | 632357 | 439 | 631919 | 0.010568826460 |
+
+The li diagnostics use Decimal at 50 and 80 digits, Euler--Maclaurin gamma and the convergent Ei(log X) series. Their maximum observed absolute change in Z is below 3e-45. This is a stability check, NOT a certified li enclosure or a uniform theorem.
+
+Preserve the upstream FW/SC/MB paper adapter and its actual review status. With A=P_--C_-, B=P_+-C_+ and the nonconjugated bilinear band functional T,
+
+```text
+J_mid=T(P_-,P_+),
+delta_ref=-T(P_-,C_+)-T(C_-,P_+)+T(C_-,C_+),
+Z_R=S_rest+J_mid+delta_ref+e_smooth,
+S_rest=C_rest+I_Lnu+I_nuL+A(0)B(0)/2
+              +I_[0,U]+I_[2U,R].
+```
+
+Here the physical hyperbolic mixed terms I_Lnu and I_nuL are NOT the band reference terms T(P_-,C_+) and T(C_-,P_+). They remain separate. Define J_rem_close from every collar occurrence not selected by NC or BL_free, including zero-wall/fixed atoms, and J_far from the entire remaining prime rectangle. The exact new bookkeeping is
+
+```text
+Z_R = S_rest + J_NC + J_BL_free + J_rem_close
+              + J_far + delta_ref + e_smooth.
+```
+
+All seven terms remain. Squaring requires seven diagonals and ALL 21 doubled cross terms. The new program did NOT compute S_rest, these physical mixed terms, full J_mid, or their global quadratic interactions, and no such computation or global comparison is claimed. The independent exact full-wheel total is not falsely presented as a numerical reconstruction of that spectral decomposition. NC2 bounds only the two indicated disjoint matched pieces.
+
+### I. Interpretation And Proof Impact
+
+The relevant hidden variables are the exact centre residue e_p and the product span v. Prime ancestry determines the available lattice centre; logarithmic phase then compares the GEOMETRIC mean with X, not the arithmetic mean. A sign change is therefore explained by an exact quadratic inequality, not by presumed random signs.
+
+This produces a larger type of uniformly affordable matched subset than exact product reflection, without proving its coverage. The estimate is elementary enough to hold for broader admissible integer-product populations; it is NOT claimed to rule out Referee DA or Coordinator SA's synthetic models. Genuine source admission and the unpaid complements are still essential.
+
+The proper band can now be written as an explicitly O(R) selected part plus J_rem_close+J_far. A uniform O(R log R) estimate for that remaining sum would be equivalent, up to this paid part, to the OLD proper-band question on R>=16. It is NOT a new independently established supplier and does not by itself close the full RETURN. Analytic ZD's claimed 17/12+epsilon proper-band estimate remains unreviewed paper work; it is not used in NC's proof. No change to the strongest certified global Mertens baseline is claimed.
+
+### J. Falsification And Uncertainty Audit
+
+H_POS is REFUTED. The stronger informal inference that upward centre rounding always makes a pair negative is also REFUTED by the R=114 witness. The corrected sign law and inverse restriction have full paper arguments and independent finite checks, but still need external mathematical review.
+
+The fixed 8/85 bound survives the exact finite tests and has a displayed all-scale argument. It is not an empirical maximum, not asserted sharp, and not a bound on the full discrepancy. The overlap-safe 76/765 cost does not pay the unmatched population. No genuine-prime theorem is refuted with synthetic data, and no first-bad premise has been assumed or claimed satisfied.
+
+The numerical certificates are software-assisted exact rational enclosures, not Lean kernel certificates or independent Referee acceptance. The normalized li values are approximate diagnostics only. No unexecuted program is reported as run. All computation sessions needed for this report completed or were explicitly terminated before replacement.
+
+### K. Continuity And Formal Evidence
+
+All seven roles on BOTH November 9 and November 8 were retrieved at the intake report snapshot. TODAY=PRESENT throughout; YESTERDAY=CARRY_FORWARD means retaining each claim's original scope/status, not endorsing every paper claim. Coordinator 00/90 mirrors had identical blobs on each date and were counted once.
+
+| Role | November 9 blob | November 8 blob |
+| --- | --- | --- |
+| Coordinator | 35edd925446bfaf4babab99017ad8019db322915 | 8b640304f6c233a2c4409b9882799de485888a9e |
+| Owner | 643e8a004d9d8e0be102b03e2f79bb3b217ae916 | 4e1b83a1e5ff8c134e9ca64404397c70c2b07252 |
+| Analytic | d1d0d86d444b9c447cf6acf4bd18fdcaf02e56a3 | edecba8785a45cda87c0035d0348695941f1b8ea |
+| Wheel | 0624246d03b19cf76c01e186b7d868a248d896ef | 60d4cf1b65d4b1b2cc4f13f6c0940c14cb2c50fd |
+| Census | 6ad4c84512730dfc1cb7fc79540c248931cb8ddf | 00f4f9c0d670821a0c9d1da31fd1c4d0afd09142 |
+| Referee | 01869acbc9d0535fe4791354a0029b8f77981723 | 5371324ebbdbd88afb9abf843e83da2ce86b752f |
+| Lean | 4402811bbc7198731f83036f73836ef336c2015a | 5a110685bbe375d8ebff42df7391162914e52cef |
+
+Relevant current handoffs consumed: Coordinator FB/MP/SA; Owner FW/CT/CF; Analytic SC/MB/ZD; Wheel RA/DG/RF; own CR/BL; Referee DA and its BL3 acceptance; Lean RA and near-resonance implementation/CI limitation. Yesterday's FM, JS, EC, FD, AF and SG concern other carriers or accepted baseline work; none was rerun or transferred by analogy.
+
+EXTERNAL_HANDOFFS blob **038018145c0fddb2f6306c0712373adf9cd1ea52** has no entry later than October 18. EXT-20261018-PNT-1..3, EXT-20261017-XCOORD-1 and EXT-20261014-5 were consumed as signed-source, prime-root endpoint and unconditional/first-bad safeguards. Their old campaign priorities do not override the current finite-wheel directive.
+
+No open/draft PR was returned at intake. Recent accepted changes were checked directly: #1119-#1124 are merged, and #1125 merged at 2026-11-09T23:01:09Z into the pinned main.
+
+Formal evidence was checked rather than inferred from the merge title. The actual [#1122 targeted job](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42561949462/job/128980092032) checks out synthetic merge **1e3c182076a6e1a23ef132c41a78b0f26adab507**, compiles CompleteSquareRootWheelFractionalBoundary, and prints only propext, Classical.choice and Quot.sound for the centered identity and physical compensation. Its source was fetched at that compiled commit and exactly matches current main's blob **ecb482e52deeee5e9b3853592a3ffdace662d2ff**. This is reused source-specific formal evidence, not a new build of all current main.
+
+For #1125, the literal proof head is **538aa743a3e0de86b5ec44c9b4f159df3f5bd050**. Its dedicated [run 42674337064](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42674337064) is completed/failure and returns ZERO jobs. The merge changes repository state, not that missing targeted verification. The initial conversational description of the merge as a certification was corrected during this run. No near-resonance PROVED_IN_LEAN promotion is made here, and no local Lean was executed.
+
+### L. Specialist Handoffs
+
+**Proof Architect:** record NC2 as an independently derived proper O(R) cost and NC3 as a scoped falsifier, not an endpoint gain. Its exact consumer is the displayed seven-part RETURN; all complementary obligations stay open. RF's approximate-map suggestion has now been tested without changing the research campaign.
+
+**Owner Payment:** nearest-centre pairs preserve one lower prime, but their upper member is above X. No physical donor or Euler reference is created by this. A worthwhile NEXT question is the exact missing-partner map: for an unpaired above-wall pq, put q'=2k_p-q; when q' is an admitted odd composite and p*q'<=X, trace its actual lower owner, duplicate donor multiplicity, and original signed reference. This is a proposed new experiment, NOT a source-payment theorem supplied here.
+
+**Analytic Type II:** NC2 works for arbitrary bounded real band weights; the positive/negative sign law uses the actual nonnegative spline and the small phase range. Use the full nonconjugated source, both physical mixed terms and J_far. No new pointwise independence or a replacement for ZD's analytic input is claimed.
+
+**Finite Wheel:** independent enumeration confirms RF's R=37 exception and shows why that exact-reflection scarcity does not persist unchanged after centre rounding. Check NC's unique row centre, fixed points, exact sign, and overlap rule. Enlarging the same count table is not the next task; a genuine composite-partner owner bridge would be different.
+
+**Adversarial Referee:** audit NC1's phase range, NC2's termwise signed combination and count<=D, constants 8/85 and 76/765, and NC4's strict inverse inequality. Check R=31, the equal-centre R=114 pair, and the R=65 double-credit trap. All new proof claims are SELF_AUDIT pending your independent review.
+
+**Lean Verification:** no immediate proof-source edit is requested. First restore the exact required #1125 verification evidence under existing permissions. NC's finite certificates and compact arithmetic sign discriminator are available for later accepted-scope work; do not formalize an assumed remainder bound and call that global progress.
+
+These are asynchronous report handoffs only. No agent was launched or rescheduled.
+
+### M. Ranked Experimental Portfolio
+
+| Rank | Exact proposal | Evidence and counterevidence | Disposition / next requirement |
+| --- | --- | --- | --- |
+| 1 | Missing reflected prime partners with composite q' can be traced to specified original lower-owner sites with controlled multiplicity and exact coefficients | Concrete map proposed in L; NO computation or signed payment proved for it here | INVESTIGATE only after fixing its physical admission and Euler allocation; first falsifier is duplicated donor or coefficient mismatch |
+| 2 | Selected nearest-centre pair absolute totals <=8R/85 for every R>=16 | Displayed paper proof; 118-root exact census and rational certificates | SEND FOR REVIEW; do not optimize the constant or expand unchanged counts without a new consumer |
+| 3 | sign(pair)=sign(v^2-2Xe-e^2), positive above-centre pairs imply e<R/32 | Exact paper discriminator; R=114 shows e alone is insufficient | RETAIN as a structural classification, not a full cancellation principle |
+| 4 | Every nearest-centre pair is nonnegative | Smallest counterexample R=31 | REJECT; do not impose positivity as an entrance condition |
+| 5 | J_rem_close+J_far is uniformly O(R log R) | Still the prior proper-band conjecture after an O(R) reduction | OPEN; needs a new arithmetic estimate, and full RETURN remains separate |
+
+### N. Resume Capsule And Reproduction
+
+```text
+RUN=20261109-census-3; scheduled 19:00:01 EST; platform RUN_ID_UNAVAILABLE.
+MAIN=e7ffe4e01fd049dfe6f47af86a9984bc0b843576, unchanged before synthesis.
+ACK=FINITE_WHEEL_CENTERED_RH_V1.
+REGISTRATION=3f37ca15ffbbe233abcf5b0fc5f935709009fd40, readback verified.
+NEW=NC1 exact sign, NC2 uniform 8R/85 subset bound,
+    NC3 minimal R=31 falsifier, NC4 inverse restriction/R=114 same-centre split.
+RANGE=all R16..128 plus held-outs 193,383,769,1531,3079.
+CHECKS=118 independent pair/floor-source comparisons; 167 pair enclosures;
+       five full rational wheel cubes; exact overlap/fixed-point accounting.
+KEEP=all virtual compensation, original spline and phase, both physical mixed
+     orientations, far/unmatched terms, and all global cross terms.
+NEXT=specify and test composite reflected-partner -> physical lower-owner map
+     with original coefficients, reference allocation and donor multiplicity.
+DO_NOT_REPEAT=CR/BL sign scans, unchanged NC coverage tables, paid RF exact
+              classification, or constant optimization with no new consumer.
+GLOBAL_GAIN=NONE; NEW_LEAN=NONE; RH and full uniform bound remain OPEN.
+```
+
+Execution commands, from the directory containing the three embedded programs:
+
+```bash
+python -m py_compile nc_probe.py nc_certificates.py
+g++ -O2 -std=c++17 -Wall -Wextra -Werror nc_reference.cpp -o nc_reference
+./nc_reference > nc-reference.json
+python nc_probe.py
+python nc_certificates.py
+```
+
+The programs generate complete root/pair lists, exact rational source ledgers and certificate outputs. No randomness or seed is used. Reproduction requires only Python's standard library and a C++17 compiler. Source and artifact hashes:
+
+```text
+6d92698c02e6232eac6d848ff3db40200787e550f689e8b1afaf545ca9ca1224  nc_probe.py
+0a200858bab6992330973e61d13b7ac954cda805400721369c5686c38439e157  nc_reference.cpp
+085d74119afdba6e710a30d9ffdf8028391adbe6a4e53f9ce6cb475f7c761877  nc_certificates.py
+547bb657dc3c87b6e52500a3df162a0e57ebbdab03e3b6e1a4d17feb825ec167  nc-results.json
+904a70a8ed434d78e5705947c6ac5ca07b0ed0aeaf4e61fa122baac5e00f78a0  nc-reference.json
+48fd8035797fbd71fac2e572a19728abae7a59ff0210b9ad5bf394f663a825ad  nc-certificates.json
+4937180c5edeb68148f936ecb4910a26fe5b66a290160c8483834f4b88591bdc  nc-registration.md
+```
+
+Runtime-dependent timing fields cause regenerated JSON hashes to differ even when mathematical output is identical. Compare those fields separately. Publication is PENDING until the immutable commit/readback receipt appended below. Only the owned daily report is changed remotely.
+
+### Exact Executed Programs - NC
+
+#### nc_probe.py
+
+```python
+"""Frozen NC discovery: exact arithmetic first; transcendental output diagnostic."""
+
+import bisect
+import hashlib
+import json
+import math
+import platform
+import time
+from decimal import Decimal, localcontext
+from fractions import Fraction
+from pathlib import Path
+
+ROOTS = list(range(16, 129)) + [193, 383, 769, 1531, 3079]
+HERE = Path(__file__).resolve().parent
+
+
+def sieve(limit):
+    flags = bytearray(b"\x01") * (limit + 1)
+    flags[:2] = b"\x00\x00"
+    for p in range(2, math.isqrt(limit) + 1):
+        if flags[p]:
+            flags[p * p :: p] = b"\x00" * ((limit - p * p) // p + 1)
+    return flags
+
+
+def census(r, primes, flags):
+    x = r * r - 1
+    h = math.isqrt(r - 1) + 1
+    d = x // (4 * h)
+    lo = [p for p in primes if r <= 2 * p and p < r]
+    hi = [q for q in primes if r <= q < 2 * r]
+    collar = {p * q: (p, q) for p in lo for q in hi if abs(p * q - x) <= d}
+    assert len(collar) == sum(abs(p * q - x) <= d for p in lo for q in hi)
+    pairs, fixed, used = [], [], set()
+    for p in lo:
+        k = (2 * x + p) // (2 * p)
+        e = p * k - x
+        assert 2 * abs(e) < p
+        if r <= k < 2 * r and flags[k] and abs(p * k - x) <= d:
+            fixed.append([p, k])
+        for q in hi:
+            qq = 2 * k - q
+            if q < qq < 2 * r and qq >= r and flags[qq]:
+                n, nn = p * q, p * qq
+                if n not in collar or nn not in collar:
+                    continue
+                assert n < x < nn
+                assert n not in used and nn not in used
+                used.update([n, nn])
+                v = p * (qq - q) // 2
+                g = x * x - n * nn
+                assert g == v * v - 2 * x * e - e * e
+                assert g != 0
+                if e <= 0:
+                    assert g > 0
+                if e > 0 and g > 0:
+                    assert 32 * e < r
+                    assert 2 * (x + d) * e < d * d
+                pairs.append([p, q, qq, e, v, g])
+    bl = [(n, 2 * x - n) for n in sorted(collar) if n < x and 2 * x - n in collar]
+    nc_edges = {(p * q, p * qq) for p, q, qq, *_ in pairs}
+    common = [edge for edge in bl if edge in nc_edges]
+    free = [edge for edge in bl if edge[0] not in used and edge[1] not in used]
+    conflict = [edge for edge in bl if edge not in common and edge not in free]
+    for n, nn in free:
+        used.update([n, nn])
+    residual = sorted(set(collar) - used)
+    assert 2 * len(pairs) + 2 * len(free) + len(residual) == len(collar)
+    assert len(pairs) <= d
+    bound = Fraction(len(pairs) * h, 3) * (
+        Fraction(r, x - d) + Fraction(d * d, x * x - d * d)
+    )
+    assert bound <= Fraction(8 * r, 85)
+    return {
+        "R": r, "X": x, "h": h, "D": d,
+        "rectangle": len(lo) * len(hi), "collar": len(collar),
+        "pairs": pairs, "fixed": fixed, "BL_pairs": bl,
+        "BL_common": common, "BL_conflict": conflict, "BL_free": free,
+        "residual": residual, "negative": sum(z[-1] < 0 for z in pairs),
+        "positive_e_positive": [z for z in pairs if z[3] > 0 and z[-1] > 0],
+        "rational_abs_budget": str(bound),
+    }
+
+
+def complete_wheel(r, primes, prime_flags):
+    x = r * r - 1
+    low = primes[:bisect.bisect_left(primes, r)]
+    survivors = bytearray(b"\x01") * (x + 1)
+    survivors[0] = 0
+    delta = Fraction(1)
+    for p in low:
+        survivors[p::p] = b"\x00" * (x // p)
+        delta *= Fraction(p - 1, p)
+    count = sum(survivors)
+    pi_x = sum(prime_flags[:x + 1])
+    assert count == 1 + pi_x - len(low)
+    f = x * delta - count
+    assert f - x * delta == -count
+    result = {"R": r, "survivors": count, "pi_X": pi_x, "pi_root": len(low),
+              "delta": str(delta), "F": str(f), "compensated": -count,
+              "virtual": "X*(delta - sum_{d|P,d<=X} mu(d)/d)"}
+    return result
+
+
+def cube(r, primes):
+    x = r * r - 1
+    terms = [(1, 1)]
+    delta = Fraction(1)
+    for p in primes:
+        if p >= r:
+            break
+        terms += [(p * n, -s) for n, s in terms]
+        delta *= Fraction(p - 1, p)
+    physical = sum((s * Fraction(x % n, n) for n, s in terms if n <= x), Fraction())
+    virtual = sum((s * Fraction(x, n) for n, s in terms if n > x), Fraction())
+    floor = sum(s * (x // n) for n, s in terms)
+    reciprocal = sum((Fraction(s, n) for n, s in terms if n <= x), Fraction())
+    assert physical + virtual - x * delta == -floor
+    assert virtual == x * (delta - reciprocal)
+    assert sum((Fraction(s, n) for n, s in terms), Fraction()) == delta
+    return {"R": r, "divisors": len(terms), "physical_count": sum(n <= x for n, _ in terms),
+            "physical": str(physical), "virtual": str(virtual), "delta": str(delta),
+            "F": str(physical + virtual), "floor": floor}
+
+
+def bernoulli(n):
+    b = [Fraction(1)]
+    for m in range(1, n + 1):
+        b.append(-sum(Fraction(math.comb(m + 1, k)) * b[k] for k in range(m)) / (m + 1))
+    return b
+
+
+def li_diagnostic(x, precision):
+    # Euler--Maclaurin gamma and the convergent Ei series; not an interval certificate.
+    with localcontext() as ctx:
+        ctx.prec = precision + 15
+        n = 1000
+        b = bernoulli(60)
+        gamma = sum((Decimal(1) / k for k in range(1, n + 1)), Decimal(0))
+        gamma -= Decimal(n).ln() + Decimal(1) / (2 * n)
+        for k in range(1, 31):
+            c = b[2 * k]
+            gamma += Decimal(c.numerator) / (c.denominator * (2 * k) * n ** (2 * k))
+        z = Decimal(x).ln()
+        total, power = Decimal(0), Decimal(1)
+        for k in range(1, 5000):
+            power *= z / k
+            term = power / k
+            total += term
+            if k > 2 * z and abs(term) < Decimal(10) ** (-precision - 10):
+                break
+        else:
+            raise AssertionError("Ei series did not converge")
+        ctx.prec = precision
+        return +(gamma + z.ln() + total)
+
+
+def main():
+    start = time.perf_counter()
+    flags = sieve(max(ROOTS) ** 2 - 1)
+    small = [n for n in range(2, 2 * max(ROOTS)) if flags[n]]
+    rows = [census(r, small, flags) for r in ROOTS]
+    first_negative = next((dict(R=a["R"], pair=z) for a in rows for z in a["pairs"] if z[-1] < 0), None)
+    first_positive = next((dict(R=a["R"], pair=z) for a in rows for z in a["pairs"] if z[-1] > 0), None)
+    first_crossover = next((dict(R=a["R"], pair=z) for a in rows for z in a["positive_e_positive"]), None)
+    wheels = [complete_wheel(r, small, flags) for r in ROOTS]
+    cubes = [cube(r, small) for r in sorted({2, 3, 14, 16, first_negative["R"]})]
+    selected = sorted({16, first_negative["R"], first_positive["R"], 37, *ROOTS[-5:],
+                       *([first_crossover["R"]] if first_crossover else [])})
+    diagnostics = []
+    for r in selected:
+        row = next(a for a in rows if a["R"] == r)
+        w = next(a for a in wheels if a["R"] == r)
+        data = {}
+        for precision in (50, 80):
+            with localcontext() as ctx:
+                ctx.prec = precision
+                z = li_diagnostic(r * r - 1, precision) - w["pi_X"]
+                data[str(precision)] = {"Z": str(z), "normalized_Z": str(abs(z) / (r * Decimal(r).ln()))}
+        diagnostics.append({"R": r, "NUMERICAL_ONLY": data})
+    report = {"root_domain": ROOTS, "rows": rows, "wheels": wheels, "cubes": cubes,
+              "first_negative": first_negative, "first_positive": first_positive,
+              "first_positive_e_positive": first_crossover, "diagnostics": diagnostics,
+              "total_pairs": sum(len(a["pairs"]) for a in rows),
+              "total_negative_pairs": sum(a["negative"] for a in rows),
+              "python": platform.python_version(), "transcendental_method": "stdlib Decimal; NUMERICAL ONLY",
+              "elapsed_seconds": time.perf_counter() - start,
+              "source_sha256": hashlib.sha256(Path(__file__).read_bytes()).hexdigest()}
+    (HERE / "nc-results.json").write_text(json.dumps(report, indent=2) + "\n")
+    print(json.dumps({k: v for k, v in report.items() if k not in ("rows", "wheels", "diagnostics", "root_domain")}, indent=2))
+    print("SELECTED COUNTS", json.dumps([{k: row[k] for k in ("R", "collar", "negative")} |
+          {"NC_pairs": len(row["pairs"]), "BL_pairs": len(row["BL_pairs"]),
+           "BL_free": len(row["BL_free"]), "residual": len(row["residual"])}
+           for row in rows if row["R"] in selected]))
+
+
+if __name__ == "__main__":
+    main()
+```
+
+#### nc_reference.cpp
+
+```cpp
+#include <algorithm>
+#include <cmath>
+#include <cstdint>
+#include <iostream>
+#include <vector>
+
+bool prime(int n) {
+  if (n < 2) return false;
+  for (int d = 2; d <= n / d; ++d) if (n % d == 0) return false;
+  return true;
+}
+
+int main() {
+  std::vector<int> roots;
+  for (int r = 16; r <= 128; ++r) roots.push_back(r);
+  for (int r : {193, 383, 769, 1531, 3079}) roots.push_back(r);
+  const int limit = roots.back() * roots.back() - 1;
+  std::vector<int> spf(limit + 1), largest(limit + 1), primes;
+  std::vector<int8_t> mu(limit + 1);
+  mu[1] = 1;
+  for (int n = 2; n <= limit; ++n) {
+    if (!spf[n]) { spf[n] = n; mu[n] = -1; largest[n] = n; primes.push_back(n); }
+    for (int p : primes) {
+      if (p > spf[n] || p > limit / n) break;
+      const int m = p * n;
+      spf[m] = p;
+      largest[m] = std::max(p, largest[n]);
+      mu[m] = (n % p == 0) ? 0 : -mu[n];
+    }
+  }
+  std::cout << "[";
+  bool first_root = true;
+  for (int r : roots) {
+    const int x = r * r - 1;
+    int h = 1; while (h * h < r) ++h;
+    const int d = x / (4 * h);
+    int collar = 0, fixed = 0;
+    std::vector<std::vector<long long>> pairs;
+    std::vector<std::vector<int>> fixed_points;
+    std::vector<int> products;
+    for (int p = (r + 1) / 2; p < r; ++p) if (prime(p)) {
+      int k = x / p;
+      if (2 * (x % p) > p) ++k;
+      for (int q = r; q < 2 * r; ++q) if (prime(q)) {
+        if (std::abs(p * q - x) > d) continue;
+        ++collar;
+        products.push_back(p * q);
+        if (q == k) { ++fixed; fixed_points.push_back({p, q}); }
+        // Enumerate both genuine factors, independently of the partner lookup.
+        for (int qq = q + 1; qq < 2 * r; ++qq) if (prime(qq)) {
+          if (q + qq != 2 * k || std::abs(p * qq - x) > d) continue;
+          const long long n = p * q, nn = p * qq;
+          pairs.push_back({p, q, qq, p * k - x, p * (qq - q) / 2, 1LL * x * x - n * nn});
+        }
+      }
+    }
+    long long floor_sum = 0;
+    for (int n = 1; n <= x; ++n) if (mu[n] && largest[n] < r)
+      floor_sum += static_cast<long long>(mu[n]) * (x / n);
+    if (!first_root) std::cout << ",";
+    first_root = false;
+    std::cout << "{\"R\":" << r << ",\"collar\":" << collar
+              << ",\"fixed_count\":" << fixed << ",\"floor_sum\":" << floor_sum << ",\"pairs\":[";
+    bool first_pair = true;
+    for (const auto& z : pairs) {
+      if (!first_pair) std::cout << ",";
+      first_pair = false;
+      std::cout << "[";
+      for (size_t i = 0; i < z.size(); ++i) { if (i) std::cout << ","; std::cout << z[i]; }
+      std::cout << "]";
+    }
+    std::cout << "],\"fixed\":[";
+    for (size_t i = 0; i < fixed_points.size(); ++i) {
+      if (i) std::cout << ",";
+      std::cout << "[" << fixed_points[i][0] << "," << fixed_points[i][1] << "]";
+    }
+    std::cout << "],\"BL_pairs\":[";
+    std::sort(products.begin(), products.end());
+    bool first_bl = true;
+    for (int n : products) for (int nn : products) if (n < x && n + nn == 2 * x) {
+      if (!first_bl) std::cout << ",";
+      first_bl = false;
+      std::cout << "[" << n << "," << nn << "]";
+    }
+    std::cout << "]}";
+  }
+  std::cout << "]\n";
+}
+```
+
+#### nc_certificates.py
+
+```python
+"""Independent exact rational log/sine certificates for the frozen NC pairs."""
+
+import hashlib
+import json
+import math
+import time
+from fractions import Fraction as F
+from pathlib import Path
+
+
+HERE = Path(__file__).resolve().parent
+GRID = 10 ** 200
+
+
+def outward(a):
+    lo = a[0].numerator * GRID // a[0].denominator
+    hi = -((-a[1].numerator * GRID) // a[1].denominator)
+    return F(lo, GRID), F(hi, GRID)
+
+
+def point(x):
+    return (F(x), F(x))
+
+
+def add(a, b):
+    return outward((a[0] + b[0], a[1] + b[1]))
+
+
+def neg(a):
+    return (-a[1], -a[0])
+
+
+def mul(a, b):
+    v = [x * y for x in a for y in b]
+    return outward((min(v), max(v)))
+
+
+def div(a, b):
+    assert b[0] > 0
+    return mul(a, (1 / b[1], 1 / b[0]))
+
+
+def power(a, k):
+    if k == 0:
+        return point(1)
+    vals = [a[0] ** k, a[1] ** k]
+    if k % 2 == 0 and a[0] <= 0 <= a[1]:
+        vals.append(F(0))
+    return outward((min(vals), max(vals)))
+
+
+def log_ratio(a, b, terms=36):
+    w = F(a - b, a + b)
+    total = 2 * sum((w ** (2 * j + 1) / (2 * j + 1) for j in range(terms)), F())
+    error = 2 * abs(w) ** (2 * terms + 1) / ((2 * terms + 1) * (1 - w * w))
+    return outward((total - error, total + error))
+
+
+def arctan(inv, terms):
+    w = F(1, inv)
+    total = sum(((-1) ** j * w ** (2 * j + 1) / (2 * j + 1) for j in range(terms)), F())
+    following = total + (-1) ** terms * w ** (2 * terms + 1) / (2 * terms + 1)
+    return min(total, following), max(total, following)
+
+
+PI = add(mul(point(16), arctan(5, 60)), neg(mul(point(4), arctan(239, 18))))
+assert 3 < PI[0] < PI[1] < F(22, 7)
+
+
+def sqrt_interval(n, digits=60):
+    scale = 10 ** digits
+    lo = math.isqrt(n * scale * scale)
+    return F(lo, scale), F(lo + 1, scale)
+
+
+def kernel(r, n, terms=15, log_terms=36, sqrt_digits=60):
+    ell = log_ratio(r * r - 1, n, log_terms)
+    u = sqrt_interval(r, sqrt_digits)
+    total = point(0)
+    for j in range(terms):
+        power_ = 2 * j + 1
+        # Integrate the exact cubic spline times each sine monomial in t.
+        a = mul(point(F(2 ** power_ - 1, power_)), power(u, power_))
+        b = mul(point(F(-6 * (2 ** (power_ + 2) - 1), r * r * (power_ + 2))), power(u, power_ + 2))
+        c = mul(point(F(6 * (2 ** (power_ + 3) - 1), r ** 3 * (power_ + 3))), power(u, power_ + 3))
+        integrated = add(add(a, b), c)
+        coeff = mul(point(F((-1) ** j, math.factorial(power_))), power(ell, power_))
+        total = add(total, mul(coeff, integrated))
+    v = 2 * u[1] * max(abs(x) for x in ell)
+    assert v < 1
+    # 0<=b<=1, integral_U^(2U) dt/t=log(2)<1, and pi>3.
+    error = v ** (2 * terms + 1) / (3 * math.factorial(2 * terms + 1))
+    total = div(total, PI)
+    return total[0] - error, total[1] + error
+
+
+def display(interval, digits=24):
+    scale = 10 ** digits
+    def dec(n):
+        sign = "-" if n < 0 else ""
+        n = abs(n)
+        return f"{sign}{n // scale}.{n % scale:0{digits}d}"
+    lo = interval[0].numerator * scale // interval[0].denominator
+    hi = -((-interval[1].numerator * scale) // interval[1].denominator)
+    return [dec(lo), dec(hi)]
+
+
+def main():
+    start = time.perf_counter()
+    primary = json.loads((HERE / "nc-results.json").read_text())
+    reference = json.loads((HERE / "nc-reference.json").read_text())
+    wheels = {a["R"]: a for a in primary["wheels"]}
+    for a, b in zip(primary["rows"], reference, strict=True):
+        assert a["R"] == b["R"]
+        assert a["pairs"] == b["pairs"]
+        assert a["collar"] == b["collar"]
+        assert len(a["fixed"]) == b["fixed_count"]
+        assert a["fixed"] == b["fixed"]
+        assert a["BL_pairs"] == b["BL_pairs"]
+        used = {p * q for p, q, qq, *_ in b["pairs"]} | {p * qq for p, q, qq, *_ in b["pairs"]}
+        assert a["BL_free"] == [edge for edge in b["BL_pairs"] if not used.intersection(edge)]
+        assert wheels[a["R"]]["survivors"] == b["floor_sum"]
+    selected = {24, 31, 37, 114, 193, 383, 769, 1531, 3079}
+    totals, certificates = [], []
+    for row in primary["rows"]:
+        r = row["R"]
+        if r not in selected:
+            continue
+        total = point(0)
+        for p, q, qq, e, v, g in row["pairs"]:
+            val = add(kernel(r, p * q), kernel(r, p * qq))
+            assert val[0] > 0 if g > 0 else val[1] < 0
+            total = add(total, val)
+            if r in (24, 31, 37, 114):
+                certificates.append({"R": r, "p": p, "q_minus": q, "q_plus": qq,
+                                     "e": e, "v": v, "G": g, "interval": display(val)})
+            if (r, p, q, qq) in ((31, 23, 41, 43), (114, 97, 131, 137)):
+                refined = add(kernel(r, p * q, terms=20, log_terms=48, sqrt_digits=72),
+                              kernel(r, p * qq, terms=20, log_terms=48, sqrt_digits=72))
+                assert val[0] <= refined[0] <= refined[1] <= val[1]
+        assert -F(8 * r, 85) <= total[0] <= total[1] <= F(8 * r, 85)
+        totals.append({"R": r, "pairs": len(row["pairs"]), "interval": display(total),
+                       "abs_budget": row["rational_abs_budget"]})
+    output = {"independent_root_checks": len(reference), "certified_pairs": certificates,
+              "certified_sums": totals, "terms": 15, "log_terms": 36,
+              "sqrt_decimal_digits": 60, "pi_interval": display(PI, 60),
+              "outward_rational_grid_digits": 200,
+              "refinement_witnesses": [[31, 23, 41, 43], [114, 97, 131, 137]],
+              "elapsed_seconds": time.perf_counter() - start,
+              "source_sha256": hashlib.sha256(Path(__file__).read_bytes()).hexdigest()}
+    (HERE / "nc-certificates.json").write_text(json.dumps(output, indent=2) + "\n")
+    print(json.dumps(output, indent=2))
+
+
+if __name__ == "__main__":
+    main()
+```
+
+### Certified Numerical Output - NC
+
+```json
+{
+  "independent_root_checks": 118,
+  "certified_pairs": [
+    {
+      "R": 24,
+      "p": 19,
+      "q_minus": 29,
+      "q_plus": 31,
+      "e": -5,
+      "v": 19,
+      "G": 6086,
+      "interval": [
+        "0.017096109094279513403053",
+        "0.017096109094279513403054"
+      ]
+    },
+    {
+      "R": 31,
+      "p": 23,
+      "q_minus": 41,
+      "q_plus": 43,
+      "e": 6,
+      "v": 23,
+      "G": -11027,
+      "interval": [
+        "-0.014025385832055518207283",
+        "-0.014025385832055518207282"
+      ]
+    },
+    {
+      "R": 37,
+      "p": 19,
+      "q_minus": 71,
+      "q_plus": 73,
+      "e": 0,
+      "v": 19,
+      "G": 361,
+      "interval": [
+        "0.000267398147149267111990",
+        "0.000267398147149267111991"
+      ]
+    },
+    {
+      "R": 114,
+      "p": 67,
+      "q_minus": 191,
+      "q_plus": 197,
+      "e": 3,
+      "v": 201,
+      "G": -37578,
+      "interval": [
+        "-0.000656211617438955193138",
+        "-0.000656211617438955193137"
+      ]
+    },
+    {
+      "R": 114,
+      "p": 97,
+      "q_minus": 131,
+      "q_plus": 137,
+      "e": 3,
+      "v": 291,
+      "G": 6702,
+      "interval": [
+        "0.000112975601926191614543",
+        "0.000112975601926191614544"
+      ]
+    },
+    {
+      "R": 114,
+      "p": 101,
+      "q_minus": 127,
+      "q_plus": 131,
+      "e": 34,
+      "v": 202,
+      "G": -844012,
+      "interval": [
+        "-0.014697220568103436351941",
+        "-0.014697220568103436351940"
+      ]
+    }
+  ],
+  "certified_sums": [
+    {
+      "R": 24,
+      "pairs": 1,
+      "interval": [
+        "0.017096109094279513403053",
+        "0.017096109094279513403054"
+      ],
+      "abs_budget": "76280/989523"
+    },
+    {
+      "R": 31,
+      "pairs": 1,
+      "interval": [
+        "-0.014025385832055518207283",
+        "-0.014025385832055518207282"
+      ],
+      "abs_budget": "163/2300"
+    },
+    {
+      "R": 37,
+      "pairs": 1,
+      "interval": [
+        "0.000267398147149267111990",
+        "0.000267398147149267111991"
+      ],
+      "abs_budget": "15953/233640"
+    },
+    {
+      "R": 114,
+      "pairs": 3,
+      "interval": [
+        "-0.015240456583616199930535",
+        "-0.015240456583616199930534"
+      ],
+      "abs_budget": "3524587/33756600"
+    },
+    {
+      "R": 193,
+      "pairs": 3,
+      "interval": [
+        "-0.001733198514963826198512",
+        "-0.001733198514963826198511"
+      ],
+      "abs_budget": "108632076/1386971279"
+    },
+    {
+      "R": 383,
+      "pairs": 6,
+      "interval": [
+        "0.011369288934015394583883",
+        "0.011369288934015394583884"
+      ],
+      "abs_budget": "160649152/1434267297"
+    },
+    {
+      "R": 769,
+      "pairs": 20,
+      "interval": [
+        "-0.010180570814754110566969",
+        "-0.010180570814754110566968"
+      ],
+      "abs_budget": "645239/2483514"
+    },
+    {
+      "R": 1531,
+      "pairs": 42,
+      "interval": [
+        "-0.007277180243160179562746",
+        "-0.007277180243160179562745"
+      ],
+      "abs_budget": "714116401600/1831311296133"
+    },
+    {
+      "R": 3079,
+      "pairs": 90,
+      "interval": [
+        "0.017552869525285799699860",
+        "0.017552869525285799699861"
+      ],
+      "abs_budget": "38095249080/65505218153"
+    }
+  ],
+  "terms": 15,
+  "log_terms": 36,
+  "sqrt_decimal_digits": 60,
+  "pi_interval": [
+    "3.141592653589793238462643383279502884197169399375105820974944",
+    "3.141592653589793238462643383279502884197169399375105820974945"
+  ],
+  "outward_rational_grid_digits": 200,
+  "refinement_witnesses": [
+    [
+      31,
+      23,
+      41,
+      43
+    ],
+    [
+      114,
+      97,
+      131,
+      137
+    ]
+  ],
+  "elapsed_seconds": 4.8044845439999335,
+  "source_sha256": "085d74119afdba6e710a30d9ffdf8028391adbe6a4e53f9ce6cb475f7c761877"
+}
+```
