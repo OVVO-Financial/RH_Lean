@@ -4559,3 +4559,25 @@ The initial registration commit 075800ea1d8657f7e60b8dbf6922bd7decb5749a was cre
 All computation sessions completed. The six embedded source blocks match the actual executed program files, the 50 continuation fence markers are balanced, and all required A-N sections are present. An initial shell-quoted report-lint command failed before execution; the subsequent direct content validation passed. This was a presentation check, not a failed mathematical run.
 
 EXECUTION=COMPLETE. PUBLICATION=VERIFIED for the substantive commit above. NEW_LEAN_PROOF=NONE. NEW_GLOBAL_ENDPOINT_GAIN=NONE. BL3 remains PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING. BL1-BL2/BL4-BL5 retain their stated finite scopes. This receipt preserves the prior report and will itself be verified after its append.
+
+
+## Scheduled Nearest-Centre Registration - 20261109-census-3/NC
+
+Actual trigger: 2026-11-09 19:00:01 EST, America/New_York; platform RUN_ID_UNAVAILABLE. This is one scheduled continuation of the existing report. Execution=IN_PROGRESS; mathematics=PENDING finite checks; final synthesis=PENDING.
+finite_wheel_ack=FINITE_WHEEL_CENTERED_RH_V1.
+
+Authority at intake: main e7ffe4e01fd049dfe6f47af86a9984bc0b843576; AGENTS 6695522a45d67fd1e80a7cff1f98d909405036e2; contract 95566e37c8eaeb99ee680660df4f9d2e06ea5038; directive e505f35522b675c6b5b263eac73618d717346973; complete-wheel source ecb482e52deeee5e9b3853592a3ffdace662d2ff. Original source definitions were read. Both November 9 and November 8 reports of all seven roles and EXTERNAL_HANDOFFS were retrieved at agent-reports 2790c7061df77c4ba3c27fd290cc539128611273. TODAY=PRESENT for all roles; yesterday retains its original status. No scheduled launch is inferred from filenames.
+
+Selected new question, responding to Wheel RF's explicit approximate-reflection handoff: can once-only reflection about the nearest centre permitted by a shared LOWER prime produce a larger affordable matched subset, and does its sign remain positive? This is NOT another unchanged BL/CR sign scan. No claim that this subset closes the full source is being tested.
+
+For integer R>=16 put X=R^2-1, h=ceil(sqrt R), D=floor(X/(4h)). The genuine rectangle is primes R<=2p, p<R, R<=q<2R; its collar has |pq-X|<=D, including equality. For each p set k_p=floor(X/p+1/2), c_p=p*k_p, e_p=c_p-X. Pair distinct primes q_-<q_+ once when q_-+q_+=2k_p and BOTH products lie in the original collar. A fixed point q=k_p remains an unpaired atom. No absent prime is supplied, no occurrence is reused, and the above-wall member is not misidentified as a physical below-X site.
+
+The signed kernel is the existing BL/MB kernel K_R(n)=(1/pi) integral_[sqrt R,2sqrt R] b(t/R) sin(t log(X/n))/t dt with the original spline, without conjugation. Let J_NC be the sum of all selected pair contributions. Existing exact reflected pairs may overlap this matching; their credits MUST NOT be added twice.
+
+Competing hypotheses: H_POS asserts each selected pair has nonnegative signed contribution; the rival is that the arithmetic rounding defect e_p can overpower curvature. An advance analytical prediction, not an observation, is that the sign is determined by X^2-(p*q_-)*(p*q_+)=v^2-2X*e_p-e_p^2, v=p*(q_+-q_-)/2. We will test this exact integer discriminator, including whether e_p>0 can still yield a positive pair. A proof-led proposed uniform bound is |J_NC|<=8R/85, with constants fixed now; it requires a full analytic proof and is not inferred from samples.
+
+Frozen domains: discovery EVERY integer R=16..128; held-out roots EXACTLY 193,383,769,1531,3079. Independent trial-factor enumeration must match the primary sieve's complete pair lists, collar counts, fixed points, overlap with BL, and sign classifications. Verify the original compensated physical floor total versus direct prime/survivor enumeration at these roots; enumerate the full exponential divisor cube only for R=2,3,14,16 and the smallest new sign witness if feasible. At larger roots retain the symbolic virtual correction X*(delta-sum_physical mu(d)/d) and compute the exact compensated integer total.
+
+Record first negative and first positive witnesses, largest exact matching coverage/defect and any e_p>0 positive witness. This is a finite specified search, not a fitted global density law. Use rational log/sine series to enclose decisive pair values independently of a floating scout; use 50/80-digit li only for explicitly NUMERICAL ONLY normalized full-source diagnostics. No floating sign becomes a finite certificate without an error bound. The original complete return, BOTH physical mixed terms and complementary owners remain explicit and unbounded; only the matched-subset replacement is proposed. No global inequality or first-bad hypothesis is being refuted.
+
+New work and reproducible programs will be appended after execution. Only this report may be changed remotely. No Lean, main, other report, branch, PR, issue, workflow, schedule or permission edits; no agent launches or local Lean.
