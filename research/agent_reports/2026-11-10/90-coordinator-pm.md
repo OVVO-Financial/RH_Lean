@@ -685,3 +685,14 @@ Execution: IN_PROGRESS / PARTIAL. Publication: checkpoint prepared; successful c
 All six specialist reports and own reports for November 9 and 10, plus EXTERNAL_HANDOFFS.md, were retrieved at the intake reports commit. Relevant derivations are being read; retrieval alone is not independent acceptance. Open-PR collection is empty at intake. Strongest baseline, merged RD1 scope, exact-head proof evidence and the newer SR/RD full-consumer proposals are under source audit. No new global exponent, RH result or independently accepted new route is asserted. Conceptual research, portfolio decisions, specialist allocation and final verification: PENDING.
 
 Next task: investigate the signed principal-response/delay recovery on its actual fixed-source carrier, audit its complete exponent budget, and seek an independently justified restriction rather than assume a response bound. No agents are being launched, no schedules changed, and no Lean source or proof PR is being edited by Coordinator.
+
+
+## Registered Quintic-Delay Investigation - 20261110-coordinator-1513-EST/QD
+
+Recorded after the verified 2026-11-10 15:19:03 EST clock reading, before the following new executable checks. Correction to the earlier checkpoint: its displayed 15:20 preparation time was a transcription error; its commit/readback completed by the verified 15:15:50 EST reading. The trigger remains 15:13:01 EST. Prior evidence is otherwise unchanged.
+
+Proof-led hypothesis: the next literal principal-slot term is `B*Rloc=A*conj(eta)*Q^(3-5s)`, not an arbitrary error. Test `|slot+1+D-B*Rloc|<=14 Q^(-7/4)` for the ORIGINAL definitions, Q>=480, |A|<=1, |eta|=1, Re(s)>=7/8. Its Mellin image should be the SAME fixed signal at Z/Q^5 with outer weights and factor A*conj(eta)*Q^(3+5c). The exact weighted norm should contract only when theta>3/5; no assertion at theta=1/2. Preserve all quadratic products in the finite slot product and all six complete-return bills.
+
+Planned checks: independently evaluate nested original local formulas using exact Gaussian rationals at Q=k^8, k in {3,4,7,11,19}, unit eta and Q^(-s) phases in {1,-1,i,-i}, and A in {0,1,-1,i,-i}; test the cleared six-term residual identity, the squared constant-14 bound, original negative-normalizer signs, and small three-slot products. Separately test all changed rational budgets at t<=10^-8, m<=t/200, h<=7m/4, e<=t/2000, with h+e<=7m/4. Coherent A=0 must retain the next D^2 obstruction. A synthetic one-slot negative-phase example at theta=3/5 is a falsifier for an unrestricted threshold extension, not a genuine Hecke example. These tests do not supply an infinite arithmetic theorem.
+
+Acceptance target: a complete paper derivation (or an exact failed gate), not a global gain from a local residual alone. Mathematical status remains PENDING / SELF_AUDIT until derivation and checks finish; no new certified baseline is asserted.
