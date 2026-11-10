@@ -664,3 +664,11 @@ if __name__ == "__main__":
 ```
 
 
+
+### Verified Publication Receipt - 2026-11-10 07:54:41 EST
+
+Execution/publication status: COMPLETE. This status refers to this scheduled research execution and its published synthesis, NOT the RH objective or independent mathematical acceptance.
+
+The final synthesis was committed as `0fe51769770ec80b83071eb37e17cd39b54af918` at 2026-11-10T12:54:23Z. Both immutable report paths were fetched and compared byte-for-byte with the prepared report; each returned blob `01f34451756e3e6f51493e2f86dfe5b5a0084bec`. The commit changed ONLY the two authorized Coordinator reports. Prior checkpoint and preregistration evidence remains intact.
+
+Final main recheck before publication: `655f897e274a8ba8a2fed80ecc1fc75a0d849174`, unchanged. The independent-review and new arithmetic tasks listed above remain PENDING. Mathematical endpoint status: OPEN / NO_NEW_GLOBAL_GAIN. New UB arguments: PAPER_PROOF / SELF_AUDIT / NOT_FORMALIZED. This receipt is appended identically to both mirrors; its own commit/readback is verified by the publishing execution before delivery.
