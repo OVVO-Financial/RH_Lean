@@ -772,3 +772,689 @@ Highest-risk selected claim: 20261110-analytic-2/RD1-RD5, a proposed complete gl
 Registered independent investigation: determine whether the signed response inversion is genuinely uniform for outer-scale moving pools, and derive the strongest corrected invertibility statement and sharp failure boundary. Use exact rational/complex arithmetic for the local principal identities and finite products; no finite test will certify a global exponent. If RD's complete return has an unverified gate, identify its first exact declaration/hypothesis rather than inventing a counterexample to a different carrier.
 
 Pending: baseline dependency/CI receipt, source/loss/recovery/consumer map, independent reconstruction and adversarial tests, A-O final synthesis, publication verification. Only this owned report may be changed remotely. No Lean execution, source edit, feature branch, PR, other-agent launch, merge, workflow or schedule mutation is authorized or performed. Direct git transport returned HTTP 403; connector reads work. No unexecuted work is claimed.
+
+
+## Signed Response Survives Independent Review; A Stronger Full-Reserve Paper Boundary
+
+### Final Research Synthesis - 20261110-referee-2/SR
+
+Same actual scheduled invocation as the checkpoint: 2026-11-10 12:03:01 EST, America/New_York. Platform RUN_ID_UNAVAILABLE. Earlier LC results, corrections and publication receipts are preserved. The new governing acknowledgment is `cross_route_ack=CROSS_ROUTE_SIGNED_RECOVERY_V1`. This continuation does not claim another agent was launched.
+
+### A. Most Important Mathematical Finding
+
+**ACCEPT 20261110-analytic-2/RD1-RD5 as PAPER_PROOF at the submitted scope.** The original principal slot really contains the signed correction `-eta(p) Q_p^(-s)`. After the original finite-product normalizer this has a PLUS sign, and its Mellin return is a smaller-scale value of the SAME fixed corrected Hecke signal. The compact-supremum inversion is noncircular. Reassembling the raw anchored tails, principal remainder, supported floor and supported nonfloor rows pays the complete return. The old theorem requiring actual beta>=7/8 is not being applied below its domain.
+
+The accepted paper endpoint is
+
+```text
+b_RD = 7/8 - 1/(8 N_pack),
+forall eps>0 exists C_eps>=0 forall n>=1:
+  |M(n)| <= C_eps n^(b_RD+eps).
+```
+
+**Original investigation gives a stronger paper candidate without a stronger local estimate:** spend the already-proved `11m/8` remainder reserve instead of only `m`, where `m=actualSlotMinimum D`. The complete return below works for physical tilt `h=11m/8-e`, with a fresh source at every positive `e<=min(e_old,m/64)`. Closing only the numerical beta inequality gives
+
+```text
+SR3: beta <= 7/8 - (11/8)m,
+SR4: b_SR = 7/8 - 11/(64 N_pack),
+     forall eps>0 exists C_eps>=0 forall n>=1:
+       |M(n)| <= C_eps n^(b_SR+eps).
+```
+
+SR3-SR4 are **PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED**. They are not independently accepted by their own author. The certified baseline remains `b_base=7/8-7/(64 N_pack)`. The original RD endpoint is now independently paper-accepted, not Lean-certified. `VERIFIED_ETA=NONE`; no new certified route, RH result, finite A/C, or complete wheel bound is announced. This separation is material, not merely a publication label.
+
+### B. Current Authoritative Objective And Baseline / Dependency Receipt
+
+Authority: main `655f897e274a8ba8a2fed80ecc1fc75a0d849174`; main tree `a4889160114bebe7f7e3bf240122db7dffe44c2f`. AGENTS blob `c9c89f01b90b526de9f3e8ea92478e36504711b6`; CURRENT_PROOF_CONTRACT blob `95566e37c8eaeb99ee680660df4f9d2e06ea5038`; cross-route directive blob `e922d4ba9362a1ae196af8f6de88f7417f92087c`. The newer AGENTS directive supersedes the older contract's task-priority sentence, not any theorem or integrity safeguard. Retain finite-wheel, complete-HIGH and cancellation-chain acknowledgments as source safeguards.
+
+Canonical arithmetic objective remains OPEN:
+
+```text
+exists C>=0 forall integer R>=2:
+  |pi(R^2)-VF_can(R^2)| <= C R log R.
+```
+
+The complete wheel specialization uses `X=R^2-1`, `y=R-1`, all divisors of the primorial through y, and `F_R-D_R=li(X)-pi(X)`. The source theorem is actually stronger as an IDENTITY: its reference `L` is an arbitrary real number. Substituting `L=li(X)` supplies no estimate. The actual-prime VF-to-RH theorem still takes BOTH the arithmetic bound and `ClassicalVonKochRHCriterion`. The internal Mertens-energy-to-RH route has a different, still-unpaid arithmetic premise.
+
+The strongest explicit formal Mertens boundary reviewed here is [native_mertens_near_uniform_window_error_closed](https://github.com/OVVO-Financial/RH_Lean/blob/655f897e274a8ba8a2fed80ecc1fc75a0d849174/research/oai_434/VF919WindowErrorClosure.lean#L128). Its type is `MertensGrowthAtMost b_base`, hence EVERY positive exponent loss is retained. It has no ordinary arithmetic hypothesis. The exact definition in `MERTENS_EXPONENT_ENVELOPES.lean:29` is `forall eps>0, MertensPowerBound(b_base+eps)`, not a no-loss boundary power.
+
+Coordinator CR1 is independently accepted: the actual definitions are
+
+```text
+L=explicitFineLength>0,
+N_pack=ceil_nat(max(1,1/(6L)))+2,
+N_old =ceil_nat(max(1,1/(3L)))+2.
+```
+
+Thus `N_pack<=N_old` by monotonicity, and `7/(64N_pack)>1/(48N_old)`. The same comparison beats #1116's `5/(96N_old)`. No identification of the two counts, optimization of their size, or new exponent is hidden in this baseline comparison.
+
+The inspected dependency chain is: actual fixed fine source and certified moments -> total-mass LOW -> generated, additive 7/8-anchored raw HIGH/principal leaves -> complete signal comparison -> actual Hecke beta -> modulus-one Dirichlet/Hecke product -> actual zeta rightmost-zero coordinate -> genuine Mertens converse. The native moment supplier explicitly requires `51/100<=beta<=7/8+Delta`; its use below is confined to a contradiction range where those conditions follow. The marked-NNS interface's `PositiveFineSourceInput` is not counted as an independently proved premise for arbitrary profiles.
+
+PR #1119 is merged, head `77ee815846d6d534c866f0752aa33b84c385610a`. [Run 42552018910, job 128949473700](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42552018910/job/128949473700) was independently retrieved: completed/success, pull_request event, attempt 1, exact head. All 14 attached check-runs succeeded. The job prints the exact five endpoint types, standard terminal axioms only, and live dependency traversals of sizes 35358, 35375, 35736, 35737, 35753. Its audit traverses proof values in OAI/RHLean/private namespaces; `Lean.collectAxioms` separately checks transitive terminal axioms. It is not a human rereading of every imported analytic proof.
+
+Eighty source/audit paths under `research/oai_434`, the window-error and anchored audit directories, and the dedicated workflow were compared against that tested tree; all are unchanged on main. Pins read from the proof job and source: Lean 4.34.1, compiler `5045d0056413266e57c625dcd7c365b10e377c52`; Mathlib `d13f23b723b8a846827a245b89c10fc7d3f11612`; PrimeNumberTheoremAnd `c39a751132c88b6e8080b74c74023fd95b3d8be0`; openai/math `1581d4cbdd69a0faf34b2089614fe2a814316a6a`. Anchored generation reads RH_Lean pin `9cbfce5295343bcb411e6d2cb159b59995cd985b`. Its added declarations use the separately proved beta<=7/8; they do not redefine beta.
+
+**Warning-scope correction:** the log does contain dependency-build warnings that `PrimeNumberTheoremAnd/Wiener.lean:325,344` uses `sorry`, as well as package worktree warnings. Do not describe the entire log or imported repository as warning/placeholder-free. The selected endpoint's subsequent warning-fatal compilation and transitive axiom audit pass with only `propext`, `Classical.choice`, `Quot.sound`, excluding those placeholder axioms from the audited theorem. This is a scoped certification receipt, not a claim those unrelated declarations are proved. No local Lean execution occurred.
+
+### C. Highest-Risk Mechanism And Selection
+
+RD is selected ahead of UB/HF/BR/JC because it claims a complete new global exponent, not a proper-source restriction. The essential risk is not the elementary finite-product identity: it is whether the SAME signal, masks, weights, principal normalizer, moving row labels and height budgets survive the complete return. A large formal dependency chain cannot substitute for checking the newly proposed assembly.
+
+The relevant original loss is upstream `principal_slot_error`: an absolute bound of order `Q^(-7/8)` hides a structured signed leading correction. Restoring only its sign without its exact dilation would be insufficient. The recovery uses already-proved residue and signal identities plus a genuinely new local estimate and an elementary inversion argument.
+
+### D. Claims Reviewed And Verdicts
+
+| Claim | Independent verdict | Evidence / exact limitation |
+| --- | --- | --- |
+| 20261110-analytic-2/RD1 | ACCEPT | PAPER_PROOF; literal normalized principal slot, Q>=480, norm(A)<=1, norm(eta)=1, Re(s)>=7/8; constant 12 and all denominator conditions verified. |
+| RD2 | ACCEPT | PAPER_PROOF; fixed finite slot family, nonnegative normalized weights; PLUS linear term and every degree>=2 product retained. No uniformity in arbitrary growing N. |
+| RD3 | ACCEPT | PAPER_PROOF; exact same-mask Mellin dilation with outer weights frozen; locally bounded signal, theta>0, fixed N,m>0, and eventually 1<=Z/Q<=Z. |
+| RD4 | ACCEPT | PAPER_PROOF; six complete bills verified from raw anchored leaves, with exact heightCost=2*tau<=t and independently requested floor saving m. No reuse of the incompatible bundled HIGH window. |
+| RD5 | ACCEPT | PAPER_PROOF; actual beta and finite-deletion argument, then existing zeta/Mertens adapter; all positive final losses retained. NOT_PROVED_IN_LEAN. |
+| 20261110-coordinator-0710-EST/CR1 | ACCEPT | Actual N_pack/N_old comparison above; supports baseline selection only. |
+| CR2 | ACCEPT | Old actual-beta HIGH cannot be applied below beta>=7/8. RD avoids, rather than falsifies, this objection. |
+| 20261110-referee-2/SR1-SR4 | SELF_AUDIT | New results below, independent review pending. SR1 is an abstract inversion theorem, SR2 local sharpness, SR3-SR4 a complete paper extension. |
+| SR5 | FINITE_COMPUTATION | Newly executed exact checks; not an infinite proof or Lean certificate. |
+
+UB1-UB3, BR, JC, HF and ZD are read as relevant continuity, but are NOT collectively reviewed or accepted in this continuation. Earlier independent AP/DA/LC verdicts remain at their original scopes where their source bytes are unchanged. This run does not repeat their large arithmetic scans.
+
+### E. Independent Reconstruction Of RD
+
+#### E1. Literal local algebra and a uniform remainder
+
+Take `q=1/Q`, `z=Q^(-s)`, `D=eta*z`, `R=A*Q^3*z^6`, `B=1/D`, `K=(1-q)D`, `V=W=q`. These are the ACTUAL residue substitutions `w=1,z_residue=1/6`; the factor `Q-1` in coordK must not be removed. The definitions in upstream `Detector/Euler.lean`, `Detector/Local.lean`, and `PrincipalSlotEstimate.lean` give
+
+```text
+P=(1+q)(R-D)/(1-R),
+U=1-qR-(1-q)D,
+continuedCorrection=(1-q^2)U/((1-R)(1-D)),
+principalSlot=(1-q)(BR-1)/U-q.
+```
+
+For `a=Re(s)>=7/8`, `|D|=Q^(-a)<=1/20`, `|R|<=Q^(3-6a)<=q^2`, and `|U|>=1-1/20-480^(-3)>1/2`. Thus every division above is legitimate, including correction and D. Direct subtraction gives
+
+```text
+principalSlot+1+D =
+ [(1-q)BR-q(1-q)R+(2q-q^2)D-qRD-(1-q)D^2]/U.
+```
+
+Its norm is at most
+
+```text
+2[Q^(3-5a)+Q^(2-6a)+2Q^(-1-a)+Q^(2-7a)+Q^(-2a)]
+ <=12Q^(-11/8).
+```
+
+This is a uniform proof in Im(s), not a real-line extrapolation. The executed tests evaluate the original nested definitions independently before comparing this simplified expression.
+
+#### E2. Complete product and original normalization
+
+For slot j, let `alpha_jp=w(Q_p/Z^ell_j)Q_p^(-5/6)/M_j`, with M_j the positive sum of the original weights, and set `d_j=sum alpha_jp eta(p)Q_p^(-s)` and `e_j=sum alpha_jp E_p(s)`. The original scalar includes `(-1)^N product M_j`, so
+
+```text
+slotRatio=product_j(1+d_j-e_j)=1+sum_j d_j+R_Z.
+```
+
+If `m=min ell_j>0`, `V=sum_j|d_j-e_j|<=13N Z^(-7m/8)`. Eventually V<=1. The exact subset expansion bounds every degree>=2 term by `exp(V)V^2/2`. Consequently
+
+```text
+|R_Z| <= K_N Z^(-11m/8),
+K_N=12N+(169 exp(1)/2)N^2.
+```
+
+This pays mixed products rather than asserting they cancel. Constants and thresholds may depend on the FIXED N, not Z. The factor 2 in the upper pool cutoff affects the eventual threshold `Q<=Z`, not the lower-bound exponent.
+
+#### E3. Same signal, same exclusion set, outer weights frozen
+
+Choose fixed positive e, reconstruct F with `FirstTail(4e)`, and take `a=7/8+e`. The existing beta<=7/8 licenses the contour. Let `c=-11/16-8h`, `chi=eta.excludePrimes F.S`, `H=sourceCorrection eta F.S`, and `f=HeckeSignal.signal chi H c`. The variable-x double-residue identity gives the exact integrand `Z^(s+c) exp((s-5/6)^2) H(s)/L_chi(s)` times slotRatio. The c shift follows from `x_phys/3-5/6+1/36` with `x_phys=17/48-24h`.
+
+The Gaussian, bounded H and the established polynomial reciprocal bound give absolute integrability. A finite sum can therefore pass through the integral. Crucially,
+
+```text
+Z^(s+c) Q^(-s)=Q^c (Z/Q)^(s+c),
+T_Z f=sum_j sum_p alpha_jp(Z) eta(p) Q_p^c f(Z/Q_p).
+```
+
+The inner value uses the SAME F.S and H; it is not a new normalized probe at Z/Q. Replacing alpha(Z) by alpha(Z/Q) is unjustified. Every fixed character has an eventual pool coprimality threshold, and every ell_j<1 implies `1<=Z/Q_p<=Z` eventually. Character-dependent thresholds are allowed by the downstream zero contradiction.
+
+The full normalized principal residue is `f+T f+O(Z^(7/8+c+e-11m/8))`. There is no additional inverse-normalizer loss on this term: the exact normalized identity has already divided by that normalizer. Principal w/z remainders and physical tails separately pay their inverse-normalizer loss nu.
+
+#### E4. Noncircular inversion
+
+For any theta>0, define on a compact prefix
+
+```text
+B_X=sup_(1<=x<=X) |f(x)| x^(-theta-c).
+```
+
+It is finite from the existing signal continuity theorem. If `|f(Z)+T_Z f|<=C Z^(theta+c)` eventually, then
+
+```text
+|T_Z f| Z^(-theta-c)
+ <=B_X sum_j sum_p alpha_jp(Z) Q_p^(-theta)
+ <=B_X N Z^(-theta m).
+```
+
+Choose Z0 so that the last coefficient is at most 1/2. Taking the compact supremum yields `B_X<=max(B_init,C+B_X/2)`, hence `B_X<=max(B_init,2C)` independently of X. No target growth assumption enters this argument. Complex phases and correlations require no randomness.
+
+#### E5. Exact complete return, including the strengthened parameter range
+
+The following proves RD4 at h=m and is also the full-return input for SR3. Fix `Delta=10^(-6)`, cap the existing HighData allowances, then replace e by any positive `e<=min(e_old,m/64)` and reconstruct source/counts. Geometry, N and m are unchanged. Here `epsilon` denotes the separate detector field D.ε, `eps` denotes D.eps, and e denotes D.e; they are not interchangeable. The proved `high_data_small_errors` and the capped construction supply `epsilon<=t/2000`, `e<=t/2000`, and `(N+8)eps<=t`. Use
+
+```text
+0<h<=11m/8, h+e<=11m/8,
+nu=dyadCost=t/8, zeta=mesh=margin=loss=t,
+R_source=t, dmin=1/200, dmax=7/8, mu_margin=2t,
+logCost=momentCost=t, heightCost=2*tau<=t,
+nonfloorSaving=49/881280, largeTailSaving=1.
+```
+
+Choose tau from the existing source-height construction. It pays `C(1+Z^(2tau))^J` into `C'Z^t`, using `2tau(1+J)<=t`, and retains `4tau<(1/200)cost`, `tau<(1/200)/2`, and `tau(2+4eps)<t`. The uniform native moments are supplied at external real part 17/50, not at the principal residue's 1/6. This is a carrier distinction, not a suppressed cost.
+
+First use `canonical_probe_exists_ray_cube_tilted_anchored` for the COMPLETE raw probe minus its principal row and central cube. Then use `physical_principal_residue_remainder_tilted_anchored`, the same normalizer, and E3. Split the central cube by `finiteCentralCubeRows_supported_split`: supported floor, supported nonfloor, and exactly vanishing zero-calibration rows. Use `actual_floor_rows_saving_tilted` with its FREE `saving=h`, and `actual_nonfloor_rows_saving_tilted` with the fixed saving above. In the floor row condition choose `d=7/8`, `v=13/16+t`; `13/16+3t<7/8` pays the required conductor margin. The common canonical idx/grid labels supply the floor and nonfloor detector hypotheses, including all original dyadic rows.
+
+The six exponents after normalization are:
+
+| Complete component | Exponent | Condition to be <=3/16-9h |
+| --- | --- | --- |
+| Small physical tails | 7/8+c-63/800+8e+nu | h+8e+nu<=63/800 |
+| Large physical tails | -1-8h+nu | h+nu<=19/16 |
+| Principal w/z remainders | 7/8+c-17/48000+nu | h+nu<=17/48000 |
+| Retained-response remainder | 7/8+c+e-11m/8 | h+e<=11m/8 |
+| Supported floor | 3/16-h-8h | equality |
+| Supported nonfloor | 3/16+Delta-49/881280-8h+nu+dyadCost | Delta+h+t/4<=49/881280 |
+
+These are statements about the same full source, not six unrelated probes. With `t<=10^(-8)`, `m<=t/200`, `h<=11t/1600`, `e<=t/2000`, and `(N+8)eps<=t`, every condition has slack except the permitted equality in the response and floor bills. Further input budgets are
+
+```text
+24h<=33t/200<t; h<1/960;
+18t+49/881280<49/440640;
+2t+26e+(N+8)eps+t+t/6+nu+h<7/1200;
+159 epsilon+9t<1/32; 13/16+3t<7/8.
+```
+
+The independent rational check below verifies the affine worst-case endpoints; monotonicity in these nonnegative variables justifies their use as universal bounds. The stored HighData.sigma is NOT raised to h. In particular its old `sigma+e<=(7/8)ellMin` window is not invoked. This is exactly why Coordinator CR2 remains true while RD succeeds.
+
+Under the temporary range `51/100<=actual beta<=7/8` we obtain, for every fixed eta,
+
+```text
+J_eta-(I+T)f_eta=O(Z^(3/16-9h)),
+J_eta=O_omega(Z^(3/16-9h+omega)) for every omega>0,
+f_eta=O_omega(Z^(7/8-h+c+omega)).
+```
+
+The middle statement is the already-proved total-mass LOW theorem, with `h<1/960`. The last follows from E4 with `theta=7/8-h+omega>0`.
+
+#### E6. Actual beta and genuine Mertens return
+
+Set `g=7/8-h>21/25`. If beta>g, the existing upper bound ensures the temporary range needed for moments. Choose `omega=(beta-g)/2`, so `0<omega<h` and `g+omega=beta-omega`. The primitive-zero-near-beta theorem supplies a nonpole zero with real part greater than g+omega. The existing finite-deletion theorem preserves it in chi. Apply `nonzero_of_probe_bounds_variable_boundary` with `J=f`, analytic boundary 21/25, theta=g, beta_reference=7/8, sigma=h, and c as above. Its error is zero and its maximum boundary is g+omega. The original correction is within 1/2 of one and cannot cancel the zero. Contradiction.
+
+Therefore `beta<=7/8-h`. For h=m this proves RD5. The actual modulus-one product and Mertens converse then give the submitted b_RD. Spending `1/(128N_pack)` yields the fixed-power RD gain of the same amount below b_base. The finite initial integer range is included by the existing MertensGrowthAtMost consumer, not by endpoint-only interpolation.
+
+### F. New Counterexamples And Sharp Scope
+
+**SR1: weighted response inversion and its sharp endpoint.** Let f:[1,infinity)->C be locally bounded, c and theta real, and at every sufficiently large Z let
+
+```text
+T_Z f=sum_i b_i(Z) Q_i(Z)^c f(Z/Q_i(Z)),
+1<=Q_i(Z)<=Z,
+k_theta(Z)=sum_i |b_i(Z)| Q_i(Z)^(-theta)<=kappa<1.
+```
+
+The sums are finite; their sizes, phases and locations may vary. If `|f+Tf|<=C Z^(theta+c)` eventually, then
+
+```text
+|f(x)| <= max(B_init,C/(1-kappa)) x^(theta+c)  (x>=1).
+```
+
+Proof: use the compact-prefix B_X argument in E4 with kappa in place of 1/2. Local boundedness, not an assumed global norm, supplies finite B_X. Conversely a global bound for f gives the corresponding response bound by `1+kappa`. Thus this operator rephrasing ALONE is not a new arithmetic estimate; the independently supplied complete response bound in E5 is indispensable. Fixed N is a sufficient source condition, not necessary: the exact weighted row mass k_theta is the right criterion. For RD, `k_theta<=NZ^(-theta m)->0` is supplied by actual pool geometry.
+
+The restriction cannot be dropped indiscriminately. Fix `0<m<1`, c real, one model slot `Q(Z)=Z^m`, coefficient `b=-1`, and
+
+```text
+f(x)=x^c log(1+log x).
+f(Z)+T_Z f=Z^c log[(1+log Z)/(1+(1-m)log Z)].
+```
+
+The bracketed logarithm is between 0 and `-log(1-m)`. Thus the response is O(Z^c), but f is NOT O(Z^c). This is a counterexample to the abstract theta=0 strengthening, satisfying its local boundedness, unit phase, one-slot and delay-domain hypotheses. It is MODEL_ONLY, not a genuine Hecke-phase or Mobius counterexample, and it does not refute RD3, whose theta is positive.
+
+Even theta>0 does not justify arbitrary slot proliferation. With `N(Z)=floor(Z^(theta*m))` identical negative model slots and `f(x)=x^(theta+c)log(1+log x)`, the response divided by Z^(theta+c) is the bounded preceding logarithmic difference plus at most `Z^(-theta*m)log(1+(1-m)log Z)`. The target f bound still fails, while k_theta approaches one. This refutes only the unrestricted growing-N extension of the abstract lemma; it is not admitted as the repository's fixed distinct-slot physical source.
+
+**SR2: the local 11/8 remainder exponent is sharp for the stated coefficient class.** Set `Q=n^8`, `s=7/8`, `eta=A=1`, with integer n>=3. These satisfy EVERY hypothesis of RD1. Then `q=n^(-8)`, `D=n^(-7)`, `R=n^(-18)`, `BR=n^(-11)`, U->1, and E1 gives
+
+```text
+n^11 (principalSlot+1+D) -> 1.
+```
+
+Indeed the cleared numerator after multiplication by n^11 is
+
+```text
+(1-n^-8)-n^-15(1-n^-8)+2n^-4-n^-12-n^-22-(1-n^-8)n^-3,
+```
+
+and the denominator is `1-n^-26-(1-n^-8)n^-7`. This is an exact rational infinite family, not a fitted numerical trend. Consequently no uniform `o(Q^(-11/8))` replacement is possible in RD1's full stated A/eta class. Before removing -D, the raw error remains of order Q^(-7/8), so simply changing the old absolute-error exponent is false.
+
+This does NOT prove that the genuine arithmetic remainder cannot enjoy further cancellation, nor that the full endpoint below is optimal. A new signed expansion retaining BR, or another valid joint-source argument, could pass this particular first-order barrier. A=1 is an allowed local coefficient, not an asserted realization at every genuine ideal prime.
+
+### G. Original-Carrier Audit And Four-Way Source Map
+
+Selected physical source: the COMPLETE fixed-source compensated OAI probe. All entries below preserve original normalizers and state the actual bridge, not an asserted equality of error terms.
+
+| Euler / finite AC | VF / actual prime discrepancy | NNS / OAI | Square blocks / native prefix | Prime-Mobius coupling |
+| --- | --- | --- | --- | --- |
+| `X_R=R^2-1`, `Q_R=sum_(1<=a,b<R)mu(a)mu(b)floor(X_R/(ab))=2M(R-1)-M(X_R)`, strict historical `K_R=max_(0<=y<R)(M(y)-1)^2/(y+1)`. EXACT_IDENTITY at `eulerSelfDualBilinear_eq_two_mertens_sub_endpoint`; finite-C bound OPEN. | `F_R-D_R=L-pi(X_R)` for arbitrary real L; specialize L=li(X_R). Complete physical and virtual divisor compensation, unit survivor and root-prime admission retained. EXACT_IDENTITY, not a bound. VF/Li normalization has its fixed O(1) and classical-interface conditions. | Actual Hecke-ideal pools outside fixed F.S; compensated atoms, original alpha(Z), Gaussian and principal scalar. Signed LOW Gram EXACT_IDENTITY; no negative sign is assumed. The binding restored multiplier is internal to this source. | `M(X_R)` is a full integer prefix; shell increments and sum-of-shell-squares are not substitutes. OAI real scale Z is not identified with R or R^2. The verified beta -> zeta -> all-integer Mertens chain is ONE_WAY_IMPLICATION. | No coefficientwise equality between rational mu and ideal Hecke phases is proved or used. Owner BR's prime/floor-Li divisor renewal has different admitted events and weights. Direct marked-moment-to-wheel or arbitrary-NNS-to-Q_R recovery remains OPEN_BRIDGE. |
+
+RD/SR do not discard diagonal, principal, mixed, conductor, remote-height or zero-calibration terms. E2 explicitly retains all finite-product interactions. E5 uses exact supported-row splitting before bounds. The final Mertens signed-pair consumer, if invoked, must retain the true squarefree diagonal; this report does not replace a square-of-sum by a sum-of-squares or spend negative covariance twice.
+
+### H. Quantifier And No-Circularity Audit
+
+The hierarchy is fixed Delta and geometry -> chosen positive e -> fresh source F/counts -> chosen physical h and admissible tau -> each character eta -> eventual real Z. All source constants are chosen before Z. Heights are uniformly supplied and then paid; character-dependent constants are allowed. Distinct fixed ell_j make eventual pools disjoint; no growing N is silently introduced. The actual source correction remains fixed within every individual inversion argument.
+
+The response norm and signal norm are quantitatively equivalent under SR1's independent row-contraction condition. Therefore ASSUMING the required response estimate would merely move the unresolved quantitative claim. Here it is DERIVED: the signed local correction, exact residue identity, already-paid total-mass LOW and all six raw-return bills supply it. No norm boundedness, admissibility property, or endpoint inequality is introduced as a new premise.
+
+Forward implication is explicit: complete response estimate -> signal bound -> actual Hecke beta -> genuine Mertens exponent. Reverse implication from the canonical VF/RH objective to this all-character Hecke beta assertion is NOT established and must not be invented; a zeta theorem is not automatically a theorem for every Hecke character. The final Mertens bound at an exponent above 1/2 is weaker in its required numerical boundary than the RH-scale Mertens conclusion and does not finish RH. No TARGET_EQUIVALENT classification is applied to this complete proof. The canonical centered wheel bound and its mere coordinate renamings remain target-equivalent, separately OPEN.
+
+Positive losses are spent, never suppressed. Closing e in SR3 changes finite source data and its constants. It closes only a scalar inequality for the SAME beta, exactly as in the already-accepted #1119 error-closure principle. It does not establish an e=0 source, a common source mask for every e, a uniform limit of Euler products, or a no-loss Mertens power at b_SR.
+
+### I. Constructive Extension: The Full First-Order Reserve
+
+**SR3, complete paper proof.** Fix any original `HighData(10^(-6))` geometry D0 satisfying the explicit fine-source hypothesis `forall i:Fin D0.N, D0.ell i<=detectorMesh(10^(-6),D0.t)/200`, with `m=actualSlotMinimum D0>0`. Apply cappedHighData once; this changes allowances but not geometry. For every `0<e<=min(e_capped,m/64)`, apply withSmallerError and construct a new F/counts. Put
+
+```text
+h=(11/8)m-e.
+```
+
+Then `87m/64<=h<11m/8`, and `h+e=11m/8`. All conditions in E5 hold, so E6 gives `beta<=7/8-(11/8)m+e`. If `beta>7/8-(11/8)m`, choose e no larger than half that fixed positive gap, as well as e_capped and m/64. This contradicts the preceding inequality. Therefore
+
+```text
+forall fine D0: beta<=7/8-(11/8)actualSlotMinimum D0.
+```
+
+This extension uses no stronger local cancellation, no new LOW theorem, and no extension below the proved physical contour. It is the complete numerical optimization of the conservative reserve already provided by RD1-RD3 and the free floor-saving parameter. The principal response and floor bills can be equal to the target exponent; no strict exponent slack is needed there because the later Mertens/signal argument retains every positive omega.
+
+**SR4, explicit fixed geometry and positive-loss spend.** Instantiate the already-proved near-uniform family, with `m>=1/(8N_pack)`, and use the native Mertens adapter:
+
+```text
+b_SR=7/8-11/(64N_pack),
+b_RD=7/8-8/(64N_pack),
+b_base=7/8-7/(64N_pack).
+
+b_base-b_SR=1/(16N_pack)>0.
+eta_fixed=1/(32N_pack)>0.
+b_SR+eta_fixed=b_base-eta_fixed.
+
+exists C>=0 forall integer n>=1:
+  |M(n)|<=C n^(b_base-eta_fixed).
+```
+
+The original all-positive-loss conclusion at b_SR precedes this fixed-power consequence. No numerical decimal approximation to the enormous fixed slot count is needed. SR3/SR4 are author-checked complete PAPER_PROOF candidates, not independent self-acceptance and not a replacement of the certified main theorem. Their exact h-dependent six-bill assembly is the next independent review target.
+
+### J. Competing Mechanisms And Paid Recovery Test
+
+| Already-proved candidate | Compatibility test | Result |
+| --- | --- | --- |
+| Signed LOW tuple Gram / Co-Div | Exact original atoms, Hermitian orientations and compensation. At J=empty there is only one outer tuple. | Recovers an identity, not an extra binding gain; no outer-pair saving in that case. |
+| Marked `1+t/2` source moment | Requires PositiveFineSourceInput, actual Batch/profile, external real part 17/50, capacity and height factor. | Valid native row supplier in E5; cannot be substituted as an estimate for an arbitrary residue profile at w=1,z=1/6. |
+| Exact principal residue / signal / normalizer | SAME H, chi, outer weights and Gaussian; verified variable-x exponent. | Successful paid identity recovery. New local estimate and inversion make it quantitatively useful. |
+| #1119 complete endpoint | Source-by-source positive-error closure and existing beta<=7/8. | Legitimate baseline/contour input, not RD's desired conclusion assumed in advance. |
+| #1115 bands, #1122/#1124 wheel/root, #1127 fibres, #1128 resonance | Genuine integer/prime sources differ from ideal residue coefficients and normalization. | No coefficient-preserving transfer found; no saving borrowed. Proper-source positivity/resonance do not bound full wheel error. |
+| CORR4 / finite-AC / MU-LIFT / NYMAN | Preserve complete mixed tails, K_R, all-prefix recurrence or full-basis/tail conditions respectively. | Remain independent protected routes; RD is not a compulsory replacement or an automatic recovery theorem on them. |
+
+The first chronological LOW triangle and the binding principal-window loss are DIFFERENT. A useful loss ledger for the selected chain is:
+
+| Source / location | Signed input, discarded information and cost | Consumer / recovery / remaining test |
+| --- | --- | --- |
+| upstream `Detector/LowTupleGram.lean:74`, source adapter `VF919OriginalLowTupleSignedGram.lean:91` | norm_sum_le loses the original tuple off-diagonal orientations. | Already represented exactly; no new sign bound supplied. J=empty falsifies an outer-pair-only saving claim. |
+| upstream `PrincipalSlotEstimate.principal_slot_error` | Absorbing -D into the norm costs Q^(-7/8), hence old window `Z^(7/8+c+e-7m/8)`. | E1 restores -D with residual Q^(-11/8). Raw faster-bound strengthening fails by SR2. |
+| `PrincipalSignalComparison.slotRatio_error` | Unsigned product envelope hides linear signed terms and all product interactions. | E2 retains sum d_j, pays all higher subsets at K_N Z^(-11m/8). Fixed N is essential unless SR1's stronger weighted criterion is checked. |
+| `slotResidue_bound_of_reciprocal_bound` | A norm inside the integral erases the relation to the same f(Z/Q). | E3 exact dilation and E4 inversion; changing masks or inner weights would break the bridge. |
+| `VF919TiltedHighCentral.lean:233,524` | Positive moment/row/dyadic bounds have explicit floor/nonfloor losses. | Every source, height and h-dependent bill is paid in E5. No conditional interface is promoted. |
+| `VF919TiltedHighTails.lean:645`, principal remainder and native Mertens adapter | Raw tails, normalization and final positive losses remain. | Six-bill assembly plus genuine all-integer adapter, not a proper-band endpoint extrapolation. |
+
+Disposition: continue formalization of independently accepted RD; independently review SR3 before extending its consumer. Keep all nine route families. The earlier finite-wheel restrictions remain useful at their actual scope; none is contradicted by a new internal OAI signed response.
+
+### K. Original Research And Executed Verification
+
+SR1 is the weighted-mass extension of the delay inversion, with exact theta=0 and critical growing-N countermodels. SR2 is an exact infinite-family sharpness obstruction for the submitted local coefficient class. SR3-SR4 carry the previously unused remainder reserve through every complete-source cost and numerical error closure. These are substantive derivations beyond routine handoff labeling.
+
+**SR5 exact execution:** a newly written Python standard-library program, not the author's program, evaluated the literal nested markedFactor, continuedCorrection, compensatedReplacement and principalSlot in Gaussian rational arithmetic. It checked 5,760 legal local inputs, including Q=480 and real parts 7/8, 1, 9/8, 5/4 with complex unit phases; 108 weighted products with 1-6 slots, disjoint chosen Q values and positive weights; the exact complete subset remainder; 11 universal affine budget bounds; and all six final exponent comparisons. Zero failures. The eighth-power comparison certifies the fractional Q^(-11/8) bound exactly, without floating-point cancellation. Product tests use exp(1)<3 to produce a rational majorant; the universal paper constant remains the one in E2.
+
+At the worst-case box `t=10^(-8),m=t/200,e=min(t/2000,m/64),h=11m/8-e`, the six target-minus-bill exponent gaps are
+
+```text
+20159999661/256000000000,
+1519999998313/1280000000000,
+1359994939/3840000000000,
+0,
+0,
+96232913801/1762560000000000.
+```
+
+These are checks of monotone rational inequalities whose all-parameter proof is given in E5, not numerical evidence extrapolated to arbitrary sources. Sharpness family n=3 gives exactly `n^11 E=313763342121/317587968001`; the limiting proof is the explicit rational formula in F, not the sample values.
+
+Reproducer SHA-256: `335ce5b48f63c4f07526a4793ccfa0ddd628141440fe83987dd4930c0afd94b8`. Complete executed code is embedded below. The local terminal session finished with exit code 0. A preliminary import check found sympy unavailable; it was not installed or used. No native evaluation, unbounded computation, primality assertion about model Q values, or Lean certification is attributed to these tests.
+
+### L. Formalization Guidance And Current GitHub Evidence
+
+Independent mathematical acceptance is available for RD1-RD5 only at PAPER_PROOF scope. The necessary implementation order is original principal-slot signed remainder, complete normalized finite-product expansion, exact same-signal Mellin response, local-boundedness inversion, raw anchored six-bill assembly, then the existing beta/zeta/Mertens consumer. Do not introduce the response estimate as an assumed premise of a purported unconditional endpoint. The intermediate general inversion can be formulated with SR1's weighted mass, but SR1/SR3 still require independent review as newly authored work.
+
+For SR3 the useful source theorem is the h-parametric complete response estimate in E5 with `0<h<=11m/8` and `h+e<=11m/8`. Its source definition, original masks, and all high-data restrictions must appear in the proof. After independent acceptance, numerical closure in e is permitted by fresh-source reconstruction, not a zero-error limit. No duplicate algebra PR or no-op CI is requested.
+
+Live merge/status evidence, independently fetched rather than inherited from stale reports:
+
+| PR | Current state / exact tested head | Latest attached check-runs |
+| --- | --- | --- |
+| #1119 | MERGED 2026-11-09T04:57:27Z; head 77ee815846d6d534c866f0752aa33b84c385610a | 14/14 success; dedicated logs/types/axioms inspected in B. |
+| #1126 | MERGED 2026-11-10T02:10:09Z; head e8969ad76d4c5694273cefc934316fc528c56648 | 17/17 success; conditional amplification remains conditional. No new audit of every theorem in this PR is claimed. |
+| #1127 | MERGED 2026-11-10T10:38:28Z; head 866b3d2121309cdd854f9d64e2a6adbbc708ef9b | 13/13 success; earlier independent cofactor review reused, not rerun. |
+| #1128 | MERGED 2026-11-10T10:40:04Z; head d5b8003f6239611a457560b6fd16e29f16255e75 | 12/12 success; repaired near-resonance theorem is now on main. |
+| #1129 | MERGED 2026-11-10T12:11:24Z; head 45b0fbdc564c7cd063e2de2cc98c0051ee02457e | Governing policy merge; not a mathematical theorem. |
+
+No open/draft PR existed at intake. No workflow was rerun, branch created, source changed, PR submitted/merged, or other agent launched. New RD/SR has NO exact-head Lean proof run to cite. Formal source receipts for the paid leaves are not certification of the newly assembled endpoint.
+
+### M. Specialist Handoffs
+
+- **Coordinator:** RD1-RD5 now have an independently executing Referee's ACCEPT/PAPER_PROOF verdict. Preserve certified b_base until exact-head formal verification. Review SR3's h-dependent complete return and fresh-e closure separately; proposed b_SR is below both RD and b_base, with eta_fixed=1/(32N_pack). Do not promote the author's SELF_AUDIT.
+- **Analytic:** The submitted signed local algebra, normalized PLUS response, frozen weights and six-bill argument survived. Check the SR3 extension at h=11m/8-e, especially free floor saving, source-height substitution and positive-error closure. A new source estimate is not required for that candidate; an independently verified full assembly is.
+- **Owner:** No prime/floor-Li event is relabeled as a Hecke phase. BR's composite admission and multiplicity defects remain relevant to any later cross-carrier transfer. RD's source is internally preserved, not an authorization to remove BR corrections.
+- **Wheel:** JC's missing upper-band interaction is not paid by RD by analogy. A new transfer would need the exact original coefficients and diagonal-restored complete source. Keep FINITE-AC/CORR4/MU-LIFT independent.
+- **Census:** Large-root scans are not the next validation gate for this analytic theorem. The full exact local/product reproducer is below; a distinct implementation can check it, but no finite sample establishes the beta endpoint. Preserve actual arithmetic tests on separate source hypotheses.
+- **Lean Verification:** Implement independently accepted RD only with the original definitions and complete return, warning-fatal exact-head checks, exact types and terminal/dependency audit. Do not assume or silently strengthen SR3 until independently reviewed. No immediate theorem count or PR is required in place of a valid source proof.
+
+### N. First Independently Missing Ingredient
+
+For RD's claimed finite gain, no additional arithmetic hypothesis remains in the reviewed paper derivation; the next gap is formal implementation/verification of its new full normalized response comparison and consumer. This is different from saying the result is already kernel-certified.
+
+For the stronger SR3-SR4 candidate, the first outstanding obligation is an independently executing review of E5/I at h=11m/8-e, followed by formal verification if accepted. The theta=0 countermodel and SR2 local sharpness identify boundaries of the method, not unresolved assumptions in its stated positive-theta range.
+
+For canonical RH, a complete square-root-scale arithmetic estimate or another independently sufficient theorem remains OPEN. Neither the small improvement above nor an arbitrary iteration of it reaches that target. No renewed bound at a lower contour, new character-range extension, or repeated automatic improvement is proved here.
+
+### O. Next-Run Resume Capsule And Publication Discipline
+
+```text
+RUN=20261110-referee-2/SR; trigger=SCHEDULED 12:03:01 EST; platform ID unavailable.
+MAIN=655f897e274a8ba8a2fed80ecc1fc75a0d849174.
+ACK=CROSS_ROUTE_SIGNED_RECOVERY_V1.
+INTAKE_REPORTS=387018549541511992183afd4f09955c1e421231.
+ACCEPT=20261110-analytic-2/RD1-RD5 PAPER_PROOF; Coordinator CR1/CR2 exact scope.
+NEW_SELF_AUDIT=SR1 weighted inversion/sharp abstract endpoint;
+              SR2 local rational sharpness;
+              SR3 full 11m/8-e tilt reserve and positive-error closure;
+              SR4 b_SR=7/8-11/(64N_pack); SR5 exact finite checks.
+CERTIFIED_BASELINE=b_base=7/8-7/(64N_pack), unchanged.
+PAPER_ACCEPTED_BOUNDARY=b_RD=7/8-1/(8N_pack).
+SELF_AUDITED_BOUNDARY=b_SR; proposed fixed gain=1/(32N_pack).
+VERIFIED_ETA=NONE; NEW_LEAN_THEOREM=NONE; RH=OPEN.
+NEXT=independent SR3 h-parametric return review; accepted RD formalization.
+DO_NOT=repeat unchanged fibre scans, equate Hecke with mu coefficients,
+       claim a uniform e->0 source limit, or replace a positive loss by zero.
+```
+
+The early checkpoint was committed at `19918ef43181585fdf1a631311a660cb3591fb44` and read back byte-identically at blob `4879af75c69059592be5485e0d7f8512743cf9c0`. Final publication is claimed only after its own immutable readback. This report's only remote write target is the owned daily file on agent-reports. Direct git transport failed with CONNECT HTTP 403; the GitHub connector supplied pinned source reads and authorized writes. No credentials, private scratch notes, other report edits or local Lean runs are part of the output.
+
+### Appendix 1. Immutable Material Source Ledger
+
+Main source below is pinned to [655f897e274a8ba8a2fed80ecc1fc75a0d849174](https://github.com/OVVO-Financial/RH_Lean/tree/655f897e274a8ba8a2fed80ecc1fc75a0d849174). These are blob SHAs, not theorem certification labels. Exact declarations and material proof steps were inspected; unchanged prior evidence is reused only at its previously established scope.
+
+| Main path | Blob SHA |
+| --- | --- |
+| `AGENTS.md` | `c9c89f01b90b526de9f3e8ea92478e36504711b6` |
+| `CURRENT_PROOF_CONTRACT.md` | `95566e37c8eaeb99ee680660df4f9d2e06ea5038` |
+| `docs/RHLEAN_CROSS_ROUTE_SIGNED_RECOVERY_20261110.md` | `e922d4ba9362a1ae196af8f6de88f7417f92087c` |
+| `docs/PROOF_DEPENDENCY_DAG.md` | `eee764cefe70035a9f6c7df26ad787fbfd0fb233` |
+| `docs/COORDINATE_ATLAS.md` | `cd0419d00a37739fe5a292f5cb738e33213949d5` |
+| `research/oai_434/VF919WindowErrorClosure.lean` | `f629db1b2b65d6ec042ac9432397d4b6316200c6` |
+| `research/oai_434/VF919TotalMassEndpoint.lean` | `827bb952c4d4311d75fd03a2470799dc10b0f7e7` |
+| `research/oai_434/VF919NativeStrictMertens.lean` | `b33a4883e1ddb0551b0f11f062bce46680d87450` |
+| `research/oai_434/VF919ExplicitSquareBlockPacking.lean` | `32999039fdeea99c58a070c1c4ee9c140720dd44` |
+| `research/oai_434/VF919ExplicitFixedSourceSlotCount.lean` | `bad5aab0a60e96d19e7c9550cd7c0a072288bc0f` |
+| `research/oai_434/VF919WindowSaturatedLowPrincipal.lean` | `b7b05069ea013d83b2acaa76a8ea2ed932568930` |
+| `research/oai_434/VF919TiltedHighCentral.lean` | `6f75563d84161a023e4750df69ad0def460c0513` |
+| `research/oai_434/VF919TiltedHighAssembly.lean` | `883141e0af896d4132bfc4ffa076e2d265ece5c9` |
+| `research/oai_434/VF919TiltedHighTransport.lean` | `50c46fb1c5629865c3b7a6546ed3d9418fff1391` |
+| `research/oai_434/VF919TiltedHighPrincipal.lean` | `e123ffa5903a62f6249aafef7a093dc6a7e3eb09` |
+| `research/oai_434/VF919TiltedHighTails.lean` | `6ae8ea83aca3d3f8ba8d65d42f2a6a4428e6b84f` |
+| `research/oai_434/VF919NativeSourceMoments.lean` | `4e5326b983f5110f7138d222f7b1be71c5694dfc` |
+| `research/oai_434/VF919FiniteSlotReflectedGain.lean` | `a5545b5a00958b69f6fbfd79fc555a0476aa6487` |
+| `research/oai_434/VF919NativeSevenEighthsReplay.lean` | `111c933a7ca15647105ce6a4d0f3cbfc3cde81f4` |
+| `research/oai_434/VF919OriginalLowTupleSignedGram.lean` | `dd2fde01ae6e2446da4e69b30f6fc80fcadb858d` |
+| `research/oai_434/VF919OriginalMarkedSharpenedSignedNNS.lean` | `1ead3888a1f59cacc71f482f6d4ce9c9ad31903a` |
+| `research/oai_434/VF919OriginalOnePrimePowerGain.lean` | `492cd5d4a459c9665df07e5f77653be5261591a0` |
+| `scripts/lean/slot_anchored/prepare_anchored.py` | `0bac9047afaa8e9ddc5ac246be2d0fe7d6efa725` |
+| `scripts/lean/window_error_closure/WindowErrorClosureAudit.lean` | `1f17f9401a63d16227db2e2aad020b9f74bc5f4e` |
+| `.github/workflows/vf919-window-saturated-low-principal.yml` | `bf53637ed649b2c8c7517ad3b81c33620f3bffa9` |
+| `research/MERTENS_EXPONENT_ENVELOPES.lean` | `655b896e8d5a41c9f8fc3c456eae3944a98bfefe` |
+| `research/MERTENS_CONVERSE_IDENTIFICATION.lean` | `768c8255850bf4074aff265c3fe17a1f5c43979b` |
+| `research/EULER_SELF_DUAL_ENDPOINT_GATE_20261027.lean` | `e7ee8f77ffd59bccaa49dd6d74fbe0d7952c2d73` |
+| `research/CompleteSquareRootWheelFractionalBoundary.lean` | `ecb482e52deeee5e9b3853592a3ffdace662d2ff` |
+| `research/VF_CANONICAL_SQRT_TWO_VON_KOCH.lean` | `79030d70e8d3e0d08eef9bac53fef95c36eca2fb` |
+| `research/FiniteWheelCofactorPositivity.lean` | `f83a3daefc2b9d603014af912ec82b4a7f52cfac` |
+| `research/DyadicPrimeNearResonance.lean` | `f416e0149b73656e30a7f68a3934a937353d3f8d` |
+
+The original OAI sources are pinned to [openai/math 1581d4cbdd69a0faf34b2089614fe2a814316a6a](https://github.com/openai/math/tree/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/NumberTheory/DirichletL). Paths below are relative to `lean/OAI/NumberTheory/DirichletL/`.
+
+| Original upstream path | Blob SHA |
+| --- | --- |
+| `PrincipalSlotEstimate.lean` | `f9250c7c4464f374902bbb39ebbb3487d96bea1f` |
+| `PrincipalSignalComparison.lean` | `bd252b01e2784f9ec32fe9c1e0380c4b221adc23` |
+| `Detector/Local.lean` | `599ab7884122342f9d200a81119ea5a410114e0a` |
+| `Detector/Euler.lean` | `ce1309a4da0b0b3ccd703946aef504b96f95e6f5` |
+| `Detector/EulerCoordinates.lean` | `75a2a5a3801939489102d6e7cce2ef1cab479057` |
+| `Detector/PrincipalResidueActual.lean` | `2f336d8cfb0e6ec157ad1d43099372eb61961381` |
+| `Detector/PrincipalNormalizer.lean` | `890de70fac5b637af0cb803f3d8c691df6c668b2` |
+| `Hecke/Signal.lean` | `9b0f1f6ff5f74c77fee06327c4936c2a9e180df5` |
+| `Hecke/SignalBounds.lean` | `8b0f3faf87c2649dfccfc7c6eb4349259ff34d7e` |
+| `ParametersHighData.lean` | `c565dc0a72c7da9a2706cdd835e69a39e8c0dc14` |
+| `Detector/LowTupleGram.lean` | `710598c8bef4d1a1ec98aa7e68b00369962c3d17` |
+
+### Appendix 2. Today / Yesterday Continuity And Freshness
+
+All relevant November 10 reports are `TODAY=AVAILABLE`; November 9 is `YESTERDAY=CARRY_FORWARD`. The immutable intake is [agent-reports 387018549541511992183afd4f09955c1e421231](https://github.com/OVVO-Financial/RH_Lean/tree/387018549541511992183afd4f09955c1e421231/research/agent_reports). Availability is verified from actual files, not scheduled execution. Both coordinator mirrors are byte-identical for each date.
+
+| Role file | November 10 blob | November 9 blob |
+| --- | --- | --- |
+| `00-coordinator-am.md` | `1cf71a74d0e80d5dc05ab1ef08f1ad6fcf134c9a` | `6fba43130391ad4a606aa3809c20f344d668c709` |
+| `10-owner-payment.md` | `ece5b3cd8d25b45e64c48812c81d71f6eddf23a9` | `643e8a004d9d8e0be102b03e2f79bb3b217ae916` |
+| `20-analytic-type-ii.md` | `a2675374a7160955917d42797eef5a3e2358056f` | `d1d0d86d444b9c447cf6acf4bd18fdcaf02e56a3` |
+| `30-finite-wheel.md` | `a6a05ab41daeeaf7b3d285833028075cf253d47c` | `0624246d03b19cf76c01e186b7d868a248d896ef` |
+| `40-prime-census.md` | `8a89d1a899850e39320a96bf35a6f221060fc8a7` | `8c927cc6c323533ba1cfd369404b25aa4f9cef91` |
+| `50-adversarial-referee.md` | `ae7de1cb1900818b8844c2c3c7da597cc8f7eaa9` | `a5d0192eb31c0efb3767187a7752f1a0d07f8534` |
+| `60-lean-verification.md` | `0355c3203ede834e1abbe9bc2fc161bc7d7ece04` | `8b60c6136ac151774be2db0aee8f543f286b53aa` |
+
+Relevant newest handoffs actually consumed: `20261110-coordinator-0710-EST/UB` and CR1/CR2; `20261110-owner-2/BR1-BR6`; `20261110-analytic-2/RD1-RD5` and earlier HF; `20261110-wheel-2/JC`; `20261110-census-1/UC`; own `20261110-referee-1/LC`; and `20261110-lean-1` repairing `20261109-wheel-2/DG2`. Relevant prior-day CD/CF/ZD/RF/NC/AP/DA/Lean results retain their claim IDs and original review statuses. LC's HM1/UC1-UC3 acceptance and AP's CF1-CF4 acceptance are continuity, not fresh execution in this run. BR's composite admission defect, JC's missing upper bands and exact R=56 intermediate counterexamples, and UC's unsaturated-cofactor warning do not become complete-source bounds here.
+
+`research/agent_reports/EXTERNAL_HANDOFFS.md` remains blob `038018145c0fddb2f6306c0712373adf9cd1ea52`, with no entry newer than October 18. EXT-20261018-PNT-1..3, EXT-20261017-XCOORD-1 and the original #915 anchor/mask/denominator safeguards remain in scope. No external theorem was imported without its source hypotheses; this run's new proofs use the pinned original analytic leaves and elementary exact algebra.
+
+**Prepublication freshness, 2026-11-10 12:24:48 EST:** main is unchanged; the open/draft PR list is empty. The refreshed agent-reports tree is `19918ef43181585fdf1a631311a660cb3591fb44`. Against the complete intake tree, the ONLY changed report file is this own checkpoint, at blob `4879af75c69059592be5485e0d7f8512743cf9c0`. Every other handoff and the external inbox are byte-unchanged. No new source or handoff therefore invalidates the review. The current own blob will be checked again immediately before its append.
+
+Five-stage completion receipt: B = certified baseline and dependency audit; G = typed four-way source map; J = signed-loss inventory; E/J = already-proved recovery identity with masks plus newly proved arithmetic/analytic lemmas; A/I/N = net exponent, review/formalization separation and exact remaining obligation. Admission is PAPER_ACCEPTED for RD, SELF_AUDIT_PENDING for SR, not a new certified route.
+
+### Appendix 3. Complete Independently Executed Reproducer
+
+Run with Python 3 using only the standard library. The file bytes inside the following code block, including its final newline, have SHA-256 `335ce5b48f63c4f07526a4793ccfa0ddd628141440fe83987dd4930c0afd94b8`. The code does not modify repository source or run Lean. The original arithmetic class for the local tests is stated in E1/F; the chosen Q values are not falsely labeled genuine primes.
+
+```python
+from dataclasses import dataclass
+from fractions import Fraction as F
+from itertools import combinations, product
+import json
+
+
+@dataclass(frozen=True)
+class G:
+    re: F = F(0)
+    im: F = F(0)
+
+    def __add__(self, other):
+        other = promote(other)
+        return G(self.re + other.re, self.im + other.im)
+
+    __radd__ = __add__
+
+    def __neg__(self):
+        return G(-self.re, -self.im)
+
+    def __sub__(self, other):
+        return self + -promote(other)
+
+    def __rsub__(self, other):
+        return promote(other) + -self
+
+    def __mul__(self, other):
+        other = promote(other)
+        return G(self.re * other.re - self.im * other.im,
+                 self.re * other.im + self.im * other.re)
+
+    __rmul__ = __mul__
+
+    def __truediv__(self, other):
+        other = promote(other)
+        den = other.norm2()
+        assert den > 0
+        return self * G(other.re / den, -other.im / den)
+
+    def __rtruediv__(self, other):
+        return promote(other) / self
+
+    def __pow__(self, n):
+        assert isinstance(n, int) and n >= 0
+        out = G(F(1))
+        for _ in range(n):
+            out *= self
+        return out
+
+    def norm2(self):
+        return self.re ** 2 + self.im ** 2
+
+
+def promote(x):
+    return x if isinstance(x, G) else G(F(x))
+
+
+def slot_original(Q, z, eta, A):
+    # z = Q^(-s); evaluate the original nested definitions, not the new ratio.
+    q = F(1, Q)
+    D = eta * z
+    R = A * Q ** 3 * z ** 6
+    K = (1 - q) * D
+    P = ((R * (1 - q) - K * q) / (1 - q) - D + q * R) / (1 - R)
+    correction = (1 - q * q + (1 - q) ** 2 * P) / (1 - D)
+    replacement = (((1 / D) - q) * (1 - q) ** 2 * P - q * (1 - q * q)) / (1 - D)
+    return replacement / correction, P, correction, D, R
+
+
+phases = [G(F(1)), G(F(-1)), G(F(0), F(1)), G(F(0), F(-1)),
+          G(F(3, 5), F(4, 5)), G(F(5, 13), F(-12, 13))]
+amplitudes = phases + [G(), G(F(1, 2), F(1, 3))]
+cases = [(n ** 8, G(F(1, n ** k)) * phase)
+         for n, k, phase in product([3, 4, 7, 11], [7, 8, 9, 10], phases)]
+cases += [(Q, G(F(1, Q)) * phase) for Q, phase in product([480, 481, 509, 1024], phases)]
+checked = 0
+for (Q, z), eta, A in product(cases, phases, amplitudes):
+    slot, P, correction, D, R = slot_original(Q, z, eta, A)
+    q = F(1, Q)
+    U = 1 - q * R - (1 - q) * D
+    assert P == (1 + q) * (R - D) / (1 - R)
+    assert correction == (1 - q * q) * U / ((1 - R) * (1 - D))
+    assert slot == (1 - q) * (R / D - 1) / U - q
+    numerator = ((1 - q) * R / D - q * (1 - q) * R
+                 + (2 * q - q * q) * D - q * R * D - (1 - q) * D ** 2)
+    E = slot + 1 + D
+    assert E == numerator / U
+    assert U.norm2() >= F(1, 4)
+    # Eighth powers certify the fractional-power inequality exactly.
+    assert E.norm2() ** 4 * Q ** 11 <= 12 ** 8
+    checked += 1
+
+products_checked = 0
+for n, N, offset in product([3, 4, 7], range(1, 7), range(6)):
+    ratio = G(F(1))
+    ds, es, us = [], [], []
+    for j in range(N):
+        terms = []
+        for v, weight in [(0, F(1, 3)), (1, F(2, 3))]:
+            root = n + 2 * j + v
+            Q = root ** 8
+            eta = phases[(j + v + offset) % len(phases)]
+            A = amplitudes[(2 * j + v + offset) % len(amplitudes)]
+            slot, _, _, D, _ = slot_original(Q, G(F(1, root ** 7)), eta, A)
+            terms.append((weight, slot, D, slot + 1 + D))
+        normalized = -sum((w * slot for w, slot, _, _ in terms), G())
+        d = sum((w * D for w, _, D, _ in terms), G())
+        e = sum((w * E for w, _, _, E in terms), G())
+        assert normalized == 1 + d - e
+        ratio *= normalized
+        ds.append(d)
+        es.append(e)
+        us.append(d - e)
+    higher = G()
+    for size in range(2, N + 1):
+        for indices in combinations(range(N), size):
+            term = G(F(1))
+            for j in indices:
+                term *= us[j]
+            higher += term
+    residual = ratio - 1 - sum(ds, G())
+    assert residual == higher - sum(es, G())
+    assert 13 * N * F(1, n ** 7) <= 1
+    # exp(1)<3 gives a rational majorant of the submitted constant.
+    K = 12 * N + F(507, 2) * N * N
+    assert residual.norm2() <= (K * F(1, n ** 11)) ** 2
+    products_checked += 1
+
+t = F(1, 10 ** 8)
+m = t / 200
+e = min(t / 2000, m / 64)
+hcap = F(11, 8) * m
+nu = t / 8
+s0 = F(49, 881280)
+budgets = {
+    'tilt_tail': t - 24 * hcap,
+    'physical_tilt': F(1, 960) - hcap,
+    'small_tail': F(63, 800) - hcap - 8 * (t / 2000) - nu,
+    'large_tail': F(19, 16) - hcap - nu,
+    'principal_remainder': F(17, 48000) - hcap - nu,
+    'nonfloor_target': s0 - F(1, 10 ** 6) - hcap - t / 4,
+    'nonfloor_source': F(49, 440640) - 18 * t - s0,
+    'floor_source': F(7, 1200) - (2 * t + 26 * (t / 2000) + t + t + t / 6 + nu + hcap),
+    'conductor': F(7, 8) - (F(13, 16) + 3 * t),
+    'count': F(1, 32) - (F(159, 2000) + 9) * t,
+    'analytic_boundary': F(7, 8) - hcap - F(21, 25),
+}
+assert all(v > 0 for v in budgets.values())
+h = hcap - e
+c = -F(11, 16) - 8 * h
+target = F(7, 8) - h + c
+powers = [F(7, 8) + c - F(63, 800) + 8 * e + nu,
+          -1 - 8 * h + nu,
+          F(7, 8) + c - F(17, 48000) + nu,
+          F(7, 8) + c + e - F(11, 8) * m,
+          F(3, 16) - h - 8 * h,
+          F(3, 16) + F(1, 10 ** 6) - s0 - 8 * h + 2 * nu]
+assert target == F(3, 16) - 9 * h
+assert all(p <= target for p in powers)
+assert powers[3] == powers[4] == target
+
+sharpness = []
+for n in [3, 4, 8, 16, 32]:
+    slot, _, _, D, _ = slot_original(n ** 8, G(F(1, n ** 7)), G(F(1)), G(F(1)))
+    scaled = (slot + 1 + D) * n ** 11
+    assert scaled.im == 0
+    sharpness.append({'n': n, 'scaled_remainder_exact': str(scaled.re)})
+
+N = 17  # A symbolic coefficient check at a finite placeholder N, not N_pack.
+bbase = F(7, 8) - F(7, 64 * N)
+brd = F(7, 8) - F(1, 8 * N)
+bsr = F(7, 8) - F(11, 64 * N)
+eta = F(1, 32 * N)
+assert bsr + eta == bbase - eta
+assert bsr < brd < bbase
+
+print(json.dumps({'local_exact_cases': checked, 'weighted_product_cases': products_checked,
+                  'failures': 0, 'budget_margins': {k: str(v) for k, v in budgets.items()},
+                  'six_power_gaps': [str(target - p) for p in powers],
+                  'sharpness_samples': sharpness}, indent=2))
+```
+
+Recorded terminal summary: `local_exact_cases=5760`, `weighted_product_cases=108`, `failures=0`; eleven strictly positive rational budget margins; six nonnegative target gaps, with equality only in the retained-response remainder and supported floor rows. The process completed with exit code 0.
+
