@@ -2142,3 +2142,1475 @@ First derive the exact prime-factor recurrence for the coprime prefix; test any 
 TODAY=AVAILABLE for all six upstream roles; YESTERDAY=CARRY_FORWARD for 2026-11-09. Latest Coordinator 20261110-coordinator-1513-EST/MD and M3 assignment consumed; prior BR/HM/CF, Analytic RD and ZD, Wheel JC/RF, Census UC/NC, Referee SR/AP, and Lean #1130/#1127 evidence retained at their individual scopes. MD and SR extensions remain paper/self-audited, not a certified baseline upgrade. EXTERNAL_HANDOFFS.md is unchanged at 038018145c0fddb2f6306c0712373adf9cd1ea52; no new entry after October 18.
 
 Direct clone is unavailable (proxy CONNECT 403); authenticated repository reads work. No local Lean, source/policy edits, other-report edits, proof branch, PR, workflow, schedule, permission change or agent launch. Only this owned report is authorized for publication. Substantive derivation, falsification, quantitative relevance and final handoffs remain IN_PROGRESS. This append preserves all earlier daily evidence byte-for-byte.
+
+
+## Radical Response And Coherent Physical Defect Fibres - 20261110-owner-3/DR
+
+### A. Most Important Mathematical Development
+
+**The floor-Li lifting defect has an exact same-integer reinforcement law, not automatic cancellation.** On every squarefree physical integer n, all nonzero atoms of the COMPLETE defect have sign mu(n). On the odd-parity shared-factor sector, every nonzero atom landing on one cube-free squareful integer also has the same sign. Thus identifying duplicate physical integers can INCREASE the quadratic diagonal; it cannot be credited as negative covariance.
+
+The simplest genuine witness is R=6, X=35, n=30. The actual floor-Li events q=6,10,15 each contribute -2 to that defect fibre. Its total is -6, its original atom diagonal is 12, and its doubled cross term is +24. A separate genuine event q=78 refutes nonexpansive repair at R=16. At R=22 the corresponding positive response kernel has power-weighted norm at least 7/6 for EVERY exponent 0<theta<=1. The latter refutes a coefficient-blind contraction proof, not a bound restricted to genuine Mertens values at a positive power.
+
+There is also a surviving uniform supporting estimate. Using the already-certified Mertens envelope, exact prime-factor costs and the deterministic sparsity of floor-Li events gives, for every fixed delta in (0,1),
+
+```text
+|mathcalD_y(T)| <= C_delta T / (log T)^(1-delta),
+uniformly for integers y>=2 and y<T<(y+1)^2.
+```
+
+This controls the ENTIRE unmasked floor-Li defect, including all three parity/squareful sectors. It does not control the full A+J+mathcalD expression or a clipped #915 source, and remains weaker than the existing global Mertens power bound. Completing all reciprocal descendants by triangle loses this logarithmic gain. **NO_NEW_GLOBAL_GAIN; NO_NEW_ACCEPTED_ROUTE; VERIFIED_ETA=NONE.**
+
+| Claim ID | Classification and scope |
+| --- | --- |
+| 20261110-owner-3/DR1 | Exact coprime-prefix response and once-only radical reindexing. IDENTITY_ONLY; derived from paid prime-extension algebra, not a new renewal theorem. |
+| DR2 | Same-sign squarefree full-defect fibres and cube-free odd-defect fibres, with exact positive within-fibre cross terms. PAPER_PROOF / SELF_AUDIT. |
+| DR3 | Genuine-event nonexpansion and positive-kernel contraction hypotheses REFUTED, at their distinct stated scopes. Exact FINITE_COMPUTATION plus arithmetic proof. |
+| DR4 | Uniform logarithmic saving for the complete unmasked defect from the certified Mertens input. PAPER_PROOF; supporting quantitative consequence, not a new Mertens exponent. |
+| DR5 | Exact source, multiplicity, full-square and independently reconstructed small-witness checks. FINITE_COMPUTATION. |
+
+All new paper claims are INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED. No literature-priority claim is made for the convolution, Euler-product moment or Holder arguments.
+
+### B. Current Authoritative Objective
+
+Actual scheduled trigger: 2026-11-10 16:15:01 EST, America/New_York. Run label 20261110-owner-3/DR; platform run ID unavailable. Main source: **f7947bee036c4dddb0c36fc9f53ab46b4fa90995**. Governing acknowledgement: **cross_route_ack=CROSS_ROUTE_SIGNED_RECOVERY_V1**. This is a continuation of the same daily Owner report, preserving all preceding HM/BR evidence and revision history.
+
+The canonical actual-prime objective remains OPEN:
+
+```text
+exists C>=0, forall integers R>=2,
+  |pi(R^2)-VF_can(R^2)| <= C R log R.
+```
+
+For X=R^2-1, y=R-1, P_y the primorial through y and delta_y its finite Euler density, the complete wheel remains
+
+```text
+F_R=sum_(d|P_y)mu(d)fract(X/d),
+D_R=X*delta_y+pi(y)-1-li(X),
+Z_R=F_R-D_R=li(X)-pi(X).
+```
+
+Do not confuse this deterministic D_R with the lifting defect mathcalD below. All virtual d>X remain until termwise Euler compensation; d=X remains physical. The endpoint R^2 is composite for R>=2, but Li normalization and the VF adapter still have their own bounded corrections.
+
+#### 1. BASELINE / DEPENDENCY RECEIPT
+
+The strongest explicit CERTIFIED baseline used here is the actual declaration `native_mertens_near_uniform_window_error_closed`:
+
+```text
+b_base=7/8-7/(64*N_pack),
+forall eps>0, exists C_eps>=0, forall n>=1:
+  |M(n)|<=C_eps*n^(b_base+eps).
+```
+
+The original `MertensGrowthAtMost` definition retains every positive loss. Fix theta=(1+b_base)/2 ONCE and spend eps=(1-b_base)/2; then 0<theta<1 and one fixed C_M bounds |M(n)| by C_M n^theta. There is no assumed bound at the exact boundary.
+
+The inspected source definitions are N_pack=ceil_nat(max(1,1/(6*L)))+2 and N_old=ceil_nat(max(1,1/(3*L)))+2, L=explicitFineLength>0. Hence N_pack<=N_old, and 7/(64*N_pack)>1/(48*N_old). This reuses Coordinator CR1's comparison; the two counts are not identified.
+
+Re-fetched #1119 exact-head run 42552018910 at 77ee815846d6d534c866f0752aa33b84c385610a: completed/success. Actual job 128949473700 prints the five endpoint types and five passing live proof-value closures, sizes 35358,35375,35736,35737,35753, with only propext, Classical.choice, Quot.sound. Direct recursive-tree comparison found all 911 pre-existing relevant source/audit blobs unchanged at current main. This is reuse of exact-head evidence, not a fresh main-head compilation or an independent reproof of every imported analytic argument.
+
+Read audit source `WindowErrorClosureAudit.lean`: it follows live OAI/RHLean/private proof values and independently collects terminal axioms transitively. The dependency chain retains source construction, total-mass probe bounds, anchored HIGH, the actual Hecke/Dirichlet product, native zero-boundary and Mertens transfers. Compiler/dependency pins in the fetched log are Lean 4.34.1 / 5045d0056413266e57c625dcd7c365b10e377c52; Mathlib d13f23b723b8a846827a245b89c10fc7d3f11612; unpatched PrimeNumberTheoremAnd c39a751132c88b6e8080b74c74023fd95b3d8be0; openai/math 1581d4cbdd69a0faf34b2089614fe2a814316a6a; anchored source pin 9cbfce5295343bcb411e6d2cb159b59995cd985b. Unrelated dependency-build placeholder warnings do not appear in the selected endpoint's terminal axiom set; no claim is made that the entire dependency repository is placeholder-free.
+
+#1130 is now MERGED, superseding the earlier Lean report's unmerged status. Its original local signed-remainder source was read, and run 42877550772/job 130044786387 at 4aa22782d10b3ad77dc970d6bb610eaab93a228c was re-fetched as successful. Its four quantitative dependency closures are 628,984,653,657 with standard terminal axioms. It proves RD1 and finite-weight adapters, not the complete RD/SR/MD endpoint. Analytic RD1-RD5 has Referee paper acceptance; SR and latest Coordinator MD remain separate self-audited paper proposals. None is silently substituted for b_base in DR4.
+
+The actual-prime endpoint is still an arithmetic premise of `riemannHypothesis_of_vfCanonicalSquare`, alongside the explicit `ClassicalVonKochRHCriterion`. The finite-AC ratio retains the genuine K_R=max_(0<=u<R)(M(u)-1)^2/(u+1). `all_exponents_of_contracting_upgrade` explicitly takes `upgrade`; the actual zero-log amplification is still a proposition, not a theorem proved by its definition. No corresponding premise is supplied by DR.
+
+### C. Structural Hypothesis Investigated
+
+Resume Coordinator 20261110-coordinator-1513-EST/M3 and Owner BR's exact remaining coprime-prefix defect. Test two distinct mechanisms:
+
+1. Recover the shared-factor correction as smaller-scale values of the SAME Mertens function, then test whether its actual coefficients furnish a uniform contraction.
+2. Reassemble duplicate (q,a) labels by their actual physical integer n=qa and determine the complete within-fibre sign before invoking covariance.
+
+The first has a valid exact response but fails the proposed generic nonexpansion/contraction shortcuts. The second yields reinforcement laws, not cancellation. A third, weaker quantitative use survives: retain prime-dependent costs and average their deterministic multiplicative moments over the sparse event stream. This gives DR4 without assuming event/primality independence.
+
+TODAY=AVAILABLE for all six upstream roles. YESTERDAY=CARRY_FORWARD for November 9 verified findings. Read the latest Coordinator MD/M3 assignment, Owner HM/BR and prior CF/CT, Analytic RD and ZD, Wheel JC/RF, Census UC/NC, Referee SR/AP, and Lean principal/cofactor reports at their relevant findings and resume points. UC's unsaturated counterexamples, JC's R=56 omitted-band counterexample, CF's same-q reinforcement, BR's R=3/R=14 opposite full-defect signs and R=5561 complete-renewal square are retained. They are not rerun as new claims. External inbox 038018145c0fddb2f6306c0712373adf9cd1ea52 has no entry after October 18; EXT-20261018-PNT-1 and the #915 historical-anchor/denominator restrictions remain relevant. No upstream execution is inferred from a schedule.
+
+### D. Mathematical Derivation
+
+#### Original Source And Notation
+
+For integers y>=2 and y<T<(y+1)^2 define
+
+```text
+L(n)=floor(Li_2(n)), lambda(q)=L(q)-L(q-1),
+epsilon(q)=1_Prime(q)-lambda(q), t_q=floor(T/q),
+M_q(t)=sum_(1<=a<=t,gcd(a,q)=1)mu(a),
+I_y(T)=sum_(y<q<=T)epsilon(q)M(t_q),
+J_y(T)=sum_(y<q<=T)epsilon(q)sum_(a<=t_q)mu(aq),
+mathcalD_y(T)=sum_(y<q<=T)lambda(q)[M(t_q)+mu(q)M_q(t_q)].
+```
+
+For q>=3, lambda(q) is 0 or 1; monotonicity and the logarithmic-integral step bound prove this (the q=3 endpoint can be checked directly). The source definitions are `vfMidFloorLiIntegerPotential`, `vfMidFloorLiSingletonWeight` and the genuine Buchstab mismatch bracket, not a surrogate event process.
+
+Let S_y(T) be the full y-smooth Mobius sum including 1 and P_lambda,y(T)=sum lambda(q)M(t_q). Write A_y(T)=S_y(T)-P_lambda,y(T). The compiled Buchstab identity and BR's exact lift give
+
+```text
+M(T)=A_y(T)-I_y(T)=A_y(T)+J_y(T)+mathcalD_y(T),
+M(T)^2=A^2+J^2+mathcalD^2+2AJ+2A*mathcalD+2J*mathcalD.
+```
+
+Every q, including composite floor-Li events, stays present. Prime q>y satisfies q^2>T and has zero lift defect. Squareful q, squareful a, cofactor 1, q=y+1 and exact qa=T are retained. Zero Mobius atoms may be removed only because their coefficient is zero, not because the physical site is absent.
+
+#### DR1. Exact Coprime Response And Radical Index
+
+For q>=1 let H(q)={d>=1: every prime divisor of d divides q}; 1 belongs to H(q). For every integer t>=0,
+
+```text
+M_q(t)=sum_(d<=t,d in H(q)) M(floor(t/d)).                 (DR.1)
+```
+
+Proof: the coefficient of m on the right is sum_(d|m,d in H(q))mu(m/d). Factor m prime by prime. At a prime dividing q, the complete geometric convolution with 1-p^-s annihilates every positive exponent. At a prime not dividing q it leaves mu's local coefficient. Thus the coefficient is mu(m)1_(gcd(m,q)=1), including squareful m. This is finite divisor algebra, not an infinite Dirichlet-series exchange.
+
+The existing `wheelRoughMertensSummatory_prime_extension` already proves the corresponding one-prime recurrence. Iterating it is paid mathematics. DR.1 identifies the precise coefficients needed for BR's changing q; it is not claimed as a new general renewal law.
+
+For squarefree odd-parity q (mu(q)=-1), its entire event defect is
+
+```text
+d_T(q):=M(t_q)-M_q(t_q)
+       =-sum_(1<d<=t_q,d in H(q))M(floor(t_q/d)).         (DR.2)
+```
+
+No copy is created for two equal floor(t_q/d) values: they carry their exact integer multiplicity as coefficients of the SAME Mertens value.
+
+For the COMPLETE defect, not just odd q, put rad(n)=product_(p|n)p and rad(1)=1. A squarefree q and d in H(q) satisfy rad(qd)=q; conversely every n has the unique pair q=rad(n), d=n/q. Therefore
+
+```text
+mathcalD_y(T)=P_lambda,y(T)
+  +sum_(n<=T,rad(n)>y)mu(rad(n))*lambda(rad(n))*M(floor(T/n)).  (DR.3)
+```
+
+All radical coefficients are once-only in this transformed sum. This does NOT say the original event lift is once-only; BR's divisor multiplicity remains real. The combined coefficient of M(floor(T/n)) is
+
+```text
+h_y(n)=1_(n>y)lambda(n)
+       +1_(rad(n)>y)mu(rad(n))*lambda(rad(n)).           (DR.4)
+```
+
+The unchanged labels and weights can also be retained under a prescribed function w(a):
+
+```text
+sum_(a<=t,gcd(a,q)=1)mu(a)w(a)
+ =sum_(d<=t,d in H(q))sum_(b<=t/d)mu(b)w(db).           (DR.5)
+```
+
+Thus a mask becomes w(db), not w(b). This is an explicit barrier to applying the unmasked Mertens envelope to arbitrary #915 returned-cell weights. No invariance of those masks is assumed.
+
+#### DR2. Physical-Integer Sign Laws And All Within-Fibre Cross Terms
+
+The original defect atom is
+
+```text
+v(q,a)=lambda(q)[mu(a)+mu(aq)],  q>y, aq<=T.
+V_y(n)=sum_(q|n,q>y)v(q,n/q),
+mathcalD_y(T)=sum_(n<=T)V_y(n).                         (DR.6)
+```
+
+**Squarefree full-defect fibre.** If n is squarefree, q and a=n/q are coprime and mu(a)=mu(n)mu(q). Hence
+
+```text
+v(q,n/q)=mu(n)(1+mu(q))lambda(q),
+V_y(n)=2mu(n)e_y(n),
+e_y(n)=#{q|n:q>y,mu(q)=+1,lambda(q)=1}.                (DR.7)
+```
+
+All nonzero atoms have the SAME sign. Their atom diagonal is 4e_y(n), their grouped square is 4e_y(n)^2, and the doubled within-n cross term is exactly
+
+```text
+4e_y(n)(e_y(n)-1) >= 0.                               (DR.8)
+```
+
+This is the complete defect fibre for squarefree n, not a selected pair. With additional nonnegative masks, replace the count by the sum of those weights and retain every weighted pair; the sign conclusion persists. This is not proof that such a mask is the original #915 mask.
+
+**Odd-parity shared-factor fibre.** Restrict to mu(q)=-1, mu(a) nonzero and gcd(a,q)>1. Both a and q are squarefree. Thus n=aq is cube-free and has a UNIQUE representation n=g^2*h with g>1 and g,h squarefree and coprime. In every contributing pair g=gcd(a,q), q=g*b and a=g*h/b for b|h. Since mu(g)mu(b)=-1,
+
+```text
+mu(a)=mu(g)mu(h/b)=-mu(h),
+V_odd,y(n)=-mu(h)*k_y(g,h),
+k_y(g,h)=#{b|h:gb>y,mu(gb)=-1,lambda(gb)=1}.           (DR.9)
+```
+
+Conversely each displayed b supplies an admitted original pair, so the formula is exhaustive. Its original atom diagonal is k, its square is k^2 and its doubled within-n cross term is k(k-1)>=0. Non-cube-free n cannot occur in this odd-sector source. Squareful-q companions of the FULL defect are not thereby excluded; they remain in V_y(n).
+
+This is a factorization restriction on the actual signs, not a probabilistic covariance statement. It does NOT prove the aggregate odd sector has one sign, since mu(h) varies between integers. It also does NOT preclude cancellation with the even-parity and squareful-q companions.
+
+**Complete return after grouping.** No discarded term is favorable by default:
+
+```text
+mathcalD^2=sum_n V_y(n)^2+2sum_(n<m)V_y(n)V_y(m).       (DR.10)
+```
+
+The cross-n term has both signs at actual roots. It must also be combined with the A/J cross terms in the complete Mertens square. A same-n reinforcement theorem is not a no-go theorem for global cancellation.
+
+#### DR3. Two Distinct Contractive-Recovery Shortcuts Are False
+
+**Genuine-Mertens nonexpansion H_NE:** for every admitted composite odd-parity event, |d_T(q)|<=max_(1<=u<=t_q)|M(u)|. This fails at R=16, X=255, q=78=2*3*13. Exact floors are L(77)=23,L(78)=24, so the event is genuinely selected. Here t_q=3, M(3)=-1, M_78(3)=1, d=-2, while max_(u<=3)|M(u)|=1. This is the first failing R and then q in the frozen discovery range R=3..40.
+
+**Positive-kernel power contraction H_OP:** at every admitted event, the DR.2 response has norm <1 in the power-weighted supremum norm, for a fixed 0<theta<=1. The exact coefficient norm at t is
+
+```text
+kappa_theta(q,t)=sum_(1<d<=t,d in H(q))(floor(t/d)/t)^theta. (DR.11)
+```
+
+At R=22, X=483, q=78, t=6, the nonunit d are 2,3,4,6 and their floor values are 3,2,1,1. Therefore kappa_1=7/6, and kappa_theta>=7/6 for EVERY 0<theta<=1. This is the first strict kappa_1>1 in the registered discovery range. Choosing the test vector f(u)=u^theta attains that positive-kernel norm.
+
+The test vector in the LAST sentence is NOT claimed to be Mertens. H_OP is a coefficient-blind operator assertion on the kernel of an ACTUAL event; its failure rules out that particular norm-based contraction proof. It does not refute a stronger arithmetic estimate valid only on genuine M, an eventual estimate, or a jointly compensated event sum. H_NE separately gives a true-Mertens counterexample, but at the unweighted prefix-maximum norm. Do not merge these two scopes.
+
+#### DR4. A Uniform Supporting Bound Survives Without Contraction
+
+Fix 0<theta<1 and C_M>=0 with |M(u)|<=C_M*u^theta for every integer u>=1. For a finite prime set of divisors of q define
+
+```text
+F_theta(q)=product_(p|q)(1-p^(-theta))^(-1).
+```
+
+By DR.1 and the convergent finite-prime geometric series,
+
+```text
+|M_q(t)| <= C_M*t^theta*F_theta(q),
+|d_T(q)| <= C_M*t_q^theta*(1+F_theta(q)).               (DR.12)
+```
+
+The second inequality now uses d_T(q)=M(t_q)+mu(q)M_q(t_q) for arbitrary q, including squareful q. The prime-specific factors refine the inspected existing bound `wheelRoughFiniteLoss(P,theta)=(1-(2/3)^theta)^(-#P)`. That compiled theorem uses (t+1)^theta, whereas DR.12 is derived directly from the displayed t^theta input; for t>=1, changing between these normalizations costs at most the fixed factor 2^theta. Both preserve the input exponent; neither is a global exponent gain. DR.12 has no constant depending secretly on the changing q.
+
+For any fixed integer k>=2, define a nonnegative multiplicative coefficient supported on squarefree d:
+
+```text
+a_k(d)=product_(p|d)[(1-p^(-theta))^(-k)-1],
+A_theta,k=product_p[1+((1-p^(-theta))^(-k)-1)/p].
+```
+
+For sufficiently large p, the numerator is O_(theta,k)(p^(-theta)); hence the infinite product converges, since sum_(n>=2)n^(-1-theta)<infinity. The finitely many small primes contribute a fixed finite factor. This is an elementary positive-product argument, not prime independence. Divisor expansion gives exactly
+
+```text
+F_theta(q)^k=sum_(d|q)a_k(d),
+sum_(q<=U)F_theta(q)^k
+ =sum_(d<=U)a_k(d)*floor(U/d) <= A_theta,k*U.           (DR.13)
+```
+
+Floor-Li sparsity is independently elementary: sum_(3<=q<=U)lambda(q)=L(floor U)<=C_0 U/log U for U>=3, for one absolute C_0. Split the defining integral at sqrt(U), use 1/log u<=2/log U above that point and bound the shorter initial interval; enlarge one constant on the finite small range. Because lambda is 0 or 1, Holder with (DR.13) yields
+
+```text
+A_lambda(U):=sum_(3<=q<=U)lambda(q)F_theta(q)
+ <= C_0^(1-1/k)*A_theta,k^(1/k)*U/(log U)^(1-1/k).     (DR.14)
+```
+
+This applies to the actual event set and, indeed, to any deterministic indicator set with that counting bound. No distribution of those events among prime factors is assumed.
+
+Let c=1-1/k. Partial summation on (y,T], dropping only the NONPOSITIVE lower boundary, gives
+
+```text
+sum_(y<q<=T)lambda(q)F_theta(q)q^(-theta)
+ <= A_lambda(T)T^(-theta)
+    +theta*integral_y^T A_lambda(u)u^(-theta-1)du
+ <= C_(theta,k)*T^(1-theta)/(log y)^c.
+```
+
+This is uniform when y>=3. The finite y=2 range T<9 is absorbed into one constant. For y>=2 and T<(y+1)^2, one has T<=y(y+2)<=y^3, hence log y>=log T/3. Since F_theta(q)>=1, (DR.12) now proves
+
+```text
+|mathcalD_y(T)| <= C_(theta,k,C_M)*T/(log T)^(1-1/k),
+uniformly for y>=2 and y<T<(y+1)^2.                   (DR.15)
+```
+
+All constants are fixed before y,T. For any delta in (0,1), choose k>=max(2,ceil(1/delta)); a harmless finite-range adjustment gives the announced exponent 1-delta on log T. Instantiate theta and C_M from the certified b_base as specified in B. The general statement is conditional on the displayed Mertens envelope; that premise is supplied by an existing repository theorem in this application, not by the desired conclusion.
+
+This is a new supporting quantitative application on the WHOLE defect, not a proof of a sharper global Mertens estimate. It does not claim to be optimal, nor to be a consequence of PNT alone without the displayed power-envelope input.
+
+### E. Quantitative Consequence And Complete Consumer
+
+At X=R^2-1, DR.15 gives O_delta(R^2/(log R)^(1-delta)) for the entire mathcalD. This is sublinear in X, but it is much LARGER than X^theta for fixed theta<1 and much larger than R log R. It therefore cannot improve the certified b_base by separately bounding A,J,mathcalD. It preserves their exact full-square identity rather than replacing it with a diagonal sum.
+
+The actual prime-side consumer remains BR's fixed-y completion. With B(n)=pi(n)-L(n), N=floor(X/(y+1)),
+
+```text
+B(X)-B(y)=sum_(k<=N)I_y(floor(X/k)),
+Z_R=H_R-sum_(k<=N)I_y(floor(X/k)),
+H_R=(li-Li_2)+{Li_2(X)}-B(y).
+```
+
+The historical H_R is retained, and every descendant uses the SAME y. For y=R-1, DR.15 applies to each T_k=floor(X/k)>y. But triangle on the completed defects gives only
+
+```text
+sum_(k<=R-1)|mathcalD_y(T_k)|
+ <= C_(theta,k0) X (log R)^(1/k0),
+```
+
+where k0>=2 is the fixed moment order, distinct from the descendant index. Indeed log T_k>=log R and sum_(k<=R-1)1/k=O(log R). This explicitly pays the harmonic completion cost: the log saving on one bracket does not survive this crude completed return. No new bound for the full prime-side Z_R follows.
+
+#### 2. FOUR-WAY SOURCE MAP
+
+| Euler / finite AC | VF / actual-prime source | NNS / OAI | Square blocks / full prefix | Prime-Mobius coupling |
+| --- | --- | --- | --- | --- |
+| Certified complete wheel F_R includes physical and virtual divisors; Euler compensation gives Z_R. Distinct Q_R=sum_(a,b<R)mu(a)mu(b)floor(X/(ab))=2M(y)-M(X), with unchanged K_R. | Compiled floor-Li bracket gives M=A-I. BR gives -I=J+mathcalD and fixed-y completion to B(X)-B(y). DR1/DR2 retain exact original coefficients. | DR.10 and the A/J/defect square retain all real cross terms. `actual_low_tuple_polynomial_sq_eq_signed_gram` is certified on different ideal-labelled atoms. No source-weight map to these event fibres is proved: OPEN_BRIDGE. | Original M(X)=A+J+mathcalD is a COMPLETE prefix identity. A shell difference must keep both endpoints and the same stated wheel; no shell norm is supplied. | Post-root primes have the already-paid sign flip. Composite events require BR's defect. DR's radical and g^2*h maps preserve multiplicity/sign exactly, but are not physical prime-admission maps. |
+
+`vfMid915HistoricalMovingOwner_eq_signedMismatch` was inspected: it compresses genuine historical owner removal into the UNWEIGHTED primitive event boundary with the historical anchor and deterministic VF-Li correction. It does not identify a clipped returned-cell source with an unmasked Mobius cofactor sum. DR.5 exposes the mask change explicitly. The original #915 normalizer is not enlarged with extra historical absolute mass.
+
+Typed edges and original declarations: Euler F_R-D_R to li(X)-pi(X) is EXACT_IDENTITY by `finiteWheel_squareFractional_centered_eq_reference_sub_pi` at R>=2. VF M=A-I is EXACT_IDENTITY by `buchstab_mertens_eq_floorLi_smooth_add_innovation_of_sqrt_le` with y>=1 and floor(sqrt(T))<=y; the present T<(y+1)^2 ensures that hypothesis. The -I=J+mathcalD edge and physical regrouping are PAPER_PROOF / EXACT_IDENTITY, not newly compiled declarations. Fixed-y descendant recovery is the finite Mobius inversion underlying `sum_convolveOne_mul_mertensSummatory_div`; all integer cutoff multiplicities remain. The full-prefix-to-shell map is a signed endpoint difference, not a bound or an invertible shell-only estimate. The physical integer Gram and ideal-labelled OAI Gram have OPEN_BRIDGE for weights, masks and admission. The unweighted boundary and the clipped #915 source are NOT_EQUIVALENT by definition without the missing mask-transfer theorem (DR.5). All displayed event sums here have unit counting normalization; no K_R or historical absolute mass is inserted. Immutable file SHAs for these declarations are in the source receipt below.
+
+#### 3. FIRST SIGNED LOSS
+
+| Source / declaration | Exact lost interaction or tax | Paid recovery and remaining bill / falsifier |
+| --- | --- | --- |
+| Buchstab original weighted bracket; BR lift | Omitting mathcalD discards its square and both A/J mixed terms. | DR1 restores the exact coefficient. R=3 and R=14 retain nonzero opposite defects. No bound on A+J+mathcalD is supplied. |
+| wheelRoughPowerGrowth_prime_extension | Triangle in the one-prime recurrence; replacing the prime-specific ratio by (2/3)^theta spends a flat factor per prime. | DR.12 retains the exact geometric product. H_OP fails at the actual q=78 kernel, so this is not a uniform contraction. |
+| Physical n regrouping in DR.6 | Replacing the square of a fibre by its atom diagonal drops all same-n pairs. | DR2 recovers exact POSITIVE terms: +24 at R=6,n=30. Cross-n, squareful companions and A/J remain. |
+| Odd shared-factor fibre | Treating a repeated n as independent donor labels invents missing cancellation. | DR.9 proves same sign for all original labels. R=44,n=1932 has positive doubled cross term +2. |
+| DR.14-DR.15 and completed prime return | Holder and outer triangle discard between-event signs; descendant triangle costs a harmonic log. | Log saving controls the complete single-bracket defect only. The completed bound is O(X(log R)^(1/k0)), not RH-scale. |
+
+#### 4. PAID RECOVERY TEST
+
+The existing wheel-rough prime-extension theorem DOES apply to M_q on the actual prime factors of q; DR1 provides the exact changing-q coefficient map. Its fixed-wheel bound must retain the number of prime factors and cannot be treated as q-uniform for free. DR4 replaces that coarse cost by explicit factor moments and supplies a genuine uniform supporting bound. MobiusRenewalTelescope recovers the full prime discrepancy only with all descendants. #1115 parent-band bounds do not become bounds on lambda or epsilon; BR's coefficient mismatch remains. #1127 positivity and #1128 resonance concern different proper sources. #1130's Hecke response cannot be copied onto this event kernel: DR3 shows that the naive positive-kernel contraction premise is false here.
+
+#### 5. NET RESULT / ADMISSION VERDICT
+
+New exact sign restrictions and valid falsifiers change which local recovery mechanisms remain plausible. DR4 bounds a complete auxiliary defect, but neither it nor DR2 restricts the COMPLETE original A+J+mathcalD source strongly enough to pass the new-route admission criterion. **NO_NEW_GLOBAL_GAIN / NO_NEW_ACCEPTED_ROUTE.** No eta, RH claim, finite-A proof or zero-covariance claim is made.
+
+### F. Falsification, Exact Evidence And Circularity Review
+
+The frozen primary tests covered R=3..40 and held-outs 47,64: 27,512 admitted q rows and 24,631 radical labels. They checked DR.1, actual mu(aq), all defect parity sectors, the unique radical map, M=A+J+mathcalD and all six quadratic terms. Every floor-Li value through 4095 was accepted only when rigorous outward intervals had identical integer floors. R=3 defect 3 and R=14 defect -6 reproduced BR as controls.
+
+A disclosed proof-led extension tested DR2 at every R=3..64: 33,599 nonzero original defect atoms. It reassembled the full physical-integer coefficients separately from the radical response. The first squarefree multiple-event fibre was R=6,n=30. The first odd-sector multiple-event fibre was R=44,n=1932=2^2*483, with events (q,a)=(138,14),(322,6), each +1. Here 483=3*7*23, so -mu(483)=+1 as predicted. All root-prime endpoints and exact qa=X cases were retained.
+
+| R | Full defect | Squarefree part | Squareful part | Sum_n V(n)^2 | Doubled cross-n term | Complete defect square |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| 3 | 3 | 2 | 1 | 5 | 4 | 9 |
+| 6 | 3 | 4 | -1 | 61 | -52 | 9 |
+| 14 | -6 | 0 | -6 | 194 | -158 | 36 |
+| 16 | 4 | 10 | -6 | 230 | -214 | 16 |
+| 22 | -16 | -8 | -8 | 428 | -172 | 256 |
+| 47 | -32 | 2 | -34 | 2038 | -1014 | 1024 |
+| 55 | -58 | -26 | -32 | 2952 | 412 | 3364 |
+| 64 | -72 | -48 | -24 | 3986 | 1198 | 5184 |
+
+This demonstrates why same-n positivity is not a global sign theorem. All omitted cross-n terms were reconstructed, not discarded. The complete odd sector was nonpositive at the frozen primary roots; its first negative value was -1 at R=13. **That finite observation is not a proof of C_odd<=0.** Individual q=78 defects already have opposite signs at R=16 (-2) and R=40 (+1).
+
+An independent numerical METHOD used rational logarithm bounds and monotone rectangles for the integral of 1/log u on a 1/32 grid, not the primary Ei series. It certified the needed floors at 5,6,9,10,14,15,29,30,77,78,137,138,321,322 and independently trial-factored the R=6,16,22,44 witnesses. Both implementations are by this author: SELF_AUDIT, not independent specialist acceptance.
+
+The primary Li enclosure uses positive range-reduced logarithm series, directed integer arithmetic at 10^40, and the explicit tail of log(t)+sum t^j/(j*j!). No empirical floating tolerance decides a floor. The independent rectangle enclosure uses exact Fraction logarithms and directed 10^18 sums. Complete code and selected exact output receipts are appended below.
+
+An additional exact rational check tested the DR.13 multiplicative moment identity at 256 coefficients and six prefixes, choosing theta=1,k=2 solely to make F(q)=q/phi(q) rational. The final DR.15 transfer requires theta<1; theta=1 was NOT used for its divergent endpoint integral. The all-scale logarithmic estimate is justified by the paper proof, not these finite tests. All four programs passed syntax checks and completed successfully.
+
+Scoped source search located the existing wheel-rough recurrence and its flat prime loss, rather than falsely calling them new. No inspected source or today/yesterday report contained DR's exact floor-Li physical-fibre cross-term law or the full-defect moment application. This is a scoped nonduplication check, not an exhaustive novelty claim. No target-equivalent smallness premise enters any proof above.
+
+### G. Conceptual Interpretation
+
+There are two exact but DIFFERENT useful coordinates. Radical completion makes the coprime-prefix correction once-only as a response coefficient. Physical-integer grouping reveals that original repeated event labels can reinforce. Confusing those coordinates would erase genuine positive cross terms.
+
+Arithmetic ancestry therefore dictates where cancellation cannot occur: within the specified nonzero fibres. Any finer global saving must exploit interactions between different physical integers, with the companion parity/squareful sources and historical brackets intact. The existing roughing theorem can still pay an explicit average factor cost, even though it supplies no uniform eventwise contraction.
+
+### H. Competing Mechanisms
+
+| Hypothesis | Established evidence / missing theorem | Disposition |
+| --- | --- | --- |
+| Generic smaller-scale contraction of every odd event | H_NE and H_OP fail at their stated norms; the exact response remains valid | ABANDON those shortcuts; do not infer a no-go for arithmetic-only or eventual estimates |
+| Same-physical-integer cancellation of the defect | DR2 proves reinforcement and the small real-event witnesses realize it | ABANDON this pairing rule; retain all positive within-fibre cross terms |
+| Prime-sensitive response moments over the sparse event stream | DR4 proves a uniform full-defect logarithmic saving from the certified input | RETAIN as supporting bound, not a new route or exponent gain |
+| Signed cross-integer compensation of A/J/defect with original masks | No new source-faithful bound obtained; complete squares and mask changes are explicit | OPEN; needs a specific non-tautological arithmetic supplier |
+
+Selected portfolio is actual-prime VF/SAT source recovery with the JOH weighted-mask barrier checked. No new JOH first-moment theorem or CODIV/NYMAN result is claimed as fabricated rotation coverage. The latest cross-route priority was followed without changing the protected independent routes.
+
+### I. Specialist Handoffs
+
+**Coordinator:** DR2 is the strongest new structural concept: physical duplicate labels in these exact sectors reinforce. DR4 is the surviving quantitative application, but its complete-consumer costs prevent route admission. Keep M3 distinct from the OAI same-signal response: the latter's contractivity is not transferable by analogy. The next strategic decision is whether a concrete cross-integer signed interaction can be derived, not whether to optimize a local norm already shown inadequate.
+
+**Referee:** review DR.7-DR.9 exhaustiveness and sign, especially g=gcd(a,q), cube-free versus squarefree n, q>y, lambda's binary range, and the precise distinction between H_NE and H_OP. Review DR4's positive-product convergence, Holder on the ACTUAL selected set, the negative Abel lower boundary, constants before y,T, and the harmonic completion bill. The new claims need independent acceptance.
+
+**Analytic:** the explicit prime-sensitive multiplier is F_theta(q), with every fixed moment bounded on average by DR.13. DR.14 gives an already-justified deterministic event-weight budget. A stronger signed estimate must use the physical coefficients V_y(n) and their A/J companions, not replace the events by Hecke phases. No arbitrary-vector contraction is a compulsory entrance test for an arithmetic-only improvement.
+
+**Wheel:** use DR.9's unique square kernel to distinguish actual shared-factor occurrences from the radical-response labels. An original-weight cross-n map must account for these positive same-n credits and the squareful-q complement. No unproved chronological or #915 admission follows from the factorization.
+
+**Census:** extending the same nonexpansion/sign scans is unnecessary. Independently reproduce R=6,16,22,44 if needed. A useful next experiment requires a newly specified cross-n or sector-pairing rule; freeze its original coefficients and predict the missing cross terms before selecting held-outs. R=549/5561 need not be rerun for these small decisive falsifiers, and were not executed here.
+
+**Lean Verification:** NO_NEW_GLOBAL_ENDPOINT_THEOREM_TO_FORMALIZE. Reuse existing rough prime-extension and renewal infrastructure. DR2's exact physical-fibre law is a possible small enabling lemma after review if a consumer needs it; DR4 is a paper quantitative application, not yet accepted. Do not create speculative proof branches or encode the desired global residual bound as an input.
+
+These are report handoffs only. No agent was launched, rescheduled or promised background work.
+
+### J. First Independently Missing Lemma
+
+The newly derived positive-kernel and intra-fibre mechanisms are resolved at their stated scope: one is noncontractive, the other reinforces. No smaller independently sufficient RH lemma was obtained. Asking for |A+J+mathcalD| at a desired improved exponent or for the complete fixed-y prime descendant sum at O(R log R) merely restates the relevant target and is not offered as a paid input.
+
+A concrete narrower, OPTIONAL next question is whether the genuine event coefficients permit improved cancellation in the squarefree defect sector
+
+```text
+V_sf(y,T)=2sum_(n<=T, squarefree n)mu(n)
+             #{q|n:q>y,mu(q)=+1,lambda(q)=1},
+```
+
+AFTER adjoining a specified squareful-sector companion with its exact coefficient. DR2 rules out same-n cancellation, and DR4 already supplies only a logarithmic complete-defect envelope. This run has not identified a nontrivial uniform power inequality for that joined source that follows independently. Its sign or smallness must not be assumed. The next action is to propose and falsify a precise cross-n arithmetic map, or conclude NO_NEW_RECOVERY; it is not another unchanged range extension.
+
+### K. Next-Run Resume Capsule And Publication Discipline
+
+Resume DR1-DR5 at main f7947bee036c4dddb0c36fc9f53ab46b4fa90995. Preserve all earlier HM/BR/CF and upstream claim IDs and counterexamples. Strongest certified b_base is unchanged. New statuses: DR1 IDENTITY_ONLY; DR2/DR4 PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING; DR3 REFUTED at the specified auxiliary scopes; DR5 FINITE_COMPUTATION. Complete VF/wheel, finite A/C and RH remain OPEN.
+
+Early checkpoint was committed at 73e7cac042d13f17d2dd7a74c0811dbc158c3237, blob b9e9230bad7044d1c18343b63b7d476dc9c61ac4. Its immutable readback exactly matched the intended content; commit inspection showed ONLY this report changed, with 27 additions and zero deletions. All earlier daily bytes were preserved.
+
+Publication of this final synthesis is pending until current-blob update, commit-scope inspection and immutable readback. A separate receipt will record the completed checks. No local Lean was run. Direct clone failed with proxy CONNECT 403; authenticated source/report/CI access succeeded. No main/source/policy/other-report/issue/PR/workflow/schedule/permission change or agent launch occurred. All computation sessions finished.
+
+#### Material Source And Reproduction Receipts
+
+The following source/continuity tables and complete executed programs are appended automatically from the actual fetched objects and local files, not manually invented hashes. Source statuses remain distinct from report publication status.
+
+
+##### Immutable Main Sources
+
+| Source read | Actual blob SHA |
+| --- | --- |
+| [AGENTS.md](https://github.com/OVVO-Financial/RH_Lean/blob/f7947bee036c4dddb0c36fc9f53ab46b4fa90995/AGENTS.md) | `c9c89f01b90b526de9f3e8ea92478e36504711b6` |
+| [CURRENT_PROOF_CONTRACT.md](https://github.com/OVVO-Financial/RH_Lean/blob/f7947bee036c4dddb0c36fc9f53ab46b4fa90995/CURRENT_PROOF_CONTRACT.md) | `95566e37c8eaeb99ee680660df4f9d2e06ea5038` |
+| [docs/RHLEAN_CROSS_ROUTE_SIGNED_RECOVERY_20261110.md](https://github.com/OVVO-Financial/RH_Lean/blob/f7947bee036c4dddb0c36fc9f53ab46b4fa90995/docs/RHLEAN_CROSS_ROUTE_SIGNED_RECOVERY_20261110.md) | `e922d4ba9362a1ae196af8f6de88f7417f92087c` |
+| [research/CompleteSquareRootWheelFractionalBoundary.lean](https://github.com/OVVO-Financial/RH_Lean/blob/f7947bee036c4dddb0c36fc9f53ab46b4fa90995/research/CompleteSquareRootWheelFractionalBoundary.lean) | `ecb482e52deeee5e9b3853592a3ffdace662d2ff` |
+| [research/VF_MID_FLOOR_LI_BUCHSTAB_EXACT_BRACKETS_20261022.lean](https://github.com/OVVO-Financial/RH_Lean/blob/f7947bee036c4dddb0c36fc9f53ab46b4fa90995/research/VF_MID_FLOOR_LI_BUCHSTAB_EXACT_BRACKETS_20261022.lean) | `918876c6ad7697388d565d39b15db5b8c3cc9952` |
+| [research/VF_MID_915_FLOOR_LI_TRANSPORT_BOUNDARY.lean](https://github.com/OVVO-Financial/RH_Lean/blob/f7947bee036c4dddb0c36fc9f53ab46b4fa90995/research/VF_MID_915_FLOOR_LI_TRANSPORT_BOUNDARY.lean) | `10829c3857b6a375d1dd8179f78a35550c9e67d8` |
+| [research/VF_MID_FLOOR_LI_SIGNED_POPULATION_BALANCE.lean](https://github.com/OVVO-Financial/RH_Lean/blob/f7947bee036c4dddb0c36fc9f53ab46b4fa90995/research/VF_MID_FLOOR_LI_SIGNED_POPULATION_BALANCE.lean) | `9a9336dad72171b6d572a1c1ae88d1ae8b56b530` |
+| [RHLean/Analysis/MobiusRenewalTelescope.lean](https://github.com/OVVO-Financial/RH_Lean/blob/f7947bee036c4dddb0c36fc9f53ab46b4fa90995/RHLean/Analysis/MobiusRenewalTelescope.lean) | `223013cd640148a1513ef9e836653aa86cf01cdb` |
+| [RHLean/Proof/PrimeCombReciprocalBandCancellation.lean](https://github.com/OVVO-Financial/RH_Lean/blob/f7947bee036c4dddb0c36fc9f53ab46b4fa90995/RHLean/Proof/PrimeCombReciprocalBandCancellation.lean) | `7c2b4c8a55a1a2fe5bfa0dfe95996e416b0fd19f` |
+| [RHLean/Arithmetic/SignedBuchstabRecursion.lean](https://github.com/OVVO-Financial/RH_Lean/blob/f7947bee036c4dddb0c36fc9f53ab46b4fa90995/RHLean/Arithmetic/SignedBuchstabRecursion.lean) | `d9959a0c223d86f8b8f4ca53141bd9aae8665c2e` |
+| [RHLean/Analysis/WheelRoughSquarePrefixEnergy.lean](https://github.com/OVVO-Financial/RH_Lean/blob/f7947bee036c4dddb0c36fc9f53ab46b4fa90995/RHLean/Analysis/WheelRoughSquarePrefixEnergy.lean) | `16b297bf0637b34d780fecce62c0f9ab18f49779` |
+| [RHLean/Analysis/PRoughSquarePrefixEnergy.lean](https://github.com/OVVO-Financial/RH_Lean/blob/f7947bee036c4dddb0c36fc9f53ab46b4fa90995/RHLean/Analysis/PRoughSquarePrefixEnergy.lean) | `9b117e3d9066018737522c4b51c719ea51c81466` |
+| [research/oai_434/VF919WindowErrorClosure.lean](https://github.com/OVVO-Financial/RH_Lean/blob/f7947bee036c4dddb0c36fc9f53ab46b4fa90995/research/oai_434/VF919WindowErrorClosure.lean) | `f629db1b2b65d6ec042ac9432397d4b6316200c6` |
+| [research/oai_434/VF919ExplicitSquareBlockPacking.lean](https://github.com/OVVO-Financial/RH_Lean/blob/f7947bee036c4dddb0c36fc9f53ab46b4fa90995/research/oai_434/VF919ExplicitSquareBlockPacking.lean) | `32999039fdeea99c58a070c1c4ee9c140720dd44` |
+| [research/oai_434/VF919ExplicitFixedSourceSlotCount.lean](https://github.com/OVVO-Financial/RH_Lean/blob/f7947bee036c4dddb0c36fc9f53ab46b4fa90995/research/oai_434/VF919ExplicitFixedSourceSlotCount.lean) | `bad5aab0a60e96d19e7c9550cd7c0a072288bc0f` |
+| [research/oai_434/VF919PrincipalSignedRemainder.lean](https://github.com/OVVO-Financial/RH_Lean/blob/f7947bee036c4dddb0c36fc9f53ab46b4fa90995/research/oai_434/VF919PrincipalSignedRemainder.lean) | `a41fee91754d5f6e5606f3f6f3dfe66031d81cbf` |
+| [scripts/lean/window_error_closure/WindowErrorClosureAudit.lean](https://github.com/OVVO-Financial/RH_Lean/blob/f7947bee036c4dddb0c36fc9f53ab46b4fa90995/scripts/lean/window_error_closure/WindowErrorClosureAudit.lean) | `1f17f9401a63d16227db2e2aad020b9f74bc5f4e` |
+| [research/oai_434/VF919OriginalLowTupleSignedGram.lean](https://github.com/OVVO-Financial/RH_Lean/blob/f7947bee036c4dddb0c36fc9f53ab46b4fa90995/research/oai_434/VF919OriginalLowTupleSignedGram.lean) | `dd2fde01ae6e2446da4e69b30f6fc80fcadb858d` |
+| [research/EULER_SELF_DUAL_ENDPOINT_GATE_20261027.lean](https://github.com/OVVO-Financial/RH_Lean/blob/f7947bee036c4dddb0c36fc9f53ab46b4fa90995/research/EULER_SELF_DUAL_ENDPOINT_GATE_20261027.lean) | `e7ee8f77ffd59bccaa49dd6d74fbe0d7952c2d73` |
+| [research/MERTENS_EXPONENT_ENVELOPES.lean](https://github.com/OVVO-Financial/RH_Lean/blob/f7947bee036c4dddb0c36fc9f53ab46b4fa90995/research/MERTENS_EXPONENT_ENVELOPES.lean) | `655b896e8d5a41c9f8fc3c456eae3944a98bfefe` |
+| [research/VF_CANONICAL_SQRT_TWO_VON_KOCH.lean](https://github.com/OVVO-Financial/RH_Lean/blob/f7947bee036c4dddb0c36fc9f53ab46b4fa90995/research/VF_CANONICAL_SQRT_TWO_VON_KOCH.lean) | `79030d70e8d3e0d08eef9bac53fef95c36eca2fb` |
+| [RHLean/Proof/AmplificationExponentIteration.lean](https://github.com/OVVO-Financial/RH_Lean/blob/f7947bee036c4dddb0c36fc9f53ab46b4fa90995/RHLean/Proof/AmplificationExponentIteration.lean) | `d78be4509e5dcc35b833c3786258b94fc6e71915` |
+| [RHLean/Proof/SquareRootAmplificationLogGrowth.lean](https://github.com/OVVO-Financial/RH_Lean/blob/f7947bee036c4dddb0c36fc9f53ab46b4fa90995/RHLean/Proof/SquareRootAmplificationLogGrowth.lean) | `2599db31079f388229d072ee616957fba6ffc555` |
+| [docs/COORDINATE_ATLAS.md](https://github.com/OVVO-Financial/RH_Lean/blob/f7947bee036c4dddb0c36fc9f53ab46b4fa90995/docs/COORDINATE_ATLAS.md) | `cd0419d00a37739fe5a292f5cb738e33213949d5` |
+| [docs/PROOF_DEPENDENCY_DAG.md](https://github.com/OVVO-Financial/RH_Lean/blob/f7947bee036c4dddb0c36fc9f53ab46b4fa90995/docs/PROOF_DEPENDENCY_DAG.md) | `eee764cefe70035a9f6c7df26ad787fbfd0fb233` |
+| [docs/RHLEAN_SOURCE_FAITHFUL_COMPLETE_RETURN_AGENT_CONTRACT_20261031.md](https://github.com/OVVO-Financial/RH_Lean/blob/f7947bee036c4dddb0c36fc9f53ab46b4fa90995/docs/RHLEAN_SOURCE_FAITHFUL_COMPLETE_RETURN_AGENT_CONTRACT_20261031.md) | `4775ee5fd95f279beab08a75d1e17127078b19a6` |
+| [docs/RHLEAN_INDEPENDENT_MULTIFRONT_NO_PIGEONHOLING_20261104.md](https://github.com/OVVO-Financial/RH_Lean/blob/f7947bee036c4dddb0c36fc9f53ab46b4fa90995/docs/RHLEAN_INDEPENDENT_MULTIFRONT_NO_PIGEONHOLING_20261104.md) | `6ff6eb30b91705af5478d3705849234260f8a7a3` |
+| [docs/RHLEAN_SEVEN_AGENT_FINITE_WHEEL_BOUNDARY_20261108.md](https://github.com/OVVO-Financial/RH_Lean/blob/f7947bee036c4dddb0c36fc9f53ab46b4fa90995/docs/RHLEAN_SEVEN_AGENT_FINITE_WHEEL_BOUNDARY_20261108.md) | `e505f35522b675c6b5b263eac73618d717346973` |
+
+##### Continuity Intake
+
+TODAY=AVAILABLE; YESTERDAY=CARRY_FORWARD. The final branch-tree refresh at 2026-11-10 21:40 UTC found all upstream today-report blobs unchanged. Main also remained unchanged and the open-PR collection was empty (including drafts). Earlier daily Owner content is preserved, not replaced.
+
+| Date / report | Intake blob SHA |
+| --- | --- |
+| 2026-11-09/00-coordinator-am.md | `6fba43130391ad4a606aa3809c20f344d668c709` |
+| 2026-11-09/10-owner-payment.md | `643e8a004d9d8e0be102b03e2f79bb3b217ae916` |
+| 2026-11-09/20-analytic-type-ii.md | `d1d0d86d444b9c447cf6acf4bd18fdcaf02e56a3` |
+| 2026-11-09/30-finite-wheel.md | `0624246d03b19cf76c01e186b7d868a248d896ef` |
+| 2026-11-09/40-prime-census.md | `8c927cc6c323533ba1cfd369404b25aa4f9cef91` |
+| 2026-11-09/50-adversarial-referee.md | `a5d0192eb31c0efb3767187a7752f1a0d07f8534` |
+| 2026-11-09/60-lean-verification.md | `8b60c6136ac151774be2db0aee8f543f286b53aa` |
+| 2026-11-10/00-coordinator-am.md | `14190fe06982de80c5904b156525e3cda15d8f03` |
+| 2026-11-10/10-owner-payment.md | `ece5b3cd8d25b45e64c48812c81d71f6eddf23a9` |
+| 2026-11-10/20-analytic-type-ii.md | `a2675374a7160955917d42797eef5a3e2358056f` |
+| 2026-11-10/30-finite-wheel.md | `a6a05ab41daeeaf7b3d285833028075cf253d47c` |
+| 2026-11-10/40-prime-census.md | `8a89d1a899850e39320a96bf35a6f221060fc8a7` |
+| 2026-11-10/50-adversarial-referee.md | `988a4a74e40a48d8d4c868c03263e66c129a6f1a` |
+| 2026-11-10/60-lean-verification.md | `d2f8fd346b7aaab57f3bd3676ed7b1d8c8abb3f8` |
+| EXTERNAL_HANDOFFS.md | `038018145c0fddb2f6306c0712373adf9cd1ea52` |
+
+##### Relevant Merged Work
+
+| PR | Exact PR head | Merged UTC | Scope used here |
+| --- | --- | --- | --- |
+| [#1119](https://github.com/OVVO-Financial/RH_Lean/pull/1119) | `77ee815846d6d534c866f0752aa33b84c385610a` | 2026-11-09T04:57:27Z | Certified global Mertens baseline; exact-head logs re-fetched |
+| [#1122](https://github.com/OVVO-Financial/RH_Lean/pull/1122) | `c53e9cf234500aea2605fd2557e638995f380407` | 2026-11-09T04:59:27Z | Complete fractional wheel and virtual compensation |
+| [#1124](https://github.com/OVVO-Financial/RH_Lean/pull/1124) | `1b80f147dab3c0c2525052b3c6c3f8c447089da1` | 2026-11-09T12:30:32Z | Complete-wheel root admission; no endpoint cancellation |
+| [#1126](https://github.com/OVVO-Financial/RH_Lean/pull/1126) | `e8969ad76d4c5694273cefc934316fc528c56648` | 2026-11-10T02:10:09Z | Conditional finite-AC consumers; upgrade premise retained |
+| [#1127](https://github.com/OVVO-Financial/RH_Lean/pull/1127) | `866b3d2121309cdd854f9d64e2a6adbbc708ef9b` | 2026-11-10T10:38:28Z | Proper complete-cofactor positivity |
+| [#1128](https://github.com/OVVO-Financial/RH_Lean/pull/1128) | `d5b8003f6239611a457560b6fd16e29f16255e75` | 2026-11-10T10:40:04Z | Repair of genuine-prime resonance proof |
+| [#1129](https://github.com/OVVO-Financial/RH_Lean/pull/1129) | `45b0fbdc564c7cd063e2de2cc98c0051ee02457e` | 2026-11-10T12:11:24Z | Current cross-route task authority |
+| [#1130](https://github.com/OVVO-Financial/RH_Lean/pull/1130) | `4aa22782d10b3ad77dc970d6bb610eaab93a228c` | 2026-11-10T19:28:09Z | Compiled original signed local principal remainder only |
+
+##### Frozen Experiment Registration
+
+###### 20261110-owner-3/DR: Frozen Test Registration
+
+Carrier: X=R^2-1, y=R-1, actual lambda(q)=floor(Li_2(q))-floor(Li_2(q-1)), q>y.
+
+1. Verify coprime-prefix identity M_q(t)=sum_{d<=t,rad(d)|q} M(floor(t/d)) on every admitted row at R=3..40 and held-outs R=47,64.
+2. Verify the complete radical-indexed defect, all parity/squareful companions, and M=A+J+D with all six quadratic terms at those roots. Direct (q,a) summation is the independent reconstruction of the reindexed coefficients.
+3. Test the candidate nonexpansive odd-parity repair |M(t)-M_q(t)|<=max_{u<=t}|M(u)|, and the stronger operator criterion sum_{d>1,rad(d)|q} floor(t/d)<=t. Restrict counterexamples to actual lambda(q)>0, mu(q)=-1 composite q. Report smallest R then q within the frozen discovery range; do not claim global minimality outside it.
+4. Test C_odd<=0 versus C_odd>=0 on the complete odd-parity event sector. A finite opposite sign refutes only that sector sign, not the full target.
+5. Verify original BR regression values D_2(8)=3 and D_13(195)=-6 and event multiplicity at n=6. These are controls, not new claims.
+
+All pass/fail decisions use integers or rational outward intervals for Li_2; no floating sign claims. No hypothetical event sequence is substituted for actual floor-Li events. No local Lean execution.
+
+###### Proof-Led Extension, Registered After The First Run
+
+The first run falsified the actual nonexpansion claim at R=16,q=78 and the positive-kernel contraction criterion at R=22,q=78. It did not find positive C_odd in the registered roots. Do not upgrade that sign observation.
+
+New factorization prediction: at squarefree n, ALL nonzero full-defect atoms have value 2*mu(n); at a cube-free squareful n=g^2*h, all odd-parity shared-factor atoms have value -mu(h). Test both predictions on R=3..64, retaining every event and original atom. Check whether full-defect within-n cancellation holds (predicted false) and record the first multiple-event fibre. This is a disclosed proof-led extension, not a pre-existing preregistration.
+
+Independently certify the exact small witnesses by trial factorization and rational monotone integral rectangles, not by the first Li series implementation.
+
+
+##### Executed Reproducers
+
+Python 3.12.13 standard library only. Run the four programs from the same directory; the physical-fibre and moment checks import the primary arithmetic helper. Exact published bytes are identified by SHA-256 below. All programs completed successfully, and `python -m py_compile` passed for all four. These scripts are finite numerical verification, not Lean proofs.
+
+| Program / registration | SHA-256 |
+| --- | --- |
+| dr_probe.py | `3e0000cf1ae879f05a75046b1d8f21b6323b824bf45af77e89235496b100d36b` |
+| dr_fibres.py | `d35ff567b925692f47295605d11f2facea6e449fcd9442d5e910da60bd1cdfbe` |
+| dr_independent.py | `00b17d5774457b946ad0e5a8fe8281bdbbe101c898443604e4571ed4a68acae6` |
+| dr_moment.py | `acb7f416ef52ab42f7bbe123795bf51e918f9029ef24bf741d9badc9c1767ede` |
+| dr-registration.md | `9a5113ce3d13691318649561bdc0bd759d48080548c6e9bb6d9b448085670e2d` |
+
+###### dr_probe.py
+
+```python
+"""Exact floor-Li radical-response tests; research, not Lean certification."""
+
+from functools import lru_cache
+from math import gcd, isqrt
+import json
+
+S = 10**40
+
+
+def ceildiv(a, b):
+    return -(-a // b)
+
+
+def log_unit(a, b):
+    assert b <= a <= 2*b
+    zn, zd = a-b, a+b
+    pl, ph = S*zn//zd, ceildiv(S*zn, zd)
+    zl, zh = S*zn*zn//(zd*zd), ceildiv(S*zn*zn, zd*zd)
+    lo = hi = 0
+    terms = 100
+    for j in range(terms):
+        lo += 2*pl//(2*j+1)
+        hi += ceildiv(2*ph, 2*j+1)
+        pl, ph = pl*zl//S, ceildiv(ph*zh, S)
+    hi += ceildiv(2*ph*S, (2*terms+1)*(S-zh))
+    return lo, hi
+
+
+LOG2 = log_unit(2, 1)
+
+
+@lru_cache(None)
+def log_bounds(a, b=1):
+    if a < b:
+        lo, hi = log_bounds(b, a)
+        return -hi, -lo
+    k = 0
+    while a >= 2*b:
+        b *= 2
+        k += 1
+    lo, hi = log_unit(a, b)
+    return lo+k*LOG2[0], hi+k*LOG2[1]
+
+
+def ei_bounds(tl, th):
+    lo = log_bounds(tl, S)[0]
+    hi = log_bounds(th, S)[1]
+    pl = ph = S
+    terms = 180
+    for k in range(1, terms+1):
+        pl, ph = pl*tl//(S*k), ceildiv(ph*th, S*k)
+        lo += pl//k
+        hi += ceildiv(ph, k)
+    nxt = ceildiv(ph*th, S*(terms+1))
+    assert th < S*(terms+2)
+    hi += ceildiv(nxt*S*(terms+2), (terms+1)*(S*(terms+2)-th))
+    return lo, hi
+
+
+EI2 = ei_bounds(*LOG2)
+
+
+@lru_cache(None)
+def li_bounds(n):
+    assert n >= 2
+    if n == 2:
+        return (0, 0)
+    lo, hi = ei_bounds(*log_bounds(n))
+    return lo-EI2[1], hi-EI2[0]
+
+
+@lru_cache(None)
+def potential(n):
+    lo, hi = li_bounds(n)
+    assert lo//S == hi//S, (n, lo, hi)
+    return lo//S
+
+
+def arithmetic(N):
+    mu, rad, spf = [1]*(N+1), [1]*(N+1), [0]*(N+1)
+    mu[0] = 0
+    rad[0] = 0
+    for p in range(2, N+1):
+        if not spf[p]:
+            for n in range(p, N+1, p):
+                mu[n] = -mu[n]
+                rad[n] *= p
+                if not spf[n]:
+                    spf[n] = p
+            for n in range(p*p, N+1, p*p):
+                mu[n] = 0
+    M, pi, E = [0]*(N+1), [0]*(N+1), [0]*(N+1)
+    for n in range(1, N+1):
+        M[n] = M[n-1]+mu[n]
+        pi[n] = pi[n-1]+int(n >= 2 and spf[n] == n)
+        E[n] = max(E[n-1], abs(M[n]))
+    return mu, rad, spf, M, pi, E
+
+
+def main():
+    roots = list(range(3, 41))+[47, 64]
+    N = max(roots)**2-1
+    mu, rad, spf, M, pi, E = arithmetic(N)
+    L = [0, 0]+[potential(n) for n in range(2, N+1)]
+    lam = [0, 0, 0]+[L[n]-L[n-1] for n in range(3, N+1)]
+    assert set(lam) <= {0, 1}
+    first_actual = first_operator = first_positive = first_negative = None
+    checked_rows = checked_radical = 0
+    rows = []
+    for R in roots:
+        X, y = R*R-1, R-1
+        D = J = P = Codd = Czero = Ceven = 0
+        event_detail = []
+        for q in range(R, X+1):
+            t = X//q
+            cp = sum(mu[a] for a in range(1, t+1) if gcd(a, q) == 1)
+            smooth = [d for d in range(1, t+1) if q % rad[d] == 0]
+            assert cp == sum(M[t//d] for d in smooth)
+            physical = sum(mu[a*q] for a in range(1, t+1))
+            assert physical == mu[q]*cp
+            defect = M[t]+physical
+            assert defect == sum(mu[a]+mu[a*q] for a in range(1, t+1))
+            checked_rows += 1
+            if lam[q]:
+                D += defect
+                P += M[t]
+                if mu[q] == 0:
+                    Czero += defect
+                elif mu[q] == 1:
+                    Ceven += defect
+                else:
+                    Codd += defect
+                    assert defect == -sum(M[t//d] for d in smooth if d > 1)
+                    if spf[q] != q:
+                        kappa_num = sum(t//d for d in smooth if d > 1)
+                        detail = dict(R=R, q=q, t=t, M=M[t], coprime=cp,
+                                      defect=defect, E=E[t], smooth=smooth,
+                                      kappa_num=kappa_num, kappa_den=t,
+                                      L_prev=L[q-1], L=L[q])
+                        if first_operator is None and kappa_num > t:
+                            first_operator = detail
+                        if first_actual is None and abs(defect) > E[t]:
+                            first_actual = detail
+                        if abs(defect) > E[t] or kappa_num > t:
+                            event_detail.append(detail)
+            eps = int(spf[q] == q)-lam[q]
+            J += eps*physical
+        radical = sum(mu[rad[n]]*lam[rad[n]]*M[X//n]
+                      for n in range(1, X+1) if rad[n] > y)
+        assert D == P+radical == Czero+Ceven+Codd
+        h = {n: (lam[n] if n > y else 0)
+                  +(mu[rad[n]]*lam[rad[n]] if rad[n] > y else 0)
+             for n in range(1, X+1)}
+        assert sum(h[n]*M[X//n] for n in h) == D
+        # The radical coefficient is once-only: q must equal rad(n).
+        multiplicities = {}
+        for q in range(R, X+1):
+            if mu[q]:
+                for d in range(1, X//q+1):
+                    if q % rad[d] == 0:
+                        n = q*d
+                        assert rad[n] == q
+                        multiplicities[n] = multiplicities.get(n, 0)+1
+        assert all(c == 1 for c in multiplicities.values())
+        assert set(multiplicities) == {n for n in range(1, X+1) if rad[n] > y}
+        checked_radical += len(multiplicities)
+        smooth_mass = sum(mu[n] for n in range(1, X+1)
+                          if n == 1 or all(not(n % p == 0) for p in range(R, n+1)
+                                           if spf[p] == p))
+        A = smooth_mass-P
+        I = sum((int(spf[q] == q)-lam[q])*M[X//q] for q in range(R, X+1))
+        assert M[X] == A-I == A+J+D
+        gram = A*A+J*J+D*D+2*A*J+2*A*D+2*J*D
+        assert gram == M[X]**2
+        row = dict(R=R, M=M[X], A=A, J=J, D=D,
+                   parity=dict(zero=Czero, even=Ceven, odd=Codd),
+                   floor_reference=P, radical_response=radical,
+                   gram=gram, nonexpansive_failures=event_detail)
+        rows.append(row)
+        if Codd > 0 and first_positive is None:
+            first_positive = row
+        if Codd < 0 and first_negative is None:
+            first_negative = row
+    assert rows[0]['D'] == 3
+    assert next(r for r in rows if r['R'] == 14)['D'] == -6
+    out = dict(status='PASS_EXACT', roots=roots, checked_rows=checked_rows,
+               checked_radical_labels=checked_radical,
+               first_operator=first_operator, first_actual=first_actual,
+               first_positive_odd=first_positive, first_negative_odd=first_negative,
+               selected=[r for r in rows if r['R'] in [3, 5, 14, 30, 40, 47, 64]],
+               precision='All decisions exact; Li_2 outward fixed-point intervals.')
+    print(json.dumps(out, indent=2))
+
+
+if __name__ == '__main__':
+    main()
+```
+
+###### dr_fibres.py
+
+```python
+"""Proof-led physical-integer fibre checks for the complete defect."""
+
+from collections import defaultdict
+from math import gcd, isqrt
+import json
+from dr_probe import arithmetic, potential
+
+
+def main():
+    N = 64**2-1
+    mu, rad, spf, M, pi, E = arithmetic(N)
+    lam = [0, 0, 0]+[potential(n)-potential(n-1) for n in range(3, N+1)]
+    first_sf = first_odd = None
+    roots = []
+    checked_atoms = 0
+    for R in range(3, 65):
+        X, y = R*R-1, R-1
+        full, odd = defaultdict(list), defaultdict(list)
+        for q in range(R, X+1):
+            if not lam[q]:
+                continue
+            for a in range(1, X//q+1):
+                value = mu[a]+mu[a*q]
+                if value:
+                    full[a*q].append((q, a, value))
+                    checked_atoms += 1
+                if mu[q] == -1 and mu[a] and gcd(a, q) > 1:
+                    odd[a*q].append((q, a, mu[a]))
+        sf_mass = nonsf_mass = 0
+        sf_diag = sf_grouped = 0
+        for n, atoms in sorted(full.items()):
+            s = sum(v for q, a, v in atoms)
+            if mu[n]:
+                assert all(v == 2*mu[n] and mu[q] == 1 for q, a, v in atoms)
+                sf_mass += s
+                sf_diag += sum(v*v for q, a, v in atoms)
+                sf_grouped += s*s
+                if len(atoms) > 1 and first_sf is None:
+                    first_sf = dict(R=R, n=n, mu=mu[n], atoms=atoms,
+                                    mass=s, diagonal=sum(v*v for q, a, v in atoms),
+                                    cross=s*s-sum(v*v for q, a, v in atoms))
+            else:
+                nonsf_mass += s
+        odd_mass = odd_diag = odd_grouped = 0
+        for n, atoms in sorted(odd.items()):
+            g = n//rad[n]
+            assert g*g <= n and n % (g*g) == 0
+            h = n//(g*g)
+            assert mu[g] and mu[h] and gcd(g, h) == 1 and g > 1
+            assert all(gcd(a, q) == g and v == -mu[h] for q, a, v in atoms)
+            reconstructed = []
+            for b in range(1, h+1):
+                if h % b == 0 and g*b > y and mu[g*b] == -1 and lam[g*b]:
+                    reconstructed.append((g*b, g*(h//b), -mu[h]))
+            assert sorted(atoms) == sorted(reconstructed)
+            s = sum(v for q, a, v in atoms)
+            odd_mass += s
+            odd_diag += len(atoms)
+            odd_grouped += s*s
+            if len(atoms) > 1 and first_odd is None:
+                first_odd = dict(R=R, n=n, g=g, h=h, atoms=atoms,
+                                 mass=s, diagonal=len(atoms), cross=s*s-len(atoms))
+        D = sf_mass+nonsf_mass
+        direct = sum(lam[q]*(M[X//q]+sum(mu[a*q] for a in range(1, X//q+1)))
+                     for q in range(R, X+1))
+        assert D == direct
+        assert sf_grouped >= sf_diag and odd_grouped >= odd_diag
+        all_grouped = sum(sum(v for q, a, v in atoms)**2 for atoms in full.values())
+        cross_n = D*D-all_grouped
+        roots.append(dict(R=R, D=D, squarefree_mass=sf_mass,
+                          squareful_mass=nonsf_mass,
+                          squarefree_diagonal=sf_diag,
+                          squarefree_within_n_cross=sf_grouped-sf_diag,
+                          odd_mass=odd_mass, odd_diagonal=odd_diag,
+                          odd_within_n_cross=odd_grouped-odd_diag,
+                          full_grouped_diagonal=all_grouped,
+                          all_cross_n=cross_n, complete_square=D*D))
+    print(json.dumps(dict(status='PASS_EXACT', roots_checked=len(roots),
+                          checked_atoms=checked_atoms, first_squarefree_fibre=first_sf,
+                          first_odd_fibre=first_odd,
+                          selected=[r for r in roots if r['R'] in [3, 6, 13, 14, 16, 22, 40, 47, 55, 64]]), indent=2))
+
+
+if __name__ == '__main__':
+    main()
+```
+
+###### dr_independent.py
+
+```python
+"""Trial-factor and monotone-integral audit, independent of dr_probe formulas."""
+
+from fractions import Fraction as F
+from functools import lru_cache
+from math import gcd, isqrt
+import json
+
+
+@lru_cache(None)
+def ln_bounds(n, den=1):
+    x = F(n, den)
+    k = 0
+    while x >= 2:
+        x /= 2
+        k += 1
+    def unit(v):
+        z = (v-1)/(v+1)
+        power = z
+        total = F(0)
+        for j in range(20):
+            total += 2*power/(2*j+1)
+            power *= z*z
+        return total, total+2*power/(41*(1-z*z))
+    lo, hi = unit(x)
+    l2, h2 = unit(F(2))
+    return lo+k*l2, hi+k*h2
+
+
+def trial_mu(n):
+    out = 1
+    for p in range(2, isqrt(n)+1):
+        if n % p == 0:
+            n //= p
+            out *= -1
+            if n % p == 0:
+                return 0
+    return -out if n > 1 else out
+
+
+def main():
+    wanted = {2, 5, 6, 9, 10, 14, 15, 29, 30, 77, 78, 137, 138, 321, 322}
+    # Monotone endpoint rectangles, all reciprocal/log errors directed.
+    step = 32
+    S = 10**18
+    lo = hi = 0
+    floors = {2: 0}
+    certificates = {2: [0, 0]}
+    for j in range(2*step, max(wanted)*step):
+        left_lo, _ = ln_bounds(j, step)
+        _, right_hi = ln_bounds(j+1, step)
+        lv = F(1, step)/right_hi
+        hv = F(1, step)/left_lo
+        lo += lv.numerator*S//lv.denominator
+        hi += -(-hv.numerator*S//hv.denominator)
+        if (j+1) % step == 0 and (j+1)//step in wanted:
+            n = (j+1)//step
+            assert lo//S == hi//S, (n, lo, hi)
+            floors[n] = lo//S
+            certificates[n] = [lo, hi]
+    for q in [6, 10, 15, 78, 138, 322]:
+        assert floors[q]-floors[q-1] == 1
+    assert floors[30]-floors[29] == 0
+    assert trial_mu(30) == -1
+    n30 = [(q, 30//q, trial_mu(30//q)+trial_mu(30)) for q in [6, 10, 15]]
+    assert [v for q, a, v in n30] == [-2, -2, -2]
+    M = lambda t: sum(trial_mu(a) for a in range(1, t+1))
+    q, R = 78, 16
+    t = (R*R-1)//q
+    cp = sum(trial_mu(a) for a in range(1, t+1) if gcd(a, q) == 1)
+    assert t == 3 and M(t)-cp == -2
+    assert max(abs(M(u)) for u in range(1, t+1)) == 1
+    assert ((22**2-1)//78) == 6
+    assert sum(6//d for d in [2, 3, 4, 6]) == 7
+    odd = [(q, 1932//q, trial_mu(1932//q)) for q in [138, 322]]
+    assert [v for q, a, v in odd] == [1, 1]
+    assert 1932 <= 44**2-1 and all(q >= 44 for q, a, v in odd)
+    print(json.dumps(dict(status='PASS_INDEPENDENT_METHOD', floors=floors,
+                          fixed_scale=S, rigorous_integral_enclosures=certificates,
+                          squarefree_atoms=n30, odd_atoms=odd,
+                          nonexpansion_witness=[R,q,t,-2,1],
+                          operator_witness=[22,78,6,7]), indent=2))
+
+
+if __name__ == '__main__':
+    main()
+```
+
+###### dr_moment.py
+
+```python
+"""Finite exact check of the multiplicative moment identity; not an endpoint test."""
+
+from fractions import Fraction as F
+from math import prod
+import json
+from dr_probe import arithmetic
+
+mu, rad, spf, M, pi, E = arithmetic(256)
+primes = [p for p in range(2, 257) if spf[p] == p]
+f, coeff = [F(0)]*257, [F(0)]*257
+for n in range(1, 257):
+    ps = [p for p in primes if n % p == 0]
+    f[n] = prod((F(p, p-1) for p in ps), start=F(1))
+    coeff[n] = (prod((F(p, p-1)**2-1 for p in ps), start=F(1))
+                if mu[n] else F(0))
+    assert f[n]**2 == sum((coeff[d] for d in range(1, n+1) if n % d == 0), F(0))
+out = []
+for N in [1, 2, 16, 64, 128, 256]:
+    lhs = sum((f[n]**2 for n in range(1, N+1)), F(0))
+    rhs = sum((coeff[d]*(N//d) for d in range(1, N+1)), F(0))
+    bound = N*sum((coeff[d]/d for d in range(1, N+1)), F(0))
+    assert lhs == rhs <= bound
+    out.append(dict(N=N, lhs=str(lhs), upper=str(bound)))
+print(json.dumps(dict(status='PASS_EXACT_MOMENT_ALGEBRA', coefficients=256,
+                      prefixes=out, theta=1, k=2,
+                      scope='Moment identity only; theta=1 is not admitted in the final log-bound transfer.'), indent=2))
+```
+
+##### Selected Exact Output Receipts
+
+Detailed discovery event lists are omitted for brevity; the complete programs reproduce them. No test outcome is inferred from an unexecuted run.
+
+```json
+{
+  "primary": {
+    "status": "PASS_EXACT",
+    "roots": [
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      33,
+      34,
+      35,
+      36,
+      37,
+      38,
+      39,
+      40,
+      47,
+      64
+    ],
+    "checked_rows": 27512,
+    "checked_radical_labels": 24631,
+    "first_actual": {
+      "R": 16,
+      "q": 78,
+      "t": 3,
+      "M": -1,
+      "coprime": 1,
+      "defect": -2,
+      "E": 1,
+      "smooth": [
+        1,
+        2,
+        3
+      ],
+      "kappa_num": 2,
+      "kappa_den": 3,
+      "L_prev": 23,
+      "L": 24
+    },
+    "first_operator": {
+      "R": 22,
+      "q": 78,
+      "t": 6,
+      "M": -1,
+      "coprime": 0,
+      "defect": -1,
+      "E": 2,
+      "smooth": [
+        1,
+        2,
+        3,
+        4,
+        6
+      ],
+      "kappa_num": 7,
+      "kappa_den": 6,
+      "L_prev": 23,
+      "L": 24
+    },
+    "first_positive_odd": null,
+    "first_negative_odd": {
+      "R": 13,
+      "value": -1
+    },
+    "selected": [
+      {
+        "R": 3,
+        "M": -2,
+        "A": -3,
+        "J": -2,
+        "D": 3,
+        "parity": {
+          "zero": 1,
+          "even": 2,
+          "odd": 0
+        },
+        "gram": 4
+      },
+      {
+        "R": 5,
+        "M": -2,
+        "A": -2,
+        "J": -6,
+        "D": 6,
+        "parity": {
+          "zero": 1,
+          "even": 5,
+          "odd": 0
+        },
+        "gram": 4
+      },
+      {
+        "R": 14,
+        "M": -6,
+        "A": 0,
+        "J": 0,
+        "D": -6,
+        "parity": {
+          "zero": 0,
+          "even": -5,
+          "odd": -1
+        },
+        "gram": 36
+      },
+      {
+        "R": 30,
+        "M": 1,
+        "A": 4,
+        "J": 11,
+        "D": -14,
+        "parity": {
+          "zero": 2,
+          "even": -3,
+          "odd": -13
+        },
+        "gram": 1
+      },
+      {
+        "R": 40,
+        "M": -7,
+        "A": 2,
+        "J": 22,
+        "D": -31,
+        "parity": {
+          "zero": 2,
+          "even": -20,
+          "odd": -13
+        },
+        "gram": 49
+      },
+      {
+        "R": 47,
+        "M": 8,
+        "A": 8,
+        "J": 32,
+        "D": -32,
+        "parity": {
+          "zero": -4,
+          "even": -15,
+          "odd": -13
+        },
+        "gram": 64
+      },
+      {
+        "R": 64,
+        "M": -19,
+        "A": -1,
+        "J": 54,
+        "D": -72,
+        "parity": {
+          "zero": -12,
+          "even": -58,
+          "odd": -2
+        },
+        "gram": 361
+      }
+    ]
+  },
+  "fibres": {
+    "status": "PASS_EXACT",
+    "roots_checked": 62,
+    "checked_atoms": 33599,
+    "first_squarefree_fibre": {
+      "R": 6,
+      "n": 30,
+      "mu": -1,
+      "atoms": [
+        [
+          6,
+          5,
+          -2
+        ],
+        [
+          10,
+          3,
+          -2
+        ],
+        [
+          15,
+          2,
+          -2
+        ]
+      ],
+      "mass": -6,
+      "diagonal": 12,
+      "cross": 24
+    },
+    "first_odd_fibre": {
+      "R": 44,
+      "n": 1932,
+      "g": 2,
+      "h": 483,
+      "atoms": [
+        [
+          138,
+          14,
+          1
+        ],
+        [
+          322,
+          6,
+          1
+        ]
+      ],
+      "mass": 2,
+      "diagonal": 2,
+      "cross": 2
+    },
+    "selected": [
+      {
+        "R": 3,
+        "D": 3,
+        "squarefree_mass": 2,
+        "squareful_mass": 1,
+        "squarefree_diagonal": 4,
+        "squarefree_within_n_cross": 0,
+        "odd_mass": 0,
+        "odd_diagonal": 0,
+        "odd_within_n_cross": 0,
+        "full_grouped_diagonal": 5,
+        "all_cross_n": 4,
+        "complete_square": 9
+      },
+      {
+        "R": 6,
+        "D": 3,
+        "squarefree_mass": 4,
+        "squareful_mass": -1,
+        "squarefree_diagonal": 32,
+        "squarefree_within_n_cross": 24,
+        "odd_mass": 0,
+        "odd_diagonal": 0,
+        "odd_within_n_cross": 0,
+        "full_grouped_diagonal": 61,
+        "all_cross_n": -52,
+        "complete_square": 9
+      },
+      {
+        "R": 13,
+        "D": 4,
+        "squarefree_mass": 10,
+        "squareful_mass": -6,
+        "squarefree_diagonal": 100,
+        "squarefree_within_n_cross": 16,
+        "odd_mass": -1,
+        "odd_diagonal": 1,
+        "odd_within_n_cross": 0,
+        "full_grouped_diagonal": 154,
+        "all_cross_n": -138,
+        "complete_square": 16
+      },
+      {
+        "R": 14,
+        "D": -6,
+        "squarefree_mass": 0,
+        "squareful_mass": -6,
+        "squarefree_diagonal": 128,
+        "squarefree_within_n_cross": 24,
+        "odd_mass": -1,
+        "odd_diagonal": 1,
+        "odd_within_n_cross": 0,
+        "full_grouped_diagonal": 194,
+        "all_cross_n": -158,
+        "complete_square": 36
+      },
+      {
+        "R": 16,
+        "D": 4,
+        "squarefree_mass": 10,
+        "squareful_mass": -6,
+        "squarefree_diagonal": 148,
+        "squarefree_within_n_cross": 24,
+        "odd_mass": -3,
+        "odd_diagonal": 3,
+        "odd_within_n_cross": 0,
+        "full_grouped_diagonal": 230,
+        "all_cross_n": -214,
+        "complete_square": 16
+      },
+      {
+        "R": 22,
+        "D": -16,
+        "squarefree_mass": -8,
+        "squareful_mass": -8,
+        "squarefree_diagonal": 272,
+        "squarefree_within_n_cross": 64,
+        "odd_mass": -7,
+        "odd_diagonal": 9,
+        "odd_within_n_cross": 0,
+        "full_grouped_diagonal": 428,
+        "all_cross_n": -172,
+        "complete_square": 256
+      },
+      {
+        "R": 40,
+        "D": -31,
+        "squarefree_mass": -2,
+        "squareful_mass": -29,
+        "squarefree_diagonal": 908,
+        "squarefree_within_n_cross": 224,
+        "odd_mass": -13,
+        "odd_diagonal": 41,
+        "odd_within_n_cross": 0,
+        "full_grouped_diagonal": 1433,
+        "all_cross_n": -472,
+        "complete_square": 961
+      },
+      {
+        "R": 47,
+        "D": -32,
+        "squarefree_mass": 2,
+        "squareful_mass": -34,
+        "squarefree_diagonal": 1268,
+        "squarefree_within_n_cross": 360,
+        "odd_mass": -13,
+        "odd_diagonal": 67,
+        "odd_within_n_cross": 4,
+        "full_grouped_diagonal": 2038,
+        "all_cross_n": -1014,
+        "complete_square": 1024
+      },
+      {
+        "R": 55,
+        "D": -58,
+        "squarefree_mass": -26,
+        "squareful_mass": -32,
+        "squarefree_diagonal": 1780,
+        "squarefree_within_n_cross": 616,
+        "odd_mass": -9,
+        "odd_diagonal": 93,
+        "odd_within_n_cross": 8,
+        "full_grouped_diagonal": 2952,
+        "all_cross_n": 412,
+        "complete_square": 3364
+      },
+      {
+        "R": 64,
+        "D": -72,
+        "squarefree_mass": -48,
+        "squareful_mass": -24,
+        "squarefree_diagonal": 2368,
+        "squarefree_within_n_cross": 824,
+        "odd_mass": -2,
+        "odd_diagonal": 126,
+        "odd_within_n_cross": 12,
+        "full_grouped_diagonal": 3986,
+        "all_cross_n": 1198,
+        "complete_square": 5184
+      }
+    ]
+  },
+  "independent": {
+    "status": "PASS_INDEPENDENT_METHOD",
+    "floors": {
+      "2": 0,
+      "5": 2,
+      "6": 3,
+      "9": 4,
+      "10": 5,
+      "14": 6,
+      "15": 7,
+      "29": 11,
+      "30": 11,
+      "77": 23,
+      "78": 24,
+      "137": 36,
+      "138": 37,
+      "321": 70,
+      "322": 71
+    },
+    "fixed_scale": 1000000000000000000,
+    "rigorous_integral_enclosures": {
+      "2": [
+        0,
+        0
+      ],
+      "5": [
+        2576669177953786000,
+        2602336681276578300
+      ],
+      "6": [
+        3163317437290723300,
+        3190960700238777000
+      ],
+      "9": [
+        4660725916849816000,
+        4691587648961551000
+      ],
+      "10": [
+        5104762614159743000,
+        5136275131628046000
+      ],
+      "14": [
+        6719124228662469000,
+        6752367099262438000
+      ],
+      "15": [
+        7092972745940566000,
+        7126517298059945000
+      ],
+      "29": [
+        11664170172394592000,
+        11699973948535706000
+      ],
+      "30": [
+        11959604783435237000,
+        11995501062719418000
+      ],
+      "77": [
+        23926934195851457000,
+        23964824263065030000
+      ],
+      "78": [
+        24156794448688075000,
+        24194705823055720000
+      ],
+      "137": [
+        36819982988895610000,
+        36858715558282646000
+      ],
+      "138": [
+        37023080863042710000,
+        37061822807637390000
+      ],
+      "321": [
+        70928559451436920000,
+        70968229079279960000
+      ],
+      "322": [
+        71101778246017710000,
+        71141450790393545000
+      ]
+    },
+    "squarefree_atoms": [
+      [
+        6,
+        5,
+        -2
+      ],
+      [
+        10,
+        3,
+        -2
+      ],
+      [
+        15,
+        2,
+        -2
+      ]
+    ],
+    "odd_atoms": [
+      [
+        138,
+        14,
+        1
+      ],
+      [
+        322,
+        6,
+        1
+      ]
+    ],
+    "nonexpansion_witness": [
+      16,
+      78,
+      3,
+      -2,
+      1
+    ],
+    "operator_witness": [
+      22,
+      78,
+      6,
+      7
+    ]
+  },
+  "moment": {
+    "status": "PASS_EXACT_MOMENT_ALGEBRA",
+    "coefficients": 256,
+    "prefixes": [
+      {
+        "N": 1,
+        "lhs": "1",
+        "upper": "1"
+      },
+      {
+        "N": 2,
+        "lhs": "5",
+        "upper": "5"
+      },
+      {
+        "N": 16,
+        "lhs": "288083/4800",
+        "upper": "58107409/900900"
+      },
+      {
+        "N": 64,
+        "lhs": "11710018495407078073/44017514122982400",
+        "upper": "348600496378721626072797233004676601/1268615223816877020346888283658000"
+      },
+      {
+        "N": 128,
+        "lhs": "56479658057244327933503026785431/103207658845585185606274560000",
+        "upper": "26857874996644754758493025638443092354351573705991952654670982082923/48120906045167879512419799440313470671931277371177524465796660000"
+      },
+      {
+        "N": 256,
+        "lhs": "2082799703729210231266415708962659124328667231332352893813/1875145301854509017612001427833018469749308506368000000",
+        "upper": "5302679011614583246218685244218508425860662373832134355586064481077580718363255110512813597161832456720573145732578216159418667260723507/4714763756808294493692138721972920505732923067157654263563384291879258038922944969707156733380082262708383695042898175329037567000000"
+      }
+    ],
+    "theta": 1,
+    "k": 2,
+    "scope": "Moment identity only; theta=1 is not admitted in the final log-bound transfer."
+  }
+}
+```
