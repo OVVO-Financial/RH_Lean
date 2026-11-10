@@ -720,3 +720,585 @@ All seven November 9 stage reports are AVAILABLE at intake; relevant November 8 
 New upstream CF, ZD, RF, NC and Coordinator SA were retrieved; only selected claims will receive independent verdicts, not blanket approval.
 Live #1125 is human-merged, but the queried literal proof-head workflows still report failures; merged source alone is not newly verified compilation. Draft #1126 was discovered at head 7710a97a0bc39a647885a49ddb42ee1d996e1bf6. Exact proof/CI evidence and final source freshness will be recorded.
 Only this owned report on agent-reports will be changed. No Lean execution, source/PR/policy edits, merges, schedule changes or agent launches.
+
+## Adaptive Genuine-Owner Prefixes: A Repair, Not An RH Closure - 20261109-referee-2/AP
+
+### A. Most Important Mathematical Finding
+
+**The fixed-prefix obstruction does not extend to every moving prefix. A genuine, unweighted lower-owner prefix can eventually cancel the specified upper masked packet to O(R/log R).** No physical occurrence is fractionally allocated or used twice within the fixed root. The prefix is chosen from the actual source by a finite first-crossing rule, not assumed to have small error.
+
+With precisely Owner CF's large-prime mask Q={prime q:R<=q<2R}, let U_Q be its upper-owner packet and K_R^Q(z) the complete lower-owner prefix through z, with the original Euler references. There exists a fixed R_0 such that for every integer R>=R_0 there is an integer z_R with
+
+```text
+floor(R/16) <= z_R <= floor(R/4),
+|U_Q + K_R^Q(z_R)| <= #(Q)/2,
+z_R/R -> alpha_0 = 1/2 - exp(-gamma)*log 2.
+```
+
+Consequently there is one C, independent of R, and a deterministic choice of original prefix for every R>=8, such that |U_Q+K_R^Q(z_R)|<=C R/log R. The finite-exception constant is not numerically evaluated. This is an unconditional PAPER_PROOF using ordinary PNT and Mertens' product theorem, not RH or the existing 7/8 input. Its finite crossing lemma is completely elementary.
+
+The same analysis supplies genuine infinite-family obstructions: a fixed proportional cutoff z=floor(alpha R) fails at RH scale unless alpha=alpha_0, and a fixed polynomial cutoff z=floor(R^theta), 1/2<theta<1, fails unless theta=2 exp(-gamma) log 2. At either exceptional parameter the leading asymptotic alone is inconclusive. It must not be promoted to the adaptive bound.
+
+**The full error is not improved.** The unselected lower owners still carry the complete leading fibre mass, and they must cancel the outside-fibre/reference complement. Bounding that entire remaining combination at RH scale is TARGET_EQUIVALENT. This result repairs an overly broad extrapolation of CF, not CF itself.
+
+New claims AP1-AP5 are PAPER_PROOF or IDENTITY_ONLY as specified below, SELF_AUDIT / INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED. AP6 is FINITE_COMPUTATION. Independent review accepts Owner 20261109-owner-3/CF1-CF4 at their actual scopes; the R=8 and R=11 falsifiers were independently reproduced. NEW_VERIFIED_GLOBAL_ENDPOINT_GAIN=NONE. Complete-wheel, canonical VF, finite A/C and RH remain OPEN.
+
+### B. Current Authoritative Objective
+
+Actual scheduled trigger: 2026-11-09 20:13:00 EST, America/New_York, UTC-05:00; platform RUN_ID_UNAVAILABLE. This is the second recorded Referee invocation of this calendar day, not a new scheduled launch. Intake main: **e7ffe4e01fd049dfe6f47af86a9984bc0b843576**, the human merge of #1125. `finite_wheel_ack=FINITE_WHEEL_CENTERED_RH_V1`.
+
+For every integer R>=2, retain
+
+```text
+X=R^2-1, y=R-1, P_y=product_(prime p<=y)p,
+delta(y)=product_(prime p<=y)(1-1/p),
+F_R=sum_(d|P_y)mu(d)fract(X/d),
+D_R=X delta(y)+pi(y)-1-li(X),
+Z_R=F_R-D_R=li(X)-pi(X).
+OPEN: exists ONE C>=0, forall integer R>=2, |Z_R|<=C R log R.
+```
+
+The actual complete-wheel declaration accepts an arbitrary reference L. Choosing principal-value li does not prove an error bound. Its difference from Li_2 is a fixed constant, not zero. Every virtual d>X cancels against its own Euler term before the physical form is used; d=X is included. The canonical terminal `riemannHypothesis_of_vfCanonicalSquare` still explicitly takes `ClassicalVonKochRHCriterion`. No formal interface is silently discharged here.
+
+The source definitions, finite floor/reciprocal identities, arbitrary-reference centered theorem, root-admission declarations and new near-resonance source were inspected directly. The exact-head compilation evidence is separated from merger status in L. The previous DA review and prior SG/EC findings are preserved on their respective unchanged source dependencies, not rediscovered or silently promoted.
+
+### C. Highest-Risk Mechanisms And Selection
+
+The selected review is Owner's 20261109-owner-3/CF. It responds to Coordinator 20261109-coordinator-1513-EST/SA's request for an actual factor-incidence interaction. CF correctly refutes both universal upper/lower anti-alignment within Q and payment by any fixed lower prefix. Those conclusions do not imply that every moving prefix fails. AP investigates this exact quantifier gap on genuine prime occurrences.
+
+Other current risks remain distinct: paying a frequency subband does not pay its full physical return; exact reflected or rounded-centre matchings do not provide missing partners; and a good generic counting envelope is not a prime-arithmetic band theorem. Today's ZD, RF and NC were retrieved, but receive no blanket independent acceptance in this continuation. The earlier FB/MP/DG/BL verdicts remain those in DA. The current original-carrier question, not theorem count or PR status, selected this investigation.
+
+### D. Claims Reviewed And Verdicts
+
+Review method: reconstruct from definitions and exact statements, inspect the submitted proof, then execute a separately written rational/physical implementation. This is not described as blind review.
+
+| Stable claim | Verdict | Exact accepted scope and evidence |
+| --- | --- | --- |
+| 20261109-owner-3/CF1 | ACCEPT | IDENTITY_ONLY / PAPER_PROOF: original least-owner mask, inherited mu(e), exact Euler allocation, one prime atom per q, and S_Q=delta(R-1)V-m-rho. |
+| Same /CF2 | ACCEPT | PAPER_PROOF: delta V-2m<=S_Q<=delta V-m; delta(z)>=1/(2 sqrt z) for integer z>=2; every admitted fibre is positive for R>=64. No PNT needed. |
+| Same /CF3 | ACCEPT | PAPER_PROOF: for integer 2<=z<R/2 and k=pi(z), -m2^(k-1)<=K_R^Q(z)<=m(2^(k-1)-1); owner two is a negative fractional sum. |
+| Same /CF4 | ACCEPT_WITH_SCOPE | PAPER_PROOF using PNT/Mertens: S_Q/tau_R->c ell, U_Q/tau_R->ell-1/2, L_Q/tau_R->1/2-(1-c)ell>0; fixed-prefix and 2^pi(z)=o(R/log R) nonpayment, with the stated necessary liminf condition. Not a no-go for arbitrary growing cutoffs. |
+| Same /CF5, R=8 and R=11 | ACCEPT | REFUTED universal sign rule, independently reproduced exactly; R=9,10 checked for the claimed positive-upper minimality. No claim to rerun the author's exact program. |
+| Extrapolation: every growing lower prefix fails | REJECT | Not asserted by CF. AP3 proves an eventual actual-prime countertheorem with explicit residual bound. |
+| 20261109-referee-2/AP1 | SELF_AUDIT | New exact saturated-prefix formula on the CF carrier; IDENTITY_ONLY. |
+| Same /AP2-AP3 | SELF_AUDIT | PAPER_PROOF: finite crossing bound and unconditional eventual/all-root proper-source consequence. Independent review pending. |
+| Same /AP4 | SELF_AUDIT | PAPER_PROOF / scoped REFUTED fixed-cutoff strengthenings, except the explicitly unresolved critical parameters. |
+| Same /AP5 | SELF_AUDIT | Exact complete return and TARGET_EQUIVALENT residual criterion; no endpoint gain. |
+| Same /AP6 | FINITE_COMPUTATION | Exact integer/Fraction checks below; not the proof of the eventual PNT assertions. |
+
+Here c=exp(-gamma), ell=log 2, tau_R=R^2/(log R)^2. K_R^Q(z) is a masked OWNER PREFIX, not the historical Mertens envelope also denoted K_R elsewhere.
+
+### E. Independent Reconstruction And AP1
+
+Fix integer R>=8. Define, without dropping the root prime,
+
+```text
+Q={prime q:R<=q<2R}, m=#Q,
+x_q=X/q, t_q=floor(x_q), V=sum_Q x_q, rho=sum_Q fract(x_q),
+h=ceil(R/2)-1=floor((R-1)/2), H=pi(h),
+w_p=delta(p-1)/p, W_U=sum_(prime R/2<=p<R)w_p,
+N_p(t)=#{integers 2<=a<=t: leastPrime(a)=p},
+b_Q(p)=sum_Q N_p(t_q)-V w_p,
+U_Q=sum_(prime R/2<=p<R)b_Q(p),
+K_R^Q(z)=sum_(prime p<=z)b_Q(p), 2<=z<R/2,
+L_Q=sum_(prime p<R/2)b_Q(p), S_Q=U_Q+L_Q.
+```
+
+Since q>=R and aq<=X<R^2, the cofactor a<R<=q and its q occurrence is unique. Different q in Q cannot divide the same admitted integer; q^2 is not admitted. Squareful cofactors are retained. Inclusion-exclusion for a's least owner gives exactly
+
+```text
+b_Q(p)=-sum_(q in Q)sum_(e|P_(p-1)) mu(e)fract(X/(pqe)).
+```
+
+The sign is mu(e), not mu(qe); q is the original physical mask, not a new wheel coordinate. The cofactor-one prime is excluded from every N_p and subtracted once in the complete sum. Summing owners yields S_Q=delta(R-1)V-m-rho, independently recovering CF1.
+
+For the new identity, impose the exact finite domain
+
+```text
+z integer, 2<=z<R/2, z^2>=R.
+```
+
+Every composite a<=t_q<R has a prime factor <=sqrt(a)<sqrt(R)<=z. The a's not removed by owners through z are therefore exactly 1 and the primes in (z,t_q]. Also t_q>=z. Hence
+
+```text
+sum_(prime p<=z) N_p(t_q)=t_q-1-pi(t_q)+pi(z),
+K_R^Q(z)=delta(z)V-rho-m-sum_Q pi(t_q)+m pi(z).
+```
+
+An upper owner p>=R/2 cannot divide a composite cofactor a<R for R>=8. Consequently N_cross=sum_Q[pi(t_q)-H], U_Q=N_cross-V W_U. The two actual prime-count sums cancel algebraically, not by an estimated distribution:
+
+```text
+T_R(z):=U_Q+K_R^Q(z)
+       =V[delta(z)-W_U]+m[pi(z)-H-1]-rho.             (AP1)
+W_U=delta(h)-delta(R-1).
+```
+
+All endpoints are integer-exact, including pq=X. This is a genuinely saturated-cofactor identity, not a pointwise substitution of prime indicators by Li density. It can be checked directly with the already-certified prefix-survivor/Fourier-free floor source.
+
+For CF2, inserting all odd integer factors in the Euler product gives delta(z)>=1/(2 sqrt z): the product P_j=prod_(i=1..j)2i/(2i+1) satisfies P_j^2(2j+1)>=1 by induction. Then s_q=delta(R-1)x_q-1-fract(x_q)>R/(4sqrt(R-1))-2>0 for R>=64. CF3 follows by counting positive and negative nonunit faces of the EXACT complete prefix cube, giving its displayed 2^(k-1) bound, not a uniform-in-k constant. These reconstructions confirm the claimed scopes.
+
+### F. AP2-AP4: Finite Crossing, Uniform Repair And No-Go Results
+
+#### AP2. A finite source-specific crossing bound
+
+For any consecutive admissible cutoffs z-1,z in AP1,
+
+```text
+T_R(z)-T_R(z-1)=0                         if z is not prime,
+T_R(p)-T_R(p-1)=m-V delta(p-1)/p <= m      if p is prime.   (JUMP)
+```
+
+Negative jumps are allowed. No monotonicity, prime-gap estimate, or universal favorable owner sign is assumed.
+
+Precisely: for integers A<=B with 2<=A, A^2>=R, B<R/2, if T_R(A)<=0<=T_R(B), there exists an integer z in [A,B] with |T_R(z)|<=m/2. If an endpoint is zero this is immediate. Otherwise let p be the first nonnegative cutoff. It must be prime, T_R(p-1)<0<=T_R(p), and J=T_R(p)-T_R(p-1) is positive and <=m. Of the two unchanged genuine prefixes p-1,p, choose the one with smaller absolute residual, breaking ties toward p-1. Its residual is <=J/2<=m/2. This proves the finite theorem with explicit constants and no analytic premise.
+
+#### AP3. PNT guarantees a proportional bracket eventually
+
+Only two established classical inputs are used: pi(x)~x/log x, and delta(x)log x->c. The stronger non-RH PNT error is needed only for the final leading outside-complement observation. References: [NIST DLMF 27.12, especially (4)-(5)](https://dlmf.nist.gov/27.12) and [Diamond-Pintz, Mertens product formula (1.1)](https://www.numdam.org/article/JTNB_2009__21_3_523_0.pdf). Neither theorem assumes RH. The argument below is this report's source-specific deduction, not a theorem quoted from those sources.
+
+Let L=log R. PNT partial summation on the fixed proportional interval [R,2R) gives
+
+```text
+m=(1+o(1))R/L,
+V=(ell+o(1))R^2/L,
+0<=rho<m.
+```
+
+Uniformly for integers z with aR<=z<=bR, where 0<a<b<1/2 are FIXED before R,
+
+```text
+delta(z)=(c+o(1))/L,
+pi(z)=(z/R+o(1))*R/L,
+H=(1/2+o(1))*R/L,
+W_U=O(1/L^2).
+```
+
+Uniformity follows from the global asymptotics on the compact proportional range, not fixed-z asymptotics with an unspecified growing parameter. For the last bound, delta(p-1)=O(1/L) throughout the upper-owner interval and sum_(R/2<=p<R)1/p=O(1/L) by PNT partial summation. Substitute in AP1, retaining -m-rho:
+
+```text
+sup_(aR<=z<=bR) |T_R(z)/tau_R - (z/R-alpha_0)| -> 0,
+alpha_0=1/2-c ell.                                  (LIMIT)
+```
+
+The same statement holds for rounded endpoints floor(aR),floor(bR); rounding contributes o(1). The elementary bounds 1/16<alpha_0<1/4 suffice. For completeness: gamma>H_6-log 7>1/2, since H_6=49/20 and exp(39/20)>7; gamma<=1-log(3/2) by convex integral comparison, and e<3, so c>1/2. Also exp(1/2)>8/5 and exp(7/10)>2, whence c<5/8 and 1/2<ell<7/10. Thus 1/4<c ell<7/16. The exponential comparisons have exact finite-series certificates in K.
+
+There is therefore a single R_0, enlarged to ensure the AP1 cutoff domain, such that every integer R>=R_0 has
+
+```text
+T_R(floor(R/16))<0<T_R(floor(R/4)).
+```
+
+Apply AP2. This proves the theorem in A. It is NOT conditional on the existence of an unexplained sign crossing: the crossing's hypotheses have just been proved eventually from classical PNT/Mertens. No numerical value of R_0 is asserted. The selected z_R satisfies z_R/R->alpha_0 by LIMIT because m/tau_R->0.
+
+To make the all-root proper-source statement precise, use this finite rule whenever the displayed bracket is admissible and has the required signs; otherwise use z_R=2. Only finitely many R>=8 take that fallback. PNT bounds m by C_1 R/L eventually; enlarging a constant to cover the finite initial segment yields ONE C for every R>=8. This does not assert the literal sharp coefficient m/2 for those exceptional roots.
+
+#### AP4. Which fixed cutoffs really are impossible?
+
+For every FIXED alpha in (0,1/2),
+
+```text
+T_R(floor(alpha R))/tau_R -> alpha-alpha_0.
+```
+
+Thus for alpha!=alpha_0 and every C>=0, |T_R(floor(alpha R))|>C R log R for ALL sufficiently large integer R. These are genuine-prime infinite counterexample families to the specified fixed-cutoff bounds.
+
+For every FIXED theta in (1/2,1), AP1 also gives
+
+```text
+T_R(floor(R^theta))/tau_R -> c ell/theta - 1/2.
+```
+
+Indeed delta(R^theta)~c/(theta L), m pi(R^theta)=o(tau_R), and all other AP1 terms have the limits already justified. Hence the same no-go holds unless theta=theta_0:=2c ell, which lies in (1/2,7/8). This extends CF's small-prefix restriction without incorrectly ruling out all growing prefixes.
+
+At alpha=alpha_0 or theta=theta_0 the leading term vanishes. No RH-sized residual follows, and no impossibility is asserted. In particular replacing the adaptive z_R by floor(alpha_0 R) is an UNPROVED strengthening. The uniform first-order limit alone has much too weak an error term for that substitution.
+
+### G. Original-Carrier And Covariance Audit: AP5
+
+Retain C_Q=F_R-S_Q-D_R exactly, including every outside-Q physical site, its original reference, every complementary owner and the principal-value li anchor. For the chosen prefix define
+
+```text
+E_R=U_Q+K_R^Q(z_R), J_R=L_Q-K_R^Q(z_R),
+Z_R=E_R+J_R+C_Q,
+Z_R^2=E_R^2+J_R^2+C_Q^2+2E_R J_R+2E_R C_Q+2J_R C_Q.
+```
+
+Before grouping E_R, the four original components U_Q,K_R^Q,J_R,C_Q have four squares and all six doubled cross terms. All were checked in the finite arbitrary-reference audit. No sum of local squares replaces the complete square, and this is not a substitution for #915's different compressed NNS statistic.
+
+CF4's limits and AP3 imply
+
+```text
+K_R^Q(z_R)/tau_R -> -(ell-1/2),
+J_R/tau_R -> c ell.
+```
+
+Thus the remaining same-fibre mass is still macroscopic. The established non-RH global PNT error gives Z_R=o(tau_R), and therefore C_Q/tau_R->-c ell. This locates leading compensation; it is not an RH-scale error estimate. None of 2E_R J_R, 2E_R C_Q or 2J_R C_Q has been silently bounded separately.
+
+Within each fixed R, the prefix and upper owners are disjoint; each physical aq is retained in exactly its original mask and least-owner cell. The q prime atom is still once-only. This result makes NO claim of a global donor allocation across different R; adjacent-root masks can reuse numbers. Virtual Euler cancellation, squareful a, root primes and all endpoint conventions are unchanged.
+
+### H. Quantifier And No-Circularity Audit
+
+The adaptive source cutoff z_R is allowed to depend on the actual source, explicitly including m,V,rho and the original upper packet. There is no hidden assertion of independent post-root prime signs, nor a claim to compute it from frozen mu(<R) alone. The conclusion comes from an explicit arithmetic formula and a verified eventual bracket, not from postulating a small prefix residual. The method uses no fitted weights or distribution theorem of RH strength.
+
+The eventual m/2 theorem, the all-root O(R/log R) theorem after finite absorption, the fixed-alpha asymptotic, and a claim of a numerical R_0 are four different statements. Only the first three are proved. The data below specifically prevent claiming that the chosen proportional bracket already works in the tested range.
+
+Both directions of the global residual implication are immediate and must be disclosed. Write G_R=J_R+C_Q. Since E_R=O(R/log R),
+
+```text
+G_R=O(R log R)  iff  Z_R=O(R log R).
+```
+
+Forwards use Z=E+G; backwards use G=Z-E, retaining fixed uniform constants and absorbing the finite exceptions. Therefore a hypothesis bounding all of G_R is TARGET_EQUIVALENT, not a smaller independent supplier. AP3 alone does not imply RH; no reverse implication from RH to the particular adaptive selection is needed because AP3 has an unconditional proof. The genuine-prime proper-source inequality is valuable within its scope, not a completed reduction in global difficulty.
+
+### I. Strongest Surviving Repair
+
+Keep CF's actual no-go statements. Replace any blanket ban on same-q prefix payment by this precise conclusion: fixed or inadequately growing banks cannot do it, and most fixed scale laws also fail; an adaptively selected intact prefix can cancel the upper packet with eventual residual <=m/2. Its source-independent residual constant is explicit, but the cutoff itself is source-dependent and its eventual onset is not quantified.
+
+The repair exploits deterministic saturation below the root and small upward prefix increments. It does not require a negative sign for the whole lower population or for every added owner. This is why it survives CF's eventual U_Q>0 and L_Q>0: the selected prefix is negative at leading order, while the unselected middle interval is positive and larger.
+
+### J. Competing Strategy Assessment
+
+| Mechanism | Decision |
+| --- | --- |
+| Universal same-q U_Q L_Q<=0 | RETIRE that statement: exact R=8 and R=11 failures; CF4 gives eventual positive alignment. |
+| Fixed-prefix or generic fixed-cutoff payment | RETIRE at the exact CF/AP4 scopes, retaining the two critical parameters as unresolved. |
+| Adaptive genuine-owner prefix | RETAIN as an independently paid proper-source tool. Do not sell first-crossing extraction itself as a new general combinatorial method. |
+| Complete remaining J_R+C_Q bound | OPEN / TARGET_EQUIVALENT if merely assumed at the final scale. Seek genuinely additional joint arithmetic, not another name for Z_R. |
+| Signed frequency bands and reflection subsets | Preserve their separate claims and obstructions. AP neither proves nor refutes ZD, RF or NC, and does not identify physical owner sums with their nonconjugated band norm. |
+
+No amendment of the current finite-wheel campaign or human-controlled objective is proposed.
+
+### K. Original Research And Executed Exact Checks: AP6
+
+The checkpoint was committed and read back BEFORE arithmetic execution: commit **873ec5c74bdce8b23092aa0f6ef9240f10170267**, blob **76ba9b5b97861d7bee0837326e059efcc74e6c4e**. The proof-led adaptive idea and frozen domain were already disclosed there. No cutoff constant was fitted to the data.
+
+The independently written standard-library program used a least-factor sieve for physical cofactor counts and a separate trial-primality/full-divisor implementation at R=2,3,8..16. Both preserve the complete virtual/reference terms. Python integers and Fraction determine EVERY sign and equality; table decimals are display only.
+
+| Executed check | Result |
+| --- | --- |
+| Registered R=8..256 plus held-outs 257,549,1024,4096,16384 | 254 roots evaluated. |
+| All admissible saturated prefix cutoffs in R=8..256 | 13,656 exact AP1 checks passed. |
+| Consecutive cutoff updates | 13,407 exact JUMP checks passed. |
+| Observed negative-to-nonnegative admissible crossings | R=12,13,15,27; each obeyed the <=m/2 two-prefix conclusion. |
+| Held-out direct physical reconstruction | 15 checks at three declared admissible cutoffs per held-out root passed. |
+| Independent original divisor cubes and full centered/quadratic return | All 11 small boundary roots passed. |
+| CF uniform-sign finite control | Every R=64..256 had S_Q>=0; the all-scale proof is separate. |
+| Syntax validation | python -m py_compile passed. |
+
+Independent exact sign witnesses:
+
+```text
+R=8:  U_Q=-7/65, L_Q=-150/143, S_Q=-827/715.
+R=11: U_Q=557169/323323, L_Q=1775/4199, S_Q=693844/323323.
+R=9 and 10 have U_Q>0>L_Q, confirming the stated smallest positive-upper failure.
+```
+
+The smallest false all-root strengthening is already R=8: m=2, and the only lower cutoffs are z=2,3, with T_R(2)=-997/715 and T_R(3)=-827/715. Both absolute values exceed m/2=1. The saturated AP1 domain contains only z=3. This refutes an unqualified all-R sharp m/2 theorem, NOT AP3's eventual statement or its all-root enlarged-C corollary.
+
+An actual crossing example is R=12, m=4:
+
+```text
+T_12(4)=-14472/260015,
+T_12(5)=90172/52003.
+```
+
+The prefix z=4 has residual less than m/2. The table is not needed in the universal finite proof.
+
+The registered proportional bracket did NOT have its eventual signs at any tested root where it was admissible:
+
+| R | T(floor(R/16)), display | T(floor(R/4)), display | Required negative/positive bracket |
+| --- | --- | --- | --- |
+| 256 | 227.258254 | 281.418239 | FAIL |
+| 549 | 493.548346 | 1030.488728 | FAIL |
+| 1024 | 1018.803624 | 2891.893762 | FAIL |
+| 4096 | 5654.044008 | 34340.719413 | FAIL |
+| 16384 | 17740.031374 | 405467.934654 | FAIL |
+
+At held-out R=257 the proposed left endpoint 16 fails z^2>=R, so that bracket was NOT admitted; its three other exact physical-prefix checks still ran. These observations are reported as failures of the tempting early-onset extrapolation, not hidden or used to refute a proved limit. No expanded scan was run merely to find supportive asymptotic examples, and no eventual threshold is inferred.
+
+Boundary controls: R=2 is the empty wheel; root primes remain included; squareful a such as 4 in q=11's fibre remains physical; R=12 includes the physical product 143=11*13; R=14 retains the genuine wheel divisor d=X=195 with mu=-1. At R=8, physical fraction 3/5 plus virtual -6/5 gives full -3/5, so premature deletion reverses its sign. The arbitrary reference 355/113 checks the exact centered identity and every quadratic cross term without a floating li evaluation.
+
+The first test execution passed. Before a second execution, the program was expanded within the registered domain to explicitly verify the 15 held-out physical formulas and print the four already-detected crossings. That second execution passed, as did syntax validation. A separate small evaluation checked both R=8 lower cutoffs. Exact positive-series certificates also passed: sum_(k=0..8)(39/20)^k/k!>7, sum_(k=0..4)(7/10)^k/k!>2, and sum_(k=0..2)(1/2)^k/k!>8/5. Measured runtime: Python 3.12.14. No optional packages, numerical zero data, floating sign decisions or local Lean were used.
+
+Final executed script SHA-256: **7526721f7a713a72c36503f8389d233888d1d67b68d63ce8171a41f2595b48a5**. Its complete bytes follow in the appendix. Generalized first-crossing arguments already exist in the repository on the different truncated-Mobius carrier; this investigation claims only the CF-specific exact formula, jump size, analytic bracket, quantitative prefix repair and corresponding fixed-cutoff classification. Scoped source searches found no matching AP theorem, not proof of global literature novelty.
+
+### L. Formalization Guidance And Verified GitHub Evidence
+
+AP1 plus AP2 form a small, useful implementation-sized source theorem after independent mathematical acceptance. AP3/AP4 additionally need exact PNT/Mertens adapters; do not insert their conclusion as an axiom or call a conditional bracket wrapper the unconditional result. New AP work remains SELF_AUDIT, not independently accepted or Lean-certified. The elementary crossing method should reuse suitable infrastructure rather than create redundant generic theorem volume.
+
+| PR / source | Verified status in this invocation |
+| --- | --- |
+| #1122, proof head c53e9cf234500aea2605fd2557e638995f380407 | Human-merged at 8c9e54ec3dffbe8c0a4136e835814a0c041054a1. All 10 head workflows successful. Targeted run 42561949462/job 128980092032 explicitly compiled CompleteSquareRootWheelFractionalBoundary in Lean 4.34.1 with warnings fatal; both printed terminal axiom lists are [propext, Classical.choice, Quot.sound]. ACCEPT inherited PROVED_IN_LEAN source identities. |
+| #1124, proof head 1b80f147dab3c0c2525052b3c6f8c447089da1 | Human-merged at 02f00cee544278ad1bb9022ee76fc5916d459a95. All 12 head workflows successful. Dedicated run 42600910899/job 129104842737 compiled the acceptance module with exact types/guarded axioms; relevant printed lists are the permitted three standard axioms. Retain the proper root-admission scope. |
+| #1125, proof head 538aa743a3e0de86b5ec44c9b4f159df3f5bd050 | Human-merged at current main e7ffe4e01fd049dfe6f47af86a9984bc0b843576. All 12 queried literal-head workflows still FAILED. Dedicated near-resonance run 42674337064 has ZERO jobs. Main has nine green generic push workflows, but no successful dedicated near-resonance compilation was found. Its workflow triggers pull_request/workflow_dispatch, not push. Status: MERGED_SOURCE / FORMAL_CERTIFICATION_NOT_VERIFIED, not PROVED_IN_LEAN merely from merge or source docstrings. This does not refute the accepted DG2 paper mathematics. |
+| #1126, head 7710a97a0bc39a647885a49ddb42ee1d996e1bf6 | Discovered OPEN DRAFT, unmerged. At the recorded check six workflows were running, nine successful and Lean source audits failed. Not an accepted result or dependency here; later status must be refreshed by its owner. |
+
+The #1125 mismatch is a precise verification handoff, not a request to undo a human merge or evidence of a compiler error. Only the owned report was changed. No workflow was launched or rerun by this Referee.
+
+### M. Specialist Handoffs
+
+- Proof Architect: retain CF's actual no-go; add AP's proper adaptive-prefix result only after independent review. Its full remaining G_R criterion is target-equivalent. Do not count this as a third independent endpoint supplier.
+- Owner: independently check AP1's saturated-cofactor cancellation and AP3's source-dependent selection. Identify whether the unselected middle owners and C_Q have an independently provable interaction beyond their known opposite leading masses.
+- Analytic: distinguish this physical masked-prefix bound from the Li-centered nonconjugated middle band. A transfer needs all continuous and mixed terms; ZD has not received blanket acceptance here.
+- Wheel: examine the exact JUMP formula and once-only within-root allocation. Do not extrapolate it to an across-root donor budget or assume all prefix increments have one sign.
+- Census: reproduce the exact R=8 sharp-bound failure and R=12 crossing first. Any larger onset search must have a new quantitative reason; the current finite data do not locate R_0.
+- Lean Verification: after independent acceptance, consider AP1/AP2 together, not a standalone tautological wrapper. Separately resolve #1125's missing exact compilation/axiom evidence through the authorized workflow; generic main success is insufficient.
+
+### N. First Independently Missing Mathematical Ingredient
+
+The new proper-prefix cancellation is paid on paper; the complete source is not. The unresolved requirement is genuinely new arithmetic controlling the interaction of the unselected owners J_R with the outside-fibre/reference complement C_Q at O(R log R), or a different complete-source route. Simply assuming |J_R+C_Q|<=C R log R is TARGET_EQUIVALENT by the proved two-way implication. No independently weaker closing lemma has been established in this continuation.
+
+### O. Resume Capsule And Publication Discipline
+
+Resume `20261109-referee-2/AP1-AP6`, exact CF carrier and SHA ledger below. Carry forward CF1-CF4 acceptance, CF5's R=8/R=11 witnesses, and DA's prior scoped reviews. New AP proofs need independent review. Preserve the failed early proportional brackets; do not claim a small effective R_0 or fixed-critical-cutoff theorem. Highest-value next adversarial task: determine whether an explicit proposed inter-packet interaction controls J_R+C_Q without merely restating Z_R, using AP's exact allocation as a falsifier-ready tool.
+
+All seven November 9 reports were AVAILABLE; relevant November 8 material was read and CARRY_FORWARD. Today's retrieved late claims were Coordinator SA, Owner CF, Analytic ZD, Wheel RF and Census NC; the last completed Lean report at intake was lean-2, while its new #1126 draft was independently discovered. Availability is not a claim that a scheduled stage has finished. The external inbox has no new entry after October 18; its original-source and circularity safeguards are retained without reviving superseded task priorities.
+
+No local Lean execution occurred. Direct shell GitHub access returned CONNECT tunnel HTTP 403, so read/write evidence used the working GitHub connector. One scratch-plan patch failed validation before any write and was corrected; there was no publication conflict or lost report history. All mathematical computations actually executed. Publication is claimed only in the subsequent verified receipt, after immutable commit readback.
+
+
+### Prepublication Freshness - 2026-11-09 20:31 EST
+
+Main was re-fetched and remains e7ffe4e01fd049dfe6f47af86a9984bc0b843576. All six upstream November 9 report blobs were re-fetched and are unchanged from the intake ledger. The current #1126 draft has advanced to e8969ad76d4c5694273cefc934316fc528c56648; it remains OPEN/DRAFT/unmerged, with six successful and ten in-progress exact-head workflows at this check. This supersedes only the earlier #1126 status snapshot in L. Its new proof attempt is not a dependency or accepted theorem in AP. No polling or external jobs were started by this Referee.
+
+### Immutable Source And Continuity Ledgers
+
+Main source commit: `e7ffe4e01fd049dfe6f47af86a9984bc0b843576`. Intake reports commit: `a424272bc7ac12f439704183d2038fe29ad09fa5`. The two Coordinator mirrors had identical blobs on each date. All report references below are retrieved bytes, not assumed execution from a schedule.
+
+| Main path | Blob SHA |
+| --- | --- |
+| AGENTS.md | 6695522a45d67fd1e80a7cff1f98d909405036e2 |
+| CURRENT_PROOF_CONTRACT.md | 95566e37c8eaeb99ee680660df4f9d2e06ea5038 |
+| docs/RHLEAN_SEVEN_AGENT_FINITE_WHEEL_BOUNDARY_20261108.md | e505f35522b675c6b5b263eac73618d717346973 |
+| docs/DYNAMIC_RESEARCH_AGENTS.md | e8d913ff9663bb5163eaf0eddca9f76e0508a7ef |
+| research/CompleteSquareRootWheelFractionalBoundary.lean | ecb482e52deeee5e9b3853592a3ffdace662d2ff |
+| research/VF_MID_DYADIC_PREFIX_OWNER.lean | c499ca7bd7d90fb32f9cd99d652961ea023bed58 |
+| research/CompleteWheelRootAdmission.lean | a412632c1028d7728cd8d87ee6e5ac365377d338 |
+| research/DyadicPrimeNearResonance.lean | 0080496ada9c7ce230690ed773ee52df9575c245 |
+| research/VF_CANONICAL_SQRT_TWO_VON_KOCH.lean | 79030d70e8d3e0d08eef9bac53fef95c36eca2fb |
+| RHLean/Analysis/SquareRootShallowReciprocalCrossing.lean | a6ed67f08cf5b225783feb0076e45a1ddb21920a |
+| .github/workflows/dyadic-prime-near-resonance.yml | f6d9299e47d7d2636195a15d835bbd2485390098 |
+
+| Role | November 9 intake blob | November 8 blob |
+| --- | --- | --- |
+| Coordinator | 35edd925446bfaf4babab99017ad8019db322915 | 8b640304f6c233a2c4409b9882799de485888a9e |
+| Owner | 643e8a004d9d8e0be102b03e2f79bb3b217ae916 | 4e1b83a1e5ff8c134e9ca64404397c70c2b07252 |
+| Analytic | d1d0d86d444b9c447cf6acf4bd18fdcaf02e56a3 | edecba8785a45cda87c0035d0348695941f1b8ea |
+| Wheel | 0624246d03b19cf76c01e186b7d868a248d896ef | 60d4cf1b65d4b1b2cc4f13f6c0940c14cb2c50fd |
+| Census | 8c927cc6c323533ba1cfd369404b25aa4f9cef91 | 00f4f9c0d670821a0c9d1da31fd1c4d0afd09142 |
+| Referee | 01869acbc9d0535fe4791354a0029b8f77981723 | 5371324ebbdbd88afb9abf843e83da2ce86b752f |
+| Lean | 4402811bbc7198731f83036f73836ef336c2015a | 5a110685bbe375d8ebff42df7391162914e52cef |
+
+External inbox blob: `038018145c0fddb2f6306c0712373adf9cd1ea52`. Relevant previous-day continuity: Coordinator FM fixed-wheel multiplicative countermodel; Owner JS finite-zero-packet equivalence; Analytic EC and Referee SG complete-consumer scope; Wheel FD factor-depth allocation; Census AF sign falsifiers; Lean EC implementation. Those different-carrier results were read and retained, not counted as new AP review or silently transferred to this mask.
+
+### Reproducibility Appendix - AP6
+
+Run with standard-library Python: `python adaptive_prefix_check.py`. The program below is the final executed script, with the SHA-256 recorded in K. Finite records do not prove PNT or the eventual bracket.
+
+```python
+"""Independent exact tests for 20261109-referee-2/AP; no Lean or li numerics."""
+
+from bisect import bisect_right
+from fractions import Fraction as F
+from math import isqrt, log
+import json
+
+
+def sieve(n):
+    least = list(range(n + 1))
+    least[1] = 1
+    for p in range(2, isqrt(n) + 1):
+        if least[p] == p:
+            for j in range(p * p, n + 1, p):
+                if least[j] == j:
+                    least[j] = p
+    return least, [p for p in range(2, n + 1) if least[p] == p]
+
+
+HELD_OUT = [257, 549, 1024, 4096, 16384]
+ROOTS = list(range(8, 257)) + HELD_OUT
+least, primes = sieve(max(256**2, 2 * max(ROOTS)))
+owners = [p for p in primes if p < max(ROOTS)]
+deltas = [F(1)]
+weights = {}
+for p in owners:
+    weights[p] = deltas[-1] / p
+    deltas.append(deltas[-1] * F(p - 1, p))
+
+
+def pi(x):
+    return bisect_right(primes, x)
+
+
+def delta(z):
+    return deltas[bisect_right(owners, z)]
+
+
+def trial_prime(n):
+    return n >= 2 and all(n % d for d in range(2, isqrt(n) + 1))
+
+
+def signed_divisors(ps):
+    out = [(1, 1)]
+    for p in ps:
+        out += [(p * d, -mu) for d, mu in out[:]]
+    return out
+
+
+def frac(x):
+    return x - x.numerator // x.denominator
+
+
+def source(R, full_counts=False):
+    X = R * R - 1
+    h = (R - 1) // 2
+    Q = [q for q in primes if R <= q < 2 * R]
+    m = len(Q)
+    V = sum((F(X, q) for q in Q), F(0))
+    floors = sum(X // q for q in Q)
+    rho = V - floors
+    W = delta(h) - delta(R - 1)
+    cross = sum(pi(X // q) - pi(h) for q in Q)
+    U = cross - V * W if R >= 8 else F(0)
+    S = delta(R - 1) * V - m - rho
+    b = {}
+    if full_counts:
+        counts = {p: 0 for p in owners if p < R}
+        for q in Q:
+            for a in range(2, X // q + 1):
+                counts[least[a]] += 1
+        b = {p: counts[p] - V * weights[p] for p in counts}
+        assert sum(b.values(), F(0)) == S
+        if R >= 8:
+            assert sum((v for p, v in b.items() if 2 * p >= R), F(0)) == U
+
+    def T(z):
+        assert z >= 2 and z * z >= R and 2 * z < R
+        return V * (delta(z) - W) + m * (pi(z) - pi(h) - 1) - rho
+
+    return X, Q, m, V, rho, U, S, b, T
+
+
+def physical_prefix(R, z, Q, V):
+    count = sum(1 for q in Q for a in range(2, (R * R - 1) // q + 1)
+                if least[a] <= z)
+    return count - V * (1 - delta(z))
+
+
+def independent_cube(R):
+    X = R * R - 1
+    ps = [p for p in range(2, R) if trial_prime(p)]
+    qs = [q for q in range(R, 2 * R) if trial_prime(q)]
+    b = {}
+    for p in ps:
+        cube = signed_divisors([r for r in ps if r < p])
+        b[p] = -sum((mu * frac(F(X, p * q * d))
+                     for q in qs for d, mu in cube), F(0))
+    cube = signed_divisors(ps)
+    physical = sum((mu * frac(F(X, d)) for d, mu in cube if d <= X), F(0))
+    virtual = sum((mu * F(X, d) for d, mu in cube if d > X), F(0))
+    complete = sum((mu * frac(F(X, d)) for d, mu in cube), F(0))
+    density = sum((F(mu, d) for d, mu in cube), F(0))
+    legendre = sum(mu * (X // d) for d, mu in cube)
+    prime_count = sum(trial_prime(n) for n in range(2, X + 1))
+    assert complete == physical + virtual == X * density - legendre
+    assert prime_count == len(ps) - 1 + legendre
+    # An arbitrary rational reference tests the complete centered identity.
+    reference = F(355, 113)
+    D = X * density + len(ps) - 1 - reference
+    assert complete - D == reference - prime_count
+    return b, complete, D, physical, virtual, cube
+
+
+def run():
+    formula_tests = 0
+    jump_tests = 0
+    crossing_cases = 0
+    crossing_witnesses = []
+    held_formula_tests = 0
+    fixed_brackets = []
+    held_rows = []
+    first_false_allroot = None
+    exact_witnesses = {}
+    for R in ROOTS:
+        X, Q, m, V, rho, U, S, b, T = source(R, R <= 256)
+        start = isqrt(R - 1) + 1
+        stop = (R - 1) // 2
+        if R <= 256:
+            candidates = []
+            for z in range(start, stop + 1):
+                K = sum((v for p, v in b.items() if p <= z), F(0))
+                assert U + K == T(z)
+                formula_tests += 1
+                candidates.append((z, T(z)))
+                if z > start:
+                    jump = m - V * weights[z] if z in b else F(0)
+                    assert T(z) - T(z - 1) == jump <= m
+                    jump_tests += 1
+                if z > start and T(z - 1) < 0 <= T(z):
+                    crossing_cases += 1
+                    assert min(abs(T(z - 1)), abs(T(z))) <= F(m, 2)
+                    crossing_witnesses.append({"R": R, "m": m, "prime": z,
+                        "left": str(T(z - 1)), "right": str(T(z))})
+            if candidates and min(abs(t) for z, t in candidates) > F(m, 2):
+                if first_false_allroot is None:
+                    first_false_allroot = {"R": R, "m": m,
+                        "values": [[z, str(t)] for z, t in candidates]}
+        if R in [8, 9, 10, 11, 12, 14]:
+            exact_witnesses[R] = {"U": str(U), "L": str(S - U), "S": str(S)}
+        if R in HELD_OUT:
+            for z in sorted({start, R // 4, stop}):
+                assert T(z) == U + physical_prefix(R, z, Q, V)
+                held_formula_tests += 1
+
+        A, B = R // 16, R // 4
+        if A >= 2 and A * A >= R and A < B and 2 * B < R:
+            left, right = T(A), T(B)
+            bracket = left < 0 <= right
+            row = {"R": R, "m": m, "A": A, "B": B,
+                   "T_A": float(left), "T_B": float(right), "bracket": bracket}
+            if bracket:
+                # The first nonnegative prefix; no prime-gap or monotonicity premise.
+                z = next(z for z in range(A + 1, B + 1) if T(z) >= 0)
+                chosen = min([z - 1, z], key=lambda t: abs(T(t)))
+                residual = T(chosen)
+                assert abs(residual) <= F(m, 2)
+                assert residual == U + physical_prefix(R, chosen, Q, V)
+                row.update({"cutoff": chosen, "cutoff_over_R": chosen / R,
+                            "residual": float(residual),
+                            "residual_over_m": float(residual / m)})
+            fixed_brackets.append(row)
+            if R in HELD_OUT:
+                held_rows.append(row)
+
+    boundary = []
+    for R in [2, 3] + list(range(8, 17)):
+        X, Q, m, V, rho, U, S, b, T = source(R, True)
+        independent, complete, D, physical, virtual, cube = independent_cube(R)
+        assert independent == b
+        K = sum((v for p, v in b.items() if p <= 2), F(0))
+        L = S - U
+        rest = complete - D - S
+        assert complete - D == U + K + (L - K) + rest
+        components = [U, K, L - K, rest]
+        assert (complete - D)**2 == sum(v*v for v in components) + 2 * sum(
+            components[i]*components[j] for i in range(4) for j in range(i+1, 4))
+        boundary.append({"R": R, "physical": str(physical), "virtual": str(virtual),
+                         "complete": str(complete), "d_eq_X": [mu for d, mu in cube if d == X],
+                         "root_prime": trial_prime(R)})
+    assert exact_witnesses[8] == {"U": "-7/65", "L": "-150/143", "S": "-827/715"}
+    assert exact_witnesses[11] == {"U": "557169/323323", "L": "1775/4199", "S": "693844/323323"}
+    assert all(source(R)[6] >= 0 for R in range(64, 257))
+    print(json.dumps({"registered_root_count": len(ROOTS), "formula_tests": formula_tests,
+        "jump_tests": jump_tests, "crossing_cases": crossing_cases,
+        "crossing_witnesses": crossing_witnesses,
+        "held_out_physical_formula_checks": held_formula_tests,
+        "first_false_allroot_half_m": first_false_allroot,
+        "exact_witnesses": exact_witnesses, "proportional_brackets": fixed_brackets,
+        "independent_cube_checks": boundary,
+        "note": "All decisions and equations exact Fraction/integer; decimals display only."}, indent=2))
+
+
+if __name__ == "__main__":
+    run()
+```
+
