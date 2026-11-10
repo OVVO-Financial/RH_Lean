@@ -891,3 +891,1219 @@ Follow Coordinator 20261110-coordinator-0710-EST M3: retain X=R^2-1, y=R-1, post
 ### D-K. Work In Progress And Continuity
 Today's seven role reports and yesterday's reports have been retrieved; no upstream report is absent. TODAY=AVAILABLE; YESTERDAY=CARRY_FORWARD, with relevant original derivations being read. Current open/draft PR list is empty; #1127/#1128/#1129 are merged. HM's proper-packet cancellation, UC's unsaturated counterexamples, LC's fixed-rank obstruction and UB's all-cutoff obstruction must not be promoted to a complete-source estimate.
 Planned falsification: compare literal event/cofactor expansions to direct genuine Mobius sums, preserve both cross orientations, seek the first failure of an unweighted or prime-only substitution, and distinguish an exact bridge from a paid recovery. Small exact roots first; held-outs 47,64,97,127,549,5561 only when the relevant source can be computed exactly and economically. Source-level uncertainty or a mismatch will be reported explicitly. No local Lean build, source/PR edit, other-agent launch or schedule change is authorized.
+
+
+## Composite Event Admission And The True Completed Buchstab Source
+### Final Research Synthesis - 20261110-owner-2/BR
+
+### A. Most Important Mathematical Development
+
+**The proposed direct recovery has an exact arithmetic obstruction: a floor-Li event is not a fresh prime, and lifting it as one can change its Mobius sign and duplicate a physical integer.** This is not just a warning about different notation. The necessary and sufficient admission condition, the complete correction, and genuine small counterexamples are given below.
+
+For integers 2<=q<=X, the full cofactor family satisfies mu(aq)=-mu(a) for EVERY 1<=a<=floor(X/q) if and only if
+
+```text
+mu(q)=-1 and q*leastPrime(q)>X.                 (BR.1)
+```
+
+In particular, among post-root q with q^2>X and q^4<=X^3, this property holds EXACTLY for primes. Every composite in that whole range fails admission, not just a sampled exception. The prime condition in the existing family theorem therefore cannot be removed when transporting it to the actual floor-Li stream.
+
+The literal physical lift of the prime-minus-floor-Li innovation has an explicit signed defect. It is nonzero already at R=3, and the complete defect has both signs at actual roots. The already-proved general Mobius renewal theorem DOES recover the unweighted prime discrepancy, but only after admitting every descendant and its divisor multiplicity. It does not bound the recovered discrepancy.
+
+| Claim | Result and status |
+| --- | --- |
+| 20261110-owner-2/BR1 | Exact all-cofactor flip admission and the composite exclusion region. PAPER_PROOF / SELF_AUDIT. |
+| BR2 | Full original-weight physical-lift defect and multiplicity formula; direct zero-defect/once-only extension REFUTED on genuine floor-Li events. PAPER_PROOF plus FINITE_COMPUTATION. |
+| BR3 | Complete fixed-cutoff renewal bridge from the weighted innovation to the actual prime backlog. IDENTITY_ONLY, an application of an ALREADY-PROVED theorem, not a newly discovered renewal law. |
+| BR4 | Compulsory within-event signed descendant cancellation and a linear absolute-value loss. PAPER_PROOF; proper coefficient row, not a global endpoint gain. |
+| BR5 | Explicit signed-box rounding budget <=(sum mu(a)^2+abs(M(N)))/2. PAPER_PROOF; supporting refinement of an already-known O(R) rounding cost. |
+| BR6 | Exact carrier, defect, completion and Gram tests, including independent small integral certificates. FINITE_COMPUTATION, not an all-scale estimate. |
+
+New paper arguments are **INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED**. The refuted hypotheses were investigated in this run; they are not falsely attributed to a specialist who asserted them. **NO_NEW_GLOBAL_GAIN. NO_NEW_ACCEPTED_ROUTE.** The canonical VF bound, complete-wheel RH bound, finite A/C and RH remain OPEN.
+
+### B. Current Authoritative Objective
+
+Scheduled invocation: 2026-11-10 08:09:05 EST, America/New_York. Run label 20261110-owner-2/BR; platform run ID unavailable. This continues the same daily Owner report and preserves HM and all previous valid evidence.
+
+Main source: **655f897e274a8ba8a2fed80ecc1fc75a0d849174**. Governing acknowledgement: **cross_route_ack=CROSS_ROUTE_SIGNED_RECOVERY_V1**. The previous finite-wheel acknowledgement remains historical context; the merged November 10 cross-route directive now controls task selection.
+
+The canonical statement is still: there exists ONE C>=0 such that for EVERY integer R>=2,
+
+```text
+abs(pi(R^2)-VF_can(R^2)) <= C R log R.
+```
+
+With X=R^2-1, y=R-1, P_y the product of primes <=y, and delta(y)=product_(p<=y)(1-1/p), the exact complete-wheel source is
+
+```text
+F_R=sum_(d|P_y)mu(d)fract(X/d),
+D_R=X delta(y)+pi(y)-1-li(X),
+Z_R=F_R-D_R=li(X)-pi(X).
+```
+
+All d>X remain until their X/d fractional contribution cancels its matching Euler term. d=X is retained. Moving the prime endpoint from R^2-1 to R^2 adds no prime for R>=2, but the Li endpoint and fixed normalization still require their own adapters. The canonical terminal theorem continues to take ClassicalVonKochRHCriterion explicitly; this execution does not construct that interface.
+
+#### 1. BASELINE / DEPENDENCY RECEIPT
+
+Read the current exact declaration `native_mertens_near_uniform_window_error_closed`, its source/count construction, native Mertens adapter, the actual `MertensGrowthAtMost` definition, and the hosted live-dependency/axiom audit. The applicable certified repository baseline is
+
+```text
+b_base=7/8-7/(64*N_pack), N_pack=nearUniformSlotCount,
+forall eps>0, exists C_eps>=0, forall n>=1:
+  abs(M(n)) <= C_eps*n^(b_base+eps).
+```
+
+There is NO asserted no-loss bound at b_base. Credit Coordinator CR1 for the numerical comparison: actual definitions give
+N_pack=ceil_nat(max(1,1/(6*explicitFineLength)))+2 and
+N_old=ceil_nat(max(1,1/(3*explicitFineLength)))+2.
+Since explicitFineLength>0, N_pack<=N_old; hence 7/(64*N_pack)>1/(48*N_old). The counts are not identified. This rechecks the existing comparison, not a new exponent result.
+
+The exact-head receipt for #1119 was re-fetched: head 77ee815846d6d534c866f0752aa33b84c385610a; run 42552018910, job 128949473700; completed/success. Its log prints the five theorem types and all five PASS dependency checks, with closure sizes 35358,35375,35736,35737,35753 and only propext, Classical.choice, Quot.sound. Source file blob f629db1b2b65d6ec042ac9432397d4b6316200c6 matches current main. A direct tree-blob comparison found no changed existing research/oai_434 or RHLean module below RHLean/ since that exact head; the root import file changed and later modules were added. This is source continuity, not a fresh main-head Lean execution. The audit traverses live OAI/RHLean/private proof values and separately collects terminal axioms transitively; it is not an assertion that this specialist independently reproved every external analytic argument.
+
+The inspected chain is original moments and complete total-mass LOW plus anchored HIGH/principal -> native_fixed_total_mass_probe_bounds -> native_beta_le_total_mass_boundary -> window-saturated positive-error closure -> actual modulus-one Dirichlet/Hecke product -> native_zeta_rightmost_le_hecke_beta -> native_mertens_growth_at_hecke_beta -> the displayed bound. No desired arithmetic bound is an ordinary hypothesis of the final declaration. Imported analytic proofs remain part of the dependency receipt, not a newly independent proof by this run.
+
+The log verifies Lean 4.34.1/compiler 5045d0056413266e57c625dcd7c365b10e377c52; Mathlib d13f23b723b8a846827a245b89c10fc7d3f11612; unpatched PrimeNumberTheoremAnd c39a751132c88b6e8080b74c74023fd95b3d8be0; upstream openai/math 1581d4cbdd69a0faf34b2089614fe2a814316a6a; anchored generator source pin 9cbfce5295343bcb411e6d2cb159b59995cd985b. Warning-fatal Lean checks appear in the actual hosted log. No local Lean was run.
+
+#1115 has a verified successful dedicated run 42517562043 at head 7256681db5adfc907426deaef676244aeb4384dd. Its actual changed-file list contains TWOAB_RENEWAL_COMPLETE_BAND and its growth consumer, not PrimeCombReciprocalBandCancellation. The latter is a separate existing source used below. This corrects an imprecise attribution in the incoming assignment, without changing any theorem.
+
+#1127 and #1128 are now merged, superseding earlier reports' unmerged status. Their exact-head dedicated runs 42743502306 and 42798625661 were fetched and are successful at 866b3d2121309cdd854f9d64e2a6adbbc708ef9b and d5b8003f6239611a457560b6fd16e29f16255e75, respectively. The current cofactor positivity source was read. These are proper-source facts, not endpoint improvements. Open/draft PR collection was empty at intake.
+
+### C. Structural Hypothesis Investigated
+
+Resume Coordinator 20261110-coordinator-0710-EST/M3, not the now-exhausted local-cutoff optimization. The proposed reuse has two possible meanings, which must be distinguished:
+
+1. Transport the already-proved post-root prime family -M(floor(X/p)) onto every actual floor-Li event as a physical prime-like family.
+2. Use the completed reciprocal-band renewal to recover the unweighted prime discrepancy from the genuine cofactor-weighted innovation.
+
+The first interpretation requires an arithmetic admission and an occurrence map; BR1-BR2 prove the exact condition and refute the unrestricted extension. The second interpretation is valid ONLY with the complete divisor convolution; BR3 identifies what the already-paid theorem actually recovers. Neither route licenses using the endpoint bound for Mobius parent coefficients on different prime-event coefficients.
+
+Continuity: today's Coordinator UB/CR, own HM, Analytic HF, Wheel PC, Census UC, Referee LC and Lean repair report were available and retrieved. Yesterday's Coordinator CD/SA/FB, own CF/CT/FW, Analytic ZD/MB/SC, Wheel RF/DG/RA, Census NC/BL/CR, Referee AP/DA and Lean reports were read at their relevant claims and continuation checkpoints. TODAY=AVAILABLE; YESTERDAY=CARRY_FORWARD. No scheduled execution was presumed. External inbox 038018145c0fddb2f6306c0712373adf9cd1ea52 has no new entry after October 18; EXT-20261018-PNT-1 and the #915 target-equivalence/anchor safeguards remain relevant.
+
+In particular: HM1 is accepted only in its saturated domain; UC's R=8,10,29 counterexamples and LC's fixed-rank obstruction stay intact. CF2's sharpened positivity is #1127, not a bound on this new defect. HF's 71/52+eps high-frequency result remains a proper-sector PAPER_PROOF with independent review pending; it is not used as a premise here. AP's adaptive common-prefix payment and UB's greedy-optimization obstruction are not rederived.
+
+### D. Mathematical Derivation
+
+#### Exact Original Carrier
+
+For the floor-Li formulas take integer R>=3, X=R^2-1, y=R-1, N=floor(X/(y+1))=R-1. Define
+
+```text
+L(n)=floor(Li_2(n)), lambda(q)=L(q)-L(q-1),
+epsilon(q)=1_Prime(q)-lambda(q), B(n)=pi(n)-L(n),
+I_y(T)=sum_(y<q<=T) epsilon(q) M(floor(T/q)),
+P_lambda,y(T)=sum_(y<q<=T) lambda(q) M(floor(T/q)),
+S_y(T)=sum_(1<=n<=T, P+(n)<=y)mu(n), including n=1,
+A_y(T)=S_y(T)-P_lambda,y(T).
+```
+
+The original compiled Buchstab declaration gives M(T)=A_y(T)-I_y(T) whenever 1<=y and floor(sqrt(T))<=y. This includes EVERY T=floor(X/k) used below. The cutoff y stays FIXED across these T. It is not replaced by floor(sqrt(T)) separately. All q, prime or composite, are present in lambda and epsilon. q=R is included when prime. Cofactor a=1 and every squareful a remain, with mu(a)=0 where appropriate.
+
+Finite Fubini gives the exact cofactor form
+
+```text
+I_y(T)=sum_(1<=a<=floor(T/(y+1)))
+          mu(a)[B(floor(T/a))-B(y)].              (BR.2)
+```
+
+The upper support is essential: extending a past T/(y+1) without max(y,floor(T/a)) would manufacture negative empty-interval charges. This is the clipping already documented in the October 22 source audit.
+
+#### BR1. Complete Sign-Flip Admission
+
+For integers 2<=q<=X let t=floor(X/q), p0=leastPrime(q). Then
+
+```text
+[forall 1<=a<=t, mu(aq)=-mu(a)]
+  iff [mu(q)=-1 and q*p0>X].                    (BR.3)
+```
+
+Proof of necessity: a=1 forces mu(q)=-1, so q is squarefree with odd prime-factor parity. If p0<=t, choose a=p0. Then mu(a)=-1 but p0^2 divides aq, so mu(aq)=0, contradicting the required value +1. Thus p0>t, equivalently q*p0>X, with strict inequality because aq=X is admitted.
+
+Proof of sufficiency: if p0>t, every 1<=a<=t is coprime to q. Multiplicativity gives mu(aq)=mu(a)mu(q)=-mu(a), also for squareful a. No statistical assumption is used.
+
+Corollary: suppose q^2>X and q^4<=X^3. Primes satisfy (BR.3). If q is composite with mu(q) not -1, a=1 already fails. Otherwise q is squarefree with at least three distinct prime factors, so p0^3<=q. Hence (q*p0)^3<=q^4<=X^3, giving q*p0<=X and the collision witness above. Therefore only primes are admitted in this entire post-root region. This is an all-scale structural exclusion, not a numerical regularity.
+
+#### BR2. The Exact Missing Physical-Lift Defect
+
+For any integer q>=2 and t>=1 define M_q^cop(t)=sum_(a<=t,gcd(a,q)=1)mu(a). The valid multiplicative identity is
+
+```text
+sum_(a<=t)mu(aq)=mu(q)*M_q^cop(t),
+d_X(q)=sum_(a<=floor(X/q))[mu(aq)+mu(a)]
+      =M(floor(X/q))+mu(q)*M_q^cop(floor(X/q)).  (BR.4)
+```
+
+For squareful q both mu(q) and every mu(aq) vanish. For squarefree q, the coprimality mask is indispensable. Thus d_X(q) has three exact sectors: M(t) if mu(q)=0; M(t)+M_q^cop(t) if mu(q)=+1; and M(t)-M_q^cop(t)=sum_(a<=t,gcd(a,q)>1)mu(a) if mu(q)=-1. For post-root PRIME q the defect is zero, as already proved by primeCombLargePrimeFamilyMass_eq_neg_mertens.
+
+Set
+
+```text
+J_y(X)=sum_(y<q<=X)epsilon(q)*sum_(a<=X/q)mu(aq),
+mathcalD_y(X)=sum_(y<q<=X)lambda(q)*d_X(q).
+```
+
+Then the exact original innovation is
+
+```text
+-I_y(X)=J_y(X)+mathcalD_y(X).                  (BR.5)
+```
+
+Proof: expand J+mathcalD, combine epsilon+lambda=1_Prime, and apply the valid sign flip ONLY on the actual prime terms. This proves the identity without assuming any composite event has a prime ancestry.
+
+The equality also holds with any prescribed real weight/mask chi(q,a) inserted in EVERY displayed double sum, because the prime flip is pointwise. It does not establish that any particular chi is the original #915 returned-cell mask or that its coefficients equal mu(a). That source admission remains separate.
+
+The occurrence multiplicity is explicit. Put
+
+```text
+ell_y(n)=sum_(q|n, q>y)lambda(q),
+c_y(n)=1_(P+(n)>y)-ell_y(n), with the indicator zero at n=1.
+J_y(X)=sum_(n<=X)mu(n)*c_y(n).                 (BR.6)
+```
+
+There is at most one actual prime divisor >y in n<=X, since (y+1)^2>X. This proves the indicator in (BR.6), not ell_y(n)<=1. Composite floor-Li divisors can reuse the same n. No repeated label is converted into independent historical credit.
+
+The full Mertens square is therefore
+
+```text
+M(X)=A_y(X)+J_y(X)+mathcalD_y(X),
+M(X)^2=A^2+J^2+mathcalD^2+2AJ+2A*mathcalD+2J*mathcalD.  (BR.7)
+```
+
+In particular, replacing G=-I by J drops mathcalD^2+2J*mathcalD and its interaction with A. These terms have not been proved favorable or small. The atom-level criterion (BR.3) is sufficient for zero defect of each admitted atom but is NOT necessary for an aggregate d_X(q)=0, which can also cancel accidentally; that distinction is preserved.
+
+#### BR3. What The Already-Proved Renewal Actually Recovers
+
+The existing `sum_convolveOne_mul_mertensSummatory_div` says, for EVERY g and X,
+
+```text
+sum_(n<=X) [sum_(d|n)g(d)] M(floor(X/n)) = sum_(q<=X)g(q).
+```
+
+Apply it to g(q)=epsilon(q)1_(q>y). The divisor coefficient is exactly c_y(n) in (BR.6), but the outer weight is M(floor(X/n)), NOT mu(n). Thus
+
+```text
+B(X)-B(y)=sum_(n<=X)c_y(n) M(floor(X/n))
+         =sum_(k=1..N)I_y(floor(X/k)).          (BR.8)
+```
+
+Equivalently, swap the k,q sums. For each q, t=floor(X/q), the coefficient is sum_(k<=t)M(floor(t/k))=1 by the existing unit renewal theorem. This is an exact coefficient-by-coefficient bridge on the genuine epsilon stream. It is NOT a norm-preserving bijection of physical prime occurrences. Every (q,k,a) label and its mu(a) weight is retained until the divisor sum cancels it.
+
+This is the successful PAID algebraic recovery. It is credited to MobiusRenewalTelescope, not promoted to a new cancellation estimate. Replacing c_y(n) by epsilon(n), replacing M(floor(X/n)) by mu(n), retaining only k=1, or changing y separately at each descendant changes the statement.
+
+For #1115, the actual completed parent coefficient is instead
+t_R(z)=M(floor(X/z))-M(floor(X/(z+1))). Its completed band is the difference of two Mertens endpoints. The prime-event coefficient on that same reciprocal interval is sum epsilon(q), which is different: at R=3,z=2, t_R(2)=mu(3)+mu(4)=-1 whereas epsilon(3)+epsilon(4)=0. Its existing endpoint estimate cannot be transferred by renaming z or q.
+
+#### BR4. Compulsory Descendant Cross Terms And Absolute-Value Tax
+
+For EVERY integer t>=1 write u_k=M(floor(t/k)), 1<=k<=t. The paid renewal says sum u_k=1. For all k>t/2, u_k=M(1)=1, and there are c=ceil(t/2) such entries. Hence
+
+```text
+sum_(k<=t)abs(u_k) >= c+abs(1-c)=2ceil(t/2)-1,
+sum_(k<=t)u_k^2 >= ceil(t/2),
+2sum_(k<l)u_k*u_l = 1-sum_k u_k^2 <= 1-ceil(t/2).  (BR.9)
+```
+
+This is a genuine deterministic within-event signed restriction: the completed coefficient stays 1 despite an unavoidable linearly growing absolute mass and diagonal. It does not assert that every pair is negative or that interactions BETWEEN different q are controlled.
+
+Choose ONCE alpha=(1+b_base)/2<1 and spend the existing positive growth loss alpha-b_base. The certified Mertens envelope gives an associated C_alpha>=0, so
+
+```text
+sum_(k<=t)abs(M(floor(t/k)))
+ <= C_alpha*t^alpha*sum_(k<=t)k^(-alpha)
+ <= C_alpha*t/(1-alpha).                      (BR.10)
+```
+
+The last step is the elementary decreasing-integrand bound. Thus the absolute mass is Theta(t), with constants chosen before t, while the signed sum is exactly 1. This quantifies the loss of taking absolute values before completion. It does not improve the Mertens input used to prove its upper bound, nor bound the complete prime-side source after multiplying by epsilon(q).
+
+#### BR5. The Rounding Part Is Already Affordable
+
+Let l(q)=Li_2(q)-Li_2(q-1), r(n)=Li_2(n)-L(n) in [0,1), and let P_l denote the same cofactor-weighted tail with l instead of lambda. Swapping the finite cofactor/event sums gives
+
+```text
+P_lambda,y(X)-P_l,y(X)
+ = r(y)M(N)-sum_(a<=N)mu(a)r(floor(X/a)).       (BR.11)
+```
+
+Let D_mu(N)=sum_(a<=N)mu(a)^2, P=(D_mu+M(N))/2 and Q=(D_mu-M(N))/2, the actual positive and negative Mobius populations. The second sum lies in [-Q,P]. If M(N)>=0, the first term lies in [0,M(N)]; if M(N)<0 it lies in [M(N),0]. In both cases
+
+```text
+abs(P_lambda-P_l) <= max(P,Q)
+                   =(D_mu(N)+abs(M(N)))/2 <= N.   (BR.12)
+```
+
+The constant is uniform before X,y and uses the genuine signs, including zero squareful coefficients. This is a finite signed-box refinement; the O(R) order was already recorded in the October 22 Mellin audit and is NOT claimed as a new endpoint saving. Bounded floor rounding does not bound epsilon, J or mathcalD. Squaring a corrected bracket still requires the mixed rounding term.
+
+### E. Quantitative Consequence And Complete Return
+
+Let c_li=li(x)-Li_2(x), the fixed normalization constant, and H_R=c_li+r(X)-B(y). The complete prime-side source, including its historical anchor, is exactly
+
+```text
+Z_R=H_R-sum_(k=1..N)I_y(floor(X/k)),
+Z_R^2=H_R^2+sum_k I_k^2+2sum_(k<l)I_k I_l-2H_R sum_k I_k.  (BR.13)
+```
+
+H_R=O(R) is elementary: pi(y)<=y and 0<=Li_2(y)<=(y-2)/log 2 for y>=2. The fixed constant and r(X) are retained. Consequently an RH-scale bound on the COMPLETE descendant sum is TARGET_EQUIVALENT to the present prime-side objective, not an independently established missing lemma.
+
+#### 2. FOUR-WAY SOURCE MAP
+
+All sources are at the main SHA in B; material blob SHAs follow in K. No new normalizer is introduced.
+
+| Euler / finite AC | VF / actual prime discrepancy | NNS / OAI | Square blocks / native HIGH | Prime/Mobius coupling |
+| --- | --- | --- | --- | --- |
+| Complete F_R includes all primorial divisors and Euler compensation. Finite-AC Q_R=sum_(a,b<R)mu(a)mu(b)floor(X/(ab))=2M(y)-M(X) is a DIFFERENT exact Mobius source. K_R=max_(0<=v<R)(M(v)-1)^2/(v+1) is unchanged. | Z_R=li(X)-pi(X); BR.13 is an EXACT_IDENTITY using every epsilon event, fixed y and B(y). Compiled complete-wheel theorem supplies the Euler/prime bridge. | BR.7 and BR.13 preserve all real signed cross terms. OAI `actual_low_tuple_polynomial_sq_eq_signed_gram` is exact on ideal-labelled Hecke atoms with original masks, Gaussian and normalizer. No coefficient map from those atoms to c_y or epsilon is proved: OPEN_BRIDGE, not an isometry-based saving. | Compiled Buchstab gives M(X)=A-I; Euler gives M(X)=2M(y)-Q_R. These are EXACT_IDENTITIES on the full prefix, not shell energies. LOW/HIGH/coherent and mixed return remains unchanged. | Prime q>y has the exact injective occurrence map (q,a)->aq and mu(aq)=-mu(a). Composite floor-Li q requires BR.4-BR.6. Weighted renewal is convolution, not pointwise coefficient identification. |
+
+For #915, `vfMid915HistoricalMovingOwner_eq_signedMismatch` is an existing exact whole-history scalar bridge. It explicitly retains its original signed anchor and deterministic floor-Li/VF difference; its reference demand is not claimed to be a manufactured physical sieve. No BR identity admits new clipped returned cells. The raw source remains D_raw(R+1), denominator (abs(D_raw(R))+beta_R)^2 with beta_R=m_R+(1-2w_R)P_R. The canonical phase correction is -2sqrt(2)D_raw+2 in squared defects. No uncompressed historical absolute mass or unproved first-bad payment is inserted.
+
+#### 3. FIRST SIGNED LOSS
+
+| Source / declaration | Lost information and exact tax | Consumer / paid recovery / complement / falsifier |
+| --- | --- | --- |
+| PrimeCombReciprocalBandCancellation: primeCombLargePrimeFamilyMass_eq_neg_mertens | Extending the PRIME hypothesis to lambda events is an invalid equality, not a harmless norm inequality. Lost correction is mathcalD, including all parity/gcd sectors. | BR.5 recovers the exact weighted innovation; its size and 2J*mathcalD remain unpaid. R=3,q=6,a=1 is a genuine falsifier. |
+| Buchstab: buchstab_innovation_eq_signed_high_prime_cofactor | Dropping M(floor(X/q)) or keeping only k=1 in the renewal loses sum_(k>=2)I_k. | Paid renewal restores the whole event discrepancy; no bound is gained. R=5 has I_1=0 but completed sum=-2. |
+| MobiusRenewalTelescope: sum_convolveOne_mul_mertensSummatory_div | Triangle before completion replaces the exact coefficient 1 by at least 2ceil(t/2)-1. Dropping off-diagonal Gram replaces 1 by a diagonal >=ceil(t/2). | BR.9 restores the forced within-event cross terms; cross-q and the full original backlog are not thereby bounded. t=3 already gives (-1,1,1). |
+| TWOAB_RENEWAL_COMPLETE_BAND: twoABCompleteReciprocalBand_eq_mertensDifference | Completion is paid for t_R(z), not epsilon reciprocal-bin coefficients. Restricting to high z removes the long-fibre band. | Existing growth consumer bounds root-adjacent a~R at O_eps(R^(b_base+eps)); a=1 still reaches X and costs O_eps(R^(2b_base+eps)). R=3,z=2 disproves coefficient identification. |
+| CompleteSquareRootWheelFractionalBoundary: finiteWheelFract_sub_density_eq_physical_floorError | Triangle on virtual d>X before Euler subtraction discards exact termwise cancellation. | Already paid by #1122, not new BR mathematics. R=8 gives physical 3/5 plus virtual -6/5, not physical alone. |
+| BR.13 full prime-side square | Replacing square of the completed sum by its diagonal discards every mixed descendant and historical term. | R=5561: diagonal 6629267, doubled off-diagonal -6593546, completed square 35721. This finite cancellation is not a global zero-covariance theorem. |
+
+These are the actual losses on the selected transfer, not a claim to have enumerated every inequality in the 35,753-node OAI closure.
+
+#### 4. PAID RECOVERY TEST
+
+MobiusRenewalTelescope successfully recovers the exact discarded descendants on the literal g(q)=epsilon(q)1_(q>y) source, producing (BR.8). The sharper #1119 bound pays (BR.10) after spending a positive loss. #1115's numerical endpoint bound does NOT transfer to epsilon bins because their coefficients differ. #1127's complete cofactor positivity concerns the original wheel mu(e) fractional row, not mu(aq) or the floor-Li defect. #1128's near-resonance is a scope warning, not a bound on this real signed convolution. NNS algebra reconstructs all cross terms but supplies no new sign or norm bound. The remaining mixed/full-source bill is stated in (BR.7) and (BR.13), not suppressed.
+
+#### 5. NET RESULT / ADMISSION VERDICT
+
+**NO_NEW_GLOBAL_GAIN.** BR1 is a new source-admission classification for this proposed transfer; BR2 is a precise unmatched-source formula and decisive falsifier. They prevent a false cross-route recovery. BR3 is reused exact algebra, BR4 is a proper-row restriction, and BR5 only sharpens a paid rounding constant. No new route meets the directive's complete-source/global-exponent admission criterion. The baseline remains b_base, with its original positive-loss quantifiers.
+
+### F. Falsification And Circularity Review
+
+**Genuine floor-Li witnesses, with no stochastic events:** L(2)=0,L(3)=1,L(5)=2,L(6)=3. Thus at R=3,X=8, lambda(6)=1, but mu(6)=+1 whereas the fictional fresh-prime image of mu(1) is -1. Also lambda(3)=lambda(6)=1, so the REFERENCE lift of n=6 has the two labels (q,a)=(3,2),(6,1); ell_2(6)=2. This is reference-lift multiplicity, not a claim that epsilon(3) is nonzero.
+
+At R=3, A=-3,J=-2,mathcalD=3, so M(8)=-2 exactly. At R=5,X=24,y=4, the complete innovation vector is (0,0,-1,-1); its total -2 equals B(24)-B(4), while I_y(24)=0. Here J=-6 and mathcalD=6, so their cancellation is necessary. No multiplicative estimate of the form abs(completed sum)<=C*abs(I_y(X)) can hold for all R>=3. This refutes that particular proposed uniform recovery, not an estimate with an additional independently bounded term.
+
+The complete defect has no universal sign: mathcalD_2(8)=3 but mathcalD_13(195)=-6. The latter is a primary-program certificate, not claimed independently reproduced by the small integral program.
+
+Primary program: standard-library Python integer/Fraction arithmetic, sieve through X=30924720, trial-factor comparison for mu(1)..mu(1599), and rigorous fixed-point interval evaluation of Li_2. Discovery R=3..40; held-outs R=47,64,97,127,549,5561. It checked 21318 full-q admission classifications and exact defect formulas, including 3590 genuine prime families, 38 direct event/cofactor equalities, 44 complete renewals, 44 full Gram identities and 44 rounding bounds. Separately every t=1..5560 passed the signed-renewal and BR.9 inequalities. Small-root witnesses were selected by the registered exact scan; the defect sign comparison was a disclosed proof-led follow-up, not a preregistered asymptotic prediction.
+
+| R | I_y(X) | Complete B(X)-B(y) | All strict descendants | Diagonal | Doubled off-diagonal |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| 47 | 0 | -9 | -9 | 129 | -48 |
+| 64 | 18 | -9 | -27 | 491 | -410 |
+| 97 | 19 | -13 | -32 | 695 | -526 |
+| 127 | 36 | -11 | -47 | 1749 | -1628 |
+| 549 | -96 | -77 | 19 | 27957 | -22028 |
+| 5561 | 2145 | -189 | -2334 | 6629267 | -6593546 |
+
+Every large-root quantity in this table is exact, including the floor-Li integer potential. It is not a floating Li diagnostic. The program certifies L(30924720)=1911875 and pi(30924720)=1911671; the low anchor B(5560)=-15 yields the displayed difference -189. These finite values do not certify any asymptotic.
+
+**Numerical enclosure proof:** range-reduced log uses the positive atanh series with its geometric tail. For t>0, F(t)=log(t)+sum_(k>=1)t^k/(k*k!) has derivative exp(t)/t, so Li_2(n)=F(log n)-F(log 2). Every operation is an outward-rounded integer interval at scale 10^45; the 180-term series has an explicitly bounded positive tail. Each potential is accepted only when BOTH interval endpoints have the same integer floor. No numerical library's accuracy is assumed.
+
+Independent small program uses a DIFFERENT method: monotone left/right rectangles of 1/log(t) on a 1/512 grid, with rational log enclosures, plus trial factorization and direct summation. It certifies all L(n),2<=n<=24, reproduces the R=3 and R=5 failures, and verifies all six terms of (BR.7) at R=3,4,5. It also independently restores complete wheel physical/virtual terms at R=2,3,8,12,14,16, using an explicitly arbitrary rational reference for the algebraic identity. This includes d=X=195 at R=14, q=R prime, squareful coefficients, and the empty R=2 wheel. It does not repeat the author's entire large-root computation or claim a second human review.
+
+Both programs completed with exit code zero and passed syntax checks. SHA-256: primary e988c276be6139702ee640e09dcec4f194871822a57eb82bc82ab5c6682f55cd; independent 6ad9c803ca9dc2174e3cb0d26ee1b1aa1eab593fab52a516b8bac4f7bea5c760. Full programs and recorded output follow this synthesis.
+
+Novelty/scope check: the October 22 audit already warns that floor-Li is not prime membership and pays O(R) rounding. MobiusRenewalTelescope explicitly calls its general identity classical. BR does NOT claim either observation as new. The inspected source and scoped repository search did not supply the exact BR.3 all-cofactor admission classifier or this completed physical-lift defect application. This is not an exhaustive literature-priority claim. All new proof review is SELF_AUDIT.
+
+### G. Conceptual Interpretation
+
+There are two distinct operations: a fresh-prime multiplicative sign flip, and a linear floor-Li event decomposition. Their resemblance does not identify their physical sources. The exact obstruction is the parity of q plus collisions between its prime factors and the admitted cofactor prefix. Even an event with the correct aggregate sign may have the wrong pointwise ancestry.
+
+The valid common operation is divisor convolution. It restores the unweighted event count through all descendants, with forced cancellation already present in the Mobius inverse. That restoration can have large positive diagonal and negative complete off-diagonal contributions. It is not a free upper bound on the restored count and cannot be spent a second time as independent physical history.
+
+### H. Competing Mechanisms
+
+| Mechanism | Decision / independent gap / decisive next check |
+| --- | --- |
+| Prime-like physical lift of all floor-Li events | ABANDON this unrestricted version. BR.3 is the corrected atom-level criterion; BR.5 is the mandatory defect. Both an actual wrong-sign event and duplicate reference occurrence are already certified. |
+| Complete renewal as automatic quantitative transfer from #1115 | REVISE. Exact algebra survives and is already proved, but epsilon parents are not Mobius parents. Any new consumer must control the actual divisor coefficient c_y and full cross-return, not only diagonal I_y(X). R=5 is the smallest tested falsifier. |
+| Genuine nonlocal arithmetic correlation of actual prime innovations and their companion smooth bracket | CONTINUE only as an open investigation. BR.4 separates squareful, even-parity and shared-factor odd-parity defects without assuming them small. The full A/J/mathcalD combination is the consumer. No new independently sufficient size lemma is supplied here. |
+| Existing complete OAI endpoint and independent finite-AC route | RETAIN separately. Their source coefficients, K_R, losses and conditional consumers are unchanged; BR does not replace them or launch duplicate specialist work. |
+
+All nine route families remain available. This execution does not claim rolling coverage of every family or retire a full route based on a failed auxiliary map.
+
+### I. Specialist Handoffs
+
+**Coordinator:** consume BR.3-BR.8 as the answer to the requested exact weighted bridge. Correct the #1115/post-root-family attribution. The common paid theorem is divisor renewal, not coefficient equality. Do not promote M3 on the basis of this identity; its direct physical shortcut is refuted and its signed complement remains unpaid.
+
+**Analytic:** the precise new residual is mathcalD=sum lambda(q)[M(t_q)+mu(q)M_q^cop(t_q)], with the three sectors in BR2. A proposed analytic estimate must retain J and A or prove a justified centering/transfer. HF's prime-frequency sector does not currently map to these composite-event coprime prefixes. No new arbitrary-covariance entrance test is imposed on OAI.
+
+**Wheel:** compare the actual t_R(z) coefficients with epsilon-bin coefficients BEFORE applying the complete-band endpoint theorem. The R=3,z=2 mismatch and full g*1 convolution provide compact tests. Preserve the long-fibre band and both mixed orientations in Q_R; the current prime-side completion is not a proof of the finite-AC input.
+
+**Census:** no range extension is requested merely to confirm BR.3. For a new hypothesis, preregister a sector-resolved test of J and mathcalD on the same integer source, distinguishing squareful, mu(q)=+1 and shared-factor mu(q)=-1 events. The diagnostic is their signed joint residual, not their individual absolute masses. Reuse the exact Li certificate method; finite data cannot justify an exponent.
+
+**Referee:** independently check the necessity/sufficiency of BR.3, especially qp0=X; the q^4<=X^3 corollary; BR.5's sign; the distinction between lambda reference multiplicity and epsilon multiplicity; fixed-y completion; and BR.12's shared r(y) term. Review the mathematical claims, not only successful computation. New results are awaiting your verdict.
+
+**Lean Verification:** NO_NEW_ENDPOINT_THEOREM_TO_FORMALIZE. Existing unit and g-weighted renewal should be reused rather than duplicated. BR.3 and the weighted BR.5 adapter are possible small enabling lemmas only after independent acceptance and an actual consumer need. Do not encode smallness of mathcalD, I or the completed sum as an assumed premise and label it recovered cancellation. No proof branch or PR was created by this role.
+
+### J. First Independently Missing Lemma
+
+**No independently sufficient size lemma was identified for this proposed recovery.** Its initially missing unconditional prime-like admission is now REFUTED, and its corrected algebra is BR.5/BR.8. The exact first unpaid arithmetic is a coefficient-sensitive restriction on the joint A_y+J_y+mathcalD_y source, or on the full fixed-y descendant sum with its anchor. Merely asserting the desired bound on either COMPLETE expression would rename the corresponding target.
+
+The next genuinely narrower research question is whether the actual floor-Li-selected shared-factor correlation
+
+```text
+C_odd(X,y)=sum_(y<q<=X, q composite, mu(q)=-1)
+  lambda(q) * sum_(a<=floor(X/q), gcd(a,q)>1)mu(a)
+```
+
+has an independently provable signed restriction AFTER its original companion parity and squareful terms are retained. This is the exact odd-parity defect sector, not an arbitrary owner energy. No exponent, sign, centering, or sufficiency theorem for it is conjecturally inserted as a premise here. First inspect already-proved coprime-prefix/ancestry results for this literal coefficient and choose a falsifiable estimate; otherwise return NO_NEW_RECOVERY rather than introduce another target-equivalent hypothesis. The sharp atom classifier and known nonzero full defect make that next test well-defined.
+
+### K. Next-Run Resume Capsule, Evidence And Publication
+
+Resume from main 655f897e274a8ba8a2fed80ecc1fc75a0d849174, refreshing actual main first. New claims are 20261110-owner-2/BR1-BR6. Keep HM/CF/AP/UC/LC/UB at their exact original status; none is silently strengthened or superseded. Strongest baseline remains #1119 at b_base with every positive loss. BR admission status is NO_NEW_GLOBAL_GAIN / NO_NEW_ACCEPTED_ROUTE, with exact falsification and supporting paper arithmetic.
+
+The early IN_PROGRESS checkpoint was published at commit 1b3d5fbc89e4f82039fdc5edc82779feb8a16d19, report blob b0cfc10c3d66dd7b450703bea9f53b1a87885096. Commit metadata confirmed that only today's own report changed; immutable readback matched exactly. Final publication verification will be recorded after successful commit/readback.
+
+Tool limitations: direct git clone failed with a proxy 403, so all repository authority/source/CI reads used the authenticated GitHub connector. An optional mpmath diagnostic import was unavailable; no conclusion uses it, and both final programs use only the standard library with rational/integer certificates. No local Lean execution, proof-source edit, other report edit, issue/PR/workflow mutation, agent launch, merge, permission change or schedule change occurred. No background continuation is asserted.
+
+### K1. Material Source And Continuity Ledger
+
+All following source reads are pinned to main 655f897e274a8ba8a2fed80ecc1fc75a0d849174. Blob hashes are actual GitHub file blobs, not report-derived labels.
+
+| Source | Blob SHA |
+| --- | --- |
+| [AGENTS.md](https://github.com/OVVO-Financial/RH_Lean/blob/655f897e274a8ba8a2fed80ecc1fc75a0d849174/AGENTS.md) | c9c89f01b90b526de9f3e8ea92478e36504711b6 |
+| [CURRENT_PROOF_CONTRACT.md](https://github.com/OVVO-Financial/RH_Lean/blob/655f897e274a8ba8a2fed80ecc1fc75a0d849174/CURRENT_PROOF_CONTRACT.md) | 95566e37c8eaeb99ee680660df4f9d2e06ea5038 |
+| [docs/RHLEAN_CROSS_ROUTE_SIGNED_RECOVERY_20261110.md](https://github.com/OVVO-Financial/RH_Lean/blob/655f897e274a8ba8a2fed80ecc1fc75a0d849174/docs/RHLEAN_CROSS_ROUTE_SIGNED_RECOVERY_20261110.md) | e922d4ba9362a1ae196af8f6de88f7417f92087c |
+| [research/CompleteSquareRootWheelFractionalBoundary.lean](https://github.com/OVVO-Financial/RH_Lean/blob/655f897e274a8ba8a2fed80ecc1fc75a0d849174/research/CompleteSquareRootWheelFractionalBoundary.lean) | ecb482e52deeee5e9b3853592a3ffdace662d2ff |
+| [research/VF_MID_FLOOR_LI_BUCHSTAB_EXACT_BRACKETS_20261022.lean](https://github.com/OVVO-Financial/RH_Lean/blob/655f897e274a8ba8a2fed80ecc1fc75a0d849174/research/VF_MID_FLOOR_LI_BUCHSTAB_EXACT_BRACKETS_20261022.lean) | 918876c6ad7697388d565d39b15db5b8c3cc9952 |
+| [research/FiniteWheelCofactorPositivity.lean](https://github.com/OVVO-Financial/RH_Lean/blob/655f897e274a8ba8a2fed80ecc1fc75a0d849174/research/FiniteWheelCofactorPositivity.lean) | f83a3daefc2b9d603014af912ec82b4a7f52cfac |
+| [research/oai_434/VF919WindowErrorClosure.lean](https://github.com/OVVO-Financial/RH_Lean/blob/655f897e274a8ba8a2fed80ecc1fc75a0d849174/research/oai_434/VF919WindowErrorClosure.lean) | f629db1b2b65d6ec042ac9432397d4b6316200c6 |
+| [research/oai_434/VF919ExplicitSquareBlockPacking.lean](https://github.com/OVVO-Financial/RH_Lean/blob/655f897e274a8ba8a2fed80ecc1fc75a0d849174/research/oai_434/VF919ExplicitSquareBlockPacking.lean) | 32999039fdeea99c58a070c1c4ee9c140720dd44 |
+| [research/oai_434/VF919ExplicitFixedSourceSlotCount.lean](https://github.com/OVVO-Financial/RH_Lean/blob/655f897e274a8ba8a2fed80ecc1fc75a0d849174/research/oai_434/VF919ExplicitFixedSourceSlotCount.lean) | bad5aab0a60e96d19e7c9550cd7c0a072288bc0f |
+| [scripts/lean/window_error_closure/WindowErrorClosureAudit.lean](https://github.com/OVVO-Financial/RH_Lean/blob/655f897e274a8ba8a2fed80ecc1fc75a0d849174/scripts/lean/window_error_closure/WindowErrorClosureAudit.lean) | 1f17f9401a63d16227db2e2aad020b9f74bc5f4e |
+| [docs/COORDINATE_ATLAS.md](https://github.com/OVVO-Financial/RH_Lean/blob/655f897e274a8ba8a2fed80ecc1fc75a0d849174/docs/COORDINATE_ATLAS.md) | cd0419d00a37739fe5a292f5cb738e33213949d5 |
+| [research/VF_MID_DYADIC_PREFIX_OWNER.lean](https://github.com/OVVO-Financial/RH_Lean/blob/655f897e274a8ba8a2fed80ecc1fc75a0d849174/research/VF_MID_DYADIC_PREFIX_OWNER.lean) | c499ca7bd7d90fb32f9cd99d652961ea023bed58 |
+| [lean-toolchain](https://github.com/OVVO-Financial/RH_Lean/blob/655f897e274a8ba8a2fed80ecc1fc75a0d849174/lean-toolchain) | ba8ebf2dbaf6a668cd2a0e086186d6d569b69ff5 |
+| [lake-manifest.json](https://github.com/OVVO-Financial/RH_Lean/blob/655f897e274a8ba8a2fed80ecc1fc75a0d849174/lake-manifest.json) | a34d142c3d75a602a8b0f8241a4fb504d5c7c5a4 |
+| [RHLean/Proof/PrimeCombReciprocalBandCancellation.lean](https://github.com/OVVO-Financial/RH_Lean/blob/655f897e274a8ba8a2fed80ecc1fc75a0d849174/RHLean/Proof/PrimeCombReciprocalBandCancellation.lean) | 7c2b4c8a55a1a2fe5bfa0dfe95996e416b0fd19f |
+| [research/VF_MID_FLOOR_LI_CRITICAL_BALANCE.lean](https://github.com/OVVO-Financial/RH_Lean/blob/655f897e274a8ba8a2fed80ecc1fc75a0d849174/research/VF_MID_FLOOR_LI_CRITICAL_BALANCE.lean) | 0bd3fa8229e338647dbc6e1de484e98d14f8e911 |
+| [RHLean/Analysis/PrimeSieveCollapseIdentity.lean](https://github.com/OVVO-Financial/RH_Lean/blob/655f897e274a8ba8a2fed80ecc1fc75a0d849174/RHLean/Analysis/PrimeSieveCollapseIdentity.lean) | 7a7e47fe4bc31588ebafa9011d89205dbf0bf1f2 |
+| [research/VF_MID_FLOOR_LI_SIGNED_POPULATION_BALANCE.lean](https://github.com/OVVO-Financial/RH_Lean/blob/655f897e274a8ba8a2fed80ecc1fc75a0d849174/research/VF_MID_FLOOR_LI_SIGNED_POPULATION_BALANCE.lean) | 9a9336dad72171b6d572a1c1ae88d1ae8b56b530 |
+| [research/oai_434/VF919OriginalLowTupleSignedGram.lean](https://github.com/OVVO-Financial/RH_Lean/blob/655f897e274a8ba8a2fed80ecc1fc75a0d849174/research/oai_434/VF919OriginalLowTupleSignedGram.lean) | dd2fde01ae6e2446da4e69b30f6fc80fcadb858d |
+| [research/EULER_SELF_DUAL_ENDPOINT_GATE_20261027.lean](https://github.com/OVVO-Financial/RH_Lean/blob/655f897e274a8ba8a2fed80ecc1fc75a0d849174/research/EULER_SELF_DUAL_ENDPOINT_GATE_20261027.lean) | e7ee8f77ffd59bccaa49dd6d74fbe0d7952c2d73 |
+| [research/EULER_SELF_DUAL_POINTWISE_20261027.lean](https://github.com/OVVO-Financial/RH_Lean/blob/655f897e274a8ba8a2fed80ecc1fc75a0d849174/research/EULER_SELF_DUAL_POINTWISE_20261027.lean) | c327c556f39ee7014fd774b24d0f95a1ece050e0 |
+| [research/VF_CANONICAL_SQRT_TWO_VON_KOCH.lean](https://github.com/OVVO-Financial/RH_Lean/blob/655f897e274a8ba8a2fed80ecc1fc75a0d849174/research/VF_CANONICAL_SQRT_TWO_VON_KOCH.lean) | 79030d70e8d3e0d08eef9bac53fef95c36eca2fb |
+| [research/oai_434/VF919NativeStrictMertens.lean](https://github.com/OVVO-Financial/RH_Lean/blob/655f897e274a8ba8a2fed80ecc1fc75a0d849174/research/oai_434/VF919NativeStrictMertens.lean) | b33a4883e1ddb0551b0f11f062bce46680d87450 |
+| [research/TWOAB_RENEWAL_COMPLETE_BAND_20261108.lean](https://github.com/OVVO-Financial/RH_Lean/blob/655f897e274a8ba8a2fed80ecc1fc75a0d849174/research/TWOAB_RENEWAL_COMPLETE_BAND_20261108.lean) | 028d9f2bbfa1a8de1fe63e9bd368aca13aae6825 |
+| [research/TWOAB_RENEWAL_OAI_CONSUMER_20261108.lean](https://github.com/OVVO-Financial/RH_Lean/blob/655f897e274a8ba8a2fed80ecc1fc75a0d849174/research/TWOAB_RENEWAL_OAI_CONSUMER_20261108.lean) | 4880969f71f4668b18a9e09fd6f4007b7e62a5d5 |
+| [research/MERTENS_EXPONENT_ENVELOPES.lean](https://github.com/OVVO-Financial/RH_Lean/blob/655f897e274a8ba8a2fed80ecc1fc75a0d849174/research/MERTENS_EXPONENT_ENVELOPES.lean) | 655b896e8d5a41c9f8fc3c456eae3944a98bfefe |
+| [research/VF_MID_FLOOR_LI_TRANSPORT_CANCELLATION.lean](https://github.com/OVVO-Financial/RH_Lean/blob/655f897e274a8ba8a2fed80ecc1fc75a0d849174/research/VF_MID_FLOOR_LI_TRANSPORT_CANCELLATION.lean) | eb84f59055bd31dc117be034d45c92eb9dab8f27 |
+| [research/VF_MID_FLOOR_LI_BUCHSTAB_MELLIN_ASYMPTOTIC_AUDIT_20261022.md](https://github.com/OVVO-Financial/RH_Lean/blob/655f897e274a8ba8a2fed80ecc1fc75a0d849174/research/VF_MID_FLOOR_LI_BUCHSTAB_MELLIN_ASYMPTOTIC_AUDIT_20261022.md) | ef0c149efd2c5cb6a63feb0b538e2f076e695f04 |
+| [RHLean/Analysis/MobiusRenewalTelescope.lean](https://github.com/OVVO-Financial/RH_Lean/blob/655f897e274a8ba8a2fed80ecc1fc75a0d849174/RHLean/Analysis/MobiusRenewalTelescope.lean) | 223013cd640148a1513ef9e836653aa86cf01cdb |
+| [research/VF_MID_915_FLOOR_LI_TRANSPORT_BOUNDARY.lean](https://github.com/OVVO-Financial/RH_Lean/blob/655f897e274a8ba8a2fed80ecc1fc75a0d849174/research/VF_MID_915_FLOOR_LI_TRANSPORT_BOUNDARY.lean) | 10829c3857b6a375d1dd8179f78a35550c9e67d8 |
+
+Report evidence read from agent-reports at intake; these are historical input blobs, not a claim that another agent has reviewed BR.
+
+| Date / report | Input blob SHA |
+| --- | --- |
+| [2026-11-09/00-coordinator-am](https://github.com/OVVO-Financial/RH_Lean/blob/agent-reports/research/agent_reports/2026-11-09/00-coordinator-am.md) | 6fba43130391ad4a606aa3809c20f344d668c709 |
+| [2026-11-09/10-owner-payment](https://github.com/OVVO-Financial/RH_Lean/blob/agent-reports/research/agent_reports/2026-11-09/10-owner-payment.md) | 643e8a004d9d8e0be102b03e2f79bb3b217ae916 |
+| [2026-11-09/20-analytic-type-ii](https://github.com/OVVO-Financial/RH_Lean/blob/agent-reports/research/agent_reports/2026-11-09/20-analytic-type-ii.md) | d1d0d86d444b9c447cf6acf4bd18fdcaf02e56a3 |
+| [2026-11-09/30-finite-wheel](https://github.com/OVVO-Financial/RH_Lean/blob/agent-reports/research/agent_reports/2026-11-09/30-finite-wheel.md) | 0624246d03b19cf76c01e186b7d868a248d896ef |
+| [2026-11-09/40-prime-census](https://github.com/OVVO-Financial/RH_Lean/blob/agent-reports/research/agent_reports/2026-11-09/40-prime-census.md) | 8c927cc6c323533ba1cfd369404b25aa4f9cef91 |
+| [2026-11-09/50-adversarial-referee](https://github.com/OVVO-Financial/RH_Lean/blob/agent-reports/research/agent_reports/2026-11-09/50-adversarial-referee.md) | a5d0192eb31c0efb3767187a7752f1a0d07f8534 |
+| [2026-11-09/60-lean-verification](https://github.com/OVVO-Financial/RH_Lean/blob/agent-reports/research/agent_reports/2026-11-09/60-lean-verification.md) | 8b60c6136ac151774be2db0aee8f543f286b53aa |
+| [2026-11-10/00-coordinator-am](https://github.com/OVVO-Financial/RH_Lean/blob/agent-reports/research/agent_reports/2026-11-10/00-coordinator-am.md) | 1cf71a74d0e80d5dc05ab1ef08f1ad6fcf134c9a |
+| [2026-11-10/10-owner-payment](https://github.com/OVVO-Financial/RH_Lean/blob/agent-reports/research/agent_reports/2026-11-10/10-owner-payment.md) | 2bed3da8ed4ddd49c0708378a1c3da5b4883cb54 |
+| [2026-11-10/20-analytic-type-ii](https://github.com/OVVO-Financial/RH_Lean/blob/agent-reports/research/agent_reports/2026-11-10/20-analytic-type-ii.md) | d8337353a94b465f53a0c6a65ad46aac1dc1927e |
+| [2026-11-10/30-finite-wheel](https://github.com/OVVO-Financial/RH_Lean/blob/agent-reports/research/agent_reports/2026-11-10/30-finite-wheel.md) | 79ff39e0f79a30f4cf1657b22f96ebe49de4d717 |
+| [2026-11-10/40-prime-census](https://github.com/OVVO-Financial/RH_Lean/blob/agent-reports/research/agent_reports/2026-11-10/40-prime-census.md) | 8a89d1a899850e39320a96bf35a6f221060fc8a7 |
+| [2026-11-10/50-adversarial-referee](https://github.com/OVVO-Financial/RH_Lean/blob/agent-reports/research/agent_reports/2026-11-10/50-adversarial-referee.md) | ae7de1cb1900818b8844c2c3c7da597cc8f7eaa9 |
+| [2026-11-10/60-lean-verification](https://github.com/OVVO-Financial/RH_Lean/blob/agent-reports/research/agent_reports/2026-11-10/60-lean-verification.md) | 0355c3203ede834e1abbe9bc2fc161bc7d7ece04 |
+
+External inbox: [EXTERNAL_HANDOFFS.md](https://github.com/OVVO-Financial/RH_Lean/blob/agent-reports/research/agent_reports/EXTERNAL_HANDOFFS.md), blob 038018145c0fddb2f6306c0712373adf9cd1ea52. Today's original Owner input is preserved byte-for-byte above; the later early-checkpoint blob is separately recorded in K.
+
+Final pre-publication main refresh at 2026-11-10 08:41:16 EST remained 655f897e274a8ba8a2fed80ecc1fc75a0d849174. The open/draft pull-request collection remained empty on the later refresh; merged reports were checked against actual PR/run metadata, not schedule assumptions.
+
+### K2. Hosted Audit Evidence
+
+Existing exact-head checks, not new runs launched by Owner:
+
+| Input | Verified run | Head / conclusion |
+| --- | --- | --- |
+| OAI window-saturated LOW versus principal gain | [42552018910](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42552018910) | 77ee815846d6d534c866f0752aa33b84c385610a, completed/success |
+| Complete-wheel cofactor positivity | [42743502306](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42743502306) | 866b3d2121309cdd854f9d64e2a6adbbc708ef9b, completed/success |
+| Genuine dyadic prime near resonance | [42798625661](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42798625661) | d5b8003f6239611a457560b6fd16e29f16255e75, completed/success |
+| Complete reciprocal-band consumer #1115 | [42517562043](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42517562043) | 7256681db5adfc907426deaef676244aeb4384dd, completed/success |
+
+Actual #1119 job 128949473700 closing audit lines:
+
+~~~text
+2026-11-09T03:01:16.0190718Z PASS window-error-closure OAI.SevenEighths.RHLeanWindowSaturated.native_beta_le_window_error_closed_of_fine: #[propext, Classical.choice, Quot.sound], closure=35358
+2026-11-09T03:01:16.0201132Z PASS window-error-closure OAI.SevenEighths.RHLeanWindowSaturated.native_beta_le_near_uniform_window_error_closed: #[propext, Classical.choice, Quot.sound], closure=35375
+2026-11-09T03:01:16.0203239Z PASS window-error-closure RHLean.Analysis.native_mertens_window_error_closed_of_fine: #[propext, Classical.choice, Quot.sound], closure=35736
+2026-11-09T03:01:16.0208723Z PASS window-error-closure RHLean.Analysis.native_mertens_fixed_window_error_closed_of_fine: #[propext, Classical.choice, Quot.sound], closure=35737
+2026-11-09T03:01:16.0213448Z PASS window-error-closure RHLean.Analysis.native_mertens_near_uniform_window_error_closed: #[propext, Classical.choice, Quot.sound], closure=35753
+~~~
+
+### K3. Reproducible Finite Certificates
+
+The programs below were executed as ordinary Python research checks, not Lean or proof-source modifications. They rely only on the standard library. The primary output's progress-only lines are omitted; its complete terminal result is retained. The second program uses a different integral enclosure and direct factorization on the small witnesses.
+
+#### Primary Program
+
+~~~python
+"""Exact source tests for 20261110-owner-2/BR; no Lean execution."""
+
+from bisect import bisect_right
+from fractions import Fraction as F
+from functools import lru_cache
+from math import gcd, isqrt
+import json
+
+SCALE = 10**45
+
+
+def ceildiv(a, b):
+    return -(-a // b)
+
+
+def atanh_log_bounds(x, terms=55):
+    z = (x - 1) / (x + 1)
+    assert 0 <= z <= F(1, 3)
+    z2 = z * z
+    power = z
+    total = F(0)
+    for j in range(terms):
+        total += 2 * power / (2 * j + 1)
+        power *= z2
+    tail = 2 * power / ((2 * terms + 1) * (1 - z2))
+    return total, total + tail
+
+
+LOG2 = atanh_log_bounds(F(2))
+
+
+@lru_cache(None)
+def log_bounds(x):
+    assert x > 0
+    if x < 1:
+        lo, hi = log_bounds(1 / x)
+        return -hi, -lo
+    k = 0
+    while x >= 2:
+        x /= 2
+        k += 1
+    lo, hi = atanh_log_bounds(x)
+    return k * LOG2[0] + lo, k * LOG2[1] + hi
+
+
+def fixed_bounds(bounds):
+    lo, hi = bounds
+    return (lo.numerator * SCALE // lo.denominator,
+            ceildiv(hi.numerator * SCALE, hi.denominator))
+
+
+def ei_without_gamma(tlo, thi):
+    """Enclose log(t)+sum t^k/(k*k!), with exact directed integers."""
+    low = fixed_bounds(log_bounds(F(tlo, SCALE)))[0]
+    high = fixed_bounds(log_bounds(F(thi, SCALE)))[1]
+    power_lo = power_hi = SCALE
+    terms = 180
+    for k in range(1, terms + 1):
+        power_lo = power_lo * tlo // (SCALE * k)
+        power_hi = ceildiv(power_hi * thi, SCALE * k)
+        low += power_lo // k
+        high += ceildiv(power_hi, k)
+    next_hi = ceildiv(power_hi * thi, SCALE * (terms + 1))
+    # Successive terms t^k/(k*k!) have ratio < t/(k+1).
+    assert thi < SCALE * (terms + 2)
+    tail = F(next_hi, terms + 1) / (1 - F(thi, SCALE * (terms + 2)))
+    high += ceildiv(tail.numerator, tail.denominator)
+    return low, high
+
+
+EI2 = ei_without_gamma(*fixed_bounds(LOG2))
+
+
+@lru_cache(None)
+def li2_bounds(n):
+    assert n >= 2
+    if n == 2:
+        return 0, 0
+    lo, hi = ei_without_gamma(*fixed_bounds(log_bounds(F(n))))
+    return lo - EI2[1], hi - EI2[0]
+
+
+@lru_cache(None)
+def potential(n):
+    lo, hi = li2_bounds(n)
+    assert lo // SCALE == hi // SCALE, (n, lo, hi)
+    return lo // SCALE
+
+
+def sieve(limit):
+    prime = bytearray(b"\x01") * (limit + 1)
+    prime[:2] = b"\x00\x00"
+    for p in range(2, isqrt(limit) + 1):
+        if prime[p]:
+            start = p * p
+            prime[start::p] = b"\x00" * ((limit - start) // p + 1)
+    return prime, [p for p in range(2, limit + 1) if prime[p]]
+
+
+def mobius_sieve(limit):
+    mu = [1] * (limit + 1)
+    mu[0] = 0
+    least = [0] * (limit + 1)
+    for p in range(2, limit + 1):
+        if not least[p]:
+            for n in range(p, limit + 1, p):
+                mu[n] = -mu[n]
+                if not least[n]:
+                    least[n] = p
+            for n in range(p * p, limit + 1, p * p):
+                mu[n] = 0
+    mertens = [0]
+    for v in mu[1:]:
+        mertens.append(mertens[-1] + v)
+    return mu, mertens, least
+
+
+def trial_mu(n):
+    sign = 1
+    d = 2
+    while d * d <= n:
+        if n % d == 0:
+            n //= d
+            sign = -sign
+            if n % d == 0:
+                return 0
+        d += 1
+    return -sign if n > 1 else sign
+
+
+def main():
+    heldouts = [47, 64, 97, 127, 549, 5561]
+    discovery = list(range(3, 41))
+    prime, primes = sieve(heldouts[-1] ** 2 - 1)
+    mu, mertens, least = mobius_sieve(max(5560, 40**2))
+    assert all(mu[n] == trial_mu(n) for n in range(1, 1600))
+    pi = lambda n: bisect_right(primes, n)
+    events = {q: potential(q) - potential(q - 1) for q in range(3, 1600)}
+    first_flip = first_overlap = first_completion = first_unweighted = None
+    counters = dict(rows=0, classification=0, defect=0, renewal=0,
+                    gram=0, prime_families=0, rounding=0)
+    reports = []
+
+    for R in discovery + heldouts:
+        X, y, N = R * R - 1, R - 1, R - 1
+        def backlog(n):
+            return pi(n) - potential(n)
+        base = backlog(y)
+        def innovation(n):
+            return sum(mu[a] * (backlog(n // a) - base)
+                       for a in range(1, n // (y + 1) + 1))
+        values = [innovation(X // k) for k in range(1, N + 1)]
+        E = backlog(X) - base
+        assert sum(values) == E
+        counters['renewal'] += 1
+        diag = sum(v*v for v in values)
+        cross2 = 2 * sum(values[i] * values[j]
+                         for i in range(len(values)) for j in range(i))
+        assert diag + cross2 == E * E
+        counters['gram'] += 1
+        if first_completion is None and values[0] != E:
+            first_completion = dict(R=R, E=E, I=values[0], descendants=values[1:])
+        if first_unweighted is None and values[0] != E:
+            first_unweighted = first_completion
+
+        # Sharp signed-box rounding budget, using certified Li_2 endpoints.
+        r0lo, r0hi = li2_bounds(y)
+        r0lo -= potential(y) * SCALE
+        r0hi -= potential(y) * SCALE
+        mN = mertens[N]
+        rho_lo, rho_hi = ((mN*r0lo, mN*r0hi) if mN >= 0
+                          else (mN*r0hi, mN*r0lo))
+        for a in range(1, N+1):
+            if not mu[a]:
+                continue
+            u = X // a
+            lo, hi = li2_bounds(u)
+            lo -= potential(u)*SCALE
+            hi -= potential(u)*SCALE
+            if mu[a] == 1:
+                rho_lo -= hi
+                rho_hi -= lo
+            else:
+                rho_lo += lo
+                rho_hi += hi
+        squarefree = sum(abs(v) for v in mu[1:N+1])
+        bound2 = squarefree + abs(mN)
+        assert 2*rho_lo >= -bound2*SCALE and 2*rho_hi <= bound2*SCALE
+        counters['rounding'] += 1
+
+        if R <= 40:
+            direct = sum((int(prime[q])-events[q])*mertens[X//q]
+                         for q in range(y+1, X+1))
+            assert direct == values[0]
+            counters['rows'] += 1
+            multiplicity = {}
+            defect_total = 0
+            literal_lift = 0
+            reference = 0
+            for q in range(y+1, X+1):
+                t = X // q
+                full_flip = all(mu[a*q] == -mu[a] for a in range(1,t+1))
+                criterion = mu[q] == -1 and q*least[q] > X
+                assert full_flip == criterion
+                if q**4 <= X**3:
+                    assert full_flip == bool(prime[q])
+                counters['classification'] += 1
+                C = sum(mu[a] for a in range(1,t+1) if gcd(a,q)==1)
+                family = sum(mu[a*q] for a in range(1,t+1))
+                assert family == mu[q]*C
+                defect = family + mertens[t]
+                assert defect == mertens[t] + mu[q]*C
+                counters['defect'] += 1
+                if prime[q]:
+                    assert defect == 0
+                    counters['prime_families'] += 1
+                if events[q]:
+                    reference += events[q]*mertens[t]
+                    literal_lift += events[q]*family
+                    defect_total += events[q]*defect
+                    if not full_flip and first_flip is None:
+                        a = next(a for a in range(1,t+1) if mu[a*q] != -mu[a])
+                        first_flip = dict(R=R,X=X,q=q,a=a,lam=events[q],
+                                          mu_a=mu[a],mu_aq=mu[a*q])
+                    for a in range(1,t+1):
+                        n = a*q
+                        multiplicity.setdefault(n,[]).append(q)
+            assert literal_lift + reference == defect_total
+            for n, qs in sorted(multiplicity.items()):
+                if len(qs)>1 and mu[n] and first_overlap is None:
+                    first_overlap = dict(R=R,X=X,n=n,mu_n=mu[n],qs=qs)
+            if R in [3,4,5,6,8,10,14,40]:
+                reports.append(dict(R=R,I=values[0],E=E,desc=E-values[0],
+                                    lift=literal_lift,reference=reference,
+                                    defect=defect_total))
+        else:
+            reports.append(dict(R=R,X=X,piX=pi(X),L=potential(X),E=E,
+                                I=values[0],desc=E-values[0],diag=diag,cross2=cross2,
+                                rounding_bound2=bound2))
+        print(json.dumps({'progress':R}),flush=True)
+
+    # Renewed one-event descendants contain a large compulsory positive sector.
+    for t in range(1,5561):
+        terms = [mertens[t//k] for k in range(1,t+1)]
+        assert sum(terms)==1
+        assert sum(abs(v) for v in terms) >= 2*((t+1)//2)-1
+        assert sum(v*v for v in terms) >= (t+1)//2
+    print(json.dumps(dict(counters=counters,first_flip=first_flip,
+                          first_overlap=first_overlap,first_completion=first_completion,
+                          examples=reports,
+                          certified_L={n:potential(n) for n in range(2,21)},
+                          li_certificates={n:list(li2_bounds(n)) for n in [5,6,8,9,10]},
+                          scale=SCALE,renewal_t_range=[1,5560]),indent=2))
+
+
+if __name__ == '__main__':
+    main()
+
+~~~
+
+#### Primary Terminal Result
+
+~~~json
+{
+  "counters": {
+    "rows": 38,
+    "classification": 21318,
+    "defect": 21318,
+    "renewal": 44,
+    "gram": 44,
+    "prime_families": 3590,
+    "rounding": 44
+  },
+  "first_flip": {
+    "R": 3,
+    "X": 8,
+    "q": 6,
+    "a": 1,
+    "lam": 1,
+    "mu_a": 1,
+    "mu_aq": 1
+  },
+  "first_overlap": {
+    "R": 3,
+    "X": 8,
+    "n": 6,
+    "mu_n": 1,
+    "qs": [
+      3,
+      6
+    ]
+  },
+  "first_completion": {
+    "R": 5,
+    "E": -2,
+    "I": 0,
+    "descendants": [
+      0,
+      -1,
+      -1
+    ]
+  },
+  "examples": [
+    {
+      "R": 3,
+      "I": -1,
+      "E": -1,
+      "desc": 0,
+      "lift": 0,
+      "reference": 3,
+      "defect": 3
+    },
+    {
+      "R": 4,
+      "I": -2,
+      "E": -2,
+      "desc": 0,
+      "lift": 3,
+      "reference": 3,
+      "defect": 6
+    },
+    {
+      "R": 5,
+      "I": 0,
+      "E": -2,
+      "desc": -2,
+      "lift": 4,
+      "reference": 2,
+      "defect": 6
+    },
+    {
+      "R": 6,
+      "I": -1,
+      "E": -3,
+      "desc": -2,
+      "lift": 1,
+      "reference": 2,
+      "defect": 3
+    },
+    {
+      "R": 8,
+      "I": 1,
+      "E": -3,
+      "desc": -4,
+      "lift": 1,
+      "reference": 1,
+      "defect": 2
+    },
+    {
+      "R": 10,
+      "I": -1,
+      "E": -3,
+      "desc": -2,
+      "lift": 6,
+      "reference": 0,
+      "defect": 6
+    },
+    {
+      "R": 14,
+      "I": 6,
+      "E": -4,
+      "desc": -10,
+      "lift": -4,
+      "reference": -2,
+      "defect": -6
+    },
+    {
+      "R": 40,
+      "I": 9,
+      "E": -7,
+      "desc": -16,
+      "lift": -8,
+      "reference": -23,
+      "defect": -31
+    },
+    {
+      "R": 47,
+      "X": 2208,
+      "piX": 329,
+      "L": 340,
+      "E": -9,
+      "I": 0,
+      "desc": -9,
+      "diag": 129,
+      "cross2": -48,
+      "rounding_bound2": 32
+    },
+    {
+      "R": 64,
+      "X": 4095,
+      "piX": 564,
+      "L": 575,
+      "E": -9,
+      "I": 18,
+      "desc": -27,
+      "diag": 491,
+      "cross2": -410,
+      "rounding_bound2": 40
+    },
+    {
+      "R": 97,
+      "X": 9408,
+      "piX": 1163,
+      "L": 1180,
+      "E": -13,
+      "I": 19,
+      "desc": -32,
+      "diag": 695,
+      "cross2": -526,
+      "rounding_bound2": 62
+    },
+    {
+      "R": 127,
+      "X": 16128,
+      "piX": 1877,
+      "L": 1892,
+      "E": -11,
+      "I": 36,
+      "desc": -47,
+      "diag": 1749,
+      "cross2": -1628,
+      "rounding_bound2": 78
+    },
+    {
+      "R": 549,
+      "X": 301400,
+      "piX": 26112,
+      "L": 26196,
+      "E": -77,
+      "I": -96,
+      "desc": 19,
+      "diag": 27957,
+      "cross2": -22028,
+      "rounding_bound2": 338
+    },
+    {
+      "R": 5561,
+      "X": 30924720,
+      "piX": 1911671,
+      "L": 1911875,
+      "E": -189,
+      "I": 2145,
+      "desc": -2334,
+      "diag": 6629267,
+      "cross2": -6593546,
+      "rounding_bound2": 3384
+    }
+  ],
+  "certified_L": {
+    "2": 0,
+    "3": 1,
+    "4": 1,
+    "5": 2,
+    "6": 3,
+    "7": 3,
+    "8": 4,
+    "9": 4,
+    "10": 5,
+    "11": 5,
+    "12": 5,
+    "13": 6,
+    "14": 6,
+    "15": 7,
+    "16": 7,
+    "17": 7,
+    "18": 8,
+    "19": 8,
+    "20": 8
+  },
+  "li_certificates": {
+    "5": [
+      2589424529915159079547753817666198134847795779,
+      2589424529915159079547753817666198134847796150
+    ],
+    "6": [
+      3177058610421608419958964383092369905129882314,
+      3177058610421608419958964383092369905129882685
+    ],
+    "8": [
+      4208554519441438393679223170282899379827390303,
+      4208554519441438393679223170282899379827390677
+    ],
+    "9": [
+      4676073972710067587286574891795319463021194911,
+      4676073972710067587286574891795319463021195284
+    ],
+    "10": [
+      5120435724669805152678392863474909612607987035,
+      5120435724669805152678392863474909612607987407
+    ]
+  },
+  "scale": 1000000000000000000000000000000000000000000000,
+  "renewal_t_range": [
+    1,
+    5560
+  ]
+}
+
+~~~
+
+#### Independent Small Program
+
+~~~python
+"""Independent small certificates via monotone integral rectangles, not Ei."""
+from fractions import Fraction as Q
+from math import isqrt
+import json
+
+UNIT=10**24
+GRID=512
+
+
+def log_enclosure(v):
+    k=0
+    while v>=2:
+        v/=2
+        k+=1
+    def series(z):
+        a=(z-1)/(z+1)
+        p=a
+        value=Q(0)
+        for j in range(30):
+            value+=2*p/(2*j+1)
+            p*=a*a
+        return value,value+2*p/(61*(1-a*a))
+    l,h=series(v)
+    l2,h2=series(Q(2))
+    return l+k*l2,h+k*h2
+
+
+def inverse_log(v):
+    lo,hi=log_enclosure(v)
+    lower=Q(1,1)/hi
+    upper=Q(1,1)/lo
+    return (lower.numerator*UNIT//lower.denominator,
+            -(-upper.numerator*UNIT//upper.denominator))
+
+
+def factors(n):
+    ans=[]
+    p=2
+    while p*p<=n:
+        if n%p==0:
+            e=0
+            while n%p==0:
+                n//=p
+                e+=1
+            ans.append((p,e))
+        p+=1
+    if n>1:
+        ans.append((n,1))
+    return ans
+
+
+def mu(n):
+    fs=factors(n)
+    if any(e>1 for _,e in fs):
+        return 0
+    return (-1)**len(fs)
+
+
+def prime(n):
+    return n>=2 and factors(n)==[(n,1)]
+
+
+def pi(n):
+    return sum(prime(i) for i in range(2,n+1))
+
+
+def M(n):
+    return sum(mu(i) for i in range(1,n+1))
+
+
+def main():
+    bounds={2:(0,0)}
+    lo=hi=0
+    prev=inverse_log(Q(2))
+    for j in range(2*GRID+1,24*GRID+1):
+        cur=inverse_log(Q(j,GRID))
+        lo+=cur[0]
+        hi+=prev[1]
+        prev=cur
+        if j%GRID==0:
+            bounds[j//GRID]=(lo,hi)
+    den=GRID*UNIT
+    L={n:lo//den for n,(lo,hi) in bounds.items()}
+    assert all(lo//den==hi//den for lo,hi in bounds.values())
+    lam={q:L[q]-L[q-1] for q in range(3,25)}
+    assert lam[3]==lam[6]==1 and mu(6)==1
+    output=[]
+    for R in [3,4,5]:
+        X=R*R-1
+        y=R-1
+        eps=lambda q:int(prime(q))-lam[q]
+        I=lambda T:sum(eps(q)*M(T//q) for q in range(y+1,T+1))
+        vals=[I(X//k) for k in range(1,R)]
+        E=(pi(X)-L[X])-(pi(y)-L[y])
+        assert sum(vals)==E
+        J=sum(eps(q)*sum(mu(a*q) for a in range(1,X//q+1))
+              for q in range(y+1,X+1))
+        D=sum(lam[q]*sum(mu(a*q)+mu(a) for a in range(1,X//q+1))
+              for q in range(y+1,X+1))
+        assert -I(X)==J+D
+        S=sum(mu(n) for n in range(1,X+1)
+              if all(p<=y for p,e in factors(n)))
+        P=sum(lam[q]*M(X//q) for q in range(y+1,X+1))
+        A=S-P
+        assert M(X)==A+J+D
+        assert M(X)**2==A*A+J*J+D*D+2*A*J+2*A*D+2*J*D
+        output.append(dict(R=R,I=I(X),completed=vals,E=E,J=J,D=D,A=A,M=M(X)))
+
+    wheel=[]
+    for R in [2,3,8,12,14,16]:
+        X=R*R-1
+        ps=[p for p in range(2,R) if prime(p)]
+        divs=[(1,1)]
+        density=Q(1)
+        for p in ps:
+            divs+= [(p*d,-s) for d,s in divs]
+            density*=Q(p-1,p)
+        physical=sum((s*Q(X%d,d) for d,s in divs if d<=X),Q(0))
+        virtual=sum((s*Q(X,d) for d,s in divs if d>X),Q(0))
+        full=physical+virtual
+        assert full-X*density==-(1+pi(X)-pi(R-1))
+        reference=Q(22,7)
+        deterministic=X*density+pi(R-1)-1-reference
+        assert full-deterministic==reference-pi(X)
+        wheel.append(dict(R=R,physical=str(physical),virtual=str(virtual)))
+    print(json.dumps(dict(L=L,checks=output,wheel=wheel,
+                          rectangular_bounds={n:[str(Q(a,den)),str(Q(b,den))]
+                                              for n,(a,b) in bounds.items() if n in [3,5,6,24]}),indent=2))
+
+
+if __name__=='__main__':
+    main()
+
+~~~
+
+#### Independent Terminal Result
+
+~~~json
+{
+  "L": {
+    "2": 0,
+    "3": 1,
+    "4": 1,
+    "5": 2,
+    "6": 3,
+    "7": 3,
+    "8": 4,
+    "9": 4,
+    "10": 5,
+    "11": 5,
+    "12": 5,
+    "13": 6,
+    "14": 6,
+    "15": 7,
+    "16": 7,
+    "17": 7,
+    "18": 8,
+    "19": 8,
+    "20": 8,
+    "21": 9,
+    "22": 9,
+    "23": 9,
+    "24": 10
+  },
+  "checks": [
+    {
+      "R": 3,
+      "I": -1,
+      "completed": [
+        -1,
+        0
+      ],
+      "E": -1,
+      "J": -2,
+      "D": 3,
+      "A": -3,
+      "M": -2
+    },
+    {
+      "R": 4,
+      "I": -2,
+      "completed": [
+        -2,
+        0,
+        0
+      ],
+      "E": -2,
+      "J": -4,
+      "D": 6,
+      "A": -3,
+      "M": -1
+    },
+    {
+      "R": 5,
+      "I": 0,
+      "completed": [
+        0,
+        0,
+        -1,
+        -1
+      ],
+      "E": -2,
+      "J": -6,
+      "D": 6,
+      "A": -2,
+      "M": -2
+    }
+  ],
+  "wheel": [
+    {
+      "R": 2,
+      "physical": "0",
+      "virtual": "0"
+    },
+    {
+      "R": 3,
+      "physical": "0",
+      "virtual": "0"
+    },
+    {
+      "R": 8,
+      "physical": "3/5",
+      "virtual": "-6/5"
+    },
+    {
+      "R": 12,
+      "physical": "29/35",
+      "virtual": "-39/35"
+    },
+    {
+      "R": 14,
+      "physical": "-227/154",
+      "virtual": "-19/154"
+    },
+    {
+      "R": 16,
+      "physical": "183/1001",
+      "virtual": "-272/1001"
+    }
+  ],
+  "rectangular_bounds": {
+    "3": [
+      "572367401573572846519746811/512000000000000000000000000",
+      "572899857387834972533493007/512000000000000000000000000"
+    ],
+    "5": [
+      "33134370901965327304827017/12800000000000000000000000",
+      "1326196196184942443789734941/512000000000000000000000000"
+    ],
+    "6": [
+      "1626211877261235302407470243/512000000000000000000000000",
+      "406774115418893254640278703/128000000000000000000000000"
+    ],
+    "24": [
+      "1299718495479872483231027969/128000000000000000000000000",
+      "5200002018979934771464656151/512000000000000000000000000"
+    ]
+  }
+}
+
+~~~
