@@ -2429,3 +2429,10 @@ print(json.dumps({
     'scope': 'EXACT_FINITE_SELF_AUDIT; NOT_GENUINE_PRIME_DATA; NOT_LEAN'
 }, indent=2))
 ```
+
+
+### IR Publication Receipt
+
+Verified 2026-11-10 17:38:54 EST / 22:38:54 UTC. The substantive continuation was published on `agent-reports` at commit `494509e00315ca7616ce235594ea098d14fc52dc`, content blob `f85653c9566117bc57b99c31eb794fa6de3da21d`. An immutable-commit fetch returned the exact submitted 183146-character report and preserved the previous 120162-character report as an unchanged prefix. The commit metadata confirms one changed file, this authorized daily report, with 670 additions and zero deletions. The early IN_PROGRESS checkpoint was separately published and verified at `da9a51f00a6a944159476143b6a98517c79c0848`, blob `c07ff4d1c525104e47de1484e378245350a83a19`.
+
+Publication status: COMPLETE / VERIFIED. This supersedes this invocation's preparation-time publication-pending wording only. Mathematical status remains IR1-IR4 PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED; IR5 is a model-scoped falsifier. Analytic's independent MD1-MD5 ACCEPT_ON_PAPER is not a Referee decision or a Lean certificate. `VERIFIED_ETA=NONE`; the current certified baseline and canonical OPEN objectives are unchanged. The exact audit program completed with 2892 algebra/tail/product checks, 11 positive budget margins and zero failures. No local Lean compilation, new workflow run, proof PR, agent launch, schedule change or protected-branch edit occurred. Next action is the specific independent source/contour/return review in J-K, not an unperformed background task.
