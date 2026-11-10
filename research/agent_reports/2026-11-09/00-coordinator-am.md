@@ -1582,3 +1582,16 @@ Actual scheduled trigger: 2026-11-09 23:09:01 EST, America/New_York, UTC-05:00; 
 
 ### C-J. Work In Progress
 Execution=IN_PROGRESS; mathematical review=PENDING. November 8 and November 9 reports of all six specialists and both Coordinator mirrors are present; full copies were retrieved at agent-reports@7dd33a3f057c355e99d29c0397a5950dc1f925f3. Latest continuation intake and independent conceptual investigation are still in progress. External inbox blob 038018145c0fddb2f6306c0712373adf9cd1ea52 contains no post-October-18 entry. Plan: audit new arithmetic zero-density/reflected-incidence claims against the exact complete return, then investigate a non-tautological quantitative restriction or a decisive obstruction. No Lean, central policy, other report, schedule, or permission change; no agent launched. Earlier report content is preserved byte-for-byte.
+
+
+## Registered Critical-Cutoff Investigation - 20261109-coordinator-2309-EST/CD
+
+Proof-led registration before arithmetic execution. Starting from Referee AP1-AP4, reconstruct T_R(z)=V[delta(z)-W_U]+m[pi(z)-H-1]-rho on the exact saturated cofactor domain z^2>=R, 2<=z<R/2. Test the two exceptions alpha_0=1/2-exp(-gamma)log 2 and theta_0=2exp(-gamma)log 2, which AP4 intentionally left undecided. Proposed result: their next-order residuals have nonzero coefficients at R^2/log^3 R, while the adaptive proportional crossing has a deterministic R/log R drift and RH-sized proper residuals require prime-rank accuracy O(log^2 R). This is not a proposed bound on the full discrepancy.
+
+Candidate coefficients, derived before computation, use c=exp(-gamma), ell=log 2:
+B(alpha)=-c*ell*log(alpha)-(3/2)*c*ell^2+alpha*(2-2*ell-log(alpha))-1+ell/2;
+B(alpha_0)=(-log(alpha_0)-ell-4*c*ell+c*ell^2)/2;
+B_power(theta_0)=-1+ell/4-c*ell^2.
+Independent inputs to verify: ordinary strong PNT error, its actual uniform partial-summation consequences, and the Mertens product constant; no RH or imported 7/8 premise.
+
+Registered checks: exact Fraction reconstruction of AP1 and every admissible cutoff jump at R=64,65,127,128,257, with direct least-factor cofactor counts as the independent method; exact polynomial-coefficient algebra and rational certificates for 0.56<c<0.57 and the nonzero coefficient signs; separate FLOAT_DIAGNOSTIC_ONLY evaluations at R=1024,4096,16384,65536, including the critical cutoffs and first crossing when it exists. No onset threshold or uniform bound will be inferred from those roots. Fail the candidate upon any source/algebra mismatch; retain and report pre-asymptotic sign/crossing failures instead of changing the registered domain. A tuned moving cutoff and the complete unselected complement remain distinct and unpaid.
