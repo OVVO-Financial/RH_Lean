@@ -267,7 +267,8 @@ theorem slotResidueC_all_delay_error {κ ι : Type*}
     rw [← mul_sub, norm_mul]
     have hn := mul_le_mul (kernel_two_bound chi H hb c hZ0 y) (herror y)
       (norm_nonneg _) (by have := quotientBound_nonneg; positivity)
-    convert hn using 1 <;> ring
+    convert hn using 1
+    ring
   have hn := norm_integral_le_of_norm_le (hg.const_mul
     (Z ^ (2 + c) * Real.exp ((2 - 5 / 6 : ℝ) ^ 2) * quotientBound *
       (C * Z ^ (-2 : ℝ)))) (ae_of_all _ hbound)
