@@ -667,3 +667,10 @@ COUNTS['negative_controls'] = 2
 print(json.dumps({'counts': dict(COUNTS), 'certified_intervals': results, 'script_sha256': hashlib.sha256(Path(__file__).read_bytes()).hexdigest()}, indent=2))
 
 ```
+
+
+### Verified Publication Receipt - 2026-11-11 01:45 EST
+
+Publication status: COMPLETED / VERIFIED. The full synthesis and exact verifier were committed at 6f7f7ad0afe9740e35cefce6b541944bf9ccffb1, blob 9ad2181d928eed7cd850eb57c68bfbaa60ae18e1, then re-fetched at that immutable commit and compared byte-for-byte successfully. The early checkpoint remains intact. Main was refreshed unchanged, and the only open PR remained #1131 at 621f48b34b5ace39c05aba33ff33b6d014544b4d; the final today-report directory still contained only Owner and Analytic.
+
+This receipt changes publication status only. NT2-NT3 remain PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED; NT4 is FINITE_COMPUTATION. The FFR and IRR2 decisions are this role's scoped independent Analytic reviews, not a Referee verdict or Lean endpoint certification. NO_NEW_GLOBAL_GAIN; VERIFIED_ETA=NONE; canonical VF, finite A/C and RH remain OPEN. No local Lean, proof-source/branch/PR edit, workflow launch, merge, other-report edit, agent launch or schedule change occurred. No background task or future result is claimed.
