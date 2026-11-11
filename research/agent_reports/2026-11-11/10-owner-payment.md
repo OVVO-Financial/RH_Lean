@@ -892,3 +892,954 @@ Test H_COMP: after retaining each actual returned-pair weight, original Co/Div a
 ### D-K. Pending Work And Permission Scope
 
 Inspect original declarations and exact-head baseline evidence; derive/falsify H_COMP; compare complete signed budgets; append full A-K findings and precise asynchronous handoffs. No Lean execution, source/central-policy changes, other-report edits, proof branch/PR mutation, merge, schedule change or agent launch. Only this daily report is authorized for publication. Publication is unverified until commit/readback.
+
+---
+
+## Historical Event Admission And The Complete Marked Return - 20261111-owner-2/FA
+
+### A. Most Important Mathematical Development
+
+**The actual ancestors of MC's missing current-mask terms are historical COMPOSITES, not negative prime charges. Each event has at most one descendant in a fixed current odd block, and their total incidence is at most twice the block root.** This gives a uniform, independently proved supporting bound and rules out one precise ancestry-payment repair with original physical weights.
+
+For the current block root r>=3, write X=(r+1)^2-1, A_r for the genuine odd squarefree active sites, and retain MC's exact event multiplicity
+
+```text
+e_r(n)=sum_(q|n, r<q<n, mu(q)=+1) lambda(q),
+lambda(q)=floor(Li_2(q))-floor(Li_2(q-1)).
+E_r=sum_(n in A_r)e_r(n).
+```
+
+Every nonzero event edge q -> n has an odd squarefree composite ancestor q in (r,X/3], a genuine historical age s=floor(sqrt(q))<r, and cofactor a=n/q in [3,r]. The first differing-prime owner of the physical pair is minFac(a), NOT the composite event label q. At a fixed r, no historical q is repeated among these edges. Across different r this is NOT a once-for-all spending theorem.
+
+With the original positive composite seat weights w_s,w_r, the selected historical/current Co/Div interaction is
+
+```text
+J_r^anc = sum_(event edges q->n) 2*w_floor(sqrt(q))*w_r >= 0,
+E_r <= 2r,
+J_r^anc <= 36r/(log r)^2,
+|H_r| <= 4r*w_r <= 6r/log r,
+H_r=2w_r sum_(n in A_r)mu(n)e_r(n).
+```
+
+All constants are independent of r. The last bound also gives |H_3(r)|<=2r for the earlier **unweighted** owner-3 question. It does not give r^(1-delta) for any delta>0.
+
+The complete marked-current audit, including the native absolute term and original historical anchor, does not supply an automatic compensator. At r=10 the only marked site is n=105, from q=15 and 21. The full marked linear coefficient is
+
+```text
+120w-160w^2+8Dw > 14.501463364862,
+w=21/(10 log(221/2)), D=pi(100)-F_10.
+```
+
+The selected genuine historical/current pair excess is also positive, between 1.489637452255 and 1.489637452256. These are exact rational-enclosure certificates. The original unmarked anchored excess is NEGATIVE, approximately -44.81556. No first-bad occurrence or failure of the actual target is claimed.
+
+| Claim ID | Classification and scope |
+| --- | --- |
+| 20261111-owner-2/FA1 | PAPER_PROOF: exact historical-composite admission, native owner identification, and no repeated event ancestor within a fixed current block; proper-source structural restriction. |
+| FA2 | PAPER_PROOF: uniform E_r<=2r, positive ancestral Co/Div cost <=36r/log^2 r, and |H_r|<=6r/log r; independent proper-source quantitative bounds, not an endpoint gain. |
+| FA3 | IDENTITY_ONLY / PAPER_PROOF: all-owner marked incidence and complete anchored coefficient map, reusing the compiled physical decoder and Fubini. |
+| FA4 | REFUTED: automatic cancellation of the full marked coefficient, and negative payment from its own q->n historical ancestor edges, at their precisely stated scopes. |
+| FA5 | IDENTITY_ONLY: a balanced change of Mobius coordinate and physical correction cancels by definition; no independent arithmetic saving. |
+| FA6 | FINITE_COMPUTATION: exact source admissions, complete coefficient checks at r=3..64, and the r=10 whole-aggregate certificate. |
+
+All new paper results are SELF_AUDIT / INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED. **NO_NEW_GLOBAL_GAIN; NO_NEW_ACCEPTED_ROUTE; VERIFIED_ETA=NONE.** The count bound and the marked response are supporting results, not a substantial new restriction on the ENTIRE unmarked physical source. No external-literature novelty is claimed.
+
+### B. Current Authoritative Objective
+
+Same actual invocation as the preceding checkpoint: configured schedule, 2026-11-11 08:09:02 EST, America/New_York. Platform RUN_ID_UNAVAILABLE; FA is only a research label. Main is `dda92f9ce59627b4c1f1317082f728648d330a0a`, human merge of #1131 at 2026-11-11T12:46:15Z. `cross_route_ack=CROSS_ROUTE_SIGNED_RECOVERY_V1`. Current AGENTS, proof contract and cross-route directive blobs are unchanged from the checkpoint.
+
+The canonical OPEN objective is one C>=0 before every integer R>=2 such that
+
+```text
+|pi(R^2)-VF_can(R^2)| <= C R log R.
+```
+
+The genuine complete wheel at X_R=R^2-1 has F_R-D_R=li(X_R)-pi(X_R), with every virtual d>X_R retained until its Euler compensation. The distinct finite-AC object is Q_R=sum_(1<=a,b<R)mu(a)mu(b)floor(X_R/(ab))=2M(R-1)-M(X_R), with strict-history K_R=max_(0<=u<R)(M(u)-1)^2/(u+1). Neither missing uniform bound is supplied here. The canonical terminal theorem retains its explicit `ClassicalVonKochRHCriterion`; the internal Mertens-energy/RH consumer has its own unpaid arithmetic premise.
+
+Index discipline: FA uses CURRENT block r and X=(r+1)^2-1, hence canonical wheel index R=r+1. Its D is the raw prior VF defect, not D_R of the centered wheel and not the sqrt(2)-shifted canonical defect. The original historical phase is not changed.
+
+#### 1. BASELINE / DEPENDENCY RECEIPT
+
+Directly inspected `native_mertens_near_uniform_window_error_closed`, its fine-source construction path, the actual native moment quantifiers, native Hecke/zeta/Mertens transfer, source counts, and live dependency-audit code. The strongest explicit compiled same-family comparator retained is
+
+```text
+b_cert=7/8-7/(64*N_pack),
+forall eps>0 exists C_eps>=0 forall n>=1:
+  |M(n)| <= C_eps*n^(b_cert+eps).
+```
+
+At the same positive fine length L, N_pack=ceil_nat(max(1,1/(6L)))+2 and N_old=ceil_nat(max(1,1/(3L)))+2. Thus N_pack<=N_old and the #1119 saving exceeds 1/(48*N_old). Counts are compared, not identified; the wider fine-source theorem family is retained without claiming an optimization over it. No no-loss boundary bound is inferred.
+
+Fresh #1119 head evidence: `77ee815846d6d534c866f0752aa33b84c385610a`, 14/14 checks successful. The actual [proof/type/axiom job](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42552018910/job/128949473700) was fetched: five PASS closures of 35358,35375,35736,35737,35753 declarations, with only propext, Classical.choice, Quot.sound. Compared 911 pre-existing relevant blobs under RHLean/, research/oai_434/, and the slot_anchored/window_error_closure audit directories to current main: zero changed. This is scoped exact-head evidence reuse, not a new main build or an independent reproof of every imported analytic lemma. Historical unrelated Wiener warnings are not hidden or treated as axioms of the audited roots.
+
+The inspected chain is fixed original source/native moments -> complete total-mass LOW and anchored HIGH/principal/tail -> actual Hecke zero supremum -> modulus-one Dirichlet product -> native Mertens converse. The moment supplier keeps 51/100<=beta<=7/8+Delta, original geometry/profile, J before character, and C,Z0 before scale/tau/height. No arbitrary-coefficient operator estimate is substituted. Compiler/dependency pins remain Lean 4.34.1, compiler 5045d0056413266e57c625dcd7c365b10e377c52; Mathlib d13f23b723b8a846827a245b89c10fc7d3f11612; PNT+ c39a751132c88b6e8080b74c74023fd95b3d8be0; openai/math 1581d4cbdd69a0faf34b2089614fe2a814316a6a; anchored source 9cbfce5295343bcb411e6d2cb159b59995cd985b.
+
+Fresh PR discovery: no open PRs, including drafts. #1130 and #1131 are both actually MERGED. #1131 head f3f1da37c3e2fff9374eb5e99eca0da94c1efc29 has 13/13 successful checks; its [dedicated job](https://github.com/OVVO-Financial/RH_Lean/actions/runs/43006238259/job/130474300634) was fetched. The six old plus eight new root audits pass; new closure sizes are 422,533,182,841,230,223,101,85, with the three standard axioms. Read the actual `principal_product_response_terms_mass` and original-error declarations. They retain complete labelled products, nonnegative delays, original weights and negative normalizer; the mass bound is uniform in truncation order, with vanishing majorant only for theta>3/5. This is now PROVED_IN_LEAN_ON_MAIN at its finite-response scope, NOT the still-unfinished full signal/contour/inversion/global endpoint.
+
+Accepted PAPER_PROOF IR/FFR boundary b_IR=7/8-1/2400000000 and spent margin eta_IR=737/3840000000000 remain separately labelled, with inherited Referee IRR/FFR acceptance. This run does not independently re-audit or promote the entire analytic endpoint. FA1-FA6 require no OAI/Mertens input.
+
+#### Two-Date Continuity
+
+All seven November 11 reports were present at intake. TODAY=AVAILABLE, not the earlier runs' now-stale TODAY=PENDING. Relevant November 10 results are YESTERDAY=CARRY_FORWARD. Read today's Coordinator full-mask assignment and FL/NP assessment; own MC; Analytic NT and FFR review; Wheel GD; Census DZ and independent MC reproduction; Referee NP and NT/GD/FFR verdicts; Lean FFR mass/return checkpoint. Read the relevant November 10 BR/DR, RC/JC, GC, IR/IRR and MD/FFR findings and continuation points. Preserve their original claim IDs and scopes.
+
+No rediscovery credit is assigned to antichain geometry, four-channel decoding, historical compression, complete wheel cancellation, or the renewal identities. Existing R=15 gcd sign, R=17/549 coarsening, R=56 CORR4 complement, R=16/22 q=78, R=10 literal MC, and R=549 BLOCK witnesses remain valid at their original scopes. H_Z and GC5 are still conjectures; GD's full norm has the reviewed exponent-level target equivalence. NT/NP/FL remain NYMAN-source statements, not VF input.
+
+External inbox blob 038018145c0fddb2f6306c0712373adf9cd1ea52 has no newer entry than October 18. EXT-20261018-PNT-1's cofactor weights and EXT-20261014-5's original-denominator/all-root versus first-bad distinction remain in force. No unobserved execution or agent launch is inferred.
+
+### C. Structural Hypotheses Investigated
+
+Resume the Coordinator's literal full-mask question, rather than the earlier optional H_3 power-saving conjecture alone.
+
+1. H_ANC: a missing MC contribution is paid by negative physical interaction with its own event ancestor q. FA1 shows that every such ancestor is composite; its original pair Co/Div is positive. This precise pairing rule is rejected.
+2. H_NULL: after summing all original current pairs, diagonal, squareful complement and historical coefficient, the physical mark kappa=2mu e has zero complete coefficient. FA3 computes the coefficient, and FA4 refutes the all-r assertion at r=10.
+3. H_REF: opposite coefficients appear when a term is moved between a Mobius coordinate and its dependent correction, or between a prime discrepancy and its floor-Li reference. This is true but an already-paid coordinate identity; it does not estimate the physical source.
+4. H_COUNT: genuine event sparsity and square-block geometry constrain the total missing multiplicity without any cancellation conjecture. FA2 proves E_r<=2r. This is the surviving independently quantitative supporting mechanism.
+
+No finite test is used to infer a uniform power saving. The physical-mark test is defined explicitly below: it is NOT an assertion that the native #915 source originally contains floor-Li event labels.
+
+### D. Mathematical Derivation
+
+#### D1. Original Source And What Is Actually Being Marked
+
+For r>=3 let O_r be all odd integers in (r^2,(r+1)^2), so #O_r=r. Let A_r be the genuine active carrier, exactly its squarefree sites; the squareful sites stay in O_r\A_r. This carrier identification and its original-weight weld are inherited from MC and the inspected compiled definitions. Put
+
+```text
+w_r=(2r+1)/(r log(r^2+r+1/2)),
+z_r(n)=w_r-1_Prime(n) for n in O_r,
+S_r=sum_(n in O_r)z_r(n), Aabs_r=sum_(n in O_r)|z_r(n)|,
+D_r=pi(r^2)-F_r,
+Ephys_r=2(S_r-D_r)^2-(|D_r|+Aabs_r)^2.
+```
+
+`vf915GlobalDecoded_originalResidualAndBoundary` identifies Ephys_r exactly with the original residual plus all THREE oriented boundary sectors. The original historical anchor is present once. The scalar identity is established infrastructure, not FA's discovery.
+
+We have 0<w_r<1. For r>=4, log(r^2+r+1/2)>2log r>=4log2>8/3>2+1/r. At r=3, log(25/2)=3log2+log(25/16)>2+18/41>7/3, using log x>=2(x-1)/(x+1) for x>=1, strictly when x>1. Thus prime charges are negative and all composite charges positive. Also w_r<=3/(2log r).
+
+Define e_r on A_r as in A and extend it by zero elsewhere. Only odd squarefree composite sites with at least three distinct prime factors have a nonzero mark. Put
+
+```text
+kappa_r(n)=2mu(n)e_r(n),
+h_r(n)=z_r(n)kappa_r(n)=2w_r mu(n)e_r(n),
+H_r=sum_(n in O_r)h_r(n).
+```
+
+On a literal returned row f_b(n)=z_r(b)z_r(n) with the original owner/signature/admission masks, MC.5 is exactly sum_n z_r(b)h_r(n). Summing that CHILD-side mark over the unchanged returned carrier is therefore legitimate. Promoting it to the ENTIRE unmarked #915 source is not: the native source has no lambda index. FA distinguishes this exact marked observable from an unproved event-to-entire-source equivalence.
+
+#### D2. FA1: True Historical Ancestor And Native Owner
+
+Consider an event edge (q,n), meaning n in A_r, q|n, r<q<n, mu(q)=+1 and lambda(q)=1. Since n is odd squarefree, q and a=n/q are odd squarefree and coprime. q>r>=3 and mu(q)=+1 force at least two prime factors, so q is composite and q>=15. Properness gives a>=3; q>=r+1 gives
+
+```text
+3 <= a <= floor(X/(r+1))=r,
+q <= X/3 < r^2.
+```
+
+Consequently q is a genuine odd, nonsquare historical seat in age s=floor(sqrt(q)), with 3<=s<r. Its physical charge is w_s, NOT -1, NOT -w_s, and NOT a prime indicator. Since q and a are coprime, the symmetric difference of the prime-factor sets of q and n is exactly the prime-factor set of a. The unique first differing-prime owner is therefore p=minFac(a); its lower signature is the prime factors of q below p. A composite event q must never be relabelled as an owner prime.
+
+At a fixed r, if the same odd q had two distinct odd descendants q*a and q*b in O_r, then |a-b|>=2 and their separation would be at least 2q>=2r+2. The entire open square block has length 2r+1, contradiction. Thus each historical q occurs on at most one selected edge in this block. Different q can have the SAME descendant n, exactly as MC's e_r(n) records. Across blocks a historical q can recur; no all-time capacity is created.
+
+The original pair functional is F(u,v)=4uv-2|uv|. On this admitted historical/current pair,
+
+```text
+F(z_s(q),z_r(n))=2w_s w_r>0.                 (FA.1)
+```
+
+This is an actual physical cross-generation sign restriction. It excludes negative payment by these particular direct ancestry edges. It does not exclude a different ancestor, negative prime interaction elsewhere, or a joint global mechanism.
+
+#### D3. FA2: Uniform Linear Incidence Bound
+
+Let L(t)=floor(Li_2(t)). For q>r>=3, lambda(q) is 0 or 1. For each possible odd cofactor a in [3,r], set
+
+```text
+l_a=floor(r^2/a), u_a=floor(X/a).
+```
+
+Dropping ONLY the nonnegative parity/coprimality/event eligibility restrictions yields the exact count majorization
+
+```text
+E_r <= sum_(3<=a<=r, a odd) [L(u_a)-L(l_a)].  (FA.2)
+```
+
+Every original edge has one cofactor a, so no source multiplicity is lost or cloned. l_a>=r, and monotonicity of 1/log t gives
+
+```text
+L(u_a)-L(l_a)
+ <= Li_2(u_a)-Li_2(l_a)+1
+ <= (u_a-l_a)/log r+1
+ <= (2r/a+1)/log r+1.
+```
+
+For k=floor((r-1)/2), the decreasing-integrand comparison gives
+
+```text
+sum_(j=1..k)1/(2j+1) <= integral_0^k dt/(2t+1)
+                     = (1/2)log(2k+1) <= (1/2)log r.
+```
+
+Therefore
+
+```text
+E_r <= r+k*(1+1/log r) <= 2r,               (FA.3)
+```
+
+since log r>1 and k<=r/2. Constants are absolute and chosen before r. No independence, prime distribution, Mertens estimate or short-interval cancellation is invoked. The floor error +1 for EVERY cofactor is retained; removing it would be an unjustified strengthening.
+
+It follows immediately that |H_r|<=2w_r E_r<=4r w_r<=6r/log r. The unweighted owner-3 H_3 from MC obeys |H_3(r)|<=E_r<=2r. This supplies a concrete uniform baseline, but not the conjectured power saving.
+
+For the actual ancestral Co/Div sum J_r^anc, q<(s+1)^2 implies s^2+s+1/2>q/2. For r>=4, q>r and s>=3 give w_s<=6/log r. Together with w_r<=3/(2log r), each (FA.1) is at most 18/log^2 r, so
+
+```text
+0 <= J_r^anc <= 36r/log^2 r.                (FA.4)
+```
+
+At r=3 there are no edges, so the same statement holds. This is a small POSITIVE proper-subsource cost. It is not negative capacity and cannot be inserted into the compressed denominator as independent historical mass.
+
+#### D4. FA3: All Original Owner Cells And Both Marked Orientations
+
+For distinct squarefree active b,n, let p be the smallest prime dividing exactly one of them. Orient b precedes n when p divides n. This is the total lexicographic order on their finite prime-incidence vectors, with absence preceding presence. The compiled first-owner Fubini uses precisely this orientation and common lower signature. Its returned child coordinate is c=n/p. All active bases are clipped by the already-paid 2b>X theorem; every such child is admitted. Therefore each unordered active pair occurs ONCE, with unchanged W=z_r(b)z_r(n). No raw-parent or boundary term is deleted.
+
+Every current prime precedes every current composite: a composite's least factor is <=r, while every current prime exceeds r^2. Let P_r be the prime count in O_r, and c_r(n) the number of ACTIVE composite sites preceding n in this exact order. Define the child-marked signed and Co/Div observables on the literal returned carrier:
+
+```text
+T_child=sum_(b precedes n) kappa(n) z(b)z(n),
+B_child=sum_(b precedes n) kappa(n) [4z(b)z(n)-2|z(b)z(n)|].
+```
+
+Since marked n is composite, the complete coefficient formulas are
+
+```text
+T_child=sum_n kappa(n)w_r [P_r(w_r-1)+c_r(n)w_r],
+B_child=sum_n kappa(n)w_r [6P_r(w_r-1)+2c_r(n)w_r]. (FA.5)
+```
+
+These are all-owner/signature identities, not estimates. The factors 6 and 2 come from the ORIGINAL absolute term, not a Mobius-sign proxy. Define B_base by replacing kappa(n) by kappa(b). A complete marked response must include B_base too; the one-sided MC row is not already that response.
+
+To extract every coefficient without changing the actual primes, use the bookkeeping polynomial z_n(t)=z_n(1+t*kappa_n), retaining the original D_r. t is a formal device: for t!=0 this is NOT asserted to be another arithmetic VF configuration. For |t|<=1/(2max|kappa_n|), or all t if all marks vanish, no site changes sign. The full ORIGINAL functional evaluated on these labelled variables has exact expansion
+
+```text
+Ephys_r(t)=Ephys_r(0)+t*H_r*L_r+t^2*H_r^2,
+L_r=4(S_r-D_r)-2(|D_r|+Aabs_r).             (FA.6)
+```
+
+Equivalently, the actual marked linear scalar is the sum over EVERY original event edge of coefficient
+
+```text
+2w_r mu(n)lambda(q)*L_r.                    (FA.7)
+```
+
+This is a coefficient extraction from the unchanged source at t=0. It is not a new native lambda-based representation of Ephys_r itself.
+
+Here is the complete reassembly before any bound:
+
+```text
+linear coefficient = B_child+B_base
+ +2 sum_(n in A_r) z_n h_n
+ +2 H_r sum_(squareful m in O_r) z_m
+ -(4D_r+2|D_r|)H_r = L_r H_r.              (FA.8)
+```
+
+The second term is the active diagonal. The third is the ENTIRE squareful/marked cross term, since both sites are composite. The last retains both signed and absolute historical interactions. The quadratic coefficient is sum h_n^2+2sum_(n<m)h_nh_m=H_r^2; it does not discard either cross orientation. This proves (FA.6) directly from the full pair expansion as well as from the scalar normal form.
+
+Thus full invariance for all sufficiently small t is equivalent to H_r=0. An accidental L_r=0 can kill the linear term but cannot kill H_r^2 when H_r!=0. This is only an algebraic diagnostic; proving H_r=0 or a power saving is NOT supplied by reassembly.
+
+Historical decompression does not change this answer. If U,V are the original once-only historical positive/negative masses, U-V=-D_r, then the compiled restoration is
+
+```text
+4UV+2Aabs_r*(U+V-|U-V|).
+```
+
+Under the same current mark its linear contribution is 2H_r(U+V-|D_r|). Combined with the uncompressed historical coefficient -4D_rH_r-2(U+V)H_r, it gives exactly -(4D_r+2|D_r|)H_r in (FA.8). The positive ancestor edges in (FA.1) are genuine selected pairs in that uncompressed history; they cannot be added to or removed from the compressed source without this restoration and all complementary pairs.
+
+#### D5. FA4: The Whole r=10 Coefficient Does Not Cancel
+
+Here O_10={101,103,105,107,109,111,113,115,117,119}. The primes are 101,103,107,109,113. Active composites are 105,111,115,119; squareful 117=3^2*13 remains in the residual. Reused and rechecked certified floors are L(14)=6,L(15)=7,L(20)=8,L(21)=9,L(34)=L(35)=13. Thus e(105)=2 and every other e is zero; kappa(105)=-4.
+
+All eight other active sites precede 105. Seven of these pairs belong to owner p=3, empty signature: bases 101,103,107,109,113,115,119 and admitted cofactor 35. The eighth is (111,105), owner p=5, lower signature {3}, admitted cofactor 21. There is no missing same-block pair or repeat. In contrast the GENUINE historical edges (15,105) and (21,105) have owners 7 and 5 respectively; their ages are 3 and 4. Event labels and current-row owners are not conflated.
+
+With w=w_10 and D=D_10<0, exact original-weight contributions are
+
+| Part | Marked coefficient |
+| --- | --- |
+| Complete signed current child mark T_child | 20w-32w^2 |
+| Complete current Co/Div child mark B_child | 120w-144w^2 |
+| Base-side mark B_base | 0 |
+| Active diagonal | -8w^2 |
+| Squareful 117 cross term | -8w^2 |
+| Compressed history, with full restoration | 8Dw |
+| COMPLETE linear coefficient | 120w-160w^2+8Dw |
+| COMPLETE quadratic coefficient | 16w^2 |
+| Separate original historical q->105 pair sum | 2w(w_3+w_4)>0 |
+
+The full 36 active pairs were enumerated; this is not merely the earlier b=101/115 row comparison. Those two rows retain their earlier MC values +4w(1-w) and -4w^2.
+
+Certified outward intervals have denominator 10^12:
+
+```text
+446332215195 < 10^12*w < 446332215196,
+-2012069374162 < 10^12*D < -2012069374161,
+14501463364862 < 10^12*(L*H) < 14501463364863,
+1489637452255 < 10^12*J_10^anc < 1489637452256.
+```
+
+The null-coefficient claim H_NULL and proposed negative ancestor credit H_ANC therefore fail. For the bookkeeping t=1/8, the full change lies between 1.862486032188 and 1.862486032189; the original excess lies between -44.815556597361 and -44.815556597360 and stays negative. This t experiment is a polynomial check, not a claim about another actual prime population, a first-bad witness, or an eventual noncancellation theorem.
+
+#### D6. FA5: The Opposite Coefficient That Does Exist Is A Coordinate Identity
+
+The compiled all-depth decoder gives z_n=mu(n)+c_n with c_n the explicit dependent physical correction. In every original four-channel pair,
+
+```text
+(mu_b+c_b)(mu_n+c_n)
+ = mu_b mu_n + mu_b c_n + c_b mu_n + c_b c_n.
+```
+
+Replacing mu_n by mu_n+t*h_n and c_n by c_n-t*h_n cancels exactly at the SAME labelled site. Hence it preserves every masked pair, its absolute term, historical compression and the entire source. This balanced coordinate shift does not change the genuine arithmetic mu: it is a decomposition test only. It is true for arbitrary h, so it cannot independently constrain actual Mobius signs or pay the physical response (FA.6).
+
+Likewise, in D_r=[pi(r^2)-L(r^2)]+[L(r^2)-F_r], a floor-Li reference event has opposite coefficients in the two brackets. They cancel because the reference was added and subtracted, not because an event ancestor supplies negative physical mass. No occurrence-preserving bridge from the entire MC/Buchstab event source to the unmarked #915 source has thereby been proved. This resolves the full-embedding question negatively at that bridge, while precisely locating the algebraic cancellation that could otherwise be mistaken for new arithmetic.
+
+### E. Quantitative Consequence
+
+FA2 is independent all-scale quantitative control of the actual missing-mark incidence and a genuine selected historical/current physical interaction. It does not control the full original unmarked statistic. The global marked linear cost still satisfies only the supporting estimate
+
+```text
+|L_r H_r| <= 36r(r+|D_r|)/log r,
+H_r^2 <= 36r^2/log^2 r,
+```
+
+using |S_r|<=Aabs_r<=r and FA2. These are NOT bounds on Ephys_r and do not improve either the canonical discrepancy scale or the certified Mertens exponent. The unresolved signed H_3 question now has a concrete O(r) baseline, not a proof of any r^(1-delta) saving. The positive O(r/log^2 r) ancestor cost is not payment.
+
+#### 2. FOUR-WAY SOURCE MAP
+
+| Euler / finite AC | VF / actual-prime source | NNS / OAI | Square blocks / native prefix | Prime-Mobius coupling |
+| --- | --- | --- | --- | --- |
+| Complete wheel F_R-D_R and virtual compensation are EXACT_IDENTITY; Q_R,K_R remain a distinct historical bilinear carrier. | Original z=w-1_Prime, raw D, full Ephys, literal returned masks and three-boundary Fubini are EXACT_IDENTITY. FA marks are explicitly auxiliary observables on those atoms. | Real physical Co/Div atom is 4W-2|W|, with all four decoder channels. The ideal-labelled OAI moment/response has no proved coefficient map to these marks: OPEN_BRIDGE. | Current block r corresponds to R=r+1. Original ancestry q->n crosses genuine ages s<r. Full historical restoration is retained; no current-block bound is silently made a full-prefix bound. | The Buchstab innovation keeps mu(a), mu(aq), lambda(q), genuine prime events and its fixed cutoff. MC marks derive from its attempted masked transfer. Full coefficient/occurrence-preserving transfer to unmarked #915 remains OPEN_BRIDGE. |
+
+#### 3. FIRST SIGNED LOSS
+
+| Source/declaration | First loss or invalid step | Actual cost / recovery / unpaid complement |
+| --- | --- | --- |
+| `VF_MID_FIRST_BAD_ACTIVE_RAW_PARENT_SPLICE.lean:43,50` | Replacing the current mask at qa by the completed mask at qak deletes MC.5. | MC already refutes this. FA2 bounds the actual missing incidence, not a zero completed image. |
+| `VF_MID_915_GLOBAL_MOBIUS_PHYSICAL_WELD_20261021.lean:281,355,395` | Keeping only mu*mu discards both mixed corrections and correction*correction inside the original absolute term. | Historical composite pairs remain positive after the full weld, (FA.1). Balanced coordinate cancellation is identity-only. |
+| `GLOBAL_RETURNED_CORE_FIRST_OWNER_ARBITRARY_SITE_CELLS.lean:202` and actual returned Co/Div | Keeping only a selected child row omits the other owners and the base-side marked orientation. | FA.5/FA.8 reassemble all of them; r=10 still has a nonzero complete coefficient. |
+| `VF_MID_915_EXACT_HISTORICAL_NNS_COMPRESSION.lean:131,141` | Spending uncompressed history as new denominator capacity drops restoration. | Exact 4UV+2Aabs(U+V-|U-V|), including its marked derivative, recovers the original history coefficient. |
+| FA.2 and FA.3 | Dropping nonnegative eligibility conditions and taking absolute values in H_r loses cross-integer signs. | Uniform E_r<=2r and |H_r|<=6r/log r only. No exponent or first-bad payment follows. |
+
+#### 4. PAID RECOVERY TEST
+
+The successful paid inputs are the actual first-owner Fubini, physical four-channel weld, active antichain clipping, and exact historical compression. They recover the coefficients, not a favorable sign. The independently new event-count argument uses floor-Li monotonicity on the genuine cofactor intervals, including every rounding +1.
+
+#1115 completed reciprocal bands and RC completion do not preserve the original current mask. #1127 positive cofactor fibres do not bound these full signed cross terms. #1128 resonance is a proper-source obstruction, not a cancellation supplier. #1131's now-compiled finite response uses ideal-character coefficients and its original probe normalizer, not these VF sites. It cannot be transferred by analogy. GD's gcd norm and NT/NP/FL's Nyman variance statements remain on their own carriers. No already-proved theorem retrieved here pays the missing complete VF interaction.
+
+#### 5. NET RESULT / ADMISSION VERDICT
+
+**NO_NEW_GLOBAL_GAIN / NO_NEW_ACCEPTED_ROUTE.** The new structural admission and linear incidence bound are genuine supporting progress; the completed marked-source falsifier prevents a specific false repair. They do not meet either a new global-exponent test or the substantial-COMPLETE-unmarked-source restriction test. Existing independent OAI implementation and the other eight route families remain untouched.
+
+### F. Falsification And Circularity Review
+
+Tests were registered before execution. A proof-led extension registered the ancestor-admission, once-per-block, E_r<=2r and physical-positive-edge assertions before their finite checks. At every r=3..64, direct native-cell enumeration was compared with the independent least-differing-prime pair enumeration: 29,255 literal active pairs. Every complete marked linear and quadratic coefficient matched the direct ALL-seat pair expansion, with the squareful complement intact. There were 214 genuine historical event edges and 49 marked roots. All count/admission checks passed. The finite maximum E_r/r was 1/5; it is NOT proposed as an all-scale bound or used to choose 2.
+
+The original r=10 weights and anchor were enclosed using exact fixed-point logarithm arithmetic. The six needed Li floors were rechecked with the previously disclosed MC log/Ei interval method; their earlier independent Census integral certificates remain credited, not newly claimed here. Integer polynomials, not rounded real signs, decided all coefficient comparisons. The first positive kappa in this finite domain occurs at r=36, including n=1365; this is a finite control against treating all marks as negative, not a global sign conjecture.
+
+The complete-source null hypothesis is scoped to the explicitly marked coefficient. No t!=0 configuration is presented as genuine primes/Mobius. No first-bad condition was asserted at r=10, and the original excess is negative there. The ancestor bound is on a selected uncompressed subsource only, with restoration displayed. Same-q uniqueness is per fixed block, not across the full history. The count bound retains the +1 loss at every cofactor. These scope restrictions are part of the theorem, not posthoc repairs.
+
+Existing source/report searches found the general decoder, sign-preserving correction and active clipping already paid; no novelty is claimed for them or for the generic first-owner order. FA's new contribution is the exact admission/count restriction on the MC event edges and their full marked return/falsifier. No new Lean theorem, independent specialist acceptance or all-scale numerical evidence is claimed. Python syntax check passed; no Lean ran.
+
+### G. Conceptual Interpretation
+
+The event label q has three different roles that must not be confused: a floor-Li jump, a genuine historical composite site, and a composite divisor of the current site. It is not an owner prime. Its current-block use is once-only, but its physical sign is positive. This explains why the event's negative Mobius-channel contribution cannot be spent as negative physical covariance without the decoder correction.
+
+The count bound shows that the missing current marks are not arbitrarily numerous: event sparsity and square-block geometry already restrict their total to O(r). The unresolved issue is their SIGNED interaction with the whole source. Reassembly makes that issue explicit through H_r and the full physical coefficient; moving signs into a dependent remainder cannot solve it.
+
+### H. Competing Mechanisms
+
+| Mechanism | Established / independently missing / decision |
+| --- | --- |
+| Negative payment from the same event ancestor q | FA1 gives positive physical Co/Div on every such edge; abandon this precise rule. Other histories and mixed terms remain possible. |
+| Automatic cancellation after all owner/history terms are restored | FA.8 gives the true coefficient; r=10 refutes universal nullity. Retain the correction rather than a zero-response assumption. |
+| Genuine marked parity cancellation | FA2 supplies O(r) incidence and |H_r|<=6r/log r; any power saving or global correlation still needs independent arithmetic. Continue only with a concrete new supplier. |
+| Balanced Mobius/reference-coordinate changes | Exact identity, no physical change and no quantitative leverage by itself; do not promote as a new route. |
+| Full OAI finite-response return | #1131 is now merged and certified at supplier scope; original contour/inversion/full endpoint still pending. Continue with Lean's existing sequence, not duplicated Owner implementation. |
+| GD/NYMAN and other protected routes | Preserve current independent findings/obstructions and actual carriers. FA supplies no automatic cross-route transfer. |
+
+### I. Specialist Handoffs
+
+- **Coordinator:** Full-mask investigation now has an exact marked coefficient and a genuine ancestry restriction. H_ANC is false because every admitted direct ancestor is composite; H_NULL fails on the complete r=10 coefficient. FA2's O(r) incidence is supporting, not an admitted new complete-source route. Retire only these two automatic-repair rules. The original unmarked event-to-#915 embedding is still missing. #1131 has actually merged since your 07:10 report.
+- **Referee:** Review FA.2/FA.3's floor endpoints, odd-cofactor harmonic bound, +1 per cofactor and uniform constant; review q<=X/3<r^2, unique odd descendant and p=minFac(a). Check the historical positivity scope and the full marked coefficient versus a falsely asserted original-source equality. Independently verify the exact r=10 ledger and absence of a first-bad claim. All new results remain SELF_AUDIT.
+- **Census:** A decisive independent reproduction is r=10: two event edges (15,105),(21,105), eight active pairs incident to 105, native current owners 3 and 5, original historical owners 7 and 5, squareful 117, and raw anchor pi(100)-F_10. Null predictions are B_child=0 or L*H=0; expected exact outputs are in D5. Further testing should address a changed coefficient-sensitive bound, not extend this already-falsified zero claim or fit E/r.
+- **Analytic:** FA2 supplies the exact source H_r=2w_r sum mu(n)e_r(n), |H_r|<=6r/log r, with all q and cofactor masks. The complete marked scalar is L_r H_r, and the positive historical subsource is J_r^anc, not an OAI moment. A new input would need signed cancellation beyond this linear incidence bound or an actual complete-source bridge. Do not replace your independent NYMAN/FFR task with a generic covariance assertion.
+- **Finite Wheel:** RC still applies only after fibre-invariant mask completion. The corrected current event graph has no repeated q within one block and total E_r<=2r, but across blocks q may recur. These facts do not alter your GD/finite-AC carrier or pay its gcd norm. Keep the original independent inverse investigation.
+- **Lean Verification:** NO_NEW_GLOBAL_ENDPOINT_THEOREM_TO_FORMALIZE. Do not preempt the accepted FFR2/FFR3 return. After independent acceptance and only if a real consumer needs it, FA1's event-edge support/owner/uniqueness or FA2's count bound could be enabling lemmas. Reuse the compiled four-channel/first-owner/historical results; do not duplicate the generic algebra or encode a conjectured signed estimate as a supplier.
+
+These are asynchronous handoffs in this authorized report, not agent launches or promised background execution.
+
+### J. First Independently Missing Lemma
+
+The original complete-source bridge is still absent: a coefficient-preserving identity must express the ENTIRE unmarked #915 source using the proposed Buchstab event representation, retaining its original absolute term, all masks, every correction channel, squareful complement and historical restoration. Neither FA.6 nor a balanced coordinate identity supplies it.
+
+For the narrower already-defined arithmetic diagnostic, the next independent question is now concrete:
+
+```text
+H_3(r)=sum_(n in A_r,3|n)mu(n)e_r(n),
+known here: |H_3(r)|<=2r for every r>=3;
+OPEN: exists fixed delta>0,C>=0 forall r>=3,
+      |H_3(r)|<=C*r^(1-delta).
+```
+
+This is a proper-source conjecture, not a canonical-target equivalence or a proven necessary condition for RH. No numerical evidence for the power saving is asserted. A proof would improve the marked owner-3 correction only; other owners and the original source bridge would remain. The first useful next action is an independent proof mechanism or a lower-bound obstruction for this precise marked sum, not another algebraic nullity assumption or a larger unchanged census.
+
+### K. Next-Run Resume Capsule And Publication
+
+- Fresh main for this run: dda92f9ce59627b4c1f1317082f728648d330a0a; refresh authority again next invocation. #1131 is MERGED/PROVED_IN_LEAN_ON_MAIN at finite-response scope, unlike earlier preserved reports. No open/draft PR was found.
+- Resume FA1-FA6 and MC1-MC4 without erasing earlier evidence. FA1/FA2 are new supporting PAPER_PROOF; FA3/FA5 are IDENTITY_ONLY; FA4 is a scoped auxiliary REFUTATION; FA6 is finite evidence. Independent review remains pending.
+- Strongest certified explicit b_cert is unchanged; accepted IR/FFR remains separate paper status. Canonical VF/wheel, finite A/C and RH remain OPEN.
+- New useful fact: genuine event incidence E_r<=2r, one q-use per current block, and every direct historical q->n Co/Div positive with total <=36r/log^2 r. Do not confuse this with all-time historical capacity or global cancellation.
+- Full r=10 marked coefficient is positive after all terms; original unmarked excess is negative. This is not a first-bad counterexample. A legitimate unmarked embedding is still an OPEN_BRIDGE.
+- Local work used only non-Lean exact arithmetic and read-only source inspection. No main/Lean/policy/other-report edits, branches, PR mutations, merges, schedule changes or agent launches. GitHub connector read/write tools were available; no publication blocker is claimed. No local Lean execution occurred.
+- Early checkpoint commit 77a9f6a47544eb43af71c2744e59ed5f935c0ebd, blob f1170146945a5ca0846ffcc418cc05e522596e89, was re-fetched byte-for-byte and its commit changed only this report. Final publication is verified separately after writing; no self-referential final SHA is fabricated.
+
+### Reproduction Receipts
+
+New registration SHA-256: c4786ba0297bc271a9a9ba4750a5b3d09e6d028fbc12498fd3456394cc9269ce. Final exact program SHA-256: d053c184625815f56a9deb561ce9b0d9e1038a5d60915e4248efc2bf3a781137. Python 3.12.13; standard library only. Initial complete-coefficient tests passed; the disclosed proof-led ancestor/count extension also passed. The log/Ei helpers are reused from MC, report blob e60f67d2192932715895f9e9b72a6fe773d4a68d, not claimed as a new numerical method. The full registration, executed source and exact output follow for reproduction.
+
+
+### Material Source And Continuity Ledger
+
+All main sources below were read at [dda92f9ce59627b4c1f1317082f728648d330a0a](https://github.com/OVVO-Financial/RH_Lean/tree/dda92f9ce59627b4c1f1317082f728648d330a0a). Final prepublication branch refresh still returned that exact main. No mathematical source changed in this run.
+
+| Source path | Actual blob SHA |
+| --- | --- |
+| `AGENTS.md` | `c9c89f01b90b526de9f3e8ea92478e36504711b6` |
+| `CURRENT_PROOF_CONTRACT.md` | `95566e37c8eaeb99ee680660df4f9d2e06ea5038` |
+| `docs/RHLEAN_CROSS_ROUTE_SIGNED_RECOVERY_20261110.md` | `e922d4ba9362a1ae196af8f6de88f7417f92087c` |
+| `docs/COORDINATE_ATLAS.md` | `cd0419d00a37739fe5a292f5cb738e33213949d5` |
+| `docs/PROOF_DEPENDENCY_DAG.md` | `eee764cefe70035a9f6c7df26ad787fbfd0fb233` |
+| `research/VF_MID_915_GLOBAL_MOBIUS_PHYSICAL_WELD_20261021.lean` | `5e3212e20666b9ed7f13d6bd9ebadfad88338eaa` |
+| `research/VF_MID_FIRST_BAD_ACTIVE_RAW_PARENT_SPLICE.lean` | `dd872ccdf0eac1e78f998aa77f357f68df53f76e` |
+| `research/VF_MID_FIRST_BAD_FINAL_AGGREGATE_CONTRACTION.lean` | `47e4255f76fb3387d1b12d0fa185cffde2744e63` |
+| `research/VF_MID_FIRST_BAD_WEIGHTED_OWNER_FUBINI.lean` | `4679d7edae521dd4d9f0238aa4201445b1fdb9a9` |
+| `research/VF_MID_915_EXACT_HISTORICAL_NNS_COMPRESSION.lean` | `6cc6b2a9d25279dd44fb65cb222f5d6846a912d4` |
+| `research/GLOBAL_RETURNED_CORE_FIRST_OWNER_ARBITRARY_SITE_CELLS.lean` | `c99074725868c1e4798d2539d86bb2f1a7912e60` |
+| `research/VF_MID_FIRST_BAD_RESTORING_DECOMPOSITION.lean` | `41ca385cb2bd0706db21007e19cd2b0b1aaa4b3e` |
+| `research/VF_MID_FIRST_BAD_SCALED_CLIPPED_GATE.lean` | `df804abef9783a5c02a5b2a136f8d3f745f048e1` |
+| `research/CompleteSquareRootWheelFractionalBoundary.lean` | `ecb482e52deeee5e9b3853592a3ffdace662d2ff` |
+| `RHLean/Analysis/MobiusRenewalTelescope.lean` | `223013cd640148a1513ef9e836653aa86cf01cdb` |
+| `research/VF_CANONICAL_SQRT_TWO_VON_KOCH.lean` | `79030d70e8d3e0d08eef9bac53fef95c36eca2fb` |
+| `research/oai_434/VF919WindowErrorClosure.lean` | `f629db1b2b65d6ec042ac9432397d4b6316200c6` |
+| `research/oai_434/VF919ExplicitSquareBlockPacking.lean` | `32999039fdeea99c58a070c1c4ee9c140720dd44` |
+| `research/oai_434/VF919ExplicitFixedSourceSlotCount.lean` | `bad5aab0a60e96d19e7c9550cd7c0a072288bc0f` |
+| `research/oai_434/VF919ExplicitSlotTotalMass.lean` | `71c5b7b5b8032ca3558467126fdf97d3caf1a7df` |
+| `research/oai_434/VF919NativeSevenEighthsReplay.lean` | `111c933a7ca15647105ce6a4d0f3cbfc3cde81f4` |
+| `research/oai_434/VF919NativeStrictMertens.lean` | `b33a4883e1ddb0551b0f11f062bce46680d87450` |
+| `research/MERTENS_EXPONENT_ENVELOPES.lean` | `655b896e8d5a41c9f8fc3c456eae3944a98bfefe` |
+| `scripts/lean/window_error_closure/WindowErrorClosureAudit.lean` | `1f17f9401a63d16227db2e2aad020b9f74bc5f4e` |
+| `research/oai_434/VF919PrincipalResponseMass.lean` | `5f7e812108ff7eff4a60da7055c2dd5f852c4941` |
+
+| Report input | Actual intake blob SHA |
+| --- | --- |
+| `research/agent_reports/2026-11-10/00-coordinator-am.md` | `4d55b2893f974656c6aa14e48b243827fa8308f8` |
+| `research/agent_reports/2026-11-10/10-owner-payment.md` | `84afec90414b2394a61b51df46c07b6b540e5942` |
+| `research/agent_reports/2026-11-10/20-analytic-type-ii.md` | `7ed3a39bec4796f4173b692064af872ea8035048` |
+| `research/agent_reports/2026-11-10/30-finite-wheel.md` | `62406503a1ddbbf9330abcdc4cf761f7fbf05795` |
+| `research/agent_reports/2026-11-10/40-prime-census.md` | `a3cfa56072f3893dbf92a18956e1794236bde057` |
+| `research/agent_reports/2026-11-10/50-adversarial-referee.md` | `6529562a5bb21fa192fddadaa91a758b9d125c29` |
+| `research/agent_reports/2026-11-10/60-lean-verification.md` | `682b334b8f37fa4bfe2d552a1142d852a0db2afd` |
+| `research/agent_reports/2026-11-11/00-coordinator-am.md` | `106f6d88708a7545caab43c56ae1bbb915fd97f2` |
+| `research/agent_reports/2026-11-11/10-owner-payment.md` | `e60f67d2192932715895f9e9b72a6fe773d4a68d` |
+| `research/agent_reports/2026-11-11/20-analytic-type-ii.md` | `eab26782cdd44e705e007185d6c7321d9300ca61` |
+| `research/agent_reports/2026-11-11/30-finite-wheel.md` | `dbf68d8f8b1737b4b585811dae014329614ec595` |
+| `research/agent_reports/2026-11-11/40-prime-census.md` | `49c1c48f672cf96c93909bd2b412d95bb3587d62` |
+| `research/agent_reports/2026-11-11/50-adversarial-referee.md` | `214e99d8d6133e720f9645dd650a57b01a8c05cf` |
+| `research/agent_reports/2026-11-11/60-lean-verification.md` | `c86b058b6387de7348b123b22b8f5b8772d5ae9a` |
+| `research/agent_reports/EXTERNAL_HANDOFFS.md` | `038018145c0fddb2f6306c0712373adf9cd1ea52` |
+
+### Frozen Test Registration
+
+```text
+# 20261111-owner-2/FA: complete marked-source tests
+
+Registered before executing the new tests.
+
+- Exact carrier: all odd seats in (r^2,(r+1)^2), all squarefree active seats, actual least differing-prime orientation, p-free clipped base, p-divisible admitted child, same lower signature.
+- New finite domain: every r=3..64. This is a changed full-pair/coefficient test, not a rerun of MC's pre/post row scan. No universal bound inferred.
+- Event mark: kappa(n)=2*mu(n)*sum_{q|n,r<q<n,mu(q)=1} lambda(q) on active sites; zero elsewhere. lambda uses validated Li_2 floor intervals, never floating decisions.
+- First hypothesis: the sum of kappa(child)*(4W-2|W|) over every actual returned pair is zero. Prediction at r=10: 120w-144w^2, not zero.
+- Full-compensation hypothesis: the full anchored functional has zero linear response to these physical marks. Prediction at r=10, D=pi(100)-F_10<0: 120w-160w^2+8Dw, strictly positive. Include squareful 117 and original anchor once.
+- Identity tests: literal-cell enumeration equals unique oriented complete active graph; add both marked orientations, diagonal, squareful and historical terms; full linear coefficient equals [4(S-D)-2(|D|+A)]H and quadratic coefficient equals H^2, H=sum z*kappa. No sign-independent split of absolute values.
+- Negative control: balanced shifts between mu and its dependent correction cancel at each site and pair. This is a coordinate identity, not a new arithmetic restriction.
+- Exactness: integer polynomial coefficients in w and D, rational certified logarithm bounds for original weights/anchor, rational Ei enclosures for events. Reuse the already disclosed MC log/Ei method with provenance. No local Lean.
+- Do not claim that lambda is already an index of the native #915 source. The full response is an explicitly marked observable/coefficient extraction, not an equality between the auxiliary MC source and the original unmarked source.
+
+## Proof-Led Extension, Before Its Execution
+
+- New derivation: every mark has q odd squarefree composite, r<q<=X/3<r^2, a=n/q odd squarefree in [3,r], gcd(a,q)=1. Thus q is a genuine historical composite and the first differing-prime owner of (q,n) is minFac(a), not the event label q.
+- At a fixed r each q has at most one odd multiple in the current block, since two would be separated by >=2q>=2r+2. Test uniqueness over every actual mark at the already frozen roots 3..64.
+- New uniform count claim: E_r=sum_n e_r(n)<=2r. Derivation uses cofactor intervals and floor-Li monotone telescoping; no event independence or Mobius cancellation. Test every frozen root, without fitting constants.
+- Native uncompressed marked historical/current pair excess is +2*w_floor(sqrt(q))*w_r for each edge. Test all edge admissions and the r=10 total; bound it by 36r/(log r)^2 on paper. This is a positive proper-subsource cost, not a negative payment or compressed-history identity.
+- Consequence |sum_n 2w_r*mu(n)e_r(n)|<=4r*w_r and |H_3(r)|<=2r, not a power saving.
+```
+
+### Exact Executed Program
+
+```python
+"""Full-source marked-coefficient audit; no Lean or endpoint claim."""
+
+from functools import lru_cache
+from math import gcd, isqrt
+import json
+
+S = 10**40
+
+
+def ceildiv(a, b):
+    return -(-a // b)
+
+
+def log_unit(a, b):
+    assert b <= a <= 2*b
+    zn, zd = a-b, a+b
+    pl, ph = S*zn//zd, ceildiv(S*zn, zd)
+    zl, zh = S*zn*zn//(zd*zd), ceildiv(S*zn*zn, zd*zd)
+    lo = hi = 0
+    terms = 100
+    for j in range(terms):
+        lo += 2*pl//(2*j+1)
+        hi += ceildiv(2*ph, 2*j+1)
+        pl, ph = pl*zl//S, ceildiv(ph*zh, S)
+    hi += ceildiv(2*ph*S, (2*terms+1)*(S-zh))
+    return lo, hi
+
+
+LOG2 = log_unit(2, 1)
+
+
+@lru_cache(None)
+def log_bounds(a, b=1):
+    if a < b:
+        lo, hi = log_bounds(b, a)
+        return -hi, -lo
+    k = 0
+    while a >= 2*b:
+        b *= 2
+        k += 1
+    lo, hi = log_unit(a, b)
+    return lo+k*LOG2[0], hi+k*LOG2[1]
+
+
+def ei_bounds(tl, th):
+    lo, hi = log_bounds(tl, S)[0], log_bounds(th, S)[1]
+    pl = ph = S
+    terms = 180
+    for k in range(1, terms+1):
+        pl, ph = pl*tl//(S*k), ceildiv(ph*th, S*k)
+        lo += pl//k
+        hi += ceildiv(ph, k)
+    nxt = ceildiv(ph*th, S*(terms+1))
+    assert th < S*(terms+2)
+    hi += ceildiv(nxt*S*(terms+2), (terms+1)*(S*(terms+2)-th))
+    return lo, hi
+
+
+EI2 = ei_bounds(*LOG2)
+
+
+@lru_cache(None)
+def li_bounds(n):
+    if n == 2:
+        return 0, 0
+    lo, hi = ei_bounds(*log_bounds(n))
+    return lo-EI2[1], hi-EI2[0]
+
+
+def potential(n):
+    lo, hi = li_bounds(n)
+    assert lo//S == hi//S
+    return lo//S
+
+
+from collections import defaultdict
+from fractions import Fraction as F
+from itertools import combinations
+
+
+def factor(n):
+    original, out, mu = n, [], 1
+    p = 2
+    while p*p <= n:
+        if n % p == 0:
+            exponent = 0
+            while n % p == 0:
+                n //= p
+                exponent += 1
+            out.append(p)
+            mu = -mu if exponent == 1 else 0
+        p += 1
+    if n > 1:
+        out.append(n)
+        mu = -mu
+    return frozenset(out), mu, len(out) == 1 and original in out
+
+
+LIMIT = 65**2 - 1
+FACTORS, MU, PRIME = {}, {}, {}
+for n in range(1, LIMIT+1):
+    FACTORS[n], MU[n], PRIME[n] = factor(n)
+
+
+def divisors_squarefree(n):
+    ds = [1]
+    for p in FACTORS[n]:
+        ds += [d*p for d in ds]
+    return ds
+
+
+def plus(a, b):
+    return tuple(x+y for x, y in zip(a, b))
+
+
+def times(c, a):
+    return tuple(c*x for x in a)
+
+
+ZERO = (0, 0, 0)
+
+
+def pair_poly(a, b):
+    pa, pb = int(PRIME[a]), int(PRIME[b])
+    return (pa*pb, -pa-pb, 1)
+
+
+def excess_poly(a, b):
+    return times(2 if PRIME[a] == PRIME[b] else 6, pair_poly(a, b))
+
+
+def coeff_test(r):
+    X = (r+1)**2-1
+    seats = list(range(r*r+1+(r % 2), X+1, 2))
+    assert len(seats) == r
+    active = [n for n in seats if MU[n]]
+    squareful = [n for n in seats if not MU[n]]
+    primes = [n for n in active if PRIME[n]]
+    composites = [n for n in active if not PRIME[n]]
+    kappa = {}
+    event_edges = []
+    for n in active:
+        events = [q for q in divisors_squarefree(n)
+                  if r < q < n and MU[q] == 1 and potential(q)-potential(q-1)]
+        e = len(events)
+        for q in events:
+            a, age = n//q, isqrt(q)
+            assert 3 <= a <= r and a % 2 and MU[a] and gcd(q, a) == 1
+            assert q <= X//3 and q < r*r and not PRIME[q] and MU[q] == 1
+            assert age*age < q < (age+1)**2 and 3 <= age < r
+            assert min(FACTORS[q] ^ FACTORS[n]) == min(FACTORS[a])
+            event_edges.append((q, n, a, age))
+        kappa[n] = 2*MU[n]*e
+        assert not kappa[n] or (not PRIME[n] and len(FACTORS[n]) >= 3)
+    assert len({q for q, _, _, _ in event_edges}) == len(event_edges)
+    assert len(event_edges) <= 2*r
+
+    # Enumerate native cells directly, before comparing with pair orientation.
+    cells = []
+    for p in sorted(set().union(*(FACTORS[n] for n in active))):
+        groups = defaultdict(lambda: ([], []))
+        for n in active:
+            sig = tuple(sorted(q for q in FACTORS[n] if q < p))
+            groups[sig][int(p in FACTORS[n])].append(n)
+        for sig, (base, children) in groups.items():
+            for b in base:
+                for n in children:
+                    c = n//p
+                    assert p*b > X and p*c <= X
+                    assert MU[b] and MU[c] and b % p and c % p
+                    assert tuple(sorted(q for q in FACTORS[c] if q < p)) == sig
+                    cells.append((b, n, p, sig))
+    assert len(cells) == len(active)*(len(active)-1)//2
+    oriented = []
+    for a, b in combinations(active, 2):
+        p = min(FACTORS[a] ^ FACTORS[b])
+        left, right = (a, b) if p not in FACTORS[a] else (b, a)
+        oriented.append((left, right, p, tuple(sorted(q for q in FACTORS[left] if q < p))))
+    assert set(cells) == set(oriented) and len(set(cells)) == len(cells)
+
+    signed_child = child = base = pair_second = ZERO
+    for b, n, p, sig in cells:
+        signed_child = plus(signed_child, times(kappa[n], pair_poly(b, n)))
+        child = plus(child, times(kappa[n], excess_poly(b, n)))
+        base = plus(base, times(kappa[b], excess_poly(b, n)))
+        pair_second = plus(pair_second, times(kappa[b]*kappa[n], excess_poly(b, n)))
+
+    # All primes precede a composite in the native first-differing-prime order.
+    rank_child = ZERO
+    for n in composites:
+        preceding = [b for b in composites if b != n and
+                     min(FACTORS[b] ^ FACTORS[n]) not in FACTORS[b]]
+        P, C = len(primes), len(preceding)
+        rank_child = plus(rank_child, times(kappa[n], (0, -6*P, 6*P+2*C)))
+    assert child == rank_child
+    K = sum(kappa.values())
+    P = len(primes)
+    current_diag = (0, 0, 2*K)
+    squareful_cross = (0, 0, 2*len(squareful)*K)
+    complete_current = plus(plus(child, base), plus(current_diag, squareful_cross))
+    # Complete linear response: K*w*(-6P+(2r+4P)w-4D-2|D|).
+    assert complete_current == (0, -6*P*K, (2*r+4*P)*K)
+    assert plus(pair_second, (0, 0, sum(k*k for k in kappa.values()))) == (0, 0, K*K)
+
+    # Independent all-seat pair expansion, with squareful sites retained.
+    direct = ZERO
+    for a, b in combinations(seats, 2):
+        direct = plus(direct, times(kappa.get(a, 0)+kappa.get(b, 0), excess_poly(a, b)))
+    direct = plus(direct, current_diag)
+    assert direct == complete_current
+    for n in active:
+        # Balanced changes mu+t*h and remainder-t*h are pointwise invisible.
+        for w in [F(1, 3), F(2, 5), F(3, 4)]:
+            z = w-int(PRIME[n])
+            correction = z-MU[n]
+            h = w*kappa[n]
+            t = F(1, 100)
+            assert MU[n]+t*h+correction-t*h == z
+    # Certify the original VF weight's sign chamber at this finite root.
+    ll, lh = log_bounds(2*r*r+2*r+1, 2)
+    assert 0 < F((2*r+1)*S, r*lh) <= F((2*r+1)*S, r*ll) < 1
+    return {'r': r, 'seats': len(seats), 'active': len(active), 'pairs': len(cells),
+            'marked': {n: k for n, k in kappa.items() if k}, 'K': K,
+            'event_edges': event_edges, 'event_count': len(event_edges),
+            'child_signed': signed_child, 'child_excess': child,
+            'base_excess': base, 'diagonal': current_diag,
+            'squareful_cross': squareful_cross, 'complete_current': complete_current,
+            'quadratic': K*K, 'anchor_Dw': -4*K, 'anchor_absDw': -2*K,
+            'owner_groups_105': {p: [b for b, n, owner, _ in cells if n == 105 and owner == p]
+                                 for p in [3, 5, 7]} if r == 10 else {}}
+
+
+results = [coeff_test(r) for r in range(3, 65)]
+case = next(x for x in results if x['r'] == 10)
+assert case['marked'] == {105: -4}
+assert case['child_signed'] == (0, 20, -32)
+assert case['child_excess'] == (0, 120, -144)
+assert case['base_excess'] == ZERO
+assert case['complete_current'] == (0, 120, -160)
+
+
+def iadd(x, y):
+    return x[0]+y[0], x[1]+y[1]
+
+
+def ineg(x):
+    return -x[1], -x[0]
+
+
+def imul(x, y):
+    v = [a*b for a in x for b in y]
+    return min(v), max(v)
+
+
+def isum(values):
+    out = (F(0), F(0))
+    for x in values:
+        out = iadd(out, x)
+    return out
+
+
+def mass_interval(r):
+    lo, hi = log_bounds(2*r*r+2*r+1, 2)
+    return F((2*r+1)*S, hi), F((2*r+1)*S, lo)
+
+
+mass10 = mass_interval(10)
+w = tuple(v/10 for v in mass10)
+pi100 = sum(PRIME[n] for n in range(1, 101))
+D = iadd((F(pi100), F(pi100)), ineg(isum(mass_interval(r) for r in range(2, 10))))
+assert pi100 == 25 and D[1] < 0
+H = imul((F(-4), F(-4)), w)
+linear_factor = isum([imul((F(40), F(40)), w), (F(-30), F(-30)), imul((F(-2), F(-2)), D)])
+full_linear = imul(H, linear_factor)
+assert full_linear[0] > 0
+square = imul(w, w)
+full_quadratic = imul((F(16), F(16)), square)
+ancestor_excess = isum(imul((F(2), F(2)), imul(w, tuple(v/age for v in mass_interval(age))))
+                      for q, n, a, age in case['event_edges'])
+assert ancestor_excess[0] > 0
+Sblock = iadd(imul((F(10), F(10)), w), (F(-5), F(-5)))
+source = iadd(Sblock, ineg(D))
+capacity = iadd(ineg(D), (F(5), F(5)))
+E0 = iadd(imul((F(2), F(2)), imul(source, source)), ineg(imul(capacity, capacity)))
+t = F(1, 8)
+delta = iadd(imul((t, t), full_linear), imul((t*t, t*t), full_quadratic))
+assert delta[0] > 0 and E0[1] < 0
+assert iadd(E0, delta)[1] < 0
+
+
+def short_interval(x, digits=12):
+    scale = 10**digits
+    lo, hi = (x[0]*scale).__floor__(), (x[1]*scale).__ceil__()
+    return {'lower_numerator': lo, 'upper_numerator': hi, 'denominator': scale}
+
+
+output = {
+    'roots': [3, 64], 'root_count': len(results),
+    'literal_pairs_checked': sum(x['pairs'] for x in results),
+    'historical_event_edges_checked': sum(x['event_count'] for x in results),
+    'max_event_count_over_r': str(max(F(x['event_count'], x['r']) for x in results)),
+    'marked_root_count': sum(bool(x['marked']) for x in results),
+    'case_r10': case,
+    'certified_intervals': {name: short_interval(v) for name, v in
+                            [('w', w), ('D', D), ('linear_factor', linear_factor),
+                             ('full_linear', full_linear), ('quadratic', full_quadratic),
+                             ('original_excess', E0), ('delta_at_one_eighth', delta),
+                             ('selected_historical_ancestor_excess', ancestor_excess)]},
+    'event_recheck': {n: potential(n) for n in [14, 15, 20, 21, 34, 35]},
+    'first_positive_kappa': next({'r': x['r'], 'marks': x['marked']} for x in results
+                                 if any(k > 0 for k in x['marked'].values())),
+    'status': 'ALL_EXACT_ASSERTIONS_PASS; paper/finite evidence only'
+}
+print(json.dumps(output, indent=2, sort_keys=True))
+
+```
+
+### Exact Executed Output
+
+```json
+{
+  "case_r10": {
+    "K": -4,
+    "active": 9,
+    "anchor_Dw": 16,
+    "anchor_absDw": 8,
+    "base_excess": [
+      0,
+      0,
+      0
+    ],
+    "child_excess": [
+      0,
+      120,
+      -144
+    ],
+    "child_signed": [
+      0,
+      20,
+      -32
+    ],
+    "complete_current": [
+      0,
+      120,
+      -160
+    ],
+    "diagonal": [
+      0,
+      0,
+      -8
+    ],
+    "event_count": 2,
+    "event_edges": [
+      [
+        15,
+        105,
+        7,
+        3
+      ],
+      [
+        21,
+        105,
+        5,
+        4
+      ]
+    ],
+    "marked": {
+      "105": -4
+    },
+    "owner_groups_105": {
+      "3": [
+        101,
+        103,
+        107,
+        109,
+        113,
+        115,
+        119
+      ],
+      "5": [
+        111
+      ],
+      "7": []
+    },
+    "pairs": 36,
+    "quadratic": 16,
+    "r": 10,
+    "seats": 10,
+    "squareful_cross": [
+      0,
+      0,
+      -8
+    ]
+  },
+  "certified_intervals": {
+    "D": {
+      "denominator": 1000000000000,
+      "lower_numerator": -2012069374162,
+      "upper_numerator": -2012069374161
+    },
+    "delta_at_one_eighth": {
+      "denominator": 1000000000000,
+      "lower_numerator": 1862486032188,
+      "upper_numerator": 1862486032189
+    },
+    "full_linear": {
+      "denominator": 1000000000000,
+      "lower_numerator": 14501463364862,
+      "upper_numerator": 14501463364863
+    },
+    "linear_factor": {
+      "denominator": 1000000000000,
+      "lower_numerator": -8122572643843,
+      "upper_numerator": -8122572643842
+    },
+    "original_excess": {
+      "denominator": 1000000000000,
+      "lower_numerator": -44815556597361,
+      "upper_numerator": -44815556597360
+    },
+    "quadratic": {
+      "denominator": 1000000000000,
+      "lower_numerator": 3187399141146,
+      "upper_numerator": 3187399141147
+    },
+    "selected_historical_ancestor_excess": {
+      "denominator": 1000000000000,
+      "lower_numerator": 1489637452255,
+      "upper_numerator": 1489637452256
+    },
+    "w": {
+      "denominator": 1000000000000,
+      "lower_numerator": 446332215195,
+      "upper_numerator": 446332215196
+    }
+  },
+  "event_recheck": {
+    "14": 6,
+    "15": 7,
+    "20": 8,
+    "21": 9,
+    "34": 13,
+    "35": 13
+  },
+  "first_positive_kappa": {
+    "marks": {
+      "1309": -2,
+      "1311": -4,
+      "1365": 4
+    },
+    "r": 36
+  },
+  "historical_event_edges_checked": 214,
+  "literal_pairs_checked": 29255,
+  "marked_root_count": 49,
+  "max_event_count_over_r": "1/5",
+  "root_count": 62,
+  "roots": [
+    3,
+    64
+  ],
+  "status": "ALL_EXACT_ASSERTIONS_PASS; paper/finite evidence only"
+}
+```
