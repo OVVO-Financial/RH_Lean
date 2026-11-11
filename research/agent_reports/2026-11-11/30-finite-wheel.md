@@ -837,3 +837,1093 @@ Candidate PD: split every GD smooth rectangle into its strictly historical Merte
 Registered changed experiment, before execution: all R=2..100 plus 127,256,549,5561; literal ordered pairs and gcd groups versus the historical/powerful decomposition, including diagonal multiplicity, strict cutoffs, complete cross energy and column Gram. Independently trial-factor small cases. Negative controls: equality wall (1,1,4); nonzero Gram of radicals 2 and 3; clipping a divisor-incidence column destroys its zero total. Reuse the published GC/GD endpoint values only as regressions, not new sign evidence. Do not rerun unchanged GC5/H_Z sweeps. No fitted global constant, no independence assumption, no new source or Lean edits.
 
 Expected disposition is either a complete proved structural supplier with an independently justified exclusion, or a supporting identity/inverse restriction with its first missing arithmetic estimate exposed. NO_NEW_GLOBAL_GAIN at this checkpoint. Only this owned report may be changed remotely; proof branches, PRs, merges, other reports and schedules remain untouched.
+
+
+## Powerful Denominators Localize The Unpaid Gcd Response
+
+### Final Research Synthesis - 20261111-wheel-2/PD
+
+### A. Most Important Structural Discovery
+
+**Every part of the complete gcd vector not controlled directly by the strict historical envelope is supported on gcd labels g^2<R. It is an exact signed response of M(floor((R^2-1)/q)) over POWERFUL denominators q<R, with explicitly determined multiplicities and cross interactions.** Here powerful means that each prime exponent is at least two; the unit is included.
+
+There is an absolute constant C_H, independent of R and of any assumed Mertens growth exponent, and an explicit vector H_R using only M(t), t<R, such that
+
+```text
+C_R = H_R - E_R,
+||H_R||_2 <= C_H R sqrt(K_R) (1+log(R-1)),
+E_R(g)=0 whenever g^2>R-1.
+
+E_R(g)=sum_(q<=R-1 powerful, g|rad(q))
+          a(q) mu(rad(q)/g) M(floor((R^2-1)/q)),
+a(q)=product_(p^e || q)(e-1), a(1)=1.
+```
+
+The nonunit columns sum to zero EXACTLY across the complete gcd carrier, but are NOT mutually orthogonal. For squarefree radicals d,e their Gram entry is
+
+```text
+<v_d,v_e>=mu(d)mu(e) 2^omega(gcd(d,e)),
+v_d(g)=1_(g|d)mu(d/g).
+```
+
+In particular coprime radicals 2 and 3 have Gram entry +1. Genuine coefficients at R=10 give positive nonunit cross energy +24; at R=40 it is -56. The complete historical/future mixed contribution is also not sign-definite. Thus neither zero column totals nor coprime support justifies deleting the interactions.
+
+| Claim | Classification and scope |
+| --- | --- |
+| 20261111-wheel-2/PD1 | PAPER_PROOF: exact historical/powerful split of every original gcd coefficient; sparse support, distinct quotient sites, rank and complete scalar conservation. Supporting representation, derived from accepted GD1 and existing rough/smooth inversion. |
+| PD2 | PAPER_PROOF: uniform strict-history norm and complete large-gcd tail bound, with absolute convergent-product constants. New supporting quantitative restriction; no global Mertens power assumption. |
+| PD3 | PAPER_PROOF: full radical Gram and quantified sparse inverse restriction; explicit mixed terms retained. No independent exclusion of its exceptional configuration. |
+| PD4 | CONDITIONAL / TARGET-EQUIVALENCE AUDIT: precise historical-normalized consumer for the powerful response; the all-positive-loss family is still RH-strength, not an easier paid supplier. |
+| PD5 | FINITE_COMPUTATION and narrowly REFUTED shortcuts: two different exact reconstructions; actual positive/negative cross terms; boundary and mask controls. |
+
+All new PD paper arguments are SELF_AUDIT / INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED. No literature-priority claim is made. **NO_NEW_GLOBAL_GAIN; NO_NEW_ACCEPTED_ROUTE; VERIFIED_ETA=NONE.** The genuinely new payment is the whole historical vector and its large-gcd tail, not the small-gcd powerful response or the canonical endpoint.
+
+### B. Current Authoritative Objective
+
+Actual invocation: configured schedule, 2026-11-11 10:12:01 EST, America/New_York. Platform RUN_ID_UNAVAILABLE; PD is a research label. Main: `dda92f9ce59627b4c1f1317082f728648d330a0a`. AGENTS, contract and cross-route directive blobs are the unchanged hashes recorded in the verified checkpoint. The later AGENTS cross-route directive supersedes the contract's older single-wheel task selection, not its theorem types or safeguards. `cross_route_ack=CROSS_ROUTE_SIGNED_RECOVERY_V1`; earlier finite-wheel, complete-HIGH and cancellation-chain acknowledgments remain subject to that priority override.
+
+Canonical OPEN statement: one C>=0, chosen before every integer R>=2, bounds |pi(R^2)-VF_can(R^2)| by C R log R. Its terminal theorem still explicitly takes `ClassicalVonKochRHCriterion`. The separate internal Mertens-energy-to-RH consumer has an unpaid arithmetic premise. The complete centered wheel F_R-D_R=li(R^2-1)-pi(R^2-1) retains all virtual divisors until their exact Euler compensation. None of these quantities is renamed as the gcd norm below.
+
+#### 1. BASELINE / DEPENDENCY RECEIPT
+
+Directly inspected the current declaration and proof of
+
+```text
+RHLean.Analysis.native_mertens_near_uniform_window_error_closed
+  : MertensGrowthAtMost(b_base),
+b_base=7/8-7/(64*N_pack).
+
+MertensGrowthAtMost(b):
+  forall eps>0 exists C_eps>=0 forall integers n>=1,
+  |M(n)|<=C_eps*n^(b+eps).
+```
+
+This is the strongest explicit fixed-family compiled comparator verified here, not a no-loss bound and not an optimization over all source geometries. Actual source definitions at the SAME positive fine length L give N_pack=ceil_nat(max(1,1/(6L)))+2 and N_old=ceil_nat(max(1,1/(3L)))+2. Hence N_pack<=N_old and 7/(64N_pack)>1/(48N_old); the counts are not identified.
+
+Fresh #1119 check collection: 14/14 success at `77ee815846d6d534c866f0752aa33b84c385610a`. Read actual [proof/type/dependency log](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42552018910/job/128949473700), endpoint, native Hecke-to-zeta/Mertens transfer, and live audit implementation. Five relevant closures of sizes 35358,35375,35736,35737,35753 end only in propext, Classical.choice, Quot.sound. The audit checks fixed-source construction/counts, native total-mass probe, anchored HIGH and complete Hecke comparison; the arithmetic roots additionally require the exact modulus-one L-product and native converse. Compared all 911 pre-existing relevant source/audit blobs at the tested head with current main: ZERO changed. This reuses scoped exact-head certification; it is not a fresh full-main Lean run, an independent reproving of every imported analytic lemma, or a claim that all historical upstream modules are placeholder-free. Unrelated historical Wiener warnings are outside the audited selected closures.
+
+Verified log pins: Lean 4.34.1/compiler `5045d0056413266e57c625dcd7c365b10e377c52`; Mathlib `d13f23b723b8a846827a245b89c10fc7d3f11612`; openai/math `1581d4cbdd69a0faf34b2089614fe2a814316a6a`. Preserve the existing pinned analytic assumptions and every positive exponent loss.
+
+#1131 is now MERGED, at 2026-11-11T12:46:15Z, to the current main. Its exact tested head `f3f1da37c3e2fff9374eb5e99eca0da94c1efc29` has 13/13 successful checks. The actual [dedicated proof job](https://github.com/OVVO-Financial/RH_Lean/actions/runs/43006238259/job/130474300634) reports six finite-response and eight mass/delay roots with only the standard axioms. Its complete finite expansion and order-independent coefficient mass do not yet constitute the all-delay same-signal Mellin return or improved global endpoint. The accepted PAPER IR/FFR boundary 7/8-1/2400000000 therefore remains distinct from b_base. No open/draft PR appeared in either the initial search or the subsequent recent-PR collection; merged #1115/#1122/#1124/#1126/#1127/#1128/#1129/#1130/#1131 were discovered and relevant scopes inspected.
+
+### C. Structural Mechanism Investigated
+
+Resume, not restart: GD1-GD4 have independent ACCEPT/PAPER_PROOF in today's Referee NP report. Coordinator 20261111-coordinator-0710-EST assigns Wheel the exact question of what a bad complete gcd norm forces BEFORE GD.13's three-Mertens-value triangle. Today's Census H_Z and yesterday's GC5 remain conjectures; neither is used.
+
+Split GD's rectangles at the ACTUAL historical threshold T<R, without bounding their three terms together. Two entries are always historical. Only the third can lie beyond history. Its denominator d^2*h*k is powerful because h and k contain only primes dividing the squarefree d. Conversely every powerful denominator has one such radical d, and its remaining factor has exactly a(q) ordered splittings. Divisor inversion dictates its complete signed incidence column.
+
+This uses genuine prime factorization. It does not posit independent future Mobius data: the original Q_R and all C_R(g) already depend only on mu(n), n<R. The displayed later Mertens values are DEPENDENT exact coordinates reconstructed by the existing Newton arithmetic. Computing them in a finite verifier is not admitting them as an independent supplier for an unknown bound.
+
+### D. Exact Theorem Statements
+
+Fix an integer R>=2, N=R-1, X=R^2-1. Define genuine M(0)=0, M(t)=sum_(1<=n<=t)mu(n), and retain the exact shifted envelope K_R=max_(0<=t<R)(M(t)-1)^2/(t+1). A physical floor occurrence is an ORDERED triple (a,b,k), 1<=a,b<R, k>=1, abk<=X, with weight mu(a)mu(b). Distinct triples with equal product are not identified.
+
+```text
+C_R(g)=sum_(a,b<=N, gcd(a,b)=g)mu(a)mu(b)floor(X/(ab)),
+S_R(d)=sum_(a,b<=N, d|a,d|b)mu(a)mu(b)floor(X/(ab)),
+D_G(R)=sum_(g=1..N)C_R(g)^2, Q_R=sum_g C_R(g).
+```
+
+For 1<=d<=N let B_d=floor(N/d), H_d={h<=B_d: every prime of h divides d}, A_h=floor(B_d/h), and T_dhk=floor(X/(d^2*h*k)). Units belong to H_d. Define
+
+```text
+U_R(d)=mu(d)^2 sum_(h,k in H_d)
+       [M(A_h)+M(A_k)-1_(T_dhk<R) M(T_dhk)],
+H_R(g)=sum_(k<=N/g)mu(k) U_R(gk).
+
+P_N={q:1<=q<=N, each nonzero prime exponent in q is >=2},
+d(q)=rad(q), a(q)=product_(p^e||q)(e-1),
+v_d(g)=1_(g|d)mu(d/g), for squarefree d,
+A_R(d)=sum_(q in P_N, d(q)=d) a(q) M(floor(X/q)),
+E_R=sum_(q in P_N) a(q)M(floor(X/q))v_{d(q)}
+   =sum_(d squarefree, d^2<=N) A_R(d)v_d.
+```
+
+The subscript d(q) selects a whole incidence vector. All sums are finite; q is an AUXILIARY denominator, not a prime-owner label or a new physical occurrence.
+
+**PD1.** For every such R, the exact vector identity C_R=H_R-E_R holds. Moreover:
+
+```text
+sum_g H_R(g)=2M(N), sum_g E_R(g)=M(X),
+sum_g v_d(g)=1_(d=1),
+E_R(g)=0 for g^2>N,
+#{q in P_N}<=3sqrt(N).
+```
+
+All quotient sites floor(X/q), q in P_N, are distinct and >R. As a linear map on FORMAL independent quotient coordinates, the response has rank #{squarefree d:d^2<=N}; this is not a statement that genuine arithmetic values can vary independently.
+
+**PD2.** Put, for primes p,
+
+```text
+w(p)=(1-p^(-1/2))^(-2), W(n)=product_(p|n)w(p),
+E0=product_p(1+(w(p)-1)/p),
+E2=product_p(1+(w(p)^2-1)/p),
+Y =product_p(1+w(p)^2/p^2), L_R=1+log N.
+```
+
+These are finite positive ABSOLUTE constants. Uniformly in R>=2 and 1<=g<=N,
+
+```text
+|H_R(g)|<=9 E0 R sqrt(K_R) L_R mu(g)^2 W(g)/g,
+||H_R||_2<=C_H R sqrt(K_R)L_R, C_H=9 E0 sqrt(Y).       (PD.1)
+```
+
+For every real G>=max(1,sqrt(N)), the COMPLETE original high-gcd tail satisfies
+
+```text
+sum_(G<g<=N)C_R(g)^2
+  <=162 E0^2 E2 R^2 K_R L_R^2/G.                     (PD.2)
+```
+
+No Mertens power, prime-distribution estimate, finite wheel independence, or conjectural norm contraction is assumed. The constants may be very large; no optimized numerical constant is claimed.
+
+**PD3.** With all d,e squarefree and <=sqrt(N),
+
+```text
+||E_R||_2^2 = sum_(d,e) mu(d)mu(e)2^omega(gcd(d,e)) A_R(d)A_R(e),
+D_G = ||H_R||_2^2 + ||E_R||_2^2 - 2<H_R,E_R>.       (PD.3)
+```
+
+Fix ANY real c>1/2, independently of R, and set
+
+```text
+Lambda_c=product_p(1+sqrt(2)*p^(-2c)/(1-p^(-c))^2)-1 >0,
+B_H(R)=C_H R sqrt(K_R)L_R.
+```
+
+If sqrt(D_G(R))>B_H(R)+|M(X)|, then there is a powerful q with 4<=q<=N such that
+
+```text
+q^c |M(floor(X/q))|
+ >= [sqrt(D_G(R))-B_H(R)-|M(X)|]/Lambda_c.            (PD.4)
+```
+
+The witness site lies in [R+1,floor(X/4)]. c is a freely chosen weight parameter, NOT an assumed exponent bound. This is a precise sparse inverse restriction, not proof that its conclusion is impossible.
+
+**PD4.** For fixed 0<=eta<1/2, the open hypothesis
+
+```text
+exists B>=0 forall R>=2:
+  ||E_R||_2<=B R^(1+eta)sqrt(K_R)                    (PD.OPEN)
+```
+
+would imply MertensGrowthAtMost(1/2+eta), using GD4 and PD.1 with the logarithmic loss properly charged. The family PD.OPEN for EVERY eta>0 is equivalent to MertensGrowthAtMost(1/2); no converse at the fixed zero-loss eta=0 is asserted. It is therefore not an independently easier RH supplier.
+
+### E. Mathematical Proof
+
+#### Exact Split And Multiplicity
+
+Accepted GD1, independently rechecked here, gives
+
+```text
+S_R(d)=mu(d)^2 sum_(h,k in H_d)[M(A_h)+M(A_k)-M(T_dhk)],
+C_R(g)=sum_(k<=N/g)mu(k)S_R(gk).
+```
+
+Its arithmetic input is mu(u)1_(gcd(u,d)=1)=sum_(h|u, h d-smooth)mu(u/h), the inverse form of the compiled rough-Mobius/smooth-indicator convolution. Reindexing both ordered historical indices preserves all floor multiplicities. The exact rectangular identity requires A_h,A_k<=T_dhk<(A_h+1)(A_k+1). Its strict upper wall follows from d(B_d+1)>=R and h(A_h+1),k(A_k+1)>=B_d+1. No equality corner is discarded.
+
+For the third term, with positive integer q=d^2*h*k,
+
+```text
+T_dhk>=R iff q<=floor(X/R)=R-1=N.
+```
+
+In this range hk<=N/d^2<=B_d. Consequently EVERY factorization hk=t of an eligible t is admitted in H_d x H_d; no partial-divisor mask remains. If mu(d)^2=1, q=d^2*t has radical exactly d and each prime exponent at least two. Conversely a powerful q has the unique d=rad(q), t=q/d^2. The number of ordered (h,k) with hk=t is tau(t)=product_(p^e||q)(e-1)=a(q). This proves that the excluded third-term sum is exactly A_R(d), and divisor inversion gives C=H-E. If d is squareful, both common-divisor and reconstructed terms vanish, as genuine Mobius coefficients require.
+
+For squarefree d, sum_(g|d)mu(d/g)=1 if d=1 and zero otherwise. At d=1, H_1={1}, U_R(1)=2M(N), A_R(1)=M(X). Summing the inverted vectors proves all scalar conservation statements, including the existing Q_R=2M(N)-M(X). This conservation does not discard the complete quadratic interactions.
+
+Since d^2<=q<=N, every future column is supported on g<=d<=sqrt(N). Every powerful q has the unique form a^2*b^3 with squarefree b, by separating even exponents from odd exponents >=3. Thus #P_N<=sqrt(N)sum_(b>=1)b^(-3/2)<=3sqrt(N), using the elementary integral bound for the last series. If q<=N, floor(X/q)>=X/N=R+1. For consecutive positive q<=N, X/q-X/(q+1)=X/[q(q+1)]>1; hence all sampled floor quotients are distinct. The rank assertion follows by selecting q=d^2: the matrix v_d(g), over squarefree d,g<=sqrt(N) in increasing order, is triangular with diagonal one.
+
+#### Historical Norm And Tail
+
+K_R>=1 from its t=0 term. For 1<=t<R, its actual shifted definition gives
+
+```text
+|M(t)|<=1+sqrt(K_R(t+1))<=3sqrt(K_R*t).
+```
+
+All A_h,A_k are historical and <=T_dhk. The third term in U is admitted only when it is historical. Therefore, retaining its mask before taking absolute values,
+
+```text
+|U_R(d)|
+ <=9sqrt(K_R) mu(d)^2 sum_(h,k in H_d)sqrt(T_dhk)
+ <=9R sqrt(K_R) mu(d)^2 W(d)/d.                    (PD.5)
+```
+
+The second inequality uses sqrt(T)<=R/(d sqrt(hk)) and the exact finite-prime geometric majorant sum_(h d-smooth)h^(-1/2)=product_(p|d)(1-p^(-1/2))^(-1). It is valid for growing d. No global Z_(1/2) from GD2 is used; that divergent endpoint product must not be substituted here.
+
+Define h(n)=0 off squarefree n, and h(n)=product_(p|n)(w(p)-1) otherwise. Then W(n)=sum_(d|n)h(d), h>=0, and sum_d h(d)/d=E0. Hence
+
+```text
+sum_(k<=N)W(k)/k
+ =sum_(d<=N)h(d)/d sum_(j<=N/d)1/j
+ <=E0(1+log N).
+```
+
+When U(gk) is nonzero, g,k are squarefree and coprime, so W(gk)=W(g)W(k). Apply (PD.5) to divisor inversion and the preceding finite harmonic bound to prove the pointwise PD2 estimate. Squaring and summing over squarefree g gives Y and proves PD.1.
+
+For the tail, W(n)^2 has the identical nonnegative divisor expansion with local factors w(p)^2-1. Thus sum_(n<=t)W(n)^2<=E2*t. Partial summation, dropping only its nonpositive lower endpoint, yields sum_(n>G)W(n)^2/n^2<=2E2/G for G>=1. If G>=sqrt(N), E_R(g)=0 for every g>G, so C_R(g)=H_R(g) EXACTLY there. This proves PD.2 on the complete tail.
+
+Convergence is elementary: w(p)=1+O(p^(-1/2)), so E0 and E2 have summable O(p^(-3/2)) local increments; Y has O(p^(-2)) increments. Small primes contribute finite fixed factors. Constants are selected before every scale. For an intentionally crude explicit check, w(p)<=12 and w(p)-1<=24/sqrt(p), giving E0<=exp(48), Y<=exp(144) and C_H<=9exp(120). This is not a fitted constant or an optimized estimate.
+
+#### Complete Gram And Inverse Restriction
+
+For squarefree d and g|d, mu(d/g)=mu(d)mu(g). Hence the column inner product is mu(d)mu(e) times the number of common divisors, namely 2^omega(gcd(d,e)). Expanding E and then C=H-E proves PD.3 with both orientations and the entire mixed term.
+
+Remove the unit mode: F_R=E_R-M(X)v_1. Its sum is zero, not its norm. Since ||v_d||_2=2^(omega(d)/2), triangle gives
+
+```text
+||F_R||_2
+ <=max_(q in P_N,q>1)[q^c|M(floor(X/q))|]
+    *sum_(q in P_N,q>1)a(q)2^(omega(rad q)/2)/q^c
+ <=Lambda_c max_(q in P_N,q>1)[q^c|M(floor(X/q))|].
+```
+
+The infinite positive sum factors with local series sqrt(2)sum_(e>=2)(e-1)p^(-ec)=sqrt(2)p^(-2c)/(1-p^(-c))^2. It converges for c>1/2 without assuming anything about M. Meanwhile ||F||>=||C||-||H||-|M(X)|. If the numerator is positive, F is nonzero and the finite maximizing set is nonempty; R>=5 automatically. This proves PD.4. No sign alignment, independent samples, or favorable Gram sign is inferred from the weighted maximum.
+
+#### Consumer And No-Circularity
+
+If eta>0 in PD.OPEN, absorb L_R into an absolute eta-dependent multiple of R^eta. Then ||C||<=||H||+||E|| gives GD's N_eta: D_G<=B'_eta R^(2+2eta)K_R. Its already accepted GD4 consumer gives MertensGrowthAtMost(1/2+eta). At eta=0 the same argument gives N_delta for each delta>0, NOT a finite zero-loss constant; choosing smaller positive losses yields MertensGrowthAtMost(1/2).
+
+Conversely assume MertensGrowthAtMost(1/2). GD2-GD3 give ||C_R||<=B_eta R^(1+eta) for every eta>0. PD.1 and K_R>=1 then imply PD.OPEN for every eta>0, with logarithms absorbed and constants chosen before R. Thus the family is exactly RH-strength at the exponent level. The reverse implication uses an assumed growth theorem only in this explicit target-equivalence audit, never in PD1-PD3.
+
+This is not a new self-improving recurrence: applying the certified Mertens baseline to the sampled values gives at best its existing power. In particular the q=1 coefficient is M(X) itself. Labeling it a future response cannot pay the original endpoint.
+
+### F. Structural Consequence
+
+The full gcd vector has a rigorous historical approximation with an R sqrt(K_R) log R norm bound. Its uncharged part is confined to at most sqrt(R-1) gcd coordinates and at most 3sqrt(R-1) powerful quotient sites; the other original coefficients are exactly historical. For G=sqrt(R-1), PD.2 pays the complete high-gcd energy by O(R^(3/2)K_R log^2 R), with absolute constants. This is stronger structural localization than an arbitrary sign-vector or degree-bound model.
+
+It does NOT assert independent small-gcd coordinates, a favorable sign of C_R(g), a small total future response, or successful descent. All nonunit future columns have zero scalar total, yet their Gram can reinforce. There is therefore a precise difference between exact linear cancellation and quadratic norm control on this actual arithmetic source.
+
+### G. Signed And Quantitative Relevance
+
+The original scalar square is still Q_R^2=D_G(R)+2sum_(g<h)C_R(g)C_R(h). D_G is the COMPLETE diagonal of this gcd grouping, not the complete square Q_R^2, not an unsigned count, and not the canonical VF energy. PD.3 expands D_G without losing H/E terms; it does not erase the remaining inter-gcd term. The consumer is specifically GD4, whose proved head/tail iteration does NOT assume GC5 or a favorable sign of that remaining term.
+
+#### 2. FOUR-WAY SOURCE MAP
+
+| Source field | Euler / finite AC | VF / actual primes | NNS / OAI | Square blocks / native HIGH |
+| --- | --- | --- | --- | --- |
+| Literal carrier | Ordered mu(a)mu(b) floor occurrences, a,b<R, abk<=X_R; Q_R and complete gcd vector | Complete fractional wheel on all divisors of primorial(R-1), centered at li(X_R); #915 is a separate clipped weighted carrier | Original ideal-labelled compensated LOW polynomial, Hecke weights, source masks and principal normalizer | Full M(X_R), not one shell or sum of shell squares |
+| Typed connection | EXACT_IDENTITY: PD1 reconstructs each C_R(g); compiled Euler endpoint reconstructs Q_R | NOT_EQUIVALENT to Q_R; #1122/#1124 retain virtual compensation. Prime/Mobius meeting point is a cofactor-weighted Buchstab coupling, not equality of errors | ONE_WAY global Mertens consequence through the native zeta bridge; OPEN_BRIDGE for literal coefficient transport from PD to original LOW | EXACT_IDENTITY: sum C_R=2M(R-1)-M(X_R), both historical and current boundary terms retained |
+| Scales and weights | X_R=R^2-1, strict K_R, auxiliary powerful q<=R-1, exact a(q) and v_rad(q) | Original prime ownership, original seat weights, admission and clipping; target R log R | Source Z, ideal norm, height, character and frozen pools; none identified with q or gcd | All-prefix growth needs the established square-to-prefix interpolation and positive-loss quantifiers |
+| Unpaid return | Small-gcd powerful norm and every H/E interaction | Full prime discrepancy and actual first-bad payment remain OPEN | New merged mass theorem is not a same-signal Mellin return; generic real/complex Gram isometry is not cancellation | PD.OPEN would feed GD4; it is not established here |
+
+**Literal CORR4 overlap, with a barrier.** For each odd prime p with p^2<R, the single q=p^2 term has a(q)=1 and amplitude M(floor(X_R/p^2)), the exact raw daughter `lowOwnerRawMertensAmplitude R p` with `rawQ2ChildCutoff R p=X_R/(p*p)`. Its PD column is v_p=-e_1+e_p. This is an amplitude-level exact bridge, not an identification of the weighted critical CORR4 synthesis. PD also has prime 2, powers p^e with e>=3 weighted by e-1, every multi-prime powerful denominator, the endpoint and the complete historical mixed term. CORR4's own near/high, intermediate towers, Go-wall, owner-two, terminal and root corrections remain intact; a negative daughter credit cannot be spent on the PD source a second time. Prior JC's complete upper-band obligations are unchanged. This is a FINITE-AC/MU-LIFT continuation with a concrete CORR4 crosswalk, not retirement of any protected route.
+
+#### 3. FIRST SIGNED LOSS
+
+| Step | Exact signed input and discarded interaction | Cost and consumer | Payment / unresolved bill |
+| --- | --- | --- | --- |
+| Existing GD.13 | Three Mertens entries and all smooth labels bounded together | Earlier bound imports a global power c and preserves that same exponent | PD splits at T<R first, so the whole historical part is paid from actual K_R alone |
+| PD.5 and divisor inversion | Signs within historical U_R and across mu(k) are discarded | 9, E0, sqrt(Y) and L_R; gives C_H R sqrt(K_R)L_R | Paid uniformly by PD2; no lost historical/future cross is declared negative |
+| C=H-E to triangle | -2<H,E> | Norm sum, or squared factor at most 2; no exponent benefit at the unpaid E scale | Mixed term retained exactly in PD.3 and tests; sign changes already occur at R=2,3 |
+| Powerful columns to diagonal-only | All d!=e terms mu(d)mu(e)2^omega(gcd(d,e))A_dA_e | Would be an unsupported saving | REFUTED even for the full nonunit arithmetic response: +24 at R=10 |
+| PD.4 inverse | Weighted triangle over all nonunit powerful q | Finite Lambda_c; no new exponent | Locates a witness but does not exclude it; c>1/2 cannot be silently set to 1/2 |
+| OAI LOW `norm_sum_le` / CORR4 mixed-tail gate | Different ideal-profile Gram / physical owner mixed bill | Their actual complete-return costs | NOT paid by PD; source transfer is open beyond the explicit raw-daughter overlap |
+
+#### 4. PAID RECOVERY TEST
+
+Compiled finite-wheel rough/smooth convolution plus the exact signed hyperbola/Newton support supplies GD1's genuine arithmetic bridge, then PD's exact coefficients. It is not a new cancellation assumption. The existing complete reciprocal-band telescope #1115 controls a contiguous complete band; it does not remove the simultaneous radical restrictions or the powerful weights. #1127's positive erased-unit fractional cofactor fibre has q in [R,2R), different coefficients and a different carrier; its positivity does not apply to C, A or their Gram. #1128's actual shared-prime near-resonance is a proper-source obstruction, not a bound on PD. Its warning against phase-independence is consistent with PD's nonzero coprime Gram.
+
+The compiled CORR4 raw amplitude supplies the exact p^2 overlap above, but no theorem inspected controls the FULL PD response with the required weights. The OAI baseline can be substituted only at the output Mertens-growth level and buys no second gain. The complete source bound and the inverse exclusion therefore remain unpaid.
+
+#### 5. NET RESULT / ADMISSION VERDICT
+
+New supporting all-scale payment: PD.1-PD.2, from strict history alone. New exact complete-source organization and inverse: PD1/PD3. No independent exclusion of the PD.4 witness; no proof of PD.OPEN. The admission test for a new accepted RH route is NOT met. Smaller source support and an independently paid complement are useful, but no numerical global exponent changes and no substantial full-source contraction is claimed.
+
+### H. Falsification, Novelty And Reproducibility
+
+Checkpoint commit `6a0491c163ee24de79b13f9e9606ea2c5dffe784`, blob `19251f1328a22ec4bf79da6a82dbb0e73fba89d6`, was re-fetched exactly before the registered programs ran. It preserved every earlier same-day byte. This is a changed-source test, not an extension of GC5/H_Z or wheel-density scans.
+
+Primary C++20 with -O2 -Wall -Wextra -Werror: every R=2..100 and held-outs 127,256,549,5561. A direct genuine Mobius sieve through 30,924,720 and literal ordered-pair gcd sum were compared with the historical rectangles and independently regrouped powerful terms. **103 roots; 11,689,857 nonzero ordered coefficient pairs; 39,223 rectangles; 11,439 complete coefficients; 2,254 future rectangle labels; 1,094 powerful columns; 5,154 Gram entries; 10,701 high-gcd historical coefficients. Zero mismatches.** Pair counts are not expanded floor-triple counts; all floor multiplicities remain in the sums.
+
+The second program uses trial factorization and the quotient-block Mertens recurrence, not the primary sieve. It checks R=2..60 and the same four held-outs: 63 roots, 611 columns, 63 rational finite inverse bounds, and 1,770 rational historical majorants. It computes the literal pair vector independently through R=549; at R=5561 its independently reconstructed full vector/norm is checked against the primary direct result. Four exact negative controls pass. Syntax checking also passed. These are algorithmically different SELF_CHECKS, not independent specialist acceptance or Lean proofs.
+
+| R | D_G | H squared norm | E squared norm | -2<H,E> | Nonunit cross |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| 10 | 523 | 166 | 121 | 236 | 24 |
+| 15 | 223 | 156 | 101 | -34 | 16 |
+| 17 | 173 | 618 | 201 | -646 | 88 |
+| 40 | 8785 | 14220 | 855 | -6290 | -56 |
+| 56 | 12810 | 21016 | 1332 | -9538 | 270 |
+| 549 | 213476 | 305112 | 70326 | -161962 | -14846 |
+| 5561 | 19073482 | 31666626 | 7169554 | -19762698 | -692306 |
+
+Here nonunit cross means ||sum_(d>1)A_d v_d||^2-sum_(d>1)2^omega(d)A_d^2; no q=1 or H mixed interaction is hidden in it. The known D_G and Q values are regression data, not new sign discoveries.
+
+At R=10, (A_1,A_2,A_3)=(1,-6,-2); E=(9,-6,-2,0,...), and the nonunit vector is (8,-6,-2,0,...). Its energy is 104 while its radical diagonal is 80, producing +24. At R=40, (A_1,A_2,A_3,A_5,A_6)=(-7,-24,-5,-1,-3); nonunit energy 1184 versus diagonal 1240 gives -56. Thus the asserted uniformly nonpositive nonunit cross shortcut is decisively false. This does NOT refute GC5 or H_Z, which involve different complete expressions.
+
+Strict-wall control: (A,B,T)=(1,1,4) has literal rectangular sum 4 but M(1)+M(1)-M(4)=3; the equality corner contributes +1. Mask control: v_2=(-1,+1,0,...), total zero, but projecting onto g=1 gives -1. This auxiliary clipping witness does not assert admission into #915; Owner MC supplies separate genuine-mask warnings. The proposed coprime-orthogonality shortcut is refuted by <v_2,v_3>=1; <v_2,v_6>=-2 also records the opposite sign.
+
+Novelty search: current main code searches for powerful, squarefull, gcd/smooth/Mertens and radical/Mertens; the full retrieved two-date role reports were searched for the proposed denominator/support/column formulation. Inspected original Euler, Newton/hyperbola, restricted-floor, complete reciprocal-band, wheel and CORR4 sources and typed atlas. No matching complete historical/powerful gcd split plus strict-history norm bound was found. Existing OAI powerful ideal parts are a different carrier. This finite repository search does not establish literature priority or universal absence. The standard smooth convolution, divisor inversion, elementary powerful-integer count, Gram expansion and Euler-product convergence are explicitly credited tools; the claimed new combination is PD1-PD2's literal source and scope.
+
+### I. Conceptual Interpretation
+
+A large gcd norm cannot be blamed on many independent high-gcd classes: their entire contribution is already an explicit strict-history quantity. New growth must survive in a small common-prime response space whose columns are forced by prime-exponent multiplicities. But their zero totals hide, rather than eliminate, quadratic interactions. The q=1 endpoint and proper powerful descendants cannot be replaced by unsigned counts or treated as separate historical supplies.
+
+### J. Competing Structural Hypotheses
+
+Retain one main question: can the actual coupled powerful responses A_R(d), with the unit endpoint and H cross term, obey a new signed inequality unavailable to arbitrary columns? PD.4 narrows its possible witnesses but provides no exclusion. Retire coprime orthogonality and uniformly favorable nonunit-cross arguments at the precise refuted scope. Do not replace them with a statement equivalent to PD.OPEN and assume it true. A valid alternative may control C jointly without bounding E separately; PD.OPEN is a sufficient route, not a compulsory stronger component norm. Preserve the independently active CORR4 and MU-LIFT complete-return programs.
+
+### K. Specialist Handoffs
+
+**Coordinator:** PD2 pays the complete historical vector and g>sqrt(R-1) tail without a global Mertens input. Record it as supporting paper progress, not admission test 2 completion. PD1 exposes exactly where GD's loss lives; PD4 keeps the desired norm's RH-strength status explicit. The accepted OAI paper endpoint still needs its own formal return.
+
+**Referee:** independently check the T>=R iff d^2hk<=R-1 cutoff, ordered tau(t) multiplicity, all quotient sites >R, growing-radical Euler products, the PD.2 tail, and the eta=0 logarithmic consumer. Review rank only on the formal coordinate space. First controls are equality wall (1,1,4), R=10, and the missing <v_2,v_3> term. No independent ACCEPT is claimed by this author.
+
+**Analytic:** test whether an already-proved signed input controls the complete radical Gram BEFORE its weighted maximum, with H and unit mode retained. A Nyman or Hecke Gram has a different coefficient map; no transfer is supplied by a shared name. Today's DM E(1+V)>=1/768000 is read and remains a separate original-Nyman necessary restriction pending review, not a PD bound.
+
+**Owner:** for q=p^2 the raw daughter amplitude matches exactly, but all higher powers, mixed radicals, prime 2 and H cross terms remain. Check any proposed physical owner map at occurrence and coefficient level; do not reuse FA's proper-source positive historical composites as negative credit or commute an actual current mask through divisor completion.
+
+**Census:** the next useful test needs a NEW inequality on the complete A/H Gram, with constants and a null fixed before testing. Reuse these exact PD rows and earlier GC/DZ controls. Do not enlarge unchanged GC5/H_Z scans or claim that sparse support forces cancellation.
+
+**Lean Verification:** no immediate duplicate identity PR is requested. Subject to independent review and strategic priority, PD1 plus PD2 form one coherent supplier: literal common-divisor split, powerful multiplicity, exact inversion, then absolute historical bound. Reuse compiled restricted-floor/Newton infrastructure. The accepted same-signal OAI return remains the more direct implementation queue; PD4's open estimate must never be an axiom or hidden premise.
+
+### L. First Independently Missing Theorem
+
+The precise arithmetic gap is a new original-coefficient restriction on
+
+```text
+||H_R - sum_(d squarefree,d^2<R) A_R(d)v_d||_2,
+```
+
+stronger than substituting the known Mertens power, with all constants chosen before R. One sufficient version is PD.OPEN for some fixed eta<b_base-1/2, followed by GD4; it is not claimed weaker or independently paid. Another is a joint H/E inequality that avoids the stronger component norm. A proof of sign coherence alone would still leave magnitude unbounded. No presently inspected theorem independently excludes PD.4's actual powerful witness.
+
+### M. Next-Run Resume Capsule
+
+Resume from PD1-PD3, not fresh wheel counts or the already accepted GD equivalence. Main `dda92f9ce59627b4c1f1317082f728648d330a0a`; checkpoint `6a0491c163ee24de79b13f9e9606ea2c5dffe784`. GD1-GD4 are now independently ACCEPTED_ON_PAPER; PD claims are SELF_AUDIT / REVIEW_PENDING / NOT_FORMALIZED. #1131 merged; global b_base unchanged. Canonical VF, finite A/C, complete wheel bound, original #915 payment and RH remain OPEN.
+
+Highest-value next question: can the forced radical Gram, not mere denominator sparsity, exclude a large complete small-gcd mode using genuinely new arithmetic? First falsifier R=10; complete H/E cross retained. Formal data rank is not independence of actual M values. The all-positive-loss powerful-norm family is RH-strength. No new accepted route or VERIFIED_ETA.
+
+Execution limitations: direct git fetch was unavailable (CONNECT tunnel 403); authoritative reads and publication used the configured GitHub connector. No local Lean ran. No main/source/other-report edits, proof branches, PRs, workflow launches, merges, agent launches, schedule changes or permission changes occurred. All arithmetic programs finished. Publication status is governed by immutable readback after this synthesis, not by this preparation text.
+
+
+### Source And Continuity Ledger - PD
+
+Final authority/status refresh: **2026-11-11 15:35:55 UTC / 10:35:55 EST**. Main remains `dda92f9ce59627b4c1f1317082f728648d330a0a`; agent-reports remains this run's verified checkpoint `6a0491c163ee24de79b13f9e9606ea2c5dffe784`. The open-PR collection is EMPTY, including drafts. All six other November 11 role blobs and both Coordinator mirrors are unchanged from intake. Therefore no newer report or main-source change appeared during this derivation. This is observed execution evidence, not an inference from schedules.
+
+Both November 11 and November 10 were read using the America/New_York calendar. **TODAY=AVAILABLE for all seven roles; YESTERDAY=CARRY_FORWARD** for the verified predecessor derivations. A timestamp in the table is the author's recorded publication verification, not a claim that this run repeated the entire author's experiment. Full report bytes and the relevant review arguments were retrieved; the new PD arithmetic is independently reconstructed by the two algorithms below, but both remain this author's SELF_AUDIT.
+
+| Date / role | Retrieved full-report blob | Original claims consumed; current scope | Recorded verification / substantive commit |
+| --- | --- | --- | --- |
+| Nov 11 Coordinator | `106f6d88708a7545caab43c56ae1bbb915fd97f2` | `20261111-coordinator-0710-EST`, M2 asks for pre-GD.13 inverse structure; FL1-FL5 remain paper/self-audit; NP1-NP3 independently accepted ON PAPER by Coordinator. | 12:46:58 UTC; `211dbc59d025d39cb72705f9eb9b450ee453b5db` |
+| Nov 11 Owner | `accf2930372234b58e98e8e43e88aeb845b56e9b` | `20261111-owner-1/MC`: actual-mask commutator, r=10,p=3,b=101/115 opposite signs. `20261111-owner-2/FA`: historical composite ancestor support, E_r<=2r and proper-source positive cost <=36r/log^2(r); not full marked payment. Independent FA review pending. | 08:36:30 EST; `b3d5d8dcf49a22ec1e98448c192e14a26a35e978` |
+| Nov 11 Analytic | `0309d49557af30da43a07d72dce93c93c1811157` | `20261111-analytic-1/NT` accepted ON PAPER by Referee NP; `20261111-analytic-2/DM1-DM4` full Nyman error/variance E(1+V)>=1/768000, self-audit pending review. DM5 is 49359 finite checks, not density. | 14:37:30 UTC; `a77c077555a80b5726dc18762c68c084d237778b` |
+| Nov 11 Wheel, earlier run | `dbf68d8f8b1737b4b585811dae014329614ec595` | `20261111-wheel-1/GD1-GD4` independently ACCEPTED_ON_PAPER by Referee NP, superseding this earlier report's review-pending wording. GD5 remains finite. | 07:36:36 UTC; `a32bc3548eeb0daa7bd616380309f244bd71f78b` |
+| Nov 11 Census | `49c1c48f672cf96c93909bd2b412d95bb3587d62` | `20261111-census-1/DZ`: H_Z remains a conjecture after 331 eligible roots. R=7 divisor weighting increases cross by +10, independently reproduced by Referee; no favorable-cross explanation. | 08:45:21 UTC; `8734c6b725119f549f8905cfb6f8d186ea2d981f` |
+| Nov 11 Referee | `214e99d8d6133e720f9645dd650a57b01a8c05cf` | `20261111-referee-1/NP` ACCEPTS GD1-GD4, NT1-NT3 and FFR1-FFR4 at PAPER scopes. NP1-NP3 now separately accepted by Coordinator. No review of PD has yet occurred. | 09:39:40 UTC; `699de1abd45c69c0b4b579e30ca0bff686d13337` |
+| Nov 11 Lean | `c86b058b6387de7348b123b22b8f5b8772d5ae9a` | `20261111-lean-1/FFR-MASS/LABEL/DELAY/LIMIT`: compiled finite supplier, same exact head checked here. Its historical UNMERGED status is superseded by verified human merge #1131 at 12:46:15 UTC, not by inference. | 10:55:01 UTC; `1f7a42287e913198c823049fcde303e5e75a8354` |
+| Nov 10 Coordinator | `4d55b2893f974656c6aa14e48b243827fa8308f8` | `20261110-coordinator-2309-EST/FFR1-FFR4`: now independently accepted ON PAPER by Referee NP; same IR boundary, not an additional improvement. | Nov 11 04:36:23 UTC, Nov 10 NY date; `ce6a9344d7f86add41d7defd2a645e31bb8ae70d` |
+| Nov 10 Owner | `84afec90414b2394a61b51df46c07b6b540e5942` | `20261110-owner-3/DR`: coherent same-integer reinforcement at R=6,n=30, q=78 repair fails at R=16; proper complete defect bound not original full payment. | 16:43:55 EST; `a565c31085995987d38f2e46b6d6224fe21e18eb` |
+| Nov 10 Analytic | `7ed3a39bec4796f4173b692064af872ea8035048` | `20261110-analytic-3/IR1-IR4`: full response and b_IR independently accepted ON PAPER by Referee IRR, endpoint not compiled. | 22:38:54 UTC; `494509e00315ca7616ce235594ea098d14fc52dc` |
+| Nov 10 Wheel | `62406503a1ddbbf9330abcdc4cf761f7fbf05795` | `20261110-wheel-3/RC1-RC5`: complete reciprocal radical identity and auxiliary logarithmic bound. `20261110-wheel-2/JC`: CORR4 upper eight bands and full mixed costs retained. No arbitrary-mask commutation. | 23:34:46 UTC; `4769b57101fbc0821dbc43110e837b05b7442302` |
+| Nov 10 Census | `a3cfa56072f3893dbf92a18956e1794236bde057` | `20261110-census-2/GC`: C_15(2)=-6; coarse coprime/shared opposition false at R=17,549. GC5 remains CONJECTURE, not used in PD. | Nov 11 00:19:48 UTC, Nov 10 NY date; `d48d9ca10f0afdddef44c39c992b6aad0fec055e` |
+| Nov 10 Referee | `6529562a5bb21fa192fddadaa91a758b9d125c29` | `20261110-referee-3/IRR`: MD/IR ACCEPTED_ON_PAPER; GC5 finite reproduction through R=2000 is not proof. Coherent critical response obstruction remains model-scoped. | 20:37 EST; `ce3f4087703d1ea869af4564481110d6ff62d8d5` |
+| Nov 10 Lean | `682b334b8f37fa4bfe2d552a1142d852a0db2afd` | `20261110-lean-3/MD`: earlier #1131 finite product approximation; superseded implementation head checked, old result preserved. | Latest receipt has no explicit timestamp; `55f669489a46b1660b5fc85dfbc774f714c8639a` |
+
+External inbox: `research/agent_reports/EXTERNAL_HANDOFFS.md`, blob `038018145c0fddb2f6306c0712373adf9cd1ea52`, retrieved from agent-reports. Newest entries remain October 18. `EXT-20261018-PNT-1` retains the exact cofactor-weighted Mertens/prime coupling, not an independent small signed response. `EXT-20261014-5` concerns an unconditional all-R denominator claim, not every conditional first-bad strategy. No new external paper or unverified literature theorem is used in PD.
+
+The following are actual main file blobs at the pinned source commit, not report paraphrases. The main tree and fetched source contents are the authority for the definitions and dependency comparisons.
+
+| Main path | Blob SHA | Inspected role |
+| --- | --- | --- |
+| `AGENTS.md` | `c9c89f01b90b526de9f3e8ea92478e36504711b6` | Priority, own-report-only permission and proof integrity |
+| `CURRENT_PROOF_CONTRACT.md` | `95566e37c8eaeb99ee680660df4f9d2e06ea5038` | Canonical theorem and open premises |
+| `docs/RHLEAN_CROSS_ROUTE_SIGNED_RECOVERY_20261110.md` | `e922d4ba9362a1ae196af8f6de88f7417f92087c` | Five-stage governing directive |
+| `docs/DYNAMIC_RESEARCH_AGENTS.md` | `0f0b63a82380e18068ab7f3c317feafd66939290` | Continuity and publication safeguards |
+| `docs/COORDINATE_ATLAS.md` | `cd0419d00a37739fe5a292f5cb738e33213949d5` | Typed source bridges and barriers |
+| `research/EULER_FRACTIONAL_COUPLED_20261027.lean` | `e6c4b1690e497760d366e36b28a1f7aa60e19f85` | Original Euler bilinear floor source |
+| `research/EULER_SELF_DUAL_POINTWISE_20261027.lean` | `c327c556f39ee7014fd774b24d0f95a1ece050e0` | Endpoint reconstruction and exact carriers |
+| `research/EULER_SELF_DUAL_ENDPOINT_GATE_20261027.lean` | `e7ee8f77ffd59bccaa49dd6d74fbe0d7952c2d73` | Conditional source consumer |
+| `RHLean/Analysis/FiniteWheelRestrictedFloor.lean` | `94c4d4420fc58cd87d92780c6265decd2cad7e66` | Rough/smooth Mobius convolution supplier |
+| `research/MERTENS_SIGNED_HYPERBOLA.lean` | `d199571f19346797229a25b0fa53c6e80499999f` | Exact signed rectangular support |
+| `research/oai_434/VF919WindowErrorClosure.lean` | `f629db1b2b65d6ec042ac9432397d4b6316200c6` | Current compiled global endpoint |
+| `research/oai_434/VF919NativeStrictMertens.lean` | `b33a4883e1ddb0551b0f11f062bce46680d87450` | Native arithmetic transfer |
+| `scripts/lean/window_error_closure/WindowErrorClosureAudit.lean` | `1f17f9401a63d16227db2e2aad020b9f74bc5f4e` | Selected live dependency roots |
+| `research/oai_434/VF919ExplicitSquareBlockPacking.lean` | `32999039fdeea99c58a070c1c4ee9c140720dd44` | Actual packed fixed-source count |
+| `research/oai_434/VF919ExplicitFixedSourceSlotCount.lean` | `bad5aab0a60e96d19e7c9550cd7c0a072288bc0f` | Older count at the same fine length |
+| `RHLean/Analysis/MertensPowerGrowth.lean` | `ae855e8212fa8f12bc225a4d60af004ebd002f7d` | Every-positive-loss growth quantifiers |
+| `research/MERTENS_EXPONENT_ENVELOPES.lean` | `655b896e8d5a41c9f8fc3c456eae3944a98bfefe` | Native historical envelope |
+| `research/FiniteWheelCofactorPositivity.lean` | `f83a3daefc2b9d603014af912ec82b4a7f52cfac` | Proper-source positivity, not PD Gram |
+| `research/DyadicPrimeNearResonance.lean` | `f416e0149b73656e30a7f68a3934a937353d3f8d` | Shared-prime resonance scope |
+| `research/CompleteSquareRootWheelFractionalBoundary.lean` | `ecb482e52deeee5e9b3853592a3ffdace662d2ff` | Full virtual-wheel compensation |
+| `research/CompleteWheelRootAdmission.lean` | `a412632c1028d7728cd8d87ee6e5ac365377d338` | Genuine root admission |
+| `research/TWOAB_RENEWAL_COMPLETE_BAND_20261108.lean` | `028d9f2bbfa1a8de1fe63e9bd368aca13aae6825` | Complete reciprocal band supplier |
+| `research/CORR4_OAI_POWER_MIXED_TAIL_GATE_20261025.lean` | `bb0ee1252e7ba10c44ae5b8d827573d6c581b73a` | Complete CORR4 mixed-tail bill |
+| `research/LOW_OWNER_PHYSICAL_AMPLITUDE_TRANSPORT.lean` | `72d66f61b3eeb000117ecdac393572558bb7c378` | Literal p-squared raw daughter amplitude |
+| `RHLean/Proof/SignedTransportAmplificationAudit.lean` | `746f35f126f36e024d39e38c92dde30aabca266b` | Raw squared-child cutoff |
+| `research/oai_434/VF919OriginalLowTupleSignedGram.lean` | `dd2fde01ae6e2446da4e69b30f6fc80fcadb858d` | Different ideal-labelled signed Gram |
+| `research/VF_CANONICAL_SQRT_TWO_VON_KOCH.lean` | `79030d70e8d3e0d08eef9bac53fef95c36eca2fb` | Explicit classical criterion in canonical consumer |
+
+The fresh main tree additionally places the exact tested #1131 modules `research/oai_434/VF919PrincipalFiniteResponse.lean` at `8c7f21b34402758b18ce42f4484f518c4090c105` and `research/oai_434/VF919PrincipalResponseMass.lean` at `5f7e812108ff7eff4a60da7055c2dd5f852c4941`. The dedicated job inspected directly reports finite-response root closure sizes 618,647,660,730,735,197 and mass/delay closure sizes 422,533,182,841,230,223,101,85. Its exact theorem/standard-axiom checks certify these scopes; the complete Mellin endpoint is not among them.
+
+### Reproducible Exact Arithmetic - PD
+
+The following programs and outputs are the executed bytes, not pseudocode. Standard C++20 and Python standard library only. The independent program uses rational finite majorants: its inverse check replaces sqrt(tau(rad(q))) by tau(rad(q)) and uses the finite c=1 sum; its history check uses rational upper bounds for w(p). These finite checks supplement the all-scale paper proofs and do not numerically approximate the infinite Euler products.
+
+Reproduction commands after extracting the code blocks under the displayed filenames:
+
+```sh
+g++ -O2 -std=c++20 -Wall -Wextra -Werror pd_check.cpp -o pd_check
+./pd_check
+python -m py_compile pd_independent.py
+python pd_independent.py
+```
+
+| Executed artifact | SHA-256 |
+| --- | --- |
+| `pd_check.cpp` | `01c561e016c1f27518e2661d15ee0fe62e35f3363c7951b799ce16fa3cff7f79` |
+| `pd_check.out` | `7cc53e8ffba751e1ba7d7c1a6106a9de0483d626a56ede467ca141d9f48a0910` |
+| `pd_independent.py` | `3c40406ac6c895f6f91bcc1e7759cc880fec2bfc8059bdbcb7ece4af7a6d6b92` |
+| `pd_independent.out` | `a04b5a7a0e7cd08ec4fe37d102ae70eb3b9cd344c85592b81a2e2d91be93e7e6` |
+
+
+#### Executed pd_check.cpp
+
+```cpp
+#include <algorithm>
+#include <cassert>
+#include <cstdint>
+#include <iostream>
+#include <numeric>
+#include <vector>
+
+using i64 = std::int64_t;
+
+std::vector<int> prime_factors(int n) {
+    std::vector<int> out;
+    for (int p = 2; p * p <= n; ++p) {
+        if (n % p != 0) continue;
+        out.push_back(p);
+        while (n % p == 0) n /= p;
+    }
+    if (n > 1) out.push_back(n);
+    return out;
+}
+
+std::vector<int> smooth(int d, int bound) {
+    std::vector<int> out{1};
+    for (int p : prime_factors(d)) {
+        const auto old = out;
+        for (int h : old)
+            for (i64 t = static_cast<i64>(h) * p; t <= bound; t *= p)
+                out.push_back(static_cast<int>(t));
+    }
+    std::sort(out.begin(), out.end());
+    return out;
+}
+
+int main() {
+    std::vector<int> roots;
+    for (int r = 2; r <= 100; ++r) roots.push_back(r);
+    for (int r : {127, 256, 549, 5561}) roots.push_back(r);
+    const int limit = roots.back() * roots.back() - 1;
+    std::vector<std::int8_t> mu(limit + 1, 1);
+    std::vector<bool> prime(limit + 1, true);
+    mu[0] = 0;
+    for (int p = 2; p <= limit; ++p) {
+        if (!prime[p]) continue;
+        for (int n = p; n <= limit; n += p) {
+            mu[n] = -mu[n];
+            if (n > p) prime[n] = false;
+        }
+        const i64 square = static_cast<i64>(p) * p;
+        if (square <= limit)
+            for (i64 n = square; n <= limit; n += square) mu[n] = 0;
+    }
+    std::vector<int> m(limit + 1);
+    for (int n = 1; n <= limit; ++n) m[n] = m[n - 1] + mu[n];
+
+    i64 pairs = 0, rectangles = 0, coefficients = 0, gram_checks = 0;
+    i64 future_labels = 0, column_checks = 0, history_tail_groups = 0;
+    int first_positive_cross = 0, first_negative_cross = 0;
+    int first_positive_mixed = 0, first_negative_mixed = 0;
+    std::cout << "R,Q,D_G,H2,E2,mixed,nonunit_cross,powerful_count,radical_count,K_num,K_den\n";
+    for (int r : roots) {
+        const int n = r - 1;
+        const i64 x = static_cast<i64>(r) * r - 1;
+        std::vector<i64> c(r), s(r), hc(r), ec(r), h(r), e(r), a(r);
+        for (int u = 1; u < r; ++u) {
+            if (!mu[u]) continue;
+            for (int v = u; v < r; ++v) {
+                if (!mu[v]) continue;
+                const int multiplicity = u == v ? 1 : 2;
+                c[std::gcd(u, v)] += multiplicity * mu[u] * mu[v] * (x / (u * v));
+                pairs += multiplicity;
+            }
+        }
+        for (int d = 1; d < r; ++d) {
+            for (int g = d; g < r; g += d) s[d] += c[g];
+            if (!mu[d]) { assert(s[d] == 0); continue; }
+            const int b = n / d;
+            const auto hs = smooth(d, b);
+            for (int u : hs) for (int v : hs) {
+                const int aa = b / u, bb = b / v;
+                const i64 q = static_cast<i64>(d) * d * u * v;
+                const int t = static_cast<int>(x / q);
+                assert(aa <= t && bb <= t && t < (aa + 1) * (bb + 1));
+                hc[d] += m[aa] + m[bb];
+                if (t < r) hc[d] -= m[t];
+                else {
+                    ec[d] += m[t];
+                    assert(q <= n && t > r);
+                    ++future_labels;
+                }
+                assert((t >= r) == (q <= n));
+                ++rectangles;
+            }
+            assert(s[d] == hc[d] - ec[d]);
+        }
+        int powerful_count = 0;
+        for (int q = 1; q <= n; ++q) {
+            int rest = q, rad = 1, weight = 1;
+            for (int p = 2; p * p <= rest; ++p) {
+                if (rest % p != 0) continue;
+                int exponent = 0;
+                while (rest % p == 0) { rest /= p; ++exponent; }
+                rad *= p;
+                weight *= exponent - 1;
+            }
+            if (rest > 1) { rad *= rest; weight = 0; }
+            if (!weight) continue;
+            ++powerful_count;
+            a[rad] += weight * m[x / q];
+            assert(static_cast<i64>(rad) * rad <= q);
+            i64 col_sum = 0, col_norm = 0;
+            for (int g = 1; g <= rad; ++g) if (rad % g == 0) {
+                const int z = mu[rad / g];
+                e[g] += static_cast<i64>(weight) * z * m[x / q];
+                col_sum += z;
+                col_norm += z * z;
+            }
+            assert(col_sum == (q == 1 ? 1 : 0));
+            assert(col_norm == (1LL << prime_factors(rad).size()));
+            ++column_checks;
+        }
+        for (int d = 1; d < r; ++d) assert(a[d] == ec[d]);
+        int radical_count = 0;
+        for (int d = 1; d * d <= n; ++d) if (mu[d]) ++radical_count;
+        assert(static_cast<i64>(powerful_count) * powerful_count <= 9LL * n);
+        for (int g = 1; g < r; ++g) {
+            i64 future = 0;
+            for (int k = 1; g * k < r; ++k) {
+                h[g] += mu[k] * hc[g * k];
+                future += mu[k] * ec[g * k];
+            }
+            assert(e[g] == future);
+            assert(c[g] == h[g] - e[g]);
+            if (g * g > n) { assert(e[g] == 0 && c[g] == h[g]); ++history_tail_groups; }
+            ++coefficients;
+        }
+        i64 h2 = 0, e2 = 0, dg = 0, mixed = 0, nonunit_diag = 0;
+        i64 nonunit_norm = 0, gram_energy = 0;
+        for (int g = 1; g < r; ++g) {
+            h2 += h[g] * h[g]; e2 += e[g] * e[g]; dg += c[g] * c[g];
+            mixed -= 2 * h[g] * e[g];
+            const i64 f = e[g] - (g == 1 ? m[x] : 0);
+            nonunit_norm += f * f;
+        }
+        for (int d = 1; d * d <= n; ++d) if (mu[d]) {
+            if (d > 1) nonunit_diag += (1LL << prime_factors(d).size()) * a[d] * a[d];
+            for (int z = 1; z * z <= n; ++z) if (mu[z]) {
+                i64 dot = 0;
+                for (int g = 1; g <= std::min(d, z); ++g)
+                    if (d % g == 0 && z % g == 0) dot += mu[d / g] * mu[z / g];
+                const i64 formula = mu[d] * mu[z] * (1LL << prime_factors(std::gcd(d, z)).size());
+                assert(dot == formula);
+                gram_energy += formula * a[d] * a[z];
+                ++gram_checks;
+            }
+        }
+        assert(gram_energy == e2);
+        assert(dg == h2 + e2 + mixed);
+        const i64 qsum = std::accumulate(c.begin(), c.end(), i64{0});
+        assert(std::accumulate(h.begin(), h.end(), i64{0}) == 2LL * m[n]);
+        assert(std::accumulate(e.begin(), e.end(), i64{0}) == m[x]);
+        assert(qsum == 2LL * m[n] - m[x]);
+        const i64 cross = nonunit_norm - nonunit_diag;
+        if (cross > 0 && !first_positive_cross) first_positive_cross = r;
+        if (cross < 0 && !first_negative_cross) first_negative_cross = r;
+        if (mixed > 0 && !first_positive_mixed) first_positive_mixed = r;
+        if (mixed < 0 && !first_negative_mixed) first_negative_mixed = r;
+        i64 kn = 1, kd = 1;
+        for (int t = 0; t < r; ++t) {
+            const i64 num = static_cast<i64>(m[t] - 1) * (m[t] - 1);
+            if (num * kd > kn * (t + 1)) { kn = num; kd = t + 1; }
+        }
+        const i64 reduce = std::gcd(kn, kd); kn /= reduce; kd /= reduce;
+        if (r <= 10 || r == 15 || r == 17 || r == 56 || r > 100 ||
+            r == first_positive_cross || r == first_negative_cross || r == first_positive_mixed)
+            std::cout << r << ',' << qsum << ',' << dg << ',' << h2 << ',' << e2 << ','
+                      << mixed << ',' << cross << ',' << powerful_count << ',' << radical_count
+                      << ',' << kn << ',' << kd << '\n';
+    }
+    assert(m[1] + m[1] - m[4] == 3);
+    assert(4 != m[1] + m[1] - m[4]);
+    std::cout << "PASS roots=" << roots.size() << " limit=" << limit << " pairs=" << pairs
+              << " rectangles=" << rectangles << " coefficients=" << coefficients
+              << " future_labels=" << future_labels << " columns=" << column_checks
+              << " gram_checks=" << gram_checks << " history_tail_groups=" << history_tail_groups << '\n';
+    std::cout << "FIRST cross_positive=" << first_positive_cross << " cross_negative="
+              << first_negative_cross << " mixed_positive=" << first_positive_mixed
+              << " mixed_negative=" << first_negative_mixed << '\n';
+}
+```
+
+
+#### Executed pd_check.out
+
+```text
+R,Q,D_G,H2,E2,mixed,nonunit_cross,powerful_count,radical_count,K_num,K_den
+2,3,9,4,1,4,0,1,1,1,1
+3,2,4,8,4,-8,0,1,1,1,1
+4,-1,35,46,1,-12,0,1,1,1,1
+5,0,104,110,2,-8,0,2,2,1,1
+6,-3,299,242,5,52,0,2,2,3,2
+7,1,55,56,5,-6,0,2,2,3,2
+8,-3,201,192,1,8,0,2,2,3,2
+9,0,274,192,26,56,0,3,2,3,2
+10,-5,523,166,121,236,24,4,3,3,2
+15,-7,223,156,101,-34,16,4,3,3,2
+17,5,173,618,201,-646,88,5,3,3,2
+40,7,8785,14220,855,-6290,-56,9,5,3,2
+56,-10,12810,21016,1332,-9538,270,10,6,3,2
+127,33,61309,89682,3011,-31384,2876,17,8,3,2
+256,-16,68992,107116,5068,-43192,-7826,25,11,3,2
+549,-186,213476,305112,70326,-161962,-14846,39,16,3,2
+5561,2554,19073482,31666626,7169554,-19762698,-692306,137,47,3,2
+PASS roots=103 limit=30924720 pairs=11689857 rectangles=39223 coefficients=11439 future_labels=2254 columns=1094 gram_checks=5154 history_tail_groups=10701
+FIRST cross_positive=10 cross_negative=40 mixed_positive=2 mixed_negative=3
+```
+
+
+#### Executed pd_independent.py
+
+```python
+"""Exact PD checks with trial factoring and quotient-block Mertens recurrence."""
+
+from collections import Counter
+from fractions import Fraction as F
+from functools import lru_cache
+from math import gcd, isqrt
+import json
+
+
+@lru_cache(None)
+def factors(n):
+    out = []
+    p = 2
+    while p * p <= n:
+        if n % p == 0:
+            e = 0
+            while n % p == 0:
+                n //= p
+                e += 1
+            out.append((p, e))
+        p += 1
+    if n > 1:
+        out.append((n, 1))
+    return tuple(out)
+
+
+def mu(n):
+    fs = factors(n)
+    return 0 if any(e > 1 for _, e in fs) else (-1) ** len(fs)
+
+
+@lru_cache(None)
+def mertens(n):
+    if n == 0:
+        return 0
+    value, left = 1, 2
+    while left <= n:
+        q = n // left
+        right = n // q
+        value -= (right - left + 1) * mertens(q)
+        left = right + 1
+    return value
+
+
+def powerful(q):
+    return all(e >= 2 for _, e in factors(q))
+
+
+def radical(q):
+    ans = 1
+    for p, _ in factors(q):
+        ans *= p
+    return ans
+
+
+def weight(q):
+    ans = 1
+    for _, e in factors(q):
+        ans *= e - 1
+    return ans
+
+
+def divisors(n):
+    return [d for d in range(1, n + 1) if n % d == 0]
+
+
+def column(d, n):
+    return [0] + [mu(d // g) if d % g == 0 else 0 for g in range(1, n + 1)]
+
+
+def wbar(d):
+    value = F(1)
+    for p, _ in factors(d):
+        value *= F(12) if p < 5 else F(isqrt(p), isqrt(p) - 1) ** 2
+    return value
+
+
+counts = Counter()
+rows = []
+witnesses = {}
+for r in list(range(2, 61)) + [127, 256, 549, 5561]:
+    n, x = r - 1, r * r - 1
+    hc = [0] * r
+    ec = [0] * r
+    for d in range(1, r):
+        if not mu(d):
+            continue
+        b = n // d
+        hs = [h for h in range(1, b + 1) if all(d % p == 0 for p, _ in factors(h))]
+        for h in hs:
+            for k in hs:
+                t = x // (d * d * h * k)
+                hc[d] += mertens(b // h) + mertens(b // k)
+                if t <= n:
+                    hc[d] -= mertens(t)
+                else:
+                    ec[d] += mertens(t)
+    hvec = [0] + [sum(mu(k) * hc[g * k] for k in range(1, n // g + 1))
+                   for g in range(1, r)]
+    evec = [0] * r
+    by_radical = [0] * r
+    future_points = []
+    l_one = F(0)
+    v_one = 0
+    for q in range(1, r):
+        if not powerful(q):
+            continue
+        d, aq, t = radical(q), weight(q), x // q
+        future_points.append(t)
+        by_radical[d] += aq * mertens(t)
+        col = column(d, n)
+        assert sum(col) == int(q == 1)
+        for g in range(1, r):
+            evec[g] += aq * mertens(t) * col[g]
+        if q > 1:
+            l_one += F(aq * len(divisors(d)), q)
+            v_one = max(v_one, q * abs(mertens(t)))
+        counts['columns'] += 1
+    assert by_radical == ec
+    assert len(future_points) == len(set(future_points))
+    assert min(future_points) > r
+    cvec = [h - e for h, e in zip(hvec, evec)]
+    if r <= 549:
+        direct = [0] * r
+        for a in range(1, r):
+            for b in range(1, r):
+                direct[gcd(a, b)] += mu(a) * mu(b) * (x // (a * b))
+        assert cvec == direct
+        counts['direct_roots'] += 1
+    assert sum(hvec) == 2 * mertens(n)
+    assert sum(evec) == mertens(x)
+    assert all(evec[g] == 0 for g in range(isqrt(n) + 1, r))
+    fvec = evec.copy()
+    fvec[1] -= mertens(x)
+    assert sum(fvec) == 0
+    assert sum(z * z for z in fvec) <= (l_one * v_one) ** 2
+    counts['finite_inverse_bounds'] += 1
+    kn = max(F((mertens(t) - 1) ** 2, t + 1) for t in range(r))
+    if r <= 60:
+        for g in range(1, r):
+            upper = 9 * r * wbar(g) / g * sum(
+                (F(wbar(k), k) for k in range(1, n // g + 1) if mu(k)), F(0))
+            assert hvec[g] ** 2 <= kn * upper ** 2
+            counts['rational_history_bounds'] += 1
+    hs = sum(z * z for z in hvec)
+    es = sum(z * z for z in evec)
+    mixed = -2 * sum(h * e for h, e in zip(hvec, evec))
+    dg = sum(z * z for z in cvec)
+    assert dg == hs + es + mixed
+    if r in [10, 15, 17, 40, 56, 127, 256, 549, 5561]:
+        rows.append([r, sum(cvec), dg, hs, es, mixed, str(kn)])
+    if r in [10, 40]:
+        witnesses[r] = {"A": [[d, ec[d]] for d in range(1, isqrt(n) + 1) if mu(d)],
+                        "H": hvec[1:], "E": evec[1:]}
+    counts['all_roots'] += 1
+
+v2, v3, v6 = (column(d, 6) for d in (2, 3, 6))
+assert sum(x * y for x, y in zip(v2, v3)) == 1
+assert sum(x * y for x, y in zip(v2, v6)) == -2
+assert sum(v2) == 0 and v2[1] == -1
+assert 4 != mertens(1) + mertens(1) - mertens(4) == 3
+counts['negative_controls'] = 4
+assert mertens(549 * 549 - 1) == 192
+assert mertens(5561 * 5561 - 1) == -2544
+print(json.dumps({"status": "PASS_INDEPENDENT_EXACT", "counts": dict(counts),
+                  "rows": rows, "witnesses": witnesses,
+                  "recurrence_cache": mertens.cache_info()._asdict()}, indent=2))
+```
+
+
+#### Executed pd_independent.out
+
+```json
+{
+  "status": "PASS_INDEPENDENT_EXACT",
+  "counts": {
+    "columns": 611,
+    "direct_roots": 62,
+    "finite_inverse_bounds": 63,
+    "rational_history_bounds": 1770,
+    "all_roots": 63,
+    "negative_controls": 4
+  },
+  "rows": [
+    [
+      10,
+      -5,
+      523,
+      166,
+      121,
+      236,
+      "3/2"
+    ],
+    [
+      15,
+      -7,
+      223,
+      156,
+      101,
+      -34,
+      "3/2"
+    ],
+    [
+      17,
+      5,
+      173,
+      618,
+      201,
+      -646,
+      "3/2"
+    ],
+    [
+      40,
+      7,
+      8785,
+      14220,
+      855,
+      -6290,
+      "3/2"
+    ],
+    [
+      56,
+      -10,
+      12810,
+      21016,
+      1332,
+      -9538,
+      "3/2"
+    ],
+    [
+      127,
+      33,
+      61309,
+      89682,
+      3011,
+      -31384,
+      "3/2"
+    ],
+    [
+      256,
+      -16,
+      68992,
+      107116,
+      5068,
+      -43192,
+      "3/2"
+    ],
+    [
+      549,
+      -186,
+      213476,
+      305112,
+      70326,
+      -161962,
+      "3/2"
+    ],
+    [
+      5561,
+      2554,
+      19073482,
+      31666626,
+      7169554,
+      -19762698,
+      "3/2"
+    ]
+  ],
+  "witnesses": {
+    "10": {
+      "A": [
+        [
+          1,
+          1
+        ],
+        [
+          2,
+          -6
+        ],
+        [
+          3,
+          -2
+        ]
+      ],
+      "H": [
+        -12,
+        2,
+        -1,
+        0,
+        3,
+        2,
+        2,
+        0,
+        0
+      ],
+      "E": [
+        9,
+        -6,
+        -2,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    "40": {
+      "A": [
+        [
+          1,
+          -7
+        ],
+        [
+          2,
+          -24
+        ],
+        [
+          3,
+          -5
+        ],
+        [
+          5,
+          -1
+        ],
+        [
+          6,
+          -3
+        ]
+      ],
+      "H": [
+        79,
+        -74,
+        -39,
+        0,
+        -8,
+        25,
+        -12,
+        0,
+        0,
+        5,
+        -3,
+        0,
+        -3,
+        8,
+        1,
+        0,
+        1,
+        0,
+        0,
+        0,
+        3,
+        3,
+        3,
+        0,
+        0,
+        2,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        1,
+        1,
+        1,
+        0,
+        1,
+        1,
+        1
+      ],
+      "E": [
+        20,
+        -21,
+        -2,
+        0,
+        -1,
+        -3,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  },
+  "recurrence_cache": {
+    "hits": 3078083,
+    "misses": 11167,
+    "maxsize": null,
+    "currsize": 11167
+  }
+}
+```
+
+
+### Prepublication Validation - PD
+
+At 2026-11-11 15:38:23 UTC / 10:38:23 EST, validation passed all A-M sections and five directive stages, ASCII text, 50 balanced fence markers, seven consistent Markdown tables, all 27 listed main-source blob matches, exact embedding of both executed programs and outputs, the numerical summary rows, and agreement between the two algorithms' overlapping output rows. All four executed-artifact SHA-256 values were rechecked. The forthcoming update appends to a fresh current-file read; no earlier daily text is replaced.
+
+Research execution is complete at its stated PAPER_PROOF / SELF_AUDIT and FINITE_COMPUTATION scopes. Independent PD review and formalization are pending; PD.OPEN remains open. Publication itself is still READBACK_PENDING at this preparation point. The separate immutable-readback receipt below, only if actually committed and verified, closes that publication status.
