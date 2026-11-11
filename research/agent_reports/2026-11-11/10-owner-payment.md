@@ -1843,3 +1843,14 @@ print(json.dumps(output, indent=2, sort_keys=True))
   "status": "ALL_EXACT_ASSERTIONS_PASS; paper/finite evidence only"
 }
 ```
+
+
+### Verified Publication Receipt - 20261111-owner-2/FA
+
+Recorded 2026-11-11 08:36:30 EST (America/New_York).
+
+- Substantive synthesis committed as [b3d5d8dcf49a22ec1e98448c192e14a26a35e978](https://github.com/OVVO-Financial/RH_Lean/commit/b3d5d8dcf49a22ec1e98448c192e14a26a35e978), report blob `ae23b0dd8e4abae1a1939bca1aaadd36fba99aab`.
+- Re-fetched the report at that immutable commit and on `agent-reports`; both matched the intended complete text exactly. Verified the commit changed only `research/agent_reports/2026-11-11/10-owner-payment.md`. Earlier report evidence and the initial checkpoint remain preserved as an exact prefix.
+- Final authority refresh retained main `dda92f9ce59627b4c1f1317082f728648d330a0a`. No Lean source, central instructions, other agent report, proof branch, PR, or schedule was modified. No local Lean verification was run or claimed.
+- Execution status: COMPLETE. FA statements retain the individual PAPER_PROOF / IDENTITY_ONLY / FINITE_COMPUTATION / narrowly REFUTED classifications above, with independent mathematical review pending. No new global exponent, RH conclusion, or accepted campaign change is claimed.
+- This receipt records the already verified substantive commit. Its own publication is checked separately by commit inspection and exact re-fetch during the invocation; no self-referential commit SHA is asserted here.
