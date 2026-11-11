@@ -1544,3 +1544,1439 @@ Original definitions read in EULER_FRACTIONAL_COUPLED_20261027.lean (e6c4b1690e4
 The paid recovery candidates are exact divisor/floor and cofactor decompositions, not a hidden sign estimate. The test asks whether their true masks justify a favorable COMPLETE grouping inequality. Even a positive finite result would leave a uniform D_G bound relative to K_R unpaid. Owner DR/Wheel RC complete auxiliary defect work and Analytic IR/Coordinator MD paper endpoint proposals remain distinct carriers/statuses.
 
 Next: execute the frozen tests, independently reconstruct any failure, map the precise lost interaction, and append checked findings without changing this registration or earlier daily evidence. No Lean execution, source modification, agent launch, schedule change, or new proof route is authorized or claimed.
+
+
+## Shared-GCD Cancellation Is Not Preserved By Coarsening - 20261110-census-2/GC
+
+### A. Most Important Mathematical Discovery
+
+**On the complete historical Mobius floor source, fine gcd groups can compensate while the coprime and noncoprime totals reinforce.** At R=17 the complete source has C(1)=4 and sum_(g>=2)C(g)=1. Their doubled cross term is +8, yet the cross term between all individual gcd groups is -148. The missing -156 is exactly the interaction INSIDE the noncoprime sector. At the required held-out R=549 the same reversal occurs: the binary cross term is +8848 while the fine cross term is -178880.
+
+Separately, the assertion that every shared-gcd group is nonnegative first fails at R=15, g=2, with C(2)=-6. Sharing a prime does not preserve a positivity theorem from a different cofactor carrier. These are refutations of the explicitly registered auxiliary rules, not of any canonical, first-bad, CORR4 or certified cofactor theorem.
+
+| Stable claim | Evidence classification | Scope |
+| --- | --- | --- |
+| 20261110-census-2/GC1 | REFUTED | H_POS: all shared-gcd groups nonnegative; smallest failure R=15, g=2. |
+| GC2 | REFUTED | H_SPLIT: coprime/noncoprime totals always oppose; smallest failure R=17. Exact fine-to-coarse sign reversals at R=17 and 549. |
+| GC3 | PAPER_PROOF | Elementary pair-product/squarepart sign classification and exact coarsening formula; supporting explanation, not a new global bound. SELF_AUDIT; not formalized. |
+| GC4 | FINITE_COMPUTATION | Two independent reconstructions agree at all 271 registered roots. Full Q, strict-history K, squares and all gcd groups retained. |
+| GC5 | CONJECTURE | H_CROSS: Q_R^2<=sum_g C_R(g)^2 for every integer R>=2. Survived the registered finite set only. |
+
+NET RESULT: **NO_NEW_GLOBAL_GAIN / NO_NEW_ACCEPTED_ROUTE / VERIFIED_ETA=NONE.** A finite sign conjecture plus an unproved norm bound is not admitted as a new proof route.
+
+### B. Current Authoritative Objective
+
+Actual scheduled trigger: 2026-11-10 19:00:01 EST, America/New_York. Run label 20261110-census-2/GC; platform RUN_ID_UNAVAILABLE. The complete preregistration was published and read back before any experiment: commit e3bcc5a3f02cf290f65adc01786b970fdaa6a2a2, blob a6957f29c50ebf54a408726863e95b608a8a4ffc. Original registration and all earlier daily evidence are preserved.
+
+`cross_route_ack=CROSS_ROUTE_SIGNED_RECOVERY_V1`. Source main is **f7947bee036c4dddb0c36fc9f53ab46b4fa90995**, fetched at invocation start. AGENTS c9c89f01b90b526de9f3e8ea92478e36504711b6 takes priority over the contract's older task-selection sentence; contract 95566e37c8eaeb99ee680660df4f9d2e06ea5038 leaves the mathematical target unchanged. The governing cross-route directive is e922d4ba9362a1ae196af8f6de88f7417f92087c.
+
+The canonical OPEN goal remains `VFCanonicalSquareVonKochStatement`: one C>=0 before all integers R>=2 such that |pi(R^2)-VF_can(R^2)|<=C R log R. Its VF consumer explicitly also takes `ClassicalVonKochRHCriterion`. The complete wheel source F_R-D_R=li(R^2-1)-pi(R^2-1) remains OPEN at the same scale, with every virtual divisor retained until exact Euler compensation. Neither is identified with the Q_R below.
+
+#### 1. BASELINE / DEPENDENCY RECEIPT
+
+The strongest applicable certified explicit baseline located is `RHLean.Analysis.native_mertens_near_uniform_window_error_closed`:
+
+```text
+b_base=7/8-7/(64*N_pack),
+forall epsilon>0, exists C_epsilon>=0, forall integer n>=1,
+  |M(n)|<=C_epsilon*n^(b_base+epsilon).
+```
+
+The exact source declaration has no desired-bound argument. Its proof goes through the native Hecke boundary, original source construction, complete total-mass probe, anchored HIGH, modulus-one Hecke/Dirichlet product, native zero-boundary and Mertens converse. Positive losses have NOT been deleted. A fixed power requires explicitly spending a positive epsilon.
+
+Inspected definitions give N_pack=ceil_nat(max(1,1/(6L)))+2 and N_old=ceil_nat(max(1,1/(3L)))+2, with the SAME positive `explicitFineLength` L. Thus N_pack<=N_old by monotonicity of max and ceiling, and 7/(64*N_pack)>1/(48*N_old). This is a valid comparison, not an identification of counts. It establishes the stated #1119 baseline as stronger than #1108's cited explicit boundary.
+
+Actual hosted run [42552018910](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42552018910), head 77ee815846d6d534c866f0752aa33b84c385610a, is completed/success. Its fetched job 128949473700 prints the five live proof-value closures, sizes 35358,35375,35736,35737,35753, and only propext, Classical.choice, Quot.sound. The audit source was read: it checks required live source dependencies, separately collects terminal axioms transitively, and checks the native arithmetic transfers. Repository-tree comparison found **988 pre-existing blobs unchanged** across RHLean, research/oai_434, relevant scripts/lean and workflow/toolchain selectors between that tested head and current main. This is reuse of exact-head evidence, not a new build at main.
+
+Observed compiler: Lean 4.34.1, commit 5045d0056413266e57c625dcd7c365b10e377c52. Observed pinned OpenAI upstream: 1581d4cbdd69a0faf34b2089614fe2a814316a6a; Mathlib d13f23b723b8a846827a245b89c10fc7d3f11612. This invocation audited the source interfaces and existing hosted evidence, not an independent mathematical reproof of the upstream analytic corpus. No imported classical premise is silently equated with an arithmetic estimate.
+
+#1130 is actually MERGED at current main; its earlier Lean-report UNMERGED label is stale. Run 42877550772 at exact head 4aa22782d10b3ad77dc970d6bb610eaab93a228c is completed/success. Inspected `principal_slot_signed_error` assumes Q>=480, norm(A)<=1, norm(eta)=1, Re(s)>=7/8 and proves a retained local signed remainder <=12 Q^(-11/8). It is not the complete paper endpoint. Referee-accepted RD, Referee's SR, Coordinator MD, and Analytic IR retain their different paper/review statuses; none replaces b_base here. The newer IR proposal remains independently unreviewed and unformalized in the retrieved handoff.
+
+### C. Competing Hypotheses
+
+All three tests were registered before execution on the genuine COMPLETE historical source:
+
+```text
+H_POS:   forall R>=2, forall 2<=g<R, C_R(g)>=0.
+H_CROSS: forall R>=2, Q_R^2-sum_(g<R)C_R(g)^2<=0.
+H_SPLIT: forall R>=2, C_R(1)*sum_(2<=g<R)C_R(g)<=0.
+```
+
+H_POS tests a proposed positivity transfer, H_CROSS tests the full inter-group interaction, and H_SPLIT tests the coarser two-sector mechanism. They are not interchangeable. The rival mechanism predicts mixed signs from the coprimality-restricted squarefree kernel and a possible sign change on coarsening. One exact strict failure rejects the corresponding universal assertion. No fitted constants, target-presupposing exceptional condition, randomized arithmetic, or retroactive hypothesis change was used.
+
+This resumes the cross-route loss-recovery objective without repeating UC's unchanged transverse-energy tables, NC's reflected-prime tests, DR's event nonexpansion scan, or JC's daughter-band tests. It does not claim that another specialist asserted H_POS/H_SPLIT: these are the laboratory's explicitly proposed transfer tests.
+
+### D. Experimental Design And Exact Carrier
+
+For integer R>=2, X=R^2-1 and genuine Mobius coefficients, define
+
+```text
+A_R(a,b)=mu(a)mu(b)*floor(X/(ab)),       1<=a,b<R,
+C_R(g)=sum_(gcd(a,b)=g) A_R(a,b),       1<=g<R,
+Q_R=sum_g C_R(g)=2M(R-1)-M(X),
+D_G(R)=sum_g C_R(g)^2,
+O_G(R)=Q_R^2-D_G(R),
+K_R=max_(0<=u<R) (M(u)-1)^2/(u+1).
+```
+
+Every ordered pair, diagonal, both strict orientations, integer floor, and squarefree-zero coefficient is retained. A floor equals the count of all k>=1 with abk<=X; distinct (a,b,k) labels are not silently deduplicated. Only zero-weight pairs are omitted computationally. The unit is present. The historical condition is STRICT a,b<R, and K includes u=0, forcing K>=1. K is not replaced by 1 in any reported ratio.
+
+The gcd-square O_G is a scalar square-of-sum decomposition of Q_R, not an assertion that the floor kernel is positive semidefinite. It is NOT the lcm kernel floor(X/lcm(a,b)), empirical mean-centered covariance, or #915 zero-target NNS statistic. Relative to the original Mobius coefficients, Q is bilinear and its square is quartic; these orders are not confused.
+
+Discovery: every R=2..256, 255 roots. Held-out, fixed in advance: 257,263,511,512,513,549,1023,1024,1025,2047,2048,2049,4095,4096,4097,5561, 16 roots. No additional roots were searched after seeing the result. The prime-resonance check below only annotates this same held-out set.
+
+Primary C++: deterministic linear least-prime-factor/Mobius sieve through X_max=30,924,720, direct upper-triangle pair enumeration with exact multiplicity 1 or 2, gcd grouping, independent endpoint sums from the full sieve. Complexity O(X_max+sum R^2 log R) conservatively, storage O(X_max). Actual 38,417,708 nonzero ORDERED pair occurrences were reconstructed across the 271 roots.
+
+Independent Python: trial-factor Mobius below max R, fixed-g construction using primitive coprime u,v with gcd(uv,g)=1, and the separate divisor recurrence M(n)=1-sum_(l=2..n)M(floor(n/l)), evaluated in constant-quotient blocks. It did NOT reuse the sieve's coefficient table or endpoint array. Every gcd vector, Q, D_G, O_G, K and earliest K maximizer matched. Trial primality is exhaustive to the integer square root in its documented small domain; no probable-prime claim is used.
+
+Both implementations are by this author in this invocation. Algorithmic independence is not independent specialist acceptance or statistical independence.
+
+### E. Executed Results
+
+```text
+Primary: PASS, 271 roots, 30,924,720 sieve limit, 38,417,708 pair occurrences.
+Independent: PASS_INDEPENDENT_EXACT, all 271 full gcd ledgers identical.
+Endpoint identity failures: 0. Historical-envelope mismatches: 0.
+H_POS failures: 258 roots, including all 16 held-out roots.
+H_SPLIT failures: 17,31,32,511,513,549; three held-out failures.
+H_CROSS failures: 0; equality only at R=2,3 in the tested set.
+Pair-product classification: 15,028 distinct pair-products, every R=2..64, PASS.
+Held-out near-resonance admission checks: 16/16 exact witnesses, PASS.
+Python syntax checks and warning-fatal C++ compilation: PASS.
+```
+
+For all listed roots R>=6, K_R=3/2, attained first at u=5. The programs actually checked the full historical maximum at EVERY root; this statement is finite, not a claim that K stays 3/2 forever.
+
+| R | Q_R | C_R(1) | Sum g>=2 | D_G | O_G | Q_R^2/(R^2 K_R) |
+| --- | ---: | ---: | ---: | ---: | ---: | --- |
+| 15 | -7 | -12 | 5 | 223 | -174 | 98/675 |
+| 17 | 5 | 4 | 1 | 173 | -148 | 50/867 |
+| 47 | -12 | 34 | -46 | 6010 | -5866 | 96/2209 |
+| 66 | 10 | 151 | -141 | 45696 | -45596 | 50/3267 |
+| 257 | -6 | 210 | -216 | 76480 | -76444 | 24/66049 |
+| 549 | -186 | -28 | -158 | 213476 | -178880 | 7688/100467 |
+| 1024 | -265 | -645 | 380 | 2373931 | -2303706 | 70225/1572864 |
+| 4096 | -249 | -4921 | 4672 | 63425699 | -63363698 | 20667/8388608 |
+| 5561 | 2554 | -298 | 2852 | 19073482 | -12550566 | 13045832/92774163 |
+
+Endpoint controls: R=549 has M(548)=3, M(301400)=192, and shifted endpoint ratio 72962/904203. R=5561 has M(5560)=5, M(30924720)=-2544, and shifted endpoint ratio 12954050/92774163. Thus the large latter Q is not an endpoint or shift convention error.
+
+Extremes in the REGISTERED set: max_(R>=4) Q_R^2/D_G=3261458/9536741 at R=5561; max D_G/(R^2 K_R)=7616/1089 at R=66. The latter is nearly 7, but no constant 7 is fitted or proposed. The full Q ratio's maximum including degenerate roots is 9/4 at R=2; the shifted endpoint ratio's maximum is 1 there. Do not confuse these two normalizations.
+
+### F. Exceptional Cases And Minimal Certificates
+
+**GC1, smallest H_POS failure.** At R=15, g=2, the only nonzero squarefree a,b divisible by 2 are 2,6,10,14. Within gcd=2 the unequal pairs are all allowed, while only (2,2) remains on the diagonal. Hence
+
+```text
+C_15(2)=56-2*(18+11+8)+2*(3+2+1)=-6.
+```
+
+Both independent exhaustive scans certify no earlier root fails H_POS. The failure is not confined to roots below #1127's threshold: at R=47, C_47(2)=-58. This still does NOT refute #1127, whose fractional finite-wheel cofactor expression, mask and q range are different.
+
+**GC2, smallest H_SPLIT failure.** At R=17 the complete nonzero gcd ledger is
+
+```text
+g:     1   2   3   5   6   7  10  11  13  14  15
+C(g):  4  -6  -6  -3   8   1   2   2   1   1   1
+```
+
+Every omitted g has value zero. The sum is Q=5. The binary diagonal is 4^2+1^2=17, so its cross term is 25-17=+8. The fine diagonal is 173, so its cross term is 25-173=-148. The shared-sector diagonal is 157 and its internal cross term is 1-157=-156. Exactly -148=-156+8.
+
+**All interactions restored, not just a favorable pair:**
+
+| R | Original ordered-pair atom square sum | Within-gcd cross | Fine inter-gcd cross | Recombined Q^2 |
+| --- | ---: | ---: | ---: | ---: |
+| 15 | 108713 | -108490 | -174 | 49 |
+| 17 | 181511 | -181338 | -148 | 25 |
+| 549 | 209519833116 | -209519619640 | -178880 | 34596 |
+| 5561 | 2208675199789504 | -2208675180716022 | -12550566 | 6522916 |
+
+The first column treats the floor as the original pair weight; it is not the unit triple-occurrence diagonal. The original full weighted sum is preserved by either representation, but their diagonals differ, so they are explicitly distinguished.
+
+At R=549 the shared-sector internal cross is -187728 and the binary cross is +8848. At R=5561 these are -10850774 and -1699792 respectively. Their sums reproduce the fine cross in both cases. This shows why negative local credit cannot be counted again after a group has been compressed.
+
+### G. Hidden Variables And Arithmetic Classification
+
+**GC3, supporting factorization lemma.** For a nonzero original pair let d=ab. Because a,b are squarefree, d is cube-free and has the unique form d=g^2*t, where g=gcd(a,b), g and t are squarefree, gcd(g,t)=1. Its sign is mu(a)mu(b)=mu(t), independent of the parity of g. Conversely a=g*u, b=g*v with uv=t, gcd(u,v)=1 and gcd(uv,g)=1 reconstructs every pair once.
+
+Put N_g=floor((R-1)/g) and r_N(t)=#{u|t:1<=u<=N,1<=t/u<=N}. Then for squarefree g,
+
+```text
+C_R(g)=sum_(t<=N_g^2, t squarefree, gcd(t,g)=1)
+          mu(t)*r_(N_g)(t)*floor((R^2-1)/(g^2*t)).
+```
+
+For nonsquarefree g the value is zero. At a fixed PAIR-PRODUCT d all admitted pairs therefore reinforce; cancellation in C(g) occurs between different squarefree kernels t. This is elementary unique factorization applied to the original masks, not a claimed new multiplicative theorem. The 15,028 exact pair-product checks independently match this formula to the original pair ledger.
+
+Important distinction: d=ab is not the full physical integer n=abk counted by the floor. Different triples with the same n need NOT have the same g or sign. No once-only physical occurrence assertion is inferred from the pair-product classification.
+
+A simple corrected positivity statement does survive on paper: if g is squarefree and every prime <=N_g divides g, then the only squarefree u<=N_g coprime to g is 1, so C_R(g)=floor(X/g^2)>0. In particular this holds for squarefree R/2<=g<R. The small-prime complement and squarefree-kernel parity, not merely the existence of a shared prime, control the sign. This proper-sector fact cannot imply H_POS for the omitted g.
+
+**Exact coarsening law.** For any partition of the g labels into blocks B,
+
+```text
+O_coarse=O_fine-2*sum_B sum_(g<h in B) C(g)C(h).
+```
+
+It follows by expanding the block squares. If a block has negative internal interaction, coarsening moves that credit into its diagonal and can make the remaining cross positive. R=17 is a full-source arithmetic witness. The algebra is generic and credited as such; its application and exact minimal witnesses are this run's result.
+
+### H. Mathematical Interpretation And Required Source Map
+
+#### 2. FOUR-WAY SOURCE MAP
+
+| Euler / finite AC | VF / actual primes | NNS / OAI | Square blocks |
+| --- | --- | --- | --- |
+| Original eulerFloorBilinearQ, X=R^2-1, strict a,b<R, unit and all ordered pairs. EXACT_IDENTITY to eulerSelfDualBilinear and 2M(R-1)-M(X). K_R is the literal lower critical envelope. | Complete finiteWheelFract minus finiteWheelSquareDeterministic equals li(X)-pi(X), with physical and virtual divisor compensation. This is its own EXACT_IDENTITY, NOT_EQUIVALENT to Q as a scalar formula. No bound transfer from gcd groups is proved. | O_G is the real scalar expansion of Q^2. No source-weight/mask-preserving map to original ideal-labelled LOW tuples, the Hecke principal response, or clipped #915 returned cells is available: OPEN_BRIDGE. An isometric rewriting supplies no sign gain. | Q returns to the COMPLETE prefix M(X), not one shell. `groupedSquareBlocks_sum` preserves a full prefix as exact shell reassembly; an isolated shell norm or sum of shell squares is NOT_EQUIVALENT to it. |
+
+Prime/Mobius coupling: actual large-prime cofactor positivity in #1127 includes a finite Euler reference, erased unit, and its own q in [R,2R). C_R(g) instead has two historical mu factors, gcd= g, and product floor. Ideal Hecke phases are not rational mu coefficients. The native all-prefix Mertens theorem reaches Q through its exact endpoint identity as a ONE_WAY size consequence, not a coefficientwise prime/Hecke identification.
+
+All weights here are integers/rationals; no logarithm or Li value was numerically substituted. A completed floor-Li radical defect from DR/RC is a different source. Their exact compensation and masks do not imply an inequality for C_R(g).
+
+### I. Proposed Theorem And Falsification Status
+
+GC5 is precisely the preregistered H_CROSS, with genuine mu and original floors:
+
+```text
+CONJECTURE: forall integer R>=2,
+  (sum_(1<=a,b<R) mu(a)mu(b)floor((R^2-1)/(ab)))^2
+    <= sum_(1<=g<R)
+         (sum_(1<=a,b<R,gcd(a,b)=g)
+            mu(a)mu(b)floor((R^2-1)/(ab)))^2.
+```
+
+There is no adjustable constant, no first-bad hypothesis, no empirical mean subtraction, and no claim that individual C(g) are positive. Finite evidence: all 255 discovery roots and all 16 predeclared held-outs, including genuine near-resonant configurations; equality R=2,3 and strict inequality for every tested R>=4. The strongest tested nondegenerate Q^2/D_G is at R=5561 as recorded above. The available proof is NONE; the all-scale status remains CONJECTURE. H_SPLIT cannot be used as its proof, since it is false.
+
+Even a proof would leave `exists B>=0 forall R>=2: D_G(R)<=B R^2 K_R` unpaid. This second statement is not adopted as an independently supported theorem or asserted from the finite maximum. It may be much stronger than necessary. First test the sign conjecture decisively before investing in this norm; do not manufacture a new route from two open statements.
+
+### J. Proof Impact And Loss-Recovery Audit
+
+#### 3. FIRST SIGNED LOSS
+
+| Exact location / input | Loss and discarded interaction | Quantitative tax / consumer | Recovery and remaining bill |
+| --- | --- | --- | --- |
+| eulerFloorBilinearQ in EULER_FRACTIONAL_COUPLED_20261027.lean | Replacing signed pair atoms by absolute values erases both within- and between-gcd interactions. | Elementary unsigned budget is <=X*(sum_(a<R)1/a)^2, order R^2 log^2 R; finite-C asks order R sqrt(K_R). | GC restores every signed group and cross exactly; no uniform estimate is supplied. |
+| Proposed gcd split Q=sum_g C(g) | Triangle loses all O_G; dropping O_G in the favorable direction requires H_CROSS, not an identity. | Finite differences are explicit in F; no all-scale power improvement. | H_CROSS survives only finite testing. A uniform D_G bound remains OPEN. |
+| Coarsening g>=2 into one block | Negative internal shared-sector cross is absorbed into the coarse square. | R=17 moves -156 and leaves +8; R=549 moves -187728 and leaves +8848. | Exact coarsening formula recovers accounting; H_SPLIT is REFUTED. Negative credit cannot be spent twice. |
+| Attempt to apply #1127 positivity | Replaces the proper fractional wheel mask/reference by a distinct historical product/gcd kernel. | No valid output constant or exponent. | OPEN_BRIDGE; C_47(2)=-58 disproves a blanket positivity conclusion on this new carrier. #1127 itself remains valid. |
+| Native baseline to historical Q | Triangle in Q=2M(R-1)-M(X) retains only a coarse power. | O_epsilon(R^(2*b_base+epsilon)); using K>=1 would discard actual feedback. | Nothing here recovers the required historical-normalized saving. |
+
+#### 4. PAID RECOVERY TEST
+
+Read and reuse `eulerSelfDualBilinear_eq_two_mertens_sub_endpoint`, its actual Newton coefficient reconstruction and complete divisor-antidiagonal Fubini. These theorems justify the tested source and its endpoint checks, not a sign assertion. `eulerFractionBilinearQ_eq_diagonal_add_twice_off` supplies full signed fractional accounting on its original carrier; it does not imply the separate gcd-square inequality.
+
+#1127 cofactor positivity and #1128 shared-prime resonance are proper-source results. The former has a different mask/kernel; the latter limits naive phase decorrelation, not this rational gcd Gram. #1130's local signed principal remainder and DR/RC's radical completion were checked as potential recoveries but have no original-coefficient transfer to the proposed H_CROSS or D_G bound. Marking that transfer OPEN is essential.
+
+The actual terminal consumer is already available: `EulerSelfDualFiniteCStatement` gives one C before R and every valid K; `squareRootEndpointAmplification_of_eulerFiniteC` returns A=(C+3)^2; `riemannHypothesis_of_eulerSelfDualFiniteC` consumes the internal Mertens-energy chain. If both H_CROSS and an independently proved uniform D_G<=B R^2 K_R held, they would give C=sqrt(B), then that existing chain. **Neither premise is proved here.** Writing this conditional consumer is not new arithmetic progress or an RH proof.
+
+#### 5. NET RESULT / ADMISSION VERDICT
+
+The exact counterexamples retire the two proposed sign shortcuts. The refined finite survival is a falsifiable research candidate. The elementary factorization/coarsening formulas explain the result, but do not meet the directive's threshold for a newly accepted route or a new global exponent. Canonical VF, complete wheel, finite A/C, zero-log amplification, complete CORR4 and RH remain OPEN.
+
+### K. Falsification, Numerical Control And Reproducibility
+
+All hypothesis decisions, floors, signs, gcds, primality, envelope comparisons, certificates and reported ratios use exact integers/rationals. There is no floating-point mathematical sign or inequality claim. Elapsed times alone use ordinary clocks. C++ uses 64-bit integer arithmetic; the independent group-square and cross calculations use Python integers, and all agree. NumPy integer products and row sums stay within 64-bit at the stated finite domain. No numerical enclosure for li, log or a zeta zero was needed.
+
+The small certificates are independently hand-checkable. At R=15, 56-74+12=-6. At R=17, the displayed vector sums to 5 and its squares to 173. Finer masks and the complete source are retained; these witnesses satisfy the registered all-root hypotheses, not a fully specified first-bad predicate.
+
+Actual environment: Linux x86_64; Python **3.12.14** (observed, overriding the environment description's 3.12.13), NumPy 2.3.5; g++ 13.3.0. Primary measured compute/serialization time 0.898468 seconds; final independent verification 3.5820056889999705 seconds. No benchmark claim is made from these short timings. The second verifier run added explicit independently computed D_G/O_G checks; it was verification of unchanged hypotheses, not a new search or cherry-picked result.
+
+Commands actually executed:
+
+```bash
+g++ -O2 -std=c++17 -Wall -Wextra -Werror gc_probe.cpp -o gc_probe
+./gc_probe gc_primary.json
+python gc_verify.py gc_primary.json gc_verified.json
+python gc_certificates.py
+python -m py_compile gc_verify.py gc_certificates.py
+```
+
+| Executed file | SHA-256 |
+| --- | --- |
+| gc_probe.cpp | 6c5c1889cee009b4548459f81bb1a718db530ee84079f51d7dc32c7bbee1e8d1 |
+| gc_verify.py | c81e81c2ad689a5b43a049f2c9ec6220a7e0b98fcf95a127085c9648b0da7784 |
+| gc_certificates.py | 47a02b4ce70d8f1b9b17d1a3783c3a3547f4ff1ce760fc666dd5aace7d0b868f |
+| gc_primary.json | 8cb6188b24040d340bebb632a9ebc000611fbb6e92eaa5c14e9005d0c15c93eb |
+| gc_verified.json | d5b945cd730a5a7faa361ee417c6e8c29c75e721bef5c7cacec26adb93110b8d |
+| gc_certificates.json | a8ebc027901abb71c2ea16aa9f66e509035bc3a477abee065b1be338f31299b9 |
+
+Output hashes containing elapsed time may change on rerun; source hashes and exact arithmetic records are reproducible. Complete programs and the verified/certificate outputs are embedded below. The primary output can be regenerated, including every full gcd vector.
+
+To satisfy the near-resonance regression without inventing a phase identification, exact trial-prime witnesses were found for all 16 held-out roots using the INSPECTED #1128 predicates: p in [R/2,R), q in [R,2R), r in [2R,4R), r=4p+-1, pq<=R^2-1 and qr<=4R^2-1. Example R=549: (p,q,r)=(277,557,1109); R=5561: (2803,5563,11213). The exact positive relative ratio errors are 300569/333952031 and 10305437/115575989683, each <=1/R. The existing theorem then bounds the corresponding logarithmic phase difference; no logarithm was approximated. This merely confirms the registered roots include genuine near-resonant geometry; it does not map those different prime atoms into C_R(g) or claim causation.
+
+### L. Specialist Handoffs And Research Continuity
+
+**Proof Architect:** GC1/GC2 eliminate positivity-by-shared-factor and binary anti-alignment as unconditional recovery steps on the literal Q carrier. GC5 is a small precisely scoped conjecture, not a new route. Do not replace the independently progressing OAI MD/IR work with it. The first complete-source unpaid item remains a uniform original signed estimate, not new bookkeeping.
+
+**Owner Payment:** DR's same-product reinforcement has an analogous but distinct pair-product explanation here. Retain the distinction between d=ab and n=abk. A #915 or floor-Li mask may change every grouping; no source admission has been inferred from divisibility. GC2 is an explicit warning against spending an internal cross term after compressing its sector.
+
+**Analytic Type II:** There is no transfer of marked ideal moments or the #1130 principal response to the gcd ledger without a coefficient map. Continue the actual complete MD/IR return review independently. For the native source, a claimed Gram saving must state whether its diagonal is pair-weighted, unit-triple-weighted, fine-gcd, or coarse-sector.
+
+**Finite Wheel:** Referee-check GC3 and test whether H_CROSS has a genuine arithmetic proof or counterexample. #1127 positivity does not apply; R=47 gives a source-specific check within its numerical root range. Neither the high-g positive sector nor existing daughter-visible bands covers the whole ledger. RC3's auxiliary completion bound remains a separate supporting result.
+
+**Adversarial Referee:** Independently check the R=15 and R=17 certificates and the exact pair-to-gcd carrier before adopting any conjecture. The highest-risk inference is treating a negative fine cross as evidence for negative binary cross. Finite equality and source identities should be accepted only at their stated scope. All new paper arguments remain self-audited, not independently accepted.
+
+**Lean Verification:** No new global theorem is supplied. A small exact counterexample or the generic coarsening adapter may be useful only if it prevents a live invalid transfer; do not create a filler proof task. GC5 is a conjecture, never a formalization premise disguised as a fact. Reuse existing endpoint/Fubini/Gram theorems.
+
+TODAY=AVAILABLE for all seven roles at immutable intake agent-reports e715cfda8aa5e6cb42501fb155592545b9d260af; YESTERDAY=CARRY_FORWARD for November 9. Read relevant findings, current review states and resume points. Earlier report descriptions of #1127/#1130 as unmerged are superseded by live main/PR evidence.
+
+| Role | November 9 carried finding | November 10 consumed finding |
+| --- | --- | --- |
+| Coordinator | CD fixed-cutoff failures and prime-rank restriction; proper packet only. | CR source audit and MD complete Mellin-symbol proposal; distinguish its paper acceptance from Lean. |
+| Owner | CF large-prime cofactor positivity and same-q reinforcement; later formalized only at its true scope. | BR true event admission; DR radical response, physical-fibre reinforcement, and scoped contraction failures. |
+| Analytic | ZD proper-band zero-density transfer; no full endpoint gain. | RD paper acceptance and IR infinite-response proposal; IR not a new certified baseline. |
+| Wheel | RF exact reflected-prime shared-factor classification and bounded proper band. | JC omitted upper bands; RC complete auxiliary defect and remaining inverse/prime-side costs. |
+| Census | NC nearest-centre sign failures and controlled subset, not full source. | UC unsaturated transverse failures; no unchanged tables rerun. |
+| Referee | AP valid adaptive prefix and failures of overbroad fixed-prefix claims. | LC scopes UC; SR accepts RD on paper and separately proposes its own extension. |
+| Lean | #1127 cofactor proof evidence, now merged. | #1130 local signed remainder, now merged; endpoint assembly not yet certified. |
+
+External inbox 038018145c0fddb2f6306c0712373adf9cd1ea52 has no entry after October 18. EXT-20261018-PNT-1 and the earlier #915 source/denominator warnings remain applicable; they neither supply a gcd sign rule nor authorize source changes. Scheduled execution of another role is never inferred merely from a filename or timetable.
+
+### M. Ranked Experimental Hypothesis Portfolio
+
+| Rank / disposition | Exact hypothesis and motivation | Evidence and counterevidence | Independent ingredient / required theorem / next discriminator |
+| --- | --- | --- | --- |
+| 1 / CONTINUE cautiously | GC5 H_CROSS on all R, motivated by full inter-gcd cancellation. | 271 finite roots survive; no proof; no surrogate-coefficient claim. H_SPLIT fails and cannot establish it. | Need an actual Mobius/coprime-kernel restriction forcing total inter-gcd cross <=0. Next test is targeted at large Q^2/D_G, not another routine prime census. |
+| 2 / REJECT as stated | H_POS and H_SPLIT unconditional positivity/anti-alignment transfer. | Exact smallest failures R=15 and 17; held-out failures persist. | Corrected high-g positivity is only a proper sector. Any repair must specify new hypotheses and restore the complement. |
+| 3 / SUSPEND as a proposed route | A uniform D_G<=B R^2 K_R would combine with GC5 into finite C. | Only finite ratios known; observed maximum 7616/1089 is not an all-scale constant. | No independent uniform norm supplier is available. Do not spend a run fitting B or counting this open reformulation as a new mechanism. |
+
+The portfolio does not replace the team's independent VF, CODIV, OAI-NNS, FINITE-AC, CORR4, MU-LIFT or NYMAN routes. No unrelated route coverage is fabricated.
+
+### N. Next-Run Resume Capsule
+
+```text
+RUN=20261110-census-2/GC; TRIGGER=scheduled 19:00:01 EST; RUN_ID_UNAVAILABLE.
+AUTHORITY=main f7947bee036c4dddb0c36fc9f53ab46b4fa90995.
+ACK=CROSS_ROUTE_SIGNED_RECOVERY_V1.
+REGISTERED_DOMAIN=R=2..256 plus the 16 explicitly listed held-outs.
+EXACT_MAX_INTEGER=30,924,720; ALL_ROOTS_VERIFIED=271.
+NEW_COUNTEREXAMPLES=H_POS at (R,g)=(15,2), C=-6;
+                    H_SPLIT at R=17, C1=4, Crest=1.
+GROUPING_REVERSAL=R17: fine cross -148, binary cross +8, internal -156.
+REQUIRED_REGRESSIONS=R549 and R5561 complete source/K/squares PASS.
+SURVIVING_CONJECTURE=H_CROSS, finite evidence only.
+PAID_INPUT=actual eulerSelfDual endpoint identity, original signed Gram algebra.
+UNPAID=all-scale H_CROSS and independent D_G historical-normalized control.
+BASELINE=#1119 exact-head evidence reused; no new global exponent.
+NEXT_EXPERIMENT=after fresh authority/handoff intake, preregister a targeted
+  falsification window around the largest observed Q^2/D_G excursion R=5561;
+  compare nearby untested roots and the gcd groups responsible, with exact K.
+  Do not rerun the 271 unchanged roots except for changed definitions/verification.
+REVIEW=SELF_AUDIT, independent specialist review pending; NO_LOCAL_LEAN.
+PUBLICATION=verify immutable commit/readback separately; no success presumed.
+```
+
+The next test must freeze a finite window and failure rule before execution; its purpose is to attack GC5, not to fit a universal constant. All computation sessions for this invocation finished. No source, instruction, other report, issue, branch, PR, workflow, merge, schedule or permission was modified, and no agent was launched.
+
+
+### Material Source Receipts - GC
+
+All following files were fetched at main f7947bee036c4dddb0c36fc9f53ab46b4fa90995 during this invocation. Line locations are best recovered from the immutable linked source, not a moving branch.
+
+| Path | Blob SHA |
+| --- | --- |
+| AGENTS.md | c9c89f01b90b526de9f3e8ea92478e36504711b6 |
+| CURRENT_PROOF_CONTRACT.md | 95566e37c8eaeb99ee680660df4f9d2e06ea5038 |
+| docs/RHLEAN_CROSS_ROUTE_SIGNED_RECOVERY_20261110.md | e922d4ba9362a1ae196af8f6de88f7417f92087c |
+| docs/COORDINATE_ATLAS.md | cd0419d00a37739fe5a292f5cb738e33213949d5 |
+| docs/PROOF_DEPENDENCY_DAG.md | eee764cefe70035a9f6c7df26ad787fbfd0fb233 |
+| research/EULER_FRACTIONAL_COUPLED_20261027.lean | e6c4b1690e497760d366e36b28a1f7aa60e19f85 |
+| research/EULER_SELF_DUAL_POINTWISE_20261027.lean | c327c556f39ee7014fd774b24d0f95a1ece050e0 |
+| research/EULER_SELF_DUAL_FINITE_C_BRIDGE_20261027.lean | e97561ef330a9996fd807d8910369f0698147b01 |
+| research/EULER_SELF_DUAL_ENDPOINT_GATE_20261027.lean | e7ee8f77ffd59bccaa49dd6d74fbe0d7952c2d73 |
+| RHLean/Proof/SquareRootLegalAncestryGramReduction.lean | 1270d4d91c53b50b110d10014f223f427fb7a575 |
+| RHLean/Proof/SquareRootMertensEndpointAmplification.lean | 7793d7bfd842348facf62a7ad856bc802ffcd15c |
+| RHLean/Proof/SquareRootAmplificationClosure.lean | 8949e3925695353635f67b2b611a9c21bacbd9ea |
+| research/oai_434/VF919WindowErrorClosure.lean | f629db1b2b65d6ec042ac9432397d4b6316200c6 |
+| research/oai_434/VF919ExplicitFixedSourceSlotCount.lean | bad5aab0a60e96d19e7c9550cd7c0a072288bc0f |
+| research/oai_434/VF919ExplicitSquareBlockPacking.lean | 32999039fdeea99c58a070c1c4ee9c140720dd44 |
+| scripts/lean/window_error_closure/WindowErrorClosureAudit.lean | 1f17f9401a63d16227db2e2aad020b9f74bc5f4e |
+| research/oai_434/VF919PrincipalSignedRemainder.lean | a41fee91754d5f6e5606f3f6f3dfe66031d81cbf |
+| research/CompleteSquareRootWheelFractionalBoundary.lean | ecb482e52deeee5e9b3853592a3ffdace662d2ff |
+| research/FiniteWheelCofactorPositivity.lean | f83a3daefc2b9d603014af912ec82b4a7f52cfac |
+| research/DyadicPrimeNearResonance.lean | f416e0149b73656e30a7f68a3934a937353d3f8d |
+| research/VF_CANONICAL_SQRT_TWO_VON_KOCH.lean | 79030d70e8d3e0d08eef9bac53fef95c36eca2fb |
+
+Report intake commit: e715cfda8aa5e6cb42501fb155592545b9d260af. Coordinator 00/90 paths had identical blobs on each date. All seven role reports were retrieved in full, then the relevant findings, claims, acceptance states, and resume sections were read.
+
+| Date | Role report | Blob SHA |
+| --- | --- | --- |
+| 2026-11-09 | 00-coordinator-am.md | 6fba43130391ad4a606aa3809c20f344d668c709 |
+| 2026-11-09 | 10-owner-payment.md | 643e8a004d9d8e0be102b03e2f79bb3b217ae916 |
+| 2026-11-09 | 20-analytic-type-ii.md | d1d0d86d444b9c447cf6acf4bd18fdcaf02e56a3 |
+| 2026-11-09 | 30-finite-wheel.md | 0624246d03b19cf76c01e186b7d868a248d896ef |
+| 2026-11-09 | 40-prime-census.md | 8c927cc6c323533ba1cfd369404b25aa4f9cef91 |
+| 2026-11-09 | 50-adversarial-referee.md | a5d0192eb31c0efb3767187a7752f1a0d07f8534 |
+| 2026-11-09 | 60-lean-verification.md | 8b60c6136ac151774be2db0aee8f543f286b53aa |
+| 2026-11-10 | 00-coordinator-am.md | 14190fe06982de80c5904b156525e3cda15d8f03 |
+| 2026-11-10 | 10-owner-payment.md | 84afec90414b2394a61b51df46c07b6b540e5942 |
+| 2026-11-10 | 20-analytic-type-ii.md | 7ed3a39bec4796f4173b692064af872ea8035048 |
+| 2026-11-10 | 30-finite-wheel.md | 62406503a1ddbbf9330abcdc4cf761f7fbf05795 |
+| 2026-11-10 | 40-prime-census.md | 8a89d1a899850e39320a96bf35a6f221060fc8a7 |
+| 2026-11-10 | 50-adversarial-referee.md | 988a4a74e40a48d8d4c868c03263e66c129a6f1a |
+| 2026-11-10 | 60-lean-verification.md | d2f8fd346b7aaab57f3bd3676ed7b1d8c8abb3f8 |
+
+
+### Exact Executed Programs - GC
+
+These are the final executed source bytes. Extract each named block into its stated filename in one directory and execute the commands in K. No unstated remote data is needed.
+
+#### gc_probe.cpp
+
+```cpp
+#include <algorithm>
+#include <chrono>
+#include <cstdint>
+#include <fstream>
+#include <iostream>
+#include <numeric>
+#include <vector>
+
+using I = long long;
+
+int main(int argc, char** argv) {
+    if (argc != 2) return 2;
+    const auto start = std::chrono::steady_clock::now();
+    std::vector<int> roots;
+    for (int r = 2; r <= 256; ++r) roots.push_back(r);
+    for (int r : {257,263,511,512,513,549,1023,1024,1025,2047,2048,
+                  2049,4095,4096,4097,5561}) roots.push_back(r);
+    std::sort(roots.begin(), roots.end());
+    const int limit = roots.back() * roots.back() - 1;
+    std::vector<int> least(limit + 1), primes;
+    std::vector<int8_t> mu(limit + 1);
+    mu[1] = 1;
+    for (int n = 2; n <= limit; ++n) {
+        if (!least[n]) { least[n] = n; primes.push_back(n); mu[n] = -1; }
+        for (int p : primes) {
+            if (I(n) * p > limit) break;
+            least[n*p] = p;
+            if (n % p == 0) { mu[n*p] = 0; break; }
+            mu[n*p] = -mu[n];
+        }
+    }
+    std::vector<I> history(roots.back()), endpoint(roots.size());
+    I mertens = 0;
+    size_t cursor = 0;
+    for (int n = 1; n <= limit; ++n) {
+        mertens += mu[n];
+        if (n < int(history.size())) history[n] = mertens;
+        if (cursor < roots.size() && n == roots[cursor]*roots[cursor]-1)
+            endpoint[cursor++] = mertens;
+    }
+    std::ofstream out(argv[1]);
+    out << "{\"limit\":" << limit << ",\"rows\":[";
+    I pair_count = 0;
+    for (size_t j = 0; j < roots.size(); ++j) {
+        const int r = roots[j];
+        const I x = I(r)*r-1;
+        std::vector<I> groups(r);
+        I atom_diagonal = 0;
+        for (int a = 1; a < r; ++a) if (mu[a]) {
+            for (int b = a; b < r; ++b) if (mu[b]) {
+                const I atom = I(mu[a])*mu[b]*(x/(I(a)*b));
+                const int multiplicity = a == b ? 1 : 2;
+                groups[std::gcd(a,b)] += multiplicity*atom;
+                atom_diagonal += multiplicity*atom*atom;
+                pair_count += multiplicity;
+            }
+        }
+        I q = 0, energy = 0;
+        for (I v : groups) { q += v; energy += v*v; }
+        if (q != 2*history[r-1]-endpoint[j]) return 3;
+        I kn = 1, kd = 1, ku = 0;
+        for (int u = 1; u < r; ++u) {
+            const I numerator = (history[u]-1)*(history[u]-1);
+            if (numerator*kd > kn*(u+1)) { kn = numerator; kd = u+1; ku = u; }
+        }
+        const I divisor = std::gcd(kn,kd); kn /= divisor; kd /= divisor;
+        if (j) out << ',';
+        out << "{\"R\":" << r << ",\"X\":" << x << ",\"Q\":" << q
+            << ",\"M_history\":" << history[r-1] << ",\"M_endpoint\":" << endpoint[j]
+            << ",\"K_num\":" << kn << ",\"K_den\":" << kd << ",\"K_at\":" << ku
+            << ",\"group_energy\":" << energy << ",\"cross\":" << q*q-energy
+            << ",\"atom_diagonal\":" << atom_diagonal << ",\"groups\":[";
+        bool first = true;
+        for (int g=1; g<r; ++g) if (groups[g]) {
+            if (!first) out << ',';
+            first = false;
+            out << '[' << g << ',' << groups[g] << ']';
+        }
+        out << "]}";
+    }
+    const double seconds = std::chrono::duration<double>(std::chrono::steady_clock::now()-start).count();
+    out << "],\"ordered_nonzero_pairs\":" << pair_count << ",\"elapsed_seconds\":" << seconds << "}\n";
+    std::cout << "PASS roots=" << roots.size() << " limit=" << limit
+              << " pairs=" << pair_count << " seconds=" << seconds << '\n';
+}
+```
+
+#### gc_verify.py
+
+```python
+import argparse
+from fractions import Fraction
+from functools import cache
+import hashlib
+import json
+from math import gcd, isqrt
+from pathlib import Path
+import platform
+import time
+
+import numpy as np
+
+
+def trial_mu(n):
+    parity = 1
+    p = 2
+    while p * p <= n:
+        if n % p == 0:
+            n //= p
+            parity = -parity
+            if n % p == 0:
+                return 0
+        p += 1
+    return -parity if n > 1 else parity
+
+
+@cache
+def mertens(n):
+    if n == 0:
+        return 0
+    total, left = 1, 2
+    while left <= n:
+        quotient = n // left
+        right = n // quotient
+        total -= (right-left+1) * mertens(quotient)
+        left = right + 1
+    return total
+
+
+def independent_groups(r, mu):
+    # Primitive coprime pairs are built at fixed gcd; no pair-gcd ledger is reused.
+    x = r*r-1
+    result = {}
+    for g in range(1, r):
+        if not mu[g]:
+            continue
+        u = np.array([n for n in range(1, (r-1)//g+1)
+                      if mu[n] and gcd(n,g) == 1], dtype=np.int64)
+        signs = mu[u]
+        total = 0
+        for index, a in enumerate(u):
+            mask = np.gcd(a, u) == 1
+            total += int(np.sum(signs[index] * signs[mask] * (x // (g*g*a*u[mask])),
+                                dtype=np.int64))
+        if total:
+            result[g] = total
+    return result
+
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('input')
+    parser.add_argument('output')
+    args = parser.parse_args()
+    start = time.perf_counter()
+    raw = json.loads(Path(args.input).read_text())
+    rows = raw['rows']
+    mu = np.array([0]+[trial_mu(n) for n in range(1, max(x['R'] for x in rows))],
+                  dtype=np.int64)
+    history = np.cumsum(mu)
+    failures = {'H_POS': [], 'H_CROSS': [], 'H_SPLIT': []}
+    records = []
+    for row in rows:
+        r = row['R']
+        groups = independent_groups(r, mu)
+        assert groups == dict(row['groups']), (r, groups, row['groups'])
+        q = sum(groups.values())
+        assert row['group_energy'] == sum(value*value for value in groups.values())
+        assert row['cross'] == q*q-row['group_energy']
+        end = mertens(r*r-1)
+        assert end == row['M_endpoint'] and q == 2*int(history[r-1])-end
+        kval = max(Fraction((int(history[u])-1)**2, u+1) for u in range(r))
+        assert kval == Fraction(row['K_num'], row['K_den'])
+        assert next(u for u in range(r) if Fraction((int(history[u])-1)**2,u+1)==kval)==row['K_at']
+        c1 = groups.get(1,0)
+        rest = q-c1
+        neg = [[g,c] for g,c in groups.items() if g>=2 and c<0]
+        if neg: failures['H_POS'].append({'R':r,'negative_groups':neg})
+        if row['cross']>0: failures['H_CROSS'].append({'R':r,'cross':row['cross']})
+        if c1*rest>0: failures['H_SPLIT'].append({'R':r,'C1':c1,'rest':rest})
+        records.append({'R':r,'Q':q,'C1':c1,'rest':rest,'group_energy':row['group_energy'],
+                        'cross':row['cross'],'K':str(kval),'K_at':row['K_at'],
+                        'M_history':row['M_history'],'M_endpoint':end,
+                        'Q_ratio':str(Fraction(q*q,r*r)/kval),
+                        'endpoint_ratio':str(Fraction((end-1)**2,r*r)/kval),
+                        'negative_group_count':len(neg)})
+    summary = {'status':'PASS_INDEPENDENT_EXACT','roots':len(rows),
+               'python':platform.python_version(),'numpy':np.__version__,
+               'recurrence_cache':str(mertens.cache_info()),
+               'failures':{k:{'count':len(v),'first':v[0] if v else None,
+                              'held_out_count':sum(x['R']>256 for x in v)} for k,v in failures.items()},
+               'largest_cross':max(records,key=lambda x:x['cross']),
+               'largest_Q_ratio':max(records,key=lambda x:Fraction(x['Q_ratio'])),
+               'largest_endpoint_ratio':max(records,key=lambda x:Fraction(x['endpoint_ratio'])),
+               'held_out': [x for x in records if x['R']>256],
+               'first_failures_detail': [row for row in rows if row['R'] in
+                                        {v[0]['R'] for v in failures.values() if v}],
+               'elapsed_seconds':time.perf_counter()-start,
+               'source_sha256':hashlib.sha256(Path(__file__).read_bytes()).hexdigest()}
+    Path(args.output).write_text(json.dumps(summary,indent=2)+'\n')
+    print(json.dumps(summary,indent=2))
+
+
+if __name__ == '__main__':
+    main()
+```
+
+#### gc_certificates.py
+
+```python
+from collections import defaultdict
+from fractions import Fraction
+from math import gcd, isqrt
+from pathlib import Path
+import json
+
+from gc_verify import trial_mu
+
+
+def prime(n):
+    return n >= 2 and all(n % p for p in range(2, isqrt(n)+1))
+
+
+rows = json.loads(Path('gc_primary.json').read_text())['rows']
+selected = [x for x in rows if x['R'] >= 4]
+ratio = lambda row: Fraction(row['Q']**2, row['group_energy'])
+energy_ratio = lambda row: Fraction(row['group_energy']*row['K_den'],
+                                   row['R']**2*row['K_num'])
+certificates = []
+for r in (15,17,549,5561):
+    row = next(x for x in rows if x['R']==r)
+    groups = dict(row['groups'])
+    c1, total = groups.get(1,0), row['Q']
+    shared = total-c1
+    shared_diagonal = row['group_energy']-c1*c1
+    shared_cross = shared*shared-shared_diagonal
+    binary_cross = 2*c1*shared
+    assert shared_cross+binary_cross==row['cross']
+    assert row['atom_diagonal']+(row['group_energy']-row['atom_diagonal'])+row['cross']==total*total
+    cert = {'R':r,'C1':c1,'shared_sum':shared,
+            'shared_group_diagonal':shared_diagonal,
+            'shared_cross':shared_cross,'binary_cross':binary_cross,
+            'fine_cross':row['cross'], 'fine_diagonal':row['group_energy'],
+            'atom_diagonal':row['atom_diagonal'],
+            'within_gcd_cross':row['group_energy']-row['atom_diagonal'],
+            'Q_squared':total*total,'Q2_over_DG':str(ratio(row)),
+            'DG_over_R2K':str(energy_ratio(row))}
+    if r==15:
+        # Multiply after taking the integer floor, including negative weights.
+        cert['g2_ordered_atoms'] = [[a,b,trial_mu(a)*trial_mu(b)*((r*r-1)//(a*b))]
+              for a in range(1,r) for b in range(1,r)
+              if gcd(a,b)==2 and trial_mu(a)*trial_mu(b)]
+        assert sum(x[2] for x in cert['g2_ordered_atoms'])==-6
+    certificates.append(cert)
+
+product_checks = 0
+for r in range(2,65):
+    x = r*r-1
+    signs = defaultdict(set)
+    counts = defaultdict(int)
+    for a in range(1,r):
+        for b in range(1,r):
+            s = trial_mu(a)*trial_mu(b)
+            if s:
+                signs[a*b].add(s)
+                counts[a*b] += 1
+    rebuilt = defaultdict(int)
+    for product, ss in signs.items():
+        assert len(ss)==1
+        g = max(d for d in range(1,isqrt(product)+1) if product % (d*d)==0)
+        t = product//(g*g)
+        assert trial_mu(g)!=0 and trial_mu(t)!=0 and gcd(g,t)==1
+        assert ss=={trial_mu(t)}
+        n = (r-1)//g
+        count = sum(t % u==0 and t//u<=n for u in range(1,n+1))
+        assert count==counts[product]
+        rebuilt[g] += trial_mu(t)*count*(x//product)
+        product_checks += 1
+    assert {g:v for g,v in rebuilt.items() if v}==dict(next(z for z in rows if z['R']==r)['groups'])
+
+resonance = []
+for row in rows:
+    R = row['R']
+    if R<=256: continue
+    X,Y = R*R-1,4*R*R-1
+    witness = None
+    for p in range((R+1)//2,R):
+        if not prime(p): continue
+        for rr in (4*p-1,4*p+1):
+            if not (2*R<=rr<4*R and prime(rr)): continue
+            for q in range(R,min(2*R-1,X//p,Y//rr)+1):
+                if prime(q):
+                    error = Fraction(abs(X*rr-Y*p),Y*p)
+                    assert error and error<=Fraction(1,R)
+                    witness={'R':R,'p':p,'q':q,'r':rr,'pq':p*q,'qr':q*rr,
+                             'relative_phase_ratio_error':str(error)}
+                    break
+            if witness: break
+        if witness: break
+    resonance.append(witness or {'R':R,'witness':None})
+
+result={'certificates':certificates,'pair_product_checks':product_checks,
+        'pair_product_scope':'Every R=2..64, all nonzero original pairs; pair product is NOT final triple product.',
+        'all_nontrivial_cross_max':max(row['cross'] for row in selected),
+        'largest_nontrivial_Q2_over_DG':{'R':max(selected,key=ratio)['R'],
+                                       'ratio':str(max(map(ratio,selected)))},
+        'largest_DG_over_R2K':{'R':max(rows,key=energy_ratio)['R'],
+                              'ratio':str(max(map(energy_ratio,rows)))},
+        'H_SPLIT_failing_roots':[row['R'] for row in rows
+             if dict(row['groups']).get(1,0)*(row['Q']-dict(row['groups']).get(1,0))>0],
+        'resonance':resonance,'status':'PASS_EXACT_CERTIFICATES'}
+Path('gc_certificates.json').write_text(json.dumps(result,indent=2)+'\n')
+print(json.dumps(result,indent=2))
+```
+
+### Recorded Exact Outputs - GC
+
+#### gc_verified.json
+
+```json
+{
+  "status": "PASS_INDEPENDENT_EXACT",
+  "roots": 271,
+  "python": "3.12.14",
+  "numpy": "2.3.5",
+  "recurrence_cache": "CacheInfo(hits=4632122, misses=17869, maxsize=None, currsize=17869)",
+  "failures": {
+    "H_POS": {
+      "count": 258,
+      "first": {
+        "R": 15,
+        "negative_groups": [
+          [
+            2,
+            -6
+          ]
+        ]
+      },
+      "held_out_count": 16
+    },
+    "H_CROSS": {
+      "count": 0,
+      "first": null,
+      "held_out_count": 0
+    },
+    "H_SPLIT": {
+      "count": 6,
+      "first": {
+        "R": 17,
+        "C1": 4,
+        "rest": 1
+      },
+      "held_out_count": 3
+    }
+  },
+  "largest_cross": {
+    "R": 2,
+    "Q": 3,
+    "C1": 3,
+    "rest": 0,
+    "group_energy": 9,
+    "cross": 0,
+    "K": "1",
+    "K_at": 0,
+    "M_history": 1,
+    "M_endpoint": -1,
+    "Q_ratio": "9/4",
+    "endpoint_ratio": "1",
+    "negative_group_count": 0
+  },
+  "largest_Q_ratio": {
+    "R": 2,
+    "Q": 3,
+    "C1": 3,
+    "rest": 0,
+    "group_energy": 9,
+    "cross": 0,
+    "K": "1",
+    "K_at": 0,
+    "M_history": 1,
+    "M_endpoint": -1,
+    "Q_ratio": "9/4",
+    "endpoint_ratio": "1",
+    "negative_group_count": 0
+  },
+  "largest_endpoint_ratio": {
+    "R": 2,
+    "Q": 3,
+    "C1": 3,
+    "rest": 0,
+    "group_energy": 9,
+    "cross": 0,
+    "K": "1",
+    "K_at": 0,
+    "M_history": 1,
+    "M_endpoint": -1,
+    "Q_ratio": "9/4",
+    "endpoint_ratio": "1",
+    "negative_group_count": 0
+  },
+  "held_out": [
+    {
+      "R": 257,
+      "Q": -6,
+      "C1": 210,
+      "rest": -216,
+      "group_energy": 76480,
+      "cross": -76444,
+      "K": "3/2",
+      "K_at": 5,
+      "M_history": -1,
+      "M_endpoint": 4,
+      "Q_ratio": "24/66049",
+      "endpoint_ratio": "6/66049",
+      "negative_group_count": 37
+    },
+    {
+      "R": 263,
+      "Q": -66,
+      "C1": 134,
+      "rest": -200,
+      "group_energy": 58928,
+      "cross": -54572,
+      "K": "3/2",
+      "K_at": 5,
+      "M_history": -1,
+      "M_endpoint": 64,
+      "Q_ratio": "2904/69169",
+      "endpoint_ratio": "2646/69169",
+      "negative_group_count": 33
+    },
+    {
+      "R": 511,
+      "Q": -30,
+      "C1": -4,
+      "rest": -26,
+      "group_energy": 213948,
+      "cross": -213048,
+      "K": "3/2",
+      "K_at": 5,
+      "M_history": -5,
+      "M_endpoint": 20,
+      "Q_ratio": "600/261121",
+      "endpoint_ratio": "722/783363",
+      "negative_group_count": 61
+    },
+    {
+      "R": 512,
+      "Q": -32,
+      "C1": 21,
+      "rest": -53,
+      "group_energy": 208112,
+      "cross": -207088,
+      "K": "3/2",
+      "K_at": 5,
+      "M_history": -4,
+      "M_endpoint": 24,
+      "Q_ratio": "1/384",
+      "endpoint_ratio": "529/393216",
+      "negative_group_count": 61
+    },
+    {
+      "R": 513,
+      "Q": -46,
+      "C1": -10,
+      "rest": -36,
+      "group_energy": 219130,
+      "cross": -217014,
+      "K": "3/2",
+      "K_at": 5,
+      "M_history": -4,
+      "M_endpoint": 38,
+      "Q_ratio": "4232/789507",
+      "endpoint_ratio": "2738/789507",
+      "negative_group_count": 61
+    },
+    {
+      "R": 549,
+      "Q": -186,
+      "C1": -28,
+      "rest": -158,
+      "group_energy": 213476,
+      "cross": -178880,
+      "K": "3/2",
+      "K_at": 5,
+      "M_history": 3,
+      "M_endpoint": 192,
+      "Q_ratio": "7688/100467",
+      "endpoint_ratio": "72962/904203",
+      "negative_group_count": 69
+    },
+    {
+      "R": 1023,
+      "Q": -289,
+      "C1": -646,
+      "rest": 357,
+      "group_energy": 2334167,
+      "cross": -2250646,
+      "K": "3/2",
+      "K_at": 5,
+      "M_history": -3,
+      "M_endpoint": 283,
+      "Q_ratio": "167042/3139587",
+      "endpoint_ratio": "17672/348843",
+      "negative_group_count": 124
+    },
+    {
+      "R": 1024,
+      "Q": -265,
+      "C1": -645,
+      "rest": 380,
+      "group_energy": 2373931,
+      "cross": -2303706,
+      "K": "3/2",
+      "K_at": 5,
+      "M_history": -4,
+      "M_endpoint": 257,
+      "Q_ratio": "70225/1572864",
+      "endpoint_ratio": "1/24",
+      "negative_group_count": 124
+    },
+    {
+      "R": 1025,
+      "Q": -296,
+      "C1": -672,
+      "rest": 376,
+      "group_energy": 2390558,
+      "cross": -2302942,
+      "K": "3/2",
+      "K_at": 5,
+      "M_history": -4,
+      "M_endpoint": 288,
+      "Q_ratio": "175232/3151875",
+      "endpoint_ratio": "98/1875",
+      "negative_group_count": 124
+    },
+    {
+      "R": 2047,
+      "Q": -176,
+      "C1": -694,
+      "rest": 518,
+      "group_energy": 4986104,
+      "cross": -4955128,
+      "K": "3/2",
+      "K_at": 5,
+      "M_history": 6,
+      "M_endpoint": 188,
+      "Q_ratio": "61952/12570627",
+      "endpoint_ratio": "69938/12570627",
+      "negative_group_count": 255
+    },
+    {
+      "R": 2048,
+      "Q": -214,
+      "C1": -691,
+      "rest": 477,
+      "group_energy": 4894358,
+      "cross": -4848562,
+      "K": "3/2",
+      "K_at": 5,
+      "M_history": 7,
+      "M_endpoint": 228,
+      "Q_ratio": "11449/1572864",
+      "endpoint_ratio": "51529/6291456",
+      "negative_group_count": 254
+    },
+    {
+      "R": 2049,
+      "Q": -249,
+      "C1": -706,
+      "rest": 457,
+      "group_energy": 4857571,
+      "cross": -4795570,
+      "K": "3/2",
+      "K_at": 5,
+      "M_history": 7,
+      "M_endpoint": 263,
+      "Q_ratio": "13778/1399467",
+      "endpoint_ratio": "137288/12595203",
+      "negative_group_count": 254
+    },
+    {
+      "R": 4095,
+      "Q": -308,
+      "C1": -4982,
+      "rest": 4674,
+      "group_energy": 63898372,
+      "cross": -63803508,
+      "K": "3/2",
+      "K_at": 5,
+      "M_history": -19,
+      "M_endpoint": 270,
+      "Q_ratio": "3872/1026675",
+      "endpoint_ratio": "144722/50307075",
+      "negative_group_count": 517
+    },
+    {
+      "R": 4096,
+      "Q": -249,
+      "C1": -4921,
+      "rest": 4672,
+      "group_energy": 63425699,
+      "cross": -63363698,
+      "K": "3/2",
+      "K_at": 5,
+      "M_history": -19,
+      "M_endpoint": 211,
+      "Q_ratio": "20667/8388608",
+      "endpoint_ratio": "3675/2097152",
+      "negative_group_count": 517
+    },
+    {
+      "R": 4097,
+      "Q": -367,
+      "C1": -5042,
+      "rest": 4675,
+      "group_energy": 64839075,
+      "cross": -64704386,
+      "K": "3/2",
+      "K_at": 5,
+      "M_history": -19,
+      "M_endpoint": 329,
+      "Q_ratio": "269378/50356227",
+      "endpoint_ratio": "215168/50356227",
+      "negative_group_count": 516
+    },
+    {
+      "R": 5561,
+      "Q": 2554,
+      "C1": -298,
+      "rest": 2852,
+      "group_energy": 19073482,
+      "cross": -12550566,
+      "K": "3/2",
+      "K_at": 5,
+      "M_history": 5,
+      "M_endpoint": -2544,
+      "Q_ratio": "13045832/92774163",
+      "endpoint_ratio": "12954050/92774163",
+      "negative_group_count": 700
+    }
+  ],
+  "first_failures_detail": [
+    {
+      "R": 15,
+      "X": 224,
+      "Q": -7,
+      "M_history": -2,
+      "M_endpoint": 3,
+      "K_num": 3,
+      "K_den": 2,
+      "K_at": 5,
+      "group_energy": 223,
+      "cross": -174,
+      "atom_diagonal": 108713,
+      "groups": [
+        [
+          1,
+          -12
+        ],
+        [
+          2,
+          -6
+        ],
+        [
+          6,
+          6
+        ],
+        [
+          10,
+          2
+        ],
+        [
+          11,
+          1
+        ],
+        [
+          13,
+          1
+        ],
+        [
+          14,
+          1
+        ]
+      ]
+    },
+    {
+      "R": 17,
+      "X": 288,
+      "Q": 5,
+      "M_history": -1,
+      "M_endpoint": -7,
+      "K_num": 3,
+      "K_den": 2,
+      "K_at": 5,
+      "group_energy": 173,
+      "cross": -148,
+      "atom_diagonal": 181511,
+      "groups": [
+        [
+          1,
+          4
+        ],
+        [
+          2,
+          -6
+        ],
+        [
+          3,
+          -6
+        ],
+        [
+          5,
+          -3
+        ],
+        [
+          6,
+          8
+        ],
+        [
+          7,
+          1
+        ],
+        [
+          10,
+          2
+        ],
+        [
+          11,
+          2
+        ],
+        [
+          13,
+          1
+        ],
+        [
+          14,
+          1
+        ],
+        [
+          15,
+          1
+        ]
+      ]
+    }
+  ],
+  "elapsed_seconds": 3.5820056889999705,
+  "source_sha256": "c81e81c2ad689a5b43a049f2c9ec6220a7e0b98fcf95a127085c9648b0da7784"
+}
+```
+
+#### gc_certificates.json
+
+```json
+{
+  "certificates": [
+    {
+      "R": 15,
+      "C1": -12,
+      "shared_sum": 5,
+      "shared_group_diagonal": 79,
+      "shared_cross": -54,
+      "binary_cross": -120,
+      "fine_cross": -174,
+      "fine_diagonal": 223,
+      "atom_diagonal": 108713,
+      "within_gcd_cross": -108490,
+      "Q_squared": 49,
+      "Q2_over_DG": "49/223",
+      "DG_over_R2K": "446/675",
+      "g2_ordered_atoms": [
+        [
+          2,
+          2,
+          56
+        ],
+        [
+          2,
+          6,
+          -18
+        ],
+        [
+          2,
+          10,
+          -11
+        ],
+        [
+          2,
+          14,
+          -8
+        ],
+        [
+          6,
+          2,
+          -18
+        ],
+        [
+          6,
+          10,
+          3
+        ],
+        [
+          6,
+          14,
+          2
+        ],
+        [
+          10,
+          2,
+          -11
+        ],
+        [
+          10,
+          6,
+          3
+        ],
+        [
+          10,
+          14,
+          1
+        ],
+        [
+          14,
+          2,
+          -8
+        ],
+        [
+          14,
+          6,
+          2
+        ],
+        [
+          14,
+          10,
+          1
+        ]
+      ]
+    },
+    {
+      "R": 17,
+      "C1": 4,
+      "shared_sum": 1,
+      "shared_group_diagonal": 157,
+      "shared_cross": -156,
+      "binary_cross": 8,
+      "fine_cross": -148,
+      "fine_diagonal": 173,
+      "atom_diagonal": 181511,
+      "within_gcd_cross": -181338,
+      "Q_squared": 25,
+      "Q2_over_DG": "25/173",
+      "DG_over_R2K": "346/867"
+    },
+    {
+      "R": 549,
+      "C1": -28,
+      "shared_sum": -158,
+      "shared_group_diagonal": 212692,
+      "shared_cross": -187728,
+      "binary_cross": 8848,
+      "fine_cross": -178880,
+      "fine_diagonal": 213476,
+      "atom_diagonal": 209519833116,
+      "within_gcd_cross": -209519619640,
+      "Q_squared": 34596,
+      "Q2_over_DG": "8649/53369",
+      "DG_over_R2K": "426952/904203"
+    },
+    {
+      "R": 5561,
+      "C1": -298,
+      "shared_sum": 2852,
+      "shared_group_diagonal": 18984678,
+      "shared_cross": -10850774,
+      "binary_cross": -1699792,
+      "fine_cross": -12550566,
+      "fine_diagonal": 19073482,
+      "atom_diagonal": 2208675199789504,
+      "within_gcd_cross": -2208675180716022,
+      "Q_squared": 6522916,
+      "Q2_over_DG": "3261458/9536741",
+      "DG_over_R2K": "38146964/92774163"
+    }
+  ],
+  "pair_product_checks": 15028,
+  "pair_product_scope": "Every R=2..64, all nonzero original pairs; pair product is NOT final triple product.",
+  "all_nontrivial_cross_max": -34,
+  "largest_nontrivial_Q2_over_DG": {
+    "R": 5561,
+    "ratio": "3261458/9536741"
+  },
+  "largest_DG_over_R2K": {
+    "R": 66,
+    "ratio": "7616/1089"
+  },
+  "H_SPLIT_failing_roots": [
+    17,
+    31,
+    32,
+    511,
+    513,
+    549
+  ],
+  "resonance": [
+    {
+      "R": 257,
+      "p": 131,
+      "q": 257,
+      "r": 523,
+      "pq": 33667,
+      "qr": 134411,
+      "relative_phase_ratio_error": "22147/11536515"
+    },
+    {
+      "R": 263,
+      "p": 137,
+      "q": 263,
+      "r": 547,
+      "pq": 36031,
+      "qr": 143861,
+      "relative_phase_ratio_error": "23193/12634825"
+    },
+    {
+      "R": 511,
+      "p": 263,
+      "q": 521,
+      "r": 1051,
+      "pq": 137023,
+      "qr": 547571,
+      "relative_phase_ratio_error": "87303/91566343"
+    },
+    {
+      "R": 512,
+      "p": 263,
+      "q": 521,
+      "r": 1051,
+      "pq": 137023,
+      "qr": 547571,
+      "relative_phase_ratio_error": "87644/91925075"
+    },
+    {
+      "R": 513,
+      "p": 263,
+      "q": 521,
+      "r": 1051,
+      "pq": 137023,
+      "qr": 547571,
+      "relative_phase_ratio_error": "263957/276853525"
+    },
+    {
+      "R": 549,
+      "p": 277,
+      "q": 557,
+      "r": 1109,
+      "pq": 154289,
+      "qr": 617713,
+      "relative_phase_ratio_error": "300569/333952031"
+    },
+    {
+      "R": 1023,
+      "p": 521,
+      "q": 1031,
+      "r": 2083,
+      "pq": 537151,
+      "qr": 2147573,
+      "relative_phase_ratio_error": "1048091/2180965915"
+    },
+    {
+      "R": 1024,
+      "p": 521,
+      "q": 1031,
+      "r": 2083,
+      "pq": 537151,
+      "qr": 2147573,
+      "relative_phase_ratio_error": "350046/728410621"
+    },
+    {
+      "R": 1025,
+      "p": 521,
+      "q": 1031,
+      "r": 2083,
+      "pq": 537151,
+      "qr": 2147573,
+      "relative_phase_ratio_error": "350729/729833993"
+    },
+    {
+      "R": 2047,
+      "p": 1033,
+      "q": 2053,
+      "r": 4133,
+      "pq": 2120749,
+      "qr": 8485049,
+      "relative_phase_ratio_error": "1395703/5771314185"
+    },
+    {
+      "R": 2048,
+      "p": 1033,
+      "q": 2053,
+      "r": 4133,
+      "pq": 2120749,
+      "qr": 8485049,
+      "relative_phase_ratio_error": "1397068/5776954365"
+    },
+    {
+      "R": 2049,
+      "p": 1033,
+      "q": 2053,
+      "r": 4133,
+      "pq": 2120749,
+      "qr": 8485049,
+      "relative_phase_ratio_error": "4195301/17347791899"
+    },
+    {
+      "R": 4095,
+      "p": 2111,
+      "q": 4099,
+      "r": 8443,
+      "pq": 8652989,
+      "qr": 34607857,
+      "relative_phase_ratio_error": "16775357/141597644989"
+    },
+    {
+      "R": 4096,
+      "p": 2111,
+      "q": 4099,
+      "r": 8443,
+      "pq": 8652989,
+      "qr": 34607857,
+      "relative_phase_ratio_error": "5594516/47222269931"
+    },
+    {
+      "R": 4097,
+      "p": 2111,
+      "q": 4099,
+      "r": 8443,
+      "pq": 8652989,
+      "qr": 34607857,
+      "relative_phase_ratio_error": "5597247/47245330495"
+    },
+    {
+      "R": 5561,
+      "p": 2803,
+      "q": 5563,
+      "r": 11213,
+      "pq": 15593089,
+      "qr": 62377919,
+      "relative_phase_ratio_error": "10305437/115575989683"
+    }
+  ],
+  "status": "PASS_EXACT_CERTIFICATES"
+}
+```
+
+
+### Prepublication Freshness - GC
+
+At 2026-11-11 00:18:50 UTC, main remained f7947bee036c4dddb0c36fc9f53ab46b4fa90995; open/draft PR enumeration remained empty; all six other November 10 role report blobs were unchanged from intake. The nine numerical summary rows were rechecked against the exact output, all ten Markdown tables were validated, A-N and all five required capsule stages are present, and code fences are balanced. Earlier report content and preregistration are exact preserved prefixes. Research execution is COMPLETE at the stated finite scope; publication is verified only after immutable readback below.
