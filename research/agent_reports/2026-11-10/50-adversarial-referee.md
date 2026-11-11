@@ -2234,3 +2234,14 @@ WITNESS R=549 Q=-186 C1=-28 C2=70 shared=-158 binary_cross=8848 fine_cross=-1788
 ROOTS=1999 IDENTITY_FAILURES=0 GC5_FAILURES=0 FIRST_H_POS=15 FIRST_H_SPLIT=17
 ```
 
+
+
+## Verified Publication Receipt
+
+STATUS=COMPLETED for this scheduled research execution, 2026-11-10 20:37 EST.
+
+- Substantive final report committed to the owned daily path on agent-reports at `ce3f4087703d1ea869af4564481110d6ff62d8d5`, blob `8a3a2b0c1b72f3ced544198632efcb320cabdcd3`.
+- Immutable re-fetch matched all 178,488 characters exactly and retained the previous 115,329-character report/checkpoint as an unchanged byte prefix (all content is UTF-8; comparison used the complete decoded text).
+- Early checkpoint `9b3104dbedb1418e9f33f4e5a5b92b74ab17d24e` was likewise read back before substantive work continued.
+- This receipt records the already verified substantive commit; it does not claim its own future commit hash in advance.
+- Publication is not formal mathematical certification. Accepted MD/IR results remain PAPER_PROOF; new IRR2 remains PAPER_PROOF/SELF_AUDIT pending independent review; IRR3/IRR4 remain FINITE_COMPUTATION. `VERIFIED_ETA=NONE`; canonical RH, finite AC and wheel-RH estimates remain OPEN.
