@@ -1,5 +1,7 @@
 # Seven-agent persistent research engine and next-run attack plan
 
+**LAST_ACTUAL_REPORT_CONTINUITY_V1 (2026-11-11):** On every actual invocation, follow [the unbounded latest-real-report and missed-handoff recovery protocol](RHLEAN_REPORT_CONTINUITY_LAST_ACTUAL_20261111.md). Find each role's latest verified published report without a calendar-day cap, then backfill every newly unconsumed relevant section. Any older today/yesterday-only language is a minimum, not a stopping rule. This changes no mathematics, schedule, saved Studio configuration, permissions or human-only merge policy.
+
 **CROSS_ROUTE_SIGNED_RECOVERY_V1 — CURRENT USER-ORDERED PRIORITY (effective after reviewed human merge).** On the next *actually configured* run, read [the five-stage, seven-role cross-route source/loss-recovery directive](RHLEAN_CROSS_ROUTE_SIGNED_RECOVERY_20261110.md) **before** any FINITE_WHEEL_CENTERED_RH_V1, frozen-root, generic HIGH or dated NEXT-* task. All seven roles **must**: (1) establish the strongest genuinely unconditional theorem and audit transitive dependencies, (2) map its actual source across Euler/VF/NNS/square blocks with typed bridges or explicit barriers, (3) inventory irreversible signed-information losses, (4) test whether a separately **already-proved** RH_Lean theorem recovers the lost interaction with original masks, and (5) admit a new proof route only for a net stronger global exponent or a substantial new restriction on the **complete** physical source. Preserve the nine independent routes and all source safeguards; no single-route pigeonholing. Record `cross_route_ack=CROSS_ROUTE_SIGNED_RECOVERY_V1` and a source→loss→recovery→consumer report. This changes repository task selection, **not** actual Studio prompts, schedules, tool permissions, agent launches or human-only merge rules.
 
 **FINITE_WHEEL_CENTERED_RH_V1 — CURRENT USER-ORDERED RESEARCH PRIORITY (effective after human merge).** Read [the seven-role complete signed finite-wheel directive](RHLEAN_SEVEN_AGENT_FINITE_WHEEL_BOUNDARY_20261108.md). All seven roles now investigate the exact certified `F_R-D_R = li(R^2-1)-pi(R^2-1)` source from PR #1122 and the still-OPEN uniform `O(R log R)` bound; maintain signed physical/virtual Euler compensation and distinct role outputs. This task-selection instruction supersedes older frozen-root/prime-two, generic HIGH, NEXT-* and rotation priorities but not their valid theorems, safeguards, historical notes, permissions or cadence. Acknowledge `finite_wheel_ack=FINITE_WHEEL_CENTERED_RH_V1`. Repo edits do not update saved Studio prompts.
@@ -38,7 +40,7 @@ A workspace is a section of the role's existing authorized dated report, carried
 
 ## 3. Every actual invocation: freshness, breadth, depth, stress test, handoff
 
-First verify current main, authoritative policy/source revisions, current PR states and relevant exact-head CI. Read all applicable committed same-day and previous-day own/upstream sections and the external inbox. Missing evidence is PENDING, not a reason to invent a completed relay.
+First verify current main, authoritative policy/source revisions, current PR states and relevant exact-head CI. Enumerate actual dated report folders without a fixed day limit; for each role find its latest verified published section, backfill all relevant sections since the last verified consumed watermark, then read the external inbox. Include multiple same-day invocations and older route-specific derivations. Missing evidence is PENDING, not a reason to invent a completed relay.
 
 Use a three-layer briefing: current authority; the selected route's exact derivation and first open step; only the relevant earlier proofs, failures and counterexamples. Previously read content may be reused only when its bytes or a usable verified retained artifact are actually available and the dependency hashes are unchanged. In a fresh session without that content, retrieve it. A hash alone is not comprehension or a cache. Changed coefficients, masks, cutoffs, dependencies or statements invalidate affected conclusions. Do not repeatedly reconstruct an unchanged repository-wide history or search for a theorem already located.
 
@@ -78,6 +80,8 @@ Use this inside the existing report; link the full derivation rather than replac
 
 ```text
 ENGINE_VERSION / MAIN / POLICY_SHA / RUN_ID_OR_UNAVAILABLE / TIMESTAMP:
+LAST_ACTUAL_PER_ROLE / REPORT_SHA / RUN_TIMESTAMP / STATUS:
+LAST_CONSUMED_WATERMARKS / INTERVENING_UNREAD / GAP_STATUS / CONTINUITY_VERIFICATION:
 TASK_ID / ROUTE / ORIGINAL_SOURCE_REVISION / TRIGGER:
 PROPOSED_CLAIM_AND_QUANTIFIERS:
 WHY_IT_MATTERS / BINDING_ESTIMATE_OR_EXPLORATORY_USE:
