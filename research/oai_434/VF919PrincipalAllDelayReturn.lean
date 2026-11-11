@@ -17,7 +17,7 @@ open scoped Classical BigOperators Topology
 open Complex MeasureTheory Set Filter
 namespace SevenEighths.PrincipalAllDelayReturn
 open HeckeFamily HeckeSignal Continuation PrincipalSignalComparison
-open PrincipalSlotEstimate PrincipalMellinResidues ProbeEuler ProbeLocal
+open PrincipalSlotEstimate PrincipalMellinResidues
 
 namespace FiniteResponse
 
@@ -267,7 +267,7 @@ theorem slotResidueC_all_delay_error {κ ι : Type*}
     rw [← mul_sub, norm_mul]
     have hn := mul_le_mul (kernel_two_bound chi H hb c hZ0 y) (herror y)
       (norm_nonneg _) (by have := quotientBound_nonneg; positivity)
-    convert hn using 1 <;> dsimp [f] <;> ring
+    convert hn using 1 <;> ring
   have hn := norm_integral_le_of_norm_le (hg.const_mul
     (Z ^ (2 + c) * Real.exp ((2 - 5 / 6 : ℝ) ^ 2) * quotientBound *
       (C * Z ^ (-2 : ℝ)))) (ae_of_all _ hbound)
@@ -298,7 +298,7 @@ theorem normalized_source_eq_slotResidueC {κ ι : Type*}
         (Probe.principalScalar S Z (1 / 6) (slotMass T w) : ℂ)) =
       slotResidueC chi (fun s => H s 1 (1 / 6))
         (x / 3 - 5 / 6 + 1 / 36) a Z S T w Q A eta := by
-  unfold sourceResidueIntegral verticalIntegral slotResidueC
+  unfold sourceResidueIntegral ProbePhysical.verticalIntegral slotResidueC
   norm_num only [Complex.ofReal_div, Complex.ofReal_mul, Complex.ofReal_one, Complex.ofReal_ofNat]
   rw [mul_div_assoc, ← integral_div]
   congr 1
