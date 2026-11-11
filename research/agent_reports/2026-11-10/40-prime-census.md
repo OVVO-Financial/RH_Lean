@@ -1512,3 +1512,35 @@ At 2026-11-10 08:45:53 UTC, substantive commit `8cc9788cee79c34a1c83f45af4e87ae6
 Execution=COMPLETE. Substantive publication=PUBLISHED_AND_READBACK_VERIFIED. UC2 retains its exact REFUTED-extension scope, UC4 is FINITE_COMPUTATION, and UC1/UC3 paper arguments remain SELF_AUDIT with INDEPENDENT_REVIEW_PENDING and no new Lean certification. The full uniform finite-wheel estimate, canonical endpoint and RH remain OPEN.
 
 The report includes all three final executed programs, their observed hashes, exact witnesses, complete-source tests, numerical precision limits and the next-run capsule. No other report, source, policy, branch, PR, issue, workflow, merge, permission or schedule was changed; no agent was launched. All required computation sessions have finished. This receipt records already completed verification, not a prospective promise; its own append is separately read back before the final user response.
+
+
+## Scheduled Preregistration - 20261110-census-2/GC
+
+Recorded 2026-11-11 00:05:48 UTC; trigger 2026-11-10 19:00:01 EST; RUN_ID_UNAVAILABLE.
+Execution=IN_PROGRESS. cross_route_ack=CROSS_ROUTE_SIGNED_RECOVERY_V1.
+Main=f7947bee036c4dddb0c36fc9f53ab46b4fa90995; AGENTS blob=c9c89f01b90b526de9f3e8ea92478e36504711b6; contract blob=95566e37c8eaeb99ee680660df4f9d2e06ea5038; policy=e922d4ba9362a1ae196af8f6de88f7417f92087c.
+All seven November 10 and November 9 reports and the external inbox were retrieved at report head e715cfda8aa5e6cb42501fb155592545b9d260af. TODAY=AVAILABLE; YESTERDAY=CARRY_FORWARD. Current open/draft PR enumeration is empty. #1130 is merged, superseding its earlier report state. No old UC table is being repeated.
+
+### Mathematical Question And Frozen Tests
+
+For X=R^2-1, Q_R=sum_(1<=a,b<R)mu(a)mu(b)floor(X/(ab)), define C_R(g) by the SAME ordered pairs restricted to gcd(a,b)=g. Every diagonal, both off-diagonal orientations, squarefree zero, and inclusive floor endpoint remains. Thus Q_R=sum_g C_R(g). Define D_G=sum_g C_R(g)^2 and O_G=Q_R^2-D_G. This is a scalar grouping of the original bilinear source, NOT the #915 zero-target NNS normalization and NOT the lcm-divisor Gram.
+
+Registered auxiliary hypotheses, not assertions by another specialist:
+
+1. H_POS: C_R(g)>=0 for every g>=2. This tests whether positive shared-factor fibres survive the true historical cutoff and coprime complement.
+2. H_CROSS: O_G<=0 at every R>=2. Equivalently, |Q_R|^2<=sum_g C_R(g)^2. This tests whether all shared-gcd grouping interactions can be discarded in the favorable direction.
+3. H_SPLIT: C_R(1)*sum_(g>=2)C_R(g)<=0. This weaker two-sector sign test distinguishes internal shared-sector interactions from the full cross Gram.
+
+Rival explanation: parity/coprimality restrictions induce coherent positive or negative groups, and the sign may reverse under grouping; no cofactor-positivity theorem automatically controls the global interaction. Rejection criterion is ONE exact strict failure on the stated complete source. Record smallest failures in the exhaustive domain and largest finite margins; a surviving bound remains CONJECTURE, not a theorem.
+
+Discovery roots: every integer 2<=R<=256. Held-out, fixed before execution: 257,263,511,512,513,549,1023,1024,1025,2047,2048,2049,4095,4096,4097,5561. Near-dyadic roots test arithmetic boundaries, not an unverified claim that every listed root is prime-resonant. Stop after this finite set unless a specific discrepancy needs localization.
+
+At every root retain exact K_R=max_(0<=u<R)(M(u)-1)^2/(u+1), its earliest maximizer, Q_R^2/(R^2*K_R), and (M(X)-1)^2/(R^2*K_R). Independently compare Q_R with 2M(R-1)-M(X). Exact integer/rational arithmetic only for decisions; no fitted constants or random controls. An independent factorization/Dirichlet recurrence will check important results against a sieve/pair implementation. Code and execution evidence will follow.
+
+### Authority, Paid Recovery And Pending Work
+
+Original definitions read in EULER_FRACTIONAL_COUPLED_20261027.lean (e6c4b1690e497760d366e36b28a1f7aa60e19f85), EULER_SELF_DUAL_FINITE_C_BRIDGE_20261027.lean (e97561ef330a9996fd807d8910369f0698147b01), and the square-root amplification consumer. Latest #1119 native_mertens_near_uniform_window_error_closed source f629db1b2b65d6ec042ac9432397d4b6316200c6 and actual successful audit log 128949473700 were read; exact dependency freshness/comparison remains to finish. No new baseline or global gain is asserted.
+
+The paid recovery candidates are exact divisor/floor and cofactor decompositions, not a hidden sign estimate. The test asks whether their true masks justify a favorable COMPLETE grouping inequality. Even a positive finite result would leave a uniform D_G bound relative to K_R unpaid. Owner DR/Wheel RC complete auxiliary defect work and Analytic IR/Coordinator MD paper endpoint proposals remain distinct carriers/statuses.
+
+Next: execute the frozen tests, independently reconstruct any failure, map the precise lost interaction, and append checked findings without changing this registration or earlier daily evidence. No Lean execution, source modification, agent launch, schedule change, or new proof route is authorized or claimed.
