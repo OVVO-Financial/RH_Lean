@@ -398,3 +398,166 @@ Initial head 72c63476c883bdf97bbfa33f1231d826d86a6032 failed dedicated run/job 4
 Latest head cecb5c2fffbd86026665300bc0d6cc3a35b92cdb removes the redundant tactic sequencing, retains warning-fatal verification and all twelve unchanged theorem statements. Dedicated [run 43080602001](https://github.com/OVVO-Financial/RH_Lean/actions/runs/43080602001) has actually started; result PENDING. No claim PROVED_IN_LEAN is made until exact public types and live standard-axiom/original-source dependency audits also pass.
 
 FFR2's explicit approximation error is N*5^N*4*2^(K+1)*endpointConstant(2)*Z^c under fixed (7/8)m(K+1)>=2 and original SlotBounds at Z^m. The retained response is not itself bounded by this error. FFR3 finite-interval inversion and FFR4 physical endpoint assembly remain unformalized. NO_NEW_GLOBAL_GAIN; VERIFIED_ETA=NONE; RH OPEN. No local Lean, direct main push, merge, auto-merge, other-role report edit, agent launch or schedule change occurred. Full A-P synthesis follows after verification or an actual operational blocker.
+
+
+## Scheduled Research Synthesis - 20261111-lean-2/ADR
+
+Actual scheduled trigger: 2026-11-11 13:14:01 EST, America/New_York. Platform RUN_ID_UNAVAILABLE; ADR is a research label. cross_route_ack=CROSS_ROUTE_SIGNED_RECOVERY_V1; chain_ack=CANCELLATION_CHAIN_REUSE_V1. This section supplements, and does not replace, the earlier daily results and checkpoint.
+
+### A. Most Important Formal Mathematical Result
+
+PROVED_IN_LEAN_AT_PR_HEAD; CI_GREEN; REVIEW_READY; UNMERGED. Implemented accepted claim 20261110-coordinator-2309-EST/FFR2 at `cecb5c2fffbd86026665300bc0d6cc3a35b92cdb`: an explicit all-delay error estimate for the original normalized principal residue, retaining every labelled finite response term. The same original signal is evaluated at every positive inner argument, including arguments below one. The proof shifts the complete rational product to Re(s)=2, then integrates its finite approximation. No new signal-growth or target-bound hypothesis is used.
+
+This is a necessary quantitative supporting theorem for the accepted FFR campaign. It is not the full physical source bound, a new unconditional global exponent, or RH. FFR1 is now on main through human-merged #1131. FFR3 inversion and FFR4 complete physical assembly remain separate formal obligations.
+
+### B. Current Authoritative Objective
+
+Intake and refreshed main: `dda92f9ce59627b4c1f1317082f728648d330a0a`; actual git tree `17225275af9120da64ccbd3f16eca465a557d6d6`. Live AGENTS blob `c9c89f01b90b526de9f3e8ea92478e36504711b6`; CURRENT_PROOF_CONTRACT `95566e37c8eaeb99ee680660df4f9d2e06ea5038`; governing cross-route directive `e922d4ba9362a1ae196af8f6de88f7417f92087c`. The canonical VF/von Koch arithmetic bound and quantitative premises of the conditional finite-A/C consumers remain open. No central instruction or proof contract was changed.
+
+Exact canonical arithmetic target: `VFCanonicalSquareVonKochStatement`, exists C>=0, forall R>=2, abs(pi(R^2)-VF_can(R^2))<=C*R*log(R). The compiled VF/Li2 transports do not prove this bound. The classical VF-to-RH interface retains its explicit ClassicalVonKochRHCriterion; the internally proved Mertens-energy-to-RH consumer is a different route. None of these open arithmetic premises or formal interfaces is supplied by this PR. CROSS_ROUTE_SIGNED_RECOVERY_V1 supersedes the older single-route priority still printed at the top of the contract, not its exact theorem statements.
+
+#### 1. BASELINE / DEPENDENCY RECEIPT
+
+The strongest applicable inspected compiled theorem remains `RHLean.Analysis.native_mertens_near_uniform_window_error_closed : MertensGrowthAtMost (7/8-7/(64*N_pack))`. For every eps>0 there is C_eps before every integer n>=1. A no-loss bound at the boundary is not asserted. With the same positive original length L, `N_pack=ceil_nat(max(1,1/(6L)))+2` and `N_old=ceil_nat(max(1,1/(3L)))+2`; positivity and ceiling monotonicity give N_pack<=N_old and 7/(64*N_pack)>1/(48*N_old). Counts are compared, not identified.
+
+Fresh checks and actual logs: #1119 head `77ee815846d6d534c866f0752aa33b84c385610a`, 14/14 checks successful; [run 42552018910](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42552018910), [job 128949473700](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42552018910/job/128949473700). Five audited root closures 35358, 35375, 35736, 35737, 35753; only propext, Classical.choice, Quot.sound. This invocation compared 907 selected preexisting source/audit blobs with main and found zero differences. This scope differs from the earlier 911-file comparison and is not a claim of a new whole-main build. Imported placeholder warnings outside these dependency closures do not certify or invalidate an unrelated root; no blanket hole-free claim about the whole upstream library is made.
+
+#1131 was merged at 12:46:15 UTC. Its tested head `f3f1da37c3e2fff9374eb5e99eca0da94c1efc29` has the same actual git tree as intake main. All 13 checks remain green; [run 43006238259](https://github.com/OVVO-Financial/RH_Lean/actions/runs/43006238259), [job 130474300634](https://github.com/OVVO-Financial/RH_Lean/actions/runs/43006238259/job/130474300634). The eight added FFR1 root closures are 422, 533, 182, 841, 230, 223, 101, 85; the original six supplier audits also passed. No redundant baseline commit or rerun was made.
+
+Pinned Lean 4.34.1, compiler `5045d0056413266e57c625dcd7c365b10e377c52`; Mathlib `d13f23b723b8a846827a245b89c10fc7d3f11612`; PrimeNumberTheoremAnd `c39a751132c88b6e8080b74c74023fd95b3d8be0`; openai/math `1581d4cbdd69a0faf34b2089614fe2a814316a6a`. The accepted IR paper endpoint remains PAPER_PROOF, not the certified baseline.
+
+### C. Formalization Candidates And Continuity
+
+Retrieved both November 10 and November 11 reports for Coordinator (matching mirrors), Owner, Analytic, Wheel, Census, Referee and Lean at agent-reports intake `d280d02cb064f099570ca2e87e2dc6ad7bbcfad5`. TODAY=AVAILABLE for all roles; relevant YESTERDAY=CARRY_FORWARD. No scheduled completion was assumed. External inbox blob `038018145c0fddb2f6306c0712373adf9cd1ea52` has no new entry after October 18; its original-cutoff and cofactor safeguards remain in force.
+
+Priority A: no open/draft proof PR existed at intake after #1131 merged. Priority B: accepted FFR2 was the next precise missing original-source bridge. Referee 20261111-referee-1 independently accepted FFR1-FFR4 on paper, and 20261111-referee-2 preserves this implementation priority. This implementation's own scrutiny is SELF_AUDIT, not a new independent acceptance of code.
+
+Other queues are retained, not silently promoted: Wheel PD1-PD4 and prior GD1-GD4 accepted at their stated scope; Census UM1/UM5 and the genuine R=115 H_F falsifier accepted. The latter has 404-599=-195 while the complete restored gap is 18331; it does not refute H_Z, H_ROB or RH. HR1-HR2, Owner FA, Analytic DM and Coordinator FL keep their pending-review status. No duplicate finite algebra, equivalent obstruction or unrelated route PR was created.
+
+### D. Candidate Selection And Proof Plan
+
+Target: with fixed K, m and finite slot count N, Z>=1, (7/8)m(K+1)>=2 and original SlotBounds at P=Z^m, bound the difference between the original residue and the complete finite delayed signal by `N*5^N*4*2^(K+1)*endpointConstant(2)*Z^c`.
+
+Dependencies: original raw-inverse/analytic-reciprocal almost-everywhere equality; polynomial reciprocal growth above beta; holomorphic complete slots; polynomial-Gaussian contour shift; complete finite-product error and exact labelled response; original signal contour for all x>0; exact variable-x physical normalization; original exclusion/source-correction suppliers.
+
+Strategy: shift the whole original product across the legal strip [a,2]; dominate its height by a polynomial times a Gaussian; use the complete finite approximation on line 2; convert each exponential atom to the original signal at Z/exp(d); integrate the error O(Z^-2) against the O(Z^(2+c)) kernel. Fixed K and m precede all-scale use. Pool arrays may vary with outer Z, but are frozen during each integral and response evaluation.
+
+Validation: actual GitHub Actions, warnings fatal, exact public types, proof inventory/import/export checks, terminal standard axioms and positive original-source dependencies at the latest PR head. No local Lean execution.
+
+### E. Exact Theorem Statements
+
+Namespace: `OAI.SevenEighths.PrincipalAllDelayReturn`. Source: `research/oai_434/VF919PrincipalAllDelayReturn.lean`.
+
+- `gaussian_atom_dilation`: for every real c,d, coefficient B, Z>0, complex s and G, the Gaussian Mellin kernel times B*exp(-d*s) equals B*exp(d*c) times the same kernel at Z/exp(d). No d<=log Z restriction.
+- `finite_response_contour`: for every finite labelled list and original analytic H, its line-2 integral equals f(Z)+sum_(d,B) B*exp(d*c)*f(Z/exp(d)), where f=HeckeSignal.signal chi H c. Repeated labels and all mixed products survive.
+- `slotResidueC_shift_right`: original raw-L quotient with complete slotRatio at a equals its value at 2, assuming 7/8<a<=2, beta<a, Z>=1, original SlotBounds, H holomorphic on Re>7/8 and ||H-1||<=1/2 there.
+- `slotResidueC_all_delay_error`: under those hypotheses, SlotBounds at Z^m and 2<=(7/8)m(K+1), the complete residue-response error is at most `(N*5^N*4*2^(K+1))*endpointConstant 2*Z^c`. Its constant depends on N,K and the fixed line, not pool sizes, Z, a, chi or individual coefficients satisfying the hypotheses.
+- `normalized_source_eq_slotResidueC` and `normalized_source_all_delay_error`: exact physical source normalization at X=Z^x, c=x/3-5/6+1/36, actual slot-product identification on the line and nonzero original source constant. The integral is the original sourceResidueIntegral, with the original principalScalar and negative slot normalization.
+- `source_correction_all_delay_error`: uses chi=eta0.excludePrimes(E), H=sourceCorrection eta0 E and original SourceExclusions to discharge the analytic H hypotheses. No bound on the desired signal or original residue is assumed.
+
+SlotBounds retains P>=480, the original small-error gate, nonnegative pool weights, Q>=P, phase norm<=1, target norm=1 and positive slot masses. No extra premise was introduced to repair compilation. The generic physical-normalization identity alone does not assert that every arbitrary array is actual SourceData; its identification hypothesis remains explicit.
+
+### F. Independent Mathematical Audit
+
+All finite delays are integrated on the right line, where the original reciprocal and Gaussian kernel are controlled for every positive inner scale. No atom is shifted left on an invalid small-scale contour. The complete product is holomorphic on [a,2] under the original slot lower bounds; the analytic reciprocal equality to the raw inverse holds almost everywhere, sufficient for the original integral. beta<a is the existing legal-contour condition, not a new assumption beta<=7/8 or a target-equivalent global bound.
+
+Finite sums require no infinite exchange. Absolute integrability follows term by term at Z/exp(d)>0. The remainder proof uses the already verified COMPLETE finite product, including cross-slot terms, then a Gaussian integral. Multiplying Z^(2+c) by Z^-2 gives Z^c for positive Z. N and K are fixed for the intended all-scale consequence; a varying K(Z) would change the constant and is not the claimed uniform theorem.
+
+No-circularity: no global signal norm, finite-AC bound, Mertens exponent, residue-error hypothesis or RH premise appears. The only estimate assumed for slots is the original source's independently supplied SlotBounds. The quantitative error controls approximation, not the retained response itself. No numerical extrapolation was used; previous unchanged algebra diagnostics were not rerun.
+
+#### 2. FOUR-WAY SOURCE MAP
+
+Selected physical source: original normalized NNS principal residue with fixed SourceData F, excluded ideal character chi, sourceCorrection H0, original physical X=Z^x, normalizer and outer-Z pool weights. The map records exact bridges and barriers, not four equal expressions.
+
+| Euler / finite AC | VF / actual primes | NNS / OAI | Square blocks / native HIGH | Prime-side/Mobius coupling |
+| --- | --- | --- | --- | --- |
+| X_R=R^2-1, strict-history K_R=max_(0<=y<R)(M(y)-1)^2/(y+1), Q_R=sum_(1<=a,b<R)mu(a)mu(b)floor(X_R/(ab)). `eulerSelfDualBilinear_eq_two_mertens_sub_endpoint` is EXACT_IDENTITY Q_R=2M(R-1)-M(X_R), with genuine integer cutoffs and no owner surrogate. | `finiteWheel_squareFractional_centered_eq_reference_sub_pi` is EXACT_IDENTITY F_R-D_R(L)=L-pi(X_R) for R>=2, retaining virtual d>X and full compensation. L=li(X_R) identifies the target, not an independent bound. | New original-residue to complete delayed signal is EXACT_IDENTITY plus independently bounded approximation error under explicit original analytic/slot hypotheses. All labelled ideal weights, repeated delays, original phase, product(-M_j) and sourceCorrection remain. Original LOW Gram retains both off-diagonal orientations. | Certified native Hecke zero -> all-prefix Mertens is ONE_WAY_IMPLICATION. Canonical fixed-Lambda LOW/HIGH, complete M(R^2-1), strict K_R and signed square prefixes remain distinct from shell sum-of-squares. | OPEN_BRIDGE between ideal-character coefficient lists and genuine Mobius or clipped #915 prime-owner packets. Euler/wheel identities do not identify error terms or transfer a bound. A real/complex isometry alone supplies no arithmetic cancellation. |
+
+Unchanged inspected source blobs: Euler endpoint `e7ee8f77ffd59bccaa49dd6d74fbe0d7952c2d73`; complete wheel `ecb482e52deeee5e9b3853592a3ffdace662d2ff`; canonical VF `79030d70e8d3e0d08eef9bac53fef95c36eca2fb`. The atlas is navigation; original declarations govern each arrow.
+
+#### 3. FIRST SIGNED LOSS
+
+| Declaration / signed input | Loss and exact tax | Source, consumer and recovered input | Unpaid complement / falsifier |
+| --- | --- | --- | --- |
+| Original `weighted_principal_product_error_linear`, complete normalized principal product | Replacement by 1 and triangle/telescope discards eta*Q^-s and mixed products; old error N*2^N*1440*P^-7/8 under the original gate. | Same original ideal slots and product(-M_j). Merged FFR1 retains the signed finite response; FFR2 returns every atom to the same signal. | FFR3 must invert the retained response. Coherent principal eta=1 prevents automatic stronger approximation by 1. |
+| `principal_product_response_terms_mass`, complete labelled response | Norm/positive averaging ignores equal-delay phase cancellation; mass tax `(1+2*(r_P+w_P))^N-1`, independent of K. | Same outer-frozen weights, all mixed products; tends to zero for theta>3/5. | It is a coefficient bound, not a global signal norm. Do not delete exp(d)>Z. |
+| New `slotResidueC_all_delay_error`, complete approximation remainder | Integral triangle and product norm pay `N*5^N*4*2^(K+1)*endpointConstant(2)*Z^c`; response is not absorbed into this error. | Existing complete-product error at rho=2 supplies the Z^-2 factor. Original right-line reciprocal supplies Z^(2+c). | Complete physical LOW/HIGH, mixed/exceptional/height/conductor return still required; the binding 24h<t gate is not removed. |
+| Original actual LOW signed Gram and Euler Q_R=sum_g C_R(g) | Triangle or squaring into diagonal plus twice off-diagonal pairs loses joint cancellation. No new global power is obtained here. | Native marked inputs retain source/profile/height ranges. Complete reciprocal bands and positive cofactor fibres retain their own scope. | J=empty has no outer pair saving. Positive partial fibres do not control the complement; R=115 H_F and shared-prime resonance remain scoped falsifiers. |
+
+#### 4. PAID RECOVERY TEST
+
+The successful source-compatible candidate is the existing `weighted_principal_product_partial_power` together with `principal_product_response_terms_eval`, raw_inverse_ae_reciprocal and original `signal_eq_contour`. The all-delay bridge is new work needed to consume those verified inputs. All arrays and the negative principal normalization match literally; no transfer from an unrelated arithmetic carrier is assumed.
+
+Original `signal_bound_at_zero` gives ||f(x)||<=endpointConstant(B)*x^(B+c) for 0<x<=1 and any B>=2 under the same H hypotheses. This is the paid input for below-one delays in the NEXT inversion, not justification for dropping them now. Other checked wheel/Euler/LOW theorems do not supply an ideal-character-to-Mobius map or a full physical response inversion. Those are OPEN_BRIDGE at the stated scope.
+
+### G. Lean Implementation
+
+Four new focused files: the proof module, `scripts/lean/principal_all_delay_return/ExactTypes.lean`, `scripts/lean/principal_all_delay_return/Audit.lean`, and `.github/workflows/vf919-principal-all-delay-return.yml`. Existing mathematical source, root policies and CI gates were not weakened or modified. The dedicated workflow imports the original pinned analytic prerequisites and compiles the new public module and exact-type checks with warnings fatal; its audit traces the actual proof values and rejects every terminal axiom outside the standard permitted set.
+
+The proof checks explicitly include arbitrary-delay dilation, the full quantified error type, and positivity of an inner argument below one. Dependency checks require the real original-product estimate, raw inverse bridge, legal contour shift, original signal, physical normalization and source-correction suppliers. This is not a documentation-only green check. The research module is reached by its dedicated compilation surface; no unrelated generated proof-obligation status was promoted.
+
+### H. Proof Branch And PR Evidence
+
+[PR #1132](https://github.com/OVVO-Financial/RH_Lean/pull/1132), branch `agent/lean-verification/20261111-principal-all-delay-return`, based directly on intake main. Initial head `72c63476c883bdf97bbfa33f1231d826d86a6032`; first repair `12e70df14704669c042599ce1d7d891f6274dcd8`; second repair `11477f1fcbfe748207ce40bdea661448937990f5`; warning-fatal cleanup `cecb5c2fffbd86026665300bc0d6cc3a35b92cdb`. Final exact-head inspection: OPEN, draft=false, merged=false, four added files, 572 additions, zero deletions. Marked ready at 18:49:52 UTC only after actual proof/audit success and all 13 exact-head checks. Only human review and merge may add this result to main.
+
+### I. GitHub Actions Evidence
+
+Latest head `cecb5c2fffbd86026665300bc0d6cc3a35b92cdb`: 13/13 checks successful. Dedicated [run 43080602001](https://github.com/OVVO-Financial/RH_Lean/actions/runs/43080602001), attempt 1, and [job 130731834313](https://github.com/OVVO-Financial/RH_Lean/actions/runs/43080602001/job/130731834313) actually ran on that exact SHA. Warning-fatal source compilation, eight exact public type printouts, the three regression examples, six axiom printouts and live dependency audit all passed. The completed log was read, not inferred from status alone.
+
+| Audited theorem | Proof-value closure size | Terminal axioms / result |
+| --- | --- | --- |
+| slotResidueC_shift_right | 3884 | propext, Classical.choice, Quot.sound / PASS |
+| gaussian_atom_dilation | 179 | propext, Classical.choice, Quot.sound / PASS |
+| finite_response_contour | 2332 | propext, Classical.choice, Quot.sound / PASS |
+| slotResidueC_all_delay_error | 4058 | propext, Classical.choice, Quot.sound / PASS |
+| normalized_source_all_delay_error | 4109 | propext, Classical.choice, Quot.sound / PASS |
+| source_correction_all_delay_error | 4278 | propext, Classical.choice, Quot.sound / PASS |
+
+Every positive original-source dependency check passed, including full-product error, labelled evaluation, original raw inverse, polynomial-Gaussian shift, original signal, physical normalization and source-correction suppliers. No new proof hole or unapproved terminal axiom was found in the audited chain. Required repository checks also passed: [hosted build](https://github.com/OVVO-Financial/RH_Lean/actions/runs/43080602136/job/130731834524), [source audit](https://github.com/OVVO-Financial/RH_Lean/actions/runs/43080602136/job/130731835497), [inventory](https://github.com/OVVO-Financial/RH_Lean/actions/runs/43080602269/job/130731835482), [public export](https://github.com/OVVO-Financial/RH_Lean/actions/runs/43080602599/job/130731837150), [atlas](https://github.com/OVVO-Financial/RH_Lean/actions/runs/43080602044/job/130731835222), [cache policy](https://github.com/OVVO-Financial/RH_Lean/actions/runs/43080602129/job/130731834153), plus all six targeted VF/iteration checks. Older green checks were never substituted for the new proof's exact-head evidence.
+
+### J. CI Failures And Repairs
+
+Initial dedicated [run 43077858926](https://github.com/OVVO-Financial/RH_Lean/actions/runs/43077858926), [job 130722328753](https://github.com/OVVO-Financial/RH_Lean/actions/runs/43077858926/job/130722328753), failed on head 72c63476c883bdf97bbfa33f1231d826d86a6032. The twelve other checks passed. Actual Lean diagnostics identified a missing explicitly derived P>=0 for positivity, pointwise function multiplication before a norm rewrite, real-to-complex numeral-2 conversions before integral rewriting, and the original verticalIntegral namespace. Repair 12e70df14704669c042599ce1d7d891f6274dcd8 resolved the positivity and contour-conversion issues; its namespace attempt was incomplete. Source/toolchain/cache verification and original prerequisite builds passed. An attempted read of running-job logs returned BlobNotFound; the completed actual log was subsequently retrieved successfully. No infrastructure failure was mislabeled as mathematical falsity.
+
+Second [run 43078810068](https://github.com/OVVO-Financial/RH_Lean/actions/runs/43078810068), [job 130725643969](https://github.com/OVVO-Financial/RH_Lean/actions/runs/43078810068/job/130725643969), found only a no-progress dsimp and the remaining integral namespace. Retrieved pinned Detector/Physical.lean, blob `f0012db7d94f8f23893732b923c3b346f2fc89bf`, confirmed `ProbePhysical.verticalIntegral`, and used that exact qualified definition. Removed the redundant simplification. Repair 11477f1fcbfe748207ce40bdea661448937990f5 preserves all twelve public/private theorem statements byte-for-byte compared with the initial implementation. The twelve other checks on the second head passed. No theorem was weakened, no assumption added and no check disabled.
+
+Third [run 43079829500](https://github.com/OVVO-Financial/RH_Lean/actions/runs/43079829500), [job 130729152603](https://github.com/OVVO-Financial/RH_Lean/actions/runs/43079829500/job/130729152603), reported only the warning-fatal unnecessarySeqFocus linter on redundant tactic sequencing. Cleanup cecb5c2fffbd86026665300bc0d6cc3a35b92cdb removed that syntax; the warning gate was not disabled. All twelve theorem statements still match the initial implementation exactly. The twelve other checks on the third head passed. Fourth run 43080602001 passed the complete proof/type/axiom/dependency job. All observed failures are resolved; no pending formal check remains on the latest head.
+
+### K. Mathematical Conclusions
+
+#### 5. NET RESULT / ADMISSION VERDICT
+
+NO_NEW_GLOBAL_GAIN; VERIFIED_ETA=NONE; RH OPEN. The result is a necessary quantified original-source supporting theorem, not admission of a new proof route under either cross-route criterion. Formal soundness is PROVED_IN_LEAN_AT_PR_HEAD at the exact tested head; mathematical significance is removal of the all-delay contour-return formalization gap in accepted FFR2. This does not itself control the retained response, pay the physical complements, close finite A/C, or identify genuine Mobius coefficients with ideal characters.
+
+### L. Formalization-Driven Discoveries
+
+The dilation identity needs only Z>0 and permits any real delay, a stronger domain than the nonnegative response support actually used. Finite list integrability avoids any infinite-series convergence premise. The explicit error constant is independent of individual pools and coefficients once the original hypotheses hold. The shift must apply to the complete product: terms evaluated below one cannot be handled by silently reusing a large-argument left-shift argument. The existing physical normalization extends directly to c=x/3-5/6+1/36; no frozen coefficient is renormalized.
+
+### M. Mathematical Significance
+
+FFR1 decoupled response mass from truncation order; this work supplies the actual analytic return needed to use that decoupling. Choosing K once pays the complete product error while retaining all lower-scale samples of the SAME signal. That is a concrete advance over an abstract coefficient calculation, but it remains one stage of the complete arithmetic argument. Proof size or a new CI job is not an independent exponent gain.
+
+### N. Specialist Handoffs
+
+- Coordinator: keep b_base unchanged; consume the exact latest-head FFR2 theorem only at its stated verified status, then queue finite-interval inversion. No new route or eta admission.
+- Analytic: use the original source correction and complete labelled response with frozen outer-Z coefficients. Prove inversion on finite intervals with the existing at-zero bound, then assemble every physical complement including 24h<t.
+- Referee: preserve original FFR acceptance; review the implemented exact scope independently. No below-one delays are removed, no all-scale signal supremum is assumed, and beta<a is the original legal contour condition.
+- Owner: no #915 or rational-prime transport was proved; actual-mask historical/current restoration and FA review remain distinct.
+- Wheel: PD/GD remain accepted supporting inputs at their original scope, not a full signed source bound. H_F failure does not refute H_Z/H_ROB.
+- Census: reuse unchanged finite algebra evidence; no repeated scan is needed for the analytic contour proof. New diagnostics should target genuinely changed source hypotheses.
+
+### O. First Unresolved Mathematical Theorem
+
+FFR3: for the same original f, fixed c, theta>3/5 and gamma with theta=gamma-c, outer-scale dependent complete response lists L_Z having positive delays and eventual mass sum ||B||exp(-theta*d)<=q<1, deduce an all-scale O(Z^gamma) bound from the accepted bound on `f(Z)+sum B*exp(c*d)*f(Z/exp(d))`. The proof must use a finite-interval supremum, continuity/local boundedness and the already-proved at-zero decay; it may not assume the desired global weighted supremum is finite. Bound below-one terms using B>=max(2,theta), chosen once, rather than discarding them. The response coefficient and complete physical source bounds must be supplied by the original source, not added as renamed RH assumptions.
+
+After inversion, FFR4 must instantiate fixed admissible original SourceData, prove all eventual slot gates and pool identities, preserve H0 and exclusions, assemble principal/LOW/HIGH/mixed/remote/height/conductor/restoration costs, and use the native zero-supremum/Mertens transfer. The accepted paper campaign is not a compiled endpoint until these return obligations are implemented. Removing the binding physical 24h<t gate beyond that campaign requires new mathematics.
+
+### P. Next-Run Resume Capsule
+
+EXECUTION=COMPLETED for this scoped implementation; PROVED_IN_LEAN_AT_PR_HEAD; REVIEW_READY; UNMERGED. Refresh live authority and two-day handoffs. Reuse unchanged #1119/#1131 proof evidence and #1132 head cecb5c2fffbd86026665300bc0d6cc3a35b92cdb, successful dedicated run/job 43080602001/130731834313 and all 13 green checks; do not repeat coefficient algebra or create a duplicate all-delay PR. Next task is section O's finite-interval inversion and then full physical assembly. Main and upstream report blobs remained unchanged at final inspection. Human-only merge. No direct main push, auto-merge, other-role edit, agent launch, Studio schedule/tool change or local Lean occurred. No background local command remains. The early owned checkpoint was published and immutably read back at commit `310f4e739d6a9d113d38e88fa5bbc31188cc1430`, report blob `5aa3091c88c4cc88eb397a6f26a8e2f5aff4ba99`. This synthesis is confirmed published only by the subsequent immutable readback receipt.
+
+Source pins: response mass `5f7e812108ff7eff4a60da7055c2dd5f852c4941`; finite response `8c7f21b34402758b18ce42f4484f518c4090c105`; signed remainder `a41fee91754d5f6e5606f3f6f3dfe66031d81cbf`; window closure `f629db1b2b65d6ec042ac9432397d4b6316200c6`; packing `32999039fdeea99c58a070c1c4ee9c140720dd44`; explicit counts `bad5aab0a60e96d19e7c9550cd7c0a072288bc0f`; Mertens envelope `655b896e8d5a41c9f8fc3c456eae3944a98bfefe`. Original Signal `9b0f1f6ff5f74c77fee06327c4936c2a9e180df5`; SignalShift `f6f533fe9e38fdec84162bdddc55f60c14fc1dac`; SignalBounds `8b0f3faf87c2649dfccfc7c6eb4349259ff34d7e`; ContinuationContour `bfc9985be9aea795d0599cfdf6fbaab47e8d8d08`; polynomial contour `87c8a917fd0fa868b5924339ff4c7c8fe470e72f`; PrincipalMellinResidues `26a5edd74be26c1138ba5b89c00f281ed5d6387b`; PrincipalSlotEstimate `f9250c7c4464f374902bbb39ebbb3487d96bea1f`.
+
+Implementation blobs at cecb5c2fffbd86026665300bc0d6cc3a35b92cdb: new proof `9fc9e047f143b09284857766d669054bae45bd19`; ExactTypes `f631c8feb03ee419862b9346325658f74158ed74`; Audit `676c749d1ee989e08344df9138bdc1f495d37a8c`; dedicated workflow `270f79595fb6070c58fdfa85e86a7fecdf7fdc7a`. All four local files match the GitHub blobs exactly. The feature tree is `b48ffa94fc2998a3eef24fa4789809918d5b24d2`; it adds four files and changes no existing source. The implementation checkpoint, including all failed run IDs and the latest pending head, was committed at `994f0d40db7205932ee988b1f55155ca71dbe1d8`, blob `57e657bf5bb6c20a7379a0c59cd54cee26640a1a`, and immutably read back byte-for-byte with its complete prior prefix preserved.
+
+Intake November 11 blobs: coordinator `106f6d88708a7545caab43c56ae1bbb915fd97f2`; Owner `accf2930372234b58e98e8e43e88aeb845b56e9b`; Analytic `0309d49557af30da43a07d72dce93c93c1811157`; Wheel `c9989449a814a1a7ee799791c73450872f4c7d3c`; Census `a85bc7dc8b49952d37f1a4cb6a0a8eb307d3f352`; Referee `c288a925fd064a551a0d2bd70b27d82acc9fe926`; own earlier report `c86b058b6387de7348b123b22b8f5b8772d5ae9a`. November 10 blobs remain the exact ones recorded in the preceding daily synthesis and were re-fetched this invocation. All prior own report bytes, failures and publication receipts are retained.
