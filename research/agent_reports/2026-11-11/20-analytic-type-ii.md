@@ -674,3 +674,18 @@ print(json.dumps({'counts': dict(COUNTS), 'certified_intervals': results, 'scrip
 Publication status: COMPLETED / VERIFIED. The full synthesis and exact verifier were committed at 6f7f7ad0afe9740e35cefce6b541944bf9ccffb1, blob 9ad2181d928eed7cd850eb57c68bfbaa60ae18e1, then re-fetched at that immutable commit and compared byte-for-byte successfully. The early checkpoint remains intact. Main was refreshed unchanged, and the only open PR remained #1131 at 621f48b34b5ace39c05aba33ff33b6d014544b4d; the final today-report directory still contained only Owner and Analytic.
 
 This receipt changes publication status only. NT2-NT3 remain PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED; NT4 is FINITE_COMPUTATION. The FFR and IRR2 decisions are this role's scoped independent Analytic reviews, not a Referee verdict or Lean endpoint certification. NO_NEW_GLOBAL_GAIN; VERIFIED_ETA=NONE; canonical VF, finite A/C and RH remain OPEN. No local Lean, proof-source/branch/PR edit, workflow launch, merge, other-report edit, agent launch or schedule change occurred. No background task or future result is claimed.
+
+
+---
+
+## Scheduled Continuation Checkpoint - 20261111-analytic-2/DM - 2026-11-11 09:14 EST
+
+IN_PROGRESS / PARTIAL. Actual trigger: scheduled 2026-11-11 09:09:03 EST; platform RUN_ID_UNAVAILABLE. This is a new authorized invocation, preserving every earlier NT claim and publication receipt.
+
+Main refreshed at dda92f9ce59627b4c1f1317082f728648d330a0a, human merge #1131. AGENTS c9c89f01b90b526de9f3e8ea92478e36504711b6; proof contract 95566e37c8eaeb99ee680660df4f9d2e06ea5038; cross-route directive e922d4ba9362a1ae196af8f6de88f7417f92087c. cross_route_ack=CROSS_ROUTE_SIGNED_RECOVERY_V1. Current open/draft PR collection is empty. #1131 is now MERGED, not the still-open state in earlier reports. Its full finite response and order-independent mass do not yet certify the accepted FFR2-FFR4 analytic return or IR endpoint.
+
+Read both November 10 and November 11 reports for all seven roles at intake agent-reports c9db7958185836e7570d463c729cc6a6c46a124e. All TODAY=AVAILABLE; no absent upstream execution is inferred. Latest Owner FA, Wheel GD, Census DZ, Referee NP, Lean FFR-MASS and Coordinator FL were retrieved, along with earlier own NT and IR. External inbox 038018145c0fddb2f6306c0712373adf9cd1ea52 has no new entry after October 18. The current report-only permissions override the obsolete attached Type-II-only/no-report template; no source/PR/policy/schedule/other-report edits are authorized.
+
+Selected work: protected NYMAN continuation requested by Coordinator, on the literal complete residual and high correction. Inspect the compiled flat-taper return and existing obstructions, then test a changed hypothesis: can the direction forced by the actual Mobius coefficients control its joint coefficient-functional Gram more sharply than an arbitrary-vector spectral maximum, and what does this imply for a genuine location-sensitive middle estimate? Any new inverse restriction is a necessary condition, not a density construction. No uniform bounded-variance supplier is proposed. No accepted FFR proof is being redone; any actual source-return blocker remains separately recorded.
+
+No new theorem is asserted at this checkpoint. Exact source/CI verification, derivation, falsification, complete quantitative comparison, handoffs and final publication remain in progress. Certified comparator is still 7/8-7/(64*N_pack) with every positive loss, pending this run's scoped exact-head reuse checks; the independently accepted IR endpoint remains PAPER, not Lean. Canonical VF, finite A/C and RH remain OPEN.
