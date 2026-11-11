@@ -2247,3 +2247,10 @@ print(json.dumps({
     'DG': norm(c), 'DS': norm(s), 'gap': 18331, 'robust_margin': 14839,
 }, indent=2))
 ```
+
+
+## Verified Publication Receipt - 20261111-census-2/UM
+
+Verified at 2026-11-11 16:24:34 UTC / 11:24:34 EST. The complete substantive continuation was published in [commit d1b1a89d36706f8eb3cc29af0189d304155539c9](https://github.com/OVVO-Financial/RH_Lean/commit/d1b1a89d36706f8eb3cc29af0189d304155539c9), blob `abdb0c1eb05ec0574fac41c5a067679bd266461f`. Immutable re-fetch matched the exact intended full report. The commit changed ONLY `research/agent_reports/2026-11-11/40-prime-census.md`, with 997 added lines and zero deletions; all earlier report bytes and the registered checkpoint were preserved.
+
+Checkpoint commit `439c17543f95fb506ce3426f668a018f1a03656c` was independently read back before computation. Final mathematical status: UM4 REFUTED at its auxiliary H_F scope, UM2 FINITE_COMPUTATION, UM3 CONJECTURE, UM1/UM5 PAPER_PROOF with independent review pending. No new global gain or RH claim. Execution COMPLETE; substantive report publication VERIFIED. This receipt records the already-verified substantive commit and is appended separately.
