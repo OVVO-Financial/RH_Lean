@@ -346,7 +346,8 @@ theorem weighted_principal_product_partial_error {κ ι : Type*} (S : Finset κ)
       (hA j hj i hi) (heta j hj i hi) hs).trans
     have hmono : (Q j i) ^ (-(7 / 8 : ℝ)) ≤ P ^ (-(7 / 8 : ℝ)) :=
       Real.rpow_le_rpow_of_nonpos (by linarith) (hQ j hj i hi) (by norm_num)
-    gcongr <;> positivity
+    have hQnonneg : 0 ≤ Q j i := le_trans (by linarith : (0 : ℝ) ≤ P) (hQ j hj i hi)
+    gcongr <;> exact mul_nonneg (by norm_num) (Real.rpow_nonneg hQnonneg _)
 
 /-- Fix the truncation order before the source scale. No lower bound on a
 positive minimum slot length is needed to attain a fixed accuracy power. -/
