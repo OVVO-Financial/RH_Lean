@@ -48,6 +48,10 @@ example {κ ι : Type*} (S : Finset κ) (T : κ → Finset ι)
 #check principal_product_response_terms_mass
 #check principal_product_response_delays
 #check principal_product_response_original_error
+#check principal_response_mass_majorant_tendsto
+#check principal_response_mass_gate_eventually
+#check response_atom_eval_delay
+#check response_atom_mass_delay
 
 example (K : ℕ) (Q : ℝ) (hQ : 0 < Q) (A eta s : ℂ) :
     1 + FiniteResponse.eval s (principalResponseTerms K Q A eta) =
@@ -71,4 +75,6 @@ example {κ ι : Type*} (K : ℕ) (S : Finset κ)
 #print axioms principal_product_response_terms_mass
 #print axioms principal_product_response_delays
 #print axioms principal_product_response_original_error
+#print axioms principal_response_mass_majorant_tendsto
+#print axioms principal_response_mass_gate_eventually
 

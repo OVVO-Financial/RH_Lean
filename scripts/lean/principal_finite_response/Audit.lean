@@ -66,7 +66,11 @@ def main (_args : List String) : IO UInt32 := do
     `OAI.SevenEighths.PrincipalSlotEstimate.principal_product_response_terms_eval,
     `OAI.SevenEighths.PrincipalSlotEstimate.principal_product_response_terms_mass,
     `OAI.SevenEighths.PrincipalSlotEstimate.principal_product_response_delays,
-    `OAI.SevenEighths.PrincipalSlotEstimate.principal_product_response_original_error]
+    `OAI.SevenEighths.PrincipalSlotEstimate.principal_product_response_original_error,
+    `OAI.SevenEighths.PrincipalSlotEstimate.principal_response_mass_majorant_tendsto,
+    `OAI.SevenEighths.PrincipalSlotEstimate.principal_response_mass_gate_eventually,
+    `OAI.SevenEighths.PrincipalSlotEstimate.response_atom_eval_delay,
+    `OAI.SevenEighths.PrincipalSlotEstimate.response_atom_mass_delay]
   for theoremName in massRoots do
     let axioms ← (Lean.collectAxioms theoremName : CoreM (Array Name)).toIO'
       { fileName := "<principal-response-mass-axioms>", fileMap := default } { env := env }
@@ -87,7 +91,9 @@ def main (_args : List String) : IO UInt32 := do
       `OAI.SevenEighths.PrincipalSlotEstimate.weighted_principal_product_partial_error,
       `OAI.SevenEighths.PrincipalSlotEstimate.principal_slot_eq_raw,
       `OAI.SevenEighths.PrincipalSlotEstimate.principalScalar_eq]
-      else #[`OAI.SevenEighths.PrincipalSlotEstimate.FiniteResponse.response_nonnegative]
+      else if theoremName.toString.endsWith "delays" then
+        #[`OAI.SevenEighths.PrincipalSlotEstimate.FiniteResponse.response_nonnegative]
+      else #[]
     for dependency in required do
       unless reached.contains dependency do
         throw (IO.userError s!"Missing response source dependency: {dependency}")

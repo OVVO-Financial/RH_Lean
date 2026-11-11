@@ -1,4 +1,5 @@
 import «research.oai_434.VF919PrincipalFiniteResponse»
+import Mathlib.Analysis.SpecialFunctions.Pow.Asymptotics
 
 /-!
 # Finite labelled principal response and its coefficient mass
@@ -150,6 +151,8 @@ theorem response_mass_le (q : ℝ) (H W : Terms) (K : ℕ) (theta r w : ℝ)
     nlinarith [mul_nonneg (sub_nonneg.mpr hq1) hr0,
       mul_nonneg (mul_nonneg (sub_nonneg.mpr hq1) hw) hr0]
   | succ K ih =>
+    have hpositive : 0 ≤ 1 - q + mass theta (response q H W K) :=
+      add_nonneg (sub_nonneg.mpr hq1) (mass_nonneg _ _)
     simp only [response, mass_append, mass_scale, mass_mul, mass_constant, norm_neg, hnorm]
     calc
       _ ≤ (1 - q) * w + r * ((1 - q) + (1 - q) * (r + w) / (1 - r)) := by
@@ -212,10 +215,12 @@ theorem average_eval {ι : Type*} (T : Finset ι) (w : ι → ℝ) (p : ι → T
     1 + eval s (average T w p) =
       (∑ i ∈ T, (w i : ℂ) * (1 + eval s (p i))) / (∑ i ∈ T, w i : ℝ) := by
   have hc : ((∑ i ∈ T, w i : ℝ) : ℂ) ≠ 0 := Complex.ofReal_ne_zero.mpr hM
+  have hc' : (∑ i ∈ T, (w i : ℂ)) ≠ 0 := by
+    simpa only [Complex.ofReal_sum] using hc
   simp only [average, eval_flatMap, eval_scale, Finset.sum_map_toList,
     Complex.ofReal_div, div_mul_eq_mul_div, ← Finset.sum_div,
     mul_add, mul_one, Finset.sum_add_distrib, Complex.ofReal_sum]
-  field_simp
+  rw [add_div, div_self hc']
 
 theorem average_mass_le {ι : Type*} (T : Finset ι) (w : ι → ℝ) (p : ι → Terms)
     (theta L : ℝ) (hw : ∀ i ∈ T, 0 ≤ w i) (hM : 0 < ∑ i ∈ T, w i)
@@ -301,6 +306,19 @@ private theorem positive_cpow (Q : ℝ) (hQ : 0 < Q) (s : ℂ) :
   rw [Complex.cpow_def_of_ne_zero (Complex.ofReal_ne_zero.mpr hQ.ne'),
     ← Complex.ofReal_log hQ.le]
 
+/-- The log-labelled atoms are literal positive Mellin delays. -/
+theorem response_atom_eval_delay (a : Atom) (s : ℂ) :
+    evalAtom s a = a.2 * (Real.exp a.1 : ℂ) ^ (-s) := by
+  rw [evalAtom, positive_cpow _ (Real.exp_pos _) _, Real.log_exp]
+  congr 2
+  ring
+
+theorem response_atom_mass_delay (a : Atom) (theta : ℝ) :
+    massAtom theta a = ‖a.2‖ * (Real.exp a.1) ^ (-theta) := by
+  rw [massAtom, ← Real.exp_mul]
+  congr 2
+  ring
+
 theorem principal_base_terms_eval (Q : ℝ) (hQ : 0 < Q) (A eta s : ℂ) :
     eval s (principalBaseTerms Q A eta) = principalResponseBase Q A eta s := by
   have hc : (Q : ℂ) ≠ 0 := Complex.ofReal_ne_zero.mpr hQ.ne'
@@ -315,7 +333,6 @@ theorem principal_base_terms_eval (Q : ℝ) (hQ : 0 < Q) (A eta s : ℂ) :
     Complex.ofReal_mul, Complex.ofReal_ofNat, add_zero]
   rw [show (Real.log Q : ℂ) * -s = -(Real.log Q : ℂ) * s by ring]
   field_simp
-  ring
 
 theorem principal_weight_terms_eval (Q : ℝ) (hQ : 0 < Q) (A eta s : ℂ) :
     eval s (principalWeightTerms Q A eta) = principalResponseWeight Q A eta s := by
@@ -363,12 +380,20 @@ theorem principal_terms_mass_bounds (Q theta : ℝ) (hQ : 1 ≤ Q) (A eta : ℂ)
     rw [← Complex.ofReal_inv, ← Complex.ofReal_one, ← Complex.ofReal_sub,
       Complex.norm_real, Real.norm_eq_abs, abs_of_nonneg (sub_nonneg.mpr hq1)]
   have hnQ : ‖(Q : ℂ)‖ = Q := by simp [Complex.norm_real, abs_of_pos hQ0]
+  have hA2 : ‖A‖ * Q ^ 2 ≤ Q ^ 2 := mul_le_of_le_one_left (sq_nonneg Q) hA
+  have hqe : (1 - Q⁻¹) * ‖eta‖ ≤ 1 := by
+    calc
+      _ ≤ (1 - Q⁻¹) * 1 := mul_le_mul_of_nonneg_left heta (sub_nonneg.mpr hq1)
+      _ ≤ 1 := by nlinarith
+  have hAe : ‖A‖ * ‖eta‖ ≤ 1 := by
+    nlinarith [mul_nonneg (sub_nonneg.mpr hA) (norm_nonneg eta)]
   constructor
   · simp only [principalBaseTerms, mass, massAtom, norm_mul, norm_pow, hnQ,
       hnorm, add_zero]
     calc
       _ ≤ Q ^ 2 * Real.exp (-(6 * Real.log Q) * theta) + Real.exp (-Real.log Q * theta) := by
-        gcongr <;> nlinarith
+        exact add_le_add (mul_le_mul_of_nonneg_right hA2 (Real.exp_pos _).le)
+          (by simpa only [one_mul] using mul_le_mul_of_nonneg_right hqe (Real.exp_pos _).le)
       _ = principalMassBase Q theta := by
         rw [power_exp Q hQ0 2 6 theta]
         congr 1
@@ -379,7 +404,8 @@ theorem principal_terms_mass_bounds (Q theta : ℝ) (hQ : 1 ≤ Q) (A eta : ℂ)
       hnQ, add_zero]
     calc
       _ ≤ Q ^ 3 * Real.exp (-(5 * Real.log Q) * theta) := by
-        gcongr <;> nlinarith [norm_nonneg A, norm_nonneg eta]
+        exact mul_le_mul_of_nonneg_right
+          (mul_le_of_le_one_left (pow_nonneg hQ0.le 3) hAe) (Real.exp_pos _).le
       _ = principalMassWeight Q theta := power_exp Q hQ0 3 5 theta
 
 /-- A coefficient-mass estimate, not merely a bound on polynomial values.
@@ -468,7 +494,7 @@ theorem principal_product_response_terms_mass {κ ι : Type*} (K : ℕ) (S : Fin
     mass theta (principalProductResponseTerms K S T w Q A eta) ≤
       (1 + 2 * (principalMassBase P theta + principalMassWeight P theta)) ^ S.card - 1 := by
   have hP0 : 0 ≤ P := le_trans zero_le_one hP
-  apply (complete_mass_le _ theta _ (by
+  apply (complete_mass_le _ theta (2 * (principalMassBase P theta + principalMassWeight P theta)) (by
     unfold principalMassBase principalMassWeight
     positivity) ?_).trans_eq (by simp)
   intro p hp
@@ -490,11 +516,14 @@ theorem principal_product_response_delays {κ ι : Type*} (K : ℕ) (S : Finset 
   intro i hi
   have hl := Real.log_nonneg (hQ j (Finset.mem_toList.mp hj) i hi)
   apply response_nonnegative
-  · simp only [principalBaseTerms, nonnegativeDelays, List.mem_cons, List.mem_singleton]
+  · change nonnegativeDelays [(6 * Real.log (Q j i), _), (Real.log (Q j i), _)]
     intro a ha
-    rcases ha with rfl | rfl
-    · exact mul_nonneg (by norm_num) hl
-    · exact hl
+    rcases List.mem_cons.mp ha with ha | ha
+    · subst a
+      exact mul_nonneg (by norm_num) hl
+    · have ha' := List.mem_singleton.mp ha
+      subst a
+      exact hl
   · simp only [principalWeightTerms, nonnegativeDelays, List.mem_singleton]
     intro a ha
     subst a
@@ -518,6 +547,40 @@ theorem principal_product_response_original_error {κ ι : Type*} (K : ℕ) (S :
     (fun j hj i hi => lt_of_lt_of_le (by linarith) (hQ j hj i hi))
     (fun j hj => (hM j hj).ne')]
   exact weighted_principal_product_partial_error S T w Q A eta s P K hP hs hw hQ hA heta hM
+
+/-- The explicit common coefficient majorant vanishes at every fixed theta>3/5.
+This limit is independent of K and does not assume any bound on the signal. -/
+theorem principal_response_mass_majorant_tendsto (N : ℕ) (theta : ℝ)
+    (htheta : 3 / 5 < theta) :
+    Filter.Tendsto (fun P : ℝ =>
+      (1 + 2 * (principalMassBase P theta + principalMassWeight P theta)) ^ N - 1)
+      Filter.atTop (nhds 0) := by
+  have h1 : Filter.Tendsto (fun P : ℝ => P ^ (2 - 6 * theta)) Filter.atTop (nhds 0) := by
+    convert Real.tendsto_rpow_neg_atTop (by linarith : 0 < 6 * theta - 2) using 1 <;>
+      congr 1 <;> ring
+  have h2 := Real.tendsto_rpow_neg_atTop (by linarith : 0 < theta)
+  have h3 : Filter.Tendsto (fun P : ℝ => P ^ (3 - 5 * theta)) Filter.atTop (nhds 0) := by
+    convert Real.tendsto_rpow_neg_atTop (by linarith : 0 < 5 * theta - 3) using 1 <;>
+      congr 1 <;> ring
+  have hc1 : Filter.Tendsto (fun _ : ℝ => (1 : ℝ)) Filter.atTop (nhds 1) :=
+    Filter.tendsto_const_nhds
+  have hc2 : Filter.Tendsto (fun _ : ℝ => (2 : ℝ)) Filter.atTop (nhds 2) :=
+    Filter.tendsto_const_nhds
+  have h := ((hc1.add (hc2.mul ((h1.add h2).add h3))).pow N).sub hc1
+  simpa only [principalMassBase, principalMassWeight, add_zero, mul_zero,
+    one_pow, sub_self] using h
+
+/-- The scalar geometric gate is eventually paid at exactly the same theta. -/
+theorem principal_response_mass_gate_eventually (theta : ℝ) (htheta : 3 / 5 < theta) :
+    ∀ᶠ P : ℝ in Filter.atTop, 1 ≤ P ∧ principalMassBase P theta ≤ 1 / 2 := by
+  have h1 : Filter.Tendsto (fun P : ℝ => P ^ (2 - 6 * theta)) Filter.atTop (nhds 0) := by
+    convert Real.tendsto_rpow_neg_atTop (by linarith : 0 < 6 * theta - 2) using 1 <;>
+      congr 1 <;> ring
+  have h2 := Real.tendsto_rpow_neg_atTop (by linarith : 0 < theta)
+  have hsum : Filter.Tendsto (fun P : ℝ => principalMassBase P theta)
+      Filter.atTop (nhds 0) := by simpa [principalMassBase] using h1.add h2
+  exact (Filter.eventually_ge_atTop 1).and
+    (hsum.eventually_le_const (by norm_num : (0 : ℝ) < 1 / 2))
 
 end SevenEighths.PrincipalSlotEstimate
 end
