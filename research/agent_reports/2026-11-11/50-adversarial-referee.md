@@ -959,3 +959,892 @@ Use newly written exact integer/rational code to enumerate the genuine gcd floor
 
 ### D-O. Remaining Work And Limitations
 PENDING: mathematical proof audit; original-source and baseline/CI refresh; exact checks; strongest surviving statement; five-stage capsule and A-O synthesis; final publication/readback. No local Lean execution and no source/PR/policy changes. Direct git clone failed with CONNECT tunnel 403; authorized GitHub connector reads work. Only this owned daily report will be written remotely.
+
+
+## Shared-Prime Interactions, Not Sparse Support, Govern Response Contraction
+
+### Final Research Synthesis - 20261111-referee-2/HR
+
+Scheduled trigger: 2026-11-11 12:03:01 EST, America/New_York. Platform RUN_ID_UNAVAILABLE. This is an appended continuation, not a replacement of today's NP report. `cross_route_ack=CROSS_ROUTE_SIGNED_RECOVERY_V1`. Research is complete; final publication is established only by the later immutable readback receipt.
+
+### A. Most Important Mathematical Finding
+
+**ACCEPT Wheel PD1-PD4 at their exact paper scopes and Census UM1/UM5; independently verify UM4's smallest genuine counterexample R=115.** The nonunit powerful response has squared norm 404, while its common-divisor transform has squared norm 599. Its gap is -195. The COMPLETE genuine source still has positive gap 18,331 after the historical and endpoint terms are restored. This refutes the stated auxiliary H_F, not H_ROB, H_Z, finite A/C, or RH.
+
+**New supporting theorem HR1:** negative nonunit gap requires a sufficiently negative SHARED-PRIME interaction. Pairwise-coprime nonunit squarefree radical supports always have nonnegative gap, even when their radicals are composite and their real coefficients have arbitrary signs. This strictly extends UM5's prime-only repair. In the actual R=115 witness the exact nonnegative reserve is 477 and the shared-prime bill is -672, explaining the -195 without discarding coprime cross terms.
+
+**New method-specific no-go HR2:** admissible powerful support and zero scalar column totals give neither a uniform upper nor a positive uniform lower comparison between response energy and radical-coefficient energy. On a k-prime divisor family the all-positive coefficients have energy 2^k-1 but response energy exactly 2. Another explicit sign choice has response energy 5^k-2^(k+1)+1. These are infinite MODEL families respecting the literal divisor incidence and cutoff, NOT genuine Mertens assignments. They rule out support-only norm arguments, not an arithmetic theorem exploiting the dependent Mertens coefficients or historical interactions.
+
+HR1-HR2 are PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED. HR3 is the executed exact audit. No new global exponent, accepted new RH route, or Lean endpoint is asserted. `NO_NEW_GLOBAL_GAIN; VERIFIED_ETA=NONE; RH=OPEN`.
+
+### B. Current Authoritative Objective
+
+Main is **dda92f9ce59627b4c1f1317082f728648d330a0a**. AGENTS blob `c9c89f01b90b526de9f3e8ea92478e36504711b6`, proof contract `95566e37c8eaeb99ee680660df4f9d2e06ea5038`, and governing cross-route directive `e922d4ba9362a1ae196af8f6de88f7417f92087c` were fetched from that commit. The newer cross-route priority supersedes dated single-route task selection, not valid statements or source safeguards.
+
+The canonical OPEN statement remains one C>=0, before every integer R>=2, such that |pi(R^2)-vfCanonical(R^2)|<=C R log R. `riemannHypothesis_of_vfCanonicalSquare` still takes BOTH `ClassicalVonKochRHCriterion` and the arithmetic tracking premise. The separate internally proved Mertens-energy consumer does not pay its own arithmetic premise. The complete wheel identity is F_R-D_R=li(R^2-1)-pi(R^2-1), with all virtual divisors restored; it is not an equality with the bilinear Mobius source below.
+
+#### 1. BASELINE / DEPENDENCY RECEIPT
+
+The strongest explicit fixed-family COMPILED comparator inspected remains
+
+```text
+native_mertens_near_uniform_window_error_closed
+  : MertensGrowthAtMost(b_Lean),
+b_Lean=7/8-7/(64*N_pack).
+MertensGrowthAtMost(b):
+  forall eps>0 exists C_eps>=0 forall integers n>=1,
+    |M(n)|<=C_eps*n^(b+eps).
+```
+
+The source declaration has no desired-growth antecedent. Its original-source construction, counts, native moments, complete total-mass LOW/anchored HIGH/principal comparison, Hecke zero supremum, modulus-one L-product and native Mertens converse are the audited dependency chain. The moment supplier retains 51/100<=beta<=7/8+Delta, fixed fine geometry, J before the character, and C,Z0 before height and scale. It is not an arbitrary-profile theorem.
+
+For the SAME independently fixed positive explicitFineLength L, the actual definitions read here are N_pack=ceil_nat(max(1,1/(6L)))+2 and N_old=ceil_nat(max(1,1/(3L)))+2. Thus N_pack<=N_old and 7/(64N_pack)>1/(48N_old). No identification of the counts, optimization over all sources, or zero-loss bound is asserted.
+
+Fresh evidence: #1119 is merged; head `77ee815846d6d534c866f0752aa33b84c385610a` has 14/14 successful checks. The actual [dependency/axiom job](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42552018910/job/128949473700) and its implementation were read. The five selected proof-value closures have sizes 35358,35375,35736,35737,35753, with only propext, Classical.choice, Quot.sound. A fresh tree comparison found **zero changes among 911 preexisting relevant source/audit blobs** between the tested head and current main. This legitimately reuses scoped certification; it is not a fresh main build, an independent reproving of every analytic dependency, or a claim that every historical imported module is placeholder-free.
+
+Pins verified in the hosted logs: Lean 4.34.1/compiler `5045d0056413266e57c625dcd7c365b10e377c52`; Mathlib `d13f23b723b8a846827a245b89c10fc7d3f11612`; openai/math `1581d4cbdd69a0faf34b2089614fe2a814316a6a`. The warning-fatal target commands and actual selected-root axiom results were inspected, not inferred from a green badge. Historical upstream/package warnings are not represented as clean whole-repository compilation.
+
+The stronger accepted PAPER boundary b_IR=7/8-1/2400000000, with every positive loss and prior independently accepted fixed comparison eta_IR=737/3840000000000, is carried forward from IRR/FFR. The proof bytes and dependencies are available and unchanged. It is not promoted to the compiled comparator. Today's result improves neither that paper boundary nor b_Lean.
+
+### C. Highest-Risk Mechanisms And Continuity
+
+Reports were retrieved at `agent-reports@1855dcff615963978e73bddf4779e9630420a549`. All seven roles are TODAY=AVAILABLE. Relevant November 10 results are YESTERDAY=CARRY_FORWARD. Both coordinator mirrors have matching blobs on each date. Read the relevant latest findings, proofs for selected claims, handoffs and resume sections: Coordinator FFR/FL, Owner DR/MC/FA, Analytic IR/NT/DM, Wheel RC/GD/PD, Census GC/DZ/UM, own IRR/NP, and Lean finite-response/mass. These are provenance records, not collective acceptance.
+
+The new PD/UM source and explicit R=115 request take priority in this continuation because they test a newly proposed explanation for complete gcd contraction. Coordinator FL1-FL5 and Analytic DM1-DM4 remain **PENDING separate independent review**. Their claims are not accepted, rejected or declared superseded merely because their headlines were read. Owner FA is likewise continuity, not a new verdict here. Earlier NP/GD/NT/FFR decisions are retained at their unchanged scopes.
+
+External inbox blob `038018145c0fddb2f6306c0712373adf9cd1ea52` has no post-October-18 entry. Its cofactor/cutoff safeguards and unconditional-all-root versus conditional-first-bad distinctions remain applicable; its historical routing does not override main.
+
+### D. Claims Reviewed
+
+| Original claim | Verdict | Evidence and exact scope |
+| --- | --- | --- |
+| 20261111-wheel-2/PD1 | ACCEPT | PAPER_PROOF / supporting identity: complete historical/powerful split, ordered multiplicity, sparse support, distinct quotient sites and formal-coordinate rank. The rank is not freedom of genuine Mertens data. |
+| PD2 | ACCEPT | PAPER_PROOF: uniform strict-history norm and COMPLETE high-gcd tail with the stated convergent absolute constants. No global Mertens estimate is assumed. |
+| PD3 | ACCEPT_WITH_SCOPE | PAPER_PROOF: exact full Gram and sparse inverse inequality. The positive-weight parameter c must remain >1/2; the resulting witness is not excluded. |
+| PD4 | ACCEPT_WITH_SCOPE | CONDITIONAL and TARGET_EQUIVALENT family audit. Fixed eta=0 is sufficient; no fixed zero-loss converse is asserted. The premise is unpaid. |
+| PD5 | LIMITED_REPRODUCTION | 128 roots independently checked here, not the author's entire campaign or its R=5561 computation. |
+| 20261111-census-2/UM1 | ACCEPT | PAPER_PROOF / identity: affine endpoint separation and quarter-horizon representation, with later M values dependent on genuine history. |
+| UM4 / H_F | ACCEPT THE REFUTATION | Exact finite counterexample and minimality for the asserted R>=4 domain independently reproduced. H_F itself is REJECTED. |
+| UM5 | ACCEPT | PAPER_PROOF: prime-only gap is a square; first arbitrary-coefficient indefinite support at R=37. Actual R=37 is not a counterexample. |
+| UM2 | LIMITED_REPRODUCTION | Complete reconstruction on the declared 128-root domain; no claim to have repeated all 527 roots. |
+| UM3 / H_PRE, H_ROB; H_Z; GC5 | UNRESOLVED | CONJECTURE. Finite agreement is not an all-scale proof. H_ROB is a stronger robustness condition, not automatically equivalent to H_Z. |
+| #1131 complete finite response/mass | ACCEPT AT DECLARED SCOPE | PROVED_IN_LEAN_ON_MAIN with exact-head evidence and identical main/head tree. Not the complete Mellin/inversion/endpoint return. |
+| 20261111-referee-2/HR1-HR2 | SELF_AUDIT | New supporting paper results below; no self-issued independent acceptance. |
+| HR3 | EXECUTED | Exact original-source verification and explicitly separated model checks. |
+
+### E. Independent Mathematical Reconstruction
+
+#### Exact Original Carrier And PD1
+
+For EVERY integer R>=2 set N=R-1, X=R^2-1, M(0)=0, M(t)=sum_(1<=n<=t)mu(n), and
+
+```text
+K_R=max_(0<=t<R) (M(t)-1)^2/(t+1),
+C_g=sum_(1<=a,b<=N, gcd(a,b)=g)mu(a)mu(b)floor(X/(ab)),
+S_d=sum_(d|g) C_g,  D_G=sum_g C_g^2,
+Q=sum_g C_g=S_1=2M(N)-M(X).
+```
+
+The source counts ALL ordered triples (a,b,k), abk<=X, with genuine mu(a)mu(b). Equal products do not identify occurrences. This matches `eulerSelfDualFloor`, `eulerSelfDualBilinear`, their convolution bridge and `eulerSelfDualBilinear_eq_two_mertens_sub_endpoint` in the fetched original source. The historical envelope includes t=0 and its shift by 1, exactly as `LowerMertensCriticalEnvelope` requires.
+
+For d<=N put B_d=floor(N/d), let H_d contain all positive d-smooth h<=B_d, A_h=floor(B_d/h), and T_dhk=floor(X/(d^2hk)). Define
+
+```text
+U_d=mu(d)^2 sum_(h,k in H_d)
+      [M(A_h)+M(A_k)-1_(T_dhk<R)M(T_dhk)],
+H_g=sum_(j<=N/g)mu(j)U_(gj).
+```
+
+For a powerful integer q (including 1), put d(q)=rad(q), a(q)=product_(p^e||q)(e-1), with a(1)=1. Let
+
+```text
+v_d(g)=1_(g|d)mu(d/g),
+A_d=sum_(q<=N powerful, rad(q)=d) a(q)M(floor(X/q)),
+E=sum_d A_d v_d.
+```
+
+Then PD1 asserts C=H-E, sum H=2M(N), sum E=M(X), E_g=0 for g^2>N, and #powerful(q<=N)<=3sqrt(N). Its response rank on FORMAL quotient coordinates is #{squarefree d:d^2<=N}.
+
+Independent proof: mu(du)=mu(d)mu(u)1_(gcd(u,d)=1), and the compiled rough-Mobius/smooth-indicator convolution invert the coprimality restriction. Each resulting complete rectangle has max(A_h,A_k)<=T_dhk and
+d^2hk(A_h+1)(A_k+1)>=R^2>X. The strict rectangular identity is therefore applicable. At (A,B,T)=(1,1,4) it would fail, so equality at the wall is not admitted. Next T_dhk>=R iff d^2hk<=N. In that range every ordered splitting of hk is admitted: neither factor exceeds B_d. Grouping q=d^2hk gives exactly the powerful multiplicity a(q). Multiples inversion now proves C=H-E.
+
+The sum of v_d is zero except at d=1. Its support and triangular diagonal prove the asserted scalar totals, support and formal rank. Every powerful q has a unique representation a^2 b^3 with squarefree b, giving the bound 3sqrt(N). Also floor(X/q)>R for q<=N, and consecutive such quotient arguments differ by more than one before flooring. No independent unknown data have been added to the original source.
+
+#### PD2: Historical Norm And Complete Tail
+
+Write w(p)=(1-p^(-1/2))^-2, W(n)=product_(p|n)w(p), and define absolute constants
+
+```text
+E0=product_p(1+(w(p)-1)/p),
+E2=product_p(1+(w(p)^2-1)/p),
+Y =product_p(1+w(p)^2/p^2),
+L_R=1+log N, C_H=9 E0 sqrt(Y).
+```
+
+The exact accepted bounds, with constants before every scale, are
+
+```text
+|H_g|<=9 E0 R sqrt(K_R)L_R mu(g)^2 W(g)/g,
+||H||_2<=C_H R sqrt(K_R)L_R,
+sum_(G<g<=N)C_g^2
+ <=162 E0^2 E2 R^2 K_R L_R^2/G,
+for every real G>=max(1,sqrt(N)).
+```
+
+Proof audit: K_R>=1 follows from t=0. For 1<=t<R, |M(t)|<=3sqrt(K_R t). The historical mask in U is applied BEFORE this estimate, giving |U_d|<=9R sqrt(K_R)mu(d)^2 W(d)/d. The finite-prime smooth geometric series pays W(d), even for growing d. Expand W(n)=sum_(e|n)h(e), h>=0, to obtain sum_(j<=N)W(j)/j<=E0 L_R. Nonzero inversion terms have squarefree coprime g,j, so W(gj)=W(g)W(j). This proves the pointwise and squared-norm bounds. The analogous expansion for W^2 yields sum_(n<=t)W(n)^2<=E2 t and sum_(n>G)W(n)^2/n^2<=2E2/G. Since E_g=0 above sqrt(N), the tail concerns actual C, not only H.
+
+Convergence is uniform: w(p)-1=O(p^-1/2), so E0 and E2 have summable O(p^-3/2) local increments; Y has O(p^-2). This is an independently paid supporting estimate. It does not pay small-gcd E or the full D_G.
+
+#### PD3-PD4: Inverse And No-Circularity
+
+For squarefree d,e, <v_d,v_e>=mu(d)mu(e)2^omega(gcd(d,e)), where omega counts DISTINCT prime factors. Thus
+
+```text
+||E||^2=sum_(d,e)mu(d)mu(e)2^omega(gcd(d,e)) A_d A_e,
+D_G=||H||^2+||E||^2-2<H,E>.
+```
+
+For any FIXED c>1/2 set
+Lambda_c=product_p(1+sqrt(2)*p^(-2c)/(1-p^-c)^2)-1 and B_H=C_H R sqrt(K_R)L_R. If sqrt(D_G)>B_H+|M(X)|, then some powerful 4<=q<=N satisfies
+
+```text
+q^c |M(floor(X/q))|
+ >= [sqrt(D_G)-B_H-|M(X)|]/Lambda_c.
+```
+
+This is exactly the weighted triangle on all NONUNIT columns, using ||v_d||=2^(omega(d)/2). Its Euler product converges for c>1/2, not at the asserted boundary c=1/2. It locates a necessary witness at an index between R+1 and floor(X/4); it does not exclude that witness or prove an endpoint.
+
+For fixed 0<=eta<1/2, PD4's hypothetical ONE B before all R with ||E||<=B R^(1+eta)sqrt(K_R) implies MertensGrowthAtMost(1/2+eta), via accepted GD4. For eta>0 the historical logarithm is absorbed into R^eta; for eta=0 one must use each positive auxiliary loss, not claim a zero-loss bound for C. Conversely the critical Mertens growth statement supplies PD's estimate for EVERY positive eta via GD and the historical bound. This is a valid TARGET_EQUIVALENT family audit, not independent proof of its premise.
+
+### F. Exact Counterexample And New No-Go
+
+#### UM4: Genuine R=115, With Every Complement Restored
+
+Here X=13224, M(114)=-6, M(X)=-9. Remove only the unit: A'=A-M(X)e_1, F=E-M(X)e_1. Their nonzero entries are
+
+```text
+(d,A'_d)=(2,-20),(3,-4),(5,-1),(6,-13),(7,-2),(10,-3),
+(g,F_g)=(1,11),(2,-4),(3,9),(5,2),(6,-13),(7,-2),(10,-3).
+sum F=0; ||F||^2=404; ||A'||^2=599; D_F=-195.
+```
+
+A newly written exact checker independently verifies EVERY R=4..115, so 115 is the smallest failure in the actual domain, not only the first root in a sparse sample. At R=37 the support permits a negative abstract form, but the genuine gap is +681.
+
+Put Z=H-F, T_d=sum_(d|g)Z_g, B=sum_(g>=2)C_g and m=M(X). The accepted UM1 identity and complete restoration give
+
+```text
+D_H=||H||^2-||U||^2=18750,
+J=-2(<H,F>-<U,A'>)=-1970,
+Delta_0=||Z||^2-||T||^2=D_H+D_F+J=16585,
+Delta=||C||^2-||S||^2=Delta_0+2mB=18331,
+B=-97; 2mB=1746; H_ROB margin=16585-1746=14839.
+```
+
+Thus the historical mixed term is itself unfavorable here. Calling it automatic negative payment would also be wrong. At R=549 the independent check gives D_F=-1402, J=-50196, Delta_0=203220 and complete Delta=142548. R=5561 was not rerun; its upstream record remains finite continuity evidence only.
+
+#### HR1: Exact Shared-Prime Bill And A Broader Valid Repair
+
+Let D be ANY finite set of distinct nonunit squarefree integers, A_d ANY real numbers, and F=sum_(d in D)A_d v_d on the union of their divisor sets. Define b_d=mu(d)A_d and tau(d)=2^omega(d). The exact identity is
+
+```text
+||F||^2-sum_d A_d^2 = P(A)+Omega(A),
+P(A)=(sum_d b_d)^2+sum_d (tau(d)-2)A_d^2 >=0,
+Omega(A)=2sum_(d<e)(tau(gcd(d,e))-1)b_d b_e.
+```
+
+Proof: the full Gram is sum_(d,e)tau(gcd(d,e))b_d b_e. Split each off-diagonal factor as 1+(tau(gcd)-1), combine the 1's with a single diagonal copy into (sum b)^2, and subtract the original coefficient norm. The remaining diagonal coefficient is tau(d)-2>=0. No coprime cross term has been deleted; it is included in the square.
+
+Consequences, all with complete quantifiers inherited from this finite statement:
+
+- Pairwise-coprime nonunit squarefree supports have Omega=0 and therefore D_F>=0 for ALL real coefficients. Composite radicals are allowed. This strengthens the prime-only theorem.
+- The same conclusion holds whenever all nonzero b_d have one sign, without a coprimality hypothesis. A common sign of A_d alone does NOT imply this parity-aligned condition.
+- A negative gap requires Omega<-P. In particular at least one active pair shares a prime and has mu(d)mu(e)A_dA_e<0. Mere composite support or mere overlap is insufficient.
+
+At the GENUINE R=115 coefficients, (sum b)^2=121, the remaining diagonal is 356, and the only nonzero shared-prime terms are
+
+| Pair (d,e) | Exact contribution to Omega |
+| --- | ---: |
+| (2,6) | -520 |
+| (2,10) | -120 |
+| (3,6) | -104 |
+| (5,10) | -6 |
+| (6,10) | +78 |
+| Total | -672 |
+
+Hence 477-672=-195. This is a coefficient-sensitive discriminator on the actual proper response. It does not bound Omega+J on the complete source or show the corresponding bad configuration is arithmetically impossible.
+
+#### HR2: Growing Divisor Families Defeat Every Support-Only Two-Sided Constant
+
+Choose k distinct primes, their squarefree product D, and ANY R>=D^2+1. Every q=d^2 for d|D is an admitted powerful denominator with a(q)=1. Work on the admitted nonunit radical columns d|D,d>1, setting all other formal response coefficients to zero.
+
+First set A_d=1 for every d>1 dividing D. For g|D,
+sum_(g|d|D)mu(d/g)=1_(g=D), so removing d=1 gives
+
+```text
+F=e_D-e_1,
+||A||^2=2^k-1, ||F||^2=2,
+D_F=3-2^k.
+```
+
+The ratio ||F||^2/||A||^2 tends to zero and the negative gap is unbounded. All A_d have the same sign; multiplying them all by -1 preserves the example. This is stronger than an isolated indefinite 2-by-2 minor.
+
+Second set A_d=mu(d) on the same support. The full divisor sum at g is mu(g)2^(k-omega(g)); after removal of the unit, F_1=2^k-1. Counting subsets gives
+
+```text
+||A||^2=2^k-1,
+||F||^2=5^k-2^(k+1)+1,
+||F||^2/||A||^2 -> infinity.
+```
+
+Both families have sum F=0. Thus no constants 0<c<=C<infinity, independent of support size/root, can give c||A||^2<=||F||^2<=C||A||^2 using only this exact support/incidence information. The first family already refutes a uniform positive lower comparison under common-sign A.
+
+**Critical scope:** the quotient sites are distinct, so these assignments are legitimate FORMAL-coordinate configurations, realizable by assigning values at those sites and zero at the others. They are NOT asserted to extend to the genuine Mertens function or the original historical mu prefix. The forbidden class is coefficient-blind/support-only comparison, not PD.OPEN, H_ROB or every signed arithmetic argument. No infinite family of genuine R with D_F<0 is claimed. No external theorem is required for the finite divisor algebra or its infinite-k consequence.
+
+### G. Original-Carrier And Covariance Audit
+
+All original mu signs, ordered floor multiplicities, squareful zeros, strict a,b<R, X=R^2-1, unit q=1, historical mask T<R and both cross orientations survive. Powerful q is an auxiliary denominator, not an owner tag. The later M values are exact DEPENDENT coordinates of a source already determined below R; admitting them as independent bounds would change the problem.
+
+#### 2. FOUR-WAY SOURCE MAP
+
+| Field | Euler / finite AC | VF / actual primes | NNS / OAI | Square blocks |
+| --- | --- | --- | --- | --- |
+| Original object | Q_R, complete C and S, historical K_R and powerful response above | Complete wheel F_R-D_R=li(X)-pi(X); separately the weighted/clipped #915 history/current source | Original ideal-labelled compensated LOW polynomial and Hermitian Gram, with character, profile, height, exclusions and principal normalizer | Full M(X_R), not a shell increment |
+| Valid relation | EXACT_IDENTITY: original floor/convolution/endpoint declarations; PD/UM are now accepted PAPER bridges for each coefficient | NOT_EQUIVALENT to Q_R. Exact wheel identity retains virtual d>X Euler compensation. Actual prime/Mobius transport is cofactor-weighted, not equality of errors | ONE_WAY global consequence through native Hecke-to-zeta/Mertens transfer. OPEN_BRIDGE for a coefficient map from these rational radical vectors | EXACT_IDENTITY Q_R=2M(R-1)-M(X_R); GD's complete tail and square-to-prefix interpolation supply its conditional consumer |
+| Source/scale safeguards | X=R^2-1, q<=R-1, a(q), all g, zero/shift in K_R; no rescaling | Original prime membership, VF seat weights, historical anchor, admission and clipping cannot be replaced by the unmasked divisor map | J means UNSELECTED slots; J=empty has one outer tuple. A real/complex norm identity supplies no new arithmetic cancellation | Q_R^2=D_G+2sum_(g<h)C_gC_h; neither D_G nor sum of shell squares is the full square |
+| Unpaid interaction | Small-gcd H/E and shared-prime overlap; no independent PD.OPEN bound | Complete discrepancy and original #915 payment | Binding same-source LOW/principal return, not paid by HR1's finite real-vector identity | Historical-normalized full norm and all-prefix endpoint gain remain unproved |
+
+The fetched atlas/DAG are navigation only. Existing reciprocal-band telescopes and cofactor-positivity theorems do not act on this simultaneous powerful/radical mask. In particular a prime-square amplitude coincidence with a CORR4 daughter is not a full CORR4 coefficient or mixed-tail transfer; all other powers, multi-prime denominators, the unit and history remain.
+
+### H. Quantifier And Circularity Audit
+
+PD2 is unconditional on the native history and has absolute constants; it is not uniform smallness of E. PD3 has a fixed c>1/2 and c-dependent finite Lambda_c; its endpoint c=1/2 is not available. PD4's positive-loss family is critical-growth-equivalent, while its zero-loss member is only shown sufficient. No target has been assumed as a new supplier.
+
+UM1 follows by writing C=Z-m e_1, S=T-m e_1: the m^2 terms cancel exactly, leaving Delta=Delta_0+2mB. Nonunit q>=4 makes Z expressible through indices at most max(R-1,floor(X/4)), but those values are dependent coordinates, not an independently free quarter-horizon input.
+
+H_ROB, Delta_0>=2|mB| for every R>=4, implies H_Z and then Q^2<=D_G. It is equivalent at a fixed Z to requiring nonnegative gap for BOTH endpoint choices m and -m. The second choice is counterfactual in general. No reverse implication from the genuine H_Z or the canonical objective was established, so H_ROB is NOT labelled TARGET_EQUIVALENT. Even H_ROB alone pays no magnitude bound for D_G. Changing only the endpoint in a model cannot refute a genuine-arithmetic conjecture.
+
+HR2 is universal in k and legal root size, but only in its stated formal coefficient class. Its no-go does not transfer to genuine mu without an additional realizability theorem. HR1's pairwise-coprime theorem is a sufficient structural statement, not a hypothesis inserted into the full arithmetic source to hide R=115.
+
+### I. Constructive Repairs And Paid Recovery Test
+
+#### 3. FIRST SIGNED LOSS
+
+| Step / declaration | Exact loss and quantitative tax | Consumer and remaining bill |
+| --- | --- | --- |
+| Original eulerSelfDualBilinear -> absolute pair count | Erases mu(a)mu(b) before interaction; naive O(R^2 log^2 R) scale | Existing convolution/endpoint identity reconstructs signs, but supplies no smaller bound |
+| PD historical U bound -> divisor inversion triangle | Drops signs within each historical rectangle and across mu(j); pays 9, E0, sqrt(Y), and 1+log N | This is independently paid on H and the COMPLETE high-gcd tail; small-gcd E and -2<H,E> remain |
+| Nonunit radical response -> presumed contraction or independent diagonal payment | Drops full off-diagonal Gram or substitutes a norm comparison with no uniform constant | R=115 refutes H_F. HR1 keeps coprime interactions in a square and isolates the exact shared-prime bill; HR2 excludes a support-only substitute |
+| C=H-E -> separate squares | Discards -2<H,E>, or J after unit separation | At R=115 J=-1970. Full Delta needs D_H+P+Omega+J+2mB; no term is paid twice |
+| Q=sum C -> Cauchy over all labels | A factor sqrt(R), potentially a quarter-power tax at integer scale | Accepted GD instead uses a short head and complete tail. Its conditional exponent consumer does not assume H_Z/GC5 |
+| OAI LOW norm_sum_le after exact signed Gram | Loses Hermitian off-diagonals on a different ideal/profile carrier | Native marked moments and principal mass retain their actual hypotheses; no coefficient transfer from HR1 or PD has been proved |
+
+#### 4. PAID RECOVERY TEST
+
+The compiled rough/smooth convolution and self-dual Newton endpoint are a successful identity recovery on the genuine source. PD2 then supplies NEW independent historical control, accepted here. This is meaningful supporting mathematics, not a complete endpoint gain.
+
+The existing OAI endpoint can be applied to M(floor(X/q)) only with its actual positive-loss exponent; it does not generate a second gain by reusing that conclusion in an exact representation. Completed reciprocal bands have different masks. Positive cofactor fibres, virtual-wheel compensation and near-resonance do not supply the missing shared-radical/history estimate. The NNS signed Gram recovers both orientations but does not prove their sign.
+
+The surviving exact full ledger is
+
+```text
+Delta = D_H + P(A') + Omega(A') + J + 2M(X)B.
+```
+
+It is an IDENTITY, not a new bound. A useful next arithmetic result must control the actual Omega+J jointly, or another complete source expression, using the true dependent coefficients. Pairwise-coprime components are paid at the proper-response level; their shared-prime crossings and the unit/history return are not.
+
+### J. Competing Strategy Assessment
+
+#### 5. NET RESULT / ADMISSION VERDICT
+
+No numerical global improvement and no new admitted RH route. Accept PD's strict-history localization as a supporting quantitative theorem; retain FINITE-AC/CORR4/MU-LIFT without claiming sparse support alone implies smallness. Retire H_F and coefficient-blind two-sided radical norm comparisons. Retain H_ROB/H_Z/GC5 as conjectures, not as a replacement for magnitude control.
+
+The accepted OAI IR/FFR all-delay return remains the distinct formalization path toward the already accepted paper endpoint. #1131 pays its finite-response/mass supplier, not the unfinished same-signal analytic return. NYMAN's FL/DM review remains a separate useful pending task; this run does not revive the already excluded bounded-variance route. Owner FA's marked proper-source result is neither contradicted nor newly approved here. All nine protected routes retain their actual source obligations.
+
+### K. Original Research And Executed Verification
+
+HR1 derives a finer shared-prime criterion than prime/composite grouping. HR2 gives two explicit growing norm-distortion families rather than extrapolating a single matrix minor. The two-day reports were searched for these specific formulas; no matching formulation was found. No external-literature priority or exhaustive repository novelty is claimed. Standard Mobius inversion, Gram expansion and elementary divisor combinatorics are credited, not renamed as new discoveries.
+
+HR3: a new Python 3 standard-library checker used a sign/square sieve for mu through 301400, direct enumeration of every ordered pair, literal smooth rectangles, independent powerful regrouping, and a separately seeded quotient-block Mertens recursion. Trial-factorization mu below the seed was checked against the sieve. No upstream program or emitted coefficient vector was reused as the implementation.
+
+| Executed check | Count / result |
+| --- | ---: |
+| Roots R=2..128 plus R=549 | 128 |
+| Literal ordered pairs, including zero-weight pairs | 991184 |
+| Strict smooth rectangles | 23980 |
+| Powerful denominator occurrences across roots | 1337 |
+| Independently recomputed Mertens query checks, with repeats | 1465 |
+| Complete vector/gap restorations | 128 |
+| Exact divisor-cube model families, k=1..10, two signs | 20 |
+| Pairwise-coprime repairs, three supports and four coefficient choices | 12 |
+| Source, endpoint, Gram, mask or arithmetic mismatches | 0 |
+
+The fixed supports include (6,35,143), demonstrating that the repair genuinely permits composite radicals. All sign decisions are integer/rational. The program was executed once for results and once unchanged to capture its archival output; these are not two independent experiments. Syntax checking passed. No computation session is left running. The R=115 minimum is exhaustive in its stated lower domain; the global conjectures are NOT tested exhaustively beyond 128. No new R=5561 calculation or Lean execution is claimed.
+
+Program SHA256: `915364e149e38593bf388bcacfade299ff3e6b79928abe645e5a1736d1e5ce6b`.
+Output SHA256: `24d23a9afec16883708423814759a2409b812274da0212f38f1898fb8d726977`.
+The complete executed source and output are appended below for reproducibility.
+
+### L. Formalization Guidance And GitHub Evidence
+
+PD1-PD4 and UM1/UM5 now have this independent ACCEPT at their stated paper scopes. PD2 is the useful independent quantitative supplier; PD4 is a conditional/equivalence result, not a new arithmetic premise. H_F must not be implemented as a theorem. HR1-HR2 need an independently executing reviewer before being treated as independently accepted new results. Their algebra alone is not grounds for a filler PR or for preempting the accepted full OAI return.
+
+#1131 actually merged at 2026-11-11T12:46:15Z. Tested head `f3f1da37c3e2fff9374eb5e99eca0da94c1efc29` and current main have the SAME tree `17225275af9120da64ccbd3f16eca465a557d6d6`. All 13 attached checks are successful. The actual [dedicated job](https://github.com/OVVO-Financial/RH_Lean/actions/runs/43006238259/job/130474300634) checked out that literal head and compiled with warnings fatal. Six old finite-response and eight new mass/delay closures passed with only the standard three axioms; the new closure sizes are 422,533,182,841,230,223,101,85.
+
+The original `principal_product_response_terms_mass` was read, not inferred from the title. It assumes nonnegative normalized weights, positive slot mass, Q>=P>=1, ||A||,||eta||<=1, theta>=3/5 and P^(2-6theta)+P^-theta<=1/2. Its bound is (1+2*(P^(2-6theta)+P^-theta+P^(3-5theta)))^N-1, independent of finite order K. Vanishing requires fixed N and STRICT theta>3/5. The separate original-error bridge requires ||eta||=1, P>=480 and Re(s)>=7/8, and retains the negative principal normalizer. No delayed T>Z atom may be dropped. None of these declarations proves the full same-signal contour return or b_IR.
+
+Open/draft PR collection at intake was empty. No CI was triggered or rerun. Direct git clone failed with CONNECT 403; authorized connector source/report/CI reads succeeded. Only this own report is written remotely. No main, Lean, shared policy, another report, PR, issue, workflow, merge, permission, schedule or agent launch was changed, and no branch was created.
+
+### M. Specialist Handoffs
+
+- Proof Architect: PD2 is independently accepted supporting control; HR1-HR2 are new self-audited scope-specific results. Do not promote proper-response contraction into complete source payment. FL/DM reviews remain pending, explicitly preserved rather than silently dropped.
+- Owner: distinguish the rational powerful-radical overlap here from prime/floor-Li event ancestry and the literal #915 marked masks. Your FA bound is not a bound on Omega or J without an exact occurrence/weight map.
+- Analytic: preserve the accepted FFR return sequence and DM's pending review status. An existing Mertens power controls quotient samples at that SAME power; it does not pay a new joint shared-radical/history saving.
+- Wheel: PD1-PD4 survive review. Replace a generic composite-radical explanation by HR1's exact reserve and shared-prime bill. Seek a genuine relation between A_d and H_g BEFORE triangle, not a coefficient-free contraction.
+- Census: do not enlarge H_Z/H_ROB scans without a changed discriminator. A useful new candidate must control the actual shared-prime bill together with J and 2M(X)B. The R=115 edge contributions above are exact fixtures; R=549 is independently rechecked here.
+- Lean Verification: #1131 is merged and green; do not rebuild it merely for activity. Continue the independently accepted all-delay same-signal return. PD2 is an optional supporting source lemma if its consumer needs it; HR1-HR2 require separate review and are not a new endpoint.
+
+### N. First Independently Missing Mathematical Ingredient
+
+For the selected FINITE-AC path, the exact historical normalization target remains ONE B before all R in ||C_R||<=B R^(1+eta)sqrt(K_R), at an eta giving a genuine improvement over the applicable global comparator. PD.OPEN is sufficient but its all-positive-loss family is RH-strength; assuming it merely renames the endpoint. PD2 pays H, not E or their cancellation.
+
+The next source-specific question is whether an independently provable relation between the genuine shared-prime correlations Omega(A') and historical interaction J restricts the COMPLETE ledger strongly enough to improve that magnitude consumer. HR1 identifies its exact arithmetic terms; HR2 shows why support alone cannot do it. Neither an exclusion theorem nor the required magnitude estimate has been proved here. H_ROB is a stronger sign conjecture, not a paid magnitude supplier.
+
+The separate OAI formal gap remains the accepted full original all-delay residue/contour identity, finite-interval inversion and complete endpoint assembly. This report does not replace it by a new assumed response bound.
+
+### O. Next-Run Resume Capsule
+
+```text
+RUN=20261111-referee-2/HR; actual trigger=12:03:01 EST.
+MAIN=dda92f9ce59627b4c1f1317082f728648d330a0a.
+ACK=CROSS_ROUTE_SIGNED_RECOVERY_V1.
+INTAKE_REPORTS=1855dcff615963978e73bddf4779e9630420a549.
+CHECKPOINT=8c37e325b36c605957b0e829541c6588f903f2cf,
+  blob=413749324711f69c9042254a47d94e965991dcb5, exact readback verified.
+ACCEPT_ON_PAPER=20261111-wheel-2/PD1-PD4; census-2/UM1,UM5.
+REFUTED=H_F; smallest genuine R115, 404-599=-195.
+RESTORED_R115=DH18750 + DF(-195) + J(-1970) + unit1746 =18331.
+NEW_SELF_AUDIT=HR1 shared-prime reserve/bill and coprime repair;
+  HR2 growing support-only norm-distortion families, MODEL-ONLY.
+EXECUTED=HR3, 128 roots, 991184 direct pairs, 23980 rectangles.
+OPEN=H_ROB,H_PRE,H_Z,GC5,PD.OPEN, complete magnitude gain and RH.
+PENDING_SEPARATE_REVIEW=Coordinator FL1-FL5; Analytic DM1-DM4; Owner FA.
+FORMAL=#1131 merged, 13/13 checks; #1119 14/14, 911 unchanged blobs.
+COMPILED_BOUNDARY=7/8-7/(64*N_pack); accepted paper IR boundary separate.
+NEW_GLOBAL_GAIN=NONE; VERIFIED_ETA=NONE.
+NEXT=review FL/DM on their exact complete source, or a NEW genuine
+  shared-prime/history relation; do not rerun unchanged sign scans.
+```
+
+All earlier report bytes and material correction history are preserved. Final report publication is verified separately below, never inferred from successful computation or preparation.
+
+## HR Material Evidence And Reproduction
+
+### Original Source Receipts
+
+All files below were fetched at main `dda92f9ce59627b4c1f1317082f728648d330a0a`; the table records actual returned Git blob SHAs.
+
+| Source | Blob SHA |
+| --- | --- |
+| [AGENTS.md](https://github.com/OVVO-Financial/RH_Lean/blob/dda92f9ce59627b4c1f1317082f728648d330a0a/AGENTS.md) | `c9c89f01b90b526de9f3e8ea92478e36504711b6` |
+| [CURRENT_PROOF_CONTRACT.md](https://github.com/OVVO-Financial/RH_Lean/blob/dda92f9ce59627b4c1f1317082f728648d330a0a/CURRENT_PROOF_CONTRACT.md) | `95566e37c8eaeb99ee680660df4f9d2e06ea5038` |
+| [research/EULER_HYBRID_ABEL_GRAM_20261027.lean](https://github.com/OVVO-Financial/RH_Lean/blob/dda92f9ce59627b4c1f1317082f728648d330a0a/research/EULER_HYBRID_ABEL_GRAM_20261027.lean) | `2a94dd8fd56fc03e95f732fb44b778a8d4f83e26` |
+| [research/EULER_SELF_DUAL_POINTWISE_20261027.lean](https://github.com/OVVO-Financial/RH_Lean/blob/dda92f9ce59627b4c1f1317082f728648d330a0a/research/EULER_SELF_DUAL_POINTWISE_20261027.lean) | `c327c556f39ee7014fd774b24d0f95a1ece050e0` |
+| [research/EULER_SELF_DUAL_FINITE_C_BRIDGE_20261027.lean](https://github.com/OVVO-Financial/RH_Lean/blob/dda92f9ce59627b4c1f1317082f728648d330a0a/research/EULER_SELF_DUAL_FINITE_C_BRIDGE_20261027.lean) | `e97561ef330a9996fd807d8910369f0698147b01` |
+| [research/EULER_SELF_DUAL_ENDPOINT_GATE_20261027.lean](https://github.com/OVVO-Financial/RH_Lean/blob/dda92f9ce59627b4c1f1317082f728648d330a0a/research/EULER_SELF_DUAL_ENDPOINT_GATE_20261027.lean) | `e7ee8f77ffd59bccaa49dd6d74fbe0d7952c2d73` |
+| [RHLean/Analysis/FiniteWheelRestrictedFloor.lean](https://github.com/OVVO-Financial/RH_Lean/blob/dda92f9ce59627b4c1f1317082f728648d330a0a/RHLean/Analysis/FiniteWheelRestrictedFloor.lean) | `94c4d4420fc58cd87d92780c6265decd2cad7e66` |
+| [RHLean/Proof/SquareRootLegalAncestryGramReduction.lean](https://github.com/OVVO-Financial/RH_Lean/blob/dda92f9ce59627b4c1f1317082f728648d330a0a/RHLean/Proof/SquareRootLegalAncestryGramReduction.lean) | `1270d4d91c53b50b110d10014f223f427fb7a575` |
+| [research/CompleteSquareRootWheelFractionalBoundary.lean](https://github.com/OVVO-Financial/RH_Lean/blob/dda92f9ce59627b4c1f1317082f728648d330a0a/research/CompleteSquareRootWheelFractionalBoundary.lean) | `ecb482e52deeee5e9b3853592a3ffdace662d2ff` |
+| [research/VF_CANONICAL_SQRT_TWO_VON_KOCH.lean](https://github.com/OVVO-Financial/RH_Lean/blob/dda92f9ce59627b4c1f1317082f728648d330a0a/research/VF_CANONICAL_SQRT_TWO_VON_KOCH.lean) | `79030d70e8d3e0d08eef9bac53fef95c36eca2fb` |
+| [research/MERTENS_EXPONENT_ENVELOPES.lean](https://github.com/OVVO-Financial/RH_Lean/blob/dda92f9ce59627b4c1f1317082f728648d330a0a/research/MERTENS_EXPONENT_ENVELOPES.lean) | `655b896e8d5a41c9f8fc3c456eae3944a98bfefe` |
+| [research/oai_434/VF919WindowErrorClosure.lean](https://github.com/OVVO-Financial/RH_Lean/blob/dda92f9ce59627b4c1f1317082f728648d330a0a/research/oai_434/VF919WindowErrorClosure.lean) | `f629db1b2b65d6ec042ac9432397d4b6316200c6` |
+| [research/oai_434/VF919NativeStrictMertens.lean](https://github.com/OVVO-Financial/RH_Lean/blob/dda92f9ce59627b4c1f1317082f728648d330a0a/research/oai_434/VF919NativeStrictMertens.lean) | `b33a4883e1ddb0551b0f11f062bce46680d87450` |
+| [research/oai_434/VF919NativeSevenEighthsReplay.lean](https://github.com/OVVO-Financial/RH_Lean/blob/dda92f9ce59627b4c1f1317082f728648d330a0a/research/oai_434/VF919NativeSevenEighthsReplay.lean) | `111c933a7ca15647105ce6a4d0f3cbfc3cde81f4` |
+| [research/oai_434/VF919ExplicitSquareBlockPacking.lean](https://github.com/OVVO-Financial/RH_Lean/blob/dda92f9ce59627b4c1f1317082f728648d330a0a/research/oai_434/VF919ExplicitSquareBlockPacking.lean) | `32999039fdeea99c58a070c1c4ee9c140720dd44` |
+| [research/oai_434/VF919ExplicitFixedSourceSlotCount.lean](https://github.com/OVVO-Financial/RH_Lean/blob/dda92f9ce59627b4c1f1317082f728648d330a0a/research/oai_434/VF919ExplicitFixedSourceSlotCount.lean) | `bad5aab0a60e96d19e7c9550cd7c0a072288bc0f` |
+| [research/oai_434/VF919PrincipalResponseMass.lean](https://github.com/OVVO-Financial/RH_Lean/blob/dda92f9ce59627b4c1f1317082f728648d330a0a/research/oai_434/VF919PrincipalResponseMass.lean) | `5f7e812108ff7eff4a60da7055c2dd5f852c4941` |
+| [research/oai_434/VF919OriginalLowTupleSignedGram.lean](https://github.com/OVVO-Financial/RH_Lean/blob/dda92f9ce59627b4c1f1317082f728648d330a0a/research/oai_434/VF919OriginalLowTupleSignedGram.lean) | `dd2fde01ae6e2446da4e69b30f6fc80fcadb858d` |
+| [scripts/lean/window_error_closure/WindowErrorClosureAudit.lean](https://github.com/OVVO-Financial/RH_Lean/blob/dda92f9ce59627b4c1f1317082f728648d330a0a/scripts/lean/window_error_closure/WindowErrorClosureAudit.lean) | `1f17f9401a63d16227db2e2aad020b9f74bc5f4e` |
+| [docs/COORDINATE_ATLAS.md](https://github.com/OVVO-Financial/RH_Lean/blob/dda92f9ce59627b4c1f1317082f728648d330a0a/docs/COORDINATE_ATLAS.md) | `cd0419d00a37739fe5a292f5cb738e33213949d5` |
+| [docs/PROOF_DEPENDENCY_DAG.md](https://github.com/OVVO-Financial/RH_Lean/blob/dda92f9ce59627b4c1f1317082f728648d330a0a/docs/PROOF_DEPENDENCY_DAG.md) | `eee764cefe70035a9f6c7df26ad787fbfd0fb233` |
+
+### Two-Day Handoff Receipts
+
+Pinned reporting snapshot: `1855dcff615963978e73bddf4779e9630420a549`. Equal coordinator mirror blobs were verified from both directory listings; the AM bytes supply the identical PM content.
+
+| Report | Blob SHA |
+| --- | --- |
+| [2026-11-10/00-coordinator-am.md](https://github.com/OVVO-Financial/RH_Lean/blob/1855dcff615963978e73bddf4779e9630420a549/research/agent_reports/2026-11-10/00-coordinator-am.md) | `4d55b2893f974656c6aa14e48b243827fa8308f8` |
+| [2026-11-10/10-owner-payment.md](https://github.com/OVVO-Financial/RH_Lean/blob/1855dcff615963978e73bddf4779e9630420a549/research/agent_reports/2026-11-10/10-owner-payment.md) | `84afec90414b2394a61b51df46c07b6b540e5942` |
+| [2026-11-10/20-analytic-type-ii.md](https://github.com/OVVO-Financial/RH_Lean/blob/1855dcff615963978e73bddf4779e9630420a549/research/agent_reports/2026-11-10/20-analytic-type-ii.md) | `7ed3a39bec4796f4173b692064af872ea8035048` |
+| [2026-11-10/30-finite-wheel.md](https://github.com/OVVO-Financial/RH_Lean/blob/1855dcff615963978e73bddf4779e9630420a549/research/agent_reports/2026-11-10/30-finite-wheel.md) | `62406503a1ddbbf9330abcdc4cf761f7fbf05795` |
+| [2026-11-10/40-prime-census.md](https://github.com/OVVO-Financial/RH_Lean/blob/1855dcff615963978e73bddf4779e9630420a549/research/agent_reports/2026-11-10/40-prime-census.md) | `a3cfa56072f3893dbf92a18956e1794236bde057` |
+| [2026-11-10/50-adversarial-referee.md](https://github.com/OVVO-Financial/RH_Lean/blob/1855dcff615963978e73bddf4779e9630420a549/research/agent_reports/2026-11-10/50-adversarial-referee.md) | `6529562a5bb21fa192fddadaa91a758b9d125c29` |
+| [2026-11-10/60-lean-verification.md](https://github.com/OVVO-Financial/RH_Lean/blob/1855dcff615963978e73bddf4779e9630420a549/research/agent_reports/2026-11-10/60-lean-verification.md) | `682b334b8f37fa4bfe2d552a1142d852a0db2afd` |
+| [2026-11-10/90-coordinator-pm.md](https://github.com/OVVO-Financial/RH_Lean/blob/1855dcff615963978e73bddf4779e9630420a549/research/agent_reports/2026-11-10/90-coordinator-pm.md) | `4d55b2893f974656c6aa14e48b243827fa8308f8` |
+| [2026-11-11/00-coordinator-am.md](https://github.com/OVVO-Financial/RH_Lean/blob/1855dcff615963978e73bddf4779e9630420a549/research/agent_reports/2026-11-11/00-coordinator-am.md) | `106f6d88708a7545caab43c56ae1bbb915fd97f2` |
+| [2026-11-11/10-owner-payment.md](https://github.com/OVVO-Financial/RH_Lean/blob/1855dcff615963978e73bddf4779e9630420a549/research/agent_reports/2026-11-11/10-owner-payment.md) | `accf2930372234b58e98e8e43e88aeb845b56e9b` |
+| [2026-11-11/20-analytic-type-ii.md](https://github.com/OVVO-Financial/RH_Lean/blob/1855dcff615963978e73bddf4779e9630420a549/research/agent_reports/2026-11-11/20-analytic-type-ii.md) | `0309d49557af30da43a07d72dce93c93c1811157` |
+| [2026-11-11/30-finite-wheel.md](https://github.com/OVVO-Financial/RH_Lean/blob/1855dcff615963978e73bddf4779e9630420a549/research/agent_reports/2026-11-11/30-finite-wheel.md) | `c9989449a814a1a7ee799791c73450872f4c7d3c` |
+| [2026-11-11/40-prime-census.md](https://github.com/OVVO-Financial/RH_Lean/blob/1855dcff615963978e73bddf4779e9630420a549/research/agent_reports/2026-11-11/40-prime-census.md) | `a85bc7dc8b49952d37f1a4cb6a0a8eb307d3f352` |
+| [2026-11-11/50-adversarial-referee.md](https://github.com/OVVO-Financial/RH_Lean/blob/1855dcff615963978e73bddf4779e9630420a549/research/agent_reports/2026-11-11/50-adversarial-referee.md) | `214e99d8d6133e720f9645dd650a57b01a8c05cf` |
+| [2026-11-11/60-lean-verification.md](https://github.com/OVVO-Financial/RH_Lean/blob/1855dcff615963978e73bddf4779e9630420a549/research/agent_reports/2026-11-11/60-lean-verification.md) | `c86b058b6387de7348b123b22b8f5b8772d5ae9a` |
+| [2026-11-11/90-coordinator-pm.md](https://github.com/OVVO-Financial/RH_Lean/blob/1855dcff615963978e73bddf4779e9630420a549/research/agent_reports/2026-11-11/90-coordinator-pm.md) | `106f6d88708a7545caab43c56ae1bbb915fd97f2` |
+
+External inbox: `038018145c0fddb2f6306c0712373adf9cd1ea52`; no entry after October 18. This table is retrieval/provenance evidence, not collective mathematical acceptance.
+
+### Complete Executed Reproducer
+
+Python 3 standard library; run `python hr_checks.py`. The code is reproduced verbatim. It proves the stated finite certificates, not H_ROB or an infinite genuine-Mertens assertion.
+
+```python
+"""Independent exact audit of PD/UM and proof-led radical overlap families."""
+
+from collections import Counter
+from fractions import Fraction
+from functools import lru_cache
+from itertools import combinations
+from math import gcd, isqrt, prod
+import json
+
+
+@lru_cache(None)
+def factors(n):
+    out = []
+    p = 2
+    while p * p <= n:
+        if n % p == 0:
+            exponent = 0
+            while n % p == 0:
+                n //= p
+                exponent += 1
+            out.append((p, exponent))
+        p += 1
+    if n > 1:
+        out.append((n, 1))
+    return tuple(out)
+
+
+def mobius(n):
+    f = factors(n)
+    return 0 if any(e > 1 for _, e in f) else (-1) ** len(f)
+
+
+def divisors(n):
+    result = [1]
+    for p, e in factors(n):
+        result = [d * p ** j for d in result for j in range(e + 1)]
+    return sorted(result)
+
+
+def transform(v):
+    n = len(v) - 1
+    return [0] + [sum(v[g] for g in range(d, n + 1, d)) for d in range(1, n + 1)]
+
+
+def inverse(v):
+    n = len(v) - 1
+    return [0] + [sum(mobius(k) * v[g * k] for k in range(1, n // g + 1))
+                  for g in range(1, n + 1)]
+
+
+def norm(v):
+    return sum(x * x for x in v)
+
+
+def dot(a, b):
+    return sum(x * y for x, y in zip(a, b))
+
+
+roots = list(range(2, 129)) + [549]
+limit = max(roots) ** 2 - 1
+mu = [1] * (limit + 1)
+mu[0] = 0
+prime_flags = bytearray(b'\x01') * (limit + 1)
+prime_flags[0:2] = b'\x00\x00'
+for p in range(2, limit + 1):
+    if prime_flags[p]:
+        for n in range(p, limit + 1, p):
+            mu[n] = -mu[n]
+        for n in range(p * p, limit + 1, p):
+            prime_flags[n] = 0
+        for n in range(p * p, limit + 1, p * p):
+            mu[n] = 0
+M = [0] * (limit + 1)
+for n in range(1, limit + 1):
+    M[n] = M[n - 1] + mu[n]
+seed = [0]
+for n in range(1, 129):
+    seed.append(seed[-1] + mobius(n))
+assert seed == M[:129]
+
+
+@lru_cache(None)
+def recursive_M(n):
+    if n < len(seed):
+        return seed[n]
+    total = 1
+    left = 2
+    while left <= n:
+        quotient = n // left
+        right = n // quotient
+        total -= (right - left + 1) * recursive_M(quotient)
+        left = right + 1
+    return total
+
+
+counts = Counter()
+failures = []
+witnesses = []
+overlap_terms_115 = []
+for R in roots:
+    N, X = R - 1, R * R - 1
+    C = [0] * R
+    for a in range(1, R):
+        assert mu[a] == mobius(a)
+        for b in range(1, R):
+            C[gcd(a, b)] += mu[a] * mu[b] * (X // (a * b))
+            counts['ordered_pairs'] += 1
+    S = transform(C)
+    U, A = [0] * R, [0] * R
+    rectangle_future = [0] * R
+    sites = {X, N}
+    for d in range(1, R):
+        if not mu[d]:
+            continue
+        bound = N // d
+        smooth = [h for h in range(1, bound + 1)
+                  if all(d % p == 0 for p, _ in factors(h))]
+        reconstruction = 0
+        for h in smooth:
+            for k in smooth:
+                a, b = bound // h, bound // k
+                q, t = d * d * h * k, X // (d * d * h * k)
+                assert max(a, b) <= t < (a + 1) * (b + 1)
+                assert (t >= R) == (q <= N)
+                reconstruction += M[a] + M[b] - M[t]
+                U[d] += M[a] + M[b] - (M[t] if t < R else 0)
+                rectangle_future[d] += M[t] if t >= R else 0
+                counts['strict_rectangles'] += 1
+        assert reconstruction == S[d]
+    for q in range(1, R):
+        f = factors(q)
+        if all(e >= 2 for _, e in f):
+            d = prod(p for p, _ in f)
+            multiplicity = prod(e - 1 for _, e in f)
+            A[d] += multiplicity * M[X // q]
+            sites.add(X // q)
+            assert X // q > R
+            counts['powerful_denominators'] += 1
+    assert A == rectangle_future
+    for t in sites:
+        assert recursive_M(t) == M[t]
+        counts['independent_M_sites_with_repeats'] += 1
+    H, E = inverse(U), inverse(A)
+    assert [H[g] - E[g] for g in range(R)] == C
+    assert transform(H) == U and transform(E) == A
+    assert sum(H) == 2 * M[N] and sum(E) == M[X]
+    assert sum(C) == 2 * M[N] - M[X]
+    assert all(E[g] == 0 for g in range(1, R) if g * g > N)
+    F, Ap = E[:], A[:]
+    F[1] -= M[X]
+    Ap[1] -= M[X]
+    assert sum(F) == 0 and transform(F) == Ap
+    Z = [H[g] - F[g] for g in range(R)]
+    T = transform(Z)
+    B = sum(C[2:])
+    DH, DF = norm(H) - norm(U), norm(F) - norm(Ap)
+    J = -2 * (dot(H, F) - dot(U, Ap))
+    D0, D = norm(Z) - norm(T), norm(C) - norm(S)
+    assert D0 == DH + DF + J
+    assert D == D0 + 2 * M[X] * B
+    assert D0 == B * B - 4 * M[N] * B + norm(C[2:]) - norm(S[2:])
+    active = [d for d in range(2, R) if Ap[d]]
+    signed_sum = sum(mu[d] * Ap[d] for d in active)
+    reserve = signed_sum ** 2 + sum((2 ** len(factors(d)) - 2) * Ap[d] ** 2 for d in active)
+    overlap = 0
+    for d, e in combinations(active, 2):
+        term = 2 * (2 ** len(factors(gcd(d, e))) - 1) * mu[d] * mu[e] * Ap[d] * Ap[e]
+        overlap += term
+        if R == 115 and term:
+            overlap_terms_115.append([d, e, term])
+    assert DF == reserve + overlap
+    assert DF >= 0 or any(gcd(d, e) > 1 and mu[d] * mu[e] * Ap[d] * Ap[e] < 0
+                          for d, e in combinations(active, 2))
+    counts['complete_vector_and_gap_checks'] += 1
+    if DF < 0:
+        failures.append(R)
+    if R in (3, 21, 37, 115, 128, 549):
+        K = max(Fraction((M[u] - 1) ** 2, u + 1) for u in range(R))
+        witnesses.append({'R': R, 'M_X': M[X], 'M_N': M[N], 'K': str(K),
+                          'B': B, 'DG': norm(C), 'DS': norm(S), 'DH': DH,
+                          'DF': DF, 'J': J, 'Delta0': D0, 'Delta': D,
+                          'robust_margin': D0 - 2 * abs(M[X] * B),
+                          'reserve': reserve, 'shared_prime_bill': overlap})
+    if R == 115:
+        assert [(d, Ap[d]) for d in active] == [(2, -20), (3, -4), (5, -1), (6, -13), (7, -2), (10, -3)]
+        assert norm(F) == 404 and norm(Ap) == 599
+        assert (DH, J, D0, D, reserve, overlap) == (18750, -1970, 16585, 18331, 477, -672)
+        assert [F[g] for g in (1, 2, 3, 5, 6, 7, 10)] == [11, -4, 9, 2, -13, -2, -3]
+assert failures[0] == 115
+assert 4 != 2 * M[1] - M[4]
+assert 1 * 3 - (-2) ** 2 == -1
+
+# Boolean divisors are an exact combinatorial model of squarefree divisors.
+# These assigned coefficients are not claimed to be genuine Mertens values.
+cube_rows = []
+for k in range(1, 11):
+    size = 1 << k
+    total_square = []
+    for mode in ('constant', 'parity'):
+        coeff = [0] + [1 if mode == 'constant' else (-1) ** d.bit_count()
+                       for d in range(1, size)]
+        out = [sum((-1) ** ((d ^ g).bit_count()) * coeff[d]
+                   for d in range(size) if d & g == g)
+               for g in range(size)]
+        assert sum(out) == 0
+        if mode == 'constant':
+            assert out == [-1] + [0] * (size - 2) + [1]
+            assert norm(out) == 2
+        else:
+            assert norm(out) == 5 ** k - 2 ** (k + 1) + 1
+        assert norm(coeff) == 2 ** k - 1
+        total_square.append(norm(out))
+        counts['model_cube_families'] += 1
+    cube_rows.append({'prime_count': k, 'coefficient_energy': size - 1,
+                      'constant_response_energy': total_square[0],
+                      'parity_response_energy': total_square[1]})
+
+for support in ([2, 3, 5], [6, 35, 143], [2, 15, 77]):
+    assert all(gcd(d, e) == 1 for d, e in combinations(support, 2))
+    for c in ([1, 1, 1], [2, -3, 5], [-7, 0, 4], [0, 0, 0]):
+        energy = sum(mobius(d) * mobius(e) * 2 ** len(factors(gcd(d, e))) * c[i] * c[j]
+                     for i, d in enumerate(support) for j, e in enumerate(support))
+        gap = energy - norm(c)
+        expected = sum(mobius(d) * c[i] for i, d in enumerate(support)) ** 2
+        expected += sum((2 ** len(factors(d)) - 2) * c[i] ** 2 for i, d in enumerate(support))
+        assert gap == expected >= 0
+        counts['pairwise_coprime_repairs'] += 1
+
+print(json.dumps({'status': 'PASS_EXACT', 'roots': len(roots), 'max_root': max(roots),
+                  'counts': dict(counts), 'first_genuine_nonunit_failure': failures[0],
+                  'witnesses': witnesses, 'R115_shared_prime_terms': overlap_terms_115,
+                  'model_only_cubes': cube_rows}, indent=2))
+```
+
+### Recorded Exact Output
+
+```json
+{
+  "status": "PASS_EXACT",
+  "roots": 128,
+  "max_root": 549,
+  "counts": {
+    "ordered_pairs": 991184,
+    "strict_rectangles": 23980,
+    "powerful_denominators": 1337,
+    "independent_M_sites_with_repeats": 1465,
+    "complete_vector_and_gap_checks": 128,
+    "model_cube_families": 20,
+    "pairwise_coprime_repairs": 12
+  },
+  "first_genuine_nonunit_failure": 115,
+  "witnesses": [
+    {
+      "R": 3,
+      "M_X": -2,
+      "M_N": 0,
+      "K": "1",
+      "B": 2,
+      "DG": 4,
+      "DS": 8,
+      "DH": 4,
+      "DF": 0,
+      "J": 0,
+      "Delta0": 4,
+      "Delta": -4,
+      "robust_margin": -4,
+      "reserve": 0,
+      "shared_prime_bill": 0
+    },
+    {
+      "R": 21,
+      "M_X": -7,
+      "M_N": -3,
+      "K": "3/2",
+      "B": 5,
+      "DG": 357,
+      "DS": 338,
+      "DH": 494,
+      "DF": 225,
+      "J": -630,
+      "Delta0": 89,
+      "Delta": 19,
+      "robust_margin": 19,
+      "reserve": 225,
+      "shared_prime_bill": 0
+    },
+    {
+      "R": 37,
+      "M_X": 7,
+      "M_N": -1,
+      "K": "3/2",
+      "B": -41,
+      "DG": 4631,
+      "DS": 840,
+      "DH": 8934,
+      "DF": 681,
+      "J": -5250,
+      "Delta0": 4365,
+      "Delta": 3791,
+      "robust_margin": 3791,
+      "reserve": 731,
+      "shared_prime_bill": -50
+    },
+    {
+      "R": 115,
+      "M_X": -9,
+      "M_N": -6,
+      "K": "3/2",
+      "B": -97,
+      "DG": 21411,
+      "DS": 3080,
+      "DH": 18750,
+      "DF": -195,
+      "J": -1970,
+      "Delta0": 16585,
+      "Delta": 18331,
+      "robust_margin": 14839,
+      "reserve": 477,
+      "shared_prime_bill": -672
+    },
+    {
+      "R": 128,
+      "M_X": -32,
+      "M_N": -2,
+      "K": "3/2",
+      "B": -153,
+      "DG": 56804,
+      "DS": 6339,
+      "DH": 78234,
+      "DF": 4927,
+      "J": -42488,
+      "Delta0": 40673,
+      "Delta": 50465,
+      "robust_margin": 30881,
+      "reserve": 5043,
+      "shared_prime_bill": -116
+    },
+    {
+      "R": 549,
+      "M_X": 192,
+      "M_N": 3,
+      "K": "3/2",
+      "B": -158,
+      "DG": 213476,
+      "DS": 70928,
+      "DH": 254818,
+      "DF": -1402,
+      "J": -50196,
+      "Delta0": 203220,
+      "Delta": 142548,
+      "robust_margin": 142548,
+      "reserve": 9316,
+      "shared_prime_bill": -10718
+    }
+  ],
+  "R115_shared_prime_terms": [
+    [
+      2,
+      6,
+      -520
+    ],
+    [
+      2,
+      10,
+      -120
+    ],
+    [
+      3,
+      6,
+      -104
+    ],
+    [
+      5,
+      10,
+      -6
+    ],
+    [
+      6,
+      10,
+      78
+    ]
+  ],
+  "model_only_cubes": [
+    {
+      "prime_count": 1,
+      "coefficient_energy": 1,
+      "constant_response_energy": 2,
+      "parity_response_energy": 2
+    },
+    {
+      "prime_count": 2,
+      "coefficient_energy": 3,
+      "constant_response_energy": 2,
+      "parity_response_energy": 18
+    },
+    {
+      "prime_count": 3,
+      "coefficient_energy": 7,
+      "constant_response_energy": 2,
+      "parity_response_energy": 110
+    },
+    {
+      "prime_count": 4,
+      "coefficient_energy": 15,
+      "constant_response_energy": 2,
+      "parity_response_energy": 594
+    },
+    {
+      "prime_count": 5,
+      "coefficient_energy": 31,
+      "constant_response_energy": 2,
+      "parity_response_energy": 3062
+    },
+    {
+      "prime_count": 6,
+      "coefficient_energy": 63,
+      "constant_response_energy": 2,
+      "parity_response_energy": 15498
+    },
+    {
+      "prime_count": 7,
+      "coefficient_energy": 127,
+      "constant_response_energy": 2,
+      "parity_response_energy": 77870
+    },
+    {
+      "prime_count": 8,
+      "coefficient_energy": 255,
+      "constant_response_energy": 2,
+      "parity_response_energy": 390114
+    },
+    {
+      "prime_count": 9,
+      "coefficient_energy": 511,
+      "constant_response_energy": 2,
+      "parity_response_energy": 1952102
+    },
+    {
+      "prime_count": 10,
+      "coefficient_energy": 1023,
+      "constant_response_energy": 2,
+      "parity_response_energy": 9763578
+    }
+  ]
+}
+```
+
+
+### Prepublication Freshness - 2026-11-11 17:25:24 UTC
+
+Immediately before publication, the live main HEAD remained `dda92f9ce59627b4c1f1317082f728648d330a0a` with tree `17225275af9120da64ccbd3f16eca465a557d6d6`. The `agent-reports` HEAD was the verified own checkpoint `8c37e325b36c605957b0e829541c6588f903f2cf`; thus no report handoff changed after intake except that checkpoint. The refreshed open-PR collection was empty, including drafts. The current owned report blob `413749324711f69c9042254a47d94e965991dcb5` was read again and matched the checkpoint content exactly. Original pre-run report bytes remain a prefix of the publication. Exact-head CI results are the scoped completed evidence recorded above, not a newly launched main build.
