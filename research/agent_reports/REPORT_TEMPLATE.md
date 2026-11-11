@@ -1,5 +1,7 @@
 # RH_Lean research report — [DATE / ROLE]
 
+> **LAST_ACTUAL_REPORT_CONTINUITY_V1 — 2026-11-11 (effective after reviewed human merge):** The [live main continuity policy](https://github.com/OVVO-Financial/RH_Lean/blob/main/docs/RHLEAN_REPORT_CONTINUITY_LAST_ACTUAL_20261111.md) requires finding each of the seven roles' latest actually published report regardless of age and ingesting every relevant unread intervening section. Today/yesterday-only intake is insufficient. This guide is a subordinate reporting aid, not main mathematical authority; it does not change saved Studio prompts, launches, quotas, permissions or human-only merge.
+
 > **Multiple-daily reporting, after review/merge of main policy PR #1064 and this branch PR:** For every genuinely configured automatic or owner-requested manual run, append separately identified checkpoint and final sections to the existing dated role file. The old one/day ceiling below is superseded; this Markdown does not create Studio triggers.
 
 
@@ -21,8 +23,9 @@
 - **Authority read:** [AGENTS, CURRENT_PROOF_CONTRACT, live brief, dynamic protocol and relevant amplification note; blob SHAs and success/failure]
 - **Relevant original sources:** [paths, blob SHAs, exact declarations and scope]
 - **Own previous capsule:** [path/blob/run ID, or NONE]
-- **Today handoffs:** [actual paths/blob SHAs/run timestamps/claim IDs, or TODAY=PENDING]
-- **Yesterday handoffs:** [same fields; label YESTERDAY=CARRY_FORWARD, not today's completed work]
+- **Latest actual reports (all seven roles):** [newest verified published path/commit/blob/run timestamp or RUN_ID_UNAVAILABLE/section/claim IDs/status per role, however old]
+- **Unconsumed intervening handoffs:** [all relevant new sections since each role's last consumed watermark, oldest-to-newest; or NONE; account for multiple same-day invocations]
+- **Gap and continuity status:** [last-consumed per-role watermark, absent dated reports, route-specific older derivations, CONTINUITY_COMPLETE / CONTINUITY_UNVERIFIED with exact blocker; no fabricated runs]
 - **External inbox/intake:** [inbox SHA; relevant claim IDs and disposition, or no new applicable evidence]
 - **Live PR/state refresh:** [exact current heads/merge state/CI; #958 and #961 PROVED_IN_LEAN_ON_MAIN at their qualified structural scopes; identify later changes and stale reports]
 - **Reused / invalidated work:** [dependency-specific evidence; no invented cache hits or cost savings]
@@ -157,7 +160,7 @@ Consult the current main brief and amplification note, not a frozen list. For ea
 - **Next independent question:** [one concrete theorem or falsifier, not the target restated]
 - **Next responsible specialty and smallest decisive step:** [...]
 - **Ready for referee / census / Lean:** [exact claims, proof status and missing review]
-- **Missing stages:** [TODAY=PENDING with verified prior-day carry-forward where available]
+- **Missing stages:** [TODAY=PENDING with latest actual verified report from any earlier date carried forward; distinguish missing report from verified failed execution]
 
 ## Formal verification — Agent #7 only
 
@@ -183,7 +186,7 @@ Consult the current main brief and amplification note, not a frozen list. For ea
 ## Next-run resume capsule — non-authoritative
 
 - Actual timestamp/run ID; source and authority SHAs.
-- Today AND yesterday plus external claims consumed; distinguish pending from carry-forward.
+- Latest actual report for every role, every new unconsumed intervening section and external claims read; include last-consumed watermarks, missing dates and a truthful continuity-verification status.
 - Verified results, regressions and code/CI evidence to reuse; dependency-specific invalidations.
 - Current mechanism decision and the next **independent** missing input; for MU-LIFT carry k/r/g/coverage and actual proof status.
 - Smallest decisive next test/proof/CI repair and exact outstanding blocker.

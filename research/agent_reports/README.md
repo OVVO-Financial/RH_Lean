@@ -1,5 +1,7 @@
 # RH_Lean daily multi-agent research ledger
 
+> **LAST_ACTUAL_REPORT_CONTINUITY_V1 — 2026-11-11 (effective after reviewed human merge):** The [live main continuity policy](https://github.com/OVVO-Financial/RH_Lean/blob/main/docs/RHLEAN_REPORT_CONTINUITY_LAST_ACTUAL_20261111.md) requires finding each of the seven roles' latest actually published report regardless of age and ingesting every relevant unread intervening section. Today/yesterday-only intake is insufficient. This guide is a subordinate reporting aid, not main mathematical authority; it does not change saved Studio prompts, launches, quotas, permissions or human-only merge.
+
 > **2026-10-31 MULTIPLE-DAILY CADENCE SYNC — effective only after human merge of main policy PR #1064 and this reporting-branch PR.** The [main cadence policy](https://github.com/OVVO-Financial/RH_Lean/blob/main/docs/RHLEAN_MULTIRUN_DAILY_AGENT_POLICY_20261031.md) permits multiple actually configured automatic scheduled runs per agent per America/New_York day, plus separately labeled user-authorized manual continuations. Historical one/day restrictions in this branch are superseded FOR CADENCE ONLY. This Markdown creates no Studio triggers or permissions and changes no mathematical/merge gate.
 
 
@@ -22,7 +24,7 @@ Every role must report its own original-carrier proposed signed inequality, all-
 
 **Branch: `agent-reports`, not main.** Reports live under `research/agent_reports/YYYY-MM-DD/`; use the actual `America/New_York` calendar date, including weekends when configured.
 
-**Cadence:** multiple automatic scheduled invocations per existing agent per America/New_York day are permitted when actually configured in Studio, without a fixed repository count ceiling; explicitly user-requested manual continuations remain permitted and distinct. Every real invocation refreshes main plus all published same-day/yesterday report sections and external handoffs, records its trigger, run ID if available, timestamp and SHAs, and appends a uniquely identified section to its own dated file. This README creates no launches or Studio permission changes.
+**Cadence:** multiple automatic scheduled invocations per existing agent per America/New_York day are permitted when actually configured in Studio, without a fixed repository count ceiling; explicitly user-requested manual continuations remain permitted and distinct. Every real invocation refreshes main, finds every role's last *actually published* report across all existing dates, backfills all newly unconsumed invocation sections and relevant external handoffs, records its trigger, run ID if available, timestamp and SHAs, and appends a uniquely identified section to its own dated file. This README creates no launches or Studio permission changes.
 
 ## Live authority: always fetch main explicitly
 
@@ -81,17 +83,17 @@ There are seven agents and eight compatibility filenames, **not a fixed number o
 
 The six non-Lean scheduled roles may write only their own dated report(s). Agent #7 additionally has the narrow proof-branch/PR exception in live AGENTS. No scheduled role may change these templates, shared instructions, other agents' reports, permissions or schedules, push to main, merge or enable auto-merge. A direct user-authorized maintenance task uses a separate reviewed change. Broad connector access is not authorization or technically enforced path isolation.
 
-## Two-day continuity and external intake
+## Latest-actual continuity (unbounded date search) and external intake
 
-Inspect **today AND yesterday**, even when today's file exists, for your own stage and relevant upstream stages. Read the latest actual run sections and resume capsules, record report path/blob SHA/run time/stable claim IDs, and use the newest applicable evidence by execution/publication timestamp. Overnight Owner/Analytic results may be in yesterday's folder while Wheel/Census/Referee results are in today's.
+Enumerate existing dated folders on `agent-reports` without a fixed day limit. For each of the seven roles, inspect the most recent *actually published* complete section and capsule even if it is weeks old; also retain any later PARTIAL checkpoint. Compare against each role's last verified consumed path/commit/SHA/section watermark and read all newly published relevant sections **oldest to newest**, including multiple runs on one date. For a protected route, retrieve the last genuine route derivation even if older than the role's current report. Coordinator's `00` and `90` mirror files represent one role and must be byte-identical. Record the exact last published references and any missing dates or unverified discovery.
 
-If today's stage is absent, write `TODAY=PENDING; YESTERDAY=CARRY_FORWARD` with the actual prior reference. Never claim that yesterday's finding is today's completed output or that an absent file means no earlier work. After a longer gap use a dated older fallback with dependency revalidation.
+If today's stage is absent, write `TODAY=PENDING; LAST_VERIFIED=CARRY_FORWARD` with the most recent **actual** immutable older report reference, however old. A missing day's report does not prove an execution, a failure or exhausted credits. Do not invent runs or retroactively populate gaps. If branch history or listing is incomplete, write `CONTINUITY_UNVERIFIED` with the exact fetch problem; never pretend a two-day scan is comprehensive. Revalidate dependencies and active PR/CI after any gap.
 
 Read [EXTERNAL_HANDOFFS.md](EXTERNAL_HANDOFFS.md) at `ref=agent-reports` every invocation after this intake. Inspect applicable linked outside-session work, input/source SHAs, exact hypotheses, evidence and independent objections. In your own report mark relevant claims consumed/accepted provisionally/revised/rejected/deferred. External research does not impersonate a missing scheduled stage, change the main contract or authorize editing the index/another report. User-directed outside sessions use their distinct external folder and index only when separately authorized.
 
 ## Warm-start, early checkpoints and write safety
 
-1. Refresh live authority, source, PR state and two-day/external evidence before expensive work. Capsules do not replace source verification.
+1. Refresh live authority, source, PR state, latest-actual per-role reports, all relevant unread intervening sections and external evidence before expensive work. Capsules do not replace source verification.
 2. Publish a useful early `PARTIAL / IN_PROGRESS` checkpoint to the assigned file after intake: actual timestamp/run ID, source SHAs, current objective, consumed claims and first concrete task. Verify GitHub commit/readback before claiming publication. Do this before long scans, audits or CI waiting.
 3. Reuse unchanged exact computations, proof dependencies, accepted counterexamples and green checks at the same tested head. Invalidate only affected signatures, coefficients, cutoffs, input/code hashes, relevant upstream claims, manifest/toolchain or PR source. Do not invent cache hits, cost savings or timings.
 4. Pursue a decisive next test/proof or diagnosed repair. Wider censuses require a stated hypothesis, regime or counterexample reason; do not automatically repeat full repository searches and settled wheel/capacity scans.
@@ -121,6 +123,6 @@ Reuse green checks only at the exact unchanged source head. Do not push no-op ch
 
 ## Final handoff
 
-End EACH actual invocation with a compact timestamped resume capsule: source freshness; this-day/previous-day/external claims actually read; reusable results and invalidations; next independent mathematical question; precise blocker; decisive test; and Agent #7 PR/head/CI state. Every Coordinator invocation appends its own completion matrix, distinct mechanisms, accepted findings, failures/repairs and next assignments to both identical mirrors. Proposed policy changes require human review.
+End EACH actual invocation with a compact timestamped resume capsule: source freshness; latest-actual per-role and unread-intervening/external claims actually read; reusable results and invalidations; next independent mathematical question; precise blocker; decisive test; and Agent #7 PR/head/CI state. Every Coordinator invocation appends its own completion matrix, distinct mechanisms, accepted findings, failures/repairs and next assignments to both identical mirrors. Proposed policy changes require human review.
 
 [Stable schedule-prompt reference](SCHEDULE_PROMPTS.md) gives role specialties without hard-coded theorem queues or invented launch times.
