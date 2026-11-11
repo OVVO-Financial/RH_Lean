@@ -359,3 +359,10 @@ print({'local_mass_checks': checks, 'weighted_mixed_checks': mixed_checks,
        'script_sha256': sha256(Path(__file__).read_bytes()).hexdigest()})
 ```
 
+
+
+### Verified Final Publication Receipt - 20261111-lean-1/FFR
+
+Verified 2026-11-11 10:55:01 UTC (November 11, America/New_York). Substantive synthesis commit `1f7a42287e913198c823049fcde303e5e75a8354`, blob `dc261f21cd006b2f97573730cb482cf90716a8dc`, was re-fetched at the immutable commit and matched the submitted full text exactly. Commit inspection confirms only the owned daily report changed, with 310 additions and 0 deletions; all prior checkpoints and failure history remain intact.
+
+`EXECUTION=COMPLETED`; `REPORT=PUBLISHED_READBACK_VERIFIED`; `MATHEMATICS=PROVED_IN_LEAN_AT_PR_HEAD` for the stated FFR1 suppliers; `IMPLEMENTATION=CI_GREEN/REVIEW_READY`; `MERGE=UNMERGED`. Current PR #1131 head `f3f1da37c3e2fff9374eb5e99eca0da94c1efc29`, all 13 checks successful, actual proof job `43006238259/130474300634`, only standard permitted axioms. The ready-state transition and final PR body were read back. This closes the earlier IN_PROGRESS/CI_PENDING wording for this invocation, not the outstanding FFR2-FFR4 or canonical mathematical objectives. `NO_NEW_GLOBAL_GAIN`; `VERIFIED_ETA=NONE`; RH OPEN. Human merge remains required.
