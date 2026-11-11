@@ -4,6 +4,7 @@ on:
   pull_request:
     paths:
       - 'research/oai_434/VF919PrincipalFiniteResponse.lean'
+      - 'research/oai_434/VF919PrincipalResponseMass.lean'
       - 'research/oai_434/VF919PrincipalSignedRemainder.lean'
       - 'scripts/lean/principal_finite_response/**'
       - '.github/workflows/vf919-principal-finite-response.yml'
@@ -53,7 +54,7 @@ jobs:
           OAI_PATH="$(cd oai-upstream/lean && lake env python3 -c 'import os; print(os.pathsep.join(os.path.abspath(p) for p in os.environ["LEAN_PATH"].split(os.pathsep) if p))')"
           RH_PATH="$(lake env python3 -c 'import os; print(os.pathsep.join(os.path.abspath(p) for p in os.environ["LEAN_PATH"].split(os.pathsep) if p))')"
           mkdir -p .lake/build/lib/lean
-          for name in VF919PrincipalSignedRemainder VF919PrincipalFiniteResponse; do
+          for name in VF919PrincipalSignedRemainder VF919PrincipalFiniteResponse VF919PrincipalResponseMass; do
             env LEAN_PATH="$RH_PATH:$OAI_PATH" lean -DwarningAsError=true \
               -o ".lake/build/lib/lean/research.oai_434.$name.olean" \
               "research/oai_434/$name.lean" 2>&1 | tee "principal-finite-$name.log"
@@ -71,6 +72,8 @@ jobs:
           path: |
             principal-finite-*.log
             research/oai_434/VF919PrincipalFiniteResponse.lean
+            research/oai_434/VF919PrincipalResponseMass.lean
             scripts/lean/principal_finite_response/
           if-no-files-found: error
           retention-days: 30
+

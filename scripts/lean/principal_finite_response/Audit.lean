@@ -37,7 +37,7 @@ def main (_args : List String) : IO UInt32 := do
   initSearchPath (← findSysroot)
   unsafe enableInitializersExecution
   let env ← importModules
-    #[{ module := Name.mkSimple "research.oai_434.VF919PrincipalFiniteResponse" }]
+    #[{ module := Name.mkSimple "research.oai_434.VF919PrincipalResponseMass" }]
     Options.empty 1024 (loadExts := true)
   let allowed : Array Name := #[`propext, `Classical.choice, `Quot.sound]
   for theoremName in roots do
@@ -62,4 +62,35 @@ def main (_args : List String) : IO UInt32 := do
         unless reached.contains required do
           throw (IO.userError s!"Missing complete-product dependency: {required}")
     IO.println s!"PASS principal-finite-response {theoremName}: {axioms}, closure={reached.size}"
+  let massRoots : Array Name := #[
+    `OAI.SevenEighths.PrincipalSlotEstimate.principal_product_response_terms_eval,
+    `OAI.SevenEighths.PrincipalSlotEstimate.principal_product_response_terms_mass,
+    `OAI.SevenEighths.PrincipalSlotEstimate.principal_product_response_delays,
+    `OAI.SevenEighths.PrincipalSlotEstimate.principal_product_response_original_error]
+  for theoremName in massRoots do
+    let axioms ← (Lean.collectAxioms theoremName : CoreM (Array Name)).toIO'
+      { fileName := "<principal-response-mass-axioms>", fileMap := default } { env := env }
+    for ax in axioms do
+      unless allowed.contains ax do
+        throw (IO.userError s!"Unapproved axiom for {theoremName}: {ax}")
+    let reached := closure env [theoremName]
+    let required := if theoremName.toString.endsWith "terms_eval" then #[
+      `OAI.SevenEighths.PrincipalSlotEstimate.principal_base_terms_eval,
+      `OAI.SevenEighths.PrincipalSlotEstimate.principal_weight_terms_eval,
+      `OAI.SevenEighths.PrincipalSlotEstimate.FiniteResponse.complete_eval]
+      else if theoremName.toString.endsWith "terms_mass" then #[
+      `OAI.SevenEighths.PrincipalSlotEstimate.principal_terms_mass_bounds,
+      `OAI.SevenEighths.PrincipalSlotEstimate.FiniteResponse.response_mass_le,
+      `OAI.SevenEighths.PrincipalSlotEstimate.FiniteResponse.complete_mass_le]
+      else if theoremName.toString.endsWith "original_error" then #[
+      `OAI.SevenEighths.PrincipalSlotEstimate.principal_product_response_terms_eval,
+      `OAI.SevenEighths.PrincipalSlotEstimate.weighted_principal_product_partial_error,
+      `OAI.SevenEighths.PrincipalSlotEstimate.principal_slot_eq_raw,
+      `OAI.SevenEighths.PrincipalSlotEstimate.principalScalar_eq]
+      else #[`OAI.SevenEighths.PrincipalSlotEstimate.FiniteResponse.response_nonnegative]
+    for dependency in required do
+      unless reached.contains dependency do
+        throw (IO.userError s!"Missing response source dependency: {dependency}")
+    IO.println s!"PASS principal-response-mass {theoremName}: {axioms}, closure={reached.size}"
   return 0
+
