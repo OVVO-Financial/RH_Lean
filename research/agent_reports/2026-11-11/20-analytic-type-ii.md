@@ -689,3 +689,819 @@ Read both November 10 and November 11 reports for all seven roles at intake agen
 Selected work: protected NYMAN continuation requested by Coordinator, on the literal complete residual and high correction. Inspect the compiled flat-taper return and existing obstructions, then test a changed hypothesis: can the direction forced by the actual Mobius coefficients control its joint coefficient-functional Gram more sharply than an arbitrary-vector spectral maximum, and what does this imply for a genuine location-sensitive middle estimate? Any new inverse restriction is a necessary condition, not a density construction. No uniform bounded-variance supplier is proposed. No accepted FFR proof is being redone; any actual source-return blocker remains separately recorded.
 
 No new theorem is asserted at this checkpoint. Exact source/CI verification, derivation, falsification, complete quantitative comparison, handoffs and final publication remain in progress. Certified comparator is still 7/8-7/(64*N_pack) with every positive loss, pending this run's scoped exact-head reuse checks; the independently accepted IR endpoint remains PAPER, not Lean. Canonical VF, finite A/C and RH remain OPEN.
+
+
+## Scheduled Research Continuation - 20261111-analytic-2/DM
+
+Invocation: 2026-11-11 09:09:03 EST, America/New_York. This synthesis follows the verified 09:14 EST checkpoint; it preserves all earlier same-day findings and claim IDs. Preparation status: RESEARCH_COMPLETE / PUBLICATION_READBACK_PENDING. Completion is recorded only in a later verified publication receipt.
+
+### A. Most Important Analytic Development
+
+**New complete-source necessary bound, not a density construction:** for every finite real coefficient vector on the ORIGINAL full Nyman residue basis, let E be the full squared weighted approximation error and V its full centered periodic variance. Then
+
+```text
+E (1+V) >= 1/768000.
+More precisely, 0<E<=1/2560 implies E V >= 1/768000.
+```
+
+Thus any successful sequence E->0 must have V=Omega(1/E), with an absolute effective constant. This strengthens the necessary variance-growth restrictions NP and FL on the same complete physical source. It does not prove that growing V is sufficient, does not refute the actual two-band flat-taper family, and proves no new Mertens exponent or RH endpoint.
+
+The new mechanism is a **single signed Mobius direction**, combined with an exact aggregation of all residual differences BEFORE applying Cauchy--Schwarz. Its local master inequality is
+
+```text
+s_H <= sqrt(75 H V) + sqrt(5 H^3 E_H),       H>=2,
+s_H = #{2<=k<=H : mu(k) != 0}.
+```
+
+The corresponding location-sensitive statement is
+
+```text
+T>=8 and T>=4800 V  ==>  E_T >= 1/(80 T).
+```
+
+If the approximant is exact through H0, this error is located entirely in H0<m<=T. The exact flat-taper return below transports this bound to its COMPLETE signed numerator, including the high correction and all mixed terms.
+
+Claim registry: DM1 = directional Gram estimate; DM2 = combined residual identity and master inequality; DM3 = full-error/variance tradeoff; DM4 = localized complete-return consequence. These are PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED. DM5 = 49,359 passing exact finite self-checks on the preregistered domain, FINITE_COMPUTATION only. The underlying Jordan diagonalization, coefficient recovery, and squarefree functional Gram are inherited facts, not claimed as new discoveries. No literature-priority claim is made.
+
+### B. Current Mathematical Objective and Authority
+
+Main read at intake: `dda92f9ce59627b4c1f1317082f728648d330a0a`. Main AGENTS blob: `c9c89f01b90b526de9f3e8ea92478e36504711b6`; CURRENT_PROOF_CONTRACT blob: `95566e37c8eaeb99ee680660df4f9d2e06ea5038`; governing cross-route directive blob: `e922d4ba9362a1ae196af8f6de88f7417f92087c`.
+
+`cross_route_ack=CROSS_ROUTE_SIGNED_RECOVERY_V1`. Also retain `chain_ack=CANCELLATION_CHAIN_REUSE_V1`, `high_attack_ack=COMPLETE_SIGNED_HIGH_ATTACK_V1`, and `finite_wheel_ack=FINITE_WHEEL_CENTERED_RH_V1` with the current cross-route task-priority override. The obsolete attached Type-II-only/no-GitHub template does not supersede live authority or the permanent own-report publication authorization.
+
+The canonical target remains OPEN:
+
+```text
+exists C>=0, forall R>=2,
+|pi(R^2)-vfCanonical(R^2)| <= C R log R.
+vfCanonical = vfMid + sqrt(2).
+```
+
+Its classical RH interface still explicitly takes `ClassicalVonKochRHCriterion`. The separate finite-C route has the exact frozen-root source
+
+```text
+X_R=R^2-1,
+K_R=max_(0<=y<R) (M(y)-1)^2/(y+1),
+Q_R=sum_(1<=a,b<R) mu(a)mu(b) floor(X_R/(ab))
+   =2M(R-1)-M(X_R).
+```
+
+The uniform inequality `|Q_R|<=C R sqrt(K_R)` is OPEN. Its conditional finite-C -> finite-A -> Mertens-energy -> RH consumer is not its missing arithmetic hypothesis.
+
+**Five-stage protocol, stage 1: strongest certified baseline.** The exact current main declaration `RHLean.Analysis.native_mertens_near_uniform_window_error_closed` gives
+
+```text
+MertensGrowthAtMost (7/8 - 7/(64*N_pack)).
+```
+
+This means EVERY positive exponent loss, followed by a constant uniform in the integer scale, not a fixed no-loss power bound. At the same positive explicit source constant L,
+
+```text
+N_pack = ceil_nat(max(1,1/(6L)))+2,
+N_old  = ceil_nat(max(1,1/(3L)))+2,
+N_pack <= N_old.
+```
+
+Consequently this is stronger than the older `7/8-1/(48*N_old)` boundary. The native source profile is fixed before the scale; the replay retains `51/100<=beta<=7/8+Delta`, J before eta, and C,Z0 before Z,tau,height. The chain is actual fixed source -> native weighted moments -> total-mass LOW plus complete anchored HIGH/principal -> Hecke zero bound -> modulus-one L-product -> native Mertens converse. This is not an assumed Nyman theorem.
+
+Relevant exact-head evidence was read, not inferred from a PR label: #1119 head `77ee815846d6d534c866f0752aa33b84c385610a`, 14 successful checks; [run 42552018910, job 128949473700](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42552018910/job/128949473700). Five relevant root closures passed, of sizes 35358, 35375, 35736, 35737 and 35753, with only propext, Classical.choice and Quot.sound. Comparing 911 existing relevant source/audit blobs between that tested tree and current main found ZERO changes. Historical Wiener warnings outside these selected closures are not evidence that the entire repository is placeholder-free.
+
+Pins read from that evidence: Lean 4.34.1 / compiler `5045d0056413266e57c625dcd7c365b10e377c52`; mathlib `d13f23b723b8a846827a245b89c10fc7d3f11612`; PNT `c39a751132c88b6e8080b74c74023fd95b3d8be0`; original math source `1581d4cbdd69a0faf34b2089614fe2a814316a6a`; anchored source `9cbfce5295343bcb411e6d2cb159b59995cd985b`.
+
+**Freshness correction:** #1131 is now MERGED, at this intake main, not open as in earlier today's handoffs. Its head `f3f1da37c3e2fff9374eb5e99eca0da94c1efc29` had 13/13 successful checks. [Run 43006238259, job 130474300634](https://github.com/OVVO-Financial/RH_Lean/actions/runs/43006238259/job/130474300634) was read: the existing selected closures and eight new mass closures passed the permitted-axiom audit. The new theorem gives the finite nonnegative-delay expansion and the K/pool-independent mass bound
+
+```text
+(1+2*(P^(2-6theta)+P^(-theta)+P^(3-5theta)))^N - 1,
+```
+
+with its stated gate at theta>=3/5 and decay for theta>3/5. It does NOT yet certify FFR2 same-signal all-delay contour return, FFR3 inversion or FFR4 full endpoint. The independently accepted PAPER endpoint `b_IR=7/8-1/2400000000`, spending `eta=737/3840000000000`, remains distinct from the certified baseline. It was not rederived here. No open or draft PR was present at intake; recent merges #1131, #1130, #1129, #1128, #1127, #1126 and #1124 were inspected. No CI was launched.
+
+### C. Analytic Mechanism and Continuity
+
+TODAY=AVAILABLE for all seven roles; YESTERDAY=READ for all seven roles, America/New_York dates November 11 and 10. The latest Coordinator assigned the actual growing-variance Nyman middle problem, while preserving the accepted OAI return queue. No missing handoff was invented.
+
+The inherited conclusions are kept separate: NT2/NT3 prohibit small-variance shortcuts; Referee NP1-NP3, independently accepted on paper by Coordinator, require V->infinity under E->0; Coordinator FL1-FL5 are paper/self-audited and awaiting independent review. In particular FL5 gives a necessary lower bound of size `E^(-1/2)/(1+log log(E^(-1/2)))^2` using a full GCD-matrix spectral estimate. Wheel GD1-GD4 were accepted on paper with GD3's exponent-target equivalence retained. Owner FA does not give automatic negative payment from composite ancestry; the r=10 marked example remains positive. Census DZ is a finite test/conjecture, and its proposed divisor-weighting explanation is false at R=7.
+
+The changed mathematical question is not another bounded-V obstruction. It is: **can the one direction actually forced by approximation be estimated more sharply than an arbitrary-vector spectral norm, while the residual differences are combined exactly?** Yes, by DM1-DM3 below. No Hilberdink spectral theorem is needed for this improvement.
+
+EXTERNAL_HANDOFFS blob `038018145c0fddb2f6306c0712373adf9cd1ea52` was read; no later-than-October-18 item was available there. Retain EXT-20261018-PNT-1's cofactor/cutoff qualifications and EXT-20261014-5's all-root versus conditional first-bad distinction. Neither supplies the Nyman middle upper bound.
+
+### D. Exact Mathematical Formulation
+
+Let N>=2 be an integer and c_2,...,c_N arbitrary real numbers, extended by c_k=0 for k>N. There is NO sign, squarefree-support, moment, or size hypothesis on these coefficients. Use every original modulus:
+
+```text
+F(m)=sum_(2<=k<=N) c_k (m mod k)/k,
+r(m)=1-F(m),                    m>=0,
+F(0)=0, r(0)=1,
+E_H=sum_(1<=m<=H) r(m)^2/[m(m+1)],
+E=sum_(m>=1) r(m)^2/[m(m+1)],
+V=(1/12)sum_(k,l=2..N)c_k c_l (gcd(k,l)^2-1)/(kl).
+```
+
+The finite residue sum is periodic and bounded, so E converges absolutely. At a positive common multiple of all moduli r=1, hence E>0. V is the actual full centered period variance, not the sum of separate component variances. It is nonnegative and retains every signed cross term.
+
+For d>=2 let
+
+```text
+q_d=sum_(k<=N, d|k) c_k/k,
+J2(d)=d^2 product_(p|d)(1-p^(-2)),
+x_d=sqrt(J2(d)) q_d,
+v_k(d)= k mu(d/k)/sqrt(J2(d)) if k|d, and 0 otherwise.
+```
+
+All x_d past N are zero. Each v_k, k>=2, is in real ell^2(d>=2), because `J2(d)>=d^2/zeta(2)` and the square norm is dominated by a convergent sum over multiples. Finite multiples inversion gives `<x,v_k>=c_k`, even when k>N, and `||x||^2=12V`.
+
+For H>=2 define `S_H={k:2<=k<=H, mu(k)!=0}`, `s_H=|S_H|`, and
+
+```text
+u_H=sum_(k in S_H) mu(k) v_k,
+Gamma_H=||u_H||^2,
+a_H(1)=s_H,
+a_H(d)=sum_(k in S_H,d|k) mu(k)mu(k/d),       2<=d<=H,
+a_H(H+1)=0,
+b_H(m)=a_H(m)-a_H(m+1),                     1<=m<=H,
+B_H=sum_(m=1..H) m(m+1)b_H(m)^2.
+```
+
+The special definition of a_H(1) is essential. It is NOT the count of all squarefree integers through H including 1. Constants below are absolute, chosen before N,c,H,T; H and T may exceed N. No fixed-parameter-to-growing-parameter inference is used.
+
+### E. Mathematical Derivation
+
+#### E1. Inherited covariance, inversion and Gram, with full source retained
+
+For g=gcd(k,l), a uniform full joint period of the two residues can be described by a uniform s in 0..g-1 and, conditional on s, independent uniform residue indices modulo k/g and l/g. Their conditional means are `(s+(k-g)/2)/k` and `(s+(l-g)/2)/l`. The covariance is therefore `(g^2-1)/(12kl)`. This is finite CRT counting, not a stochastic independence hypothesis on primes. Summing over all pairs gives the stated V. Since `g^2-1=sum_(d|g,d>=2)J2(d)`, it also gives exactly `12V=sum_d J2(d)q_d^2`.
+
+Multiples inversion is finite:
+
+```text
+<x,v_k> = k sum_(j<=N/k) mu(j) q_(kj)
+         = sum_(k|l<=N) (k/l)c_l sum_(j|l/k)mu(j) = c_k.
+```
+
+For squarefree k,l>=2, the inherited FL1 identity is
+
+```text
+<v_k,v_l> = zeta(2) mu(k)mu(l)/(kl)
+            * sum_(d|gcd(k,l)) d^2.                    (E1)
+```
+
+For completeness, expand the absolutely convergent multiples sum into prime factors. After factoring out zeta(2), the local factors are 1 if the prime divides neither k nor l, -1/p if it divides just one, and 1+p^(-2) if it divides both. The last factor includes the exponent-two overlap in the feature index. Omitting that overlap would give a false Gram diagonal, already at k=l=2. Multiplying these factors proves (E1). This rederivation validates use of FL1 here; FL1 itself is not a new claim of this continuation.
+
+#### E2. DM1: estimate the forced signed direction, not an arbitrary spectral mode
+
+Multiplying (E1) by mu(k)mu(l) and summing gives
+
+```text
+Gamma_H = zeta(2) sum_(d<=H)
+          [sum_(k in S_H,d|k) d/k]^2
+        <= zeta(2) sum_(d<=H) H_floor(H/d)^2,          (E2)
+```
+
+where H_j=sum_(a<=j)1/a. All terms on the right are nonnegative; the finite reindexing is legitimate. Expanding the harmonic squares,
+
+```text
+sum_(d<=H) H_floor(H/d)^2
+ = sum_(a,b<=H) floor(H/max(a,b))/(ab)
+ <= H sum_(a,b>=1) 1/(ab max(a,b))
+ = 3 zeta(3) H.                                     (E3)
+```
+
+Here is an elementary verification of the last constant, so no hidden analytic theorem is imported. Put S=sum_n H_n/n^2. It converges by H_n<=1+log n. The positive double sum `T=sum_(m,n>=1)1/[mn(m+n)]` equals S by summing n first, and equals `2(S-zeta(3))` by grouping m+n. Thus S=2zeta(3), and the double sum in (E3) equals `2S-zeta(3)=3zeta(3)`.
+
+The rational bounds `zeta(2)<5989/3600<5/3` (five terms plus the integral tail) and `zeta(3)<1+1/8+1/8=5/4` give
+
+```text
+Gamma_H <= (25/4) H,
+|sum_(k in S_H) mu(k)c_k|
+ = |<x,u_H>| <= sqrt(12 V Gamma_H) <= sqrt(75 H V).  (DM1)
+```
+
+Cauchy--Schwarz is applied only AFTER the complete signed direction is formed. No worst-case GCD spectral norm, prime-counting estimate, growing factor-count bound, or unproved Mertens cancellation occurs.
+
+#### E3. DM2: combine coefficient recovery errors before the error norm
+
+Set q_1=sum_(k=2..N)c_k/k. The original increment is
+
+```text
+F(m)-F(m-1)=q_1-sum_(k|m,k>=2)c_k.
+```
+
+Since F(1)=q_1, divisor inversion gives, for every k>=2 including absent coefficients,
+
+```text
+c_k+mu(k)=mu(k)r(1)
+          +sum_(d|k,d>=2)mu(k/d)[r(d)-r(d-1)].      (E4)
+```
+
+For 2<=d<=H, writing k=dj in the squarefree sum yields
+
+```text
+a_H(d)=mu(d) sum_(j<=H/d,(j,d)=1) mu(j)^2.           (E5)
+```
+
+This formula also gives zero for non-squarefree d. In particular `|a_H(d)|<=H/d`; the same bound holds at d=1 by its special definition. Multiply (E4) by mu(k), sum over S_H and combine all equal residual locations. Finite summation by parts gives the exact equality
+
+```text
+s_H+sum_(k in S_H)mu(k)c_k
+ =s_H r(1)+sum_(d=2..H)a_H(d)[r(d)-r(d-1)]
+ =sum_(m=1..H)b_H(m)r(m).                           (E6)
+```
+
+Both the r(1) boundary and the terminal r(H) coefficient are retained. From `|b_H(m)|<=H/m+H/(m+1)`, valid also for the zero-extended terminal value,
+
+```text
+B_H <= H^2 sum_(m=1..H) (2m+1)^2/[m(m+1)]
+     = H^2 [4H+H/(H+1)] <= 5H^3.                   (E7)
+```
+
+Applying weighted Cauchy--Schwarz to the already-combined right side of (E6), with the ORIGINAL weights, gives
+
+```text
+|sum_m b_H(m)r(m)| <= sqrt(B_H E_H).
+```
+
+Thus the sharp finite-quantity version and its explicit majorant are
+
+```text
+s_H <= sqrt(12 V Gamma_H)+sqrt(B_H E_H)
+    <= sqrt(75 H V)+sqrt(5 H^3 E_H).                 (DM2)
+```
+
+There is no truncation error: every sum used for the residual identity is finite and all arithmetic coefficients above H remain present through F, r, q and V.
+
+#### E4. DM3: all-scale full-error/variance consequence
+
+An elementary union bound gives a sufficient squarefree density estimate. Indeed
+
+```text
+sum_(p prime) p^(-2)
+ <= 1/4 + sum_(odd n>=3)n^(-2)
+ = (3/4)(zeta(2)-1) < 1/2.
+```
+
+At most `sum_p floor(H/p^2)` positive integers through H are non-squarefree. After excluding 1, `s_H>=H/2-1`. For H>=8 this is at least 3H/8. If `E_H<=1/(320H)`, then the second root in DM2 is at most H/8. Therefore
+
+```text
+H>=8, E_H<=1/(320H)  ==>  V>=H/1200.                (E8)
+```
+
+For `0<E<=1/2560`, choose the integer `H=floor(1/(320E))`. Then H>=8, H>=1/(640E), and E_H<=E<=1/(320H). Applying (E8) proves `EV>=1/768000`. When E>1/2560, `E(1+V)>=E>1/2560`; hence uniformly
+
+```text
+E(1+V)>=1/768000.                                   (DM3)
+```
+
+No claim of optimal constants is made. If the head is EXACT through H, E_H=0 yields the stronger local statement
+
+```text
+V >= s_H^2/(75H) >= (H/2-1)^2/(75H),     H>=2.       (E9)
+```
+
+The exponent in the new necessary small-error cost is 1/E, whereas the prior FL5 cost grows like E^(-1/2) up to logarithms. Both are lower bounds on the complete variance, not sufficient approximation criteria.
+
+#### E5. DM4: location-sensitive error and the actual corrected return
+
+If T>=8 and T>=4800V, the first root in DM2 is at most T/8. Since s_T>=3T/8, the second root is at least T/4, proving
+
+```text
+E_T >= 1/(80T).                                     (DM4a)
+```
+
+Suppose now the actual flat-taper coefficients have 1<=H0<N, L=log(N/H0)>0,
+
+```text
+c_k=[h_k-mu(k) log(N/max(H0,k))]/L,       2<=k<=N,
+h_k=0 for 2<=k<=H0,
+sum_(k=2..N)h_k/k = sum_(k=1..N)mu(k)log(N/max(H0,k))/k.
+```
+
+The certified original-source return, with this precise reciprocal moment, is
+
+```text
+L r(m)=U_N(m)-U_H0(m)+C_h(m),
+U_B(m)=sum_(B<k<=m)mu(k)log(B/k) floor(m/k),
+C_h(m)=sum_(k=2..N)h_k floor(m/k),
+r(m)=0 for 1<=m<=H0.                               (E10)
+```
+
+Consequently for any integer `T>=max(H0,8,4800V)`,
+
+```text
+sum_(H0<m<=T) [U_N(m)-U_H0(m)+C_h(m)]^2/[m(m+1)]
+ >= L^2/(80T).                                      (DM4b)
+```
+
+This is a lower bound on the COMPLETE signed return. It does not replace that return by the correction alone, does not drop the two U tails, and does not discard the mixed terms created by squaring. Unlike a statement only about a full period, it constrains where the weighted error must appear by the stated T. It remains fully compatible with density when V and the necessary location scale grow.
+
+### F. Quantitative Comparison and Remaining Error Budget
+
+DM uses no asymptotic input. All inequalities hold uniformly for every real finite vector, every N>=2 and every indicated integer H,T. Infinite Gram and harmonic sums converge absolutely; the full error converges absolutely; no rearrangement of conditionally convergent Mobius sums is used. Zero coefficients, non-squarefree coefficients, H>N and exact heads are included. The constants 75,5,320,1200,2560,768000,4800,80 are explicit and effective, but intentionally unoptimized.
+
+The authorized actual flat-taper candidate from `20261104-analytic-1/P1-P10` remains unchanged. For N=6K, H0=floor(N^theta), fixed 0<theta<1 and sufficiently large N with 2<=H0<=N/2, put L=log(N/H0), q_k=log(N/max(H0,k)),
+
+```text
+u=sum_(k=1..N)mu(k)q_k/k,
+v=2L+sum_(k=1..N)mu(k)q_k,
+I1={3K+1,...,4K}, I2={5K+1,...,6K},
+s_i=sum_(k in Ii)1/k,
+A=(u-s_2 v/K)/(s_1-s_2),
+Zcorr=(s_1 v/K-u)/(s_1-s_2),
+h=A on I1, h=Zcorr on I2, h=0 elsewhere,
+c_k=(h_k-mu(k)q_k)/L.
+```
+
+Both original moments are exact: `sum c_k/k=1` and `sum c_k(k-1)/(2k)=1`. The exact head through H0 is paid. The previously established first transition of width `t=floor(H0^(4/5))` costs at most L^(-2). The remote tail after `ceil(N^(3/2))` is paid at O((log N)^(-2)) using the existing fixed b<1 Mertens input and the original full covariance estimates, with the hypotheses and constants of P6 retained. These are inherited results, not rerun asymptotics.
+
+The old prefix-only upper estimate through N/2 is
+
+```text
+E_(H0<m<=N/2) <= C^2 K_b^2 N H0^(2b-2)/(2L^2),
+K_b=(2-b)/(1-b)^2.
+```
+
+It does not decay for b>=1/2 and theta<1. That is a limitation of this upper bound, NOT a lower bound and NOT a refutation of the candidate. DM4 is a genuinely different lower restriction, at a variance-dependent location. It supplies no missing upper payment on the interval between the paid transition and the paid remote tail. No new error budget is silently credited there.
+
+### G. Original-Carrier Bridge and Signed-Loss Ledger
+
+**Five-stage protocol, stage 2: typed coordinate map.**
+
+| Coordinate | Original source and valid edge | Barrier preserved |
+| --- | --- | --- |
+| Euler / FINITE-AC | Full mu(a)mu(b) floor source Q_R=2M(R-1)-M(R^2-1); finite-C has a conditional internal RH consumer | No bound on Q_R or K_R follows from DM |
+| VF / finite wheel | Actual-prime canonical discrepancy; complete fractional wheel F_R-D_R=li(R^2-1)-pi(R^2-1), retaining virtual d>X terms and Euler compensation | No replacement of prime indicators by density; canonical classical interface remains explicit |
+| NNS / OAI | Literal original Hecke tuple Gram, masks, characters, Gaussian and principal return; #1119 closes its actual unconditional Mertens consumer | Rational residue coefficients are not Hecke coefficients; J=empty has one outer tuple and zero outer cross Gram |
+| Square blocks | Same Mertens endpoint reconstructed by frozen history, full Q_R, strict K_R and LOW/HIGH split; fixed-Lambda LOW is O(R) | No discarded coherent, mixed, ancestry or conductor term; K_R>=1 is not its full information |
+| NYMAN, selected here | Full original residue sum, exact weighted error, full covariance and the compiled flat-taper return (E10) | Density is still missing; variance is not a prime discrepancy or a sufficient RH input |
+
+For the full-basis external density criterion, the Hilbert space uses exactly the weight `1/[m(m+1)]`, the constant target 1, and all residue generators `(m mod k)/k`; vanishing full error is the relevant condition. This background criterion is in [Bagchi, Theorem 1](https://arxiv.org/html/math/0607733v1). It is not an internal new Lean certification, and DM does not establish its density premise.
+
+**Stages 3 and 4: source -> loss -> recovery -> consumer.**
+
+| Source / loss under examination | Reused valid theorem or new recovery | Exact consumer and limit |
+| --- | --- | --- |
+| Full variance; replacing each coefficient functional by a common worst-case spectral norm | Inherited FL1 Gram, followed by new DM1 for the particular mu-weighted direction | Effective O(H) squared directional norm; NOT a uniform O(1) spectral norm |
+| Coefficient-recovery residual differences; triangle inequality separately at each divisor occurrence | Inherited exact increment/inversion, followed by new DM2 aggregation and one original-weight dual norm | B_H<=5H^3; two signed boundaries retained; gives actual E_H bound |
+| Flat-taper signed numerator; separating correction from base or replacing location by period mean | Compiled `nyman_flat_return_of_moment` and `nyman_flat_exact_head`, followed by DM4 | Lower bound for complete middle return at T>=4800V; no upper estimate |
+| Original OAI tuple norm/absolute values, scalar crossings, principal delay sum | Already-proved marked 1+t/2 and #1131 mass supplier are available ONLY at their actual masks and gates | FFR2-FFR4 remain the relevant accepted formal return queue; no automatic transfer to NYMAN |
+
+The already-compiled Nyman return supplies an exact bridge, not the newly required inequality. The old Gram and inversion were PAPER inputs independently reconstructed here; they are not mislabeled as compiled declarations. No separately proved repository theorem was found that supplies the still-missing full middle upper estimate. The selected new restriction concerns the COMPLETE physical Nyman source, not a proper-source projection.
+
+### H. Falsification, Exact Checks and Circularity Review
+
+The attached registration preceded execution. The checker used exact fractions for residues, all covariance pairs, squarefree-count identities, dual norms and radical-free comparisons of square roots. Logarithmic return checks used rational prime-exponent vectors, not floating-point logarithms. The six predetermined vector patterns for every N=2..48, plus 13 exact-head vectors, give 295 vectors. The H grid includes values larger than N. Arithmetic identities were tested for every H=2..160; squarefree Gram local factors and feature truncations used k,l<=48 and d<=512; actual two-band returns used N=6,12,18,24,30,36 and H0=2,3,4 when admissible, for m<=2N.
+
+Executed result: **49,359 checks PASS**, process exit 0. Selected counts: 3,835 aggregate residual identities, 3,835 directional Cauchy bounds, 3,835 location Cauchy bounds, 3,835 master inequalities with exact rational majorants, 3,835 coarse master inequalities, 426 localized-middle implications, 92 small-error implications, 443 exact-head locations, 900 Gram local-factor checks, 900 signed feature-truncation checks, 744 complete flat returns and 50 flat exact-head locations. These are finite validations only; the infinite theorem is supported by the paper proof above. The rational majorant for zeta(2) is explicitly used in the finite Gram checks, not claimed to be its exact value.
+
+Registration SHA256: `11cba5bd48e23ad4db20ee00d6b94b3a7d8d4f81cea306bcb224b93e116be78d`.
+Executed checker SHA256: `04294be1a984283cfb5801153c32858d3f558858f087d7dc5a5df256f8930e86`.
+The exact executable and registration are preserved in the reproducibility appendix, including their terminal newlines. No local Lean, new CI, prime sweep, fitted coefficient optimization or inferred all-scale numerical certification was performed.
+
+Specific falsification controls:
+
+- At H=2 the combined residual coefficients are (2,-1). Replacing the special a_H(1) by the squarefree count including 1 fails the exact identity.
+- For k=l=2 the normalized squarefree Gram factor is 1+1/4, not 1. Squareful feature overlap is retained.
+- The zero coefficient vector has V=0 but E=1; variance is not the uncentered mean square error.
+- The high moment-null coefficients (7,-16,9) at moduli (7,8,9) preserve both moments and the first six residue values while changing m=7. Moment/head data alone do not control later locations. This is not a counterexample to the specified two-band coefficient formula.
+- Growing variance alone is insufficient: c_2=t, all other coefficients zero, gives V=t^2/16 and E>=(1-t/2)^2/2, both diverging as t->infinity.
+- At common multiples of all active moduli the residual equals 1. Finite vectors cannot have E=0; no limiting division by E=0 was used.
+- DM1 is a bound on one correlated signed direction, not an orthogonality claim, a full spectral gap, or a prime-independence hypothesis.
+- DM4 is a LOWER bound. Inverting it into a sufficient tail cutoff, a middle upper bound or a refutation of density would be invalid.
+
+No RH, prime-density, Mertens power, unproved correlation, small variance or bounded residual premise enters DM1-DM4. The full middle upper estimate, together with the previously paid pieces, would imply the density target; it is not promoted as an independently easier premise merely by writing it in returned coordinates.
+
+### I. Conceptual Interpretation and Admission Decision
+
+Approximating 1 forces a coherent negative Mobius coefficient direction. Its norm can be evaluated on that direction itself, and the overlapping residual differences can be combined before paying their weighted norm. The resulting lower bound uses both pieces of structure and avoids the losses of a universal spectral estimate followed by separate pointwise coefficient recovery.
+
+**Stage 5 decision:** DM is submitted as a candidate for admission test 2, a substantial new quantitative restriction on the complete physical source. This is an AUTHOR submission, not self-awarded independent acceptance. Admission test 1 is not met: `NO_NEW_GLOBAL_GAIN`, `b_new` not asserted, `VERIFIED_ETA=NONE`. No new accepted proof route is claimed. The original nine routes remain independently active. The result narrows plausible Nyman mechanisms to ones compatible with at least reciprocal-error variance growth and the local cost DM4, without showing how to construct such a successful sequence.
+
+This run is NYMAN coverage. It is not CODIV coverage and does not erase the protected rolling CODIV/OAI-NNS/NYMAN portfolio. The next actual invocation must refresh that coverage ledger; CODIV work must not be credited from this necessary Nyman bound.
+
+### J. Specialist Handoffs
+
+- **Adversarial Referee:** independently review DM1-DM4 as stated for arbitrary real finite vectors, including H>N. Audit the squareful local factor in E1, the H=2 boundary in E6, the exact 3zeta(3) harmonic sum, the B_H bound, the floor choice in DM3 and the lower-bound direction of DM4. Decide whether the claimed improvement over FL5 and complete-source admission are valid. SELF_AUDIT is not your acceptance.
+- **Coordinator / Proof Architect:** retain certified b_base and accepted paper b_IR separately; record #1131 as merged. Consider DM only after independent review under admission test 2. Keep OPEN-P10 and OPEN-NYMAN-DENSITY open, and preserve the protected route rotation.
+- **Lean Verification:** do not preempt accepted FFR2-FFR4 with unreviewed DM. If Referee accepts, the minimal formal package is the finite signed aggregate and dual norm, the directional Gram bound with its convergence proof, then the explicit master and product corollaries. Do not add the desired inequality as an assumption or replace the full residue carrier.
+- **Owner Payment / Arithmetic Structure:** no transfer from this Nyman coefficient restriction to actual-prime ancestry or FA payment is asserted. Any proposed bridge must identify the exact signed coefficients, residual weights and missing return terms.
+- **Finite Wheel & Incidence:** GD3's target equivalence is unchanged. A shared GCD kernel does not identify the Nyman coefficients with Euler or marked-wheel coefficients; preserve the original masks and the complete GD source.
+- **Prime Census Laboratory:** a changed, useful independent check is to reproduce the attached signed aggregate and Gram controls, especially H>N and squareful feature overlap, then compare exact-head variance with the DM lower bound. No request to rerun a frozen-root sweep or infer asymptotic density from finite plots. The preregistered tests here are self-audit, not independent replication.
+
+These are report handoffs, not claims that another agent was launched, scheduled, messaged externally or completed the requested review.
+
+### K. First Independently Missing Analytic Theorem
+
+For the exact two-band family in F, put `F_i(m)=sum_(k in Ii)floor(m/k)` and `t=floor(H0^(4/5))`. The original open obligation remains
+
+```text
+sum_(H0+t<m<=ceil(N^(3/2)))
+ [U_N(m)-U_H0(m)+A F_1(m)+Zcorr F_2(m)]^2/[m(m+1)]
+ = o(L^2),
+```
+
+along N divisible by 6, with fixed admissible theta and all original signed correlations retained. Together with the accepted head, transition and remote-tail estimates, this would prove E->0. It has NOT been proved here. No independently applicable upper-bound theorem was found that pays this interval using only the existing fixed b<1 Mertens input.
+
+DM isolates a necessary location/variance constraint but does not reduce this upper-bound obligation to a weaker established estimate. A productive continuation must find genuine cancellation in the full location-weighted base/correction interaction, or a valid counterexample to this specific family. Merely restating OPEN-P10 as a norm, applying the same prefix envelope, or repeating that bounded V fails would add no substantive advance.
+
+### L. Next-Run Resume Capsule
+
+Main/source pin: `dda92f9ce59627b4c1f1317082f728648d330a0a`. Refresh live main, actual open/draft PRs, today's and preceding New York day's reports, and EXTERNAL_HANDOFFS; no future handoff is assumed. Early checkpoint commit `ec4c1394fb4aa8b12013fe9078df8f2b3383bdc2`, blob `ac36ae24edc8830308425388c3fdc668c59d8b2c`, was already read back exactly before this synthesis.
+
+Preserve DM1-DM4 as PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED until an actual independent decision and relevant CI exist. Preserve DM5 as FINITE_COMPUTATION on the attached fixed domain. New strongest necessary restriction: E(1+V)>=1/768000, and E_T>=1/(80T) when T>=max(8,4800V). Keep the complete flat return and both boundary coefficients. Do not infer sufficiency, density, a middle upper bound, a new exponent or RH.
+
+Highest-value pending analytic step is still an independent full middle upper estimate compatible with forced growing variance. Honor CODIV portfolio coverage on the next actual route selection rather than silently counting this NYMAN continuation twice. FFR2-FFR4 remain the accepted separate formal return queue. Canonical VF, finite A/C, Nyman density and RH remain OPEN.
+
+Remote write scope is only this owned dated report on agent-reports. No main, Lean, workflow, branch, PR, shared policy, other-agent report, schedule, permission, merge or agent launch was changed. A final publication receipt below will state actual commit/readback evidence; preparation wording alone is not a publication claim.
+
+
+### Source and Continuity Receipts
+
+Material current-main file receipts, pinned to `dda92f9ce59627b4c1f1317082f728648d330a0a`:
+
+| File | Blob SHA |
+| --- | --- |
+| [AGENTS.md](https://github.com/OVVO-Financial/RH_Lean/blob/dda92f9ce59627b4c1f1317082f728648d330a0a/AGENTS.md) | `c9c89f01b90b526de9f3e8ea92478e36504711b6` |
+| [CURRENT_PROOF_CONTRACT.md](https://github.com/OVVO-Financial/RH_Lean/blob/dda92f9ce59627b4c1f1317082f728648d330a0a/CURRENT_PROOF_CONTRACT.md) | `95566e37c8eaeb99ee680660df4f9d2e06ea5038` |
+| [docs/RHLEAN_CROSS_ROUTE_SIGNED_RECOVERY_20261110.md](https://github.com/OVVO-Financial/RH_Lean/blob/dda92f9ce59627b4c1f1317082f728648d330a0a/docs/RHLEAN_CROSS_ROUTE_SIGNED_RECOVERY_20261110.md) | `e922d4ba9362a1ae196af8f6de88f7417f92087c` |
+| [docs/COORDINATE_ATLAS.md](https://github.com/OVVO-Financial/RH_Lean/blob/dda92f9ce59627b4c1f1317082f728648d330a0a/docs/COORDINATE_ATLAS.md) | `cd0419d00a37739fe5a292f5cb738e33213949d5` |
+| [research/NYMAN_HIGH_COEFFICIENT_INVARIANT_20261104.lean](https://github.com/OVVO-Financial/RH_Lean/blob/dda92f9ce59627b4c1f1317082f728648d330a0a/research/NYMAN_HIGH_COEFFICIENT_INVARIANT_20261104.lean) | `2da630c1d5fb9302e2097ec1e170cf41c2b40609` |
+| [research/NYMAN_FLAT_TAPER_RETURN_20261104.lean](https://github.com/OVVO-Financial/RH_Lean/blob/dda92f9ce59627b4c1f1317082f728648d330a0a/research/NYMAN_FLAT_TAPER_RETURN_20261104.lean) | `2d23721027ecc44e85b7add02fc632b482f03352` |
+| [research/NYMAN_CORRECTION_ENERGY_20261105.lean](https://github.com/OVVO-Financial/RH_Lean/blob/dda92f9ce59627b4c1f1317082f728648d330a0a/research/NYMAN_CORRECTION_ENERGY_20261105.lean) | `e5453cd32c3c4ebf9ebf41927bcb92e534b2ece7` |
+| [research/NYMAN_MOMENT_NULL_OBSTRUCTION_20261106.lean](https://github.com/OVVO-Financial/RH_Lean/blob/dda92f9ce59627b4c1f1317082f728648d330a0a/research/NYMAN_MOMENT_NULL_OBSTRUCTION_20261106.lean) | `301d7286fc2151b5d33bdca9762a6a01c496ff87` |
+| [research/NYMAN_RADICAL_INCREMENT_20261106.lean](https://github.com/OVVO-Financial/RH_Lean/blob/dda92f9ce59627b4c1f1317082f728648d330a0a/research/NYMAN_RADICAL_INCREMENT_20261106.lean) | `c5ebb3d5d96898549ad039fd32e1a26955c5b8f8` |
+| [research/NYMAN_BEURLING_POSITIVE_RESIDUE_ATTACK_2026_10_15.md](https://github.com/OVVO-Financial/RH_Lean/blob/dda92f9ce59627b4c1f1317082f728648d330a0a/research/NYMAN_BEURLING_POSITIVE_RESIDUE_ATTACK_2026_10_15.md) | `b2775c892edffe920a101651eef6f3581c73c9d4` |
+| [research/oai_434/VF919WindowErrorClosure.lean](https://github.com/OVVO-Financial/RH_Lean/blob/dda92f9ce59627b4c1f1317082f728648d330a0a/research/oai_434/VF919WindowErrorClosure.lean) | `f629db1b2b65d6ec042ac9432397d4b6316200c6` |
+| [research/oai_434/VF919NativeSevenEighthsReplay.lean](https://github.com/OVVO-Financial/RH_Lean/blob/dda92f9ce59627b4c1f1317082f728648d330a0a/research/oai_434/VF919NativeSevenEighthsReplay.lean) | `111c933a7ca15647105ce6a4d0f3cbfc3cde81f4` |
+| [research/oai_434/VF919NativeStrictMertens.lean](https://github.com/OVVO-Financial/RH_Lean/blob/dda92f9ce59627b4c1f1317082f728648d330a0a/research/oai_434/VF919NativeStrictMertens.lean) | `b33a4883e1ddb0551b0f11f062bce46680d87450` |
+| [research/oai_434/VF919ExplicitSquareBlockPacking.lean](https://github.com/OVVO-Financial/RH_Lean/blob/dda92f9ce59627b4c1f1317082f728648d330a0a/research/oai_434/VF919ExplicitSquareBlockPacking.lean) | `32999039fdeea99c58a070c1c4ee9c140720dd44` |
+| [research/oai_434/VF919ExplicitFixedSourceSlotCount.lean](https://github.com/OVVO-Financial/RH_Lean/blob/dda92f9ce59627b4c1f1317082f728648d330a0a/research/oai_434/VF919ExplicitFixedSourceSlotCount.lean) | `bad5aab0a60e96d19e7c9550cd7c0a072288bc0f` |
+| [research/oai_434/VF919OriginalLowTupleSignedGram.lean](https://github.com/OVVO-Financial/RH_Lean/blob/dda92f9ce59627b4c1f1317082f728648d330a0a/research/oai_434/VF919OriginalLowTupleSignedGram.lean) | `dd2fde01ae6e2446da4e69b30f6fc80fcadb858d` |
+| [research/oai_434/VF919OriginalMarkedSharpenedSignedNNS.lean](https://github.com/OVVO-Financial/RH_Lean/blob/dda92f9ce59627b4c1f1317082f728648d330a0a/research/oai_434/VF919OriginalMarkedSharpenedSignedNNS.lean) | `1ead3888a1f59cacc71f482f6d4ce9c9ad31903a` |
+| [research/oai_434/VF919TiltedHighPrincipal.lean](https://github.com/OVVO-Financial/RH_Lean/blob/dda92f9ce59627b4c1f1317082f728648d330a0a/research/oai_434/VF919TiltedHighPrincipal.lean) | `e123ffa5903a62f6249aafef7a093dc6a7e3eb09` |
+| [research/oai_434/VF919PrincipalResponseMass.lean](https://github.com/OVVO-Financial/RH_Lean/blob/dda92f9ce59627b4c1f1317082f728648d330a0a/research/oai_434/VF919PrincipalResponseMass.lean) | `5f7e812108ff7eff4a60da7055c2dd5f852c4941` |
+| [scripts/lean/window_error_closure/WindowErrorClosureAudit.lean](https://github.com/OVVO-Financial/RH_Lean/blob/dda92f9ce59627b4c1f1317082f728648d330a0a/scripts/lean/window_error_closure/WindowErrorClosureAudit.lean) | `1f17f9401a63d16227db2e2aad020b9f74bc5f4e` |
+| [research/EULER_SELF_DUAL_ENDPOINT_GATE_20261027.lean](https://github.com/OVVO-Financial/RH_Lean/blob/dda92f9ce59627b4c1f1317082f728648d330a0a/research/EULER_SELF_DUAL_ENDPOINT_GATE_20261027.lean) | `e7ee8f77ffd59bccaa49dd6d74fbe0d7952c2d73` |
+| [research/VF_CANONICAL_SQRT_TWO_VON_KOCH.lean](https://github.com/OVVO-Financial/RH_Lean/blob/dda92f9ce59627b4c1f1317082f728648d330a0a/research/VF_CANONICAL_SQRT_TWO_VON_KOCH.lean) | `79030d70e8d3e0d08eef9bac53fef95c36eca2fb` |
+| [research/CompleteSquareRootWheelFractionalBoundary.lean](https://github.com/OVVO-Financial/RH_Lean/blob/dda92f9ce59627b4c1f1317082f728648d330a0a/research/CompleteSquareRootWheelFractionalBoundary.lean) | `ecb482e52deeee5e9b3853592a3ffdace662d2ff` |
+| [research/MERTENS_EXPONENT_ENVELOPES.lean](https://github.com/OVVO-Financial/RH_Lean/blob/dda92f9ce59627b4c1f1317082f728648d330a0a/research/MERTENS_EXPONENT_ENVELOPES.lean) | `655b896e8d5a41c9f8fc3c456eae3944a98bfefe` |
+| [research/MERTENS_EXPONENT_STRIP_MAP.lean](https://github.com/OVVO-Financial/RH_Lean/blob/dda92f9ce59627b4c1f1317082f728648d330a0a/research/MERTENS_EXPONENT_STRIP_MAP.lean) | `4e1bb2fde30e69591d62bcdaf1208b845597e573` |
+
+Additional source verification for the Nyman return: merged [#1093](https://github.com/OVVO-Financial/RH_Lean/pull/1093), tested head `a54f0cf9535c548920dae3412e3fbe6d6584e029`; [run 41955044802 / job 127007831273](https://github.com/OVVO-Financial/RH_Lean/actions/runs/41955044802/job/127007831273) logs were read directly. The eight original-carrier terminal declarations passed their type and standard-axiom checks. The actual Actions checkout was `779336cefaf99d04bf48b837340a076d40aebdd3`. The current flat-return source, high-coefficient source and dedicated workflow blobs match the tested-head tree exactly. The two-band interval/cardinality specialization, remote-tail upper estimate and NEW DM inequalities are not thereby claimed compiled. The workflow's Node deprecation notices are distinguished from Lean proof diagnostics.
+
+Reporting-branch intake was `c9db7958185836e7570d463c729cc6a6c46a124e`. The following original report blobs were retrieved; the same-day analytic row is its PRE-checkpoint version. These historical reports are evidence, not authority overriding current source.
+
+| Date / role file | Retrieved blob SHA |
+| --- | --- |
+| [2026-11-11/00-coordinator-am.md](https://github.com/OVVO-Financial/RH_Lean/blob/c9db7958185836e7570d463c729cc6a6c46a124e/research/agent_reports/2026-11-11/00-coordinator-am.md) | `106f6d88708a7545caab43c56ae1bbb915fd97f2` |
+| [2026-11-11/10-owner-payment.md](https://github.com/OVVO-Financial/RH_Lean/blob/c9db7958185836e7570d463c729cc6a6c46a124e/research/agent_reports/2026-11-11/10-owner-payment.md) | `accf2930372234b58e98e8e43e88aeb845b56e9b` |
+| [2026-11-11/20-analytic-type-ii.md](https://github.com/OVVO-Financial/RH_Lean/blob/c9db7958185836e7570d463c729cc6a6c46a124e/research/agent_reports/2026-11-11/20-analytic-type-ii.md) | `eab26782cdd44e705e007185d6c7321d9300ca61` |
+| [2026-11-11/30-finite-wheel.md](https://github.com/OVVO-Financial/RH_Lean/blob/c9db7958185836e7570d463c729cc6a6c46a124e/research/agent_reports/2026-11-11/30-finite-wheel.md) | `dbf68d8f8b1737b4b585811dae014329614ec595` |
+| [2026-11-11/40-prime-census.md](https://github.com/OVVO-Financial/RH_Lean/blob/c9db7958185836e7570d463c729cc6a6c46a124e/research/agent_reports/2026-11-11/40-prime-census.md) | `49c1c48f672cf96c93909bd2b412d95bb3587d62` |
+| [2026-11-11/50-adversarial-referee.md](https://github.com/OVVO-Financial/RH_Lean/blob/c9db7958185836e7570d463c729cc6a6c46a124e/research/agent_reports/2026-11-11/50-adversarial-referee.md) | `214e99d8d6133e720f9645dd650a57b01a8c05cf` |
+| [2026-11-11/60-lean-verification.md](https://github.com/OVVO-Financial/RH_Lean/blob/c9db7958185836e7570d463c729cc6a6c46a124e/research/agent_reports/2026-11-11/60-lean-verification.md) | `c86b058b6387de7348b123b22b8f5b8772d5ae9a` |
+| [2026-11-10/00-coordinator-am.md](https://github.com/OVVO-Financial/RH_Lean/blob/c9db7958185836e7570d463c729cc6a6c46a124e/research/agent_reports/2026-11-10/00-coordinator-am.md) | `4d55b2893f974656c6aa14e48b243827fa8308f8` |
+| [2026-11-10/10-owner-payment.md](https://github.com/OVVO-Financial/RH_Lean/blob/c9db7958185836e7570d463c729cc6a6c46a124e/research/agent_reports/2026-11-10/10-owner-payment.md) | `84afec90414b2394a61b51df46c07b6b540e5942` |
+| [2026-11-10/20-analytic-type-ii.md](https://github.com/OVVO-Financial/RH_Lean/blob/c9db7958185836e7570d463c729cc6a6c46a124e/research/agent_reports/2026-11-10/20-analytic-type-ii.md) | `7ed3a39bec4796f4173b692064af872ea8035048` |
+| [2026-11-10/30-finite-wheel.md](https://github.com/OVVO-Financial/RH_Lean/blob/c9db7958185836e7570d463c729cc6a6c46a124e/research/agent_reports/2026-11-10/30-finite-wheel.md) | `62406503a1ddbbf9330abcdc4cf761f7fbf05795` |
+| [2026-11-10/40-prime-census.md](https://github.com/OVVO-Financial/RH_Lean/blob/c9db7958185836e7570d463c729cc6a6c46a124e/research/agent_reports/2026-11-10/40-prime-census.md) | `a3cfa56072f3893dbf92a18956e1794236bde057` |
+| [2026-11-10/50-adversarial-referee.md](https://github.com/OVVO-Financial/RH_Lean/blob/c9db7958185836e7570d463c729cc6a6c46a124e/research/agent_reports/2026-11-10/50-adversarial-referee.md) | `6529562a5bb21fa192fddadaa91a758b9d125c29` |
+| [2026-11-10/60-lean-verification.md](https://github.com/OVVO-Financial/RH_Lean/blob/c9db7958185836e7570d463c729cc6a6c46a124e/research/agent_reports/2026-11-10/60-lean-verification.md) | `682b334b8f37fa4bfe2d552a1142d852a0db2afd` |
+
+Original flat-taper P1-P10 report read at blob `04ffb1b41d8b6afe5a5d89754f5ccbc8d9682d58`, [November 4 analytic report](https://github.com/OVVO-Financial/RH_Lean/blob/c9db7958185836e7570d463c729cc6a6c46a124e/research/agent_reports/2026-11-04/20-analytic-type-ii.md).
+
+### Prepublication Freshness Check
+
+At 2026-11-11 14:35:54 UTC / 09:35:54 EST, main remained `dda92f9ce59627b4c1f1317082f728648d330a0a`, the open/draft PR list was empty, and agent-reports remained at this invocation's checkpoint `ec4c1394fb4aa8b12013fe9078df8f2b3383bdc2`. Consequently no intervening upstream report or external handoff had arrived since intake plus that checkpoint. The owned path is fetched again immediately before publication. Mathematical status remains independent-review-pending regardless of publication success.
+
+
+### Reproducibility Appendix - DM5
+
+Run the following checker with Python 3, keeping `registration.md` alongside `verify_dm.py`. No third-party packages are required. The checker uses the registration and its own exact bytes only to print their SHA256 digests. These are the executed source bytes, not pseudocode; the all-scale theorem still rests on Section E.
+
+#### Registration: registration.md
+
+```text
+# DM Finite Self-Audit Registration
+
+Research label: 20261111-analytic-2/DM. Scheduled trigger: 2026-11-11 09:09:03 EST.
+Main: dda92f9ce59627b4c1f1317082f728648d330a0a.
+
+Before executing the checker, freeze the following tests. These are finite self-audit tests, not independent Referee review or an all-scale proof.
+
+- All moduli are retained in the original residue sum F(m)=sum c_k (m mod k)/k.
+- Original error weight is 1/[m(m+1)]. V includes every covariance cross term.
+- Define S_H as squarefree integers in [2,H]. Test the aggregate identity S_H+sum_(k in S_H) mu(k)c_k = sum_(m<=H) (a_H(m)-a_H(m+1)) r(m), where a_H(1)=|S_H|, a_H(d)=sum_(k in S_H,d|k)mu(k)mu(k/d) for d>=2, and a_H(H+1)=0.
+- Test the equivalent squarefree-count formula for a_H, the exact arithmetic dual norm B_H, and B_H<=5 H^3 for every H=2..160.
+- Test the signed functional Gram against the divisor-square formula and finite feature truncations, retaining squareful overlaps. Use all squarefree k,l<=48 and feature indices d<=512.
+- Test the directional Gram majorant Gamma_H<=25H/4 via the rational upper constant zeta(2)<5/3, for H=2..160.
+- Test complete vectors for N=2..48 in six fixed deterministic patterns, against every H in {2,3,4,6,8,12,16,24,32,48,64,96,128}. This includes H>N.
+- Exact-head vectors: H in {2,3,4,6,8,12,16,24,32,48,64,96,128}; N=H+1, c_k=-mu(k) through H and c_N=N sum_(d<=H) mu(d)/d.
+- Flat-taper formula: verify with exact prime-exponent vectors for logarithms at N in {6,12,18,24,30,36}, H in {2,3,4} with H<=N/2, and m=1..2N, including both original constant correction bands, the reciprocal moment, and all returns. This is an exact log-identity test, not floating norm certification.
+- Negative controls: squareful feature overlap at k=l=2, aggregate boundary at H=2, uncentered V=0 error E=1, moment-null high coefficients, and multiples of lcm(2,...,N).
+- No least-counterexample claim outside this domain. Any failed equality or inequality stops the checker. No fitted constants or coefficient optimization after seeing output.
+```
+
+#### Executed Checker: verify_dm.py
+
+```python
+from fractions import Fraction as F
+from math import gcd, isqrt, lcm
+import hashlib
+import json
+from pathlib import Path
+
+
+def mobius(n):
+    result = 1
+    p = 2
+    while p * p <= n:
+        if n % p == 0:
+            n //= p
+            result = -result
+            if n % p == 0:
+                return 0
+        while n % p == 0:
+            n //= p
+        p += 1
+    return -result if n > 1 else result
+
+
+def divisors(n):
+    return [d for d in range(1, n + 1) if n % d == 0]
+
+
+def jordan2(n):
+    return sum(mobius(d) * (n // d) ** 2 for d in divisors(n))
+
+
+MU = [0] + [mobius(n) for n in range(1, 513)]
+J2 = [0] + [jordan2(n) for n in range(1, 513)]
+HSET = (2, 3, 4, 6, 8, 12, 16, 24, 32, 48, 64, 96, 128)
+counts = {}
+
+
+def checked(name, condition):
+    assert condition, name
+    counts[name] = counts.get(name, 0) + 1
+
+
+def root_sum_dominates(s, a, b):
+    assert a >= 0 and b >= 0
+    gap = s * s - a - b
+    return s <= 0 or gap <= 0 or gap * gap <= 4 * a * b
+
+
+def arithmetic(H):
+    squarefree = [k for k in range(2, H + 1) if MU[k]]
+    a = [0] * (H + 2)
+    a[1] = len(squarefree)
+    for d in range(2, H + 1):
+        a[d] = sum(MU[k] * MU[k // d] for k in squarefree if k % d == 0)
+        alternate = MU[d] * sum(
+            MU[j] ** 2 for j in range(1, H // d + 1) if gcd(j, d) == 1
+        )
+        checked("a_count_identity", a[d] == alternate)
+        checked("a_pointwise", abs(a[d]) * d <= H)
+    b = [a[m] - a[m + 1] for m in range(1, H + 1)]
+    B = sum(m * (m + 1) * b[m - 1] ** 2 for m in range(1, H + 1))
+    C = sum(
+        sum((F(d, k) for k in squarefree if k % d == 0), F(0)) ** 2
+        for d in range(1, H + 1)
+    )
+    gamma_upper = F(5, 3) * C
+    checked("dual_norm_majorant", B <= 5 * H ** 3)
+    checked("directional_gram_majorant", gamma_upper <= F(25, 4) * H)
+    checked("squarefree_density", len(squarefree) >= F(H, 2) - 1)
+    if H <= 48:
+        direct = sum(
+            (sum(d * d for d in divisors(gcd(k, ell))) * F(1, k * ell)
+             for k in squarefree for ell in squarefree), F(0)
+        )
+        checked("directional_gram_identity", C == direct)
+    return squarefree, b, B, gamma_upper
+
+
+ARITH = {H: arithmetic(H) for H in range(2, 161)}
+
+
+def residual(c, m):
+    return 1 - sum((c[k] * F(m % k, k) for k in range(2, len(c))), F(0))
+
+
+def variance(c):
+    N = len(c) - 1
+    q = [F(0)] * (N + 1)
+    for d in range(2, N + 1):
+        q[d] = sum((c[k] / k for k in range(d, N + 1, d)), F(0))
+    via_divisors = sum((J2[d] * q[d] ** 2 for d in range(2, N + 1)), F(0)) / 12
+    direct = sum(
+        (c[k] * c[ell] * F(gcd(k, ell) ** 2 - 1, 12 * k * ell)
+         for k in range(2, N + 1) for ell in range(2, N + 1)), F(0)
+    )
+    checked("full_covariance_identity", direct == via_divisors)
+    checked("variance_nonnegative", direct >= 0)
+    return direct
+
+
+def verify_vector(c, label):
+    N = len(c) - 1
+    V = variance(c)
+    residuals = [F(0)] + [residual(c, m) for m in range(1, 129)]
+    energies = [F(0)]
+    for m in range(1, 129):
+        energies.append(energies[-1] + residuals[m] ** 2 / (m * (m + 1)))
+    for H in HSET:
+        sf, b, B, gamma_upper = ARITH[H]
+        L = sum((MU[k] * c[k] for k in sf if k <= N), F(0))
+        aggregate = sum((b[m - 1] * residuals[m] for m in range(1, H + 1)), F(0))
+        checked("aggregate_residual_identity", len(sf) + L == aggregate)
+        checked("directional_cauchy", L * L <= 12 * V * gamma_upper)
+        checked("location_cauchy", aggregate * aggregate <= B * energies[H])
+        checked("exact_master_inequality", root_sum_dominates(len(sf), 12 * V * gamma_upper, B * energies[H]))
+        checked("coarse_master_inequality", root_sum_dominates(len(sf), 75 * H * V, 5 * H ** 3 * energies[H]))
+        if H >= 8 and energies[H] <= F(1, 320 * H):
+            checked("local_small_error_corollary", V >= F(H, 1200))
+        if H >= 8 and H >= 4800 * V:
+            checked("localized_middle_corollary", energies[H] >= F(1, 80 * H))
+    return V
+
+
+for N in range(2, 49):
+    vectors = [[F(0)] * (N + 1) for _ in range(6)]
+    for k in range(2, N + 1):
+        vectors[1][k] = F(-MU[k])
+        vectors[2][k] = F((-1) ** k * (k % 5 + 1), k + 1)
+        vectors[3][k] = F((k * k + 3 * k + 1) % 17 - 8, 7)
+        vectors[4][k] = F(k, 3) if k == N else F(0)
+        vectors[5][k] = F(-MU[k]) + 3 * {7: 7, 8: -16, 9: 9}.get(k, 0)
+    for j, c in enumerate(vectors):
+        verify_vector(c, (N, j))
+
+exact_head_table = []
+for H in HSET:
+    N = H + 1
+    c = [F(0), F(0)] + [F(-MU[k]) for k in range(2, N + 1)]
+    c[N] = N * sum((F(MU[d], d) for d in range(1, H + 1)), F(0))
+    for m in range(1, H + 1):
+        checked("exact_head", residual(c, m) == 0)
+    V = verify_vector(c, ("head", H))
+    sf, _, _, _ = ARITH[H]
+    checked("exact_head_linear_cost", V >= F(len(sf) ** 2, 75 * H))
+    exact_head_table.append({"H": H, "V": str(V), "V_over_H": str(V / H)})
+
+sf48 = [k for k in range(2, 49) if MU[k]]
+for k in sf48:
+    for ell in sf48:
+        g = gcd(k, ell)
+        normalized = F(MU[k] * MU[ell], k * ell) * sum(d * d for d in divisors(g))
+        product = F(1)
+        for p in range(2, max(k, ell) + 1):
+            if MU[p] == -1 and all(p % j for j in range(2, isqrt(p) + 1)):
+                if k % p == 0 and ell % p == 0:
+                    product *= 1 + F(1, p * p)
+                elif (k % p == 0) != (ell % p == 0):
+                    product *= F(-1, p)
+        checked("gram_local_factors", normalized == product)
+        partial = sum(
+            (F(k * ell * MU[d // k] * MU[d // ell], J2[d])
+             for d in range(lcm(k, ell), 513, lcm(k, ell))), F(0)
+        )
+        checked("signed_feature_truncation", MU[k] * MU[ell] * partial <= F(5, 3) * abs(normalized))
+
+
+# Prime-exponent vectors make each logarithmic identity exact over Q.
+def log_integer(n):
+    out = {}
+    p = 2
+    while p <= n:
+        while n % p == 0:
+            out[p] = out.get(p, F(0)) + 1
+            n //= p
+        p += 1
+    return out
+
+
+def add(a, b, scale=F(1)):
+    out = dict(a)
+    for p, val in b.items():
+        out[p] = out.get(p, F(0)) + scale * val
+        if not out[p]:
+            del out[p]
+    return out
+
+
+def mul(a, val):
+    return {p: x * val for p, x in a.items() if x * val}
+
+
+def lsum(terms):
+    out = {}
+    for v in terms:
+        out = add(out, v)
+    return out
+
+
+def log_ratio(n, d):
+    return add(log_integer(n), log_integer(d), F(-1))
+
+
+def log_tail(B, m):
+    return lsum(mul(log_ratio(B, k), MU[k] * (m // k)) for k in range(B + 1, m + 1))
+
+
+for N in (6, 12, 18, 24, 30, 36):
+    K = N // 6
+    I1, I2 = range(3 * K + 1, 4 * K + 1), range(5 * K + 1, 6 * K + 1)
+    s1, s2 = sum((F(1, k) for k in I1), F(0)), sum((F(1, k) for k in I2), F(0))
+    checked("two_band_denominator", s1 - s2 > F(1, 20))
+    for H in (2, 3, 4):
+        if H > N // 2:
+            continue
+        ell = log_ratio(N, H)
+        flat = {k: mul(log_ratio(N, max(H, k)), MU[k]) for k in range(1, N + 1)}
+        u = lsum(mul(flat[k], F(1, k)) for k in range(1, N + 1))
+        v = add(mul(ell, 2), lsum(flat.values()))
+        A = mul(add(u, mul(v, -s2 / K)), 1 / (s1 - s2))
+        Z = mul(add(mul(v, s1 / K), u, F(-1)), 1 / (s1 - s2))
+        corr = {k: A if k in I1 else Z if k in I2 else {} for k in range(2, N + 1)}
+        coeff = {k: add(corr[k], flat[k], F(-1)) for k in range(2, N + 1)}
+        checked("flat_reciprocal_moment", lsum(mul(coeff[k], F(1, k)) for k in coeff) == ell)
+        checked("flat_periodic_mean", lsum(mul(coeff[k], F(k - 1, 2 * k)) for k in coeff) == ell)
+        for m in range(1, 2 * N + 1):
+            scaled_r = add(ell, lsum(mul(coeff[k], F(m % k, k)) for k in coeff), F(-1))
+            returned = add(log_tail(N, m), log_tail(H, m), F(-1))
+            returned = add(returned, lsum(mul(corr[k], m // k) for k in corr))
+            checked("flat_complete_return", scaled_r == returned)
+            if m <= H:
+                checked("flat_exact_head", scaled_r == {})
+
+checked("negative_squareful_overlap", F(1) + F(1, 4) != 1)
+checked("negative_boundary", ARITH[2][1] == [2, -1])
+zero = [F(0)] * 13
+null = [F(0)] * 13
+for k, val in {7: 7, 8: -16, 9: 9}.items():
+    null[k] = F(val)
+checked("null_moments", sum(null) == sum(F(0) for _ in null) and sum((null[k] / k for k in range(2, 13)), F(0)) == 0)
+checked("null_early", all(residual(null, m) == 1 for m in range(1, 7)))
+checked("null_later", residual(null, 7) == 8)
+checked("zero_variance_not_density", variance(zero) == 0 and residual(zero, 1) == 1)
+for N in range(2, 13):
+    c = [F(0), F(0)] + [F(-MU[k]) for k in range(2, N + 1)]
+    checked("lcm_sample", residual(c, lcm(*range(2, N + 1))) == 1)
+
+checked("small_error_constant", F(75, 1200) == F(1, 16) and F(5, 320) == F(1, 64))
+checked("product_constant", 640 * 1200 == 768000)
+checked("middle_constant", F(75, 4800) == F(1, 64) and F(5, 80) == F(1, 16))
+
+print(json.dumps({"status": "PASS", "checks": counts, "total_checks": sum(counts.values()), "vectors": 47 * 6 + len(HSET), "exact_head_table": exact_head_table, "script_sha256": hashlib.sha256(Path(__file__).read_bytes()).hexdigest(), "registration_sha256": hashlib.sha256(Path(__file__).with_name("registration.md").read_bytes()).hexdigest()}, indent=2))
+```
+
+#### Executed Result Summary
+
+The following reproduces the check-count fields from the completed run; the long exact-head fraction table is omitted, not used to infer an asymptotic.
+
+```json
+{
+  "status": "PASS",
+  "checks": {
+    "a_count_identity": 12720,
+    "a_pointwise": 12720,
+    "dual_norm_majorant": 159,
+    "directional_gram_majorant": 159,
+    "squarefree_density": 159,
+    "directional_gram_identity": 47,
+    "full_covariance_identity": 296,
+    "variance_nonnegative": 296,
+    "aggregate_residual_identity": 3835,
+    "directional_cauchy": 3835,
+    "location_cauchy": 3835,
+    "exact_master_inequality": 3835,
+    "coarse_master_inequality": 3835,
+    "localized_middle_corollary": 426,
+    "local_small_error_corollary": 92,
+    "exact_head": 443,
+    "exact_head_linear_cost": 13,
+    "gram_local_factors": 900,
+    "signed_feature_truncation": 900,
+    "two_band_denominator": 6,
+    "flat_reciprocal_moment": 17,
+    "flat_periodic_mean": 17,
+    "flat_complete_return": 744,
+    "flat_exact_head": 50,
+    "negative_squareful_overlap": 1,
+    "negative_boundary": 1,
+    "null_moments": 1,
+    "null_early": 1,
+    "null_later": 1,
+    "zero_variance_not_density": 1,
+    "lcm_sample": 11,
+    "small_error_constant": 1,
+    "product_constant": 1,
+    "middle_constant": 1
+  },
+  "total_checks": 49359,
+  "vectors": 295,
+  "script_sha256": "04294be1a984283cfb5801153c32858d3f558858f087d7dc5a5df256f8930e86",
+  "registration_sha256": "11cba5bd48e23ad4db20ee00d6b94b3a7d8d4f81cea306bcb224b93e116be78d"
+}
+```
