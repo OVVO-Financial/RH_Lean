@@ -1,5 +1,7 @@
 # RH_Lean multiple-daily agent invocation policy — 2026-10-31
 
+**LAST_ACTUAL_REPORT_CONTINUITY_V1 (2026-11-11):** On every actual invocation, follow [the unbounded latest-real-report and missed-handoff recovery protocol](RHLEAN_REPORT_CONTINUITY_LAST_ACTUAL_20261111.md). Find each role's latest verified published report without a calendar-day cap, then backfill every newly unconsumed relevant section. Any older today/yesterday-only language is a minimum, not a stopping rule. This changes no mathematics, schedule, saved Studio configuration, permissions or human-only merge policy.
+
 **User-directed operational policy; effective only after human merge into `main`.** This changes cadence authorization, not theorem status, source mathematics, roles, report ownership, Agent Studio settings, permissions, or the human-only merge gate.
 
 ## 1. Authorized daily cadence and precedence
@@ -12,7 +14,7 @@ This policy supersedes every older once-daily/one-run-per-agent budget instructi
 
 ## 2. Mandatory independent execution record on EVERY actual invocation
 
-1. **Refresh before research.** Fetch current `main` SHA and authoritative instructions, original sources and PR/CI status; fetch all applicable **today and yesterday** own/upstream reports on `agent-reports`, including all committed same-day invocation sections, and the external handoff inbox. Do not infer that a timed upstream stage completed without its published evidence.
+1. **Refresh before research.** Fetch current `main` SHA and authoritative instructions, original sources and PR/CI status; enumerate existing report dates and retrieve each role's latest **actually published** own/upstream report and route-specific capsule regardless of age; backfill all relevant intervening invocation sections since the last verified consumed watermark, including multiple same-day runs, and read the external handoff inbox. Never stop at today/yesterday or infer a run from an absent dated report. Do not infer that a timed upstream stage completed without its published evidence.
 2. **Distinct provenance.** Record role, `America/New_York` local timestamp and offset, trigger kind (`SCHEDULED` or `USER_REQUESTED_MANUAL`), real run ID when exposed (otherwise `RUN_ID_UNAVAILABLE`), main SHA, policy/source SHAs, actual consumed report IDs, route/eta-gate, and independent theorem/falsifier/evidence class. Multiple runs on one date have distinguishable timestamped sections.
 3. **Append, never erase.** Continue the same authorized `research/agent_reports/YYYY-MM-DD/<role-file>.md` with an early checked `PARTIAL / IN_PROGRESS` section and a timestamped final/resume capsule, preserving prior scheduled/manual work, claims, failures and corrections. Before writing, re-fetch blob; on conflict, reconcile and retry once. Verify successful readback. Never rewrite a completed earlier run as if it were the current one.
 4. **No duplicate work.** Start from the newest verified theorem/counterexample and precise open inequality. Reuse exact-head CI and unchanged computations. A second same-day run should attempt the next nonduplicative step or a different protected route; never run the same scan just to fill a schedule.

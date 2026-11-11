@@ -1,5 +1,7 @@
 # Seven complete RH_Lean Agent Studio instruction templates
 
+**LAST_ACTUAL_REPORT_CONTINUITY_V1 (2026-11-11):** On every actual invocation, follow [the unbounded latest-real-report and missed-handoff recovery protocol](RHLEAN_REPORT_CONTINUITY_LAST_ACTUAL_20261111.md). Find each role's latest verified published report without a calendar-day cap, then backfill every newly unconsumed relevant section. Any older today/yesterday-only language is a minimum, not a stopping rule. This changes no mathematics, schedule, saved Studio configuration, permissions or human-only merge policy.
+
 **CROSS_ROUTE_SIGNED_RECOVERY_V1 — CURRENT USER-ORDERED PRIORITY (effective after reviewed human merge).** On the next *actually configured* run, read [the five-stage, seven-role cross-route source/loss-recovery directive](RHLEAN_CROSS_ROUTE_SIGNED_RECOVERY_20261110.md) **before** any FINITE_WHEEL_CENTERED_RH_V1, frozen-root, generic HIGH or dated NEXT-* task. All seven roles **must**: (1) establish the strongest genuinely unconditional theorem and audit transitive dependencies, (2) map its actual source across Euler/VF/NNS/square blocks with typed bridges or explicit barriers, (3) inventory irreversible signed-information losses, (4) test whether a separately **already-proved** RH_Lean theorem recovers the lost interaction with original masks, and (5) admit a new proof route only for a net stronger global exponent or a substantial new restriction on the **complete** physical source. Preserve the nine independent routes and all source safeguards; no single-route pigeonholing. Record `cross_route_ack=CROSS_ROUTE_SIGNED_RECOVERY_V1` and a source→loss→recovery→consumer report. This changes repository task selection, **not** actual Studio prompts, schedules, tool permissions, agent launches or human-only merge rules.
 
 **FINITE_WHEEL_CENTERED_RH_V1 — CURRENT USER-ORDERED RESEARCH PRIORITY (effective after human merge).** Read [the seven-role complete signed finite-wheel directive](RHLEAN_SEVEN_AGENT_FINITE_WHEEL_BOUNDARY_20261108.md). All seven roles now investigate the exact certified `F_R-D_R = li(R^2-1)-pi(R^2-1)` source from PR #1122 and the still-OPEN uniform `O(R log R)` bound; maintain signed physical/virtual Euler compensation and distinct role outputs. This task-selection instruction supersedes older frozen-root/prime-two, generic HIGH, NEXT-* and rotation priorities but not their valid theorems, safeguards, historical notes, permissions or cadence. Acknowledge `finite_wheel_ack=FINITE_WHEEL_CENTERED_RH_V1`. Repo edits do not update saved Studio prompts.
@@ -84,7 +86,7 @@ CURRENT_PROOF_CONTRACT.md, docs/DYNAMIC_RESEARCH_AGENTS.md, the stable
 RHLEAN_NATIVE_SQUARE_CLOCK_AGENT_DIRECTIVE_20261029.md, and its current
 breadth, complete-return, multi-run and seven-agent research-engine policies.
 Use the current role reference and relevant proof DAG/atlas/source. Read all
-applicable committed same-day and yesterday reports plus EXTERNAL_HANDOFFS
+latest verified actual per-role reports with uncapped gap backfill plus EXTERNAL_HANDOFFS
 from agent-reports. Verify live PR/head/CI; historical reports are evidence,
 not authority. Reuse content only when actually available at unchanged hashes.
 
@@ -190,7 +192,7 @@ CURRENT_PROOF_CONTRACT.md, docs/DYNAMIC_RESEARCH_AGENTS.md, the stable
 RHLEAN_NATIVE_SQUARE_CLOCK_AGENT_DIRECTIVE_20261029.md and its breadth,
 complete-return, multi-run and seven-agent research-engine policies. Load
 your current role prompt and relevant original source/DAG/atlas. Read all
-applicable same-day/yesterday own/upstream reports and EXTERNAL_HANDOFFS at
+latest actual own/upstream reports with uncapped gap backfill and EXTERNAL_HANDOFFS at
 agent-reports; check live PR/head status. Reuse only actually available,
 unchanged verified context, not an imagined cache.
 
@@ -300,8 +302,7 @@ impose a new generic covariance/inner inverse norm if the consumer needs less.
 Each actual invocation verifies main and reads AGENTS.md, proof contract,
 dynamic protocol, stable RHLEAN_NATIVE_SQUARE_CLOCK_AGENT_DIRECTIVE_20261029.md
 and its breadth, complete-return, multi-run and research-engine policies.
-Read current role guidance, relevant exact source and available same-day/
-yesterday reports plus EXTERNAL_HANDOFFS on agent-reports. Verify actual
+Read current role guidance, relevant exact source and available latest actual per-role reports across all dates, including intervening unread plus EXTERNAL_HANDOFFS on agent-reports. Verify actual
 PR/head/CI. Reuse verified context only when its content is actually available
 and dependencies unchanged; never rely on an unverified summary alone.
 
@@ -407,7 +408,7 @@ Every actual run verifies current main and reads AGENTS.md, proof contract,
 dynamic protocol, stable RHLEAN_NATIVE_SQUARE_CLOCK_AGENT_DIRECTIVE_20261029.md
 and its current breadth, complete-return, multi-run and research-engine
 policies. Read your role reference and actual source/DAG/atlas. Consume all
-applicable committed same-day/yesterday own/upstream reports and external
+latest verified actual own/upstream reports with uncapped gap backfill and external
 handoffs from agent-reports. Verify live revisions; reuse content/computations
 only at actually available unchanged dependencies.
 
@@ -524,7 +525,7 @@ On every actual invocation verify current main and read AGENTS.md, proof
 contract, dynamic protocol, stable RHLEAN_NATIVE_SQUARE_CLOCK_AGENT_DIRECTIVE_20261029.md
 and its breadth, complete-return, multi-run and research-engine policies.
 Read current role reference and relevant original source/DAG/atlas. Consume
-committed same-day/yesterday own/upstream reports plus EXTERNAL_HANDOFFS on
+latest actual own/upstream reports with uncapped gap backfill plus EXTERNAL_HANDOFFS on
 agent-reports. Verify live PR/CI; reuse only available content at unchanged
 verified dependencies, never a hash without its mathematical content.
 
@@ -634,7 +635,7 @@ Every actual invocation verifies current main and reads AGENTS.md, proof
 contract, dynamic protocol, stable RHLEAN_NATIVE_SQUARE_CLOCK_AGENT_DIRECTIVE_20261029.md
 and linked breadth, complete-return, multi-run and research-engine policies.
 Read role reference and actual source/DAG/atlas, all applicable committed
-same-day/yesterday own/upstream reports and external handoffs on agent-reports.
+latest actual own/upstream reports with uncapped gap backfill and external handoffs on agent-reports.
 Check current PR/head state. Reuse only available verified unchanged content.
 
 Maintain persistent FINITE-AC/CORR4/MU-LIFT derivations across rolling three
@@ -746,7 +747,7 @@ Each actual run verifies current main and reads AGENTS.md, proof contract,
 dynamic protocol, stable RHLEAN_NATIVE_SQUARE_CLOCK_AGENT_DIRECTIVE_20261029.md
 and linked breadth, complete-return, multi-run and research-engine policies.
 Read role reference, actual theorem dependencies/DAG/atlas, applicable
-same-day/yesterday reports and external handoffs from agent-reports. Inspect
+latest actual per-role reports with uncapped gap backfill and external handoffs from agent-reports. Inspect
 live PR heads, exact relevant workflow jobs and axiom evidence; reuse only
 actually available unchanged source/CI. Do not pretend old PR status is live.
 
