@@ -30,7 +30,27 @@ def main():
         # genuine coefficient notation such as `[mu*(chi mu)](n)` must not
         # require an unrelated file named `n` in a published agent report.
         text = re.sub(r"(?<!`)(`+)(?!`)[^`\n]*\1(?!`)", "", text)
-        targets = re.findall(r"\[[^\]\n]*\]\((<[^>]+>|[^\s)]+)(?:\s+[^)]*)?\)", text)
+        # Historical reports use interval-indexed arithmetic, e.g.
+        # 1_[R,X](n) and integral_[R,2R](u/R). These are functions, not links.
+        # Suppress only this syntax; keep checking actual relative Markdown links.
+        def is_math_interval_application(match):
+            label, target = match.group(1), match.group(2)
+            return (
+                match.start() > 0
+                and text[match.start() - 1] == "_"
+                and re.fullmatch(r"[A-Za-z0-9_+./-]+\s*,\s*[A-Za-z0-9_+./-]+", label) is not None
+                and re.fullmatch(r"[A-Za-z0-9_+./-]+", target) is not None
+                and "." not in target
+            )
+
+        inline_links = re.finditer(
+            r"\[([^\]\n]*)\]\((<[^>]+>|[^\s)]+)(?:\s+[^)]*)?\)",
+            text,
+        )
+        targets = [
+            match.group(2) for match in inline_links
+            if not is_math_interval_application(match)
+        ]
         targets += re.findall(r"(?m)^\s{0,3}\[[^\]]+\]:\s*(<[^>]+>|\S+)", text)
         for raw in targets:
             target = raw.strip("<>")
