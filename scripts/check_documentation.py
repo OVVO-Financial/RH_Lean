@@ -43,8 +43,10 @@ def main():
                 and "." not in target
             )
 
+        # Do not let a pseudo-link label span another opening bracket;
+        # `[R/2,R)(u/R)...integral_[R,2R](u/R)` is arithmetic, not a link.
         inline_links = re.finditer(
-            r"\[([^\]\n]*)\]\((<[^>]+>|[^\s)]+)(?:\s+[^)]*)?\)",
+            r"\[([^\[\]\n]*)\]\((<[^>]+>|[^\s)]+)(?:\s+[^)]*)?\)",
             text,
         )
         targets = [
