@@ -672,3 +672,10 @@ Implemented the first complete-product approximation in accepted MD2, not anothe
 This is an implementation-sized part of the accepted complete-response argument. Weighted monomial cutoff, same-signal Mellin dilation, compact inversion, full physical return and the proposed stronger Mertens endpoint remain unimplemented. No theorem assumes those desired conclusions. The draft PR and report explicitly retain that distinction.
 
 Baseline evidence independently refreshed: #1119 has 14/14 checks successful at 77ee815846d6d534c866f0752aa33b84c385610a; actual log 128949473700 prints the five standard-axiom PASS closures. All 911 relevant preexisting source blobs match current main. #1130 is merged, with 13/13 checks successful at 4aa22782d10b3ad77dc970d6bb610eaab93a228c; actual log 130044786387 verifies the four local quantitative closures. No unchanged build was rerun.
+
+
+### Exact CI Repair Checkpoint - 20261110-lean-3/MD
+
+The original draft was not certified. Run 42945167476 at f3359742595580fd3f64192be0af2bbdc792587a failed on five elaboration steps. Run 42945963198 at d0d10ddf219c0679d6ed31ec836425cf77d1e7f4 resolved those and exposed a positivity side goal plus an unused-tactic error. Run 42946507459 at 24ff4d8884b5c28b83faaf2710f922ec4b610f5c removed the linter issue but required an explicit proof that Q>=P>=480 implies Q>=0. All actual logs were read; no mathematical hypothesis, constant or checker gate was weakened.
+
+Current draft PR #1131 head is 29bc7d023c9b2706a42448d24cedecdf4e7d5397. Dedicated [run 42947335940](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42947335940) has actually started and is IN_PROGRESS. The current source also proves a fixed-source accuracy corollary: for rho<=(7/8)m(K+1), the complete finite-response error is at most (N*5^N*4*2^(K+1))*Z^(-rho). The choice of K precedes Z. The retained response is not replaced by 1. CI_PENDING / NOT_YET_PROVED_IN_LEAN; global endpoint remains unchanged. The A-P completion report is being prepared and will cite final exact-head evidence.
