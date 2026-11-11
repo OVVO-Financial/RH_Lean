@@ -558,9 +558,9 @@ theorem principal_response_mass_majorant_tendsto (N : ℕ) (theta : ℝ)
   have h3 : Filter.Tendsto (fun P : ℝ => P ^ (3 - 5 * theta)) Filter.atTop (nhds 0) := by
     simpa only [neg_sub] using tendsto_rpow_neg_atTop (by linarith : 0 < 5 * theta - 3)
   have hc1 : Filter.Tendsto (fun _ : ℝ => (1 : ℝ)) Filter.atTop (nhds 1) :=
-    Filter.tendsto_const_nhds
+    tendsto_const_nhds
   have hc2 : Filter.Tendsto (fun _ : ℝ => (2 : ℝ)) Filter.atTop (nhds 2) :=
-    Filter.tendsto_const_nhds
+    tendsto_const_nhds
   have h := ((hc1.add (hc2.mul ((h1.add h2).add h3))).pow N).sub hc1
   simpa only [principalMassBase, principalMassWeight, add_zero, mul_zero,
     one_pow, sub_self] using h
