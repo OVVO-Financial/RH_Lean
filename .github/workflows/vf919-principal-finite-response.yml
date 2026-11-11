@@ -1,0 +1,76 @@
+name: OAI complete principal finite response
+
+on:
+  pull_request:
+    paths:
+      - 'research/oai_434/VF919PrincipalFiniteResponse.lean'
+      - 'research/oai_434/VF919PrincipalSignedRemainder.lean'
+      - 'scripts/lean/principal_finite_response/**'
+      - '.github/workflows/vf919-principal-finite-response.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: principal-finite-${{ github.head_ref || github.ref_name }}-${{ github.event.pull_request.head.sha || github.sha }}
+  cancel-in-progress: true
+
+jobs:
+  complete-principal-finite-proof:
+    runs-on: ubuntu-latest
+    timeout-minutes: 100
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - uses: ./.github/actions/lean-setup
+      - uses: actions/checkout@v4
+        with:
+          repository: openai/math
+          ref: 1581d4cbdd69a0faf34b2089614fe2a814316a6a
+          path: oai-upstream
+          persist-credentials: false
+      - name: Restore source-pinned original analytic shared cache
+        uses: ./.github/actions/oai-434-shared-cache
+      - name: Verify the exact toolchain and original slot source
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(cat lean-toolchain)" = 'leanprover/lean4:v4.34.1'
+          test "$(git -C oai-upstream rev-parse HEAD)" = '1581d4cbdd69a0faf34b2089614fe2a814316a6a'
+          test "$(git hash-object oai-upstream/lean/OAI/NumberTheory/DirichletL/PrincipalSlotEstimate.lean)" = 'f9250c7c4464f374902bbb39ebbb3487d96bea1f'
+          python3 scripts/check_shared_lean_packages.py . oai-upstream/lean PrimeNumberTheoremAnd mathlib
+          lean --version
+      - name: Build the unchanged original slot prerequisites
+        shell: bash
+        working-directory: oai-upstream/lean
+        run: lake build OAI.NumberTheory.DirichletL.PrincipalSlotEstimate
+      - name: Compile the complete product and exact types with warnings fatal
+        shell: bash
+        run: |
+          set -euo pipefail
+          OAI_PATH="$(cd oai-upstream/lean && lake env python3 -c 'import os; print(os.pathsep.join(os.path.abspath(p) for p in os.environ["LEAN_PATH"].split(os.pathsep) if p))')"
+          RH_PATH="$(lake env python3 -c 'import os; print(os.pathsep.join(os.path.abspath(p) for p in os.environ["LEAN_PATH"].split(os.pathsep) if p))')"
+          mkdir -p .lake/build/lib/lean
+          for name in VF919PrincipalSignedRemainder VF919PrincipalFiniteResponse; do
+            env LEAN_PATH="$RH_PATH:$OAI_PATH" lean -DwarningAsError=true \
+              -o ".lake/build/lib/lean/research.oai_434.$name.olean" \
+              "research/oai_434/$name.lean" 2>&1 | tee "principal-finite-$name.log"
+          done
+          env LEAN_PATH="$RH_PATH:$OAI_PATH" lean -DwarningAsError=true \
+            scripts/lean/principal_finite_response/ExactTypes.lean 2>&1 | tee principal-finite-types.log
+          env LEAN_PATH="$RH_PATH:$OAI_PATH" lean -DwarningAsError=true \
+            --run scripts/lean/principal_finite_response/Audit.lean 2>&1 | tee principal-finite-audit.log
+          if grep -E 'sorryAx|admitAx' principal-finite-*.log; then exit 1; fi
+      - name: Preserve exact proof diagnostics
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: principal-finite-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            principal-finite-*.log
+            research/oai_434/VF919PrincipalFiniteResponse.lean
+            scripts/lean/principal_finite_response/
+          if-no-files-found: error
+          retention-days: 30
