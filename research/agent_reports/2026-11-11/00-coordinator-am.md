@@ -1443,3 +1443,16 @@ print(json.dumps({'status': 'PASS', 'exact_positive_cases': len(rows),
                   'script_sha256': hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
                   'registration_sha256': hashlib.sha256(Path(__file__).with_name('ft-matched-registration.md').read_bytes()).hexdigest()}, indent=2))
 ```
+
+
+## Verified Publication Receipt - 20261111-coordinator-1513-EST/FT
+
+Verified 2026-11-11 20:55:44 UTC / 15:55:44 EST, America/New_York. The substantive A-J synthesis, full derivation, independent review decisions and executed finite-check reproductions were committed at [5ac906ee59da2fde6cd82770c9b968c6986dc979](https://github.com/OVVO-Financial/RH_Lean/commit/5ac906ee59da2fde6cd82770c9b968c6986dc979), committed 20:55:19 UTC. Both authorized report files were fetched at that immutable revision: all 139793 characters matched the intended full contents and both returned blob `d1c72c16d7f3e1627cb414b7cbe4013c65151494`.
+
+Commit inspection confirmed exactly two changed files, `research/agent_reports/2026-11-11/00-coordinator-am.md` and `research/agent_reports/2026-11-11/90-coordinator-pm.md`, each with 588 additions and ZERO deletions. Their complete 76329-character prior prefixes, including the verified early checkpoint and all earlier evidence, were preserved byte-for-byte. The final live authority check still showed main `59612bc8b5c30c528d8367667ea5846a8053f114` and no open/draft PR. No specialist publication appeared between intake and the leased final report update.
+
+`EXECUTION=COMPLETED`; `SUBSTANTIVE_PUBLICATION=PUBLISHED_READBACK_VERIFIED`; `CONTINUITY_COMPLETE` at the documented discovery/backfill scope. This supersedes the synthesis's preparation-time publication status only. FT2/FT3 remain PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED. FT1 is a supporting consequence of the compiled exact return; FT4 is FINITE_COMPUTATION. The 225157 finite identity checks, 40 matched-boundary cases and syntax checks passed; no local research computation remains running. The two baseline-log timeouts remain disclosed, with prior actual-log receipts reused at unchanged sources.
+
+DM1-DM4 and HR1-HR2 have this Coordinator's independent ACCEPT_ON_PAPER only at the stated scopes. #1132 is verified MERGED with exact-head green evidence; FFR3/FFR4 remain the next formal work. `NO_NEW_GLOBAL_GAIN`; `NO_NEW_ACCEPTED_ROUTE`; `VERIFIED_ETA=NONE`; canonical VF, finite A/C, the complete centered wheel bound and RH remain OPEN. No other role report, proof code, central policy, protected branch, PR, workflow, agent schedule or permission was changed. No agent launch, merge or auto-merge was performed.
+
+This receipt records the already verified substantive commit and is appended separately to both mirrors; it does not pretend to know its own future commit SHA.
