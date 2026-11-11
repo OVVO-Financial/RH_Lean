@@ -135,7 +135,7 @@ theorem response_eval (q : ℝ) (H W : Terms) (K : ℕ) (s : ℂ) :
 
 /-- The explicit geometric coefficient bound is uniform in truncation order. -/
 theorem response_mass_le (q : ℝ) (H W : Terms) (K : ℕ) (theta r w : ℝ)
-    (hq0 : 0 ≤ q) (hq1 : q ≤ 1) (hr0 : 0 ≤ r) (hr1 : r < 1)
+    (hq1 : q ≤ 1) (hr0 : 0 ≤ r) (hr1 : r < 1)
     (hw : 0 ≤ w) (hH : mass theta H ≤ r) (hW : mass theta W ≤ w) :
     mass theta (response q H W K) ≤ (1 - q) * (r + w) / (1 - r) := by
   have hnorm : ‖1 - (q : ℂ)‖ = 1 - q := by
@@ -416,10 +416,8 @@ theorem principal_response_terms_mass_le (K : ℕ) (Q theta : ℝ) (hQ : 1 ≤ Q
     mass theta (principalResponseTerms K Q A eta) ≤
       (1 - Q⁻¹) * (principalMassBase Q theta + principalMassWeight Q theta) /
         (1 - principalMassBase Q theta) := by
-  have hQ0 : 0 ≤ Q := le_trans zero_le_one hQ
   obtain ⟨hH, hW⟩ := principal_terms_mass_bounds Q theta hQ A eta hA heta
-  apply response_mass_le Q⁻¹ _ _ K theta _ _ (inv_nonneg.mpr hQ0)
-    (inv_le_one_of_one_le₀ hQ) _ hr _ hH hW
+  apply response_mass_le Q⁻¹ _ _ K theta _ _ (inv_le_one_of_one_le₀ hQ) _ hr _ hH hW
   · unfold principalMassBase
     positivity
   · unfold principalMassWeight
@@ -447,8 +445,7 @@ theorem principal_response_terms_mass_uniform (K : ℕ) (P Q theta : ℝ)
   obtain ⟨hH, hW⟩ := principal_terms_mass_bounds Q theta hQ1 A eta hA heta
   have hbound := response_mass_le Q⁻¹ (principalBaseTerms Q A eta)
     (principalWeightTerms Q A eta) K theta (principalMassBase P theta)
-    (principalMassWeight P theta) (inv_nonneg.mpr hQ0)
-    (inv_le_one_of_one_le₀ hQ1) hr0 (by linarith) hw0
+    (principalMassWeight P theta) (inv_le_one_of_one_le₀ hQ1) hr0 (by linarith) hw0
     (hH.trans hbase) (hW.trans hweight)
   apply hbound.trans
   apply (div_le_iff₀ (by linarith : 0 < 1 - principalMassBase P theta)).mpr
@@ -556,12 +553,10 @@ theorem principal_response_mass_majorant_tendsto (N : ℕ) (theta : ℝ)
       (1 + 2 * (principalMassBase P theta + principalMassWeight P theta)) ^ N - 1)
       Filter.atTop (nhds 0) := by
   have h1 : Filter.Tendsto (fun P : ℝ => P ^ (2 - 6 * theta)) Filter.atTop (nhds 0) := by
-    convert Real.tendsto_rpow_neg_atTop (by linarith : 0 < 6 * theta - 2) using 1 <;>
-      congr 1 <;> ring
-  have h2 := Real.tendsto_rpow_neg_atTop (by linarith : 0 < theta)
+    simpa only [neg_sub] using tendsto_rpow_neg_atTop (by linarith : 0 < 6 * theta - 2)
+  have h2 := tendsto_rpow_neg_atTop (by linarith : 0 < theta)
   have h3 : Filter.Tendsto (fun P : ℝ => P ^ (3 - 5 * theta)) Filter.atTop (nhds 0) := by
-    convert Real.tendsto_rpow_neg_atTop (by linarith : 0 < 5 * theta - 3) using 1 <;>
-      congr 1 <;> ring
+    simpa only [neg_sub] using tendsto_rpow_neg_atTop (by linarith : 0 < 5 * theta - 3)
   have hc1 : Filter.Tendsto (fun _ : ℝ => (1 : ℝ)) Filter.atTop (nhds 1) :=
     Filter.tendsto_const_nhds
   have hc2 : Filter.Tendsto (fun _ : ℝ => (2 : ℝ)) Filter.atTop (nhds 2) :=
@@ -574,9 +569,8 @@ theorem principal_response_mass_majorant_tendsto (N : ℕ) (theta : ℝ)
 theorem principal_response_mass_gate_eventually (theta : ℝ) (htheta : 3 / 5 < theta) :
     ∀ᶠ P : ℝ in Filter.atTop, 1 ≤ P ∧ principalMassBase P theta ≤ 1 / 2 := by
   have h1 : Filter.Tendsto (fun P : ℝ => P ^ (2 - 6 * theta)) Filter.atTop (nhds 0) := by
-    convert Real.tendsto_rpow_neg_atTop (by linarith : 0 < 6 * theta - 2) using 1 <;>
-      congr 1 <;> ring
-  have h2 := Real.tendsto_rpow_neg_atTop (by linarith : 0 < theta)
+    simpa only [neg_sub] using tendsto_rpow_neg_atTop (by linarith : 0 < 6 * theta - 2)
+  have h2 := tendsto_rpow_neg_atTop (by linarith : 0 < theta)
   have hsum : Filter.Tendsto (fun P : ℝ => principalMassBase P theta)
       Filter.atTop (nhds 0) := by simpa [principalMassBase] using h1.add h2
   exact (Filter.eventually_ge_atTop 1).and
