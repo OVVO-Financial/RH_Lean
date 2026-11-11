@@ -17,7 +17,7 @@ open scoped Classical BigOperators Topology
 open Complex MeasureTheory Set Filter
 namespace SevenEighths.PrincipalAllDelayReturn
 open HeckeFamily HeckeSignal Continuation PrincipalSignalComparison
-open PrincipalSlotEstimate PrincipalMellinResidues
+open PrincipalSlotEstimate PrincipalMellinResidues ProbeEuler ProbeLocal
 
 namespace FiniteResponse
 
@@ -88,6 +88,7 @@ theorem slotResidueC_shift_right {κ ι : Type*}
   congr 1
   let B := 1 + slotErrorConstant S * P ^ (-(7 / 8 : ℝ))
   have hB : 0 ≤ B := by
+    have hP : 0 ≤ P := by linarith [h.lower]
     dsimp [B, slotErrorConstant]
     positivity
   apply vertical_integral_eq_of_polynomial_gaussian_bound _ 2 ha2
@@ -96,6 +97,8 @@ theorem slotResidueC_shift_right {κ ι : Type*}
         (slotRatio_differentiableOn S T w Q A eta h ha.le))
     (C := Z ^ (2 + c) * Real.exp ((2 - 5 / 6 : ℝ) ^ 2) * ((3 / 2) * C) * B)
   intro b hba y
+  change ‖gaussianContourIntegrand (quotient chi H) c Z ((b : ℂ) + y * I) *
+    slotRatio S T w Q A eta ((b : ℂ) + y * I)‖ ≤ _
   rw [norm_mul, norm_gaussianContourIntegrand _ _ _ _ hZ0]
   have hzpow : Z ^ (b + c) ≤ Z ^ (2 + c) :=
     Real.rpow_le_rpow_of_exponent_le hZ (by linarith [hba.2])
@@ -120,7 +123,9 @@ private theorem kernel_two_bound (chi : Character) (H : ℂ → ℂ)
     ‖gaussianContourIntegrand (quotient chi H) c Z ((2 : ℂ) + y * I)‖ ≤
       (Z ^ (2 + c) * Real.exp ((2 - 5 / 6 : ℝ) ^ 2) * quotientBound) *
         Real.exp (-(y ^ 2)) := by
-  rw [norm_gaussianContourIntegrand _ _ _ _ hZ]
+  have hn := norm_gaussianContourIntegrand (quotient chi H) c 2 y hZ
+  simp only [Complex.ofReal_ofNat] at hn
+  rw [hn]
   exact mul_le_mul_of_nonneg_right
     (mul_le_mul_of_nonneg_left (quotient_bound chi H hb (by simp))
       (mul_nonneg (Real.rpow_nonneg hZ.le _) (Real.exp_pos _).le))
@@ -229,7 +234,9 @@ theorem slotResidueC_all_delay_error {κ ι : Type*}
   have hC : 0 ≤ C := by dsimp [C]; positivity
   let f := fun y : ℝ => gaussianContourIntegrand (quotient chi H) c Z ((2 : ℂ) + y * I)
   have hf := kernel_two_integrable chi H hH hb c hZ0
-  have hr := slotRatio_continuous_line S T w Q A eta h (a := 2) (by norm_num)
+  have hr : Continuous (fun y : ℝ => slotRatio S T w Q A eta ((2 : ℂ) + y * I)) := by
+    simpa only [Complex.ofReal_ofNat] using
+      slotRatio_continuous_line S T w Q A eta h (a := 2) (by norm_num)
   have hprod := hf.mul_bdd hr.aestronglyMeasurable
     (ae_of_all _ (fun y => slotRatio_bound S T w Q A eta h
       (s := (2 : ℂ) + y * I) (by norm_num)))
@@ -247,7 +254,9 @@ theorem slotResidueC_all_delay_error {κ ι : Type*}
       h.phase_bound h.target_unit h.mass_pos
   rw [slotResidueC_shift_right chi H hH hb c ha ha2 hbeta hZ S T w Q A eta h,
     slotResidueC_eq_reciprocal, ← finite_response_contour chi H hH hb c hZ0 p,
-    ← mul_sub, ← integral_sub hprod hfin, norm_mul]
+    ← mul_sub]
+  simp only [Complex.ofReal_ofNat]
+  rw [← integral_sub hprod hfin, norm_mul]
   have hg : Integrable (fun y : ℝ => Real.exp (-(y ^ 2))) := by
     simpa using integrable_exp_neg_mul_sq (b := 1) (by norm_num)
   have hbound (y : ℝ) :
