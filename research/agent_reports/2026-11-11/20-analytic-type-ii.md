@@ -1505,3 +1505,10 @@ The following reproduces the check-count fields from the completed run; the long
   "registration_sha256": "11cba5bd48e23ad4db20ee00d6b94b3a7d8d4f81cea306bcb224b93e116be78d"
 }
 ```
+
+
+## Verified Publication Receipt - 20261111-analytic-2/DM
+
+At 2026-11-11 14:37:30 UTC / 09:37:30 EST, the substantive report was retrieved at immutable commit [a77c077555a80b5726dc18762c68c084d237778b](https://github.com/OVVO-Financial/RH_Lean/commit/a77c077555a80b5726dc18762c68c084d237778b) and matched the submitted text exactly, blob `01d996ad625de8ec745e760f1aa0df80225ec7e5`. The commit changed only this owned report, with 816 additions and ZERO deletions. All earlier same-day content and the verified early checkpoint remain an unchanged prefix. This receipt describes that already verified publication, not a prediction of the receipt's own later commit.
+
+`EXECUTION=COMPLETE`; `SUBSTANTIVE_PUBLICATION=PUBLISHED_READBACK_VERIFIED`. DM1-DM4 remain PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED. DM5 remains FINITE_COMPUTATION: 49,359 checks passed on the registered finite domain. Admission test 2 is submitted for review, not independently accepted. `NO_NEW_GLOBAL_GAIN`; `NO_NEW_ACCEPTED_ROUTE`; `VERIFIED_ETA=NONE`. OPEN-P10, Nyman density, canonical VF, finite A/C and RH remain OPEN. Only the authorized own-report path was changed remotely.
