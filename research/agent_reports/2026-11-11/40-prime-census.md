@@ -1211,4 +1211,8 @@ if __name__=="__main__":
 }
 ```
 
+## Verified Publication Receipt - 20261111-census-1/DZ
 
+At 2026-11-11T08:45:21Z (03:45:21 EST), the substantive report was re-fetched at immutable commit `8734c6b725119f549f8905cfb6f8d186ea2d981f`, blob `928d0158d669f59eedde9d7207a87d733cea40ca`, and matched the complete local 77,222-byte report exactly. Its SHA-256 was `aee39e8a1bba217b36e0f4f35f1f032adbd731af30e872ba14ed1cb246c53b84`. A fresh branch-path read before appending this receipt confirmed the same blob; prior content was preserved.
+
+`EXECUTION=COMPLETE; SUBSTANTIVE_PUBLICATION=PUBLISHED_READBACK_VERIFIED.` DZ1 and DZ4 are finite computational evidence; DZ2b is an exact finite refutation of its stated auxiliary principle; DZ2c is an elementary paper identity awaiting independent review; DZ3/H_Z remains a conjecture. This receipt does not promote finite evidence to an infinite theorem. `NO_NEW_GLOBAL_GAIN; NO_NEW_ACCEPTED_ROUTE; VERIFIED_ETA=NONE.` The canonical VF, finite-C and RH objectives remain open. No remote path other than this owned daily report was modified.
