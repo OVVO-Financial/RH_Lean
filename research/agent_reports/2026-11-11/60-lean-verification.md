@@ -42,3 +42,10 @@ Independent source-preservation comparison: 911 pre-existing relevant blobs from
 New implementation-specific exact rational tests: 144 local coefficient-mass cases, 9 full weighted mixed-product cases, and the empty-product case PASS. Fixed real phase models, not prime-ideal data or infinite proof. Test SHA256 494e02b6b56572a0ebc15c43157c996f1363ed91a850c34065ecd07b6a1379de. The negative control confirms that omitting cross-slot products changes the polynomial.
 
 Mathematical finding: exact finite expansion needs no unit-phase condition and holds for every complex s; the coefficient norm only needs |eta|<=1. The separate original rational-slot approximation still correctly requires |eta|=1 and Re(s)>=7/8. The remaining accepted FFR2 contour return is NOT_FORMALIZED. NO_NEW_GLOBAL_GAIN; VERIFIED_ETA=NONE.
+
+
+## Second CI Diagnosis - 20261111-lean-1/FFR
+
+At 2026-11-11 05:39 EST, exact-head 240c01e006a62762f57b25190f838a870034c64f had 12/13 successful checks. The dedicated run 43004072914/job 130467085107 FAILED on one unused helper assumption and a mistakenly namespaced pinned Mathlib limit theorem. The earlier positivity, normalization, product, inference and membership errors no longer appeared. No mathematical counterexample was found.
+
+Repair commit 23e24c7902a59e74a4549e7039c4dbaec4d25025 removes unnecessary 0<=q from the internal generic geometric-mass lemma and uses the actual global tendsto_rpow_neg_atTop declaration. Public coefficient bounds and original-source error hypotheses are unchanged. Module blob 7763b361a3dabbd0fb42776bfd2bc11389838d39. Actual new dedicated run 43005373330 has started; current new theorem remains CI_PENDING/NOT_YET_CERTIFIED. The PR remains draft and unmerged.
