@@ -1,0 +1,102 @@
+import Lean
+import Lean.Util.CollectAxioms
+
+open Lean
+
+namespace PrincipalFiniteResponseAudit
+
+partial def closure (env : Environment) (pending : List Name)
+    (seen : NameSet := {}) : NameSet :=
+  match pending with
+  | [] => seen
+  | n :: rest =>
+    if seen.contains n then closure env rest seen
+    else
+      let refs := if (`OAI).isPrefixOf n || (`_private).isPrefixOf n then
+        match env.find? n with
+        | none => []
+        | some info => match info.value? (allowOpaque := true) with
+          | none => []
+          | some value => value.getUsedConstants.toList
+        else []
+      closure env (refs ++ rest) (seen.insert n)
+
+def roots : Array Name := #[
+  `OAI.SevenEighths.PrincipalSlotEstimate.principal_slot_response_exact,
+  `OAI.SevenEighths.PrincipalSlotEstimate.principal_slot_partial_tail,
+  `OAI.SevenEighths.PrincipalSlotEstimate.principal_slot_partial_error,
+  `OAI.SevenEighths.PrincipalSlotEstimate.weighted_principal_product_partial_error,
+  `OAI.SevenEighths.PrincipalSlotEstimate.weighted_principal_product_partial_power,
+  `OAI.SevenEighths.PrincipalSlotEstimate.exists_principal_truncation_order
+]
+
+end PrincipalFiniteResponseAudit
+
+open PrincipalFiniteResponseAudit in
+def main (_args : List String) : IO UInt32 := do
+  initSearchPath (← findSysroot)
+  unsafe enableInitializersExecution
+  let env ← importModules
+    #[{ module := Name.mkSimple "research.oai_434.VF919PrincipalResponseMass" }]
+    Options.empty 1024 (loadExts := true)
+  let allowed : Array Name := #[`propext, `Classical.choice, `Quot.sound]
+  for theoremName in roots do
+    let axioms ← (Lean.collectAxioms theoremName : CoreM (Array Name)).toIO'
+      { fileName := "<principal-finite-response-axioms>", fileMap := default } { env := env }
+    for ax in axioms do
+      unless allowed.contains ax do
+        throw (IO.userError s!"Unapproved axiom for {theoremName}: {ax}")
+    let reached := closure env [theoremName]
+    if theoremName != `OAI.SevenEighths.PrincipalSlotEstimate.exists_principal_truncation_order then
+      for required in #[
+          `OAI.SevenEighths.PrincipalSlotEstimate.principal_K_signed,
+          `OAI.SevenEighths.PrincipalSlotEstimate.principal_slot_eq_raw,
+          `OAI.SevenEighths.PrincipalSlotEstimate.principal_coord_cancellation,
+          `OAI.SevenEighths.ProbeEuler.coordR_norm_le] do
+        unless reached.contains required do
+          throw (IO.userError s!"Missing original-source proof dependency: {required}")
+    if theoremName.toString.startsWith "OAI.SevenEighths.PrincipalSlotEstimate.weighted_principal_product" then
+      for required in #[
+          `OAI.SevenEighths.PrincipalSlotEstimate.principal_slot_partial_error,
+          `OAI.SevenEighths.PrincipalSlotEstimate.principalScalar_eq] do
+        unless reached.contains required do
+          throw (IO.userError s!"Missing complete-product dependency: {required}")
+    IO.println s!"PASS principal-finite-response {theoremName}: {axioms}, closure={reached.size}"
+  let massRoots : Array Name := #[
+    `OAI.SevenEighths.PrincipalSlotEstimate.principal_product_response_terms_eval,
+    `OAI.SevenEighths.PrincipalSlotEstimate.principal_product_response_terms_mass,
+    `OAI.SevenEighths.PrincipalSlotEstimate.principal_product_response_delays,
+    `OAI.SevenEighths.PrincipalSlotEstimate.principal_product_response_original_error,
+    `OAI.SevenEighths.PrincipalSlotEstimate.principal_response_mass_majorant_tendsto,
+    `OAI.SevenEighths.PrincipalSlotEstimate.principal_response_mass_gate_eventually,
+    `OAI.SevenEighths.PrincipalSlotEstimate.response_atom_eval_delay,
+    `OAI.SevenEighths.PrincipalSlotEstimate.response_atom_mass_delay]
+  for theoremName in massRoots do
+    let axioms ← (Lean.collectAxioms theoremName : CoreM (Array Name)).toIO'
+      { fileName := "<principal-response-mass-axioms>", fileMap := default } { env := env }
+    for ax in axioms do
+      unless allowed.contains ax do
+        throw (IO.userError s!"Unapproved axiom for {theoremName}: {ax}")
+    let reached := closure env [theoremName]
+    let required := if theoremName.toString.endsWith "terms_eval" then #[
+      `OAI.SevenEighths.PrincipalSlotEstimate.principal_base_terms_eval,
+      `OAI.SevenEighths.PrincipalSlotEstimate.principal_weight_terms_eval,
+      `OAI.SevenEighths.PrincipalSlotEstimate.FiniteResponse.complete_eval]
+      else if theoremName.toString.endsWith "terms_mass" then #[
+      `OAI.SevenEighths.PrincipalSlotEstimate.principal_terms_mass_bounds,
+      `OAI.SevenEighths.PrincipalSlotEstimate.FiniteResponse.response_mass_le,
+      `OAI.SevenEighths.PrincipalSlotEstimate.FiniteResponse.complete_mass_le]
+      else if theoremName.toString.endsWith "original_error" then #[
+      `OAI.SevenEighths.PrincipalSlotEstimate.principal_product_response_terms_eval,
+      `OAI.SevenEighths.PrincipalSlotEstimate.weighted_principal_product_partial_error,
+      `OAI.SevenEighths.PrincipalSlotEstimate.principal_slot_eq_raw,
+      `OAI.SevenEighths.PrincipalSlotEstimate.principalScalar_eq]
+      else if theoremName.toString.endsWith "delays" then
+        #[`OAI.SevenEighths.PrincipalSlotEstimate.FiniteResponse.response_nonnegative]
+      else #[]
+    for dependency in required do
+      unless reached.contains dependency do
+        throw (IO.userError s!"Missing response source dependency: {dependency}")
+    IO.println s!"PASS principal-response-mass {theoremName}: {axioms}, closure={reached.size}"
+  return 0
+
