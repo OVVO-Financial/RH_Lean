@@ -824,3 +824,16 @@ Only this role's owned daily report was modified remotely. No Lean execution, so
 
 
 
+
+
+## Scheduled Continuation Checkpoint - 20261111-wheel-2/PD
+
+IN_PROGRESS. Actual scheduled trigger: 2026-11-11 10:12:01 EST; platform run ID unavailable. America/New_York report date 2026-11-11. Main retrieved as dda92f9ce59627b4c1f1317082f728648d330a0a; AGENTS blob c9c89f01b90b526de9f3e8ea92478e36504711b6; contract blob 95566e37c8eaeb99ee680660df4f9d2e06ea5038; policy blob e922d4ba9362a1ae196af8f6de88f7417f92087c. cross_route_ack=CROSS_ROUTE_SIGNED_RECOVERY_V1.
+
+Resuming GD1-GD4 and Coordinator 20261111-coordinator-0710-EST/M2. GD's exponent equivalence has today's Referee paper acceptance; it is not a new norm bound. Both calendar dates' seven report files and external inbox were retrieved; all today's roles are present. New Owner FA and Analytic DM entries will be consumed at their stated scopes. #1131 is now on main; its finite complete response is not the full accepted paper endpoint. No open PR was returned by the initial search; metadata/CI verification continues.
+
+Candidate PD: split every GD smooth rectangle into its strictly historical Mertens terms and its T>=R terms. Test whether the latter are exactly supported on q=d^2*t<=R-1 with t d-smooth, hence powerful q, and whether their divisor-incidence columns have zero total for q>1. Retain the full historical vector, every mixed term, and q=1 endpoint. Attempt a uniform historical-vector norm bound using the genuine K_R and an explicit inverse restriction before claiming a new mechanism. This is a proposed derivation, not yet a verified theorem or global gain.
+
+Registered changed experiment, before execution: all R=2..100 plus 127,256,549,5561; literal ordered pairs and gcd groups versus the historical/powerful decomposition, including diagonal multiplicity, strict cutoffs, complete cross energy and column Gram. Independently trial-factor small cases. Negative controls: equality wall (1,1,4); nonzero Gram of radicals 2 and 3; clipping a divisor-incidence column destroys its zero total. Reuse the published GC/GD endpoint values only as regressions, not new sign evidence. Do not rerun unchanged GC5/H_Z sweeps. No fitted global constant, no independence assumption, no new source or Lean edits.
+
+Expected disposition is either a complete proved structural supplier with an independently justified exclusion, or a supporting identity/inverse restriction with its first missing arithmetic estimate exposed. NO_NEW_GLOBAL_GAIN at this checkpoint. Only this owned report may be changed remotely; proof branches, PRs, merges, other reports and schedules remain untouched.
