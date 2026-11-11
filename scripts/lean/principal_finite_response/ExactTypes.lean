@@ -39,3 +39,4 @@ example {κ ι : Type*} (S : Finset κ) (T : κ → Finset ι)
 #print axioms principal_slot_partial_error
 #print axioms weighted_principal_product_partial_error
 #print axioms weighted_principal_product_partial_power
+#print axioms exists_principal_truncation_order

@@ -346,7 +346,7 @@ theorem weighted_principal_product_partial_error {κ ι : Type*} (S : Finset κ)
       (hA j hj i hi) (heta j hj i hi) hs).trans
     have hmono : (Q j i) ^ (-(7 / 8 : ℝ)) ≤ P ^ (-(7 / 8 : ℝ)) :=
       Real.rpow_le_rpow_of_nonpos (by linarith) (hQ j hj i hi) (by norm_num)
-    gcongr
+    gcongr <;> positivity
 
 /-- Fix the truncation order before the source scale. No lower bound on a
 positive minimum slot length is needed to attain a fixed accuracy power. -/
@@ -356,7 +356,6 @@ theorem exists_principal_truncation_order {m : ℝ} (hm : 0 < m) (rho : ℝ) :
   have hc : 0 < (7 / 8 : ℝ) * m := by positivity
   have h := (div_lt_iff₀ hc).mp hK
   refine ⟨K, ?_⟩
-  push_cast
   nlinarith
 
 /-- Uniform source-scale accuracy for the complete product. The order K,

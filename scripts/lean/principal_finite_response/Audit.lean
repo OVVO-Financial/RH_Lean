@@ -26,7 +26,8 @@ def roots : Array Name := #[
   `OAI.SevenEighths.PrincipalSlotEstimate.principal_slot_partial_tail,
   `OAI.SevenEighths.PrincipalSlotEstimate.principal_slot_partial_error,
   `OAI.SevenEighths.PrincipalSlotEstimate.weighted_principal_product_partial_error,
-  `OAI.SevenEighths.PrincipalSlotEstimate.weighted_principal_product_partial_power
+  `OAI.SevenEighths.PrincipalSlotEstimate.weighted_principal_product_partial_power,
+  `OAI.SevenEighths.PrincipalSlotEstimate.exists_principal_truncation_order
 ]
 
 end PrincipalFiniteResponseAudit
@@ -46,13 +47,14 @@ def main (_args : List String) : IO UInt32 := do
       unless allowed.contains ax do
         throw (IO.userError s!"Unapproved axiom for {theoremName}: {ax}")
     let reached := closure env [theoremName]
-    for required in #[
-        `OAI.SevenEighths.PrincipalSlotEstimate.principal_K_signed,
-        `OAI.SevenEighths.PrincipalSlotEstimate.principal_slot_eq_raw,
-        `OAI.SevenEighths.PrincipalSlotEstimate.principal_coord_cancellation,
-        `OAI.SevenEighths.ProbeEuler.coordR_norm_le] do
-      unless reached.contains required do
-        throw (IO.userError s!"Missing original-source proof dependency: {required}")
+    if theoremName != `OAI.SevenEighths.PrincipalSlotEstimate.exists_principal_truncation_order then
+      for required in #[
+          `OAI.SevenEighths.PrincipalSlotEstimate.principal_K_signed,
+          `OAI.SevenEighths.PrincipalSlotEstimate.principal_slot_eq_raw,
+          `OAI.SevenEighths.PrincipalSlotEstimate.principal_coord_cancellation,
+          `OAI.SevenEighths.ProbeEuler.coordR_norm_le] do
+        unless reached.contains required do
+          throw (IO.userError s!"Missing original-source proof dependency: {required}")
     if theoremName.toString.startsWith "OAI.SevenEighths.PrincipalSlotEstimate.weighted_principal_product" then
       for required in #[
           `OAI.SevenEighths.PrincipalSlotEstimate.principal_slot_partial_error,
