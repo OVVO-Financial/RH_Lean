@@ -679,3 +679,220 @@ Baseline evidence independently refreshed: #1119 has 14/14 checks successful at 
 The original draft was not certified. Run 42945167476 at f3359742595580fd3f64192be0af2bbdc792587a failed on five elaboration steps. Run 42945963198 at d0d10ddf219c0679d6ed31ec836425cf77d1e7f4 resolved those and exposed a positivity side goal plus an unused-tactic error. Run 42946507459 at 24ff4d8884b5c28b83faaf2710f922ec4b610f5c removed the linter issue but required an explicit proof that Q>=P>=480 implies Q>=0. All actual logs were read; no mathematical hypothesis, constant or checker gate was weakened.
 
 Current draft PR #1131 head is 29bc7d023c9b2706a42448d24cedecdf4e7d5397. Dedicated [run 42947335940](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42947335940) has actually started and is IN_PROGRESS. The current source also proves a fixed-source accuracy corollary: for rho<=(7/8)m(K+1), the complete finite-response error is at most (N*5^N*4*2^(K+1))*Z^(-rho). The choice of K precedes Z. The retained response is not replaced by 1. CI_PENDING / NOT_YET_PROVED_IN_LEAN; global endpoint remains unchanged. The A-P completion report is being prepared and will cite final exact-head evidence.
+
+
+## Scheduled Completion - 20261110-lean-3/MD
+
+Trigger: configured schedule, 2026-11-10 21:08:01 EST, America/New_York. Platform run ID: RUN_ID_UNAVAILABLE. This is the continuation of the checkpoint and draft-PR milestone above, not a separate launch. All prior findings, publication receipts and failed revisions are preserved. `cross_route_ack=CROSS_ROUTE_SIGNED_RECOVERY_V1`; `high_attack_ack=COMPLETE_SIGNED_HIGH_ATTACK_V1`; `chain_ack=CANCELLATION_CHAIN_REUSE_V1`.
+
+Completion evidence prepared after the verified 2026-11-10 21:49:25 EST clock reading (2026-11-11 02:49:25 UTC), with final exact-head checks and PR readiness already confirmed.
+
+### A. Most Important Formal Mathematical Result
+
+**PROVED_IN_LEAN_AT_PR_HEAD / READY_FOR_HUMAN_REVIEW / UNMERGED.** [PR #1131](https://github.com/OVVO-Financial/RH_Lean/pull/1131), exact head `621f48b34b5ace39c05aba33ff33b6d014544b4d`, proves the complete original weighted principal-product approximation, not merely a single-slot Taylor identity. All 13 exact-head checks passed, including actual warning-fatal compilation, exact types and standard-axiom audits. For every fixed truncation order K the approximation retains every mixed slot product. A source-scale corollary gives error at most C(N,K) Z^(-rho), whenever rho <= (7/8)m(K+1), with K chosen before the source scale and all moving pools. This is the first complete-product part of accepted `20261110-coordinator-1513-EST/MD2`; it does NOT complete MD2's weighted monomial cutoff or MD3-MD5's analytic endpoint.
+
+Classification: independent QUANTITATIVE_CONTROL of a complete principal-product approximation, plus supporting exact identities and finite-order existence. The principal product is one complete constituent of the physical probe, not the entire LOW/HIGH/principal return. `NO_NEW_GLOBAL_GAIN`; `VERIFIED_ETA=NONE`; RH, canonical actual-prime VF and uniform finite-AC remain OPEN.
+
+### B. Current Authoritative Objective
+
+Main baseline: `f7947bee036c4dddb0c36fc9f53ab46b4fa90995`, including human-merged #1130. Authority blobs: AGENTS `c9c89f01b90b526de9f3e8ea92478e36504711b6`; CURRENT_PROOF_CONTRACT `95566e37c8eaeb99ee680660df4f9d2e06ea5038`; current cross-route directive `e922d4ba9362a1ae196af8f6de88f7417f92087c`. No proof contract or central policy was changed.
+
+The governing objective is source-faithful recovery of binding signed losses, measured against the strongest independently certified complete endpoint. The strongest applicable compiled Mertens statement remains `RHLean.Analysis.native_mertens_near_uniform_window_error_closed`:
+
+    forall eps > 0, exists C >= 0, forall n >= 1,
+      |M(n)| <= C*n^(b_base+eps),
+    b_base = 7/8 - 7/(64*N_pack).
+
+`N_pack=ceil_nat(max(1,1/(6L)))+2`, `N_old=ceil_nat(max(1,1/(3L)))+2`, and L is the SAME positive `explicitFineLength`. Since 1/(6L)<=1/(3L), monotonicity of max and natural ceiling gives N_pack<=N_old; hence 7/(64N_pack)>1/(48N_old). This compares the real definitions, not an assumed identification of slot counts. This numerical comparison is elementary paper reasoning here, not a new Lean declaration. A bound exactly at b_base with no positive loss is not claimed.
+
+### C. Formalization Candidates And Continuity
+
+At intake the open/draft PR list was empty. Priority A therefore had no surviving repair target; #1130 had already been human-merged. Both November 9 and November 10 reports for all seven roles were retrieved at agent-reports `60d560f62dd81718a8527a52c49068a0fc17d427`. `TODAY=AVAILABLE`; `YESTERDAY=CARRY_FORWARD` only for unchanged verified results. External inbox blob `038018145c0fddb2f6306c0712373adf9cd1ea52` contains no new entry after October 18. No unobserved specialist run is assumed.
+
+The new independent verdict is `20261110-referee-3/IRR`, report blob `6529562a5bb21fa192fddadaa91a758b9d125c29`. It accepts Coordinator MD1-MD5 and Analytic `20261110-analytic-3/IR1-IR5` at PAPER_PROOF scope. It does not certify a Lean endpoint. The finite MD route was selected for implementation-sized progress; the stronger accepted analytic boundary `7/8-1/2400000000` remains PAPER_PROOF / NOT_FORMALIZED. Referee IRR2's critical-response model obstruction is SELF_AUDIT, not an independently accepted counterexample to an actual Hecke signal.
+
+Other live work was not silently promoted: Census GC1/GC2 sign rules fail at the stated R=15 and R=17 witnesses; GC5's all-gcd total-cross conjecture is still unproved despite finite tests. Owner radical-defect fibres and Wheel reciprocal-descendant estimates concern their stated auxiliary/complete-defect carriers, not a complete endpoint. Existing #1127 cofactor positivity and #1128 prime resonance remain proper-source facts. These do not substitute for the missing analytic response theorem.
+
+### D. Candidate Selection
+
+The accepted finite MD argument removes the minimum-slot restriction from the accuracy of a FINITE approximation by retaining the response, rather than discarding it as error relative to 1. The current increment proves that claim for the original complete weighted product, with arbitrary order and explicit constants. It does not duplicate #1130's first-order local residual. This is a necessary quantitative input to the accepted full-response mechanism, not a new independent RH route and not an assertion that the retained response is small enough by itself.
+
+The library and original definitions were searched before coding. Existing `weighted_principal_product_error_linear` approximates the original ratio by 1 with an error of order P^(-7/8). No existing source or open PR supplied the arbitrary-order complete-product response. The current proof reuses the literal original slot, marked factor, coordinate cancellation and negative mass normalizer.
+
+### E. Exact Theorem Statement
+
+Let S be an arbitrary finite slot set, T_j arbitrary finite pools, N=card(S), and w_ji>=0 with M_j=sum_(i in T_j)w_ji>0 for each j in S. Assume Q_ji>=P>=480, |A_ji|<=1, |eta_ji|=1, and Re(s)>=7/8. The common s may have arbitrary imaginary part. Empty S is allowed; an active slot cannot have zero mass. Set
+
+    q=Q^(-1), R=coordR(Q,A,s,1/6), D=coordD(Q,eta,1,s),
+    H=q*R+(1-q)*D, W=(conj(eta)*Q^s)*R,
+    S_K(Q,A,eta,s)=q+(1-q)*(1-W)*sum_(k=0..K)H^k,
+    C_S=principalScalar(S,M)=product_(j in S)(-M_j),
+    P_original=(product_j sum_i w_ji*principalSlot(Q_ji,A_ji,eta_ji,s))/C_S,
+    P_K=product_j ((sum_i w_ji*S_K(Q_ji,A_ji,eta_ji,s))/M_j).
+
+The declared `weighted_principal_product_partial_error` asserts, for EVERY natural K,
+
+    |P_original-P_K| <= N*5^N*4*(2*P^(-7/8))^(K+1).
+
+Its source-scale strengthening `weighted_principal_product_partial_power` assumes Z>=1, 480<=Z^m, Q_ji>=Z^m and rho<=(7/8)m(K+1), and concludes
+
+    |P_original-P_K| <= (N*5^N*4*2^(K+1))*Z^(-rho).
+
+`exists_principal_truncation_order` proves that every fixed m>0 and real rho admit such a finite K, independently of Z. The power theorem itself only needs the displayed order inequality and size hypotheses; it does not add an unnecessary separate m>0 hypothesis. For fixed N,m,rho, the constants do not depend on height, pool cardinality, weights or the scale. They DO depend on N and K. No growing-N or growing-K uniformity is asserted.
+
+Supporting declarations are `principal_slot_response_exact`, `principal_slot_partial_tail`, `principal_slot_partial_error` and `principal_slot_partial_norms`, all in `OAI.SevenEighths.PrincipalSlotEstimate`. The exact tail is
+
+    -principalSlot-S_K = (1-q)*(1-W)*H^(K+1)/(1-H).
+
+The proof establishes |H|<=1/2 and |H|<=2Q^(-7/8), |W|<=1, |1-q|<=1, |q|<=1, and both exact and partial slot norms <=5. These make all denominators legitimate. The original coordinate identity B*D=1 needs and uses |eta|=1.
+
+### F. Independent Mathematical Audit
+
+The original local residue uses `(1-q)*D`, not D. Deriving the rational symbol from the actual marked factor gives `(1-q)*(B*R-1)/(1-H)-q` for `principalSlot`. This preserves the residue correction and negative normalizer. Multiplication of all finite responses retains every cross-slot term, even though the error estimate uses triangle inequalities AFTER forming the exact difference. Nonnegative weights are used only for the normalized error/norm estimates; arbitrary complex A and unit eta remain inside the response.
+
+No new global covariance bound, zero-free strip, inverse-signal bound, desired Mertens power or source-equivalent conclusion is assumed. The theorem is an independent approximation estimate, not equivalent to RH. Conversely arbitrarily accurate approximation does not bound the retained response by 1 and cannot yield arbitrary global exponents.
+
+Actual-prime application still requires the existing unit/exclusion and nonnegative annular-weight facts. This PR keeps the original parameterized `principalSlot` and `principalScalar`; it does not claim to have assembled `SourceData`, contour integration or the complete physical return. There is no substitution of rational Mobius signs for ideal Hecke phases.
+
+An exact-rational diagnostic, not a Lean proof, independently expanded the original nested marked/correction/replacement formulas for real unit phases +/-1. It passed 144 local cases, 60 complete-product cases (including empty S, zero individual weights and unequal pools), three source-power budgets, and one explicit nonzero omitted mixed-term check. The last witness is `1851890728960000/8862938119652501095929`, so replacing the product by just its linear responses is not silently valid. Sample Q values were powers n^8 with n in {3,4,7}; they are not claimed to be actual source primes. Diagnostic SHA256: `f3c80a3648f1112bf33426368d3db9c7a5adb6f834b18b214c7fd24b786b165b`.
+
+### G. Lean Implementation
+
+Four scoped new files: `research/oai_434/VF919PrincipalFiniteResponse.lean`, `scripts/lean/principal_finite_response/ExactTypes.lean`, `scripts/lean/principal_finite_response/Audit.lean`, and `.github/workflows/vf919-principal-finite-response.yml`. No existing mathematical file or checker gate was weakened. The source imports #1130, reconstructs the original rational factor, proves the finite geometric tail, lifts through weighted means and finite product differences, and then specializes the accuracy to the scale Z.
+
+ExactTypes checks all seven public declarations and independently instantiates the local error and complete-product statement. The live audit traverses original OAI/private proof dependencies, checks the standard terminal-axiom allowlist through `Lean.collectAxioms`, and requires original signed K, raw-slot, phase-cancellation and coordinate-norm suppliers. The product roots additionally require the local error and original scalar theorem. The finite-order existence theorem receives its own axiom audit; it is an Archimedean statement and does not pretend to depend on the original slot.
+
+The focused CI explicitly compiles the new module and its #1130 dependency with warnings fatal; root reachability is supplied by the exact-type and audit imports in that job. The unrelated root library was not made to import an externally staged research module. Existing automatic proof-inventory, public-export, source-integrity, atlas and cache-policy gates also run. No generated route/DAG claim was added: this is not a new admitted route or endpoint. Generated DAG/atlas files were not hand-edited.
+
+### H. Branch And PR Evidence
+
+Branch: `agent/lean-verification/20261110-complete-principal-response`; base `f7947bee036c4dddb0c36fc9f53ab46b4fa90995`; [PR #1131](https://github.com/OVVO-Financial/RH_Lean/pull/1131), targeting main. Commits, in order:
+
+1. `f3359742595580fd3f64192be0af2bbdc792587a`: original complete-product implementation and dedicated checks.
+2. `d0d10ddf219c0679d6ed31ec836425cf77d1e7f4`: first elaboration repairs and fixed-scale power consequence.
+3. `24ff4d8884b5c28b83faaf2710f922ec4b610f5c`: explicit positivity, removal of a redundant tactic, and separate finite-order axiom coverage.
+4. `29bc7d023c9b2706a42448d24cedecdf4e7d5397`: derive Q>=0 from the original size hypotheses before invoking real-power nonnegativity.
+5. `621f48b34b5ace39c05aba33ff33b6d014544b4d`: remove the now-unreachable fallback after the explicit base sign lets the inequality tactic finish automatically.
+
+Final tested head is `621f48b34b5ace39c05aba33ff33b6d014544b4d`. After all required checks passed and the actual exact-type/axiom logs were inspected, the PR was marked ready for human review; readback reports draft=false, state=open, merged=false. All four remote files at that immutable head match the local implementation bytes. Main was rechecked and remained f7947bee036c4dddb0c36fc9f53ab46b4fa90995. No merge or auto-merge was requested. The parent ref was checked before each additive branch update. Direct clone failed once with CONNECT HTTP 403; the authorized GitHub branch/tree/commit/ref tools succeeded. No local Lean command was executed.
+
+### I. GitHub Actions Evidence
+
+Final dedicated [run 42947849721 / job 130284860499](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42947849721/job/130284860499) passed on exact head `621f48b34b5ace39c05aba33ff33b6d014544b4d`. Actual logs confirm source/pin verification, unchanged original prerequisite build, warning-fatal compilation of #1130 and the new module, all seven elaborated public theorem types, independent local/product type examples, and six live axiom/dependency audits. The six roots report exactly `[propext, Classical.choice, Quot.sound]`; their closure sizes are 618 (exact symbol), 647 (tail), 660 (local error), 730 (complete product), 735 (source power), and 197 (finite-order existence). The factor norm theorem is also a transitive dependency of the product proof. No unexpected axiom or placeholder is present in these audited closures.
+
+All 13/13 GitHub check runs are successful at that same SHA. Additional exact evidence: [hosted Lean/root build](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42947849778/job/130284860797), [source audit](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42947849778/job/130284861119), [proof inventory](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42947849582/job/130284860428), [public export](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42947849681/job/130284860392), [atlas](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42947849738/job/130284860379), and [cache-policy gate](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42947849741/job/130284860409). The remaining targeted/pre-914/first-bad/population checks also passed; their green status is not substituted for the dedicated new-theorem proof job.
+
+Diagnostics [artifact 13822839204](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42947849721/artifacts/13822839204) includes final source, exact types and audit logs, SHA256 `35e000df4e09d6f543a96732f2aead71f4176b55e0e4a6f2d93ee0972f4878c7`. The immutable source commits and job URLs remain the durable receipt after artifact retention expires. Unrelated action-runtime/dependency-cache metadata warnings are not being presented as theorem warnings; the new Lean proof and audit stages pass with warnings fatal.
+
+Pinned environment: Lean `leanprover/lean4:v4.34.1`, compiler `5045d0056413266e57c625dcd7c365b10e377c52`; Mathlib `d13f23b723b8a846827a245b89c10fc7d3f11612`; PNT+ `c39a751132c88b6e8080b74c74023fd95b3d8be0`; original `openai/math@1581d4cbdd69a0faf34b2089614fe2a814316a6a`. CI verifies identical Mathlib/PNT+ sources and the original PrincipalSlotEstimate blob before compilation. It restores the existing source-pinned shared cache, not a cold-only replacement.
+
+Reused strongest-baseline receipt: #1119 tested head `77ee815846d6d534c866f0752aa33b84c385610a`, [run 42552018910 / job 128949473700](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42552018910/job/128949473700), 14/14 checks successful. The actual log was read; its five audited standard-axiom closures have sizes 35358, 35375, 35736, 35737 and 35753. All 911 preexisting blobs in RHLean, research/oai_434 and the slot-anchored/window-error-closure scripts match current main. The same source and unchanged pins justify reusing that evidence; no no-op baseline build was triggered. Historical unrelated Wiener warnings in the baseline build are not denied; the selected endpoint's terminal closure excludes sorryAx. This is not a claim that every imported repository theorem is hole-free.
+
+Reused #1130 receipt: tested head `4aa22782d10b3ad77dc970d6bb610eaab93a228c`, [run 42877550772 / job 130044786387](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42877550772/job/130044786387), 13/13 checks successful. Its four audited quantitative closures have sizes 628, 984, 653 and 657. Its original local/actual/weighted residual is certified, not a global response endpoint.
+
+### J. CI Failures And Repairs
+
+Initial [run 42945167476 / job 130276114761](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42945167476/job/130276114761), head f335974, genuinely compiled and failed on five proof-script issues: two missing norm-one simplifications before linear arithmetic; an obsolete product-bound argument pattern; negative-denominator normalization; and an over-eager real-power monotonicity step. The repairs used explicit norm simplification, a compatible product inequality, the exact negative-division identity and a typed monotonicity fact. No hypothesis or constant was weakened.
+
+Second [run 42945963198 / job 130278708086](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42945963198/job/130278708086), head d0d10dd, resolved those errors but failed on an explicit nonnegativity side goal at line 336 and an unused `push_cast` at line 359. The latter was caught by warnings-fatal linting. The third commit attempted to close the side goal by positivity and removed the unused tactic. It left the linter enabled and expanded axiom coverage. The new scale-power proof itself reported no error in that second run. These are elaboration/lint failures, not mathematical counterexamples.
+
+Correction to that third repair attempt: [run 42946507459 / job 130280501193](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42946507459/job/130280501193), head 24ff4d8, confirmed removal of the unused-tactic failure but the positivity tactic could not derive the base sign through the moving lower bound. The fourth commit supplies `0<=Q_ji` explicitly from `480<=P<=Q_ji`, then uses real-power nonnegativity. No stronger hypothesis was added; this is an explicit consequence of the existing ones.
+
+Fourth [run 42947335940 / job 130283169461](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42947335940/job/130283169461), head 29bc7d0, closed the mathematical goal automatically with that base-sign fact. Its only remaining diagnostic was `this tactic is never executed` for the extra fallback at line 350. The fifth commit removes that redundant fallback, not the unreachable-tactic linter. A failed warning-fatal run was never labelled verified.
+
+Final repair result: run 42947849721 passes all dedicated proof/type/axiom stages at 621f48b34b5ace39c05aba33ff33b6d014544b4d. No unresolved compiler failure remains in this PR. No unchanged successful build was rerun merely to generate activity; every new source head addressed an actual diagnostic or added the independently justified source-power consequence.
+
+### K. Mathematical Conclusions
+
+The new independent bound controls the difference between the original complete principal ratio and its full finite response at arbitrary fixed source accuracy. It has no pool-count growth, no height loss, no discarded mixed slot term, and no hidden assumed source estimate. This removes the minimum-slot limitation from APPROXIMATION ACCURACY once K is chosen from m and rho.
+
+It does not remove the minimum slot length from the size of constants or from later contraction thresholds. It does not remove the complete physical-return constraints. It does not yet establish a legal finite delayed response, an inverse estimate, a smaller Hecke zero ceiling or a new Mertens exponent. Accepted MD/IR paper estimates and the compiled #1119 baseline remain distinct.
+
+### L. Formalization-Driven Discoveries
+
+The original negative scalar exactly converts the product of negative slots into a product of positive-mass-normalized finite responses; treating it as a positive scalar would change the theorem for odd N. The common norm bound 5 is independent of K, preventing a spurious K-dependent geometric-series bound. Weighted positive masses remove moving-pool cardinality from the error. Empty S is handled exactly. The finite-order existence proof needs m>0, while the numerical power comparison only needs its explicit exponent-order inequality and Z>=1.
+
+Most importantly, the proof gap is not another local remainder estimate. The next theorem must expose the weighted monomial support of the complete retained product and preserve its frozen outer weights when converting it into the SAME analytic signal.
+
+### M. Five-Stage Cross-Route Capsule And Significance
+
+1. **BASELINE / DEPENDENCY RECEIPT.** The hypothesis-free exact statement in B and the reused exact-head evidence in I establish b_base at every positive loss on genuine integer Mertens sums. The count comparison is explicit. Conditional VF/von Koch and finite-AC consumers are not unconditional arithmetic estimates. Source pins and proof-value dependency audits, not green documentation checks, determine status.
+
+2. **FOUR-WAY SOURCE MAP.** The selected principal ratio lives on ideal-labelled Hecke slots; the following crosswalk records actual bridges and barriers, not four equal expressions.
+
+| Euler / finite AC | VF / prime discrepancy | NNS / OAI | Square blocks / native HIGH | Prime-side coupling barrier |
+| --- | --- | --- | --- | --- |
+| For R>=2, X=R^2-1, strict a,b<R and literal Mobius weights: Q_R=sum mu(a)mu(b)floor(X/(ab))=2M(R-1)-M(X). `eulerSelfDualBilinear_eq_two_mertens_sub_endpoint` is an EXACT_IDENTITY. K_R retains strict history. | `finiteWheel_squareFractional_centered_eq_reference_sub_pi`, instantiated at the intended reference, is an EXACT_IDENTITY including d>X virtual terms. It does not bound li(X)-pi(X). Canonical VF additionally retains sqrt(2), integer-step and classical-interface hypotheses. | The current ratio uses original principalSlot, ideal norms, unit Hecke phases, nonnegative residue weights and C_S=product(-M_j). LOW's `actual_low_tuple_polynomial_sq_eq_signed_gram` is exact on its OWN actual masked atoms; the principal product and LOW polynomial are distinct pieces of one compensated probe. | The certified native Mertens theorem specializes to M(R^2-1) by a ONE_WAY_IMPLICATION. It controls a complete prefix, not merely a shell. Neither the current finite response nor the NNS polarization is a scale-wise equality to the square-block Mobius source. | No rational-Mobius/Hecke-phase isometry or equality of prime discrepancy and Mertens error is proved. Recovering an actual-prime cofactor-weighted innovation from this ideal source requires an OPEN_BRIDGE. The existing downstream Mertens transfer is usable without inventing that equality. |
+
+3. **FIRST SIGNED LOSS.** The source-to-consumer ledger is explicit below. New finite tails are bounded only after the retained complete product has been formed.
+
+| Source / location | First loss and exact bill | Consumer, recovery test and unpaid complement |
+| --- | --- | --- |
+| Upstream PrincipalSlotEstimate:233, `principal_slot_error`; weighted triangle at 277; product at 494 | Replacing each signed slot by -1 discards -eta Q^(-s). The old complete ratio-to-1 estimate is N*2^N*1440*P^(-7/8), with its smallness hypothesis. At P>=Z^m this only gives source accuracy 7m/8. | Same normalized principal residue. #1130 retains the linear response and gives 12Q^(-11/8) locally. The new full finite product instead has N*5^N*4*2^(K+1)*Z^(-(7/8)m(K+1)); it approximates P_K, NOT 1. The retained response and analytic return are still unpaid. |
+| `VF919OriginalLowTupleSignedGram.lean`:91 and original `LowTupleGram.compensation_tuple_actual_gram` | The original `norm_sum_le` discards both oriented off-diagonal products Re(atom_a*conj(atom_b)). Exact polarization reconstructs them but gives no sign or saved power. | The strongest #1119 already consumes the existing total-mass LOW improvement. Its native moment/row/profile conditions cannot be transferred to arbitrary complex tuples. When original J is empty there is one outer tuple and no outer pair saving. A stronger original-row quantitative bound remains OPEN_BRIDGE. |
+| Euler Q_R and complete finite-wheel source | Taking absolute values before combining cofactor fibres or dropping virtual divisors loses signed cancellations. Completed reciprocal bands and positive proper fibres are not a complete total. No new global power is credited here. | #1115 telescopes, #1127 cofactor positivity and #1128 genuine resonance were considered; none controls the full signed complement under the required literal masks. Census's positive-cross witnesses prohibit a blanket nonpositive-cross premise. |
+| Current finite-product proof, normalized_weighted_norm and product_difference_bound | Triangle inequalities bound only the exact tail difference. The explicit cost is N*5^N*4*2^(K+1), with decay (7/8)m(K+1). All mixed products remain INSIDE P_K. | This cost is paid by fixed N,K. It is not claimed optimal and cannot be reused as cancellation of the response. A nonzero exact mixed-term diagnostic is recorded in F. |
+
+4. **PAID RECOVERY TEST.** #1130's original signed residue and the existing signed K/raw-slot/phase-cancellation suppliers are literally in the new theorem's audited proof dependencies. They recover an exact original response; no new distribution premise is imported. The NNS signed Gram supplies an exact record of discarded interactions but no stronger bound. Wheel/cofactor/resonance theorems fail to supply the needed same-weight ideal-signal estimate because their carriers differ. Existing source normalization, contour shift, total-mass LOW, marked moments and raw anchored returns remain the intended MD3-MD5 consumers, not facts already instantiated by this PR.
+
+5. **NET RESULT / ADMISSION VERDICT.** A necessary quantitative complete-principal-product approximation is implemented. It is SUPPORTING_FORMAL_PROGRESS, not a newly admitted global route. `NO_NEW_GLOBAL_GAIN`; certified b_base is unchanged; complete accepted MD/IR endpoint remains NOT_FORMALIZED. The next exact statement is O below. No discarded cross term is assumed favorable and no positive component gain is presented as VERIFIED_ETA.
+
+### N. Specialist Handoffs
+
+- **Proof Architect:** retain MD as accepted paper work and record #1131 only at its exact complete-product scope. Do not upgrade b_base or mark MD3-MD5 compiled. The source-scale corollary is ready to be consumed by the weighted cutoff once certified.
+- **Analytic Type II:** reuse the full P_K product; next expose every monomial's (u,v) support and delay. Keep the same source, Gaussian, excluded-prime correction, c and frozen alpha(Z) in f(Z/T). IR's infinite route remains separate accepted paper work, not implemented here.
+- **Adversarial Referee:** the existing IRR verdict supplies independent paper acceptance; this implementation's semantic mapping remains author SELF_AUDIT pending review. Review the negative scalar, arbitrary K, N-dependent constants, all mixed terms and distinction between approximation and growth. No new independent review was fabricated.
+- **Owner Payment:** no actual-prime innovation estimate follows from the ideal-slot approximation. Preserve radical-defect signs, cofactor weights, clipping and unmatched complement; identify an original complete-source transfer before using this response outside its carrier.
+- **Finite Wheel:** preserve #1127/#1128 scopes and the complete reciprocal-descendant remainder. Proper positive fibres do not control the complete wheel or Q_R, and a resonance obstruction is not a global cancellation theorem.
+- **Prime Census:** no unchanged large sweep was requested. Any next finite MD check should target weighted-cutoff boundary lambda=rho, highly unequal slot lengths and retained mixed products, with a predeclared missing-term falsifier. Such checks are algebra diagnostics, not prime-side endpoint evidence.
+
+### O. First Unimplemented Mathematical Theorem
+
+The first missing formal theorem is the rest of accepted MD1-MD2, not an assumed global covariance estimate. For a fixed original source with N positive lengths ell_j, sum ell_j=1/6, m=min ell_j>0, choose 0<rho<11/40 and fixed K with (7/8)m(K+1)>=rho. For sufficiently large Z, original frozen pools satisfy Z^ell_j<=Q_ji<=2Z^ell_j and original normalized weights are nonnegative with total one.
+
+Prove the COMPLETE expansion into finitely many exponent patterns:
+
+    P_original(Z,s)=1+sum_(retained patterns and original tuples)
+      c_tuple(Z)*T_tuple^(-s)+E_Z(s),
+    |E_Z(s)|<=C_source*Z^(-rho)  for every Re(s)>=7/8,
+    v_j>=0, u_j<=3v_j/5, not all v_j=0,
+    lambda=sum_j((7/8)v_j-u_j)*ell_j,
+    delta=sum_j v_j*ell_j,
+    retained iff lambda<rho,
+    0<m<=delta<40rho/11<1,
+    1<=T_tuple=product_j Q_ji^v_j<=Z eventually.
+
+Every coefficient is the actual outer product weight times the exact finite expansion coefficient, A/eta phases and product Q^u. Equality lambda=rho belongs to the bounded remainder. Constants and the starting scale precede Z; masks are not reselected at Z/T. The already-implemented theorem pays the geometric truncation portion of E_Z. The unimplemented support-cone and cutoff portions must still be proved in Lean. This theorem is independently accepted on PAPER, not currently an unknown research conjecture and not PROVED_IN_LEAN.
+
+Then prove the same-signal Mellin identity, eventual response mass kappa_theta(Z)<=C Z^(-(theta-3/5)m) for theta>3/5, compact-prefix inversion, and every raw anchored physical-return bill. Use the latest accepted Referee refinement: fixed rho=t/12 realizes every fixed 0<h<t/24 using this FINITE route, so there is no need to stop at the older MD h=t/100 or introduce countable analysis solely to reach the stronger accepted boundary. This refinement is still PAPER_PROOF, not implemented by the present scale corollary. Only after those steps and the native beta/Mertens transfer can the accepted paper endpoint replace b_base. The broader original complete wheel O(R log R) / RH-scale source inequality remains genuinely OPEN; no result here closes it.
+
+### P. Resume Capsule And Source Receipts
+
+Resume from #1131's verified head `621f48b34b5ace39c05aba33ff33b6d014544b4d`, ready for human review and unmerged at completion, with 13/13 passing checks and dedicated proof job 130284860499. There are no outstanding CI failures at that head. Main baseline and source authority are in B; branch and all actual commits are in H; preserved earlier failures are in J. Do not rerun unchanged baseline or current green proof code. Do not duplicate the local signed remainder or finite-product approximation. The highest-value next action is the literal complete monomial support/cutoff theorem in O, then the original same-signal return. `RUN_STATUS=COMPLETE` for this scheduled invocation; the multi-step research program and full accepted paper endpoint are not being marked complete.
+
+Final PR file blobs, retrieved at the tested SHA and byte-matched: `research/oai_434/VF919PrincipalFiniteResponse.lean` = `8c7f21b34402758b18ce42f4484f518c4090c105`; `scripts/lean/principal_finite_response/ExactTypes.lean` = `00acb9f9c6f8a622bfed0fca1aa3ad9763c10683`; `scripts/lean/principal_finite_response/Audit.lean` = `020aea42bc7a8c2eb2dc8d6e8c7437ebc544d2d5`; dedicated workflow = `834d08b3fe8a435ec705f3e209109b68078512f2`.
+
+Key original blobs, all actually retrieved:
+
+| Source | Blob SHA |
+| --- | --- |
+| upstream PrincipalSlotEstimate.lean | f9250c7c4464f374902bbb39ebbb3487d96bea1f |
+| upstream PrincipalSignalComparison.lean | bd252b01e2784f9ec32fe9c1e0380c4b221adc23 |
+| upstream Detector/EulerCoordinates.lean | 75a2a5a3801939489102d6e7cce2ef1cab479057 |
+| upstream Detector/PrincipalResidueActual.lean | 2f336d8cfb0e6ec157ad1d43099372eb61961381 |
+| upstream Detector/PrincipalNormalizer.lean | 890de70fac5b637af0cb803f3d8c691df6c668b2 |
+| upstream Hecke/Signal.lean | 9b0f1f6ff5f74c77fee06327c4936c2a9e180df5 |
+| main VF919PrincipalSignedRemainder.lean | a41fee91754d5f6e5606f3f6f3dfe66031d81cbf |
+| main VF919WindowErrorClosure.lean | f629db1b2b65d6ec042ac9432397d4b6316200c6 |
+| main VF919FiniteSlotReflectedGain.lean | a5545b5a00958b69f6fbfd79fc555a0476aa6487 |
+| main VF919OriginalLowTupleSignedGram.lean | dd2fde01ae6e2446da4e69b30f6fc80fcadb858d |
+| main EULER_SELF_DUAL_ENDPOINT_GATE_20261027.lean | e7ee8f77ffd59bccaa49dd6d74fbe0d7952c2d73 |
+| main CompleteSquareRootWheelFractionalBoundary.lean | ecb482e52deeee5e9b3853592a3ffdace662d2ff |
+| main VF_CANONICAL_SQRT_TWO_VON_KOCH.lean | 79030d70e8d3e0d08eef9bac53fef95c36eca2fb |
+| main MERTENS_EXPONENT_ENVELOPES.lean | 655b896e8d5a41c9f8fc3c456eae3944a98bfefe |
+| main VF919ExplicitSquareBlockPacking.lean | 32999039fdeea99c58a070c1c4ee9c140720dd44 |
+| main VF919ExplicitFixedSourceSlotCount.lean | bad5aab0a60e96d19e7c9550cd7c0a072288bc0f |
+
+Today's intake role blobs, in Coordinator/Owner/Analytic/Wheel/Census/Referee/Lean order: `14190fe06982de80c5904b156525e3cda15d8f03`, `84afec90414b2394a61b51df46c07b6b540e5942`, `7ed3a39bec4796f4173b692064af872ea8035048`, `62406503a1ddbbf9330abcdc4cf761f7fbf05795`, `a3cfa56072f3893dbf92a18956e1794236bde057`, `6529562a5bb21fa192fddadaa91a758b9d125c29`, `d2f8fd346b7aaab57f3bd3676ed7b1d8c8abb3f8`. Yesterday's corresponding blobs: `6fba43130391ad4a606aa3809c20f344d668c709`, `643e8a004d9d8e0be102b03e2f79bb3b217ae916`, `d1d0d86d444b9c447cf6acf4bd18fdcaf02e56a3`, `0624246d03b19cf76c01e186b7d868a248d896ef`, `8c927cc6c323533ba1cfd369404b25aa4f9cef91`, `a5d0192eb31c0efb3767187a7752f1a0d07f8534`, `8b60c6136ac151774be2db0aee8f543f286b53aa`.
+
+Prior checkpoint publication `565c0ca6ef4f56f4948c9cfce02da6a829b0a775`, draft milestone `a46d75b119d9eaadf68d728027ac25ebfa4880c4` and exact repair checkpoint `a1ff9ad99134b1e09c833999c7e59137b2eb1673` were each verified by immutable readback with prior bytes preserved. This final section's publication is claimed only after its own successful commit/readback. No agent launch, Studio change, other-role report edit, protected-branch push or merge occurred.
