@@ -1883,3 +1883,917 @@ Read original first-owner predicates and physical/complete historical welds; cla
 ### E. Publication And Limits
 
 Only this owned report is being changed. No Lean, policy, workflow, other-role report, branch/PR, schedule or permission change; no agent launch or merge. Local git clone was unavailable (CONNECT tunnel 403); authenticated read-only connector source/tree access works. No local Lean execution or independent Referee review is claimed. This checkpoint is publication-pending until its immutable commit/readback verification.
+
+---
+
+## Prime-Negative Support And Source-Faithful Ancestry Pairing - 20261111-owner-1615-EST/PS
+
+### A. Most Important Mathematical Development
+
+**Genuine negative prime pairs can pay FA's selected positive ancestry pairs, but the payment generally changes owner and does not survive as a bound on the complete marked or restored source.** This resolves a specific arithmetic uncertainty left by FA. Prime supply is not the obstruction for this selected subsource. The unresolved issue is its complete-source consumer, including historical restoration and the signed mark.
+
+Two restrictions explain the distinction. On the entire physical canonical half-run, every negative intersite Co/Div pair has EMPTY lower-prime signature. Every nonempty-signature and equal-radical pair is nonnegative. Moreover, a FA event ancestor lying in that half-run must have cofactor exactly 3. Its positive pair has a genuine same-owner negative-prime compensator for EVERY r>=8, without duplicating a physical pair. For all event ancestors, including older ones, a cross-owner pairing exists for every sufficiently large r by the ordinary PNT; no RH-strength prime estimate is used.
+
+A genuine counterexample also survives: at r=71, n=5083=13*17*23, q=299=13*23 is an admitted floor-Li event with owner 17 and signature {13}. The ONLY negative physical prime compatible with that signature is 13. Its entire pair with n is insufficient: the sum remains >0.061833878902. This refutes the universal same-cell payment rule for each fixed current row, not a joint all-row compensation mechanism or the global target. The original unmarked excess at r=71 is negative.
+
+| Claim ID | Result and exact status |
+| --- | --- |
+| 20261111-owner-1615-EST/PS1 | PAPER_PROOF: negative-pair signature classification on genuine physical seats, including the positive primes 5 and 7 and the equal-radical prime-power exception; an exact historical/current support formula and bound 9r/log r. |
+| PS2 | PAPER_PROOF: all negative intersite interactions in the complete canonical half-run population have empty signature, for every r>=8. This is full-population pair support, not control of its anchor/restoration. |
+| PS3 | PAPER_PROOF: recent FA ancestry has cofactor 3, negative mark, and uniform bounds E_recent<=4r/(3log r), |H_recent|<=4r/log^2 r, J_recent<=12r/log^3 r. Proper-source quantitative improvement only. |
+| PS4 | PAPER_PROOF: same-owner original-weight pairing for recent events at every r>=8; eventual cross-owner pairing for ALL event ancestry using ordinary PNT. Each allocated unordered physical pair is distinct. |
+| PS5 | REFUTED / FINITE_COMPUTATION: the universal same-signature prime-capacity rule for each fixed current row, with the r=71 exact certificate. This is not a joint all-row, first-bad or RH counterexample. |
+| PS6 | IDENTITY_ONLY / FINITE_COMPUTATION: complete unmarked and marked reconstruction, with every physical pair, squareful site, anchor and restoring term. Existing compression infrastructure is credited, not rediscovered. |
+
+All new paper claims are SELF_AUDIT, INDEPENDENT_REVIEW_PENDING and NOT_FORMALIZED. The finite checks are not Lean proofs. **NO_NEW_GLOBAL_GAIN; NO_NEW_ACCEPTED_ROUTE; VERIFIED_ETA=NONE.** PS2 gives a new support restriction on the whole physical half-run population, but this report does not assert that it passes the campaign's complete-source route-admission gate: the signed anchor and positive restoration still lack the required quantitative return.
+
+### B. Current Authoritative Objective
+
+Actual trigger: scheduled execution at 2026-11-11 16:15:01 EST, America/New_York. Platform RUN_ID_UNAVAILABLE. The PS label identifies this research continuation, not a platform run ID. Current audited main is `59612bc8b5c30c528d8367667ea5846a8053f114`, the human merge of #1133. Authority blobs: AGENTS `5bf6b1dd837bad943286d05c7dd08441d6a22635`; CURRENT_PROOF_CONTRACT `95566e37c8eaeb99ee680660df4f9d2e06ea5038`; cross-route directive `e3ae4280438f591f1ffaddd754a1c3a6d35d0691`; continuity directive `3e71820a4af722eae7098da6945bb5bcba50dd0d`.
+
+`cross_route_ack=CROSS_ROUTE_SIGNED_RECOVERY_V1`; `continuity_ack=LAST_ACTUAL_REPORT_CONTINUITY_V1`; supporting acknowledgments `chain_ack=CANCELLATION_CHAIN_REUSE_V1`, `high_attack_ack=COMPLETE_SIGNED_HIGH_ATTACK_V1`, `finite_wheel_ack=FINITE_WHEEL_CENTERED_RH_V1`. Newer cross-route priority governs task choice; older valid source safeguards remain binding. The current cross-route blob differs from pre-continuity reports because of its new continuity preamble; the actual current blob above is used.
+
+The canonical OPEN objective remains
+
+```text
+exists C>=0, forall integer R>=2,
+  |pi(R^2)-VF_can(R^2)| <= C R log R,
+VF_can(x)=vfMid(x)+sqrt(2).
+```
+
+The all-real O(1) VF/Li_2 quadrature is paid; it is not the missing prime-discrepancy estimate. The canonical VF-to-RH interface retains its explicit `ClassicalVonKochRHCriterion`. The complete finite-wheel identity at X_R=R^2-1 retains virtual d>X_R and Euler compensation; its uniform centered O(R log R) estimate remains OPEN. The Euler historical source is separately
+
+```text
+K_R=max_(0<=t<R) (M(t)-1)^2/(t+1),
+Q_R=sum_(a,b<R) mu(a)mu(b) floor((R^2-1)/(ab))
+   =2M(R-1)-M(R^2-1).
+```
+
+The finite-C estimate |Q_R|<=C R sqrt(K_R), with C before every R, is OPEN. A green conditional finite-C-to-RH consumer does not prove it. PS's actual-prime VF donors are not introduced as independent data in the frozen-mu(<R) Euler problem.
+
+#### BASELINE / DEPENDENCY RECEIPT
+
+The strongest explicit certified fixed-family comparator inspected is `native_mertens_near_uniform_window_error_closed : MertensGrowthAtMost (7/8-7/(64*N_pack))`, retaining EVERY positive exponent loss. Thus for each epsilon>0 there is a scale-independent C_epsilon before all n; no fixed no-loss bound at the boundary is claimed. At the same fixed positive source L,
+
+```text
+N_pack=ceil(max(1,1/(6L)))+2
+   <= N_old=ceil(max(1,1/(3L)))+2,
+7/(64*N_pack) > 1/(48*N_old).
+```
+
+The inequality follows from monotonicity of max and ceiling and 7/64>1/48; it is not an invented comparison of unrelated sources. The inspected chain is fixed original source/native moments -> complete total-mass LOW and anchored HIGH/principal/tail in the SAME probe -> actual Hecke zero supremum -> modulus-one exact Dirichlet product -> native Mertens converse. The moment supplier keeps 51/100<=beta<=7/8+Delta, the actual profile/geometry, J before the character, and constants C,Z0 before scale/tau/height. No arbitrary-coefficient norm or rational-Mobius/Hecke identification is substituted.
+
+Fresh exact-head #1119 checks: 14/14 success at `77ee815846d6d534c866f0752aa33b84c385610a`. The recursive tree comparison checked 911 preexisting blobs under RHLean/, research/oai_434/, scripts/lean/slot_anchored/ and scripts/lean/window_error_closure/: none changed at this main. Reused actual prior dependency/axiom receipts for the five root closures of sizes 35358,35375,35736,35737,35753, with only propext, Classical.choice and Quot.sound, from the [recorded audit job](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42552018910/job/128949473700). This run read the live source and audit declarations and refreshed check status; it did NOT download that log anew, execute Lean, or independently reprove every imported analytic ingredient. This is a scoped unchanged-source reuse audit, not a newly executed kernel build.
+
+Pins: Lean 4.34.1/compiler `5045d0056413266e57c625dcd7c365b10e377c52`; Mathlib `d13f23b723b8a846827a245b89c10fc7d3f11612`; PNT+ `c39a751132c88b6e8080b74c74023fd95b3d8be0`; openai/math `1581d4cbdd69a0faf34b2089614fe2a814316a6a`; anchored source `9cbfce5295343bcb411e6d2cb159b59995cd985b`.
+
+#1130, #1131 and #1132 are now MERGED. #1132 head `cecb5c2fffbd86026665300bc0d6cc3a35b92cdb` has 13/13 successful exact-head checks. FFR1 finite-response mass and FFR2 all-delay original-error control are now compiled at their actual scopes; FFR3 inversion and FFR4 complete endpoint are not thereby formalized. Accepted paper IR/FFR boundary 7/8-1/2400000000 with spent eta=737/3840000000000 remains PAPER_PROOF, not the certified comparator above. No open or draft PR was found at intake. PS requires none of the OAI/Mertens baseline as an arithmetic premise.
+
+#### Continuity Receipt
+
+The latest-report search enumerated ALL existing dated report directories, without a date cap, at agent-reports revision `d3d3ae848c71ea136a0b0d748bf8b88a5dcb1fd5`. All seven roles had actual November 11 reports. Both Coordinator mirrors were retrieved and agree byte-for-byte. Every November 10 role file was also retrieved. Relevant new sections since the prior Owner FA watermark were backfilled in their actual order: FA, DM, PD, UM, HR, ADR, FT; the relevant previous-day route capsules were retained. CONTINUITY_COMPLETE means latest-actual discovery and relevant unconsumed-section backfill, NOT a claim to have reread the whole historical corpus. TODAY=AVAILABLE; YESTERDAY=CARRY_FORWARD. No scheduled execution is inferred from a nominal slot.
+
+| Role | Latest consumed section / actual receipt | November 11 report blob |
+| --- | --- | --- |
+| Coordinator, both mirrors | 1513-EST/FT, 15:55:44 EST; accepts DM/HR on paper, FT full-basis obstruction scoped to fixed theta<2/3; requests genuine prime-negative FA repair | c87ed2c4ec81f9f4eda85ba0d84e2216808159f4 |
+| Owner | owner-2/FA, 08:36:30 EST; FA1-FA6 remain independently unreviewed | accf2930372234b58e98e8e43e88aeb845b56e9b |
+| Analytic | analytic-2/DM, 09:37:30 EST; E(1+V)>=1/768000 and localized lower bound, not density or VF input | 0309d49557af30da43a07d72dce93c93c1811157 |
+| Wheel | wheel-2/PD, 10:39:35 EST; C=H-E, paid historical norm O(R sqrt(K_R) log R), unpaid response | c9989449a814a1a7ee799791c73450872f4c7d3c |
+| Census | census-2/UM, 11:24:34 EST; genuine R=115 response-contraction failure 404-599=-195, full gap 18331; H_ROB conjectural | a85bc7dc8b49952d37f1a4cb6a0a8eb307d3f352 |
+| Referee | referee-2/HR, 12:26:32 EST; HR1 gap=P+Omega, HR2 formal coefficient support no-go is not a genuine-mu counterexample | c288a925fd064a551a0d2bd70b27d82acc9fe926 |
+| Lean | lean-2/ADR, 13:52:07 EST; exact original-delay FFR2 scope; current merged #1132 supersedes its earlier unmerged status | 943749938c321f0ec13e1680139f5b15cea39fd7 |
+
+The prior Owner watermark had consumed Coordinator FL, Analytic NT, Wheel GD, Census DZ, Referee NP and Lean FFR, not the later sections above. Their corresponding prior blobs were, respectively, 106f6d88708a7545caab43c56ae1bbb915fd97f2, eab26782cdd44e705e007185d6c7321d9300ca61, dbf68d8f8b1737b4b585811dae014329614ec595, 49c1c48f672cf96c93909bd2b412d95bb3587d62, 214e99d8d6133e720f9645dd650a57b01a8c05cf, c86b058b6387de7348b123b22b8f5b8772d5ae9a. The own earlier MC blob was e60f67d2192932715895f9e9b72a6fe773d4a68d.
+
+November 10 blobs, Coordinator/Owner/Analytic/Wheel/Census/Referee/Lean in order: 4d55b2893f974656c6aa14e48b243827fa8308f8; 84afec90414b2394a61b51df46c07b6b540e5942; 7ed3a39bec4796f4173b692064af872ea8035048; 62406503a1ddbbf9330abcdc4cf761f7fbf05795; a3cfa56072f3893dbf92a18956e1794236bde057; 6529562a5bb21fa192fddadaa91a758b9d125c29; 682b334b8f37fa4bfe2d552a1142d852a0db2afd. Relevant DR/RC/GC/IR/IRR/MD/FFR evidence and original claim IDs are carried forward, not reproved here.
+
+External handoffs blob `7d63d434690d00dffce9c90335d41c4f62d85798` has a new continuity preamble but no new mathematical entry after October 18. Preserve EXT-20261018-PNT-1's cofactor weights/cutoffs and EXT-20261014-5's all-root versus first-bad distinction. Existing r=10 MC/FA, R=6 n=30 reinforcing cross term, q=78 nonexpansion obstruction, r=22 operator lower bound 7/6, and R=549 BLOCK refutation retain their original scopes. PD/UM/HR and FT do not silently replace the Owner's actual-prime carrier.
+
+### C. Structural Hypotheses Investigated
+
+1. SAME_CELL_ROW: a negative prime in the ancestor's first-owner/signature cell pays the positive historical pairs ending at each fixed current n. PS1 excludes such capacity in every signature with two lower factors and in {3},{5},{7}; PS5 refutes it even for an available negative singleton {13}. Abandon this universal rowwise statement, not all possible cross-row compensation.
+2. HALF_RUN: recent ancestry is constrained by the exact half-run cutoff strongly enough to permit original-weight compensation. PS2-PS4 prove cofactor 3, empty signature and a distinct physical-pair allocation. Continue only as a supporting lemma.
+3. CROSS_OWNER: all FA ancestry can be paired with genuinely admitted historical primes outside its original cell. PS4 proves eventual existence with ordinary PNT and explicit negative pair margin. It fixes the raw selected ancestry bill, not the canonical endpoint.
+4. COMPLETE_RETURN: the selected pair inequality controls the marked response or the complete restored excess. PS6 shows why this inference is unjustified: the mark can reverse a paired sign, and compression restores a positive price. No such transfer theorem is supplied or assumed.
+
+Each hypothesis uses actual integers, primes, factorization, original w_s and chronological masks. No independent copies of one historical occurrence, random signs, unsigned replacement of a signed covariance, or unproved source-admission rule is used.
+
+### D. Mathematical Derivation
+
+#### D1. Original Carrier And Exact Complete Return
+
+For s>=2 let O_s be ALL odd integers strictly between s^2 and (s+1)^2, including squareful nonsquares. There are s such sites. Their original charges are
+
+```text
+w_s=(2s+1)/(s log(s^2+s+1/2)),
+z(n)=w_s-1_Prime(n),  n in O_s,
+Phi(u,v)=4uv-2|uv|.
+```
+
+Use ordinary natural logarithm. For s>=3, 0<w_s<1 and w_s<=3/(2log s), as proved in FA. At s=2, w_2>1: the actual prime seats 5 and 7 are POSITIVE. Prime 3 is outside this seat population and belongs to the initial anchor accounting; it is not a manufactured negative seat. Thus the negative physical seats are exactly primes >=11. This warmup exception matters in signature cells.
+
+For 2<=A<=r let h=-D_A, D_s=pi(s^2)-sum_(2<=j<s)j w_j. Let Z be the physical sites in ages A through r, history ages A through r-1, current O_r. Set
+
+```text
+T=sum_(n in O_r) z(n), C=sum_(n in O_r)|z(n)|,
+U=sum of positive historical masses, including positive part of h,
+V=sum of absolute negative historical masses, including negative part of h.
+U-V=-D_r,
+Rest(A,r)=4UV+2C(U+V-|U-V|)>=0.
+```
+
+The existing exact history and #915 weld give the COMPLETE original anchored excess
+
+```text
+E_orig=2(T-D_r)^2-(|D_r|+C)^2
+      =h^2+sum_(z in Z)z^2
+       +sum_(unordered distinct i,j in Z) Phi(z_i,z_j)
+       +sum_(z in Z)Phi(h,z)+Rest(A,r).                 (PS.1)
+```
+
+The physical pair sum partitions disjointly into empty-signature, nonempty-signature and equal-radical sectors below. Anchor interactions, all diagonal terms and Rest remain separate. No sector is deleted. The cited weld identifies E_orig with the original residual and all THREE oriented boundary sectors. This is paid infrastructure, not a new global-cancellation identity.
+
+For distinct sites with different prime supports define p=min of the symmetric difference of their prime-factor sets and sigma=their common prime factors <p. This intrinsic classification is defined for all nonsquare seats, including squareful ones. On the squarefree carrier it agrees with the compiled first-owner predicate. If supports agree, retain a separate equal-radical sector. Applying this classification to historical/current physical pairs does NOT assert membership in the different clipped CURRENT returned-parent carrier.
+
+#### D2. PS1: Exact Support Of Negative Physical Pairs
+
+Phi has value 2uv when uv>=0 and 6uv when uv<0. A negative physical pair therefore contains exactly one negative prime ell>=11 and one positive seat. If their common lower signature is nonempty, it must be {ell}, since the prime has no other factor. Then ell divides the other site and is its least prime factor; otherwise a smaller differing factor would have become the owner. The other site is composite. Conversely, for a composite n with least factor ell>=11, the prime/composite pair (ell,n) has nonempty signature {ell} if n has another prime factor. If there is no other factor, it is equal-radical; since n is not a square, n=ell^k for odd k>=3. Example: (11,1331). This squareful exception cannot be discarded.
+
+Consequently there is no negative pair in a signature with at least two lower primes or in the singleton signatures {3},{5},{7}. This statement concerns the ORIGINAL physical sign, not mu. Prime 5 or 7 cannot be counted as negative capacity.
+
+For full historical/current pairs with history ages 2,...,r-1 and current O_r, every negative pair OUTSIDE the empty-signature sector is precisely
+
+```text
+(ell,n), n in O_r composite, ell=minFac(n)>=11.
+```
+
+A current prime cannot share this nonempty lower signature with a smaller historical site. Each current composite supplies at most one such historical prime. Its least factor is <=r and hence genuinely historical. The exact total absolute value is
+
+```text
+N_out(r)=6w_r sum_(n in O_r composite, minFac(n)>=11)
+                   (1-w_floor(sqrt(minFac(n))))
+       <=6r w_r<=9r/log r,   r>=3.                    (PS.2)
+```
+
+For a shorter history insert its actual age-admission indicator in this sum; the inequality remains valid. This is an independent uniform restriction on one complete pair sector, not a bound on all covariance or on E_orig.
+
+#### D3. PS2: Half-Run Prime Separation
+
+Let r>=8 and A=floor(r/2)+1. For every physical site of age A,...,r, a negative prime is >A^2>=r. Every composite in that population is <(r+1)^2 and has least prime factor <=r. Thus the least differing factor of any prime/composite pair is the composite's least factor, with empty signature. A prime/pure-power pair is impossible in this population for the same reason.
+
+It follows that EVERY nonempty-signature and equal-radical physical intersite Phi in the half-run is nonnegative. This covers history/history, history/current and current/current pairs, not just selected ancestry. It does not cover the scalar anchor as though it had a prime factorization. The full identity (PS.1), including anchor, diagonal and Rest, is still required.
+
+The elementary geometry A^2<=floor(r^2/2) for r>=8 was already used in `vfMid915MiddleEvenPrimeParent_inActualHalfRun`. Its existing count-capacity theorem for even prime parents versus odd composites is not the new weighted prime-pair theorem here. Credit the reused geometry; do not promote the old unsigned supply theorem into a signed allocation.
+
+#### D4. PS3: Exact Recent-Event Localization And Logarithmic Bounds
+
+Retain FA's genuine event set, not an invented prime proxy. Set X=(r+1)^2-1, L(t)=floor(Li_2(t)), lambda(q)=L(q)-L(q-1). An event edge (q,n) has n in the actual squarefree subset of O_r, q|n, r<q<n, mu(q)=+1 and lambda(q)=1. FA1 proves q is odd squarefree composite, q<=X/3<r^2, a=n/q is odd squarefree, gcd(a,q)=1, and the pair owner is minFac(a). A fixed q occurs at most once in this block; different q may share n. FA2 gives E_all<=2r, retaining +1 per cofactor in floor-Li telescoping.
+
+Define E_recent by the ADDITIONAL actual history condition floor(sqrt(q))>=A=floor(r/2)+1. Since q is squarefree, q>A^2. Now X<4A^2<4q, so the odd integer a>=3 is <4 and hence equals 3. Therefore
+
+```text
+n=3q, 3 does not divide q, mu(n)=-1,
+owner(q,n)=3, sigma(q,n)=empty.                      (PS.3)
+```
+
+There is at most one recent event per current n. For r>=14 the cutoff is automatic for a=3: r^2/3>=A^2 and q=n/3>r^2/3. For 8<=r<14 it must be retained. Every event with a!=3 is OLDER than the canonical half-run; such q remains encoded in its anchor and cannot be inserted again as a recent seat. At r=10 both q=15 and 21 are older than A=6.
+
+Let E_rec be the number of recent edges. With l=floor(r^2/3), u=floor(X/3), dropping only nonnegative eligibility restrictions gives
+
+```text
+E_rec<=L(u)-L(l)
+     <=(u-l)/log r+1
+     <=(2r/3+1)/log r+1
+     <=4r/(3log r),  r>=8.                          (PS.4)
+```
+
+Here l>=r, X-r^2=2r, and 1+log r<=2r/3 follows from log r<=r/2 and r>=6. No parity independence is assumed. The exact recent signed mark and positive ancestry contribution are
+
+```text
+H_rec=2w_r sum_(recent edges)mu(n)=-2w_r E_rec,
+J_rec=sum_(recent edges)2w_floor(sqrt(q))*w_r,
+|H_rec|<=4r/log^2 r,
+0<=J_rec<=12r/log^3 r.                              (PS.5)
+```
+
+Indeed s>=A>r/2>=sqrt(r), so w_s<=3/log r; combine with w_r<=3/(2log r) and (PS.4). Constants are absolute, before r. Compared with FA2's all-ancestor 36r/log^2 r and |H_all|<=6r/log r this improves a STRICT subsource by one logarithm. The old-ancestor complement is not improved. It is not a power saving or a global exponent gain.
+
+#### D5. PS4a: Same-Owner Pairing Of All Recent Events
+
+For s>=5, w_s<11/15: 2+1/s<=11/5 and log(s^2+s+1/2)>2log5>3. For example log5=2log2+log(5/4)>=4/3+2/9>3/2 using log x>=2(x-1)/(x+1).
+
+Apply the pinned Mathlib Bertrand theorem `Nat.exists_prime_lt_and_le_two_mul` to m=floor(r^2/2)>0. Its exact conclusion is a prime P with m<P<=2m. Since r^2 is composite, P<r^2. By A^2<=m, this is a genuine prime seat of age t in [A,r), t>=5. See the [pinned original declaration](https://github.com/leanprover-community/mathlib4/blob/d13f23b723b8a846827a245b89c10fc7d3f11612/Mathlib/NumberTheory/Bertrand.lean). No new local compilation is claimed.
+
+For EVERY recent edge (q,n), allocate the actual positive pair (q,n) and the actual negative pair (P,n). Both have owner 3 and empty signature. With s=floor(sqrt(q)),
+
+```text
+Phi(z_q,z_n)+Phi(z_P,z_n)
+ =2w_r[w_s-3(1-w_t)]
+ <=-(2/15)w_r.                                     (PS.6)
+```
+
+All n in the recent set are distinct, and q is composite whereas P is prime. Thus the 2E_rec allocated unordered pairs are ALL distinct. The same prime row may interact with several different n because those interactions genuinely exist in the full quadratic expansion. Its diagonal is included ONCE in the complement; no historical mass is copied or compressed for free. All other P interactions, all other pairs, anchors and Rest remain untouched. The proof is uniform for all r>=8; no short-interval prime conjecture is needed.
+
+#### D6. PS4b: Eventual Cross-Owner Pairing Of ALL Event Ancestry
+
+There exist fixed r_0>=10 and, for each r>=r_0, distinct genuine primes P_e in (floor(r^2/2),r^2), one for each FA event edge e=(q,n). This uses ordinary PNT only. The pinned PNT+ declaration `StrongPNT` bounds psi(x)-x by O(x exp(-c sqrt(log x))) for some c>0, and hence psi(x)=x+o(x). Its exact source is [StrongPNT.lean](https://github.com/AlexKontorovich/PrimeNumberTheoremAnd/blob/c39a751132c88b6e8080b74c74023fd95b3d8be0/PrimeNumberTheoremAnd/StrongPNT.lean), blob `7d8ea08496ae67da67e2a3de710145299b51a940`; inspected directly this run. The following donor-count transfer is a paper derivation, not a newly compiled theorem.
+
+For completeness, psi(x)-psi(x/2)=x/2+o(x). The contribution of prime powers of exponent >=2 is at most sqrt(x) floor(log_2 x) log x=o(x), by bounding every possible base by sqrt(x) and every weight by log x. Consequently, for all sufficiently large x,
+
+```text
+sum_(x/2<p<=x, p prime)log p>=x/4,
+#{p prime:x/2<p<=x}>=x/(4log x).
+```
+
+At x=r^2 this lower bound is r^2/(8log r), eventually >=2r. Since r^2 is composite and FA2 gives E_all<=2r, a distinct-donor injection exists. All thresholds and constants are chosen before r. No explicit numerical r_0 is certified here; finite tests below do not fill that infinite threshold gap.
+
+For r>=10, donor age t>=A>=6, and w_t<13/20 because log6=log2+log3>=5/3 and 2+1/t<=13/6. Every FA ancestor has age s>=3 and w_s<1. Therefore each allocated actual pair sum satisfies
+
+```text
+Phi(z_q,z_n)+Phi(z_Pe,z_n)
+ =2w_r[w_s-3(1-w_t)]<=-(1/10)w_r,
+B_all:=sum_(all event edges)these two pairs
+ <=-(1/10)w_r E_all.                               (PS.7)
+```
+
+Each positive pair is distinct by FA's fixed-block uniqueness; donor primes are distinct and no prime donor equals a composite q. Thus the whole allocation is disjoint. Also 3P_e>X for r>=10, so P_e does not divide odd composite n. Its pair has owner minFac(n), empty signature. This owner generally differs from minFac(n/q); that is the essential cross-owner transfer.
+
+Use history from A=2 for all ancestors; old q are not reinserted into a shorter half-run. This is a valid original-weight subset of (PS.1), with its complement and restoration retained. It is a per-root allocation, NOT an all-time historical-spending theorem. It is also not a claim of admission to a clipped current returned-parent row. Classical PNT here concerns the actual-prime VF carrier; it is not an added input above the frozen historical root of the Euler criterion.
+
+#### D7. PS5: Genuine Singleton-Capacity Counterexample
+
+The proposed universal SAME_CELL_ROW rule asserts that, whenever event pairs ending at n have a fixed singleton lower signature {ell} with ell>=11, their positive Phi sum is at most the absolute value of the only negative physical prime pair (ell,n). This statement is false.
+
+At r=71, X=5183, n=5083=13*17*23 lies in O_71 and is squarefree. The ancestor q=299=13*23 has mu(q)=+1, q>r, n/q=17. The exact integrals satisfy
+
+```text
+Li_2(298) in [66.927722484947,66.947521968386],
+Li_2(299) in [67.103198163037,67.122999258287].
+```
+
+These independent monotone Riemann enclosures imply L(298)=66, L(299)=67 and lambda(299)=1. The intrinsic pair owner is 17, signature {13}; q has age 17, while the negative prime 13 has age 3. No other negative physical site can have this signature. Exact outward log intervals give
+
+```text
+w_17-3(1-w_3) in [0.131083609451,0.131083609452],
+Phi(z_299,z_5083)+Phi(z_13,z_5083)
+ in [0.061833878902,0.061833878903] >0.               (PS.8)
+```
+
+Every other historical/current pair ENDING AT THIS FIXED n in that owner/signature cell is nonnegative. Negative pairs ending at other current sites have not been ruled out or spent; no joint all-row no-go follows. The search stopped at the first witness encountered in r=8,...,96, namely 71; no stronger global minimality claim is needed. The original unmarked E_orig(71) is in [-946.549619003699,-946.549619003698], so this is expressly NOT a target failure. Both q and 13 are older than A=36 and are not separately admitted into the canonical half-run. Cross-owner primes still repair this selected edge as in (PS.7).
+
+#### D8. PS6: Why The Pairing Does Not Pay The Complete Source
+
+For either selected pair allocation B, the exact source is
+
+```text
+E_orig=B + (all remaining physical/anchor/diagonal terms) + Rest.
+```
+
+The second and third terms have no new bound. In particular the full history/current interaction before restoration is 4(U-V)T-2(U+V)C. Adding the mixed restoring term gives exactly
+
+```text
+4(U-V)T-2|U-V|C=-4D_r T-2|D_r|C.                  (PS.9)
+```
+
+The history/history sector plus its 4UV restoration recombines to D_r^2. Therefore abundant raw positive and negative historical masses are NOT extra independent capacity after compression. Their original difference and every restoration term must survive. This is the already-proved compression identity applied to the proposed allocation, not a new target-equivalent estimate.
+
+There is a second, independent obstruction to using (PS.6) or (PS.7) for FA's marked source. With kappa(n)=2mu(n)e_r(n), h_n=z_n*kappa(n), H=sum h_n, the complete bookkeeping polynomial retains
+
+```text
+E_orig(t)=E_orig(0)+t*L_r H+t^2 H^2,
+L_r=4(T-D_r)-2(|D_r|+C).
+```
+
+Multiplying an unmarked negative pair inequality by the mark may reverse its sign. On the recent sector kappa is negative (the recent contribution is -2 per site); it cannot be used as a positive payment multiplier. If H=H_old+H_rec, then H^2 contains H_old^2+H_rec^2+2H_old H_rec. No cross term has vanished. The selected unmarked pairing is not a bound for L_r H and is not an unmarked floor-Li representation of E_orig.
+
+The exact checker reconstructed BOTH complete polynomials at r=10 for A=2 and A=6. In both cases E_orig is in [-44.815556597361,-44.815556597360] and its marked linear coefficient is in [14.501463364862,14.501463364863]. This reproduces FA's sign distinction by a different full historical-pair expansion, not by reasserting a scalar-only model.
+
+| r=10 decomposition | A=2 | A=6 |
+| --- | ---: | ---: |
+| All diagonals, including h^2 | 17.199560582219... | 10.272960800618... |
+| All anchor pairs | -130.532884015374... | -23.217272889854... |
+| Empty-signature physical pairs | -744.358939274479... | -444.543044033070... |
+| Nonempty-signature physical pairs | 91.260429132046... | 43.688696193115... |
+| Equal-radical physical pairs | 4.468022941928... | 1.089153270061... |
+| Exact positive restoration | 717.148254036296... | 367.893950061767... |
+
+The displayed decimals are rounded presentations of outward rational intervals; the polynomial equalities were exact in separate formal weight variables w_s. The two different decompressions give the SAME original source, as required. No first-bad predicate is asserted.
+
+### E. Quantitative Consequence And Cross-Route Return
+
+Independent quantitative results are exactly (PS.2), (PS.4)-(PS.7), at their stated scales and masks. Recent-event ancestry gains one logarithm, and selected raw ancestry has a negative physical-pair allocation. None changes the certified Mertens exponent or proves O(R log R) prime discrepancy. The complete physical half-run support rule PS2 does not control the anchor/restoration. The admitted net endpoint gain is zero.
+
+#### FOUR-WAY SOURCE MAP
+
+| Euler / finite AC | VF / actual-prime source | NNS / OAI | Square blocks / native source |
+| --- | --- | --- | --- |
+| Exact strict-history Q_R at X_R=R^2-1 with mu(a)mu(b), a,b<R, and full K_R; `eulerSelfDualBilinear_eq_two_mertens_sub_endpoint`. No sitewise equality with PS's prime charges or floor-Li marks. | Literal z_s(n), odd open-square seats, actual prime indicator and w_s, plus original D_A anchor. `vf915GlobalDecoded_originalResidualAndBoundary` and exact history compression give (PS.1). PS owners label real historical/current pairs, not automatic clipped-parent admission. | Co/Div algebra is an EXACT real quadratic re-expression of this VF source when every term and Rest is kept. The ideal-labelled compensated OAI tuple Gram, Hecke weights and native marked moments are a DIFFERENT carrier: NOT_EQUIVALENT / OPEN_BRIDGE, not an isometry supplying cancellation. | For VF, chronological sum of original seats gives the exact endpoint defect through `vfMidActualPrimeEndpointDefect_eq_anchor_sub_oddRunSeatMass`. Euler Q_R gives a signed Mertens endpoint. These two square clocks do not identify prime discrepancy with Mertens discrepancy. |
+| Every virtual d>X_R remains in a complete wheel representation with Euler compensation; #1115 reciprocal completion cannot ignore PS's divisibility masks. | `finiteWheel_squareFractional_centered_eq_reference_sub_pi` is EXACT at X_R, R>=2, with the same reference L. VF_can differs from Li_2 by a uniformly bounded transport; endpoint R^2 versus R^2-1 agrees on pi for R>=2. Floor-Li is not prime membership. | The certified #1119 comparator supplies a global native Mertens consequence at its own quantified source. No proved coefficient-preserving transfer from that moment to kappa(n)=2mu(n)e(n) was found. | The original prime/cofactor-weighted Buchstab bracket supplies an exact coupling only with its complete cofactor weights and corrections. Removing them is a WEIGHTED_PROJECTION, not equivalence. Canonical fixed-Lambda LOW O(R) is not an estimate of PS's prime marked row. |
+
+Material source hashes and declaration locations are recorded below. PS source scale r has current upper endpoint (r+1)^2-1; do not silently substitute the Euler root R=r without transporting endpoints and all intervening terms. No virtual divisor is introduced into or removed from the finite physical seat carrier.
+
+#### FIRST SIGNED LOSS / Loss Ledger
+
+| Declaration / signed input | First loss and exact tax | Consumer / paid recovery test | Unpaid complement and falsifier |
+| --- | --- | --- | --- |
+| First-owner cell Fubini; original Phi(z_q,z_n), with actual age and lower signature | An absolute ancestry bill keeps +2w_s w_r while omitting possible -6w_t w_r pairs; no global power tax was previously justified. | PS4 recovers a genuine pair with margin at least (2/15)w_r recent or (1/10)w_r eventually all events. Existing arbitrary-site Fubini provides bookkeeping only, not history admission or signed bounds. | All other physical pairs, anchor, diagonal, Rest; same-cell recovery is refuted by r=71 and forbidden support in deeper signatures. |
+| `abs_vfMidActualPrimeEndpointDefect_le_anchor_add_historyAbs`; history sum U-V | Triangle replaces |U-V| by U+V; at the squared Co/Div consumer the omitted price is EXACTLY 4UV+2C(U+V-|U-V|). | `vfMid915ActualHistoricalSquaredNormRestoration` already restores the exact term. It recovers information, not a favorable sign. | Positive Rest is unpaid and cancels access to raw historical negative capacity through (PS.9). r=10 gives two decompressions with hundreds of units restored and the same endpoint. |
+| FA.2/FA.3; exact event sum 2w_r sum mu(n)e(n) | Absolute value/counting discards cross-sign correlations; output |H_all|<=6r/log r, not r^(1-delta). | PS3 keeps genuine mu=-1 on recent cofactor-3 events and bounds their density without pretending that they cancel. | Old signs, L_r H, H_old H_rec and unmarked embedding. Multiplying PS4 by a negative mark reverses its sign; r=10 complete linear response is positive. |
+| Complete reciprocal fibre in #1115 / prior RC | Completing a divisor fibre would remove the genuine indicator that q or dq lies in the current block, and its lambda/cofactor weights. | Paid reciprocal telescoping was checked against the existing MC mask commutator; it does NOT annihilate the actual current row. | The literal r=10,n=105,q=15,21 events remain. A completed unsigned or differently masked fibre cannot pay this source. |
+| #1119 compensated OAI LOW/HIGH/principal chain | Norm/Gram estimates have their own exact profiles and signed off-diagonals; b_cert is the already paid endpoint, not an unpaid universal norm hypothesis. | Live complete native consumer retained as baseline. No exact map from its ideal labels to this actual-prime pair allocation was found. | OPEN_BRIDGE; no new binding LOW/principal exponent was improved. PS is not a hidden substitute for OAI moment hypotheses. |
+
+Thus source -> loss -> recovery -> consumer is explicit: the selected positive ancestry pairs -> restriction to a local positive bill -> PS4 actual negative primes -> ONLY the selected raw pair subtotal. The subsequent complete-source return is OPEN. The stronger claim that this already improves the endpoint is rejected.
+
+### F. Falsification And Circularity Review
+
+The new checker was preregistered before execution; proof-led extensions were added before their separate checks. Initial support/pair tests passed 414974 assertions. The final expanded checker passed **416611 exact assertions**, Python 3.12.13, standard library only. `python -m py_compile ps_check.py ps_helpers.py` also passed. No Lean process ran.
+
+Its scope is explicit: exhaustive historical/current negative-support classification for r=3..64; half-run seat support and recent-event pairing for r=8..64; the singleton search r=8..96 stopping at 71; all-event distinct-donor checks r=10..96; full polynomial reconstructions at r=10 with A=2,6; limited held-out structural tests at r=115 and 549. The held-out roots did NOT receive a new broad event census or full quadratic enumeration. No claim about untested R=5561 is made.
+
+There were 377 negative nonempty/equal-radical historical/current pairs in the support test, each exactly the predicted least-prime pair. Recent-event tests found 37 edges at 28 roots and allocated 74 distinct physical pairs. First example r=13, A=7, q=65, n=195, P=89 has combined original pair contribution in [-0.876110436775,-0.876110436774]. The all-event tests checked 486 edge allocations; r=10 allocates (15,105) to prime 53 and (21,105) to prime 59, with combined sum in [-1.021423620076,-1.021423620075]. The full original marked coefficient at that same root remains POSITIVE, as it must.
+
+The Li-floor witness has two methods: reused fixed-point log/Ei bounds and an independent monotone integral sum with mesh 1/64. Logs are bounded by an exact atanh series plus rational tail, with directed integer rounding at scale 10^40. The integral enclosure uses right endpoint sums for the lower bound and left endpoints for the upper. Its wider intervals already isolate both floors. This is an exact finite certificate, not a floating-point pattern. Full executed code and registration follow the synthesis.
+
+Negative controls retained actual positive signs of 5 and 7, the squareful pair (11,1331), r=10's older-than-half-run ancestry, all equal-radical and diagonal terms, and positive restoration. No prime distribution independence, squarefree parity independence, cloned history or desired-bound premise enters PS1-PS4. The PNT donor theorem is eventual and is stated as such. Ordinary PNT does not supply an RH-sized prime discrepancy bound. New PS claims have not received independent Referee review.
+
+### G. Conceptual Interpretation
+
+The genuine prime structure organizes negative interactions much more rigidly than arbitrary signed coefficients. Deep lower signatures cannot hold negative physical prime pairs. In a canonical half-run, chronological scale separation forces ALL negative physical interactions into the empty signature; recent FA ancestry is forced into the cofactor-3 part of that same sector. Older ancestry can require transport across owners, and a negative singleton prime can be present yet too light to pay its cell.
+
+At the same time, the supply of genuine negative prime pairs is ample enough to cover the selected raw ancestry bill. This makes the next obstruction precise: local scarcity of such primes is not the reason the global proof remains open. The obstruction is the complete signed return, especially the restoring price and the fact that the arithmetic mark is not nonnegative. Source-faithful pairing is real progress in the proper subsource, but it cannot be spent twice or silently transferred to a different functional.
+
+### H. Competing Mechanisms
+
+| Mechanism | Established / missing ingredient | Effect, obstruction and smallest decisive test | Decision |
+| --- | --- | --- | --- |
+| Same-cell rowwise prime payment | PS1 exact support; PS5 positive residual even with the only compatible prime | Would pay a fixed current row; impossible in deep signatures and false at r=71 singleton {13}. | ABANDON universal rowwise rule; preserve cross-row possibilities. |
+| Recent cofactor-3 pairing | PS3-PS4a uniform original-weight allocation; complete anchor/restoration return missing | Saves the recent raw ancestry subtotal. r=13 is a minimal observed nonempty test, r=10 checks exclusion of old edges. | CONTINUE as supporting lemma only, if a consumer needs it. |
+| Cross-owner all-ancestry pairing | PS4b proved eventually from ordinary PNT; no explicit r_0 or complete-source gain | Repairs every selected event pair, including r=71, but leaves all complements and signed marks. | REVISE priority: prime capacity itself is no longer the main unknown. |
+| Signed marked cancellation | Exact L_r H and full H^2 are known; no independent power saving or unmarked event embedding | Recent part has one sign, old part may offset it; any transfer must preserve cross terms. r=10 falsifies automatic nullity. | OPEN diagnostic, not an accepted route. |
+| Independent Euler/NYMAN/analytic routes | Latest PD/UM/HR/DM/FT/ADR results retained at their scopes | Nothing in PS invalidates these different carriers or supplies their missing estimates. | KEEP portfolio independent; no campaign departure requested. |
+
+### I. Specialist Handoffs
+
+- **Coordinator / Proof Architect:** PS answers your FA compensator question with a genuine original-weight pairing: recent same-owner for all r>=8, full ancestry cross-owner eventually. The new concept is prime/signature separation plus half-run cofactor rigidity. It is more precise than same-edge payment, but no better complete endpoint is established. Do not allocate another run merely to proving existence of enough raw prime donors. The missing consumer, signed mark and restoration now dominate the risk. Keep PS as supporting evidence, not a tenth accepted RH route.
+- **Adversarial Referee:** Review PS1's positive 5/7 exception and equal-radical powers; PS2's full-population quantifiers; PS3's strict square cutoff and +1 floor cost; PS4's distinct-pair allocation and all-time versus per-root distinction. Independently check the r=71 certificate, the ordinary-PNT donor transfer and (PS.9). FA's paper status is not silently upgraded by this author's recheck. The desired verdict is on the exact scoped statements, not an inferred global claim.
+- **Prime Census Laboratory:** Decisive reproduction is r=71, (q,n,ell)=(299,5083,13): L298=66, L299=67, owner 17/signature {13}, local residual >0.061833878902 while full excess < -946.549619003698. A separate cross-owner prime 2539 repairs the q=299 edge in the exhibited full allocation. Reproduce distinct pair identities and full anchors before extending ranges. r=13,(65,195),P=89 tests recent pairing; (11,1331) tests the squareful residual. No unchanged nullity scan is requested.
+- **Analytic Type II:** The genuine recent contribution is H_rec=-2w_r E_rec, |H_rec|<=4r/log^2 r, not a cancellation estimate. The remaining old contribution has mixed mu signs, and the actual complete marked scalar is L_r(H_old+H_rec). A theorem for an unmarked negative Phi subtotal does not control this scalar. No PS-to-OAI moment bridge is claimed; preserve your independent DM/FT/FFR consumer work.
+- **Finite Wheel & Incidence:** PS1-PS2 supply exact physical-prime signature exclusions, not arbitrary coefficient or gcd-response norm bounds. PS4 cross-owner transfer changes intrinsic owner and must not be mistaken for a current returned-parent admission. Preserve PD's signed H-E cross term and UM's r=115 failure; no prime-donor injection is offered as a frozen-mu Euler estimate.
+- **Lean Verification:** No source edit or proof PR is requested by this agent. After independent acceptance and only with an actual consumer, PS2/PS3 and PS4a are elementary candidate lemmas using existing half-run geometry, exact physical weights and Mathlib Bertrand. Reuse the historical compression and original weld. PS4b additionally needs the ordinary-PNT-to-donor-count bridge and a finite injection, with an existential uniform threshold. The full endpoint remains NO_NEW_GLOBAL_THEOREM_TO_FORMALIZE; do not encode the unpaid complement as an assumed supplier.
+
+These are asynchronous published handoffs, not agent launches or a promise of background execution.
+
+### J. First Independently Missing Lemma
+
+For the canonical objective, the first missing bridge is still a coefficient-preserving return from the proposed event representation to the ENTIRE unmarked physical source, including its absolute term, corrections, squareful complement and restoration. PS4 pays an actual subset, but no favorable bound for its complement follows. Writing that the complement is at most -Rest would merely rename the missing global condition, so it is NOT registered as a new lemma.
+
+A precise, independent proper-source quantitative question that survives is the signed balance between old events and the forced negative recent sector. For r>=14 define
+
+```text
+S_old(r)=sum_(FA edges with n/q>=5) mu(n),
+E_3(r)=#{FA edges with n=3q}.
+Then H_all=2w_r(S_old(r)-E_3(r)).
+OPEN QUESTION, not an asserted theorem:
+  exists delta>0,C>=0, forall r>=14,
+  |S_old(r)-E_3(r)|<=C r^(1-delta).                  (J-PS-MIX)
+```
+
+This asks for real multiplicative-sign correlation of the old cofactor sectors with the exact floor-Li event process. The already proved total-count bound is only O(r), and PS3 supplies no such correlation. A proof would give |H_all|<=3C r^(1-delta)/log r for this diagnostic, but would STILL require the complete unmarked bridge and control of L_r before an endpoint inference. It is not logically identified with RH or a necessary condition for the canonical target. The earlier narrower MC/FA owner-3 question retains its own ID and is not claimed solved by changing notation. This run does not assert that J-PS-MIX is the best endpoint strategy; the immediate highest-value step is independent review of the support/transfer distinction and a decision whether a real unmarked consumer exists.
+
+### K. Next-Run Resume Capsule And Publication
+
+- Resume from main 59612bc8b5c30c528d8367667ea5846a8053f114, current cross-route and continuity blobs above; refresh live authority and latest actual reports again. #1132 is merged, not pending. The certified fixed-family baseline is unchanged; accepted IR/FFR paper endpoint remains separate.
+- Preserve MC1-MC4, FA1-FA6 and PS1-PS6, the actual r=71 counterexample and r=10 full-source sign distinction. PS paper review is pending. No power saving, first-bad failure, finite-C estimate or RH conclusion has been obtained.
+- Strongest new restriction: all half-run negative physical pairs have empty lower signature; recent event ancestry is exactly cofactor 3. Strongest new compensator: actual distinct prime/current pairs pay selected ancestry, uniformly recent and eventually all ancestry. Strongest obstruction: complete historical restoration and negative marks prevent automatic endpoint transfer.
+- Do not repeat a routine event census. Either independently validate PS and use it in a named complete consumer, or test the precise old/recent signed balance only after explaining why its consumer is useful. Do not silently retire independent Euler/NYMAN/analytic investigations.
+- Early checkpoint commit `97e21d82c66a91bddac5ea14747725b7c05ea4a9`, blob `8f35c6426c8f4014008a3404198bed4e80586e50`, was re-fetched at its immutable commit and matched the complete intended text exactly. Earlier valid evidence was preserved as an exact prefix. This synthesis's publication verification is recorded separately after committing.
+- Tool limits: one local clone attempt failed CONNECT tunnel 403. Authenticated GitHub source, tree, PR, check and report-writing tools worked. No Lean build ran; no independent review occurred. Only the owned daily report is changed remotely. No main/Lean/policy/workflow/other-report/branch/PR/schedule/permission changes, merge or agent launch.
+
+#### Material Source Ledger
+
+All RH_Lean source files below were read at main 59612bc8b5c30c528d8367667ea5846a8053f114. Declaration names in the derivation are from these actual contents; compiled status is reused only at its previously verified scope.
+
+| Source | Blob SHA |
+| --- | --- |
+| research/VF_MID_SIGNED_SEAT_CHARGE.lean | 87a6654a4a4337b409fde69aa15d7264d8b721b6 |
+| research/VF_MID_NATIVE_LYAPUNOV_SEAT_GRAM.lean | 23e7b0c5c9f4b50997a508345d91f30364f93f10 |
+| research/VF_MID_FIRST_BAD_HISTORY_COMPRESSION.lean | d9cc97541f9713b6eec8df30885e9ca830478e59 |
+| research/VF_MID_915_EXACT_HISTORICAL_NNS_COMPRESSION.lean | 6cc6b2a9d25279dd44fb65cb222f5d6846a912d4 |
+| research/VF_MID_915_GLOBAL_MOBIUS_PHYSICAL_WELD_20261021.lean | 5e3212e20666b9ed7f13d6bd9ebadfad88338eaa |
+| research/VF_MID_FIRST_BAD_ACTIVE_RAW_PARENT_SPLICE.lean | dd872ccdf0eac1e78f998aa77f357f68df53f76e |
+| research/VF_MID_FIRST_BAD_FINAL_AGGREGATE_CONTRACTION.lean | 47e4255f76fb3387d1b12d0fa185cffde2744e63 |
+| research/GLOBAL_RETURNED_CORE_FIRST_OWNER_CELL_FUBINI.lean | a52558fd2dc5e50cf6a5673e2bea123683d5c43a |
+| research/GLOBAL_RETURNED_CORE_FIRST_OWNER_ARBITRARY_SITE_CELLS.lean | c99074725868c1e4798d2539d86bb2f1a7912e60 |
+| research/VF_MID_915_MIDDLE_PRIME_COMPOSITE_CAPACITY.lean | 28d4243d5527b3185b813397246c05bfe9a7ca88 |
+| research/VF_CANONICAL_SQRT_TWO_VON_KOCH.lean | 79030d70e8d3e0d08eef9bac53fef95c36eca2fb |
+| research/CompleteSquareRootWheelFractionalBoundary.lean | ecb482e52deeee5e9b3853592a3ffdace662d2ff |
+| research/EULER_SELF_DUAL_ENDPOINT_GATE_20261027.lean | e7ee8f77ffd59bccaa49dd6d74fbe0d7952c2d73 |
+| docs/COORDINATE_ATLAS.md | cd0419d00a37739fe5a292f5cb738e33213949d5 |
+| research/oai_434/VF919WindowErrorClosure.lean | f629db1b2b65d6ec042ac9432397d4b6316200c6 |
+| research/oai_434/VF919NativeSevenEighthsReplay.lean | 111c933a7ca15647105ce6a4d0f3cbfc3cde81f4 |
+| research/oai_434/VF919NativeStrictMertens.lean | b33a4883e1ddb0551b0f11f062bce46680d87450 |
+| research/oai_434/VF919ExplicitSquareBlockPacking.lean | 32999039fdeea99c58a070c1c4ee9c140720dd44 |
+| scripts/lean/window_error_closure/WindowErrorClosureAudit.lean | 1f17f9401a63d16227db2e2aad020b9f74bc5f4e |
+| RHLean/Analysis/PrimeSievePNTCentering.lean | b2d182221a15c7bc98d7347b73e6045281191415 |
+| research/PRIME_DENSITY_PNT_LOG_BOUND.lean | 0ddcec6c7136be47aa2c936100d02fc378fbbe93 |
+
+The last two files explicitly provide exact PNT centering and Li-density estimates, NOT a prime-distribution-error estimate. They were checked and not misused as the independent PNT donor theorem. That donor input is the pinned external StrongPNT statement with its elementary transfer in D6.
+
+#### Reproduction Receipts
+
+Final checker SHA-256 `ab45640ef5609205b325a3796ef7fef755b354f0135e77dded5144ad80276cd7`; helper SHA-256 `37e54eea97d6632156a2d05d478c24fe76c7bb0383df1fd5d6d52cfcda2a54ac`; registration SHA-256 `91d8e02d1ec43c4d27e767c62b267eb080201a6ce2471f0488bcdab824b42392`. The helper is verbatim reused from prior FA evidence, not a new numerical method. The initial checker version was `01ceb3c4626ced38c46ffad6143f5449788995593bb2a1c661a462fa2c4cc489`; its 414974 checks preceded the disclosed full-marked/all-ancestry/integral extensions. Final executed sources and registration are appended below for reproducibility; no scratch-only file link is needed.
+
+
+### PS Exact Test Registration
+
+```text
+# PS Exact Research Test Registration
+
+Invocation: 20261111-owner-1615-EST/PS. Registered before executing the new checker.
+
+- Source: original odd open-square seats, weight w_s=(2s+1)/(s log(s^2+s+1/2)), actual primes, and Co/Div pair functional 4uv-2|uv|. Keep all squareful sites, physical history, the historical anchor and its exact restoring price.
+- Structural prediction: a negative physical pair has empty lower signature or a singleton consisting of its negative prime; negative singleton historical/current pairs have at most one possible historical prime per current composite. Equal-radical negative pairs must be prime/pure-prime-power pairs. Primes 5 and 7 are positive, not negative, at their original age.
+- Canonical half-run prediction: for r>=8, A=floor(r/2)+1, every negative intersite pair within ages A..r has empty lower signature. No equal-radical negative pair occurs there.
+- Actual FA event prediction: an admitted ancestor in that half-run has n=3q, unique q per n, owner 3 and empty signature; its Mobius sign is -1. Keep the cutoff q>A^2. For r>=14 this cutoff is automatic for n/3.
+- Quantitative paper candidates: E_recent<=4r/(3log r), |H_recent|<=4r/log^2 r, and J_recent<=12r/log^3 r. Finite tests do not establish these uniform inequalities.
+- Competing compensation predictions: same-cell prime-negative repair fails in cells containing two lower primes or the singleton 3/5/7. A different, allowed recent-sector repair uses one actual prime P in (floor(r^2/2),r^2) and pairs each positive edge (q,n) with the distinct negative edge (P,n); no pair or diagonal is duplicated. The complete remaining cross terms and historical restoration remain unpaid.
+- Test r=3..64 for support/admission and r=8..64 for canonical-half-run pairing. Independently reconstruct complete r=10 source and its marked coefficient. Check exact fixed-point log/Li enclosures and exact rational inequalities. Include separate limited witnesses r=115 and r=549 for structural source tests, not unchanged broad event scans.
+- Search r=8..96 for a genuine even-parity floor-Li event with singleton signature {ell}, ell>=11, whose positive ancestor cost exceeds the only same-signature prime capacity. Report a found witness without claiming global minimality unless all preceding cases are checked.
+- Negative controls: keep primes 5/7 with their actual positive signs; restore squareful equal-radical terms; do not relabel the anchor as prime 3; compare full source to partial-pair cancellation. No first-bad predicate is asserted by a small-root witness.
+- Exact log/Ei enclosure helpers are reused verbatim from the prior FA checker at report blob accf2930372234b58e98e8e43e88aeb845b56e9b. New source/support and pairing checks are this run's work; not independent Referee review or Lean proof.
+
+## Proof-Led Extension Before Execution
+
+- For s>=5 use w_s<=11/15. Bertrand's theorem supplies a genuine prime P with floor(r^2/2)<P<r^2 inside the canonical half-run, for every r>=8. A paired event contribution is at most -(2/15)w_r, retaining actual weights and the unique physical prime/current pair.
+- Test the complete disjoint pair allocation, not just two signs. Keep the selected prime diagonal, its other interactions, all current/current pairs, anchor and full restoring price in the complement.
+- Reconstruct the complete original excess symbolically at r=10 for both A=2 and A=6; verify exact polynomial equality after every pair sector and restoration. Numeric signs use only outward rational intervals.
+
+## Whole-Ancestry Extension Before Its Checks
+
+- PNT implies eventually at least 2r genuine primes in (floor(r^2/2),r^2); combine FA's E_r<=2r with distinct donor primes for all event edges. For r>=10 each donor has weight <=13/20, while every event ancestor has weight <1. The matched original pair sum should be <=-(1/10)w_r E_r. This is a proper-source theorem with PNT, not new global cancellation. Test r=10..96 for the weaker actual event capacity, retaining every disjoint pair and every omitted complement.
+- Add exact full marked-coefficient reconstruction at r=10, the original unmarked r=71 excess, and a separate monotone Riemann integral certificate for Li_2(298),Li_2(299). These supplement, not replace, the first completed checker run (414974 passed checks).
+```
+
+### PS Exact Executed Helpers
+
+```python
+"""Full-source marked-coefficient audit; no Lean or endpoint claim."""
+
+from functools import lru_cache
+from math import gcd, isqrt
+import json
+
+S = 10**40
+
+
+def ceildiv(a, b):
+    return -(-a // b)
+
+
+def log_unit(a, b):
+    assert b <= a <= 2*b
+    zn, zd = a-b, a+b
+    pl, ph = S*zn//zd, ceildiv(S*zn, zd)
+    zl, zh = S*zn*zn//(zd*zd), ceildiv(S*zn*zn, zd*zd)
+    lo = hi = 0
+    terms = 100
+    for j in range(terms):
+        lo += 2*pl//(2*j+1)
+        hi += ceildiv(2*ph, 2*j+1)
+        pl, ph = pl*zl//S, ceildiv(ph*zh, S)
+    hi += ceildiv(2*ph*S, (2*terms+1)*(S-zh))
+    return lo, hi
+
+
+LOG2 = log_unit(2, 1)
+
+
+@lru_cache(None)
+def log_bounds(a, b=1):
+    if a < b:
+        lo, hi = log_bounds(b, a)
+        return -hi, -lo
+    k = 0
+    while a >= 2*b:
+        b *= 2
+        k += 1
+    lo, hi = log_unit(a, b)
+    return lo+k*LOG2[0], hi+k*LOG2[1]
+
+
+def ei_bounds(tl, th):
+    lo, hi = log_bounds(tl, S)[0], log_bounds(th, S)[1]
+    pl = ph = S
+    terms = 180
+    for k in range(1, terms+1):
+        pl, ph = pl*tl//(S*k), ceildiv(ph*th, S*k)
+        lo += pl//k
+        hi += ceildiv(ph, k)
+    nxt = ceildiv(ph*th, S*(terms+1))
+    assert th < S*(terms+2)
+    hi += ceildiv(nxt*S*(terms+2), (terms+1)*(S*(terms+2)-th))
+    return lo, hi
+
+
+EI2 = ei_bounds(*LOG2)
+
+
+@lru_cache(None)
+def li_bounds(n):
+    if n == 2:
+        return 0, 0
+    lo, hi = ei_bounds(*log_bounds(n))
+    return lo-EI2[1], hi-EI2[0]
+
+
+def potential(n):
+    lo, hi = li_bounds(n)
+    assert lo//S == hi//S
+    return lo//S
+```
+
+### PS Exact Executed Checker
+
+```python
+"""Exact physical-pair support and recent-ancestor checks; no Lean claim."""
+
+from collections import Counter, defaultdict
+from functools import lru_cache
+from itertools import combinations
+from math import isqrt
+from pathlib import Path
+import hashlib
+import json
+
+from ps_helpers import S, ceildiv, log_bounds, potential
+
+
+@lru_cache(None)
+def factor(n):
+    original, primes, mu = n, [], 1
+    p = 2
+    while p * p <= n:
+        if n % p == 0:
+            exponent = 0
+            while n % p == 0:
+                n //= p
+                exponent += 1
+            primes.append(p)
+            mu = -mu if exponent == 1 else 0
+        p += 1
+    if n > 1:
+        primes.append(n)
+        mu = -mu
+    return frozenset(primes), mu, original in primes
+
+
+def seats(r):
+    return list(range(r*r + 1 + r % 2, (r+1)**2, 2))
+
+
+def cell(a, b):
+    fa, fb = factor(a)[0], factor(b)[0]
+    delta = fa ^ fb
+    if not delta:
+        return None, None
+    p = min(delta)
+    signature = tuple(sorted(q for q in fa if q < p))
+    assert signature == tuple(sorted(q for q in fb if q < p))
+    return p, signature
+
+
+def physical_sign(n):
+    return -1 if factor(n)[2] and isqrt(n) >= 3 else 1
+
+
+def addi(*values):
+    return sum(v[0] for v in values), sum(v[1] for v in values)
+
+
+def muli(a, b):
+    products = [x*y for x in a for y in b]
+    return min(products)//S, ceildiv(max(products), S)
+
+
+def scalei(k, a):
+    return (k*a[0], k*a[1]) if k >= 0 else (k*a[1], k*a[0])
+
+
+@lru_cache(None)
+def weight(r):
+    lo, hi = log_bounds(2*r*r+2*r+1, 2)
+    return (S*S*(2*r+1)//(r*hi), ceildiv(S*S*(2*r+1), r*lo))
+
+
+def format_i(a, digits=12):
+    unit = 10**digits
+    def fmt(x):
+        sign = '-' if x < 0 else ''
+        x = abs(x)
+        return f'{sign}{x//unit}.{x%unit:0{digits}d}'
+    return [fmt(a[0]*unit//S), fmt(ceildiv(a[1]*unit, S))]
+
+
+def divisors(n):
+    out = [1]
+    for p in factor(n)[0]:
+        out += [a*p for a in out]
+    return out
+
+
+@lru_cache(None)
+def events(r):
+    out = []
+    for n in seats(r):
+        if not factor(n)[1]:
+            continue
+        for q in sorted(divisors(n)):
+            if r < q < n and factor(q)[1] == 1:
+                jump = potential(q)-potential(q-1)
+                assert jump in (0, 1)
+                if jump:
+                    out.append((q, n))
+    return out
+
+
+counts = Counter()
+
+
+def check(name, assertion):
+    assert assertion, name
+    counts[name] += 1
+
+
+for r in range(2, 98):
+    lo, hi = weight(r)
+    check('weight_sign', lo > S if r == 2 else 0 < lo <= hi < S)
+    if r >= 5:
+        check('weight_11_over_15', 15*hi < 11*S)
+
+# Exhaustive original history/current negative-pair classification.
+outside_counts = []
+for r in range(3, 65):
+    current = seats(r)
+    history = [n for s in range(2, r) for n in seats(s)]
+    exceptional = []
+    for b in history:
+        for n in current:
+            if physical_sign(b) == physical_sign(n):
+                continue
+            p, sig = cell(b, n)
+            if p is None or sig:
+                check('outside_empty_orientation', factor(b)[2] and b >= 11
+                      and not factor(n)[2] and min(factor(n)[0]) == b)
+                check('outside_empty_unique_prime',
+                      (p is None and factor(n)[0] == frozenset([b]))
+                      or (sig == (b,) and p == min(factor(n)[0]-{b})))
+                exceptional.append((b, n))
+            elif factor(n)[2]:
+                check('current_prime_empty_signature', sig == ())
+    predicted = [(min(factor(n)[0]), n) for n in current if not factor(n)[2]
+                 and min(factor(n)[0]) >= 11]
+    check('outside_empty_full_population', sorted(exceptional) == sorted(predicted))
+    check('outside_empty_once_per_current_site', len(exceptional) <= r)
+    outside_counts.append((r, len(exceptional)))
+
+recent_rows = []
+selected_pair_count = 0
+for r in range(8, 65):
+    A, X = r//2+1, (r+1)**2-1
+    population = [n for s in range(A, r+1) for n in seats(s)]
+    check('half_run_clock', A*A >= r and 4*A*A > X and A*A <= r*r//2)
+    for n in population:
+        if not factor(n)[2]:
+            check('composite_least_factor_below_all_primes', min(factor(n)[0]) <= r)
+        else:
+            check('half_run_prime_above_root', n > r and physical_sign(n) == -1)
+    recent = [(q, n) for q, n in events(r) if isqrt(q) >= A]
+    for q, n in recent:
+        check('recent_cofactor_three', n == 3*q and cell(q, n) == (3, ()))
+        check('recent_mobius_sign', factor(n)[1] == -1 and isqrt(q) < r)
+    check('recent_unique_current_site', len({n for _, n in recent}) == len(recent))
+    if r >= 14:
+        check('automatic_cutoff', recent == [(q, n) for q, n in events(r) if n == 3*q])
+    P = next(p for p in range(r*r//2+1, r*r) if factor(p)[2])
+    check('bertrand_physical_admission', A <= isqrt(P) < r and P > r)
+    allocated = []
+    for q, n in recent:
+        allocated.extend([(q, n), (P, n)])
+        check('paired_same_owner', cell(P, n) == cell(q, n) == (3, ()))
+        gap = addi(scalei(2, weight(isqrt(q))),
+                   scalei(6, addi(weight(isqrt(P)), (-S, -S))))
+        check('paired_uniform_negative_gap', 15*gap[1] <= -2*S)
+        selected_pair_count += 2
+    check('all_allocated_pairs_distinct', len(allocated) == len(set(allocated)))
+    logr = log_bounds(r)
+    check('recent_count_bound', 3*len(recent)*logr[1] <= 4*r*S)
+    H = scalei(2*len(recent), weight(r))
+    J = addi(*(scalei(2, muli(weight(r), weight(isqrt(q)))) for q, _ in recent))
+    check('recent_mark_bound', muli(H, muli(logr, logr))[1] <= 4*r*S)
+    check('recent_ancestry_bound', muli(J, muli(logr, muli(logr, logr)))[1] <= 12*r*S)
+    if recent:
+        recent_rows.append({'r': r, 'A': A, 'P': P, 'edges': recent,
+                            'paired_gap': format_i(muli(weight(r),
+                                addi(*(addi(scalei(2, weight(isqrt(q))),
+                                            scalei(6, addi(weight(isqrt(P)), (-S, -S))))
+                                       for q, _ in recent))))})
+
+# Search a distinct no-go: even an available singleton negative prime is inadequate.
+singleton_witness = None
+for r in range(8, 97):
+    groups = defaultdict(list)
+    for q, n in events(r):
+        p, sig = cell(q, n)
+        if len(sig) == 1 and sig[0] >= 11:
+            groups[(n, p, sig)].append(q)
+    for (n, p, sig), qs in sorted(groups.items()):
+        ell = sig[0]
+        gap = addi(addi(*(weight(isqrt(q)) for q in qs)),
+                   scalei(3, addi(weight(isqrt(ell)), (-S, -S))))
+        if gap[0] > 0:
+            singleton_witness = {'r': r, 'n': n, 'owner': p, 'signature': sig,
+                                 'events': qs, 'negative_prime': ell,
+                                 'q_li_floors': [[q, potential(q-1), potential(q)] for q in qs],
+                                 'unscaled_gap': format_i(gap),
+                                 'physical_gap': format_i(scalei(2, muli(weight(r), gap)))}
+            break
+    if singleton_witness:
+        break
+check('singleton_capacity_falsifier_found', singleton_witness is not None)
+
+# Exact polynomial accounting in the distinct original weight variables w_s.
+def poly_add(*polys):
+    result = Counter()
+    for poly in polys:
+        for key, value in poly.items():
+            result[key] += value
+    return {k: v for k, v in result.items() if v}
+
+
+def poly_scale(c, a):
+    return {k: c*v for k, v in a.items() if c*v}
+
+
+def poly_mul(a, b):
+    result = Counter()
+    for ka, va in a.items():
+        for kb, vb in b.items():
+            result[tuple(sorted(ka+kb))] += va*vb
+    return {k: v for k, v in result.items() if v}
+
+
+def poly_eval(a):
+    vals = []
+    for key, c in a.items():
+        value = (S, S)
+        for age in key:
+            value = muli(value, weight(age))
+        vals.append(scalei(c, value))
+    return addi(*vals)
+
+
+def z(n):
+    return poly_add({(isqrt(n),): 1}, {(): -int(factor(n)[2])})
+
+
+def pair(a, b, sa, sb):
+    return poly_scale(2 if sa == sb else 6, poly_mul(a, b))
+
+
+def defect(r):
+    return poly_add({(): sum(factor(n)[2] for n in range(2, r*r+1))},
+                    {(s,): -s for s in range(2, r)})
+
+
+complete = []
+for A in [2, 6]:
+    r = 10
+    past = [n for s in range(A, r) for n in seats(s)]
+    current = seats(r)
+    pop = past + current
+    h = poly_scale(-1, defect(A))
+    hi = poly_eval(h)
+    sh = 1 if hi[0] > 0 else -1
+    check('anchor_sign_certified', hi[0] > 0 or hi[1] < 0)
+    U = poly_add(*(z(n) for n in past if physical_sign(n) > 0), h if sh > 0 else {})
+    V = poly_scale(-1, poly_add(*(z(n) for n in past if physical_sign(n) < 0), h if sh < 0 else {}))
+    C = poly_add(*(poly_scale(physical_sign(n), z(n)) for n in current))
+    T = poly_add(*(z(n) for n in current))
+    D = defect(r)
+    di = poly_eval(D)
+    sd = 1 if di[0] > 0 else -1
+    absD = poly_scale(sd, D)
+    restoration = poly_add(poly_scale(4, poly_mul(U, V)),
+        poly_scale(2, poly_mul(C, poly_add(U, V, poly_scale(-1, absD)))))
+    sectors = {'empty': {}, 'nonempty': {}, 'equal_radical': {}}
+    for a, b in combinations(pop, 2):
+        p, sig = cell(a, b)
+        label = 'equal_radical' if p is None else 'nonempty' if sig else 'empty'
+        if A == 6 and label != 'empty':
+            check('half_run_nonempty_nonnegative', physical_sign(a) == physical_sign(b))
+        sectors[label] = poly_add(sectors[label], pair(z(a), z(b), physical_sign(a), physical_sign(b)))
+    diagonal = poly_add(poly_mul(h, h), *(poly_mul(z(n), z(n)) for n in pop))
+    anchor_pairs = poly_add(*(pair(h, z(n), sh, physical_sign(n)) for n in pop))
+    expanded = poly_add(diagonal, anchor_pairs, restoration, *sectors.values())
+    source = poly_add(poly_scale(2, poly_mul(poly_add(T, poly_scale(-1, D)),
+                                          poly_add(T, poly_scale(-1, D)))),
+                      poly_scale(-1, poly_mul(poly_add(absD, C), poly_add(absD, C))))
+    check('complete_exact_polynomial_return', expanded == source)
+    kappa = Counter()
+    for q, n in events(r):
+        kappa[n] += 2*factor(n)[1]
+    H = {(r,): sum(kappa.values())}
+    linear = poly_add(*(poly_scale(2*kappa[n], poly_mul(z(n), z(n))) for n in current),
+        *(poly_scale(kappa[a]+kappa[b], pair(z(a), z(b), physical_sign(a), physical_sign(b)))
+          for a, b in combinations(pop, 2)),
+        *(poly_scale(kappa[n], pair(h, z(n), sh, physical_sign(n))) for n in current),
+        poly_scale(2, poly_mul(H, poly_add(U, V, poly_scale(-1, absD)))))
+    predicted_linear = poly_mul(H, poly_add(poly_scale(4, poly_add(T, poly_scale(-1, D))),
+                                           poly_scale(-2, poly_add(absD, C))))
+    check('complete_marked_polynomial_return', linear == predicted_linear)
+    complete.append({'r': r, 'A': A, 'full_excess': format_i(poly_eval(source)),
+                     'full_marked_linear': format_i(poly_eval(linear)),
+                     'raw_defect': format_i(di),
+                     'restoration': format_i(poly_eval(restoration)),
+                     'diagonal': format_i(poly_eval(diagonal)),
+                     'anchor_pairs': format_i(poly_eval(anchor_pairs)),
+                     'pair_sectors': {k: format_i(poly_eval(v)) for k, v in sectors.items()}})
+
+# Limited held-out tests do not repeat the event census or all quadratic pairs.
+held_out = []
+for r in [115, 549]:
+    A = r//2+1
+    P = next(p for p in range(r*r//2+1, r*r) if factor(p)[2])
+    check('held_out_half_run', A*A <= r*r//2 < P < r*r)
+    composite_count = 0
+    for n in seats(r):
+        if not factor(n)[2]:
+            check('held_out_prime_composite_owner', cell(P, n) == (min(factor(n)[0]), ()))
+            composite_count += 1
+    held_out.append({'r': r, 'A': A, 'P': P, 'current_composites': composite_count})
+
+check('warmup_prime_control', weight(2)[0] > S and physical_sign(5) == physical_sign(7) == 1)
+check('r10_ancestor_signature_control', cell(15, 105) == (7, (3, 5)) and cell(21, 105) == (5, (3,)))
+check('r10_not_in_half_run', all(isqrt(q) < 6 for q, n in events(10)))
+check('equal_radical_negative_control', cell(11, 1331) == (None, None)
+      and physical_sign(11) != physical_sign(1331))
+
+whole_ancestry = []
+for r in range(10, 97):
+    donors = [p for p in range(r*r//2+1, r*r) if factor(p)[2]]
+    edges = events(r)
+    check('whole_ancestry_actual_capacity', len(donors) >= len(edges))
+    allocated = []
+    total_gap = (0, 0)
+    for (q, n), P in zip(edges, donors):
+        allocated.extend([(q, n), (P, n)])
+        gap = addi(scalei(2, weight(isqrt(q))),
+                   scalei(6, addi(weight(isqrt(P)), (-S, -S))))
+        check('whole_ancestry_negative_gap', 10*gap[1] <= -S)
+        check('whole_ancestry_empty_transfer', cell(P, n) == (min(factor(n)[0]), ()))
+        check('whole_ancestry_coprime_donor', n % P != 0)
+        total_gap = addi(total_gap, muli(weight(r), gap))
+    check('whole_ancestry_distinct_pairs', len(allocated) == len(set(allocated)))
+    if r in [10, 13, 71, 96]:
+        whole_ancestry.append({'r': r, 'edge_count': len(edges), 'donor_count': len(donors),
+                              'pairs': list(zip(edges, donors)), 'gap': format_i(total_gap)})
+
+# Different Li certificate: monotone integral Riemann sums with exact logs.
+grid = 64
+lower = upper = 0
+integral_certificates = []
+for k in range(2*grid, 299*grid):
+    left = log_bounds(k, grid)
+    right = log_bounds(k+1, grid)
+    lower += S*S//(grid*right[1])
+    upper += ceildiv(S*S, grid*left[0])
+    if k+1 in [298*grid, 299*grid]:
+        n = (k+1)//grid
+        check('independent_li_integral_floor', lower//S == upper//S == potential(n))
+        integral_certificates.append({'n': n, 'enclosure': format_i((lower, upper)), 'floor': lower//S})
+
+r = singleton_witness['r']
+D = defect(r)
+di = poly_eval(D)
+check('singleton_full_defect_sign', di[0] > 0 or di[1] < 0)
+T = poly_add(*(z(n) for n in seats(r)))
+C = poly_add(*(poly_scale(physical_sign(n), z(n)) for n in seats(r)))
+absD = poly_scale(1 if di[0] > 0 else -1, D)
+full = poly_add(poly_scale(2, poly_mul(poly_add(T, poly_scale(-1, D)), poly_add(T, poly_scale(-1, D)))),
+                poly_scale(-1, poly_mul(poly_add(absD, C), poly_add(absD, C))))
+singleton_witness['original_unmarked_excess'] = format_i(poly_eval(full))
+
+print(json.dumps({'status': 'PASS', 'checks': dict(counts), 'total_checks': sum(counts.values()),
+                  'outside_empty_counts': outside_counts,
+                  'recent_nonempty_roots': len(recent_rows), 'selected_pair_count': selected_pair_count,
+                  'recent_examples': recent_rows[:4], 'singleton_witness': singleton_witness,
+                  'complete_source_r10': complete, 'held_out': held_out,
+                  'whole_ancestry_examples': whole_ancestry, 'independent_li_integrals': integral_certificates,
+                  'hashes': {p: hashlib.sha256(Path(p).read_bytes()).hexdigest()
+                             for p in ['ps_check.py', 'ps_helpers.py', 'ps-registration.md']},
+                  'scope': 'Exact finite arithmetic and interval certificates only; no Lean or global estimate'}, indent=2))
+```
+
+### PS Final Prepublication Refresh
+
+Live main remained 59612bc8b5c30c528d8367667ea5846a8053f114. The complete open/draft PR collection remained empty. All other role report blobs in the November 11 directory remained unchanged from the continuity ledger. The own report was fetched immediately before updating: blob 8f35c6426c8f4014008a3404198bed4e80586e50, exactly equal to the verified early checkpoint text. Earlier report content is preserved byte-for-byte as the prefix. Publication status is pending until immutable commit inspection and readback below.
