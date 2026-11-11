@@ -25,7 +25,8 @@ def roots : Array Name := #[
   `OAI.SevenEighths.PrincipalSlotEstimate.principal_slot_response_exact,
   `OAI.SevenEighths.PrincipalSlotEstimate.principal_slot_partial_tail,
   `OAI.SevenEighths.PrincipalSlotEstimate.principal_slot_partial_error,
-  `OAI.SevenEighths.PrincipalSlotEstimate.weighted_principal_product_partial_error
+  `OAI.SevenEighths.PrincipalSlotEstimate.weighted_principal_product_partial_error,
+  `OAI.SevenEighths.PrincipalSlotEstimate.weighted_principal_product_partial_power
 ]
 
 end PrincipalFiniteResponseAudit
@@ -52,7 +53,7 @@ def main (_args : List String) : IO UInt32 := do
         `OAI.SevenEighths.ProbeEuler.coordR_norm_le] do
       unless reached.contains required do
         throw (IO.userError s!"Missing original-source proof dependency: {required}")
-    if theoremName.toString.endsWith "weighted_principal_product_partial_error" then
+    if theoremName.toString.startsWith "OAI.SevenEighths.PrincipalSlotEstimate.weighted_principal_product" then
       for required in #[
           `OAI.SevenEighths.PrincipalSlotEstimate.principal_slot_partial_error,
           `OAI.SevenEighths.PrincipalSlotEstimate.principalScalar_eq] do

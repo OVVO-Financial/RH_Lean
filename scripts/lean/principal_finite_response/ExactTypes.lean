@@ -8,6 +8,8 @@ open OAI.SevenEighths.PrincipalSlotEstimate
 #check principal_slot_partial_error
 #check principal_slot_partial_norms
 #check weighted_principal_product_partial_error
+#check exists_principal_truncation_order
+#check weighted_principal_product_partial_power
 
 example (K : ℕ) {Q : ℝ} {A eta s : ℂ}
     (hQ : 480 ≤ Q) (hA : ‖A‖ ≤ 1) (heta : ‖eta‖ = 1)
@@ -36,3 +38,4 @@ example {κ ι : Type*} (S : Finset κ) (T : κ → Finset ι)
 #print axioms principal_slot_partial_tail
 #print axioms principal_slot_partial_error
 #print axioms weighted_principal_product_partial_error
+#print axioms weighted_principal_product_partial_power

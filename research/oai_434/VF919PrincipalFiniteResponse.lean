@@ -191,7 +191,8 @@ theorem principal_slot_partial_error (K : ℕ) {Q : ℝ} {A eta s : ℂ}
   obtain ⟨_, hq, hW, hsmall, hdecay, _⟩ := principal_response_data hQ hA heta hs
   have hW' : ‖1 - principalResponseWeight Q A eta s‖ ≤ 2 := by
     have h := norm_sub_le (1 : ℂ) (principalResponseWeight Q A eta s)
-    simpa only [norm_one] using h.trans (by linarith)
+    simp only [norm_one] at h
+    linarith
   have hi := inv_one_sub_norm_le_two _ hsmall
   rw [principal_slot_partial_tail K hQ hA heta hs, div_eq_mul_inv,
     norm_mul, norm_mul, norm_mul, norm_pow]
@@ -207,7 +208,8 @@ theorem principal_slot_partial_norms (K : ℕ) {Q : ℝ} {A eta s : ℂ}
   obtain ⟨hq, h1q, hW, hsmall, _, heq⟩ := principal_response_data hQ hA heta hs
   have hW' : ‖1 - principalResponseWeight Q A eta s‖ ≤ 2 := by
     have h := norm_sub_le (1 : ℂ) (principalResponseWeight Q A eta s)
-    simpa only [norm_one] using h.trans (by linarith)
+    simp only [norm_one] at h
+    linarith
   have hi := inv_one_sub_norm_le_two _ hsmall
   have hg := finite_geometric_norm_le_two (principalResponseBase Q A eta s) K hsmall
   constructor
@@ -254,8 +256,9 @@ private theorem norm_product_le_five {ι : Type*} (S : Finset ι)
     ‖∏ i ∈ S, f i‖ ≤ (5 : ℝ) ^ S.card := by
   rw [norm_prod]
   calc
-    _ ≤ ∏ _i ∈ S, (5 : ℝ) :=
-      Finset.prod_le_prod (fun _ _ => norm_nonneg _) hf
+    _ ≤ ∏ _i ∈ S, (5 : ℝ) := by
+      gcongr with i hi
+      exact hf i hi
     _ = _ := by simp
 
 private theorem product_difference_bound {ι : Type*} (S : Finset ι)
@@ -316,7 +319,7 @@ theorem weighted_principal_product_partial_error {κ ι : Type*} (S : Finset κ)
     rw [principalScalar_eq, ← Finset.prod_div_distrib]
     apply Finset.prod_congr rfl
     intro j _
-    simp [f, Finset.sum_neg_distrib]
+    simp [f, Finset.sum_neg_distrib, div_neg, neg_div]
   rw [hid]
   change ‖(∏ j ∈ S, f j) - ∏ j ∈ S, g j‖ ≤ _
   apply product_difference_bound S f g _ (by positivity)
@@ -341,8 +344,53 @@ theorem weighted_principal_product_partial_error {κ ι : Type*} (S : Finset κ)
     intro i hi
     apply (principal_slot_partial_error K (hP.trans (hQ j hj i hi))
       (hA j hj i hi) (heta j hj i hi) hs).trans
+    have hmono : (Q j i) ^ (-(7 / 8 : ℝ)) ≤ P ^ (-(7 / 8 : ℝ)) :=
+      Real.rpow_le_rpow_of_nonpos (by linarith) (hQ j hj i hi) (by norm_num)
     gcongr
-    exact Real.rpow_le_rpow_of_nonpos (by linarith) (hQ j hj i hi) (by norm_num)
+
+/-- Fix the truncation order before the source scale. No lower bound on a
+positive minimum slot length is needed to attain a fixed accuracy power. -/
+theorem exists_principal_truncation_order {m : ℝ} (hm : 0 < m) (rho : ℝ) :
+    ∃ K : ℕ, rho ≤ (7 / 8 : ℝ) * m * (K + 1) := by
+  obtain ⟨K, hK⟩ := exists_nat_gt (rho / ((7 / 8 : ℝ) * m))
+  have hc : 0 < (7 / 8 : ℝ) * m := by positivity
+  have h := (div_lt_iff₀ hc).mp hK
+  refine ⟨K, ?_⟩
+  push_cast
+  nlinarith
+
+/-- Uniform source-scale accuracy for the complete product. The order K,
+source minimum m, and requested rho are chosen before Z or any moving pool.
+The finite response itself, rather than 1, is retained on the left. -/
+theorem weighted_principal_product_partial_power {κ ι : Type*} (S : Finset κ)
+    (T : κ → Finset ι) (w Q : κ → ι → ℝ) (A eta : κ → ι → ℂ)
+    (s : ℂ) (Z m rho : ℝ) (K : ℕ) (hZ : 1 ≤ Z) (hP : 480 ≤ Z ^ m)
+    (horder : rho ≤ (7 / 8 : ℝ) * m * (K + 1)) (hs : 7 / 8 ≤ s.re)
+    (hw : ∀ j ∈ S, ∀ i ∈ T j, 0 ≤ w j i)
+    (hQ : ∀ j ∈ S, ∀ i ∈ T j, Z ^ m ≤ Q j i)
+    (hA : ∀ j ∈ S, ∀ i ∈ T j, ‖A j i‖ ≤ 1)
+    (heta : ∀ j ∈ S, ∀ i ∈ T j, ‖eta j i‖ = 1)
+    (hM : ∀ j ∈ S, 0 < ∑ i ∈ T j, w j i) :
+    ‖(∏ j ∈ S, ∑ i ∈ T j, (w j i : ℂ) * principalSlot (Q j i) (A j i) (eta j i) s) /
+          principalScalar S (fun j => ∑ i ∈ T j, w j i) -
+        ∏ j ∈ S, (∑ i ∈ T j, (w j i : ℂ) *
+          principalSlotPartial K (Q j i) (A j i) (eta j i) s) /
+            (∑ i ∈ T j, w j i : ℝ)‖ ≤
+      (S.card * (5 : ℝ) ^ S.card * 4 * 2 ^ (K + 1)) * Z ^ (-rho) := by
+  have hZ0 : 0 ≤ Z := by linarith
+  have hpower : ((Z ^ m) ^ (-(7 / 8 : ℝ))) ^ (K + 1) ≤ Z ^ (-rho) := by
+    rw [← Real.rpow_natCast, ← Real.rpow_mul (Real.rpow_nonneg hZ0 m),
+      ← Real.rpow_mul hZ0]
+    apply Real.rpow_le_rpow_of_exponent_le hZ
+    push_cast at horder ⊢
+    nlinarith
+  apply (weighted_principal_product_partial_error S T w Q A eta s (Z ^ m) K
+    hP hs hw hQ hA heta hM).trans
+  rw [mul_pow]
+  calc
+    _ = (S.card * (5 : ℝ) ^ S.card * 4 * 2 ^ (K + 1)) *
+        ((Z ^ m) ^ (-(7 / 8 : ℝ))) ^ (K + 1) := by ring
+    _ ≤ _ := mul_le_mul_of_nonneg_left hpower (by positivity)
 
 end SevenEighths.PrincipalSlotEstimate
 end
