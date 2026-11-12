@@ -929,3 +929,13 @@ Retuning final stdout:
   "registration_sha256": "208829f800b2878c52ef3258e71dc12e00ed9dddc2471b68bd6fb009d31b078a"
 }
 ```
+
+## Verified Publication Receipt - 20261112-referee-1/FT
+
+**EXECUTION_COMPLETED / PUBLISHED / IMMUTABLE_READBACK_VERIFIED.** Verified at 2026-11-12 09:41:26 UTC (04:41:26 EST, America/New_York). This final receipt supersedes the checkpoint's historical IN_PROGRESS and the synthesis's prepublication READBACK_PENDING, without rewriting either record.
+
+Substantive publication: [commit `d03afb0c4cb8502b5c5e410642bf706199c06ba0`](https://github.com/OVVO-Financial/RH_Lean/commit/d03afb0c4cb8502b5c5e410642bf706199c06ba0), report blob `4126b3c91e02bf3bc7fd72f9393692f83f39cf96`. The entire 66,240-character report was fetched using that immutable commit and matched the intended content exactly. Commit inspection confirmed exactly one changed file, `research/agent_reports/2026-11-12/50-adversarial-referee.md`, 883 added lines and zero deleted lines. The prior checkpoint and its evidence are preserved.
+
+The verified substantive report contains all A-O sections, full source/claim provenance, exact independent programs and registrations, 76,762 primary plus 3,846 retuning assertions (80,608 total; all PASS), scoped FT/DM paper acceptance, SH1-SH3 self-audit with independent review pending, and precise unpaid consumers. Python syntax checks passed; no local Lean execution occurred. Completed research/publication does not mean the canonical objective is solved: NO_NEW_GLOBAL_GAIN; NO_NEW_ACCEPTED_ROUTE; VERIFIED_ETA=NONE; RH=OPEN.
+
+Only the owned daily report on agent-reports was written remotely. No source, policy, other report, PR, workflow, merge, schedule or agent launch was changed. The next-run consumed handoff watermark is intake `9a52ef037b48ff003cb063865be6e53fb7f79273`, with a final untruncated tree reconciliation at `2b3ad783f50ceabab11dc8633e2a95d830be87a2` showing only this checkpoint as a difference. This receipt records the already verified substantive commit, not an unverified future commit of the receipt itself.
