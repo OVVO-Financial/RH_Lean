@@ -75,11 +75,12 @@ theorem squaredEnvelope_iff_envelope (p : ℝ) :
 /-- The root-exponent gate in the original squared coordinates. -/
 theorem squaredEnvelope_iff_rightmost_le {p : ℝ} (hp : 2 ≤ p) :
     SquaredEnvelopeBound p ↔ zetaRightmostRealPart ≤ (p - 1) / 2 := by
+  have hboundary : (1 / 2 : ℝ) + ((p - 2) / 2) / (2 - 1) = (p - 1) / 2 := by
+    ring
   rw [squaredEnvelope_iff_envelope p,
     envelopeBound_iff_rightmost_le (by norm_num : (0 : ℝ) ≤ 1)
-      (by norm_num : (1 : ℝ) < 2) (by linarith : 0 ≤ (p - 2) / 2)]
-  congr 1
-  ring
+      (by norm_num : (1 : ℝ) < 2) (by linarith : 0 ≤ (p - 2) / 2),
+    hboundary]
 
 /-- The squared critical envelope is exactly the zero-logarithmic statement. -/
 theorem squaredEnvelope_two_iff_zeroLog :
