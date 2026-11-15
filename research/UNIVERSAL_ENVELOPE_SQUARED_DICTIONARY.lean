@@ -48,7 +48,9 @@ theorem squaredEnvelope_iff_envelope (p : ℝ) :
       rw [mul_pow, mul_pow, Real.sq_sqrt hC, Real.sq_sqrt hK0, hp]
     have hle : ‖mertensSummatory (squareRootEndpoint R) - 1‖ ≤
         Real.sqrt C * (R : ℝ) ^ (1 + (p - 2) / 2 + ε) * Real.sqrt (squareRootHistoricalK R) := by
-      apply (sq_le_sq₀ (norm_nonneg _) (by positivity)).mp
+      apply (sq_le_sq₀ (norm_nonneg _)
+        (show 0 ≤ Real.sqrt C * (R : ℝ) ^ (1 + (p - 2) / 2 + ε) *
+          Real.sqrt (squareRootHistoricalK R) by positivity)).mp
       rw [hs]
       exact hbound R hR
     simpa only [Real.sqrt_eq_rpow] using hle
@@ -60,7 +62,9 @@ theorem squaredEnvelope_iff_envelope (p : ℝ) :
     have hcenter : ‖mertensSummatory (squareRootEndpoint R) - 1‖ ≤
         C * (R : ℝ) ^ (1 + (p - 2) / 2 + ε / 2) * Real.sqrt (squareRootHistoricalK R) := by
       simpa only [Real.sqrt_eq_rpow] using hbound R hR
-    have hs := (sq_le_sq₀ (norm_nonneg _) (by positivity)).mpr hcenter
+    have hs := (sq_le_sq₀ (norm_nonneg _)
+      (show 0 ≤ C * (R : ℝ) ^ (1 + (p - 2) / 2 + ε / 2) *
+        Real.sqrt (squareRootHistoricalK R) by positivity)).mpr hcenter
     have hp : ((R : ℝ) ^ (1 + (p - 2) / 2 + ε / 2)) ^ (2 : ℕ) =
         (R : ℝ) ^ (p + ε) := by
       rw [← Real.rpow_mul_natCast hR0.le]

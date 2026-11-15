@@ -34,7 +34,7 @@ theorem frozenQ_centered_norm_comparison (R : ℕ) (hR : 2 ≤ R) :
     calc
       ‖(2 : ℂ) * mertensSummatory (R - 1) - 1‖ ≤
           ‖(2 : ℂ) * mertensSummatory (R - 1)‖ + ‖(1 : ℂ)‖ := norm_sub_le _ _
-      _ = 2 * ‖mertensSummatory (R - 1)‖ + 1 := by simp [norm_mul]
+      _ = 2 * ‖mertensSummatory (R - 1)‖ + 1 := by simp
       _ ≤ 3 * (R : ℝ) := by linarith
   have hsource := eulerSelfDualBilinear_eq_two_mertens_sub_endpoint R hR
   constructor

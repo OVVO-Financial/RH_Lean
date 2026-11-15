@@ -61,7 +61,9 @@ theorem mertens_half_of_mertensEnergy
     rw [← Real.rpow_mul_natCast hx]
     congr 1
     ring
-  apply (sq_le_sq₀ (norm_nonneg _) (by positivity)).mp
+  apply (sq_le_sq₀ (norm_nonneg _)
+    (show 0 ≤ Real.sqrt C * (2 : ℝ) ^ ((1 / 2 : ℝ) + ε) *
+      (n : ℝ) ^ ((1 / 2 : ℝ) + ε) by positivity)).mp
   calc
     ‖mertensSummatory n‖ ^ 2 ≤
         C * ((2 : ℝ) ^ (1 + 2 * ε) * (n : ℝ) ^ (1 + 2 * ε)) := hmajorant

@@ -92,7 +92,9 @@ theorem historical_le_four_prefixBudget_sq (B : ℕ) :
     have htri := norm_sub_le (mertensSummatory n) (1 : ℂ)
     simp only [norm_one] at htri
     nlinarith only [htri, hM, hunit]
-  have hsq := (sq_le_sq₀ (norm_nonneg _) (by positivity)).mpr hcenter
+  have hsq := (sq_le_sq₀ (norm_nonneg _)
+    (show 0 ≤ (2 * mertensPrefixBudget B) * Real.sqrt ((n + 1 : ℕ) : ℝ)
+      by positivity)).mpr hcenter
   rw [mul_pow, Real.sq_sqrt (Nat.cast_nonneg _)] at hsq
   rw [← shiftedMertensEnergy_eq_intSquare, shiftedMertensEnergy]
   nlinarith only [hsq]
@@ -114,7 +116,9 @@ theorem prefixBudget_le_three_sqrt_historical (B : ℕ) (hB : 2 ≤ B) :
     simpa only [← shiftedMertensEnergy_eq_intSquare, shiftedMertensEnergy] using h
   have hcenterRoot : ‖mertensSummatory n - 1‖ ≤
       2 * Real.sqrt (squareRootHistoricalK B) * Real.sqrt (n : ℝ) := by
-    apply (sq_le_sq₀ (norm_nonneg _) (by positivity)).mp
+    apply (sq_le_sq₀ (norm_nonneg _)
+      (show 0 ≤ 2 * Real.sqrt (squareRootHistoricalK B) * Real.sqrt (n : ℝ)
+        by positivity)).mp
     calc
       ‖mertensSummatory n - 1‖ ^ 2 ≤
           squareRootHistoricalK B * ((n + 1 : ℕ) : ℝ) := hcenter
@@ -134,7 +138,8 @@ theorem prefixBudget_le_three_sqrt_historical (B : ℕ) (hB : 2 ≤ B) :
 
 theorem prefixBudget_sq_le_nine_historical (B : ℕ) (hB : 2 ≤ B) :
     mertensPrefixBudget B ^ 2 ≤ 9 * squareRootHistoricalK B := by
-  have h := (sq_le_sq₀ (mertensPrefixBudget_nonneg B) (by positivity)).mpr
+  have h := (sq_le_sq₀ (mertensPrefixBudget_nonneg B)
+    (show 0 ≤ 3 * Real.sqrt (squareRootHistoricalK B) by positivity)).mpr
     (prefixBudget_le_three_sqrt_historical B hB)
   rw [mul_pow, Real.sq_sqrt (squareRootHistoricalK_nonneg B)] at h
   nlinarith only [h]
@@ -152,7 +157,9 @@ theorem prefixBudget_upper_power (ε : ℝ) (hε : 0 < ε) :
     rw [← Real.rpow_mul_natCast hB0.le (envelopeExponent + ε) 2]
     congr 1
     ring
-  apply (sq_le_sq₀ (mertensPrefixBudget_nonneg B) (by positivity)).mp
+  apply (sq_le_sq₀ (mertensPrefixBudget_nonneg B)
+    (show 0 ≤ 3 * Real.sqrt C * (B : ℝ) ^ (envelopeExponent + ε)
+      by positivity)).mp
   calc
     mertensPrefixBudget B ^ 2 ≤ 9 * squareRootHistoricalK B :=
       prefixBudget_sq_le_nine_historical B hB
@@ -176,7 +183,8 @@ theorem prefixBudget_power_le_scaled (ε : ℝ) (hε : 0 < ε) :
     rw [← Real.rpow_mul_natCast hB0.le (envelopeExponent - ε) 2]
     congr 1
     ring
-  apply (sq_le_sq₀ (Real.rpow_nonneg hB0.le _) (by positivity)).mp
+  apply (sq_le_sq₀ (Real.rpow_nonneg hB0.le _)
+    (show 0 ≤ 2 * Real.sqrt D * mertensPrefixBudget B by positivity)).mp
   calc
     ((B : ℝ) ^ (envelopeExponent - ε)) ^ 2 =
         (B : ℝ) ^ (2 * envelopeExponent - 2 * ε) := hpower
