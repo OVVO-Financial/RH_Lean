@@ -47,6 +47,7 @@ theorem amplification_upper_power (ε : ℝ) (hε : 0 < ε) :
     rw [pow_two, ← Real.rpow_add hR0]
     rw [show (1 + ε / 2) + (1 + ε / 2) = ε + (2 : ℝ) by ring,
       Real.rpow_add hR0]
+    rfl
   have hroot : (R : ℝ) ^ 2 ≤ 2 * (X : ℝ) := by
     have hs : 1 ≤ R ^ 2 := by nlinarith
     have hnat : R ^ 2 ≤ 2 * X := by unfold squareRootEndpoint at hRX; omega
@@ -124,8 +125,10 @@ theorem amplification_lower_power (ε : ℝ) (hε : 0 < ε) :
   rw [hsplit] at htotal
   have hcancel : c * (X : ℝ) ^ (envelopeExponent - ε) ≤
       8 * (1 + squareRootAmplificationMax X) * D' := by
-    apply (mul_le_mul_right (Real.rpow_pos_of_pos hX0 b)).mp
-    nlinarith only [htotal]
+    exact le_of_mul_le_mul_right
+      (show (c * (X : ℝ) ^ (envelopeExponent - ε)) * (X : ℝ) ^ b ≤
+        (8 * (1 + squareRootAmplificationMax X) * D') * (X : ℝ) ^ b by
+        nlinarith only [htotal]) (Real.rpow_pos_of_pos hX0 b)
   have hdivide : c / (8 * D') * (X : ℝ) ^ (envelopeExponent - ε) =
       (c * (X : ℝ) ^ (envelopeExponent - ε)) / (8 * D') := by ring
   rw [hdivide]

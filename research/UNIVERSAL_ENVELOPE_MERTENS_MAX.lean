@@ -281,12 +281,11 @@ theorem prefixBudget_power_log_ratio_tendsto (k : ℕ) (hk : 1 ≤ k) :
       atTop (nhds ((k : ℝ) * envelopeExponent)) :=
     tendsto_const_nhds.mul (prefixBudget_log_ratio_tendsto.comp hpow)
   apply hlim.congr'
-  filter_upwards [eventually_ge_atTop (2 : ℕ)] with B hB
-  have hlog : Real.log (B : ℝ) ≠ 0 := ne_of_gt
-    (Real.log_pos (by exact_mod_cast (show 1 < B by omega)))
+  apply Filter.Eventually.of_forall
+  intro B
   dsimp only [Function.comp_apply]
-  rw [Nat.cast_pow, Real.log_pow]
-  field_simp [hk0.ne', hlog] <;> ring
+  rw [Nat.cast_pow, Real.log_pow, ← div_div, ← mul_div_assoc,
+    mul_div_cancel₀ _ hk0.ne']
 
 /-- The every-root subcritical-lift form, with each positive loss quantified. -/
 def MertensPrefixLiftBound (k : ℕ) (r : ℝ) : Prop :=
