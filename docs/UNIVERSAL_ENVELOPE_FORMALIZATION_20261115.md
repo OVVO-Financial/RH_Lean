@@ -2,7 +2,7 @@
 
 **PR:** [#1135](https://github.com/OVVO-Financial/RH_Lean/pull/1135).  
 **Source baseline:** main `59612bc8b5c30c528d8367667ea5846a8053f114`.  
-**Verification:** complete proof candidates submitted to the pinned GitHub Actions jobs; certification is determined by the warning-fatal proof and terminal-axiom evidence for the reviewed head. No local Lean execution was used.
+**Verification:** the core, analytic-kernel and fractional-owner proof sources have passed warning-fatal compilation, exact-type checks and terminal-axiom audits in the pinned GitHub Actions environment. The dated source-head evidence is recorded below. No local Lean execution was used.
 
 This change formalizes the mathematical content needed for the universal-envelope law and its route dictionary. It supplies estimates and equivalences for the existing arithmetic objects. It does not establish an improved zeta-zero boundary, RH, or a finite amplification constant.
 
@@ -170,7 +170,7 @@ This is a meter for the strength of an input inequality. It does not produce a n
 
 ## 5. Equivalent targets and the stronger finite-constant premise
 
-The following equivalences have explicit Lean proof candidates in this change:
+The following equivalences have explicit Lean proofs in this change:
 
 - Zero logarithmic amplification iff `MertensGrowthAtMost (1/2)`.
 - Zero native owner loss `NativeOwnerBound 0` iff the same Mertens half-exponent, on the original complete signed owner source.
@@ -198,6 +198,20 @@ The archived [original handoff](external/2026-11-15/universal-envelope-law-hando
 The dedicated workflow has four independent jobs: bounded numerical checks, complete core proofs, the analytic kernel supplier, and the original-source fractional-owner integration. Core and kernel proofs have no OAI import. Exact-type examples pin the literal definitions and quantifiers; the audit inventories and checks every new public declaration. The only permitted terminal axioms are `propext`, `Classical.choice`, and `Quot.sound`. A failed proof, missing declaration, unrecognized axiom, or source change during verification fails the job.
 
 One infrastructure routing change excludes the two OAI-dependent fractional leaves from the generic native-only research job. Their dedicated fractional job performs full warning-fatal compilation, exact-type checks, and axiom audits using the established pinned ancestor pipeline.
+
+### Verified source evidence
+
+| Proof group | Public declarations audited | Exact-type examples | Successful job |
+|---|---:|---:|---|
+| Complete core | 118 | 42 | [Core audit at `c401144`](https://github.com/OVVO-Financial/RH_Lean/actions/runs/43775607055/job/133001085271) |
+| Independent analytic kernel | 32 | 5 | [Kernel audit at `c401144`](https://github.com/OVVO-Financial/RH_Lean/actions/runs/43775607055/job/133001085451) |
+| Original-source fractional owner | 8 | 4 | [Fractional audit at `c401144`](https://github.com/OVVO-Financial/RH_Lean/actions/runs/43775607055/job/133001085509) |
+
+The kernel declarations are a subset of the core inventory, and four owner declarations occur in both the core and fractional inventories. Together the groups verify **122 distinct new public declarations**. Each job recompiles its new source files and acceptance examples with warnings treated as errors, then checks the transitive axioms of every inventoried declaration. The uploaded evidence records source hashes, the import closure, exact types, terminal axioms and the tested commit.
+
+All three proof groups were verified at source head `c401144dedcb6ffd785bd4b25b5830eb83b3c93c`. The observed snapshot at `2026-11-15T23:49:51Z` records **18 of 18 successful repository checks**, with no failed or pending checks. The [complete proof workflow](https://github.com/OVVO-Financial/RH_Lean/actions/runs/43775607055) includes the numerical job. Evidence archives: [core](https://github.com/OVVO-Financial/RH_Lean/actions/runs/43775607055/artifacts/14186066990), [kernel](https://github.com/OVVO-Financial/RH_Lean/actions/runs/43775607055/artifacts/14186257216), and [fractional owner](https://github.com/OVVO-Financial/RH_Lean/actions/runs/43775607055/artifacts/14186717674). Subsequent registry and documentation updates retain these verified Lean source files unchanged. The proof milestone is certified in this unmerged PR; the RH-strength arithmetic propositions remain open.
+
+The compiler is pinned to Lean `v4.34.1`, Mathlib to `d13f23b723b8a846827a245b89c10fc7d3f11612`, and the fractional job's original `openai/math` source to `1581d4cbdd69a0faf34b2089614fe2a814316a6a`. The native core has a complete cold-build path to the PNT+ Euler-summation prerequisite through its declared native targets.
 
 For local non-Lean checks:
 

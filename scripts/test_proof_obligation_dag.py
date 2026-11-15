@@ -57,6 +57,39 @@ class ProofObligationDagTests(unittest.TestCase):
         self.assertEqual(next(r for r in self.reg["routes"] if r["id"] == "BLOCK")
                          ["disposition"], "REFUTED")
 
+    def test_universal_envelope_class_preserves_open_arithmetic_inputs(self):
+        graph = dag.Graph(self.reg)
+        targets = {"RH", "PROP-MERTENS-ENERGY", "OPEN-AMPLIFICATION-SUBPOWER",
+                   "OPEN-NATIVE-OWNER-FRACTIONAL", "OPEN-MU-LIFT"}
+        self.assertEqual(set(graph.classes()[graph.find("RH")]), targets)
+        for identifier in targets:
+            self.assertEqual(node(self.reg, identifier)["logical_status"], "OPEN")
+            self.assertTrue(node(self.reg, identifier)["open_obligation"])
+        for stronger in ("OPEN-FINITE-AC", "PROP-LEGAL-ANCESTRY-GRAM"):
+            self.assertNotEqual(graph.find(stronger), graph.find("RH"))
+
+        milestone = node(self.reg, "MILESTONE-UNIVERSAL-ENVELOPE")
+        self.assertEqual(milestone["logical_status"], "PROVED")
+        self.assertFalse(milestone["open_obligation"])
+        self.assertIn(milestone["formal_status"],
+                      {"PROVED_IN_LEAN_PR_GREEN_UNMERGED", "PROVED_IN_LEAN_ON_MAIN"})
+        self.assertIn(
+            {"file": "research/UNIVERSAL_ENVELOPE_MERTENS_MAX.lean",
+             "name": "subcritical_subpower_gain_iff_mertens_half_of_lt"},
+            milestone["lean"])
+
+        forward = edge(self.reg, "E-MULIFT-MERTENS")
+        self.assertEqual(forward["type"], "PROVED_IMPLICATION")
+        self.assertEqual(forward["conditions"], [])
+        self.assertEqual(forward["certified_by"], milestone["id"])
+        route = next(r for r in self.reg["routes"] if r["id"] == "MU-LIFT")
+        path = next(p for p in route["paths"] if p["id"] == "MU-LIFT/contraction")
+        self.assertEqual(path["unpaid_inputs"], ["OPEN-MU-LIFT"])
+        self.assertEqual(node(self.reg, "PAPER-MU-LIFT-CONTRACTION")["logical_status"],
+                         "CLAIMED")
+        self.assertEqual(node(self.reg, "PAPER-MU-LIFT-CONTRACTION")["formal_status"],
+                         "NOT_FORMALIZED")
+
     def test_repaired_prs_keep_exact_head_and_verified_human_merge(self):
         packing = node(self.reg, "MILESTONE-NEAR-UNIFORM-SLOT-BOUNDARY")
         self.assertEqual(packing["pr"], 1111)

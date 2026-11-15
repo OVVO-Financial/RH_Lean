@@ -1,13 +1,13 @@
 {
   "schema": "rhlean-proof-obligations/1",
-  "registry_version": "2026-11-15.1",
-  "authority": "Mathematical proof-obligation registry with Lean declarations and dated evidence. Conditional consumers do not prove their premises; paper and numerical findings are not Lean certificates. November 15 refresh: #1119 was human-merged on November 9, and its tested source blob is preserved on current main. PR #1135 submits the universal historical-envelope laws and exact RH-equivalent route bridges; its new formalization milestone remains pending until the pinned warning-fatal and terminal-axiom jobs pass. RH, finite A/C, zero-log amplification and subcritical arithmetic inputs remain open.",
+  "registry_version": "2026-11-15.2",
+  "authority": "Mathematical proof-obligation registry with Lean declarations and dated evidence. Conditional consumers do not prove their premises; paper and numerical findings are not Lean certificates. November 15 refresh: #1119 was human-merged on November 9, and its tested source blob is preserved on current main. PR #1135 proves the universal historical-envelope laws and exact RH-equivalent route bridges at a kernel-checked, green, unmerged proof head. All 18 checks passed on c401144dedcb6ffd785bd4b25b5830eb83b3c93c. RH, finite A/C, zero-log amplification and the equivalent native fractional-owner and subcritical full-prefix arithmetic inputs remain open.",
   "baseline": {
     "repository": "OVVO-Financial/RH_Lean",
     "main_sha": "59612bc8b5c30c528d8367667ea5846a8053f114",
     "lean_toolchain": "leanprover/lean4:v4.34.1",
     "agent_reports_sha": "5a7f05d56a6a288aa2e6fbd0b2755047215d904d",
-    "verified_at": "2026-11-15T23:06:26Z"
+    "verified_at": "2026-11-15T23:49:51Z"
   },
   "vocabulary": {
     "node_types": [
@@ -343,13 +343,13 @@
       "id": "FINITE-AC",
       "title": "Historical Mertens envelope and normalized signed energy",
       "disposition": "OPEN",
-      "status_label": "EXPLICIT FINITE-POWER AMP PROVED; UNIFORM FINITE A AND ZERO-LOG OPEN",
+      "status_label": "EXACT AMPLIFICATION EXPONENT IDENTIFIED; ZERO-LOG AND UNIFORM FINITE A OPEN",
       "gate": "MERTENS-RECURSIVE",
       "priority": "D",
       "architecture": "II. genuine Mertens signed pair",
-      "missing_mathematics": "Show A(X)=X^(o(1)) or a constant uniform bound on the true historical ratio, not merely pointwise finite roots or the fixed positive-power bound of #1108.",
-      "quantitative_target": "Proved A(X)<=C X^(3/4-1/(48N_*)); limsup q(X)<=3/4-1/(24N_*). OPEN: forall eta>0 A(X)<=C_eta X^eta; stronger sup_X A(X)<infty.",
-      "best_source": "#1106 exact Euler logarithmic admission; #1108 exact historical amp; finite A/C alignment; squarePrefixMertens and Q_R=2M(R-1)-M(R^2-1).",
+      "missing_mathematics": "Prove h=0 in the exact law q(X)->h=max(Theta,1/2)-1/2, equivalently every-positive-power control of the original historical amplification; the stronger uniform finite-A/finite-C bound also remains open. The established positive upper bound on h does not establish h=0.",
+      "quantitative_target": "Proved q(X)->h=max(Theta,1/2)-1/2. Retain the current #1119 boundary b_active=7/8-7/(64*N_pack): it gives 0<=h<=b_active-1/2=3/8-7/(64*N_pack). Consequently, for every eps>0 there exists C_eps with A(X)<=C_eps*X^(b_active-1/2+eps). OPEN: h=0, equivalently q(X)->0; the stronger sup_X A(X)<infinity remains open.",
+      "best_source": "#1135 exact historical-amplification limit and upper-power theorem (green unmerged proof head); merged #1119 current Mertens boundary; #1108 historical finite-power and limsup bounds retained; #1106 exact Euler logarithmic admission; finite A/C alignment and Q_R=2M(R-1)-M(R^2-1).",
       "largest_unpaid_term": "Complete signed return relative to actual K_R; using K_R>=1 loses historical feedback strength and cannot prove subpower.",
       "falsifiers": [
         "CE-CORR4-R5561"
@@ -436,7 +436,7 @@
       "architecture": "IV. higher-order inverse Newton lift",
       "missing_mathematics": "A genuinely new full-prefix signed estimate yielding a subcritical exponent r < k.",
       "quantitative_target": "E(B^k) <= B^(o(1)) E(B)^r, fixed r < k.",
-      "best_source": "#954 actual signed Newton/Heath-Brown convolution, MU-LIFT full-prefix budget, #1109 CORR4 q^2 cutoff multiplicity as optional distinct input.",
+      "best_source": "#954 actual signed Newton/Heath-Brown convolution; #1135 exact full-prefix subcritical equivalence on any sequence tending to infinity (green unmerged proof head); #1109 CORR4 q^2 cutoff multiplicity as optional distinct input.",
       "largest_unpaid_term": "Remaining K3 ranges and K1/K2 at full prefix scale.",
       "falsifiers": [],
       "mechanism_nodes": [
@@ -446,14 +446,13 @@
       "paths": [
         {
           "id": "MU-LIFT/contraction",
-          "description": "Paper contraction argument into the Lean Mertens-energy consumer.",
+          "description": "The actual full-prefix subpower-gain criterion has a Lean-certified consumer into Mertens energy; only the genuine signed arithmetic lift remains unpaid.",
           "edges": [
             "E-MULIFT-MERTENS",
             "E-MERTENS-RH"
           ],
           "unpaid_inputs": [
-            "OPEN-MU-LIFT",
-            "PAPER-MU-LIFT-CONTRACTION"
+            "OPEN-MU-LIFT"
           ]
         }
       ],
@@ -522,7 +521,7 @@
           "name": "VFMidRiemannHypothesisStatement"
         }
       ],
-      "notes": "RH remains OPEN. Nov 8 complete-source strict Mertens and finite-power historical amplification milestones are proved, but neither the zero-log nor uniform finite-A premise is proved.",
+      "notes": "RH remains OPEN. PR #1135 proves equivalences with Mertens energy, zero-log amplification, native fractional-owner contraction and the subcritical full-prefix lift; it proves none of those equivalent arithmetic premises. Uniform finite A/C remains a separate stronger sufficient premise.",
       "evidence": [],
       "does_not_prove": []
     },
@@ -1440,9 +1439,11 @@
         }
       ],
       "evidence": [
-        "EV-LEAN-MAIN-MERTENS"
+        "EV-LEAN-MAIN-MERTENS",
+        "EV-PR-1135"
       ],
-      "does_not_prove": []
+      "does_not_prove": [],
+      "notes": "The existing on-main Mertens-energy-to-RH consumer is retained. The exact green unmerged #1135 bridges place this OPEN proposition in the same logical target class as Mathlib RH, zero-log amplification, native fractional-owner contraction and the subcritical full-prefix lift."
     },
     {
       "id": "CONSUMER-MERTENS-ENERGY-RH",
@@ -2447,20 +2448,27 @@
       "route_ids": [
         "MU-LIFT"
       ],
-      "statement": "For a fixed k >= 2 and fixed r < k: E(B^k) <= G(B) E(B)^r with E(B) = max_{1<=n<B} |M(n)|/sqrt(n), log G(B)/log B -> 0, on a chain with complete interval coverage.",
+      "statement": "For fixed k>=2, fixed real r<k, and a fixed sequence B:Nat->Nat tending to infinity, there exists G:Nat->Real eventually at least one, with log(G(j))/log(B(j))->0, such that eventually E((B(j))^k)<=G(j)*E(B(j))^r. For B>=2, E(B) is exactly max_{1<=n<B}|M(n)|/sqrt(n). No relation B(j+1)=B(j)^k, every-B estimate or nonnegative-r restriction is imposed.",
       "logical_status": "OPEN",
-      "formal_status": "NOT_FORMALIZED",
-      "evidence_class": "UNKNOWN",
+      "formal_status": "LEAN_STATEMENT_ONLY",
+      "evidence_class": "TARGET_EQUIVALENT",
       "provenance": "OPEN_NO_PROOF",
       "open_obligation": true,
       "obligation_kind": "ARITHMETIC",
       "source_file": "docs/MERTENS_AMPLIFICATION_BUDGET.md",
       "evidence": [
-        "EV-NOTE-MU-LIFT"
+        "EV-NOTE-MU-LIFT",
+        "EV-PR-1135"
       ],
-      "notes": "PR #1135 formalizes the actual uncentered E(B), its all-scale exponent, and the eventual unbounded-chain subcritical criterion including the original existential subpower-gain format. It does not impose every-B uniformity on the documented chain route. The arithmetic proposition remains OPEN.",
-      "lean": [],
-      "does_not_prove": []
+      "notes": "The actual uncentered full-prefix budget and this eventual existential subpower-gain proposition are formalized in #1135. subcritical_subpower_gain_iff_mertens_half_of_lt proves the equivalence for every real r<k and every sequence tending to infinity, including negative r; its k>=1 theorem specializes to the original k>=2 route. This remains an OPEN arithmetic proposition, and the genuine signed K1/K2/K3 mechanism remains distinct.",
+      "lean": [
+        {
+          "file": "research/UNIVERSAL_ENVELOPE_MERTENS_MAX.lean",
+          "name": "MertensPrefixSubpowerGainLiftOn"
+        }
+      ],
+      "does_not_prove": [],
+      "pr": 1135
     },
     {
       "id": "PAPER-MU-LIFT-CONTRACTION",
@@ -2481,7 +2489,8 @@
         "EV-NOTE-MU-LIFT"
       ],
       "lean": [],
-      "does_not_prove": []
+      "does_not_prove": [],
+      "notes": "Historical abstract scalar-recurrence argument retained as paper-level provenance. Its former role as an additional unpaid prerequisite for the actual Mertens-prefix route is superseded by the #1135 all-scale prefix-exponent proof and exact subpower-gain equivalence. That proof does not separately kernel-check the general scalar recurrence stated here or the K1/K2/K3 paper analysis."
     },
     {
       "id": "MECH-MU-LIFT-SUBCRITICAL",
@@ -3278,7 +3287,7 @@
       "statement": "SquareRootAmplificationZeroLogGrowthStatement: q(X)=log(1+A(X))/log X tends to zero for integer X->infinity, with A(X)=max_{R^2-1<=X}(M(R^2-1)-1)^2/(R^2 K_R) and strict history K_R. Equivalent to eventual bounds by every positive power, not to the proved fixed positive-power bound.",
       "logical_status": "OPEN",
       "formal_status": "LEAN_STATEMENT_ONLY",
-      "evidence_class": "UNKNOWN",
+      "evidence_class": "TARGET_EQUIVALENT",
       "provenance": "OPEN_NO_PROOF",
       "open_obligation": true,
       "obligation_kind": "ARITHMETIC",
@@ -3288,9 +3297,11 @@
           "name": "SquareRootAmplificationZeroLogGrowthStatement"
         }
       ],
-      "evidence": [],
+      "evidence": [
+        "EV-PR-1135"
+      ],
       "does_not_prove": [],
-      "notes": "PR #1135 submits an equivalence with Mathlib RiemannHypothesis, and an unconditional exact limit q(X)->max(Theta,1/2)-1/2. Certification is tracked separately in MILESTONE-UNIVERSAL-ENVELOPE; the arithmetic proposition remains OPEN."
+      "notes": "PR #1135 proves the unconditional exact limit q(X)->max(Theta,1/2)-1/2 and the equivalence of its zero-limit specialization with Mertens energy and Mathlib RiemannHypothesis. The proof milestone is certified at the dated green unmerged head; this arithmetic proposition remains OPEN. The stronger uniform finite-A premise is not identified with it."
     },
     {
       "id": "OPEN-NATIVE-OWNER-FRACTIONAL",
@@ -3301,10 +3312,10 @@
         "CODIV",
         "CORR4"
       ],
-      "statement": "Exist c with 0<c<=1 such that for every theta in [1/2,7/8], MertensGrowthAtMost(theta) implies NativeOwnerBound((1-c)*(2*theta-1)); the existing consumer then contracts theta-1/2 geometrically. The quantifier over UPDATED theta is essential and unproved.",
+      "statement": "Exist c with 0<c<=1 such that for every theta in [1/2,7/8], MertensGrowthAtMost(theta) implies NativeOwnerBound((1-c)*(2*theta-1)); the existing consumer then contracts theta-1/2 geometrically. The quantifier over UPDATED theta is essential; the arithmetic premise remains open.",
       "logical_status": "OPEN",
       "formal_status": "LEAN_STATEMENT_ONLY",
-      "evidence_class": "UNKNOWN",
+      "evidence_class": "TARGET_EQUIVALENT",
       "provenance": "OPEN_NO_PROOF",
       "open_obligation": true,
       "obligation_kind": "ARITHMETIC",
@@ -3314,9 +3325,11 @@
           "name": "NativeUniformFractionalOwnerContraction"
         }
       ],
-      "evidence": [],
+      "evidence": [
+        "EV-PR-1135"
+      ],
       "does_not_prove": [],
-      "notes": "PR #1135 submits an equivalence with the Mertens half-exponent using the original uniform-in-current-exponent premise and a separate original-source fractional audit. Neither equivalent premise is established."
+      "notes": "PR #1135 proves the equivalence with the Mertens half-exponent on the original uniform-in-current-exponent premise, hence with Mertens energy and Mathlib RH. The separate fractional audit retains the established original-source seed and all dependencies. Neither equivalent arithmetic premise is established, and the original owner-source mechanism remains distinct."
     },
     {
       "id": "MILESTONE-UNIVERSAL-ENVELOPE",
@@ -3329,13 +3342,12 @@
         "CODIV",
         "CORR4"
       ],
-      "statement": "Submitted proof chain: actual zeta zero forces an all-scale lower power of the original strict-history K; log K/log R -> 2h, log E/log B -> h, and q(X) -> h for h=max(Theta,1/2)-1/2. EnvelopeBound(lambda,eta) iff Theta<=1/2+eta/(2-lambda) for 0<=lambda<2, eta>=0; EnvelopeBound(2,0) holds unconditionally. Original frozen-Q and squared p variants retain exact sources and quantifiers. Zero-log amplification, native zero-owner loss, uniform fractional owner contraction and subcritical full-prefix lifts are equivalent to critical Mertens growth, with an explicit Mathlib RH bridge. No RH-strength premise or new zero-boundary improvement is asserted.",
-      "logical_status": "CLAIMED",
-      "formal_status": "LEAN_PR_HEAD_NOT_GREEN",
-      "evidence_class": "PAPER_PROOF_NEEDS_REVIEW",
-      "provenance": "PAPER_ARGUMENT",
-      "open_obligation": true,
-      "obligation_kind": "REVIEW",
+      "statement": "Proved at the exact green unmerged #1135 head: every actual zeta zero with 1/2<Re(rho)<1 forces an all-scale lower power of the original strict-history K; log K/log R -> 2h, log E/log B -> h, and q(X) -> h for h=max(Theta,1/2)-1/2. EnvelopeBound(lambda,eta) iff Theta<=1/2+eta/(2-lambda) for 0<=lambda<2, eta>=0; EnvelopeBound(2,0) holds unconditionally. Original frozen-Q and squared p variants retain exact sources and quantifiers. Zero-log amplification, native zero-owner loss, uniform fractional owner contraction and the existential subpower-gain full-prefix lift for every real r<k on any sequence tending to infinity are equivalent to critical Mertens growth, Mertens energy and Mathlib RH. None of these RH-strength arithmetic premises or a new zero-boundary improvement is asserted.",
+      "logical_status": "PROVED",
+      "formal_status": "PROVED_IN_LEAN_PR_GREEN_UNMERGED",
+      "evidence_class": "PROVED_IN_LEAN_PR_GREEN_UNMERGED",
+      "provenance": "PROVED_INTERNALLY",
+      "open_obligation": false,
       "lean": [
         {
           "file": "research/UNIVERSAL_ENVELOPE_ZERO_FORCED.lean",
@@ -3351,11 +3363,19 @@
         },
         {
           "file": "research/UNIVERSAL_ENVELOPE_MERTENS_MAX.lean",
-          "name": "subcritical_prefixLiftOn_iff_mertens_half"
+          "name": "subcritical_subpower_gain_iff_mertens_half_of_lt"
         },
         {
           "file": "research/UNIVERSAL_ENVELOPE_RH_BRIDGES.lean",
           "name": "zeroLog_iff_riemannHypothesis"
+        },
+        {
+          "file": "research/UNIVERSAL_ENVELOPE_RH_BRIDGES.lean",
+          "name": "zeroLog_iff_mertensEnergy"
+        },
+        {
+          "file": "research/UNIVERSAL_ENVELOPE_RH_BRIDGES.lean",
+          "name": "mertens_half_iff_mertensEnergy"
         },
         {
           "file": "research/UNIVERSAL_ENVELOPE_OWNER_FRACTIONAL.lean",
@@ -3367,7 +3387,7 @@
         "EV-PR-1135"
       ],
       "source_file": "docs/UNIVERSAL_ENVELOPE_FORMALIZATION_20261115.md",
-      "notes": "Pending proof-head verification. Finite Mobius inversion plus Abel summation supplies the analytic input with a coarser explicit constant than the handoff. The continuous integral identity and sharper constant are not claimed as Lean-certified. Core and fractional source closures are audited separately. Equivalent output targets preserve distinct arithmetic source mechanisms.",
+      "notes": "At 2026-11-15T23:49:51Z, all 18 checks passed on c401144dedcb6ffd785bd4b25b5830eb83b3c93c; PR #1135 remained open, draft and unmerged. The core audit covers 118 public declarations and 42 exact-type examples; the independent kernel audit covers 32 declarations, and the separate fractional audit covers 8 declarations, with overlap between groups and 122 unique declarations overall. All terminal axioms are propext, Classical.choice or Quot.sound. Finite Mobius inversion plus Abel summation supplies the analytic input with a coarser explicit constant than the handoff; the original continuous integral identity and sharper constant are not claimed as Lean-certified. Equivalent output targets preserve distinct arithmetic mechanisms and the stronger finite-A status.",
       "does_not_prove": [
         "RH or a new Mertens exponent improvement",
         "Finite A or finite C",
@@ -3724,12 +3744,11 @@
     {
       "id": "E-MULIFT-MERTENS",
       "from": "OPEN-MU-LIFT",
-      "type": "CONDITIONAL_IMPLICATION",
+      "type": "PROVED_IMPLICATION",
       "to": "PROP-MERTENS-ENERGY",
-      "conditions": [
-        "PAPER-MU-LIFT-CONTRACTION"
-      ],
-      "certified_by": "PAPER-MU-LIFT-CONTRACTION"
+      "conditions": [],
+      "certified_by": "MILESTONE-UNIVERSAL-ENVELOPE",
+      "note": "Forward direction of subcritical_subpower_gain_iff_mertens_half_of_lt, composed with mertens_half_iff_mertensEnergy; fixed k>=2, real r<k, and any sequence tending to infinity. The actual full-prefix arithmetic premise remains unpaid."
     },
     {
       "id": "E-MULIFT-MECH",
@@ -3804,8 +3823,44 @@
       "from": "OPEN-FINITE-AC",
       "type": "PROVED_IMPLICATION",
       "to": "OPEN-AMPLIFICATION-SUBPOWER",
-      "elementary": "A constant uniform bound on the original A(X) implies log(1+A(X))/log(X)->0; converse need not hold.",
+      "elementary": "A constant uniform bound on the original A(X) implies log(1+A(X))/log(X)->0. The reverse implication is not established for the actual historical amplification; no separation theorem is asserted.",
       "conditions": []
+    },
+    {
+      "id": "E-ZERO-LOG-IFF-RH",
+      "from": "OPEN-AMPLIFICATION-SUBPOWER",
+      "type": "PROVED_EQUIVALENCE",
+      "to": "RH",
+      "certified_by": "MILESTONE-UNIVERSAL-ENVELOPE",
+      "conditions": [],
+      "note": "RHLean.Analysis.UniversalEnvelope.zeroLog_iff_riemannHypothesis; exact original amplification and full Mathlib RiemannHypothesis."
+    },
+    {
+      "id": "E-ZERO-LOG-IFF-MERTENS",
+      "from": "OPEN-AMPLIFICATION-SUBPOWER",
+      "type": "PROVED_EQUIVALENCE",
+      "to": "PROP-MERTENS-ENERGY",
+      "certified_by": "MILESTONE-UNIVERSAL-ENVELOPE",
+      "conditions": [],
+      "note": "RHLean.Analysis.UniversalEnvelope.zeroLog_iff_mertensEnergy; both arithmetic propositions remain OPEN."
+    },
+    {
+      "id": "E-NATIVE-FRACTIONAL-IFF-MERTENS",
+      "from": "OPEN-NATIVE-OWNER-FRACTIONAL",
+      "type": "PROVED_EQUIVALENCE",
+      "to": "PROP-MERTENS-ENERGY",
+      "certified_by": "MILESTONE-UNIVERSAL-ENVELOPE",
+      "conditions": [],
+      "note": "RHLean.Analysis.OwnerPrefix.native_uniform_fractional_owner_iff_mertens_half.trans RHLean.Analysis.UniversalEnvelope.mertens_half_iff_mertensEnergy. Retains the original quantified native-owner source and its independently audited established seed."
+    },
+    {
+      "id": "E-MULIFT-IFF-MERTENS",
+      "from": "OPEN-MU-LIFT",
+      "type": "PROVED_EQUIVALENCE",
+      "to": "PROP-MERTENS-ENERGY",
+      "certified_by": "MILESTONE-UNIVERSAL-ENVELOPE",
+      "conditions": [],
+      "note": "For each fixed admissible k,r,B, RHLean.Analysis.UniversalEnvelope.subcritical_subpower_gain_iff_mertens_half_of_lt composed with mertens_half_iff_mertensEnergy. The theorem allows every real r<k and eventual estimates along any sequence tending to infinity; no every-B strengthening."
     }
   ],
   "non_equivalences": [
@@ -3832,7 +3887,7 @@
     {
       "a": "OPEN-FINITE-AC",
       "b": "PROP-MERTENS-ENERGY",
-      "reason": "Finite A implies the Mertens energy statement; the converse is not proved and finite A can be stronger than RH."
+      "reason": "Finite A implies the Mertens energy statement. The reverse implication is not established for the actual historical amplification; no separation theorem is asserted."
     },
     {
       "a": "PROP-LEGAL-ANCESTRY-GRAM",
@@ -4450,17 +4505,26 @@
       "state": "open",
       "draft": true,
       "title": "Formalize universal historical envelopes and critical amplification equivalences",
-      "observed_at": "2026-11-15T23:06:26Z",
-      "head_sha": "eb2b222adb0fd93a106c02184548385f40447ede",
+      "observed_at": "2026-11-15T23:49:51Z",
+      "head_sha": "c401144dedcb6ffd785bd4b25b5830eb83b3c93c",
       "checks": {
-        "jobs": 17,
-        "success": 8,
-        "failed": 1,
-        "pending": 8
+        "jobs": 18,
+        "success": 18,
+        "failed": 0,
+        "pending": 0
       },
-      "workflow_run": "https://github.com/OVVO-Financial/RH_Lean/actions/runs/43772948315",
-      "grade": "PR_HEAD_RED",
-      "notes": "Complete theorem candidates under warning-fatal GitHub Actions verification. Eight checks succeeded, one targeted compile failed, and eight remain active at the observed head. Repairs continue; no new proof status is inferred from source-only audits."
+      "workflow_run": "https://github.com/OVVO-Financial/RH_Lean/actions/runs/43775607055",
+      "grade": "KERNEL_CHECKED_GREEN_PR_HEAD",
+      "notes": "Independently fetched GitHub check-runs: all 18 completed successfully on this exact head; PR metadata confirmed open, draft and unmerged. Universal-envelope run 43775607055 passed core 133001085271 (118 declarations, 42 exact-type examples), independent kernel 133001085451 (32 declarations), numerical smoke 133001085494, and fractional-owner 133001085509 (8 declarations; completed 2026-11-15T23:49:21Z). The final fractional ancestor pipeline and exact-type/terminal-axiom audit both passed. Across overlapping proof groups, 122 unique declarations use only the permitted standard terminal axioms. This dated source-head certification is separate from human review, merge, and later metadata-only commits.",
+      "proof_job": "https://github.com/OVVO-Financial/RH_Lean/actions/runs/43775607055/job/133001085271",
+      "kernel_proof_job": "https://github.com/OVVO-Financial/RH_Lean/actions/runs/43775607055/job/133001085451",
+      "fractional_proof_job": "https://github.com/OVVO-Financial/RH_Lean/actions/runs/43775607055/job/133001085509",
+      "numerical_job": "https://github.com/OVVO-Financial/RH_Lean/actions/runs/43775607055/job/133001085494",
+      "proof_artifacts": [
+        "https://github.com/OVVO-Financial/RH_Lean/actions/runs/43775607055/artifacts/14186066990",
+        "https://github.com/OVVO-Financial/RH_Lean/actions/runs/43775607055/artifacts/14186257216",
+        "https://github.com/OVVO-Financial/RH_Lean/actions/runs/43775607055/artifacts/14186717674"
+      ]
     }
   ],
   "historical_tracks": {
