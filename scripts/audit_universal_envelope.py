@@ -36,6 +36,26 @@ SOURCES = {
         "moebius_product_kernel_inversion", "divisorKernel_inversion",
         "potential_norm_le_reciprocal_history", "potential_norm_le_historical_sqrt",
     )),
+    "ZERO_FORCED": (UNIVERSAL, (
+        "zeroPotential_hasDerivAt", "zeroSeed_kernel_formula",
+        "zeroSeed_kernel_nat_norm_le", "zeroSeed_kernel_norm_le",
+        "zeroPotential_eventually_norm_ge", "zero_forces_historical_power",
+    )),
+    "HISTORY": (UNIVERSAL, (
+        "historical_le_amplification_mul_sqrt_history", "sqrt_cutoff_square_le",
+    )),
+    "LAWS": (UNIVERSAL, (
+        "envelopeExponent", "envelopeExponent_nonneg", "growthAtMost_envelope_boundary",
+        "exists_zero_above_of_lt_rightmost", "historical_upper_power", "historical_lower_power",
+        "historical_power_le_scaled", "centered_endpoint_upper_power", "envelopeBound_of_balance",
+        "universal_envelope_bound", "envelopeBound_iff_rightmost_le",
+        "historical_log_ratio_eventually_le", "historical_log_ratio_eventually_ge",
+        "historical_log_ratio_tendsto",
+    )),
+    "AMPLIFICATION_LAW": (UNIVERSAL, (
+        "amplification_upper_power", "amplification_lower_power",
+        "amplification_logRatio_lower", "amplification_logRatio_tendsto",
+    )),
     "OWNER_EQUIVALENCE": (OWNER, (
         "native_owner_zero_of_mertens_half", "mertens_half_of_native_owner_zero",
         "native_owner_zero_iff_mertens_half", "native_owner_zero_iff_criticalZeros",
@@ -53,7 +73,7 @@ SOURCES = {
     )),
 }
 GROUPS = {
-    "core": ("ARITHMETIC", "KERNEL", "OWNER_EQUIVALENCE", "ZERO_LOG"),
+    "core": ("ARITHMETIC", "KERNEL", "ZERO_FORCED", "HISTORY", "LAWS", "AMPLIFICATION_LAW", "OWNER_EQUIVALENCE", "ZERO_LOG"),
     "fractional": ("OWNER_EQUIVALENCE", "OWNER_FRACTIONAL"),
 }
 ACCEPTANCE = {
@@ -104,7 +124,7 @@ def source_audit(group: str, plan_ancestors: bool = True) -> tuple[dict, tuple[s
     acceptance = ACCEPTANCE[group]
     raw, clean = checked_source(ROOT / acceptance)
     count = len(re.findall(r"(?m)^example\b", clean))
-    if count < (10 if group == "core" else 4):
+    if count < (18 if group == "core" else 4):
         raise AuditError(f"Missing exact-type acceptance examples in {acceptance}")
     # The established OAI pipeline materializes pinned anchored ancestors.
     # Static review of our new leaves can precede that generation; executable

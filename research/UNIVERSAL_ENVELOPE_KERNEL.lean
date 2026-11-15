@@ -178,15 +178,15 @@ theorem clipped_term_hasDerivWithinAt {F κ : ℝ → ℂ}
     have hd := (hF (u / n) hv).scomp u ((hasDerivAt_id u).div_const (n : ℝ))
     have hd' : HasDerivAt (fun v : ℝ => F (v / n))
         (κ (u / n) / (u : ℂ)) u := by
-      convert hd using 1
-      · rfl
-      · simp only [Complex.real_smul, Complex.ofReal_div, Complex.ofReal_one,
+      have hcoef : (1 / (n : ℝ)) • (κ (u / n) / ((u / n : ℝ) : ℂ)) =
+          κ (u / n) / (u : ℂ) := by
+        simp only [Complex.real_smul, Complex.ofReal_div, Complex.ofReal_one,
           Complex.ofReal_natCast]
-        field_simp
+        field_simp [hn0, hu0]
+      simpa only [Function.comp_apply, hcoef] using hd
     apply hd'.hasDerivWithinAt.congr_of_mem
     · intro v hvu
-      rw [max_eq_right]
-      exact (le_div_iff₀ hnpos).mpr (by simpa using hnu.trans hvu)
+      rw [max_eq_right ((le_div_iff₀ hnpos).mpr (by simpa using hnu.trans hvu))]
     · exact le_rfl
   · rw [if_neg hnu]
     have hun : u < (n : ℝ) := lt_of_not_ge hnu
@@ -214,10 +214,12 @@ theorem clippedKernel_hasDerivWithinAt {F κ : ℝ → ℂ}
         (Nat.le_floor_iff (by linarith)).mp hnu⟩
   have hd := HasDerivWithinAt.fun_sum (u := Finset.Icc 1 N)
     (fun n hn => clipped_term_hasDerivWithinAt hF (Finset.mem_Icc.mp hn).1 hu)
-  convert hd using 1
-  · rfl
-  · rw [← Finset.sum_filter, hfilter, ← Finset.sum_div]
+  have hcoef : (∑ n ∈ Finset.Icc 1 N,
+      if (n : ℝ) ≤ u then κ (u / n) / (u : ℂ) else 0) =
+      divisorKernel κ u / (u : ℂ) := by
+    rw [← Finset.sum_filter, hfilter, ← Finset.sum_div]
     rfl
+  simpa only [clippedKernel, hcoef] using hd
 
 /-- A bounded complete derivative kernel pays the reciprocal increments of
 the integrated divisor kernel.  The constant is uniform before `N` and `n`.
@@ -270,7 +272,7 @@ theorem divisorKernel_increment_norm_le {F κ : ℝ → ℂ}
   rw [hea, heb] at h
   have hscale : C / a * (b - a) = C / n := by
     dsimp [a, b]
-    field_simp
+    field_simp [hNpos.ne', hnpos.ne']
     <;> ring
   simpa only [hscale, a, b] using h
 

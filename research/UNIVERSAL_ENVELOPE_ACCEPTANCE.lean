@@ -1,5 +1,9 @@
 import «research.UNIVERSAL_ENVELOPE_ARITHMETIC»
 import «research.UNIVERSAL_ENVELOPE_KERNEL»
+import «research.UNIVERSAL_ENVELOPE_ZERO_FORCED»
+import «research.UNIVERSAL_ENVELOPE_HISTORY»
+import «research.UNIVERSAL_ENVELOPE_LAWS»
+import «research.UNIVERSAL_ENVELOPE_AMPLIFICATION_LAW»
 import «research.UNIVERSAL_ENVELOPE_OWNER_EQUIVALENCE»
 import «research.UNIVERSAL_ENVELOPE_ZERO_LOG»
 
@@ -49,6 +53,34 @@ example {F κ : ℝ → ℂ} (hFone : F 1 = 0)
     {N : ℕ} (hN : 1 ≤ N) :
     ‖F N‖ ≤ 8 * C * Real.sqrt (squareRootHistoricalK N) * Real.sqrt (N : ℝ) :=
   potential_norm_le_historical_sqrt hFone hF hC hκ hN
+
+example {ρ : ℂ} (hzero : riemannZeta ρ = 0)
+    (hβ : (1 / 2 : ℝ) < ρ.re) (hβ1 : ρ.re < 1) :
+    ∃ c : ℝ, 0 < c ∧ ∀ᶠ R : ℕ in Filter.atTop,
+      c * (R : ℝ) ^ (2 * ρ.re - 1) ≤ squareRootHistoricalK R :=
+  zero_forces_historical_power hzero hβ hβ1
+
+example (Y : ℕ) :
+    squareRootHistoricalK Y ≤
+      8 * (1 + squareRootAmplificationMax Y) * squareRootHistoricalK (Nat.sqrt Y + 1) :=
+  historical_le_amplification_mul_sqrt_history Y
+
+example {Y : ℕ} (hY : 1 ≤ Y) :
+    ((Nat.sqrt Y + 1 : ℕ) : ℝ) ^ 2 ≤ 4 * (Y : ℝ) :=
+  sqrt_cutoff_square_le hY
+
+example : EnvelopeBound 2 0 := universal_envelope_bound
+
+example {lam eta : ℝ} (hlam0 : 0 ≤ lam) (hlam2 : lam < 2) (heta : 0 ≤ eta) :
+    EnvelopeBound lam eta ↔ zetaRightmostRealPart ≤ 1 / 2 + eta / (2 - lam) :=
+  envelopeBound_iff_rightmost_le hlam0 hlam2 heta
+
+example : Filter.Tendsto
+    (fun R : ℕ => Real.log (squareRootHistoricalK R) / Real.log (R : ℝ))
+    Filter.atTop (nhds (2 * envelopeExponent)) := historical_log_ratio_tendsto
+
+example : Filter.Tendsto squareRootAmplificationLogRatio Filter.atTop
+    (nhds envelopeExponent) := amplification_logRatio_tendsto
 
 example : NativeOwnerBound 0 ↔ MertensGrowthAtMost (1 / 2 : ℝ) :=
   native_owner_zero_iff_mertens_half
