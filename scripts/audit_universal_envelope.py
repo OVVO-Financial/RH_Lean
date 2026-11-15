@@ -47,7 +47,8 @@ SOURCES = {
         "historical_le_amplification_mul_sqrt_history", "sqrt_cutoff_square_le",
     )),
     "LAWS": (UNIVERSAL, (
-        "envelopeExponent", "envelopeExponent_nonneg", "growthAtMost_envelope_boundary",
+        "envelopeExponent", "envelopeExponent_nonneg", "envelopeExponent_eq_zero_iff_mertens_half",
+        "growthAtMost_envelope_boundary",
         "exists_zero_above_of_lt_rightmost", "historical_upper_power", "historical_lower_power",
         "historical_power_le_scaled", "centered_endpoint_upper_power", "envelopeBound_of_balance",
         "universal_envelope_bound", "envelopeBound_iff_rightmost_le",
@@ -74,6 +75,7 @@ SOURCES = {
         "mertens_half_of_subcritical_prefixLiftOn", "subcritical_prefixLiftOn_iff_mertens_half",
         "subcritical_prefixLiftBound_iff_mertens_half", "prefixLiftOn_of_subpower_gain",
         "mertens_half_of_subcritical_subpower_gain",
+        "MertensPrefixSubpowerGainLiftOn", "subcritical_subpower_gain_iff_mertens_half",
     )),
     "FROZEN_Q": (UNIVERSAL, (
         "FrozenQEnvelopeBound", "frozenQ_centered_norm_comparison", "root_le_envelope_scale",
@@ -155,7 +157,7 @@ def source_audit(group: str, plan_ancestors: bool = True) -> tuple[dict, tuple[s
     acceptance = ACCEPTANCE[group]
     raw, clean = checked_source(ROOT / acceptance)
     count = len(re.findall(r"(?m)^example\b", clean))
-    if count < {"core": 38, "kernel": 5, "fractional": 4}[group]:
+    if count < {"core": 41, "kernel": 5, "fractional": 4}[group]:
         raise AuditError(f"Missing exact-type acceptance examples in {acceptance}")
     # The established OAI pipeline materializes pinned anchored ancestors.
     # Static review of our new leaves can precede that generation; executable

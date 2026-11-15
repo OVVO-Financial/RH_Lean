@@ -277,7 +277,7 @@ theorem prefixBudget_power_log_ratio_tendsto (k : ℕ) (hk : 1 ≤ k) :
     tendsto_atTop_mono (fun B => Nat.le_self_pow (by omega : k ≠ 0) B) tendsto_id
   have hlim : Tendsto
       (fun B : ℕ => (k : ℝ) *
-        (Real.log (mertensPrefixBudget (B ^ k)) / Real.log (B ^ k : ℝ)))
+        (Real.log (mertensPrefixBudget (B ^ k)) / Real.log ((B ^ k : ℕ) : ℝ)))
       atTop (nhds ((k : ℝ) * envelopeExponent)) :=
     tendsto_const_nhds.mul (prefixBudget_log_ratio_tendsto.comp hpow)
   apply hlim.congr'
@@ -451,6 +451,36 @@ theorem mertens_half_of_subcritical_subpower_gain
     MertensGrowthAtMost (1 / 2 : ℝ) :=
   mertens_half_of_subcritical_prefixLiftOn k hk r hr0 hrk B hB
     (prefixLiftOn_of_subpower_gain hB hG hlogG hstep)
+
+/-- The documented MU-LIFT gain exists on the original unbounded chain:
+it is eventually at least one, has zero logarithmic exponent, and controls
+the full-prefix endpoint with the fixed budget power r. -/
+def MertensPrefixSubpowerGainLiftOn (B : ℕ → ℕ) (k : ℕ) (r : ℝ) : Prop :=
+  ∃ G : ℕ → ℝ,
+    (∀ᶠ j : ℕ in atTop, 1 ≤ G j) ∧
+    Tendsto (fun j => Real.log (G j) / Real.log (B j : ℝ)) atTop (nhds 0) ∧
+    ∀ᶠ j : ℕ in atTop,
+      mertensPrefixBudget ((B j) ^ k) ≤ G j * (mertensPrefixBudget (B j)) ^ r
+
+/-- Exact equivalence for the original existential subpower-gain format,
+including its permitted eventual unbounded-chain quantifier. -/
+theorem subcritical_subpower_gain_iff_mertens_half
+    (k : ℕ) (hk : 1 ≤ k) (r : ℝ) (hr0 : 0 ≤ r) (hrk : r < (k : ℝ))
+    (B : ℕ → ℕ) (hB : Tendsto B atTop atTop) :
+    MertensPrefixSubpowerGainLiftOn B k r ↔ MertensGrowthAtMost (1 / 2 : ℝ) := by
+  constructor
+  · rintro ⟨G, hG, hlogG, hstep⟩
+    exact mertens_half_of_subcritical_subpower_gain k hk r hr0 hrk B G hB hG hlogG hstep
+  · intro hhalf
+    have hh := envelopeExponent_eq_zero_iff_mertens_half.mpr hhalf
+    refine ⟨fun j => mertensPrefixBudget ((B j) ^ k), ?_, ?_, ?_⟩
+    · exact Filter.Eventually.of_forall
+        (fun j => mertensPrefixBudget_one_le ((B j) ^ k))
+    · simpa only [Function.comp_apply, hh, mul_zero] using
+        (prefixBudget_power_log_ratio_tendsto k hk).comp hB
+    · exact Filter.Eventually.of_forall (fun j =>
+        le_mul_of_one_le_right (mertensPrefixBudget_nonneg ((B j) ^ k))
+          (Real.one_le_rpow (mertensPrefixBudget_one_le (B j)) hr0))
 
 end RHLean.Analysis.UniversalEnvelope
 

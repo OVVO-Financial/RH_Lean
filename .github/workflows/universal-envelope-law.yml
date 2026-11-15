@@ -72,6 +72,11 @@ jobs:
           git rev-parse HEAD
       - uses: ./.github/actions/lean-setup
       - uses: ./.github/actions/lean-compiled-cache
+      - name: Check independent zero-log and Mathlib RH bridges before the analytic chain
+        uses: ./.github/actions/research-compile
+        with:
+          build-library: 'true'
+          targets: research/UNIVERSAL_ENVELOPE_RH_BRIDGES.lean
       - name: Compile the exact warning-fatal core and type acceptance
         uses: ./.github/actions/research-compile
         with:

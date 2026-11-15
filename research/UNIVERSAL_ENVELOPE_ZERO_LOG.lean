@@ -67,7 +67,7 @@ theorem envelopeBound_one_zero_of_zeroLog
       _ = ((N : ℝ) + 1) ^ ε * ((R : ℝ) ^ 2) ^ ε :=
         Real.mul_rpow (by positivity) (sq_nonneg _)
       _ = ((N : ℝ) + 1) ^ ε * (R : ℝ) ^ (2 * ε) := by
-        rw [← Real.rpow_natCast (R : ℝ) 2, ← Real.rpow_mul hR0.le]
+        rw [← Real.rpow_natCast (R : ℝ) 2, ← Real.rpow_mul hR0.le] <;> norm_num
   have hcenter : ‖mertensSummatory (squareRootEndpoint R) - 1‖ =
       |((mertensSummatoryInt (squareRootEndpoint R) - 1 : ℤ) : ℝ)| := by
     have hcast : mertensSummatory (squareRootEndpoint R) - 1 =

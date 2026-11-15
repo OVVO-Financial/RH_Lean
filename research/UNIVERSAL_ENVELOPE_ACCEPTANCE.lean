@@ -144,6 +144,29 @@ example (k : ℕ) (hk : 1 ≤ k) (r : ℝ) (hr0 : 0 ≤ r) (hrk : r < (k : ℝ))
     MertensPrefixLiftBound k r ↔ MertensGrowthAtMost (1 / 2 : ℝ) :=
   subcritical_prefixLiftBound_iff_mertens_half k hk r hr0 hrk
 
+example (k : ℕ) (hk : 1 ≤ k) (r : ℝ) (hr0 : 0 ≤ r) (hrk : r < (k : ℝ))
+    (B : ℕ → ℕ) (G : ℕ → ℝ) (hB : Filter.Tendsto B Filter.atTop Filter.atTop)
+    (hG : ∀ᶠ j : ℕ in Filter.atTop, 1 ≤ G j)
+    (hlogG : Filter.Tendsto
+      (fun j => Real.log (G j) / Real.log (B j : ℝ)) Filter.atTop (nhds 0))
+    (hstep : ∀ᶠ j : ℕ in Filter.atTop,
+      mertensPrefixBudget ((B j) ^ k) ≤ G j * (mertensPrefixBudget (B j)) ^ r) :
+    MertensGrowthAtMost (1 / 2 : ℝ) :=
+  mertens_half_of_subcritical_subpower_gain k hk r hr0 hrk B G hB hG hlogG hstep
+
+example (B : ℕ → ℕ) (k : ℕ) (r : ℝ) : MertensPrefixSubpowerGainLiftOn B k r ↔
+    ∃ G : ℕ → ℝ,
+      (∀ᶠ j : ℕ in Filter.atTop, 1 ≤ G j) ∧
+      Filter.Tendsto (fun j => Real.log (G j) / Real.log (B j : ℝ))
+        Filter.atTop (nhds 0) ∧
+      ∀ᶠ j : ℕ in Filter.atTop,
+        mertensPrefixBudget ((B j) ^ k) ≤ G j * (mertensPrefixBudget (B j)) ^ r := Iff.rfl
+
+example (k : ℕ) (hk : 1 ≤ k) (r : ℝ) (hr0 : 0 ≤ r) (hrk : r < (k : ℝ))
+    (B : ℕ → ℕ) (hB : Filter.Tendsto B Filter.atTop Filter.atTop) :
+    MertensPrefixSubpowerGainLiftOn B k r ↔ MertensGrowthAtMost (1 / 2 : ℝ) :=
+  subcritical_subpower_gain_iff_mertens_half k hk r hr0 hrk B hB
+
 example (lam eta : ℝ) : FrozenQEnvelopeBound lam eta ↔
     ∀ ε : ℝ, 0 < ε → ∃ C : ℝ, 0 ≤ C ∧ ∀ R : ℕ, 2 ≤ R →
       ‖eulerSelfDualBilinear R‖ ≤

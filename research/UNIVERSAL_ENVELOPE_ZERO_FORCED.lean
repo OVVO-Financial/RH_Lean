@@ -40,15 +40,15 @@ theorem zeroPotential_hasDerivAt {ρ : ℂ} (hρ : ρ ≠ 0) {u : ℝ} (hu : 0 <
   have hp := (hasDerivAt_ofReal_cpow_const hu.ne' hρ).sub_const 1
   have hl : HasDerivAt (fun v : ℝ => (Real.log v : ℂ))
       (1 / (u : ℂ)) u := by
-    simpa only [one_div, Complex.ofReal_inv] using (Real.hasDerivAt_log hu.ne').ofReal_comp
+    simpa only [one_div, Complex.ofReal_inv] using! (Real.hasDerivAt_log hu.ne').ofReal_comp
   have hd := (hp.const_mul ((1 - ρ) / ρ)).sub hl
   have hcoef : (1 - ρ) / ρ * (ρ * (u : ℂ) ^ (ρ - 1)) - 1 / (u : ℂ) =
       zeroSeed ρ u / (u : ℂ) := by
     rw [Complex.cpow_sub _ _ huC, Complex.cpow_one]
     unfold zeroSeed
     field_simp [hρ, huC]
-    <;> ring
-  simpa only [zeroPotential, hcoef] using hd
+    ring
+  simpa only [zeroPotential, hcoef] using! hd
 
 theorem zeroSeed_kernel_formula (ρ : ℂ) {u : ℝ} (hu : 0 ≤ u) :
     divisorKernel (zeroSeed ρ) u =
@@ -110,7 +110,7 @@ theorem zeroSeed_kernel_nat_norm_le {ρ : ℂ} (hzero : riemannZeta ρ = 0)
       rw [show ρ + (1 - ρ) = 1 by ring, Complex.cpow_one]
     calc
       (1 - ρ) * (N : ℂ) ^ ρ * ((N : ℂ) ^ (1 - ρ) / (1 - ρ)) =
-          (N : ℂ) ^ ρ * (N : ℂ) ^ (1 - ρ) := by field_simp [hone] <;> ring
+          (N : ℂ) ^ ρ * (N : ℂ) ^ (1 - ρ) := by field_simp [hone]; ring
       _ = (N : ℂ) := hp
   have hcancel : (N : ℂ) ^ ρ * (N : ℂ) ^ (-ρ) = 1 := by
     rw [← Complex.cpow_add _ _ hNC]

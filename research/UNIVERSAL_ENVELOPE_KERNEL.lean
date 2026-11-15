@@ -160,7 +160,7 @@ theorem clippedKernel_continuous {F : ℝ → ℂ}
   apply continuous_finsetSum
   intro n hn
   exact hF.comp_continuous (continuous_const.max (continuous_id.div_const _))
-    (fun u => le_max_left _ _)
+    (fun u => Set.mem_Ici.mpr (le_max_left _ _))
 
 /-- At a cutoff, use the derivative from the right.  The newly entering term
 is included, so no differentiability claim at an integer kink is needed. -/
@@ -173,7 +173,7 @@ theorem clipped_term_hasDerivWithinAt {F κ : ℝ → ℂ}
   have hn0 : (n : ℂ) ≠ 0 := by exact_mod_cast (by omega : n ≠ 0)
   have hu0 : (u : ℂ) ≠ 0 := by exact_mod_cast (by linarith : u ≠ 0)
   by_cases hnu : (n : ℝ) ≤ u
-  · rw [if_pos hnu]
+  · rw [ite_eq_left hnu]
     have hv : 1 ≤ u / n := (le_div_iff₀ hnpos).mpr (by simpa using hnu)
     have hd := (hF (u / n) hv).scomp u ((hasDerivAt_id u).div_const (n : ℝ))
     have hd' : HasDerivAt (fun v : ℝ => F (v / n))
@@ -183,12 +183,12 @@ theorem clipped_term_hasDerivWithinAt {F κ : ℝ → ℂ}
         simp only [Complex.real_smul, Complex.ofReal_div, Complex.ofReal_one,
           Complex.ofReal_natCast]
         field_simp [hn0, hu0]
-      simpa only [Function.comp_apply, hcoef] using hd
+      simpa only [Function.comp_apply, hcoef] using! hd
     apply hd'.hasDerivWithinAt.congr_of_mem
     · intro v hvu
       rw [max_eq_right ((le_div_iff₀ hnpos).mpr (by simpa using hnu.trans hvu))]
-    · exact le_rfl
-  · rw [if_neg hnu]
+    · exact Set.mem_Ici.mpr le_rfl
+  · rw [ite_eq_right hnu]
     have hun : u < (n : ℝ) := lt_of_not_ge hnu
     have heq : (fun v : ℝ => F (max 1 (v / n))) =ᶠ[𝓝 u] fun _ => F 1 := by
       filter_upwards [Iio_mem_nhds hun] with v hv
@@ -219,7 +219,7 @@ theorem clippedKernel_hasDerivWithinAt {F κ : ℝ → ℂ}
       divisorKernel κ u / (u : ℂ) := by
     rw [← Finset.sum_filter, hfilter, ← Finset.sum_div]
     rfl
-  simpa only [clippedKernel, hcoef] using hd
+  simpa only [clippedKernel, hcoef] using! hd
 
 /-- A bounded complete derivative kernel pays the reciprocal increments of
 the integrated divisor kernel.  The constant is uniform before `N` and `n`.
@@ -273,7 +273,7 @@ theorem divisorKernel_increment_norm_le {F κ : ℝ → ℂ}
   have hscale : C / a * (b - a) = C / n := by
     dsimp [a, b]
     field_simp [hNpos.ne', hnpos.ne', (by positivity : (n : ℝ) + 1 ≠ 0)]
-    <;> ring
+    ring
   rw [hscale] at h
   exact h
 
@@ -352,7 +352,7 @@ theorem mertens_norm_le_historical_sqrt {N n : ℕ} (hN : 1 ≤ N) (hn : n < N) 
   have hsqn := Real.sq_sqrt (show 0 ≤ (n : ℝ) + 1 by positivity)
   have hsK : 1 ≤ Real.sqrt K := (Real.one_le_sqrt).mpr hK
   have hsn : 1 ≤ Real.sqrt ((n : ℝ) + 1) :=
-    (Real.one_le_sqrt).mpr (by positivity)
+    (Real.one_le_sqrt).mpr (by have := Nat.cast_nonneg (α := ℝ) n; linarith)
   have hA : 1 ≤ Real.sqrt K * Real.sqrt ((n : ℝ) + 1) :=
     one_le_mul_of_one_le_of_one_le hsK hsn
   have hAsq : (Real.sqrt K * Real.sqrt ((n : ℝ) + 1)) ^ 2 =

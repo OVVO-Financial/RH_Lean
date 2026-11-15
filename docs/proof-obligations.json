@@ -1,13 +1,13 @@
 {
   "schema": "rhlean-proof-obligations/1",
-  "registry_version": "2026-11-08.3",
-  "authority": "Mathematical proof-obligation registry (Layer A) with links to Lean declarations (Layer B) and evidence (Layer C). Navigation and status bookkeeping only: conditional consumers do not prove their premises and paper or numerical findings are not Lean certificates. Refresh live PR state before use; evidence is a dated snapshot. November 8 continuation: #1111, #1113 and #1116 have been human-merged. #1119 implements independently accepted EC1-EC3 and is exact-head green, review-ready and UNMERGED at 77ee8158. Uniform finite C, finite A, zero-log amplification, canonical actual-prime VF and RH remain open.",
+  "registry_version": "2026-11-15.1",
+  "authority": "Mathematical proof-obligation registry with Lean declarations and dated evidence. Conditional consumers do not prove their premises; paper and numerical findings are not Lean certificates. November 15 refresh: #1119 was human-merged on November 9, and its tested source blob is preserved on current main. PR #1135 submits the universal historical-envelope laws and exact RH-equivalent route bridges; its new formalization milestone remains pending until the pinned warning-fatal and terminal-axiom jobs pass. RH, finite A/C, zero-log amplification and subcritical arithmetic inputs remain open.",
   "baseline": {
     "repository": "OVVO-Financial/RH_Lean",
-    "main_sha": "7aa0fcb12f7e8fe67e809d8f94cda384506d61b5",
+    "main_sha": "59612bc8b5c30c528d8367667ea5846a8053f114",
     "lean_toolchain": "leanprover/lean4:v4.34.1",
-    "agent_reports_sha": "1410db8dffd186586ded23feaf9b2419efacded8",
-    "verified_at": "2026-11-09T03:02:50Z"
+    "agent_reports_sha": "5a7f05d56a6a288aa2e6fbd0b2755047215d904d",
+    "verified_at": "2026-11-15T23:06:26Z"
   },
   "vocabulary": {
     "node_types": [
@@ -213,8 +213,8 @@
       "priority": "C",
       "architecture": "II. genuine Mertens signed pair",
       "missing_mathematics": "Actual full signed covariance already satisfies the merged strict sub-7/8 consequence. Prove an additional complete signed power saving beyond the explicit boundary, or RH-level M^2=O(X^(1+eps)) with the squarefree diagonal.",
-      "quantitative_target": "Merged #1116 supplies its exact same-D ceiling. Green unmerged #1119 proves MertensGrowthAtMost(b_active), b_active=7/8-7/(64*N_pack). Squaring with half the positive exponent loss gives the elementary energy consequence O_eps(X^(2*b_active+eps)); no new separately named signed-pair theorem is claimed. Further gain and critical X^(1+eps) energy remain open.",
-      "best_source": "Merged #1107 complete signed-pair return, #1111 original near-uniform fixed source and #1116 window-saturated native bound; exact-head green unmerged #1119 error closure; MertensCovarianceDescent and real Phi / NNS packets.",
+      "quantitative_target": "Merged #1116 supplies its exact same-D ceiling. Merged #1119 proves MertensGrowthAtMost(b_active), b_active=7/8-7/(64*N_pack). Squaring with half the positive exponent loss gives the elementary energy consequence O_eps(X^(2*b_active+eps)); no new separately named signed-pair theorem is claimed. Further gain and critical X^(1+eps) energy remain open.",
+      "best_source": "Merged #1107 complete signed-pair return, #1111 original near-uniform fixed source and #1116 window-saturated native bound; merged #1119 error closure; MertensCovarianceDescent and real Phi / NNS packets.",
       "largest_unpaid_term": "Joint genuine pair interactions not controlled at the RH-scale; no factorwise transfer from Hecke atom labels to rational Moebius signs.",
       "falsifiers": [],
       "mechanism_nodes": [
@@ -274,13 +274,13 @@
       "id": "OAI-NNS",
       "title": "Original OpenAI compensated Hecke/Gaussian source and full signed NNS moment",
       "disposition": "OPEN",
-      "status_label": "WINDOW-SATURATED GAIN ON MAIN; #1119 ERROR CLOSURE GREEN UNMERGED; FURTHER GAIN / RH OPEN",
+      "status_label": "WINDOW-SATURATED GAIN ON MAIN; #1119 ERROR CLOSURE ON MAIN; FURTHER GAIN / RH OPEN",
       "gate": "ANALYTIC-IMPROVEMENT",
       "priority": "C",
       "architecture": "III. original OAI Hecke/character",
-      "missing_mathematics": "Further complete-source saving beyond beta<=7/8-(7/8)m, or a repeatable licensed contraction. Exact-head green unmerged #1119 removes D.e from #1116's same-D ceiling and proves the fixed-family boundary 7/8-7/(64*N_pack). Retain the full same-probe LOW/HIGH/principal return. A new gain beyond this closed boundary remains open.",
-      "quantitative_target": "Merged #1116: beta<=7/8-(7/8)m+D.e and explicit 7/8-5/(96*N_*). Green unmerged #1119: beta<=7/8-(7/8)m and explicit b_active=7/8-7/(64*N_pack). NEXT: beat the new complete-source boundary or prove a uniform licensed renewal; every-positive-loss growth and fixed-power bounds remain distinct.",
-      "best_source": "Merged #1107 VF919TotalMassEndpoint, #1111 original near-uniform fine slots and #1116 VF919WindowSaturatedLowPrincipal; exact-head green unmerged #1119 VF919WindowErrorClosure with fresh source/count and native transfer audits. Retained marked 1+t/2 and generalized kappa inputs remain separate.",
+      "missing_mathematics": "Further complete-source saving beyond beta<=7/8-(7/8)m, or a repeatable licensed contraction. Merged #1119 removes D.e from #1116's same-D ceiling and proves the fixed-family boundary 7/8-7/(64*N_pack). Retain the full same-probe LOW/HIGH/principal return. A new gain beyond this closed boundary remains open.",
+      "quantitative_target": "Merged #1116: beta<=7/8-(7/8)m+D.e and explicit 7/8-5/(96*N_*). Merged #1119: beta<=7/8-(7/8)m and explicit b_active=7/8-7/(64*N_pack). NEXT: beat the new complete-source boundary or prove a uniform licensed renewal; every-positive-loss growth and fixed-power bounds remain distinct.",
+      "best_source": "Merged #1107 VF919TotalMassEndpoint, #1111 original near-uniform fine slots and #1116 VF919WindowSaturatedLowPrincipal; merged #1119 VF919WindowErrorClosure with fresh source/count and native transfer audits. Retained marked 1+t/2 and generalized kappa inputs remain separate.",
       "largest_unpaid_term": "Complete downstream combined counts, crossing/height budgets and every resonant/principal/outer branch when using retained marked 1+t/2 and generalized kappa.",
       "falsifiers": [],
       "mechanism_nodes": [
@@ -382,7 +382,7 @@
       "priority": "A",
       "architecture": "II'. q^2 recursion (distinct mechanism within the Mertens family)",
       "missing_mathematics": "#1109 controls the multiplicity of original off-ray daughter-cutoff images (at most two), NOT their image energy/signs. Need the complete signed prefix-tail/mixed bill with rays, parent, q>Q, historical prefix and negative daughters kept.",
-      "quantitative_target": "RH-sufficient: |B_R|^2 <= (9/4) E_R + C R^2 K_R. Strict-power consumer: 2 Gamma_mixed <= 2 E_R + A R^(7/2-eta). Elementary comparisons: beating #1116's named explicit boundary requires eta>5/(24*N_*); beating green unmerged #1119 requires eta>7/(16*N_pack). The full signed input remains unproved.",
+      "quantitative_target": "RH-sufficient: |B_R|^2 <= (9/4) E_R + C R^2 K_R. Strict-power consumer: 2 Gamma_mixed <= 2 E_R + A R^(7/2-eta). Elementary comparisons: beating #1116's named explicit boundary requires eta>5/(24*N_*); beating merged #1119 requires eta>7/(16*N_pack). The full signed input remains unproved.",
       "best_source": "Merged #1021 general-power Gram, #1027/#1040 signed reductions, #1109 CORR4_CUTOFF_COLLISIONS; full original q^2 daughter carrier.",
       "largest_unpaid_term": "Signed mixed-tail return and distinct-image energy; an upper energy bound cannot replace a negative daughter credit with the wrong sign.",
       "falsifiers": [
@@ -1953,7 +1953,7 @@
         "EV-PR-929",
         "EV-LEAN-MAIN-MERTENS"
       ],
-      "notes": "Can be stronger than RH; finite samples, near -1 correlations and target-equivalent restatements do not prove it.",
+      "notes": "The universal-envelope work retains finite A as a stronger epsilon-free premise: it implies zero-log growth and has a fixed double-exponential historical iteration. No reverse implication from RH or zero-log growth to finite A is asserted.",
       "does_not_prove": []
     },
     {
@@ -2458,7 +2458,7 @@
       "evidence": [
         "EV-NOTE-MU-LIFT"
       ],
-      "notes": "k = r = 2 is not subcritical; a gain factor defined from E itself is target-equivalent.",
+      "notes": "PR #1135 formalizes the actual uncentered E(B), its all-scale exponent, and the eventual unbounded-chain subcritical criterion including the original existential subpower-gain format. It does not impose every-B uniformity on the documented chain route. The arithmetic proposition remains OPEN.",
       "lean": [],
       "does_not_prove": []
     },
@@ -3194,25 +3194,55 @@
       "id": "MILESTONE-WINDOW-ERROR-CLOSURE",
       "title": "Positive-error closure of the complete fine-source boundary (#1119)",
       "type": "formalization_milestone",
-      "route_ids": ["OAI-NNS", "CODIV"],
+      "route_ids": [
+        "OAI-NNS",
+        "CODIV"
+      ],
       "statement": "For every original fine HighData D, beta <= 7/8-(7/8)*actualSlotMinimum(D), with the same every-positive-loss native Mertens growth. Spending D.e/2 gives a fixed power below the old exact same-D ceiling. The original fixed near-uniform family yields MertensGrowthAtMost(7/8-7/(64*N_pack)). For each smaller positive error the COMPLETE consumer constructs fresh SourceData and counts; no zero-error source or uniform Big-O limit is asserted.",
       "logical_status": "PROVED",
-      "formal_status": "PROVED_IN_LEAN_PR_GREEN_UNMERGED",
-      "evidence_class": "PROVED_IN_LEAN_PR_GREEN_UNMERGED",
+      "formal_status": "PROVED_IN_LEAN_ON_MAIN",
+      "evidence_class": "PROVED_IN_LEAN_ON_MAIN",
       "provenance": "PROVED_INTERNALLY",
       "open_obligation": false,
       "lean": [
-        {"file": "research/oai_434/VF919WindowErrorClosure.lean", "name": "native_beta_le_window_error_closed_of_fine"},
-        {"file": "research/oai_434/VF919WindowErrorClosure.lean", "name": "native_beta_le_near_uniform_window_error_closed"},
-        {"file": "research/oai_434/VF919WindowErrorClosure.lean", "name": "native_mertens_window_error_closed_of_fine"},
-        {"file": "research/oai_434/VF919WindowErrorClosure.lean", "name": "native_mertens_fixed_window_error_closed_of_fine"},
-        {"file": "research/oai_434/VF919WindowErrorClosure.lean", "name": "native_mertens_near_uniform_window_error_closed"}
+        {
+          "file": "research/oai_434/VF919WindowErrorClosure.lean",
+          "name": "native_beta_le_window_error_closed_of_fine"
+        },
+        {
+          "file": "research/oai_434/VF919WindowErrorClosure.lean",
+          "name": "native_beta_le_near_uniform_window_error_closed"
+        },
+        {
+          "file": "research/oai_434/VF919WindowErrorClosure.lean",
+          "name": "native_mertens_window_error_closed_of_fine"
+        },
+        {
+          "file": "research/oai_434/VF919WindowErrorClosure.lean",
+          "name": "native_mertens_fixed_window_error_closed_of_fine"
+        },
+        {
+          "file": "research/oai_434/VF919WindowErrorClosure.lean",
+          "name": "native_mertens_near_uniform_window_error_closed"
+        }
       ],
       "pr": 1119,
-      "evidence": ["EV-PR-1119"],
-      "notes": "Accepted claims 20261108-analytic-3/EC1-EC3, independently reviewed in 20261108-referee-3. The true same-D numerical ceiling gain is D.e, not a coarse 1/N comparison. The chosen minimizer index need not be identified; only the minimum value is preserved. Independent paper acceptance is separate from exact-head kernel certification. Warning-fatal source, seven exact-type examples, seven printed axiom lists and five live source/dependency/axiom closures passed; all five terminal roots use only the permitted standard axioms.",
-      "does_not_prove": ["Zero-error source existence or no-loss Big-O at the boundary", "Uniform finite C, finite A or zero-log amplification", "RH or a repeatable contraction to one half", "The independently unreviewed geometry-changing SG proposal"],
-      "milestone": {"order": 22, "date": "2026-11-08", "label": "Positive-error closure of the complete fine-source boundary (#1119)", "pr": 1119}
+      "evidence": [
+        "EV-PR-1119"
+      ],
+      "notes": "Accepted claims 20261108-analytic-3/EC1-EC3, independently reviewed in 20261108-referee-3. The true same-D numerical ceiling gain is D.e, not a coarse 1/N comparison. The chosen minimizer index need not be identified; only the minimum value is preserved. Independent paper acceptance is separate from exact-head kernel certification. Warning-fatal source, seven exact-type examples, seven printed axiom lists and five live source/dependency/axiom closures passed; all five terminal roots use only the permitted standard axioms. Human merge verified on 2026-11-15: merged 2026-11-09T04:57:27Z as 35319e9e2880bcb13fa1fc2bcdb1671bcf25d4c2; tested source blob f629db1b2b65d6ec042ac9432397d4b6316200c6 remains on main.",
+      "does_not_prove": [
+        "Zero-error source existence or no-loss Big-O at the boundary",
+        "Uniform finite C, finite A or zero-log amplification",
+        "RH or a repeatable contraction to one half",
+        "The independently unreviewed geometry-changing SG proposal"
+      ],
+      "milestone": {
+        "order": 22,
+        "date": "2026-11-08",
+        "label": "Positive-error closure of the complete fine-source boundary (#1119)",
+        "pr": 1119
+      }
     },
     {
       "id": "OPEN-MERTENS-FURTHER-GAIN",
@@ -3224,7 +3254,7 @@
         "CORR4",
         "FINITE-AC"
       ],
-      "statement": "Prove a fixed eta>0 so for every eps>0 there exists C_eps independent of x with |M(x)|<=C_eps*x^(b_active-eta+eps), where the strongest verified named fixed-family boundary is b_active=7/8-7/(64*N_pack), green unmerged #1119. Its exact same-D boundary is 7/8-(7/8)m, removing D.e from merged #1116. Preserve every complementary source term; further gain, uniform finite C and RH remain open.",
+      "statement": "Prove a fixed eta>0 so for every eps>0 there exists C_eps independent of x with |M(x)|<=C_eps*x^(b_active-eta+eps), where the strongest verified named fixed-family boundary is b_active=7/8-7/(64*N_pack), merged #1119. Its exact same-D boundary is 7/8-(7/8)m, removing D.e from merged #1116. Preserve every complementary source term; further gain, uniform finite C and RH remain open.",
       "historical_statement": "The November 8.1 snapshot asked for a fixed gain beyond 7/8-1/(48N_*). The #1111 endpoint plus the explicitly labeled elementary ceiling comparison now improves that numeric threshold. This stable next-improvement node follows the strongest verified boundary, without changing the canonical VF/RH proof contract. The November 8.3 snapshot additionally records human merges #1111/#1113/#1116 and the independently accepted, now exact-head green unmerged error-closure PR #1119. The exact same-D ceiling, not only rounded 1/N constants, is the comparison baseline.",
       "logical_status": "OPEN",
       "formal_status": "NOT_FORMALIZED",
@@ -3259,7 +3289,8 @@
         }
       ],
       "evidence": [],
-      "does_not_prove": []
+      "does_not_prove": [],
+      "notes": "PR #1135 submits an equivalence with Mathlib RiemannHypothesis, and an unconditional exact limit q(X)->max(Theta,1/2)-1/2. Certification is tracked separately in MILESTONE-UNIVERSAL-ENVELOPE; the arithmetic proposition remains OPEN."
     },
     {
       "id": "OPEN-NATIVE-OWNER-FRACTIONAL",
@@ -3284,7 +3315,71 @@
         }
       ],
       "evidence": [],
-      "does_not_prove": []
+      "does_not_prove": [],
+      "notes": "PR #1135 submits an equivalence with the Mertens half-exponent using the original uniform-in-current-exponent premise and a separate original-source fractional audit. Neither equivalent premise is established."
+    },
+    {
+      "id": "MILESTONE-UNIVERSAL-ENVELOPE",
+      "title": "Universal historical envelope laws and exact route equivalences (#1135)",
+      "type": "formalization_milestone",
+      "route_ids": [
+        "FINITE-AC",
+        "MU-LIFT",
+        "OAI-NNS",
+        "CODIV",
+        "CORR4"
+      ],
+      "statement": "Submitted proof chain: actual zeta zero forces an all-scale lower power of the original strict-history K; log K/log R -> 2h, log E/log B -> h, and q(X) -> h for h=max(Theta,1/2)-1/2. EnvelopeBound(lambda,eta) iff Theta<=1/2+eta/(2-lambda) for 0<=lambda<2, eta>=0; EnvelopeBound(2,0) holds unconditionally. Original frozen-Q and squared p variants retain exact sources and quantifiers. Zero-log amplification, native zero-owner loss, uniform fractional owner contraction and subcritical full-prefix lifts are equivalent to critical Mertens growth, with an explicit Mathlib RH bridge. No RH-strength premise or new zero-boundary improvement is asserted.",
+      "logical_status": "CLAIMED",
+      "formal_status": "LEAN_PR_HEAD_NOT_GREEN",
+      "evidence_class": "PAPER_PROOF_NEEDS_REVIEW",
+      "provenance": "PAPER_ARGUMENT",
+      "open_obligation": true,
+      "obligation_kind": "REVIEW",
+      "lean": [
+        {
+          "file": "research/UNIVERSAL_ENVELOPE_ZERO_FORCED.lean",
+          "name": "zero_forces_historical_power"
+        },
+        {
+          "file": "research/UNIVERSAL_ENVELOPE_LAWS.lean",
+          "name": "envelopeBound_iff_rightmost_le"
+        },
+        {
+          "file": "research/UNIVERSAL_ENVELOPE_AMPLIFICATION_LAW.lean",
+          "name": "amplification_logRatio_tendsto"
+        },
+        {
+          "file": "research/UNIVERSAL_ENVELOPE_MERTENS_MAX.lean",
+          "name": "subcritical_prefixLiftOn_iff_mertens_half"
+        },
+        {
+          "file": "research/UNIVERSAL_ENVELOPE_RH_BRIDGES.lean",
+          "name": "zeroLog_iff_riemannHypothesis"
+        },
+        {
+          "file": "research/UNIVERSAL_ENVELOPE_OWNER_FRACTIONAL.lean",
+          "name": "native_uniform_fractional_owner_iff_mertens_half"
+        }
+      ],
+      "pr": 1135,
+      "evidence": [
+        "EV-PR-1135"
+      ],
+      "source_file": "docs/UNIVERSAL_ENVELOPE_FORMALIZATION_20261115.md",
+      "notes": "Pending proof-head verification. Finite Mobius inversion plus Abel summation supplies the analytic input with a coarser explicit constant than the handoff. The continuous integral identity and sharper constant are not claimed as Lean-certified. Core and fractional source closures are audited separately. Equivalent output targets preserve distinct arithmetic source mechanisms.",
+      "does_not_prove": [
+        "RH or a new Mertens exponent improvement",
+        "Finite A or finite C",
+        "The reverse implication RH -> finite A",
+        "The handoff sharper integral constant"
+      ],
+      "milestone": {
+        "order": 23,
+        "date": "2026-11-15",
+        "label": "Universal historical envelopes and exact route equivalences",
+        "pr": 1135
+      }
     }
   ],
   "edges": [
@@ -4312,24 +4407,60 @@
       "id": "EV-PR-1119",
       "kind": "pr",
       "number": 1119,
-      "state": "open",
+      "state": "merged",
       "draft": false,
       "title": "Close the positive detector-error loss in the complete OAI Mertens endpoint",
-      "observed_at": "2026-11-09T03:02:50Z",
+      "observed_at": "2026-11-15T23:06:26Z",
       "head_sha": "77ee815846d6d534c866f0752aa33b84c385610a",
-      "checks": {"jobs":14,"success":14,"failed":0,"pending":0},
+      "checks": {
+        "jobs": 14,
+        "success": 14,
+        "failed": 0,
+        "pending": 0
+      },
       "workflow_run": "https://github.com/OVVO-Financial/RH_Lean/actions/runs/42552018910",
       "proof_job": "https://github.com/OVVO-Financial/RH_Lean/actions/runs/42552018910/job/128949473700",
       "source_blob": "f629db1b2b65d6ec042ac9432397d4b6316200c6",
       "types_blob": "c4dca8392e61ab6778a0f2cb9f013b0d0e0410f2",
       "audit_blob": "1f17f9401a63d16227db2e2aad020b9f74bc5f4e",
       "workflow_blob": "bf53637ed649b2c8c7517ad3b81c33620f3bffa9",
-      "claim_ids": ["20261108-analytic-3/EC1", "20261108-analytic-3/EC2", "20261108-analytic-3/EC3"],
+      "claim_ids": [
+        "20261108-analytic-3/EC1",
+        "20261108-analytic-3/EC2",
+        "20261108-analytic-3/EC3"
+      ],
       "independent_review": "20261108-referee-3, report blob 5371324ebbdbd88afb9abf843e83da2ce86b752f",
       "repair_history": [
-        {"head_sha": "0567b1ecbf44a8821e34a4ae067b24bd659cf5c1", "run_id": 42550166116, "job_id": 128943728706, "conclusion": "failure", "diagnosis": "Final near-uniform scalar linarith comparison failed. Replaced only the tactic with direct transitivity and sub_le_sub_left; statements, hypotheses, source and audits unchanged. New terminal audit was skipped in the failed run."}
+        {
+          "head_sha": "0567b1ecbf44a8821e34a4ae067b24bd659cf5c1",
+          "run_id": 42550166116,
+          "job_id": 128943728706,
+          "conclusion": "failure",
+          "diagnosis": "Final near-uniform scalar linarith comparison failed. Replaced only the tactic with direct transitivity and sub_le_sub_left; statements, hypotheses, source and audits unchanged. New terminal audit was skipped in the failed run."
+        }
       ],
-      "grade": "KERNEL_CHECKED_GREEN_PR_HEAD"
+      "grade": "KERNEL_CHECKED_ON_MAIN",
+      "merged_at": "2026-11-09T04:57:27Z",
+      "merge_commit_sha": "35319e9e2880bcb13fa1fc2bcdb1671bcf25d4c2"
+    },
+    {
+      "id": "EV-PR-1135",
+      "kind": "pr",
+      "number": 1135,
+      "state": "open",
+      "draft": true,
+      "title": "Formalize universal historical envelopes and critical amplification equivalences",
+      "observed_at": "2026-11-15T23:06:26Z",
+      "head_sha": "eb2b222adb0fd93a106c02184548385f40447ede",
+      "checks": {
+        "jobs": 17,
+        "success": 8,
+        "failed": 1,
+        "pending": 8
+      },
+      "workflow_run": "https://github.com/OVVO-Financial/RH_Lean/actions/runs/43772948315",
+      "grade": "PR_HEAD_RED",
+      "notes": "Complete theorem candidates under warning-fatal GitHub Actions verification. Eight checks succeeded, one targeted compile failed, and eight remain active at the observed head. Repairs continue; no new proof status is inferred from source-only audits."
     }
   ],
   "historical_tracks": {
