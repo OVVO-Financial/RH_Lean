@@ -37,6 +37,17 @@ theorem growthAtMost_envelope_boundary :
   dsimp [envelopeExponent]
   linarith [le_max_left zetaRightmostRealPart (1 / 2 : ℝ)]
 
+/-- Vanishing critical excess is exactly the existing critical Mertens target. -/
+theorem envelopeExponent_eq_zero_iff_mertens_half :
+    envelopeExponent = 0 ↔ MertensGrowthAtMost (1 / 2 : ℝ) := by
+  rw [growthAtMost_iff_rightmost_le (by norm_num : (0 : ℝ) ≤ 1 / 2)]
+  constructor
+  · intro h
+    dsimp [envelopeExponent] at h
+    linarith [le_max_left zetaRightmostRealPart (1 / 2 : ℝ)]
+  · intro h
+    simp only [envelopeExponent, max_eq_right h, sub_self]
+
 /-- A strict lower approximation to the zero supremum has an actual zero
 witness.  The nonnegative cutoff also handles the empty-set convention. -/
 theorem exists_zero_above_of_lt_rightmost {a : ℝ} (ha : 0 ≤ a)
@@ -171,7 +182,7 @@ theorem envelopeBound_of_balance {lam eta : ℝ} (hlam : 0 ≤ lam)
   have hδ : 0 < δ := div_pos hε hlam2
   have hδeq : (lam + 2) * δ = ε := by
     dsimp [δ]
-    field_simp [hlam2.ne']
+    exact mul_div_cancel₀ ε hlam2.ne'
   obtain ⟨A, hA, hendpoint⟩ := centered_endpoint_upper_power δ hδ
   obtain ⟨D, hD, hhistory⟩ := historical_power_le_scaled δ hδ
   refine ⟨A * D ^ (lam / 2), by positivity, ?_⟩
@@ -254,6 +265,7 @@ theorem historical_log_ratio_eventually_le (ε : ℝ) (hε : 0 < ε) :
   obtain ⟨C, hC, hupper⟩ := historical_upper_power (ε / 2) (by linarith)
   filter_upwards [eventually_log_constant_le C (ε / 2) (by linarith)]
     with R hconstant
+  have hR2 : 2 ≤ R := hconstant.1
   have hR1 : 1 ≤ R := by omega
   have hR0 : (0 : ℝ) < (R : ℝ) := by exact_mod_cast (show 0 < R by omega)
   have hlogR : 0 < Real.log (R : ℝ) :=
@@ -273,6 +285,7 @@ theorem historical_log_ratio_eventually_ge (ε : ℝ) (hε : 0 < ε) :
   obtain ⟨D, hD, hlower⟩ := historical_power_le_scaled (ε / 2) (by linarith)
   filter_upwards [eventually_log_constant_le D (ε / 2) (by linarith)]
     with R hconstant
+  have hR2 : 2 ≤ R := hconstant.1
   have hR1 : 1 ≤ R := by omega
   have hR0 : (0 : ℝ) < (R : ℝ) := by exact_mod_cast (show 0 < R by omega)
   have hlogR : 0 < Real.log (R : ℝ) :=

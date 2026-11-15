@@ -55,6 +55,7 @@ theorem amplification_upper_power (ε : ℝ) (hε : 0 < ε) :
     calc
       (R : ℝ) ^ (2 * a) = ((R : ℝ) ^ (2 : ℕ)) ^ a := by
         rw [← Real.rpow_natCast (R : ℝ) 2, ← Real.rpow_mul hR0.le]
+        norm_num
       _ ≤ (2 * (X : ℝ)) ^ a := Real.rpow_le_rpow (sq_nonneg _) hroot ha
       _ = (2 : ℝ) ^ a * (X : ℝ) ^ a := Real.mul_rpow (by norm_num) (Nat.cast_nonneg X)
   have hcoeff : C ^ 2 * (R : ℝ) ^ ε * squareRootHistoricalK R ≤

@@ -39,6 +39,8 @@ SOURCES = {
     "ZERO_FORCED": (UNIVERSAL, (
         "zeroPotential_hasDerivAt", "zeroSeed_kernel_formula",
         "zeroSeed_kernel_nat_norm_le", "zeroSeed_kernel_norm_le",
+        "zeroPotential_norm_le_historical_sqrt", "zeroPotential_norm_lower",
+        "zero_forces_historical_finite",
         "zeroPotential_eventually_norm_ge", "zero_forces_historical_power",
     )),
     "HISTORY": (UNIVERSAL, (
@@ -55,6 +57,33 @@ SOURCES = {
     "AMPLIFICATION_LAW": (UNIVERSAL, (
         "amplification_upper_power", "amplification_lower_power",
         "amplification_logRatio_lower", "amplification_logRatio_tendsto",
+    )),
+    "SQUARED_DICTIONARY": (UNIVERSAL, (
+        "SquaredEnvelopeBound", "squaredEnvelope_iff_envelope", "squaredEnvelope_iff_rightmost_le",
+        "squaredEnvelope_two_iff_zeroLog", "squaredEnvelope_two_of_finiteAmplification",
+        "criticalZeros_of_finiteAmplification", "historical_double_exponential_of_finiteAmplification",
+    )),
+    "MERTENS_MAX": (UNIVERSAL, (
+        "mertensPrefixBudget", "mertensPrefixBudget_one_le", "mertensPrefixBudget_nonneg",
+        "mertensPrefixBudget_pos", "mertensPrefixBudget_eq_raw", "mertensPrefixBudget_le_iff",
+        "historical_le_four_prefixBudget_sq", "prefixBudget_le_three_sqrt_historical",
+        "prefixBudget_sq_le_nine_historical", "prefixBudget_upper_power",
+        "prefixBudget_power_le_scaled", "prefixBudget_log_ratio_tendsto", "prefixBudget_critical_lift",
+        "prefixBudget_power_log_ratio_tendsto", "MertensPrefixLiftBound", "MertensPrefixLiftOn",
+        "prefixLiftBound_of_mertens_half", "prefixLiftBound_on",
+        "mertens_half_of_subcritical_prefixLiftOn", "subcritical_prefixLiftOn_iff_mertens_half",
+        "subcritical_prefixLiftBound_iff_mertens_half", "prefixLiftOn_of_subpower_gain",
+        "mertens_half_of_subcritical_subpower_gain",
+    )),
+    "FROZEN_Q": (UNIVERSAL, (
+        "FrozenQEnvelopeBound", "frozenQ_centered_norm_comparison", "root_le_envelope_scale",
+        "frozenQEnvelope_iff_envelopeBound", "frozenQEnvelope_iff_rightmost_le", "universal_frozenQ_envelope",
+    )),
+    "RH_BRIDGES": (UNIVERSAL, (
+        "mertensEnergy_of_mertens_half", "mertens_half_of_mertensEnergy", "mertens_half_iff_mertensEnergy",
+        "criticalZeros_of_riemannHypothesis", "criticalZeros_iff_riemannHypothesis",
+        "mertens_half_iff_riemannHypothesis", "zeroLog_iff_mertensEnergy",
+        "zeroLog_iff_riemannHypothesis", "native_owner_zero_iff_riemannHypothesis",
     )),
     "OWNER_EQUIVALENCE": (OWNER, (
         "native_owner_zero_of_mertens_half", "mertens_half_of_native_owner_zero",
@@ -73,11 +102,13 @@ SOURCES = {
     )),
 }
 GROUPS = {
-    "core": ("ARITHMETIC", "KERNEL", "ZERO_FORCED", "HISTORY", "LAWS", "AMPLIFICATION_LAW", "OWNER_EQUIVALENCE", "ZERO_LOG"),
+    "core": ("ARITHMETIC", "KERNEL", "ZERO_FORCED", "HISTORY", "LAWS", "AMPLIFICATION_LAW", "SQUARED_DICTIONARY", "MERTENS_MAX", "FROZEN_Q", "RH_BRIDGES", "OWNER_EQUIVALENCE", "ZERO_LOG"),
+    "kernel": ("KERNEL", "ZERO_FORCED"),
     "fractional": ("OWNER_EQUIVALENCE", "OWNER_FRACTIONAL"),
 }
 ACCEPTANCE = {
     "core": "research/UNIVERSAL_ENVELOPE_ACCEPTANCE.lean",
+    "kernel": "research/UNIVERSAL_ENVELOPE_KERNEL_ACCEPTANCE.lean",
     "fractional": "research/UNIVERSAL_ENVELOPE_FRACTIONAL_ACCEPTANCE.lean",
 }
 PUBLIC = re.compile(
@@ -124,13 +155,13 @@ def source_audit(group: str, plan_ancestors: bool = True) -> tuple[dict, tuple[s
     acceptance = ACCEPTANCE[group]
     raw, clean = checked_source(ROOT / acceptance)
     count = len(re.findall(r"(?m)^example\b", clean))
-    if count < (18 if group == "core" else 4):
+    if count < {"core": 38, "kernel": 5, "fractional": 4}[group]:
         raise AuditError(f"Missing exact-type acceptance examples in {acceptance}")
     # The established OAI pipeline materializes pinned anchored ancestors.
     # Static review of our new leaves can precede that generation; executable
     # verification always requires the complete materialized import plan.
     plan = Closure().plan([ROOT / acceptance]) if plan_ancestors else None
-    if group == "core":
+    if group != "fractional":
         assert plan is not None
         for entry in plan["modules"]:
             source = ROOT / entry["source"]
@@ -154,7 +185,7 @@ def source_audit(group: str, plan_ancestors: bool = True) -> tuple[dict, tuple[s
 
 
 def run_audit(group: str, output_dir: Path, source_only: bool, direct_lean: bool) -> None:
-    inventory, expected = source_audit(group, plan_ancestors=(group == "core" or not source_only))
+    inventory, expected = source_audit(group, plan_ancestors=(group != "fractional" or not source_only))
     if not source_only and os.environ.get("GITHUB_ACTIONS") != "true":
         raise AuditError("Lean execution is restricted to GitHub Actions; use --source-only locally")
     output_dir.mkdir(parents=True, exist_ok=True)

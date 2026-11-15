@@ -126,12 +126,16 @@ theorem powerBound_of_square_endpoint_power {b C : ℝ}
               (mertensSummatory (squareRootEndpoint R) - 1) + 1‖ := by congr 1; ring
         _ ≤ (‖mertensSummatory n - mertensSummatory (squareRootEndpoint R)‖ +
               ‖mertensSummatory (squareRootEndpoint R) - 1‖) + ‖(1 : ℂ)‖ :=
-          (norm_add_le _ _).trans (add_le_add_right (norm_add_le _ _) _)
+          (norm_add_le
+            ((mertensSummatory n - mertensSummatory (squareRootEndpoint R)) +
+              (mertensSummatory (squareRootEndpoint R) - 1)) (1 : ℂ)).trans
+            (add_le_add (norm_add_le _ _) le_rfl)
         _ ≤ (C + 3) * (R : ℝ) ^ (2 * b) := by simp only [norm_one]; nlinarith
     have hp : (R : ℝ) ^ (2 * b) ≤ (2 : ℝ) ^ b * (n : ℝ) ^ b := by
       calc
         (R : ℝ) ^ (2 * b) = ((R : ℝ) ^ (2 : ℕ)) ^ b := by
           rw [← Real.rpow_natCast (R : ℝ) 2, ← Real.rpow_mul hR0.le]
+          norm_num
         _ ≤ ((n + 1 : ℕ) : ℝ) ^ b :=
           Real.rpow_le_rpow (sq_nonneg _) (by exact_mod_cast hRsq) hb0
         _ ≤ (2 * (n : ℝ)) ^ b :=

@@ -90,6 +90,43 @@ jobs:
           if-no-files-found: error
           retention-days: 30
 
+  kernel-proof:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Check the independent analytic source inventory
+        run: python3 scripts/audit_universal_envelope.py --group kernel --source-only
+      - name: Verify the pinned Lean and Mathlib versions
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(cat lean-toolchain)" = 'leanprover/lean4:v4.34.1'
+          grep -q 'd13f23b723b8a846827a245b89c10fc7d3f11612' lakefile.lean
+      - uses: ./.github/actions/lean-setup
+      - uses: ./.github/actions/lean-compiled-cache
+      - name: Build the exact Euler-summation prerequisite
+        run: lake build PrimeNumberTheoremAnd.ZetaBounds
+      - name: Compile kernel and actual-zero source independently of arithmetic consumers
+        uses: ./.github/actions/research-compile
+        with:
+          build-library: 'true'
+          targets: research/UNIVERSAL_ENVELOPE_KERNEL_ACCEPTANCE.lean
+      - name: Audit exact kernel types and terminal axioms
+        run: python3 scripts/audit_universal_envelope.py --group kernel
+      - name: Preserve independent kernel evidence
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: universal-envelope-kernel-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            universal-envelope-kernel-evidence/
+            research/UNIVERSAL_ENVELOPE_KERNEL_ACCEPTANCE.lean
+          if-no-files-found: error
+          retention-days: 30
+
   fractional-owner-proof:
     runs-on: ubuntu-latest
     timeout-minutes: 180

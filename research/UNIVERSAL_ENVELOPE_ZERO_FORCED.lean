@@ -223,9 +223,6 @@ theorem zeroSeed_kernel_norm_le {ρ : ℂ} (hzero : riemannZeta ρ = 0)
   have hpr : ‖(r : ℂ) ^ ρ‖ ≤ 2 := by
     rw [Complex.norm_cpow_eq_rpow_re_of_pos (by linarith : 0 < r)]
     exact (Real.rpow_le_self_of_one_le hr hβ1.le).trans hr2
-  have hC0 : 0 ≤ zeroKernelIntegerConstant ρ := by
-    unfold zeroKernelIntegerConstant
-    positivity
   have hmain : ‖(r : ℂ) ^ ρ * divisorKernel (zeroSeed ρ) (N : ℝ)‖ ≤
       2 * zeroKernelIntegerConstant ρ := by
     rw [norm_mul]
@@ -237,11 +234,49 @@ theorem zeroSeed_kernel_norm_le {ρ : ℂ} (hzero : riemannZeta ρ = 0)
       (N : ℝ) * ‖(r : ℂ) ^ ρ - 1‖ ≤ (N : ℝ) * (‖ρ‖ * (r - 1)) :=
         mul_le_mul_of_nonneg_left (norm_cpow_sub_one_le hρ0 hβ1.le hr) hNpos.le
       _ = ‖ρ‖ * (u - N) := by dsimp [r]; field_simp [hNpos.ne']; ring
-      _ ≤ ‖ρ‖ := by nlinarith [norm_nonneg ρ]
+      _ ≤ ‖ρ‖ := by
+        have hgap : u - (N : ℝ) ≤ 1 := by linarith
+        simpa only [mul_one] using mul_le_mul_of_nonneg_left hgap (norm_nonneg ρ)
   rw [hscale]
   exact (norm_add_le _ _).trans (by
     unfold zeroKernelConstant
     linarith)
+
+/-- The finite, actual-zero historical estimate, before lower-order terms
+are absorbed or asymptotic notation is introduced. -/
+theorem zeroPotential_norm_le_historical_sqrt {ρ : ℂ}
+    (hzero : riemannZeta ρ = 0) (hβ : 0 < ρ.re) (hβ1 : ρ.re < 1)
+    {N : ℕ} (hN : 1 ≤ N) :
+    ‖zeroPotential ρ N‖ ≤
+      8 * zeroKernelConstant ρ * Real.sqrt (RHLean.Proof.squareRootHistoricalK N) *
+        Real.sqrt (N : ℝ) := by
+  apply potential_norm_le_historical_sqrt (zeroPotential_one ρ)
+    (fun v hv => zeroPotential_hasDerivAt (Complex.ne_zero_of_re_pos hβ) (by linarith))
+    (zeroKernelConstant_pos hβ).le
+    (fun u hu => zeroSeed_kernel_norm_le hzero hβ hβ1 hu) hN
+
+/-- A direct finite lower bound for the primitive. -/
+theorem zeroPotential_norm_lower (ρ : ℂ) {u : ℝ} (hu : 1 ≤ u) :
+    ‖(1 - ρ) / ρ‖ * (u ^ ρ.re - 1) - Real.log u ≤ ‖zeroPotential ρ u‖ := by
+  have hu0 : 0 < u := by linarith
+  have hidentity : zeroPotential ρ u + ((1 - ρ) / ρ + (Real.log u : ℂ)) =
+      ((1 - ρ) / ρ) * (u : ℂ) ^ ρ := by unfold zeroPotential; ring
+  have htriangle := norm_add_le (zeroPotential ρ u) ((1 - ρ) / ρ + (Real.log u : ℂ))
+  rw [hidentity, norm_mul, Complex.norm_cpow_eq_rpow_re_of_pos hu0] at htriangle
+  have herror := norm_add_le ((1 - ρ) / ρ) (Real.log u : ℂ)
+  rw [Complex.norm_real, Real.norm_eq_abs, abs_of_nonneg (Real.log_nonneg hu)] at herror
+  nlinarith
+
+/-- Explicit finite zero exclusion in the original strict-history coordinate.
+This uses the coarse fully proved kernel constant rather than an unproved
+sharp integral constant. -/
+theorem zero_forces_historical_finite {ρ : ℂ} (hzero : riemannZeta ρ = 0)
+    (hβ : 0 < ρ.re) (hβ1 : ρ.re < 1) {N : ℕ} (hN : 1 ≤ N) :
+    ‖(1 - ρ) / ρ‖ * ((N : ℝ) ^ ρ.re - 1) - Real.log (N : ℝ) ≤
+      8 * zeroKernelConstant ρ * Real.sqrt (RHLean.Proof.squareRootHistoricalK N) *
+        Real.sqrt (N : ℝ) :=
+  (zeroPotential_norm_lower ρ (by exact_mod_cast hN)).trans
+    (zeroPotential_norm_le_historical_sqrt hzero hβ hβ1 hN)
 
 /-- The primitive has a power-sized norm at every sufficiently large scale.
 The logarithmic and constant terms are absorbed with a fixed positive margin.
@@ -293,7 +328,6 @@ theorem zero_forces_historical_power {ρ : ℂ} (hzero : riemannZeta ρ = 0)
     ∃ c : ℝ, 0 < c ∧ ∀ᶠ R : ℕ in Filter.atTop,
       c * (R : ℝ) ^ (2 * ρ.re - 1) ≤ RHLean.Proof.squareRootHistoricalK R := by
   have hβ0 : 0 < ρ.re := by linarith
-  have hρ0 : ρ ≠ 0 := Complex.ne_zero_of_re_pos hβ0
   have hρ1 : ρ ≠ 1 := by intro h; simp [h] at hβ1
   let C := zeroKernelConstant ρ
   have hC : 0 < C := zeroKernelConstant_pos hβ0
@@ -304,10 +338,8 @@ theorem zero_forces_historical_power {ρ : ℂ} (hzero : riemannZeta ρ = 0)
   have hK : 0 ≤ RHLean.Proof.squareRootHistoricalK R :=
     RHLean.Proof.squareRootHistoricalK_nonneg R
   have hupper : ‖zeroPotential ρ R‖ ≤
-      8 * C * Real.sqrt (RHLean.Proof.squareRootHistoricalK R) * Real.sqrt (R : ℝ) := by
-    apply potential_norm_le_historical_sqrt (zeroPotential_one ρ)
-      (fun v hv => zeroPotential_hasDerivAt hρ0 (by linarith)) hC.le
-      (fun u hu => zeroSeed_kernel_norm_le hzero hβ0 hβ1 hu) hR
+      8 * C * Real.sqrt (RHLean.Proof.squareRootHistoricalK R) * Real.sqrt (R : ℝ) :=
+    zeroPotential_norm_le_historical_sqrt hzero hβ0 hβ1 hR
   have hboth := hRlower.trans hupper
   have hsq : (c₀ * (R : ℝ) ^ ρ.re) ^ 2 ≤
       (8 * C * Real.sqrt (RHLean.Proof.squareRootHistoricalK R) * Real.sqrt (R : ℝ)) ^ 2 :=

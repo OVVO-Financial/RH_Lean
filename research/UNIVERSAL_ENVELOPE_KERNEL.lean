@@ -272,9 +272,10 @@ theorem divisorKernel_increment_norm_le {F κ : ℝ → ℂ}
   rw [hea, heb] at h
   have hscale : C / a * (b - a) = C / n := by
     dsimp [a, b]
-    field_simp [hNpos.ne', hnpos.ne']
+    field_simp [hNpos.ne', hnpos.ne', (by positivity : (n : ℝ) + 1 ≠ 0)]
     <;> ring
-  simpa only [hscale, a, b] using h
+  rw [hscale] at h
+  exact h
 
 theorem potential_norm_le_reciprocal_history {F κ : ℝ → ℂ}
     (hFone : F 1 = 0)

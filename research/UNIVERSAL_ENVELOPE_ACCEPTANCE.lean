@@ -4,6 +4,10 @@ import «research.UNIVERSAL_ENVELOPE_ZERO_FORCED»
 import «research.UNIVERSAL_ENVELOPE_HISTORY»
 import «research.UNIVERSAL_ENVELOPE_LAWS»
 import «research.UNIVERSAL_ENVELOPE_AMPLIFICATION_LAW»
+import «research.UNIVERSAL_ENVELOPE_SQUARED_DICTIONARY»
+import «research.UNIVERSAL_ENVELOPE_MERTENS_MAX»
+import «research.UNIVERSAL_ENVELOPE_FROZEN_Q»
+import «research.UNIVERSAL_ENVELOPE_RH_BRIDGES»
 import «research.UNIVERSAL_ENVELOPE_OWNER_EQUIVALENCE»
 import «research.UNIVERSAL_ENVELOPE_ZERO_LOG»
 
@@ -60,6 +64,12 @@ example {ρ : ℂ} (hzero : riemannZeta ρ = 0)
       c * (R : ℝ) ^ (2 * ρ.re - 1) ≤ squareRootHistoricalK R :=
   zero_forces_historical_power hzero hβ hβ1
 
+example {ρ : ℂ} (hzero : riemannZeta ρ = 0)
+    (hβ : 0 < ρ.re) (hβ1 : ρ.re < 1) {N : ℕ} (hN : 1 ≤ N) :
+    ‖(1 - ρ) / ρ‖ * ((N : ℝ) ^ ρ.re - 1) - Real.log (N : ℝ) ≤
+      8 * zeroKernelConstant ρ * Real.sqrt (squareRootHistoricalK N) * Real.sqrt (N : ℝ) :=
+  zero_forces_historical_finite hzero hβ hβ1 hN
+
 example (Y : ℕ) :
     squareRootHistoricalK Y ≤
       8 * (1 + squareRootAmplificationMax Y) * squareRootHistoricalK (Nat.sqrt Y + 1) :=
@@ -81,6 +91,81 @@ example : Filter.Tendsto
 
 example : Filter.Tendsto squareRootAmplificationLogRatio Filter.atTop
     (nhds envelopeExponent) := amplification_logRatio_tendsto
+
+example (p : ℝ) : SquaredEnvelopeBound p ↔
+    ∀ ε : ℝ, 0 < ε → ∃ C : ℝ, 0 ≤ C ∧ ∀ R : ℕ, 2 ≤ R →
+      ‖mertensSummatory (squareRootEndpoint R) - 1‖ ^ 2 ≤
+        C * (R : ℝ) ^ (p + ε) * squareRootHistoricalK R := Iff.rfl
+
+example {p : ℝ} (hp : 2 ≤ p) :
+    SquaredEnvelopeBound p ↔ zetaRightmostRealPart ≤ (p - 1) / 2 :=
+  squaredEnvelope_iff_rightmost_le hp
+
+example : SquaredEnvelopeBound 2 ↔ SquareRootAmplificationZeroLogGrowthStatement :=
+  squaredEnvelope_two_iff_zeroLog
+
+example (hfinite : SquareRootMertensEndpointAmplificationStatement) :
+    ∃ B : ℝ, 1 ≤ B ∧ ∀ j : ℕ,
+      squareRootHistoricalK (2 ^ 2 ^ j) ≤ B ^ j :=
+  historical_double_exponential_of_finiteAmplification hfinite
+
+example (B : ℕ) (hB : 2 ≤ B) (C : ℝ) :
+    mertensPrefixBudget B ≤ C ↔ ∀ n : ℕ, 1 ≤ n → n < B →
+      ‖mertensSummatory n‖ / Real.sqrt (n : ℝ) ≤ C :=
+  mertensPrefixBudget_le_iff B hB C
+
+example (B : ℕ) : squareRootHistoricalK B ≤ 4 * mertensPrefixBudget B ^ 2 :=
+  historical_le_four_prefixBudget_sq B
+
+example (B : ℕ) (hB : 2 ≤ B) :
+    mertensPrefixBudget B ^ 2 ≤ 9 * squareRootHistoricalK B :=
+  prefixBudget_sq_le_nine_historical B hB
+
+example : Filter.Tendsto
+    (fun B : ℕ => Real.log (mertensPrefixBudget B) / Real.log (B : ℝ))
+    Filter.atTop (nhds envelopeExponent) := prefixBudget_log_ratio_tendsto
+
+example (k : ℕ) (hk : 1 ≤ k) (ε : ℝ) (hε : 0 < ε) :
+    ∃ C : ℝ, 0 < C ∧ ∀ B : ℕ, 2 ≤ B →
+      mertensPrefixBudget (B ^ k) ≤ C * (B : ℝ) ^ ε * mertensPrefixBudget B ^ k :=
+  prefixBudget_critical_lift k hk ε hε
+
+example (k : ℕ) (hk : 1 ≤ k) (r : ℝ) (hr0 : 0 ≤ r) (hrk : r < (k : ℝ))
+    (B : ℕ → ℕ) (hB : Filter.Tendsto B Filter.atTop Filter.atTop) :
+    MertensPrefixLiftOn B k r ↔ MertensGrowthAtMost (1 / 2 : ℝ) :=
+  subcritical_prefixLiftOn_iff_mertens_half k hk r hr0 hrk B hB
+
+example (B : ℕ → ℕ) (k : ℕ) (r : ℝ) : MertensPrefixLiftOn B k r ↔
+    ∀ ε : ℝ, 0 < ε → ∃ C : ℝ, 0 ≤ C ∧ ∀ᶠ j : ℕ in Filter.atTop,
+      mertensPrefixBudget ((B j) ^ k) ≤
+        C * (B j : ℝ) ^ ε * (mertensPrefixBudget (B j)) ^ r := Iff.rfl
+
+example (k : ℕ) (hk : 1 ≤ k) (r : ℝ) (hr0 : 0 ≤ r) (hrk : r < (k : ℝ)) :
+    MertensPrefixLiftBound k r ↔ MertensGrowthAtMost (1 / 2 : ℝ) :=
+  subcritical_prefixLiftBound_iff_mertens_half k hk r hr0 hrk
+
+example (lam eta : ℝ) : FrozenQEnvelopeBound lam eta ↔
+    ∀ ε : ℝ, 0 < ε → ∃ C : ℝ, 0 ≤ C ∧ ∀ R : ℕ, 2 ≤ R →
+      ‖eulerSelfDualBilinear R‖ ≤
+        C * (R : ℝ) ^ (1 + eta + ε) * squareRootHistoricalK R ^ (lam / 2) := Iff.rfl
+
+example {lam eta : ℝ} (hlam : 0 ≤ lam) (hlam2 : lam < 2) (heta : 0 ≤ eta) :
+    FrozenQEnvelopeBound lam eta ↔ zetaRightmostRealPart ≤ 1 / 2 + eta / (2 - lam) :=
+  frozenQEnvelope_iff_rightmost_le hlam hlam2 heta
+
+example : FrozenQEnvelopeBound 2 0 := universal_frozenQ_envelope
+
+example : MertensGrowthAtMost (1 / 2 : ℝ) ↔ RiemannHypothesis :=
+  mertens_half_iff_riemannHypothesis
+
+example : SquareRootAmplificationZeroLogGrowthStatement ↔ RiemannHypothesis :=
+  zeroLog_iff_riemannHypothesis
+
+example : SquareRootAmplificationZeroLogGrowthStatement ↔ MertensEnergyBoundedStatement :=
+  zeroLog_iff_mertensEnergy
+
+example : NativeOwnerBound 0 ↔ RiemannHypothesis :=
+  native_owner_zero_iff_riemannHypothesis
 
 example : NativeOwnerBound 0 ↔ MertensGrowthAtMost (1 / 2 : ℝ) :=
   native_owner_zero_iff_mertens_half
