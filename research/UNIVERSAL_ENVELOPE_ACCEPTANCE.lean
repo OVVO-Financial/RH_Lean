@@ -167,6 +167,11 @@ example (k : ℕ) (hk : 1 ≤ k) (r : ℝ) (hr0 : 0 ≤ r) (hrk : r < (k : ℝ))
     MertensPrefixSubpowerGainLiftOn B k r ↔ MertensGrowthAtMost (1 / 2 : ℝ) :=
   subcritical_subpower_gain_iff_mertens_half k hk r hr0 hrk B hB
 
+example (k : ℕ) (hk : 1 ≤ k) (r : ℝ) (hrk : r < (k : ℝ))
+    (B : ℕ → ℕ) (hB : Filter.Tendsto B Filter.atTop Filter.atTop) :
+    MertensPrefixSubpowerGainLiftOn B k r ↔ MertensGrowthAtMost (1 / 2 : ℝ) :=
+  subcritical_subpower_gain_iff_mertens_half_of_lt k hk r hrk B hB
+
 example (lam eta : ℝ) : FrozenQEnvelopeBound lam eta ↔
     ∀ ε : ℝ, 0 < ε → ∃ C : ℝ, 0 ≤ C ∧ ∀ R : ℕ, 2 ≤ R →
       ‖eulerSelfDualBilinear R‖ ≤

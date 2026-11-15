@@ -47,7 +47,6 @@ theorem zeroPotential_hasDerivAt {ρ : ℂ} (hρ : ρ ≠ 0) {u : ℝ} (hu : 0 <
     rw [Complex.cpow_sub _ _ huC, Complex.cpow_one]
     unfold zeroSeed
     field_simp [hρ, huC]
-    ring
   simpa only [zeroPotential, hcoef] using! hd
 
 theorem zeroSeed_kernel_formula (ρ : ℂ) {u : ℝ} (hu : 0 ≤ u) :
@@ -63,8 +62,9 @@ theorem zeroSeed_kernel_formula (ρ : ℂ) {u : ℝ} (hu : 0 ≤ u) :
       apply Finset.sum_congr rfl
       intro n hn
       unfold zeroSeed
-      rw [Complex.ofReal_div, Complex.ofReal_natCast,
+      rw [Complex.ofReal_div,
         Complex.div_cpow_ofReal_nonneg hu (Nat.cast_nonneg n)]
+      simp only [Complex.ofReal_natCast]
       ring
     _ = _ := by
       rw [Finset.sum_sub_distrib, ← Finset.mul_sum]
@@ -110,7 +110,7 @@ theorem zeroSeed_kernel_nat_norm_le {ρ : ℂ} (hzero : riemannZeta ρ = 0)
       rw [show ρ + (1 - ρ) = 1 by ring, Complex.cpow_one]
     calc
       (1 - ρ) * (N : ℂ) ^ ρ * ((N : ℂ) ^ (1 - ρ) / (1 - ρ)) =
-          (N : ℂ) ^ ρ * (N : ℂ) ^ (1 - ρ) := by field_simp [hone]; ring
+          (N : ℂ) ^ ρ * (N : ℂ) ^ (1 - ρ) := by field_simp [hone]
       _ = (N : ℂ) := hp
   have hcancel : (N : ℂ) ^ ρ * (N : ℂ) ^ (-ρ) = 1 := by
     rw [← Complex.cpow_add _ _ hNC]
@@ -151,10 +151,11 @@ theorem zeroSeed_kernel_nat_norm_le {ρ : ℂ} (hzero : riemannZeta ρ = 0)
       ‖(1 - ρ) / 2‖ + ‖(1 - ρ) * ρ * (N : ℂ) ^ ρ * J‖ := norm_sub_le _ _
     _ ≤ ‖1 - ρ‖ / 2 + ‖1 - ρ‖ * ‖ρ‖ / ρ.re := by
       norm_num only [norm_div, norm_ofNat]
-      exact add_le_add_left htail _
+      exact add_le_add le_rfl htail
     _ ≤ zeroKernelIntegerConstant ρ := by
       unfold zeroKernelIntegerConstant
-      nlinarith [norm_nonneg (1 - ρ)]
+      rw [mul_add, mul_one, ← mul_div_assoc]
+      linarith [norm_nonneg (1 - ρ)]
 
 /-- A power on the positive ray is Lipschitz on `[1,r]` when its real
 exponent is at most one. -/
@@ -206,8 +207,9 @@ theorem zeroSeed_kernel_norm_le {ρ : ℂ} (hzero : riemannZeta ρ = 0)
     linarith
   have hpower : (r : ℂ) ^ ρ * (N : ℂ) ^ ρ = (u : ℂ) ^ ρ := by
     dsimp [r]
-    rw [Complex.ofReal_div, Complex.ofReal_natCast,
+    rw [Complex.ofReal_div,
       Complex.div_cpow_ofReal_nonneg (by linarith : 0 ≤ u) hNpos.le]
+    simp only [Complex.ofReal_natCast]
     have hp : (N : ℂ) ^ ρ ≠ 0 := Complex.cpow_ne_zero_iff.mpr
       (Or.inl (by exact_mod_cast hNpos.ne'))
     exact div_mul_cancel₀ _ hp
@@ -216,6 +218,7 @@ theorem zeroSeed_kernel_norm_le {ρ : ℂ} (hzero : riemannZeta ρ = 0)
         (N : ℂ) * ((r : ℂ) ^ ρ - 1) := by
     rw [zeroSeed_kernel_formula ρ (by linarith), zeroSeed_kernel_formula ρ hNpos.le,
       Nat.floor_natCast]
+    simp only [Complex.ofReal_natCast]
     change (1 - ρ) * (u : ℂ) ^ ρ *
         (∑ n ∈ Finset.Icc 1 N, 1 / (n : ℂ) ^ ρ) - N = _
     rw [← hpower]
@@ -233,7 +236,7 @@ theorem zeroSeed_kernel_norm_le {ρ : ℂ} (hzero : riemannZeta ρ = 0)
     calc
       (N : ℝ) * ‖(r : ℂ) ^ ρ - 1‖ ≤ (N : ℝ) * (‖ρ‖ * (r - 1)) :=
         mul_le_mul_of_nonneg_left (norm_cpow_sub_one_le hρ0 hβ1.le hr) hNpos.le
-      _ = ‖ρ‖ * (u - N) := by dsimp [r]; field_simp [hNpos.ne']; ring
+      _ = ‖ρ‖ * (u - N) := by dsimp [r]; field_simp [hNpos.ne']
       _ ≤ ‖ρ‖ := by
         have hgap : u - (N : ℝ) ≤ 1 := by linarith
         simpa only [mul_one] using mul_le_mul_of_nonneg_left hgap (norm_nonneg ρ)
@@ -290,9 +293,9 @@ theorem zeroPotential_eventually_norm_ge {ρ : ℂ} (hβ : 0 < ρ.re) (hρ1 : ρ
     (div_ne_zero (sub_ne_zero.mpr hρ1.symm) hρ0)
   have hlog : ∀ᶠ x : ℝ in Filter.atTop,
       ‖Real.log x‖ ≤ (A / 4) * ‖x ^ ρ.re‖ :=
-    (Real.isLittleO_log_rpow_atTop hβ).bound (by positivity)
+    (_root_.isLittleO_log_rpow_atTop hβ).bound (by positivity)
   have hlarge : ∀ᶠ x : ℝ in Filter.atTop, 4 ≤ x ^ ρ.re :=
-    (Real.tendsto_rpow_atTop hβ).eventually (eventually_ge_atTop 4)
+    (_root_.tendsto_rpow_atTop hβ).eventually (eventually_ge_atTop 4)
   have hreal : ∀ᶠ x : ℝ in Filter.atTop,
       (A / 2) * x ^ ρ.re ≤ ‖zeroPotential ρ x‖ := by
     filter_upwards [hlog, hlarge, eventually_ge_atTop (1 : ℝ)] with x hxlog hxlarge hx
@@ -357,7 +360,7 @@ theorem zero_forces_historical_power {ρ : ℂ} (hzero : riemannZeta ρ = 0)
   rw [hpower] at hsq
   have hcancel : c₀ ^ 2 * (R : ℝ) ^ (2 * ρ.re - 1) ≤
       (8 * C) ^ 2 * RHLean.Proof.squareRootHistoricalK R := by
-    apply (mul_le_mul_right hRpos).mp
+    apply le_of_mul_le_mul_right (a := (R : ℝ)) _ hRpos
     simpa only [mul_pow, mul_assoc] using hsq
   have hdivide : (c₀ ^ 2 * (R : ℝ) ^ (2 * ρ.re - 1)) / (8 * C) ^ 2 ≤
       RHLean.Proof.squareRootHistoricalK R := by

@@ -175,7 +175,7 @@ The following equivalences have explicit Lean proof candidates in this change:
 - Zero logarithmic amplification iff `MertensGrowthAtMost (1/2)`.
 - Zero native owner loss `NativeOwnerBound 0` iff the same Mertens half-exponent, on the original complete signed owner source.
 - Actual uniform fractional owner contraction iff the same half-exponent. Its consumer retains the existing original-source analytic seed and is compiled in the separate fractional job.
-- Any fixed subcritical prefix lift r<k, with r>=0, iff the same half-exponent. The theorem includes **eventual bounds along any unbounded integer chain**; it does not impose every-B uniformity as an extra gate on the documented MU-LIFT route. The original subpower gain `log G_j/log B_j -> 0` is also supplied as a consumer.
+- Any fixed subcritical prefix lift r<k iff the same half-exponent. The original existential subpower-gain theorem allows every real r<k, including negative r; the directly quantified every-positive-loss presentation also has a separate nonnegative-r API. The theorem includes **eventual bounds along any unbounded integer chain** and does not impose every-B uniformity as an extra gate on the documented MU-LIFT route. The original gain satisfies `log G_j/log B_j -> 0`.
 
 [`UNIVERSAL_ENVELOPE_RH_BRIDGES.lean`](../research/UNIVERSAL_ENVELOPE_RH_BRIDGES.lean) connects the half-exponent, the repository's `MertensEnergyBoundedStatement`, the open-critical-strip zero formulation, and **Mathlib's full `RiemannHypothesis` proposition**. The latter bridge uses the existing unconditional Mertens-energy-to-RH theorem, and proves the reverse restriction directly.
 

@@ -25,7 +25,7 @@ theorem mertensEnergy_of_mertens_half
   intro n
   by_cases hn : n = 0
   · subst n
-    simp
+    simpa using sq_nonneg C
   · have hn0 : (0 : ℝ) < (n : ℝ) := by exact_mod_cast (show 0 < n by omega)
     have hs := (sq_le_sq₀ (norm_nonneg _)
       (mul_nonneg hC (Real.rpow_nonneg hn0.le _))).mpr (hbound n (by omega))

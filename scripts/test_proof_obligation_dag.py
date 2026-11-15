@@ -99,19 +99,22 @@ class ProofObligationDagTests(unittest.TestCase):
         self.assertEqual(edge(self.reg, "E-ERROR-CLOSURE-REQUIRES-FIXED-PACKING")["to"],
                          "MILESTONE-NEAR-UNIFORM-SLOT-BOUNDARY")
         ev = next(e for e in self.reg["evidence"] if e.get("number") == 1119)
-        self.assertEqual(ev["state"], "open")
+        self.assertEqual(ev["state"], "merged")
+        self.assertEqual(closed["formal_status"], "PROVED_IN_LEAN_ON_MAIN")
+        self.assertTrue(ev["merged_at"])
+        self.assertEqual(len(ev["merge_commit_sha"]), 40)
         self.assertEqual(len(ev["head_sha"]), 40)
         self.assertEqual(len(ev["claim_ids"]), 3)
         self.assertIn("20261108-referee-3", ev["independent_review"])
+        def reopen(r):
+            snapshot = next(e for e in r["evidence"] if e.get("number") == 1119)
+            snapshot.update(state="open", merged_at=None)
+        self.assertRejects(reopen, "on-main status but PR #1119 is not merged")
         self.assertRejects(
             lambda r: node(r, closed["id"]).update(
-                formal_status="PROVED_IN_LEAN_ON_MAIN"),
-            "on-main status but PR #1119 is not merged")
-        def mismatch_checks(r):
-            snapshot = next(e for e in r["evidence"] if e.get("number") == 1119)
-            snapshot["checks"].update(failed=0, pending=(
-                1 if closed["formal_status"] == "PROVED_IN_LEAN_PR_GREEN_UNMERGED" else 0))
-        self.assertRejects(mismatch_checks, "contradicts PR #1119 checks")
+                formal_status="PROVED_IN_LEAN_PR_GREEN_UNMERGED",
+                evidence_class="PROVED_IN_LEAN_PR_GREEN_UNMERGED"),
+            "requires an open PR")
 
     def test_ten_routes_and_seven_agents(self):
         self.assertEqual(tuple(r["id"] for r in self.reg["routes"]), dag.ROUTE_IDS)

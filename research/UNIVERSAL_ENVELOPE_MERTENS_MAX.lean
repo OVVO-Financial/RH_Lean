@@ -482,6 +482,65 @@ theorem subcritical_subpower_gain_iff_mertens_half
         le_mul_of_one_le_right (mertensPrefixBudget_nonneg ((B j) ^ k))
           (Real.one_le_rpow (mertensPrefixBudget_one_le (B j)) hr0))
 
+/-- Registry-facing MU-LIFT equivalence for every real r < k, including
+negative powers.  The gain in the reverse direction absorbs |r| without
+altering its zero logarithmic exponent. -/
+theorem subcritical_subpower_gain_iff_mertens_half_of_lt
+    (k : ℕ) (hk : 1 ≤ k) (r : ℝ) (hrk : r < (k : ℝ))
+    (B : ℕ → ℕ) (hB : Tendsto B atTop atTop) :
+    MertensPrefixSubpowerGainLiftOn B k r ↔ MertensGrowthAtMost (1 / 2 : ℝ) := by
+  constructor
+  · intro hlift
+    by_cases hr0 : 0 ≤ r
+    · exact (subcritical_subpower_gain_iff_mertens_half k hk r hr0 hrk B hB).mp hlift
+    · obtain ⟨G, hG, hlogG, hstep⟩ := hlift
+      have hk0 : (0 : ℝ) < (k : ℝ) := by exact_mod_cast (show 0 < k by omega)
+      apply mertens_half_of_subcritical_subpower_gain k hk 0 (by norm_num) hk0
+        B G hB hG hlogG
+      filter_upwards [hG, hstep] with j hjG hjstep
+      have hpower : (mertensPrefixBudget (B j)) ^ r ≤ 1 :=
+        Real.rpow_le_one_of_one_le_of_nonpos (mertensPrefixBudget_one_le (B j))
+          (le_of_lt (lt_of_not_ge hr0))
+      simpa only [Real.rpow_zero, mul_one] using hjstep.trans
+        (mul_le_of_le_one_right (by linarith only [hjG]) hpower)
+  · intro hhalf
+    have hh := envelopeExponent_eq_zero_iff_mertens_half.mpr hhalf
+    refine ⟨fun j => mertensPrefixBudget ((B j) ^ k) *
+      (mertensPrefixBudget (B j)) ^ |r|, ?_, ?_, ?_⟩
+    · apply Filter.Eventually.of_forall
+      intro j
+      exact (mertensPrefixBudget_one_le ((B j) ^ k)).trans
+        (le_mul_of_one_le_right (mertensPrefixBudget_nonneg ((B j) ^ k))
+          (Real.one_le_rpow (mertensPrefixBudget_one_le (B j)) (abs_nonneg r)))
+    · have hleft : Tendsto
+          (fun j => Real.log (mertensPrefixBudget ((B j) ^ k)) / Real.log (B j : ℝ))
+          atTop (nhds (0 : ℝ)) := by
+        simpa only [Function.comp_apply, hh, mul_zero] using
+          (prefixBudget_power_log_ratio_tendsto k hk).comp hB
+      have hright : Tendsto
+          (fun j => Real.log (mertensPrefixBudget (B j)) / Real.log (B j : ℝ))
+          atTop (nhds (0 : ℝ)) := by
+        simpa only [Function.comp_apply, hh] using prefixBudget_log_ratio_tendsto.comp hB
+      have hrconst : Tendsto (fun _j : ℕ => |r|) atTop (nhds |r|) := tendsto_const_nhds
+      have hsum : Tendsto
+          (fun j => Real.log (mertensPrefixBudget ((B j) ^ k)) / Real.log (B j : ℝ) +
+            |r| * (Real.log (mertensPrefixBudget (B j)) / Real.log (B j : ℝ)))
+          atTop (nhds (0 : ℝ)) := by
+        simpa only [mul_zero, add_zero] using hleft.add (hrconst.mul hright)
+      apply hsum.congr'
+      filter_upwards [] with j
+      rw [Real.log_mul (mertensPrefixBudget_pos ((B j) ^ k)).ne'
+          (Real.rpow_pos_of_pos (mertensPrefixBudget_pos (B j)) |r|).ne',
+        Real.log_rpow (mertensPrefixBudget_pos (B j)), add_div, mul_div_assoc]
+    · apply Filter.Eventually.of_forall
+      intro j
+      have hpower : 1 ≤ (mertensPrefixBudget (B j)) ^ (|r| + r) :=
+        Real.one_le_rpow (mertensPrefixBudget_one_le (B j))
+          (by linarith only [neg_abs_le r])
+      have h := le_mul_of_one_le_right (mertensPrefixBudget_nonneg ((B j) ^ k)) hpower
+      rw [Real.rpow_add (mertensPrefixBudget_pos (B j))] at h
+      simpa only [mul_assoc] using h
+
 end RHLean.Analysis.UniversalEnvelope
 
 end

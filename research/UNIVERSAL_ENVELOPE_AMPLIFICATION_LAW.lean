@@ -46,7 +46,7 @@ theorem amplification_upper_power (ε : ℝ) (hε : 0 < ε) :
       (R : ℝ) ^ ε * (R : ℝ) ^ (2 : ℕ) := by
     rw [pow_two, ← Real.rpow_add hR0]
     rw [show (1 + ε / 2) + (1 + ε / 2) = ε + (2 : ℝ) by ring,
-      Real.rpow_add hR0, Real.rpow_natCast (R : ℝ) 2]
+      Real.rpow_add hR0]
   have hroot : (R : ℝ) ^ 2 ≤ 2 * (X : ℝ) := by
     have hs : 1 ≤ R ^ 2 := by nlinarith
     have hnat : R ^ 2 ≤ 2 * X := by unfold squareRootEndpoint at hRX; omega

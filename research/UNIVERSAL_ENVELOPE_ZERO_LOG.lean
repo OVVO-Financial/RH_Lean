@@ -52,7 +52,7 @@ theorem envelopeBound_one_zero_of_zeroLog
       ((N + R ^ 2 : ℕ) : ℝ) = (N : ℝ) + (R : ℝ) ^ 2 := by
         simp only [Nat.cast_add, Nat.cast_pow]
       _ ≤ (N : ℝ) * (R : ℝ) ^ 2 + (R : ℝ) ^ 2 :=
-        add_le_add_right (le_mul_of_one_le_right (Nat.cast_nonneg N) hRsq) _
+        by nlinarith only [le_mul_of_one_le_right (Nat.cast_nonneg N) hRsq]
       _ = ((N : ℝ) + 1) * (R : ℝ) ^ 2 := by ring
   have hpower : Real.exp (ε * Real.log ((N + R ^ 2 : ℕ) : ℝ)) ≤
       ((N : ℝ) + 1) ^ ε * (R : ℝ) ^ (2 * ε) := by
@@ -89,7 +89,7 @@ theorem envelopeBound_one_zero_of_zeroLog
       (R : ℝ) ^ (2 * ε) * (R : ℝ) ^ (2 : ℕ) := by
     rw [pow_two, ← Real.rpow_add hR0]
     rw [show (1 + ε) + (1 + ε) = 2 * ε + (2 : ℝ) by ring,
-      Real.rpow_add hR0, Real.rpow_natCast (R : ℝ) 2]
+      Real.rpow_add hR0]
   have hsquare :
       (Real.sqrt (((N : ℝ) + 1) ^ ε) * (R : ℝ) ^ (1 + ε) *
         Real.sqrt (squareRootHistoricalK R)) ^ 2 =
