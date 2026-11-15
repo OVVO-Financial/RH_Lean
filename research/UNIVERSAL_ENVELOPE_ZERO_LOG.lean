@@ -91,7 +91,7 @@ theorem envelopeBound_one_zero_of_zeroLog
     rw [pow_two, ← Real.rpow_add hR0]
     rw [show (1 + ε) + (1 + ε) = 2 * ε + (2 : ℝ) by ring,
       Real.rpow_add hR0]
-    rfl
+    rw [Real.rpow_two]
   have hsquare :
       (Real.sqrt (((N : ℝ) + 1) ^ ε) * (R : ℝ) ^ (1 + ε) *
         Real.sqrt (squareRootHistoricalK R)) ^ 2 =
