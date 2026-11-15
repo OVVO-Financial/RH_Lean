@@ -70,9 +70,7 @@ theorem historical_le_four_prefixBudget_sq (B : ℕ) :
   refine ⟨by positivity, ?_⟩
   intro n hnB
   have hs1 : 1 ≤ Real.sqrt ((n + 1 : ℕ) : ℝ) := by
-    simpa using Real.sqrt_le_sqrt
-      (show (1 : ℝ) ≤ ((n + 1 : ℕ) : ℝ) by
-        exact_mod_cast Nat.succ_le_succ (Nat.zero_le n))
+    simp
   have hM : ‖mertensSummatory n‖ ≤
       mertensPrefixBudget B * Real.sqrt ((n + 1 : ℕ) : ℝ) := by
     by_cases hn : n = 0
@@ -324,9 +322,9 @@ theorem prefixLiftBound_of_mertens_half (k : ℕ) (hk : 1 ≤ k)
   have h := hupper (B ^ k) hBk
   rw [hh, zero_add, Nat.cast_pow, ← Real.rpow_natCast_mul hB0.le,
     mul_div_cancel₀ ε hk0.ne'] at h
-  exact h.trans (by simpa only [mul_one] using
-    mul_le_mul_of_nonneg_left (Real.one_le_rpow (mertensPrefixBudget_one_le B) hr)
-      (show 0 ≤ C * (B : ℝ) ^ ε by positivity))
+  exact h.trans (le_mul_of_one_le_right
+    (show 0 ≤ C * (B : ℝ) ^ ε by positivity)
+    (Real.one_le_rpow (mertensPrefixBudget_one_le B) hr))
 
 /-- Every-root bounds restrict to any sequence tending to infinity. -/
 theorem prefixLiftBound_on {B : ℕ → ℕ} {k : ℕ} {r : ℝ}
@@ -483,7 +481,7 @@ theorem subcritical_subpower_gain_iff_mertens_half
     refine ⟨fun j => mertensPrefixBudget ((B j) ^ k), ?_, ?_, ?_⟩
     · exact Filter.Eventually.of_forall
         (fun j => mertensPrefixBudget_one_le ((B j) ^ k))
-    · simpa only [Function.comp_apply, hh, mul_zero] using
+    · simpa only [Function.comp_def, hh, mul_zero] using
         (prefixBudget_power_log_ratio_tendsto k hk).comp hB
     · exact Filter.Eventually.of_forall (fun j =>
         le_mul_of_one_le_right (mertensPrefixBudget_nonneg ((B j) ^ k))
@@ -522,12 +520,12 @@ theorem subcritical_subpower_gain_iff_mertens_half_of_lt
     · have hleft : Tendsto
           (fun j => Real.log (mertensPrefixBudget ((B j) ^ k)) / Real.log (B j : ℝ))
           atTop (nhds (0 : ℝ)) := by
-        simpa only [Function.comp_apply, hh, mul_zero] using
+        simpa only [Function.comp_def, hh, mul_zero] using
           (prefixBudget_power_log_ratio_tendsto k hk).comp hB
       have hright : Tendsto
           (fun j => Real.log (mertensPrefixBudget (B j)) / Real.log (B j : ℝ))
           atTop (nhds (0 : ℝ)) := by
-        simpa only [Function.comp_apply, hh] using prefixBudget_log_ratio_tendsto.comp hB
+        simpa only [Function.comp_def, hh] using prefixBudget_log_ratio_tendsto.comp hB
       have hrconst : Tendsto (fun _j : ℕ => |r|) atTop (nhds |r|) := tendsto_const_nhds
       have hsum : Tendsto
           (fun j => Real.log (mertensPrefixBudget ((B j) ^ k)) / Real.log (B j : ℝ) +
