@@ -1,0 +1,167 @@
+name: Universal envelope law
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    paths:
+      - 'research/UNIVERSAL_ENVELOPE*.lean'
+      - 'research/MERTENS_CONVERSE_*.lean'
+      - 'research/NATIVE_OWNER_PREFIX_MERTENS_20261021.lean'
+      - 'research/oai_434/VF919FractionalOwnerContraction.lean'
+      - 'RHLean/Proof/SquareRoot*.lean'
+      - 'RHLean/Analysis/MobiusRenewalTelescope.lean'
+      - 'docs/UNIVERSAL_ENVELOPE*.md'
+      - 'scripts/envelope_*'
+      - 'scripts/audit_universal_envelope.py'
+      - 'scripts/audit_euler_fractional_axioms.py'
+      - 'scripts/compile_research_import_closure.py'
+      - '.github/workflows/universal-envelope-law.yml'
+      - '.github/actions/lean-setup/**'
+      - '.github/actions/lean-compiled-cache/**'
+      - '.github/actions/research-compile/**'
+      - '.github/actions/oai-434-shared-cache/**'
+      - 'lean-toolchain'
+      - 'lakefile.lean'
+      - 'lake-manifest.json'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: universal-envelope-${{ github.head_ref || github.ref_name }}-${{ github.event.pull_request.head.sha || github.sha }}
+  cancel-in-progress: true
+
+jobs:
+  numerical-smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install numerical-check dependencies
+        run: python -m pip install numpy==2.2.6 mpmath==1.3.0
+      - name: Run bounded numerical smoke checks
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 scripts/envelope_kernel_check.py --quick
+          python3 scripts/envelope_toy_falsifier.py --quick
+          gcc -O2 -Wall -Wextra -Werror -o /tmp/envelope_census scripts/envelope_census.c -lm
+          /tmp/envelope_census --quick /tmp/envelope_quick.csv
+
+  core-proof:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Check source inventory and independent core imports
+        run: python3 scripts/audit_universal_envelope.py --group core --source-only
+      - name: Verify the pinned Lean and Mathlib versions
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(cat lean-toolchain)" = 'leanprover/lean4:v4.34.1'
+          grep -q 'd13f23b723b8a846827a245b89c10fc7d3f11612' lakefile.lean
+          git rev-parse HEAD
+      - uses: ./.github/actions/lean-setup
+      - uses: ./.github/actions/lean-compiled-cache
+      - name: Compile the exact warning-fatal core and type acceptance
+        uses: ./.github/actions/research-compile
+        with:
+          build-library: 'true'
+          targets: research/UNIVERSAL_ENVELOPE_ACCEPTANCE.lean
+      - name: Audit every new core declaration and terminal axiom
+        run: python3 scripts/audit_universal_envelope.py --group core
+      - name: Preserve core proof evidence
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: universal-envelope-core-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            universal-envelope-core-evidence/
+            research/UNIVERSAL_ENVELOPE_ACCEPTANCE.lean
+          if-no-files-found: error
+          retention-days: 30
+
+  fractional-owner-proof:
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Check the separate source inventory
+        run: python3 scripts/audit_universal_envelope.py --group fractional --source-only
+      - name: Verify compiler and Mathlib pins
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(cat lean-toolchain)" = 'leanprover/lean4:v4.34.1'
+          grep -q 'd13f23b723b8a846827a245b89c10fc7d3f11612' lakefile.lean
+      - uses: ./.github/actions/lean-setup
+      - name: Checkout the exact original analytic source
+        uses: actions/checkout@v4
+        with:
+          repository: openai/math
+          ref: 1581d4cbdd69a0faf34b2089614fe2a814316a6a
+          path: oai-upstream
+          persist-credentials: false
+      - uses: ./.github/actions/lean-compiled-cache
+      - name: Verify native Wiener before shared analytic setup
+        run: lake build PrimeNumberTheoremAnd.Wiener
+      - name: Compile native owner equivalence and established native ancestors
+        uses: ./.github/actions/research-compile
+        with:
+          build-library: 'true'
+          targets: |
+            research/UNIVERSAL_ENVELOPE_OWNER_EQUIVALENCE.lean
+            research/VF_919_SEVEN_EIGHTHS_SIGNED_COVARIANCE_20261019.lean
+            research/VF_919_SEVEN_EIGHTHS_SQUARE_SHELL_BRIDGE_20261019.lean
+            research/CORR4_OAI_POWER_GUIDEPOST_20261024.lean
+            research/VF_919_OAI_ACTUAL_MARKED_FOURTH_REAL_NNS_20261021.lean
+      - name: Restore the verified original analytic DAG
+        id: oai_cache
+        uses: ./.github/actions/oai-434-shared-cache
+      - name: Build original analytic ancestors on a genuine cache miss
+        if: ${{ steps.oai_cache.outputs.complete != 'true' }}
+        working-directory: oai-upstream/lean
+        run: lake build OAI.NumberTheory.DirichletL.Detector.FinalAssemblyUnconditional
+      - name: Verify shared packages and the exact original source
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git -C oai-upstream rev-parse HEAD)" = '1581d4cbdd69a0faf34b2089614fe2a814316a6a'
+          python3 scripts/check_shared_lean_packages.py . oai-upstream/lean PrimeNumberTheoremAnd mathlib
+      - name: Reuse the established warning-fatal fractional-owner ancestor pipeline
+        run: bash scripts/lean/slot_anchored/run_anchored_in_verified_ci.sh "$PWD"
+      - name: Compile fractional equivalence, exact types, and terminal-axiom audit
+        shell: bash
+        run: |
+          set -euo pipefail
+          OAI_PATH="$(cd oai-upstream/lean && lake env python3 -c 'import os; print(os.pathsep.join(os.path.abspath(p) for p in os.environ["LEAN_PATH"].split(os.pathsep) if p))')"
+          RH_PATH="$(lake env python3 -c 'import os; print(os.pathsep.join(os.path.abspath(p) for p in os.environ["LEAN_PATH"].split(os.pathsep) if p))')"
+          export LEAN_PATH="$RH_PATH:$OAI_PATH"
+          mkdir -p .lake/build/lib/lean
+          lean -DwarningAsError=true -o .lake/build/lib/lean/research.UNIVERSAL_ENVELOPE_OWNER_FRACTIONAL.olean research/UNIVERSAL_ENVELOPE_OWNER_FRACTIONAL.lean
+          lean -DwarningAsError=true -o .lake/build/lib/lean/research.UNIVERSAL_ENVELOPE_FRACTIONAL_ACCEPTANCE.olean research/UNIVERSAL_ENVELOPE_FRACTIONAL_ACCEPTANCE.lean
+          python3 scripts/audit_universal_envelope.py --group fractional --direct-lean
+      - name: Preserve fractional proof and ancestor evidence
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: universal-envelope-fractional-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            universal-envelope-fractional-evidence/
+            anchored-tilt-generation.json
+            slot-anchored-lean.log
+            slot-anchored-audit-*.log
+            research/UNIVERSAL_ENVELOPE_FRACTIONAL_ACCEPTANCE.lean
+          if-no-files-found: error
+          retention-days: 30
