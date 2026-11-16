@@ -549,3 +549,14 @@ At 2026-11-16 12:38:46 UTC (America/New_York 07:38:46 EST), the main HEAD remain
 
 The complete open-PR collection remains exactly #1136 and #1137 at the heads recorded in I, both non-draft, unmerged, with auto-merge null. Fresh exact-head check collections each contain 13 completed SUCCESS checks. The report will be committed against this verified parent with a non-force expected-head lease and only the two owned report paths. Publication is still READBACK_PENDING at this point; the subsequent receipt records actual success, not an intention.
 
+## Verified Publication Receipt - 2026-11-16 07:40:11 EST
+
+EXECUTION=COMPLETED; SUBSTANTIVE_PUBLICATION=PUBLISHED_READBACK_VERIFIED. This supersedes preparation statuses above without erasing their history. Mathematical review status is separate: MB1-MB3 remain PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED; MB4 is IDENTITY_ONLY and MB5 FINITE_COMPUTATION. Canonical VF and RH remain OPEN.
+
+Verified substantive commit: `5317beb62dcba07660a555dbbe41ad9d0afbb7e3`, committed at 2026-11-16T12:39:39Z; parent `a4e8620edeff783c7c5f7f086ca8ad7887ba6221`; tree `227abd3848e4752b4a26312778bbfe42f338a4d7`. The non-force expected-head update succeeded. Commit metadata lists exactly the two owned November 16 Coordinator paths and no other changed files.
+
+At 2026-11-16 12:40:11 UTC, both files were fetched at that IMMUTABLE commit and compared byte-for-byte against the validated full submission. Both returned blob `d6513ea9000522a03a9faa472370583894e7b92f`. The original early checkpoint is an exact preserved prefix. A-J structure, balanced Markdown fences, embedded checker identity, relevant main source paths and complete mirror equality were checked. This receipt reports that already completed verification; its own publication uses a subsequent own-path-only commit and is checked before the user-facing closeout.
+
+Next actual execution: refresh authority and latest real handoffs, consume independent MB review if available, and examine full FFR4 source assembly. Do not rerun this finite-moment construction without a changed premise. No background work, additional launch or future delivery is asserted.
+
+
