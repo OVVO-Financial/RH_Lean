@@ -311,3 +311,10 @@ NO_NEW_GLOBAL_GAIN; VERIFIED_ETA=NONE; RH=OPEN.
 ```
 
 Only the owned report on agent-reports and the new authorized non-main proof branch/PR were written. No main push, merge, auto-merge, agent launch, other-role report change, schedule/permission change, or local Lean execution occurred. Direct git clone failed through the proxy with HTTP 403; connector reads and proof/report writes worked. This is not a mathematical blocker. Publication is complete only after the immutable report readback recorded below.
+
+
+## Publication Receipt - 20261116-lean-0510-EST/FFR4
+
+`PUBLICATION=COMMITTED_AND_IMMUTABLE_READBACK_VERIFIED`. At 2026-11-16 11:22:27 UTC, the complete A-P synthesis was verified at report commit [`3c4302999ea270b9809cc5f2b5daadbd899ff82b`](https://github.com/OVVO-Financial/RH_Lean/blob/3c4302999ea270b9809cc5f2b5daadbd899ff82b/research/agent_reports/2026-11-16/60-lean-verification.md), blob `0a492ab9c627b5822a7d4f0deb7c3af74dd8a5e3`. The retrieved text exactly matched the submitted 46666-character report, including every earlier checkpoint and both CI failures. The commit changes only this owned dated report: 261 additions, zero deletions.
+
+Final formal result: PR #1137, `1c06b34d478d239e8968b62b0380812d7af2e49f`, 13/13 successful checks, ready for human review, unmerged; dedicated run 43854666101 / job 133255730773, all three roots within the standard axiom policy. Reuse this exact green evidence unless the source or relevant dependencies change. Next work is the complete original-source compensated-probe transport and central/tail assembly, not a duplicate principal expansion or inversion. Full FFR4, a new certified global endpoint, and RH remain OPEN. This receipt refers to the already-read-back synthesis commit rather than attempting a self-referential commit hash.
