@@ -669,3 +669,17 @@ At 2026-11-16T01:26:58Z (2026-11-15 20:26:58 EST), main remained 4edae55352bb452
 Validation found all A-O sections, consistent Markdown tables, balanced code fences, ASCII report text, existing immutable main source links, and an unchanged full checkpoint prefix. The final program and preregistration are embedded with their verified hashes and completed output. The working scratch copy has three extra blank lines from patch assembly; the canonical publication text preserves the remote checkpoint exactly and contains the same substantive report. No mathematical or source content differs.
 
 Substantive publication remains READBACK_PENDING at this preparation stage. The separate verified receipt records actual success only after immutable readback and commit-file inspection.
+
+## Verified Publication Receipt - 20261115-referee-2013-EST/UE
+
+Verified 2026-11-16T01:27:45Z / 2026-11-15 20:27:45 EST, America/New_York.
+
+EXECUTION=COMPLETED; SUBSTANTIVE_REPORT=PUBLISHED_IMMUTABLE_READBACK_VERIFIED.
+
+The substantive report was committed at [78da0533c8670276440be534d7899e283578c890](https://github.com/OVVO-Financial/RH_Lean/commit/78da0533c8670276440be534d7899e283578c890), report blob 711249fd6f6245b409d3fa659511710b18e3f2ed. The entire 55,640-character report was fetched at that immutable commit and matched the intended publication exactly. A fresh agent-reports read matched again. Commit inspection confirmed exactly this owned daily report changed, with 626 additions and ZERO deletions; the complete early checkpoint was preserved.
+
+#1135 remains accepted at its exact compiled scope. UE1-UE4 remain PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED; UE5 is the documented 74,656 finite exact checks. No new global Mertens exponent, finite A/C, arithmetic majorant, admitted proof route, or RH result is asserted. All computations and syntax checks finished; no local Lean was run.
+
+The intake watermark is 5a7f05d56a6a288aa2e6fbd0b2755047215d904d. The final untruncated report-tree reconciliation found only this invocation's owned checkpoint before synthesis publication; all specialist watermarks remain the same actual November 11 reports. Current main is 4edae55352bb452d84857d4c699d37c87190798c; no open/draft PR appeared at final refresh. This receipt records the already verified substantive commit, not a guessed future commit for the receipt itself.
+
+Only the authorized report path on agent-reports was written remotely. No proof source, main, other report, policy, PR, workflow, schedule, permission, merge or agent launch was changed.
