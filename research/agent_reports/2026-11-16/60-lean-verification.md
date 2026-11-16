@@ -347,3 +347,257 @@ Draft [PR #1139](https://github.com/OVVO-Financial/RH_Lean/pull/1139) was opened
 Independent finite verification completed: trial factorization and divisor inversion agree at all 19,320 Mobius sites; C_139(1,2,3,6)=(74,-102,-32,0), M(138)=-3, Q_139=-49 and M(19320)=43. This is FINITE_COMPUTATION, not yet PROVED_IN_LEAN.
 
 The dedicated hosted workflow ACTUALLY_STARTED as run [43928619788](https://github.com/OVVO-Financial/RH_Lean/actions/runs/43928619788); exact types, source dependencies, seven terminal axiom audits, inventory and warning-fatal compilation are required. Current status CI_PENDING / DRAFT_PR. No local Lean execution occurred. The strict all-scale row supplier and full FP/FR growth equivalence are not claimed implemented by this scoped obstruction.
+
+## Research Synthesis - 20261116-lean-1314-EST/FR-AUDIT
+
+Actual scheduled trigger: 2026-11-16 13:14:01 EST / 18:14:01 UTC, America/New_York. RUN_ID_UNAVAILABLE; FR-AUDIT is a research label. This continuation preserves the earlier FFR4 report, its publication receipt, and both checkpoints from this invocation. Final publication is established only by the immutable readback receipt appended after the substantive write.
+
+### A. Most Important Formal Mathematical Result
+
+New original-carrier obstruction, implementing `20261116-referee-1203-EST/FR4`: at R=139 the full ordered gcd-6 row is zero, while M(R^2-1)=43. Consequently no real constant C pointwise bounds the original endpoint, or its unit-centered value M(R^2-1)-1, by C times the absolute value of this row for every R>=7. The centered variant is an additional valid consequence discovered during implementation.
+
+The implementation is in [PR #1139](https://github.com/OVVO-Financial/RH_Lean/pull/1139), head `760a105553788fa7005e86b1230699fd871a2934`: PROVED_IN_LEAN_AT_PR_HEAD, 13/13 successful checks, eight standard-axiom audits, READY_FOR_REVIEW, UNMERGED. Actual compilation and audit logs were inspected. The result is an OBSTRUCTION, not a new global bound. A single finite witness does not refute eventual domination, the fixed-row all-scale exponent equivalence, finite A/C, or RH.
+
+Separately, independent reconstruction accepts the exact FR1-FR3 paper arguments at their stated fixed-g, above-half and every-positive-loss scopes. Their full analytic equivalences are NOT_FORMALIZED by this PR. The normalized smaller-cost premise remains target-strength, not a paid supplier.
+
+### B. Current Authoritative Objective
+
+Live main at intake: `50e6b86c2f70584b603f1b2e813d49293ba2b7dc`, tree `e746ca3983edead6a4fb376f82e0348f781bc16a`. Main instructions and the current proof contract were read at this revision, not inferred from historical reports.
+
+| Authority or original source | Blob SHA |
+| --- | --- |
+| AGENTS.md | c4f36b772f8a4b0c24fe566b90fafb646073c60f |
+| CURRENT_PROOF_CONTRACT.md | 95566e37c8eaeb99ee680660df4f9d2e06ea5038 |
+| docs/RHLEAN_BOOTSTRAP_TO_HALF_20261116.md | 96ad4439ec458af6168f7d9cb3eef5dde291d37c |
+| docs/RHLEAN_REPORT_CONTINUITY_LAST_ACTUAL_20261111.md | 3e71820a4af722eae7098da6945bb5bcba50dd0d |
+| research/EULER_HYBRID_ABEL_GRAM_20261027.lean | 2a94dd8fd56fc03e95f732fb44b778a8d4f83e26 |
+| research/EULER_SELF_DUAL_POINTWISE_20261027.lean | c327c556f39ee7014fd774b24d0f95a1ece050e0 |
+| research/EULER_SELF_DUAL_FINITE_C_BRIDGE_20261027.lean | e97561ef330a9996fd807d8910369f0698147b01 |
+| research/EULER_SELF_DUAL_ENDPOINT_GATE_20261027.lean | e7ee8f77ffd59bccaa49dd6d74fbe0d7952c2d73 |
+| RHLean/Proof/AmplificationExponentIteration.lean | d78be4509e5dcc35b833c3786258b94fc6e71915 |
+| research/UNIVERSAL_ENVELOPE_RH_BRIDGES.lean | 02a88cadc1eb984557b9dd7ee2e03e29bd3e5287 |
+| research/UNIVERSAL_ENVELOPE_LAWS.lean | 628018db94395f988308b0ffdb4e8e5792fc0b71 |
+| research/MERTENS_CONVERSE_IDENTIFICATION.lean | 768c8255850bf4074aff265c3fe17a1f5c43979b |
+| research/oai_434/VF919WindowErrorClosure.lean | f629db1b2b65d6ec042ac9432397d4b6316200c6 |
+| lean-toolchain | ba8ebf2dbaf6a668cd2a0e086186d6d569b69ff5 |
+| lake-manifest.json | a34d142c3d75a602a8b0f8241a4fb504d5c7c5a4 |
+
+Pinned Lean is 4.34.1, compiler `5045d0056413266e57c625dcd7c365b10e377c52`; Mathlib `d13f23b723b8a846827a245b89c10fc7d3f11612`; PNT `c39a751132c88b6e8080b74c74023fd95b3d8be0`; OAI `1581d4cbdd69a0faf34b2089614fe2a814316a6a`. Only propext, Classical.choice and Quot.sound are permissible terminal axioms.
+
+Canonical actual-prime objective remains: there exists C>=0 such that for every R>=2, |pi(R^2)-vfCanonical(R^2)| <= C R log R, with vfCanonical=vfMid+sqrt(2), original domain and transport hypotheses retained. The explicit `ClassicalVonKochRHCriterion` is not discharged by an auxiliary Mertens identity. The native every-positive-loss half-bound has its existing compiled RH equivalence. Both endpoints remain OPEN.
+
+`half_bootstrap_ack=BOOTSTRAP_TO_HALF_V1`; `cross_route_ack=CROSS_ROUTE_SIGNED_RECOVERY_V1`. The current directive supersedes the earlier FFR4 next-task priority. The unchanged OAI supplier has LOW floor 47/54, an actual coefficient-inversion gate theta>3/5, and available correction domain Re(s)>21/25. The prior principal component remains valid and merged; finishing a fixed-boundary optimization is PARKED_NO_HALF_CONTINUATION until a complete transition through these gates is supplied.
+
+The checked native baseline is the unchanged #1119 every-positive-loss closure at b=7/8-7/(64*N_pack), not a no-loss fixed power at that exponent. Its tested head is `77ee815846d6d534c866f0752aa33b84c385610a`; the actual [job 128949473700](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42552018910/job/128949473700) was read, with standard axiom closures 35358,35375,35736,35737,35753. The previous 14/14 green evidence is reused only for unchanged source: a tree comparison checked 2508 existing Lean/pin/scripts/lean entries and found RHLean.lean as the sole changed entry. This is not a fresh whole-main build claim. Any fixed-power consumer must spend a positive loss.
+
+Latest relevant merges were verified: #1135 universal-envelope work; #1136 FFR3 at tested head `93828e24dc69f56b6c4dc1eaed92847ef7e71be2`; #1137 principal-only FFR4 at `1c06b34d478d239e8968b62b0380812d7af2e49f`; and #1138 governing priority at current main. #1137's actual [job 133255730773](https://github.com/OVVO-Financial/RH_Lean/actions/runs/43854666101/job/133255730773) and 13/13 checks were rechecked; its three root closures are 219,4355,35236, with standard axioms. No full-response conclusion was inferred. There were no open/draft PRs at intake and hence no existing repair target.
+
+### C. Formalization Candidates And Continuity
+
+The untruncated agent-reports tree was enumerated without a calendar cutoff at `c445d4684aa51bb36895fe9512c064deb83d85de`. Both November 16 Coordinator mirrors were byte-identical. Latest completed publications and their earlier same-day continuations were retrieved. Relevant newly unconsumed material after the prior SS/UF/RC/SF/RS/NT watermarks was read in publication order: MB, DB, TW, FP, SG, FR. The earlier own FFR4 publication was also consumed.
+
+| Role and latest dated path under research/agent_reports | Actual completed watermark, EST | Blob SHA |
+| --- | --- | --- |
+| 2026-11-16/00-coordinator-am.md and 90-coordinator-pm.md | MB, 07:40:11 | 990d7fb01baa04d903748d6a48fe4db801a343e9 |
+| 2026-11-16/10-owner-payment.md | DB, 08:35:17 | a52b439e693e069502b0c299a5f074a19bae0807 |
+| 2026-11-16/20-analytic-type-ii.md | TW, 09:35:36 | 3eaa287d062966014d8386a21614837923eb007a |
+| 2026-11-16/30-finite-wheel.md | FP, 10:40:26 | 1d2e2fc0da212df5423e0cb0370e3064bd7b0b2e |
+| 2026-11-16/40-prime-census.md | SG, 11:28:44 | c07bf25eae457033e49e22b2eacc9c659a754d39 |
+| 2026-11-16/50-adversarial-referee.md | FR, 12:22:09 | 95499c6b3e72d79fe6eb902465c9554d3b0be9fc |
+| 2026-11-16/60-lean-verification.md, before this invocation | FFR4, 06:22:27 | 47c7640ad8e66b69fc5d81be819a051ca3124eb5 |
+
+Yesterday's available Coordinator mirrors (`8ce64136c888c6ad7820ef69a78caa5ece07d61b`), Referee UE (`a1c07bdd8e8493aece535745a0ce6f6635871620`) and own FFR3 (`8d25541bc6faebfa180e0456061d7725756bf5ca`) were retrieved. No November 15 Owner/Analytic/Wheel/Census report exists in the enumerated tree; no execution was invented. Their older derivations remain the carry-forward history, now followed by actual November 16 reports. Relevant November 11 Wheel GD/PD (`c9989449a814a1a7ee799791c73450872f4c7d3c`) and Referee NP/HR (`c288a925fd064a551a0d2bd70b27d82acc9fe926`) were backfilled for this route. Continuity is COMPLETE for task-relevant missed handoffs, not a claimed reread of the entire historical corpus or rerun of all embedded experiments.
+
+External handoffs were read at blob `7d63d434690d00dffce9c90335d41c4f62d85798`; no new entry after the previously recorded October material was found. Original prime-cofactor and first-bad scopes remain unchanged.
+
+Small queue: (A) no prior active proof PR needing repair; (B) FP1-FP4 already independently accepted by FR, and FR1-FR3 now independently accepted on paper by this run; (C) exact FR4 pointwise obstruction selected for immediate formal certification; (D) broader inverse/return formalization only when a named independent arithmetic supplier consumes it. MB, DB, TW and SG general claims remain pending independent review here; retrieval alone is not acceptance. DB's correction of the first delayed example from R=8 to R=5 and its R=137 restored sign reversal are retained. SG's H=10/H=19 failures are finite auxiliary falsifiers, not asymptotic RH results.
+
+### D. Candidate Selection
+
+The selected theorem is a bounded feasibility result protecting the proposed native one-row continuation. A projection can retain an all-scale exponent without retaining any fixed-root endpoint value. Formalizing the nonempty-row witness prevents a false pointwise shortcut from replacing the restored all-scale inverse. It requires no open estimate, target-equivalent premise or new axiom. Source/PR searches found no duplicate declaration. This is not presented as a newly qualifying RH attack or a substitute for deriving a strict arithmetic saving.
+
+Proof plan: preserve the literal ordered row; transport integral coordinates to the existing complex Euler carrier; kernel-check the finite row, full bilinear source and short historical Mobius prefix; invoke the existing exact endpoint identity; derive the two contradictions at R=139. Validation requires actual warning-fatal source compilation, exact public types, complete declaration inventory, and live terminal axiom/dependency checks.
+
+### E. Exact Theorem Statement
+
+For R,g natural, define X_R=R^2-1 using the existing `squareRootEndpoint`, and
+
+```text
+C_R(g) = sum_{1<=b<R} mu(b) *
+           sum_{1<=a<R, gcd(a,b)=g} mu(a) * floor(X_R/(a*b)).
+Q_R = the same ordered double sum without the gcd restriction.
+M(n) = sum_{1<=k<=n} mu(k), embedded into Complex.
+```
+
+No prime surrogate, unoriented pairing, missing diagonal, changed weight or rounded real floor is introduced. `eulerFixedGcdRowInt_cast` proves the exact transport to original `eulerSelfDualFloor`. `eulerBilinearInt_cast` proves equality to original `eulerSelfDualBilinear`.
+
+The new public declarations under RHLean.Proof establish C_139(6)=0, Q_139=-49, M(19320)=43, the combined witness, and the following two complete negative statements:
+
+```lean
+theorem not_pointwise_mertens_le_fixedGcdRow_six :
+    ¬ ∃ C : Real, ∀ R : Nat, 7 <= R ->
+      ‖mertensSummatory (squareRootEndpoint R)‖ <=
+        C * ‖(eulerFixedGcdRowInt R 6 : Complex)‖
+
+theorem not_pointwise_centered_mertens_le_fixedGcdRow_six :
+    ¬ ∃ C : Real, ∀ R : Nat, 7 <= R ->
+      ‖mertensSummatory (squareRootEndpoint R) - 1‖ <=
+        C * ‖(eulerFixedGcdRowInt R 6 : Complex)‖
+```
+
+Allowing all real C strengthens the usual C>=0 impossibility without adding a hypothesis. A private kernel certificate gives M(138)=-3; the original compiled identity Q_R=2M(R-1)-M(X_R) then yields 43. The centered value is 42. These are exact, not floating-point observations. The theorem does not assert that 139 is the smallest witness.
+
+### F. Independent Mathematical Audit
+
+FR1-FR3 are ACCEPT_ON_PAPER at the following scopes; their status is independent mathematical review, not Lean certification.
+
+1. Fixed squarefree g has exact product coefficient 1_{g|s(n)} sigma_R(rad(n)) mu(rad(n)/g) for n<R^2, where s(n) is the product of primes with square dividing n. The two forbidden large-factor strips have no intersection below R^2. At the square wall their intersection is nonempty and must be restored. Substitution n=g^2*m gives C_R(g)=2J_g(R)-S_g(floor((R^2-1)/g^2)), where u_g(m)=mu(product of primes dividing m but not g), S_g is its full prefix, and J_g retains rad(g^2*m)<R. Thus u_g is not FP's square-excluding coefficient and not an OAI character weight.
+2. For 0<alpha<1, Rankin counting with V_alpha(r)=product_{p|r}(1-p^(-alpha))^(-1) and v_alpha(d)=product_{p|d}(p^alpha-1)^(-1) on squarefree d gives sum_d v_alpha(d)/d finite. Summing r^(-alpha)V_alpha(r) gives at most R^(1-alpha)/(1-alpha) times that fixed mass. Therefore the entire radical return has size O_epsilon(R^(1+epsilon)), uniformly in g. No prime-number theorem or sign assumption is needed.
+3. Coefficientwise convolution is u_g=mu*kappa_g and mu=u_g*lambda_g. For p|g, kappa(p^e)=e+1 and lambda(p),lambda(p^2),lambda(p^e) for e>=3 are -2,1,0. For p not dividing g both first coefficients vanish; for e>=2 they are -(e-1) and 2^(e-2). Direct multiplication of local formal series proves the identities without dividing by an analytic function at its zeros. The inverse is signed.
+4. For fixed squarefree 6|g and fixed b>1/2, both weighted absolute kernel masses converge. The finitely many factors at p|g are finite. Outside g, p>=5 ensures 2p^(-b)<1; remaining increments are O_b(p^(-2b)), summable by an integer-series comparison. This transfers fixed powers between M and S_g with constants fixed before the scale.
+5. In the reverse direction R=g*r gives exactly floor((R^2-1)/g^2)=r^2-1. All r>=2, not an arbitrary sparse subsequence, are required. The gap to an arbitrary integer prefix is at most 2r, paid because |u_g|=1 and b>1/2. Choosing the radical loss below 2b-1 proves M(x)=O(x^b) iff C_R(g)=O_g(R^(2b)). Spending smaller positive losses gives the every-loss version at b>=1/2. The compiled half/RH consumer is reused, not reproved by assuming the row bound.
+6. At the actual closed native boundary h=max(Theta,1/2)-1/2, the specified row retains limsup exponent 2Theta when h>0. Existing upper/lower strict-history K_R bounds give the normalized dictionary L_(g,eta)^+ iff h<=eta for fixed eta>=0. This uses actual closed-envelope growth, not an unattained maximizing zero or an invalid strict-input substitution. The eta=0 every-loss bound is target-equivalent; eta<h is unpaid.
+
+The absolute inverse at exact b=1/2 diverges because the p^2 coefficients contribute sum_p 1/p. Omitting 2 or 3 obstructs THIS absolute inverse on part of the above-half interval. Neither fact proves that every different signed inverse is impossible. The finite R=139 witness refutes only the no-return all-R pointwise strengthening. It is consistent with every statement above.
+
+Independent finite validation used trial-factor Mobius values and a second divisor-recursion inverse for every 1<=n<=19320, then recomputed all original ordered pairs. Both prefixes agreed; rows 1,2,3,6 were 74,-102,-32,0; Q=-49 and M=43. This run did not rerun FR's entire 127034-assertion corpus or independently establish witness minimality. The Python calculation is evidence separate from the kernel certificates.
+
+### G. Lean Implementation
+
+Six focused added files: the proof module `research/EULER_FIXED_GCD_ROW_OBSTRUCTION.lean`; independent finite checker `scripts/fixed_gcd_row_regression.py`; `scripts/lean/fixed_gcd_row/ExactTypes.lean`, `Audit.lean`, `check_inventory.py`; and dedicated `.github/workflows/euler-fixed-gcd-row.yml`.
+
+The proof imports the existing endpoint gate and uses `autoImplicit false`. Finite certificates use `decide +kernel`, not native_decide. Exact casts and the existing endpoint theorem recover M(19320) from the much shorter history and the original full source. The audit checks eight public theorem roots, permits only the three standard axioms, and checks both terminal closures for the original endpoint identity, full-source transport and finite witnesses. The source/inventory checker rejects proof holes, project axioms and unsafe/native-evaluation proof shortcuts. Unsafe initialization occurs only in the external IO auditor, following the existing repository pattern, not in any theorem proof.
+
+The new dedicated workflow uses the repository's pinned setup, native compiled cache and research import-closure compiler. Both proof and exact-type/audit stages are warnings-fatal. Existing policies, audits, root exports and mathematical modules are unchanged. Python regression and syntax checks passed locally; Lean was run only through GitHub Actions.
+
+### H. Proof Branch And PR Evidence
+
+Branch `agent/lean-verification/20261116-fixed-gcd-row-obstruction`, based on main `50e6b86c2f70584b603f1b2e813d49293ba2b7dc`. Draft PR #1139 actually opened at 18:25:13 UTC, targeting main. Initial commit `74de02fbfbf379a211cdfe269152b89de5bc0e97`, tree `493c529ba97e3e21e4ef6447eb8f98555f20290b`, proof blob `5ff58c3805a58853a0bcda8d44c795bc9148a97f`.
+
+Repair and final tested commit `760a105553788fa7005e86b1230699fd871a2934`, tree `987c764248812e4e587d1e076d9a1d6277515fb7`, fixes two warning-fatal tactic-style diagnostics and includes the centered terminal theorem. Proof blob `9003eb1c226f0b114be6402e63f325b60c80bf92`; exact-type blob `83ec3cb106b7e8ff477a0eb5c7dcf789df818659`; audit blob `a994469d47f040ca026ecc4cdbe14d19616ad838`; inventory blob `c944afa61fb1d080199de3ba4752720df25c4032`; finite regression blob `6dfe30ec8f554604ebdafb3ca1c6b6251999fe34`; workflow blob `365922829ea6c1151fca7c03122c890c2a150230`.
+
+Immutable proof readback matched the submitted source exactly. The final comparison is two commits ahead of and zero behind unchanged main, with exactly six added files, 336 additions and zero deletions. After all checks and logs were verified, the PR was marked READY_FOR_REVIEW at 18:37:59 UTC; it remains UNMERGED. No merge or auto-merge was requested.
+
+### I. GitHub Actions Evidence
+
+Initial [run 43928619788 / job 133514711282](https://github.com/OVVO-Financial/RH_Lean/actions/runs/43928619788/job/133514711282) ACTUALLY_EXECUTED and failed at initial head. The independent finite regression, pins, setup and original prerequisite builds passed. The new proof module then failed the warning-fatal linter as recorded in J. It is not certified at that revision.
+
+Repair [run 43929804765 / job 133518873411](https://github.com/OVVO-Financial/RH_Lean/actions/runs/43929804765/job/133518873411) PASSED on `760a105553788fa7005e86b1230699fd871a2934`, pull_request event, attempt 1, completed by 18:34:53 UTC. The exact source was ACTUALLY_COMPILED warning-fatal in the concurrent [targeted run 43929805348 / job 133518873088](https://github.com/OVVO-Financial/RH_Lean/actions/runs/43929805348/job/133518873088): the log emits the new module at 18:33:23 and records compiled=1, cached=9 at 18:33:58. The dedicated proof job then reused that matching content-addressed cache, compiled the exact-type consumers, and ran the live dependency/axiom and inventory audits. Both actual logs were retrieved. Thus the certification does not rely on a green documentation job or an unverified cached theorem.
+
+GitHub checked the synthetic merge `abb5319e618da76d51cd06e876953d6593187a63` of this exact head into unchanged main. The run head_sha and every check-run head_sha match the tested PR head. The pinned shared compiler sets `-DwarningAsError=true`; no new Lean warning, error, sorryAx or admitAx occurs in the passing logs. The Actions runtime's Node deprecation notice is not a Lean warning.
+
+| Certified public root under RHLean.Proof | Actual dependency closure | Actual axioms |
+| --- | ---: | --- |
+| eulerFixedGcdRowInt_cast | 92 | propext, Classical.choice, Quot.sound |
+| eulerBilinearInt_cast | 77 | propext, Classical.choice, Quot.sound |
+| eulerFixedGcdRowInt_139_six | 49 | propext, Classical.choice, Quot.sound |
+| eulerBilinearInt_139 | 48 | propext, Classical.choice, Quot.sound |
+| mertensSummatory_19320 | 585 | propext, Classical.choice, Quot.sound |
+| eulerFixedGcdRow_six_witness | 590 | propext, Classical.choice, Quot.sound |
+| not_pointwise_mertens_le_fixedGcdRow_six | 618 | propext, Classical.choice, Quot.sound |
+| not_pointwise_centered_mertens_le_fixedGcdRow_six | 619 | propext, Classical.choice, Quot.sound |
+
+The printed terminal types agree exactly with E. Both terminals reach the required original endpoint identity, exact full-source cast and finite certificates. All eight declaration/inventory checks passed. All 13/13 exact-head checks are successful: new dedicated proof, targeted iteration, hosted Lean build, source audit, proof inventory, public export, coordinate atlas, cold-only audit, and five existing first-bad regression jobs. No pending or failed check is counted as proof evidence.
+
+The [six-file source/type/audit artifact](https://github.com/OVVO-Financial/RH_Lean/actions/runs/43929804765/artifacts/14257119639) is 5625 bytes, SHA-256 `e65f2f2bd92122a4b88145105c18b639c38c5b970606733edc88f2e605fa6f84`. Commit, source and audit receipts above remain useful independently of artifact retention.
+
+### J. CI Failures And Repairs
+
+The initial actual log reports exactly two new-source errors at lines 47 and 52: `Used tac1 <;> tac2 where (tac1; tac2) would suffice`, promoted to errors by the unchanged linter policy. The original import closure and kernel computation reached the source without any reported false goal. This was a proof-style compliance failure, not a mathematical counterexample.
+
+Both casts now use successive `push_cast` and `rfl` steps. The repair also uses the standard conjunction glyph in the witness and adds the centered consequence with matching exact-type and eight-root audit coverage. No original theorem statement is weakened, no linter is disabled, and no hypothesis or placeholder is inserted. The second head passed all required proof and audit stages; no no-op commit or redundant rerun was made.
+
+### K. Mathematical Conclusions
+
+Formal soundness and mathematical significance remain separate. The finite certificates and exact original-source bridge establish a genuine obstruction to pointwise recovery. They establish no asymptotic saving. FR1-FR3 provide independently accepted paper-level structural recovery and an exact target-strength audit; they do not supply the row bound they transport.
+
+No new global exponent, complete finite-A/C estimate, canonical actual-prime VF bound, selected-taper norm estimate or RH proof is claimed. VERIFIED_ETA=NONE. The already paid principal-only FFR4 work remains merged and useful; the latest directive parks disconnected finite optimization without invalidating that theorem.
+
+### L. Formalization-Driven Discoveries
+
+The original endpoint identity makes a short exact certificate sufficient: Q_139=-49 and M(138)=-3 imply M(19320)=43. This avoids treating a standalone numerical Mertens routine as the mathematical carrier. The explicit casts ensure that integer computation certifies the source already used by the research program.
+
+Centering cannot repair the pointwise shortcut: the surviving value is 42. Removing C>=0 also leaves a valid stronger impossibility. The successful finite statement does not need any zero-location or growth assumption. Conversely, the paper inverse genuinely requires all-scale control and its restored radical return; its exponent-preserving constants do not create a contraction.
+
+### M. Mathematical Significance And Half-Continuation Capsule
+
+```text
+half_bootstrap_ack=BOOTSTRAP_TO_HALF_V1
+ROUTE=FINITE-AC / native square-block recovery; distinct from actual-prime VF and OAI
+ORIGINAL=C_R(6), ordered mu floors at X_R=R^2-1; strict-history K_R
+P(b)=every-positive-loss native Mertens growth at b
+PAID_INPUT=compiled native baseline plus closed-envelope boundary G(1/2+h)
+PAPER_RECOVERY=FR1-FR3 fixed-row convolution, complete radical return, all-prefix interpolation
+PROPOSED_ADVANCE=G(1/2+t) + independently paid L_(6,eta)^+, eta<t,
+                 implies G(1/2+(t+eta)/2)
+VALID_RANGE=fixed t>0; fixed squarefree g=6; convolution b>1/2
+CLOSED_CONSUMER=at actual t=h>0 gives contradiction; no attained zero needed
+LIMIT=fixed eta iteration stops at 1/2+eta; no unpaid strict saving inferred
+RETURN_BILLS=complete radical history, all ordered pairs, unit, squares, all missing prefixes
+CONSTANT_ORDER=g,b,requested positive loss before arithmetic scale
+FIRST_OPEN=an independently derived source-sensitive eta(h)<h, not its renamed conclusion
+FALSIFIER=R139 forbids all-R no-return pointwise recovery, including centered endpoint
+PRESENT_WORK=bounded feasibility audit and regression obstruction for that false transition
+STATUS=REFUTED(pointwise shortcut); ACTIVE_SUPPORT(scope audit only)
+NEW_QUALIFYING_RH_ATTACK=NONE; full inverse formalization parked absent named supplier use
+MATHEMATICS=FR1-FR3 ACCEPT_ON_PAPER; finite obstruction PROVED_IN_LEAN_AT_PR_HEAD
+CI=13/13 PASS; REVIEW=READY_FOR_REVIEW, UNMERGED
+VERIFIED_ETA=NONE; RH=OPEN
+```
+
+The present work closes a precise false inference inside a proposed continuation, not the continuation itself. No independent new arithmetic mechanism paying eta<h was found. The zero-cost bound may legitimately be proved in future, but cannot be assumed and relabeled a simpler supplier.
+
+### N. Specialist Handoffs
+
+- Proof Architect: replace this run's earlier FFR4 continuation priority with the live half-continuation gate. Record FR1-FR3 as independently ACCEPT_ON_PAPER at fixed-g/all-scale/every-loss scope; keep the row saving OPEN. Track #1139 at its exact tested revision, not as merged main.
+- Owner Payment: retain DB's R=5 correction and restored R=137 marginal sign reversal. The gcd-row proof supplies no sharp first-bad admission, donor-capacity, anchor or actual-prime transfer. The two carriers remain distinct.
+- Analytic Type II: TW's full original taper and all-head Mellin inverse do not close selected-head coverage. No selected global norm or cross-carrier coefficient identification is certified here. OAI continuation must explicitly pay LOW, coefficient and domain gates.
+- Finite Wheel: the FR single-row localization is accepted on paper with the signed inverse, exact n=g^2*m change and radical return. Any strict saving must apply to that complete original row. Do not replace its all-scale consumer by pointwise domination; R=139 is now the formal regression target.
+- Prime Census: preserve SG's H=10/H=19 falsifiers and complete middle-profile cost. This run independently recomputed the R=139 row using two Mobius constructions, but did not repeat the full earlier scan or prove its minimality. A finite pass does not supply an asymptotic cost.
+- Adversarial Referee: FR1-FR3 have independent paper acceptance from the explicit reconstruction in F. FR4's pointwise obstruction is implemented together with the centered variant. The inverse endpoint and omitted-prime limitations remain scoped to absolute inversion; no universal negative result for signed alternatives is inferred.
+
+### O. First Unresolved Mathematical Theorem
+
+For actual h=max(Theta,1/2)-1/2>0, derive from independently established original arithmetic a fixed eta<h such that
+
+```text
+for every epsilon>0 there exists A_epsilon>=0 such that for every R>=2,
+  |sum_{1<=a,b<R, gcd(a,b)=6} mu(a)mu(b) floor((R^2-1)/(a*b))|
+    <= A_epsilon * R^(1+eta+epsilon) * sqrt(K_R),
+K_R = max_{0<=y<R} (M(y)-1)^2/(y+1).
+```
+
+This records the exact missing proposition, not an admissible hidden premise. Under the accepted FR dictionary it forces h<=eta, so a separate genuine source-sensitive argument is indispensable. The paid radical return and weighted inverse mass only recover exponents; they do not prove this strict estimate. No independent supplier for it was established this run. Other routes remain eligible through their own complete source and endpoint consumer, without a compulsory gcd-row test.
+
+### P. Next-Run Resume Capsule
+
+```text
+LABEL=20261116-lean-1314-EST/FR-AUDIT; TRIGGER=2026-11-16T13:14:01-05:00
+MAIN=50e6b86c2f70584b603f1b2e813d49293ba2b7dc
+POLICY=BOOTSTRAP_TO_HALF_V1; AGENTS=c4f36b772f8a4b0c24fe566b90fafb646073c60f
+REPORT_INTAKE=c445d4684aa51bb36895fe9512c064deb83d85de
+WATERMARKS=MB/DB/TW/FP/SG/FR; OWN_PRIOR=FFR4; COORD_MIRRORS=IDENTICAL
+EXTERNAL=7d63d434690d00dffce9c90335d41c4f62d85798, unchanged
+CHECKPOINTS=a19da2f590f98cf9893817301da7037c8227cdfe,
+            4dddfc93beaacb5ba31901bac018a2a0ca4c9cfc; immutable readbacks verified
+NEW_PR=1139; BRANCH=agent/lean-verification/20261116-fixed-gcd-row-obstruction
+INITIAL_HEAD=74de02fbfbf379a211cdfe269152b89de5bc0e97
+REPAIR_HEAD=760a105553788fa7005e86b1230699fd871a2934
+INITIAL_RUN=43928619788/133514711282, failed two warning-fatal style diagnostics
+REPAIR_RUN=43929804765/133518873411, PASS, all eight standard-axiom audits
+ACTUAL_SOURCE_COMPILE=43929805348/133518873088, warning-fatal, compiled=1 cached=9
+CI=13/13 PASS; AXIOMS=propext,Classical.choice,Quot.sound
+PROOF_BLOB=9003eb1c226f0b114be6402e63f325b60c80bf92
+REVIEW=READY_FOR_REVIEW at 2026-11-16T18:37:59Z; UNMERGED
+PAPER_REVIEW=FR1-FR3 ACCEPT_ON_PAPER, full statements NOT_FORMALIZED
+NEW_FORMAL_SCOPE=R139 exact original-row obstruction and centered extension
+NO_NEW_GLOBAL_GAIN; NEW_RH_ROUTE=NONE; VERIFIED_ETA=NONE; RH=OPEN
+NEXT=inspect actual new main/PR state; reuse unchanged exact green evidence;
+     repair any remaining legitimate failure before new work;
+     seek independently justified source arithmetic in a qualifying half-continuation;
+     no duplicate inverse wrapper, unchanged finite scan or isolated FFR optimization
+```
+
+Final authority refresh retained main `50e6b86c2f70584b603f1b2e813d49293ba2b7dc`. The refreshed report branch was `4dddfc93beaacb5ba31901bac018a2a0ca4c9cfc`; comparison against intake found only this agent's two checkpoint updates, with no new upstream publication omitted. PR metadata and all exact-head checks were rechecked before review promotion. EXECUTION=COMPLETED; SUBSTANTIVE_PUBLICATION=READBACK_PENDING until the actual receipt below.
+
+Only this agent's dated report and its authorized proof feature branch/PR were written. No main push, merge, auto-merge, other-role edit, agent launch, schedule change, permission change or local Lean execution occurred. Direct clone failed through the proxy with HTTP 403; connector reads and authorized writes worked, so this was not a continuing blocker.
