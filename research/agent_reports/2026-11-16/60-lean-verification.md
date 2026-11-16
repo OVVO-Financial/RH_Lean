@@ -339,3 +339,11 @@ Formalization queue:
 Next work: inspect existing exact source definitions and proof surfaces, independently audit the fixed-row transition, select a nonduplicate necessary arithmetic theorem or decisive formal obstruction, and obtain hosted verification if an implementation is authorized and mathematically justified. If only the strict arithmetic supplier remains open, report its exact type rather than manufacture a filler PR.
 
 Canonical actual-prime endpoint, complete native strict-cost supplier and RH remain OPEN. NO_NEW_GLOBAL_GAIN; VERIFIED_ETA=NONE.
+
+## Implementation Checkpoint - 20261116-lean-1314-EST/FR-AUDIT
+
+Draft [PR #1139](https://github.com/OVVO-Financial/RH_Lean/pull/1139) was opened at 2026-11-16 18:25:13 UTC on branch agent/lean-verification/20261116-fixed-gcd-row-obstruction, head 74de02fbfbf379a211cdfe269152b89de5bc0e97, base 50e6b86c2f70584b603f1b2e813d49293ba2b7dc. The six added files implement the exact original integer gcd row, its complex-source bridge, the R=139 kernel certificate, the existing Euler-to-Mertens endpoint transport, and the no-pointwise-constant conclusion. Both orientations and the historical -3 term are retained. No native-evaluation axiom or new arithmetic premise is used in the proof attempt.
+
+Independent finite verification completed: trial factorization and divisor inversion agree at all 19,320 Mobius sites; C_139(1,2,3,6)=(74,-102,-32,0), M(138)=-3, Q_139=-49 and M(19320)=43. This is FINITE_COMPUTATION, not yet PROVED_IN_LEAN.
+
+The dedicated hosted workflow ACTUALLY_STARTED as run [43928619788](https://github.com/OVVO-Financial/RH_Lean/actions/runs/43928619788); exact types, source dependencies, seven terminal axiom audits, inventory and warning-fatal compilation are required. Current status CI_PENDING / DRAFT_PR. No local Lean execution occurred. The strict all-scale row supplier and full FP/FR growth equivalence are not claimed implemented by this scoped obstruction.
