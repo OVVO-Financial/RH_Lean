@@ -15,7 +15,7 @@ noncomputable section
 open scoped Classical Topology
 open Set Filter
 namespace SevenEighths.PrincipalResponseInversion
-open HeckeFamily HeckeSignal PrincipalSlotEstimate
+open HeckeFamily HeckeSignal PrincipalSlotEstimate PrincipalMellinResidues
 open PrincipalSlotEstimate.FiniteResponse
 open PrincipalAllDelayReturn.FiniteResponse
 
@@ -136,13 +136,13 @@ theorem power_bound_of_response (f : ℝ → ℂ) (c theta q Z0 A : ℝ)
           _ ≤ A * x ^ (theta + c) + U * x ^ (theta + c) * mass theta (p x) :=
             add_le_add (hr x hx0') hresp
           _ ≤ A * x ^ (theta + c) + U * x ^ (theta + c) * q :=
-            add_le_add_left (mul_le_mul_of_nonneg_left (hm x hx0')
-              (mul_nonneg hU (Real.rpow_nonneg hx.1.le _))) _
+            add_le_add le_rfl (mul_le_mul_of_nonneg_left (hm x hx0')
+              (mul_nonneg hU (Real.rpow_nonneg hx.1.le _)))
           _ = _ := by ring
       have hnorm := (div_le_iff₀ (Real.rpow_pos_of_pos hx.1 (theta + c))).2 hn
       have := le_max_left (0 : ℝ) C0
       linarith
-  have hUC : U ≤ C := (le_div_iff₀ hden).2 (by dsimp [C]; nlinarith [hsup])
+  have hUC : U ≤ C := (le_div_iff₀ hden).2 (by nlinarith [hsup])
   exact (div_le_iff₀ (Real.rpow_pos_of_pos hZ _)).1
     ((hpoint Z hZ (le_max_right _ _)).trans hUC)
 
@@ -157,7 +157,7 @@ theorem signal_small_argument_bound (chi : Character) (H : ℂ → ℂ)
   intro x hx hx1
   exact (signal_bound_at_zero chi H hH hb c (max 2 theta) (le_max_left _ _) hx hx1).trans
     (mul_le_mul_of_nonneg_left
-      (Real.rpow_le_rpow_of_exponent_ge hx hx1 (add_le_add_right (le_max_right _ _) c))
+      (Real.rpow_le_rpow_of_exponent_ge hx hx1 (by linarith [le_max_right (2 : ℝ) theta]))
       (endpointConstant_nonneg _))
 
 /-- FFR3 for the same original Hecke signal, with an eventual response bound.
@@ -192,7 +192,7 @@ theorem principal_response_eventually_contracts {κ ι : Type*}
     ∀ᶠ Z : ℝ in atTop,
       nonnegativeDelays (principalProductResponseTerms K S (T Z) (w Z) (Q Z) (A Z) (eta Z)) ∧
       mass theta (principalProductResponseTerms K S (T Z) (w Z) (Q Z) (A Z) (eta Z)) ≤ 1 / 2 := by
-  have hpower := Real.tendsto_rpow_atTop hm
+  have hpower := tendsto_rpow_atTop hm
   have hgate := hpower.eventually (principal_response_mass_gate_eventually theta htheta)
   have hmass := ((principal_response_mass_majorant_tendsto S.card theta htheta).comp hpower)
     .eventually_le_const (by norm_num : (0 : ℝ) < 1 / 2)

@@ -2,7 +2,7 @@ import «research.oai_434.VF919PrincipalResponseInversion»
 
 open scoped Topology
 open Set Filter OAI.SevenEighths
-open HeckeFamily HeckeSignal PrincipalSlotEstimate PrincipalResponseInversion
+open HeckeFamily HeckeSignal PrincipalSlotEstimate PrincipalMellinResidues PrincipalResponseInversion
 open PrincipalSlotEstimate.FiniteResponse PrincipalAllDelayReturn.FiniteResponse
 
 #check weighted_dilation
