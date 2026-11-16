@@ -194,8 +194,8 @@ theorem principal_response_eventually_contracts {κ ι : Type*}
       mass theta (principalProductResponseTerms K S (T Z) (w Z) (Q Z) (A Z) (eta Z)) ≤ 1 / 2 := by
   have hpower := tendsto_rpow_atTop hm
   have hgate := hpower.eventually (principal_response_mass_gate_eventually theta htheta)
-  have hmass := ((principal_response_mass_majorant_tendsto S.card theta htheta).comp hpower)
-    .eventually_le_const (by norm_num : (0 : ℝ) < 1 / 2)
+  have htend := (principal_response_mass_majorant_tendsto S.card theta htheta).comp hpower
+  have hmass := htend.eventually_le_const (by norm_num : (0 : ℝ) < 1 / 2)
   filter_upwards [hslot, hgate, hmass] with Z hs hg hM
   refine ⟨principal_product_response_delays K S (T Z) (w Z) (Q Z) (A Z) (eta Z)
     (fun j hj i hi => hg.1.trans (hs.norm_lower j hj i hi)), ?_⟩
