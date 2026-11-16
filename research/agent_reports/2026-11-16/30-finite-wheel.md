@@ -45,3 +45,894 @@ Complete the proof, attempt a meaningful all-scale quantitative consequence, pre
 The same derivation suggests a rectangular extension: for a<U, b<V, n<UV, replace sigma by 1-1_(rad(n)>=U)-1_(rad(n)>=V). If U<=rad(n)<V, toggling in b the least prime of n absent from a should give a fixed-point-free sign-reversing involution INSIDE the admitted original carrier, preserving n and gcd. For arbitrary n retain the exact intersection a>=U,b>=V; at n=UV it is the single (U,V) pair. Add all U,V=2..12, 1<=n<=2UV to the frozen exact test, and verify the involution on the middle band.
 
 Also test the derived independent inequalities |C_R(g)|<=mu(g)^2 floor(X/g^2), |S_R(d)|<=mu(d)^2 floor(X/d^2), and integer tail 3G^3 sum_(g>G)C_R(g)^2<=X^2. Do NOT infer full Gram control from productwise unit coefficients: register a negative control comparing ||C||^2 with sum_n ||c_R(n)||^2 at R=4. For CORR4, compare the exact p=3,R=10 fibres at n=9,27,81 with the raw p^2-daughter coefficients mu(n/p^2); a mismatch rejects a whole-fibre identification, not PD's correct proper-term overlap.
+
+
+## Product-Fibre Cancellation With Exact Gcd Labels
+### Final Research Synthesis - 20261116-wheel-0205-EST/SF
+
+### A. Most Important Structural Discovery
+
+The complete ordered Euler source has a particularly rigid product-by-product cancellation. For each positive integer product n below the strict square wall, its entire gcd-labelled coefficient vector has entries only 0, +1 and -1. After the common-divisor transform, exactly ONE coordinate remains: the squarefree product of the primes whose squares divide n. This is derived from unique factorization and the actual historical cutoffs, not from a wheel-density approximation or a freely chosen graph.
+
+There is also a genuine fixed-point-free, sign-reversing involution on the admitted ordered triples of a rectangular middle-radical band. Its domain is nonempty only when the cutoffs differ. It does not provide a cancellation of the missing equal-cutoff global interaction.
+
+| Claim ID | Status and precise contribution |
+| --- | --- |
+| 20261116-wheel-0205-EST/SF1 | PAPER_PROOF / SELF_AUDIT: exact gcd-refined product coefficient, including the unrestricted two-cutoff intersection correction. |
+| SF2 | PAPER_PROOF / SELF_AUDIT: one surviving common-divisor coordinate per product, and an admitted rectangular sign-reversing involution with no unmatched nonzero occurrences in its stated band. |
+| SF3 | PAPER_PROOF / SELF_AUDIT: uniform complete-gcd coefficient caps, an explicit tail bound, and an O(R^2) product-diagonal bound. These are supporting restrictions, not a bound on the full quadratic source at the required scale. |
+| SF4 | EXACT_RECONSTRUCTION / SCOPED_FALSIFICATION: all cross-product Gram terms restored; genuine positive cross energy; definition-level failure of the full-gcd-row to raw-CORR4-daughter identification. |
+| SF5 | FINITE_COMPUTATION: two separately written exact implementations pass the registered domains and boundary controls. Same investigator; not independent specialist review. |
+
+INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED. No literature-priority claim. NO_NEW_GLOBAL_GAIN / NO_NEW_ACCEPTED_ROUTE / VERIFIED_ETA=NONE. The complete canonical bound, finite A/C and RH remain OPEN.
+
+### B. Current Authoritative Objective
+
+Actual scheduled trigger: 2026-11-16 02:05:05 EST, America/New_York. RUN_ID_UNAVAILABLE; SF is a research label. Pinned and refreshed main: `4edae55352bb452d84857d4c699d37c87190798c`. The controlling priority is `cross_route_ack=CROSS_ROUTE_SIGNED_RECOVERY_V1`, with `continuity_ack=LAST_ACTUAL_REPORT_CONTINUITY_V1`. The checkpoint's finite-wheel, complete-HIGH and cancellation-chain acknowledgments retain their source safeguards, not obsolete task precedence.
+
+Canonical target: there is one C>=0, chosen before every integer R>=2, such that |pi(R^2)-VF_can(R^2)|<=C R log R. VF_can is the canonical midpoint normalization plus sqrt(2). Its canonical von Koch terminal interface still explicitly takes `ClassicalVonKochRHCriterion`; the arithmetic bound has not been supplied. The separate internal Mertens-energy-to-RH consumer is compiled but likewise needs its arithmetic premise. The complete centered wheel F_R-D_R=li(R^2-1)-pi(R^2-1) is an exact reduction, not a proof of the required uniform bound.
+
+#### 1. BASELINE / DEPENDENCY RECEIPT
+
+Direct source and proof-audit inspection verifies the applicable fixed-family comparator:
+
+```text
+RHLean.Analysis.native_mertens_near_uniform_window_error_closed
+  : MertensGrowthAtMost(b_base),
+b_base = 7/8 - 7/(64*N_pack).
+
+For every eps>0 there exists C_eps>=0 such that for every integer n>=1,
+|M(n)| <= C_eps*n^(b_base+eps).
+```
+
+This is not a zero-loss endpoint or an optimization over all possible source geometries. At the SAME positive fine length L, the inspected constructions give N_pack=ceil_nat(max(1,1/(6L)))+2 and N_old=ceil_nat(max(1,1/(3L)))+2. Monotonicity of max and ceiling gives N_pack<=N_old, hence 7/(64*N_pack)>1/(48*N_old). Counts are not identified and no unrelated parameter comparison is assumed.
+
+Fresh #1119 metadata: 14/14 successful checks at tested head `77ee815846d6d534c866f0752aa33b84c385610a`. Read the actual [proof-value, type and dependency job](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42552018910/job/128949473700), the live audit, endpoint construction and native Hecke/zeta/Mertens return. The five selected closures have sizes 35358, 35375, 35736, 35737 and 35753; their terminal axioms are only propext, Classical.choice and Quot.sound. The audit covers the original finite source/count construction, native total-slot-mass and HIGH inputs, complete comparison, exact modulus-one L-product and native converse. Comparing 2,508 preexisting Lean/pin/Lean-audit files at that tested tree against current main found only the root import aggregate `RHLean.lean` changed. This is scoped unchanged-source reuse of exact-head certification, not a new full-main build or a separate mathematical reproof of the imported analytic chain.
+
+Verified pins: Lean 4.34.1/compiler `5045d0056413266e57c625dcd7c365b10e377c52`; Mathlib `d13f23b723b8a846827a245b89c10fc7d3f11612`; PNT `c39a751132c88b6e8080b74c74023fd95b3d8be0`; openai/math `1581d4cbdd69a0faf34b2089614fe2a814316a6a`. No desired arithmetic bound is imported into SF1-SF3.
+
+New merged #1135 has 18/18 successful checks at `ac6dc46b70da962e70b18ea184451c225c1cd44a` and is the present main merge. The actual [core audit](https://github.com/OVVO-Financial/RH_Lean/actions/runs/43777334576/job/133006501690) reports all 118 public declarations, exact types, and only standard terminal axioms. Its universal-envelope dictionary is important for no-circularity: for 0<=lam<2 and eta>=0, the full positive-loss family |Q_R|<=C_eps R^(1+eta+eps) K_R^(lam/2) is equivalent to Theta<=1/2+eta/(2-lam). The lam=2, eta=0 family is unconditional. The logarithmic envelope law does not imply a bounded finite-A constant or a smaller Theta. The Nov15 external handoff's older unmerged wording is superseded by the formalization correction and observed merge; its numerical observations are not extrapolated.
+
+Only open PR at the final refresh is non-draft #1136, head `93828e24dc69f56b6c4dc1eaed92847ef7e71be2`, 13/13 checks observed successful, still UNMERGED. Read its FFR3 `power_bound_of_response` and original-signal specialization: the complete returned-response estimate is an explicit premise. FFR1/#1131 and FFR2/#1132 are merged; FFR4's full physical return is still not supplied. The separately accepted paper IR/FFR boundary 7/8-1/2400000000 is therefore not substituted for b_base. No PR or check was created or rerun.
+
+### C. Structural Mechanism Investigated
+
+Resume accepted GD/PD, rather than rerunning their incidence scan. PD1-PD4 now have Referee HR ACCEPT/PAPER status. Coordinator SS and the intervening FT handoff ask for the actual powerful/history correlation, not another arbitrary-coefficient Gram statement. Census UM already refuted the nonunit H_F shortcut at R=115; H_ROB is conjectural and, even if true, would not give its required magnitude. Those facts are carried forward.
+
+The new question is what each ORIGINAL arithmetic product contributes before different products interact. An occurrence is an ordered triple (a,b,k), not its value n=abk. Fixing n and the actual gcd g still leaves all its multiplicities to be summed. The unrestricted sum factors prime by prime; each forbidden historical tail can then be cancelled by a prime toggle unless its historical factor contains every prime of n. This yields an exact signed vector, not merely a population bound.
+
+Route work in this invocation: FINITE-AC is the principal complete-source investigation; the two-cutoff identity and admitted middle-band involution are the substantive MU-LIFT extension; CORR4 receives a literal coefficient compatibility test, with the prior JC derivation recovered in full. None is relabeled a new independent route. In the three latest actual own invocations, Nov10 RC treated the whole-prefix inverse problem, Nov11 PD treated FINITE-AC, and this invocation tests all three at explicitly limited scope.
+
+### D. Exact Definitions And Theorems
+
+All variables below are positive integers unless specified. Let mu be the genuine Mobius function, M(t)=sum_(1<=j<=t)mu(j), M(0)=0. Put
+
+```text
+r(n) = rad(n) = product_(p|n) p,
+s(n) = product_(p^2|n) p,
+r(1)=s(1)=1.
+
+c_(U,V)(n,g)
+ = sum_(a<U, b<V, ab|n, gcd(a,b)=g) mu(a)mu(b),  U,V>=2.
+
+J_(U,V)(n,g)
+ = sum_(a>=U, b>=V, ab|n, gcd(a,b)=g) mu(a)mu(b).
+theta_(U,V)(r)=1-1_(r>=U)-1_(r>=V).
+```
+
+All these divisor sums are finite. Squareful a or b are retained with weight zero. A nonzero term corresponds to precisely (a,b,k=n/(ab)); both ordered orientations remain. For squarefree d define the vector v_d(g)=1_(g|d)mu(d/g).
+
+**SF1, general identity with complete boundary correction.** For every U,V>=2 and n,g>=1,
+
+```text
+c_(U,V)(n,g)
+ = theta_(U,V)(r(n))*1_(g|s(n))*mu(r(n)/g) + J_(U,V)(n,g).   (SF.1)
+```
+
+The quotient expression on the right is evaluated only on g|s(n); otherwise that term is zero. If n<UV, then J=0. At n=UV, J=mu(U)mu(V)1_(g=gcd(U,V)). No intersection term is suppressed at or beyond that boundary.
+
+For R>=2 let X=R^2-1, N=R-1, c_R=c_(R,R), and sigma_R(r)=1 if r<R and -1 otherwise. Define
+
+```text
+eps_R(n)=sigma_R(r(n))*mu(r(n)/s(n)).
+```
+
+For every 1<=n<=X, eps_R(n) is +1 or -1, and
+
+```text
+c_R(n,g)=1_(g|s(n))*sigma_R(r(n))*mu(r(n)/g)
+        =eps_R(n)*v_(s(n))(g).                              (SF.2)
+```
+
+**SF2, unique common-divisor coordinate.** For every d>=1 and 1<=n<=X,
+
+```text
+sum_(g: d|g)c_R(n,g)=eps_R(n)*1_(d=s(n)).                    (SF.3)
+```
+
+The sum is over the finite nonzero support. Thus this transform has exactly one surviving coordinate per product, not an independently spendable owner at each divisor. Any additional weight depending ONLY on n may be inserted in these pointwise identities; a weight depending separately on a,b,k or a non-invariant occurrence mask needs its own proof.
+
+**SF2, admitted rectangular involution.** Suppose U<=r(n)<V. On the nonzero occurrences a<U, b<V, abk=n choose the least prime p|n with p not dividing a. Hold a and n fixed, toggle p in b, and replace k by n/(a*b'). This is an involution, has no fixed points, preserves gcd(a,b), reverses the original weight, and stays within the actual admitted rectangle. It is valid for all n, with no n<UV assumption. The band is empty when U=V.
+
+**SF3, aggregate restrictions.** Define the original complete vectors
+
+```text
+C_R(g)=sum_(a,b<R, gcd(a,b)=g)mu(a)mu(b)floor(X/(ab)),
+S_R(d)=sum_(a,b<R, d|a, d|b)mu(a)mu(b)floor(X/(ab)),
+D_G(R)=sum_g C_R(g)^2,
+N_d(X)=#{1<=n<=X:s(n)=d}.
+```
+
+Then, uniformly in R>=2,
+
+```text
+C_R(g)=sum_(n<=X)c_R(n,g),
+S_R(d)=sum_(g:d|g)C_R(g)=sum_(n<=X:s(n)=d)eps_R(n),
+|C_R(g)| <= mu(g)^2*floor(X/g^2),
+|S_R(d)| <= N_d(X) <= mu(d)^2*floor(X/d^2),
+sum_d |S_R(d)| <= X.                                      (SF.4)
+```
+
+For each integer G>=1,
+
+```text
+sum_(g>G) C_R(g)^2 <= X^2/(3*G^3).                         (SF.5)
+```
+
+For squarefree R/2<g<R, the cap is attained exactly: C_R(g)=S_R(g)=floor(X/g^2). No uniform reduction of that cap's constant one is possible on all such coordinates.
+
+The product-diagonal quantity, which is NOT D_G, is
+
+```text
+B_R=sum_(n<=X) ||c_R(n,.)||_2^2
+   =sum_(1<=g<R)mu(g)^2*floor(X/g^2) <= 2X.                (SF.6)
+```
+
+**SF4, complete interaction retained.** Here omega counts distinct prime divisors, with omega(1)=0. For squarefree d,e, let
+
+```text
+G(d,e)=mu(d)mu(e)*2^omega(gcd(d,e)).
+```
+
+Then the complete original gcd energy is exactly
+
+```text
+D_G(R)=B_R+2*sum_(1<=n<m<=X)
+              eps_R(n)*eps_R(m)*G(s(n),s(m)).              (SF.7)
+```
+
+There is no asserted sign for that second term. The scalar source also retains its inter-gcd terms:
+
+```text
+Q_R=sum_g C_R(g)=S_R(1)=2M(R-1)-M(X),
+Q_R^2=D_G(R)+2*sum_(g<h)C_R(g)C_R(h).                      (SF.8)
+```
+
+The scalar Newton identity and the column Gram G are established prior work, credited to the compiled Euler modules and accepted PD3 respectively. The new assertion is their exact product-fibre refinement and its limited quantitative consequences.
+
+### E. Mathematical Proof
+
+#### Unrestricted Fibre And The Two Historical Tails
+
+Nonzero mu(a)mu(b) requires a,b squarefree. In the unrestricted sum ab|n with gcd(a,b)=g, g must be squarefree and g^2|n; equivalently g|s(n). Otherwise every term is zero.
+
+When g|s(n), examine a prime p|n. If p|g, p must occur in both a and b, contributing +1. If p does not divide g, its allowable positions are neither, a alone, or b alone, with total 1-1-1=-1. Occurrence in both is excluded by the fixed gcd, even when p^2|n. Multiplying these independent finite local choices gives mu(r(n)/g). This is an exact divisor enumeration, not an independence assumption about primes.
+
+For the left forbidden tail a>=U, fix any squarefree a|n and write m=n/a. If a differs from r(n), there is a prime p|n not dividing a; it divides m. Toggling p in the squarefree b divisors of m preserves gcd(a,b) and reverses mu(b). The full b sum is zero. Consequently only a=r(n) can survive. At this a, the gcd requirement forces b=g: all prime divisors of b divide a. Such b is permitted exactly when g|s(n), and its weight is mu(r(n))mu(g)=mu(r(n)/g). The left tail is therefore 1_(r(n)>=U) times the unrestricted fibre. The right tail has the identical statement with V.
+
+Subtract both tails and add their intersection. This proves SF.1. If n<UV, a>=U and b>=V cannot have ab|n. If n=UV, their only possibility is a=U,b=V,k=1, giving the displayed boundary term, including squareful zero weights. With U=V=R and n<R^2 the two-tail coefficient is sigma_R(r(n)), proving SF.2.
+
+#### The Common-Divisor Transform And Actual Involution
+
+Since r(n)/s(n) and s(n) are coprime and squarefree, mu(r(n)/g)=mu(r(n)/s(n))*mu(s(n)/g) for g|s(n). Thus c_R(n)=eps_R(n)v_(s(n)). For fixed d the sum over d|g|s is zero unless d=s, by the finite Mobius divisor identity; if d=s it is one. If d does not divide s there are no terms. This proves SF.3, including n=1.
+
+For the rectangular involution, a<U<=r(n) ensures that a is not r(n), so the chosen least missing prime exists. A nonzero b is a squarefree divisor of n and hence b<=r(n)<V. After toggling, b' is still a squarefree divisor of n. If p is inserted, p does not divide a and n has a factor p available, so a*b' divides n; if it is removed, divisibility is immediate. Also b'<=r(n)<V. The gcd is unchanged because p does not divide a. The sign reverses because exactly one prime toggles. The same a and n select the same p on the return, so the map is its own inverse and b' differs from b. The new k is uniquely n/(a*b'). This preserves occurrence identity and multiplicity and pairs every nonzero occurrence. Terms with zero weight need no cancellation. No boundary remainder survives INSIDE this band; outside it, no involution is claimed.
+
+This direct admitted map is distinct from the proof's unrestricted-tail toggle. The latter need not preserve a subsequently imposed clipping mask. Neither argument licenses applying cancellation after arbitrary source restrictions.
+
+#### All-Scale Bounds And The Full Gram
+
+Expanding each floor into its actual k=1,...,floor(X/(ab)) occurrences and regrouping by n=abk proves the first equality in SF.4. It is a weighted projection, not a bijection of values and occurrences. SF.3 then proves the formula for S_R. Each nonzero c_R(n,g) has modulus one and requires g^2|n, yielding the C cap. Each product belongs to exactly one s(n) class, and s(n)^2 divides n; this proves the S cap and sum_d N_d(X)=X. All constants are independent of R.
+
+Squaring the C cap and using sum_(g>G)g^(-4)<=integral_G^infinity t^(-4)dt proves SF.5. When R/2<g<R, the only admitted multiples of g in either historical coordinate are a=b=g, proving the sharp upper-strip equality for both C and S.
+
+Each fibre vector has exactly 2^omega(s(n)) entries of squared modulus one. Counting them instead by g gives SF.6, since g|s(n) iff g is squarefree and g^2|n. The elementary bound sum_(g>=1)g^(-2)<=1+integral_1^infinity t^(-2)dt=2 suffices. No prime asymptotic is used.
+
+Finally <v_d,v_e>=sum_(g|gcd(d,e))mu(d/g)mu(e/g)=G(d,e). Expanding the squared norm of the SUM of the vectors proves SF.7 with both cross orientations. Summing v_d over g gives 1_(d=1). Therefore Q_R=S_R(1) and only squarefree n survive the scalar product-fibre sum; for these r(n)=n and eps_R(n)=sigma_R(n)mu(n). This recovers the old Newton identity, not a newly paid bound. Expanding the scalar square gives the second identity of SF.8.
+
+### F. Structural Consequence And Quantitative Scope
+
+The genuine arithmetic coefficients cannot be arbitrary weights on a divisibility graph. Every product has the constrained vector eps_R(n)v_(s(n)); common-divisor incidence does not replicate independent signed supply. This supplies a uniform multiplicity-free coefficient cap and an exact sign-preserving compression BEFORE interactions between different n.
+
+The limitation is quantitative and explicit. SF.4 by itself gives |Q_R|<=N_1(X)<=X, not O(R sqrt(K_R)). It gives D_G<=X^2*sum_g g^(-4)<=4X^2/3, while SF.6 controls only B_R<=2X. The complete cross-product term can be positive. These bounds do not improve the already paid Mertens exponent or accepted PD2's historical-normalized estimate. SF.5 is not asserted to uniformly dominate PD2's high-gcd tail, and in particular supplies no missing small-gcd payment.
+
+To connect precisely to PD, preserve its historical/common-divisor vector U_R(d), powerful response A_R(d), and C=H-E. Its exact relation S_R(d)=U_R(d)-A_R(d) now reads
+
+```text
+U_R(d)-A_R(d)=sum_(n<=X:s(n)=d)eps_R(n).                   (SF.9)
+```
+
+Thus these actual historical and powerful coordinates satisfy the cap in SF.4 jointly, rather than behaving as unrelated numbers. Their definitions and ordered powerful-denominator multiplicities are exactly those in the linked PD1 report; they are not independent future inputs. However the full interaction remains
+
+```text
+||H-E||^2=||H||^2+||E||^2-2<H,E>=D_G.
+```
+
+SF.9 does not prove a useful lower bound on 2<H,E>-||E||^2. It is not substituted for the independent correlation demanded by Coordinator SS. Previously accepted PD2 supplies ||H||<=C_H R sqrt(K_R)(1+log(R-1)); the unresolved small-gcd response and its actual cross terms remain. No historical occurrence or negative daughter energy is spent twice.
+
+The MU-LIFT extension is also limited: the rectangular radical band admits exact cancellation, but the remaining r(n)<min(U,V), r(n)>=max(U,V), and n>=UV intersection sectors are not bounded at a subcritical whole-prefix scale. Equal cutoffs remove the cancellable band completely. No renewal follows from the endpoint alone.
+
+### G. Original Source, Signed Loss And Paid-Recovery Audit
+
+#### 2. FOUR-WAY SOURCE MAP
+
+| Euler / FINITE-AC | VF / actual primes | NNS / OAI | Square blocks / CORR4 | Prime-Mobius coupling |
+| --- | --- | --- | --- | --- |
+| Literal ordered triples a,b<R, abk<=X, weight mu(a)mu(b). Main `eulerSelfDualBilinear` and `eulerSelfDualFloor` are inspected. SF is an EXACT_FINITE_REINDEXING followed by a proved PAPER signed cancellation. Summing gives the already compiled Q_R=2M(N)-M(X). No scalar normalizer is changed. | Complete wheel F_R-D_R=li(X)-pi(X), X=R^2-1, retains all virtual d>X terms until their Euler compensation. Its prime-discrepancy source is NOT_EQUAL to Q_R. SF neither removes its masks nor proves original clipped #915 admission; the prime source's canonical endpoint is R^2, not silently X. | The real Mobius Gram is a complete signed square. The original ideal/Hecke tuple Gram has complex characters, conductor exclusions, physical sqrt(Q), Gaussian/height and principal return. OPEN_BRIDGE: no coefficient/phase isometry from these gcd fibres to the admitted Hecke atoms is proved. The compiled OAI endpoint is a comparator, not a bound on SF's lost cross terms. | M(X) is a full prefix, not a shell increment. K_R=max_(0<=y<R)(M(y)-1)^2/(y+1), with K_R>=1 from y=0, is the inspected original historical scale. CORR4 has raw daughters M(floor(X/p^2)) and full weighted mixed/diagonal terms. JC gives an exact completed-band adapter; SF does not identify a full gcd row with a daughter. | Compiled weighted Buchstab/prime-event and complete-parent identities are source-specific. The local prime-factor toggle here acts on Mobius divisor indices, not on prime events, least/greatest-prime ownership, or Hecke phases. Such transfers remain OPEN_BRIDGE, with all complementary weights required. |
+
+#### 3. FIRST SIGNED LOSS
+
+| Source/declaration | Exact loss and tax | Recovery attempted and unpaid complement | Control |
+| --- | --- | --- | --- |
+| Original `eulerSelfDualBilinear` ordered source; SF.2-SF.4 | Taking abs before summing the products loses sum_(n!=m)c(n,g)c(m,g). SF first cancels within each product exactly; its subsequent triangle gives abs(C_g)<=floor(X/g^2), and abs(Q)<=X. | Product-level factorization is proved here, not previously available as a paid global correlation. The complete SF.7 cross term still needs control. | R=4 has D_G=35>B_R=19; cross energy +16. |
+| Accepted PD.3, C=H-E | Bounding norm(H)+norm(E) discards -2<H,E>; the historical part is already O(R sqrt(K_R) log R), while the powerful response remains unpaid. | SF.9 gives an exact joint coordinate restriction. Its cap supplies no historical-normalized full Gram inequality. | Census UM's R=115 nonunit gap is -195 despite full restored gap +18331. Not rerun as new evidence. |
+| General SF.1 rectangular cutoff | Deleting J beyond n<UV drops actual double-tail occurrences. Ignoring the middle-band complement drops radical extremes and whole-prefix costs. | SF2 cancels only the exact admitted middle band. No whole-prefix fixed-r<2 subpower recurrence is established. | n=UV admits (U,V,1); squareful U or V makes its weight zero but not a general absence theorem. |
+| `lowOwnerRawMertensAmplitude`; `Corr4PowerMixedTailBill` | Replacing the complete CORR4 parent/mixed/physical-diagonal bill by a daughter norm loses upper bands and both mixed orientations. That explicit bill is not proved by the gate declaration. | JC and the compiled complete-band telescope restore the missing terms exactly. SF's coefficients fail the proposed full-row identification. | Prime-power weights +1,+1,+1 versus +1,-1,0 below. |
+| Original OAI `LowSlotPolynomial` to `LowTupleGram`, as audited by the governing source contract | `norm_sum_le` after exact Fubini discards ordered Hermitian tuple interactions; fully normalized LOW squared savings pay a factor one-half at amplitude level and further full-return costs. | No source-compatible theorem was found that transports SF into this Hecke carrier. FFR3 still assumes the complete response estimate. | A Mobius sign toggle is not a sextic-Hecke phase toggle. No new OAI exponent is claimed. |
+
+The first four are the selected finite-source chain's losses, not a claim that they are all binding losses of the strongest OAI theorem. SF has no independently improved binding OAI return.
+
+#### 4. PAID RECOVERY TEST
+
+Already compiled `eulerSelfDualConvolutionCoefficient_eq_signed_moebius` and `eulerSelfDualBilinear_eq_two_mertens_sub_endpoint` pay the scalar reassembly, not its magnitude. The recursive prime-replacement/divisor identities and rough/smooth inversion pay their exact finite algebra. They support SF's arithmetic proof but do not pay its cross-product Gram. SF is not labeled an already compiled recovery theorem.
+
+The #1115 complete reciprocal-band telescope, at the original q^2 daughter cuts, gives the prior JC adapter including all cofactor descendants. The q>=3 daughter rows omit the first eight reciprocal bands; JC's W^2+2W(V+U)-D_top is retained. Its R=56 shortcut failures do not refute the complete diagonal-restored CORR4 inequality. The exact `Corr4PowerMixedTailBill` remains an OPEN premise.
+
+The #1127 complete-cofactor positivity and #1128 genuine near-resonance statements were compared on their actual carriers. Positivity of a proper fibre supplies no sign for SF.7; shared-prime resonance is a warning against naive decorrelation, not a cancellation payment. The #1122/#1124 physical/virtual wheel identities restore all source terms but do not identify their centered error with this Euler Q. Main #1135 provides the exact conditional exponent dictionary, not the missing signed inequality. This exhausts the proposed paid transfers without importing an assumed target.
+
+#### 5. NET RESULT / ADMISSION VERDICT
+
+SF1-SF3 are supporting new-to-this-investigation structural refinements with complete paper proofs and uniform elementary constants. They apply to the complete literal Euler source, but their present quantitative consequences do not control the full restored statistic at the consumer's scale. SF2's rectangular involution is exact and source-admitted, but only on a proper band. No route is admitted from an identity count, a finite experiment, a conditional gate, or improved isolated diagonal.
+
+NO_NEW_GLOBAL_GAIN / NO_NEW_ACCEPTED_ROUTE. b_new is not supplied; b_base is unchanged. In particular no finite A/C, no q(X)->0 proof, no new global Mertens exponent, no complete centered-wheel O(R log R), and no RH claim.
+
+### H. Falsification, Novelty And No-Circularity
+
+**Strict square wall.** At n=R^2 the intersection is mu(R)^2 at g=R. Registered controls R=2,4,6 give weights 1,0,1 respectively. SF.2 is stated only for n<R^2. The general SF.1 retains every beyond-wall intersection. At the radical equality R=6,n=12, c_R(n,1)=-1 and c_R(n,2)=+1; replacing r<R by r<=R reverses them incorrectly.
+
+**Masks and orientations.** At R=3,n=2, the full g=1 fibre is -1, while retaining only a<=b without doubling the off-diagonal orientation gives zero. Thus a convenient half-source mask does not preserve the theorem. Other admission/clipping masks require an explicit invariant-pair proof and boundary account, not an appeal to the unmasked formula.
+
+**Product-diagonal shortcut.** The hypothesis D_G<=B_R is false: R=4 gives C=(-5,3,1), D_G=35, B_R=19, and cross=16. At R=21 the cross is -292 (D_G=357, B_R=649). Therefore a universal nonpositive cross-product contribution is false, and positivity at some roots does not determine the complete sign at others. These are genuine source computations, not arbitrary-vector examples.
+
+**Full row versus raw daughter.** The original definition is `lowOwnerRawMertensAmplitude R p=M(floor(X/p^2))`, whose product-n coefficient on p^2|n is mu(n/p^2). By SF.2, the full g=p fibre at n=p^2,p^3,p^4, all below R^2 with p<R, has coefficient +1 in each case. At p=3,R=10 the actual coefficients are:
+
+| n | Full g=3 product fibre | Raw p^2 daughter coefficient |
+| --- | --- | --- |
+| 9 | 1 | 1 |
+| 27 | 1 | -1 |
+| 81 | 1 | 0 |
+
+No fixed sign identifies these coefficient maps. This is a definition-level obstruction, NOT a claim that R=10 satisfies every separate physical CORR4 admission hypothesis, and NOT a counterexample to the complete CORR4 bound. PD's correct auxiliary q=p^2 term in the powerful response is a different object and is not contradicted.
+
+**Repository novelty.** Searched main for radical/gcd, Euler convolution coefficient, square-prime support and Mobius-divisor representations; inspected original Euler pointwise/endpoint, recursive prime replacement, rough/smooth, GD/PD, RC and JC derivations, plus relevant no-go/counterexample handoffs. No matching gcd-labelled SF.1-SF.3 statement was found in that scoped search. Ordinary divisor cancellation, the scalar Newton identity, G(d,e), and accepted GD/PD are explicitly credited. SF is not claimed to be a new general number-theoretic identity in the literature. Its aggregate bounds are immediate consequences, not separate breakthroughs.
+
+**Target-equivalence.** The family |Q_R|<=C_eps R^(1+eta+eps)sqrt(K_R) is governed by main #1135; asking for every positive eta reaches the RH-level exponent. Accepted PD4 likewise shows that its all-positive-loss powerful norm proposal is RH-strength. SF.9 is an exact joint restriction but does not independently prove that target. No exceptional configuration is defined merely as failure of the original bound and then assumed absent.
+
+**Finite evidence.** The first program uses a sieve and literal ordered-pair/floor expansion; the second uses separate trial factorization and divisor-pair enumeration and imports no values or functions from the first. Both exhaust 37,976 product fibres for R=2,...,48 and 11,858 two-cutoff fibres for U,V=2,...,12, n<=2UV. The primary checks 1,343,824 common-divisor transforms, 3,402 admitted involution occurrences, 4,660 coefficient bounds and 2,330 tail inequalities; its 168,480 nonzero ordered pairs and 383,141 expanded nonzero triples count different stages, not the same population. Aggregate roots include 64,97,115,127,256,549. Both programs exited zero; syntax compilation passed. No local Lean was executed.
+
+| R | Q_R | D_G | sum_d S_R(d)^2 | B_R | D_G-B_R |
+| --- | --- | --- | --- | --- | --- |
+| 4 | -1 | 35 | 11 | 19 | 16 |
+| 10 | -5 | 523 | 151 | 141 | 382 |
+| 21 | 1 | 357 | 338 | 649 | -292 |
+| 115 | -3 | 21411 | 3080 | 19995 | 1416 |
+| 549 | -186 | 213476 | 70928 | 457582 | -244106 |
+
+These do not establish any infinite estimate. The theorem is justified by section E, not the size of the tests. R=115 is retained as a regression and is not a rediscovered Census result; no unchanged R=5561 sweep or larger wheel was justified for this hypothesis.
+
+### I. Conceptual Interpretation
+
+The surviving coordinate s(n) is a consequence of signed divisor cancellation, not a chosen least-prime, greatest-prime or chronological owner. It compresses many original occurrences without erasing their weights. Products can still have coherent signs and strongly overlapping v_d columns. Unique factorization controls the shape of each vector exactly; it has not yet controlled the interaction of the complete family of vectors at the historical-normalized scale.
+
+### J. Competing Structural Hypotheses
+
+1. Exact product cancellation with preserved gcd survives: SF1-SF2 prove it, with a genuine admitted involution for the stated rectangular band.
+2. The surviving vectors are orthogonal, have nonpositive cross energy, or can be replaced by their diagonal: refuted on genuine arithmetic by R=4 and the explicit Gram kernel.
+3. The common-divisor transform supplies independent spendable capacity at every divisor: false as an interpretation; SF.3 leaves one signed coordinate only, after complete cancellation.
+4. Full gcd rows are the CORR4 raw daughters: their prime-power coefficients disagree. A different weighted adapter would require a new proof and full complements.
+5. Actual s(n), radical phases and historical/powerful values impose an additional global correlation restriction beyond SF.9 and PD: OPEN. It must use genuine arithmetic across products, not assume a favorable matrix sign or arbitrary-vector contraction.
+
+### K. Specialist Handoffs
+
+**Coordinator / Proof Architect:** record SF as supporting PAPER_PROOF / SELF_AUDIT, with no endpoint gain and no route admission. The new joint constraint is SF.9; its present cap does not pay the assigned full powerful/history correlation. Preserve the Nyman, VF and OAI alternatives and FFR4 priority. No campaign departure is requested.
+
+**Owner Payment / Arithmetic Structure:** SF's toggle acts on historical Mobius divisor indices. It does not identify upper-prime masks, virtual wheel terms, first-bad clipped source or chronological ownership. Preserve UF's delayed semiprime overlap cost and the distinction between prime-side and Mobius coefficients. A source-specific mask must be checked for invariance before using the involution.
+
+**Analytic Type II:** no direct transfer to RC's Nyman singular-weight norm or the ideal-labelled Hecke response is established. The product-diagonal is O(R^2), but SF.7 contains all coherent cross terms. Bounded-coefficient/artificial-tail examples in RC constrain that model only; they are not genuine-Mobius falsifiers of SF.
+
+**Prime Census Laboratory:** no larger scan requested. A decisive independent small verification would reproduce the literal gcd-labelled fibres, the U<=rad(n)<V involution, n=UV correction and R=4 sign failure from the embedded programs. Any further experiment should first name a new all-product correlation hypothesis, retain K_R and both Gram levels, and state a predicted counterexample. Do not rerun H_ROB merely for activity.
+
+**Adversarial Referee:** requested paper review of SF.1's fixed-gcd tail toggle, SF.3's unique support, SF2's actual admitted involution, and SF.4-SF.7's quantitative scope. In particular check that no squareful weight, strict endpoint, ordered multiplicity or cross-family term is missing. Status remains PENDING until an actual verdict is published.
+
+**Lean Verification:** NO_NEW_ENDPOINT_THEOREM_TO_FORMALIZE. If independent review and a real downstream consumer justify it, the enabling exact statement is the gcd-refined `eulerSelfDualConvolutionCoefficient` identity SF.2, generalized to SF.1 only if needed for that consumer. It is not a proof of a global norm gate. Do not generate a filler PR; the accepted FFR4 return work remains separate. No agent was launched by these written handoffs.
+
+### L. First Independently Missing Theorem
+
+The quantitative FINITE-AC supplier is still a genuine uniform estimate, for a fixed eta below b_base-1/2 and constants chosen before R,
+
+```text
+|Q_R| <= C_eta R^(1+eta)*sqrt(K_R),  for every integer R>=2.
+```
+
+Its existing one-step consumer yields b_next=(2*b_base+1)/4+eta/2. Renewability at updated exponents is a separate condition. A bound for D_G requires the accepted GD consumer and its own complete hypotheses; D_G is not Q_R^2.
+
+SF has not found a strictly weaker independent all-scale supplier for this estimate. The specific next structural question is whether the actual repeated-prime support classes and phases impose a restriction on cross-product sums in SF.7 jointly with the inter-gcd sum in SF.8, or on the exact H/E interaction in SF.9, that is stronger than coefficient caps and does not already assume the target. Merely renaming their required complete bound as an invariant would be circular. No favorable signed Gram inequality is presently asserted.
+
+### M. Continuity, Verification And Resume Capsule
+
+All relevant last-actual reports were discovered from the complete untruncated `agent-reports` tree at `f64e5053a7a675eb52b84ca2dffbab6c29743386`, with no date cap. Complete files and relevant newly unconsumed sections since the prior own PD watermarks were retrieved and read. Nov15 Coordinator mirrors were compared and are byte-identical. Nov16 Owner and Analytic are available; Coordinator, Referee and Lean have TODAY=PENDING / YESTERDAY=CARRY_FORWARD. Wheel and Census have no Nov15 report; their prior latest actual reports are Nov11. Missing dates are NO_VERIFIED_REPORT, not evidence of an execution, credit problem or changed schedule.
+
+The previous consumed watermarks were Coordinator FL, Owner FA, Analytic DM, own PD, Census DZ, Referee NP and Lean FFR on Nov11. Backfilled relevant changes include Coordinator FT, Owner PS, Census UM, Referee HR plus Nov12 FT/SH, Lean ADR, then the latest SS/UF/RC/UE/FFR3 sections. PD is now independently paper-accepted by HR; HR1-HR2 are paper-accepted by Coordinator; no automatic Lean upgrade is made. Original claim IDs and verified published timestamps are retained in the ledger below.
+
+External inbox `research/agent_reports/EXTERNAL_HANDOFFS.md` has blob `7d63d434690d00dffce9c90335d41c4f62d85798`; no new mathematical entry after Oct18 was found. Retain EXT-20261018-PNT-1's weighted-cofactor qualification and EXT-20261014-5's unconditional-all-R versus conditional-first-bad distinction. Also read the Nov15 main-side universal-envelope handoff, its formalization correction and numerical review; merged #1135 supersedes the handoff's stale unmerged status. No external numerical record is imported as an asymptotic theorem.
+
+Authority refresh at 2026-11-16 07:26:22 UTC / 02:26:22 EST confirmed main unchanged, only #1136 open at the same head, and agent-reports at this run's extension-registration commit `7c0de60f6377106cb2722663abcf17e2b20bdae0`. Hence no intervening role report was published after the intake tree. The direct git connection returned CONNECT tunnel HTTP 403; pinned connector reads and own-report writes worked. This did not justify assuming inaccessible evidence or launching local Lean.
+
+Resume capsule: SF1-SF3 proved on paper; SF4 has scoped counterexamples and full reconstruction; SF5 finite tests PASS. Review pending, not formalized. Complete prefix and centered prime bounds OPEN; b_base unchanged. Next invocation must refresh main and all latest-real reports, consume any actual SF referee verdict, then investigate an independently stated complete correlation property. Do not repeat accepted GD/PD, the same finite fibre checks, UF/RC scans, or H_ROB scans without a changed hypothesis or explicit independent-verification purpose.
+
+Remote changes are restricted to this owned dated report on `agent-reports`. No main/source/shared-policy/other-report/workflow/issue/PR edit, branch creation, merge, agent launch, schedule change or permission change was performed. The early checkpoint and extension-registration bytes are preserved. Publication is only certified after immutable readback; the following receipt will report an already verified substantive commit, not its own future hash.
+
+### Immutable Source Ledger
+
+The following main-source blobs are pinned to `4edae55352bb452d84857d4c699d37c87190798c`. The ledger records original inspected sources, not newly generated formal evidence.
+
+| Main path | Blob SHA |
+| --- | --- |
+| [AGENTS.md](https://github.com/OVVO-Financial/RH_Lean/blob/4edae55352bb452d84857d4c699d37c87190798c/AGENTS.md) | `5bf6b1dd837bad943286d05c7dd08441d6a22635` |
+| [CURRENT_PROOF_CONTRACT.md](https://github.com/OVVO-Financial/RH_Lean/blob/4edae55352bb452d84857d4c699d37c87190798c/CURRENT_PROOF_CONTRACT.md) | `95566e37c8eaeb99ee680660df4f9d2e06ea5038` |
+| [docs/RHLEAN_CROSS_ROUTE_SIGNED_RECOVERY_20261110.md](https://github.com/OVVO-Financial/RH_Lean/blob/4edae55352bb452d84857d4c699d37c87190798c/docs/RHLEAN_CROSS_ROUTE_SIGNED_RECOVERY_20261110.md) | `e3ae4280438f591f1ffaddd754a1c3a6d35d0691` |
+| [docs/RHLEAN_REPORT_CONTINUITY_LAST_ACTUAL_20261111.md](https://github.com/OVVO-Financial/RH_Lean/blob/4edae55352bb452d84857d4c699d37c87190798c/docs/RHLEAN_REPORT_CONTINUITY_LAST_ACTUAL_20261111.md) | `3e71820a4af722eae7098da6945bb5bcba50dd0d` |
+| [docs/COORDINATE_ATLAS.md](https://github.com/OVVO-Financial/RH_Lean/blob/4edae55352bb452d84857d4c699d37c87190798c/docs/COORDINATE_ATLAS.md) | `cd0419d00a37739fe5a292f5cb738e33213949d5` |
+| [research/oai_434/VF919WindowErrorClosure.lean](https://github.com/OVVO-Financial/RH_Lean/blob/4edae55352bb452d84857d4c699d37c87190798c/research/oai_434/VF919WindowErrorClosure.lean) | `f629db1b2b65d6ec042ac9432397d4b6316200c6` |
+| [research/oai_434/VF919NativeStrictMertens.lean](https://github.com/OVVO-Financial/RH_Lean/blob/4edae55352bb452d84857d4c699d37c87190798c/research/oai_434/VF919NativeStrictMertens.lean) | `b33a4883e1ddb0551b0f11f062bce46680d87450` |
+| [scripts/lean/window_error_closure/WindowErrorClosureAudit.lean](https://github.com/OVVO-Financial/RH_Lean/blob/4edae55352bb452d84857d4c699d37c87190798c/scripts/lean/window_error_closure/WindowErrorClosureAudit.lean) | `1f17f9401a63d16227db2e2aad020b9f74bc5f4e` |
+| [research/EULER_HYBRID_ABEL_GRAM_20261027.lean](https://github.com/OVVO-Financial/RH_Lean/blob/4edae55352bb452d84857d4c699d37c87190798c/research/EULER_HYBRID_ABEL_GRAM_20261027.lean) | `2a94dd8fd56fc03e95f732fb44b778a8d4f83e26` |
+| [research/EULER_FRACTIONAL_COUPLED_20261027.lean](https://github.com/OVVO-Financial/RH_Lean/blob/4edae55352bb452d84857d4c699d37c87190798c/research/EULER_FRACTIONAL_COUPLED_20261027.lean) | `e6c4b1690e497760d366e36b28a1f7aa60e19f85` |
+| [research/EULER_SELF_DUAL_POINTWISE_20261027.lean](https://github.com/OVVO-Financial/RH_Lean/blob/4edae55352bb452d84857d4c699d37c87190798c/research/EULER_SELF_DUAL_POINTWISE_20261027.lean) | `c327c556f39ee7014fd774b24d0f95a1ece050e0` |
+| [research/EULER_SELF_DUAL_ENDPOINT_GATE_20261027.lean](https://github.com/OVVO-Financial/RH_Lean/blob/4edae55352bb452d84857d4c699d37c87190798c/research/EULER_SELF_DUAL_ENDPOINT_GATE_20261027.lean) | `e7ee8f77ffd59bccaa49dd6d74fbe0d7952c2d73` |
+| [RHLean/Proof/SquareRootAmplificationLogGrowth.lean](https://github.com/OVVO-Financial/RH_Lean/blob/4edae55352bb452d84857d4c699d37c87190798c/RHLean/Proof/SquareRootAmplificationLogGrowth.lean) | `2599db31079f388229d072ee616957fba6ffc555` |
+| [RHLean/Proof/SquareRootAmplificationClosure.lean](https://github.com/OVVO-Financial/RH_Lean/blob/4edae55352bb452d84857d4c699d37c87190798c/RHLean/Proof/SquareRootAmplificationClosure.lean) | `8949e3925695353635f67b2b611a9c21bacbd9ea` |
+| [RHLean/Proof/SquareRootLegalAncestryGramReduction.lean](https://github.com/OVVO-Financial/RH_Lean/blob/4edae55352bb452d84857d4c699d37c87190798c/RHLean/Proof/SquareRootLegalAncestryGramReduction.lean) | `1270d4d91c53b50b110d10014f223f427fb7a575` |
+| [RHLean/Proof/RecursivePrimeReplacement.lean](https://github.com/OVVO-Financial/RH_Lean/blob/4edae55352bb452d84857d4c699d37c87190798c/RHLean/Proof/RecursivePrimeReplacement.lean) | `f15bc14ae94677661f2499707b6d60f1d887fcb7` |
+| [research/MERTENS_SIGNED_HYPERBOLA.lean](https://github.com/OVVO-Financial/RH_Lean/blob/4edae55352bb452d84857d4c699d37c87190798c/research/MERTENS_SIGNED_HYPERBOLA.lean) | `d199571f19346797229a25b0fa53c6e80499999f` |
+| [research/DYADIC_BUCHSTAB_OTHELLO_GLIDER_WALL.lean](https://github.com/OVVO-Financial/RH_Lean/blob/4edae55352bb452d84857d4c699d37c87190798c/research/DYADIC_BUCHSTAB_OTHELLO_GLIDER_WALL.lean) | `0b49f495497b8f679cc6c2b7be47d6454a0ef214` |
+| [research/PRIME_WHEEL_TRUNCATED_MOBIUS_KERNEL.lean](https://github.com/OVVO-Financial/RH_Lean/blob/4edae55352bb452d84857d4c699d37c87190798c/research/PRIME_WHEEL_TRUNCATED_MOBIUS_KERNEL.lean) | `58e266fe45cbd7f46c1613f3a5eeda6af22bfe48` |
+| [research/CompleteSquareRootWheelFractionalBoundary.lean](https://github.com/OVVO-Financial/RH_Lean/blob/4edae55352bb452d84857d4c699d37c87190798c/research/CompleteSquareRootWheelFractionalBoundary.lean) | `ecb482e52deeee5e9b3853592a3ffdace662d2ff` |
+| [research/CompleteWheelRootAdmission.lean](https://github.com/OVVO-Financial/RH_Lean/blob/4edae55352bb452d84857d4c699d37c87190798c/research/CompleteWheelRootAdmission.lean) | `a412632c1028d7728cd8d87ee6e5ac365377d338` |
+| [research/TWOAB_RENEWAL_COMPLETE_BAND_20261108.lean](https://github.com/OVVO-Financial/RH_Lean/blob/4edae55352bb452d84857d4c699d37c87190798c/research/TWOAB_RENEWAL_COMPLETE_BAND_20261108.lean) | `028d9f2bbfa1a8de1fe63e9bd368aca13aae6825` |
+| [research/FiniteWheelCofactorPositivity.lean](https://github.com/OVVO-Financial/RH_Lean/blob/4edae55352bb452d84857d4c699d37c87190798c/research/FiniteWheelCofactorPositivity.lean) | `f83a3daefc2b9d603014af912ec82b4a7f52cfac` |
+| [research/DyadicPrimeNearResonance.lean](https://github.com/OVVO-Financial/RH_Lean/blob/4edae55352bb452d84857d4c699d37c87190798c/research/DyadicPrimeNearResonance.lean) | `f416e0149b73656e30a7f68a3934a937353d3f8d` |
+| [research/LOW_OWNER_PHYSICAL_AMPLITUDE_TRANSPORT.lean](https://github.com/OVVO-Financial/RH_Lean/blob/4edae55352bb452d84857d4c699d37c87190798c/research/LOW_OWNER_PHYSICAL_AMPLITUDE_TRANSPORT.lean) | `72d66f61b3eeb000117ecdac393572558bb7c378` |
+| [research/CORR4_OAI_POWER_MIXED_TAIL_GATE_20261025.lean](https://github.com/OVVO-Financial/RH_Lean/blob/4edae55352bb452d84857d4c699d37c87190798c/research/CORR4_OAI_POWER_MIXED_TAIL_GATE_20261025.lean) | `bb0ee1252e7ba10c44ae5b8d827573d6c581b73a` |
+| [research/UNIVERSAL_ENVELOPE_FROZEN_Q.lean](https://github.com/OVVO-Financial/RH_Lean/blob/4edae55352bb452d84857d4c699d37c87190798c/research/UNIVERSAL_ENVELOPE_FROZEN_Q.lean) | `2938f7dbc44f446cc8104818f9b13a1345b8583c` |
+| [research/UNIVERSAL_ENVELOPE_HISTORY.lean](https://github.com/OVVO-Financial/RH_Lean/blob/4edae55352bb452d84857d4c699d37c87190798c/research/UNIVERSAL_ENVELOPE_HISTORY.lean) | `b48a663b00297967242c44f3c384fc23a201cfe2` |
+| [research/UNIVERSAL_ENVELOPE_AMPLIFICATION_LAW.lean](https://github.com/OVVO-Financial/RH_Lean/blob/4edae55352bb452d84857d4c699d37c87190798c/research/UNIVERSAL_ENVELOPE_AMPLIFICATION_LAW.lean) | `1c46514af34f8f064a4ff70b39b9a1f3d915c6e8` |
+| [docs/external/2026-11-15/universal-envelope-law-handoff.md](https://github.com/OVVO-Financial/RH_Lean/blob/4edae55352bb452d84857d4c699d37c87190798c/docs/external/2026-11-15/universal-envelope-law-handoff.md) | `114b6e117b8450beecb4dd8c1cda929a6a2d9397` |
+| [docs/UNIVERSAL_ENVELOPE_FORMALIZATION_20261115.md](https://github.com/OVVO-Financial/RH_Lean/blob/4edae55352bb452d84857d4c699d37c87190798c/docs/UNIVERSAL_ENVELOPE_FORMALIZATION_20261115.md) | `10056c77e1690f85d94d508ff67959b9a7d4ca8f` |
+| [docs/UNIVERSAL_ENVELOPE_NUMERICAL_REVIEW_20261115.md](https://github.com/OVVO-Financial/RH_Lean/blob/4edae55352bb452d84857d4c699d37c87190798c/docs/UNIVERSAL_ENVELOPE_NUMERICAL_REVIEW_20261115.md) | `b8bef3ffeb7ddf302a8d515c82c9fc744324452a` |
+
+Separate UNMERGED #1136 source: [research/oai_434/VF919PrincipalResponseInversion.lean](https://github.com/OVVO-Financial/RH_Lean/blob/93828e24dc69f56b6c4dc1eaed92847ef7e71be2/research/oai_434/VF919PrincipalResponseInversion.lean), blob `1940c482f341606fccec46a35b0ac9fe13454a0d`. Its `hr` response premise is explicit. This source is not attributed to main.
+
+### Last-Actual And Missed-Handoff Ledger
+
+Published timestamps below are the verified report receipts or section timestamps, in America/New_York. They are not inferred scheduled executions. Intake commit is the reporting-tree pin above; the immutable links use that commit.
+
+| Report path at intake | Blob SHA | Original section / published time | Consumption and verdict |
+| --- | --- | --- | --- |
+| [2026-11-15/00-coordinator-am.md](https://github.com/OVVO-Financial/RH_Lean/blob/f64e5053a7a675eb52b84ca2dffbab6c29743386/research/agent_reports/2026-11-15/00-coordinator-am.md) | `8ce64136c888c6ad7820ef69a78caa5ece07d61b` | SS1-SS5; 23:34:56 EST | Latest actual; original selected Nyman middle and complete powerful/history correlation still open. |
+| [2026-11-15/90-coordinator-pm.md](https://github.com/OVVO-Financial/RH_Lean/blob/f64e5053a7a675eb52b84ca2dffbab6c29743386/research/agent_reports/2026-11-15/90-coordinator-pm.md) | `8ce64136c888c6ad7820ef69a78caa5ece07d61b` | SS1-SS5; 23:34:56 EST | Byte-identical COMPLETE mirror, independently fetched. |
+| [2026-11-16/10-owner-payment.md](https://github.com/OVVO-Financial/RH_Lean/blob/f64e5053a7a675eb52b84ca2dffbab6c29743386/research/agent_reports/2026-11-16/10-owner-payment.md) | `e677d40b8b529e736b8161e1b5db7a7244747444` | UF1-UF6; 00:39:01 EST | True upper-prime mask and delayed semiprime overlap cost; self-audit / review pending, not canonical payment. |
+| [2026-11-16/20-analytic-type-ii.md](https://github.com/OVVO-Financial/RH_Lean/blob/f64e5053a7a675eb52b84ca2dffbab6c29743386/research/agent_reports/2026-11-16/20-analytic-type-ii.md) | `6eb96ab1f62e98a7f06840685af6e2b37637f8ce` | RC; 01:38:58 EST | Nyman dual exterior and bounded-coefficient artificial-tail falsifier; complete singular-weight norm unpaid, review pending. |
+| [2026-11-11/30-finite-wheel.md](https://github.com/OVVO-Financial/RH_Lean/blob/f64e5053a7a675eb52b84ca2dffbab6c29743386/research/agent_reports/2026-11-11/30-finite-wheel.md) | `c9989449a814a1a7ee799791c73450872f4c7d3c` | GD then PD1-PD5; PD receipt 10:39:35 EST | Own latest actual; PD1-PD4 now independently ACCEPT_ON_PAPER by HR, not formalized. |
+| [2026-11-11/40-prime-census.md](https://github.com/OVVO-Financial/RH_Lean/blob/f64e5053a7a675eb52b84ca2dffbab6c29743386/research/agent_reports/2026-11-11/40-prime-census.md) | `a85bc7dc8b49952d37f1a4cb6a0a8eb307d3f352` | UM; 11:24:34 EST | H_F false: R=115 gap -195; complete restored gap +18331. H_ROB conjectural; finite only. |
+| [2026-11-15/50-adversarial-referee.md](https://github.com/OVVO-Financial/RH_Lean/blob/f64e5053a7a675eb52b84ca2dffbab6c29743386/research/agent_reports/2026-11-15/50-adversarial-referee.md) | `a1c07bdd8e8493aece535745a0ce6f6635871620` | UE1-UE4; 20:27:45 EST | Vanishing versus fixed exponent-gap distinction; independent paper acceptance by Lean/Coordinator is scoped, no global gain. |
+| [2026-11-15/60-lean-verification.md](https://github.com/OVVO-Financial/RH_Lean/blob/f64e5053a7a675eb52b84ca2dffbab6c29743386/research/agent_reports/2026-11-15/60-lean-verification.md) | `8d25541bc6faebfa180e0456061d7725756bf5ca` | FFR3; 21:41 EST | Exact PR-head conditional proof green, unmerged; FFR4 response estimate still required. |
+| [2026-11-11/00-coordinator-am.md](https://github.com/OVVO-Financial/RH_Lean/blob/f64e5053a7a675eb52b84ca2dffbab6c29743386/research/agent_reports/2026-11-11/00-coordinator-am.md) | `c87ed2c4ec81f9f4eda85ba0d84e2216808159f4` | FT; 15:55:44 EST | Missed relevant handoff after FL; actual H/E task, HR acceptance and route restoration. |
+| [2026-11-11/90-coordinator-pm.md](https://github.com/OVVO-Financial/RH_Lean/blob/f64e5053a7a675eb52b84ca2dffbab6c29743386/research/agent_reports/2026-11-11/90-coordinator-pm.md) | `c87ed2c4ec81f9f4eda85ba0d84e2216808159f4` | FT; 15:55:44 EST | Recovered mirror; same blob as AM. |
+| [2026-11-11/10-owner-payment.md](https://github.com/OVVO-Financial/RH_Lean/blob/f64e5053a7a675eb52b84ca2dffbab6c29743386/research/agent_reports/2026-11-11/10-owner-payment.md) | `182b17762cbb1c092956ffb1cb4d1335fa0acec9` | PS; 16:50 EST | Missed relevant handoff after FA; signed prime-pair statement is raw supporting work, not full marked/restored source. |
+| [2026-11-11/20-analytic-type-ii.md](https://github.com/OVVO-Financial/RH_Lean/blob/f64e5053a7a675eb52b84ca2dffbab6c29743386/research/agent_reports/2026-11-11/20-analytic-type-ii.md) | `0309d49557af30da43a07d72dce93c93c1811157` | DM1-DM5; 09:37:30 EST, unchanged at prior watermark | Direct prior derivation reread: E(1+V)>=1/768000 is a necessary restriction, not Nyman density; subsequent reviews retained. |
+| [2026-11-11/50-adversarial-referee.md](https://github.com/OVVO-Financial/RH_Lean/blob/f64e5053a7a675eb52b84ca2dffbab6c29743386/research/agent_reports/2026-11-11/50-adversarial-referee.md) | `c288a925fd064a551a0d2bd70b27d82acc9fe926` | HR; 12:26:32 EST | After NP: accepts PD/UM; shared-prime reserve and arbitrary-model no-go restricted to their stated carriers. |
+| [2026-11-12/50-adversarial-referee.md](https://github.com/OVVO-Financial/RH_Lean/blob/f64e5053a7a675eb52b84ca2dffbab6c29743386/research/agent_reports/2026-11-12/50-adversarial-referee.md) | `09e3dd03d8aca75237698c300089c7c1132b42ee` | FT/SH; 04:41:26 EST | Missed selected-Nyman threshold/variance review; not an Euler coefficient estimate. |
+| [2026-11-11/60-lean-verification.md](https://github.com/OVVO-Financial/RH_Lean/blob/f64e5053a7a675eb52b84ca2dffbab6c29743386/research/agent_reports/2026-11-11/60-lean-verification.md) | `943749938c321f0ec13e1680139f5b15cea39fd7` | ADR; 13:52:07 EST | Recovered after prior FFR watermark; no new physical FFR4 estimate. |
+| [2026-11-10/30-finite-wheel.md](https://github.com/OVVO-Financial/RH_Lean/blob/f64e5053a7a675eb52b84ca2dffbab6c29743386/research/agent_reports/2026-11-10/30-finite-wheel.md) | `62406503a1ddbbf9330abcdc4cf761f7fbf05795` | JC; receipt 10:41:11 EST; later RC preserved | Latest route-specific CORR4 adapter recovered; JC upper-eight-band omission and R=56 shortcut failures, not full CORR4 refutation. |
+
+The prior PD consumed-watermark blobs, retained rather than overwritten by the latest ledger, were:
+
+| Role / section | Previously consumed blob |
+| --- | --- |
+| Coordinator FL | `106f6d88708a7545caab43c56ae1bbb915fd97f2` |
+| Owner FA | `accf2930372234b58e98e8e43e88aeb845b56e9b` |
+| Analytic DM | `0309d49557af30da43a07d72dce93c93c1811157` |
+| Census DZ | `49c1c48f672cf96c93909bd2b412d95bb3587d62` |
+| Referee NP | `214e99d8d6133e720f9645dd650a57b01a8c05cf` |
+| Lean FFR | `c86b058b6387de7348b123b22b8f5b8772d5ae9a` |
+
+Gap audit: no Nov13-Nov14 dated directory; no Nov12-Nov15 Owner/Analytic/Wheel/Census report; no Nov12-Nov14 Coordinator/Lean report; no Nov13-Nov14 Referee report. Today's Owner/Analytic supersede their actual Nov11 carry-forward. The absence of a report is not a claim about execution or cause.
+
+### Reproducibility Appendix
+
+The test domain was recorded before execution in checkpoint commit `dfc178da079a126a61f77f09a93d4d87f256db09`, blob `7d50725ef816a4f9790dbf0ed201199aedc9e7fc`, and the proof-led two-cutoff extension was registered in commit `7c0de60f6377106cb2722663abcf17e2b20bdae0`, blob `56af7ab142f371d78b37d8b919ed7d707540d846`. Both were read back exactly at their immutable commit before the corresponding execution. These are distinct from this final synthesis.
+
+The following programs use only Python's standard library and exact integers. The second implementation is algorithmically separate but written by the same investigator, so it is reproducibility evidence, not independent peer review. Program hashes are SHA-256 of the exact UTF-8 text including its final newline.
+
+```text
+sf_primary.py
+  9a1abf0b5525fcf3c7c5dfa39703cb71fa16be5805e487caae960fd0004de171
+sf_independent.py
+  977bba24db04bdb093af94287c0cbe9603764b0debbe7fc4e6709eea75c2005a
+```
+
+Executed commands, all exit code zero:
+
+```bash
+python sf_primary.py
+python sf_independent.py
+python -m py_compile sf_primary.py sf_independent.py
+```
+
+#### sf_primary.py
+
+```python
+"""Exact SELF_AUDIT of the registered SF product-fibre claims."""
+
+from collections import Counter
+from fractions import Fraction
+from math import gcd, isqrt
+import json
+
+
+ROOTS = list(range(2, 49)) + [64, 97, 115, 127, 256, 549]
+LIMIT = max(ROOTS) ** 2 - 1
+mu = [1] * (LIMIT + 1)
+mu[0] = 0
+rad = [1] * (LIMIT + 1)
+repeated = [1] * (LIMIT + 1)
+primes = []
+for p in range(2, LIMIT + 1):
+    if rad[p] == 1:
+        primes.append(p)
+        for n in range(p, LIMIT + 1, p):
+            mu[n] = -mu[n]
+            rad[n] *= p
+        for n in range(p * p, LIMIT + 1, p * p):
+            mu[n] = 0
+            repeated[n] *= p
+
+
+def divisors(n):
+    small, large = [], []
+    for d in range(1, isqrt(n) + 1):
+        if n % d == 0:
+            small.append(d)
+            if d * d != n:
+                large.append(n // d)
+    return small + large[::-1]
+
+
+def clean(row):
+    return {g: v for g, v in row.items() if v}
+
+
+def predicted(u, v, n):
+    phase = 1 - int(rad[n] >= u) - int(rad[n] >= v)
+    return clean({g: phase * mu[rad[n] // g] for g in divisors(repeated[n])})
+
+
+counts = Counter()
+fixtures = []
+for r in ROOTS:
+    x = r * r - 1
+    literal = [0] * r
+    fibres = [Counter() for _ in range(x + 1)] if r <= 48 else None
+    weighted = [0] * r
+    for a in range(1, r):
+        for b in range(1, r):
+            w = mu[a] * mu[b]
+            if not w:
+                continue
+            g, ab = gcd(a, b), a * b
+            literal[g] += w * (x // ab)
+            counts['nonzero_ordered_pairs'] += 1
+            if fibres is not None:
+                for n in range(ab, x + 1, ab):
+                    fibres[n][g] += w
+                    weighted[g] += w * (n % 7 - 3)
+                    counts['physical_nonzero_triples'] += 1
+
+    c, s, weighted_expected = [0] * r, [0] * r, [0] * r
+    diagonal = 0
+    for n in range(1, x + 1):
+        row = predicted(r, r, n)
+        for g, w in row.items():
+            c[g] += w
+            weighted_expected[g] += w * (n % 7 - 3)
+            diagonal += w * w
+        d = repeated[n]
+        eps = (1 if rad[n] < r else -1) * mu[rad[n] // d]
+        s[d] += eps
+        if fibres is not None:
+            assert clean(fibres[n]) == row, (r, n, fibres[n], row)
+            for d0 in range(1, r):
+                actual = sum(w for g, w in fibres[n].items() if g % d0 == 0)
+                assert actual == (eps if d0 == d else 0), (r, n, d0)
+                counts['common_divisor_fibre_checks'] += 1
+            counts['product_fibres'] += 1
+    assert c == literal, r
+    assert s == [0] + [sum(c[g] for g in range(d, r, d)) for d in range(1, r)]
+    if fibres is not None:
+        assert weighted == weighted_expected
+    assert diagonal == sum(mu[g] ** 2 * (x // (g * g)) for g in range(1, r))
+    assert diagonal <= 2 * x
+    for g in range(1, r):
+        bound = mu[g] ** 2 * (x // (g * g))
+        assert abs(c[g]) <= bound
+        assert abs(s[g]) <= bound
+        if 2 * g > r and mu[g]:
+            assert c[g] == s[g] == x // (g * g)
+        counts['coefficient_bound_checks'] += 2
+    for cut in range(1, r):
+        assert 3 * cut ** 3 * sum(t * t for t in c[cut + 1:]) <= x * x
+        counts['tail_checks'] += 1
+    m_hist, m_end = sum(mu[1:r]), sum(mu[1:x + 1])
+    assert sum(c) == s[1] == 2 * m_hist - m_end
+    counts['aggregate_roots'] += 1
+    if r in (2, 3, 4, 10, 21, 115, 549):
+        fixtures.append({'R': r, 'X': x, 'Q': sum(c), 'DG': sum(t*t for t in c),
+                         'DS': sum(t*t for t in s), 'product_diagonal': diagonal,
+                         'product_cross': sum(t*t for t in c) - diagonal})
+
+# General cutoff intersection and the genuine middle-band involution.
+boundary = []
+for u in range(2, 13):
+    for v in range(2, 13):
+        for n in range(1, 2 * u * v + 1):
+            ds = divisors(n)
+            actual, overlap = Counter(), Counter()
+            for a in ds:
+                if not mu[a]:
+                    continue
+                for b in divisors(n // a):
+                    w = mu[a] * mu[b]
+                    if not w:
+                        continue
+                    if a < u and b < v:
+                        actual[gcd(a, b)] += w
+                        if u <= rad[n] < v:
+                            p = next(p for p in primes if n % p == 0 and a % p)
+                            bp = b // p if b % p == 0 else b * p
+                            back = bp // p if bp % p == 0 else bp * p
+                            assert bp < v and n % (a * bp) == 0 and back == b
+                            assert gcd(a, bp) == gcd(a, b) and mu[bp] == -mu[b]
+                            assert bp != b
+                            counts['admitted_involution_occurrences'] += 1
+                    if a >= u and b >= v:
+                        overlap[gcd(a, b)] += w
+            expected = Counter(predicted(u, v, n))
+            expected.update(overlap)
+            assert clean(actual) == clean(expected), (u, v, n)
+            if n < u * v:
+                assert not clean(overlap)
+            if n == u * v:
+                assert clean(overlap) == clean({gcd(u, v): mu[u] * mu[v]})
+            if u <= rad[n] < v:
+                assert not clean(actual)
+            counts['general_rectangular_fibres'] += 1
+        if u == v and u in (2, 4, 6):
+            boundary.append({'R': u, 'n': u*u, 'intersection_weight': mu[u]**2})
+
+assert predicted(6, 6, 12) == {1: -1, 2: 1}
+assert next(f for f in fixtures if f['R'] == 4)['product_cross'] == 16
+# Upper triangle without restoring its opposite orientation is not the source.
+half = sum(mu[a]*mu[b] for a in (1, 2) for b in (1, 2)
+           if a <= b and 2 % (a*b) == 0)
+assert half == 0 and predicted(3, 3, 2) == {1: -1}
+daughter = []
+for n in (9, 27, 81):
+    entry = predicted(10, 10, n)[3]
+    daughter.append({'n': n, 'gcd_fibre': entry, 'raw_p2_daughter': mu[n//9]})
+assert [r['gcd_fibre'] for r in daughter] == [1, 1, 1]
+assert [r['raw_p2_daughter'] for r in daughter] == [1, -1, 0]
+counts['negative_controls'] = 4
+print(json.dumps({'status': 'PASS', 'counts': dict(counts), 'fixtures': fixtures,
+                  'boundary': boundary, 'CORR4_coefficient_mismatch': daughter}, indent=2))
+```
+
+#### sf_independent.py
+
+```python
+"""Trial-factor/divisor-pair SELF_AUDIT, importing no primary checker data."""
+
+from collections import defaultdict
+from functools import cache
+from math import gcd, isqrt
+import json
+
+
+@cache
+def factor(n):
+    out = []
+    p = 2
+    while p * p <= n:
+        if n % p == 0:
+            e = 0
+            while n % p == 0:
+                n //= p
+                e += 1
+            out.append((p, e))
+        p += 1
+    if n > 1:
+        out.append((n, 1))
+    return tuple(out)
+
+
+def mob(n):
+    fs = factor(n)
+    return 0 if any(e > 1 for _, e in fs) else (-1) ** len(fs)
+
+
+@cache
+def divs(n):
+    ds = [1]
+    for p, e in factor(n):
+        ds = [d * p ** k for d in ds for k in range(e + 1)]
+    return tuple(ds)
+
+
+def model(u, v, n):
+    r = 1
+    repeat = 1
+    for p, e in factor(n):
+        r *= p
+        if e >= 2:
+            repeat *= p
+    phase = 1 - (r >= u) - (r >= v)
+    return {g: phase * mob(r // g) for g in divs(repeat) if phase}
+
+
+def literal(u, v, n, tails=False):
+    row = defaultdict(int)
+    for a in divs(n):
+        for b in divs(n):
+            if n % (a*b) == 0 and ((a >= u and b >= v) if tails else (a < u and b < v)):
+                row[gcd(a, b)] += mob(a) * mob(b)
+    return {g: w for g, w in row.items() if w}
+
+
+product_checks = 0
+for r in range(2, 49):
+    for n in range(1, r*r):
+        assert literal(r, r, n) == model(r, r, n), (r, n)
+        product_checks += 1
+
+rectangle_checks = 0
+for u in range(2, 13):
+    for v in range(2, 13):
+        for n in range(1, 2*u*v + 1):
+            result = defaultdict(int, model(u, v, n))
+            for g, w in literal(u, v, n, tails=True).items():
+                result[g] += w
+            assert literal(u, v, n) == {g: w for g, w in result.items() if w}
+            rectangle_checks += 1
+
+fixtures = []
+for r in (4, 10, 21, 64, 97, 115, 127, 256, 549):
+    x = r*r - 1
+    c = [0] * r
+    for a in range(1, r):
+        for b in range(1, r):
+            c[gcd(a, b)] += mob(a) * mob(b) * (x // (a*b))
+    s = [0] + [sum(c[g] for g in range(d, r, d)) for d in range(1, r)]
+    diagonal = sum(mob(g)**2 * (x // (g*g)) for g in range(1, r))
+    fixtures.append({'R': r, 'Q': sum(c), 'DG': sum(v*v for v in c),
+                     'DS': sum(v*v for v in s), 'product_diagonal': diagonal})
+assert next(f for f in fixtures if f['R'] == 115)['DG'] - next(
+    f for f in fixtures if f['R'] == 115)['DS'] == 18331
+assert next(f for f in fixtures if f['R'] == 549)['DG'] == 213476
+print(json.dumps({'status': 'PASS', 'product_fibres': product_checks,
+                  'rectangular_fibres': rectangle_checks, 'fixtures': fixtures}, indent=2))
+```
+
+#### Exact Primary Output
+
+```json
+{
+  "status": "PASS",
+  "counts": {
+    "nonzero_ordered_pairs": 168480,
+    "physical_nonzero_triples": 383141,
+    "common_divisor_fibre_checks": 1343824,
+    "product_fibres": 37976,
+    "coefficient_bound_checks": 4660,
+    "tail_checks": 2330,
+    "aggregate_roots": 53,
+    "general_rectangular_fibres": 11858,
+    "admitted_involution_occurrences": 3402,
+    "negative_controls": 4
+  },
+  "fixtures": [
+    {
+      "R": 2,
+      "X": 3,
+      "Q": 3,
+      "DG": 9,
+      "DS": 9,
+      "product_diagonal": 3,
+      "product_cross": 6
+    },
+    {
+      "R": 3,
+      "X": 8,
+      "Q": 2,
+      "DG": 4,
+      "DS": 8,
+      "product_diagonal": 10,
+      "product_cross": -6
+    },
+    {
+      "R": 4,
+      "X": 15,
+      "Q": -1,
+      "DG": 35,
+      "DS": 11,
+      "product_diagonal": 19,
+      "product_cross": 16
+    },
+    {
+      "R": 10,
+      "X": 99,
+      "Q": -5,
+      "DG": 523,
+      "DS": 151,
+      "product_diagonal": 141,
+      "product_cross": 382
+    },
+    {
+      "R": 21,
+      "X": 440,
+      "Q": 1,
+      "DG": 357,
+      "DS": 338,
+      "product_diagonal": 649,
+      "product_cross": -292
+    },
+    {
+      "R": 115,
+      "X": 13224,
+      "Q": -3,
+      "DG": 21411,
+      "DS": 3080,
+      "product_diagonal": 19995,
+      "product_cross": 1416
+    },
+    {
+      "R": 549,
+      "X": 301400,
+      "Q": -186,
+      "DG": 213476,
+      "DS": 70928,
+      "product_diagonal": 457582,
+      "product_cross": -244106
+    }
+  ],
+  "boundary": [
+    {
+      "R": 2,
+      "n": 4,
+      "intersection_weight": 1
+    },
+    {
+      "R": 4,
+      "n": 16,
+      "intersection_weight": 0
+    },
+    {
+      "R": 6,
+      "n": 36,
+      "intersection_weight": 1
+    }
+  ],
+  "CORR4_coefficient_mismatch": [
+    {
+      "n": 9,
+      "gcd_fibre": 1,
+      "raw_p2_daughter": 1
+    },
+    {
+      "n": 27,
+      "gcd_fibre": 1,
+      "raw_p2_daughter": -1
+    },
+    {
+      "n": 81,
+      "gcd_fibre": 1,
+      "raw_p2_daughter": 0
+    }
+  ]
+}
+```
+
+#### Exact Separate-Implementation Output
+
+```json
+{
+  "status": "PASS",
+  "product_fibres": 37976,
+  "rectangular_fibres": 11858,
+  "fixtures": [
+    {
+      "R": 4,
+      "Q": -1,
+      "DG": 35,
+      "DS": 11,
+      "product_diagonal": 19
+    },
+    {
+      "R": 10,
+      "Q": -5,
+      "DG": 523,
+      "DS": 151,
+      "product_diagonal": 141
+    },
+    {
+      "R": 21,
+      "Q": 1,
+      "DG": 357,
+      "DS": 338,
+      "product_diagonal": 649
+    },
+    {
+      "R": 64,
+      "Q": 17,
+      "DG": 36839,
+      "DS": 3673,
+      "product_diagonal": 6165
+    },
+    {
+      "R": 97,
+      "Q": 10,
+      "DG": 69424,
+      "DS": 5666,
+      "product_diagonal": 14214
+    },
+    {
+      "R": 115,
+      "Q": -3,
+      "DG": 21411,
+      "DS": 3080,
+      "product_diagonal": 19995
+    },
+    {
+      "R": 127,
+      "Q": 33,
+      "DG": 61309,
+      "DS": 6410,
+      "product_diagonal": 24399
+    },
+    {
+      "R": 256,
+      "Q": -16,
+      "DG": 68992,
+      "DS": 13179,
+      "product_diagonal": 99372
+    },
+    {
+      "R": 549,
+      "Q": -186,
+      "DG": 213476,
+      "DS": 70928,
+      "product_diagonal": 457582
+    }
+  ]
+}
+```
+
