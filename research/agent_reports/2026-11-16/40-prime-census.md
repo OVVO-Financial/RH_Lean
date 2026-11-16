@@ -1806,3 +1806,49 @@ Two wording clarifications accompany this receipt. Section D's original phrase "
 EXECUTION=COMPLETED; SUBSTANTIVE_PUBLICATION=IMMUTABLE_READBACK_VERIFIED. These statuses describe the research execution, not completion of the proof objective. RS1-RS3 remain PAPER_PROOF with independent specialist review PENDING and no Lean certification. RS4/RS5 falsify only the stated auxiliary principles; RS6 is FINITE_COMPUTATION. NO_NEW_GLOBAL_GAIN; NO_NEW_ACCEPTED_ROUTE; VERIFIED_ETA=NONE. The full signed cancellation and all RH-level targets remain OPEN.
 
 All computation and syntax checks finished. Markdown table/fence validation, exact fixture accounting and embedded-code equality checks passed. No local Lean, other agent launch, main/source change, PR, issue, workflow, merge, schedule or permission change occurred. Only the owned dated report was written remotely. This receipt records the already verified substantive commit, not a guessed future commit for the receipt itself.
+
+
+## Early Checkpoint - 20261116-census-1100-EST/SG
+
+Actual trigger: 2026-11-16 11:00:02 EST (16:00:02 UTC). RUN_ID_UNAVAILABLE; SG is a research label. Checkpoint prepared 2026-11-16 16:06:51 UTC. EXECUTION=IN_PROGRESS; MATHEMATICS=PENDING; REVIEW=PENDING.
+
+main=50e6b86c2f70584b603f1b2e813d49293ba2b7dc; AGENTS=c4f36b772f8a4b0c24fe566b90fafb646073c60f; contract=95566e37c8eaeb99ee680660df4f9d2e06ea5038; half directive=96ad4439ec458af6168f7d9cb3eef5dde291d37c. half_bootstrap_ack=BOOTSTRAP_TO_HALF_V1; cross_route_ack=CROSS_ROUTE_SIGNED_RECOVERY_V1; continuity_ack=LAST_ACTUAL_REPORT_CONTINUITY_V1. Prior source safeguards and finite-wheel/HIGH/cancellation-chain acknowledgments are retained.
+
+Latest report tree e0db8bffffe6f2f320fcc90b893d806e3a73baae is untruncated. All seven latest actual files were retrieved. Since RS, the new NT, FFR4 principal component, MB, DB, TW and FP findings are being reconciled; both Nov15 and Nov16 Coordinator mirrors independently read byte-identical. All roles TODAY=AVAILABLE; yesterday Owner/Analytic/Wheel/Census have NO_VERIFIED_REPORT, not invented runs. External index remains 7d63d434690d00dffce9c90335d41c4f62d85798. Main has merged #1136/#1137/#1138; open/draft collection is empty. #1137 is principal-only and #1138 is policy/paper audit, neither a new complete endpoint. Baseline #1119's actual standard-axiom/proof-value log was retrieved; unchanged-source comparison is pending.
+
+Selected work resumes the explicitly queued SS/MB/NT/TW original Nyman experiment. Under the new policy it is a bounded source-faithful feasibility audit of the direct full-norm-to-half mechanism, not finite-exponent optimization and not an assumed supplier. The existing RS report is preserved byte-for-byte. No old H_ROB or SF volume scan will be repeated.
+
+### Frozen experiment before execution
+
+# SG preregistration: selected heads versus the original complete taper
+
+Registered before new numerical evaluation, 2026-11-16 invocation at 11:00:02 EST.
+Main: 50e6b86c2f70584b603f1b2e813d49293ba2b7dc.
+Sources: NYMAN_FLAT_TAPER_RETURN_20261104.lean, blob 2d23721027ecc44e85b7add02fc632b482f03352; Coordinator SS/MB, Referee NT, Analytic RC/TW.
+
+Question: does selecting a zero crossing of one reciprocal log moment suppress the complete three-floor profile, or does unsuppressed signed energy persist in other directions and regions?
+
+delta(H)=1-sum_{k<=H} mu(k)log(H/k)/k. G consists of H>=2 with delta(H)*delta(H+1)<=0.
+V_H(m)=sum_{j=1}^3 sum_{H<k<=floor(m/j)} mu(k)log(H/k), 3H<=m<4H.
+J_H=sum V_H(m)^2/[m(m+1)]. All three diagonal energies and doubled cross energies will be retained and checked against J.
+
+Primary finite hypothesis SG_PAIR: at every H in G in [17,512], J_H is at most the mean of J_(H-1),J_(H+1), when both neighbors are not in G. A strict reversed certified comparison refutes ONLY this auxiliary local-minimum hypothesis, not selected little-o convergence.
+Competing hypothesis: scalar selection does not force the full profile to be a local energy minimum. An ambiguous comparison is unresolved, never counted favorably.
+Discovery interval 17..128; held-out interval 129..512. No constant is fitted. Report all comparisons, extrema, signs of cross energies, and J_H/log(H)^2; do not fit an exponent.
+
+Complete original norm audit: every selected H in [17,128] and both nonselected neighbors. theta=1/2, N=6*ceil(H^2/6), K=N/6, L=log(N/H). This is a new legal parameter regime relative to SS's three earlier theta=3/5 examples. All resulting N>8H. Keep actual q_k=log(N/max(H,k)), u=sum mu*q/k including k=1, v=2L+sum mu*q. I1=(3K,4K], I2=(5K,6K], s_i=sum_(I_i)1/k. A=(u-s2*v/K)/(s1-s2), Z=(s1*v/K-u)/(s1-s2), h=A on I1,Z on I2. c=(h-mu*q)/L for k=2..N.
+Residual r(m)=1-sum c_k*(m mod k)/k. Both moments sum c/k=1 and sum c=3 must hold. The alternate complete floor return retains both log tails and both corrections.
+
+Compute full regional prefix energies to T=ceil(N^(3/2)), partitioned into 1..H, H+1..3H-1, 3H..4H-1, 4H..N/2, I1 activation, intermediate gap, I2 activation, N+1..T. No region is called the full norm. Append a rigorously explicit infinite tail bound: elementary (1+sum|c|)^2/(T+1), and separately the inherited P6 upper bound 14/(3L^2)+(5/3)(max(|A|,|Z|)/L)^2 with its accepted-paper large-sieve dependency identified. Never infer an all-scale upper bound from finite data.
+Compute the whole logarithmic moment lower bound (H+1)*(1-sum c_k log(k)/k)^2. It is a different, overlapping lower bound and must NOT be added to regional energies.
+
+Methods: exact mu sieve, directed rational fixed-point log enclosures via atanh series/range reduction; integer-only interval propagation; C++ complete divisor-increment summation for regional energies. Independent divisor-convolution mu and literal residue evaluation at every small head site and declared boundary/stride sites; independent full prefix through 2N for H=19 and H=26. Recheck decisive J comparisons by a separately structured literal floor implementation. No probable prime, random seed, floating sign, or unexecuted test credit.
+Negative control: change c_N by N/7; head residual then changes by -m/7, exposing failure of the reciprocal moment and of the head-zero simplification.
+Stop on a representation mismatch; retain failed attempts. No changes to range after results unless a separately labelled follow-up is recorded.
+
+Half-continuation capsule: NYMAN bounded feasibility audit, not an accepted supplier. Direct consumer is convergence of the FULL discrete Hilbert norm along an unbounded subsequence, implying the classical integer-dilation density/RH criterion at 1/2. Original P6 remote and P9 transition estimates, SS selected-drift perturbation, and RC exterior bounds are supporting inputs only. First independent missing step is a genuine original-coefficient full-middle bound (or valid selected-family obstruction), including NT's whole log moment. Present work tests the necessary regional mechanism and restored complement; no renewal or global bound is assumed.
+
+
+### Pending completion
+
+Run the registered tests; independently verify decisive certificates; record every original region and both corrections, full-norm tail enclosures, limits of the proper-window test, hypothesis verdicts, source hashes and continuation. Only this owned report is writable. No Lean execution, source edits, PR/issue/workflow actions, merges, schedules or agent launches are authorized. Publication is claimed only after immutable readback.
