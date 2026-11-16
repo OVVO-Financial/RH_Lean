@@ -1,0 +1,93 @@
+name: OAI physical principal response
+
+on:
+  pull_request:
+    paths:
+      - 'research/oai_434/VF919PhysicalPrincipalResponse.lean'
+      - 'research/oai_434/VF919PrincipalAllDelayReturn.lean'
+      - 'research/oai_434/VF919PrincipalResponseMass.lean'
+      - 'research/oai_434/VF919PrincipalFiniteResponse.lean'
+      - 'research/oai_434/VF919PrincipalSignedRemainder.lean'
+      - 'research/oai_434/VF919FiniteSlotReflectedGain.lean'
+      - 'scripts/lean/physical_principal_response/**'
+      - 'scripts/lean/slot_anchored/**'
+      - '.github/workflows/vf919-physical-principal-response.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: physical-principal-response-${{ github.head_ref || github.ref_name }}-${{ github.event.pull_request.head.sha || github.sha }}
+  cancel-in-progress: true
+
+jobs:
+  original-physical-principal-response-proof:
+    runs-on: ubuntu-latest
+    timeout-minutes: 150
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - uses: ./.github/actions/lean-setup
+      - uses: actions/checkout@v4
+        with:
+          repository: openai/math
+          ref: 1581d4cbdd69a0faf34b2089614fe2a814316a6a
+          path: oai-upstream
+          persist-credentials: false
+      - uses: ./.github/actions/lean-compiled-cache
+      - name: Verify unchanged native Wiener prerequisites
+        shell: bash
+        run: |
+          set -euo pipefail
+          lake build PrimeNumberTheoremAnd.Wiener
+          test -s .lake/packages/PrimeNumberTheoremAnd/.lake/build/lib/lean/PrimeNumberTheoremAnd/Wiener.olean
+      - name: Verify native arithmetic import closure
+        uses: ./.github/actions/research-compile
+        with:
+          build-library: 'true'
+          targets: >-
+            research/VF_919_SEVEN_EIGHTHS_SIGNED_COVARIANCE_20261019.lean
+            research/VF_919_SEVEN_EIGHTHS_SQUARE_SHELL_BRIDGE_20261019.lean
+            research/CORR4_OAI_POWER_GUIDEPOST_20261024.lean
+            research/NATIVE_OWNER_PREFIX_MERTENS_20261021.lean
+            research/VF_919_OAI_ACTUAL_MARKED_FOURTH_REAL_NNS_20261021.lean
+            research/VF_919_RESONANT_FIBER_NNS_RECOMBINATION_20261022.lean
+      - name: Restore original analytic source cache
+        id: oai_cache
+        uses: ./.github/actions/oai-434-shared-cache
+      - name: Build analytic prerequisites on genuine cache miss
+        if: ${{ steps.oai_cache.outputs.complete != 'true' }}
+        shell: bash
+        working-directory: oai-upstream/lean
+        run: lake build OAI.NumberTheory.DirichletL.Detector.FinalAssemblyUnconditional
+      - name: Verify pinned toolchain, sources, and shared package identity
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(cat lean-toolchain)" = 'leanprover/lean4:v4.34.1'
+          grep -q 'd13f23b723b8a846827a245b89c10fc7d3f11612' lakefile.lean
+          test "$(git -C oai-upstream rev-parse HEAD)" = '1581d4cbdd69a0faf34b2089614fe2a814316a6a'
+          test "$(git hash-object research/oai_434/VF919PrincipalAllDelayReturn.lean)" = '9fc9e047f143b09284857766d669054bae45bd19'
+          test "$(git hash-object research/oai_434/VF919PrincipalResponseMass.lean)" = '5f7e812108ff7eff4a60da7055c2dd5f852c4941'
+          test "$(git hash-object oai-upstream/lean/OAI/NumberTheory/DirichletL/Detector/PrincipalResidueActual.lean)" = '2f336d8cfb0e6ec157ad1d43099372eb61961381'
+          python3 scripts/check_shared_lean_packages.py . oai-upstream/lean PrimeNumberTheoremAnd mathlib
+          lean --version
+      - name: Verify physical principal response and all dependencies with warnings fatal
+        shell: bash
+        run: bash scripts/lean/physical_principal_response/run.sh "$PWD"
+      - name: Preserve exact proof, generated source provenance, and audits
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: physical-principal-response-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            anchored-tilt-generation.json
+            total-mass-*.log
+            physical-principal-response-*.log
+            research/oai_434/VF919PhysicalPrincipalResponse.lean
+            research/oai_434/VF919Anchored*.lean
+            scripts/lean/physical_principal_response/
+          if-no-files-found: error
+          retention-days: 30
