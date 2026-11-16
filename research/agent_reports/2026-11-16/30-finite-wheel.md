@@ -945,3 +945,38 @@ At 2026-11-16 07:38:07 UTC / 02:38:07 EST, substantive commit [`5e2e9a61f1a03be0
 EXECUTION=COMPLETED; SUBSTANTIVE_PUBLICATION=PUBLISHED_IMMUTABLE_READBACK_VERIFIED. SF1-SF3 remain PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED; SF4 retains all full Gram terms and only its stated falsifiers; SF5 is FINITE_COMPUTATION with both exact programs PASS. Markdown table/fence checks passed and embedded program text matches the hashed executed files. NO_NEW_GLOBAL_GAIN / NO_NEW_ACCEPTED_ROUTE / VERIFIED_ETA=NONE. Canonical VF, the complete centered wheel bound, finite A/C, complete CORR4 and RH remain OPEN.
 
 Only this role's dated report on agent-reports was changed remotely. No Lean, main, shared policy, other report, issue, PR, workflow, branch creation, merge, agent launch, schedule or permission change was performed. This receipt records already completed substantive verification and does not claim its own not-yet-known commit hash. Resume from SF's exact product-fibre restriction and the still-unpaid cross-product/history correlation after refreshing live authority and actual handoffs.
+
+## Scheduled Continuation Checkpoint - 20261116-wheel-1012-EST/FP
+
+### A. Structural Question
+
+Can a FIXED, source-faithful combination of the gcd rows 1, 2, 3 and 6 retain the complete Mertens growth information, with an explicitly invertible arithmetic kernel and only independently bounded radical-history returns? This tests finite row recovery, not a larger wheel count or an assumed favorable Gram sign.
+
+EXECUTION=IN_PROGRESS; MATHEMATICS=PENDING; REVIEW=PENDING. No new global exponent, finite A/C or RH result is asserted. Actual scheduled trigger: 2026-11-16 10:12:01 EST, America/New_York. RUN_ID_UNAVAILABLE; FP is a research label.
+
+### B. Current Authority And Continuity
+
+MAIN=50e6b86c2f70584b603f1b2e813d49293ba2b7dc. The just-merged #1138 continuation directive now governs task choice: half_bootstrap_ack=BOOTSTRAP_TO_HALF_V1. POLICY=96ad4439ec458af6168f7d9cb3eef5dde291d37c; CURRENT_PROOF_CONTRACT=95566e37c8eaeb99ee680660df4f9d2e06ea5038. cross_route_ack=CROSS_ROUTE_SIGNED_RECOVERY_V1; continuity_ack=LAST_ACTUAL_REPORT_CONTINUITY_V1; finite_wheel_ack=FINITE_WHEEL_CENTERED_RH_V1; high_attack_ack=COMPLETE_SIGNED_HIGH_ATTACK_V1; chain_ack=CANCELLATION_CHAIN_REUSE_V1.
+
+The untruncated reporting tree at 2096dcc3354e4a3036ad071422c51d41cd26acea was enumerated without a date cap. All seven latest actual reports are available today. Relevant new sections since SF: Census RS, Referee NT, Lean FFR4, Coordinator MB, Owner DB, Analytic TW. Yesterday's Coordinator SS, Referee UE and Lean FFR3 were retrieved; yesterday has no Owner/Analytic/Wheel/Census report, so their previously verified Nov11 carry-forward is retained. Both today/yesterday Coordinator mirrors match byte-for-byte. GD/PD and their Nov11 Referee NP/HR derivations were recovered. Full current files are cached; remaining scoped dependency/novelty checks are in progress.
+
+Important corrections consumed: RS refutes local negative-row payment at R=20 despite the same S(5)=-1 as R=16; independent Census reconstruction concurs with SF1/SF2 at their stated paper scope, but formal Referee review is still pending. Owner DB corrects UF's first delayed descendant from R=8 to R=5 and gives a full-restoration sign reversal at R=137. Analytic TW's all-head three-floor control is target-equivalent, not a free Nyman supplier. The native renewal audit states N_eta^+ iff h<=eta and explains why existing historical/powerful mixed control alone does not give eta<h.
+
+The external inbox remains 7d63d434690d00dffce9c90335d41c4f62d85798, with no new entry after Oct18. The new main-side half-bootstrap audit is being consumed separately. #1136 and #1137 are now merged; #1137 is principal-only and #1136 remains a conditional response consumer. The complete open/draft PR collection is empty. The earlier SF baseline receipt is carried forward pending this run's scoped source/log verification; no fresh Lean certification is claimed.
+
+### C. Preregistered Hypothesis And Half-Continuation
+
+For R>=2, X=R^2-1, and the ORIGINAL complete ordered C_R(g), zero-pad absent rows and set P_W(R)=sum_(g|W) C_R(g), initially W=6. Test the exact product projection suggested by SF:
+P_W(R)=sum_(n<=X) sigma_R(rad(n))*mu(rad(n))*1_(no p|W has p^2|n).
+
+Define f_W(n)=mu(rad(n))*1_(no p|W has p^2|n) and F_W(x)=sum_(n<=x)f_W(n). Investigate whether the small-radical return is O_epsilon(R^(1+epsilon)), and whether f_6 has a Dirichlet-convolution inverse to genuine mu whose absolute weighted mass is finite for every exponent >1/2. The predicted inverse local factor at p>=5 is 1+x^2/(1-2x); it must be verified, not assumed. Test W=1 and W=2 as controls for small-prime singularities, without claiming those controls refute genuine-source equivalence.
+
+Proposed continuation: use an exact finite projection and recovery to pass an independently proved all-root P_6 bound to MertensGrowthAtMost. At the actual epsilon-closed boundary b=1/2+h, a genuine arithmetic supplier with cost eta(h)<h relative to strict K_R would force h< h by the existing exponent consumer. Such a supplier is OPEN. Present work is a bounded feasibility audit of its actual finite-row source and a search for an independently justified cancellation mechanism; merely obtaining an equivalent target is not a new route.
+
+All return bills: strict radical cutoff, both ordered orientations, original unit row, prime-power factors, square-prefix interpolation, convolution tails and constants selected before R. VF actual primes and ideal-Hecke/NNS masks are not identified with these rational gcd rows.
+
+Before computations freeze: every R=2..64; held-out roots 97,115,127,256,549; direct ordered-pair reconstruction versus factor-wise product coefficients; W=1,2,3,6,30; coefficient convolution identities for n<=4096; radical and square-wall equality controls. Do not rerun accepted large H_ROB scans. Any subsequent changed test will be recorded separately. All finite checks are SELF_AUDIT, not independent acceptance or Lean.
+
+### D-M. Work Remaining
+
+Complete source/CI receipts and scoped novelty search; prove or falsify the projection, its recovery and useful quantitative consequences; explicitly test the strongest proposed shortcut; append the A-M synthesis, exact finite evidence, independent missing arithmetic input and resume capsule. Only this owned dated report may be changed remotely. No local Lean or agent launch is authorized or planned.
