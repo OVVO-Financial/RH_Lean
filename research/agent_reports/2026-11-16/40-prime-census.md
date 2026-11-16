@@ -156,7 +156,7 @@ c_R(n,g)=eps_R(n)*1_(g|s(n))*mu(s(n)/g);
 S_R(d)=sum_(n<=X,s(n)=d)eps_R(n).
 ```
 
-A product coordinate sums the original (a,b,k) occurrences with abk=n; it does not deduplicate them. For rectangles, theta=1-1_(r>=U)-1_(r>=V), plus the excluded intersection J_UV from a>=U,b>=V, is retained. J vanishes only for n<UV. The admitted middle-band prime toggle is tested with gcd and occurrence identity preserved.
+A product coordinate sums the original (a,b,k) occurrences with abk=n; it does not deduplicate them. For rectangles, theta=1-1_(r>=U)-1_(r>=V), plus the excluded intersection J_UV from a>=U,b>=V, is retained. J is guaranteed to vanish for n<UV; it can also vanish at or above UV. The admitted middle-band prime toggle is tested with gcd and occurrence identity preserved.
 
 All numerical decisions use exact integers or fractions. C++ signed 64-bit bounds are safe here: harmonic sums through 1020 are <11, so |S_d|<=121X/d^2 and DS<2*121^2*X^2<3.2e16; DG has the corresponding smaller whole-pair bound. Denominators/products and K comparisons also fit. Python checks use unbounded integers. There is no random seed, floating sign, primality-probability assumption, transcendental approximation or numerical extrapolation. Elapsed times alone are floating diagnostics.
 
@@ -238,7 +238,7 @@ At R=16, C(1)=-1 and C(5)=-4; at R=20 they are -9 and -5. The contrast with the 
 
 ### G. Hidden Variables And Arithmetic Classification
 
-**RS1, PAPER_PROOF.** For squarefree d, put a=du,b=dv. A nonzero mu(du) equals mu(d)mu(u) exactly when gcd(u,d)=1. The two mu(d) factors cancel, and the integer-floor identity floor(X/(d^2 uv))=floor(floor(X/d^2)/(uv)) gives
+**RS1, PAPER_PROOF.** For squarefree d, put a=du,b=dv. If gcd(u,d)=1, then mu(du)=mu(d)mu(u); otherwise mu(du)=0. The two mu(d) factors cancel on the coprime part, and the integer-floor identity floor(X/(d^2 uv))=floor(floor(X/d^2)/(uv)) gives
 
 ```text
 S_R(d)=sum_(1<=u,v<=B, gcd(uv,d)=1) mu(u)mu(v) floor(j/(uv)),
@@ -1794,3 +1794,15 @@ print(json.dumps(summary,indent=2))
   }
 }
 ```
+
+## Verified Publication Receipt - 20261116-census-0311-EST/RS
+
+Verified 2026-11-16 08:47:08 UTC / 03:47:08 EST, America/New_York.
+
+The substantive report was published at commit [`aecfbeb6bfc68fa7141a1dd58ae565600f200cc4`](https://github.com/OVVO-Financial/RH_Lean/commit/aecfbeb6bfc68fa7141a1dd58ae565600f200cc4), blob `8204944256a28b114765bdea71a80892271df87e`. Fetching that immutable commit returned all 85,794 characters exactly as submitted, SHA-256 `250461012a794e778b5a7f05da5cf2161d940bbe435ece882df15641a0aeedac`. Commit inspection confirmed that only this owned daily report changed, with 1,746 additions and zero deletions; the entire early checkpoint was preserved.
+
+Two wording clarifications accompany this receipt. Section D's original phrase "J vanishes only for n<UV" is replaced by the precise statement that J is guaranteed zero below UV and may also vanish above it; no biconditional was intended or used. Section G now states the coprime/noncoprime formula for mu(du) directly, including zero values. The executed programs, exact outputs, proofs, claim classifications and numerical conclusions are unchanged. The prior wording remains available at the immutable substantive commit; this revision history is explicit.
+
+EXECUTION=COMPLETED; SUBSTANTIVE_PUBLICATION=IMMUTABLE_READBACK_VERIFIED. These statuses describe the research execution, not completion of the proof objective. RS1-RS3 remain PAPER_PROOF with independent specialist review PENDING and no Lean certification. RS4/RS5 falsify only the stated auxiliary principles; RS6 is FINITE_COMPUTATION. NO_NEW_GLOBAL_GAIN; NO_NEW_ACCEPTED_ROUTE; VERIFIED_ETA=NONE. The full signed cancellation and all RH-level targets remain OPEN.
+
+All computation and syntax checks finished. Markdown table/fence validation, exact fixture accounting and embedded-code equality checks passed. No local Lean, other agent launch, main/source change, PR, issue, workflow, merge, schedule or permission change occurred. Only the owned dated report was written remotely. This receipt records the already verified substantive commit, not a guessed future commit for the receipt itself.
