@@ -1694,3 +1694,942 @@ The native state is G(1/2+t), the every-positive-loss Mertens growth statement. 
 ### C-M. Pending
 
 Complete derivation, falsification, precise generic-versus-genuine source classification, checked evidence and final append-only synthesis are PENDING. Only this owned daily report is authorized for remote writes. No local Lean, source edit, PR/branch creation, agent launch, merge or schedule change is performed.
+
+## Fixed Prime Toggles Do Not Force An Exponent Gain
+### Final Research Synthesis - 20261116-wheel-1806-EST/TP
+
+### A. Most Important Structural Discovery
+
+**The proposed prime-5/prime-7 sign incompatibility is not supplied by those two local arithmetic rules.** After every overlap and higher-prime-power return is restored, the two operations form a consistent, invertible finite dilation system. The genuine source already exhibits all of its relevant masked prefixes and differences with the same sign at x=245. More decisively, for EVERY fixed exponent 1/2<beta<1 there is an explicitly constructed +/-1 integer sequence satisfying the exact local prime-power rules at 2,3,5,7, all cutoff identities and all overlapping-return identities, whose complete prefix and each masked prefix have positive leading growth constants times x^beta. An oscillatory version preserves any prescribed complex mode beta+i*tau as well.
+
+The construction is deliberately **NOT the genuine u_6 sequence**. It disproves a precisely limited inference from the finitely many local rules, coefficient magnitude and growth envelope. It does not disprove a theorem exploiting the full multiplicativity and prescribed signs at EVERY other prime. A separate multiplicative bounded-weight construction shows why multiplicativity plus |a(n)|<=1 is also insufficient without the genuine prime coefficients; it does not have |a(n)|=1 outside the selected primes. The two models are not conflated.
+
+This supplies the constructive-compatible-configuration outcome requested in Coordinator HB. It parks the proposed fixed-two-prime sign-only continuation, not FINITE-AC, CORR4, MU-LIFT or RH. Increasing a fixed finite list of primes does not repair the stated information loss: the same construction works for every such list. A growing list or an all-prime argument has different uniformity obligations and is NOT ruled out.
+
+| Claim ID | Classification And Exact Scope |
+| --- | --- |
+| 20261116-wheel-1806-EST/TP1 | EXACT_IDENTITY / PAPER_PROOF / SELF_AUDIT: full valuation expansion, commuting two-prime difference, binary boundary and every higher-power return on the genuine u_6 carrier. Basic local algebra is credited as infrastructure, not a new cancellation bound. |
+| TP2 | Supporting PAPER_PROOF: finite prime-deletion inverse is bounded even at exponent 1/2; deletion is idempotent and supplies no renewable exponent gain. This finite inverse is different from FR/HB's full Mobius inverse. |
+| TP3 | PAPER_PROOF / SELF_AUDIT / SCOPED_NO_GO: prescribed real and oscillatory growth modes compatible with any fixed finite collection of these prime rules and unit-magnitude coefficients. Not a genuine-source growth theorem. |
+| TP4 | PAPER_PROOF / SELF_AUDIT / SCOPED_NO_GO: an ordinary multiplicative bounded-weight model has the same prescribed real exponent and local rules, but not the genuine coefficients at other primes. |
+| TP5 | FINITE_COMPUTATION: 103,782 exact assertions PASS; genuine same-sign configuration x=245; missing-power and missing-mixed-term controls fail as predicted. |
+
+New paper claims are INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED. No independent specialist was launched. **NO_NEW_GLOBAL_GAIN; NO_NEW_ACCEPTED_RH_ROUTE; VERIFIED_ETA=NONE.** Canonical VF, finite A/C and RH remain OPEN.
+
+### B. Current Authoritative Objective
+
+Actual scheduled trigger: 2026-11-16 18:06:01 EST, America/New_York. RUN_ID_UNAVAILABLE; TP is a research label. Main at intake is [4d5482805bac6a8f29d4fb4dadc61eca0bc06525](https://github.com/OVVO-Financial/RH_Lean/commit/4d5482805bac6a8f29d4fb4dadc61eca0bc06525). AGENTS blob c4f36b772f8a4b0c24fe566b90fafb646073c60f; proof contract 95566e37c8eaeb99ee680660df4f9d2e06ea5038; current half-continuation directive 96ad4439ec458af6168f7d9cb3eef5dde291d37c.
+
+half_bootstrap_ack=BOOTSTRAP_TO_HALF_V1; cross_route_ack=CROSS_ROUTE_SIGNED_RECOVERY_V1; continuity_ack=LAST_ACTUAL_REPORT_CONTINUITY_V1. Earlier finite-wheel, HIGH and cancellation-chain acknowledgments retain their mathematical safeguards, not superseded task priorities.
+
+The canonical statement remains one C>=0 before every integer R>=2 with
+
+```text
+|pi(R^2)-vfCanonical(R^2)| <= C R log R,
+vfCanonical=vfMid+sqrt(2).
+```
+
+Its inspected `riemannHypothesis_of_vfCanonicalSquare` still explicitly assumes `ClassicalVonKochRHCriterion`. The native `mertens_half_iff_riemannHypothesis` is a separate internal terminal. Neither arithmetic premise is established here.
+
+**Baseline and formal evidence.** The inspected `native_mertens_near_uniform_window_error_closed` gives G(b_base), where G(b) denotes Mertens growth with every positive exponent loss and b_base=7/8-7/(64*N_pack), with N_pack fixed by the original source. It is not a zero-loss fixed power at b_base. At tested head 77ee815846d6d534c866f0752aa33b84c385610a, 14/14 checks are successful. The actual [dependency/axiom log](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42552018910/job/128949473700) was retrieved: five closures 35358,35375,35736,35737,35753, using only propext, Classical.choice and Quot.sound. The audit source and terminal were read. A fresh nontruncated tree comparison of 2,508 preexisting Lean/pin/scripts/lean files found only the aggregate RHLean.lean changed. This is scoped reuse of unchanged certification, not a fresh full-main build or an independent reconstruction of every imported analytic proof. The new elementary TP arguments do not assume the numerical comparator.
+
+Recent merged #1135-#1139 and the entire open/draft PR collection were checked; the latter was empty. #1139 is now human-merged at 21:57:12 UTC, superseding older reports' unmerged labels. Its exact tested head 760a105553788fa7005e86b1230699fd871a2934 has 13/13 successful checks. The [actual compilation log](https://github.com/OVVO-Financial/RH_Lean/actions/runs/43929805348/job/133518873088) reports compiled=1,cached=9; the [type/dependency audit](https://github.com/OVVO-Financial/RH_Lean/actions/runs/43929804765/job/133518873411) checks eight roots with standard axioms and closures 92,77,49,48,585,590,618,619. It certifies the R=139 pointwise obstruction, NOT the entire FR analytic recovery theorem. No CI was launched or rerun; no local Lean was executed.
+
+### C. Structural Mechanism Investigated
+
+Coordinator HB explicitly requested the original u_6 sequence, fixed p=5 and q=7, and the identity S(x)-S(x/p)=T_p(x)-2T_p(x/p), asking whether near-extremal growth forces incompatible overlapping top intervals. This is the selected FINITE-AC bounded feasibility audit, with the accepted FR recovery as its potential full-source consumer. We do not replace this assignment with a larger wheel or duplicate FP/FR's inverse theorem.
+
+The decisive distinction is between the complete p-adic valuation lattice and its first Boolean square. For u_6, all positive powers of 5 and of 7 have sign -1, not alternating signs. Products divisible by BOTH selected primes have the product sign +1 relative to their common base. The higher-power sector is real source mass; a four-corner picture alone omits it. After restoring it, the two deletion operators commute and their finite response multipliers have no zero anywhere to the right of one half. There is no forced conflict between the two local recursions.
+
+### D. Exact Definitions And Statements
+
+For integer R>=2, use the original definitions
+
+```text
+X_R=R^2-1, M(t)=sum_(1<=n<=t)mu(n), M(0)=0,
+K_R=max_(0<=t<R)(M(t)-1)^2/(t+1),
+C_R(g)=sum_(1<=a,b<R,gcd(a,b)=g)mu(a)mu(b)floor(X_R/(ab)),
+Q_R=sum_g C_R(g)=2M(R-1)-M(X_R).
+```
+
+Both ordered orientations and every floor occurrence remain. The original `eulerSelfDualFloor`, `eulerSelfDualBilinear`, compiled `eulerFixedGcdRowInt`, and strict-history `squareRootHistoricalK` definitions were inspected. At g=6, retain the accepted FR source
+
+```text
+u(n)=u_6(n)=(-1)^(number of DISTINCT primes p>3 dividing n),
+u(1)=1, S(x)=sum_(1<=n<=floor(x))u(n), S(x)=0 for 0<=x<1,
+Y_R=floor((R^2-1)/36),
+J(R)=sum_(m<=Y_R, rad(36m)<R)u(m),
+C_R(6)=2J(R)-S(Y_R).
+```
+
+This row identity and |J(R)|=O_epsilon(R^(1+epsilon)) are inherited ACCEPT_ON_PAPER FR1/FP2, not new TP results or newly formalized statements. The strict rad(36m)<R mask is not replaced by <=. The u source is NOT FP's square-excluding f_6, NOT genuine mu, and NOT the Hecke coefficient a6.
+
+Define T_A(x)=sum_(n<=floor(x), gcd(n,product(A))=1)u(n) for A a subset of {5,7}. Thus T_empty=S, T_{5}=T5, T_{7}=T7 and T_{5,7}=T35. Let D_r F(x)=F(x/r), always with the same floor-prefix convention. These operators commute exactly, since nested integer floors compose.
+
+**TP1: complete source identities.** Write alpha(0)=1 and alpha(e)=-1 for every integer e>=1. For all real x>=0,
+
+```text
+S(x)=sum_(e,f>=0,5^e 7^f<=x)alpha(e)alpha(f)T35(x/(5^e7^f)).    (TP.1)
+(I-D5)S=(I-2D5)T5,  (I-D7)S=(I-2D7)T7,                        (TP.2)
+(I-D5)(I-D7)S=(I-2D5)(I-2D7)T35.                              (TP.3)
+```
+
+In expanded TP.3, the mixed coefficients are +1 on S(x/35) and +4 on T35(x/35). For the binary part e,f in {0,1},
+
+```text
+B(x)=T35(x)-T35(x/5)-T35(x/7)+T35(x/35)
+    =sum_(x/5<m<=x,(m,35)=1)u(m)
+     -sum_(x/35<m<=x/7,(m,35)=1)u(m).                          (TP.4)
+S(x)=B(x)+sum_(max(e,f)>=2,5^e7^f<=x)
+                  alpha(e)alpha(f)T35(x/(5^e7^f)).            (TP.5)
+```
+
+All displayed inequalities at the interval edges are literal. TP.4 is a boundary identity, not a favorable-sign assertion.
+
+**TP2: deletion inverse and no lost power.** Put b(0)=1 and b(e)=2^(e-1) for e>=1. Then
+
+```text
+T35(x)=sum_(e,f>=0,5^e7^f<=x)b(e)b(f)S(x/(5^e7^f)).            (TP.6)
+```
+
+For every FIXED beta>=1/2 the absolute weighted mass in TP.6 is the finite constant
+
+```text
+B_beta=product_(r in {5,7}) (1-r^(-beta))/(1-2r^(-beta)).       (TP.7)
+```
+
+Consequently S(x)=O(x^beta) iff T35(x)=O(x^beta), and similarly for either one-prime deletion. These are all-prefix implications with constants before x. Unlike FR's inverse over infinitely many primes, this finite deletion inverse has no logarithmic divergence at beta=1/2. Neither direction improves an exponent. On coefficients, masking by r-not-dividing is idempotent; a deleted source no longer obeys the same nonzero r-power insertion law. One cannot repeatedly spend the same deleted prime as a fresh independent saving.
+
+**TP3: explicit compatible growth configurations.** Let P be ANY fixed finite set of primes >=5, W=6*product_(p in P)p, and delta=phi(W)/W. For every fixed beta in (1/2,1), there exists a sequence a_beta:N_{>0}->{-1,+1}, with a_beta(1)=1, such that for all m coprime to r and all integers e>=1,
+
+```text
+a_beta(r^e*m)=a_beta(m)       for r=2,3,
+a_beta(r^e*m)=-a_beta(m)      for r in P.                    (TP.8)
+```
+
+For every A subset P, set F_A(x)=sum_(n<=floor(x),(n,product(A))=1)a_beta(n). For x>=1,
+
+```text
+F_A(x)=c_A(beta)x^beta+O_(beta,P)((1+log x)^(|P|+2)),
+c_A(beta)=delta^beta/[(1-2^(-beta))(1-3^(-beta))]
+          *product_(p in P\A)(1-2p^(-beta))/(1-p^(-beta)) > 0.  (TP.9)
+```
+
+The same theorem admits any fixed s=beta+i*tau with 1/2<beta<1: choose a nonzero complex c of sufficiently small magnitude, and replace the main term by Re(C_A(s)x^s), where
+
+```text
+C_A(s)=c*delta^s/[(1-2^(-s))(1-3^(-s))]
+       *product_(p in P\A)(1-2p^(-s))/(1-p^(-s)) != 0.          (TP.10)
+```
+
+The error bound has the same logarithmic power, with constants also depending on s,c. If tau!=0, every F_A has both positive and negative subsequences of order x^beta. Every such sequence still obeys every complete local identity TP.1-TP.6 for primes selected from P. This is a theorem about the explicitly defined model class, not about arbitrary possible values of genuine u.
+
+**TP4: separate ordinary multiplicative model.** With P={5,7}, write uniquely n=2^a3^b5^c7^d m, gcd(m,210)=1. For fixed 1/2<beta<1 define
+
+```text
+v_beta(n)=(-1)^(1_(c>0)+1_(d>0))*m^(beta-1).                 (TP.11)
+```
+
+This is multiplicative on coprime arguments, v_beta(1)=1 and |v_beta(n)|<=1. It obeys TP.8 at 2,3,5,7. Its masked prefixes have the positive main terms of TP.9 with delta^beta replaced by delta/beta and error O_beta((1+log x)^4). It does NOT have unit magnitude or the prescribed negative values at primes outside {2,3,5,7}. It is not completely multiplicative at the selected primes; ordinary coprime multiplicativity is the claim.
+
+### E. Mathematical Proof
+
+#### E1. Exact Valuation Incidence And Every Boundary
+
+Each positive integer has exactly one representation n=5^e7^f m with gcd(m,35)=1. Unique factorization and the definition of u give u(n)=alpha(e)alpha(f)u(m). Summing those disjoint occurrences n<=x proves TP.1; no integer is omitted or duplicated. This acts on the product index after the accepted ordered occurrence projection defining C_R(6), not on new independently spendable copies of one history site.
+
+For one prime r, S=T_r-sum_(e>=1)D_r^e T_r. Subtract its r-dilation; every internal power cancels and the coefficient of D_r T_r becomes -2. This proves TP.2. The other prime mask is unchanged by r multiplication, so repeat on T5 or T7. Commutativity of integer division proves TP.3 without any clipped-path assumption. The unit and all e,f>=0 remain.
+
+For a fixed 35-free base m, its binary contribution is
+
+```text
+1_(m<=x)-1_(5m<=x)-1_(7m<=x)+1_(35m<=x).
+```
+
+It is +1 on x/5<m<=x, -1 on x/35<m<=x/7, and zero on the complementary intervals. This proves TP.4, including exact equality boundaries. The remaining valuation lattice is precisely max(e,f)>=2, proving TP.5. In particular repeated powers do NOT alternate signs.
+
+#### E2. Finite Inversion And The Source-Renewal Limit
+
+The local formal series is
+
+```text
+k(z)=1-z-z^2-z^3-...=(1-2z)/(1-z),
+k(z)^(-1)=(1-z)/(1-2z)=1+sum_(e>=1)2^(e-1)z^e.
+```
+
+At each finite x only finitely many dilations occur, so formal multiplication proves TP.6 without an infinite analytic premise. For beta>=1/2 and r=5,7, 2r^(-beta)<1. The inverse geometric sums equal (1-r^(-beta))/(1-2r^(-beta)), giving TP.7. The forward absolute mass is product_r(1-r^(-beta))^(-1). Applying either finite convolution to a bound C y^beta proves both same-power implications. Coefficients and floors are unchanged before taking absolute values.
+
+This also identifies precisely why a numerical response factor smaller than one at a positive real exponent is not an exponent improvement: it is a fixed nonzero amplitude multiplier. The coefficient mask P_r a(n)=1_(r not|n)a(n) satisfies P_r^2=P_r. Its value on r^e*m is zero for e>=1, whereas the original insertion law demands -a(m). Repeating the original law after deletion changes the source. Introducing new primes would require a new uniform argument; none is silently licensed by this finite calculation.
+
+#### E3. Constructing The Unit-Magnitude Model
+
+Enumerate the positive integers coprime to W as m_1<m_2<... . Their exact count N_W(y) satisfies N_W(y)=delta*y+O_W(1), by periodicity over W. This counts integers coprime to a fixed W, not primes or sieve survivors asserted to be prime.
+
+For the real-exponent construction let
+
+```text
+A_j=floor((j+j^beta)/2), A_0=0,
+epsilon_j=2(A_j-A_(j-1))-1.
+```
+
+Because 0<=j^beta-(j-1)^beta<=1 for 0<beta<1, A_j-A_(j-1) is 0 or 1. Hence epsilon_j is +/-1, epsilon_1=1, and
+
+```text
+sum_(j<=J)epsilon_j=2A_J-J=J^beta+O(1), with error in (-2,0].
+```
+
+Assign a_beta(m_j)=epsilon_j on the W-free bases. Extend uniquely to n=2^a3^b product_(p in P)p^(e_p) m_j by multiplying by (-1)^(number of e_p>0). This defines a single sequence at ALL scales, not a different sequence selected after x. It proves TP.8 and a_beta(1)=1. The W-free summatory function is delta^beta y^beta+O_(beta,W)(1), using N_W(y)=delta y+O(1) and bounded increments of y^beta.
+
+Use the following elementary lifting lemma. If a floor-prefix A(y)=Re(Cy^s)+O((1+log y)^d) for y>=1, Re(s)=beta>0, attach one fixed prime r with alpha_r(0)=1 and alpha_r(e)=sigma in {-1,+1} for e>=1. Its complete new prefix is
+
+```text
+L_r A(x)=sum_(0<=e<=floor(log_r x))alpha_r(e)A(x/r^e).
+```
+
+The leading finite geometric sum differs by O(1) from
+
+```text
+Re(C x^s * [1+sigma*r^(-s)/(1-r^(-s))]).
+```
+
+Indeed x^beta r^(-(floor(log_r x)+1)beta)<1. Summing at most O_r(1+log x) errors gives O((1+log x)^(d+1)). Apply this first at 2,3 with sigma=+1, then at each p in P\A with sigma=-1. This proves TP.9. All its factors are positive because 2p^(-beta)<1. No distribution theorem or numerical extrapolation is used.
+
+#### E4. Oscillatory Growth Is Compatible Too
+
+Fix s=beta+i*tau, 1/2<beta<1, and nonzero c with |c|<=beta/(2|s|). Define f(0)=0 and f(t)=Re(c t^s) for t>0. For every integer j>=1,
+
+```text
+|f(j)-f(j-1)| <= |c||s| integral_(j-1)^j t^(beta-1)dt <= 1/2.
+```
+
+Thus A_j=floor((j+f(j))/2) again has increments 0 or 1, and epsilon_j=2(A_j-A_(j-1))-1 has prefix f(J)+O(1). Change epsilon_1 to +1 if necessary; this changes that prefix by at most 2. Assign these signs to the same W-free bases and use the same unique prime-power extension. Since N_W(y)^s=(delta y)^s+O_s(1) for y>=1, its base prefix is Re(c delta^s y^s)+O(1). The lifting lemma proves TP.10.
+
+Every denominator is nonzero since |r^(-s)|<1. Every numerator at a prime p>=5 is nonzero since |2p^(-s)|<1. Therefore no prescribed mode in Re(s)>1/2 is killed by any fixed finite selected-prime product. For tau!=0, choose real x tending to infinity at phases giving cosine +1 or -1 and round to the nearest positive integer; the phase error tends to zero. The logarithmic error is o(x^beta), proving the two sign subsequences. This oscillatory extension is proved symbolically; the finite experiment below covers the real beta=3/4 instance only.
+
+#### E5. Ordinary Multiplicativity Does Not Rescue A Bounded-Weight Argument
+
+For coprime n,n', their selected prime supports are disjoint and their W-free parts multiply, so TP.11 satisfies v_beta(nn')=v_beta(n)v_beta(n'). On the W-free bases, partial summation against N_W(y)=delta y+O(1) gives
+
+```text
+sum_(m<=y,(m,W)=1)m^(beta-1)=delta*y^beta/beta+O_(beta,W)(1).
+```
+
+The error integral converges because beta-2<-1. The same four lifts give TP4's main term and error. This proof retains ordinary multiplicativity, but at an outside prime l it has v_beta(l)=l^(beta-1)>0 rather than u(l)=-1. Conversely TP3 retains unit magnitude but not full multiplicativity. Neither model satisfies BOTH of those original global requirements, and no claim to refute that stronger class is made.
+
+### F. Structural Consequence
+
+For P={5,7} and a real beta in (1/2,1), write c_* for TP3's positive leading coefficient of T35. Then the model has, simultaneously,
+
+```text
+(I-D5)(I-D7)S(x)
+ =c_*(1-2*5^(-beta))(1-2*7^(-beta))*x^beta+O(log^4 x),
+T35(x)-T35(x/5)=c_*(1-5^(-beta))*x^beta+O(log^4 x),
+T35(x/7)-T35(x/35)
+ =c_*7^(-beta)(1-5^(-beta))*x^beta+O(log^4 x).
+```
+
+All three leading coefficients are positive. The first Boolean boundary and the complete response therefore retain coherent growth rather than forcing an opposite sign. The actual higher-power remainder is included through TP.1 and TP.5. For the oscillatory construction the corresponding coefficients are nonzero complex numbers; phase changes do not eliminate their exponent.
+
+This precisely refutes the implication: the finitely many selected-prime sign laws, integer cutoffs, all resulting overlap identities, |a(n)|=1, a(1)=1 and an O(x^beta) prefix envelope force o(x^beta) or a smaller power. For TP4 replace unit magnitude by |a(n)|<=1 and add ordinary multiplicativity; that separate implication also fails. It does not refute a future argument using the full prescribed outside-prime parity of u, all genuine Mobius history constraints, or a verified source-specific correlation.
+
+### G. Signed And Quantitative Relevance
+
+The conditional native continuation remains exactly the accepted one. Write G(1/2+t) for every-positive-loss Mertens growth, with actual closed gap h=max(Theta,1/2)-1/2. A genuinely independently established row supplier
+
+```text
+for each t>0, G(1/2+t) implies some 0<=eta(t)<t such that
+forall epsilon>0 exists A_epsilon before every R>=2:
+ |C_R(6)|<=A_epsilon R^(1+eta(t)+epsilon)*sqrt(K_R)
+```
+
+would, using strict-history K_R<<R^(2t+small loss), exact radical return, full-prefix square interpolation and FR's inverse, imply G(1/2+(t+eta(t))/2). At t=h, the existing closed-envelope theorem licenses the premise, and h>0 would be contradicted. No zero need attain the supremum and no gain uniform as h decreases to zero is required. The source supplier is OPEN and target-strength; the new identities do not provide it. This invocation is a bounded audit that rejects the specified attempted supplier, not a new conditional-wrapper claim.
+
+The restored row is always C_R(6)=2J(R)-S(Y_R). TP.1 is substituted only for S(Y_R); J remains under its exact mask. The complete source retains
+
+```text
+Q_R^2=sum_g C_R(g)^2+2sum_(g<h)C_R(g)C_R(h),
+D_G=||H||^2+||E||^2-2<H,E>.
+```
+
+No favorable cross-row, cross-valuation, history/response or unit sign is assumed. For example, squaring TP.1 includes EVERY pair of valuation indices, not merely its diagonal. TP3 obeys that complete algebra but still has nonzero leading square size x^(2beta) along its large subsequences. It is not a countermodel to the genuine historical K_R or to a theorem depending on all source definitions.
+
+| Coordinate | Actual Bridge Or Barrier |
+| --- | --- |
+| Euler / FINITE-AC | TP identities are on u_6 after FR's accepted exact projection from the original ordered gcd-6 row. Original C=2J-S and Q=2M(history)-M(endpoint) retained. Synthetic sequences have NO claimed original-row bridge. |
+| Square blocks / MU-LIFT | Strict R^2-1, R=g*r rescaling and the at-most-2r full-prefix interpolation remain inherited. No endpoint-only statement is promoted to a complete recurrence. |
+| Actual-prime VF / finite wheel | The centered complete-wheel equality, virtual divisors and #915 clipping remain distinct. No TP theorem controls actual-prime discrepancy, cofactor-weighted error or first-bad admission. |
+| NNS / OAI | No ideal-character or original compensated Gram is identified with u_6. The global Mertens comparator is a size input only. The unchanged 47/54 LOW floor, theta>3/5 inversion and Re(s)>21/25 correction gates remain. |
+| CORR4 | Original q^2-daughter weights, mixed credit and tails have no new TP supplier. The present valuation lattice is not the CORR4 physical transport. |
+
+**Loss/recovery ledger.** TP.1-TP.6 are exact and lose no signs. The first triangle in TP2 discards cross-dilation phases but costs only a constant, including at beta=1/2; it cannot reduce a power. Ignoring TP.5's high powers or TP.3's +4 mixed term changes the carrier and is finitely refuted. Prior complete-cube cancellation, prime-response finite differences and clipped-path commutation are already proved infrastructure; their genuine source masks do not yield a bound on this full 35-free base. HB's critical Mobius-inverse logarithm is a separate accepted-for-intake paper calculation and is not the missing signed supplier. No already-proved theorem found in the source search recovers the necessary complete interaction here.
+
+### H. Falsification, Novelty And No-Circularity Review
+
+The primary exact checker was frozen before execution in the checkpoint and code. It tests all x=0..4096 on both genuine u and the explicitly synthetic beta=3/4 model, using integer arithmetic only. The beta=3/4 rounding uses floor(j^(3/4))=isqrt(isqrt(j^3)); every root is checked by its two integer fourth-power inequalities. Genuine coefficients through 4096 are independently reconstructed by trial factorization, separate from the sieve. All original ordered pairs for R=2..64 and R=139 are used only to check the NEW two-prime-restored row bridge; this is not a claim to rediscover the accepted row identity or R=139 obstruction.
+
+Result: **103,782 exact assertions PASS**, exit code zero; syntax check PASS. Tests include 16,384 local prime-power rule checks (including exponent zero), all 4,097 prefixes for each identity and both families, 64 original-row and 64 two-prime-restoration comparisons, and 2,519 symbolic coprime-multiplicativity checks for TP4's (sign, W-free-part) representation. The latter do not numerically certify the asymptotic or any real-power estimate. Two independent algorithms here mean same-author validation, not independent specialist review.
+
+| x | Genuine (S,T5,T7,T35) | Model (F_empty,F_5,F_7,F_35) |
+| ---: | --- | --- |
+| 25 | (-3,2,0,5) | (3,8,6,11) |
+| 35 | (-7,-2,-4,2) | (7,12,10,16) |
+| 49 | (-17,-10,-12,-4) | (7,14,12,20) |
+| 245 | (-109,-112,-110,-106) | (39,60,52,80) |
+| 4096 | (-552,-939,-809,-1215) | (304,513,431,711) |
+
+At genuine x=245 the additional entries ((I-D5)S,(I-D7)S,(I-D5)(I-D7)S,top,bottom) are (-92,-102,-82,-102,-3). This is also an original row cutoff: Y_94=floor((94^2-1)/36)=245, since 94^2-1=36*245+15. Thus a universal local opposite-sign claim is false even on the genuine source once both square powers fit. This finite observation alone says nothing about large-x growth. The model has (32,32,28,60,11) at the same x; TP3's proof, not that sample, supplies all-scale compatibility.
+
+Negative controls: at x=49, genuine S=-17 but the binary-only sum is -15, so the omitted higher-power return is -2. At x=35, TP.3's complete right side is -12, but dropping its mixed term gives -16. For the model those values are respectively 7 versus 9, and 2 versus -2. The unit and the exact pq boundary therefore matter, including a change of sign in the second model control.
+
+Source scope controls: the model differs from genuine u at 13: model(13)=+1, u(13)=-1. It also fails coprime multiplicativity explicitly at (11,13): model(11)=-1, model(13)=+1, model(143)=+1. No assertion about genuine u is inferred from this synthetic failure. TP4 has a different scope failure, namely positive diminished coefficients at every outside prime. The hypotheses excluded by each model are stated separately.
+
+**Novelty search.** Current-main searches for two-prime toggles, u_6 and prescribed exponent, plus the retrieved FP/FR/HB derivations, located existing `VF_MID_915_TWO_OWNER_CLIPPED_FLUX.lean`, `LARGE_PRIME_EULER_RESPONSE.lean` and the October 11 two-wall ledger. Their original statements and relevant proofs/definitions were inspected. Commuting multiplication, scalar frontier equalities, complete Boolean-cube cancellation and the one-edge obstruction are prior work, not TP novelty. No equivalent fixed-finite-rule prescribed real/oscillatory +/-1 construction was found in this scoped search. This is not a literature-priority claim or an exhaustive search of every historical report byte. No new formalization of generic finite differences is requested.
+
+The audit does not infer failure of the original global estimate from a model, does not assume a target-equivalent bound as an input, and does not extrapolate a finite census. Its mathematical novelty is the explicit all-scale compatible configuration and the resulting precise information-loss obstruction to the proposed local argument. The complete source estimate remains unresolved.
+
+### I. Conceptual Interpretation
+
+The two prime actions are consistent because unique factorization places every integer at one valuation-lattice site. Their intersection is a required arithmetic contribution, not two competing uses of a historical occurrence. Once the boundary is retained, local sign reversals do not force global sign conflict. They transmit a growth mode through a nonzero finite response factor.
+
+The genuinely unused information is outside the finite selected set: actual u has both full coprime multiplicativity and prescribed distinct-prime parity at every remaining prime. TP3 deliberately loses the first; TP4 deliberately loses the second and unit magnitude. A useful future structural inequality must use that missing joint information, or a different independently source-faithful mechanism, rather than applying the same local rules again.
+
+### J. Competing Structural Hypotheses
+
+1. REFUTED at its precise model-class scope: fixed selected-prime rules plus unit-magnitude coefficients force incompatible above-half growth or a smaller exponent. TP3 supplies real and oscillatory countermodels.
+2. REFUTED on the genuine source: simultaneous masked prefixes/differences must have opposite signs at every root where both square powers are admitted. x=245 is an explicit witness; no eventual-sign statement is decided.
+3. RETAIN as infrastructure, not progress by itself: exact finite valuation expansion, boundary conservation and bounded finite deletion inverse.
+4. PARKED_NO_HALF_CONTINUATION: a repeatable gain obtained solely by reusing p=5 and q=7, or by changing to another fixed finite list while discarding the remaining-prime information.
+5. OPEN: a full-prime, coefficient-sensitive estimate using information that excludes BOTH model constructions, with the complete original radical/history/Gram return. No such independent estimate was obtained here.
+
+### K. Specialist Handoffs
+
+**Coordinator:** HB's requested two-toggle feasibility test has the constructive-compatible-configuration outcome. TP3 refutes the local-rule inference for every fixed finite prime list, even with an arbitrary prescribed oscillatory exponent above half. Do not count this as an original-source exponent improvement or a new active RH route. Repeating the same test with one more fixed prime is not justified by the result. Preserve the stronger global arithmetic question and the distinct route portfolios.
+
+**Owner Payment:** TP.1 is an integer valuation partition on the accepted u_6 projection, not a physical #915 source allocation. Its no-duplication accounting does not authorize repeated donor spending or source-admission transfer. Your DB R=5 correction and R=137 restored-source reversal remain intact. The same requirement to retain the outside complement applies, but no theorem is transferred by analogy.
+
+**Analytic Type II:** the finite multiplier product is nonvanishing on Re(s)>1/2, so fixed-prime deletion preserves rather than suppresses real or oscillatory modes. This is not a Hecke/Nyman identification. LM1-LM5 were consumed with their author scopes; the Nyman long-middle covariance and its complete precision requirement remain a separate unpaid source. No pure-divisor variance theorem is imported as that covariance bound.
+
+**Prime Census:** no larger wheel or undirected scan is requested. The smallest useful independent check is the x=35 mixed coefficient, x=49 higher-power return, x=245 genuine sign vector, and exact beta=3/4 construction through 4096. To challenge TP3, target its rounding-increment bound, unique valuation extension, nonzero multiplier or complete logarithmic remainder, rather than compare finite ratios with an asymptotic claim. Preserve all masks and both families distinctly.
+
+**Adversarial Referee:** review TP3's all-scale construction and the oscillatory extension, especially the choice of c, correction of epsilon_1, and floor-prefix lifting error. Check TP4 separately: it is ordinary multiplicative, bounded, and non-unit-magnitude. A no-go for their union is not a no-go for genuine u. Also verify TP2's endpoint mass is finite because only 5 and 7 are involved, unlike the full FR/HB inverse. All new claims remain SELF_AUDIT pending your actual review.
+
+**Lean Verification:** NO_NEW_ENDPOINT_THEOREM_TO_FORMALIZE. Reuse the existing finite difference and source-preserving infrastructure; no generic algebra wrapper is requested. A future formal theorem is worthwhile only if independent acceptance and a named arithmetic consumer require it. #1139 is acknowledged as merged, and its exact obstruction is not duplicated. No hidden TP supplier, surrogate Mobius function or model bound should enter a native endpoint statement.
+
+### L. First Independently Missing Theorem
+
+No strict complete-source arithmetic cost eta(h)<h was proved. On the chosen representation, the missing estimate must exploit the actual all-prime coefficient pattern of u on its 210-free bases, with complete outside-prime interactions and exact return to C_R(6)=2J-S. A bound strong enough to reduce its exponent is target-strength under FR/TP recovery; calling it a smaller coprime-prefix problem would be misleading.
+
+The present work identifies why the suggested finite-prime sign incompatibility does not furnish that estimate. It supplies neither an independent global prohibition on the remaining configurations nor an alternate paid supplier. A growing-prime argument is not excluded, but its scale-dependent constants, moving masks and full signed return would have to be proved afresh. The highest-value next question is a genuine all-prime correlation that excludes the explicit local models, not another fixed-prime identity.
+
+### M. Continuity, Evidence And Next-Run Resume
+
+The complete nontruncated agent-reports tree at 0018e5ef7d75143e0c4f31b7a1fa45a876046780 was enumerated without a calendar cap. Every role's latest actual complete file was retrieved. Both November 15 and 16 Coordinator mirrors were fetched at that immutable revision and compared byte-for-byte; both pairs match. The prior own FP synthesis/receipt is the consumed watermark. The newly published relevant sequence was SG, FR, FR-AUDIT, HB, LM; each was recovered and its task-relevant sections read. Unchanged DB and prior SF/FP remain credited. CONTINUITY_COMPLETE here means latest-real discovery and task-relevant backfill, not an independent review or reread of the entire historical corpus.
+
+| Role / Latest November 16 File | Blob And Actual Receipt EST | Prior Consumed -> Newly Consumed; Resume |
+| --- | --- | --- |
+| Coordinator 00 and identical 90 | fcb7cc6f4c287b17ebd7ed8b6d618a113bd36d71; HB, 15:38:03 | MB -> HB; critical inverse logarithm and assigned 5/7 configuration test. HB paper claims are self-audited, not newly accepted here. |
+| Owner 10 | a52b439e693e069502b0c299a5f074a19bae0807; DB, 08:35:17 | DB -> NONE; R=5 correction and R=137 restoration retained, no silently expanded review. |
+| Analytic 20 | 84aaa2103225565607b5b033f273462bbe865246; LM receipt 17:30, substantive commit 17:29:50 | TW -> LM1-LM5; long-middle diagonal and shared-gcd sign obstruction are author evidence. |
+| Wheel 30, before TP | 1d2e2fc0da212df5423e0cb0370e3064bd7b0b2e; FP, 10:40:26 | Own FP and earlier SF recovered; FP1-FP4 now ACCEPT_ON_PAPER by FR. |
+| Census 40 | c07bf25eae457033e49e22b2eacc9c659a754d39; SG, 11:28:44 | RS -> SG; H=10/H=19 boundary failures and long-middle complement retained. |
+| Referee 50 | 95499c6b3e72d79fe6eb902465c9554d3b0be9fc; FR, 12:22:09 | NT -> FR1-FR5; fixed g=6 full growth and R=139 pointwise obstruction. |
+| Lean 60 | 8af089419676892af344fe7f980f0890e0d31912; FR-AUDIT, 13:39:45 | FFR4 -> FR-AUDIT; FR1-FR3 independently ACCEPT_ON_PAPER; R139 subsequently merged in #1139. |
+
+TODAY=AVAILABLE for all roles. Yesterday's verified Coordinator SS (8ce64136c888c6ad7820ef69a78caa5ece07d61b), Referee UE (a1c07bdd8e8493aece535745a0ce6f6635871620), and Lean FFR3 (8d25541bc6faebfa180e0456061d7725756bf5ca) were retrieved and relevant sections read as YESTERDAY=CARRY_FORWARD. Yesterday Owner/Analytic/Wheel/Census have NO_VERIFIED_REPORT; their last-actual history before today remains November 11, as recovered in SF/FP. Missing days are not invented executions, and no cause is asserted.
+
+The external inbox was read at 7d63d434690d00dffce9c90335d41c4f62d85798 and has no entry later than October 18. EXT-20261018-PNT-1 retains cofactor-weighted prime error, not equality of prime/Mertens errors; EXT-20261014-5 concerns unconditional all-R strict fractions, not every conditional first-bad theorem. No new external arithmetic supplier was found.
+
+### Immutable Source Ledger
+
+All main sources below are pinned to 4d5482805bac6a8f29d4fb4dadc61eca0bc06525. Report sources above are pinned to 0018e5ef7d75143e0c4f31b7a1fa45a876046780. The supplied checkpoint's report commit is a later own-report-only revision.
+
+| Path | Blob SHA |
+| --- | --- |
+| AGENTS.md | c4f36b772f8a4b0c24fe566b90fafb646073c60f |
+| CURRENT_PROOF_CONTRACT.md | 95566e37c8eaeb99ee680660df4f9d2e06ea5038 |
+| docs/RHLEAN_BOOTSTRAP_TO_HALF_20261116.md | 96ad4439ec458af6168f7d9cb3eef5dde291d37c |
+| docs/RHLEAN_CROSS_ROUTE_SIGNED_RECOVERY_20261110.md | e3ae4280438f591f1ffaddd754a1c3a6d35d0691 |
+| docs/RHLEAN_REPORT_CONTINUITY_LAST_ACTUAL_20261111.md | 3e71820a4af722eae7098da6945bb5bcba50dd0d |
+| research/EULER_HYBRID_ABEL_GRAM_20261027.lean | 2a94dd8fd56fc03e95f732fb44b778a8d4f83e26 |
+| research/EULER_SELF_DUAL_ENDPOINT_GATE_20261027.lean | e7ee8f77ffd59bccaa49dd6d74fbe0d7952c2d73 |
+| research/EULER_FIXED_GCD_ROW_OBSTRUCTION.lean | 9003eb1c226f0b114be6402e63f325b60c80bf92 |
+| RHLean/Proof/SquareRootAmplificationLogGrowth.lean | 2599db31079f388229d072ee616957fba6ffc555 |
+| RHLean/Proof/AmplificationExponentIteration.lean | d78be4509e5dcc35b833c3786258b94fc6e71915 |
+| research/UNIVERSAL_ENVELOPE_RH_BRIDGES.lean | 02a88cadc1eb984557b9dd7ee2e03e29bd3e5287 |
+| research/UNIVERSAL_ENVELOPE_MERTENS_MAX.lean | 9b25e34a988b0829c29f63df9863e964af600c3f |
+| research/VF_CANONICAL_SQRT_TWO_VON_KOCH.lean | 79030d70e8d3e0d08eef9bac53fef95c36eca2fb |
+| research/oai_434/VF919WindowErrorClosure.lean | f629db1b2b65d6ec042ac9432397d4b6316200c6 |
+| scripts/lean/window_error_closure/WindowErrorClosureAudit.lean | 1f17f9401a63d16227db2e2aad020b9f74bc5f4e |
+| research/half_bootstrap_20261116/native_renewal.md | 18b00148e405be3115b5ebb2066e9e67c417b563 |
+| research/VF_MID_915_TWO_OWNER_CLIPPED_FLUX.lean | 2d9d805c49a84cae0dd205cd33413d30d9554dcd |
+| research/LARGE_PRIME_EULER_RESPONSE.lean | 9bf829dd67ba9c41205916cd2d59473342489549 |
+| research/TWISTED_EULER_TWO_WALL_FINITE_C_LEDGER.md | 02848a578da1d35a73560f679345febe52b9fe42 |
+
+```text
+LABEL=20261116-wheel-1806-EST/TP; TRIGGER=2026-11-16T18:06:01-05:00
+MAIN=4d5482805bac6a8f29d4fb4dadc61eca0bc06525
+half_bootstrap_ack=BOOTSTRAP_TO_HALF_V1
+ROUTE=FINITE-AC bounded feasibility audit, not a newly active RH route
+ORIGINAL_SOURCE=C_R(6)=2J(R)-S(floor((R^2-1)/36)), genuine u_6
+CURRENT_P(b)=G(b); CERTIFIED_START=b_base=7/8-7/(64*N_pack)
+ADVANCE=NONE; closed-boundary eta(h)<h supplier remains OPEN
+VALID_RANGE=TP identities all x>=0; fixed-prime inverse beta>=1/2
+MODEL_RANGE=every fixed finite P>=5, 1/2<beta<1, optional fixed imaginary part
+CONSTANT_ORDER=prime set, beta/s and model chosen first, then constants, then ALL x
+ALL_RETURNS=unit, repeated powers, pq overlap, radical J, ordered rows and all Gram terms
+FALSIFIERS=x35 mixed term; x49 high powers; x245 genuine same signs
+NEW=TP3 finite-rule real/oscillatory configuration theorem; TP4 separate weighted model
+DO_NOT_CONFLATE=models with genuine u, unit magnitude with ordinary multiplicativity
+PRESENT_WORK_TO_NEXT=independent scope/proof review; seek full-prime arithmetic information
+STATUS=completed SUPPORTING_NO_GO; fixed-prime sign-only supplier PARKED
+MATHEMATICS=PAPER_PROOF/SELF_AUDIT; REVIEW=PENDING; LEAN=NOT_FORMALIZED
+FINITE=103782 exact assertions PASS; no infinite theorem inferred from finite data
+NO_NEW_GLOBAL_GAIN; VERIFIED_ETA=NONE; RH=OPEN
+PUBLICATION=READBACK_PENDING until separate verified receipt
+```
+
+The early checkpoint was committed at 20cd11ead8d68638fe99a62b1a0020e75ae7940a, blob 2122971dd3df50f567b773bcc38abb007a200d42, and immutably read back byte-for-byte before the registered computation. Direct git clone was unavailable (CONNECT tunnel HTTP 403); authenticated connector reads and own-report writes worked. Only this dated role-owned file is written remotely. No main/source/policy/other-report edit, proof branch, PR, issue, merge, agent launch, permission or schedule change occurred.
+
+### TP Prepublication Validation
+
+At 2026-11-16 23:26:49 UTC / 18:26:49 EST, main was freshly verified as 4d5482805bac6a8f29d4fb4dadc61eca0bc06525; the full open/draft PR collection was empty. The report branch was 20cd11ead8d68638fe99a62b1a0020e75ae7940a, this invocation's checkpoint. Its untruncated recursive tree was compared with the intake tree: the only changed file was this own daily report. No newly published upstream handoff or external-inbox change was omitted.
+
+All thirteen A-M sections, complete hypotheses, masks, logarithmic error terms, exact endpoint conventions and model/source distinctions were checked. Markdown has balanced code fences and no non-ASCII characters. The embedded checker matches the executed source byte-for-byte and its SHA-256 below. The new synthesis is appended after the current full report; earlier text and the checkpoint are preserved exactly. New mathematical claims remain PAPER_PROOF / SELF_AUDIT, independent review PENDING, not Lean-formalized. Publication is not claimed until immutable readback below.
+
+### Reproducibility Appendix
+
+
+The complete standard-library checker follows. It is a finite regression program, not a Lean proof. Final source SHA-256: 153ce1c2c0c5996e03e4d38d1d7c41062616c7091df9aaa331509a6fc4bcd9eb. Exact coefficient-array JSON SHA-256: 7238d4788230f291f21f760838d53faa3484d70d32fc97d0a10236ca71e4ab23. The oscillatory extension is not numerically tested. The multiplicative weighted model is checked symbolically through its (sign,W-free-part) representation, not by floating powers.
+
+```python
+"""Exact audit of the registered 5/7 fixed-row continuation question."""
+
+import hashlib
+import json
+from collections import Counter
+from math import gcd, isqrt
+
+
+LIMIT = 4096
+ROOTS = list(range(2, 65)) + [139]
+checks = Counter()
+
+
+def check(label, condition):
+    checks[label] += 1
+    assert condition, (label, checks[label])
+
+
+def factors(n):
+    result = []
+    p = 2
+    while p * p <= n:
+        e = 0
+        while n % p == 0:
+            n //= p
+            e += 1
+        if e:
+            result.append((p, e))
+        p += 1
+    if n > 1:
+        result.append((n, 1))
+    return result
+
+
+def source_tables(limit):
+    mu = [1] * (limit + 1)
+    rad = [1] * (limit + 1)
+    u = [1] * (limit + 1)
+    prime = [True] * (limit + 1)
+    for p in range(2, limit + 1):
+        if not prime[p]:
+            continue
+        for n in range(p, limit + 1, p):
+            prime[n] = False
+            mu[n] *= -1
+            rad[n] *= p
+            if p > 3:
+                u[n] *= -1
+        for n in range(p * p, limit + 1, p * p):
+            mu[n] = 0
+    mu[0] = rad[0] = u[0] = 0
+    return mu, rad, u
+
+
+def prefix(values, modulus=1):
+    result = [0]
+    for n in range(1, len(values)):
+        result.append(result[-1] + (values[n] if gcd(n, modulus) == 1 else 0))
+    return result
+
+
+def powers(p, x):
+    e, value = 0, 1
+    while value <= x:
+        yield e, value
+        e, value = e + 1, value * p
+
+
+def reconstruct(base, x, primes, inverse=False):
+    if not primes:
+        return base[x]
+    p, *rest = primes
+    total = 0
+    for e, pe in powers(p, x):
+        weight = (1 if e == 0 else 2 ** (e - 1)) if inverse else (1 if e == 0 else -1)
+        total += weight * reconstruct(base, x // pe, rest, inverse)
+    return total
+
+
+def four_difference(a, x, c):
+    return a[x] - c * a[x // 5] - c * a[x // 7] + c * c * a[x // 35]
+
+
+def inspect_family(values, label):
+    s, t5, t7, t35 = [prefix(values, d) for d in (1, 5, 7, 35)]
+    coherent = None
+    binary_failure = None
+    mixed_failure = None
+    for x in range(LIMIT + 1):
+        check(label + ":one5", s[x] - s[x // 5] == t5[x] - 2 * t5[x // 5])
+        check(label + ":one7", s[x] - s[x // 7] == t7[x] - 2 * t7[x // 7])
+        check(label + ":two", four_difference(s, x, 1) == four_difference(t35, x, 2))
+        check(label + ":forward", s[x] == reconstruct(t35, x, [5, 7]))
+        check(label + ":inverse", t35[x] == reconstruct(s, x, [5, 7], True))
+        check(label + ":inverse5", t5[x] == reconstruct(s, x, [5], True))
+        check(label + ":inverse7", t7[x] == reconstruct(s, x, [7], True))
+        binary = four_difference(t35, x, 1)
+        literal = sum(
+            values[m] * (1 - int(5 * m <= x) - int(7 * m <= x) + int(35 * m <= x))
+            for m in range(1, x + 1) if gcd(m, 35) == 1
+        )
+        check(label + ":binary_boundary", binary == literal)
+        top = t35[x] - t35[x // 5]
+        bottom = t35[x // 7] - t35[x // 35]
+        check(label + ":boundary_intervals", binary == top - bottom)
+        if x >= 49 and binary_failure is None and s[x] != binary:
+            binary_failure = {"x": x, "complete": s[x], "binary_only": binary, "omitted": s[x] - binary}
+        if x >= 35 and mixed_failure is None and t35[x // 35] != 0:
+            mixed_failure = {"x": x, "full_rhs": four_difference(t35, x, 2),
+                             "without_mixed": t35[x] - 2 * t35[x // 5] - 2 * t35[x // 7]}
+        vector = [s[x], t5[x], t7[x], t35[x], s[x] - s[x // 5],
+                  s[x] - s[x // 7], four_difference(s, x, 1), top, bottom]
+        if x >= 245 and coherent is None and (all(v > 0 for v in vector) or all(v < 0 for v in vector)):
+            coherent = {"x": x, "S_T5_T7_T35_D5_D7_D57_top_bottom": vector}
+    check(label + ":negative_binary", binary_failure is not None)
+    check(label + ":negative_mixed", mixed_failure is not None)
+    return s, t5, t7, t35, coherent, binary_failure, mixed_failure
+
+
+mu, rad, genuine = source_tables(max(LIMIT, max(ROOTS) ** 2 - 1))
+for n in range(1, LIMIT + 1):
+    fs = factors(n)
+    expected = (-1) ** sum(p > 3 for p, _ in fs)
+    check("independent_source", genuine[n] == expected)
+
+actual = inspect_family(genuine[:LIMIT + 1], "genuine")
+genuine_s = prefix(genuine)
+root_receipts = []
+for r in ROOTS:
+    x = r * r - 1
+    row = sum(mu[a] * mu[b] * (x // (a * b))
+              for a in range(1, r) for b in range(1, r) if gcd(a, b) == 6)
+    y = x // 36
+    historical = sum(genuine[m] for m in range(1, y + 1) if rad[36 * m] < r)
+    check("original_row", row == 2 * historical - genuine_s[y])
+    check("row_two_prime_restore", row == 2 * historical - reconstruct(actual[3], y, [5, 7]))
+    if r in (7, 35, 64, 139):
+        root_receipts.append({"R": r, "Y": y, "row6": row, "J": historical, "S": genuine_s[y]})
+
+epsilon = {}
+j = 0
+previous = 0
+for m in range(1, LIMIT + 1):
+    if gcd(m, 210) != 1:
+        continue
+    j += 1
+    root = isqrt(isqrt(j ** 3))
+    check("exact_fourth_root", root ** 4 <= j ** 3 < (root + 1) ** 4)
+    a_j = (j + root) // 2
+    epsilon[m] = 2 * (a_j - previous) - 1
+    previous = a_j
+    check("base_sign", epsilon[m] in (-1, 1))
+    check("base_prefix_error", root - 1 <= 2 * a_j - j <= root)
+
+model = [0] * (LIMIT + 1)
+for n in range(1, LIMIT + 1):
+    m, sign = n, 1
+    for p in (2, 3, 5, 7):
+        if m % p == 0:
+            if p in (5, 7):
+                sign = -sign
+            while m % p == 0:
+                m //= p
+    model[n] = sign * epsilon[m]
+    check("model_unit_magnitude", model[n] in (-1, 1))
+for p in (2, 3, 5, 7):
+    for n in range(1, LIMIT + 1):
+        if n % p == 0:
+            continue
+        for e, pe in powers(p, LIMIT // n):
+            sign = -1 if p in (5, 7) and e > 0 else 1
+            check("model_local_prime_rules", model[n * pe] == sign * model[n])
+synthetic = inspect_family(model, "synthetic")
+check("model_is_not_source", model[13] == 1 and genuine[13] == -1)
+nonmultiplicative = next(
+    (a, b, model[a], model[b], model[a * b])
+    for a in range(2, 65) for b in range(2, 65)
+    if a * b <= LIMIT and gcd(a, b) == 1 and model[a * b] != model[a] * model[b]
+)
+
+# A pair (sign, m) represents sign*m**(beta-1) for every fixed beta.
+# This checks ordinary coprime multiplicativity without evaluating real powers.
+def weighted_model(n):
+    m, sign = n, 1
+    for p in (2, 3, 5, 7):
+        if m % p == 0:
+            if p in (5, 7):
+                sign = -sign
+            while m % p == 0:
+                m //= p
+    return sign, m
+
+
+for a in range(1, 65):
+    for b in range(1, 65):
+        if gcd(a, b) == 1:
+            sa, ma = weighted_model(a)
+            sb, mb = weighted_model(b)
+            sc, mc = weighted_model(a * b)
+            check("weighted_multiplicativity", (sc, mc) == (sa * sb, ma * mb))
+
+payload = {
+    "scope": {"prefix_limit": LIMIT, "roots": ROOTS, "model_beta": "3/4", "model_is_genuine": False},
+    "checks": dict(sorted(checks.items())),
+    "total_assertions": sum(checks.values()),
+    "genuine_coherent": actual[4],
+    "synthetic_coherent": synthetic[4],
+    "negative_controls": {"genuine_binary": actual[5], "genuine_mixed": actual[6],
+                          "synthetic_binary": synthetic[5], "synthetic_mixed": synthetic[6]},
+    "row_receipts": root_receipts,
+    "synthetic_not_multiplicative_witness": nonmultiplicative,
+    "samples": [{"x": x, "genuine": [a[x] for a in actual[:4]],
+                 "synthetic": [a[x] for a in synthetic[:4]]} for x in (1, 25, 35, 49, 245, 1024, 4096)],
+    "exact_prefix_sha256": hashlib.sha256(json.dumps({"u": genuine[:LIMIT + 1], "model": model},
+                                                       separators=(",", ":")).encode()).hexdigest(),
+    "status": "PASS",
+}
+print(json.dumps(payload, indent=2))
+```
+
+### Exact Checker Output
+
+```json
+{
+  "scope": {
+    "prefix_limit": 4096,
+    "roots": [
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      33,
+      34,
+      35,
+      36,
+      37,
+      38,
+      39,
+      40,
+      41,
+      42,
+      43,
+      44,
+      45,
+      46,
+      47,
+      48,
+      49,
+      50,
+      51,
+      52,
+      53,
+      54,
+      55,
+      56,
+      57,
+      58,
+      59,
+      60,
+      61,
+      62,
+      63,
+      64,
+      139
+    ],
+    "model_beta": "3/4",
+    "model_is_genuine": false
+  },
+  "checks": {
+    "base_prefix_error": 936,
+    "base_sign": 936,
+    "exact_fourth_root": 936,
+    "genuine:binary_boundary": 4097,
+    "genuine:boundary_intervals": 4097,
+    "genuine:forward": 4097,
+    "genuine:inverse": 4097,
+    "genuine:inverse5": 4097,
+    "genuine:inverse7": 4097,
+    "genuine:negative_binary": 1,
+    "genuine:negative_mixed": 1,
+    "genuine:one5": 4097,
+    "genuine:one7": 4097,
+    "genuine:two": 4097,
+    "independent_source": 4096,
+    "model_is_not_source": 1,
+    "model_local_prime_rules": 16384,
+    "model_unit_magnitude": 4096,
+    "original_row": 64,
+    "row_two_prime_restore": 64,
+    "synthetic:binary_boundary": 4097,
+    "synthetic:boundary_intervals": 4097,
+    "synthetic:forward": 4097,
+    "synthetic:inverse": 4097,
+    "synthetic:inverse5": 4097,
+    "synthetic:inverse7": 4097,
+    "synthetic:negative_binary": 1,
+    "synthetic:negative_mixed": 1,
+    "synthetic:one5": 4097,
+    "synthetic:one7": 4097,
+    "synthetic:two": 4097,
+    "weighted_multiplicativity": 2519
+  },
+  "total_assertions": 103782,
+  "genuine_coherent": {
+    "x": 245,
+    "S_T5_T7_T35_D5_D7_D57_top_bottom": [
+      -109,
+      -112,
+      -110,
+      -106,
+      -92,
+      -102,
+      -82,
+      -102,
+      -3
+    ]
+  },
+  "synthetic_coherent": {
+    "x": 245,
+    "S_T5_T7_T35_D5_D7_D57_top_bottom": [
+      39,
+      60,
+      52,
+      80,
+      32,
+      32,
+      28,
+      60,
+      11
+    ]
+  },
+  "negative_controls": {
+    "genuine_binary": {
+      "x": 49,
+      "complete": -17,
+      "binary_only": -15,
+      "omitted": -2
+    },
+    "genuine_mixed": {
+      "x": 35,
+      "full_rhs": -12,
+      "without_mixed": -16
+    },
+    "synthetic_binary": {
+      "x": 49,
+      "complete": 7,
+      "binary_only": 9,
+      "omitted": -2
+    },
+    "synthetic_mixed": {
+      "x": 35,
+      "full_rhs": 2,
+      "without_mixed": -2
+    }
+  },
+  "row_receipts": [
+    {
+      "R": 7,
+      "Y": 1,
+      "row6": 1,
+      "J": 1,
+      "S": 1
+    },
+    {
+      "R": 35,
+      "Y": 34,
+      "row6": 22,
+      "J": 7,
+      "S": -8
+    },
+    {
+      "R": 64,
+      "Y": 113,
+      "row6": 43,
+      "J": -4,
+      "S": -51
+    },
+    {
+      "R": 139,
+      "Y": 536,
+      "row6": 0,
+      "J": -99,
+      "S": -198
+    }
+  ],
+  "synthetic_not_multiplicative_witness": [
+    11,
+    13,
+    -1,
+    1,
+    1
+  ],
+  "samples": [
+    {
+      "x": 1,
+      "genuine": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "synthetic": [
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "x": 25,
+      "genuine": [
+        -3,
+        2,
+        0,
+        5
+      ],
+      "synthetic": [
+        3,
+        8,
+        6,
+        11
+      ]
+    },
+    {
+      "x": 35,
+      "genuine": [
+        -7,
+        -2,
+        -4,
+        2
+      ],
+      "synthetic": [
+        7,
+        12,
+        10,
+        16
+      ]
+    },
+    {
+      "x": 49,
+      "genuine": [
+        -17,
+        -10,
+        -12,
+        -4
+      ],
+      "synthetic": [
+        7,
+        14,
+        12,
+        20
+      ]
+    },
+    {
+      "x": 245,
+      "genuine": [
+        -109,
+        -112,
+        -110,
+        -106
+      ],
+      "synthetic": [
+        39,
+        60,
+        52,
+        80
+      ]
+    },
+    {
+      "x": 1024,
+      "genuine": [
+        -296,
+        -388,
+        -354,
+        -433
+      ],
+      "synthetic": [
+        106,
+        176,
+        148,
+        241
+      ]
+    },
+    {
+      "x": 4096,
+      "genuine": [
+        -552,
+        -939,
+        -809,
+        -1215
+      ],
+      "synthetic": [
+        304,
+        513,
+        431,
+        711
+      ]
+    }
+  ],
+  "exact_prefix_sha256": "7238d4788230f291f21f760838d53faa3484d70d32fc97d0a10236ca71e4ab23",
+  "status": "PASS"
+}
+```
+
