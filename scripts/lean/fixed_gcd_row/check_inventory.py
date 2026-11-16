@@ -14,6 +14,7 @@ expected = {
     "eulerFixedGcdRowInt_139_six", "eulerBilinearInt_139",
     "mertensSummatory_19320", "eulerFixedGcdRow_six_witness",
     "not_pointwise_mertens_le_fixedGcdRow_six",
+    "not_pointwise_centered_mertens_le_fixedGcdRow_six",
 }
 actual = set(re.findall(r"^theorem (\w+)", body, re.M))
 assert actual == expected, (actual, expected)
@@ -21,4 +22,4 @@ log = Path("fixed-gcd-row-audit.log").read_text()
 passed = re.findall(r"PASS fixed-gcd-row RHLean.Proof.(\w+):", log)
 assert set(passed) == expected and len(passed) == len(expected), passed
 assert "sorryAx" not in log and "admitAx" not in log
-print("PASS: exact public theorem inventory and all seven axiom audits")
+print("PASS: exact public theorem inventory and all eight axiom audits")

@@ -11,6 +11,12 @@ example : ¬ ∃ C : Real, ∀ R : Nat, 7 <= R ->
       C * ‖(eulerFixedGcdRowInt R 6 : Complex)‖ :=
   not_pointwise_mertens_le_fixedGcdRow_six
 
+example : ¬ ∃ C : Real, ∀ R : Nat, 7 <= R ->
+    ‖mertensSummatory (squareRootEndpoint R) - 1‖ <=
+      C * ‖(eulerFixedGcdRowInt R 6 : Complex)‖ :=
+  not_pointwise_centered_mertens_le_fixedGcdRow_six
+
 #check eulerFixedGcdRowInt_cast
 #check eulerBilinearInt_cast
 #print not_pointwise_mertens_le_fixedGcdRow_six
+#print not_pointwise_centered_mertens_le_fixedGcdRow_six

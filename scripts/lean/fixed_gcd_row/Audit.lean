@@ -30,7 +30,8 @@ def roots : Array Name := #[
   `RHLean.Proof.eulerBilinearInt_139,
   `RHLean.Proof.mertensSummatory_19320,
   `RHLean.Proof.eulerFixedGcdRow_six_witness,
-  `RHLean.Proof.not_pointwise_mertens_le_fixedGcdRow_six]
+  `RHLean.Proof.not_pointwise_mertens_le_fixedGcdRow_six,
+  `RHLean.Proof.not_pointwise_centered_mertens_le_fixedGcdRow_six]
 
 end FixedGcdRowAudit
 
@@ -51,7 +52,8 @@ def main (_args : List String) : IO UInt32 := do
       unless allowed.contains ax do
         throw (IO.userError s!"Unapproved axiom for {root}: {ax}")
     let reached := closure env [root]
-    if root == `RHLean.Proof.not_pointwise_mertens_le_fixedGcdRow_six then
+    if root == `RHLean.Proof.not_pointwise_mertens_le_fixedGcdRow_six ||
+        root == `RHLean.Proof.not_pointwise_centered_mertens_le_fixedGcdRow_six then
       for dependency in #[
           `RHLean.Proof.eulerFixedGcdRowInt_139_six,
           `RHLean.Proof.eulerBilinearInt_139,

@@ -44,12 +44,14 @@ theorem eulerFixedGcdRowInt_cast (R g : Nat) :
             (ArithmeticFunction.moebius a : Complex) * eulerSelfDualFloor R a b
           else 0)) := by
   unfold eulerFixedGcdRowInt eulerSelfDualFloor
-  push_cast <;> rfl
+  push_cast
+  rfl
 
 theorem eulerBilinearInt_cast (R : Nat) :
     (eulerBilinearInt R : Complex) = eulerSelfDualBilinear R := by
   unfold eulerBilinearInt eulerSelfDualBilinear eulerSelfDualFloor
-  push_cast <;> rfl
+  push_cast
+  rfl
 
 set_option maxRecDepth 100000 in
 set_option maxHeartbeats 0 in
@@ -82,7 +84,7 @@ theorem mertensSummatory_19320 : mertensSummatory 19320 = (43 : Complex) := by
 
 /-- The original endpoint is nonzero while the specified, nonempty row vanishes. -/
 theorem eulerFixedGcdRow_six_witness :
-    7 <= (139 : Nat) /\ eulerFixedGcdRowInt 139 6 = 0 /\
+    7 <= (139 : Nat) ∧ eulerFixedGcdRowInt 139 6 = 0 ∧
       mertensSummatory (squareRootEndpoint 139) = (43 : Complex) := by
   refine ⟨by norm_num, eulerFixedGcdRowInt_139_six, ?_⟩
   simpa only [show squareRootEndpoint 139 = 19320 by norm_num [squareRootEndpoint]]
@@ -93,6 +95,16 @@ This is not an assertion about eventual or all-scale growth estimates. -/
 theorem not_pointwise_mertens_le_fixedGcdRow_six :
     ¬ ∃ C : Real, ∀ R : Nat, 7 <= R ->
       ‖mertensSummatory (squareRootEndpoint R)‖ <=
+        C * ‖(eulerFixedGcdRowInt R 6 : Complex)‖ := by
+  rintro ⟨C, h⟩
+  have hh := h 139 (by norm_num)
+  rw [eulerFixedGcdRow_six_witness.2.1, eulerFixedGcdRow_six_witness.2.2] at hh
+  norm_num at hh
+
+/-- Centering at the original unit anchor does not remove the obstruction. -/
+theorem not_pointwise_centered_mertens_le_fixedGcdRow_six :
+    ¬ ∃ C : Real, ∀ R : Nat, 7 <= R ->
+      ‖mertensSummatory (squareRootEndpoint R) - 1‖ <=
         C * ‖(eulerFixedGcdRowInt R 6 : Complex)‖ := by
   rintro ⟨C, h⟩
   have hh := h 139 (by norm_num)
