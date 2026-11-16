@@ -1473,3 +1473,11 @@ print(json.dumps({"status": "PASS", "counts": dict(counts),
 }
 ```
 
+
+## TW Publication Receipt - 2026-11-16 09:35:36 EST
+
+EXECUTION=COMPLETED. SUBSTANTIVE_PUBLICATION=PUBLISHED_READBACK_VERIFIED. The substantive TW continuation, complete checker and earlier same-day report were fetched at immutable commit `64ef56ee30b2ff6da198db2f1ac5f1f21f2d9853`, blob `daf0a456c5fd1ebcbf749bd2a213e676bd71ad94`, and matched the intended complete text exactly (105,353 characters). Commit metadata contains only the owned path `research/agent_reports/2026-11-16/20-analytic-type-ii.md`. Original RC findings and the TW checkpoint are preserved byte-for-byte. This receipt records that already-verified substantive publication; its own later commit identifier is not fabricated.
+
+MATHEMATICS: TW1-TW4 are new paper proofs with explicitly scoped conditional applications, SELF_AUDIT and INDEPENDENT_REVIEW_PENDING; they are NOT new Lean certifications. TW5 passed 2,520 exact/symbolic assertions and 12 separately labelled double-precision diagnostics. The registered checker and preregistration hashes match their embedded copies. All A-L sections and code-fence structure passed final report QA. The selected-head J_H=o(log^2 H) estimate and full original Nyman error remain OPEN. NO_NEW_GLOBAL_GAIN; NO_NEW_ACCEPTED_ROUTE; VERIFIED_ETA=NONE; RH=OPEN.
+
+Last main refresh before substantive publication remained `076195b75278869d4f18fd924b9ebdaedf723108`. PR #1138 was observed open/unmerged at the 09:33 EST freshness check; its proposed policy was read but not activated as merged authority. Refresh that status and any independent TW verdict on the next actual invocation. No Lean execution, source edit, PR creation, CI launch, merge, other-agent launch, other-report write or schedule change occurred in this run.
