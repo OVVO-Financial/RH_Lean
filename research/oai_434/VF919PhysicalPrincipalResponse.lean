@@ -100,7 +100,10 @@ theorem actual_window_all_delay_error {κ : Type*}
   have hexp : ((17 / 48 : ℝ) - 24 * tilt) / 3 - 5 / 6 + 1 / 36 =
       -11 / 16 - 8 * tilt := by ring
   dsimp only at herr
-  simpa only [hexp, sourceCorrection] using herr
+  have hcorrection : (fun s : ℂ => globalClosedCorrection η E s 1 (1 / 6)) =
+      sourceCorrection η E := rfl
+  rw [hexp, hcorrection] at herr
+  exact herr
 
 /-- Quantitative control of the complete original principal-row sum minus
 its full finite response. The truncation order depends on the fixed slots,
