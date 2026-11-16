@@ -1,0 +1,62 @@
+name: Euler fixed-gcd row obstruction
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'research/EULER_FIXED_GCD_ROW_OBSTRUCTION.lean'
+      - 'research/EULER_SELF_DUAL_ENDPOINT_GATE_20261027.lean'
+      - 'research/EULER_HYBRID_ABEL_GRAM_20261027.lean'
+      - 'scripts/lean/fixed_gcd_row/**'
+      - 'scripts/fixed_gcd_row_regression.py'
+      - '.github/workflows/euler-fixed-gcd-row.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: fixed-gcd-row-${{ github.head_ref || github.ref_name }}-${{ github.event.pull_request.head.sha || github.sha }}
+  cancel-in-progress: true
+
+jobs:
+  original-fixed-gcd-row-proof:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - name: Independent exact original-source regression
+        run: python3 scripts/fixed_gcd_row_regression.py
+      - name: Verify compiler and Mathlib pins
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(cat lean-toolchain)" = 'leanprover/lean4:v4.34.1'
+          grep -q 'd13f23b723b8a846827a245b89c10fc7d3f11612' lakefile.lean
+      - name: Pinned Lean and cached Mathlib
+        uses: ./.github/actions/lean-setup
+      - name: Restore native compiled prerequisites
+        uses: ./.github/actions/lean-compiled-cache
+      - name: Warning-fatal original-source import closure
+        uses: ./.github/actions/research-compile
+        with:
+          build-library: 'true'
+          targets: research/EULER_FIXED_GCD_ROW_OBSTRUCTION.lean
+      - name: Exact types, dependencies, and standard terminal axioms
+        shell: bash
+        run: |
+          set -euo pipefail
+          lake env lean -DwarningAsError=true scripts/lean/fixed_gcd_row/ExactTypes.lean | tee fixed-gcd-row-types.log
+          lake env lean -DwarningAsError=true --run scripts/lean/fixed_gcd_row/Audit.lean | tee fixed-gcd-row-audit.log
+          python3 scripts/lean/fixed_gcd_row/check_inventory.py
+      - name: Preserve proof and audit evidence
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: fixed-gcd-row-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            research/EULER_FIXED_GCD_ROW_OBSTRUCTION.lean
+            scripts/lean/fixed_gcd_row/
+            fixed-gcd-row-types.log
+            fixed-gcd-row-audit.log
+          if-no-files-found: error
