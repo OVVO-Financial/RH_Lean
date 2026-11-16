@@ -39,3 +39,9 @@ Before computation, freeze the following domain: all R=2..48 and every 1<=n<R^2,
 ### D-M. Remaining Work
 
 Complete the proof, attempt a meaningful all-scale quantitative consequence, preserve the strongest failed strengthening, identify the first unpaid signed correlation, and publish the A-M synthesis with source hashes, exact executed programs/output and verified readback. No local Lean, source edit, proof branch/PR, merge, workflow launch, agent launch, schedule or permission change is authorized or planned. Only this role's dated report will be written remotely.
+
+## Proof-Led Extension Registration - Before Computation
+
+The same derivation suggests a rectangular extension: for a<U, b<V, n<UV, replace sigma by 1-1_(rad(n)>=U)-1_(rad(n)>=V). If U<=rad(n)<V, toggling in b the least prime of n absent from a should give a fixed-point-free sign-reversing involution INSIDE the admitted original carrier, preserving n and gcd. For arbitrary n retain the exact intersection a>=U,b>=V; at n=UV it is the single (U,V) pair. Add all U,V=2..12, 1<=n<=2UV to the frozen exact test, and verify the involution on the middle band.
+
+Also test the derived independent inequalities |C_R(g)|<=mu(g)^2 floor(X/g^2), |S_R(d)|<=mu(d)^2 floor(X/d^2), and integer tail 3G^3 sum_(g>G)C_R(g)^2<=X^2. Do NOT infer full Gram control from productwise unit coefficients: register a negative control comparing ||C||^2 with sum_n ||c_R(n)||^2 at R=4. For CORR4, compare the exact p=3,R=10 fibres at n=9,27,81 with the raw p^2-daughter coefficients mu(n/p^2); a mismatch rejects a whole-fibre identification, not PD's correct proper-term overlap.
