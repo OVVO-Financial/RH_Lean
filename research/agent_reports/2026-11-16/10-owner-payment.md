@@ -1120,3 +1120,1181 @@ Investigate the original physical late batch n=p*q, floor(R/2)<p<R, q>p+2 prime,
 ### D-K. Registered Work Pending
 
 Before numerical execution, the decisive test is: enumerate genuine batches for 8<=R<=128, identify the first failure of the universal implication "all ancestral prime/composite cross terms are negative, therefore the complete packet or its fully restored contribution is nonpositive"; certify any witness with rational logarithm bounds and two physical reconstructions. Retain R=8 and R=11 controls, both cross orientations, unique donors, all nonselected sites, the actual anchor and |D| crossing. Use held-out R=549 and R=5561 only if a new all-scale statement needs a distinct finite regression, not to infer an exponent. If a stronger all-scale arithmetic restriction emerges, derive it before expanding tests. A proof or falsifier will be distinguished from a mere decomposition; the complete original consumer stays explicit. Publication is READBACK_PENDING until separately verified.
+
+
+## Complete Delayed-Batch Restoration And A Genuine Sign Reversal - 20261116-owner-0809-EST/DB
+
+Research completed during the actual scheduled invocation of 2026-11-16 08:09:04 EST, America/New_York. RUN_ID_UNAVAILABLE; DB is a research label, not a platform execution ID. This continuation preserves the earlier UF report and DB checkpoint, and explicitly corrects one earlier UF minimality claim below. Publication remains READBACK_PENDING until a subsequent verified receipt.
+
+### A. Most Important Mathematical Development
+
+**Negative ancestral prime/composite interactions do not survive as a universal favorable contribution to the complete original restored source.** There is a genuine counterexample at terminal wheel root R=137, current physical age r=136. Its complete delayed-semiprime batch has 228 distinct composite seats and 35 distinct greatest-prime ancestors, each ancestor counted ONCE. All ancestral prime/composite cross terms are negative. Even the entire uncompressed packet has negative excess, between -3205.114353311243 and -3205.114353311242. Nevertheless, reinserting this packet into its genuine complete complement, with the historical absolute-value and restoration terms retained, INCREASES the original excess by an amount between 113.335916670940 and 113.335916670941.
+
+The full original excess at that root is still NEGATIVE. This refutes the precisely stated aggregation rule, not first-bad payment, the canonical target, or RH. R=137 is the first such failure in the exhaustively checked domain R>=8 through 137; no claimed first-bad hypothesis is used.
+
+There is also an independent eventual restriction, not merely a finite failure. Write A_R for the original-weight mass of the complete delayed composite batch. Then
+
+```text
+A_R ~ (log 2 - 3/8) R^2/log^3 R.
+```
+
+All distinct factor-ancestor primes together have only O(R/log R) negative mass. Consequently the COMPLETE ancestry-only packet excess is asymptotically +A_R^2, uniformly over the choice of ancestral-prime donor subsets. On the other hand its fully restored contribution to the actual complete source is asymptotically -A_R^2. The latter uses the already-paid strong PNT and VF quadrature, not RH. Thus the outside source, not the signs of the selected edges, controls the eventual cancellation. The two large terms still cancel to an unpaid smaller remainder; this is not a new endpoint estimate.
+
+**Correction to earlier UF4:** the statement in UF D6 that R=4..7 have no delayed descendants, and hence R=8 is the first failure of the frozen-endpoint birth cap, is FALSE. R=5 already has p=3, q=7, n=21: the birth cost is 2 at X=15 and terminal cost 3 at X=24. UF's exact formulas, asymptotic, and R=8 witness remain valid, but the asserted minimality must be replaced by R=5. Prime 7 has POSITIVE physical VF charge, which is one reason this DB donor-sign theorem explicitly starts at R>=8. The prior erroneous text is retained as history and superseded by this correction.
+
+| Claim ID | Classification and scope |
+| --- | --- |
+| 20261116-owner-0809-EST/DB1 | PAPER_PROOF / source restriction: delayed descendants are in the actual half-run, while every greatest-prime ancestor is strictly before its anchor. The compiled small-owner sign bound has an incompatible scale hypothesis. |
+| DB2 | IDENTITY_ONLY / PAPER_PROOF: complete packet, source-pruning, anchor-transfer and restored marginal formulas, retaining every interaction. Existing compression algebra is credited. |
+| DB3 | REFUTED / FINITE_COMPUTATION: negative edge signs do not imply nonpositive packet excess (R=8); even a negative full packet does not imply a nonpositive original restored marginal (R=137). |
+| DB4 | PAPER_PROOF: weighted asymptotic, uniform ancestry-donor obstruction, explicit coarse adverse-marginal exclusion and eventual full-restoration asymptotic. These are supporting restrictions, not a bound on the total original excess. |
+| DB5 | FINITE_COMPUTATION / CORRECTION: 1,362 exact checks PASS; the R=5 correction to UF4 is independently reconstructed. |
+
+All new paper results are SELF_AUDIT / INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED. NO_NEW_GLOBAL_GAIN; NO_NEW_ACCEPTED_ROUTE; VERIFIED_ETA=NONE.
+
+### B. Current Authoritative Objective
+
+Live source main at intake: `076195b75278869d4f18fd924b9ebdaedf723108`. AGENTS blob `5bf6b1dd837bad943286d05c7dd08441d6a22635`; CURRENT_PROOF_CONTRACT `95566e37c8eaeb99ee680660df4f9d2e06ea5038`; cross-route directive `e3ae4280438f591f1ffaddd754a1c3a6d35d0691`; latest-actual continuity directive `3e71820a4af722eae7098da6945bb5bcba50dd0d`.
+
+cross_route_ack=CROSS_ROUTE_SIGNED_RECOVERY_V1; continuity_ack=LAST_ACTUAL_REPORT_CONTINUITY_V1; chain_ack=CANCELLATION_CHAIN_REUSE_V1; high_attack_ack=COMPLETE_SIGNED_HIGH_ATTACK_V1; finite_wheel_ack=FINITE_WHEEL_CENTERED_RH_V1. The current cross-route priority governs selection. This work follows Coordinator MB's Owner assignment, without launching another agent or replacing the distinct investigator portfolios.
+
+The original canonical target remains
+
+```text
+exists C>=0, forall natural R>=2:
+  |pi(R^2)-vfCanonical(R^2)| <= C R log R,
+vfCanonical=vfMid+sqrt(2).
+```
+
+The compiled canonical-to-RH consumer retains its explicit ClassicalVonKochRHCriterion. The complete-wheel source at X=R^2-1 equals L-pi(X) for any real L after ALL virtual Euler terms cancel. Choosing L=vfCanonical(R^2) gives the negative canonical defect, since pi(X)=pi(R^2). Choosing Li_2 or principal-value li requires its actual normalization. This scalar source is not the #915 excess analyzed below.
+
+#### BASELINE / DEPENDENCY RECEIPT
+
+The current fixed-family, hypothesis-free compiled comparator is unchanged:
+
+```text
+native_mertens_near_uniform_window_error_closed
+  : MertensGrowthAtMost(7/8-7/(64*N_pack));
+forall eps>0 exists C_eps>=0 forall n>=1:
+  |M(n)| <= C_eps*n^(7/8-7/(64*N_pack)+eps).
+```
+
+The exact terminal declaration at line 128 of VF919WindowErrorClosure.lean was read. It uses the native same-source Hecke boundary and Mertens converse; it has no desired-bound argument. Fresh #1119 check metadata gives 14/14 SUCCESS at `77ee815846d6d534c866f0752aa33b84c385610a`. The actual [audit log](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42552018910/job/128949473700) was retrieved: five audited proof-value closures have sizes 35358, 35375, 35736, 35737 and 35753, with only propext, Classical.choice and Quot.sound. A fresh nontruncated comparison of 2,508 preexisting Lean, toolchain/manifest and scripts/lean files to current main found only the RHLean.lean import aggregate changed. This is scoped reuse of unchanged tested implementations, not a new full-main build or an independent reproof of every analytic argument.
+
+Pins in the reused evidence: Lean 4.34.1/compiler `5045d0056413266e57c625dcd7c365b10e377c52`, Mathlib `d13f23b723b8a846827a245b89c10fc7d3f11612`, PNT+ `c39a751132c88b6e8080b74c74023fd95b3d8be0`, original openai/math `1581d4cbdd69a0faf34b2089614fe2a814316a6a`. The same-fine-length N_pack<=N_old comparison in UF remains unchanged; unrelated counts are not identified, and no no-loss bound at b_base is asserted.
+
+**Live PR correction:** #1136 and #1137 are now human-merged, at 12:50:12 and 12:50:33 UTC respectively. Their exact heads are `93828e24dc69f56b6c4dc1eaed92847ef7e71be2` and `1c06b34d478d239e8968b62b0380812d7af2e49f`; both have 13/13 SUCCESS. The actual #1137 [proof log](https://github.com/OVVO-Financial/RH_Lean/actions/runs/43854666101/job/133255730773) was retrieved, including closures 219, 4355, 35236 and standard terminal axioms only. Its original principal-row declaration was inspected on main. It supplies PRINCIPAL ONLY, with the original raw error and O(Z^c_h) expansion error. #1136's response estimate is still a hypothesis; full FFR4, its proposed b_IR endpoint and the required physical return remain unclosed. The complete open/draft PR listing was empty. Older same-day report descriptions of these two PRs as unmerged are superseded only as to merge status.
+
+#### Latest-Actual Continuity Ledger
+
+Reporting intake HEAD `82b4beace2beda4793e61b98dd3dcbefb4b9f9ca`. The complete nontruncated branch tree was enumerated without a date cap. Every current role's complete newest file was retrieved; relevant post-UF findings, corrections, handoffs and resume sections were read. The current Coordinator mirrors were separately fetched and match byte-for-byte. Yesterday's verified Coordinator/Referee/Lean files and the original November 11 Owner PS derivation were also retrieved. This is CONTINUITY_COMPLETE for latest-actual discovery and the task-relevant post-UF handoffs, not an assertion of an independent review of every other route's proof or a reread of the entire historical corpus.
+
+Paths below are relative to research/agent_reports/. LAST_CONSUMED is the preserved UF ledger, followed by the newly read section. Newly consumed items become the continuation watermarks here; no later publication is inferred from the schedule.
+
+| Role | LAST_VERIFIED path@blob; actual section/receipt | LAST_CONSUMED -> NEW_UNCONSUMED consumed; RESUME |
+| --- | --- | --- |
+| Coordinator, both mirrors | 2026-11-16/00-coordinator-am.md and 90-coordinator-pm.md @ 990d7fb01baa04d903748d6a48fe4db801a343e9; MB, 07:40:11 EST | Nov15 SS @ 8ce64136c888c6ad7820ef69a78caa5ece07d61b -> MB1-MB5 and exact Owner batch assignment; original complete signed consumer remains. |
+| Owner | 2026-11-16/10-owner-payment.md @ e677d40b8b529e736b8161e1b5db7a7244747444; UF, 00:39:01 EST | UF1-UF6 recovered, plus Nov11 PS @ 182b17762cbb1c092956ffb1cb4d1335fa0acec9; DB resolves the proposed batch sign rule and corrects UF4 minimality. |
+| Analytic | 2026-11-16/20-analytic-type-ii.md @ 6eb96ab1f62e98a7f06840685af6e2b37637f8ce; RC, 01:38:58 EST | Nov11 DM @ 0309d49557af30da43a07d72dce93c93c1811157 -> RC1-RC5; NT now accepts RC1-RC4 on paper. Original singular interval and separate CODIV residual remain. |
+| Wheel | 2026-11-16/30-finite-wheel.md @ e6dc841aa8e0f6420c3e8d0f5372b2bdd0673980; SF, 02:38:07 EST | Nov11 PD @ c9989449a814a1a7ee799791c73450872f4c7d3c -> SF1-SF5; product-gcd support is not full Gram control; full historical/powerful interaction remains. |
+| Census | 2026-11-16/40-prime-census.md @ f398cffd44e8c967ce455f076aab453a0a97b74e; RS, 03:47:08 EST | Nov11 UM @ a85bc7dc8b49952d37f1a4cb6a0a8eb307d3f352 -> RS1-RS6; preserve X>=10d^2 guard and R=16/20 restored-sign contrast, on their distinct Euler carrier. |
+| Referee | 2026-11-16/50-adversarial-referee.md @ 9fa46711422c83b6ce601f5fc3d38518db29bada; NT, 04:39:25 EST | Nov15 UE @ a1c07bdd8e8493aece535745a0ce6f6635871620 -> NT1-NT5, SS/RC paper acceptance; UF/PS/FA are NOT implicitly accepted. |
+| Lean | 2026-11-16/60-lean-verification.md @ 47c7640ad8e66b69fc5d81be819a051ca3124eb5; FFR4, final refresh 06:20:09 EST | Nov15 FFR3 @ 8d25541bc6faebfa180e0456061d7725756bf5ca -> principal-component FFR4; actual later human merges verified here; complete normalized physical assembly remains. |
+
+TODAY=AVAILABLE for all seven roles. YESTERDAY=CARRY_FORWARD applies to the verified Nov15 Coordinator, Referee and Lean reports. YESTERDAY=PENDING / NO_VERIFIED_REPORT for Owner/Analytic/Wheel/Census, whose preceding actual reports before today's run are Nov11. Previously recorded Nov12-15 investigator/Census gaps, Nov12-14 Coordinator/Lean gaps and Nov13-14 Referee gaps are not fabricated executions. Relevant intervening earlier sections were consumed by UF at its recorded watermark; no unseen older derivation is claimed reread now.
+
+External inbox `7d63d434690d00dffce9c90335d41c4f62d85798` was read and is unchanged, with no new mathematical handoff after Oct18. EXT-20261018-PNT-1 retains cofactor weights; EXT-20261014-5 is an unconditional all-R strict-fraction obstruction, not a ban on conditional first-bad reasoning. It does not supply DB's batch claim.
+
+### C. Structural Hypotheses Investigated
+
+H_EDGE asserts that the negative original-weight ancestral pair contributions make the entire delayed packet nonpositive. H_RESTORE strengthens this to the claim that reinserting the complete packet into its actual full complement cannot increase the original restored excess. Both are precise universal claims for the natural complete batch below, not assumptions in any compiled theorem. DB3 refutes them at R=8 and R=137 respectively.
+
+H_ANCESTRY_CAP asks whether factor-sharing supplies enough once-only historical negative mass to balance all delayed children as a standalone packet at large scales. DB4 disproves this at the stated ancestral-prime scale, uniformly in donor selection. It does not rule out remote non-ancestral prime contributions or cancellation with the complement.
+
+H_JOINT asks whether arithmetic excludes an adverse fully restored marginal at sufficiently large scales. DB4 proves an explicit coarse exclusion and an eventual asymptotic from the paid strong PNT. This surviving restriction is much weaker than controlling the total original source, and does not create a new RH route.
+
+### D. Mathematical Derivation
+
+#### D1. Exact Original Population And Chronology
+
+Let R>=8 be an integer, X=R^2-1 and r=R-1. The complete delayed batch and its distinct greatest-prime ancestors are
+
+```text
+B_R = {n=p*q <= X : p,q prime, floor(R/2)<p<R, q>p+2};
+Q_R^anc = {q : some p*q belongs to B_R}.
+```
+
+This superscripted prime set is NOT the Euler bilinear Q_R. Each n has unique p<q by factorization, is odd and squarefree, is not a square boundary, and appears once. A donor q with several descendants still occurs once in Q_R^anc. Its different cross pairs are real distinct pairs; its diagonal and historical occurrence are not copied.
+
+Use the exact source weights and charges
+
+```text
+w_s=(2s+1)/(s*log(s^2+s+1/2));
+z_n=w_floor(sqrt n)-1_Prime(n), n in actual odd open-square seats;
+Phi(u,v)=4uv-2|uv|.
+```
+
+Every batch child has age s>=p>R/2. Moreover q<=X/p<2R and q>=11. For s>=3, 0<w_s<1, so each donor is a genuinely negative physical prime. The weight decreases with real s because its positive numerator 2+1/s decreases while its positive logarithmic denominator increases; w_3<1 follows directly from log(25/2)>7/3. There is no prime-5/7 negative-mass substitution.
+
+At the canonical half-run cutoff J=floor(r/2)+1, every child lies strictly above J^2 and every donor lies strictly below J^2. Indeed 2R<=J^2 for R>=8, and q<2R; the child condition follows from p>=floor(R/2)+1 and q>p. Consequently the donors are encoded in the old anchor, not separate recent physical seats. This is the exact chronology restriction behind the required restoration. This half-run clipping statement is NOT admission to the separate clipped returned-parent source.
+
+The compiled `vfMidSmallOwner_original_signed_gap` and `vfMidSmallOwner_isolated_NNS_slack_lt` require s>=1024*p. Here s<R<2p, so this hypothesis is impossible on the complete UF delayed batch. There is a second sign distinction: the isolated slack in that file is 6xy-x^2-y^2, the NEGATIVE of the two-atom original excess x^2+y^2-6xy. A negative compiled slack cannot be relabelled a negative original excess. This audit does not contradict either compiled statement. The negative cross-pair fact used in DB is instead the literal identity Phi(z_q,z_n)=-6(1-w_age(q))*w_age(n)<0.
+
+#### D2. Complete Packet, Not Just Its Edges
+
+Define original positive child masses a in history and b in the current block, and the ONCE-ONLY negative donor mass V:
+
+```text
+a=sum_(n in B_R, n<r^2) w_age(n);
+b=sum_(n in B_R, r^2<n<R^2) w_r;
+A=a+b;  V=sum_(q in Q_R^anc)(1-w_age(q)).
+```
+
+The complete uncompressed packet excess includes all child-child, donor-donor and child-donor pairs, as well as every diagonal:
+
+```text
+P_R=2(A-V)^2-(A+V)^2=A^2+V^2-6AV.                 (DB.1)
+```
+
+The selected ancestry-edge sum is only -6 sum_(n=pq in B_R) w_age(n)*(1-w_age(q)). The complete child/donor cross sum is -6AV. Neither is the complete packet. For V>0, P_R<=0 holds exactly when 3-2sqrt(2)<=A/V<=3+2sqrt(2), not merely when those cross terms are negative.
+
+Compressing this packet's own history, while retaining its b current mass, gives
+
+```text
+P_R^comp=2(A-V)^2-(|a-V|+b)^2;
+P_R^comp-P_R=4aV+2b(a+V-|a-V|).                   (DB.2)
+```
+
+In particular when a>=V, P_R^comp=(A-V)^2. Thus even a negative COMPLETE uncompressed packet can lose that sign under the compulsory history restoration. This applies the existing compiled compression identity; it is not a newly discovered general algebraic law.
+
+#### D3. Full Original-Source Marginal And Exact Anchor Transfer
+
+Keep ALL the actual physical seats, including unrelated prime/composite and squareful nonsquare seats, with their original anchor -2 at age 2. At current age r define
+
+```text
+D=pi(r^2)-sum_(2<=s<r) s*w_s;
+T=sum_(n in O_r)z_n; C=sum_(n in O_r)|z_n|;
+E(D,T,C)=2(T-D)^2-(|D|+C)^2.                       (DB.3)
+```
+
+This is exactly `vf915GlobalDecoded_originalAnchoredExcess`, not the square of the wheel discrepancy. For a decomposition diagnostic only, remove every B_R child and every Q_R^anc donor once, leaving all other actual charges and the initial anchor unchanged. The resulting SOURCE SUBSET is not another actual prime configuration and is not asserted to satisfy a first-bad hypothesis. Its quantities are exactly
+
+```text
+D_minus=D+a-V; T_minus=T-b; C_minus=C-b;
+Delta_R=E(D,T,C)-E(D+a-V,T-b,C-b).                 (DB.4)
+```
+
+This difference is the packet's fully restored contribution to its actual complete complement. It contains both cross orientations, all packet self-interactions, all outside interactions, and the possible crossing D<0<D+a-V. It is not a chosen allocation of positive capacity.
+
+For explicit algebra, put S=T-D, M=|D|+C, W=A-V and
+
+```text
+dM=|D+a-V|-|D|-b.
+Delta_R=4SW-2W^2+2M*dM+dM^2.                     (DB.5)
+```
+
+Proof: the pruned signed source is S-W and its original absolute denominator is M+dM; expand the two complete squares. No sign is assigned to dM.
+
+Equivalently, decompress the full history into positive U and absolute negative L, including the old anchor, so U-L=-D. The pruned values are U-a and L-V, and the current quantities are T-b,C-b. Let
+
+```text
+Rest(U,L,C)=4UL+2C(U+L-|U-L|).
+```
+
+Then Delta_R is exactly the difference of the two fully expanded all-pair excesses PLUS Rest(U,L,C)-Rest(U-a,L-V,C-b). The price is not reusable historical credit. In the shorter half-run, all donors lie before J^2: removing them changes its anchor from h=-D_J to h+V. Retain that changed anchor, remove the children only from their actual half-run seats, and the same DB.4 follows. Leaving h fixed or inserting q again as a half-run seat is a different source.
+
+#### D4. Genuine Certified Falsifiers
+
+At R=8, B={55=5*11}, Q^anc={11}. Every selected pair cross is negative, but P_R is in [0.045173867399,0.045173867400]. This refutes H_EDGE in the stated R>=8 domain. The complete restored marginal is instead negative, in [-2.014954188043,-2.014954188042].
+
+At R=137, r=136, B has 228 children, of which 221 are historical and 7 current. Q^anc has 35 primes from 79 through 263 as explicitly listed in the certificate. The current children are 18509,18511,18527,18643,18673,18721,18761. The root prime q=137 is retained as an actual donor and in its descendants. The original half-run cutoff is J=69; all donors are absorbed in its anchor and all children occur later.
+
+| Exact interval quantity | Certified lower | Certified upper |
+| --- | ---: | ---: |
+| a | 47.028671441520 | 47.028671441521 |
+| b | 1.429060580337 | 1.429060580338 |
+| V | 20.552925322772 | 20.552925322773 |
+| D | -15.014237277472 | -15.014237277471 |
+| D+a-V | 11.461508841276 | 11.461508841277 |
+| Selected ancestry-edge sum | -169.030902284552 | -169.030902284551 |
+| All child/donor cross pairs | -5975.688885336916 | -5975.688885336915 |
+| Entire uncompressed packet P_R | -3205.114353311243 | -3205.114353311242 |
+| Internally restored packet P_R^comp | 778.678236913367 | 778.678236913368 |
+| Full original E | -2397.187008422258 | -2397.187008422257 |
+| Full source with packet removed | -2510.522925093198 | -2510.522925093197 |
+| Fully restored Delta_R | 113.335916670940 | 113.335916670941 |
+| Expanded all-pair marginal before restoration | -447454.277943379774 | -447454.277943379773 |
+| Required restoration difference | 447567.613860050713 | 447567.613860050714 |
+
+The last two rows add to the positive Delta_R. They recover the complete original history/current interaction, not merely a partial pair sum. H_RESTORE is therefore FALSE even after strengthening its premise to P_R<0. Exhaustive interval checks found Delta_R<=0 at every R=8..136; R=136 has Delta_R in [-1014.402136633156,-1014.402136633155]. The search extension after 128 was registered before execution, based on the possible absolute-history branch crossing, and stopped at 137. No claim of minimality outside this stated domain is needed.
+
+The R=11 certificate retains q=11 in 77=7*11 and reconstructs the actual r=10 excess, agreeing with the earlier PS value. These are exact real inequalities certified by rational log enclosures, not floating signs or a counterexample to the original target. In particular E<0 at R=137.
+
+#### D5. Uniform Ancestry Obstruction And The Surviving Eventual Restriction
+
+UF.12's count is reused for a new weighted and complete-restoration consequence, not re-presented as a new semiprime-count theorem. With kappa=log 2-3/8>0,
+
+```text
+|B_R|=sum_(R/2<p<R)[pi(floor(X/p))-pi(p+2)]
+     ~(kappa)R^2/log^2 R.
+```
+
+For clarity, ordinary PNT makes the inner difference, uniformly for p=tR with 1/2<t<1, equal to (R/log R)(1/t-t+o(1)). The prime-weighted Riemann sum has integral int_(1/2)^1(1/t-t)dt=kappa. This is a deterministic compact-dilation application of PNT, not an independence assumption or short-interval RH estimate. Every child age lies in (R/2,R), so uniformly w_age(n)=(1+o(1))/log R. Hence
+
+```text
+A_R ~ kappa R^2/log^3 R,  A_R/R -> infinity.        (DB.6)
+```
+
+More strongly allow ANY donor mask J_R contained in the actual primes 11<=q<2R, still counted once, not only the natural greatest-prime set. All these primes are before the half-run anchor; 0<=V_J<=pi(2R)=O(R/log R)=o(A_R), uniformly in J_R. Both prime factors of every delayed child lie below 2R, so this includes any factor-ancestry-only choice. It does not include remote prime donors near R^2.
+
+Equations DB.1-DB.2 yield, uniformly in those masks,
+
+```text
+P_R(J)/A_R^2 -> 1;
+P_R^comp(J)/A_R^2 -> 1.                           (DB.7)
+```
+
+For the second limit a=A-b, b<=r and V_J=o(A), so a>V_J eventually and DB.2 becomes (A-V_J)^2 exactly. Thus no once-only factor-ancestry donor mask makes this standalone whole packet nonpositive at all sufficiently large roots. This is an independently justified obstruction on the specified proper population, not on arbitrary cross-owner payment.
+
+There is a different result AFTER the full complement is restored. The pinned [StrongPNT declaration](https://github.com/AlexKontorovich/PrimeNumberTheoremAnd/blob/c39a751132c88b6e8080b74c74023fd95b3d8be0/PrimeNumberTheoremAnd/StrongPNT.lean) supplies an existential c>0 with psi(x)-x=O(x exp(-c sqrt(log x))). Removing higher prime powers and applying partial summation gives pi(x)-Li_2(x)=O(x exp(-c' sqrt(log x))) for some c'>0. For example split the partial-summation integral at sqrt(x): the lower portion is O(sqrt(x) polylog(x)), and the upper portion retains a positive exponential constant. The compiled all-real VF/Li_2 O(1) quadrature therefore gives
+
+```text
+|D_r|=o(R^2/log^3 R)=o(A_R).
+```
+
+The imported statement and its actual carrier were read; this prime-counting/weight transfer is a PAPER_PROOF, not a new Lean theorem. It is vastly weaker than RH-scale prime error. Also |T|<=C<=r, b<=r and |T-b|<=C-b<=r, directly from the physical current seats. Thus E(D,T,C)=o(A^2), D+a-V_J=A(1+o(1))>0, and
+
+```text
+E(D+a-V_J,T-b,C-b)/A_R^2 -> 1;
+Delta_R(J)/A_R^2 -> -1, uniformly in J_R.         (DB.8)
+```
+
+This proves eventual favorable FULL contribution, even while the standalone packet is eventually unfavorable. It does NOT prove the sign or target-scale size of E(D,T,C), since the positive pruned source has the same leading A^2 term that must cancel.
+
+An explicit coarse inverse restriction avoids concealing that dependence. For every R>=8 and every such donor mask, the independently checkable gates
+
+```text
+A_R>=64R and |D_r|<=A_R/64
+  imply Delta_R(J)<=-(1/2)A_R^2.                 (DB.9)
+```
+
+Proof: V_J<=2R, b<=R, so 15A/16<=D'=D+a-V_J<=65A/64. The pruned current satisfies |T'|<=C'<=R. Expanding the original E with D'>0 gives
+
+```text
+E(D',T',C') >= (D')^2-6D'R-R^2 >= (3209/4096)A^2;
+E(D,T,C) <= 2(|D|+R)^2 <= (8/4096)A^2.
+```
+
+Subtract to obtain Delta<=-(3201/4096)A^2, stronger than DB.9. Thus, once A>=64R, an adverse Delta>0 forces the genuine prime discrepancy |D_r|>A/64. StrongPNT and DB.6 independently exclude that class eventually, with one R_0 uniform over donor masks. No explicit numerical R_0 is claimed, and the finite R=137 failure does not contradict an eventual theorem. These conditions are PNT-scale and provably attained; they are not an assumed RH-strength source bound.
+
+### E. Quantitative Consequence
+
+**NET RESULT / ADMISSION VERDICT:** the new original-source counterexample rejects a concrete universal aggregation rule. DB.9 is an independent eventual restriction on adverse packet/complement interaction, but at scale A^2 approximately kappa^2 R^4/log^6 R. It does not improve the global Mertens exponent, canonical VF discrepancy, finite A/C or RH. A leading cancellation between two quantities of this scale does not control the remaining total at R^2 log^2 R or enforce the original first-bad sign. NO_NEW_GLOBAL_GAIN / NO_NEW_ACCEPTED_ROUTE.
+
+**FOUR-WAY SOURCE MAP:**
+
+| Euler / finite wheel | VF / actual primes | NNS / OAI | Square prefixes and coupling |
+| --- | --- | --- | --- |
+| The complete wheel F-X delta=-Phi retains every virtual d>X term until cancellation. UF's exact late set is a genuine subset of its physical composite survivors. DB inserts the ORIGINAL VF weights on that set; it does not identify an unweighted count with a weighted norm. | The actual full odd-seat source, anchor and square convention are preserved in DB.3. Removing B and donors is an explicitly defined subset diagnostic, not a change of prime classification. Original canonical discrepancy remains separate from this diagnostic. | DB.3 is the exact original compressed #915 excess, with historical restoration. DB does not assert returned-cell admission or a new first-bad witness. OAI ideal phases, conductor/height/profile masks have no proved map to these prime seats: OPEN_BRIDGE. | The terminal endpoint is X=R^2-1 and current age r=R-1. The distinct frozen-mu source sum_(a,b<R)mu(a)mu(b)floor(X/(ab))=2M(R-1)-M(X), with strict K_R, is NOT DB's prime packet. Buchstab connects prime events to Mobius only with its actual cofactor weights. |
+
+**FIRST SIGNED LOSS / PAID RECOVERY TEST:**
+
+| Original step | Lost information and actual recovery | Remaining consumer / falsifier |
+| --- | --- | --- |
+| Sum negative Phi(q,n) over ancestors | Drops child-child/donor-donor pairs and diagonals. DB.1 restores them with the original weights and unique donor set. | R=8 defeats the edge-to-packet implication. No original source bound follows. |
+| Use a negative complete uncompressed packet | Replaces the original compressed denominator by decompressed historical absolute mass. The existing exact restoration and DB.4 recover the cost. | R=137 has negative packet but positive full marginal. All outside pairs are included. |
+| Move donors into the canonical half-run | Ignores that all q<2R are older than its anchor. DB1 and the exact anchor update h->h+V retain them once. | Generic history compression pays equality, not a favorable sign. No returned-cell admission follows. |
+| Import the compiled small-owner pair bound | Its s>=1024p hypothesis fails for every delayed child. Its slack sign is also opposite to E. | No valid transfer; literal negative cross terms are tested instead. |
+| Keep only UF's bounded prime birth costs | Omits the genuine delayed batch; R=5 corrects the earlier claimed first failure. #1124's full physical-shell complement was always retained in its compiled statement. | UF count plus DB weight asymptotic restores a large bill, not its RH-scale cancellation. |
+| Request global savings from #1119, #1127 or #1128 by name | Different original coefficients/masks; proper cofactor positivity and resonance do not pay DB's restoration. | StrongPNT plus VF quadrature does yield DB.8-DB.9, at their explicitly coarse scale only. Full target remainder remains unpaid. |
+
+Source -> loss -> recovery -> consumer: genuine UF late integers and once-only prime factors -> negative-edge or negative-packet truncation -> exact original weighted packet and mandatory restoration -> DB.3 original excess. The recovery falsifies the universal rule and yields only a coarse eventual restriction, not the missing complete estimate.
+
+### F. Falsification And Circularity Review
+
+The final checker passed 1,362 assertions, including every R=8..137, independent trial-division batch reconstructions at 8,11,136,137, and exact formal-polynomial full-history and half-run reconstruction at 8,11,137. The R=8 source is additionally expanded over EVERY unordered physical/anchor pair. All opposite orientations are represented by the exact Phi coefficient. At R=137 the second reconstruction uses every actual physical seat, not the scalar DB.4 formula to define the output.
+
+Natural logs are enclosed using log(x)=2 sum t^(2j+1)/(2j+1), t=(x-1)/(x+1), after power-of-two reduction to 1<=x<=2. Forty-eight terms and the exact upper tail 2t^97/[97(1-t^2)] are used. All interval operations round OUTWARD to a rational grid of denominator 10^36; the table rounds outward again to 12 decimals. Formal polynomial identities use exact integer coefficients in independent variables w_s. Floating exploration selected the witnesses but is not the proof certificate.
+
+The extension 129..512 was registered before execution and stopped at 137; the exact verification then covered 8..137. Syntax compilation and both completed executions passed. The two runs of the same checker are not added as independent evidence. No R=549/5561 sweep was needed for this changed hypothesis and none was run. No local Lean execution or independent Referee verdict is claimed.
+
+The new asymptotic theorem is proved from actual established arithmetic, not extrapolated from these finite values. Its use of D=o(A) is independently supplied by strong PNT and quadrature, not by the desired canonical bound. All constants precede the scale; the eventual threshold is uniform in the donor masks. The full estimate E=o(A^2) is intentionally not called a new endpoint because the available PNT input already supplies it at this coarse scale.
+
+The earlier R=71 PS same-cell counterexample, r=10 marked-sign distinction, R=115 UM failure and R=16/20 RS restored contrast are retained at their original different scopes. DB does not multiply an unmarked pair inequality by FA's signed Mobius mark or identify its semiprimes with floor-Li events. No competing route is refuted by analogy. No literature priority is claimed for elementary packet algebra or PNT consequences; the new evidence is the exact natural-batch source application, genuine restored counterexample and explicit coarse inverse restriction.
+
+### G. Conceptual Interpretation
+
+There are two separate arithmetic dependencies. First, many delayed semiprimes share a small population of prime-factor ancestors, whose negative mass grows on a different scale from their collective original-weight positive mass. Second, those old primes are not individually available in the current half-run: they already occur in its anchor. The actual rest of the arithmetic source can compensate the packet, but its sign is controlled by the full historical balance and current population, not just by the signs of ancestral edges.
+
+The R=137 witness shows this dependence on the actual source rather than on an arbitrary-vector example. The eventual result shows why its adverse sign cannot simply be extrapolated forever: independently known PNT-scale control excludes it once the batch is sufficiently dominant. Neither the finite reversal nor the eventual favorable sign settles the small final remainder.
+
+### H. Competing Mechanisms
+
+| Mechanism | Established / missing | Decision |
+| --- | --- | --- |
+| Negative ancestral edges or negative packet imply favorable full restoration | Explicit natural-batch counterexamples and all corrections now computed | ABANDON these universal aggregation rules. Do not repair them by omitting the old anchor. |
+| Factor-ancestry-only standalone payment of the whole delayed batch | A~kappa R^2/log^3 R; all possible distinct factor-prime donors have o(A) mass | ABANDON this eventual packet-sign mechanism at its exact scope. Remote non-ancestral donors and joint-source mechanisms are not excluded. |
+| Coarse complete-source adverse-marginal exclusion | DB.9 and strong PNT prove eventual favorable marginal, uniformly over small-prime donor masks | KEEP as supporting arithmetic restriction, not a new route. An RH-scale remainder does not follow. |
+| Original VF/SAT/JOH jointly restored source | No independent target-scale bound supplied; prior PS and UF source facts remain | REVISE the next attempt to use a genuinely different complete-source estimate, not further prime supply counts. |
+| OAI full FFR4, Euler SF/RS, original Nyman taper | Their actual source-specific open obligations remain | KEEP independent. DB does not supply their coefficient maps or bounds. |
+
+### I. Specialist Handoffs
+
+**Coordinator:** MB's requested full-batch test is resolved negatively as a universal monotonicity claim, with the natural R=137 certificate. The strongest surviving result is DB.9: at sufficiently large batch mass, an adverse fully restored marginal forces a PNT-scale discrepancy, independently excluded eventually. This is more informative than an isolated pair sign but not a new endpoint or route. Correct UF4's first delayed example to R=5; retain the R=8 witness and all valid UF formulas. Do not assign another unchanged ancestor-supply scan.
+
+**Referee:** independently audit DB1's exact half-run masks, DB.4's direction and original sign convention, the R=137 full polynomial certificate, and the uniformity in donor masks in DB.7-DB.9. Check the prime-error consequence of the pinned StrongPNT and the explicit 3209/4096 and 8/4096 bounds. Review the R=5 correction separately from UF's valid all-scale count. No self-audit is presented as your acceptance.
+
+**Census:** the smallest useful independent reproduction is R=8, R=11 and R=137, using distinct donors and the actual changed half-run anchor; R=136 is the immediate sign control. The full code and rational output are embedded below. No larger scan is requested: a new test should first propose a different full-source mechanism. No sign of a genuine first-bad instance is asserted.
+
+**Analytic:** the exact weighted delayed source is A=sum_(p,q late)w_floor(sqrt(pq)), with all its ancestry donors below 2R. An RH-scale estimate on this positive component alone is false. DB's eventual -A^2 contribution relies on the joint original complement and leaves a positive pruned +A^2 term. Any useful refinement must control the lower-order signed remainder, not reuse this leading PNT cancellation as a new gain. Your FFR4 and original-taper work remain separate.
+
+**Wheel:** DB's prime-factor sharing and half-run anchor are not the SF radical/gcd transform. Its R=137 restored sign reversal is an independent actual-prime analogue of the warning in RS, not a coefficient bridge. Preserve Q_R, K_R and every powerful/history Gram term if testing any later transfer.
+
+**Lean Verification:** no proof branch or PR is requested. After independent review and only if a real consumer needs the formal bridge/falsifier, DB1/DB.4 can reuse the existing original charge and exact history compression modules; the finite prime set must use unique greatest-prime donors and actual floor-root ages. The inequalities with logs need a valid interval-certificate proof, not native evaluation or an axiom. The accepted full FFR4 return remains the strategic implementation priority. No request to prove a conjectural global estimate is made.
+
+These are asynchronous published handoffs, not agent launches or promises of background continuation.
+
+### J. First Independently Missing Lemma
+
+This assigned aggregation rule has been falsified, so its universal sign statement must leave the proof queue. Its corrected eventual version DB.9 is already proved on paper from independent inputs; it is not an unpaid RH-strength assumption.
+
+The first verification obligation is a genuinely independent review of the concrete complete-source restriction DB.9 and the exact original-mask certificate DB3. No smaller independent quantitative supplier for the canonical remainder was found. In particular
+
+```text
+E_pruned(R)+Delta_R <= 0 under the original first-bad hypotheses
+```
+
+is the original unpaid payment reassembled, not a new narrower lemma. Likewise controlling only an o(A^2) remainder is too coarse. The next research attempt must name a separate already-proved arithmetic estimate that controls the JOINT remainder at the required source scale, with its masks and constants; absent that, there is no honest new last-lemma premise to advertise. Returning to a protected VF-LOW or JOH mechanism with different information is preferable to another notation change of this failed packet rule. No campaign departure is requested.
+
+### K. Next-Run Resume Capsule
+
+- Main/source: 076195b75278869d4f18fd924b9ebdaedf723108; governing authority unchanged from UF. #1136/#1137 now merged; principal-only formal gain does not close full FFR4. Refresh before reuse.
+- Reporting intake: 82b4beace2beda4793e61b98dd3dcbefb4b9f9ca. DB checkpoint commit 5269ad34e5fe361a13f52a4d258c593c26cd2c20, blob 9c7132e2f74d16acedc05095844ba080ef6eb4c2, was fetched immutably and matched exactly; commit inspection showed only the owned daily report changed.
+- Claims: DB1 chronology/supplier scope; DB2 exact complete marginal; DB3 R=8/R=137 counterexamples; DB4 uniform eventual ancestry obstruction and adverse-marginal exclusion; DB5 finite certificate and UF correction. All new PAPER_PROOF claims require independent review; no Lean implementation.
+- Mandatory correction: UF4's claimed earliest late example is R=5, not R=8. Actual n=21 has historical q=7 with POSITIVE VF charge. DB's negative donor domain is explicitly R>=8.
+- Next useful action: independently review DB's complete source and theorem, then choose a different genuine complete-source supplier. Do not repeat raw donor counts, re-run the same finite roots, or infer a global bound from the eventual negative marginal.
+- No local Lean, changes to Lean/source/central instructions/other reports, proof branch/PR, schedule/permission action, agent launch, merge or auto-merge occurred. All research processes completed. GitHub connector read/write and actual CI-log retrieval worked; no publication blocker was encountered.
+
+#### Material Source Ledger
+
+All RH_Lean source files below were fetched at the recorded main SHA, not adopted from report prose. The proof status of the new DB application remains paper/finite.
+
+| Source | Blob SHA |
+| --- | --- |
+| research/VF_MID_SIGNED_SEAT_CHARGE.lean | 87a6654a4a4337b409fde69aa15d7264d8b721b6 |
+| research/VF_MID_OWNER_SIGNED_PAIR_BOUNDS.lean | f77418156653f1d93c0bcd4ca6587fc0987e3b95 |
+| research/VF_MID_915_EXACT_HISTORICAL_NNS_COMPRESSION.lean | 6cc6b2a9d25279dd44fb65cb222f5d6846a912d4 |
+| research/VF_MID_915_GLOBAL_MOBIUS_PHYSICAL_WELD_20261021.lean | 5e3212e20666b9ed7f13d6bd9ebadfad88338eaa |
+| research/CompleteSquareRootWheelFractionalBoundary.lean | ecb482e52deeee5e9b3853592a3ffdace662d2ff |
+| research/CompleteWheelRootAdmission.lean | a412632c1028d7728cd8d87ee6e5ac365377d338 |
+| research/VF_CANONICAL_SQRT_TWO_VON_KOCH.lean | 79030d70e8d3e0d08eef9bac53fef95c36eca2fb |
+| research/VF_CANONICAL_ALL_REAL_LI_O_ONE.lean | d4762a8bcce2acba597d1578b4846619cf143cf7 |
+| research/oai_434/VF919WindowErrorClosure.lean | f629db1b2b65d6ec042ac9432397d4b6316200c6 |
+| research/oai_434/VF919PhysicalPrincipalResponse.lean | 453ae52b367e5c0e69ef89baf3dfaf3236b7a32c |
+| docs/COORDINATE_ATLAS.md | cd0419d00a37739fe5a292f5cb738e33213949d5 |
+| docs/RHLEAN_SEVEN_AGENT_FINITE_WHEEL_BOUNDARY_20261108.md | e505f35522b675c6b5b263eac73618d717346973 |
+
+External primary source: PrimeNumberTheoremAnd/StrongPNT.lean at c39a751132c88b6e8080b74c74023fd95b3d8be0, blob 7d8ea08496ae67da67e2a3de710145299b51a940. Its existential exponential-error theorem, not an RH bound, is the imported input. Its new transfer to DB is explicitly derived above.
+
+#### Reproduction Receipts
+
+Final script SHA-256 `294b126e1b8444188956cc0909b90fa65d7197abb9247b8e717a73be9f3bdf82`; registration SHA-256 `a6a6e51ea7b6d526835ecf30d3ac54a3e45b478f4596b47bce91e5b2fb9e9ee7`. Python 3.12.13, standard library only. Syntax compilation passed; final process exited zero. The full registration, executed program and exact output follow, so no private workspace file is needed to reproduce the certificate.
+
+
+#### Final Authority Recheck
+
+At the final prepublication refresh, main remained 076195b75278869d4f18fd924b9ebdaedf723108. Reporting HEAD was 5269ad34e5fe361a13f52a4d258c593c26cd2c20, and its untruncated tree differed from intake only in this owned DB checkpoint. No new upstream report or external handoff appeared. The open/draft PR listing was still empty. The freshly fetched owned report blob 9c7132e2f74d16acedc05095844ba080ef6eb4c2 matched the verified checkpoint exactly. The earlier UF report remains an unchanged prefix, with its R=5 correction explicitly appended above.
+
+
+#### Appendix DB-1. Exact Test Registration
+
+```text
+# DB Exact Verification Registration
+
+Original checkpoint preregistration: R=8..128; full late batch n=p*q with floor(R/2)<p<R, q>p+2, n<R^2; all distinct greatest-prime donors q counted once; terminal current age r=R-1; all original odd nonsquare physical seats from age 2, initial anchor -2.
+
+Exploratory floating calculation, not a proof: R=8 gives packet excess about +0.04517 despite negative pair Phi. The full restored removal/reinsertion difference is about -2.01495. No positive complete restored marginal appeared through R=128. These observations will be independently certified by rational log intervals.
+
+Proof-led extension registered before execution: test R=129..512 for the first positive fully restored marginal. This is discriminating rather than a routine range extension: when D<0<D+a-V, the absolute-history denominator crosses a branch, and the negative-cross-pair rule supplies no sign for the exact difference. Stop the extended search at its first positive witness; do not select arbitrary masks or alter the batch. Certify that witness and its immediately preceding tested roots. Retain R=11 prime-root boundary and R=8 as controls.
+
+All-scale proposed restriction, requiring paper proof: weighted late mass A is asymptotic to (log 2-3/8) R^2/log^3 R, while all distinct ancestral prime mass is O(R/log R). Hence the complete ancestry-only packet excess is asymptotically +A^2, even though each prime/composite cross term is negative. Under the independently paid strong PNT and VF quadrature, the complete restored marginal is asymptotically -A^2. This does not prove a sign for the original total excess or first-bad payment.
+
+Use exact integer/trial-factor incidence and rational outward log intervals for witnesses. Compare direct all-seat expansion plus historical restoration with the compressed source, and independently enumerate the small witness's full pair matrix. A literal half-run check must absorb all pre-cut packet mass into the changed anchor, never reinsert a historical prime as a new seat. No floor-Li or returned-cell admission is assumed. No local Lean execution.
+```
+
+#### Appendix DB-2. Complete Executed Checker
+
+```python
+"""Exact finite self-audit of the complete delayed-semiprime source.
+
+Uses integer incidence, outward rational logarithm bounds, and a separate
+formal polynomial reconstruction. No numerical observation proves a limit.
+"""
+
+from collections import Counter
+from fractions import Fraction as F
+from functools import lru_cache
+from itertools import combinations
+from math import isqrt
+import json
+
+SCALE = 10**36
+checks = Counter()
+
+
+def check(name, truth):
+    if not truth:
+        raise AssertionError(name)
+    checks[name] += 1
+
+
+def down(x, scale=SCALE):
+    return F((x * scale).numerator // (x * scale).denominator, scale)
+
+
+def up(x, scale=SCALE):
+    return -down(-x, scale)
+
+
+class I:
+    def __init__(self, lo, hi=None):
+        self.lo = down(F(lo))
+        self.hi = up(F(lo if hi is None else hi))
+        assert self.lo <= self.hi
+
+    def __add__(self, other):
+        other = box(other)
+        return I(self.lo + other.lo, self.hi + other.hi)
+
+    __radd__ = __add__
+
+    def __neg__(self):
+        return I(-self.hi, -self.lo)
+
+    def __sub__(self, other):
+        return self + (-box(other))
+
+    def __rsub__(self, other):
+        return box(other) - self
+
+    def __mul__(self, other):
+        other = box(other)
+        v = [a*b for a in (self.lo, self.hi) for b in (other.lo, other.hi)]
+        return I(min(v), max(v))
+
+    __rmul__ = __mul__
+
+    def __truediv__(self, other):
+        other = box(other)
+        assert other.lo > 0 or other.hi < 0
+        return self * I(1/other.hi, 1/other.lo)
+
+    def sq(self):
+        lo = 0 if self.lo <= 0 <= self.hi else min(self.lo**2, self.hi**2)
+        return I(lo, max(self.lo**2, self.hi**2))
+
+    def abs(self):
+        if self.lo >= 0:
+            return self
+        if self.hi <= 0:
+            return -self
+        return I(0, max(-self.lo, self.hi))
+
+    def overlaps(self, other):
+        other = box(other)
+        return max(self.lo, other.lo) <= min(self.hi, other.hi)
+
+    def out(self):
+        return [decimal(down(self.lo, 10**12)), decimal(up(self.hi, 10**12))]
+
+
+def decimal(v):
+    n = v.numerator * 10**12 // v.denominator
+    sign = '-' if n < 0 else ''
+    n = abs(n)
+    return f'{sign}{n//10**12}.{n%10**12:012d}'
+
+
+def box(x):
+    return x if isinstance(x, I) else I(x)
+
+
+def series_log(x):
+    assert 1 <= x <= 2
+    t = (x-1)/(x+1)
+    total = sum((t**(2*j+1)/F(2*j+1) for j in range(48)), F(0))
+    tail = 2*t**97/(97*(1-t*t))
+    return I(2*total, 2*total+tail)
+
+
+LOG2 = series_log(F(2))
+
+
+@lru_cache(None)
+def weight(s):
+    x = F(2*s*s+2*s+1, 2)
+    k = 0
+    while x >= 2:
+        x /= 2
+        k += 1
+    return I(F(2*s+1, s))/(series_log(x)+k*LOG2)
+
+
+def sieve(n):
+    f = bytearray(b'\x01')*(n+1)
+    f[:2] = b'\x00\x00'
+    for p in range(2, isqrt(n)+1):
+        if f[p]:
+            f[p*p:n+1:p] = b'\x00'*((n-p*p)//p+1)
+    return f
+
+
+LIMIT = 137
+flags = sieve(LIMIT*LIMIT)
+primes = [p for p in range(2, 2*LIMIT) if flags[p]]
+pi = [0]*len(flags)
+for n in range(1, len(pi)):
+    pi[n] = pi[n-1]+flags[n]
+prefix = [I(0)]*(LIMIT+1)
+for s in range(2, LIMIT):
+    prefix[s+1] = prefix[s]+s*weight(s)
+    check('weight_sign', weight(s).lo > 1 if s == 2 else 0 < weight(s).lo <= weight(s).hi < 1)
+
+
+def batch(R):
+    X = R*R-1
+    return [(p, q, p*q) for p in primes if R//2 < p < R
+            for q in primes if q > p+2 and p*q <= X]
+
+
+def excess(D, T, C):
+    return 2*(T-D).sq()-(D.abs()+C).sq()
+
+
+def evaluate(R):
+    r = R-1
+    edges = batch(R)
+    ns = {n for p, q, n in edges}
+    qs = {q for p, q, n in edges}
+    a = sum((weight(isqrt(n)) for n in ns if n < r*r), I(0))
+    b = sum((weight(r) for n in ns if n > r*r), I(0))
+    v = sum((1-weight(isqrt(q)) for q in qs), I(0))
+    A = a+b
+    D = pi[r*r]-prefix[r]
+    P = pi[R*R]-pi[r*r]
+    T = r*weight(r)-P
+    C = (r-P)*weight(r)+P*(1-weight(r))
+    full = excess(D, T, C)
+    minus = excess(D+a-v, T-b, C-b)
+    packet = A.sq()+v.sq()-6*A*v
+    packet_compressed = excess(-(a-v), b, b)
+    edge_sum = sum((-6*weight(isqrt(n))*(1-weight(isqrt(q))) for p, q, n in edges), I(0))
+    full_cross = -6*A*v
+    check('unique_semiprime_occurrences', len(ns) == len(edges))
+    check('donor_children_disjoint', not ns.intersection(qs))
+    check('donors_before_half_anchor', all(q < (r//2+1)**2 for q in qs))
+    check('children_after_half_anchor', all(n > (r//2+1)**2 for n in ns))
+    check('literal_pair_sign', all((1-weight(isqrt(q))).lo > 0 for q in qs))
+    check('compiled_small_owner_disjoint', all(isqrt(n) < 1024*p for p, q, n in edges))
+    check('upper_factor_bound', all(q < 2*R and p < q for p, q, n in edges))
+    check('non_square_physical', all(n % 2 and isqrt(n)**2 != n for n in ns))
+    return dict(R=R, r=r, edges=edges, ns=ns, qs=qs, a=a, b=b, V=v, A=A,
+                D=D, T=T, C=C, full=full, minus=minus, delta=full-minus,
+                packet=packet, packet_compressed=packet_compressed,
+                edge_sum=edge_sum, full_prime_composite_cross=full_cross)
+
+
+rows = [evaluate(R) for R in range(8, LIMIT+1)]
+check('first_packet_failure_R8', rows[0]['packet'].lo > 0)
+check('first_marginal_failure_R137', rows[-1]['delta'].lo > 0)
+for row in rows[:-1]:
+    check('earlier_complete_marginal_not_positive', row['delta'].hi <= 0)
+check('R137_packet_favorable', rows[-1]['packet'].hi < 0)
+check('R137_full_source_still_negative', rows[-1]['full'].hi < 0)
+check('R137_abs_history_crossing', rows[-1]['D'].hi < 0 and (rows[-1]['D']+rows[-1]['a']-rows[-1]['V']).lo > 0)
+
+# Independent exact primality and product reconstruction, without the sieve.
+def trial(n):
+    return n >= 2 and all(n % d for d in range(2, isqrt(n)+1))
+
+
+def trial_late(R):
+    out = []
+    for n in range(5, R*R, 2):
+        p = next((d for d in range(2, isqrt(n)+1) if n % d == 0), None)
+        if p is not None:
+            q = n//p
+            if R//2 < p < R and q > p+2 and trial(p) and trial(q):
+                out.append((p, q, n))
+    return out
+
+
+# Sparse polynomial arithmetic in exact formal variables w_s.
+def padd(*items):
+    d = Counter()
+    for item in items:
+        for k, v in item.items():
+            d[k] += v
+    return {k:v for k, v in d.items() if v}
+
+
+def pscale(c, p):
+    return {k:c*v for k, v in p.items() if c*v}
+
+
+def pmul(p, q):
+    d = Counter()
+    for a, v in p.items():
+        for b, w in q.items():
+            d[tuple(sorted(a+b))] += v*w
+    return {k:v for k, v in d.items() if v}
+
+
+def psq(p):
+    return pmul(p, p)
+
+
+def pval(p):
+    return sum((c*prod_interval(weight(s) for s in k) for k, c in p.items()), I(0))
+
+
+def prod_interval(xs):
+    r = I(1)
+    for x in xs:
+        r *= x
+    return r
+
+
+def pabs(p):
+    v = pval(p)
+    if not p:
+        return p
+    assert v.lo > 0 or v.hi < 0
+    return p if v.lo > 0 else pscale(-1, p)
+
+
+def charge(n):
+    s = isqrt(n)
+    return padd({(s,):1}, {():-int(trial(n))})
+
+
+def physical(R, removed, cut):
+    r = R-1
+    # Removing an old occurrence changes its scalar anchor exactly once.
+    anchor = padd({():-sum(trial(n) for n in range(2, cut*cut+1))},
+                  {(s,):s for s in range(2, cut)},
+                  pscale(-1, padd(*(charge(n) for n in removed if n < cut*cut))))
+    history = [anchor]+[charge(n) for n in range(cut*cut+1, r*r)
+                        if n % 2 and isqrt(n)**2 != n and n not in removed]
+    current = [charge(n) for n in range(r*r+1, R*R)
+               if n % 2 and isqrt(n)**2 != n and n not in removed]
+    H = padd(*history)
+    U = padd(*(z for z in history if pval(z).lo > 0))
+    V = pscale(-1, padd(*(z for z in history if pval(z).hi < 0)))
+    T = padd(*current)
+    C = padd(*(pabs(z) for z in current))
+    check('physical_history_signed_identity', H == padd(U, pscale(-1, V)))
+    expanded = padd(pscale(2, psq(padd(H,T))), pscale(-1, psq(padd(U,V,C))))
+    restoration = padd(pscale(4, pmul(U,V)),
+                       pscale(2, pmul(C, padd(U,V,pscale(-1,pabs(H))))))
+    compressed = padd(pscale(2, psq(padd(H,T))), pscale(-1, psq(padd(pabs(H),C))))
+    check('exact_restoration_polynomial', compressed == padd(expanded, restoration))
+    if R == 8 and cut == 2:
+        atoms = history+current
+        direct = padd(*(psq(z) for z in atoms),
+                      *(padd(pscale(4, pmul(z,w)), pscale(-2,pmul(pabs(z),pabs(w))))
+                        for z,w in combinations(atoms,2)))
+        check('literal_every_pair_polynomial', direct == expanded)
+    return compressed, expanded, restoration
+
+
+certificates = []
+for R in (8,11,136,137):
+    row = rows[R-8]
+    independently = trial_late(R)
+    check('independent_trial_batch', set(independently) == set(row['edges']))
+    check('independent_prime_counts', sum(trial(n) for n in range(2, R*R)) == pi[R*R-1])
+    cert = {'R':R,'r':R-1,'late_count':len(row['ns']),'distinct_donors':len(row['qs']),
+            'current_children':sorted(n for n in row['ns'] if n > (R-1)**2),
+            'donors':sorted(row['qs'])}
+    for name in ('a','b','A','V','D','T','C','packet','packet_compressed','edge_sum',
+                 'full_prime_composite_cross','full','minus','delta'):
+        cert[name] = row[name].out()
+    cert['D_without_packet'] = (row['D']+row['a']-row['V']).out()
+    if R in (8,11,137):
+        e0, x0, r0 = physical(R, set(), 2)
+        e1, x1, r1 = physical(R, row['ns']|row['qs'], 2)
+        h0, _, _ = physical(R, set(), (R-1)//2+1)
+        h1, _, _ = physical(R, row['ns']|row['qs'], (R-1)//2+1)
+        check('half_run_anchor_full', e0 == h0)
+        check('half_run_anchor_pruned', e1 == h1)
+        check('independent_full_interval', pval(e0).overlaps(row['full']))
+        check('independent_pruned_interval', pval(e1).overlaps(row['minus']))
+        delta_poly = padd(e0, pscale(-1,e1))
+        check('independent_marginal_interval', pval(delta_poly).overlaps(row['delta']))
+        cert['expanded_marginal'] = pval(padd(x0,pscale(-1,x1))).out()
+        cert['restoration_marginal'] = pval(padd(r0,pscale(-1,r1))).out()
+    certificates.append(cert)
+
+check('UF_prior_minimality_correction', batch(5) == [(3,7,21)])
+check('UF_birth_and_terminal_cost', sum(trial(n) for n in range(3,9)) == 3
+      and sum(trial(n) for n in range(3,6)) == 2)
+check('R11_prime_root_retained', (7,11,77) in batch(11))
+check('R137_prime_root_retained', any(q == 137 for p,q,n in batch(137)))
+
+print(json.dumps({'status':'PASS','scope':'Exact finite self-audit, not a Lean proof or an asymptotic proof.',
+                  'range':[8,137],'first_packet_failure':8,'first_restored_marginal_failure':137,
+                  'checks':dict(checks),'total_checks':sum(checks.values()),
+                  'certificates':certificates,'prior_UF_correction':{'R':5,'late':batch(5)}}, indent=2))
+```
+
+#### Appendix DB-3. Exact Final Output
+
+```json
+{
+  "status": "PASS",
+  "scope": "Exact finite self-audit, not a Lean proof or an asymptotic proof.",
+  "range": [
+    8,
+    137
+  ],
+  "first_packet_failure": 8,
+  "first_restored_marginal_failure": 137,
+  "checks": {
+    "weight_sign": 135,
+    "unique_semiprime_occurrences": 130,
+    "donor_children_disjoint": 130,
+    "donors_before_half_anchor": 130,
+    "children_after_half_anchor": 130,
+    "literal_pair_sign": 130,
+    "compiled_small_owner_disjoint": 130,
+    "upper_factor_bound": 130,
+    "non_square_physical": 130,
+    "first_packet_failure_R8": 1,
+    "first_marginal_failure_R137": 1,
+    "earlier_complete_marginal_not_positive": 129,
+    "R137_packet_favorable": 1,
+    "R137_full_source_still_negative": 1,
+    "R137_abs_history_crossing": 1,
+    "independent_trial_batch": 4,
+    "independent_prime_counts": 4,
+    "physical_history_signed_identity": 12,
+    "exact_restoration_polynomial": 12,
+    "literal_every_pair_polynomial": 2,
+    "half_run_anchor_full": 3,
+    "half_run_anchor_pruned": 3,
+    "independent_full_interval": 3,
+    "independent_pruned_interval": 3,
+    "independent_marginal_interval": 3,
+    "UF_prior_minimality_correction": 1,
+    "UF_birth_and_terminal_cost": 1,
+    "R11_prime_root_retained": 1,
+    "R137_prime_root_retained": 1
+  },
+  "total_checks": 1362,
+  "certificates": [
+    {
+      "R": 8,
+      "r": 7,
+      "late_count": 1,
+      "distinct_donors": 1,
+      "current_children": [
+        55
+      ],
+      "donors": [
+        11
+      ],
+      "a": [
+        "0.000000000000",
+        "0.000000000000"
+      ],
+      "b": [
+        "0.531167407960",
+        "0.531167407961"
+      ],
+      "A": [
+        "0.531167407960",
+        "0.531167407961"
+      ],
+      "V": [
+        "0.076174181026",
+        "0.076174181027"
+      ],
+      "D": [
+        "-0.108051977218",
+        "-0.108051977217"
+      ],
+      "T": [
+        "0.718171855724",
+        "0.718171855725"
+      ],
+      "C": [
+        "3.531167407960",
+        "3.531167407961"
+      ],
+      "packet": [
+        "0.045173867399",
+        "0.045173867400"
+      ],
+      "packet_compressed": [
+        "0.045173867399",
+        "0.045173867400"
+      ],
+      "edge_sum": [
+        "-0.242767453736",
+        "-0.242767453735"
+      ],
+      "full_prime_composite_cross": [
+        "-0.242767453736",
+        "-0.242767453735"
+      ],
+      "full": [
+        "-11.878626089214",
+        "-11.878626089213"
+      ],
+      "minus": [
+        "-9.863671901172",
+        "-9.863671901171"
+      ],
+      "delta": [
+        "-2.014954188043",
+        "-2.014954188042"
+      ],
+      "D_without_packet": [
+        "-0.184226158245",
+        "-0.184226158244"
+      ],
+      "expanded_marginal": [
+        "-15.883138342600",
+        "-15.883138342599"
+      ],
+      "restoration_marginal": [
+        "13.868184154557",
+        "13.868184154558"
+      ]
+    },
+    {
+      "R": 11,
+      "r": 10,
+      "late_count": 3,
+      "distinct_donors": 3,
+      "current_children": [
+        119
+      ],
+      "donors": [
+        11,
+        13,
+        17
+      ],
+      "a": [
+        "0.964658351406",
+        "0.964658351407"
+      ],
+      "b": [
+        "0.446332215195",
+        "0.446332215196"
+      ],
+      "A": [
+        "1.410990566602",
+        "1.410990566603"
+      ],
+      "V": [
+        "0.407420054011",
+        "0.407420054012"
+      ],
+      "D": [
+        "-2.012069374162",
+        "-2.012069374161"
+      ],
+      "T": [
+        "-0.536677848042",
+        "-0.536677848041"
+      ],
+      "C": [
+        "4.999999999999",
+        "5.000000000001"
+      ],
+      "packet": [
+        "-1.292309637680",
+        "-1.292309637679"
+      ],
+      "packet_compressed": [
+        "1.007153773740",
+        "1.007153773741"
+      ],
+      "edge_sum": [
+        "-1.123972639167",
+        "-1.123972639166"
+      ],
+      "full_prime_composite_cross": [
+        "-3.449195117131",
+        "-3.449195117130"
+      ],
+      "full": [
+        "-44.815556597361",
+        "-44.815556597360"
+      ],
+      "minus": [
+        "-35.656828431888",
+        "-35.656828431887"
+      ],
+      "delta": [
+        "-9.158728165474",
+        "-9.158728165473"
+      ],
+      "D_without_packet": [
+        "-1.454831076768",
+        "-1.454831076767"
+      ],
+      "expanded_marginal": [
+        "-93.461130993120",
+        "-93.461130993119"
+      ],
+      "restoration_marginal": [
+        "84.302402827646",
+        "84.302402827647"
+      ]
+    },
+    {
+      "R": 136,
+      "r": 135,
+      "late_count": 221,
+      "distinct_donors": 34,
+      "current_children": [
+        18247,
+        18281,
+        18323,
+        18407,
+        18419,
+        18437
+      ],
+      "donors": [
+        79,
+        83,
+        89,
+        97,
+        101,
+        103,
+        107,
+        109,
+        113,
+        127,
+        131,
+        137,
+        139,
+        149,
+        151,
+        157,
+        163,
+        167,
+        173,
+        179,
+        181,
+        191,
+        193,
+        197,
+        199,
+        211,
+        223,
+        227,
+        229,
+        233,
+        239,
+        241,
+        251,
+        257
+      ],
+      "a": [
+        "45.801894366524",
+        "45.801894366525"
+      ],
+      "b": [
+        "1.226777074996",
+        "1.226777074997"
+      ],
+      "A": [
+        "47.028671441520",
+        "47.028671441521"
+      ],
+      "V": [
+        "19.920727198380",
+        "19.920727198381"
+      ],
+      "D": [
+        "-17.411753090051",
+        "-17.411753090050"
+      ],
+      "T": [
+        "-2.397515812579",
+        "-2.397515812578"
+      ],
+      "C": [
+        "45.334713437456",
+        "45.334713437457"
+      ],
+      "packet": [
+        "-3012.540696065943",
+        "-3012.540696065942"
+      ],
+      "packet_compressed": [
+        "734.840641089219",
+        "734.840641089220"
+      ],
+      "edge_sum": [
+        "-163.786314233675",
+        "-163.786314233674"
+      ],
+      "full_prime_composite_cross": [
+        "-5621.072005732745",
+        "-5621.072005732744"
+      ],
+      "full": [
+        "-3486.264419639061",
+        "-3486.264419639060"
+      ],
+      "minus": [
+        "-2471.862283005906",
+        "-2471.862283005905"
+      ],
+      "delta": [
+        "-1014.402136633156",
+        "-1014.402136633155"
+      ],
+      "D_without_packet": [
+        "8.469414078093",
+        "8.469414078094"
+      ]
+    },
+    {
+      "R": 137,
+      "r": 136,
+      "late_count": 228,
+      "distinct_donors": 35,
+      "current_children": [
+        18509,
+        18511,
+        18527,
+        18643,
+        18673,
+        18721,
+        18761
+      ],
+      "donors": [
+        79,
+        83,
+        89,
+        97,
+        101,
+        103,
+        107,
+        109,
+        113,
+        127,
+        131,
+        137,
+        139,
+        149,
+        151,
+        157,
+        163,
+        167,
+        173,
+        179,
+        181,
+        191,
+        193,
+        197,
+        199,
+        211,
+        223,
+        227,
+        229,
+        233,
+        239,
+        241,
+        251,
+        257,
+        263
+      ],
+      "a": [
+        "47.028671441520",
+        "47.028671441521"
+      ],
+      "b": [
+        "1.429060580337",
+        "1.429060580338"
+      ],
+      "A": [
+        "48.457732021858",
+        "48.457732021859"
+      ],
+      "V": [
+        "20.552925322772",
+        "20.552925322773"
+      ],
+      "D": [
+        "-15.014237277472",
+        "-15.014237277471"
+      ],
+      "T": [
+        "4.764605560841",
+        "4.764605560842"
+      ],
+      "C": [
+        "41.373636032910",
+        "41.373636032911"
+      ],
+      "packet": [
+        "-3205.114353311243",
+        "-3205.114353311242"
+      ],
+      "packet_compressed": [
+        "778.678236913367",
+        "778.678236913368"
+      ],
+      "edge_sum": [
+        "-169.030902284552",
+        "-169.030902284551"
+      ],
+      "full_prime_composite_cross": [
+        "-5975.688885336916",
+        "-5975.688885336915"
+      ],
+      "full": [
+        "-2397.187008422258",
+        "-2397.187008422257"
+      ],
+      "minus": [
+        "-2510.522925093198",
+        "-2510.522925093197"
+      ],
+      "delta": [
+        "113.335916670940",
+        "113.335916670941"
+      ],
+      "D_without_packet": [
+        "11.461508841276",
+        "11.461508841277"
+      ],
+      "expanded_marginal": [
+        "-447454.277943379774",
+        "-447454.277943379773"
+      ],
+      "restoration_marginal": [
+        "447567.613860050713",
+        "447567.613860050714"
+      ]
+    }
+  ],
+  "prior_UF_correction": {
+    "R": 5,
+    "late": [
+      [
+        3,
+        7,
+        21
+      ]
+    ]
+  }
+}
+```
