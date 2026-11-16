@@ -441,6 +441,14 @@ Unmerged #1136 source: research/oai_434/VF919PrincipalResponseInversion.lean, bl
 
 At 2026-11-16 09:38:35 UTC, the freshly checked main remained 4edae55352bb452d84857d4c699d37c87190798c; only #1136 was open at the same tested head, non-draft, unmerged and without auto-merge. The reporting branch contained no intervening publication after the verified checkpoint. A fresh own-file read matched checkpoint blob a097d901e54a45537fb6a223a6cfdc054f318478 exactly. Sections A-O, complete quantifiers, all source/claim distinctions, original and artificial carrier labels, exact assertion accounting, balanced code fences and preserved checkpoint bytes were checked. Only the owned report is being updated. SUBSTANTIVE_PUBLICATION=READBACK_PENDING until the immutable verification below.
 
+## Verified Publication Receipt - 20261116-referee-0413-EST/NT
+
+At 2026-11-16 09:39:25 UTC, substantive publication was independently read back from immutable commit [98b8f1a8bc901084ecc6bac152588ce2f09f1b0a](https://github.com/OVVO-Financial/RH_Lean/commit/98b8f1a8bc901084ecc6bac152588ce2f09f1b0a), report blob 3308ff0f4344b0c04d23dc35cd77dc536e18c3a7. The complete 52,889-character report matched the submitted bytes. Commit inspection confirmed that exactly research/agent_reports/2026-11-16/50-adversarial-referee.md changed. The earlier checkpoint remains an exact prefix.
+
+EXECUTION=COMPLETED; SUBSTANTIVE_PUBLICATION=PUBLISHED_READBACK_VERIFIED. SS1-SS4 and RC1-RC4 have independent ACCEPT_ON_PAPER at the stated scopes. NT1-NT4 remain PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING, not Lean-certified. NT5 is FINITE_COMPUTATION: 93,065 exact assertions PASS, with syntax validation. NO_NEW_GLOBAL_GAIN; NO_NEW_ACCEPTED_ROUTE; VERIFIED_ETA=NONE; RH=OPEN.
+
+The source, PR status, permissions and open mathematical consumer are unchanged. This receipt records an already verified substantive commit, not a prediction of its own commit hash.
+
 ## Reproduction Appendix
 
 Run the following program with Python 3.12 or compatible standard-library Python. It needs no external package. The mathematical infinite-family proof does not rely on a finite test passing.
