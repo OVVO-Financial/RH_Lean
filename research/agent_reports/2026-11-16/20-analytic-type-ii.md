@@ -795,3 +795,681 @@ Investigate the original V_H and J_H, inspect the exact selection gate, compare 
 
 ### L. Resume Capsule
 Continue from this owned append-only checkpoint. Complete source/CI and continuity receipts, perform independent derivation and falsification, and append a final A-L report with exact first missing theorem. No Lean source or other report is edited. Publication is asserted only after successful commit and immutable readback.
+
+## Three-Floor Mellin Recovery And The Selected-Head Gap - 20261116-analytic-0909-EST/TW
+
+Actual trigger: 2026-11-16 09:09:04 EST, America/New_York. RUN_ID_UNAVAILABLE; TW is a research label. This continuation preserves the earlier RC report, its receipt, and the verified TW checkpoint. Preparation status: EXECUTION=IN_PROGRESS; SUBSTANTIVE_PUBLICATION=READBACK_PENDING. The final publication receipt, appended after successful immutable readback, determines completion.
+
+### A. Most Important Analytic Development
+
+**The ORIGINAL three-floor window has an explicit differential Mellin recovery operator. Its uniform all-head energy is not a weaker substitute for the Mertens growth problem.** Three fixed smooth projections of the combined signed window recover -3/zeta(s), with no unproved nonvanishing condition on a chosen multiplier. The new quantitative theorem states:
+
+```text
+Fix 0<=a<1. If there is C>=0 such that, for EVERY integer H>=2,
+  J_H <= C H^(2a-1),
+then zeta has no zero with Re(s)>a, and for a<sigma=Re(s)<=2,
+  |1/zeta(s)| <= (B_psi/3)(1+|s|)^2
+                 [1+(sqrt(C)+1)/(sigma-a)].                    (TW.1)
+```
+
+Here J_H is EXACTLY Coordinator MB4's original three-floor statistic, not an artificial suffix, a diagonal-only norm, or the full Nyman error renamed. The fixed, finite, absolute constant B_psi is defined below. In particular:
+
+```text
+[forall eps>0, J_H=O_eps(H^(2a-1+eps)) for ALL H]
+  iff MertensGrowthAtMost(a).                                 (TW.2)
+```
+
+The converse uses the already-established Mertens/zero-boundary dictionary, not a new assumed arithmetic input. The new part is the exact three-floor source recovery and its quantitative interpolation/continuation proof. At a=1/2 the displayed every-positive-loss statement is RH-equivalent. Therefore proving J_H=o(log^2 H) at EVERY sufficiently large head would already imply RH. This does not contradict MB4: its necessary test was on the selected heads and for convergence of a particular approximation family.
+
+There is also a **genuine unconditional obstruction** on the original arithmetic object: for every fixed d>0,
+
+```text
+limsup_(H->infinity) H^d J_H = infinity.                       (TW.3)
+```
+
+Thus raw three-floor energy cannot decay by a fixed power at all heads. This is fully compatible with the desired J_H=o(log^2 H) along selected heads; neither that desired estimate nor its negation is proved here.
+
+A second result quantifies the selection barrier. An energy bound on selected heads transfers to a zero-free region only with an independently supplied coverage estimate, or some other genuine transfer. A single nonreal Mellin mode also has a strictly positive two-phase Gram in this window: selecting one scalar phase cannot annihilate its ENTIRE three-floor profile. Applying that observation to genuine mu would require an unproved dominant-mode expansion, explicitly not assumed.
+
+| Claim ID | Classification and scope |
+| --- | --- |
+| 20261116-analytic-0909-EST/TW1 | PAPER_PROOF / quantitative inverse theorem: exact projections, all-head recovery, and the explicit reciprocal-zeta bound TW.1. |
+| TW2 | PAPER_PROOF / TARGET_EQUIVALENT classification: TW.2; genuine all-head polynomial-decay shortcut REFUTED by TW.3. |
+| TW3 | PAPER_PROOF / CONDITIONAL consumer: selected-head energy plus a stated fill-distance bound implies the stated zero boundary; no such fill-distance theorem is asserted for G. |
+| TW4 | PAPER_PROOF for the nonreal profile's positive Gram; CONDITIONAL diagnostic for a genuine-source dominant-mode expansion. |
+| TW5 | FINITE_COMPUTATION: 2,520 exact/symbolic assertions PASS and 12 separately labelled noncertifying numerical checks. |
+
+All new paper claims are SELF_AUDIT / INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED. This is SUPPORTING_ANALYTIC_RESEARCH, not a newly accepted RH route: NO_NEW_GLOBAL_GAIN; NO_NEW_ACCEPTED_ROUTE; VERIFIED_ETA=NONE. The selected-family cancellation, canonical VF, full centered wheel, finite A/C and RH remain OPEN.
+
+### B. Current Mathematical Objective And Continuity
+
+Main HEAD at intake: `076195b75278869d4f18fd924b9ebdaedf723108`. Reporting HEAD before TW: `7b5369ec49150054eecfc695b48711626d16d3ad`. The governing instructions are unchanged: AGENTS `5bf6b1dd837bad943286d05c7dd08441d6a22635`; CURRENT_PROOF_CONTRACT `95566e37c8eaeb99ee680660df4f9d2e06ea5038`; cross-route directive `e3ae4280438f591f1ffaddd754a1c3a6d35d0691`; continuity directive `3e71820a4af722eae7098da6945bb5bcba50dd0d`.
+
+cross_route_ack=CROSS_ROUTE_SIGNED_RECOVERY_V1; continuity_ack=LAST_ACTUAL_REPORT_CONTINUITY_V1; finite_wheel_ack=FINITE_WHEEL_CENTERED_RH_V1; high_attack_ack=COMPLETE_SIGNED_HIGH_ATTACK_V1; chain_ack=CANCELLATION_CHAIN_REUSE_V1.
+
+The canonical arithmetic target is still one C>=0 before all integers R>=2 with |pi(R^2)-vfCanonical(R^2)|<=C R log R, vfCanonical=vfMid+sqrt(2). Its classical terminal interface retains ClassicalVonKochRHCriterion. The internal Mertens-energy-to-RH consumer has a separate unpaid arithmetic premise.
+
+#### BASELINE / DEPENDENCY RECEIPT
+
+The actual [terminal declaration](https://github.com/OVVO-Financial/RH_Lean/blob/076195b75278869d4f18fd924b9ebdaedf723108/research/oai_434/VF919WindowErrorClosure.lean#L128) is hypothesis-free at its fixed constructed source:
+
+```text
+native_mertens_near_uniform_window_error_closed
+  : MertensGrowthAtMost(b_base),
+b_base=7/8-7/(64*N_pack).
+For every eps>0, exists C_eps>=0, forall n>=1,
+  |M(n)|<=C_eps*n^(b_base+eps).
+```
+
+Fresh exact-head metadata has 14/14 SUCCESS checks at `77ee815846d6d534c866f0752aa33b84c385610a`. The actual [proof-value audit log](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42552018910/job/128949473700) was read. Its five endpoint closures have sizes 35358, 35375, 35736, 35737 and 35753, and only propext, Classical.choice and Quot.sound. The audit source explicitly requires fixed-source construction, source counts, native total-mass LOW, anchored HIGH, complete comparison, actual modulus-one L-product and native Mertens transfer in the proof-value closures. Comparing 2,508 preexisting Lean/pin/scripts/lean files from the tested source to current main found only RHLean.lean changed; all selected preexisting analytic implementations and package pins match. This reuses unchanged exact-head evidence, not a new full-main build or an independent reproof of the entire imported analytic development.
+
+Read pins: Lean 4.34.1; compiler in the verified prior log `5045d0056413266e57c625dcd7c365b10e377c52`; Mathlib `d13f23b723b8a846827a245b89c10fc7d3f11612`; PNT `c39a751132c88b6e8080b74c74023fd95b3d8be0`; original OAI pin carried by the unchanged audit `1581d4cbdd69a0faf34b2089614fe2a814316a6a`. At the same positive fine length the previously established packing-count comparison is unchanged; no inequality between unrelated source counts is invented.
+
+The original [marked signed moment](https://github.com/OVVO-Financial/RH_Lean/blob/076195b75278869d4f18fd924b9ebdaedf723108/research/oai_434/VF919OriginalMarkedSharpenedSignedNNS.lean) was inspected directly. Its 1+t/2 width retains PositiveFineSourceInput, original SourceData, Batch/profile equality, row lower bounds, external real part 17/50, capacity, height and derivative restrictions. It is not a theorem about arbitrary rational Mobius-window coefficients. The all-selected outer tuple remains a singleton; no outer off-diagonal gain is fabricated.
+
+Live PR correction: #1136 and #1137 are now MERGED, at 12:50:12Z and 12:50:33Z respectively. The complete open/draft collection at intake is empty. Their tested heads `93828e24dc69f56b6c4dc1eaed92847ef7e71be2` and `1c06b34d478d239e8968b62b0380812d7af2e49f` each have 13/13 SUCCESS checks. Actual logs for jobs 133054580795 and 133255730773 were retrieved. The former audits eight conditional-inversion declarations; the latter audits principal-component closures 219, 4355 and 35236 with only standard axioms. The main-source principal theorem retains every finite delay and the original residue remainder. It does NOT certify the full FFR4 assembly or a new endpoint. No CI was launched or rerun.
+
+Prepublication freshness check, 2026-11-16 09:33 EST: main remains the pinned SHA and every other role report/external-index blob remains unchanged. Newly opened [PR #1138](https://github.com/OVVO-Financial/RH_Lean/pull/1138), head `1f65f635ef530da7d0b2d6512a91a4553ac64cbd`, proposes BOOTSTRAP_TO_HALF_V1 and native/Euler continuation audits. Its directive (`96ad4439ec458af6168f7d9cb3eef5dde291d37c`) and attack index (`64f56edad5821a9579a347c453397f983bf6e0ea`) were read, as were its complete changed-file metadata and current check statuses. It is OPEN, non-draft and unmerged at this check; seven of eleven visible checks succeeded and four remain in progress. The exact algebra/finite-identity job is green metadata, not new Lean evidence. No claim from its detailed analytic notes is used as a premise here, and neither pending policy activation nor independent acceptance is invented. Its continuation gate must be refreshed after any reviewed merge. TW is an inverse/feasibility result, not a complete half-bootstrap: the selected full norm and first genuine cancellation estimate remain open.
+
+#### Latest-Actual And Missed-Handoff Ledger
+
+CONTINUITY_COMPLETE at no-date-cap latest-file discovery, relevant mathematical backfill and source-status reconciliation scope; not a claim that every historical reproduction appendix was rerun. The recursive report tree was untruncated. Complete latest files were retrieved, their actual findings/resumes/receipts inspected, and both Coordinator mirrors for November 15 and 16 were separately fetched and verified byte-identical. The prior RC ledger supplies the consumed watermarks; intervening newly relevant sections were consumed in chronological order.
+
+All paths below start `research/agent_reports/`. RUN_ID_UNAVAILABLE applies to the cited scheduled sections. NEW entries are consumed handoffs, not invented executions.
+
+| Role / LAST_VERIFIED path | Current blob; latest actual section | LAST_CONSUMED -> NEW; RESUME |
+| --- | --- | --- |
+| Coordinator, 2026-11-16/00-coordinator-am.md and 90 mirror | 990d7fb01baa04d903748d6a48fe4db801a343e9; MB, receipt 07:40:11 EST | Nov15 SS at 8ce64136c888c6ad7820ef69a78caa5ece07d61b -> MB1-MB5. Exact original three-floor selected-head test, not a generic suffix. |
+| Owner, 2026-11-16/10-owner-payment.md | a52b439e693e069502b0c299a5f074a19bae0807; DB, substantive receipt 08:35:17 EST | UF at e677d40b8b529e736b8161e1b5db7a7244747444 -> DB1-DB5 and explicit UF4 minimality correction. New full restored-source supplier remains missing. |
+| Analytic, 2026-11-16/20-analytic-type-ii.md before TW | 6eb96ab1f62e98a7f06840685af6e2b37637f8ce; RC, receipt 01:38:58 EST | Prior RC1-RC5 recovered; NT independently ACCEPTS RC1-RC4 on paper. Complete selected middle still unpaid. |
+| Wheel, 2026-11-16/30-finite-wheel.md | e6dc841aa8e0f6420c3e8d0f5372b2bdd0673980; SF, receipt 02:38:07 EST | Nov11 PD at c9989449a814a1a7ee799791c73450872f4c7d3c -> SF1-SF5. Proper product/gcd restrictions do not pay complete cross-product/history Gram. |
+| Census, 2026-11-16/40-prime-census.md | f398cffd44e8c967ce455f076aab453a0a97b74e; RS, receipt 03:47:08 EST | Nov11 UM at a85bc7dc8b49952d37f1a4cb6a0a8eb307d3f352 -> RS1-RS6. Sharp threshold 10 and R=16/20 mixed-sign reversal, not global payment. |
+| Referee, 2026-11-16/50-adversarial-referee.md | 9fa46711422c83b6ce601f5fc3d38518db29bada; NT, receipt 04:39:25 EST | Nov15 UE at a1c07bdd8e8493aece535745a0ce6f6635871620 -> NT1-NT4, SS/RC acceptance. Entire original logarithmic moment and tail remain necessary. |
+| Lean, 2026-11-16/60-lean-verification.md | 47c7640ad8e66b69fc5d81be819a051ca3124eb5; FFR4 component, receipt 06:22:27 EST | Nov15 FFR3 at 8d25541bc6faebfa180e0456061d7725756bf5ca -> retained physical principal component; live merges supersede report's unmerged labels. Full assembly still unpaid. |
+
+TODAY=AVAILABLE for all roles at TW intake. YESTERDAY=CARRY_FORWARD for Coordinator SS, Referee UE and Lean FFR3; those complete November 15 files were retrieved. Owner/Analytic/Wheel/Census have no November 15 report: YESTERDAY=NO_VERIFIED_REPORT, with latest-actual carry-forward already recorded by RC. November 13-14 have no dated directory; no run or route coverage is inferred from silence. Since RC, no intervening dated role report is omitted from this relevant latest-state reconciliation.
+
+Additional route recovery: original November 8 native CODIV MP derivation at blob `edecba8785a45cda87c0035d0348695941f1b8ea` was retrieved and its prime/cofactor variance, exact mixed return and composite/coherent limitation read. November 12 Referee FT/SH at `09e3dd03d8aca75237698c300089c7c1132b42ee` was recovered to distinguish its all-scale obstruction from this selected-head question. External index `7d63d434690d00dffce9c90335d41c4f62d85798` is unchanged and contains no newer mathematical entry than October 18; its old routing does not supersede main. The prior consumed main-side ENV handoff remains governed by #1135's actual merged correction, not stale unmerged prose.
+
+### C. Analytic Mechanism Investigated
+
+Coordinator MB's new question is source-specific: does the combined original three-floor energy become o(log^2 H) at SS's sign-selected heads? A naive scalar-prefix estimate gives H^(2b-1), much larger than required. MB's artificial suffixes already rule out a rescue using only finitely many moments and a scalar prefix envelope.
+
+This run instead tests the ARITHMETIC DILATION STRUCTURE of the literal window. Smoothing only the observation variable t=m/H yields a compactly supported Mellin kernel while preserving every mu(k), log(H/k), and floor layer. An elementary inhomogeneous differential identity then forces a constant, nonzero Mellin numerator. Unlike a general kernel nonvanishing hypothesis, that forcing is proved exactly. The construction gives quantitative inverse control and a precise warning about selected versus all-head uniformity.
+
+No zeta zero, RH-strength upper estimate, phase independence, or actual dominant-zero expansion is assumed to prove the recovery theorem. The single additional classical input for TW.3 is existence of a critical-line zero. The basic reciprocal Euler product and analytic continuation are used in their legitimate regions.
+
+### D. Exact Mathematical Formulation
+
+Let mu be genuine Mobius. For real h>0 and x>0 define the FINITE sum
+
+```text
+U_h(x)=sum_(h<k<=x) mu(k) log(h/k) floor(x/k).
+V(h,t)=U_h(ht),             3<t<4.
+V_H(m)=U_H(m),              H integer >=2.
+J_H=sum_(m=3H..4H-1) V_H(m)^2/[m(m+1)].
+```
+
+For 3H<=m<4H this is exactly
+
+```text
+V_H(m)=sum_(j=1..3) sum_(H<k<=floor(m/j)) mu(k)log(H/k).
+```
+
+This three-layer identity is MB4's credited input, not claimed new. Strict k>H is essential. Because U_H(x) is constant on every [m,m+1),
+
+```text
+H*J_H=integral_3^4 |V(H,t)|^2 dt/t^2.                       (TW.4)
+```
+
+For the unchanged original taper take integers K>=1, H>=2 with N=6K>8H. Define its TWO actual correction bands, without changing the coefficients:
+
+```text
+L=log(N/H), q_k=log(N/max(H,k)),
+u=sum_(k=1..N) mu(k)q_k/k,
+v=2L+sum_(k=1..N) mu(k)q_k,
+I_1={3K+1,...,4K}, I_2={5K+1,...,6K},
+s_i=sum_(k in I_i) 1/k, so s_1>s_2,
+A=(u-s_2*v/K)/(s_1-s_2), Z=(s_1*v/K-u)/(s_1-s_2),
+h_k=A on I_1, Z on I_2, and 0 elsewhere,
+c_k=(h_k-mu(k)q_k)/L for 2<=k<=N,
+r_(N,H)(m)=1-sum_(k=2..N)c_k*{m/k},
+E_(N,H)=sum_(m>=1)r_(N,H)(m)^2/[m(m+1)].
+```
+
+Braces denote fractional part. The omitted k=1 term matters in the moment equations: the actual sums over 2<=k<=N are sum c_k/k=1 and sum c_k=3. The infinite error series is finite for each fixed N,H because the finite fractional-part residual is bounded. With C_h(m)=sum_(k=2..N)h_k floor(m/k), the compiled complete moment return gives
+
+```text
+L*r_(N,H)(m)=U_N(m)-U_H(m)+C_h(m).
+L*r_(N,H)(m)=-V_H(m) for 3H<=m<4H;
+E_(N,H)>=J_H/L^2.                                          (TW.5)
+```
+
+The original source is [nyman_flat_complete_return and nyman_flat_return_of_moment](https://github.com/OVVO-Financial/RH_Lean/blob/076195b75278869d4f18fd924b9ebdaedf723108/research/NYMAN_FLAT_TAPER_RETURN_20261104.lean). Corrections vanish ON THIS WINDOW because their support starts above N/2; they remain elsewhere in E. The moment defect is not silently set to zero for an arbitrary h: only the actual two-band solver supplies the requisite exact reciprocal moment.
+
+Put alpha=log 3, beta=log 4, ell=beta-alpha. Fix once and for all
+
+```text
+psi(z)=140*(z-alpha)^3*(beta-z)^3/ell^7, alpha<=z<=beta,
+       0 otherwise.
+phi_r(t)=psi^(r)(log t)/t on (3,4), zero otherwise, r=0,1,2.
+T_r(h)=integral_3^4 phi_r(t)V(h,t)dt.
+```
+
+This explicit compactly supported psi is C^2, has integral one, and has psi=psi'=0 at both endpoints. Only these regularity and boundary properties are used; no unspecified smoothness premise is hidden. Let
+
+```text
+P_r=(integral_3^4 t^2*|phi_r(t)|^2 dt)^(1/2),
+L_r=3*||phi_r||_1+6*log(4)*||phi_r||_infinity,
+D_r=3*log(4)*||phi_r||_1,
+B_psi=max_(r=0,1,2) [72*D_r+P_r+16*L_r].
+```
+
+All are explicit finite absolute constants chosen before a,C,H,N,s or any zero. For a fixed energy bound the constant in TW.1 is uniform in the ENTIRE stated strip a<Re(s)<=2, with exactly the displayed distance-to-boundary and height losses.
+
+### E. Mathematical Derivation
+
+#### E1. Exact Compact Kernel And An Absolute Interpolation Bound
+
+For v>1 set Phi_r(y)=integral_y^infinity phi_r(t)dt and
+
+```text
+W_r(v)=-log(v)*sum_(j=1..3)Phi_r(jv),
+W_r(v)=0 for v<=1.
+T_r(h)=sum_(n>=1)mu(n)W_r(n/h).                             (TW.6)
+```
+
+The sum is finite: W_r is supported in [1,4]. The identity follows by expanding floor(t/v) as the number of j with jv<=t; for t in (3,4), v>1 permits exactly j=1,2,3. No prime average or missing floor is introduced.
+
+W_r vanishes continuously at both endpoints, satisfies ||W_r||_infinity<=D_r, and is globally Lipschitz with constant L_r. Indeed on 1<v<4,
+
+```text
+W_r'(v)=-(1/v)*sum_j Phi_r(jv)+log(v)*sum_j j*phi_r(jv),
+|W_r'(v)|<=3||phi_r||_1+6log(4)||phi_r||_infinity.
+```
+
+At an observation h>=1 at most 4h terms can contribute, and each has absolute h-derivative at most 4L_r/h. Local finite summation and the continuous support endpoints justify differentiation almost everywhere and absolute continuity. Thus, using ONLY |mu(n)|<=1,
+
+```text
+|T_r(x)-T_r(y)|<=16 L_r |x-y|, x,y>=1.                     (TW.7)
+```
+
+This pays the integer-to-real interpolation loss explicitly. At an integer head, Cauchy-Schwarz is applied only AFTER the three layers have been combined:
+
+```text
+|T_r(H)|<=P_r*sqrt(H*J_H).                                 (TW.8)
+```
+
+It is an upper bound for a projection by the FULL window energy, not the reverse inequality or a discarded-cross-term energy estimate.
+
+#### E2. The Nonzero Differential Mellin Numerator
+
+For any complex s and 3<t<4 define the entire-in-s kernel
+
+```text
+K_t(s)=-sum_(j=1..3) integral_1^(t/j) log(v)*v^(s-1)dv.
+```
+
+For s!=0 it has the exact expression
+
+```text
+K_t(s)=-sum_(j=1..3) [(t/j)^s*(s*log(t/j)-1)+1]/s^2;
+K_t(0)=-(1/2)*sum_(j=1..3)log(t/j)^2.
+```
+
+Writing D=t*d/dt gives, by direct differentiation,
+
+```text
+(D-s)^2 K_t(s)=-3.                                        (TW.9)
+```
+
+The removable value s=0 satisfies the same equation. The -3 is the THREE lower endpoints v=1; deleting those boundary terms would destroy the argument.
+
+For Re(s)>1 absolute convergence permits the ONLY interchange of an infinite signed source used initially:
+
+```text
+I_r(s):=integral_0^infinity T_r(h)h^(-s-1)dh
+       =[1/zeta(s)]*integral_3^4 phi_r(t)K_t(s)dt.
+```
+
+Justification: after h=n/v the integral of the absolute majorant is bounded by sum n^(-Re(s)) times the finite integral of |W_r(v)|v^(Re(s)-1). The Euler product gives sum mu(n)n^(-s)=1/zeta(s) only here. Set z=log t and integrate by parts twice using psi=psi'=0 at the endpoints. TW.9 gives the exact recovery:
+
+```text
+s^2 I_0(s)+2s I_1(s)+I_2(s)
+ = [1/zeta(s)]*integral_alpha^beta
+       psi(z)*(d/dz-s)^2 K_(exp z)(s)dz
+ = -3/zeta(s).                                           (TW.10)
+```
+
+No zero-avoiding choice of test function, generic spectral gap or nonvanishing conjecture is needed. The same three FIXED real projections work at every height.
+
+#### E3. Quantitative Continuation And Zero Detection: TW1
+
+Assume J_H<=C H^(2a-1) for every H>=2, with 0<=a<1 fixed. For h>=2 take H=floor(h) in TW.7-TW.8. Since H^a<=h^a,
+
+```text
+|T_r(h)|<=P_r sqrt(C) h^a+16 L_r.
+```
+
+For h<1/4 the sum is zero. For 1/4<=h<=2 there are at most eight terms and |T_r(h)|<=8D_r. Hence for a<sigma=Re(s)<=2,
+
+```text
+|I_r(s)|
+ <=72D_r+P_r sqrt(C)/(sigma-a)+16L_r/sigma
+ <=B_psi*[1+(sqrt(C)+1)/(sigma-a)].                        (TW.11)
+```
+
+Here integral_(1/4)^2 h^(-sigma-1)dh<9 for 0<sigma<=2. Compact-substrip domination, with extra powers of log h, proves each I_r holomorphic on Re(s)>a. TW.10 therefore gives a holomorphic continuation of -3/zeta(s) to this half-plane. A zero of zeta there would create a genuine pole with nonzero numerator, impossible. This uses neither simple zeros nor an attained rightmost zero. At s=1 the reciprocal is interpreted by its usual removable zero.
+
+Finally |s|^2+2|s|+1=(1+|s|)^2, so TW.11 and TW.10 give EXACTLY TW.1. This is the independent quantitative inverse estimate, not merely an identity with an assumed bounded residual.
+
+#### E4. Compare Both Directions; Genuine Polynomial-Decay Obstruction: TW2
+
+If a fixed bound |M(x)|<=C_b*x^b holds for b>0, summation by parts, with the k=H endpoint multiplied by log 1=0, gives for H<=y<=4H
+
+```text
+sum_(H<k<=y)mu(k)log(H/k)
+ =M(y)log(H/y)+integral_H^y M(u)du/u,
+absolute value <=C_b H^b B_b,
+B_b=4^b log 4+(4^b-1)/b.
+```
+
+Keep all three layers before applying the triangle inequality. Since their upper arguments lie between H and 4H and sum_(m=3H)^(4H-1)1/[m(m+1)]=1/(12H),
+
+```text
+J_H <=(3/4)*C_b^2*B_b^2*H^(2b-1).                        (TW.12)
+```
+
+This explicitly records the loss in the existing scalar supplier; it is not a new cancellation saving. Using every positive loss b=a+eps/2 proves one direction of TW.2. Conversely an every-positive-loss window family gives, for every small eps>0, TW1 with a+eps/2, hence no zero to the right of a. Reflection gives the symmetric strip. The actual [growthAtMost_iff_strip and growthAtMost_half_iff_criticalZeros](https://github.com/OVVO-Financial/RH_Lean/blob/076195b75278869d4f18fd924b9ebdaedf723108/research/MERTENS_CONVERSE_IDENTIFICATION.lean) supply the existing scalar converse. This new source transfer is PAPER_PROOF, not an already compiled declaration.
+
+Thus the all-H subpower statement at a=1/2 is RH-equivalent. An all-H o(log^2 H) bound implies it, but RH is NOT asserted to imply that stronger little-o rate or convergence of this particular taper.
+
+For TW.3, if J_H=O(H^(-d)) with 0<d<1, TW1 applies at a=(1-d)/2<1/2. This contradicts a critical-line zero. For d>=1 reduce to any smaller positive d<1. Nonnegativity then gives the stated infinite limsup. The only external zero-existence input is [Hardy's theorem, with a proof in Sangale, page 3](https://arxiv.org/pdf/1606.00680). No zero ordinate, zero simplicity, zero-density assumption or numerical verification is used. The conclusion concerns infinitely many/all-scale upper bounds, not every sufficiently large H and not every selected subsequence.
+
+#### E5. Exact Selection Coverage Gate: TW3
+
+Let S be any unbounded set of integer heads. Fix 0<=a,kappa<1. Suppose, with constants chosen before x,H,
+
+```text
+J_H<=C H^(2a-1) for all H in S;
+for every sufficiently large real x there exists H in S such that
+  x/2<=H<=2x and |x-H|<=D*x^kappa.
+```
+
+Then TW.7-TW.8 imply for each r
+
+```text
+|T_r(x)|<=P_r sqrt(C)*2^a*x^a+16L_r D*x^kappa.
+```
+
+The same Mellin argument gives no zeta zero with real part>max(a,kappa). An every-positive-loss version follows by choosing a smaller positive loss before each proposed zero. In particular selected J_H=o(log^2 H), TOGETHER WITH fill distance O(x^(1/2)), would imply RH. The theorem is conditional on both hypotheses and does not supply either one for SS's actual G.
+
+Here delta(x)=1-sum_(1<=k<=x)mu(k)log(x/k)/k for real x>=1. SS proves only that G={integer H>=2:delta(H)delta(H+1)<=0} is unbounded, and that delta(H) is unusually small there. It proves neither the displayed fill distance nor any density bound. Sparse subsequence smallness cannot be inserted into TW.11's all-scale integral. The fill-distance condition is a SUFFICIENT transfer, not a necessary condition for the selected approximation to succeed; no campaign pivot to proving it is requested.
+
+#### E6. A Whole Window Cannot Be Removed By One Nonreal Phase: TW4
+
+For fixed rho=beta+i gamma with beta>=0 and gamma!=0, let K(t)=K_t(rho). Form the real 2-by-2 Gram matrix of Re K and Im K in L2((3,4),dt/t^2). Its least eigenvalue lambda_rho is strictly positive.
+
+Proof. Put A(s)=1+2^(-s)+3^(-s), B(s)=2^(-s)log 2+3^(-s)log 3. Then
+
+```text
+K_t(s)=-t^s*((s log t-1)A(s)-s B(s))/s^2-3/s^2.
+```
+
+A and B cannot vanish together in Re(s)>=0: simultaneous vanishing would give 3^(-s)=log 2/log(3/2)>1, contradicting |3^(-s)|<=1. If a nonzero real combination of Re K and Im K vanished on (3,4), the exponential-polynomial identity in z=log t would combine exponents 0,rho,conjugate(rho). Those distinct exponents and their first-degree polynomial coefficients are linearly independent (apply the corresponding constant-coefficient differential operators). The nonconstant rho coefficient would therefore have to vanish, forcing A=B=0. Contradiction. Continuity then makes the Gram positive definite.
+
+Consequently for every real phase omega,
+
+```text
+integral_3^4 [Re(exp(i omega)K_t(rho))]^2 dt/t^2 >=lambda_rho>0.
+```
+
+This constant depends on the FIXED rho; no uniform lower bound as |gamma| grows is claimed. If one independently had on some sequence of genuine heads
+
+```text
+||V(H,.)-2Re(c H^rho K_.(rho))||_(L2(dt/t^2))=o(H^beta),
+c!=0 fixed,
+```
+
+the reverse triangle inequality would give J_H>=|c|^2 lambda_rho H^(2beta-1) eventually on that sequence. For beta>1/2 this would refute J_H=o(log^2 H) there, EVEN at scalar phase crossings. But this genuine-source dominant-mode approximation is NOT established. An arbitrary rightmost-zero expansion, isolation, or simple-zero assumption cannot be smuggled in. At beta=1/2 the lower bound is only a constant and does not contradict the target normalization. This is a falsifier for the single-phase mechanism, not a proof against G or RH.
+
+### F. Quantitative Comparison And Unpaid Terms
+
+The existing compiled supplier gives only J_H=O_eps(H^(2*b_base-1+eps)); spending its positive margin yields the convenient fixed J_H=O(H^(3/4)). On SS's N_H=6 ceil(H^(1/theta)/6), fixed 0<theta<1, L~(1/theta-1)log H. These bounds do not show J_H/L^2 tends to zero.
+
+TW1 runs in the INVERSE direction: a better genuine all-head energy estimate would improve the zero boundary, with every constant and vertical loss displayed. It does not provide that estimate. TW3 names a sufficient selected-to-all-scale bridge and its cost, not a new hypothesis to assume. TW4 proves profile nondegeneracy, not a spectral asymptotic of mu.
+
+Paid P6/P9, accepted RC exterior control, SS selected-drift control and NT's complete log-moment lower bound retain their exact scopes. The original middle outside [3H,4H), both correction activation bands, the after-N source, and the full infinite remainder remain in the complete error. The entire selected logarithmic-moment expression NT.1 also remains unpaid. No disjointness is invented between original and unitary coordinates. A bound on J alone would not certify convergence of the selected family.
+
+### G. Original-Carrier Bridge And Four-Way Source Map
+
+| Euler / finite AC | VF / actual primes | NNS / OAI | Native square blocks / HIGH |
+| --- | --- | --- | --- |
+| Q_R=sum_(a,b<R)mu(a)mu(b)floor((R^2-1)/(ab))=2M(R-1)-M(R^2-1), with strict K_R. It is NOT U_H or J_H; two original indices and historical quadratic normalization differ. No termwise bridge is asserted. | Complete centered wheel retains virtual divisors and Euler compensation. Actual-prime discrepancy and #915 restored historical packets are not mu-window coefficients. OPEN_BRIDGE to a magnitude bound; DB's R=137 counterexample is not a Nyman example. | Original marked moment is ideal-labelled and licensed by its source/profile/height/capacity conditions. Native Mertens output supplies TW.12 ONE WAY. No actual profile identification for T_r is available. FFR3 and principal FFR4 component remain separate. | All-scale genuine Mertens growth and symmetric zero confinement have their compiled scalar dictionary. TW1-TW2 provide a new PAPER three-floor energy transfer to that dictionary, not improved shell energy or a finite-A constant. |
+
+The additional literal NYMAN map is TW.4-TW.5: full three-floor energy is an exact nonnegative subwindow of the original corrected norm. All three j terms, both cross orientations, log weights, strict head cutoff and the original denominators remain. TW.10 requires the genuine mu Euler product; it fails for MB's freely constructed high suffixes, so those counterexamples do not contradict the recovery theorem.
+
+Native CODIV was checked as a possible supplier, not collapsed into this Nyman norm. Original MP controls genuine prime/cofactor projections of ADDITIVE h=floor(X^(1/3)) windows, with a separately unpaid composite residual and coherent prefix. TW's dilation kernel and H-sized floor window do not meet those projection hypotheses. No bound for MP's full residual or new substantive native CODIV cancellation is established here; that protected arithmetic task remains due. This invocation follows the explicit latest Coordinator MB assignment and does not count TW as closure of CODIV coverage.
+
+### H. Falsification, Loss Ledger And Novelty
+
+#### FIRST SIGNED LOSS / PAID RECOVERY TEST
+
+| Step | Signed source / loss | Exact price and paid input | Unpaid or falsified inference |
+| --- | --- | --- | --- |
+| Full taper -> [3H,4H) | Positive restriction of complete E, not equality of full norms | E>=J/L^2, corrections exactly inactive only here | Small J does not pay the rest of E. |
+| V -> three fixed T_r | Cauchy only after all layers are combined | P_r sqrt(HJ), no cross term dropped from J | A single small projection cannot upper-bound J. |
+| Integer -> real h | Absolute values only for the compact kernel derivative | Uniform 16L_r Lipschitz constant from |mu|<=1 | Selection alone supplies no coverage. |
+| Mellin recovery | Complete genuine mu and all three lower endpoints | Exact numerator -3; absolute convergence first only for Re(s)>1 | Dropping a floor or boundary changes the carrier. |
+| Existing Mertens -> J | Triangle after exact Abel sum | TW.12, exponent 2b-1 | No gain from scalar envelope or finitely many moments. |
+| Marked moment / MP recovery attempt | Ideal profiles or additive prime windows differ | Actual theorem hypotheses inspected and retained | OPEN_BRIDGE; no unrelated moment theorem inserted. |
+
+The core potential error was a hidden multiplier zero. TW.9-TW.10 remove it by an exact forced differential equation rather than assuming nonvanishing. A second risk was integer sampling: TW.7 explicitly pays that interpolation. A third was using G as if it covered all heads: TW3 retains the missing hypothesis. A fourth was importing a zero-dominant asymptotic from an oscillatory heuristic: TW4 labels it unproved.
+
+The prior FT obstruction is all-scale and concerns the longer original taper middle, not this new fixed-ratio local statistic. RC's dual gcd kernel and NT's harmonic-tail isometry are different norms. MB4 supplies the original window and simple scalar upper bound; it does not already contain TW.9's recovery. Main code search for three-floor/Mellin-Nyman declarations, the original return module, the earlier Nyman positive-residue note and the relevant current reports found no duplicate recovery theorem. Search coverage is not a claim of worldwide novelty. The general Mellin/pole principle is classical; only its explicit source-compatible operator and quantitative accounting are claimed as this run's derivation.
+
+Literature search was limited to the changed compact-kernel/Mellin question. Sangale's explicit Hardy theorem proof was read for zero existence. The existing Nyman notes and primary Baez-Duarte search results describe classical Mellin/density principles, not a bound on this J_H or selected G. Two optional full-text literature endpoints returned 404/403 and were not used as evidence. No unverified zero-density, conjectural correlation, or contemporary preprint claim enters the new proof.
+
+#### Executed Verification: TW5
+
+The preregistration and complete checker are appended. Genuine mu is computed by exact trial factorization; logarithms in every source/moment check are exact rational vectors of prime logarithms, not floating signs. Checked H=2..64, every 3H<=m<4H; original two-band vectors at H=2..18, N=12H; both moments, exact head and complete window return. The declared H=2,m=12 control correctly fails if the needed fourth floor layer is omitted and passes when all layers are restored. The energy weights telescope exactly. A sparse formal exponential-polynomial calculation verifies TW.9 at symbolic nonzero s and separately at s=0.
+
+Result: 2,520 exact/symbolic assertions PASS; 12 DOUBLE-PRECISION diagnostic kernel quadratures PASS, largest discrepancy 7.021666937153402e-16 against a registered 1e-9 tolerance. These 12 checks are not interval certificates and establish nothing about zeta zeros. Python syntax validation passed. Program SHA256: `d6b232b9a5e813a066031600d2c44a934024e8d7f4ddafe10e53e22715f46463`; preregistration SHA256: `70bd77c57d7ec82edaa9e57dc70571062e95c8abf848f77c2dd23feb60ff1435`.
+
+The first launch stopped before mathematical tests because mpmath was absent; a package-fetch attempt failed through the network proxy. Before execution, the registration was amended and the checker made standard-library-only. No failed mathematical assertion was concealed, no finite domain was reduced, and no numerical result is promoted to the universal proof. All required processes have finished. No large selected-head scan duplicates the Census assignment.
+
+### I. Conceptual Interpretation And Admission
+
+The original three-floor window retains the moving head's entire Mellin singularity information. Combining layers does not erase that information: the lower endpoints force a fixed nonzero numerator after a second-order differential operation. This explains why a uniform small-energy shortcut is already global-strength, despite observing only m/H in (3,4).
+
+The selected family has a genuinely different quantifier. A very small scalar delta(H) does not prove that the complete window's two real oscillatory directions are small. The new theorem sharpens that issue, but does not resolve it for genuine selected heads. Neither an unbounded selected set nor a hypothetical isolated pole is substituted for the missing arithmetic theorem.
+
+Admission verdict: SUPPORTING_INVERSE_THEOREM_AND_GENUINE_NO_GO; NO_NEW_GLOBAL_GAIN; NO_NEW_ACCEPTED_ROUTE. No new independent upper estimate strong enough to pay J_H/log^2 H on G was established. No strategic change beyond the live authorized portfolio is made.
+
+### J. Specialist Handoffs
+
+**Coordinator:** keep MB4's selected-window question, with the new qualifier that its all-head subpower strengthening is RH-equivalent. TW1 is a quantitative source-exact inverse theorem, not a proved saving. Do not turn TW3's sufficient gap condition into an assumed input or a compulsory new campaign. Preserve CODIV residual work and full FFR4 implementation as distinct obligations.
+
+**Adversarial Referee:** review TW.6-TW.11 first: strict cutoff, h<1/4 support, exact weight HJ, Lipschitz constant, both integration-by-parts boundaries, the constant -3, continuation without simple zeros, and the polynomial height cost. Then review TW2's all-head quantifiers versus G, and TW4's exponential-polynomial independence. All TW claims await independent review; no self-acceptance is asserted.
+
+**Lean Verification:** full physical FFR4 remains ahead of optional TW formalization. The new result is not already present in Lean and must not be inserted as an axiom or assumed response estimate. If strategically selected after review, separate finite floor-return facts, compact-kernel estimates, and complex analytic continuation. #1136/#1137 are now merged; no redundant CI requested.
+
+**Prime Census:** continue MB's original selected-versus-matched-head regional experiment if still appropriate after freshness checks. TW predicts no fixed-power decay bound over ALL heads, not a finite-range slope or a selected-head lower bound. The current checker is source algebra only, so no selected data range has been preempted. A scalar crossing is not evidence that the full V profile is small.
+
+**Owner Payment:** DB's R=5 correction and R=137 complete-restoration counterexample are consumed with independent-review-pending status. They illustrate a distinct restored-source issue; no owner-mask transfer is supplied by TW's scalar mu transform.
+
+**Finite Wheel:** SF/RS remain product/gcd restrictions, not Nyman energy bounds. TW.10 uses a one-index moving head and genuine Euler coefficients; any proposed transfer must prove the literal occurrence/weight map. No repeated row-sign or R=115 scan is requested.
+
+### K. First Independently Missing Analytic Theorem
+
+The assigned target remains a genuinely coefficient-sensitive estimate for the ORIGINAL combined V_H on SS's actual G that improves TW.12 to J_H=o(log^2 H), or a rigorous positive normalized limsup on that same selected sequence. Neither direction has been proved. It is a necessary regional test for the selected taper, not a sufficient full-Nyman condition.
+
+This run isolates the specific barrier to the attempted mechanism: the known selection controls delta(H), a single reciprocal logarithmic functional; the whole-window Gram retains two nondegenerate real directions of each nonreal Mellin mode. A useful next argument must control their genuine joint arithmetic interaction, not merely bound coefficient prefixes or impose another finite moment. TW4 cannot be applied without a proved error bound for an actual mode decomposition. TW3 cannot be applied without a proved coverage estimate. Both unproved hypotheses are stronger information than mere existence of crossings and are not assumed.
+
+The already-paid OAI moment has no demonstrated source/height/profile map to these statistics. Native CODIV separately retains OPEN-MP-RETURN for its complete composite/coherent source. The main FFR4 pending work is complete actual-source assembly, not another principal expansion. These are different missing inputs; no new generic covariance premise replaces them.
+
+### L. Next-Run Resume Capsule
+
+```text
+TRIGGER=2026-11-16T09:09:04-05:00; RUN_ID_UNAVAILABLE;
+LABEL=20261116-analytic-0909-EST/TW;
+MAIN=076195b75278869d4f18fd924b9ebdaedf723108;
+INTAKE_REPORTS=7b5369ec49150054eecfc695b48711626d16d3ad;
+CHECKPOINT=bfed46eb81d3e7e782ea4e921008afb3959df54d;
+CHECKPOINT_BLOB=2051d4841cb4a9429d3da6a1a6b5893d50c6e74c;
+BASELINE=b_base=7/8-7/(64*N_pack), every positive loss;
+MERGED=#1136 conditional inversion; #1137 principal component only;
+NEW=TW1 quantitative differential Mellin recovery;
+    TW2 all-head growth dictionary and no polynomial decay;
+    TW3 explicit selected coverage gate;
+    TW4 fixed-nonreal-profile Gram, actual-mode application conditional;
+    TW5 exact finite checks and noncertifying numerical diagnostics;
+REVIEW=all new TW paper claims independent-review pending; no Lean edits;
+VALID_PRIOR=SS1-SS4 and RC1-RC4 accepted on paper; NT1-NT2 paper-accepted;
+CORRECTION=UF4 minimal delayed example R=5; DB restored sign reversal R=137;
+OPEN=J_H/log^2 H on G, complete Nyman middle and logarithmic moment,
+     native CODIV composite/coherent source, full physical FFR4;
+NO_NEW_GLOBAL_GAIN; NO_NEW_ACCEPTED_ROUTE; VERIFIED_ETA=NONE; RH=OPEN.
+```
+
+Refresh actual main, latest published reports, PR #1138's merge/policy status, and any TW reviewer verdict before continuing. Do not rederive the same recovery, repeat the same algebra tests, or claim that a new name for TW.2 is an independent bound. Resume the actual missing coefficient-sensitive selected-window input only with new arithmetic information; preserve the separately due native CODIV investigation subject to any newly merged task-selection policy. No agent was launched, no schedule changed, and only the owned daily report is written remotely.
+
+### Material Source Receipt
+
+All main source paths below are at the pinned main HEAD above; report hashes are recorded in B. Hashes identify evidence, not independent mathematical proofs.
+
+| Main path | Blob SHA |
+| --- | --- |
+| research/NYMAN_FLAT_TAPER_RETURN_20261104.lean | 2d23721027ecc44e85b7add02fc632b482f03352 |
+| research/NYMAN_HIGH_COEFFICIENT_INVARIANT_20261104.lean | 2da630c1d5fb9302e2097ec1e170cf41c2b40609 |
+| research/MERTENS_CONVERSE_IDENTIFICATION.lean | 768c8255850bf4074aff265c3fe17a1f5c43979b |
+| research/oai_434/VF919WindowErrorClosure.lean | f629db1b2b65d6ec042ac9432397d4b6316200c6 |
+| scripts/lean/window_error_closure/WindowErrorClosureAudit.lean | 1f17f9401a63d16227db2e2aad020b9f74bc5f4e |
+| research/oai_434/VF919OriginalMarkedSharpenedSignedNNS.lean | 1ead3888a1f59cacc71f482f6d4ce9c9ad31903a |
+| research/oai_434/VF919PhysicalPrincipalResponse.lean | 453ae52b367e5c0e69ef89baf3dfaf3236b7a32c |
+| research/oai_434/VF919PrincipalResponseInversion.lean | 1940c482f341606fccec46a35b0ac9fe13454a0d |
+| docs/COORDINATE_ATLAS.md | cd0419d00a37739fe5a292f5cb738e33213949d5 |
+| docs/PROOF_DEPENDENCY_DAG.md | 342025ac7be37ae148f4c9826923150ad3930328 |
+| research/NYMAN_BEURLING_POSITIVE_RESIDUE_ATTACK_2026_10_15.md | b2775c892edffe920a101651eef6f3581c73c9d4 |
+| lean-toolchain | ba8ebf2dbaf6a668cd2a0e086186d6d569b69ff5 |
+| lake-manifest.json | a34d142c3d75a602a8b0f8241a4fb504d5c7c5a4 |
+
+### Reproduction Appendix - TW5
+
+The following registration and complete standard-library checker are the actual executed versions, with the disclosed pre-execution dependency repair retained. No saved numerical output is needed to reproduce the finite assertions. The analytic proof does not rely on these tests establishing an infinite theorem.
+
+
+#### Executed Preregistration
+
+```markdown
+# TW Verification Registration
+
+Written before running the checker. This run tests a new original-three-floor Mellin recovery argument, not the Census assignment to scan selected heads.
+
+1. Use exact integers and rational prime-log vectors for genuine Mobius coefficients. Verify the direct floor sum equals the combined three rescaled sums for every H=2,...,64 and 3H<=m<4H.
+2. For H=2,...,18 and N=12H, build BOTH original correction bands exactly as formal logarithmic vectors. Check both moments, exact head, and L*r=-V on the entire three-floor window. Do not fit or change coefficients.
+3. Test a declared off-window control H=2,m=12: removing the fourth floor layer must fail.
+4. Verify the continuous/discrete energy weights exactly by telescoping on each H=2,...,64.
+5. Symbolically verify (t*d/dt-s)^2 K_t(s)=-3, including s=0. This is a consistency check of the written universal proof, not numerical proof of an analytic identity.
+6. At 60 decimal digits, compare the integrated and closed-form kernels at exact test parameters s=0,1/2,1/2+i,3/4+5i and t=13/4,7/2,15/4. Label these numerical checks, not certificates about zeta zeros or all scales.
+
+No full-energy extrapolation, selected-head scan, zeta-zero enumeration, Lean execution, or unchanged large experiment is performed.
+
+## Dependency Repair Before Any Mathematical Check Ran
+
+The first launch stopped on missing mpmath; installing mpmath/sympy failed through the package network proxy. The checker is revised to use only the Python standard library. Item 5 uses exact sparse exponential-polynomial algebra rather than SymPy. Item 6 uses double-precision composite Simpson quadrature with 16,384 panels and a 1e-9 comparison threshold, explicitly noncertifying. All registered domains and original-source exact tests are unchanged. No mathematical assertion was executed before this repair.
+```
+
+#### Executed Checker
+
+```python
+from collections import Counter
+from fractions import Fraction as F
+import json
+import cmath
+import math
+
+
+counts = Counter()
+
+
+def check(ok, label):
+    if not ok:
+        raise AssertionError(label)
+    counts[label] += 1
+
+
+def factors(n):
+    out = {}
+    p = 2
+    while p * p <= n:
+        while n % p == 0:
+            out[p] = out.get(p, 0) + 1
+            n //= p
+        p += 1
+    if n > 1:
+        out[n] = 1
+    return out
+
+
+def mu(n):
+    fs = factors(n)
+    return 0 if any(v > 1 for v in fs.values()) else (-1) ** len(fs)
+
+
+def add(a, b, scale=F(1)):
+    out = dict(a)
+    for p, x in b.items():
+        out[p] = out.get(p, F(0)) + scale * x
+        if out[p] == 0:
+            del out[p]
+    return out
+
+
+def mul(a, x):
+    return {p: v * x for p, v in a.items() if v * x}
+
+
+def log_ratio(a, b):
+    return add({p: F(v) for p, v in factors(a).items()},
+               {p: F(v) for p, v in factors(b).items()}, F(-1))
+
+
+def direct(h, m):
+    out = {}
+    for k in range(h + 1, m + 1):
+        out = add(out, log_ratio(h, k), F(mu(k) * (m // k)))
+    return out
+
+
+def layers(h, m, jmax=3):
+    out = {}
+    for j in range(1, jmax + 1):
+        for k in range(h + 1, m // j + 1):
+            out = add(out, log_ratio(h, k), F(mu(k)))
+    return out
+
+
+for h in range(2, 65):
+    for m in range(3 * h, 4 * h):
+        check(direct(h, m) == layers(h, m), "original_three_floor")
+    weight = sum((F(1, m * (m + 1)) for m in range(3 * h, 4 * h)), F(0))
+    check(weight == F(1, 12 * h), "exact_energy_weight")
+
+check(direct(2, 12) != layers(2, 12), "fourth_layer_negative_control")
+check(direct(2, 12) == layers(2, 12, 5), "restored_layers")
+
+for h in range(2, 19):
+    n = 12 * h
+    ksize = n // 6
+    scale = log_ratio(n, h)
+    q = {k: log_ratio(n, max(h, k)) for k in range(1, n + 1)}
+    band1 = range(3 * ksize + 1, 4 * ksize + 1)
+    band2 = range(5 * ksize + 1, 6 * ksize + 1)
+    s1 = sum((F(1, k) for k in band1), F(0))
+    s2 = sum((F(1, k) for k in band2), F(0))
+    u, v = {}, mul(scale, F(2))
+    for k in range(1, n + 1):
+        u = add(u, q[k], F(mu(k), k))
+        v = add(v, q[k], F(mu(k)))
+    a = mul(add(u, v, -s2 / ksize), 1 / (s1 - s2))
+    z = mul(add(mul(v, s1 / ksize), u, F(-1)), 1 / (s1 - s2))
+    d = {}
+    for k in range(2, n + 1):
+        correction = a if k in band1 else z if k in band2 else {}
+        d[k] = add(correction, q[k], F(-mu(k)))
+    reciprocal, mass = {}, {}
+    for k in range(2, n + 1):
+        reciprocal = add(reciprocal, d[k], F(1, k))
+        mass = add(mass, d[k])
+    check(reciprocal == scale, "original_reciprocal_moment")
+    check(mass == mul(scale, F(3)), "original_mass_moment")
+    for m in list(range(1, h + 1)) + list(range(3 * h, 4 * h)):
+        residual = dict(scale)
+        for k in range(2, n + 1):
+            residual = add(residual, d[k], -F(m % k, k))
+        if m <= h:
+            check(residual == {}, "original_exact_head")
+        else:
+            check(residual == mul(direct(h, m), F(-1)), "complete_return_window")
+
+# A key represents exp(mode*s*z) * z^degree * s^power * label.
+# A(s) and B(s) are independent of z, so their labels are formal constants.
+kernel = {(1, 1, -1, "A"): F(-1), (1, 0, -2, "A"): F(1),
+          (1, 0, -1, "B"): F(1), (0, 0, -2, "one"): F(-3)}
+
+
+def op(expr, subtract_s=True):
+    out = {}
+    for (mode, degree, power, label), coeff in expr.items():
+        rate = mode - int(subtract_s)
+        if rate:
+            out = add(out, {(mode, degree, power + 1, label): coeff * rate})
+        if degree:
+            out = add(out, {(mode, degree - 1, power, label): coeff * degree})
+    return out
+
+
+check(op(op(kernel)) == {(0, 0, 0, "one"): F(-3)}, "symbolic_kernel_ode")
+kernel0 = {(0, 2, 0, "one"): F(-3, 2),
+           (0, 1, 0, "log6"): F(1),
+           (0, 0, 0, "log2_squared"): F(-1, 2),
+           (0, 0, 0, "log3_squared"): F(-1, 2)}
+check(op(op(kernel0, False), False) == {(0, 0, 0, "one"): F(-3)},
+      "symbolic_zero_parameter")
+
+
+def integrate(ss, upper):
+    panels = 16384
+    step = (upper - 1) / panels
+    values = []
+    for i in range(panels + 1):
+        x = 1 + i * step
+        weight = 1 if i in (0, panels) else 4 if i % 2 else 2
+        values.append(weight * math.log(x) * cmath.exp((ss - 1) * math.log(x)))
+    return step / 3 * complex(math.fsum(z.real for z in values),
+                              math.fsum(z.imag for z in values))
+
+
+max_error = 0.0
+for ss in [0, 0.5, 0.5 + 1j, 0.75 + 5j]:
+    for tt in [13 / 4, 7 / 2, 15 / 4]:
+        integrated = -sum(integrate(ss, tt / j) for j in range(1, 4))
+        closed = (-sum(math.log(tt / j) ** 2 / 2 for j in range(1, 4))
+                  if ss == 0 else
+                  -sum(((tt / j) ** ss * (ss * math.log(tt / j) - 1) + 1) / ss ** 2
+                       for j in range(1, 4)))
+        error = abs(integrated - closed)
+        max_error = max(max_error, error)
+        check(error < 1e-9, "numerical_kernel_crosscheck")
+
+print(json.dumps({"status": "PASS", "counts": dict(counts),
+                  "exact_and_symbolic_assertions": sum(counts.values()) - 12,
+                  "numerical_checks": 12,
+                  "max_numerical_discrepancy": max_error}, indent=2))
+```
+
+#### Observed Result
+
+```json
+{
+  "status": "PASS",
+  "counts": {
+    "original_three_floor": 2079,
+    "exact_energy_weight": 63,
+    "fourth_layer_negative_control": 1,
+    "restored_layers": 1,
+    "original_reciprocal_moment": 17,
+    "original_mass_moment": 17,
+    "original_exact_head": 170,
+    "complete_return_window": 170,
+    "symbolic_kernel_ode": 1,
+    "symbolic_zero_parameter": 1,
+    "numerical_kernel_crosscheck": 12
+  },
+  "exact_and_symbolic_assertions": 2520,
+  "numerical_checks": 12,
+  "max_numerical_discrepancy": 7.021666937153402e-16
+}
+```
+
