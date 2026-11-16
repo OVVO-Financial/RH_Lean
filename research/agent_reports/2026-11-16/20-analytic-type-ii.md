@@ -1481,3 +1481,20 @@ EXECUTION=COMPLETED. SUBSTANTIVE_PUBLICATION=PUBLISHED_READBACK_VERIFIED. The su
 MATHEMATICS: TW1-TW4 are new paper proofs with explicitly scoped conditional applications, SELF_AUDIT and INDEPENDENT_REVIEW_PENDING; they are NOT new Lean certifications. TW5 passed 2,520 exact/symbolic assertions and 12 separately labelled double-precision diagnostics. The registered checker and preregistration hashes match their embedded copies. All A-L sections and code-fence structure passed final report QA. The selected-head J_H=o(log^2 H) estimate and full original Nyman error remain OPEN. NO_NEW_GLOBAL_GAIN; NO_NEW_ACCEPTED_ROUTE; VERIFIED_ETA=NONE; RH=OPEN.
 
 Last main refresh before substantive publication remained `076195b75278869d4f18fd924b9ebdaedf723108`. PR #1138 was observed open/unmerged at the 09:33 EST freshness check; its proposed policy was read but not activated as merged authority. Refresh that status and any independent TW verdict on the next actual invocation. No Lean execution, source edit, PR creation, CI launch, merge, other-agent launch, other-report write or schedule change occurred in this run.
+
+
+## IN_PROGRESS Checkpoint - 20261116-analytic-1711-EST/LM
+
+Actual scheduled trigger: 2026-11-16 17:11:01 EST; America/New_York. PLATFORM_RUN_ID=UNAVAILABLE. LM is a research label, not a fabricated execution ID.
+
+Main refreshed at `4d5482805bac6a8f29d4fb4dadc61eca0bc06525`; AGENTS blob `c4f36b772f8a4b0c24fe566b90fafb646073c60f`; proof contract `95566e37c8eaeb99ee680660df4f9d2e06ea5038`; half policy `96ad4439ec458af6168f7d9cb3eef5dde291d37c`. `half_bootstrap_ack=BOOTSTRAP_TO_HALF_V1`; `cross_route_ack=CROSS_ROUTE_SIGNED_RECOVERY_V1`; `continuity_ack=LAST_ACTUAL_REPORT_CONTINUITY_V1`.
+
+Latest-report discovery enumerated every available dated folder, with no calendar cap, at report revision `d7c4fe97bfc1637ccc8963a1b5ff0222c07c4943`. Complete November 16 files for all seven roles, both Coordinator mirrors, available November 15 files and external inbox were retrieved. Resuming prior TW and the newly published FP -> SG -> FR -> FR-AUDIT -> HB handoffs; DB unchanged. Existing earlier findings and claim IDs remain intact. No November 15 Owner/Analytic/Wheel/Census report is invented; November 13-14 have no dated folder. External inbox unchanged at `7d63d434690d00dffce9c90335d41c4f62d85798`.
+
+**Selected bounded feasibility audit:** Coordinator HB's original NYMAN long-middle covariance question. Preserve `U_H(m)=sum_(H<k<=m)mu(k)log(H/k)floor(m/k)`, genuine selection `delta(H)delta(H+1)<=0`, and region `4H<=m<=N/2`, with the original two-band correction and full infinite norm as the terminal object. Investigate exact divisor/coprimality covariance, its relation to the selected reciprocal log moment, and a provable restriction or precise no-go. A positive off-diagonal witness alone would refute only a nonpositive-sign shortcut; no generic suffix or assumed zero-dominance will replace genuine coefficients.
+
+**Half continuation:** the direct terminal is convergence of the COMPLETE original fractional-part residual norm along an unbounded admissible subsequence, through Bagchi's discrete criterion. A proper regional estimate is necessary, not sufficient. All remaining early/transition/correction/after-N/infinite-tail bills remain unpaid unless explicitly bounded. Status=ACTIVE_SUPPORT for this bounded audit, not an admitted complete source supplier. No new exponent or RH claim.
+
+Current open/draft PR collection is empty. PR #1139 is now human-merged (21:57:12 UTC); previous handoff labels saying unmerged are historical. Exact-head check/log reconciliation is in progress; no fresh whole-main Lean build is claimed. Git transport is blocked (CONNECT tunnel 403), while connector reads and this authorized own-report update are available. No Lean source, policy, other report, branch, PR, schedule or workflow is changed.
+
+Research status=IN_PROGRESS; mathematical claims pending derivation/self-audit; publication is verified only by subsequent immutable readback.
