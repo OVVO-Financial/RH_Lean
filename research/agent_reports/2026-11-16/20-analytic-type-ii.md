@@ -1498,3 +1498,685 @@ Latest-report discovery enumerated every available dated folder, with no calenda
 Current open/draft PR collection is empty. PR #1139 is now human-merged (21:57:12 UTC); previous handoff labels saying unmerged are historical. Exact-head check/log reconciliation is in progress; no fresh whole-main Lean build is claimed. Git transport is blocked (CONNECT tunnel 403), while connector reads and this authorized own-report update are available. No Lean source, policy, other report, branch, PR, schedule or workflow is changed.
 
 Research status=IN_PROGRESS; mathematical claims pending derivation/self-audit; publication is verified only by subsequent immutable readback.
+
+## Long-Middle Covariance: Diagonal Scale And Selected-Head Sign Obstruction - 20261116-analytic-1711-EST/LM
+
+Actual scheduled trigger: 2026-11-16 17:11:01 EST, America/New_York. PLATFORM_RUN_ID=UNAVAILABLE. LM is a research label. This is an append-only continuation of RC/TW and the verified LM checkpoint; no earlier claim, correction or receipt is overwritten. Research is complete at author self-audit scope. Publication remains READBACK_PENDING until the receipt below.
+
+### A. Most Important Analytic Development
+
+**The original long-middle diagonal has a sharp, independently proved polynomial size. Selecting a small reciprocal logarithmic moment does not change it.** For genuine Mobius coefficients, integers H>=2 and B>=4H, put
+
+```text
+U_H(m)=sum_(H<k<=m) mu(k)log(H/k)floor(m/k),
+D(H,B)=sum_(H<k<=B) mu(k)^2 log(k/H)^2
+                  *sum_(m=4H..B) floor(m/k)^2/[m(m+1)].
+```
+
+Uniformly throughout that range, with an absolute implied constant,
+
+```text
+D(H,B)=2B/[zeta(2)H]
+       +O(B/H^(3/2)+1+log(B/H)^4).                       (LM.1)
+```
+
+An explicit all-range error bound is proved below. In particular, for the unchanged quadratic taper N_H=6ceil(H^2/6), B=N_H/2,
+
+```text
+D(H,N_H/2)=(6/pi^2)H+O(sqrt(H)+log(H)^4).               (LM.2)
+```
+
+The desired regional error is o(log(H)^2), not merely o(H). Therefore its complete ordered off-diagonal must cancel essentially the ENTIRE diagonal, to that additive precision. A nonpositive sign, or any fixed fractional cancellation below 100 percent, gives an insufficient upper certificate. This is a limitation of that proposed proof step, not a lower bound on the genuine total error.
+
+**A genuine selected-head sign shortcut is also false.** At H=10, N=102, the off-diagonal restricted to gcd(k,l)>1 is strictly positive, in [0.003351232230,0.003351232231], although delta(10)>0>delta(11). At selected H=13 the same sector is strictly negative. The TOTAL off-diagonal is negative at both heads. Neither example refutes total nonpositivity, asymptotic full-norm convergence, an eventual sector rule, or RH.
+
+| Claim ID | Mathematical status and actual scope |
+| --- | --- |
+| 20261116-analytic-1711-EST/LM1 | PAPER_PROOF / SELF_AUDIT: explicit uniform diagonal estimate LM.1, quadratic specialization LM.2, and every fixed polynomial taper range below. No RH/PNT premise. |
+| LM2 | IDENTITY_ONLY / supporting PAPER_PROOF: complete cofactor-max and gcd-resolved covariance, with the exact saturation requirement quantified using LM1. This is not a new cancellation supplier. |
+| LM3 | REFUTED / FINITE_COMPUTATION: universal nonpositive shared-gcd covariance on selected legal heads fails at H=10; universal nonnegative shared-gcd covariance fails at H=13. No minimality claim. |
+| LM4 | Source/literature feasibility audit: the already-compiled increment is the genuine truncated-divisor discrepancy; available pure-divisor second moments do not pay its long-range cumulative correlation. NO_NEW_UPPER_CANCELLATION_ESTIMATE. |
+| LM5 | FINITE_COMPUTATION: 136,977 exact/interval assertions PASS; both deliberately broken controls detected; all processes completed. Not a limit theorem or Lean proof. |
+
+All new paper claims await independent review and are NOT_FORMALIZED. NO_NEW_GLOBAL_GAIN; NO_NEW_ACCEPTED_RH_ROUTE; VERIFIED_ETA=NONE; RH remains OPEN.
+
+### B. Current Mathematical Objective And Verified Continuity
+
+Live main: [4d5482805bac6a8f29d4fb4dadc61eca0bc06525](https://github.com/OVVO-Financial/RH_Lean/commit/4d5482805bac6a8f29d4fb4dadc61eca0bc06525). The live AGENTS instruction, contract, no-calendar-cap continuity policy, cross-route directive and November 16 half-continuation directive were read. The attached older research contract was also read; its historical task/read-only sentences do not override the current explicit own-report publication authorization or main's new priorities.
+
+```text
+half_bootstrap_ack=BOOTSTRAP_TO_HALF_V1
+cross_route_ack=CROSS_ROUTE_SIGNED_RECOVERY_V1
+continuity_ack=LAST_ACTUAL_REPORT_CONTINUITY_V1
+```
+
+The canonical actual-prime target remains `VFCanonicalSquareVonKochStatement`: one C>=0 before all integers R>=2 with |pi(R^2)-vfCanonical(R^2)|<=C R log R. The canonical phase is vfMid+sqrt(2); the classical terminal retains `ClassicalVonKochRHCriterion`. No prime/VF error is identified with this Nyman regional norm.
+
+**BASELINE / DEPENDENCY RECEIPT.** The original source of `native_mertens_near_uniform_window_error_closed` was read. It gives every-positive-loss Mertens growth at b_base=7/8-7/(64*N_pack), with fixed source count, not a no-loss fixed power at b_base. Exact tested head 77ee815846d6d534c866f0752aa33b84c385610a has 14/14 successful checks. The actual [dependency/axiom log](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42552018910/job/128949473700) was re-fetched: five closures 35358,35375,35736,35737,35753, with only propext, Classical.choice and Quot.sound. Untruncated trees at that head and current main were compared on 2,508 preexisting Lean/pin/scripts/lean files; only RHLean.lean's aggregate differs. This is scoped reuse of unchanged certification, not a new whole-main build. Spending epsilon=7/(64*N_pack) supplies the fixed b=7/8 bound used only for inherited complement/drift estimates.
+
+No open/draft PR existed at intake. Relevant recent merges were retrieved: #1135 envelope interfaces; #1136 finite-prefix inversion; #1137 principal-only FFR4; #1138 half-continuation priority; and now #1139 fixed-gcd obstruction. The latter is human-merged at 21:57:12 UTC, superseding the handoffs' old unmerged labels. Its tested head 760a105553788fa7005e86b1230699fd871a2934 has 13/13 successful checks. Actual [compilation](https://github.com/OVVO-Financial/RH_Lean/actions/runs/43929805348/job/133518873088) reports compiled=1,cached=9 for the new source; the [type/dependency audit](https://github.com/OVVO-Financial/RH_Lean/actions/runs/43929804765/job/133518873411) reports eight standard-axiom roots with closures 92,77,49,48,585,590,618,619. Its source blob is 9003eb1c226f0b114be6402e63f325b60c80bf92; the tested tree and main merge tree are 987c764248812e4e587d1e076d9a1d6277515fb7. It certifies the R=139 pointwise obstruction, not FR's entire analytic equivalence. No new CI was launched or rerun.
+
+**Latest-actual ledger.** Discovery enumerated every available dated report directory without a calendar cap. All complete latest role files, both Coordinator mirrors for November 15 and 16, available prior-day reports and external inbox were fetched at d7c4fe97bfc1637ccc8963a1b5ff0222c07c4943. Mirror contents agree. The prior TW ledger is the consumed watermark; relevant new sections were recovered in publication order FP, SG, FR, FR-AUDIT, HB. DB is unchanged and retained. CONTINUITY_COMPLETE means verified latest discovery and relevant backfill, not a reread of every historical appendix or an independent acceptance of every upstream claim.
+
+| Role; latest November 16 file | LAST_VERIFIED blob and actual section/receipt EST | LAST_CONSUMED -> NEW_UNCONSUMED, now consumed; RESUME/status |
+| --- | --- | --- |
+| Coordinator, 00 and 90 mirrors | fcb7cc6f4c287b17ebd7ed8b6d618a113bd36d71; HB, 15:38 receipt | MB -> HB1-HB5. Critical inverse cost is supporting/self-audited; assigned original long-middle covariance. |
+| Owner, 10-owner-payment.md | a52b439e693e069502b0c299a5f074a19bae0807; DB, 08:35:17 | DB -> NONE. R=5 correction and R=137 restored sign reversal retained; complete residual unpaid. HB's narrow DB.9 algebra acceptance is not full DB acceptance. |
+| Analytic, 20-analytic-type-ii.md | 3eaa287d062966014d8386a21614837923eb007a before LM; TW, 09:35:36 | RC/TW -> own TW receipt recovered. RC1-RC4 accepted by NT; TW dedicated review still pending. No new all-head recovery derivation. |
+| Wheel, 30-finite-wheel.md | 1d2e2fc0da212df5423e0cb0370e3064bd7b0b2e; FP, 10:40:26 | SF -> FP1-FP4, accepted on paper by FR. Exact inverse/radical return is not an improved signed bound. |
+| Census, 40-prime-census.md | c07bf25eae457033e49e22b2eacc9c659a754d39; SG, 11:28:44 | RS -> SG1-SG5. H=10 local-minimum failure and complete regional/tail enclosures retained; SG2 identity accepted narrowly by HB. |
+| Referee, 50-adversarial-referee.md | 95499c6b3e72d79fe6eb902465c9554d3b0be9fc; FR, 12:22:09 | NT -> FR1-FR4. FR1-FR3 independently accepted by Lean; fixed-row target-equivalence is not a smaller supplier. |
+| Lean, 60-lean-verification.md | 8af089419676892af344fe7f980f0890e0d31912; FR-AUDIT, 13:39:45 | FFR4 component -> FR-AUDIT. R139 now on main; full inverse is paper-only; no new accepted arithmetic supplier. |
+
+TODAY=AVAILABLE for all roles. YESTERDAY=CARRY_FORWARD for Coordinator SS (8ce64136c888c6ad7820ef69a78caa5ece07d61b), Referee UE (a1c07bdd8e8493aece535745a0ce6f6635871620), Lean FFR3 (8d25541bc6faebfa180e0456061d7725756bf5ca); the relevant original arguments were read. Owner/Analytic/Wheel/Census have YESTERDAY=NO_VERIFIED_REPORT, not invented executions. November 13-14 have no dated directory. The original November 4 P4-P9 derivation was additionally retrieved at blob 04ffb1b41d8b6afe5a5d89754f5ccbc8d9682d58 for the exact complete-return budget. The external index is unchanged at 7d63d434690d00dffce9c90335d41c4f62d85798, with no entry later than October 18. Preserve EXT-20261018-PNT-1's cofactor/boundary scope and EXT-20261014-5's unconditional-versus-first-bad distinction; neither supplies today's covariance.
+
+### C. Analytic Mechanism Investigated
+
+Coordinator HB asks for a genuine relation between the ORIGINAL long-middle covariance and the selection delta(H), not an arbitrary suffix or another RH-equivalent wrapper. The audit first measures the exact loss incurred by diagonal domination, retaining the squarefree coefficient support. Unlike a scalar Mobius prefix bound, squarefree counting independently determines the diagonal at the actual growing endpoint. This determines how much cancellation any sign proposal must deliver.
+
+Next, resolve the full covariance by gcd and cofactor without altering its masks, and test a selected-head sector sign. Finally, use the existing exact divisor-increment source to test whether classical truncated-divisor correlations control the required cumulative interaction. This is a bounded feasibility audit, not a new all-head campaign or an assertion that the long middle alone is sufficient.
+
+### D. Exact Formulation And Full Source
+
+Fix integers H>=2, K>=1, N=6K>8H; L=log(N/H). Retain the ORIGINAL two-band coefficients:
+
+```text
+q_k=log(N/max(H,k)),
+u=sum_(1<=k<=N)mu(k)q_k/k,
+v=2L+sum_(1<=k<=N)mu(k)q_k,
+I1=(3K,4K], I2=(5K,6K], s_i=sum_(k in Ii)1/k,
+alpha=(u-s2*v/K)/(s1-s2), zetaCorr=(s1*v/K-u)/(s1-s2),
+h_k=alpha on I1, zetaCorr on I2, zero elsewhere,
+c_k=(h_k-mu(k)q_k)/L, 2<=k<=N,
+r(m)=1-sum_(2<=k<=N)c_k{m/k},
+E=sum_(m>=1)r(m)^2/[m(m+1)].
+```
+
+The k=1 terms in u,v are retained. The actual moments are sum c_k/k=1 and sum c_k=3. For each fixed vector the residual is bounded and periodic, so its infinite error converges absolutely. The compiled moment return is
+
+```text
+L*r(m)=U_N(m)-U_H(m)+C_h(m),
+C_h(m)=sum_(2<=k<=N)h_k floor(m/k).                       (LM.3)
+```
+
+For 4H<=m<=N/2 the correction support is strictly above m, and U_N=0. Thus this region contributes exactly E_mid=V(H,B)/L^2, where B=N/2 and
+
+```text
+V(H,B)=sum_(m=4H..B)U_H(m)^2/[m(m+1)].
+a_k=mu(k)log(H/k), H<k<=B,
+K_AB(k,l)=sum_(m=A..B)floor(m/k)floor(m/l)/[m(m+1)], A=4H,
+C_g(H,B)=sum_(H<k,l<=B, k!=l, gcd(k,l)=g)a_k*a_l*K_AB(k,l),
+C(H,B)=sum_(g>=1)C_g(H,B).
+V(H,B)=D(H,B)+C(H,B).                                  (LM.4)
+```
+
+All ordered orientations, every squareful zero and every floor multiplicity remain. This D is a Nyman diagonal, not the prime/VF discrepancy or native D_G.
+
+Selection is the genuine G={H>=2:delta(H)delta(H+1)<=0}, delta(x)=1-sum_(k<=x)mu(k)log(x/k)/k. No density of G, independence, or dominant-zero approximation is assumed. LM1 holds for ALL H and hence automatically for selected H.
+
+### E. Mathematical Derivation
+
+#### E1. Independent Squarefree Weighted Mass
+
+Let c=1/zeta(2)=6/pi^2 and Q(x)=sum_(n<=x)mu(n)^2. The finite identity mu(n)^2=sum_(d^2|n)mu(d) gives, for real x>=1,
+
+```text
+Q(x)=c*x+R(x), |R(x)|<=3sqrt(x).                        (LM.5)
+```
+
+Indeed the floor errors sum to at most sqrt(x); the omitted absolutely convergent reciprocal-square tail is at most x/floor(sqrt(x))<=2sqrt(x). No PNT, RH or cancellation beyond that elementary identity enters. The Euler product for c is absolutely convergent.
+
+Put f(t)=log(t/H)^2/t^2. Its value at H is zero and Q(t)f(t) tends to zero at infinity. Stieltjes partial summation is therefore legitimate, including the strict cutoff, and yields
+
+```text
+S_infty(H)=sum_(k>H)mu(k)^2 log(k/H)^2/k^2,
+|S_infty(H)-2c/H| <= (56/9)H^(-3/2).                    (LM.6)
+```
+
+Here integral_H^infty f(t)dt=2/H, and
+
+```text
+|f'(t)|<=2t^(-3)[log(t/H)+log(t/H)^2],
+3*integral_H^infty sqrt(t)|f'(t)|dt
+ <=6H^(-3/2)(4/9+16/27)=(56/9)H^(-3/2).
+```
+
+Every series/integral in this step converges absolutely. In particular S_infty<=9/H. For B>=4H, f is decreasing after B, so, writing ell=log(B/H),
+
+```text
+0<=sum_(k>B)mu(k)^2 f(k)
+ <=integral_B^infty f(t)dt=(ell^2+2ell+2)/B.             (LM.7)
+```
+
+This is a uniform estimate in growing B/H, not a fixed-parameter asymptotic.
+
+#### E2. The Actual Floor Diagonal, With An Explicit Error
+
+For all positive integers k,m, use 0<=x^2-floor(x)^2<=2x at x=m/k. Then
+
+```text
+0<=1/k^2-floor(m/k)^2/[m(m+1)]
+ <=1/[k^2(m+1)]+2/[k(m+1)].                             (LM.8)
+```
+
+The inequality remains valid for m<k, where the original floor is ZERO. Thus no early activation boundary is discarded. Put S_B=sum_(H<k<=B)mu(k)^2 f(k) and T_B=sum_(H<k<=B)mu(k)^2 log(k/H)^2/k. We have T_B<=ell^3 by the harmonic integral comparison and S_B<=9/H. Summing LM.8 gives
+
+```text
+0<=(B-4H+1)S_B-D(H,B)
+ <=log((B+1)/(4H))*(9/H+2ell^3).                        (LM.9)
+```
+
+Combining LM.6-LM.9 and retaining the 4H lower boundary proves the following fully explicit version of LM.1, for EVERY H>=2 and integer B>=4H:
+
+```text
+|D(H,B)-2B/[zeta(2)H]|
+ <= (56/9)*B/H^(3/2) + ell^2+2ell+10
+    +log((B+1)/(4H))*(9/H+2ell^3).                      (LM.10)
+```
+
+All constants are absolute; no exceptional roots, unstated O(1), or selected-head hypothesis is used. The 10 includes the integral-tail constant 2 and the at-most-8 lower-boundary cost. LM.10 implies LM.1 since the logarithmic factor is O(1+ell).
+
+For fixed p>1, N=6ceil(H^p/6), B=N/2, eventually B>=4H and
+
+```text
+D(H,N/2)=c*H^(p-1)
+          +O_p(H^(p-3/2)+1+log(H)^4).                  (LM.11)
+```
+
+Consequently D/(c H^(p-1))->1 for every FIXED p>1. The O_p constant is chosen before H; no uniform p->1 assertion is made. The original polynomial family p=1/theta, fixed 0<theta<1, is covered. At p=2, rounding N-H^2 in [0,6) costs only O(1/H), giving LM.2. At finite roots the explicit error can be coarse; the asymptotic follows from the proof, not the finite diagnostic ratios.
+
+#### E3. Exact Complete Covariance And Its Gcd Masks
+
+Expanding both floors and telescoping the ACTUAL weight proves
+
+```text
+K_AB(k,l)=sum_(1<=u<=B/k, 1<=v<=B/l)
+          [1/max(A,ku,lv)-1/(B+1)].                    (LM.12)
+```
+
+Every max is <=B; the sum is finite. For gcd g, write k=gs, l=gt. The nonzero terms have squarefree g, gcd(s,t)=1 and gcd(g,st)=1, and their sign product is mu(g)^2*mu(s)*mu(t). Thus
+
+```text
+C_g=mu(g)^2 * sum_(H<gs,gt<=B, s!=t,
+                   gcd(s,t)=1, gcd(g,st)=1)
+        mu(s)mu(t)log(gs/H)log(gt/H)*K_AB(gs,gt).        (LM.13)
+```
+
+The two minus logarithms cancel in the product. Squareful s,t vanish through mu; squareful g vanishes through mu(g)^2. Both (s,t) and (t,s) occur. This retains coprime and shared-prime populations without replacing either by independent signs.
+
+LM.4 implies C>=-D exactly. Combining it with LM.11 gives the precise necessary-and-sufficient condition for THIS REGION, along any unbounded selected subsequence with fixed p>1:
+
+```text
+V(H,N/2)/L^2 -> 0
+ iff C(H,N/2)=-D(H,N/2)+o(log(H)^2)
+ iff 1+C(H,N/2)/D(H,N/2)
+        =o(log(H)^2/H^(p-1)).                          (LM.14)
+```
+
+D is eventually positive by LM1 and L~(p-1)log H. This is a quantified saturation requirement, not a newly proved upper estimate or a sufficient condition for the full Nyman error. In particular C<=0 yields only V<=D; C<=-eta D at a fixed eta<1 yields only V<=(1-eta)D. Both upper certificates diverge after division by L^2. This does NOT imply V itself diverges. The same unproved cancellation cannot be counted repeatedly as an iterative contraction.
+
+#### E4. Actual Selection, The Paid Drift, And The Remaining Arithmetic
+
+Reuse the original compiled divisor identity and SS/NT's accepted selection result. If a(H)=sum_(k<=H)mu(k)/k, then
+
+```text
+delta(H+1)-delta(H)=-a(H)log(1+1/H).
+H in G implies |delta(H)|<=|a(H)|/H.
+```
+
+With the fixed genuine bound |M(x)|<=C_b x^b, 0<b<1, the paid Abel estimate gives |a(H)|<=C_b(2-b)/(1-b)H^(b-1). Hence the normalized drift on our whole middle has squared norm at most
+
+```text
+B*delta(H)^2/L^2
+ <=[C_b(2-b)/(1-b)]^2 * B H^(2b-4)/L^2.                (LM.15)
+```
+
+For p=2 and paid b=7/8 this is O(H^(-1/4)/log(H)^2), tending to zero. This is REUSED SS3/NT scope, not a new selection theorem. In the original coordinates,
+
+```text
+U_H(m)=m*delta(H)+psi(m)-m+log H
+                  +sum_(k<=H)mu(k)log(H/k){m/k}.        (LM.16)
+```
+
+Selection pays the first vector, not the norm of the remaining COMBINED vector. At the quadratic taper with paid b=7/8, their normalized norm difference tends to zero by the Hilbert triangle inequality; no signed mixed term is assumed negative. Comparing LM.15 with LM.2 shows explicitly why the already-paid drift does not furnish LM.14.
+
+There is an exact useful literature match, but no new bound. Define
+
+```text
+Lambda_H(n)=sum_(d|n,d<=H)mu(d)log(H/d),
+d_H(n)=Lambda(n)-Lambda_H(n), n>H.
+U_H(m)=sum_(H<n<=m)d_H(n).                             (LM.17)
+```
+
+For n>1 this follows from sum_(d|n)mu(d)log(d)=-Lambda(n) and sum_(d|n)mu(d)=0. Equivalently the Dirichlet convolution mu*log=Lambda, with a positive sign. The n=1 log-H boundary is retained in LM.16; n<=H contributes zero to U. In source terminology d_H(n) is the NEGATIVE of `nymanHighDivisorJump H n`; `nymanLogTail_step` and `nyman_arithmetic_residual_eq_drift_tail` already contain this increment structure. It is credited, not claimed new.
+
+Its complete response-weighted quadratic expression is
+
+```text
+V(H,B)=sum_(H<r,s<=B)d_H(r)d_H(s)
+             *[1/max(4H,r,s)-1/(B+1)].                 (LM.18)
+```
+
+Thus small same-site variance alone does not control V: all separated-time terms remain. On expansion these include true Lambda-Lambda, both mixed orientations and truncated-divisor correlations, with shifts up to B-H.
+
+Goldston-Yildirim, [Theorem 5.1](https://arxiv.org/pdf/math/0111212), proves the pure second moment sum_(n<=X)Lambda_H(n)^2=X log H+O(X)+O(H^2), and gives separate shifted estimates for 0<|j|<=H. Their introduction explicitly distinguishes correlations containing two true Lambda factors. These statements do not cover LM.18's complete shifted, response-weighted discrepancy or the selected growing head. No GRH/Elliott-Halberstam or prime-pair conjecture is imported. A uniform first-difference moment, even if available, would still need its signed cumulative return. This candidate stops here rather than promoting a pure-divisor theorem to the missing source supplier.
+
+### F. Quantitative Comparison And Complete Return Budget
+
+The inherited scalar-prefix certificate is V(H,N/2)<=C_b^2*((2-b)/(1-b)^2)^2*(N/2)*H^(2b-2). At p=2,b=7/8 it is O(H^(7/4)), before L^2 division. A hypothetical C<=0 would improve this REGIONAL certificate to O(H), but neither reaches o(log(H)^2), and no such global sign is proved. LM1 measures the exact diagonal; it does not assert that V is as large as D.
+
+The full original norm is restored using t=floor(H^(4/5)) and T=ceil(N^(3/2)). All ranges below are disjoint; within each range the complete square from LM.3 remains intact.
+
+| Original coordinate range | Valid payment or first unpaid bound |
+| --- | --- |
+| 1<=m<=H | Exactly zero by the compiled moment/head theorem. |
+| H<m<=H+t | Paid P9: contribution <=1/L^2. |
+| H+t<m<4H | OPEN. Includes the three-floor statistic already analyzed by TW/SG; no scalar crossing shortcut accepted. |
+| 4H<=m<=N/2 | Exactly (D+C)/L^2. LM14 is required; neither its upper estimate nor failure along every useful subsequence is proved. |
+| N/2<m<=N | OPEN complete correction-activation return, with both original bands and all mixed terms. |
+| N<m<=T | OPEN complete U_N-U_H+C_h return; the after-N tail is not deleted. |
+| m>T | Reused accepted P6: <=14/(3L^2)+(5/3)Delta^2, Delta=max(|alpha|,|zetaCorr|)/L=O_b(H^(b-1)/L+1/N), hence o(1). |
+
+The original P6/P9 derivations and their later scoped acceptance were recovered; no new proof or independent all-history verification of the large-sieve parent is claimed. RC's unitary exterior theorem and NT's whole logarithmic-moment lower bound remain separate, compatible coordinates; neither is added to these disjoint original regions as extra credit.
+
+Only if all unpaid regions vanish on ONE common unbounded admissible subsequence does E->0. [Bagchi, Theorem 1](https://arxiv.org/html/math/0607733v1) identifies approximation of the constant sequence by finite fractional-part combinations in exactly the weight 1/[m(m+1)] with RH. This is a classical paper terminal, not a newly compiled theorem. A convergence theorem for this particular selected family is not asserted equivalent to RH in both directions.
+
+### G. Original-Carrier Bridge And Cross-Route Map
+
+| Coordinate | Exact bridge or explicit barrier |
+| --- | --- |
+| NYMAN original full error | LM3 is the source-read compiled moment return. The two-band coefficients, squareful correction directions, k=1 moments and infinite tail are unchanged. LM4 is a nonnegative proper-region restriction, not an equality to E. |
+| Euler / FINITE-AC | Q_R=sum_(a,b<R)mu(a)mu(b)floor((R^2-1)/(ab)) and strict K_R have different indices and weights. No termwise or norm equality to the additive floor covariance is asserted. FR/FP inverses do not supply LM14. |
+| VF / actual primes | The complete centered wheel and #915 physical historical/clip/anchor sources remain distinct. LM17 involves true von Mangoldt increments, but that exact identity is not a weighted prime-seat/source-payment bridge. |
+| NNS / OAI | The original ideal-labelled marked moment has its own profile/height/capacity/conductor gates. Its native Mertens consequence is usable one way, as above; no coefficient identification with a_k or d_H is available. The unchanged 47/54 LOW floor and other half-continuation gates remain. |
+| Native square blocks / CODIV | All-prefix Mertens and half-bound consumers are retained, but this is neither a square-shell moment nor MP's additive prime-window residual. Protected CODIV work is not falsely counted complete by a Nyman calculation. |
+
+No prime indicator is replaced by density; no selected cofactor, missing gcd, signed off-diagonal, denominator, or historical occurrence is silently discarded.
+
+### H. Falsification, Novelty And Executed Checks
+
+**FIRST SIGNED LOSS / PAID RECOVERY TEST.** LM4 records the exact discarded term in replacing a full square by its diagonal. Its size is not automatically favorable. The new diagonal theorem pays only D and shows the full cancellation precision needed. Previously accepted reciprocal-band telescopes, cofactor positivity, fixed-g inverses, OAI marked moments and RC periodic exterior bounds have no demonstrated source/weight map supplying this particular C. The pure-divisor correlation theorem also fails at the full cumulative return. None is inserted as an unstated hypothesis.
+
+**Finite counterexamples, with exact original masks.** The registered algebra domain was H=8,9,10,13, N=6ceil(H^2/6). H=19 and 20 were deliberately not computed, preserving Census's separately assigned experiment. Intervals below are rounded OUTWARD from integer enclosures, not floating estimates; quantities are unnormalized.
+
+| H / selection | D | Coprime off-diagonal | Shared-gcd off-diagonal | V=D+C |
+| --- | --- | --- | --- | --- |
+| 10 / selected | [0.185253437572,0.185253437573] | [-0.181034836312,-0.181034836311] | [0.003351232230,0.003351232231] | [0.007569833491,0.007569833492] |
+| 13 / selected | [0.489618050493,0.489618050494] | [-0.450930037694,-0.450930037693] | [-0.027086966944,-0.027086966943] | [0.011601045856,0.011601045857] |
+
+At H=10, delta(H) is in [0.007903526902,0.007903526903] and delta(H+1) in [-0.000719775080,-0.000719775079]. At H=13 the intervals are [-0.000647457295,-0.000647457294] and [0.005085237321,0.005085237322]. Both are genuine legal selected heads; N>8H. These signs independently refute the two universal shared-sector sign rules stated in LM3. The new sector-sign observation is a discovery within the preregistered algebra audit, not a retroactively preregistered sign prediction. Total C is negative in all four checked cases; four cases do not prove that sign universally. No asymptotic conclusion or smallest-witness claim is made.
+
+Exact trial-factor mu was checked independently against divisor inversion through 131073. Logarithms used integer scale 10^40, range-reduced 80-term atanh series with positive geometric remainder; all products/divisions rounded outward. The Gram kernel was computed both by literal summation and by LM12's rational cofactor sum. Exact prime-log vectors checked source increments and full head restoration. Both omitted-orientation and min-for-max controls were detected. Diagonal-only checks at H=8,9,10,13,32,64,128,256,512 passed LM10; at H=512, D/H is in [0.414470933045,0.414470933046], not yet its limiting constant. The explicit error is deliberately conservative and the proof, not those ratios, establishes the limit.
+
+Results: 136,977 assertions PASS, including 1,779 exact kernel equalities, 1,671 gcd sign and 1,671 gcd-mask checks, four complete Gram reconstructions and nine explicit diagonal-bound checks. No mathematical test failed or required a post-result repair. Syntax validation passed. Checker SHA256=21154af92f6d19558a7cccd01200f54084adf56ffd5d73cd6108c0f0316037a3. Registration SHA256=25273e0bbcdf92d6fa81f87ed7ec9787c96e20909bf6b284081edb1b7116d601. Complete reproducer follows.
+
+Source/declaration searches inspected the Nyman return, radical increment, high-coefficient, route index and retrieved original P4-P9/RC/TW/SS/SG/HB discussions. The increment and drift identities are already paid and explicitly credited. No duplicate of LM10 or the H10 shared-covariance counterexample was found in that scoped search; no worldwide novelty is claimed. The squarefree argument is elementary. Independent self-challenges included m<k, B=4H, strict k>H, both ordered orientations, zero squareful coefficients, growing B/H, selected versus all-head quantifiers and complete correction restoration.
+
+### I. Interpretation And Admission Verdict
+
+The useful correction is quantitative: a covariance sign is far short of the cancellation needed by this family. Its original diagonal diverges like H for the quadratic taper, while the entire regional budget is o(log^2 H). Selection removes a small coherent drift, but has no established implication for the remaining near-complete cancellation. Even the shared-gcd sector can have either sign at actual selected heads.
+
+This audit does not disprove the selected taper, a favorable total covariance, or another joint analytic mechanism. It rejects spending a mere sign as though it were a full endpoint bound. The source-sensitive estimate itself is still missing. Stop this sign-only candidate rather than generate another conditional consumer. Status=ACTIVE_SUPPORT for the completed bounded feasibility result; no new ACTIVE_CANDIDATE or global gain.
+
+### J. Specialist Handoffs
+
+**Coordinator:** consume LM1-LM3 as support/obstruction pending independent review. The new budget is explicit: for p=2, C=-D+o(log^2 H), D~6H/pi^2. A fixed fraction or nonpositive sign cannot certify the direct terminal. Retain the other unpaid regions and the distinction between this necessary regional condition and the full selected-family theorem. Do not relabel LM14 as a smaller independent supplier.
+
+**Adversarial Referee:** independently check the constant 3 in squarefree counting, 56/9 in LM6, the m<k case of LM8, the lower boundary 4H and explicit 10 in LM10, then the gcd masks and selected H10 sign certificate. The strongest new claim is the all-range inequality, not a new source upper bound. No favorable total covariance is asserted.
+
+**Prime Census:** your H19/H20 experiment was not duplicated. The H10 shared sector is positive and H13 negative; these do not settle the total sign you were assigned. If that experiment proceeds, keep D, total C, V and V/L^2 visible. Report cancellation deficit V/D as a finite diagnostic, never as a fitted all-scale law. No larger scan is requested.
+
+**Wheel:** fixed-g product projection and this additive cofactor-max kernel are different carriers. A transferred restriction must preserve both historical tail cutoffs, all gcd(g,st)=1 masks and both orientations. The shared-gcd sign shortcut is already false on a legal selected head; no repeat row-inversion census is useful here.
+
+**Owner:** LM17 is an exact true-prime-power/truncated-divisor match, not a replacement for original #915 occurrence weights or the DB restored residual. It preserves all prime powers and cumulative mixed returns. No payment inference is made.
+
+**Lean Verification:** no new proof PR is requested solely for LM's asymptotic or a conditional norm premise. Wait for independent review and a named necessary use. Existing return/increment theorems are reused, not duplicated. #1139 is now merged and its old-head successful checks need no rerun. No Lean source was written or executed by this role.
+
+### K. First Independently Missing Analytic Theorem
+
+No independently weaker supplier was established. For this mechanism the first unpaid arithmetic is a signed, source-derived bound on the FULL response-weighted discrepancy LM18, conditional on the actual selected H only insofar as that selection is explicitly used, strong enough to make V=o(L^2) on one unbounded admissible subsequence. LM14 is exactly that regional requirement restated, not an independent hypothesis to assume.
+
+An approach through Lambda_H must retain true Lambda-Lambda terms, both mixed orientations, all large shifts and the max-kernel response. A pure same-site divisor moment or a favorable sector sign cannot supply them. A useful next attack needs an independently justified correlation restriction beyond the already-paid scalar prefix and drift bounds. The direct full-error terminal still additionally requires the other unpaid regions in F. No route switch, new campaign or assumed RH-strength input is silently authorized.
+
+### L. Resume Capsule And Source Receipt
+
+```text
+RUN=20261116-analytic-1711-EST/LM; PLATFORM_RUN_ID=UNAVAILABLE
+MAIN=4d5482805bac6a8f29d4fb4dadc61eca0bc06525
+REPORT_INTAKE=d7c4fe97bfc1637ccc8963a1b5ff0222c07c4943
+CHECKPOINT=c8c81c9ad54c0cec8269a6ff6dabf7b7cac3587e, immutable readback verified
+OWN_PRE_APPEND=3eaa287d062966014d8386a21614837923eb007a, RC/TW preserved
+ROUTE=NYMAN original two-band taper, bounded long-middle feasibility audit
+CURRENT_INPUT=compiled source return/increments; paid b=7/8; accepted SS/RC/P6/P9 scopes
+DIRECT_TERMINAL=full E->0 along one unbounded legal subsequence => RH by Bagchi
+VALID_RANGE=LM10 all H>=2, integer B>=4H; LM11 fixed p>1 before scale
+RENEWAL=not an exponent iteration; direct full-norm consumer, no coverage of G assumed
+RETURNS=early middle, both corrections, after-N and infinite tail, all within-square interactions
+CONSTANT_ORDER=absolute in LM10; fixed p,b,C_b before H for consequences
+NEW=LM1 diagonal estimate; LM2 exact accounting; LM3 selected shared-sector sign falsifiers
+FIRST_OPEN=actual signed cumulative divisor discrepancy, not a sign or renamed target
+PRESENT_WORK_TO_NEXT=independent LM10/certificate review; stop sign-only closure attempt
+STATUS=ACTIVE_SUPPORT; NO_NEW_GLOBAL_GAIN; NO_NEW_ACCEPTED_RH_ROUTE; RH=OPEN
+MATHEMATICS=PAPER_PROOF/SELF_AUDIT and finite certificates; independent review PENDING
+CI=prior exact-head evidence rechecked; no new Lean execution or claim
+PUBLICATION=READBACK_PENDING until verified receipt
+```
+
+| Inspected main material | Blob SHA |
+| --- | --- |
+| AGENTS.md | c4f36b772f8a4b0c24fe566b90fafb646073c60f |
+| CURRENT_PROOF_CONTRACT.md | 95566e37c8eaeb99ee680660df4f9d2e06ea5038 |
+| docs/RHLEAN_BOOTSTRAP_TO_HALF_20261116.md | 96ad4439ec458af6168f7d9cb3eef5dde291d37c |
+| docs/RHLEAN_REPORT_CONTINUITY_LAST_ACTUAL_20261111.md | 3e71820a4af722eae7098da6945bb5bcba50dd0d |
+| docs/RHLEAN_CROSS_ROUTE_SIGNED_RECOVERY_20261110.md | e3ae4280438f591f1ffaddd754a1c3a6d35d0691 |
+| [research/NYMAN_FLAT_TAPER_RETURN_20261104.lean](https://github.com/OVVO-Financial/RH_Lean/blob/4d5482805bac6a8f29d4fb4dadc61eca0bc06525/research/NYMAN_FLAT_TAPER_RETURN_20261104.lean) | 2d23721027ecc44e85b7add02fc632b482f03352 |
+| [research/NYMAN_RADICAL_INCREMENT_20261106.lean](https://github.com/OVVO-Financial/RH_Lean/blob/4d5482805bac6a8f29d4fb4dadc61eca0bc06525/research/NYMAN_RADICAL_INCREMENT_20261106.lean) | c5ebb3d5d96898549ad039fd32e1a26955c5b8f8 |
+| research/NYMAN_HIGH_COEFFICIENT_INVARIANT_20261104.lean | 2da630c1d5fb9302e2097ec1e170cf41c2b40609 |
+| research/oai_434/VF919WindowErrorClosure.lean | f629db1b2b65d6ec042ac9432397d4b6316200c6 |
+| research/VF_CANONICAL_SQRT_TWO_VON_KOCH.lean | 79030d70e8d3e0d08eef9bac53fef95c36eca2fb |
+| research/EULER_FIXED_GCD_ROW_OBSTRUCTION.lean | 9003eb1c226f0b114be6402e63f325b60c80bf92 |
+| lean-toolchain / lake-manifest.json | ba8ebf2dbaf6a668cd2a0e086186d6d569b69ff5 / a34d142c3d75a602a8b0f8241a4fb504d5c7c5a4 |
+
+Only this owned report is written remotely. No main, proof source, other report, central policy, issue, branch, PR, workflow, permission or schedule was modified; no agent was launched. Git transport failed with CONNECT tunnel 403; connector access supplied all required repository reads and own-report writes. Mathematical research was not blocked by that transport limitation.
+
+### LM Reproduction Appendix
+
+The registration and complete standard-library checker follow. These are finite verification, not Lean certification or evidence for an infinite cancellation rate.
+
+#### Executed Registration
+
+```markdown
+# LM Verification Registration
+
+Run: 20261116-analytic-1711-EST/LM. Register before numerical evaluation.
+
+- Original source: U_H(m)=sum_(H<k<=m) mu(k) log(H/k) floor(m/k), A=4H, B=N/2, N=6ceil(H^2/6).
+- Full finite algebra checks only at H=8,9,10,13. Deliberately leave Coordinator's H=19,20 covariance experiment to Census.
+- Verify literal weighted floor Gram against its cofactor/max kernel; split all ordered off-diagonals into gcd=1 and gcd>1; preserve squareful zeros.
+- Independently compute mu by trial factorization and divisor inversion. Compare exact prime-log coefficient vectors for U, its divisor increment, the restored psi/head expression and the selected drift identity.
+- Diagonal-only finite checks at H=8,9,10,13,32,64,128,256,512. Use quotient-block telescoping and outward integer log intervals. Check the all-range explicit error bound, not a fitted asymptotic law.
+- Use scale 10^40, range-reduced atanh logarithms with 80 terms and a rigorous geometric remainder. No floating sign decisions. Bound zeta(2) by 10000 terms plus integral tails.
+- Negative controls: omit one off-diagonal orientation; replace the max lower limit in the cofactor kernel by a minimum. Both must be detected in the registered small domain.
+- No large selected-head scan, no RH/limit inference, no local Lean, no change to proof sources. Report all failures and repairs.
+```
+
+#### Complete Finite Checker
+
+```python
+"""Source-exact finite checks for the long-middle diagonal/covariance audit."""
+
+from collections import Counter
+from fractions import Fraction
+from functools import lru_cache
+from math import gcd, isqrt
+import json
+
+S = 10**40
+TERMS = 80
+checks = Counter()
+
+
+def check(label, condition):
+    checks[label] += 1
+    assert condition, (label, checks[label])
+
+
+def ceildiv(a, b):
+    return -((-a) // b)
+
+
+def rational(a, b=1):
+    return a*S//b, ceildiv(a*S, b)
+
+
+def add(*xs):
+    return sum(x[0] for x in xs), sum(x[1] for x in xs)
+
+
+def neg(x):
+    return -x[1], -x[0]
+
+
+def sub(a, b):
+    return add(a, neg(b))
+
+
+def scale(x, a, b=1):
+    if a < 0:
+        return scale(neg(x), -a, b)
+    return x[0]*a//b, ceildiv(x[1]*a, b)
+
+
+def mul(a, b):
+    products = [x*y for x in a for y in b]
+    return min(products)//S, ceildiv(max(products), S)
+
+
+def square(a):
+    lo = 0 if a[0] <= 0 <= a[1] else min(a[0]**2, a[1]**2)
+    return lo//S, ceildiv(max(a[0]**2, a[1]**2), S)
+
+
+def overlap(a, b):
+    return max(a[0], b[0]) <= min(a[1], b[1])
+
+
+def display(a, digits=12):
+    unit = 10**(40-digits)
+    nums = (a[0]//unit, ceildiv(a[1], unit))
+    def fmt(n):
+        sign = '-' if n < 0 else ''
+        whole, frac = divmod(abs(n), 10**digits)
+        return f'{sign}{whole}.{frac:0{digits}d}'
+    return list(map(fmt, nums))
+
+
+def atanh_log(a, b):
+    if a == 0:
+        return (0, 0)
+    lo = 0
+    for j in range(TERMS):
+        lo += 2*S*a**(2*j+1)//((2*j+1)*b**(2*j+1))
+    tail = ceildiv(2*S*a**(2*TERMS+1)*b*b,
+                   (2*TERMS+1)*b**(2*TERMS+1)*(b*b-a*a))
+    return lo, lo+TERMS+tail
+
+
+LOG2 = atanh_log(1, 3)
+
+
+@lru_cache(maxsize=None)
+def logn(n):
+    assert n >= 1
+    e = n.bit_length()-1
+    two = 1 << e
+    return add(scale(LOG2, e), atanh_log(n-two, n+two))
+
+
+@lru_cache(maxsize=None)
+def factors(n):
+    out = []
+    p = 2
+    while p*p <= n:
+        e = 0
+        while n % p == 0:
+            n //= p
+            e += 1
+        if e:
+            out.append((p, e))
+        p += 1
+    if n > 1:
+        out.append((n, 1))
+    return tuple(out)
+
+
+def mobius(n):
+    fs = factors(n)
+    return 0 if any(e > 1 for p, e in fs) else (-1)**len(fs)
+
+
+def vec_add(*vectors):
+    v = Counter()
+    for d in vectors:
+        for p, a in d.items():
+            v[p] += a
+    return {p: a for p, a in v.items() if a}
+
+
+def vec_scale(v, a):
+    return {p: x*a for p, x in v.items() if x*a}
+
+
+def logvec(n):
+    return dict(factors(n))
+
+
+def logratio_vec(H, k):
+    return vec_add(logvec(H), vec_scale(logvec(k), -1))
+
+
+def K_literal(k, l, A, B):
+    return sum((Fraction((m//k)*(m//l), m*(m+1))
+                for m in range(A, B+1)), Fraction())
+
+
+def K_cofactor(k, l, A, B, broken=False):
+    value = Fraction()
+    for u in range(1, B//k+1):
+        for v in range(1, B//l+1):
+            lower = min(A, k*u, l*v) if broken else max(A, k*u, l*v)
+            value += Fraction(1, lower)-Fraction(1, B+1)
+    return value
+
+
+def diagonal_block_kernel(k, A, B):
+    lo, hi = 0, 0
+    start = max(A, k)
+    while start <= B:
+        j = start//k
+        stop = min(B, (j+1)*k-1)
+        piece = rational(j*j*(stop+1-start), start*(stop+1))
+        lo += piece[0]
+        hi += piece[1]
+        start = stop+1
+    return lo, hi
+
+
+SMALL = [8, 9, 10, 13]
+HEADS = SMALL + [32, 64, 128, 256, 512]
+MAX = 3*((max(HEADS)**2+5)//6)
+mu = [0]+[mobius(n) for n in range(1, MAX+1)]
+inv = [0]*(MAX+1)
+inv[1] = 1
+for d in range(1, MAX+1):
+    for n in range(2*d, MAX+1, d):
+        inv[n] -= inv[d]
+for n in range(1, MAX+1):
+    check('independent_mu', mu[n] == inv[n])
+
+zeta_lo = sum(S//(n*n) for n in range(1, 10001)) + S//10001
+zeta_hi = sum(ceildiv(S, n*n) for n in range(1, 10001)) + ceildiv(S, 10000)
+c = (S*S//zeta_hi, ceildiv(S*S, zeta_lo))
+rows = []
+negative_orientation = False
+negative_max = False
+
+for H in HEADS:
+    N = 6*((H*H+5)//6)
+    A, B = 4*H, N//2
+    check('legal_range', B >= A)
+    L = sub(logn(N), logn(H))
+    ell = sub(logn(B), logn(H))
+    coeff = {k: scale(sub(logn(H), logn(k)), mu[k])
+             for k in range(H+1, B+1) if mu[k]}
+    D = add(*(mul(square(a), diagonal_block_kernel(k, A, B))
+              for k, a in coeff.items()))
+    main = scale(c, 2*B, H)
+    # A lower rational approximation to sqrt(H) makes this error upper bound safe.
+    root_lower = isqrt(H*S*S)
+    error = add(rational(56*B*S, 9*H*root_lower),
+                square(ell), scale(ell, 2), rational(10),
+                mul(sub(logn(B+1), logn(A)),
+                    add(rational(9, H), scale(mul(square(ell), ell), 2))))
+    diff = sub(D, main)
+    check('explicit_diagonal_bound', max(abs(diff[0]), abs(diff[1])) <= error[0])
+    row = {'H': H, 'N': N, 'diagonal': display(D),
+           'D_over_H': display(scale(D, 1, H)),
+           'explicit_error_upper': display(error)}
+
+    if H in SMALL:
+        vectors = {k: vec_scale(logratio_vec(H, k), mu[k])
+                   for k in range(H+1, B+1)}
+        previous = {}
+        raw = (0, 0)
+        for m in range(1, B+1):
+            U = vec_add(*(vec_scale(vectors[k], m//k)
+                          for k in range(H+1, min(m, B)+1)))
+            jump = vec_add(*(vectors[k] for k in range(H+1, m+1) if m % k == 0))
+            check('divisor_increment', vec_add(U, vec_scale(previous, -1)) == jump)
+            fs = factors(m)
+            mangoldt = {fs[0][0]: 1} if len(fs) == 1 else {}
+            trunc = vec_add(*(vec_scale(logratio_vec(H, k), mu[k])
+                              for k in range(1, min(H, m)+1) if m % k == 0))
+            restored_jump = vec_add(mangoldt, vec_scale(trunc, -1),
+                                    logvec(H) if m == 1 else {})
+            check('mangoldt_truncated_source', jump == restored_jump)
+            psi = vec_add(*(dict(((factors(n)[0][0], 1),))
+                            for n in range(2, m+1) if len(factors(n)) == 1))
+            head = vec_add(*(vec_scale(logratio_vec(H, k), mu[k]*(m//k))
+                             for k in range(1, min(H, m)+1)))
+            check('restored_head_identity', U == vec_add(psi, logvec(H), vec_scale(head, -1)))
+            if m >= A:
+                value = add(*(scale(coeff[k], m//k) for k in coeff))
+                raw = add(raw, scale(square(value), 1, m*(m+1)))
+            previous = U
+        diagonal = (0, 0)
+        coprime = (0, 0)
+        shared = (0, 0)
+        keys = list(coeff)
+        for i, k in enumerate(keys):
+            for l in keys[i:]:
+                kernel = K_literal(k, l, A, B)
+                check('cofactor_max_kernel', kernel == K_cofactor(k, l, A, B))
+                if not negative_max and kernel != K_cofactor(k, l, A, B, True):
+                    negative_max = True
+                piece = scale(mul(coeff[k], coeff[l]), kernel.numerator, kernel.denominator)
+                if k == l:
+                    diagonal = add(diagonal, piece)
+                    check('diagonal_blocks', overlap(rational(kernel.numerator, kernel.denominator),
+                                                      diagonal_block_kernel(k, A, B)))
+                else:
+                    g = gcd(k, l)
+                    check('gcd_sign_factor', mu[k]*mu[l] == mu[g]**2*mu[k//g]*mu[l//g])
+                    check('gcd_masks', gcd(k//g, l//g) == gcd(g, (k//g)*(l//g)) == 1)
+                    if g == 1:
+                        coprime = add(coprime, scale(piece, 2))
+                    else:
+                        shared = add(shared, scale(piece, 2))
+        off = add(coprime, shared)
+        check('full_gram_reconstruction', overlap(raw, add(diagonal, off)))
+        check('diagonal_reconstruction', overlap(diagonal, D))
+        check('PSD_lower_edge', add(D, off)[1] >= 0)
+        negative_orientation |= not overlap(raw, add(D, scale(off, 1, 2)))
+        # The actual crossing indicator is diagnostic, never an upper-bound assumption.
+        def delta(h):
+            return sub(rational(1), add(*(scale(sub(logn(h), logn(k)), mu[k], k)
+                                         for k in range(1, h+1))))
+        aH = add(*(rational(mu[k], k) for k in range(1, H+1)))
+        check('selection_step', overlap(sub(delta(H+1), delta(H)),
+                                        neg(mul(aH, sub(logn(H+1), logn(H))))))
+        row.update({'raw_energy': display(raw), 'offdiag_coprime': display(coprime),
+                    'offdiag_shared': display(shared), 'offdiag_total': display(off),
+                    'delta_H': display(delta(H)), 'delta_next': display(delta(H+1))})
+    rows.append(row)
+
+check('negative_orientation_detected', negative_orientation)
+check('negative_max_detected', negative_max)
+print(json.dumps({'status': 'PASS', 'checks': dict(checks),
+                  'total_checks': sum(checks.values()), 'zeta2_inverse': display(c),
+                  'rows': rows}, indent=2))
+```
+
+### LM Prepublication Freshness Check
+
+At 2026-11-16 22:29 UTC / 17:29 EST, main remains 4d5482805bac6a8f29d4fb4dadc61eca0bc06525 and no open or draft PR exists. Latest upstream role report blobs and the external inbox were rechecked against the ledger above and were unchanged. The current own-report blob was retrieved again as c5131ffd2d4e3d4b54053d5c342e5e879637044e before this append. No concurrent own-report text is removed.
