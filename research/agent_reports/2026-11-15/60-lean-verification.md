@@ -30,3 +30,13 @@ The external index (7d63d434690d00dffce9c90335d41c4f62d85798) was retrieved. The
 ### D-P. Pending Work And Verification
 
 Finish original-source, baseline/dependency, toolchain and latest merged CI checks. Independently reconstruct FFR3's proof, search for existing equivalents, implement only a justified nonduplicate theorem, then open an authorized draft PR and obtain actual warning-fatal GitHub Actions, exact-type and axiom/dependency evidence. No local Lean execution. No main push, merge, auto-merge, other-role report edit or agent launch. A local read-only clone attempt was rejected by the network proxy (403); repository connector reads work, so that is not presently a proof-write blocker.
+
+## Implementation Checkpoint - 20261115-lean-2108-EST/FFR3
+
+[Draft PR #1136](https://github.com/OVVO-Financial/RH_Lean/pull/1136) is open on agent/lean-verification/20261115-principal-response-inversion, base 4edae55352bb452d84857d4c699d37c87190798c, initial head 1469d25847424209a0ea03d6e8be8be1bd2f665c. Four added files, 465 lines, zero deletions. No existing proof, contract or checker gate was changed.
+
+The eight public declarations prove a proposed finite-prefix inversion and actual-source coefficient/continuity/near-zero adapters. Five exact-type examples cover the main consumers, zero delay and an inner argument below one. A transitive axiom audit covers all eight declarations and requires the original signal and coefficient suppliers in the terminal proof dependency graph. Nonnegative delays suffice and theta>3/5 is needed only for the actual coefficient contraction, not abstract inversion. These are proof attempts until CI passes.
+
+Actual dedicated Actions run [43791308946](https://github.com/OVVO-Financial/RH_Lean/actions/runs/43791308946), job [133050124202](https://github.com/OVVO-Financial/RH_Lean/actions/runs/43791308946/job/133050124202), is IN_PROGRESS on the initial head. Initial repository checks are running; no Lean success is claimed. EXECUTION=IN_PROGRESS; IMPLEMENTATION=DRAFT_PR/CI_PENDING; MATHEMATICS=PAPER_PROOF_PENDING_CURRENT_CI.
+
+The early checkpoint was immutably read back at 07dd49e7fca4f88801d02b1a4b06dcc0888aeba5, blob 0c39f626ee5849f05fd23fbd42e048f4976b0b5a. Earlier content is preserved. FFR4 remains the separate accepted-paper complete physical response/endpoint assembly; no improved exponent or RH conclusion follows from this checkpoint.
