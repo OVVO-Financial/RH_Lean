@@ -1,6 +1,8 @@
 # RH_Lean mathematical proof-dependency DAG
 
-**Status (registry `2026-11-08.3`, observed main `7aa0fcb12f7e8fe67e809d8f94cda384506d61b5`, Lean 4.34.1): #1111, #1113 and #1116 have been human-merged. Error-closure PR #1119 is GREEN / REVIEW_READY / UNMERGED at its exact repaired head. RH, uniform finite C, finite A and zero-log amplification remain OPEN.** Generated blocks come from [proof-obligations.json](proof-obligations.json) through [the existing validator/generator](../scripts/proof_obligation_dag.py). This map does not prove open premises, and its dated evidence must be refreshed before relying on a live PR status.
+**Status (registry `2026-11-15.2`, observed main `59612bc8b5c30c528d8367667ea5846a8053f114`, Lean 4.34.1): error-closure PR #1119 was human-merged on November 9; its tested source blob remains on main. Universal-envelope PR #1135 is kernel-checked at green, unmerged head `c401144dedcb6ffd785bd4b25b5830eb83b3c93c`: all 18 checks passed in the independently observed snapshot at 2026-11-15T23:49:51Z. RH, uniform finite C, finite A and zero-log amplification remain OPEN.** Generated blocks come from [proof-obligations.json](proof-obligations.json) through [the existing validator/generator](../scripts/proof_obligation_dag.py). The [universal-envelope formalization note](UNIVERSAL_ENVELOPE_FORMALIZATION_20261115.md) distinguishes the certified equivalences, exact arithmetic sources, and verification evidence. This map does not prove open premises; its evidence is a dated snapshot, with human review and merge separate.
+
+**Exact target identification (#1135).** The proved law is `q(X)->h=max(Theta,1/2)-1/2`. Its zero-limit specialization, Mertens energy, Mathlib RH, the original uniform fractional-owner premise, and the real-`r<k` full-prefix subpower-gain premise on any sequence tending to infinity form one class of OPEN propositions. Their arithmetic mechanisms remain distinct. The existing #1119 boundary gives `h<=3/8-7/(64*N_pack)` with every positive loss retained in polynomial upper bounds; it does not prove `h=0`. Uniform finite A remains a separate stronger sufficient premise, with no proved RH-to-finite-A converse.
 
 **Exact complete-source comparison:** merged [#1116](https://github.com/OVVO-Financial/RH_Lean/pull/1116) proves `beta<=7/8-(7/8)m+D.e` for every original fine source and the named explicit Mertens boundary `7/8-5/(96*N_*)`. [#1119](https://github.com/OVVO-Financial/RH_Lean/pull/1119), proof head `77ee815846d6d534c866f0752aa33b84c385610a`, implements independently accepted EC1-EC3: close the positive error by reconstructing a fresh finite source for each smaller positive error. Verified boundaries are `7/8-(7/8)m` and `7/8-7/(64*N_pack)`; every positive Mertens exponent loss is retained. Its [dedicated proof job](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42552018910/job/128949473700) passed on the exact head in this snapshot. All 14 current-head checks are green; the five new source/dependency/axiom closures use only propext, Classical.choice and Quot.sound. No zero-error source or uniform Big-O limit is assumed.
 
@@ -82,13 +84,13 @@ OPEN-VF-ACTUAL-PRIME ≡ PROP-VF-CAN-REAL-VONKOCH ≡ PROP-VF-MID-SQUARE-VONKOCH
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | **VF-LOW** | OPEN | A legitimate original-source lower-wall restriction or first-bad contradiction retaining all original prime occurrences, VF weights, historical anchors, returning cells, restored terms and signed NNS interactions. | pi(R^2) - VF_can(R^2) >= -K R log R for all R >= R0. | #932 canonical VF/von Koch; #915 source accounting; merged #1106 actual Euler log; floor-Li signed transport; canonical HIGH/LOW on square blocks. | First-bad original weighted actual-prime source; O(1) VF-Li quadrature and zeroth-moment event cancellation do not imply the physical lower wall. | `CE-BLOCK-R549`, `CE-JOH-R4-R7` | Start from paid floor-Li mismatch cancellation and true first-bad #915 source, then derive the first weighted, location-preserving unpaid inequality (including anchors and returning cells). |
 | **SAT** | OPEN | A new uniform signed owner-removal or cofactor/prime-innovation inequality with complete original source coefficients and nonlocal historical contributions; arithmetic restrictions on genuine prime locations and their least-prime-owned composite complements. | T(R^2) > A(R^2) - L(R^2) eventually (JOH form) or the VF-LOW wall. | #1019 exact births/moving transport; original least-prime owner census; #1106 prime-admission log; floor-Li Buchstab actual cofactor weights. | Nonlocal historical composite-removal mass; PNT-sized density carries no RH-scale sign. | `CE-JOH-R4-R7` | Compare the three distinct S=A-T carriers; use the already-cancelled floor-Li event stream at the original cofactor weights, keeping exact square-block first moments and boundary corrections. |
-| **CODIV** | GLOBAL SIGNED STRICT GAP PAID; CRITICAL COVARIANCE OPEN | Actual full signed covariance already satisfies the merged strict sub-7/8 consequence. Prove an additional complete signed power saving beyond the explicit boundary, or RH-level M^2=O(X^(1+eps)) with the squarefree diagonal. | Merged #1116 supplies its exact same-D ceiling. Green unmerged #1119 proves MertensGrowthAtMost(b_active), b_active=7/8-7/(64*N_pack). Squaring with half the positive exponent loss gives the elementary energy consequence O_eps(X^(2*b_active+eps)); no new separately named signed-pair theorem is claimed. Further gain and critical X^(1+eps) energy remain open. | Merged #1107 complete signed-pair return, #1111 original near-uniform fixed source and #1116 window-saturated native bound; exact-head green unmerged #1119 error closure; MertensCovarianceDescent and real Phi / NNS packets. | Joint genuine pair interactions not controlled at the RH-scale; no factorwise transfer from Hecke atom labels to rational Moebius signs. | none recorded | Compare actual complete covariances with already-paid signed-energy bound; identify a smaller weighted source-loss with a full consumer, or prove a new genuine arithmetic restriction. |
+| **CODIV** | GLOBAL SIGNED STRICT GAP PAID; CRITICAL COVARIANCE OPEN | Actual full signed covariance already satisfies the merged strict sub-7/8 consequence. Prove an additional complete signed power saving beyond the explicit boundary, or RH-level M^2=O(X^(1+eps)) with the squarefree diagonal. | Merged #1116 supplies its exact same-D ceiling. Merged #1119 proves MertensGrowthAtMost(b_active), b_active=7/8-7/(64*N_pack). Squaring with half the positive exponent loss gives the elementary energy consequence O_eps(X^(2*b_active+eps)); no new separately named signed-pair theorem is claimed. Further gain and critical X^(1+eps) energy remain open. | Merged #1107 complete signed-pair return, #1111 original near-uniform fixed source and #1116 window-saturated native bound; merged #1119 error closure; MertensCovarianceDescent and real Phi / NNS packets. | Joint genuine pair interactions not controlled at the RH-scale; no factorwise transfer from Hecke atom labels to rational Moebius signs. | none recorded | Compare actual complete covariances with already-paid signed-energy bound; identify a smaller weighted source-loss with a full consumer, or prove a new genuine arithmetic restriction. |
 | **BLOCK** | Original universal version REFUTED; weaker replacements not automatically accepted | None for the universal statement: it is false. A weaker multi-block, averaged or one-sided theorem must be new, precise, not refuted, with a verified consumer and explicit arithmetic input. | N/A (refuted). | research/VF_MID_LITERAL_BLOCK_CROSSING.lean (valid conditional consumer); scripts/vf_block_capture_counterexample_549.py. | N/A | `CE-BLOCK-R549` | Keep the R = 549 regression permanent; do not assign the universal statement. |
-| **OAI-NNS** | WINDOW-SATURATED GAIN ON MAIN; #1119 ERROR CLOSURE GREEN UNMERGED; FURTHER GAIN / RH OPEN | Further complete-source saving beyond beta<=7/8-(7/8)m, or a repeatable licensed contraction. Exact-head green unmerged #1119 removes D.e from #1116's same-D ceiling and proves the fixed-family boundary 7/8-7/(64*N_pack). Retain the full same-probe LOW/HIGH/principal return. A new gain beyond this closed boundary remains open. | Merged #1116: beta<=7/8-(7/8)m+D.e and explicit 7/8-5/(96*N_*). Green unmerged #1119: beta<=7/8-(7/8)m and explicit b_active=7/8-7/(64*N_pack). NEXT: beat the new complete-source boundary or prove a uniform licensed renewal; every-positive-loss growth and fixed-power bounds remain distinct. | Merged #1107 VF919TotalMassEndpoint, #1111 original near-uniform fine slots and #1116 VF919WindowSaturatedLowPrincipal; exact-head green unmerged #1119 VF919WindowErrorClosure with fresh source/count and native transfer audits. Retained marked 1+t/2 and generalized kappa inputs remain separate. | Complete downstream combined counts, crossing/height budgets and every resonant/principal/outer branch when using retained marked 1+t/2 and generalized kappa. | none recorded | Feed proved 1+t/2 marked and kappa>1/2 source moments through the actual combined counts, LOW/HIGH/principal comparison and native return; record first failed exponent, not a new generic cancellation premise. |
+| **OAI-NNS** | WINDOW-SATURATED GAIN ON MAIN; #1119 ERROR CLOSURE ON MAIN; FURTHER GAIN / RH OPEN | Further complete-source saving beyond beta<=7/8-(7/8)m, or a repeatable licensed contraction. Merged #1119 removes D.e from #1116's same-D ceiling and proves the fixed-family boundary 7/8-7/(64*N_pack). Retain the full same-probe LOW/HIGH/principal return. A new gain beyond this closed boundary remains open. | Merged #1116: beta<=7/8-(7/8)m+D.e and explicit 7/8-5/(96*N_*). Merged #1119: beta<=7/8-(7/8)m and explicit b_active=7/8-7/(64*N_pack). NEXT: beat the new complete-source boundary or prove a uniform licensed renewal; every-positive-loss growth and fixed-power bounds remain distinct. | Merged #1107 VF919TotalMassEndpoint, #1111 original near-uniform fine slots and #1116 VF919WindowSaturatedLowPrincipal; merged #1119 VF919WindowErrorClosure with fresh source/count and native transfer audits. Retained marked 1+t/2 and generalized kappa inputs remain separate. | Complete downstream combined counts, crossing/height budgets and every resonant/principal/outer branch when using retained marked 1+t/2 and generalized kappa. | none recorded | Feed proved 1+t/2 marked and kappa>1/2 source moments through the actual combined counts, LOW/HIGH/principal comparison and native return; record first failed exponent, not a new generic cancellation premise. |
 | **JOH** | OPEN | A genuine nonlocal least-prime ancestry restriction controlling signed chronological displacement, together with weighted block defects and historical anchors. | G(R^2) < 0 for all R >= R0 (Johnston scale -N^(3/2)/log N). | Actual floor-Li backlog and signed transport; Johnston-weighted composite removal contract; #915 zeroth-moment boundary, distinguished from first moment. | sum_r J_r, trivially O(N^(3/2)/log N) with no sign. | `CE-JOH-R4-R7` | Estimate the true first-moment displacement J_r and cumulative G(R^2), including anchored terms; retain r=4 and r=7 equal-count/opposite-moment falsifiers. |
-| **FINITE-AC** | EXPLICIT FINITE-POWER AMP PROVED; UNIFORM FINITE A AND ZERO-LOG OPEN | Show A(X)=X^(o(1)) or a constant uniform bound on the true historical ratio, not merely pointwise finite roots or the fixed positive-power bound of #1108. | Proved A(X)<=C X^(3/4-1/(48N_*)); limsup q(X)<=3/4-1/(24N_*). OPEN: forall eta>0 A(X)<=C_eta X^eta; stronger sup_X A(X)<infty. | #1106 exact Euler logarithmic admission; #1108 exact historical amp; finite A/C alignment; squarePrefixMertens and Q_R=2M(R-1)-M(R^2-1). | Complete signed return relative to actual K_R; using K_R>=1 loses historical feedback strength and cannot prove subpower. | `CE-CORR4-R5561` | Compare prime-admission signed log return, canonical HIGH, legal live-packet Gram, Q_R and cofactor-weighted floor-Li on the ORIGINAL K_R; prove a strictly stronger uniform source estimate; do not reset to the trivial bound. |
-| **CORR4** | Q2 COLLISION MULTIPLICITY PROVED (#1109); FULL SIGNED MIXED TAIL OPEN | #1109 controls the multiplicity of original off-ray daughter-cutoff images (at most two), NOT their image energy/signs. Need the complete signed prefix-tail/mixed bill with rays, parent, q>Q, historical prefix and negative daughters kept. | RH-sufficient: \|B_R\|^2 <= (9/4) E_R + C R^2 K_R. Strict-power consumer: 2 Gamma_mixed <= 2 E_R + A R^(7/2-eta). Elementary comparisons: beating #1116's named explicit boundary requires eta>5/(24*N_*); beating green unmerged #1119 requires eta>7/(16*N_pack). The full signed input remains unproved. | Merged #1021 general-power Gram, #1027/#1040 signed reductions, #1109 CORR4_CUTOFF_COLLISIONS; full original q^2 daughter carrier. | Signed mixed-tail return and distinct-image energy; an upper energy bound cannot replace a negative daughter credit with the wrong sign. | `CE-CORR4-R57`, `CE-CORR4-R5561`, `CE-CORR4-R56` | Combine #1109 multiplicity-two off-ray theorem with a new source-specific estimate on IMAGE energy and complete signed mixed terms; retain rays and tail, test the actual R=5561 excursion. |
-| **MU-LIFT** | OPEN | A genuinely new full-prefix signed estimate yielding a subcritical exponent r < k. | E(B^k) <= B^(o(1)) E(B)^r, fixed r < k. | #954 actual signed Newton/Heath-Brown convolution, MU-LIFT full-prefix budget, #1109 CORR4 q^2 cutoff multiplicity as optional distinct input. | Remaining K3 ranges and K1/K2 at full prefix scale. | none recorded | Attack a fixed k>=2 with genuine all-prefix r<k and subpower loss; explicitly pay K1/K2/K3 corners, factor-power support and all cutoffs. |
+| **FINITE-AC** | EXACT AMPLIFICATION EXPONENT IDENTIFIED; ZERO-LOG AND UNIFORM FINITE A OPEN | Prove h=0 in the exact law q(X)->h=max(Theta,1/2)-1/2, equivalently every-positive-power control of the original historical amplification; the stronger uniform finite-A/finite-C bound also remains open. The established positive upper bound on h does not establish h=0. | Proved q(X)->h=max(Theta,1/2)-1/2. Retain the current #1119 boundary b_active=7/8-7/(64*N_pack): it gives 0<=h<=b_active-1/2=3/8-7/(64*N_pack). Consequently, for every eps>0 there exists C_eps with A(X)<=C_eps*X^(b_active-1/2+eps). OPEN: h=0, equivalently q(X)->0; the stronger sup_X A(X)<infinity remains open. | #1135 exact historical-amplification limit and upper-power theorem (green unmerged proof head); merged #1119 current Mertens boundary; #1108 historical finite-power and limsup bounds retained; #1106 exact Euler logarithmic admission; finite A/C alignment and Q_R=2M(R-1)-M(R^2-1). | Complete signed return relative to actual K_R; using K_R>=1 loses historical feedback strength and cannot prove subpower. | `CE-CORR4-R5561` | Compare prime-admission signed log return, canonical HIGH, legal live-packet Gram, Q_R and cofactor-weighted floor-Li on the ORIGINAL K_R; prove a strictly stronger uniform source estimate; do not reset to the trivial bound. |
+| **CORR4** | Q2 COLLISION MULTIPLICITY PROVED (#1109); FULL SIGNED MIXED TAIL OPEN | #1109 controls the multiplicity of original off-ray daughter-cutoff images (at most two), NOT their image energy/signs. Need the complete signed prefix-tail/mixed bill with rays, parent, q>Q, historical prefix and negative daughters kept. | RH-sufficient: \|B_R\|^2 <= (9/4) E_R + C R^2 K_R. Strict-power consumer: 2 Gamma_mixed <= 2 E_R + A R^(7/2-eta). Elementary comparisons: beating #1116's named explicit boundary requires eta>5/(24*N_*); beating merged #1119 requires eta>7/(16*N_pack). The full signed input remains unproved. | Merged #1021 general-power Gram, #1027/#1040 signed reductions, #1109 CORR4_CUTOFF_COLLISIONS; full original q^2 daughter carrier. | Signed mixed-tail return and distinct-image energy; an upper energy bound cannot replace a negative daughter credit with the wrong sign. | `CE-CORR4-R57`, `CE-CORR4-R5561`, `CE-CORR4-R56` | Combine #1109 multiplicity-two off-ray theorem with a new source-specific estimate on IMAGE energy and complete signed mixed terms; retain rays and tail, test the actual R=5561 excursion. |
+| **MU-LIFT** | OPEN | A genuinely new full-prefix signed estimate yielding a subcritical exponent r < k. | E(B^k) <= B^(o(1)) E(B)^r, fixed r < k. | #954 actual signed Newton/Heath-Brown convolution; #1135 exact full-prefix subcritical equivalence on any sequence tending to infinity (green unmerged proof head); #1109 CORR4 q^2 cutoff multiplicity as optional distinct input. | Remaining K3 ranges and K1/K2 at full prefix scale. | none recorded | Attack a fixed k>=2 with genuine all-prefix r<k and subpower loss; explicitly pay K1/K2/K3 corners, factor-power support and all cutoffs. |
 | **NYMAN** | OPEN | Full-scale norm decay or density, not finite-dimensional approximation. | d_N -> 0 at a = 1/2 for the full basis. | Nyman-Beurling positive residue attack and finite rational Gram certificates; external Baez-Duarte equivalence; Burnol lower bound. | All-scale tail of the basis approximation. | none recorded | Show full N->infinity residue-basis density or new weighted a>1/2 consequence; keep a=1/2 external criterion and Burnol q<1/2 obstruction honest. |
 <!-- END GENERATED: scoreboard -->
 
@@ -111,7 +113,7 @@ Each path is a chain of implication edges ending at `RH`. Unpaid inputs are reco
 | `FINITE-AC/mertens` | `E-FINITE-A-MERTENS` → `E-MERTENS-RH` | `OPEN-FINITE-AC` (arithmetic open) | Fully Lean-certified consumer chain; only the arithmetic premise is open. |
 | `CORR4/coefficient-4` | `E-CORR4-FINITE-A` → `E-FINITE-A-MERTENS` → `E-MERTENS-RH` | `OPEN-CORR4` (arithmetic open) | Merged terminal chain riemannHypothesis_of_canonicalRoughCorrelationFourQ2Energy. |
 | `CORR4/relaxed-remainder` | `E-CORR4-RELAXED` → `E-CORR4-FINITE-A` → `E-FINITE-A-MERTENS` → `E-MERTENS-RH` | `OPEN-CORR4-RELAXED-REMAINDER` (arithmetic open) | Merged #1021 conditional relaxed-remainder consumer into certified CORR-4; only the original arithmetic source bound is unpaid. |
-| `MU-LIFT/contraction` | `E-MULIFT-MERTENS` → `E-MERTENS-RH` | `OPEN-MU-LIFT` (arithmetic open); `PAPER-MU-LIFT-CONTRACTION` (review pending) | Paper contraction argument into the Lean Mertens-energy consumer. |
+| `MU-LIFT/contraction` | `E-MULIFT-MERTENS` → `E-MERTENS-RH` | `OPEN-MU-LIFT` (arithmetic open) | The actual full-prefix subpower-gain criterion has a Lean-certified consumer into Mertens energy; only the genuine signed arithmetic lift remains unpaid. |
 | `NYMAN/baez-duarte` | `E-NYMAN-RH` | `OPEN-NYMAN-DENSITY` (arithmetic open); `LIT-BAEZ-DUARTE` (classical theorem, not proved in Lean) | External Baez-Duarte criterion. |
 <!-- END GENERATED: paths -->
 
@@ -150,7 +152,7 @@ Solid arrows: proved implications and requirements. Dotted: conditional implicat
 ```mermaid
 %% RH routes (quotient by proved equivalence)
 flowchart LR
-  c0["RH"]
+  c0["RH<br/>PROP-MERTENS-ENERGY<br/>OPEN-MU-LIFT<br/>OPEN-AMPLIFICATION-SUBPOWER<br/>OPEN-NATIVE-OWNER-FRACTIONAL"]
   c2["IFACE-CLASSICAL-VONKOCH"]
   c4["MILESTONE-VF-CANONICAL"]
   c5["MILESTONE-VF-LI-ROOT"]
@@ -168,33 +170,29 @@ flowchart LR
   c21["LIT-JOHNSTON-2022"]
   c22["PAPER-JOH-SQUARE-TRANSFER"]
   c24["MECH-JOH-ANCESTRY-DISPLACEMENT"]
-  c27["PROP-MERTENS-ENERGY"]
-  c35["MILESTONE-MERTENS-STRICT-EXPLICIT"]
-  c36["MECH-CODIV-SIGNED-COVARIANCE"]
-  c37["MECH-SIGNED-QUOTIENT-VARIATION"]
-  c38["MECH-OAI-NNS-COMPLETE-LEDGER"]
-  c42["OPEN-FINITE-AC<br/>PROP-LEGAL-ANCESTRY-GRAM"]
-  c45["MECH-FINITE-AC-HISTORICAL-ENVELOPE"]
-  c47["OPEN-CORR4"]
-  c49["OPEN-CORR4-RELAXED-REMAINDER"]
-  c50["PR1021-RELAXED-CONSUMER"]
-  c51["PR1023-FRAME-B7"]
-  c53["MECH-CORR4-SIGNED-FIRST-OWNER-GRAM"]
-  c61["OPEN-MU-LIFT"]
-  c62["PAPER-MU-LIFT-CONTRACTION"]
-  c63["MECH-MU-LIFT-SUBCRITICAL"]
-  c64["OPEN-NYMAN-DENSITY"]
-  c65["LIT-BAEZ-DUARTE"]
-  c68["MECH-NYMAN-FULL-BASIS-DECAY"]
-  c69["REFUTED-BLOCK-UNIVERSAL"]
-  c81["OPEN-CORR4-MIXED-TAIL-POWER"]
-  c84["MILESTONE-OAI-TOTAL-MASS"]
-  c85["MILESTONE-EXPLICIT-AMPLIFICATION"]
-  c87["MILESTONE-NEAR-UNIFORM-SLOT-BOUNDARY"]
-  c89["MILESTONE-WINDOW-SATURATED-BOUNDARY"]
-  c90["MILESTONE-WINDOW-ERROR-CLOSURE"]
-  c91["OPEN-MERTENS-FURTHER-GAIN"]
-  c92["OPEN-AMPLIFICATION-SUBPOWER"]
+  c34["MILESTONE-MERTENS-STRICT-EXPLICIT"]
+  c35["MECH-CODIV-SIGNED-COVARIANCE"]
+  c36["MECH-SIGNED-QUOTIENT-VARIATION"]
+  c37["MECH-OAI-NNS-COMPLETE-LEDGER"]
+  c41["OPEN-FINITE-AC<br/>PROP-LEGAL-ANCESTRY-GRAM"]
+  c44["MECH-FINITE-AC-HISTORICAL-ENVELOPE"]
+  c46["OPEN-CORR4"]
+  c48["OPEN-CORR4-RELAXED-REMAINDER"]
+  c49["PR1021-RELAXED-CONSUMER"]
+  c50["PR1023-FRAME-B7"]
+  c52["MECH-CORR4-SIGNED-FIRST-OWNER-GRAM"]
+  c61["MECH-MU-LIFT-SUBCRITICAL"]
+  c62["OPEN-NYMAN-DENSITY"]
+  c63["LIT-BAEZ-DUARTE"]
+  c66["MECH-NYMAN-FULL-BASIS-DECAY"]
+  c67["REFUTED-BLOCK-UNIVERSAL"]
+  c79["OPEN-CORR4-MIXED-TAIL-POWER"]
+  c82["MILESTONE-OAI-TOTAL-MASS"]
+  c83["MILESTONE-EXPLICIT-AMPLIFICATION"]
+  c85["MILESTONE-NEAR-UNIFORM-SLOT-BOUNDARY"]
+  c87["MILESTONE-WINDOW-SATURATED-BOUNDARY"]
+  c88["MILESTONE-WINDOW-ERROR-CLOSURE"]
+  c89["OPEN-MERTENS-FURTHER-GAIN"]
   c5 -->|required by| c7
   c4 -->|required by| c7
   c6 -->|PROVED_IMPLICATION| c5
@@ -213,32 +211,29 @@ flowchart LR
   c20 -.->|CONDITIONAL_IMPLICATION| c0
   c21 -.->|condition| c0
   c22 -.->|condition| c0
-  c27 -->|PROVED_IMPLICATION| c0
-  c27 -->|PROVED_IMPLICATION| c35
-  c84 -->|required by| c87
-  c84 -->|required by| c89
-  c89 -->|required by| c90
-  c87 -->|required by| c90
-  c36 -.->|INDEPENDENT_ARITHMETIC_GAIN| c91
-  c37 -.->|INDEPENDENT_ARITHMETIC_GAIN| c91
-  c38 -.->|INDEPENDENT_ARITHMETIC_GAIN| c91
-  c42 -->|PROVED_IMPLICATION| c27
-  c45 -.->|INDEPENDENT_ARITHMETIC_GAIN| c42
-  c47 -->|PROVED_IMPLICATION| c42
-  c49 -->|PROVED_IMPLICATION| c47
-  c51 -->|required by| c50
-  c53 -.->|INDEPENDENT_ARITHMETIC_GAIN| c49
-  c61 -.->|CONDITIONAL_IMPLICATION| c27
-  c62 -.->|condition| c27
-  c63 -.->|INDEPENDENT_ARITHMETIC_GAIN| c61
-  c64 -.->|CONDITIONAL_IMPLICATION| c0
-  c65 -.->|condition| c0
-  c68 -.->|INDEPENDENT_ARITHMETIC_GAIN| c64
-  c69 -.->|CONDITIONAL_IMPLICATION| c0
+  c0 -->|PROVED_IMPLICATION| c34
+  c82 -->|required by| c85
+  c82 -->|required by| c87
+  c87 -->|required by| c88
+  c85 -->|required by| c88
+  c35 -.->|INDEPENDENT_ARITHMETIC_GAIN| c89
+  c36 -.->|INDEPENDENT_ARITHMETIC_GAIN| c89
+  c37 -.->|INDEPENDENT_ARITHMETIC_GAIN| c89
+  c41 -->|PROVED_IMPLICATION| c0
+  c44 -.->|INDEPENDENT_ARITHMETIC_GAIN| c41
+  c46 -->|PROVED_IMPLICATION| c41
+  c48 -->|PROVED_IMPLICATION| c46
+  c50 -->|required by| c49
+  c52 -.->|INDEPENDENT_ARITHMETIC_GAIN| c48
+  c61 -.->|INDEPENDENT_ARITHMETIC_GAIN| c0
+  c62 -.->|CONDITIONAL_IMPLICATION| c0
+  c63 -.->|condition| c0
+  c66 -.->|INDEPENDENT_ARITHMETIC_GAIN| c62
+  c67 -.->|CONDITIONAL_IMPLICATION| c0
   c2 -.->|condition| c0
-  c81 -->|PROVED_IMPLICATION| c35
-  c35 -->|PROVED_IMPLICATION| c85
-  c42 -->|PROVED_IMPLICATION| c92
+  c79 -->|PROVED_IMPLICATION| c34
+  c34 -->|PROVED_IMPLICATION| c83
+  c41 -->|PROVED_IMPLICATION| c0
 ```
 <!-- END GENERATED: mermaid-routes -->
 
@@ -248,29 +243,29 @@ flowchart LR
 flowchart LR
   c25["REFUTED-JOH-COUNT-ONLY"]
   c26["CE-JOH-R4-R7"]
-  c55["REFUTED-CORR4-C-012"]
-  c56["CE-CORR4-R5561"]
-  c57["REFUTED-CORR4-LOCAL-SIGN"]
-  c58["CE-CORR4-R57"]
-  c59["REFUTED-CORR4-DAUGHTER-ONLY"]
-  c60["CE-CORR4-R56"]
-  c66["LIT-BURNOL-2002"]
-  c67["REFUTED-NYMAN-SQUARE-CONTRACTION"]
-  c69["REFUTED-BLOCK-UNIVERSAL"]
-  c70["CE-BLOCK-R549"]
-  c72["CARRIER-PRIME-MODEL-EVENTS"]
-  c73["CARRIER-915-ZEROTH-MOMENT"]
-  c74["CARRIER-JOH-FIRST-MOMENT"]
-  c75["CARRIER-915-WEIGHTED-SOURCE"]
-  c72 -->|WEIGHTED_PROJECTION| c73
-  c72 -.->|WEIGHTED_PROJECTION| c74
-  c75 -->|WEIGHTED_PROJECTION| c73
+  c54["REFUTED-CORR4-C-012"]
+  c55["CE-CORR4-R5561"]
+  c56["REFUTED-CORR4-LOCAL-SIGN"]
+  c57["CE-CORR4-R57"]
+  c58["REFUTED-CORR4-DAUGHTER-ONLY"]
+  c59["CE-CORR4-R56"]
+  c64["LIT-BURNOL-2002"]
+  c65["REFUTED-NYMAN-SQUARE-CONTRACTION"]
+  c67["REFUTED-BLOCK-UNIVERSAL"]
+  c68["CE-BLOCK-R549"]
+  c70["CARRIER-PRIME-MODEL-EVENTS"]
+  c71["CARRIER-915-ZEROTH-MOMENT"]
+  c72["CARRIER-JOH-FIRST-MOMENT"]
+  c73["CARRIER-915-WEIGHTED-SOURCE"]
+  c70 -->|WEIGHTED_PROJECTION| c71
+  c70 -.->|WEIGHTED_PROJECTION| c72
+  c73 -->|WEIGHTED_PROJECTION| c71
   c26 -.->|refutes| c25
-  c56 -.->|refutes| c55
-  c58 -.->|refutes| c57
-  c60 -.->|refutes| c59
-  c66 -.->|refutes| c67
-  c70 -.->|refutes| c69
+  c55 -.->|refutes| c54
+  c57 -.->|refutes| c56
+  c59 -.->|refutes| c58
+  c64 -.->|refutes| c65
+  c68 -.->|refutes| c67
 ```
 <!-- END GENERATED: mermaid-carriers -->
 
@@ -279,6 +274,7 @@ Proved equivalence classes:
 <!-- BEGIN GENERATED: classes -->
 | Class | Members (proved equivalent) | Status |
 | --- | --- | --- |
+| `OPEN-AMPLIFICATION-SUBPOWER` | `RH`, `PROP-MERTENS-ENERGY`, `OPEN-MU-LIFT`, `OPEN-AMPLIFICATION-SUBPOWER`, `OPEN-NATIVE-OWNER-FRACTIONAL` | OPEN |
 | `OPEN-VF-ACTUAL-PRIME` | `OPEN-VF-ACTUAL-PRIME`, `PROP-VF-CAN-REAL-VONKOCH`, `PROP-VF-MID-SQUARE-VONKOCH`, `PROP-VF-MID-REAL-VONKOCH`, `PROP-PRIME-LI-VONKOCH` | OPEN |
 | `OPEN-FINITE-AC` | `OPEN-FINITE-AC`, `PROP-LEGAL-ANCESTRY-GRAM` | OPEN |
 <!-- END GENERATED: classes -->
@@ -292,7 +288,7 @@ Recorded non-equivalences (the validator fails if any pair collapses):
 | `CARRIER-JOH-FIRST-MOMENT` ≠ `CARRIER-915-ZEROTH-MOMENT` | Blocks r = 4, 7 have zero count defect and opposite first-moment displacement (CE-JOH-R4-R7). |
 | `OPEN-JOH-SIGN` ≠ `OPEN-VF-ACTUAL-PRIME` | JOH is a Cesaro/weighted projection of the pointwise discrepancy; it is not pointwise-equivalent to the square-endpoint VF error. |
 | `OPEN-CORR4` ≠ `OPEN-FINITE-AC` | Only CORR-4 => finite A is proved; shared K_R and a consumer do not give the reverse. |
-| `OPEN-FINITE-AC` ≠ `PROP-MERTENS-ENERGY` | Finite A implies the Mertens energy statement; the converse is not proved and finite A can be stronger than RH. |
+| `OPEN-FINITE-AC` ≠ `PROP-MERTENS-ENERGY` | Finite A implies the Mertens energy statement. The reverse implication is not established for the actual historical amplification; no separation theorem is asserted. |
 | `PROP-LEGAL-ANCESTRY-GRAM` ≠ `PROP-MERTENS-ENERGY` | Co/Div and finite A/C are existentially equivalent only on the correctly normalized live-packet carrier, not as global unnormalized covariance statements. |
 | `CARRIER-OAI-IDEAL-SOURCE` ≠ `CARRIER-915-WEIGHTED-SOURCE` | Original OAI ideal coefficients are not automatically RH_Lean physical prime-owner coefficients; #987 is an output-level bound. |
 | `IMPORTED-OAI-7-8` ≠ `OPEN-MERTENS-FURTHER-GAIN` | The imported OAI 7/8 bound and the strongest already certified complete-source boundary do not supply an ADDITIONAL saving beyond that boundary; this further mathematical obligation remains OPEN. |
@@ -372,7 +368,7 @@ Recorded non-equivalences (the validator fails if any pair collapses):
 | `CE-CORR4-R57` | counterexample | PROVED | NOT_FORMALIZED | FINITE_COMPUTATION |  |  | R = 57: X = 3248, C_R = -19, U_R = -71/105, E_R = 3, K = 3/2, c_57 = 14509429/214921350 > 0 and C_R U_R > 0. |
 | `REFUTED-CORR4-DAUGHTER-ONLY` | refuted_claim | REFUTED | NOT_FORMALIZED | REFUTED |  |  | Conjecture (refuted): \|B_R\|^2 <= (9/4) E_R for all R >= 56 (the historical R^2 K term can be dropped). |
 | `CE-CORR4-R56` | counterexample | PROVED | NOT_FORMALIZED | FINITE_COMPUTATION |  |  | R = 56: \|B_56\|^2 > (9/4) E_56 (c_56 > 0), the first root of the domain; 3,577 of the 5,945 roots 56..6000 have c_R > 0. |
-| `OPEN-MU-LIFT` | open_obligation | OPEN | NOT_FORMALIZED | UNKNOWN | [MERTENS_AMPLIFICATION_BUDGET.md](../docs/MERTENS_AMPLIFICATION_BUDGET.md) |  | For a fixed k >= 2 and fixed r < k: E(B^k) <= G(B) E(B)^r with E(B) = max_{1<=n<B} \|M(n)\|/sqrt(n), log G(B)/log B -> 0, on a chain with complete interval coverage. |
+| `OPEN-MU-LIFT` | open_obligation | OPEN | LEAN_STATEMENT_ONLY | TARGET_EQUIVALENT | [`MertensPrefixSubpowerGainLiftOn`](../research/UNIVERSAL_ENVELOPE_MERTENS_MAX.lean) | [#1135](https://github.com/OVVO-Financial/RH_Lean/pull/1135) | For fixed k>=2, fixed real r<k, and a fixed sequence B:Nat->Nat tending to infinity, there exists G:Nat->Real eventually at least one, with log(G(j))/log(B(j))->0, such that eventually E((B(j))^k)<=G(j)*E(B(j))^r. For B>=2, E(B) is exactly max_{1<=n<B}\|M(n)\|/sqrt(n). No relation B(j+1)=B(j)^k, every-B estimate or nonnegative-r restriction is imposed. |
 | `PAPER-MU-LIFT-CONTRACTION` | paper_claim | CLAIMED | NOT_FORMALIZED | PAPER_PROOF_NEEDS_REVIEW | [MERTENS_AMPLIFICATION_BUDGET.md](../docs/MERTENS_AMPLIFICATION_BUDGET.md) |  | u_{j+1} <= (r/k) u_j + g_j/k with u_j = log E(B_j)/log B_j and g_j -> 0 forces u_j -> 0; full-prefix interpolation gives \|M(n)\| <= n^(1/2+o(1)). |
 | `MECH-MU-LIFT-SUBCRITICAL` | arithmetic_mechanism | OPEN | NOT_FORMALIZED | UNKNOWN |  |  | A genuinely new signed estimate on the exact K1/K2/K3 floor kernel (Type II corner plus every complementary range, square/floor boundaries and full-prefix coverage) yielding a fixed subcritical r < k. |
 | `OPEN-NYMAN-DENSITY` | open_obligation | OPEN | NOT_FORMALIZED | UNKNOWN | [NYMAN_BEURLING_POSITIVE_RESIDUE_ATTACK_2026_10_15.md](../research/NYMAN_BEURLING_POSITIVE_RESIDUE_ATTACK_2026_10_15.md) | [#957](https://github.com/OVVO-Financial/RH_Lean/pull/957) | d_N -> 0 for the full integer-dilation (Baez-Duarte) basis distance at the critical a = 1/2, or an independently justified weighted a > 1/2 zero-free consequence. |
@@ -401,10 +397,11 @@ Recorded non-equivalences (the validator fails if any pair collapses):
 | `MILESTONE-NEAR-UNIFORM-SLOT-BOUNDARY` | formalization_milestone | PROVED | PROVED_IN_LEAN_ON_MAIN | PROVED_IN_LEAN_ON_MAIN | [`native_beta_le_near_uniform_slots`](../research/oai_434/VF919ExplicitSquareBlockPacking.lean)<br/>[`native_mertens_near_uniform_slots`](../research/oai_434/VF919ExplicitSquareBlockPacking.lean) | [#1111](https://github.com/OVVO-Financial/RH_Lean/pull/1111) | For the fixed N_pack=nearUniformSlotCount=ceil(max(1,1/(6*explicitFineLength)))+2, beta <= 7/8-1/(32*N_pack), and for every eps>0 there is C_eps>=0 for all integers n>=1: \|M(n)\|<=C_eps*n^(7/8-1/(32*N_pack)+eps). The positive distinct slots have sum 1/6 and satisfy the original complete detector/source budgets. No no-loss bound at the endpoint is asserted. |
 | `MILESTONE-PRIME-LOCATION-ANCESTRY` | formalization_milestone | PROVED | PROVED_IN_LEAN_ON_MAIN | PROVED_IN_LEAN_ON_MAIN | [`squareWheelPrimeHalfMass_eq_prefix_sub_late`](../research/VF_MID_PRIME_LOCATION_ANCESTRY_DICHOTOMY_20261108.lean)<br/>[`squareWheelLateRemoved_has_new_prime_factor`](../research/VF_MID_PRIME_LOCATION_ANCESTRY_DICHOTOMY_20261108.lean)<br/>[`squareWheelLateRemoved_has_smaller_prime_root`](../research/VF_MID_PRIME_LOCATION_ANCESTRY_DICHOTOMY_20261108.lean)<br/>[`squareWheelEarlierBalanced_nextUnbalanced`](../research/VF_MID_PRIME_LOCATION_ANCESTRY_DICHOTOMY_20261108.lean) | [#1113](https://github.com/OVVO-Financial/RH_Lean/pull/1113) | For every R>=2 and S<=R, the genuine prime left-minus-right mass on R^2<n<(R+1)^2 equals prefix-wheel mass minus the signed mass of later-removed composite sites. Every removed site has a genuine prime divisor S<q<=R, hence sqrt(q)<R. The exact masses at R=2,3,4 are 0,0,1, refuting only inheritance of perfect one-block balance. |
 | `MILESTONE-WINDOW-SATURATED-BOUNDARY` | formalization_milestone | PROVED | PROVED_IN_LEAN_ON_MAIN | PROVED_IN_LEAN_ON_MAIN | [`native_beta_le_window_saturated_minimum_of_fine`](../research/oai_434/VF919WindowSaturatedLowPrincipal.lean)<br/>[`native_beta_le_explicit_window_saturated`](../research/oai_434/VF919WindowSaturatedLowPrincipal.lean)<br/>[`native_mertens_explicit_window_saturated`](../research/oai_434/VF919WindowSaturatedLowPrincipal.lean) | [#1116](https://github.com/OVVO-Financial/RH_Lean/pull/1116) | For every original fine HighData D, beta <= 7/8-(7/8)*actualSlotMinimum(D)+D.e. Recertifying the existing window reserve and consuming the complete original LOW/HIGH/principal comparison also gives the fixed explicit MertensGrowthAtMost(7/8-5/(96*N_*)), where N_*=explicitSlotCount. This is an every-positive-loss growth statement, not a no-loss power bound. |
-| `MILESTONE-WINDOW-ERROR-CLOSURE` | formalization_milestone | PROVED | PROVED_IN_LEAN_PR_GREEN_UNMERGED | PROVED_IN_LEAN_PR_GREEN_UNMERGED | [`native_beta_le_window_error_closed_of_fine`](https://github.com/OVVO-Financial/RH_Lean/blob/77ee815846d6d534c866f0752aa33b84c385610a/research/oai_434/VF919WindowErrorClosure.lean)<br/>[`native_beta_le_near_uniform_window_error_closed`](https://github.com/OVVO-Financial/RH_Lean/blob/77ee815846d6d534c866f0752aa33b84c385610a/research/oai_434/VF919WindowErrorClosure.lean)<br/>[`native_mertens_window_error_closed_of_fine`](https://github.com/OVVO-Financial/RH_Lean/blob/77ee815846d6d534c866f0752aa33b84c385610a/research/oai_434/VF919WindowErrorClosure.lean)<br/>[`native_mertens_fixed_window_error_closed_of_fine`](https://github.com/OVVO-Financial/RH_Lean/blob/77ee815846d6d534c866f0752aa33b84c385610a/research/oai_434/VF919WindowErrorClosure.lean)<br/>[`native_mertens_near_uniform_window_error_closed`](https://github.com/OVVO-Financial/RH_Lean/blob/77ee815846d6d534c866f0752aa33b84c385610a/research/oai_434/VF919WindowErrorClosure.lean) | [#1119](https://github.com/OVVO-Financial/RH_Lean/pull/1119) | For every original fine HighData D, beta <= 7/8-(7/8)*actualSlotMinimum(D), with the same every-positive-loss native Mertens growth. Spending D.e/2 gives a fixed power below the old exact same-D ceiling. The original fixed near-uniform family yields MertensGrowthAtMost(7/8-7/(64*N_pack)). For each smaller positive error the COMPLETE consumer constructs fresh SourceData and counts; no zero-error source or uniform Big-O limit is asserted. |
-| `OPEN-MERTENS-FURTHER-GAIN` | open_obligation | OPEN | NOT_FORMALIZED | UNKNOWN |  |  | Prove a fixed eta>0 so for every eps>0 there exists C_eps independent of x with \|M(x)\|<=C_eps*x^(b_active-eta+eps), where the strongest verified named fixed-family boundary is b_active=7/8-7/(64*N_pack), green unmerged #1119. Its exact same-D boundary is 7/8-(7/8)m, removing D.e from merged #1116. Preserve every complementary source term; further gain, uniform finite C and RH remain open. |
-| `OPEN-AMPLIFICATION-SUBPOWER` | open_obligation | OPEN | LEAN_STATEMENT_ONLY | UNKNOWN | [`SquareRootAmplificationZeroLogGrowthStatement`](../RHLean/Proof/SquareRootAmplificationLogGrowth.lean) |  | SquareRootAmplificationZeroLogGrowthStatement: q(X)=log(1+A(X))/log X tends to zero for integer X->infinity, with A(X)=max_{R^2-1<=X}(M(R^2-1)-1)^2/(R^2 K_R) and strict history K_R. Equivalent to eventual bounds by every positive power, not to the proved fixed positive-power bound. |
-| `OPEN-NATIVE-OWNER-FRACTIONAL` | open_obligation | OPEN | LEAN_STATEMENT_ONLY | UNKNOWN | [`NativeUniformFractionalOwnerContraction`](../research/oai_434/VF919FractionalOwnerContraction.lean) |  | Exist c with 0<c<=1 such that for every theta in [1/2,7/8], MertensGrowthAtMost(theta) implies NativeOwnerBound((1-c)*(2*theta-1)); the existing consumer then contracts theta-1/2 geometrically. The quantifier over UPDATED theta is essential and unproved. |
+| `MILESTONE-WINDOW-ERROR-CLOSURE` | formalization_milestone | PROVED | PROVED_IN_LEAN_ON_MAIN | PROVED_IN_LEAN_ON_MAIN | [`native_beta_le_window_error_closed_of_fine`](../research/oai_434/VF919WindowErrorClosure.lean)<br/>[`native_beta_le_near_uniform_window_error_closed`](../research/oai_434/VF919WindowErrorClosure.lean)<br/>[`native_mertens_window_error_closed_of_fine`](../research/oai_434/VF919WindowErrorClosure.lean)<br/>[`native_mertens_fixed_window_error_closed_of_fine`](../research/oai_434/VF919WindowErrorClosure.lean)<br/>[`native_mertens_near_uniform_window_error_closed`](../research/oai_434/VF919WindowErrorClosure.lean) | [#1119](https://github.com/OVVO-Financial/RH_Lean/pull/1119) | For every original fine HighData D, beta <= 7/8-(7/8)*actualSlotMinimum(D), with the same every-positive-loss native Mertens growth. Spending D.e/2 gives a fixed power below the old exact same-D ceiling. The original fixed near-uniform family yields MertensGrowthAtMost(7/8-7/(64*N_pack)). For each smaller positive error the COMPLETE consumer constructs fresh SourceData and counts; no zero-error source or uniform Big-O limit is asserted. |
+| `OPEN-MERTENS-FURTHER-GAIN` | open_obligation | OPEN | NOT_FORMALIZED | UNKNOWN |  |  | Prove a fixed eta>0 so for every eps>0 there exists C_eps independent of x with \|M(x)\|<=C_eps*x^(b_active-eta+eps), where the strongest verified named fixed-family boundary is b_active=7/8-7/(64*N_pack), merged #1119. Its exact same-D boundary is 7/8-(7/8)m, removing D.e from merged #1116. Preserve every complementary source term; further gain, uniform finite C and RH remain open. |
+| `OPEN-AMPLIFICATION-SUBPOWER` | open_obligation | OPEN | LEAN_STATEMENT_ONLY | TARGET_EQUIVALENT | [`SquareRootAmplificationZeroLogGrowthStatement`](../RHLean/Proof/SquareRootAmplificationLogGrowth.lean) |  | SquareRootAmplificationZeroLogGrowthStatement: q(X)=log(1+A(X))/log X tends to zero for integer X->infinity, with A(X)=max_{R^2-1<=X}(M(R^2-1)-1)^2/(R^2 K_R) and strict history K_R. Equivalent to eventual bounds by every positive power, not to the proved fixed positive-power bound. |
+| `OPEN-NATIVE-OWNER-FRACTIONAL` | open_obligation | OPEN | LEAN_STATEMENT_ONLY | TARGET_EQUIVALENT | [`NativeUniformFractionalOwnerContraction`](../research/oai_434/VF919FractionalOwnerContraction.lean) |  | Exist c with 0<c<=1 such that for every theta in [1/2,7/8], MertensGrowthAtMost(theta) implies NativeOwnerBound((1-c)*(2*theta-1)); the existing consumer then contracts theta-1/2 geometrically. The quantifier over UPDATED theta is essential; the arithmetic premise remains open. |
+| `MILESTONE-UNIVERSAL-ENVELOPE` | formalization_milestone | PROVED | PROVED_IN_LEAN_PR_GREEN_UNMERGED | PROVED_IN_LEAN_PR_GREEN_UNMERGED | [`zero_forces_historical_power`](https://github.com/OVVO-Financial/RH_Lean/blob/c401144dedcb6ffd785bd4b25b5830eb83b3c93c/research/UNIVERSAL_ENVELOPE_ZERO_FORCED.lean)<br/>[`envelopeBound_iff_rightmost_le`](https://github.com/OVVO-Financial/RH_Lean/blob/c401144dedcb6ffd785bd4b25b5830eb83b3c93c/research/UNIVERSAL_ENVELOPE_LAWS.lean)<br/>[`amplification_logRatio_tendsto`](https://github.com/OVVO-Financial/RH_Lean/blob/c401144dedcb6ffd785bd4b25b5830eb83b3c93c/research/UNIVERSAL_ENVELOPE_AMPLIFICATION_LAW.lean)<br/>[`subcritical_subpower_gain_iff_mertens_half_of_lt`](https://github.com/OVVO-Financial/RH_Lean/blob/c401144dedcb6ffd785bd4b25b5830eb83b3c93c/research/UNIVERSAL_ENVELOPE_MERTENS_MAX.lean)<br/>[`zeroLog_iff_riemannHypothesis`](https://github.com/OVVO-Financial/RH_Lean/blob/c401144dedcb6ffd785bd4b25b5830eb83b3c93c/research/UNIVERSAL_ENVELOPE_RH_BRIDGES.lean)<br/>[`zeroLog_iff_mertensEnergy`](https://github.com/OVVO-Financial/RH_Lean/blob/c401144dedcb6ffd785bd4b25b5830eb83b3c93c/research/UNIVERSAL_ENVELOPE_RH_BRIDGES.lean)<br/>[`mertens_half_iff_mertensEnergy`](https://github.com/OVVO-Financial/RH_Lean/blob/c401144dedcb6ffd785bd4b25b5830eb83b3c93c/research/UNIVERSAL_ENVELOPE_RH_BRIDGES.lean)<br/>[`native_uniform_fractional_owner_iff_mertens_half`](https://github.com/OVVO-Financial/RH_Lean/blob/c401144dedcb6ffd785bd4b25b5830eb83b3c93c/research/UNIVERSAL_ENVELOPE_OWNER_FRACTIONAL.lean) | [#1135](https://github.com/OVVO-Financial/RH_Lean/pull/1135) | Proved at the exact green unmerged #1135 head: every actual zeta zero with 1/2<Re(rho)<1 forces an all-scale lower power of the original strict-history K; log K/log R -> 2h, log E/log B -> h, and q(X) -> h for h=max(Theta,1/2)-1/2. EnvelopeBound(lambda,eta) iff Theta<=1/2+eta/(2-lambda) for 0<=lambda<2, eta>=0; EnvelopeBound(2,0) holds unconditionally. Original frozen-Q and squared p variants retain exact sources and quantifiers. Zero-log amplification, native zero-owner loss, uniform fractional owner contraction and the existential subpower-gain full-prefix lift for every real r<k on any sequence tending to infinity are equivalent to critical Mertens growth, Mertens energy and Mathlib RH. None of these RH-strength arithmetic premises or a new zero-boundary improvement is asserted. |
 <!-- END GENERATED: nodes -->
 
 ### Typed edges
@@ -452,7 +449,7 @@ Recorded non-equivalences (the validator fails if any pair collapses):
 | `E-REF-CORR4-012` | `REFUTED-CORR4-C-012` | REFUTED_BY | `CE-CORR4-R5561` |  |  |  |
 | `E-REF-CORR4-SIGN` | `REFUTED-CORR4-LOCAL-SIGN` | REFUTED_BY | `CE-CORR4-R57` |  |  |  |
 | `E-REF-CORR4-C0` | `REFUTED-CORR4-DAUGHTER-ONLY` | REFUTED_BY | `CE-CORR4-R56` |  |  |  |
-| `E-MULIFT-MERTENS` | `OPEN-MU-LIFT` | CONDITIONAL_IMPLICATION | `PROP-MERTENS-ENERGY` | `PAPER-MU-LIFT-CONTRACTION` | `PAPER-MU-LIFT-CONTRACTION` |  |
+| `E-MULIFT-MERTENS` | `OPEN-MU-LIFT` | PROVED_IMPLICATION | `PROP-MERTENS-ENERGY` |  | `MILESTONE-UNIVERSAL-ENVELOPE` | Forward direction of subcritical_subpower_gain_iff_mertens_half_of_lt, composed with mertens_half_iff_mertensEnergy; fixed k>=2, real r<k, and any sequence tending to infinity. The actual full-prefix arithmetic premise remains unpaid. |
 | `E-MULIFT-MECH` | `MECH-MU-LIFT-SUBCRITICAL` | INDEPENDENT_ARITHMETIC_GAIN | `OPEN-MU-LIFT` |  |  | fixed r < k |
 | `E-NYMAN-RH` | `OPEN-NYMAN-DENSITY` | CONDITIONAL_IMPLICATION | `RH` | `LIT-BAEZ-DUARTE` | `LIT-BAEZ-DUARTE` |  |
 | `E-NYMAN-MECH` | `MECH-NYMAN-FULL-BASIS-DECAY` | INDEPENDENT_ARITHMETIC_GAIN | `OPEN-NYMAN-DENSITY` |  |  | all-scale decay of the full-basis distance |
@@ -461,13 +458,17 @@ Recorded non-equivalences (the validator fails if any pair collapses):
 | `E-REF-BLOCK` | `REFUTED-BLOCK-UNIVERSAL` | REFUTED_BY | `CE-BLOCK-R549` |  |  |  |
 | `E-CORR4-MIXED-TAIL-IMPROVES-78` | `OPEN-CORR4-MIXED-TAIL-POWER` | PROVED_IMPLICATION | `MILESTONE-MERTENS-STRICT-EXPLICIT` |  | `CONSUMER-CORR4-MIXED-TAIL-POWER-IMPROVEMENT` | If the full signed mixed-tail estimate holds for eta>0, the merged Lean theorem yields beta = 7/8 - eta/4. This edge does not assert its open premise. |
 | `E-EXPLICIT-MERTENS-AMPLIFICATION` | `MILESTONE-MERTENS-STRICT-EXPLICIT` | PROVED_IMPLICATION | `MILESTONE-EXPLICIT-AMPLIFICATION` |  | `MILESTONE-EXPLICIT-AMPLIFICATION` | Merged #1108 consumes the explicit Mertens bound using exact endpoint amplification with K_R>=1; supplies a fixed positive-power bound, not zero-log growth. |
-| `E-FINITE-A-IMPLIES-ZERO-LOG` | `OPEN-FINITE-AC` | PROVED_IMPLICATION | `OPEN-AMPLIFICATION-SUBPOWER` |  |  | elementary: A constant uniform bound on the original A(X) implies log(1+A(X))/log(X)->0; converse need not hold. |
+| `E-FINITE-A-IMPLIES-ZERO-LOG` | `OPEN-FINITE-AC` | PROVED_IMPLICATION | `OPEN-AMPLIFICATION-SUBPOWER` |  |  | elementary: A constant uniform bound on the original A(X) implies log(1+A(X))/log(X)->0. The reverse implication is not established for the actual historical amplification; no separation theorem is asserted. |
+| `E-ZERO-LOG-IFF-RH` | `OPEN-AMPLIFICATION-SUBPOWER` | PROVED_EQUIVALENCE | `RH` |  | `MILESTONE-UNIVERSAL-ENVELOPE` | RHLean.Analysis.UniversalEnvelope.zeroLog_iff_riemannHypothesis; exact original amplification and full Mathlib RiemannHypothesis. |
+| `E-ZERO-LOG-IFF-MERTENS` | `OPEN-AMPLIFICATION-SUBPOWER` | PROVED_EQUIVALENCE | `PROP-MERTENS-ENERGY` |  | `MILESTONE-UNIVERSAL-ENVELOPE` | RHLean.Analysis.UniversalEnvelope.zeroLog_iff_mertensEnergy; both arithmetic propositions remain OPEN. |
+| `E-NATIVE-FRACTIONAL-IFF-MERTENS` | `OPEN-NATIVE-OWNER-FRACTIONAL` | PROVED_EQUIVALENCE | `PROP-MERTENS-ENERGY` |  | `MILESTONE-UNIVERSAL-ENVELOPE` | RHLean.Analysis.OwnerPrefix.native_uniform_fractional_owner_iff_mertens_half.trans RHLean.Analysis.UniversalEnvelope.mertens_half_iff_mertensEnergy. Retains the original quantified native-owner source and its independently audited established seed. |
+| `E-MULIFT-IFF-MERTENS` | `OPEN-MU-LIFT` | PROVED_EQUIVALENCE | `PROP-MERTENS-ENERGY` |  | `MILESTONE-UNIVERSAL-ENVELOPE` | For each fixed admissible k,r,B, RHLean.Analysis.UniversalEnvelope.subcritical_subpower_gain_iff_mertens_half_of_lt composed with mertens_half_iff_mertensEnergy. The theorem allows every real r<k and eventual estimates along any sequence tending to infinity; no every-B strengthening. |
 <!-- END GENERATED: edges -->
 
 ## 8. Dated PR evidence snapshot
 
 <!-- BEGIN GENERATED: evidence -->
-Snapshot `2026-11-09T03:02:50Z`, main `7aa0fcb12f7e8fe67e809d8f94cda384506d61b5`, `leanprover/lean4:v4.34.1`. Refresh from GitHub before relying on any open-PR row.
+Snapshot `2026-11-15T23:49:51Z`, main `59612bc8b5c30c528d8367667ea5846a8053f114`, `leanprover/lean4:v4.34.1`. Refresh from GitHub before relying on any open-PR row.
 
 | PR | State | Head | Observed checks | Grade |
 | --- | --- | --- | --- | --- |
@@ -498,7 +499,8 @@ Snapshot `2026-11-09T03:02:50Z`, main `7aa0fcb12f7e8fe67e809d8f94cda384506d61b5`
 | [#1111](https://github.com/OVVO-Financial/RH_Lean/pull/1111) | merged 2026-11-08 | `20875a55dd97` | 13/13 jobs green | KERNEL_CHECKED_ON_MAIN |
 | [#1113](https://github.com/OVVO-Financial/RH_Lean/pull/1113) | merged 2026-11-08 | `43c9ac1235ce` | 14/14 jobs green | KERNEL_CHECKED_ON_MAIN |
 | [#1116](https://github.com/OVVO-Financial/RH_Lean/pull/1116) | merged 2026-11-08 | `1e32da429324` | 14/14 jobs green | KERNEL_CHECKED_ON_MAIN |
-| [#1119](https://github.com/OVVO-Financial/RH_Lean/pull/1119) | open | `77ee815846d6` | 14/14 jobs green | KERNEL_CHECKED_GREEN_PR_HEAD |
+| [#1119](https://github.com/OVVO-Financial/RH_Lean/pull/1119) | merged 2026-11-09 | `77ee815846d6` | 14/14 jobs green | KERNEL_CHECKED_ON_MAIN |
+| [#1135](https://github.com/OVVO-Financial/RH_Lean/pull/1135) | open (draft) | `c401144dedcb` | 18/18 jobs green | KERNEL_CHECKED_GREEN_PR_HEAD |
 <!-- END GENERATED: evidence -->
 
 ## 9. Maintenance

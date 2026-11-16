@@ -1,8 +1,12 @@
 # Mertens amplification: subpower loss and subcritical budget dependence
 
+**Formalization update, 2026-11-15 — [PR #1135](https://github.com/OVVO-Financial/RH_Lean/pull/1135), verified and unmerged:** the actual full-prefix criterion now has a Lean certificate. [`subcritical_subpower_gain_iff_mertens_half_of_lt`](../research/UNIVERSAL_ENVELOPE_MERTENS_MAX.lean) proves that, for fixed integer k>=1, any fixed real r<k, and any integer sequence B_j tending to infinity, existence of an eventual gain G_j>=1 with `log G_j/log B_j -> 0` and `E(B_j^k) <= G_j E(B_j)^r` is equivalent to `MertensGrowthAtMost (1/2)`. The [RH bridges](../research/UNIVERSAL_ENVELOPE_RH_BRIDGES.lean) identify this with Mathlib's full `RiemannHypothesis`. The proof uses the all-scale law `log E(B)/log B -> max(Theta,1/2)-1/2`, so the sequence need not satisfy a recurrence between successive terms. See the [formalization note](UNIVERSAL_ENVELOPE_FORMALIZATION_20261115.md) for exact types and successful core-audit evidence.
+
+The genuine arithmetic gain remains **OPEN**. The abstract scalar recurrence arguments, fixed-g calibrations and `K1/K2/K3` analysis below retain their historical paper status; the new certificate establishes the actual Mertens-prefix criterion through its exponent law.
+
 **Research steering and paper-level conditional analysis, updated 2026-10-16 after merged #961 and the unified manual cycle.** Original subpower relaxation remains unchanged; new exact `K1/K2/K3` anatomy and fixed-g calibration are paper claims, not gain theorems. Subordinate to [AGENTS.md](../AGENTS.md), [the proof contract](../CURRENT_PROOF_CONTRACT.md) and the [live mechanism brief](FACTOR_DEPTH_RESEARCH_BRIEF.md).
 
-**Status:** the recurrence implications below have elementary paper proofs. This change adds no Lean theorem. The independent arithmetic amplification inequality remains OPEN. A conditional recurrence theorem can be formalized honestly as a consumer, but must not be counted as having proved its genuine-Mobius premise.
+**Historical status of the 2026-10-16 note:** the recurrence implications below have elementary paper proofs. That note added no Lean theorem. The independent arithmetic amplification inequality remains OPEN. A conditional recurrence theorem must not be counted as having proved its genuine-Mobius premise.
 
 ## 1. The acceptance threshold is not constant gain
 
@@ -186,6 +190,6 @@ gives `u_(j+1)<=(r/k)*u_j+g_j/k`. The proof above works with rho=r/k and tail bo
 
 **Referee:** check chain coverage, r<k with a uniform gap, constants, all-prefix interpolation, genuine arithmetic versus arbitrary-sequence controls, the actual-gain equivalence and every omitted signed term. Do not reject a provable gain solely for exceeding all fixed log powers.
 
-**Lean:** a scoped generic contraction plus full-prefix consumer is a valid conditional formalization candidate after duplicate search and proof review. Keep its gain hypothesis explicit, and separately identify the unproved arithmetic theorem. Search existing `SquareRootAmplificationClosure` and Mertens modules first; reuse instead of duplicating. This Markdown update does not certify a new Lean result.
+**Lean:** reuse the actual-prefix criterion and RH bridges linked in the formalization update above. Keep the gain hypothesis explicit, and separately identify the unproved arithmetic theorem. A standalone generic scalar contraction remains a separate conditional formalization candidate after duplicate search and proof review; the historical paper recurrence is not itself certified by the new actual-Mertens exponent-law proof.
 
 Every MU-LIFT report states: **k; r; G; g; interval/chain; fixed constants; accumulated loss; independent arithmetic input; exact evidence status.** Schedules, permissions, canonical VF, native NNS normalization and human-only merge remain unchanged.
