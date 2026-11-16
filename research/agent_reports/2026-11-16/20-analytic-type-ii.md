@@ -774,3 +774,24 @@ The substantive synthesis was committed at `f4237e73fd2a35cfb45ffa89cba8b3e32aed
 
 Final mathematical status: RC1-RC4 are self-audited paper arguments, awaiting independent review and not newly Lean-certified. RC5 is the completed exact finite check. The independent bound pays the specified exterior; the original central norm, native CODIV residual, FFR4 formalization and all global RH obligations remain open. Resume with a genuinely coefficient-sensitive restriction or the still-due native CODIV arithmetic task, not a repeat of this kernel calculation. No process remains running for this execution.
 
+
+## Continuation Checkpoint - 20261116-analytic-0909-EST/TW
+
+### A. Most Important Analytic Development
+IN_PROGRESS / PARTIAL. No new theorem is claimed at intake. The changed research question is Coordinator MB4's ORIGINAL three-floor signed window on the sign-selected heads, retaining all three rescaled Mobius sums before squaring. Test whether arithmetic selection supplies a genuine regional restriction, and whether a purported uniform window estimate would simply conceal a zero-free-region conclusion. The earlier RC results and their subsequent independent ACCEPT_ON_PAPER verdict are preserved.
+
+### B. Current Mathematical Objective And Authority
+Actual scheduled trigger: 2026-11-16 09:09:04 EST, America/New_York. RUN_ID_UNAVAILABLE; TW is a research label only. Main HEAD: 076195b75278869d4f18fd924b9ebdaedf723108. AGENTS blob 5bf6b1dd837bad943286d05c7dd08441d6a22635; CURRENT_PROOF_CONTRACT blob 95566e37c8eaeb99ee680660df4f9d2e06ea5038. cross_route_ack=CROSS_ROUTE_SIGNED_RECOVERY_V1; continuity_ack=LAST_ACTUAL_REPORT_CONTINUITY_V1; finite_wheel_ack=FINITE_WHEEL_CENTERED_RH_V1; high_attack_ack=COMPLETE_SIGNED_HIGH_ATTACK_V1; chain_ack=CANCELLATION_CHAIN_REUSE_V1.
+
+The original canonical VF, complete centered wheel, finite A/C, Nyman density and RH targets remain OPEN. Main now includes #1136 and #1137; fresh complete open-PR listing is empty. #1137 is the principal component only, not complete FFR4. The original Nyman source blobs are 2d23721027ecc44e85b7add02fc632b482f03352 and 2da630c1d5fb9302e2097ec1e170cf41c2b40609. The unchanged baseline terminal blob is f629db1b2b65d6ec042ac9432397d4b6316200c6; its actual prior proof-value audit log has been retrieved.
+
+### C. Continuity And Research Handoffs
+Untruncated no-date-cap report discovery and complete latest file retrieval find today's Coordinator MB, Owner UF then DB, Analytic RC, Wheel SF, Census RS, Referee NT, and Lean FFR4. Yesterday has Coordinator SS, Referee UE and Lean FFR3; no November 15 investigator/Census report is invented. The unchanged external inbox is 7d63d434690d00dffce9c90335d41c4f62d85798. Relevant post-RC mathematical sections and prior-day inputs are being reconciled, with full final ledger still pending.
+
+Important new corrections: Owner DB supersedes UF's claimed minimal delayed descendant root: R=5, not R=8. DB also reports restored-marginal sign reversal at R=137. These are not Nyman coefficients and are not silently transferred. Referee NT independently accepted SS1-SS4 and RC1-RC4 on paper; NT's own full harmonic-tail and log-moment identities have subsequent Lean-agent paper acceptance, not Lean certification. Coordinator MB's stronger artificial-suffix obstruction is distinct from the original taper.
+
+### D-K. Work Remaining
+Investigate the original V_H and J_H, inspect the exact selection gate, compare existing suppliers at their true uniformity, and prove a genuine intermediate estimate or a carefully scoped obstruction. Test all new assertions independently and record any inability to establish the selected-head bound. No generic counterfamily is a disproof of the original arithmetic family.
+
+### L. Resume Capsule
+Continue from this owned append-only checkpoint. Complete source/CI and continuity receipts, perform independent derivation and falsification, and append a final A-L report with exact first missing theorem. No Lean source or other report is edited. Publication is asserted only after successful commit and immutable readback.
