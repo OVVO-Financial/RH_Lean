@@ -3692,3 +3692,18 @@ if __name__=='__main__':main()
 
 </details>
 
+
+
+### SG Verified Publication Receipt
+
+Recorded 2026-11-16 16:28:44 UTC (11:28:44 EST), after publication and verification, not a predicted action.
+
+- Latest main recheck: `50e6b86c2f70584b603f1b2e813d49293ba2b7dc`, unchanged from the research snapshot.
+- Early preregistration: commit `3910d552952810bbfa0b763eb119c99d209254c6`, blob `4847462ce7830bd4fd6769dcecc595780370c6dd`. Immutable readback and commit inspection verified; exactly this owned path changed, 46 insertions, zero deletions.
+- Substantive SG publication: [`bb00ffcd4a05f2785d733723a78bbef7f8b6616a`](https://github.com/OVVO-Financial/RH_Lean/commit/bb00ffcd4a05f2785d733723a78bbef7f8b6616a), blob `3e27af6e5001fc782fc0d93fcd061389f4bf11df`, committed 2026-11-16 16:28:40 UTC.
+- Immutable readback matched all 193,774 intended characters exactly. The complete 94,483-character pre-SG-checkpoint file was preserved as a prefix; SG appended 99,289 characters after two separator newlines.
+- Commit inspection verified exactly one changed path: `research/agent_reports/2026-11-16/40-prime-census.md`, 1,840 insertions and zero deletions. No other remote resource was modified by this substantive publication.
+- Local structural validation passed: required A-N sections, 13 aligned Markdown tables, 38 balanced code-fence markers, balanced details blocks, exact regional recombination, preserved source inputs, and conservative integer-overflow bounds.
+- All computational processes needed for this run completed. Publication does not change mathematical status: SG1 is a finite refutation of the stated auxiliary rule; SG2 is a self-audited paper identity awaiting independent review; complete selected-family convergence and RH remain OPEN.
+
+This receipt reports the already inspected substantive commit. Its own containing commit is verified separately after writing and is not self-predicted here. Next work is the source-specific middle-profile estimate or an independently valid obstruction, not repetition of the refuted selection rule.
