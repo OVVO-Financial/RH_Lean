@@ -15,7 +15,7 @@ noncomputable section
 open scoped Classical Topology
 open Set Filter
 namespace SevenEighths.PrincipalResponseInversion
-open HeckeFamily HeckeSignal PrincipalSlotEstimate PrincipalMellinResidues
+open HeckeFamily HeckeSignal PrincipalSlotEstimate PrincipalSignalComparison
 open PrincipalSlotEstimate.FiniteResponse
 open PrincipalAllDelayReturn.FiniteResponse
 
