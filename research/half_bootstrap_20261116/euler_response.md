@@ -386,7 +386,7 @@ small positive loss gives
 
 \[
  \left|\operatorname{Avg}_{w_P}
-   [(1-q)\mathcal W(qR)^r((1-q)D)^j](\theta+it)\right|
+   [(1-q)\mathcal W(qR)^r((1-q)D)^j]\,(\theta+it)\right|
  \ll (1+|t|)P^{b+2+2r-(6r+j+5)\theta+\epsilon}.        \tag{S3}
 \]
 
