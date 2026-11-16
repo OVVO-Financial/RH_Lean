@@ -1,13 +1,14 @@
 import «research.oai_434.VF919PhysicalPrincipalResponse»
 
 namespace OAI
+set_option autoImplicit false
 noncomputable section
 open scoped Classical BigOperators Topology ContDiff
 open Complex Filter MeasureTheory
 namespace SevenEighths.PhysicalPrincipalResponse
 open HeckeFamily ProbePhysical CompletedGauss ProbeFiniteProductBounds
 open PrincipalMellinResidues PrincipalSignalComparison ProbePrincipalResidueActual
-open ProbeRaySlots PrincipalSlotEstimate PrincipalAllDelayReturn ActualEisensteinCubic
+open ProbeRaySlots PrincipalSlotEstimate PrincipalAllDelayReturn ActualEisensteinCubic ProbeEuler
 local notation "Id" => Ideal HeckeFamily.O
 
 #check eventually_power_lower

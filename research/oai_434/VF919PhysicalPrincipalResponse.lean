@@ -14,6 +14,7 @@ obligations; this module does not establish a new global exponent.
 -/
 
 namespace OAI
+set_option autoImplicit false
 noncomputable section
 open scoped Classical BigOperators Topology ContDiff
 open Complex Filter MeasureTheory
@@ -21,7 +22,7 @@ namespace SevenEighths.PhysicalPrincipalResponse
 open HeckeFamily ProbePhysical CompletedGauss ProbeFiniteProductBounds
 open PrincipalMellinResidues PrincipalSignalComparison ProbePrincipalResidueActual
 open ProbeRaySlots PrincipalSlotEstimate PrincipalAllDelayReturn
-open ActualEisensteinCubic
+open ActualEisensteinCubic ProbeEuler
 local notation "Id" => Ideal HeckeFamily.O
 
 /-- A fixed positive pool prefactor is absorbed by half the slot exponent. -/
