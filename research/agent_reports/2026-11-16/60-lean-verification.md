@@ -318,3 +318,24 @@ Only the owned report on agent-reports and the new authorized non-main proof bra
 `PUBLICATION=COMMITTED_AND_IMMUTABLE_READBACK_VERIFIED`. At 2026-11-16 11:22:27 UTC, the complete A-P synthesis was verified at report commit [`3c4302999ea270b9809cc5f2b5daadbd899ff82b`](https://github.com/OVVO-Financial/RH_Lean/blob/3c4302999ea270b9809cc5f2b5daadbd899ff82b/research/agent_reports/2026-11-16/60-lean-verification.md), blob `0a492ab9c627b5822a7d4f0deb7c3af74dd8a5e3`. The retrieved text exactly matched the submitted 46666-character report, including every earlier checkpoint and both CI failures. The commit changes only this owned dated report: 261 additions, zero deletions.
 
 Final formal result: PR #1137, `1c06b34d478d239e8968b62b0380812d7af2e49f`, 13/13 successful checks, ready for human review, unmerged; dedicated run 43854666101 / job 133255730773, all three roots within the standard axiom policy. Reuse this exact green evidence unless the source or relevant dependencies change. Next work is the complete original-source compensated-probe transport and central/tail assembly, not a duplicate principal expansion or inversion. Full FFR4, a new certified global endpoint, and RH remain OPEN. This receipt refers to the already-read-back synthesis commit rather than attempting a self-referential commit hash.
+
+## Scheduled Continuation Checkpoint - 20261116-lean-1314-EST/FR-AUDIT
+
+Actual trigger: 2026-11-16 13:14:01 EST (America/New_York); RUN_ID_UNAVAILABLE. Research/publication state: IN_PROGRESS / PARTIAL. This continuation preserves the earlier FFR4 implementation and publication history.
+
+Current main is 50e6b86c2f70584b603f1b2e813d49293ba2b7dc; AGENTS blob c4f36b772f8a4b0c24fe566b90fafb646073c60f; proof-contract blob 95566e37c8eaeb99ee680660df4f9d2e06ea5038. The newly governing continuation directive is 96ad4439ec458af6168f7d9cb3eef5dde291d37c. half_bootstrap_ack=BOOTSTRAP_TO_HALF_V1; cross_route_ack=CROSS_ROUTE_SIGNED_RECOVERY_V1; continuity_ack=LAST_ACTUAL_REPORT_CONTINUITY_V1. The earlier FFR4 fixed-improvement task is not automatically renewed: its next work must pass the complete half-continuation gate.
+
+The complete open/draft PR collection is empty. Main includes the human merges of #1136, #1137 and #1138. Exact-head CI/source reuse is being checked; no new formal certification is claimed at this checkpoint. No local Lean has been run.
+
+The nontruncated reporting tree was enumerated without a calendar cap at c445d4684aa51bb36895fe9512c064deb83d85de. Complete current files for all seven roles and both Coordinator mirrors were retrieved; mirror content agrees. Available November 15 Coordinator/Referee/Lean files were also fetched; no November 15 Owner/Analytic/Wheel/Census file exists. Last consumed role sections from the earlier Lean report are SS/UF/RC/SF/RS/NT. Newly retrieved relevant continuations are MB, DB, TW, FP, SG and FR, in that order. Continuity is IN_PROGRESS until the affected original sources and retained derivations have been inspected. External inbox blob 7d63d434690d00dffce9c90335d41c4f62d85798 is unchanged; no new external claim is inferred.
+
+Formalization queue:
+1. No active proof PR needs repair.
+2. Independently accepted FP1-FP4 provide a fixed four-row source reduction and quantitative radical-history return; FR proposes the sharper specified row g=6. Review the original signed carrier, absolute inverse, complete-prefix interpolation and endpoint losses before selection.
+3. FR's R=139 witness refutes a pointwise row-to-Mertens inequality with the history omitted. It does not refute the all-scale growth equivalence or RH.
+4. DB/TW/SG retain their stated review scopes; the false local packet and selected-head energy rules must not enter proof hypotheses.
+5. Park disconnected finite FFR optimization. Do not add another algebraic contraction consumer or assume eta<h.
+
+Next work: inspect existing exact source definitions and proof surfaces, independently audit the fixed-row transition, select a nonduplicate necessary arithmetic theorem or decisive formal obstruction, and obtain hosted verification if an implementation is authorized and mathematically justified. If only the strict arithmetic supplier remains open, report its exact type rather than manufacture a filler PR.
+
+Canonical actual-prime endpoint, complete native strict-cost supplier and RH remain OPEN. NO_NEW_GLOBAL_GAIN; VERIFIED_ETA=NONE.
