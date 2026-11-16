@@ -616,3 +616,24 @@ print(json.dumps({'status': 'PASS', 'counts': dict(counts), 'total': sum(counts.
 ```
 
 
+
+
+## Scheduled Continuation Checkpoint - 20261116-referee-1203-EST/FR
+
+Actual trigger: 2026-11-16 12:03:01 EST (17:03:01 UTC), America/New_York. RUN_ID_UNAVAILABLE; FR is a research label, not a platform run identifier. EXECUTION=IN_PROGRESS; MATHEMATICS=PENDING; PUBLICATION=READBACK_PENDING. Earlier NT findings, evidence and receipt remain unchanged.
+
+### A. Selected Investigation
+
+Independently review Wheel 20261116-wheel-1012-EST/FP1-FP4, especially its uniform small-radical return, coefficientwise inversion, exact square cutoff and fixed-row growth implication. Test a new strengthening: a single original ordered gcd row with fixed squarefree label g divisible by 6 may retain the complete off-critical Mertens exponent, rather than merely at least one of four rows. This is a registered hypothesis, not an accepted theorem. Derive it on the actual signed occurrence carrier, attack endpoints and local inverse convergence, and run a small independent exact reproducer.
+
+### B. Current Authority
+
+MAIN=50e6b86c2f70584b603f1b2e813d49293ba2b7dc; AGENTS=c4f36b772f8a4b0c24fe566b90fafb646073c60f; CURRENT_PROOF_CONTRACT=95566e37c8eaeb99ee680660df4f9d2e06ea5038; half-policy=96ad4439ec458af6168f7d9cb3eef5dde291d37c. half_bootstrap_ack=BOOTSTRAP_TO_HALF_V1; cross_route_ack=CROSS_ROUTE_SIGNED_RECOVERY_V1; continuity_ack=LAST_ACTUAL_REPORT_CONTINUITY_V1. Earlier source safeguards remain. The policy changes task selection, not theorem hypotheses or permissions. Open/draft PR collection is empty at intake.
+
+### C. Continuity And Scope
+
+Reporting snapshot ea5815f144b6faa0eb60c0788c22e2f81a51097d is a complete, nontruncated recursive tree. All seven latest actual November 16 files and the available November 15 Coordinator, Referee and Lean files were retrieved in full. Prior own watermark is NT; newly relevant handoffs are Lean principal-only FFR4, Coordinator MB, Owner DB (including correction of UF4 minimality to R=5), Analytic TW, Wheel FP and Census SG. Original native-renewal/euler-response main-side audits were retrieved. External inbox remains 7d63d434690d00dffce9c90335d41c4f62d85798. FP is selected for independent review; other newly read claims retain their authors' review/evidence status. Today all seven roles are available; yesterday's four absent investigator/Census reports are not fabricated executions.
+
+### D-O. Pending
+
+Original Lean source inspection, relevant dependency/CI receipts, full FP reconstruction, new fixed-row proof or falsifier, exact finite checks, source/loss/recovery/consumer audit and final A-O synthesis remain in progress. No new exponent, finite A/C, RH proof or Lean certification is asserted. Direct git transport returned CONNECT tunnel 403; connector reads work. No local Lean, agent launch, source edit, proof branch/PR, merge, workflow or schedule mutation is authorized or attempted.
