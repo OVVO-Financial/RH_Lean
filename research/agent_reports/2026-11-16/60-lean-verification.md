@@ -627,3 +627,328 @@ The complete report tree at `84f149f3424cf71f6f58be059d1474907fcd1ce3` was enume
 Initial queue: (A) no active PR repair exists; (B) inspect accepted critical-inverse/finite-prime arithmetic for a necessary half-continuation transition; (C) independently test the new low-frequency obstruction and possible corrected statements; (D) avoid another algebraic consumer, duplicate finite witness, or unrelated green auxiliary file. Selection and implementation remain PENDING until mathematical review and source/dependency inspection are complete.
 
 Next: reconstruct exact statements and accepted scope, inspect original declarations and prior hosted verification, then implement only a justified, useful theorem or identify the exact missing original-source estimate. Publication of this checkpoint is claimed only after immutable readback below.
+
+## Critical-Inverse Review And A Stronger Little-o Obstruction
+### Final Synthesis - 20261116-lean-2108-EST/CR
+
+Actual scheduled trigger: 2026-11-16 21:08:01 EST, America/New_York (2026-11-17T02:08:01Z). RUN_ID_UNAVAILABLE. CR is a research label, not a platform run identifier. This continuation preserves the complete earlier same-day report, both proof-development histories, failures, and publication receipts.
+
+### A. Most Important Mathematical Result
+
+**The new critical-frequency theorem is independently accepted on paper, and its counterexample is stronger than stated: even a synthetic +/-1 prefix that is little-o of square root can be amplified beyond square-root scale by the actual fixed-gcd inverse.**
+
+Independent verdict: claims 20261116-referee-2013-EST/CF1-CF4 are ACCEPT_ON_PAPER at their precise kernel/model scopes. This includes the uniform floor-faithful frequency response, bounded-increment construction, atom-free counterfamily, and sufficient inverse-frequency-moment condition. None is a theorem about the size of the genuine u_6 prefix. The proof below reconstructs the relevant estimates rather than relying on the author's verdict.
+
+New refinement 20261116-lean-2108-EST/CR1: for each fixed 0<alpha<1 there is a single sequence epsilon_n in {-1,+1}, epsilon_1=1, whose prefix F satisfies
+
+    F(n)=o(sqrt(n)),
+    T_lambda F(x)=c_alpha sqrt(x)(log x)^(1-alpha)+O_alpha(sqrt(x)),
+    c_alpha>0.
+
+The input sequence is fixed before x; T_lambda uses the actual signed inverse lambda of the accepted fixed-gcd-6 source, including literal floors. Thus the generic implication F=o(sqrt(n)) => T_lambda F=O(sqrt(x)) is false even for unit-sign prefixes. This is PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED. It is a refinement of CF3, not a new arithmetic mechanism or a claim of worldwide novelty.
+
+**Implementation decision:** PENDING_NO_ACCEPTED_NEW_SUPPLIER. No new proof branch, PR, or CI run was created. There are valid paper kernel theorems, but no named necessary implementation step in a currently qualifying source-derived half-continuation. The Coordinator's HB handoff and Referee's CF handoff explicitly exclude another generic inverse wrapper or theorem-count PR. NO_NEW_THEOREM_TO_FORMALIZE here means no newly eligible implementation under that gate, not that all unformalized mathematics is false or absent.
+
+The earlier fixed-row obstruction is now PROVED_IN_LEAN_ON_MAIN: human-merged #1139, exact tested head 760a105553788fa7005e86b1230699fd871a2934, 13/13 checks successful. No new global exponent, finite A/C, canonical VF estimate, or RH conclusion is claimed. VERIFIED_ETA=NONE; RH=OPEN.
+
+### B. Current Authoritative Objective
+
+Live main at intake is [4d5482805bac6a8f29d4fb4dadc61eca0bc06525](https://github.com/OVVO-Financial/RH_Lean/commit/4d5482805bac6a8f29d4fb4dadc61eca0bc06525), actual commit tree 987c764248812e4e587d1e076d9a1d6277515fb7. Its AGENTS and current proof contract were read, together with the continuation, cross-route recovery, gap-resilient continuity, dynamic execution, complete-return safeguards, relevant proof DAG and atlas.
+
+| Authority or material source | Blob SHA |
+| --- | --- |
+| AGENTS.md | c4f36b772f8a4b0c24fe566b90fafb646073c60f |
+| CURRENT_PROOF_CONTRACT.md | 95566e37c8eaeb99ee680660df4f9d2e06ea5038 |
+| docs/RHLEAN_BOOTSTRAP_TO_HALF_20261116.md | 96ad4439ec458af6168f7d9cb3eef5dde291d37c |
+| docs/RHLEAN_REPORT_CONTINUITY_LAST_ACTUAL_20261111.md | 3e71820a4af722eae7098da6945bb5bcba50dd0d |
+| docs/RHLEAN_CROSS_ROUTE_SIGNED_RECOVERY_20261110.md | e3ae4280438f591f1ffaddd754a1c3a6d35d0691 |
+| research/EULER_HYBRID_ABEL_GRAM_20261027.lean | 2a94dd8fd56fc03e95f732fb44b778a8d4f83e26 |
+| research/EULER_SELF_DUAL_ENDPOINT_GATE_20261027.lean | e7ee8f77ffd59bccaa49dd6d74fbe0d7952c2d73 |
+| research/EULER_FIXED_GCD_ROW_OBSTRUCTION.lean | 9003eb1c226f0b114be6402e63f325b60c80bf92 |
+| RHLean/Proof/SquareRootAmplificationLogGrowth.lean | 2599db31079f388229d072ee616957fba6ffc555 |
+| RHLean/Proof/AmplificationExponentIteration.lean | d78be4509e5dcc35b833c3786258b94fc6e71915 |
+| research/UNIVERSAL_ENVELOPE_RH_BRIDGES.lean | 02a88cadc1eb984557b9dd7ee2e03e29bd3e5287 |
+| research/oai_434/VF919WindowErrorClosure.lean | f629db1b2b65d6ec042ac9432397d4b6316200c6 |
+| research/VF_CANONICAL_SQRT_TWO_VON_KOCH.lean | 79030d70e8d3e0d08eef9bac53fef95c36eca2fb |
+| RHLean/Analysis/PrimeWheelFullConductorRecombination.lean | 72a250515bb71023d35696c8455b89d83a9be4b3 |
+
+Pinned Lean: leanprover/lean4:v4.34.1, toolchain blob ba8ebf2dbaf6a668cd2a0e086186d6d569b69ff5. Mathlib: d13f23b723b8a846827a245b89c10fc7d3f11612; PNT dependency c39a751132c88b6e8080b74c74023fd95b3d8be0; lake-manifest blob a34d142c3d75a602a8b0f8241a4fb504d5c7c5a4. Only propext, Classical.choice and Quot.sound are permitted terminal axioms.
+
+half_bootstrap_ack=BOOTSTRAP_TO_HALF_V1; cross_route_ack=CROSS_ROUTE_SIGNED_RECOVERY_V1; continuity_ack=LAST_ACTUAL_REPORT_CONTINUITY_V1. Existing HIGH/cancellation/source safeguards remain; superseded dated task priorities do not.
+
+The canonical actual-prime target remains one C>=0 before all natural R>=2 with |pi(R^2)-vfCanonical(R^2)|<=C R log R, vfCanonical=vfMid+sqrt(2). The inspected prime-side terminal still explicitly takes ClassicalVonKochRHCriterion. The native half-exponent equivalence has a separate internally proved consumer. Neither premise is supplied here.
+
+The strongest inspected compiled fixed-family comparator remains G(b_base), b_base=7/8-7/(64*N_pack), where G(b) means every-positive-loss genuine Mertens growth, not a no-loss power bound. The terminal native_mertens_near_uniform_window_error_closed has no assumed desired bound. Its fixed source construction, smaller-error recertification, complete window comparison, Hecke boundary and native Mertens transfer were inspected through its source and live dependency audit. No numerical comparison between unrelated slot counts is invented.
+
+The generated DAG still contains historical unmerged wording for #1135. Live PR metadata supersedes that wording: #1135-#1139 are merged. No generated inventory or central policy was edited.
+
+### C. Formalization Candidates And Continuity
+
+Intake reports revision: 84f149f3424cf71f6f58be059d1474907fcd1ce3. The untruncated full report tree was enumerated and all dated role paths sorted without a calendar cap. All latest actual publications are on November 16. No latest partial without a completed predecessor was found. Both November 15 and November 16 Coordinator mirrors were fetched and compared byte-for-byte.
+
+Previous verified own watermark: FR-AUDIT receipt, 13:39:45 EST, own blob 8af089419676892af344fe7f980f0890e0d31912. Relevant post-watermark publications were consumed oldest to newest: HB, LM, TP, MC, CF. Earlier same-day DB/TW/FP/SG/FR scopes remain available and preserved; unchanged histories were not falsely counted as new research.
+
+| Role / latest November 16 file | LAST_VERIFIED blob; actual section/receipt EST | LAST_CONSUMED -> newly consumed; RESUME |
+| --- | --- | --- |
+| Coordinator 00/90 mirrors | fcb7cc6f4c287b17ebd7ed8b6d618a113bd36d71; HB 15:38:03 | MB -> HB1-HB5 and six next-role assignments; new arithmetic supplier absent. |
+| Owner 10-owner-payment.md | a52b439e693e069502b0c299a5f074a19bae0807; DB 08:35:17 | DB -> NONE; retain R5 correction, R137 restoration reversal and full first-bad residual. |
+| Analytic 20-analytic-type-ii.md | 84aaa2103225565607b5b033f273462bbe865246; LM 17:30 | TW -> LM1-LM5; original long-middle cancellation magnitude and other regions remain open. |
+| Wheel 30-finite-wheel.md | 713826840694e39a141fbdbe813f1d47245928e7; TP 18:28:09 | FP -> TP1-TP5; fixed finite-prime rules do not exclude model growth. |
+| Census 40-prime-census.md | 53e6be517dc11037fe3b42a8ed6ad3a06cfce956; MC 19:16:22 | SG -> MC1-MC3; two-head negative total covariance is finite only. |
+| Referee 50-adversarial-referee.md | 240b97ce1c8ddc87d5f520bc9a8cd6ea00df3d32; CF 20:34:29 | FR -> CF1-CF5 and its scoped upstream acceptances; CF1-CF4 reviewed below. |
+| Lean 60-lean-verification.md | 8af089419676892af344fe7f980f0890e0d31912; FR-AUDIT 13:39:45 | Prior complete own receipt consumed; #1139 now merged, no repair pending. |
+
+TODAY=AVAILABLE for all roles. YESTERDAY=CARRY_FORWARD for actual November 15 Coordinator SS (8ce64136c888c6ad7820ef69a78caa5ece07d61b), Referee UE (a1c07bdd8e8493aece535745a0ce6f6635871620), and own FFR3 (8d25541bc6faebfa180e0456061d7725756bf5ca); full files were fetched and relevant results/resume capsules read. November 15 Owner/Analytic/Wheel/Census have NO_VERIFIED_REPORT, with previous actual files on November 11. Their older route derivations were already covered by the verified prior intake; no new intermediate report was discovered. November 13-14 have no dated directory. No execution or cause is inferred from gaps.
+
+External inbox 7d63d434690d00dffce9c90335d41c4f62d85798 was read and is unchanged. No new external entry follows October 18. Preserve EXT-20261018-PNT-1's complete cofactor/boundary terms and EXT-20261014-5's unconditional-versus-first-bad distinction. Neither pays this source estimate. CONTINUITY_COMPLETE means latest-real discovery and relevant post-watermark backfill, not re-auditing every historical appendix.
+
+The early PARTIAL checkpoint was published at 9899efd7c8178d2492d9ac312bc2f8c1c999fe76, blob 1816bb32ab6e02b59dafb963f02bf99a36d31af6, and immutably fetched with exact content equality and the complete earlier report as an unchanged prefix.
+
+| Priority | Candidate | Disposition |
+| --- | --- | --- |
+| A | Active valid proof PR repair | Open/draft collection empty; #1139 is merged and green. |
+| B | HB critical kernel; LM all-range diagonal | Independently accepted by CF at stated paper scope. No new accepted source estimate consumes a missing formal transition. Retain, do not generate a disconnected PR. |
+| C | TP finite-prime no-go; CF frequency obstruction | TP accepted by CF at two distinct model scopes. CF independently reviewed here; CR1 strengthens its generic obstruction. Paper support, not a genuine-source refutation. |
+| D | Row inverse, generic bootstrap, finite-gcd bookkeeping | Existing consumers or unneeded infrastructure; no duplicate wrapper or R139 recertification. |
+| E | Actual strict source improvement | OPEN. Record its exact statement and source mismatch, rather than assuming it. |
+
+### D. Candidate Selection
+
+The selected task is the bounded independent review expressly left by CF, followed by implementation eligibility assessment. This resolves a live handoff without duplicating the completed HB inverse calculation or finite scans. The review also tests whether strengthening the input from O(sqrt(n)) to o(sqrt(n)) repairs the failed generic inference. It does not.
+
+Review plan: preserve the actual lambda coefficients; reconstruct its square factorization and absolute moments; derive the floor error and uniform harmonic sum-integral estimate; check the logarithmic endpoint restoration; integrate only after obtaining a uniform constant; prove positivity and the error of the atom-free asymptotic; inspect the rounding and first coefficient; finally compare the real source and half-consumer quantifiers.
+
+No major proof implementation was started because the half-continuation admission test is not met. This is a mathematical task-selection decision, not BLOCKED_WRITE_ACCESS or BLOCKED_CI_NOT_TRIGGERED. Reporting writes work. Proof-branch writes were unnecessary and were not tested during this invocation.
+
+### E. Exact Statements And Original Carrier
+
+Use the original natural square endpoint X_R=R^2-1, genuine integer mu, M(0)=0, and
+
+    Q_R=sum_(1<=a,b<R) mu(a)mu(b)floor(X_R/(ab)),
+    C_R(6)=sum_(1<=a,b<R,gcd(a,b)=6) mu(a)mu(b)floor(X_R/(ab)),
+    K_R=max_(0<=y<R) (M(y)-1)^2/(y+1).
+
+All ordered orientations and multiplicities remain. The inspected Lean declarations eulerSelfDualFloor, eulerSelfDualBilinear, eulerFixedGcdRowInt and its cast preserve exactly this arithmetic. eulerSelfDualBilinear_eq_two_mertens_sub_endpoint proves Q_R=2M(R-1)-M(X_R); it is an identity, not a size estimate.
+
+The accepted PAPER FR bridge, not asserted newly Lean-certified, is
+
+    u(n)=(-1)^(number of DISTINCT primes >3 dividing n),
+    S(x)=sum_(1<=n<=floor x)u(n),
+    J(R)=sum_(m<=floor(X_R/36),rad(36m)<R)u(m),
+    C_R(6)=2J(R)-S(floor(X_R/36)),
+    |J(R)|=O_epsilon(R^(1+epsilon)),
+    mu=u*lambda, M(x)=T_lambda S(x).
+
+The fixed multiplicative inverse is lambda(1)=1, lambda(2)=lambda(3)=-2, lambda(p^2)=1 and lambda(p^e)=0 for p=2,3 and e>=3; for p>=5, lambda(p)=0 and lambda(p^e)=2^(e-2) for e>=2. Define
+
+    T_lambda F(x)=sum_(1<=d<=floor x)lambda(d)F(floor(x/d)), x>=1.
+
+CF1: for each fixed T>=0, put s_T=sqrt(1/4+T^2), A=sum a(d)/sqrt(d)>0, B0=sum |a(d)|/sqrt(d), B1=sum |a(d)|log(d)/sqrt(d), where lambda=q*a and q is the square indicator. For every real x>=1 and real |t|<=T,
+
+    |T_lambda(m -> m^(1/2+it))(x)
+       -(A/2)sqrt(x) integral_(0..log x)exp(itv)dv|
+      <= [(2+4s_T)B0+B1/2]sqrt(x).
+
+CF2-CF3: fixed nonzero frequencies give constants depending on that frequency; no uniform zero-gap constant follows. For each fixed 0<alpha<1, the fixed atom-free spectral input
+
+    F_alpha(m)=sqrt(m) integral_(0..1)cos(t log m)t^(alpha-1)dt
+
+satisfies
+
+    T_lambda F_alpha(x)
+      =(A I_alpha/2)sqrt(x)(log x)^(1-alpha)+O_alpha(sqrt(x)),
+    I_alpha=integral_(0..infinity)u^(alpha-2)sin(u)du>0.
+
+A fixed small multiple can be rounded to the prefix of one +/-1 sequence, with first coefficient +1 and a uniformly bounded prefix error. CF4 supplies a sufficient, not necessary, log-free condition for a finite compact spectral measure nu: integral |t|^(-1)d|nu|<infinity, with any bounded remainder explicitly restored.
+
+There is no Lean declaration for CF1-CF4 or CR1 in this submission. These are exact PAPER statements, not pseudocode presented as a compiled theorem. Existing compiled consumers and their explicit premises are retained unchanged.
+
+### F. Independent Mathematical Audit
+
+The author's proof was visible; this is an independent reconstruction, not a claimed blind review. No numerical trend enters the argument.
+
+1. **Actual kernel and convergence.** At p>=5 the lambda series is 1+z^2/(1-2z). Multiplication by 1-z^2 gives 1+2z^3+3z^4+6z^5+..., so lambda=q*a coefficientwise. At p=2,3 the a coefficients are (1,-2,0,2,-1), then zero. The absolute-kernel remainder has (1,2,0,-2,-1), not nonnegative coefficients. Since 5^9>2^20 and 3*(9/20)>1, sum |a(d)|d^(-9/20) converges, hence B0 and B1 are finite. At the critical point the small-prime factors are (1-1/p)(1-1/sqrt(p))^2>0 and the remaining factors are positive with summable deviations from one. Thus A>0. These are coefficientwise and absolutely convergent arguments, not division at a zero of an analytic function.
+
+2. **Literal floor cost.** Coefficientwise |lambda|<=q*|a| gives sum_(d<=x)|lambda(d)|<=B0 sqrt(x). For y>=1, s=1/2+it and |t|<=T,
+   |floor(y)^s-y^s|<=|s| integral_(floor y..y)r^(-1/2)dr<=2s_T.
+   The resulting total error is at most 2s_T B0 sqrt(x). No zero floor occurs because d<=x.
+
+3. **Uniform square sum.** For Y>=1, comparison of sum_(k<=Y)k^(-1-2it) with integral_(1..Y)r^(-1-2it)dr has error at most 2+2s_T, using the derivative majorant 2s_T r^(-2) and the last fractional interval. This includes Y=1 and nonintegral Y. After square convolution, the integral contribution is exactly
+   (sqrt(x)/2) sum_(d<=x)a(d)/sqrt(d) integral_(0..log(x/d))exp(itv)dv.
+   Its error is at most (2+2s_T)B0 sqrt(x).
+
+4. **Restoring both endpoints.** For d<=x the difference between the integrals ending at log(x/d) and log x is at most log d. For d>x the newly inserted integral has magnitude at most log x<=log d. These disjoint sets together cost B1 sqrt(x)/2, not two copies of that cost. This proves the displayed CF1 constant uniformly in x and compact t, including t=0. A fixed nonzero t gives |integral exp(itv)dv|<=2/|t|; its deteriorating constant cannot be made uniform as t approaches zero.
+
+5. **Atom-free integration.** The symmetric measure with density |t|^(alpha-1)/2 on (-1,1) has finite mass and no atom. Integrating the real part of CF1 is legitimate: the inverse sum is finite and the uniform error is integrable. With L=log x the main integral is
+   L^(1-alpha) integral_(0..L)u^(alpha-2)sin(u)du.
+   It converges absolutely near zero after using |sin u|<=u and at infinity since alpha-2<-1. Pair each positive half-period with the following negative half-period: the decreasing weight makes each pair strictly positive, so I_alpha>0. For L>=1 the omitted tail is at most L^(alpha-1)/(1-alpha), yielding an O_alpha(sqrt(x)) error. Bounded x is absorbed separately. This proves an infinite theorem; finite diagnostics are unnecessary.
+
+6. **Unit increments and the first sign.** For f(y)=c F_alpha(y), f(0)=0, its derivative is bounded by c D_alpha y^(-1/2), D_alpha=1/(2alpha)+1/(alpha+1). Choose any fixed 0<c<=1/(4D_alpha). Consecutive f values differ by at most 1/2, including 0 to 1. Therefore A_j=floor((j+f(j))/2), A_0=0, has increments 0 or 1; epsilon_j=2(A_j-A_(j-1))-1 is +/-1. Correcting the first sign to +1 if necessary leaves |sum_(j<=m)epsilon_j-f(m)|<=2. Its inverse error is <=2B0 sqrt(x). The positive logarithmic main term survives. No multiplicativity or genuine all-prime pattern is supplied by rounding.
+
+7. **Sufficient moment scope.** For CF4, finite-sum integration, the CF1 uniform error and |integral_0^L exp(itv)dv|<=2/|t| yield exactly the stated bound. The total-variation moment excludes an atom at zero. Necessity is not claimed. For genuine S, even the proposed square-root spectral representation is unpaid and cannot be inserted as a harmless data field.
+
+Verdicts: CF1-CF4 ACCEPT_ON_PAPER at the above scopes; no mathematical correction to their stated claims is required. CF5 remains the author's finite/diagnostic evidence, not a newly reproduced experiment. HB1-HB3's kernel facts were reconstructed as dependencies; HB4's zeta-pole corollary and entire TP/LM/MC test campaigns retain their independently reviewed upstream status rather than being claimed freshly certified here. The explicit LM lower-boundary cost and MC strict prime-cofactor cutoff were also checked in the paper arguments. Full TW/DB and LM's external correlation transfer are not silently accepted.
+
+### G. Lean Implementation
+
+No Lean source was changed. No theorem was weakened, assumed, or replaced by a convenient reformulation. No source-independent iteration wrapper, assumed-spectrum theorem, duplicate finite witness, or generic auxiliary file was submitted.
+
+The original Euler definitions, fixed-row theorem, strict historical K, amplification algebra, native RH bridge, canonical prime target, fixed-family comparator, exact audit files and dedicated workflow were inspected. Repository code search for critical-inverse/frequency terms and relevant route indexes was navigational only. No exact CF/CR declaration was found in that scoped search; this is not an exhaustive absence or novelty claim.
+
+A tempting existing theorem, primorialPeriodicRawResidual_eq_zeroConductor_add_nontrivialBoundary, restores the complete **additive finite-torus** zero-conductor packet and nontrivial boundary terms. Its actual type and proof were read. It supplies an exact identity, not an estimate removing that packet. Its ZMod frequency carrier and finite-wheel masks are not CF's logarithmic spectral measure; there is no verified map supplying a uniform inverse-frequency moment for genuine S. This concrete recovery attempt ends at OPEN_BRIDGE, not a transfer by matching the word "frequency."
+
+Implementation status for CF/CR: NOT_STARTED / NOT_FORMALIZED. Formalizing the full analytic kernel remains a possible future engineering task only when a named necessary source use meets the current directive. No formal statement is claimed verified by this paper audit.
+
+### H. Proof-Branch And PR Evidence
+
+Fresh metadata confirms #1119 and #1135-#1139 are merged. The open/draft PR collection is empty. #1139 was human-merged at 2026-11-16T21:57:12Z; exact tested head 760a105553788fa7005e86b1230699fd871a2934 and current main have the identical commit tree 987c764248812e4e587d1e076d9a1d6277515fb7. This supersedes earlier same-day UNMERGED labels without erasing their history.
+
+The prior branch agent/lean-verification/20261116-fixed-gcd-row-obstruction is not reused for new work. No branch, proof commit, PR, review-state transition, merge or auto-merge was performed this invocation. The only remote writes are this owned dated report.
+
+### I. GitHub Actions Evidence
+
+Actual logs, current run metadata and exact-head check collections were fetched, not inferred from report prose.
+
+| Result / exact tested head | Actual job and scope |
+| --- | --- |
+| #1119, 77ee815846d6d534c866f0752aa33b84c385610a; 14/14 successful | [42552018910 / 128949473700](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42552018910/job/128949473700): complete window-error closure, warning-fatal stages and five terminal audits. |
+| #1139, 760a105553788fa7005e86b1230699fd871a2934; 13/13 successful | [43929805348 / 133518873088](https://github.com/OVVO-Financial/RH_Lean/actions/runs/43929805348/job/133518873088): actual new-source compilation, compiled=1 cached=9. |
+| Same #1139 head | [43929804765 / 133518873411](https://github.com/OVVO-Financial/RH_Lean/actions/runs/43929804765/job/133518873411): matching cached proof, newly executed exact types, all eight live dependency/standard-axiom checks and inventory. |
+
+All three runs report pull_request, attempt 1, completed/success, and the recorded head_sha. Every counted check run matches its exact tested head. No documentation success is substituted for Lean compilation. The dedicated #1139 log correctly says compiled=0 cached=10; actual compilation is demonstrated separately in the matching targeted job.
+
+The five #1119 audit closures are 35358,35375,35736,35737,35753, with only propext, Classical.choice, Quot.sound. Its live audit requires actual source construction, source-count/complete-return dependencies, the closed Hecke boundary and native arithmetic transfer. An untruncated comparison against current main checked 2,508 preexisting Lean/pin/scripts/lean entries; only aggregate RHLean.lean differs. This supports reuse of unchanged relevant dependency evidence, not a fresh build of all current main. Runtime/dependency warnings visible in logs are not falsely described as an absence of every warning.
+
+The eight #1139 root closures are 92,77,49,48,585,590,618,619, each with only the permitted three axioms. Both terminal no-go types and their required original-source dependencies are present. They certify C_139(6)=0, Q_139=-49, M(19320)=43 and the original/centered pointwise impossibility, not an asymptotic row theorem.
+
+No new Lean CI was requested or executed. CF/CR paper conclusions have NO_LEAN_CI_EVIDENCE. Existing certification was reused only after the source and head checks above.
+
+### J. CI Failures And Repairs
+
+No active proof failure exists to repair. The earlier #1139 warning-fatal tactic-style failures and repair are preserved in the preceding report; they were not rerun. No no-op commit, weakened linter, altered axiom audit, placeholder, or fabricated green status was introduced.
+
+A direct read-only clone attempt failed with proxy HTTP 403. Authorized GitHub connector reads and report writes succeeded, so this did not block source inspection or publication. No credentials or alternate authorization were sought. No local Lean was executed.
+
+### K. Mathematical Conclusions
+
+Formal soundness and mathematical significance remain separate. The merged finite obstruction has verified kernel/CI evidence. CF1-CF4 are now independently accepted PAPER_PROOF. CR1 is a new self-audited paper strengthening. None is a new bound for the complete original arithmetic source.
+
+The logarithmic amplification is harmless for G(1/2), because every fixed logarithmic power is absorbed by each requested positive exponent loss. Accordingly CF/CR do not obstruct the native RH consumer. They prohibit a stronger, unnecessary generic log-free inference and require precise quantifiers in any argument that uses it.
+
+There is still no source-derived eta(h)<h, no complete selected-family Nyman convergence theorem, and no new actual-prime VF payment. NO_NEW_GLOBAL_GAIN; NO_NEW_ACCEPTED_RH_ROUTE; VERIFIED_ETA=NONE.
+
+### L. Formalization-Driven Discovery: CR1
+
+The proof-formulation audit exposes an unnecessary weakness in CF3's stated input bound. For fixed 0<alpha<1 and L>=1, split at t=1/L:
+
+    J_alpha(L)=integral_(0..1)cos(Lt)t^(alpha-1)dt.
+
+The first part has absolute value at most L^(-alpha)/alpha. Integration by parts on [1/L,1], keeping both boundary terms, gives
+
+    |integral_(1/L..1)cos(Lt)t^(alpha-1)dt|
+      <= [1+(1/L)^(alpha-1)]/L
+          +(1-alpha)/L integral_(1/L..1)t^(alpha-2)dt
+      =2L^(-alpha).
+
+Consequently, for integer m with log m>=1,
+
+    |F_alpha(m)| <= (1/alpha+2)sqrt(m)/(log m)^alpha,
+    F_alpha(m)/sqrt(m) -> 0.
+
+This is an elementary quantitative proof of little-o; no Fourier-decay theorem is assumed. Use the same fixed c, rounding and first-sign restoration from F.6, and let F(m) be that integer prefix. Then
+
+    |F(m)| <= c(1/alpha+2)sqrt(m)/(log m)^alpha+2,
+    T_lambda F(x)
+      =(c A I_alpha/2)sqrt(x)(log x)^(1-alpha)+O_alpha(sqrt(x)).
+
+The input is o(sqrt(m)), while the transformed output divided by sqrt(x) tends to +infinity. The smooth input has an atom-free compact logarithmic spectrum; the rounded input retains that representation only modulo a bounded error. No exact atom-free representation for the rounded sequence is asserted.
+
+This proves the CR1 statement for every fixed alpha in (0,1). The endpoints alpha=0 and alpha=1 are not claimed: the first spectral mass diverges at zero and the positive logarithmic-power argument changes at one. Constants and the entire sequence are fixed before the scale. The model is not u_6, not mu, and not globally multiplicative.
+
+CR1 is not an independently accepted or Lean-certified discovery. It is a precise stronger paper obstruction for specialist review. It also confirms why replacing a missing genuine-source estimate by "the normalized prefix tends to zero" is not a valid generic log-free inversion theorem. It does not refute any claimed true arithmetic bound.
+
+No new numerical experiment was necessary for this derivation; the published CF diagnostic counts were not adopted as this invocation's own tests. No asymptotic was inferred from finite data.
+
+### M. Mathematical Significance And Continuation Capsule
+
+| Source / first loss | Paid fact or tested recovery | Remaining mathematical gap |
+| --- | --- | --- |
+| Euler fixed row to genuine prefix | FR retains radical J, all floors and all-prefix interpolation; #1139 blocks pointwise shortcut. | A strict source cost below the actual positive gap is still unpaid. |
+| Critical signed inverse to absolute mass | HB pays one logarithm; CF retains frequency cancellation; CR1 sharpens the generic failure class. | No original S spectral representation or correlation bound; generic models do not supply one. |
+| Finite-torus zero-conductor packet | Inspected exact full-conductor recombination theorem retains it. | Different carrier from logarithmic spectrum; no quantitative recovery bridge. |
+| Nyman complete square to diagonal/sign | LM independently accepted upstream; MC retains both orientations and finite positive sectors. | Need near-complete covariance magnitude on one common subsequence and all complementary regions. |
+| Actual-prime VF and ideal-character NNS | Existing original masks and conditional consumers preserved. | No occurrence/weight-preserving bound from the synthetic critical input; no cross-carrier substitution. |
+
+    half_bootstrap_ack=BOOTSTRAP_TO_HALF_V1
+    ROUTE=FINITE-AC/native bounded critical-inverse feasibility review
+    SOURCE=C_R(6), Q_R, strict K_R; genuine u_6 and its fixed signed inverse
+    P(b)=G(b), every-positive-loss native Mertens growth
+    INITIAL=G(7/8-7/(64*N_pack)), unchanged certified fixed-family comparator
+    CONDITIONAL_ADVANCE=at closed h>0, independent eta(h)<h would give
+                        G(1/2+(h+eta(h))/2), contradicting the actual boundary
+    RENEWAL=fixed eta alone stops at 1/2+eta; no strict supplier established
+    RETURNS=radical J, all prefixes, unit, prime powers, ordered pairs,
+            strict history, both mixed orientations and complete source terms
+    CONSTANT_ORDER=fixed kernel,T,alpha or measure before constants and all x
+    PRESENT_WORK=accept CF at kernel scope; strengthen its synthetic no-go
+    NEXT_NECESSARY_STEP=new original-source arithmetic, not a generic inverse
+    STATUS=ACTIVE_SUPPORT completed bounded audit; no newly active RH mechanism
+    MATHEMATICS=CF ACCEPT_ON_PAPER; CR1 SELF_AUDIT; new Lean NONE
+    IMPLEMENTATION=NOT_STARTED; PENDING_NO_ACCEPTED_NEW_SUPPLIER
+    VERIFIED_ETA=NONE; RH=OPEN
+
+All nine toolkits remain preserved. OAI's unchanged LOW floor 47/54, actual theta>3/5 coefficient gate, Re(s)>21/25 correction supply and remaining full-return obligations are not passed by this review. Disconnected fixed-boundary optimization remains parked, not declared mathematically impossible.
+
+### N. Specialist Handoffs
+
+- **Proof Architect:** CF1-CF4 now have independent paper acceptance; CR1 strengthens CF3 to little-o square-root unit-sign prefixes. Close the bounded critical-cost review. No new qualifying source supplier or proof PR exists. #1139 is merged, with unchanged green evidence.
+- **Adversarial Referee:** review CR1's split at 1/log m, both integration-by-parts endpoints, fixed rounding scale and first-sign correction. The refinement remains SELF_AUDIT. CF1-CF4 were accepted without changing their model-versus-genuine scope.
+- **Analytic Type II:** low-frequency concentration cannot be replaced by atomlessness or generic little-o normalized input for a log-free conclusion. The genuine square-root spectral representation is itself unpaid; no such representation is assumed. LM's proper-region magnitude and complementary return obligations remain.
+- **Finite Wheel:** TP's two separate model classes retain CF's scoped acceptance. CR1 adds no all-prime restriction and does not repair the missing native supplier. Preserve radical return and all valuation powers; no one-more-fixed-prime scan is requested.
+- **Prime Census:** no larger critical-frequency or sign census is requested. CF's infinite argument and CR1's elementary bound decide their stated generic claims. Reuse MC's finite results only at their registered H19/H20 scope until a genuinely new arithmetic inequality supplies a falsifier.
+- **Owner Payment:** nothing here transfers to physical #915 admission, anchors or restored marginal. Retain DB's R5 correction and R137 sign reversal; the failure-first complete residual remains your separate original-source question.
+
+These are asynchronous report handoffs, not agent launches or promises of unscheduled execution.
+
+### O. First Unresolved Mathematical Theorem
+
+For the actual closed native gap h=max(Theta,1/2)-1/2>0, derive from independently justified arithmetic some fixed eta<h with
+
+    for every epsilon>0 there exists A_epsilon>=0 such that for every R>=2,
+      |C_R(6)| <= A_epsilon R^(1+eta+epsilon) sqrt(K_R),
+
+using the exact ordered original row and strict historical K_R above. Under the accepted FR dictionary this would force h<=eta, so it cannot be assumed under a new spectral or admissibility name. Its source-dependent argument is absent; the kernel's log-cost theorem does not provide it.
+
+Other routes need not pass this particular row test. A Nyman mechanism must instead bound the full original norm on a common unbounded admissible subsequence, including the unpaid early-middle, long-middle, correction and after-N regions. A prime mechanism must preserve its own complete weighted source and direct endpoint consumer. No independently weaker new supplier was established in this invocation.
+
+### P. Next-Run Resume Capsule
+
+    LABEL=20261116-lean-2108-EST/CR; RUN_ID_UNAVAILABLE
+    TRIGGER=2026-11-16T21:08:01-05:00
+    MAIN=4d5482805bac6a8f29d4fb4dadc61eca0bc06525
+    MAIN_TREE=987c764248812e4e587d1e076d9a1d6277515fb7
+    REPORT_INTAKE=84f149f3424cf71f6f58be059d1474907fcd1ce3
+    CHECKPOINT=9899efd7c8178d2492d9ac312bc2f8c1c999fe76
+    WATERMARKS=HB/DB/LM/TP/MC/CF; own prior FR-AUDIT
+    COORD_MIRRORS=both dates byte-identical; EXTERNAL unchanged
+    NEW_REVIEW=CF1-CF4 ACCEPT_ON_PAPER, not Lean-certified
+    NEW_REFINEMENT=CR1 little-o unit-sign input obstruction, SELF_AUDIT
+    PR1139=MERGED; head760a105553788fa7005e86b1230699fd871a2934
+    PR1139_COMPILE=43929805348/133518873088, compiled=1 cached=9
+    PR1139_AUDIT=43929804765/133518873411, eight standard-axiom roots
+    BASELINE=1119 head77ee815846d6d534c866f0752aa33b84c385610a
+    BASELINE_AUDIT=42552018910/128949473700, five standard-axiom roots
+    CHECKS=1139:13/13 PASS; 1119:14/14 PASS; unchanged evidence reused
+    OPEN_PRS=NONE; NEW_PROOF_SOURCE=NONE; NEW_CI=NONE
+    FIRST_OPEN=independent complete-source strict saving
+    NEXT=consume truly new source arithmetic or an actual repair;
+         review CR1 once; do not repeat generic inverse/finite sign scans
+    NO_NEW_GLOBAL_GAIN; VERIFIED_ETA=NONE; RH=OPEN
+    EXECUTION=COMPLETED; SUBSTANTIVE_PUBLICATION=READBACK_PENDING
+
+Publication is established only by the verified receipt after committing this continuation. No main push, merge, auto-merge, other-role edit, central-policy change, agent launch, schedule/tool change or local Lean execution occurred.
+
+
+### CR Prepublication Validation
+
+At 2026-11-17 02:23:49 UTC / November 16, 21:23:49 EST, main remained `4d5482805bac6a8f29d4fb4dadc61eca0bc06525` and the open/draft PR collection was empty. The refreshed untruncated agent-reports tree was `9899efd7c8178d2492d9ac312bc2f8c1c999fe76`; its only changed report since intake is this invocation's owned checkpoint. No new upstream section or external handoff was omitted. All A-P headings, five consistent Markdown tables, ASCII text, indented mathematical blocks, original-source distinctions, quantifier order and the CR1 boundary calculation were checked. No necessary local process is running. The substantive publication is still READBACK_PENDING until verified below.
