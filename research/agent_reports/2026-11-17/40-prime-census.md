@@ -2323,3 +2323,12 @@ print(json.dumps({"status":"PASS_CROSSCHECK","counts":counts,
 
 </details>
 
+
+
+### TC Publication Receipt
+
+Substantive synthesis: [3f15ce3d3fc76660e1625b72afbec74ae7145804](https://github.com/OVVO-Financial/RH_Lean/commit/3f15ce3d3fc76660e1625b72afbec74ae7145804), committed 2026-11-17T16:25:05Z, blob 4b1d25682a5ba69c398baf5ab1e7a8c9a98e5247. Immutable readback at this exact commit matched the entire intended report byte-for-byte; the returned blob also matched. Commit inspection confirmed exactly one changed file, research/agent_reports/2026-11-17/40-prime-census.md, 870 additions and zero deletions. The full preexisting report and early checkpoint remain intact.
+
+Verification completed at 2026-11-17 16:25:29 UTC. All 38,296 final assertions passed; all ten source receipts matched pinned main; embedded executed scripts matched their recorded SHA256 values. Markdown tables, code fences and appendix boundaries passed validation. New TC1-TC4 mathematics retains its stated PAPER_PROOF / FINITE_COMPUTATION scope and independent review remains PENDING. No new Lean build, global estimate or RH proof is claimed.
+
+PUBLICATION=VERIFIED_SUBSTANTIVE_COMMIT; RUN=COMPLETE. This receipt is a subsequent append, so it cites the already observed substantive commit, not its own future commit SHA. Next authorized run should consume new upstream/referee findings and request an explicit fully restored kernel inequality before another census; do not repeat the completed fixed-head component audit.
