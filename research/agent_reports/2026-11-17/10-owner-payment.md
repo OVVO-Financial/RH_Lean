@@ -2428,3 +2428,14 @@ print(json.dumps({'status':'PASS', 'N_range':[1,LIMIT], 'checks':dict(checks),
   "asymptotic_or_Lean_certification": false
 }
 ```
+
+
+### Verified Publication Receipt - PC
+
+The substantive [commit d26b9f690801cca97f1bf4831380989c45e7e93a](https://github.com/OVVO-Financial/RH_Lean/commit/d26b9f690801cca97f1bf4831380989c45e7e93a), committed at 2026-11-17T21:41:44Z (16:41:44 EST), was inspected. By 21:42:09 UTC, immutable report readback exactly matched all 156,370 submitted characters, blob `c389a715485939371fdfb7376d0ac3321a01d1ad`. Only the authorized Owner daily report changed: 813 additions, zero deletions. Its parent is the verified early checkpoint `d906df04046ac902930fa2611765ad43b090c228`. All earlier report content and that checkpoint remain an exact preserved prefix.
+
+EXECUTION=COMPLETED; SUBSTANTIVE_PUBLICATION=PUBLISHED_IMMUTABLE_READBACK_VERIFIED. PC.1-PC.4 remain PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED. PC.5 remains TARGET_EQUIVALENT with the endpoint rate UNPROVED. PC.6 passed 1,163 exact finite assertions and Python syntax compilation; it certifies neither an asymptotic estimate nor Lean proof. No RH-strength bound, certified exponent or eta improved.
+
+Validation covered A-K structure, balanced new Markdown fences, source/blob consistency, both Coordinator mirrors, preserved history, the complete signed return and square, fixed-before-scale constants, source-specific versus original first-bad scope, embedded reproducibility artifacts, and actual commit/readback evidence. Main remained `13b31c6313e274a073d82a01175201185e59e37e` at the final reference check. The latest open/draft search was empty and the other-role report blobs were unchanged at the closing research refresh. Existing hosted CI was reused only at the documented scope; no new local or hosted Lean run was claimed.
+
+This receipt records the already verified substantive commit; its own subsequent commit is not cited as evidence for itself. Next action is an independent review of PC's two hyperbola calculations and centered triple-pole obstruction, followed by a Coordinator decision. Do not automatically start another Selberg cycle, rerun a larger census, or present the exact joint endpoint condition as a new supplier. The assigned actual-history first-bad exclusion remains open. No background work, added schedule or future specialist execution is implied.
