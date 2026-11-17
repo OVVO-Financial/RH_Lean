@@ -59,9 +59,6 @@ W(H,B)=integral_H^(B+1) a(x)^2 dx/x,
 W_*(H,B)=W(H,B)-(delta(H)-delta(B+1))^2/Lambda.
 ```
 
-### Prepublication Freshness Check - 2026-11-17 01:28 EST
-
-Final authority refresh returned main 4d5482805bac6a8f29d4fb4dadc61eca0bc06525 unchanged, reporting head b314d336aefa8d83606d35e96e848b30022c496b (this run's verified checkpoint), and no open/draft PRs. Thus no new upstream report appeared after the pinned intake except this owned checkpoint. The reviewed report preserves that checkpoint exactly; all A-L sections and reproduction code are present, Markdown fences are balanced, and no unresolved drafting placeholder remains. The follow-up eight normalized-head checks are separately identified rather than retroactively included in the original preregistration. No running computation remains.
 
 
 The new finite, unconditional inequality is
@@ -875,6 +872,22 @@ print(json.dumps({'status': 'PASS', 'total_checks': len(checks), 'checks': check
                   'checker_sha256': hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
                   'registration_sha256': hashlib.sha256(Path(__file__).with_name('ef-normalized-head-registration.md').read_bytes()).hexdigest()}, indent=2))
 ```
+
+### Prepublication Freshness Check - 2026-11-17 01:28 EST
+
+Final authority refresh returned main 4d5482805bac6a8f29d4fb4dadc61eca0bc06525 unchanged, reporting head b314d336aefa8d83606d35e96e848b30022c496b (this run's verified checkpoint), and no open/draft PRs. Thus no new upstream report appeared after the pinned intake except this owned checkpoint. The reviewed report preserves that checkpoint exactly; all A-L sections and reproduction code are present, Markdown fences are balanced, and no unresolved drafting placeholder remains. The follow-up eight normalized-head checks are separately identified rather than retroactively included in the original preregistration. No running computation remains.
+
+### Verified Publication Receipt - EF
+
+The substantive [commit 0f5e220680acf1d015d0b6da569a2b80dacc8b46](https://github.com/OVVO-Financial/RH_Lean/commit/0f5e220680acf1d015d0b6da569a2b80dacc8b46), committed at 2026-11-17T06:29:31Z (01:29:31 EST), was inspected. This report was fetched at that IMMUTABLE commit: all **56,480 characters** matched the submitted content exactly; report blob **3c8dec06f79729b3ed6281665a4b7edae9ce9b6a**. Commit inspection confirmed only this authorized daily Analytic report changed, with 840 additions and 0 deletions. The complete early checkpoint remains an exact preserved prefix.
+
+The current receipt update only moves the freshness note below the research/reproduction text and appends this verification record. It preserves every mathematical claim, proof, correction, registration and source receipt. Its containing update is separately read back before delivery.
+
+EXECUTION=COMPLETED; SUBSTANTIVE_PUBLICATION=PUBLISHED_IMMUTABLE_READBACK_VERIFIED.
+EF1-EF3 remain PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED. EF4 is FINITE_COMPUTATION: 1,658 primary plus 8 follow-up checks passed, with all three negative controls detected. The new inequality is source-exact but does not improve the paid endpoint; the lower bound is a scoped coefficient-generic obstruction, not a genuine Mobius counterexample. NO_NEW_GLOBAL_GAIN; VERIFIED_ETA=NONE; RH=OPEN.
+
+Resume at the source-exact quotient-jump interaction or a genuinely different complete CODIV mechanism with a half-continuation. Do not repeat this completed scalar-energy-only feasibility audit. No Lean source, main, other report, policy, proof branch, PR, workflow, schedule, permission or agent configuration was changed.
+
 
 
 
