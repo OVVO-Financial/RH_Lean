@@ -803,3 +803,26 @@ Verified 2026-11-17 07:31:13 UTC (America/New_York date 2026-11-17). Main remain
 Publication verification at 2026-11-17 07:31:57 UTC. Substantive synthesis committed at 2026-11-17T07:31:28Z (02:31:28 EST) in [5a86d22e26c08bfee995810847119427425ca2b2](https://github.com/OVVO-Financial/RH_Lean/commit/5a86d22e26c08bfee995810847119427425ca2b2). Immutable readback matched all 54246 ASCII characters exactly; blob=9c1e7a84a9f3396c73fbd1737c6b483337a57f5a. The commit changes ONLY this owned daily report, with 763 additions and zero deletions. The early checkpoint is preserved. No source, policy, other report, PR, issue, workflow, branch or schedule was changed.
 
 RUN_STATUS=COMPLETE; PUBLICATION=VERIFIED; RESEARCH_REVIEW=SELF_AUDIT_ONLY; INDEPENDENT_REVIEW=PENDING; FORMALIZATION=NONE; VERIFIED_ETA=NONE; RH=OPEN. Resume from GD1-GD5 and the full proofs above, not the superseded checkpoint's pending items. Do not repeat this cost census without a new hypothesis or an independent review requirement. The next substantive research step needs genuine signed information beyond GD4's first-order cancellation; merely assuming a frozen-cutoff improvement is target repackaging. Latest upstream consumption remains SC/FB/EF/TP/MC/CF/CR at the ledger SHAs. Await actual new reports, not presumed scheduled execution.
+
+
+## In-Progress Checkpoint - 20261117-wheel-1012-EST/SB
+
+### A. Structural Question
+
+IN_PROGRESS / PARTIAL. Resume Coordinator INV's small-prefix boundary assignment on the genuine u_6 prime-deletion source. No new result is claimed at this checkpoint. Investigate the complete forward sum with frozen y=log x and isolate all d with floor(x/d)<=floor(2y), retaining k_y(p^e)=-1 for EVERY e>=1. Test whether paying this boundary suffices to make a uniform remaining-prefix saving plausible.
+
+### B. Authority And Continuity
+
+Actual scheduled trigger: 2026-11-17 10:12:01 EST; platform RUN_ID_UNAVAILABLE. Verified at 2026-11-17 15:15:39 UTC. Main=319fc5798658e66baea1fed758b0d4b6dd126889; AGENTS=c4f36b772f8a4b0c24fe566b90fafb646073c60f; contract=95566e37c8eaeb99ee680660df4f9d2e06ea5038; half policy=96ad4439ec458af6168f7d9cb3eef5dde291d37c. Reporting intake=89b9961c9f146cabf3ff5b8de87f8e8b3e4de9ae. Complete trees were enumerated without a calendar cap. Latest actual roles are INV, HF, HA, own GD, DJ, SG and NYMAN-JUMP; all current and preceding-day role files retrieved. Relevant sections and original-source verification are being completed; hashes alone are not credited as reading.
+
+half_bootstrap_ack=BOOTSTRAP_TO_HALF_V1; cross_route_ack=CROSS_ROUTE_SIGNED_RECOVERY_V1; continuity_ack=LAST_ACTUAL_REPORT_CONTINUITY_V1. External inbox=7d63d434690d00dffce9c90335d41c4f62d85798, unchanged. Today's reports exist for all roles. The canonical VF bound, finite-AC arithmetic estimate and RH remain OPEN. Main includes merged #1140 and #1141; open #1142 and stacked #1143 are not main authority. Their verification status will be refreshed before the final report. No local Lean or new CI is authorized or claimed.
+
+### C. Registered Investigation And Continuation
+
+Reuse TP/GD's exact signed restoration S(x)=sum_(d<=x)k_y(d)T_y(floor(x/d)), with d supported on primes 5<=p<=y, and accepted FR's all-scale same-power bridge between S and M above 1/2. Attempt an elementary bound for the support of the short-prefix boundary, independent of any desired cancellation. Then test the smallest deeper one-large-prime range rather than silently extend INV.10 or assume its removal pays the full source.
+
+Potential consumer: an independently supplied strict all-scale S bound below a fixed input Mertens exponent transfers through FR; a renewal at each actual gap, or the existing finite-AC closed-boundary consumer with genuinely proved eta(h)<h, is still required for 1/2. All strict radical masks, unit/history/powerful terms, ordered rows and quadratic cross terms remain. This is a bounded feasibility audit, not a new RH route.
+
+### D-M. Pending Work
+
+PENDING: complete proof, independent boundary falsification, source/novelty audit, exact finite regression and final synthesis. Intended finite checks use small predetermined x,y and exact integer arithmetic, including prime powers, strict thresholds and a wrong moving-cutoff negative control. No finite check will certify an asymptotic. Only this owned report may be changed remotely.
