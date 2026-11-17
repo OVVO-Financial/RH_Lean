@@ -1432,3 +1432,24 @@ NO_NEW_GLOBAL_GAIN; VERIFIED_ETA=NONE; RH=OPEN. This is not a proof or refutatio
 
 This receipt records an already verified substantive commit, not its own future containing hash. Its containing update is separately re-fetched before delivery. No source, main, other report, policy, PR, workflow, schedule, permission or agent configuration was changed; no agent was launched.
 
+
+
+## Early Checkpoint - 20261117-census-1100-EST/TC
+
+Actual scheduled trigger: 2026-11-17 11:00:01 EST / 16:00:01 UTC. PLATFORM_RUN_ID=UNAVAILABLE; TC is a research label. EXECUTION=IN_PROGRESS; new mathematics=PENDING.
+
+Main pinned at fd4085e20602bc210cc6b630abbdeeeaf1bf28eb. AGENTS=c4f36b772f8a4b0c24fe566b90fafb646073c60f; CURRENT_PROOF_CONTRACT=95566e37c8eaeb99ee680660df4f9d2e06ea5038. half_bootstrap_ack=BOOTSTRAP_TO_HALF_V1; cross_route_ack=CROSS_ROUTE_SIGNED_RECOVERY_V1; continuity_ack=LAST_ACTUAL_REPORT_CONTINUITY_V1. Full untruncated reporting-tree intake=1156e51bd51584461367a2065c464735bb3c0531. Today and yesterday files for all roles are available; Coordinator mirror blobs agree on both dates. Relevant post-DJ intake: SG, NYMAN-JUMP, INV, HF, HA, SB. External inbox 7d63d434690d00dffce9c90335d41c4f62d85798 is unchanged. No open/draft PR returned. Main includes #1140 and #1141 and #1142; a merge into another base is not assumed to be main.
+
+The prior DJ experiment is complete and is not rerun. INV's off-diagonal domination request remains PENDING_NO_TESTABLE_HYPOTHESIS: no new such inequality is invented from trends. HA's later explicit request supplies a fresh testable identity and inequality, HA.8-HA.9. The bounded continuation support below investigates an infinite-tail information loss before any new sparse-head supplier is proposed.
+
+### TC Preregistration
+
+Question: can the three ORIGINAL floor-return components be controlled by separate infinite Hilbert energies, or is their exact signed recombination necessary even for finiteness? For fixed H>=2, N=6ceil(H^2/6), L=log(N/H), original moments/corrections unchanged, set f=(U_N,-U_H,C_h), a=(delta(N),-delta(H),u), u=delta(H)-delta(N).
+
+Competing explanations: COMPONENT_FINITE says each weighted component energy is finite; JOINT_ONLY predicts nonzero individual linear drifts whose sum cancels exactly. Discriminator: independently reconstruct the exact drift identity, verify nonzero slopes by outward rational intervals, and derive the corresponding fixed-H large-output consequence using PNT. A finite observation is not itself an infinite-tail proof.
+
+Primary discovery heads H=17,29; held-out heads H=32,39. At each head compute the literal original residue response for all 1<=m<=2N, independently reconstruct all three floor components by divisor increments, retain all six quadratic terms, both correction activations and prime powers, and test HA.8-HA.9 on ceil(N/4)<=m<=N/2. Give the explicit elementary full-response tail bound (1+sum|c_k|)^2/(2N+1); do not call the partial norm the complete norm or infer its asymptotic order. A second construction uses independent trial factorization and exact prime-log rational polynomials on boundary/activation sample cells; no copied primary Mobius table. Negative controls omit U_N, a correction band, a quadratic cross term, or prime powers. Stop at the declared four heads, not an adaptive range extension.
+
+Proof-led extension, registered before computation: investigate the exact centered identity U_B-m*delta(B)=psi(m)-m+log B+F_B(m), and whether subtraction cancels the shared Chebyshev component as well as all linear slopes. If nonzero slopes are proved for every integer head using classical transcendence/Bertrand inputs, state this as a separate paper deduction, never as Lean certification. No finite test will be promoted to an all-scale upper bound.
+
+Half-continuation: original complete E_H on one common unbounded exact-head sequence, E_H=H^o(1), has INV's conditional RH consumer. This run does not supply that bound or admit a new RH route; it tests a concrete integrability obstruction and independently checks HA.8-HA.9. All short/long-middle, after-N, corrections, cross terms and infinite output remain. First open arithmetic step: a genuine complete sparse-sequence upper estimate beyond scalar selection. Canonical VF and its explicit classical interface are unchanged. NO_NEW_GLOBAL_GAIN is the default unless an actual independent upper estimate is established.
