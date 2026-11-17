@@ -2621,3 +2621,14 @@ print(json.dumps(dict(status='PASS', counts=dict(checks), total=sum(checks.value
 ~~~
 
 Publication is not certified by this preparation paragraph. The immutable commit/readback receipt follows only after the remote write succeeds.
+
+
+### Verified Publication Receipt - 20261117-analytic-1711-EST/CP
+
+Execution status: **COMPLETED / PUBLISHED**. The substantive CP continuation was committed as [ef7fd73c318d34c76fdb3c3948da0ec56a6b6f9f](https://github.com/OVVO-Financial/RH_Lean/commit/ef7fd73c318d34c76fdb3c3948da0ec56a6b6f9f) at 2026-11-17T22:29:05Z / November 17, 17:29:05 EST. Immutable readback matched all **166,421 characters** exactly, blob **b10fa3bbacbecebbec295ad71cdebfd2a615e4e0**. Commit inspection confirmed one changed file, this authorized report, with **953 additions and zero deletions**. All prior same-day EF/HA findings and both CP preparation stages remain unchanged.
+
+The 68,519-assertion checker completed at both 60- and 75-digit rational-grid precision, with matching displayed results; syntax compilation passed. All required test processes terminated. No local Lean, new CI, source edit, proof branch/PR, other-role edit, main push, merge, schedule change or agent launch occurred.
+
+Mathematical status is **PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED** for CP1-CP3, and **FINITE_COMPUTATION** for CP4. The existing exact-head CI evidence concerns prior source theorems only. The new result is the joint correction-profile lower bound and its two-defect necessary condition, not a complete upper estimate. **NO_NEW_GLOBAL_UPPER_GAIN; VERIFIED_ETA=NONE; RH=OPEN.**
+
+Next: independently review CP.1-CP.9 and decide whether genuinely new simultaneous-defect arithmetic or a changed source warrants continuing this prescribed mix. Do not repeat the completed bounded audit or promote its necessary condition to a sufficient theorem. This receipt is appended after verified substantive publication; it does not predict its own commit SHA.
