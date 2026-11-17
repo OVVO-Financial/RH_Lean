@@ -1589,3 +1589,16 @@ print(json.dumps({'status': 'PASS', 'assertions': dict(COUNT),
   "script_sha256": "8828844ef291d0dca649242ae6b3a940789f697ecedbbcb813968b32543a2a2b"
 }
 ~~~
+
+
+### Verified Publication Receipt - TAIL
+
+The substantive [commit a23911c4df515ba9b953ebc3b6fc02e6ea0d73de](https://github.com/OVVO-Financial/RH_Lean/commit/a23911c4df515ba9b953ebc3b6fc02e6ea0d73de), committed at 2026-11-17T20:42:13Z (15:42:13 EST), was inspected. By 2026-11-17 20:42:30 UTC, both Coordinator paths had been fetched at that immutable commit. All 113,235 ASCII bytes matched the validated submission exactly, with identical blob `4e4a7208fa3faa94e65ccd732310f13fef7c4829`. Only the two authorized paths changed, each with 981 additions and zero deletions. The prior INV report and entire early TAIL checkpoint remain an exact preserved prefix.
+
+The publication's parent is the verified owned checkpoint `c895ab9e2021f1b365631c6a8290786b59fe66f3`. Main remained `13b31c6313e274a073d82a01175201185e59e37e` at the final source check; the open/draft PR collection was empty. #1144 is merged on main; #1143's merge remains on its separate non-main destination. No new specialist publication appeared between intake and this write.
+
+EXECUTION=COMPLETED; SUBSTANTIVE_PUBLICATION=PUBLISHED_IMMUTABLE_READBACK_VERIFIED. TAIL.1, TAIL.2 and TAIL.4 remain PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED. TAIL.3 is an exact source bridge and middle identity, not a norm bound. TAIL.5 refutes only the stated pointwise cross-sign shortcut by finite outward-interval computation. The revised checker passed 74,294 counted assertions; no asymptotic bound was numerically tested.
+
+Validation passed: A-J structure, ASCII, balanced Markdown fences, original-report prefix preservation, identical mirrors, embedded-checker identity/checksum, finite-output consistency, exact parameter and constant order, original correction-band restoration, CI/source scope, and the distinction between proof review and publication status. This receipt records already verified substantive publication; its own later commit is not used as evidence for itself.
+
+NO_NEW_GLOBAL_GAIN; NO_NEW_ACCEPTED_RH_ROUTE; VERIFIED_ETA=NONE; RH=OPEN. The next mathematical decision is whether the separated correction profiles defeat the signed-mixture candidate. Preserve the new coefficient-selection lemma regardless of that outcome. No additional execution, agent launch, background work or future delivery is implied.
