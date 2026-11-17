@@ -1,0 +1,300 @@
+{
+  "schema": "rhlean-preservation-source-inventory/1",
+  "groups": {
+    "owner": {
+      "sources": [
+        {
+          "file": "research/NATIVE_OWNER_DIAGONAL_CAPACITY_20261117.lean",
+          "namespace": "RHLean.Analysis.OwnerPrefix",
+          "declarations": [
+            {
+              "kind": "def",
+              "name": "primeOwnersUpTo"
+            },
+            {
+              "kind": "theorem",
+              "name": "owner_cofactor_bounds_upTo"
+            },
+            {
+              "kind": "theorem",
+              "name": "owner_quotient_sum_le_interval"
+            },
+            {
+              "kind": "def",
+              "name": "diagonalUpTo"
+            },
+            {
+              "kind": "theorem",
+              "name": "diagonal_upTo_le_capacity"
+            },
+            {
+              "kind": "theorem",
+              "name": "diagonalUpTo_endpoint"
+            },
+            {
+              "kind": "theorem",
+              "name": "nativeM_sq_le_three_historical"
+            },
+            {
+              "kind": "theorem",
+              "name": "native_prefixAmplitude_sq_le_three_historical"
+            },
+            {
+              "kind": "theorem",
+              "name": "native_diagonal_upTo_le_historical"
+            },
+            {
+              "kind": "theorem",
+              "name": "native_owner_diagonal_le_capacity"
+            },
+            {
+              "kind": "def",
+              "name": "transportUpTo"
+            },
+            {
+              "kind": "def",
+              "name": "nativeSmoothUpTo"
+            },
+            {
+              "kind": "theorem",
+              "name": "native_decomposition_upTo"
+            },
+            {
+              "kind": "theorem",
+              "name": "transportUpTo_endpoint"
+            },
+            {
+              "kind": "theorem",
+              "name": "nativeSmoothUpTo_endpoint"
+            },
+            {
+              "kind": "def",
+              "name": "nativeGammaUpTo"
+            },
+            {
+              "kind": "theorem",
+              "name": "native_energy_upTo"
+            },
+            {
+              "kind": "theorem",
+              "name": "nativeGammaUpTo_endpoint"
+            },
+            {
+              "kind": "theorem",
+              "name": "native_historical_preservation_of_compensation"
+            },
+            {
+              "kind": "theorem",
+              "name": "native_historical_preservation_of_relative_compensation"
+            }
+          ]
+        }
+      ],
+      "modules": [
+        "research.NATIVE_OWNER_DIAGONAL_CAPACITY_20261117"
+      ],
+      "exact_types": "scripts/lean/preservation_sources/OwnerExactTypes.lean",
+      "minimum_examples": 12,
+      "dependencies": {
+        "RHLean.Analysis.OwnerPrefix.owner_quotient_sum_le_interval": [
+          "RHLean.Analysis.OwnerPrefix.primeOwnersUpTo"
+        ],
+        "RHLean.Analysis.OwnerPrefix.diagonal_upTo_le_capacity": [
+          "RHLean.Analysis.OwnerPrefix.owner_quotient_sum_le_interval",
+          "RHLean.Analysis.OwnerPrefix.prefixAmplitude"
+        ],
+        "RHLean.Analysis.OwnerPrefix.native_diagonal_upTo_le_historical": [
+          "RHLean.Analysis.OwnerPrefix.diagonal_upTo_le_capacity",
+          "RHLean.Proof.squareRootHistoricalK"
+        ],
+        "RHLean.Analysis.OwnerPrefix.native_owner_diagonal_le_capacity": [
+          "RHLean.Analysis.OwnerPrefix.native_diagonal_upTo_le_historical",
+          "RHLean.Proof.NativeOwnerSwapRenewal.ownerDiagonal"
+        ],
+        "RHLean.Analysis.OwnerPrefix.native_decomposition_upTo": [
+          "RHLean.Analysis.mertensSummatory_eq_neg_signedSum_add_smoothMass_of_sqrt_le",
+          "RHLean.Analysis.primeSieveSmoothMobiusMass"
+        ],
+        "RHLean.Analysis.OwnerPrefix.nativeGammaUpTo_endpoint": [
+          "RHLean.Analysis.OwnerPrefix.native_compensation_eq_fullOwnerGamma",
+          "RHLean.Proof.NativeOwnerSwapRenewal.fullOwnerGamma"
+        ],
+        "RHLean.Analysis.OwnerPrefix.native_historical_preservation_of_compensation": [
+          "RHLean.Analysis.OwnerPrefix.native_energy_upTo",
+          "RHLean.Analysis.OwnerPrefix.native_diagonal_upTo_le_historical"
+        ],
+        "RHLean.Analysis.OwnerPrefix.native_historical_preservation_of_relative_compensation": [
+          "RHLean.Analysis.OwnerPrefix.native_historical_preservation_of_compensation"
+        ]
+      }
+    },
+    "euler": {
+      "sources": [
+        {
+          "file": "research/EULER_DOUBLE_CENTERED_SOURCE_20261117.lean",
+          "namespace": "RHLean.Proof",
+          "declarations": [
+            {
+              "kind": "def",
+              "name": "eulerDoubleCenterScaleQ"
+            },
+            {
+              "kind": "def",
+              "name": "eulerDoubleCenteredKernelQ"
+            },
+            {
+              "kind": "def",
+              "name": "eulerDoubleCenteredSourceQ"
+            },
+            {
+              "kind": "def",
+              "name": "eulerDoubleCenteredDivisorKernelQ"
+            },
+            {
+              "kind": "def",
+              "name": "eulerDoubleCenteredInteriorKernelQ"
+            },
+            {
+              "kind": "def",
+              "name": "eulerDoubleCenteredDivisorQ"
+            },
+            {
+              "kind": "def",
+              "name": "eulerDoubleCenteredXiQ"
+            },
+            {
+              "kind": "theorem",
+              "name": "eulerMuQ_abs_le_one"
+            },
+            {
+              "kind": "theorem",
+              "name": "eulerHistoricalFracQ_eq_mod_div"
+            },
+            {
+              "kind": "theorem",
+              "name": "eulerHistoricalFracQ_nonneg_lt_one"
+            },
+            {
+              "kind": "theorem",
+              "name": "eulerHistoricalFracQ_zero_of_dvd"
+            },
+            {
+              "kind": "theorem",
+              "name": "eulerHistoricalFracQ_signed_sum"
+            },
+            {
+              "kind": "theorem",
+              "name": "eulerReciprocalHistoricalQ_abs_le_one"
+            },
+            {
+              "kind": "theorem",
+              "name": "eulerFloorBilinearQ_eq_double_centered"
+            },
+            {
+              "kind": "theorem",
+              "name": "eulerDoubleCenteredKernelQ_eq_parts"
+            },
+            {
+              "kind": "theorem",
+              "name": "eulerDoubleCenteredSourceQ_eq_divisor_add_xi"
+            },
+            {
+              "kind": "theorem",
+              "name": "eulerDoubleCenteredKernelQ_divisor"
+            },
+            {
+              "kind": "theorem",
+              "name": "eulerFloorBilinearQ_eq_linear_add_divisor_add_xi"
+            },
+            {
+              "kind": "theorem",
+              "name": "eulerSelfDualBilinear_eq_double_centered"
+            }
+          ]
+        },
+        {
+          "file": "research/EULER_DOUBLE_CENTERED_REMAINDER_20261117.lean",
+          "namespace": "RHLean.Proof",
+          "declarations": [
+            {
+              "kind": "theorem",
+              "name": "eulerDoubleCenterScaleQ_bounds"
+            },
+            {
+              "kind": "theorem",
+              "name": "eulerDoubleCentered_linear_abs_le"
+            },
+            {
+              "kind": "theorem",
+              "name": "eulerDoubleCenteredDivisorQ_abs_le"
+            },
+            {
+              "kind": "theorem",
+              "name": "eulerDoubleCentered_remainder_le_divisors"
+            },
+            {
+              "kind": "theorem",
+              "name": "eulerDoubleCentered_remainder_subpower"
+            },
+            {
+              "kind": "theorem",
+              "name": "eulerSelfDual_doubleCentered_remainder_subpower"
+            },
+            {
+              "kind": "theorem",
+              "name": "eulerDoubleCenteredDivisorQ_abs_le_primeFactors"
+            },
+            {
+              "kind": "theorem",
+              "name": "eulerDoubleCentered_remainder_le_primeFactors"
+            }
+          ]
+        }
+      ],
+      "modules": [
+        "research.EULER_DOUBLE_CENTERED_REMAINDER_20261117"
+      ],
+      "exact_types": "scripts/lean/preservation_sources/EulerExactTypes.lean",
+      "minimum_examples": 16,
+      "dependencies": {
+        "RHLean.Proof.eulerFloorBilinearQ_eq_double_centered": [
+          "RHLean.Proof.eulerHistoricalFloorInversionQ",
+          "RHLean.Proof.eulerFractionBilinearQ"
+        ],
+        "RHLean.Proof.eulerDoubleCenteredSourceQ_eq_divisor_add_xi": [
+          "RHLean.Proof.eulerDoubleCenteredDivisorQ",
+          "RHLean.Proof.eulerDoubleCenteredXiQ"
+        ],
+        "RHLean.Proof.eulerSelfDualBilinear_eq_double_centered": [
+          "RHLean.Proof.eulerFloorBilinearQ_cast_eq_original",
+          "RHLean.Proof.eulerFloorBilinearQ_eq_linear_add_divisor_add_xi"
+        ],
+        "RHLean.Proof.eulerDoubleCenteredDivisorQ_abs_le": [
+          "RHLean.Proof.eulerDoubleCenteredKernelQ_divisor",
+          "RHLean.Proof.eulerDoubleCenteredDivisorQ"
+        ],
+        "RHLean.Proof.eulerDoubleCentered_remainder_le_divisors": [
+          "RHLean.Proof.eulerFloorBilinearQ_eq_linear_add_divisor_add_xi",
+          "RHLean.Proof.eulerDoubleCenteredDivisorQ_abs_le"
+        ],
+        "RHLean.Proof.eulerDoubleCentered_remainder_subpower": [
+          "RHLean.Proof.eulerDoubleCentered_remainder_le_divisors",
+          "RHLean.Proof.card_divisors_le_subpolynomial"
+        ],
+        "RHLean.Proof.eulerSelfDual_doubleCentered_remainder_subpower": [
+          "RHLean.Proof.eulerDoubleCentered_remainder_subpower",
+          "RHLean.Proof.eulerFloorBilinearQ_cast_eq_original"
+        ],
+        "RHLean.Proof.eulerDoubleCenteredDivisorQ_abs_le_primeFactors": [
+          "RHLean.Proof.eulerDoubleCenteredKernelQ_divisor",
+          "RHLean.Proof.eulerDoubleCenteredDivisorQ",
+          "Nat.divisors_filter_squarefree"
+        ],
+        "RHLean.Proof.eulerDoubleCentered_remainder_le_primeFactors": [
+          "RHLean.Proof.eulerFloorBilinearQ_eq_linear_add_divisor_add_xi",
+          "RHLean.Proof.eulerDoubleCenteredDivisorQ_abs_le_primeFactors"
+        ]
+      }
+    }
+  }
+}
