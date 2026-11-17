@@ -826,3 +826,684 @@ Potential consumer: an independently supplied strict all-scale S bound below a f
 ### D-M. Pending Work
 
 PENDING: complete proof, independent boundary falsification, source/novelty audit, exact finite regression and final synthesis. Intended finite checks use small predetermined x,y and exact integer arithmetic, including prime powers, strict thresholds and a wrong moving-cutoff negative control. No finite check will certify an asymptotic. Only this owned report may be changed remotely.
+
+
+## The Small-Prefix Boundary Is Paid; The Remaining Pure-Power Supplier Is False
+
+### Final Research Synthesis - 20261117-wheel-1012-EST/SB
+
+Actual scheduled trigger: 2026-11-17 10:12:01 EST / 15:12:01 UTC, America/New_York. PLATFORM_RUN_ID=UNAVAILABLE. SB is a research label. The earlier GD report and this invocation's checkpoint remain unchanged. Preparation status is READBACK_PENDING until the appended publication receipt.
+
+### A. Most Important Structural Discovery
+
+**All short inner prefixes in logarithmic prime deletion have a subpower TOTAL return, without assuming cancellation.** With the genuine u_6 source, frozen y=log x and L=floor(2y), the complete boundary B_L(x) obeys, for every epsilon>0,
+
+~~~text
+|B_L(x)| <= C_epsilon x^epsilon,
+|S(x)^2 - U_L(x)^2| <= D_epsilon x^(1+epsilon),
+S(x)=B_L(x)+U_L(x).
+~~~
+
+The second assertion retains the full boundary/middle cross term. Consequently this boundary is negligible at every amplitude power beta>1/2 and corresponding squared power 2beta. It does not require prime distribution, RH, a model population, or the previous GD inverse-mass asymptotic.
+
+**Deleting that boundary does not make a constant-uniform inner power bound true.** There is a genuine, source-admitted infinite family
+
+~~~text
+x_k=5^k*k^2, d_k=5^k, y_k=log x_k, t_k=floor(x_k/d_k)=k^2,
+t_k>2y_k, k_yk(d_k)=-1,
+T_yk(t_k) ~ -3k^2/(2 log k).
+~~~
+
+Thus for every gamma<1 and fixed A, the assertion |T_log x(floor(x/d))|<=A*floor(x/d)^gamma at EVERY active quotient beyond 2log x is false. This is not a synthetic coefficient example. These counterterms are themselves subpower in x_k, so they do NOT disprove logarithmic deletion or a correctly outer-loss-weighted bound.
+
+Finally the repaired, outer-loss-weighted large-prefix condition is proved equivalent to the original every-positive-loss growth statement, not a weaker independently paid supplier. This closes Coordinator INV's bounded boundary assignment. No strict arithmetic gain was obtained.
+
+| Stable Claim | Classification And Scope |
+| --- | --- |
+| 20261117-wheel-1012-EST/SB1 | PAPER_PROOF / SELF_AUDIT: literal boundary bill, logarithmic-cutoff subpower bound, full quadratic return. Elementary Rankin counting is established methodology, not a claimed new classical theorem. |
+| SB2 | PAPER_PROOF / SELF_AUDIT: complete one-large-prime classification, its weighted PNT asymptotic, and genuine source-admitted post-boundary counterfamily. |
+| SB3 | PAPER_PROOF / SELF_AUDIT / TARGET_EQUIVALENCE_AUDIT: corrected uniformity range is equivalent to every-loss S/M growth at the stated exponent. No premise is proved merely by proving the equivalence. |
+| SB4 | FINITE_COMPUTATION: 951,822 exact/rational assertions passed, including strict endpoints, original occurrences, prime powers, cross terms and moving-cutoff controls. No asymptotic inference. |
+
+New SB results are INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED. NO_NEW_GLOBAL_GAIN; NO_NEW_ACCEPTED_RH_ROUTE; VERIFIED_ETA=NONE; RH=OPEN.
+
+### B. Current Authoritative Objective
+
+Final authority is main [fd4085e20602bc210cc6b630abbdeeeaf1bf28eb](https://github.com/OVVO-Financial/RH_Lean/commit/fd4085e20602bc210cc6b630abbdeeeaf1bf28eb), advanced from intake 319fc5798658e66baea1fed758b0d4b6dd126889 by human merge #1142 at 15:37:26 UTC. AGENTS=c4f36b772f8a4b0c24fe566b90fafb646073c60f; CURRENT_PROOF_CONTRACT=95566e37c8eaeb99ee680660df4f9d2e06ea5038; continuation policy=96ad4439ec458af6168f7d9cb3eef5dde291d37c. AGENTS and the contract were fetched again at the new head and are byte-identical. The newer half-continuation priority overrides older task-selection banners only.
+
+~~~text
+half_bootstrap_ack=BOOTSTRAP_TO_HALF_V1
+cross_route_ack=CROSS_ROUTE_SIGNED_RECOVERY_V1
+continuity_ack=LAST_ACTUAL_REPORT_CONTINUITY_V1
+finite_wheel_ack=FINITE_WHEEL_CENTERED_RH_V1
+high_attack_ack=COMPLETE_SIGNED_HIGH_ATTACK_V1
+chain_ack=CANCELLATION_CHAIN_REUSE_V1
+~~~
+
+The canonical VFCanonicalSquareVonKochStatement remains OPEN: ONE C>=0 before every integer R>=2, |pi(R^2)-vfCanonical(R^2)|<=C R log R, with vfCanonical=vfMid+sqrt(2). Its source-read terminal still takes ClassicalVonKochRHCriterion explicitly. Native Mertens/finite-AC consumers are distinct.
+
+The strongest reused compiled Mertens baseline is native_mertens_near_uniform_window_error_closed: every-positive-loss growth at b_base=7/8-7/(64*N_pack), with the fixed nearUniformSlotCount. Spending that positive margin permits a fixed 7/8 power. No zero-loss bound at b_base, comparison with an unrelated N_*, or newly proved analytic chain is claimed. The separately reported stronger IR/FFR paper comparison remains paper evidence, not a completed physical Lean return.
+
+The terminal source and its exact dependency-audit program were read. At #1119 tested head 77ee815846d6d534c866f0752aa33b84c385610a, all 14 checks are successful; the actual [five-root log](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42552018910/job/128949473700) reports closures 35358,35375,35736,35737,35753 and only propext, Classical.choice, Quot.sound. The audit checks live source construction, complete comparison and native transfer. A fresh nontruncated comparison of 2,508 preexisting Lean/pin/scripts/lean files with main finds only RHLean.lean's aggregate imports changed. This is scoped reuse, not a new build. Pins observed include Lean 4.34.1 / 5045d0056413266e57c625dcd7c365b10e377c52, Mathlib d13f23b723b8a846827a245b89c10fc7d3f11612 and openai/math 1581d4cbdd69a0faf34b2089614fe2a814316a6a.
+
+Recent source changes were not treated as report-only evidence. #1140 and #1141 are human-merged. #1141 head dfd3197117410ad491d7c94b66448753ae8e4d63 has 17 successful checks and three superseded cancelled checks. The actual [owner audit](https://github.com/OVVO-Financial/RH_Lean/actions/runs/44099085547/job/134093953266) and [Euler audit](https://github.com/OVVO-Financial/RH_Lean/actions/runs/44099085547/job/134093952768) verify 20 and 27 public declarations with standard axioms and original dependencies; these jobs reused pinned cached closures, not fresh local builds. Their source definitions and terminal hypotheses were inspected. The owner capacity is paid, and the complete Xi/divisor decomposition is exact; their signed compensation bounds remain unpaid. They do not bound T_y here.
+
+The initial refresh found #1142 and stacked #1143 open, with respectively 7/7 and 13/13 successful checks. During final publication review, #1142 was human-merged into main at 15:37:26 UTC. Its exact three-file diff changes only the preservation source note, generated DAG and obligation registry; no Lean source or pin changes. The full new note was read: its graded owner/Xi targets remain target-equivalent supporting infrastructure, fixed constants differ from every-positive-loss bounds, and balanced hyperbolic interactions remain present. These session-reviewed deductions are not new Lean declarations or SB premises.
+
+#1143 was then human-merged at 15:37:48 UTC, but INTO docs/preservation-target-strength-20261117, not main, with merge d1a5936939eda3c2d8cc74cc9082ecbf11249e18. Its tested head remains b02c724221a74eb0835e7a090c615c8cdbc808fc. The final main tree does not contain its new prime-phase files. Its inspected lifetime-survivor prime fibre uses a different moving square-root cutoff from this u_6 source and supplies no SB premise. The open/draft collection is now empty. This distinction was checked from the actual PR base and main tree, not inferred from the word merged. No local Lean, workflow launch, repair or rerun was performed.
+
+### C. Structural Mechanism Investigated
+
+Coordinator 20261117-coordinator-0710-EST/INV assigned the complete small-prefix bill, not another inverse-mass census. The key arithmetic fact is that the restoring divisors use only primes <=log x. There are subpower many such divisors below x, even after retaining ALL powers. This controls every short-prefix occurrence before using its sign.
+
+The competing hypothesis was that INV.10's obstruction disappears after omitting t<=2y, allowing a pure t^gamma estimate on the rest. Unique factorization instead exposes the entire one-large-prime sector up to y^2. Its 2,3-smooth cofactor multiplicities survive and force a negative main term. Choosing a restoring prime POWER makes that obstruction occur at a literal quotient of the original forward sum.
+
+This is a bounded FINITE-AC feasibility audit with an exact same-growth bridge to Mertens. It is not a new finite-wheel density route, a signed-prime independence assumption, or an artificial alteration of the complete source.
+
+### D. Exact Theorem Statements
+
+For positive integers n define u(n)=(-1)^(number of distinct prime divisors of n exceeding 3), u(1)=1. Let S(t)=sum_(1<=n<=floor(t))u(n), with S(t)=0 for t<1. For real y>=3 put
+
+~~~text
+P_y={prime p:5<=p<=y},
+D_y={d>=1: every prime divisor of d is in P_y},
+k_y(d)=(-1)^omega(d) for d in D_y, and 0 otherwise,
+T_y(t)=sum_(n<=floor(t), no p in P_y divides n)u(n),
+N_y(x)=#{d in D_y:d<=x}.
+~~~
+
+The unit belongs to D_y; k_y(p^e)=-1 for EVERY positive e, not (-1)^e. All cutoffs stay frozen within an outer sum. For integer x>=1 and integer L>=0 define
+
+~~~text
+B_L(x;y)=sum_(d in D_y,d<=x,(L+1)d>x) k_y(d)T_y(floor(x/d)),
+U_L(x;y)=sum_(d in D_y,d<=x,(L+1)d<=x) k_y(d)T_y(floor(x/d)).
+~~~
+
+The strict condition is exactly floor(x/d)<=L. TP's exact forward identity gives S=B_L+U_L with once-only occurrences; it is reused, not claimed as new.
+
+**SB1.** For every fixed 0<sigma<1, every x>=1 and y>=3,
+
+~~~text
+N_y(x) <= x^sigma exp(C_sigma(1+y^(1-sigma))),
+C_sigma=1/((1-sigma)(1-5^(-sigma))),
+|B_L(x;y)| <= L N_y(x).
+~~~
+
+Hence N_log x(x)=x^o(1). For y=log x and L=floor(2log x), the bounds in A hold with constants preceding x. More generally, for every fixed delta>=0 and epsilon>0, uniformly over integer 0<=L<=x^delta,
+
+~~~text
+|B_L(x;log x)| <= C_(delta,epsilon) x^(delta+epsilon).
+~~~
+
+The asymptotic assertions concern x>=21; the finitely many smaller integer x can be absorbed after defining P_y in the same way.
+
+**SB2.** Define A_6(t)=#{2^a3^b<=t:a,b>=0}. For EVERY real y>=3 and 1<=t<=y^2,
+
+~~~text
+T_y(t)=A_6(t)-sum_(m=2^a3^b<=t/y) [pi(t/m)-pi(y)].          (SB.1)
+~~~
+
+For any sequence y->infinity, t<=y^2 and log t/log y->a with 1<a<=2,
+
+~~~text
+T_y(t) ~ -3t/log t.                                      (SB.2)
+~~~
+
+The limit is not claimed uniformly as a tends to 1. For x_k=5^k*k^2, d_k=5^k and y_k=log x_k, every integer k>=7 has d_k in D_yk and 2y_k<t_k=k^2<y_k^2. Formula SB.2 yields the genuine post-boundary no-go in A. INV.10 at t=2y is independently recovered as the special exact identity A_6(2y)-pi(2y)+pi(y), with PNT asymptotic -y/log y.
+
+**SB3.** Fix 1/2<=gamma<1 and 0<delta<gamma. Let G_S(gamma) mean
+
+~~~text
+forall epsilon>0 exists C_epsilon>=0 forall integer n>=1:
+  |S(n)|<=C_epsilon n^(gamma+epsilon).
+~~~
+
+Let H_actual(gamma,delta) mean
+
+~~~text
+forall epsilon>0 exists A_epsilon>=0 forall integer x>=21
+forall d in D_log x with d<=x:
+  t=floor(x/d)>x^delta ==> |T_log x(t)|<=A_epsilon x^epsilon t^gamma.
+~~~
+
+Let H_all be the same bound for every integer x^delta<t<=x, whether or not realized by a restoring divisor. Then
+
+~~~text
+H_actual(gamma,delta) <=> G_S(gamma) <=> H_all(gamma,delta).
+~~~
+
+Through accepted FR's coefficientwise convolution bridge, these are equivalent to native MertensGrowthAtMost gamma. At gamma=1/2 the every-loss statement is RH-equivalent through the source-read mertens_half_iff_riemannHypothesis. This is NOT a fixed O(sqrt x) assertion and not a new proof of any condition.
+
+### E. Mathematical Proof
+
+#### E1. Every Occurrence And The Complete Boundary
+
+Unique factorization writes each n uniquely as d*m, where d contains the full valuations at primes in P_y and m contains none. Since u(n)=k_y(d)u(m), summing n<=x gives TP's forward formula. Thus the boundary is the exact original population whose selected-prime part satisfies d>x/(L+1); it is not merely a superset of candidate occurrences. Prime powers, the unit and all signs are retained.
+
+Every boundary summand has |T_y(floor(x/d))|<=floor(x/d)<=L, proving |B_L|<=L N_y(x). This triangle discards signs, but only on the designated small source.
+
+For fixed sigma in (0,1), a finite-prime geometric product gives
+
+~~~text
+N_y(x)<=x^sigma sum_(d in D_y)d^(-sigma)
+       =x^sigma product_(5<=p<=y)(1-p^(-sigma))^(-1).
+~~~
+
+Use -log(1-z)<=z/(1-z), p^(-sigma)<=5^(-sigma), and
+
+~~~text
+sum_(p<=y)p^(-sigma)<=sum_(n<=y)n^(-sigma)
+                     <=1+y^(1-sigma)/(1-sigma).
+~~~
+
+This proves SB1 with the displayed C_sigma. At y=log x, y^(1-sigma)=o(log x). Given epsilon>0 choose a fixed sigma<min(epsilon,1) and then x sufficiently large. It follows that N_log x(x)<=x^epsilon eventually. No PNT or infinite smooth-count asymptotic is used. Multiplying by L proves both boundary assertions, including polylogarithmic L.
+
+For L=floor(2log x), write B=B_L and U=U_L. Exactly
+
+~~~text
+S^2=U^2+B^2+2UB,
+|S^2-U^2|=|2SB-B^2|<=2x|B|+|B|^2.
+~~~
+
+Here |S|<=x because u has unit magnitude. Spend smaller positive losses in the subpower bound to obtain O_epsilon(x^(1+epsilon)). For beta>1/2 choose epsilon<2beta-1; the quadratic correction is o(x^(2beta)). No cross term was omitted or assumed negative.
+
+#### E2. Exact One-Large-Prime Geometry
+
+An admitted n<=y^2 either has no prime divisor >3, or has a prime p>y. It cannot have a second such factor, even a repeated one, since their product exceeds y^2. Thus it is uniquely m*p with m=2^a3^b and p>y. Its sign is -1. All 2,3-smooth integers have sign +1. Counting those unique pairs proves SB.1, with pi(t/m)-pi(y) and the displayed m<=t/y boundary. Equality at m=t/y contributes zero; it must not be changed to an extra prime occurrence.
+
+The only imported analytic fact is the classical unconditional PNT pi(v)~v/log v, also furnishing pi(v)<=C v/log v for v>=3. A primary proof reference is [Sutherland, MIT 18.785 Lecture 16, Theorem 16.15](https://math.mit.edu/classes/18.785/2025/LectureNotes16.pdf). No short-interval PNT, RH error term or independence estimate is imported.
+
+A_6(t)<= (1+log t/log 2)(1+log t/log 3). Under SB2's limiting hypotheses, the subtraction pi(y)A_6(t/y) is O(y log y)=o(t/log t), and A_6(t)=o(t/log t). For each FIXED 2,3-smooth m,
+
+~~~text
+(log t/t) pi(t/m) -> 1/m.
+~~~
+
+The moving cofactor tail is controlled, not silently interchanged with a limit: for m<=t/y, log(t/m)>=log y, so
+
+~~~text
+(log t/t) sum_(m>M,m smooth23,m<=t/y)pi(t/m)
+ <= C (log t/log y) sum_(m>M,m smooth23)1/m.
+~~~
+
+The right-hand tail tends to zero as M->infinity because the full sum is
+
+~~~text
+sum_(a,b>=0)2^(-a)3^(-b)=3.
+~~~
+
+Taking the finite-m limit and then M->infinity proves SB.2. This explicitly retains growing cofactor ranges and every multiplicity.
+
+For the actual quotient family, y_k=k log 5+2log k. Since 1<log5<2 and 2log k<=k for k>=2, k<y_k<3k. For k>=7, k^2>6k>2y_k and k^2<y_k^2. Also y_k>=5, so d_k=5^k is admitted and k_yk(d_k)=-1. The integer quotient is exactly k^2. Finally log(k^2)/log y_k->2, hence T_yk(k^2)~-3k^2/(2log k). Dividing by (k^2)^gamma diverges in magnitude for every gamma<1. This proves the stated all-constant refutation, not merely failure of A=1.
+
+These terms have size x_k^o(1) and positive restoring sign eventually, because k_yk(d_k)=-1. Their existence does not imply a large total S, forbid compensation with other d, or refute the corrected H_actual condition, whose threshold x^delta eventually excludes them.
+
+#### E3. Corrected Uniformity And Both Directions
+
+For fixed gamma in [1/2,1), the two finite-prime products are
+
+~~~text
+G_gamma(y)=sum_(d in D_y)d^(-gamma)
+         =product_(p in P_y)(1-p^(-gamma))^(-1),
+F_gamma(y)=sum_(d in D_y)b_y(d)d^(-gamma)
+         =product_(p in P_y)(1-p^(-gamma))/(1-2p^(-gamma)),
+b_y(p^e)=2^(e-1), e>=1.
+~~~
+
+TP supplies the exact inverse T_y(t)=sum_(d<=t)b_y(d)S(floor(t/d)), with b_y supported on D_y. Since 2*5^(-gamma)<1, both logarithms are O_gamma(1+y^(1-gamma)) by the same integer-series comparison. For F use log((1-z)/(1-2z))<=z/(1-2z). Therefore BOTH products at y=log x are x^o(1). This uses a simple bound; the GD sharp logarithmic asymptotic is not reproved or needed.
+
+Assume H_actual and set L=floor(x^delta). The entire short part is O_eta(x^(delta+eta)) by SB1. On every remaining actual quotient,
+
+~~~text
+|U_L|<=A_eta x^eta sum_(d in D_y,d<=x)floor(x/d)^gamma
+     <=A_eta x^(gamma+eta)G_gamma(log x).
+~~~
+
+Choose eta sufficiently smaller than the requested final epsilon, and use delta<gamma. This proves G_S(gamma), with every constant before x. The implication H_all=>H_actual is immediate.
+
+Conversely assume G_S(gamma). For any integer 1<=t<=x and fixed eta>0, the exact inverse gives
+
+~~~text
+|T_log x(t)|<=C_eta t^(gamma+eta) F_gamma(log x)
+            <=C_eta t^gamma x^eta F_gamma(log x).
+~~~
+
+Spend the product's subpower loss and choose 2eta<epsilon. This proves H_all, in fact for every t<=x. Small x are absorbed in a constant. It also explains why an OUTER x^epsilon allowance can coexist with SB2's genuine polylogarithmic counterfamily.
+
+Accepted FR2 has u_6=mu*kappa_6 and mu=u_6*lambda_6 with absolutely summable weighted coefficients at every fixed power >1/2. Applying these finite convolution identities with smaller positive losses gives G_S(gamma)<=>MertensGrowthAtMost gamma, including gamma=1/2. No fixed critical weighted inverse mass is asserted. The original row bridge remains
+
+~~~text
+C_R(6)=2J(R)-S(floor((R^2-1)/36)),
+J(R)=sum_(m<=floor((R^2-1)/36),rad(36m)<R)u(m),
+|J(R)|=O_epsilon(R^(1+epsilon)).
+~~~
+
+It is ACCEPT_ON_PAPER FR infrastructure, not newly Lean-certified by #1139. This execution does not drop J, identify C_R(6) with all Q_R, or assume a pointwise row domination.
+
+### F. Structural Consequence
+
+The complete source cannot accumulate a polynomial-amplitude obstruction from restoring divisors whose quotient is at most 2log x: the whole population is too small. The same argument pays ANY x^o(1) cutoff, and a cutoff x^delta costs at most x^(delta+o(1)). This is an all-scale statement, not a density extrapolation.
+
+On the other hand the genuine y-rough residual has a coherent negative prime/cofactor sector throughout the one-large-prime range. The coefficient 3 comes from all 2,3-smooth cofactors, not from a prime-only approximation. Higher selected-prime powers place that sector inside the restoration source. The false supplier is therefore ruled out even on actual quotient sites, not only on an unnecessarily enlarged test population.
+
+### G. Signed And Quantitative Relevance
+
+| Coordinate / Step | Exact Transfer Or Barrier | Remaining Quantitative Cost |
+| --- | --- | --- |
+| Euler / FINITE-AC | Original eulerSelfDualBilinear is the complete ordered sum mu(a)mu(b)floor((R^2-1)/(ab)); its compiled endpoint is 2M(R-1)-M(R^2-1). S reaches M by accepted FR convolutions, not equality. | Strict-history K_R, both orientations, unit/history/powerful terms and all rows remain. SB does not prove eta(h)<h. |
+| Square blocks | FR gives C_R(6)=2J-S(Y_R) with strict rad(36m)<R and all-prefix inverse. SB pays a portion of S with its full quadratic correction. | No source-omitting replacement of C_R(6) by Q_R; J and the other gcd rows are not paid by short-prefix counting. |
+| VF / primes | SB.1 uses actual prime counts with ALL 2,3-smooth cofactors on a stated proper range. | It is not li-pi, clipped #915 source admission, or canonical VF payment. |
+| NNS / OAI | Real signed squaring in SB1 preserves the complete cross term on its own source. | No norm isometry to ideal-labelled compensated OAI tuples, and no lower LOW bill or phase saving follows. |
+| First signed loss | Triangle on B costs subpower; triangle on the remaining forward sum costs G_gamma(log x)=x^o(1). | No positive fixed power is won by either triangle. The unpaid input is a new genuine signed growth estimate. |
+| Already-paid recovery tested | TP/FR/GD; #1141 owner capacity and Euler double centering; outside-prime CRT deletion and its unit-prefix no-go. | TP/FR are same-growth interfaces. #1141 leaves complete compensation/Xi open. CRT and lifetime survivor masks differ. None supplies H_actual at a smaller exponent. |
+
+For a transparent possible continuation, define gamma(b)=1/2+(b-1/2)/2 and delta(b)=gamma(b)/2. An INDEPENDENT arithmetic derivation of G_M(b)=>H_actual(gamma(b),delta(b)) for every fixed 1/2<b<=7/8 would renew through SB3/FR and converge geometrically to 1/2. Constants may depend on the fixed stage and requested positive loss, never on the growing scale. Alternatively substitution at the actual closed Theta>1/2 would contradict its definition. No zero attaining Theta is required.
+
+The implication just displayed is OPEN and, by SB3, has exactly the strength of the desired improved G_M(gamma(b)). It is included to expose the missing step, not as a new consumer to formalize or an independent supplier. SB1 pays the cutoff boundary; it does not supply the strict exponent. At gamma=1/2, H_actual is an RH-equivalent target, while a fixed finite-A constant remains a separate stronger sufficient criterion with no converse claimed.
+
+### H. Falsification And No-Circularity Review
+
+Registration preceded execution and is reproduced below. Checks use integers and exact Fractions; logarithms needed only to determine actual cutoff membership are bounded by the atanh series with its positive geometric remainder. No floating-point inequality or fitted exponent is credited.
+
+The checker completed with PASS_EXACT and 951,822 assertions. Domains: x=1..512 for restoration/boundaries, with 257..512 held out; integer y=3..48 plus four half-integer cutoffs for the complete one-prime range; k=7..64 plus held-out 73,97,127 for literal source quotients. The many assertions are repeated checks inside these small domains, not a large-scale extrapolation.
+
+| Check | Exact Count / Witness |
+| --- | --- |
+| Original occurrence map | 787,940 assertions; full valuations and unique n=d*m |
+| Full restoration | 3,065 source cases |
+| Boundary mask, reconstruction, bill, partition and square | 21,197 assertions EACH |
+| One-large-prime identity | 38,343 prefixes; INV.10 additionally checked at 50 cutoffs |
+| Admitted quotient family | 61 cases; five separate exact assertions each |
+| Independent primality | 16,128 trial-factor versus sieve comparisons |
+| Omitted cross term | Detected in 9,779 cases |
+| Wrong x/L boundary | Detected in 6,123 cases |
+| Omitted selected-prime powers | Detected in 2,316 cases |
+| Omitted 2,3 cofactor multiplicities | Detected in 35,725 cases |
+| Wrong adaptive inner cutoff | New log-scheduled witness x=149: true S=-69, wrong sum=-63 |
+| Extending SB.1 past its range | y=5,t=49 detects the missing 7^2 occurrence |
+
+Representative genuine T values: k=16 gives y floor 31, t=256, T=-56; k=64 gives y floor 111, t=4096, T=-1415; held-out k=127 gives y floor 214, t=16129, T=-5390. At k=7, T=3: the proof correctly claims an eventual asymptotic, not a negative sign at every finite k. Full S(x_k) was not numerically enumerated at the enormous x_k; the tests certify its exact divisor/quotient admission and compute only the required inner prefix.
+
+Checker SHA256=6179d04a944315d41ef2406b8e266dbfde6d0857157bc1912a6b03d4bf74f5ab. Registration SHA256=e0d4d03b2eb8d86873b68f8937f75703887a007ed9cfa389b023ba1b4cc56746.
+
+Novelty search covered current main code queries T_y, prime deletion, small-prefix and Rankin, the relevant full November 16/17 report files, and actual definitions behind the closest hits. OutsidePrimeDeletionMask and OutsidePrimeLeastSquareEndpoint concern complete CRT/six-coordinate populations; GlobalFirstJumpCriticalCorrelationBridge's unit-prefix obstruction concerns another normalized prime-partner source. Neither is the present frozen u_6 small-prefix theorem. #1143's lifetime-survivor prime fibre is also distinct. No equivalent SB boundary/counterfamily result was found in that scoped search; no exhaustive literature-novelty claim is made. TP's identities, FR's same-power equivalence and standard Rankin/PNT machinery are explicitly credited as prior work.
+
+The strongest potential overclaim was tested algebraically: the corrected large-prefix premise is NOT a weaker known input. SB3 proves both directions. The pure-power no-go cannot be promoted to failure of H_actual or all signed deletion mechanisms. No synthetic model, finite pass, report assertion or green conditional Lean declaration is used to supply a missing infinite bound.
+
+### I. Conceptual Interpretation
+
+There are two different scales. A prefix can be large compared with its own inner power yet tiny compared with the outer x. The prime/cofactor obstruction lives at the first scale; the subpower restoring-support estimate pays it at the second. Confusing them either falsely rejects logarithmic deletion or falsely declares its remaining signed problem solved.
+
+The new information is the explicit full boundary payment and the actual-quotient obstruction beyond the originally proposed cutoff. The ultimate growth estimate is unchanged. This is useful completion of a feasibility assignment, not a conceptual RH breakthrough.
+
+### J. Competing Structural Hypotheses And Route Memory
+
+The t<=2y boundary is PAID_ON_PAPER and need not be censused again. A constant-uniform t^gamma supplier on the entire remainder is REFUTED at its stated scope. Larger polylogarithmic boundaries remain cheap, and an x^delta boundary is affordable when delta<gamma, but SB3 shows why that repair alone does not produce arithmetic improvement.
+
+FINITE-AC logarithmic deletion remains supporting representation only until a genuinely new complete signed correlation is derived. CORR4's multiplicity-two image theorem and signed mixed tail, and MU-LIFT's full-prefix r<k recurrence, retain their separate protected entry points. No new CORR4 or MU-LIFT supplier was proved or tested in this invocation; their coverage is not fabricated. Under the half-continuation policy, a next protected rotation should choose one with a concrete independent source mechanism, rather than repeat this finished boundary audit. No repository policy or team-wide route status is changed by this recommendation.
+
+### K. Specialist Handoffs
+
+- Coordinator: INV's exact boundary assignment is complete at paper/self-audit level. Preserve SB1 as paid support, the SB2 actual-quotient falsifier, and SB3's target-equivalence warning. HA's new all-head obstruction remains author/self-audit evidence; it is not imported into this proof.
+- Owner Payment: SB.1 is an example of exact prime/cofactor accounting with all 2,3 multiplicities; do not transfer its negative sign to the clipped first-bad source. HF's full-history mask obstruction remains separate.
+- Analytic Type II: any frozen-deletion proposal must state outer x loss, lower inner range and constants before x,d. The complete actual-quotient condition with subpower outer loss is equivalent to the desired growth class; an independently derived signed input is still needed.
+- Prime Census: no expanded scan requested. Independent reproduction may target one held-out k and the wrong-cutoff x=149 control. A future computation should first name a genuinely new correlation inequality on the complete remaining source.
+- Adversarial Referee: independently check SB1's entire quadratic return, SB2's dominated cofactor-tail argument and literal d=5^k admission, and both directions of SB3 including gamma=1/2's positive-loss treatment. Review status is PENDING, not self-acceptance.
+- Lean Verification: no implementation PR is commissioned. After independent acceptance and a named consumer, SB1's finite source partition may be a useful supporting lemma. Do not formalize another conditional growth wrapper or infer the paper FR bridge from #1139's finite witness alone.
+
+These are asynchronous report handoffs for later authorized runs, not agent launches or promises of background work.
+
+### L. First Independently Missing Theorem
+
+No independently weaker sufficient supplier was found. The remaining task is a genuinely arithmetic strict improvement for the COMPLETE S/M source, or another route's complete source. In these coordinates it must control the signed large-prefix restoration, or prove H_actual at gamma<the current actual boundary, from information beyond the same-boundary growth estimate and the already-paid support count. SB3 proves why merely naming that condition does not reduce its mathematical strength.
+
+The paid upper bound at the existing exponent transmits through the inverse with only subpower loss but does NOT lower that exponent. There is no hidden small-prefix bill left that automatically creates the missing strict inequality.
+
+### M. Continuity, Source Receipt And Next-Run Resume
+
+The full reporting tree at 89b9961c9f146cabf3ff5b8de87f8e8b3e4de9ae was enumerated without a calendar cap. Latest actual publication files for all seven roles and every November 16 predecessor were retrieved. The previous own GD receipt supplies the consumed watermark SC/FB/EF/TP/MC/CF/CR. Relevant new publications were consumed in chronological order DJ, SG, NYMAN-JUMP, INV, HF, HA. FR/TP and the relevant GD source derivations were recovered explicitly. This is task-relevant backfill, not a claim to reread every historic appendix. Both dates' complete Coordinator mirrors were fetched and compared byte-for-byte.
+
+Latest files below are under research/agent_reports/2026-11-17/. Times are substantive publication times verified against the cited commits, in EST. The blob column is the fetched latest file INCLUDING its receipt, not the earlier substantive-only blob.
+
+| Role | LAST_VERIFIED Blob / Section / Publication | LAST_CONSUMED -> Newly Consumed / First Open Step |
+| --- | --- | --- |
+| Coordinator 00/90 | 21ae56b8856c02eea79efd6c2ffa01381d08710e; INV; 07:43:16 | SC -> INV1-INV6; small-prefix request answered here; original selected Nyman supplier remains open |
+| Owner 10 | efab9f519e086b7b7cf78e7d6112a4b6ab0089ea; HF; 08:33:19 | FB -> HF1-HF6; genuine history-sensitive source input missing; synthetic witness is not primes |
+| Analytic 20 | 686c0a992692db9a53e7416745f37ee9b79f9fbb; HA; 09:31:51 | EF -> HA1-HA4; uniform all-head supplier author-refuted; sparse heads not refuted |
+| Wheel 30 | d05b58d49e7957a6747d8c47883b4f355c8e68a3; GD; 02:31:28 | Own GD1-GD5 resumed; sharp inverse-cost calculation not rerun |
+| Census 40 | 0baa1581ac5ef1f4a7f82ded3850af6af4095d8b; DJ; 03:38:07 | MC -> DJ1-DJ4; H26,m210 selected parity falsifier and low-depth repair |
+| Referee 50 | 64ce6e54e708767cb7053a2af17206597551ee74; SG; 04:35:55 | CF -> SG; SC1-SC3, EF1-EF3 and DJ2 ACCEPT_ON_PAPER at stated scopes; SG self-audit only; GD not wholesale accepted |
+| Lean 60 | 16d7a3b3c94f213c6407a97fd1f84eb7b5a1a9d5; NYMAN-JUMP; 05:31:10 | CR -> #1140 finite original sign proof; current merge supersedes old unmerged receipt |
+
+TODAY=AVAILABLE for every role. YESTERDAY=READ / CARRY_FORWARD where used; all seven November 16 files exist. NEW_UNCONSUMED=NONE for relevant sections in this intake; earlier gaps retain prior reports' evidence and are not invented executions. CONTINUITY_COMPLETE denotes this verified discovery/backfill only. The external inbox 7d63d434690d00dffce9c90335d41c4f62d85798 was read and is unchanged, with no entry after October 18. Preserve EXT-20261018-PNT-1's true cofactor weights and EXT-20261014-5's unconditional-versus-first-bad distinction.
+
+The early SB checkpoint was committed at 15:15:41 UTC as 8606c00fbb136d89cc303d45240d3870d3119082, blob 032f6f288b6fd0e3611fdb08ae4930c292e1e1db. Immutable readback matched exactly; commit inspection confirms only this owned report changed, with 23 additions and zero deletions.
+
+~~~text
+RUN=20261117-wheel-1012-EST/SB; PLATFORM_RUN_ID=UNAVAILABLE
+ROUTE=FINITE-AC bounded feasibility / genuine u_6 deletion
+ORIGINAL_SOURCE=full ordered Q_R, strict K_R; accepted FR bridge via full S and J
+CURRENT_P(b)=native every-positive-loss Mertens growth, b_base as above
+NEW_SUPPORT=boundary O_epsilon(x^epsilon), full square correction O_epsilon(x^(1+epsilon))
+COUNTERFAMILY=x=5^k*k^2,d=5^k,t=k^2; genuine post-2log x pure-power failure
+ADVANCE=OPEN G_M(b)=>H_actual(gamma(b),delta(b)); gamma=1/2+(b-1/2)/2
+RENEWAL=conditional gap-halving only; no arithmetic implication proved
+ENDPOINT=H_actual(1/2,delta) iff RH on its exact every-loss quantifiers
+ALL_RETURN_BILLS=prime powers, frozen cutoff, once-only n=d*m, J, unit/history,
+                 powerful convolution, ordered orientations and quadratic cross terms
+PRESENT_WORK=complete INV small-prefix assignment; no new global supplier
+STATUS=ACTIVE_SUPPORT; TASK_STATUS=BOUNDED_FEASIBILITY_COMPLETE
+INDEPENDENT_REVIEW=PENDING; FORMALIZATION=NONE; CI=REUSED_ONLY
+VERIFIED_ETA=NONE; RH=OPEN
+NEXT=independent SB review or a genuinely new signed large-prefix correlation;
+     do not repeat TP/GD costs, INV.10 alone, this boundary census, or SB3 wrapper
+~~~
+
+Execution limitation: direct git clone was unavailable (CONNECT tunnel failed, HTTP 403). All repository reads and authorized report writes used the GitHub connector and immutable refs instead; no continuity or publication claim relies on the failed clone. No main/source/shared-policy/other-report/branch/PR/workflow/schedule/permission change and no agent launch occurred.
+
+### N. Immutable Source Ledger
+
+Every row below is a fetched source whose blob SHA was cross-checked against the nontruncated final main tree at fd4085e20602bc210cc6b630abbdeeeaf1bf28eb. Sources were fetched at intake, or refetched after the late merge when changed; unchanged bytes remain available. The only changed prior ledger row is the DAG, whose intake blob was 0376426a49ae44582e828350311e4421c17bd22f. Reading a source does not claim a new build. The ledger differentiates compiled input, paper interfaces and non-main comparisons in the text above.
+
+| Exact Source Path | Git Blob SHA |
+| --- | --- |
+| [AGENTS.md](https://github.com/OVVO-Financial/RH_Lean/blob/fd4085e20602bc210cc6b630abbdeeeaf1bf28eb/AGENTS.md) | c4f36b772f8a4b0c24fe566b90fafb646073c60f |
+| [CURRENT_PROOF_CONTRACT.md](https://github.com/OVVO-Financial/RH_Lean/blob/fd4085e20602bc210cc6b630abbdeeeaf1bf28eb/CURRENT_PROOF_CONTRACT.md) | 95566e37c8eaeb99ee680660df4f9d2e06ea5038 |
+| [docs/RHLEAN_BOOTSTRAP_TO_HALF_20261116.md](https://github.com/OVVO-Financial/RH_Lean/blob/fd4085e20602bc210cc6b630abbdeeeaf1bf28eb/docs/RHLEAN_BOOTSTRAP_TO_HALF_20261116.md) | 96ad4439ec458af6168f7d9cb3eef5dde291d37c |
+| [docs/RHLEAN_CROSS_ROUTE_SIGNED_RECOVERY_20261110.md](https://github.com/OVVO-Financial/RH_Lean/blob/fd4085e20602bc210cc6b630abbdeeeaf1bf28eb/docs/RHLEAN_CROSS_ROUTE_SIGNED_RECOVERY_20261110.md) | e3ae4280438f591f1ffaddd754a1c3a6d35d0691 |
+| [docs/RHLEAN_REPORT_CONTINUITY_LAST_ACTUAL_20261111.md](https://github.com/OVVO-Financial/RH_Lean/blob/fd4085e20602bc210cc6b630abbdeeeaf1bf28eb/docs/RHLEAN_REPORT_CONTINUITY_LAST_ACTUAL_20261111.md) | 3e71820a4af722eae7098da6945bb5bcba50dd0d |
+| [docs/DYNAMIC_RESEARCH_AGENTS.md](https://github.com/OVVO-Financial/RH_Lean/blob/fd4085e20602bc210cc6b630abbdeeeaf1bf28eb/docs/DYNAMIC_RESEARCH_AGENTS.md) | b76d595f09403fc54eca71d04bf9e0306e0a9c09 |
+| [docs/RHLEAN_SOURCE_FAITHFUL_COMPLETE_RETURN_AGENT_CONTRACT_20261031.md](https://github.com/OVVO-Financial/RH_Lean/blob/fd4085e20602bc210cc6b630abbdeeeaf1bf28eb/docs/RHLEAN_SOURCE_FAITHFUL_COMPLETE_RETURN_AGENT_CONTRACT_20261031.md) | 4775ee5fd95f279beab08a75d1e17127078b19a6 |
+| [docs/PROOF_DEPENDENCY_DAG.md](https://github.com/OVVO-Financial/RH_Lean/blob/fd4085e20602bc210cc6b630abbdeeeaf1bf28eb/docs/PROOF_DEPENDENCY_DAG.md) | 098f88f9b8e727ce78e52e5dc5158d68c930bf1b |
+| [docs/COORDINATE_ATLAS.md](https://github.com/OVVO-Financial/RH_Lean/blob/fd4085e20602bc210cc6b630abbdeeeaf1bf28eb/docs/COORDINATE_ATLAS.md) | cd0419d00a37739fe5a292f5cb738e33213949d5 |
+| [research/EULER_HYBRID_ABEL_GRAM_20261027.lean](https://github.com/OVVO-Financial/RH_Lean/blob/fd4085e20602bc210cc6b630abbdeeeaf1bf28eb/research/EULER_HYBRID_ABEL_GRAM_20261027.lean) | 2a94dd8fd56fc03e95f732fb44b778a8d4f83e26 |
+| [research/EULER_SELF_DUAL_POINTWISE_20261027.lean](https://github.com/OVVO-Financial/RH_Lean/blob/fd4085e20602bc210cc6b630abbdeeeaf1bf28eb/research/EULER_SELF_DUAL_POINTWISE_20261027.lean) | c327c556f39ee7014fd774b24d0f95a1ece050e0 |
+| [research/EULER_SELF_DUAL_FINITE_C_BRIDGE_20261027.lean](https://github.com/OVVO-Financial/RH_Lean/blob/fd4085e20602bc210cc6b630abbdeeeaf1bf28eb/research/EULER_SELF_DUAL_FINITE_C_BRIDGE_20261027.lean) | e97561ef330a9996fd807d8910369f0698147b01 |
+| [research/EULER_SELF_DUAL_ENDPOINT_GATE_20261027.lean](https://github.com/OVVO-Financial/RH_Lean/blob/fd4085e20602bc210cc6b630abbdeeeaf1bf28eb/research/EULER_SELF_DUAL_ENDPOINT_GATE_20261027.lean) | e7ee8f77ffd59bccaa49dd6d74fbe0d7952c2d73 |
+| [research/EULER_FIXED_GCD_ROW_OBSTRUCTION.lean](https://github.com/OVVO-Financial/RH_Lean/blob/fd4085e20602bc210cc6b630abbdeeeaf1bf28eb/research/EULER_FIXED_GCD_ROW_OBSTRUCTION.lean) | 9003eb1c226f0b114be6402e63f325b60c80bf92 |
+| [RHLean/Proof/SquareRootAmplificationLogGrowth.lean](https://github.com/OVVO-Financial/RH_Lean/blob/fd4085e20602bc210cc6b630abbdeeeaf1bf28eb/RHLean/Proof/SquareRootAmplificationLogGrowth.lean) | 2599db31079f388229d072ee616957fba6ffc555 |
+| [RHLean/Proof/AmplificationExponentIteration.lean](https://github.com/OVVO-Financial/RH_Lean/blob/fd4085e20602bc210cc6b630abbdeeeaf1bf28eb/RHLean/Proof/AmplificationExponentIteration.lean) | d78be4509e5dcc35b833c3786258b94fc6e71915 |
+| [research/MERTENS_CONVERSE_IDENTIFICATION.lean](https://github.com/OVVO-Financial/RH_Lean/blob/fd4085e20602bc210cc6b630abbdeeeaf1bf28eb/research/MERTENS_CONVERSE_IDENTIFICATION.lean) | 768c8255850bf4074aff265c3fe17a1f5c43979b |
+| [research/UNIVERSAL_ENVELOPE_RH_BRIDGES.lean](https://github.com/OVVO-Financial/RH_Lean/blob/fd4085e20602bc210cc6b630abbdeeeaf1bf28eb/research/UNIVERSAL_ENVELOPE_RH_BRIDGES.lean) | 02a88cadc1eb984557b9dd7ee2e03e29bd3e5287 |
+| [research/VF_CANONICAL_SQRT_TWO_VON_KOCH.lean](https://github.com/OVVO-Financial/RH_Lean/blob/fd4085e20602bc210cc6b630abbdeeeaf1bf28eb/research/VF_CANONICAL_SQRT_TWO_VON_KOCH.lean) | 79030d70e8d3e0d08eef9bac53fef95c36eca2fb |
+| [research/oai_434/VF919WindowErrorClosure.lean](https://github.com/OVVO-Financial/RH_Lean/blob/fd4085e20602bc210cc6b630abbdeeeaf1bf28eb/research/oai_434/VF919WindowErrorClosure.lean) | f629db1b2b65d6ec042ac9432397d4b6316200c6 |
+| [scripts/lean/window_error_closure/WindowErrorClosureAudit.lean](https://github.com/OVVO-Financial/RH_Lean/blob/fd4085e20602bc210cc6b630abbdeeeaf1bf28eb/scripts/lean/window_error_closure/WindowErrorClosureAudit.lean) | 1f17f9401a63d16227db2e2aad020b9f74bc5f4e |
+| [research/half_bootstrap_20261116/native_renewal.md](https://github.com/OVVO-Financial/RH_Lean/blob/fd4085e20602bc210cc6b630abbdeeeaf1bf28eb/research/half_bootstrap_20261116/native_renewal.md) | 18b00148e405be3115b5ebb2066e9e67c417b563 |
+| [research/EULER_DOUBLE_CENTERED_SOURCE_20261117.lean](https://github.com/OVVO-Financial/RH_Lean/blob/fd4085e20602bc210cc6b630abbdeeeaf1bf28eb/research/EULER_DOUBLE_CENTERED_SOURCE_20261117.lean) | 7cb66c07ff3bb784f1b1d4434647326f06f0f2b2 |
+| [research/EULER_DOUBLE_CENTERED_REMAINDER_20261117.lean](https://github.com/OVVO-Financial/RH_Lean/blob/fd4085e20602bc210cc6b630abbdeeeaf1bf28eb/research/EULER_DOUBLE_CENTERED_REMAINDER_20261117.lean) | fffc2c07a82368d56b0b4075c625dd3f9a09e147 |
+| [research/NATIVE_OWNER_DIAGONAL_CAPACITY_20261117.lean](https://github.com/OVVO-Financial/RH_Lean/blob/fd4085e20602bc210cc6b630abbdeeeaf1bf28eb/research/NATIVE_OWNER_DIAGONAL_CAPACITY_20261117.lean) | 4d7d7e173c335b4a807dabaa6b9ec38c1509dbd4 |
+| [RHLean/Analysis/OutsidePrimeDeletionMask.lean](https://github.com/OVVO-Financial/RH_Lean/blob/fd4085e20602bc210cc6b630abbdeeeaf1bf28eb/RHLean/Analysis/OutsidePrimeDeletionMask.lean) | f3dd71442bccc7581d245203e38e474faec06f4d |
+| [RHLean/Analysis/OutsidePrimeLeastSquareEndpoint.lean](https://github.com/OVVO-Financial/RH_Lean/blob/fd4085e20602bc210cc6b630abbdeeeaf1bf28eb/RHLean/Analysis/OutsidePrimeLeastSquareEndpoint.lean) | 6d52fa60de2215495065e13af5ef47ae7986e960 |
+| [RHLean/Proof/GlobalFirstJumpCriticalCorrelationBridge.lean](https://github.com/OVVO-Financial/RH_Lean/blob/fd4085e20602bc210cc6b630abbdeeeaf1bf28eb/RHLean/Proof/GlobalFirstJumpCriticalCorrelationBridge.lean) | a51f642952583e0fa134252f6b88ebbf32a0f550 |
+| [docs/PRESERVATION_SOURCE_REDUCTIONS_20261117.md](https://github.com/OVVO-Financial/RH_Lean/blob/fd4085e20602bc210cc6b630abbdeeeaf1bf28eb/docs/PRESERVATION_SOURCE_REDUCTIONS_20261117.md) | 25404d0fe24f32f339297b78d4d5fe8facfcf216 |
+
+The inspected non-main comparison research/SURVIVOR_PRIME_COMPOSITE_ACCOUNTING_20261117.lean has blob eb72870402ee8314adfcc332b89b376777406630 at #1143 head b02c724221a74eb0835e7a090c615c8cdbc808fc. #1143 is merged into the docs branch only; its source is absent from final main and is not an SB premise.
+
+November 16 predecessor file blobs (full files retrieved at the report intake):
+
+| Role File Prefix | Git Blob SHA |
+| --- | --- |
+| 00/90 | fda92549dd9291c491005fdf70847b90d9be385a |
+| 10 | a52b439e693e069502b0c299a5f074a19bae0807 |
+| 20 | 84aaa2103225565607b5b033f273462bbe865246 |
+| 30 | 713826840694e39a141fbdbe813f1d47245928e7 |
+| 40 | 53e6be517dc11037fe3b42a8ed6ad3a06cfce956 |
+| 50 | 240b97ce1c8ddc87d5f520bc9a8cd6ea00df3d32 |
+| 60 | 0bada0352d54be7c46a7d928f4c4e3bee440ad8f |
+
+Original latest-run claim namespaces and verified substantive publication commits (all dates November 17, 2026):
+
+| Original Run / Claim Namespace | Substantive Commit | UTC Time |
+| --- | --- | --- |
+| 20261117-coordinator-0710-EST/INV | [0127b6edb91677c877d14395ea130643ffa0ffe7](https://github.com/OVVO-Financial/RH_Lean/commit/0127b6edb91677c877d14395ea130643ffa0ffe7) | 12:43:16 |
+| 20261117-owner-0809-EST/HF | [71a2e0b2bc3183d3c330f771f7a461bdd573b4cf](https://github.com/OVVO-Financial/RH_Lean/commit/71a2e0b2bc3183d3c330f771f7a461bdd573b4cf) | 13:33:19 |
+| 20261117-analytic-0909-EST/HA | [e79b05135514ef216b0187b8567c97633694cf24](https://github.com/OVVO-Financial/RH_Lean/commit/e79b05135514ef216b0187b8567c97633694cf24) | 14:31:51 |
+| 20261117-wheel-0205-EST/GD | [5a86d22e26c08bfee995810847119427425ca2b2](https://github.com/OVVO-Financial/RH_Lean/commit/5a86d22e26c08bfee995810847119427425ca2b2) | 07:31:28 |
+| 20261117-census-0311-EST/DJ | [6cc512ec7ec182c886785ff9d6c019e7f8d1fbd9](https://github.com/OVVO-Financial/RH_Lean/commit/6cc512ec7ec182c886785ff9d6c019e7f8d1fbd9) | 08:38:07 |
+| 20261117-referee-0413-EST/SG | [d3aac3c313a3d0326f0ac0b5d81c40a34c6a8a52](https://github.com/OVVO-Financial/RH_Lean/commit/d3aac3c313a3d0326f0ac0b5d81c40a34c6a8a52) | 09:35:55 |
+| 20261117-lean-0510-EST/NYMAN-JUMP | [79bc536945f35b74b4d68f6caf1a02db00356623](https://github.com/OVVO-Financial/RH_Lean/commit/79bc536945f35b74b4d68f6caf1a02db00356623) | 10:31:10 |
+
+Commit timestamps were checked through GitHub, not inferred from schedules. These substantive commits are distinguished from the later receipt-containing file blobs in M.
+
+### O. Reproducibility Appendix
+
+The following are the complete registered and executed versions, using only Python's standard library. The checker expects the registration text as registration.md beside check_sb.py; both hashes are fixed in H. The single completed execution exited zero with PASS_EXACT and 951,822 counted assertions. The report's tables transcribe its observed counts and witnesses. No new Lean execution, external data or random seed is involved. Finite output does not certify any asymptotic claim.
+
+#### O1. Exact Pre-Execution Registration
+
+~~~~text
+# SB Exact Regression Registration
+
+Run: 20261117-wheel-1012-EST/SB. Registered before checker execution.
+
+1. Boundary source: integer x=1..256 discovery and 257..512 held out; prime cutoffs y=3,5,7,11,17 and actual y=log x for x>=8. Thresholds L=0,1,2, floor(2y), floor(sqrt x), floor(x/3),x, deduplicated. Verify the full forward sum, the literal (L+1)d>x mask, original-occurrence reconstruction, absolute boundary bound L*N_y(x), and complete quadratic cross term.
+2. One-large-prime source: y=3..48 and y=7/2,11/2,17/2,29/2; every integer 1<=t<=floor(y^2). Independently compare the original signed source with the 2,3-smooth/cofactor-weighted prime formula. Retain equal endpoints. Also verify INV.10 at t=floor(2y).
+3. Actual-quotient family: k=7..64, then held-out 73,97,127; x=5^k*k^2,d=5^k,t=k^2,y=log x. Certify cutoff membership and floor(2y) using rational log intervals. Compute genuine T_y(t), but do not infer asymptotics from finite ratios.
+4. Negative controls: delete d with a repeated selected prime; replace strict threshold by the wrong x/L threshold; omit the boundary/middle quadratic cross term; change the frozen inner cutoff; ignore 2,3-smooth cofactors; extend the one-large-prime formula beyond its valid range (y=5,t=49).
+5. Exact arithmetic: all primality, factorization, counts, signs, floors, endpoints and source identities use integers/Fraction. Log bounds use the atanh series plus explicit positive geometric remainder. No binary floating-point inequality is accepted as proof. Tests certify only their finite domains.
+
+No new wheel census, inverse-mass asymptotic, local Lean execution or hosted CI run is commissioned.
+~~~~
+
+#### O2. Complete Executed Checker
+
+~~~~python
+from collections import Counter
+from fractions import Fraction as F
+from functools import lru_cache
+from math import isqrt
+from pathlib import Path
+import hashlib
+import json
+
+
+COUNTS = Counter()
+NEGATIVE = Counter()
+
+
+def check(label, statement):
+    assert statement, label
+    COUNTS[label] += 1
+
+
+@lru_cache(None)
+def factor(n):
+    out = []
+    p = 2
+    while p * p <= n:
+        e = 0
+        while n % p == 0:
+            n //= p
+            e += 1
+        if e:
+            out.append((p, e))
+        p += 1
+    if n > 1:
+        out.append((n, 1))
+    return tuple(out)
+
+
+def u(n):
+    return (-1) ** sum(p > 3 for p, e in factor(n))
+
+
+def coefficient(n, y):
+    fac = factor(n)
+    return (-1) ** len(fac) if all(5 <= p <= y for p, e in fac) else 0
+
+
+def smooth_part(n, y):
+    # Independent occurrence map, using divisions rather than factor tuples.
+    d = 1
+    for p in range(5, int(y) + 1):
+        if all(p % q for q in range(2, isqrt(p) + 1)):
+            while n % p == 0:
+                n //= p
+                d *= p
+    return d, n
+
+
+@lru_cache(None)
+def prefixes(y, limit):
+    total = [0]
+    for n in range(1, limit + 1):
+        admitted = all(not (5 <= p <= y) for p, e in factor(n))
+        total.append(total[-1] + (u(n) if admitted else 0))
+    return total
+
+
+@lru_cache(None)
+def smooth23(t):
+    values = []
+    a = 1
+    while a <= t:
+        b = a
+        while b <= t:
+            values.append(b)
+            b *= 3
+        a *= 2
+    return sorted(values)
+
+
+def log_unit_bounds(v, terms=24):
+    z = (v - 1) / (v + 1)
+    partial = 2 * sum((z ** (2*j + 1) / (2*j + 1) for j in range(terms)), F())
+    remainder = 2*z**(2*terms + 1) / ((2*terms + 1)*(1-z*z))
+    return partial, partial + remainder
+
+
+@lru_cache(None)
+def log_bounds(n):
+    e = n.bit_length() - 1
+    lo2, hi2 = log_unit_bounds(F(2))
+    lo, hi = log_unit_bounds(F(n, 2**e))
+    return e*lo2 + lo, e*hi2 + hi
+
+
+def certified_floor(interval):
+    lo, hi = interval
+    a, b = lo.numerator // lo.denominator, hi.numerator // hi.denominator
+    assert a == b
+    return a
+
+
+def prime_counts(limit):
+    flags = [True] * (limit + 1)
+    flags[0] = flags[1] = False
+    for p in range(2, isqrt(limit) + 1):
+        if flags[p]:
+            for n in range(p*p, limit + 1, p):
+                flags[n] = False
+    out = [0]
+    for n in range(1, limit + 1):
+        out.append(out[-1] + flags[n])
+    return flags, out
+
+
+def one_prime_formula(y, t, pi):
+    return len(smooth23(t)) - sum(pi[t // m] - pi[int(y)]
+        for m in smooth23(t) if F(m)*y <= t)
+
+
+def main():
+    flags, pi = prime_counts(127**2)
+    for n in range(2, 127**2 + 1):
+        check('independent_primality', flags[n] == (factor(n) == ((n, 1),)))
+
+    for x in range(1, 513):
+        cases = [(F(y), 2*y) for y in (3, 5, 7, 11, 17)]
+        if x >= 8:
+            logx = log_bounds(x)
+            q = certified_floor(logx)
+            cases.append((F(q), certified_floor((2*logx[0], 2*logx[1]))))
+        source = sum(u(n) for n in range(1, x + 1))
+        for y, boundary in cases:
+            T = prefixes(y, x)
+            support = [d for d in range(1, x + 1) if coefficient(d, y)]
+            terms = {d: coefficient(d, y)*T[x//d] for d in support}
+            check('full_restoration', sum(terms.values()) == source)
+            mapped = [smooth_part(n, y) for n in range(1, x + 1)]
+            for n, (d, m) in enumerate(mapped, 1):
+                check('once_only_occurrence', d*m == n and coefficient(d, y)*u(m) == u(n))
+            for L in sorted({0, 1, 2, boundary, isqrt(x), x//3, x}):
+                B = sum(v for d, v in terms.items() if x//d <= L)
+                U = sum(v for d, v in terms.items() if x//d > L)
+                check('strict_floor_boundary', all((x//d <= L) == ((L+1)*d > x) for d in support))
+                check('original_boundary', B == sum(u(n) for n, (d, m) in enumerate(mapped, 1) if x//d <= L))
+                check('complete_partition', source == B + U)
+                check('boundary_absolute_bill', abs(B) <= L*len(support))
+                check('complete_quadratic', source*source == B*B + U*U + 2*B*U)
+                NEGATIVE['quadratic_cross'] += source*source != B*B + U*U
+                if L:
+                    wrong = sum(v for d, v in terms.items() if L*d > x)
+                    NEGATIVE['wrong_endpoint'] += wrong != B
+            without_powers = sum(v for d, v in terms.items() if all(e == 1 for p, e in factor(d)))
+            NEGATIVE['omitted_powers'] += without_powers != source
+
+    ys = [F(y) for y in range(3, 49)] + [F(n, 2) for n in (7, 11, 17, 29)]
+    for y in ys:
+        limit = int(y*y)
+        T = prefixes(y, limit)
+        for t in range(1, limit + 1):
+            check('one_large_prime_identity', T[t] == one_prime_formula(y, t, pi))
+            naive = len(smooth23(t)) - max(0, pi[t]-pi[int(y)])
+            NEGATIVE['omitted_23_cofactors'] += naive != T[t]
+        t = int(2*y)
+        check('INV10_exact', T[t] == len(smooth23(t)) - (pi[t]-pi[int(y)]))
+
+    actual = []
+    for k in list(range(7, 65)) + [73, 97, 127]:
+        lo5, hi5 = log_bounds(5)
+        lok, hik = log_bounds(k)
+        ylo, yhi = k*lo5 + 2*lok, k*hi5 + 2*hik
+        yf = certified_floor((ylo, yhi))
+        L = certified_floor((2*ylo, 2*yhi))
+        d, t = 5**k, k*k
+        x = d*t
+        check('actual_floor_quotient', x//d == t)
+        check('actual_support_power', yf >= 5 and coefficient(d, yf) == -1)
+        check('beyond_small_boundary', t > L)
+        check('inside_one_prime_range', t < ylo*ylo)
+        value = prefixes(F(yf), t)[t]
+        check('actual_quotient_identity', value == one_prime_formula(F(yf), t, pi))
+        if k in (7, 16, 32, 64, 73, 97, 127):
+            actual.append({'k': k, 'floor_log_x': yf, 'L': L, 't': t,
+                           'T': value, 'abs_T_over_sqrt_t': str(F(abs(value), k))})
+
+    check('range_extension_negative_control', prefixes(F(5), 49)[49] != one_prime_formula(F(5), 49, pi))
+    # A new, log-scheduled control; the earlier x=625 quarter-root control is not rerun.
+    wrong_inner = None
+    for x in range(25, 513):
+        y = certified_floor(log_bounds(x))
+        total = 0
+        for d in range(1, x + 1):
+            c = coefficient(d, y)
+            if c:
+                t = x//d
+                inner = certified_floor(log_bounds(t))
+                total += c*prefixes(F(inner), t)[t]
+        if total != sum(u(n) for n in range(1, x + 1)):
+            wrong_inner = {'x': x, 'floor_log_x': y, 'wrong_sum': total,
+                           'true_sum': sum(u(n) for n in range(1, x + 1))}
+            break
+    check('moving_cutoff_negative_control', wrong_inner is not None)
+    for label in ('quadratic_cross', 'wrong_endpoint', 'omitted_powers', 'omitted_23_cofactors'):
+        check('negative_control_'+label, NEGATIVE[label] > 0)
+
+    print(json.dumps({'status': 'PASS_EXACT', 'checks': dict(COUNTS),
+        'total': sum(COUNTS.values()), 'omission_detections': dict(NEGATIVE),
+        'actual_quotient_rows': actual, 'wrong_moving_cutoff': wrong_inner,
+        'asymptotic_inference': 'NONE',
+        'checker_sha256': hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
+        'registration_sha256': hashlib.sha256(Path(__file__).with_name('registration.md').read_bytes()).hexdigest()}, indent=2))
+
+
+if __name__ == '__main__':
+    main()
+~~~~
+
+### P. Prepublication Freshness And Validation
+
+At 2026-11-17 15:40:20 UTC, main remained fd4085e20602bc210cc6b630abbdeeeaf1bf28eb after the late human merge, and the reporting head remained 8606c00fbb136d89cc303d45240d3870d3119082. The refreshed nontruncated report tree differs from intake only in this invocation's early owned checkpoint. No intervening upstream publication or external handoff was omitted. Open/draft discovery is empty. #1142 is merged to main; #1143 is merged only to its docs-branch base and its new source is absent from main, as detailed in B. The tested heads retain respectively 7/7 and 13/13 successful completed checks. No checks were launched. An earlier publication attempt stopped BEFORE any write when its freshness guard detected the main advance; the changed documentation and authoritative files were then read and the final source ledger revalidated.
+
+The owned file was fetched immediately before update and matched the complete checkpoint exactly. The proposed append preserves every prior byte. A-O sections, ASCII, balanced Markdown fences, tables, embedded registration/checker identity, syntax, source-hash equality, theorem quantifiers, constant order, original occurrence masks and finite-versus-infinite evidence status were checked. The executed checker completed; no process needed for this work remains running. Publication is READBACK_PENDING until an immutable receipt is appended below.
