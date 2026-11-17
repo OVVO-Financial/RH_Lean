@@ -610,3 +610,20 @@ At 2026-11-16 18:39:45 UTC / 13:39:45 EST, substantive [commit 1472849a1a4e1c0a3
 EXECUTION=COMPLETED; SUBSTANTIVE_PUBLICATION=PUBLISHED_IMMUTABLE_READBACK_VERIFIED. This closes the preparation status without erasing its history. PR #1139 remains ready for human review and unmerged at `760a105553788fa7005e86b1230699fd871a2934`; all 13/13 checks passed. Actual warning-fatal source compilation: run 43929805348 / job 133518873088. Exact types and eight permitted-axiom/dependency audits: run 43929804765 / job 133518873411. The original and centered pointwise obstructions are PROVED_IN_LEAN_AT_PR_HEAD; FR1-FR3 remain ACCEPT_ON_PAPER / NOT_FORMALIZED. No global exponent gain or new qualifying RH attack was established. VERIFIED_ETA=NONE; RH=OPEN.
 
 This receipt references the already verified substantive commit rather than predicting its own hash. Its containing update is separately read back before user delivery. Next work must consume genuinely new original-source arithmetic in a qualifying half-continuation; do not repeat the now-certified witness, a renamed inverse wrapper, or isolated fixed-boundary optimization.
+
+
+## Early Checkpoint - 20261116-lean-2108-EST/CRITICAL-INTAKE
+
+Actual scheduled trigger: 2026-11-16 21:08:01 EST (2026-11-17T02:08:01Z). RUN_ID_UNAVAILABLE. This append preserves all previous same-day results and publication receipts.
+
+EXECUTION=IN_PROGRESS; REPORT=PARTIAL; no new theorem or CI claim is made at this checkpoint.
+
+Current main is `4d5482805bac6a8f29d4fb4dadc61eca0bc06525`, which human-merged #1139. AGENTS blob `c4f36b772f8a4b0c24fe566b90fafb646073c60f`; proof contract `95566e37c8eaeb99ee680660df4f9d2e06ea5038`. The open/draft PR collection is empty. The current source toolchain is Lean 4.34.1 / Mathlib `d13f23b723b8a846827a245b89c10fc7d3f11612`. GitHub Actions remains the only Lean execution environment; no local Lean has been run.
+
+half_bootstrap_ack=BOOTSTRAP_TO_HALF_V1; cross_route_ack=CROSS_ROUTE_SIGNED_RECOVERY_V1; continuity_ack=LAST_ACTUAL_REPORT_CONTINUITY_V1. The canonical actual-prime VF endpoint and the native half-exponent/RH endpoint remain OPEN. The prior R=139 obstruction is now merged, not a candidate for duplication. Fixed-boundary OAI optimization remains parked without a complete half-continuation.
+
+The complete report tree at `84f149f3424cf71f6f58be059d1474907fcd1ce3` was enumerated with no calendar cap. All latest role files are on November 16. The previous verified Lean watermark is FR-AUDIT (13:39:45 EST); newly retrieved upstream sections are HB, LM, TP, MC, CF. Their mathematical reconstruction and relevant yesterday/back-reference intake are still IN_PROGRESS, not yet CONTINUITY_COMPLETE. New Referee CF independently accepts scoped HB1-HB4, TP1-TP4, LM1-LM2 and MC3 on paper; CF's own frequency results are still self-audited and unformalized.
+
+Initial queue: (A) no active PR repair exists; (B) inspect accepted critical-inverse/finite-prime arithmetic for a necessary half-continuation transition; (C) independently test the new low-frequency obstruction and possible corrected statements; (D) avoid another algebraic consumer, duplicate finite witness, or unrelated green auxiliary file. Selection and implementation remain PENDING until mathematical review and source/dependency inspection are complete.
+
+Next: reconstruct exact statements and accepted scope, inspect original declarations and prior hosted verification, then implement only a justified, useful theorem or identify the exact missing original-source estimate. Publication of this checkpoint is claimed only after immutable readback below.
