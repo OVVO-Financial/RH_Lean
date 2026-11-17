@@ -321,3 +321,28 @@ No outstanding local process is needed. No local Lean, main push, merge, auto-me
 At 2026-11-17 05:31:26 EST / 10:31:26 UTC, immutable GitHub readback of substantive commit `79bc536945f35b74b4d68f6caf1a02db00356623`, report blob `0bafa69c9d5787666e9887ce95eab630edd88760`, exactly matched the intended full report. The commit changes only this authorized daily report, with 272 additions and zero deletions; both earlier checkpoints remain intact. `SUBSTANTIVE_PUBLICATION=PUBLISHED_VERIFIED` supersedes the pre-publication READBACK_PENDING markers above.
 
 The closing live check at 10:30:53 UTC found main unchanged at `4d5482805bac6a8f29d4fb4dadc61eca0bc06525`, PR #1140 open/ready/unmerged at `685598746869a62849451d7b7ffbfd09d42e4e4a`, auto-merge unset, and all 13 exact-head checks successful. The report-branch refresh contained no newer upstream role file than the recorded SC/FB/EF/GD/DJ/SG watermarks. Formal status remains PROVED_IN_LEAN_AT_PR_HEAD; the full original quantitative supplier and RH remain OPEN.
+
+
+## In-Progress Checkpoint - 20261117-lean-1314-EST/TAIL-AUDIT
+
+Actual scheduled trigger: 2026-11-17 13:14:00 EST / 18:14:00 UTC, America/New_York. RUN_ID_UNAVAILABLE. This is a new actual invocation; earlier NYMAN-JUMP results and publication history are preserved.
+
+### A. Current Finding And Queue
+
+The live open/draft PR collection is empty. Main includes the original Nyman divisor-sign obstruction #1140 and subsequent preservation-source work. Fresh mathematical handoffs are Coordinator INV, Owner HF, Analytic HA, Wheel SB, Census TC and Referee IC. INV's localized zero-head consumer is independently accepted on paper, while its proposed uniform all-head subpower average is rejected by HA. IC supplies a new two-mode infinite-tail classification awaiting independent reconstruction. No new Lean proof, global exponent or RH conclusion is claimed at this checkpoint.
+
+Priority A: inspect any newly changed proof PR and exact-head evidence. Priority B/C: independently audit the accepted original-source claims and IC's tail obstruction, check live declarations and recent work for duplication, and select only a necessary theorem or decisive obstruction with a named qualifying endpoint use. No duplicate sign scan or conditional algebra wrapper is planned.
+
+### B. Authority And Continuity
+
+MAIN=fd4085e20602bc210cc6b630abbdeeeaf1bf28eb; main tree=7ddd257551809a2ea38e8a85adb678417b3aa559. AGENTS=c4f36b772f8a4b0c24fe566b90fafb646073c60f; CURRENT_PROOF_CONTRACT=95566e37c8eaeb99ee680660df4f9d2e06ea5038; half-continuation directive=96ad4439ec458af6168f7d9cb3eef5dde291d37c.
+
+half_bootstrap_ack=BOOTSTRAP_TO_HALF_V1; cross_route_ack=CROSS_ROUTE_SIGNED_RECOVERY_V1; continuity_ack=LAST_ACTUAL_REPORT_CONTINUITY_V1.
+
+The complete report tree was enumerated without a date cap, tree=3a9d8629583316dd68d70eb4ccce9536a1c9caa0. Every role has a November 17 actual report; November 16 source files and prior own completed capsule were also retrieved. Coordinator mirrors match byte-for-byte on both days. Prior consumed watermarks SC/FB/EF/GD/DJ/SG are being advanced through INV/HF/HA/SB/TC/IC; relevant mathematical backfill is IN_PROGRESS, not yet asserted complete. External inbox=7d63d434690d00dffce9c90335d41c4f62d85798, unchanged.
+
+### C-P. Work Remaining
+
+Confirm latest merged source, toolchain and actual CI receipts; finish original-source and no-circularity review; implement only eligible independent mathematics; validate any submitted proof through exact-head hosted compilation, type/dependency and permitted-axiom checks; publish the final A-P synthesis and first genuinely open arithmetic statement.
+
+No local Lean has run. A read-only clone attempt returned CONNECT tunnel HTTP 403; authorized connector reads remain available. This is not proof-write failure. No branch, source commit, PR, merge, main push, other-role edit, agent launch, schedule or permission change has occurred in this invocation. EXECUTION=IN_PROGRESS; PUBLICATION=READBACK_PENDING.
