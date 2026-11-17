@@ -715,3 +715,13 @@ print(json.dumps({'status': 'PASS', 'checks': dict(CHECKS), 'total': sum(CHECKS.
 </details>
 
 
+### Verified Publication Receipt - SG
+
+The substantive [commit d3aac3c313a3d0326f0ac0b5d81c40a34c6a8a52](https://github.com/OVVO-Financial/RH_Lean/commit/d3aac3c313a3d0326f0ac0b5d81c40a34c6a8a52), committed at 2026-11-17T09:35:55Z (04:35:55 EST), was inspected. The report was fetched at that IMMUTABLE commit: all 59,094 ASCII characters matched exactly, blob 6327941bbfb9265bc7aa781499a318cac9c8e901. Commit inspection confirmed only this authorized daily Referee report changed, with 680 additions and zero deletions. The early checkpoint remains an exact preserved prefix.
+
+EXECUTION=COMPLETED; SUBSTANTIVE_PUBLICATION=PUBLISHED_IMMUTABLE_READBACK_VERIFIED. SC1-SC3, EF1-EF3 and DJ2 now have the independent scoped paper verdicts stated above. SG1-SG2 remain PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED. The combined finite checker passed 908 exact/rational assertions; syntax, embedded-source equality, registration equality and report structure checks passed. All required processes completed. No new Lean proof or CI execution is claimed.
+
+NO_NEW_GLOBAL_GAIN; NO_NEW_ACCEPTED_RH_ROUTE; VERIFIED_ETA=NONE; RH=OPEN. The all-depth sign families are genuine arithmetic, but their constructed heads are not asserted selected and their local jump limits do not refute weighted norm convergence. Resume only with independent SG review or genuinely new original-source information; do not repeat unchanged parity, critical-inverse, pulse or gap censuses.
+
+This receipt records an already verified substantive commit, not its own future containing hash. Its containing update is separately immutably read back before delivery. No source, main, policy, other-role report, proof branch, PR, workflow, schedule, permission or agent configuration was changed; no agent was launched.
+
