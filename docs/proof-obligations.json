@@ -1,7 +1,7 @@
 {
   "schema": "rhlean-proof-obligations/1",
   "registry_version": "2026-11-15.2",
-  "authority": "Mathematical proof-obligation registry with Lean declarations and dated evidence. Conditional consumers do not prove their premises; paper and numerical findings are not Lean certificates. November 17 refresh: #1119 and #1135 are human-merged on main. The final #1135 head ac6dc46b70da962e70b18ea184451c225c1cd44a passed all 18 checks and was merged on November 16. The owner-capacity and complete double-centered-source supporting lemmas are certified at green PR #1141 head 5286b43f6a64e9debc4b1be5acba5112c144e2e0, pending human merge. RH, finite A/C, zero-log amplification and the equivalent native fractional-owner and subcritical full-prefix arithmetic inputs remain open.",
+  "authority": "Mathematical proof-obligation registry with Lean declarations and dated evidence. Conditional consumers do not prove their premises; paper and numerical findings are not Lean certificates. November 17 refresh: #1119 and #1135 are human-merged on main. The final #1135 head ac6dc46b70da962e70b18ea184451c225c1cd44a passed all 18 checks and was merged on November 16. The owner-capacity and complete double-centered-source supporting lemmas are on main through human-merged #1141, whose final head dfd3197117410ad491d7c94b66448753ae8e4d63 passed all 17 current checks. Their remaining signed targets have the existing graded boundary strength; these lemmas are infrastructure, not independent subcritical suppliers. RH, finite A/C, zero-log amplification and the equivalent native fractional-owner and subcritical full-prefix arithmetic inputs remain open.",
   "baseline": {
     "repository": "OVVO-Financial/RH_Lean",
     "main_sha": "59612bc8b5c30c528d8367667ea5846a8053f114",
@@ -3459,10 +3459,10 @@
         "FINITE-AC",
         "MU-LIFT"
       ],
-      "statement": "For every R>=2 and R<=x<R^2, the original strict prime-owner family obeys sum_(R<p<=x) floor(x/p)<=x-R. Consequently D_R(x)<=(x-R)E(R)^2<=3(x-R)K_R. The complete all-prefix M(x)^2=D_R(x)+Gamma_R(x) identity specializes exactly to the existing native owner source. For B>=0, an explicit all-prefix premise Gamma_R(x)<=B*x*K_R yields K_(R^2)<=(4+B)*K_R; no such signed premise is proved.",
+      "statement": "For every R>=2 and R<=x<R^2, the original strict prime-owner family obeys sum_(R<p<=x) floor(x/p)<=x-R. Consequently D_R(x)<=(x-R)E(R)^2<=3(x-R)K_R. The complete all-prefix M(x)^2=D_R(x)+Gamma_R(x) identity specializes exactly to the existing native owner source. For B>=0, an explicit all-prefix premise Gamma_R(x)<=B*x*K_R yields K_(R^2)<=(4+B)*K_R; no such signed premise is proved. Research disposition: supporting infrastructure; no independent subcritical supplier is established.",
       "logical_status": "PROVED",
-      "formal_status": "PROVED_IN_LEAN_PR_GREEN_UNMERGED",
-      "evidence_class": "PROVED_IN_LEAN_PR_GREEN_UNMERGED",
+      "formal_status": "PROVED_IN_LEAN_ON_MAIN",
+      "evidence_class": "PROVED_IN_LEAN_ON_MAIN",
       "provenance": "PROVED_INTERNALLY",
       "open_obligation": false,
       "lean": [
@@ -3499,7 +3499,7 @@
         "OPEN-NATIVE-OWNER-FRACTIONAL",
         "RH"
       ],
-      "notes": "Certified at green PR #1141 proof head 5286b43f6a64e9debc4b1be5acba5112c144e2e0 with exact types, source dependencies, and standard terminal axioms. Supporting source reduction; the complete signed cancellation estimate and every RH route input remain open.",
+      "notes": "Human-merged #1141; exact types, full source dependencies and standard terminal axioms verified. Supporting infrastructure under BOOTSTRAP_TO_HALF_V1. The complete Gamma-positive bound is equivalent up to constants to the corresponding full-window Mertens-energy bound when L_R>=K_R. The note derives its every-positive-loss graded strength from the existing envelope dictionary; that consequence is not a new Lean declaration or active candidate. A planted model must satisfy every input, including any paid baseline, before it can falsify a proposed renewal.",
       "pr": 1141
     },
     {
@@ -3509,10 +3509,10 @@
       "route_ids": [
         "FINITE-AC"
       ],
-      "statement": "The original frozen Q_R equals its exact double-centered non-divisor remainder Xi_R plus all retained linear/divisor-row terms. Both divisor-row orientations are included once. The explicit error is at most 2R+5+2(R-1)2^omega(R-1); the full-divisor version is also proved. The complete error is at most C_epsilon R^(1+epsilon) for every positive epsilon, with constants before R. This proves no strict historical-power bound for Xi_R.",
+      "statement": "The original frozen Q_R equals its exact double-centered non-divisor remainder Xi_R plus all retained linear/divisor-row terms. Both divisor-row orientations are included once. The explicit error is at most 2R+5+2(R-1)2^omega(R-1); the full-divisor version is also proved. The complete error is at most C_epsilon R^(1+epsilon) for every positive epsilon, with constants before R. This proves no strict historical-power bound for Xi_R. Research disposition: supporting infrastructure; no independent subcritical supplier is established.",
       "logical_status": "PROVED",
-      "formal_status": "PROVED_IN_LEAN_PR_GREEN_UNMERGED",
-      "evidence_class": "PROVED_IN_LEAN_PR_GREEN_UNMERGED",
+      "formal_status": "PROVED_IN_LEAN_ON_MAIN",
+      "evidence_class": "PROVED_IN_LEAN_ON_MAIN",
       "provenance": "PROVED_INTERNALLY",
       "open_obligation": false,
       "lean": [
@@ -3545,7 +3545,7 @@
         "OPEN-NATIVE-OWNER-FRACTIONAL",
         "RH"
       ],
-      "notes": "Certified at green PR #1141 proof head 5286b43f6a64e9debc4b1be5acba5112c144e2e0 with exact types, source dependencies, and standard terminal axioms. Supporting source reduction; the complete signed cancellation estimate and every RH route input remain open.",
+      "notes": "Human-merged #1141; exact types, full source dependencies and standard terminal axioms verified. Supporting infrastructure under BOOTSTRAP_TO_HALF_V1. Root-subpower error preserves the every-positive-loss frozen-Q envelope grades, not automatically fixed root-scale constants. The balanced kernel retains both hyperbolic cutoff masks and can change sign; a constant-quotient rectangle factorization is not a bounded-rank factorization of the full block. No independent subcritical Xi estimate or active candidate is supplied.",
       "pr": 1141
     }
   ],
@@ -4014,14 +4014,14 @@
       "from": "MECH-MU-LIFT-SUBCRITICAL",
       "type": "REQUIRES",
       "to": "LEMMA-NATIVE-OWNER-DIAGONAL-CAPACITY",
-      "note": "Supporting input for the documented native-owner realization: diagonal and full-prefix return are paid; the full signed upper bound remains open."
+      "note": "Supporting input for the documented native-owner realization: diagonal and full-prefix return are paid; the full signed upper bound remains open. This is an infrastructure dependency, not a new independent arithmetic supplier; see the full-window target-strength audit in the source note."
     },
     {
       "id": "E-FINITE-AC-DOUBLE-CENTERED",
       "from": "MECH-FINITE-AC-HISTORICAL-ENVELOPE",
       "type": "REQUIRES",
       "to": "LEMMA-EULER-DOUBLE-CENTERED-REDUCTION",
-      "note": "Supporting source reduction for the documented double-centered realization. The complete Xi estimate is still needed; the error bound alone gives no RH-strength conclusion."
+      "note": "Supporting source reduction for the documented double-centered realization. The complete Xi estimate is still needed; the error bound alone gives no RH-strength conclusion. This is an infrastructure dependency. The note preserves both hyperbolic cutoff terms and distinguishes every-positive-loss from fixed-constant targets."
     }
   ],
   "non_equivalences": [
@@ -4754,22 +4754,22 @@
       "id": "EV-PR-1141",
       "kind": "pr",
       "number": 1141,
-      "state": "open",
+      "state": "merged",
       "title": "Prove full-prefix owner capacity and complete Euler double-centering",
-      "observed_at": "2026-11-17T14:03:02.752274+00:00",
-      "head_sha": "5286b43f6a64e9debc4b1be5acba5112c144e2e0",
+      "observed_at": "2026-11-17T14:29:32.149909+00:00",
+      "head_sha": "dfd3197117410ad491d7c94b66448753ae8e4d63",
       "checks": {
+        "total": 17,
         "success": 17,
         "failed": 0,
-        "pending": 0,
-        "total": 17
+        "pending": 0
       },
-      "grade": "KERNEL_CHECKED_GREEN_PR_HEAD",
-      "workflow": "https://github.com/OVVO-Financial/RH_Lean/actions/runs/44098246482",
-      "notes": "All 17 hosted checks passed at the recorded proof head, including warning-fatal import closures, 28 exact-type examples, all 47 public declarations, original-source dependency checks, and terminal-axiom audits. The following documentation/status update preserves these proof-source hashes. PR remains unmerged for human review.",
+      "grade": "KERNEL_CHECKED_ON_MAIN",
+      "workflow": "https://github.com/OVVO-Financial/RH_Lean/actions/runs/44099085547",
+      "notes": "Human-merged on main. All 17 current final-head checks passed; the three earlier same-head proof jobs were superseded and cancelled. Exact-type, complete source-dependency, and standard-axiom audits verified all 47 declarations. The recorded proof-source hashes are unchanged. Research disposition is supporting infrastructure; the graded open-target equivalences discussed in the note are deductions from existing certificates, not newly compiled declarations or an independent source estimate.",
       "proof_jobs": {
-        "owner": "https://github.com/OVVO-Financial/RH_Lean/actions/runs/44098246482/job/134091040604",
-        "euler": "https://github.com/OVVO-Financial/RH_Lean/actions/runs/44098246482/job/134091041237"
+        "owner": "https://github.com/OVVO-Financial/RH_Lean/actions/runs/44099085547/job/134093953266",
+        "euler": "https://github.com/OVVO-Financial/RH_Lean/actions/runs/44099085547/job/134093952768"
       },
       "verified_public_declarations": {
         "owner": 20,
@@ -4790,7 +4790,27 @@
         "scripts/lean/preservation_sources/inventory.json": "8b7ec09539cd9b73a62f470c10e631622e431659a384dd47531f3ec03c2186fd",
         "scripts/audit_preservation_sources.py": "ba916c5c1e32f7e334cd8278632f9f47c710e8e28198ad57dd04803c34b4c285",
         ".github/workflows/preservation-source-reductions.yml": "82422cbf97ebdb3ceb5a24e31fa94e8c160ae1b01742f3b817fd7768bc93d639"
-      }
+      },
+      "prior_certification_snapshot": {
+        "head_sha": "5286b43f6a64e9debc4b1be5acba5112c144e2e0",
+        "observed_at": "2026-11-17T14:03:02.752274+00:00",
+        "checks": {
+          "success": 17,
+          "failed": 0,
+          "pending": 0,
+          "total": 17
+        },
+        "grade": "KERNEL_CHECKED_GREEN_PR_HEAD",
+        "workflow": "https://github.com/OVVO-Financial/RH_Lean/actions/runs/44098246482",
+        "proof_jobs": {
+          "owner": "https://github.com/OVVO-Financial/RH_Lean/actions/runs/44098246482/job/134091040604",
+          "euler": "https://github.com/OVVO-Financial/RH_Lean/actions/runs/44098246482/job/134091041237"
+        }
+      },
+      "draft": false,
+      "merged_at": "2026-11-17T14:08:33Z",
+      "merge_commit_sha": "319fc5798658e66baea1fed758b0d4b6dd126889",
+      "superseded_cancelled_checks": 3
     }
   ],
   "historical_tracks": {
