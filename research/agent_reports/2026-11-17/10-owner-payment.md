@@ -1590,3 +1590,28 @@ The substantive [commit 71a2e0b2bc3183d3c330f771f7a461bdd573b4cf](https://github
 EXECUTION=COMPLETED; SUBSTANTIVE_PUBLICATION=PUBLISHED_IMMUTABLE_READBACK_VERIFIED. HF1-HF3 remain PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED at their explicitly separated identity, obstruction and conditional analytic scopes. HF4-HF5 are FINITE_COMPUTATION, including the NONPRIME model; HF6 remains TARGET_EQUIVALENT. All 2,255 repaired-checker assertions passed and every omission control was detected. No actual first-bad witness, new global upper bound, independent review or Lean proof is claimed.
 
 NO_NEW_GLOBAL_GAIN; VERIFIED_ETA=NONE; RH=OPEN. Resume at INV/FB/EF/GD/DJ/SG/NYMAN-JUMP and HF1-HF6. Do not repeat density-mask optimization or the completed scalar-history/conservation extraction audit without a genuinely different prime-specific signed input. This receipt records verified substantive publication, not its own future containing commit; the containing update is separately read back before delivery. No source, main, central policy, other report, proof branch, PR, workflow, schedule, permission or agent configuration changed.
+
+
+## IN_PROGRESS Checkpoint - 20261117-owner-1615-EST/PC
+
+### A. Most Important Mathematical Development
+
+The refreshed main now contains the sharp HF1 historical-density-mask obstruction through human-merged #1144. This execution will not optimize that refuted separate-cap supplier. The first research question is whether complete prime-factor conservation, retaining its nonunit cofactor complement and prime powers, imposes a genuinely new signed restriction on the actual first-bad history. Candidate positivity or contraction statements will be tested on the genuine arithmetic and against their exact complete return. No new result is asserted at this checkpoint.
+
+### B. Current Authority And Objective
+
+Actual scheduled invocation: 2026-11-17 16:15:01 EST (America/New_York); platform run ID unavailable. MAIN=13b31c6313e274a073d82a01175201185e59e37e; AGENTS=c4f36b772f8a4b0c24fe566b90fafb646073c60f; CURRENT_PROOF_CONTRACT=95566e37c8eaeb99ee680660df4f9d2e06ea5038; half policy=96ad4439ec458af6168f7d9cb3eef5dde291d37c. half_bootstrap_ack=BOOTSTRAP_TO_HALF_V1; cross_route_ack=CROSS_ROUTE_SIGNED_RECOVERY_V1; continuity_ack=LAST_ACTUAL_REPORT_CONTINUITY_V1.
+
+Canonical target remains one constant before all roots in |pi(R^2)-F_R-sqrt(2)|<=C R log R. Original #915 d=D_r+P_r-m_r, C_r=m_r+(1-2w_r)P_r and E_r=2d^2-(|D_r|+C_r)^2, all prior-good masks and the explicit classical terminal criterion are retained. A complete first-bad exclusion with the fixed finite base is the intended direct half consumer; this is a bounded feasibility investigation, not an assumed supplier.
+
+### C. Continuity And First Investigation
+
+Untruncated reporting-tree discovery at 869c4c62121daaeebd8beeeaf77777bd7f655ba1 finds actual November 17 reports for every role. Complete November 16/17 files and the unchanged external inbox were retrieved. Previous Owner HF watermark INV/FB/EF/GD/DJ/SG/NYMAN-JUMP is being advanced through TAIL/HF/HA/SB/TC/IC/HF1, preserving the November 16 carry-forward SC/DB/LM/TP/MC/CF/CR. TODAY=AVAILABLE; YESTERDAY=CARRY_FORWARD. No missing execution is invented. Final ledger, mirror verification, relevant backfill and current source/CI checks will be included with the completed synthesis.
+
+Current open/draft PR search is empty. #1143 merged into its documentation branch, not main; its source is not silently promoted to main. #1141 and #1144 provide supporting identities/obstructions, not the missing complete signed estimate.
+
+### D-K. Pending Work And Publication
+
+Inspect the existing native signed Selberg and exact Lambda/cofactor sources before asserting novelty; formulate a precise original-source hypothesis, derive or falsify it with all complementary terms, and identify whether it actually excludes the prior synthetic configuration or merely reconstructs primality. Numerical checks will discriminate a stated hypothesis, not extend old census ranges. No local Lean execution, source/policy/other-report modification, agent launch, proof branch or schedule change is planned.
+
+EXECUTION=IN_PROGRESS; MATHEMATICAL_RESULT=PENDING; PUBLICATION=READBACK_PENDING until immutable verification.
