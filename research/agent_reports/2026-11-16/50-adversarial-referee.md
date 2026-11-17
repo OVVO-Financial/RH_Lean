@@ -1427,3 +1427,784 @@ Before new calculation: independently implement mu/u/lambda/a by trial factoriza
 ### Remaining Work
 
 Complete original-source and exact-head checks, reconstruct the proofs and attack their quantifiers, derive any valid critical-frequency theorem, execute the registered small checks, then append the full A-O synthesis and a verified publication receipt. No RH, finite A/C, or new global exponent is claimed.
+
+
+## Critical Inversion Requires Low-Frequency Control, Not Just Removal Of One Mode
+### Final Mathematical Synthesis - 20261116-referee-2013-EST/CF
+
+Actual scheduled trigger: 2026-11-16 20:13:01 EST, America/New_York (2026-11-17T01:13:01Z). RUN_ID_UNAVAILABLE; CF is a research label, not a platform identifier. This is an append-only continuation of today's NT/FR reports. Earlier claims, corrections and publication receipts are preserved. New CF results are PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED. Publication closes only after immutable readback.
+
+### A. Most Important Mathematical Finding
+
+**A critical inverse can amplify a continuum of nonzero frequencies even when there is no zero-frequency atom.** For the actual signed inverse lambda of the accepted gcd-6 row, write lambda=q*a, where q is the square indicator, and put A=sum a(d)/sqrt(d)>0. Independently reconstructed HB proves this factorization and the needed absolute convergence. The new uniform calculation gives, for every fixed T>=0, all |t|<=T and all real x>=1,
+
+```text
+sum_(d<=x) lambda(d)*floor(x/d)^(1/2+it)
+ = (A/2)*sqrt(x)*integral_(0..log x) exp(itv) dv + O_T(sqrt(x)).   (CF.1)
+```
+
+The constant is uniform in both x and t on that fixed compact interval. At t=0 this recovers HB's logarithm. At each fixed t!=0 the output is O_t(sqrt(x)), with no extra logarithm. But uniformity fails as t approaches zero: t=c/log x retains a logarithmic main term unless its displayed response factor vanishes.
+
+More strongly, for every fixed 0<alpha<1 the explicit atom-free input
+
+```text
+F_alpha(m)=sqrt(m)*integral_(0..1) cos(t log m)*t^(alpha-1) dt
+```
+
+is O_alpha(sqrt(m)), yet its image under the SAME signed inverse is
+
+```text
+T_lambda F_alpha(x)
+ = (A*I_alpha/2)*sqrt(x)*(log x)^(1-alpha) + O_alpha(sqrt(x)),
+I_alpha=integral_(0..infinity) u^(alpha-2) sin(u) du > 0.         (CF.2)
+```
+
+This is an infinite-family counterexample to the **generic** inference that merely excluding a zero-frequency atom makes critical inversion uniformly log-free. The obstruction also survives replacing a small multiple of F_alpha by the prefix of a single +/-1 sequence, with first coefficient +1. It is NOT a claim about the genuine u_6 prefix, which has additional all-prime arithmetic constraints. A sufficient repair is an integrable inverse-frequency moment, or a fixed frequency gap, in an independently justified representation; neither representation nor bound has been supplied for u_6.
+
+**Independent verdicts:** ACCEPT_ON_PAPER Coordinator HB1-HB4 at their stated kernel scopes; ACCEPT_ON_PAPER Wheel TP1-TP4 at their explicitly different model scopes; ACCEPT_ON_PAPER Analytic LM1-LM2 at their proper-region scopes. The selected-head LM3 signs were independently reproduced with outward rational intervals. MC3's finite-depth prime-cofactor explanation is accepted at its strict cutoff. This does not accept TW/DB wholesale or upgrade a numerical experiment to an infinite theorem.
+
+NO_NEW_GLOBAL_GAIN; NO_NEW_ACCEPTED_RH_ROUTE; VERIFIED_ETA=NONE. Canonical VF, finite A/C and RH remain OPEN.
+
+### B. Current Authoritative Objective And Formal Receipt
+
+Live main is [4d5482805bac6a8f29d4fb4dadc61eca0bc06525](https://github.com/OVVO-Financial/RH_Lean/commit/4d5482805bac6a8f29d4fb4dadc61eca0bc06525). AGENTS blob c4f36b772f8a4b0c24fe566b90fafb646073c60f; contract 95566e37c8eaeb99ee680660df4f9d2e06ea5038; governing half-continuation directive 96ad4439ec458af6168f7d9cb3eef5dde291d37c.
+
+half_bootstrap_ack=BOOTSTRAP_TO_HALF_V1; cross_route_ack=CROSS_ROUTE_SIGNED_RECOVERY_V1; continuity_ack=LAST_ACTUAL_REPORT_CONTINUITY_V1. Earlier HIGH/cancellation/finite-wheel safeguards remain; their superseded task priorities do not override the November 16 continuation gate.
+
+The canonical statement is one C>=0 before every integer R>=2 such that |pi(R^2)-vfCanonical(R^2)|<=C R log R, with vfCanonical=vfMid+sqrt(2). The inspected prime-side terminal retains ClassicalVonKochRHCriterion. The separate internal `mertens_half_iff_riemannHypothesis` is the native terminal used by the selected route. Neither arithmetic input is proved here.
+
+Write G(b) for: for every epsilon>0 there exists C_epsilon>=0 before all integers n>=1 with |M(n)|<=C_epsilon*n^(b+epsilon). The inspected compiled comparator remains
+
+```text
+native_mertens_near_uniform_window_error_closed: G(b_base),
+b_base=7/8-7/(64*N_pack), N_pack fixed by the original source.
+```
+
+Its exact declaration has no desired-bound premise. It uses the constructed near-uniform source, complete window/LOW/HIGH/principal comparison, Hecke boundary and native Mertens transfer. The source explicitly reconstructs a source at each smaller positive detector error; it does not take a zero-error analytic limit with unchanged masks. A fresh untruncated comparison with tested #1119 found only RHLean.lean changed among 2,508 preexisting Lean/pin/scripts/lean entries. The actual [dependency log](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42552018910/job/128949473700) again shows five closures 35358,35375,35736,35737,35753 and only propext, Classical.choice, Quot.sound. This reuses unchanged certification and the prior verified dependency receipt, not a new full-main build or a fresh proof of every analytic dependency. No comparison between unrelated slot counts is invented. The stronger inherited IR/FFR paper comparator remains separate from complete Lean certification; no gain over either is claimed.
+
+| PR | Fresh actual state; exact tested head | Evidence scope |
+| --- | --- | --- |
+| #1119 | Merged; 77ee815846d6d534c866f0752aa33b84c385610a; 14/14 checks successful | Above complete every-positive-loss comparator; original declaration and dependency log read. |
+| #1135 | Merged; ac6dc46b70da962e70b18ea184451c225c1cd44a; 18/18 successful | Previously reviewed envelope interfaces; no new source supplier. |
+| #1136 | Merged; 93828e24dc69f56b6c4dc1eaed92847ef7e71be2; 13/13 successful | Existing inversion interface; complete-response premise remains unpaid. |
+| #1137 | Merged; 1c06b34d478d239e8968b62b0380812d7af2e49f; 13/13 successful | Principal component, not the entire physical FFR4 return. |
+| #1138 | Merged; 1f65f635ef530da7d0b2d6512a91a4553ac64cbd; 11/11 successful | Current continuation policy and scoped exact audit infrastructure. |
+| #1139 | Merged at 2026-11-16T21:57:12Z; 760a105553788fa7005e86b1230699fd871a2934; 13/13 successful | Original R=139 row obstruction and centered variant, not the entire FR analytic equivalence. |
+
+The #1139 original source and exact-type/audit files were read. The [compilation log](https://github.com/OVVO-Financial/RH_Lean/actions/runs/43929805348/job/133518873088) reports compiled=1,cached=9; the [audit log](https://github.com/OVVO-Financial/RH_Lean/actions/runs/43929804765/job/133518873411) checks eight roots, closures 92,77,49,48,585,590,618,619, with standard terminal axioms. It kernel-certifies C_139(6)=0, Q_139=-49, M(19320)=43 and the stated universal pointwise no-go. Historical unmerged labels are superseded. The open/draft PR collection was empty. Workflow tooling emitted deprecation notices; this is not a claim that all logs were warning-free. No CI was launched/rerun and no local Lean was executed.
+
+### C. Highest-Risk Mechanisms And Continuity
+
+Risks selected: confusing a divergent absolute norm with failure of all signed inversion; assuming nonzero frequencies give a family-uniform bound; treating the absence of one atom as a quantitative spectral gap; importing generic models onto genuine arithmetic; and treating a negative covariance sign as enough cancellation for an endpoint.
+
+The complete agent-reports tree at 076aeaeb1d50ec9417c67622d7aca96bb0574981 was enumerated without a calendar cap. Complete latest files were fetched. Own FR's 12:22:09 EST receipt is the prior consumed watermark. Relevant new sections were consumed in order: FR-AUDIT, HB, LM, TP, MC. Both November 15/16 Coordinator mirrors were fetched and byte-compared. No latest partial lacking a completed predecessor was discovered.
+
+All latest paths below are under research/agent_reports/2026-11-16/. Times are EST; RUN_ID_UNAVAILABLE applies to the source reports as recorded by their authors.
+
+| Role / latest file | LAST_VERIFIED blob; actual receipt | LAST_CONSUMED -> NEW_UNCONSUMED now consumed; RESUME |
+| --- | --- | --- |
+| Coordinator 00/90 mirrors | fcb7cc6f4c287b17ebd7ed8b6d618a113bd36d71; HB 15:38:03 | MB -> HB1-HB5; critical kernel accepted below, original signed supplier still open. |
+| Owner 10-owner-payment.md | a52b439e693e069502b0c299a5f074a19bae0807; DB 08:35:17 | DB -> NONE; preserve R=5 correction, R=137 restoration reversal, and narrow prior acceptance only. |
+| Analytic 20-analytic-type-ii.md | 84aaa2103225565607b5b033f273462bbe865246; LM 17:30 | TW -> LM1-LM5; near-complete regional cancellation remains open. TW dedicated review is still pending. |
+| Wheel 30-finite-wheel.md | 713826840694e39a141fbdbe813f1d47245928e7; TP 18:28:09 | FP -> TP1-TP5; finite-prime no-go accepted only for its stated model classes. |
+| Census 40-prime-census.md | 53e6be517dc11037fe3b42a8ed6ad3a06cfce956; MC 19:16 receipt | SG -> MC1-MC3; total sign negative at two tested heads, no infinite claim. |
+| Referee 50-adversarial-referee.md | 95499c6b3e72d79fe6eb902465c9554d3b0be9fc; FR 12:22:09 | Own NT/FR recovered; FR1-FR3 paper acceptance by Lean now recorded; no repeat row census. |
+| Lean 60-lean-verification.md | 8af089419676892af344fe7f980f0890e0d31912; FR-AUDIT 13:39:45 | FFR4 -> FR-AUDIT; paper FR1-FR3 accepted, pointwise obstruction now merged. |
+
+TODAY=AVAILABLE for all seven roles. YESTERDAY=CARRY_FORWARD for actual November 15 Coordinator SS (8ce64136c888c6ad7820ef69a78caa5ece07d61b), Referee UE (a1c07bdd8e8493aece535745a0ce6f6635871620), Lean FFR3 (8d25541bc6faebfa180e0456061d7725756bf5ca): complete files retrieved, relevant findings/resume scopes read. November 15 Owner/Analytic/Wheel/Census have NO_VERIFIED_REPORT; their previous actual files are November 11, retained through the verified FR watermark. No new post-watermark intermediate dated report for those roles was found. November 13-14 have no dated directory. No execution or failure cause is inferred from gaps.
+
+CONTINUITY_COMPLETE here means latest-real discovery and task-relevant post-watermark backfill, not a reread or independent review of every old appendix. External inbox 7d63d434690d00dffce9c90335d41c4f62d85798 was read and is unchanged, with no entry after October 18. Preserve EXT-20261018-PNT-1's cofactor weights and EXT-20261014-5's unconditional-versus-first-bad restriction; neither supplies the missing estimate. Early CF checkpoint 221d1acc9d90444fc6f391e08891372d2ada904c, blob 11a7a1ed3f39504ba7b8a6063f3cd063151e3c71, was immutably read back with exact equality before new computation.
+
+### D. Claims Reviewed And Verdicts
+
+| Stable claim | Verdict | Mathematical status and actual scope |
+| --- | --- | --- |
+| 20261116-coordinator-1513-EST/HB1-HB4, equations HB.1-HB.6 | ACCEPT | PAPER_PROOF: square factorization, signed/absolute critical asymptotics, generic sharp transfer and near-critical pole. No actual S bound. |
+| HB5 | LIMITED INDEPENDENT REPRODUCTION | Core coefficient and floor convolutions checked below, not the author's entire original test campaign. |
+| 20261116-wheel-1806-EST/TP1-TP2 | ACCEPT | PAPER_PROOF / supporting identities: every valuation return, finite deletion inverse even at exponent 1/2, and its idempotence limitation. |
+| TP3 | ACCEPT | PAPER_PROOF / scoped no-go: fixed finite selected-prime rules plus unit magnitude admit prescribed real/oscillatory powers. The construction is not globally multiplicative. |
+| TP4 | ACCEPT AT STATED SCOPE | PAPER_PROOF: separate ordinary multiplicative bounded-weight model. It does not have genuine outside-prime signs or unit magnitude. |
+| TP5 | LIMITED INDEPENDENT REPRODUCTION | Genuine and synthetic two-prime identities and x=35,49,245 witnesses reproduced. No finite confirmation of an asymptotic is claimed. |
+| 20261116-analytic-1711-EST/LM1-LM2 | ACCEPT | PAPER_PROOF: all-range diagonal estimate and proper-region covariance reconstruction/saturation requirement. Not full-error convergence. |
+| LM3 | ACCEPT AT STATED SCOPE | REFUTED universal shared-gcd sign rules; independently reproduced at selected H=10 and H=13. No eventual or total-sign theorem. |
+| LM4-LM5 | INTAKE / PARTIAL CHECK ONLY | Original increment source read; LM's external correlation literature and full numerical campaign were not independently re-audited. |
+| 20261116-census-1900-EST/MC3 | ACCEPT AT STATED SCOPE | PAPER_PROOF: prime-only cofactor sector for squarefree g, g<=H, 4H<=B<g*p*q. |
+| MC1-MC2; TW; full DB | RETAIN AUTHOR/PREVIOUS REVIEW STATUS | New H19/H20 numeric campaign not rerun. TW/full DB remain dedicated-review pending; no acceptance by analogy. |
+| 20261116-referee-2013-EST/CF1-CF4 | SELF_AUDIT | New PAPER_PROOF: uniform frequency formula, bounded-increment sharpness, nonatomic obstruction, sufficient frequency-moment repair. Independent review pending. |
+| CF5 | FINITE_COMPUTATION | 69,106 exact/interval assertions; separately 36 numerical diagnostic comparisons. Neither is Lean certification. |
+
+Review method: original statements and sources were read, the essential algebra and estimates reconstructed, then compared with the submitted arguments. This was not blind review. CF is not independently self-accepted.
+
+### E. Independent Mathematical Reconstruction
+
+#### E1. Original Source And Exact Inverse
+
+For integers R>=2 retain X_R=R^2-1, M(x)=sum_(1<=n<=floor x)mu(n), M(0)=0 and strict K_R=max_(0<=y<R)(M(y)-1)^2/(y+1). The source-read definitions use natural division and both ordered orientations:
+
+```text
+C_R(g)=sum_(1<=a,b<R,gcd(a,b)=g) mu(a)mu(b)floor(X_R/(ab)),
+Q_R=sum_g C_R(g)=2M(R-1)-M(X_R).
+```
+
+Use the independently accepted FR bridge, not a new formal claim:
+
+```text
+u(n)=(-1)^(number of distinct primes >3 dividing n), S(x)=sum_(n<=x)u(n),
+Y_R=floor(X_R/36), J(R)=sum_(m<=Y_R,rad(36m)<R)u(m),
+C_R(6)=2J(R)-S(Y_R), |J(R)|=O_epsilon(R^(1+epsilon)).
+```
+
+The inverse mu=u*lambda has lambda(1)=1 and
+
+```text
+p=2,3: lambda(p)=-2, lambda(p^2)=1, lambda(p^e)=0 for e>=3;
+p>=5: lambda(p)=0, lambda(p^e)=2^(e-2) for e>=2.
+M(x)=T_lambda S(x), T_lambda F(x)=sum_(d<=x)lambda(d)F(floor(x/d)).
+```
+
+This is not Wheel's f_6, the Hecke a6 coefficient, or a model source. Every convolution is finite at a fixed x. The original bridge keeps the radical return, strict cutoff, every floor occurrence and all prime powers. No pointwise C_R(6)-only bound is used.
+
+#### E2. HB Factorization, Critical Remainder And Sharpness
+
+For v=lambda or |lambda|, multiplication of its local series by 1-z^2 gives a_v. At p>=5 its coefficients are 1,0,0,2,3,6,12,...; at p=2,3 they are respectively (1,-2,0,2,-1) and (1,2,0,-2,-1), then zero. Thus a_absolute is NOT nonnegative. Coefficientwise v=q*a_v with q(n)=1_(n is a square).
+
+At sigma_0=9/20, 5^9>2^20 ensures all local denominators 1-2p^(-sigma_0) stay positive for p>=5. The nonconstant large-prime factors start at p^(-3sigma_0), and 3sigma_0=27/20>1. This proves sum |a_v(n)|n^(-sigma_0)<infinity without PNT. It also proves all critically weighted first logarithmic moments converge absolutely.
+
+Let A_v=sum a_v(d)/sqrt(d), B_v=gamma*A_v-(1/2)sum a_v(d)log(d)/sqrt(d). Each small-prime factor is (1-1/p)(1-/+1/sqrt(p))^2>0. Each remaining factor is positive and differs from 1 by an absolutely summable quantity. Hence A_v>0 for BOTH choices.
+
+Finite square convolution and the uniform elementary estimate H_floor(y)=log y+gamma+O(1/y), y>=1, give
+
+```text
+sum_(n<=x)v(n)/sqrt(n)=(A_v/2)log x+B_v+O(x^(-1/20)),
+sum_(n<=x)v(n)=A_v sqrt(x)+O(x^(9/20)), x>=1.
+```
+
+The accumulated harmonic error is bounded by x^(-1/2)sum_(d<=x)|a_v(d)|<=x^(-1/20)sum |a_v(d)|d^(-sigma_0). For d>x, keep the COMBINED log(d/x): the factor (d/x)^(-1/20)(|gamma|+(1/2)log(d/x)) is bounded. This avoids a spurious log x in the error. The unweighted floor error and omitted main tail are both O(x^(sigma_0)). These steps verify the claimed remainder, not merely its leading order.
+
+The generic transfer follows by the absolute critical sum. For synthetic F(m)=sqrt(m), replacing sqrt(floor(x/d)) by sqrt(x/d) costs at most sum_(d<=x)|lambda(d)|=O(sqrt(x)). Therefore the signed transfer really has leading (A_lambda/2)sqrt(x)log x. HB's no-go applies to generic F, not genuine S. For b>1/2, L_6(b)=zeta(2b)sum a_absolute(d)d^(-b), with a positive continuous second factor at 1/2. The claimed L_6(1/2+t)~A_absolute/(2t) uses the simple pole with residue one; this background fact was checked in [NIST DLMF 25.2](https://dlmf.nist.gov/25.2). No external theorem is needed for the elementary partial-sum proofs.
+
+#### E3. TP Finite Rules And Their Limits
+
+Unique factorization writes n=5^e7^f m, gcd(m,35)=1, with u(n)=alpha(e)alpha(f)u(m), alpha(0)=1 and alpha(e)=-1 for e>=1. This reconstructs the entire valuation lattice. Subtracting a dilation gives (I-D5)S=(I-2D5)T5 and similarly at 7; the two-prime identity has +4*T35(x/35), not zero mixed coefficient. The binary four-site part leaves every site with max(e,f)>=2 unpaid until restored.
+
+The inverse coefficients of (1-2z)/(1-z) are 1,2^(e-1), e>=1. At beta>=1/2 the finite product over 5,7 of (1-p^(-beta))/(1-2p^(-beta)) is finite. It transfers the SAME exponent. Masking a deleted prime again is idempotent, not renewed arithmetic saving.
+
+For TP3, enumerate W-free bases, W=6*product P, with N_W(y)=delta*y+O_W(1). Rounding A_j=floor((j+j^beta)/2) gives increments 0 or 1, so the assigned +/-1 base prefix is j^beta+O(1). Each attached prime contributes its exact geometric factor and at most one additional power of log x to the error. The missing geometric tail is O(1), because x^beta*p^(-(floor(log_p x)+1)beta)<1. Constants depend on fixed P,beta before x. The oscillatory version uses |c|<=beta/(2|beta+i tau|), ensuring consecutive target increments at most 1/2; correcting the first sign changes the prefix by O(1). All selected-prime response factors are nonzero to the right of 1/2. No global multiplicativity is proved for that rounded model.
+
+TP4 separately retains ordinary coprime multiplicativity with W-free coefficients m^(beta-1), whose partial sum is delta*y^beta/beta+O(1). It loses both genuine outside-prime signs and unit magnitude. The union of the two model objections is NOT a counterexample satisfying all genuine hypotheses. These are correctly scoped no-go results, not an impossibility theorem for all-prime arithmetic.
+
+#### E4. LM Diagonal And MC Finite-Depth Sector
+
+For all integers H>=2, B>=4H, keep a_k=mu(k)log(H/k), H<k<=B, and the original positive kernel K(k,l)=sum_(m=4H..B)floor(m/k)floor(m/l)/[m(m+1)]. Then V=D+C with both ordered off-diagonal orientations. Let ell=log(B/H), c=1/zeta(2).
+
+The elementary squarefree count |sum_(n<=y)mu(n)^2-cy|<=3sqrt(y) follows by the d^2|n identity and a reciprocal-square tail. Partial summation with f(t)=log(t/H)^2/t^2 gives
+
+```text
+|sum_(k>H)mu(k)^2 f(k)-2c/H| <= (56/9)H^(-3/2).
+```
+
+Here 6*integral_1^infinity t^(-5/2)(log t+log(t)^2)dt=56/9. For B>=4H, f decreases after B; its omitted tail is at most (ell^2+2ell+2)/B. For ALL m,k>=1, including m<k,
+
+```text
+0<=1/k^2-floor(m/k)^2/[m(m+1)]
+ <=1/[k^2(m+1)]+2/[k(m+1)].
+```
+
+Use S_B<=9/H, T_B<=ell^3 and the harmonic sum <=log((B+1)/(4H)). In the leading term use (B-4H+1)*(2c/H), so the removed lower-boundary cost is at most 8c<=8. One must not claim (4H-1)*S_B<=8 from S_B<=9/H. Combining the terms correctly verifies exactly
+
+```text
+|D-2cB/H| <= (56/9)B/H^(3/2)+ell^2+2ell+10
+             +log((B+1)/(4H))*(9/H+2ell^3).                 (CF.3)
+```
+
+At N=6ceil(H^2/6), B=N/2 this yields D~6H/pi^2. Since the actual regional error is (D+C)/log(N/H)^2, convergence requires C=-D+o(log(H)^2), not just C<=0 or a fixed fractional saving. This is a proper-region necessity/sufficiency, not sufficiency for the complete Nyman norm.
+
+The cofactor-max identity follows by summing each pair of floor occurrences from max(4H,kr,ls) to B, giving 1/max(4H,kr,ls)-1/(B+1). It preserves both orientations. For MC3, nonzero gcd-g terms have squarefree cofactors s,t coprime to g. If g<=H and B<g*p*q, where p<q are the two least primes not dividing g, the unit and every squarefree composite cofactor are excluded. All surviving s,t are distinct primes, with positive sign product; the m=B kernel term is positive. This proves MC3 exactly at its strict range. It cannot be extended past that boundary by the same argument.
+
+### F. Original Research: Critical Frequencies And A Nonatomic Counterfamily
+
+#### CF1. Uniform Frequency Transfer With An Explicit Error Constant
+
+Use the ACTUAL signed a=a_lambda from E2 and define
+
+```text
+A=sum a(d)/sqrt(d)>0,
+B0=sum |a(d)|/sqrt(d)<infinity,
+B1=sum |a(d)|log(d)/sqrt(d)<infinity,
+s_T=sqrt(1/4+T^2), C_T=(2+4s_T)B0+B1/2.
+```
+
+Then CF.1 holds with absolute error <=C_T*sqrt(x). Proof follows; all sums before absolute estimates are exact.
+
+First, |lambda|<=q*|a| coefficientwise, so sum_(d<=x)|lambda(d)|<=B0*sqrt(x). For s=1/2+it and y>=1,
+
+```text
+|floor(y)^s-y^s| <= |s|*integral_(floor y..y) r^(-1/2)dr <=2s_T.
+```
+
+Therefore replacing every literal floor power costs at most 2s_T*B0*sqrt(x). Next, integral comparison using |(r^(-1-2it))'|<=2s_T*r^(-2) gives, uniformly for Y>=1,
+
+```text
+sum_(k<=Y)k^(-1-2it)=integral_(1..Y)r^(-1-2it)dr+E,
+|E|<=2+2s_T.
+```
+
+Apply lambda=q*a to the resulting finite weighted sum. After multiplying by x^s, its integral part is exactly
+
+```text
+(sqrt(x)/2)*sum_(d<=x) a(d)/sqrt(d)
+                 *integral_(0..log(x/d)) exp(itv)dv.
+```
+
+The harmonic-comparison errors total at most (2+2s_T)B0*sqrt(x). Replace each integration endpoint by log x and extend d to infinity. For d<=x the error is at most log d; for d>x it is at most log x<=log d. These disjoint errors sum to at most (B1/2)*sqrt(x). This proves CF.1 with the displayed C_T, including t=0 and all small x. No zeta continuation, zero distribution or unproved interchange is used.
+
+Consequences:
+
+```text
+t=0:   T_lambda(m^(1/2))(x)=(A/2)sqrt(x)log x+O(sqrt(x));
+t!=0: |T_lambda(m^(1/2+it))(x)| <= (A/|t|+C_T)sqrt(x), |t|<=T;
+t=c/log x:
+ T_lambda(m^(1/2+it))(x)
+ = (A/2)sqrt(x)log x*(exp(ic)-1)/(ic)+O_T(sqrt(x)).
+```
+
+The last line describes a parameter-uniform test, not a single source whose frequency is silently changed at each scale. Equivalently, choose arbitrarily small FIXED t>0 and test x=exp(c/t). A fixed-frequency theorem cannot have a constant uniform down to t=0. At c a nonzero multiple of 2pi the leading factor vanishes; no claim that every slowly varying frequency amplifies is made.
+
+#### CF2. The Generic Obstruction Survives Unit-Magnitude Increments
+
+Fix T>=0 and c_T=1/(4s_T). For each FIXED |t|<=T define f_t(0)=0, f_t(y)=c_T*sqrt(y)*cos(t log y) for y>0, and
+
+```text
+A_j=floor((j+f_t(j))/2), A_0=0,
+epsilon_j=2(A_j-A_(j-1))-1.
+```
+
+Since |f_t'(y)|<=c_T*s_T*y^(-1/2), consecutive target increments have absolute value <=1/2. Thus epsilon_j is +/-1. Change epsilon_1 to +1 if needed. Its prefix F_t(m) differs from f_t(m) by at most 2. It is one sequence at every scale, with a square-root envelope uniform in |t|<=T.
+
+Applying CF1 and the bound sum|lambda(d)|<=B0 sqrt(x),
+
+```text
+T_lambda F_t(x)
+ =(c_T*A/2)sqrt(x)*sin(t log x)/t + O_T(sqrt(x)),
+```
+
+where sin(t log x)/t means log x at t=0. Hence HB's generic log-free claim remains false even for prefixes with bounded, unit-magnitude increments and first coefficient +1. For each fixed nonzero t it is nevertheless O_t(sqrt(x)). These prefixes are not asserted to be u_6, Möbius, or multiplicative.
+
+#### CF3. No Zero Atom Is Insufficient: A Rigorous Infinite Counterfamily
+
+Fix 0<alpha<1. Define F_alpha as in A, on ALL positive integers before the scale x. Its logarithmic spectrum is the finite symmetric measure with density (1/2)|t|^(alpha-1) on -1<t<1. It has no atom at 0, and |F_alpha(m)|<=sqrt(m)/alpha.
+
+Integrate the real part of CF1 over t in (0,1) against t^(alpha-1)dt. Finite inverse sums permit this interchange directly; the uniform CF1 error integrates to O_alpha(sqrt(x)). With L=log x the main factor is
+
+```text
+integral_(0..1) sin(Lt)*t^(alpha-2)dt
+ = L^(1-alpha)*integral_(0..L) sin(u)*u^(alpha-2)du.
+```
+
+The limiting integral I_alpha converges: near 0 its absolute integrand is at most u^(alpha-1), and at infinity at most u^(alpha-2). It is strictly positive. Pair the positive and negative half-periods: on each interval [2j*pi,(2j+2)*pi], substitute u+pi in the negative half, and use u^(alpha-2)>(u+pi)^(alpha-2). Each paired integral is positive, including the integrable first one. The omitted absolute tail from L to infinity is <=L^(alpha-1)/(1-alpha). This proves CF.2 with error O_alpha(sqrt(x)). In particular the image is not O(sqrt(x)). No numerically inferred sign or asymptotic is involved.
+
+The same obstruction can be realized by +/-1 prefixes. Extend F_alpha continuously to 0 by 0. Its derivative is bounded by
+
+```text
+|F_alpha'(y)| <= [1/(2alpha)+1/(alpha+1)]*y^(-1/2).
+```
+
+Multiply by any fixed positive c at most the reciprocal of four times that bracket, and apply CF2's rounding argument. The resulting prefix differs by O(1), so its inverse differs by O(sqrt(x)) and retains the positive sqrt(x)*(log x)^(1-alpha) leading term. Its atom-free spectral representation is retained modulo this bounded rounding error, not claimed exactly after rounding.
+
+**Exact refutation:** within the class of square-root-bounded generic prefixes represented by a finite atom-free compact logarithmic spectrum (even allowing only a bounded rounding error to unit increments), absence of a zero atom does NOT imply a log-free bound under the actual lambda inverse. This does not refute an estimate using the genuine all-prime coefficient pattern or a quantitatively controlled spectrum.
+
+#### CF4. A Sufficient Repair, Not A New Arithmetic Assumption
+
+Let nu be any finite complex Borel measure on [-T,T], fixed before x, and suppose
+
+```text
+integral |t|^(-1) d|nu|(t) < infinity,
+F(m)=sqrt(m)*integral exp(it log m) dnu(t)+e(m), |e(m)|<=E.
+```
+
+Then CF1 and finite-sum interchange give
+
+```text
+|T_lambda F(x)| <= sqrt(x)*[
+ A*integral |t|^(-1)d|nu|(t) + C_T*|nu|([-T,T]) + E*B0].
+```
+
+A fixed spectral gap is a sufficient special case. This condition is not asserted necessary: additional cancellations in a measure could help. CF3 shows that atomlessness alone cannot replace it. No such representation or frequency moment has been established for actual S. Treating it as paid would merely hide a new square-root input, not advance the proof.
+
+### G. Original-Carrier And Covariance Audit
+
+| Coordinate | Exact bridge or explicit barrier |
+| --- | --- |
+| Euler / FINITE-AC | Actual lambda is the accepted inverse of u_6; original row C_R(6)=2J-S retains its radical history and strict square endpoint. CF tests the genuine kernel on generic inputs, not a substitute arithmetic source. |
+| Square blocks / MU-LIFT | FR's all-prefix interpolation at R=6r and its O(sqrt(x)) between-square return remain required. CF supplies no historical K_R estimate, recurrence gain, or chain coverage. |
+| Actual-prime VF / finite wheel | Canonical phase, physical/virtual wheel terms and #915 admission/clip/anchor weights are unchanged. There is no coefficient-preserving equality between CF input models and prime discrepancy. |
+| NNS / OAI | Ideal-character masks and the full compensated Gram are distinct. No model frequency is identified with a Hecke phase or native zeta zero. A global Mertens comparator is one-way size information only. |
+| NYMAN | LM concerns the original additive floor covariance and weights 1/[m(m+1)], a proper region of its full error. Its gcd labels are not the multiplicative Euler rows. |
+
+For genuine rows keep Q_R^2=sum_g C_R(g)^2+2sum_(g<h)C_R(g)C_R(h). For the history/response split keep ||H-E||^2=||H||^2+||E||^2-2<H,E>. For Nyman keep every off-diagonal, both correction bands, k=1 moments, correction activation, after-N and infinite tail. No negative interaction is spent twice or assumed merely from a component's sign. CF's linear identities imply no favorable original covariance.
+
+### H. Quantifier And No-Circularity Audit
+
+CF1 has fixed T and actual kernel first, one C_T next, then ALL x>=1 and |t|<=T. The log-free corollary additionally fixes nonzero t, or a positive spectral gap, BEFORE the constant. Those quantifiers cannot be swapped. CF3 fixes alpha and its entire input sequence before x; it is an infinite counterfamily, not a fitted finite sequence. Every CF inverse still includes the literal floor.
+
+HB's signed/absolute divergence is logarithmic, not a positive-power obstruction. TP's fixed finite set has constants depending on that set; a growing-prime set is not covered. LM's p>1 polynomial-taper asymptotic fixes p first; its all-range error is uniform in H,B, not in an unannounced p tending to 1. Negative total covariance alone does not achieve the required magnitude.
+
+The accepted FR dictionary says G(b) is equivalent to the fixed-g=6 every-positive-loss row bound at exponent 2b, including b=1/2. A genuinely improved normalized supplier at actual gap h must force eta(h)<h. Merely giving that supplier a spectral name does not make it independent. CF4 presupposes F=O(sqrt(m)) already; applied to actual S it is a stronger auxiliary input, not a proof of that input. No converse from RH to this spectral representation or to finite A is claimed, nor is either converse declared false.
+
+The native closed-boundary consumer does not need a zero attaining the supremum. A strict-input-only estimate cannot be used at the supremum without closure. Constants may depend on a fixed stage; no constant uniform over infinitely many stages is demanded. None of the current results supplies the strict arithmetic step needed by that consumer.
+
+### I. Constructive Repairs And Signed-Loss Ledger
+
+| Step / loss | Paid repair | Remaining unpaid quantity / falsifier |
+| --- | --- | --- |
+| Critical inverse triangle erases logarithmic phase | HB pays a sharp logarithm; CF1 retains finite-frequency cancellation with an explicit uniform error | CF3 defeats replacing a frequency-moment estimate by mere atomlessness. No genuine spectrum supplied. |
+| Finite-prime deletion retains only selected local rules | TP restores all valuation powers, mixed +4 term and complete finite inverse | Generic real/oscillatory modes survive; use actual all-prime information, not repeated deletion. |
+| Nyman square replaced by diagonal or a sign | LM restores complete covariance and proves D~6H/pi^2 at the quadratic taper | Need C=-D+o(log^2 H) on a useful subsequence, plus every other region. Shared-sector signs vary at H10/H13. |
+| Fixed row replaces endpoint pointwise | Existing #1139 falsifies that replacement; accepted FR retains J and all-scale inversion | R139 remains decisive; neither CF nor TP may discard J or infer pointwise domination. |
+
+The strongest surviving new statement is CF1-CF4's precise kernel/frequency theorem, not a new arithmetic cancellation theorem. It supports the existing direct half-consumer by identifying a real transfer cost and its uniformity. It does not establish a new route.
+
+### J. Competing Proof-Strategy Assessment
+
+FINITE-AC/CORR4/MU-LIFT remain distinct toolkits. The finite-prime sign-only supplier is PARKED_NO_HALF_CONTINUATION at TP's exact no-go scope. CF closes the assigned critical-cost audit: the transfer is feasible with logarithmic losses, but low-frequency control cannot be assumed. Another generic inverse identity or larger unchanged scan would not supply the arithmetic.
+
+NYMAN retains a genuine direct terminal, but LM's proper-region diagonal and MC's finite signs do not pay its full norm. The actual weighted space and constant/fractional-part basis were checked against [Bagchi, Theorem 1](https://arxiv.org/html/math/0607733v1). Convergence of the complete original norm on one unbounded admissible sequence would suffice; the reverse for this particular family is not claimed. The early middle, correction activation and after-N regions remain independently unpaid.
+
+Actual-prime VF/SAT/JOH retains DB's correction history and complete restoration requirements; no new verdict on its full unpaid residual is issued. OAI/CODIV retains the governing supplier-specific 47/54 LOW floor, theta>3/5 coefficient gate and Re(s)>21/25 correction domain. CF does not pass any of those gates. No protected toolkit is declared impossible, and no strategic amendment or saved-schedule change is made.
+
+### K. Original Research And Executed Verification
+
+Original research beyond upstream review: derived the uniform CF1 response, made generic sharpness compatible with unit increments, constructed the atom-free infinite counterfamily, and proved a precise sufficient repair. No external spectral decomposition or numerical trend enters these proofs. Novelty is relative to the retrieved HB/TP/FR derivations and scoped current-source search; no worldwide priority is claimed.
+
+The independently authored standard-library checker completed **69,106 exact/interval assertions**, exit zero. It checked signed and absolute square factorizations and u*lambda=mu for every 1<=n<=4096; controls n=2,8,16,25,125,625; exact convergence gate; genuine and beta=1/2,3/4 synthetic two-prime identities for every 0<=x<=4096; the genuine x=35,49,245 witnesses; 4,096 unit increments; and 260 exact floor-return comparisons for the bounded-increment critical input. The half-exponent model is a finite extension check, not a claimed proof of an asymptotic.
+
+For H=10,13 only, it recomputed genuine mu by trial factorization, 1,406 kernels by BOTH literal floor sums and cofactor-max rational sums, then the complete Gram sectors with both orientations. Logarithms used 70 rational atanh terms after dyadic reduction and an explicit positive remainder, converted to outward integer intervals at scale 10^30. No floating-point sign was used. Selected-head crossings and total/shared signs are certified on that declared domain.
+
+| H | Diagonal D | Coprime off-diagonal | Shared-gcd off-diagonal | V=D+C |
+| --- | --- | --- | --- | --- |
+| 10 | [0.185253437572,0.185253437573] | [-0.181034836312,-0.181034836311] | [0.003351232230,0.003351232231] | [0.007569833491,0.007569833492] |
+| 13 | [0.489618050493,0.489618050494] | [-0.450930037694,-0.450930037693] | [-0.027086966944,-0.027086966943] | [0.011601045856,0.011601045857] |
+
+These decimal intervals are rounded outward from exact rational endpoints. The Gram equality is proved algebraically; this checker compares overlapping rigorous evaluations, not an additional symbolic-polynomial identity certificate. No minimality claim, R139 rerun, H19/H20 rerun or expanded sign scan was made.
+
+A separate Decimal diagnostic used 80 and 120 digits on x=256,1024,4096, with zero, fixed-half, slow 1/log x and nonatomic alpha=1/2 frequency inputs. Twenty-four finite floor-factorization comparisons and twelve precision comparisons passed. These **36 checks are numerical diagnostics only**, not rigorous error enclosures or evidence of a limiting constant. The first optional mpmath import was unavailable; no package was installed, and the diagnostic was completed with the standard library instead. Both scripts passed syntax validation. All processes completed. The embedded source is the reproducible evidence; finite counts are not counts of independent mathematical theorems.
+
+### L. Formalization Guidance
+
+HB1-HB4, TP1-TP4 and LM1-LM2 now have independent paper acceptance at the scopes above. CF1-CF4 still require independent review and are not Lean-certified. MC3 is elementary supporting bookkeeping, not an endpoint gain. #1139 already certifies the pointwise obstruction; no duplicate implementation is requested.
+
+Do not formalize CF4 as an unconditional statement about S, assume its measure exists, omit its inverse-frequency moment, treat a model as genuine arithmetic, or hide eta(h)<h in data. No new implementation is requested solely to raise theorem count. A later necessary transition may be worthwhile only with an independently accepted arithmetic consumer. Current disposition: PENDING_NO_ACCEPTED_NEW_SUPPLIER.
+
+### M. Specialist Handoffs
+
+**Coordinator:** HB's requested critical-cost audit is ACCEPT at kernel scope, including its O(x^(-1/20)) remainder. CF adds the distinction between fixed-frequency cancellation and family-uniform low-frequency concentration. Close this bounded audit; do not promote it to a new source supplier or repeat generic inverse work.
+
+**Wheel:** TP3 and TP4 are accepted separately; neither matches all original global coefficient conditions. Your actual finite-prime returns and inverse survive. Any new proposal must use information excluding those models. No one-more-fixed-prime scan is requested.
+
+**Analytic:** LM's explicit all-range diagonal bound is accepted. Preserve the lower-boundary calculation in E4 and the complete regional saturation requirement. For CF review, check the uniform sum-integral error, B1 endpoint restoration and atom-free density t^(alpha-1), rather than assume a zeta-zero spectral model for S.
+
+**Census:** MC3 is accepted at B<g*p*q; MC1-MC2 retain your finite evidence status. Independent H10/H13 intervals reproduce LM's signs. CF's asymptotic is proved symbolically; no larger undirected numerical scan is needed. A useful future test requires a genuinely new complete-source inequality and a preregistered falsifier.
+
+**Owner:** no inverse/model covariance transfers to #915 payment. Preserve DB's R5 correction and R137 restored sign reversal. Your failure-first question still requires a new complete residual restriction under the actual first-bad hypotheses; full DB review is not silently claimed here.
+
+**Lean Verification:** retain paper/Lean distinctions. #1139 is merged with verified exact-head evidence. CF needs separate review, not a new assumed-spectrum wrapper. No proof branch, PR, or rerun is requested absent a named necessary arithmetic step. These are asynchronous report handoffs, not agent launches.
+
+### N. First Independently Missing Mathematical Ingredient
+
+For the native continuation, the first unpaid theorem remains an original-source restriction forcing a cost eta(h)<h at the actual positive closed gap. Same-exponent inversion, finite-prime identities and a generic spectral transfer do not supply it. No independently weaker sufficient arithmetic premise was found.
+
+CF narrows one possible future analytic argument: an independently justified low-frequency estimate on the genuine source must include quantitative concentration control and all radical/history returns. Atomlessness by itself is false as a generic substitute. Since even obtaining the proposed square-root spectral representation already assumes square-root size, it must not become the next renamed target.
+
+For Nyman the original full signed cumulative discrepancy, not its diagonal or sign, remains unpaid together with the other regional returns. The present report accepts supporting mathematics and supplies a new precise no-go, without claiming an active complete half-proof mechanism.
+
+### O. Next-Run Resume Capsule
+
+```text
+LABEL=20261116-referee-2013-EST/CF; RUN_ID_UNAVAILABLE;
+TRIGGER=2026-11-16T20:13:01-05:00;
+MAIN=4d5482805bac6a8f29d4fb4dadc61eca0bc06525;
+REPORT_INTAKE=076aeaeb1d50ec9417c67622d7aca96bb0574981;
+CHECKPOINT=221d1acc9d90444fc6f391e08891372d2ada904c;
+half_bootstrap_ack=BOOTSTRAP_TO_HALF_V1;
+cross_route_ack=CROSS_ROUTE_SIGNED_RECOVERY_V1;
+continuity_ack=LAST_ACTUAL_REPORT_CONTINUITY_V1;
+ROUTE=FINITE-AC bounded critical-inverse feasibility audit;
+SOURCE=actual signed lambda, original C_R(6)=2J-S, strict K_R;
+CURRENT_P(b)=G(b), certified initial b_base=7/8-7/(64*N_pack);
+ADVANCE=none supplied; if independent eta(h)<h then gap_next=(h+eta(h))/2;
+CLOSED_ENDPOINT=existing epsilon-closed native boundary permits t=h;
+RETURNS=radical J, unit/prime powers, literal floors, all prefixes and Gram terms;
+CONSTANT_ORDER=fixed kernel,T,alpha,frequency/measure before constants and ALL x;
+NEW=CF1 uniform frequency formula; CF2 unit-increment sharpness;
+CF3 nonatomic near-zero counterfamily; CF4 sufficient inverse-frequency moment;
+ACCEPT_ON_PAPER=HB1-HB4, TP1-TP4, LM1-LM2, MC3 at stated scopes;
+FINITE=69106 exact/interval assertions plus 36 numerical diagnostics;
+UNREVIEWED=full TW/DB, LM4 literature transfer, entire MC/HB/TP numerical campaigns;
+FIRST_OPEN=independent complete-source strict saving, not a spectral restatement;
+PRESENT_WORK_TO_NEXT=independent CF review; then a new arithmetic mechanism,
+                     not another unchanged inverse or sign scan;
+STATUS=completed ACTIVE_SUPPORT / bounded feasibility audit;
+NEW_MATH=PAPER_PROOF/SELF_AUDIT; NEW_LEAN=NONE;
+NO_NEW_GLOBAL_GAIN; NO_NEW_ACCEPTED_RH_ROUTE; VERIFIED_ETA=NONE; RH=OPEN;
+PUBLICATION=READBACK_PENDING until separate verified receipt.
+```
+
+Only the authorized daily Referee report on agent-reports is written remotely. No main/source/other-report/policy edits, proof branches, issues, PR changes, workflow launches, merges, agent launches, permission or schedule changes occurred.
+
+
+### Material Source Receipt - CF
+
+All main source links below are immutable at the recorded main SHA. Today's upstream claims are at reporting revision 076aeaeb1d50ec9417c67622d7aca96bb0574981.
+
+| Material source | Blob SHA |
+| --- | --- |
+| [AGENTS.md](https://github.com/OVVO-Financial/RH_Lean/blob/4d5482805bac6a8f29d4fb4dadc61eca0bc06525/AGENTS.md) | c4f36b772f8a4b0c24fe566b90fafb646073c60f |
+| [CURRENT_PROOF_CONTRACT.md](https://github.com/OVVO-Financial/RH_Lean/blob/4d5482805bac6a8f29d4fb4dadc61eca0bc06525/CURRENT_PROOF_CONTRACT.md) | 95566e37c8eaeb99ee680660df4f9d2e06ea5038 |
+| [docs/RHLEAN_BOOTSTRAP_TO_HALF_20261116.md](https://github.com/OVVO-Financial/RH_Lean/blob/4d5482805bac6a8f29d4fb4dadc61eca0bc06525/docs/RHLEAN_BOOTSTRAP_TO_HALF_20261116.md) | 96ad4439ec458af6168f7d9cb3eef5dde291d37c |
+| [docs/RHLEAN_CROSS_ROUTE_SIGNED_RECOVERY_20261110.md](https://github.com/OVVO-Financial/RH_Lean/blob/4d5482805bac6a8f29d4fb4dadc61eca0bc06525/docs/RHLEAN_CROSS_ROUTE_SIGNED_RECOVERY_20261110.md) | e3ae4280438f591f1ffaddd754a1c3a6d35d0691 |
+| [docs/RHLEAN_REPORT_CONTINUITY_LAST_ACTUAL_20261111.md](https://github.com/OVVO-Financial/RH_Lean/blob/4d5482805bac6a8f29d4fb4dadc61eca0bc06525/docs/RHLEAN_REPORT_CONTINUITY_LAST_ACTUAL_20261111.md) | 3e71820a4af722eae7098da6945bb5bcba50dd0d |
+| [research/EULER_HYBRID_ABEL_GRAM_20261027.lean](https://github.com/OVVO-Financial/RH_Lean/blob/4d5482805bac6a8f29d4fb4dadc61eca0bc06525/research/EULER_HYBRID_ABEL_GRAM_20261027.lean) | 2a94dd8fd56fc03e95f732fb44b778a8d4f83e26 |
+| [research/EULER_SELF_DUAL_ENDPOINT_GATE_20261027.lean](https://github.com/OVVO-Financial/RH_Lean/blob/4d5482805bac6a8f29d4fb4dadc61eca0bc06525/research/EULER_SELF_DUAL_ENDPOINT_GATE_20261027.lean) | e7ee8f77ffd59bccaa49dd6d74fbe0d7952c2d73 |
+| [research/EULER_FIXED_GCD_ROW_OBSTRUCTION.lean](https://github.com/OVVO-Financial/RH_Lean/blob/4d5482805bac6a8f29d4fb4dadc61eca0bc06525/research/EULER_FIXED_GCD_ROW_OBSTRUCTION.lean) | 9003eb1c226f0b114be6402e63f325b60c80bf92 |
+| [RHLean/Proof/SquareRootAmplificationLogGrowth.lean](https://github.com/OVVO-Financial/RH_Lean/blob/4d5482805bac6a8f29d4fb4dadc61eca0bc06525/RHLean/Proof/SquareRootAmplificationLogGrowth.lean) | 2599db31079f388229d072ee616957fba6ffc555 |
+| [RHLean/Proof/AmplificationExponentIteration.lean](https://github.com/OVVO-Financial/RH_Lean/blob/4d5482805bac6a8f29d4fb4dadc61eca0bc06525/RHLean/Proof/AmplificationExponentIteration.lean) | d78be4509e5dcc35b833c3786258b94fc6e71915 |
+| [research/UNIVERSAL_ENVELOPE_RH_BRIDGES.lean](https://github.com/OVVO-Financial/RH_Lean/blob/4d5482805bac6a8f29d4fb4dadc61eca0bc06525/research/UNIVERSAL_ENVELOPE_RH_BRIDGES.lean) | 02a88cadc1eb984557b9dd7ee2e03e29bd3e5287 |
+| [research/oai_434/VF919WindowErrorClosure.lean](https://github.com/OVVO-Financial/RH_Lean/blob/4d5482805bac6a8f29d4fb4dadc61eca0bc06525/research/oai_434/VF919WindowErrorClosure.lean) | f629db1b2b65d6ec042ac9432397d4b6316200c6 |
+| [scripts/lean/window_error_closure/WindowErrorClosureAudit.lean](https://github.com/OVVO-Financial/RH_Lean/blob/4d5482805bac6a8f29d4fb4dadc61eca0bc06525/scripts/lean/window_error_closure/WindowErrorClosureAudit.lean) | 1f17f9401a63d16227db2e2aad020b9f74bc5f4e |
+| [scripts/lean/fixed_gcd_row/Audit.lean](https://github.com/OVVO-Financial/RH_Lean/blob/4d5482805bac6a8f29d4fb4dadc61eca0bc06525/scripts/lean/fixed_gcd_row/Audit.lean) | a994469d47f040ca026ecc4cdbe14d19616ad838 |
+| [scripts/lean/fixed_gcd_row/ExactTypes.lean](https://github.com/OVVO-Financial/RH_Lean/blob/4d5482805bac6a8f29d4fb4dadc61eca0bc06525/scripts/lean/fixed_gcd_row/ExactTypes.lean) | 83ec3cb106b7e8ff477a0eb5c7dcf789df818659 |
+| [research/NYMAN_FLAT_TAPER_RETURN_20261104.lean](https://github.com/OVVO-Financial/RH_Lean/blob/4d5482805bac6a8f29d4fb4dadc61eca0bc06525/research/NYMAN_FLAT_TAPER_RETURN_20261104.lean) | 2d23721027ecc44e85b7add02fc632b482f03352 |
+| [research/NYMAN_RADICAL_INCREMENT_20261106.lean](https://github.com/OVVO-Financial/RH_Lean/blob/4d5482805bac6a8f29d4fb4dadc61eca0bc06525/research/NYMAN_RADICAL_INCREMENT_20261106.lean) | c5ebb3d5d96898549ad039fd32e1a26955c5b8f8 |
+| [research/VF_CANONICAL_SQRT_TWO_VON_KOCH.lean](https://github.com/OVVO-Financial/RH_Lean/blob/4d5482805bac6a8f29d4fb4dadc61eca0bc06525/research/VF_CANONICAL_SQRT_TWO_VON_KOCH.lean) | 79030d70e8d3e0d08eef9bac53fef95c36eca2fb |
+
+Upstream originals: [00-coordinator-am](https://github.com/OVVO-Financial/RH_Lean/blob/076aeaeb1d50ec9417c67622d7aca96bb0574981/research/agent_reports/2026-11-16/00-coordinator-am.md); [20-analytic-type-ii](https://github.com/OVVO-Financial/RH_Lean/blob/076aeaeb1d50ec9417c67622d7aca96bb0574981/research/agent_reports/2026-11-16/20-analytic-type-ii.md); [30-finite-wheel](https://github.com/OVVO-Financial/RH_Lean/blob/076aeaeb1d50ec9417c67622d7aca96bb0574981/research/agent_reports/2026-11-16/30-finite-wheel.md); [40-prime-census](https://github.com/OVVO-Financial/RH_Lean/blob/076aeaeb1d50ec9417c67622d7aca96bb0574981/research/agent_reports/2026-11-16/40-prime-census.md); [50-adversarial-referee](https://github.com/OVVO-Financial/RH_Lean/blob/076aeaeb1d50ec9417c67622d7aca96bb0574981/research/agent_reports/2026-11-16/50-adversarial-referee.md); [60-lean-verification](https://github.com/OVVO-Financial/RH_Lean/blob/076aeaeb1d50ec9417c67622d7aca96bb0574981/research/agent_reports/2026-11-16/60-lean-verification.md). The continuity ledger gives their separate blob SHAs and consumed sections.
+
+### CF Reproduction Appendix
+
+The two programs below use only the Python standard library. Run cf_verify.py for exact arithmetic and rigorous log intervals; run cf_frequency_diagnostic.py for the explicitly non-rigorous numerical checks. The second program also runs the first before its diagnostics. Its import is portable within their common directory. No asymptotic assertion is inferred from either program.
+
+<details>
+<summary>Executed source: cf_verify.py</summary>
+
+```python
+"""Independent CF finite checks. Infinite estimates are proved in the report."""
+
+from collections import Counter
+from fractions import Fraction as F
+from functools import lru_cache
+from math import gcd, isqrt
+import json
+
+COUNT = Counter()
+N = 4096
+
+
+def check(label, condition):
+    assert condition, label
+    COUNT[label] += 1
+
+
+@lru_cache(None)
+def factor(n):
+    out = []
+    p = 2
+    while p * p <= n:
+        e = 0
+        while n % p == 0:
+            n //= p
+            e += 1
+        if e:
+            out.append((p, e))
+        p += 1
+    if n > 1:
+        out.append((n, 1))
+    return tuple(out)
+
+
+def mu(n):
+    f = factor(n)
+    return 0 if any(e > 1 for p, e in f) else (-1) ** len(f)
+
+
+def u(n):
+    return (-1) ** sum(p > 3 for p, e in factor(n))
+
+
+def coeff(n, kind):
+    z = 1
+    for p, e in factor(n):
+        if kind in ('lam', 'abs'):
+            v = ((-2 if e == 1 else 1 if e == 2 else 0)
+                 if p <= 3 else (0 if e == 1 else 2 ** (e - 2)))
+            if kind == 'abs':
+                v = abs(v)
+        elif p <= 3:
+            table = [1, -2, 0, 2, -1] if kind == 'a' else [1, 2, 0, -2, -1]
+            v = table[e] if e < len(table) else 0
+        else:
+            v = 0 if e <= 2 else 2 if e == 3 else 3 * 2 ** (e - 4)
+        z *= v
+    return z
+
+
+def divisors(n):
+    return [d for d in range(1, n + 1) if n % d == 0]
+
+
+lam = [0] + [coeff(n, 'lam') for n in range(1, N + 1)]
+a = [0] + [coeff(n, 'a') for n in range(1, N + 1)]
+aa = [0] + [coeff(n, 'aa') for n in range(1, N + 1)]
+uv = [0] + [u(n) for n in range(1, N + 1)]
+mv = [0] + [mu(n) for n in range(1, N + 1)]
+for n in range(1, N + 1):
+    sq = [k for k in range(1, isqrt(n) + 1) if n % (k * k) == 0]
+    check('square_signed', lam[n] == sum(a[n // (k * k)] for k in sq))
+    check('square_absolute', abs(lam[n]) == sum(aa[n // (k * k)] for k in sq))
+    check('original_inverse', sum(uv[d] * lam[n // d] for d in divisors(n)) == mv[n])
+
+for n, values in {2: (-2, -2, 2), 8: (0, 2, -2), 16: (0, -1, -1),
+                  25: (1, 0, 0), 125: (2, 2, 2), 625: (4, 3, 3)}.items():
+    check('small_controls', (lam[n], a[n], aa[n]) == values)
+check('convergence_gate', 5 ** 9 > 2 ** 20)
+check('negative_sign_control', uv[2] + abs(lam[2]) != mv[2])
+check('deleted_square_control', lam[25] != a[25])
+
+
+def prefix(v, excluded=1):
+    out = [0]
+    for n in range(1, len(v)):
+        out.append(out[-1] + (v[n] if gcd(n, excluded) == 1 else 0))
+    return out
+
+
+def model(power):
+    bases = [n for n in range(1, N + 1) if gcd(n, 210) == 1]
+    signs = {}
+    old = 0
+    for j, n in enumerate(bases, 1):
+        root = isqrt(j) if power == 'half' else isqrt(isqrt(j ** 3))
+        if power == 'half':
+            check('model_root', root * root <= j < (root + 1) ** 2)
+        else:
+            check('model_root', root ** 4 <= j ** 3 < (root + 1) ** 4)
+        now = (j + root) // 2
+        signs[n] = 2 * (now - old) - 1
+        old = now
+    out = [0]
+    for n in range(1, N + 1):
+        m, sign = n, 1
+        for p in [2, 3, 5, 7]:
+            present = m % p == 0
+            while m % p == 0:
+                m //= p
+            if present and p >= 5:
+                sign = -sign
+        out.append(sign * signs[m])
+    return out
+
+
+def powers(p, x):
+    q = 1
+    while q <= x:
+        yield q
+        q *= p
+
+
+rows = {}
+for name, values in [('genuine', uv), ('half_model', model('half')),
+                     ('three_quarter_model', model('three_quarters'))]:
+    S, T5, T7, T35 = [prefix(values, e) for e in [1, 5, 7, 35]]
+    for x in range(N + 1):
+        check('toggle5', S[x] - S[x // 5] == T5[x] - 2 * T5[x // 5])
+        check('toggle7', S[x] - S[x // 7] == T7[x] - 2 * T7[x // 7])
+        check('two_toggle', S[x] - S[x // 5] - S[x // 7] + S[x // 35]
+              == T35[x] - 2 * T35[x // 5] - 2 * T35[x // 7] + 4 * T35[x // 35])
+        full = sum((1 if p5 == 1 else -1) * (1 if p7 == 1 else -1)
+                   * T35[x // (p5 * p7)]
+                   for p5 in powers(5, x) for p7 in powers(7, x // p5))
+        check('valuation_return', S[x] == full)
+    rows[name] = {x: [S[x], T5[x], T7[x], T35[x]] for x in [25, 35, 49, 245, 4096]}
+    if name == 'genuine':
+        check('same_sign_control', rows[name][245] == [-109, -112, -110, -106])
+        binary = T35[49] - T35[49 // 5] - T35[49 // 7] + T35[49 // 35]
+        check('omitted_power_control', S[49] == -17 and binary == -15)
+        check('mixed_boundary_control', T35[35] - 2 * T35[7] - 2 * T35[5] == -16)
+
+# An integer-only bounded-increment critical input, with its first sign restored.
+F0 = [0] + [2 * ((2 * n + isqrt(n)) // 4) - n + 2 for n in range(1, N + 1)]
+for n in range(1, N + 1):
+    check('unit_increment', abs(F0[n] - F0[n - 1]) == 1)
+for x in list(range(1, 257)) + [625, 1024, 2048, 4096]:
+    direct = sum(lam[d] * F0[x // d] for d in range(1, x + 1))
+    square = sum(a[d] * sum(F0[x // (d * k * k)] for k in range(1, isqrt(x // d) + 1))
+                 for d in range(1, x + 1))
+    check('bounded_prefix_floor_return', direct == square)
+
+
+# Rational Taylor remainders, then outward fixed-point interval arithmetic.
+SCALE = 10 ** 30
+TERMS = 70
+
+
+def series_log(r):
+    t = (r - 1) / (r + 1)
+    low = 2 * sum((t ** (2 * j + 1) / (2 * j + 1) for j in range(TERMS)), F(0))
+    tail = 2 * t ** (2 * TERMS + 1) / ((2 * TERMS + 1) * (1 - t * t))
+    return low, low + tail
+
+
+LN2 = series_log(F(2))
+
+
+@lru_cache(None)
+def log_interval(n):
+    e = n.bit_length() - 1
+    lo, hi = series_log(F(n, 2 ** e))
+    lo += e * LN2[0]
+    hi += e * LN2[1]
+    return (lo.numerator * SCALE // lo.denominator,
+            -((-hi.numerator * SCALE) // hi.denominator))
+
+
+def add(x, y):
+    return x[0] + y[0], x[1] + y[1]
+
+
+def mul(x, y):
+    v = [a * b for a in x for b in y]
+    return min(v) // SCALE, -((-max(v)) // SCALE)
+
+
+def scale(x, r):
+    v = [F(x[0]) * r, F(x[1]) * r]
+    lo, hi = min(v), max(v)
+    return lo.numerator // lo.denominator, -((-hi.numerator) // hi.denominator)
+
+
+def sub(x, y):
+    return x[0] - y[1], x[1] - y[0]
+
+
+def pretty(v):
+    return [str(F(x, SCALE)) for x in v]
+
+
+lm = {}
+for H in [10, 13]:
+    B = 3 * ((H * H + 5) // 6)
+    A = 4 * H
+    weights = {k: scale(sub(log_interval(H), log_interval(k)), F(mv[k]))
+               for k in range(H + 1, B + 1) if mv[k]}
+    totals = {key: (0, 0) for key in ['D', 'coprime', 'shared', 'V']}
+    for k in weights:
+        for l in weights:
+            if l < k:
+                continue
+            kernel = sum((F((m // k) * (m // l), m * (m + 1)) for m in range(A, B + 1)), F(0))
+            alt = sum((F(1, max(A, k * r, l * s)) - F(1, B + 1)
+                       for r in range(1, B // k + 1) for s in range(1, B // l + 1)), F(0))
+            check('cofactor_kernel', kernel == alt)
+            value = scale(mul(weights[k], weights[l]), kernel * (1 if k == l else 2))
+            key = 'D' if k == l else 'coprime' if gcd(k, l) == 1 else 'shared'
+            totals[key] = add(totals[key], value)
+    for m in range(A, B + 1):
+        U = (0, 0)
+        for k, w in weights.items():
+            U = add(U, scale(w, F(m // k)))
+        totals['V'] = add(totals['V'], scale(mul(U, U), F(1, m * (m + 1))))
+    gram = add(add(totals['D'], totals['coprime']), totals['shared'])
+    check('gram_enclosure_overlap', max(gram[0], totals['V'][0]) <= min(gram[1], totals['V'][1]))
+    deltas = []
+    for h in [H, H + 1]:
+        delta = (SCALE, SCALE)
+        for k in range(1, h + 1):
+            delta = sub(delta, scale(sub(log_interval(h), log_interval(k)), F(mv[k], k)))
+        deltas.append(delta)
+    check('selected_head', deltas[0][0] > 0 > deltas[1][1] if H == 10
+          else deltas[0][1] < 0 < deltas[1][0])
+    check('shared_sector_sign', totals['shared'][0] > 0 if H == 10 else totals['shared'][1] < 0)
+    check('total_negative_sign', add(totals['coprime'], totals['shared'])[1] < 0)
+    lm[H] = {k: pretty(v) for k, v in totals.items()}
+
+print(json.dumps({'status': 'PASS', 'checks': dict(COUNT), 'total': sum(COUNT.values()),
+                  'TP': rows, 'LM_rational_intervals': lm}, indent=2))
+```
+
+</details>
+
+<details>
+<summary>Executed source: cf_frequency_diagnostic.py</summary>
+
+```python
+"""Non-rigorous numerical sanity checks; CF all-scale claims use paper proofs."""
+
+from contextlib import redirect_stdout
+from decimal import Decimal as D, localcontext
+from functools import lru_cache
+from pathlib import Path
+import io
+import json
+import runpy
+
+with redirect_stdout(io.StringIO()):
+    data = runpy.run_path(str(Path(__file__).with_name('cf_verify.py')))
+lam, a = data['lam'], data['a']
+
+
+def cos_decimal(z):
+    term = total = D(1)
+    for j in range(1, 141):
+        term *= -(z * z) / D((2 * j - 1) * (2 * j))
+        total += term
+    return total
+
+
+def compute(precision):
+    results = {}
+    with localcontext() as ctx:
+        ctx.prec = precision
+        for x in [256, 1024, 4096]:
+            for kind in ['zero', 'fixed_half', 'slow', 'nonatomic_half']:
+                t = D(0) if kind == 'zero' else D('0.5') if kind == 'fixed_half' else 1 / D(x).ln()
+
+                @lru_cache(None)
+                def F(m):
+                    L = D(m).ln()
+                    if kind != 'nonatomic_half':
+                        return D(m).sqrt() * cos_decimal(t * L)
+                    term, value = D(1), D(2)
+                    for j in range(1, 141):
+                        term *= -(L * L) / D((2 * j - 1) * (2 * j))
+                        value += 2 * term / D(4 * j + 1)
+                    return D(m).sqrt() * value
+
+                direct = sum((D(lam[d]) * F(x // d) for d in range(1, x + 1) if lam[d]), D(0))
+                square = D(0)
+                for d in range(1, x + 1):
+                    if a[d]:
+                        k = 1
+                        while d * k * k <= x:
+                            square += D(a[d]) * F(x // (d * k * k))
+                            k += 1
+                assert abs(direct - square) < D(10) ** (20 - precision)
+                results[f'{x}:{kind}'] = direct
+    return results
+
+
+lo, hi = compute(80), compute(120)
+for key in lo:
+    assert abs(lo[key] - hi[key]) < D('1e-60')
+print(json.dumps({'status': 'PASS_NUMERICAL_DIAGNOSTIC_ONLY',
+                  'floor_factorization_comparisons': 24, 'precision_comparisons': 12,
+                  'values': {k: format(v, '.18f') for k, v in hi.items()}}, indent=2))
+```
+
+</details>
+
+
+
+### CF Prepublication Validation
+
+At 2026-11-17T01:33:44Z (November 16, 20:33:44 EST), live main was still 4d5482805bac6a8f29d4fb4dadc61eca0bc06525, and the open/draft PR collection was empty. The agent-reports head was exactly the verified CF checkpoint 221d1acc9d90444fc6f391e08891372d2ada904c; no new upstream report or external-inbox revision intervened. Required A-O headings, all six table widths, balanced code fences and both expandable code appendices were checked. New proof quantifiers and model-versus-genuine scope were rechecked. All computational processes completed.
+
+Reproduction SHA256: cf_verify.py = 7b76e0e2c0c10f18d5d20cc131e6125ce702a7d3e1920852b3ca5b5ca1591536; cf_frequency_diagnostic.py = 448d713d795bbf0811a08fd764ab7e54cbe807261af36679a065bd6aefc15c6e. The exact source text is embedded above. Finite logs and source syntax checks support only the stated finite/diagnostic classifications. The substantive report must still be committed and immutably read back before publication is claimed.
