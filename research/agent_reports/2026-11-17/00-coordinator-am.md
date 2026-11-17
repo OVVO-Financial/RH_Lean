@@ -580,3 +580,14 @@ print(json.dumps({"status":"PASS","checks":dict(counts),
                   "zeta_zeros_tested":0,"asymptotic_claims_tested":0},indent=2))
 ~~~
 
+
+### Verified Publication Receipt - INV
+
+The substantive [commit 0127b6edb91677c877d14395ea130643ffa0ffe7](https://github.com/OVVO-Financial/RH_Lean/commit/0127b6edb91677c877d14395ea130643ffa0ffe7), committed at 2026-11-17T12:43:16Z (07:43:16 EST), was inspected. At 12:43:37 UTC both Coordinator files were fetched at that IMMUTABLE commit: all 46,000 ASCII characters matched the validated submission exactly, with identical blob 4abdc890530b62a98a2ff473a1f06e3e4c048674. Only those two authorized paths changed, each with 533 additions and zero deletions. The complete early checkpoint remains an exact preserved prefix.
+
+Final main is 52fdc0cab0fe0cffc4668212a6889423e0090189. The during-run human merge of #1140 supersedes intake's unmerged status; its tested tree matches main. The final open/draft PR collection was empty. Current AGENTS and proof contract were fetched again and unchanged. No new specialist report appeared after intake; reporting HEAD before the substantive write was the owned checkpoint.
+
+EXECUTION=COMPLETED; SUBSTANTIVE_PUBLICATION=PUBLISHED_IMMUTABLE_READBACK_VERIFIED. INV2, INV3, INV4 and INV6 remain PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED. INV1 reuses classical identity infrastructure. INV5 is FINITE_COMPUTATION: 1,954 exact assertions passed, including negative controls; no infinite estimate was tested. ASCII, A-J structure, Markdown fences/tables, embedded-checker identity, source/CI scope and complete mirror equality passed validation.
+
+This receipt closes publication status only, not mathematical review or the missing source estimate. NO_NEW_GLOBAL_GAIN; NO_NEW_ACCEPTED_RH_ROUTE; VERIFIED_ETA=NONE; RH=OPEN. The next actual run should independently review the localized bound and investigate one complete arithmetic supplier, not repeat conditional consumers or refuted local-sign programs.
+
