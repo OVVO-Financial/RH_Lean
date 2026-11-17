@@ -1615,3 +1615,816 @@ Current open/draft PR search is empty. #1143 merged into its documentation branc
 Inspect the existing native signed Selberg and exact Lambda/cofactor sources before asserting novelty; formulate a precise original-source hypothesis, derive or falsify it with all complementary terms, and identify whether it actually excludes the prior synthetic configuration or merely reconstructs primality. Numerical checks will discriminate a stated hypothesis, not extend old census ranges. No local Lean execution, source/policy/other-report modification, agent launch, proof branch or schedule change is planned.
 
 EXECUTION=IN_PROGRESS; MATHEMATICAL_RESULT=PENDING; PUBLICATION=READBACK_PENDING until immutable verification.
+
+
+## Completed Research - 20261117-owner-1615-EST/PC
+
+### A. Most Important Mathematical Development
+
+**The actual complete second-Selberg kernel has an unavoidable linear contribution. Its cancellation occurs with the complete signed remainder, not inside the kernel alone.** This is a bounded feasibility audit on the existing native prime-error source, not a new admitted RH route and not a solution of the Coordinator's actual first-bad exclusion problem.
+
+Write e(N)=psi(N)-N, kappa=Lambda*Lambda-Lambda log, and T(N)=sum_{d<=N} kappa(d)e(floor(N/d)), with the literal repository definitions and all prime powers. Let R_S(N) be the ENTIRE complementary return in the existing exact identity e(N)log^2(N)=T(N)+R_S(N). With gamma the Euler constant, the following statements follow from the classical strong PNT, exact hyperbola identities, and the original signed recurrence:
+
+```text
+PC.1  K(N):=sum_{n<=N}kappa(n)
+        = -2 gamma N + O_A(N/log^A N), for every fixed A>0.
+      sum_{n<=N}kappa(n)/n = -2 gamma log N + O(1).
+
+PC.2  T(N)   =  4 gamma^2 N + O_A(N/log^A N).
+      R_S(N) = -4 gamma^2 N + O_A(N/log^A N).
+
+PC.3  rho(N):=2T(N)R_S(N)/(T(N)^2+R_S(N)^2)
+      satisfies 1+rho(N)=O_A(log^(-A) N), for every fixed A>0.
+      The full square, including its cross term, is e(N)^2 log^4 N.
+
+PC.4  Centering T by 4 gamma^2 N removes its pole at 1, but its
+      Dirichlet series has a nonzero triple pole at EVERY nontrivial
+      zeta zero. A centered O(N^beta log^a N) estimate forces no zeros
+      with real part > beta; subtracting the main term is not a supplier.
+
+PC.5  1+rho(N)=O(log^8 N/N)
+        iff e(N)=O(sqrt(N) log^2 N).
+      This rate is TARGET_EQUIVALENT, not a proved estimate.
+```
+
+PC.1-PC.4: **PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED**. PC.2 refutes the auxiliary claim that this entire kernel T is sublinear, including O(N^beta log^a N) for any fixed beta<1 and finite real a. It does not refute complete signed cancellation or RH. PC.3 is a genuine coarse all-scale quantitative statement, but is only a specialization of already known strong PNT and yields **NO_NEW_GLOBAL_GAIN**. PC.5 is a paper-level exact rate equivalence, with the classical terminal interface kept explicit. PC.6 below is **FINITE_COMPUTATION**, 1,163 exact assertions, not asymptotic evidence.
+
+The new source-specific lesson is sharper than merely repeating a local sign: the true prime-power arithmetic forces two opposite linear masses, and even arbitrarily many inverse-log cancellation rates leave the required power-scale rate unpaid. Existing main already proves an O(log N) signed reciprocal kernel bound; PC does not claim that earlier cancellation as new mathematics or claim literature novelty for these classical deductions.
+
+### B. Current Authoritative Objective
+
+Actual main at intake and the closing source refresh is `13b31c6313e274a073d82a01175201185e59e37e`. The current priority is **BOOTSTRAP_TO_HALF_V1**; it supersedes conflicting dated task-selection text, not valid theorems or source safeguards. All nine lanes VF-LOW, SAT, CODIV, OAI-NNS, JOH, FINITE-AC, CORR4, MU-LIFT and NYMAN remain distinct. No local Lean, proof-branch/PR write, other-role report edit, agent launch, merge or schedule change was performed.
+
+The canonical target is still
+
+```text
+exists C>=0, for every integer R>=2,
+  |pi(R^2)-F_R-sqrt(2)| <= C R log R,
+F_R = sum_{2<=s<R} (2s+1)/log(s^2+s+1/2).
+```
+
+The constant is chosen BEFORE R. The main canonical/all-real/classical-Li bridge retains its explicit `ClassicalVonKochRHCriterion` argument at the final RH interface. No conditional consumer establishes its arithmetic premise.
+
+On the original #915 first-bad carrier, preserve D=D_r, delta=P_r-m_r, d=D+delta, C_r=m_r+(1-2w_r)P_r, all previous good K=2 blocks and the full quantity
+
+```text
+E_original = 2d^2-(|D|+C_r)^2.
+```
+
+The original #939 content audit states that source payment is equivalent to absence of first-bad successors, with the finite base retained for the fixed radial envelope. Eligibility of a factor relation is not returned-cell admission. PC proves no E_original<=0, no first-bad exclusion and no norm isometry from this source to the Selberg source. The canonical prime bound is a distinct terminal consumer; its unproved fixed-constant K=2 strengthening is not silently substituted.
+
+#### Material Main Blobs
+
+| Source | Blob SHA |
+| --- | --- |
+| AGENTS.md | c4f36b772f8a4b0c24fe566b90fafb646073c60f |
+| CURRENT_PROOF_CONTRACT.md | 95566e37c8eaeb99ee680660df4f9d2e06ea5038 |
+| docs/RHLEAN_BOOTSTRAP_TO_HALF_20261116.md | 96ad4439ec458af6168f7d9cb3eef5dde291d37c |
+| docs/RHLEAN_CROSS_ROUTE_SIGNED_RECOVERY_20261110.md | e3ae4280438f591f1ffaddd754a1c3a6d35d0691 |
+| docs/RHLEAN_REPORT_CONTINUITY_LAST_ACTUAL_20261111.md | 3e71820a4af722eae7098da6945bb5bcba50dd0d |
+| research/VF_MID_SIGNED_SEAT_CHARGE.lean | 87a6654a4a4337b409fde69aa15d7264d8b721b6 |
+| research/VF_MID_ACTUAL_PRIME_FIRST_BAD_MOBIUS_TRIGGER.lean | 1163ae30b448b2fdd99fc4bfb4f13b36863a52a9 |
+| research/VF_MID_915_SOURCE_PAYMENT_CONTENT_AUDIT.lean | f7d046d8d94962e18f794deee7e33ce7508a0e74 |
+| research/VF_MID_915_GLOBAL_MOBIUS_PHYSICAL_WELD_20261021.lean | 5e3212e20666b9ed7f13d6bd9ebadfad88338eaa |
+| research/VF_MID_FLOOR_LI_BUCHSTAB_EXACT_BRACKETS_20261022.lean | 918876c6ad7697388d565d39b15db5b8c3cc9952 |
+| research/VF_CANONICAL_SQRT_TWO_VON_KOCH.lean | 79030d70e8d3e0d08eef9bac53fef95c36eca2fb |
+| RHLean/Analysis/NativePNTErrorMass.lean | 6779156e0fd49eee0c04d7a05825d6af8d5abed0 |
+| RHLean/Analysis/NativePNTSelberg.lean | e7bee1ed50018610424e63d2910c27b2f5f8e876 |
+| RHLean/Analysis/NativePNTSummatorySelberg.lean | bdf2c0de808e2aa0440a93c84697649a3977c22c |
+| RHLean/Analysis/NativePNTSignedWheelRemainder.lean | e82f07a07947eaf72c910a074e0847295991a72d |
+| RHLean/Analysis/NativePNTSignedSecondSelberg.lean | 5a6e063b3b9481af22c714b0c73d710bf8676374 |
+| RHLean/Analysis/NativePNTSignedSecondSelbergReciprocal.lean | 8f348044efcd4ec8d1c5b3cf823c4f7fadbff8b1 |
+| RHLean/Analysis/NativePNTLogSums.lean | f0d6efb4bb9903c71792104a031e9e621c98ee28 |
+| research/oai_434/VF919WindowErrorClosure.lean | f629db1b2b65d6ec042ac9432397d4b6316200c6 |
+| research/HISTORICAL_DENSITY_MASK_OBSTRUCTION.lean | 7bf4433fc1f2e70226df211550829057b024dad2 |
+
+#### Continuity And Current PR Evidence
+
+The branch tree was discovered without a calendar cap. Latest actual reports for all seven roles are November 17; today's completed predecessors and November 16 carry-forward were retrieved. Coordinator 00/90 mirrors have equal blobs/content on both dates. Relevant new sections were read; this does not claim a fresh reread of every historical appendix. TODAY=AVAILABLE for all roles, YESTERDAY=CARRY_FORWARD. No assumed scheduled execution fills the earlier unverified calendar gaps recorded in SC/HF.
+
+| Role / newest consumed work | November 17 intake blob | November 16 carry-forward blob |
+| --- | --- | --- |
+| Coordinator 00/90, TAIL after INV | ae2d8ed2c9199d5b0b174fd8b3436286f5541226 | fda92549dd9291c491005fdf70847b90d9be385a |
+| Owner, HF after FB | efab9f519e086b7b7cf78e7d6112a4b6ab0089ea | a52b439e693e069502b0c299a5f074a19bae0807 |
+| Analytic, HA after EF | 686c0a992692db9a53e7416745f37ee9b79f9fbb | 84aaa2103225565607b5b033f273462bbe865246 |
+| Wheel, SB after GD | 49882b854f2df6d2ee426da70fa465d083733c78 | 713826840694e39a141fbdbe813f1d47245928e7 |
+| Census, TC after DJ | 701a6d15ba711d9a4ca3677709802def12c46c07 | 53e6be517dc11037fe3b42a8ed6ad3a06cfce956 |
+| Referee, IC after SG | 6e7f24cf5f790bab4ac1c19da6dc1c81546ad0e0 | 240b97ce1c8ddc87d5f520bc9a8cd6ea00df3d32 |
+| Lean, HF1 after NYMAN-JUMP | f064afb482138dc59123713f11082809b04e7c3c | 0bada0352d54be7c46a7d928f4c4e3bee440ad8f |
+
+Consumed implications: TAIL's separated correction bands and full cross terms remain mandatory; HA refutes the all-head subpower Nyman proposal, not a suitably selected sequence; TC distinguishes genuine infinite-tail energy from truncated diagnostics; SB refutes pure inner-power deletion and preserves its corrected scope; IC grants scoped paper acceptance, not automatic acceptance of every claim in those files. HF1's sharp absolute-mask obstruction is now merged. Carry forward SC/DB/LM/TP/MC/CF/CR at their stated scopes. Preserve DB's restored R=137 reversal and R=5 correction, HF's NONPRIME B=128 count model, and the distinction between a model falsifier and actual-prime evidence. A fixed small-prime sieve model would repeat the existing finite-wheel limitation; it was not promoted or presented as a newly executed experiment.
+
+`EXTERNAL_HANDOFFS.md` blob `7d63d434690d00dffce9c90335d41c4f62d85798` has no new entry after the previously consumed October 18 material. The cofactor-PNT weighted-error obligation and EXT-20261014-5's unconditional-versus-first-bad distinction remain intact.
+
+Live discovery found **no open or draft PRs**. #1144 is merged into current main, superseding HF1's earlier report status. #1143 merged into its separate documentation branch, not main; its three-prime-phase files must not be treated as main. #1140 and #1141 are merged scoped source results, not global suppliers.
+
+The strongest reused Mertens comparator remains `native_mertens_near_uniform_window_error_closed`: every-positive-loss growth at `7/8-7/(64*nearUniformSlotCount)`, not a zero-loss bound at that exponent. #1119 head `77ee815846d6d534c866f0752aa33b84c385610a` has 14/14 successful checks; its actual [audit log](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42552018910/job/128949473700) was read. Five scoped dependency audits report 35358,35375,35736,35737,35753 and only propext/Classical.choice/Quot.sound. A nontruncated comparison of 2,508 preexisting Lean/pin/scripts/lean blobs with current main finds only the aggregate RHLean.lean changed. This is scoped reuse, not a new main build or independent reproof of its analytic inputs.
+
+#1144 tested head `abd9bb34c8fac459e67c63009961b6c26548d7e9` has 13/13 successful checks. Its actual [final audit log](https://github.com/OVVO-Financial/RH_Lean/actions/runs/44149489941/job/134273552309) was read: six exact types, five permitted-axiom audits, closures 262,312,336,399,104. The final job reused one unchanged compiled source module (`compiled=0,cached=1`); it is not a fresh source compilation. The prior compilation receipt is recorded in HF1. None of this formalizes PC.1-PC.5 or the external StrongPNT application.
+
+### C. Structural Hypotheses Investigated
+
+**H1: Genuine prime-factor cancellation might make the full second-Selberg kernel small enough to be a separate supplier.** The actual arithmetic coefficient is negative on every single-prime-power ancestry and positive on two distinct prime-power ancestries. Its signed reciprocal mass is already O(log N), one logarithm below the positive mass. The falsifiable strengthening was that this cancellation persists strongly enough after coupling to the actual lower-scale e(floor(N/d)) to make T sublinear. PC.2 refutes that strengthening on the genuine carrier.
+
+**H2: Restoring the complete remainder might force endpoint-rate anticorrelation.** PC.3 proves the coarse near-perfect anticorrelation but PC.5 identifies exactly what remains unpaid. A limit of -1, or every inverse-log rate, is insufficient. This survives only as a joint-source question, not as an accepted mechanism or an assumed independence law.
+
+**H3: Removing the forced linear term might leave an independently easy source.** PC.4 exposes the nontrivial-zero poles that survive the subtraction. Centering is legitimate bookkeeping but not an independent gain. This refines HF's warning about the unit logarithmic-derivative response on a different, explicitly identified complete native kernel.
+
+This work stays within a **bounded VF native-prime feasibility audit** allowed by BOOTSTRAP_TO_HALF_V1. The requested new history restriction excluding the HF model after original #915 restoration was NOT obtained. Promoting the centered-Selberg question into a new active campaign would require Coordinator/human approval and a genuinely independent supplier; it is not silently assigned to other specialists here.
+
+### D. Mathematical Derivation
+
+#### D1. Exact Original Source, Not A Stochastic Substitute
+
+For integer N>=1, let Lambda(p^a)=log p for every prime p and exponent a>=1, and Lambda(n)=0 otherwise. All sums below use 1<=n<=N and natural-number floor quotients. Define
+
+```text
+psi(N) = sum Lambda(n),       e(N) = psi(N)-N,
+kappa(n) = sum_{ab=n} Lambda(a)Lambda(b)-Lambda(n)log n,
+K(N) = sum_{n<=N} kappa(n),
+T(N) = sum_{d<=N} kappa(d)e(floor(N/d)).
+
+S(N) = psi(N)log N + sum_{d<=N}Lambda(d)psi(floor(N/d))
+       -N log N-log(N!).
+
+Fdef(N) = sum_{d<=N} Lambda(d)e(floor(N/d))
+                  *[log N-log d-log(floor(N/d))],
+R_S(N) = S(N)log N-sum_{d<=N}Lambda(d)S(floor(N/d))-Fdef(N).
+```
+
+These are `nativePNTError`, `nativePNTSignedSecondSelbergKernel`, `nativePNTSignedSecondSelbergKernelErrorMass`, `nativePNTSignedSelbergRemainder`, `nativePNTLambdaFloorLogSignedDefectMass`, and the complete remaining signed combination, respectively. Expanding `NativePNTSignedWheelRemainder.lean`'s definition gives the displayed S exactly. The main source theorem `nativePNTError_mul_log_sq_eq_signedSecondSelberg` is
+
+```text
+e(N)log^2 N = T(N)+R_S(N).                         (D1)
+```
+
+It is used as an existing exact identity, not a new theorem of this run. The companion square-stage theorem includes the literal `squarePrefixEndpoint`; no top cell is dropped.
+
+Factor ancestry gives an elementary exact classification, used as a regression rather than advertised novelty:
+
+```text
+kappa(1)=0;
+kappa(p^a)=-(log p)^2                         (a>=1);
+kappa(p^a q^b)=2 log p log q                 (p!=q, a,b>=1);
+kappa(n)=0                                  (at least 3 distinct primes).
+```
+
+For p^a, the ordered convolution has a-1 nonzero splits, while Lambda(n)log n=a(log p)^2. For two distinct primes, there are exactly the two orientations (p^a,q^b) and (q^b,p^a). No single prime occurrence is cloned into independent statistical samples. The signed aggregation is over the exact convolution multiplicity, not an unsigned count or a squarefree-only surrogate.
+
+#### D2. Independent Analytic Ingredient And Reciprocal Constant
+
+The imported classical theorem is the unconditional strong PNT:
+
+```text
+exists c>0, psi(x)-x=O(x exp(-c sqrt(log x))).
+```
+
+In particular e(N)=O_A(N/log^A N) for every fixed A>0. Constants depend on A and precede N. This is not the repository's unpaid square-root bound. The actual [StrongPNT statement and proof body](https://github.com/AlexKontorovich/PrimeNumberTheoremAnd/blob/c39a751132c88b6e8080b74c74023fd95b3d8be0/PrimeNumberTheoremAnd/StrongPNT.lean#L2896) were read at commit `c39a751132c88b6e8080b74c74023fd95b3d8be0`, blob `7d8ea08496ae67da67e2a3de710145299b51a940`. No local compilation or external project axiom audit was executed, and no new RH_Lean formal import is claimed.
+
+Partial summation gives a constant c_0 with
+
+```text
+A(y):=sum_{n<=y}Lambda(n)/n
+     = log y+c_0+O_A(log^(-A) y).
+```
+
+The constant is c_0=-gamma. For completeness, set L(s)=-zeta'(s)/zeta(s). For real t>0, L(1+t)=t*integral_1^infinity A(x)x^(-t-1) dx; the expansion for A makes this `1/t+c_0+o(1)`. The Laurent expansion of zeta at 1 makes it `1/t-gamma+O(t)`. Thus c_0=-gamma, without evaluating a divergent series at t=0. Primary formula references are [DLMF logarithmic derivative](https://dlmf.nist.gov/27.4#E12) and [DLMF Laurent expansion](https://dlmf.nist.gov/25.2#E4).
+
+Consequently, for b(n)=Lambda(n)-1,
+
+```text
+sum_{n<=y} b(n)/n = -2 gamma+O_A(log^(-A) y),   (D2)
+```
+
+since the harmonic sum is log y+gamma+O(1/y). This convergent signed reciprocal constant, not an independence hypothesis, will couple to the mean of kappa.
+
+#### D3. PC.1: The Kernel's Nonzero Mean And Sharp Reciprocal Size
+
+Set Y=floor(sqrt N). The exact symmetric hyperbola formula is
+
+```text
+C(N):=sum_{n<=N}(Lambda*Lambda)(n)
+     =2 sum_{d<=Y} Lambda(d)psi(floor(N/d))-psi(Y)^2.       (D3)
+```
+
+Both orientations and the square overlap are essential. For d<=Y, N/d>=sqrt N; strong PNT is therefore uniform over this sum. The sum of Lambda(d)/d is O(log N). Floors cost at most sum_{d<=Y}Lambda(d)=O(sqrt N), which is absorbed in O_A(N/log^A N). Applying D2 to Lambda rather than b gives
+
+```text
+C(N)=N log N-(2 gamma+1)N+O_A(N/log^A N).
+```
+
+Partial summation separately yields
+
+```text
+sum_{n<=N}Lambda(n)log n
+       =N log N-N+O_A(N/log^A N).
+```
+
+Here one first uses strong PNT with a larger inverse-log exponent to pay all displayed log factors. Subtracting proves PC.1. Discrete or continuous Abel summation with an error exponent >1 then gives
+
+```text
+sum_{n<=N}kappa(n)/n=-2 gamma log N+O(1).
+```
+
+Thus main's existing `nativePNTSignedSecondSelbergKernelRecipMass_abs_le` O(log N) result has the right order; a bounded reciprocal primitive is false for this kernel. This does not contradict the already proved cancellation of its two log-squared leading terms.
+
+For each FIXED positive integer q, literal quotient regrouping also gives
+
+```text
+sum_{floor(N/d)=q} kappa(d)
+  =K(floor(N/q))-K(floor(N/(q+1)))
+  =-2 gamma N/[q(q+1)]+o_q(N).                           (D4)
+```
+
+No uniformity in growing q is claimed. In the q=1 fiber, e(1)=-1, so this actual part of T equals `gamma N+o(N)`, not zero. A favorable reciprocal cancellation does not remove the boundary fiber. This fiber alone is not used to infer the sign of the full T; the following complete calculation proves it.
+
+#### D4. PC.2: Complete Kernel-Error Mass And Every Complementary Return
+
+Since e(t)=sum_{a<=t}b(a), T(N) is the complete summatory convolution of kappa with b. Exact Dirichlet hyperbola gives
+
+```text
+T(N) = sum_{d<=Y}kappa(d)e(floor(N/d))
+     + sum_{a<=Y}b(a)K(floor(N/a))-K(Y)e(Y).              (D5)
+```
+
+The first term is O_A(N/log^A N): use strong PNT uniformly at quotients >=sqrt N and
+
+```text
+sum_{d<=Y}|kappa(d)|/d
+ <= (sum_{d<=Y}Lambda(d)/d)^2
+       +sum_{d<=Y}Lambda(d)log d/d = O(log^2 Y).
+```
+
+For the second term, insert PC.1. Its error is again O_A(N/log^A N), using `sum_{a<=Y}|b(a)|/a=O(log Y)` and a larger input exponent. Replacing the floor in its main term costs O(sum_{a<=Y}|b(a)|)=O(Y). Its main part is, by D2,
+
+```text
+-2 gamma N sum_{a<=Y}b(a)/a
+        =4 gamma^2 N+O_A(N/log^A N).
+```
+
+Finally K(Y)=O(Y) and e(Y)=O_A(Y/log^A Y), so the overlap in D5 is of the same error order. This proves the ENTIRE T asymptotic, not just a selected quotient band. Gamma>0, hence T is eventually positive and no fixed sublinear power-log bound on T is possible.
+
+Now use D1 without discarding any return. Since e(N)log^2 N=O_A(N/log^A N) after increasing the input exponent,
+
+```text
+R_S(N)=-4 gamma^2 N+O_A(N/log^A N).
+```
+
+No individual bound is asserted for S(N)log N, its lower-quotient convolution, or Fdef after isolating them. They remain the complete signed complement. This conclusion is unconditional on paper but imports strong PNT; it is not an elementary independent reproof of PNT.
+
+#### D5. PC.3 And PC.5: Full Quadratic Structure And The Exact Endpoint Rate
+
+For all sufficiently large N, D(N):=T(N)^2+R_S(N)^2 is positive and
+
+```text
+T^2       = 16 gamma^4 N^2+o(N^2),
+R_S^2     = 16 gamma^4 N^2+o(N^2),
+2T R_S    =-32 gamma^4 N^2+o(N^2),
+D(N)      ~ 32 gamma^4 N^2.
+
+(1+rho(N))D(N)=(T+R_S)^2=e(N)^2 log^4 N.               (D6)
+```
+
+This is a deterministic signed cross ratio, NOT statistical covariance, an independence assertion, or a new equality with the original #915 NNS statistic. It retains the whole cross term. Strong PNT and D6 prove PC.3 for every fixed inverse-log exponent. They do not prove `log^8 N/N`, which is smaller than every fixed inverse-log power.
+
+The two-sided comparison D(N)~32 gamma^4 N^2 makes D6 equivalent to
+
+```text
+1+rho(N)=O(log^8 N/N)  iff  |e(N)|=O(sqrt N log^2 N).
+```
+
+All constants are scale-independent. Finitely many small N may be absorbed into the error constant; rho is used only where its denominator is nonzero. This is PC.5, explicitly TARGET_EQUIVALENT, not the first independent arithmetic lemma.
+
+The conditional direct consumer is precise: a genuinely established `|T+R_S|=O(sqrt N log^4 N)` would give the displayed psi error. Standard partial summation and the retained higher-prime-power contribution give `pi(x)-Li_2(x)=O(sqrt x log x)`, and the existing canonical-Li O(1) bridge supplies the repository target. Conversely that classical prime error gives the psi error by partial summation and prime-power restoration. At N=R^2-1, pi(R^2)=pi(N) for R>=2; the psi boundary increment is Lambda(R^2) and is NOT zeroed out. Monotonic interpolation between adjacent square prefixes preserves the psi target. This paper-level arithmetic transfer is not a new Lean bridge or equality with owner payment. The final RH consumer still carries the explicit classical criterion as required by main.
+
+There is no renewable Phi(b), closed-boundary improvement, or source proof at the endpoint in PC. An independently proved joint bound could be a direct route; merely naming it cannot admit that route.
+
+#### D6. PC.4: Centering Does Not Remove Nontrivial-Zero Poles
+
+The original coefficient identity, absolutely convergent for Re(s)>1, is
+
+```text
+sum_n (kappa*b)(n)/n^s = H(s):=(L(s)^2+L'(s))(L(s)-zeta(s)),
+L(s)=-zeta'(s)/zeta(s).
+```
+
+The sign of L' matters: `sum Lambda(n)log n/n^s=-L'(s)`. At s=1, L=1/(s-1)-gamma+O(s-1), while zeta=1/(s-1)+gamma+O(s-1), so H has principal part `4 gamma^2/(s-1)`. The Dirichlet series for the centered summatory source `T(N)-4 gamma^2 N` is therefore
+
+```text
+H_c(s)=H(s)-4 gamma^2 zeta(s).                          (D7)
+```
+
+At ANY nontrivial zero z of multiplicity m>=1, put u=s-z. The local meromorphic expansion is
+
+```text
+L=-m/u+O(1),   L'=m/u^2+O(1),
+L^2+L'=m(m+1)/u^2+O(1/u),
+L-zeta=-m/u+O(1),
+H_c=-m^2(m+1)/u^3+O(1/u^2).                            (D8)
+```
+
+Subtracting a multiple of zeta, analytic and zero at z, cannot cancel this nonzero triple pole. No simplicity-of-zeros assumption is used.
+
+If, for fixed 0<=beta<1 and finite real a, `T(N)-4 gamma^2 N=O(N^beta log^a N)`, Abel summation represents H_c by a locally uniformly convergent integral on Re(s)>beta. It is holomorphic there. Identity with the meromorphic expression D7, initially on Re(s)>1, forbids a zero z with Re(z)>beta by D8. This is a conditional consequence of the proposed centered bound, not a proof of that bound, not a converse, and not a result for an infinite character family. In particular a square-root centered bound would already carry an RH-strength zero exclusion. Centering must not be credited as bypassing that obstruction.
+
+### E. Quantitative Consequence
+
+The independent paper input gives a genuine all-scale asymptotic and full signed restriction on the exact native source: T/N tends to 4 gamma^2, R_S/N tends to -4 gamma^2, and their deterministic cross ratio approaches -1 at every fixed inverse-log rate. It refutes the standalone sublinear-kernel supplier and the bounded reciprocal-mass strengthening. These are proper mathematical obstructions, not conclusions extrapolated from finite values.
+
+There is **NO improvement** to the certified Mertens exponent, the actual-prime O(R log R) estimate, a fixed K=2 first-bad wall, a half-continuation gain, or RH. Strong PNT supplies no fixed power saving here. The centered response retains the zero obstruction, and the complete endpoint-rate cross condition is exactly another presentation of the unpaid bound.
+
+### F. Falsification And Circularity Review
+
+PC.6 preregistered a source audit on N=1..128 using exact sparse rational polynomials in formal log(prime) variables. Lambda was independently reconstructed by trial factorization and prime-power enumeration. S was built from the original Selberg-pair/factorial definition, not from the recurrence being tested. Both ordered convolution orientations, every higher prime power, the full lower-quotient range, the square overlap, the floor-log defect, and the complementary return were retained.
+
+The final checker passed **1,163 counted assertions**: nine families of 128 exact checks, six full quadratic checks and five detected negative controls. The additional exact kernel-error hyperbola check was added to the preregistered identity tests after D5 was derived; the final count is not misreported as the initial run's 1,035. Python syntax compilation also passed. No Lean was executed.
+
+| Deliberately false omission | First detected N | What this refutes |
+| --- | --- | --- |
+| Discard the whole R_S return | 2 | T alone equals e log^2 |
+| Discard 2T R_S from the square | 2 | Separate diagonal squares recover the full square |
+| Discard Fdef | 3 | Floors can be replaced by an exact logarithmic split |
+| Discard higher prime powers | 4 | Prime-only data equal the native kernel |
+| Keep one convolution orientation | 6 | Unordered pairs reproduce the ordered convolution |
+
+The full square was checked at N=2,3,6,12,30,64. These checks are not samples of the original #915 first-bad statistic. Outward rational logarithm intervals were computed at N=8,16,32,64,128. For example at N=128:
+
+```text
+162.2588480385 <= T       <= 162.2588480386
+-187.4162118197 <= R_S    <= -187.4162118196
+-25.1573637812 <= T+R_S   <= -25.1573637811
+76.1106491777 <= q=1 part <= 76.1106491778
+```
+
+These finite diagnostics establish no asymptotic sign, constant, uniformity or RH estimate. The all-scale claims above have separate paper arguments. A smaller-scale sign reversal elsewhere would not refute an eventual asymptotic; conversely no observed finite cancellation supplies PC.5's rate.
+
+The checker SHA256 is `ff3a4419caf79e62b1c3e8102d31916baa32fd6caed25097c1a863afeb47ed5c`; registration SHA256 is `87f9fbc928da4d0423ca3ff618665045a84e9ca0b69541f8693f2527d99d2f26`. Both the exact checker and its machine output are embedded below for reproduction. Its use of formal logarithm polynomials verifies identities in a stronger free polynomial ring; interval evaluation uses the convergent atanh series with a rational positive tail bound.
+
+Circularity checks: strong PNT is independent of RH; D3 and D5 retain their full overlap; fixed-q asymptotics are not summed nonuniformly over q; constants precede N; no bound on the full recurrence is assumed to prove T's asymptotic; R_S is then recovered exactly; every square cross term is present; PC.5 is labeled target-equivalent; PC.4 is a conditional pole obstruction, not an estimate. A search of the retrieved main source and November 17 handoffs found the existing reciprocal O(log N) theorem but no displayed PC constants or full T asymptotic. This limited search is not a claim of historical or literature originality.
+
+### G. Conceptual Interpretation
+
+The arithmetic dependence is visible twice. Ordered prime-power ancestry makes the signed kernel's mean -2 gamma even after the larger log terms cancel. The genuine prime error has reciprocal coefficient mass -2 gamma. Their complete hyperbolic interaction therefore produces +4 gamma^2 N. Independent random-sign intuition would miss this deterministic constant mode.
+
+The remainder restores an equal opposite mass. Thus apparently excellent normalized anticorrelation can coexist with an unresolved RH-strength rate. The right research question is about the complete joint response after every restoration, not about making either entire component small or treating a limiting cross sign as a quantitative estimate. PC.4 shows why subtracting the visible mean alone does not resolve that question.
+
+This is source-specific support/no-go analysis, not an independent breakthrough in classical number theory. It provides no new arithmetic exclusion of the HF synthetic first-bad configuration; that assignment remains unsolved.
+
+### H. Competing Mechanisms
+
+| Mechanism | Independently missing theorem / consumer | Strongest obstruction and decisive test | Disposition |
+| --- | --- | --- | --- |
+| Separate density-mask historical caps | Would need contraction of complete original history/current source | HF1's sharp cost exceeds 1; it is now merged. No cap or donor-count rerun. | REFUTED as that payment method; global signed payment remains open. |
+| Entire native second-kernel T as a sublinear supplier | Would feed the psi recurrence only with all other returns also paid | PC.2 gives T~4 gamma^2 N on the actual carrier. Test is the proved main coefficient, not a larger census. | REFUTED / PARKED. |
+| Center T and bound it alone | Needs an independent centered estimate AND the complementary return | PC.4 retains a triple pole at every nontrivial zero. Inspect any proposed estimate against D7-D8 before accepting it. | PARKED_NO_HALF_CONTINUATION. |
+| Complete joint Selberg response | Need a new arithmetic restriction yielding the endpoint rate, not assumed D6 | PC.3 gives only inverse-log rates; PC.5 is target-equivalent. Every proposed local gain must reconstruct D1 and D6. | No new admitted route; retain the exact identity and obstruction. |
+| Genuine history-sensitive first-bad exclusion | Must use actual prime-factor/chronological information absent from HF's model, with all #915 returns | FB restoration and DB counterexamples survive. Mere necessary identities or count-model exclusions do not suffice. | Original Coordinator question remains OPEN. |
+
+The three-head NYMAN feasibility work belongs to the existing Coordinator/Analytic/Wheel/Census program; no duplicate implementation or reassignment was made. The unchanged OAI LOW floor 47/54, theta>3/5 inversion gate and Re(s)>21/25 source-correction supply remain parked without complete half continuation.
+
+### I. Specialist Handoffs
+
+**Coordinator / Proof Architect:** retain PC as a bounded support obstruction, not a newly admitted Selberg route. The strongest new source concept is the exact pairing of reciprocal constant -2 gamma with kernel mean -2 gamma, forcing two opposite linear returns. It is not more promising than the existing actual-history question as a proved route: no new supplier was found. A human-approved revival would need a genuinely different joint arithmetic estimate, not centering or a renamed correlation threshold.
+
+**Adversarial Referee:** independently check PC.1-PC.4, especially the -gamma reciprocal constant, both hyperbola overlaps, floor errors uniform for d<=sqrt N, the use of arbitrary larger inverse-log exponents, the sign L^2+L', and triple-pole coefficient -m^2(m+1). Check that PC.5 only uses a nonzero large-N denominator and does not claim a #915 norm transport. No independent acceptance is presumed.
+
+**Analytic Type II:** the genuine candidate quantity is the FULL D1 response, or a source-supported decomposition of it. Before a centered T estimate is considered, compare its Mellin/Dirichlet content with D7-D8. Any bound that simply assumes holomorphy past beta already excludes the zeros in question. This is a precise diagnostic handoff, not a request to abandon the assigned TAIL correction-profile work.
+
+**Finite Wheel & Incidence:** the exact factor classification retains repeated powers and both orientations. A proposed arithmetic grouping must recover the literal q=1 mass and D5 overlap, not just improve unsigned two-prime incidence. Determine only whether a genuinely new all-scale restriction couples the two full returns; another finite-wheel admissibility model is not requested.
+
+**Prime Census Laboratory:** no range extension is requested. The embedded exact small test is sufficient to catch the five specified omissions. Any future experiment should discriminate a new joint-source hypothesis, retain original #915 admission if claiming first-bad relevance, and report all cross terms. Finite ratios cannot decide PC.5's uniform rate.
+
+**Lean Verification:** PC.1-PC.5 are NOT ready-made formalization assignments. First obtain independent paper acceptance and a named downstream consumer. Existing second-Selberg and reciprocal identities should be reused, not reimplemented; do not create another contraction wrapper. The only finite computation here is the attached source audit, not a Lean theorem or a proof of an asymptotic input.
+
+### J. First Independently Missing Lemma
+
+**No new independent endpoint-supplying lemma was proved.** On the selected source, the explicit missing quantitative statement is
+
+```text
+exists C, for every sufficiently large N,
+ | S(N)log N-sum_{d<=N}Lambda(d)S(floor(N/d))
+      -Fdef(N)+sum_{d<=N}kappa(d)e(floor(N/d)) |
+ <= C sqrt(N) log^4 N.
+```
+
+By D1 this is the psi target itself. It is recorded to fix the unpaid location, **not** relabeled an independently useful lemma. On the original assigned first-bad route, the missing result remains an arithmetic implication of the FULL actual-prime history that independently excludes FB's required failure configuration after all restoration. This invocation did not discover such a statement. Any purported easy lemma bounding T alone is now falsified; any centered substitute must survive PC.4 and preserve R_S. A further active research cycle on this Selberg direction needs a concrete new source restriction before it qualifies under BOOTSTRAP_TO_HALF_V1.
+
+### K. Next-Run Resume Capsule
+
+```text
+RUN=20261117-owner-1615-EST/PC; PLATFORM_RUN_ID=UNAVAILABLE
+half_bootstrap_ack=BOOTSTRAP_TO_HALF_V1
+finite_wheel_ack=FINITE_WHEEL_CENTERED_RH_V1 (source safeguards retained)
+MAIN=13b31c6313e274a073d82a01175201185e59e37e
+POLICY=96ad4439ec458af6168f7d9cb3eef5dde291d37c
+CONTRACT=95566e37c8eaeb99ee680660df4f9d2e06ea5038
+SOURCE=NativePNTSignedSecondSelberg, blob 5a6e063b3b9481af22c714b0c73d710bf8676374
+SOURCE_COMPLEMENT=NativePNTSignedWheelRemainder, blob e82f07a07947eaf72c910a074e0847295991a72d
+REPORT_WATERMARKS=TAIL/HF/HA/SB/TC/IC/HF1, plus this PC completion
+YESTERDAY=CARRY_FORWARD; TODAY=AVAILABLE (all seven latest real publications)
+EXTERNAL=7d63d434690d00dffce9c90335d41c4f62d85798; no new entry
+ROUTE=bounded native-prime VF support audit; no new campaign admitted
+ORIGINAL_SOURCE=T+R_S=e log^2; actual Lambda, prime powers, ordered convolution, floors
+CURRENT_P(b)=no new power input; strongest repository Mertens baseline unchanged
+DIRECT_CONSUMER=joint sqrt(N)log^4 bound -> psi -> prime-Li -> canonical VF
+TERMINAL_RH_INTERFACE=ClassicalVonKochRHCriterion remains explicit
+VALID_RANGE=all N>=1 identities; N->infinity asymptotics with fixed constants
+RENEWAL_OR_CLOSED_ENDPOINT=NONE PROVED; no use of a strict premise at its boundary
+ALL_RETURN_BILLS=S log, Lambda*S, Fdef, full kappa*e, all quadratic crosses
+FIRST_INDEPENDENT_OPEN_INPUT=NONE newly isolated below the equivalent joint target
+FALSIFIERS=PC.2 nonzero linear T; PC.4 centered triple poles; five finite omissions
+PRESENT_WORK -> named next step=independent PC referee audit; then portfolio decision
+STATUS=ACTIVE_SUPPORT completed; standalone T REFUTED; centered route PARKED_NO_HALF_CONTINUATION
+PC.1-PC.4=PAPER_PROOF/SELF_AUDIT/INDEPENDENT_REVIEW_PENDING/NOT_FORMALIZED
+PC.5=TARGET_EQUIVALENT; endpoint rate UNPROVED
+PC.6=FINITE_COMPUTATION; 1163 assertions PASS; no Lean execution
+CI=existing #1119/#1144 exact-head evidence reused at scoped declarations only
+EARLY_CHECKPOINT=d906df04046ac902930fa2611765ad43b090c228
+EARLY_BLOB=17dca3b7360fbc90c278962a0d0845bf3baae1ad; immutable readback matched
+PUBLICATION=final write/readback receipt appended after actual verification
+NO_NEW_GLOBAL_GAIN; VERIFIED_ETA=NONE; RH=OPEN
+```
+
+Tools: GitHub read/write for the owned report was available. Direct git transport was unavailable (CONNECT 403); connector reads supplied the original sources and actual hosted logs. No local Lean was attempted or represented as executed. No experiment or background continuation is promised. Next run must refresh main, report heads and authority again, preserve this appendix and earlier claims, and avoid repeating the now-refuted standalone-kernel or separate-cap proposals.
+
+### PC Reproducibility Appendix
+
+The following embedded registration, exact checker and final output are the executed artifacts. They are report evidence, not separate repository source edits.
+
+
+#### Executed Registration
+
+```text
+# PC Verification Registration
+
+Research label: 20261117-owner-1615-EST/PC. Main: 13b31c6313e274a073d82a01175201185e59e37e.
+
+Scope: actual Lambda, all prime powers and both ordered convolution orientations; native E(N)=psi(N)-N; native second Selberg recurrence. This is not a model census or an actual first-bad search.
+
+1. Use exact sparse polynomials in formal log(prime) variables for N=1..128. Independently reconstruct Lambda by trial factorization and prime-power enumeration.
+2. Verify kappa=Lambda*Lambda-Lambda*log, its factor-type classification, the exact square-root hyperbola, and quotient grouping with literal integer floors.
+3. Reconstruct the native S remainder from its original factorial/Selberg-pair definition. Verify E log^2 = S log - Lambda*S + kappa*E - the signed floor-log defect for every N in range.
+4. Verify the full T+R squared Gram at N=2,3,6,12,30,64. No off-diagonal term is omitted.
+5. Detect omission of prime powers, one convolution orientation, the floor-log defect, the restoring complement, and the quadratic cross term. Counterexamples refute omissions only, not RH.
+6. Use outward rational log intervals for diagnostic N=8,16,32,64,128, including the full kernel T, complement R, total, and quotient-one contribution. Do not claim finite values establish asymptotics or a sign at every N.
+
+Paper hypotheses: H1, reciprocal cancellation makes the entire genuine kernel-error mass sublinear, will be tested analytically via strong PNT and exact hyperbola. Rival: a nonzero linear main term survives and cancels only with the complete remainder. H2, the resulting normalized correlation tends to -1 at the rate needed for RH, requires its precise rate; a limit or all inverse-log rates will not be treated as the endpoint.
+
+Any asymptotic result is PAPER_PROOF / SELF_AUDIT, not Lean or finite extrapolation. Constants are fixed before N. Existing signed reciprocal O(log N) theorem is prior work, not a new claim.
+```
+
+#### Exact Checker
+
+```python
+"""Exact finite source audit for the complete signed second Selberg return."""
+from collections import Counter
+from fractions import Fraction as F
+from functools import lru_cache
+from math import isqrt
+import json
+
+LIMIT = 128
+checks = Counter()
+
+def check(name, value):
+    assert value, name
+    checks[name] += 1
+
+def poly(c=0):
+    return {(): F(c)} if c else {}
+
+def add(*items):
+    out = {}
+    for item in items:
+        for term, value in item.items():
+            out[term] = out.get(term, F(0)) + value
+    return {term: value for term, value in out.items() if value}
+
+def scale(item, value):
+    return {term: c * value for term, c in item.items() if c * value}
+
+def mul(a, b):
+    out = {}
+    for ka, va in a.items():
+        for kb, vb in b.items():
+            key = tuple(sorted(ka + kb))
+            out[key] = out.get(key, F(0)) + va * vb
+    return {k: v for k, v in out.items() if v}
+
+def factors(n):
+    out = {}
+    d = 2
+    while d*d <= n:
+        while n % d == 0:
+            out[d] = out.get(d, 0) + 1
+            n //= d
+        d += 1
+    if n > 1:
+        out[n] = out.get(n, 0) + 1
+    return out
+
+def logpoly(n):
+    return {(p,): F(a) for p, a in factors(n).items()}
+
+fac = [factors(n) for n in range(LIMIT+1)]
+logs = [logpoly(n) for n in range(LIMIT+1)]
+lam = [({(next(iter(f)),): F(1)} if len(f) == 1 else {}) for f in fac]
+independent = [{} for _ in range(LIMIT+1)]
+primes = [n for n in range(2, LIMIT+1) if all(n % d for d in range(2, isqrt(n)+1))]
+for p in primes:
+    q = p
+    while q <= LIMIT:
+        independent[q] = {(p,): F(1)}
+        q *= p
+for n in range(1, LIMIT+1):
+    check('independent_prime_powers', lam[n] == independent[n])
+
+psi = [poly()]
+lfac = [poly()]
+for n in range(1, LIMIT+1):
+    psi.append(add(psi[-1], lam[n]))
+    lfac.append(add(lfac[-1], logs[n]))
+err = [add(psi[n], poly(-n)) for n in range(LIMIT+1)]
+conv = [poly() for _ in range(LIMIT+1)]
+single = [poly() for _ in range(LIMIT+1)]
+for a in range(1, LIMIT+1):
+    for b in range(1, LIMIT//a+1):
+        conv[a*b] = add(conv[a*b], mul(lam[a], lam[b]))
+        if a <= b:
+            single[a*b] = add(single[a*b], mul(lam[a], lam[b]))
+kappa = [add(conv[n], scale(mul(lam[n], logs[n]), -1)) for n in range(LIMIT+1)]
+kpref = [poly()]
+cpref = [poly()]
+S = [poly()]
+for n in range(1, LIMIT+1):
+    kpref.append(add(kpref[-1], kappa[n]))
+    cpref.append(add(cpref[-1], conv[n]))
+    pair = add(mul(psi[n], logs[n]), cpref[n])
+    S.append(add(pair, scale(logs[n], -n), scale(lfac[n], -1)))
+
+controls = Counter()
+first_control = {}
+rows = []
+
+def control(name, wrong, actual, n):
+    if wrong != actual:
+        controls[name] += 1
+        first_control.setdefault(name, n)
+
+@lru_cache(None)
+def log_interval(p):
+    power = p.bit_length()-1
+    y = F(p, 2**power)
+    def series(v):
+        z = (v-1)/(v+1)
+        terms = 32
+        low = 2*sum((z**(2*j+1)/F(2*j+1) for j in range(terms)), F(0))
+        tail = 2*z**(2*terms+1)/F((2*terms+1)) / (1-z*z)
+        return low, low+tail
+    a, b = series(F(2))
+    c, d = series(y)
+    return power*a+c, power*b+d
+
+@lru_cache(None)
+def monomial_interval(term):
+    lo = hi = F(1)
+    for p in term:
+        a, b = log_interval(p)
+        lo *= a
+        hi *= b
+    return lo, hi
+
+def interval(item):
+    lo = hi = F(0)
+    for term, c in item.items():
+        a, b = monomial_interval(term)
+        lo += c*(a if c >= 0 else b)
+        hi += c*(b if c >= 0 else a)
+    return lo, hi
+
+def display(item):
+    lo, hi = interval(item)
+    unit = 10**10
+    return [str(F((lo*unit).__floor__(), unit)), str(F((hi*unit).__ceil__(), unit))]
+
+for n in range(1, LIMIT+1):
+    f = fac[n]
+    expected = {}
+    if len(f) == 1:
+        p = next(iter(f))
+        expected = {(p,p): F(-1)}
+    elif len(f) == 2:
+        p, q = sorted(f)
+        expected = {(p,q): F(2)}
+    check('kernel_factor_classification', kappa[n] == expected)
+    y = isqrt(n)
+    hyper = add(*(scale(mul(lam[d], psi[n//d]), 2) for d in range(1,y+1)),
+                scale(mul(psi[y], psi[y]), -1))
+    check('exact_hyperbola', cpref[n] == hyper)
+    check('factorial_conservation', lfac[n] == add(*(scale(lam[d], n//d) for d in range(1,n+1))))
+    check('first_recurrence', S[n] == add(mul(err[n], logs[n]),
+          *(mul(lam[d], err[n//d]) for d in range(1,n+1))))
+    T = add(*(mul(kappa[d], err[n//d]) for d in range(1,n+1)))
+    second_hyperbola = add(
+        *(mul(kappa[d], err[n//d]) for d in range(1,y+1)),
+        *(mul(add(lam[a], poly(-1)), kpref[n//a]) for a in range(1,y+1)),
+        scale(mul(kpref[y], err[y]), -1))
+    check('kernel_error_hyperbola', T == second_hyperbola)
+    grouped = add(*(mul(add(kpref[n//t], scale(kpref[n//(t+1)], -1)), err[t])
+                    for t in range(1,n+1)))
+    check('complete_quotient_grouping', T == grouped)
+    floor_defect = add(*(mul(mul(lam[d], err[n//d]),
+                      add(logs[n], scale(logs[d], -1), scale(logs[n//d], -1)))
+                         for d in range(1,n+1)))
+    R = add(mul(S[n], logs[n]),
+            *(scale(mul(lam[d], S[n//d]), -1) for d in range(1,n+1)),
+            scale(floor_defect, -1))
+    total = mul(err[n], mul(logs[n], logs[n]))
+    check('complete_second_recurrence', add(T,R) == total)
+    t_one = scale(add(kpref[n], scale(kpref[n//2], -1)), -1)
+    check('literal_unit_quotient', t_one == add(*(scale(kappa[d], -1) for d in range(n//2+1,n+1))))
+    prime_only = add(*(scale(mul(lam[d], logs[d]), -1) for d in primes if d <= n),
+                     *(mul(lam[a], lam[b]) for a in primes for b in primes if a*b <= n))
+    control('omit_higher_prime_powers', prime_only, kpref[n], n)
+    half = add(*(single[d] for d in range(1,n+1)))
+    control('omit_one_orientation', half, cpref[n], n)
+    control('omit_floor_defect', add(T,R,floor_defect), total, n)
+    control('omit_complete_complement', T, total, n)
+    if n in [2,3,6,12,30,64]:
+        gram = add(mul(T,T),mul(R,R),scale(mul(T,R),2))
+        check('full_signed_gram', gram == mul(total,total))
+        control('omit_quadratic_cross', add(mul(T,T),mul(R,R)), gram, n)
+    if n in [8,16,32,64,128]:
+        rows.append({'N':n, 'T':display(T), 'R':display(R),
+                     'total':display(total), 'unit_quotient':display(t_one),
+                     'kappa_prefix':display(kpref[n])})
+
+for name in ['omit_higher_prime_powers','omit_one_orientation','omit_floor_defect',
+             'omit_complete_complement','omit_quadratic_cross']:
+    check('negative_control_detected', controls[name] > 0)
+
+print(json.dumps({'status':'PASS', 'N_range':[1,LIMIT], 'checks':dict(checks),
+    'assertions':sum(checks.values()), 'omission_controls':dict(controls),
+    'first_omission_witness':first_control, 'rows':rows,
+    'exactness':'rational prime-log polynomials; outward rational logarithm intervals',
+    'asymptotic_or_Lean_certification':False}, indent=2))
+```
+
+#### Final Machine Output
+
+```json
+{
+  "status": "PASS",
+  "N_range": [
+    1,
+    128
+  ],
+  "checks": {
+    "independent_prime_powers": 128,
+    "kernel_factor_classification": 128,
+    "exact_hyperbola": 128,
+    "factorial_conservation": 128,
+    "first_recurrence": 128,
+    "kernel_error_hyperbola": 128,
+    "complete_quotient_grouping": 128,
+    "complete_second_recurrence": 128,
+    "literal_unit_quotient": 128,
+    "full_signed_gram": 6,
+    "negative_control_detected": 5
+  },
+  "assertions": 1163,
+  "omission_controls": {
+    "omit_complete_complement": 127,
+    "omit_quadratic_cross": 6,
+    "omit_floor_defect": 126,
+    "omit_higher_prime_powers": 125,
+    "omit_one_orientation": 123
+  },
+  "first_omission_witness": {
+    "omit_complete_complement": 2,
+    "omit_quadratic_cross": 2,
+    "omit_floor_defect": 3,
+    "omit_higher_prime_powers": 4,
+    "omit_one_orientation": 6
+  },
+  "rows": [
+    {
+      "N": 8,
+      "T": [
+        "82674268899/10000000000",
+        "826742689/100000000"
+      ],
+      "R": [
+        "-34360736991/2500000000",
+        "-137442947963/10000000000"
+      ],
+      "total": [
+        "-10953735813/2000000000",
+        "-6846084883/1250000000"
+      ],
+      "unit_quotient": [
+        "6667887119/1250000000",
+        "53343096953/10000000000"
+      ],
+      "kappa_prefix": [
+        "-1875541171/250000000",
+        "-75021646839/10000000000"
+      ]
+    },
+    {
+      "N": 16,
+      "T": [
+        "26346977057/2000000000",
+        "65867442643/5000000000"
+      ],
+      "R": [
+        "-40604762509/1250000000",
+        "-324838100071/10000000000"
+      ],
+      "total": [
+        "-96551607393/5000000000",
+        "-38620642957/2000000000"
+      ],
+      "unit_quotient": [
+        "40282133931/10000000000",
+        "10070533483/2500000000"
+      ],
+      "kappa_prefix": [
+        "-115303780771/10000000000",
+        "-11530378077/1000000000"
+      ]
+    },
+    {
+      "N": 32,
+      "T": [
+        "109251292233/2000000000",
+        "273128230583/5000000000"
+      ],
+      "R": [
+        "-473752144041/10000000000",
+        "-11843803601/250000000"
+      ],
+      "total": [
+        "18126079281/2500000000",
+        "580034537/80000000"
+      ],
+      "unit_quotient": [
+        "34806460287/1000000000",
+        "348064602871/10000000000"
+      ],
+      "kappa_prefix": [
+        "-231684191821/5000000000",
+        "-463368383641/10000000000"
+      ]
+    },
+    {
+      "N": 64,
+      "T": [
+        "198776437301/2500000000",
+        "159021149841/2000000000"
+      ],
+      "R": [
+        "-216540674289/2000000000",
+        "-270675842861/2500000000"
+      ],
+      "total": [
+        "-1797485139/62500000",
+        "-287597622239/10000000000"
+      ],
+      "unit_quotient": [
+        "29460483273/1250000000",
+        "47136773237/2000000000"
+      ],
+      "kappa_prefix": [
+        "-699052249827/10000000000",
+        "-349526124913/5000000000"
+      ]
+    },
+    {
+      "N": 128,
+      "T": [
+        "324517696077/2000000000",
+        "811294240193/5000000000"
+      ],
+      "R": [
+        "-1874162118197/10000000000",
+        "-468540529549/2500000000"
+      ],
+      "total": [
+        "-62893409453/2500000000",
+        "-251573637811/10000000000"
+      ],
+      "unit_quotient": [
+        "761106491777/10000000000",
+        "380553245889/5000000000"
+      ],
+      "kappa_prefix": [
+        "-365039685401/2500000000",
+        "-1460158741603/10000000000"
+      ]
+    }
+  ],
+  "exactness": "rational prime-log polynomials; outward rational logarithm intervals",
+  "asymptotic_or_Lean_certification": false
+}
+```
