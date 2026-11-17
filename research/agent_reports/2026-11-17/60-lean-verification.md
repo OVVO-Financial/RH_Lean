@@ -315,3 +315,9 @@ on that same sequence, with the unpaid short-middle, correction-activation and a
     EXECUTION=COMPLETED; SUBSTANTIVE_PUBLICATION=READBACK_PENDING
 
 No outstanding local process is needed. No local Lean, main push, merge, auto-merge, other-role report edit, central-policy change, agent launch, schedule change or permission expansion occurred. Prior checkpoints and report history are preserved; publication is established by the verified receipt below.
+
+### Verified Publication Receipt
+
+At 2026-11-17 05:31:26 EST / 10:31:26 UTC, immutable GitHub readback of substantive commit `79bc536945f35b74b4d68f6caf1a02db00356623`, report blob `0bafa69c9d5787666e9887ce95eab630edd88760`, exactly matched the intended full report. The commit changes only this authorized daily report, with 272 additions and zero deletions; both earlier checkpoints remain intact. `SUBSTANTIVE_PUBLICATION=PUBLISHED_VERIFIED` supersedes the pre-publication READBACK_PENDING markers above.
+
+The closing live check at 10:30:53 UTC found main unchanged at `4d5482805bac6a8f29d4fb4dadc61eca0bc06525`, PR #1140 open/ready/unmerged at `685598746869a62849451d7b7ffbfd09d42e4e4a`, auto-merge unset, and all 13 exact-head checks successful. The report-branch refresh contained no newer upstream role file than the recorded SC/FB/EF/GD/DJ/SG watermarks. Formal status remains PROVED_IN_LEAN_AT_PR_HEAD; the full original quantitative supplier and RH remain OPEN.
