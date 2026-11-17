@@ -1,0 +1,65 @@
+name: Nyman original divisor-jump sign obstruction
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'research/NYMAN_DIVISOR_JUMP_SIGN_OBSTRUCTION.lean'
+      - 'research/NYMAN_RADICAL_INCREMENT_20261106.lean'
+      - 'research/NYMAN_FLAT_TAPER_RETURN_20261104.lean'
+      - 'research/NYMAN_HIGH_COEFFICIENT_INVARIANT_20261104.lean'
+      - 'scripts/lean/nyman_divisor_sign/**'
+      - 'scripts/nyman_divisor_sign_regression.py'
+      - '.github/workflows/nyman-divisor-sign.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: nyman-divisor-sign-${{ github.head_ref || github.ref_name }}-${{ github.event.pull_request.head.sha || github.sha }}
+  cancel-in-progress: true
+
+jobs:
+  original-nyman-divisor-sign-proof:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Independent exact original-source regression
+        run: python3 scripts/nyman_divisor_sign_regression.py
+      - name: Verify compiler and Mathlib pins
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(cat lean-toolchain)" = 'leanprover/lean4:v4.34.1'
+          grep -q 'd13f23b723b8a846827a245b89c10fc7d3f11612' lakefile.lean
+      - name: Pinned Lean and cached Mathlib
+        uses: ./.github/actions/lean-setup
+      - name: Restore native compiled prerequisites
+        uses: ./.github/actions/lean-compiled-cache
+      - name: Warning-fatal original-source import closure
+        uses: ./.github/actions/research-compile
+        with:
+          build-library: 'true'
+          targets: research/NYMAN_DIVISOR_JUMP_SIGN_OBSTRUCTION.lean
+      - name: Exact types, dependencies, and standard terminal axioms
+        shell: bash
+        run: |
+          set -euo pipefail
+          lake env lean -DwarningAsError=true scripts/lean/nyman_divisor_sign/ExactTypes.lean | tee nyman-divisor-sign-types.log
+          lake env lean -DwarningAsError=true --run scripts/lean/nyman_divisor_sign/Audit.lean | tee nyman-divisor-sign-audit.log
+          python3 scripts/lean/nyman_divisor_sign/check_inventory.py
+      - name: Preserve proof and audit evidence
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: nyman-divisor-sign-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            research/NYMAN_DIVISOR_JUMP_SIGN_OBSTRUCTION.lean
+            scripts/lean/nyman_divisor_sign/
+            nyman-divisor-sign-types.log
+            nyman-divisor-sign-audit.log
+          if-no-files-found: error
