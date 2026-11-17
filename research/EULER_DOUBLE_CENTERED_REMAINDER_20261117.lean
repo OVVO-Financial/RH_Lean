@@ -207,4 +207,9 @@ theorem eulerSelfDual_doubleCentered_remainder_subpower (ε : ℝ) (hε : 0 < ε
   intro R hR
   rw [← eulerFloorBilinearQ_cast_eq_original R]
   have he : (eulerFloorBilinearQ R : ℂ) - (eulerDoubleCenteredXiQ R : ℂ) =
-      (((eulerFloorBilinearQ R : ℝ) - (eulerDoubleCentered
+      (((eulerFloorBilinearQ R : ℝ) - (eulerDoubleCenteredXiQ R : ℝ) : ℝ) : ℂ) := by
+    norm_cast
+  rw [he, Complex.norm_real, Real.norm_eq_abs]
+  exact hbound R hR
+
+end RHLean.Proof
