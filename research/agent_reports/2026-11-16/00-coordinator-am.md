@@ -1084,3 +1084,485 @@ The complete untruncated reporting tree was enumerated without a calendar cap. C
 Canonical target remains VFCanonicalSquareVonKochStatement. The latest policy requires a source-faithful continuation or direct endpoint consumer; unchanged OAI finite optimization remains parked. Current open/draft PR collection is empty. Exact-head checks and source dependencies are being reviewed before formal classifications are updated.
 
 Remaining work: finish relevant handoffs and source audit; independently test a substantial source-sensitive idea; compare the native, Nyman and actual-prime feasibility portfolio; issue nonredundant next-actual-run assignments; append final A-J synthesis and verify immutable publication. MATHEMATICS=PENDING; EXECUTION=IN_PROGRESS; PUBLICATION=READBACK_PENDING. All earlier history is preserved.
+
+
+# Selected Heads Have Large Gaps; Excursion Correlations Retain A Paid Sign
+
+## Research Synthesis - 20261116-coordinator-2309-EST/SC
+
+Actual trigger: 2026-11-16 23:09:01 EST / 2026-11-17T04:09:01Z, America/New_York. Platform run ID unavailable; SC is a research label. This is one actual continuation of the November 16 Coordinator report. Earlier MB/HB findings, corrections and receipts are preserved in the repository mirrors. New SC results are PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED unless explicitly stated otherwise. Publication remains READBACK_PENDING until the verified receipt below.
+
+## A. What Changed Mathematically?
+
+**The genuine Nyman sign-crossing set cannot have uniform fill distance O(x^kappa) for ANY fixed kappa<1, using the repository's already-certified closed Mertens boundary and its strict subunit baseline.** This is an actual-source obstruction, not a synthetic coefficient model. In particular the O(sqrt(x)) coverage premise in Analytic TW3 is false for the actual selected set, independently of whether the desired selected-family norm converges. TW3's conditional theorem is not refuted; one proposed way to satisfy its hypotheses is eliminated.
+
+The mechanism is simple but quantitatively decisive. The exact derivative of the selection defect is controlled by the genuine reciprocal Mobius prefix. A hypothetical dense set of crossings would improve the defect's global decay beyond the real part of an actual zeta zero, contradicting its exact Mellin identity. No largest zero, simple zero, dominant mode, zero-density hypothesis or new Mertens gain is assumed.
+
+There is also a positive structural finding on the SAME arithmetic source. Between any two real zeros alpha<beta of the selection defect delta, both complete correlations
+
+    sum_(alpha<n<=beta) mu(n)*delta(n)/n,
+    sum_(alpha<n<=beta) mu(n)*delta(n)*log(n/alpha)/n
+
+are nonnegative, with explicit decaying bounds supplied by any fixed known Mertens power b<1. They equal unweighted and logarithmically weighted energies of the reciprocal prefix. All endpoint and weight-curvature terms are displayed below. This is new source-specific supporting information in the inspected research chain, not a claim of literature priority or a bound on the full Nyman norm.
+
+The centering question motivating this investigation did not yield a new bound for the long-middle floor covariance: its scalar drift is already paid by SS/LM. The investigation therefore moved to the exact sampling geometry and a signed excursion identity, rather than counting a rank-one rewriting as progress.
+
+**Strategic result:** retire sublinear-power coverage as a supplier for the actual selected set; close the completed generic critical-inverse review; test the new paid excursion correlation only through an explicit source-preserving map. NO_NEW_GLOBAL_GAIN; NO_NEW_ACCEPTED_RH_ROUTE; VERIFIED_ETA=NONE; RH remains OPEN.
+
+## B. Current Proof Objective And Continuity
+
+Main: [4d5482805bac6a8f29d4fb4dadc61eca0bc06525](https://github.com/OVVO-Financial/RH_Lean/commit/4d5482805bac6a8f29d4fb4dadc61eca0bc06525). AGENTS blob c4f36b772f8a4b0c24fe566b90fafb646073c60f; CURRENT_PROOF_CONTRACT blob 95566e37c8eaeb99ee680660df4f9d2e06ea5038; half-continuation directive 96ad4439ec458af6168f7d9cb3eef5dde291d37c; continuity policy 3e71820a4af722eae7098da6945bb5bcba50dd0d; cross-route directive e3ae4280438f591f1ffaddd754a1c3a6d35d0691. The live policies, dynamic protocol, relevant generated DAG/atlas entries and original source declarations were read. Stale generated 'green unmerged' descriptions of #1135 do not override its actual merge.
+
+    half_bootstrap_ack=BOOTSTRAP_TO_HALF_V1
+    cross_route_ack=CROSS_ROUTE_SIGNED_RECOVERY_V1
+    continuity_ack=LAST_ACTUAL_REPORT_CONTINUITY_V1
+    high_attack_ack=COMPLETE_SIGNED_HIGH_ATTACK_V1
+    chain_ack=CANCELLATION_CHAIN_REUSE_V1
+    finite_wheel_ack=FINITE_WHEEL_CENTERED_RH_V1
+
+The unchanged canonical target is [VFCanonicalSquareVonKochStatement](https://github.com/OVVO-Financial/RH_Lean/blob/4d5482805bac6a8f29d4fb4dadc61eca0bc06525/research/VF_CANONICAL_SQRT_TWO_VON_KOCH.lean): one C>=0, chosen before every natural R>=2, with
+
+    |pi(R^2)-VF_can(R^2)| <= C*R*log R,
+    VF_can = vfMid + sqrt(2).
+
+Its terminal retains the explicit ClassicalVonKochRHCriterion argument. The separate native Mertens half-bound consumer is internal; neither premise is paid by SC.
+
+Define GROWTH(b) to mean every-positive-loss Mertens growth. The inspected #1119 theorem gives
+
+    GROWTH(b_base), b_base=7/8-7/(64*N_pack),
+
+with N_pack fixed by its actual source. Its exact-head source/dependency receipt is in I. Spending epsilon=7/(64*N_pack) yields a genuine fixed |M(x)|<=C*x^(7/8). We do not compare unrelated source-count symbols or claim a no-loss bound at b_base. The inspected MERTENS_CONVERSE_IDENTIFICATION source separately supplies GROWTH(Theta), where Theta is the actual rightmost nontrivial-zero supremum. Thus 1/2<=Theta<=b_base<1, using classical zero existence for the lower bound. These are reused inputs, not SC conclusions.
+
+### Latest-Actual Ledger
+
+The full untruncated reporting tree at 7d73ead1afe228f3561e5583f202228a6c999d3a was enumerated without a calendar cap. All seven latest files, the available November 15 files and external inbox were retrieved. Prior own HB is the verified consumed watermark. Relevant later sections were read in publication order: LM, TP, MC, CF, CR. Prior DB/TW/FP/SG/FR/FR-AUDIT and SS/UE/FFR3 were recovered where their original arguments or scopes are used. This is task-relevant backfill, not a claim to have independently reread every historical appendix.
+
+All November 16 paths below are under research/agent_reports/2026-11-16/. Times are actual substantive receipt times in EST; full source files are pinned at the intake revision.
+
+| Role / path | LAST_VERIFIED blob; section / time | LAST_CONSUMED -> newly consumed; RESUME |
+| --- | --- | --- |
+| Coordinator 00/90 mirrors | fcb7cc6f4c287b17ebd7ed8b6d618a113bd36d71; HB / 15:38:03 | Own HB recovered; native critical-cost proof and distinct source assignments. Complete mirror agreement verified. |
+| Owner 10-owner-payment.md | a52b439e693e069502b0c299a5f074a19bae0807; DB / 08:35:17 | DB -> NONE. Full first-bad residual remains unpaid; R=5 correction and R=137 restoration reversal retained. |
+| Analytic 20-analytic-type-ii.md | 84aaa2103225565607b5b033f273462bbe865246; LM / 17:30 | TW -> LM1-LM5. Long-middle magnitude remains open; SC now rejects actual-G power coverage. |
+| Wheel 30-finite-wheel.md | 713826840694e39a141fbdbe813f1d47245928e7; TP / 18:28:09 | FP -> TP1-TP5. Fixed finite prime rules do not supply strict gain; all-prime information remains missing. |
+| Census 40-prime-census.md | 53e6be517dc11037fe3b42a8ed6ad3a06cfce956; MC / 19:16:22 | SG -> MC1-MC3. H19/H20 signs are finite; complete magnitude is unpaid. |
+| Referee 50-adversarial-referee.md | 240b97ce1c8ddc87d5f520bc9a8cd6ea00df3d32; CF / 20:34:29 | FR -> CF review and CF1-CF5. HB/TP/LM scoped acceptances retained; full TW/DB not silently accepted. |
+| Lean 60-lean-verification.md | 0bada0352d54be7c46a7d928f4c4e3bee440ad8f; CR / 21:24:23 | FR-AUDIT -> CR. CF independently accepted; CR1 reviewed below; no new source supplier or repair. |
+
+TODAY=AVAILABLE for all roles. November 15 Coordinator SS (8ce64136c888c6ad7820ef69a78caa5ece07d61b), Referee UE (a1c07bdd8e8493aece535745a0ce6f6635871620) and Lean FFR3 (8d25541bc6faebfa180e0456061d7725756bf5ca) are actual carry-forward evidence. November 15 Owner/Analytic/Wheel/Census have NO_VERIFIED_REPORT, not invented executions; earlier histories remain at their verified consumed watermarks. There are no November 13-14 dated directories. No cause is inferred from these gaps. No latest partial lacking a completed predecessor was found.
+
+External inbox 7d63d434690d00dffce9c90335d41c4f62d85798 is unchanged, with no entry after October 18. Preserve EXT-20261018-PNT-1's cofactor weights and prime/root boundary; EXT-20261014-5 concerns unconditional strict-fraction payment, not every conditional first-bad strategy. Neither is a new supplier here. CONTINUITY_COMPLETE means verified latest discovery and relevant post-watermark consumption at this stated scope.
+
+Early checkpoint [fea2e4004e867ba6debbbe2e2123bff1e5a695fe](https://github.com/OVVO-Financial/RH_Lean/commit/fea2e4004e867ba6debbbe2e2123bff1e5a695fe) was committed and both immutable mirror readbacks matched exactly, blob d17b94a5032b88f418fd2acf537c1ad8b14ad157. Its IN_PROGRESS status is preserved as history until final publication is verified.
+
+## C. Competing Mechanism Portfolio
+
+There are three distinct feasibility investigations, not three accepted complete RH mechanisms. None currently has an independently paid complete endpoint supplier. All nine toolkits remain available; no Nyman coordinate is imposed on the others.
+
+### 1. Original Nyman Excursion-To-Response Transfer
+
+- Concept: exploit the actual signed Green correlations on logarithmic sign excursions, rather than infer dense sampling from scalar crossings.
+- Independent input: SC3 gives a complete signed correlation and explicit b-dependent bounds from the already available Mertens input. A new transfer must retain the original floor response and all endpoint terms.
+- Target implication: on one unbounded sequence H_j in the actual G, the ENTIRE original two-band residual norm must tend to zero; Bagchi's exact discrete criterion then gives RH. No iterative renewal is required for this direct terminal.
+- First unproved step: a quantitatively sufficient original-weight transfer from the excursion form to the long-middle response, plus the short middle, correction-activation and after-N returns on that SAME sequence.
+- Support: compiled exact taper/head/return; accepted SS drift, LM diagonal and CF review; SC's actual-source sign and gap analysis.
+- Obstructions: SC excludes all O(x^kappa), kappa<1, fill-distance shortcuts. MB rules out generic finite-moment substitutes. LM requires nearly complete off-diagonal magnitude, not just a sign.
+- Decisive test: derive the proposed weight-preserving quadratic map, including its curvature and endpoint bill. If its leftover term is merely the full target renamed, stop the transfer.
+- Assigned specialists: Analytic for the source map; Referee for SC; Census only for a bounded original-source boundary check.
+- Disposition: ACTIVE_SUPPORT / bounded feasibility only. The direct selected-family convergence assertion remains OPEN; no new complete ACTIVE_CANDIDATE is claimed.
+
+### 2. Native All-Prime Information Beyond Fixed Deletion
+
+- Concept: determine what genuine information survives a growing prime deletion, beyond TP's invertible fixed-prime system, before proposing a new native strict-cost estimate.
+- Independent input: full multiplicativity and prescribed u_6(p^e) at EVERY prime, with an honestly truncated inverse and all prime-power returns. Fixed-prime sign rules alone are insufficient.
+- Target implication: an independently paid complete estimate with eta(h)<h at the actual closed h=Theta-1/2 would feed b_next=1/2+(h+eta(h))/2, contradicting positive h. The algebraic consumer already exists.
+- First unproved step: genuine complete-source cancellation that improves the cost, not another inverse equivalence or a definition involving the unknown endpoint.
+- Support: accepted FP/FR source recovery, HB/CF critical accounting, TP's scoped constructive no-go; original Q_R and strict K_R remain intact.
+- Obstructions: the radical return J, powerful/unit terms and cross-row Gram remain. Fixed deletion preserves the exponent; growing deletion loses uniform constants unless separately proved.
+- Decisive test: bound the ACTUAL truncated deletion inverse at specified growing cutoffs, not its untruncated Euler product alone; identify whether any proposed gain survives restoration.
+- Assigned specialist: Wheel, preserving its separate CORR4/MU-LIFT workspaces.
+- Disposition: bounded feasibility; unchanged fixed-prime and generic critical-inverse programs are CLOSED as supplier searches. No new strict eta is supplied.
+
+### 3. Actual-Prime Failure-First Restored Residual
+
+- Concept: use a true first-bad configuration and complete restoration to force a new arithmetic restriction after the large delayed-batch terms cancel.
+- Independent input: actual prime incidence or cofactor information on the residual, with unique donors, chronology, the original anchor and every mixed term.
+- Target implication: the original first-bad contradiction or a direct canonical VF bound, retaining its exact formal terminal hypotheses.
+- First unproved step: an independent bound or forbidden configuration for the joint residual; the reassembled original payment is not a smaller lemma.
+- Support: DB's exact restoration and narrowly accepted coarse algebra; independently available strong PNT at its actual scale.
+- Obstructions: R=8 defeats edge-to-packet inference, R=137 defeats packet-to-restored-sign inference, and the corrected earliest delayed example is R=5. PNT-scale cancellation is too coarse.
+- Decisive test: derive the exact necessary condition under the ACTUAL first-bad premise; a root not satisfying that premise cannot refute it.
+- Assigned specialist: Owner. The previous failure-first assignment remains outstanding; no completion is inferred from silence.
+- Disposition: bounded feasibility / REVISE; ancestry-only payment remains rejected.
+
+Unchanged OAI finite optimization remains PARKED_NO_HALF_CONTINUATION: LOW floor 47/54, actual theta>3/5 inversion gate, correction supply Re(s)>21/25 and every remaining return must all be passed. SC does not count as substantive CODIV, CORR4 or MU-LIFT coverage. No change to repository authority or human approval boundary is requested.
+
+## D. Conceptual Research Performed
+
+### D1. Exact Source And Reused Inputs
+
+For real x>=1 use genuine integer Mobius coefficients, with the literal floor cutoff:
+
+    M(x)=sum_(n<=x) mu(n),
+    a(x)=sum_(n<=x) mu(n)/n,
+    delta(x)=1-sum_(n<=x) mu(n)*log(x/n)/n,
+    G={integer H>=2 : delta(H)*delta(H+1)<=0}.
+
+The integer defect is the original nymanScalarDefect in [NYMAN_RADICAL_INCREMENT_20261106.lean](https://github.com/OVVO-Financial/RH_Lean/blob/4d5482805bac6a8f29d4fb4dadc61eca0bc06525/research/NYMAN_RADICAL_INCREMENT_20261106.lean), not a new selection statistic. The real extension is continuous and locally absolutely continuous. Its newly admitted term has logarithm zero, so
+
+    delta'(x)=-a(x)/x almost everywhere,
+    delta(x)=delta(H)-a(H)*log(x/H), H<=x<=H+1.       (SC.1)
+
+SC.1 and unboundedness of G are already SS inputs; they are not claimed new. For any FIXED 0<b<1 and C_b with |M(x)|<=C_b*x^b for all x>=1, Abel summation, including the convergent value sum mu(n)/n=0, gives
+
+    |a(x)| <= A_b*x^(b-1), A_b=C_b*(2-b)/(1-b).      (SC.2)
+
+Convergence and the zero value at one follow from b<1 and the reciprocal-zeta identity on Re(s)>1 followed by continuity at one. Equivalently the exact formula is a(x)=M(x)/x-integral_x^infinity M(t)/t^2 dt. All constants precede the scale.
+
+For Re(s)>0, direct absolute integration gives
+
+    F(s)=integral_1^infinity delta(x)*x^(-s-1) dx
+        =1/s-1/[s^2*zeta(1+s)].                    (SC.3)
+
+The elementary bound delta(x)=O(1+log(x)^2) suffices here. This is the same Mellin identity used by SS, not a new approximation or a presumed mode expansion.
+
+### D2. SC1: Quantitative Persistence From A Genuine Zero
+
+**Statement.** Fix 0<sigma<b<1, a fixed bound as in SC.2, and an actual nontrivial zeta zero rho with Re(rho)>sigma. Then there are arbitrarily large real x such that delta has constant nonzero sign on
+
+    [x-c*x^(1+sigma-b), x+c*x^(1+sigma-b)],          (SC.4)
+
+where c>0 depends only on the fixed bound and b, not on x. It follows that this interval contains no crossing cell [H,H+1] lying wholly within it. No claim about a particular numerical first x is made.
+
+**Proof of large values.** Delta cannot be O(x^(sigma-1)). Otherwise its integral F would be holomorphic on Re(s)>sigma-1. Initially SC.3 gives
+
+    s^2*zeta(1+s)*F(s)=s*zeta(1+s)-1.               (SC.5)
+
+Both sides extend holomorphically across s=0 after the displayed cancellations. The identity theorem extends SC.5 throughout that half-plane. At s=rho-1, its left side is zero and its right side is -1, a contradiction. No assertion of a simple zero or a pole-free reciprocal on the whole domain is needed. Hence arbitrarily large x satisfy |delta(x)|>x^(sigma-1).
+
+**Proof of persistence.** On [x/2,2x], SC.2 gives |delta'(t)|<=D_b*x^(b-2), with D_b=A_b*2^(2-b). Choose c=1/(2D_b). For sufficiently large such x, the radius in SC.4 is at most x/2 because sigma<b. Throughout that interval,
+
+    |delta(t)-delta(x)| <= (1/2)*x^(sigma-1).
+
+Thus the sign is constant and nonzero. Every integer H in [x-c*x^(1+sigma-b), x+c*x^(1+sigma-b)-1] is outside G. This also states the exact one-unit cell boundary loss. The argument works for either sign of the large value and does not presume which one occurs.
+
+**Concrete baseline consequence.** Use the paid fixed b=7/8 and a critical-line zero, whose existence is classical [Hardy's theorem](https://arxiv.org/pdf/1606.00680). For any fixed 0<epsilon<1/2, choose sigma=1/2-epsilon. Then the actual G has arbitrarily late empty intervals of radius c*x^(5/8-epsilon). Choosing epsilon<1/8 already disproves a uniform O(sqrt(x)) fill distance. This conclusion requires no unproved selected-family energy estimate.
+
+### D3. SC2: Every Sublinear-Power Coverage Premise Is False
+
+Write Theta for the actual nontrivial-zero supremum. Reuse the separately inspected [closed growth identification](https://github.com/OVVO-Financial/RH_Lean/blob/4d5482805bac6a8f29d4fb4dadc61eca0bc06525/research/MERTENS_CONVERSE_IDENTIFICATION.lean): GROWTH(Theta), together with 1/2<=Theta<1 from the stated baseline and classical zero existence.
+
+**Complete quantifiers.** For every fixed 0<=kappa<1, every D>0 and every X0, there is an integer n>=X0 such that
+
+    G intersect [n-D*n^kappa, n+D*n^kappa] is empty. (SC.6)
+
+Proof: choose epsilon>0 so that epsilon<Theta, Theta+epsilon<1 and 1-2epsilon>kappa. Set b=Theta+epsilon and sigma=Theta-epsilon. GROWTH(Theta) supplies the fixed b bound. By the definition of a nonempty supremum there is an actual zero with real part>sigma; it need not attain Theta. SC1 gives empty radii c*x^(1-2epsilon). Rounding x to n costs at most two units in the crossing-cell convention. Since 1-2epsilon>kappa, eventually c*x^(1-2epsilon)-2>D*n^kappa. This proves SC.6 with constants fixed before the sequence of scales.
+
+There is a second useful proof that quantifies the false transfer. Suppose a fixed Mertens bound at b<1 and uniform fill distance O(x^kappa), kappa<1, did hold. For each large x choose H in G nearby and a real zero xi in [H,H+1]. SC.1-SC.2 imply
+
+    |delta(x)| <= O_(b,C_b,D)(x^(b+kappa-2)).        (SC.7)
+
+The same holomorphic identity then prohibits every nontrivial zero with real part>b+kappa-1. Thus the hypothetical coverage would force
+
+    Theta <= b+kappa-1.                            (SC.8)
+
+Taking b=Theta+epsilon with epsilon<1-kappa is contradictory. At the explicit b=7/8, kappa=1/2, it would even force Theta<=3/8, contradicting a critical-line zero. The coverage premise is therefore stronger than merely RH-hard: it is false under the already available inputs, including in the case Theta=1/2.
+
+**Scope.** This refutes TW3's power-fill premise for the actual G, not its correct conditional implication, not G's unboundedness, not positive density, not a possible O(x/log x) gap bound, and not the possibility of direct full-norm convergence on a sparse subsequence. It does not prove gaps of a fixed positive fraction of x. SC.6 is an infinite theorem, not extrapolation from a crossing census.
+
+### D4. SC3: A Complete Signed Excursion Form And Its Quantitative Cost
+
+Let 1<=alpha<beta be ANY two real zeros of the actual delta. They need not be consecutive. Then
+
+    S0(alpha,beta)=sum_(alpha<n<=beta) mu(n)*delta(n)/n
+                 =integral_alpha^beta a(x)^2 dx/x >=0,          (SC.9)
+
+    S1(alpha,beta)=sum_(alpha<n<=beta)
+                      mu(n)*delta(n)*log(n/alpha)/n
+                 =integral_alpha^beta log(x/alpha)*a(x)^2 dx/x
+                 >=0.                                         (SC.10)
+
+Both sums use every original integer in the interval, including squareful zeros and any integer endpoint. A zero endpoint contributes zero. These are correlations of genuine mu with its own past-dependent defect, not independent or random coefficients.
+
+Under the fixed Mertens bound used in SC.2, put q=2-2b>0. The whole signed quantities satisfy
+
+    0<=S0(alpha,beta)<=A_b^2*alpha^(-q)/q,
+    0<=S1(alpha,beta)<=A_b^2*alpha^(-q)/q^2.          (SC.11)
+
+These bounds are uniform in beta>alpha, however large that endpoint is. The constants depend only on the fixed input b,C_b before alpha,beta. At b=7/8 the decay is alpha^(-1/4), with constants 4*A_b^2 and 16*A_b^2 respectively. No output Mertens exponent is improved.
+
+**Proof and all boundary terms.** Put t=log x and f(t)=delta(exp t). It is continuous piecewise affine, f'(t)=-a(exp t), and as distributions on t>0,
+
+    -f'' = sum_(n>=2) [mu(n)/n]*Dirac_(log n).      (SC.12)
+
+Ordinary integration by parts for this locally finite atomic measure gives SC.9. With affine weight t-log(alpha), its second derivative is zero and endpoint f values are zero, giving SC.10. Bounding a by SC.2 and extending the positive integrals to infinity gives integral_alpha^infinity x^(-q-1) dx=alpha^(-q)/q and its logarithmic counterpart alpha^(-q)/q^2. These are independently justified estimates, not a cancellation assumption.
+
+To prevent a hidden-boundary transfer, for arbitrary INTEGERS 1<=u<v, not assumed to be zeros, the exact formulas are
+
+    integral_u^v a(x)^2 dx/x
+      =sum_(u<n<=v) mu(n)*delta(n)/n
+        -delta(v)*a(v)+delta(u)*a(u),                           (SC.13)
+
+    integral_u^v log(x/u)*a(x)^2 dx/x
+      =sum_(u<n<=v) mu(n)*delta(n)*log(n/u)/n
+        -log(v/u)*delta(v)*a(v)
+        -(delta(v)^2-delta(u)^2)/2.                            (SC.14)
+
+The interval convention is (u,v], with a(v) the RIGHT prefix including mu(v)/v. Delta is continuous at v. These endpoint terms are essential; selection at an integer H gives a nearby real zero, not delta(H)=0.
+
+For a general twice continuously differentiable weight W(t), and zero endpoints A=log(alpha), B=log(beta), the corresponding identity is
+
+    sum_(alpha<n<=beta) [mu(n)/n]*W(log n)*delta(n)
+      =integral_A^B W(t)*f'(t)^2 dt
+        -(1/2)*integral_A^B W''(t)*f(t)^2 dt.       (SC.15)
+
+A nonnegative weight by itself does NOT preserve the sign: the curvature term must be retained. Constant and affine logarithmic weights have zero curvature. This is precisely the bill that must be checked before trying to insert the Nyman cofactor-max response weights.
+
+**No-narrowing audit.** SC.9-SC.10 are exact energy identities, not RH estimates. SC.11 is a real bound but follows at the EXISTING input exponent b; it does not prove a strict upgrade or identify this form with the full Nyman covariance. An asserted bound for the leftover complete norm would still be an independent OPEN_BRIDGE, and cannot be hidden in a definition of an admissible weight. The new strategic content is the actual-source sign and the coverage refutation, not an algebraic contraction wrapper.
+
+### D5. SC4: Bounded Exact Verification
+
+The fixed local registration preceded execution. Scope: h=1..32 for SC.1; intervals (2,3), (9,11), (19,21), (31,64), (64,96), (137,139), (139,256) for SC.13-SC.14. Mobius is computed by trial factorization. Logarithms are represented as exact rational polynomials in prime logarithms; no floating-point sign or transcendental approximation is used.
+
+The checker passed 47 assertions. Both deliberately broken formulas, omitting the upper boundary or the weighted delta-square boundary, failed on ALL seven intervals. Syntax checking passed; all processes completed. Registration SHA256: 3de4258a5909808d92898e0a37a94830f5540ef9654ba2ffbb76167ba439d577. Checker SHA256: 95dc3c471b615eb420f5d93d96fa3c1be954294387ce58094f20a7c5f4c64791. Exact source is embedded in the appendix.
+
+This is FINITE_COMPUTATION supporting the endpoint algebra only. It does not locate actual real zeros, certify asymptotic gaps, prove a global norm bound or constitute a Lean proof. No existing large sign census or critical-inverse computation was repeated.
+
+### D6. Literature And Independent Review Scope
+
+The only external zero-existence input in SC is Hardy's theorem, checked in [Sangale's proof](https://arxiv.org/pdf/1606.00680). Its hypotheses concern the Riemann zeta function itself; no zero ordinate, simplicity or unproved distribution is imported. SC's Mellin, persistence and energy arguments are provided above rather than attributed to that paper.
+
+[Bagchi, Theorem 1](https://arxiv.org/html/math/0607733v1), supplies the exact discrete terminal: approximation of the constant sequence by finite vectors {m/k} in weight 1/[m(m+1)] is equivalent to RH. It does not assert convergence for this particular selected taper. Thus sparse selected convergence remains a sufficient direct route despite SC2.
+
+The LM literature audit was checked against [Goldston-Yildirim, Section 5](https://arxiv.org/pdf/math/0111212): the paper also notes Graham's removal of the O(H^2) error in the SAME-SITE second moment for 1<=H<=X. This strengthens that isolated available estimate, but still does not supply the complete response-weighted, separated-time Lambda-minus-truncated-Lambda covariance. The obstruction is not merely the displayed O(H^2) term. No transfer of twin-prime correlations or a conjectural distribution theorem is made.
+
+**CR1 independent paper verdict: ACCEPT at its stated model scope.** Splitting its cosine integral at 1/log m bounds the initial part by (log m)^(-alpha)/alpha. Integration by parts on the rest, with both endpoints retained, bounds it by 2*(log m)^(-alpha), for fixed 0<alpha<1. Bounded rounding error preserves little-o(sqrt(m)); the accepted CF inverse turns it into the stated growing logarithmic factor. This review used the author's proof and is not claimed blind. It supplies no genuine u_6 information. Because every fixed logarithmic power is absorbed by every requested positive exponent loss, the completed HB/CF/CR program is not a remaining obstacle to GROWTH(1/2). No further generic critical-cost work is assigned.
+
+## E. Specialist Findings And Evidence Classification
+
+| Findings | Current mathematical disposition |
+| --- | --- |
+| Owner DB | Original R=5 correction, R=8/R=137 refutations retained. Full DB remains author paper/finite evidence with earlier narrow DB.9 algebra acceptance only; no wholesale new review claimed. |
+| Analytic LM1-LM2 | ACCEPT_ON_PAPER by CF: diagonal D~6H/pi^2 at quadratic taper, complete regional covariance and saturation requirement. These are not a full norm estimate. |
+| Analytic LM3 | Universal shared-gcd sign proposals REFUTED at the stated selected heads; CF independently reproduced them. Full TW still awaits dedicated review; SC uses only its displayed coverage premise and independently reconstructs the obstruction. |
+| Wheel TP1-TP4 | ACCEPT_ON_PAPER by CF at their distinct scopes. Unit-magnitude finite-prime model and multiplicative bounded-weight model are NOT one model satisfying all genuine hypotheses. |
+| Census MC1-MC2 | FINITE_COMPUTATION at H19/H20: total off-diagonal negative, with nonzero residual. No universal sign or cancellation rate. |
+| Census MC3 | ACCEPT_ON_PAPER by CF at B<g*p*q; prime-only cofactor explanation has a strict finite-depth boundary. |
+| Referee CF1-CF4 | Independently ACCEPT_ON_PAPER by Lean CR: atom-free low-frequency mass can still cause generic critical logarithmic amplification. Not an actual S bound. |
+| Lean CR1 | Independently accepted here at the explicit model scope; NOT_FORMALIZED. No new implementation or qualified arithmetic supplier. |
+| Coordinator SC1-SC3 | New PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING. The gap and correlation statements use genuine mu and the explicit reused inputs. |
+| Coordinator SC4 | FINITE_COMPUTATION, 47 exact assertions; not asymptotic or Lean certification. |
+
+No author execution or finite count is relabelled an independent review. Current acceptance can supersede a report's old 'pending' label without rewriting that history.
+
+## F. Mathematical Bottlenecks And Source/Loss/Recovery Ledger
+
+| Original source and first loss | Actual paid recovery / quantitative effect | First independently missing step |
+| --- | --- | --- |
+| Nyman delta at sign crossings -> assume representative all-head sampling | SC1-SC2 recover the exact derivative and Mellin obstruction; power-density transfer is false. | A DIRECT complete selected-family estimate, without the false coverage premise. |
+| Complete mu-delta correlation -> discard interior signs or endpoint products | SC3 restores every term and gives nonnegative energy for constant/affine logarithmic weights, bounded at the paid b. | Exact transfer to the Nyman floor-response kernel, with curvature and all remaining regions. |
+| Long-middle square -> keep diagonal or only a favorable sector sign | LM pays the diagonal and reconstructs C; MC restores positive gcd classes. Need C=-D+o(log^2 H). | Genuine signed magnitude, not C<=0 or a fixed fraction of D. |
+| Native ordered Euler rows -> isolate C_R(6) or remove critical logs | FR restores J and all prefixes; HB/CF pay at most logarithmic critical cost; #1139 refutes the pointwise shortcut. | A source-derived eta(h)<h, retaining unit/powerful/history/cross-row terms. |
+| Finite-prime deletion -> infer incompatible growth | TP restores all powers and commuting overlaps; fixed deletion preserves exponent. | New all-prime information with uniform growing-cutoff control. |
+| Actual-prime packet -> omit anchor/complement restoration | DB restores the large compensating terms and exhibits true sign reversals. | The actual first-bad joint residual at endpoint precision. |
+
+Four-way carrier check: Euler Q_R and strict K_R are genuine Mobius multiplicative square-prefix objects; SC's delta is a one-way reciprocal-log transform of that same mu, NOT an equality to Q_R or its Gram. The actual VF/wheel discrepancy counts primes and retains its physical/virtual compensation; its cofactor-weighted bridge is not an isometry to delta. Original NNS/OAI uses ideal characters and profile/height/conductor masks: only the already-proved one-way native Mertens consequence is used, with no atomwise substitution. The square-prefix endpoint supplies no shell second moment or full Nyman norm by itself. These are explicit OPEN_BRIDGE or ONE_WAY edges, not four equal formulas.
+
+The Nyman complete consumer still needs one common unbounded legal sequence, the exact zero head, the short middle, 4H..N/2, correction activation N/2..N, after-N finite return and infinite tail. Accepted small head/drift and remote-tail estimates are carried forward at their stated scopes; no omitted region is paid by SC. A local signed energy cannot be summed as though its weights were the complete covariance.
+
+## G. Strategy Decisions
+
+1. REJECT uniform O(x^kappa) actual-G coverage for every fixed kappa<1, subject to independent review of SC's complete proof. Do not assign a search for a missing density proof of a false premise. Preserve TW3 as a correct conditional theorem and direct sparse-subsequence Nyman approximation as OPEN.
+2. CLOSE generic critical-inverse refinement as a supplier search. HB/CF/CR are useful accepted paper obstructions, but their logarithmic cost is harmless at the every-positive-loss endpoint. Stop one-more-frequency or one-more-fixed-prime model campaigns absent a new original-source question.
+3. CONTINUE one bounded Nyman transfer audit using the new signed excursion form. Its quantitative cost is paid at b; an output improvement is not. Demand original weights, the SC.15 curvature term, exact endpoints and complete return before activation as an RH mechanism.
+4. RETAIN distinct native all-prime and actual-prime failure-first feasibility questions. No independent strict supplier survived this run; the portfolio must not be advertised as three proven or complete routes.
+5. NO_NEW_THEOREM_TO_FORMALIZE immediately. SC requires independent review and a named necessary use. Existing algebraic consumers and #1139 are already available; no filler wrapper, repeated witness or new source assumption is requested.
+
+## H. Next Specialist Assignments
+
+Assignments are asynchronous handoffs for the next ACTUAL authorized executions, not launches, rescheduling or promised delivery. Each role must refresh main and its latest upstream handoffs. Protected independent route memory remains intact.
+
+**Owner Payment: retain the outstanding failure-first residual audit.** On the original E(D,T,C), actual first-bad hypothesis, once-only donors and half-run anchor, derive the first new restriction after DB's pruned +A^2 and restored -A^2 terms cancel. Reuse DB.9 only at its true coarse scale. Expected output is a necessary arithmetic configuration plus an independent prohibition, or a proof that the proposal merely restates the complete payment. R=8/137 are falsifiers of unconditional aggregation only; first-bad premises must be verified separately. Do not repeat donor-count asymptotics. A genuine residual restriction could reactivate VF/SAT/JOH; an identity cannot.
+
+**Analytic Type II: test excursion-to-floor-response transfer, without coverage.** Reuse the original U_H(m), two-band correction and LM's complete V=D+C on 4H<=m<=N/2. Starting from SC.9-SC.15, derive the exact response weighting needed to relate a paid excursion form to this V. Every non-affine weight pays its curvature term; integer H is not the nearby real zero. A valid result must give an independently derived bound V<=A(H)*W+R with explicit W from the paid form, A(H), R and enough decay to be useful on the actual selected heads, followed by the complete complementary budget. Defining R as the unknown residual, importing a generic finite-moment theorem, or invoking power coverage is not a supplier. The smallest falsifier is a missing endpoint/curvature term or an incompatible floor mask. If no genuine inequality survives, report that precise failure and return to the last substantive CODIV derivation rather than repeat a Nyman identity.
+
+**Finite Wheel & Incidence: audit growing deletion with the actual truncated inverse.** For genuine u_6 and P_y={primes 5<=p<=y}, let T_y(x)=sum_(n<=x,(n,product P_y)=1)u_6(n). TP gives T_y(x)=sum_(d<=x) b_y(d) S(floor(x/d)), with b_y(p^e)=2^(e-1) for p in P_y, e>=1, b_y(1)=1 and zero outside those prime supports. Determine the source-uniform cost of sum_(d<=x)b_y(d)d^(-beta), for fixed 1/2<=beta<1, at y=log x and y=x^(1/4), keeping the truncation literal. Do not infer a lower bound for this truncated mass from a divergent/larger infinite Euler product. Reuse TP instead of a new fixed-prime scan. Expected output: a rigorous cost range and restored-source budget showing whether a proposed growing-prime saving could survive, or a scoped no-go. The missing strict arithmetic gain remains unpaid; the conditional eta(h)<h native consumer is the only endpoint license, not an assumed conclusion.
+
+**Prime Census Laboratory: bounded carrier audit only.** Independently reconstruct SC.13-SC.14 on [19,21] and [137,139], including the right prefix at the upper endpoint and the weighted delta-square term. Reuse existing genuine mu data; compare exact rational prime-log coefficients, not floating trend lines. These are changed source/boundary formulas, not a request to rerun MC's pair census. A failed exact coefficient identity falsifies the supporting form; a pass does not establish zero gaps or a norm estimate. Do not extend the sign-crossing range to try to prove an asymptotic already addressed by SC's analytic argument. Larger work waits for a new magnitude hypothesis with a decisive falsifier.
+
+**Adversarial Referee: independently challenge SC1-SC3.** Begin with the actual delta and G. Check the extension of the multiplied Mellin identity through s=0, constant-before-scale order, existence of a zero below a possibly unattained supremum, the choice of b=Theta+epsilon, one-unit floor/cell losses, and the exact claim that every fixed power-fill premise is false. Audit the atomic integration-by-parts endpoints, both logarithmic formulas and SC.15's curvature sign. Expected output: ACCEPT/REVISE/REFUTE with the first exact failure. SC does not refute sparse direct convergence, density, macroscopic gap bounds or RH. No full TW/DB acceptance is requested by implication.
+
+**Lean Verification: preserve the human gate and avoid speculative implementation.** #1139 is merged and needs no repair or duplicate witness; no open PR exists at this snapshot. Review any accepted SC statement only after the independent verdict, distinguishing existing nymanScalarDefect algebra from the new analytic gap theorem. A source-exact interval integration lemma may become useful if Analytic produces a necessary transfer; without that named use, retain NOT_FORMALIZED / PENDING_NO_ACCEPTED_NEW_SUPPLIER. Do not assume a sparse-to-dense premise, an unproved correlation or a renewed eta in a record. No new generic critical-inverse or contraction wrapper is assigned. Actual future code work remains on authorized proof branches with warning-fatal exact-head type/dependency/axiom checks and human-only merge.
+
+## I. Lean And PR Status
+
+The complete open/draft PR collection is EMPTY at intake and at the pre-publication refresh. Fresh metadata confirms #1119 and #1135-#1139 merged. #1139 merged at 2026-11-16T21:57:12Z, superseding HB's old unmerged status. No Lean source, workflow, proof branch, PR, review state, schedule or permission was changed by this role; no Lean was run locally. Only the two authorized Coordinator report paths on agent-reports are being updated.
+
+| Result | Exact-head verification and scope |
+| --- | --- |
+| #1119, 77ee815846d6d534c866f0752aa33b84c385610a | 14/14 completed successful checks. Actual [dependency/axiom log](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42552018910/job/128949473700) fetched: five closures 35358,35375,35736,35737,35753; propext, Classical.choice, Quot.sound only. Source construction and native arithmetic transfer are live dependencies. |
+| #1135, ac6dc46b70da962e70b18ea184451c225c1cd44a | MERGED 2026-11-16T00:20:57Z. Existing envelope dictionary/consumer, not a new arithmetic supplier. Prior detailed certification retained; no fresh full audit claimed. |
+| #1136, 93828e24dc69f56b6c4dc1eaed92847ef7e71be2 | MERGED 12:50:12Z. Conditional complete-response inversion; actual theta>3/5 source gate retained. |
+| #1137, 1c06b34d478d239e8968b62b0380812d7af2e49f | MERGED 12:50:33Z. Principal FFR4 component, not complete physical return. |
+| #1138, 1f65f635ef530da7d0b2d6512a91a4553ac64cbd | MERGED 14:39:44Z. Current policy and paper audit, not certification of every mathematical proposal. |
+| #1139, 760a105553788fa7005e86b1230699fd871a2934 | MERGED; 13/13 completed successful checks. Source-faithful R=139 pointwise obstruction only. |
+
+The #1139 source blob 9003eb1c226f0b114be6402e63f325b60c80bf92 was read. Its tested commit tree 987c764248812e4e587d1e076d9a1d6277515fb7 equals the live main commit's tree. The actual [compilation log](https://github.com/OVVO-Financial/RH_Lean/actions/runs/43929805348/job/133518873088) reports compiled=1,cached=9. The [dedicated exact-type/dependency audit](https://github.com/OVVO-Financial/RH_Lean/actions/runs/43929804765/job/133518873411) uses matching cached compilation and verifies eight roots with standard axioms, closures 92,77,49,48,585,590,618,619. It proves C_139(6)=0, Q_139=-49, M(19320)=43 and the original/centered pointwise no-go. It does not prove FR's whole analytic inverse or any upper bound.
+
+A fresh untruncated tree comparison of 2,514 preexisting Lean/pin/scripts/lean entries at #1119's tested head versus current main found only RHLean.lean's aggregate changed. The exact count differs from earlier reports because this comparison includes all matching lakefile/manifest/toolchain paths. Relevant baseline implementation/audit/pin entries are unchanged. This supports scoped reuse, not a new build of all current main. No hosted run was launched or rerun.
+
+Additional inspected source blobs: MERTENS_CONVERSE_IDENTIFICATION 768c8255850bf4074aff265c3fe17a1f5c43979b; NYMAN_FLAT_TAPER_RETURN 2d23721027ecc44e85b7add02fc632b482f03352; NYMAN_RADICAL_INCREMENT c5ebb3d5d96898549ad039fd32e1a26955c5b8f8; NYMAN_CORRECTION_ENERGY e5453cd32c3c4ebf9ebf41927bcb92e534b2ece7; AmplificationExponentIteration d78be4509e5dcc35b833c3786258b94fc6e71915. SC is a PAPER_PROOF application of stated inputs, not a claim these files already contain SC or that paper sources are kernel-certified.
+
+## J. Next-Run Resume Capsule
+
+    RUN=20261116-coordinator-2309-EST/SC; PLATFORM_RUN_ID=UNAVAILABLE
+    MAIN=4d5482805bac6a8f29d4fb4dadc61eca0bc06525
+    AGENTS=c4f36b772f8a4b0c24fe566b90fafb646073c60f
+    CONTRACT=95566e37c8eaeb99ee680660df4f9d2e06ea5038
+    POLICY=96ad4439ec458af6168f7d9cb3eef5dde291d37c
+    REPORT_INTAKE=7d73ead1afe228f3561e5583f202228a6c999d3a
+    PRIOR_OWN=HB; NEWLY_CONSUMED=LM/TP/MC/CF/CR; OWNER_DB=UNCHANGED
+    EXTERNAL=7d63d434690d00dffce9c90335d41c4f62d85798, unchanged
+    CHECKPOINT=fea2e4004e867ba6debbbe2e2123bff1e5a695fe, mirrors verified
+    half_bootstrap_ack=BOOTSTRAP_TO_HALF_V1
+    ROUTE=NYMAN actual-source sampling and excursion feasibility
+    ORIGINAL_SOURCE=mu,a(x),delta(x),G; no changed taper or omitted floor return
+    CURRENT_P(b)=GROWTH(b); START=7/8-7/(64*N_pack), every positive loss
+    NEW=SC1 persistence; SC2 all power-fill obstruction; SC3 signed excursion form
+    SC1_SC3_STATUS=PAPER_PROOF/SELF_AUDIT/INDEPENDENT_REVIEW_PENDING
+    SC4=FINITE_COMPUTATION,47 assertions,PASS; two negative controls fail in seven cases
+    CR1=ACCEPT_ON_PAPER at synthetic little-o scope, NOT_FORMALIZED
+    DIRECT_TERMINAL=complete original selected norm -> 0 on one common unbounded sequence
+    RENEWAL=not needed for this direct terminal; no such convergence established
+    ALL_RETURNS=integer/real zero displacement, endpoint products, weight curvature,
+                short/long middle, both correction bands, after-N and infinite tail
+    CONSTANT_ORDER=fixed b,C_b,kappa or epsilon first, then all growing scales
+    FIRST_OPEN_INPUT=source-exact excursion-to-response bound with full complement
+    FALSIFIER=failed Mellin cancellation, endpoint/curvature sign, or mismatched kernel
+    PRESENT_WORK_TO_NEXT=Referee SC audit; Analytic exact transfer feasibility
+    STATUS=ACTIVE_SUPPORT for bounded audit; no new complete ACTIVE_CANDIDATE
+    CLOSED=fixed-prime sign-only and generic critical-log supplier searches
+    REJECTED=actual-G fill distance O(x^kappa), each fixed kappa<1, at paper scope
+    PRESERVED=direct sparse selected convergence, all nine independent toolkits
+    PR1139=MERGED, head 760a105553788fa7005e86b1230699fd871a2934,13/13 green
+    FORMAL=NO_NEW_LEAN; NO_ACTIVE_REPAIR; no source edits or PR created
+    NO_NEW_GLOBAL_GAIN; NO_NEW_ACCEPTED_RH_ROUTE; VERIFIED_ETA=NONE; RH=OPEN
+    PUBLICATION=READBACK_PENDING until verified receipt
+
+Highest-value next reasoning: independently challenge the actual-source gap proof, then determine whether the newly paid signed excursion form has any valid quantitative map to the complete response. Do not replace the false coverage premise with an assumed spectral representation or another renamed endpoint estimate.
+
+Only the two owned Coordinator mirrors are published remotely. Prior history and the early checkpoint remain exact prefixes. No source, policy, other-role report, protected branch, Lean proof branch, PR, workflow, merge, agent launch, schedule or permission change is authorized or performed by this continuation.
+
+## Reproduction Appendix
+
+The following exact checker supports SC4 only. Its interval formulas retain endpoints that vanish only at genuine real zeros. It is not a zero-location or asymptotic certificate.
+
+```python
+"""Exact rational prime-log checks for the original selection excursion form."""
+
+from fractions import Fraction as F
+import json
+
+
+def add(*polys):
+    out = {}
+    for poly in polys:
+        for key, value in poly.items():
+            out[key] = out.get(key, F(0)) + value
+    return {key: value for key, value in out.items() if value}
+
+
+def scale(poly, value):
+    return {key: value * coefficient for key, coefficient in poly.items()
+            if value * coefficient}
+
+
+def mul(p, q):
+    out = {}
+    for kp, vp in p.items():
+        for kq, vq in q.items():
+            key = tuple(sorted(kp + kq))
+            out[key] = out.get(key, F(0)) + vp * vq
+    return {key: value for key, value in out.items() if value}
+
+
+def factors(n):
+    result = []
+    p = 2
+    while p * p <= n:
+        e = 0
+        while n % p == 0:
+            n //= p
+            e += 1
+        if e:
+            result.append((p, e))
+        p += 1
+    if n > 1:
+        result.append((n, 1))
+    return result
+
+
+def mu(n):
+    fs = factors(n)
+    return 0 if any(e > 1 for _, e in fs) else (-1) ** len(fs)
+
+
+def logn(n):
+    return {(p,): F(e) for p, e in factors(n)}
+
+
+def logratio(n, d):
+    return add(logn(n), scale(logn(d), -1))
+
+
+def reciprocal(h):
+    return sum((F(mu(n), n) for n in range(1, h + 1)), F(0))
+
+
+def delta(h):
+    return add({(): F(1)}, *(scale(logratio(h, n), -F(mu(n), n))
+                            for n in range(1, h + 1)))
+
+
+checks = 0
+negative = [0, 0]
+intervals = [(2, 3), (9, 11), (19, 21), (31, 64),
+             (64, 96), (137, 139), (139, 256)]
+for h in range(1, 33):
+    assert delta(h + 1) == add(delta(h), scale(logratio(h + 1, h), -reciprocal(h)))
+    checks += 1
+
+for left, right in intervals:
+    energy = add(*(scale(logratio(h + 1, h), reciprocal(h) ** 2)
+                   for h in range(left, right)))
+    source = add(*(scale(delta(n), F(mu(n), n))
+                   for n in range(left + 1, right + 1)))
+    upper = scale(delta(right), reciprocal(right))
+    lower = scale(delta(left), reciprocal(left))
+    assert energy == add(source, scale(upper, -1), lower)
+    checks += 1
+    negative[0] += energy != add(source, lower)
+
+    weighted_energy = add(*(scale(add(
+        mul(logratio(h + 1, left), logratio(h + 1, left)),
+        scale(mul(logratio(h, left), logratio(h, left)), -1)),
+        reciprocal(h) ** 2 / 2) for h in range(left, right)))
+    weighted_source = add(*(scale(mul(delta(n), logratio(n, left)), F(mu(n), n))
+                            for n in range(left + 1, right + 1)))
+    weighted_upper = mul(logratio(right, left), upper)
+    square_boundary = scale(add(mul(delta(right), delta(right)),
+                                scale(mul(delta(left), delta(left)), -1)), F(1, 2))
+    assert weighted_energy == add(weighted_source, scale(weighted_upper, -1),
+                                  scale(square_boundary, -1))
+    checks += 1
+    negative[1] += weighted_energy != add(weighted_source, scale(weighted_upper, -1))
+
+assert all(negative)
+checks += 1
+print(json.dumps({"status": "PASS", "assertions": checks,
+                  "intervals": intervals, "negative_control_failures": negative,
+                  "arithmetic": "exact rational prime-log polynomials",
+                  "infinite_or_lean_certification": False}, sort_keys=True))
+
+```
+
