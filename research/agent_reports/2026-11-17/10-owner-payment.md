@@ -736,3 +736,36 @@ The substantive [commit c1a63bfbfdb53da778ca62dbc06f7f5e86ecd489](https://github
 EXECUTION=COMPLETED; SUBSTANTIVE_PUBLICATION=PUBLISHED_IMMUTABLE_READBACK_VERIFIED. FB1-FB3 remain PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED; FB4 is FINITE_COMPUTATION. All 507 exact checks passed. No genuine first-bad instance, independent prohibition, endpoint gain or new Lean theorem is claimed. The post-cancellation sign remains TARGET_EQUIVALENT. NO_NEW_GLOBAL_GAIN; VERIFIED_ETA=NONE; RH=OPEN.
 
 This receipt records already verified substantive publication, not its own future containing commit. Its containing update is separately read back before delivery. No source, main, policy, other report, proof branch, PR, workflow, schedule, permission or agent configuration changed. Resume at the exact SC/DB/LM/TP/MC/CF/CR watermarks and seek a genuinely different arithmetic input; do not repeat the completed leading-batch/marginal-sign audit.
+
+
+---
+
+## Early Checkpoint - 20261117-owner-0809-EST/HF
+
+### A. Most Important Mathematical Development
+
+IN_PROGRESS / PARTIAL. The previous FB residual audit is complete and will not be rerun: favorable restored donor marginals leave exactly the original unpaid excess. This run investigates a genuinely different use of the ENTIRE earlier good-block history: finite cofactor/dilation filters of actual prime counts and the exact multiplicative logarithm conservation behind them. The candidate is that cancellation of the main prime density might yield a strict history-to-current contraction. The first test is the exact historical operator cost after density cancellation, before any claim of a new bound.
+
+No new arithmetic upper bound, theorem in Lean, independent acceptance, or RH result is claimed at this checkpoint.
+
+### B. Current Authority And Execution
+
+Actual configured trigger: 2026-11-17 08:09:03 EST, America/New_York. RUN_ID_UNAVAILABLE; HF is a research label only. Current main=52fdc0cab0fe0cffc4668212a6889423e0090189. AGENTS=c4f36b772f8a4b0c24fe566b90fafb646073c60f; CURRENT_PROOF_CONTRACT=95566e37c8eaeb99ee680660df4f9d2e06ea5038; half directive=96ad4439ec458af6168f7d9cb3eef5dde291d37c. The governing priority is BOOTSTRAP_TO_HALF_V1, not the contract's older banner.
+
+half_bootstrap_ack=BOOTSTRAP_TO_HALF_V1; cross_route_ack=CROSS_ROUTE_SIGNED_RECOVERY_V1; continuity_ack=LAST_ACTUAL_REPORT_CONTINUITY_V1. Existing source safeguards and nine independent toolkits remain intact. #1140 is now human-merged on main; its finite Nyman sign obstruction is not an energy bound. No open/draft PR was found at intake.
+
+The actual Owner source remains D_r, delta=P_r-m_r, d=D_r+delta, C=m_r+(1-2w_r)P_r and E=2d^2-(|D_r|+C)^2, with the full K=2 first-bad hypothesis. The canonical uniform VF bound and RH remain OPEN. The current fixed-source comparator is the every-positive-loss MertensGrowthAtMost(7/8-7/(64*N_pack)); it does not supply this prime-history correlation.
+
+### C. Continuity And First Problem
+
+The untruncated reporting tree was enumerated without a calendar cap at 34fb23c44b5ad3a49237e942670ce4853e53054a. All seven roles have actual completed November 17 reports: Coordinator INV, Owner FB, Analytic EF, Wheel GD, Census DJ, Referee SG, Lean NYMAN-JUMP. The November 16 files were retrieved as well; the previous Owner FB report already records consumption through SC/DB/LM/TP/MC/CF/CR. New relevant sections after that watermark are being consumed in chronological order. TODAY=AVAILABLE; YESTERDAY=CARRY_FORWARD, not fabricated execution. Coordinator mirror blobs agree in the complete tree; full mirror-byte verification and final source/CI receipt remain to be recorded.
+
+External inbox 7d63d434690d00dffce9c90335d41c4f62d85798 is unchanged, with no new mathematical entry after October 18. The original #939 payment audit, full #915 physical weld, canonical consumer, floor-Li/Buchstab bracket source and paid baseline declaration have been retrieved and read at current main.
+
+### D-K. Pending Investigation And Half-Continuation
+
+ROUTE=Owner VF/SAT/JOH history-sensitive bounded feasibility. DIRECT CONSUMER=exclude every actual first bad at K=2, with the original finite base, then the existing raw/canonical von-Koch bridge and explicit ClassicalVonKochRHCriterion. No iterative finite-exponent improvement is substituted for this direct endpoint.
+
+Candidate arithmetic input: the divisor-weighted history in the exact logarithm-of-factorial prime identity, or a finite density-canceling cofactor mask, may constrain the actual current innovation. All floors, prime powers, unsampled interior-square errors, deterministic VF reference terms, original historical anchor and complete quadratic must return. A positive sum of separate historical caps is only a candidate bound, not arithmetic cancellation.
+
+Before computation, register small exact prime/factor reconstructions, square-boundary and prime-power controls, and sharp finite-filter tests; arbitrary histories are explicitly model controls, never actual first-bad witnesses. Derivation, quantitative scope, falsification, A-K synthesis and publication receipt are pending. Direct git transport returned CONNECT tunnel 403; authenticated GitHub reads/writes are available. No local Lean, source change, proof branch, PR, other report, launch, schedule change or merge is performed.
