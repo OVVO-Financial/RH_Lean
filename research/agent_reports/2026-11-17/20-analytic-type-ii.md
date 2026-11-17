@@ -1630,3 +1630,14 @@ if __name__ == '__main__':
 </details>
 
 Observed final output: PASS_EXACT_AND_RATIONAL_INTERVAL; total=4041. Omission detections: first band 276 cells, second band 276 cells, after-N tail 138 cells, all-cross-term deletion 4 complete prefixes, scalar-drift deletion 505 cells. Every registered assertion passed; asymptotic_inference=NONE.
+
+
+### Verified Publication Receipt - HA
+
+The substantive [commit e79b05135514ef216b0187b8567c97633694cf24](https://github.com/OVVO-Financial/RH_Lean/commit/e79b05135514ef216b0187b8567c97633694cf24), committed at 2026-11-17T14:31:51Z / 09:31:51 EST, was inspected. At 14:31:55 UTC the report was fetched at that IMMUTABLE commit and all 106,018 characters matched exactly, blob 31fba0e1ec2b203951c691e4cad426ee36a6ab03. The commit changed ONLY this authorized daily report, with 710 additions and zero deletions. All earlier EF findings, publication receipts and the verified HA checkpoint remain exact preserved prefixes.
+
+EXECUTION=COMPLETED; SUBSTANTIVE_PUBLICATION=PUBLISHED_IMMUTABLE_READBACK_VERIFIED. HA1 remains structural/identity evidence; HA2-HA3 remain PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED. HA4 is finite verification only: 4,041 assertions passed, syntax validation passed and all five omission controls were detected. Every needed process completed; two interrupted preliminary checks were not credited as completed runs.
+
+The mathematical conclusion is a scoped genuine-source obstruction to uniform all-head subpower averaging, NOT an upper exponent improvement or an RH proof. Sparse heads and sparse blocks are not refuted. NO_NEW_GLOBAL_UPPER_GAIN; VERIFIED_ETA=NONE; RH=OPEN. Resume with independent HA3 review, not another all-head bound, scalar-energy-only estimate or parity census.
+
+This receipt records already verified substantive publication, not its own future commit hash. Its containing update is separately read back before delivery. No other report, main, source, central policy, proof branch, PR, CI, schedule, permission or agent configuration was changed.
