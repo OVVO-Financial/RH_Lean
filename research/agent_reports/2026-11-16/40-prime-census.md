@@ -3707,3 +3707,47 @@ Recorded 2026-11-16 16:28:44 UTC (11:28:44 EST), after publication and verificat
 - All computational processes needed for this run completed. Publication does not change mathematical status: SG1 is a finite refutation of the stated auxiliary rule; SG2 is a self-audited paper identity awaiting independent review; complete selected-family convergence and RH remain OPEN.
 
 This receipt reports the already inspected substantive commit. Its own containing commit is verified separately after writing and is not self-predicted here. Next work is the source-specific middle-profile estimate or an independently valid obstruction, not repetition of the refuted selection rule.
+
+
+## Preregistered Checkpoint - 20261116-census-1900-EST/MC
+
+Actual scheduled trigger: 2026-11-16 19:00:01 EST (2026-11-17 00:00:01 UTC), America/New_York. RUN_ID_UNAVAILABLE; MC is a research label. Prepared 2026-11-17 00:05:00 UTC. EXECUTION=IN_PROGRESS; MATHEMATICS=PENDING.
+
+### Authority and continuity
+
+main=4d5482805bac6a8f29d4fb4dadc61eca0bc06525; report intake=a26b2082bd62910ce0d6ce06662070237c1aee9c. AGENTS=c4f36b772f8a4b0c24fe566b90fafb646073c60f; contract=95566e37c8eaeb99ee680660df4f9d2e06ea5038; half policy=96ad4439ec458af6168f7d9cb3eef5dde291d37c.
+
+half_bootstrap_ack=BOOTSTRAP_TO_HALF_V1; cross_route_ack=CROSS_ROUTE_SIGNED_RECOVERY_V1; continuity_ack=LAST_ACTUAL_REPORT_CONTINUITY_V1.
+
+The untruncated report tree was enumerated without a date cap; all seven latest files and available November 15 reports were retrieved. Both days' Coordinator mirrors were fetched and compared byte-for-byte. Post-SG handoffs consumed: FR, FR-AUDIT, HB, LM, TP. DB and the external index are unchanged. All roles TODAY=AVAILABLE; yesterday Coordinator/Referee/Lean are CARRY_FORWARD, while Owner/Analytic/Wheel/Census have NO_VERIFIED_REPORT. No missing execution is inferred. Final report will retain the complete watermark ledger.
+
+Open/draft PR search is empty. New main since SG adds only #1139's fixed-gcd obstruction and checks, not changed Nyman source. Its merged state supersedes earlier unmerged labels. The #1119 original endpoint and dependency audit were read; a fresh 2,508-file preexisting Lean/pin/audit comparison found only RHLean.lean changed. The every-positive-loss comparator remains b_base=7/8-7/(64*N_pack); no new global gain is proposed.
+
+Original Lean source read: nymanResidue/nymanResidual/nymanLogKernel (blob 2da630c1d5fb9302e2097ec1e170cf41c2b40609), nymanLogTail and nyman_flat_complete_return/of_moment plus two-band solver (blob 2d23721027ecc44e85b7add02fc632b482f03352). Canonical VF and its explicit classical terminal remain unchanged and OPEN.
+
+### Frozen experiment, before new evaluation
+
+Resume Coordinator HB's bounded Census assignment, with the subsequent LM warning that a sign alone cannot supply the needed magnitude. No enlarged head scan is authorized by this registration.
+
+For H in {19,20}, set N=6*ceil(H^2/6), B=N/2, A=4H, L=log(N/H). Use genuine mu and a_k=mu(k)log(H/k), H<k<=B. Define
+
+```text
+U_H(m)=sum_(H<k<=m)a_k floor(m/k),
+K_AB(k,l)=sum_(m=A..B)floor(m/k)floor(m/l)/[m(m+1)],
+D=sum_k a_k^2 K_AB(k,k),
+C1=sum_(k!=l,gcd(k,l)=1)a_k a_l K_AB(k,l),
+Cs=sum_(k!=l,gcd(k,l)>1)a_k a_l K_AB(k,l),
+V=sum_(m=A..B)U_H(m)^2/[m(m+1)]=D+C1+Cs,
+delta(H)=1-sum_(k<=H)mu(k)log(H/k)/k,
+G={H>=2:delta(H)delta(H+1)<=0}.
+```
+
+Competing explanations: (MC_SIGN) the full off-diagonal C=C1+Cs is nonpositive at these genuine cases, versus (MC_POS) the full restored off-diagonal can be positive even at selected H=19. A rigorous positive lower bound for C at H=19 refutes the selected-head nonpositive rule; H=20 may refute only an all-head rule unless selection is verified. Two nonpositive cases are FINITE_COMPUTATION, not a universal sign or convergence theorem. Interval overlap with zero is unresolved, not favorable evidence.
+
+Compute D,C1,Cs,C,V,V/L^2,V/D and individual gcd-sector totals. Preserve both ordered orientations, squareful zeros and literal endpoints. Record the largest positive/negative sector within these two cases without extrapolation. Reconstruct the actual original two-band coefficient vectors and verify both moments and the original residual relation L*r=-U throughout this region. The correction bands are retained, although their floors vanish here. Reuse SG's full-prefix/tail evidence and accepted P6/P9 scopes; do not rerun millions of coordinates.
+
+Primary method: genuine prime-square Mobius sieve, direct integer floors and rational kernels, rigorous range-reduced atanh logarithm enclosures. Independent method: divisor-inversion Mobius, trial factorization into formal prime-log vectors, exact rational cofactor-max kernels and symbolic quadratic coefficient comparison. Verify each finite kernel and exact recombination before interpreting signs. Deliberately drop one orientation and one nonzero endpoint to check that conservation detects them. Record actual versions, hashes, commands, precision and measured timing.
+
+### Continuation and complete consumer
+
+Route=NYMAN bounded feasibility audit, ACTIVE_SUPPORT only. The direct terminal is approximation of the constant sequence by the original residue basis in the COMPLETE norm sum_(m>=1)r(m)^2/[m(m+1)] (Bagchi, Theorem 1). Complete norm convergence on one unbounded admissible selected sequence would imply RH. A proper-region sign is neither that convergence nor a renewable source bound. All other middle/correction/after-N regions and the actual infinite tail remain in the consumer; fixed-stage constants precede growing scales. LM's D~6H/pi^2 shows why even C<=0 does not prove V=o(log(H)^2). No new theorem, limit, baseline, or supplier is claimed before execution.
