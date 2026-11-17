@@ -1641,3 +1641,30 @@ EXECUTION=COMPLETED; SUBSTANTIVE_PUBLICATION=PUBLISHED_IMMUTABLE_READBACK_VERIFI
 The mathematical conclusion is a scoped genuine-source obstruction to uniform all-head subpower averaging, NOT an upper exponent improvement or an RH proof. Sparse heads and sparse blocks are not refuted. NO_NEW_GLOBAL_UPPER_GAIN; VERIFIED_ETA=NONE; RH=OPEN. Resume with independent HA3 review, not another all-head bound, scalar-energy-only estimate or parity census.
 
 This receipt records already verified substantive publication, not its own future commit hash. Its containing update is separately read back before delivery. No other report, main, source, central policy, proof branch, PR, CI, schedule, permission or agent configuration was changed.
+
+
+## IN_PROGRESS Checkpoint - 20261117-analytic-1711-EST/CP
+
+### A. Most Important Analytic Development
+
+IN_PROGRESS. No new theorem is asserted at this checkpoint. This invocation resumes Coordinator TAIL's bounded correction-profile feasibility audit: determine whether the COMPLETE specified three-head Nyman residual has a uniform lower bound detecting the vector (a_i delta(2^i H)), after restoring both bands at every head, overlapping floors, U_N, and the infinite output. A profile identity alone will not be reported as an estimate.
+
+### B. Authority And Continuity
+
+Actual scheduled trigger: 2026-11-17 17:11:01 EST, America/New_York. PLATFORM_RUN_ID=UNAVAILABLE; CP is a research label. MAIN=13b31c6313e274a073d82a01175201185e59e37e. AGENTS=c4f36b772f8a4b0c24fe566b90fafb646073c60f; CONTRACT=95566e37c8eaeb99ee680660df4f9d2e06ea5038; HALF_POLICY=96ad4439ec458af6168f7d9cb3eef5dde291d37c. REPORT_INTAKE=adbedba085c2d1e88227c29079d8ed9bed4240a7, with an untruncated full tree and no calendar discovery cap.
+
+half_bootstrap_ack=BOOTSTRAP_TO_HALF_V1; cross_route_ack=CROSS_ROUTE_SIGNED_RECOVERY_V1; continuity_ack=LAST_ACTUAL_REPORT_CONTINUITY_V1.
+
+All seven current and preceding-day role reports were retrieved. The recovered own watermark is HA. Relevant later handoffs are SB, TC, IC, HF1, TAIL, and PC; today's upstream reports are AVAILABLE. HA1-HA3 and INV1-INV4 have IC's scoped independent paper acceptance. TAIL.1-4 and PC remain author SELF_AUDIT, not independently accepted. Yesterday's LM/SC/CF/CR and source-specific qualifications remain carry-forward evidence. External inbox 7d63d434690d00dffce9c90335d41c4f62d85798 is unchanged, no post-October-18 entry. The full historical appendices are not claimed independently re-reviewed.
+
+No open/draft PR exists at intake. #1144 is human-merged on main, 13 exact-head checks successful; #1119's existing tested head has 14 successes. #1143 merged into a non-main branch, not main. Original flat-taper return 2d23721027ecc44e85b7add02fc632b482f03352 and baseline f629db1b2b65d6ec042ac9432397d4b6316200c6 were read. No new or local Lean execution is planned. Direct git transport failed CONNECT 403; connector reads and report writing are the available route.
+
+### C. Exact Question And Half-Continuation Capsule
+
+For H=6*2^j, j>=1, B_i=2^i H, N_i=B_i^2, L_i=log B_i, use TAIL's actual delta-based coefficients a_i, w_i=L_i*a_i. Preserve sum a_i=0, sum a_i delta(B_i)=0, sum w_i=1 and r_mix=sum w_i r_(B_i). A source-derived complete subpower energy on ONE common unbounded sequence would feed the accepted exact-head zero-exclusion consumer. No such bound is supplied. Starting fixed Mertens input b=7/8 spends the positive margin in the certified every-positive-loss baseline; bounds at a general fixed 1/2<b<1 will display their constants.
+
+Registered mathematical target: an explicit finite-band profile coercivity inequality plus a uniform remainder controlled by the fixed Mertens input. Test exact endpoints, later floors, second-band deletion, missed U_N and lost cross orientations. The first correction-band TAIL.4 lower bound is a mandatory regression. Do not infer a lower bound on every sparse selected head from a limsup or a scalar nonvanishing fact.
+
+### D-L. Pending Work And Publication
+
+ROUTE=NYMAN bounded feasibility; STATUS=ACTIVE_SUPPORT/IN_PROGRESS. FIRST_OPEN=complete signed correlation or a decisive original-source obstruction, not an assumed small energy. RETURNS=short head, common middle, all six correction bands, all U_N, every ordered cross term and infinite tail. PAPER_PROOF, FINITE_COMPUTATION, independent review and Lean certification will remain separate. Only this owned report may be changed remotely; earlier EF/HA bytes are preserved. PUBLICATION=READBACK_PENDING until verified.
