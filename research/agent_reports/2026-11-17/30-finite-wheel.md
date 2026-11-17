@@ -2403,3 +2403,39 @@ All 483,964 arithmetic assertions and syntax compilation completed successfully.
 The new estimates remain self-audited paper results, not independently
 accepted or Lean-certified. This preparation paragraph does not certify its
 own publication. An immutable commit/readback receipt follows after success.
+
+
+### P. Verified PP Publication Receipt
+
+The substantive PP synthesis and exact reproducibility bundle were committed
+at 2026-11-17 23:22:11 UTC (18:22:11 America/New_York) in
+[5fa41b6b2318f5646c7078baaf4abf7bdc30f981](https://github.com/OVVO-Financial/RH_Lean/commit/5fa41b6b2318f5646c7078baaf4abf7bdc30f981).
+The resulting report blob is
+`01ef1b0649183b996244913ba5cff29bd93148f3`.
+
+At 2026-11-17 23:25:43 UTC the immutable blob was read back and matched all
+161,471 submitted ASCII bytes exactly. The nontruncated tree at that exact
+commit separately binds this owned report path to the same blob and byte
+count. A stalled large path-content read was replaced by this immutable
+blob-plus-tree verification; the stalled read is not counted as evidence.
+
+The comparison against checkpoint
+`4873630e09c4d30aff5cc2877bd996dfedd75eaa` reports exactly one changed file,
+this report, with 863 additions and zero deletions. All preexisting report
+bytes were preserved. The subsequent nontruncated agent-reports refresh
+still showed no changed upstream handoff or external inbox since intake:
+only this owned report differed.
+
+Publication status of sections A-O: **VERIFIED**.
+Mathematical status is unchanged: the stated all-scale PP results are
+**SELF_AUDIT, INDEPENDENT_REVIEW_PENDING**, not Lean-certified; the
+483,964 successful exact assertions are finite verification, not an
+infinite proof. The pointwise nonpositivity strengthening is refuted by
+the recorded genuine prime example. The obstruction applies to the
+specified separate-class strict-grade method, not every joint signed method.
+
+No main/source file, other agent report, branch, PR, CI workflow, or schedule
+was changed or launched. No new global gain or endpoint theorem is claimed.
+The canonical global obligation remains open. Next action is independent
+review of the source-specific prime-sector constant and joint cancellation
+ledger; no unchanged census rerun or filler formalization is requested.
