@@ -43,7 +43,8 @@ example (s : Finset Nat) (c : Nat -> Real)
     (hs : ∀ d ∈ s, 2 <= d)
     (hbalance : (∑ d ∈ s, c d / (d : Real)) = -1) :
     Real.sqrt 2 <= ∑ d ∈ s, |c d| / Real.sqrt (d : Real) := by
-  simpa only [Real.sqrt_eq_rpow, show (1 : Real) - 1 / 2 = 1 / 2 by norm_num] using
+  simpa only [Real.sqrt_eq_rpow, Nat.cast_ofNat,
+    show (1 : Real) - 1 / 2 = 1 / 2 by norm_num] using
     historicalDensityMask_cost_lower s c 2 (1 / 2) (by norm_num) hs hbalance (by norm_num)
 
 #print historicalDensityMask_cost_identity
