@@ -920,3 +920,713 @@ Investigate the finite coefficient Gram with the infinite m-tail retained, and t
 ROUTE=NYMAN complete-head-average bounded feasibility. P(b)=genuine every-positive-loss Mertens growth at the closed boundary, with constants fixed before scale. DIRECT_CONSUMER=independently derived subpower COMPLETE E on one common unbounded head sequence excludes each off-line zero via INV; alternatively complete energy exponent kappa(h)<2h gives a closed-supremum contradiction. RETURNS=both corrections, U_N, every off-diagonal, all integer cells, infinite tail. FIRST_OPEN=source-specific signed arithmetic control of the complete kernel, not its definition. FALSIFIER=lost mixed term, infinite tail dropped, generic scalar-energy comparison, or unchanged diagonal scale after averaging. STATUS=ACTIVE_SUPPORT/IN_PROGRESS; no new global gain or accepted RH route.
 
 Only this owned daily report is authorized for remote writes. Earlier EF history remains an exact prefix. PUBLICATION=READBACK_PENDING until verified.
+
+
+## The Uniform All-Head Nyman Average Cannot Be Subpower
+
+### Final Research Synthesis - 20261117-analytic-0909-EST/HA
+
+Actual scheduled trigger: 2026-11-17 09:09:02 EST, America/New_York. PLATFORM_RUN_ID=UNAVAILABLE; HA is a research label. Earlier EF history and the verified HA checkpoint are preserved. New proofs are PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED. Publication remains READBACK_PENDING until an immutable receipt is appended.
+
+### A. Most Important Analytic Development
+
+**The proposed uniform all-head averaging supplier is false for the ORIGINAL quadratic two-band Mobius taper.** Let E_H be its complete infinite squared residual norm, retaining both correction bands and every cross term, and put
+
+~~~text
+A(X)=(1/X) sum_(H=X..2X-1) E_H,   integer X>=2.
+~~~
+
+Then, without assuming RH,
+
+~~~text
+limsup_(j->infinity) log(1+A(2^j))/log(2^j) >= 1.              (HA.1)
+~~~
+
+In particular the proposed A(X)=O_epsilon(X^epsilon) for every epsilon>0, uniformly for all sufficiently large X, is IMPOSSIBLE. More precisely, writing Theta for the supremum of the real parts of nontrivial zeta zeros, if Theta<1 then
+
+~~~text
+limsup_(j->infinity) log(1+A(2^j))/log(2^j) >= 2*Theta.        (HA.2)
+~~~
+
+The repository's source-read baseline supplies Theta<1 within its certified framework. However HA.1 does NOT depend on that baseline: an assumed mean-energy power below one would itself force Theta<1 by the already identified zero functional, after which HA.2 contradicts it.
+
+This is a genuine-source obstruction, not an arbitrary-coefficient model, a diagonal-only inference or a finite extrapolation. **Even under RH the uniform all-head average has limsup growth exponent at least one.** A sparse sequence of individual heads can still have much smaller energy. Small averages on some sparse sequence of dyadic blocks are also NOT ruled out. The refuted assertion is the uniform average over EVERY sufficiently large dyadic block of ALL heads, precisely the proposed INV.9 supplier.
+
+The mechanism extracts the actual scalar defect from a pre-correction interval of length comparable to H^2. Its coherent contribution cannot be cancelled by later, disjoint positive norm regions. Mellin poles prohibit the average scalar decay that the proposed energy upper bound would require.
+
+| Stable Claim | Evidence And Scope |
+| --- | --- |
+| 20261117-analytic-0909-EST/HA1 | IDENTITY_ONLY / PAPER_PROOF: complete affine Mobius/correction head-average kernel, absolutely convergent infinite output and all ordered interactions. Existing source identities are credited. |
+| HA2 | PAPER_PROOF / SELF_AUDIT: explicit original-source coherent extraction, HA.9-HA.10, uniform in H with the prime-error input stated. |
+| HA3 | PAPER_PROOF / SELF_AUDIT: mean-square Mellin obstruction, HA.2 and unconditional HA.1. Refutes INV.9 as a supplier, not INV's conditional consumer. |
+| HA4 | FINITE_COMPUTATION: 4,041 exact/rational-interval assertions pass; all five omission controls detected. No asymptotic inference from tests. |
+
+NO_NEW_GLOBAL_UPPER_GAIN; NO_NEW_ACCEPTED_RH_ROUTE; VERIFIED_ETA=NONE; RH=OPEN. The completed research output is a source-specific no-go theorem for the assigned averaging mechanism.
+
+### B. Current Mathematical Objective And Continuity
+
+Pinned main is [319fc5798658e66baea1fed758b0d4b6dd126889](https://github.com/OVVO-Financial/RH_Lean/commit/319fc5798658e66baea1fed758b0d4b6dd126889), human merge #1141 at 2026-11-17T14:08:33Z, immediately before this invocation. Live AGENTS, proof contract, half-continuation, cross-route recovery and no-calendar-cap policies were retrieved at that head.
+
+~~~text
+half_bootstrap_ack=BOOTSTRAP_TO_HALF_V1
+cross_route_ack=CROSS_ROUTE_SIGNED_RECOVERY_V1
+continuity_ack=LAST_ACTUAL_REPORT_CONTINUITY_V1
+finite_wheel_ack=FINITE_WHEEL_CENTERED_RH_V1
+high_attack_ack=COMPLETE_SIGNED_HIGH_ATTACK_V1
+chain_ack=CANCELLATION_CHAIN_REUSE_V1
+~~~
+
+Canonical target remains one C>=0 before every integer R>=2 with |pi(R^2)-VF_can(R^2)|<=C R log R, VF_can=VF_mid+sqrt(2). Its original compiled terminal retains ClassicalVonKochRHCriterion. Nyman has a distinct zero-exclusion consumer, not an equality of prime and Mobius errors.
+
+**Baseline receipt.** The inspected native_mertens_near_uniform_window_error_closed gives every-positive-loss exponent b_base=7/8-7/(64*N_pack), with its actual fixed nearUniformSlotCount. No zero-loss power or comparison with a different slot count is inferred. Exact head 77ee815846d6d534c866f0752aa33b84c385610a has 14 successful checks. The [actual audit log](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42552018910/job/128949473700) was read: five relevant closures 35358,35375,35736,35737,35753, only propext, Classical.choice, Quot.sound. A fresh nontruncated tree comparison checked 2,508 preexisting Lean, root compiler/manifest and scripts/lean files against main; only the import aggregate RHLean.lean differs. This is scoped reuse, not a fresh build or an independent reproof of imported analysis.
+
+**Live PR/CI.** #1140 is MERGED, not unmerged as in the earlier Lean report. Tested head 685598746869a62849451d7b7ffbfd09d42e4e4a has 13 successful checks; its [actual log](https://github.com/OVVO-Financial/RH_Lean/actions/runs/44063808521/job/133972190569) verifies original head/return ancestors and seven sign-obstruction roots. #1141 is also MERGED; head dfd3197117410ad491d7c94b66448753ae8e4d63 has 17 successful current checks and THREE cancelled superseded checks, not twenty successes. The [owner](https://github.com/OVVO-Financial/RH_Lean/actions/runs/44099085547/job/134093953266) and [Euler](https://github.com/OVVO-Financial/RH_Lean/actions/runs/44099085547/job/134093952768) audits verify 20 and 27 declarations with standard axioms. Original new sources and explicit consumer hypotheses were read. Full Gamma and Xi estimates remain OPEN; neither is a Nyman-energy bound. The open/draft collection was empty. No new/local Lean execution occurred.
+
+**Continuity.** The nontruncated tree at reporting intake 8faf0afa304f5c1223d933234e959d7dedb1d602 was enumerated without a calendar cap. All November 17 latest role files and all November 16 files were retrieved. Today's Coordinator 00/90 contents agree. The prior own EF receipt supplies the consumed watermark. Relevant later sections were read in publication order GD, DJ, SG, NYMAN-JUMP, INV, HF. Original EF/LM and the earlier RC kernel derivations were recovered; RC's unitary periodic exterior is not today's full all-head statistic.
+
+| Role / Latest File | Verified Blob; Actual Section | Watermark -> New Intake; Resume |
+| --- | --- | --- |
+| Coordinator / Nov17 00 and 90 | 21ae56b8856c02eea79efd6c2ffa01381d08710e; INV, 07:10 EST trigger | SC -> INV1-INV6; exact-head consumer and complete averaging assignment, still author paper scope. |
+| Owner / Nov17 10 | efab9f519e086b7b7cf78e7d6112a4b6ab0089ea; HF, 08:09 EST trigger | FB -> HF1-HF6; density-filter/history obstruction, no prime-specific prohibition. |
+| Analytic / Nov17 20 | 85754c6ad366d5457bbabd6dd41a7214a99a812d; EF, 01:04 EST trigger | EF/LM/RC recovered. EF1-EF3 now independently ACCEPT_ON_PAPER by SG. |
+| Wheel / Nov17 30 | d05b58d49e7957a6747d8c47883b4f355c8e68a3; GD, 02:05 EST trigger | TP -> GD1-GD5; frozen deletion retains small-prefix and restoration obligations. |
+| Census / Nov17 40 | 0baa1581ac5ef1f4a7f82ded3850af6af4095d8b; DJ, 03:11 EST trigger | MC -> DJ1-DJ4; selected H26/m210 failure, exact low-depth repair. |
+| Referee / Nov17 50 | 64ce6e54e708767cb7053a2af17206597551ee74; SG, 04:13 EST trigger | CF -> SG verdicts and SG1-SG2; scoped acceptance of SC1-SC3, EF1-EF3, DJ2. |
+| Lean / Nov17 60 | 16d7a3b3c94f213c6407a97fd1f84eb7b5a1a9d5; NYMAN-JUMP, 05:10 EST trigger | CR -> exact seven sign/transport theorems; live merges supersede dated PR state. |
+
+Today=AVAILABLE for every role. November 16 carry-forward blobs: Coordinator fda92549dd9291c491005fdf70847b90d9be385a; Owner a52b439e693e069502b0c299a5f074a19bae0807; Analytic 84aaa2103225565607b5b033f273462bbe865246; Wheel 713826840694e39a141fbdbe813f1d47245928e7; Census 53e6be517dc11037fe3b42a8ed6ad3a06cfce956; Referee 240b97ce1c8ddc87d5f520bc9a8cd6ea00df3d32; Lean 0bada0352d54be7c46a7d928f4c4e3bee440ad8f. No new gap after EF is found; older silent days remain unverified executions, not invented runs. CONTINUITY_COMPLETE means latest discovery and relevant backfill, not rereading every historical appendix.
+
+External inbox 7d63d434690d00dffce9c90335d41c4f62d85798 is unchanged, no entry after October 18. EXT-20261018-PNT-1 retains prime-cofactor errors; EXT-20261014-5 is unconditional-all-root, not a first-bad refutation. Neither supplies this energy. The attached historical contract and PR #933/discussion were inspected; current own-report permissions and priorities supersede obsolete read-only/task wording. Discussion returned no comments. Direct git read failed HTTP 403; connector reads/writes succeeded, so this was not a publication blocker.
+
+Early checkpoint [5f9da9b10f59c5741670de73abbb9f8cfc7514c7](https://github.com/OVVO-Financial/RH_Lean/commit/5f9da9b10f59c5741670de73abbb9f8cfc7514c7) was immutably read back with exact match, blob 6e1579e0e5592affca8503b381619dbf6aa5c2f1.
+
+### C. Mechanism Investigated
+
+Coordinator INV permits subpower COMPLETE energy on ONE common unbounded sequence, not necessarily norm convergence. The assigned feasibility question was whether averaging over all H in [X,2X) supplies that condition through genuine signed divisor correlations.
+
+First derive the complete coefficient kernel with infinite output. Then test the unchanged pre-correction source against its scalar drift. The new arithmetic inference is an inverse mean-square argument: the proposed mean energy would force excessive decay of the genuine defect and hence impossible holomorphy of its Mellin transform. No stochastic model, covariance sign, or altered taper is introduced.
+
+### D. Exact Formulation
+
+For every integer H>=2 set N=6ceil(H^2/6), K=N/6, L=log(N/H)>0 and q_j=log(N/max(H,j)), 1<=j<=N. Define
+
+~~~text
+I1=(3K,4K], I2=(5K,6K], s_i=sum_(k in Ii)1/k, d=s1-s2>0,
+u=sum_(j=1..N)mu(j)q_j/j, v=2L+sum_(j=1..N)mu(j)q_j,
+alpha=(u-s2*v/K)/d, z=(s1*v/K-u)/d,
+h_k=alpha*1_I1(k)+z*1_I2(k),
+c_k=(h_k-mu(k)q_k)/L, 2<=k<=N,
+rho_k(m)=(m mod k)/k,
+r_H(m)=1-sum_(k=2..N)c_k rho_k(m),
+E_H=sum_(m>=1)r_H(m)^2/[m(m+1)].
+~~~
+
+Both moments, sum c_k/k=1 and sum c_k=3, follow from the original solver INCLUDING j=1. Every fixed E_H is finite since its residue combination is bounded; this is not uniform-in-H control.
+
+The compiled source gives
+
+~~~text
+r_H(m)=0 for 1<=m<=H,
+Lr_H(m)=U_N(m)-U_H(m)+C_h(m),
+U_B(m)=sum_(B<k<=m)mu(k)log(B/k)floor(m/k),
+C_h(m)=sum_(k=2..N)h_k floor(m/k).                         (HA.3)
+~~~
+
+Let delta(x)=1-sum_(k<=x)mu(k)log(x/k)/k for real x>=1, exactly nymanScalarDefect H at integer H. Let psi(x)=sum_(n<=x)Lambda(n), including every prime power. Theta is the supremum over ALL nontrivial zeros; no extremal zero is assumed attained.
+
+### E. Mathematical Derivation
+
+#### E1. Full Head-Average Kernel And Infinite Tail
+
+Define correction columns, zero outside the actual bands,
+
+~~~text
+a_(H,k)=(1_I1(k)-1_I2(k))/d,
+b_(H,k)=(-s2*1_I1(k)+s1*1_I2(k))/(K*d),
+P_H(m)=sum_(k=2..N)a_(H,k)rho_k(m),
+Q_H(m)=sum_(k=2..N)b_(H,k)rho_k(m),
+g_H(m)=1-2Q_H(m),
+T_(H,j)(m)=rho_j(m)-P_H(m)/j-Q_H(m).
+~~~
+
+Here rho_1=0 but j=1 is NOT discarded. Direct substitution gives
+
+~~~text
+h_k=a_(H,k)u+b_(H,k)v,
+r_H(m)=g_H(m)+sum_(j=1..N)mu(j)(q_j/L)T_(H,j)(m).          (HA.4)
+~~~
+
+The exact column moments are sum a/k=1, sum a=0, sum b/k=0, sum b=1. Thus both correction bands and both moment constraints remain.
+
+For fixed X extend the coefficient functions by zero for j>N_H and use Nmax=N_(2X-1). Write <f,g>_H=sum_(m>H)f(m)g(m)/[m(m+1)], and define
+
+~~~text
+C_X=(1/X)sum_H <g_H,g_H>_H,
+L_X(j)=(1/X)sum_H (q_(H,j)/L_H)<g_H,T_(H,j)>_H,
+K_X(j,k)=(1/X)sum_H (q_(H,j)q_(H,k)/L_H^2)
+                                *<T_(H,j),T_(H,k)>_H.
+~~~
+
+Every H sum is X<=H<2X. The COMPLETE original average is
+
+~~~text
+A(X)=C_X+2sum_(j<=Nmax)mu(j)L_X(j)
+             +sum_(j,k<=Nmax)mu(j)mu(k)K_X(j,k).          (HA.5)
+~~~
+
+The affine term, both linear orientations, all ordered pairs and both bands occur. K_X is a Gram matrix; positive semidefiniteness is not a favorable sign or bound for the Mobius off-diagonal. Averaging squared norms does not create cross-head cancellation.
+
+The infinite kernel is explicit. Put e_0=1, e_k=rho_k. Each e_k e_l has period p=lcm(k,l), treating index zero as period one. For u=1,...,p let t_u be the least integer >H congruent to u mod p. Then
+
+~~~text
+G_H(k,l)=sum_(u=1..p)e_k(u)e_l(u)
+                *sum_(v>=0)1/[(t_u+vp)(t_u+vp+1)].       (HA.6)
+~~~
+
+Its inner positive rational series converges. The entries of HA.5 are finite linear combinations of these entries. Absolute convergence licenses the finite coefficient expansions; no conditional ordering is hidden.
+
+For every integer T>=H the complete residual tail satisfies
+
+~~~text
+0<=E_H-sum_(H<m<=T)r_H(m)^2/[m(m+1)]
+ <=(1+sum_(k=2..N)|c_k|)^2/(T+1).                        (HA.7)
+~~~
+
+A basic G entry has omitted tail between zero and 1/(T+1). This explicit crude certificate is not claimed asymptotically sufficient. U_N, correction activation, all m>N and every later period are retained by the original residue definition. No truncated computation is called infinite energy.
+
+#### E2. Uniform Extraction Of The Actual Coherent Mode
+
+The original compiled drift identity, already credited in LM.16, is
+
+~~~text
+U_H(m)=m delta(H)+R_H(m),
+R_H(m)=psi(m)-m+log H+F_H(m),
+F_H(m)=sum_(k<=H)mu(k)log(H/k)rho_k(m).                    (HA.8)
+~~~
+
+It holds for EVERY integer m>=1. Splitting the full log-divisor convolution at H proves it, retaining log H and all prime powers.
+
+Take J_H=[ceil(N/4),N/2] in integers. This interval has at least N/4 sites and precedes BOTH bands. On it U_N=C_h=0, hence Lr_H=-U_H. Also
+
+~~~text
+sum_(m in J_H)m^2/[m(m+1)] >= N/8.
+~~~
+
+Using |a|^2<=2|a+b|^2+2|b|^2 AFTER HA.8, and writing
+Renergy_H=sum_(m in J_H)R_H(m)^2/[m(m+1)], gives
+
+~~~text
+N delta(H)^2 <=16L^2 E_H+16 Renergy_H.                    (HA.9)
+~~~
+
+This is unconditional and uniform. No off-diagonal is discarded from E_H. Passing from the interval to the complete norm is legitimate because disjoint output regions are nonnegative, not because their internal mixed terms have a claimed sign.
+
+For the quantitative complementary bill fix 1/2<b<1 and C_b>=0 BEFORE scale, and assume |psi(t)-t|<=C_b t^b for every real t>=2. Then
+
+~~~text
+|F_H(m)|<=sum_(k<=H)log(H/k)<=H-1,
+|R_H(m)|<=C_b N^b+2H,
+sum_(m in J_H)1/[m(m+1)]<=4/N,
+Renergy_H<=8 C_b^2 N^(2b-1)+32,
+N delta(H)^2<=16L^2 E_H+128 C_b^2 N^(2b-1)+512.           (HA.10)
+~~~
+
+The log-sum bound integrates the decreasing function log(H/t) with its first endpoint retained. H^2<=N<H^2+6 and H^2/N<=1 give the last constants. These estimates are uniform under the actual growing quadratic range.
+
+For Theta<b<1 the input follows from the classical explicit formula. The proposition in [Elkies, Math 259, pp. 3-4](https://abel.math.harvard.edu/~elkies/M259.02/pnt.pdf) supplies psi(x)=x+O(x^theta log(x)^2) when every nontrivial zero has real part at most theta<1. Choose theta strictly between Theta and b and absorb the logarithm. Constants may depend on fixed b/margin; uniformity as b approaches Theta is NOT asserted. This is an external analytic transfer, not a new Lean theorem.
+
+#### E3. Mean-Square Mellin Restriction
+
+Put D(X)=(1/X)sum_(H=X..2X-1)delta(H)^2. Averaging HA.10 yields
+
+~~~text
+D(X)<=C log(X)^2 X^(-2)A(X)
+              +C_(b,C_b)X^(4b-4)+C X^(-2).              (HA.11)
+~~~
+
+C is absolute after absorbing small X; the other constant is fixed before X.
+
+Lemma: if c>0 and D(2^j)=O(2^(j(2c-2))) for every sufficiently large j, then no nontrivial zero has real part >c.
+
+For H<=x<H+1, a(H)=sum_(k<=H)mu(k)/k gives
+
+~~~text
+delta(x)-delta(H)=-a(H)log(x/H),
+|delta(x)-delta(H)|<=(1+log H)/H.
+~~~
+
+Consequently, for dyadic X,
+
+~~~text
+integral_X^(2X)|delta(x)|^2 dx
+ <=2X D(X)+O(log(X)^2/X)=O(X^(2c-1)).
+~~~
+
+Cauchy-Schwarz on dyadic intervals now makes integral_1^infinity delta(x)x^(-s-1)dx absolutely and locally uniformly convergent for Re(s)>c-1: each interval contributes O(X^(c-1-Re(s))). Thus this Mellin transform is holomorphic there. Initially for Re(s)>0, absolute convergence gives
+
+~~~text
+integral_1^infinity delta(x)x^(-s-1)dx
+              =1/s-1/[s^2 zeta(1+s)].                  (HA.12)
+~~~
+
+The apparent singularity at s=0 is removable. At every nontrivial zero rho, s=rho-1 is nonzero and the second term has a pole of the zero's multiplicity. The analytic first term cannot cancel it. Meromorphic uniqueness therefore excludes Re(rho)>c. This proves the lemma, with real/integer displacement, convergence domain and every boundary specified. No simple-zero or attained-supremum assumption is used.
+
+#### E4. All-Head Obstruction
+
+Assume Theta<1 and A(2^j)=O(2^(j*kappa)) eventually for some kappa>=0. For each fixed Theta<b<1, HA.11 and the lemma imply
+
+~~~text
+Theta<=max(kappa/2,2b-1,0).                              (HA.13)
+~~~
+
+Indeed use ANY c strictly larger than that maximum, absorbing log^2 by the positive margin, then let c decrease to the maximum. Let b decrease to Theta. Each application is an all-scale assertion with fixed parameters; constants need not be uniform in this limiting process. Hence
+
+~~~text
+Theta<=max(kappa/2,2Theta-1,0).
+~~~
+
+Because 1/2<=Theta<1, both 2Theta-1 and zero are strictly smaller than Theta. Thus kappa>=2Theta. Choosing kappa between a purported smaller limsup exponent and 2Theta proves HA.2. Existence and symmetry of nontrivial zeros, in particular Theta>=1/2, are classical; see [DLMF 25.10](https://dlmf.nist.gov/25.10).
+
+To remove reliance on a preexisting subunit zero boundary for HA.1, suppose its limsup is <1 and choose 0<=kappa<1 above it. Then A(2^j)=O(2^(j*kappa)). Reuse INV's exact-head zero test:
+
+~~~text
+1=sum_(m>H)r_H(m)[m^(-rho)-(m+1)^(-rho)],
+sum_(m>H)|m^(-rho)-(m+1)^(-rho)|^2 m(m+1)
+ <=|rho|^2/(2Re(rho)-1)*(H+1)^(1-2Re(rho)).
+~~~
+
+The first line is the complete finite-residue Mellin identity at an ACTUAL zero; the second follows from cellwise Cauchy-Schwarz against dx/x^2. Thus for Re(rho)>1/2,
+
+~~~text
+E_H >= (2Re(rho)-1)/|rho|^2*(H+1)^(2Re(rho)-1).
+~~~
+
+The zero identity has no hidden truncation premise: for Re(s)>1, finite summation by parts and passage to the limit give sum_(m>=1)rho_k(m)[m^(-s)-(m+1)^(-s)]=zeta(s)(1/k-k^(-s)). The left series is locally normally convergent for Re(s)>0 because rho_k is bounded and the difference is O_s(m^(-Re(s)-1)); the pole at s=1 on the right is removable. Continue to that half-plane, take the finite coefficient combination, and evaluate at rho. The exact head removes only genuinely zero terms. This justifies the displayed identity at all required zeros.
+
+Averaging forces Theta<=(1+kappa)/2<1. HA.2 then requires kappa>=2Theta>=1, a contradiction. This proves HA.1 without assuming RH or the repository baseline. INV's conditional consumer is reused and independently reconstructed only to remove that dependency, not claimed as new. The discrete residue Hilbert space is the one in [Bagchi, Theorem 1](https://arxiv.org/html/math/0607733v1).
+
+### F. Quantitative Comparison And Complete Return
+
+INV.9 requests A(X)=O_epsilon(X^epsilon) for every epsilon>0. HA.1 refutes it. At a closed actual gap h=Theta-1/2>0 a useful complete-energy exponent would need kappa(h)<2h=2Theta-1; the uniform all-head average instead has limsup exponent at least 2Theta when Theta<1, a full power above that threshold.
+
+This is NOT LM's diagonal-size argument: a diagonal of order H alone cannot lower-bound complete energy. HA uses the complete genuine interval response, pays its actual prime/fractional complement at fixed b>Theta, and uses a Mellin obstruction to excessive scalar decay.
+
+HA.4-HA.7 include every short/long middle cell, both correction activations, U_N after N and the entire infinite tail. HA.9 takes a legitimate lower comparison inside the full norm. Later disjoint output regions cannot cancel it; all cross terms within each output square remain.
+
+No claim A(X)>=cX for every large X is made. HA.1 is a logarithmic LIMSUP statement, with no effective onset or universal pointwise lower constant. It does not bound E_H below by a power at each H. Constants may depend on a fixed zero or fixed b; neither needs height-uniform or b-uniform control.
+
+Sparse selection survives. At actual selected heads the already-paid |delta(H)|<=|a(H)|/H can suppress this scalar drift. It does not bound the remaining full norm. A conditioned average or sparse sequence needs a genuinely different arithmetic argument with all original returns; HA supplies none.
+
+### G. Original-Carrier And Signed-Loss Audit
+
+| Coordinate | Paid Correspondence / Recovery | Remaining Boundary |
+| --- | --- | --- |
+| NYMAN | Compiled original coefficients, moment return and exact head give HA.3; original scalar defect/drift gives HA.8. Full kernel retains both bands and infinite output. | Sparse or conditioned COMPLETE upper control is OPEN; uniform INV.9 is refuted. |
+| Euler / FINITE-AC | #1141 removes the coherent rank-one term from its ordered frozen-Q source and pays both divisor-row orientations at O_epsilon(R^(1+epsilon)). | Xi remains unbounded; no identity identifies it or its coherent term with the Nyman defect/kernel. |
+| Native owner / square blocks | #1141 pays the genuine high-prime owner diagonal by 3(x-R)K_R and leaves full Gamma explicit in preservation. | Conditional Gamma is not an energy supplier here; strict history and masks remain distinct. |
+| VF / actual primes | psi in HA.8 retains every prime power; the explicit formula supplies the stated fixed-b error only. | No equality with pi minus VF, clipped #915 payment or a new prime-error bound. |
+| OAI / NNS / CODIV | Existing native Mertens consequence may supply Theta<1, but HA.1 does not require it. | No rational/ideal-character identification; 47/54 LOW, theta>3/5 and domain gates remain. Unchanged CODIV consumer still stops above 5/6. |
+
+FIRST_SIGNED_LOSS: HA.9 uses |m delta|^2<=2|U|^2+2|R|^2 after the complete identity, with exact complementary bill HA.10. It proves a necessary restriction, not a cheap upper estimate. PAID_RECOVERY_TEST: original drift plus classical zero-location prime error pays R at fixed b. EF's scalar-energy transfer, RC's periodic exterior and the new Euler/owner theorems supply no missing full-energy upper bound.
+
+### H. Falsification, Novelty And Computation
+
+The scoped novelty search read flat/high/radical/correction sources, route index, EF/LM/RC, INV and latest reviews. HA.3, HA.8, INV's zero test and the explicit formula are credited as prior. The full all-head mean-square pole obstruction was not found there; worldwide novelty is not claimed.
+
+Self-challenges retained q_1=L, both bands, both moments, ordered cross terms, every prime power, m<=N/2 before zeroing corrections, N=H^2+O(1), inclusive endpoints, the real/integer displacement, and bounds on EVERY sufficiently large dyadic block. No attained rightmost zero, arbitrary-coefficient replacement or sparse-source conclusion is assumed.
+
+Registered tests used H=4,5,6,7 for the COMPLETE source through 2N, and H=8,11,16,23,32 for all cells ceil(N/4)<=m<=N/2. Exact rational prime-log vectors preserve source identities. Mobius coefficients through 2052 were independently constructed by factorization and divisor inversion. Inequalities use a positive 70-term atanh series with explicit geometric remainder and outward rounding to a common 10^-50 rational mesh, not floating sign decisions.
+
+| Executed Check | Count / Outcome |
+| --- | --- |
+| Independent Mobius coefficients | 2,052 PASS |
+| Four correction-column and two original moments | 54 PASS |
+| Complete literal floor return / affine kernel | 276 each PASS |
+| Exact zero-head cells | 22 PASS |
+| Ordered residue Gram entries / full reconstruction | 324 and 1 PASS |
+| Coherent capacity / pre-correction admission | 5 each PASS |
+| Exact drift identity / moment-based original return | 505 each PASS |
+| Explicit coherent extraction inequality | 5 PASS |
+| Periodic kernel grouping / tail majorant | 3 each PASS |
+| Omitted first band, second band, U_N, cross terms, scalar drift | All five detected |
+| Total | 4,041 PASS |
+
+Two preliminary runs were deliberately interrupted for slow exact rational residue evaluation; neither completed or failed an assertion. The final version preserves the domains, uses the verified reciprocal moment for larger pre-correction reconstructions, and retains literal residues on every smaller complete-source cell. Only the final completed run is credited. No numerical asymptotic, parity expansion, large scan or unproved infinite-tail truncation is used.
+
+### I. Interpretation And Admission
+
+The exact-head consumer relaxes what suffices on a sparse sequence; it does not make a uniform average over all heads viable. The scalar defect belongs to the actual family. Its mean-square behavior forces large energy on some dyadic blocks even under RH.
+
+Disposition: RETIRE_UNIFORM_ALL_HEAD_SUBPOWER_SUPPLIER, subject to independent review of HA3. Preserve INV's conditional sparse-sequence consumer, the original Nyman family and all nine route toolkits. No strategic pivot outside the current half-continuation contract is silently enacted.
+
+### J. Specialist Handoffs
+
+Coordinator: INV.9 is refuted for the prescribed family, not merely unpaid. Review HA.9-HA.13 before further all-head kernel computation. Sparse common-sequence INV remains valid infrastructure. No new upper exponent is claimed.
+
+Referee: independently audit HA.8's sign, N/8 capacity, constants 16/128/512, real interpolation, the pole at rho-1, fixed-parameter limiting arguments and the unconditional corollary. Check carefully the distinction between uniform all-head averages and sparse heads/blocks.
+
+Census: no larger fitted-power or parity run is requested. A bounded fresh-head reconstruction of HA.8-HA.9 with correction activations and displayed tail would be useful independent validation. Small finite energy values do not refute a limsup theorem without an effective onset.
+
+Owner: HF was consumed at author scope. This is not a transfer of its nonprime model or an original first-bad result; no additional VF payment is claimed.
+
+Wheel: new double-centering and remainder sources were read with verified CI. Their Euler coherent cancellation cannot simply be applied to delta(H); your own frozen-cutoff/restoration obligations remain separate.
+
+Lean: no immediate conditional wrapper is requested. HA3 needs independent review. If accepted and needed for queue pruning, finite HA.9 is a potential exact supporting theorem; Mellin/prime-error steps are separate analytic obligations, not hidden assumptions standing in for an arithmetic supplier.
+
+### K. First Independently Missing Analytic Theorem
+
+No smaller sufficient supplier survived the assigned uniform all-head audit. Do not rename A(X)=X^o(1) as a covariance lemma or extend a numerical range to support it.
+
+The still-admissible question is a source-derived COMPLETE bound on ONE common unbounded sequence of original heads, or genuine conditioning that suppresses the scalar defect AND controls all remaining interactions. Selection alone pays only the drift. HA.5 specifies, but does not bound, the full affine/correction kernel. No independently weaker adequate arithmetic hypothesis was established.
+
+Before another substantial experiment, identify additional genuine arithmetic beyond small delta(H), state its full-norm consequence, and challenge it against preserved EF/DJ/SG and correction obstructions. Otherwise record NO_NEW_SUPPLIER rather than a renamed target. This does not assert that all Nyman mechanisms are exhausted.
+
+### L. Resume Capsule And Source Receipt
+
+~~~text
+RUN=20261117-analytic-0909-EST/HA; PLATFORM_RUN_ID=UNAVAILABLE
+MAIN=319fc5798658e66baea1fed758b0d4b6dd126889
+REPORT_INTAKE=8faf0afa304f5c1223d933234e959d7dedb1d602
+CHECKPOINT=5f9da9b10f59c5741670de73abbb9f8cfc7514c7
+CHECKPOINT_BLOB=6e1579e0e5592affca8503b381619dbf6aa5c2f1
+CHECKPOINT_READBACK=EXACT_MATCH_VERIFIED
+LAST_CONSUMED=own EF/LM/RC; GD,DJ,SG,NYMAN-JUMP,INV,HF
+ROUTE=NYMAN prescribed quadratic two-band genuine-Mobius taper
+DIRECT_CONSUMER=complete sparse E_H subpower excludes off-line zeros
+ASSIGNED_SUPPLIER=uniform all-head dyadic mean subpower
+RESULT=complete affine/infinite kernel; coherent extraction;
+       limsup mean-energy exponent >=1 unconditionally,
+       and >=2Theta if Theta<1; finite checks
+VALID_RANGE=H>=2; integer dyadic X; constants before scale
+RETURNS=both corrections, U_N, all ordered cross terms, every m,
+        exact head and entire infinite tail
+NO_GO_SCOPE=every sufficiently large dyadic block of ALL heads
+NOT_REFUTED=sparse heads/blocks, valid conditioning, INV consumer, RH
+FIRST_OPEN=new genuine arithmetic beyond scalar selection, full norm retained
+NEXT=independent HA3 review; do not pursue uniform INV9 or repeat parity scans
+MATHEMATICS=PAPER_PROOF/SELF_AUDIT/REVIEW_PENDING/NOT_FORMALIZED
+FINITE=4041 exact/interval checks PASS; all 5 omission controls detected
+CI=prior exact-head evidence only; no new/local Lean
+STATUS=COMPLETED_BOUNDED_FEASIBILITY/SCOPED_SOURCE_NO_GO
+NO_NEW_GLOBAL_UPPER_GAIN; VERIFIED_ETA=NONE; RH=OPEN
+PUBLICATION=READBACK_PENDING until immutable receipt
+~~~
+
+| Material Source On Pinned Main | Blob SHA |
+| --- | --- |
+| AGENTS.md | c4f36b772f8a4b0c24fe566b90fafb646073c60f |
+| CURRENT_PROOF_CONTRACT.md | 95566e37c8eaeb99ee680660df4f9d2e06ea5038 |
+| docs/RHLEAN_BOOTSTRAP_TO_HALF_20261116.md | 96ad4439ec458af6168f7d9cb3eef5dde291d37c |
+| docs/RHLEAN_REPORT_CONTINUITY_LAST_ACTUAL_20261111.md | 3e71820a4af722eae7098da6945bb5bcba50dd0d |
+| docs/RHLEAN_CROSS_ROUTE_SIGNED_RECOVERY_20261110.md | e3ae4280438f591f1ffaddd754a1c3a6d35d0691 |
+| research/NYMAN_FLAT_TAPER_RETURN_20261104.lean | 2d23721027ecc44e85b7add02fc632b482f03352 |
+| research/NYMAN_HIGH_COEFFICIENT_INVARIANT_20261104.lean | 2da630c1d5fb9302e2097ec1e170cf41c2b40609 |
+| research/NYMAN_RADICAL_INCREMENT_20261106.lean | c5ebb3d5d96898549ad039fd32e1a26955c5b8f8 |
+| research/NYMAN_CORRECTION_ENERGY_20261105.lean | e5453cd32c3c4ebf9ebf41927bcb92e534b2ece7 |
+| research/NYMAN_DIVISOR_JUMP_SIGN_OBSTRUCTION.lean | 6fa1552d91254fa1033d53df51d3b49e0e4d04a5 |
+| research/oai_434/VF919WindowErrorClosure.lean | f629db1b2b65d6ec042ac9432397d4b6316200c6 |
+| research/MERTENS_CONVERSE_IDENTIFICATION.lean | 768c8255850bf4074aff265c3fe17a1f5c43979b |
+| research/VF_CANONICAL_SQRT_TWO_VON_KOCH.lean | 79030d70e8d3e0d08eef9bac53fef95c36eca2fb |
+| research/EULER_DOUBLE_CENTERED_SOURCE_20261117.lean | 7cb66c07ff3bb784f1b1d4434647326f06f0f2b2 |
+| research/EULER_DOUBLE_CENTERED_REMAINDER_20261117.lean | fffc2c07a82368d56b0b4075c625dd3f9a09e147 |
+| research/NATIVE_OWNER_DIAGONAL_CAPACITY_20261117.lean | 4d7d7e173c335b4a807dabaa6b9ec38c1509dbd4 |
+| lean-toolchain / lake-manifest.json | ba8ebf2dbaf6a668cd2a0e086186d6d569b69ff5 / a34d142c3d75a602a8b0f8241a4fb504d5c7c5a4 |
+
+Original declarations: [complete flat source/head](https://github.com/OVVO-Financial/RH_Lean/blob/319fc5798658e66baea1fed758b0d4b6dd126889/research/NYMAN_FLAT_TAPER_RETURN_20261104.lean), [scalar defect/drift](https://github.com/OVVO-Financial/RH_Lean/blob/319fc5798658e66baea1fed758b0d4b6dd126889/research/NYMAN_RADICAL_INCREMENT_20261106.lean), [correction accounting](https://github.com/OVVO-Financial/RH_Lean/blob/319fc5798658e66baea1fed758b0d4b6dd126889/research/NYMAN_CORRECTION_ENERGY_20261105.lean), [new Euler source](https://github.com/OVVO-Financial/RH_Lean/blob/319fc5798658e66baea1fed758b0d4b6dd126889/research/EULER_DOUBLE_CENTERED_SOURCE_20261117.lean), [owner capacity/conditional consumer](https://github.com/OVVO-Financial/RH_Lean/blob/319fc5798658e66baea1fed758b0d4b6dd126889/research/NATIVE_OWNER_DIAGONAL_CAPACITY_20261117.lean).
+
+Only the owned 2026-11-17/20-analytic-type-ii.md report on agent-reports is changed remotely. No main, source, shared policy, other report, branch, PR, issue, workflow, schedule, permission, merge or agent-launch action was taken.
+
+### Prepublication Freshness And Validation
+
+At 2026-11-17 14:30:26 UTC / 09:30:26 EST, main remained 319fc5798658e66baea1fed758b0d4b6dd126889, the reporting branch still pointed to the verified HA checkpoint, and the open/draft PR collection was empty. No intervening upstream section was omitted. Source formulas, strict versus inclusive endpoints, constant order, evidence labels, original claim credits, correction columns, infinite-tail scope and all-head versus sparse quantifiers were self-audited. Syntax validation of the final checker passed. No independent reviewer acceptance of HA is claimed.
+
+### Reproducibility Appendix
+
+The following registration and Python checker are the executed final versions. Checker SHA256=64b94ff637535d9e16f0af2574d888f641391d57edb3a6c64d4b4b8e76124311; registration SHA256=3055f719f8276906f86106ea18ce5d29092e75610d4aed22682dd66441a81507. They require only the Python standard library. The code prints the exact assertion counts and rational coherent capacities; no external dataset or unrecorded random seed is used.
+
+
+
+<details>
+<summary>HA registration</summary>
+
+~~~text
+# HA Verification Registration
+
+Registered before numerical evaluation of the new HA argument.
+
+Question: verify the complete affine Mobius/correction kernel and the coherent
+pre-correction extraction inequality for the original quadratic taper.
+
+Finite domain: H=4,5,6,7 for complete residuals through 2N; H=8,11,16,23,32
+for the pre-correction interval ceil(N/4)<=m<=N/2. No head is selected by a
+numerical result. Check mu by trial factorization and independent divisor
+inversion through the largest required integer. All identities use exact
+rational prime-log vectors; numerical inequalities use outward rational
+intervals from a positive atanh series with an explicit geometric remainder.
+
+Reconstruct both moment equations, both correction bands, original residual,
+U_N-U_H+C_h, affine correction columns, and the full constant/linear/quadratic
+Gram. At H=4 independently contract the complete finite residue Gram matrix.
+Test the coherent extraction with its exact signed remainder. Verify the
+periodic residue kernel grouping and positive tail majorant on independent
+finite segments. Infinite-tail validity is a proved majorant, not a finite
+sum declared infinite.
+
+Negative controls: omit either correction band, omit U_N after N, omit all
+cross terms, or delete the scalar drift. Each must fail on this domain.
+
+No asymptotic inference, fitted power, selected-head census, local Lean or
+independent referee acceptance is claimed by these checks.
+
+Implementation note: two preliminary runs were interrupted during exact
+rational evaluation because direct large-head residue reconstruction was
+slow; the first traceback was in fraction addition, not a failed assertion.
+No result from either incomplete run is credited. Each logarithm is now
+outward-rounded to a common 10^-50 rational mesh after the same explicit
+70-term bound. On the larger pre-correction ranges, residue reconstruction
+uses the already exactly checked reciprocal moment to reduce the finite
+sum; literal residue reconstruction is retained on every smaller full
+source cell. Domains and mathematical hypotheses are unchanged.
+
+~~~
+
+</details>
+
+<details>
+<summary>ha_check.py: executed final source</summary>
+
+~~~python
+"""Exact source and interval checks for the HA complete-average obstruction."""
+
+from collections import Counter
+from fractions import Fraction as F
+from functools import lru_cache
+from math import gcd
+import json
+
+COUNT = Counter()
+
+
+def check(name, condition):
+    if not condition:
+        raise AssertionError(name)
+    COUNT[name] += 1
+
+
+@lru_cache(None)
+def factors(n):
+    out, p = {}, 2
+    while p * p <= n:
+        while n % p == 0:
+            out[p] = out.get(p, 0) + 1
+            n //= p
+        p += 1
+    if n > 1:
+        out[n] = 1
+    return out
+
+
+def mu(n):
+    f = factors(n)
+    return 0 if any(e > 1 for e in f.values()) else (-1) ** len(f)
+
+
+def add(*vectors):
+    out = {}
+    for v in vectors:
+        for p, a in v.items():
+            out[p] = out.get(p, F(0)) + a
+    return {p: a for p, a in out.items() if a}
+
+
+def scale(v, a):
+    return {p: a * b for p, b in v.items() if a * b}
+
+
+def logq(n, d=1):
+    return add(factors(n), scale(factors(d), -1))
+
+
+def product(v, w):
+    out = {}
+    for p, a in v.items():
+        for q, b in w.items():
+            k = tuple(sorted((p, q)))
+            out[k] = out.get(k, F(0)) + a * b
+    return {k: v for k, v in out.items() if v}
+
+
+def imul(a, b):
+    q = [x * y for x in a for y in b]
+    return min(q), max(q)
+
+
+@lru_cache(None)
+def ilog(n):
+    if n == 0:
+        return F(1), F(1)
+    if n == 1:
+        return F(0), F(0)
+
+    def small(z):
+        t, s = z, F(0)
+        for j in range(70):
+            s += 2 * t / (2 * j + 1)
+            t *= z * z
+        return s, s + 2 * t / (141 * (1 - z * z))
+
+    e = n.bit_length() - 1
+    y = F(n, 2**e)
+    a, b = small((y - 1) / (y + 1))
+    c, d = small(F(1, 3))
+    lo, hi = a + e * c, b + e * d
+    unit = 10**50
+    low = (lo * unit).numerator // (lo * unit).denominator
+    high = -((-(hi * unit)).numerator // (hi * unit).denominator)
+    return F(low, unit), F(high, unit)
+
+
+def interval(v):
+    lo, hi = F(0), F(0)
+    for p, c in v.items():
+        a, b = imul(ilog(p[0]), ilog(p[1])) if isinstance(p, tuple) else ilog(p)
+        lo += c * (a if c >= 0 else b)
+        hi += c * (b if c >= 0 else a)
+    return lo, hi
+
+
+def residue(k, m):
+    return F(m % k, k)
+
+
+def psi(m):
+    return add(*({p: 1} for n in range(2, m + 1)
+                 for p in factors(n) if len(factors(n)) == 1))
+
+
+def source(H):
+    N = 6 * ((H * H + 5) // 6)
+    K, L = N // 6, logq(N, H)
+    s1 = sum((F(1, k) for k in range(3*K+1, 4*K+1)), F(0))
+    s2 = sum((F(1, k) for k in range(5*K+1, 6*K+1)), F(0))
+    d = s1 - s2
+    q = {j: logq(N, max(H, j)) for j in range(1, N+1)}
+    u = add(*(scale(q[j], F(mu(j), j)) for j in q))
+    v = add(scale(L, 2), *(scale(q[j], mu(j)) for j in q))
+    A, B, h, t = {}, {}, {}, {}
+    for k in range(2, N+1):
+        b1, b2 = int(3*K < k <= 4*K), int(5*K < k <= 6*K)
+        A[k] = F(b1-b2, 1) / d
+        B[k] = (-s2*b1+s1*b2) / (K*d)
+        h[k] = add(scale(u, A[k]), scale(v, B[k]))
+        t[k] = add(h[k], scale(q[k], -mu(k)))
+    check('column_reciprocal_A', sum(A[k]/k for k in A) == 1)
+    check('column_total_A', sum(A.values()) == 0)
+    check('column_reciprocal_B', sum(B[k]/k for k in B) == 0)
+    check('column_total_B', sum(B.values()) == 1)
+    check('original_reciprocal_moment', add(*(scale(t[k], F(1,k)) for k in t)) == L)
+    check('original_total_moment', add(*t.values()) == scale(L, 3))
+    return N, K, L, q, A, B, h, t
+
+
+def tail(B, m):
+    return add(*(scale(logq(B, k), mu(k)*(m//k)) for k in range(B+1, m+1)))
+
+
+def unnormalized(L, t, m):
+    return add(L, *(scale(t[k], -residue(k,m)) for k in t))
+
+
+def main():
+    limit = 2 * 6 * ((32**2+5)//6)
+    inv = [0] * (limit+1)
+    inv[1] = 1
+    for n in range(1, limit+1):
+        if n > 1:
+            inv[n] = -sum(inv[d] for d in range(1,n) if n % d == 0)
+        check('independent_mu', inv[n] == mu(n))
+
+    negatives = Counter()
+    for H in (4, 5, 6, 7):
+        N, K, L, q, A, B, h, t = source(H)
+        energy, diagonal = {}, {}
+        for m in range(1, 2*N+1):
+            w = F(1, m*(m+1))
+            r = unnormalized(L, t, m)
+            floorcorr = add(*(scale(h[k], m//k) for k in h))
+            full = add(tail(N,m), scale(tail(H,m),-1), floorcorr)
+            check('full_floor_return', r == full)
+            if m <= H:
+                check('exact_zero_head', not r)
+            P = sum(A[k]*residue(k,m) for k in A)
+            Q = sum(B[k]*residue(k,m) for k in B)
+            affine = add(scale(L,1-2*Q), *(scale(q[j], mu(j)*(residue(j,m)-P/j-Q)) for j in q))
+            check('complete_affine_kernel', r == affine)
+            energy = add(energy, scale(product(r,r),w))
+            pieces = [L] + [scale(t[k],-residue(k,m)) for k in t]
+            diagonal = add(diagonal, *(scale(product(x,x),w) for x in pieces))
+            for name, lo, hi in [('band1',3*K,4*K),('band2',5*K,6*K)]:
+                omitted = add(r, *(scale(h[k],residue(k,m)) for k in h if lo < k <= hi))
+                negatives[name] += omitted != r
+            negatives['after_N'] += add(scale(tail(H,m),-1),floorcorr) != r
+        negatives['all_cross_terms'] += diagonal != energy
+        if H == 4:
+            keys = [0] + list(t)
+            coeff = {0:L, **{k:scale(t[k],-1) for k in t}}
+            gram = {}
+            for k in keys:
+                for j in keys:
+                    kernel = sum(((1 if k == 0 else residue(k,m))*(1 if j == 0 else residue(j,m))*F(1,m*(m+1))
+                                  for m in range(H+1,2*N+1)), F(0))
+                    gram = add(gram,scale(product(coeff[k],coeff[j]),kernel))
+                    COUNT['ordered_Gram_entries'] += 1
+            check('full_Gram_reconstruction',gram == energy)
+
+    rows = []
+    for H in (8, 11, 16, 23, 32):
+        N, K, L, q, A, B, h, t = source(H)
+        delta = add({0:F(1)}, *(scale(logq(H,k),-F(mu(k),k)) for k in range(1,H+1)))
+        PE, RE = {}, {}
+        a, b = (N+3)//4, N//2
+        coherent = sum((F(m,m+1) for m in range(a,b+1)),F(0))
+        check('coherent_capacity',coherent >= F(N,8))
+        check('slice_before_both_bands',b == 3*K and a > H)
+        for m in range(a,b+1):
+            R = add(psi(m),{0:-m},logq(H),*(scale(logq(H,k),mu(k)*residue(k,m)) for k in range(1,H+1)))
+            U = tail(H,m)
+            check('coherent_source_identity',U == add(scale(delta,m),R))
+            original = add(scale(L,1-m), *(scale(t[k],m//k) for k in t if k <= m))
+            check('precorrection_original_via_verified_moment',original == scale(U,-1))
+            negatives['scalar_drift'] += U != R
+            PE = add(PE,scale(product(U,U),F(1,m*(m+1))))
+            RE = add(RE,scale(product(R,R),F(1,m*(m+1))))
+        gap = add(scale(PE,16),scale(RE,16),scale(product(delta,delta),-N))
+        check('coherent_extraction_inequality',interval(gap)[0] > 0)
+        rows.append({'H':H,'N':N,'slice':[a,b],'capacity':str(coherent),
+                     'gap_positive':True})
+
+    for H,k,j,T1,T2 in [(4,2,3,50,200),(5,3,4,64,256),(7,4,6,96,384)]:
+        ell=k*j//gcd(k,j)
+        direct=sum((residue(k,m)*residue(j,m)*F(1,m*(m+1)) for m in range(H+1,T2+1)),F(0))
+        grouped=F(0)
+        for u in range(1,ell+1):
+            terms=sum((F(1,m*(m+1)) for m in range(H+1,T2+1) if (m-u)%ell==0),F(0))
+            grouped += residue(k,u)*residue(j,u)*terms
+        check('periodic_kernel_grouping',direct==grouped)
+        tailpart=sum((residue(k,m)*residue(j,m)*F(1,m*(m+1)) for m in range(T1+1,T2+1)),F(0))
+        check('kernel_tail_majorant',0 <= tailpart <= F(1,T1+1))
+    for name in ('band1','band2','after_N','all_cross_terms','scalar_drift'):
+        check('negative_control_'+name,negatives[name]>0)
+    print(json.dumps({'status':'PASS_EXACT_AND_RATIONAL_INTERVAL','checks':dict(COUNT),
+                      'total':sum(COUNT.values()),'negative_controls':dict(negatives),
+                      'coherent_rows':rows,'asymptotic_inference':'NONE'},indent=2))
+
+
+if __name__ == '__main__':
+    main()
+
+~~~
+
+</details>
+
+Observed final output: PASS_EXACT_AND_RATIONAL_INTERVAL; total=4041. Omission detections: first band 276 cells, second band 276 cells, after-N tail 138 cells, all-cross-term deletion 4 complete prefixes, scalar-drift deletion 505 cells. Every registered assertion passed; asymptotic_inference=NONE.
