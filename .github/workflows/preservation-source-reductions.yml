@@ -1,0 +1,101 @@
+name: Preservation source reductions
+
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened, ready_for_review]
+    paths:
+      - 'research/NATIVE_OWNER_DIAGONAL_CAPACITY_20261117.lean'
+      - 'research/NATIVE_OWNER_PREFIX_RECURRENCE_20261021.lean'
+      - 'research/NATIVE_OWNER_SWAP_RENEWAL_20261021.lean'
+      - 'research/EULER_DOUBLE_CENTERED_*_20261117.lean'
+      - 'research/EULER_FRACTIONAL_COUPLED_20261027.lean'
+      - 'research/EULER_RANK_ONE_FRACTIONAL_ROWS_20261027.lean'
+      - 'scripts/lean/preservation_sources/**'
+      - 'scripts/audit_preservation_sources.py'
+      - 'scripts/preservation_source_regression.py'
+      - 'docs/PRESERVATION_SOURCE_REDUCTIONS_20261117.md'
+      - 'docs/proof-obligations.json'
+      - '.github/workflows/preservation-source-reductions.yml'
+      - '.github/actions/research-compile/**'
+      - '.github/actions/lean-setup/**'
+      - '.github/actions/lean-compiled-cache/**'
+      - 'lean-toolchain'
+      - 'lakefile.lean'
+      - 'lake-manifest.json'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: preservation-sources-${{ github.head_ref || github.ref_name }}-${{ github.event.pull_request.head.sha || github.sha }}
+  cancel-in-progress: true
+
+jobs:
+  arithmetic-and-registry:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Independent exact arithmetic and negative controls
+        run: python3 scripts/preservation_source_regression.py
+      - name: Validate generated proof registry and open-target statuses
+        run: |
+          python3 scripts/proof_obligation_dag.py --check
+          python3 scripts/audit_preservation_sources.py --group owner --source-only
+          python3 scripts/audit_preservation_sources.py --group euler --source-only
+
+  source-proof:
+    name: ${{ matrix.group }} exact source proof
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - group: owner
+            target: research/NATIVE_OWNER_DIAGONAL_CAPACITY_20261117.lean
+            types: scripts/lean/preservation_sources/OwnerExactTypes.lean
+          - group: euler
+            target: research/EULER_DOUBLE_CENTERED_REMAINDER_20261117.lean
+            types: scripts/lean/preservation_sources/EulerExactTypes.lean
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Verify pinned compiler, Mathlib, and public inventory
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(cat lean-toolchain)" = 'leanprover/lean4:v4.34.1'
+          grep -q 'd13f23b723b8a846827a245b89c10fc7d3f11612' lakefile.lean
+          python3 scripts/audit_preservation_sources.py --group '${{ matrix.group }}' --source-only
+      - uses: ./.github/actions/lean-setup
+      - uses: ./.github/actions/lean-compiled-cache
+      - name: Compile the complete source closure with warnings fatal
+        uses: ./.github/actions/research-compile
+        with:
+          build-library: 'true'
+          targets: ${{ matrix.target }}
+      - name: Check exact public types and explicit hypotheses
+        shell: bash
+        run: |
+          set -euo pipefail
+          lake env lean -DwarningAsError=true '${{ matrix.types }}' | tee preservation-${{ matrix.group }}-types.log
+      - name: Audit all public declarations, source dependencies, and terminal axioms
+        run: python3 scripts/audit_preservation_sources.py --group '${{ matrix.group }}'
+      - name: Preserve the checked proof and evidence
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: preservation-${{ matrix.group }}-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            preservation-${{ matrix.group }}-evidence/
+            preservation-${{ matrix.group }}-types.log
+            scripts/lean/preservation_sources/
+            research/NATIVE_OWNER_DIAGONAL_CAPACITY_20261117.lean
+            research/EULER_DOUBLE_CENTERED_*_20261117.lean
+          if-no-files-found: error

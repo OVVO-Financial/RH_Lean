@@ -3118,7 +3118,10 @@
       "id": "MILESTONE-NEAR-UNIFORM-SLOT-BOUNDARY",
       "title": "Near-uniform fixed-source Mertens boundary (#1111)",
       "type": "formalization_milestone",
-      "route_ids": ["OAI-NNS", "CODIV"],
+      "route_ids": [
+        "OAI-NNS",
+        "CODIV"
+      ],
       "statement": "For the fixed N_pack=nearUniformSlotCount=ceil(max(1,1/(6*explicitFineLength)))+2, beta <= 7/8-1/(32*N_pack), and for every eps>0 there is C_eps>=0 for all integers n>=1: |M(n)|<=C_eps*n^(7/8-1/(32*N_pack)+eps). The positive distinct slots have sum 1/6 and satisfy the original complete detector/source budgets. No no-loss bound at the endpoint is asserted.",
       "logical_status": "PROVED",
       "formal_status": "PROVED_IN_LEAN_ON_MAIN",
@@ -3136,7 +3139,9 @@
         }
       ],
       "pr": 1111,
-      "evidence": ["EV-PR-1111"],
+      "evidence": [
+        "EV-PR-1111"
+      ],
       "notes": "Exact-head source, fixed types and three terminal axiom audits passed; subsequently human-merged on November 8. The signed square-block regrouping is a separate identity, not an input to the endpoint or a quantitative smooth-to-sharp bridge. This repairs an existing proof PR and retains the original source budgets. PAPER_COROLLARY, not separately Lean-named: N_pack<=N_*=explicitSlotCount, hence eta=1/(32*N_pack)-1/(48*N_*)>=1/(96*N_*)>0. Spending eps=eta/2 yields a fixed power strictly better than the old every-positive-loss boundary. No VERIFIED_ETA program gate is inferred solely from CI.",
       "does_not_prove": [
         "A quantitative smooth-to-sharp square-shell transfer",
@@ -3154,7 +3159,10 @@
       "id": "MILESTONE-PRIME-LOCATION-ANCESTRY",
       "title": "Original prime-location two-channel decomposition and smaller factor root (#1113)",
       "type": "formalization_milestone",
-      "route_ids": ["VF-LOW", "SAT"],
+      "route_ids": [
+        "VF-LOW",
+        "SAT"
+      ],
       "statement": "For every R>=2 and S<=R, the genuine prime left-minus-right mass on R^2<n<(R+1)^2 equals prefix-wheel mass minus the signed mass of later-removed composite sites. Every removed site has a genuine prime divisor S<q<=R, hence sqrt(q)<R. The exact masses at R=2,3,4 are 0,0,1, refuting only inheritance of perfect one-block balance.",
       "logical_status": "PROVED",
       "formal_status": "PROVED_IN_LEAN_ON_MAIN",
@@ -3162,26 +3170,48 @@
       "provenance": "PROVED_INTERNALLY",
       "open_obligation": false,
       "lean": [
-        {"file": "research/VF_MID_PRIME_LOCATION_ANCESTRY_DICHOTOMY_20261108.lean", "name": "squareWheelPrimeHalfMass_eq_prefix_sub_late"},
-        {"file": "research/VF_MID_PRIME_LOCATION_ANCESTRY_DICHOTOMY_20261108.lean", "name": "squareWheelLateRemoved_has_new_prime_factor"},
-        {"file": "research/VF_MID_PRIME_LOCATION_ANCESTRY_DICHOTOMY_20261108.lean", "name": "squareWheelLateRemoved_has_smaller_prime_root"},
-        {"file": "research/VF_MID_PRIME_LOCATION_ANCESTRY_DICHOTOMY_20261108.lean", "name": "squareWheelEarlierBalanced_nextUnbalanced"}
+        {
+          "file": "research/VF_MID_PRIME_LOCATION_ANCESTRY_DICHOTOMY_20261108.lean",
+          "name": "squareWheelPrimeHalfMass_eq_prefix_sub_late"
+        },
+        {
+          "file": "research/VF_MID_PRIME_LOCATION_ANCESTRY_DICHOTOMY_20261108.lean",
+          "name": "squareWheelLateRemoved_has_new_prime_factor"
+        },
+        {
+          "file": "research/VF_MID_PRIME_LOCATION_ANCESTRY_DICHOTOMY_20261108.lean",
+          "name": "squareWheelLateRemoved_has_smaller_prime_root"
+        },
+        {
+          "file": "research/VF_MID_PRIME_LOCATION_ANCESTRY_DICHOTOMY_20261108.lean",
+          "name": "squareWheelEarlierBalanced_nextUnbalanced"
+        }
       ],
       "pr": 1113,
-      "evidence": ["EV-PR-1113"],
+      "evidence": [
+        "EV-PR-1113"
+      ],
       "notes": "The source repair resolves the original RHLean.Arithmetic namespace only; the audit additionally requires all four complete, possibly multiline axiom lists. Exact-head warning-fatal compilation, nine logged theorem types, four standard-axiom closures and finite regressions pass. This is a signed structural restriction and finite obstruction, not a new global bound. The note's fixed-modulus prefix bound and unbounded CRT family are not Lean-certified by this node. The S<=R hypothesis is preserved even where the factor proof does not need it.",
       "does_not_prove": [
         "A signed late-owner estimate or unique first ownership",
         "A smaller block with the same normalized bad event",
         "An asymptotic anti-clustering bound, Mertens gain, VF payment or RH"
       ],
-      "milestone": {"order": 20, "date": "2026-11-08", "label": "Original prime-location decomposition and smaller factor root (#1113)", "pr": 1113}
+      "milestone": {
+        "order": 20,
+        "date": "2026-11-08",
+        "label": "Original prime-location decomposition and smaller factor root (#1113)",
+        "pr": 1113
+      }
     },
     {
       "id": "MILESTONE-WINDOW-SATURATED-BOUNDARY",
       "title": "Complete window-saturated LOW/principal boundary (#1116)",
       "type": "formalization_milestone",
-      "route_ids": ["OAI-NNS", "CODIV"],
+      "route_ids": [
+        "OAI-NNS",
+        "CODIV"
+      ],
       "statement": "For every original fine HighData D, beta <= 7/8-(7/8)*actualSlotMinimum(D)+D.e. Recertifying the existing window reserve and consuming the complete original LOW/HIGH/principal comparison also gives the fixed explicit MertensGrowthAtMost(7/8-5/(96*N_*)), where N_*=explicitSlotCount. This is an every-positive-loss growth statement, not a no-loss power bound.",
       "logical_status": "PROVED",
       "formal_status": "PROVED_IN_LEAN_ON_MAIN",
@@ -3189,15 +3219,35 @@
       "provenance": "PROVED_INTERNALLY",
       "open_obligation": false,
       "lean": [
-        {"file": "research/oai_434/VF919WindowSaturatedLowPrincipal.lean", "name": "native_beta_le_window_saturated_minimum_of_fine"},
-        {"file": "research/oai_434/VF919WindowSaturatedLowPrincipal.lean", "name": "native_beta_le_explicit_window_saturated"},
-        {"file": "research/oai_434/VF919WindowSaturatedLowPrincipal.lean", "name": "native_mertens_explicit_window_saturated"}
+        {
+          "file": "research/oai_434/VF919WindowSaturatedLowPrincipal.lean",
+          "name": "native_beta_le_window_saturated_minimum_of_fine"
+        },
+        {
+          "file": "research/oai_434/VF919WindowSaturatedLowPrincipal.lean",
+          "name": "native_beta_le_explicit_window_saturated"
+        },
+        {
+          "file": "research/oai_434/VF919WindowSaturatedLowPrincipal.lean",
+          "name": "native_mertens_explicit_window_saturated"
+        }
       ],
       "pr": 1116,
-      "evidence": ["EV-PR-1116"],
+      "evidence": [
+        "EV-PR-1116"
+      ],
       "notes": "The original source theorem constructs SourceData and counts at its stated positive error. The prior dedicated job checked a synthetic merge containing the recorded PR head, not a literal PR-head checkout; the source blob is identical to main. New error-closure verification explicitly checks out the PR head and rechecks this complete prerequisite.",
-      "does_not_prove": ["Zero-error finite-source existence", "Uniform finite C or finite A", "RH or repeatable contraction to one half"],
-      "milestone": {"order": 21, "date": "2026-11-08", "label": "Complete window-saturated LOW/principal boundary (#1116)", "pr": 1116}
+      "does_not_prove": [
+        "Zero-error finite-source existence",
+        "Uniform finite C or finite A",
+        "RH or repeatable contraction to one half"
+      ],
+      "milestone": {
+        "order": 21,
+        "date": "2026-11-08",
+        "label": "Complete window-saturated LOW/principal boundary (#1116)",
+        "pr": 1116
+      }
     },
     {
       "id": "MILESTONE-WINDOW-ERROR-CLOSURE",
@@ -3400,6 +3450,97 @@
         "label": "Universal historical envelopes and exact route equivalences",
         "pr": 1135
       }
+    },
+    {
+      "id": "LEMMA-NATIVE-OWNER-DIAGONAL-CAPACITY",
+      "title": "Uniform capacity of the complete native owner diagonal",
+      "type": "paper_claim",
+      "route_ids": [
+        "FINITE-AC",
+        "MU-LIFT"
+      ],
+      "statement": "For every R>=2 and R<=x<R^2, the original strict prime-owner family obeys sum_(R<p<=x) floor(x/p)<=x-R. Consequently D_R(x)<=(x-R)E(R)^2<=3(x-R)K_R. The complete all-prefix M(x)^2=D_R(x)+Gamma_R(x) identity specializes exactly to the existing native owner source. An explicit premise Gamma_R(x)<=B*x*K_R yields K_(R^2)<=(4+B)*K_R; no such signed premise is proved.",
+      "logical_status": "CLAIMED",
+      "formal_status": "NOT_FORMALIZED",
+      "evidence_class": "PAPER_PROOF_NEEDS_REVIEW",
+      "provenance": "PAPER_ARGUMENT",
+      "open_obligation": true,
+      "obligation_kind": "REVIEW",
+      "lean": [
+        {
+          "file": "research/NATIVE_OWNER_DIAGONAL_CAPACITY_20261117.lean",
+          "name": "owner_quotient_sum_le_interval"
+        },
+        {
+          "file": "research/NATIVE_OWNER_DIAGONAL_CAPACITY_20261117.lean",
+          "name": "diagonal_upTo_le_capacity"
+        },
+        {
+          "file": "research/NATIVE_OWNER_DIAGONAL_CAPACITY_20261117.lean",
+          "name": "native_diagonal_upTo_le_historical"
+        },
+        {
+          "file": "research/NATIVE_OWNER_DIAGONAL_CAPACITY_20261117.lean",
+          "name": "nativeGammaUpTo_endpoint"
+        },
+        {
+          "file": "research/NATIVE_OWNER_DIAGONAL_CAPACITY_20261117.lean",
+          "name": "native_historical_preservation_of_relative_compensation"
+        }
+      ],
+      "source_file": "docs/PRESERVATION_SOURCE_REDUCTIONS_20261117.md",
+      "evidence": [
+        "EV-PRESERVATION-SOURCE-REDUCTIONS-20261117"
+      ],
+      "does_not_prove": [
+        "OPEN-FINITE-AC",
+        "OPEN-AMPLIFICATION-SUBPOWER",
+        "OPEN-MU-LIFT",
+        "OPEN-NATIVE-OWNER-FRACTIONAL",
+        "RH"
+      ],
+      "notes": "Lean implementation and exact source audits prepared; hosted proof certification is pending. Supporting source restriction, not a new global exponent."
+    },
+    {
+      "id": "LEMMA-EULER-DOUBLE-CENTERED-REDUCTION",
+      "title": "Complete double-centered frozen Euler source",
+      "type": "paper_claim",
+      "route_ids": [
+        "FINITE-AC"
+      ],
+      "statement": "The original frozen Q_R equals its exact double-centered non-divisor remainder Xi_R plus all retained linear/divisor-row terms. Both divisor-row orientations are included once. The explicit error is at most 2R+5+2(R-1)tau(R-1), hence at most C_epsilon R^(1+epsilon) for every positive epsilon, with constants before R. This proves no strict historical-power bound for Xi_R.",
+      "logical_status": "CLAIMED",
+      "formal_status": "NOT_FORMALIZED",
+      "evidence_class": "PAPER_PROOF_NEEDS_REVIEW",
+      "provenance": "PAPER_ARGUMENT",
+      "open_obligation": true,
+      "obligation_kind": "REVIEW",
+      "lean": [
+        {
+          "file": "research/EULER_DOUBLE_CENTERED_SOURCE_20261117.lean",
+          "name": "eulerSelfDualBilinear_eq_double_centered"
+        },
+        {
+          "file": "research/EULER_DOUBLE_CENTERED_REMAINDER_20261117.lean",
+          "name": "eulerDoubleCentered_remainder_le_divisors"
+        },
+        {
+          "file": "research/EULER_DOUBLE_CENTERED_REMAINDER_20261117.lean",
+          "name": "eulerDoubleCentered_remainder_subpower"
+        }
+      ],
+      "source_file": "docs/PRESERVATION_SOURCE_REDUCTIONS_20261117.md",
+      "evidence": [
+        "EV-PRESERVATION-SOURCE-REDUCTIONS-20261117"
+      ],
+      "does_not_prove": [
+        "OPEN-FINITE-AC",
+        "OPEN-AMPLIFICATION-SUBPOWER",
+        "OPEN-MU-LIFT",
+        "OPEN-NATIVE-OWNER-FRACTIONAL",
+        "RH"
+      ],
+      "notes": "Lean implementation and exact source audits prepared; hosted proof certification is pending. Supporting source restriction, not a new global exponent."
     }
   ],
   "edges": [
@@ -3861,6 +4002,20 @@
       "certified_by": "MILESTONE-UNIVERSAL-ENVELOPE",
       "conditions": [],
       "note": "For each fixed admissible k,r,B, RHLean.Analysis.UniversalEnvelope.subcritical_subpower_gain_iff_mertens_half_of_lt composed with mertens_half_iff_mertensEnergy. The theorem allows every real r<k and eventual estimates along any sequence tending to infinity; no every-B strengthening."
+    },
+    {
+      "id": "E-MULIFT-OWNER-CAPACITY",
+      "from": "MECH-MU-LIFT-SUBCRITICAL",
+      "type": "REQUIRES",
+      "to": "LEMMA-NATIVE-OWNER-DIAGONAL-CAPACITY",
+      "note": "Supporting input for the documented native-owner realization: diagonal and full-prefix return are paid; the full signed upper bound remains open."
+    },
+    {
+      "id": "E-FINITE-AC-DOUBLE-CENTERED",
+      "from": "MECH-FINITE-AC-HISTORICAL-ENVELOPE",
+      "type": "REQUIRES",
+      "to": "LEMMA-EULER-DOUBLE-CENTERED-REDUCTION",
+      "note": "Supporting source reduction for the documented double-centered realization. The complete Xi estimate is still needed; the error bound alone gives no RH-strength conclusion."
     }
   ],
   "non_equivalences": [
@@ -4404,15 +4559,38 @@
       "merged_at": "2026-11-08T19:33:49Z",
       "merge_commit_sha": "675e7a959b994a0507f3ac20d22c2d471f3507dd",
       "head_sha": "20875a55dd9780993c4cdc06624c88be6060e2ee",
-      "checks": {"jobs": 13, "success": 13, "failed": 0, "pending": 0},
+      "checks": {
+        "jobs": 13,
+        "success": 13,
+        "failed": 0,
+        "pending": 0
+      },
       "workflow_run": "https://github.com/OVVO-Financial/RH_Lean/actions/runs/42512437623",
       "proof_job": "https://github.com/OVVO-Financial/RH_Lean/actions/runs/42512437623/job/128828203921",
       "source_blob": "32999039fdeea99c58a070c1c4ee9c140720dd44",
       "audit_blob": "732b3dbfe2b4e8137d254cebd49dc8df2692c40e",
       "repair_history": [
-        {"head_sha": "e02629be7e276dbccf812fb5cdb67a7f060d0cae", "run_id": 42502239742, "job_id": 128797297359, "conclusion": "failure", "diagnosis": "Constant-sum algebra, two natural/real numeral elaborations and positive-division inequality proof."},
-        {"head_sha": "562e313ac405b93cf94ba851e314ceef9e64c579", "run_id": 42509367510, "job_id": 128818866826, "conclusion": "failure", "diagnosis": "Warning-fatal unreachable tactic after field_simp already closes the slot normalization equality; removed only the redundant tactic."},
-        {"head_sha": "b6b637a9395c5f73a034c84474e2f314685d67bb", "run_id": 42510955610, "job_id": 128823686854, "conclusion": "failure", "diagnosis": "Source and fixed types compiled; new axiom runner could not load hierarchical research prefix. Corrected to the literal dotted module name using Name.mkSimple, as in the existing audit."}
+        {
+          "head_sha": "e02629be7e276dbccf812fb5cdb67a7f060d0cae",
+          "run_id": 42502239742,
+          "job_id": 128797297359,
+          "conclusion": "failure",
+          "diagnosis": "Constant-sum algebra, two natural/real numeral elaborations and positive-division inequality proof."
+        },
+        {
+          "head_sha": "562e313ac405b93cf94ba851e314ceef9e64c579",
+          "run_id": 42509367510,
+          "job_id": 128818866826,
+          "conclusion": "failure",
+          "diagnosis": "Warning-fatal unreachable tactic after field_simp already closes the slot normalization equality; removed only the redundant tactic."
+        },
+        {
+          "head_sha": "b6b637a9395c5f73a034c84474e2f314685d67bb",
+          "run_id": 42510955610,
+          "job_id": 128823686854,
+          "conclusion": "failure",
+          "diagnosis": "Source and fixed types compiled; new axiom runner could not load hierarchical research prefix. Corrected to the literal dotted module name using Name.mkSimple, as in the existing audit."
+        }
       ],
       "grade": "KERNEL_CHECKED_ON_MAIN"
     },
@@ -4427,7 +4605,12 @@
       "merged_at": "2026-11-08T19:34:47Z",
       "merge_commit_sha": "70f633dd60e7e6aa54bbd34ef30196371efd7311",
       "head_sha": "43c9ac1235ceed8f40762ad5357486fea27e31bb",
-      "checks": {"jobs": 14, "success": 14, "failed": 0, "pending": 0},
+      "checks": {
+        "jobs": 14,
+        "success": 14,
+        "failed": 0,
+        "pending": 0
+      },
       "workflow_run": "https://github.com/OVVO-Financial/RH_Lean/actions/runs/42513839908",
       "proof_job": "https://github.com/OVVO-Financial/RH_Lean/actions/runs/42513839908/job/128832422955",
       "source_blob": "95951a5aefedadf2e2b4c51bde7bdb8e79deb544",
@@ -4435,7 +4618,13 @@
       "prior_green_head": "8f9fd140c6a74ddc370f1c2952d60e758478f51c",
       "audit_hardening": "Prior run 42513026319/job 128829995271 compiled identical source and printed four permitted axiom lists. The regex skipped wrapped lists; final head adds multiline matching and requires count four. Actual-output and missing/forbidden multiline fixtures were checked without local Lean execution.",
       "repair_history": [
-        {"head_sha": "e7309fd99881bff66ca51586a3c427e8af9f0cac", "run_id": 42510188604, "job_id": 128821370530, "conclusion": "failure", "diagnosis": "Missing RHLean.Arithmetic namespace for primesUpTo and mem_primesUpTo; unchanged statements and proofs work with the original namespace opened. Targeted run 42510188619/job 128821370784 failed on the same identifiers."}
+        {
+          "head_sha": "e7309fd99881bff66ca51586a3c427e8af9f0cac",
+          "run_id": 42510188604,
+          "job_id": 128821370530,
+          "conclusion": "failure",
+          "diagnosis": "Missing RHLean.Arithmetic namespace for primesUpTo and mem_primesUpTo; unchanged statements and proofs work with the original namespace opened. Targeted run 42510188619/job 128821370784 failed on the same identifiers."
+        }
       ],
       "grade": "KERNEL_CHECKED_ON_MAIN"
     },
@@ -4450,7 +4639,12 @@
       "head_sha": "1e32da429324c39a791406a0ae1265581df7ea06",
       "merged_at": "2026-11-08T21:35:50Z",
       "merge_commit_sha": "6144c73b05d5a85e6a9424708986860c6276f60d",
-      "checks": {"jobs": 14, "success": 14, "failed": 0, "pending": 0},
+      "checks": {
+        "jobs": 14,
+        "success": 14,
+        "failed": 0,
+        "pending": 0
+      },
       "workflow_run": "https://github.com/OVVO-Financial/RH_Lean/actions/runs/42520918799",
       "proof_job": "https://github.com/OVVO-Financial/RH_Lean/actions/runs/42520918799/job/128853972193",
       "tested_checkout_sha": "60fa59f302f26900435231cd9685f0f6c5f9b82a",
@@ -4525,6 +4719,15 @@
         "https://github.com/OVVO-Financial/RH_Lean/actions/runs/43775607055/artifacts/14186257216",
         "https://github.com/OVVO-Financial/RH_Lean/actions/runs/43775607055/artifacts/14186717674"
       ]
+    },
+    {
+      "id": "EV-PRESERVATION-SOURCE-REDUCTIONS-20261117",
+      "kind": "repository_note",
+      "path": "docs/PRESERVATION_SOURCE_REDUCTIONS_20261117.md",
+      "grade": "REPOSITORY_NOTE",
+      "notes": "Supporting owner-capacity and complete fractional-source arguments; hosted Lean certification pending.",
+      "date": "2026-11-17",
+      "observed_at": "2026-11-17T13:48:27.641821+00:00"
     }
   ],
   "historical_tracks": {
@@ -4742,5 +4945,3 @@
     }
   ]
 }
-
-
