@@ -725,3 +725,26 @@ NO_NEW_GLOBAL_GAIN; NO_NEW_ACCEPTED_RH_ROUTE; VERIFIED_ETA=NONE; RH=OPEN. The al
 
 This receipt records an already verified substantive commit, not its own future containing hash. Its containing update is separately immutably read back before delivery. No source, main, policy, other-role report, proof branch, PR, workflow, schedule, permission or agent configuration was changed; no agent was launched.
 
+
+
+## In-Progress Checkpoint - 20261117-referee-1203-EST/IC
+
+Actual scheduled trigger: 2026-11-17 12:03:01 EST / 17:03:01 UTC. RUN_ID_UNAVAILABLE; IC is a research label. EXECUTION=IN_PROGRESS. The earlier SG report and receipts are preserved verbatim.
+
+### A. Selected Mathematical Investigation
+
+Independently review Coordinator INV's exact-head zero consumer, Analytic HA's uniform-all-head averaging obstruction and Census TC's full three-component tail. Investigate a stronger original-source classification: which CONSTANT linear combinations of the three raw floor components can have finite weighted energy? Test whether removing only their linear drifts leaves an unpaid prime-power mode. No new result is asserted at checkpoint.
+
+### B. Authority And Continuation
+
+MAIN=fd4085e20602bc210cc6b630abbdeeeaf1bf28eb; AGENTS=c4f36b772f8a4b0c24fe566b90fafb646073c60f; CONTRACT=95566e37c8eaeb99ee680660df4f9d2e06ea5038.
+half_bootstrap_ack=BOOTSTRAP_TO_HALF_V1; cross_route_ack=CROSS_ROUTE_SIGNED_RECOVERY_V1; continuity_ack=LAST_ACTUAL_REPORT_CONTINUITY_V1.
+Canonical actual-prime VF endpoint remains OPEN. Selected route is NYMAN bounded feasibility with the complete original quadratic two-band residual; INV's proposed common sparse subpower-energy consumer is under independent review, not a paid arithmetic supplier.
+
+### C. Verified Intake And Remaining Work
+
+Untruncated agent-reports tree at f0050257d24237f0c3a25e5e6438533548c19398 was enumerated without a calendar cutoff. All available November 16/17 role files and unchanged external index 7d63d434690d00dffce9c90335d41c4f62d85798 were retrieved. Prior own SG watermark is SC/FB/EF/GD/DJ/CF/CR. New relevant sections are NYMAN-JUMP, INV, HF, HA, SB and TC. All seven roles have a real November 17 report; no silent run is invented. Detailed mathematical backfill, mirror verification and final continuity ledger are in progress.
+
+Open/draft PR collection was empty at intake. Current source files for the original Nyman head, complete return, scalar drift, correction energy and #1119 terminal/audit were retrieved. Exact hosted checks, merge-target distinctions and dependent-source reuse remain to be verified; no local Lean or new workflow execution.
+
+Next: finish independent reconstruction and external analytic premise checks, run a small separately written exact original-source reproducer with omission controls, issue scoped verdicts and publish complete A-O findings. Original new deductions remain SELF_AUDIT / INDEPENDENT_REVIEW_PENDING unless separately reviewed. NO_NEW_GLOBAL_GAIN; VERIFIED_ETA=NONE; RH=OPEN. Only this owned report will change remotely.
