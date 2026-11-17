@@ -74,6 +74,28 @@ def source_audit(group: str) -> tuple[dict, dict]:
                    "OPEN-NATIVE-OWNER-FRACTIONAL", "OPEN-MU-LIFT"):
         if nodes[target]["logical_status"] != "OPEN":
             raise ValueError(f"Supporting result incorrectly closes {target}")
+    if "OPEN-SIGNED-SQUARE-SURVIVOR" in nodes:
+        for target in ("OPEN-SIGNED-SQUARE-SURVIVOR",
+                       "OPEN-SIGNED-SURVIVOR-POINTWISE"):
+            node = nodes[target]
+            if (node["logical_status"] != "OPEN"
+                    or node.get("obligation_kind") != "ARITHMETIC"):
+                raise ValueError(f"Complete signed premise incorrectly discharged: {target}")
+        for target in ("IFACE-PRIME-SQRT-PHASE", "IFACE-PRIME-SQRT-FOUR-FIFTHS"):
+            node = nodes[target]
+            if (node["logical_status"] != "ESTABLISHED_LITERATURE"
+                    or node["formal_status"] != "EXPLICIT_LEAN_INTERFACE"):
+                raise ValueError(f"External phase interface incorrectly promoted: {target}")
+        for target in ("FORMALIZE-PRIME-SQRT-PHASE",
+                       "FORMALIZE-ALMOST-ALL-SQUARE-PRIMES"):
+            node = nodes[target]
+            if (node["formal_status"] != "NOT_FORMALIZED"
+                    or node.get("obligation_kind") != "FORMALIZATION_COMPLETENESS"):
+                raise ValueError(f"Analytic formalization gap incorrectly discharged: {target}")
+        certificate = next(ev for ev in registry["evidence"] if ev["id"] == "EV-PR-1143")
+        for path, digest in certificate["proof_source_sha256"].items():
+            if hashlib.sha256((ROOT / path).read_bytes()).hexdigest() != digest:
+                raise ValueError(f"Certified source has changed since the DAG receipt: {path}")
     evidence = {
         "schema": "rhlean-prime-phase-survivor-audit/1",
         "group": group,
@@ -150,7 +172,7 @@ def main() -> None:
     parser.add_argument("--source-only", action="store_true")
     args = parser.parse_args()
     spec, evidence = source_audit(args.group)
-    print(f"PASS {args.group}: exact source inventory, types, and open-target statuses")
+    print(f"PASS {args.group}: exact source inventory, acceptance coverage, and open-target statuses")
     if args.source_only:
         return
     if os.environ.get("GITHUB_ACTIONS") != "true":

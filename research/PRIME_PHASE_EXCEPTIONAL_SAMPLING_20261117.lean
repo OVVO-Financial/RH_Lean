@@ -139,7 +139,7 @@ theorem exceptional_root_card_le_rpow_of_persistent_neighborhoods
           C * Real.rpow Y ((3 : ℝ) / 2 + ε) := hpacking.trans hbudget
       _ = (c * Y) * ((C / c) * Real.rpow Y ((1 : ℝ) / 2 + ε)) := by
         rw [hpower]
-        field_simp [ne_of_gt hc] <;> ring
+        field_simp [ne_of_gt hc]
   exact le_of_mul_le_mul_left hscaled (mul_pos hc hY)
 
 /-- A one-sided integer neighborhood beginning at an actual square. -/
