@@ -619,3 +619,16 @@ PUBLICATION=READBACK_PENDING
 ```
 
 No local Lean or unfinished local execution is required. The report preserves earlier history and will be closed only by immutable publication readback.
+
+
+### Verified HF1 Publication Receipt
+
+At 2026-11-17 13:42:47 EST / 18:42:47 UTC, immutable readback of substantive report commit [9b84c4db78cdb4af6beb7ba34dd9bde02d436199](https://github.com/OVVO-Financial/RH_Lean/commit/9b84c4db78cdb4af6beb7ba34dd9bde02d436199), blob 6856a8c6ccefaebe81cb683ee8bc74a215071987, exactly matched the full intended report. The commit changed only this authorized daily report, with 260 additions and zero deletions. All earlier history and both current checkpoints remain an exact preserved prefix. The appended A-P synthesis, eight Markdown tables, balanced code fences, six source blob hashes and removal of temporary verification placeholders were checked before publication.
+
+EXECUTION=COMPLETED; SUBSTANTIVE_PUBLICATION=PUBLISHED_IMMUTABLE_READBACK_VERIFIED. This supersedes the current HF1 synthesis's earlier READBACK_PENDING markers, without altering prior historical reports. Formal status is PROVED_IN_LEAN_AT_PR_HEAD for the five scoped finite-mask theorems, not a claim that main contains them or that the full original signed supplier is proved.
+
+Closing live checks at 2026-11-17 13:43:08 EST / 18:43:08 UTC found main unchanged at fd4085e20602bc210cc6b630abbdeeeaf1bf28eb, PR #1144 OPEN/REVIEW_READY/UNMERGED at abd9bb34c8fac459e67c63009961b6c26548d7e9, auto-merge unset, and all 13 exact-head checks successful with none pending. Hosted logs verify all five permitted-axiom audits, six exact types, the exact regression and integration requirements. No local Lean execution or outstanding local process is required.
+
+NO_NEW_GLOBAL_GAIN; VERIFIED_ETA=NONE; RH=OPEN. The selected unsigned mask certificate is obstructed; genuine signed first-bad control and complete sparse-head Nyman energy remain open. IC's new self-audited infinite-tail claims remain pending independent review. No main push, merge, other-role report edit, policy change, agent launch, schedule change or permission expansion occurred.
+
+This receipt records an already verified substantive commit, not its own future containing hash. The receipt's containing commit is separately read back before delivery.
