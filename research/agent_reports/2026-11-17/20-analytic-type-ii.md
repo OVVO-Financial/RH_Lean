@@ -891,3 +891,32 @@ Resume at the source-exact quotient-jump interaction or a genuinely different co
 
 
 
+
+
+## IN_PROGRESS Checkpoint - 20261117-analytic-0909-EST/HA
+
+### A. Most Important Analytic Development
+
+IN_PROGRESS. No new mathematical theorem is asserted. The selected bounded feasibility audit follows Coordinator INV: derive the COMPLETE head-averaged Nyman energy kernel for the prescribed quadratic two-band Mobius taper, then determine whether existing genuine arithmetic supplies a subpower bound or an exponent below 2h at the closed boundary h=Theta-1/2. The relaxed exact-head consumer is paper-level SELF_AUDIT/independent-review-pending; it is not a paid upper bound.
+
+### B. Authority And Continuity
+
+Actual trigger 2026-11-17 09:09:02 EST, America/New_York; PLATFORM_RUN_ID=UNAVAILABLE. MAIN=319fc5798658e66baea1fed758b0d4b6dd126889. AGENTS=c4f36b772f8a4b0c24fe566b90fafb646073c60f; CONTRACT=95566e37c8eaeb99ee680660df4f9d2e06ea5038; HALF_POLICY=96ad4439ec458af6168f7d9cb3eef5dde291d37c. REPORT_INTAKE=8faf0afa304f5c1223d933234e959d7dedb1d602, nontruncated no-calendar-cap tree.
+
+half_bootstrap_ack=BOOTSTRAP_TO_HALF_V1; cross_route_ack=CROSS_ROUTE_SIGNED_RECOVERY_V1; continuity_ack=LAST_ACTUAL_REPORT_CONTINUITY_V1.
+
+All seven November 17 latest files and November 16 files were retrieved. Relevant post-EF backfill is GD, DJ, SG, NYMAN-JUMP, INV, HF; original EF/LM source derivations and current review distinctions are retained. EF1-EF3 are now independently ACCEPT_ON_PAPER by SG. Today=AVAILABLE for all roles; no missing run is invented. Today's Coordinator mirrors are byte-identical. External inbox 7d63d434690d00dffce9c90335d41c4f62d85798 is unchanged, no entry after October 18.
+
+#1140 and #1141 are human-merged. The current open/draft collection is empty. At #1141 tested head dfd3197117410ad491d7c94b66448753ae8e4d63 there are 17 successful current checks and 3 cancelled superseded checks, not 20 successes. Actual owner/Euler audit logs verify 20/27 declarations with standard axioms. #1140 has 13 successful checks; its actual log verifies the original exact head/return ancestry and seven sign-obstruction roots. No new/local Lean execution. Neither merge supplies the missing full Nyman energy estimate.
+
+### C. Exact Source And Registered Investigation
+
+For each integer H>=2 retain N=6ceil(H^2/6), both original correction bands (N/2,2N/3] and (5N/6,N], exact reciprocal and total moments, c_k=(h_k-mu(k)log(N/max(H,k)))/log(N/H), r_H(m)=1-sum_(2<=k<=N)c_k{m/k}, and E_H=sum_(m>=1)r_H(m)^2/[m(m+1)]. Source flat return blob=2d23721027ecc44e85b7add02fc632b482f03352. The exact r_H(m)=0 for m<=H and full U_N-U_H+C_h return were read in original Lean.
+
+Investigate the finite coefficient Gram with the infinite m-tail retained, and the full H-average over X<=H<2X. Challenge any inferred averaging saving using the exact signed off-diagonal, both correction columns, all m>N and the already-accepted EF obstruction. A kernel identity alone is not an estimate; changing the prescribed taper is not authorized by the proposed bound.
+
+### D-L. Remaining Work And Continuation Capsule
+
+ROUTE=NYMAN complete-head-average bounded feasibility. P(b)=genuine every-positive-loss Mertens growth at the closed boundary, with constants fixed before scale. DIRECT_CONSUMER=independently derived subpower COMPLETE E on one common unbounded head sequence excludes each off-line zero via INV; alternatively complete energy exponent kappa(h)<2h gives a closed-supremum contradiction. RETURNS=both corrections, U_N, every off-diagonal, all integer cells, infinite tail. FIRST_OPEN=source-specific signed arithmetic control of the complete kernel, not its definition. FALSIFIER=lost mixed term, infinite tail dropped, generic scalar-energy comparison, or unchanged diagonal scale after averaging. STATUS=ACTIVE_SUPPORT/IN_PROGRESS; no new global gain or accepted RH route.
+
+Only this owned daily report is authorized for remote writes. Earlier EF history remains an exact prefix. PUBLICATION=READBACK_PENDING until verified.
