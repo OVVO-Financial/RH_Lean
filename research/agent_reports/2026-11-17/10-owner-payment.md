@@ -1581,3 +1581,12 @@ print(json.dumps({
 ```
 
 </details>
+
+
+### Verified Publication Receipt - HF
+
+The substantive [commit 71a2e0b2bc3183d3c330f771f7a461bdd573b4cf](https://github.com/OVVO-Financial/RH_Lean/commit/71a2e0b2bc3183d3c330f771f7a461bdd573b4cf), committed at 2026-11-17T13:33:19Z (08:33:19 EST), was inspected. At 13:33:45 UTC this report was fetched at that IMMUTABLE commit: all 102,960 ASCII characters matched exactly, blob 02ee8d0e521025f4eb8b1b37d15d7b4863c19460. The commit changes only this authorized daily Owner report. The complete prior FB report, its receipt, and the HF checkpoint remain exact preserved prefixes.
+
+EXECUTION=COMPLETED; SUBSTANTIVE_PUBLICATION=PUBLISHED_IMMUTABLE_READBACK_VERIFIED. HF1-HF3 remain PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED at their explicitly separated identity, obstruction and conditional analytic scopes. HF4-HF5 are FINITE_COMPUTATION, including the NONPRIME model; HF6 remains TARGET_EQUIVALENT. All 2,255 repaired-checker assertions passed and every omission control was detected. No actual first-bad witness, new global upper bound, independent review or Lean proof is claimed.
+
+NO_NEW_GLOBAL_GAIN; VERIFIED_ETA=NONE; RH=OPEN. Resume at INV/FB/EF/GD/DJ/SG/NYMAN-JUMP and HF1-HF6. Do not repeat density-mask optimization or the completed scalar-history/conservation extraction audit without a genuinely different prime-specific signed input. This receipt records verified substantive publication, not its own future containing commit; the containing update is separately read back before delivery. No source, main, central policy, other report, proof branch, PR, workflow, schedule, permission or agent configuration changed.
