@@ -3751,3 +3751,1662 @@ Primary method: genuine prime-square Mobius sieve, direct integer floors and rat
 ### Continuation and complete consumer
 
 Route=NYMAN bounded feasibility audit, ACTIVE_SUPPORT only. The direct terminal is approximation of the constant sequence by the original residue basis in the COMPLETE norm sum_(m>=1)r(m)^2/[m(m+1)] (Bagchi, Theorem 1). Complete norm convergence on one unbounded admissible selected sequence would imply RH. A proper-region sign is neither that convergence nor a renewable source bound. All other middle/correction/after-N regions and the actual infinite tail remain in the consumer; fixed-stage constants precede growing scales. LM's D~6H/pi^2 shows why even C<=0 does not prove V=o(log(H)^2). No new theorem, limit, baseline, or supplier is claimed before execution.
+
+
+## Research Synthesis - 20261116-census-1900-EST/MC
+
+Actual scheduled trigger: **2026-11-16 19:00:01 EST**, America/New_York (2026-11-17 00:00:01 UTC). RUN_ID_UNAVAILABLE; MC is a research label. This continuation preserves all earlier RS/SG results and the verified MC preregistration. Mathematical scope: **FINITE_COMPUTATION**, with one elementary finite-depth **PAPER_PROOF / SELF_AUDIT** explanation. Independent specialist review is PENDING. Publication is established by the subsequent immutable-readback receipt.
+
+### A. Most Important Mathematical Finding
+
+**The complete long-middle off-diagonal is strictly negative at both registered heads, H=19 and H=20. This bounded test finds no counterexample to total nonpositivity.** Its cancellation deficit V/D is approximately 2.49% and 2.60%, respectively. These are finite diagnostics, not an all-scale rate or an RH estimate.
+
+The hidden arithmetic distinction is within the shared-factor population. Its largest POSITIVE gcd class is g=6 in both cases, even though the aggregate shared-gcd contribution is negative. Every surviving cofactor in that class is prime: its first possible squarefree composite cofactor, 35, lies beyond both original cutoffs. Thus the class has coherent pair signs for an exact finite-depth reason, not a random-sign explanation. Negative g=2 and g=3 classes more than offset it. This is a bounded classification of a proper sector, not a new complete-source cancellation theorem.
+
+| Claim | Status | Exact scope |
+| --- | --- | --- |
+| 20261116-census-1900-EST/MC1 | FINITE_COMPUTATION | Total C=C1+Cs<0 at exactly H=19 and H=20; selection checked, all ordered cross terms retained. No universal sign claim is established. |
+| MC2 | FINITE_COMPUTATION | Independent exact discrete reconstruction, symbolic quadratic conservation, original two-band coefficient/moment return, and agreement with SG regional enclosures. |
+| MC3 | PAPER_PROOF / SELF_AUDIT, with FINITE_COMPUTATION checks | Prime-cofactor depth explains positive g=6 in these two cases. The general finite-depth corollary below is an elementary consequence of the existing gcd mask, not a new global mechanism. |
+
+**NO_NEW_GLOBAL_GAIN; NO_NEW_ACCEPTED_RH_ROUTE; VERIFIED_ETA=NONE.** The canonical VF bound, finite A/C, full selected-family Nyman convergence and RH remain OPEN. MC_SIGN survives this two-case test only. A sign-only endpoint argument remains insufficient, as LM already records.
+
+### B. Current Authoritative Objective
+
+Pinned main is **4d5482805bac6a8f29d4fb4dadc61eca0bc06525**, observed at invocation intake. AGENTS blob c4f36b772f8a4b0c24fe566b90fafb646073c60f; CURRENT_PROOF_CONTRACT blob 95566e37c8eaeb99ee680660df4f9d2e06ea5038; governing half-continuation policy blob 96ad4439ec458af6168f7d9cb3eef5dde291d37c.
+
+half_bootstrap_ack=BOOTSTRAP_TO_HALF_V1; cross_route_ack=CROSS_ROUTE_SIGNED_RECOVERY_V1; continuity_ack=LAST_ACTUAL_REPORT_CONTINUITY_V1. Older route safeguards remain, but their superseded task priorities do not control this run.
+
+The original `VFCanonicalSquareVonKochStatement` still asks for one C>=0 before all integers R>=2 with |pi(R^2)-vfCanonical(R^2)|<=C R log R. The phase remains vfCanonical=vfMid+sqrt(2), and `riemannHypothesis_of_vfCanonicalSquare` retains its explicit `ClassicalVonKochRHCriterion` argument. Its inspected source is [the canonical interface](https://github.com/OVVO-Financial/RH_Lean/blob/4d5482805bac6a8f29d4fb4dadc61eca0bc06525/research/VF_CANONICAL_SQRT_TWO_VON_KOCH.lean).
+
+Selected work: Coordinator HB's **NYMAN bounded covariance falsifier**, explicitly permitted as a feasibility audit under the half-continuation gate. LM did not compute these two heads. This is not another selected-neighbor-minimum test, a larger scan, or an admitted new RH mechanism.
+
+**Baseline / dependency receipt.** The inspected `native_mertens_near_uniform_window_error_closed` still gives every-positive-loss `MertensGrowthAtMost(7/8-7/(64*N_pack))`, with fixed source count and constants before the scale, not an epsilon-free power bound at that exponent. Its source and audit blobs are f629db1b2b65d6ec042ac9432397d4b6316200c6 and 1f17f9401a63d16227db2e2aad020b9f74bc5f4e. The actual [dependency/axiom log](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42552018910/job/128949473700) was retrieved: five root closures 35358,35375,35736,35737,35753, with propext, Classical.choice and Quot.sound only. The audit checks original source construction and native Hecke/zeta/Mertens dependencies, not an assumed desired endpoint. Fresh metadata shows 14/14 successful checks at tested head 77ee815846d6d534c866f0752aa33b84c385610a. An untruncated comparison of 2,508 preexisting Lean/pin/scripts/lean entries to current main found only RHLean.lean changed. This reuses unchanged-source certification; it is not a new complete-main build or a reproof of every analytic dependency. No numeric baseline is needed to certify MC1-MC3.
+
+The only accepted source change since SG is merged #1139 and its checks: six added files, no changed preexisting file. It formalizes the fixed-gcd R=139 pointwise obstruction, not a new upper estimate or FR's full analytic equivalence. Its current tested head 760a105553788fa7005e86b1230699fd871a2934 has 13/13 successful checks. The merge at 21:57:12 UTC supersedes older reports' unmerged labels. Open/draft PR search was empty. No CI was launched or rerun and no local Lean was executed.
+
+#### Latest-Actual Continuity Ledger
+
+Intake report revision: **a26b2082bd62910ce0d6ce06662070237c1aee9c**. The untruncated recursive tree was enumerated without a calendar cap. All latest complete files and their actual final receipts were retrieved; both November 15 and November 16 Coordinator mirrors were fetched and compared byte-for-byte. SG's 11:28:44 EST receipt and its consumed ledger supply the prior watermark. Newly relevant publications after it were recovered in order: FR, FR-AUDIT, HB, LM, TP. No latest partial without a completed result was found.
+
+All paths below begin `research/agent_reports/2026-11-16/`; actual receipt times are EST. Each new section listed was consumed before execution, not merely discovered by its filename.
+
+| Role / file | LAST_VERIFIED blob; actual section/time | LAST_CONSUMED -> newly consumed; first open step |
+| --- | --- | --- |
+| Coordinator 00 and identical 90 | fcb7cc6f4c287b17ebd7ed8b6d618a113bd36d71; HB, 15:38:03 | MB -> HB1-HB5 and the exact H19/H20 assignment; original-source supplier still unpaid. |
+| Owner 10-owner-payment.md | a52b439e693e069502b0c299a5f074a19bae0807; DB, 08:35:17 | DB -> NONE; preserve R=5 correction, R=137 restored reversal and narrow HB algebra acceptance. |
+| Analytic 20-analytic-type-ii.md | 84aaa2103225565607b5b033f273462bbe865246; LM, 17:30 receipt | TW -> LM1-LM5; full long-middle signed magnitude, not a mere sign, is unpaid. New LM paper claims remain review-pending. |
+| Wheel 30-finite-wheel.md | 713826840694e39a141fbdbe813f1d47245928e7; TP, 18:28:09 | FP -> TP1-TP5; fixed-prime model obstruction is scoped, not a genuine-source growth theorem. |
+| Census 40-prime-census.md, pre-MC | c07bf25eae457033e49e22b2eacc9c659a754d39; SG, 11:28:44 | Own SG recovered; complete regional/tail facts reused, no millions-coordinate rerun. |
+| Referee 50-adversarial-referee.md | 95499c6b3e72d79fe6eb902465c9554d3b0be9fc; FR, 12:22:09 | NT -> FR1-FR5; FP1-FP4 paper acceptance, fixed-row equivalence and pointwise obstruction kept distinct. |
+| Lean 60-lean-verification.md | 8af089419676892af344fe7f980f0890e0d31912; FR-AUDIT, 13:39:45 | FFR4 -> FR-AUDIT; FR1-FR3 accepted on paper, R139 subsequently merged, no independent strict supplier. |
+
+TODAY=AVAILABLE for all seven roles. For November 15, Coordinator SS (8ce64136c888c6ad7820ef69a78caa5ece07d61b), Referee UE (a1c07bdd8e8493aece535745a0ce6f6635871620) and Lean FFR3 (8d25541bc6faebfa180e0456061d7725756bf5ca) were retrieved and relevant material read as YESTERDAY=CARRY_FORWARD. Owner/Analytic/Wheel/Census have YESTERDAY=NO_VERIFIED_REPORT; their older histories are retained through the prior verified ledger, not replaced by fictitious November 15 runs. The enumerated tree has no November 13-14 directory. Missing reports establish no execution or cause.
+
+CONTINUITY_COMPLETE here means latest-real discovery and task-relevant post-watermark backfill, not an independent rereview of the historical corpus. External inbox 7d63d434690d00dffce9c90335d41c4f62d85798 was read and is unchanged, with no entry after October 18. EXT-20261018-PNT-1 preserves actual cofactor weights and boundaries; EXT-20261014-5 does not refute conditional first-bad arguments. Neither supplies this Nyman covariance.
+
+### C. Competing Hypotheses
+
+The preregistration was committed BEFORE new evaluation as [79e79c886aa6e23caf3bd5913e3733e2961394f0](https://github.com/OVVO-Financial/RH_Lean/commit/79e79c886aa6e23caf3bd5913e3733e2961394f0), blob 453536d94015f1af7d0536034cb4f7b6cf6d80b8. Immutable readback matched the intended original prefix plus checkpoint exactly.
+
+**MC_SIGN:** the complete off-diagonal C is nonpositive at the two actual cases. **MC_POS:** full restoration can produce C>0 even at selected H=19. A rigorously positive lower endpoint at H=19 would falsify selected-head nonpositivity. H=20 is a control and could falsify only an all-head rule unless its actual membership in G were established. Two nonpositive values decide neither an infinite sign claim nor the required magnitude/renewal.
+
+No constant, threshold, head range or endpoint was fitted after evaluation. The prime-cofactor explanation MC3 was explicitly registered AFTER the primary outputs and BEFORE its separate check; it is not retroactively presented as a preregistered discovery.
+
+### D. Exact Carrier And Methods
+
+For H in {19,20}, let N=6ceil(H^2/6), A=4H, B=N/2 and L=log(N/H). Use genuine mu, including squareful zeros, with
+
+```text
+a_k=mu(k)log(H/k), H<k<=B,
+U_H(m)=sum_(H<k<=m)a_k floor(m/k),
+K_AB(k,l)=sum_(m=A..B)floor(m/k)floor(m/l)/[m(m+1)],
+D=sum_k a_k^2 K_AB(k,k),
+C1=sum_(k!=l,gcd(k,l)=1)a_k a_l K_AB(k,l),
+Cs=sum_(k!=l,gcd(k,l)>1)a_k a_l K_AB(k,l),
+V=sum_(m=A..B)U_H(m)^2/[m(m+1)]=D+C1+Cs,
+delta(H)=1-sum_(k<=H)mu(k)log(H/k)/k,
+G={H>=2:delta(H)delta(H+1)<=0}.
+```
+
+Both (k,l) and (l,k) are retained. This is the additive Nyman floor covariance, NOT the native multiplicative ordered Euler row, Pearson covariance, or physical #915 NNS statistic.
+
+Original full coefficients are unchanged: K=N/6, q_k=log(N/max(H,k)), u=sum_(1<=k<=N)mu(k)q_k/k, v=2L+sum_(1<=k<=N)mu(k)q_k. With s1=sum_(3K<k<=4K)1/k and s2=sum_(5K<k<=6K)1/k, use alpha=(u-s2*v/K)/(s1-s2), zetaCorr=(s1*v/K-u)/(s1-s2); h_k is alpha on (3K,4K], zetaCorr on (5K,6K], zero elsewhere. Finally c_k=(h_k-mu(k)q_k)/L for 2<=k<=N and r(m)=1-sum c_k*(m mod k)/k. The k=1 moment terms remain.
+
+The primary calculation uses a prime-square mu sieve, literal integer floors, exact rational kernels and outward fixed-point logarithm intervals at scale 10^50. Logarithms are range-reduced to y in [1,2], z=(y-1)/(y+1)<=1/3, using 96 terms of 2*atanh(z); the omitted positive tail is bounded by 2*z^193/[193*(1-z^2)]. Every subsequent interval operation rounds outwards. The deliberately simple pair/kernel census is O(B^3) in the worst case; this bounded run evaluates 1,279,410 literal kernel summands, with exact rational arithmetic costs additional. Python integers are unbounded. No floating-point sign decision, probabilistic primality test or random seed is used.
+
+Independent discrete reconstruction uses divisor inversion for mu, trial factorization into formal prime-log vectors, cumulative divisor incidences instead of floor multiplication, and the exact cofactor-max kernel
+
+```text
+K_AB(k,l)=sum_(1<=u<=B/k,1<=v<=B/l)
+             (1/max(A,ku,lv)-1/(B+1)).
+```
+
+All 11,055 unordered-with-diagonal kernels were compared exactly. The recombined quadratic polynomial equals the independently constructed V polynomial coefficient-by-coefficient over rational coefficients. Their zero difference is EXACT, not inferred from overlapping intervals. The 903-term and 1,081-term formal prime-log certificates are reproducible from the embedded program.
+
+A separate program uses trial-factor mu, direct per-site ordered-pair contributions and Decimal logarithms at 80 and 120 digits. It independently reconstructs all reported totals and every gcd sector, with 236 comparisons passing. This is an independent numerical diagnostic, not a second rigorous error bound; the fixed-point rational intervals and exact symbolic tests supply the rigorous evidence. Both programs were written and run by this laboratory, not by an independently appointed specialist.
+
+### E. Executed Results
+
+All decimal intervals below are rounded OUTWARD. None is an approximate equality.
+
+| Quantity | H=19, selected | H=20, control |
+| --- | --- | --- |
+| N; inclusive m range | 366; 76..183 | 402; 80..201 |
+| delta(H) | [-0.002321209132,-0.002321209131] | [0.000280173770,0.000280173771] |
+| delta(H+1) | [0.000280173770,0.000280173771] | [0.002754608301,0.002754608302] |
+| D | [1.297056686307,1.297056686308] | [1.428779189863,1.428779189864] |
+| C1 | [-0.225779432579,-0.225779432578] | [-0.014046973046,-0.014046973045] |
+| Cs | [-1.038973038171,-1.038973038170] | [-1.377558769019,-1.377558769018] |
+| C=C1+Cs | [-1.264752470749,-1.264752470748] | [-1.391605742065,-1.391605742064] |
+| V=D+C | [0.032304215558,0.032304215559] | [0.037173447798,0.037173447799] |
+| V/L^2 | [0.003691524811,0.003691524812] | [0.004128401727,0.004128401728] |
+| V/D | [0.024905785459,0.024905785460] | [0.026017629639,0.026017629640] |
+
+H=19 belongs to G; H=20 does not. Their negative C values are separated from zero by more than 1.26 and 1.39 respectively. The widest primary core enclosure is 2.3156*10^-46. Both numerical precision passes agree to better than 10^-70, and all diagnostic values lie inside the rigorous primary enclosures.
+
+The nonzero coefficient counts are 99 and 110. The ordered pair partitions are respectively (D,C1,Cs)=(99,7516,2186) and (110,9316,2674), totaling 99^2 and 110^2. Excluded squareful zeros remain explicitly represented in the arithmetic construction; their omission from loops is exact multiplication by zero, not a population change.
+
+Both V/L^2 values lie inside SG's previously published pre-correction enclosures. The new contribution is the complete signed/gcd decomposition and its conservation certificate, not a rediscovery of regional energy. No whole-prefix or infinite-tail numerical computation was repeated.
+
+### F. Exceptional Cases And Falsification
+
+No positive-C witness was found in the entire declared domain of TWO heads. This is a finite pass, not evidence of minimality or an eventual theorem.
+
+| Gcd sector | H=19 | H=20 |
+| --- | --- | --- |
+| g=2, largest negative class | [-0.629247464671,-0.629247464670] | [-0.857436191061,-0.857436191060] |
+| g=3 | [-0.622048996733,-0.622048996732] | [-0.753425098571,-0.753425098570] |
+| g=6, largest positive class | [0.600534044130,0.600534044131] | [0.708672848624,0.708672848625] |
+
+In particular, a proper shared-factor class can be positive while the whole shared-factor population and total off-diagonal are negative. LM's prior selected H=10 positive Cs and H=13 negative Cs remain inherited counterexamples to opposite universal shared-sector sign rules; they were not rerun or generalized here.
+
+Negative controls detected BOTH deliberate errors at each head: dropping one ordered orientation, and deleting the nonzero m=B contribution. The former also fails exact symbolic quadratic conservation. No actual mathematical assertion failed, and no post-result repair or changed test range was required.
+
+### G. Hidden Variable: Cofactor Factor Depth
+
+At g=6, nonzero coefficients force k=6s with s squarefree and coprime to 6. Since H>=6, s=1 is absent. Since B<210, s<35. The first squarefree composite coprime to 6 is 5*7=35. Hence every surviving s is prime, and mu(6s)=-1 throughout this class. All a_(6s)=log(6s/H)>0, so every ordered off-diagonal product in the class is strictly positive.
+
+At H=19 the prime cofactors are 5,7,11,13,17,19,23,29, giving 56 ordered distinct pairs. At H=20, 31 also occurs, giving 72 pairs. Independent mask enumeration and the prime-pair reconstruction match exactly; the recomputed class intervals match the original gcd-6 totals.
+
+This explains the positive sector without extrapolation. At the threshold 6*35=210 a composite cofactor becomes eligible, so the prime-only argument has a precise boundary. We did NOT evaluate a new B=210 experiment or extend the head range. There is no all-scale or growing-g uniformity claim.
+
+### H. Mathematical Interpretation
+
+Selection of a small reciprocal logarithmic moment does not remove positive covariance classes. The selected and neighboring unselected examples both achieve substantial aggregate cancellation through a mixture of positive and negative gcd sectors. The two cases neither demonstrate that selection causes this cancellation nor that it is irrelevant at large scales.
+
+The first potential information loss is replacing the complete square by its diagonal, or treating independently signed gcd classes as separate payment. Here D+C is the verified object. A favorable C<=0 gives only V<=D, not a vanishing normalized norm. LM1's all-range diagonal asymptotic remains upstream PAPER_PROOF / SELF_AUDIT, not newly accepted by this run; its stated consequence is that the desired regional estimate requires C=-D+o(log(H)^2), far more than a sign. The present finite V/D values do not establish that rate.
+
+### I. Precise Supporting Statement
+
+**MC3, finite-depth corollary of the already available gcd-mask identity.** Let g be any positive squarefree integer. Let p<q be the two least primes not dividing g. For integers H,B satisfying g<=H and 4H<=B<g*p*q, define C_g using the ORIGINAL a_k, floor kernel and both orientations above. Then
+
+```text
+C_g = 2*sum_(primes s<t, gcd(st,g)=1, H<gs,gt<=B)
+          log(gs/H)*log(gt/H)*K_[4H,B](gs,gt) >= 0.
+```
+
+It is strictly positive if at least two displayed prime cofactors occur, and zero otherwise. Proof: a nonzero term has k=gs, l=gt with squarefree s,t coprime to g. The unit is excluded by H>=g. A squarefree composite coprime to g is at least p*q, excluded by B<g*p*q. Thus s,t are primes, distinct because gcd(k,l)=g. Their sign product is mu(g)^2*mu(s)*mu(t)=1. Every logarithm is positive and every kernel is positive, since its m=B summand is positive. This exhausts the original class and preserves both orientations.
+
+This is a transparent arithmetic explanation of MC2's two positive sectors, not a new global bound, not a claimed literature novelty, and not a formalized theorem. Independent specialist review is PENDING. The genuine selected-family convergence problem remains a CONJECTURE with no new supplier established here; we do not promote a universal nonpositivity conjecture on two samples.
+
+### J. Complete Consumer And Loss Ledger
+
+The inspected Lean `nyman_flat_complete_return` retains the reciprocal-moment defect; `nyman_flat_return_of_moment` removes it ONLY under the exact moment equation. Both original two-band moment equations were checked symbolically here: sum c_k/k=1 and sum c_k=3. All 766 coefficient numerators, including squareful correction directions, were constructed. Across all 384 sites 1<=m<=B in the two cases, the literal residue expression agrees EXACTLY with L*r=-U_H as a formal prime-log vector. Both corrections are retained; their floor responses vanish on this range because support starts strictly after N/2, and U_N=0 here.
+
+| Region / return | Status retained from the original source |
+| --- | --- |
+| 1<=m<=H | Exact zero head, checked here; already compiled theorem. |
+| H<m<=H+floor(H^(4/5)) | P9 proper transition bound is inherited at its accepted paper scope. |
+| Remaining sites before 4H | Unpaid uniform selected-family return; SG's three-floor diagnostic is not the full norm. |
+| 4H<=m<=N/2 | MC gives exact finite D+C and V/L^2 at two heads only. Uniform little-o remains OPEN. |
+| N/2<m<=N | Both correction bands, their gap and mixed terms remain; no new bound. |
+| N<m<=ceil(N^(3/2)) | Complete U_N-U_H+C_h remains; no new bound. |
+| m>ceil(N^(3/2)) | P6 remote-tail estimate is inherited at its accepted paper scope, not newly proved or rerun. |
+
+SG's already published full-error enclosures remain [0.012660679712,0.016056824158] for H=19 and [0.012263390837,0.015568594745] for H=20. They include the actual covariance-based infinite tail and are inherited finite evidence, not new computations. We do not add a separate moment obstruction to these overlapping coordinates or infer an ordering of full norms from overlapping enclosures.
+
+The direct terminal is the COMPLETE norm E=sum_(m>=1)r(m)^2/[m(m+1)]. Convergence to zero along one unbounded admissible selected sequence would give approximation of the constant sequence by the original fractional-part basis, hence RH by [Bagchi's Theorem 1](https://arxiv.org/html/math/0607733v1). Its actual weighted space and residue basis were read and match literally. This is a classical paper consumer, not a newly Lean-certified terminal or a proof that this particular selected family converges.
+
+| Coordinate / first loss | Paid recovery tested | Remaining barrier |
+| --- | --- | --- |
+| Original Nyman residue to floor return | Compiled exact return plus actual moment solver; exact finite check here | No signed magnitude estimate follows. |
+| Full square to diagonal or selected gcd sectors | MC restores all orientations/classes; LM's kernel is checked independently | Negative total sign does not pay V=o(L^2). |
+| Proper middle to full norm | Only a nonnegative regional contribution; SG/P6 restore tail bookkeeping | Other middle, correction and after-N regions remain. |
+| Euler / FINITE-AC / square blocks | Q_R and strict K_R retain their separate exact consumers | NOT_EQUIVALENT to this additive covariance; no coefficient-preserving bound transfer. |
+| Actual-prime VF / finite wheel | Canonical and centered-wheel targets preserve physical/virtual terms | OPEN_BRIDGE to this Nyman source; no equality of prime and Mobius errors. |
+| Ideal-character NNS / OAI | Existing native Mertens consequence supplies one-way size information | Original marked source/masks differ; no covariance payment is imported. |
+
+The OAI LOW floor 47/54, actual coefficient gate theta>3/5 and correction-domain restrictions remain unchanged. This test does not claim to pass them or make Nyman compulsory for another route.
+
+### K. Verification, Precision And Limitations
+
+The primary run completed **23,887 checks**, including 11,055 exact kernel comparisons, 10,846 gcd mask/sign checks, 804 independently reconstructed Mobius comparisons, 384 exact full-source returns, both exact moments at each head, and two exact quadratic reconstructions. Independent 80/120-digit diagnostics completed **236 comparisons**, including all individual gcd sectors. The post-primary prime-cofactor classification passed at both original heads. All three scripts passed syntax checks; all necessary processes finished.
+
+Actual Python version: **3.12.14**. Primary measured time: **17.908875783 seconds**; independent diagnostic: **1.596903781 seconds**. Time is observational, not a mathematical parameter. No new package installation, random model, external arithmetic table, local Lean, hosted rerun or extra head scan was used. The exact rational/prime-log comparison is logically separate from the shared primary interval evaluation; the standalone numerical cross-check has its own trial factors, logarithms and per-site summation.
+
+No finite test here proves an infinite estimate, a limit, an optimal constant or first-bad assertion. MC1-MC2 are FINITE_COMPUTATION. MC3's general elementary argument is PAPER_PROOF / SELF_AUDIT. Same-laboratory implementations are not independent specialist acceptance. No new Lean theorem is claimed.
+
+### L. Specialist Handoffs
+
+- **Proof Architect:** HB's exact H19/H20 assignment is complete. Total C is negative in both; H=19 is selected, H=20 is not. No falsifier or new supplier emerges. Stop this bounded scan as requested; do not promote a sign-only endpoint argument.
+- **Analytic Type II:** retain D,C1,Cs,V and V/L^2 above. The positive g=6 class is explained by prime-only cofactors, while the full shared sector is negative. This does not pay LM's required cancellation precision or the remaining regions.
+- **Adversarial Referee:** the smallest useful review is the interval remainder, exact cofactor-max kernel, ordered-pair conservation and MC3's explicit finite-depth hypotheses. A universal all-head sign review is not claimed or requested from these two data points.
+- **Owner Payment:** no original #915 admission or payment theorem is transferred from these gcd classes. The sign pattern concerns genuine Nyman tail coefficients, not physical prime-owner packets.
+- **Finite Wheel:** TP was consumed at its stated model-class scope, with review PENDING. Its g=6 multiplicative row is a different object from this additive covariance class. No larger wheel or repeated toggle scan was performed.
+- **Lean Verification:** no new PR or conditional wrapper is requested. The source return and moments are already compiled. MC3 is supporting bookkeeping; only a later independently accepted necessary use would justify formalization.
+
+### M. Ranked Hypothesis Portfolio
+
+| Disposition | Exact candidate / evidence | First missing ingredient and decisive next action |
+| --- | --- | --- |
+| Stop this finite test | C<=0 at H=19,20; both rigorously pass | No extrapolation. Resume only if a new quantified source mechanism gives a different falsifier. |
+| Retain as explanation | Finite-depth prime-cofactor sector law MC3 | Independent paper review; boundary B<g*p*q is essential. No additional scan is needed to understand the proof. |
+| OPEN, not newly admitted | Complete original E tends to zero along some unbounded selected sequence | A genuinely coefficient-sensitive estimate paying all remaining regions on the SAME sequence; equivalent target restatements are not suppliers. |
+| Reject as endpoint justification | A favorable total covariance sign by itself yields full convergence | It only bounds V by D and leaves the complete return; LM already identifies the magnitude deficit. |
+
+### N. Next-Run Resume Capsule
+
+```text
+RUN=20261116-census-1900-EST/MC; RUN_ID_UNAVAILABLE
+TRIGGER=2026-11-16T19:00:01-05:00
+MAIN=4d5482805bac6a8f29d4fb4dadc61eca0bc06525
+POLICY=96ad4439ec458af6168f7d9cb3eef5dde291d37c
+REPORT_INTAKE=a26b2082bd62910ce0d6ce06662070237c1aee9c
+PREREGISTRATION=79e79c886aa6e23caf3bd5913e3733e2961394f0, immutable verified
+OWN_PRIOR=SG at c07bf25eae457033e49e22b2eacc9c659a754d39
+CONSUMED=FR,FR-AUDIT,HB,LM,TP; DB unchanged; earlier SG/SS/UE/FFR3 recovered
+ROUTE=NYMAN bounded feasibility audit; STATUS=ACTIVE_SUPPORT, completed
+ORIGINAL_SOURCE=full two-band residue norm; registered region 4H..N/2
+INPUT=compiled complete return and moment solver; unchanged paid baseline
+DIRECT_TERMINAL=full norm convergence on one unbounded admissible sequence -> RH
+VALID_RANGE=H=19,20 only for computed sign claim; N=6ceil(H^2/6), N>8H
+ALL_RETURNS=two moments, both corrections, all other middle/after-N and remote tail
+CONSTANT_ORDER=fixed source parameters and requested losses before growing scale
+FIRST_OPEN_INPUT=genuine complete signed magnitude estimate, not sign or identity
+RESULT=both C<0; V/D about .02491 and .02602; no positive total witness
+MECHANISM=gcd6 prime-only cofactors below 210; positive proper sector restored
+CHECKS=23887 primary + 236 independent diagnostics; exact quadratic differences zero
+PRESENT_WORK_TO_NEXT=close HB two-head falsifier; retain source-sensitive magnitude question
+NEXT=review a NEW precise source inequality and test its smallest legal case with
+     its complete complement; do not extend this sign scan automatically
+MATHEMATICS=FINITE_COMPUTATION; MC3 PAPER_PROOF/SELF_AUDIT; REVIEW=PENDING
+CI=existing certification reused; no new Lean or CI run
+NO_NEW_GLOBAL_GAIN; NO_NEW_ACCEPTED_RH_ROUTE; VERIFIED_ETA=NONE; RH=OPEN
+PUBLICATION=closed only by the verified receipt appended after writing
+```
+
+### Provenance And Reproduction
+
+Prepublication freshness check at **2026-11-17 00:15:25 UTC / November 16 19:15:25 EST** retained the same main SHA. The current report head was exactly the MC checkpoint, 79e79c886aa6e23caf3bd5913e3733e2961394f0; a fresh untruncated tree comparison found no changed upstream report, only this owned checkpoint. The report passed required A-N headings, nine aligned Markdown tables, balanced code fences/details, arithmetic count reconciliation and reproducibility validation. All computational processes completed. The final write still requires immutable readback before publication is claimed.
+
+Material main sources, all pinned to the recorded main:
+
+| Source | Blob SHA |
+| --- | --- |
+| AGENTS.md | c4f36b772f8a4b0c24fe566b90fafb646073c60f |
+| CURRENT_PROOF_CONTRACT.md | 95566e37c8eaeb99ee680660df4f9d2e06ea5038 |
+| docs/RHLEAN_BOOTSTRAP_TO_HALF_20261116.md | 96ad4439ec458af6168f7d9cb3eef5dde291d37c |
+| docs/RHLEAN_REPORT_CONTINUITY_LAST_ACTUAL_20261111.md | 3e71820a4af722eae7098da6945bb5bcba50dd0d |
+| docs/RHLEAN_CROSS_ROUTE_SIGNED_RECOVERY_20261110.md | e3ae4280438f591f1ffaddd754a1c3a6d35d0691 |
+| research/NYMAN_HIGH_COEFFICIENT_INVARIANT_20261104.lean | 2da630c1d5fb9302e2097ec1e170cf41c2b40609 |
+| research/NYMAN_FLAT_TAPER_RETURN_20261104.lean | 2d23721027ecc44e85b7add02fc632b482f03352 |
+| research/VF_CANONICAL_SQRT_TWO_VON_KOCH.lean | 79030d70e8d3e0d08eef9bac53fef95c36eca2fb |
+| research/oai_434/VF919WindowErrorClosure.lean | f629db1b2b65d6ec042ac9432397d4b6316200c6 |
+| scripts/lean/window_error_closure/WindowErrorClosureAudit.lean | 1f17f9401a63d16227db2e2aad020b9f74bc5f4e |
+
+The relevant [Coordinator assignment](https://github.com/OVVO-Financial/RH_Lean/blob/a26b2082bd62910ce0d6ce06662070237c1aee9c/research/agent_reports/2026-11-16/00-coordinator-am.md), [Analytic LM handoff](https://github.com/OVVO-Financial/RH_Lean/blob/a26b2082bd62910ce0d6ce06662070237c1aee9c/research/agent_reports/2026-11-16/20-analytic-type-ii.md) and [prior SG census](https://github.com/OVVO-Financial/RH_Lean/blob/a26b2082bd62910ce0d6ce06662070237c1aee9c/research/agent_reports/2026-11-16/40-prime-census.md) are immutable continuity anchors, not substitutes for the original Lean definitions.
+
+Run in a directory containing the three embedded Python files:
+
+```sh
+python -m py_compile mc.py mc_independent.py mc_mechanism.py
+python mc.py
+python mc_independent.py
+python mc_mechanism.py
+```
+
+Only the Python standard library is required. Exact scaled endpoints and formal prime-log certificate JSONs are regenerated. Timings can vary; output hashes containing timing fields describe THIS observed execution, not a required byte-identical rerun. Code, discrete quantities, rational certificates and displayed interval endpoints are deterministic.
+
+
+| Reproducibility artifact | SHA256 |
+| --- | --- |
+| mc.py | fc8701550ee0e032db5aebc7f1896bdb872058ee160c16142e4b6becca740e0c |
+| mc_independent.py | dd5e32b7c7e0de26cffd0c8949d2e0e89d26d0fc4e285c5fb403748ee46d9452 |
+| mc_mechanism.py | c3d4a44ff258aea00a72d0a14e1abcb10ff1e7e36a5379e95e41e5b1eea794c7 |
+| mc-registration.md | 7fd1c248e6ad43150b20c68155adda876ae12b5e4db0d0812bf93c7ebdce29f6 |
+| mc-mechanism-registration.md | 00b3708d2dfbf1a67755f32871de59f95b8b72a9989b88ebfeae61cbbbaa40e2 |
+| mc-results.json | 7baacdf3c7bcc2934d8d31c3804d2e6bfe1c3758951f4536fe06ce46dbcf388c |
+| mc-independent-results.json | e6c0fe3a84fecad57173edbd3593741cf65196f9083e28b2a461cf0579d82c93 |
+| mc-mechanism-results.json | 861708d697b9d0223099783e8f1c880855f79f76f937fdd02719b214c46b4868 |
+| mc-h19-quadratic.json | 46fceaacd6013723d9032fd19176b725754d6b9b585c4a86c9724b408cd19890 |
+| mc-h20-quadratic.json | 4dcce878c46df981ab43aa6a5917c34cd2cfc1de2645fc52dc39ddc2d1755493 |
+
+<details>
+<summary>Executed source: mc.py</summary>
+
+```python
+"""Preregistered two-head Nyman middle covariance, exact discrete arithmetic."""
+
+from collections import Counter, defaultdict
+from dataclasses import dataclass
+from fractions import Fraction as F
+from functools import lru_cache
+from hashlib import sha256
+import json
+from math import gcd
+from pathlib import Path
+import platform
+import time
+
+SCALE = 10**50
+TERMS = 96
+COUNTS = Counter()
+
+
+def check(name, condition):
+    assert condition, name
+    COUNTS[name] += 1
+
+
+def ceildiv(a, b):
+    return -((-a) // b)
+
+
+@dataclass(frozen=True)
+class I:
+    lo: int
+    hi: int
+
+    @staticmethod
+    def exact(x):
+        x = F(x)
+        return I(x.numerator * SCALE // x.denominator,
+                 ceildiv(x.numerator * SCALE, x.denominator))
+
+    def __add__(self, other):
+        if not isinstance(other, I):
+            other = I.exact(other)
+        return I(self.lo + other.lo, self.hi + other.hi)
+
+    __radd__ = __add__
+
+    def __neg__(self):
+        return I(-self.hi, -self.lo)
+
+    def __sub__(self, other):
+        return self + (-other if isinstance(other, I) else I.exact(-other))
+
+    def __mul__(self, other):
+        if not isinstance(other, I):
+            other = I.exact(other)
+        p = [x * y for x in (self.lo, self.hi)
+             for y in (other.lo, other.hi)]
+        return I(min(p) // SCALE, ceildiv(max(p), SCALE))
+
+    __rmul__ = __mul__
+
+    def __truediv__(self, other):
+        if not isinstance(other, I):
+            other = I.exact(other)
+        assert other.lo > 0 or other.hi < 0
+        p = [F(x * SCALE, y) for x in (self.lo, self.hi)
+             for y in (other.lo, other.hi)]
+        a, b = min(p), max(p)
+        return I(a.numerator // a.denominator,
+                 ceildiv(b.numerator, b.denominator))
+
+    def square(self):
+        lo = 0 if self.lo <= 0 <= self.hi else min(self.lo**2, self.hi**2)
+        hi = max(self.lo**2, self.hi**2)
+        return I(lo // SCALE, ceildiv(hi, SCALE))
+
+    def overlaps(self, other):
+        return max(self.lo, other.lo) <= min(self.hi, other.hi)
+
+    def decimal(self, places=12):
+        unit = 10 ** (50 - places)
+        def fmt(n):
+            sign = "-" if n < 0 else ""
+            n = abs(n)
+            return f"{sign}{n // 10**places}.{n % 10**places:0{places}d}"
+        return [fmt(self.lo // unit), fmt(ceildiv(self.hi, unit))]
+
+    def record(self):
+        return {"scaled": [str(self.lo), str(self.hi)],
+                "outward_12dp": self.decimal()}
+
+
+def atanh_log(y):
+    z = (y - 1) / (y + 1)
+    assert 0 <= z <= F(1, 3)
+    z2, power, total = z*z, z, F(0)
+    for j in range(TERMS):
+        total += 2 * power / (2*j + 1)
+        power *= z2
+    remainder = 2 * power / ((2*TERMS + 1)*(1-z2))
+    return I(I.exact(total).lo, I.exact(total + remainder).hi)
+
+
+LOG2 = atanh_log(F(2))
+
+
+@lru_cache(None)
+def log_int(n):
+    assert n >= 1
+    e = n.bit_length() - 1
+    return e * LOG2 + atanh_log(F(n, 2**e))
+
+
+def mu_sieve(n):
+    mu, prime = [1]*(n+1), [True]*(n+1)
+    mu[0] = 0
+    for p in range(2, n+1):
+        if prime[p]:
+            for k in range(p, n+1, p):
+                prime[k] = False
+                mu[k] *= -1
+            for k in range(p*p, n+1, p*p):
+                mu[k] = 0
+    return mu
+
+
+def mu_divisor_inverse(n):
+    mu = [0]*(n+1)
+    mu[1] = 1
+    for k in range(2, n+1):
+        mu[k] = -sum(mu[d] for d in range(1, k) if k % d == 0)
+    return mu
+
+
+@lru_cache(None)
+def factors(n):
+    out, p = {}, 2
+    while p*p <= n:
+        while n % p == 0:
+            out[p] = out.get(p, 0) + 1
+            n //= p
+        p += 1
+    if n > 1:
+        out[n] = out.get(n, 0) + 1
+    return out
+
+
+def linear_add(*terms):
+    out = defaultdict(F)
+    for multiplier, vector in terms:
+        for p, coefficient in vector.items():
+            out[p] += multiplier * coefficient
+    return {p: c for p, c in out.items() if c}
+
+
+def multiply_into(out, left, right, weight):
+    for p, a in left.items():
+        for q, b in right.items():
+            out[tuple(sorted((p, q)))] += weight * a * b
+
+
+def clean(poly):
+    return {pq: c for pq, c in poly.items() if c}
+
+
+def evaluate_vector(vector):
+    return sum((I.exact(c) * log_int(p) for p, c in vector.items()), I.exact(0))
+
+
+def evaluate_poly(poly):
+    return sum((I.exact(c) * log_int(p) * log_int(q)
+                for (p, q), c in poly.items()), I.exact(0))
+
+
+def delta(h, mu):
+    return I.exact(1) - sum((mu[k]*(log_int(h)-log_int(k))/k
+                            for k in range(1, h+1)), I.exact(0))
+
+
+def kernel_literal(a, b, low, high):
+    return sum((F((m//a)*(m//b), m*(m+1))
+                for m in range(low, high+1)), F(0))
+
+
+def kernel_cofactor(a, b, low, high):
+    return sum((F(1, max(low, a*u, b*v))-F(1, high+1)
+                for u in range(1, high//a+1)
+                for v in range(1, high//b+1)), F(0))
+
+
+def coefficient_vectors(h, n, mu):
+    ksize = n//6
+    q = {k: linear_add((mu[k], factors(n)), (-mu[k], factors(max(h, k))))
+         for k in range(1, n+1)}
+    L = linear_add((1, factors(n)), (-1, factors(h)))
+    u = linear_add(*((F(1, k), q[k]) for k in range(1, n+1)))
+    v = linear_add((2, L), *((1, q[k]) for k in range(1, n+1)))
+    s1 = sum((F(1, k) for k in range(3*ksize+1, 4*ksize+1)), F(0))
+    s2 = sum((F(1, k) for k in range(5*ksize+1, 6*ksize+1)), F(0))
+    alpha = linear_add((1/(s1-s2), u), (-s2/(ksize*(s1-s2)), v))
+    zeta = linear_add((-1/(s1-s2), u), (s1/(ksize*(s1-s2)), v))
+    correction = {k: alpha if 3*ksize < k <= 4*ksize else
+                  zeta if 5*ksize < k <= 6*ksize else {} for k in range(2, n+1)}
+    numerators = {k: linear_add((1, correction[k]), (-1, q[k]))
+                  for k in range(2, n+1)}
+    check("exact_reciprocal_moment", linear_add(
+        *((F(1, k), numerators[k]) for k in numerators)) == L)
+    check("exact_total_moment", linear_add(
+        *((1, numerators[k]) for k in numerators)) == linear_add((3, L)))
+    return numerators, correction, L
+
+
+def run_head(h, mu, mu2):
+    n = 6*((h*h+5)//6)
+    low, high = 4*h, n//2
+    check("legal_domain", n > 8*h)
+    active = [k for k in range(h+1, high+1) if mu[k]]
+    a = {k: mu[k]*(log_int(h)-log_int(k)) for k in active}
+    vectors = {k: linear_add((mu2[k], factors(h)), (-mu2[k], factors(k)))
+               for k in range(h+1, high+1) if mu2[k]}
+    check("independent_support", list(vectors) == active)
+    parts = {x: I.exact(0) for x in ("D", "C1", "Cs")}
+    polys = {x: defaultdict(F) for x in parts}
+    sectors = defaultdict(lambda: I.exact(0))
+    pair_counts = Counter()
+    for i, k in enumerate(active):
+        for ell in active[i:]:
+            direct = kernel_literal(k, ell, low, high)
+            independent = kernel_cofactor(k, ell, low, high)
+            check("all_kernel_equalities", direct == independent)
+            g = gcd(k, ell)
+            label = "D" if k == ell else "C1" if g == 1 else "Cs"
+            orientation = 1 if k == ell else 2
+            contribution = (a[k].square() if k == ell else a[k]*a[ell])
+            contribution = contribution * I.exact(orientation*direct)
+            parts[label] += contribution
+            pair_counts[label] += orientation
+            multiply_into(polys[label], vectors[k], vectors[ell], orientation*independent)
+            if k != ell:
+                sectors[g] += contribution
+                check("gcd_factor_mask", mu2[g] != 0 and gcd(g, (k//g)*(ell//g)) == 1
+                      and mu2[k]*mu2[ell] == mu2[k//g]*mu2[ell//g])
+    # This reconstruction uses divisibility incidence, not floor multiplication.
+    prefix, energy_poly = {}, defaultdict(F)
+    V, site_terms = I.exact(0), {}
+    numerators, correction, L_vector = coefficient_vectors(h, n, mu2)
+    for m in range(1, high+1):
+        jump = linear_add(*((1, vectors[d]) for d in vectors if m % d == 0))
+        prefix = linear_add((1, prefix), (1, jump))
+        direct_u = sum((a[k]*(m//k) for k in active if k <= m), I.exact(0))
+        check("prefix_interval_crosscheck", evaluate_vector(prefix).overlaps(direct_u))
+        returned = linear_add((1, L_vector),
+                              *((-F(m % k, k), numerators[k]) for k in numerators))
+        check("literal_full_coefficient_return", returned == linear_add((-1, prefix)))
+        check("correction_support", all(not correction[k] or m//k == 0 for k in correction))
+        if m >= low:
+            weight = F(1, m*(m+1))
+            site_terms[m] = direct_u.square() * I.exact(weight)
+            V += site_terms[m]
+            multiply_into(energy_poly, prefix, prefix, weight)
+    assembled = defaultdict(F)
+    for poly in polys.values():
+        for pair, coefficient in poly.items():
+            assembled[pair] += coefficient
+    check("exact_symbolic_recombination", clean(assembled) == clean(energy_poly))
+    for label, poly in polys.items():
+        check("sector_interval_crosscheck", evaluate_poly(poly).overlaps(parts[label]))
+    check("energy_interval_crosscheck", evaluate_poly(energy_poly).overlaps(V))
+    C = parts["C1"] + parts["Cs"]
+    check("numeric_recombination", (parts["D"] + C).overlaps(V))
+    check("omitted_orientation_detected", not (parts["D"] + C/2).overlaps(V))
+    check("omitted_endpoint_detected", not (V-site_terms[high]).overlaps(V))
+    half_poly = defaultdict(F, polys["D"])
+    for label in ("C1", "Cs"):
+        for pair, coefficient in polys[label].items():
+            half_poly[pair] += coefficient/2
+    check("symbolic_omitted_orientation", clean(half_poly) != clean(energy_poly))
+    L = log_int(n)-log_int(h)
+    ds = [delta(h, mu), delta(h+1, mu)]
+    product = ds[0]*ds[1]
+    check("selection_resolved", product.hi < 0 or product.lo > 0)
+    normalized = V/L.square()
+    inherited = I.exact(F("0.0036915248")) if h == 19 else I.exact(F("0.0041284017"))
+    inherited = I(inherited.lo, (inherited+F(1, 10**10)).hi)
+    check("SG_regional_enclosure", inherited.lo <= normalized.lo <= normalized.hi <= inherited.hi)
+    exact_certificate = json.dumps([[p, q, str(c.numerator), str(c.denominator)]
+                                   for (p, q), c in sorted(clean(energy_poly).items())],
+                                  separators=(",", ":"))
+    output = {"H": h, "N": n, "A": low, "B": high,
+              "active_coefficients": len(active), "ordered_pair_counts": dict(pair_counts),
+              "delta_H": ds[0].record(), "delta_H_plus_1": ds[1].record(),
+              "selected": product.hi < 0,
+              "D": parts["D"].record(), "C1": parts["C1"].record(),
+              "Cs": parts["Cs"].record(), "C": C.record(), "V": V.record(),
+              "L_squared": L.square().record(), "V_over_L2": normalized.record(),
+              "V_over_D": (V/parts["D"]).record(),
+              "C_over_D": (C/parts["D"]).record(),
+              "gcd_sectors": {str(g): v.record() for g, v in sorted(sectors.items())},
+              "endpoint_energy": site_terms[high].record(),
+              "quadratic_certificate_sha256": sha256(exact_certificate.encode()).hexdigest(),
+              "quadratic_certificate_terms": len(clean(energy_poly)),
+              "largest_positive_sector": max(sectors, key=lambda g: sectors[g].lo),
+              "largest_negative_sector": min(sectors, key=lambda g: sectors[g].hi),
+              "max_core_enclosure_width_scaled": max(x.hi-x.lo for x in
+                  [*parts.values(), C, V, normalized, V/parts["D"]])}
+    Path(f"mc-h{h}-quadratic.json").write_text(exact_certificate+"\n")
+    return output
+
+
+def main():
+    start = time.perf_counter()
+    mu, mu2 = mu_sieve(402), mu_divisor_inverse(402)
+    for n in range(1, 403):
+        check("mu_sieve_vs_divisor_inverse", mu[n] == mu2[n])
+        fac = factors(n)
+        trial_mu = 0 if any(e >= 2 for e in fac.values()) else (-1)**len(fac)
+        check("mu_trial_factorization", mu[n] == trial_mu)
+    results = [run_head(h, mu, mu2) for h in (19, 20)]
+    out = {"python": platform.python_version(), "interval_scale": str(SCALE),
+           "atanh_terms": TERMS, "heads": results, "checks": dict(COUNTS),
+           "total_checks": sum(COUNTS.values()), "elapsed_seconds": time.perf_counter()-start}
+    Path("mc-results.json").write_text(json.dumps(out, indent=2)+"\n")
+    print(json.dumps(out, indent=2))
+
+
+if __name__ == "__main__":
+    main()
+```
+
+</details>
+
+<details>
+<summary>Executed source: mc_independent.py</summary>
+
+```python
+"""Independent decimal diagnostic; rigorous certificates remain in mc.py."""
+
+from decimal import Decimal as D, localcontext
+import json
+from math import gcd
+from pathlib import Path
+import time
+
+
+def trial_mu(n):
+    result, divisor = 1, 2
+    while divisor*divisor <= n:
+        if n % divisor == 0:
+            n //= divisor
+            result = -result
+            if n % divisor == 0:
+                return 0
+        divisor += 1
+    return -result if n > 1 else result
+
+
+def calculate(h, precision):
+    with localcontext() as ctx:
+        ctx.prec = precision
+        n = 6*((h*h+5)//6)
+        low, high = 4*h, n//2
+        mu = {k: trial_mu(k) for k in range(1, n+1)}
+        a = {k: D(mu[k])*(D(h)/D(k)).ln()
+             for k in range(h+1, high+1) if mu[k]}
+        active = list(a)
+        diag = coprime = shared = energy = D(0)
+        rows = {}
+        for m in range(low, high+1):
+            values = {k: a[k]*D(m//k) for k in active if k <= m}
+            weight = 1/(D(m)*D(m+1))
+            energy += sum(values.values(), D(0))**2*weight
+            diag += sum((x*x for x in values.values()), D(0))*weight
+            for i, k in enumerate(active):
+                if k not in values:
+                    continue
+                for ell in active[i+1:]:
+                    if ell not in values:
+                        continue
+                    term = 2*values[k]*values[ell]*weight
+                    g = gcd(k, ell)
+                    rows[g] = rows.get(g, D(0)) + term
+                    if g == 1:
+                        coprime += term
+                    else:
+                        shared += term
+        delta = 1-sum((D(mu[k])*(D(h)/D(k)).ln()/D(k)
+                       for k in range(1, h+1)), D(0))
+        delta_next = 1-sum((D(mu[k])*(D(h+1)/D(k)).ln()/D(k)
+                            for k in range(1, h+2)), D(0))
+        L = (D(n)/D(h)).ln()
+        discrepancy = energy-diag-coprime-shared
+        assert abs(discrepancy) < D(10)**(-precision+8)
+        return {"D": diag, "C1": coprime, "Cs": shared,
+                "C": coprime+shared, "V": energy, "V_over_L2": energy/L**2,
+                "V_over_D": energy/diag, "delta_H": delta,
+                "delta_H_plus_1": delta_next, "gcd_sectors": rows,
+                "recombination_diagnostic": discrepancy}
+
+
+def main():
+    start = time.perf_counter()
+    certificate = json.loads(Path("mc-results.json").read_text())
+    output, checks = [], 0
+    for row in certificate["heads"]:
+        h = row["H"]
+        passes = [calculate(h, precision) for precision in (80, 120)]
+        with localcontext() as ctx:
+            ctx.prec = 130
+            for label, value in passes[1].items():
+                if label in ("gcd_sectors", "recombination_diagnostic"):
+                    continue
+                lower, upper = (D(x)/D(certificate["interval_scale"])
+                                for x in row[label]["scaled"])
+                assert lower <= value <= upper, (h, label)
+                assert abs(value-passes[0][label]) < D("1e-70")
+                checks += 2
+            for g, value in passes[1]["gcd_sectors"].items():
+                lower, upper = (D(x)/D(certificate["interval_scale"])
+                                for x in row["gcd_sectors"][str(g)]["scaled"])
+                assert lower <= value <= upper, (h, g)
+                assert abs(value-passes[0]["gcd_sectors"][g]) < D("1e-70")
+                checks += 2
+        output.append({"H": h, "precision_80": {k: str(v) for k, v in passes[0].items()
+                                               if k != "gcd_sectors"},
+                       "precision_120": {k: str(v) for k, v in passes[1].items()
+                                                if k != "gcd_sectors"}})
+    result = {"checks": checks, "elapsed_seconds": time.perf_counter()-start,
+              "status": "PASS; independent diagnostics, not interval certification",
+              "heads": output}
+    Path("mc-independent-results.json").write_text(json.dumps(result, indent=2)+"\n")
+    print(json.dumps(result, indent=2))
+
+
+if __name__ == "__main__":
+    main()
+```
+
+</details>
+
+<details>
+<summary>Executed source: mc_mechanism.py</summary>
+
+```python
+"""Post-primary classification on exactly the two registered heads."""
+
+from fractions import Fraction as F
+import json
+from math import gcd, isqrt
+from pathlib import Path
+
+from mc import I, factors, kernel_cofactor, log_int, mu_divisor_inverse
+
+
+def prime(n):
+    return n >= 2 and all(n % d for d in range(2, isqrt(n)+1))
+
+
+result = []
+source = json.loads(Path("mc-results.json").read_text())
+for row in source["heads"]:
+    h, low, high = row["H"], row["A"], row["B"]
+    mu = mu_divisor_inverse(high)
+    active = [k for k in range(h+1, high+1) if mu[k] and k % 6 == 0]
+    primes = [p for p in range(5, high//6+1) if prime(p) and 6*p > h]
+    assert active == [6*p for p in primes]
+    original = [(k, ell) for k in active for ell in active if k != ell and gcd(k, ell) == 6]
+    predicted = [(6*p, 6*q) for p in primes for q in primes if p != q]
+    assert original == predicted
+    assert all(mu[k]*mu[ell] == 1 for k, ell in original)
+    total = I.exact(0)
+    for p in primes:
+        for q in primes:
+            if p == q:
+                continue
+            total += (log_int(6*p)-log_int(h))*(log_int(6*q)-log_int(h))*I.exact(
+                kernel_cofactor(6*p, 6*q, low, high))
+    recorded = I(*map(int, row["gcd_sectors"]["6"]["scaled"]))
+    assert total.overlaps(recorded) and total.lo > 0
+    assert high < 210 and h >= 6
+    assert factors(35) == {5: 1, 7: 1}
+    result.append({"H": h, "cofactor_primes": primes, "ordered_pairs": len(original),
+                   "positive_class": total.record(), "first_composite_cofactor": 35,
+                   "source_threshold": 210, "status": "PASS"})
+Path("mc-mechanism-results.json").write_text(json.dumps(result, indent=2)+"\n")
+print(json.dumps(result, indent=2))
+```
+
+</details>
+
+<details>
+<summary>Post-primary mechanism registration</summary>
+
+# MC bounded interpretation follow-up
+
+Registered after the primary and independent H19/H20 outputs, before this
+additional check. No new H, N, B or numerical search is introduced.
+
+Question: why is gcd 6 the largest positive off-diagonal class at BOTH heads?
+Prediction: for these cutoffs, each active k divisible by 6 has k=6p for
+a prime p>=5; every pair has distinct prime cofactors and a positive product.
+The first possible squarefree composite cofactor coprime to 6 is 35, but
+B<6*35=210. Verify the exact original-mask pair list, signs, and recombined
+class value. Rejection: any active nonprime cofactor or negative pair product.
+
+Candidate finite-depth corollary: for squarefree g, let p<q be the two least
+primes not dividing g. If g<=H, 4H<=B<g*p*q, every nonzero off-diagonal
+gcd-g term has distinct prime cofactors and positive sign. The aggregate is
+positive if at least two such cofactors occur, zero otherwise. This follows
+from the existing gcd-mask identity and is source classification only, not
+a new complete-source bound or all-scale mechanism. Independent review pending.
+
+</details>
+
+<details>
+<summary>Exact core interval endpoints and complete sector census</summary>
+
+```json
+{
+  "python": "3.12.14",
+  "interval_scale": "100000000000000000000000000000000000000000000000000",
+  "atanh_terms": 96,
+  "heads": [
+    {
+      "H": 19,
+      "N": 366,
+      "A": 76,
+      "B": 183,
+      "active_coefficients": 99,
+      "ordered_pair_counts": {
+        "D": 99,
+        "C1": 7516,
+        "Cs": 2186
+      },
+      "delta_H": {
+        "scaled": [
+          "-232120913147704342668309025689916504525878464702",
+          "-232120913147704342668309025689916504525878464675"
+        ],
+        "outward_12dp": [
+          "-0.002321209132",
+          "-0.002321209131"
+        ]
+      },
+      "delta_H_plus_1": {
+        "scaled": [
+          "28017377060322499501717200415451644671980208528",
+          "28017377060322499501717200415451644671980208554"
+        ],
+        "outward_12dp": [
+          "0.000280173770",
+          "0.000280173771"
+        ]
+      },
+      "selected": true,
+      "D": {
+        "scaled": [
+          "129705668630709340982411732912421724911382242322867",
+          "129705668630709340982411732912421724911382242323264"
+        ],
+        "outward_12dp": [
+          "1.297056686307",
+          "1.297056686308"
+        ]
+      },
+      "C1": {
+        "scaled": [
+          "-22577943257858498467295748668548417438424026132467",
+          "-22577943257858498467295748668548417438424026118206"
+        ],
+        "outward_12dp": [
+          "-0.225779432579",
+          "-0.225779432578"
+        ]
+      },
+      "Cs": {
+        "scaled": [
+          "-103897303817037930408323955781549237110671251586847",
+          "-103897303817037930408323955781549237110671251582776"
+        ],
+        "outward_12dp": [
+          "-1.038973038171",
+          "-1.038973038170"
+        ]
+      },
+      "C": {
+        "scaled": [
+          "-126475247074896428875619704450097654549095277719314",
+          "-126475247074896428875619704450097654549095277700982"
+        ],
+        "outward_12dp": [
+          "-1.264752470749",
+          "-1.264752470748"
+        ]
+      },
+      "V": {
+        "scaled": [
+          "3230421555812912106792028462324070362286964612677",
+          "3230421555812912106792028462324070362286964613259"
+        ],
+        "outward_12dp": [
+          "0.032304215558",
+          "0.032304215559"
+        ]
+      },
+      "L_squared": {
+        "scaled": [
+          "875091383742738960459542410996523601949056006162499",
+          "875091383742738960459542410996523601949056006162583"
+        ],
+        "outward_12dp": [
+          "8.750913837427",
+          "8.750913837428"
+        ]
+      },
+      "V_over_L2": {
+        "scaled": [
+          "369152481195335093986542980779741855384824473634",
+          "369152481195335093986542980779741855384824473702"
+        ],
+        "outward_12dp": [
+          "0.003691524811",
+          "0.003691524812"
+        ]
+      },
+      "V_over_D": {
+        "scaled": [
+          "2490578545961924017774030496177288409302215464641",
+          "2490578545961924017774030496177288409302215465099"
+        ],
+        "outward_12dp": [
+          "0.024905785459",
+          "0.024905785460"
+        ]
+      },
+      "C_over_D": {
+        "scaled": [
+          "-97509421454038075982225969503822711590697784542385",
+          "-97509421454038075982225969503822711590697784527952"
+        ],
+        "outward_12dp": [
+          "-0.975094214541",
+          "-0.975094214540"
+        ]
+      },
+      "gcd_sectors": {
+        "1": [
+          "-0.225779432579",
+          "-0.225779432578"
+        ],
+        "2": [
+          "-0.629247464671",
+          "-0.629247464670"
+        ],
+        "3": [
+          "-0.622048996733",
+          "-0.622048996732"
+        ],
+        "5": [
+          "-0.203645335416",
+          "-0.203645335415"
+        ],
+        "6": [
+          "0.600534044130",
+          "0.600534044131"
+        ],
+        "7": [
+          "-0.128260988038",
+          "-0.128260988037"
+        ],
+        "10": [
+          "0.159392653895",
+          "0.159392653896"
+        ],
+        "11": [
+          "0.035856998180",
+          "0.035856998181"
+        ],
+        "13": [
+          "0.126490310716",
+          "0.126490310717"
+        ],
+        "14": [
+          "0.073224850516",
+          "0.073224850517"
+        ],
+        "15": [
+          "0.036838379274",
+          "0.036838379275"
+        ],
+        "17": [
+          "0.141830714030",
+          "0.141830714031"
+        ],
+        "19": [
+          "0.132656418664",
+          "0.132656418665"
+        ],
+        "21": [
+          "0.007023760847",
+          "0.007023760848"
+        ],
+        "22": [
+          "0.009898024762",
+          "0.009898024763"
+        ],
+        "23": [
+          "0.044221065468",
+          "0.044221065469"
+        ],
+        "26": [
+          "-0.028105085512",
+          "-0.028105085511"
+        ],
+        "29": [
+          "-0.023745335438",
+          "-0.023745335437"
+        ],
+        "31": [
+          "-0.035818719127",
+          "-0.035818719126"
+        ],
+        "33": [
+          "-0.044821508791",
+          "-0.044821508790"
+        ],
+        "34": [
+          "-0.032674501230",
+          "-0.032674501229"
+        ],
+        "35": [
+          "-0.049551072761",
+          "-0.049551072760"
+        ],
+        "37": [
+          "-0.051288589705",
+          "-0.051288589704"
+        ],
+        "38": [
+          "-0.027709478232",
+          "-0.027709478231"
+        ],
+        "39": [
+          "-0.046232039857",
+          "-0.046232039856"
+        ],
+        "41": [
+          "-0.050722809552",
+          "-0.050722809551"
+        ],
+        "43": [
+          "-0.048281931737",
+          "-0.048281931736"
+        ],
+        "46": [
+          "-0.019056625611",
+          "-0.019056625610"
+        ],
+        "47": [
+          "-0.042370761076",
+          "-0.042370761075"
+        ],
+        "51": [
+          "-0.032653897414",
+          "-0.032653897413"
+        ],
+        "53": [
+          "-0.036155767502",
+          "-0.036155767501"
+        ],
+        "55": [
+          "-0.033508549482",
+          "-0.033508549481"
+        ],
+        "57": [
+          "-0.027902626531",
+          "-0.027902626530"
+        ],
+        "58": [
+          "-0.004631785497",
+          "-0.004631785496"
+        ],
+        "59": [
+          "-0.027559810388",
+          "-0.027559810387"
+        ],
+        "61": [
+          "-0.024312916933",
+          "-0.024312916932"
+        ],
+        "65": [
+          "-0.021358968452",
+          "-0.021358968451"
+        ],
+        "67": [
+          "-0.019969017645",
+          "-0.019969017644"
+        ],
+        "69": [
+          "-0.018530229966",
+          "-0.018530229965"
+        ],
+        "71": [
+          "-0.017048798089",
+          "-0.017048798088"
+        ],
+        "73": [
+          "-0.015530216222",
+          "-0.015530216221"
+        ],
+        "77": [
+          "-0.012400592936",
+          "-0.012400592935"
+        ],
+        "79": [
+          "-0.010797766988",
+          "-0.010797766987"
+        ],
+        "83": [
+          "-0.007533404257",
+          "-0.007533404256"
+        ],
+        "85": [
+          "-0.005877711383",
+          "-0.005877711382"
+        ],
+        "87": [
+          "-0.004209733117",
+          "-0.004209733116"
+        ],
+        "89": [
+          "-0.002531681717",
+          "-0.002531681716"
+        ],
+        "91": [
+          "-0.000845540670",
+          "-0.000845540669"
+        ]
+      },
+      "endpoint_energy": {
+        "scaled": [
+          "24644709351451349383133109760245499188632611401",
+          "24644709351451349383133109760245499188632611410"
+        ],
+        "outward_12dp": [
+          "0.000246447093",
+          "0.000246447094"
+        ]
+      },
+      "quadratic_certificate_sha256": "edad70e1cbf2ca989be5df65f312c6fbc0b2e9fcd21e8e7a26b91c7343376f7f",
+      "quadratic_certificate_terms": 903,
+      "largest_positive_sector": 6,
+      "largest_negative_sector": 2,
+      "max_core_enclosure_width_scaled": 18332
+    },
+    {
+      "H": 20,
+      "N": 402,
+      "A": 80,
+      "B": 201,
+      "active_coefficients": 110,
+      "ordered_pair_counts": {
+        "D": 110,
+        "C1": 9316,
+        "Cs": 2674
+      },
+      "delta_H": {
+        "scaled": [
+          "28017377060322499501717200415451644671980208528",
+          "28017377060322499501717200415451644671980208554"
+        ],
+        "outward_12dp": [
+          "0.000280173770",
+          "0.000280173771"
+        ]
+      },
+      "delta_H_plus_1": {
+        "scaled": [
+          "275460830196869609810845635661247584332972145266",
+          "275460830196869609810845635661247584332972145297"
+        ],
+        "outward_12dp": [
+          "0.002754608301",
+          "0.002754608302"
+        ]
+      },
+      "selected": false,
+      "D": {
+        "scaled": [
+          "142877918986356294240053818720294138125990890887595",
+          "142877918986356294240053818720294138125990890888047"
+        ],
+        "outward_12dp": [
+          "1.428779189863",
+          "1.428779189864"
+        ]
+      },
+      "C1": {
+        "scaled": [
+          "-1404697304597810974483054263240780585084494051961",
+          "-1404697304597810974483054263240780585084494033877"
+        ],
+        "outward_12dp": [
+          "-0.014046973046",
+          "-0.014046973045"
+        ]
+      },
+      "Cs": {
+        "scaled": [
+          "-137755876901861088992853464761304516607864330209180",
+          "-137755876901861088992853464761304516607864330204108"
+        ],
+        "outward_12dp": [
+          "-1.377558769019",
+          "-1.377558769018"
+        ]
+      },
+      "C": {
+        "scaled": [
+          "-139160574206458899967336519024545297192948824261141",
+          "-139160574206458899967336519024545297192948824237985"
+        ],
+        "outward_12dp": [
+          "-1.391605742065",
+          "-1.391605742064"
+        ]
+      },
+      "V": {
+        "scaled": [
+          "3717344779897394272717299695748840933042066637865",
+          "3717344779897394272717299695748840933042066638706"
+        ],
+        "outward_12dp": [
+          "0.037173447798",
+          "0.037173447799"
+        ]
+      },
+      "L_squared": {
+        "scaled": [
+          "900431940852390824652360692284213380240817852842330",
+          "900431940852390824652360692284213380240817852842415"
+        ],
+        "outward_12dp": [
+          "9.004319408523",
+          "9.004319408524"
+        ]
+      },
+      "V_over_L2": {
+        "scaled": [
+          "412840172726256525276050450494925455390813567071",
+          "412840172726256525276050450494925455390813567166"
+        ],
+        "outward_12dp": [
+          "0.004128401727",
+          "0.004128401728"
+        ]
+      },
+      "V_over_D": {
+        "scaled": [
+          "2601762963983518794177332285605582899801755475212",
+          "2601762963983518794177332285605582899801755475809"
+        ],
+        "outward_12dp": [
+          "0.026017629639",
+          "0.026017629640"
+        ]
+      },
+      "C_over_D": {
+        "scaled": [
+          "-97398237036016481205822667714394417100198244532767",
+          "-97398237036016481205822667714394417100198244516251"
+        ],
+        "outward_12dp": [
+          "-0.973982370361",
+          "-0.973982370360"
+        ]
+      },
+      "gcd_sectors": {
+        "1": [
+          "-0.014046973046",
+          "-0.014046973045"
+        ],
+        "2": [
+          "-0.857436191061",
+          "-0.857436191060"
+        ],
+        "3": [
+          "-0.753425098571",
+          "-0.753425098570"
+        ],
+        "5": [
+          "-0.252741359835",
+          "-0.252741359834"
+        ],
+        "6": [
+          "0.708672848624",
+          "0.708672848625"
+        ],
+        "7": [
+          "-0.174524290014",
+          "-0.174524290013"
+        ],
+        "10": [
+          "0.199968928209",
+          "0.199968928210"
+        ],
+        "11": [
+          "0.005085526042",
+          "0.005085526043"
+        ],
+        "13": [
+          "0.103512639254",
+          "0.103512639255"
+        ],
+        "14": [
+          "0.099357059531",
+          "0.099357059532"
+        ],
+        "15": [
+          "0.049441549382",
+          "0.049441549383"
+        ],
+        "17": [
+          "0.154813446270",
+          "0.154813446271"
+        ],
+        "19": [
+          "0.142902031270",
+          "0.142902031271"
+        ],
+        "21": [
+          "0.019771147465",
+          "0.019771147466"
+        ],
+        "22": [
+          "0.028313334401",
+          "0.028313334402"
+        ],
+        "23": [
+          "0.069760606556",
+          "0.069760606557"
+        ],
+        "26": [
+          "-0.016939603162",
+          "-0.016939603161"
+        ],
+        "29": [
+          "-0.010376056095",
+          "-0.010376056094"
+        ],
+        "31": [
+          "-0.024391152695",
+          "-0.024391152694"
+        ],
+        "33": [
+          "-0.043772604957",
+          "-0.043772604956"
+        ],
+        "34": [
+          "-0.035024291152",
+          "-0.035024291151"
+        ],
+        "35": [
+          "-0.047935238847",
+          "-0.047935238846"
+        ],
+        "37": [
+          "-0.048443088443",
+          "-0.048443088442"
+        ],
+        "38": [
+          "-0.032018825321",
+          "-0.032018825320"
+        ],
+        "39": [
+          "-0.048398130816",
+          "-0.048398130815"
+        ],
+        "41": [
+          "-0.053099036654",
+          "-0.053099036653"
+        ],
+        "43": [
+          "-0.052237130972",
+          "-0.052237130971"
+        ],
+        "46": [
+          "-0.023719662857",
+          "-0.023719662856"
+        ],
+        "47": [
+          "-0.048120086422",
+          "-0.048120086421"
+        ],
+        "51": [
+          "-0.034444270767",
+          "-0.034444270766"
+        ],
+        "53": [
+          "-0.040471572477",
+          "-0.040471572476"
+        ],
+        "55": [
+          "-0.038621307932",
+          "-0.038621307931"
+        ],
+        "57": [
+          "-0.031135016428",
+          "-0.031135016427"
+        ],
+        "58": [
+          "-0.011009349793",
+          "-0.011009349792"
+        ],
+        "59": [
+          "-0.034236050081",
+          "-0.034236050080"
+        ],
+        "61": [
+          "-0.031754961922",
+          "-0.031754961921"
+        ],
+        "62": [
+          "-0.006446612587",
+          "-0.006446612586"
+        ],
+        "65": [
+          "-0.026327129171",
+          "-0.026327129170"
+        ],
+        "67": [
+          "-0.023417192139",
+          "-0.023417192138"
+        ],
+        "69": [
+          "-0.021966503938",
+          "-0.021966503937"
+        ],
+        "71": [
+          "-0.020778168088",
+          "-0.020778168087"
+        ],
+        "73": [
+          "-0.019548389498",
+          "-0.019548389497"
+        ],
+        "77": [
+          "-0.016983706716",
+          "-0.016983706715"
+        ],
+        "79": [
+          "-0.015657148663",
+          "-0.015657148662"
+        ],
+        "83": [
+          "-0.012933292495",
+          "-0.012933292494"
+        ],
+        "85": [
+          "-0.011542000631",
+          "-0.011542000630"
+        ],
+        "87": [
+          "-0.010134633801",
+          "-0.010134633800"
+        ],
+        "89": [
+          "-0.008713489569",
+          "-0.008713489568"
+        ],
+        "91": [
+          "-0.007280636932",
+          "-0.007280636931"
+        ],
+        "93": [
+          "-0.005837940647",
+          "-0.005837940646"
+        ],
+        "95": [
+          "-0.004387082689",
+          "-0.004387082688"
+        ],
+        "97": [
+          "-0.002929581210",
+          "-0.002929581209"
+        ]
+      },
+      "endpoint_energy": {
+        "scaled": [
+          "101128818876013547413344986802907198654527272797",
+          "101128818876013547413344986802907198654527272840"
+        ],
+        "outward_12dp": [
+          "0.001011288188",
+          "0.001011288189"
+        ]
+      },
+      "quadratic_certificate_sha256": "64adf9338c45e6c467dd53eb5c688c963c2309265cd87f91421046a1f7a678cc",
+      "quadratic_certificate_terms": 1081,
+      "largest_positive_sector": 6,
+      "largest_negative_sector": 2,
+      "max_core_enclosure_width_scaled": 23156
+    }
+  ],
+  "checks": {
+    "mu_sieve_vs_divisor_inverse": 402,
+    "mu_trial_factorization": 402,
+    "legal_domain": 2,
+    "independent_support": 2,
+    "all_kernel_equalities": 11055,
+    "gcd_factor_mask": 10846,
+    "exact_reciprocal_moment": 2,
+    "exact_total_moment": 2,
+    "prefix_interval_crosscheck": 384,
+    "literal_full_coefficient_return": 384,
+    "correction_support": 384,
+    "exact_symbolic_recombination": 2,
+    "sector_interval_crosscheck": 6,
+    "energy_interval_crosscheck": 2,
+    "numeric_recombination": 2,
+    "omitted_orientation_detected": 2,
+    "omitted_endpoint_detected": 2,
+    "symbolic_omitted_orientation": 2,
+    "selection_resolved": 2,
+    "SG_regional_enclosure": 2
+  },
+  "total_checks": 23887,
+  "elapsed_seconds": 17.908875782999985
+}
+```
+
+</details>
+
+<details>
+<summary>Observed mc-independent-results.json</summary>
+
+```json
+{
+  "checks": 236,
+  "elapsed_seconds": 1.5969037810000373,
+  "status": "PASS; independent diagnostics, not interval certification",
+  "heads": [
+    {
+      "H": 19,
+      "precision_80": {
+        "D": "1.2970566863070934098241173291242172491138224232307142239734701050435504487909418",
+        "C1": "-0.22577943257858498467295748668548417438424026125313170944483042828825695635496421",
+        "Cs": "-1.0389730381703793040832395578154923711067125158481489874100117646102417581179370",
+        "C": "-1.2647524707489642887561970445009765454909527771012806968548421928984987144729012",
+        "V": "0.032304215558129121067920284623240703622869646129433527118627912145051734318036686",
+        "V_over_L2": "0.0036915248119533509398654298077974185538482447366511704416252833552139124936479938",
+        "V_over_D": "0.024905785459619240177740304961772884093022154648510437525886221001312551491187605",
+        "delta_H": "-0.0023212091314770434266830902568991650452587846468844544794295427752685448042652",
+        "delta_H_plus_1": "0.00028017377060322499501717200415451644671980208541202486758660930803428817912202",
+        "recombination_diagnostic": "-3.9E-78"
+      },
+      "precision_120": {
+        "D": "1.29705668630709340982411732912421724911382242323071422397347010504355044879094176616522333857677562498146623139890321111",
+        "C1": "-0.225779432578584984672957486685484174384240261253131709444830428288256956354965412252192854319864529554225945435372327412",
+        "Cs": "-1.03897303817037930408323955781549237110671251584814898741001176461024175811793966935500487932232544350724308705488624618",
+        "C": "-1.26475247074896428875619704450097654549095277710128069685484219289849871447290508160719773364218997306146903249025857359",
+        "V": "0.0323042155581291210679202846232407036228696461294335271186279121450517343180366845580256049345856519199971989086446376490",
+        "V_over_L2": "0.00369152481195335093986542980779741855384824473665117044162528335521391249364799359972676715664960622361061562628240730882",
+        "V_over_D": "0.0249057854596192401777403049617728840930221546485104375258862210013125514911876045457537802056378497261129686328913527798",
+        "delta_H": "-0.00232120913147704342668309025689916504525878464688445447942954277526854480426519820400615561169126904308926311801053378",
+        "delta_H_plus_1": "0.000280173770603224995017172004154516446719802085412024867586609308034288179122125423193915977637963991397676980572401644",
+        "recombination_diagnostic": "1.3E-118"
+      }
+    },
+    {
+      "H": 20,
+      "precision_80": {
+        "D": "1.4287791898635629424005381872029413812599089088780501118406065094954978945708419",
+        "C1": "-0.014046973045978109744830542632407805850844940429307250769212674950328031919249972",
+        "Cs": "-1.3775587690186108899285346476130451660786433020660198105548840117234448717599258",
+        "C": "-1.3916057420645889996733651902454529719294882424953270613240966866737729036791758",
+        "V": "0.037173447798973942727172996957488409330420666382723050516509822821724990891667713",
+        "V_over_L2": "0.0041284017272625652527605045049492545539081356711704945816156420533190307878458695",
+        "V_over_D": "0.026017629639835187941773322856055828998017554755016122861936058631951285861426966",
+        "delta_H": "0.00028017377060322499501717200415451644671980208541202486758660930803428817912202",
+        "delta_H_plus_1": "0.00275460830196869609810845635661247584332972145279682003178204116811196932116649",
+        "recombination_diagnostic": "1.6E-78"
+      },
+      "precision_120": {
+        "D": "1.42877918986356294240053818720294138125990890887805011184060650949549789457084179750400021005999137574649494124322961430",
+        "C1": "-0.0140469730459781097448305426324078058508449404293072507692126749503280319192486706457288818137274571480940722093267551841",
+        "Cs": "-1.37755876901861088992853464761304516607864330206601981055488401172344487175992541780489142484595583477831968916353469743",
+        "C": "-1.39160574206458899967336519024545297192948824249532706132409668667377290367917408845062030665968329192641376137286145261",
+        "V": "0.0371734477989739427271729969574884093304206663827230505165098228217249908916677090533799034003080838200811798703681613581",
+        "V_over_L2": "0.00412840172726256525276050450494925455390813567117049458161564205331903078784586907244805311761395904154567304175027143896",
+        "V_over_D": "0.0260176296398351879417733228560558289980175547550161228619360586319512858614269648743162480844519560022117590265226897215",
+        "delta_H": "0.000280173770603224995017172004154516446719802085412024867586609308034288179122125423193915977637963991397676980572401644",
+        "delta_H_plus_1": "0.002754608301968696098108456356612475843329721452796820031782041168111969321166373194448105864050199812542697176250137206",
+        "recombination_diagnostic": "-3.3E-118"
+      }
+    }
+  ]
+}
+```
+
+</details>
+
+<details>
+<summary>Observed mc-mechanism-results.json</summary>
+
+```json
+[
+  {
+    "H": 19,
+    "cofactor_primes": [
+      5,
+      7,
+      11,
+      13,
+      17,
+      19,
+      23,
+      29
+    ],
+    "ordered_pairs": 56,
+    "positive_class": {
+      "scaled": [
+        "60053404413081616957130743311073739761338783419798",
+        "60053404413081616957130743311073739761338783419980"
+      ],
+      "outward_12dp": [
+        "0.600534044130",
+        "0.600534044131"
+      ]
+    },
+    "first_composite_cofactor": 35,
+    "source_threshold": 210,
+    "status": "PASS"
+  },
+  {
+    "H": 20,
+    "cofactor_primes": [
+      5,
+      7,
+      11,
+      13,
+      17,
+      19,
+      23,
+      29,
+      31
+    ],
+    "ordered_pairs": 72,
+    "positive_class": {
+      "scaled": [
+        "70867284862499864761240435332897047354760652214084",
+        "70867284862499864761240435332897047354760652214326"
+      ],
+      "outward_12dp": [
+        "0.708672848624",
+        "0.708672848625"
+      ]
+    },
+    "first_composite_cofactor": 35,
+    "source_threshold": 210,
+    "status": "PASS"
+  }
+]
+```
+
+</details>
