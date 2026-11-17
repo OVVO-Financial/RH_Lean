@@ -199,6 +199,22 @@ exact divisibility arguments is asserted.
 
 ## 7. Verification and DAG policy
 
+The source certificate for [PR #1143](https://github.com/OVVO-Financial/RH_Lean/pull/1143)
+records head `ae266e3319c502ade5fc6fa0dd95b7829612b362`, observed at
+2026-11-17 15:11:16 UTC: **all 12 checks passed**. The three dedicated proof
+jobs completed compilation, exact-type acceptance, and axiom/dependency audits:
+
+| Proof group | Public declarations | Exact-type examples | Hosted evidence |
+| --- | ---: | ---: | --- |
+| Actual prime/composite accounting | 16 | 9 | [Passed job](https://github.com/OVVO-Financial/RH_Lean/actions/runs/44110847029/job/134135688923) |
+| Cancellation scale and native-PNT obstruction | 11 | 8 | [Passed job](https://github.com/OVVO-Financial/RH_Lean/actions/runs/44110847029/job/134135689038) |
+| Finite exceptional sampling and ordinary complements | 14 | 7 | [Passed job](https://github.com/OVVO-Financial/RH_Lean/actions/runs/44110847029/job/134135688451) |
+
+The subsequent DAG/documentation revision preserves all six proof and
+acceptance files byte-for-byte and receives its own hosted checks. The dated
+source receipt, exact SHA-256 hashes, job URLs, and evidence artifacts are
+stored in `EV-PR-1143`; this receipt does not imply a human merge.
+
 The new workflow `prime-phase-survivor.yml` checks the actual PR head with
 Lean 4.34.1 and the repository's pinned Mathlib revision. It compiles each
 complete original source dependency closure with warnings fatal, checks 24
@@ -215,3 +231,30 @@ checks do not count as kernel evidence. DAG certification of the new
 declarations requires successful hosted proof checks; literature inputs
 remain separate from proved Lean results, and open arithmetic targets retain
 their status.
+
+## 8. Registry entries and research disposition
+
+The update adds 15 scoped nodes and five typed edges. The ten existing route
+IDs remain unchanged. `SAT/signed-survivor` records the new direct native
+consumer, with `OPEN-SIGNED-SQUARE-SURVIVOR` as its only unpaid premise.
+
+| Registry entry | Meaning and status |
+| --- | --- |
+| `PROP-SQUARE-BLOCK-DEATH-BOUND` | The existing canonical death theorem, already on main; supporting infrastructure. |
+| `PROP-NATIVE-PRIME-NUMBER-THEOREM` | The existing native PNT, already on main; the unconditional input for the component obstruction. |
+| `PROP-SURVIVOR-PRIME-COMPOSITE-ACCOUNTING` | Exact cutoff, prime-count identity, composite correction, and source witnesses; proved in this green, unmerged PR. |
+| `PROP-SURVIVOR-POINTWISE-LOCAL-EQUIVALENCE` | The complete-source local/pointwise equivalence and exact residual; proved in this PR. |
+| `NOGO-PURE-PRIME-SURVIVOR-RH-SCALE` | The actual pure-prime component fails even the cubic squared bound; proved in this PR. |
+| `OPEN-SIGNED-SQUARE-SURVIVOR` | The complete signed local-energy estimate, at a chosen fixed positive `Λ`; OPEN arithmetic. |
+| `OPEN-SIGNED-SURVIVOR-POINTWISE` | Its proved-equivalent pointwise formulation; OPEN arithmetic. |
+| `CONSUMER-SIGNED-SURVIVOR-RH` | Proved implication to Mathlib RH with the complete survivor premise retained. |
+| `PROP-FINITE-SQUARE-EXCEPTIONAL-SAMPLING` | Proved finite-cardinality packing; prime persistence and analytic budgets are not supplied. |
+| `PROP-ORDINARY-COMPOSITE-PRIME-DISCREPANCY` | Proved exact ordinary counting identities, separate from canonical signed ancestry. |
+| `IFACE-PRIME-SQRT-PHASE`, `IFACE-PRIME-SQRT-FOUR-FIFTHS` | Established global literature results represented by explicit Lean hypotheses. |
+| `FORMALIZE-PRIME-SQRT-PHASE` | Remaining formalization-completeness work for those classical inputs. |
+| `LIT-ALMOST-ALL-SQUARE-PRIMES`, `FORMALIZE-ALMOST-ALL-SQUARE-PRIMES` | Established almost-all literature theorem and its remaining analytic formalization task. |
+
+These are supporting identities, reductions, and a component obstruction.
+They supply no independent subcritical arithmetic gain. In particular, the
+new prime-component no-go theorem must not be applied to the complete signed
+sum: retaining its composite correction is the point of the accounting.

@@ -1,7 +1,7 @@
 {
   "schema": "rhlean-proof-obligations/1",
-  "registry_version": "2026-11-15.2",
-  "authority": "Mathematical proof-obligation registry with Lean declarations and dated evidence. Conditional consumers do not prove their premises; paper and numerical findings are not Lean certificates. November 17 refresh: #1119 and #1135 are human-merged on main. The final #1135 head ac6dc46b70da962e70b18ea184451c225c1cd44a passed all 18 checks and was merged on November 16. The owner-capacity and complete double-centered-source supporting lemmas are on main through human-merged #1141, whose final head dfd3197117410ad491d7c94b66448753ae8e4d63 passed all 17 current checks. Their remaining signed targets have the existing graded boundary strength; these lemmas are infrastructure, not independent subcritical suppliers. RH, finite A/C, zero-log amplification and the equivalent native fractional-owner and subcritical full-prefix arithmetic inputs remain open.",
+  "registry_version": "2026-11-17.3",
+  "authority": "Mathematical proof-obligation registry with Lean declarations and dated evidence. Conditional consumers do not prove their premises; paper and numerical findings are not Lean certificates. November 17 refresh: #1119 and #1135 are human-merged on main. The final #1135 head ac6dc46b70da962e70b18ea184451c225c1cd44a passed all 18 checks and was merged on November 16. The owner-capacity and complete double-centered-source supporting lemmas are on main through human-merged #1141, whose final head dfd3197117410ad491d7c94b66448753ae8e4d63 passed all 17 current checks. Their remaining signed targets have the existing graded boundary strength; these lemmas are infrastructure, not independent subcritical suppliers. RH, finite A/C, zero-log amplification and the equivalent native fractional-owner and subcritical full-prefix arithmetic inputs remain open. November 17 prime-phase/survivor scope: #1143 is recorded only at the actual green, unmerged source head in EV-PR-1143. Its exact prime/composite accounting, pointwise/local equivalence, pure-prime obstruction, finite cardinality packing and ordinary-complement identities are supporting infrastructure, not an independent arithmetic gain. The complete signed survivor estimate at a fixed positive Lambda remains OPEN, with constants allowed to depend on Lambda and epsilon. Its native RH consumer has no unpaid classical criterion interface. Global prime-phase and almost-all square-prime literature remain distinct formalization-completeness tasks; finite packing proves neither analytic persistence nor real-measure transfer.",
   "baseline": {
     "repository": "OVVO-Financial/RH_Lean",
     "main_sha": "59612bc8b5c30c528d8367667ea5846a8053f114",
@@ -166,16 +166,16 @@
       "priority": "B",
       "architecture": "I. prime/composite incidence (input producer for VF-LOW and JOH)",
       "missing_mathematics": "A new uniform signed owner-removal or cofactor/prime-innovation inequality with complete original source coefficients and nonlocal historical contributions; arithmetic restrictions on genuine prime locations and their least-prime-owned composite complements.",
-      "quantitative_target": "T(R^2) > A(R^2) - L(R^2) eventually (JOH form) or the VF-LOW wall.",
-      "best_source": "#1019 exact births/moving transport; original least-prime owner census; #1106 prime-admission log; floor-Li Buchstab actual cofactor weights.",
-      "largest_unpaid_term": "Nonlocal historical composite-removal mass; PNT-sized density carries no RH-scale sign.",
+      "quantitative_target": "T(R^2) > A(R^2) - L(R^2) eventually (JOH form) or the VF-LOW wall. Additional complete-survivor target at a chosen fixed Lambda > 0: for every epsilon > 0 there is C_(Lambda,epsilon) >= 0 such that sum_{h<H} ||S_Lambda(N+h)||^2 <= C_(Lambda,epsilon)*H*N^(2+epsilon) for all 1 <= H <= N; equivalently, ||S_Lambda(t)||^2 <= C_(Lambda,epsilon)*t^(2+epsilon) for all t >= 1, with constants allowed to change between the equivalent forms.",
+      "best_source": "#1019 exact births/moving transport; original least-prime owner census; #1106 prime-admission log; floor-Li Buchstab actual cofactor weights. #1143 exact actual-source prime/composite accounting, pointwise/local equivalence, and native-PNT pure-prime no-go; the complete signed survivor remains unpaid.",
+      "largest_unpaid_term": "Nonlocal historical composite-removal mass; PNT-sized density carries no RH-scale sign. The complete signed residual S_composite(Lambda,t)-(pi(X_t)-pi(L_(Lambda,t)))=S_Lambda(t), including the H=1 requirement at every stage.",
       "falsifiers": [
         "CE-JOH-R4-R7"
       ],
       "mechanism_nodes": [
         "MECH-SAT-OWNER-REMOVAL"
       ],
-      "next_action": "Compare the three distinct S=A-T carriers; use the already-cancelled floor-Li event stream at the original cofactor weights, keeping exact square-block first moments and boundary corrections.",
+      "next_action": "Compare the three distinct S=A-T carriers; use the already-cancelled floor-Li event stream at the original cofactor weights, keeping exact square-block first moments and boundary corrections. Seek an independent estimate for that complete signed survivor residual on the original ancestry source, including H=1 at every stage, while retaining prime/composite cancellation.",
       "paths": [
         {
           "id": "SAT/via-JOH",
@@ -200,9 +200,22 @@
             "LIT-MV-OMEGA-PM",
             "PAPER-VF-LOW-ONE-SIDED"
           ]
+        },
+        {
+          "id": "SAT/signed-survivor",
+          "description": "At any chosen fixed Lambda > 0, the complete signed square-survivor estimate feeds the native Mertens-energy consumer directly to Mathlib RH.",
+          "edges": [
+            "E-SIGNED-SURVIVOR-RH"
+          ],
+          "unpaid_inputs": [
+            "OPEN-SIGNED-SQUARE-SURVIVOR"
+          ]
         }
       ],
-      "intermediate_targets": []
+      "intermediate_targets": [
+        "OPEN-SIGNED-SQUARE-SURVIVOR",
+        "OPEN-SIGNED-SURVIVOR-POINTWISE"
+      ]
     },
     {
       "id": "CODIV",
@@ -3547,6 +3560,539 @@
       ],
       "notes": "Human-merged #1141; exact types, full source dependencies and standard terminal axioms verified. Supporting infrastructure under BOOTSTRAP_TO_HALF_V1. Root-subpower error preserves the every-positive-loss frozen-Q envelope grades, not automatically fixed root-scale constants. The balanced kernel retains both hyperbolic cutoff masks and can change sign; a constant-quotient rectangle factorization is not a bounded-rank factorization of the full block. No independent subcritical Xi estimate or active candidate is supplied.",
       "pr": 1141
+    },
+    {
+      "id": "PROP-SQUARE-BLOCK-DEATH-BOUND",
+      "title": "Canonical signed death process at the local RH scale",
+      "type": "proved_lemma",
+      "route_ids": [
+        "SAT"
+      ],
+      "statement": "For every fixed Lambda > 0, LifetimeDeathUniformLocalBoundedStatement Lambda holds for the original height-shell canonical ancestry death mass.",
+      "logical_status": "PROVED",
+      "formal_status": "PROVED_IN_LEAN_ON_MAIN",
+      "evidence_class": "PROVED_IN_LEAN_ON_MAIN",
+      "provenance": "PROVED_INTERNALLY",
+      "lean": [
+        {
+          "file": "RHLean/Analysis/SquareBlockDeathProcess.lean",
+          "name": "squareBlockDeathUniformLocalBounded"
+        }
+      ],
+      "source_file": "docs/PRIME_PHASE_SURVIVOR_ACCOUNTING_20261117.md",
+      "evidence": [
+        "EV-SURVIVOR-SUPPORT-MAIN-20261117"
+      ],
+      "does_not_prove": [
+        "The complete signed survivor bound",
+        "An ordinary composite-count estimate that separates primes"
+      ],
+      "notes": "Unchanged main theorem at 319fc579. The canonical signed death process is not the ordinary count of composite integers.",
+      "open_obligation": false
+    },
+    {
+      "id": "PROP-NATIVE-PRIME-NUMBER-THEOREM",
+      "title": "Native Prime Number Theorem",
+      "type": "proved_lemma",
+      "route_ids": [
+        "SAT"
+      ],
+      "statement": "(pi(N) * log N) / N tends to 1 as natural N tends to infinity, using the repository native Selberg--Erdos proof.",
+      "logical_status": "PROVED",
+      "formal_status": "PROVED_IN_LEAN_ON_MAIN",
+      "evidence_class": "PROVED_IN_LEAN_ON_MAIN",
+      "provenance": "PROVED_INTERNALLY",
+      "lean": [
+        {
+          "file": "RHLean/Analysis/NativePNTTransfer.lean",
+          "name": "nativePrimeNumberTheorem"
+        }
+      ],
+      "source_file": "docs/PRIME_PHASE_SURVIVOR_ACCOUNTING_20261117.md",
+      "evidence": [
+        "EV-SURVIVOR-SUPPORT-MAIN-20261117"
+      ],
+      "does_not_prove": [
+        "RH-scale signed cancellation",
+        "Prime uniformity in every square block"
+      ],
+      "notes": "Unchanged main theorem at 319fc579. The pure-prime obstruction uses this proved input, not an added PNT hypothesis.",
+      "open_obligation": false
+    },
+    {
+      "id": "PROP-SURVIVOR-PRIME-COMPOSITE-ACCOUNTING",
+      "title": "Exact actual-source prime fibre and composite correction",
+      "type": "proved_lemma",
+      "route_ids": [
+        "SAT"
+      ],
+      "statement": "For Lambda >= 0, t >= 1, X_t=(t+1)^2-1, and L=floor(sqrt(2*Lambda*t+1)) <= X_t, the actual c=1 survivor fibre is the primes L < q <= X_t. Its signed zero mode is -(pi(X_t)-pi(L)); the composite zero mode is S_Lambda(t)+(pi(X_t)-pi(L)). Natural subtraction is used under the displayed endpoint ordering. If 2*Lambda <= t, then L <= t.",
+      "logical_status": "PROVED",
+      "formal_status": "PROVED_IN_LEAN_PR_GREEN_UNMERGED",
+      "evidence_class": "PROVED_IN_LEAN_PR_GREEN_UNMERGED",
+      "provenance": "PROVED_INTERNALLY",
+      "lean": [
+        {
+          "file": "research/SURVIVOR_PRIME_COMPOSITE_ACCOUNTING_20261117.lean",
+          "name": "isSurvivorZeroModePair_one_iff_cutoff"
+        },
+        {
+          "file": "research/SURVIVOR_PRIME_COMPOSITE_ACCOUNTING_20261117.lean",
+          "name": "survivorPrimeZeroMode_eq_neg_primeCount_sub"
+        },
+        {
+          "file": "research/SURVIVOR_PRIME_COMPOSITE_ACCOUNTING_20261117.lean",
+          "name": "survivorCompositeZeroMode_eq_survivor_add_primeCount_sub"
+        },
+        {
+          "file": "research/SURVIVOR_PRIME_COMPOSITE_ACCOUNTING_20261117.lean",
+          "name": "survivorPrimeCutoff_le_stage"
+        },
+        {
+          "file": "research/SURVIVOR_PRIME_COMPOSITE_ACCOUNTING_20261117.lean",
+          "name": "prime_two_survives_stage_one"
+        },
+        {
+          "file": "research/SURVIVOR_PRIME_COMPOSITE_ACCOUNTING_20261117.lean",
+          "name": "prime_two_not_survivor_stage_two"
+        },
+        {
+          "file": "research/SURVIVOR_PRIME_COMPOSITE_ACCOUNTING_20261117.lean",
+          "name": "composite_six_survives_stage_two"
+        }
+      ],
+      "source_file": "docs/PRIME_PHASE_SURVIVOR_ACCOUNTING_20261117.md",
+      "evidence": [
+        "EV-PR-1143"
+      ],
+      "does_not_prove": [
+        "A bound for the complete signed survivor residual"
+      ],
+      "notes": "The complete canonical source is retained. At Lambda=1, prime 2 survives at t=1 but not t=2, while composite 6 (c,q)=(2,3) survives at t=2. This is exact accounting.",
+      "open_obligation": false,
+      "pr": 1143
+    },
+    {
+      "id": "PROP-SURVIVOR-POINTWISE-LOCAL-EQUIVALENCE",
+      "title": "Complete survivor local energy is equivalent to its pointwise square bound",
+      "type": "proved_lemma",
+      "route_ids": [
+        "SAT"
+      ],
+      "statement": "For every Lambda : Real, SurvivorZeroModePowerSavingStatement Lambda iff SurvivorPointwiseSquaredBoundStatement Lambda. H=1 gives the forward implication; N+h <= 2*N gives the reverse with a 2^(2+epsilon) change of constant.",
+      "logical_status": "PROVED",
+      "formal_status": "PROVED_IN_LEAN_PR_GREEN_UNMERGED",
+      "evidence_class": "PROVED_IN_LEAN_PR_GREEN_UNMERGED",
+      "provenance": "PROVED_INTERNALLY",
+      "lean": [
+        {
+          "file": "research/SURVIVOR_CANCELLATION_SCALE_20261117.lean",
+          "name": "survivorPowerSaving_iff_pointwiseSquared"
+        },
+        {
+          "file": "research/SURVIVOR_CANCELLATION_SCALE_20261117.lean",
+          "name": "survivorComposite_primeCount_residual_eq_survivor"
+        },
+        {
+          "file": "research/SURVIVOR_CANCELLATION_SCALE_20261117.lean",
+          "name": "survivorComposite_residual_sq_le_of_powerSaving"
+        }
+      ],
+      "source_file": "docs/PRIME_PHASE_SURVIVOR_ACCOUNTING_20261117.md",
+      "evidence": [
+        "EV-PR-1143"
+      ],
+      "does_not_prove": [
+        "Either open signed survivor estimate",
+        "Universal stage control from an almost-all statement"
+      ],
+      "notes": "For the RH consumer Lambda is fixed and positive. Constants may depend on Lambda and epsilon, and are chosen before N,H or t. The composite residual identity preserves the full source.",
+      "open_obligation": false,
+      "pr": 1143
+    },
+    {
+      "id": "NOGO-PURE-PRIME-SURVIVOR-RH-SCALE",
+      "title": "The pure-prime component cannot satisfy the survivor RH scale",
+      "type": "no_go",
+      "route_ids": [
+        "SAT"
+      ],
+      "statement": "For each fixed Lambda >= 0, there is no C >= 0 with ||S_prime(Lambda,t)||^2 <= C*t^3 for all t >= 1. In particular the pure-prime component fails the every-positive-epsilon local RH-scale energy statement. The proof uses the eventual pi(n^8) >= n^7 consequence of native PNT at stages t=n^4.",
+      "logical_status": "PROVED",
+      "formal_status": "PROVED_IN_LEAN_PR_GREEN_UNMERGED",
+      "evidence_class": "PROVED_IN_LEAN_PR_GREEN_UNMERGED",
+      "provenance": "PROVED_INTERNALLY",
+      "lean": [
+        {
+          "file": "research/SURVIVOR_CANCELLATION_SCALE_20261117.lean",
+          "name": "survivor_primeCounting_eighth_eventually_ge_seventh"
+        },
+        {
+          "file": "research/SURVIVOR_CANCELLATION_SCALE_20261117.lean",
+          "name": "survivorPrimeZeroMode_fourth_stage_lower"
+        },
+        {
+          "file": "research/SURVIVOR_CANCELLATION_SCALE_20261117.lean",
+          "name": "survivorPrimeZeroMode_not_cubic_squared_bound"
+        },
+        {
+          "file": "research/SURVIVOR_CANCELLATION_SCALE_20261117.lean",
+          "name": "survivorPrimeZeroMode_not_uniformLocalRHScale"
+        }
+      ],
+      "source_file": "docs/PRIME_PHASE_SURVIVOR_ACCOUNTING_20261117.md",
+      "evidence": [
+        "EV-PR-1143"
+      ],
+      "does_not_prove": [
+        "A refutation of the complete signed survivor estimate",
+        "The sharper asymptotic |S_prime(t)| ~ t^2/(2 log t)"
+      ],
+      "notes": "A source-specific componentwise obstruction only. Composite ancestry must remain available to cancel the large prime term.",
+      "open_obligation": false,
+      "pr": 1143
+    },
+    {
+      "id": "PROP-FINITE-SQUARE-EXCEPTIONAL-SAMPLING",
+      "title": "Finite exceptional-sampling cardinality step",
+      "type": "proved_lemma",
+      "route_ids": [
+        "SAT"
+      ],
+      "statement": "If finite bad roots B carry pairwise disjoint finite neighborhoods U_r contained in finite E with #U_r >= m, then m*#B <= #E. For Y>0,c>0, lower cardinality c*Y and upper budget C*Y^(3/2+epsilon) imply #B <= (C/c)*Y^(1/2+epsilon). The module also proves cardinality and disjointness for integer square neighborhoods [R^2,R^2+w) under w <= 2*R+1.",
+      "logical_status": "PROVED",
+      "formal_status": "PROVED_IN_LEAN_PR_GREEN_UNMERGED",
+      "evidence_class": "PROVED_IN_LEAN_PR_GREEN_UNMERGED",
+      "provenance": "PROVED_INTERNALLY",
+      "lean": [
+        {
+          "file": "research/PRIME_PHASE_EXCEPTIONAL_SAMPLING_20261117.lean",
+          "name": "exceptional_root_card_packing"
+        },
+        {
+          "file": "research/PRIME_PHASE_EXCEPTIONAL_SAMPLING_20261117.lean",
+          "name": "exceptional_root_card_le_rpow_of_persistent_neighborhoods"
+        },
+        {
+          "file": "research/PRIME_PHASE_EXCEPTIONAL_SAMPLING_20261117.lean",
+          "name": "squareSamplingNeighborhood_card"
+        },
+        {
+          "file": "research/PRIME_PHASE_EXCEPTIONAL_SAMPLING_20261117.lean",
+          "name": "squareSamplingNeighborhood_disjoint_of_lt"
+        },
+        {
+          "file": "research/PRIME_PHASE_EXCEPTIONAL_SAMPLING_20261117.lean",
+          "name": "square_exceptional_root_card_packing"
+        }
+      ],
+      "source_file": "docs/PRIME_PHASE_SURVIVOR_ACCOUNTING_20261117.md",
+      "evidence": [
+        "EV-PR-1143"
+      ],
+      "does_not_prove": [
+        "A real-measure exceptional-set bound",
+        "A measure-to-integer sampling transfer",
+        "Prime persistence or a zero-density estimate",
+        "An unconditional almost-every-square-block prime theorem in Lean"
+      ],
+      "notes": "Finite integer-cardinality infrastructure only. Containment, persistence, disjointness, positivity and the bad-sample budget remain explicit inputs.",
+      "open_obligation": false,
+      "pr": 1143
+    },
+    {
+      "id": "PROP-ORDINARY-COMPOSITE-PRIME-DISCREPANCY",
+      "title": "Ordinary composite and prime discrepancies are exact complements",
+      "type": "proved_lemma",
+      "route_ids": [
+        "SAT"
+      ],
+      "statement": "For a finite window W of integers at least 2, P(W)+C(W)=#W. For every real prime target P0, C(W)-(#W-P0)=-(P(W)-P0), so the absolute errors agree. For I subset W, C(I)-alpha*C(W)=(#I-alpha*#W)-(P(I)-alpha*P(W)); the integer-window discrepancy remains present.",
+      "logical_status": "PROVED",
+      "formal_status": "PROVED_IN_LEAN_PR_GREEN_UNMERGED",
+      "evidence_class": "PROVED_IN_LEAN_PR_GREEN_UNMERGED",
+      "provenance": "PROVED_INTERNALLY",
+      "lean": [
+        {
+          "file": "research/PRIME_PHASE_EXCEPTIONAL_SAMPLING_20261117.lean",
+          "name": "ordinary_prime_add_composite_count"
+        },
+        {
+          "file": "research/PRIME_PHASE_EXCEPTIONAL_SAMPLING_20261117.lean",
+          "name": "ordinary_composite_discrepancy_eq_neg_prime"
+        },
+        {
+          "file": "research/PRIME_PHASE_EXCEPTIONAL_SAMPLING_20261117.lean",
+          "name": "ordinary_composite_abs_discrepancy_eq_prime"
+        },
+        {
+          "file": "research/PRIME_PHASE_EXCEPTIONAL_SAMPLING_20261117.lean",
+          "name": "ordinary_composite_phase_discrepancy"
+        }
+      ],
+      "source_file": "docs/PRIME_PHASE_SURVIVOR_ACCOUNTING_20261117.md",
+      "evidence": [
+        "EV-PR-1143"
+      ],
+      "does_not_prove": [
+        "An inference from coarse composite density to prime-scale error",
+        "Identification of ordinary composites with canonical signed death"
+      ],
+      "notes": "These are ordinary finite counting identities. They do not replace or estimate the complete signed ancestry source.",
+      "open_obligation": false,
+      "pr": 1143
+    },
+    {
+      "id": "OPEN-SIGNED-SQUARE-SURVIVOR",
+      "title": "Complete signed square-survivor local energy",
+      "type": "open_obligation",
+      "route_ids": [
+        "SAT"
+      ],
+      "statement": "Fix a chosen Lambda > 0. Constants may depend on this fixed Lambda and epsilon and are quantified before the stage/window variables. For every epsilon > 0 there exists C >= 0 such that for every N,H : Nat with 1 <= H <= N, sum_{h<H} ||S_Lambda(N+h)||^2 <= C*H*N^(2+epsilon). S_Lambda is the actual complete signed survivorZeroMode, including both prime and composite ancestry.",
+      "logical_status": "OPEN",
+      "formal_status": "LEAN_STATEMENT_ONLY",
+      "evidence_class": "UNKNOWN",
+      "provenance": "OPEN_NO_PROOF",
+      "open_obligation": true,
+      "obligation_kind": "ARITHMETIC",
+      "lean": [
+        {
+          "file": "RHLean/Proof/SurvivorZeroMode.lean",
+          "name": "SurvivorZeroModePowerSavingStatement"
+        }
+      ],
+      "source_file": "docs/PRIME_PHASE_SURVIVOR_ACCOUNTING_20261117.md",
+      "evidence": [
+        "EV-PR-1143"
+      ],
+      "notes": "A parameterized family for a fixed positive Lambda, not a claim of constants uniform in Lambda and not an existential replacement interface. A single chosen positive Lambda satisfying the premise suffices for the certified RH consumer.",
+      "does_not_prove": [
+        "The displayed arithmetic estimate"
+      ]
+    },
+    {
+      "id": "OPEN-SIGNED-SURVIVOR-POINTWISE",
+      "title": "Complete signed survivor pointwise square bound",
+      "type": "open_obligation",
+      "route_ids": [
+        "SAT"
+      ],
+      "statement": "Fix a chosen Lambda > 0. Constants may depend on this fixed Lambda and epsilon and are quantified before the stage/window variables. For every epsilon > 0 there exists C >= 0 such that for every t >= 1, ||S_Lambda(t)||^2 <= C*t^(2+epsilon), on the actual complete signed survivor source.",
+      "logical_status": "OPEN",
+      "formal_status": "LEAN_STATEMENT_ONLY",
+      "evidence_class": "UNKNOWN",
+      "provenance": "OPEN_NO_PROOF",
+      "open_obligation": true,
+      "obligation_kind": "ARITHMETIC",
+      "lean": [
+        {
+          "file": "research/SURVIVOR_CANCELLATION_SCALE_20261117.lean",
+          "name": "SurvivorPointwiseSquaredBoundStatement"
+        }
+      ],
+      "source_file": "docs/PRIME_PHASE_SURVIVOR_ACCOUNTING_20261117.md",
+      "evidence": [
+        "EV-PR-1143"
+      ],
+      "notes": "A parameterized family for a fixed positive Lambda, not a claim of constants uniform in Lambda and not an existential replacement interface. A single chosen positive Lambda satisfying the premise suffices for the certified RH consumer.",
+      "does_not_prove": [
+        "The displayed arithmetic estimate"
+      ]
+    },
+    {
+      "id": "CONSUMER-SIGNED-SURVIVOR-RH",
+      "title": "Complete signed survivor bound implies Mathlib RH",
+      "type": "conditional_consumer",
+      "route_ids": [
+        "SAT"
+      ],
+      "statement": "For every Lambda > 0, SurvivorZeroModePowerSavingStatement Lambda implies RiemannHypothesis via the native square-prefix/Mertens-energy consumer. The sole unproved arithmetic premise is the displayed complete signed survivor estimate at that fixed Lambda.",
+      "logical_status": "PROVED",
+      "formal_status": "PROVED_IN_LEAN_PR_GREEN_UNMERGED",
+      "evidence_class": "CONDITIONAL",
+      "provenance": "PROVED_INTERNALLY",
+      "lean": [
+        {
+          "file": "research/SURVIVOR_CANCELLATION_SCALE_20261117.lean",
+          "name": "survivorPowerSaving_implies_mathlibRH"
+        }
+      ],
+      "source_file": "docs/PRIME_PHASE_SURVIVOR_ACCOUNTING_20261117.md",
+      "evidence": [
+        "EV-PR-1143"
+      ],
+      "does_not_prove": [
+        "The survivor premise",
+        "An unconditional proof of RH"
+      ],
+      "notes": "No ClassicalMertensRHCriterion or external prime-phase hypothesis appears in this theorem type. Lambda positivity is the fixed parameter scope, not an additional unpaid analytic interface.",
+      "open_obligation": false,
+      "pr": 1143,
+      "hypotheses": [
+        "OPEN-SIGNED-SQUARE-SURVIVOR"
+      ]
+    },
+    {
+      "id": "IFACE-PRIME-SQRT-PHASE",
+      "title": "Global square-root prime phase equidistribution interface",
+      "type": "explicit_interface",
+      "route_ids": [
+        "SAT"
+      ],
+      "statement": "For each fixed 0 <= a <= b <= 1 and epsilon > 0, eventually |#{p<=X : {sqrt(p)} in [a,b)}-(b-a)*pi(X)| <= epsilon*pi(X). This is the classical global theorem represented by SquareRootPrimePhaseEquidistributionStatement.",
+      "logical_status": "ESTABLISHED_LITERATURE",
+      "formal_status": "EXPLICIT_LEAN_INTERFACE",
+      "evidence_class": "INDEPENDENTLY_REVIEWED_PAPER_PROOF",
+      "provenance": "LITERATURE_EXPLICIT_INTERFACE",
+      "literature": [
+        "X. Cao and W. Zhai, On the distribution of p^alpha modulo one (1999), including the historical Vinogradov theorem and quantitative square-root phase results: https://www.numdam.org/item/JTNB_1999__11_2_407_0.pdf",
+        "G. Harman, On the distribution of sqrt(p) modulo one (1983): https://doi.org/10.1112/S0025579300010457"
+      ],
+      "lean": [
+        {
+          "file": "RHLean/Analysis/GrowingParentPhaseUniformity.lean",
+          "name": "SquareRootPrimePhaseEquidistributionStatement"
+        }
+      ],
+      "source_file": "docs/PRIME_PHASE_SURVIVOR_ACCOUNTING_20261117.md",
+      "evidence": [
+        "EV-PRIME-PHASE-LITERATURE-20261117"
+      ],
+      "notes": "Established literature, supplied as an explicit theorem argument in Lean. It is not an axiom or a constructed proof in this PR; it is averaged over all primes up to X.",
+      "does_not_prove": [
+        "The complete signed survivor estimate at every stage"
+      ],
+      "open_obligation": false,
+      "discharged_by": "FORMALIZE-PRIME-SQRT-PHASE"
+    },
+    {
+      "id": "IFACE-PRIME-SQRT-FOUR-FIFTHS",
+      "title": "Global four-fifths square-root prime discrepancy interface",
+      "type": "explicit_interface",
+      "route_ids": [
+        "SAT"
+      ],
+      "statement": "For every epsilon > 0 there exist C >= 0 and X0 such that for X >= X0 and all 0 <= u <= 1, |#{p<=X : {sqrt(p)} in [0,u)}-u*pi(X)| <= C*X^(4/5+epsilon). The existing square-scale telescope is conditional on this input.",
+      "logical_status": "ESTABLISHED_LITERATURE",
+      "formal_status": "EXPLICIT_LEAN_INTERFACE",
+      "evidence_class": "INDEPENDENTLY_REVIEWED_PAPER_PROOF",
+      "provenance": "LITERATURE_EXPLICIT_INTERFACE",
+      "literature": [
+        "X. Cao and W. Zhai, On the distribution of p^alpha modulo one (1999), including the historical Vinogradov theorem and quantitative square-root phase results: https://www.numdam.org/item/JTNB_1999__11_2_407_0.pdf",
+        "G. Harman, On the distribution of sqrt(p) modulo one (1983): https://doi.org/10.1112/S0025579300010457"
+      ],
+      "lean": [
+        {
+          "file": "research/VF_MID_HARMAN_FOUR_FIFTHS.lean",
+          "name": "SquareRootPrimePhaseFourFifthsDiscrepancyStatement"
+        }
+      ],
+      "source_file": "docs/PRIME_PHASE_SURVIVOR_ACCOUNTING_20261117.md",
+      "evidence": [
+        "EV-PRIME-PHASE-LITERATURE-20261117"
+      ],
+      "notes": "Literature theorem represented by an explicit Lean interface. The global exponent becomes 8/5+2*epsilon at X=R^2; it does not supply the complete survivor bound.",
+      "does_not_prove": [
+        "The complete signed survivor estimate at every stage"
+      ],
+      "open_obligation": false,
+      "discharged_by": "FORMALIZE-PRIME-SQRT-PHASE"
+    },
+    {
+      "id": "FORMALIZE-PRIME-SQRT-PHASE",
+      "title": "Formalize the classical global prime-phase theorem and quantitative input",
+      "type": "formalization_task",
+      "route_ids": [
+        "SAT"
+      ],
+      "statement": "Construct certified terms of both SquareRootPrimePhaseEquidistributionStatement and SquareRootPrimePhaseFourFifthsDiscrepancyStatement in the pinned Lean environment, including the required analytic estimates.",
+      "logical_status": "ESTABLISHED_LITERATURE",
+      "formal_status": "NOT_FORMALIZED",
+      "evidence_class": "INDEPENDENTLY_REVIEWED_PAPER_PROOF",
+      "provenance": "LITERATURE_NOT_FORMALIZED",
+      "literature": [
+        "X. Cao and W. Zhai, On the distribution of p^alpha modulo one (1999), including the historical Vinogradov theorem and quantitative square-root phase results: https://www.numdam.org/item/JTNB_1999__11_2_407_0.pdf",
+        "G. Harman, On the distribution of sqrt(p) modulo one (1983): https://doi.org/10.1112/S0025579300010457"
+      ],
+      "lean": [
+        {
+          "file": "RHLean/Analysis/GrowingParentPhaseUniformity.lean",
+          "name": "SquareRootPrimePhaseEquidistributionStatement"
+        },
+        {
+          "file": "research/VF_MID_HARMAN_FOUR_FIFTHS.lean",
+          "name": "SquareRootPrimePhaseFourFifthsDiscrepancyStatement"
+        }
+      ],
+      "source_file": "docs/PRIME_PHASE_SURVIVOR_ACCOUNTING_20261117.md",
+      "evidence": [
+        "EV-PRIME-PHASE-LITERATURE-20261117"
+      ],
+      "notes": "Formalization completeness for established literature, not an open arithmetic conjecture. This PR does not carry out the Vaughan-identity/exponential-sum formalization.",
+      "does_not_prove": [
+        "The complete signed survivor estimate at every stage"
+      ],
+      "open_obligation": true,
+      "obligation_kind": "FORMALIZATION_COMPLETENESS"
+    },
+    {
+      "id": "LIT-ALMOST-ALL-SQUARE-PRIMES",
+      "title": "Prime asymptotics in almost all consecutive-square intervals",
+      "type": "literature_theorem",
+      "route_ids": [
+        "SAT"
+      ],
+      "statement": "For every fixed discrepancy tolerance delta > 0 and epsilon > 0, all but O_{delta,epsilon}(Y^(1/2+epsilon)) square blocks at root indices R in [Y,2Y] have their expected prime asymptotic within that fixed relative tolerance. Constants and the eventual threshold may depend on delta and epsilon. This is an almost-all literature result, not every-block control.",
+      "logical_status": "ESTABLISHED_LITERATURE",
+      "formal_status": "NOT_FORMALIZED",
+      "evidence_class": "INDEPENDENTLY_REVIEWED_PAPER_PROOF",
+      "provenance": "LITERATURE_NOT_FORMALIZED",
+      "literature": [
+        "D. Bazzanella, Primes between consecutive squares (2000), Theorem 1: https://iris.polito.it/bitstream/11583/1397858/2/Primes-between-squares.pdf",
+        "D. Bazzanella, Prime numbers in intervals starting at a fixed power of the integers (2009), Lemma 1: https://www.cambridge.org/core/services/aop-cambridge-core/content/view/C5534F28D72BA272E7494FC497339C36/S1446788709000020a.pdf/prime_numbers_in_intervals_starting_at_a_fixed_power_of_the_integers.pdf",
+        "A. Gafni and T. Tao, On the number of exceptional intervals to the prime number theorem in short intervals (2025): https://arxiv.org/abs/2505.24017"
+      ],
+      "lean": [],
+      "source_file": "docs/PRIME_PHASE_SURVIVOR_ACCOUNTING_20261117.md",
+      "evidence": [
+        "EV-PRIME-PHASE-LITERATURE-20261117"
+      ],
+      "notes": "See the dated note for the primary analytic results and the distinction between exceptional-measure bounds, persistence, and discrete square sampling. No term of this analytic statement is constructed by the finite packing module.",
+      "does_not_prove": [
+        "The complete signed survivor estimate at every stage"
+      ],
+      "open_obligation": false,
+      "discharged_by": "FORMALIZE-ALMOST-ALL-SQUARE-PRIMES"
+    },
+    {
+      "id": "FORMALIZE-ALMOST-ALL-SQUARE-PRIMES",
+      "title": "Formalize the analytic almost-all square-block prime theorem",
+      "type": "formalization_task",
+      "route_ids": [
+        "SAT"
+      ],
+      "statement": "Formalize the established almost-all consecutive-square prime theorem, including its analytic exceptional-set estimate, persistence input, and the justified transfer to square samples. Retain fixed discrepancy tolerance and epsilon before constants and the eventual scale.",
+      "logical_status": "ESTABLISHED_LITERATURE",
+      "formal_status": "NOT_FORMALIZED",
+      "evidence_class": "INDEPENDENTLY_REVIEWED_PAPER_PROOF",
+      "provenance": "LITERATURE_NOT_FORMALIZED",
+      "literature": [
+        "D. Bazzanella, Primes between consecutive squares (2000), Theorem 1: https://iris.polito.it/bitstream/11583/1397858/2/Primes-between-squares.pdf",
+        "D. Bazzanella, Prime numbers in intervals starting at a fixed power of the integers (2009), Lemma 1: https://www.cambridge.org/core/services/aop-cambridge-core/content/view/C5534F28D72BA272E7494FC497339C36/S1446788709000020a.pdf/prime_numbers_in_intervals_starting_at_a_fixed_power_of_the_integers.pdf",
+        "A. Gafni and T. Tao, On the number of exceptional intervals to the prime number theorem in short intervals (2025): https://arxiv.org/abs/2505.24017"
+      ],
+      "lean": [],
+      "source_file": "docs/PRIME_PHASE_SURVIVOR_ACCOUNTING_20261117.md",
+      "evidence": [
+        "EV-PRIME-PHASE-LITERATURE-20261117"
+      ],
+      "notes": "A literature formalization-completeness task. The finite cardinality packing theorem in #1143 is available supporting infrastructure, but does not prove real-measure estimates, persistence, or the measure-to-integer transfer.",
+      "does_not_prove": [
+        "The complete signed survivor estimate at every stage"
+      ],
+      "open_obligation": true,
+      "obligation_kind": "FORMALIZATION_COMPLETENESS"
     }
   ],
   "edges": [
@@ -4022,6 +4568,43 @@
       "type": "REQUIRES",
       "to": "LEMMA-EULER-DOUBLE-CENTERED-REDUCTION",
       "note": "Supporting source reduction for the documented double-centered realization. The complete Xi estimate is still needed; the error bound alone gives no RH-strength conclusion. This is an infrastructure dependency. The note preserves both hyperbolic cutoff terms and distinguishes every-positive-loss from fixed-constant targets."
+    },
+    {
+      "id": "E-SIGNED-SURVIVOR-POINTWISE",
+      "type": "PROVED_EQUIVALENCE",
+      "from": "OPEN-SIGNED-SQUARE-SURVIVOR",
+      "to": "OPEN-SIGNED-SURVIVOR-POINTWISE",
+      "certified_by": "PROP-SURVIVOR-POINTWISE-LOCAL-EQUIVALENCE",
+      "note": "The same fixed Lambda and complete signed source; constants may change with epsilon. Both arithmetic propositions remain OPEN."
+    },
+    {
+      "id": "E-SIGNED-SURVIVOR-RH",
+      "type": "PROVED_IMPLICATION",
+      "from": "OPEN-SIGNED-SQUARE-SURVIVOR",
+      "to": "RH",
+      "certified_by": "CONSUMER-SIGNED-SURVIVOR-RH",
+      "note": "For a chosen fixed Lambda > 0. The complete survivor estimate is the only unpaid premise; the native RH consumer is already proved."
+    },
+    {
+      "id": "E-PURE-PRIME-NOGO-REQUIRES-ACCOUNTING",
+      "type": "REQUIRES",
+      "from": "NOGO-PURE-PRIME-SURVIVOR-RH-SCALE",
+      "to": "PROP-SURVIVOR-PRIME-COMPOSITE-ACCOUNTING",
+      "note": "Actual prime fibre and exact cutoff, with no replacement source."
+    },
+    {
+      "id": "E-PURE-PRIME-NOGO-REQUIRES-PNT",
+      "type": "REQUIRES",
+      "from": "NOGO-PURE-PRIME-SURVIVOR-RH-SCALE",
+      "to": "PROP-NATIVE-PRIME-NUMBER-THEOREM",
+      "note": "The native PNT supplies the polynomial prime-count lower bound."
+    },
+    {
+      "id": "E-SIGNED-SURVIVOR-CONSUMER-REQUIRES-DEATH",
+      "type": "REQUIRES",
+      "from": "CONSUMER-SIGNED-SURVIVOR-RH",
+      "to": "PROP-SQUARE-BLOCK-DEATH-BOUND",
+      "note": "The original square-prefix consumer uses the proved signed death estimate; this does not prove its survivor premise."
     }
   ],
   "non_equivalences": [
@@ -4811,6 +5394,106 @@
       "merged_at": "2026-11-17T14:08:33Z",
       "merge_commit_sha": "319fc5798658e66baea1fed758b0d4b6dd126889",
       "superseded_cancelled_checks": 3
+    },
+    {
+      "id": "EV-PR-1143",
+      "kind": "pr",
+      "number": 1143,
+      "state": "open",
+      "draft": false,
+      "title": "Formalize signed survivor accounting and prime-phase sampling",
+      "observed_at": "2026-11-17T15:11:16Z",
+      "head_sha": "ae266e3319c502ade5fc6fa0dd95b7829612b362",
+      "checks": {
+        "jobs": 12,
+        "success": 12,
+        "failed": 0,
+        "pending": 0
+      },
+      "grade": "KERNEL_CHECKED_GREEN_PR_HEAD",
+      "workflow_run": "https://github.com/OVVO-Financial/RH_Lean/actions/runs/44110847029",
+      "proof_jobs": {
+        "accounting": {
+          "id": 134135688923,
+          "name": "accounting prime phase source proof",
+          "status": "completed",
+          "conclusion": "success",
+          "html_url": "https://github.com/OVVO-Financial/RH_Lean/actions/runs/44110847029/job/134135688923",
+          "head_sha": "ae266e3319c502ade5fc6fa0dd95b7829612b362"
+        },
+        "cancellation": {
+          "id": 134135689038,
+          "name": "cancellation prime phase source proof",
+          "status": "completed",
+          "conclusion": "success",
+          "html_url": "https://github.com/OVVO-Financial/RH_Lean/actions/runs/44110847029/job/134135689038",
+          "head_sha": "ae266e3319c502ade5fc6fa0dd95b7829612b362"
+        },
+        "sampling": {
+          "id": 134135688451,
+          "name": "sampling prime phase source proof",
+          "status": "completed",
+          "conclusion": "success",
+          "html_url": "https://github.com/OVVO-Financial/RH_Lean/actions/runs/44110847029/job/134135688451",
+          "head_sha": "ae266e3319c502ade5fc6fa0dd95b7829612b362"
+        }
+      },
+      "proof_artifacts": [
+        "https://github.com/OVVO-Financial/RH_Lean/actions/runs/44110847029/artifacts/14340118166",
+        "https://github.com/OVVO-Financial/RH_Lean/actions/runs/44110847029/artifacts/14341900220",
+        "https://github.com/OVVO-Financial/RH_Lean/actions/runs/44110847029/artifacts/14340377398"
+      ],
+      "verified_public_declarations": {
+        "accounting": 16,
+        "cancellation": 11,
+        "sampling": 14
+      },
+      "exact_type_examples": 24,
+      "allowed_terminal_axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "proof_source_sha256": {
+        "research/SURVIVOR_PRIME_COMPOSITE_ACCOUNTING_20261117.lean": "d616ba8f32d8f30050beaf588121d8cb6811e1210af660ae3c30ab378fcfb971",
+        "research/SURVIVOR_CANCELLATION_SCALE_20261117.lean": "caf80d830ea40f2c6b549de6f2fda6afa4ce5a53a1a2a49de02589a18d6573ac",
+        "research/PRIME_PHASE_EXCEPTIONAL_SAMPLING_20261117.lean": "b779d4684b54f39e3096ab692a4af2077db34e5c97ecf630e29bd4c7f85a77dd",
+        "scripts/lean/prime_phase_survivor/AccountingExactTypes.lean": "92abb4c209c2a55033945f8be3588e0a0b5c64608dc94d1400fef10382345e2f",
+        "scripts/lean/prime_phase_survivor/CancellationExactTypes.lean": "74064f10a630417572e174fdc32c46a1b3e978c2f82191b98a746f071f1daf2c",
+        "scripts/lean/prime_phase_survivor/SamplingExactTypes.lean": "7571111b79a3773a5872a5179b5b12815cbcdd772534272f1509acd0cc404a0d"
+      },
+      "notes": "All 12 checks passed on the displayed exact source head. Independently fetched hosted logs verify all 41 public declarations, 24 explicit acceptance types, complete original-source dependencies, and only the allowed standard axioms. The no-go theorem reaches the existing native PNT; the complete-survivor consumer reaches the native Mathlib RH implication with no classical criterion premise. This is a dated source-head certificate. The following DAG/documentation commit retains these six proof/type files byte-for-byte and is checked again on its own head. No local Lean execution or human merge is claimed."
+    },
+    {
+      "id": "EV-SURVIVOR-SUPPORT-MAIN-20261117",
+      "kind": "repository_source",
+      "grade": "KERNEL_CHECKED_ON_MAIN",
+      "observed_at": "2026-11-17T15:11:16Z",
+      "main_sha": "319fc5798658e66baea1fed758b0d4b6dd126889",
+      "ref": "https://github.com/OVVO-Financial/RH_Lean/tree/319fc5798658e66baea1fed758b0d4b6dd126889",
+      "source_blobs": {
+        "RHLean/Analysis/SquareBlockDeathProcess.lean": "c464f30b82e7fb4f281a74e5668f87d768e2c28a",
+        "RHLean/Analysis/NativePNTTransfer.lean": "8b981fe2bd212b2e21e7cc1961e5b2d7f083a906",
+        "RHLean/Proof/SurvivorZeroMode.lean": "3f34ac3b192be1e34eb4c7f9e5a25e8855848f38",
+        "RHLean/Analysis/GrowingParentPhaseUniformity.lean": "ffa698db33ed6cca5a3cb2f31c4cefd8b494d369",
+        "research/VF_MID_HARMAN_FOUR_FIFTHS.lean": "b598963f8f1168d92447ab740f02bb0c03a1029d"
+      },
+      "notes": "The death bound, native PNT, and original signed survivor source are already on main at the displayed SHA and unchanged in the checked #1143 head. Its successful proof jobs also compile the complete original dependency closures. This support snapshot does not replace the historical registry baseline."
+    },
+    {
+      "id": "EV-PRIME-PHASE-LITERATURE-20261117",
+      "kind": "literature",
+      "grade": "LITERATURE_STANDARD",
+      "observed_at": "2026-11-17T15:11:16Z",
+      "ref": "docs/PRIME_PHASE_SURVIVOR_ACCOUNTING_20261117.md",
+      "references": [
+        "X. Cao and W. Zhai, On the distribution of p^alpha modulo one (1999), including the historical Vinogradov theorem and quantitative square-root phase results: https://www.numdam.org/item/JTNB_1999__11_2_407_0.pdf",
+        "G. Harman, On the distribution of sqrt(p) modulo one (1983): https://doi.org/10.1112/S0025579300010457",
+        "D. Bazzanella, Primes between consecutive squares (2000), Theorem 1: https://iris.polito.it/bitstream/11583/1397858/2/Primes-between-squares.pdf",
+        "D. Bazzanella, Prime numbers in intervals starting at a fixed power of the integers (2009), Lemma 1: https://www.cambridge.org/core/services/aop-cambridge-core/content/view/C5534F28D72BA272E7494FC497339C36/S1446788709000020a.pdf/prime_numbers_in_intervals_starting_at_a_fixed_power_of_the_integers.pdf",
+        "A. Gafni and T. Tao, On the number of exceptional intervals to the prime number theorem in short intervals (2025): https://arxiv.org/abs/2505.24017"
+      ],
+      "notes": "Primary literature and scopes are recorded in the dated note. Classical global prime phases and almost-all square prime asymptotics are distinguished from their unfinished Lean formalizations and from the open complete survivor estimate."
     }
   ],
   "historical_tracks": {
