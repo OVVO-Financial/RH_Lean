@@ -122,8 +122,15 @@ theorem exceptional_root_card_le_rpow_of_persistent_neighborhoods
     badRoots badSamples neighborhood (c * Y) hcontained hdisjoint hsize
   have hpower : Real.rpow Y ((3 : ℝ) / 2 + ε) =
       Y * Real.rpow Y ((1 : ℝ) / 2 + ε) := by
-    rw [show (3 : ℝ) / 2 + ε = 1 + ((1 : ℝ) / 2 + ε) by ring,
-      Real.rpow_add hY, Real.rpow_one]
+    have hYone : Real.rpow Y 1 = Y := Real.rpow_one Y
+    calc
+      Real.rpow Y ((3 : ℝ) / 2 + ε) =
+          Real.rpow Y (1 + ((1 : ℝ) / 2 + ε)) := by
+        congr 1
+        ring
+      _ = Real.rpow Y 1 * Real.rpow Y ((1 : ℝ) / 2 + ε) :=
+        Real.rpow_add hY 1 ((1 : ℝ) / 2 + ε)
+      _ = Y * Real.rpow Y ((1 : ℝ) / 2 + ε) := by rw [hYone]
   have hscaled :
       (c * Y) * (badRoots.card : ℝ) ≤
         (c * Y) * ((C / c) * Real.rpow Y ((1 : ℝ) / 2 + ε)) := by
@@ -133,7 +140,7 @@ theorem exceptional_root_card_le_rpow_of_persistent_neighborhoods
       _ = (c * Y) * ((C / c) * Real.rpow Y ((1 : ℝ) / 2 + ε)) := by
         rw [hpower]
         field_simp [ne_of_gt hc] <;> ring
-  exact (mul_le_mul_left (mul_pos hc hY)).mp hscaled
+  exact le_of_mul_le_mul_left hscaled (mul_pos hc hY)
 
 /-- A one-sided integer neighborhood beginning at an actual square. -/
 def squareSamplingNeighborhood (R width : ℕ) : Finset ℕ :=

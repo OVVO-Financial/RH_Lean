@@ -165,7 +165,7 @@ theorem survivor_primeCounting_eighth_eventually_ge_seventh :
       (fun n : ℕ => Real.log (n : ℝ) / (n : ℝ)) atTop (𝓝 0) := by
     have h :=
       (isLittleO_log_rpow_atTop (r := (1 : ℝ)) (by norm_num)).tendsto_div_nhds_zero
-    simpa only [Real.rpow_one] using
+    simpa only [Function.comp_def, Real.rpow_one] using
       h.comp tendsto_natCast_atTop_atTop
   have hlogsmall : ∀ᶠ n : ℕ in atTop,
       Real.log (n : ℝ) / (n : ℝ) < (1 / 16 : ℝ) :=
@@ -196,10 +196,12 @@ theorem survivor_primeCounting_eighth_eventually_ge_seventh :
   have hpow : (n : ℝ) ^ 8 < (Nat.primeCounting (n ^ 8) : ℝ) * (n : ℝ) := by
     linarith
   have hseven : (n : ℝ) ^ 7 < (Nat.primeCounting (n ^ 8) : ℝ) := by
-    apply (mul_lt_mul_right hnpos).1
-    calc
-      (n : ℝ) ^ 7 * (n : ℝ) = (n : ℝ) ^ 8 := by ring
-      _ < (Nat.primeCounting (n ^ 8) : ℝ) * (n : ℝ) := hpow
+    have hscaled : (n : ℝ) ^ 7 * (n : ℝ) <
+        (Nat.primeCounting (n ^ 8) : ℝ) * (n : ℝ) := by
+      calc
+        (n : ℝ) ^ 7 * (n : ℝ) = (n : ℝ) ^ 8 := by ring
+        _ < (Nat.primeCounting (n ^ 8) : ℝ) * (n : ℝ) := hpow
+    exact lt_of_mul_lt_mul_right hscaled hnpos.le
   exact_mod_cast hseven.le
 
 /-- Along fourth-power stages the pure-prime component has a polynomial lower
@@ -270,10 +272,12 @@ theorem survivorPrimeZeroMode_not_cubic_squared_bound
     lt_of_le_of_lt ((le_max_right _ _).trans (le_max_right _ _)) hn
   have hn1 : 1 ≤ n := by exact_mod_cast (show (1 : ℝ) ≤ n by linarith)
   have hnpos : (0 : ℝ) < (n : ℝ) := by linarith
-  have ht : 1 ≤ n ^ 4 := by positivity
+  have ht : 1 ≤ n ^ 4 := by
+    have htpos : 0 < n ^ 4 := pow_pos (by omega : 0 < n) 4
+    omega
   have hlower := hN0 n hn0
   have hn3 : (2 : ℝ) ≤ (n : ℝ) ^ 3 := by
-    have hpow : (2 : ℝ) ^ 3 ≤ (n : ℝ) ^ 3 := by gcongr; linarith
+    have hpow : (2 : ℝ) ^ 3 ≤ (n : ℝ) ^ 3 := by gcongr
     norm_num at hpow
     linarith
   have hfour : (0 : ℝ) ≤ (n : ℝ) ^ 4 := by positivity
@@ -291,7 +295,7 @@ theorem survivorPrimeZeroMode_not_cubic_squared_bound
     simp only [Nat.cast_pow] at hupper
     nlinarith [hsquare]
   have hcancel : (n : ℝ) ^ 2 ≤ 4 * C := by
-    apply (mul_le_mul_right (by positivity : (0 : ℝ) < (n : ℝ) ^ 12)).1
+    apply (mul_le_mul_iff_right₀ (by positivity : (0 : ℝ) < (n : ℝ) ^ 12)).mp
     nlinarith only [hpoly]
   nlinarith [sq_nonneg ((n : ℝ) - 1)]
 
@@ -310,6 +314,7 @@ theorem survivorPrimeZeroMode_not_uniformLocalRHScale
   refine ⟨C, hC, ?_⟩
   intro t ht
   have h := hbound t 1 (by simp) ht
+  rw [show (2 : ℝ) + 1 = ((3 : ℕ) : ℝ) by norm_num] at h
   simpa [localSequenceEnergy, Real.rpow_natCast] using h
 
 /-- The complete survivor premise reaches Mathlib RH through the existing
