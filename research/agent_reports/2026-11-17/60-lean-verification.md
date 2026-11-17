@@ -29,3 +29,17 @@ Priority E: preserve the complete Nyman norm, sparse selected heads, correction 
 Read original declarations and pinned audit workflows; verify previous exact-head hosted proof evidence; independently audit candidate mathematics and duplication; implement only a justified source theorem with a named continuation use; obtain and inspect actual GitHub Actions if code is submitted; publish final A-P evidence and a precise resume capsule. No proof branch, code, CI launch, merge, main push, other-role edit or new agent launch has occurred.
 
 Pinned Lean: leanprover/lean4:v4.34.1. Mathlib: d13f23b723b8a846827a245b89c10fc7d3f11612. PNT+: c39a751132c88b6e8080b74c74023fd95b3d8be0.
+
+## Implementation Checkpoint - 2026-11-17 05:21 EST
+
+[Draft PR #1140](https://github.com/OVVO-Financial/RH_Lean/pull/1140) is open on agent/lean-verification/20261117-nyman-divisor-sign, based on main 4d5482805bac6a8f29d4fb4dadc61eca0bc06525, exact head 685598746869a62849451d7b7ffbfd09d42e4e4a. It adds a complete seven-theorem proof attempt on the original source, plus exact types, dependency/standard-axiom auditing, finite regression and a dedicated hosted workflow. CI_PENDING; not yet PROVED_IN_LEAN.
+
+Independent reconstruction proves J_H(210)=log(H^2/1470) for every integer 35<=H<=42, including both cutoff endpoints. Hence J_38(210)<0<J_39(210) for the SAME genuine squarefree integer with prime factors {2,3,5,7} and mu(210)=1. Both cells are in their original 4H<=m<=N_H/2 range with 8H<N_H. This is the accepted DJ1 finite obstruction, not the unformalized SG infinite-family theorem. The complete original residual transport keeps its exact moment and correction-support hypotheses; it does not assume the desired norm bound.
+
+The new finite checker reconstructs 210 Mobius coefficients independently by trial division and prime sieve, verifies all eight profiles and cumulative floor increments, and detects the omitted d=42 sign error. Python regression and syntax checks pass; no local Lean has run.
+
+Actual dedicated run [44063808521](https://github.com/OVVO-Financial/RH_Lean/actions/runs/44063808521) and targeted run [44063808319](https://github.com/OVVO-Financial/RH_Lean/actions/runs/44063808319) have started on this head. Exact compiler outcomes and repair needs are still pending.
+
+Coordinator mirrors were now byte-compared successfully. Newly relevant SC/FB/EF/GD/DJ/SG derivations, scope restrictions and handoffs have been consumed; all latest dated files were retrieved. Prior CR1 has Coordinator paper acceptance and is not reopened. Original-source new mathematics, prior proof certification and finite data remain separate.
+
+Prior #1119 and #1139 actual logs and exact-head checks were refreshed: respectively 14/14 and 13/13 pass. #1139's tested head has the identical tree to current main. A scoped comparison of 2,508 preexisting Lean/pin/scripts/lean blobs at #1119 finds only the aggregate RHLean.lean changed. This reuses existing certification, not a new main build or independent reproof of all analytic inputs. No new endpoint gain; RH=OPEN.
