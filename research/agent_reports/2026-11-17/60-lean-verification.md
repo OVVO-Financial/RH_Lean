@@ -359,3 +359,263 @@ Six focused files add the source, six exact-type checks (including square-root w
 The dedicated hosted workflow and repository checks are being inspected on the exact initial head. Mathematical status=PAPER_PROOF/INDEPENDENTLY_ACCEPTED; implementation=DRAFT_PR/CI_PENDING. No claim of Lean certification yet.
 
 Latest relevant role watermarks INV/HF/HA/SB/TC/IC are consumed at their stated scopes; both dates' Coordinator mirrors match. Current #1140 is merged into main. #1143 is merged into docs/preservation-target-strength-20261117 ONLY; its new prime-phase source is absent from main, so no main status is inferred. Current main contains #1141/#1142 preservation infrastructure, not their unpaid signed estimates.
+
+
+## Sharp Historical Density-Mask Obstruction
+
+### Final Synthesis - 20261117-lean-1314-EST/HF1
+
+Actual scheduled trigger: 2026-11-17 13:14:00 EST / 18:14:00 UTC, America/New_York. PLATFORM_RUN_ID=UNAVAILABLE. TAIL-AUDIT and HF1 label stages of this same actual invocation, not additional launches. Earlier NYMAN-JUMP work and both current checkpoints are preserved. EXECUTION=COMPLETED; SUBSTANTIVE_PUBLICATION=READBACK_PENDING until the receipt below.
+
+### A. Most Important Formal Mathematical Result
+
+The selected source is **20261117-owner-0809-EST/HF1**, at the finite density-mask scope independently accepted by **20261117-referee-1203-EST/IC**. The new implementation gives a sharp, coefficient-generic obstruction: for any finite mask on positive integer cofactors with c(1)=1 and sum c(d)/d=0,
+
+```text
+sum_(d in support, d != 1) |c(d)| / d^beta >= 2^(1-beta) > 1, beta<1.
+```
+
+Five public Lean theorems establish the exact excess identity, a minimum-cofactor generalization, strict noncontraction, the full unit-containing formulation, and an attaining single-cofactor witness. The square-root specialization is checked as an exact consumer type. This is independent quantitative information about the specified ABSOLUTE proof cost, not a lower bound for the genuine signed prime error. No RH-strength premise occurs.
+
+Formal status: PROVED_IN_LEAN_AT_PR_HEAD abd9bb34c8fac459e67c63009961b6c26548d7e9; all 13 checks successful; PR #1144 is review-ready and unmerged, not main. HF1's actual-prime nonsquare interpolation, fixed-mask asymptotic cap transfer, equality-case uniqueness and two-log-moment refinement are NOT claimed as formalized here. The single-cofactor attaining witness, unlike equality-case uniqueness, is included.
+
+### B. Current Authoritative Objective
+
+Intake and refreshed main: fd4085e20602bc210cc6b630abbdeeeaf1bf28eb; tree 7ddd257551809a2ea38e8a85adb678417b3aa559. AGENTS blob c4f36b772f8a4b0c24fe566b90fafb646073c60f; CURRENT_PROOF_CONTRACT blob 95566e37c8eaeb99ee680660df4f9d2e06ea5038. Live main, not older dated task prose, determines authorization and priority.
+
+```text
+half_bootstrap_ack=BOOTSTRAP_TO_HALF_V1
+cross_route_ack=CROSS_ROUTE_SIGNED_RECOVERY_V1
+continuity_ack=LAST_ACTUAL_REPORT_CONTINUITY_V1
+high_attack_ack=COMPLETE_SIGNED_HIGH_ATTACK_V1
+chain_ack=CANCELLATION_CHAIN_REUSE_V1
+finite_wheel_ack=FINITE_WHEEL_CENTERED_RH_V1
+```
+
+The canonical OPEN objective remains one C>=0 before every integer R>=2 with
+
+```text
+|pi(R^2)-vfMidFinishedMass(R)-sqrt(2)| <= C*R*log R.
+```
+
+The prime-side terminal retains its explicit ClassicalVonKochRHCriterion. The raw first-bad discrepancy is not silently shifted by sqrt(2). The selected bounded feasibility lane is: exclude every genuine K=2 first bad using the complete source and finite base, then apply the existing raw/canonical transfer and classical criterion. This work rejects an inadequate supplier within that qualifying continuation. It does not establish the supplier or close the route. All nine active routes and their original carriers remain available.
+
+Lean is leanprover/lean4:v4.34.1; Mathlib d13f23b723b8a846827a245b89c10fc7d3f11612; PrimeNumberTheoremAnd c39a751132c88b6e8080b74c74023fd95b3d8be0. The new source imports pinned Mathlib only. No local Lean execution occurred.
+
+The established native_mertens_near_uniform_window_error_closed still supplies every-positive-loss growth at b_base=7/8-7/(64*N_pack), with its actual fixed nearUniformSlotCount. Fresh #1119 evidence at 77ee815846d6d534c866f0752aa33b84c385610a has 14 successful checks. Actual [terminal dependency/axiom log](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42552018910/job/128949473700) has five permitted-axiom closures of sizes 35358, 35375, 35736, 35737, 35753. A fresh comparison of 2,508 preexisting Lean/pin/scripts/lean files with main finds only RHLean.lean changed. Reuse is scoped to unchanged dependencies; no new full-main build or zero-loss bound at b_base is inferred. OAI's 47/54 LOW floor, theta>3/5 gate and Re(s)>21/25 correction domain remain unchanged.
+
+Important original source blobs at this main, inspected for exact declarations and obligations:
+
+| Source path | Blob |
+| --- | --- |
+| research/VF_CANONICAL_SQRT_TWO_VON_KOCH.lean | 79030d70e8d3e0d08eef9bac53fef95c36eca2fb |
+| research/VF_MID_FIRST_BAD_HISTORY_COMPRESSION.lean | d9cc97541f9713b6eec8df30885e9ca830478e59 |
+| research/VF_MID_ACTUAL_PRIME_FIRST_BAD_MOBIUS_TRIGGER.lean | 1163ae30b448b2fdd99fc4bfb4f13b36863a52a9 |
+| research/VF_MID_915_SOURCE_PAYMENT_CONTENT_AUDIT.lean | f7d046d8d94962e18f794deee7e33ce7508a0e74 |
+| research/NATIVE_OWNER_DIAGONAL_CAPACITY_20261117.lean | 4d7d7e173c335b4a807dabaa6b9ec38c1509dbd4 |
+| research/EULER_DOUBLE_CENTERED_SOURCE_20261117.lean | 7cb66c07ff3bb784f1b1d4434647326f06f0f2b2 |
+| research/EULER_DOUBLE_CENTERED_REMAINDER_20261117.lean | fffc2c07a82368d56b0b4075c625dd3f9a09e147 |
+| research/oai_434/VF919WindowErrorClosure.lean | f629db1b2b65d6ec042ac9432397d4b6316200c6 |
+| scripts/lean/window_error_closure/WindowErrorClosureAudit.lean | 1f17f9401a63d16227db2e2aad020b9f74bc5f4e |
+
+#### Continuity Receipt
+
+The complete untruncated agent-reports tree 3a9d8629583316dd68d70eb4ccce9536a1c9caa0 was enumerated without a date cap. All relevant November 17 and November 16 role files were retrieved. Both Coordinator mirror files were fetched separately and match byte-for-byte on both dates. Relevant new sections after the prior NYMAN-JUMP watermark were read, with their original claims and review limits. TODAY=AVAILABLE for all roles; YESTERDAY=CARRY_FORWARD. CONTINUITY_COMPLETE is scoped to latest-actual discovery and relevant backfill, not a claim to reread every historical appendix.
+
+| Role; current file under research/agent_reports/2026-11-17/ | Verified blob at intake; actual section | Consumed transition and disposition |
+| --- | --- | --- |
+| Coordinator; 00-coordinator-am.md and identical 90-coordinator-pm.md | 21ae56b8856c02eea79efd6c2ffa01381d08710e; INV 07:10 | SC -> INV. Localized zero-head consumer accepted on paper; its all-head average proposal is superseded by HA's obstruction. |
+| Owner; 10-owner-payment.md | efab9f519e086b7b7cf78e7d6112a4b6ab0089ea; HF 08:09 | FB -> HF1-HF6. HF1 finite mask selected and independently reconstructed; other scopes not promoted. |
+| Analytic; 20-analytic-type-ii.md | 686c0a992692db9a53e7416745f37ee9b79f9fbb; HA 09:09 | EF -> HA. All-head dyadic subpower energy refuted; sparse good heads remain possible. |
+| Wheel; 30-finite-wheel.md | 49882b854f2df6d2ee426da70fa465d083733c78; SB 10:12 | GD -> SB. Small-prefix deletion bill separated; pure inner power claim false, repaired outer-loss supplier target-equivalent. |
+| Census; 40-prime-census.md | 701a6d15ba711d9a4ca3677709802def12c46c07; TC 11:00 | DJ -> TC. Raw floor components have two common tail modes; full residual cancellation must precede norm-taking. |
+| Referee; 50-adversarial-referee.md | 6e7f24cf5f790bab4ac1c19da6dc1c81546ad0e0; IC 12:03 | SG -> IC. Scoped acceptances INV1-4, HA1-3, TC1-2, HF1, SB1-3 consumed; new IC1-3 remain SELF_AUDIT/INDEPENDENT_REVIEW_PENDING. |
+| Lean; 60-lean-verification.md | 16d7a3b3c94f213c6407a97fd1f84eb7b5a1a9d5; NYMAN-JUMP 05:10 | Prior own source/CI capsule recovered; #1140 has since been human-merged into main. |
+
+November 16 carry-forward blobs, in the same role order: fda92549dd9291c491005fdf70847b90d9be385a; a52b439e693e069502b0c299a5f074a19bae0807; 84aaa2103225565607b5b033f273462bbe865246; 713826840694e39a141fbdbe813f1d47245928e7; 53e6be517dc11037fe3b42a8ed6ad3a06cfce956; 240b97ce1c8ddc87d5f520bc9a8cd6ea00df3d32; 0bada0352d54be7c46a7d928f4c4e3bee440ad8f. Older recorded gaps remain gaps, not fabricated runs. External inbox 7d63d434690d00dffce9c90335d41c4f62d85798 is unchanged, with no entry after October 18. An external handoff does not bypass review. The closing uncapped report enumeration at agent-reports revision 9f1d299b80cd42adb95cfb1fc3027d87db30d5e0 found only this invocation's own report changes since intake, no newer upstream watermark.
+
+### C. Formalization Candidates
+
+Priority A found no open/draft proof PR at intake requiring repair. #1140's original finite Nyman sign obstruction is already merged; its tested head 685598746869a62849451d7b7ffbfd09d42e4e4a has 13 successful checks and actual seven-theorem axiom audit. No duplicate sign module was created.
+
+Priority B/C queue: HF1 finite-mask obstruction has a complete elementary proof and independent acceptance; INV1's localized zero-evaluation estimate is a valuable conditional consumer but needs the exact analytic integral/dependency chain; TC1-2 offer structural tail information already partly present in recent preservation work. IC1-3 are new referee self-audited claims, not independently accepted merely because the author is the Referee. They were not silently promoted. HA and SB rule out specific proposed suppliers without ruling out all sparse-head or signed-restoration approaches.
+
+#1141's owner-capacity and Euler double-centering work is merged at main ancestry 319fc5798658e66baea1fed758b0d4b6dd126889, tested head dfd3197117410ad491d7c94b66448753ae8e4d63. Its 17 successful checks and three superseded cancellations were distinguished; actual owner/Euler audit logs were read, with 20 and 27 audited declarations respectively. The explicit gamma gain remains a premise. #1142 adds preservation documentation, not a supplied estimate. #1143's merge d1a5936939eda3c2d8cc74cc9082ecbf11249e18 is into docs/preservation-target-strength-20261117 ONLY, not main; its tested head b02c724221a74eb0835e7a090c615c8cdbc808fc has 13 successes. Its prime-phase files are absent from the main tree and were not used as main dependencies.
+
+### D. Candidate Selection
+
+HF1 eliminates the whole class of finite density-cancelling separate-cap contractions, rather than one numerical mask. Its exact positive-mass and large-cofactor excess explains why additional unsigned historical bookkeeping cannot repair the loss. The mathematical argument is independent of any open prime-error estimate, and small enough to certify with complete live dependency auditing.
+
+Source and scoped repository searches found no existing equivalent mask theorem in main or an active PR. This is a repository implementation claim, not a literature-novelty claim. The earlier all-history decompression and conditional source-payment equivalence were inspected and reused at their actual types, not recreated as the new result.
+
+### E. Exact Theorem Statement
+
+Let s be any finite set of natural numbers, c:Nat->Real, D>=1 an integer, and beta real. Assume every d in s satisfies D<=d and sum_(d in s)c(d)/d=-1. Define A=sum |c(d)|/d^beta, P=sum max(c(d),0)/d, and q=1-beta. Then
+
+```text
+A = D^q + 2*D^q*P + sum_(d in s) (|c(d)|/d)*(d^q-D^q).
+```
+
+There is NO beta restriction for this identity. If beta<=1, both excess terms are nonnegative, hence A>=D^(1-beta). For D=2 and beta<1, A>1. For the full positive support containing 1, c(1)=1 and sum c(d)/d=0, erase 1 exactly to obtain the tail balance -1 and D=2. Finally s={D}, c(D)=-D attains the lower bound for every real beta.
+
+All names below are in RHLean.Analysis, in research/HISTORICAL_DENSITY_MASK_OBSTRUCTION.lean:
+
+| Declaration | Mathematical class |
+| --- | --- |
+| historicalDensityMask_cost_identity | Structural identity retaining both excess terms, no sign or beta hypothesis. |
+| historicalDensityMask_cost_lower | Independent sharp lower bound for beta<=1 and any D>=1. |
+| historicalDensityMask_cost_gt_one | Strict absolute-tail obstruction for d>=2, beta<1. |
+| historicalDensityMask_no_contraction | Original full-mask obstruction with unit normalization and zero reciprocal moment. |
+| historicalDensityMask_cost_sharp | Explicit attaining single-cofactor witness; no equality-case uniqueness claim. |
+
+The six exact-type examples include sqrt(2)<=sum |c(d)|/sqrt(d). The stronger lower bound for a full mask is obtained by its explicit unit-removal balance and the lower theorem; no extra global estimate is smuggled into that conversion. Finsets preserve distinct integer cofactor labels. If an application presents duplicate labels, it must first justify the coefficient aggregation; no multiplicity transport is claimed automatically.
+
+### F. Independent Mathematical Audit
+
+Reconstructed proof: |x|=2max(x,0)-x implies sum |c(d)|/d=1+2P. Since d>=D>=1, every denominator is strictly positive. Rewrite d^(1-beta)=d/d^beta, add and subtract D^(1-beta) times the mass, and distribute the finite sums. Monotonicity of positive real powers gives the lower bound for beta<=1. Strictness uses 2^(1-beta)>1. The unit-removal proof uses the exact finite-sum identity, not informal deletion of a historical occurrence. No hypothesis assumes the conclusion, the canonical objective, a residual bound, random signs or independence.
+
+Boundary checks matter: beta=1 allows cost=1; beta>1 permits cost<1. Without c(1)=1, the zero mask is a counterexample to strictness. D=1 gives a valid nonstrict generalization but not the original strict tail result. Positive tail coefficients and large-cofactor excess may not be dropped from the equality. The independent rational checker covers 3,508 assertions and four omission/boundary controls, including exact square-root weights on square supports. These finite tests are not proof of the universal real-exponent claim.
+
+Carrier scope: the coefficients and reciprocal/real-power cofactor weights are exactly those of HF1. Genuine prime counts, the diagnostic nonsquare reference Fhat, original first-bad wall, squareful corrections, frozen historical anchors and all quadratic cross terms remain in the surrounding source problem. This module does not replace any of them with a model or claim a new bridge. In particular A>1 does not imply |J_c(B)|>H_B. Actual errors need not attain their separate caps.
+
+| Source and loss | Recovery status and exact consumer |
+| --- | --- |
+| Actual-prime mask D_B=R_c(B^2)-J_c(B); separate absolute historical caps discard cofactor and current-history cancellation. | New HF1 theorem obstructs that proof cost. The complete 2R_c^2+2J_c^2-4R_cJ_c-(abs(D_r)+C_r)^2 remains unpaid; no signed lower bound follows. |
+| Euler/cofactor and finite A/C routes use genuine multiplicative coefficients but different masks and transports. | Existing double-centering is structural and gamma-conditional. No automatic norm-preserving map to this unweighted prime mask is supplied. |
+| Original Nyman floor residual has a zero head and shared tail modes; taking raw component norms first loses cancellation. | INV consumer remains conditional on complete sparse-head energy. HA refutes the all-head substitute. TC/IC do not supply the missing full energy bound. |
+| NNS/OAI ideal-character or covariance carriers have distinct weights, admission and residual terms. | No map to finite rational cofactor masks is established here. No gain is transferred between these carriers without a proved bridge. |
+
+### G. Lean Implementation
+
+Six focused additions: research/HISTORICAL_DENSITY_MASK_OBSTRUCTION.lean; scripts/lean/historical_density_mask/ExactTypes.lean; scripts/lean/historical_density_mask/Audit.lean; scripts/lean/historical_density_mask/check_inventory.py; scripts/historical_density_mask_regression.py; .github/workflows/historical-density-mask.yml.
+
+The only private supporting theorem is the absolute-value/positive-part identity. The proof uses finite-sum distribution, positive real powers, exact casts, real algebra and finite unit removal. It introduces no project axiom, proof hole, native_decide shortcut or target-equivalent premise.
+
+The dedicated hosted workflow uses the repository's pinned Lean setup, existing compiled cache and warning-fatal research import-closure action. ExactTypes imports the new module and checks all five public statements plus the square-root consumer. Audit collects actual transitive axioms for every public theorem, allows only propext/Classical.choice/Quot.sound, and traverses live project/private proof values to require real-power conversion and the intended identity/tail/unit-removal dependencies. The inventory fails closed unless all five public declarations and six exact types have live audit evidence. No existing CI requirement was weakened. Root source is unchanged; this research module is compiled through its explicit research closure and consumer import, as in the prior research proof architecture.
+
+### H. Proof-Branch And PR Evidence
+
+[PR #1144](https://github.com/OVVO-Financial/RH_Lean/pull/1144), targeting main; own branch agent/lean-verification/20261117-historical-mask-obstruction; base fd4085e20602bc210cc6b630abbdeeeaf1bf28eb. Initial implementation 3949a376ade42992c2faff3f261ec35af67fb700; proof/audit repair 3c2e6f09375e07bf596f5fff5cd51c43d731b28d; final exact-type cast repair/head abd9bb34c8fac459e67c63009961b6c26548d7e9. After all 13 checks passed and the exact head was rechecked, the draft was marked ready for review at 18:41 UTC. Verified returned state: OPEN, draft=false, merged=false. Auto-merge remains unset. The PR body contains the precise scope, repair history and hosted evidence.
+
+Only the authorized proof branch and own daily report were written. No push to main, merge, auto-merge, other-role edit, policy change, agent launch, schedule change or permission expansion occurred.
+
+### I. GitHub Actions Evidence
+
+Latest tested head is abd9bb34c8fac459e67c63009961b6c26548d7e9. The [dedicated workflow and job](https://github.com/OVVO-Financial/RH_Lean/actions/runs/44149489941/job/134273552309) completed successfully. Actual logs were retrieved, not inferred from a green badge. All six exact-type examples pass warning-fatal; the five elaborated public theorem types were inspected. All five live transitive axiom collections contain ONLY propext, Classical.choice and Quot.sound. Project/private proof-reference closure sizes, in declaration order from E, are 262,312,336,399,104. These are the scoped dependency traversal sizes, not counts of the full Mathlib transitive graph.
+
+The latest dedicated and [targeted iteration job](https://github.com/OVVO-Financial/RH_Lean/actions/runs/44149490010/job/134273552492) each report compiled=0,cached=1 for the unchanged theorem module. This is not described as a fresh source compilation at that head: actual warning-fatal compilation of the identical source blob 7bf4433fc1f2e70226df211550829057b024dad2 occurred at the preceding proof repair, in [run 44148672361/job 134270651890](https://github.com/OVVO-Financial/RH_Lean/actions/runs/44148672361/job/134270651890), compiled=1,cached=0. The latest commit changes only ExactTypes, which was actually re-elaborated and passed before the live audit. The pins and relevant proof dependencies are unchanged; no no-op rebuild was requested.
+
+The dedicated hosted regression also passes all 3,508 exact assertions and four negative controls. The complete public theorem inventory passes against the live audit output. Source, exact types and logs are preserved in [artifact 14358376775](https://github.com/OVVO-Financial/RH_Lean/actions/runs/44149489941/artifacts/14358376775).
+
+| Latest-head evidence | Job and verification scope |
+| --- | --- |
+| Dedicated mask theorem | 44149489941 / 134273552309; pinned toolchain, unchanged source cache, six exact types, five standard-axiom/dependency checks, public inventory, exact rational regression. |
+| Targeted Lean iteration | 44149490010 / 134273552492; unchanged research closure reused with valid cache keys. |
+| Hosted root build and declaration graph | 44149489804 / 134273551988; successful, zero cyclic declaration components and no RHLean-owned Lean warnings. |
+| Source audit | 44149489804 / 134273552577; proof-hole/axiom source scan, root import manifest, research cache invalidation regressions. |
+| Proof inventory and public export | 44149489848 / 134273552455 and 44149490088 / 134273552935; both successful. |
+| Existing first-bad/consolidation checks | Runs 44149489737, 44149489788, 44149489783, 44149489911, 44149489904; all successful. |
+| Atlas and anti-cold-only policy | Runs 44149489875 and 44149489644; both successful. |
+
+All 13 latest-head check runs are successful, with no pending, failed, skipped or cancelled check. The hosted root build's actual log was also retrieved: successful builds, exact elaborated graph validation, zero cyclic components, and no RHLean-owned Lean warnings. No skipped, cancelled, old-head or documentation-only result is being substituted for the new proof's hosted evidence.
+
+Final added blobs, independently matched to local Git object hashes; the main-to-feature comparison contains exactly these six additions and no edits/deletions of existing files:
+
+| Added path | Blob |
+| --- | --- |
+| research/HISTORICAL_DENSITY_MASK_OBSTRUCTION.lean | 7bf4433fc1f2e70226df211550829057b024dad2 |
+| scripts/lean/historical_density_mask/ExactTypes.lean | fb0a94a32f77f4183efe7839da956680b3394797 |
+| scripts/lean/historical_density_mask/Audit.lean | 855f2cd143ee60cf3a91b5de997c355f5a1ff66c |
+| scripts/lean/historical_density_mask/check_inventory.py | 2343ff49c91d2d90b5609687e836fb863627716a |
+| scripts/historical_density_mask_regression.py | a7b431268e8420752e225b678c76083ee5b46e96 |
+| .github/workflows/historical-density-mask.yml | 87747cf43fd58ec7f17c5c267c96ae1dde0ce48e |
+
+### J. CI Failures And Repairs
+
+Initial dedicated run 44147558663 / job 134266723551 failed during actual warning-fatal Lean compilation. The exact diagnostics were: line 65 expected a Boolean inequality coerced to a proposition because != was used instead of propositional inequality; line 124 did not infer the finite-sum lambda through the natural-to-real unit cast; line 140 left the cast's ordered-ring type underdetermined. The repair uses propositional nonzero, an explicit Nat->Real summand with simplification, and the already-proved real positivity for the absolute-value simplification. The lower-bound polynomial proof also explicitly supplies the nonnegative product.
+
+Static dependency review changed the new audit's real-power check to Real.rpow_sub, the live proof lemma used by the conversion; overloaded power notation itself elaborates via an instance. All real-power statement types remain checked independently. This strengthens alignment of the new audit with the actual proof, and does not disable any existing gate or alter a theorem hypothesis.
+
+At 3c2e6f09375e07bf596f5fff5cd51c43d731b28d, run 44148672361 / job 134270651890 compiled the new theorem module warning-fatal with compiled=1,cached=0. Its next step failed only at ExactTypes.lean line 46: the explicit restricted simplifier did not rewrite the natural numeral cast in the square-root corollary. Adding Nat.cast_ofNat to that simplifier at abd9bb34c8fac459e67c63009961b6c26548d7e9 changes no theorem or assumption. The five original exact types and their elaborated declarations had already printed; the incomplete audit job was not credited as full certification.
+
+Before the initial commit, the Python regression's max(c,0) mixed integer zero and Fraction; it was corrected to max(c,Fraction(0)) to retain exact arithmetic. A local attempt to run the full inventory correctly failed for lack of a hosted axiom log; no local live-audit success or fake log was credited. After the two focused repair commits, all exact types, live audits and all 13 repository checks passed at the latest head. No unresolved CI failure remains; no theorem statement was weakened.
+
+### K. Mathematical Conclusions
+
+New result: an independently proved exact cost identity and sharp obstruction to separate absolute density-mask contraction. This is not merely a conditional rearrangement of the canonical target. It is also not a new global upper bound on primes, Mertens, Nyman energy or covariance.
+
+The actual fixed-mask cap asymptotic remains a paper-level application outside this PR. Uniform interpolation for growing supports requires its own return analysis. The elementary finite-mask identity itself is mask-uniform. The full signed source remains open even when a filtered response is small; all terms in its reconstructed square must be retained.
+
+NO_NEW_GLOBAL_GAIN; NO_NEW_ACCEPTED_RH_ROUTE; VERIFIED_ETA=NONE; RH=OPEN.
+
+### L. Formalization-Driven Discoveries
+
+The exact identity needs neither beta<1 nor coefficient-sign assumptions. The nonstrict lower bound extends to beta=1 and every minimum cofactor D>=1. Strictness requires a genuine nonunit tail and beta<1. The single-cofactor sharpness identity holds for all beta. Separating these types prevents an endpoint or positivity assumption from being hidden in the algebra.
+
+These are modest useful generalizations of the reviewed formula, not new analytic claims. The compiler failures were elaboration issues, not counterexamples; no assumption or conclusion was changed to evade an unproved mathematical obligation. Formalization did not establish equality-case uniqueness, two-moment improvement or prime-specific cancellation.
+
+### M. Mathematical Significance
+
+Formal soundness and significance are separate: the new theorem's precise certification is recorded in I; its contribution is a decisive no-go for a specific proposed supplier in the actual-prime failure-first continuation. The optimum already exceeds one at beta=1/2, so optimizing unsigned finite density masks cannot supply a contraction at that exponent. This does not preclude retaining actual signed interactions, using a different genuine arithmetic mechanism, or closing another authorized route.
+
+### N. Specialist Handoffs
+
+| Recipient | Precise handoff |
+| --- | --- |
+| Proof Architect | HF1 finite-mask obstruction now has the scoped implementation/CI receipt below. Park separate-cap mask optimization; do not promote the INV all-head proposal refuted by HA. Any replacement needs an independent complete signed supplier. |
+| Owner Payment / Arithmetic Structure | Reuse the exact positive-mass and large-cofactor excess and sharp D-dependent lower bound. Fixed-mask interpolation, two-moment refinement and actual signed first-bad control remain distinct unformalized obligations. |
+| Analytic Type II | No bound on the signed response was obtained. HA's all-head obstruction is retained; INV's sparse-head consumer remains admissible only with a complete, independently established upper bound. |
+| Finite Wheel & Incidence | SB's small-prefix return and outer-loss qualifications remain. This cofactor theorem does not bridge to a frozen-deletion Mertens estimate or remove its complete restoration cost. |
+| Prime Census Laboratory | TC's raw-tail cancellations must precede separate norm estimates. HF1's universal theorem is not inferred from a numerical scan; future tests should retain complete signed returns and genuine prime admission. |
+| Adversarial Referee | Review the final elaborated types and axiom receipt against HF1's finite-mask scope. IC1-3 remain pending independent review, not self-certified by this report. No inference from A_beta>1 to actual prime-error size is made. |
+
+These are published role handoffs, not instructions to launch or retask another agent. No agent was launched.
+
+### O. First Unresolved Mathematical Theorem
+
+For the selected VF lane, the missing independent arithmetic assertion is control of the COMPLETE genuine first-bad source, for example proving, from actual primality and the full prior-good history rather than a renamed target,
+
+```text
+2*(R_c(B^2)-J_c(B))^2 <= (|D_(B-1)|+C_(B-1))^2
+```
+
+in the original source-payment configuration, with its finite base, square-boundary interpolation, exact normalizations and all cross terms. Merely assuming this quadratic inequality is HF6's target-equivalent reformulation, not a supplier. The new obstruction proves that the specific separate absolute historical-cap route cannot furnish that contraction; it gives no replacement prime-specific theorem.
+
+Separately, the surviving Nyman route needs one common unbounded sequence of genuine prescribed heads on which the ENTIRE residual energy is subpower for every positive exponent, or another independently proved closed-boundary supplier. INV's zero-head consumer explains sufficiency; HA rules out the stronger all-head averaging proposal. No sparse-head upper bound, arbitrary-coefficient converse for the prescribed taper, or complete residual estimate is supplied here.
+
+### P. Next-Run Resume Capsule
+
+```text
+RUN=20261117-lean-1314-EST/HF1; PLATFORM_RUN_ID=UNAVAILABLE
+MAIN=fd4085e20602bc210cc6b630abbdeeeaf1bf28eb
+AUTHORITY=AGENTS c4f36b772f8a4b0c24fe566b90fafb646073c60f
+CONTRACT=95566e37c8eaeb99ee680660df4f9d2e06ea5038
+HALF_DIRECTIVE=96ad4439ec458af6168f7d9cb3eef5dde291d37c
+CROSS_ROUTE=e3ae4280438f591f1ffaddd754a1c3a6d35d0691
+CONTINUITY=3e71820a4af722eae7098da6945bb5bcba50dd0d
+WATERMARKS=INV/HF/HA/SB/TC/IC; own prior NYMAN-JUMP; external unchanged
+EARLY_CHECKPOINT=397ab1042e9d021942e60b0055dd0b3589b59715
+IMPLEMENTATION_CHECKPOINT=9f1d299b80cd42adb95cfb1fc3027d87db30d5e0
+PR=1144; BRANCH=agent/lean-verification/20261117-historical-mask-obstruction
+HEAD=abd9bb34c8fac459e67c63009961b6c26548d7e9
+SOURCE_BLOB=7bf4433fc1f2e70226df211550829057b024dad2
+STATE=OPEN,REVIEW_READY,UNMERGED; AUTO_MERGE=UNSET
+DEDICATED=44149489941/134273552309; cached1, six exact types, five audits PASS
+SOURCE_COMPILE=44148672361/134270651890; compiled1,cached0, identical source blob
+TARGETED=44149490010/134273552492; cached1, unchanged dependencies
+HOSTED_ROOT=44149489804/134273551988; build and exact graph PASS
+CHECKS=13/13 PASS at final head; unresolved CI failures=NONE
+AXIOMS=propext,Classical.choice,Quot.sound only for all five public theorems
+ARTIFACT=14358376775
+NEW_FORMAL=HF1 finite-mask exact excess, sharp lower bound and strict obstruction
+REPAIRS=propositional inequality, explicit summand/casts, real-power audit,
+        square-root exact-type numeral normalization; no assumption change
+NEXT=check actual human review/merge or repair a real regression;
+     consume a new independently proved signed supplier or necessary theorem;
+     do not repeat finite mask optimization or known sign scans
+NOT_CLAIMED=actual signed prime lower bound, fixed/growing-mask interpolation,
+            equality-case uniqueness, two-moment refinement, new exponent, RH
+PUBLICATION=READBACK_PENDING
+```
+
+No local Lean or unfinished local execution is required. The report preserves earlier history and will be closed only by immutable publication readback.
