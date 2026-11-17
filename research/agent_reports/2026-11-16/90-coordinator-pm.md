@@ -1566,3 +1566,20 @@ print(json.dumps({"status": "PASS", "assertions": checks,
 
 ```
 
+
+
+## Verified Publication Receipt - SC
+
+Verified at 2026-11-16 23:34:49 EST / 2026-11-17T04:34:49Z. The substantive SC synthesis and its embedded exact checker were published in [a00f5cb1fb178ffb994d3eb6096830aab6a0d305](https://github.com/OVVO-Financial/RH_Lean/commit/a00f5cb1fb178ffb994d3eb6096830aab6a0d305). Immutable readbacks of both authorized Coordinator paths matched the intended 164,291-character content exactly and shared blob 03c901b59daa02e43048b5e785c98268c116264c. The verified commit changed only those two paths, adding 482 lines and deleting zero in each. All earlier report bytes and the early checkpoint are preserved.
+
+Pre-publication main remained 4d5482805bac6a8f29d4fb4dadc61eca0bc06525; the complete open/draft PR collection remained empty. No intervening specialist report appeared after the consumed intake. Publication is verified independently of mathematical acceptance.
+
+    EXECUTION=COMPLETED
+    SUBSTANTIVE_PUBLICATION=PUBLISHED_IMMUTABLE_READBACK_VERIFIED
+    MIRRORS=BYTE_IDENTICAL
+    SC1_SC3=PAPER_PROOF/SELF_AUDIT/INDEPENDENT_REVIEW_PENDING/NOT_FORMALIZED
+    SC4=FINITE_COMPUTATION/PASS
+    CR1=ACCEPT_ON_PAPER_AT_MODEL_SCOPE
+    GLOBAL_ENDPOINT=OPEN; VERIFIED_ETA=NONE; NO_NEW_LEAN
+
+This receipt closes SC's earlier READBACK_PENDING and IN_PROGRESS publication labels only. It does not convert a paper proof into independent acceptance or Lean certification, or close any earlier agent's mathematical obligation. The Coordinator execution is complete; the canonical RH objective remains unresolved.
