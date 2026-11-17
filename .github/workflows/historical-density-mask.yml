@@ -1,0 +1,62 @@
+name: Historical density mask sharp obstruction
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'research/HISTORICAL_DENSITY_MASK_OBSTRUCTION.lean'
+      - 'scripts/lean/historical_density_mask/**'
+      - 'scripts/historical_density_mask_regression.py'
+      - '.github/workflows/historical-density-mask.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: historical-density-mask-${{ github.head_ref || github.ref_name }}-${{ github.event.pull_request.head.sha || github.sha }}
+  cancel-in-progress: true
+
+jobs:
+  historical-density-mask-proof:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Independent exact mask regression
+        run: python3 scripts/historical_density_mask_regression.py
+      - name: Verify compiler and Mathlib pins
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(cat lean-toolchain)" = 'leanprover/lean4:v4.34.1'
+          grep -q 'd13f23b723b8a846827a245b89c10fc7d3f11612' lakefile.lean
+      - name: Pinned Lean and cached Mathlib
+        uses: ./.github/actions/lean-setup
+      - name: Restore native compiled prerequisites
+        uses: ./.github/actions/lean-compiled-cache
+      - name: Warning-fatal research import closure
+        uses: ./.github/actions/research-compile
+        with:
+          build-library: 'true'
+          targets: research/HISTORICAL_DENSITY_MASK_OBSTRUCTION.lean
+      - name: Exact types, dependencies, and standard terminal axioms
+        shell: bash
+        run: |
+          set -euo pipefail
+          lake env lean -DwarningAsError=true scripts/lean/historical_density_mask/ExactTypes.lean | tee historical-density-mask-types.log
+          lake env lean -DwarningAsError=true --run scripts/lean/historical_density_mask/Audit.lean | tee historical-density-mask-audit.log
+          python3 scripts/lean/historical_density_mask/check_inventory.py
+      - name: Preserve proof and audit evidence
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: historical-density-mask-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            research/HISTORICAL_DENSITY_MASK_OBSTRUCTION.lean
+            scripts/lean/historical_density_mask/
+            historical-density-mask-types.log
+            historical-density-mask-audit.log
+          if-no-files-found: error
