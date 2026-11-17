@@ -85,6 +85,17 @@ example (ε : ℝ) (hε : 0 < ε) :
         C * (R : ℝ) ^ (1 + ε) :=
   eulerSelfDual_doubleCentered_remainder_subpower ε hε
 
+example (R : ℕ) (hR : 2 ≤ R) :
+    |eulerDoubleCenteredDivisorQ R| ≤
+      2 * ((R - 1 : ℕ) : ℚ) * (2 : ℚ) ^ (R - 1).primeFactors.card :=
+  eulerDoubleCenteredDivisorQ_abs_le_primeFactors R hR
+
+example (R : ℕ) (hR : 2 ≤ R) :
+    |eulerFloorBilinearQ R - eulerDoubleCenteredXiQ R| ≤
+      2 * (R : ℚ) + 5 +
+        2 * ((R - 1 : ℕ) : ℚ) * (2 : ℚ) ^ (R - 1).primeFactors.card :=
+  eulerDoubleCentered_remainder_le_primeFactors R hR
+
 #print eulerReciprocalHistoricalQ_abs_le_one
 #print eulerFloorBilinearQ_eq_double_centered
 #print eulerDoubleCenteredKernelQ_eq_parts
@@ -99,3 +110,5 @@ example (ε : ℝ) (hε : 0 < ε) :
 #print eulerDoubleCentered_remainder_le_divisors
 #print eulerDoubleCentered_remainder_subpower
 #print eulerSelfDual_doubleCentered_remainder_subpower
+#print eulerDoubleCenteredDivisorQ_abs_le_primeFactors
+#print eulerDoubleCentered_remainder_le_primeFactors

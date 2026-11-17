@@ -187,8 +187,8 @@ def check_double_centered(root, mu, mertens):
     assert abs(full_floor * scale - nondivisor) <= (
         2 * root + 5 + 2 * n * squarefree_divisors
     ) * scale
-    # The current Lean module certifies this coarser tau(n) finite budget;
-    # the squarefree-row refinement above remains an additional finite check.
+    # Lean formalizations of both finite budgets are present; the squarefree
+    # refinement is pending hosted verification. This remains a finite check.
     assert abs(full_floor * scale - nondivisor) <= (
         2 * root + 5 + 2 * n * divisor_count
     ) * scale

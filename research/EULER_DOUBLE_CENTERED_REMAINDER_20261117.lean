@@ -6,8 +6,9 @@ import RHLean.Proof.DeathShellSubpolynomial
 
 The union of both divisor-row orientations is retained once, and the
 unconditional divisor-count estimate pays the whole removed source.
-The explicit finite bound uses tau(R-1), a convenient upper bound on the
-number of squarefree divisor rows.  No bound on Xi is assumed or proved.
+The subpower proof uses tau(R-1), a convenient upper bound on the number
+of squarefree divisor rows.  The sharper finite 2^omega(R-1) bound is also
+retained.  No bound on Xi is assumed or proved.
 -/
 
 set_option autoImplicit false
@@ -139,7 +140,7 @@ theorem eulerDoubleCenteredDivisorQ_abs_le (R : ℕ) (hR : 2 ≤ R) :
       simp_rw [hinner]
       rw [Finset.sum_add_distrib, ← Finset.mul_sum, hc]
       simp [S, Nat.card_Icc]
-      <;> ring
+      ring
 
 /-- Every removed term is included in the explicit original-source error. -/
 theorem eulerDoubleCentered_remainder_le_divisors (R : ℕ) (hR : 2 ≤ R) :
@@ -211,5 +212,122 @@ theorem eulerSelfDual_doubleCentered_remainder_subpower (ε : ℝ) (hε : 0 < ε
     norm_cast
   rw [he, Complex.norm_real, Real.norm_eq_abs]
   exact hbound R hR
+
+
+private theorem squarefreeDivisor_card (n : ℕ) (hn : n ≠ 0) :
+    (n.divisors.filter Squarefree).card = 2 ^ n.primeFactors.card := by
+  have h := congrArg Multiset.card (Nat.divisors_filter_squarefree hn)
+  simpa [Nat.factors_eq, Nat.primeFactors] using h
+
+private theorem doubleCenteredDivisor_squarefree_term_bound (R a b : ℕ)
+    (ha : 0 < a) (hb : 0 < b) :
+    |eulerMuQ b * (eulerMuQ a * eulerDoubleCenteredDivisorKernelQ R a b)| ≤
+      (if a ∣ R - 1 ∧ Squarefree a then (1 : ℚ) else 0) +
+        (if b ∣ R - 1 ∧ Squarefree b then (1 : ℚ) else 0) := by
+  by_cases hsa : Squarefree a
+  · by_cases hsb : Squarefree b
+    · by_cases hd : a ∣ R - 1 ∨ b ∣ R - 1
+      · rw [eulerDoubleCenteredDivisorKernelQ, if_pos hd,
+          eulerDoubleCenteredKernelQ_divisor R a b ha hb hd]
+        obtain ⟨hv0, hv1⟩ := eulerFractionQ_nonneg_lt_one (R := R) ha hb
+        rw [abs_mul, abs_mul, abs_neg, abs_of_nonneg hv0]
+        have hm : |eulerMuQ b| * |eulerMuQ a| ≤ 1 := by
+          simpa using mul_le_mul (eulerMuQ_abs_le_one b) (eulerMuQ_abs_le_one a)
+            (abs_nonneg (eulerMuQ a)) (by norm_num : (0 : ℚ) ≤ 1)
+        have he : |eulerMuQ b| * (|eulerMuQ a| * eulerFractionQ R a b) ≤ 1 := by
+          rw [← mul_assoc]
+          exact (mul_le_mul_of_nonneg_right hm hv0).trans (by simpa using hv1.le)
+        apply he.trans
+        rcases hd with hd | hd
+        · simp only [hd, hsa, hsb, true_and, and_true, ite_true]
+          split_ifs <;> norm_num
+        · simp only [hd, hsa, hsb, true_and, and_true, ite_true]
+          split_ifs <;> norm_num
+      · simp [eulerDoubleCenteredDivisorKernelQ, hd, not_or.mp hd]
+    · have hz : eulerMuQ b = 0 := by
+        simp [eulerMuQ, ArithmeticFunction.moebius_eq_zero_of_not_squarefree hsb]
+      rw [hz, zero_mul, abs_zero]
+      positivity
+  · have hz : eulerMuQ a = 0 := by
+      simp [eulerMuQ, ArithmeticFunction.moebius_eq_zero_of_not_squarefree hsa]
+    rw [hz, zero_mul, mul_zero, abs_zero]
+    positivity
+
+private theorem squarefreeDivisorIndicator_sum (R : ℕ) (hR : 2 ≤ R) :
+    (∑ a ∈ Finset.Icc 1 (R - 1),
+      if a ∣ R - 1 ∧ Squarefree a then (1 : ℚ) else 0) =
+      (2 : ℚ) ^ (R - 1).primeFactors.card := by
+  classical
+  have hN0 : R - 1 ≠ 0 := by omega
+  have hset : (Finset.Icc 1 (R - 1)).filter (fun a => a ∣ R - 1 ∧ Squarefree a) =
+      (R - 1).divisors.filter Squarefree := by
+    ext a
+    constructor
+    · intro ha
+      obtain ⟨_haS, had, hsf⟩ := Finset.mem_filter.mp ha
+      exact Finset.mem_filter.mpr ⟨Nat.mem_divisors.mpr ⟨had, hN0⟩, hsf⟩
+    · intro ha
+      obtain ⟨hadiv, hsf⟩ := Finset.mem_filter.mp ha
+      have had := Nat.dvd_of_mem_divisors hadiv
+      have hap := Nat.pos_of_mem_divisors hadiv
+      have hal := Nat.le_of_dvd (by omega : 0 < R - 1) had
+      exact Finset.mem_filter.mpr ⟨Finset.mem_Icc.mpr ⟨hap, hal⟩, had, hsf⟩
+  rw [← Finset.sum_filter, hset]
+  simp only [Finset.sum_const, nsmul_eq_mul, mul_one]
+  exact_mod_cast squarefreeDivisor_card (R - 1) hN0
+
+/-- Sharper finite row payment retains every squareful zero. -/
+theorem eulerDoubleCenteredDivisorQ_abs_le_primeFactors (R : ℕ) (hR : 2 ≤ R) :
+    |eulerDoubleCenteredDivisorQ R| ≤
+      2 * ((R - 1 : ℕ) : ℚ) * (2 : ℚ) ^ (R - 1).primeFactors.card := by
+  classical
+  let S := Finset.Icc 1 (R - 1)
+  let i := fun a => if a ∣ R - 1 ∧ Squarefree a then (1 : ℚ) else 0
+  have hc : (∑ a ∈ S, i a) = (2 : ℚ) ^ (R - 1).primeFactors.card :=
+    squarefreeDivisorIndicator_sum R hR
+  have hinner (b : ℕ) : (∑ a ∈ S, (i a + i b)) =
+      (2 : ℚ) ^ (R - 1).primeFactors.card + ((R - 1 : ℕ) : ℚ) * i b := by
+    rw [Finset.sum_add_distrib, hc]
+    simp [S, Nat.card_Icc]
+  unfold eulerDoubleCenteredDivisorQ
+  simp_rw [Finset.mul_sum]
+  change |∑ b ∈ S, ∑ a ∈ S,
+    eulerMuQ b * (eulerMuQ a * eulerDoubleCenteredDivisorKernelQ R a b)| ≤ _
+  calc
+    |∑ b ∈ S, ∑ a ∈ S,
+        eulerMuQ b * (eulerMuQ a * eulerDoubleCenteredDivisorKernelQ R a b)| ≤
+        ∑ b ∈ S, |∑ a ∈ S,
+          eulerMuQ b * (eulerMuQ a * eulerDoubleCenteredDivisorKernelQ R a b)| :=
+      Finset.abs_sum_le_sum_abs _ _
+    _ ≤ ∑ b ∈ S, ∑ a ∈ S,
+        |eulerMuQ b * (eulerMuQ a * eulerDoubleCenteredDivisorKernelQ R a b)| := by
+      apply Finset.sum_le_sum
+      intro b _hb
+      exact Finset.abs_sum_le_sum_abs _ _
+    _ ≤ ∑ b ∈ S, ∑ a ∈ S, (i a + i b) := by
+      apply Finset.sum_le_sum
+      intro b hb
+      apply Finset.sum_le_sum
+      intro a ha
+      exact doubleCenteredDivisor_squarefree_term_bound R a b
+        (Finset.mem_Icc.mp ha).1 (Finset.mem_Icc.mp hb).1
+    _ = 2 * ((R - 1 : ℕ) : ℚ) * (2 : ℚ) ^ (R - 1).primeFactors.card := by
+      simp_rw [hinner]
+      rw [Finset.sum_add_distrib, ← Finset.mul_sum, hc]
+      simp [S, Nat.card_Icc]
+      ring
+
+theorem eulerDoubleCentered_remainder_le_primeFactors (R : ℕ) (hR : 2 ≤ R) :
+    |eulerFloorBilinearQ R - eulerDoubleCenteredXiQ R| ≤
+      2 * (R : ℚ) + 5 +
+        2 * ((R - 1 : ℕ) : ℚ) * (2 : ℚ) ^ (R - 1).primeFactors.card := by
+  have he : eulerFloorBilinearQ R - eulerDoubleCenteredXiQ R =
+      (2 * ((R + 1 : ℕ) : ℚ) * eulerReciprocalHistoricalQ R -
+        eulerDoubleCenterScaleQ R) + eulerDoubleCenteredDivisorQ R := by
+    rw [eulerFloorBilinearQ_eq_linear_add_divisor_add_xi R hR]
+    ring
+  rw [he]
+  exact (abs_add _ _).trans (add_le_add (eulerDoubleCentered_linear_abs_le R hR)
+    (eulerDoubleCenteredDivisorQ_abs_le_primeFactors R hR))
 
 end RHLean.Proof

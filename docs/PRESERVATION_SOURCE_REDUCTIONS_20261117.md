@@ -81,16 +81,18 @@ literal complement is `Xi_R`, with both ordered orientations and the original
 Mobius coefficients retained. The source file proves the exact partition and
 an adapter back to the original complex `eulerSelfDualBilinear`.
 
-The quantitative remainder uses the elementary bound `|m_R|<=1` and the full
-divisor count `tau(N)=N.divisors.card`:
+The quantitative remainder uses the elementary bound `|m_R|<=1`. The complete
+divisor-row contribution is bounded using only squarefree divisors: the Mobius
+coefficient vanishes on every other row. There are exactly `2^omega(N)`
+squarefree divisors, where `omega(N)=N.primeFactors.card`. Thus
 
 \[
-|Q_R-\Xi_R|\le2R+5+2(R-1)\tau(R-1).
+|Q_R-\Xi_R|\le2R+5+2(R-1)2^{\omega(R-1)}.
 \]
 
-The earlier paper bound used the sharper squarefree divisor count
-`2^omega(N)`. The Lean implementation deliberately uses the larger `tau(N)`;
-the pre-existing internally proved divisor estimate gives the same conclusion
+The implementation also proves the bound with the full divisor count
+`tau(N)=N.divisors.card`. The pre-existing internally proved divisor estimate
+then gives
 
 \[
 \forall\varepsilon>0\ \exists C_\varepsilon\ge0\ \forall R\ge2:

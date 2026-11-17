@@ -53,6 +53,7 @@ private theorem ownerPair_mul_injective {R x : ℕ}
   obtain ⟨hq, hn⟩ := Finset.mem_sigma.mp hb
   obtain ⟨hm1, hmle⟩ := Finset.mem_Icc.mp hm
   obtain ⟨hn1, hnle⟩ := Finset.mem_Icc.mp hn
+  change 1 ≤ n at hn1
   obtain ⟨hpI, hpP⟩ := Finset.mem_filter.mp hp
   obtain ⟨hqI, hqP⟩ := Finset.mem_filter.mp hq
   have hRp : R < p := (Finset.mem_Ioc.mp hpI).1
@@ -62,7 +63,7 @@ private theorem ownerPair_mul_injective {R x : ℕ}
   have hpq : p = q := by
     rcases hpP.dvd_mul.mp hdiv with h | h
     · exact (Nat.prime_dvd_prime_iff_eq hpP hqP).mp h
-    · have hpn : p ≤ n := Nat.le_of_dvd (by omega) h
+    · have hpn : p ≤ n := Nat.le_of_dvd (lt_of_lt_of_le Nat.zero_lt_one hn1) h
       omega
   subst q
   have hmn : m = n := Nat.eq_of_mul_eq_mul_left hpP.pos hprod
@@ -131,8 +132,9 @@ theorem diagonalUpTo_endpoint (M : ℕ → ℝ) (R : ℕ) :
 
 private theorem nativeM_eq_int_cast (n : ℕ) :
     nativeM n = (mertensSummatoryInt n : ℝ) := by
-  have h := congrArg Complex.re (mertensSummatoryInt_cast n)
-  simpa [nativeM] using h.symm
+  unfold nativeM
+  rw [← mertensSummatoryInt_cast n]
+  simp only [Complex.intCast_re]
 
 /-- The actual uncentered historical square costs at most three times K. -/
 theorem nativeM_sq_le_three_historical {R y : ℕ}
@@ -151,7 +153,7 @@ theorem nativeM_sq_le_three_historical {R y : ℕ}
       norm_num [nativeM, mertensSummatory, Finset.sum_range_succ,
         ArithmeticFunction.moebius_apply_one, h2]
     rw [hM2]
-    positivity
+    nlinarith
   have hy3 : (3 : ℝ) ≤ (y : ℝ) := by exact_mod_cast (show 3 ≤ y by omega)
   have hshift : (nativeM y - 1) ^ 2 ≤
       squareRootHistoricalK R * ((y : ℝ) + 1) := by

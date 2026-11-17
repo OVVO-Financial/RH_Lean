@@ -1,7 +1,7 @@
 {
   "schema": "rhlean-proof-obligations/1",
   "registry_version": "2026-11-15.2",
-  "authority": "Mathematical proof-obligation registry with Lean declarations and dated evidence. Conditional consumers do not prove their premises; paper and numerical findings are not Lean certificates. November 15 refresh: #1119 was human-merged on November 9, and its tested source blob is preserved on current main. PR #1135 proves the universal historical-envelope laws and exact RH-equivalent route bridges at a kernel-checked, green, unmerged proof head. All 18 checks passed on c401144dedcb6ffd785bd4b25b5830eb83b3c93c. RH, finite A/C, zero-log amplification and the equivalent native fractional-owner and subcritical full-prefix arithmetic inputs remain open.",
+  "authority": "Mathematical proof-obligation registry with Lean declarations and dated evidence. Conditional consumers do not prove their premises; paper and numerical findings are not Lean certificates. November 17 refresh: #1119 and #1135 are human-merged on main. The final #1135 head ac6dc46b70da962e70b18ea184451c225c1cd44a passed all 18 checks and was merged on November 16. New owner-capacity and double-centered-source supporting implementations await hosted proof certification. RH, finite A/C, zero-log amplification and the equivalent native fractional-owner and subcritical full-prefix arithmetic inputs remain open.",
   "baseline": {
     "repository": "OVVO-Financial/RH_Lean",
     "main_sha": "59612bc8b5c30c528d8367667ea5846a8053f114",
@@ -1443,7 +1443,7 @@
         "EV-PR-1135"
       ],
       "does_not_prove": [],
-      "notes": "The existing on-main Mertens-energy-to-RH consumer is retained. The exact green unmerged #1135 bridges place this OPEN proposition in the same logical target class as Mathlib RH, zero-log amplification, native fractional-owner contraction and the subcritical full-prefix lift."
+      "notes": "The existing on-main Mertens-energy-to-RH consumer is retained. The human-merged #1135 bridges place this OPEN proposition in the same logical target class as Mathlib RH, zero-log amplification, native fractional-owner contraction and the subcritical full-prefix lift."
     },
     {
       "id": "CONSUMER-MERTENS-ENERGY-RH",
@@ -3392,10 +3392,10 @@
         "CODIV",
         "CORR4"
       ],
-      "statement": "Proved at the exact green unmerged #1135 head: every actual zeta zero with 1/2<Re(rho)<1 forces an all-scale lower power of the original strict-history K; log K/log R -> 2h, log E/log B -> h, and q(X) -> h for h=max(Theta,1/2)-1/2. EnvelopeBound(lambda,eta) iff Theta<=1/2+eta/(2-lambda) for 0<=lambda<2, eta>=0; EnvelopeBound(2,0) holds unconditionally. Original frozen-Q and squared p variants retain exact sources and quantifiers. Zero-log amplification, native zero-owner loss, uniform fractional owner contraction and the existential subpower-gain full-prefix lift for every real r<k on any sequence tending to infinity are equivalent to critical Mertens growth, Mertens energy and Mathlib RH. None of these RH-strength arithmetic premises or a new zero-boundary improvement is asserted.",
+      "statement": "Proved on main via human-merged #1135: every actual zeta zero with 1/2<Re(rho)<1 forces an all-scale lower power of the original strict-history K; log K/log R -> 2h, log E/log B -> h, and q(X) -> h for h=max(Theta,1/2)-1/2. EnvelopeBound(lambda,eta) iff Theta<=1/2+eta/(2-lambda) for 0<=lambda<2, eta>=0; EnvelopeBound(2,0) holds unconditionally. Original frozen-Q and squared p variants retain exact sources and quantifiers. Zero-log amplification, native zero-owner loss, uniform fractional owner contraction and the existential subpower-gain full-prefix lift for every real r<k on any sequence tending to infinity are equivalent to critical Mertens growth, Mertens energy and Mathlib RH. None of these RH-strength arithmetic premises or a new zero-boundary improvement is asserted.",
       "logical_status": "PROVED",
-      "formal_status": "PROVED_IN_LEAN_PR_GREEN_UNMERGED",
-      "evidence_class": "PROVED_IN_LEAN_PR_GREEN_UNMERGED",
+      "formal_status": "PROVED_IN_LEAN_ON_MAIN",
+      "evidence_class": "PROVED_IN_LEAN_ON_MAIN",
       "provenance": "PROVED_INTERNALLY",
       "open_obligation": false,
       "lean": [
@@ -3437,7 +3437,7 @@
         "EV-PR-1135"
       ],
       "source_file": "docs/UNIVERSAL_ENVELOPE_FORMALIZATION_20261115.md",
-      "notes": "At 2026-11-15T23:49:51Z, all 18 checks passed on c401144dedcb6ffd785bd4b25b5830eb83b3c93c; PR #1135 remained open, draft and unmerged. The core audit covers 118 public declarations and 42 exact-type examples; the independent kernel audit covers 32 declarations, and the separate fractional audit covers 8 declarations, with overlap between groups and 122 unique declarations overall. All terminal axioms are propext, Classical.choice or Quot.sound. Finite Mobius inversion plus Abel summation supplies the analytic input with a coarser explicit constant than the handoff; the original continuous integral identity and sharper constant are not claimed as Lean-certified. Equivalent output targets preserve distinct arithmetic mechanisms and the stronger finite-A status.",
+      "notes": "At 2026-11-15T23:49:51Z, all 18 checks passed on c401144dedcb6ffd785bd4b25b5830eb83b3c93c; PR #1135 remained open, draft and unmerged. The core audit covers 118 public declarations and 42 exact-type examples; the independent kernel audit covers 32 declarations, and the separate fractional audit covers 8 declarations, with overlap between groups and 122 unique declarations overall. All terminal axioms are propext, Classical.choice or Quot.sound. Finite Mobius inversion plus Abel summation supplies the analytic input with a coarser explicit constant than the handoff; the original continuous integral identity and sharper constant are not claimed as Lean-certified. Equivalent output targets preserve distinct arithmetic mechanisms and the stronger finite-A status. Deployment refreshed on 2026-11-17: human merge 2026-11-16T00:20:57Z, with all 18 final-head checks successful; earlier unmerged wording above is the preserved dated audit history.",
       "does_not_prove": [
         "RH or a new Mertens exponent improvement",
         "Finite A or finite C",
@@ -3461,7 +3461,7 @@
       ],
       "statement": "For every R>=2 and R<=x<R^2, the original strict prime-owner family obeys sum_(R<p<=x) floor(x/p)<=x-R. Consequently D_R(x)<=(x-R)E(R)^2<=3(x-R)K_R. The complete all-prefix M(x)^2=D_R(x)+Gamma_R(x) identity specializes exactly to the existing native owner source. An explicit premise Gamma_R(x)<=B*x*K_R yields K_(R^2)<=(4+B)*K_R; no such signed premise is proved.",
       "logical_status": "CLAIMED",
-      "formal_status": "NOT_FORMALIZED",
+      "formal_status": "LEAN_PR_HEAD_NOT_GREEN",
       "evidence_class": "PAPER_PROOF_NEEDS_REVIEW",
       "provenance": "PAPER_ARGUMENT",
       "open_obligation": true,
@@ -3490,7 +3490,8 @@
       ],
       "source_file": "docs/PRESERVATION_SOURCE_REDUCTIONS_20261117.md",
       "evidence": [
-        "EV-PRESERVATION-SOURCE-REDUCTIONS-20261117"
+        "EV-PRESERVATION-SOURCE-REDUCTIONS-20261117",
+        "EV-PR-1141"
       ],
       "does_not_prove": [
         "OPEN-FINITE-AC",
@@ -3499,7 +3500,8 @@
         "OPEN-NATIVE-OWNER-FRACTIONAL",
         "RH"
       ],
-      "notes": "Lean implementation and exact source audits prepared; hosted proof certification is pending. Supporting source restriction, not a new global exponent."
+      "notes": "Lean implementation and exact source audits are in PR #1141; hosted proof certification is pending. Supporting source restriction, not a new global exponent.",
+      "pr": 1141
     },
     {
       "id": "LEMMA-EULER-DOUBLE-CENTERED-REDUCTION",
@@ -3508,9 +3510,9 @@
       "route_ids": [
         "FINITE-AC"
       ],
-      "statement": "The original frozen Q_R equals its exact double-centered non-divisor remainder Xi_R plus all retained linear/divisor-row terms. Both divisor-row orientations are included once. The explicit error is at most 2R+5+2(R-1)tau(R-1), hence at most C_epsilon R^(1+epsilon) for every positive epsilon, with constants before R. This proves no strict historical-power bound for Xi_R.",
+      "statement": "The original frozen Q_R equals its exact double-centered non-divisor remainder Xi_R plus all retained linear/divisor-row terms. Both divisor-row orientations are included once. The explicit error is at most 2R+5+2(R-1)2^omega(R-1), with the full-divisor version also proved, hence at most C_epsilon R^(1+epsilon) for every positive epsilon, with constants before R. This proves no strict historical-power bound for Xi_R.",
       "logical_status": "CLAIMED",
-      "formal_status": "NOT_FORMALIZED",
+      "formal_status": "LEAN_PR_HEAD_NOT_GREEN",
       "evidence_class": "PAPER_PROOF_NEEDS_REVIEW",
       "provenance": "PAPER_ARGUMENT",
       "open_obligation": true,
@@ -3519,6 +3521,10 @@
         {
           "file": "research/EULER_DOUBLE_CENTERED_SOURCE_20261117.lean",
           "name": "eulerSelfDualBilinear_eq_double_centered"
+        },
+        {
+          "file": "research/EULER_DOUBLE_CENTERED_REMAINDER_20261117.lean",
+          "name": "eulerDoubleCentered_remainder_le_primeFactors"
         },
         {
           "file": "research/EULER_DOUBLE_CENTERED_REMAINDER_20261117.lean",
@@ -3531,7 +3537,8 @@
       ],
       "source_file": "docs/PRESERVATION_SOURCE_REDUCTIONS_20261117.md",
       "evidence": [
-        "EV-PRESERVATION-SOURCE-REDUCTIONS-20261117"
+        "EV-PRESERVATION-SOURCE-REDUCTIONS-20261117",
+        "EV-PR-1141"
       ],
       "does_not_prove": [
         "OPEN-FINITE-AC",
@@ -3540,7 +3547,8 @@
         "OPEN-NATIVE-OWNER-FRACTIONAL",
         "RH"
       ],
-      "notes": "Lean implementation and exact source audits prepared; hosted proof certification is pending. Supporting source restriction, not a new global exponent."
+      "notes": "Lean implementation and exact source audits are in PR #1141; hosted proof certification is pending. Supporting source restriction, not a new global exponent.",
+      "pr": 1141
     }
   ],
   "edges": [
@@ -4696,29 +4704,44 @@
       "id": "EV-PR-1135",
       "kind": "pr",
       "number": 1135,
-      "state": "open",
+      "state": "merged",
       "draft": true,
       "title": "Formalize universal historical envelopes and critical amplification equivalences",
-      "observed_at": "2026-11-15T23:49:51Z",
-      "head_sha": "c401144dedcb6ffd785bd4b25b5830eb83b3c93c",
+      "observed_at": "2026-11-17T13:51:11.562734+00:00",
+      "head_sha": "ac6dc46b70da962e70b18ea184451c225c1cd44a",
       "checks": {
         "jobs": 18,
         "success": 18,
         "failed": 0,
         "pending": 0
       },
-      "workflow_run": "https://github.com/OVVO-Financial/RH_Lean/actions/runs/43775607055",
-      "grade": "KERNEL_CHECKED_GREEN_PR_HEAD",
-      "notes": "Independently fetched GitHub check-runs: all 18 completed successfully on this exact head; PR metadata confirmed open, draft and unmerged. Universal-envelope run 43775607055 passed core 133001085271 (118 declarations, 42 exact-type examples), independent kernel 133001085451 (32 declarations), numerical smoke 133001085494, and fractional-owner 133001085509 (8 declarations; completed 2026-11-15T23:49:21Z). The final fractional ancestor pipeline and exact-type/terminal-axiom audit both passed. Across overlapping proof groups, 122 unique declarations use only the permitted standard terminal axioms. This dated source-head certification is separate from human review, merge, and later metadata-only commits.",
-      "proof_job": "https://github.com/OVVO-Financial/RH_Lean/actions/runs/43775607055/job/133001085271",
-      "kernel_proof_job": "https://github.com/OVVO-Financial/RH_Lean/actions/runs/43775607055/job/133001085451",
-      "fractional_proof_job": "https://github.com/OVVO-Financial/RH_Lean/actions/runs/43775607055/job/133001085509",
+      "workflow_run": "https://github.com/OVVO-Financial/RH_Lean/actions/runs/43777334576",
+      "grade": "KERNEL_CHECKED_ON_MAIN",
+      "notes": "Refreshed from GitHub on 2026-11-17: PR #1135 was human-merged at 2026-11-16T00:20:57Z. All 18 checks passed on final head ac6dc46b70da962e70b18ea184451c225c1cd44a. The original detailed proof-audit receipt is preserved in prior_certification_snapshot. This corrects deployment status and does not change any arithmetic theorem or OPEN endpoint.",
+      "proof_job": "https://github.com/OVVO-Financial/RH_Lean/actions/runs/43777334576/job/133006501690",
+      "kernel_proof_job": "https://github.com/OVVO-Financial/RH_Lean/actions/runs/43777334576/job/133006501484",
+      "fractional_proof_job": "https://github.com/OVVO-Financial/RH_Lean/actions/runs/43777334576/job/133006501327",
       "numerical_job": "https://github.com/OVVO-Financial/RH_Lean/actions/runs/43775607055/job/133001085494",
       "proof_artifacts": [
         "https://github.com/OVVO-Financial/RH_Lean/actions/runs/43775607055/artifacts/14186066990",
         "https://github.com/OVVO-Financial/RH_Lean/actions/runs/43775607055/artifacts/14186257216",
         "https://github.com/OVVO-Financial/RH_Lean/actions/runs/43775607055/artifacts/14186717674"
-      ]
+      ],
+      "prior_certification_snapshot": {
+        "observed_at": "2026-11-15T23:49:51Z",
+        "head_sha": "c401144dedcb6ffd785bd4b25b5830eb83b3c93c",
+        "checks": {
+          "jobs": 18,
+          "success": 18,
+          "failed": 0,
+          "pending": 0
+        },
+        "workflow_run": "https://github.com/OVVO-Financial/RH_Lean/actions/runs/43775607055",
+        "proof_job": "https://github.com/OVVO-Financial/RH_Lean/actions/runs/43775607055/job/133001085271",
+        "notes": "Independently fetched GitHub check-runs: all 18 completed successfully on this exact head; PR metadata confirmed open, draft and unmerged. Universal-envelope run 43775607055 passed core 133001085271 (118 declarations, 42 exact-type examples), independent kernel 133001085451 (32 declarations), numerical smoke 133001085494, and fractional-owner 133001085509 (8 declarations; completed 2026-11-15T23:49:21Z). The final fractional ancestor pipeline and exact-type/terminal-axiom audit both passed. Across overlapping proof groups, 122 unique declarations use only the permitted standard terminal axioms. This dated source-head certification is separate from human review, merge, and later metadata-only commits."
+      },
+      "merged_at": "2026-11-16T00:20:57Z",
+      "merge_commit_sha": "4edae55352bb452d84857d4c699d37c87190798c"
     },
     {
       "id": "EV-PRESERVATION-SOURCE-REDUCTIONS-20261117",
@@ -4728,6 +4751,23 @@
       "notes": "Supporting owner-capacity and complete fractional-source arguments; hosted Lean certification pending.",
       "date": "2026-11-17",
       "observed_at": "2026-11-17T13:48:27.641821+00:00"
+    },
+    {
+      "id": "EV-PR-1141",
+      "kind": "pr",
+      "number": 1141,
+      "state": "open",
+      "title": "Prove full-prefix owner capacity and complete Euler double-centering",
+      "observed_at": "2026-11-17T13:54:34.216835+00:00",
+      "head_sha": "3015d61d42cda1bb477550f083c41f772ec39a1b",
+      "checks": {
+        "success": 13,
+        "failed": 2,
+        "pending": 2
+      },
+      "grade": "PR_HEAD_RED",
+      "workflow": "https://github.com/OVVO-Financial/RH_Lean/actions/runs/44096778470",
+      "notes": "Hosted compilation is pending repair at this snapshot; no Lean proof certification is claimed."
     }
   ],
   "historical_tracks": {

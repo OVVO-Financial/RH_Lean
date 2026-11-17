@@ -239,6 +239,14 @@
             {
               "kind": "theorem",
               "name": "eulerSelfDual_doubleCentered_remainder_subpower"
+            },
+            {
+              "kind": "theorem",
+              "name": "eulerDoubleCenteredDivisorQ_abs_le_primeFactors"
+            },
+            {
+              "kind": "theorem",
+              "name": "eulerDoubleCentered_remainder_le_primeFactors"
             }
           ]
         }
@@ -247,7 +255,7 @@
         "research.EULER_DOUBLE_CENTERED_REMAINDER_20261117"
       ],
       "exact_types": "scripts/lean/preservation_sources/EulerExactTypes.lean",
-      "minimum_examples": 14,
+      "minimum_examples": 16,
       "dependencies": {
         "RHLean.Proof.eulerFloorBilinearQ_eq_double_centered": [
           "RHLean.Proof.eulerHistoricalFloorInversionQ",
@@ -276,6 +284,15 @@
         "RHLean.Proof.eulerSelfDual_doubleCentered_remainder_subpower": [
           "RHLean.Proof.eulerDoubleCentered_remainder_subpower",
           "RHLean.Proof.eulerFloorBilinearQ_cast_eq_original"
+        ],
+        "RHLean.Proof.eulerDoubleCenteredDivisorQ_abs_le_primeFactors": [
+          "RHLean.Proof.eulerDoubleCenteredKernelQ_divisor",
+          "RHLean.Proof.eulerDoubleCenteredDivisorQ",
+          "Nat.divisors_filter_squarefree"
+        ],
+        "RHLean.Proof.eulerDoubleCentered_remainder_le_primeFactors": [
+          "RHLean.Proof.eulerFloorBilinearQ_eq_linear_add_divisor_add_xi",
+          "RHLean.Proof.eulerDoubleCenteredDivisorQ_abs_le_primeFactors"
         ]
       }
     }

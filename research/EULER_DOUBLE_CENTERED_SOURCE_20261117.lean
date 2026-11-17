@@ -74,6 +74,7 @@ theorem eulerHistoricalFracQ_nonneg_lt_one (R a : ℕ) (ha : 0 < a) :
   constructor
   · positivity
   · apply (div_lt_iff₀ haQ).2
+    simp only [one_mul]
     exact_mod_cast (Nat.mod_lt (R - 1) ha)
 
 theorem eulerHistoricalFracQ_zero_of_dvd (R a : ℕ) (ha : 0 < a)
@@ -140,9 +141,9 @@ theorem eulerReciprocalHistoricalQ_abs_le_one (R : ℕ) (hR : 2 ≤ R) :
   obtain ⟨hl, hu⟩ := abs_le.mp hbound
   apply abs_le.mpr
   constructor
-  · apply (mul_le_mul_left hNpos).mp
+  · apply (mul_le_mul_iff_left₀ hNpos).mp
     nlinarith
-  · apply (mul_le_mul_left hNpos).mp
+  · apply (mul_le_mul_iff_left₀ hNpos).mp
     nlinarith
 
 private theorem eulerDoubleCenteredSourceQ_eq_square_sub (R : ℕ) :
@@ -160,6 +161,7 @@ private theorem eulerDoubleCenteredSourceQ_eq_square_sub (R : ℕ) :
     simp_rw [pow_two, Finset.mul_sum, Finset.sum_mul]
     apply Finset.sum_congr rfl
     intro b _hb
+    rw [Finset.mul_sum]
     apply Finset.sum_congr rfl
     intro a _ha
     ring
@@ -188,7 +190,8 @@ theorem eulerFloorBilinearQ_eq_double_centered (R : ℕ) (hR : 2 ≤ R) :
   have hN0 : ((R - 1 : ℕ) : ℚ) ≠ 0 := by
     exact_mod_cast (show R - 1 ≠ 0 by omega)
   unfold eulerDoubleCenterScaleQ
-  field_simp [hN0] <;> ring
+  field_simp [hN0]
+  ring
 
 theorem eulerDoubleCenteredKernelQ_eq_parts (R a b : ℕ) :
     eulerDoubleCenteredKernelQ R a b =
@@ -201,7 +204,8 @@ theorem eulerDoubleCenteredSourceQ_eq_divisor_add_xi (R : ℕ) :
     eulerDoubleCenteredSourceQ R =
       eulerDoubleCenteredDivisorQ R + eulerDoubleCenteredXiQ R := by
   unfold eulerDoubleCenteredSourceQ eulerDoubleCenteredDivisorQ eulerDoubleCenteredXiQ
-  simp_rw [eulerDoubleCenteredKernelQ_eq_parts, mul_add, Finset.sum_add_distrib]
+  simp_rw [eulerDoubleCenteredKernelQ_eq_parts, mul_add, Finset.sum_add_distrib,
+    mul_add, Finset.sum_add_distrib]
 
 theorem eulerDoubleCenteredKernelQ_divisor (R a b : ℕ)
     (ha : 0 < a) (hb : 0 < b) (hd : a ∣ R - 1 ∨ b ∣ R - 1) :
