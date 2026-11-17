@@ -1,0 +1,261 @@
+{
+  "schema": "rhlean-prime-phase-survivor-inventory/1",
+  "groups": {
+    "accounting": {
+      "sources": [
+        {
+          "file": "research/SURVIVOR_PRIME_COMPOSITE_ACCOUNTING_20261117.lean",
+          "namespace": "RHLean.Proof",
+          "declarations": [
+            {
+              "kind": "def",
+              "name": "survivorPrimeCutoff"
+            },
+            {
+              "kind": "theorem",
+              "name": "canonicalSourceData_one_iff"
+            },
+            {
+              "kind": "theorem",
+              "name": "isSurvivorZeroModePair_one_iff"
+            },
+            {
+              "kind": "theorem",
+              "name": "survivorPrimeCutoff_bounds"
+            },
+            {
+              "kind": "theorem",
+              "name": "survivorPrimeHeight_iff_cutoff"
+            },
+            {
+              "kind": "theorem",
+              "name": "isSurvivorZeroModePair_one_iff_cutoff"
+            },
+            {
+              "kind": "theorem",
+              "name": "survivorZeroModePrimeFiber_one_eq_primeSdiff_of_bounds"
+            },
+            {
+              "kind": "theorem",
+              "name": "survivorZeroModeKernel_one_eq_primeCount_sub_of_bounds"
+            },
+            {
+              "kind": "theorem",
+              "name": "survivorPrimeZeroMode_eq_neg_kernel"
+            },
+            {
+              "kind": "theorem",
+              "name": "survivorPrimeZeroMode_eq_neg_primeCount_sub_of_bounds"
+            },
+            {
+              "kind": "theorem",
+              "name": "survivorPrimeZeroMode_eq_neg_primeCount_sub"
+            },
+            {
+              "kind": "theorem",
+              "name": "survivorCompositeZeroMode_eq_survivor_add_primeCount_sub"
+            },
+            {
+              "kind": "theorem",
+              "name": "survivorPrimeCutoff_le_stage"
+            },
+            {
+              "kind": "theorem",
+              "name": "prime_two_survives_stage_one"
+            },
+            {
+              "kind": "theorem",
+              "name": "prime_two_not_survivor_stage_two"
+            },
+            {
+              "kind": "theorem",
+              "name": "composite_six_survives_stage_two"
+            }
+          ]
+        }
+      ],
+      "modules": [
+        "research.SURVIVOR_PRIME_COMPOSITE_ACCOUNTING_20261117"
+      ],
+      "exact_types": "scripts/lean/prime_phase_survivor/AccountingExactTypes.lean",
+      "minimum_examples": 9,
+      "dependencies": {
+        "RHLean.Proof.survivorPrimeZeroMode_eq_neg_primeCount_sub": [
+          "RHLean.Proof.survivorPrimeZeroMode",
+          "RHLean.Proof.survivorZeroModePrimeFiber",
+          "RHLean.Proof.CanonicalGapAncestryBridge.CanonicalSourceData"
+        ],
+        "RHLean.Proof.survivorCompositeZeroMode_eq_survivor_add_primeCount_sub": [
+          "RHLean.Proof.survivorZeroMode",
+          "RHLean.Proof.survivorPrimeZeroMode",
+          "RHLean.Proof.survivorCompositeZeroMode"
+        ]
+      }
+    },
+    "cancellation": {
+      "sources": [
+        {
+          "file": "research/SURVIVOR_CANCELLATION_SCALE_20261117.lean",
+          "namespace": "RHLean.Proof",
+          "declarations": [
+            {
+              "kind": "def",
+              "name": "SurvivorPointwiseSquaredBoundStatement"
+            },
+            {
+              "kind": "theorem",
+              "name": "survivorPointwiseSquared_of_powerSaving"
+            },
+            {
+              "kind": "theorem",
+              "name": "survivorPowerSaving_of_pointwiseSquared"
+            },
+            {
+              "kind": "theorem",
+              "name": "survivorPowerSaving_iff_pointwiseSquared"
+            },
+            {
+              "kind": "theorem",
+              "name": "survivorComposite_primeCount_residual_eq_survivor"
+            },
+            {
+              "kind": "theorem",
+              "name": "survivorComposite_residual_sq_le_of_powerSaving"
+            },
+            {
+              "kind": "theorem",
+              "name": "survivor_primeCounting_eighth_eventually_ge_seventh"
+            },
+            {
+              "kind": "theorem",
+              "name": "survivorPrimeZeroMode_fourth_stage_lower"
+            },
+            {
+              "kind": "theorem",
+              "name": "survivorPrimeZeroMode_not_cubic_squared_bound"
+            },
+            {
+              "kind": "theorem",
+              "name": "survivorPrimeZeroMode_not_uniformLocalRHScale"
+            },
+            {
+              "kind": "theorem",
+              "name": "survivorPowerSaving_implies_mathlibRH"
+            }
+          ]
+        }
+      ],
+      "modules": [
+        "research.SURVIVOR_CANCELLATION_SCALE_20261117"
+      ],
+      "exact_types": "scripts/lean/prime_phase_survivor/CancellationExactTypes.lean",
+      "minimum_examples": 8,
+      "dependencies": {
+        "RHLean.Proof.survivorPowerSaving_iff_pointwiseSquared": [
+          "RHLean.Proof.SurvivorZeroModePowerSavingStatement",
+          "RHLean.Proof.survivorZeroMode"
+        ],
+        "RHLean.Proof.survivorPrimeZeroMode_not_cubic_squared_bound": [
+          "RHLean.Analysis.nativePrimeNumberTheorem",
+          "RHLean.Proof.survivorPrimeZeroMode",
+          "RHLean.Proof.survivorPrimeZeroMode_eq_neg_primeCount_sub"
+        ],
+        "RHLean.Proof.survivorComposite_residual_sq_le_of_powerSaving": [
+          "RHLean.Proof.survivorCompositeZeroMode",
+          "RHLean.Proof.survivorZeroMode",
+          "RHLean.Proof.SurvivorZeroModePowerSavingStatement"
+        ],
+        "RHLean.Proof.survivorPowerSaving_implies_mathlibRH": [
+          "RHLean.Analysis.riemannHypothesis_of_mertensEnergy",
+          "RHLean.Analysis.squareBlockSurvivorPowerSaving_implies_squarePrefixUniformLocal",
+          "RHLean.Proof.SurvivorZeroModePowerSavingStatement",
+          "RHLean.Proof.survivorZeroMode"
+        ]
+      }
+    },
+    "sampling": {
+      "sources": [
+        {
+          "file": "research/PRIME_PHASE_EXCEPTIONAL_SAMPLING_20261117.lean",
+          "namespace": "RHLean.Analysis.PrimePhaseSampling",
+          "declarations": [
+            {
+              "kind": "theorem",
+              "name": "sum_neighborhood_card_le_badSamples_card"
+            },
+            {
+              "kind": "theorem",
+              "name": "exceptional_root_card_packing"
+            },
+            {
+              "kind": "theorem",
+              "name": "exceptional_root_real_card_packing"
+            },
+            {
+              "kind": "theorem",
+              "name": "exceptional_root_card_le_rpow_of_persistent_neighborhoods"
+            },
+            {
+              "kind": "def",
+              "name": "squareSamplingNeighborhood"
+            },
+            {
+              "kind": "theorem",
+              "name": "squareSamplingNeighborhood_card"
+            },
+            {
+              "kind": "theorem",
+              "name": "squareSamplingNeighborhood_disjoint_of_lt"
+            },
+            {
+              "kind": "theorem",
+              "name": "square_exceptional_root_card_packing"
+            },
+            {
+              "kind": "def",
+              "name": "ordinaryPrimeCount"
+            },
+            {
+              "kind": "def",
+              "name": "ordinaryCompositeCount"
+            },
+            {
+              "kind": "theorem",
+              "name": "ordinary_prime_add_composite_count"
+            },
+            {
+              "kind": "theorem",
+              "name": "ordinary_composite_discrepancy_eq_neg_prime"
+            },
+            {
+              "kind": "theorem",
+              "name": "ordinary_composite_abs_discrepancy_eq_prime"
+            },
+            {
+              "kind": "theorem",
+              "name": "ordinary_composite_phase_discrepancy"
+            }
+          ]
+        }
+      ],
+      "modules": [
+        "research.PRIME_PHASE_EXCEPTIONAL_SAMPLING_20261117"
+      ],
+      "exact_types": "scripts/lean/prime_phase_survivor/SamplingExactTypes.lean",
+      "minimum_examples": 7,
+      "dependencies": {
+        "RHLean.Analysis.PrimePhaseSampling.exceptional_root_card_le_rpow_of_persistent_neighborhoods": [
+          "RHLean.Analysis.PrimePhaseSampling.sum_neighborhood_card_le_badSamples_card"
+        ],
+        "RHLean.Analysis.PrimePhaseSampling.square_exceptional_root_card_packing": [
+          "RHLean.Analysis.PrimePhaseSampling.squareSamplingNeighborhood",
+          "RHLean.Analysis.PrimePhaseSampling.exceptional_root_card_packing"
+        ],
+        "RHLean.Analysis.PrimePhaseSampling.ordinary_composite_phase_discrepancy": [
+          "RHLean.Analysis.PrimePhaseSampling.ordinaryPrimeCount",
+          "RHLean.Analysis.PrimePhaseSampling.ordinaryCompositeCount"
+        ]
+      }
+    }
+  }
+}

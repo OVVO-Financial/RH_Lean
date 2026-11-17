@@ -1,0 +1,105 @@
+name: Prime phase and survivor accounting
+
+on:
+  pull_request:
+    branches: [main, docs/preservation-target-strength-20261117]
+    types: [opened, synchronize, reopened, ready_for_review]
+    paths:
+      - 'research/SURVIVOR_PRIME_COMPOSITE_ACCOUNTING_20261117.lean'
+      - 'research/SURVIVOR_CANCELLATION_SCALE_20261117.lean'
+      - 'research/PRIME_PHASE_EXCEPTIONAL_SAMPLING_20261117.lean'
+      - 'RHLean/Proof/SurvivorZeroMode.lean'
+      - 'RHLean/Analysis/NativePNT*.lean'
+      - 'RHLean/Analysis/GrowingParentPhaseUniformity.lean'
+      - 'RHLean/Analysis/SquareBlockSurvivorBridge.lean'
+      - 'scripts/lean/prime_phase_survivor/**'
+      - 'scripts/audit_prime_phase_survivor.py'
+      - 'docs/PRIME_PHASE_SURVIVOR_ACCOUNTING_20261117.md'
+      - 'docs/proof-obligations.json'
+      - '.github/workflows/prime-phase-survivor.yml'
+      - '.github/actions/research-compile/**'
+      - '.github/actions/lean-setup/**'
+      - '.github/actions/lean-compiled-cache/**'
+      - 'lean-toolchain'
+      - 'lakefile.lean'
+      - 'lake-manifest.json'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: prime-phase-survivor-${{ github.head_ref || github.ref_name }}-${{ github.event.pull_request.head.sha || github.sha }}
+  cancel-in-progress: true
+
+jobs:
+  registry:
+    name: prime phase registry and source inventory
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Check generated DAG and every source inventory
+        run: |
+          python3 scripts/proof_obligation_dag.py --check
+          python3 scripts/audit_prime_phase_survivor.py --group accounting --source-only
+          python3 scripts/audit_prime_phase_survivor.py --group cancellation --source-only
+          python3 scripts/audit_prime_phase_survivor.py --group sampling --source-only
+
+  source-proof:
+    name: ${{ matrix.group }} prime phase source proof
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - group: accounting
+            target: research/SURVIVOR_PRIME_COMPOSITE_ACCOUNTING_20261117.lean
+            types: scripts/lean/prime_phase_survivor/AccountingExactTypes.lean
+          - group: cancellation
+            target: research/SURVIVOR_CANCELLATION_SCALE_20261117.lean
+            types: scripts/lean/prime_phase_survivor/CancellationExactTypes.lean
+          - group: sampling
+            target: research/PRIME_PHASE_EXCEPTIONAL_SAMPLING_20261117.lean
+            types: scripts/lean/prime_phase_survivor/SamplingExactTypes.lean
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Check pinned environment and explicit public inventory
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(cat lean-toolchain)" = 'leanprover/lean4:v4.34.1'
+          grep -q 'd13f23b723b8a846827a245b89c10fc7d3f11612' lakefile.lean
+          python3 scripts/audit_prime_phase_survivor.py --group '${{ matrix.group }}' --source-only
+      - uses: ./.github/actions/lean-setup
+      - uses: ./.github/actions/lean-compiled-cache
+      - name: Compile complete original source closure with warnings fatal
+        uses: ./.github/actions/research-compile
+        with:
+          build-library: 'true'
+          targets: ${{ matrix.target }}
+      - name: Verify exact types and explicit hypotheses
+        shell: bash
+        run: |
+          set -euo pipefail
+          lake env lean -DwarningAsError=true '${{ matrix.types }}' | tee prime-phase-${{ matrix.group }}-types.log
+      - name: Audit all public declarations and source dependencies
+        run: python3 scripts/audit_prime_phase_survivor.py --group '${{ matrix.group }}'
+      - name: Preserve kernel evidence
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: prime-phase-${{ matrix.group }}-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            prime-phase-${{ matrix.group }}-evidence/
+            prime-phase-${{ matrix.group }}-types.log
+            scripts/lean/prime_phase_survivor/
+            research/SURVIVOR_PRIME_COMPOSITE_ACCOUNTING_20261117.lean
+            research/SURVIVOR_CANCELLATION_SCALE_20261117.lean
+            research/PRIME_PHASE_EXCEPTIONAL_SAMPLING_20261117.lean
+          if-no-files-found: error
