@@ -346,3 +346,16 @@ The complete report tree was enumerated without a date cap, tree=3a9d8629583316d
 Confirm latest merged source, toolchain and actual CI receipts; finish original-source and no-circularity review; implement only eligible independent mathematics; validate any submitted proof through exact-head hosted compilation, type/dependency and permitted-axiom checks; publish the final A-P synthesis and first genuinely open arithmetic statement.
 
 No local Lean has run. A read-only clone attempt returned CONNECT tunnel HTTP 403; authorized connector reads remain available. This is not proof-write failure. No branch, source commit, PR, merge, main push, other-role edit, agent launch, schedule or permission change has occurred in this invocation. EXECUTION=IN_PROGRESS; PUBLICATION=READBACK_PENDING.
+
+
+## Implementation Checkpoint - 20261117-lean-1314-EST/HF1
+
+[Draft PR #1144](https://github.com/OVVO-Financial/RH_Lean/pull/1144) is open against main on agent/lean-verification/20261117-historical-mask-obstruction, based on fd4085e20602bc210cc6b630abbdeeeaf1bf28eb. Initial head=3949a376ade42992c2faff3f261ec35af67fb700.
+
+Candidate selected: 20261117-owner-0809-EST/HF1, independently accepted at its finite-mask scope by 20261117-referee-1203-EST/IC. Independent reconstruction confirms the exact reciprocal-moment argument. A complete five-theorem Lean proof attempt now preserves the positive-coefficient and larger-cofactor excess, proves the sharp D^(1-beta) lower bound for any minimum cofactor D>=1, gives the full unit-containing mask obstruction for beta<1, and proves single-cofactor sharpness. This is a no-go for separate absolute historical caps, NOT an estimate for the genuine signed prime error. The actual-prime asymptotic interpolation and the two-moment refinement remain outside this formalization.
+
+Six focused files add the source, six exact-type checks (including square-root weights), complete public/dependency/standard-axiom auditing, exact rational regression and hosted workflow. The local regression passes 3,508 exact assertions and four negative controls; no local Lean ran. An initial Python regression mixed integer zero with Fraction and was corrected before remote submission to maintain exact arithmetic. No failed test was credited as success.
+
+The dedicated hosted workflow and repository checks are being inspected on the exact initial head. Mathematical status=PAPER_PROOF/INDEPENDENTLY_ACCEPTED; implementation=DRAFT_PR/CI_PENDING. No claim of Lean certification yet.
+
+Latest relevant role watermarks INV/HF/HA/SB/TC/IC are consumed at their stated scopes; both dates' Coordinator mirrors match. Current #1140 is merged into main. #1143 is merged into docs/preservation-target-strength-20261117 ONLY; its new prime-phase source is absent from main, so no main status is inferred. Current main contains #1141/#1142 preservation infrastructure, not their unpaid signed estimates.
