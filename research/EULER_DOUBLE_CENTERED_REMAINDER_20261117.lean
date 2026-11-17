@@ -40,7 +40,10 @@ theorem eulerDoubleCentered_linear_abs_le (R : ℕ) (hR : 2 ≤ R) :
     |2 * ((R + 1 : ℕ) : ℚ) * eulerReciprocalHistoricalQ R -
         eulerDoubleCenterScaleQ R| ≤
         |2 * ((R + 1 : ℕ) : ℚ) * eulerReciprocalHistoricalQ R| +
-          |eulerDoubleCenterScaleQ R| := abs_sub_le _ _
+          |eulerDoubleCenterScaleQ R| := by
+      simpa only [sub_eq_add_neg, abs_neg] using
+        abs_add_le (2 * ((R + 1 : ℕ) : ℚ) * eulerReciprocalHistoricalQ R)
+          (-eulerDoubleCenterScaleQ R)
     _ = 2 * ((R + 1 : ℕ) : ℚ) * |eulerReciprocalHistoricalQ R| +
         eulerDoubleCenterScaleQ R := by
       rw [abs_mul, abs_of_nonneg (by positivity : (0 : ℚ) ≤ 2 * ((R + 1 : ℕ) : ℚ)),
@@ -57,7 +60,7 @@ private theorem doubleCenteredDivisor_term_bound (R a b : ℕ)
       (if a ∣ R - 1 then (1 : ℚ) else 0) +
         (if b ∣ R - 1 then (1 : ℚ) else 0) := by
   by_cases hd : a ∣ R - 1 ∨ b ∣ R - 1
-  · rw [eulerDoubleCenteredDivisorKernelQ, if_pos hd,
+  · rw [eulerDoubleCenteredDivisorKernelQ, ite_eq_left hd,
       eulerDoubleCenteredKernelQ_divisor R a b ha hb hd]
     obtain ⟨hv0, hv1⟩ := eulerFractionQ_nonneg_lt_one (R := R) ha hb
     rw [abs_mul, abs_mul, abs_neg, abs_of_nonneg hv0]
@@ -76,11 +79,11 @@ private theorem doubleCenteredDivisor_term_bound (R a b : ℕ)
         _ ≤ 1 := by simpa using hinner
     apply houter.trans
     rcases hd with hd | hd
-    · simp only [if_pos hd]
+    · simp only [ite_eq_left hd]
       split_ifs <;> norm_num
-    · simp only [if_pos hd]
+    · simp only [ite_eq_left hd]
       split_ifs <;> norm_num
-  · simp [eulerDoubleCenteredDivisorKernelQ, hd, not_or.mp hd]
+  · simp [eulerDoubleCenteredDivisorKernelQ, not_or.mp hd]
 
 private theorem divisorIndicator_sum (R : ℕ) (hR : 2 ≤ R) :
     (∑ a ∈ Finset.Icc 1 (R - 1), if a ∣ R - 1 then (1 : ℚ) else 0) =
@@ -153,7 +156,7 @@ theorem eulerDoubleCentered_remainder_le_divisors (R : ℕ) (hR : 2 ≤ R) :
     rw [eulerFloorBilinearQ_eq_linear_add_divisor_add_xi R hR]
     ring
   rw [he]
-  exact (abs_add _ _).trans (add_le_add (eulerDoubleCentered_linear_abs_le R hR)
+  exact (abs_add_le _ _).trans (add_le_add (eulerDoubleCentered_linear_abs_le R hR)
     (eulerDoubleCenteredDivisorQ_abs_le R hR))
 
 /-- Root times every positive power, with the constant chosen before R. -/
@@ -217,7 +220,8 @@ theorem eulerSelfDual_doubleCentered_remainder_subpower (ε : ℝ) (hε : 0 < ε
 private theorem squarefreeDivisor_card (n : ℕ) (hn : n ≠ 0) :
     (n.divisors.filter Squarefree).card = 2 ^ n.primeFactors.card := by
   have h := congrArg Multiset.card (Nat.divisors_filter_squarefree hn)
-  simpa [Nat.factors_eq, Nat.primeFactors] using h
+  simpa only [Multiset.card_map, Finset.card_val, Finset.card_powerset,
+    Nat.factors_eq, List.toFinset_coe, Nat.toFinset_factors] using h
 
 private theorem doubleCenteredDivisor_squarefree_term_bound (R a b : ℕ)
     (ha : 0 < a) (hb : 0 < b) :
@@ -227,7 +231,7 @@ private theorem doubleCenteredDivisor_squarefree_term_bound (R a b : ℕ)
   by_cases hsa : Squarefree a
   · by_cases hsb : Squarefree b
     · by_cases hd : a ∣ R - 1 ∨ b ∣ R - 1
-      · rw [eulerDoubleCenteredDivisorKernelQ, if_pos hd,
+      · rw [eulerDoubleCenteredDivisorKernelQ, ite_eq_left hd,
           eulerDoubleCenteredKernelQ_divisor R a b ha hb hd]
         obtain ⟨hv0, hv1⟩ := eulerFractionQ_nonneg_lt_one (R := R) ha hb
         rw [abs_mul, abs_mul, abs_neg, abs_of_nonneg hv0]
@@ -239,11 +243,11 @@ private theorem doubleCenteredDivisor_squarefree_term_bound (R a b : ℕ)
           exact (mul_le_mul_of_nonneg_right hm hv0).trans (by simpa using hv1.le)
         apply he.trans
         rcases hd with hd | hd
-        · simp only [hd, hsa, hsb, true_and, and_true, ite_true]
+        · simp only [hd, hsa, hsb, and_true, ite_true]
           split_ifs <;> norm_num
-        · simp only [hd, hsa, hsb, true_and, and_true, ite_true]
+        · simp only [hd, hsa, hsb, and_true, ite_true]
           split_ifs <;> norm_num
-      · simp [eulerDoubleCenteredDivisorKernelQ, hd, not_or.mp hd]
+      · simp [eulerDoubleCenteredDivisorKernelQ, not_or.mp hd]
     · have hz : eulerMuQ b = 0 := by
         simp [eulerMuQ, ArithmeticFunction.moebius_eq_zero_of_not_squarefree hsb]
       rw [hz, zero_mul, abs_zero]
@@ -327,7 +331,7 @@ theorem eulerDoubleCentered_remainder_le_primeFactors (R : ℕ) (hR : 2 ≤ R) :
     rw [eulerFloorBilinearQ_eq_linear_add_divisor_add_xi R hR]
     ring
   rw [he]
-  exact (abs_add _ _).trans (add_le_add (eulerDoubleCentered_linear_abs_le R hR)
+  exact (abs_add_le _ _).trans (add_le_add (eulerDoubleCentered_linear_abs_le R hR)
     (eulerDoubleCenteredDivisorQ_abs_le_primeFactors R hR))
 
 end RHLean.Proof
