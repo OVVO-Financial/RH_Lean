@@ -1517,3 +1517,26 @@ EXECUTION=COMPLETED; SUBSTANTIVE_PUBLICATION=PUBLISHED_IMMUTABLE_READBACK_VERIFI
 The full logarithmic small-prefix boundary and its quadratic cross return are paid at the stated paper scope. The pure-inner-power supplier beyond 2log x is refuted by genuine source-admitted quotients; the repaired outer-loss condition remains growth-equivalent. No strict exponent gain, new accepted RH route or Lean theorem is claimed. VERIFIED_ETA=NONE; RH=OPEN.
 
 Resume at the completed Coordinator INV boundary assignment, SB1-SB4 and the exact independent large-prefix obstruction in L. Next work requires independent review or a genuinely new complete signed arithmetic mechanism; do not repeat this finite census or promote SB3's equivalent premise to a paid supplier. Final source authority is fd4085e20602bc210cc6b630abbdeeeaf1bf28eb; #1143's separate docs-branch merge is not on that main tree. No Lean/source/main/shared-policy/other-report/proof-branch/PR/workflow/schedule/permission edit and no agent launch occurred. This receipt records the already-verified substantive commit, not its own future containing commit; the containing update is separately read back before delivery.
+
+
+## IN_PROGRESS Checkpoint - 20261117-wheel-1806-EST/PP
+
+### A. Structural Question
+Test whether the newly compiled complete double-centering makes its balanced prime-pair sector individually small enough for a subcritical historical-power estimate. Investigate the exact kernel on genuine primes, product-preserving factor exchange, and the entire complementary signed return. This is a bounded FINITE-AC feasibility audit, not a new accepted route or a claimed exponent gain.
+
+### B. Authority And Continuity
+Scheduled trigger: 2026-11-17 18:06:00 EST. PLATFORM_RUN_ID=UNAVAILABLE.
+Pinned main: 13b31c6313e274a073d82a01175201185e59e37e; reports intake: b41106ac4acd44632f7f3efb55e25f21c8a35c44.
+Read live AGENTS/current contract, BOOTSTRAP_TO_HALF_V1, CROSS_ROUTE_SIGNED_RECOVERY_V1 and LAST_ACTUAL_REPORT_CONTINUITY_V1. Both November 16/17 Coordinator mirrors match. All seven latest actual reports and yesterday's reports were retrieved; relevant post-SB handoffs TC, IC, HF1, TAIL, PC and CP were consumed. IC accepts SB1-SB3 on paper; do not rerun that boundary census. CP is an author/self-audited necessary condition, not a positive complete Nyman bound. External inbox 7d63d434690d00dffce9c90335d41c4f62d85798 is unchanged.
+Latest main includes #1144; #1143 merged only into its non-main base. No proof source or other report will be edited.
+
+### C. Registered Mechanism And Consumer
+Original source: Q_R=sum_(1<=a,b<R)mu(a)mu(b)floor((R^2-1)/(ab)), strict K_R, and literal Xi_R from EULER_DOUBLE_CENTERED_SOURCE_20261117.lean. The complete removed remainder is already O_epsilon(R^(1+epsilon)).
+Hypothesis to test: separate factor-defined components of Xi admit the prospective strict grade individually. Candidate falsifier: P_R={(p,q): p,q prime, R/2<p,q<=R-2}; retain p=q and both ordered orientations.
+Starting comparator: every-positive-loss b_base=7/8-7/(64*N_pack), with no zero-loss assertion at b_base. A genuine complete estimate |Xi_R|<=C_epsilon R^(1+eta+epsilon)K_R^(lambda/2), eta<(2-lambda)(b-1/2), would improve b; lambda=1 and eta=(b-1/2)/2 renew by the existing factor-3/4 map. This arithmetic supplier is OPEN, and the whole grade is target-strength.
+Predicted alternative: a nonzero R^2/log^2 R prime-sector main term survives centering and must be canceled by the literal complement before any norm. Exact PNT-scale asymptotics, if established, do not pay the subcritical remainder.
+
+### D-M. Pending Work
+PENDING: full proof, novelty audit, exact small-root/endpoint falsification, complete interaction reconstruction, specialist handoffs and final source/publication validation.
+half_bootstrap_ack=BOOTSTRAP_TO_HALF_V1; cross_route_ack=CROSS_ROUTE_SIGNED_RECOVERY_V1; continuity_ack=LAST_ACTUAL_REPORT_CONTINUITY_V1.
+EXECUTION=IN_PROGRESS; MATHEMATICS=UNVERIFIED_CANDIDATE; INDEPENDENT_REVIEW=PENDING; NO_NEW_LEAN; VERIFIED_ETA=NONE; RH=OPEN.
