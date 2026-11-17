@@ -1668,3 +1668,956 @@ Registered mathematical target: an explicit finite-band profile coercivity inequ
 ### D-L. Pending Work And Publication
 
 ROUTE=NYMAN bounded feasibility; STATUS=ACTIVE_SUPPORT/IN_PROGRESS. FIRST_OPEN=complete signed correlation or a decisive original-source obstruction, not an assumed small energy. RETURNS=short head, common middle, all six correction bands, all U_N, every ordered cross term and infinite tail. PAPER_PROOF, FINITE_COMPUTATION, independent review and Lean certification will remain separate. Only this owned report may be changed remotely; earlier EF/HA bytes are preserved. PUBLICATION=READBACK_PENDING until verified.
+
+## Three Correction Profiles Force A Simultaneous Small-Defect Condition
+
+### Final Research Synthesis - 20261117-analytic-1711-EST/CP
+
+Actual scheduled trigger: 2026-11-17 17:11:01 EST / 22:11:01 UTC, America/New_York. PLATFORM_RUN_ID=UNAVAILABLE; CP is a research label, not a platform identifier. Earlier EF, HA, their receipts, and this invocation's checkpoint remain unchanged. New mathematics is PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED. Publication is READBACK_PENDING until the later immutable receipt.
+
+### A. Most Important Analytic Development
+
+**The three separated correction profiles do retain a uniformly detectable energy contribution after all earlier floor overlaps are restored.** For the specified complete three-head residual, this gives a lower bound for the ENTIRE energy, with an explicit, independently controlled remainder. It is not merely the old first-band inequality or a component lower bound transferred without its complement.
+
+Let H=6*2^j, j>=1, B_i=2^i H, N_i=B_i^2, i=0,1,2. Keep the original two-band correction at each head. Suppose real a_i satisfy
+
+```text
+sum_i a_i=0,  sum_i a_i delta(B_i)=0,  sum_i a_i log(B_i)=1.
+w_i=a_i log(B_i), r_mix=sum_i w_i r_(B_i),
+E_mix=sum_(m>=1) r_mix(m)^2/[m(m+1)], A=max_i |a_i|.
+```
+
+For every FIXED 1/2<b<1 and C>=1 such that |M(x)|<=C x^b for all real x>=1, the following holds uniformly in every such H and a:
+
+```text
+E_mix >= H^2/(4*D) * sum_i (a_i delta(B_i))^2
+                 - C^2 A^2 K_b H^(4b-2) - 4/H^2,         (CP.1)
+D=49,647,168.
+```
+
+The fully explicit K_b is given in D. It depends ONLY on b; C and b precede H. At b=7/8 the input is obtained by spending the positive margin in the existing certified baseline. This is a paper consequence of that paid input, not a new proof of the baseline and not an assumed RH estimate.
+
+There is a useful inverse consequence. Let S(H) be the MEDIAN of the three numbers |delta(H)|, |delta(2H)|, |delta(4H)|. Then
+
+```text
+E_mix >= H^2 S(H)^2/[20*D*(log 2)^2]
+                 - C^2 A^2 K_b H^(4b-2) - 4/H^2.         (CP.2)
+```
+
+Thus a subpower complete energy on TAIL's bounded-a selected sequence would require **two** of these three genuine scalar defects to satisfy
+
+```text
+S(H)=O_(b,C,epsilon)(H^(2b-2)+H^(-1+epsilon/2)).           (CP.3)
+```
+
+For the paid b=7/8, this requires S(H)=O(H^(-1/4)), taking any fixed epsilon<3/2. The ordinary baseline only supplies each delta(B_i)=O(H^(-1/8)). At the closed boundary Theta<1, a putative subpower energy would require S(H)=O_epsilon(H^(2Theta-2+epsilon)), one fixed positive loss at a time. No estimate uniform as b decreases to Theta is asserted.
+
+**This does not prove that the selected mixed family fails.** Neither simultaneous smallness on its sparse heads nor its impossibility has been established. TAIL's curvature selection controls coefficient conditioning, not this stronger two-defect arithmetic condition. The bounded audit is complete: mixing cancels the shared middle modes, but cannot make the three returned correction profiles disappear without this necessary extra arithmetic. All other upper-bound obligations remain.
+
+| Stable claim | Evidence and scope |
+| --- | --- |
+| 20261117-analytic-1711-EST/CP1 | PAPER_PROOF / SELF_AUDIT: exact finite three-profile Gram lower bound, uniform in H and all real profile coefficients. No Mertens hypothesis. |
+| CP2 | PAPER_PROOF / SELF_AUDIT: complete-source lower bound CP.1 with explicit fixed-Mertens remainder; all six bands, U_N and original coefficients restored. |
+| CP3 | PAPER_PROOF / SELF_AUDIT: median-defect inverse restriction CP.2-CP.3. Necessary, not sufficient, for the proposed complete upper bound. |
+| CP4 | FINITE_COMPUTATION: rigorous interval and exact integer source/profile checks on H=12,24,48; no all-scale or infinite-energy upper inference. |
+
+NO_NEW_GLOBAL_UPPER_GAIN; NO_NEW_ACCEPTED_RH_ROUTE; VERIFIED_ETA=NONE; RH=OPEN.
+
+### B. Current Mathematical Objective And Verified Continuity
+
+Pinned main: [13b31c6313e274a073d82a01175201185e59e37e](https://github.com/OVVO-Financial/RH_Lean/commit/13b31c6313e274a073d82a01175201185e59e37e). The live AGENTS, current proof contract, half-continuation, cross-route recovery and uncapped continuity policies were read. Applicable complete-return, research-engine and dynamic safeguards were inspected. Their older task priorities do not supersede BOOTSTRAP_TO_HALF_V1.
+
+```text
+half_bootstrap_ack=BOOTSTRAP_TO_HALF_V1
+cross_route_ack=CROSS_ROUTE_SIGNED_RECOVERY_V1
+continuity_ack=LAST_ACTUAL_REPORT_CONTINUITY_V1
+finite_wheel_ack=FINITE_WHEEL_CENTERED_RH_V1
+high_attack_ack=COMPLETE_SIGNED_HIGH_ATTACK_V1
+chain_ack=CANCELLATION_CHAIN_REUSE_V1
+```
+
+The canonical VF target remains one C>=0 before all natural R>=2 with |pi(R^2)-VF_can(R^2)|<=C R log R, VF_can=VF_mid+sqrt(2). Its inspected terminal retains ClassicalVonKochRHCriterion. No equality of prime discrepancy and Nyman energy is asserted. The selected Nyman mechanism uses the distinct exact-head zero-evaluation consumer described in F.
+
+**Baseline/dependency receipt.** The original native_mertens_near_uniform_window_error_closed statement is every-positive-loss Mertens growth at 7/8-7/(64*nearUniformSlotCount). It has no new open supplier premise at its displayed type; its existing native analytic dependency chain is reused, not independently re-proved here. No zero-loss bound at that endpoint and no comparison to a different slot count is inferred. Exact head 77ee815846d6d534c866f0752aa33b84c385610a has 14 successful checks. The [actual five-root audit log](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42552018910/job/128949473700) was fetched and read: closures 35358,35375,35736,35737,35753 use only propext, Classical.choice, Quot.sound. A new nontruncated tree comparison checked 2,508 preexisting Lean, root compiler/manifest and scripts/lean files against intake main; only the aggregate RHLean.lean differs. This supports scoped reuse, not a fresh build of all current main.
+
+**Live PR/CI distinctions.** No open/draft PR existed at intake. Recent #1139-#1144 destinations and merges were checked. #1140's exact tested head 685598746869a62849451d7b7ffbfd09d42e4e4a has 13 successful checks. Its [actual log](https://github.com/OVVO-Financial/RH_Lean/actions/runs/44063808521/job/133972190569) compiled four modules, cached zero, including the original flat return, and checked the original theorem axioms and seven sign-obstruction roots. #1144 is human-merged on main; head abd9bb34c8fac459e67c63009961b6c26548d7e9 has 13 successful checks. Its [actual audit](https://github.com/OVVO-Financial/RH_Lean/actions/runs/44149489941/job/134273552309) reused one cached module and checked six types/five standard-axiom closures. That final job is not described as a fresh proof compile. #1143 merged into docs/preservation-target-strength-20261117, NOT main. No proof from that branch is used here. Other prior CI receipts are carry-forward evidence, not newly audited CP claims. No new CI or local Lean was run.
+
+**Continuity.** The full untruncated report tree at adbedba085c2d1e88227c29079d8ed9bed4240a7 was enumerated without a calendar cap. All latest and November 16 role files were retrieved. Relevant result/proof/limitation/resume sections were consumed, with HA's ledger as the prior own watermark. This is not a claim that all historical numerical appendices were independently reviewed. Both Coordinator mirrors were independently fetched on both dates and matched completely.
+
+Paths below are under research/agent_reports/2026-11-17/. All current files have actual completed publication receipts; trigger labels are not invented platform IDs.
+
+| Role / file | LAST_VERIFIED blob; actual section | LAST_CONSUMED -> new relevant material; resume |
+| --- | --- | --- |
+| Coordinator 00/90 | ae2d8ed2c9199d5b0b174fd8b3436286f5541226; TAIL, 15:13 EST | INV -> TAIL.1-5; three-profile question assigned, SELF_AUDIT remains. |
+| Owner 10 | 6516bf78b096471ccfd2fb8c215e94002544a594; PC, 16:15 EST | HF -> PC.1-6; signed Selberg return and pole cautions, not a Nyman supplier; independent review pending. |
+| Analytic 20 before CP | 686c0a992692db9a53e7416745f37ee9b79f9fbb; HA, 09:09 EST | EF/HA and LM source recovered; IC now accepts HA1-HA3 on paper. |
+| Wheel 30 | 49882b854f2df6d2ee426da70fa465d083733c78; SB, 10:12 EST | GD -> SB1-4; boundary paid, repaired large-prefix premise target-equivalent. |
+| Census 40 | 701a6d15ba711d9a4ca3677709802def12c46c07; TC, 11:00 EST | DJ -> TC1-4; raw components have divergent norms, complete sum must be retained. |
+| Referee 50 | 6e7f24cf5f790bab4ac1c19da6dc1c81546ad0e0; IC, 12:03 EST | SG -> scoped INV/HA/TC/HF/SB verdicts and IC1-3. New IC deductions remain SELF_AUDIT. |
+| Lean 60 | f064afb482138dc59123713f11082809b04e7c3c; HF1, 13:14 EST | NYMAN-JUMP -> HF1 implementation; live human merge supersedes its unmerged report state. |
+
+Today=AVAILABLE for every role; YESTERDAY=READ/CARRY_FORWARD for relevant November 16 SC, DB, LM, TP, MC, CF and CR results. Their report blobs, in that role order, are fda92549dd9291c491005fdf70847b90d9be385a, a52b439e693e069502b0c299a5f074a19bae0807, 84aaa2103225565607b5b033f273462bbe865246, 713826840694e39a141fbdbe813f1d47245928e7, 53e6be517dc11037fe3b42a8ed6ad3a06cfce956, 240b97ce1c8ddc87d5f520bc9a8cd6ea00df3d32, 0bada0352d54be7c46a7d928f4c4e3bee440ad8f. Original corrections and review scopes are retained, including the R=5 correction to UF, LM's proper-region scope, and synthetic versus genuine inverse counterexamples. No newly missing daily report is found after HA; earlier recorded November 13/14 gaps remain NO_VERIFIED_REPORT. CONTINUITY_COMPLETE means latest discovery and relevant post-watermark backfill, not an exhaustive historical review.
+
+The external inbox 7d63d434690d00dffce9c90335d41c4f62d85798 was retrieved and is unchanged, with no entry after October 18. EXT-20261018-PNT-1 keeps its full prime-cofactor error; EXT-20261014-5 is unconditional-all-root, not a first-bad disproof. Neither supplies CP's missing upper estimate. The older attached contract's read-only wording is superseded by the explicit current own-report authorization. Direct git failed CONNECT 403; connector reads/writes worked.
+
+The early checkpoint [ab1d9753593c64004f92ea22f9e883cd2e8dd764](https://github.com/OVVO-Financial/RH_Lean/commit/ab1d9753593c64004f92ea22f9e883cd2e8dd764) was read back immutably with exact content match, blob 8a273292cbdc5482decda1bc542402ae2b42cb33. Its commit changes only this owned report, 27 additions and no deletions.
+
+### C. Mechanism Investigated
+
+TAIL removed the two shared middle modes by choosing a signed combination BEFORE squaring. Its first correction band showed that a removed scalar drift could return. The new question is whether a later correction can hide every earlier one once floors overlap.
+
+The independent input is a triangular observation geometry. At the beginning of the ith correction, later profiles are still zero; earlier profiles need not vanish and are retained. Quantitative successive recovery of three real coefficients gives a positive uniform smallest-Gram bound. Then the original arithmetic is restored explicitly. A fixed Mertens power controls the U_N and moment remainders on this FINITE observation range. No raw-component infinite norm is taken.
+
+This changes the mathematical conclusion from a bound on a_0 alpha_H to a bound detecting the complete three-vector. It also produces a two-defect necessary condition that scalar nonvanishing or coefficient conditioning does not provide.
+
+### D. Exact Formulation
+
+Throughout, mu is the genuine Mobius function,
+M(x)=sum_(1<=n<=x)mu(n), and
+delta(x)=1-sum_(1<=n<=x)mu(n)log(x/n)/n for real x>=1.
+There is no replacement by a model sequence in CP1-CP3.
+
+For each original head B_i, use N_i=B_i^2, K_i=N_i/6, L_i=log B_i and
+
+```text
+I1_i=(3K_i,4K_i], I2_i=(5K_i,6K_i],
+s1_i=sum_(k in I1_i)1/k, s2_i=sum_(k in I2_i)1/k, d_i=s1_i-s2_i,
+q_(i,k)=log(N_i/max(B_i,k)),
+u_i=sum_(k=1..N_i)mu(k)q_(i,k)/k,
+v_i=2L_i+sum_(k=1..N_i)mu(k)q_(i,k),
+alpha_i=(u_i-s2_i*v_i/K_i)/d_i, z_i=v_i/K_i-alpha_i,
+h_i=alpha_i on I1_i, z_i on I2_i, zero elsewhere,
+c_(i,k)=(h_i(k)-mu(k)q_(i,k))/L_i, 2<=k<=N_i,
+r_(B_i)(m)=1-sum_(k=2..N_i)c_(i,k){m/k}.
+```
+
+The unit k=1 is retained in u_i and v_i. Both original moments are exactly 1 and 3. Each residual has an exact head through B_i and is bounded periodic at fixed H. Hence E_mix is finite at every fixed H; this statement gives no uniform size estimate.
+
+Define the complete integer profiles, for ALL m>=1,
+
+```text
+P_i(m)=sum_(k in I1_i)floor(m/k),
+T_i(m)=sum_(k in I2_i)floor(m/k),
+p_i(m)=P_i(m)-T_i(m),
+J_i={integer m: 7N_i/12<m<=2N_i/3}, J=J_0 union J_1 union J_2,
+||f||_J^2=sum_(m in J) f(m)^2/[m(m+1)].
+```
+
+The J_i are disjoint and |J_i|=N_i/12. All endpoints are integral in the specified H range. Set N=H^2 and
+
+```text
+D=1728*(1+13^2+169^2)=49,647,168,
+P_b=1/(1-b)+1/(1-b)^2,
+V_b=P_b+12/(5b),
+U_b=121*(log 11+1/b),
+Q_b=7+3U_b+80/b,
+K_b=4Q_b^2+3V_b^2/(2D).
+```
+
+The letters v_i and V_b are different: v_i is the original total-moment data; V_b is a fixed error constant. No constant depends on H or on which admissible coefficient vector a is chosen, except the explicitly displayed A=max|a_i|. CP.1 applies even if a was selected from arithmetic data at that H, since it is uniform over ALL vectors satisfying the three displayed linear equations.
+
+TAIL's particular vector uses t=log 2, delta_i=delta(B_i), d_curv=delta_0-2delta_1+delta_2 and
+
+```text
+a=((delta_1-delta_2), (delta_2-delta_0), (delta_0-delta_1))/(t*d_curv).
+```
+
+It satisfies the equations when d_curv!=0. If |d_curv|>=max|delta_i|/512>0, then A<=1024/log 2. This elementary coefficient implication is rechecked here. TAIL's existence theorem for infinitely many such heads remains attributed to TAIL at its paper/self-audit scope; CP1-CP2 do not assume that existence theorem.
+
+### E. Mathematical Derivation
+
+#### E1. Exact Three-Profile Coercivity
+
+For every real vector t=(t_0,t_1,t_2),
+
+```text
+||sum_i t_i p_i||_J^2 >= (N/D) sum_i t_i^2.               (CP.4)
+```
+
+Proof. On J_i, the ith first-band floor is 1 precisely for N_i/2<k<=m, and its second band has not started. Thus p_i(m)=m-N_i/2>=N_i/12. Every later profile is zero there. Earlier profiles have their FULL values, including both bands and all repeated floor quotients. In general
+
+```text
+|p_j(m)|<=P_j(m)+T_j(m)<=m(s1_j+s2_j)<=m.
+```
+
+Consequently ||p_i||_(J_i)^2>=N_i/1728, since |J_i|=N_i/12 and m(m+1)<=N_i^2 on that window. Also ||p_j||_(J_i)^2<=N_i/12 for every j.
+
+Put Z=sum t_i p_i and L=||Z||_J. Reverse triangle on J_i, AFTER keeping the exact earlier profiles, yields
+
+```text
+|t_i| <= sqrt(1728/N_i)*L+12 sum_(j<i)|t_j|.
+```
+
+Since N_i>=N, successive substitution gives |t_0|<=c, |t_1|<=13c, |t_2|<=169c, c=sqrt(1728/N)*L. Squaring and summing proves CP.4 with the displayed D. The constant is intentionally coarse, not optimized. This is a proof for every H, not an eigenvalue fit to computed matrices.
+
+In particular all three coefficients are detected even when the first coefficient is zero. A first-window-only observation could never prove this statement: p_1 and p_2 both vanish on J_0.
+
+#### E2. Full Original Source Return
+
+Reuse the compiled flat return and the exact genuine logarithmic convolution, retaining the prime-power term:
+
+```text
+L_i r_(B_i)=U_(N_i)-U_(B_i)+C_(h_i),
+U_B(m)=sum_(B<k<=m)mu(k)log(B/k)floor(m/k),
+U_B(m)=m delta(B)+[psi(m)-m]+log B+F_B(m),
+F_B(m)=sum_(k<=B)mu(k)log(B/k){m/k}.
+```
+
+The three a equations cancel m*sum a_i delta_i and [psi(m)-m]*sum a_i; the constant is -sum a_i log B_i=-1, NOT zero. The two-band solver gives the exact identity
+
+```text
+C_(h_i)(m)=alpha_i p_i(m)+(v_i/K_i)T_i(m).
+```
+
+Therefore, for every m>=1,
+
+```text
+r_mix(m)=Z(m)+R(m), Z=sum_i t_i p_i, t_i=a_i alpha_i,
+R(m)=-1-sum_i a_i F_(B_i)(m)
+          +sum_i a_i U_(N_i)(m)+sum_i a_i(v_i/K_i)T_i(m). (CP.5)
+```
+
+This equality contains the entire original source. In particular U_(N_0) and U_(N_1) generally contribute on the later windows. Dropping them would be false. The second bands of earlier heads have already activated and occur in p_i and T_i. The highest second band is zero on J by support, but remains in the full residual outside J. All later output regions, including the infinite tail, are nonnegative squared residuals in E_mix. Thus E_mix>=||r_mix||_J^2 is legitimate without bounding any divergent raw-component energy or discarding a same-cell cross term.
+
+#### E3. Explicit Arithmetic Remainder
+
+Fix 1/2<b<1 and C>=1 before H, with |M(x)|<=C x^b for all x>=1. A natural-number bound extends to this real range by M(x)=M(floor x). Natural-order partial summation makes sum mu(n)n^(-s) and its differentiated series locally uniformly convergent on Re(s)>b. Starting from the [Mobius Dirichlet series](https://dlmf.nist.gov/27.4.E5) on Re(s)>1 and the [simple zeta pole of residue one](https://dlmf.nist.gov/25.2), continuation gives sum mu(n)/n=0 and sum mu(n)log(n)/n=-1. These are reused classical identities, not new literature results. The series at 1 are naturally ordered, not claimed absolutely convergent.
+
+It follows that delta(x)=sum_(n>x)mu(n)log(x/n)/n. The summation-by-parts integral is absolutely bounded, giving
+
+```text
+|delta(x)| <= C P_b x^(b-1).                             (CP.6)
+```
+
+Indeed the derivative of log(x/t)/t has absolute value at most (1+log(t/x))/t^2; the two integrals are x^(b-1)/(1-b) and x^(b-1)/(1-b)^2. The endpoint weight at x is zero. This accounts for the full tail, with no hidden fixed-cutoff error.
+
+The exact finite moment identities are
+
+```text
+u_i=delta(B_i)-delta(N_i),
+v_i=2log B_i+integral_(B_i..N_i) M(t) dt/t.
+```
+
+Since log N_i<=N_i^b/b and 2log B_i=log N_i,
+
+```text
+|v_i/K_i| <= (12C/b) N_i^(b-1),
+1/20<=d_i<=1/6, 0<s2_i<=1/5.                            (CP.7)
+```
+
+The d_i bounds use K_i terms in each band: 1/4<=s1_i<=1/3 and 1/6<=s2_i<=1/5. No limit of the harmonic bands is substituted for their actual value.
+
+On J, m<=32N/3<11N. For Y>=N_i,
+
+```text
+|sum_(N_i<k<=Y)mu(k)log(N_i/k)|
+ <= C Y^b(log(Y/N_i)+1/b).
+```
+
+This follows by finite partial summation, with zero lower weight and the upper M(Y) endpoint retained. Expand U_(N_i)(m) over its at most 11 quotient fibres. Each Y<=11N and Y/N_i<=11. Thus
+
+```text
+|U_(N_i)(m)| <= C U_b N^b  (m in J).                     (CP.8)
+```
+
+The range ratio is fixed by the actual three heads, not an unproved estimate for a growing number of heads. No summation of nonuniform fixed-cofactor asymptotics occurs.
+
+Also |F_(B_i)(m)|<=B_i-1 and T_i(m)<=m*s2_i<=m/5. The first bound follows from |mu|<=1, 0<=fractional part<1, and sum_(k<=B)log(B/k)<=B-1. Since H<=N^b and N_i^(b-1)<=N^(b-1), CP.5-CP.8 give
+
+```text
+|R(m)| <= 1+C A Q_b N^b,  m in J,
+||R||_J^2 <= 4/N+4C^2 A^2 Q_b^2 N^(2b-1).               (CP.9)
+```
+
+For the last step, J is a subset of m>N/2, so its weight mass is less than 2/N. Use (1+x)^2<=2+2x^2. This pays the constant, all finite F terms, the full U_N return and both correction moments.
+
+#### E4. From Profiles To The Genuine Drift Vector
+
+Define e_i=a_i[delta(N_i)+s2_i v_i/K_i]. The solver gives
+
+```text
+a_i delta(B_i)=d_i t_i+e_i,
+sum e_i^2 <= 3C^2 A^2 V_b^2 N^(2b-2).
+```
+
+Because d_i<=1, sum t_i^2 >= (1/2)sum(a_i delta_i)^2-sum e_i^2. Keeping CP.5 first, apply the valid scalar inequality (Z+R)^2>=Z^2/2-R^2 and CP.4:
+
+```text
+E_mix >= N/(2D) sum t_i^2-||R||_J^2
+ >= N/(4D) sum(a_i delta_i)^2
+       -C^2 A^2[4Q_b^2+3V_b^2/(2D)]N^(2b-1)-4/N.
+```
+
+Substituting N=H^2 proves CP.1 with the stated constant. The lower bound may be negative at a particular H. Neither its proof nor the finite checks claim otherwise. The error was bounded rather than silently removed; it is not a new unexplained norm premise.
+
+#### E5. A Two-Defect Inverse Theorem
+
+This final step needs only sum a_i=0 and sum L_i a_i=1. Choose k with |delta_k| minimal. The other two absolute defects are at least S, their median. If S=0 the claim is immediate. Otherwise
+
+```text
+1=sum_(i!=k)(L_i-L_k)a_i
+ <= sqrt(sum_(i!=k)(L_i-L_k)^2) * sqrt(sum_(i!=k)a_i^2)
+ <= (sqrt(5)*log 2/S) * sqrt(sum_i(a_i delta_i)^2).
+```
+
+In the first inequality take the absolute value of the sum. The squared spacing sum is 5(log 2)^2 for an endpoint k and 2(log 2)^2 for the middle k. Hence sum(a_i delta_i)^2>=S^2/[5(log 2)^2], proving CP.2. This conclusion does not rely on guessing which a_i is nonzero or which defect is largest.
+
+If A is bounded and E_mix<=C_epsilon H^epsilon, rearranging CP.2 proves CP.3, with constants depending only on fixed b,C,A and the energy constant. In particular TAIL's selected A<=1024/log 2 suffices for the coefficient condition. This argument establishes a necessary rate for TWO genuine defects, not the rate itself.
+
+### F. Quantitative Comparison And Complete Consumer
+
+The complete lower-bound main scale is H^2 times the squared drift-vector size; the paid remainder is O_(b,C,A)(H^(4b-2)). If that vector has size comparable to H^(b-1), its main exponent is 2b, larger than 4b-2 for b<1. This is a scale comparison, NOT an assertion that the actual selected vector attains that size. Scalar nonvanishing provides no lower magnitude or density information.
+
+At b=7/8 the error exponent is 3/2, while the comparison drift scale would be 7/4. For a subpower-energy candidate, CP.3 requires two defects of order H^(-1/4), improving on the available individual upper exponent -1/8. At the actual closed Theta, use any fixed b>Theta and then spend its positive loss; constants need not be uniform as b approaches Theta. The necessary rate becomes H^(2Theta-2+epsilon). No strict premise Theta<b is substituted at equality.
+
+The existing INV2/IC consumer says that any finite residue approximant with an exact head through H obeys, at an actual nontrivial zero rho with sigma=Re(rho)>1/2,
+
+```text
+E >= (2sigma-1)(H+1)^(2sigma-1)/|rho|^2.
+```
+
+It is ACCEPT_ON_PAPER, not newly proved in Lean here. It follows from the exact residue Mellin evaluation and cellwise Cauchy-Schwarz, as independently reconstructed in IC E4. [Bagchi's Hilbert-space formulation](https://arxiv.org/abs/math/0607733) supplies the broader established context, not CP's new profile estimate. One common unbounded sequence with subpower COMPLETE energy excludes every such zero. Alternatively at h=Theta-1/2>0, a complete energy exponent kappa(h)<2h contradicts the supremum without requiring an attained zero. No such upper supplier has been established.
+
+For that more general hypothetical energy exponent, CP.2 would require S(H)=O_epsilon(H^(kappa/2-1+epsilon)+H^(2Theta-2+epsilon)). Satisfying this condition alone would still not pay the early middle, the remainder correlation, the after-support region or the infinite tail. A finite regional upper bound is not the complete consumer's premise.
+
+### G. Original-Carrier And Signed-Loss Audit
+
+| Coordinate / step | Actual relationship and quantitative limitation |
+| --- | --- |
+| Original Nyman residue source | EXACT_IDENTITY: literal coefficients, both bands, k=1 in moments, support padding and sum w=1 give r_mix. Original flat return theorem is reused. |
+| Square-prefix Mobius input | ONE_WAY_ESTIMATE: the fixed genuine Mertens bound pays CP.6-CP.9 with explicit constants. It is not an identity of square-prefix energy and Nyman energy. |
+| Euler finite-AC / complete Q_R | OPEN_BRIDGE for a norm comparison to this mixed residual. Common mu coefficients do not identify the quotient masks, normalization or historical K_R. |
+| Actual-prime VF / #915 | NOT_IDENTIFIED: exact-head residue approximation has its own zero consumer. No literal source/weight/chronology bridge to VF payment is supplied. PC's prime-kernel return is a separate carrier. |
+| NNS / OAI ideal-character source | NOT_IDENTIFIED: no occurrence-preserving map of the six correction bands and rational mu coefficients to compensated Hecke atoms is proved. Its parked LOW/domain gates are unchanged. |
+
+The first sign-sensitive loss in the NEW bound is reverse triangle in the successive profile recovery. Its entire cost is D=49,647,168, fixed before H; no favorable cross sign is assumed. The later inequality (Z+R)^2>=Z^2/2-R^2 loses at most the explicitly paid remainder CP.9. Within each output cell the complete profile sum and complete source were formed BEFORE either inequality. Cross-head and cross-band terms are not dropped as though positive.
+
+The already compiled NYMAN_CORRECTION_ENERGY theorem was checked for overlap. It explicitly gives a COMPONENT affine lower bound with the base restoration still present. CP1 is a joint three-profile estimate, and CP2 additionally bounds the original restoration on its finite windows using the paid Mertens input. The moment-null obstruction concerns arbitrary high corrections, not this fixed six-band family. Neither existing theorem alone supplies CP.1. This is scoped repository novelty, not a claim of worldwide literature priority.
+
+### H. Falsification, Computation And Circularity
+
+The proof was checked against all five relevant omission mechanisms: missing earlier second bands, missing U_N, first-window-only rank loss, absent ordered cross terms, and shifted strict endpoints. The registered heads are H=12,24,48. Reusing small legal heads is for the NEW three-profile Gram/source question, not another run of the previous sign census.
+
+The checker uses exact integer floor counts from TWO constructions: multiples/prefix accumulation and quotient-fibre interval counting. Logs use 100 terms of the positive atanh series after reduction to [1,2], with a rigorously positive tail below one fixed-point unit. All operations are outward rational intervals on a fixed 10^60 grid. The full symmetric profile Gram minus (N/D)I has all three leading principal minors rigorously positive for each registered H. That is a genuine finite all-real-vector certificate, not only testing a few coefficient vectors. The all-H proof remains E1, independent of that certificate.
+
+Literal original residues were independently evaluated at the registered head and correction/support boundary probes, including after every N_i and at twice the largest support. The complete finite-return calculation uses genuine mu and prime powers. Every point of J was checked for the three-profile decomposition. Interval overlap checks are labeled interval checks, not exact symbolic identity proofs. All-scale claims use the paper proof; the finite test does not verify the global Mertens hypothesis.
+
+The regional energies are approximately 0.006901210415..416 at H=12, 0.002798006686..687 at H=24, and 0.006375825500..501 at H=48. These are ||r_mix||_J^2 only, NOT the complete infinite E_mix. They establish neither a growth exponent nor convergence. The conservative source lower-bound right side need not be positive in these examples.
+
+The first declared-domain omission witnesses are H=12,m=85 for deleting ordered cross terms, m=337 for deleting U_N or the earlier second band, and m=72 for the wrong strict band endpoint. A first-window-only test has the exact null direction p_2 on every J_0. These are local falsifiers of the stated omissions, not first-ever arithmetic counterexamples.
+
+**Conditioning is not a rate.** The synthetic sequence x_j=(7/8)^j is nonzero, meets the fixed-7/8 exponential upper envelope, and satisfies |x_j-2x_(j+1)+x_(j+2)|=x_j/64>x_j/512. Yet its median triple decays more slowly than H^(-1/4), for H=6*2^j. The exact integer comparisons are 2*7^8<8^8 and 2*7^4>8^4. This only shows that the curvature criterion plus its scalar envelope does not logically imply CP.3; it is NOT genuine delta data and NOT a counterexample to the mixed family.
+
+The constants were not fitted to these tests. No unproved favorable covariance, artificial prime model, asymptotic exchange in a growing band, or assertion that sparse selected defects must attain a global limsup appears in the proof. The correction profiles do not nullify each other as vectors, but the actual drift vector could still be small on a sparse sequence. That remaining possibility is explicitly preserved.
+
+### I. Interpretation And Admission
+
+The useful new principle is finite-dimensional observability from separated activation windows: overlap from earlier correction profiles is bounded without pretending it is absent. Its cost is fixed and does not consume an exponent. Returning to the genuine arithmetic converts that geometric fact into a simultaneous-smallness restriction on two actual defects.
+
+The specified mixing mechanism therefore has not supplied the independent upper cancellation it was intended to provide. It replaces the earlier single-height obstruction by a stronger three-vector requirement. The bounded feasibility assignment is closed with this result; the family is NOT declared impossible. A further upper-bound campaign needs genuinely new source arithmetic satisfying this requirement AND controlling the complete remaining norm. Repeating the conditioning lemma, optimizing D, fitting finite energies or estimating raw tail pieces separately is not a next step.
+
+NO_NEW_GLOBAL_UPPER_GAIN. This is source-specific supporting analysis, not an admitted new RH route or a bootstrap improvement. OAI's unchanged 47/54 LOW floor, theta>3/5 coefficient gate and Re(s)>21/25 correction supplier remain parked without a complete half-continuation. CODIV and the native/actual-prime toolkits retain their independent source questions; CP imposes no Nyman norm on them.
+
+### J. Specialist Handoffs
+
+| Recipient | Precise handoff |
+| --- | --- |
+| Coordinator | CP.1-CP.3 answer the assigned three-profile question with every finite return restored. Keep the specified mix as support, not a supplied upper mechanism. Decide on further work only after identifying genuine simultaneous-defect arithmetic or an explicit new correction design; neither is proved here. |
+| Adversarial Referee | Review CP.4 triangular constants, all quotient overlaps, the finite U_N partial summation, the two moment remainders, and the median Cauchy argument. Check that no statement rules out a sparse good sequence. New CP claims await your independent verdict. |
+| Prime Census Laboratory | No range extension is requested. The exact Gram certificate and finite source probes are embedded. A useful future test must target a NEW sharper source inequality, not infer a complete norm from these regional values. |
+| Lean Verification | No automatic formalization request. After independent acceptance and a surviving continuation role, CP1 has an elementary finite type; CP2 needs the explicit fixed-Mertens analytic input. Do not encode the missing upper energy or simultaneous-defect supplier as a new assumed proof advance. |
+| Owner Payment | PC's complete signed Selberg/mixed-return warning is preserved; no PC result was used as a Nyman bound. This profile argument does not discharge first-bad history or identify its carrier. |
+| Finite Wheel | Continue the distinct full frozen-deletion/Xi source question at SB's accepted scope. Neither this Gram nor its coefficient normalization is a theorem on the native outer convolution. |
+
+These are published handoffs, not agent launches or claims of future execution.
+
+### K. First Independently Missing Analytic Input
+
+For this precise family, the first newly isolated NECESSARY arithmetic test is simultaneous smallness of two of delta(H),delta(2H),delta(4H) at the CP.3 rate along one common unbounded well-conditioned head sequence. Existing curvature selection does not establish it. This condition is not claimed target-equivalent, independently known, or sufficient for RH.
+
+Even if that obstruction is removed, the COMPLETE energy upper estimate remains unpaid: the early/middle source, the finite R interaction, all later correction transitions, after-N output, and infinite tail must be controlled together. A source-sensitive proof of subpower complete energy, or of the strict closed-boundary energy exponent, would advance the endpoint. This run provides no such theorem and does not rename that desired bound as an easier supplier.
+
+### L. Resume Capsule And Source Receipt
+
+```text
+RUN=20261117-analytic-1711-EST/CP; PLATFORM_RUN_ID=UNAVAILABLE
+MAIN=13b31c6313e274a073d82a01175201185e59e37e
+REPORT_INTAKE=adbedba085c2d1e88227c29079d8ed9bed4240a7
+CHECKPOINT=ab1d9753593c64004f92ea22f9e883cd2e8dd764, immutable verified
+LATEST_CONSUMED=TAIL/PC/HA/SB/TC/IC/HF1; November16 relevant carry-forward
+ROUTE=NYMAN specified three-head bounded feasibility, completed support audit
+CURRENT_P(b)=genuine fixed Mertens bound, 1/2<b<1; paid b=7/8 available
+DIRECT_CONSUMER=exact head + complete subpower energy on ONE sequence -> RH
+ALTERNATIVE=complete exponent kappa(h)<2h at actual h>0 -> contradiction
+SOURCE=all original coefficients, six correction bands, U_N, ordered pairs
+NEW=CP1 uniform profile coercivity; CP2 complete lower bound with explicit error;
+    CP3 median-defect necessary rate; CP4 declared finite source certificates
+RETURN_BILL=O_(b,C,A)(H^(4b-2)) on J; all other output nonnegative for LOWER bound
+UPPER_RETURNS=all other output and joint remainder still UNPAID
+FIRST_OPEN=simultaneous small genuine defects; then full signed upper return
+NEXT=independent proof review and strategy decision; no constant optimization,
+     unchanged sign scan, all-head average revival or raw-component norms
+NEW_MATH=PAPER_PROOF/SELF_AUDIT; INDEPENDENT_REVIEW_PENDING; NOT_FORMALIZED
+NO_NEW_GLOBAL_UPPER_GAIN; NO_NEW_ACCEPTED_RH_ROUTE; VERIFIED_ETA=NONE; RH=OPEN
+PUBLICATION=only the later immutable readback receipt establishes completion
+```
+
+| Inspected material at current main | Blob SHA |
+| --- | --- |
+| AGENTS.md | c4f36b772f8a4b0c24fe566b90fafb646073c60f |
+| CURRENT_PROOF_CONTRACT.md | 95566e37c8eaeb99ee680660df4f9d2e06ea5038 |
+| docs/RHLEAN_BOOTSTRAP_TO_HALF_20261116.md | 96ad4439ec458af6168f7d9cb3eef5dde291d37c |
+| docs/RHLEAN_REPORT_CONTINUITY_LAST_ACTUAL_20261111.md | 3e71820a4af722eae7098da6945bb5bcba50dd0d |
+| docs/RHLEAN_CROSS_ROUTE_SIGNED_RECOVERY_20261110.md | e3ae4280438f591f1ffaddd754a1c3a6d35d0691 |
+| docs/DYNAMIC_RESEARCH_AGENTS.md | b76d595f09403fc54eca71d04bf9e0306e0a9c09 |
+| research/NYMAN_FLAT_TAPER_RETURN_20261104.lean | 2d23721027ecc44e85b7add02fc632b482f03352 |
+| research/NYMAN_HIGH_COEFFICIENT_INVARIANT_20261104.lean | 2da630c1d5fb9302e2097ec1e170cf41c2b40609 |
+| research/NYMAN_RADICAL_INCREMENT_20261106.lean | c5ebb3d5d96898549ad039fd32e1a26955c5b8f8 |
+| research/NYMAN_CORRECTION_ENERGY_20261105.lean | e5453cd32c3c4ebf9ebf41927bcb92e534b2ece7 |
+| research/NYMAN_MOMENT_NULL_OBSTRUCTION_20261106.lean | 301d7286fc2151b5d33bdca9762a6a01c496ff87 |
+| research/oai_434/VF919WindowErrorClosure.lean | f629db1b2b65d6ec042ac9432397d4b6316200c6 |
+| research/MERTENS_CONVERSE_IDENTIFICATION.lean | 768c8255850bf4074aff265c3fe17a1f5c43979b |
+| research/VF_CANONICAL_SQRT_TWO_VON_KOCH.lean | 79030d70e8d3e0d08eef9bac53fef95c36eca2fb |
+
+Source links: [original flat coefficients/head/complete return](https://github.com/OVVO-Financial/RH_Lean/blob/13b31c6313e274a073d82a01175201185e59e37e/research/NYMAN_FLAT_TAPER_RETURN_20261104.lean), [existing component obstruction](https://github.com/OVVO-Financial/RH_Lean/blob/13b31c6313e274a073d82a01175201185e59e37e/research/NYMAN_CORRECTION_ENERGY_20261105.lean), [closed native exponent identification](https://github.com/OVVO-Financial/RH_Lean/blob/13b31c6313e274a073d82a01175201185e59e37e/research/MERTENS_CONVERSE_IDENTIFICATION.lean). TAIL, IC and the other report derivations are pinned by the intake commit and blob ledger above, not silently promoted to Lean.
+
+Only this owned daily report is changed remotely. No main, Lean source, other report, policy, workflow, feature branch, PR, schedule or permission is changed. No agent was launched, and no local Lean or unreported future process is claimed.
+
+### CP Prepublication Validation And Reproducibility
+
+At 2026-11-17 22:27:57 UTC / 17:27:57 EST, main was still 13b31c6313e274a073d82a01175201185e59e37e, agent-reports was exactly the verified own checkpoint ab1d9753593c64004f92ea22f9e883cd2e8dd764, and the complete open/draft PR collection was empty. No upstream change intervened after intake. The prior report remains a byte-identical prefix.
+
+The final checker passed **68,519 counted assertions** at both 60 and 75 decimal-grid precision. Every displayed enclosure, Gram-minor sign, and omission witness agreed. This is one declared finite domain, not twice as many independent cases. The initial 68,515-assertion pass preceded three explicit median-interval-order checks and one exact conditioning-versus-rate diagnostic; these proof-led additions are disclosed rather than retroactively called initial registration. Python syntax compilation passed. All test processes exited successfully. No Lean was run.
+
+Checker SHA256: `7f87e4d2116ea85f6abe92d2be3544b8445513f013effe43d285503a4a7913ff`.
+Registration SHA256: `cb59468788602aaa56a965eb202836ba194f03dcade03e687ece3d136c69bc13`.
+The sources below are the actual executed ASCII files. Default execution is `python cp_check.py`; the validation rerun is `CP_DIGITS=75 python cp_check.py`. The stated atanh tail certificate is checked for the selected precision; no arbitrary precision range is promised.
+
+#### Registration
+
+~~~text
+# CP Verification Registration
+
+Question: the complete three-head correction-profile lower bound, not an
+extension of earlier covariance/sign scans.
+
+- Fixed heads H = 12, 24, 48; B = H, 2H, 4H; N_i = B_i^2.
+- Observe J_i = (7N_i/12, 2N_i/3] and their complete union.
+- Check integer band floor counts by two independent constructions.
+- Certify the entire 3-by-3 profile Gram exceeds (N/49647168) times identity.
+- Use outward fixed-point rational intervals for logarithms and all derived data.
+- Check actual coefficients, two moments, mix normalization, complete return,
+  exact correction decomposition, finite-band lower inequality, and TAIL.4.
+- Compare literal residues at fixed boundary probes to the full floor return.
+- Deliberate negative controls: omit second bands; observe only first window;
+  omit ordered cross terms; omit U_N; alter a strict band endpoint.
+- Compute no asymptotic fit and claim no complete infinite-energy upper bound.
+- No local Lean, no external numerical libraries, no new source/PR changes.
+
+The general Mertens hypothesis is not certified by finite testing. The finite
+tests use exact finite remainder data; the all-scale estimate has its own paper
+proof. An interval overlap is not an exact symbolic identity certificate.
+~~~
+
+#### Complete Checker
+
+~~~python
+"""Finite source and profile audit; not a proof of an all-scale Mertens bound."""
+from collections import Counter
+from itertools import product
+from math import isqrt
+import json
+import os
+
+Q = 10**int(os.environ.get('CP_DIGITS', '60'))
+DELTA = 49647168
+checks = Counter()
+
+
+def check(name, ok):
+    assert ok, name
+    checks[name] += 1
+
+
+def ceildiv(a, b):
+    return -((-a) // b)
+
+
+def rat(n, d=1):
+    assert d > 0
+    return n * Q // d, ceildiv(n * Q, d)
+
+
+def add(*args):
+    return sum(a[0] for a in args), sum(a[1] for a in args)
+
+
+def neg(a):
+    return -a[1], -a[0]
+
+
+def sub(a, b):
+    return add(a, neg(b))
+
+
+def scale(a, n, d=1):
+    assert d > 0
+    ends = (a[0] * n, a[1] * n)
+    return min(ends) // d, ceildiv(max(ends), d)
+
+
+def mul(a, b):
+    ends = [x * y for x in a for y in b]
+    return min(ends) // Q, ceildiv(max(ends), Q)
+
+
+def square(a):
+    lo = 0 if a[0] <= 0 <= a[1] else min(a[0]**2, a[1]**2)
+    return lo // Q, ceildiv(max(a[0]**2, a[1]**2), Q)
+
+
+def div(a, b):
+    if b[1] < 0:
+        return div(neg(a), neg(b))
+    assert b[0] > 0
+    return mul(a, (Q * Q // b[1], ceildiv(Q * Q, b[0])))
+
+
+def overlap(a, b):
+    return a[0] <= b[1] and b[0] <= a[1]
+
+
+def contains(a, n):
+    return a[0] <= n * Q <= a[1]
+
+
+def display(a):
+    # Outward decimal endpoints at 12 places.
+    base = Q // 10**12
+    def fmt(n):
+        sign = '-' if n < 0 else ''
+        n = abs(n)
+        return f'{sign}{n // 10**12}.{n % 10**12:012d}'
+    return [fmt(a[0] // base), fmt(ceildiv(a[1], base))]
+
+
+def log_unit(n, d):
+    assert d <= n <= 2*d
+    z = rat(n-d, n+d)
+    z2 = mul(z, z)
+    power = z
+    total = rat(0)
+    for j in range(100):
+        total = add(total, scale(power, 1, 2*j+1))
+        power = mul(power, z2)
+    # Positive tail <= 2*3^-201/(201*(1-1/9)) < 1/Q.
+    check('log_tail_rational', 18*Q < 8*201*3**201)
+    return add(scale(total, 2), (0, 1))
+
+
+LOG2 = log_unit(2, 1)
+
+
+def logn(n):
+    e = n.bit_length()-1
+    return add(log_unit(n, 1 << e), scale(LOG2, e))
+
+
+def arith(limit):
+    spf = list(range(limit+1))
+    for p in range(2, isqrt(limit)+1):
+        if spf[p] == p:
+            for n in range(p*p, limit+1, p):
+                if spf[n] == n:
+                    spf[n] = p
+    logs = [rat(0)]*(limit+1)
+    mu = [0]*(limit+1)
+    mu[1] = 1
+    lam = [rat(0)]*(limit+1)
+    for n in range(2, limit+1):
+        p = spf[n]
+        if p == n:
+            logs[n] = logn(n)
+            power = p
+            while power <= limit:
+                lam[power] = logs[n]
+                power *= p
+        else:
+            logs[n] = add(logs[p], logs[n//p])
+        mu[n] = 0 if (n//p) % p == 0 else -mu[n//p]
+    psi = [rat(0)]*(limit+1)
+    for n in range(1, limit+1):
+        psi[n] = add(psi[n-1], lam[n])
+    return mu, logs, psi
+
+
+def floor_response(coeff, limit):
+    inc = [rat(0)]*(limit+1)
+    for k, c in coeff:
+        if c == (0, 0):
+            continue
+        for n in range(k, limit+1, k):
+            inc[n] = add(inc[n], c)
+    out = [rat(0)]*(limit+1)
+    for n in range(1, limit+1):
+        out[n] = add(out[n-1], inc[n])
+    return out
+
+
+def band_floor(lo, hi, limit):
+    inc = [0]*(limit+1)
+    for k in range(lo+1, hi+1):
+        for n in range(k, limit+1, k):
+            inc[n] += 1
+    out = [0]*(limit+1)
+    for n in range(1, limit+1):
+        out[n] = out[n-1]+inc[n]
+    return out
+
+
+def quotient_count(lo, hi, m):
+    return sum(max(0, min(hi, m//j)-lo) for j in range(1, m//(lo+1)+1))
+
+
+def det3(g):
+    return sub(add(mul(g[0][0], mul(g[1][1], g[2][2])),
+                   scale(mul(g[0][1], mul(g[0][2], g[1][2])), 2)),
+               add(mul(g[0][0], square(g[1][2])),
+                   mul(g[1][1], square(g[0][2])),
+                   mul(g[2][2], square(g[0][1]))))
+
+
+rows = []
+controls = {}
+for H in (12, 24, 48):
+    N = H*H
+    heads = [H, 2*H, 4*H]
+    ns = [b*b for b in heads]
+    T = 2*ns[-1]
+    mu, logs, psi = arith(T)
+    data = []
+    windows = [list(range(7*n//12+1, 2*n//3+1)) for n in ns]
+    J = sum(windows, [])
+    for B, n in zip(heads, ns):
+        K = n//6
+        s1 = add(*(rat(1, k) for k in range(3*K+1, 4*K+1)))
+        s2 = add(*(rat(1, k) for k in range(5*K+1, 6*K+1)))
+        d = sub(s1, s2)
+        check('band_d_bounds', d[0] >= rat(1, 20)[1] and d[1] <= rat(1, 6)[0])
+        L = logs[B]
+        q = [rat(0)]+[sub(logs[n], logs[max(B, k)]) for k in range(1, n+1)]
+        u = add(*(scale(q[k], mu[k], k) for k in range(1, n+1)))
+        v = add(scale(L, 2), *(scale(q[k], mu[k]) for k in range(1, n+1)))
+        alpha = div(sub(u, mul(s2, scale(v, 1, K))), d)
+        z = sub(scale(v, 1, K), alpha)
+        delta = sub(rat(1), add(*(scale(sub(logs[B], logs[k]), mu[k], k)
+                                    for k in range(1, B+1))))
+        deltaN = sub(rat(1), add(*(scale(sub(logs[n], logs[k]), mu[k], k)
+                                     for k in range(1, n+1))))
+        check('delta_u_identity', overlap(u, sub(delta, deltaN)))
+        c = [rat(0)]*(n+1)
+        for k in range(2, n+1):
+            h = alpha if 3*K < k <= 4*K else z if 5*K < k <= 6*K else rat(0)
+            c[k] = div(sub(h, scale(q[k], mu[k])), L)
+        check('reciprocal_moment', contains(add(*(scale(c[k], 1, k) for k in range(2, n+1))), 1))
+        check('total_moment', contains(add(*c[2:]), 3))
+        first = band_floor(3*K, 4*K, T)
+        second = band_floor(5*K, 6*K, T)
+        profile = [x-y for x, y in zip(first, second)]
+        UB = floor_response(((k, scale(sub(logs[B], logs[k]), mu[k]))
+                             for k in range(B+1, T+1)), T)
+        UN = floor_response(((k, scale(sub(logs[n], logs[k]), mu[k]))
+                             for k in range(n+1, T+1)), T)
+        data.append(dict(B=B, n=n, K=K, L=L, d=d, s2=s2, v=v, alpha=alpha,
+                         z=z, delta=delta, deltaN=deltaN, c=c, first=first,
+                         second=second, profile=profile, UB=UB, UN=UN))
+    ds = [x['delta'] for x in data]
+    dd = add(ds[0], scale(ds[1], -2), ds[2])
+    denominator = mul(LOG2, dd)
+    aa = [div(sub(ds[1], ds[2]), denominator), div(sub(ds[2], ds[0]), denominator),
+          div(sub(ds[0], ds[1]), denominator)]
+    ww = [mul(x['L'], a) for x, a in zip(data, aa)]
+    check('sum_a_zero', contains(add(*aa), 0))
+    check('drift_zero', contains(add(*(mul(a, d) for a, d in zip(aa, ds))), 0))
+    check('sum_w_one', contains(add(*ww), 1))
+    tt = [mul(a, x['alpha']) for a, x in zip(aa, data)]
+    vv = [mul(a, x['delta']) for a, x in zip(aa, data)]
+    ee = [mul(a, add(x['deltaN'], mul(x['s2'], scale(x['v'], 1, x['K']))))
+          for a, x in zip(aa, data)]
+    for i in range(3):
+        check('vector_identity', overlap(vv[i], add(mul(data[i]['d'], tt[i]), ee[i])))
+    gram = [[rat(0) for _ in range(3)] for _ in range(3)]
+    energy = rat(0)
+    rem_energy = rat(0)
+    profile_energy = rat(0)
+    for wi, window in enumerate(windows):
+        check('window_size', len(window) == ns[wi]//12)
+        for m in window:
+            ps = [x['profile'][m] for x in data]
+            for i, x in enumerate(data):
+                K = x['K']
+                check('independent_floor_counts', x['first'][m] == quotient_count(3*K, 4*K, m)
+                      and x['second'][m] == quotient_count(5*K, 6*K, m))
+                check('profile_envelope', abs(ps[i]) <= m)
+            check('triangular_onset', ps[wi] == m-ns[wi]//2 and all(ps[j] == 0 for j in range(wi+1, 3)))
+            for i in range(3):
+                for j in range(3):
+                    gram[i][j] = add(gram[i][j], rat(ps[i]*ps[j], m*(m+1)))
+            F = []
+            f = []
+            for x in data:
+                B = x['B']
+                ff = add(*(scale(sub(logs[B], logs[k]), mu[k]*(m % k), k)
+                           for k in range(1, B+1)))
+                F.append(ff)
+                f.append(add(x['UN'][m], neg(x['UB'][m]),
+                             scale(x['alpha'], x['first'][m]), scale(x['z'], x['second'][m])))
+                check('genuine_drift_identity', overlap(x['UB'][m], add(scale(x['delta'], m),
+                      sub(psi[m], rat(m)), logs[B], ff)))
+            r = add(*(mul(a, fi) for a, fi in zip(aa, f)))
+            Z = add(*(scale(t, p) for t, p in zip(tt, ps)))
+            R = add(rat(-1), *(neg(mul(a, ff)) for a, ff in zip(aa, F)),
+                    *(scale(mul(a, scale(x['v'], 1, x['K'])), x['second'][m]) for a, x in zip(aa, data)),
+                    *(mul(a, x['UN'][m]) for a, x in zip(aa, data)))
+            check('complete_profile_decomposition', overlap(r, add(Z, R)))
+            energy = add(energy, scale(square(r), 1, m*(m+1)))
+            rem_energy = add(rem_energy, scale(square(R), 1, m*(m+1)))
+            profile_energy = add(profile_energy, scale(square(Z), 1, m*(m+1)))
+            missing_un = add(r, neg(add(*(mul(a, x['UN'][m]) for a, x in zip(aa, data)))))
+            if not overlap(r, missing_un):
+                controls.setdefault('omit_UN', [H, m])
+            no_cross = add(*(square(mul(a, fi)) for a, fi in zip(aa, f)))
+            if not overlap(square(r), no_cross):
+                controls.setdefault('omit_ordered_cross_terms', [H, m])
+            if data[0]['second'][m] != 0:
+                controls.setdefault('omit_second_band', [H, m])
+    shifted = [[sub(gram[i][j], rat(N, DELTA)) if i == j else gram[i][j]
+                for j in range(3)] for i in range(3)]
+    minors = [shifted[0][0], sub(mul(shifted[0][0], shifted[1][1]), square(shifted[0][1])), det3(shifted)]
+    for minor in minors:
+        check('rigorous_gram_sylvester', minor[0] > 0)
+    rhs = sub(scale(add(*(square(t) for t in tt)), N, 2*DELTA), rem_energy)
+    check('finite_source_lower_bound', energy[0] >= rhs[1])
+    check('profile_gram_vector', profile_energy[0] >= scale(add(*(square(t) for t in tt)), N, DELTA)[1])
+    # Finite exact remainder version, before substituting any all-scale Mertens input.
+    rhs_vector = sub(scale(add(*(square(v) for v in vv)), N, 4*DELTA),
+                     add(scale(add(*(square(e) for e in ee)), N, 2*DELTA), rem_energy))
+    check('finite_delta_vector_lower_bound', energy[0] >= rhs_vector[1])
+    controls.setdefault('first_window_only', [H, windows[0][0]])
+    check('first_window_null_direction', all(data[2]['profile'][m] == 0 for m in windows[0]))
+    m = ns[0]//2
+    check('strict_endpoint_control', data[0]['profile'][m] == 0 and m//m == 1)
+    controls.setdefault('wrong_strict_endpoint', [H, m])
+    probes = sorted({1, H, 4*H+1, T} | {m for n in ns for m in (n//2, 2*n//3, 5*n//6+1, n, n+1)})
+    for m in probes:
+        for x in data:
+            literal = sub(rat(1), add(*(scale(x['c'][k], m % k, k) for k in range(2, x['n']+1))))
+            floor = div(add(x['UN'][m], neg(x['UB'][m]), scale(x['alpha'], x['first'][m]),
+                            scale(x['z'], x['second'][m])), x['L'])
+            check('literal_residue_return', overlap(literal, floor))
+            if m <= x['B']:
+                check('exact_head_interval', contains(literal, 0))
+    Aupper = max(max(abs(a[0]), abs(a[1])) for a in aa)
+    tail4_rhs = sub(scale(square(tt[0]), N, 3456),
+                    scale(square(add(rat(1), (7*Aupper, 7*Aupper))), 2))
+    check('TAIL4_regression', energy[0] >= tail4_rhs[1])
+    absolute_deltas = sorted((min(abs(d[0]), abs(d[1])) if not d[0] <= 0 <= d[1] else 0,
+                             max(abs(d[0]), abs(d[1]))) for d in ds)
+    # The median intervals are disjoint in this declared finite domain.
+    check('median_interval_order', all(absolute_deltas[i][1] < absolute_deltas[i+1][0]
+                                      for i in range(2)))
+    median = absolute_deltas[1]
+    check('median_inverse', add(*(square(v) for v in vv))[0] >=
+          div(square(median), scale(square(LOG2), 5))[1])
+    rows.append(dict(H=H, cells=len(J), determinant=display(dd),
+                     gram_minors=[display(x) for x in minors],
+                     regional_energy=display(energy), profile_energy=display(profile_energy),
+                     exact_remainder_energy=display(rem_energy), median_defect=display(median)))
+for name in ('omit_UN', 'omit_ordered_cross_terms', 'omit_second_band',
+             'first_window_only', 'wrong_strict_endpoint'):
+    check('negative_control_detected', name in controls)
+check('coercivity_constant', 1728*(1+13**2+169**2) == DELTA)
+check('conditioning_not_rate', 2*7**8 < 8**8 and 2*7**4 > 8**4 and 512 > 64)
+print(json.dumps(dict(status='PASS', counts=dict(checks), total=sum(checks.values()),
+                      controls=controls, rows=rows), indent=2))
+~~~
+
+#### Final 75-Digit Machine Output
+
+~~~json
+{
+  "status": "PASS",
+  "counts": {
+    "log_tail_rational": 10015,
+    "band_d_bounds": 9,
+    "delta_u_identity": 9,
+    "reciprocal_moment": 9,
+    "total_moment": 9,
+    "sum_a_zero": 3,
+    "drift_zero": 3,
+    "sum_w_one": 3,
+    "vector_identity": 9,
+    "window_size": 9,
+    "independent_floor_counts": 15876,
+    "profile_envelope": 15876,
+    "triangular_onset": 5292,
+    "genuine_drift_identity": 15876,
+    "complete_profile_decomposition": 5292,
+    "rigorous_gram_sylvester": 9,
+    "finite_source_lower_bound": 3,
+    "profile_gram_vector": 3,
+    "finite_delta_vector_lower_bound": 3,
+    "first_window_null_direction": 3,
+    "strict_endpoint_control": 3,
+    "literal_residue_return": 171,
+    "exact_head_interval": 18,
+    "TAIL4_regression": 3,
+    "median_interval_order": 3,
+    "median_inverse": 3,
+    "negative_control_detected": 5,
+    "coercivity_constant": 1,
+    "conditioning_not_rate": 1
+  },
+  "total": 68519,
+  "controls": {
+    "omit_ordered_cross_terms": [
+      12,
+      85
+    ],
+    "omit_UN": [
+      12,
+      337
+    ],
+    "omit_second_band": [
+      12,
+      337
+    ],
+    "first_window_only": [
+      12,
+      85
+    ],
+    "wrong_strict_endpoint": [
+      12,
+      72
+    ]
+  },
+  "rows": [
+    {
+      "H": 12,
+      "cells": 252,
+      "determinant": [
+        "-0.003256779068",
+        "-0.003256779067"
+      ],
+      "gram_minors": [
+        [
+          "3.206849852743",
+          "3.206849852744"
+        ],
+        [
+          "2.919743338672",
+          "2.919743338673"
+        ],
+        [
+          "8.162946545644",
+          "8.162946545645"
+        ]
+      ],
+      "regional_energy": [
+        "0.006901210415",
+        "0.006901210416"
+      ],
+      "profile_energy": [
+        "0.000037890593",
+        "0.000037890594"
+      ],
+      "exact_remainder_energy": [
+        "0.007004997233",
+        "0.007004997234"
+      ],
+      "median_defect": [
+        "0.000682107817",
+        "0.000682107818"
+      ]
+    },
+    {
+      "H": 24,
+      "cells": 1008,
+      "determinant": [
+        "0.002302051259",
+        "0.002302051260"
+      ],
+      "gram_minors": [
+        [
+          "12.943362713742",
+          "12.943362713743"
+        ],
+        [
+          "45.773103056552",
+          "45.773103056553"
+        ],
+        [
+          "506.945266648228",
+          "506.945266648229"
+        ]
+      ],
+      "regional_energy": [
+        "0.002798006686",
+        "0.002798006687"
+      ],
+      "profile_energy": [
+        "0.000151610087",
+        "0.000151610088"
+      ],
+      "exact_remainder_energy": [
+        "0.002676212130",
+        "0.002676212131"
+      ],
+      "median_defect": [
+        "0.000447703757",
+        "0.000447703758"
+      ]
+    },
+    {
+      "H": 48,
+      "cells": 4032,
+      "determinant": [
+        "-0.001323595967",
+        "-0.001323595966"
+      ],
+      "gram_minors": [
+        [
+          "51.890730745595",
+          "51.890730745596"
+        ],
+        [
+          "728.675770336270",
+          "728.675770336271"
+        ],
+        [
+          "32201.066869176711",
+          "32201.066869176712"
+        ]
+      ],
+      "regional_energy": [
+        "0.006375825500",
+        "0.006375825501"
+      ],
+      "profile_energy": [
+        "0.000122776718",
+        "0.000122776719"
+      ],
+      "exact_remainder_energy": [
+        "0.005276482318",
+        "0.005276482319"
+      ],
+      "median_defect": [
+        "0.000343159998",
+        "0.000343159999"
+      ]
+    }
+  ]
+}
+~~~
+
+Publication is not certified by this preparation paragraph. The immutable commit/readback receipt follows only after the remote write succeeds.
