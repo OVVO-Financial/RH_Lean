@@ -62,10 +62,10 @@ theorem historicalDensityMask_cost_identity
       intro d hd
       have hdpos : (0 : Real) < d := by
         exact_mod_cast (lt_of_lt_of_le Nat.zero_lt_one (hD.trans (hs d hd)))
-      have hdpow : (d : Real) ^ beta != 0 := ne_of_gt (Real.rpow_pos_of_pos hdpos beta)
+      have hdpow : (d : Real) ^ beta ≠ 0 := ne_of_gt (Real.rpow_pos_of_pos hdpos beta)
       rw [Real.rpow_sub hdpos, Real.rpow_one]
       field_simp [ne_of_gt hdpos, hdpow]
-      <;> ring
+      ring
     _ = (D : Real) ^ (1 - beta) * (∑ d ∈ s, |c d| / (d : Real)) +
         ∑ d ∈ s, |c d| / (d : Real) *
           ((d : Real) ^ (1 - beta) - (D : Real) ^ (1 - beta)) := by
@@ -92,7 +92,7 @@ theorem historicalDensityMask_cost_lower
       (by exact_mod_cast hs d hd) (sub_nonneg.mpr hbeta)
   have hpow : 0 <= (D : Real) ^ (1 - beta) := Real.rpow_nonneg (Nat.cast_nonneg D) _
   rw [historicalDensityMask_cost_identity s c D beta hD hs hbalance]
-  nlinarith
+  nlinarith only [mul_nonneg hpow hpositive, hgap]
 
 /-- No nonunit density-cancelling tail has absolute cost at most one below
 the linear exponent. This does not constrain the signed return itself. -/
@@ -121,7 +121,8 @@ theorem historicalDensityMask_no_contraction
     have hp := hs d hm.2
     omega
   have hsplit : (∑ d ∈ s.erase 1, c d / (d : Real)) + c 1 / (1 : Real) =
-      ∑ d ∈ s, c d / (d : Real) := Finset.sum_erase_add _ _ hunit
+      ∑ d ∈ s, c d / (d : Real) := by
+    simpa using (Finset.sum_erase_add s (fun d : Nat => c d / (d : Real)) hunit)
   have hbalance : (∑ d ∈ s.erase 1, c d / (d : Real)) = -1 := by
     rw [hc, hcancel] at hsplit
     norm_num at hsplit
@@ -137,6 +138,6 @@ theorem historicalDensityMask_cost_sharp (D : Nat) (beta : Real) (hD : 1 <= D) :
   have hpos : (0 : Real) < D := by exact_mod_cast (Nat.zero_lt_one.trans_le hD)
   constructor
   · simp [ne_of_gt hpos]
-  · simp [abs_of_nonneg (Nat.cast_nonneg D), Real.rpow_sub hpos, Real.rpow_one]
+  · simp [abs_of_nonneg (le_of_lt hpos), Real.rpow_sub hpos, Real.rpow_one]
 
 end RHLean.Analysis

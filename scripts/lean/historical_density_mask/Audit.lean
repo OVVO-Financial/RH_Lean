@@ -49,8 +49,8 @@ def main (_args : List String) : IO UInt32 := do
       unless allowed.contains ax do
         throw (IO.userError s!"Unapproved axiom for {root}: {ax}")
     let reached := closure env [root]
-    unless reached.contains `Real.rpow do
-      throw (IO.userError s!"Actual real-power weights absent: {root}")
+    unless reached.contains `Real.rpow_sub do
+      throw (IO.userError s!"Real-power weight conversion absent: {root}")
     if root == `RHLean.Analysis.historicalDensityMask_cost_lower ||
         root == `RHLean.Analysis.historicalDensityMask_cost_gt_one ||
         root == `RHLean.Analysis.historicalDensityMask_no_contraction then
