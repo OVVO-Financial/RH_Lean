@@ -748,3 +748,787 @@ Untruncated agent-reports tree at f0050257d24237f0c3a25e5e6438533548c19398 was e
 Open/draft PR collection was empty at intake. Current source files for the original Nyman head, complete return, scalar drift, correction energy and #1119 terminal/audit were retrieved. Exact hosted checks, merge-target distinctions and dependent-source reuse remain to be verified; no local Lean or new workflow execution.
 
 Next: finish independent reconstruction and external analytic premise checks, run a small separately written exact original-source reproducer with omission controls, issue scoped verdicts and publish complete A-O findings. Original new deductions remain SELF_AUDIT / INDEPENDENT_REVIEW_PENDING unless separately reviewed. NO_NEW_GLOBAL_GAIN; VERIFIED_ETA=NONE; RH=OPEN. Only this owned report will change remotely.
+
+
+## Exactly One Raw Tail Combination Has Finite Energy
+
+### Final Mathematical Synthesis - 20261117-referee-1203-EST/IC
+
+Actual scheduled trigger: 2026-11-17 12:03:01 EST / 17:03:01 UTC. PLATFORM_RUN_ID=UNAVAILABLE; IC is a research label, not a platform identifier. The earlier SG report, its receipt and this run's early checkpoint are preserved verbatim. Publication of this synthesis is READBACK_PENDING until the verified receipt below. New IC deductions are PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED; upstream independent reviews have separate verdicts.
+
+### A. Most Important Mathematical Finding
+
+**For every fixed original quadratic Nyman head H>=2, a constant linear combination of the three raw floor components has finite weighted energy if and only if all three coefficients are equal.** With the exact definitions in E1,
+
+```text
+sum_(m>=1) |lambda_1 U_N(m)-lambda_2 U_H(m)+lambda_3 C_h(m)|^2/[m(m+1)] < infinity
+    iff lambda_1=lambda_2=lambda_3.                                      (IC2)
+```
+
+The real coefficients are fixed before the output variable m grows; they may depend on the fixed H. This is an original-source classification, not a counterexample built from arbitrary signs. It strengthens TC2's component-deletion obstruction to EVERY unequal constant reweighting.
+
+The obstruction has two independent modes. Canceling linear drift alone is insufficient: the genuine prime-power error W(m)=psi(m)-m has infinite energy in precisely this Hilbert space. In particular,
+
+```text
+Z_H(m)=delta(H) U_N(m)-delta(N) U_H(m)
+```
+
+has exactly zero linear drift but infinite weighted energy for EVERY H>=2. Subtracting both common modes gives bounded periodic components whose sum remains the original residual. That exact repair supplies no uniform-in-H bound.
+
+**Independent upstream result:** ACCEPT_ON_PAPER HA1-HA3. For the prescribed taper, the dyadic all-head average A(X)=X^(-1)sum_(X<=H<2X) E_H obeys
+
+```text
+limsup_(j->infinity) log(1+A(2^j))/log(2^j) >= 1
+```
+
+unconditionally. If Theta<1, the stronger lower bound is 2Theta. Thus Coordinator INV.9's every-positive-loss all-head averaging supplier is REFUTED, including under RH. INV's valid sparse-sequence consumer survives. Neither this result nor IC refutes small complete norms on a genuinely sparse sequence.
+
+NO_NEW_GLOBAL_GAIN; NO_NEW_ACCEPTED_RH_ROUTE; VERIFIED_ETA=NONE; RH=OPEN.
+
+### B. Current Authoritative Objective
+
+Live main is [fd4085e20602bc210cc6b630abbdeeeaf1bf28eb](https://github.com/OVVO-Financial/RH_Lean/commit/fd4085e20602bc210cc6b630abbdeeeaf1bf28eb). AGENTS blob c4f36b772f8a4b0c24fe566b90fafb646073c60f and CURRENT_PROOF_CONTRACT blob 95566e37c8eaeb99ee680660df4f9d2e06ea5038 were read. The newer BOOTSTRAP_TO_HALF_V1 task priority governs over the contract's older finite-wheel banner, without changing its arithmetic target or source safeguards.
+
+The canonical objective remains one C>=0, chosen before all natural R>=2, such that
+
+```text
+|pi(R^2)-VF_can(R^2)| <= C R log R,
+VF_can(R^2)=VF_mid(R^2)+sqrt(2).
+```
+
+The actual declaration is VFCanonicalSquareVonKochStatement. The inspected riemannHypothesis_of_vfCanonicalSquare still explicitly requires ClassicalVonKochRHCriterion as well as that arithmetic bound. Neither premise is silently discharged here.
+
+Write GROWTH(b) for: for every epsilon>0 there exists C_epsilon>=0 before all integers n>=1 with |M(n)|<=C_epsilon n^(b+epsilon). The strongest relevant reused compiled comparator is native_mertens_near_uniform_window_error_closed:
+
+```text
+GROWTH(b_base), b_base=7/8-7/(64*nearUniformSlotCount).
+```
+
+Its fixed slot count, original source construction, LOW/HIGH/principal return and native arithmetic transfer are retained. Spending a positive part of the margin yields the fixed exponent 7/8; no zero-loss estimate at b_base is claimed. MERTENS_CONVERSE_IDENTIFICATION proves GROWTH(Theta) at the actual closed zero supremum without an attained-supremum premise. This run reuses certified dependencies; it does not claim a fresh independent proof of every imported analytic theorem.
+
+half_bootstrap_ack=BOOTSTRAP_TO_HALF_V1; cross_route_ack=CROSS_ROUTE_SIGNED_RECOVERY_V1; continuity_ack=LAST_ACTUAL_REPORT_CONTINUITY_V1. Preserve VF-LOW, SAT, CODIV, OAI-NNS, JOH, FINITE-AC, CORR4, MU-LIFT and NYMAN independently. No Nyman representation is imposed on another route.
+
+### C. Highest-Risk Mechanisms And Continuity
+
+The main risks selected were: replacing a sparse-head existence problem by a false all-head average; separating infinite raw energies before their actual cancellation; treating drift removal as complete centering; and mistaking a target-equivalent supplier for new arithmetic.
+
+The complete, untruncated report tree at f0050257d24237f0c3a25e5e6438533548c19398 was enumerated with no calendar cutoff. All available November 16/17 role files were fetched. Both Coordinator mirrors were separately retrieved and byte-compared on both days. The preceding SG report and its consumed watermark were recovered; newly relevant sections were consumed chronologically as NYMAN-JUMP, INV, HF, HA, SB, TC. Relevant November 16 resume capsules and route derivations, including the FR2 convolution bridge, were recovered. This is task-relevant continuity, not a claim to have reread every historical appendix.
+
+All paths in the following table are under research/agent_reports/. Each listed current file contains a completed substantive publication receipt; times are reported receipt times unless separately verified from commit metadata. No run is inferred from a schedule.
+
+| Role | LAST_VERIFIED current path and blob | LAST_CONSUMED -> newly consumed section; trigger EST | RESUME |
+| --- | --- | --- | --- |
+| Coordinator | 2026-11-17/00-coordinator-am.md and byte-identical 90; 21ae56b8856c02eea79efd6c2ffa01381d08710e | SC -> 20261117-coordinator-0710-EST/INV; 07:10 | Retain INV1-4, remove INV.9 as a viable supplier; require original-source sparse arithmetic. |
+| Owner | 2026-11-17/10-owner-payment.md; efab9f519e086b7b7cf78e7d6112a4b6ab0089ea | FB -> 20261117-owner-0809-EST/HF; 08:09 | Retain full signed historical return; density cancellation is not cap contraction. |
+| Analytic | 2026-11-17/20-analytic-type-ii.md; 686c0a992692db9a53e7416745f37ee9b79f9fbb | EF -> 20261117-analytic-0909-EST/HA; 09:09 | Sparse complete-norm supplier, not uniform all-head subpower averaging. |
+| Wheel | 2026-11-17/30-finite-wheel.md; 49882b854f2df6d2ee426da70fa465d083733c78 | GD -> 20261117-wheel-1012-EST/SB; 10:12 | Original retained signed sum; repaired pointwise envelope is target-equivalent. |
+| Census | 2026-11-17/40-prime-census.md; 701a6d15ba711d9a4ca3677709802def12c46c07 | DJ -> 20261117-census-1100-EST/TC; 11:00 | Complete norm after both cancellations; finite cross signs are not tail signs. |
+| Referee | 2026-11-17/50-adversarial-referee.md intake; 64ce6e54e708767cb7053a2af17206597551ee74 | Own SG; 04:13 -> this IC | IC independent review pending; SG remains in its prior review status. |
+| Lean | 2026-11-17/60-lean-verification.md; 16d7a3b3c94f213c6407a97fd1f84eb7b5a1a9d5 | CR -> 20261117-lean-0510-EST/NYMAN-JUMP; 05:10 | Its #1140 unmerged status is superseded by the verified human merge below. |
+
+TODAY=AVAILABLE for all seven roles; YESTERDAY=READ/CARRY_FORWARD where relevant. NEW_UNCONSUMED=NONE for the relevant discovered sections after this review. GAP=no newly unconsumed report gap since SG; older November 13/14 absences and the previously recorded partial November 15 role coverage remain NO_VERIFIED_REPORT, not invented executions. CONTINUITY_COMPLETE is scoped to verified latest-real discovery and relevant mathematical backfill.
+
+November 16 blobs: Coordinator fda92549dd9291c491005fdf70847b90d9be385a; Owner a52b439e693e069502b0c299a5f074a19bae0807; Analytic 84aaa2103225565607b5b033f273462bbe865246; Wheel 713826840694e39a141fbdbe813f1d47245928e7; Census 53e6be517dc11037fe3b42a8ed6ad3a06cfce956; Referee 240b97ce1c8ddc87d5f520bc9a8cd6ea00df3d32; Lean 0bada0352d54be7c46a7d928f4c4e3bee440ad8f.
+
+EXTERNAL_HANDOFFS.md blob 7d63d434690d00dffce9c90335d41c4f62d85798 was read and is unchanged, with no entry after October 18. Preserve EXT-20261018-PNT-1's full cofactor-weighted error and EXT-20261014-5's distinction between an unconditional fraction and a first-bad implication. Neither is an unpaid supplier for the present norm.
+
+### D. Claims Reviewed
+
+Verdicts below concern the exact claim and scope, separately from mathematical evidence. ACCEPT_ON_PAPER does not mean PROVED_IN_LEAN. Original report paths/blobs are in C; proofs and limitations are reconstructed in E-H.
+
+| Stable claim | Independent verdict | Exact accepted or rejected scope |
+| --- | --- | --- |
+| 20261117-coordinator-0710-EST/INV1 | ACCEPT_ON_PAPER / IDENTITY_ONLY | Complete finite-boundary residue Mellin identity; no arithmetic estimate. |
+| INV2 | ACCEPT_ON_PAPER | Exact-head lower bound at each actual zero with real part >1/2; retain the head correction otherwise. |
+| INV3 | ACCEPT_ON_PAPER / CONDITIONAL | One common unbounded subpower-energy sequence implies RH; more generally energy exponent kappa implies Theta<=(1+kappa)/2. No sequence or supplier has been established. |
+| INV4 | ACCEPT_ON_PAPER / TARGET_EQUIVALENT | Free finite coefficients and unrestricted support give an RH-equivalent criterion. The reverse implication for this prescribed taper is UNRESOLVED. |
+| INV.9 proposed averaging supplier | REJECT / REFUTED THEOREM | Uniform every-positive-loss all-head average for the prescribed quadratic taper is false by HA. INV3 itself is unaffected. |
+| 20261117-analytic-0909-EST/HA1 | ACCEPT_ON_PAPER / IDENTITY_ONLY | Full affine kernel, both correction bands, unit term, ordered interactions and infinite output. |
+| HA2 | ACCEPT_ON_PAPER | Original pre-correction extraction with the stated uniform remainder bill. |
+| HA3 | ACCEPT_ON_PAPER / NO_GO | Dyadic limsup >=1 unconditionally and >=2Theta if Theta<1. Not a lower bound at every head or every dyadic block. |
+| 20261117-census-1100-EST/TC1-TC2 | ACCEPT_ON_PAPER | Exact two-mode decomposition, nonzero slopes and fixed-head raw Gram asymptotic. No complete-norm lower bound follows. |
+| TC3-TC4 numerical campaigns | FINITE_COMPUTATION as reported; not independently rerun wholesale | This run independently checks a smaller four-head domain only. The reported negative finite cross sums at H=17,29,39 are not claimed reproduced here. |
+| 20261117-owner-0809-EST/HF1 | ACCEPT_ON_PAPER, scoped | Sharp one-moment absolute mask cost; stated two-moment lower bound and fixed-mask separate-cap obstruction. Not a no-go for complete signed payment. |
+| 20261117-wheel-1012-EST/SB1-SB3 | ACCEPT_ON_PAPER, scoped | Small-prefix bill, genuine one-large-prime counterfamily, and corrected every-loss equivalence with fixed parameter order. Earlier FR2 bridge is credited, not newly proved. |
+| 20261117-referee-1203-EST/IC1-IC3 | SELF_AUDIT / INDEPENDENT_REVIEW_PENDING | New paper deductions below, NOT_FORMALIZED. No self-issued independent acceptance. |
+
+HF2-HF6, all large upstream finite campaigns, and the branch-only #1143 mathematical development are not given blanket independent acceptance. Earlier SC1-SC3, EF1-EF3 and DJ2 scoped acceptance remains reusable; unchanged SG1-SG2 retains its existing review status. No unchanged census is repeated merely to create activity.
+
+### E. Independent Mathematical Reconstruction
+
+#### E1. Exact Original Carrier And Both Modes
+
+For integer H>=2 set N=6 ceil(H^2/6), K=N/6, L=log(N/H)>0 and q_k=log(N/max(H,k)). Every logarithm is natural. Define
+
+```text
+u=sum_(k=1..N) mu(k) q_k/k,
+v=2L+sum_(k=1..N) mu(k) q_k,
+s1=sum_(3K<k<=4K) 1/k,  s2=sum_(5K<k<=6K) 1/k,
+alpha=(u-s2*v/K)/(s1-s2),  z=(s1*v/K-u)/(s1-s2).
+```
+
+Both bands have K terms and termwise comparison gives s1>s2. Let h_k=alpha on (3K,4K], z on (5K,6K], and zero elsewhere. For 2<=k<=N take c_k=(h_k-mu(k)q_k)/L. These are the original arithmetic coefficients, not optimized or randomized replacements. Put
+
+```text
+r_H(m)=1-sum_(k=2..N)c_k {m/k},
+E_H=sum_(m>=1)r_H(m)^2/[m(m+1)],
+U_B(m)=sum_(B<k<=m)mu(k)log(B/k) floor(m/k),
+C_h(m)=sum_(k=2..N)h_k floor(m/k),
+delta(B)=1-sum_(k<=B)mu(k)log(B/k)/k,
+F_B(m)=sum_(k<=B)mu(k)log(B/k){m/k},
+psi(m)=sum_(p^j<=m)log p,  W(m)=psi(m)-m.
+```
+
+The moment solver gives sum c_k/k=1 and sum c_k=3; r_H(m)=0 for 1<=m<=H. The compiled complete-return and drift identities give, with all output integers retained,
+
+```text
+L r_H(m)=U_N(m)-U_H(m)+C_h(m),
+U_B(m)=m delta(B)+W(m)+log B+F_B(m),
+u=delta(H)-delta(N).
+```
+
+The constant log B includes the unit term. psi includes all prime powers. For the signed component vector f=(U_N,-U_H,C_h), define
+
+```text
+a=(delta(N),-delta(H),u), b=(1,-1,0),
+p(m)=(log N+F_N(m), -log H-F_H(m), -sum_(k=2..N)h_k {m/k}).
+f(m)=m a+W(m)b+p(m),  sum_i a_i=sum_i b_i=0,
+sum_i p_i(m)=L r_H(m).                                      (IC.1)
+```
+
+Each p_i is bounded and periodic for fixed H, with a period dividing lcm(1,...,N). Thus each p_i lies in the weighted Hilbert space. Fixed-head boundedness is not a bound uniform in H.
+
+TC2's nonzero-slope argument is sound. If delta(B)=0, multiplying its defining identity by D=lcm(1,...,B) and exponentiating makes e^D a positive rational number. This contradicts transcendence of e (including B=1, where delta(1)=1 directly). An authoritative formal reference is [Eberl, Hermite-Lindemann](https://isa-afp.org/entries/Hermite_Lindemann.html); this is external mathematics, not an RH_Lean formalization claim.
+
+For the different coefficient u, N/2>=H and N is composite. [Bertrand's theorem](https://leanprover-community.github.io/mathlib4_docs/Mathlib/NumberTheory/Bertrand.html) gives a prime N/2<p<N. Then p>H, p does not divide N, and the ONLY summand contributing log p to u is k=p; its rational coefficient is +1/p. Rational independence of logarithms of distinct primes follows by clearing denominators, exponentiating and unique factorization. Therefore u!=0 for EVERY H>=2. No estimate of its small size is required.
+
+The prime number theorem W(m)=o(m) now gives f_i(m)/m -> a_i at fixed H. Hence, for G_ij(T)=sum_(m<=T) f_i(m)f_j(m)/[m(m+1)], Cesaro averaging gives G_ij(T)/T -> a_i a_j. This justifies TC2's eventual raw Gram statement, not any finite sign extrapolation. In the full sum the leading coefficient is (sum a_i)^2=0 and the W mode also cancels exactly.
+
+#### E2. IC1: The Prime-Power Error Is Not Square Integrable Here
+
+The precise theorem is unconditional:
+
+```text
+sum_(m>=1)|psi(m)-m|^2/[m(m+1)] = infinity.                 (IC1)
+```
+
+Proof. The step embedding is an isometry because integral_m^(m+1) dx/x^2=1/[m(m+1)]. For x in [m,m+1), psi(x)=psi(m), and W(x)-W(m)=-(x-m). The latter bounded function belongs to L^2([1,infinity),dx/x^2). Thus finiteness of the discrete norm is equivalent to finiteness of the continuous norm of W.
+
+Suppose that norm is C<infinity. Cauchy-Schwarz makes
+
+```text
+F(s)=integral_1^infinity W(x)x^(-s-1) dx
+```
+
+holomorphic on Re(s)>1/2, locally normally convergent there, with
+
+```text
+|F(s)| <= C / sqrt(2 Re(s)-1).                             (IC.2)
+```
+
+For Re(s)>1, summation/integration of the absolutely convergent von Mangoldt Dirichlet series gives
+
+```text
+F(s)=-zeta'(s)/(s zeta(s))-1/(s-1).                        (IC.3)
+```
+
+The singularity at s=1 is removable. The series identity is [DLMF 27.4.12](https://dlmf.nist.gov/27.4#E12). Nontrivial zeros exist and are symmetric about Re(s)=1/2, so at least one zero rho has Re(rho)>=1/2; see [DLMF 25.10](https://dlmf.nist.gov/25.10).
+
+If such a zero has real part >1/2, the meromorphic right side of IC.3 has a pole whereas F is holomorphic, contradicting meromorphic uniqueness. Otherwise choose one with real part 1/2. For its multiplicity nu>=1, along s=rho+epsilon with real epsilon down to zero,
+
+```text
+-zeta'(s)/(s zeta(s))-1/(s-1) = -nu/(rho*epsilon)+O(1).
+```
+
+By uniqueness it equals F to the right of the boundary. Its order epsilon^(-1) contradicts IC.2's O(epsilon^(-1/2)). This covers both cases, without RH, a simple-zero hypothesis, Hardy's critical-line theorem, or an attained rightmost supremum. It proves IC1.
+
+This is a classical Mellin obstruction applied to the exact repository weight, not a claimed new theorem about zeta zeros or a literature-priority claim.
+
+#### E3. IC2 And IC3: Complete Classification And Minimal Exact Repair
+
+Fix H>=2 and lambda=(lambda_1,lambda_2,lambda_3) in R^3. Define A=lambda dot a and B=lambda_1-lambda_2. IC.1 gives
+
+```text
+lambda dot f(m)=A m+B W(m)+lambda dot p(m).                 (IC.4)
+```
+
+If A!=0, PNT and boundedness of p give (lambda dot f(m))/m -> A, so its summand in the energy tends to A^2>0. Indeed its truncated energy divided by T tends to A^2. Its infinite energy diverges.
+
+If A=0 and B!=0, finite energy in IC.4 would imply W belongs to this Hilbert space, by subtracting the bounded periodic term and dividing by B. IC1 forbids that. This Hilbert-space argument does not rely on controlling a mixed term by its sign.
+
+If A=B=0, put lambda_1=lambda_2=t. Then A=(lambda_3-t)u; the proved u!=0 forces lambda_3=t. Conversely equal coefficients give t L r_H, a bounded periodic function and therefore finite energy. This proves IC2 for all real constant weights, not just the finite grid in the checker.
+
+Two consequences form IC3. First, U_B-m delta(B)=W+log B+F_B has infinite energy for every integer B>=1, even though its linear drift has been removed. Second, for every original H,
+
+```text
+Z_H=delta(H)U_N-delta(N)U_H
+   =u W+delta(H)p_1+delta(N)p_2.
+```
+
+The m coefficient is identically zero and u!=0, so Z_H has infinite energy. This is a genuine infinite family of failures of drift-only centering, with the original arithmetic tails.
+
+The exact repair is to remove BOTH common modes before assigning individual Hilbert norms: p_i=f_i-m a_i-W b_i. Each p_i has finite energy and sum p_i=L r_H. The repair is minimal within these fixed three components because IC2 characterizes the entire nullspace of the two divergent modes. It does not prove smallness of any p_i as H grows, and does not license dropping any cross term in |sum p_i|^2.
+
+#### E4. Independent INV Audit
+
+For arbitrary finite coefficients c_2,...,c_N and r(m)=1-sum c_k{m/k}, put d_s(m)=m^(-s)-(m+1)^(-s). Finite summation by parts gives exactly
+
+```text
+sum_(m=1..T){m/k}d_s(m)
+ =(1/k)sum_(m=1..T)m^(-s)
+  -sum_(j=1..floor(T/k))(kj)^(-s)-{T/k}(T+1)^(-s).
+```
+
+For Re(s)>1 pass to the limit. Since the left series converges locally normally for Re(s)>0, continue the identity, with the removable pole at 1, to obtain
+
+```text
+sum_(m>=1)r(m)d_s(m)=1-zeta(s)sum_(k=2..N)c_k(1/k-k^(-s)).
+```
+
+At an actual zero rho with sigma=Re(rho)>1/2 this equals 1. If r vanishes on 1<=m<=H, cellwise Cauchy-Schwarz against dx/x^2 gives
+
+```text
+sum_(m>H)|d_rho(m)|^2 m(m+1)
+ <= |rho|^2/(2sigma-1)*(H+1)^(1-2sigma),
+E >= (2sigma-1)/|rho|^2*(H+1)^(2sigma-1).                  (IC.5)
+```
+
+Without an exact head, the tail-energy lower bound has the additional factor |1-sum_(m<=H)r(m)d_rho(m)|^2. The constant in IC.5 is fixed for the actual zero before H grows.
+
+Consequently a single common unbounded sequence with log(1+E_H)/log(H+1)->0 excludes every zero to the right of 1/2. More generally an every-positive-loss exponent kappa gives Theta<=(1+kappa)/2. A closed-boundary supplier kappa(h)<2h at h=Theta-1/2>0 would contradict the definition of the supremum, without requiring it to be attained. These are valid conditional consumers, not suppliers.
+
+For FREE coefficients and support, the converse from RH uses [Bagchi, Theorem 1](https://arxiv.org/html/math/0607733v1): the finite residue span approximates 1 in this exact weighted space. At fixed H, restriction to the first H cells is onto. For desired f_1,...,f_H set A=f_1, recursively choose
+
+```text
+c_m=A-(f_m-f_(m-1))-sum_(2<=d<m,d|m)c_d  (2<=m<=H),
+c_(H+1)=(H+1)(A-sum_(k=2..H)c_k/k).
+```
+
+The residue increment identity verifies those coordinates, including H=1. This gives a bounded finite-dimensional right inverse at EACH FIXED H. Correct a sufficiently accurate Hilbert approximant by that right inverse to make its head exact and its norm <=1/H. No uniform-in-H right-inverse norm is asserted. Thus the free-family criterion is TARGET_EQUIVALENT, while the prescribed two-band family's converse remains UNRESOLVED.
+
+#### E5. Independent HA Audit: Why Uniform Head Averaging Fails
+
+Let J_H be the integer interval [ceil(N/4),N/2]. Here U_N=C_h=0 for the literal support reasons, so Lr_H=-U_H. Also sum_(m in J_H)m/(m+1)>=N/8. Writing R_H=W+log H+F_H, the elementary inequality |a|^2<=2|a+b|^2+2|b|^2 gives
+
+```text
+N delta(H)^2 <=16L^2 E_H+16 sum_(m in J_H)R_H(m)^2/[m(m+1)].
+```
+
+For fixed Theta<b<1, the classical zero-bound-to-PNT estimate supplies |W(t)|<=C_b t^b after choosing an interior exponent and absorbing log^2. See [Elkies, Math 259, pp. 3-4](https://abel.math.harvard.edu/~elkies/M259.02/pnt.pdf). C_b is fixed BEFORE H; no uniformity as b decreases to Theta is required. Since |F_H|<=sum_(k<=H)log(H/k)<=H-1, sum_(J_H)1/[m(m+1)]<=4/N, and H^2<=N<H^2+6,
+
+```text
+N delta(H)^2 <=16L^2 E_H+128 C_b^2 N^(2b-1)+512.
+D(X):=X^(-1)sum_(X<=H<2X)delta(H)^2
+ <=C log(X)^2 X^(-2) A(X)+C_b' X^(4b-4)+C X^(-2).        (IC.6)
+```
+
+The interval contains m>=2, including H=2. This avoids an unaccounted small-input use of the PNT bound.
+
+For completeness, the mean-square Mellin step is valid. If D(2^j)=O(2^(j(2c-2))) with c>0, then for H<=x<H+1,
+
+```text
+delta(x)-delta(H)=-log(x/H)sum_(k<=H)mu(k)/k,
+|delta(x)-delta(H)|<=(1+log H)/H.
+```
+
+Thus integral_X^(2X)|delta(x)|^2 dx=O(X^(2c-1)) on dyadic blocks. Dyadic Cauchy-Schwarz makes its Mellin transform holomorphic on Re(s)>c-1. Initially on Re(s)>0 it equals 1/s-1/[s^2 zeta(1+s)]. The singularity at zero is removable; every actual zero rho gives a genuine pole at rho-1. Hence Theta<=c.
+
+If Theta<1 and A(2^j)=O(2^(j kappa)), kappa>=0, IC.6 implies
+
+```text
+Theta<=max(kappa/2,2b-1,0), then
+Theta<=max(kappa/2,2Theta-1,0).
+```
+
+The passage b down to Theta compares all-scale assertions one fixed b at a time, not their constants. Since 1/2<=Theta<1, this forces kappa>=2Theta. To obtain the unconditional limsup >=1, suppose that limsup were <1 and select kappa<1 above it. Averaging IC.5 yields Theta<=(1+kappa)/2<1. The just-proved implication then forces kappa>=2Theta>=1, contradiction. This proof does not need the repository's subunit comparator.
+
+The exact affine kernel in HA1 also survives inspection: finite input indices, including the unit affine term and both correction bands, produce bounded output residue features at each fixed H. The full weighted kernel is absolutely convergent; every ordered product is retained. This licenses the identity, not a saving in its norm.
+
+#### E6. Scoped Secondary Reviews: HF And SB
+
+HF1: for finite real c with c_1=1 and sum_d c_d/d=0, put q=1-beta>0 and A_beta=sum_(d>=2)|c_d|/d^beta. The exact algebra is
+
+```text
+A_beta=2^q+2^(q+1)sum_(d>=2)max(c_d,0)/d
+       +sum_(d>=2)|c_d|/d*(d^q-2^q) >=2^q>1.
+```
+
+The constant is sharp at c_2=-2. If also sum c_d log(d)/d=0, then d^q-2^q>=q*2^q log(d/2) and the signed logarithmic relation imply A_beta>=2^q(1+q log2). This latter bound is not claimed sharp. For a FIXED finite mask, summing the separate full-history caps approaches A_(1/2) times the original square-root cap; hence this certificate cannot contract. No conclusion about the complete signed actual-prime sum follows. For HF's specific factorial mask, the Dirichlet polynomial (1-2^(1-s))^2 has no zeros in 0<Re(s)<1, so multiplying the uncombined prime signal -zeta'(s)/zeta(s) by it leaves every nontrivial-zero pole. Its B=128 control is explicitly not genuine primes.
+
+SB: let u6(n)=(-1)^(number of distinct primes >3 dividing n), S(x)=sum_(n<=x)u6(n), P_y={p prime:5<=p<=y}, D_y the positive integers supported on P_y, and k_y(d)=(-1)^omega(d) on D_y, including ALL exponents. Let T_y(t) sum u6(n) on n<=t with no P_y prime divisor. General counting statements use x>=1 and y>=3; the growing cutoff uses integer x>=21 and y=log x. For frozen y,
+
+```text
+S(x)=sum_(d in D_y,d<=x)k_y(d)T_y(floor(x/d)).
+```
+
+SB1: Rankin counting for fixed 0<sigma<1 gives
+
+```text
+N_y(x)<=x^sigma exp(C_sigma(1+y^(1-sigma))),
+C_sigma=1/[(1-sigma)(1-5^(-sigma))].
+```
+
+Thus N_(log x)(x)=x^o(1). For an INTEGER L>=0, if B is the literal sum with floor(x/d)<=L, equivalently (L+1)d>x, then |B|<=L N_y(x). For L=floor(2 log x) the boundary is subpower and its COMPLETE square return obeys |S^2-(S-B)^2|<=2x|B|+B^2=O_epsilon(x^(1+epsilon)). This is paid boundary mass, not a saving for the retained source.
+
+SB2: for 1<=t<=y^2, an admissible n contains at most one prime >y. With A6(t) the count of 2,3-smooth integers,
+
+```text
+T_y(t)=A6(t)-sum_(m 2,3-smooth,m<=t/y)[pi(t/m)-pi(y)].
+```
+
+If y grows and log(t)/log(y)->a in (1,2], PNT and dominated convergence of the reciprocal cofactor sum give T_y(t)~ -3t/log t. The cofactor mass is sum_(2,3-smooth m)1/m=3; the subtracted pi(y) times the smooth count is negligible for fixed a>1. The genuine outer family x=5^k k^2, d=5^k, y=log x, t=floor(x/d)=k^2 satisfies t>2y for k>=7 and t<=y^2. Hence T_y(t)~ -3k^2/(2 log k). A scale-independent pure t^gamma bound with gamma<1 is false even at actual retained quotients. This does NOT refute a bound with an x^epsilon allowance.
+
+SB3 repairs that quantifier: for fixed 0<delta<gamma, 1/2<=gamma<1, every epsilon>0 and constants before x, require |T_(log x)(t)|<=A_epsilon x^epsilon t^gamma at actual quotients t>x^delta. This assertion, its all-prefix version, and |S(x)|=O_epsilon(x^(gamma+epsilon)) are equivalent. Forward restoration uses N_y(x)=x^o(1) and the small-prefix bill O(x^(delta+o(1))). Reverse restoration uses the finite convolution inverse with b_y(p^e)=2^(e-1), whose gamma-mass is exp(O_gamma(1+y^(1-gamma)))=x^o(1), since 2*5^(-gamma)<1. Floors compose exactly; all constants are chosen before x. The earlier independently reviewed FR2 finite convolution bridge between u6 and genuine mu, absolutely summable at each exponent >1/2, transfers these every-positive-loss growth statements. At gamma=1/2 this is TARGET_EQUIVALENT, not an independent RH estimate. No formal Euler-product division at the boundary is used.
+
+### F. Counterexamples And No-Go Results
+
+1. **Exact infinite-family refutation of drift-only integrability:** Z_H in E3, for EVERY original H>=2, has zero drift and infinite energy. The smallest allowed head is H=2,N=6. Here u=3log(3)/10-8log(2)/15+log(5)/5, whose log(5) coefficient is 1/5, so its surviving prime-error coefficient is explicitly nonzero. This is not a counterexample to a claim about the fully recombined residual.
+2. **Complete fixed-weight no-go:** IC2 rules out every unequal constant reweighting of the three raw components in this Hilbert space, not all signed methods, m-dependent transformations, or other arithmetic carriers. Equal weights are the sharp boundary and recover the entire finite-energy residual.
+3. **Refuted strengthening:** HA refutes INV.9, not INV3. A large dyadic limsup neither forbids sparse good heads nor proves all blocks are large. Selecting a minimum in each block is only useful if the block estimate actually holds.
+4. **Genuine pure-prefix obstruction:** SB2 refutes the unqualified t^gamma inner estimate, not its x^epsilon correction, and not outer cancellation between distinct restoring divisors.
+5. **Mechanism-only rejection:** HF1 rules out separate unsigned historical-cap contraction for a fixed finite density-annihilating mask. Its arbitrary-sequence control is not a counterexample to a source-specific theorem about primes.
+
+No isolated finite graph, arbitrary sign vector or finite precision near-zero sign is used to claim any of these infinite theorems.
+
+### G. Original-Carrier And Covariance Audit
+
+IC retains genuine mu, every integer output m>=1, the original normalization L, both complete bands, unit/log terms and all prime powers. No selected-head condition is inserted; conclusions are for every fixed original H. A selected sequence, if later used, must still be proved unbounded and must satisfy its stated selection rule.
+
+Raw Gram entries are finite only at a truncation T. The full expression must be assembled at that SAME T before taking T to infinity:
+
+```text
+sum_(m<=T)|sum_i f_i(m)|^2/[m(m+1)]
+ =sum_(i,j)sum_(m<=T)f_i(m)f_j(m)/[m(m+1)].
+```
+
+Taking separate divergent limits and subtracting them is invalid. After double centering, all p_i have finite norm at fixed H, so their full Gram is legitimate, but no fixed sign is assigned to its off-diagonal terms. Existing correction-only energy lower bounds do not lower-bound the complete residual square. TC4's finite signs, even if accurately computed, cannot be frozen as infinite-tail signs.
+
+The mandated source/loss/recovery crosswalk is:
+
+| Original source | Irreversible loss or exact barrier | Already proved recovery / consumer |
+| --- | --- | --- |
+| Complete Nyman r_H and floor return | Separate raw-tail norms discard simultaneous linear and prime-error cancellation; unsigned head averages cannot cancel across H. | Existing complete return restores the carrier; TC/IC identifies both common modes. INV consumes a complete sparse subpower estimate, still OPEN. |
+| Native owner M(x)^2=D_R(x)+Gamma_R(x), R<=x<R^2 | Diagonal capacity alone contains no bound for signed Gamma. | #1141 pays D<=3(x-R)K_R and retains Gamma as an explicit premise in its preservation consumer. It does not supply that premise. |
+| Frozen Euler Q_R=2M(R-1)-M(R^2-1) | Discarding divisor-row complement or hyperbolic masks changes the source. | #1141 gives abs(Q_R-Xi_R)=O_epsilon(R^(1+epsilon)); it supplies no bound on Xi_R itself. No Nyman norm bridge is inferred. |
+| OAI/NNS original admitted Hecke tuple Gram | norm_sum_le loses signed cross interactions; rational mu and Hecke phases are not interchangeable. | Existing Co-minus-Div/source identities are exact infrastructure, not a recovered signed bound. The LOW floor 47/54, theta>3/5 coefficient gate and Re(s)>21/25 correction domain remain. |
+| Actual-prime canonical square VF | Replacing primes by floor-Li or model counts removes arithmetic error. | Canonical normalization and square-to-real interfaces remain valid with the explicit classical criterion; no new prime bound is supplied. |
+
+The newly merged owner and Euler reductions are real supporting advances and were checked at their actual types/CI scopes. Their documentation's graded equivalence discussion is paper/session analysis, not an additional kernel declaration. No separately already-proved theorem was found that pays the new complete signed Nyman supplier or the original Gamma/Xi subcritical target. This is an inspected-route finding, not a claim to have searched every theorem in existence.
+
+### H. Quantifier And Circularity Audit
+
+IC fixes H and lambda before m grows. Its finite periodic bounds may grow arbitrarily with H; an H-dependent constant cannot be turned into a uniform energy estimate. No asymptotic rate is inferred for the drift-free divergent family from IC1 alone. Only the nonzero-linear-drift case has the displayed linear rate.
+
+HA fixes b>Theta and C_b before all heads, then compares resulting exponents as b decreases. It never substitutes b=Theta in a strict-input theorem. Its conclusion is a limsup, not a pointwise bound. INV fixes each actual zero before the common head sequence, and its approximate-head correction cannot be omitted.
+
+Both directions were checked where warranted: free-coefficient exact-head subpower existence iff RH; repaired SB every-loss envelopes iff the stated Mertens exponent. For the particular two-band family, only the forward sufficient implication is established. A divergence of the all-head average does not settle the converse or existence of sparse good heads.
+
+The new p_i representation is an exact rearrangement with independently proved integrability information, not a completed arithmetic reduction. Bounding its complete H-dependent Gram at subpower size is still the original difficult supplier. Theorem names such as centered, transport, preservation, or admissible do not independently pay that bound.
+
+### I. Constructive Repairs
+
+Retain the whole residual at every cutoff, or use the exact doubly centered p_i before forming Hilbert pairings. This removes undefined separate tail energies without changing the full source. Do not replace the complete square by a sum of component squares or by selected favorable cross terms.
+
+Retain INV's common sparse-sequence consumer and discard uniform all-head subpower averaging as its supplier. An independently justified sparse selection and a bound on its ENTIRE residual are still logically viable. Small scalar defect, exact head, bounded support, or favorable local jumps alone do not provide the complete norm.
+
+For the growing finite wheel, the small-prefix return is now paid at its actual scale. Retain the x^epsilon allowance if using an inner bound, and recognize its target-equivalent strength. A genuinely new signed estimate for the complete outer sum could bypass that stronger pointwise demand; none is supplied here.
+
+### J. Competing Proof-Strategy Assessment
+
+The selected NYMAN work is a completed bounded feasibility audit with useful negative and exact-repair results. It does not admit a new positive RH route. A sparse source-sensitive mechanism remains eligible for attack only after naming its independent arithmetic input. The universal all-head supplier and separate raw Hilbert bounds should be abandoned at the exact scopes proved false.
+
+Native owner capacity and Euler double-centering remain supporting infrastructure. Neither the paid diagonal nor the paid O(R^(1+epsilon)) remainder is the still-missing complete subcritical estimate. Preserve their independent future consumers rather than forcing them through a Nyman norm.
+
+Finite-wheel restoration has a genuine paid boundary but a target-equivalent repaired pointwise supplier. Owner mask cancellation has genuine algebra but cannot contract through separate history caps. OAI fixed-boundary improvements remain parked unless a complete continuation passes all recorded gates to 1/2. These are different carriers with a shared unresolved need for original-source signed information, not seven independent proofs of that missing information.
+
+### K. Original Adversarial Research And Executed Checks
+
+Beyond upstream review, this run derived IC1's critical weighted-integrability obstruction, IC2's complete constant-weight classification, and IC3's genuine drift-free divergent family and exact two-mode repair. TC supplies the starting decomposition and nonzero coefficients; classical PNT and zeta identities supply the analytic inputs. The source-specific classification and drift-only stress test were not found in the retrieved current handoffs. This is a scoped novelty audit, not an exhaustive literature-priority claim.
+
+A separately written small checker reconstructs the ACTUAL coefficients using rational prime-log polynomials. Mobius values are trial-factored and compared against an independent sieve. Polynomial identities are exact; positive logarithmic inequalities use rational atanh-series intervals with an explicit remainder. No floating-point cancellation or unproved factorization is used.
+
+Executed results: PASS, **3,653 assertions**, on H=2,5,11,17 with N=6,30,126,294 and Bertrand primes 5,17,67,149. There are 47 total boundary cells, including before/at/after correction activation, N and after N. Tested each of 27 constant triples in {-1,0,1}^3 at each cell. The registration was made before computation; explicit raw-component omission assertions were added to complete its stated negative controls and the whole checker was rerun.
+
+| Check group | Executed scope |
+| --- | --- |
+| Independent mu | 588 integer comparisons, through 2*294. |
+| Original moments and nonzero coordinate | Both h moments, both c moments, u=delta(H)-delta(N), zero total drift, and log-p coefficient 1/p at all four heads. |
+| Exact complete source | 47 full-return equalities, 47 recombinations, 47 periodicity checks, 141 component two-mode identities; 8 exact-head boundary cells. |
+| Reweighting | 1,269 reconstructions and 1,269 two-mode-nullspace checks on the finite coefficient grid. Infinite classification is proved in E3, not extrapolated. |
+| Genuine drift-free family | 47 exact identities and 47 zero-drift checks; 8 tests detect its still-present prime mode. |
+| Negative controls | Prime-error omission detected at 8 after-N cells; omission of EACH of the three raw components detected for EVERY tested head. |
+| HA | Exact capacity and rigorous positive extraction-slack intervals at H=2,5,11. |
+| INV | 80 exact rational boundary identities at s=2,3, k=2..9, T=1,2,7,19,37; deliberately omitted boundary detected in 76 cases. |
+
+The initial complete identity run passed 3,641 assertions; the final run includes all 12 explicitly registered raw-component omission checks and supersedes that count. Source syntax validation passed. All required computation processes finished. Large upstream campaigns and TC4's finite sign values were not rerun, and no finite test proves divergence, asymptotics, zero existence or RH.
+
+Final checker SHA256: dbf5efd6b7c840cd630e8ea97502de4b430814c9d91a92d2bbfd90531a3b070e. Registration SHA256: e3237172216f2c80f6ca49ee8bcc12744c8b16d953bcc6a6c54674c435244e7d. Exact registration and executed source are embedded after O, so no separate remote file is needed.
+
+### L. Formalization Guidance And Verified CI
+
+No local Lean, source edit, new proof branch, PR, CI dispatch, rerun, merge or auto-merge was performed. Existing GitHub evidence was inspected rather than equating a green badge with unconditional mathematics.
+
+| Item | Actual state / tested head | Verified evidence and scope |
+| --- | --- | --- |
+| #1119 | MERGED into main; 77ee815846d6d534c866f0752aa33b84c385610a | 14/14 successful checks. Actual [job 128949473700](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42552018910/job/128949473700) read: five terminal closures 35358,35375,35736,35737,35753, standard axioms only. Reused complete comparator, not a new build. |
+| #1140 | MERGED into main at 52fdc0cab0fe0cffc4668212a6889423e0090189, 12:34:27Z; head 685598746869a62849451d7b7ffbfd09d42e4e4a | 13/13 successful. Actual [job 133972190569](https://github.com/OVVO-Financial/RH_Lean/actions/runs/44063808521/job/133972190569) read: compiled=4,cached=0; seven sign roots with standard axioms. Original complete-return ancestors also compiled. Finite sign obstruction, not SG infinite families or a norm estimate. |
+| #1141 | MERGED into main at 319fc5798658e66baea1fed758b0d4b6dd126889, 14:08:33Z; head dfd3197117410ad491d7c94b66448753ae8e4d63 | 17 successful plus 3 superseded cancelled check runs, not 20 successes. Actual [owner job](https://github.com/OVVO-Financial/RH_Lean/actions/runs/44099085547/job/134093953266) and [Euler job](https://github.com/OVVO-Financial/RH_Lean/actions/runs/44099085547/job/134093952768) read: 20+27 public roots, exact types/dependencies and standard axioms; closures cached=5 and cached=9, not falsely called freshly compiled. |
+| #1142 | MERGED into main at fd4085e20602bc210cc6b630abbdeeeaf1bf28eb, 15:37:26Z; head d6c59a5bbca5f1329695d45cbd223a05552c1137 | 7/7 successful; documentation/registry/DAG reconciliation, no Lean change and no endpoint improvement. |
+| #1143 | MERGED at d1a5936939eda3c2d8cc74cc9082ecbf11249e18, 15:37:48Z, into docs/preservation-target-strength-20261117, NOT main; head b02c724221a74eb0835e7a090c615c8cdbc808fc | 13/13 successful exact-head checks; changed-file list checked against main tree: its three new prime-phase Lean files are absent from current main. No main certification or full independent proof review is inferred. |
+
+All times in this table are UTC. Standard permitted terminal axioms are propext, Classical.choice and Quot.sound. Runtime/dependency warning text is not represented as absent merely because a warning-fatal source check succeeded. A fresh untruncated comparison of 2,508 preexisting Lean/root-pin/scripts/lean entries from #1119 to current main found only the aggregate RHLean.lean changed. The terminal and audit sources were read. This supports scoped dependency reuse, not a fresh full-main compilation or independent reproof of all imported analysis.
+
+At the 17:19:58Z freshness check, main remained fd4085e20602bc210cc6b630abbdeeeaf1bf28eb, agent-reports was exactly this run's checkpoint 3c970ff4cc45a50125fcefc005d092c40f8f8c46, and the open/draft PR collection was empty. Final publication will refresh these again.
+
+Lean handoff: INV finite boundary/dual localization and HA's accepted source-extraction inequality are properly scoped paper candidates only where a named continuation needs them. IC1-IC3 first require independent review. Do not formalize a desired subpower bound as a hidden hypothesis, a component-energy no-go as a no-go for the complete residual, or #1141's conditional preservation as an unconditional recurrence.
+
+#### Material Main Source Ledger
+
+All following blobs are at main fd4085e20602bc210cc6b630abbdeeeaf1bf28eb. Full primary Nyman, terminal and audit contents were read; for the newly merged preservation modules, actual declaration types, dependencies, explanatory document and hosted audit logs were inspected without claiming an independent reproof of each implementation.
+
+| Path | Blob SHA | Material use |
+| --- | --- | --- |
+| AGENTS.md | c4f36b772f8a4b0c24fe566b90fafb646073c60f | Current authority and priority. |
+| CURRENT_PROOF_CONTRACT.md | 95566e37c8eaeb99ee680660df4f9d2e06ea5038 | Canonical arithmetic target and explicit interfaces. |
+| docs/RHLEAN_BOOTSTRAP_TO_HALF_20261116.md | 96ad4439ec458af6168f7d9cb3eef5dde291d37c | Qualifying continuation/bounded feasibility policy. |
+| docs/RHLEAN_CROSS_ROUTE_SIGNED_RECOVERY_20261110.md | e3ae4280438f591f1ffaddd754a1c3a6d35d0691 | Complete-source signed-loss review. |
+| docs/RHLEAN_REPORT_CONTINUITY_LAST_ACTUAL_20261111.md | 3e71820a4af722eae7098da6945bb5bcba50dd0d | Unbounded latest-actual discovery. |
+| docs/DYNAMIC_RESEARCH_AGENTS.md | b76d595f09403fc54eca71d04bf9e0306e0a9c09 | Role and execution restrictions. |
+| docs/RHLEAN_SOURCE_FAITHFUL_COMPLETE_RETURN_AGENT_CONTRACT_20261031.md | 4775ee5fd95f279beab08a75d1e17127078b19a6 | Original source, quantitative bill and restoration guards. |
+| research/NYMAN_HIGH_COEFFICIENT_INVARIANT_20261104.lean | 2da630c1d5fb9302e2097ec1e170cf41c2b40609 | nymanResidual, nymanWeight, actual residues and psi. |
+| research/NYMAN_FLAT_TAPER_RETURN_20261104.lean | 2d23721027ecc44e85b7add02fc632b482f03352 | nyman_flat_complete_return, exact head and two-band solver. |
+| research/NYMAN_RADICAL_INCREMENT_20261106.lean | c5ebb3d5d96898549ad039fd32e1a26955c5b8f8 | nymanScalarDefect, arithmetic drift and complete increments. |
+| research/NYMAN_CORRECTION_ENERGY_20261105.lean | e5453cd32c3c4ebf9ebf41927bcb92e534b2ece7 | Component energy and signed split, not full-norm domination. |
+| research/NYMAN_DIVISOR_JUMP_SIGN_OBSTRUCTION.lean | 6fa1552d91254fa1033d53df51d3b49e0e4d04a5 | Seven merged finite sign/transport theorems. |
+| research/oai_434/VF919WindowErrorClosure.lean | f629db1b2b65d6ec042ac9432397d4b6316200c6 | Actual unconditional every-loss comparator. |
+| scripts/lean/window_error_closure/WindowErrorClosureAudit.lean | 1f17f9401a63d16227db2e2aad020b9f74bc5f4e | Exact terminal dependency/axiom audit. |
+| research/MERTENS_CONVERSE_IDENTIFICATION.lean | 768c8255850bf4074aff265c3fe17a1f5c43979b | Closed-boundary GROWTH/zero correspondence. |
+| research/VF_CANONICAL_SQRT_TWO_VON_KOCH.lean | 79030d70e8d3e0d08eef9bac53fef95c36eca2fb | Canonical phase and conditional RH terminal. |
+| research/NATIVE_OWNER_DIAGONAL_CAPACITY_20261117.lean | 4d7d7e173c335b4a807dabaa6b9ec38c1509dbd4 | Complete owner diagonal and conditional preservation. |
+| research/EULER_DOUBLE_CENTERED_SOURCE_20261117.lean | 7cb66c07ff3bb784f1b1d4434647326f06f0f2b2 | Exact complete double-centered carrier. |
+| research/EULER_DOUBLE_CENTERED_REMAINDER_20261117.lean | fffc2c07a82368d56b0b4075c625dd3f9a09e147 | Root-subpower remainder, not Xi bound. |
+| docs/PRESERVATION_SOURCE_REDUCTIONS_20261117.md | 25404d0fe24f32f339297b78d4d5fe8facfcf216 | Proof scope, target-strength and model distinctions. |
+
+### M. Specialist Handoffs
+
+1. **Proof Architect:** independently review IC1-IC3 and record HA's acceptance. Withdraw INV.9 as a viable supplier while retaining INV1-4 and the sparse complete-norm consumer. Keep #1143's merge target distinct from main. Do not admit another equivalent target without independent arithmetic.
+2. **Owner Payment:** HF1 is accepted at the separate-cap scope. A signed mask argument must quantify the complete historical return, not spend the same cap several times. The new owner diagonal theorem does not pay Gamma. Identify the additional original-source interaction that can change its growth.
+3. **Analytic Type II:** HA's argument and constants survive independent review. For Nyman tail analysis, use the full residual or the doubly centered p_i, not U_B-m delta(B) alone. A common sparse sequence remains possible; supply a source-sensitive bound for its complete norm rather than another universal head average.
+4. **Finite Wheel:** SB1 pays the literal small-prefix boundary; SB2 genuinely refutes the unqualified inner power; SB3's corrected envelope is target-equivalent. Investigate independent cancellation in the complete outer sum with all multiplicities and restores, or name a different qualifying endpoint mechanism.
+5. **Prime Census:** the four-head independent reconstruction passed, including both nonintegrable modes. Keep TC4 finite signs separate from eventual raw Gram signs. A next finite campaign should preregister a proposed sparse COMPLETE-norm estimate, all tail errors and the smallest falsifier, not infer convergence from a truncated cancellation plot.
+6. **Lean Verification:** #1140 is now merged on main at its finite scope; #1141's 47 public roots have verified hosted evidence but no missing signed supplier. IC requires independent review before implementation. Accepted INV/HA support should be formalized only with a named role in a qualifying continuation, using exact types and dependency/axiom guards.
+7. **Referee continuation:** retain all prior accepted scopes. Next priority is an independent IC review or a genuinely new source-specific sparse supplier; reopen only changed hypotheses or corrected objections. Do not repeat unchanged sign, inverse-mass or gap censuses.
+
+These are report handoffs, not agent launches or promises of unscheduled future execution. No permissions or schedules change.
+
+### N. First Independently Missing Mathematical Ingredient
+
+For the strongest surviving direct Nyman consumer, the missing statement is an INDEPENDENT original-arithmetic mechanism producing ONE common unbounded legal sequence H_j such that
+
+```text
+for every epsilon>0 there exist C_epsilon and j_epsilon,
+for every j>=j_epsilon:
+sum_(m>=1)|U_(N_j)(m)-U_(H_j)(m)+C_(h_j)(m)|^2/[L_j^2 m(m+1)]
+ <= C_epsilon (H_j+1)^epsilon.
+```
+
+If a selected set such as delta(H)delta(H+1)<=0 is used, membership and unboundedness are additional obligations. Constants precede the growing head index. The upper bound includes short/long middle, both bands, after-N and the entire infinite tail. No such mechanism or estimate is supplied by INV, HA, TC, IC, the exact-head moment conditions, or the merged correction/diagonal theorems.
+
+A closed-boundary alternative is GROWTH(Theta) -> a complete sequence energy exponent kappa(h)<2h for every actual h=Theta-1/2>0. INV then contradicts an actual zero to the right of (1+kappa(h))/2; no zero at Theta or uniform gain as h decreases is needed. This is still a target specification, not a newly established arithmetic input. Merely double-centering the formula does not lower its difficulty.
+
+### O. Next-Run Resume Capsule And Publication State
+
+```text
+RUN=20261117-referee-1203-EST/IC; PLATFORM_RUN_ID=UNAVAILABLE
+MAIN=fd4085e20602bc210cc6b630abbdeeeaf1bf28eb
+REPORT_INTAKE=f0050257d24237f0c3a25e5e6438533548c19398
+EARLY_CHECKPOINT=3c970ff4cc45a50125fcefc005d092c40f8f8c46
+EARLY_BLOB=e65b46c9d334830779377b6ef8c1558e38855a5c
+EARLY_READBACK=EXACT_IMMUTABLE_MATCH
+POLICY=BOOTSTRAP_TO_HALF_V1 / CROSS_ROUTE_SIGNED_RECOVERY_V1
+CONTINUITY=LAST_ACTUAL_REPORT_CONTINUITY_V1; COMPLETE_AT_RECORDED_WATERMARKS
+WATERMARKS=INV/HF/HA/SB/TC/SG/NYMAN-JUMP; external unchanged
+ROUTE=NYMAN bounded feasibility; independent other toolkits preserved
+ORIGINAL_SOURCE=E1 complete quadratic two-band residual and exact weight
+CURRENT_INPUT=exact head/full return; GROWTH(b_base) and closed GROWTH(Theta) reused
+DIRECT_CONSUMER=common sparse subpower complete energy -> RH (INV3 accepted on paper)
+CLOSED_ALTERNATIVE=kappa(h)<2h at actual h>0, still OPEN
+VALID_RANGE=H>=2; fixed b>Theta in HA; fixed H,lambda before m in IC
+RETURN_BILLS=unit,all prime powers,all m,both bands,after-N,all ordered cross terms
+NEW=IC1 prime-error nonintegrability; IC2 iff equal weights; IC3 drift-free divergent family
+NEW_STATUS=PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED
+INDEPENDENT_ACCEPTANCE=INV1-4,HA1-3,TC1-2,HF1(scoped),SB1-3(scoped)
+REFUTED=INV.9 all-head subpower supplier; unequal raw weights; drift-only integrability
+UNREFUTED=sparse good heads; complete signed norm; other source-faithful routes
+FIRST_OPEN=independent complete sparse norm estimate or actual closed-boundary supplier
+FALSIFIER=smallest genuine full-return violation of any newly proposed quantitative bound
+PRESENT_WORK_TO_NEXT=exclude divergent decompositions and false average before supplier work
+STATUS=ACTIVE_SUPPORT (bounded feasibility completed; no new positive route admitted)
+CHECKER=3653 exact/rational assertions PASS; syntax PASS; all processes complete
+CI=hosted evidence reused at actual scopes; no new workflow or local Lean
+PUBLICATION=READBACK_PENDING for this synthesis until verified receipt below
+NO_NEW_GLOBAL_GAIN; NO_NEW_ACCEPTED_RH_ROUTE; VERIFIED_ETA=NONE; RH=OPEN
+```
+
+The direct git transport returned a CONNECT 403; authorized GitHub connector reads/writes were available and used. No mathematical conclusion relies on a failed command. Only this owned daily report is written remotely; no source, main, policy, other-role report, proof branch, PR, workflow, schedule, permission or agent configuration is changed. The early checkpoint was already immutably verified. A substantive commit/readback and a separate verified receipt update are required before final delivery.
+
+### IC Prepublication Validation
+
+At 2026-11-17 17:29:46 UTC / 12:29:46 EST, main was still fd4085e20602bc210cc6b630abbdeeeaf1bf28eb and agent-reports was exactly the verified checkpoint 3c970ff4cc45a50125fcefc005d092c40f8f8c46. No upstream report or external-index change intervened; the open/draft PR collection remained empty. The source-tree comparison was repeated with the explicit predicate: blob ending .lean, root lean-toolchain/lakefile.toml/lake-manifest.json, or scripts/lean/. All 2,508 preexisting entries were checked and only RHLean.lean differed. All 20 material main-source ledger rows and all available November 16/17 report hashes match the retrieved trees. The report has complete A-O headings, six consistent-width tables and balanced code fences. The final small-head formula and integer cutoff rounding were explicitly checked. Embedded registration and checker are byte-for-byte the executed ASCII sources. Publication and immutable readback still follow; this paragraph is not a publication receipt.
+
+### IC Reproducibility Appendix
+
+The following registration and standard-library Python checker are the exact local texts used for the final run. The finite output summary above is not an asymptotic certificate.
+
+<details>
+<summary>IC pre-execution registration</summary>
+
+```text
+# IC Verification Registration
+
+This is an independent small reconstruction, not a rerun of upstream large campaigns.
+
+- Original heads: H=2,5,11,17; N=6*ceil(H^2/6). Reconstruct actual Mobius coefficients by trial division and compare with an independent sieve through 2*N.
+- At original head, band, N and after-N boundaries, verify both moments, complete floor return, both shared modes, and periodic remainders using exact rational prime-log polynomials.
+- At the same cells, test all constant rational coefficient triples in {-1,0,1}^3 and the genuine drift-free combination delta(H)*U_N-delta(N)*U_H.
+- Verify that the log-p coefficient of u is 1/p for an actual prime N/2<p<N, including H=2.
+- Check INV's finite summation-by-parts boundary at s=2,3, k=2..9 and T=1,2,7,19,37 using exact rational arithmetic. Deliberately omit its boundary.
+- Check HA's complete pre-correction extraction for H=2,5,11 with rigorous rational logarithm intervals; no asymptotic inference from this finite test.
+- Omission controls: remove the shared prime-power mode, omit either raw tail or correction, and distinguish the drift-free combination from the fully mode-free combination.
+- Do not numerically infer divergence, asymptotic rates, zero existence, subpower energy, or Lean certification. Those conclusions require the displayed paper arguments.
+```
+
+</details>
+
+<details>
+<summary>IC exact executed checker</summary>
+
+```python
+"""Small exact original-source reconstruction for referee IC."""
+
+from collections import Counter
+from fractions import Fraction as F
+from functools import lru_cache
+from itertools import product
+from math import lcm
+import json
+
+
+checks = Counter()
+
+
+def check(name, value):
+    assert value, name
+    checks[name] += 1
+
+
+@lru_cache(None)
+def factor(n):
+    out = []
+    p = 2
+    while p * p <= n:
+        e = 0
+        while n % p == 0:
+            n //= p
+            e += 1
+        if e:
+            out.append((p, e))
+        p += 1
+    if n > 1:
+        out.append((n, 1))
+    return tuple(out)
+
+
+def mu(n):
+    fs = factor(n)
+    return 0 if any(e > 1 for _, e in fs) else (-1) ** len(fs)
+
+
+def add(*polys):
+    out = {}
+    for poly in polys:
+        for k, v in poly.items():
+            out[k] = out.get(k, F(0)) + v
+    return {k: v for k, v in out.items() if v}
+
+
+def scale(poly, c):
+    return {k: v * c for k, v in poly.items() if v * c}
+
+
+def sub(a, b):
+    return add(a, scale(b, -1))
+
+
+def mul(a, b):
+    out = {}
+    for ka, va in a.items():
+        for kb, vb in b.items():
+            k = tuple(sorted(ka + kb))
+            out[k] = out.get(k, F(0)) + va * vb
+    return {k: v for k, v in out.items() if v}
+
+
+def log(n):
+    return {(p,): F(e) for p, e in factor(n)}
+
+
+ONE = {(): F(1)}
+
+
+@lru_cache(None)
+def delta(B):
+    return sub(ONE, add(*(scale(sub(log(B), log(k)), F(mu(k), k))
+                          for k in range(1, B + 1))))
+
+
+def U(B, m):
+    return add(*(scale(sub(log(B), log(k)), mu(k) * (m // k))
+                 for k in range(B + 1, m + 1)))
+
+
+def psi(m):
+    return add(*({(fs[0][0],): F(1)} for n in range(2, m + 1)
+                 if len(fs := factor(n)) == 1))
+
+
+def frac_mode(B, m):
+    return add(*(scale(sub(log(B), log(k)), F(mu(k) * (m % k), k))
+                 for k in range(1, B + 1)))
+
+
+@lru_cache(None)
+def log_interval(n):
+    def atanh(r):
+        z = (r - 1) / (r + 1)
+        lo = 2 * sum((z ** (2 * j + 1) / (2 * j + 1) for j in range(40)), F(0))
+        return lo, lo + 2 * z ** 81 / (81 * (1 - z * z))
+    e = n.bit_length() - 1
+    a, b = atanh(F(n, 2 ** e))
+    c, d = atanh(F(2))
+    return a + e * c, b + e * d
+
+
+def interval(poly):
+    lower = upper = F(0)
+    for key, coef in poly.items():
+        a = b = F(1)
+        for p in key:
+            x, y = log_interval(p)
+            a, b = a * x, b * y
+        x, y = coef * a, coef * b
+        lower += min(x, y)
+        upper += max(x, y)
+    return lower, upper
+
+
+MAX = 588
+sieve = [1] * (MAX + 1)
+prime = [True] * (MAX + 1)
+prime[0] = prime[1] = False
+for p in range(2, MAX + 1):
+    if prime[p]:
+        for k in range(p, MAX + 1, p):
+            sieve[k] *= -1
+        for k in range(p * p, MAX + 1, p):
+            prime[k] = False
+        for k in range(p * p, MAX + 1, p * p):
+            sieve[k] = 0
+for n in range(1, MAX + 1):
+    check('independent_mu', mu(n) == sieve[n])
+
+receipts = []
+for H in [2, 5, 11, 17]:
+    N = 6 * ((H * H + 5) // 6)
+    K = N // 6
+    L = sub(log(N), log(H))
+    q = {k: sub(log(N), log(max(H, k))) for k in range(1, N + 1)}
+    u = add(*(scale(q[k], F(mu(k), k)) for k in q))
+    v = add(scale(L, 2), *(scale(q[k], mu(k)) for k in q))
+    s1 = sum((F(1, k) for k in range(3 * K + 1, 4 * K + 1)), F(0))
+    s2 = sum((F(1, k) for k in range(5 * K + 1, 6 * K + 1)), F(0))
+    alpha = scale(sub(u, scale(v, s2 / K)), 1 / (s1 - s2))
+    zeta = scale(sub(scale(v, s1 / K), u), 1 / (s1 - s2))
+    h = {k: alpha if 3 * K < k <= 4 * K else zeta if 5 * K < k <= 6 * K else {}
+         for k in range(2, N + 1)}
+    a = [delta(N), scale(delta(H), -1), u]
+    b = [1, -1, 0]
+    check('two_band_reciprocal', add(*(scale(h[k], F(1, k)) for k in h)) == u)
+    check('two_band_total', add(*h.values()) == v)
+    check('drift_sum', not add(*a))
+    check('u_exact', u == sub(delta(H), delta(N)))
+    pbig = next(p for p in range(N // 2 + 1, N) if prime[p])
+    check('u_nonzero_coordinate', u.get((pbig,)) == F(1, pbig))
+    coeff = {k: sub(h[k], scale(q[k], mu(k))) for k in h}
+    check('coefficient_reciprocal', add(*(scale(coeff[k], F(1, k)) for k in coeff)) == L)
+    check('coefficient_total', add(*coeff.values()) == scale(L, 3))
+    period = lcm(*range(1, N + 1))
+
+    def remainder(m):
+        return [add(log(N), frac_mode(N, m)),
+                scale(add(log(H), frac_mode(H, m)), -1),
+                scale(add(*(scale(h[k], F(m % k, k)) for k in h)), -1)]
+
+    samples = sorted({1, H, H + 1, (N + 3) // 4, N // 2,
+                      N // 2 + 1, 4 * K, 4 * K + 1, 5 * K,
+                      5 * K + 1, N, N + 1, 2 * N})
+    omissions = [False, False, False]
+    for m in samples:
+        f = [U(N, m), scale(U(H, m), -1),
+             add(*(scale(h[k], m // k) for k in h))]
+        W = sub(psi(m), scale(ONE, m))
+        ps = remainder(m)
+        raw = sub(L, add(*(scale(coeff[k], F(m % k, k)) for k in coeff)))
+        check('complete_return', raw == add(*f))
+        check('bounded_recombined', raw == add(*ps))
+        check('periodic_remainders', ps == remainder(m + period))
+        for i in range(3):
+            check('two_mode_component', f[i] == add(scale(a[i], m), scale(W, b[i]), ps[i]))
+        if m <= H:
+            check('original_exact_head', not raw)
+        if m >= N + 1:
+            check('omit_prime_error_detected', f[0] != add(scale(a[0], m), ps[0]))
+            for i in range(3):
+                omissions[i] |= raw != add(*(f[j] for j in range(3) if j != i))
+        for lam in product([-1, 0, 1], repeat=3):
+            target = add(*(scale(f[i], lam[i]) for i in range(3)))
+            slope = add(*(scale(a[i], lam[i]) for i in range(3)))
+            rest = add(*(scale(ps[i], lam[i]) for i in range(3)))
+            check('constant_weight_reconstruction', target == add(scale(slope, m), scale(W, lam[0]-lam[1]), rest))
+            check('both_modes_null_iff_equal', (not slope and lam[0] == lam[1]) == (lam[0] == lam[1] == lam[2]))
+        drift_free = add(mul(delta(H), f[0]), mul(delta(N), f[1]))
+        finite_part = add(mul(delta(H), ps[0]), mul(delta(N), ps[1]))
+        check('drift_free_residual_prime_mode', drift_free == add(mul(u, W), finite_part))
+        check('drift_free_linear_cancellation', not add(mul(delta(H), a[0]), mul(delta(N), a[1])))
+        if m >= N + 1:
+            check('drift_only_centering_fails', drift_free != finite_part)
+    for i, label in enumerate(['upper_raw_tail', 'lower_raw_tail', 'two_band_correction']):
+        check('omit_' + label + '_detected', omissions[i])
+    if H <= 11:
+        J = range((N + 3) // 4, N // 2 + 1)
+        capacity = sum((F(m, m + 1) for m in J), F(0))
+        check('HA_capacity', capacity >= F(N, 8))
+        energy = add(*(scale(mul(U(H, m), U(H, m)), F(1, m * (m + 1))) for m in J))
+        rema = {m: add(sub(psi(m), scale(ONE, m)), log(H), frac_mode(H, m)) for m in J}
+        bill = add(*(scale(mul(rema[m], rema[m]), F(1, m * (m + 1))) for m in J))
+        slack = sub(scale(add(energy, bill), 16), scale(mul(delta(H), delta(H)), N))
+        check('HA_coherent_extraction_interval', interval(slack)[0] > 0)
+    receipts.append({'H': H, 'N': N, 'p': pbig, 'log_p_coefficient_u': str(F(1, pbig)),
+                     'sample_count': len(samples), 'raw_component_omissions_detected': omissions})
+
+boundary_detected = 0
+for s, k, T in product([2, 3], range(2, 10), [1, 2, 7, 19, 37]):
+    lhs = sum((F(m % k, k) * (F(1, m**s) - F(1, (m+1)**s)) for m in range(1, T+1)), F(0))
+    main = sum((F(1, k * m**s) for m in range(1, T+1)), F(0)) - sum((F(1, (k*j)**s) for j in range(1, T//k+1)), F(0))
+    boundary = F(T % k, k * (T+1)**s)
+    check('INV_finite_boundary', lhs == main - boundary)
+    boundary_detected += lhs != main
+check('INV_omission_control', boundary_detected > 0)
+
+print(json.dumps({'status': 'PASS', 'checks': checks, 'total': sum(checks.values()),
+                  'heads': receipts, 'finite_boundary_omissions_detected': boundary_detected,
+                  'infinite_claims': 'paper proof only; no finite extrapolation'}, indent=2))
+```
+
+</details>
+
