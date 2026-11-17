@@ -1540,3 +1540,866 @@ Predicted alternative: a nonzero R^2/log^2 R prime-sector main term survives cen
 PENDING: full proof, novelty audit, exact small-root/endpoint falsification, complete interaction reconstruction, specialist handoffs and final source/publication validation.
 half_bootstrap_ack=BOOTSTRAP_TO_HALF_V1; cross_route_ack=CROSS_ROUTE_SIGNED_RECOVERY_V1; continuity_ack=LAST_ACTUAL_REPORT_CONTINUITY_V1.
 EXECUTION=IN_PROGRESS; MATHEMATICS=UNVERIFIED_CANDIDATE; INDEPENDENT_REVIEW=PENDING; NO_NEW_LEAN; VERIFIED_ETA=NONE; RH=OPEN.
+
+## Prime-Pair Coherence Survives Complete Double-Centering
+
+### Final Research Synthesis - 20261117-wheel-1806-EST/PP
+
+Actual scheduled trigger: November 17, 2026, 18:06:00 EST / 23:06:00 UTC.
+PLATFORM_RUN_ID=UNAVAILABLE. PP is a research label, not a platform identifier.
+Earlier GD/SB work and the PP checkpoint are preserved verbatim. New claims
+below are PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED,
+except where explicitly classified as existing infrastructure or finite tests.
+
+### A. Most Important Structural Discovery
+
+**The complete double-centered Euler kernel retains a genuinely arithmetic
+prime-pair main term of order R^2/log^2 R. Its three balanced primality classes
+have forced leading proportions -1 : 2 : -1, not separately small contributions.**
+
+Set c=(log(9/2)-1)/6>0 and A_R=R^2/log^2 R. For the literal balanced nondivisor
+interval I_R={a: R/2<a<=R-2}, let PP, PC, CC denote the original signed kernel
+sums over respectively two primes, exactly one prime (BOTH orientations), and
+two nonprimes. Then
+
+```text
+PP_R = -c A_R + o(A_R),
+PC_R =  2c A_R + o(A_R),
+CC_R = -c A_R + o(A_R).
+```
+
+PP uses ordinary PNT only. PC/CC additionally use the already-paid genuine
+subunit Mertens bound, not a new cancellation premise. The original complete
+source and every return term are reconstructed below. In particular, taking
+absolute values of these three classes before recombination loses
+4c A_R+o(A_R). Such a classwise estimate cannot supply any fixed exponent below
+2, including any qualifying strict historical-power grade for the half-bootstrap.
+
+There is also a pointwise genuine-prime obstruction: for R>=10 and
+3R/4<p,q<=4R/5, the actual centered kernel is <=-1/2. Distinct-prime pairs occur
+at the same quadratic/logarithmic scale; this is not a square-diagonal artifact.
+However, the stronger assertion that EVERY balanced prime entry is nonpositive
+is FALSE: R=9, p=q=5 gives J=1/4.
+
+This completes a bounded feasibility test of separate-component payment after
+centering. It is not a new RH route, global exponent improvement, independent
+reproof of the baseline, or a proof that joint cancellation is impossible.
+NO_NEW_GLOBAL_GAIN; VERIFIED_ETA=NONE; RH=OPEN.
+
+### B. Current Authoritative Objective
+
+Main: `13b31c6313e274a073d82a01175201185e59e37e`. Reports intake:
+`b41106ac4acd44632f7f3efb55e25f21c8a35c44`. Live AGENTS and current contract,
+the half-bootstrap, cross-route recovery, continuity and complete-return
+instructions were consumed. The newer BOOTSTRAP_TO_HALF_V1 task priority
+supersedes conflicting dated priority banners, not theorem hypotheses.
+
+```text
+half_bootstrap_ack=BOOTSTRAP_TO_HALF_V1
+cross_route_ack=CROSS_ROUTE_SIGNED_RECOVERY_V1
+continuity_ack=LAST_ACTUAL_REPORT_CONTINUITY_V1
+high_attack_ack=COMPLETE_SIGNED_HIGH_ATTACK_V1
+chain_ack=CANCELLATION_CHAIN_REUSE_V1
+finite_wheel_ack=FINITE_WHEEL_CENTERED_RH_V1
+```
+
+Canonical objective: `VFCanonicalSquareVonKochStatement`, one C>=0 before all
+natural R>=2 with |pi(R^2)-VF_can(R^2)|<=C R log R, where
+VF_can=VF_mid+sqrt(2). It is OPEN. The inspected terminal
+`riemannHypothesis_of_vfCanonicalSquare` explicitly takes
+`ClassicalVonKochRHCriterion` and the arithmetic bound. The distinct internal
+Mertens-energy consumer is not that unfilled interface.
+
+The reused compiled comparator is
+`RHLean.Analysis.native_mertens_near_uniform_window_error_closed`:
+every-positive-loss growth at b_base=7/8-7/(64*N_pack), with the actual fixed
+`nearUniformSlotCount`. Spending its positive margin gives a fixed
+|M(x)|<=C x^(7/8). No zero-loss bound at b_base or comparison with a different
+slot count is asserted. The original theorem type has no extra open supplier
+argument. Its transitive native analytic chain is reused, not independently
+re-proved in this report.
+
+#### Formal Evidence Actually Checked
+
+The #1119 tested head `77ee815846d6d534c866f0752aa33b84c385610a` has 14 successful
+completed checks. Its [actual audit log](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42552018910/job/128949473700)
+was retrieved: the five window-error closures have sizes
+35358,35375,35736,35737,35753 and only propext, Classical.choice, Quot.sound.
+A nontruncated tree comparison of 2,508 preexisting Lean/pin/scripts/lean
+files against current main finds only aggregate RHLean.lean changed. Thus
+the relevant prior source dependencies and pins are unchanged; this is
+scoped certification reuse, not a fresh full-main build.
+
+#1141 is merged on main at tested head
+`dfd3197117410ad491d7c94b66448753ae8e4d63`: 17 successful checks and three
+superseded cancellations, not 20 successes. Its [Euler audit](https://github.com/OVVO-Financial/RH_Lean/actions/runs/44099085547/job/134093952768)
+was read. It reused nine cached modules, checked the exact source inventory
+and types, and audited all 27 declarations with permitted terminal axioms.
+It does not prove a bound on Xi. #1144 is now human-merged on main, with
+13/13 successful checks at `abd9bb34c8fac459e67c63009961b6c26548d7e9`.
+#1143 merged into `docs/preservation-target-strength-20261117`, NOT main.
+The live open/draft collection was empty. No local Lean or new CI was run.
+
+#### Material Source Blobs
+
+All paths in this table were fetched at the pinned main; definitions and
+relevant theorem signatures were inspected. Reading them does not certify PP.
+
+| Source Path | Git Blob SHA |
+| --- | --- |
+| AGENTS.md | c4f36b772f8a4b0c24fe566b90fafb646073c60f |
+| CURRENT_PROOF_CONTRACT.md | 95566e37c8eaeb99ee680660df4f9d2e06ea5038 |
+| docs/RHLEAN_BOOTSTRAP_TO_HALF_20261116.md | 96ad4439ec458af6168f7d9cb3eef5dde291d37c |
+| docs/RHLEAN_CROSS_ROUTE_SIGNED_RECOVERY_20261110.md | e3ae4280438f591f1ffaddd754a1c3a6d35d0691 |
+| docs/RHLEAN_REPORT_CONTINUITY_LAST_ACTUAL_20261111.md | 3e71820a4af722eae7098da6945bb5bcba50dd0d |
+| docs/DYNAMIC_RESEARCH_AGENTS.md | b76d595f09403fc54eca71d04bf9e0306e0a9c09 |
+| docs/RHLEAN_SOURCE_FAITHFUL_COMPLETE_RETURN_AGENT_CONTRACT_20261031.md | 4775ee5fd95f279beab08a75d1e17127078b19a6 |
+| docs/PRESERVATION_SOURCE_REDUCTIONS_20261117.md | 25404d0fe24f32f339297b78d4d5fe8facfcf216 |
+| research/EULER_DOUBLE_CENTERED_SOURCE_20261117.lean | 7cb66c07ff3bb784f1b1d4434647326f06f0f2b2 |
+| research/EULER_DOUBLE_CENTERED_REMAINDER_20261117.lean | fffc2c07a82368d56b0b4075c625dd3f9a09e147 |
+| research/EULER_SELF_DUAL_FINITE_C_BRIDGE_20261027.lean | e97561ef330a9996fd807d8910369f0698147b01 |
+| research/EULER_SELF_DUAL_ENDPOINT_GATE_20261027.lean | e7ee8f77ffd59bccaa49dd6d74fbe0d7952c2d73 |
+| RHLean/Proof/SquareRootAmplificationLogGrowth.lean | 2599db31079f388229d072ee616957fba6ffc555 |
+| RHLean/Proof/AmplificationExponentIteration.lean | d78be4509e5dcc35b833c3786258b94fc6e71915 |
+| research/VF_CANONICAL_SQRT_TWO_VON_KOCH.lean | 79030d70e8d3e0d08eef9bac53fef95c36eca2fb |
+| research/oai_434/VF919WindowErrorClosure.lean | f629db1b2b65d6ec042ac9432397d4b6316200c6 |
+| RHLean/Analysis/BalancedPrimeBilinearCentering.lean | 50e16feb11a935851409c0cd0ef1ba00c71c10e0 |
+| research/DyadicPrimeNearResonance.lean | f416e0149b73656e30a7f68a3934a937353d3f8d |
+| docs/COORDINATE_ATLAS.md | cd0419d00a37739fe5a292f5cb738e33213949d5 |
+| docs/PROOF_DEPENDENCY_DAG.md | 098f88f9b8e727ce78e52e5dc5158d68c930bf1b |
+
+### C. Structural Mechanism Investigated
+
+The previous SB run paid the logarithmic small-prefix boundary; IC now accepts
+SB1-SB3 on paper. Its repaired large-prefix supplier is target-strength, not
+a newly paid input. The latest Coordinator TAIL synthesis instead permits a
+bounded structural test of complete Xi, explicitly forbidding replacement of
+its moving hyperbolas by a fixed collection of low-rank rectangles.
+
+The tested mechanism is precise: could centering permit separate estimates
+on genuine factor-defined populations at a strict historical-power grade?
+The alternative is that true primality leaves a coherent macroscopic sector
+whose cancellation requires the retained complementary signed occurrences.
+No model primes, arbitrary signs, larger wheel or assumed independence enter.
+
+For a possible terminal use, let GROWTH(b) mean every-positive-loss genuine
+Mertens growth. An independently supplied complete grade
+
+```text
+forall eps>0 exists C_eps>=0 forall R>=2:
+  |Xi_R| <= C_eps R^(1+eta+eps) K_R^(lambda/2),
+0<=lambda<2, eta>=0,
+```
+
+with eta<(2-lambda)(b-1/2) would improve b. The complete remainder is already
+root-subpower and K_R>=1; it is not omitted. For lambda=1 and
+eta=(b-1/2)/2 the existing consumer contracts the gap by 3/4. Renewal would
+require an independent supplier at EVERY fixed 1/2<b<=7/8; finitely many
+iterations reach any chosen exponent above 1/2. Constants may depend on the
+fixed stage and positive loss, but precede R. This supplier remains OPEN;
+the grade has the documented target strength. PP tests a proposed way of
+paying it and rejects that way, not the complete grade itself.
+
+### D. Exact Theorem Statements
+
+Let R be an integer >=2, N=R-1, P=R+1, X=R^2-1, t=P/N. Retain exactly
+
+```text
+Q_R = sum_(1<=a,b<R) mu(a)mu(b) floor(X/(ab)),
+K_R = max_(0<=y<R) (M(y)-1)^2/(y+1),
+J_R(a,b) = t {N/a}{N/b} - {X/(ab)},
+Xi_R = sum_(1<=a,b<R; a does not divide N; b does not divide N)
+                 mu(a)mu(b) J_R(a,b).
+```
+
+Braces mean fractional part. Q_R=2M(N)-M(X), and
+
+```text
+Q_R=E_R+Xi_R,
+E_R=2P sum_(a<R)mu(a)/a - t
+       + sum_(a,b<R; a|N OR b|N)mu(a)mu(b)J_R(a,b).
+```
+
+These are EXISTING compiled identities. The union is counted once.
+The EXISTING bound is |E_R|=O_eps(R^(1+eps)), not a fixed root constant.
+
+Define I_R as above and its prime subset P_R. Every a in I_R is a nondivisor
+of N. PP, PC and CC are a disjoint partition of the balanced I_R x I_R
+signed sum B_R, with PC including both orders. Define
+O_R=Xi_R-B_R as the literal remaining nondivisor pairs, and Z_R=O_R+E_R.
+Thus Q_R=PP_R+PC_R+CC_R+Z_R and Xi_R=B_R+O_R. No occurrence is spent twice.
+
+**PP1: exact arithmetic geometry and a coherent negative subpopulation.**
+For every a,b in I_R,
+
+```text
+J_R(a,b)=1+t-P/a-P/b+1_(2ab<=X)+1_(3ab<=X).
+```
+
+For prime a,b, neither 2ab nor 3ab equals R^2. If s=card(P_R),
+v=sum_(p in P_R)1/p and H_j counts ORDERED prime pairs with jpq<=X, then
+
+```text
+PP_R=(1+t)s^2-2Psv+H_2+H_3.
+```
+
+For R>=10 and primes 3R/4<p,q<=4R/5, the pair belongs to I_R^2 and
+J_R(p,q)<=-1/2. This includes, but is not restricted to, p=q.
+
+**PP2: nonzero prime-sector main term.** As integer R tends to infinity,
+
+```text
+PP_R / (R^2/log^2 R) -> -(log(9/2)-1)/6 = -c < 0.
+```
+
+This uses ordinary PNT and exact kernel geometry, without a Mertens-growth
+assumption. The distinct-prime-only sum has the same limit. Consequently PP
+is not O(R^k log^d R) for any fixed k<2 and real d.
+
+**PP3: source-faithful joint class balance and complete return.**
+For every R>=2, the elementary historical Abel estimate is
+
+```text
+|B_R| <= 8 R^(3/2) sqrt(K_R).
+```
+
+It is a supporting bound, not a subcritical supplier. If FIXED
+1/2<b<1 and C>=1 satisfy |M(n)|<=C n^b for all integers n>=1, then
+
+```text
+PC_R=2c A_R+o(A_R), CC_R=-c A_R+o(A_R),
+Z_R=O_(b,C)(R^(b+1)), Q_R=O_(b,C)(R^(2b)).
+```
+
+The implied constants also include a fixed chosen remainder exponent when
+E_R is used. The paid baseline supplies b=7/8. Thus the leading proportions
+of the ENTIRE reconstructed Q source are (-c,2c,-c,0) times A_R.
+For Y_R=Q_R-PP_R, eventually Y_R~c A_R and
+
+```text
+rho_R=2 PP_R Y_R/(PP_R^2+Y_R^2),
+1+rho_R=Q_R^2/(PP_R^2+Y_R^2)
+        =O_(b,C)(R^(4b-4) log^4 R).
+```
+
+This last rate is a CONSEQUENCE of the paid growth bound, not a new estimate
+feeding back to improve it. At b=7/8 its power is -1/2. No independent
+supplier is extracted by renaming this ratio.
+
+**PP4: finite verification and a stronger-claim falsifier.** The registered
+checker below passed 483,964 exact assertions. The universal pointwise
+nonpositivity extension is REFUTED at (R,p,q)=(9,5,5), J=1/4. PP1's stated
+subinterval and PP2's eventual aggregate claim survive that counterexample.
+
+### E. Mathematical Proof
+
+#### E1. Literal Geometry, Multiplicity And Endpoints
+
+If a in I_R divides N, then a>N/2 forces a=N, excluded by a<=R-2.
+Also floor(N/a)=1. Expanding both historical fractional parts cancels
+tN^2/(ab)=X/(ab), giving J=floor(X/(ab))+t-P/a-P/b.
+Since R^2/4<ab<X, the floor is 1,2 or 3; its two jumps are exactly those
+in PP1. This is the balanced-kernel identity already described in the
+preservation note, reused rather than advertised as a new identity.
+
+For primes p,q, the total number of prime factors of jpq with multiplicity
+is three when j=2 or 3. A square has even total multiplicity. Thus jpq!=R^2,
+including p=q and primes equal to j. The masks jpq<=R^2-1 and jpq<=R^2
+therefore agree EXACTLY on this prime carrier. No real endpoint approximation
+has been made. Since mu(p)mu(q)=1, finite summation gives the displayed PP
+count formula. In particular mu(p)^2=1 on p=q: replacing this by mu(p^2)=0
+would silently delete genuine diagonal occurrences.
+
+For the smaller prime band, ab>9R^2/16>X/2, so its floor is one. Its upper
+endpoint <=4R/5 is <=R-2 when R>=10. Therefore
+
+```text
+J_R(p,q) <= 1+(R+1)/(R-1)-5(R+1)/(2R)
+          = (-R^2+5)/(2R(R-1)) <= -1/2.
+```
+
+Unique factorization gives only (p,q),(q,p) as balanced factorizations of
+pq for distinct primes, and only (p,p) for p^2. The two ordered off-diagonal
+occurrences have equal signs and kernel values. A product-preserving
+exchange cannot cancel this negative subpopulation. This is a specialization
+of familiar factorization/sign bookkeeping, NOT a new general cubefree theorem.
+
+#### E2. Prime-Pair Asymptotic Without A Prime-Independence Assumption
+
+The only external analytic input needed here is classical
+pi(x)~x/log x; see [NIST DLMF 27.12](https://dlmf.nist.gov/27.12), E4-E5.
+The following limiting argument and constant are derived here for this
+specific source; they are not quoted as a theorem from that reference.
+
+On [1/2,1], the measure
+(log R/R) sum_(p in P_R) delta_(p/R) converges to Lebesgue measure. This
+follows on every fixed interval from PNT; the strict lower endpoint and
+deleted upper integer R-1 affect at most finitely many points. Its Cartesian
+product is EXACTLY the ordered prime-pair counting measure, not a stochastic
+independence hypothesis. Grid rectangles then prove convergence against any
+bounded function whose discontinuity curves have area zero.
+
+On prime pairs, E1 removes the moving square-endpoint issue exactly. Uniformly
+on the interval square, the remaining kernel differs by O(1/R) from
+
+```text
+j(u,v)=2-1/u-1/v+1_(2uv<=1)+1_(3uv<=1).
+```
+
+The two hyperbolas have zero area. They can also be covered by grid rectangles
+of arbitrarily small total area before taking R to infinity, so no uniform
+prime-distribution theorem for shrinking intervals is being assumed.
+Integration on [1/2,1]^2 gives
+
+```text
+integral (2-1/u-1/v) = 1/2-log 2,
+area(uv<=1/2)       = (log 2)/2-1/4,
+area(uv<=1/3)       = log(4/3)/3-1/12.
+sum                 = (1-log(9/2))/6 = -c.
+```
+
+The O(1/R) kernel error times the bounded normalized pair mass tends to zero.
+Also c>0: log 2>1/2, hence log(9/2)>log 4>1. The diagonal contributes only
+O(card(P_R))=O(R/log R), using |J|<=3, so deleting it changes no leading limit.
+
+As an independent check on the mechanism, PNT gives
+card{p:3R/4<p<=4R/5}~R/(20 log R). E1 then forces a negative contribution
+whose magnitude has liminf, after normalization by A_R, at least 1/800.
+Distinct-prime pairs give the same lower scale. The full constant c is not
+inferred from this proper band; it comes from the full prime-pair integral.
+
+#### E3. Historical Abel Control And The Three Signed Classes
+
+Fix b0 in I_R and increase a through I_R. The integer floor X/(a b0) is
+nonincreasing and drops by at most two in total. The increasing smooth term
+-P/a varies by at most P/min(I_R)<2(R+1)/R<=3. Hence the total discrete
+variation is <=5. The last kernel value has absolute value <=3, because
+0<=t{N/a}{N/b}<3 and 0<={X/(ab)}<1. Variation plus the last value is <=8.
+
+Every historical partial interval sum is
+M(a)-M(min(I_R)-1), of absolute value <=2 sqrt(R K_R), with BOTH arguments
+strictly below R. Discrete Abel summation bounds each signed inner row by
+16 sqrt(R K_R). Summing |mu(b0)| over at most R/2 rows proves the historical
+bound in PP3, including empty intervals.
+
+Under the fixed Mertens input the same partial intervals are <=2C R^b, so
+|B_R|<=8C R^(b+1). Define W_R as the balanced sum with the first variable
+prime and the second unrestricted, retaining BOTH original Mobius factors.
+The same row bound gives
+|W_R|<=16C R^b card(P_R)=O_(b,C)(R^(b+1)/log R). Exact finite partitions give
+
+```text
+W_R=PP_R+PC_R/2,
+PC_R=2W_R-2PP_R,
+CC_R=B_R+PP_R-2W_R.
+```
+
+Because b<1, both B_R/A_R and W_R/A_R tend to zero. Combining these exact
+identities with PP2 gives the stated -1:2:-1 leading proportions. The
+class-expansion algebra is standard and agrees with the earlier compiled
+prime-indicator inclusion-exclusion principle; the source-specific main
+constant and restored estimates are the present deductions.
+
+#### E4. Complete Source Return And All Cross Terms
+
+The compiled endpoint identity gives |Q_R|<=3C R^(2b). Choose a fixed
+0<eps<2b-1 in the EXISTING remainder theorem. Then E_R=O(R^(2b)),
+Xi_R=O(R^(2b)), and O_R=Xi_R-B_R=O(R^(b+1)); also
+Z_R=Q_R-B_R=O(R^(b+1)). Constants are fixed before R. No complement is
+called zero merely because its leading normalized limit is zero.
+
+For T=(PP_R,PC_R,CC_R,Z_R), the exact original square is
+
+```text
+Q_R^2=sum_(i=1..4) T_i^2 + 2 sum_(1<=i<j<=4) T_i T_j.
+```
+
+All six cross interactions remain. Their leading accounting is
+
+```text
+sum_i T_i^2 / A_R^2 -> 6c^2,
+2 sum_(i<j) T_i T_j / A_R^2 -> -6c^2.
+```
+
+In particular the PP/CC interaction is POSITIVE at leading order and cannot
+be discarded under an all-cross-negative rule. For Xi, replace Z by the
+literal O; Q=Xi+E additionally retains 2Xi E+E^2. Equivalently, Y=Q-PP
+includes every other original term and every centering return exactly once.
+PP~-cA, Q=o(A) imply Y~cA. The rho formula and rate in PP3 follow by exact
+algebra and the paid Q bound. No empirical correlation is used in this proof.
+
+### F. Structural Consequence
+
+The tested separation mechanism is REFUTED on genuine coefficients, not on
+a synthetic alternative to Mobius. Centering cancels its specified rank-one
+term; it does not make the three primality classes separately subquadratic.
+They are arithmetically coupled with the explicit leading signs above.
+
+More precisely, fixed |M(n)|<=C n^b gives K_R=O(R^(2b-1)). If
+eta<(2-lambda)(b-1/2), then
+1+eta+lambda(b-1/2)<2b<2. Choosing a sufficiently small positive loss shows
+that a classwise bound at that grade contradicts PP2/PP3 for EACH of PP,PC,CC.
+Thus this method cannot instantiate the half-continuation supplier.
+This says nothing adverse about bounding the full signed Xi jointly.
+
+The Abel estimate is also not an advance: in fixed Mertens coordinates it
+costs R^(b+1), larger than the already-paid complete Q cost R^(2b) when b<1.
+At the displayed historical normalization it has eta=1/2. Reiterating it
+does not approach one-half. This explicit cost prevents promotion of a
+correct local bound into a false bootstrap.
+
+### G. Signed And Quantitative Relevance
+
+| Coordinate Or Loss | Exact Source Relation | Remaining Bill |
+| --- | --- | --- |
+| Euler / FINITE-AC | Literal ordered Q, strict K, exact double-centered Xi and E are retained. | New strict complete Xi grade remains OPEN; root-subpower E is not a fixed-C root bound. |
+| Square blocks / MU-LIFT | Q=2M(R-1)-M(R^2-1) is compiled; interval gaps can only be restored with the actual unit coefficient bound. | No full-prefix subcritical MU-LIFT recurrence has been supplied. |
+| VF / actual primes | PP uses genuine prime pairs, with no density substitution in the exact finite source. | This is not pi-li, #915 clipping/admission, or a canonical first-bad theorem. |
+| NNS / OAI | The displayed real square preserves all cross terms of THIS arithmetic carrier. | No isometry identifies it with ideal-labelled Hecke tuple coefficients or supplies the missing normalized LOW bound. |
+| First irreversible loss | Absolute values after PP/PC/CC separation cost 4c A_R+o(A_R); the full prime-versus-rest split costs 2c A_R+o(A_R). | That tax has root exponent 2 and cannot fit the desired strict grade. |
+| Paid recovery tested | Complete #1141 centering, historical Abel, prime-indicator inclusion-exclusion, and the paid Mertens comparator recover the coarse balance. | They do not independently improve the complete residual. #1128 phase near-resonance is a different Hermitian carrier. |
+
+Neither positive cofactor fibres nor sign constraints on a proper sector
+bound the total source. Complete cancellation is compatible with, and already
+necessary for, the paid baseline. No stronger inverse/covariance premise is
+introduced as if it were proved.
+
+### H. Falsification And No-Circularity Review
+
+Registration preceded the single arithmetic run. All primality, Mobius,
+floor, mask, coefficient and identity checks used integers/Fraction.
+The only logarithm check used rational atanh-series bounds with an explicit
+positive remainder; no floating-point comparison or asymptotic fit was used.
+
+| Check | Domain Or Exact Result |
+| --- | --- |
+| Independent arithmetic | Sieve versus trial factorization for 1..19321; 19,321 checks each for primes and Mobius. |
+| Balanced literal kernel and nondivisor mask | Every ordered pair for R=2..128 plus held-out 139,257,317; 208,152 checks each. |
+| PP formula, mixed and CC identities | 130 roots; prime-square endpoint exclusions checked on 9,692 ordered prime pairs. |
+| Row variation and exact Abel | 4,258 rows each; upper bill 8 and all partial sums retained. |
+| Complete Q, Xi and cross terms | R=2..64 plus held-out 101,139; 65 roots; exact endpoint, divisor union, four-way Xi square, two-way Xi square and strict-history Abel bound. |
+| Negative prime band | 132 ordered pairs; first distinct-prime witness in the declared increasing-root domain: R=54, a=43, b=41, J=-54456/93439. |
+| False all-entry sign | R=9,a=b=5,J=1/4; universal nonpositivity is rejected. |
+| Omitted quotient jumps | First detections R=5 for jump 2 and R=9 for jump 3. |
+| Missing orientation / square cross | R=8: mixed contribution 1/35; omitted four-way Xi cross sum 128/1225. |
+| Deleted prime diagonal | R=5: exact omitted contribution -1/2. |
+| Wrong divisor-prime admission | R=4: incorrectly including a=b=R-1=3 adds -2/3. |
+| Constant | Rational certificate 0.084012<c<0.084014. |
+
+Total: **483,964 assertions, PASS_EXACT**. Python syntax compilation passed.
+Checker SHA256: `b5b5e704049f9aa3f8714cee8075a9f659c40d63c17f56838f01ff07514dd142`.
+Registration SHA256: `9cd2e71fc96ef7f9b14d594f004dbe49b3ff5d095694de1d2effc7fa7b86992c`.
+The exact large fractions and the program's finite sign variations are not
+evidence for a limiting constant; PP2's all-scale argument is E2.
+
+Novelty audit: current-main code searches for Xi, balanced primes, fractional
+prime pairs, cubefree factor exchange, and the log(4/3) constant; relevant
+November 16/17 reports; the original balanced-prime centering and #1128
+near-resonance sources; and #1141/#1142's complete-kernel note. The old cubefree
+sign grouping is PRIOR WORK, not a new theorem here. The prior balanced-prime
+file uses u<v<2u in a different square shell and proves exact coefficient
+centering, not this full Xi prime-sector asymptotic. Its algebra is credited.
+No equivalent PP constant/class-balance theorem was found in this scoped
+search. No exhaustive repository or literature novelty claim is made.
+
+The new estimates either use PNT alone or explicitly reuse the already-paid
+Mertens exponent. They do not prove that exponent again or imply a stronger
+one. The full grade remains target-strength. No finite result, self-audit,
+or green conditional consumer is substituted for the missing supplier.
+
+### I. Conceptual Interpretation
+
+Double-centering removes a specified continuous term, not every arithmetically
+coherent mode. On actual prime pairs, both Mobius signs are negative and their
+product is positive; the centered geometric kernel still has a nonzero signed
+average. The complementary composite signs must restore it. The forced
+-1:2:-1 balance identifies this requirement quantitatively on the new kernel.
+
+This is source-specific supporting information and a decisive method test,
+not a new general principle that coarse cancellation proves RH. Owner PC's
+Selberg audit finds an analogous distinction between canceled main terms and
+an unpaid residual on another source; neither result supplies the other's
+missing estimate.
+
+### J. Competing Structural Hypotheses And Route Memory
+
+The separate-primality-class strict-grade mechanism is REFUTED. A
+product-preserving sign reversal within the exhibited prime band is also
+impossible at its literal source scope. The stronger whole-prime-block
+pointwise sign is REFUTED and is not used to prove its aggregate limit.
+
+A joint moving-hyperbola argument remains possible, but its cancellation
+must cross the factor classes before absolute values and retain the entire
+outside block and E. No new independent quantitative supplier for it was
+found. Merely subtracting -c A_R and treating the resulting exact residual
+as small would repeat the target-equivalent error.
+
+FINITE-AC has now received the requested bounded Xi test after GD/SB.
+CORR4 retains its first-owner signed mixed-tail consumer; MU-LIFT retains
+its full-prefix r<k recurrence and chain coverage. No substantive new
+CORR4 or MU-LIFT supplier is claimed or fabricated here. The half-bootstrap
+policy permits bounded feasibility rather than a compulsory return to a
+route lacking an independent mechanism. Do not count this scalar identity
+as full-prefix MU-LIFT coverage or restart the accepted SB census.
+
+### K. Specialist Handoffs
+
+- Coordinator: close this particular classwise-payment feasibility test as REFUTED; retain PP2's exact constant and PP3's complete return as supporting paper results. No new route or implementation task is admitted.
+- Owner Payment: the PP/PC/CC signs belong to the actual Q/Xi carrier, not clipped #915 occurrences. Any use in first-bad payment needs a genuine occurrence/weight bridge.
+- Analytic Type II: a proposed joint estimate must beat the already-paid complete residual, not merely subtract the PNT main term. The row-Abel cost R^(b+1) does not improve R^(2b).
+- Prime Census: no larger scan requested. An independent small reproduction may use R=9,54 and held-out 139, testing original signs, both jumps and every return. Finite data cannot certify PP2.
+- Adversarial Referee: independently review E2's product-measure limit with exact square equality exclusion, E3's signed mixed-class orientation, and E4's full return. PP1-PP3 await that review; the author has not accepted them independently.
+- Lean Verification: no proof-source edit or conditional wrapper is commissioned. Only consider a nonduplicate needed theorem after independent review and an explicit surviving downstream use. Current hosted evidence proves prior inputs, not PP.
+
+These are report handoffs for later authorized actual invocations, not agent
+launches, synchronized tasks, or promises of background execution.
+
+### L. First Independently Missing Theorem
+
+Still missing: an independently derived signed estimate on the COMPLETE
+moving-hyperbola source that supplies a strict grade, or a genuinely different
+complete-source mechanism with its own terminal consumer. The exact original
+arithmetic must create a gain beyond the paid exponent; PNT class proportions,
+centering, existing Abel, and the complete grade's reformulation do not do so.
+
+The highest-value next decision is whether a concrete cross-factor mechanism
+can control that residual WITHOUT separately estimating PP/PC/CC. In the
+absence of such an independently motivated mechanism, park this split and
+select another qualifying native continuation. Do not rerun its leading
+constant census or rename rho as a new sufficient lemma.
+
+### M. Continuity And Next-Run Resume Capsule
+
+The full nontruncated reports tree was enumerated without a calendar cap.
+All seven latest actual files are November 17, with completed publication
+receipts. The full November 16 predecessor files were also retrieved. Both
+dates' Coordinator mirrors were independently fetched and matched byte-for-byte.
+The prior own SB ledger supplies the consumed watermark; relevant subsequent
+sections were recovered in chronological order TC, IC, HF1, TAIL, PC, CP.
+The scope is latest-real discovery and relevant backfill, not an assertion
+that every historical numerical appendix was independently reviewed.
+
+| Role / Latest Section | November 17 File Blob | Verified Substantive Commit / UTC Time |
+| --- | --- | --- |
+| Coordinator TAIL | ae2d8ed2c9199d5b0b174fd8b3436286f5541226 | a23911c4df515ba9b953ebc3b6fc02e6ea0d73de / 20:42:13 |
+| Owner PC | 6516bf78b096471ccfd2fb8c215e94002544a594 | d26b9f690801cca97f1bf4831380989c45e7e93a / 21:41:44 |
+| Analytic CP | d4bc53ac1b68f6dadabc4a04a2f5fc8c74f6625f | ef7fd73c318d34c76fdb3c3948da0ec56a6b6f9f / 22:29:05 |
+| Wheel SB before PP | 49882b854f2df6d2ee426da70fa465d083733c78 | 7426a5cae2795c43c1176d20a562c09a41d96add / 15:40:21 |
+| Census TC | 701a6d15ba711d9a4ca3677709802def12c46c07 | 3f15ce3d3fc76660e1625b72afbec74ae7145804 / 16:25:05 |
+| Referee IC | 6e7f24cf5f790bab4ac1c19da6dc1c81546ad0e0 | 63fb53ef06a2752e42be83c370d5cde30ffc1005 / 17:31:10 |
+| Lean HF1 | f064afb482138dc59123713f11082809b04e7c3c | 9b84c4db78cdb4af6beb7ba34dd9bde02d436199 / 18:42:44 |
+
+These timestamps were checked against Git commit metadata, not schedules.
+All paths are the role-owned November 17 files under research/agent_reports;
+Coordinator's 00/90 are one role. Today=AVAILABLE, yesterday=READ/CARRY_FORWARD.
+No new publication gap after SB was discovered. Previously recorded silent
+November 13/14 folders remain NO_VERIFIED_REPORT, not invented executions.
+
+November 16 carry-forward blobs in the same role order:
+`fda92549dd9291c491005fdf70847b90d9be385a`,
+`a52b439e693e069502b0c299a5f074a19bae0807`,
+`84aaa2103225565607b5b033f273462bbe865246`,
+`713826840694e39a141fbdbe813f1d47245928e7`,
+`53e6be517dc11037fe3b42a8ed6ad3a06cfce956`,
+`240b97ce1c8ddc87d5f520bc9a8cd6ea00df3d32`,
+`0bada0352d54be7c46a7d928f4c4e3bee440ad8f`.
+Relevant SC/DB/LM/TP/MC/CF/CR limitations remain in force: preserve the R=5
+correction, R=137 restoration reversal, proper-region versus complete source,
+and finite-prime-model versus genuine-Mobius distinctions. These tests were
+not rerun merely for continuity.
+
+IC's independently scoped ACCEPT_ON_PAPER verdicts include INV1-INV4,
+HA1-HA3, TC1-TC2, HF1 and SB1-SB3; INV.9 is refuted at its all-head scope.
+IC1-IC3, TAIL, PC and CP retain their own self-audit/pending-review status.
+CP's simultaneous-small-defect condition is necessary, not sufficient.
+No report is upgraded wholesale by a single accepted claim.
+
+External inbox `7d63d434690d00dffce9c90335d41c4f62d85798` was retrieved and
+is unchanged, with no entry after October 18. EXT-20261018-PNT-1 retains its
+complete cofactor-weighted error; EXT-20261014-5 is an unconditional fraction
+obstruction, not a disproof of a conditional first-bad strategy.
+
+The PP checkpoint was committed at 23:10:58 UTC as
+`4873630e09c4d30aff5cc2877bd996dfedd75eaa`, blob
+`644a70a0375842cddabe94d55d57e2a3eef02a8e`; immutable readback matched exactly.
+
+```text
+RUN=20261117-wheel-1806-EST/PP; PLATFORM_RUN_ID=UNAVAILABLE
+ROUTE=FINITE-AC complete-Xi bounded feasibility; no new route admission
+SOURCE=original Q and strict K; full Xi, both divisor orientations, E
+START=every-positive-loss b_base=7/8-7/(64*N_pack); fixed 7/8 spent legally
+PP1=exact prime-band negativity and endpoint geometry; PAPER_PROOF/SELF_AUDIT
+PP2=PP~-((log(9/2)-1)/6)R^2/log^2 R; PAPER_PROOF/SELF_AUDIT, ordinary PNT
+PP3=three-class -1:2:-1 balance and entire return; PAPER_PROOF/SELF_AUDIT
+PP4=483964 exact assertions; stronger universal entry sign REFUTED
+CLASSWISE_STRICT_GRADE=REFUTED; JOINT_SUPPLIER=OPEN
+ADVANCE=conditional existing lambda1 eta=(b-1/2)/2 map, gap factor3/4
+RENEWAL=requires new complete arithmetic at every fixed b>1/2; NOT supplied
+RETURNS=both jumps, ordered multiplicities, prime diagonals, mixed classes,
+        outside balanced block, divisor union, linear term and all cross terms
+STATUS=BOUNDED_FEASIBILITY_COMPLETE / SUPPORTING_PAPER_RESULT
+INDEPENDENT_REVIEW=PENDING; NEW_LEAN=NONE; CI=REUSED_ONLY
+NO_NEW_GLOBAL_GAIN; VERIFIED_ETA=NONE; RH=OPEN
+NEXT=independent scoped PP review or a new genuinely joint source mechanism;
+     no larger unchanged scan, no wrapper, no pointwise sign extrapolation
+PUBLICATION=READBACK_PENDING until the verified receipt below
+```
+
+Direct git clone failed with CONNECT tunnel HTTP 403; authenticated connector
+reads and authorized report writes worked. No proof source, main, shared
+policy, other report, proof branch/PR, workflow, schedule or permission was
+changed; no agent was launched. All necessary computation processes finished.
+
+### N. Reproducibility Appendix
+
+The following are the exact registered and executed files. They use Python's
+standard library only. The report is the durable copy; no external scratch
+file is required to inspect the methodology. Run the checker with its
+registration file beside it to reproduce the checks and hashes.
+
+#### N1. Pre-Execution Registration
+
+~~~~text
+# PP Exact Verification Registration
+
+Run: 20261117-wheel-1806-EST/PP. Registered before arithmetic execution.
+
+1. Use genuine Mobius values from a sieve, independently verified by trial
+factorization. Original source is the complete ordered square 1<=a,b<R,
+N=R-1, X=R^2-1. Use exact fractions throughout.
+2. Exhaust all balanced pairs at R=2..128, held-out R=139,257,317.
+Check the literal fractional kernel against its two-hyperbola formula,
+the nondivisor mask, endpoint equality exclusion for prime pairs, exact
+prime-count formula, and total row variation plus last value <=8.
+3. On R=2..64 and held-out R=101,139, reconstruct every original term,
+Q=2M(N)-M(X), the divisor union once, Xi, and PP/mixed/CC/outside.
+Check all four-way square terms, the two-way square, and the historical
+row-Abel bound by squaring exact rational inequalities. No square root
+or fitted exponent is evaluated in binary floating point.
+4. Check every prime pair in 3R/4<p,q<=4R/5, R>=10, satisfies J<=-1/2.
+Keep diagonals and both ordered orientations. Record the first genuine
+distinct-prime witness, not merely a diagonal artifact.
+5. Negative controls: omit the quotient-2 or quotient-3 jump, omit an
+ordered mixed orientation, omit prime diagonals, include the forbidden
+R-1 prime row, or discard quadratic cross terms. Require a witness for
+each. Test the stronger all-balanced-prime-entry nonpositive claim;
+if false, record its first genuine counterexample instead of asserting it.
+6. Certify c=(log(9/2)-1)/6>0 with rational atanh-series bounds. The
+PNT asymptotic is a paper proof, not a finite-test conclusion. No large
+prime census, asymptotic fit, or local Lean execution is commissioned.
+~~~~
+
+#### N2. Executed Checker
+
+~~~~python
+from collections import Counter
+from fractions import Fraction as F
+from math import isqrt
+from pathlib import Path
+import hashlib
+import json
+
+
+COUNTS = Counter()
+WITNESSES = {}
+
+
+def check(label, statement):
+    assert statement, label
+    COUNTS[label] += 1
+
+
+def record(label, condition, value):
+    if condition and label not in WITNESSES:
+        WITNESSES[label] = value
+
+
+def factor(n):
+    out = []
+    p = 2
+    while p * p <= n:
+        e = 0
+        while n % p == 0:
+            n //= p
+            e += 1
+        if e:
+            out.append((p, e))
+        p += 1
+    if n > 1:
+        out.append((n, 1))
+    return out
+
+
+def sieve(limit):
+    mu = [1] * (limit + 1)
+    prime = [True] * (limit + 1)
+    prime[0] = prime[1] = False
+    for p in range(2, limit + 1):
+        if prime[p]:
+            for n in range(p, limit + 1, p):
+                mu[n] *= -1
+                if n != p:
+                    prime[n] = False
+            for n in range(p * p, limit + 1, p * p):
+                mu[n] = 0
+    mu[0] = 0
+    return mu, prime
+
+
+def kernel(R, a, b):
+    N, P, X = R - 1, R + 1, R * R - 1
+    return F(P * (N % a) * (N % b) - N * (X % (a * b)), N * a * b)
+
+
+def balanced_kernel(R, a, b):
+    X, P = R * R - 1, R + 1
+    return 1 + F(P, R - 1) - F(P, a) - F(P, b) + int(2*a*b <= X) + int(3*a*b <= X)
+
+
+def log_bounds(x, terms=160):
+    z = (x - 1) / (x + 1)
+    lo = 2 * sum((z ** (2*j + 1) / (2*j + 1) for j in range(terms)), F())
+    err = 2 * z ** (2*terms + 1) / ((2*terms + 1) * (1-z*z))
+    return lo, lo + err
+
+
+def main():
+    mu, prime = sieve(139**2)
+    M = [0]
+    for n in range(1, len(mu)):
+        fac = factor(n)
+        expected = 0 if any(e > 1 for p, e in fac) else (-1)**len(fac)
+        check('independent_mu', mu[n] == expected)
+        check('independent_prime', prime[n] == (fac == [(n, 1)]))
+        M.append(M[-1] + mu[n])
+
+    roots = list(range(2, 129)) + [139, 257, 317]
+    full_roots = set(range(2, 65)) | {101, 139}
+    rows = []
+    for R in roots:
+        N, P, X = R-1, R+1, R*R-1
+        I = list(range(R//2 + 1, R-1))
+        primes = [a for a in I if prime[a]]
+        Tpp = Tpc = Tcc = W = F()
+        H2 = H3 = 0
+        for b in I:
+            row = []
+            partial = 0
+            maximum = 0
+            signed_row = F()
+            for a in I:
+                J = kernel(R, a, b)
+                check('balanced_kernel', J == balanced_kernel(R, a, b))
+                check('balanced_nondivisor', N % a != 0 and N % b != 0)
+                row.append(J)
+                partial += mu[a]
+                maximum = max(maximum, abs(partial))
+                signed_row += mu[a] * J
+                value = mu[a] * mu[b] * J
+                if prime[a] and prime[b]:
+                    Tpp += value
+                    H2 += 2*a*b <= X
+                    H3 += 3*a*b <= X
+                    check('prime_pair_original_sign', mu[a]*mu[b] == 1)
+                    check('prime_square_clock_no_equality', 2*a*b != R*R and 3*a*b != R*R)
+                    record('positive_prime_entry', J > 0, {'R': R, 'a': a, 'b': b, 'J': str(J)})
+                    if R >= 10 and 3*R < 4*a and 5*a <= 4*R and 3*R < 4*b and 5*b <= 4*R:
+                        check('negative_band_exact_endpoints', 5*a <= 4*R and 5*b <= 4*R)
+                        check('negative_band', J <= F(-1, 2))
+                        record('negative_band_distinct', a != b,
+                               {'R': R, 'a': a, 'b': b, 'J': str(J)})
+                elif prime[a] or prime[b]:
+                    Tpc += value
+                else:
+                    Tcc += value
+                if prime[a]:
+                    W += value
+            if row:
+                variation = abs(row[-1]) + sum(abs(v-u) for u, v in zip(row, row[1:]))
+                check('row_variation', variation <= 8)
+                check('row_abel', abs(signed_row) <= variation * maximum)
+        nP = len(primes)
+        V = sum((F(1, p) for p in primes), F())
+        formula = (1 + F(P, N))*nP*nP - 2*P*nP*V + H2 + H3
+        check('prime_count_formula', Tpp == formula)
+        check('mixed_full_identity', Tpc == 2*W - 2*Tpp)
+        balanced = Tpp + Tpc + Tcc
+        check('composite_full_identity', Tcc == balanced + Tpp - 2*W)
+        record('omit_jump_2', H2 != 0, {'R': R, 'missing': H2})
+        record('omit_jump_3', H3 != 0, {'R': R, 'missing': H3})
+        record('omit_mixed_orientation', Tpc != 0, {'R': R, 'mixed': str(Tpc)})
+        diagonal = sum((kernel(R, p, p) for p in primes), F())
+        record('omit_diagonal', diagonal != 0, {'R': R, 'diagonal': str(diagonal)})
+        if prime[N] and 2*N > R:
+            forbidden = sum((2*kernel(R, N, p) for p in primes), kernel(R, N, N))
+            record('include_divisor_prime', forbidden != 0,
+                   {'R': R, 'prime': N, 'wrong_extra': str(forbidden)})
+        if R in full_roots:
+            Q = 0
+            Xi = Div = source = F()
+            for a in range(1, R):
+                for b in range(1, R):
+                    c = mu[a]*mu[b]
+                    Q += c*(X//(a*b))
+                    value = c*kernel(R, a, b)
+                    source += value
+                    if N % a == 0 or N % b == 0:
+                        Div += value
+                    else:
+                        Xi += value
+            mR = sum((F(mu[a], a) for a in range(1, R)), F())
+            linear = 2*P*mR - F(P, N)
+            check('complete_q_endpoint', Q == 2*M[N] - M[X])
+            check('full_centered_source', Q == linear + source)
+            check('once_only_divisor_union', source == Div + Xi)
+            outside = Xi - balanced
+            parts = [Tpp, Tpc, Tcc, outside]
+            check('complete_partition', sum(parts) == Xi)
+            diagonal_squares = sum(v*v for v in parts)
+            cross = 2*sum(parts[i]*parts[j] for i in range(4) for j in range(i+1, 4))
+            check('complete_four_way_square', Xi*Xi == diagonal_squares + cross)
+            Vcomp = Xi-Tpp
+            check('complete_two_way_square', Xi*Xi == Tpp*Tpp + Vcomp*Vcomp + 2*Tpp*Vcomp)
+            record('omit_cross_terms', cross != 0, {'R': R, 'cross': str(cross)})
+            K = max(F((M[y]-1)**2, y+1) for y in range(R))
+            check('strict_history_balanced_bound', balanced*balanced <= 64*R**3*K)
+            if R in [14, 32, 64, 101, 139]:
+                rows.append({'R': R, 'prime_count': nP,
+                             'PP': str(Tpp), 'mixed': str(Tpc), 'CC': str(Tcc),
+                             'outside': str(outside), 'Xi': str(Xi), 'Q': Q,
+                             'K': str(K), 'cross': str(cross)})
+
+    lo, hi = log_bounds(F(9, 2))
+    clo, chi = (lo-1)/6, (hi-1)/6
+    check('positive_main_constant', F(84012, 1000000) < clo < chi < F(84014, 1000000))
+    for name in ['omit_jump_2', 'omit_jump_3', 'omit_mixed_orientation', 'omit_diagonal',
+                 'include_divisor_prime', 'omit_cross_terms', 'positive_prime_entry',
+                 'negative_band_distinct']:
+        check('control_'+name, name in WITNESSES)
+    print(json.dumps({'status': 'PASS_EXACT', 'checks': dict(COUNTS),
+                      'assertions': sum(COUNTS.values()), 'witnesses': WITNESSES,
+                      'rows': rows, 'constant_interval': ['0.084012', '0.084014'],
+                      'infinite_inference_from_tests': False,
+                      'script_sha256': hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
+                      'registration_sha256': hashlib.sha256(Path(__file__).with_name('pp_registration.md').read_bytes()).hexdigest()}, indent=2))
+
+
+if __name__ == '__main__':
+    main()
+~~~~
+
+### O. Prepublication Validation
+
+At 2026-11-17 23:21:22 UTC the refreshed main remained
+13b31c6313e274a073d82a01175201185e59e37e. The nontruncated report tree
+at 4873630e09c4d30aff5cc2877bd996dfedd75eaa differs from intake only in this
+owned PP checkpoint; no intervening upstream report or external handoff was
+missed. The latest inspected open/draft collection was empty.
+
+The complete new A-M synthesis, source hashes, exact checker and registration
+bytes, ASCII, Markdown tables/fences, constant order, source masks, both
+ordered orientations, diagonals and full quadratic return were checked.
+All 483,964 arithmetic assertions and syntax compilation completed successfully.
+The new estimates remain self-audited paper results, not independently
+accepted or Lean-certified. This preparation paragraph does not certify its
+own publication. An immutable commit/readback receipt follows after success.
