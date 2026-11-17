@@ -1,7 +1,7 @@
 {
   "schema": "rhlean-proof-obligations/1",
   "registry_version": "2026-11-15.2",
-  "authority": "Mathematical proof-obligation registry with Lean declarations and dated evidence. Conditional consumers do not prove their premises; paper and numerical findings are not Lean certificates. November 17 refresh: #1119 and #1135 are human-merged on main. The final #1135 head ac6dc46b70da962e70b18ea184451c225c1cd44a passed all 18 checks and was merged on November 16. New owner-capacity and double-centered-source supporting implementations await hosted proof certification. RH, finite A/C, zero-log amplification and the equivalent native fractional-owner and subcritical full-prefix arithmetic inputs remain open.",
+  "authority": "Mathematical proof-obligation registry with Lean declarations and dated evidence. Conditional consumers do not prove their premises; paper and numerical findings are not Lean certificates. November 17 refresh: #1119 and #1135 are human-merged on main. The final #1135 head ac6dc46b70da962e70b18ea184451c225c1cd44a passed all 18 checks and was merged on November 16. The owner-capacity and complete double-centered-source supporting lemmas are certified at green PR #1141 head 5286b43f6a64e9debc4b1be5acba5112c144e2e0, pending human merge. RH, finite A/C, zero-log amplification and the equivalent native fractional-owner and subcritical full-prefix arithmetic inputs remain open.",
   "baseline": {
     "repository": "OVVO-Financial/RH_Lean",
     "main_sha": "59612bc8b5c30c528d8367667ea5846a8053f114",
@@ -3454,18 +3454,17 @@
     {
       "id": "LEMMA-NATIVE-OWNER-DIAGONAL-CAPACITY",
       "title": "Uniform capacity of the complete native owner diagonal",
-      "type": "paper_claim",
+      "type": "proved_lemma",
       "route_ids": [
         "FINITE-AC",
         "MU-LIFT"
       ],
-      "statement": "For every R>=2 and R<=x<R^2, the original strict prime-owner family obeys sum_(R<p<=x) floor(x/p)<=x-R. Consequently D_R(x)<=(x-R)E(R)^2<=3(x-R)K_R. The complete all-prefix M(x)^2=D_R(x)+Gamma_R(x) identity specializes exactly to the existing native owner source. An explicit premise Gamma_R(x)<=B*x*K_R yields K_(R^2)<=(4+B)*K_R; no such signed premise is proved.",
-      "logical_status": "CLAIMED",
-      "formal_status": "LEAN_PR_HEAD_NOT_GREEN",
-      "evidence_class": "PAPER_PROOF_NEEDS_REVIEW",
-      "provenance": "PAPER_ARGUMENT",
-      "open_obligation": true,
-      "obligation_kind": "REVIEW",
+      "statement": "For every R>=2 and R<=x<R^2, the original strict prime-owner family obeys sum_(R<p<=x) floor(x/p)<=x-R. Consequently D_R(x)<=(x-R)E(R)^2<=3(x-R)K_R. The complete all-prefix M(x)^2=D_R(x)+Gamma_R(x) identity specializes exactly to the existing native owner source. For B>=0, an explicit all-prefix premise Gamma_R(x)<=B*x*K_R yields K_(R^2)<=(4+B)*K_R; no such signed premise is proved.",
+      "logical_status": "PROVED",
+      "formal_status": "PROVED_IN_LEAN_PR_GREEN_UNMERGED",
+      "evidence_class": "PROVED_IN_LEAN_PR_GREEN_UNMERGED",
+      "provenance": "PROVED_INTERNALLY",
+      "open_obligation": false,
       "lean": [
         {
           "file": "research/NATIVE_OWNER_DIAGONAL_CAPACITY_20261117.lean",
@@ -3500,23 +3499,22 @@
         "OPEN-NATIVE-OWNER-FRACTIONAL",
         "RH"
       ],
-      "notes": "Lean implementation and exact source audits are in PR #1141; hosted proof certification is pending. Supporting source restriction, not a new global exponent.",
+      "notes": "Certified at green PR #1141 proof head 5286b43f6a64e9debc4b1be5acba5112c144e2e0 with exact types, source dependencies, and standard terminal axioms. Supporting source reduction; the complete signed cancellation estimate and every RH route input remain open.",
       "pr": 1141
     },
     {
       "id": "LEMMA-EULER-DOUBLE-CENTERED-REDUCTION",
       "title": "Complete double-centered frozen Euler source",
-      "type": "paper_claim",
+      "type": "proved_lemma",
       "route_ids": [
         "FINITE-AC"
       ],
-      "statement": "The original frozen Q_R equals its exact double-centered non-divisor remainder Xi_R plus all retained linear/divisor-row terms. Both divisor-row orientations are included once. The explicit error is at most 2R+5+2(R-1)2^omega(R-1), with the full-divisor version also proved, hence at most C_epsilon R^(1+epsilon) for every positive epsilon, with constants before R. This proves no strict historical-power bound for Xi_R.",
-      "logical_status": "CLAIMED",
-      "formal_status": "LEAN_PR_HEAD_NOT_GREEN",
-      "evidence_class": "PAPER_PROOF_NEEDS_REVIEW",
-      "provenance": "PAPER_ARGUMENT",
-      "open_obligation": true,
-      "obligation_kind": "REVIEW",
+      "statement": "The original frozen Q_R equals its exact double-centered non-divisor remainder Xi_R plus all retained linear/divisor-row terms. Both divisor-row orientations are included once. The explicit error is at most 2R+5+2(R-1)2^omega(R-1); the full-divisor version is also proved. The complete error is at most C_epsilon R^(1+epsilon) for every positive epsilon, with constants before R. This proves no strict historical-power bound for Xi_R.",
+      "logical_status": "PROVED",
+      "formal_status": "PROVED_IN_LEAN_PR_GREEN_UNMERGED",
+      "evidence_class": "PROVED_IN_LEAN_PR_GREEN_UNMERGED",
+      "provenance": "PROVED_INTERNALLY",
+      "open_obligation": false,
       "lean": [
         {
           "file": "research/EULER_DOUBLE_CENTERED_SOURCE_20261117.lean",
@@ -3547,7 +3545,7 @@
         "OPEN-NATIVE-OWNER-FRACTIONAL",
         "RH"
       ],
-      "notes": "Lean implementation and exact source audits are in PR #1141; hosted proof certification is pending. Supporting source restriction, not a new global exponent.",
+      "notes": "Certified at green PR #1141 proof head 5286b43f6a64e9debc4b1be5acba5112c144e2e0 with exact types, source dependencies, and standard terminal axioms. Supporting source reduction; the complete signed cancellation estimate and every RH route input remain open.",
       "pr": 1141
     }
   ],
@@ -4705,7 +4703,7 @@
       "kind": "pr",
       "number": 1135,
       "state": "merged",
-      "draft": true,
+      "draft": false,
       "title": "Formalize universal historical envelopes and critical amplification equivalences",
       "observed_at": "2026-11-17T13:51:11.562734+00:00",
       "head_sha": "ac6dc46b70da962e70b18ea184451c225c1cd44a",
@@ -4748,7 +4746,7 @@
       "kind": "repository_note",
       "path": "docs/PRESERVATION_SOURCE_REDUCTIONS_20261117.md",
       "grade": "REPOSITORY_NOTE",
-      "notes": "Supporting owner-capacity and complete fractional-source arguments; hosted Lean certification pending.",
+      "notes": "Supporting owner-capacity and complete fractional-source arguments, certified by the hosted proof jobs recorded in EV-PR-1141.",
       "date": "2026-11-17",
       "observed_at": "2026-11-17T13:48:27.641821+00:00"
     },
@@ -4758,16 +4756,41 @@
       "number": 1141,
       "state": "open",
       "title": "Prove full-prefix owner capacity and complete Euler double-centering",
-      "observed_at": "2026-11-17T13:54:34.216835+00:00",
-      "head_sha": "3015d61d42cda1bb477550f083c41f772ec39a1b",
+      "observed_at": "2026-11-17T14:03:02.752274+00:00",
+      "head_sha": "5286b43f6a64e9debc4b1be5acba5112c144e2e0",
       "checks": {
-        "success": 13,
-        "failed": 2,
-        "pending": 2
+        "success": 17,
+        "failed": 0,
+        "pending": 0,
+        "total": 17
       },
-      "grade": "PR_HEAD_RED",
-      "workflow": "https://github.com/OVVO-Financial/RH_Lean/actions/runs/44096778470",
-      "notes": "Hosted compilation is pending repair at this snapshot; no Lean proof certification is claimed."
+      "grade": "KERNEL_CHECKED_GREEN_PR_HEAD",
+      "workflow": "https://github.com/OVVO-Financial/RH_Lean/actions/runs/44098246482",
+      "notes": "All 17 hosted checks passed at the recorded proof head, including warning-fatal import closures, 28 exact-type examples, all 47 public declarations, original-source dependency checks, and terminal-axiom audits. The following documentation/status update preserves these proof-source hashes. PR remains unmerged for human review.",
+      "proof_jobs": {
+        "owner": "https://github.com/OVVO-Financial/RH_Lean/actions/runs/44098246482/job/134091040604",
+        "euler": "https://github.com/OVVO-Financial/RH_Lean/actions/runs/44098246482/job/134091041237"
+      },
+      "verified_public_declarations": {
+        "owner": 20,
+        "euler": 27
+      },
+      "exact_type_examples": 28,
+      "allowed_terminal_axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "proof_source_sha256": {
+        "research/NATIVE_OWNER_DIAGONAL_CAPACITY_20261117.lean": "80f621940e4f7ddf6debd71fe56e2326b8eeb00036ece7d8fc27234d58c21626",
+        "research/EULER_DOUBLE_CENTERED_SOURCE_20261117.lean": "c134d18b59b16e757e68b4fceac7bfc1f4e0e1060147b1822cb5599345b0713f",
+        "research/EULER_DOUBLE_CENTERED_REMAINDER_20261117.lean": "b192c4dfb935a3b0e201b8301f59e6479b747dff4ebf3276ce426e7dc04903a8",
+        "scripts/lean/preservation_sources/OwnerExactTypes.lean": "3de6123882abe088ddc91888bde244a07128847c974b24795859ecaa7b973ab1",
+        "scripts/lean/preservation_sources/EulerExactTypes.lean": "4a79ad1cf495e6a645733fc5a85a956b0fbcfb41b10aac5935e36f469f48f58e",
+        "scripts/lean/preservation_sources/inventory.json": "8b7ec09539cd9b73a62f470c10e631622e431659a384dd47531f3ec03c2186fd",
+        "scripts/audit_preservation_sources.py": "ba916c5c1e32f7e334cd8278632f9f47c710e8e28198ad57dd04803c34b4c285",
+        ".github/workflows/preservation-source-reductions.yml": "82422cbf97ebdb3ceb5a24e31fa94e8c160ae1b01742f3b817fd7768bc93d639"
+      }
     }
   ],
   "historical_tracks": {

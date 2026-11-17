@@ -188,7 +188,8 @@ def check_double_centered(root, mu, mertens):
         2 * root + 5 + 2 * n * squarefree_divisors
     ) * scale
     # Lean formalizations of both finite budgets are present; the squarefree
-    # refinement is pending hosted verification. This remains a finite check.
+    # refinement is certified by the hosted verification in EV-PR-1141.
+    # This regression remains a finite check.
     assert abs(full_floor * scale - nondivisor) <= (
         2 * root + 5 + 2 * n * divisor_count
     ) * scale

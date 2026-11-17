@@ -2,9 +2,15 @@
 
 Date: 2026-11-17. Implementation base: `52fdc0cab0fe0cffc4668212a6889423e0090189`.
 
-Status: supporting paper arguments implemented in Lean; hosted compilation and
-the exact-type/source-dependency/terminal-axiom audits are pending. The proof
-registry records this status separately from the open arithmetic estimates.
+Status: certified by hosted Lean compilation and exact-type, source-dependency,
+and terminal-axiom audits at proof head
+`5286b43f6a64e9debc4b1be5acba5112c144e2e0` in
+[PR #1141](https://github.com/OVVO-Financial/RH_Lean/pull/1141). All 17 checks
+passed, including all 47 public declarations and 28 exact-type examples.
+The PR is unmerged; the registry keeps this deployment status separate from
+the open arithmetic estimates. Evidence and source hashes are recorded in
+`EV-PR-1141`; the certification run is
+[Preservation source reductions](https://github.com/OVVO-Financial/RH_Lean/actions/runs/44098246482).
 
 ## 1. Complete owner capacity throughout the next prefix
 
@@ -44,14 +50,14 @@ and exact endpoint adapters to the existing `nativeA`, `ownerDiagonal`, and
 `fullOwnerGamma`. This native owner Gram is not identified with the different
 legal-ancestry Gram by notation alone.
 
-The attached consumer retains its whole signed premise:
+For `B >= 0`, the attached consumer retains its whole signed premise:
 
 \[
 \bigl[\forall R\le x<R^2:\ \Gamma_R(x)\le BxK_R\bigr]
 \quad\Longrightarrow\quad K_{R^2}\le(4+B)K_R.
 \]
 
-Its more general form permits any `L >= K_R` and an explicit premise
+Its more general form permits any `L >= K_R`, `C >= 0`, and an explicit premise
 `Gamma_R(x) <= C*x*L`. It concludes `K_(R^2) <= (4+C)*L`. Thus a future
 subcritical estimate can feed the existing full-prefix machinery. No such
 estimate is supplied by the diagonal theorem.
