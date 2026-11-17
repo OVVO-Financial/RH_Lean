@@ -1532,3 +1532,16 @@ print(json.dumps({'status': 'PASS', 'checks': checks, 'total': sum(checks.values
 
 </details>
 
+
+
+### Verified Publication Receipt - 20261117-referee-1203-EST/IC
+
+The substantive [commit 63fb53ef06a2752e42be83c370d5cde30ffc1005](https://github.com/OVVO-Financial/RH_Lean/commit/63fb53ef06a2752e42be83c370d5cde30ffc1005), committed at 2026-11-17T17:31:10Z (12:31:10 EST), was inspected. At 17:31:25 UTC / 12:31:25 EST, the report fetched at that IMMUTABLE commit exactly matched all 125,023 intended ASCII bytes, blob 87b236d66d4d655e92feee9b261bb3125030e317. Commit inspection confirmed that only this authorized daily Referee report changed, with 784 additions and zero deletions. The entire previous report and checkpoint remain an exact preserved prefix.
+
+EXECUTION=COMPLETED; SUBSTANTIVE_PUBLICATION=PUBLISHED_IMMUTABLE_READBACK_VERIFIED. This supersedes this synthesis's earlier READBACK_PENDING markers. Independent scoped paper verdicts are INV1-INV4, HA1-HA3, TC1-TC2, HF1 and SB1-SB3; INV.9 is refuted at its exact prescribed all-head scope. IC1-IC3 remain PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED. The prior SG report and all earlier evidence/review classifications are preserved.
+
+The independently written final checker passed 3,653 exact/rational assertions; syntax, embedded-source equality, complete A-O structure, six Markdown table widths, 20 material source hashes and the report continuity hashes were checked. The two common tail modes, the entire fixed-weight integrability classification, and the drift-free infinite family have paper proofs, not finite extrapolation. All required computation processes completed. Hosted source/CI evidence was verified at the stated exact heads and merge targets; no new Lean build, workflow execution or unconditional endpoint proof is claimed.
+
+NO_NEW_GLOBAL_GAIN; NO_NEW_ACCEPTED_RH_ROUTE; VERIFIED_ETA=NONE; RH=OPEN. The first surviving open Nyman input is an independently derived bound on the ENTIRE original residual along one common unbounded sparse sequence, or the stated closed-boundary supplier. All-head averaging and separate raw-tail norms cannot supply it at the refuted scopes. Other source-faithful routes remain independent.
+
+This receipt records an already verified substantive commit, not its own future containing hash. Its containing update is separately immutably read back before delivery. No main, source, policy, other-role report, proof branch, PR, workflow, schedule, permission or agent configuration was changed; no agent was launched.
