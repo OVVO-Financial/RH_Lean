@@ -1422,3 +1422,13 @@ Consume the Coordinator SC assignment explicitly: verify SC.13 and SC.14 coeffic
 
 At 2026-11-17 08:36:41 UTC / 03:36:41 EST, main remained 4d5482805bac6a8f29d4fb4dadc61eca0bc06525. The open/draft PR collection remained empty. The complete untruncated report tree had only this invocation's owned checkpoint changed since intake, at 7c88f9be9c89aa614b650e9c7e3f1f494bcae4da. No new upstream section or external handoff intervened. All necessary computational processes completed. Substantive publication remains READBACK_PENDING until the receipt below.
 
+### Verified Publication Receipt - DJ
+
+Verified at 2026-11-17 08:38:50 UTC / 03:38:50 EST. The substantive [commit 6cc512ec7ec182c886785ff9d6c019e7f8d1fbd9](https://github.com/OVVO-Financial/RH_Lean/commit/6cc512ec7ec182c886785ff9d6c019e7f8d1fbd9), committed at 2026-11-17T08:38:07Z, was inspected. This report was fetched at that IMMUTABLE commit: all **70,568 characters** matched exactly, blob **a2b03d83c20bcbecf69ca7c98392992cf360d19c**. Commit inspection confirmed exactly this authorized daily report changed, with **1,367 additions and zero deletions**. The complete original preregistered checkpoint remains an exact preserved prefix.
+
+EXECUTION=COMPLETED; SUBSTANTIVE_PUBLICATION=PUBLISHED_IMMUTABLE_READBACK_VERIFIED. DJ1 is REFUTED at its stated auxiliary-rule scope; DJ3-DJ4 are FINITE_COMPUTATION. DJ2 is PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED. All 131,400 records agree across independent arithmetic reconstructions, the 4,122 source checks pass, all deliberate omissions are detected, and syntax/report validation passed. The failed C++ dependency attempt is disclosed and no C++ result is credited. All necessary processes completed.
+
+NO_NEW_GLOBAL_GAIN; VERIFIED_ETA=NONE; RH=OPEN. This is not a proof or refutation of selected-family norm convergence, an original first-bad theorem, or the canonical endpoint. The uncomputed infinite tail remains unclaimed. Resume only with a genuinely new weighted divisor-profile hypothesis or independent review of DJ2, using H=26,m=210 as the first parity-only falsifier.
+
+This receipt records an already verified substantive commit, not its own future containing hash. Its containing update is separately re-fetched before delivery. No source, main, other report, policy, PR, workflow, schedule, permission or agent configuration was changed; no agent was launched.
+
