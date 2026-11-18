@@ -2332,3 +2332,64 @@ Substantive synthesis: [3f15ce3d3fc76660e1625b72afbec74ae7145804](https://github
 Verification completed at 2026-11-17 16:25:29 UTC. All 38,296 final assertions passed; all ten source receipts matched pinned main; embedded executed scripts matched their recorded SHA256 values. Markdown tables, code fences and appendix boundaries passed validation. New TC1-TC4 mathematics retains its stated PAPER_PROOF / FINITE_COMPUTATION scope and independent review remains PENDING. No new Lean build, global estimate or RH proof is claimed.
 
 PUBLICATION=VERIFIED_SUBSTANTIVE_COMMIT; RUN=COMPLETE. This receipt is a subsequent append, so it cites the already observed substantive commit, not its own future commit SHA. Next authorized run should consume new upstream/referee findings and request an explicit fully restored kernel inequality before another census; do not repeat the completed fixed-head component audit.
+
+
+## Early Checkpoint - 20261117-census-1900-EST/MR
+
+Execution=IN_PROGRESS; mathematical results=PENDING. Actual trigger 2026-11-17 19:00:01 EST; platform run ID unavailable. Authority main `13b31c6313e274a073d82a01175201185e59e37e`, reports intake `63d02481082a4d3d86b8e2f94c0db11a62884be8`. Current main and original Nyman sources were read; the canonical VF endpoint and the complete sparse-energy upper supplier remain open. Latest actual reports were discovered without a calendar cap. Relevant November 16/17 carry-forward and post-TC updates IC, HF1, TAIL, PC, CP and PP were consumed; both dates' Coordinator mirrors match byte-for-byte. External inbox is unchanged. All prior report content is preserved.
+
+half_bootstrap_ack=BOOTSTRAP_TO_HALF_V1; cross_route_ack=CROSS_ROUTE_SIGNED_RECOVERY_V1; continuity_ack=LAST_ACTUAL_REPORT_CONTINUITY_V1.
+
+CP has now supplied the precise three-profile inequality requested by TAIL, but explicitly closes its original bounded audit and requests no unchanged range extension. This run therefore preregisters a different, stronger regional source inequality before any arithmetic. Its scope is bounded support for the same direct endpoint consumer, not a new route admission or a fitted exponent.
+
+```text
+# MR Preregistration
+
+Run: 20261117-census-1900-EST/MR. Trigger: 2026-11-17T19:00:01-05:00.
+Registered at 2026-11-18 00:08:09 UTC, before new arithmetic evaluation.
+Main: 13b31c6313e274a073d82a01175201185e59e37e. Intake reports: 63d02481082a4d3d86b8e2f94c0db11a62884be8.
+
+Question: can the actual restored arithmetic remainder erase the detected
+three-profile energy, beyond CP's general inequality with a subtracted error?
+
+Freeze H=96 only (next untested H=6*2^j after 12,24,48), B=(H,2H,4H),
+N_i=B_i^2, L_i=log B_i. Use TAIL's EXACT signed weights, curvature d,
+all original coefficients and six correction bands, and CP's integer
+profiles p_i=P_i-T_i. Set a as in TAIL, t_i=a_i*alpha_i,
+r=sum_i a_i*(U_Ni-U_Bi+C_hi), Z=sum_i t_i*p_i, R=r-Z.
+J is the disjoint union 7N_i/12<m<=2N_i/3, with weight 1/[m(m+1)].
+
+Candidate MR-bound: for every H=6*2^j, j>=1, satisfying
+|d|>=max_i|delta(B_i)|/512>0, ||r||_J^2 >= (1/2)||Z||_J^2.
+This is a NEW proposed regional arithmetic inequality, not CP's theorem,
+not a complete upper bound, and not inferred from previously seen energies.
+Competing explanation: restored arithmetic can destructively cancel more
+than half of the profile energy. A certified negative margin at H=96,
+with curvature selection checked, refutes MR-bound at its exact scope.
+A positive margin is only a one-head finite pass. An interval containing
+zero is unresolved; increase precision, not change the head or constant.
+
+Also independently certify CP.4's full 3x3 profile Gram shifted by N/D I,
+D=49647168, and CP's exact finite-source lower bound retaining measured
+remainder. Do not purport to test the unbounded Mertens premise.
+
+Compute EVERY output 1<=m<=T=2*N_2=294912, all three diagonal and three
+doubled cross-head Gram terms, plus every CP window's Z^2,R^2,2ZR.
+Return an honest complete-norm enclosure using the bound
+(1+sum|C_k|)^2/(T+1) for the whole omitted tail, or its valid triangle
+majorant. Wide tail bounds do not establish a full-norm ordering or rate.
+Independent reference: trial-factor Mobius, decimal logarithms and literal
+residue coefficients, checked against the rational interval reconstruction.
+Boundary probes must include all six band onsets/ends, every N_i+1, exact
+head, and T. Negative controls: omit a second band, U_N, cross terms,
+constant -1, and shift a strict endpoint. No source omission is repaired by
+renormalization. Stop after this domain; no adaptive larger census.
+
+Continuation: the accepted exact-head sparse full-energy consumer would
+exclude zeros >1/2 if a genuine complete subpower upper estimate existed.
+This lower-bound test is a bounded feasibility/falsifier audit only. It
+supplies no such upper estimate, no new exponent, and no RH claim.
+
+```
+
+No Lean/source, other-role report, branch, PR, workflow, schedule, permission or agent launch is authorized or undertaken. Publication of this checkpoint requires the following immutable readback; no completed arithmetic is claimed.
