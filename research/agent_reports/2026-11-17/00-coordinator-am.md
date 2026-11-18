@@ -1602,3 +1602,23 @@ EXECUTION=COMPLETED; SUBSTANTIVE_PUBLICATION=PUBLISHED_IMMUTABLE_READBACK_VERIFI
 Validation passed: A-J structure, ASCII, balanced Markdown fences, original-report prefix preservation, identical mirrors, embedded-checker identity/checksum, finite-output consistency, exact parameter and constant order, original correction-band restoration, CI/source scope, and the distinction between proof review and publication status. This receipt records already verified substantive publication; its own later commit is not used as evidence for itself.
 
 NO_NEW_GLOBAL_GAIN; NO_NEW_ACCEPTED_RH_ROUTE; VERIFIED_ETA=NONE; RH=OPEN. The next mathematical decision is whether the separated correction profiles defeat the signed-mixture candidate. Preserve the new coefficient-selection lemma regardless of that outcome. No additional execution, agent launch, background work or future delivery is implied.
+
+## In-Progress Checkpoint - 20261117-coordinator-2309-EST/DUAL
+
+### A. What Changed Mathematically?
+
+The new handoffs report that separated Nyman correction profiles force a two-defect necessary condition, while prime-pair coherence survives complete Euler double-centering. These are restrictions to investigate, not a new global upper bound. Independent intake and original-source review are IN_PROGRESS. No new result is asserted at this checkpoint.
+
+### B. Current Proof Objective
+
+Actual scheduled trigger: 2026-11-17 23:09:01 EST / 2026-11-18 04:09:01 UTC. Platform run ID unavailable; DUAL is a research label. Prepared 2026-11-18 04:11:35 UTC. Eastern reporting date remains November 17.
+
+main=13b31c6313e274a073d82a01175201185e59e37e; AGENTS=c4f36b772f8a4b0c24fe566b90fafb646073c60f; CURRENT_PROOF_CONTRACT=95566e37c8eaeb99ee680660df4f9d2e06ea5038. Canonical VFCanonicalSquareVonKochStatement and RH remain OPEN. half_bootstrap_ack=BOOTSTRAP_TO_HALF_V1; cross_route_ack=CROSS_ROUTE_SIGNED_RECOVERY_V1; continuity_ack=LAST_ACTUAL_REPORT_CONTINUITY_V1.
+
+### C-J. Work In Progress
+
+The complete nontruncated reporting tree at 06c7d1fd41078331228e701168d70944a82c1b1f was enumerated without a calendar cap. Latest actual specialist sections are Owner PC, Analytic CP, Wheel PP, Census MR, Referee PR and Lean PROFILE. Both November 16 and November 17 files and the external inbox have been retrieved; post-TAIL mathematical backfill and publication timestamps are being verified. Current Coordinator mirrors have identical blob ae2d8ed2c9199d5b0b174fd8b3436286f5541226; prior INV and TAIL histories remain unchanged.
+
+Live PR state: #1144 MERGED on main; #1143 merged into its non-main destination; #1145 OPEN/non-draft at 43cbf9310516f26a440b5527ce6dc22a62856248. Exact-head CI and source scope remain under independent review. No proof status is upgraded from report prose alone.
+
+Next: finish relevant handoffs and source inspection; conduct one substantive falsifiable investigation; compare three distinct feasibility lanes; append A-J synthesis, asynchronous assignments and verified readback receipt. No local Lean, agent launch, source/contract edits, schedule change, or human-merge bypass is authorized or performed. EXECUTION=IN_PROGRESS; mathematical findings=PENDING; publication completion requires successful commit/readback.
