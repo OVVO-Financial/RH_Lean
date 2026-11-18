@@ -1078,3 +1078,27 @@ Exit status: 0. The output was:
 }
 ```
 
+### Immutable Publication Receipt
+
+Verified at 2026-11-18 07:28:40 UTC / 02:28:40 EST.
+
+- Synthesis commit: bb200e740c63e0f7881b50eeb75a215480cb3dfe.
+- Synthesis report blob: 38debf9f059079421f11f4bb6b147597703fd058.
+- Immutable fetch matched all 52,256 characters of the submitted report exactly.
+- Commit inspection: only research/agent_reports/2026-11-18/30-finite-wheel.md changed; 1,007 additions, zero deletions.
+- The full checkpoint prefix is byte-preserved. All final A-M sections, source receipts, balanced code fences, exact registration/checker inclusion and the 3,362-assertion total passed the local structural validation.
+- NEW_FD_STATUS=PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED. PC review is separately scoped ACCEPT_ON_PAPER. NO_NEW_GLOBAL_GAIN; VERIFIED_ETA=NONE; RH=OPEN.
+- PUBLICATION=PUBLISHED_AND_IMMUTABLY_VERIFIED for the substantive synthesis above. This appended receipt's own commit is separately verified after writing; no future commit hash is asserted inside its own bytes.
+
+Scope correction: the earlier shorthand saying no branch was modified is
+too broad. The existing agent-reports reference necessarily advanced for
+the authorized report-only commits. No branch was created or reconfigured,
+no PR was edited, and no main/source/policy/other-report/workflow/schedule
+change or agent launch occurred. This correction preserves the prior text.
+
+NEXT_RUN_RESUME=read latest main and report watermarks afresh; consume this
+FD synthesis and any independent review; do not repeat the unchanged
+finite census or degree-two constants. Resume only with a new source-complete
+half-consumer mechanism, or the assigned independent review of FD.
+
+
