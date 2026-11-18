@@ -942,3 +942,12 @@ NO_NEW_GLOBAL_GAIN; VERIFIED_ETA=NONE; RH=OPEN
 ```
 
 Checkpoint publication evidence was read back exactly: first checkpoint commit 57b6dff2da9f56f75ce58f2ec95a29b2e431e34d, blob c2da3037090fd26182b27ece15ad7434032dd3fd; implementation checkpoint commit 3121b882f96bbd70aad106f591b67092d0a1dcb6, blob a624078e009ff742fcb497a1ca2d944e5c628c0c. This synthesis appends to, and does not erase, those dated records or earlier HF1/NYMAN-JUMP results. Its final publication commit and verified readback are recorded in the following receipt.
+
+
+### PROFILE Final Publication Receipt
+
+STATUS=PUBLICATION_VERIFIED; reporting date 2026-11-17 America/New_York. Receipt prepared at 2026-11-18 02:42:38 UTC.
+
+The complete A-P synthesis was published at commit **c4ab95cdebd6a4c2d62d506ae713290b115a6c49**, report blob **76db198d9541c25faa1d4eb3de9ab88436872168**, and fetched back from that immutable commit. Exact content equality and preservation of the entire previous report prefix both passed (104,147 characters before this receipt). [Immutable substantive report](https://github.com/OVVO-Financial/RH_Lean/blob/c4ab95cdebd6a4c2d62d506ae713290b115a6c49/research/agent_reports/2026-11-17/60-lean-verification.md).
+
+Post-ready refresh confirms PR #1145 remains OPEN, draft=false, merged=false, auto_merge=null, mergeable=true; latest head is **43cbf9310516f26a440b5527ce6dc22a62856248** and main base remains **13b31c6313e274a073d82a01175201185e59e37e**. A second exact-head check-run read confirms **13/13 successful checks**, none pending. Three public theorems are PROVED_IN_LEAN at this unmerged PR head, not yet part of main. CP1's finite lower bound is complete; the source-faithful global upper supplier and RH remain OPEN. No agent launch, main write, merge, auto-merge, or other-role report edit occurred.
