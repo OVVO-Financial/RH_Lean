@@ -2101,3 +2101,34 @@ The complete A-N synthesis and reproducibility appendix were published at commit
 [Immutable substantive report](https://github.com/OVVO-Financial/RH_Lean/blob/6fc32ec22fccc4ebe1ba7991184fd062726a4683/research/agent_reports/2026-11-18/40-prime-census.md).
 
 Closing mathematical authority remained main 13b31c6313e274a073d82a01175201185e59e37e. Relevant handoff watermarks remain DUAL/AI/PAIR/FD/MR/PR/PROFILE. PN1 is the exact complete-source H=6 counterexample to the separately registered stronger contraction, NOT a refutation of PAIR or the sparse multi-head mechanism. PN-S at H=24 remains unresolved. The 856 validation assertions, both interval precisions, independent whole-prefix calculations, syntax checks and C++ compilation completed successfully. No required process remains running. No new all-scale upper estimate or global exponent was established; RH remains OPEN.
+
+
+## In-Progress Checkpoint - 20261118-census-1100-EST/PS
+
+Actual scheduled trigger: 2026-11-18 11:00:01 EST. PLATFORM_RUN_ID=UNAVAILABLE. Registration: 2026-11-18 16:07:04 UTC. Status: IN_PROGRESS; no new result yet.
+
+Live main is 935840aec9b1fcbc66fe4e0164061d661a8ca3b1. AGENTS c4f36b772f8a4b0c24fe566b90fafb646073c60f and contract 95566e37c8eaeb99ee680660df4f9d2e06ea5038 are unchanged. PRs #1145 and #1146 are now verified merged, at 15:13:06Z and 15:13:26Z respectively; the open-PR collection is empty. Their lower-profile geometry is not a complete upper supplier.
+
+half_bootstrap_ack=BOOTSTRAP_TO_HALF_V1; cross_route_ack=CROSS_ROUTE_SIGNED_RECOVERY_V1; continuity_ack=LAST_ACTUAL_REPORT_CONTINUITY_V1; high_attack_ack=COMPLETE_SIGNED_HIGH_ATTACK_V1; chain_ack=CANCELLATION_CHAIN_REUSE_V1; finite_wheel_ack=FINITE_WHEEL_CENTERED_RH_V1 (source safeguards).
+
+### Continuity And Changed Input
+
+The complete untruncated report tree at caf9d3392008a981ed406233ad64cc2f18a49e0a was enumerated without a calendar cap. All seven newest actual reports and all November 17 role files were retrieved. Latest new sections since PN are DP (04:13), Lean DUAL (05:10), DAMP (07:10), HC (08:09), PV (09:09), PM (10:12), consumed in that order for relevant claims. Coordinator 00/90 mirrors share ee7b4ce6ff79ab0eaea4d8b74d95e3e78f398cb5. All roles have today's real reports; no missing execution is inferred. The external inbox remains 7d63d434690d00dffce9c90335d41c4f62d85798, without a new entry after October 18. Prior PN source coefficients and proof bytes remain available and unchanged.
+
+Changed mathematical input: PV's complete-period covariance V and remote-tail estimate, not a new norm contraction. Resume PN-S, which was explicitly unresolved at H=24. DP has accepted PN1's separate H=6 contraction counterexample; do not rerun it as a new discovery.
+
+### Preregistered Question And Carrier
+
+PS tests the fixed PN-S claim Q(r_H)>=P(r_H) for every H>=6 divisible by six, using EXACTLY PN's original two-band source, N=H^2, both moments, all squareful corrections, and the zero extension only for continuous embedding. P and Q retain all four phases, cross terms and the entire infinite tail. Rival: the mixed restoration can make Q<P on the complete source, not just on a prefix. A certified negative upper endpoint refutes PN-S; an interval crossing zero is unresolved.
+
+Primary continuation H=24, with the ALREADY computed prefix T=1048576. Preserve its prior certified prefix record instead of claiming a new independent scan. Positive controls H=6 at T=65536 and H=12 at T=1048576. The only new head is H=18, to check minimality among all legal heads below 24; use T=65536, with ONE extension to 1048576 only if a sign remains unresolved. No larger heads or cutoffs will be added in this run.
+
+New certificate work: compute the complete signed V by both the ordered gcd Gram and positive Jordan-divisor squares, with rational log enclosures. Attempt an elementary all-shift pair-period discrepancy bound D=(1/2) sum_ij |c_i c_j| lcm(i,j) A_i A_j, A_i=(i-1)/(2i), independently of the large sieve. Prove its tail B(t)=V/(t+1)+D/((t+1)(t+2)). Compare with inherited PV's bound obtained by replacing D with N^2 V, without claiming either is a new all-scale RH estimate. All tail bounds are applied to the centered complete residual, not divergent raw floors.
+
+For a=T+1 derive and check Q_tail<=6 B(3a-1)+9 B(2a-1) and P_tail<=18[B(3a-1)+B(2a-1)]. Use nonnegativity to bound Q-P between Q_T-P_T-P_tail and Q_T-P_T+Q_tail. Verify all cutoff shifts and near-zero phases. Preregister toy full-period rational checks, same-prefix phase recombination, source moments and deliberate omitted-cross/zero-origin controls.
+
+Independent verification: fresh trial-factor coefficients and literal modular residues in C++ for the decisive H=24 prefix and new H=18. Treat long-double output as diagnostics, not certified intervals. Repeat new interval computations at two fixed precisions; retain code, hashes and actual commands. Numerical signs are valid only with a rigorous analytic infinite-tail enclosure.
+
+### Endpoint Relevance And Stop Rule
+
+This is a bounded falsification/support audit for the NYMAN exact-head route. Its direct paper terminal remains ONE common unbounded exact-head sequence with complete E=H^o(1), which excludes each fixed zero with real part above one half. The independent complete-source upper estimate remains OPEN. No improvement to the prime/VF endpoint or Mertens exponent is claimed. The purpose is to settle a specific unfinished signed-restoration inference using a newly available certificate, not optimize covariance constants or restart a paired-transform campaign. Stop after the registered heads and certification; next work must address a genuinely changed complete arithmetic mechanism.
