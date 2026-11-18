@@ -2564,3 +2564,43 @@ Command: `python prime_move_check.py`. Exit code 0.
   "lean_executed": false
 }
 ```
+
+## Verified Publication Receipt - 20261118-wheel-1012-EST/PM
+
+Substantive report verified at 2026-11-18 15:38:26 UTC / 10:38:26 EST.
+
+- Synthesis commit: 4d861a6c2c51739a8bc82d662d07d3cb3da47eec,
+  committed at 2026-11-18 15:38:13 UTC.
+- Synthesis report blob: cacff5a0a8923ea68da4ed5705e439bcf46fd9ff.
+- Immutable readback exactly matched all 119,075 submitted characters.
+- Commit inspection confirmed only
+  research/agent_reports/2026-11-18/30-finite-wheel.md changed:
+  1,402 additions and zero deletions.
+- All preexisting FD text, its receipt, and the full published PM checkpoint
+  remain byte-preserved. Validation checked all A-M headings, 26 source
+  blob matches, five table structures, balanced code fences, complete
+  registration/checker inclusion and the 27,442-assertion machine total.
+- PM2-PM5 remain PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING /
+  NOT_FORMALIZED. PM1 and the earlier one-edge obstruction are inherited
+  mathematics, not newly proved Lean declarations.
+- The nearest-value involution and the capacity-constrained path/exterior
+  result are deliberately separated. Neither supplies a new complete
+  signed upper bound. STATUS=PARKED_NO_HALF_CONTINUATION;
+  BOUNDED_FEASIBILITY_COMPLETE; NO_NEW_GLOBAL_GAIN; VERIFIED_ETA=NONE;
+  RH=OPEN.
+
+PUBLICATION=PUBLISHED_AND_IMMUTABLY_VERIFIED for the substantive synthesis
+and reproduction appendix above. This receipt cites the already verified
+substantive commit; its own containing commit is separately read back after
+writing, not asserted in advance as evidence for itself.
+
+Only authorized report-only commits advanced the existing agent-reports
+reference. No main/source/policy/other-report/PR/issue/workflow change,
+branch creation, merge, local Lean execution, agent launch or schedule
+change was performed by this agent.
+
+NEXT_ACTUAL_RUN: refresh live authority and real handoffs, consume any
+published independent PM review, and require a genuinely different
+complete-source arithmetic mechanism before further matching scans or
+formalization. Do not relabel the unchanged PM4 residual bound as an
+independent missing lemma.
