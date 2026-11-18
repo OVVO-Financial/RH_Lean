@@ -65,6 +65,7 @@ private theorem profile_source (K m : Nat) (hK : 1 <= K) :
         (if k ∈ Ioc (6 * K) (8 * K) then (1 : Real) else 0) * (m / k : Nat)) +
       ∑ k ∈ Icc 2 (12 * K),
         (if k ∈ Ioc (10 * K) (12 * K) then (-1 : Real) else 0) * (m / k : Nat) := by
+    unfold nymanDualProfile nymanCorrectionFloor
     rw [← Finset.sum_add_distrib]
     apply Finset.sum_congr rfl
     intro k _
@@ -91,11 +92,13 @@ private theorem floor_pair_bounds (m k : Nat) :
   have hlo : 3 * (2 * m / k) <= 2 * (3 * m / k) + 1 := by
     by_contra hn
     have hh : 2 * (3 * m / k) + 2 <= 3 * (2 * m / k) := by omega
-    nlinarith [Nat.mul_le_mul_right k hh]
+    have hh' := Nat.mul_le_mul_left k hh
+    nlinarith only [h2, h3, r3, Nat.zero_le (2 * m % k), hh']
   have hhi : 2 * (3 * m / k) <= 3 * (2 * m / k) + 2 := by
     by_contra hn
     have hh : 3 * (2 * m / k) + 3 <= 2 * (3 * m / k) := by omega
-    nlinarith [Nat.mul_le_mul_right k hh]
+    have hh' := Nat.mul_le_mul_left k hh
+    nlinarith only [h2, h3, r2, Nat.zero_le (3 * m % k), hh']
   have hlor : 3 * ((2 * m / k : Nat) : Real) <= 2 * ((3 * m / k : Nat) : Real) + 1 := by
     exact_mod_cast hlo
   have hhir : 2 * ((3 * m / k : Nat) : Real) <= 3 * ((2 * m / k : Nat) : Real) + 2 := by
@@ -114,9 +117,13 @@ theorem nyman_dual_profile_leakage (K m : Nat) (hK : 1 <= K) :
     rw [he]
     constructor
     · have hh := Finset.sum_le_sum (s := Ioc a b) (fun k _ => (floor_pair_bounds m k).1)
-      simpa [hlen] using hh
+      simp only [Finset.sum_const, Finset.card_Ioc, hlen, nsmul_eq_mul,
+        Nat.cast_mul, Nat.cast_ofNat] at hh
+      linarith
     · have hh := Finset.sum_le_sum (s := Ioc a b) (fun k _ => (floor_pair_bounds m k).2)
-      simpa [hlen] using hh
+      simp only [Finset.sum_const, Finset.card_Ioc, hlen, nsmul_eq_mul,
+        Nat.cast_mul, Nat.cast_ofNat] at hh
+      linarith
   have h1 := hband (6 * K) (8 * K) (by omega)
   have h2 := hband (10 * K) (12 * K) (by omega)
   rw [nymanDualPair, profile_source K (3 * m) hK, profile_source K (2 * m) hK, abs_le]
@@ -144,13 +151,13 @@ private theorem profile_ramp (K m : Nat) (hK : 1 <= K)
     · intro k hk hn
       simp only [Finset.mem_Ioc] at hk hn
       simp [Nat.div_eq_of_lt (show m < k by omega)]
-  rw [profile_source K m hK, ← hs, band_zero _ _ _ (by omega)]
+  rw [profile_source K m hK, ← hs, band_zero (10 * K) (12 * K) m (by omega)]
   have he : band (6 * K) m m = ∑ _k ∈ Ioc (6 * K) m, (1 : Real) := by
     apply Finset.sum_congr rfl
     intro k hk
     have := Finset.mem_Ioc.mp hk
-    rw [Nat.div_eq_of_lt_le (by omega) (by omega)]
-    norm_num
+    have hq : m / k = 1 := Nat.div_eq_of_lt_le (by omega) (by omega)
+    simp [hq]
   rw [he]
   simp only [Finset.sum_const, Finset.card_Ioc, nsmul_eq_mul, mul_one, sub_zero]
   rw [Nat.cast_sub hlo]
@@ -159,13 +166,13 @@ private theorem profile_ramp (K m : Nat) (hK : 1 <= K)
 
 private theorem profile_plateau (K m : Nat) (hK : 1 <= K)
     (hlo : 8 * K <= m) (hhi : m <= 10 * K) : nymanDualProfile K m = 2 * K := by
-  rw [profile_source K m hK, band_zero _ _ _ hhi]
+  rw [profile_source K m hK, band_zero (10 * K) (12 * K) m hhi]
   have he : band (6 * K) (8 * K) m = ∑ _k ∈ Ioc (6 * K) (8 * K), (1 : Real) := by
     apply Finset.sum_congr rfl
     intro k hk
     have := Finset.mem_Ioc.mp hk
-    rw [Nat.div_eq_of_lt_le (by omega) (by omega)]
-    norm_num
+    have hq : m / k = 1 := Nat.div_eq_of_lt_le (by omega) (by omega)
+    simp [hq]
   rw [he]
   simp [show 8 * K - 6 * K = 2 * K by omega]
 
@@ -254,8 +261,8 @@ private theorem paired_sample (K : Nat) (hK : 40 <= K) (s : Finset Nat)
     have hi : (∑ k ∈ nymanDualSamples K, (f (2 * k)^2 + f (3 * k)^2)) =
         ∑ m ∈ nymanDualWindow K, f m ^ 2 := by
       rw [Finset.sum_add_distrib, nymanDualWindow, Finset.sum_union hdis]
-      rw [Finset.sum_image (by intro a _ b _ hab; omega),
-        Finset.sum_image (by intro a _ b _ hab; omega)]
+      rw [Finset.sum_image (by intro a _ b _ hab; dsimp at hab; omega),
+        Finset.sum_image (by intro a _ b _ hab; dsimp at hab; omega)]
     rw [hi] at hsq
     nlinarith
   by_contra hn
@@ -288,7 +295,7 @@ private theorem later_zero (K i j k : Nat) (hK : 1 <= K) (hij : i < j)
     nlinarith [Nat.mul_le_mul_left (4 ^ i * 4 * K) hpow]
   have hq : 1 <= 4 ^ j * K := by
     have := pow_pos (show 0 < (4 : Nat) by omega) j
-    nlinarith
+    nlinarith [hK]
   rw [nymanDualPair, profile_zero _ _ hq (by omega), profile_zero _ _ hq (by omega)]
   ring
 
@@ -434,7 +441,7 @@ theorem nyman_all_profile_coercivity (K n : Nat) (hK : 40 <= K) (t : Nat -> Real
           _ = 1600 * (K : Real) * c * ((4 : Real)^i * (3 / 4 : Real)^i) := by rw [hpower]
           _ = _ := by ring
       rw [heq] at hh
-      exact (mul_le_mul_left hpos).mp hh
+      exact (_root_.mul_le_mul_left hpos).mp hh
   have hs : (∑ i ∈ range n, t i^2) <= (40960000 / 7 : Real) * c^2 := by
     calc
       _ <= ∑ i ∈ range n, 2560000 * c^2 * (9 / 16 : Real)^i := by
@@ -475,7 +482,8 @@ theorem nyman_all_profile_restored_lower (K n : Nat) (hK : 40 <= K)
     have hb : nymanDualSum K n t m ^ 2 / 2 - r m ^ 2 <= (nymanDualSum K n t m + r m)^2 := by
       nlinarith [sq_nonneg (nymanDualSum K n t m + 2 * r m)]
     have hh := div_le_div_of_nonneg_right hb hd
-    convert hh using 1 <;> ring
+    convert hh using 1
+    ring
   linarith
 
 end RHLean.Analysis

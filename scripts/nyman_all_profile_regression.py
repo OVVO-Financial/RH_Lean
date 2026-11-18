@@ -93,5 +93,8 @@ for K in (40, 41, 59, 60):
 K = 40
 check(profile(K, 11*K) != band(6*K, 8*K, 11*K))
 check(all(profile(4*K, m) == 0 for m in window(K)))
-check(F(21*K, 20480000) > 0)  # r=-profile cancels the entire observed sum.
+base = sum((F(profile(K, m)**2, m*(m+1)) for m in window(K)), F(0))
+restored = sum((F((profile(K, m)-profile(K, m))**2, m*(m+1))
+                for m in window(K)), F(0))
+check(restored < F(21*K, 20480000) <= base/2)
 print(f"PASS {checks} exact assertions; 20 registered (K,n) supports; three omission controls")
