@@ -117,11 +117,11 @@ theorem nyman_dual_profile_leakage (K m : Nat) (hK : 1 <= K) :
     rw [he]
     constructor
     · have hh := Finset.sum_le_sum (s := Ioc a b) (fun k _ => (floor_pair_bounds m k).1)
-      simp only [Finset.sum_const, Finset.card_Ioc, hlen, nsmul_eq_mul,
+      simp only [Finset.sum_const, Nat.card_Ioc, hlen, nsmul_eq_mul,
         Nat.cast_mul, Nat.cast_ofNat] at hh
       linarith
     · have hh := Finset.sum_le_sum (s := Ioc a b) (fun k _ => (floor_pair_bounds m k).2)
-      simp only [Finset.sum_const, Finset.card_Ioc, hlen, nsmul_eq_mul,
+      simp only [Finset.sum_const, Nat.card_Ioc, hlen, nsmul_eq_mul,
         Nat.cast_mul, Nat.cast_ofNat] at hh
       linarith
   have h1 := hband (6 * K) (8 * K) (by omega)
@@ -159,7 +159,7 @@ private theorem profile_ramp (K m : Nat) (hK : 1 <= K)
     have hq : m / k = 1 := Nat.div_eq_of_lt_le (by omega) (by omega)
     simp [hq]
   rw [he]
-  simp only [Finset.sum_const, Finset.card_Ioc, nsmul_eq_mul, mul_one, sub_zero]
+  simp only [Finset.sum_const, Nat.card_Ioc, nsmul_eq_mul, mul_one, sub_zero]
   rw [Nat.cast_sub hlo]
   push_cast
   ring
@@ -283,7 +283,7 @@ private theorem paired_sample (K : Nat) (hK : 40 <= K) (s : Finset Nat)
   have hc := mul_le_mul_of_nonneg_right hcardlo (sq_nonneg d)
   nlinarith
 
-private theorem later_zero (K i j k : Nat) (hK : 1 <= K) (hij : i < j)
+private theorem later_zero (K i j k : Nat) (hij : i < j)
     (hk : k ∈ nymanDualSamples (4 ^ i * K)) :
     nymanDualPair (nymanDualProfile (4 ^ j * K)) k = 0 := by
   have hm := Finset.mem_Ioc.mp hk
@@ -294,12 +294,11 @@ private theorem later_zero (K i j k : Nat) (hK : 1 <= K) (hij : i < j)
     rw [ha, pow_add, pow_succ]
     nlinarith [Nat.mul_le_mul_left (4 ^ i * 4 * K) hpow]
   have hq : 1 <= 4 ^ j * K := by
-    have := pow_pos (show 0 < (4 : Nat) by omega) j
-    nlinarith [hK]
+    omega
   rw [nymanDualPair, profile_zero _ _ hq (by omega), profile_zero _ _ hq (by omega)]
   ring
 
-private theorem pair_prefix (K n i k : Nat) (hK : 1 <= K) (hi : i < n)
+private theorem pair_prefix (K n i k : Nat) (hi : i < n)
     (hk : k ∈ nymanDualSamples (4 ^ i * K)) (t : Nat -> Real) :
     nymanDualPair (nymanDualSum K n t) k =
       (∑ j ∈ range i, t j * nymanDualPair (nymanDualProfile (4 ^ j * K)) k) +
@@ -318,7 +317,7 @@ private theorem pair_prefix (K n i k : Nat) (hK : 1 <= K) (hi : i < n)
       omega
     · intro j _ hj
       have hj' : i < j := by simp only [Finset.mem_range] at hj; omega
-      rw [later_zero K i j k hK hj' hk, mul_zero]
+      rw [later_zero K i j k hj' hk, mul_zero]
   rw [hall, ← hs, Finset.sum_range_succ]
 
 private theorem geometric_three (i : Nat) : 2 * (∑ j ∈ range i, (3 : Real)^j) <= 3^i := by
@@ -378,7 +377,7 @@ theorem nyman_all_profile_coercivity (K n : Nat) (hK : 40 <= K) (t : Nat -> Real
       obtain ⟨k, hsample, hobs⟩ := paired_sample (4 ^ i * K) hq _ _
         (480 * (2 : Real)^i * K * c) (by positivity) hsub hb
       have hself := pair_self (4 ^ i * K) k (by omega) hsample
-      have hpref := pair_prefix K n i k (by omega) hi hsample t
+      have hpref := pair_prefix K n i k hi hsample t
       have hrest : |∑ j ∈ range i, t j * nymanDualPair (nymanDualProfile (4 ^ j * K)) k| <=
           2400 * (K : Real) * c * 3^i := by
         calc
@@ -441,7 +440,10 @@ theorem nyman_all_profile_coercivity (K n : Nat) (hK : 40 <= K) (t : Nat -> Real
           _ = 1600 * (K : Real) * c * ((4 : Real)^i * (3 / 4 : Real)^i) := by rw [hpower]
           _ = _ := by ring
       rw [heq] at hh
-      exact (_root_.mul_le_mul_left hpos).mp hh
+      by_contra hnot
+      have hgt : 1600 * c * (3 / 4 : Real)^i < |t i| := lt_of_not_ge hnot
+      have hstrict := mul_pos hpos (sub_pos.mpr hgt)
+      nlinarith only [hh, hstrict]
   have hs : (∑ i ∈ range n, t i^2) <= (40960000 / 7 : Real) * c^2 := by
     calc
       _ <= ∑ i ∈ range n, 2560000 * c^2 * (9 / 16 : Real)^i := by
