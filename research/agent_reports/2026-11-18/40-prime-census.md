@@ -3389,3 +3389,15 @@ print('H=24: rational rounded-input elementary certificate Q-P < -0.000341041403
 ### Closing Freshness Check
 
 At 2026-11-18 16:16:38 UTC, main remained 935840aec9b1fcbc66fe4e0164061d661a8ca3b1 and agent-reports was the verified checkpoint commit 1a87cbf308ea19ff2e7f4fef23ade339a393884a. A fresh untruncated report tree showed no new upstream report changes. The complete Coordinator 00/90 bytes were fetched and matched exactly. All seven latest actual dated role files are November 18; no calendar cap was used to discover them. Final mathematical work and all required processes are complete. Publication is verified only by the receipt that follows.
+
+## Verified Publication Receipt - PS
+
+Receipt prepared 2026-11-18 16:18:33 UTC. EXECUTION=COMPLETED; SUBSTANTIVE_PUBLICATION=VERIFIED.
+
+The complete PS synthesis, proofs, code and machine records were published at commit **fc31d1442431f9ead1ea6b51edac1ca2cc8e2923**, report blob **d454974d40ef56fed351d8f4e61fb78dbaa8d429**, commit timestamp **2026-11-18T16:17:53Z**. Immutable full-content readback matched all **144,439 characters** exactly. The preexisting PN history and the registered PS checkpoint were preserved as an identical prefix. Commit metadata confirms that the ONLY changed path is this owned daily report, with parent **1a87cbf308ea19ff2e7f4fef23ade339a393884a**. The local downloadable report's content blob also matched that GitHub blob before this receipt was appended.
+
+[Immutable substantive PS report](https://github.com/OVVO-Financial/RH_Lean/blob/fc31d1442431f9ead1ea6b51edac1ca2cc8e2923/research/agent_reports/2026-11-18/40-prime-census.md).
+
+The closing verified main remains **935840aec9b1fcbc66fe4e0164061d661a8ca3b1**. No new upstream handoff intervened after the intake; Coordinator mirrors were fully byte-checked. All 249,135 main-checker assertions, four separate rational certificate inequalities, two interval precisions, independent full-prefix reconstructions, C++ compilation and syntax checks completed successfully. All code blocks match the executed sources and Markdown fences are balanced. No required process remains running.
+
+**PS1: PN-S is REFUTED at the smallest admissible H=18. PS2: H=24 is separately negative using the elementary tail certificate.** The new findings are not Lean-certified or independently referee-accepted. The original PAIR/DUAL results remain intact. NO_NEW_GLOBAL_GAIN; VERIFIED_ETA=NONE; RH=OPEN. Future work should review these complete certificates or supply a genuinely changed full-source arithmetic inequality, not repeat the completed head grid.
