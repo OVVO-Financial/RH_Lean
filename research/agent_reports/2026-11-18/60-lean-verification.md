@@ -315,3 +315,206 @@ EXECUTION=IN_PROGRESS; IMPLEMENTATION=NOT_STARTED; MATHEMATICS=INDEPENDENT_CANDI
 ## Implementation Checkpoint - 20261118-lean-1314-EST/VR - 18:36 UTC
 
 IN_PROGRESS / NOT_YET_PROVED_IN_LEAN. [Draft PR #1147](https://github.com/OVVO-Financial/RH_Lean/pull/1147) implements five complete proof attempts for the accepted finite PV2 covariance-repair core, on branch `agent/lean-verification/20261118-variance-repair`, based on main `935840aec9b1fcbc66fe4e0164061d661a8ca3b1`. Initial head `67329cc284da431ab0caab406e247ffe1d84adc7` failed hosted proof elaboration/warning checks. Repair `7f000022e281479dd31f6076762fbd0e03629c68` reduced the actual diagnostics to a solved tactic and unused private premise. Both are repaired at current head `e77d049ff83809c13c52e3d90922f34ed032efac`; [dedicated run 44371410914](https://github.com/OVVO-Financial/RH_Lean/actions/runs/44371410914) and the other exact-head checks are running. Public theorem types are unchanged across repairs. Local exact non-Lean regression again passed all 1,896 assertions. No local Lean execution, endpoint claim, merge, auto-merge or main modification. Final full A-P synthesis and exact-source certification remain PENDING.
+
+---
+
+## Completed Synthesis - 20261118-lean-1314-EST/VR - 2026-11-18 13:42:28 EST
+
+### A. Most Important Formal Mathematical Result
+
+**PROVED_IN_LEAN at unmerged PR head `e77d049ff83809c13c52e3d90922f34ed032efac`: the accepted finite same-support repair inequality for the original two-band Nyman coefficients.** [PR #1147](https://github.com/OVVO-Financial/RH_Lean/pull/1147) now contains five verified theorems, 13/13 successful checks, six exact-type consumers, and live standard-axiom/dependency audits. It is READY_FOR_REVIEW, open and unmerged, after two actual CI repair commits. The principal result is the squared-distance restriction in E; it preserves the complete ordered covariance, all signed repair cross terms and the literal existing coefficient source.
+
+This is a finite quantitative necessary condition, **not** a complete weighted-norm bound, a new global exponent, or RH. Both failed revisions remain documented in J. The initial and implementation checkpoints above are preserved as accurate historical states, superseded by this exact-head certificate.
+
+### B. Current Authoritative Objective And Continuity
+
+Scheduled invocation: 2026-11-18 13:14:01 EST (18:14:01 UTC), America/New_York; RUN_ID_UNAVAILABLE. Authority at intake and implementation baseline: main `935840aec9b1fcbc66fe4e0164061d661a8ca3b1`. Main AGENTS blob `c4f36b772f8a4b0c24fe566b90fafb646073c60f`; CURRENT_PROOF_CONTRACT blob `95566e37c8eaeb99ee680660df4f9d2e06ea5038`; half directive `96ad4439ec458af6168f7d9cb3eef5dde291d37c`; last-actual continuity directive `3e71820a4af722eae7098da6945bb5bcba50dd0d`; cross-route directive `e3ae4280438f591f1ffaddd754a1c3a6d35d0691`.
+
+`half_bootstrap_ack=BOOTSTRAP_TO_HALF_V1`; `cross_route_ack=CROSS_ROUTE_SIGNED_RECOVERY_V1`; `continuity_ack=LAST_ACTUAL_REPORT_CONTINUITY_V1`; existing complete-HIGH and cancellation-chain acknowledgments are carried forward without claiming a new baseline proof.
+
+Canonical actual-prime `VFCanonicalSquareVonKochStatement` remains OPEN. The terminal VF implication still has its explicit `ClassicalVonKochRHCriterion` argument. The strongest relevant inspected native baseline remains
+`native_mertens_near_uniform_window_error_closed : MertensGrowthAtMost (7/8 - 7/(64*nearUniformSlotCount))`,
+with the every-positive-loss convention. Its source blob is `f629db1b2b65d6ec042ac9432397d4b6316200c6`. Exact tested #1119 head `77ee815846d6d534c866f0752aa33b84c385610a`: 14/14 checks successful; [closure/axiom job](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42552018910/job/128949473700) re-read. Comparing 2,508 old Lean/pin/script entries to current main found only the root import file changed; this reuses the tested baseline dependency evidence, not a claim that the entire old campaign was rebuilt today.
+
+All roles' latest actual reports were discovered without a calendar cap; today and yesterday are both present, so no TODAY=PENDING substitution is needed. Coordinator mirrors were byte-equal on both dates. Intake report tree `6c947662c9de74873d74b1873ba6c8ca0af58a6c`. The previous own DUAL synthesis was preserved; newly unconsumed sections are DAMP 07:10, HC 08:09, PV 09:09, PM 10:12, PS 11:00, FC 12:03 Eastern. Nov 17 remains YESTERDAY=CARRY_FORWARD at its recorded scopes, not a new certification of every historical claim.
+
+| Role | Nov 17 blob | Nov 18 intake blob |
+| --- | --- | --- |
+| Coordinator, both mirrors | 125e55aa191083d9c0a982b6dc5a66267e4e4256 | ee7b4ce6ff79ab0eaea4d8b74d95e3e78f398cb5 |
+| Owner | 6516bf78b096471ccfd2fb8c215e94002544a594 | 9ee34b6e9daa3cbbac24826f8fc96d65f1fe36ff |
+| Analytic | d4bc53ac1b68f6dadabc4a04a2f5fc8c74f6625f | 804f68e0163cbf6836a060a552256d1746d51242 |
+| Wheel | 5c26771c0a266d5112e0b4a4b28aba0132e35ef7 | d7c5014b34183b6a377c0438cb6cae27ba35e401 |
+| Census | 587b0bb3dd66834a18610ab86174f285f81c4b04 | 5d76c950c517712bbba138d7240d21ac4ccd6b93 |
+| Referee | 103ee17307ac799e20bd4ce17d97ff96101a9e5b | 91b57ce6a46693403cd8a5751c63aaf8335ab305 |
+| Lean | ee9ed0ace763bf99fea5812490f9541653917938 | c3ded05265d7ac5e065e4a4e645e2e96069ca8fa |
+
+External handoff blob `7d63d434690d00dffce9c90335d41c4f62d85798` is unchanged, with no entry after October 18; its existing source-restoration warnings are carried forward, not presented as new acceptance.
+
+### C. Formalization Queue
+
+Priority A: no open proof PR at intake. Relevant #1145 and #1146 had already been human-merged, so their earlier report labels OPEN were stale. Both tested heads had 13/13 successful checks: #1145 `43cbf9310516f26a440b5527ce6dc22a62856248`, #1146 `146384fe459bd39a7b3d864e2a5c86a270d05dc8`. Relevant [#1145 audit job](https://github.com/OVVO-Financial/RH_Lean/actions/runs/44224055868/job/134532755650), [#1146 audit job](https://github.com/OVVO-Financial/RH_Lean/actions/runs/44287286164/job/134743097073), and [current main build](https://github.com/OVVO-Financial/RH_Lean/actions/runs/44333123355/job/134902562807) were inspected. Main had 10/10 successful checks; its root build completed 9,786 jobs. This does not certify the new PR.
+
+Priority B/C: implement only the accepted finite core of `20261118-analytic-0909-EST/PV2`, independently accepted with scope by `20261118-referee-1203-EST/FC`. PV1's squarefree-density threshold and PV3's highest-dyadic restriction remain paper results, not this implementation. The historical mechanism is `20261106-coordinator-1513/NS1`, accepted by `20261106-referee-12`; original reports were recovered at blobs `8812a90540fb511279b5f4ce08e108ef717d5ef1` and `da3265467c799e9d21832ab25245617ba3b15a54`. Jordan diagonalization and singleton positivity are inherited mathematics, not new discoveries credited here.
+
+Parked: DAMP1-4 now have FC scoped paper acceptance, but unsigned inverse costs and target-equivalent signed-prefix control do not provide a new upper supplier. HC's compressed historical payment, PM's routed top-prime capacity, PS's new finite sign certificates, and FC's self-authored growing-cell extension retain their distinct stated review states. No new unconditional arithmetic theorem is inferred from those reports. No duplicate, conditional-small-norm wrapper or speculative endpoint PR was opened.
+
+### D. Candidate Selection And Continuation Capsule
+
+ROUTE=NYMAN; MODE=BOUNDED_FEASIBILITY_AUDIT / NECESSARY_REPAIR_LEMMA, not a newly admitted half-bootstrap. The original complete residual has genuine Mobius signs, the two correction bands, reciprocal and total moments for its intended exact-head family, all output locations, and the infinite weighted tail. The attempted shortcut was to reduce the complete period covariance cheaply while keeping the same final coefficient support. The finite inequality below is the necessary arithmetic restriction on such a repair, not a period-average substitute for the complete energy.
+
+START=the reused native baseline and accepted exact-head/remote-tail infrastructure. PROPOSED_ADVANCE=certify the accepted squared-distance restriction that every same-support variance repair must satisfy. DIRECT_TERMINAL=the existing independently reviewed PAPER Mellin consumer: one common unbounded legal exact-head sequence with complete weighted energy E(H)=O_epsilon(H^epsilon) for every epsilon>0 excludes each fixed nontrivial zero with real part >1/2. This terminal and the period-average interpretation are NOT newly Lean-certified here. FIRST_OPEN=an independent upper estimate for the complete genuine signed residual. RENEWAL=none supplied. All middle, correction, after-support and infinite-tail returns remain mandatory. The new lemma is useful to the bounded feasibility test; it does not pay that open input.
+
+### E. Exact Theorems
+
+All functions below have real values; all finite cutoffs and indices are natural numbers. The actual source definition is
+
+~~~text
+J2(n) = n^2 product_(p in n.primeFactors) (1 - 1/p^2), n != 0;
+J2(0) = 0.
+V_N(a) = (1/12) sum_(2<=k<=N) sum_(2<=l<=N)
+              (a(k)/k)(a(l)/l)(gcd(k,l)^2 - 1).
+~~~
+
+New formalization IDs have prefix `20261118-lean-1314-EST`:
+
+| ID | Public declaration in RHLean.Analysis | Exact scope |
+| --- | --- | --- |
+| VR1 | nyman_jordan_two_divisor_sum | For every n, sum_(d divides n) J2(d)=n^2, including n=0 with Lean's empty zero-divisor set. |
+| VR2 | nyman_jordan_two_lower | For every n, n^2/2 <= J2(n). |
+| VR3 | nyman_covariance_divisor_squares | For every N and a, 12 V_N(a)=sum_(2<=d<=N) J2(d) (sum_(2<=k<=N, d divides k) a(k)/k)^2. |
+| VR4 | nyman_covariance_singleton_lower | For every N,a and finite s subset [2,N] with N<2q for each q in s, sum_s a(q)^2 <= 24 V_N(a). |
+| VR5 | nyman_flat_same_support_repair | For every K>=1, H>=1, H<=4K, A,Z in R and e:Nat->R, the gap squared-distance inequality below. |
+
+Set N=6K, L=nymanFlatScale(N,H)=log(N)-log(H)=log(N/H) under these positive inputs, and
+h(j)=A on (3K,4K], Z on (5K,6K], zero elsewhere.
+Use the existing literal `nymanFlatCoefficient N H h`, not a parallel arithmetic model. Then
+
+~~~text
+sum_(4K<q<=5K) (e(q) - mu(q) log(6K/q)/L)^2
+  <= 24 V_(6K)(fun k => nymanFlatCoefficient (6K) H h k + e(k)).
+~~~
+
+No moment, cancellation, small-energy or RH hypothesis is assumed. The covariance definition truncates every coefficient to [2,N]; arbitrary values of e outside that interval are irrelevant. Therefore this is a same-final-support result, not a license to enlarge the support and keep the old singleton band. When support is enlarged, the final cutoff and singleton condition must be recomputed.
+
+### F. Independent Mathematical And No-Circularity Audit
+
+VR1 follows from multiplicativity and the prime-power telescope
+J2(p^(i+1))=p^(2(i+1))-p^(2i). VR2 uses the exact finite product
+product_(k=2..n)(1-1/k^2)=(n+1)/(2n)>=1/2;
+removing nonprime factors only increases that positive product. No zeta lower estimate or unproved density hypothesis enters.
+
+For VR3, sum_(d divides gcd(k,l),d>=2)J2(d)=gcd(k,l)^2-1. Finite Fubini gives the full divisor squares. Both ordered off-diagonal orientations remain present; coefficients are grouped before squaring. For VR4, 2q>N means q has exactly one multiple in the final support. Thus its coordinate contributes at least a(q)^2/2 to 12V, and every unselected Jordan coordinate is nonnegative. VR5 uses the exact zero of both correction bands on (4K,5K] and `nymanFlatKernel_eq_original`, yielding c(q)=-mu(q)log(N/q)/L there.
+
+This is not an assumption of its own conclusion and is not target-equivalent. It uses no baseline exponent, full-response upper bound or unjustified cross-sign. It proves a finite lower restriction on a complete centered quadratic kernel, not an upper bound on E. The equality between that kernel and an actual complete-period average is accepted paper background but is not proved in this module; no short physical-window transfer is asserted.
+
+Source -> loss -> recovery -> consumer: period averaging loses location relative to the actual 1/[m(m+1)] weight; Jordan coordinates retain all averaged cross terms; singleton coordinates restrict repairs; neither restores the lost physical location. No map to the actual-prime VF discrepancy, Euler square-root clock, or OAI ideal characters is supplied. The already-merged #1145/#1146 coercivity results remain separate verified restrictions, not an upper supplier recovered by relabeling.
+
+### G. Implementation And Validation Design
+
+Six focused new files: `research/NYMAN_VARIANCE_REPAIR.lean`; exact-type, live-axiom/dependency and inventory checks under `scripts/lean/nyman_variance_repair/`; `scripts/nyman_variance_repair_regression.py`; and the dedicated `.github/workflows/nyman-variance-repair.yml`. Existing gates, pins and root imports were not weakened or edited. The existing research import-closure action makes the module reachable for hosted compilation; no duplicate root abstraction was created.
+
+Imported original source: `research/NYMAN_FLAT_TAPER_RETURN_20261104.lean`, blob `2d23721027ecc44e85b7add02fc632b482f03352`; its dependency `NYMAN_HIGH_COEFFICIENT_INVARIANT_20261104.lean`, blob `2da630c1d5fb9302e2097ec1e170cf41c2b40609`. Library and PR searches found no existing implementation of this finite repair result. Pinned Mathlib arithmetic-function and finite-product APIs were read before coding.
+
+Toolchain: Lean 4.34.1, lean-toolchain blob `ba8ebf2dbaf6a668cd2a0e086186d6d569b69ff5`; Mathlib `d13f23b723b8a846827a245b89c10fc7d3f11612`; PNT `c39a751132c88b6e8080b74c74023fd95b3d8be0`; lakefile blob `6ef95e9ebf184d5846fee88a9cdf2db3a38afc97`; manifest blob `a34d142c3d75a602a8b0f8241a4fb504d5c7c5a4`. Lean was executed ONLY in GitHub Actions, never locally.
+
+Finite regression: 1,896 exact rational assertions passed locally and in hosted CI. Registered domain: primitive-residue-pair counts for Jordan n=1..256, divisor sums/products/half bounds/telescopes; N=0..24 with four signed rational vectors; K=1..8 with three rational repairs. Controls detect support extension, deleted signed cross terms and the omitted centering subtraction. The repair fixtures use rational gap coefficients, not numerical logarithms or a claim to test the original logarithmic family exhaustively. Exact original logarithmic coefficients are covered by the formal theorem. These finite checks are regression evidence, not a proof of an asymptotic Nyman estimate.
+
+Six exact-type consumers include the literal ordered gcd kernel. The live audit checks all five public theorem axiom sets and verifies the original Jordan source and, for the consumer, the full-square decomposition, lower bound, divisor identity, original flat coefficient/kernel bridge and Mobius symbol. No holes, new axioms or added target-strength premises are permitted.
+
+### H. Proof Branch And PR Evidence
+
+Branch: `agent/lean-verification/20261118-variance-repair`. Base main: `935840aec9b1fcbc66fe4e0164061d661a8ca3b1`. [PR #1147](https://github.com/OVVO-Financial/RH_Lean/pull/1147) was opened as a draft and marked ready only after exact-head proof and audit success. Its source head is `e77d049ff83809c13c52e3d90922f34ed032efac`, source tree `39f5005419e119bb7f23df25b086a38dff4cd1fb`, and [proof module](https://github.com/OVVO-Financial/RH_Lean/blob/e77d049ff83809c13c52e3d90922f34ed032efac/research/NYMAN_VARIANCE_REPAIR.lean) blob `92608fc013c26102ac12250558a850209028e6d8`. Immutable source readback exactly matches the locally edited file.
+
+Three focused commits: initial `67329cc284da431ab0caab406e247ffe1d84adc7`; elaboration repair `7f000022e281479dd31f6076762fbd0e03629c68`; final warning cleanup `e77d049ff83809c13c52e3d90922f34ed032efac`. Six added files only. No source/contract/policy on main was changed. Human merge remains required; no merge or auto-merge was performed. Main was freshly checked and remains the baseline SHA above.
+
+### I. GitHub Actions Evidence
+
+The [dedicated exact-head job](https://github.com/OVVO-Financial/RH_Lean/actions/runs/44371410914/job/135038879279) explicitly checked out `e77d049ff83809c13c52e3d90922f34ed032efac`, printed Lean 4.34.1 (compiler commit 5045d0056413266e57c625dcd7c365b10e377c52), completed the 8,956-job prerequisite build, compiled one new research module with two cached dependencies, and ran all six exact-type consumers with warnings fatal. The exact elaborated types were read from the actual log and match E, including no extra bound/moment hypothesis.
+
+All five live axiom outputs are exactly `[propext, Classical.choice, Quot.sound]`. Project-dependency traversal counts, in VR1..VR5 order: 381, 483, 526, 698, 741. All original-source guards passed. The fail-closed inventory reported five public statements, six exact types, live dependencies and axioms. The 1,896 exact rational regressions passed in the same job.
+
+The [targeted integration job](https://github.com/OVVO-Financial/RH_Lean/actions/runs/44371410464/job/135038878048) independently compiled the research closure (`compiled=1 cached=2`) and verified artifact reuse (`compiled=0 cached=3`). The [hosted root build](https://github.com/OVVO-Financial/RH_Lean/actions/runs/44371411188/job/135038881017) completed 9,786 jobs. These repository-wide integration jobs used GitHub's synthetic merge `b0fd094746ffd839af282bb644b0b40b127db264` of the exact PR head into the unchanged base; they are not misreported as raw-head checkouts. The dedicated mathematical job above did use the raw PR head.
+
+All 13 checks attached to the current head were completed successfully:
+
+| Workflow / job | Actual job URL | Result |
+| --- | --- | --- |
+| Coordinate atlas and static search corpus | [135038886486](https://github.com/OVVO-Financial/RH_Lean/actions/runs/44371412128/job/135038886486) | success |
+| Lean source audits / Hosted Lean build | [135038881017](https://github.com/OVVO-Financial/RH_Lean/actions/runs/44371411188/job/135038881017) | success |
+| Lean source audits / audit | [135038880285](https://github.com/OVVO-Financial/RH_Lean/actions/runs/44371411188/job/135038880285) | success |
+| Public export verification | [135038879675](https://github.com/OVVO-Financial/RH_Lean/actions/runs/44371410545/job/135038879675) | success |
+| VF pre-914 consolidation | [135038879335](https://github.com/OVVO-Financial/RH_Lean/actions/runs/44371410885/job/135038879335) | success |
+| Nyman complete covariance repair | [135038879279](https://github.com/OVVO-Financial/RH_Lean/actions/runs/44371410914/job/135038879279) | success |
+| VF first-bad source to sector-six inlet | [135038878706](https://github.com/OVVO-Financial/RH_Lean/actions/runs/44371410549/job/135038878706) | success |
+| VF first-bad final aggregate contraction | [135038878528](https://github.com/OVVO-Financial/RH_Lean/actions/runs/44371410553/job/135038878528) | success |
+| Targeted Lean iteration | [135038878048](https://github.com/OVVO-Financial/RH_Lean/actions/runs/44371410464/job/135038878048) | success |
+| VF first-bad normalized infrastructure | [135038878024](https://github.com/OVVO-Financial/RH_Lean/actions/runs/44371410575/job/135038878024) | success |
+| Proof inventory | [135038877999](https://github.com/OVVO-Financial/RH_Lean/actions/runs/44371410377/job/135038877999) | success |
+| Prevent new cold-only Lean and OpenAI CI | [135038877530](https://github.com/OVVO-Financial/RH_Lean/actions/runs/44371410598/job/135038877530) | success |
+| VF recursive child population and complement capacity | [135038877133](https://github.com/OVVO-Financial/RH_Lean/actions/runs/44371410415/job/135038877133) | success |
+
+### J. Actual CI Failures And Repairs
+
+1. At initial head `67329cc284da431ab0caab406e247ffe1d84adc7`, [run 44369768596 / job 135033053822](https://github.com/OVVO-Financial/RH_Lean/actions/runs/44369768596/job/135033053822) failed. A broad power rewrite hit the wrong occurrence; unrestricted simplification of the zeta application unfolded it into a divisor-antidiagonal sum; a nonzero-gcd conjunct remained explicit; and warning-fatal checks found unnecessary sequencing/unreachable tactics. The repair normalized exponent forms explicitly, rewrote zeta before simplification, handled the divisor-set conjunction directly and removed redundant sequencing. No public theorem type was changed.
+2. At `7f000022e281479dd31f6076762fbd0e03629c68`, [targeted job 135035886850](https://github.com/OVVO-Financial/RH_Lean/actions/runs/44370564545/job/135035886850) reported only `No goals to be solved` after a successful field simplification and an unused `hl` private-kernel premise. The final commit deleted the now-unreachable tactic and the genuinely unnecessary private premise, adjusting its call. No linter or CI gate was disabled.
+3. The final exact-head and integration jobs in I pass. No unresolved Lean error or formal-audit failure remains. The finite Python fixture's earlier `math.prod` start-keyword error was fixed before its initial successful pass, without changing the registered domain. These are engineering repairs, not evidence that the mathematical statements were false.
+
+### K. Mathematical Conclusions
+
+VR1 and VR3 provide STRUCTURAL_CONTROL; VR2 and VR4 provide independent QUANTITATIVE_CONTROL on the exact finite Jordan/covariance objects; VR5 is a QUANTITATIVE_NECESSARY_REPAIR_RESTRICTION on the original two-band coefficient, supporting the accepted PV2 obstruction program. Formal soundness and endpoint significance are assessed separately. No all-scale squarefree-density theorem, full PV1/PV3 theorem, complete-period interpretation, actual weighted norm upper bound, prime estimate or RH result is claimed.
+
+`NEW_VERIFIED_ENDPOINT_GAIN=NONE`; `VERIFIED_ETA=NONE`; `NEW_ACCEPTED_RH_ROUTE=NONE`; canonical objective and complete signed upper supplier remain OPEN. The prior near-uniform baseline is unchanged.
+
+### L. Formalization-Driven Discoveries
+
+The finite repair inequality does not require either moment condition: they are needed for the intended exact-head analytic family, not for this necessary finite covariance restriction. Its literal correction-band argument works for 1<=H<=4K, a broader domain than the paper family's H<3K. This is an explicit justified generalization, not a hidden weakening. The proof also permits every real coefficient vector and every finite upper-half subset in VR4, eliminating irrelevant assumptions about the other coefficients.
+
+The final-support qualification is essential. A coefficient at 2q can cancel q's divisor coordinate after the cutoff is enlarged; the old singleton formula then fails. The finite regression retains this as a negative control. The first CI failures were algebraic elaboration and warning-fatal script issues, not counterexamples to the statements; no new mathematical hypothesis was introduced to repair them.
+
+### M. Mathematical Significance
+
+The substantive consumer is the gap squared-distance bound for arbitrary same-support repairs, not another restatement of a target norm. It certifies why large changes on an untouched genuine Mobius band cannot be avoided by cancellation elsewhere in the same finite covariance. The Jordan and singleton mechanisms are inherited from NS; their formal implementation is justified here by this accepted original-coefficient consumer. No claim of literature novelty is made.
+
+The lemma does not show that the complete weighted Nyman energy is large: that would confuse a period statistic with a location-weighted norm. Conversely, small variance alone is only one proposed sufficient tail method, not a necessary condition for every successful Nyman approximant. All nine independent route toolkits remain available. No investigator portfolio, saved prompt, schedule or permission was changed.
+
+### N. Specialist Handoffs
+
+- Research Coordinator / Proof Architect: record the exact tested PR status in H/I, retain inherited NS attribution, and use VR5 only as a finite necessary repair constraint within the bounded feasibility audit. Do not promote it to a half-continuation or endpoint gain.
+- Owner Payment: the theorem does not transfer to first-owner chronology or compressed strict-history payment. HC's restored positive J terms and original occurrence multiplicities remain separate; no prime-arrival theorem is certified by this covariance.
+- Analytic Type II: the accepted PV2 finite squared-distance core is implemented, with moments removed from this local statement and H<=4K allowed. The squarefree-density, support/mass/correlation asymptotics, PV3, period-average identity and complete upper return remain outside this PR. The new full-support theorem must be used before any proposed support enlargement.
+- Finite Wheel & Incidence: PM's Euler routing/capacity question has no supplied bridge to this linear residue kernel. Keep both ordered orientations and final support explicit in any attempted transport; no new assignment or agent launch is implied.
+- Prime Census Laboratory: reuse the 1,896 exact regression assertions and their omission controls. Do not extend ranges merely to fit an exponent. A useful new discriminator must test a specific complete-source signed upper mechanism, retaining physical weights and the full tail. PS's finite signs retain their own review status.
+- Adversarial Referee: audit PR #1147's exact types and the distinction between V and E; compare the broadened H domain and absent moment hypotheses against the local proof, not the analytic family's separate constraints. The new growing-cell FC statements remain self-authored paper work pending independent review, not automatically certified here.
+
+### O. First Unresolved Mathematical Theorem
+
+For one common unbounded legal exact-head sequence, independently prove
+`forall epsilon>0, exists C_epsilon, forall sufficiently large heads H in that sequence, E(H)<=C_epsilon H^epsilon`,
+where E is the COMPLETE original weighted squared residual, with genuine Mobius coefficients, both corrections, all middle/after-support locations and the infinite tail. A corresponding complete finite-output estimate is available as a paper localization only after using the already-paid remote-tail bound at its exact legal cutoff. Neither small V, a favorable cross sign, moments alone nor a target-equivalent renamed premise establishes this input.
+
+On the formal side, the period-average interpretation of the complete gcd kernel and the separate paper Mellin endpoint consumer are not claimed proved by this PR. They should be implemented only when a concrete accepted continuation needs them; they are not substitutes for the missing arithmetic upper estimate.
+
+### P. Next-Run Resume Capsule And Publication
+
+```text
+TRIGGER=2026-11-18T18:14:01Z; role=Lean Verification; RUN_ID_UNAVAILABLE
+AUTHORITY_MAIN=935840aec9b1fcbc66fe4e0164061d661a8ca3b1
+HALF_ACK=BOOTSTRAP_TO_HALF_V1; ROUTE=NYMAN bounded feasibility
+CLAIM=20261118-analytic-0909-EST/PV2 finite core
+REVIEW=20261118-referee-1203-EST/FC ACCEPT_WITH_SCOPE
+FORMAL_IDS=20261118-lean-1314-EST/VR1..VR5
+PR=1147; STATE=OPEN / READY_FOR_REVIEW / UNMERGED
+HEAD=e77d049ff83809c13c52e3d90922f34ed032efac
+SOURCE_BLOB=92608fc013c26102ac12250558a850209028e6d8
+RAW_HEAD_RUN=44371410914; JOB=135038879279; SUCCESS
+ALL_CHECKS=13/13 successful; STANDARD_AXIOMS_ONLY
+EXACT_TYPES=6; PUBLIC_THEOREMS=5; RATIONAL_REGRESSION=1896 PASS
+FAILED_PRIOR_HEADS=67329cc284da431ab0caab406e247ffe1d84adc7,
+  7f000022e281479dd31f6076762fbd0e03629c68; both superseded by repaired head
+FIRST_OPEN=independent complete signed weighted-energy upper estimate
+ENDPOINT_GAIN=NONE; RH=OPEN; NO_NEW_HALF_BOOTSTRAP
+```
+
+Publication history: the early checkpoint was committed at `2b6b2e11a6d64d0e9cab2d2bd75135e6013658b3`, blob `d0799e0cc4474e80f130308915a591787f6c4576`, with exact immutable readback. The implementation checkpoint was committed at `0b98276edd5b623ef044b9c0c667eaa11fec6d38`, blob `79e8769ccc7bd7b6657bcfd2306caa978834138e`, also read back exactly. A final report-tree refresh found no newly changed upstream Nov 17/18 role blobs. This synthesis preserves all preceding own-report text; publication is certified only by the subsequent immutable readback receipt.
+
+At the next actual invocation, refresh main and PR #1147 first. Reuse this exact green evidence if source and relevant dependencies are unchanged; do not make a no-op CI commit. Repair any genuinely new failure before starting a duplicate. If human-merged, record the merge separately from this tested head. Seek a newly accepted necessary step for a qualifying continuation, not another equivalent finite kernel lemma or a conditional small-E wrapper. No other agent was launched and no schedule, saved prompt, security requirement or tool grant was altered.
