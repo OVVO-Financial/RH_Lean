@@ -699,3 +699,822 @@ The first question is precise: for A<B, keep one anchor -D_A and every actual si
 Derive a source-faithful necessary excursion or prove why the aggregation cannot supply a new contradiction. Check existing history-compression and lower-run capacitor theorems before crediting novelty. Any finite computation will have an explicit registration and will distinguish genuine-source identities from hypothetical first-bad or synthetic controls. No actual first-bad example is assumed. New results remain SELF_AUDIT until independent review.
 
 Live open PR discovery found #1145 and #1146; both remain separate from main pending exact current-state checks. Main's #1144 obstruction is reused, not reproved. No local Lean, agent launch, source/policy edit, other report edit, proof branch or PR creation, merge, schedule change, or workflow rerun is authorized or planned. Direct git clone failed with CONNECT tunnel HTTP 403; connector reads and report publication are available.
+
+
+## First-Bad Excursions And The Short-Run Compression Trap
+
+### Final Synthesis - 20261118-owner-0809-EST/HC
+
+### A. Most Important Mathematical Development
+
+**A hypothetical first-bad endpoint forces a growing run of earlier GOOD endpoints whose original compressed NNS factors approach one. Conversely, payment after expanding a short historical run can become automatic even under first badness. These facts are compatible because expansion changes the absolute denominator.**
+
+For a lower escape at root B, the earlier near-wall run has length proportional to log(B)^2. For an upper escape, elementary historical counting guarantees a shorter run proportional to log B; the log(B)^2 persistence obtained from monotone prime counting is FORWARD, not inside the prior-good history. All statements use actual prime counts and original VF weights. No synthetic first-bad history is substituted.
+
+For any fixed c>1+sqrt(2), put A=B-floor(c log(B)^2). At every sufficiently large hypothetical first-bad B, the complete expanded-run statistic satisfies
+
+```text
+E_[A,B) = 2 D_B^2 - (|D_A| + sum_(A<=s<B) C_s)^2 < 0,
+```
+
+while the existing #939 theorem requires the ORIGINAL one-block statistic E_one>0 at that same first bad. There is no contradiction: with the actual history-compression slack J>=0,
+
+```text
+E_one = E_[A,B) + 2 M_one J + J^2.
+```
+
+The entire restoring cost is present. The identity and its historical opposite-sign interpretation already exist on main; they are NOT new discoveries. The new report-level contributions are the finite branch gates, the short-window conditional consequence, and the growing earlier-good NNS saturation restriction. They are elementary PAPER_PROOF / SELF_AUDIT, not independently reviewed or formalized.
+
+This completes a bounded feasibility audit of a history-sensitive VF/SAT mechanism. It supplies **NO_NEW_RESULT for first-bad exclusion**, no independent endpoint upper estimate, no exponent gain and no new admitted RH route. Enlarged-run payment alone is parked. A quantified necessary bad-event configuration is not an impossibility theorem.
+
+### B. Current Authoritative Objective
+
+Actual configured invocation: 2026-11-18 08:09:03 EST, America/New_York. PLATFORM_RUN_ID=UNAVAILABLE. HC is the research label. The earlier AI report and both its publication evidence and this invocation's IN_PROGRESS checkpoint are preserved verbatim.
+
+Pinned main: `13b31c6313e274a073d82a01175201185e59e37e`. Governing policy: BOOTSTRAP_TO_HALF_V1. The public target remains
+
+```text
+exists C>=0, forall integers R>=2:
+ |pi(R^2)-F_R-sqrt(2)| <= C R log R,
+F_R=sum_(2<=s<R) (2s+1)/log(s^2+s+1/2).
+```
+
+The constant precedes R. The terminal `riemannHypothesis_of_vfCanonicalSquare` retains the explicit `ClassicalVonKochRHCriterion`; HC does not discharge it. The fixed K=2 first-bad criterion is the repository's sufficient direct route, not a proved equivalence between RH and that particular numerical constant.
+
+Use the original definitions, for s>=8:
+
+```text
+m_s=(2s+1)/log(s^2+s+1/2), w_s=m_s/s,
+O_s={n odd: s^2<n<(s+1)^2}, #O_s=s,
+P_s=pi((s+1)^2)-pi(s^2), D_s=pi(s^2)-F_s,
+charge(s,n)=w_s-1_Prime(n),
+C_s=sum_(n in O_s)|charge(s,n)|=m_s+(1-2w_s)P_s,
+D_(s+1)=D_s+P_s-m_s.
+
+R=B-1, d=D_B, M_one=|D_R|+C_R,
+E_one=2d^2-M_one^2,
+N_R=d^2/M_one^2 when M_one>0.
+
+FirstBad(B): |D_B|>H_B and |D_s|<=H_s for EVERY 2<=s<B,
+H_s=2s log s.
+```
+
+N_R is the actual `vfMidFirstBadNNSNormalizedCovariance`, not a Pearson correlation or a sum of owner squares. Its name does not restrict its definition to first-bad roots. The source declaration and product-with-total identity apply at earlier good roots too. Every squareful and deeper composite seat stays in C_s. Perfect-square boundaries are excluded; they contribute no primes for s>=2.
+
+The inspected `vfMid915FirstBadSourcePayment_iff_noFirstBad` and `vfCanonicalSquareVonKoch_of_915SourcePayment_and_base` provide the exact direct consumer, including the finite base. An independent impossibility theorem is still missing.
+
+#### Baseline And Current PR Evidence
+
+The reused comparator is `native_mertens_near_uniform_window_error_closed : MertensGrowthAtMost (7/8-7/(64*nearUniformSlotCount))`, with EVERY positive exponent loss. Its inspected terminal declaration has no unpaid arithmetic supplier argument. This is a repository-certified baseline, not independently reproved here, and is not needed in HC's elementary argument. No unrelated N_pack/N_* comparison or loss-free endpoint is asserted.
+
+The #1119 exact tested head `77ee815846d6d534c866f0752aa33b84c385610a` has 14/14 successful checks. The actual hosted log for job `128949473700` was fetched: the five terminal dependency closures are 35358, 35375, 35736, 35737 and 35753, using only propext, Classical.choice and Quot.sound. The unchanged-main dependency comparison recorded in today's inspected Lean/Coordinator reports is reused as scoped prior evidence; this invocation did not repeat their 2,508-path comparison or run Lean locally.
+
+Live collection and individual metadata checks found only open non-draft PRs #1145 and #1146. Their exact heads are respectively `43cbf9310516f26a440b5527ce6dc22a62856248` and `146384fe459bd39a7b3d864e2a5c86a270d05dc8`; each has 13/13 successful checks, remains UNMERGED, and proves profile LOWER bounds, not a complete arithmetic upper estimate. #1144 is merged into the pinned main; its tested head `abd9bb34c8fac459e67c63009961b6c26548d7e9` has 13/13 successful checks. Its density-mask obstruction is retained at its absolute-certificate scope. #1142 is merged into main; #1143 merged into `docs/preservation-target-strength-20261117`, not main. No workflow was rerun and no PR state was changed.
+
+#### Material Source Receipt
+
+| Main path | Inspected blob SHA |
+| --- | --- |
+| AGENTS.md | c4f36b772f8a4b0c24fe566b90fafb646073c60f |
+| CURRENT_PROOF_CONTRACT.md | 95566e37c8eaeb99ee680660df4f9d2e06ea5038 |
+| docs/RHLEAN_BOOTSTRAP_TO_HALF_20261116.md | 96ad4439ec458af6168f7d9cb3eef5dde291d37c |
+| docs/RHLEAN_REPORT_CONTINUITY_LAST_ACTUAL_20261111.md | 3e71820a4af722eae7098da6945bb5bcba50dd0d |
+| docs/RHLEAN_CROSS_ROUTE_SIGNED_RECOVERY_20261110.md | e3ae4280438f591f1ffaddd754a1c3a6d35d0691 |
+| docs/DYNAMIC_RESEARCH_AGENTS.md | b76d595f09403fc54eca71d04bf9e0306e0a9c09 |
+| docs/RHLEAN_SOURCE_FAITHFUL_COMPLETE_RETURN_AGENT_CONTRACT_20261031.md | 4775ee5fd95f279beab08a75d1e17127078b19a6 |
+| docs/RHLEAN_SEVEN_AGENT_RESEARCH_ENGINE_20261101.md | 7e1e97deb574006174eaacba03251df673c73c67 |
+| research/VF_MID_SIGNED_SEAT_CHARGE.lean | 87a6654a4a4337b409fde69aa15d7264d8b721b6 |
+| research/VF_MID_ACTUAL_PRIME_FIRST_BAD_MOBIUS_TRIGGER.lean | 1163ae30b448b2fdd99fc4bfb4f13b36863a52a9 |
+| research/VF_MID_FIRST_BAD_HISTORY_COMPRESSION.lean | d9cc97541f9713b6eec8df30885e9ca830478e59 |
+| research/VF_MID_915_EXACT_HISTORICAL_NNS_COMPRESSION.lean | 6cc6b2a9d25279dd44fb65cb222f5d6846a912d4 |
+| research/VF_MID_FIRST_BAD_NORMALIZED_PARTIAL_MOMENT.lean | bb0d518258e9c820579b55109326c65a86871837 |
+| research/VF_MID_915_SOURCE_PAYMENT_CONTENT_AUDIT.lean | f7d046d8d94962e18f794deee7e33ce7508a0e74 |
+| research/VF_MID_FIRST_BAD_EXACT_BUDGET_CLOSE.lean | 3730a5eabd41d54ff74cd8876047c7a1818717e7 |
+| research/VF_MID_FIRST_BAD_LOWER_RUN_CAPACITOR.lean | 1318b459e3eabf1439d81f3c8423505425d371be |
+| research/VF974_FIRST_BAD_BOUNDARY_DESCENT_OBSTRUCTION_20261018.lean | fa48f7d4d400302084600dc4f554057cac6a93e7 |
+| research/VF_CANONICAL_SQRT_TWO_VON_KOCH.lean | 79030d70e8d3e0d08eef9bac53fef95c36eca2fb |
+| research/oai_434/VF919WindowErrorClosure.lean | f629db1b2b65d6ec042ac9432397d4b6316200c6 |
+
+#### Continuity Ledger
+
+The untruncated recursive report tree was enumerated without a calendar cutoff. The actual intake revision `7a54b08d170c753332bf44832f06d6e56f4232d4` was verified as a commit, dated 2026-11-18T12:33:30Z. Every role's globally latest existing report is November 18; each has a completed substantive section and publication receipt. Coordinator 00/90 share identical blobs on both dates. All available November 17/18 role files were retrieved; the relevant post-AI handoffs were read in execution order. This is not a claim to re-audit every historical appendix or to accept all upstream proofs.
+
+Paths below are under `research/agent_reports/2026-11-18/`. TODAY=AVAILABLE; YESTERDAY=READ/CARRY_FORWARD for all roles. No new publication gap after the own AI watermark was discovered. Older unverified execution gaps are not invented as completed runs.
+
+| Role / actual section EST | LAST_VERIFIED blob | LAST_CONSUMED -> NEW; status and resume |
+| --- | --- | --- |
+| Coordinator 00/90; DAMP 07:10 | ee7b4ce6ff79ab0eaea4d8b74d95e3e78f398cb5 | DUAL -> DAMP1-5; square-root auxiliary bound, linear absolute inverse, target-equivalent signed return; SELF_AUDIT, review pending. |
+| Owner 10; AI 00:09 | 039fb276df7257e1bb5e3f76eb00e5fd1eb85bb6 | Prior own completed AI; FB/HF/PC route derivations recovered. Fixed-depth work remains parked. |
+| Analytic 20; PAIR 01:04 | a04f961d080aef270fc4fa8fa8933221d51f2d46 | CP -> PAIR1-5; complete sampling bill and same-source energy equivalence, not an upper supplier. DP's scoped paper acceptance preserved. |
+| Wheel 30; FD 02:05 | 838e4c5b87c1c196ca18f5ae0981069a91dc2760 | PP -> FD; fixed-polynomial pole obstruction; PC paper acceptance is a Wheel review, not invented Referee acceptance. |
+| Census 40; PN 03:11 | a62cba06a7fe73975746cf37cb2850615979788a | MR -> PN1-4; H=6 complete pairing contraction refuted; H=24 complete sign unresolved. |
+| Referee 50; DP 04:13 | c054e8b37c1580abc42fbac23852c62dfe433e5f | PR -> DP; sublogarithmic pairing retains the norm exponent; PN1 independently reproduced, not a sparse-family refutation. |
+| Lean 60; DUAL 05:10 | c3ded05265d7ac5e065e4a4e645e2e96069ca8fa | PROFILE -> DUAL; #1146 certified at its PR head, upper source estimate remains open. |
+
+November 17 predecessor blobs, in the same role order: Coordinator `125e55aa191083d9c0a982b6dc5a66267e4e4256`; Owner `6516bf78b096471ccfd2fb8c215e94002544a594`; Analytic `d4bc53ac1b68f6dadabc4a04a2f5fc8c74f6625f`; Wheel `5c26771c0a266d5112e0b4a4b28aba0132e35ef7`; Census `587b0bb3dd66834a18610ab86174f285f81c4b04`; Referee `103ee17307ac799e20bd4ce17d97ff96101a9e5b`; Lean `ee9ed0ace763bf99fea5812490f9541653917938`.
+
+External inbox was fetched at unchanged blob `7d63d434690d00dffce9c90335d41c4f62d85798`. No new entry was found. Preserve EXT-20261018-PNT-1's cofactor-weighted error/root boundary, EXT-20261018-PNT-3's anchor restoration and contiguous-child-run requirement, and EXT-20261014-5's unconditional-all-root versus conditional-first-bad distinction. CONTINUITY_COMPLETE for relevant handoffs since AI and the selected-route backfill; NEW_UNCONSUMED=NONE at intake within this scope.
+
+### C. Structural Hypotheses Investigated
+
+**H1: Full history forces a nonlocal near-wall configuration.** The earlier FB estimates principally used the nearest predecessor. Could chronology and actual prime nonnegativity force many prior endpoints to carry the same large signed defect? HC3 proves a directed persistence theorem, and a growing earlier-good NNS saturation consequence. It does not prohibit that configuration.
+
+**H2: A contiguous historical run could accumulate sufficient minority mass to pay the first-bad source.** HC1-HC2 show that an expanded absolute norm really can satisfy payment on a log-squared window under the hypothetical first-bad premise. HC4 restores the original norm and removes the apparent gain exactly. Thus the expanded inequality is not an independent #915 supplier.
+
+**H3: Finding an earlier root with large normalized NNS might give forbidden descent.** HC3 shows why the required bridge is substantive: the earlier endpoints remain inside the radial wall while their original normalized NNS values approach one under the hypothesized first failure. No equivalence between covariance saturation and radial badness is proved or assumed. This is not a genuine first-bad counterexample, and no conditional exclusion theorem is labeled false without one.
+
+The work stays within the Coordinator's bounded actual-history feasibility gate. It neither reopens the fixed-depth enumeration nor silently admits a new campaign.
+
+### D. Mathematical Derivation
+
+#### HC1. Exact Whole-Run Source And Finite Branch Bounds
+
+Fix integers 16<=A<B. There is ONE anchor -D_A and every actual odd seat of blocks A,...,B-1, once each. Put
+
+```text
+a=D_A, d=D_B, f=F_B-F_A=sum_(A<=s<B)m_s,
+p=pi(B^2)-pi(A^2)=sum_(A<=s<B)P_s,
+W=sum_(A<=s<B)w_s P_s,
+C_run=sum_(A<=s<B)C_s,
+M_A=|a|+C_run, E_A=2d^2-M_A^2,
+v=(2+1/A)/(2 log A).
+```
+
+For every s>=A, 0<w_s<v<1/2. Indeed log(s^2+s+1/2)>2 log s, the displayed upper bound decreases with s, and v_16<99/256 follows from log 2>2/3. Thus 0<=W<=vp. Counting the literal prime and composite charges gives
+
+```text
+d=a+p-f,
+-a+sum_(A<=s<B)sum_(n in O_s)charge(s,n)=-d,
+C_run=f+p-2W,
+M_A=|a|+2f+d-a-2W.                                    (HC.1)
+```
+
+The exact two sign populations, including the anchor, are
+
+```text
+Z_plus = max(-a,0)+f-W,
+Z_minus= max(a,0)+p-W.
+```
+
+If d>0 the signed total is negative, so the minority is Z_plus and M_A=d+2Z_plus. If d<0 the signed total is positive, so the minority is Z_minus and M_A=|d|+2Z_minus. These are full-source statements, not owner-by-owner budgets.
+
+Using W<=vp and p=f+d-a,
+
+```text
+M_A >= 2(1-v)f+(1-2v)d+|a|+(2v-1)a
+    >= 2(1-v)f+(1-2v)d.                               (HC.2)
+```
+
+The last discarded term is nonnegative: it is 2va for a>=0 and 2(1-v)|a| for a<0. Separately, the exact signed sum gives M_A>=|d|. No estimate of prime gaps, PNT, Mobius cancellation or distributional independence enters.
+
+Consequently the following FINITE, source-valid sufficient gates give strict expanded payment E_A<0:
+
+```text
+d>0:  2(1-v)f > (sqrt(2)-1+2v)d;
+d<0:  2(1-v)f > (sqrt(2)+1-2v)|d|.                    (HC.3)
+```
+
+These bounds are unconditional for the displayed run, but the resulting payment uses M_A. They do not replace M_one.
+
+#### HC2. Log-Squared Windows Can Pass Expanded Payment Under First Badness
+
+Fix c>0 BEFORE the growing integer B, and take
+
+```text
+L=floor(c log(B)^2), A=B-L.
+```
+
+For all sufficiently large B, A>=16, L>=1 and A/B->1. Uniformly over the actual run,
+
+```text
+L*A/log B <= f <= L*B/log A,
+f/H_B -> c/2, v->0.                                  (HC.4)
+```
+
+The finite lower inequality follows from 2s+1>=2A and s^2+s+1/2<B^2 for s<B; the upper follows from 2s+1<2B and log(s^2+s+1/2)>2 log A. These deterministic bounds prove the limits, independently of any prime population.
+
+At FirstBad(B), |D_(B-1)|<=H_(B-1) and |P_(B-1)-m_(B-1)|<=B-1, so
+
+```text
+H_B<|d|<=H_(B-1)+(B-1)<H_B+B,
+|d|/H_B=1+O(1/log B).                                (HC.5)
+```
+
+Apply HC.3-HC.5. For every fixed c>sqrt(2)-1 there is B0(c), chosen before B, such that every upper FirstBad(B) with B>=B0(c) has E_A<0. For every fixed c>sqrt(2)+1 the same conclusion holds for lower first badness. Therefore c>1+sqrt(2) suffices for BOTH branches. No sharpness on genuine prime histories is claimed.
+
+This is a universally quantified CONDITIONAL consequence. It does not assert that a first-bad B exists, much less infinitely many for fixed K=2. The displayed limits mean uniform deterministic error bounds applicable to any sufficiently large B satisfying the premise.
+
+The full prior history also gives |a|<=H_A. Set alpha=a/H_B and sigma=sign(d). Then p=f+d-a=O_c(H_B), W<=vp=O_c(B), and HC.1 yields the more informative uniform profile
+
+```text
+M_A/H_B = c+sigma+2 max(-alpha,0)+o_c(1),
+-1<=alpha<=1,
+alpha <= sigma+c/2+o_c(1).                            (HC.6)
+```
+
+There is no assumed limit for alpha. This shows the surviving anchor-sign dependence rather than averaging it away.
+
+#### HC3. Earlier-Good Excursion And Original NNS Saturation
+
+For ANY integer 2<=t<B, the exact endpoint recursion and actual prime nonnegativity imply
+
+```text
+D_t = D_B + (F_B-F_t) - [pi(B^2)-pi(t^2)]
+    <= D_B + (F_B-F_t).                              (HC.7)
+```
+
+Fix 0<c<2. At a LOWER first bad B, uniformly for 1<=j<=floor(c log(B)^2), HC.4's local version gives
+
+```text
+D_(B-j)/H_B <= -1 + j/(2 log(B)^2) + o_c(1).           (HC.8)
+```
+
+In particular, for every fixed 0<rho<1-c/2 and all sufficiently large such B, EVERY endpoint t in [B-floor(c log(B)^2),B-1] satisfies
+
+```text
+-H_t <= D_t <= -rho H_B.
+```
+
+The lower bound is the actual prior-good hypothesis. Thus this is a constraint on a growing part of that original history, not just the last-good predecessor.
+
+A quantitative energy consequence, for every epsilon>0 and all sufficiently large B satisfying LOWER first badness, is
+
+```text
+sum_(j=1..floor(c log(B)^2)) D_(B-j)^2
+ >= [4c-2c^2+c^3/3-epsilon] B^2 log(B)^4.             (HC.9)
+```
+
+Proof: HC.8 is uniformly negative for c<2; square the resulting lower magnitude bound and sum its Riemann sum. The constant is 4*integral_0^c (1-u/2)^2 du. No global mean-square upper estimate is assumed or obtained.
+
+The direction matters. At an UPPER first bad, nonnegative prime increments instead give
+
+```text
+D_(B+j) >= D_B-(F_(B+j)-F_B),                         (HC.10)
+```
+
+so the same log-squared persistence is FORWARD, outside the prior-good history. It cannot be spent as an independently known historical bound. A valid weaker backward statement uses the actual seat cap:
+
+```text
+pi(B^2)-pi((B-j)^2) <= sum_(B-j<=s<B)s <= jB,
+D_(B-j)>=D_B-jB.
+```
+
+Hence for fixed 0<c<2, every earlier endpoint with 1<=j<=floor(c log B) has D_(B-j)>=(1-c/2)H_B. Its corresponding squared-energy lower coefficient is again 4c-2c^2+c^3/3, now multiplying B^2 log(B)^3, with any fixed epsilon loss for all sufficiently large B. No unproved short-interval prime bound is used to lengthen this backward upper-branch run.
+
+Now take ANY earlier endpoint t in either of these guaranteed runs with |D_t|>=rho H_B. Put s=t-1, so s<B and, for large B, s>=8. The original one-block mass satisfies
+
+```text
+|D_t| <= M_s:=|D_s|+C_s <= |D_t|+2C_s <= |D_t|+2B,
+N_s=D_t^2/M_s^2
+    >= (1+1/(rho log B))^(-2).                       (HC.11)
+```
+
+The two inequalities use |D_t-D_s|<=C_s and C_s<=s<=B. They preserve the complete anchored source, not a partial covariance. Therefore N_s approaches one uniformly across this growing earlier-good run. For log B>1/[rho(sqrt(2)-1)],
+
+```text
+E_s=2D_t^2-M_s^2>0,
+yet |D_t|<=H_t because t<B.                           (HC.12)
+```
+
+This is a source-faithful necessary configuration under the full first-bad hypothesis. It extends FB's last-predecessor saturation to many earlier GOOD endpoints. It is not an actual counterexample to a theorem assuming first badness, nor a proof of forbidden descent. A positive anchored excess and radial badness are different predicates. Extracting an earlier high-NNS root does not establish the missing earlier-bad root.
+
+#### HC4. Restore The Original Denominator And Every Quadratic Interaction
+
+With R=B-1, define the genuine historical compression slack
+
+```text
+J=|D_A|+sum_(A<=s<R)C_s-|D_R| >= 0.
+M_A=M_one+J,
+E_one=E_A+2M_one J+J^2.                              (HC.13)
+```
+
+This is already the content of main's `abs_vfMidActualPrimeEndpointDefect_le_anchor_add_historyAbs` and `vfMid915ActualHistoricalSquaredNormRestoration`, written in a convenient scalar variable. If U_h,L_h are the existing positive and negative history masses and C_R is the original current absolute mass, the SAME cost is
+
+```text
+2M_one J+J^2
+ =4 U_h L_h + 2C_R (U_h+L_h-|U_h-L_h|).              (HC.14)
+```
+
+Thus it is exactly opposite-sign historical interaction AND the current-history coupling. It is neither extra spendable mass nor an unspecified error. Both cross orientations, diagonal terms, the one original anchor and all old seats are retained. We do not claim HC.13-HC.14 as new identities or request duplicate formalization.
+
+At first badness the existing #939 theorem gives E_one>0. The elementary predecessor estimates also give M_one/H_B=1+O(1/log B), d^2/H_B^2=1+O(1/log B), hence E_one/H_B^2=1+O(1/log B), as already noted in FB. Let q=M_A/H_B. Then
+
+```text
+E_A/H_B^2 = 2-q^2+o(1),
+(2M_one J+J^2)/H_B^2 = q^2-1+o(1).
+```
+
+Their sum is 1+o(1), not zero or a negative payment. For example, the conditional upper-escape case c=1 with alpha>=0 has q=2+o(1): the expanded excess tends to -2H_B^2 while the restoring cost tends to +3H_B^2. These are conditional asymptotic values, not asserted realized prime histories.
+
+No source-mask or clipped returned-cell admission is inferred from this aggregation. The scalar numerator is exactly the original source; the norm is explicitly different. Any use inside the original returned-pair representation must retain its existing masks and boundary returns as well. HC does not create a new legal child-run selector.
+
+### E. Quantitative Consequence And Half-Continuation Audit
+
+| Claim ID | Classification and exact advancement |
+| --- | --- |
+| 20261118-owner-0809-EST/HC1 | PAPER_PROOF / SELF_AUDIT: finite actual-source branch bounds HC.2-HC.3; the underlying source identities are existing bookkeeping. |
+| HC2 | PAPER_PROOF / CONDITIONAL: for fixed c above the displayed branch threshold, sufficiently large first badness implies strict EXPANDED-run payment on a log-squared root window. No original payment. |
+| HC3 | PAPER_PROOF / CONDITIONAL: growing prior-good signed excursion, energy lower restriction, and uniformly near-one ORIGINAL NNS factors. No impossibility or upper estimate. |
+| HC4 | IDENTITY_ONLY / REUSE_PROVED_IN_LEAN: exact historical restoration, plus the paper short-window scale comparison. |
+| HC5 | FINITE_COMPUTATION: registered exact symbolic/interval source tests and explicit generic-algebra supplement; no tested first-bad example. |
+
+All new paper claims remain INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED. HC gives no smaller global exponent, finite-A/C input, original payment or RH theorem.
+
+Continuation capsule: ROUTE=bounded VF/SAT full-history feasibility; ORIGINAL_SOURCE=E_one with actual masks and compressed anchor; START=all genuine earlier endpoints inside the K=2 wall; DIRECT_CONSUMER=independent absence of first bad plus finite base -> canonical VF -> explicit classical interface; VALID_RANGE=A>=16 and fixed c before B, rho before B; RETURNS=J, both quadratic restoring terms, all high-depth/squareful seats, chronology, original normalization and clipped boundaries; FIRST_OPEN=an independently derived prohibition of the complete actual bad configuration. No renewable exponent map or closed-boundary supplier has been established. The audit is complete, and the expanded-norm shortcut is PARKED_NO_HALF_CONTINUATION.
+
+#### Source -> Loss -> Recovery -> Consumer
+
+| Coordinate or step | Exact relation, lost information and recovery status |
+| --- | --- |
+| VF / actual square blocks | D_B=D_A+p-f is exact; actual prime/cofactor occurrence weights are untouched. HC.7-HC.12 concern this same carrier. |
+| Original NNS | N_s=D_(s+1)^2/(|D_s|+C_s)^2 uses every original anchored pair. Increasing the denominator to M_A changes the statistic. HC.13-HC.14 restore the change exactly. |
+| Euler / finite wheel | Prime indicators could be expanded by their full historical divisor sieve, but HC does not truncate that expansion or omit virtual compensation. No equality or norm transfer to frozen Q_R or strict-history K_R is claimed. |
+| OAI / native Mertens | The ideal-character tuples, conductor/height masks and native Mobius source are different carriers. The paid comparator does not provide the missing VF historical correlation or an upper bound for HC.9. OPEN_BRIDGE, not a false isometry. |
+
+The first irreversible step in the rejected proof is replacing |D_R| by its earlier anchor plus uncompressed absolute seat mass and keeping the resulting favorable inequality without restoration. The already-proved recovery theorem is EXACT, but it restores a POSITIVE cost, not an arithmetic saving. The lower-run capacitor retains a different signed transport and its own unpaid capacity; it does not license dropping J or selecting a radial-bad child from high NNS. #1144's absolute cofactor-mask obstruction is consistent with this diagnosis but is a different method scope.
+
+### F. Falsification, Circularity And Executed Checks
+
+The embedded registration precedes the primary checker execution. Genuine prime labels through 262144 were constructed by Eratosthenes and recomputed by trial division; every label was checked. The 23 distinct declared windows use B=32,64,128,256,512, A=max(16,B-floor(c log(B)^2)) for c=1/2,1,3, together with A=16 and A=B-1.
+
+All signed and absolute source sums were reconstructed as exact rational-coefficient linear forms in the original m_s. Their values and signs were enclosed by an 80-term atanh logarithm series with its geometric remainder and outward-rounded 160-bit dyadic interval arithmetic. Complete quadratic identities for B<=64 were checked coefficientwise; larger cases use the same algebraic identity with exact linear source reconstruction, with interval evaluation as an additional check. Decimal output is integer-formatted outward, without floating-point conversion.
+
+The final run passed **265,477 assertions**, including 262,143 primality comparisons. It covered the 23 actual-source windows, 12 deterministic large-root gate samples, and a separately disclosed proof-led supplement of 315 generic rational cases covering BOTH escape signs. These rational cases are algebra tests, not prime histories or first-bad examples. All five omission controls were detected first at (A,B)=(16,32) in the declared order.
+
+One actual-source diagnostic, A=20, B=32, has
+
+```text
+D_B in [-5.947463289,-5.947463288],
+M_one in [20.057053999,20.057054000],
+J in [115.005305879,115.005305880],
+E_one in [-331.540776003,-331.540776002],
+E_A in [-18171.096416842,-18171.096416841],
+2 M_one J in [4613.335260465,4613.335260466],
+J^2 in [13226.220380372,13226.220380373].
+```
+
+The wrong anchor, signed-in-place-of-absolute history, missing mixed term, missing slack square and wrong-branch minority all change the complete reconstruction. This root is NOT first bad and does not refute a conditional first-bad theorem. Both displayed excesses are negative; no sign-transfer counterexample is claimed from these values.
+
+The deterministic gate checks use f>=L*A/log B and |d|<H_B+B, WITHOUT computing primes at large B. For c=1/2 (upper), the declared samples first pass at B=2^64 with normalized positive margin in [0.023773707,0.023773708]. For c=3 (lower), they first pass at B=2^16 with margin in [0.372270693,0.372270694]. These are first passes in the SIX-SAMPLE list, not minimal or all-subsequent thresholds. HC2's eventual statement has a separate proof from HC.4-HC.5.
+
+Implementation history is retained: the first checker stopped at a large-root precision guard because it rounded a tiny reciprocal before multiplying. Direct endpoint division repaired that implementation without changing any mathematical criterion. The next arithmetic pass had 264,420 successful assertions, after which integer-only decimal formatting corrected presentation loss for large values. The disclosed two-sign algebra supplement and explicit anchor check produced the final count above. Python syntax validation passed. No arithmetic process remains running; no local Lean was executed.
+
+Initial registration SHA256 before its disclosed supplement: `4d03263f6638890e7451afb40737f4a478a3338dbe33f739fd2a04da4d1453dd`. Final combined registration: `7682984ec30364987e8103189bcf4ff84e5313fdd8af27d1f4c0759d4842ce16`. Final checker: `243cfd2b8571e21cc610aab00c81b4af65ad19990a6bf408af09245a3071a578`. The complete text and code follow.
+
+No all-scale claim is inferred from these samples. There is no asserted actual first-bad root. Main's original history-compression and exact opposite-sign norm-restoration theorems were found and credited BEFORE synthesis; HC is not a rebranding of their algebra as a new cancellation law. The new inverse restriction and scale comparison received only this session's self-audit. No claim of literature originality is made.
+
+### G. Conceptual Interpretation
+
+The original first-bad source is not an isolated bad local block. On the lower branch it would come with a log-squared history of large, same-sign but still admissible defects; on the upper branch a shorter earlier-good saturation follows without a short-interval prime theorem. High normalized NNS can therefore be a persistent feature of the hypothesized good history. It is not automatically a forbidden child event.
+
+At the same time, adding historical seats increases the absolute denominator at precisely the scale needed to make an expanded payment look favorable. The missing gain returns as known historical opposite-sign interaction and its current coupling. The mathematical task is to constrain the complete arithmetic configuration in the ORIGINAL normalization, not to locate a longer interval with more absolute mass.
+
+### H. Competing Mechanisms
+
+**Continue only with new information:** an independently derived actual-history/current-source restriction strong enough to prohibit the HC3 configuration, with the original compressed norm and full terminal consumer retained. HC3 is a falsifiable necessary condition for such a proposed mechanism, not its supplier.
+
+**Park:** standalone expanded-run payment, an earlier-high-NNS selector without a radial-badness bridge, bounded-order unweighted ancestry, and the previously rejected componentwise Selberg or absolute density-mask approaches. The valid source identities and all nine route toolkits remain available. No universal impossibility theorem for weighted sieves, joint signed estimates or other legitimate continuations is asserted.
+
+**No promotion:** local excursion energy is not renamed as an independent half-scale input. Its needed upper estimate has not been derived, and the paid OAI/Mertens theorem is not a source-faithful substitute.
+
+### I. Specialist Handoffs
+
+**Coordinator:** HC completes the requested bounded full-history audit without a new contradiction. The strongest new restriction is HC.11-HC.12 on growing earlier-good original NNS values. HC.3-HC.6 also show how little run length is needed for a non-original payment to pass. Preserve the chronology distinction; do not spend a future upper excursion as history. Recommend parking the expanded-norm mechanism, not reopening fixed-depth work. No strategic departure or new route is proposed.
+
+**Referee:** independently reconstruct HC1-HC3 from actual D_s, P_s, m_s and the full first-bad definition. Check both signs in HC.2-HC.3, the uniformity of HC.4 over a growing window, the conditional quantifiers in HC2, and the earlier-good NNS index s=t-1 in HC.11. Check that HC.13 exactly matches the already compiled historical restoration. A failure should identify the first equality, bound or index; no first-bad numerical example is requested.
+
+**Analytic:** HC.9 is a necessary local-energy lower restriction, not a new upper estimate. A proposed mean-square or signed-history theorem must control this exact prime/VF source at the stated scale, with an actual terminal contradiction. The current comparator does not supply that transfer. No duplication of DAMP review or paired Nyman work is assigned.
+
+**Wheel:** use the complete survivor population, including AI's high-depth and squareful terms, if testing a new incidence restriction on HC3. A cofactor or child below A must pass the existing source-admission/anchor bridge; eligibility does not make it a fresh historical seat. No new fixed-depth enumeration is requested.
+
+**Census:** no range extension is needed. HC5 already discriminates the missing-restoration mistakes. A future experiment requires a NEW complete signed restriction with a specified finite falsifier; neither an ordinary good root nor a synthetic history refutes a theorem conditional on actual first badness.
+
+**Lean Verification:** HC is SELF_AUDIT and has no accepted new continuation supplier. Reuse `vfMid915ActualHistoricalSquaredNormRestoration` and the normalized-source identities; do not create duplicate algebra or a speculative upper-bound wrapper. Formal implementation is not requested without independent acceptance and a named necessary use. Existing #1145/#1146 need no unchanged CI rerun.
+
+These are asynchronous report handoffs, not agent launches or claims that another specialist has acted.
+
+### J. First Independently Missing Lemma
+
+No independently weaker sufficient restriction was found. The exact condition an expanded-run proof would STILL need is
+
+```text
+E_A + 2 M_one J + J^2 <= 0 under actual first badness.
+```
+
+By HC.13 this is E_one<=0, hence the existing target-strength payment premise, NOT a new lemma made easier by aggregation. Likewise, a theorem excluding the actual earlier-good saturated configuration in HC3 would need a genuinely new signed prime-history input; none of the inspected source identities, density-mask obstruction, capacitor formulas or current baseline supplies it.
+
+The next useful independent step must be derived from new arithmetic that constrains that configuration, not postulated as a local-energy ceiling or a covariance-to-radial-badness equivalence. This run honestly leaves that discovery OPEN. NO_NEW_RESULT for the required global exclusion.
+
+### K. Next-Run Resume Capsule
+
+```text
+RUN=20261118-owner-0809-EST/HC; PLATFORM_RUN_ID=UNAVAILABLE
+TRIGGER=2026-11-18 08:09:03 EST
+half_bootstrap_ack=BOOTSTRAP_TO_HALF_V1
+cross_route_ack=CROSS_ROUTE_SIGNED_RECOVERY_V1
+continuity_ack=LAST_ACTUAL_REPORT_CONTINUITY_V1
+high_attack_ack=COMPLETE_SIGNED_HIGH_ATTACK_V1
+chain_ack=CANCELLATION_CHAIN_REUSE_V1
+finite_wheel_ack=FINITE_WHEEL_CENTERED_RH_V1 (source safeguards)
+MAIN=13b31c6313e274a073d82a01175201185e59e37e
+AGENTS=c4f36b772f8a4b0c24fe566b90fafb646073c60f
+CONTRACT=95566e37c8eaeb99ee680660df4f9d2e06ea5038
+HALF_POLICY=96ad4439ec458af6168f7d9cb3eef5dde291d37c
+REPORTS_INTAKE=7a54b08d170c753332bf44832f06d6e56f4232d4
+LAST_CONSUMED=DAMP / AI / PAIR / FD / PN / DP / Lean DUAL
+TODAY=AVAILABLE; YESTERDAY=READ/CARRY_FORWARD
+EXTERNAL=7d63d434690d00dffce9c90335d41c4f62d85798, unchanged
+ROUTE=bounded VF/SAT actual-history feasibility, completed
+SOURCE=E_one=2D_B^2-(|D_(B-1)|+C_(B-1))^2
+DIRECT_CONSUMER=no first bad + finite base -> canonical VF;
+                explicit ClassicalVonKochRHCriterion retained
+NEW=HC1 finite branch gates; HC2 short-run conditional expanded payment;
+    HC3 growing earlier-good excursion and original-NNS saturation
+REUSED=HC4 exact compression cost, already on main
+VALID_RANGE=A>=16; c and rho fixed before B; all actual prior-good endpoints
+RENEWAL=NONE; NO_NEW_GLOBAL_GAIN; VERIFIED_ETA=NONE; RH=OPEN
+RETURNS=one anchor, all seats and original weights, high-depth/squareful terms,
+        2*M_one*J+J^2, original masks and clipping, all ordered interactions
+FIRST_OPEN=new arithmetic exclusion of the complete configuration;
+           restored expanded payment is TARGET_EQUIVALENT, not a supplier
+FALSIFIERS=source norm changes; upper forward history misuse;
+           earlier high NNS is not earlier radial badness
+FINITE=265477 assertions PASS, 23 actual windows, 315 generic algebra cases;
+       no actual first-bad example asserted; all processes completed
+MATH=PAPER_PROOF/CONDITIONAL/SELF_AUDIT; INDEPENDENT_REVIEW_PENDING
+FORMAL=NOT_FORMALIZED; no new Lean run or theorem claim
+STATUS=BOUNDED_FEASIBILITY_COMPLETE; expanded-norm shortcut PARKED
+NEXT=independent scope review or genuinely new source-derived restriction;
+     no wider unchanged census, duplicate compression lemma, or new wrapper
+CHECKPOINT_COMMIT=416b101990d984d1721f646a2ef33a133a52266c
+CHECKPOINT_BLOB=d40c752b9c6e4bfe77f51d16380d2b99bc2d0d74
+PUBLICATION=final immutable commit/readback receipt follows
+```
+
+The early checkpoint was fetched at its immutable commit and matched all intended bytes. Commit inspection confirmed only this authorized daily report changed. Direct git clone was unavailable (CONNECT tunnel HTTP 403), but connector reads and authorized publication worked. No main/Lean/policy/other-report modification, branch or PR creation, merge, auto-merge, schedule change, workflow trigger, agent launch or promised background work occurred.
+
+### HC Reproducibility Appendix
+
+The registration includes its explicitly post-primary-pass supplement. The checker is complete and uses only the Python standard library. Its finite checks do not certify HC's all-scale conditional theorems.
+
+
+```text
+# HC Test Registration
+
+Invocation: 20261118-owner-0809-EST/HC.
+Registered before executing the checker. No actual first-bad root is assumed.
+
+1. Reconstruct the genuine primes through 512^2 by Eratosthenes and independent
+   trial division against all primes up to 512. Retain squareful composites.
+2. Use B in {32,64,128,256,512}; A=max(16,B-floor(c log(B)^2)) for
+   c in {1/2,1,3}, plus A=16 and A=B-1. Deduplicate identical (A,B).
+3. Reconstruct all original signed/absolute block masses with symbolic linear
+   forms in the true m_s. Certify their real values by rational atanh-series
+   logarithm intervals and outward-rounded dyadic arithmetic, not tolerances.
+4. Check the complete source, minority, historical compression slack J, exact
+   quadratic restoration, and both finite branch bounds. Quadratic polynomial
+   identities are checked coefficientwise for B<=64; larger cases use the same
+   proved polynomial identity and exact linear source reconstruction.
+5. Negative controls: drop the old anchor; use signed in place of absolute
+   history; omit the mixed 2*M1*J restoration; omit J^2; and replace the lower-
+   escape minority by the upper-escape minority. Report detected witnesses,
+   without calling any of these genuine first-bad counterexamples.
+6. At B=2^k, k in {8,16,32,64,128,256}, check only deterministic sufficient
+   gates with c=1/2 for upper escape and c=3 for lower escape, using f>=L*A/log B.
+   These are finite conditional-gate checks, not prime computations at those B
+   and not a proof of an eventual threshold.
+7. Do not scan for a first-bad endpoint, claim a global source bound, or rerun
+   the earlier AI/PN/FD experiments. All-scale HC claims require the paper proof.
+
+## Proof-Led Supplement (After The First Complete Arithmetic Pass)
+
+The first checker attempt stopped at a large-root normalization precision guard;
+direct endpoint division repaired that implementation. Its 264,420-assertion
+rerun passed. Decimal printing then received an integer-only formatting repair.
+No mathematical statement or acceptance threshold changed.
+
+Add rational algebra cases f in {1,3,9}, p in {0,1,7},
+a in {-10,-1,0,1,10}, v in {1/8,1/4,3/8},
+W in {0,min(f,v*p)/2,min(f,v*p)}, deduplicating W.
+Check both signs, exact minority restoration and the sufficient square inequality
+using rational sqrt(2) upper bound 3/2. These are generic algebra tests, NOT actual
+prime histories or first-bad examples, and were added after the primary pass.
+```
+
+```python
+from fractions import Fraction as F
+from functools import lru_cache
+from math import isqrt
+import json
+
+GRID = 1 << 160
+checks = 0
+
+
+def check(ok):
+    global checks
+    assert ok
+    checks += 1
+
+
+def down(x):
+    return F(x.numerator * GRID // x.denominator, GRID)
+
+
+def up(x):
+    return -down(-x)
+
+
+class I:
+    def __init__(self, lo, hi=None):
+        self.lo = down(F(lo))
+        self.hi = up(F(lo if hi is None else hi))
+        assert self.lo <= self.hi
+
+    def __add__(self, other):
+        other = interval(other)
+        return I(self.lo + other.lo, self.hi + other.hi)
+
+    __radd__ = __add__
+
+    def __neg__(self):
+        return I(-self.hi, -self.lo)
+
+    def __sub__(self, other):
+        return self + -interval(other)
+
+    def __rsub__(self, other):
+        return interval(other) + -self
+
+    def __mul__(self, other):
+        other = interval(other)
+        ends = [a * b for a in (self.lo, self.hi)
+                for b in (other.lo, other.hi)]
+        return I(min(ends), max(ends))
+
+    __rmul__ = __mul__
+
+    def __truediv__(self, other):
+        other = interval(other)
+        assert other.lo > 0 or other.hi < 0
+        # Divide before rounding; a tiny reciprocal may underflow the grid.
+        ends = [a / b for a in (self.lo, self.hi)
+                for b in (other.lo, other.hi)]
+        return I(min(ends), max(ends))
+
+    def square(self):
+        lo = 0 if self.lo <= 0 <= self.hi else min(self.lo**2, self.hi**2)
+        return I(lo, max(self.lo**2, self.hi**2))
+
+    def sign(self):
+        assert self.lo > 0 or self.hi < 0
+        return 1 if self.lo > 0 else -1
+
+    def absolute(self):
+        return self * self.sign()
+
+
+def interval(x):
+    return x if isinstance(x, I) else I(x)
+
+
+def log_unit(x):
+    z = (x - 1) / (x + 1)
+    assert 0 <= z <= F(1, 3)
+    power = z
+    total = F(0)
+    for j in range(80):
+        total += 2 * power / (2 * j + 1)
+        power *= z * z
+    tail = 2 * power / (161 * (1 - z * z))
+    return I(total, total + tail)
+
+
+LOG2 = log_unit(F(2))
+
+
+@lru_cache(None)
+def logq(x):
+    x = F(x)
+    assert x >= 1
+    k = 0
+    while x >= 2:
+        x /= 2
+        k += 1
+    return k * LOG2 + log_unit(x)
+
+
+def integer_floor(x):
+    a = x.lo.numerator // x.lo.denominator
+    b = x.hi.numerator // x.hi.denominator
+    assert a == b
+    return a
+
+
+def dec(q, upper=False, digits=9):
+    scale = 10**digits
+    z = (q.numerator * scale // q.denominator) if not upper else (
+        -((-q.numerator * scale) // q.denominator))
+    sign = '-' if z < 0 else ''
+    z = abs(z)
+    return f'{sign}{z // scale}.{z % scale:0{digits}d}'
+
+
+def display(x):
+    return [dec(x.lo), dec(x.hi, True)]
+
+
+def poly_add(*polys):
+    result = {}
+    for p in polys:
+        for k, v in p.items():
+            result[k] = result.get(k, F(0)) + v
+    return {k: v for k, v in result.items() if v}
+
+
+def scale(p, a):
+    return {k: v * a for k, v in p.items() if v * a}
+
+
+def mul(p, q):
+    result = {}
+    for k, v in p.items():
+        for l, w in q.items():
+            key = tuple(sorted(k + l))
+            result[key] = result.get(key, F(0)) + v * w
+    return {k: v for k, v in result.items() if v}
+
+
+def ev(p, masses):
+    result = I(0)
+    for k, v in p.items():
+        term = I(v)
+        for s in k:
+            term *= masses[s]
+        result += term
+    return result
+
+
+LIMIT = 512**2
+prime = bytearray(b'\x01') * (LIMIT + 1)
+prime[0] = prime[1] = 0
+for p in range(2, isqrt(LIMIT) + 1):
+    if prime[p]:
+        prime[p*p:LIMIT+1:p] = b'\x00' * ((LIMIT-p*p)//p + 1)
+trial_primes = [p for p in range(2, 513) if prime[p]]
+for n in range(2, LIMIT + 1):
+    trial = True
+    for p in trial_primes:
+        if p*p > n:
+            break
+        if n % p == 0:
+            trial = False
+            break
+    check(bool(prime[n]) == trial)
+
+pi = [0] * (LIMIT + 1)
+for n in range(1, LIMIT + 1):
+    pi[n] = pi[n-1] + prime[n]
+
+masses = {s: I(2*s+1) / logq(F(2*s*s+2*s+1, 2)) for s in range(2, 512)}
+defect = {}
+for B in range(2, 513):
+    defect[B] = {(): F(pi[B*B]), **{(s,): F(-1) for s in range(2, B)}}
+
+block_abs = {}
+block_signed = {}
+block_weighted_primes = {}
+for s in range(16, 512):
+    seats = list(range(s*s+1 if s % 2 == 0 else s*s+2, (s+1)**2, 2))
+    P = sum(prime[n] for n in seats)
+    check(len(seats) == s)
+    check(P == pi[(s+1)**2] - pi[s*s])
+    check((masses[s] / s).hi < F(1, 2))
+    block_abs[s] = {(): F(P), (s,): 1 - F(2*P, s)}
+    block_signed[s] = {(): F(-P), (s,): F(1)}
+    block_weighted_primes[s] = {(s,): F(P, s)}
+    # Summation preserves each actual prime and composite occurrence once.
+    direct_abs = {(): F(P), (s,): F(s-P, s) - F(P, s)}
+    check(poly_add(block_abs[s], scale(direct_abs, -1)) == {})
+
+windows = set()
+for B in [32, 64, 128, 256, 512]:
+    for c in [F(1, 2), F(1), F(3)]:
+        L = max(1, integer_floor(c * logq(F(B)).square()))
+        windows.add((max(16, B-L), B))
+    windows.add((16, B))
+    windows.add((B-1, B))
+
+controls = {}
+rows = []
+for A, B in sorted(windows):
+    R = B-1
+    a, d = defect[A], defect[B]
+    av, dv = ev(a, masses), ev(d, masses)
+    sa, sd = av.sign(), dv.sign()
+    f = {(s,): F(1) for s in range(A, B)}
+    p = pi[B*B] - pi[A*A]
+    W = poly_add(*(block_weighted_primes[s] for s in range(A, B)))
+    C = poly_add(*(block_abs[s] for s in range(A, B)))
+    signed = poly_add(*(block_signed[s] for s in range(A, B)))
+    check(poly_add(a, scale(signed, -1), scale(d, -1)) == {})
+    check(poly_add(C, scale(f, -2), scale(d, -1), a, scale(W, 2)) == {})
+    MA = poly_add(scale(a, sa), C)
+    M1 = poly_add(scale(defect[R], ev(defect[R], masses).sign()), block_abs[R])
+    J = poly_add(MA, scale(M1, -1))
+    mv, one, jv, fv, wv = [ev(x, masses) for x in [MA, M1, J, f, W]]
+    if A == R:
+        check(J == {})
+    else:
+        check(jv.lo > 0)
+    check(mv.lo > 0 and one.lo > 0)
+    v = I(2 + F(1, A)) / (2 * logq(F(A)))
+    check(v.hi < F(1, 2))
+    check(wv.hi <= (v * p).lo)
+    bound = 2*(1-v)*fv + (1-2*v)*dv
+    check(mv.lo >= bound.hi)
+    check(av.hi <= (dv + fv).lo)
+    # Positive and negative source populations, including the single anchor.
+    pos = poly_add(scale(a, -1) if sa < 0 else {}, f, scale(W, -1))
+    neg = poly_add(a if sa > 0 else {}, {(): F(p)}, scale(W, -1))
+    minority = pos if sd > 0 else neg
+    check(poly_add(MA, scale(d, -sd), scale(minority, -2)) == {})
+    ea = 2*dv.square() - mv.square()
+    e1 = 2*dv.square() - one.square()
+    mixed, square = 2*one*jv, jv.square()
+    restore = ea + mixed + square
+    check(restore.lo <= e1.hi and e1.lo <= restore.hi)
+    if B <= 64:
+        exact_ea = poly_add(scale(mul(d, d), 2), scale(mul(MA, MA), -1))
+        exact_e1 = poly_add(scale(mul(d, d), 2), scale(mul(M1, M1), -1))
+        check(poly_add(exact_ea, scale(mul(M1, J), 2), mul(J, J),
+                       scale(exact_e1, -1)) == {})
+    if av.lo != 0:
+        check((mv - ev(C, masses)).lo > 0)
+        controls.setdefault('omit-anchor', [A, B])
+    if sa < 0:
+        check((mv - (av + ev(C, masses))).lo > 0)
+        controls.setdefault('signed-history-for-absolute', [A, B])
+    if A < R:
+        check(mixed.lo > 0 and square.lo > 0)
+        controls.setdefault('omit-mixed-term', [A, B])
+        controls.setdefault('omit-slack-square', [A, B])
+    if sd < 0 and poly_add(pos, scale(neg, -1)):
+        controls.setdefault('wrong-escape-minority', [A, B])
+    if B in [32, 128, 512] and A < R:
+        rows.append({'A': A, 'B': B, 'D_B': display(dv), 'M1': display(one),
+                     'M_run': display(mv), 'J': display(jv),
+                     'E1': display(e1), 'E_run': display(ea),
+                     'mixed_tax': display(mixed), 'square_tax': display(square)})
+
+check(set(controls) == {'omit-anchor', 'signed-history-for-absolute',
+                       'omit-mixed-term', 'omit-slack-square', 'wrong-escape-minority'})
+
+# Deterministic gate samples do not require or assert primes at these huge roots.
+sqrt2 = I(F(1414213562373095048801688724209698, 10**33),
+          F(1414213562373095048801688724209699, 10**33))
+check(sqrt2.lo**2 < 2 < sqrt2.hi**2)
+gates = []
+for k in [8, 16, 32, 64, 128, 256]:
+    B = 2**k
+    ell = logq(F(B))
+    for name, c, shift in [('upper', F(1, 2), -1), ('lower', F(3), 1)]:
+        L = integer_floor(c * ell.square())
+        A = B-L
+        v = I(2+F(1, A)) / (2*logq(F(A)))
+        flower = I(L*A) / ell
+        umax = I(B)*(2*ell+1)
+        factor = sqrt2 + shift + (2*v if name == 'upper' else -2*v)
+        margin = (2*(1-v)*flower - factor*umax) / (2*B*ell)
+        check(margin.lo > 0 or margin.hi < 0)
+        gates.append({'k': k, 'branch': name, 'margin_over_HB': display(margin),
+                      'gate': 'PASS' if margin.lo > 0 else 'NOT_MET'})
+
+# Proof-led algebra supplement: these are not actual prime or first-bad data.
+algebra_cases = 0
+algebra_signs = set()
+for v in [F(1, 8), F(1, 4), F(3, 8)]:
+    for f in [F(1), F(3), F(9)]:
+        for p in [F(0), F(1), F(7)]:
+            for a in [F(-10), F(-1), F(0), F(1), F(10)]:
+                for W in sorted({F(0), min(f, v*p)/2, min(f, v*p)}):
+                    d = a+p-f
+                    M = abs(a)+f+p-2*W
+                    check(M >= 2*(1-v)*f+(1-2*v)*d)
+                    check(M >= abs(d))
+                    if d:
+                        Z = max(-a, F(0))+f-W if d > 0 else max(a, F(0))+p-W
+                        check(M == abs(d)+2*Z)
+                        threshold = (F(1, 2)+2*v)*d if d > 0 else (F(5, 2)-2*v)*(-d)
+                        if 2*(1-v)*f >= threshold:
+                            check(M*M >= 2*d*d)
+                        algebra_signs.add(1 if d > 0 else -1)
+                    algebra_cases += 1
+check(algebra_signs == {-1, 1})
+
+print(json.dumps({'status': 'PASS', 'assertions': checks, 'prime_limit': LIMIT,
+                  'windows': len(windows), 'controls': controls, 'rows': rows,
+                  'deterministic_gates': gates, 'first_bad_examples_asserted': 0,
+                  'algebra_cases': algebra_cases, 'algebra_signs': sorted(algebra_signs),
+                  'lean_executed': False}, sort_keys=True, indent=2))
+```
