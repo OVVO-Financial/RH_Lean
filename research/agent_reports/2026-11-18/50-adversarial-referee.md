@@ -937,3 +937,28 @@ EXECUTION=COMPLETED_BOUNDED_FEASIBILITY_AUDIT; SUBSTANTIVE_PUBLICATION=VERIFIED.
 Next actual invocation: refresh live authority and these watermarks; obtain independent DP review or investigate a genuinely changed complete-source arithmetic mechanism. Do not repeat the H=6 computation, optimize transform constants, infer the H=24 phase sign, or assume a desired upper norm. The unchanged direct endpoint upper supplier remains OPEN. No new active route, global exponent, source/policy/other-report edit, merge, schedule change, or agent launch is implied.
 
 NO_NEW_GLOBAL_UPPER_GAIN; VERIFIED_ETA=NONE; RH=OPEN. This receipt cites the already verified substantive commit, not its own future containing commit as evidence for itself.
+
+
+## In-Progress Checkpoint - 20261118-referee-1203-EST/FC
+
+Actual scheduled trigger: 2026-11-18 12:03:01 EST / 17:03:01 UTC. PLATFORM_RUN_ID=UNAVAILABLE. FC labels the finite-cell recovery audit. EXECUTION=IN_PROGRESS; no new theorem acceptance or executed calculation is claimed at this checkpoint.
+
+### A. Selected Mathematical Investigation
+
+Independently reconstruct 20261118-coordinator-0710-EST/DAMP1-DAMP4 on the genuine prime-power error, then test whether deleting finitely many output cells can remove the absolute inverse obstruction. Review the new complete-taper PV repair restriction at its exact scope as time permits. Preserve the accepted PAIR/DUAL findings; do not repeat their unchanged computations. The complete original signed upper estimate remains OPEN.
+
+### B. Authority And Half-Continuation
+
+MAIN=935840aec9b1fcbc66fe4e0164061d661a8ca3b1. AGENTS=c4f36b772f8a4b0c24fe566b90fafb646073c60f; CURRENT_PROOF_CONTRACT=95566e37c8eaeb99ee680660df4f9d2e06ea5038; half directive=96ad4439ec458af6168f7d9cb3eef5dde291d37c.
+
+half_bootstrap_ack=BOOTSTRAP_TO_HALF_V1; cross_route_ack=CROSS_ROUTE_SIGNED_RECOVERY_V1; continuity_ack=LAST_ACTUAL_REPORT_CONTINUITY_V1.
+
+The canonical actual-prime von Koch bound remains OPEN. Selected task is a bounded feasibility audit of complete native signed recovery, whose proposed direct terminal consumer is an RH-scale bound for the original psi(N)-N, not merely its damped convolution. No new positive half-continuation or exponent improvement is asserted.
+
+### C. Verified Intake And Remaining Work
+
+The nontruncated main and agent-reports trees were retrieved; report intake is 5c091108c25e3f44755e5d33a2a5620a91c8cc63. All seven latest actual reports are present on November 18, with November 17 counterparts retrieved and earlier route watermarks recovered. New post-DP sections are Lean DUAL, Coordinator DAMP, Owner HC, Analytic PV, Wheel PM, and Census PS. Detailed relevant proof backfill and formal evidence inspection are IN_PROGRESS. Coordinator 00/90 tree entries have identical blobs on both days; full-byte mirror verification remains pending. External handoffs blob 7d63d434690d00dffce9c90335d41c4f62d85798 is unchanged from DP; no new entry follows October 18.
+
+Live PR metadata corrects stale report prose: #1145 merged into main at 15:13:06 UTC, merge 56590f2075e01d8d7ff2c792d8d41730b8b6dcf0; #1146 merged at 15:13:26 UTC, merge/current-main 935840aec9b1fcbc66fe4e0164061d661a8ca3b1. The open/draft PR collection is empty. Exact-head checks and logs will be inspected before formal certification is credited. The new all-profile source is a finite lower bound with full restoration, not an upper supplier.
+
+Only this owned daily report will be changed remotely. No source, policy, other report, branch, PR, workflow, schedule, permission, main write, local Lean execution, merge, or agent launch is authorized. Final mathematics, registered checks, A-O synthesis, and immutable publication verification remain pending.
