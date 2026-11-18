@@ -423,7 +423,9 @@ theorem nyman_all_profile_coercivity (K n : Nat) (hK : 40 <= K) (t : Nat -> Real
             congr 1
             linarith
           _ <= _ := abs_sub _ _
-      have h23 : (2 : Real)^i <= 3^i := by gcongr <;> norm_num
+      have h23 : (2 : Real)^i <= 3^i := by
+        gcongr
+        norm_num
       have hobs' := mul_le_mul_of_nonneg_right h23
         (show 0 <= 480 * (K : Real) * c by positivity)
       have hlow := mul_le_mul_of_nonneg_left hself (abs_nonneg (t i))
