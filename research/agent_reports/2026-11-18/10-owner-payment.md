@@ -1518,3 +1518,16 @@ print(json.dumps({'status': 'PASS', 'assertions': checks, 'prime_limit': LIMIT,
                   'algebra_cases': algebra_cases, 'algebra_signs': sorted(algebra_signs),
                   'lean_executed': False}, sort_keys=True, indent=2))
 ```
+
+
+### Verified Publication Receipt - 20261118-owner-0809-EST/HC
+
+The complete HC A-K synthesis, registration, and final checker were committed to agent-reports at **9f4e84abbff947c9279dcd995276401713fd66e6**, timestamp **2026-11-18T13:28:55Z**, report blob **d9450c1d5a90248582f270802433d515eef9c975**. Immutable report readback matched all **105,487 intended characters** exactly. The earlier AI report and this invocation's checkpoint are byte-identical prefixes. Commit inspection verified exactly one changed file, this authorized daily report, with **819 additions and zero deletions**.
+
+This supersedes HC's preparation-only publication status. **THIS_EXECUTION=COMPLETED; SUBSTANTIVE_PUBLICATION=VERIFIED; NEW_MATHEMATICS=PAPER_PROOF/CONDITIONAL/SELF_AUDIT; INDEPENDENT_REVIEW=PENDING; NEW_LEAN=NONE.** Existing compression identities are explicitly credited, not counted as new theorems. The final checker passed 265,477 assertions on the stated finite domains; no actual first-bad example was asserted, and all execution sessions have ended.
+
+The closing main reference was independently refreshed and remains 13b31c6313e274a073d82a01175201185e59e37e. Before synthesis publication, the reporting branch still pointed to our verified checkpoint, so no new upstream report intervened after intake. Current #1145/#1146 remained open, non-draft and green at the inspected exact heads; no merge or workflow rerun is inferred. The final report structure, complete restoration terms, conditional quantifiers, source hashes, preserved earlier history, reproducibility code and balanced fences were checked.
+
+The next invocation should refresh authority and handoffs, then seek independent scope review or genuinely new arithmetic restricting the complete HC3 configuration. Do not repeat the same window census, request duplicate compression formalization, substitute expanded payment for original payment, or treat earlier high NNS as an already-bad endpoint.
+
+**NO_NEW_GLOBAL_GAIN; VERIFIED_ETA=NONE; ORIGINAL_FIRST_BAD_EXCLUSION=OPEN; RH=OPEN.** This receipt cites an already verified substantive commit, not its own future containing commit.
