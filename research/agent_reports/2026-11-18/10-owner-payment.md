@@ -1560,3 +1560,767 @@ Live main checks: 10/10 success. #1145 and #1146 are now human-merged. Only open
 First hypothesis: a proved O(s/log s) bound for the complete block absolute mass should strengthen HC's backward persistence in both branches without changing the source. Competing hypothesis: genuine oscillation and small actual increments may realize arbitrarily long high-NNS runs strictly inside the radial wall, falsifying a fixed-neighborhood exclusion rule. Check the exact quantifiers, both signs, square-endpoint transfer, missing-prime/squareful terms, and the difference between a single good endpoint and globally first-bad history.
 
 Direct continuation gate: only an independently proved exclusion under the full first-bad hypothesis could feed the existing no-first-bad plus finite-base VF consumer. Neither a necessary plateau nor an unconditional good-run example pays that exclusion. No global gain, new route, Lean theorem, or finite counterexample is claimed yet. Prior AI/HC evidence and receipts above are preserved byte-for-byte.
+
+
+---
+
+## Good Prime-Error Plateaus Can Saturate Every Short Anchored Interval
+
+### Final Synthesis - 20261118-owner-1615-EST/GP
+
+### A. Most Important Mathematical Development
+
+**An arbitrarily long, genuinely arithmetic interval of radially GOOD endpoints can have complete once-anchored normalized covariance arbitrarily close to one on EVERY contained subinterval. Each subinterval carries its own single correct anchor and all of its signed cross terms; the one-block case is the original normalized NNS. This occurs for both signs of the actual prime error.**
+
+This is a paper consequence of classical Littlewood oscillation, the proved VF/Li bounded-error bridge, a uniform Brun-Titchmarsh block bound, and a moving-level crossing argument. It is not a random-sign construction or a numerical extrapolation. The new point relative to EXT-20261014-5 and HC is the simultaneous **good-endpoint and all-subinterval** conclusion, not the already-known single-root limsup.
+
+Precisely, for every integer L0>=1, every 0<eta<1, every 0<delta<1, and either sigma in {-1,1}, there are arbitrarily large integer centers B such that
+
+```text
+0 < sigma D_t <= delta * 2t log t       (B-L0 <= t <= B+L0),
+D_b^2 / (|D_a| + sum_(a<=s<b) C_s)^2 > 1-eta
+                                      (B-L0 <= a < b <= B+L0).
+```
+
+The one-block case is EXACTLY the existing original normalized NNS. The longer interval expression is explicitly the once-anchored raw run statistic, not an asserted returned-cell admission or an interchangeable #915 denominator. The theorem also gives growing windows, of size proportional to the square root of log log log B along appropriate subsequences, and explicit lower bounds tending to one.
+
+Separately, Brun-Titchmarsh upgrades HC's **upper-escape backward** persistence from order log B to order log(B)^2. Both first-bad branches force earlier-good original NNS values of size 1-O(1/log(B)^2). No contradiction follows: the new unconditional good windows have much smaller radial amplitude and much shorter growing length than those first-bad windows.
+
+| Claim, prefix 20261118-owner-1615-EST | Result | Status |
+| --- | --- | --- |
+| GP1 | Finite total-variation lemma for every contained once-anchored interval; complete block bound C_s<=6s/log s | Supporting PAPER_PROOF; elementary source comparison, not claimed as a new general inequality |
+| GP2 | Both-branch logarithm-squared prior-good persistence, upper-branch energy lower bound, and original one-block saturation rate | PAPER_PROOF / CONDITIONAL / SELF_AUDIT |
+| GP3 | Genuine two-sign, radially-small, growing plateaus saturating ALL contained raw anchored intervals | PAPER_PROOF / SELF_AUDIT; principal new report-level consequence |
+| GP4 | A fixed-horizon uniform covariance-contraction selector on every radially-good window is false | REFUTED, by GP3's all-scale genuine-source existence proof, not by a computed finite witness |
+| GP5 | Source checks, rational algebra controls, and bounded actual-interval search | FINITE_COMPUTATION; 25,504 assertions passed; no saturated actual interval found |
+
+**INDEPENDENT_REVIEW_PENDING; NOT_FORMALIZED; NO_NEW_GLOBAL_UPPER_GAIN; VERIFIED_ETA=NONE; RH=OPEN.** This completes a bounded feasibility audit of a local saturation/descent mechanism. It does not refute a theorem under the full first-bad hypothesis, whose occurrence remains unproved. No worldwide novelty claim is made for a consequence of classical oscillation.
+
+### B. Current Authoritative Objective
+
+Actual scheduled invocation: 2026-11-18 16:15:01 EST, America/New_York; PLATFORM_RUN_ID=UNAVAILABLE. Source main is `935840aec9b1fcbc66fe4e0164061d661a8ca3b1`. The current governing task priority is BOOTSTRAP_TO_HALF_V1; cross-route and latest-real-report protocols were consumed. The canonical target is unchanged:
+
+```text
+exists C>=0, forall integers R>=2:
+ |pi(R^2)-F_R-sqrt(2)| <= C R log R,
+F_R=sum_(2<=s<R) (2s+1)/log(s^2+s+1/2).
+```
+
+The formal terminal `riemannHypothesis_of_vfCanonicalSquare` still takes `ClassicalVonKochRHCriterion` explicitly. The fixed K=2 first-bad route is a sufficient direct route with its finite base; no converse from RH to that specific numerical wall is claimed.
+
+For integer s>=16, retain the literal source:
+
+```text
+O_s={n odd: s^2<n<(s+1)^2}, #O_s=s,
+m_s=(2s+1)/log(s^2+s+1/2), w_s=m_s/s,
+P_s=pi((s+1)^2)-pi(s^2), D_s=pi(s^2)-F_s,
+q(s,n)=w_s-1_Prime(n),
+C_s=sum_(n in O_s)|q(s,n)|=m_s+(1-2w_s)P_s,
+D_(s+1)=D_s+P_s-m_s, H_s=2s log s.
+
+N_s = D_(s+1)^2/(|D_s|+C_s)^2.
+FirstBad(B): |D_B|>H_B and |D_t|<=H_t for EVERY 2<=t<B.
+```
+
+Squareful and higher-depth composite seats are retained. Strict square boundaries are retained; those endpoints are composite in the relevant range. One historical anchor is retained once, with sign -D_a. No prime is replaced by its density. The exact N_s identification follows from `vfMidAnchoredZeroTargetNNSNormalizedCovariance_mul_total`, the actual source recursion, and `vfMidFirstBadZeroTargetTotalMass_eq`, not from an empirical correlation convention.
+
+**Baseline / dependency receipt.** The strongest applicable inspected native comparator remains
+`native_mertens_near_uniform_window_error_closed : MertensGrowthAtMost (7/8-7/(64*nearUniformSlotCount))`, with EVERY positive exponent loss. Its current original declaration was read; it has no unpaid arithmetic supplier argument. The exact #1119 hosted audit log at tested head `77ee815846d6d534c866f0752aa33b84c385610a` was fetched again: terminal closures 35358, 35375, 35736, 35737, 35753, with only propext, Classical.choice, Quot.sound. The latest Lean report's unchanged-dependency comparison is reused at that scope, not misreported as a fresh full transitive compilation. GP does not use this comparator to derive a prime-error bound or compare unrelated slot counts.
+
+Current main has 10/10 successful checks. #1145 and #1146 are now human-merged, superseding their earlier OPEN labels in HC. The only open PR discovered is non-draft #1147, head `e77d049ff83809c13c52e3d90922f34ed032efac`, with 13/13 successful checks. Its actual source and final repair theorem were read at blob `92608fc013c26102ac12250558a850209028e6d8`. It controls a finite same-support Nyman covariance repair, not GP's actual-prime source or a complete arithmetic upper norm. No new workflow was triggered and no Lean ran locally.
+
+**Material source receipts.** All paths below are at the pinned main, except the explicitly labeled PR source.
+
+| Path | Blob SHA |
+| --- | --- |
+| AGENTS.md | c4f36b772f8a4b0c24fe566b90fafb646073c60f |
+| CURRENT_PROOF_CONTRACT.md | 95566e37c8eaeb99ee680660df4f9d2e06ea5038 |
+| docs/RHLEAN_BOOTSTRAP_TO_HALF_20261116.md | 96ad4439ec458af6168f7d9cb3eef5dde291d37c |
+| docs/RHLEAN_REPORT_CONTINUITY_LAST_ACTUAL_20261111.md | 3e71820a4af722eae7098da6945bb5bcba50dd0d |
+| docs/RHLEAN_CROSS_ROUTE_SIGNED_RECOVERY_20261110.md | e3ae4280438f591f1ffaddd754a1c3a6d35d0691 |
+| research/VF_MID_SIGNED_SEAT_CHARGE.lean | 87a6654a4a4337b409fde69aa15d7264d8b721b6 |
+| research/VF_MID_ACTUAL_PRIME_FIRST_BAD_MOBIUS_TRIGGER.lean | 1163ae30b448b2fdd99fc4bfb4f13b36863a52a9 |
+| research/VF_MID_FIRST_BAD_HISTORY_COMPRESSION.lean | d9cc97541f9713b6eec8df30885e9ca830478e59 |
+| research/VF_MID_915_EXACT_HISTORICAL_NNS_COMPRESSION.lean | 6cc6b2a9d25279dd44fb65cb222f5d6846a912d4 |
+| research/VF_MID_FIRST_BAD_NORMALIZED_PARTIAL_MOMENT.lean | bb0d518258e9c820579b55109326c65a86871837 |
+| research/VF_MID_915_SOURCE_PAYMENT_CONTENT_AUDIT.lean | f7d046d8d94962e18f794deee7e33ce7508a0e74 |
+| research/VF_CANONICAL_SQRT_TWO.lean | 3ced39671cff51579a8009a6ea059890368ca05a |
+| research/VF_CANONICAL_SQRT_TWO_VON_KOCH.lean | 79030d70e8d3e0d08eef9bac53fef95c36eca2fb |
+| research/VF_MID_ENDPOINT_TRIGGER_DICTIONARY.lean | bd8a03d33ab2ce08914da54772eadd0ac369368f |
+| research/oai_434/VF919WindowErrorClosure.lean | f629db1b2b65d6ec042ac9432397d4b6316200c6 |
+| research/NYMAN_VARIANCE_REPAIR.lean, PR #1147 head only | 92608fc013c26102ac12250558a850209028e6d8 |
+
+The current DAG and coordinate atlas were retrieved at blobs `098f88f9b8e727ce78e52e5dc5158d68c930bf1b` and `cd0419d00a37739fe5a292f5cb738e33213949d5`; they locate typed edges, not substitute for the original declarations inspected above. The dynamic protocol, complete-return contract, and persistent research engine were also read at unchanged blobs b76d595f09403fc54eca71d04bf9e0306e0a9c09, 4775ee5fd95f279beab08a75d1e17127078b19a6, and 7e1e97deb574006174eaacba03251df673c73c67.
+
+**Continuity.** Nontruncated latest-real discovery used report revision `1818c09c1b0a5c49381131c1ec9f56ee15a6c34b`, without a calendar cap. Complete November 17/18 role files were retrieved. Relevant new syntheses, proofs, verdicts, resume capsules and selected original route derivations were read; this is not a claim to have re-audited every historical appendix. Both dates' complete Coordinator mirrors were fetched and byte-equal. The last own HC watermark was DAMP / AI / PAIR / FD / PN / DP / Lean DUAL.
+
+| Role / latest actual section EST | LAST_VERIFIED Nov 18 blob | LAST_CONSUMED -> newly consumed; status / resume |
+| --- | --- | --- |
+| Coordinator DAMP 07:10 | ee7b4ce6ff79ab0eaea4d8b74d95e3e78f398cb5 | DAMP carried forward; FC now independently accepts its stated identities, auxiliary bound and inverse obstruction; complete signed recovery still open. |
+| Owner HC 08:09 | 9ee34b6e9daa3cbbac24826f8fc96d65f1fe36ff | HC and prior AI/FB/HF/PC recovered; this GP continues the history-sensitive feasibility question, not fixed-depth enumeration. |
+| Analytic PV 09:09 | 804f68e0163cbf6836a060a552256d1746d51242 | PAIR -> PV; FC accepts explicit PV1 lower bound and PV2/PV3 scope; complete weighted upper norm still open. |
+| Wheel PM 10:12 | d7c5014b34183b6a377c0438cb6cae27ba35e401 | FD -> PM; nearest-value pairing preserves the endpoint, path obstruction has extra capacity assumptions; no complete upper supplier. |
+| Census PS 11:00 | 5d76c950c517712bbba138d7240d21ac4ccd6b93 | PN -> PS; Q>=P strengthening refuted at H=18, H=24 separately negative; finite certificates not independently rerun here. |
+| Referee FC 12:03 | 91b57ce6a46693403cd8a5751c63aaf8335ab305 | DP -> FC; DAMP and selected PV verdicts preserved; new FC growing-cell no-go itself awaits independent review. |
+| Lean VR 13:14, completed synthesis 13:42 | 2cd3263317a8afaae5e664f4b56d2c095059421c | DUAL -> VR; #1147 is certified at its exact PR head, still unmerged; no endpoint upper estimate. |
+
+TODAY=AVAILABLE; YESTERDAY=READ/CARRY_FORWARD for all roles. Nov 17 predecessor blobs in the same role order: 125e55aa191083d9c0a982b6dc5a66267e4e4256; 6516bf78b096471ccfd2fb8c215e94002544a594; d4bc53ac1b68f6dadabc4a04a2f5fc8c74f6625f; 5c26771c0a266d5112e0b4a4b28aba0132e35ef7; 587b0bb3dd66834a18610ab86174f285f81c4b04; 103ee17307ac799e20bd4ce17d97ff96101a9e5b; ee9ed0ace763bf99fea5812490f9541653917938. No newly missing publication interval after HC was discovered; older silent dates are not invented as executed runs. CONTINUITY_COMPLETE for relevant latest-real discovery and post-HC backfill; NEW_UNCONSUMED=NONE at intake within that scope.
+
+EXTERNAL_HANDOFFS blob `7d63d434690d00dffce9c90335d41c4f62d85798` was reread and has no new entry after October 18. Preserve EXT-20261018-PNT-1's cofactor weights and root boundary, and EXT-20261014-5's unconditional-all-root scope. The single-root Littlewood/Brun-Titchmarsh mechanism in EXT-5 is explicitly credited below.
+
+### C. Structural Hypotheses Investigated
+
+**H1: True prime exclusion strengthens historical persistence.** A uniform sieve upper bound on actual primes should control the complete local absolute mass at O(s/log s), improving the earlier seat-count-only estimate. GP2 confirms this and supplies the missing backward direction for the upper escape on a logarithm-squared window. It is a necessary configuration, not its exclusion.
+
+**H2: A long saturated history might force radial badness or permit a universally contracting local interval selector.** GP3-GP4 disprove the fixed-horizon, fixed-contraction version, even with every endpoint deep inside the radial wall and with full raw subinterval Grams. Unlike HC's conditional configuration, these are unconditional existence statements about genuine primes.
+
+**H3: Saturation is a scale-ratio effect rather than a unique near-wall signature.** The relevant ratio is local total variation divided by historical signed amplitude. A large anchor relative to nearby block mass drives NNS toward one whether that anchor is near 2R log R or far below it. GP1 and the moving-level construction make that statement precise. No independence of primes or covariance signs is assumed.
+
+### D. Mathematical Derivation
+
+#### GP1. Complete Interval Conservation And A Finite Variation Lemma
+
+For integers 16<=a<b define one actual interval carrier: the atom -D_a and all q(s,n), a<=s<b and n in O_s, each once. Let
+
+```text
+S_[a,b)=-D_a+sum_(a<=s<b,n in O_s)q(s,n)=-D_b,
+M_[a,b)=|D_a|+sum_(a<=s<b)C_s,
+N_[a,b)=D_b^2/M_[a,b)^2,   E_[a,b)=2D_b^2-M_[a,b)^2.
+```
+
+Whenever the denominator is nonzero, 0<=N_[a,b)<=1. In particular N_[s,s+1)=N_s exactly. For the longer run this is an exact raw-source representation, not a change to the theorem's prescribed one-block denominator.
+
+Fix 16<=A<=B<=Z and set d=|D_B| and V=sum_(A<=s<Z)C_s. If d>V, then all D_t, A<=t<=Z, have D_B's sign, and for EVERY A<=a<b<=Z,
+
+```text
+d-V <= |D_t| <= d+V,
+N_[a,b) >= ((d-V)/(d+V))^2.                           (GP.1)
+```
+
+Proof. The signed recursion gives |D_(s+1)-D_s|<=C_s, so telescoping gives |D_t-D_B|<=V. Put W=sum_(a<=s<b)C_s. The exact signed total gives |D_b|<=M_[a,b), while |D_a|<=|D_b|+W gives M_[a,b)<=|D_b|+2W. Since |D_b|>=d-V>0 and W<=V,
+
+```text
+|D_b|/M_[a,b) >= |D_b|/(|D_b|+2W)
+              >= (d-V)/(d+V).
+```
+
+Squaring proves GP.1. This is a lower bound; the use of triangle inequality here is not being misrepresented as a signed upper gain.
+
+The complete quadratic is literally
+
+```text
+S_[a,b)^2 = D_a^2 - 2D_a sum q + sum_i q_i^2
+                           + 2 sum_(i<j) q_i q_j = D_b^2.
+```
+
+The last cross sum includes different blocks, prime/composite signs, owners and depths. There is no sum-of-block-squares replacement. The familiar restoration with r=b-1 remains
+
+```text
+J=|D_a|+sum_(a<=s<r)C_s-|D_r| >= 0,
+M_[a,b)=M_[r,r+1)+J,
+E_[r,r+1)=E_[a,b)+2M_[r,r+1)J+J^2.                  (GP.2)
+```
+
+This restoration is already on main and in HC; it is reused, not counted as new mathematics. Distinct subintervals in GP.1 are separately quantified observations, never added as disjoint copies of their overlapping history.
+
+#### External Input And The Original-Weight Block Bound
+
+Montgomery and Vaughan, *The large sieve*, Theorem 2, equation (1.12), gives for real x>0 and y>1
+
+```text
+pi(x+y)-pi(x) < 2y/log y.
+```
+
+The original paper's statement and hypotheses were inspected: [author-hosted paper, p.121](https://personal.science.psu.edu/rcv4/personal/Publications/large_sieve.pdf). Only this uniform actual-prime upper bound is imported, not a short-interval asymptotic or a heuristic density.
+
+Apply it with x=s^2, y=2s+1. For s>=16, 0<w_s<1/2, and with g(s)=s/log s,
+
+```text
+P_s < 2(2s+1)/log(2s+1),
+m_s < (2s+1)/(2log s),
+0<=C_s<=m_s+P_s < (5+5/(2s))g(s) < 6g(s).           (GP.3)
+```
+
+The weight domain follows directly from log(s^2+s+1/2)>2log s and log 2>2/3. In particular, at s=16 its upper bound is 99/256<1/2. This argument bounds the sum of absolute ORIGINAL charges, including every composite seat. It does not delete composites or assume the prime count equals Li.
+
+For B>=32 and L+1<=B/2, all blocks in [B-L,B+L) have C_s<=12g(B), since g is increasing for s>e and g(2B)<2g(B). Therefore
+
+```text
+V_[B-L,B+L) <= 24L g(B).                             (GP.4)
+```
+
+#### GP2. Logarithm-Squared Historical Persistence In Both Branches
+
+Assume FirstBad(B), and put t=B-j. For fixed c>0 and 1<=j<=floor(c log(B)^2), uniformly as B tends to infinity,
+
+```text
+f=F_B-F_t=(1+o_c(1))j g(B),
+y=B^2-t^2=j(2B-j),
+p=pi(B^2)-pi(t^2) < 2y/log y <= 4j g(B).             (GP.5)
+```
+
+The first statement is the uniform deterministic asymptotic m_s/g(B)->1 on these blocks. For the last inequality, j<=B/2 eventually, hence y>=B and y<=2Bj. Thus no unproved uniform prime asymptotic is involved. The exact equation is D_t=D_B+f-p.
+
+For an UPPER first bad, with any fixed 0<c<2/3,
+
+```text
+D_(B-j)/H_B >= 1 - 3j/(2log(B)^2) - o_c(1).          (GP.6)
+```
+
+For a LOWER first bad and fixed 0<c<2, prime nonnegativity gives the retained stronger HC bound
+
+```text
+-D_(B-j)/H_B >= 1 - j/(2log(B)^2) - o_c(1).           (GP.7)
+```
+
+In each case prior goodness supplies |D_(B-j)|<=H_(B-j). Consequently every earlier endpoint in the displayed run has the escape sign and magnitude at least rho H_B, for fixed rho<1-3c/2 in the upper case or rho<1-c/2 in the lower case, once B exceeds a threshold fixed before B.
+
+For s=t-1 in either run, s<B, and GP.3 gives
+
+```text
+|D_t| <= |D_s|+C_s <= |D_t|+12g(B),
+N_s >= (1+6/(rho log(B)^2))^(-2).                    (GP.8)
+```
+
+Thus E_[s,s+1)>0 for every such earlier GOOD endpoint at sufficiently large B. GP.8 strengthens HC's seat-cap rate, while GP.6 improves the upper-branch length. It does not improve HC's lower-branch length or claim a smaller optimal constant.
+
+For every epsilon>0 and all sufficiently large UPPER first-bad B, GP.6 also yields
+
+```text
+sum_(j=1..floor(c log(B)^2)) D_(B-j)^2
+ >= (4c-6c^2+3c^3-epsilon) B^2 log(B)^4,
+                                         0<c<2/3.  (GP.9)
+```
+
+The coefficient is 4 times the integral of (1-3u/2)^2 from 0 to c. Uniform negativity is not squared: GP.6 is uniformly POSITIVE on this range, so squaring is valid. The retained lower-escape coefficient is HC's 4c-2c^2+c^3/3 for c<2. No mean-square upper bound of matching strength is supplied.
+
+All GP2 conclusions are conditional implications for every sufficiently large B satisfying FirstBad(B), not a claim that there are arbitrarily large first-bad roots. In fact a fixed wall has at most one first-bad root. Constants and thresholds precede that hypothetical root.
+
+#### GP3. Unconditional Saturated Plateaus Strictly Inside The Wall
+
+The classical signed Littlewood theorem states
+
+```text
+pi(x)-li(x)=Omega_plusminus(sqrt(x)*log log log x/log x).
+```
+
+The original Hardy-Littlewood paper was inspected at introduction (1.52), section 5.1 and Theorem 5.81: [*Contributions to the theory of the Riemann zeta-function and the theory of the distribution of primes*](https://personal.math.ubc.ca/~gerg/teaching/592-Fall2018/papers/1916.Hardy.pdf). Section 5.1 explicitly explains that its RH case proves the unconditional assertion because the contrary case yields stronger oscillation. This imports a classical theorem, not an RH assumption, an unverified formalization, or any computed positive prime-error example. Principal-value li and the repository's Li_2 differ by a fixed constant.
+
+**Square-sampling bridge.** For R^2<=x<(R+1)^2, GP.3 bounds the prime-count increment by O(g(R)); the Li increment is also O(g(R)). The on-main theorem `abs_vfMidActualPrimeEndpointDefect_sub_primeLi_le_uniform` bounds the remaining VF quadrature discrepancy by one constant. Hence the sampled original defect obeys
+
+```text
+D_R=Omega_plusminus(g(R)*ell(R)),
+ell(R)=log log log R, for sufficiently large R.        (GP.10)
+```
+
+Indeed sqrt(x)/log x is asymptotic to g(R)/2 and ell(x)/ell(R)->1. The O(g(R)) sampling loss is smaller than the oscillation by the factor ell(R)->infinity. This bridge is essential; arbitrary sampling of an oscillatory function would not suffice.
+
+Choose ONE kappa>0 small enough that for each sigma in {-1,1} there are arbitrarily large R with sigma D_R>=2kappa ell(R)g(R). Put
+
+```text
+a(R)=kappa ell(R), T_R=a(R)g(R).
+```
+
+Both factors of T_R are positive and increasing eventually. For each sign, the opposite-sign oscillation supplies arbitrarily late values below T, and GP.10 supplies later values above it. Take the first crossing after each such late below-threshold value. This produces an unbounded sequence of integer B satisfying
+
+```text
+sigma D_(B-1)<T_(B-1),  sigma D_B>=T_B.
+```
+
+By the actual one-step bound |D_B-D_(B-1)|<=C_(B-1)<=6g(B),
+
+```text
+a(B)g(B) <= sigma D_B <= (a(B)+6)g(B).                (GP.11)
+```
+
+This crossing construction, not the size of Littlewood's large values alone, supplies a controlled UPPER amplitude and guarantees good endpoints below.
+
+Set L_B=floor(sqrt(a(B))), A=B-L_B, Z=B+L_B. Eventually A>=16, L_B+1<=B/2, and a(B)>24L_B. Write a=a(B), L=L_B. GP.4 and GP.11 imply, uniformly over every integer t in [A,Z],
+
+```text
+(a-24L)g(B) <= sigma D_t <= (a+6+24L)g(B).            (GP.12)
+```
+
+Since a=O(ell(B)), L=O(sqrt(ell(B))),
+
+```text
+max_(A<=t<=Z) |D_t|/H_t
+ <= (a+6+24L)g(B)/[2(B-L)log(B-L)] -> 0.             (GP.13)
+```
+
+Every endpoint is therefore strictly inside the actual radial wall, not just inside a different model envelope. This does NOT say every endpoint from 2 to A is good; no globally first-bad hypothesis has been manufactured.
+
+Finally use GP.1. Its lower fraction increases with d and decreases with V when d>V. Substituting d>=ag(B), V<=24Lg(B) gives the simultaneous full-source restriction
+
+```text
+min_(A<=u<v<=Z) N_[u,v)
+ >= ((a-24L)/(a+24L))^2 -> 1.                        (GP.14)
+```
+
+Every diagonal and signed off-diagonal of each complete interval carrier is already included in N_[u,v). There is no need to choose a favorable pair or to spend the same history twice. The one-block version has the sharper bound
+
+```text
+min_(A<=s<Z) N_s >= (1+24/(a-24L))^(-2) -> 1.         (GP.15)
+```
+
+Equations GP.12-GP.15 hold along an unbounded crossing sequence for EACH sign, with kappa fixed independently of the growing root. They also work for any integer L(B)->infinity with L(B)=o(a(B)); the displayed square-root choice is simply an explicit one. No numerical starting root or effective first positive crossing is claimed.
+
+#### GP4. The Precise Mechanism Refuted
+
+Consider the following proposed auxiliary principle, with fixed L0>=1 and fixed eta in (0,1):
+
+```text
+For every sufficiently large B whose endpoints t in [B-L0,B+L0]
+are all radially good, there exists a nonempty contained interval [u,v)
+such that N_[u,v) <= 1-eta.                           (W)
+```
+
+GP3 refutes (W), for either sign, even after requiring all those endpoints to satisfy |D_t|<=delta H_t for any prescribed 0<delta<1. Its growing saturated windows eventually contain the fixed window, and GP.14 excludes EVERY possible choice of [u,v), including a selector depending on all observed arithmetic inside that window. In particular, for eta=1/2 all these subintervals eventually have E_[u,v)>0 although their endpoints are good.
+
+This is not a refutation of original source payment UNDER FirstBad, an amplitude-sensitive condition, a window of order log(B)^2 at near-wall height, a global-prefix condition, or a source-specific clipped returned-cell theorem. None of those stronger premises is established by GP3. The fact that GP2 and GP3 both display growing saturated runs does not make their scales interchangeable.
+
+### E. Quantitative Consequence And Half-Continuation Audit
+
+GP3 is an independently justified **restriction on possible exclusion mechanisms**, not an upper bound for the canonical discrepancy. It establishes real configurations that a uniform fixed-horizon covariance selector would wrongly prohibit. GP2 is a stronger necessary configuration under first badness, not a new impossible configuration.
+
+**Compact continuation capsule:** ROUTE=VF/SAT with actual-prime JOH interfaces preserved; MODE=bounded feasibility audit. START=the original signed seat/anchor identities, HC's history analysis, the formal no-first-bad consumer, and the separately certified comparator. PROPOSED_ADVANCE=use temporal NNS persistence as an exclusion test. VALID_RANGE=literal roots and strict blocks, GP1 s>=16, GP2 fixed c and rho before B, GP3 fixed kappa before unbounded crossing sequences. DIRECT_ENDPOINT=no first bad plus finite base -> canonical VF, with the explicit classical RH criterion retained. RENEWAL=not supplied. LIMIT_TO_HALF=not established. RETURNS=one anchor, all primes/composites, all within/cross-block interactions, exact compression slack and no inferred clip admission. FIRST_OPEN=new radial-height-sensitive signed arithmetic restriction. VERDICT=local uniform saturation selector REFUTED; no new admitted half route.
+
+| Euler / finite AC | VF / actual-prime source | NNS / OAI / Nyman | Square-block source |
+| --- | --- | --- | --- |
+| Complete wheel centering has its existing prime-counting identity. The frozen Q_R uses genuine ordered mu(a)mu(b) and strict K_R, not this defect. No equality with Q_R is asserted. | D_R differs from prime-Li_2 by the compiled O(1) quadrature; GP uses actual P_s, all seats and the original weights. | N_s is exactly the native anchored all-pairs NNS ratio. Longer intervals have a separately defined raw denominator. No coefficient map to OAI ideal phases or Nyman taper covariance exists here. | These are prime-square-root blocks with endpoint pi(R^2), not M(R^2-1). Perfect-square prime-count differences vanish, but that does not identify Mertens or prime-power sources. |
+
+**Source -> loss -> recovery -> consumer.** The original complete signed endpoint is retained. Reducing its information to a scale-free normalized covariance loses its size relative to the radial wall; GP3 proves that the lost information is indispensable to this proposed selector. GP.3's sieve estimate supplies a legitimate local variation bound and GP.1 keeps the full Gram, but neither recovers the missing correlation between near-wall history and actual current prime admissions. Existing #939 content audit and historical restoration explicitly prevent treating this as a paid first-bad estimate. Nyman profile/repair lower bounds are on different carriers and supply no recovery. PAID_RECOVERY_TEST=NO_COMPATIBLE_UPPER_SUPPLIER_FOUND.
+
+No fixed exponent improvement, finite A/C, canonical O(R log R) estimate or original first-bad exclusion is claimed.
+
+### F. Falsification, Circularity And Executed Checks
+
+**Novelty and no-go comparison.** EXT-20261014-5 already uses Littlewood and Brun-Titchmarsh to obtain the single-root normalized limsup one. HC already proves conditional earlier-good saturation and the exact history-compression obstruction. GP does not re-credit those facts. Its new investigated consequence forces the root to a slowly growing intermediate amplitude, proves every endpoint locally good, and keeps ALL subinterval Grams simultaneously saturated. The local formal source search and relevant report backfill found no prior statement of that combined restriction; this is not a universal literature-priority claim.
+
+**Hypotheses checked.** Brun-Titchmarsh is uniform in the actual interval position and uses y>1; all applications satisfy it. Square-sampling consumes a proved small-increment bound, not just continuity of li. Both Littlewood signs are used to create unbounded crossings. The crossing threshold is monotone, and no RH upper bound is assumed to make it good. Positive quantities are squared only after their lower signs are established. The unknown oscillation constant is fixed before the root. The all-window statement does not sum overlapping histories. FirstBad is not inferred from any of the constructed good windows.
+
+**Finite evidence, GP5.** The registration preceded the checker. The exact checker and its syntax check completed successfully. Rational logarithm enclosures use a 50-term atanh series with an explicit positive tail bound and outward rounding to a 128-bit dyadic grid. Symbolic polynomial checks verify selected complete squares coefficientwise. All 25,504 counted assertions passed:
+
+| Check family | Count / result |
+| --- | --- |
+| Independent primality checks, through 4096 and selected full odd-seat blocks | 5,859 |
+| Actual block weight, recursion consistency, absolute variation, sieve bound, and literal absolute population | 1,008 each across five families |
+| Exact signed polynomials and full-square identities | 4 each |
+| Omitted anchor, reversed anchor, omitted signed mixed term, diagonal-only norm | 4 detected controls each |
+| Omitted squareful non-square seats | detected at root 16: 261, 275, 279 |
+| Generic rational subinterval inequality and same-sign checks | 7,290 each, both signs |
+| Selected actual centered windows | 40 examined; ZERO satisfy d>V, so all 40 variation-lemma applications are VACUOUS |
+
+The finite prime limit was 1024^2=1,048,576. The generic rational family is not a genuine-prime or first-bad counterexample. The bounded genuine-interval search found **NO** interval with N_[a,b)>1/2 at lengths 1, 2 or 4 within roots 16..1024. Its largest recorded lower-endpoint candidates were:
+
+| Length | Interval | Certified ratio enclosure |
+| --- | --- | --- |
+| 1 | [119,120) | [0.206053679, 0.206053680] |
+| 2 | [118,120) | [0.080162561, 0.080162562] |
+| 4 | [53,57) | [0.025250625, 0.025250626] |
+
+These small results neither prove nor refute GP3's infinite-scale existence theorem. In particular, no computed positive Littlewood excursion, no genuine first-bad endpoint, and no finite saturated-window witness are asserted. The range was NOT extended merely to seek supportive data. No correction to the registered mathematical test or checker was needed after execution.
+
+Checker SHA256: `52829ed8cfbb9e3a969fb0bfc9ef2c94510a9066bf20cc4f104b63b96b20af00`. Registration SHA256: `8df68b167f7fdd562bb056d0024c5e4c70daa0bb82fef539451040d437ce65ea`. Full executed sources follow in the reproduction appendix. All required processes ended. This is not a new Lean certificate.
+
+### G. Conceptual Interpretation
+
+The actual arithmetic admits two scales of concentration that normalized NNS alone cannot separate. First-bad concentration is tied to the radial wall; classical oscillation also creates an anchor much larger than nearby signed variation but much smaller than that wall. The same complete normalized Gram approaches one in both cases. A larger finite neighborhood and an adaptive subinterval choice do not cure that loss of radial information.
+
+The moving-level construction is the key additional idea: taking the largest known oscillatory values alone would not prove the surrounding endpoints good. Taking their first crossings of a much lower increasing level controls both the lower and upper amplitude using actual prime increments. The argument reveals a real permitted arithmetic configuration, not a conjectured independence model.
+
+### H. Competing Mechanisms
+
+| Hypothesis | Established / missing / decisive obstruction | Disposition |
+| --- | --- | --- |
+| Fixed-horizon saturated NNS forces badness or guarantees a contracting interval | GP3 realizes both-sign good windows with every interval saturated; GP4 refutes the stated uniform selector | ABANDON at that exact scope |
+| Full first-bad history plus radial height gives a new prime-admission restriction | GP2 proves longer necessary upper-branch history; independent arithmetic exclusion still missing | PRESERVE as OPEN, no new supplier or active quantitative promise |
+| Expand history and pay with the enlarged norm | HC and compiled GP.2 restoration retain the entire positive return | PARK; no new argument for discarding the return |
+| JOH / native complete signed prime response | PC/DAMP/FD/FC retain complete signed returns and reject unsigned shortcuts at their stated scope | PRESERVE route memory; this run supplies no new response estimate |
+
+This is not a new policy amendment, route monopoly or instruction to repeat a completed census. All nine route toolkits and existing scoped counterexamples remain valid. The half-continuation policy allows this bounded feasibility audit; it does not promote the resulting no-go into a complete half proof.
+
+### I. Specialist Handoffs
+
+**Coordinator:** GP3 is the strongest new concept for portfolio evaluation: moving-level actual-prime crossings produce locally radially-small but jointly saturated intervals. GP4 closes the specified uniform local-selector shortcut. GP2 strengthens a necessary near-wall configuration but supplies no contradiction. Do not describe this as more promising than an independent amplitude-sensitive mechanism. Recommended disposition: preserve the two-scale distinction and require genuinely new coupling to radial height before another saturation/descent cycle.
+
+**Adversarial Referee, precise review request:** independently reconstruct GP.10's transfer to square endpoints, the existence of unbounded crossings for each sign, GP.11's upper-amplitude control, and GP.14 for every contained interval. Attempt to break monotonicity, root sampling, both-sign quantifiers, denominator positivity or the once-only source. Then review GP.6-GP.9's upper-branch coefficient. A failure changes only the affected claim; acceptance would not discharge first-bad exclusion. This request is asynchronous report handoff, not an agent launch.
+
+**Analytic Type II:** the imported short-interval upper bound has an exact valid source bridge, but no prime-history cancellation. Any useful strengthening must couple the genuine near-wall defect to the signed prime supply, not merely improve the O(s/log s) constant. GP3 excludes only fixed normalized local caps; it does not transfer to Nyman or Hecke coefficients.
+
+**Finite Wheel & Incidence:** a proposed local return selector that sees only the raw saturated interval ratios must survive GP4. Full frozen-wheel/Mobius triggers retain their additional information and are not refuted. Do not identify these prime intervals with PM's ordered-triple source or Q_R.
+
+**Prime Census Laboratory:** no larger saturated-window search is requested. The all-scale argument is not feasibly confirmed by hunting for a positive Littlewood excursion. The small checker is only a source/algebra diagnostic and honestly records 40 vacuous actual-window applications. A new experiment needs a changed, finite, amplitude-sensitive inequality first.
+
+**Lean Verification:** GP is SELF_AUDIT and depends on external classical inputs not newly formalized here. No implementation task is assigned. GP1 and GP.2 overlap elementary or existing compression infrastructure; do not manufacture a duplicate proof PR. Only independently reviewed, nonduplicate statements with a named continuation use should be considered later.
+
+### J. First Independently Missing Lemma
+
+No new independently smaller unpaid supplier was found. The actual missing information is a signed arithmetic restriction that distinguishes the near-wall FULL first-bad history from the radially-small allowed configurations of GP3, after all original masks and returns are restored. Merely imposing E_one<=0 under FirstBad is, by the inspected #939 equivalence, the original no-first-bad assertion; it is not offered as a newly independent lemma.
+
+The precise stopping point is therefore **NO_NEW_RESULT for endpoint exclusion**, with a new source-valid obstruction to (W). A successor must provide a concrete arithmetic coupling not determined solely by these normalized local Grams, or a genuinely different complete consumer. This report does not invent a plausible-looking smaller lemma to conceal the absence of one.
+
+### K. Next-Run Resume Capsule
+
+```text
+RUN=20261118-owner-1615-EST/GP
+TRIGGER=2026-11-18 16:15:01 EST; PLATFORM_RUN_ID=UNAVAILABLE
+MAIN=935840aec9b1fcbc66fe4e0164061d661a8ca3b1
+AGENTS=c4f36b772f8a4b0c24fe566b90fafb646073c60f
+CONTRACT=95566e37c8eaeb99ee680660df4f9d2e06ea5038
+half_bootstrap_ack=BOOTSTRAP_TO_HALF_V1
+cross_route_ack=CROSS_ROUTE_SIGNED_RECOVERY_V1
+continuity_ack=LAST_ACTUAL_REPORT_CONTINUITY_V1
+REPORT_INTAKE=1818c09c1b0a5c49381131c1ec9f56ee15a6c34b
+LAST_CONSUMED=DAMP / HC / PV / PM / PS / FC / Lean VR
+TODAY=AVAILABLE; YESTERDAY=READ/CARRY_FORWARD
+EXTERNAL=7d63d434690d00dffce9c90335d41c4f62d85798, unchanged
+ROUTE=bounded actual-prime VF/SAT persistence feasibility
+SOURCE=N_s=D_(s+1)^2/(|D_s|+C_s)^2;
+  interval source has one -D_a anchor and EVERY original seat through b-1
+NEW=GP2 upper backward log-squared persistence;
+  GP3 both-sign good all-subinterval saturation; GP4 selector no-go
+INHERITED=EXT-20261014-5 single-root limsup; HC persistence/compression;
+  classical Littlewood/Brun-Titchmarsh; compiled VF/Li O(1) bridge
+VALID_RANGE=GP1 roots>=16; GP2 fixed parameters before B;
+  GP3 fixed kappa, two unbounded crossing sequences, L=o(logloglog B)
+DIRECT_CONSUMER=no first bad + finite base -> canonical VF,
+  explicit ClassicalVonKochRHCriterion retained
+FIRST_OPEN=independent radial-height-sensitive signed arithmetic coupling
+RENEWAL=NONE; NO_NEW_GLOBAL_UPPER_GAIN; VERIFIED_ETA=NONE; RH=OPEN
+FALSIFIER=(W) is false; NOT a counterexample to FirstBad-conditional payment
+FINITE=25504 assertions PASS; 40/40 selected actual windows VACUOUS for d>V;
+  no saturated actual witness; no first-bad or positive Littlewood computation
+MATH=PAPER_PROOF / CONDITIONAL / REFUTED_METHOD / SELF_AUDIT
+REVIEW=INDEPENDENT_REVIEW_PENDING; FORMALIZATION=NOT_ASSIGNED
+CHECKPOINT_COMMIT=29311f805bf817cebf75c2f2fc6e02bdefe8a5c6
+CHECKPOINT_BLOB=87576ac0cabb5a8c215e0245ec7e4c53ba669fd9
+CHECKPOINT=IMMUTABLE_READBACK_VERIFIED; only own file changed
+STATUS=BOUNDED_FEASIBILITY_COMPLETE; no new admitted half route
+NEXT=independent GP scope review, or genuinely different signed coupling;
+  no wider unchanged census or duplicate compression formalization
+PUBLICATION=substantive commit/readback receipt follows
+```
+
+The early checkpoint was fetched at its immutable commit and matched the submitted bytes; commit inspection confirmed only this owned report changed. Direct clone was unavailable (CONNECT tunnel HTTP 403), but connector reads and own-report publication worked. This tool limitation did not block the mathematical audit. No main/source/policy/other-report/PR edit, proof-branch creation or modification, schedule/permission change, merge, agent launch, local Lean run or new hosted workflow occurred.
+
+## GP Reproduction Appendix
+
+The following registration and checker are the exact files used in this invocation. The source-level polynomial and rational tests are finite diagnostics; they do not compute the infinite sequences in GP3.
+
+### Registered Test Plan
+
+```text
+# GP Exact Verification Registration
+
+Run: 20261118-owner-1615-EST/GP. Registered before running the checker.
+
+The main claim is an all-scale paper existence theorem, not a numerical
+prediction at accessible roots. No attempt will be made to compute a positive
+Littlewood excursion or an actual first-bad endpoint.
+
+1. Reconstruct actual primes and original VF masses through root 1024. Check
+   the sieve by independent trial division through 4096 and on complete odd
+   seats of roots 16, 64, 128, 549, and 1023. Keep squareful non-square seats.
+2. Use rational atanh-series logarithm enclosures and outward dyadic rounding.
+   Check C_s<=6s/log s, the original signed recursion, and radial-good status
+   only where certified. No floating value is a proof certificate.
+3. On selected centered windows and every contained subinterval, test the
+   finite variation lemma when its d>V hypothesis is actually met. Record
+   vacuity counts honestly. Separately compute bounded actual-source witness
+   searches at interval lengths 1, 2, and 4; report a failure to find a witness
+   rather than extend the range without a new mathematical reason.
+4. Check complete once-anchored signed sums and quadratic reconstruction
+   coefficientwise as polynomials in original block masses on small windows.
+   Detect omission of the anchor, its sign, mixed square terms, or squareful
+   seats. Do not replace the once-anchored run norm with a sum of block squares.
+5. Exhaustively test the general variation inequality on a finite rational
+   family with both signs, extremal increments, and all subintervals. These
+   cases are algebra controls, not actual prime histories.
+6. Classical Brun-Titchmarsh and Littlewood inputs are external paper theorems
+   with explicit bridges. The finite checker does not establish either input,
+   infinitely many good plateaus, or a first-bad exclusion. No Lean execution.
+
+```
+
+### Executed Exact Checker
+
+```python
+from collections import Counter
+from fractions import Fraction as F
+from functools import lru_cache
+from itertools import product
+from math import isqrt
+import json
+
+GRID = 1 << 128
+counts = Counter()
+
+
+def check(name, truth):
+    assert truth, name
+    counts[name] += 1
+
+
+def down(x):
+    return F(x.numerator * GRID // x.denominator, GRID)
+
+
+def up(x):
+    return -down(-x)
+
+
+class I:
+    def __init__(self, lo, hi=None):
+        self.lo = down(F(lo))
+        self.hi = up(F(lo if hi is None else hi))
+        assert self.lo <= self.hi
+
+    def __add__(self, other):
+        other = iv(other)
+        return I(self.lo + other.lo, self.hi + other.hi)
+
+    __radd__ = __add__
+
+    def __neg__(self):
+        return I(-self.hi, -self.lo)
+
+    def __sub__(self, other):
+        return self + -iv(other)
+
+    def __rsub__(self, other):
+        return iv(other) + -self
+
+    def __mul__(self, other):
+        other = iv(other)
+        vals = [a*b for a in (self.lo, self.hi)
+                for b in (other.lo, other.hi)]
+        return I(min(vals), max(vals))
+
+    __rmul__ = __mul__
+
+    def __truediv__(self, other):
+        other = iv(other)
+        assert other.lo > 0 or other.hi < 0
+        vals = [a/b for a in (self.lo, self.hi)
+                for b in (other.lo, other.hi)]
+        return I(min(vals), max(vals))
+
+    def absolute(self):
+        if self.lo >= 0:
+            return self
+        if self.hi <= 0:
+            return -self
+        return I(0, max(-self.lo, self.hi))
+
+    def square(self):
+        a = self.absolute()
+        return I(a.lo*a.lo, a.hi*a.hi)
+
+
+def iv(x):
+    return x if isinstance(x, I) else I(x)
+
+
+def log_unit(x):
+    z = (x-1)/(x+1)
+    assert 0 <= z <= F(1, 3)
+    t, out = z, F(0)
+    for j in range(50):
+        out += 2*t/(2*j+1)
+        t *= z*z
+    return I(out, out+2*t/(101*(1-z*z)))
+
+
+LOG2 = log_unit(F(2))
+
+
+@lru_cache(None)
+def logq(x):
+    x = F(x)
+    assert x >= 1
+    k = 0
+    while x >= 2:
+        x /= 2
+        k += 1
+    return k*LOG2 + log_unit(x)
+
+
+def overlaps(a, b):
+    return a.lo <= b.hi and b.lo <= a.hi
+
+
+def decimal(q, upper=False):
+    scale = 10**9
+    z = (-((-q.numerator*scale)//q.denominator) if upper
+         else q.numerator*scale//q.denominator)
+    sign = '-' if z < 0 else ''
+    z = abs(z)
+    return f'{sign}{z//scale}.{z%scale:09d}'
+
+
+def show(x):
+    return [decimal(x.lo), decimal(x.hi, True)]
+
+
+ROOT = 1024
+LIMIT = ROOT**2
+prime = bytearray(b'\x01')*(LIMIT+1)
+prime[0] = prime[1] = 0
+for p in range(2, isqrt(LIMIT)+1):
+    if prime[p]:
+        prime[p*p:LIMIT+1:p] = b'\x00'*((LIMIT-p*p)//p+1)
+trial_primes = [p for p in range(2, ROOT+1) if prime[p]]
+
+
+def trial(n):
+    if n < 2:
+        return False
+    return all(n % p for p in trial_primes if p*p <= n)
+
+
+sites = set(range(2, 4097))
+for s in [16, 64, 128, 549, 1023]:
+    sites.update(range(s*s+1 if s % 2 == 0 else s*s+2, (s+1)**2, 2))
+for n in sites:
+    check('independent_prime', bool(prime[n]) == trial(n))
+pi_square = {}
+running = 0
+next_root = 1
+for n in range(1, LIMIT+1):
+    running += prime[n]
+    if n == next_root**2:
+        pi_square[next_root] = running
+        next_root += 1
+
+m = {s: I(2*s+1)/logq(F(2*s*s+2*s+1, 2)) for s in range(2, ROOT)}
+D, C, P = {}, {}, {}
+f = I(0)
+for s in range(2, ROOT+1):
+    D[s] = I(pi_square[s])-f
+    if s < ROOT:
+        f += m[s]
+for s in range(16, ROOT):
+    P[s] = pi_square[s+1]-pi_square[s]
+    w = m[s]/s
+    check('weight_domain', 0 < w.lo and w.hi < F(1, 2))
+    C[s] = m[s]+(1-2*w)*P[s]
+    check('signed_recursion', overlaps(D[s+1], D[s]+P[s]-m[s]))
+    check('block_variation', (D[s+1]-D[s]).absolute().hi <= C[s].lo)
+    check('block_sieve_bound', C[s].hi <= (I(6*s)/logq(F(s))).lo)
+    direct = (s-P[s])*w+P[s]*(1-w)
+    check('literal_absolute_seats', overlaps(C[s], direct))
+
+# Each interval has its own single anchor; intervals are never combined.
+windows = [(b, l) for b in [32, 64, 128, 256, 512, 549, 768, 1000]
+           for l in [1, 2, 4, 8, 16]
+           if b-l >= 16 and b+l <= ROOT]
+eligible = 0
+for b, l in windows:
+    a, z = b-l, b+l
+    V = sum((C[s] for s in range(a, z)), I(0))
+    d = D[b].absolute()
+    if d.lo <= V.hi:
+        continue
+    eligible += 1
+    lower = ((d-V)/(d+V)).square()
+    for u in range(a, z):
+        for v in range(u+1, z+1):
+            total = D[u].absolute()+sum((C[s] for s in range(u, v)), I(0))
+            ratio = D[v].square()/total.square()
+            check('actual_variation_lemma', ratio.lo >= lower.hi)
+
+witnesses = {}
+maxima = {}
+for length in [1, 2, 4]:
+    best = None
+    for a in range(16, ROOT-length+1):
+        b = a+length
+        total = D[a].absolute()+sum((C[s] for s in range(a, b)), I(0))
+        ratio = D[b].square()/total.square()
+        if best is None or ratio.lo > best[2].lo:
+            best = (a, b, ratio)
+        good = all(D[t].absolute().hi <= (2*t*logq(F(t))).lo
+                   for t in range(a, b+1))
+        if good and ratio.lo > F(1, 2) and length not in witnesses:
+            witnesses[length] = {'A': a, 'Z': b, 'N_run': show(ratio)}
+    maxima[length] = {'A': best[0], 'Z': best[1], 'N_run': show(best[2])}
+
+
+def padd(*terms):
+    out = {}
+    for term in terms:
+        for key, value in term.items():
+            out[key] = out.get(key, F(0))+value
+    return {k: v for k, v in out.items() if v}
+
+
+def pscale(term, q):
+    return {k: q*v for k, v in term.items() if q*v}
+
+
+def pmul(left, right):
+    out = {}
+    for k, x in left.items():
+        for l, y in right.items():
+            key = tuple(sorted(k+l))
+            out[key] = out.get(key, F(0))+x*y
+    return {k: v for k, v in out.items() if v}
+
+
+def dpoly(s):
+    return {(): F(pi_square[s]), **{(j,): F(-1) for j in range(2, s)}}
+
+
+for a, b in [(16, 17), (16, 20), (24, 32), (32, 40)]:
+    anchor = pscale(dpoly(a), -1)
+    seats = {(): F(-(pi_square[b]-pi_square[a])),
+             **{(s,): F(1) for s in range(a, b)}}
+    total = padd(anchor, seats)
+    check('exact_signed_polynomial', padd(total, dpoly(b)) == {})
+    check('exact_full_square', padd(pmul(total, total),
+          pscale(pmul(anchor, anchor), -1),
+          pscale(pmul(seats, seats), -1),
+          pscale(pmul(anchor, seats), -2)) == {})
+    check('negative_omit_anchor', padd(seats, dpoly(b)) != {})
+    check('negative_anchor_sign', padd(pscale(anchor, -1), seats, dpoly(b)) != {})
+    check('negative_omit_mixed', pmul(anchor, seats) != {})
+    x, y = D[a].absolute(), sum((C[s] for s in range(a, b)), I(0))
+    check('negative_norm_diagonal_only', (2*x*y).lo > 0)
+
+squareful = [n for n in range(257, 289, 2)
+             if any(n % (p*p) == 0 for p in trial_primes if p*p <= n)]
+check('negative_omit_squareful', bool(squareful) and
+      all(not prime[n] for n in squareful) and (len(squareful)*m[16]/16).lo > 0)
+
+generic_cases = 0
+costs = [F(1), F(2), F(3), F(2), F(1)]
+V = sum(costs)
+for signs in product([-1, 0, 1], repeat=5):
+    delta = [s*c for s, c in zip(signs, costs)]
+    for sigma in [-1, 1]:
+        center = sigma*(2*V+1)
+        vals = [center-sum(delta[:2])]
+        for change in delta:
+            vals.append(vals[-1]+change)
+        d = abs(center)
+        lower = ((d-V)/(d+V))**2
+        for a in range(5):
+            for b in range(a+1, 6):
+                mass = abs(vals[a])+sum(costs[a:b])
+                check('rational_variation_lemma', vals[b]**2 >= lower*mass**2)
+                check('rational_same_sign', sigma*vals[b] > 0)
+                generic_cases += 1
+
+print(json.dumps({'status': 'PASS', 'counts': dict(counts),
+                  'assertions': sum(counts.values()), 'prime_limit': LIMIT,
+                  'windows': len(windows), 'eligible_windows': eligible,
+                  'vacuous_windows': len(windows)-eligible,
+                  'good_interval_witnesses': witnesses,
+                  'bounded_search_maxima': maxima, 'squareful_control': squareful,
+                  'generic_subinterval_cases': generic_cases,
+                  'actual_first_bad_asserted': 0,
+                  'positive_littlewood_excursion_computed': False,
+                  'lean_executed': False}, indent=2, sort_keys=True))
+
+```
