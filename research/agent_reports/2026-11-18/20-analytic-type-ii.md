@@ -1778,3 +1778,956 @@ ROUTE=NYMAN bounded feasibility audit. SOURCE=the unchanged two-band flat taper,
 Mathematical derivation, novelty recovery, falsification, focused finite verification if useful, exact-head CI evidence inspection, and final verified report publication remain IN_PROGRESS. No local Lean, source/PR/policy/other-report edits, merge, schedule change, or agent launch is authorized or performed. Direct clone failed with CONNECT tunnel HTTP 403; connector reads work.
 
 EXECUTION=IN_PROGRESS; MATHEMATICS=NO_NEW_RESULT_YET; INDEPENDENT_REVIEW=PENDING; PUBLICATION=checkpoint awaiting immutable readback. RH=OPEN.
+
+---
+
+## Bounded Moment-Null Corrections Can Saturate The Remote-Tail Scale
+### Final Research Synthesis - 20261118-analytic-1711-EST/LW
+
+Actual scheduled trigger: 2026-11-18 17:11:00 EST / 22:11:00 UTC, America/New_York. PLATFORM_RUN_ID=UNAVAILABLE. LW is a research label. This continuation preserves PAIR, PV, their publication receipts, and this invocation's checkpoint. Publication is pending immutable readback until the receipt below. New mathematical statements are PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED.
+
+### A. Most Important Analytic Development
+
+**The existing N^3/T^2 remote-tail scale cannot be removed using only exact-head zeros, both moment equations, bounded coefficients, and O(N) complete period variance.** An explicit bounded, high-support, moment-null correction concentrates that much energy in a short interval strictly AFTER T. This is a quantified, growing-scale obstruction, not the already-known fixed-support example with an arbitrarily large coefficient.
+
+For every pair of integers q>=2 and N>=400q, set T=qN. The construction in D gives real e(k), supported on N/3<=k<=N, with
+
+```text
+|e(k)|<=2,  sum e(k)=sum e(k)/k=0,
+g(m)=-sum e(k)(m mod k)/k=sum e(k)floor(m/k),
+g(m)=0 for 0<=m<=N/3,
+V_N(e)<=5N/3,
+sum_(m>T)g(m)^2/[m(m+1)] >= N^3/(20,000,000,000 T^2).   (LW.1)
+```
+
+V_N is the COMPLETE centered covariance, with all ordered cross terms. No RH, prime-distribution, or Mertens bound is needed for LW.1. All constants and parameter ranges are explicit.
+
+For the ORIGINAL corrected taper c at N=H^2, H>=6 divisible by six, L=log H, and a legal integer 2<=q<=H^2/400, define c^+=c+e/L and c^-=c-e/L. These retain the genuine low Mobius coefficients, exact head, both moments, final support, and every original base/correction term. One SINGLE choice of sign, constant across all output cells, satisfies
+
+```text
+Tail_T(r_(c^sign)) >= N^3/(20,000,000,000 L^2 T^2),
+V_N(c^sign)<=2V_N(c)+10N/(3L^2).                       (LW.2)
+```
+
+The perturbed sources are explicitly NOT the unchanged two-band family. Consequently this does not refute an arithmetic tail bound for that prescribed family or RH. It refutes extending such a bound to arbitrary bounded moment-preserving high corrections. With the inherited V_N(c)=O(N/L^2), the perturbations retain the correct variance order. At T=N^(1+delta+o(1)), 0<delta<1/2 fixed, their tail can still have size at least a constant times N^(1-2delta)/L^2.
+
+**A surviving genuine-arithmetic estimate prevents overinterpreting this control.** For the unmodified c, fixed |M(x)|<=C_b x^b, 0<b<1, and A=max(|alpha|,|z|), the same explicit correction direction satisfies
+
+```text
+|sum_(k=2..N)c_k e(k)|
+ <= [16 C_b q N^b + 18 d A]/L,
+d=4 floor(N/(400q)).                                  (LW.3)
+```
+
+The correction-band boundary bill is retained. At N=H^2 the reused coefficient bounds make the normalized projection o(N/L) for q<=N^delta, fixed delta<1-b. This is a restricted coefficient projection, not a bound for the complete output norm. In particular the generic example cannot be relabelled a genuine-Mobius counterexample.
+
+| Claim ID, prefix 20261118-analytic-1711-EST | Result | Status |
+| --- | --- | --- |
+| LW1 | Explicit bounded moment-null high-support construction and uniform finite-window lower bound LW.1 | PAPER_PROOF / SELF_AUDIT |
+| LW2 | Full original-source plus/minus restoration, covariance budget, and coefficient-generic tail-cutoff obstruction | PAPER_PROOF / SELF_AUDIT; enlarged correction class only |
+| LW3 | Genuine unmodified-coefficient projection bound with all correction-boundary terms | PAPER_PROOF / CONDITIONAL on the stated fixed Mertens input; paid b=7/8 is an available instance |
+| LW4 | Exact rational packet tests and prime-log original-source bridge checks | FINITE_COMPUTATION; final execution record below |
+
+The independent complete signed upper supplier remains OPEN. NO_NEW_GLOBAL_UPPER_GAIN; VERIFIED_ETA=NONE; NO_NEW_ACCEPTED_RH_ROUTE; RH=OPEN.
+
+### B. Current Mathematical Objective And Source Authority
+
+Pinned main is [935840aec9b1fcbc66fe4e0164061d661a8ca3b1](https://github.com/OVVO-Financial/RH_Lean/commit/935840aec9b1fcbc66fe4e0164061d661a8ca3b1). The canonical target remains one C>=0 before every integer R>=2 such that
+
+```text
+|pi(R^2)-vfMidFinishedMass(R)-sqrt(2)| <= C R log R.
+```
+
+The directly read terminal declaration riemannHypothesis_of_vfCanonicalSquare still requires BOTH ClassicalVonKochRHCriterion and VFCanonicalSquareVonKochStatement. Nothing here supplies either missing input by declaration.
+
+The reused strongest relevant native comparator is native_mertens_near_uniform_window_error_closed, with MertensGrowthAtMost(7/8-7/(64*nearUniformSlotCount)). Its every-positive-loss convention is retained. Spending the fixed positive margin supplies |M(x)|<=C x^(7/8), used only in the conditional genuine-source comparison, not LW1 or the deterministic restoration. No comparison between unrelated slot-count symbols is made, and no independent reproof of that baseline is claimed.
+
+| Material file, at pinned main unless stated | Blob SHA |
+| --- | --- |
+| AGENTS.md | c4f36b772f8a4b0c24fe566b90fafb646073c60f |
+| CURRENT_PROOF_CONTRACT.md | 95566e37c8eaeb99ee680660df4f9d2e06ea5038 |
+| docs/RHLEAN_BOOTSTRAP_TO_HALF_20261116.md | 96ad4439ec458af6168f7d9cb3eef5dde291d37c |
+| docs/RHLEAN_REPORT_CONTINUITY_LAST_ACTUAL_20261111.md | 3e71820a4af722eae7098da6945bb5bcba50dd0d |
+| docs/RHLEAN_CROSS_ROUTE_SIGNED_RECOVERY_20261110.md | e3ae4280438f591f1ffaddd754a1c3a6d35d0691 |
+| docs/DYNAMIC_RESEARCH_AGENTS.md | b76d595f09403fc54eca71d04bf9e0306e0a9c09 |
+| research/NYMAN_FLAT_TAPER_RETURN_20261104.lean | 2d23721027ecc44e85b7add02fc632b482f03352 |
+| research/NYMAN_HIGH_COEFFICIENT_INVARIANT_20261104.lean | 2da630c1d5fb9302e2097ec1e170cf41c2b40609 |
+| research/NYMAN_RADICAL_INCREMENT_20261106.lean | c5ebb3d5d96898549ad039fd32e1a26955c5b8f8 |
+| research/NYMAN_MOMENT_NULL_OBSTRUCTION_20261106.lean | 301d7286fc2151b5d33bdca9762a6a01c496ff87 |
+| research/NYMAN_CORRECTION_ENERGY_20261105.lean | e5453cd32c3c4ebf9ebf41927bcb92e534b2ece7 |
+| research/oai_434/VF919WindowErrorClosure.lean | f629db1b2b65d6ec042ac9432397d4b6316200c6 |
+| research/VF_CANONICAL_SQRT_TWO_VON_KOCH.lean | 79030d70e8d3e0d08eef9bac53fef95c36eca2fb |
+| research/NYMAN_VARIANCE_REPAIR.lean, PR #1147 head e77d049ff83809c13c52e3d90922f34ed032efac | 92608fc013c26102ac12250558a850209028e6d8 |
+
+half_bootstrap_ack=BOOTSTRAP_TO_HALF_V1; cross_route_ack=CROSS_ROUTE_SIGNED_RECOVERY_V1; continuity_ack=LAST_ACTUAL_REPORT_CONTINUITY_V1. Earlier finite-wheel, high-attack, and chain acknowledgments remain subject to the newer governing priority.
+
+### C. Mechanism, Continuity, And Novelty
+
+The intended improvement was to use the exact head and moment constraints to shorten the P6/PV remote-tail cutoff. PV already proves that the actual period variance cannot become smaller merely by sparse same-support repairs. The changed issue here is whether head/moment structure itself forbids a location-sensitive concentration AFTER a growing cutoff. LW1 gives an explicit negative answer in a bounded enlarged coefficient class; LW3 then tests its actual arithmetic applicability instead of assuming it.
+
+The mechanism is simultaneous alignment of many disjoint three-band corrections with the hyperbolic boundaries k=floor(T/j). Each local direction annihilates both moments exactly. At the selected later output interval, each floor takes only j-1 or j, so each entire signed packet leaves a positive partial-band contribution. There is no free deletion of its negative middle band: that band is essential to both moments and the exact floor identity.
+
+**Novelty boundary.** Original 20261106-analytic-2/RM5, recovered from report blob 7997620b6ab7eb0701296994734ee910df3c3ba1, and the compiled moment-null module already show unbounded later energy at N=12 using lambda*(7,-16,9). That is credited, not rediscovered. LW1 bounds every new coefficient by two, moves the observation beyond T=qN, retains a linear covariance budget, and obtains a uniform two-parameter lower scale. The new result is this quantitative construction and its source-restored application, not the general observation that two moments are insufficient. No claim of worldwide novelty or a new general large-sieve theorem is made.
+
+**Continuity ledger.** Intake branch commit/tree was 5046d2fd638284619ba18740797a6cd25245bac8; the recursive tree was not truncated and was searched without a calendar cap. Complete latest files and November 17 predecessors were retrieved. Both Coordinator mirrors were fetched and matched on both dates. Relevant result, proof, limitation and resume sections were read; unchanged historical numerical appendices were not rerun. The previous PV ledger is the last consumed watermark.
+
+| Role | Latest actual November 18 section and blob | Since PV watermark; first open task |
+| --- | --- | --- |
+| Coordinator, one role with equal mirrors | DAMP 07:10 EST; ee7b4ce6ff79ab0eaea4d8b74d95e3e78f398cb5 | Unchanged; full signed inverse, not absolute recovery. |
+| Owner | GP 16:15 EST; a6345e177392d55db551650e8013581b89694623 | HC -> GP1-5; actual first-bad exclusion is not contradicted by good-endpoint plateaus. GP remains self-audited. |
+| Analytic before this run | PV 09:09 EST; 804f68e0163cbf6836a060a552256d1746d51242 | Resume complete location-weighted norm, not covariance optimization. |
+| Wheel | PM 10:12 EST; d7c5014b34183b6a377c0438cb6cae27ba35e401 | FD -> PM1-5; matching top-prime occurrences preserves the full endpoint. |
+| Census | PS 11:00 EST; 5d76c950c517712bbba138d7240d21ac4ccd6b93 | PN -> PS1-4; H=18 fixed-sign restoration counterexample; its numerical certificate not rerun here. |
+| Referee | FC 12:03 EST; 91b57ce6a46693403cd8a5751c63aaf8335ab305 | DP -> FC; PV1-3 ACCEPT_WITH_SCOPE, not PV4 or every numerical result. New FC claims retain self-audit status. |
+| Lean | VR 13:14 EST; 2cd3263317a8afaae5e664f4b56d2c095059421c | DUAL -> VR1-5; finite repair core at an unmerged exact green head, not full PV or E. |
+
+November 17 blobs, same role order: 125e55aa191083d9c0a982b6dc5a66267e4e4256; 6516bf78b096471ccfd2fb8c215e94002544a594; d4bc53ac1b68f6dadabc4a04a2f5fc8c74f6625f; 5c26771c0a266d5112e0b4a4b28aba0132e35ef7; 587b0bb3dd66834a18610ab86174f285f81c4b04; 103ee17307ac799e20bd4ce17d97ff96101a9e5b; ee9ed0ace763bf99fea5812490f9541653917938. Their latest DUAL/PC/CP/PP/MR/PR/PROFILE results and relevant analytic derivations were read and carried forward at their actual scopes. TODAY=AVAILABLE for every role; YESTERDAY=CARRY_FORWARD. No new missing day arises after PV. Older gaps recorded by upstream remain NO_VERIFIED_REPORT, not invented executions. CONTINUITY_COMPLETE means latest-real discovery and relevant post-watermark backfill, not rereading the entire corpus.
+
+EXTERNAL_HANDOFFS.md remains blob 7d63d434690d00dffce9c90335d41c4f62d85798 with no entry after October 18. EXT-20261018-PNT-1 preserves the full cofactor error; EXT-20261014-5 is an unconditional all-root obstruction, not a refutation of conditional first-bad payment. Neither provides a Nyman upper supplier. No unconsumed applicable external update was found.
+
+### D. Exact Mathematical Formulation
+
+The original coefficient convention is retained. For N=6K, 2<=H<N/3, put
+
+```text
+L=log(N/H), Q_k=log(N/max(H,k)),
+u=sum_(k=1..N)mu(k)Q_k/k,
+v=2L+sum_(k=1..N)mu(k)Q_k,
+I1=(3K,4K], I2=(5K,6K],
+s_i=sum_(k in Ii)1/k,
+alpha=(u-s2*v/K)/(s1-s2), z=v/K-alpha,
+h_k=alpha*1_I1(k)+z*1_I2(k),
+c_k=(h_k-mu(k)Q_k)/L, 2<=k<=N,
+r_c(m)=1-sum_(k=2..N)c_k(m mod k)/k,
+Tail_T(r)=sum_(m>T)r(m)^2/[m(m+1)].
+```
+
+The two solved moments are sum c_k/k=1 and sum c_k=3. The exact original head r_c(m)=0 holds for 1<=m<=H. The full period contains r_c(0)=1, not PAIR's separate zero extension. Every fixed finite coefficient vector has a bounded periodic residual, so every displayed weighted infinite tail is absolutely convergent.
+
+For any real a supported on [2,N], use
+
+```text
+V_N(a)=sum_(k,l=2..N)a_k a_l (gcd(k,l)^2-1)/(12kl),
+12V_N(a)=sum_(s=2..N)J2(s)[sum_(s|k,k<=N)a_k/k]^2.
+```
+
+This is the inherited NS/PV identity and VR's verified finite core. When sum a=sum a/k=0, it is the period mean square of -sum a_k(m mod k)/k. When sum a=3, sum a/k=1, it is the period mean square of r_a. These two affine normalizations are kept distinct.
+
+LW's independent parameters are integers q>=2 and N>=400q. Define
+
+```text
+T=qN, d=4 floor(N/(400q)), W=floor(qd/8),
+n_j=floor(T/j)-d/2,                    q<j<=2q,
+B_(j,i)={n_j+id,...,n_j+(i+1)d-1},      i=0,1,2,
+w(k)=1 on B_(j,0), -2 on B_(j,1), 1 on B_(j,2),
+w(k)=0 elsewhere,
+e(k)=k*w(k)/N.
+```
+
+The bands are disjoint across j, as proved below; w is therefore unambiguous. All these coefficients are fixed before the output m is varied. Dependence on N and the chosen cutoff T is explicit. A purported bound uniform over all such coefficient sources and all T must cover this family. This is not a claim that the prescribed original source chooses its coefficients after m.
+
+### E. Mathematical Derivation
+
+#### E1. Disjoint Support And Both Exact Null Moments
+
+From N>=400q,
+
+```text
+4<=d, N/(200q)<=d<=N/(100q), W>=qd/16.
+```
+
+The lower d bound uses floor x>=x/2 for x>=1. Consecutive real centers T/j differ by at least N/(5q), so their integer centers differ by at least N/(5q)-1>3d. The complete packet supports are disjoint. Their smallest possible start is at least N/2-1-d/2>=N/3, and their largest end is at most qN/(q+1)+(5/2)d-1<N. Thus 2<=k<=N on the support, and |e(k)|<=2.
+
+For one packet, each band has d elements, hence sum w=0. The sums of its successive integer coordinates form an arithmetic progression, so the second difference sum k*w(k)=0. Dividing these identities by N proves sum e(k)/k=0 and sum e(k)=0, packet by packet. Therefore
+
+```text
+-sum e(k)(m mod k)/k=sum e(k)floor(m/k)=g(m).
+```
+
+For every integer m<=N/3, all floors vanish, except a possible equality with the lower bound; in fact the proved start is strictly above N/3 under N>=800, so equality also causes no term. Thus g(m)=0. The period mean is zero because sum e(k)(k-1)/(2k)=0. This does not alter the original residual's value at zero.
+
+#### E2. Exact Later-Window Coherence
+
+Fix one packet j and an integer T<m<=T+W. Its first support point is n=n_j. Since the remainder T-j*floor(T/j) lies between 0 and j-1,
+
+```text
+jd/2 < m-jn <= jd/2+j-1+W < n.
+```
+
+For the last strict comparison use j<=2q, d>=4, W<=qd/8, n>=N/3 and qd<=N/100. Similarly
+
+```text
+m-(j-1)(n+3d-1) >= n-(5/2)jd > 0.
+```
+
+Consequently floor(m/k) is either j-1 or j for EVERY k in the packet. The dividing index s=floor(m/j) satisfies
+
+```text
+n+d/2 <= s < n+d.
+```
+
+The upper bound follows from W/j<=d/8 and the at-most-one rounding increment: d/2+d/8+1<d for d>=4. Thus the entire dividing point lies in the POSITIVE first band. Retaining all three bands and using their exact total null moment gives
+
+```text
+sum_packet e(k)floor(m/k)
+ =(j-1)sum_packet e(k)+sum_(k=n..s)e(k)
+ =sum_(k=n..s)k/N >= d/6.
+```
+
+Every one of the q packets has the same sign at every output in this window, so g(m)>=qd/6. No independent-prime model or omitted negative packet is involved; this is a deterministic constructed coefficient vector.
+
+There are W>=qd/16 output cells and m(m+1)<=4T^2 on them. Positivity of the complete squared tail gives
+
+```text
+Tail_T(g) >= q^3 d^3/(2304 T^2)
+          >= N^3/(18,432,000,000 T^2)
+          >= N^3/(20,000,000,000 T^2).
+```
+
+Only a legitimate positive OUTPUT subinterval was retained. No term inside any squared residual was discarded. The rest of the infinite tail remains nonnegative and need not be numerically truncated to prove this lower bound.
+
+#### E3. Complete Variance Upper Bound And Quantitative Sharpness
+
+For any |a_k|<=B on [2,N], apply the inherited complete Jordan identity BEFORE an upper triangle estimate. Since J2(s)<=s^2,
+
+```text
+12V_N(a)<=B^2 sum_(s=1..N)(1+log(N/s))^2<=5B^2 N.
+```
+
+The last inequality compares the decreasing nonnegative summand with its integral on (0,N], which equals 5N. This proves V_N(e)<=5N/3 at B=2. Every ordered covariance cross is included. The upper bound is elementary supporting accounting, not a new general gcd theorem.
+
+The already-paid dual large sieve gives for any centered residue source
+
+```text
+Tail_T(g)<=V_N(e)/(T+1)+N^2 V_N(e)/[(T+1)(T+2)].
+```
+
+Its hypotheses are finite rational Fourier frequencies, combined when equal, denominators at most N, circular separation at least N^-2, and Parseval mass V_N(e). Constants are absolute and uniform in the integer output offset and length. The primary statement and duality are [Montgomery and Vaughan, Multiplicative Number Theory II, Theorem 19.4 and (19.7), printed pp. 152-154](https://personal.science.psu.edu/rcv4/571s25/montgomery-vaughanII.pdf). This is the inherited P6/PV upper supplier, not newly proved here.
+
+The new lower construction attains a fixed absolute multiple of its N^3/T^2 scale throughout T=qN, 2<=q<=N/400, despite the bounded coefficients and long exact zero head. In particular there is no universal constant C giving Tail_T(g)<=C V_N(e)/T for this class: LW.1 and V_N(e)<=5N/3 imply a ratio at least 3N/(100,000,000,000 q), which is unbounded whenever q=o(N). Both sides scale quadratically if e is multiplied by an arbitrary real scalar, so this failure is not an amplitude blowup.
+
+#### E4. Restore The ENTIRE Original Taper
+
+Now take N=H^2, H>=6 divisible by six, a legal 2<=q<=H^2/400, L=log H, and the actual c in D. The repaired corrections are h^+=h+e and h^-=h-e, so the existing literal definition gives c^+=c+e/L and c^-=c-e/L. Both moments remain exact, all k<=H retain their genuine original coefficients, and both repaired residuals have the same exact head. Final support is unchanged. The repair is generally outside the two original bands, which is why these are a larger coefficient class.
+
+At EVERY output,
+
+```text
+r_(c^+)(m)=r_c(m)+g(m)/L,
+r_(c^-)(m)=r_c(m)-g(m)/L,
+r_(c^+)(m)^2+r_(c^-)(m)^2=2r_c(m)^2+2g(m)^2/L^2.
+```
+
+Summing on the one common finite window (T,T+W] proves that at least one fixed sign has window energy at least the g-window energy divided by L^2. Thus the same sign has the complete tail lower bound LW.2. It is NOT legitimate to choose a different sign at each cell; the finite-sum parallelogram avoids that mistake. All original base/repair cross terms cancel only BETWEEN the two complete norm observations, not inside either one by assumption.
+
+The positive quadratic form also gives
+
+```text
+V_N(c^+), V_N(c^-) <=2V_N(c)+2V_N(e)/L^2
+                         <=2V_N(c)+10N/(3L^2).
+```
+
+P6's existing bound, already recorded in PV F, is
+
+```text
+V_N(c)<=7N/(3L^2)+(5N/6)Delta^2,
+Delta=max(|alpha|,|z|)/L
+ <=C_b[20(2-b)/(1-b)^2+40/b]H^(b-1)/L+80/N.
+```
+
+Under the fixed paid b=7/8 input this is V_N(c)=O(N/L^2). Its constants are chosen before H. Hence the repaired sources also have O(N/L^2) variance and repairs of size at most 2/L, while one full later tail has the lower scale in LW.2. This is a restored-source control example, not a claim that the original unmodified tail is large.
+
+#### E5. A Genuine-Mobius Restriction On These Particular Directions
+
+Assume fixed 0<b<1 and C_b>=1 with |M(x)|<=C_b x^b for every real x>=1. Let f(x)=(x/N)log(N/x). On [N/3,N], 0<=f<=1 and total variation on any subinterval is at most one: |f'(x)|=|log(N/x)-1|/N<=1/N, using log 3<2.
+
+For any integer interval [a,b'] inside that range, its partial Mobius sums have absolute value at most 2C_b N^b. Abel summation therefore gives
+
+```text
+|sum_(a<=k<=b')mu(k)f(k)|<=4C_b N^b.
+```
+
+In one packet the three multipliers have total absolute value four. Summing q complete packets yields
+
+```text
+|sum_k mu(k)log(N/k)e(k)|<=16 C_b q N^b.
+```
+
+This uses the actual Mobius coefficients, no density replacement and no growing-character constant. For the correction term, h is constant on each packet except possibly those crossing one of N/2, 2N/3, 5N/6. There are at most three such packets because the supports are disjoint. Every other packet cancels h exactly by sum_packet e=0. A crossing packet has sum|e|<=6d, so
+
+```text
+|sum_k h_k e(k)|<=18d A, A=max(|alpha|,|z|).
+```
+
+The actual c formula, with H<N/3, now proves LW.3. This is uniform over ALL legal q,N,H for the fixed input b,C_b. Under the reused two-band coefficient bound at N=H^2, A=O_(b,C_b)(H^(b-1))+O(L/N), and hence
+
+```text
+(L/N)|sum c_k e(k)|
+ <=16 C_b q N^(b-1)+(18/(100q))A ->0
+```
+
+whenever q<=N^delta with fixed delta<1-b and H tends to infinity. At the paid b=7/8 this covers each fixed delta<1/8. It is only a coefficient-space projection. It does not control all hyperbolic packet shapes, the remaining coefficient component, or the weighted output Gram. The constants may depend on fixed b,C_b; no uniform limit as b approaches the actual zero boundary is asserted.
+
+### F. Quantitative Comparison And Half-Continuation
+
+The known tail bound for the unmodified family is O(N/(L^2 T)+N^3/(L^2 T^2)). A cutoff T of order N^(3/2) pays O(L^-2); the full finite middle is still unpaid. LW1/LW2 show that the exponent 3/2 cannot be lowered for an enlarged class using ONLY the same head, moment, boundedness, and variance controls. For every fixed 0<delta<1/2 choose q=floor(N^delta). For all sufficiently large legal square supports, q>=2 and N>=400q, and one repaired full source has
+
+```text
+Tail_(qN) >= N^(1-2delta)/(20,000,000,000 L^2).
+```
+
+Because N=H^2, this defeats a subpower-in-H tail claim for that enlarged class. It says nothing against a better theorem whose hypotheses retain additional identities of the UNCHANGED Mobius/two-band source. LW3 gives one such nontrivial restriction, but only on a narrow collection of test directions; it is not promoted to an energy estimate.
+
+The exact direct terminal remains the inherited paper Mellin zero test. For a fixed actual nontrivial zero rho with sigma=Re(rho)>1/2, every legal exact-head approximant satisfies
+
+```text
+E_H >= (2sigma-1)(H+1)^(2sigma-1)/|rho|^2.
+```
+
+One COMMON unbounded head sequence with complete E_H=O_epsilon(H^epsilon) for every epsilon>0 would exclude every such zero. No existence/converse for the prescribed coefficient family is asserted. Head, transition, correction admissions, after-N source, complete covariance and infinite tail are all part of that E_H. Improving a coefficient projection or a tail certificate alone does not supply this endpoint.
+
+ROUTE=NYMAN; STATUS=BOUNDED_FEASIBILITY_COMPLETE, not a newly admitted half-bootstrap. START=unchanged certified baseline and exact-head/tail infrastructure. ADVANCE=quantified exclusion of the head/moment-only shortcut, with a genuine-source scope check. RENEWAL=none supplied. FIRST_INDEPENDENT_OPEN_INPUT=complete genuine signed location-weighted upper control. All nine toolkits remain available; no representation has become mandatory for another route.
+
+### G. Original-Carrier Bridge And Signed-Loss Ledger
+
+The inspected original declarations are nymanFlatCoefficient_eq_original, nyman_flat_complete_return, nyman_flat_exact_head, nyman_two_band_moment_solver, and nyman_flat_complete_step. The full return for the actual solved moment remains
+
+```text
+L r_c(m)=U_N(m)-U_H(m)+alpha F1(m)+z F2(m),
+U_B(m)=sum_(B<k<=m)mu(k)log(B/k)floor(m/k).
+```
+
+LW2 changes h to h+/-e explicitly. Its additional complete return is +/-sum e(k)floor(m/k). No source, anchor, cutoff or after-support term is hidden. The low genuine Mobius values remain unchanged, but the high correction design does not; this distinction is the entire scope boundary of the countermodel.
+
+| Source coordinate | Exact map or explicit barrier | Remaining obligation |
+| --- | --- | --- |
+| Nyman residue -> full floor return | Exact declared source identities; both moments and all outputs retained | A signed arithmetic upper estimate, not moments alone |
+| Nyman period covariance -> weighted output | Period averaging loses phase/location; large sieve gives the paid tail error | LW1 shows the generic error scale can be attained |
+| Euler frozen-Q / finite AC | Ordered mu(a)mu(b) square-root source with strict K_R is different | No coefficient or norm bridge from e or V_N supplied |
+| VF / actual-prime owner NNS | Original weights, chronology, clipping and sqrt(2) phase remain separate | GP/HC and the canonical consumer do not identify this residue kernel |
+| OAI-NNS / square-block Mertens | Ideal characters and square clocks are not the linear residue clock | Existing marked moments or native power input cannot silently pay the complete Nyman Gram |
+
+FIRST_SIGNED_LOSS=forgetting the actual coefficients after passage to an arbitrary bounded, mean-centered periodic sequence. The period covariance retains all averaged cross terms but loses their output location. PAID_RECOVERY_TEST=VR's Jordan coordinates, PAIR's sampling estimate, and the genuine fixed Mertens input were tested; the first two do not prevent LW1, and the last supplies only LW3's limited projection. There is no source-compatible complete upper recovery theorem in these inputs.
+
+### H. Falsification, Evidence, And Circularity Review
+
+The refuted exploratory assertion is uniform coefficient-generic replacement of the full tail by C V_N/T, or a subpower early tail at T=N^(1+delta), delta<1/2, based only on the listed head/moment/covariance guards. This was this invocation's candidate shortcut, not an upstream theorem.
+
+Critical checks: all negative middle bands remain; support is recomputed at the FINAL cutoff; both null moments are exact; all output floors are controlled simultaneously; the tail starts strictly after T; the same repair sign is used globally; both original correction bands and their cross terms remain; and the countermodel is never asserted to be the unchanged Mobius family. The power-scale lower bound is proved, not extrapolated from the finite tests. LW3 shows why an arithmetic estimate can still distinguish that family from the control.
+
+**Verified GitHub evidence, inspected rather than run.** Main has 10/10 successful attached checks. PR #1147 is the only open PR at the inspected cutoff, non-draft and UNMERGED at e77d049ff83809c13c52e3d90922f34ed032efac, with 13/13 successful checks. Its [dedicated raw-head job](https://github.com/OVVO-Financial/RH_Lean/actions/runs/44371410914/job/135038879279) was read directly: five public statements, six exact type consumers, warning-fatal Lean calls, and live closures 381/483/526/698/741 with only propext, Classical.choice, Quot.sound. Hosted root/integration jobs used the synthetic merge as recorded by Lean; those are not labelled raw-head checkouts.
+
+PRs #1145/#1146 were human-merged on main; their earlier OPEN labels are historical. Their new finite LOWER geometry is not an upper supplier. The baseline [#1119 exact-head job](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42552018910/job/128949473700) was reread at 77ee815846d6d534c866f0752aa33b84c385610a, with 14 successful attached checks and the terminal standard-axiom audit. The source blob is unchanged. The earlier transitive/differential audit was consumed from Lean VR and reused; no fresh full dependency rebuild is claimed. None of these CI records certifies LW1-LW3.
+
+The original RM5 source and report were recovered for deduplication. Main-tree discovery and relevant code search located no existing bounded growing-window construction of this form. Search is not a guarantee of literature novelty. Classical large-sieve input was checked at its primary author-hosted statement. No local Lean or new hosted workflow ran.
+
+**LW4 execution: PASS, 448,705 exact assertions.** The registered set deduplicates to 19 (N,q) packet cases; the three original-source bridges add three more packet checks. The complete grid reaches N=102400 and T=1638400. All 243 window cells, 3,064 packet/cell pairs and 432,732 individual two-floor checks passed. Three small supports agree between the complete ordered gcd Gram and the independent Jordan computation; all three detect nonzero off-diagonal contribution. Every case detects the broken moment after deleting its negative middle band.
+
+For the actual Mobius/two-band sources (H,q)=(36,2),(48,3),(60,4), exact rational prime-log vectors verify the two solved coefficient moments, 12 selected exact-head cells, and all six selected post-support cells against the complete original floor return. The full plus/minus identity retains the same log-log quadratic block symbolically and checks its identical base vectors, every linear cross term, and the rational constant squares separately. All three correction-boundary bills also pass. The checker uses no floating arithmetic. This verifies only the declared finite cases; LW1-LW3's infinite statements rely on their paper arguments, and the conditional Mobius projection is not empirically promoted to an unconditional theorem.
+
+Checker SHA-256: d5044cb7ae7be7323b2fec87fcba72dd2258677ca219acfa46172f23caa14dd0. The first attempt was interrupted by the author after more than eight minutes while expanding redundant log-log products. It produced no final PASS and no assertion failure. The disclosed pre-rerun amendment preserves the domain and complete polynomial identity, directly strengthens the coefficient-moment checks, and adds LW3's finite boundary check. Only the amended, completed execution is credited. Its full registration, source, and output are included below.
+
+**Final authority refresh, 2026-11-18 22:34 UTC / 17:34 EST:** main remains 935840aec9b1fcbc66fe4e0164061d661a8ca3b1. The report branch remains exactly this invocation's verified checkpoint commit 7f38dcf1f9475fcb27a94f1827dc33211c65de34, so no upstream handoff changed after intake. The sole open PR remains #1147, non-draft, unmerged, and at the same head. Main's 10 checks and that head's 13 checks were freshly retrieved and all remain successful. This refresh is observation, not a new workflow execution.
+
+### I. Conceptual Interpretation
+
+The two moments eliminate the constant and affine responses before the high coefficients are encountered. They do not prevent many separate quotient boundaries from contributing coherently much later. Bounded high corrections can exploit that geometry without changing the early exact source or inflating its period covariance beyond its ordinary scale. This is why an actual arithmetic restriction, not just the correct normalization and head, must enter any improved tail argument.
+
+Conversely, the true Mobius coefficients already have a limited response to these particular coefficient directions by Abel summation. The remaining difficulty is not proving that every bounded source behaves well; that statement is false. It is extending genuine-source restrictions to the complete output interaction in the necessary parameter range. No theorem currently licenses that extension here.
+
+### J. Specialist Handoffs
+
+**Adversarial Referee:** review LW1/LW2's parameter range, disjoint packets, two-floor window, lower constant, and single-sign parallelogram first. Check that the upper variance includes all ordered pairs. Then check LW3's at-most-three correction crossings and its stated restricted scope. RM5 is inherited; this is bounded growing-scale sharpness, not a new claim that moments alone fail. Author SELF_AUDIT is not independent acceptance.
+
+**Coordinator:** park the coefficient-generic early-tail shortcut. Record a bounded feasibility result, no new global gain, and no new accepted RH route. LW3 is not a new complete supplier. The highest-value next step must retain a genuine arithmetic restriction across the full finite-output Gram or use a different qualifying route; do not schedule another unchanged covariance optimization.
+
+**Lean Verification:** no new PR or speculative small-tail wrapper is requested. Preserve #1147's unmerged status until a human merge. The current argument is paper-level pending review, and its formal implementation is not a substitute for the open upper theorem.
+
+**Prime Census Laboratory:** no larger grid is requested. The registered exact checker is a reproduction target only if review identifies a concrete issue. A future decisive experiment must use the unchanged original c, test a specified phase-sensitive upper mechanism, and restore the full infinite tail; these constructed e vectors are controls, not prime evidence.
+
+**Owner and Wheel:** no source transfer to first-bad historical payment, nearest-value Euler matching, or path capacity is asserted. The shared lesson is only that exact local annihilation requires a complete later return. GP and PM retain their own source and review labels.
+
+### K. First Independently Missing Analytic Theorem
+
+No smaller completed theorem supplies the full endpoint. The missing object is still the complete genuine weighted upper norm on a common unbounded exact-head sequence, with both original bands and after-support response. LW3 controls one prescribed family of coefficient projections only; a bound for all such projections, even if extended, would require an independently proved reconstruction/upper frame inequality before it controlled the output norm. Such an inequality is NOT assumed or established here.
+
+The next substantive attempt should either identify and prove a sufficiently complete arithmetic localization theorem, including the unresolved high-q regime and all complementary modes, or select another route with a valid one-half consumer. OAI remains parked without a passage through the 47/54 LOW floor, actual theta>3/5 coefficient contraction, and correction domain. CODIV's unchanged translated-window consumer still has its recorded 5/6 limitation. These are carried-forward route dispositions, not newly rediscovered barriers.
+
+### L. Next-Run Resume Capsule
+
+```text
+RUN=20261118-analytic-1711-EST/LW; platform run id unavailable
+MAIN=935840aec9b1fcbc66fe4e0164061d661a8ca3b1
+REPORT_INTAKE=5046d2fd638284619ba18740797a6cd25245bac8
+POLICY=BOOTSTRAP_TO_HALF_V1 / CROSS_ROUTE_SIGNED_RECOVERY_V1
+CONTINUITY=latest actual seven-role reports, relevant post-PV backfill,
+  November 17 carry-forward, original November 6 RM5 novelty recovery
+SOURCE=original complete flat taper and an EXPLICIT enlarged repair class
+NEW=LW1 bounded growing-window tail lower; LW2 complete +/- restoration;
+  LW3 restricted actual-Mobius coefficient projection
+INHERITED=RM5 null moments; NS/PV/VR complete covariance; P6 tail;
+  PAIR sampling; CP/DUAL lower profiles; native fixed subunit input
+NO_ORIGINAL_FAMILY_COUNTEREXAMPLE; NO_COMPLETE_UPPER_SUPPLIER
+HALF_TERMINAL=common exact-head sequence + complete subpower energy
+RENEWAL=none; STATUS=BOUNDED_FEASIBILITY_COMPLETE
+MATHEMATICS=PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING
+FORMALIZATION=NOT_REQUESTED; LW NOT_FORMALIZED
+CI=main 10 successful; #1147 head e77d049... 13 successful, UNMERGED
+EARLY_CHECKPOINT=7f38dcf1f9475fcb27a94f1827dc33211c65de34
+EARLY_BLOB=2fb3344a24b8f1e3d982ecfebaf88883b7b130fc
+EARLY_PUBLICATION=verified immutable full-content readback
+NEXT=independent LW scope review, then genuinely coefficient-sensitive
+  full output control or a different qualifying half-continuation
+NO_NEW_GLOBAL_UPPER_GAIN; VERIFIED_ETA=NONE; RH=OPEN
+FINAL_PUBLICATION=pending commit and immutable readback
+```
+
+Only this owned daily Markdown report is written remotely. No main, Lean, other report, central policy, issue, workflow, feature branch, PR, permission or schedule is changed. No agent was launched. The failed direct clone was a CONNECT tunnel HTTP 403; connector reads and the verified checkpoint write worked. No background task or future completion is promised.
+
+### LW4 Reproducibility Appendix
+
+The complete registration, final executed checker, and output follow. Scratch files are not separate repository deliverables.
+
+#### Registration And Pre-Rerun Amendment
+
+```text
+# LW Exact Verification Registration
+
+Run: 20261118-analytic-1711-EST/LW. Registered before computation.
+
+Changed hypothesis: can exact-head zeros, both moments, bounded coefficients,
+and the complete O(N) period variance remove the N^3/T^2 tail term?
+The analytic construction is an explicit control family, not genuine Mobius
+coefficients and not a counterexample to the fixed two-band taper.
+
+For q in {2,3,4,8,16}, use N in {400q,400q+399,800q,400q^2}.
+Set T=qN, d=4 floor(N/(400q)), W=floor(qd/8).
+For j=q+1,...,2q let n_j=floor(T/j)-d/2 and put w=1,-2,1 on
+three consecutive length-d bands starting at n_j. Put e(k)=k*w(k)/N.
+Verify disjoint support in [N/3,N], |e|<=2, both exact null moments,
+zero early response, and every claimed two-floor and first-band condition
+on all output cells T<m<=T+W. Compute the full finite-window energy and
+complete Jordan covariance with exact integer/rational arithmetic.
+Compare covariance with the ordered gcd Gram for N<=1200.
+Test the lower constant 1/(20,000,000,000), and V<=5N/3.
+
+Original-source bridge: H=36,48,60, N=H^2, q=2,3,4 respectively.
+Use genuine Mobius and exact rational prime-log vectors for the two-band
+source. Check its moments, selected exact-head cells, direct modulo versus
+complete floor return after N, and the complete plus/minus parallelogram
+including all base cross terms. Repairs are e/log H. Neither repair is
+mistaken for the unchanged original two-band family.
+
+Negative controls: omitting the middle band must break a moment; changing
+the original carrier is explicitly labelled; no inequality for the original
+source alone and no favorable sign for a chosen repair is inferred.
+No floating arithmetic, large-scale fit, local Lean, or infinite-tail truncation
+is used. The all-scale lower bound comes from the paper construction.
+
+Verification amendment, before the final rerun: the first execution was
+interrupted after more than eight minutes in redundant expansion of the
+log-log quadratic block; it produced no final PASS and no assertion failure.
+Retain that identical full block symbolically and check all rational base
+vectors, linear cross terms, and constant squares separately. This is the
+same exact parallelogram, not an omission of base cross terms. The parameter
+grid and original-source cells are unchanged. Replace a redundant algebraic
+moment check with direct summation of the actual solved coefficients, use
+strict high support, and add the finite correction-boundary bill from LW3.
+These are self-audit improvements, not preregistered results of the first run.
+```
+
+#### Final Executed Checker
+
+```python
+"""Exact finite checks for bounded moment-null tail concentration."""
+
+from collections import Counter
+from fractions import Fraction as F
+from functools import lru_cache
+from math import gcd
+import hashlib
+import json
+from pathlib import Path
+
+COUNTS = Counter()
+
+
+def check(label, condition):
+    if not condition:
+        raise AssertionError(label)
+    COUNTS[label] += 1
+
+
+def arithmetic(limit):
+    mu = [1] * (limit + 1)
+    mu[0] = 0
+    jordan = [n * n for n in range(limit + 1)]
+    primes = []
+    composite = bytearray(limit + 1)
+    for p in range(2, limit + 1):
+        if not composite[p]:
+            primes.append(p)
+            for n in range(p, limit + 1, p):
+                composite[n] = 1
+                mu[n] *= -1
+                jordan[n] = jordan[n] // (p * p) * (p * p - 1)
+            for n in range(p * p, limit + 1, p * p):
+                mu[n] = 0
+    return mu, jordan, primes
+
+
+DOMAINS = sorted({(N, q) for q in (2, 3, 4, 8, 16)
+                  for N in (400*q, 400*q+399, 800*q, 400*q*q)})
+MU, J2, PRIMES = arithmetic(max(N for N, q in DOMAINS))
+
+
+def packets(N, q):
+    check('legal_parameters', q >= 2 and N >= 400*q)
+    T, d = q*N, 4*(N//(400*q))
+    W = q*d//8
+    w, bands = {}, []
+    for j in range(q+1, 2*q+1):
+        n = T//j-d//2
+        bands.append((j, n))
+        for i, factor in enumerate((1, -2, 1)):
+            for k in range(n+i*d, n+(i+1)*d):
+                check('disjoint_support', k not in w)
+                w[k] = factor
+    check('support_range', all(N < 3*k and k <= N for k in w))
+    check('coefficient_cap', all(abs(k*v) <= 2*N for k, v in w.items()))
+    check('reciprocal_null', sum(w.values()) == 0)
+    check('total_null', sum(k*v for k, v in w.items()) == 0)
+    check('centered_mean', sum((k-1)*v for k, v in w.items()) == 0)
+    check('d_bounds', F(N, 200*q) <= d <= F(N, 100*q) and d >= 4)
+    check('window_length', W >= F(q*d, 16))
+    for m in {0, 1, N//3, min(w)-1}:
+        check('exact_early_zero', sum(v*(m % k) for k, v in w.items()) == 0)
+    energy = F(0)
+    smallest = None
+    for m in range(T+1, T+W+1):
+        gn = sum(k*v*(m//k) for k, v in w.items())
+        check('floor_residue_identity', gn == -sum(v*(m % k) for k, v in w.items()))
+        check('full_window_amplitude', F(gn, N) >= F(q*d, 6))
+        for j, n in bands:
+            cut = m//j
+            check('first_band_cut', n+d//2 <= cut < n+d)
+            for k in range(n, n+3*d):
+                check('two_floor_values', m//k in (j-1, j))
+            local = sum(k*w[k]*(m//k) for k in range(n, n+3*d))
+            check('packet_prefix_identity', local == sum(range(n, cut+1)))
+            check('packet_amplitude', F(local, N) >= F(d, 6))
+        energy += F(gn*gn, N*N*m*(m+1))
+        smallest = gn if smallest is None else min(smallest, gn)
+    lower = F(N**3, 20_000_000_000*T*T)
+    check('tail_lower_from_finite_window', energy >= lower)
+    jnum = 0
+    for a in range(2, N+1):
+        row = sum(w.get(k, 0) for k in range(a, N+1, a))
+        jnum += J2[a]*row*row
+    variance = F(jnum, 12*N*N)
+    check('complete_variance_upper', variance <= F(5*N, 3))
+    check('nonzero_variance', variance > 0)
+    if N <= 1200:
+        gram = sum((F(v*z*(gcd(k,l)**2-1), 12*N*N)
+                    for k, v in w.items() for l, z in w.items()), F(0))
+        check('all_ordered_pairs_equal_jordan', gram == variance)
+        diagonal = sum((F(v*v*(k*k-1), 12*N*N) for k, v in w.items()), F(0))
+        check('offdiagonal_not_discardable', diagonal != variance)
+    middle_deleted = {k: v for k, v in w.items() if v != -2}
+    check('missing_middle_detected', sum(middle_deleted.values()) != 0)
+    return w, {'N': N, 'q': q, 'T': T, 'd': d, 'W': W,
+               'min_response': str(F(smallest, N)),
+               'window_energy': str(energy), 'variance': str(variance),
+               'energy_over_V_over_T': str(energy*T/variance)}
+
+
+@lru_cache(None)
+def log_vector(n):
+    out = {}
+    for p in PRIMES:
+        if p*p > n:
+            break
+        while n % p == 0:
+            out[p] = out.get(p, F(0))+1
+            n //= p
+    if n > 1:
+        out[n] = out.get(n, F(0))+1
+    return out
+
+
+def add(a, b, scalar=F(1)):
+    out = dict(a)
+    for key, value in b.items():
+        out[key] = out.get(key, F(0))+scalar*value
+        if not out[key]:
+            del out[key]
+    return out
+
+
+def scale(a, scalar):
+    return {k: scalar*v for k, v in a.items() if scalar*v}
+
+
+def shifted_square_parts(a):
+    # The unchanged quadratic log-log block is retained symbolically.
+    constant = a.get(0, F(0))
+    base = {p: v for p, v in a.items() if p != 0}
+    return base, scale(base, 2*constant), constant*constant
+
+
+def original_checks(H, q):
+    N, K = H*H, H*H//6
+    w, packet_row = packets(N, q)
+    L = log_vector(H)
+    qk = {k: add(log_vector(N), log_vector(max(H,k)), -1) for k in range(1,N+1)}
+    u, v = {}, scale(L, 2)
+    for k in range(1,N+1):
+        u = add(u, qk[k], F(MU[k], k))
+        v = add(v, qk[k], MU[k])
+    s1 = sum((F(1,k) for k in range(3*K+1,4*K+1)), F(0))
+    s2 = sum((F(1,k) for k in range(5*K+1,6*K+1)), F(0))
+    alpha = scale(add(u, v, -s2/K), 1/(s1-s2))
+    z = add(scale(v, F(1,K)), alpha, -1)
+    check('original_reciprocal_solver', add(scale(alpha,s1),z,s2) == u)
+    check('original_total_solver', add(scale(alpha,K),z,K) == v)
+    reciprocal, total = {}, {}
+    for k in range(2,N+1):
+        h = alpha if 3*K < k <= 4*K else z if 5*K < k <= 6*K else {}
+        ck_times_L = add(h, qk[k], -MU[k])
+        reciprocal = add(reciprocal, ck_times_L, F(1,k))
+        total = add(total, ck_times_L)
+    check('original_reciprocal_moment', reciprocal == L)
+    check('original_total_moment', total == scale(L,3))
+    c1 = sum((F(k*v,N) for k,v in w.items() if 3*K < k <= 4*K), F(0))
+    c2 = sum((F(k*v,N) for k,v in w.items() if 5*K < k <= 6*K), F(0))
+    check('correction_projection_boundary_bill', abs(c1)+abs(c2) <= 18*packet_row['d'])
+    def direct(m):
+        result = dict(L)
+        for k in range(2,N+1):
+            result = add(result,qk[k],F(MU[k]*(m % k),k))
+        r1 = sum((F(m % k,k) for k in range(3*K+1,4*K+1)),F(0))
+        r2 = sum((F(m % k,k) for k in range(5*K+1,6*K+1)),F(0))
+        return add(add(result,alpha,-r1),z,-r2)
+    def tail(B,m):
+        result = {}
+        for k in range(B+1,m+1):
+            result = add(result,add(log_vector(B),log_vector(k),-1),MU[k]*(m//k))
+        return result
+    for m in {1,2,H-1,H}:
+        check('original_exact_head', direct(m) == {})
+    T, W = q*N, packet_row['W']
+    for m in range(T+1,T+W+1):
+        R = direct(m)
+        returned = add(tail(N,m),tail(H,m),-1)
+        returned = add(returned,alpha,sum(m//k for k in range(3*K+1,4*K+1)))
+        returned = add(returned,z,sum(m//k for k in range(5*K+1,6*K+1)))
+        check('original_complete_after_support_return', R == returned)
+        g = F(sum(k*v*(m//k) for k,v in w.items()),N)
+        minus_residue = -sum((F(v*(m % k),N) for k,v in w.items()),F(0))
+        check('scaled_repair_complete_return', g == minus_residue)
+        plus, minus = add(R,{0:g}),add(R,{0:-g})
+        basep, crossp, cp = shifted_square_parts(plus)
+        basem, crossm, cm = shifted_square_parts(minus)
+        base, cross, c0 = shifted_square_parts(R)
+        check('full_source_quadratic_block_retained', basep == basem == base)
+        check('full_source_cross_terms_cancel', add(add(crossp,crossm),cross,-2) == {})
+        check('full_source_parallelogram', cp+cm-2*c0 == 2*g*g)
+    return {'H':H,'N':N,'q':q,'window_cells':W,'genuine_original_mu':True,
+            'repairs_are_original_family':False,'infinite_upper_claim':False}
+
+
+rows = [packets(N,q)[1] for N,q in DOMAINS]
+source_rows = [original_checks(H,q) for H,q in ((36,2),(48,3),(60,4))]
+print(json.dumps({'status':'PASS','assertions':sum(COUNTS.values()),
+                  'counts':dict(sorted(COUNTS.items())), 'packet_rows':rows,
+                  'original_bridge':source_rows,
+                  'checker_sha256':hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
+                  'lean_executed':False,'original_taper_refuted':False},indent=2))
+```
+
+#### Complete Observed Output
+
+```json
+{
+  "status": "PASS",
+  "assertions": 448705,
+  "counts": {
+    "all_ordered_pairs_equal_jordan": 3,
+    "centered_mean": 22,
+    "coefficient_cap": 22,
+    "complete_variance_upper": 22,
+    "correction_projection_boundary_bill": 3,
+    "d_bounds": 22,
+    "disjoint_support": 5880,
+    "exact_early_zero": 88,
+    "first_band_cut": 3064,
+    "floor_residue_identity": 243,
+    "full_source_cross_terms_cancel": 6,
+    "full_source_parallelogram": 6,
+    "full_source_quadratic_block_retained": 6,
+    "full_window_amplitude": 243,
+    "legal_parameters": 22,
+    "missing_middle_detected": 22,
+    "nonzero_variance": 22,
+    "offdiagonal_not_discardable": 3,
+    "original_complete_after_support_return": 6,
+    "original_exact_head": 12,
+    "original_reciprocal_moment": 3,
+    "original_reciprocal_solver": 3,
+    "original_total_moment": 3,
+    "original_total_solver": 3,
+    "packet_amplitude": 3064,
+    "packet_prefix_identity": 3064,
+    "reciprocal_null": 22,
+    "scaled_repair_complete_return": 6,
+    "support_range": 22,
+    "tail_lower_from_finite_window": 22,
+    "total_null": 22,
+    "two_floor_values": 432732,
+    "window_length": 22
+  },
+  "packet_rows": [
+    {
+      "N": 800,
+      "q": 2,
+      "T": 1600,
+      "d": 4,
+      "W": 1,
+      "min_response": "2793/800",
+      "window_energy": "866761/182385920000",
+      "variance": "341317/240000",
+      "energy_over_V_over_T": "260028300/48633918013"
+    },
+    {
+      "N": 1199,
+      "q": 2,
+      "T": 2398,
+      "d": 4,
+      "W": 1,
+      "min_response": "4188/1199",
+      "window_energy": "365403/172440239950",
+      "variance": "6164888/4312803",
+      "energy_over_V_over_T": "1314354591/369739157800"
+    },
+    {
+      "N": 1200,
+      "q": 3,
+      "T": 3600,
+      "d": 4,
+      "W": 1,
+      "min_response": "2217/400",
+      "window_energy": "4915089/2075328320000",
+      "variance": "87287/36000",
+      "energy_over_V_over_T": "1990611045/566091197087"
+    },
+    {
+      "N": 1599,
+      "q": 3,
+      "T": 4797,
+      "d": 4,
+      "W": 1,
+      "min_response": "2954/533",
+      "window_energy": "4363058/3270660123289",
+      "variance": "2045968/852267",
+      "energy_over_V_over_T": "31394383839/11777411218184"
+    },
+    {
+      "N": 1600,
+      "q": 2,
+      "T": 3200,
+      "d": 8,
+      "W": 2,
+      "min_response": "10377/1600",
+      "window_energy": "35894043/4374529280000",
+      "variance": "2745829/960000",
+      "energy_over_V_over_T": "86145703200/9384147936229"
+    },
+    {
+      "N": 1600,
+      "q": 4,
+      "T": 6400,
+      "d": 4,
+      "W": 2,
+      "min_response": "1521/200",
+      "window_energy": "1939327291/629538862080000",
+      "variance": "1609919/480000",
+      "energy_over_V_over_T": "387865458200/65983500996157"
+    },
+    {
+      "N": 1999,
+      "q": 4,
+      "T": 7996,
+      "d": 4,
+      "W": 2,
+      "min_response": "15204/1999",
+      "window_energy": "3027772169/1533697223736018",
+      "variance": "40800296/11988003",
+      "energy_over_V_over_T": "6052516565831/1304956728464444"
+    },
+    {
+      "N": 2400,
+      "q": 3,
+      "T": 7200,
+      "d": 8,
+      "W": 3,
+      "min_response": "739/80",
+      "window_energy": "1638363/332006425600",
+      "variance": "778097/160000",
+      "energy_over_V_over_T": "73726335000/10091140771097"
+    },
+    {
+      "N": 3200,
+      "q": 4,
+      "T": 12800,
+      "d": 8,
+      "W": 4,
+      "min_response": "8113/640",
+      "window_energy": "49496591227/11749556582400000",
+      "variance": "52054019/7680000",
+      "energy_over_V_over_T": "31677818385280/3981846624881671"
+    },
+    {
+      "N": 3200,
+      "q": 8,
+      "T": 25600,
+      "d": 4,
+      "W": 4,
+      "min_response": "50877/3200",
+      "window_energy": "287607681/186457203200000",
+      "variance": "28989601/3840000",
+      "energy_over_V_over_T": "2208826990080/422290619089369"
+    },
+    {
+      "N": 3599,
+      "q": 8,
+      "T": 28792,
+      "d": 4,
+      "W": 4,
+      "min_response": "57222/3599",
+      "window_energy": "176984503942/139617934647890673",
+      "variance": "289979600/38858403",
+      "energy_over_V_over_T": "318483614843629/65118400584458975"
+    },
+    {
+      "N": 3600,
+      "q": 3,
+      "T": 10800,
+      "d": 12,
+      "W": 4,
+      "min_response": "5173/400",
+      "window_energy": "5102252257/864282441600000",
+      "variance": "2346373/324000",
+      "energy_over_V_over_T": "137760810939/15647600195558"
+    },
+    {
+      "N": 6400,
+      "q": 4,
+      "T": 25600,
+      "d": 16,
+      "W": 8,
+      "min_response": "146043/6400",
+      "window_energy": "160964299579087/22557386652057600000",
+      "variance": "415701431/30720000",
+      "energy_over_V_over_T": "25754287932653920/1907783591894662153"
+    },
+    {
+      "N": 6400,
+      "q": 8,
+      "T": 51200,
+      "d": 8,
+      "W": 8,
+      "min_response": "175289/6400",
+      "window_energy": "6019407024517/2457201130124083200",
+      "variance": "456035699/30720000",
+      "energy_over_V_over_T": "481552561961360000/56995210518378002871"
+    },
+    {
+      "N": 6400,
+      "q": 16,
+      "T": 102400,
+      "d": 4,
+      "W": 8,
+      "min_response": "104073/3200",
+      "window_energy": "450320851452031/525755335762575360000",
+      "variance": "119532203/7680000",
+      "energy_over_V_over_T": "51465240165946400/9132704020575433311"
+    },
+    {
+      "N": 6799,
+      "q": 16,
+      "T": 108784,
+      "d": 4,
+      "W": 8,
+      "min_response": "221127/6799",
+      "window_energy": "7455586099907347/9965820687496269247080",
+      "variance": "2155079504/138679203",
+      "energy_over_V_over_T": "50690529893270052253/9679324404612780570840"
+    },
+    {
+      "N": 12800,
+      "q": 16,
+      "T": 204800,
+      "d": 8,
+      "W": 16,
+      "min_response": "44039/800",
+      "window_energy": "3632898437030436019/2934387125734494044160000",
+      "variance": "3827822279/122880000",
+      "energy_over_V_over_T": "46501099993989581043200/5713049527535639720168283"
+    },
+    {
+      "N": 25600,
+      "q": 8,
+      "T": 204800,
+      "d": 32,
+      "W": 32,
+      "min_response": "2306713/25600",
+      "window_energy": "5310201439285531749/733862572610604236800000",
+      "variance": "2925855203/49152000",
+      "energy_over_V_over_T": "1019558676342822095808/40954124953455003723433"
+    },
+    {
+      "N": 102400,
+      "q": 16,
+      "T": 1638400,
+      "d": 64,
+      "W": 128,
+      "min_response": "3663627/10240",
+      "window_energy": "134093094222118295948514619/18689292769658978051340160204800",
+      "variance": "488696002607/1966080000",
+      "energy_over_V_over_T": "42909790151077854703524678080000/907320049214785316415497333932791"
+    }
+  ],
+  "original_bridge": [
+    {
+      "H": 36,
+      "N": 1296,
+      "q": 2,
+      "window_cells": 1,
+      "genuine_original_mu": true,
+      "repairs_are_original_family": false,
+      "infinite_upper_claim": false
+    },
+    {
+      "H": 48,
+      "N": 2304,
+      "q": 3,
+      "window_cells": 1,
+      "genuine_original_mu": true,
+      "repairs_are_original_family": false,
+      "infinite_upper_claim": false
+    },
+    {
+      "H": 60,
+      "N": 3600,
+      "q": 4,
+      "window_cells": 4,
+      "genuine_original_mu": true,
+      "repairs_are_original_family": false,
+      "infinite_upper_claim": false
+    }
+  ],
+  "checker_sha256": "d5044cb7ae7be7323b2fec87fcba72dd2258677ca219acfa46172f23caa14dd0",
+  "lean_executed": false,
+  "original_taper_refuted": false
+}
+```
