@@ -29,3 +29,28 @@ Implementation planning is testing an exact four-phase floor-carry bound before 
 Pinned Lean v4.34.1; Mathlib d13f23b723b8a846827a245b89c10fc7d3f11612; PNT+ c39a751132c88b6e8080b74c74023fd95b3d8be0. GitHub Actions is the only Lean execution environment. Direct repository clone failed CONNECT 403; authorized connector reads succeeded. No local Lean, main write, merge, auto-merge, other-agent report edit or agent launch occurred.
 
 EXECUTION=IN_PROGRESS; MATHEMATICS=accepted paper candidate under independent source audit; IMPLEMENTATION=NOT_STARTED; PUBLICATION=READBACK_PENDING. NO_NEW_GLOBAL_GAIN; VERIFIED_ETA=NONE; RH=OPEN.
+
+## Implementation Checkpoint - DUAL
+
+The intake checkpoint was committed at d80d427c133a882d02cbb5b20789c39e82d02b45, blob 077ad8c5034daf5ca73acf5e855fbeb947568ce1, and read back with exact content equality.
+
+[Draft PR #1146](https://github.com/OVVO-Financial/RH_Lean/pull/1146) now contains the complete all-head proof attempt and focused validation. Branch agent/lean-verification/20261118-all-profile-coercivity originates from main 13b31c6313e274a073d82a01175201185e59e37e. Initial head 6709bc28eb0ea7fa6758df337db681a4b938c932 triggered all 12 relevant workflows. The first dedicated run 44285371982, job 134736539874, failed warning-fatal compilation. Focused repair head 09de408a4f3633107f4cf5ec7b3b07da1d2bf8c5 is awaiting hosted verification.
+
+The repaired issues were source-definition unfolding, explicit nonnegative remainders in the floor quotient argument, exact rewrite targets and quotient types, beta reduction for image injectivity, an overloaded order lemma, and warning-fatal style requirements. No theorem statement, numerical constant, arithmetic carrier, endpoint, hypothesis or checker requirement changed. Failure-generated internal metavariable placeholders were not source proofs or accepted certification.
+
+### Exact Candidate And Independent Proof Plan
+
+For K>=40, every natural n, every t:Nat->Real, q_i=4^i K, define p_q by the existing nymanCorrectionFloor at N=12q with coefficients +1 on (6q,8q] and -1 on (10q,12q]. Let A_q=(3q,3q+floor(q/20)], W be the union of all {2k,3k:k in A_q}, Z=sum_(i<n)t_i p_(q_i), and E_W(f)=sum_(m in W)f(m)^2/[m(m+1)]. The intended result is
+
+```text
+(21/10240000)*K*sum_(i<n)t_i^2 <= E_W(Z).
+(21/20480000)*K*sum_(i<n)t_i^2-E_W(r) <= E_W(Z+r).
+```
+
+The stronger constant is 7N/40960000 at N=12K. It implies the original accepted DUAL1 constant, included as an exact-type consumer. The empty family n=0 is included without a new hypothesis.
+
+New SELF_AUDIT strengthening: the exact integer carry 2*floor(3m/k)-3*floor(2m/k) lies between -1 and 2. Both bands have 2q terms, so |p_q(3m)-(3/2)p_q(2m)|<=3q=N/4, improving the paper's 5N/12. On the exact current window the paired profile is at least (9/5)q; later profiles vanish. A low-energy sample costs at most 18720qE. With c=sqrt(E/(12K)), strong induction gives |t_i|<=1600c(3/4)^i. Summing the squares gives sum t_i^2 <=(40960000/7)c^2, proving the displayed bound. The restoration follows pointwise from (Z+r)^2>=Z^2/2-r^2. These are complete paper arguments; hosted kernel verification is not yet asserted.
+
+Local NON-Lean checks passed 13,342 exact assertions on 20 preregistered (K,n) supports, including K=40,41,59,60, n=0,...,4, exact shifted-Gram elimination, all sample endpoints, literal source reconstruction and three omission controls. Both Python files passed syntax compilation. Finite checks do not establish the universal theorem.
+
+IMPLEMENTATION=DRAFT_PR / CI_PENDING_AFTER_REPAIR. MATHEMATICS=accepted original theorem plus SELF_AUDIT strengthening. The actual complete residual upper supplier remains OPEN; PAIR/DP no-gain and restoration safeguards are unchanged. No local Lean, main write, merge or auto-merge occurred.
