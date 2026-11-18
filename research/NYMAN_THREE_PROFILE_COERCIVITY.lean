@@ -101,8 +101,9 @@ private theorem profile_abs_le (K m : Nat) (hK : 1 <= K) :
       (nymanBandCount (10 * K) (12 * K) m : Real) <= m := by exact_mod_cast hs
   unfold nymanTwoBandProfile
   rw [abs_le]
-  constructor <;> linarith [Nat.cast_nonneg (nymanBandCount (6 * K) (8 * K) m),
-    Nat.cast_nonneg (nymanBandCount (10 * K) (12 * K) m)]
+  have hp : (0 : Real) <= nymanBandCount (6 * K) (8 * K) m := by positivity
+  have hq : (0 : Real) <= nymanBandCount (10 * K) (12 * K) m := by positivity
+  constructor <;> linarith
 
 /-- Exact transport to the original two-band correction floor, at N=12K.
 The second amplitude is v-alpha, so both original bands are present. -/
