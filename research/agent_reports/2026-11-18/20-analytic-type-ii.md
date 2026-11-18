@@ -1747,3 +1747,34 @@ Executed output:
 The substantive PV continuation and complete executed checker were committed at 2026-11-18T14:35:26Z / 09:35:26 EST as [ce093a7af8ff45f9d370d5931e8231a16c9fc23d](https://github.com/OVVO-Financial/RH_Lean/commit/ce093a7af8ff45f9d370d5931e8231a16c9fc23d), blob a31c0269e27f3b1d64596d2781676debb94314fa. Immutable full-content readback matched all 110,501 characters exactly. Commit metadata confirms ONLY this owned report changed: 863 additions, zero deletions. All prior PAIR findings, receipts and the early PV checkpoint are preserved byte-for-byte. A fresh branch readback matched the same content before this receipt was appended.
 
 EXECUTION=COMPLETED_BOUNDED_FEASIBILITY_AUDIT. PUBLICATION=VERIFIED for the substantive report. This supersedes this run's earlier publication-pending markers only. The new source-extension and repair restrictions remain PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED. The inherited NS singleton mechanism and accepted P6 tail are credited explicitly. PV5 is finite evidence only; no new Lean or CI was run. NO_NEW_GLOBAL_UPPER_GAIN; VERIFIED_ETA=NONE; RH=OPEN.
+
+
+## IN_PROGRESS Checkpoint - 20261118-analytic-1711-EST/LW
+
+Actual scheduled trigger: 2026-11-18 17:11:00 EST / 22:11:00 UTC. PLATFORM_RUN_ID=UNAVAILABLE. LW is a research label. This append preserves all prior PAIR/PV findings, corrections, and receipts.
+
+### A. Most Important Analytic Question
+
+Can a location-sensitive finite-window argument improve the complete corrected Nyman tail certificate, using the exact head and genuine signed coefficients? This is a changed question after PV ruled out shrinking its period variance by sparse same-support repairs. No new bound or endpoint gain is claimed at checkpoint time.
+
+### B. Authority And Verified Handoffs
+
+MAIN=935840aec9b1fcbc66fe4e0164061d661a8ca3b1. AGENTS blob c4f36b772f8a4b0c24fe566b90fafb646073c60f; contract 95566e37c8eaeb99ee680660df4f9d2e06ea5038; half directive 96ad4439ec458af6168f7d9cb3eef5dde291d37c. half_bootstrap_ack=BOOTSTRAP_TO_HALF_V1; cross_route_ack=CROSS_ROUTE_SIGNED_RECOVERY_V1; continuity_ack=LAST_ACTUAL_REPORT_CONTINUITY_V1.
+
+Original flat return, coefficient, and radical-step Lean definitions were read directly. Their blobs remain 2d23721027ecc44e85b7add02fc632b482f03352, 2da630c1d5fb9302e2097ec1e170cf41c2b40609, and c5ebb3d5d96898549ad039fd32e1a26955c5b8f8. The existing every-positive-loss native baseline remains unchanged.
+
+The nontruncated report tree was enumerated without a calendar cap. Every role has an actual November 18 report and November 17 predecessor; TODAY=AVAILABLE, YESTERDAY=CARRY_FORWARD at recorded scopes. Own PV is the last consumed watermark. Newly available relevant continuations PM, PS, FC, Lean VR, and Owner GP were retrieved; their full relevant proofs and outstanding obligations are being reconciled. FC independently accepts PV1/PV2/PV3 with scope. PS refutes fixed-sign four-phase restoration at H=18. VR implements only the finite same-support core. GP's good-window saturation remains a separately self-audited actual-prime statement. No blanket acceptance is implied.
+
+Latest role blobs: Coordinator ee7b4ce6ff79ab0eaea4d8b74d95e3e78f398cb5; Owner a6345e177392d55db551650e8013581b89694623; Analytic before this append 804f68e0163cbf6836a060a552256d1746d51242; Wheel d7c5014b34183b6a377c0438cb6cae27ba35e401; Census 5d76c950c517712bbba138d7240d21ac4ccd6b93; Referee 91b57ce6a46693403cd8a5751c63aaf8335ab305; Lean 2cd3263317a8afaae5e664f4b56d2c095059421c. Both full Coordinator mirrors were read back and match on both dates. External inbox remains 7d63d434690d00dffce9c90335d41c4f62d85798, with no new entry after October 18.
+
+Live PR #1147 is OPEN / non-draft / UNMERGED at e77d049ff83809c13c52e3d90922f34ed032efac, with 13 successful attached checks. Main has 10 successful attached checks. #1145 and #1146 are now human-merged; prior unmerged labels remain historical. Relevant exact proof/axiom logs will be inspected before any formal status is used.
+
+### C. Source And Half-Continuation Capsule
+
+ROUTE=NYMAN bounded feasibility audit. SOURCE=the unchanged two-band flat taper, both moments, all output cells and the infinite weight 1/[m(m+1)]. PROPOSED_STEP=use location, exact-head zeros, and complete arithmetic coefficients in a finite-window or remote-tail estimate. DIRECT_TERMINAL=the inherited paper Mellin consumer for one common unbounded exact-head sequence with complete E(H)=O_epsilon(H^epsilon). FIRST_OPEN=an independent complete signed upper supplier; a smaller tail certificate alone does not close the finite middle. RENEWAL=not supplied. All correction, after-support, mixed and boundary terms must be retained.
+
+### D-L. Work Remaining
+
+Mathematical derivation, novelty recovery, falsification, focused finite verification if useful, exact-head CI evidence inspection, and final verified report publication remain IN_PROGRESS. No local Lean, source/PR/policy/other-report edits, merge, schedule change, or agent launch is authorized or performed. Direct clone failed with CONNECT tunnel HTTP 403; connector reads work.
+
+EXECUTION=IN_PROGRESS; MATHEMATICS=NO_NEW_RESULT_YET; INDEPENDENT_REVIEW=PENDING; PUBLICATION=checkpoint awaiting immutable readback. RH=OPEN.
