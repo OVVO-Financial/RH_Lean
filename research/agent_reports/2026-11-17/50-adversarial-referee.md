@@ -2432,3 +2432,14 @@ if __name__ == '__main__':
 ```json
 {"H": 96, "assertions": 161204, "cross": ["-61453493/250000000000", "-245813971/1000000000000"], "energy": ["21569833/62500000000", "345117329/1000000000000"], "energy_minus_profile": ["-90242707/500000000000", "-180485413/1000000000000"], "fresh_prime_coefficients": [[24, 13, "-1/13"], [48, 29, "-1/29"], [96, 53, "-1/53"], [48, 29, "-1/29"], [96, 53, "-1/53"], [192, 97, "-1/97"], [96, 53, "-1/53"], [192, 97, "-1/97"], [384, 193, "-1/193"], [192, 97, "-1/97"], [384, 193, "-1/193"], [768, 389, "-1/389"], [384, 193, "-1/193"], [768, 389, "-1/389"], [1536, 769, "-1/769"]], "gram": [{"D": 49647168, "H": 12, "all_principal_minors_positive": true, "profiles": 3}, {"D": 49647168, "H": 24, "all_principal_minors_positive": true, "profiles": 3}, {"D": 8390373120, "H": 12, "all_principal_minors_positive": true, "profiles": 4}], "lean_certification": false, "profile": ["525602741/1000000000000", "262801371/500000000000"], "remainder": ["32664279/500000000000", "65328559/1000000000000"], "status": "PASS_RATIONAL_INTERVAL", "window": [21505, 24576]}
 ```
+
+
+### Verified Publication Receipt - 20261117-referee-2013-EST/PR
+
+At 2026-11-18 01:34:59 UTC / 2026-11-17 20:34:59 EST, the substantive continuation and complete reproducibility appendix were re-fetched at immutable commit [f5aded914d37b89c2ade561b1a2c4b28eb8fce72](https://github.com/OVVO-Financial/RH_Lean/commit/f5aded914d37b89c2ade561b1a2c4b28eb8fce72), blob 701f2261392eeb476df01e5aa1f472aaf765380f. The entire 186661-character content matched the intended update exactly; the pre-existing report and verified checkpoint remained a byte-identical prefix. The commit changed only this owned daily report: 872 additions, zero deletions. No other file or branch was modified.
+
+**RUN_STATUS=COMPLETED; PUBLICATION=VERIFIED; BOUNDED_AUDIT=COMPLETE.** PR1-PR3 remain PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED. TAIL.1-4 and CP1-CP3 are independently accepted on paper within the explicit scopes above; MR3 is independently interval-reproduced. All computation processes completed. No local Lean, new workflow, source change, PR, merge, other-role edit, schedule change or agent launch occurred.
+
+The strongest new restriction is that adding fixed or sublogarithmically many controlled dyadic heads still requires two unusually small genuine defects; exact two-head cancellation and rational fixed stencils are excluded. Neither sparse good complete norms nor the union half-profile conjecture is disproved. Next: independent review of PR1-PR3 or a genuinely changed source mechanism, not an expanded passed scan or an assumed desired norm. NO_NEW_GLOBAL_UPPER_GAIN; VERIFIED_ETA=NONE; RH=OPEN.
+
+This receipt records an already verified substantive publication; it does not predict its own commit SHA.
