@@ -2731,3 +2731,12 @@ print(json.dumps({'status':'PASS','assertions':sum(COUNTS.values()),
   "original_taper_refuted": false
 }
 ```
+
+
+### Verified Publication Receipt - LW - 2026-11-18 17:36 EST
+
+The substantive LW continuation was committed on agent-reports as [a8fab7e4059ff06ac60a5d8e04d806986baba896](https://github.com/OVVO-Financial/RH_Lean/commit/a8fab7e4059ff06ac60a5d8e04d806986baba896) at 2026-11-18T22:36:18Z. Its immutable file blob is 4a174b372542f4da094c3912650c3a2777533d64. Full-content readback at that exact commit matched the submitted 169,899-character report. The commit changes only this owned report, with 953 additions and zero deletions; its parent is the verified early checkpoint 7f38dcf1f9475fcb27a94f1827dc33211c65de34. Earlier PAIR/PV findings and publication history are preserved.
+
+EXECUTION=COMPLETED_BOUNDED_FEASIBILITY_AUDIT. SUBSTANTIVE_PUBLICATION=VERIFIED. This supersedes only this invocation's earlier IN_PROGRESS and final-publication-pending markers. LW1/LW2 remain PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED; LW3 additionally retains its explicit fixed-Mertens hypothesis, with the paid b=7/8 instance distinguished. LW4 is the completed finite exact computation, not an infinite upper theorem. No independent reviewer decision, Lean verification, new GitHub Actions run, source change, PR, merge, or route admission is claimed. NO_NEW_GLOBAL_UPPER_GAIN; VERIFIED_ETA=NONE; RH=OPEN.
+
+This receipt is a later append documenting the already-verified substantive commit; its own final commit and readback are verified by the publishing run, not predicted here. No ongoing local calculation remains.
