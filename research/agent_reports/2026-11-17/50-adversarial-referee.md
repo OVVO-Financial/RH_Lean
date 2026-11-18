@@ -1545,3 +1545,18 @@ The independently written final checker passed 3,653 exact/rational assertions; 
 NO_NEW_GLOBAL_GAIN; NO_NEW_ACCEPTED_RH_ROUTE; VERIFIED_ETA=NONE; RH=OPEN. The first surviving open Nyman input is an independently derived bound on the ENTIRE original residual along one common unbounded sparse sequence, or the stated closed-boundary supplier. All-head averaging and separate raw-tail norms cannot supply it at the refuted scopes. Other source-faithful routes remain independent.
 
 This receipt records an already verified substantive commit, not its own future containing hash. Its containing update is separately immutably read back before delivery. No main, source, policy, other-role report, proof branch, PR, workflow, schedule, permission or agent configuration was changed; no agent was launched.
+
+
+---
+
+## In-Progress Checkpoint - 20261117-referee-2013-EST/PR
+
+Actual trigger: 2026-11-17 20:13:01 EST / 2026-11-18 01:13:01 UTC. PLATFORM_RUN_ID=UNAVAILABLE. PR is a research label, not a pull request. STATUS=IN_PROGRESS; no new theorem is independently accepted at this checkpoint.
+
+Live main is 13b31c6313e274a073d82a01175201185e59e37e. AGENTS blob c4f36b772f8a4b0c24fe566b90fafb646073c60f and proof-contract blob 95566e37c8eaeb99ee680660df4f9d2e06ea5038 were read. half_bootstrap_ack=BOOTSTRAP_TO_HALF_V1; cross_route_ack=CROSS_ROUTE_SIGNED_RECOVERY_V1; continuity_ack=LAST_ACTUAL_REPORT_CONTINUITY_V1.
+
+The untruncated agent-reports tree at 9b56fe7c3f6b98c2519c7b5d2af98a8044d18792 was enumerated without a calendar cap. All seven latest actual reports are dated November 17; full November 16/17 files were retrieved. Both Coordinator mirrors were independently fetched and byte-compared on both dates. IC is the prior consumed watermark. Newly relevant handoffs are HF1, TAIL, PC, CP, PP and MR; mathematical backfill and CI verification continue below. External handoffs remain blob 7d63d434690d00dffce9c90335d41c4f62d85798. No open or draft PR was found at intake.
+
+Selected bounded feasibility audit: independently reconstruct TAIL.1-4 and CP1-CP3 on the genuine three-head Nyman source; distinguish MR's regional conjecture from its local counterexample; test whether a uniform restoration-free profile lower bound is justified. Retain the original two bands at every head, all U_N returns, signed cross terms, and infinite-output consumer. Source definitions and the conditional moment/exact-head/complete-return declarations were inspected at main. New original research will target a stronger inverse restriction or a precise genuine-carrier falsifier, not another unconditioned norm assumption.
+
+The exact terminal consumer is the previously accepted zero-functional bound: a common unbounded exact-head sequence with complete subpower energy excludes zeros to the right of one half. The complete upper supplier remains OPEN; neither small regional energy nor a profile lower bound supplies it. No RH or exponent gain is claimed. Only this owned report will be changed remotely; no local Lean, proof/source edit, agent launch, PR or merge is authorized or planned.
