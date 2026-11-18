@@ -2393,3 +2393,1969 @@ supplies no such upper estimate, no new exponent, and no RH claim.
 ```
 
 No Lean/source, other-role report, branch, PR, workflow, schedule, permission or agent launch is authorized or undertaken. Publication of this checkpoint requires the following immutable readback; no completed arithmetic is claimed.
+
+
+
+## Restored Profiles: A Global-Window Pass Hides Local Cancellation
+
+### A. Most Important Finding
+
+For the fresh three-head tuple **(96,192,384)**, the registered stronger regional inequality passes, but its natural **window-by-window no-loss strengthening is false**. On the middle activation window, the genuine restored remainder reduces the profile energy:
+
+```text
+J_1={21505,...,24576},
+||r_mix||_(J_1)^2 - ||Z||_(J_1)^2
+  in [-0.000180485414,-0.000180485413].
+```
+
+This is an exact finite counterexample certified by rational logarithm enclosures, not a floating-point sign. It concerns the displayed auxiliary strengthening, **not CP's valid remainder-bearing inequality**, not the registered half-profile inequality on the UNION of windows, and not RH. The local strengthening was examined as a **post-result corollary**, not retroactively preregistered.
+
+The original signed mixture has finite-prefix energy [0.084393932873, 0.084393932874] through m=294912. Its three diagonal terms total about 0.7598241 and the restored doubled cross terms total [-0.675430167112, -0.675430167111]. Thus keeping all interactions is numerically essential. No inference about the infinite energy follows from omitting its tail; the certified tail bound here is deliberately too wide to establish a small complete norm.
+
+| Claim | Evidence and exact scope |
+| --- | --- |
+| 20261117-census-1900-EST/MR1 | FINITE_COMPUTATION: the preregistered half-profile inequality passes at H=96 with positive margin [0.008281299424, 0.008281299425]. |
+| MR2 | FINITE_COMPUTATION: complete prefix Gram, all six bands, moments, source reconstruction, and CP.4 all-real-vector certificate independently checked at this one new tuple. |
+| MR3 | REFUTED: the auxiliary claim energy_Ji(r_mix) >= energy_Ji(Z) for every qualifying H and each i fails at H=96, i=1. This is a post-result finite corollary; no globally smallest witness is claimed. |
+| MR4 | FINITE_COMPUTATION: at the SAME finite cutoff, this mixture has greater energy than each original head. No ordering of their infinite norms is established. |
+
+Overall mathematical evidence: **FINITE_COMPUTATION**. No new all-scale proof, accepted RH route, or global exponent gain. **VERIFIED_ETA=NONE; RH=OPEN.**
+
+### B. Authority And Continuity
+
+Actual trigger: November 17, 2026, 19:00:01 EST / November 18, 00:00:01 UTC. Research label: 20261117-census-1900-EST/MR; PLATFORM_RUN_ID=UNAVAILABLE. Reporting date is **2026-11-17 in America/New_York**, not the UTC date.
+
+Pinned and closing main: `13b31c6313e274a073d82a01175201185e59e37e`.
+Intake agent-reports: `63d02481082a4d3d86b8e2f94c0db11a62884be8`.
+Preregistration: 2026-11-18 00:08:09 UTC.
+Early checkpoint: [78ada174beabec271dcbe6d13d1ceeaa7cdbeea1](https://github.com/OVVO-Financial/RH_Lean/commit/78ada174beabec271dcbe6d13d1ceeaa7cdbeea1), blob `907c7cd1c1ac5b5ca808aa1027d4718abb06091f`; immutable readback matched the complete intended file. All earlier DJ/TC content and receipts remain unchanged.
+
+```text
+half_bootstrap_ack=BOOTSTRAP_TO_HALF_V1
+cross_route_ack=CROSS_ROUTE_SIGNED_RECOVERY_V1
+continuity_ack=LAST_ACTUAL_REPORT_CONTINUITY_V1
+high_attack_ack=COMPLETE_SIGNED_HIGH_ATTACK_V1
+chain_ack=CANCELLATION_CHAIN_REUSE_V1
+finite_wheel_ack=FINITE_WHEEL_CENTERED_RH_V1
+```
+
+The newer half-continuation directive controls task priority. The canonical theorem remains VFCanonicalSquareVonKochStatement: ONE C>=0 before all natural R>=2 with |pi(R^2)-VF_can(R^2)|<=C R log R. VF_can=VF_mid+sqrt(2). The inspected terminal retains ClassicalVonKochRHCriterion explicitly. This bound and the complete Nyman upper supplier remain open.
+
+The no-calendar-cap report directory was enumerated; November 17 is the latest existing date for every role. Full available November 16/17 role files were retrieved, relevant findings/corrections/resume sections read, and both dates' Coordinator mirror contents byte-compared. The prior own TC ledger supplies the consumed watermarks. New material was consumed in execution order IC, HF1, TAIL, PC, CP, PP. This is relevant continuity, not a claim of independently rereading every historical code appendix.
+
+| Role | Latest November 17 blob; section | Prior TC watermark -> new material; disposition |
+| --- | --- | --- |
+| Coordinator 00/90 | ae2d8ed2c9199d5b0b174fd8b3436286f5541226; TAIL, 15:13 EST | INV -> TAIL.1-5. Use the complete mixed source and explicit profile question; selection proof remains upstream self-audit. |
+| Owner 10 | 6516bf78b096471ccfd2fb8c215e94002544a594; PC, 16:15 EST | HF -> PC.1-6. Complete Selberg return and pole warning consumed at paper/self-audit scope; no transfer to Nyman. |
+| Analytic 20 | d4bc53ac1b68f6dadabc4a04a2f5fc8c74f6625f; CP, 17:11 EST | HA -> CP1-4. New exact profile inequality and restored finite remainder read; no upper supplier or specialist acceptance inferred. |
+| Wheel 30 | 5c26771c0a266d5112e0b4a4b28aba0132e35ef7; PP, 18:06 EST | SB -> PP. Prime-pair -1:2:-1 cancellation is a distinct Euler-source paper claim, not a Nyman estimate. |
+| Census 40 | 701a6d15ba711d9a4ca3677709802def12c46c07; TC, 11:00 EST | TC reused. No repeat of its component-integrability or sign census. |
+| Referee 50 | 6e7f24cf5f790bab4ac1c19da6dc1c81546ad0e0; IC, 12:03 EST | SG -> IC. Scoped INV/HA/TC/HF/SB acceptance retained; IC's new classification remains self-audit. |
+| Lean 60 | f064afb482138dc59123713f11082809b04e7c3c; HF1, 13:14 EST | NYMAN-JUMP -> HF1. Live human merge #1144 supersedes its earlier unmerged receipt. |
+
+TODAY=AVAILABLE for all roles. YESTERDAY=READ/CARRY_FORWARD for relevant SC/DB/LM/TP/MC/CF/CR continuity. November 16 report blobs in role order are:
+fda92549dd9291c491005fdf70847b90d9be385a;
+a52b439e693e069502b0c299a5f074a19bae0807;
+84aaa2103225565607b5b033f273462bbe865246;
+713826840694e39a141fbdbe813f1d47245928e7;
+53e6be517dc11037fe3b42a8ed6ad3a06cfce956;
+240b97ce1c8ddc87d5f520bc9a8cd6ea00df3d32;
+0bada0352d54be7c46a7d928f4c4e3bee440ad8f.
+
+CONTINUITY_COMPLETE is scoped to latest discovery and relevant post-TC backfill; NEW_UNCONSUMED=NONE in that scope. The earlier absent November 13/14 folders remain NO_VERIFIED_REPORT, never invented executions. The external inbox, blob 7d63d434690d00dffce9c90335d41c4f62d85798, was read and is unchanged, with no entry after October 18. Preserve EXT-20261018-PNT-1's full weighted prime error and EXT-20261014-5's unconditional versus first-bad distinction. Neither supplies this norm estimate.
+
+### C. Registered Question And Competing Hypotheses
+
+CP proves an all-vector profile inequality and then subtracts a genuinely controlled restoration error. The new question is whether the ACTUAL arithmetic supplies the stronger regional inequality below without that subtraction. The competing explanation is destructive restoration exceeding half the profile energy.
+
+```text
+For every H=6*2^j, j>=1, with
+ |delta(H)-2delta(2H)+delta(4H)| >= max_i|delta(2^i H)|/512 > 0,
+use TAIL's specified weights and CP's original profiles and windows.
+MR-bound: ||r_mix||_J^2 >= (1/2)||Z||_J^2.
+```
+
+This is a precise **CONJECTURE under test**, not CP's theorem and not a complete-energy upper bound. A negative certified margin at an admissible head falsifies it. A positive margin supplies only a finite pass; an interval crossing zero requires greater precision, not a changed head or constant.
+
+The preregistered domain was **H=96 only**, with every 1<=m<=294912 reconstructed. This is a held-out MIXED tuple after previous base heads 12,24,48; some constituent heads and scalar defects had already appeared in those tuples. It is not claimed that every scalar input was previously unseen. CP explicitly requested no unchanged range extension: this run instead registered a distinct stronger source inequality and a full-prefix Gram diagnostic. No later head was added.
+
+### D. Exact Original Carrier
+
+For B_i=2^i H, i=0,1,2, set N_i=B_i^2, K_i=N_i/6, L_i=log B_i. These equal the original rounded parameters because H=96 is a multiple of six.
+
+```text
+q_i(k)=log(N_i/max(B_i,k)),       1<=k<=N_i,
+u_i=sum mu(k)q_i(k)/k,
+v_i=2L_i+sum mu(k)q_i(k),
+s1_i=sum_(3K_i<k<=4K_i)1/k, s2_i=sum_(5K_i<k<=6K_i)1/k,
+alpha_i=(u_i-s2_i*v_i/K_i)/(s1_i-s2_i),
+z_i=(s1_i*v_i/K_i-u_i)/(s1_i-s2_i),
+h_i(k)=alpha_i on (3K_i,4K_i], z_i on (5K_i,6K_i], zero otherwise,
+c_i(k)=(h_i(k)-mu(k)q_i(k))/L_i, 2<=k<=N_i,
+r_i(m)=1-sum c_i(k)*(m mod k)/k.
+
+delta_i=1-sum_(k<=B_i)mu(k)log(B_i/k)/k,
+d=delta_0-2delta_1+delta_2, t=log 2,
+a=(delta_1-delta_2, delta_2-delta_0, delta_0-delta_1)/(t*d),
+w_i=L_i*a_i, r_mix=sum w_i*r_i.
+```
+
+Both moments are retained: sum c_i(k)/k=1 and sum c_i(k)=3; sum w_i=1, sum a_i=0, sum a_i*delta_i=0. Squareful k with nonzero correction coefficients are INCLUDED. Common values of k are combined only by exact finite linearity of the padded coefficient vectors; no physical occurrence is deduplicated.
+
+With genuine Mobius coefficients and prime powers,
+
+```text
+U_B(m)=sum_(B<k<=m)mu(k)log(B/k)floor(m/k),
+C_hi(m)=sum h_i(k)floor(m/k),
+L_i*r_i(m)=U_Ni(m)-U_Bi(m)+C_hi(m),
+P_i(m)=sum_(3K_i<k<=4K_i)floor(m/k),
+T_i(m)=sum_(5K_i<k<=6K_i)floor(m/k), p_i=P_i-T_i,
+Z(m)=sum_i a_i*alpha_i*p_i(m), R(m)=r_mix(m)-Z(m),
+J_i={m:7N_i/12<m<=2N_i/3}, J=union_i J_i.
+```
+
+The independent CP.5 check retains
+R=-1-sum a_i F_Bi+sum a_i U_Ni+sum a_i(v_i/K_i)T_i,
+where F_B(m)=sum_(k<=B)mu(k)log(B/k)*(m mod k)/k. The constant -1 is essential. All six correction bands, earlier-floor overlaps, after-N terms and ordered cross pairs are present.
+
+### E. Methods And Independent Reconstruction
+
+Primary: exact smallest-prime-factor Mobius and prime-power sieve; independent divisor-inverse Mobius reconstruction through T; literal U tails by divisor-incidence accumulation; literal residue probes; outward rational fixed-point arithmetic. The interval primitives are reused from CP's published checker, not claimed independently invented.
+
+Logarithms are evaluated from a 100-term positive atanh expansion after reduction to [1,2]. For z<=1/3 the omitted tail is at most 2*z^201/[201*(1-z^2)], bounded by one grid unit at BOTH used precisions. Addition, signed multiplication, division and squaring round outward. The main run used 10^-60 and the precision repeat 10^-75. All 92 displayed enclosures agree, and every 75-digit enclosure lies within its 60-digit counterpart. These are certified rational enclosures, not merely agreement of decimal approximations.
+
+Independent implementation: fresh trial-division Mobius values, Python Decimal logarithms at 80 digits, literal c_i coefficients, and residual increments -1+sum_(k divides m)c_i(k). It does NOT import the primary sieve, log intervals or raw-tail reconstruction. It computes the entire finite prefix and all six Gram terms anew, and evaluates literal moduli at 31 probes. Its Decimal values lie inside the primary certified enclosures; its own arithmetic is labeled diagnostic, not interval-certified.
+
+The independent checker initially stopped at m=1: Decimal returned 5.8e-78 while the primary exact interval was [0,0]. The mismatch was localized before continuing. The repaired comparator handles only proved exact-head cells with a separate near-zero numerical check; it also independently verifies the exact INTEGER identity sum_(k<=m)mu(k)floor(m/k)=1 at every tested original head cell. Primary intervals and all nonzero comparisons were unchanged. No discrepancy was averaged away, no source renormalized, and no failed run counted as successful.
+
+The executed algorithms have sieve/floor-incidence costs O(T log T) arithmetic additions plus logarithm and arbitrary-precision costs; the independent trial factoring has a conservative O(T sqrt(T)) bound. No random seed, probable-prime test, external numerical table or local Lean execution is used.
+
+### F. Finite Results
+
+The curvature selection is certified. The signed weights are approximately
+(-0.4313775520557, -6.5911884114572, 8.0225659635130); their exact interval enclosures and all three defects are in the machine results. No rounded value is used for a sign decision.
+
+| Source region | Complete energy E | Profile energy P | Remainder energy V | Doubled cross term 2<Z,R> |
+| --- | --- | --- | --- | --- |
+| J_0 (5377..6144) | [0.000158384703, 0.000158384704] | [0.000002672937, 0.000002672938] | [0.000153936703, 0.000153936704] | [0.000001775062, 0.000001775063] |
+| J_1 (21505..24576) | [0.000345117328, 0.000345117329] | [0.000525602741, 0.000525602742] | [0.000065328558, 0.000065328559] | [-0.000245813972, -0.000245813971] |
+| J_2 (86017..98304) | [0.008195444662, 0.008195444663] | [0.000307018860, 0.000307018861] | [0.006173546742, 0.006173546743] | [0.001714879060, 0.001714879061] |
+| Union J | [0.008698946694, 0.008698946695] | [0.000835294539, 0.000835294540] | [0.006392812004, 0.006392812005] | [0.001470840150, 0.001470840151] |
+
+At each cell and after summation, **E=P+V+2<Z,R>**. The three window sizes are 768,3072,12288, totaling 16128. On the middle window the cross term is negative; on the other two it is positive. The union has positive cross term. This is a deterministic finite signed interaction, not Pearson covariance or an independence claim.
+
+The registered union margin E-P/2 is [0.008281299424, 0.008281299425]: **MR1 passes**. No counterexample to that claim was found in its one-head test domain.
+
+CP.4 is also checked as an ALL-REAL-VECTOR finite statement: the three leading principal minors of G-(H^2/49647168)I are respectively enclosed by [207.681107453724, 207.681107453725]; [11644.020105976036, 11644.020105976037]; [2056977.417213215002, 2056977.417213215003]. All are positive, giving positive definiteness by Sylvester's criterion. This verifies this exact H, not CP's all-H paper proof. The finite source bound retaining measured R and the finite drift-vector error also pass. The unbounded Mertens hypothesis in CP.1 is NOT numerically certified.
+
+### G. Counterexample And Exceptional Behavior
+
+**Refuted auxiliary assertion:** for every curvature-admissible H=6*2^j and each i, the full residual on J_i has at least the energy of Z on J_i. At H=96, i=1, the certified difference is [-0.000180485414, -0.000180485413]. Every coefficient, original moment, curvature hypothesis, cutoff and restored term is included. The finite sum of squares itself, not an isolated negative pair, refutes this particular assertion.
+
+The mechanism is visible in the exact ledger: R contributes positive own energy [0.000065328558, 0.000065328559], but its cross term [-0.000245813972, -0.000245813971] is more negative. The profile Gram's positivity does not control that correlation. This explains why a profile theorem cannot automatically be applied to a fully restored residual without its remainder.
+
+This observation does not prove a general sign law by window, ancestry or scale. It does not refute MR-bound on J, CP.4, CP.1, the sparse-head mechanism, or the canonical theorem. H=96 is the sole declared fresh base head, not a claimed smallest counterexample over all legal H.
+
+Negative controls detect removing each of the three U_N returns or each second band at T=294912; removing cross terms is detected by m=5377 in J; the missing -1 is detected at m=1; changing the strict first-band endpoint is detected at m=4608. These are intentional wrong formulas, not failures of the correct source.
+
+### H. Complete Prefix And Infinite Tail
+
+Let x_i(m)=w_i*r_i(m). The six entries below are the actual three diagonal and three DOUBLED cross-head terms summed over EVERY 1<=m<=294912 with weight 1/[m(m+1)].
+
+| Term | Certified interval |
+| --- | --- |
+| G00 | [0.001668219685, 0.001668219686] |
+| G11 | [0.339816829229, 0.339816829230] |
+| G22 | [0.418339051069, 0.418339051070] |
+| 2G01 | [0.041038480662, 0.041038480663] |
+| 2G02 | [-0.036711932762, -0.036711932761] |
+| 2G12 | [-0.679756715013, -0.679756715012] |
+| Complete square | [0.084393932873, 0.084393932874] |
+
+The exact recombination is checked at every output cell and after summation. The prefix energy of the mixture exceeds the original heads' prefix energies [0.008964749496, 0.008964749497], [0.007821993139, 0.007821993140], [0.006499827240, 0.006499827241], respectively. This is an exploratory SAME-CUTOFF comparison, not a claim that mixing worsens the infinite norm.
+
+For the padded mixed coefficients C_k=sum_i w_i*c_i(k),
+
+```text
+0 <= E_mix-E_mix(T)
+ <= (1+sum_k|C_k|)^2/(T+1)
+ <= (1+sum_i|w_i|sum_k|c_i(k)|)^2/(T+1).
+```
+
+The evaluated majorant is [75342.837244540558, 75342.837244540559]. Consequently the honest complete-energy enclosure is [0.084393932873, 75342.921638473432]. It covers every later output and period, but is much too wide to prove a useful full-norm comparison. No larger cutoff was added to make this bound look better. In particular no infinite ordering, monotonicity, asymptotic exponent, or all-scale renewal is inferred.
+
+### I. Proof Impact And Source-Loss-Recovery Map
+
+| Original source / first loss | Paid recovery used | Remaining barrier |
+| --- | --- | --- |
+| Nyman literal residues -> raw floor components | Compiled complete return, original moment solver and all six bands. TC/IC prohibit separate infinite raw norms. | The entire growing-H residual still lacks an upper estimate. |
+| Three-profile Gram -> residual lower bound | CP restores R explicitly. MR checks its finite source specialization and exposes a local failure if R's cross interaction is ignored. | MR-bound is only a one-head pass; the cross term needs genuine arithmetic control. |
+| Signed mixture -> diagonal-only prefix energy | MR retains every ordered cross-head term. Recombination is verified. | Finite negative aggregate cross terms cannot be treated as permanent additive payment. |
+| Euler / square-prefix Q_R, strict K_R | Exact identities and native Mertens baseline remain separate paid inputs. | OPEN_BRIDGE: no norm-preserving map from those masks to this mixed residue source; PP is not imported as payment. |
+| Actual-prime VF / #915 | Canonical normalization, chronology and first-bad hypotheses retained. | NOT_IDENTIFIED with this residue carrier; no prime-error or first-bad estimate follows. |
+| Ideal-character NNS / OAI | Existing genuine Mertens consequence used only as the prior continuation's input. | No identification of rational mu signs with Hecke phases; LOW 47/54, theta>3/5 and correction-domain gates remain. |
+
+The direct consumer is the separately accepted INV/IC exact-head zero-evaluation argument. For a fixed nontrivial zero rho with sigma>1/2, an exact head through H forces E >= (2sigma-1)(H+1)^(2sigma-1)/|rho|^2. A genuine subpower COMPLETE upper estimate along ONE common unbounded sequence would contradict every such zero. Equivalently, an independently supplied complete energy exponent kappa(h)<2h at the closed positive gap h would contradict the supremum without an attained-zero premise.
+
+These are inherited **conditional paper consumers**, not a new supplier. All short/middle outputs, correction transitions, after-N returns and infinite tail remain required. MR supplies bounded falsification support only; it neither supplies the upper estimate nor proves CP's necessary two-defect rate.
+
+### J. Formal Evidence And Provenance
+
+The reused baseline is native_mertens_near_uniform_window_error_closed, with every-positive-loss exponent 7/8-7/(64*nearUniformSlotCount). Spending its positive margin permits the fixed exponent 7/8 used by TAIL/CP; no zero-loss endpoint or comparison of unlike slot counts is claimed.
+
+At tested head 77ee815846d6d534c866f0752aa33b84c385610a, all 14 checks are successful. The [actual window-error audit log](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42552018910/job/128949473700) was fetched: five transitive closures (35358,35375,35736,35737,35753) use only propext, Classical.choice and Quot.sound. A fresh nontruncated tree comparison checked 2508 preexisting Lean/compiler-pin/scripts/lean entries against current main; only aggregate RHLean.lean differs. This is scoped reuse, not a new full-main compilation.
+
+At original-source head 685598746869a62849451d7b7ffbfd09d42e4e4a, 13 checks pass; the [actual source log](https://github.com/OVVO-Financial/RH_Lean/actions/runs/44063808521/job/133972190569) compiled four modules with zero cached, including the flat return and its permitted-axiom outputs. #1144's current exact head abd9bb34c8fac459e67c63009961b6c26548d7e9 has 13 successful checks; its [actual audit](https://github.com/OVVO-Financial/RH_Lean/actions/runs/44149489941/job/134273552309) used one cached module and checked five public axiom closures and six exact types. #1144 is now human-merged on main. #1143 merged to docs/preservation-target-strength-20261117, NOT main. The inspected open/draft collection is empty.
+
+New MR calculations are NOT PROVED_IN_LEAN. No local Lean or hosted workflow was launched.
+
+| Source at pinned main | Blob SHA |
+| --- | --- |
+| AGENTS.md | c4f36b772f8a4b0c24fe566b90fafb646073c60f |
+| CURRENT_PROOF_CONTRACT.md | 95566e37c8eaeb99ee680660df4f9d2e06ea5038 |
+| docs/RHLEAN_BOOTSTRAP_TO_HALF_20261116.md | 96ad4439ec458af6168f7d9cb3eef5dde291d37c |
+| docs/RHLEAN_REPORT_CONTINUITY_LAST_ACTUAL_20261111.md | 3e71820a4af722eae7098da6945bb5bcba50dd0d |
+| docs/RHLEAN_CROSS_ROUTE_SIGNED_RECOVERY_20261110.md | e3ae4280438f591f1ffaddd754a1c3a6d35d0691 |
+| research/NYMAN_FLAT_TAPER_RETURN_20261104.lean | 2d23721027ecc44e85b7add02fc632b482f03352 |
+| research/NYMAN_HIGH_COEFFICIENT_INVARIANT_20261104.lean | 2da630c1d5fb9302e2097ec1e170cf41c2b40609 |
+| research/NYMAN_RADICAL_INCREMENT_20261106.lean | c5ebb3d5d96898549ad039fd32e1a26955c5b8f8 |
+| research/NYMAN_CORRECTION_ENERGY_20261105.lean | e5453cd32c3c4ebf9ebf41927bcb92e534b2ece7 |
+| research/oai_434/VF919WindowErrorClosure.lean | f629db1b2b65d6ec042ac9432397d4b6316200c6 |
+| research/VF_CANONICAL_SQRT_TWO_VON_KOCH.lean | 79030d70e8d3e0d08eef9bac53fef95c36eca2fb |
+
+### K. Verification And Limitations
+
+Observed environment: Python 3.12.14, standard library only. The primary run took 32.09353299299994 seconds at 60 digits and 33.72642998800006 seconds at 75 digits; the completed independent run took 16.053453369999943 seconds. Times are measured, not mathematical claims.
+
+The successful final counts are **982649 primary + 1462 independent + 283 validation = 984394 assertions**, excluding 25608 logarithm-tail checks in each primary run. The repeated primary run is a precision check, not additional domain coverage. Counts include narrowness and consistency assertions, not that many independent arithmetic cases. All necessary processes terminated; all four Python files passed syntax compilation.
+
+The Mobius values through 294912 agree across the sieve, divisor inverse, and independent trial-factor reconstruction. Every displayed bound is outward rounded. Finite exact endpoints and signs are rigorous; the independent Decimal calculations are corroborating diagnostics. Two independently structured programs by this laboratory are **not** independent specialist review.
+
+No finite pass proves a uniform constant, infinite limit or RH. The large tail enclosure is a real limitation, not hidden behind the good finite Gram. The exploratory per-window and prefix comparisons are separately labeled and were not used to tune the registered half constant.
+
+### L. Specialist Handoffs
+
+- **Proof Architect:** the held-out complete-Gram task is closed. MR-bound passes at H=96; the local no-loss strengthening fails at J_1. The full upper supplier is still absent. Do not count the precision rerun or larger output prefix as a global gain.
+- **Analytic Type II:** CP's finite all-vector and measured-remainder inequalities survive independent reconstruction. The middle-window cross term is a concrete constraint on any proposed nonnegative restoration shortcut. MR does not independently review CP's infinite partial-summation argument.
+- **Adversarial Referee:** audit the new registered bound's exact scope, the post-result local counterexample, outward logarithm remainder and preserved cross terms. No smallest-all-head or full-norm comparison is asserted.
+- **Lean Verification:** no implementation request. Existing exact return/moment theorems suffice; MR adds finite evidence, not an accepted necessary new source lemma or an unpaid conditional wrapper.
+- **Owner / Wheel:** PC and PP retain their distinct source/review statuses. No transfer to original first-bad payments or complete Euler Xi is made; their completed scans were not repeated.
+
+### M. Ranked Portfolio
+
+| Disposition | Hypothesis and evidence | Independent missing ingredient / decisive next step |
+| --- | --- | --- |
+| CONJECTURE; stop this finite test | MR-bound on all curvature-admissible geometric heads; passes only the registered H=96 case. | A new source-derived estimate for the full Z/R interaction, or a mathematically motivated falsifier. Do not extend heads automatically. |
+| REFUTED at stated local scope | Every activation window preserves at least its profile energy. | MR3 is a complete finite witness. Any repaired local theorem must retain an explicit cross/remainder cost. |
+| CONDITIONAL consumer retained; supplier open | Complete subpower mixed energy on one common unbounded sequence excludes zeros >1/2. | Genuine simultaneous-defect arithmetic PLUS all complete upper returns; CP's necessary condition alone is insufficient. |
+| Retain prior rejections | All-head uniform averaging; finite separate raw-component norms; favorable local cross signs as universal payment. | No new evidence reopens their previously refuted scopes. |
+
+### N. Continuation Capsule
+
+```text
+RUN=20261117-census-1900-EST/MR; PLATFORM_RUN_ID=UNAVAILABLE
+TRIGGER=2026-11-17T19:00:01-05:00
+MAIN=13b31c6313e274a073d82a01175201185e59e37e
+POLICY=BOOTSTRAP_TO_HALF_V1; continuity=LAST_ACTUAL_REPORT_CONTINUITY_V1
+REPORT_INTAKE=63d02481082a4d3d86b8e2f94c0db11a62884be8
+CHECKPOINT=78ada174beabec271dcbe6d13d1ceeaa7cdbeea1; IMMUTABLE_MATCH
+WATERMARKS=TAIL/PC/CP/PP/TC/IC/HF1; both dates' coordinator mirrors equal
+ROUTE=NYMAN, specified mixed three-head bounded feasibility
+CURRENT_P(b)=existing every-positive-loss Mertens baseline; no change
+SOURCE=all six bands, exact moments, full original U_N-U_B+C_h returns
+TEST=H96 only; all 1<=m<=294912; J sizes 768,3072,12288
+RESULT=registered half-profile inequality passes; local no-loss strengthening
+       fails at J1; full finite Gram and CP4 certificate independently agree
+DIRECT_CONSUMER=complete sparse subpower energy -> zero exclusion -> half
+VALIDITY=one finite head only; all-scale renewal and upper supplier unpaid
+ALL_RETURNS=every output beyond T retained in explicit, wide tail majorant
+FIRST_OPEN_INPUT=genuine complete signed upper correlation, not a new identity
+NEXT=derive/review a NEW source-specific inequality before another census;
+     retain MR3 as a mandatory local restoration regression
+STATUS=ACTIVE_SUPPORT / COMPLETED_BOUNDED_FEASIBILITY
+MATH=FINITE_COMPUTATION; MR3 auxiliary assertion REFUTED
+REVIEW=independent specialist review PENDING; CI=no new Lean
+NO_NEW_GLOBAL_GAIN; VERIFIED_ETA=NONE; RH=OPEN
+PUBLICATION=established only by later immutable readback receipt
+```
+
+### Reproduction
+
+The scripts below contain the complete executed source. The interval core is extracted from CP's published checker before its old test loop; none of CP's H12/24/48 cases is rerun. All files are embedded only in this authorized report, not committed as arbitrary repository experiment files.
+
+```sh
+python mr_audit.py
+cp mr_results.json mr_results_60.json
+CP_DIGITS=75 python mr_audit.py
+python mr_independent.py
+CP_DIGITS=75 python mr_validate.py
+python -m py_compile interval_core.py mr_audit.py mr_independent.py mr_validate.py
+```
+
+| Artifact | SHA256 |
+| --- | --- |
+| mr_registration.md | 268dec63746163898b51eaadd85eada57b071708f8a6fc70edcb64469cae3607 |
+| interval_core.py | 2934b6bcabc88115b59ffedcc52405b4d763239316773721458bf6484af1899c |
+| mr_audit.py | 2c406036827f0c2ae633167516887bad11007700ac0a1038a7154c1723196ddc |
+| mr_independent.py | e6ed775910a51e5220804a07defc72f5126b916a82c1297eaeb68e01dfffcc62 |
+| mr_validate.py | 1f601d59f93119ccd76037937dd29e25f2f04806462b52c533cc727fc72e3c62 |
+| mr_results_60.json | 7572267a9ad9ed74cc9f529304c8e9d6a7e0061b30d1b70b6a15fb6644a87a76 |
+| mr_results.json | c6bb52f2b93c7c1e203a3c203474c9f95d14736b05ae39ca8bea01e055d10da1 |
+
+Runtime-bearing JSON hashes describe the observed run, not a demand for identical timings. Source, domain, arithmetic certificates and displayed interval endpoints are deterministic.
+
+
+<details>
+<summary>mr_registration.md</summary>
+
+```text
+# MR Preregistration
+
+Run: 20261117-census-1900-EST/MR. Trigger: 2026-11-17T19:00:01-05:00.
+Registered at 2026-11-18 00:08:09 UTC, before new arithmetic evaluation.
+Main: 13b31c6313e274a073d82a01175201185e59e37e. Intake reports: 63d02481082a4d3d86b8e2f94c0db11a62884be8.
+
+Question: can the actual restored arithmetic remainder erase the detected
+three-profile energy, beyond CP's general inequality with a subtracted error?
+
+Freeze H=96 only (next untested H=6*2^j after 12,24,48), B=(H,2H,4H),
+N_i=B_i^2, L_i=log B_i. Use TAIL's EXACT signed weights, curvature d,
+all original coefficients and six correction bands, and CP's integer
+profiles p_i=P_i-T_i. Set a as in TAIL, t_i=a_i*alpha_i,
+r=sum_i a_i*(U_Ni-U_Bi+C_hi), Z=sum_i t_i*p_i, R=r-Z.
+J is the disjoint union 7N_i/12<m<=2N_i/3, with weight 1/[m(m+1)].
+
+Candidate MR-bound: for every H=6*2^j, j>=1, satisfying
+|d|>=max_i|delta(B_i)|/512>0, ||r||_J^2 >= (1/2)||Z||_J^2.
+This is a NEW proposed regional arithmetic inequality, not CP's theorem,
+not a complete upper bound, and not inferred from previously seen energies.
+Competing explanation: restored arithmetic can destructively cancel more
+than half of the profile energy. A certified negative margin at H=96,
+with curvature selection checked, refutes MR-bound at its exact scope.
+A positive margin is only a one-head finite pass. An interval containing
+zero is unresolved; increase precision, not change the head or constant.
+
+Also independently certify CP.4's full 3x3 profile Gram shifted by N/D I,
+D=49647168, and CP's exact finite-source lower bound retaining measured
+remainder. Do not purport to test the unbounded Mertens premise.
+
+Compute EVERY output 1<=m<=T=2*N_2=294912, all three diagonal and three
+doubled cross-head Gram terms, plus every CP window's Z^2,R^2,2ZR.
+Return an honest complete-norm enclosure using the bound
+(1+sum|C_k|)^2/(T+1) for the whole omitted tail, or its valid triangle
+majorant. Wide tail bounds do not establish a full-norm ordering or rate.
+Independent reference: trial-factor Mobius, decimal logarithms and literal
+residue coefficients, checked against the rational interval reconstruction.
+Boundary probes must include all six band onsets/ends, every N_i+1, exact
+head, and T. Negative controls: omit a second band, U_N, cross terms,
+constant -1, and shift a strict endpoint. No source omission is repaired by
+renormalization. Stop after this domain; no adaptive larger census.
+
+Continuation: the accepted exact-head sparse full-energy consumer would
+exclude zeros >1/2 if a genuine complete subpower upper estimate existed.
+This lower-bound test is a bounded feasibility/falsifier audit only. It
+supplies no such upper estimate, no new exponent, and no RH claim.
+```
+
+</details>
+
+<details>
+<summary>interval_core.py</summary>
+
+```python
+"""Finite source and profile audit; not a proof of an all-scale Mertens bound."""
+from collections import Counter
+from itertools import product
+from math import isqrt
+import json
+import os
+
+Q = 10**int(os.environ.get('CP_DIGITS', '60'))
+DELTA = 49647168
+checks = Counter()
+
+
+def check(name, ok):
+    assert ok, name
+    checks[name] += 1
+
+
+def ceildiv(a, b):
+    return -((-a) // b)
+
+
+def rat(n, d=1):
+    assert d > 0
+    return n * Q // d, ceildiv(n * Q, d)
+
+
+def add(*args):
+    return sum(a[0] for a in args), sum(a[1] for a in args)
+
+
+def neg(a):
+    return -a[1], -a[0]
+
+
+def sub(a, b):
+    return add(a, neg(b))
+
+
+def scale(a, n, d=1):
+    assert d > 0
+    ends = (a[0] * n, a[1] * n)
+    return min(ends) // d, ceildiv(max(ends), d)
+
+
+def mul(a, b):
+    ends = [x * y for x in a for y in b]
+    return min(ends) // Q, ceildiv(max(ends), Q)
+
+
+def square(a):
+    lo = 0 if a[0] <= 0 <= a[1] else min(a[0]**2, a[1]**2)
+    return lo // Q, ceildiv(max(a[0]**2, a[1]**2), Q)
+
+
+def div(a, b):
+    if b[1] < 0:
+        return div(neg(a), neg(b))
+    assert b[0] > 0
+    return mul(a, (Q * Q // b[1], ceildiv(Q * Q, b[0])))
+
+
+def overlap(a, b):
+    return a[0] <= b[1] and b[0] <= a[1]
+
+
+def contains(a, n):
+    return a[0] <= n * Q <= a[1]
+
+
+def display(a):
+    # Outward decimal endpoints at 12 places.
+    base = Q // 10**12
+    def fmt(n):
+        sign = '-' if n < 0 else ''
+        n = abs(n)
+        return f'{sign}{n // 10**12}.{n % 10**12:012d}'
+    return [fmt(a[0] // base), fmt(ceildiv(a[1], base))]
+
+
+def log_unit(n, d):
+    assert d <= n <= 2*d
+    z = rat(n-d, n+d)
+    z2 = mul(z, z)
+    power = z
+    total = rat(0)
+    for j in range(100):
+        total = add(total, scale(power, 1, 2*j+1))
+        power = mul(power, z2)
+    # Positive tail <= 2*3^-201/(201*(1-1/9)) < 1/Q.
+    check('log_tail_rational', 18*Q < 8*201*3**201)
+    return add(scale(total, 2), (0, 1))
+
+
+LOG2 = log_unit(2, 1)
+
+
+def logn(n):
+    e = n.bit_length()-1
+    return add(log_unit(n, 1 << e), scale(LOG2, e))
+
+
+def arith(limit):
+    spf = list(range(limit+1))
+    for p in range(2, isqrt(limit)+1):
+        if spf[p] == p:
+            for n in range(p*p, limit+1, p):
+                if spf[n] == n:
+                    spf[n] = p
+    logs = [rat(0)]*(limit+1)
+    mu = [0]*(limit+1)
+    mu[1] = 1
+    lam = [rat(0)]*(limit+1)
+    for n in range(2, limit+1):
+        p = spf[n]
+        if p == n:
+            logs[n] = logn(n)
+            power = p
+            while power <= limit:
+                lam[power] = logs[n]
+                power *= p
+        else:
+            logs[n] = add(logs[p], logs[n//p])
+        mu[n] = 0 if (n//p) % p == 0 else -mu[n//p]
+    psi = [rat(0)]*(limit+1)
+    for n in range(1, limit+1):
+        psi[n] = add(psi[n-1], lam[n])
+    return mu, logs, psi
+
+
+def floor_response(coeff, limit):
+    inc = [rat(0)]*(limit+1)
+    for k, c in coeff:
+        if c == (0, 0):
+            continue
+        for n in range(k, limit+1, k):
+            inc[n] = add(inc[n], c)
+    out = [rat(0)]*(limit+1)
+    for n in range(1, limit+1):
+        out[n] = add(out[n-1], inc[n])
+    return out
+
+
+def band_floor(lo, hi, limit):
+    inc = [0]*(limit+1)
+    for k in range(lo+1, hi+1):
+        for n in range(k, limit+1, k):
+            inc[n] += 1
+    out = [0]*(limit+1)
+    for n in range(1, limit+1):
+        out[n] = out[n-1]+inc[n]
+    return out
+
+
+def quotient_count(lo, hi, m):
+    return sum(max(0, min(hi, m//j)-lo) for j in range(1, m//(lo+1)+1))
+
+
+def det3(g):
+    return sub(add(mul(g[0][0], mul(g[1][1], g[2][2])),
+                   scale(mul(g[0][1], mul(g[0][2], g[1][2])), 2)),
+               add(mul(g[0][0], square(g[1][2])),
+                   mul(g[1][1], square(g[0][2])),
+                   mul(g[2][2], square(g[0][1]))))
+```
+
+</details>
+
+<details>
+<summary>mr_audit.py</summary>
+
+```python
+"""Registered H=96 restored-profile test, with a complete finite Gram."""
+from collections import Counter
+from pathlib import Path
+import gc
+import hashlib
+import json
+import platform
+import time
+
+import interval_core as iv
+from interval_core import add, neg, sub, rat, scale, mul, div, square
+
+H = 96
+N = H * H
+HEADS = [H, 2 * H, 4 * H]
+NS = [b * b for b in HEADS]
+T = 2 * NS[-1]
+D = 49647168
+PAIRS = [(0, 0), (1, 1), (2, 2), (0, 1), (0, 2), (1, 2)]
+counts = Counter()
+controls = {}
+
+
+def ck(name, test):
+    assert test, name
+    counts[name] += 1
+
+
+def equal(name, a, b):
+    ck(name, iv.overlap(a, b))
+    ck('narrow_' + name, max(a[1]-a[0], b[1]-b[0]) < iv.Q // 10**30)
+
+
+def box(a):
+    return {'bounds': iv.display(a), 'scaled': [str(x) for x in a]}
+
+
+def absolute(a):
+    return (0 if a[0] <= 0 <= a[1] else min(abs(x) for x in a),
+            max(abs(x) for x in a))
+
+
+def inverse_mu(limit):
+    values = [0] * (limit + 1)
+    values[1] = 1
+    for d in range(1, limit + 1):
+        for n in range(2*d, limit + 1, d):
+            values[n] -= values[d]
+    return values
+
+
+def main():
+    start = time.perf_counter()
+    mu, logs, psi = iv.arith(T)
+    independently = inverse_mu(T)
+    for n in range(1, T + 1):
+        ck('mobius_divisor_inverse', mu[n] == independently[n])
+    del independently
+    print('Arithmetic reconstructed through', T, flush=True)
+    data = []
+    probe_set = {1, H, H+1, 2*H, 4*H, 4*H+1, T}
+    for n in NS:
+        probe_set.update([n//2, n//2+1, 2*n//3, 2*n//3+1,
+                          5*n//6, 5*n//6+1, n, n+1])
+    probes = sorted(probe_set)
+    windows = [(7*n//12+1, 2*n//3) for n in NS]
+    for B, n in zip(HEADS, NS):
+        K = n//6
+        L = sub(logs[n], logs[B])
+        s1 = add(*(rat(1, k) for k in range(3*K+1, 4*K+1)))
+        s2 = add(*(rat(1, k) for k in range(5*K+1, 6*K+1)))
+        band_d = sub(s1, s2)
+        q = [rat(0)] + [scale(sub(logs[n], logs[max(B, k)]), mu[k])
+                        for k in range(1, n+1)]
+        u = add(*(scale(q[k], 1, k) for k in range(1, n+1)))
+        v = add(scale(L, 2), *q[1:])
+        alpha = div(sub(u, mul(s2, scale(v, 1, K))), band_d)
+        zeta = sub(scale(v, 1, K), alpha)
+        delta = sub(rat(1), add(*(scale(sub(logs[B], logs[k]), mu[k], k)
+                                 for k in range(1, B+1))))
+        delta_n = sub(rat(1), add(*(scale(sub(logs[n], logs[k]), mu[k], k)
+                                   for k in range(1, n+1))))
+        equal('delta_difference', u, sub(delta, delta_n))
+        first = iv.band_floor(3*K, 4*K, T)
+        second = iv.band_floor(5*K, 6*K, T)
+        ub = iv.floor_response(((k, scale(sub(logs[B], logs[k]), mu[k]))
+                                for k in range(B+1, T+1)), T)
+        un = iv.floor_response(((k, scale(sub(logs[n], logs[k]), mu[k]))
+                                for k in range(n+1, T+1)), T)
+        f = [add(un[m], neg(ub[m]), scale(alpha, first[m]), scale(zeta, second[m]))
+             for m in range(T+1)]
+        coefficients = [rat(0)] * (n+1)
+        for k in range(2, n+1):
+            hk = alpha if 3*K < k <= 4*K else zeta if 5*K < k <= 6*K else rat(0)
+            coefficients[k] = div(sub(hk, q[k]), L)
+        equal('reciprocal_moment', add(*(scale(coefficients[k], 1, k)
+                                       for k in range(2, n+1))), rat(1))
+        equal('total_moment', add(*coefficients[2:]), rat(3))
+        head_probes = {}
+        for m in probes:
+            literal = sub(rat(1), add(*(scale(coefficients[k], m % k, k)
+                                      for k in range(2, n+1))))
+            equal('literal_residue_vs_floor_tail', mul(L, literal), f[m])
+            ff = add(*(scale(sub(logs[B], logs[k]), mu[k]*(m % k), k)
+                       for k in range(1, B+1)))
+            equal('prime_power_drift', ub[m], add(scale(delta, m), sub(psi[m], rat(m)), logs[B], ff))
+            head_probes[m] = {'F': ff, 'UN': un[m], 'UB': ub[m], 'residual': literal}
+        if not iv.overlap(f[T], sub(f[T], un[T])):
+            controls['omit_UN_' + str(B)] = T
+        if not iv.overlap(f[T], sub(f[T], scale(zeta, second[T]))):
+            controls['omit_second_band_' + str(B)] = T
+        for m in range(1, B+1):
+            ck('zero_head', iv.contains(f[m], 0))
+        data.append(dict(B=B, n=n, K=K, L=L, u=u, v=v, d=band_d, s2=s2,
+                         alpha=alpha, zeta=zeta, delta=delta, delta_n=delta_n,
+                         f=f, first=first, second=second, c=coefficients,
+                         probes=head_probes))
+        del ub, un, q
+        gc.collect()
+        print('Complete source ready for head', B, flush=True)
+    ds = [x['delta'] for x in data]
+    curvature = add(ds[0], scale(ds[1], -2), ds[2])
+    denom = mul(iv.LOG2, curvature)
+    aa = [div(sub(ds[1], ds[2]), denom), div(sub(ds[2], ds[0]), denom),
+          div(sub(ds[0], ds[1]), denom)]
+    ww = [mul(a, x['L']) for a, x in zip(aa, data)]
+    tt = [mul(a, x['alpha']) for a, x in zip(aa, data)]
+    vv = [mul(a, x['delta']) for a, x in zip(aa, data)]
+    ee = [mul(a, add(x['delta_n'], mul(x['s2'], scale(x['v'], 1, x['K']))))
+          for a, x in zip(aa, data)]
+    equal('affine_normalization', add(*ww), rat(1))
+    equal('common_prime_mode', add(*aa), rat(0))
+    equal('common_drift_mode', add(*(mul(a, d) for a, d in zip(aa, ds))), rat(0))
+    selected = absolute(curvature)[0] * 512 >= max(absolute(d)[1] for d in ds)
+    ck('curvature_selection', selected)
+    sample_values = {}
+    for m in probes:
+        r = add(*(mul(a, x['f'][m]) for a, x in zip(aa, data)))
+        Z = add(*(scale(t, x['first'][m]-x['second'][m]) for t, x in zip(tt, data)))
+        rest = add(rat(-1), *(neg(mul(a, x['probes'][m]['F'])) for a, x in zip(aa, data)),
+                   *(mul(a, x['probes'][m]['UN']) for a, x in zip(aa, data)),
+                   *(scale(mul(a, scale(x['v'], 1, x['K'])), x['second'][m])
+                     for a, x in zip(aa, data)))
+        equal('CP5_independent_formula', r, add(Z, rest))
+        if not iv.overlap(r, add(Z, rest, rat(1))):
+            controls.setdefault('omit_constant_minus_one', m)
+        sample_values[str(m)] = box(r)
+    grams = [rat(0) for _ in PAIRS]
+    profile_gram = [[rat(0) for _ in range(3)] for _ in range(3)]
+    region = [[rat(0) for _ in range(4)] for _ in range(3)]
+    energy = rat(0)
+    largest = (rat(0), 0)
+    for m in range(1, T+1):
+        atoms = [mul(a, x['f'][m]) for a, x in zip(aa, data)]
+        r = add(*atoms)
+        wden = m*(m+1)
+        pieces = [scale(mul(atoms[i], atoms[j]), 1 if i == j else 2)
+                  for i, j in PAIRS]
+        equal('pointwise_complete_square', square(r), add(*pieces))
+        energy = add(energy, scale(square(r), 1, wden))
+        for k in range(6):
+            grams[k] = add(grams[k], scale(pieces[k], 1, wden))
+        if absolute(r)[0] > largest[0][1]:
+            largest = (absolute(r), m)
+        wi = next((i for i, (lo, hi) in enumerate(windows) if lo <= m <= hi), None)
+        if wi is not None:
+            ps = [x['first'][m]-x['second'][m] for x in data]
+            for i, x in enumerate(data):
+                ck('independent_profile_counts', x['first'][m] == iv.quotient_count(3*x['K'], 4*x['K'], m)
+                   and x['second'][m] == iv.quotient_count(5*x['K'], 6*x['K'], m))
+                for j in range(3):
+                    profile_gram[i][j] = add(profile_gram[i][j], rat(ps[i]*ps[j], wden))
+            ck('triangular_support', ps[wi] == m-NS[wi]//2 and all(ps[j] == 0 for j in range(wi+1, 3)))
+            Z = add(*(scale(t, p) for t, p in zip(tt, ps)))
+            R = sub(r, Z)
+            components = [square(r), square(Z), square(R), scale(mul(Z, R), 2)]
+            equal('profile_remainder_square', components[0], add(*components[1:]))
+            for k in range(4):
+                region[wi][k] = add(region[wi][k], scale(components[k], 1, wden))
+            if not iv.overlap(square(r), add(*pieces[:3])):
+                controls.setdefault('omit_cross_terms', m)
+    totals = [add(*(r[k] for r in region)) for k in range(4)]
+    equal('complete_gram_sum', energy, add(*grams))
+    shifted = [[sub(profile_gram[i][j], rat(N, D)) if i == j else profile_gram[i][j]
+                for j in range(3)] for i in range(3)]
+    minors = [shifted[0][0], sub(mul(shifted[0][0], shifted[1][1]), square(shifted[0][1])), iv.det3(shifted)]
+    for v in minors:
+        ck('CP4_all_vector_certificate', v[0] > 0)
+    lower = sub(scale(add(*(square(t) for t in tt)), N, 2*D), totals[2])
+    ck('CP_finite_restored_lower', totals[0][0] >= lower[1])
+    lower_v = sub(scale(add(*(square(v) for v in vv)), N, 4*D),
+                  add(scale(add(*(square(e) for e in ee)), N, 2*D), totals[2]))
+    ck('CP_finite_drift_lower', totals[0][0] >= lower_v[1])
+    margin = sub(totals[0], scale(totals[1], 1, 2))
+    verdict = 'PASS_FINITE' if margin[0] > 0 else 'REFUTED' if margin[1] < 0 else 'UNRESOLVED'
+    for i, n in enumerate(NS):
+        ck('strict_endpoint', data[i]['first'][n//2] == 0 and data[i]['first'][n//2+1] == 1)
+    controls['wrong_endpoint'] = NS[0]//2
+    for B in HEADS:
+        ck('negative_control', 'omit_UN_'+str(B) in controls and 'omit_second_band_'+str(B) in controls)
+    ck('negative_control', 'omit_constant_minus_one' in controls and 'omit_cross_terms' in controls)
+    coeff_mass = rat(0)
+    for x, w in zip(data, ww):
+        coeff_mass = add(coeff_mass, mul(absolute(w), add(*(absolute(c) for c in x['c'][2:]))))
+    tail = scale(square(add(rat(1), coeff_mass)), 1, T+1)
+    result = dict(H=H, heads=HEADS, supports=NS, T=T, window_sizes=[hi-lo+1 for lo, hi in windows],
+                  precision_grid=str(iv.Q), deltas=[box(d) for d in ds], curvature=box(curvature),
+                  selection=selected, a=[box(a) for a in aa], w=[box(w) for w in ww],
+                  t=[box(t) for t in tt], delta_vector=[box(v) for v in vv],
+                  alpha=[box(x['alpha']) for x in data], zeta=[box(x['zeta']) for x in data],
+                  profile_gram=[[box(v) for v in row] for row in profile_gram],
+                  CP4_shifted_minors=[box(v) for v in minors],
+                  window_E_Z_R_cross=[[box(v) for v in row] for row in region],
+                  regional_E_Z_R_cross=[box(v) for v in totals], proposed_bound_margin=box(margin),
+                  proposed_bound_status=verdict, finite_full_energy=box(energy),
+                  complete_gram_six=[box(v) for v in grams],
+                  complete_cross_total=box(add(*grams[3:])), tail_upper=box(tail),
+                  full_energy_enclosure=[iv.display(energy)[0], iv.display(add(energy, tail))[1]],
+                  largest_absolute_residual={'m':largest[1], **box(largest[0])},
+                  samples=sample_values, controls=controls, checks=dict(counts),
+                  assertions=sum(counts.values()), log_checks=dict(iv.checks),
+                  mu_sha256=hashlib.sha256(bytes(a+1 for a in mu)).hexdigest(),
+                  seconds=time.perf_counter()-start, python=platform.python_version(),
+                  source_sha256=hashlib.sha256(Path(__file__).read_bytes()).hexdigest())
+    path = Path(__file__).with_name('mr_results.json')
+    path.write_text(json.dumps(result, indent=2)+'\n')
+    print(json.dumps({k:result[k] for k in ('H','T','proposed_bound_status','proposed_bound_margin',
+          'regional_E_Z_R_cross','finite_full_energy','complete_gram_six','tail_upper','controls','assertions','seconds')}), flush=True)
+
+
+if __name__ == '__main__':
+    main()
+```
+
+</details>
+
+<details>
+<summary>mr_independent.py</summary>
+
+```python
+"""Independent trial-factor/Decimal literal-coefficient reconstruction."""
+from decimal import Decimal as D, getcontext
+from functools import lru_cache
+from pathlib import Path
+from collections import Counter
+import hashlib
+import json
+import platform
+import time
+
+getcontext().prec = 80
+H = 96
+HEADS = [H, 2*H, 4*H]
+NS = [b*b for b in HEADS]
+T = 2*NS[-1]
+PAIRS = [(0, 0), (1, 1), (2, 2), (0, 1), (0, 2), (1, 2)]
+root = Path(__file__).resolve().parent
+primary = json.loads((root/'mr_results.json').read_text())
+counts = Counter()
+
+
+def check(name, condition):
+    assert condition, name
+    counts[name] += 1
+
+
+def inside(name, value, interval):
+    q = D(primary['precision_grid'])
+    lo, hi = [D(x)/q for x in interval['scaled']]
+    if not lo <= value <= hi:
+        raise AssertionError((name, str(value), str(lo), str(hi)))
+    counts[name] += 1
+
+
+def mobius(n):
+    parity = 0
+    p = 2
+    while p*p <= n:
+        if n % p == 0:
+            n //= p
+            parity += 1
+            if n % p == 0:
+                return 0
+        p += 1
+    if n > 1:
+        parity += 1
+    return -1 if parity % 2 else 1
+
+
+@lru_cache(None)
+def logarithm(n):
+    return D(n).ln()
+
+
+def band(lo, hi, m):
+    total = 0
+    left = lo+1
+    while left <= min(hi, m):
+        quotient = m//left
+        right = min(hi, m//quotient)
+        total += quotient*(right-left+1)
+        left = right+1
+    return total
+
+
+def main():
+    start = time.perf_counter()
+    mu = [0]+[mobius(k) for k in range(1, T+1)]
+    check('independent_mu_digest', hashlib.sha256(bytes(x+1 for x in mu)).hexdigest() == primary['mu_sha256'])
+    data = []
+    for B, n in zip(HEADS, NS):
+        L = logarithm(B)
+        K = n//6
+        s1 = sum((D(1)/k for k in range(3*K+1, 4*K+1)), D(0))
+        s2 = sum((D(1)/k for k in range(5*K+1, 6*K+1)), D(0))
+        kernel = [D(0)]+[mu[k]*(logarithm(n)-logarithm(max(B, k)))
+                         if mu[k] else D(0) for k in range(1, n+1)]
+        u = sum((kernel[k]/k for k in range(1, n+1)), D(0))
+        v = 2*L+sum(kernel[1:], D(0))
+        alpha = (u-s2*v/K)/(s1-s2)
+        zeta = (s1*v/K-u)/(s1-s2)
+        delta = 1-sum((D(mu[k])*(logarithm(B)-logarithm(k))/k
+                       for k in range(1, B+1) if mu[k]), D(0))
+        c = [D(0)]*(n+1)
+        for k in range(2, n+1):
+            hk = alpha if 3*K < k <= 4*K else zeta if 5*K < k <= 6*K else D(0)
+            c[k] = (hk-kernel[k])/L
+        check('direct_reciprocal_moment', abs(sum((c[k]/k for k in range(2, n+1)), D(0))-1) < D('1e-65'))
+        check('direct_total_moment', abs(sum(c[2:], D(0))-3) < D('1e-65'))
+        increments = [D(0)]*(T+1)
+        for k in range(2, n+1):
+            if c[k]:
+                for m in range(k, T+1, k):
+                    increments[m] += c[k]
+        residual = [D(1)]*(T+1)
+        for m in range(1, T+1):
+            residual[m] = residual[m-1]-1+increments[m]
+        for m in range(1, B+1):
+            check('independent_zero_head', abs(residual[m]) < D('1e-60'))
+            check('integer_head_floor_identity', sum(mu[k]*(m//k) for k in range(1, m+1)) == 1)
+        data.append(dict(B=B, n=n, K=K, L=L, alpha=alpha, zeta=zeta,
+                         delta=delta, c=c, r=residual))
+        print('Independent literal coefficients ready for', B, flush=True)
+    ds = [x['delta'] for x in data]
+    curvature = ds[0]-2*ds[1]+ds[2]
+    denominator = logarithm(2)*curvature
+    aa = [(ds[1]-ds[2])/denominator, (ds[2]-ds[0])/denominator,
+          (ds[0]-ds[1])/denominator]
+    ww = [a*x['L'] for a, x in zip(aa, data)]
+    tt = [a*x['alpha'] for a, x in zip(aa, data)]
+    for i in range(3):
+        for name, value in [('deltas', ds[i]), ('a', aa[i]), ('w', ww[i]), ('t', tt[i]),
+                            ('alpha', data[i]['alpha']), ('zeta', data[i]['zeta'])]:
+            inside('independent_'+name, value, primary[name][i])
+    check('independent_selection', 512*abs(curvature) >= max(map(abs, ds)))
+    windows = [(7*n//12+1, 2*n//3) for n in NS]
+    gram = [D(0)]*6
+    energy = D(0)
+    regions = [[D(0)]*4 for _ in range(3)]
+    profile_gram = [[D(0)]*3 for _ in range(3)]
+    for m in range(1, T+1):
+        atoms = [w*x['r'][m] for w, x in zip(ww, data)]
+        r = sum(atoms, D(0))
+        denominator_m = D(m*(m+1))
+        energy += r*r/denominator_m
+        for k, (i, j) in enumerate(PAIRS):
+            gram[k] += atoms[i]*atoms[j]*(1 if i == j else 2)/denominator_m
+        wi = next((i for i, (lo, hi) in enumerate(windows) if lo <= m <= hi), None)
+        if wi is not None:
+            ps = [band(3*x['K'], 4*x['K'], m)-band(5*x['K'], 6*x['K'], m) for x in data]
+            Z = sum((t*p for t, p in zip(tt, ps)), D(0))
+            R = r-Z
+            for k, value in enumerate([r*r, Z*Z, R*R, 2*Z*R]):
+                regions[wi][k] += value/denominator_m
+            for i in range(3):
+                for j in range(3):
+                    profile_gram[i][j] += D(ps[i]*ps[j])/denominator_m
+        if str(m) in primary['samples']:
+            literal = D(1)-sum((w*sum((x['c'][k]*D(m % k)/k
+                                       for k in range(2, x['n']+1)), D(0))
+                                for w, x in zip(ww, data)), D(0))
+            check('independent_literal_modulus', abs(literal-r) < D('1e-60'))
+            if m <= H:
+                check('certified_zero_head_sample', primary['samples'][str(m)]['scaled'] == ['0', '0'])
+                check('decimal_zero_head_roundoff', abs(literal) < D('1e-60'))
+            else:
+                inside('independent_samples_m'+str(m), literal, primary['samples'][str(m)])
+    inside('independent_complete_energy', energy, primary['finite_full_energy'])
+    for value, ref in zip(gram, primary['complete_gram_six']):
+        inside('independent_complete_gram', value, ref)
+    for i in range(3):
+        for j in range(4):
+            inside('independent_window_components', regions[i][j], primary['window_E_Z_R_cross'][i][j])
+        for j in range(3):
+            inside('independent_profile_gram', profile_gram[i][j], primary['profile_gram'][i][j])
+    original_energies = [gram[i]/(ww[i]*ww[i]) for i in range(3)]
+    result = {'status':'PASS_INDEPENDENT_DIAGNOSTIC', 'precision':getcontext().prec,
+              'checked_full_output':T, 'independent_trial_mu_values':T,
+              'finite_energy':str(energy), 'full_gram':list(map(str, gram)),
+              'window_components':[[str(x) for x in r] for r in regions],
+              'original_head_partial_energies':list(map(str, original_energies)),
+              'checks':dict(counts), 'assertions':sum(counts.values()),
+              'seconds':time.perf_counter()-start, 'python':platform.python_version(),
+              'script_sha256':hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
+              'scope':'Independent Decimal diagnostics inside certified rational intervals; not interval proof.'}
+    (root/'mr_independent_results.json').write_text(json.dumps(result, indent=2)+'\n')
+    print(json.dumps(result), flush=True)
+
+
+if __name__ == '__main__':
+    main()
+```
+
+</details>
+
+<details>
+<summary>mr_validate.py</summary>
+
+```python
+"""Precision, interval primitive, and post-result regional audits."""
+from collections import Counter
+from fractions import Fraction as F
+from pathlib import Path
+import hashlib
+import json
+import interval_core as iv
+
+root = Path(__file__).resolve().parent
+old = json.loads((root/'mr_results_60.json').read_text())
+new = json.loads((root/'mr_results.json').read_text())
+checks = Counter()
+
+
+def ck(name, condition):
+    assert condition, name
+    checks[name] += 1
+
+
+def encloses(interval, exact):
+    return F(interval[0], iv.Q) <= exact <= F(interval[1], iv.Q)
+
+
+def walk(left, right):
+    if isinstance(left, dict) and 'bounds' in left and 'scaled' in left:
+        ck('precision_display', left['bounds'] == right['bounds'])
+        a = [F(int(v), int(old['precision_grid'])) for v in left['scaled']]
+        b = [F(int(v), int(new['precision_grid'])) for v in right['scaled']]
+        ck('precision_enclosure_consistency', a[0] <= b[0] <= b[1] <= a[1])
+    elif isinstance(left, dict):
+        for k, v in left.items():
+            if k not in ('precision_grid', 'seconds', 'log_checks'):
+                walk(v, right[k])
+    elif isinstance(left, list):
+        for a, b in zip(left, right):
+            walk(a, b)
+
+
+for x in [F(0), F(-7, 3), F(-1, 11), F(1, 13), F(5, 2)]:
+    a = iv.rat(x.numerator, x.denominator)
+    ck('square_primitive', encloses(iv.square(a), x*x))
+    for y in [F(-7, 3), F(-1, 11), F(1, 13), F(5, 2)]:
+        b = iv.rat(y.numerator, y.denominator)
+        ck('add_primitive', encloses(iv.add(a, b), x+y))
+        ck('multiply_primitive', encloses(iv.mul(a, b), x*y))
+        ck('divide_primitive', encloses(iv.div(a, b), x/y))
+
+walk(old, new)
+ck('same_domain', old['H'] == new['H'] == 96 and old['T'] == new['T'] == 294912)
+ck('same_primary_checks', old['checks'] == new['checks'])
+
+
+def as_interval(box):
+    ck('matching_precision', int(new['precision_grid']) == iv.Q)
+    return tuple(int(x) for x in box['scaled'])
+
+
+def output(interval):
+    return {'bounds':iv.display(interval), 'scaled':[str(x) for x in interval]}
+
+
+regional = [[as_interval(v) for v in row] for row in new['window_E_Z_R_cross']]
+local_margins = [iv.sub(row[0], row[1]) for row in regional]
+ck('exploratory_middle_nonattenuation_refuted', local_margins[1][1] < 0)
+ck('middle_cross_negative', regional[1][3][1] < 0)
+ck('outer_window_cross_positive', regional[0][3][0] > 0 and regional[2][3][0] > 0)
+ck('combined_cross_positive', as_interval(new['regional_E_Z_R_cross'][3])[0] > 0)
+grams = [as_interval(v) for v in new['complete_gram_six']]
+weights = [as_interval(v) for v in new['w']]
+original = [iv.div(grams[i], iv.square(weights[i])) for i in range(3)]
+for value in original:
+    ck('finite_prefix_mix_larger_than_each_original', as_interval(new['finite_full_energy'])[0] > value[1])
+result = {'status':'PASS_VALIDATION', 'checks':dict(checks), 'assertions':sum(checks.values()),
+          'exploratory_window_energy_minus_profile':[output(v) for v in local_margins],
+          'original_partial_energies':[output(v) for v in original],
+          'scope':'Window strengthening is a post-result corollary; finite-prefix comparisons are not infinite-norm orderings.',
+          'hashes':{name:hashlib.sha256((root/name).read_bytes()).hexdigest()
+                    for name in ('mr_registration.md','interval_core.py','mr_audit.py','mr_independent.py',
+                                 'mr_validate.py','mr_results_60.json','mr_results.json')}}
+(root/'mr_validation.json').write_text(json.dumps(result, indent=2)+'\n')
+print(json.dumps(result), flush=True)
+```
+
+</details>
+
+<details>
+<summary>Executed 75-digit machine results (boundary samples omitted for brevity)</summary>
+
+```json
+{
+  "H": 96,
+  "heads": [
+    96,
+    192,
+    384
+  ],
+  "supports": [
+    9216,
+    36864,
+    147456
+  ],
+  "T": 294912,
+  "window_sizes": [
+    768,
+    3072,
+    12288
+  ],
+  "precision_grid": "1000000000000000000000000000000000000000000000000000000000000000000000000000",
+  "deltas": [
+    {
+      "bounds": [
+        "0.000343159998",
+        "0.000343159999"
+      ],
+      "scaled": [
+        "343159998007502229498020477079225415378658108602993791198334498409829862",
+        "343159998007502229498020477079225415378658108602993791198334498409837467"
+      ]
+    },
+    {
+      "bounds": [
+        "-0.000189572213",
+        "-0.000189572212"
+      ],
+      "scaled": [
+        "-189572212781235499882296543302390110362547169555380763240624359379353993",
+        "-189572212781235499882296543302390110362547169555380763240624359379344252"
+      ]
+    },
+    {
+      "bounds": [
+        "-0.000152226712",
+        "-0.000152226711"
+      ],
+      "scaled": [
+        "-152226711108893124381921047706763572211289294562246738588978143600203153",
+        "-152226711108893124381921047706763572211289294562246738588978143600190926"
+      ]
+    }
+  ],
+  "curvature": {
+    "bounds": [
+      "0.000570077712",
+      "0.000570077713"
+    ],
+    "scaled": [
+      "570077712461080104880692515977242063892463153151508579090605073568315213",
+      "570077712461080104880692515977242063892463153151508579090605073568354527"
+    ]
+  },
+  "selection": true,
+  "a": [
+    {
+      "bounds": [
+        "-0.094510220071",
+        "-0.094510220070"
+      ],
+      "scaled": [
+        "-94510220070877025534096269669033385248414975538884544269249977851099512272",
+        "-94510220070877025534096269669033385248414975538884544269249977851037399829"
+      ]
+    },
+    {
+      "bounds": [
+        "-1.253674600748",
+        "-1.253674600747"
+      ],
+      "scaled": [
+        "-1253674600747209356291732141663825366929816003075216845596949451229040632731",
+        "-1253674600747209356291732141663825366929816003075216845596949451228903982226"
+      ]
+    },
+    {
+      "bounds": [
+        "1.348184820818",
+        "1.348184820819"
+      ],
+      "scaled": [
+        "1348184820818086381825828411332858752178230978614101389866199429079972324911",
+        "1348184820818086381825828411332858752178230978614101389866199429080109202147"
+      ]
+    }
+  ],
+  "w": [
+    {
+      "bounds": [
+        "-0.431377552056",
+        "-0.431377552055"
+      ],
+      "scaled": [
+        "-431377552055734749136022090550217823061771818251280520025893477080932404092",
+        "-431377552055734749136022090550217823061771818251280520025893477080648900875"
+      ]
+    },
+    {
+      "bounds": [
+        "-6.591188411458",
+        "-6.591188411457"
+      ],
+      "scaled": [
+        "-6591188411457229953588845241341477642555743776321891142636543060375213969858",
+        "-6591188411457229953588845241341477642555743776321891142636543060374495524411"
+      ]
+    },
+    {
+      "bounds": [
+        "8.022565963512",
+        "8.022565963513"
+      ],
+      "scaled": [
+        "8022565963512964702724867331891695465617515594573171662662436537455238142518",
+        "8022565963512964702724867331891695465617515594573171662662436537456052657344"
+      ]
+    }
+  ],
+  "t": [
+    {
+      "bounds": [
+        "-0.000293144364",
+        "-0.000293144363"
+      ],
+      "scaled": [
+        "-293144363283019759456317488343683336340943273467171342718677095602864158",
+        "-293144363283019759456317488343683336340943273467171342718677095602636422"
+      ]
+    },
+    {
+      "bounds": [
+        "0.002220821000",
+        "0.002220821001"
+      ],
+      "scaled": [
+        "2220821000792802905786100100768556054080726097279009297083748889919547261",
+        "2220821000792802905786100100768556054080726097279009297083748889920563775"
+      ]
+    },
+    {
+      "bounds": [
+        "-0.001872903713",
+        "-0.001872903712"
+      ],
+      "scaled": [
+        "-1872903712059063837551800788067377821031138013763075223101876969464107360",
+        "-1872903712059063837551800788067377821031138013763075223101876969462087140"
+      ]
+    }
+  ],
+  "delta_vector": [
+    {
+      "bounds": [
+        "-0.000032432127",
+        "-0.000032432126"
+      ],
+      "scaled": [
+        "-32432126931210757301406565396389356174357582095960508728945962700234297",
+        "-32432126931210757301406565396389356174357582095960508728945962700212263"
+      ]
+    },
+    {
+      "bounds": [
+        "0.000237661868",
+        "0.000237661869"
+      ],
+      "scaled": [
+        "237661868171280433903804420392015717289795634796678820138521629850347128",
+        "237661868171280433903804420392015717289795634796678820138521629850385247"
+      ]
+    },
+    {
+      "bounds": [
+        "-0.000205229742",
+        "-0.000205229741"
+      ],
+      "scaled": [
+        "-205229741240069676602397854995626361115438052700718311409575667150161568",
+        "-205229741240069676602397854995626361115438052700718311409575667150124246"
+      ]
+    }
+  ],
+  "alpha": [
+    {
+      "bounds": [
+        "0.003101721306",
+        "0.003101721307"
+      ],
+      "scaled": [
+        "3101721306575934107554554023988303530015142153683859971803925187979551671",
+        "3101721306575934107554554023988303530015142153683859971803925187979922841"
+      ]
+    },
+    {
+      "bounds": [
+        "-0.001771449306",
+        "-0.001771449305"
+      ],
+      "scaled": [
+        "-1771449305480991168309713477418543746944162972261303063993981571303475018",
+        "-1771449305480991168309713477418543746944162972261303063993981571302857279"
+      ]
+    },
+    {
+      "bounds": [
+        "-0.001389203975",
+        "-0.001389203974"
+      ],
+      "scaled": [
+        "-1389203974958399979655626601331444067537741048414931447932264779968908142",
+        "-1389203974958399979655626601331444067537741048414931447932264779967550710"
+      ]
+    }
+  ],
+  "zeta": [
+    {
+      "bounds": [
+        "-0.002051002940",
+        "-0.002051002939"
+      ],
+      "scaled": [
+        "-2051002939751263037787524233850049583709922085359469547451988236734037368",
+        "-2051002939751263037787524233850049583709922085359469547451988236733646626"
+      ]
+    },
+    {
+      "bounds": [
+        "0.001949295666",
+        "0.001949295667"
+      ],
+      "scaled": [
+        "1949295666411290538626016066786630536552984502185126387254282336569186004",
+        "1949295666411290538626016066786630536552984502185126387254282336569826273"
+      ]
+    },
+    {
+      "bounds": [
+        "0.001359623646",
+        "0.001359623647"
+      ],
+      "scaled": [
+        "1359623646060781718260550363099780606847280738515181118227912038603655444",
+        "1359623646060781718260550363099780606847280738515181118227912038605038385"
+      ]
+    }
+  ],
+  "profile_gram": [
+    [
+      {
+        "bounds": [
+          "207.681293083648",
+          "207.681293083649"
+        ],
+        "scaled": [
+          "207681293083648155477394706480260607384906324551820648098286838354655184216795",
+          "207681293083648155477394706480260607384906324551820648098286838354655184232923"
+        ]
+      },
+      {
+        "bounds": [
+          "218.106144960736",
+          "218.106144960737"
+        ],
+        "scaled": [
+          "218106144960736155877915954560335650200046824689432003029996784980640399053210",
+          "218106144960736155877915954560335650200046824689432003029996784980640399068570"
+        ]
+      },
+      {
+        "bounds": [
+          "257.381636339769",
+          "257.381636339770"
+        ],
+        "scaled": [
+          "257381636339769954487294450421256213115959231082724253383085425114871764744319",
+          "257381636339769954487294450421256213115959231082724253383085425114871764756607"
+        ]
+      }
+    ],
+    [
+      {
+        "bounds": [
+          "218.106144960736",
+          "218.106144960737"
+        ],
+        "scaled": [
+          "218106144960736155877915954560335650200046824689432003029996784980640399053210",
+          "218106144960736155877915954560335650200046824689432003029996784980640399068570"
+        ]
+      },
+      {
+        "bounds": [
+          "285.121501196886",
+          "285.121501196887"
+        ],
+        "scaled": [
+          "285121501196886176761533870206532855109897859048947109236370221168129275816578",
+          "285121501196886176761533870206532855109897859048947109236370221168129275831938"
+        ]
+      },
+      {
+        "bounds": [
+          "280.368911299238",
+          "280.368911299239"
+        ],
+        "scaled": [
+          "280368911299238238025391981425664206795554371842515281889290049301684098915642",
+          "280368911299238238025391981425664206795554371842515281889290049301684098927930"
+        ]
+      }
+    ],
+    [
+      {
+        "bounds": [
+          "257.381636339769",
+          "257.381636339770"
+        ],
+        "scaled": [
+          "257381636339769954487294450421256213115959231082724253383085425114871764744319",
+          "257381636339769954487294450421256213115959231082724253383085425114871764756607"
+        ]
+      },
+      {
+        "bounds": [
+          "280.368911299238",
+          "280.368911299239"
+        ],
+        "scaled": [
+          "280368911299238238025391981425664206795554371842515281889290049301684098915642",
+          "280368911299238238025391981425664206795554371842515281889290049301684098927930"
+        ]
+      },
+      {
+        "bounds": [
+          "497.439243827048",
+          "497.439243827049"
+        ],
+        "scaled": [
+          "497439243827048992620216629016000116260422492532713322761189629602175106502203",
+          "497439243827048992620216629016000116260422492532713322761189629602175106514491"
+        ]
+      }
+    ]
+  ],
+  "CP4_shifted_minors": [
+    {
+      "bounds": [
+        "207.681107453724",
+        "207.681107453725"
+      ],
+      "scaled": [
+        "207681107453724611802154257719920440550012539673698294774931113411794395057582",
+        "207681107453724611802154257719920440550012539673698294774931113411794395073711"
+      ]
+    },
+    {
+      "bounds": [
+        "11644.020105976036",
+        "11644.020105976037"
+      ],
+      "scaled": [
+        "11644020105976036846291558268577887329688122459486754778224023067531151821559318",
+        "11644020105976036846291558268577887329688122459486754778224023067531151836048452"
+      ]
+    },
+    {
+      "bounds": [
+        "2056977.417213215002",
+        "2056977.417213215003"
+      ],
+      "scaled": [
+        "2056977417213215002435271983761073139419198144701834698246846146605557633246065554",
+        "2056977417213215002435271983761073139419198144701834698246846146605557652384998140"
+      ]
+    }
+  ],
+  "window_E_Z_R_cross": [
+    [
+      {
+        "bounds": [
+          "0.000158384703",
+          "0.000158384704"
+        ],
+        "scaled": [
+          "158384703358989492625112251312670636097626987349834219739164754712479307",
+          "158384703358989492625112251312670636097626987349834219739164754712909908"
+        ]
+      },
+      {
+        "bounds": [
+          "0.000002672937",
+          "0.000002672938"
+        ],
+        "scaled": [
+          "2672937131408655907895200512693218507340099898180036896565204129932555",
+          "2672937131408655907895200512693218507340099898180036896565204129937455"
+        ]
+      },
+      {
+        "bounds": [
+          "0.000153936703",
+          "0.000153936704"
+        ],
+        "scaled": [
+          "153936703889708424549518577192249296645213913108620765013725434572224007",
+          "153936703889708424549518577192249296645213913108620765013725434572676209"
+        ]
+      },
+      {
+        "bounds": [
+          "0.000001775062",
+          "0.000001775063"
+        ],
+        "scaled": [
+          "1775062337872412167698473607728120945072974343033417828874116010267481",
+          "1775062337872412167698473607728120945072974343033417828874116010351514"
+        ]
+      }
+    ],
+    [
+      {
+        "bounds": [
+          "0.000345117328",
+          "0.000345117329"
+        ],
+        "scaled": [
+          "345117328154466025488179771375189065717042177854251208307431413148193774",
+          "345117328154466025488179771375189065717042177854251208307431413149385468"
+        ]
+      },
+      {
+        "bounds": [
+          "0.000525602741",
+          "0.000525602742"
+        ],
+        "scaled": [
+          "525602741969363265852167516086882260633540645204214657453877488120676320",
+          "525602741969363265852167516086882260633540645204214657453877488121264678"
+        ]
+      },
+      {
+        "bounds": [
+          "0.000065328558",
+          "0.000065328559"
+        ],
+        "scaled": [
+          "65328558103290472402774086801847669083229695306467445800885437401330178",
+          "65328558103290472402774086801847669083229695306467445800885437401988348"
+        ]
+      },
+      {
+        "bounds": [
+          "-0.000245813972",
+          "-0.000245813971"
+        ],
+        "scaled": [
+          "-245813971918187712766761831513540863999728162656430894947331512375014951",
+          "-245813971918187712766761831513540863999728162656430894947331512372665384"
+        ]
+      }
+    ],
+    [
+      {
+        "bounds": [
+          "0.008195444662",
+          "0.008195444663"
+        ],
+        "scaled": [
+          "8195444662545142353195471543741353965047686491141445089491933541965752356",
+          "8195444662545142353195471543741353965047686491141445089491933541980468775"
+        ]
+      },
+      {
+        "bounds": [
+          "0.000307018860",
+          "0.000307018861"
+        ],
+        "scaled": [
+          "307018860056028934091096153493514233824367627280765260126212708473359224",
+          "307018860056028934091096153493514233824367627280765260126212708475442912"
+        ]
+      },
+      {
+        "bounds": [
+          "0.006173546742",
+          "0.006173546743"
+        ],
+        "scaled": [
+          "6173546742448870741645916024973908193124171702510741106197039986659421999",
+          "6173546742448870741645916024973908193124171702510741106197039986680714433"
+        ]
+      },
+      {
+        "bounds": [
+          "0.001714879060",
+          "0.001714879061"
+        ],
+        "scaled": [
+          "1714879060040242677458459365273931538099147161349938723168680846821892941",
+          "1714879060040242677458459365273931538099147161349938723168680846835389395"
+        ]
+      }
+    ]
+  ],
+  "regional_E_Z_R_cross": [
+    {
+      "bounds": [
+        "0.008698946694",
+        "0.008698946695"
+      ],
+      "scaled": [
+        "8698946694058597871308763566429213666862355656345530517538529709826425437",
+        "8698946694058597871308763566429213666862355656345530517538529709842764151"
+      ]
+    },
+    {
+      "bounds": [
+        "0.000835294539",
+        "0.000835294540"
+      ],
+      "scaled": [
+        "835294539156800855851158870093089712965248372383159954476655400723968099",
+        "835294539156800855851158870093089712965248372383159954476655400726645045"
+      ]
+    },
+    {
+      "bounds": [
+        "0.006392812004",
+        "0.006392812005"
+      ],
+      "scaled": [
+        "6392812004441869638598208688968005158852615310925829317011650858632976184",
+        "6392812004441869638598208688968005158852615310925829317011650858655378990"
+      ]
+    },
+    {
+      "bounds": [
+        "0.001470840150",
+        "0.001470840151"
+      ],
+      "scaled": [
+        "1470840150459927376859396007368118795044491973036541246050223450457145471",
+        "1470840150459927376859396007368118795044491973036541246050223450473075525"
+      ]
+    }
+  ],
+  "proposed_bound_margin": {
+    "bounds": [
+      "0.008281299424",
+      "0.008281299425"
+    ],
+    "scaled": [
+      "8281299424480197443383184131382668810379731470153950540300202009463102914",
+      "8281299424480197443383184131382668810379731470153950540300202009480780102"
+    ]
+  },
+  "proposed_bound_status": "PASS_FINITE",
+  "finite_full_energy": {
+    "bounds": [
+      "0.084393932873",
+      "0.084393932874"
+    ],
+    "scaled": [
+      "84393932873416877048492923057512037903051239350657805198955710345421617271",
+      "84393932873416877048492923057512037903051239350657805198955710345630920380"
+    ]
+  },
+  "complete_gram_six": [
+    {
+      "bounds": [
+        "0.001668219685",
+        "0.001668219686"
+      ],
+      "scaled": [
+        "1668219685613453680180724071022006570442664326311760133333496714503786458",
+        "1668219685613453680180724071022006570442664326311760133333496714506444845"
+      ]
+    },
+    {
+      "bounds": [
+        "0.339816829229",
+        "0.339816829230"
+      ],
+      "scaled": [
+        "339816829229877035125404859788679667005339490481878847190270274036874877694",
+        "339816829229877035125404859788679667005339490481878847190270274037008302929"
+      ]
+    },
+    {
+      "bounds": [
+        "0.418339051069",
+        "0.418339051070"
+      ],
+      "scaled": [
+        "418339051069644861940406077156284735857399619263894174289041915058589971398",
+        "418339051069644861940406077156284735857399619263894174289041915058795273473"
+      ]
+    },
+    {
+      "bounds": [
+        "0.041038480662",
+        "0.041038480663"
+      ],
+      "scaled": [
+        "41038480662661698118162181240776264747758288108918092905744949891544269015",
+        "41038480662661698118162181240776264747758288108918092905744949891582976889"
+      ]
+    },
+    {
+      "bounds": [
+        "-0.036711932762",
+        "-0.036711932761"
+      ],
+      "scaled": [
+        "-36711932761572738340135723677648492551479945514631532624575203987348170972",
+        "-36711932761572738340135723677648492551479945514631532624575203987309625366"
+      ]
+    },
+    {
+      "bounds": [
+        "-0.679756715013",
+        "-0.679756715012"
+      ],
+      "scaled": [
+        "-679756715012807433475525195521602143726408877315713536694859721369001613031",
+        "-679756715012807433475525195521602143726408877315713536694859721368693955331"
+      ]
+    }
+  ],
+  "complete_cross_total": {
+    "bounds": [
+      "-0.675430167112",
+      "-0.675430167111"
+    ],
+    "scaled": [
+      "-675430167111718473697498737958474371530130534721426976413689975464805514988",
+      "-675430167111718473697498737958474371530130534721426976413689975464420603808"
+    ]
+  },
+  "tail_upper": {
+    "bounds": [
+      "75342.837244540558",
+      "75342.837244540559"
+    ],
+    "scaled": [
+      "75342837244540558351955659989960778430446193105741427673125813384653313295368901",
+      "75342837244540558351955659989960778430446193105741427673125813384669220603152230"
+    ]
+  },
+  "full_energy_enclosure": [
+    "0.084393932873",
+    "75342.921638473432"
+  ],
+  "controls": {
+    "omit_UN_96": 294912,
+    "omit_second_band_96": 294912,
+    "omit_UN_192": 294912,
+    "omit_second_band_192": 294912,
+    "omit_UN_384": 294912,
+    "omit_second_band_384": 294912,
+    "omit_constant_minus_one": 1,
+    "omit_cross_terms": 5377,
+    "wrong_endpoint": 4608
+  },
+  "checks": {
+    "mobius_divisor_inverse": 294912,
+    "delta_difference": 3,
+    "narrow_delta_difference": 3,
+    "reciprocal_moment": 3,
+    "narrow_reciprocal_moment": 3,
+    "total_moment": 3,
+    "narrow_total_moment": 3,
+    "literal_residue_vs_floor_tail": 93,
+    "narrow_literal_residue_vs_floor_tail": 93,
+    "prime_power_drift": 93,
+    "narrow_prime_power_drift": 93,
+    "zero_head": 672,
+    "affine_normalization": 1,
+    "narrow_affine_normalization": 1,
+    "common_prime_mode": 1,
+    "narrow_common_prime_mode": 1,
+    "common_drift_mode": 1,
+    "narrow_common_drift_mode": 1,
+    "curvature_selection": 1,
+    "CP5_independent_formula": 31,
+    "narrow_CP5_independent_formula": 31,
+    "pointwise_complete_square": 294912,
+    "narrow_pointwise_complete_square": 294912,
+    "independent_profile_counts": 48384,
+    "triangular_support": 16128,
+    "profile_remainder_square": 16128,
+    "narrow_profile_remainder_square": 16128,
+    "complete_gram_sum": 1,
+    "narrow_complete_gram_sum": 1,
+    "CP4_all_vector_certificate": 3,
+    "CP_finite_restored_lower": 1,
+    "CP_finite_drift_lower": 1,
+    "strict_endpoint": 3,
+    "negative_control": 4
+  },
+  "assertions": 982649,
+  "log_checks": {
+    "log_tail_rational": 25608
+  },
+  "mu_sha256": "1432584df7b1a9dfe4ff2ca437f3c852cecfab22fb995e8cb7146faa48c65731",
+  "seconds": 33.72642998800006,
+  "python": "3.12.14",
+  "source_sha256": "2c406036827f0c2ae633167516887bad11007700ac0a1038a7154c1723196ddc"
+}
+```
+</details>
+
+<details>
+<summary>Independent and post-result validation outputs</summary>
+
+```json
+{
+  "independent": {
+    "status": "PASS_INDEPENDENT_DIAGNOSTIC",
+    "precision": 80,
+    "checked_full_output": 294912,
+    "independent_trial_mu_values": 294912,
+    "finite_energy": "0.084393932873416877048492923057512037903051239350657805198955710345526266438960678",
+    "full_gram": [
+      "0.0016682196856134536801807240710220065704426643263117601333334967145051158959349450",
+      "0.33981682922987703512540485978867966700533949048187884719027027403694158655796192",
+      "0.41833905106964486194040607715628473585739961926389417428904191505869261766469633",
+      "0.041038480662661698118162181240776264747758288108918092905744949891563624023192071",
+      "-0.036711932761572738340135723677648492551479945514631532624575203987328899322264759",
+      "-0.67975671501280743347552519552160214372640887731571353669485972136884777838055475"
+    ],
+    "window_components": [
+      [
+        "0.00015838470335898949262511225131267063609762698734983421973916475471269460655143657",
+        "0.0000026729371314086559078952005126932185073400998981800368965652041299350093779830558",
+        "0.00015393670388970842454951857719224929664521391310862076501372543457245010821247647",
+        "0.0000017750623378724121676984736077281209450729743430334178288741160103094889609769629"
+      ],
+      [
+        "0.00034511732815446602548817977137518906571704217785425120830743141314878965445448833",
+        "0.00052560274196936326585216751608688226063354064520421465745387748812097052324414301",
+        "0.000065328558103290472402774086801847669083229695306467445800885437401659290707052390",
+        "-0.00024581397191818771276676183151354086399972816265643089494733151237384015949670730"
+      ],
+      [
+        "0.0081954446625451423531954715437413539650476864911414450894919335419731087067929187",
+        "0.00030701886005602893409109615349351423382436762728076526012621270847440056636016893",
+        "0.0061735467424488707416459160249739081931241717025107411061970399866700681685306065",
+        "0.0017148790600402426774584593652739315380991471613499387231686808468286399719021426"
+      ]
+    ],
+    "original_head_partial_energies": [
+      "0.0089647494961366745624036021534214529394278306569938015991742747118604110695595778",
+      "0.0078219931391641250838509461084824114766090979351000560897059480595834639987333744",
+      "0.0064998272403199628111831594154452634585689344038967219953872375114795562185500411"
+    ],
+    "checks": {
+      "independent_mu_digest": 1,
+      "direct_reciprocal_moment": 3,
+      "direct_total_moment": 3,
+      "independent_zero_head": 672,
+      "integer_head_floor_identity": 672,
+      "independent_deltas": 3,
+      "independent_a": 3,
+      "independent_w": 3,
+      "independent_t": 3,
+      "independent_alpha": 3,
+      "independent_zeta": 3,
+      "independent_selection": 1,
+      "independent_literal_modulus": 31,
+      "certified_zero_head_sample": 2,
+      "decimal_zero_head_roundoff": 2,
+      "independent_samples_m97": 1,
+      "independent_samples_m192": 1,
+      "independent_samples_m384": 1,
+      "independent_samples_m385": 1,
+      "independent_samples_m4608": 1,
+      "independent_samples_m4609": 1,
+      "independent_samples_m6144": 1,
+      "independent_samples_m6145": 1,
+      "independent_samples_m7680": 1,
+      "independent_samples_m7681": 1,
+      "independent_samples_m9216": 1,
+      "independent_samples_m9217": 1,
+      "independent_samples_m18432": 1,
+      "independent_samples_m18433": 1,
+      "independent_samples_m24576": 1,
+      "independent_samples_m24577": 1,
+      "independent_samples_m30720": 1,
+      "independent_samples_m30721": 1,
+      "independent_samples_m36864": 1,
+      "independent_samples_m36865": 1,
+      "independent_samples_m73728": 1,
+      "independent_samples_m73729": 1,
+      "independent_samples_m98304": 1,
+      "independent_samples_m98305": 1,
+      "independent_samples_m122880": 1,
+      "independent_samples_m122881": 1,
+      "independent_samples_m147456": 1,
+      "independent_samples_m147457": 1,
+      "independent_samples_m294912": 1,
+      "independent_complete_energy": 1,
+      "independent_complete_gram": 6,
+      "independent_window_components": 12,
+      "independent_profile_gram": 9
+    },
+    "assertions": 1462,
+    "seconds": 16.053453369999943,
+    "python": "3.12.14",
+    "script_sha256": "e6ed775910a51e5220804a07defc72f5126b916a82c1297eaeb68e01dfffcc62",
+    "scope": "Independent Decimal diagnostics inside certified rational intervals; not interval proof."
+  },
+  "validation": {
+    "status": "PASS_VALIDATION",
+    "checks": {
+      "square_primitive": 5,
+      "add_primitive": 20,
+      "multiply_primitive": 20,
+      "divide_primitive": 20,
+      "precision_display": 92,
+      "precision_enclosure_consistency": 92,
+      "same_domain": 1,
+      "same_primary_checks": 1,
+      "matching_precision": 25,
+      "exploratory_middle_nonattenuation_refuted": 1,
+      "middle_cross_negative": 1,
+      "outer_window_cross_positive": 1,
+      "combined_cross_positive": 1,
+      "finite_prefix_mix_larger_than_each_original": 3
+    },
+    "assertions": 283,
+    "exploratory_window_energy_minus_profile": [
+      {
+        "bounds": [
+          "0.000155711766",
+          "0.000155711767"
+        ],
+        "scaled": [
+          "155711766227580836717217050799977417590286887451654182842599550582541852",
+          "155711766227580836717217050799977417590286887451654182842599550582977353"
+        ]
+      },
+      {
+        "bounds": [
+          "-0.000180485414",
+          "-0.000180485413"
+        ],
+        "scaled": [
+          "-180485413814897240363987744711693194916498467349963449146446074973070904",
+          "-180485413814897240363987744711693194916498467349963449146446074971290852"
+        ]
+      },
+      {
+        "bounds": [
+          "0.007888425802",
+          "0.007888425803"
+        ],
+        "scaled": [
+          "7888425802489113419104375390247839731223318863860679829365720833490309444",
+          "7888425802489113419104375390247839731223318863860679829365720833507109551"
+        ]
+      }
+    ],
+    "original_partial_energies": [
+      {
+        "bounds": [
+          "0.008964749496",
+          "0.008964749497"
+        ],
+        "scaled": [
+          "8964749496136674562403602153421452939427830656993801599174274711847375819",
+          "8964749496136674562403602153421452939427830656993801599174274711873444918"
+        ]
+      },
+      {
+        "bounds": [
+          "0.007821993139",
+          "0.007821993140"
+        ],
+        "scaled": [
+          "7821993139164125083850946108482411476609097935100056089705948059581075785",
+          "7821993139164125083850946108482411476609097935100056089705948059585852212"
+        ]
+      },
+      {
+        "bounds": [
+          "0.006499827240",
+          "0.006499827241"
+        ],
+        "scaled": [
+          "6499827240319962811183159415445263458568934403896721995387237511477301430",
+          "6499827240319962811183159415445263458568934403896721995387237511481811084"
+        ]
+      }
+    ],
+    "scope": "Window strengthening is a post-result corollary; finite-prefix comparisons are not infinite-norm orderings.",
+    "hashes": {
+      "mr_registration.md": "268dec63746163898b51eaadd85eada57b071708f8a6fc70edcb64469cae3607",
+      "interval_core.py": "2934b6bcabc88115b59ffedcc52405b4d763239316773721458bf6484af1899c",
+      "mr_audit.py": "2c406036827f0c2ae633167516887bad11007700ac0a1038a7154c1723196ddc",
+      "mr_independent.py": "e6ed775910a51e5220804a07defc72f5126b916a82c1297eaeb68e01dfffcc62",
+      "mr_validate.py": "1f601d59f93119ccd76037937dd29e25f2f04806462b52c533cc727fc72e3c62",
+      "mr_results_60.json": "7572267a9ad9ed74cc9f529304c8e9d6a7e0061b30d1b70b6a15fb6644a87a76",
+      "mr_results.json": "c6bb52f2b93c7c1e203a3c203474c9f95d14736b05ae39ca8bea01e055d10da1"
+    }
+  }
+}
+```
+</details>
