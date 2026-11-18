@@ -1102,3 +1102,63 @@ finite census or degree-two constants. Resume only with a new source-complete
 half-consumer mechanism, or the assigned independent review of FD.
 
 
+
+
+## IN_PROGRESS Checkpoint - 20261118-wheel-1012-EST/PM
+
+Scheduled trigger: 2026-11-18 10:12:01 EST / 15:12:01 UTC.
+PLATFORM_RUN_ID=UNAVAILABLE. PM is a research label, not a platform ID.
+
+### A. Structural Question
+
+Investigate whether a source-faithful sign-reversing matching or once-only
+prime-factor transport can pay the COMPLETE Euler occurrence source.
+Original vertices are ordered triples (a,b,k), 1<=a,b<R, abk<=R^2-1,
+mu(a)mu(b)!=0, with sign mu(a)mu(b), not collapsed arithmetic values.
+Test large-prime leaves and a shared historical unit bottleneck under exact
+prime insert/delete/transfer operations. This is a bounded FINITE-AC
+feasibility audit, not a newly admitted route or a claimed signed bound.
+
+### B. Authority And Original Source
+
+Intake main=13b31c6313e274a073d82a01175201185e59e37e; refreshed main after
+human merges #1145/#1146=935840aec9b1fcbc66fe4e0164061d661a8ca3b1.
+AGENTS blob c4f36b772f8a4b0c24fe566b90fafb646073c60f and contract blob
+95566e37c8eaeb99ee680660df4f9d2e06ea5038 are unchanged.
+half_bootstrap_ack=BOOTSTRAP_TO_HALF_V1;
+cross_route_ack=CROSS_ROUTE_SIGNED_RECOVERY_V1;
+continuity_ack=LAST_ACTUAL_REPORT_CONTINUITY_V1.
+
+Inspected original self-dual pointwise, triple-Fubini, endpoint/finite-C,
+double-centered and fixed-gcd obstruction declarations at the refreshed
+source. Q_R=2M(R-1)-M(R^2-1) is already proved; its uniform finite-C
+bound remains an explicit premise, not a new result. Strict K_R, both
+ordered orientations, the unit and all returns will be retained.
+
+### C. Continuity And Scope
+
+The untruncated reporting tree at 4ef05f446e16e7eb5009b3782e4b3638665cbb84
+was enumerated without a calendar cap. Every role has a November 18 report;
+all November 17 files were also retrieved. Previous own FD watermark
+DUAL/AI/PAIR/PP/MR/PR/PROFILE is recovered. New task-relevant sections
+PN, DP, Lean DUAL, Coordinator DAMP, Owner HC and Analytic PV are being
+consumed in order. TODAY=AVAILABLE, YESTERDAY=READ/CARRY_FORWARD.
+External inbox 7d63d434690d00dffce9c90335d41c4f62d85798 is unchanged;
+no newer entry after October 18. FD's accepted fixed-degree scope, SB's
+boundary result, PP's classwise obstruction, and prior corrections remain.
+
+### D. Continuation And Work Remaining
+
+A genuinely complete estimate |Q_R|<=C_eps R^(1+eta+eps)sqrt(K_R), renewed
+with eta=(b-1/2)/2 for every fixed 1/2<b<=7/8, would feed the existing
+factor-3/4 exponent consumer to one half. This supplier is OPEN. The present
+question tests a concrete proposed combinatorial way of supplying it.
+No result is yet claimed about all allowed matchings or graph capacities.
+
+PENDING: finish relevant continuity and exact CI checks; audit existing
+matching/unit-obstruction work for novelty; prove or falsify the precise
+local hypothesis; run the preregistered small exact checks; restore all
+unmatched signed and quadratic interactions; append the full A-M result.
+No local Lean, source edit, other report/PR/branch creation, agent launch,
+or schedule change is authorized. EXECUTION=IN_PROGRESS;
+MATHEMATICS=UNVERIFIED_CANDIDATE; VERIFIED_ETA=NONE; RH=OPEN.
