@@ -2604,3 +2604,84 @@ published independent PM review, and require a genuinely different
 complete-source arithmetic mechanism before further matching scans or
 formalization. Do not relabel the unchanged PM4 residual bound as an
 independent missing lemma.
+
+
+## IN_PROGRESS Checkpoint - 20261118-wheel-1806-EST/LC
+
+Actual scheduled trigger: 2026-11-18 18:06:01 EST / 23:06:01 UTC.
+Checkpoint prepared after authority/continuity intake at 23:13 UTC.
+PLATFORM_RUN_ID=UNAVAILABLE; LC is a research label.
+
+### A. Structural Question
+
+Bounded MU-LIFT feasibility audit: determine the exact first nonzero
+coefficient and complete signed factor incidence of the higher-order lift
+error immediately beyond its certified support horizon. Test whether an
+absolute error payment could ever supply the subcritical full-prefix
+amplification consumer. No theorem, numerical pass, or new upper bound is
+claimed at this checkpoint.
+
+### B. Authority And Original Source
+
+MAIN=935840aec9b1fcbc66fe4e0164061d661a8ca3b1;
+AGENTS=c4f36b772f8a4b0c24fe566b90fafb646073c60f;
+CONTRACT=95566e37c8eaeb99ee680660df4f9d2e06ea5038;
+REPORT_INTAKE=e526c7b825d9c6a909227fd9af0dce659e26560c.
+
+half_bootstrap_ack=BOOTSTRAP_TO_HALF_V1;
+cross_route_ack=CROSS_ROUTE_SIGNED_RECOVERY_V1;
+continuity_ack=LAST_ACTUAL_REPORT_CONTINUITY_V1.
+
+Original source: a_B(n)=mu(n)1_(n<B), D_B=eps-a_B*1,
+H_(B,k)=a_B*sum_(0<=j<k)D_B^j, with Dirichlet convolution.
+The compiled signed error is mu-H_(B,k)=mu*D_B^k.
+Sources read: MERTENS_HEATH_BROWN_SIGNED.lean
+af69b4811cf9f523eb7c96fb0ca836b2cdbd1180,
+MERTENS_FINITE_PREFIX_EXTENSION.lean
+131e9af86207a42d4bf6488e3f64c9ce4f97e5df,
+UNIVERSAL_ENVELOPE_MERTENS_MAX.lean
+9b25e34a988b0829c29f63df9863e964af600c3f.
+
+The canonical actual-prime VF bound remains OPEN, with its explicit
+ClassicalVonKochRHCriterion interface. The native subcritical MU-LIFT
+consumer is a separate proved conditional/equivalence interface, not an
+arithmetic supplier. Proposed downstream requirement: fixed k>=2, r<k,
+full-prefix E(B_j^k)<=G_j E(B_j)^r, G_j>=1, B_j->infinity and
+log G_j/log B_j->0. Its arithmetic proof is OPEN.
+
+### C. Continuity And Evidence
+
+The complete nontruncated reporting tree was searched without a calendar
+cap. All seven newest actual reports are November 18; complete November 17
+and 18 files were retrieved and both complete Coordinator mirrors matched.
+Previous PM intake ended at DAMP/HC/PV/FD/PN/DP/DUAL. Relevant new sections
+consumed now include own PM, Census PS, Referee FC, Lean VR, Owner GP and
+Analytic LW. Their separate paper, finite, independent-review and CI scopes
+are preserved. External inbox 7d63d434690d00dffce9c90335d41c4f62d85798
+is unchanged; its most recent entry remains October 18.
+
+Latest actual completed sections: Coordinator DAMP 07:10, Owner GP 16:15,
+Analytic LW 17:11, own PM 10:12, Census PS 11:00, Referee FC 12:03,
+Lean VR 13:14, all EST. No missing current/previous role-day or additional
+agent execution is inferred. Full source/claim ledger follows in the final.
+
+Live #1145/#1146 are human-merged. #1147 is OPEN, non-draft, unmerged,
+head e77d049ff83809c13c52e3d90922f34ed032efac, 13 checks successful.
+Current main has 10 successful checks. Reused #1119 exact head
+77ee815846d6d534c866f0752aa33b84c385610a has 14 successful checks.
+These are existing evidence, not a new Lean run or certification of LC.
+
+### D. Continuation, Falsifiers And Remaining Work
+
+Preserve all ordered factors, repeated primes, unit cofactors, strict
+endpoints, preceding lift contribution and every quadratic cross term.
+First tests: squarefree versus squareful B; the first omitted coefficient;
+the excluded upper endpoint; mixed Liouville signs; exact reconstruction
+against genuine mu. Search existing results before claiming novelty.
+
+This is a bounded audit of an attempted supplier, not a new active
+half-bootstrap. Finish the proof or record its first failure, run a small
+preregistered exact check, and append A-M findings with an immutable
+publication receipt. No unchanged wheel scan, local Lean run, source edit,
+proof branch/PR, other-role edit, merge, agent launch or schedule change is
+authorized or planned.
