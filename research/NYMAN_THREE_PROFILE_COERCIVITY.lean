@@ -88,7 +88,9 @@ private theorem profile_abs_le (K m : Nat) (hK : 1 <= K) :
         intro k hk
         have hlow : 4 * K <= k := by have := Finset.mem_Ioc.mp hk; omega
         calc
-          4 * K * (m / k) <= (m / k) * k := by nlinarith
+          4 * K * (m / k) <= (m / k) * k := by
+            simpa only [Nat.mul_comm k (m / k)] using
+              Nat.mul_le_mul_right (m / k) hlow
           _ <= m := Nat.div_mul_le_self m k
       _ = 2 * K * m := by simp [hlen]
   have h1 := hband (6 * K) (8 * K) (by omega) (by omega)
@@ -187,7 +189,8 @@ private theorem window_sample (K : Nat) (hK : 1 <= K) (s : Finset Nat)
         calc
           _ = ((m : Real) * (m + 1)) *
               (f m ^ 2 / ((m : Real) * (m + 1))) := by
-            field_simp [ne_of_gt hd.1]
+            have hnz := mul_ne_zero_iff.mp (ne_of_gt hd.1)
+            field_simp [hnz.1, hnz.2]
           _ <= _ := mul_le_mul_of_nonneg_right hd.2 (by positivity)
       _ = 144 * (K : Real)^2 * nymanWindowEnergy (nymanProfileWindow K) f := by
         rw [nymanWindowEnergy, Finset.mul_sum]
@@ -197,7 +200,7 @@ private theorem window_sample (K : Nat) (hK : 1 <= K) (s : Finset Nat)
         intro m _ _
         positivity
   by_contra hn
-  push_neg at hn
+  push Not at hn
   have hpoint (m : Nat) (hm : m ∈ nymanProfileWindow K) :
       ((K : Real) * c)^2 < f m ^ 2 := by
     have ha := hn m hm
@@ -228,7 +231,8 @@ private theorem recover_coefficient (K m : Nat) (hK : 1 <= K)
     have hh : t * nymanTwoBandProfile K m = z - r := by linarith
     calc
       _ = |t * nymanTwoBandProfile K m| := by
-        rw [abs_mul, hp, abs_of_nonneg (by linarith)]
+        rw [abs_mul, hp,
+          abs_of_nonneg (show 0 <= (m : Real) - 6 * K by linarith)]
       _ = |z - r| := congrArg abs hh
       _ <= _ := abs_sub _ _
   nlinarith [mul_le_mul_of_nonneg_left hmlo (abs_nonneg t)]
@@ -289,7 +293,7 @@ theorem nyman_three_profile_coercivity (K : Nat) (hK : 1 <= K)
         8 * (16 * K : Nat) * (|t0| + |t1|) := by
       have hp0 := (profile_abs_le K m hK).trans hu
       have hp1 := (profile_abs_le (4 * K) m (by omega)).trans hu
-      have ha := abs_add (t0 * nymanTwoBandProfile K m) (t1 * nymanTwoBandProfile (4 * K) m)
+      have ha := abs_add_le (t0 * nymanTwoBandProfile K m) (t1 * nymanTwoBandProfile (4 * K) m)
       rw [abs_mul, abs_mul] at ha
       nlinarith [mul_le_mul_of_nonneg_left hp0 (abs_nonneg t0),
         mul_le_mul_of_nonneg_left hp1 (abs_nonneg t1)]
@@ -328,7 +332,8 @@ theorem nyman_three_profile_restored_lower (K : Nat) (hK : 1 <= K)
         (nymanThreeProfile K t0 t1 t2 m + r m)^2 := by
       nlinarith [sq_nonneg (nymanThreeProfile K t0 t1 t2 m + 2 * r m)]
     have hh := div_le_div_of_nonneg_right hb hd
-    convert hh using 1 <;> ring
+    convert hh using 1
+    ring
   linarith
 
 end RHLean.Analysis
