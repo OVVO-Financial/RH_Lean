@@ -40,10 +40,10 @@ private theorem jordan_prime_power (p i : Nat) (hp : p.Prime) :
     Nat.primeFactors_prime_pow (by omega : i+1 ≠ 0) hp]
   simp only [Finset.prod_singleton, Nat.cast_pow]
   have hp0 : (p : Real) ≠ 0 := by exact_mod_cast hp.ne_zero
-  rw [show 2*(i+1) = 2*i+2 by omega, pow_add]
-  rw [← pow_mul, show (i+1)*2 = 2*i+2 by omega, pow_add]
+  rw [show 2*(i+1) = (i+1)*2 by omega, show 2*i = i*2 by omega]
+  simp only [pow_mul, pow_succ]
   field_simp [hp0]
-  <;> ring
+  ring
 
 /-- The exact arithmetic divisor identity, with the unit divisor retained. -/
 theorem nyman_jordan_two_divisor_sum (n : Nat) :
@@ -70,7 +70,10 @@ theorem nyman_jordan_two_divisor_sum (n : Nat) :
         rw [show i*2 = 2*i by omega, show (i+1)*2 = 2*(i+1) by omega]
         ring
   have hh := congrArg (fun f : ArithmeticFunction Real => f n) he
-  simpa [ArithmeticFunction.coe_zeta_mul_apply, ArithmeticFunction.pow_apply] using hh
+  change ((ArithmeticFunction.zeta : ArithmeticFunction Real) * nymanJordanTwo) n =
+    (ArithmeticFunction.pow 2 : ArithmeticFunction Real) n at hh
+  rw [ArithmeticFunction.coe_zeta_mul_apply] at hh
+  simpa [ArithmeticFunction.pow_apply] using hh
 
 private theorem factor_bounds (k : Nat) (hk : 2 <= k) :
     0 <= 1 - 1 / (k : Real)^2 ∧ 1 - 1 / (k : Real)^2 <= 1 := by
@@ -93,7 +96,7 @@ private theorem product_interval (n : Nat) (hn : 1 <= n) :
       have hs0 : (n : Real) + 1 ≠ 0 := by positivity
       push_cast
       field_simp [hn0, hs0]
-      <;> ring
+      ring
 
 /-- A telescoping finite product proves the uniform half bound without zeta. -/
 theorem nyman_jordan_two_lower (n : Nat) :
@@ -127,13 +130,12 @@ private theorem kernel_divisor_sum (N k l : Nat)
   have hg0 : Nat.gcd k l ≠ 0 := (Nat.gcd_pos_of_pos_left l hk0).ne'
   have hset : (Icc 1 N).filter (fun d => d ∣ k ∧ d ∣ l) = (Nat.gcd k l).divisors := by
     ext d
-    simp only [Finset.mem_filter, Finset.mem_Icc, Nat.mem_divisors, hg0,
-      and_true, Nat.dvd_gcd_iff]
+    simp only [Finset.mem_filter, Finset.mem_Icc, Nat.mem_divisors, Nat.dvd_gcd_iff]
     constructor
-    · exact fun h => h.2
+    · exact fun h => ⟨h.2, hg0⟩
     · intro h
-      have hd0 : 0 < d := Nat.pos_of_dvd_of_pos h.1 hk0
-      exact ⟨⟨hd0, (Nat.le_of_dvd hk0 h.1).trans (Finset.mem_Icc.mp hk).2⟩, h⟩
+      have hd0 : 0 < d := Nat.pos_of_dvd_of_pos h.1.1 hk0
+      exact ⟨⟨hd0, (Nat.le_of_dvd hk0 h.1.1).trans (Finset.mem_Icc.mp hk).2⟩, h.1⟩
   have hall : (∑ d ∈ Icc 1 N,
       if d ∣ k ∧ d ∣ l then nymanJordanTwo d else 0) = (Nat.gcd k l : Real)^2 := by
     rw [← Finset.sum_filter, hset, nyman_jordan_two_divisor_sum]
@@ -162,7 +164,8 @@ theorem nyman_covariance_divisor_squares (N : Nat) (a : Nat -> Real) :
     rw [← kernel_divisor_sum N k l hk hl, Finset.mul_sum]
     apply Finset.sum_congr rfl
     intro d _
-    by_cases hdk : d ∣ k <;> by_cases hdl : d ∣ l <;> simp [hdk, hdl] <;> ring
+    by_cases hdk : d ∣ k <;> by_cases hdl : d ∣ l <;> simp [hdk, hdl]
+    ring
   · trans ∑ k ∈ Icc 2 N, ∑ d ∈ Icc 2 N, ∑ l ∈ Icc 2 N,
       nymanJordanTwo d * (if d ∣ k then a k/k else 0) *
         (if d ∣ l then a l/l else 0)
@@ -215,7 +218,6 @@ theorem nyman_covariance_singleton_lower (N : Nat) (a : Nat -> Real) (s : Finset
       (sq_nonneg (a q / q))
     have he : (q : Real)^2/2 * (a q/q)^2 = (a q)^2/2 := by
       field_simp [hq0]
-      <;> ring
     rwa [he] at hh
   have hglobal : (∑ q ∈ s, nymanJordanTwo q *
       (∑ k ∈ Icc 2 N, if q ∣ k then a k/k else 0)^2) <=
