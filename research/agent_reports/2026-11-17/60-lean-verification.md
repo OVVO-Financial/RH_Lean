@@ -657,3 +657,288 @@ Independent reconstruction improves CP1: for N=12K, K>=1 and arbitrary real coef
 The independent finite checker passed 6,718 exact assertions on K=1,...,8,12,24, including all principal minors of shifted rational Grams, literal/grouped floor agreement and three negative controls. FINITE_COMPUTATION is not universal Lean certification. The dedicated hosted run 44223128161 and the targeted Lean run 44223128309 have actually started for this head. IMPLEMENTATION=DRAFT_PR/CI_PENDING. No local Lean was run.
 
 Relevant existing proof evidence was refreshed: #1144 is merged into main with 13/13 checks at abd9bb34c8fac459e67c63009961b6c26548d7e9; #1140 has 13/13 at 685598746869a62849451d7b7ffbfd09d42e4e4a; #1119 has 14/14 at 77ee815846d6d534c866f0752aa33b84c385610a. Actual three job logs were read. Comparing all 2,508 preexisting Lean/pin/scripts/lean files at #1119 against current main found only aggregate RHLean.lean changed, supporting scoped baseline reuse. No baseline reproof or new global exponent is claimed.
+
+
+---
+
+## Three Original Nyman Profiles: Uniform Coercivity
+
+### Final Synthesis - 20261117-lean-2108-EST/PROFILE
+
+Actual scheduled trigger: 2026-11-17 21:08:01 EST / 2026-11-18 02:08:01 UTC. Reporting date is November 17 in America/New_York. PLATFORM_RUN_ID=UNAVAILABLE. Earlier same-day NYMAN-JUMP/HF1 results and both PROFILE checkpoints remain preserved. PROVED_IN_LEAN at PR #1145 head 43cbf9310516f26a440b5527ce6dc22a62856248; 13/13 exact-head checks passed. PR_READY_FOR_HUMAN_REVIEW, UNMERGED. Final verification and ready transition recorded through 21:39:43 EST / 02:39:43 UTC.
+
+### A. Most Important Formal Mathematical Result
+
+Selected claim: **20261117-analytic-1711-EST/CP1**, independently accepted on paper by **20261117-referee-2013-EST/PR**. The new proof establishes a uniform lower bound for the joint energy of three COMPLETE original two-band floor profiles. A sampling proof improves the paper denominator from 49,647,168 to **11,479,104** and extends the statement from the prescribed square supports to every positive integral block size.
+
+For N=12K, K>=1, all real t0,t1,t2, and the original observation windows J, the statement is
+
+```text
+sum_(m in J) [t0*p_K(m)+t1*p_(4K)(m)+t2*p_(16K)(m)]^2/[m(m+1)]
+  >= N/11479104 * (t0^2+t1^2+t2^2).
+```
+
+All earlier profile overlaps, repeated floor quotients and both bands are retained. An exact bridge uses the existing nymanCorrectionFloor. The restored theorem retains an explicit subtraction of the restoration energy. This is an independent quantitative PROFILE lower bound, not a complete residual upper bound, not the full analytic CP2/CP3 result, and not a new Mertens exponent or RH theorem.
+
+### B. Current Authoritative Objective
+
+Main at intake: **13b31c6313e274a073d82a01175201185e59e37e**, human merge of #1144. The public target remains VFCanonicalSquareVonKochStatement: one C>=0 before all natural R>=2 with |pi(R^2)-VF_mid(R^2)-sqrt(2)|<=C R log R. The inspected riemannHypothesis_of_vfCanonicalSquare still explicitly takes ClassicalVonKochRHCriterion AND the arithmetic statement. Neither is discharged here.
+
+```text
+half_bootstrap_ack=BOOTSTRAP_TO_HALF_V1
+cross_route_ack=CROSS_ROUTE_SIGNED_RECOVERY_V1
+continuity_ack=LAST_ACTUAL_REPORT_CONTINUITY_V1
+high_attack_ack=COMPLETE_SIGNED_HIGH_ATTACK_V1
+chain_ack=CANCELLATION_CHAIN_REUSE_V1
+finite_wheel_ack=FINITE_WHEEL_CENTERED_RH_V1
+```
+
+| Material source | Blob SHA |
+| --- | --- |
+| AGENTS.md | c4f36b772f8a4b0c24fe566b90fafb646073c60f |
+| CURRENT_PROOF_CONTRACT.md | 95566e37c8eaeb99ee680660df4f9d2e06ea5038 |
+| Continuation-to-half directive | 96ad4439ec458af6168f7d9cb3eef5dde291d37c |
+| Cross-route recovery directive | e3ae4280438f591f1ffaddd754a1c3a6d35d0691 |
+| Latest-actual continuity directive | 3e71820a4af722eae7098da6945bb5bcba50dd0d |
+| Dynamic research protocol | b76d595f09403fc54eca71d04bf9e0306e0a9c09 |
+| Complete-return safeguards | 4775ee5fd95f279beab08a75d1e17127078b19a6 |
+| research/NYMAN_FLAT_TAPER_RETURN_20261104.lean | 2d23721027ecc44e85b7add02fc632b482f03352 |
+| research/NYMAN_HIGH_COEFFICIENT_INVARIANT_20261104.lean | 2da630c1d5fb9302e2097ec1e170cf41c2b40609 |
+| research/NYMAN_CORRECTION_ENERGY_20261105.lean | e5453cd32c3c4ebf9ebf41927bcb92e534b2ece7 |
+| research/oai_434/VF919WindowErrorClosure.lean | f629db1b2b65d6ec042ac9432397d4b6316200c6 |
+| research/VF_CANONICAL_SQRT_TWO_VON_KOCH.lean | 79030d70e8d3e0d08eef9bac53fef95c36eca2fb |
+| lean-toolchain | ba8ebf2dbaf6a668cd2a0e086186d6d569b69ff5 |
+| lake-manifest.json | a34d142c3d75a602a8b0f8241a4fb504d5c7c5a4 |
+
+Pins: Lean v4.34.1; Mathlib d13f23b723b8a846827a245b89c10fc7d3f11612. No local Lean execution occurred.
+
+The strongest applicable reused comparator is native_mertens_near_uniform_window_error_closed, every-positive-loss Mertens growth at 7/8-7/(64*nearUniformSlotCount). Its exact declaration has no new open supplier argument. No loss-free endpoint or comparison with a different slot count is inferred. The actual #1119 audit log was read at tested head 77ee815846d6d534c866f0752aa33b84c385610a: 14 successful checks; five closure sizes 35358,35375,35736,35737,35753 and only propext, Classical.choice, Quot.sound. An untruncated comparison of all 2,508 preexisting Lean/pin/scripts/lean files against current main found only the aggregate RHLean.lean changed. This is scoped reuse, not a fresh main build or independent reproof. The new finite theorem does not need this analytic baseline at all.
+
+### C. Formalization Queue And Continuity
+
+The untruncated agent-reports tree at **589255f440cdb1345b52c64c71f1a481f063234f** was enumerated without a calendar cap. Every role's newest actual published file is dated November 17. Full November 16/17 files were retrieved, and both Coordinator mirrors were separately fetched and byte-compared on both dates. The relevant post-HF1 material was consumed in publication order; this does not claim independent verification of every historical numerical appendix.
+
+Paths below are under research/agent_reports/2026-11-17/. LAST_CONSUMED is the prior verified HF1 ledger. Each current file has a completed substantive result and publication receipt, not merely a scheduled title.
+
+| Role | LAST_VERIFIED blob; actual section | LAST_CONSUMED -> new material and resume |
+| --- | --- | --- |
+| Coordinator 00/90 | ae2d8ed2c9199d5b0b174fd8b3436286f5541226; TAIL 15:13 EST | INV -> TAIL.1-5; full mixed energy remains open. |
+| Owner 10 | 6516bf78b096471ccfd2fb8c215e94002544a594; PC 16:15 EST | HF -> PC.1-6; complete Selberg return, author paper scope retained. |
+| Analytic 20 | d4bc53ac1b68f6dadabc4a04a2f5fc8c74f6625f; CP 17:11 EST | HA -> CP1-4; CP1 selected, CP2/CP3 are accepted paper mathematics not formalized by this PR. |
+| Wheel 30 | 5c26771c0a266d5112e0b4a4b28aba0132e35ef7; PP 18:06 EST | SB -> PP; genuine prime-class cancellation, independent review still pending. |
+| Census 40 | 587b0bb3dd66834a18610ab86174f285f81c4b04; MR 19:00 EST | TC -> MR1-4; local restoration-free domination is refuted, union conjecture not refuted. |
+| Referee 50 | 103ee17307ac799e20bd4ce17d97ff96101a9e5b; PR 20:13 EST | IC -> PR; CP1-3 and TAIL.1-4 accepted within scope; new PR1-3 remain self-audited pending independent review. |
+| Lean 60 before checkpoint | f064afb482138dc59123713f11082809b04e7c3c; HF1 13:14 EST | HF1 -> PROFILE; live human merge supersedes earlier unmerged status. |
+
+TODAY=AVAILABLE; YESTERDAY=READ/CARRY_FORWARD. November 16 carry-forward blobs in the same role order: fda92549dd9291c491005fdf70847b90d9be385a; a52b439e693e069502b0c299a5f074a19bae0807; 84aaa2103225565607b5b033f273462bbe865246; 713826840694e39a141fbdbe813f1d47245928e7; 53e6be517dc11037fe3b42a8ed6ad3a06cfce956; 240b97ce1c8ddc87d5f520bc9a8cd6ea00df3d32; 0bada0352d54be7c46a7d928f4c4e3bee440ad8f. Preserve SC/DB/LM/TP/MC/CF/CR's original scope, including DB's R=5 correction and R=137 restoration reversal and synthetic-versus-genuine inverse distinctions. Earlier November 13/14 gaps remain NO_VERIFIED_REPORT, not invented executions.
+
+External inbox **7d63d434690d00dffce9c90335d41c4f62d85798** was read and is unchanged; no new entry follows October 18. Its prime-cofactor error and unconditional-versus-first-bad qualifications are retained. CONTINUITY_COMPLETE is scoped to latest-real discovery and relevant post-watermark backfill; no newly missing section was found at intake.
+
+Priority A: no open/draft proof PR needed repair at intake. #1144 and #1140 are merged to main with refreshed 13/13 exact-head checks; actual logs were inspected. Priority B: CP1 has an accepted independent proof and concrete use in CP2/CP3. TAIL selection and PR's affine-independence/all-n extensions are separate candidates with distinct review/dependency needs. PC and PP were not silently promoted to independently accepted mathematics. No duplicate of the old component-only correction-energy theorem was found in the inspected Nyman modules.
+
+### D. Candidate Selection And Proof Plan
+
+CP1 detects the whole three-vector, including when the first coefficient vanishes. Existing one-block affine/component bounds cannot do that. Its proof is finite, unconditional and source-exact, and it is the necessary geometric input to CP2's restored lower estimate and CP3's two-small-defect restriction on the proposed sparse-head continuation.
+
+The implementation strategy replaces the paper's finite Hilbert-norm triangle argument by one low-energy sample in each exact activation window. It needs only genuine natural floor inequalities, interval cardinality, finite sums and real algebra. No desired energy bound, favorable cross sign, prime distribution or extra Mertens hypothesis is inserted.
+
+### E. Exact Theorem Statements
+
+Here Lean's K is **N/12**, not the original paper's N/6 band parameter. The original band parameter equals 2K; this is only an exact integral reparameterization. Define
+
+```text
+B(a,b;m)=sum_(a<k<=b) floor(m/k),
+p_K(m)=B(6K,8K;m)-B(10K,12K;m),
+J_K=(7K,8K], J=J_K union J_(4K) union J_(16K),
+energy_J(f)=sum_(m in J) f(m)^2/[m(m+1)],
+Z=t0*p_K+t1*p_(4K)+t2*p_(16K).
+```
+
+The three public declarations, in namespace RHLean.Analysis, are:
+
+```text
+nyman_two_band_profile_source:
+  forall K,m in Nat, 1<=K, alpha,v in Real,
+  nymanCorrectionFloor(12K, alpha on (6K,8K],
+      v-alpha on (10K,12K], zero elsewhere; m)
+    = alpha*p_K(m)+v*B(10K,12K;m).
+
+nyman_three_profile_coercivity:
+  forall K in Nat, 1<=K, t0,t1,t2 in Real,
+    (K/956592)*(t0^2+t1^2+t2^2) <= energy_J(Z).
+
+nyman_three_profile_restored_lower:
+  forall K in Nat, 1<=K, t0,t1,t2 in Real, r:Nat->Real,
+    (K/1913184)*(t0^2+t1^2+t2^2)-energy_J(r)
+      <= energy_J(Z+r).
+```
+
+The source bridge is valid for every natural output m. For the original moment solver, instantiate its normalized second-moment coefficient v with the actual v_i/K_i. No historical coefficient is redefined. The accepted CP1 constant is separately checked as an exact-type consumer. The new module introduces no claim about infinite-energy convergence or complete upper bounds.
+
+### F. Independent Mathematical Audit
+
+For q=K,4K,16K and m in J_q, the current profile is exactly m-6q>=q; every later profile is zero. Every earlier full profile satisfies |p(m)|<=m<=8q. The absolute bound follows from the two complete floor sums, not from suppressing their overlaps.
+
+Let E=energy_J(Z), c=sqrt(144E/K). On J_q there are q output cells and m(m+1)<=144q^2. If all |Z(m)| exceeded qc, the window's sum of squares would contradict its inclusion in E and q>=K. Therefore a suitable sample exists on each window. Successive recovery gives |t0|<=c, |t1|<=9c, |t2|<=81c. Thus sum t_i^2<=6643c^2 and K sum t_i^2<=956592E. The constant 8, rather than the paper's 12, retains the actual upper window endpoint. This is a valid stronger proof, not an empirical eigenvalue fit.
+
+For restoration, (Z+r)^2>=Z^2/2-r^2 is applied at each cell with its nonnegative weight. The remainder may cancel the profile, as MR3 demonstrates on the genuine source; no sign is assumed for that interaction. The remainder-bearing lower bound can be negative.
+
+Circularity classification: independent finite quantitative control on the original correction profiles, with an exact source bridge. The restored inequality is valid for every r and does not assume a target-size bound on r. It does not close an independent prime, Mertens or Nyman upper estimate.
+
+### G. Lean Implementation
+
+Six focused additions: research/NYMAN_THREE_PROFILE_COERCIVITY.lean; scripts/lean/nyman_three_profile/ExactTypes.lean; Audit.lean; check_inventory.py; scripts/nyman_three_profile_regression.py; .github/workflows/nyman-three-profile.yml. The module imports the existing flat-taper return, preserving the repository namespace and original correction-floor definition. Existing root imports and all existing validation requirements are unchanged; the new research module is reached through the dedicated warning-fatal import closure and the exact consumer import.
+
+The audit gathers actual transitive axioms for every public theorem, permitting only propext, Classical.choice and Quot.sound. Its separate project/private dependency traversal requires the literal floor profiles, complete windows and energy, triangular sample/self/absolute/recovery lemmas, the original correction bridge and use of coercivity in the restored theorem. The inventory fails closed unless all three public statements and four exact-type examples have their live evidence. There are no proof holes, new axioms or native-evaluation shortcuts.
+
+### H. Proof Branch And PR Evidence
+
+[PR #1145](https://github.com/OVVO-Financial/RH_Lean/pull/1145), branch agent/lean-verification/20261117-nyman-profile-coercivity, targets main at base 13b31c6313e274a073d82a01175201185e59e37e. Initial head 0b78f8b0d9d759808b3ba0b144a23c826a3c4e8a; focused proof repair 4dde2e6ca26abbdbbd7dba9077e8d7cb8fa9e9f9; explicit-real-cast repair **43cbf9310516f26a440b5527ce6dc22a62856248** is the current tested head. After 13/13 exact-head checks passed, the PR was marked ready at 2026-11-18 02:39:43 UTC; the returned state is open, draft=false, merged=false, mergeable=true. Final merge authority remains with the human owner.
+
+The exact base-to-head comparison reports three commits ahead, zero behind, six added files, 607 additions and zero deletions. Source blob identities at the verified head:
+
+| Added path | Verified blob SHA |
+| --- | --- |
+| research/NYMAN_THREE_PROFILE_COERCIVITY.lean | 24addcf432cc12314d8e71dfc617770f8f303dca |
+| scripts/lean/nyman_three_profile/ExactTypes.lean | 606eca67b5930053bb6951749a354741060e84eb |
+| scripts/lean/nyman_three_profile/Audit.lean | 107a11f0760b4f39f536e100086add1a2f380b42 |
+| scripts/lean/nyman_three_profile/check_inventory.py | 8afd76a38d6e4125406bec6a33246fc9c1f65314 |
+| scripts/nyman_three_profile_regression.py | e72183122b4713b9377d1cc26b7a1a1eae1fe661 |
+| .github/workflows/nyman-three-profile.yml | 3c99e6f6df08b96b69b9af2837caaf9c0fce4780 |
+
+Only this own proof branch and own dated report were written remotely. No main push, merge, auto-merge, other-role report edit, policy weakening, agent launch, schedule change or permission change occurred. Direct git clone was blocked by CONNECT 403; authorized connector reads/writes succeeded, so this was not a proof-write blocker.
+
+### I. GitHub Actions Evidence
+
+All **13 checks in 12 workflows** completed successfully at exact head **43cbf9310516f26a440b5527ce6dc22a62856248**. The check-run API was inspected with each check's head SHA; no earlier green head is substituted.
+
+| Check or workflow | Actual passing evidence |
+| --- | --- |
+| Dedicated Nyman proof | [Run 44224055868 / job 134532755650](https://github.com/OVVO-Financial/RH_Lean/actions/runs/44224055868/job/134532755650) |
+| Hosted Lean root build | [Run 44224055829 / job 134532755754](https://github.com/OVVO-Financial/RH_Lean/actions/runs/44224055829/job/134532755754) |
+| Source and boundary audits | [Run 44224055829 / job 134532755443](https://github.com/OVVO-Financial/RH_Lean/actions/runs/44224055829/job/134532755443) |
+| Targeted Lean iteration | [Run 44224055864 / job 134532755522](https://github.com/OVVO-Financial/RH_Lean/actions/runs/44224055864/job/134532755522) |
+| Proof inventory | [Run 44224055797 / job 134532755100](https://github.com/OVVO-Financial/RH_Lean/actions/runs/44224055797/job/134532755100) |
+| Public export | [Run 44224055740 / job 134532755167](https://github.com/OVVO-Financial/RH_Lean/actions/runs/44224055740/job/134532755167) |
+| Anti-cold policy | [Run 44224055872](https://github.com/OVVO-Financial/RH_Lean/actions/runs/44224055872) |
+| Coordinate atlas | [Run 44224055826](https://github.com/OVVO-Financial/RH_Lean/actions/runs/44224055826) |
+| VF pre-914 | [Run 44224055738](https://github.com/OVVO-Financial/RH_Lean/actions/runs/44224055738) |
+| VF source to sector-six | [Run 44224056002](https://github.com/OVVO-Financial/RH_Lean/actions/runs/44224056002) |
+| VF final aggregate | [Run 44224055786](https://github.com/OVVO-Financial/RH_Lean/actions/runs/44224055786) |
+| VF recursive population | [Run 44224055798](https://github.com/OVVO-Financial/RH_Lean/actions/runs/44224055798) |
+| VF normalized infrastructure | [Run 44224055948](https://github.com/OVVO-Financial/RH_Lean/actions/runs/44224055948) |
+
+The actual dedicated job log reports **compiled=1 cached=2**. The new theorem module was freshly emitted under warning-fatal settings; its two unchanged research prerequisites were reused from verified cache. Four exact-type consumers passed, including the accepted CP1 constant. The printed elaborated statements were inspected: only K>=1 and arbitrary real coefficients, and arbitrary restoration for the third theorem, appear as hypotheses.
+
+Live terminal axioms and required project/private dependency closures:
+
+```text
+nyman_two_band_profile_source:       closure=229
+nyman_three_profile_coercivity:      closure=617
+nyman_three_profile_restored_lower:  closure=645
+Each: [propext, Classical.choice, Quot.sound]
+PASS: three public statements, four exact types and all live axiom audits
+```
+
+The root job executed lake build RHLean and reported successful completion of 9,786 scheduled build jobs, including cached work. Its repository-owned warning gate passed. This is not a claim that 9,786 modules were recompiled. The source-audit log separately reports the Paper/Analysis boundary and Lean source audits passed. The new research module is certified by its dedicated closure, not falsely attributed to an unchanged root import.
+
+Evidence artifact [nyman-three-profile-44224055868-1](https://github.com/OVVO-Financial/RH_Lean/actions/runs/44224055868/artifacts/14392530756), artifact ID 14392530756, belongs to this exact head. Digest: sha256:01891d1e27b907a3c0a8703b456cdbc9c13eb76d7dae370f05e9402f9d19b937. It was uploaded successfully; expiry 2027-02-16. Logs were directly inspected; the archive metadata was verified, not represented as separately downloaded.
+
+The independent rational checker passed **6,718 assertions** locally. Registered supports are K=1,...,8,12,24. It checks all seven principal minors of each shifted rational Gram, literal/grouped floor reconstruction, source coefficients, exact endpoints and three negative controls: first-window rank defect, second-band omission, and restoration-free domination. These are FINITE_COMPUTATION, not a replacement for the all-scale kernel theorem. The genuine MR3 logarithmic counterexample was consumed from Census/Referee, not newly claimed as reproduced by this separate floor-profile checker.
+
+### J. CI Failures And Repairs
+
+Initial hosted run 44223128161, job 134529664623, actually failed during warning-fatal Lean compilation. The diagnostics concerned a natural-product monotonicity step, denominator factor nonzero evidence, an overly general absolute-value rewrite attempting to prove t>=0, the current triangle-inequality name, deprecated push_neg syntax and an unnecessary tactic combinator flagged by the linter. The repair uses explicit multiplication monotonicity, both denominator factors, a specifically typed nonnegative profile, abs_add_le, push Not, and the sequential tactic form.
+
+The next hosted run 44223578416, job 134531183083, reduced the failure to an underdetermined ordered-ring instance in a Nat.cast_nonneg proof. Explicit real-valued nonnegativity facts repair that elaboration at 43cbf9310516f26a440b5527ce6dc22a62856248. No theorem statement, coefficient, constant, endpoint, hypothesis or validation gate changed. Run 44224055868 then freshly compiled the module and passed its exact types, live audits and inventory. All remaining repository checks also passed. These were proof-engineering/elaboration failures, not mathematical counterexamples or missing mathematical assumptions.
+
+### K. Mathematical Conclusions
+
+The strengthened CP1 lower bound and exact original-source bridge constitute new formal supporting mathematics. The scalar windows cannot conceal an arbitrary three-vector solely through earlier-band overlaps. This is not a new complete global upper bound. The analytic remainder estimate in CP2 and the simultaneous-defect consequence CP3 retain ACCEPT_ON_PAPER status outside this implementation. The full sparse-head upper supplier remains OPEN.
+
+NO_NEW_GLOBAL_GAIN; NO_NEW_ACCEPTED_RH_ROUTE; VERIFIED_ETA=NONE; RH=OPEN.
+
+### L. Formalization-Driven Discoveries
+
+The proof needs only N divisible by 12, not N=H^2 or H=6*2^j. The sample construction retains m<=2N_i/3 and improves the coefficient recurrence from 13 to 9, producing the better explicit denominator. This is a same-session mathematical strengthening, not a claim of separate Referee review of the improved constant. Formal validation and mathematical significance are assessed separately.
+
+### M. Source-Loss-Recovery And Half-Continuation Capsule
+
+| Original source / coordinate | Existing recovery and remaining obligation |
+| --- | --- |
+| Nyman two-band floor profiles | Exact source transport, with all earlier repeated quotients. New uniform joint lower bound. Taking only the first window loses detection of the other two coefficients. |
+| Complete Nyman residual | Cross restoration retained explicitly. The source-specific finite remainder bound and infinite upper energy are not supplied by profile coercivity. |
+| Square-prefix/Mertens | A fixed Mertens power is a one-way input to paper CP2's remainder analysis, not an equality of these energies. The new finite profile theorem requires no such input. |
+| Euler/finite-AC and strict-history K_R | OPEN_BRIDGE to this observation norm. Shared Mobius coefficients do not identify masks, floors or normalization. PP's proper prime classes are not payment here. |
+| Actual-prime VF/#915 | NOT_IDENTIFIED with the Nyman profile. No clipping-, chronology- or occurrence-preserving transport to original source payment is claimed. |
+| NNS/OAI ideal characters | NOT_IDENTIFIED with these rational two-band coefficients. Prior global baseline evidence does not provide the missing source-specific upper estimate. |
+
+The first loss is the finite sample/absolute recovery of earlier profiles; its exact fixed cost is recorded. The restored inequality pays its discarded interaction with energy(r), rather than asserting it is favorable. The old compiled affine correction-energy theorem is a component theorem and cannot replace this joint bound or its restoration.
+
+```text
+ROUTE=NYMAN; STATUS=ACTIVE_SUPPORT, not a newly accepted positive RH route
+ORIGINAL SOURCE=three original two-band residuals, all six bands and outputs
+CURRENT INPUT=accepted CP1 finite geometry; compiled exact flat return
+PRESENT WORK -> CP2 finite-window restoration -> CP3 two-small-defect restriction
+TERMINAL CONSUMER=accepted PAPER zero-functional lower bound:
+  E >= (2*sigma-1)*(H+1)^(2*sigma-1)/|rho|^2 at a zeta zero sigma>1/2
+DIRECT ENDPOINT=one common unbounded exact-head sequence with complete
+  subpower energy excludes all such zeros; no attained supremum needed
+RANGE=all positive integral K for the new finite theorem; original square
+  family is a specialization; constants fixed before the scale and vector
+ALL RETURNS=early middle, both bands at each head, U_N, exterior periodic
+  tail, every ordered cross-head/cross-band term; none paid by a proxy
+FIRST OPEN ARITHMETIC=independently derive complete sparse-head upper energy
+FALSIFIER=restoration-free local domination already fails at H=96; retain
+  its cost. A profile Gram pass cannot establish the infinite upper bound.
+```
+
+The OAI fixed gates and the nine independent toolkits retain their prior scopes. No unrelated route is forced into these Nyman coordinates.
+
+### N. Specialist Handoffs
+
+| Recipient | Precise finding and next obligation |
+| --- | --- |
+| Coordinator | Reuse the certified CP1 geometry at head 43cbf9310516f26a440b5527ce6dc22a62856248. This finishes that supporting formalization, not a new complete supplier or route admission. |
+| Analytic | CP1's denominator improves to 11,479,104 on every N=12K. CP2/CP3 analytic restoration remains separate accepted paper work; the arbitrary-r lower theorem keeps its cost visible. |
+| Referee | Review the low-energy sample strengthening and integral reparameterization. No new acceptance of PR1-PR3 is self-issued; no claim that sparse two-defect smallness is impossible. |
+| Census | Reuse the exact profile theorem; avoid repeating all-vector scans as infinite evidence. MR3 remains a necessary control against dropping restoration. |
+| Owner | PC's Selberg carrier and actual first-bad obligations remain separate; neither the new profile theorem nor HF1 pays the original signed prime source. |
+| Wheel | PP's centered prime/nonprime balance remains at its original review scope. No transport from the Nyman lower bound to complete Xi or its history grade is supplied. |
+
+These are published mathematical handoffs, not agent launches or changes of other specialists' instructions.
+
+### O. First Unresolved Mathematical Theorem
+
+For the selected sparse-head Nyman mechanism, the missing independent assertion remains: there exists ONE unbounded qualifying set of original heads S such that for EVERY epsilon>0 a constant C_epsilon is chosen before H, and the ENTIRE mixed residual satisfies
+
+```text
+forall H in S:
+  sum_(m>=1) r_mix,H(m)^2/[m(m+1)] <= C_epsilon H^epsilon.
+```
+
+The coefficients must be the genuine prescribed two-band solutions and source-dependent admissible mixture, not arbitrary substitute signs. Every output region and cross term is included. CP3's two-small-defect condition is necessary, not sufficient and not proved to be impossible. Exact nonzero curvature or bounded mixing coefficients cannot supply this upper estimate.
+
+Next formalization gap is distinct: CP2/CP3 have accepted paper arguments but their genuine logarithmic convolution, natural-order tail estimates and explicit complete finite-window restoration have not been kernel-certified by this PR. Do not claim the full necessary two-defect rate as Lean-proved merely because CP1 is.
+
+### P. Next-Run Resume Capsule
+
+```text
+RUN=20261117-lean-2108-EST/PROFILE
+CURRENT_MAIN=13b31c6313e274a073d82a01175201185e59e37e
+CLAIM=20261117-analytic-1711-EST/CP1
+IMPLEMENTATION=PROVED_IN_LEAN, PR_READY_FOR_HUMAN_REVIEW, UNMERGED
+PR=1145
+BRANCH=agent/lean-verification/20261117-nyman-profile-coercivity
+HEAD=43cbf9310516f26a440b5527ce6dc22a62856248
+DEDICATED_RUN=44224055868; JOB=134532755650
+CHECKS=13/13 success on exact latest head; WORKFLOWS=12/12 success
+AXIOMS=propext, Classical.choice, Quot.sound; CLOSURES=229,617,645
+NEXT_ACTION=refresh main and PR before reusing exact verified evidence;
+  do not rerun unchanged proof or open a duplicate CP1 PR
+NEXT_FORMAL_GAP=accepted CP2/CP3 genuine analytic restoration and rate
+FIRST_OPEN_SUPPLIER=complete source-faithful sparse-head upper energy
+NO_NEW_GLOBAL_GAIN; VERIFIED_ETA=NONE; RH=OPEN
+```
+
+Checkpoint publication evidence was read back exactly: first checkpoint commit 57b6dff2da9f56f75ce58f2ec95a29b2e431e34d, blob c2da3037090fd26182b27ece15ad7434032dd3fd; implementation checkpoint commit 3121b882f96bbd70aad106f591b67092d0a1dcb6, blob a624078e009ff742fcb497a1ca2d944e5c628c0c. This synthesis appends to, and does not erase, those dated records or earlier HF1/NYMAN-JUMP results. Its final publication commit and verified readback are recorded in the following receipt.
