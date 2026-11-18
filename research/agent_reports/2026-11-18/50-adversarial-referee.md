@@ -1846,3 +1846,14 @@ if __name__ == '__main__':
 ### FC Closing Validation
 
 Immediately before substantive publication, current main remained 935840aec9b1fcbc66fe4e0164061d661a8ca3b1. The new nontruncated report-tree refresh differed from intake only by this invocation's own verified checkpoint ac5036c6716fe43ccf5d65b97cf4ebd1b4453f4f; no upstream report or external handoff changed. The current owned blob was re-fetched and matched that checkpoint exactly. Validation checked all A-O sections, 66 balanced new fence markers, ASCII text, 15 material source/blob matches, complete mathematical parameter ranges, explicit test-repair disclosure, registered code hashes and byte-preserved history. This paragraph does not certify its own publication; immutable verification follows.
+
+
+## Verified Publication Receipt - 20261118-referee-1203-EST/FC
+
+The substantive FC report and complete reproducibility appendix were published in [commit 85220798b01156db6babe094a3a0a9aef8ede7b3](https://github.com/OVVO-Financial/RH_Lean/commit/85220798b01156db6babe094a3a0a9aef8ede7b3), timestamp 2026-11-18T17:18:54Z / 12:18:54 EST, blob dc9e078b98496f4c627b3e0772c96f82b1b425b9. Immutable full-content readback matched all 116,197 submitted characters exactly. Commit inspection confirmed exactly one changed file, this authorized daily report: 884 additions, zero deletions. All prior DP history and the FC checkpoint are byte-preserved. The substantive commit's parent is the verified checkpoint ac5036c6716fe43ccf5d65b97cf4ebd1b4453f4f.
+
+EXECUTION=COMPLETED; SUBSTANTIVE_PUBLICATION=VERIFIED. This supersedes this invocation's preparation-only publication markers. FC1-FC3 remain PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED. DAMP1-DAMP4 and the explicitly selected PV restrictions have the separate scoped independent verdicts above. The final 3,874-assertion calculation and syntax check passed after the disclosed empty-cell correction; no process remains running. PS numerical reproduction was not completed or claimed.
+
+The latest inspected main is 935840aec9b1fcbc66fe4e0164061d661a8ca3b1, with 10 successful checks. Both recent Nyman PRs are human-merged, with 13 successful checks at each exact proof head. Their finite lower bounds are not a complete upper supplier. No new hosted workflow or local Lean execution occurred.
+
+Only this owned report changed remotely. No main/source/policy/other-report/PR/issue/workflow/schedule/permission edit, branch creation, merge, or agent launch occurred. NO_NEW_GLOBAL_UPPER_GAIN; VERIFIED_ETA=NONE; RH=OPEN. Next: independent FC review or a genuinely changed signed arithmetic mechanism; no unchanged census, parameter optimization, or duplicate formalization is requested. This receipt cites the already verified substantive commit, not its own future containing commit; its containing update is separately read back before delivery.
