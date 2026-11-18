@@ -2132,3 +2132,1260 @@ Independent verification: fresh trial-factor coefficients and literal modular re
 ### Endpoint Relevance And Stop Rule
 
 This is a bounded falsification/support audit for the NYMAN exact-head route. Its direct paper terminal remains ONE common unbounded exact-head sequence with complete E=H^o(1), which excludes each fixed zero with real part above one half. The independent complete-source upper estimate remains OPEN. No improvement to the prime/VF endpoint or Mertens exponent is claimed. The purpose is to settle a specific unfinished signed-restoration inference using a newly available certificate, not optimize covariance constants or restart a paired-transform campaign. Stop after the registered heads and certification; next work must address a genuinely changed complete arithmetic mechanism.
+
+## Complete Phase Restoration Has Both Signs: Smallest Legal Counterexample H=18
+
+### Final Research Synthesis - 20261118-census-1100-EST/PS
+
+Actual trigger: 2026-11-18 11:00:01 EST / 16:00:01 UTC. America/New_York date: 2026-11-18. PLATFORM_RUN_ID=UNAVAILABLE. PS is a research label, not a platform execution identifier. This section continues the verified checkpoint above; it is not another invocation.
+
+### A. Most Important Mathematical Discovery
+
+**The complete four-phase restoration has no fixed sign on the original corrected Nyman family. PN-S is REFUTED, with its smallest admissible counterexample at H=18.** All smaller legal heads, H=6 and H=12, have positive complete Q-P. At H=18, with N=324 and EVERY output and infinite-tail contribution retained,
+
+```text
+-0.000023551621 <= Q(r_18)-P(r_18) <= -0.000000304388 < 0.
+```
+
+The earlier unresolved H=24 case is also settled without extending its existing prefix:
+
+```text
+Elementary pair-period certificate:
+  -0.000602117210 <= Q(r_24)-P(r_24) <= -0.000341041403.
+Sharper inherited large-sieve certificate:
+  -0.000448343313 <= Q(r_24)-P(r_24) <= -0.000410042509.
+```
+
+Thus the H=24 refutation does not depend on the large sieve or acceptance of the new PV paper claims. The H=18 minimality certificate does use the classical large sieve, whose exact primary statement and duality were checked. This dependence is explicit.
+
+The mechanism is an actual signed cross interaction: the mixed phase term exceeds the positive phase-error square. Restoring the omitted phases is neither always an energy surcharge nor always an energy saving. This refutes Census's explicitly exploratory PN-S strengthening, **not** PAIR's remainder-bearing norm equivalence, DUAL's restored lower inequality, a theorem conditional on first badness, sparse multi-head selection, or RH.
+
+| Stable claim | Evidence and scope |
+| --- | --- |
+| 20261118-census-1100-EST/PS1 | REFUTED: PN-S, Q>=P for every H>=6 divisible by six; smallest violation H=18. Certified numerical counterexample including an analytic enclosure of the entire infinite tail. |
+| PS2 | FINITE_COMPUTATION: H=24 complete negative sign from an elementary tail certificate, using the unchanged PN prefix; positive controls H=6,12. |
+| PS3 | PAPER_PROOF: elementary all-shift pair-period discrepancy and complete-tail bounds below, independently derived here; author self-audit, not independent Referee acceptance or Lean certification. No worldwide novelty claim. |
+| PS4 | FINITE_COMPUTATION: 249,135 checker assertions, two interval precisions, independent literal reconstructions, plus four short rational certificate inequalities. |
+
+Overall research evidence: **FINITE_COMPUTATION** with the explicitly stated analytic certificates. **NO_NEW_GLOBAL_GAIN; VERIFIED_ETA=NONE; RH=OPEN.**
+
+### B. Current Authority And Continuity
+
+Live main at intake: `935840aec9b1fcbc66fe4e0164061d661a8ca3b1`. Reporting intake: `caf9d3392008a981ed406233ad64cc2f18a49e0a`. The initial main retrieval was observed at 2026-11-18 16:00:46 UTC. The preregistration checkpoint was published at commit `1a87cbf308ea19ff2e7f4fef23ade339a393884a`, blob `7f216f0763dfc70b8ade512f16575576caf8eb71`; immutable full-content readback matched the submitted text.
+
+| Authority/source | Verified blob |
+| --- | --- |
+| main:AGENTS.md | c4f36b772f8a4b0c24fe566b90fafb646073c60f |
+| main:CURRENT_PROOF_CONTRACT.md | 95566e37c8eaeb99ee680660df4f9d2e06ea5038 |
+| BOOTSTRAP_TO_HALF_V1 directive | 96ad4439ec458af6168f7d9cb3eef5dde291d37c |
+| LAST_ACTUAL_REPORT_CONTINUITY_V1 directive | 3e71820a4af722eae7098da6945bb5bcba50dd0d |
+| CROSS_ROUTE_SIGNED_RECOVERY_V1 directive | e3ae4280438f591f1ffaddd754a1c3a6d35d0691 |
+| research/NYMAN_FLAT_TAPER_RETURN_20261104.lean | 2d23721027ecc44e85b7add02fc632b482f03352 |
+| research/NYMAN_HIGH_COEFFICIENT_INVARIANT_20261104.lean | 2da630c1d5fb9302e2097ec1e170cf41c2b40609 |
+| research/NYMAN_ALL_PROFILE_COERCIVITY.lean | f287e70a500ce5dddf8f0ccf6f2d1da6ecc179ba |
+| research/VF_CANONICAL_SQRT_TWO_VON_KOCH.lean | 79030d70e8d3e0d08eef9bac53fef95c36eca2fb |
+| research/oai_434/VF919WindowErrorClosure.lean | f629db1b2b65d6ec042ac9432397d4b6316200c6 |
+
+The canonical target remains `VFCanonicalSquareVonKochStatement`: one C>=0 preceding all natural R>=2, with |pi(R^2)-VF_can(R^2)|<=C R log R. The inspected terminal `riemannHypothesis_of_vfCanonicalSquare` retains the explicit `ClassicalVonKochRHCriterion` and the open arithmetic statement. The Nyman norm is a different source, not an identification with prime discrepancy.
+
+The existing audited comparator is `native_mertens_near_uniform_window_error_closed`, with every-positive-loss boundary 7/8-7/(64*nearUniformSlotCount). Its strict margin permits the fixed exponent 7/8 when needed; no such asymptotic input is needed for this finite certificate. The exact [#1119 audit log](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42552018910/job/128949473700) was retrieved: five dependency closures 35358,35375,35736,35737,35753 have only propext, Classical.choice, Quot.sound. All 14 check runs at head `77ee815846d6d534c866f0752aa33b84c385610a` remain successful. A fresh untruncated tree comparison checked 2,494 preexisting Lean/pin/window-audit paths against current main; only the aggregate RHLean.lean root changed. This is scoped reuse of existing certification, not a new full-main compilation or independent analytic reproof.
+
+**Live PR correction.** #1145 and #1146, described as unmerged in earlier reports, were actually merged at 2026-11-18T15:13:06Z and 15:13:26Z. Their merge commits are `56590f2075e01d8d7ff2c792d8d41730b8b6dcf0` and current main. The open PR collection was empty. #1146's certified head `146384fe459bd39a7b3d864e2a5c86a270d05dc8` has 13 successful check runs. Its [dedicated proof log](https://github.com/OVVO-Financial/RH_Lean/actions/runs/44287286164/job/134743097073) was fetched: compiled=1, cached=2; all-profile closures 428,798,809 use only the standard three axioms. The live restored theorem retains an arbitrary remainder penalty. It does not supply the missing complete upper norm.
+
+#### Latest-Actual Ledger
+
+The nontruncated recursive tree was enumerated without a calendar-day cap. Complete latest and November 17 role files were retrieved. The previous own PN capsule supplied the consumed watermarks; newly relevant handoffs were reconciled as DP, DUAL, DAMP, HC, PV, PM. This records relevant mathematical backfill, not independent acceptance of every upstream proof or rereading every historical code appendix. The checkpoint's chronological list orders the handoffs, not every individual source-open operation.
+
+All paths in this ledger are under research/agent_reports/. The actual section labels, not filenames alone, establish invocation evidence.
+
+| Role | Last verified report/blob; actual section | Last consumed -> new; first open step |
+| --- | --- | --- |
+| Coordinator | 2026-11-18/00-coordinator-am.md and 90-coordinator-pm.md; ee7b4ce6ff79ab0eaea4d8b74d95e3e78f398cb5; DAMP 07:10 EST | DUAL -> DAMP1-5. Damping has a linear absolute inverse cost; signed recovery still lacks an independent supplier. |
+| Owner | 2026-11-18/10-owner-payment.md; 9ee34b6e9daa3cbbac24826f8fc96d65f1fe36ff; HC 08:09 | AI -> HC1-5. Expanded payment must restore history compression; earlier-good saturation is not first-bad exclusion. |
+| Analytic | 2026-11-18/20-analytic-type-ii.md; 804f68e0163cbf6836a060a552256d1746d51242; PV 09:09 | PAIR -> PV1-5. Reuse full covariance/tail; no variance-only complete-upper shortcut. PV's new repair theorem remains author paper work. |
+| Wheel | 2026-11-18/30-finite-wheel.md; d7c5014b34183b6a377c0438cb6cae27ba35e401; PM 10:12 | FD -> PM1-5. Nearest-value pairing retains the complete endpoint; no new bound for Q_R. |
+| Census | 2026-11-18/40-prime-census.md; a62cba06a7fe73975746cf37cb2850615979788a; PN 03:11 | PN resumed. Only unfinished PN-S is tested; PN1 is reused, not rediscovered. |
+| Referee | 2026-11-18/50-adversarial-referee.md; c054e8b37c1580abc42fbac23852c62dfe433e5f; DP 04:13 | PR -> DP1-4. PAIR/DUAL accepted at stated scopes; PN1 independently reproduced. DP's new depth conclusions retain paper/self-audit status. |
+| Lean | 2026-11-18/60-lean-verification.md; c3ded05265d7ac5e065e4a4e645e2e96069ca8fa; DUAL 05:10 | PROFILE -> DUAL. All-head coercivity is now merged; complete original residual upper estimate remains open. |
+
+The November 17 blobs retrieved are respectively 125e55aa191083d9c0a982b6dc5a66267e4e4256, 6516bf78b096471ccfd2fb8c215e94002544a594, d4bc53ac1b68f6dadabc4a04a2f5fc8c74f6625f, 5c26771c0a266d5112e0b4a4b28aba0132e35ef7, 587b0bb3dd66834a18610ab86174f285f81c4b04, 103ee17307ac799e20bd4ce17d97ff96101a9e5b, ee9ed0ace763bf99fea5812490f9541653917938. The complete latest capsules and the relevant PN/MR/PAIR/DP/PV derivations were used; unchanged older claims were not recomputed wholesale.
+
+TODAY=AVAILABLE for every role; GAP=NONE between the previous PN watermark and this intake. Older unverified executions are not invented. CONTINUITY_COMPLETE is scoped to latest discovery and relevant post-PN backfill. External inbox 7d63d434690d00dffce9c90335d41c4f62d85798 was read and has no new entry after October 18. EXT-20261018-PNT-1 still needs its full weighted error/root boundary; EXT-20261014-5 is unconditional all-root scope, not conditional first-bad refutation. Neither is used as a Nyman norm supplier.
+
+### C. Competing Hypotheses
+
+Fixed claim from PN, without retuning: PN-S says Q(r_H)>=P(r_H) for every integer H>=6 divisible by six. The rival says full phase completion can lower the energy because its signed mixed restoration outweighs the error square. A negative complete upper endpoint rejects PN-S. A tail interval overlapping zero remains unresolved, irrespective of prefix sign.
+
+H=24 is continuation data, not held-out data. H=18 was fixed before any new computation to determine minimality among legal heads below 24. H=6,12 are reused positive controls. No source, normalization, constant, head range or final cutoff was chosen after observing the sign. The only extension, for H=18 from 65536 to 1048576, was preregistered and triggered by inconclusive first-cutoff intervals.
+
+### D. Original Arithmetic Carrier
+
+For H>=6 divisible by six, set N=H^2, K=N/6, L=log H. Retain genuine mu(k), including k=1 in the moment solver:
+
+```text
+q_k = log(N/max(H,k)),
+u = sum_(k=1..N) mu(k) q_k/k,
+v = 2L + sum_(k=1..N) mu(k) q_k,
+s1 = sum_(3K<k<=4K) 1/k, s2 = sum_(5K<k<=6K) 1/k,
+alpha = (u-s2*v/K)/(s1-s2), z = v/K-alpha,
+h_k = alpha*1_(3K,4K](k) + z*1_(5K,6K](k),
+c_k = (h_k-mu(k)q_k)/L,                    2<=k<=N,
+r(m) = 1-sum_(k=2..N)c_k(m mod k)/k.
+```
+
+The exact moments are sum c_k/k=1 and sum c_k=3. The original head is r(m)=0 for 1<=m<=H. Squareful band coefficients are not discarded. At H=18 the actual bands are (162,216] and (270,324]; alpha lies in [-0.019645316218,-0.019645316217] and z in [0.014717344022,0.014717344023]. These are enclosures, not exact decimal coefficients.
+
+The inspected `nyman_flat_complete_return`/`nyman_flat_return_of_moment` preserves Lr(m)=U_N(m)-U_H(m)+sum h_k floor(m/k), with all after-support terms. No raw component is separately assigned a finite infinite norm.
+
+Define g(x)=r(floor x) for x>=1 and g(x)=0 for 0<x<1. The literal periodic residual still has r(0)=1; zero extension is only for this embedding. Then
+
+```text
+E = sum_(m>=1)r(m)^2/[m(m+1)],
+P = sum_(k>=1)[r(3k)-(3/2)r(2k)]^2/[k(k+1)],
+Q = integral_(x>0)[g(3x)-(3/2)g(2x)]^2 dx/x^2.
+```
+
+For k>=1, the four pairs and weights on [k,k+1) are exactly PN's (3k,2k), (3k+1,2k), (3k+1,2k+1), (3k+2,2k+1), with weights 1/[k(3k+1)], 1/[(3k+1)(2k+1)], 1/[(2k+1)(3k+2)], 1/[(3k+2)(k+1)]. Below x=1 the integrand vanishes because H>=6. All four weights, all within-pair cross terms and all phase cross terms are retained.
+
+### E. Tail Proof And Numerical Methods
+
+#### E1. Complete covariance, not a selected diagonal
+
+Let A_k=(k-1)/(2k) and f_k(m)=(m mod k)/k-A_k. The moments imply r=-sum c_k f_k. For i,j>=2 and d=gcd(i,j), exact joint-period averaging gives
+
+```text
+mean(f_i f_j) = (d^2-1)/(12ij),
+V = sum_(i,j=2..N)c_i c_j(gcd(i,j)^2-1)/(12ij)
+  = (1/12)sum_(d=2..N)J2(d)[sum_(d|k,2<=k<=N)c_k/k]^2.
+```
+
+These identities are inherited NS/PV infrastructure. A short independent derivation: condition on m mod d=t. The two remaining residues are independent over a joint period by coprime CRT, their conditional centered means are (t-(d-1)/2)/i and the analogous quantity divided by j; average the square over t=0,...,d-1. The Jordan identity follows from sum_(d|g)J2(d)=g^2. Both complete formulas were computed independently in interval arithmetic and intersected only after confirming overlap.
+
+#### E2. Elementary pair-period certificate
+
+For a real sequence y of period p taking values in [l,u], a residual interval of s<=p terms satisfies
+
+```text
+|sum_interval y - s*mean(y)|
+ <= s(p-s)(u-l)/p <= p(u-l)/4.
+```
+
+Indeed the discrepancy is s(p-s)/p times the difference of the interval and complementary averages. Remove complete periods to cover every interval length and starting offset. Apply this to f_i f_j, with period lcm(i,j) and range contained in [-A_i A_j,A_i A_j]. Summing the complete ordered-pair expansion gives, for every integer t>=0 and J>=1,
+
+```text
+|sum_(m=t+1..t+J)r(m)^2-JV| <= D,
+D = (1/2)sum_(i,j=2..N)|c_i c_j| lcm(i,j) A_i A_j.
+```
+
+This is a fixed-source effective discrepancy bound. It introduces absolute values only in the ERROR certificate after the complete signed V has been reconstructed. It does not assert that D is a useful uniform RH-scale budget.
+
+Abel summation with w_m=1/[m(m+1)] then proves
+
+```text
+|Tail(t)-V/(t+1)| <= D/[(t+1)(t+2)],
+Tail(t)=sum_(m>t)r(m)^2/[m(m+1)].
+```
+
+For completeness, writing A(J)=JV+e_J, |e_J|<=D, the error is sum_(J>=1)e_J(w_(t+J)-w_(t+J+1)); the positive weight differences telescope to w_(t+1). The terminal boundary vanishes because r is bounded for each fixed source. No common gigantic period is enumerated.
+
+#### E3. Reused large sieve, with checked hypotheses
+
+For the alternative bound, collect the rational Fourier frequencies of the SAME finite periodic residual. Denominators are at most N and distinct circular frequencies are separated by at least N^-2. Parseval gives squared Fourier coefficient mass V. Classical dual large sieve gives A(J)<=(J+N^2)V, uniformly in the starting offset. Applying that upper bound to the complement of a sufficiently long complete period gives the matching lower discrepancy; thus E2's tail formula also holds with D=N^2 V.
+
+This is the already-used P6/PV estimate, not a new theorem or a blanket endorsement of PV's repair claims. The primary statement and duality were checked in [Montgomery and Vaughan, Multiplicative Number Theory II, Theorem 19.4 and (19.7), printed pp. 152-153](https://personal.science.psu.edu/rcv4/571s25/montgomery-vaughanII.pdf). No prime-independence hypothesis or unproved RH premise enters this estimate.
+
+#### E4. Returning the infinite tail to P and Q
+
+Write B(t)=V/(t+1)+D/[(t+1)(t+2)] and a=T+1. Substitution y=3x or 2x, followed by (u-v)^2<=2u^2+2v^2, gives
+
+```text
+Q-Q_T <= 6 B(3a-1) + 9 B(2a-1) = b_Q.
+```
+
+The indices are exact: integration begins at y=3a or 2a, hence the integer tails start strictly above 3a-1 or 2a-1. For the discrete samples, 1/[k(k+1)]<=d^2/[(dk)(dk+1)] for d=2,3. Nonnegative enlargement from sampled multiples to all integers gives
+
+```text
+P-P_T <= 18[B(3a-1)+B(2a-1)] = b_P,
+Q_T-P_T-b_P <= Q-P <= Q_T-P_T+b_Q.
+```
+
+Only positivity of the complete squared tails is used. Dropping a raw signed component or a negative cross term would not justify this argument.
+
+#### E5. Precision, implementation, independence
+
+Recovered PN implementations `pair_cert.py`, `pair_independent.cpp`, and `validate.py` match their published SHA256 values exactly. The Python log enclosure uses rational atanh sums and an explicit geometric remainder, with outward-rounded arithmetic on grids 10^-60 and 10^-75. The new H=18 prefixes were computed at both cutoffs and both precisions. Its residual arrays are exact integer modular-increment reconstructions with a uniform coefficient-error enclosure, not accumulated floating approximations.
+
+The PN H=6,12,24 certified prefix records are reused from the immutable prior report. Their coefficients and source bytes did not change. They were not advertised as new held-out scans. The independent C++ checker was rebuilt and actually rerun for H=18 and H=24 through every original output m<=3*1048576+2=3145730, using trial-factor mu, fresh logarithms, literal residues, and independently integrated phase breakpoints. It imports no primary coefficient or residual arrays. Its long-double agreement to 1e-11 is a diagnostic cross-check, not a second interval proof.
+
+All eight complete V computations (four heads, two precisions) passed the ordered-Gram/Jordan overlap test. The 60-to-75 digit variance/prefix enclosures nest. Exact prime-log algebra verifies the H=18 moments, head, divisor jumps and complete return, including after-support cells. Toy checks cover every pair 2<=i,j<=12, every shift and every residual period length; whole-source and Abel checks use N=2..8. Negative controls detect omitted phase crosses, either correction-band moment, and incorrect zero extension.
+
+### F. Results And Exceptional Cases
+
+All displayed endpoints below are outward-rounded rational enclosures of the **complete** difference. The large-sieve table is:
+
+| H | N | T | Complete Q-P |
+| --- | --- | --- | --- |
+| 6 | 36 | 65536 | [0.028700967701,0.028789818944] |
+| 12 | 144 | 1048576 | [0.002447242594,0.002460112786] |
+| 18 | 324 | 1048576 | [-0.000023551621,-0.000000304388] |
+| 24 | 576 | 1048576 | [-0.000448343313,-0.000410042509] |
+
+There are no other admissible heads below 18, so minimality is exhaustive for PN-S's stated domain. H=24 has the larger certified negative magnitude among these four heads; no all-scale extremum, eventual sign or optimal constant is inferred.
+
+The elementary certificate also proves positive signs at H=6,12 and a negative sign at H=24. At H=18 its final interval [-0.000041860540,0.000007911152] remains unresolved. This limitation is retained rather than silently replacing the elementary proof by the sharper one. At the initial H=18 cutoff 65536, BOTH methods were unresolved; the complete records are in the appendix.
+
+The shortest rational readout certificate for H=18 is
+
+```text
+V < 1.086165200497, N^2=104976, a=1048577,
+P_T >= 0.082825115753,
+Q_T <= 0.082817775897,
+b_Q < 0.000007035468,
+Q-P < -0.000007339856+0.000007035468
+    = -0.000000304388.
+```
+
+These inequalities were separately recomputed using Fraction from the rounded decimal inputs, without the interval engine. The sign margin is over 150,000 times the conservative 2e-12 prefix-difference enclosure width. The entire analytic tail, not an estimated random error, is already included in that margin.
+
+### G. Hidden Signed Interaction
+
+At the final H=18 prefix, the exact four-phase decomposition has
+
+```text
+phase-error square in [ 0.028163200432, 0.028163200433],
+doubled mixed term in [-0.028170540290,-0.028170540289],
+Q_T-P_T in [-0.000007339858,-0.000007339856].
+```
+
+All original pair squares already contain -3r(3k)r(2k). The phase correction then adds its own square AND mixed term. Conditional divisor jumps alone do not determine the sign: their relation to the sampled base value matters. At H=24 this same destructive mixed effect is much larger. At H=6 and H=12 it does not dominate. The interaction changes sign on the genuine corrected source, not on a synthetic permutation or a Pearson statistic.
+
+### H. Mathematical Interpretation And Signed-Loss Audit
+
+The prior ambiguity was numerical certification, not a changed mathematical object. A bounded-period covariance description provides a substantially smaller infinite-tail bill than the uniform pointwise envelope U^2. It exposes a true sign reversal already present in the original data.
+
+| Source/loss | Recovered information | Remaining obligation |
+| --- | --- | --- |
+| Full four-phase square -> error square only | Keep 2*d*error with its actual sign; exact same-cutoff recombination | No global sign rule survives. |
+| Complete residual -> pointwise U envelope | Retain complete signed period covariance V and all pair periods | Effective tail certificate only; not control of the weighted middle as H grows. |
+| V -> its positive Jordan coordinates | Exact ordered Gram recovery before positivity | Period averaging loses output location; PV's variance obstruction is not an RH obstruction. |
+| PAIR/DUAL -> a supposed complete upper estimate | Actual remainder and all output phases retained | Existing lower/equivalence theorems do not provide an independent upper supplier. |
+
+### I. Corrected Theorem And Conjecture Disposition
+
+The precise former conjecture PN-S is rejected. A rigorous replacement at its relevant finite scope is: for the original family defined in D, Q(r_6)>P(r_6), Q(r_12)>P(r_12), Q(r_18)<P(r_18), and Q(r_24)<P(r_24). This is a certified finite assertion with analytic tails, not an asymptotic conjecture. Its proof candidate for formalization consists of exact source identities, rational coefficient enclosures, the large-sieve interface for H=18, and finite summation certificates. No request is made to treat floating output as a Lean proof.
+
+The all-source tail lemma in E2 is PAPER_PROOF, with elementary proof supplied. Its universal statement has arbitrary finite real coefficients after centering, all integer t>=0, and D fixed by those coefficients before t; no scale-uniform claim about D is added. The sharper classical bound requires the stated rational-frequency support. Independent review is requested before treating the new application as an accepted repository paper theorem.
+
+### J. Relationship To The Half Objective
+
+```text
+ROUTE=NYMAN / bounded completion of an unfinished falsification
+SOURCE=original genuine-mu two-band residual, all m>=1 and complete infinite tail
+START=compiled exact-head/complete-return identities;
+      accepted PAIR comparison and existing covariance/tail infrastructure
+ADVANCE=settle PN-S and its smallest legal counterexample, not improve an exponent
+DIRECT_TERMINAL=one COMMON unbounded exact-head sequence with E=O_eps(H^eps)
+               for every eps>0
+ENDPOINT=at each fixed nontrivial zero rho with sigma>1/2,
+         E >= (2sigma-1)(H+1)^(2sigma-1)/|rho|^2;
+         choose eps<2sigma-1 for a contradiction
+RETURNS=both moments and bands, all U terms, signed cross terms,
+        transition/middle/after-support output, infinite tail
+FIRST_INDEPENDENT_OPEN_INPUT=complete original signed upper control on such a sequence
+RENEWAL=no renewable supplier established; this is not a new admitted RH route
+```
+
+The terminal is the existing paper Mellin consumer; no new formalization of it is claimed. The Nyman embedding is an exact weighted-coordinate identity, while the original Euler Q_R, prime/VF historical source, NNS/OAI ideal-character source and square-block Mertens source have no asserted coefficient-preserving equality with this residual. Their crosswalk entries are OPEN_BRIDGE/NOT_EQUIVALENT at this norm level. Sharing mu or a gcd does not supply the bridge. All nine route toolkits are preserved, not forced through the present source.
+
+### K. Falsification And Uncertainty Audit
+
+PN-S's smallest counterexample satisfies every stated hypothesis: integer H=18>=6, six divides H, N=H^2, both original corrections, both exact moments, literal signed coefficients and full norms. No first-bad assumption is invoked. PN-C's earlier counterexample is not new credit. PAIR/DUAL/DP statements are not refuted by this result.
+
+No head beyond 24 or cutoff beyond 1048576 was evaluated. No constants were fitted to the outcomes. The elementary H=18 uncertainty is explicitly retained; H=18 minimality depends on the checked classical large-sieve theorem. C++ output is uncertified numerical corroboration only. Paper derivation and mathematical self-audit are not independent Referee approval. There is no new Lean execution, proof-source edit, branch, PR, issue, review, comment, workflow run, merge, schedule change or agent launch.
+
+### L. Specialist Handoffs
+
+- **Proof Architect:** close PN-S as REFUTED and PN's H=24 uncertainty as resolved. This is a supporting signed-restoration result, not an active paired-transform bootstrap or a new global exponent. Keep complete-upper work parked until a changed independent mechanism is named.
+- **Analytic:** PV's inherited covariance/tail certificate has a concrete finite consumer here. No further V optimization is requested. Preserve the distinction between variance, weighted full norm, and source location; the phase mixed term can dominate with either net sign.
+- **Referee:** first audit the H=18 index shifts and primary large-sieve constant, then the short rational certificate. The H=24 elementary witness independently refutes the universal sign claim even if the sharper minimality certificate is withheld. Check the all-shift interval/complement argument in E2.
+- **Lean Verification:** no automatic implementation request. A bounded certified counterexample would require an accepted logarithm/tail interface; do not replace that interface with native floating evaluation. The elementary discrepancy lemma may be reused if a necessary downstream formal task appears.
+- **Owner:** the sign result is not original #915 NNS payment or an actual first-bad example. Retain HC's exact historical compression restoration.
+- **Wheel:** PM's once-only pairing and full endpoint restoration are a different carrier. No negative phase term here pays a missing Q_R term there without an exact map.
+
+### M. Ranked Experimental Portfolio
+
+| Rank/disposition | Exact hypothesis and motivation | Evidence/counterevidence | Independent ingredient and next decisive test |
+| --- | --- | --- | --- |
+| 1, reject | PN-S: all legal original heads have Q>=P; hoped-for one-sided restoration | Smallest counterexample H=18; H=24 independently elementary | Complete signed mixed term defeats the inference. No further sign grid is justified. |
+| 2, retain as verification tool | E2's arbitrary-finite-source discrepancy/tail lemma | Full elementary proof; 249,135 scoped checks, not an all-H norm supplier | Pair periods and exact centering. Next: independent proof review, not constant optimization. |
+| 3, open/parked without new mechanism | One common exact-head sequence with complete E=H^o(1) | PAIR, DUAL, PV and PS give restrictions, no sufficient upper estimate | Needs genuinely new control of the complete signed weighted residual. Preregister that changed assertion before another census. |
+
+### N. Reproducibility And Resume Capsule
+
+Execution environment: Python 3.12.13; g++ 13.3.0. No random seed is used. Discrete mu, floor, modulus, gcd, lcm, J2 and symbolic prime-log algebra are exact. The interval engine has explicit outward rounding; the independent C++ run uses long double. Compiler flags: `-O2 -std=c++17 -Wall -Wextra -Werror`. Primary checker runtime recorded by perf_counter: 87.05532683599995 seconds, including the fresh C++ reconstructions and exact toy checks; this is not total session wall time.
+
+Commands actually completed:
+
+```bash
+g++ -O2 -std=c++17 -Wall -Wextra -Werror pair_independent.cpp -o pair_independent
+python ps_cert.py
+python check_decimal_certificate.py
+python -m py_compile ps_cert.py pair_cert.py validate_prior.py
+```
+
+The main run passed 249,135 assertions. The separate rounded-input script passed four rational inequalities. The C++ compilation and syntax checks succeeded. No required process remains running. New prefix reconstruction is O(M log N) arithmetic updates plus O(T) phase evaluation, where M=3T+2; covariance checks are O(N^2); the independent literal check is O(NM). The finite toy domain and its exhaustive assertion count do not imply infinite correctness by testing; the tail proof supplies that step.
+
+Source/data SHA256 values:
+
+```text
+pair_cert.py       5234a3acd122e817ddf25cbcb47532f3cac61222f603d29532756a2ca38bb339
+pair_independent.cpp
+                   192b232df1e64888d1c79ff9d24bfca63fe6db9d2a43847b46d3b97a56b11097
+validate_prior.py  bba6889932bcae61cb168cb72c9858402c6d64c94d753320ed2654ff4a89b7db
+ps_cert.py         d647da1b268b7497351451bcfd0f6aa304ab747598a1589a10390c1f7ead81c3
+check_decimal_certificate.py
+                   1d9484fd819d3f5f9e0be04124975b971fc214beee70d4020bfd92417fc471ea
+pn_records.json    1c93fe5131739c362ac0081e13d425d42e78957291351edc636f0d9fd448959e
+ps_results.json    aad48bd26f2f466c307fc8d8ca5ebf9c00042ac9a259df9bc5651a425609fc77
+```
+
+The first three scripts are the preserved PN appendix code, with validate.py named validate_prior.py for importing. pn_records.json is exactly the preserved PN "Complete Rounded Machine Records" array, serialized with two-space indentation and one final newline. The new scripts and complete rounded output follow. Full exact-scaled values are generated by the new checker; the raw result hash includes runtime measurements and therefore is an execution receipt, not a deterministic expected rerun hash.
+
+```text
+RESUME_MAIN=935840aec9b1fcbc66fe4e0164061d661a8ca3b1
+PREVIOUS_CENSUS=PN; THIS_RUN=PS; claims PS1-PS4
+WATERMARKS=Coordinator DAMP; Owner HC; Analytic PV; Wheel PM;
+           Census PS; Referee DP; Lean DUAL
+NEW=PN-S refuted at smallest legal H18; H24 ambiguity resolved;
+    elementary independent fixed-source infinite-tail certificate
+UNCHANGED=complete-source upper estimate, finite A/C, canonical endpoint and RH OPEN
+DO_NOT_REPEAT=PN contraction scan, PS head grid, paired-transform/variance optimization
+NEXT=independently audit the H18 complete-tail minimality certificate;
+     only then test a genuinely changed full signed arithmetic upper assertion
+PUBLICATION=readback pending for this final synthesis until the receipt below
+```
+
+
+## PS Reproduction Appendix
+
+### ps_cert.py
+
+```python
+"""Complete phase-sign continuation; exact interval certificates and toy audits."""
+
+import json
+import platform
+import subprocess
+import time
+from collections import Counter
+from fractions import Fraction as F
+from math import gcd, lcm
+from pathlib import Path
+
+from pair_cert import Arithmetic, ceildiv, run, source
+import validate_prior as prior
+
+
+ROOT = Path(__file__).parent
+CHECKS = Counter()
+
+
+def check(name, value):
+    assert value, name
+    CHECKS[name] += 1
+
+
+def jordan(N):
+    out = [n*n for n in range(N+1)]
+    for d in range(1, N+1):
+        for n in range(2*d, N+1, d):
+            out[n] -= out[d]
+    return out
+
+
+def covariance(H, digits):
+    A = Arithmetic(digits)
+    c = source(A, H)[0]
+    N = H*H
+    V, D = A.exact(0), A.exact(0)
+    for i in range(2, N+1):
+        for j in range(i, N+1):
+            mult = 1 if i == j else 2
+            V = A.add(V, A.scale(A.mul(c[i], c[j]),
+                                mult*(gcd(i, j)**2-1), 12*i*j))
+            ai = max(abs(x) for x in c[i])
+            aj = max(abs(x) for x in c[j])
+            term = A.mul((ai, ai), (aj, aj))
+            D = A.add(D, A.scale(term, mult*lcm(i, j)*(i-1)*(j-1), 8*i*j))
+    J, W = jordan(N), A.exact(0)
+    for d in range(2, N+1):
+        inner = A.exact(0)
+        for k in range(d, N+1, d):
+            inner = A.add(inner, A.scale(c[k], 1, k))
+        W = A.add(W, A.scale(A.square_weight(inner, 1), J[d], 12))
+    check('gram_jordan_overlap', max(V[0], W[0]) <= min(V[1], W[1]))
+    V = max(V[0], W[0]), min(V[1], W[1])
+    check('variance_positive', V[0] > 0)
+    return {'H': H, 'digits': digits, 'V': V, 'D_upper': D[1]}
+
+
+def from_decimal(A, values):
+    lo, hi = map(F, values)
+    return lo.numerator*A.S//lo.denominator, ceildiv(hi.numerator*A.S, hi.denominator)
+
+
+def certify(record, cov, method):
+    A, T, N = Arithmetic(cov['digits']), record['T'], record['N']
+    V = cov['V']
+    D = cov['D_upper'] if method == 'elementary' else N*N*V[1]
+
+    def tail(t):
+        return ceildiv(V[1], t+1) + ceildiv(D, (t+1)*(t+2))
+
+    a = T+1
+    b3, b2 = tail(3*a-1), tail(2*a-1)
+    qtail, ptail = 6*b3+9*b2, 18*(b3+b2)
+    delta = A.sub(from_decimal(A, record['values']['Q_prefix']),
+                  from_decimal(A, record['values']['P_prefix']))
+    total = delta[0]-ptail, delta[1]+qtail
+    return {'H': record['H'], 'T': T, 'method': method,
+            'V': A.display(V), 'D_upper': A.display((D, D)),
+            'P_tail_upper': A.display((0, ptail)),
+            'Q_tail_upper': A.display((0, qtail)),
+            'Q_minus_P_prefix': A.display(delta),
+            'Q_minus_P_complete': A.display(total),
+            'sign': -1 if total[1] < 0 else 1 if total[0] > 0 else 0}
+
+
+def toy_checks():
+    # Check every shift and residual interval for each pair, without CRT formulas.
+    for i in range(2, 13):
+        for j in range(2, 13):
+            p = lcm(i, j)
+            Ai, Aj = F(i-1, 2*i), F(j-1, 2*j)
+            vals = [(F(m % i, i)-Ai)*(F(m % j, j)-Aj) for m in range(p)]
+            mean = sum(vals, F())/p
+            check('pair_period_mean', mean == F(gcd(i, j)**2-1, 12*i*j))
+            bound = p*Ai*Aj/2
+            for start in range(p):
+                deviation = F()
+                for length in range(1, p+1):
+                    deviation += vals[(start+length-1) % p]-mean
+                    check('pair_all_shift_discrepancy', abs(deviation) <= bound)
+    for N in range(2, 9):
+        c = [F()] + [F((-1)**k*(k+1), k+2) for k in range(1, N+1)]
+        p = lcm(*range(2, N+1))
+        r = [-sum((c[k]*(F(m % k, k)-F(k-1, 2*k))
+                   for k in range(2, N+1)), F()) for m in range(p)]
+        V = sum((x*x for x in r), F())/p
+        D = sum((abs(c[i]*c[j])*lcm(i, j)*F((i-1)*(j-1), 8*i*j)
+                 for i in range(2, N+1) for j in range(2, N+1)), F())
+        for start in [0, 1, p-1, p+3]:
+            for length in [1, N, p-1, p+1, 2*p+7]:
+                actual = sum((r[(start+j) % p]**2 for j in range(1, length+1)), F())
+                check('whole_source_discrepancy', abs(actual-length*V) <= D)
+        for T in [0, 1, N, p, 2*p]:
+            J = 2*p+5
+            finite = sum((r[m % p]**2/F(m*(m+1)) for m in range(T+1, T+J+1)), F())
+            center = V*(F(1, T+1)-F(1, T+J+1))
+            check('abel_finite_remainder', abs(finite-center) <= D/F((T+1)*(T+2)))
+    for k in range(1, 513):
+        for dilation in [2, 3]:
+            check('sample_weight_ratio', F(1, k*(k+1)) <= F(dilation*dilation, dilation*k*(dilation*k+1)))
+    prior.finite_phase_fixture()
+    prior.symbolic(18)
+    CHECKS.update(prior.counts)
+    # Removing the phase cross term must change these complete-prefix records.
+    for group in json.loads((ROOT/'pn_records.json').read_text()):
+        for row in group['runs']:
+            lo, hi = map(F, row['values']['phase_cross'])
+            check('omitted_phase_cross_detected', hi < 0)
+
+
+def main():
+    started = time.perf_counter()
+    covs = {}
+    for H in [6, 12, 18, 24]:
+        for digits in [60, 75]:
+            covs[H, digits] = covariance(H, digits)
+        a, b = covs[H, 60], covs[H, 75]
+        check('variance_precision_nesting', a['V'][0]*10**15 <= b['V'][0] <= b['V'][1] <= a['V'][1]*10**15)
+        check('discrepancy_precision_upper', b['D_upper'] <= a['D_upper']*10**15)
+        A = Arithmetic(75)
+        print(json.dumps({'H': H, 'V': A.display(b['V']),
+                          'D_upper': A.display((b['D_upper'], b['D_upper']))}), flush=True)
+
+    old = [r for group in json.loads((ROOT/'pn_records.json').read_text())
+           for r in group['runs'] if r['digits'] == 75]
+    chosen = [max((r for r in old if r['H'] == H), key=lambda r:r['T']) for H in [6, 12, 24]]
+    cases = []
+    for row in chosen:
+        for method in ['elementary', 'large_sieve']:
+            cases.append(certify(row, covs[row['H'], 75], method))
+    print(json.dumps({'inherited_prefix_new_certificates': cases}), flush=True)
+
+    new = []
+    for T in [65536, 1048576]:
+        a, b = run(18, T, 60), run(18, T, 75)
+        new.extend([a, b])
+        for key in ['P_prefix', 'Q_prefix', 'phase_square', 'phase_cross']:
+            x, y = a['exact_scaled'][key], b['exact_scaled'][key]
+            check('prefix_precision_nesting', int(x[0])*10**15 <= int(y[0]) <= int(y[1]) <= int(x[1])*10**15)
+        certs = [certify(b, covs[18, 75], method) for method in ['elementary', 'large_sieve']]
+        cases.extend(certs)
+        print(json.dumps({'new_head_certificates': certs}), flush=True)
+        if all(c['sign'] != 0 for c in certs):
+            break
+
+    toy_checks()
+    independent = []
+    for row in [chosen[-1], new[-1]]:
+        H, T = row['H'], row['T']
+        fresh = json.loads(subprocess.check_output([str(ROOT/'pair_independent'), str(H), str(T)], text=True))
+        for key in ['P_prefix', 'Q_prefix', 'phase_square', 'phase_cross', 'U', 'alpha', 'z']:
+            lo, hi = map(float, row['values'][key])
+            check('fresh_literal_full_prefix', lo-1e-11 <= fresh[key] <= hi+1e-11)
+        check('independent_both_moments', abs(fresh['moment1']-1) < 1e-15 and abs(fresh['moment3']-3) < 1e-15)
+        independent.append(fresh)
+    report = {'python': platform.python_version(), 'seconds': time.perf_counter()-started,
+              'checks': dict(CHECKS), 'total_checks': sum(CHECKS.values()),
+              'certificates': cases, 'new_prefixes': new, 'independent': independent,
+              'covariances_exact': [dict(x, V=list(map(str,x['V'])), D_upper=str(x['D_upper'])) for x in covs.values()]}
+    (ROOT/'ps_results.json').write_text(json.dumps(report, indent=2)+'\n')
+    print(json.dumps({'seconds': report['seconds'], 'checks': dict(CHECKS),
+                      'total_checks': report['total_checks'], 'independent': independent}), flush=True)
+
+
+if __name__ == '__main__':
+    main()
+```
+
+### check_decimal_certificate.py
+
+```python
+"""Small rational readout certificates, separate from the interval engine."""
+
+from fractions import Fraction as F
+
+
+def tail(V, D, t):
+    return V / (t+1) + D / ((t+1)*(t+2))
+
+
+a = 1048577
+V = F('1.086165200497')
+D = 324**2 * V
+qtail = 6*tail(V, D, 3*a-1) + 9*tail(V, D, 2*a-1)
+assert qtail < F('0.000007035468')
+upper = F('0.082817775897') - F('0.082825115753') + qtail
+assert upper < -F('0.000000304388')
+print('H=18: rational rounded-input certificate Q-P < -0.000000304388')
+
+V = F('1.640611877316')
+D = F('26556097.513385904769')
+qtail = 6*tail(V, D, 3*a-1) + 9*tail(V, D, 2*a-1)
+assert qtail < F('0.000080614957')
+upper = F('0.077448007222') - F('0.077869663582') + qtail
+assert upper < -F('0.000341041403')
+print('H=24: rational rounded-input elementary certificate Q-P < -0.000341041403')
+```
+
+### PS Complete Rounded Machine Record
+
+```json
+{
+  "python": "3.12.14",
+  "seconds": 87.05532683599995,
+  "checks": {
+    "gram_jordan_overlap": 8,
+    "variance_positive": 8,
+    "variance_precision_nesting": 4,
+    "discrepancy_precision_upper": 4,
+    "prefix_precision_nesting": 8,
+    "pair_period_mean": 121,
+    "pair_all_shift_discrepancy": 247165,
+    "whole_source_discrepancy": 140,
+    "abel_finite_remainder": 35,
+    "sample_weight_ratio": 1024,
+    "exact_phase_breakpoints": 256,
+    "exact_phase_weight_sum": 256,
+    "symbolic_reciprocal_moment": 1,
+    "symbolic_mass_moment": 1,
+    "symbolic_complete_return": 29,
+    "symbolic_head": 18,
+    "symbolic_divisor_jump": 28,
+    "negative_control_band_moment": 2,
+    "negative_control_zero_extension": 1,
+    "omitted_phase_cross_detected": 10,
+    "fresh_literal_full_prefix": 14,
+    "independent_both_moments": 2
+  },
+  "total_checks": 249135,
+  "certificates": [
+    {
+      "H": 6,
+      "T": 65536,
+      "method": "elementary",
+      "V": [
+        "0.268513610996",
+        "0.268513610997"
+      ],
+      "D_upper": [
+        "1233.546433767593",
+        "1233.546433767594"
+      ],
+      "P_tail_upper": [
+        "0.000000000000",
+        "0.000063323729"
+      ],
+      "Q_tail_upper": [
+        "0.000000000000",
+        "0.000027469003"
+      ],
+      "Q_minus_P_prefix": [
+        "0.028762951286",
+        "0.028762951288"
+      ],
+      "Q_minus_P_complete": [
+        "0.028699627557",
+        "0.028790420291"
+      ],
+      "sign": 1
+    },
+    {
+      "H": 6,
+      "T": 65536,
+      "method": "large_sieve",
+      "V": [
+        "0.268513610996",
+        "0.268513610997"
+      ],
+      "D_upper": [
+        "347.993639852067",
+        "347.993639852068"
+      ],
+      "P_tail_upper": [
+        "0.000000000000",
+        "0.000061983585"
+      ],
+      "Q_tail_upper": [
+        "0.000000000000",
+        "0.000026867656"
+      ],
+      "Q_minus_P_prefix": [
+        "0.028762951286",
+        "0.028762951288"
+      ],
+      "Q_minus_P_complete": [
+        "0.028700967701",
+        "0.028789818944"
+      ],
+      "sign": 1
+    },
+    {
+      "H": 12,
+      "T": 1048576,
+      "method": "elementary",
+      "V": [
+        "0.622302316112",
+        "0.622302316113"
+      ],
+      "D_upper": [
+        "161101.111251131743",
+        "161101.111251131744"
+      ],
+      "P_tail_upper": [
+        "0.000000000000",
+        "0.000009854480"
+      ],
+      "Q_tail_upper": [
+        "0.000000000000",
+        "0.000004284927"
+      ],
+      "Q_minus_P_prefix": [
+        "0.002456220977",
+        "0.002456220979"
+      ],
+      "Q_minus_P_complete": [
+        "0.002446366497",
+        "0.002460505906"
+      ],
+      "sign": 1
+    },
+    {
+      "H": 12,
+      "T": 1048576,
+      "method": "large_sieve",
+      "V": [
+        "0.622302316112",
+        "0.622302316113"
+      ],
+      "D_upper": [
+        "12904.060826911851",
+        "12904.060826911852"
+      ],
+      "P_tail_upper": [
+        "0.000000000000",
+        "0.000008978383"
+      ],
+      "Q_tail_upper": [
+        "0.000000000000",
+        "0.000003891807"
+      ],
+      "Q_minus_P_prefix": [
+        "0.002456220977",
+        "0.002456220979"
+      ],
+      "Q_minus_P_complete": [
+        "0.002447242594",
+        "0.002460112786"
+      ],
+      "sign": 1
+    },
+    {
+      "H": 24,
+      "T": 1048576,
+      "method": "elementary",
+      "V": [
+        "1.640611877315",
+        "1.640611877316"
+      ],
+      "D_upper": [
+        "26556097.513385904768",
+        "26556097.513385904769"
+      ],
+      "P_tail_upper": [
+        "0.000000000000",
+        "0.000180460848"
+      ],
+      "Q_tail_upper": [
+        "0.000000000000",
+        "0.000080614957"
+      ],
+      "Q_minus_P_prefix": [
+        "-0.000421656362",
+        "-0.000421656360"
+      ],
+      "Q_minus_P_complete": [
+        "-0.000602117210",
+        "-0.000341041403"
+      ],
+      "sign": -1
+    },
+    {
+      "H": 24,
+      "T": 1048576,
+      "method": "large_sieve",
+      "V": [
+        "1.640611877315",
+        "1.640611877316"
+      ],
+      "D_upper": [
+        "544315.646208283045",
+        "544315.646208283046"
+      ],
+      "P_tail_upper": [
+        "0.000000000000",
+        "0.000026686951"
+      ],
+      "Q_tail_upper": [
+        "0.000000000000",
+        "0.000011613851"
+      ],
+      "Q_minus_P_prefix": [
+        "-0.000421656362",
+        "-0.000421656360"
+      ],
+      "Q_minus_P_complete": [
+        "-0.000448343313",
+        "-0.000410042509"
+      ],
+      "sign": -1
+    },
+    {
+      "H": 18,
+      "T": 65536,
+      "method": "elementary",
+      "V": [
+        "1.086165200496",
+        "1.086165200497"
+      ],
+      "D_upper": [
+        "3211085.315846742270",
+        "3211085.315846742271"
+      ],
+      "P_tail_upper": [
+        "0.000000000000",
+        "0.005108072015"
+      ],
+      "Q_tail_upper": [
+        "0.000000000000",
+        "0.002288258547"
+      ],
+      "Q_minus_P_prefix": [
+        "-0.000007248026",
+        "-0.000007248024"
+      ],
+      "Q_minus_P_complete": [
+        "-0.005115320041",
+        "0.002281010523"
+      ],
+      "sign": 0
+    },
+    {
+      "H": 18,
+      "T": 65536,
+      "method": "large_sieve",
+      "V": [
+        "1.086165200496",
+        "1.086165200497"
+      ],
+      "D_upper": [
+        "114021.278087270860",
+        "114021.278087270861"
+      ],
+      "P_tail_upper": [
+        "0.000000000000",
+        "0.000421152954"
+      ],
+      "Q_tail_upper": [
+        "0.000000000000",
+        "0.000185154264"
+      ],
+      "Q_minus_P_prefix": [
+        "-0.000007248026",
+        "-0.000007248024"
+      ],
+      "Q_minus_P_complete": [
+        "-0.000428400980",
+        "0.000177906240"
+      ],
+      "sign": 0
+    },
+    {
+      "H": 18,
+      "T": 1048576,
+      "method": "elementary",
+      "V": [
+        "1.086165200496",
+        "1.086165200497"
+      ],
+      "D_upper": [
+        "3211085.315846742270",
+        "3211085.315846742271"
+      ],
+      "P_tail_upper": [
+        "0.000000000000",
+        "0.000034520682"
+      ],
+      "Q_tail_upper": [
+        "0.000000000000",
+        "0.000015251008"
+      ],
+      "Q_minus_P_prefix": [
+        "-0.000007339858",
+        "-0.000007339856"
+      ],
+      "Q_minus_P_complete": [
+        "-0.000041860540",
+        "0.000007911152"
+      ],
+      "sign": 0
+    },
+    {
+      "H": 18,
+      "T": 1048576,
+      "method": "large_sieve",
+      "V": [
+        "1.086165200496",
+        "1.086165200497"
+      ],
+      "D_upper": [
+        "114021.278087270860",
+        "114021.278087270861"
+      ],
+      "P_tail_upper": [
+        "0.000000000000",
+        "0.000016211763"
+      ],
+      "Q_tail_upper": [
+        "0.000000000000",
+        "0.000007035468"
+      ],
+      "Q_minus_P_prefix": [
+        "-0.000007339858",
+        "-0.000007339856"
+      ],
+      "Q_minus_P_complete": [
+        "-0.000023551621",
+        "-0.000000304388"
+      ],
+      "sign": -1
+    }
+  ],
+  "new_prefixes": [
+    {
+      "H": 18,
+      "N": 324,
+      "T": 65536,
+      "M": 196610,
+      "digits": 60,
+      "seconds": 2.3494172270000035,
+      "values": {
+        "E_prefix": [
+          "0.013007923794",
+          "0.013007923795"
+        ],
+        "P_prefix": [
+          "0.082778990759",
+          "0.082778990760"
+        ],
+        "Q_prefix": [
+          "0.082771742734",
+          "0.082771742735"
+        ],
+        "E_complete": [
+          "0.013007923794",
+          "0.017887871028"
+        ],
+        "P_complete": [
+          "0.082778990759",
+          "0.174278001383"
+        ],
+        "Q_complete": [
+          "0.082771742734",
+          "0.174270753358"
+        ],
+        "P_minus_E": [
+          "0.064891119731",
+          "0.161270077588"
+        ],
+        "Q_minus_P": [
+          "-0.091506258649",
+          "0.091491762598"
+        ],
+        "phase_square": [
+          "0.028152520703",
+          "0.028152520704"
+        ],
+        "phase_cross": [
+          "-0.028159768730",
+          "-0.028159768729"
+        ],
+        "phase_difference": [
+          "-0.000007248026",
+          "-0.000007248025"
+        ],
+        "E_tail": [
+          "0.000000000000",
+          "0.004879947234"
+        ],
+        "PQ_tail": [
+          "0.000000000000",
+          "0.091499010623"
+        ],
+        "U": [
+          "30.975010984197",
+          "30.975010984198"
+        ],
+        "alpha": [
+          "-0.019645316218",
+          "-0.019645316217"
+        ],
+        "z": [
+          "0.014717344022",
+          "0.014717344023"
+        ],
+        "PAIR_lower_margin": [
+          "23250.683161770008",
+          "23250.774965777334"
+        ],
+        "PAIR_upper_margin": [
+          "46501.418961254826",
+          "46501.656858682446"
+        ]
+      }
+    },
+    {
+      "H": 18,
+      "N": 324,
+      "T": 65536,
+      "M": 196610,
+      "digits": 75,
+      "seconds": 2.739291190000017,
+      "values": {
+        "E_prefix": [
+          "0.013007923794",
+          "0.013007923795"
+        ],
+        "P_prefix": [
+          "0.082778990759",
+          "0.082778990760"
+        ],
+        "Q_prefix": [
+          "0.082771742734",
+          "0.082771742735"
+        ],
+        "E_complete": [
+          "0.013007923794",
+          "0.017887871028"
+        ],
+        "P_complete": [
+          "0.082778990759",
+          "0.174278001383"
+        ],
+        "Q_complete": [
+          "0.082771742734",
+          "0.174270753358"
+        ],
+        "P_minus_E": [
+          "0.064891119731",
+          "0.161270077588"
+        ],
+        "Q_minus_P": [
+          "-0.091506258649",
+          "0.091491762598"
+        ],
+        "phase_square": [
+          "0.028152520703",
+          "0.028152520704"
+        ],
+        "phase_cross": [
+          "-0.028159768730",
+          "-0.028159768729"
+        ],
+        "phase_difference": [
+          "-0.000007248026",
+          "-0.000007248025"
+        ],
+        "E_tail": [
+          "0.000000000000",
+          "0.004879947234"
+        ],
+        "PQ_tail": [
+          "0.000000000000",
+          "0.091499010623"
+        ],
+        "U": [
+          "30.975010984197",
+          "30.975010984198"
+        ],
+        "alpha": [
+          "-0.019645316218",
+          "-0.019645316217"
+        ],
+        "z": [
+          "0.014717344022",
+          "0.014717344023"
+        ],
+        "PAIR_lower_margin": [
+          "23250.683161770008",
+          "23250.774965777334"
+        ],
+        "PAIR_upper_margin": [
+          "46501.418961254826",
+          "46501.656858682446"
+        ]
+      }
+    },
+    {
+      "H": 18,
+      "N": 324,
+      "T": 1048576,
+      "M": 3145730,
+      "digits": 60,
+      "seconds": 32.949446840000064,
+      "values": {
+        "E_prefix": [
+          "0.013013100249",
+          "0.013013100250"
+        ],
+        "P_prefix": [
+          "0.082825115753",
+          "0.082825115754"
+        ],
+        "Q_prefix": [
+          "0.082817775896",
+          "0.082817775897"
+        ],
+        "E_complete": [
+          "0.013013100249",
+          "0.013318101315"
+        ],
+        "P_complete": [
+          "0.082825115753",
+          "0.088543885724"
+        ],
+        "Q_complete": [
+          "0.082817775896",
+          "0.088536545868"
+        ],
+        "P_minus_E": [
+          "0.069507014438",
+          "0.075530785474"
+        ],
+        "Q_minus_P": [
+          "-0.005726109827",
+          "0.005711430114"
+        ],
+        "phase_square": [
+          "0.028163200432",
+          "0.028163200433"
+        ],
+        "phase_cross": [
+          "-0.028170540290",
+          "-0.028170540289"
+        ],
+        "phase_difference": [
+          "-0.000007339857",
+          "-0.000007339856"
+        ],
+        "E_tail": [
+          "0.000000000000",
+          "0.000305001066"
+        ],
+        "PQ_tail": [
+          "0.000000000000",
+          "0.005718769971"
+        ],
+        "U": [
+          "30.975010984197",
+          "30.975010984198"
+        ],
+        "alpha": [
+          "-0.019645316218",
+          "-0.019645316217"
+        ],
+        "z": [
+          "0.014717344022",
+          "0.014717344023"
+        ],
+        "PAIR_lower_margin": [
+          "23250.683493505608",
+          "23250.689231338146"
+        ],
+        "PAIR_upper_margin": [
+          "46501.504850664146",
+          "46501.519719466070"
+        ]
+      }
+    },
+    {
+      "H": 18,
+      "N": 324,
+      "T": 1048576,
+      "M": 3145730,
+      "digits": 75,
+      "seconds": 35.87931111499995,
+      "values": {
+        "E_prefix": [
+          "0.013013100249",
+          "0.013013100250"
+        ],
+        "P_prefix": [
+          "0.082825115753",
+          "0.082825115754"
+        ],
+        "Q_prefix": [
+          "0.082817775896",
+          "0.082817775897"
+        ],
+        "E_complete": [
+          "0.013013100249",
+          "0.013318101315"
+        ],
+        "P_complete": [
+          "0.082825115753",
+          "0.088543885724"
+        ],
+        "Q_complete": [
+          "0.082817775896",
+          "0.088536545868"
+        ],
+        "P_minus_E": [
+          "0.069507014438",
+          "0.075530785474"
+        ],
+        "Q_minus_P": [
+          "-0.005726109827",
+          "0.005711430114"
+        ],
+        "phase_square": [
+          "0.028163200432",
+          "0.028163200433"
+        ],
+        "phase_cross": [
+          "-0.028170540290",
+          "-0.028170540289"
+        ],
+        "phase_difference": [
+          "-0.000007339857",
+          "-0.000007339856"
+        ],
+        "E_tail": [
+          "0.000000000000",
+          "0.000305001066"
+        ],
+        "PQ_tail": [
+          "0.000000000000",
+          "0.005718769971"
+        ],
+        "U": [
+          "30.975010984197",
+          "30.975010984198"
+        ],
+        "alpha": [
+          "-0.019645316218",
+          "-0.019645316217"
+        ],
+        "z": [
+          "0.014717344022",
+          "0.014717344023"
+        ],
+        "PAIR_lower_margin": [
+          "23250.683493505608",
+          "23250.689231338146"
+        ],
+        "PAIR_upper_margin": [
+          "46501.504850664146",
+          "46501.519719466070"
+        ]
+      }
+    }
+  ],
+  "independent": [
+    {
+      "H": 24,
+      "T": 1048576,
+      "E_prefix": 0.011972317139938021,
+      "P_prefix": 0.07786966358200562,
+      "Q_prefix": 0.07744800722142442,
+      "phase_square": 0.018379464699860543,
+      "phase_cross": -0.018801121060441746,
+      "U": 51.41884370206637,
+      "alpha": 0.008555012227901589,
+      "z": -0.007492497744553008,
+      "moment1": 1,
+      "moment3": 3
+    },
+    {
+      "H": 18,
+      "T": 1048576,
+      "E_prefix": 0.013013100249817687,
+      "P_prefix": 0.08282511575314987,
+      "Q_prefix": 0.08281777589675617,
+      "phase_square": 0.02816320043266815,
+      "phase_cross": -0.028170540289061848,
+      "U": 30.975010984197333,
+      "alpha": -0.019645316217638785,
+      "z": 0.014717344022699606,
+      "moment1": 1,
+      "moment3": 3
+    }
+  ]
+}
+```
+
+### Closing Freshness Check
+
+At 2026-11-18 16:16:38 UTC, main remained 935840aec9b1fcbc66fe4e0164061d661a8ca3b1 and agent-reports was the verified checkpoint commit 1a87cbf308ea19ff2e7f4fef23ade339a393884a. A fresh untruncated report tree showed no new upstream report changes. The complete Coordinator 00/90 bytes were fetched and matched exactly. All seven latest actual dated role files are November 18; no calendar cap was used to discover them. Final mathematical work and all required processes are complete. Publication is verified only by the receipt that follows.
