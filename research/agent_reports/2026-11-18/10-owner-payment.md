@@ -665,3 +665,37 @@ THIS_EXECUTION_STATUS=COMPLETED; SUBSTANTIVE_PUBLICATION=VERIFIED. AI1-AI3 remai
 Next actual invocation: refresh authority and handoffs; obtain a scoped independent review or a genuinely changed history-sensitive input. Do not repeat this fixed-k census, assume AI.14, or revive the parked Selberg component estimate. No new active RH route, source/policy change, other-role report edit, extra schedule, agent launch or background continuation is implied.
 
 NO_NEW_GLOBAL_GAIN; VERIFIED_ETA=NONE; RH=OPEN. This receipt cites the already verified substantive commit, not its own future containing commit as evidence for itself.
+
+
+## IN_PROGRESS Checkpoint - 20261118-owner-0809-EST/HC
+
+### A. Most Important Mathematical Development
+
+No new theorem is claimed at this checkpoint. This bounded feasibility audit will test whether the full earlier-good actual-prime history forces a sustained signed excursion, and whether aggregating a short contiguous historical run supplies a usable first-bad payment. The existing exact history-compression inequality is a mandatory falsifier: a larger absolute denominator is not the original #915 denominator. All earlier AI findings and publication evidence above are preserved.
+
+### B. Current Authoritative Objective
+
+Actual scheduled invocation: 2026-11-18 08:09:03 EST, America/New_York. PLATFORM_RUN_ID=UNAVAILABLE. HC labels history compression, not a platform run identifier.
+
+Main=13b31c6313e274a073d82a01175201185e59e37e.
+AGENTS=c4f36b772f8a4b0c24fe566b90fafb646073c60f.
+CONTRACT=95566e37c8eaeb99ee680660df4f9d2e06ea5038.
+HALF_POLICY=96ad4439ec458af6168f7d9cb3eef5dde291d37c.
+REPORTS_INTAKE=7a54b08d170c753332bf44832f06d6e56f4232d4.
+half_bootstrap_ack=BOOTSTRAP_TO_HALF_V1
+cross_route_ack=CROSS_ROUTE_SIGNED_RECOVERY_V1
+continuity_ack=LAST_ACTUAL_REPORT_CONTINUITY_V1
+
+The canonical actual-prime O(R log R) target remains OPEN. The selected direct consumer is no actual K=2 first bad plus the finite base -> canonical VF, retaining ClassicalVonKochRHCriterion at the RH interface. The original source is E=2D_B^2-(|D_(B-1)|+C_(B-1))^2, not an enlarged-run surrogate.
+
+### C. Continuity And First Research Problem
+
+Latest actual sections recovered from the uncapped report tree: Owner AI, Analytic PAIR, Wheel FD, Census PN, Referee DP, Lean DUAL, Coordinator DAMP. All roles have an actual November 18 report; TODAY=AVAILABLE and YESTERDAY=READ/CARRY_FORWARD. November 17 source sections FB/HF/PC and the latest role findings were retrieved for continuity. The latest Coordinator 00/90 blobs agree. External inbox is unchanged at 7d63d434690d00dffce9c90335d41c4f62d85798. AI fixed-depth work, fixed-degree Selberg, and standalone pairing remain parked at their stated scopes.
+
+The first question is precise: for A<B, keep one anchor -D_A and every actual signed seat in [A,B); compare the complete signed square, true absolute mass, and the exact restoration to the one-block #915 source. Analyze windows whose root length is proportional to log(B)^2, and test both escape signs. No small-run success will be called first-bad exclusion without the denominator-restoration term.
+
+### D-K. Pending Derivation, Falsification And Publication
+
+Derive a source-faithful necessary excursion or prove why the aggregation cannot supply a new contradiction. Check existing history-compression and lower-run capacitor theorems before crediting novelty. Any finite computation will have an explicit registration and will distinguish genuine-source identities from hypothetical first-bad or synthetic controls. No actual first-bad example is assumed. New results remain SELF_AUDIT until independent review.
+
+Live open PR discovery found #1145 and #1146; both remain separate from main pending exact current-state checks. Main's #1144 obstruction is reused, not reproved. No local Lean, agent launch, source/policy edit, other report edit, proof branch or PR creation, merge, schedule change, or workflow rerun is authorized or planned. Direct git clone failed with CONNECT tunnel HTTP 403; connector reads and report publication are available.
