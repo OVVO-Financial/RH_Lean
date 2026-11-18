@@ -1560,3 +1560,875 @@ The untruncated agent-reports tree at 9b56fe7c3f6b98c2519c7b5d2af98a8044d18792 w
 Selected bounded feasibility audit: independently reconstruct TAIL.1-4 and CP1-CP3 on the genuine three-head Nyman source; distinguish MR's regional conjecture from its local counterexample; test whether a uniform restoration-free profile lower bound is justified. Retain the original two bands at every head, all U_N returns, signed cross terms, and infinite-output consumer. Source definitions and the conditional moment/exact-head/complete-return declarations were inspected at main. New original research will target a stronger inverse restriction or a precise genuine-carrier falsifier, not another unconditioned norm assumption.
 
 The exact terminal consumer is the previously accepted zero-functional bound: a common unbounded exact-head sequence with complete subpower energy excludes zeros to the right of one half. The complete upper supplier remains OPEN; neither small regional energy nor a profile lower bound supplies it. No RH or exponent gain is claimed. Only this owned report will be changed remotely; no local Lean, proof/source edit, agent launch, PR or merge is authorized or planned.
+
+
+## More Heads Do Not Remove The Two-Defect Requirement
+
+### Final Mathematical Synthesis - 20261117-referee-2013-EST/PR
+
+Actual trigger: 2026-11-17 20:13:01 EST / 2026-11-18 01:13:01 UTC. Reporting date is November 17 in America/New_York. PLATFORM_RUN_ID=UNAVAILABLE. PR is this investigation's label, not a pull request. The preceding SG/IC sections and this invocation's checkpoint are preserved. New PR1-PR3 deductions are PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED. Upstream independent verdicts are separate. Substantive publication remains READBACK_PENDING until the receipt below.
+
+### A. Most Important Mathematical Finding
+
+**The three-profile lower bound survives independent review, and its necessary two-small-defect condition persists for any fixed number of dyadic heads, and even a sublogarithmically growing number when the mixing coefficients have subpower size.** This is a restriction on the complete original residual, with all correction bands and quotient returns retained, not on a substituted diagonal norm.
+
+For genuine mu, define delta(x)=1-sum_(k<=x)mu(k)log(x/k)/k. Under a FIXED genuine Mertens bound |M(x)|<=C x^b, 1/2<b<1, let S_2(H) be the second-smallest of |delta(2^i H)| among the heads used. The explicit all-parameter theorem in E implies:
+
+```text
+fixed number of heads, bounded coefficients, complete subpower energy
+  ==> S_2(H)=O_(b,C,n,sup A)(H^(2b-2));
+
+n(H)=o(log H), A(H)=H^o(1), complete energy=H^o(1)
+  ==> S_2(H) <= H^(2b-2+o(1)) + H^(-1+o(1)).             (PR3)
+```
+
+Thus adding more separated original correction profiles does not by itself supply the missing arithmetic. At the paid fixed b=7/8, the growing-head necessary exponent is -1/4+o(1), versus the ordinary individual envelope -1/8. No existence or impossibility of such sparse simultaneous smallness is proved.
+
+A second original arithmetic result removes an exact degeneracy question: for EVERY integer H>=2 the numbers delta(H),delta(2H),...,delta(2^r H) are affinely independent over the rationals. Consequently TAIL's curvature denominator never vanishes; all three mixing coefficients are nonzero; and TWO different dyadic heads cannot cancel both common modes with a normalized real mixture. The proof uses a fresh genuine prime in the largest dyadic interval and unique factorization. It does not give a quantitative lower bound on conditioning or small defects.
+
+Independent numerical verification reproduces MR3: at H=96 on J_1={21505,...,24576},
+
+```text
+||r_mix||_(J_1)^2 - ||Z||_(J_1)^2
+  in [-0.000180485414, -0.000180485413].                  (PR4)
+```
+
+The local restoration-free strengthening is genuinely false. CP's remainder-bearing theorem is unaffected. The UNION half-profile conjecture is NOT refuted; a declared five-scale floating-point falsification attempt found no negative union margin and is not an all-scale certificate.
+
+NO_NEW_GLOBAL_UPPER_GAIN; NO_NEW_ACCEPTED_RH_ROUTE; VERIFIED_ETA=NONE; RH=OPEN.
+
+### B. Current Authoritative Objective
+
+Main is [13b31c6313e274a073d82a01175201185e59e37e](https://github.com/OVVO-Financial/RH_Lean/commit/13b31c6313e274a073d82a01175201185e59e37e). AGENTS blob c4f36b772f8a4b0c24fe566b90fafb646073c60f and CURRENT_PROOF_CONTRACT blob 95566e37c8eaeb99ee680660df4f9d2e06ea5038 were read. BOOTSTRAP_TO_HALF_V1 supersedes older task-priority banners, not hypotheses, source guards or permissions.
+
+The exact public target remains VFCanonicalSquareVonKochStatement:
+
+```text
+exists C>=0, forall natural R>=2:
+  |pi(R^2)-vfMidFinishedMass(R)-sqrt(2)| <= C R log R.
+```
+
+The inspected riemannHypothesis_of_vfCanonicalSquare still explicitly assumes ClassicalVonKochRHCriterion AND the arithmetic bound. This run discharges neither. The selected Nyman consumer is a different, previously independently accepted paper zero-functional argument, not an identity with VF payment.
+
+The reused compiled comparator is native_mertens_near_uniform_window_error_closed: every-positive-loss Mertens growth at b_base=7/8-7/(64*nearUniformSlotCount), with the original fixed source count. Spending the positive margin permits a fixed-power bound at 7/8. No loss-free bound at b_base or comparison with a different count is inferred. The closed Mertens/zero-supremum identification is already implemented; no attained supremum is assumed. The formal evidence and scoped dependency reuse are in L.
+
+```text
+half_bootstrap_ack=BOOTSTRAP_TO_HALF_V1
+cross_route_ack=CROSS_ROUTE_SIGNED_RECOVERY_V1
+continuity_ack=LAST_ACTUAL_REPORT_CONTINUITY_V1
+high_attack_ack=COMPLETE_SIGNED_HIGH_ATTACK_V1
+chain_ack=CANCELLATION_CHAIN_REUSE_V1
+finite_wheel_ack=FINITE_WHEEL_CENTERED_RH_V1
+```
+
+### C. Highest-Risk Mechanisms And Continuity
+
+Selected risks: promoting a positive profile Gram into a restored-source lower bound without its mixed terms; extrapolating from three fixed heads to a growing number at no cost; treating nonzero determinants as good conditioning; and calling a target-strength upper premise a new supplier. The earlier all-head-average and raw-tail-integrability audits are reused at their unchanged scope, not rerun.
+
+The untruncated report tree at [9b56fe7c3f6b98c2519c7b5d2af98a8044d18792](https://github.com/OVVO-Financial/RH_Lean/commit/9b56fe7c3f6b98c2519c7b5d2af98a8044d18792) was enumerated without a calendar cap. November 17 is the latest existing report date for every role. Full November 16/17 files were fetched. Both Coordinator mirrors were independently retrieved and their complete contents compared on both dates. The own IC ledger supplies the consumed watermark. Relevant new material was consumed in chronological order: HF1, TAIL, PC, CP, PP, MR. This is relevant backfill, not a claim to reread or independently verify every historical code appendix.
+
+All paths below are under research/agent_reports/2026-11-17/ at that intake commit. Each latest file contains a completed substantive section and publication evidence. Trigger labels are not invented platform IDs.
+
+| Role / file | LAST_VERIFIED blob; actual section | LAST_CONSUMED -> new material; RESUME |
+| --- | --- | --- |
+| Coordinator 00/90 | ae2d8ed2c9199d5b0b174fd8b3436286f5541226; TAIL 15:13 EST; mirrors equal | INV -> TAIL.1-5; complete mixed energy remains unpaid. |
+| Owner 10 | 6516bf78b096471ccfd2fb8c215e94002544a594; PC 16:15 EST | HF -> PC.1-6; signed Selberg return, no transfer to Nyman. |
+| Analytic 20 | d4bc53ac1b68f6dadabc4a04a2f5fc8c74f6625f; CP 17:11 EST | HA -> CP1-4; profile restriction independently reviewed here. |
+| Wheel 30 | 5c26771c0a266d5112e0b4a4b28aba0132e35ef7; PP 18:06 EST | SB -> PP; prime/nonprime double-centered balance remains its author's paper claim. |
+| Census 40 | 587b0bb3dd66834a18610ab86174f285f81c4b04; MR 19:00 EST | TC -> MR1-4; local counterexample reproduced, union conjecture still open. |
+| Referee 50 before checkpoint | 6e7f24cf5f790bab4ac1c19da6dc1c81546ad0e0; IC 12:03 EST | Own IC -> current PR; prior scopes preserved. |
+| Lean 60 | f064afb482138dc59123713f11082809b04e7c3c; HF1 13:14 EST | NYMAN-JUMP -> HF1; live human merge supersedes its earlier unmerged status. |
+
+TODAY=AVAILABLE for all seven roles. YESTERDAY=READ/CARRY_FORWARD for relevant SC/DB/LM/TP/MC/CF/CR sections. Their November 16 blobs in role order are fda92549dd9291c491005fdf70847b90d9be385a, a52b439e693e069502b0c299a5f074a19bae0807, 84aaa2103225565607b5b033f273462bbe865246, 713826840694e39a141fbdbe813f1d47245928e7, 53e6be517dc11037fe3b42a8ed6ad3a06cfce956, 240b97ce1c8ddc87d5f520bc9a8cd6ea00df3d32, 0bada0352d54be7c46a7d928f4c4e3bee440ad8f. Preserve DB's corrected R=5 delayed example and R=137 restored sign reversal; CF/TP synthetic versus genuine-carrier distinctions; and SC's selected-head coverage obstruction. No unchanged large census was repeated.
+
+CONTINUITY_COMPLETE is scoped to latest-real discovery and relevant post-IC backfill. NEW_UNCONSUMED=NONE at the recorded intake in that scope. GAP=no new gap after IC; previously recorded older missing dates remain NO_VERIFIED_REPORT, not invented executions. External handoffs blob 7d63d434690d00dffce9c90335d41c4f62d85798 is unchanged, with no entry after October 18. EXT-20261018-PNT-1 retains its cofactor-weighted error; EXT-20261014-5 concerns unconditional all-root fractions, not a conditional first-bad disproof.
+
+### D. Claims Reviewed
+
+This was a source-and-proof reconstruction, not a claimed blind review: the submitted proofs were read before the full independent derivation and implementation. Separate runs do not establish statistical independence of models. Mathematical statuses, recommendations and CI states are kept distinct.
+
+| Stable claim | Verdict / evidence | Exact scope |
+| --- | --- | --- |
+| 20261117-coordinator-1513-EST/TAIL.1 | ACCEPT_ON_PAPER | Sharp variation cost with both affine/reciprocal-log constraints. |
+| TAIL.2 | ACCEPT_ON_PAPER | Infinitely many well-conditioned genuine triples; no bounded gaps or energy bound. PR1 removes the need for transcendence merely to show the sampled sequence is not eventually zero. |
+| TAIL.3-TAIL.4 | ACCEPT_ON_PAPER / scoped | Exact common-middle and first-band returns; complete lower bound with its stated remainder. |
+| TAIL.5 | FINITE_COMPUTATION, upstream | Its pointwise cross-sign witnesses were not independently interval-reproduced here. No blanket acceptance of the entire numerical appendix. |
+| 20261117-analytic-1711-EST/CP1-CP3 | ACCEPT_ON_PAPER / scoped | Uniform three-profile bound, full finite-window restoration bill and necessary median rate. Not a proof of an upper bound or of sparse-family impossibility. |
+| CP4 | FINITE_COMPUTATION, partial independent checks | Exact all-vector Gram certificates independently checked at H=12,24; the full upstream campaign was not rerun. |
+| 20261117-census-1900-EST/MR3 | ACCEPT / REFUTED strengthening / independently reproduced | H=96, middle window: complete energy is strictly below profile energy. |
+| MR1, MR2, MR4 | Retain upstream finite scope | No infinite-norm ordering or uniform union bound follows. The new float attempt is diagnostic only. |
+| 20261117-owner-0809-EST/HF1 finite mask | Prior acceptance retained; PROVED_IN_LEAN_ON_MAIN at inspected scope | Five public declarations and exact-head evidence verified; not actual-prime signed contraction. |
+| PC, PP | INDEPENDENT_REVIEW_PENDING in this report | Continuity consumed; no blanket independent theorem acceptance or source transfer is issued. |
+| 20261117-referee-2013-EST/PR1-PR3 | SELF_AUDIT / PAPER_PROOF / NOT_FORMALIZED | New arithmetic nondegeneracy, all-n inverse theorem and growing-n consequence below. |
+
+Earlier IC/SG new deductions retain their existing review statuses. This invocation does not self-issue independent acceptance of its own prior work.
+
+### E. Independent Mathematical Reconstruction
+
+#### E1. Original Source And Submitted Three-Head Theorem
+
+For integer B>=2 use the original N=6 ceil(B^2/6), K=N/6, L=log(N/B), q_k=log(N/max(B,k)). Set
+
+```text
+u=sum_(k=1..N)mu(k)q_k/k, v=2L+sum_(k=1..N)mu(k)q_k,
+s1=sum_(3K<k<=4K)1/k, s2=sum_(5K<k<=6K)1/k, d=s1-s2,
+alpha=(u-s2*v/K)/d, z=v/K-alpha,
+h_k=alpha on (3K,4K], z on (5K,6K], zero otherwise,
+c_k=(h_k-mu(k)q_k)/L for 2<=k<=N,
+r_B(m)=1-sum_(k=2..N)c_k {m/k}.
+```
+
+The unit k=1 remains in u and v. The two moments are sum c_k/k=1 and sum c_k=3. The exact head r_B(m)=0 for 1<=m<=B and the complete return are the actual compiled statements, with their explicit moment hypothesis discharged by the displayed solver:
+
+```text
+L r_B(m)=U_N(m)-U_B(m)+C_h(m),
+U_B(m)=sum_(B<k<=m)mu(k)log(B/k)floor(m/k),
+C_h(m)=sum_(k=2..N)h_k floor(m/k).
+```
+
+With F_B(m)=sum_(k<=B)mu(k)log(B/k){m/k} and W(m)=psi(m)-m, the genuine logarithmic divisor identity gives U_B=m delta(B)+W+log B+F_B. Prime powers in psi are retained. These are identities, not quantitative suppliers.
+
+For the submitted CP theorem H=6*2^j, j>=1; B_i=2^i H, N_i=B_i^2, i=0,1,2; hence L_i=log B_i. Real a_i satisfy sum a_i=0, sum a_i delta(B_i)=0, sum a_i L_i=1. Put w_i=a_i L_i, r_mix=sum w_i r_(B_i), A=max|a_i|, and E=sum_(m>=1)r_mix(m)^2/[m(m+1)]. With D=49647168, CP asserts
+
+```text
+E >= H^2/(4D) sum_i(a_i delta(B_i))^2
+       -C^2 A^2 K_b H^(4b-2)-4/H^2,
+P_b=1/(1-b)+1/(1-b)^2, V_b=P_b+12/(5b),
+U_b=121(log 11+1/b), Q_b=7+3U_b+80/b,
+K_b=4Q_b^2+3V_b^2/(2D),
+```
+
+for EVERY fixed 1/2<b<1 and C>=1 with |M(x)|<=C x^b for all real x>=1, uniformly over these H and all admissible a. This is the submitted statement, not silently repaired. The derivation below verifies it and extends it with explicit head-count dependence.
+
+#### E2. PR1: Genuine Arithmetic Excludes Exact Degeneracy
+
+**Theorem.** For any integer H>=2 and any finite r>=1, if rational q_0,...,q_r satisfy sum q_i=0 and sum q_i delta(2^i H)=0, then every q_i=0.
+
+Proof. Suppose otherwise and let j be the largest index with q_j!=0. The zero-sum condition forces j>=1. B=2^j H is even and composite. Bertrand supplies a prime B/2<p<B. The upper endpoint is strict because B is composite. Every earlier head is at most B/2. Expand delta(B) into rational coefficients of prime logarithms:
+
+```text
+delta(B)=1-log B * sum_(k<=B)mu(k)/k
+             +sum_(k<=B)mu(k)log k/k.
+```
+
+Since p does not divide B and its only multiple up to B is p, the coefficient of log p is exactly -1/p. Every earlier delta has log-p coefficient zero. In sum q_i delta(2^i H), the rational constant vanishes because sum q_i=0, but log p has nonzero coefficient -q_j/p. Clearing denominators and exponentiating would give a nontrivial equality of prime products, contradicting unique factorization. This proves the theorem. The only external input is [Bertrand's theorem, with its stated endpoint convention](https://leanprover-community.github.io/mathlib4_docs/Mathlib/NumberTheory/Bertrand.html); the transfer to delta is established here.
+
+Consequences for the actual quadratic three-head family:
+
+1. All pairwise delta differences and d_curv=delta(H)-2delta(2H)+delta(4H) are nonzero. TAIL's a=(delta_1-delta_2,delta_2-delta_0,delta_0-delta_1)/(log 2*d_curv) is defined at EVERY permitted H and all a_i are nonzero.
+2. Two different dyadic heads cannot satisfy the three real equations sum a_i=0, sum a_i delta_i=0, sum a_i log B_i=1. The first two force both a_i=0.
+3. No nonzero finite rational stencil, or common real multiple of one, can cancel both common modes on these heads. TAIL's genuinely arithmetic-dependent real coefficients remain allowed. In fact each pairwise ratio of its three a_i is irrational, since a rational ratio would give the forbidden rational affine relation among the deltas.
+
+This extends IC's fresh-prime coefficient argument; it does not claim a new theorem about primes or logarithms. It also makes the sampled delta sequence not eventually zero without requiring transcendence of e. It supplies NO uniform conditioning lower bound, no positive lower bound on |delta|, and no refutation of approximate cancellation or sparse good heads.
+
+#### E3. Independent TAIL Reconstruction
+
+For 0<l<=L_i<=u, sum w_i=1 and sum w_i/L_i=0, u>l. The affine-in-1/L function
+
+```text
+g(L)=(u+l)/(u-l)-2lu/((u-l)L)
+```
+
+lies in [-1,1] and has sum w_i g(L_i)=(u+l)/(u-l). Therefore sum|w_i|>=(u+l)/(u-l); endpoint weights -l/(u-l), u/(u-l) attain it. This verifies TAIL.1, not a norm bound.
+
+For TAIL.2, take a non-eventually-zero sequence |x_j|<=C r^j, 0<r<r0<1. If |Delta^2 x_j|<c max(|x_j|,|x_(j+1)|,|x_(j+2)|) eventually with c<(1-r0)^2, select an attained nonzero maximum of |x_j|r0^(-j) on that tail. At its index k, the absolutely convergent telescoping identity x_k=sum_(n>=k)(n-k+1)Delta^2 x_n gives |x_k|<=c|x_k|/(1-r0)^2, a contradiction. Hence infinitely many well-conditioned triples exist, without a density statement.
+
+The fixed Mertens input gives delta(x)=O_b(x^(b-1)) by partial summation. For b=7/8, r=2^(-1/8)<15/16 and c=1/512<1/256 work. PR1 supplies non-eventual-zero on these genuine samples. The resulting A<=1024/log 2 is valid on the selected infinite sequence, not on every head.
+
+The three equations on a cancel W and m delta in the complete return, while the constant is -sum a_i log B_i=-1. Before the first correction, r_mix=-1-sum a_i F_(B_i). On N/2<m<=2N/3 only the first head's first band is active and all U_(N_i) vanish, so the extra term is a_0 alpha_0(m-N/2). Restricting to 7N/12<m<=2N/3, using |F_B|<=B-1 and (x+y)^2>=x^2/2-y^2, reproduces TAIL.4:
+
+```text
+E >= H^2(a_0 alpha_0)^2/3456 - 2(1+7A)^2.
+```
+
+Its remainder is indispensable, and its right side can be negative.
+
+#### E4. PR2: Full n-Head Theorem With Explicit Costs
+
+Fix real b,C with 1/2<b<1, C>=1 and |M(x)|<=C x^b for every real x>=1. For EVERY integer n>=3, EVERY H=6*2^j with j>=1, and EVERY real vector a indexed by 0<=i<n satisfying
+
+```text
+sum a_i=0, sum a_i delta(B_i)=0, sum a_i log B_i=1,
+B_i=2^i H, N_i=B_i^2, K_i=N_i/6, A=max_i|a_i|,
+```
+
+take the ORIGINAL two-band coefficients at EACH B_i, w_i=a_i log B_i and the COMPLETE E of r_mix=sum w_i r_(B_i). Define
+
+```text
+N=H^2, L_n=ceil((2/3)*4^(n-1)),
+D_n=1728 sum_(i=0..n-1)13^(2i),
+J_n=n(n-1)(2n-1)/6,
+P_b=1/(1-b)+1/(1-b)^2, V_b=P_b+12/(5b),
+Q_(b,n)=(2^n-1)+n L_n^2(log L_n+1/b)+12n L_n/(5b),
+K_(b,n)=4 Q_(b,n)^2+n V_b^2/(2D_n).
+```
+
+Then, uniformly in all displayed H,n,a,
+
+```text
+E >= H^2/(4D_n) sum_i(a_i delta(B_i))^2
+       -C^2 A^2 K_(b,n) H^(4b-2)-4/H^2.                (PR.1)
+```
+
+For S_2 the second-smallest of the n absolute defects, counting multiplicities,
+
+```text
+E >= H^2 S_2^2/[4D_n J_n(log 2)^2]
+       -C^2 A^2 K_(b,n) H^(4b-2)-4/H^2.                (PR.2)
+```
+
+No source-specific good-Gram or desired-energy hypothesis is inserted. b,C are fixed before H and n. Dependence on n and the selected vector is displayed, not hidden in an implied constant. For n=3, D_n=49647168, J_n=5, L_n=11 and Q_(b,3)<=CP's Q_b; this proves the exact submitted CP.1-CP.3 as stated.
+
+**Proof: all profiles are observed.** Put
+
+```text
+P_i(m)=sum_(3K_i<k<=4K_i)floor(m/k),
+T_i(m)=sum_(5K_i<k<=6K_i)floor(m/k), p_i=P_i-T_i,
+I_i={integer m:7N_i/12<m<=2N_i/3}, I=union I_i.
+```
+
+The windows are disjoint and |I_i|=N_i/12. On I_i, p_i=m-N_i/2>=N_i/12; later p_j vanish. Earlier profiles are NOT zeroed: |p_j(m)|<=m(s1_j+s2_j)<=m. Thus ||p_i||_(I_i)^2>=N_i/1728 and ||p_j||_(I_i)^2<=N_i/12. For Z=sum t_i p_i and L=||Z||_I, reverse triangle gives
+
+```text
+|t_i| <= sqrt(1728/N_i)L+12 sum_(j<i)|t_j|
+      <=13^i sqrt(1728/N)L,
+||sum t_i p_i||_I^2 >= (N/D_n) sum t_i^2.               (PR.3)
+```
+
+All earlier overlaps and both their bands enter this bound. The factor D_n is a real exponential price for this proof, not a constant that can be reused unchanged as n grows.
+
+**Proof: exact restoration before inequalities.** Let t_i=a_i alpha_i. The original equations give for EVERY m>=1
+
+```text
+r_mix(m)=Z(m)+R(m),
+R(m)=-1-sum_i a_i F_(B_i)(m)+sum_i a_i U_(N_i)(m)
+           +sum_i a_i(v_i/K_i)T_i(m).                  (PR.4)
+```
+
+The highest second band happens not to be active on I; it remains in the complete residual everywhere else. Earlier second bands and after-N_i returns are retained in PR.4. No infinite raw-component norm is used.
+
+For completeness, partial summation of the genuine Mobius series, initially equal to 1/zeta(s) on Re(s)>1, extends it and its derivative to Re(s)>b. The simple pole of zeta at 1 yields sum mu(k)/k=0 and sum mu(k)log k/k=-1 in natural order. Therefore
+
+```text
+|delta(x)|<=C P_b x^(b-1),
+u_i=delta(B_i)-delta(N_i),
+v_i=2log B_i+integral_(B_i..N_i) M(t)dt/t,
+|v_i/K_i|<=12C N_i^(b-1)/b,
+1/20<=d_i=s1_i-s2_i<=1/6, 0<s2_i<=1/5.
+```
+
+These analytic inputs and their hypotheses match [the Mobius Dirichlet series](https://dlmf.nist.gov/27.4#E5) and [the pole normalization](https://dlmf.nist.gov/25.2); the continuation and tail estimates here use the explicit fixed Mertens assumption, not absolute convergence at 1.
+
+On I, m<=L_n N. Expanding U_(N_i)(m) into at most L_n quotient fibres and partially summing each yields
+
+```text
+|sum_(N_i<k<=Y)mu(k)log(N_i/k)|
+ <=C Y^b(log(Y/N_i)+1/b),
+|U_(N_i)(m)|<=C L_n^2(log L_n+1/b)N^b.
+```
+
+The upper endpoint M(Y) is retained; the lower weight is zero. Also |F_(B_i)|<=B_i-1, sum B_i=(2^n-1)H, and T_i(m)<=m/5. Since H<=N^b and N_i^(b-1)<=N^(b-1),
+
+```text
+|R(m)|<=1+CA Q_(b,n)N^b,
+||R||_I^2<=4/N+4C^2 A^2 Q_(b,n)^2 N^(2b-1).
+```
+
+The weight mass of I is less than 2/N. Set e_i=a_i[delta(N_i)+s2_i v_i/K_i]. The exact moment solver says a_i delta(B_i)=d_i t_i+e_i, with sum e_i^2<=n C^2 A^2 V_b^2 N^(2b-2). Hence sum t_i^2>=sum(a_i delta_i)^2/2-sum e_i^2. Applying E>=||Z+R||_I^2>=||Z||_I^2/2-||R||_I^2 proves PR.1. This accounts for the complete restoration cost.
+
+**Proof: two defects, not a chosen one.** Choose k where |delta(B_k)| is minimal. If S_2=0, PR.2 is immediate. Otherwise
+
+```text
+1=abs(sum_(i!=k)(i-k)(log 2)a_i)
+ <=(log 2)*sqrt(J_n)/S_2 * sqrt(sum_i(a_i delta_i)^2),
+```
+
+because the maximum over k of sum_(i!=k)(i-k)^2 is J_n, attained at an endpoint. This gives PR.2. It is valid for arbitrary real admissible a, not just TAIL's particular three-vector.
+
+#### E5. PR3: What Can And Cannot Be Uniform In A Growing Number Of Heads
+
+Rearranging the explicit theorem gives
+
+```text
+S_2 <=2(log 2)sqrt(D_n J_n) *
+  [ H^(-1)sqrt(E+4/H^2) + CA sqrt(K_(b,n))H^(2b-2) ].   (PR.5)
+```
+
+For fixed n and bounded A, complete subpower E implies S_2=O(H^(2b-2)), since b>1/2 permits a fixed positive energy loss smaller than 4b-2. For growing n=o(log H), D_n, J_n and K_(b,n) are H^o(1) at each fixed b: D_n=exp(O(n)), Q_(b,n)=exp(O_b(n)), with explicit formulas above. If additionally A=H^o(1) and E=H^o(1) on ONE unbounded common sequence, PR.5 gives the claimed growing-head restriction. Constants and every positive loss are chosen before the scale along that sequence.
+
+This does NOT allow n comparable to log H at no cost, does NOT assume bounded A on every head, and does NOT prove that two small defects cannot occur. It is an inverse theorem, not an upper-bound supplier. It explicitly blocks only the inference that adding a controlled number of the same profiles automatically removes the simultaneous arithmetic requirement. Different correction designs or genuinely new cross-source estimates remain unaffected.
+
+### F. Counterexamples And No-Go Scope
+
+MR3's exact assertion is the universal strengthening ||r_mix||_(I_i)^2>=||Z||_(I_i)^2 for every curvature-admissible geometric triple and every i. The independently certified H=96, i=1 witness satisfies the original moment, curvature and source conditions and violates that conclusion. Its energy ledger is
+
+```text
+E in [0.000345117328,0.000345117329],
+P in [0.000525602741,0.000525602742],
+V in [0.000065328558,0.000065328559],
+2<Z,R> in [-0.000245813972,-0.000245813971],
+E=P+V+2<Z,R>.
+```
+
+The negative mixed term outweighs the positive restoration energy. This is a full finite-window square, not an isolated adverse pair. It refutes neither CP nor the weaker UNION half-profile conjecture, nor a complete signed upper estimate. No globally smallest witness is claimed.
+
+PR1 is a new no-go for exact TWO-dyadic-head cancellation of both common modes, and for rational fixed stencils with that claimed property. TAIL's actual three-real-head construction survives. No general impossibility theorem for Nyman approximation is asserted.
+
+### G. Original-Carrier And Covariance Audit
+
+| Coordinate / operation | Exact relationship and retained obligation |
+| --- | --- |
+| Original residue basis | EXACT_IDENTITY: padded original coefficient vectors, both correction bands, unit moments, sum w_i=1 and all output cells. |
+| Square-prefix Mertens | ONE_WAY_ESTIMATE: a fixed genuine Mertens bound supplies the displayed partial-summation costs. It is not an equality of Mertens and Nyman energies. |
+| Euler / finite-AC / Q_R | OPEN_BRIDGE to this norm. Shared mu coefficients do not identify product masks, strict history K_R or normalizers. PP's different kernel is not imported as payment. |
+| Actual-prime VF / #915 | NOT_IDENTIFIED: no occurrence-, clipping-, chronology- or weight-preserving isometry to these residues is supplied. PC's Selberg source is distinct. |
+| NNS / OAI | NOT_IDENTIFIED: rational Mobius coefficients and correction bands are not Hecke tuple coefficients. Their existing global consequence is reused only at its actual type. |
+| First signed loss | Reverse triangle on complete earlier profiles costs D_n; it does not assume negative cross terms. Restoring R costs exactly the bound in PR.1. |
+| Paid recovery test | The compiled flat-return and moment solver reconstruct the full source. Existing correction-energy theorems are component bounds with the base restoration present; they do not prove restoration-free domination. |
+
+All ordered cross-head and cross-band terms remain inside (sum w_i r_i)^2. Individual complete residuals are bounded periodic at fixed support, so their Hilbert inner products exist; this gives no uniform size in H. Raw U_B components are not assigned finite infinite energies. The restriction to I discards only nonnegative COMPLETE squares outside I for a LOWER bound; it cannot be used to discard those cells for an upper bound.
+
+### H. Quantifier And Circularity Audit
+
+The direct consumer retained from INV/IC is: at each actual nontrivial zero rho with sigma>1/2, ANY finite residue approximant exact through H obeys E>=(2sigma-1)(H+1)^(2sigma-1)/|rho|^2. One common unbounded subpower-energy sequence therefore excludes every such zero. At the actual gap h=Theta-1/2>0, a complete sequence exponent kappa(h)<2h likewise contradicts the supremum without an attained-zero assumption. This is an accepted CONDITIONAL PAPER consumer, not a new supplier or new Lean theorem here.
+
+The free-coefficient existence criterion is target-equivalent; no converse from RH to subpower energy for TAIL's prescribed family is proved. The new two-defect condition is NECESSARY only; it is neither known target-equivalent nor sufficient for RH. It does not include the desired energy bound as an assumed independent lemma.
+
+TAIL's subunit decay gives infinitely many well-conditioned triples, not dense coverage or small energy. PR1 proves exact nondegeneracy, not quantitative conditioning. PR2 is uniform in n only because its n-dependent constants are displayed. PR3 spends them explicitly. A fixed-b remainder may be applied for b>Theta and then its positive loss spent; constants need not be uniform as b decreases to Theta, and no strict-input theorem is substituted at equality.
+
+### I. Constructive Repairs
+
+Retain CP1-CP3 as valid supporting mathematics. Use PR.4 before any estimate and keep an explicit restoration cost, or prove a new original-arithmetic bound for the actual mixed term. Retain TAIL's three-head construction but remove exact-zero determinant ambiguity; its real obstacle is quantitative simultaneous smallness and the complete upper return, not existence of a nonzero formal denominator.
+
+If a larger finite mix is proposed, use PR.1-PR.5 with its actual head count and coefficient size. A slowly growing controlled family still needs two small genuine defects. A substantially different correction design must state its new profile geometry and full source return rather than silently reuse these formulas. No change of research objective or new campaign is enacted here.
+
+### J. Competing Strategy Assessment
+
+NYMAN: the bounded profile audit is complete. The mechanism remains an OPEN candidate, not an accepted positive route. Stop repeating profile-Gram positivity, conditioning selection or supportive finite energy scans. Continue only after identifying independent simultaneous-defect arithmetic, a new source-sensitive complete correlation, or an explicitly changed correction design.
+
+Native FINITE-AC/CORR4/MU-LIFT: preserve the exact double-centered source and strict-history consumers. The new PP prime-class balance is a distinct pending paper result; nothing here proves or refutes its complete signed supplier. Actual-prime VF-LOW/SAT/JOH: HF1's separate absolute-cap obstruction is certified, while PC's complete Selberg return is pending independent review; neither is a Nyman input. OAI-NNS's 47/54 LOW floor, theta>3/5 coefficient gate and Re(s)>21/25 correction domain remain parked without a full half-continuation. CODIV and other protected toolkits remain separate.
+
+These routes share a missing source-sensitive signed estimate, but they are not interchangeable arithmetic carriers. No source equivalence is inferred from analogous cancellation stories.
+
+### K. Original Research And Executed Verification
+
+Original work beyond upstream review: PR1's genuine dyadic affine-independence theorem and its exact two-head exclusion; PR2's uniform all-n profile-return theorem; PR3's explicit sublogarithmic head-count consequence. Their derivations are above. This is a scoped extension of existing fresh-prime and CP ideas, not a literature-priority claim. The main new mathematical advantage is a precise restriction on an obvious attempted escape from the three-head obstruction, without declaring sparse good heads impossible.
+
+The primary registration preceded arithmetic execution. The float discovery used H=12,24,48,96,192 and the exact original formulas; it found positive union half-profile margins approximately 0.0068823, 0.0027222, 0.0063144, 0.0082813, 0.0124451. These are FLOATING-POINT DIAGNOSTICS ONLY. The first four are existing source heads tested for this different union assertion; only H=192 is a fresh mixed tuple. No wider search followed. The first output attempt stopped on JSON serialization of a NumPy Boolean; only serialization was repaired before the declared run completed. No failed output is credited as certified arithmetic.
+
+A separately written rational-interval program, without importing upstream checkers, reconstructs the H=96 middle window. Logarithms use range reduction to [1,2], the first 64 terms of 2 sum z^(2j+1)/(2j+1), and the exact positive remainder bound 3/(129*3^129)<10^-50 for 0<=z<=1/3. Every operation rounds outward on the integer 10^-50 grid. Composite logs are sums of rigorously enclosed prime logs. Genuine mu through 147456 is checked against independent trial factorization. Original coefficients, both moments, divisor-increment residuals and literal-residue boundary probes are retained. The certified negative interval has internal width less than 10^-30 before display rounding.
+
+Exact rational profile Gram certificates independently verify CP's all-real-vector inequality at H=12,24. A proof-led addendum verifies the new four-profile geometry at H=12 with D_4=8390373120. Exact symmetric elimination of G-(H^2/D_n)I has strictly positive pivots; it is not a floating eigenvalue fit. Fifteen fresh-prime coefficient checks verify the arithmetic transfer on the declared small heads. These finite tests support, but do not prove, the all-scale theorems.
+
+Final result: **161204 counted exact/interval assertions, PASS**, including logarithm-tail checks and input comparisons, not that many independent arithmetic cases. Python syntax checks passed; all computation processes exited. The earlier 14096-assertion certificate verified only the first 384 mu inputs independently; the final version adds the full input comparison and four-profile geometry, not a new H=96 output range. The registration records the proof-led extension. No local Lean was executed.
+
+Final SHA256: profile_certificate.py 86dcf8c3c42e2aa1e8cb6dccbeb3049df206832ab5b2093611a1e53eca18ff85; profile_discovery.py 7bd6e8255664f3574f372f2e681859860529a1c05a2a640b97b9dcf98b50161d; registration 35f60ace63f9620fd09067ec8b028155d7ff229017ce74f9e50e864edfae06e6; certificate output ec2a32f90383f7f25b806a355bf5e59649fbcdd3656147e037246921688343cb. The executed texts and final output are embedded below for reproduction. No complete infinite-energy upper bound was numerically certified.
+
+### L. Formalization Guidance And Source Evidence
+
+No source, main, proof branch, PR, workflow, schedule or other agent's report was modified. No local Lean or hosted run was launched. CP and new PR results are paper mathematics, not formalized theorems.
+
+| Item | Actual state and inspected evidence |
+| --- | --- |
+| #1119 | Human-merged; tested head 77ee815846d6d534c866f0752aa33b84c385610a has 14 successful checks. Actual [audit log](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42552018910/job/128949473700) read: five root closures 35358,35375,35736,35737,35753, standard axioms only. |
+| #1140 | Human-merged on main; tested head 685598746869a62849451d7b7ffbfd09d42e4e4a has 13 successful checks. Actual [source/audit log](https://github.com/OVVO-Financial/RH_Lean/actions/runs/44063808521/job/133972190569) read: four modules compiled, zero cached; original flat return and its axioms included. |
+| #1141, #1142 | Live metadata confirms human merges to main at 319fc5798658e66baea1fed758b0d4b6dd126889 and fd4085e20602bc210cc6b630abbdeeeaf1bf28eb. Their earlier scoped CI receipts are carry-forward, not new CI audits here. |
+| #1143 | Merged to docs/preservation-target-strength-20261117 at d1a5936939eda3c2d8cc74cc9082ecbf11249e18, NOT main. No branch-only result used as a main theorem. |
+| #1144 | Human-merged as current main. Tested head abd9bb34c8fac459e67c63009961b6c26548d7e9 has 13 successful checks. Actual [audit log](https://github.com/OVVO-Financial/RH_Lean/actions/runs/44149489941/job/134273552309) read: five standard-axiom closures and six exact types; compiled=0,cached=1, not a new source compilation. |
+
+The permitted terminal axioms are propext, Classical.choice and Quot.sound. A fresh nontruncated tree comparison of 2508 preexisting Lean/root-pin/scripts/lean entries from #1119 to current main found only aggregate RHLean.lean changed. This permits scoped reuse of the certified comparator, not a fresh whole-main compilation or independent reproof of every analytic dependency. The all-open PR collection was empty at intake.
+
+Material source blobs at main 13b31c6313e274a073d82a01175201185e59e37e:
+
+| Path | Git blob SHA |
+| --- | --- |
+| AGENTS.md | c4f36b772f8a4b0c24fe566b90fafb646073c60f |
+| CURRENT_PROOF_CONTRACT.md | 95566e37c8eaeb99ee680660df4f9d2e06ea5038 |
+| docs/RHLEAN_BOOTSTRAP_TO_HALF_20261116.md | 96ad4439ec458af6168f7d9cb3eef5dde291d37c |
+| docs/RHLEAN_REPORT_CONTINUITY_LAST_ACTUAL_20261111.md | 3e71820a4af722eae7098da6945bb5bcba50dd0d |
+| docs/RHLEAN_CROSS_ROUTE_SIGNED_RECOVERY_20261110.md | e3ae4280438f591f1ffaddd754a1c3a6d35d0691 |
+| docs/DYNAMIC_RESEARCH_AGENTS.md | b76d595f09403fc54eca71d04bf9e0306e0a9c09 |
+| docs/RHLEAN_SOURCE_FAITHFUL_COMPLETE_RETURN_AGENT_CONTRACT_20261031.md | 4775ee5fd95f279beab08a75d1e17127078b19a6 |
+| docs/RHLEAN_SEVEN_AGENT_RESEARCH_ENGINE_20261101.md | 7e1e97deb574006174eaacba03251df673c73c67 |
+| research/NYMAN_HIGH_COEFFICIENT_INVARIANT_20261104.lean | 2da630c1d5fb9302e2097ec1e170cf41c2b40609 |
+| research/NYMAN_FLAT_TAPER_RETURN_20261104.lean | 2d23721027ecc44e85b7add02fc632b482f03352 |
+| research/NYMAN_CORRECTION_ENERGY_20261105.lean | e5453cd32c3c4ebf9ebf41927bcb92e534b2ece7 |
+| research/oai_434/VF919WindowErrorClosure.lean | f629db1b2b65d6ec042ac9432397d4b6316200c6 |
+| research/MERTENS_CONVERSE_IDENTIFICATION.lean | 768c8255850bf4074aff265c3fe17a1f5c43979b |
+| research/VF_CANONICAL_SQRT_TWO_VON_KOCH.lean | 79030d70e8d3e0d08eef9bac53fef95c36eca2fb |
+| research/HISTORICAL_DENSITY_MASK_OBSTRUCTION.lean | 7bf4433fc1f2e70226df211550829057b024dad2 |
+| research/EULER_DOUBLE_CENTERED_SOURCE_20261117.lean | 7cb66c07ff3bb784f1b1d4434647326f06f0f2b2 |
+| research/EULER_DOUBLE_CENTERED_REMAINDER_20261117.lean | fffc2c07a82368d56b0b4075c625dd3f9a09e147 |
+| docs/COORDINATE_ATLAS.md | cd0419d00a37739fe5a292f5cb738e33213949d5 |
+| docs/PROOF_DEPENDENCY_DAG.md | 098f88f9b8e727ce78e52e5dc5158d68c930bf1b |
+
+Primary source links: [exact coefficients, moments, head and complete return](https://github.com/OVVO-Financial/RH_Lean/blob/13b31c6313e274a073d82a01175201185e59e37e/research/NYMAN_FLAT_TAPER_RETURN_20261104.lean), [existing component energy and retained base split](https://github.com/OVVO-Financial/RH_Lean/blob/13b31c6313e274a073d82a01175201185e59e37e/research/NYMAN_CORRECTION_ENERGY_20261105.lean), [actual baseline type](https://github.com/OVVO-Financial/RH_Lean/blob/13b31c6313e274a073d82a01175201185e59e37e/research/oai_434/VF919WindowErrorClosure.lean).
+
+Lean guidance: CP1's finite profile statement is accepted at its actual scope; implementation is useful only with a named continuation consumer, not as theorem-count activity. CP2 requires its explicit fixed-Mertens input. PR1-PR3 require a separate independent review before implementation. Do not formalize a desired subpower norm as a hidden input or a profile lower bound as complete-source domination without R.
+
+### M. Specialist Handoffs
+
+1. Proof Architect: TAIL.1-4 and CP1-CP3 are accepted on paper at their stated scope. Record PR1-PR3 as new self-audited support. More of the same dyadic profiles, with subpower coefficient cost, still require two small defects; no positive route admission follows.
+2. Analytic Type II: the triangular constants, finite U_N partial summation, both moment errors and median Cauchy step survive independent scrutiny. Independently review the all-n formulas and growing-head quantifiers. The next positive step needs new arithmetic for simultaneous defects AND the entire upper return.
+3. Prime Census: MR3 is independently interval-certified. Stop this declared union test; no range enlargement is requested. A new experiment needs a distinct source-derived inequality or correction design, with the infinite-tail limitation explicit.
+4. Lean Verification: reuse the compiled return and HF1. New PR results are not independently accepted; no automatic source/PR implementation is requested. CP's accepted finite type does not prove an upper supplier.
+5. Owner Payment: PC continuity is preserved without blanket acceptance. Its complete Selberg kernel and #915 first-bad source are not equated with the present residual. Retain all actual-prime restoration obligations.
+6. Finite Wheel: PP continuity and its original double-centered kernel are preserved at pending independent-review scope. The n-head inverse theorem does not transfer to Xi or its strict-history grade without an exact bridge.
+
+These are report handoffs, not agent launches or promises of background execution.
+
+### N. First Independently Missing Mathematical Ingredient
+
+For this prescribed mixing mechanism, establish from genuine arithmetic ONE common unbounded sequence of legal heads and controlled mixing coefficients on which the COMPLETE energy is subpower, or at the actual h>0 has exponent kappa(h)<2h. PR.5 is a new necessary test on that proposed sequence, not its construction. Even obtaining the simultaneous-defect rate would leave the early middle, the signed restoration interaction, every later correction transition, after-support output and infinite tail unpaid.
+
+No source-bound supplier was found. The bounded feasibility audit is complete; the family itself is not refuted. A further positive campaign must name genuinely new arithmetic rather than repackage the required upper norm or repeat a passed finite test.
+
+### O. Next-Run Resume Capsule
+
+```text
+RUN=20261117-referee-2013-EST/PR; PLATFORM_RUN_ID=UNAVAILABLE
+MAIN=13b31c6313e274a073d82a01175201185e59e37e
+REPORT_INTAKE=9b56fe7c3f6b98c2519c7b5d2af98a8044d18792
+CHECKPOINT=88e2e7744c88129535847ad5f604469b988030d2
+CHECKPOINT_BLOB=27a1ffc8c3f701b6719d33f16475590d3b0e859b
+CHECKPOINT_READBACK=EXACT_IMMUTABLE_MATCH
+WATERMARKS=TAIL/PC/CP/PP/MR/IC/HF1; external unchanged
+CONTINUITY=latest-real discovery and relevant post-IC backfill complete
+ROUTE=NYMAN bounded feasibility; other eight toolkits remain distinct
+SOURCE=literal finite residue mix, original two bands per head, all m and cross terms
+CURRENT_P(b)=fixed genuine Mertens bound, 1/2<b<1; paid b=7/8 available
+DIRECT_CONSUMER=common exact-head sequence + complete subpower energy -> RH
+CLOSED_ALTERNATIVE=complete exponent kappa(h)<2h at actual h>0, still OPEN
+VALID_RANGE=H=6*2^j,j>=1,n>=3; b,C fixed before H,n; all a with three equations
+RETURNS=all 2n correction bands, unit, U_N, earlier floor overlaps, full tail
+NEW=PR1 rational affine independence/exact two-head exclusion;
+    PR2 explicit all-n complete inverse bound; PR3 sublog-head consequence
+NEW_STATUS=PAPER_PROOF/SELF_AUDIT/INDEPENDENT_REVIEW_PENDING/NOT_FORMALIZED
+ACCEPTED_UPSTREAM=TAIL.1-4,CP1-3; MR3 independently reproduced
+NOT_REFUTED=union half-profile conjecture; sparse good complete norms
+FIRST_OPEN=independent simultaneous-defect arithmetic and complete upper return
+NEXT=independent PR1-PR3 review or a genuinely changed source mechanism;
+     no head-scan extension, constant optimization, or hidden target premise
+CHECKER=161204 exact/interval assertions PASS; syntax PASS; processes completed
+CI=reused inspected exact-head evidence; no new Lean/workflow execution
+STATUS=ACTIVE_SUPPORT bounded audit completed; no positive route admission
+PUBLICATION=READBACK_PENDING until receipt below
+NO_NEW_GLOBAL_UPPER_GAIN; VERIFIED_ETA=NONE; RH=OPEN
+```
+
+Direct git access failed with CONNECT 403; authorized GitHub connector reads and owned-report writes worked. One initial generic metadata fetch had a transient RemoteProtocolError and the dedicated commit retrieval succeeded. No mathematical conclusion relies on failed transport. Only this owned daily report is changed remotely. No schedule, permission, central policy, other-role report, proof branch or main is changed.
+
+### Closing Authority Refresh
+
+At 2026-11-18 01:33:52 UTC / 2026-11-17 20:33:52 EST, main remained 13b31c6313e274a073d82a01175201185e59e37e; agent-reports was exactly this invocation's verified checkpoint 88e2e7744c88129535847ad5f604469b988030d2. Thus no upstream report change intervened after intake. The complete open/draft PR collection remained empty. The final update preserves the entire earlier daily report and checkpoint as a byte-identical prefix.
+
+
+### Reproducibility Appendix
+
+These are the exact registered and executed texts. Python 3.12 was used; the diagnostic script additionally uses NumPy. Run the certificate without Python's assertion-disabling optimization flag. No upstream checker is imported. Report-only embedding does not create or modify a proof source file.
+
+#### Test Registration
+
+```text
+# PR Test Registration
+
+Recorded before arithmetic execution for 20261117-referee-2013-EST/PR.
+
+Original source: TAIL's exact three-head coefficients at H=6*2^j, j>=1,
+including both correction bands, original Mobius signs, unit moment,
+all quotient returns and all cross terms. Windows are CP's J_i.
+
+Question: does the proposed restoration-free UNION inequality
+E_J >= P_J/2 hold on the smallest fixed admissible dyadic heads?
+Rival mechanism: destructive profile/restoration correlation can exceed
+half the profile energy even after aggregating all three windows.
+
+Declared discovery domain: H=12,24,48,96,192, in this order. Stop widening
+after this list. The first four are existing source heads, used for a new
+union inequality, not claimed held out. H=192 is a fresh mixed tuple.
+Compute E, P, remainder squared and doubled cross terms per window and union;
+verify curvature admissibility. No infinite energy inference is permitted.
+
+Discovery arithmetic is explicitly floating-point, not a certificate.
+A negative margin must be independently recomputed using rational outward
+logarithm enclosures before it is credited as a counterexample. Reproduce
+MR's H=96 middle-window sign with a separate exact interval computation.
+
+Independent structural checks: exact rational profile Gram for H=12,24;
+direct floor enumeration versus divisor-increment implementation; endpoint,
+second-band, U_N and cross-term negative controls. No local Lean.
+
+Original paper investigation: can the same returned profiles give an exact
+geometric inverse bound for more than three heads, with all parameter costs
+and the complete norm consumer explicitly retained?
+
+Proof-led addendum after the declared five-head float test and first interval
+run: derive the n-head bound with explicit D_n and K_(b,n), then check its
+new four-profile geometry at H=12 with exact rational principal minors.
+This is not an enlarged head scan or an upper energy test. Also compare all
+147456 Mobius inputs in the H=96 certificate with independent trial division.
+The earlier certification checked the first 384 independently; the final
+run expands that input verification only, not its arithmetic output domain.
+```
+
+#### Floating Discovery, Not A Certificate
+
+```python
+"""Finite float discovery only; no signs here are rigorous certificates."""
+import json
+import math
+import numpy as np
+
+
+def mobius(n):
+    mu = np.ones(n + 1, dtype=np.int8)
+    prime = np.ones(n + 1, dtype=bool)
+    prime[:2] = False
+    for p in range(2, n + 1):
+        if prime[p]:
+            prime[2 * p::p] = False
+            mu[p::p] *= -1
+            mu[p * p::p * p] = 0
+    mu[0] = 0
+    return mu
+
+
+def run(H):
+    N = H * H
+    top = 16 * N
+    T = 32 * N // 3
+    mu = mobius(top)
+    logs = np.zeros(top + 1)
+    logs[1:] = np.log(np.arange(1, top + 1))
+    residuals, profiles, alphas, deltas, Ls = [], [], [], [], []
+    for i in range(3):
+        B = (2 ** i) * H
+        Ni, K = B * B, B * B // 6
+        ks = np.arange(1, Ni + 1)
+        L = math.log(B)
+        q = math.log(Ni) - logs[np.maximum(B, ks)]
+        u = np.sum(mu[1:Ni + 1] * q / ks)
+        v = 2 * L + np.sum(mu[1:Ni + 1] * q)
+        s1 = np.sum(1.0 / np.arange(3 * K + 1, 4 * K + 1))
+        s2 = np.sum(1.0 / np.arange(5 * K + 1, 6 * K + 1))
+        alpha = (u - s2 * v / K) / (s1 - s2)
+        z = v / K - alpha
+        hs = np.zeros(Ni + 1)
+        hs[3 * K + 1:4 * K + 1] = alpha
+        hs[5 * K + 1:6 * K + 1] = z
+        cs = np.zeros(Ni + 1)
+        cs[2:] = (hs[2:] - mu[2:Ni + 1] * q[1:]) / L
+        assert abs(np.sum(cs[2:]) - 3) < 1e-8
+        assert abs(np.sum(cs[2:] / np.arange(2, Ni + 1)) - 1) < 1e-8
+        increments = np.full(T + 1, -1.0)
+        increments[0] = 1.0
+        pincr = np.zeros(T + 1, dtype=np.int64)
+        for k in range(2, min(Ni, T) + 1):
+            increments[k::k] += cs[k]
+            if 3 * K < k <= 4 * K:
+                pincr[k::k] += 1
+            if 5 * K < k <= 6 * K:
+                pincr[k::k] -= 1
+        residuals.append(np.cumsum(increments))
+        profiles.append(np.cumsum(pincr))
+        alphas.append(alpha)
+        hks = np.arange(1, B + 1)
+        deltas.append(1 - np.sum(mu[1:B + 1] * (L - logs[1:B + 1]) / hks))
+        Ls.append(L)
+    x, y, z = deltas
+    d = x - 2 * y + z
+    a = np.array([y - z, z - x, x - y]) / (math.log(2) * d)
+    w = a * np.array(Ls)
+    r = sum(wi * ri for wi, ri in zip(w, residuals))
+    p = sum(ai * hi * pi for ai, hi, pi in zip(a, alphas, profiles))
+    rows = []
+    for i in range(3):
+        Ni = 4 ** i * N
+        m = np.arange(7 * Ni // 12 + 1, 2 * Ni // 3 + 1)
+        weight = 1.0 / m / (m + 1)
+        E = float(np.sum(r[m] ** 2 * weight))
+        P = float(np.sum(p[m] ** 2 * weight))
+        V = float(np.sum((r[m] - p[m]) ** 2 * weight))
+        X = float(np.sum(2 * p[m] * (r[m] - p[m]) * weight))
+        rows.append(dict(i=i, E=E, P=P, V=V, cross=X, half_margin=E - P / 2))
+    return dict(H=H, deltas=deltas, a=a.tolist(), admissible=bool(abs(d) >= max(map(abs, deltas)) / 512),
+                rows=rows, union_half_margin=sum(q['half_margin'] for q in rows))
+
+
+if __name__ == '__main__':
+    for head in [12, 24, 48, 96, 192]:
+        print(json.dumps(run(head)), flush=True)
+```
+
+#### Exact Rational-Interval Certificate
+
+```python
+"""Independent outward-integer certificate for the declared H=96 window.
+
+No upstream interval implementation or floating-point sign is used.
+"""
+from fractions import Fraction as F
+from math import isqrt
+import json
+
+Q = 10 ** 50
+checks = 0
+
+
+def check(p):
+    global checks
+    assert p
+    checks += 1
+
+
+def rat(x, y=1):
+    return (x * Q // y, -((-x * Q) // y))
+
+
+def add(x, y):
+    return (x[0] + y[0], x[1] + y[1])
+
+
+def neg(x):
+    return (-x[1], -x[0])
+
+
+def sub(x, y):
+    return add(x, neg(y))
+
+
+def mul(x, y):
+    vals = [a * b for a in x for b in y]
+    return (min(vals) // Q, -((-max(vals)) // Q))
+
+
+def scale(x, n, d=1):
+    if n < 0:
+        return neg(scale(x, -n, d))
+    return (x[0] * n // d, -((-x[1] * n) // d))
+
+
+def div(x, y):
+    assert y[0] > 0 or y[1] < 0
+    if y[1] < 0:
+        return div(neg(x), neg(y))
+    vals = [F(a * Q, b) for a in x for b in y]
+    lo, hi = min(vals), max(vals)
+    return (lo.numerator // lo.denominator,
+            -((-hi.numerator) // hi.denominator))
+
+
+def square(x):
+    lo = 0 if x[0] <= 0 <= x[1] else min(x[0] ** 2, x[1] ** 2)
+    hi = max(x[0] ** 2, x[1] ** 2)
+    return (lo // Q, -((-hi) // Q))
+
+
+def total(xs):
+    lo = hi = 0
+    for x in xs:
+        lo += x[0]
+        hi += x[1]
+    return lo, hi
+
+
+def short(x):
+    unit = 10 ** 12
+    lo = x[0] * unit // Q
+    hi = -((-x[1] * unit) // Q)
+    return [str(F(lo, unit)), str(F(hi, unit))]
+
+
+def atanh_log(a, b):
+    z = rat(a - b, a + b)
+    z2 = mul(z, z)
+    power = z
+    out = (0, 0)
+    for j in range(64):
+        out = add(out, scale(power, 2, 2 * j + 1))
+        power = mul(power, z2)
+    # For 0 <= z <= 1/3 the omitted tail is <= 3/(129*3**129).
+    check(3 * Q < 129 * 3 ** 129)
+    return (out[0], out[1] + 1)
+
+
+LOG2 = atanh_log(2, 1)
+
+
+def log_integer(n):
+    e = n.bit_length() - 1
+    return add(scale(LOG2, e), atanh_log(n, 1 << e))
+
+
+def sieve(n):
+    spf = [0] * (n + 1)
+    mu = [0] * (n + 1)
+    mu[1] = 1
+    for p in range(2, n + 1):
+        if not spf[p]:
+            for k in range(p, n + 1, p):
+                if not spf[k]:
+                    spf[k] = p
+    for k in range(2, n + 1):
+        p = spf[k]
+        q = k // p
+        mu[k] = 0 if q % p == 0 else -mu[q]
+    return spf, mu
+
+
+def trial_mu(n):
+    ans = 1
+    for p in range(2, isqrt(n) + 1):
+        if n % p == 0:
+            n //= p
+            if n % p == 0:
+                return 0
+            ans = -ans
+        if p * p > n:
+            break
+    return -ans if n > 1 else ans
+
+
+def profile_gram(H, count=3):
+    N = H * H
+    top = 2 * 4**(count-1) * N // 3
+    ps = []
+    for i in range(count):
+        K = 4 ** i * N // 6
+        inc = [0] * (top + 1)
+        for lo, hi, sign in [(3*K+1, 4*K, 1), (5*K+1, 6*K, -1)]:
+            for k in range(lo, min(hi, top) + 1):
+                for m in range(k, top + 1, k):
+                    inc[m] += sign
+        p = 0
+        for m in range(top + 1):
+            p += inc[m]
+            inc[m] = p
+        ps.append(inc)
+    G = [[F(0) for _ in range(count)] for _ in range(count)]
+    for i in range(count):
+        Ni = 4 ** i * N
+        for m in range(7*Ni//12+1, 2*Ni//3+1):
+            for j in range(count):
+                for k in range(count):
+                    G[j][k] += F(ps[j][m] * ps[k][m], m*(m+1))
+        for m in [7*Ni//12+1, 2*Ni//3]:
+            for j in range(count):
+                K = 4 ** j * N // 6
+                literal = sum(m//k for k in range(3*K+1, 4*K+1))
+                literal -= sum(m//k for k in range(5*K+1, 6*K+1))
+                check(literal == ps[j][m])
+    D = 1728 * sum(13**(2*i) for i in range(count))
+    for i in range(count):
+        G[i][i] -= F(N, D)
+    # Exact symmetric elimination: positive pivots certify all leading minors.
+    for i in range(count):
+        check(G[i][i] > 0)
+        for j in range(i+1,count):
+            for k in range(i+1,count):
+                G[j][k] -= G[j][i] * G[i][k] / G[i][i]
+    return {'H': H, 'profiles': count, 'D': D, 'all_principal_minors_positive': True}
+
+
+def run():
+    H = 96
+    top = 16 * H * H
+    T = 8 * H * H // 3
+    spf, mu = sieve(top)
+    logs = [(0, 0)] * (top + 1)
+    for n in range(2, top + 1):
+        p = spf[n]
+        logs[n] = log_integer(n) if p == n else add(logs[p], logs[n//p])
+    for n in range(1, top + 1):
+        check(mu[n] == trial_mu(n))
+    deltas, alphas, residuals, profiles, cslist = [], [], [], [], []
+    for i in range(3):
+        B, N = 2 ** i * H, 4 ** i * H * H
+        K, L = N // 6, logs[B]
+        q = [(0, 0)] + [sub(logs[N], logs[max(B,k)]) for k in range(1, N+1)]
+        u = total(scale(q[k], mu[k], k) for k in range(1, N+1))
+        v = add(scale(L, 2), total(scale(q[k], mu[k]) for k in range(1, N+1)))
+        s1 = total(rat(1,k) for k in range(3*K+1,4*K+1))
+        s2 = total(rat(1,k) for k in range(5*K+1,6*K+1))
+        alpha = div(sub(u, mul(s2, scale(v,1,K))), sub(s1,s2))
+        z = sub(scale(v,1,K), alpha)
+        cs = [(0,0)] * (N+1)
+        for k in range(2,N+1):
+            h = alpha if 3*K < k <= 4*K else z if 5*K < k <= 6*K else (0,0)
+            cs[k] = div(sub(h,scale(q[k],mu[k])),L)
+        mom1 = total(scale(cs[k],1,k) for k in range(2,N+1))
+        mom0 = total(cs[2:])
+        check(mom1[0] <= Q <= mom1[1])
+        check(mom0[0] <= 3*Q <= mom0[1])
+        lo, hi, pincr = [-Q]*(T+1), [-Q]*(T+1), [0]*(T+1)
+        lo[0] = hi[0] = Q
+        for k in range(2,min(N,T)+1):
+            c = cs[k]
+            s = 1 if 3*K < k <= 4*K else -1 if 5*K < k <= 6*K else 0
+            for m in range(k,T+1,k):
+                lo[m] += c[0]
+                hi[m] += c[1]
+                pincr[m] += s
+        for m in range(1,T+1):
+            lo[m] += lo[m-1]
+            hi[m] += hi[m-1]
+            pincr[m] += pincr[m-1]
+        for m in [1,B,3*K,3*K+1,4*K,N+1]:
+            if m > T:
+                continue
+            literal = sub(rat(1),total(scale(cs[k],m%k,k) for k in range(2,N+1)))
+            check(max(literal[0],lo[m]) <= min(literal[1],hi[m]))
+        delta = sub(rat(1),total(scale(sub(L,logs[k]),mu[k],k) for k in range(1,B+1)))
+        deltas.append(delta)
+        alphas.append(alpha)
+        residuals.append(list(zip(lo,hi)))
+        profiles.append(pincr)
+        cslist.append(cs)
+    x,y,z = deltas
+    d = add(sub(x,scale(y,2)),z)
+    denominator = mul(LOG2,d)
+    a = [div(sub(y,z),denominator),div(sub(z,x),denominator),div(sub(x,y),denominator)]
+    weights = [mul(a[i],logs[2**i*H]) for i in range(3)]
+    dabs = min(abs(d[0]),abs(d[1]))
+    check(d[0] * d[1] > 0 and 512*dabs > max(abs(v) for q in deltas for v in q))
+    E = P = V = cross = (0,0)
+    for m in range(7*(4*H*H)//12+1, 2*(4*H*H)//3+1):
+        r = total(mul(weights[i],residuals[i][m]) for i in range(3))
+        p = total(scale(mul(a[i],alphas[i]),profiles[i][m]) for i in range(3))
+        v = sub(r,p)
+        den = m*(m+1)
+        E = add(E,scale(square(r),1,den))
+        P = add(P,scale(square(p),1,den))
+        V = add(V,scale(square(v),1,den))
+        cross = add(cross,scale(mul(p,v),2,den))
+    difference = sub(E,P)
+    check(difference[1] < 0)
+    check(difference[1]-difference[0] < Q//(10**30))
+    identity = sub(E,add(add(P,V),cross))
+    check(identity[0] <= 0 <= identity[1])
+    # Exact logarithmic prime coefficients prove the finite triangular witnesses.
+    prime_witnesses = []
+    for base in [12,24,48,96,192]:
+        for i in [1,2,3]:
+            B = 2**i * base
+            p = next(p for p in range(B//2+1,B) if spf[p] == p)
+            coefficient = sum(F(mu[k],k) * (1 if k%p == 0 else 0) for k in range(1,B+1))
+            check(coefficient == F(-1,p) and B%p != 0 and p > B//2)
+            prime_witnesses.append([B,p,str(coefficient)])
+    return {'status':'PASS_RATIONAL_INTERVAL','H':H,'window':[21505,24576],
+            'energy':short(E),'profile':short(P),'remainder':short(V),
+            'cross':short(cross),'energy_minus_profile':short(difference),
+            'gram':[profile_gram(12),profile_gram(24),profile_gram(12,4)],
+            'fresh_prime_coefficients':prime_witnesses,'assertions':checks,
+            'lean_certification':False}
+
+
+if __name__ == '__main__':
+    print(json.dumps(run(),sort_keys=True))
+```
+
+#### Final Certificate Output
+
+```json
+{"H": 96, "assertions": 161204, "cross": ["-61453493/250000000000", "-245813971/1000000000000"], "energy": ["21569833/62500000000", "345117329/1000000000000"], "energy_minus_profile": ["-90242707/500000000000", "-180485413/1000000000000"], "fresh_prime_coefficients": [[24, 13, "-1/13"], [48, 29, "-1/29"], [96, 53, "-1/53"], [48, 29, "-1/29"], [96, 53, "-1/53"], [192, 97, "-1/97"], [96, 53, "-1/53"], [192, 97, "-1/97"], [384, 193, "-1/193"], [192, 97, "-1/97"], [384, 193, "-1/193"], [768, 389, "-1/389"], [384, 193, "-1/193"], [768, 389, "-1/389"], [1536, 769, "-1/769"]], "gram": [{"D": 49647168, "H": 12, "all_principal_minors_positive": true, "profiles": 3}, {"D": 49647168, "H": 24, "all_principal_minors_positive": true, "profiles": 3}, {"D": 8390373120, "H": 12, "all_principal_minors_positive": true, "profiles": 4}], "lean_certification": false, "profile": ["525602741/1000000000000", "262801371/500000000000"], "remainder": ["32664279/500000000000", "65328559/1000000000000"], "status": "PASS_RATIONAL_INTERVAL", "window": [21505, 24576]}
+```
