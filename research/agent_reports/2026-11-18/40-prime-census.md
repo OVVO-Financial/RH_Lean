@@ -2091,3 +2091,13 @@ if __name__=='__main__':
 }
 ```
 
+
+## Verified Publication Receipt - PN
+
+Receipt prepared 2026-11-18 08:32:45 UTC. EXECUTION=COMPLETED; PUBLICATION=VERIFIED.
+
+The complete A-N synthesis and reproducibility appendix were published at commit **6fc32ec22fccc4ebe1ba7991184fd062726a4683**, report blob **a43000b8208e3ef2f85f2d43138022d7ce16ffc5**, commit timestamp **2026-11-18T08:32:07Z**. The file was fetched from that immutable commit and matched the entire intended 83,867-character payload exactly; the original checkpoint prefix was preserved. The commit metadata confirms that the ONLY changed path is this owned daily report, with parent 9de0fe8fb59ecddf622c76be966892800ebb95b0.
+
+[Immutable substantive report](https://github.com/OVVO-Financial/RH_Lean/blob/6fc32ec22fccc4ebe1ba7991184fd062726a4683/research/agent_reports/2026-11-18/40-prime-census.md).
+
+Closing mathematical authority remained main 13b31c6313e274a073d82a01175201185e59e37e. Relevant handoff watermarks remain DUAL/AI/PAIR/FD/MR/PR/PROFILE. PN1 is the exact complete-source H=6 counterexample to the separately registered stronger contraction, NOT a refutation of PAIR or the sparse multi-head mechanism. PN-S at H=24 remains unresolved. The 856 validation assertions, both interval precisions, independent whole-prefix calculations, syntax checks and C++ compilation completed successfully. No required process remains running. No new all-scale upper estimate or global exponent was established; RH remains OPEN.
