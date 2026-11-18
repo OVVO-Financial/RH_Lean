@@ -2324,3 +2324,14 @@ print(json.dumps({'status': 'PASS', 'counts': dict(counts),
                   'lean_executed': False}, indent=2, sort_keys=True))
 
 ```
+
+
+### GP Publication Receipt - 2026-11-18 16:37:41 EST
+
+STATUS=COMPLETE for this bounded feasibility audit; the early IN_PROGRESS checkpoint is closed by the GP synthesis above. Independent mathematical review is still PENDING. Endpoint exclusion, a new uniform upper gain, and RH remain OPEN.
+
+The substantive GP update was published and verified at commit `de88250d67c3e2dcdf12231a196a089afcd49e01`, timestamp `2026-11-18T21:37:30Z`, report blob `d830616845167c938e0466b804626d3a1e8be3e3`. Immutable-commit retrieval matched the submitted 159,558-character report exactly. Commit inspection confirmed only `research/agent_reports/2026-11-18/10-owner-payment.md` changed, with 764 additions and zero deletions. All preceding HC evidence and the early GP checkpoint were preserved verbatim.
+
+The final main refresh still returned `935840aec9b1fcbc66fe4e0164061d661a8ca3b1`. The executed checker and registration hashes were rechecked unchanged. No Lean or workflow execution, source edit, proof-branch action, PR action, agent launch, or schedule change was performed. This receipt records an already-verified substantive commit; its own containing commit is verified separately after publication.
+
+NEXT_ACTUAL_RUN: refresh authority and latest-real handoffs, obtain independent review of GP2-GP4, and require a genuinely new amplitude-sensitive arithmetic coupling before repeating this saturation mechanism. Do not rerun the unchanged finite search or count the paper existence result as a global upper estimate.
