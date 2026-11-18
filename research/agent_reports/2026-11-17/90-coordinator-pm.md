@@ -2305,3 +2305,17 @@ for N in [480, 576]:
 
 print(json.dumps({"status": "PASS", "counts": COUNTS, "total_assertions": sum(COUNTS.values()), "cases": results}, indent=2))
 ```
+
+### Verified Publication Receipt - 20261117-coordinator-2309-EST/DUAL
+
+Verified at 2026-11-18 04:35:09 UTC / November 17 23:35:09 EST. The substantive synthesis and complete reproducer were committed to `agent-reports` as [b7acfcbf825e3a4c4b02accfdb998acbc4b26da3](https://github.com/OVVO-Financial/RH_Lean/commit/b7acfcbf825e3a4c4b02accfdb998acbc4b26da3), timestamp 2026-11-18T04:34:53Z, parent 4dd7b290e87337fbca9a583c375cd53d91457c4d, tree a143f86ed9e96e09c31683dd91dfbfe8bf7b5f77.
+
+Both authorized paths were fetched at that immutable commit and compared against the entire intended content. `00-coordinator-am.md` and `90-coordinator-pm.md` share blob **140a5766f7ef077deb87b6374209090bc418def7**, each 174,230 characters before this receipt. They are byte-identical, retain the complete 117,896-character checkpoint prefix, and therefore preserve all preceding INV/TAIL evidence and revision history. GitHub's commit record confirms exactly those two files changed, each with 683 additions and zero deletions. The branch reference was separately read back at the substantive commit. No other report, policy, source or branch was modified.
+
+Validation covered the A-J structure, balanced new Markdown fences, exact source/blob references, fixed-before-scale constants, the distinction between the new W and prior J observation sets, complete restoration, n-dependent costs, test registration/checker hashes, and separate mathematical/CI/publication statuses. All 12,802 exact assertions and syntax validation had passed; no computation remains running. No local Lean or new hosted verification run occurred.
+
+**THIS_EXECUTION_STATUS=COMPLETED; SUBSTANTIVE_PUBLICATION=VERIFIED.** This marks only the actual 23:09 EST invocation, not an additional daily launch or the completion of the mathematical objective. DUAL1-DUAL3 remain PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED; DUAL3 retains its explicit fixed-Mertens premise. DUAL4 is finite evidence, DUAL5 an exact mode diagnostic. PR1's scoped independent paper acceptance and the existing PR #1145 exact-head Lean certification are distinct facts. #1145 remains REVIEW_READY and UNMERGED under the human merge gate.
+
+Next actual run: refresh live authority and handoffs; independently review the uniform all-head theorem, then pursue at most one bounded audit of the complete paired arithmetic remainder. No automatic larger census, head-count optimization, speculative formalization, new schedule or agent launch follows from this report. If no independent arithmetic restriction survives, park the extension and seek a genuinely different mechanism.
+
+NO_NEW_GLOBAL_UPPER_GAIN; VERIFIED_ETA=NONE; RH=OPEN. This receipt cites the already verified substantive commit, not its own future commit as evidence for itself.
