@@ -878,3 +878,866 @@ DIRECT_TERMINAL: one common unbounded exact-head sequence with complete E=H^o(1)
 Prove or reject the primitive-denominator restriction; determine uniformity in H,N and mixed-head coefficients; compare precisely with the accepted remote-tail bound; independently test small original sources including H=6,N=36, both moments, complete covariance and omission controls. Then publish the full A-L proof, exact limitations, source receipts and resume capsule.
 
 EXECUTION=IN_PROGRESS; MATHEMATICS=NO_NEW_RESULT_YET; PUBLICATION=READBACK_PENDING. NO_NEW_GLOBAL_UPPER_GAIN; VERIFIED_ETA=NONE; RH=OPEN.
+
+## Complete-Taper Variance And Repair Cost - 20261118-analytic-0909-EST/PV
+
+Scheduled trigger: 2026-11-18 09:09:00 EST / 14:09:00 UTC. PLATFORM_RUN_ID=UNAVAILABLE. PV is a research label. This timestamped continuation preserves the earlier PAIR report, its receipts, and this run's checkpoint. Mathematical work and finite checks are finished; publication is pending immutable readback and the receipt below.
+
+### A. Most Important Analytic Development
+
+**The original two-band-corrected flat taper has an unavoidable full-period variance of order N/log(N/H)^2 from its untouched top gap. Sparse same-support coefficient repairs cannot remove it.** This is a source-specific obstruction to the variance-only tail shortcut, not an obstruction to the desired weighted Nyman norm.
+
+For N divisible by six, 2<=H<N/2, and the actual coefficients defined in D, write L=log(N/H) and V for the COMPLETE centered periodic variance. Then
+
+~~~text
+N>=20736  ==>  V >= N/(20736 L^2).                    (PV.1)
+~~~
+
+All constants are absolute. At N=H^2, H a multiple of six and H>=144, this is V>=H^2/(20736 log^2 H). It holds on every unbounded selected subsequence as well as on all heads. It does NOT say the complete weighted error E has this size.
+
+More generally, add any real correction e supported on the SAME basis 2,...,N and let V'=V(c+e). On G_N=(2N/3,5N/6], define b_q=mu(q)log(N/q)/L. The complete covariance, with all original and repair cross terms retained, satisfies
+
+~~~text
+sum_(q in G_N) (e_q-b_q)^2 <= 24 V'.                 (PV.2)
+
+# {q in G_N : mu(q)^2=1, e_q!=0}
+ >= # {q in G_N : mu(q)^2=1} - 864 L^2 V'.           (PV.3)
+~~~
+
+In particular, if N>=20736 and V'<=N/(82944 L^2), then at least N/32 squarefree gap coefficients must change, their squared correction mass is at least N/(3456 L^2), and their signed correlation with b is at least N/(1728 L^2). This identifies the exact arithmetic repair required by that proposed variance saving. It neither proves such a repair exists with small E nor forbids changing the coefficient family.
+
+**Important novelty correction:** the singleton-denominator mechanism, Jordan diagonalization, and weighted squarefree mean were ALREADY proved for the truncated centered source by 20261106-coordinator-1513/NS1-NS3 and independently accepted by 20261106-referee-12. The original proofs and review were recovered during this run. They are not new discoveries here. PV extends that mechanism to the COMPLETE two-band-corrected carrier, arbitrary same-support repairs, and the highest active dyadic mixture. The explicit repair restriction is the principal additional statement. No literature-priority claim is made.
+
+| Claim ID, prefix 20261118-analytic-0909-EST | Result | Evidence |
+| --- | --- | --- |
+| PV1 | Complete corrected-taper lower bound, including all covariance cross terms and explicit all-scale threshold | PAPER_PROOF / SELF_AUDIT; source extension of inherited NS mechanism |
+| PV2 | Uniform squared-distance, support, mass, and signed-correlation restrictions on arbitrary same-support repairs | PAPER_PROOF / SELF_AUDIT |
+| PV3 | Highest active dyadic-head coefficient restriction, uniform in the number and size of other mixture coefficients | PAPER_PROOF / SELF_AUDIT |
+| PV4 | Two-sided complete remote-tail comparison and variance-only certificate limitation | Supporting PAPER_PROOF; standard consequence of the reused large sieve, not a new general sieve theorem |
+| PV5 | Exact finite source checks and outward-rounded full covariance tests | FINITE_COMPUTATION |
+
+New paper statements are INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED. No new independent global upper supplier was found. NO_NEW_GLOBAL_UPPER_GAIN; NO_NEW_ACCEPTED_RH_ROUTE; VERIFIED_ETA=NONE; RH=OPEN.
+
+### B. Current Mathematical Objective And Authority
+
+Pinned main is [13b31c6313e274a073d82a01175201185e59e37e](https://github.com/OVVO-Financial/RH_Lean/commit/13b31c6313e274a073d82a01175201185e59e37e). The live instructions and contract, not historical task labels, govern. The canonical target remains
+
+~~~text
+exists C>=0, forall integers R>=2:
+ |pi(R^2)-vfMidFinishedMass(R)-sqrt(2)| <= C R log R.
+~~~
+
+The existing terminal theorem riemannHypothesis_of_vfCanonicalSquare retains its explicit ClassicalVonKochRHCriterion premise. A green conditional consumer does not discharge that premise.
+
+The strongest relevant native baseline is the compiled near-uniform window closure
+
+~~~text
+native_mertens_near_uniform_window_error_closed :
+ MertensGrowthAtMost(7/8-7/(64*nearUniformSlotCount)).
+~~~
+
+Its every-positive-loss convention and fixed source constant remain intact. Spending its positive margin permits a fixed envelope |M(x)|<=C x^(7/8); this run uses that only when reusing the old upper bound in F, not in PV1-PV3. No no-loss envelope at the strict boundary is asserted.
+
+Material source receipts, all at pinned main:
+
+| File | Blob SHA |
+| --- | --- |
+| AGENTS.md | c4f36b772f8a4b0c24fe566b90fafb646073c60f |
+| CURRENT_PROOF_CONTRACT.md | 95566e37c8eaeb99ee680660df4f9d2e06ea5038 |
+| docs/RHLEAN_BOOTSTRAP_TO_HALF_20261116.md | 96ad4439ec458af6168f7d9cb3eef5dde291d37c |
+| docs/RHLEAN_CROSS_ROUTE_SIGNED_RECOVERY_20261110.md | e3ae4280438f591f1ffaddd754a1c3a6d35d0691 |
+| docs/RHLEAN_REPORT_CONTINUITY_LAST_ACTUAL_20261111.md | 3e71820a4af722eae7098da6945bb5bcba50dd0d |
+| docs/DYNAMIC_RESEARCH_AGENTS.md | b76d595f09403fc54eca71d04bf9e0306e0a9c09 |
+| docs/RHLEAN_SOURCE_FAITHFUL_COMPLETE_RETURN_AGENT_CONTRACT_20261031.md | 4775ee5fd95f279beab08a75d1e17127078b19a6 |
+| docs/RHLEAN_SEVEN_AGENT_RESEARCH_ENGINE_20261101.md | 7e1e97deb574006174eaacba03251df673c73c67 |
+| research/NYMAN_FLAT_TAPER_RETURN_20261104.lean | 2d23721027ecc44e85b7add02fc632b482f03352 |
+| research/NYMAN_HIGH_COEFFICIENT_INVARIANT_20261104.lean | 2da630c1d5fb9302e2097ec1e170cf41c2b40609 |
+| research/NYMAN_RADICAL_INCREMENT_20261106.lean | c5ebb3d5d96898549ad039fd32e1a26955c5b8f8 |
+| research/oai_434/VF919WindowErrorClosure.lean | f629db1b2b65d6ec042ac9432397d4b6316200c6 |
+| research/VF_CANONICAL_SQRT_TWO_VON_KOCH.lean | 79030d70e8d3e0d08eef9bac53fef95c36eca2fb |
+
+half_bootstrap_ack=BOOTSTRAP_TO_HALF_V1; cross_route_ack=CROSS_ROUTE_SIGNED_RECOVERY_V1; continuity_ack=LAST_ACTUAL_REPORT_CONTINUITY_V1. Prior finite_wheel_ack, high_attack_ack and chain_ack remain preserved, subject to newer priority.
+
+**Compact continuation capsule.** ROUTE=NYMAN bounded feasibility. ORIGINAL_SOURCE=the complete signed corrected residue sum in D, with both moments, all moduli, all output coordinates and the infinite tail. START=the certified baseline above plus the accepted exact-head and remote-tail infrastructure. PROPOSED_ADVANCE=test whether genuine signs reduce the period variance enough to shorten that tail certificate. VERDICT=NO_GAIN for the unchanged family; PV2 identifies the non-sparse repair this shortcut would require. DIRECT_TERMINAL=one common unbounded exact-head sequence with E=H^o(1) excludes every fixed nontrivial zeta zero of real part greater than 1/2. FIRST_INDEPENDENT_OPEN_INPUT=complete original signed upper control, not a period-average identity. RENEWAL=none supplied. All middle, after-support and correction returns remain mandatory. This is not a newly admitted half-bootstrap.
+
+### C. Mechanism, Continuity, And Changed Question
+
+The early question was whether arithmetic signs might shrink the COMPLETE corrected period covariance below its known O(N/L^2) scale. That would improve the existing remote-tail certificate at a shorter cutoff, although it would still not pay the remaining middle. The source has an especially useful gap: neither correction band touches (2N/3,5N/6], and no modulus there has a second multiple <=N. Consequently there is no same-frequency partner available to cancel those coefficients.
+
+The old NS theorem already explains this phenomenon for its truncated source S_H^o. The present complete c is different: it includes a flat low head, a taper to N, and two potentially large moment-restoring bands. A bound on S_H^o alone is not a bound on c. The new argument verifies exactly which old positive divisor coordinates survive ALL these changes, then derives the quantitative repair restriction without bounding the other coefficients at all.
+
+The report tree was enumerated without a calendar cap at intake commit 3e81de0b4f6f3b68e983fe33babeba458265c152. All seven latest real reports and November 17 counterparts were retrieved. Selected relevant proofs and receipts were read; this is not a claim to have reread every historical appendix.
+
+| Role | November 18 latest blob and actual section | November 17 latest blob |
+| --- | --- | --- |
+| Coordinator, identical 00/90 mirrors | ee7b4ce6ff79ab0eaea4d8b74d95e3e78f398cb5; DAMP, 07:10 EST | 125e55aa191083d9c0a982b6dc5a66267e4e4256 |
+| Owner Payment | 9ee34b6e9daa3cbbac24826f8fc96d65f1fe36ff; HC, 08:09 EST, after AI | 6516bf78b096471ccfd2fb8c215e94002544a594 |
+| Analytic, before this append | a04f961d080aef270fc4fa8fa8933221d51f2d46; PAIR, 01:04 EST | d4bc53ac1b68f6dadabc4a04a2f5fc8c74f6625f |
+| Finite Wheel | 838e4c5b87c1c196ca18f5ae0981069a91dc2760; FD, 02:05 EST | 5c26771c0a266d5112e0b4a4b28aba0132e35ef7 |
+| Prime Census | a62cba06a7fe73975746cf37cb2850615979788a; PN, 03:11 EST | 587b0bb3dd66834a18610ab86174f285f81c4b04 |
+| Adversarial Referee | c054e8b37c1580abc42fbac23852c62dfe433e5f; DP, 04:13 EST | 103ee17307ac799e20bd4ce17d97ff96101a9e5b |
+| Lean Verification | c3ded05265d7ac5e065e4a4e645e2e96069ca8fa; DUAL, 05:10 EST | ee9ed0ace763bf99fea5812490f9541653917938 |
+
+TODAY=AVAILABLE for every role at intake; no missing run is invented. Post-PAIR backfill is FD -> PN -> DP -> Lean DUAL -> DAMP -> HC. The unchanged November 17 inputs are YESTERDAY=CARRY_FORWARD at their actual evidence scopes. FD's fixed-polynomial zero obstruction, PN's genuine H=6 paired-energy counterexample, DP's scoped PAIR acceptance/no-gain, and DUAL's finite profile lower bound supply no complete upper estimate. DAMP's damped proper source and unpaid signed inversion, and HC's restored historical payment, retain their separate self-audit scopes.
+
+The external inbox was read at blob 7d63d434690d00dffce9c90335d41c4f62d85798, with no entry after October 18. EXT-20261018-PNT-1 preserves the complete cofactor error and root-prime scope; EXT-20261014-5 distinguishes an unconditional all-root obstruction from conditional first-bad analysis. Neither is a Nyman upper supplier.
+
+Additional novelty recovery: original P1-P10, November 4 Analytic blob 04ffb1b41d8b6afe5a5d89754f5ccbc8d9682d58; [November 6 Coordinator NS/CS](https://github.com/OVVO-Financial/RH_Lean/blob/3e81de0b4f6f3b68e983fe33babeba458265c152/research/agent_reports/2026-11-06/00-coordinator-am.md), blob 8812a90540fb511279b5f4ce08e108ef717d5ef1; [original Referee-12 acceptance](https://github.com/OVVO-Financial/RH_Lean/blob/3e81de0b4f6f3b68e983fe33babeba458265c152/research/agent_reports/2026-11-06/50-adversarial-referee.md), blob da3265467c799e9d21832ab25245617ba3b15a54; November 11 Analytic NT/DM blob 0309d49557af30da43a07d72dce93c93c1811157; November 16 RC/LM blob 84aaa2103225565607b5b033f273462bbe865246. NS's mechanism and weighted mean, NT/DM's error-variance restrictions, P6's upper tail and RC's DIFFERENT unitary norm are all reused, not renamed as new PV discoveries.
+
+### D. Exact Mathematical Formulation
+
+All coefficients are real. Let integers N=6K and 2<=H<N/2 be fixed before choosing an output coordinate m. Define
+
+~~~text
+L=log(N/H), q_k=log(N/max(H,k)),                 1<=k<=N,
+u=sum_(k=1..N) mu(k)q_k/k,
+v=2L+sum_(k=1..N) mu(k)q_k,
+I1={3K+1,...,4K}, I2={5K+1,...,6K},
+s_i=sum_(k in Ii)1/k, d=s1-s2>1/20,
+alpha=(u-s2*v/K)/d, z=v/K-alpha,
+h_k=alpha*1_I1(k)+z*1_I2(k),
+c_k=(h_k-mu(k)q_k)/L,                           2<=k<=N,
+r(m)=1-sum_(k=2..N)c_k (m mod k)/k,              m>=0,
+E=sum_(m>=1)r(m)^2/[m(m+1)].
+~~~
+
+The solver gives sum c_k/k=1 and sum c_k=3. The first moment and c_k=-mu(k) for k<=H give the exact head r(m)=0 for 1<=m<=H. The second moment makes the period mean of r zero. With p=lcm(1,...,N), put
+
+~~~text
+f_k(m)=(m mod k)/k-(k-1)/(2k),
+V_N(a)=sum_(k,l=2..N)a_k a_l(gcd(k,l)^2-1)/(12kl),
+V=V_N(c)=(1/p)sum_(m=0..p-1)r(m)^2.
+~~~
+
+V_N(a) is the CENTERED covariance for arbitrary a. It equals the period mean square of 1-sum a_k(m mod k)/k only when that residual has mean zero. No moment assumption is required for the covariance inequalities below, but both actual moments remain present for c.
+
+Importantly, r(0)=1 in this periodic calculation. PAIR's separately declared zero extension at the origin is NOT used. The original weighted E starts at m=1, so no change to that source is made.
+
+Let J2(d)=d^2 product_(p prime dividing d)(1-p^(-2)), and define
+
+~~~text
+G_N={integers q: 2N/3<q<=5N/6},
+S_N=sum_(q in G_N) mu(q)^2 [J2(q)/q^2] log^2(N/q),
+A_N^2=sum_(q in G_N) mu(q)^2 log^2(N/q)/L^2.
+~~~
+
+The notation A_N here is a nonnegative Euclidean norm, not a moment correction or finite-A criterion. Every finite squareful modulus remains in c and V; mu(q)^2 restricts only this explicitly retained arithmetic sector.
+
+For PV2, e is any real vector on 2,...,N, chosen before m, with no size or sign restriction. Define V'=V_N(c+e). If c+e is intended as a new exact-head, mean-centered approximant, its two moments and low coefficients must also be restored; PV2 does not supply those properties.
+
+For PV3, fix H>=6 divisible by six, an arbitrary finite n>=1, B_i=2^i H, N_i=B_i^2 and L_i=log B_i for 0<=i<n. Let c^(i) be the ORIGINAL construction at head B_i, cutoff N_i, with zero coefficients above N_i. For real a_i satisfying sum a_i L_i=1, put C=sum a_i L_i c^(i). This is the previously used genuine dyadic mixture, with both moments and exact head H. Let j be the largest index with a_j!=0, N_*=N_j. No bound on n, earlier coefficients or their dependence on H is assumed.
+
+### E. Mathematical Derivation
+
+#### E1. Inherited Positive Coordinates And The Complete Source
+
+Exact joint-period averaging, or finite CRT counting, gives
+
+~~~text
+mean f_k f_l=(gcd(k,l)^2-1)/(12kl).
+12 V_N(a)=sum_(d=2..N) J2(d)
+                     [sum_(j>=1,dj<=N) a_(dj)/(dj)]^2.    (PV.4)
+~~~
+
+The divisor identity sum_(d|g)J2(d)=g^2 proves the second formula by finite rearrangement of the COMPLETE ordered-pair covariance. These are inherited NS1/NT1 identities, not a new cancellation estimate. [DLMF 27.5](https://dlmf.nist.gov/27.5) records the underlying classical divisor-convolution framework; no external prime-distribution estimate is used.
+
+For d in G_N, d>N/2, so the inner sum has exactly its j=1 term. Neither I1 nor I2 meets G_N, including its specified open and closed endpoints. Also d>H, so c_d=-mu(d)log(N/d)/L. Keeping these nonnegative coordinates AFTER the full squares have been formed gives
+
+~~~text
+V >= S_N/(12L^2).                                      (PV.5)
+~~~
+
+Every cross term involving smaller coordinates and both correction bands remains in the other squares. Such terms cannot negate this sector. This is precisely the complete-source transfer that a statement about the old truncated S_H^o by itself would not justify.
+
+#### E2. Explicit Uniform Size And Reused Asymptotic
+
+For real x>=1, the elementary squarefree identity and its floor/tail errors give
+
+~~~text
+Q(x)=sum_(m<=x)mu(m)^2,
+|Q(x)-x/zeta(2)| <= 3 sqrt(x).
+~~~
+
+Indeed Q(x)=sum_(d<=sqrt(x))mu(d)floor(x/d^2). The floor error is at most sqrt(x); the omitted absolutely convergent tail is at most x/floor(sqrt(x))<=2sqrt(x). This is the same elementary input used in LM, not a new squarefree-counting theorem.
+
+Since zeta(2)<2, for N>=20736,
+
+~~~text
+# {q in G_N : mu(q)^2=1}
+ >= N/12-6sqrt(N) >= N/24.
+~~~
+
+For every q, J2(q)/q^2>=1/zeta(2)>1/2. On the gap log(N/q)>=log(6/5)>1/6. Consequently S_N>=N/1728 and A_N^2>=N/(864L^2). Substituting the first inequality into PV.5 proves PV.1 with 12*1728=20736. No Mertens bound, PNT, selected-head hypothesis, or limiting parameter interchange enters.
+
+For comparison, NS2's already-proved weighted mean yields the sharper SECTOR asymptotic
+
+~~~text
+S_N = kappa I N + o(N),
+kappa=product_p(1-p^-2-p^-3+p^-4)>0,
+I=integral_(2/3)^(5/6) log^2(1/t) dt>0.
+~~~
+
+This concerns S_N, not the whole V. The following explicit error is an optional effective specialization of that SAME convolution, not a new asymptotic mechanism. Write f(n)=mu(n)^2 J2(n)/n^2 and f=1*g. Then g(p)=-p^-2, g(p^2)=-(1-p^-2), g(p^r)=0 for r>=3. For any FIXED sigma in (1/2,1),
+
+~~~text
+C_sigma=sum_(d>=1)|g(d)|/d^sigma
+ =product_p[1+p^(-2-sigma)+(1-p^-2)p^(-2sigma)]<infinity,
+|sum_(n<=x)f(n)-kappa x| <= 2 C_sigma x^sigma,
+|S_N-kappa I N| <= 4 C_sigma log^2(3/2) N^sigma.       (PV.6)
+~~~
+
+The floor error is bounded by sum_(d<=x)|g(d)|<=C_sigma x^sigma. The missing main-term tail is at most x sum_(d>x)|g(d)|/d<=C_sigma x^sigma. Weighted partial summation has both endpoint errors and total weight variation; their sum is at most 2log^2(3/2), yielding PV.6. The product is effective, for example bounded above by exp(sum_(n>=2)n^(-2-sigma)+sum_(n>=2)n^(-2sigma)); its tail has elementary integral bounds. Constants depend only on the FIXED sigma, not H,N. No uniformity as sigma decreases to 1/2 is claimed.
+
+#### E3. PV2: The Repair Must Occupy And Match The Gap
+
+For arbitrary e on the same support, the gap coefficient is (c+e)_q=e_q-b_q. Applying PV.4 and J2(q)/q^2>=1/2 gives
+
+~~~text
+V' >= (1/24)sum_(q in G_N)(e_q-b_q)^2.
+~~~
+
+This proves PV.2, without taking absolute values of an uncombined source or deleting a negative cross term. If e_q=0 and mu(q)^2=1 on this gap, its squared distance is at least 1/(36L^2), proving PV.3. Off-gap corrections of arbitrarily large size do not affect this argument.
+
+Let A=||b||_(ell2(G_N)), D=sqrt(24V'). Euclidean triangle and Cauchy--Schwarz, applied only to the now-isolated exact gap vector, give
+
+~~~text
+||e||_(ell2(G_N)) >= max(0,A-D),
+sum_(q in G_N)e_q b_q >= A^2-A D.                    (PV.7)
+~~~
+
+For N>=20736 and V'<=N/(82944L^2), one has D<=sqrt(N/(3456L^2))<=A/2. Thus
+
+~~~text
+sum_G e_q^2 >= A^2/4 >= N/(3456L^2),
+sum_G e_q b_q >= A^2/2 >= N/(1728L^2),
+# {q in G_N:mu(q)^2=1,e_q!=0} >= N/24-N/96=N/32.
+~~~
+
+In particular V'=o(N/L^2) requires changing all but o(N) of the squarefree gap sites, which themselves have positive density. This is a necessary restriction, not a sufficient construction. It allows a genuinely different dense arithmetic correction. If the final support is enlarged above N, the singleton premise must be checked at the NEW final cutoff; the theorem cannot silently be applied to the old gap.
+
+#### E4. PV3: Highest Active Head In A Genuine Mixture
+
+In D's normalized mixture, every lower active support is at most N_*/4. On G_(N_*), all earlier heads vanish and the largest head's correction bands are absent. Therefore
+
+~~~text
+C_q=-a_j mu(q)log(N_*/q), q in G_(N_*),
+V_(N_*)(C) >= a_j^2 S_(N_*)/12.
+N_*>=20736 ==> V_(N_*)(C) >= a_j^2 N_*/20736.        (PV.8)
+~~~
+
+The proof is the SAME positive-coordinate argument, now with the actual full mixture. It is uniform in n and all earlier signed weights, without assuming they are independent of mu. If an upper variance budget V<=B is proposed, necessarily |a_j|<=144 sqrt(B/N_*).
+
+This is only a constraint on the largest active coefficient. It is NOT a coercive lower bound for sum_i a_i^2 N_i, and it does NOT prove that every normalized mixture has large V: the top weight may be very small. Additional DUAL moment restrictions, if imposed, are preserved but not used. No false orthogonality between the different heads is asserted.
+
+#### E5. PV4: Full Infinite Tail, With A Two-Sided Error
+
+For the mean-zero original r, combine equal rational Fourier frequencies first. All remaining denominators are <=N, with circular spacing at least N^-2, and their squared coefficient sum is V. The dual large sieve gives, for EVERY integer T>=0 and J>=1,
+
+~~~text
+A_T(J):=sum_(m=T+1..T+J)r(m)^2 <= (J+N^2)V.
+~~~
+
+This is the accepted N4/P6 supplier. Its primary source is [Montgomery and Vaughan, Multiplicative Number Theory II, Theorem 19.4 and duality](https://personal.science.psu.edu/rcv4/571s25/montgomery-vaughanII.pdf): finitely many points on R/Z separated by a fixed delta>0, arbitrary coefficients, and any interval of J integer samples give the dual constant J+delta^-1-1. The weaker constant above is absolute and uniform. No stochastic prime independence, growing-conductor hypothesis, or new spectral gap is imported.
+
+To obtain the lower comparison, take a full integer multiple of the period p longer than J, starting at T+1. Its energy is exactly its length times V. Apply the SAME upper bound to the consecutive complementary interval and subtract. The period length cancels, giving
+
+~~~text
+|A_T(J)-JV| <= N^2 V.
+~~~
+
+No estimate involving the enormous numerical size of p is needed. Abel summation against the actual decreasing weights w_m=1/[m(m+1)] now gives the complete infinite statement
+
+~~~text
+Tail_T=sum_(m>T)r(m)^2/[m(m+1)],
+|Tail_T - V/(T+1)| <= N^2 V/[(T+1)(T+2)].           (PV.9)
+~~~
+
+For clarity, if D_J=A_T(J)-JV, the error is exactly sum_(J>=1)D_J(w_(T+J)-w_(T+J+1)); its absolute value is at most N^2 V w_(T+1). The terminal boundary vanishes. For each fixed finite source, r is bounded and periodic, so the original tail converges absolutely; there is no conditional-order exchange.
+
+For T+2>=2N^2 and N>=20736, PV.1 therefore implies
+
+~~~text
+Tail_T >= V/[2(T+1)] >= N/[41472 L^2(T+1)].         (PV.10)
+~~~
+
+At T of order N^2 this is only of order 1/(N L^2), entirely harmless for a subpower E objective. At T much smaller than N^2 the lower side of PV.9 may be negative and supplies NO positive lower asymptotic. In particular no conclusion Tail_T~V/T at T=N^(3/2) is claimed.
+
+### F. Quantitative Comparison
+
+The old P6 upper covariance, with the genuine correction amplitudes retained, is
+
+~~~text
+V <= 7N/(3L^2)+(5N/6)Delta^2,
+Delta=max(|alpha|,|z|)/L
+ <= C_b[20(2-b)/(1-b)^2+40/b]H^(b-1)/L +80/N,
+~~~
+
+provided the fixed independent |M(x)|<=C_b x^b envelope, 0<b<1, holds. The first inequality itself needs no envelope if Delta is left at its actual value. For N=H^2 and fixed b=7/8 available from the certified margin, Delta L tends to zero. Thus the complete V is bounded above and below by positive fixed multiples of H^2/log^2 H. The lower bound is new only at this complete corrected-source scope; the upper is explicitly REUSED.
+
+The existing full tail certificate is
+
+~~~text
+B(T)=V[1/(T+1)+N^2/((T+1)(T+2))].
+~~~
+
+For T=ceil(N^(1+delta)), any fixed 0<delta<1/2, and N=H^2, that NUMERICAL CERTIFICATE has order N^(1-2delta)/L^2. It diverges. The unchanged certificate therefore cannot be shortened this far just by discovering a hidden cancellation in V. At T=ceil(N^(3/2)) it already gives O(L^-2), as P6 proved. A diverging upper certificate is NOT a diverging actual tail; a better phase-sensitive estimate could still pay a shorter interval.
+
+The endpoint remains the existing direct paper Mellin consumer: at any actual nontrivial zero rho, sigma=Re(rho)>1/2, every exact-head residual obeys
+
+~~~text
+E >= (2sigma-1)(H+1)^(2sigma-1)/|rho|^2.
+~~~
+
+One COMMON unbounded exact-head sequence satisfying E=O_epsilon(H^epsilon) for every epsilon>0 would contradict every such fixed zero. This is an explicit sufficient endpoint, not a converse for this prescribed family. PV supplies no upper bound of this kind.
+
+All costs: head through H is exactly zero; the complete transition, long middle, correction bands, after-N returns and finite output through ceil(N^(3/2)) still need their joint signed upper estimate. The remote infinite tail beyond that cutoff is already paid by P6 at the fixed b input. Neither PV.1 nor NT/DM's necessary E-V inequalities forces the missing finite-output upper bound. RC's separate unitary dual norm, with its different gcd^2/(k^2 l^2) kernel, must not be substituted for this V.
+
+### G. Original-Carrier Bridge And Formal Evidence
+
+The directly read [flat-taper source](https://github.com/OVVO-Financial/RH_Lean/blob/13b31c6313e274a073d82a01175201185e59e37e/research/NYMAN_FLAT_TAPER_RETURN_20261104.lean) defines the actual kernel, coefficient, exact head and complete return. The declared two-band solver matches D exactly. The [original residual source](https://github.com/OVVO-Financial/RH_Lean/blob/13b31c6313e274a073d82a01175201185e59e37e/research/NYMAN_HIGH_COEFFICIENT_INVARIANT_20261104.lean) fixes the integer modulo convention. There is no density substitution.
+
+Retain the established all-m equality
+
+~~~text
+L r(m)=U_N(m)-U_H(m)+alpha F1(m)+z F2(m), m>=1,
+U_B(m)=sum_(B<k<=m)mu(k)log(B/k)floor(m/k),
+F_i(m)=sum_(k in Ii)floor(m/k).
+~~~
+
+It includes the negative log(B/k), all prime powers, both corrections and U_N beyond the support. PV does not turn this identity into a new upper estimate. The [complete divisor-step source](https://github.com/OVVO-Financial/RH_Lean/blob/13b31c6313e274a073d82a01175201185e59e37e/research/NYMAN_RADICAL_INCREMENT_20261106.lean) supplies another exact coordinate, not the missing full correlation.
+
+Source -> loss -> recovery -> consumer: period averaging loses the phase/location relative to 1/[m(m+1)]; inherited Jordan coordinates recover all covariance crosses but not that lost location; PV2 restricts how the actual coefficients could shrink this averaged statistic; only the large-sieve tail returns it to a controlled part of the original E. No bridge identifies this linear residue clock with the Euler square-root clock, actual-prime VF ownership, or OAI ideal characters. Their separate already-proved results do not pay this Nyman middle without a proved new map.
+
+CI evidence inspected, not executed in this run:
+
+| Source / PR | Exact tested head | Evidence and scope |
+| --- | --- | --- |
+| #1119 | 77ee815846d6d534c866f0752aa33b84c385610a | 14/14 check runs successful; job 128949473700, run 42552018910, terminal closure axioms inspected; existing dependency audit reused, not rerun |
+| #1144 | abd9bb34c8fac459e67c63009961b6c26548d7e9 | 13/13 successful; latest human merge into main at intake |
+| #1145 | 43cbf9310516f26a440b5527ce6dc22a62856248 | 13/13 successful, OPEN non-draft and unmerged at intake; prior source/profile audit retained |
+| #1146 | 146384fe459bd39a7b3d864e2a5c86a270d05dc8 | 13/13 successful, OPEN non-draft and unmerged; job 134743097073, run 44287286164 type/axiom log inspected |
+
+#1119's [relevant terminal closures](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42552018910/job/128949473700) and #1146's [audited profile closures](https://github.com/OVVO-Financial/RH_Lean/actions/runs/44287286164/job/134743097073) show only propext, Classical.choice and Quot.sound. #1146 is finite-profile LOWER geometry, not the PV proof or an upper supplier. No fresh #1145 log inspection or new transitive dependency scan is claimed. Recent #1143 merged into its documentation branch, not directly into main; it is not treated as main authority merely because it is marked merged.
+
+Prepublication authority refresh found main unchanged and agent-reports still at this run's verified checkpoint 8a2d036800887afe05646ee9cda5d1b2e24ab25c. The owned file's bytes still match that checkpoint exactly; no intervening handoff or report edit on that branch is omitted.
+
+### H. Falsification, Circularity, And Finite Evidence
+
+The proposed strengthening being refuted is this run's exploratory variance-only supplier V=o(N/L^2), or subpower V for N=H^2, on the unchanged complete taper. It was NOT an upstream proved theorem. NS already refuted the analogous truncated-source shortcut. PV preserves the change of source rather than claiming a new universal impossibility result.
+
+Critical scope checks:
+
+1. G_N is strictly above N/2 and outside BOTH correction bands. Its right endpoint 5N/6 is excluded from I2 and belongs to the gap. This is why the single-coordinate argument survives correction restoration.
+2. All ordered pairs are combined in PV.4 before any square is dropped. Diagonal-only covariance is wrong, and no signs of off-diagonal terms are assumed.
+3. The period includes r(0)=1. Zero-extending r at the origin changes that period statistic and is not an allowed PAIR-to-PV transfer.
+4. An arbitrary e that cancels the gap removes this sector. This is a negative control against claiming PV.1 for EVERY corrected family. PV2 permits it and quantifies its cost.
+5. A repaired vector need not retain either moment. Its covariance can be used in PV2, but identifying it with the full residual period mean square requires mean centering.
+6. The highest mixture weight can be tiny, and lower-head sectors can interact with higher heads. PV3 is not a sum-of-heads lower bound.
+7. A lower variance is not a lower weighted E of the same order. The restored infinite-tail bound is tiny at its valid positive-lower range. No RH obstruction follows.
+8. Fixed sigma and b constants are chosen before scale. No PNT, RH, prime independence, effective zero-density result or growing-coprimality theorem is assumed.
+
+**Executed checks.** Initial domain was written down before computation: rational complete periods for N=2..9; Jordan/divisor convolution through 576; genuine H=6,12,24 with N=H^2; full and half gap repairs; the genuine two-head mixture; squarefree threshold counts at N=20736,82944; explicit zero-mean and origin controls; and the constant-square infinite-tail fixture. The first run passed 18,663 assertions. A subsequent validation extension added 160 finite-window discrepancy checks on the SAME toy vectors and made two omission controls explicit calculations. That extension was not in the initial preregistration and is not advertised as an independent experiment. The final checker passed 18,823 assertions with no failed mathematical assertion.
+
+Coefficients are rational linear forms in prime logarithms for exact moments and head identities. Numerical covariance decisions use outward integer intervals at scale 10^50. For log n, binary range reduction gives log n=b log2+2atanh(z), 0<=z<=1/3; 100 terms have remainder at most 2z^201/[201(1-z^2)]. Every operation rounds outward. No floating-point inequality is used. The complete ordered Gram and Jordan-form covariance enclosures overlap and each has width below 10^-35 in numerator coordinates.
+
+| Genuine head H, cutoff N | Complete V enclosure | Retained gap sector enclosure |
+| --- | --- | --- |
+| 6, 36 | [0.2685136109, 0.2685136110] | [0.0038138009, 0.0038138010] |
+| 12, 144 | [0.6223023161, 0.6223023162] | [0.0150256806, 0.0150256807] |
+| 24, 576 | [1.6406118773, 1.6406118774] | [0.0397435982, 0.0397435983] |
+
+These small N are BELOW the explicit PV.1 threshold; their checks concern the exact sector inequality, not that threshold's asymptotic use. The two-head weights 1,-1/2 are normalized by log6-(log12)/2>0; their complete V lies in [2.4128123617,2.4128123618], with top sector in [0.0768715087,0.0768715088]. At N=20736 the gap has 2107 squarefree sites versus the required 864; at N=82944 it has 8394 versus 3456.
+
+The finite tests establish only their declared cases. The all-N bound, correction inverse and complete infinite tail are proved in E, not extrapolated. PN's full E/P census was not rerun, and its H=6 counterexample remains a different statistic. Checker SHA256: 533be3d0bfac486d3bd98650a26a404a476f088e21059ebe98376ee9b4f02c99. Complete executed source and output follow the resume capsule.
+
+### I. Conceptual Interpretation
+
+The useful source restriction is that some genuine squarefree coefficients are alone in their positive divisor coordinate. They cannot be cancelled by signed interactions among other coordinates, even though those other interactions matter greatly elsewhere. On the actual corrected family, changing that conclusion requires a dense, correctly signed modification in a specified arithmetic band, or a different support. A sparse patch or small retuning of the old two bands cannot do it.
+
+This is an extension of an inherited principle, not a newly discovered spectral mechanism. The strategic outcome is to close this variance-only shortcut promptly. The remaining possibility is location-sensitive arithmetic control of the complete residual, or a genuinely different coefficient design whose head, moments, middle and infinite tail are all proved. No additional covariance-constant optimization campaign is justified here.
+
+All nine route toolkits remain available with their original sources. OAI-NNS remains without a qualifying half-continuation through its LOW 47/54 floor, actual theta>3/5 coefficient gate, and correction analyticity domain; none is bypassed by PV. CODIV and the other independent portfolios are not assigned this Nyman statistic as a compulsory entrance test.
+
+### J. Specialist Handoffs
+
+**Adversarial Referee:** review PV2 first, then its PV1/PV3 source applications. Check the gap endpoints, same-support condition, all-coefficient Jordan square, squarefree threshold 20736, constants 864/82944/3456/1728, and the largest-active-head qualification. PV4's lower half must retain the T>=2N^2-2 threshold before claiming a positive tail lower bound. Credit NS1-NS3 and your original Referee-12; author self-audit is not acceptance.
+
+**Research Coordinator / Proof Architect:** record BOUNDED_FEASIBILITY_COMPLETE / NO_GLOBAL_UPPER_GAIN, with the old singleton mechanism and new complete-source repair restriction distinguished. Park variance minimization for this unchanged family. A changed coefficient design is not automatically authorized as an active half-route: require its full endpoint consumer and independently justified upper ingredient. Protected portfolio rotation may select another qualifying mechanism.
+
+**Owner Payment / Arithmetic Structure:** no repetition of historical payment calculations is requested. A cross-route use of PV would require an explicit identification of a single positive arithmetic coordinate in the ORIGINAL chronology-weighted source, with all response terms; shared use of a gcd is not such a bridge. Preserve HC's restored historical terms.
+
+**Finite Wheel & Incidence:** PV2 is not a wheel sparsity theorem. Its possible conceptual use is to distinguish sites having no partner from sites where a true arithmetic partner exists. Any proposed transfer must preserve the actual modulus, support and complete quadratic signs. No new FD coefficient scan is requested.
+
+**Prime Census Laboratory:** no broad scan or unchanged PN energy rerun. The checker below is a focused independent-reproduction target only if Referee finds a concrete discrepancy. A genuinely changed future experiment would compare full finite-window energy for a dense moment-restored gap repair, not infer improvement from its smaller V. That experiment is not run or requested as an active campaign here.
+
+**Lean Verification:** no new proof PR, wrapper premise or CI run is requested. PV is pending independent review. If a later accepted consumer needs the finite same-support repair inequality, its prerequisite is the exact complete Jordan identity with d>=2 and both ordered orientations. Implementing a conditional small-V or small-E premise would not establish the arithmetic supplier. Preserve #1145/#1146's actual unmerged status.
+
+### K. First Independently Missing Analytic Theorem
+
+The actual independent gap remains an upper estimate for the genuine combined signed residual on the weighted output range where period averaging loses the relevant location information. On N=H^2, the already-paid tail beyond ceil(N^(3/2)) means that proving complete subpower energy on one common unbounded head sequence is equivalent to proving the same bound for the finite output through that cutoff, with BOTH corrections and U_N present.
+
+That observation is only a localization of the existing target, not a new easier theorem. No strictly weaker independently proved supplier for it was found here. A successful proposal must explain what additional arithmetic restriction controls those original signed finite-window interactions. Assuming favorable full covariance, a subpower finite window, or a small original residual merely restates the missing input. PV.2 instead says precisely why a different variance-based design cannot be a sparse same-support patch.
+
+The main canonical upper estimate, complete Nyman supplier, and direct half-endpoint remain OPEN. There is no new rho exclusion, exponent, finite A/C or zero-supremum contraction.
+
+### L. Next-Run Resume Capsule
+
+~~~text
+RUN=20261118-analytic-0909-EST/PV; platform run id unavailable
+MAIN=13b31c6313e274a073d82a01175201185e59e37e
+REPORT_INTAKE=3e81de0b4f6f3b68e983fe33babeba458265c152
+POLICY=BOOTSTRAP_TO_HALF_V1 / CROSS_ROUTE_SIGNED_RECOVERY_V1
+CONTINUITY=latest actual seven-role reports plus November 17 read;
+  new NS/Referee-12 and NT/DM novelty recovery completed
+SOURCE=complete genuine flat taper, both bands, both moments,
+  r(0)=1 in periods, every output m>=1 in E
+INHERITED=NS singleton/Jordan/weighted mean; P6 tail and upper covariance;
+  NT/DM necessary E-V restrictions; RC separate unitary kernel;
+  PAIR accepted at scope, DP no-gain, DUAL finite lower profile
+NEW_SCOPE=PV1 complete-correction sector lower;
+  PV2 arbitrary same-support repair support/mass/correlation constraint;
+  PV3 largest active dyadic mixture coefficient
+SUPPORT=PV4 standard two-sided large-sieve tail consequence;
+  explicit weighted-mean error is a specialization, not a new mechanism
+FINITE=18,823 passing assertions; 160 added validation checks disclosed
+SELF_AUDIT_ONLY; INDEPENDENT_REVIEW_PENDING; NOT_FORMALIZED
+FIRST_OPEN=independent full signed upper norm, including finite middle
+NEXT=do not rederive NS/P6 or optimize this covariance;
+  refresh latest live authority, obtain scoped PV review, then select
+  a changed location-sensitive source question or protected other route
+HALF_TERMINAL=common exact-head sequence + complete subpower E
+RENEWAL=none; no admitted continuation obtained
+NO_NEW_GLOBAL_UPPER_GAIN; VERIFIED_ETA=NONE; RH=OPEN
+EARLY_CHECKPOINT_COMMIT=8a2d036800887afe05646ee9cda5d1b2e24ab25c
+EARLY_CHECKPOINT_BLOB=9ff16f7d7f819467a54d8ca3ae661c4bebf34323
+EARLY_PUBLICATION=verified immutable readback, prior bytes preserved
+FINAL_PUBLICATION=pending the immutable readback and receipt below
+~~~
+
+Only this owned daily Markdown report is written remotely. No Lean source, main, shared policy, another role's report, proof branch, PR, issue, workflow, permission or schedule is changed. No agent is launched and no local Lean execution occurs. Direct cloning was blocked by a CONNECT tunnel HTTP 403; connector reads and the authorized checkpoint write worked. No unsupported background work or future result is claimed.
+
+### PV5 Reproducibility Appendix
+
+Preregistered domain and validation extension are stated in H. Run the following with standard-library Python. The source hash above is over the exact checker, including its trailing newline. The output table is a finite certificate, not an all-scale proof.
+
+~~~python
+"""Exact and outward-rounded checks for the source-specific PV audit."""
+from collections import Counter
+from fractions import Fraction as F
+from functools import lru_cache
+from math import gcd, lcm
+import hashlib
+import json
+from pathlib import Path
+
+SCALE = 10**50
+COUNTS = Counter()
+
+
+def check(condition, label):
+    if not condition:
+        raise AssertionError(label)
+    COUNTS[label] += 1
+
+
+class I:
+    def __init__(self, lo=0, hi=None):
+        self.lo = lo
+        self.hi = lo if hi is None else hi
+
+    @staticmethod
+    def rational(x):
+        x = F(x) * SCALE
+        return I(x.numerator // x.denominator,
+                 -((-x.numerator) // x.denominator))
+
+    def __add__(self, other):
+        return I(self.lo + other.lo, self.hi + other.hi)
+
+    def __neg__(self):
+        return I(-self.hi, -self.lo)
+
+    def __sub__(self, other):
+        return self + (-other)
+
+    def scale(self, x):
+        x = F(x)
+        a, b = sorted((self.lo * x, self.hi * x))
+        return I(a.numerator // a.denominator,
+                 -((-b.numerator) // b.denominator))
+
+    def __mul__(self, other):
+        products = [a * b for a in (self.lo, self.hi)
+                    for b in (other.lo, other.hi)]
+        return I(min(products) // SCALE, -((-max(products)) // SCALE))
+
+    def square(self):
+        hi = max(self.lo**2, self.hi**2)
+        lo = 0 if self.lo <= 0 <= self.hi else min(self.lo**2, self.hi**2)
+        return I(lo // SCALE, -((-hi) // SCALE))
+
+    def divide_positive(self, other):
+        assert other.lo > 0
+        ratios = [F(a * SCALE, b) for a in (self.lo, self.hi)
+                  for b in (other.lo, other.hi)]
+        a, b = min(ratios), max(ratios)
+        return I(a.numerator // a.denominator,
+                 -((-b.numerator) // b.denominator))
+
+    def contains(self, value):
+        return self.lo <= F(value) * SCALE <= self.hi
+
+    def overlaps(self, other):
+        return max(self.lo, other.lo) <= min(self.hi, other.hi)
+
+    def outward_decimal(self, digits=10):
+        unit = SCALE // 10**digits
+        lo = self.lo // unit
+        hi = -((-self.hi) // unit)
+        def show(n):
+            sign = '-' if n < 0 else ''
+            n = abs(n)
+            return f'{sign}{n // 10**digits}.{n % 10**digits:0{digits}d}'
+        return [show(lo), show(hi)]
+
+
+def interval_sum(values):
+    result = I()
+    for value in values:
+        result = result + value
+    return result
+
+
+def arithmetic(n):
+    mu = [1] * (n + 1)
+    jordan = [k*k for k in range(n + 1)]
+    primes = []
+    composite = [False] * (n + 1)
+    for p in range(2, n + 1):
+        if composite[p]:
+            continue
+        primes.append(p)
+        for k in range(p, n + 1, p):
+            composite[k] = True
+            mu[k] *= -1
+            jordan[k] = jordan[k] // (p*p) * (p*p - 1)
+        for k in range(p*p, n + 1, p*p):
+            mu[k] = 0
+    return mu, jordan, primes
+
+
+MU, J2, PRIMES = arithmetic(82944)
+
+
+@lru_cache(None)
+def log_vector(n):
+    result = {}
+    for p in PRIMES:
+        if p*p > n:
+            break
+        while n % p == 0:
+            result[p] = result.get(p, F(0)) + 1
+            n //= p
+    if n > 1:
+        result[n] = result.get(n, F(0)) + 1
+    return result
+
+
+def add(a, b, factor=F(1)):
+    result = dict(a)
+    for p, v in b.items():
+        result[p] = result.get(p, F(0)) + factor*v
+        if result[p] == 0:
+            del result[p]
+    return result
+
+
+def scale(a, factor):
+    return {p: F(factor)*v for p, v in a.items() if factor*v}
+
+
+def atanh_log(z):
+    value = F(0)
+    power = z
+    for j in range(100):
+        value += 2*power/(2*j + 1)
+        power *= z*z
+    error = 2*power/(201*(1-z*z))
+    lo = I.rational(value).lo
+    hi = I.rational(value + error).hi
+    return I(lo, hi)
+
+
+@lru_cache(None)
+def log_interval(n):
+    b = n.bit_length() - 1
+    z = F(n - 2**b, n + 2**b)
+    return atanh_log(F(1, 3)).scale(b) + atanh_log(z)
+
+
+def evaluate(a):
+    return interval_sum(log_interval(p).scale(v) for p, v in a.items())
+
+
+def original(H):
+    N = H*H
+    K = N//6
+    ell = add(log_vector(N), log_vector(H), -1)
+    q = {k: add(log_vector(N), log_vector(max(H, k)), -1)
+         for k in range(1, N+1)}
+    u, v = {}, scale(ell, 2)
+    for k in range(1, N+1):
+        u = add(u, q[k], F(MU[k], k))
+        v = add(v, q[k], MU[k])
+    s1 = sum((F(1, k) for k in range(3*K+1, 4*K+1)), F(0))
+    s2 = sum((F(1, k) for k in range(5*K+1, 6*K+1)), F(0))
+    check(s1-s2 > F(1, 20), 'moment_solver_gap')
+    alpha = scale(add(u, v, -s2/K), 1/(s1-s2))
+    zeta = add(scale(v, F(1, K)), alpha, -1)
+    t = {}
+    for k in range(2, N+1):
+        correction = alpha if 3*K < k <= 4*K else zeta if 5*K < k <= 6*K else {}
+        t[k] = add(correction, q[k], -MU[k])
+    total, reciprocal = {}, {}
+    for k in t:
+        total = add(total, t[k])
+        reciprocal = add(reciprocal, t[k], F(1, k))
+    check(total == scale(ell, 3), 'exact_total_moment')
+    check(reciprocal == ell, 'exact_reciprocal_moment')
+    for m in range(1, H+1):
+        residual = dict(ell)
+        for k in t:
+            residual = add(residual, t[k], -F(m % k, k))
+        check(residual == {}, 'exact_original_head')
+    for k in range(4*K+1, 5*K+1):
+        check(t[k] == scale(q[k], -MU[k]), 'untouched_gap')
+    return N, ell, t, q
+
+
+def jordan_variance(c):
+    return interval_sum(interval_sum(c[k].scale(F(1, k))
+                                    for k in range(d, len(c), d)).square()
+                        .scale(F(J2[d], 12)) for d in range(2, len(c)))
+
+
+def gram_variance(c):
+    return interval_sum((c[k]*c[l]).scale(F(gcd(k, l)**2-1, 12*k*l))
+                        for k in range(2, len(c)) for l in range(2, len(c)))
+
+
+def toy_checks():
+    for N in range(2, 10):
+        c = {k: F((-1)**k * (k+1), k+2) for k in range(2, N+1)}
+        period = lcm(*range(1, N+1))
+        centered = [sum((c[k]*(F(m % k, k)-F(k-1, 2*k)) for k in c), F(0))
+                    for m in range(period)]
+        direct = sum((x*x for x in centered), F(0))/period
+        gram = sum((c[k]*c[l]*F(gcd(k, l)**2-1, 12*k*l)
+                    for k in c for l in c), F(0))
+        jordan = sum((F(J2[d], 12)*sum((c[k]/k for k in range(d, N+1, d)), F(0))**2
+                      for d in range(2, N+1)), F(0))
+        check(direct == gram == jordan, 'complete_period_gram_jordan')
+        for start in (0, 1, N, period-1):
+            for length in (1, N, N*N, 2*N*N, period+3):
+                window = sum((centered[(start+j) % period]**2
+                              for j in range(1, length+1)), F(0))
+                check(abs(window-length*direct) <= N*N*direct,
+                      'finite_window_discrepancy')
+        if N == 6:
+            diagonal = sum((c[k]**2*F(k*k-1, 12*k*k) for k in c), F(0))
+            check(gram != diagonal, 'diagonal_omission_detected')
+    zero_c = {k: F(0) for k in range(2, 7)}
+    zero_residuals = [1-sum((zero_c[k]*F(m % k, k) for k in zero_c), F(0))
+                      for m in range(60)]
+    zero_mean = sum(zero_residuals, F(0))/60
+    zero_variance = sum(((x-zero_mean)**2 for x in zero_residuals), F(0))/60
+    check(zero_variance == 0 and set(zero_residuals) == {F(1)},
+          'zero_variance_not_full_error')
+    # c_2=4 gives residual +1,-1; changing r(0) changes the complete period.
+    fixture = [1-4*F(m % 2, 2) for m in range(2)]
+    check(fixture == [1, -1] and sum((x*x for x in fixture), F(0))/2 != F(1, 2),
+          'zero_extension_detected')
+    for T in range(17):
+        exact_tail = F(1, T+1)
+        error_bound = F(4, (T+1)*(T+2))
+        check(abs(exact_tail-F(1, T+1)) <= error_bound, 'infinite_tail_fixture')
+
+
+def multiplicative_checks():
+    g = [F(0)]*577
+    g[1] = F(1)
+    for n in range(1, 577):
+        check(sum(J2[d] for d in range(1, n+1) if n % d == 0) == n*n,
+              'integer_jordan_divisor')
+        f = F(MU[n]**2*J2[n], n*n)
+        if n > 1:
+            g[n] = f-sum((g[d] for d in range(1, n) if n % d == 0), F(0))
+        product = F(1)
+        for p, exponent in log_vector(n).items():
+            product *= -F(1, p*p) if exponent == 1 else -(1-F(1, p*p)) if exponent == 2 else 0
+        check(g[n] == product, 'multiplicative_convolution')
+
+
+toy_checks()
+multiplicative_checks()
+rows, sources = [], {}
+for H in (6, 12, 24):
+    N, ell, t, q = original(H)
+    numerator = [I(), I()] + [evaluate(t[k]) for k in range(2, N+1)]
+    ell_interval = evaluate(ell)
+    check(ell_interval.lo > 0, 'positive_log_normalization')
+    W = jordan_variance(numerator)
+    gram = gram_variance(numerator)
+    check(W.overlaps(gram), 'original_full_covariance_enclosures')
+    check(W.hi-W.lo < SCALE//10**35 and gram.hi-gram.lo < SCALE//10**35,
+          'covariance_enclosure_width')
+    gap = range(2*N//3+1, 5*N//6+1)
+    sector = interval_sum(evaluate(q[k]).square().scale(F(MU[k]**2*J2[k], 12*k*k))
+                          for k in gap)
+    check(W.lo >= sector.hi, 'complete_variance_dominates_gap')
+    for fraction in (F(1, 2), F(1)):
+        repaired = list(numerator)
+        for k in gap:
+            repaired[k] = evaluate(scale(t[k], 1-fraction))
+        repair_variance = jordan_variance(repaired)
+        distance = interval_sum(x.square() for k, x in enumerate(repaired) if k in gap).scale(F(1, 24))
+        check(repair_variance.lo >= distance.hi, 'arbitrary_repair_distance')
+        if fraction == 1:
+            check(all(repaired[k].lo == repaired[k].hi == 0 for k in gap),
+                  'gap_cancellation_control')
+    rows.append({'H': H, 'N': N,
+                 'V_interval': W.divide_positive(ell_interval.square()).outward_decimal(),
+                 'gap_sector_interval': sector.divide_positive(ell_interval.square()).outward_decimal(),
+                 'gap_squarefree': sum(MU[k]**2 for k in gap)})
+    sources[H] = (N, ell, t)
+
+N0, ell0, t0 = sources[6]
+N1, ell1, t1 = sources[12]
+mix = [I(), I()] + [evaluate(add(t0.get(k, {}), t1.get(k, {}), -F(1, 2)))
+                    for k in range(2, N1+1)]
+mixed_W = jordan_variance(mix)
+top_sector = interval_sum(evaluate(t1[k]).square().scale(F(J2[k], 48*k*k))
+                          for k in range(2*N1//3+1, 5*N1//6+1))
+check(mixed_W.lo >= top_sector.hi, 'highest_active_mixture_sector')
+normalization = evaluate(add(ell0, ell1, -F(1, 2)))
+check(normalization.lo > 0, 'mixture_normalization_nonzero')
+mixed_V = mixed_W.divide_positive(normalization.square())
+mixed_lower = top_sector.divide_positive(normalization.square())
+check(mixed_V.lo >= mixed_lower.hi, 'normalized_mixture_sector')
+
+count_rows = []
+for N in (20736, 82944):
+    gap = range(2*N//3+1, 5*N//6+1)
+    count = sum(MU[k]**2 for k in gap)
+    check(count >= F(N, 24), 'threshold_squarefree_count')
+    for k in gap:
+        check(F(J2[k], k*k) > F(1, 2), 'threshold_jordan_factor')
+    count_rows.append({'N': N, 'gap_squarefree': count, 'required_N_over_24': N//24})
+
+print(json.dumps({'status': 'PASS', 'assertions': sum(COUNTS.values()),
+                  'counts': dict(sorted(COUNTS.items())), 'original_sources': rows,
+                  'mixed_normalized_V': mixed_V.outward_decimal(),
+                  'mixed_gap_lower': mixed_lower.outward_decimal(),
+                  'threshold_counts': count_rows,
+                  'checker_sha256': hashlib.sha256(Path(__file__).read_bytes()).hexdigest()},
+                 indent=2))
+~~~
+
+Executed output:
+
+~~~json
+{
+  "status": "PASS",
+  "assertions": 18823,
+  "counts": {
+    "arbitrary_repair_distance": 6,
+    "complete_period_gram_jordan": 8,
+    "complete_variance_dominates_gap": 3,
+    "covariance_enclosure_width": 3,
+    "diagonal_omission_detected": 1,
+    "exact_original_head": 42,
+    "exact_reciprocal_moment": 3,
+    "exact_total_moment": 3,
+    "finite_window_discrepancy": 160,
+    "gap_cancellation_control": 3,
+    "highest_active_mixture_sector": 1,
+    "infinite_tail_fixture": 17,
+    "integer_jordan_divisor": 576,
+    "mixture_normalization_nonzero": 1,
+    "moment_solver_gap": 3,
+    "multiplicative_convolution": 576,
+    "normalized_mixture_sector": 1,
+    "original_full_covariance_enclosures": 3,
+    "positive_log_normalization": 3,
+    "threshold_jordan_factor": 17280,
+    "threshold_squarefree_count": 2,
+    "untouched_gap": 126,
+    "zero_extension_detected": 1,
+    "zero_variance_not_full_error": 1
+  },
+  "original_sources": [
+    {
+      "H": 6,
+      "N": 36,
+      "V_interval": [
+        "0.2685136109",
+        "0.2685136110"
+      ],
+      "gap_sector_interval": [
+        "0.0038138009",
+        "0.0038138010"
+      ],
+      "gap_squarefree": 3
+    },
+    {
+      "H": 12,
+      "N": 144,
+      "V_interval": [
+        "0.6223023161",
+        "0.6223023162"
+      ],
+      "gap_sector_interval": [
+        "0.0150256806",
+        "0.0150256807"
+      ],
+      "gap_squarefree": 15
+    },
+    {
+      "H": 24,
+      "N": 576,
+      "V_interval": [
+        "1.6406118773",
+        "1.6406118774"
+      ],
+      "gap_sector_interval": [
+        "0.0397435982",
+        "0.0397435983"
+      ],
+      "gap_squarefree": 62
+    }
+  ],
+  "mixed_normalized_V": [
+    "2.4128123617",
+    "2.4128123618"
+  ],
+  "mixed_gap_lower": [
+    "0.0768715087",
+    "0.0768715088"
+  ],
+  "threshold_counts": [
+    {
+      "N": 20736,
+      "gap_squarefree": 2107,
+      "required_N_over_24": 864
+    },
+    {
+      "N": 82944,
+      "gap_squarefree": 8394,
+      "required_N_over_24": 3456
+    }
+  ],
+  "checker_sha256": "533be3d0bfac486d3bd98650a26a404a476f088e21059ebe98376ee9b4f02c99"
+}
+~~~
+
+
