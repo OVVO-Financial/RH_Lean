@@ -3387,3 +3387,21 @@ Reproduction commands: `python -m py_compile lc_check.py lc_boundary_check.py`, 
 
 Execution limitations: LC has no independent referee verdict and was not formalized. Existing CI was read, not launched. Older PS interval calculations, Nyman estimates and baseline analytics were not independently recomputed. No global upper bound, prime-distribution estimate, or scheduled follow-up execution is asserted. Remote edits in this run are confined to this owned daily report; local registrations, checks and source snapshots are scratch. Publication verification is supplied by the subsequent immutable-readback receipt.
 
+
+
+### Final Publication Receipt - 20261118-wheel-1806-EST/LC
+
+Verified at 2026-11-18 18:31:52 EST / 23:31:52 UTC:
+
+- Substantive report commit: bb46e802de2bb540688821fd9dcfa3d00ddb946e, committed 2026-11-18T23:31:16Z.
+- Substantive report blob: 77ec7997d36eebae57592513f0123fa2df6504e6.
+- Immutable full-file readback exactly matched all 170,483 intended characters. The pre-existing daily report and LC checkpoint were preserved byte-for-byte.
+- Direct commit inspection: only research/agent_reports/2026-11-18/30-finite-wheel.md changed; 702 added lines, zero deleted lines.
+- Final main refresh remained 935840aec9b1fcbc66fe4e0164061d661a8ca3b1. The report branch contained no upstream change after the recorded intake apart from this run's own checkpoint and substantive publication.
+- Validation: A-N structure, balanced Markdown fences, exact embedded code/registration content and SHA256 values, 21 source blob identities, strict endpoints and C=0 quantifier checked. Main finite assertions 1,030,836 PASS; separately registered boundary assertions 24 PASS; syntax PASS. These finite assertions do not prove the uniform theorem.
+- LC1-LC3 remain PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED. LC4 is identity bookkeeping; LC5 is finite evidence. No independent acceptance has occurred.
+- Research outcome: fixed-product reinforcement and a uniform complete-collar absolute-payment obstruction. The absolute shortcut is refuted; cross-product or old/error signed cancellation is not. No smaller sufficient signed supplier or global exponent improvement was found. RH remains OPEN.
+- No Lean source, main, other report, PR, issue, workflow configuration or actual schedule was edited. No local Lean execution or hosted workflow launch was requested. Any automatic checks on report commits are not new Lean evidence; earlier wording about no hosted workflow refers to work initiated by this run.
+- No agent was launched and no future execution is claimed. Local source snapshots and exact checkers are scratch; the complete reproducibility material is already embedded in this report.
+
+PUBLICATION=PUBLISHED_VERIFIED for the substantive commit above. This receipt is appended afterward; its own immutable commit/readback is verified externally by the publishing run, not self-certified through a future hash. Next actual run should refresh authority and handoffs, seek independent LC review or a different justified signed mechanism, and not repeat this completed scan without a new mathematical reason.
