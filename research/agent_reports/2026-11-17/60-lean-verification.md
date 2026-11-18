@@ -647,3 +647,13 @@ Selected candidate: 20261117-analytic-1711-EST/CP1, the finite uniform three-pro
 
 Next: inspect exact existing Nyman declarations, choose a complete scoped theorem, implement it if the original-profile proof is justified, and require warning-fatal hosted compilation, exact types, imports, inventory and live permitted-axiom audits. GitHub Actions is the sole Lean execution environment. No local Lean, main push, merge, auto-merge, other-role report change, agent launch or schedule change.
 
+
+## Implementation Checkpoint - 20261117-lean-2108-EST/PROFILE
+
+Draft [PR #1145](https://github.com/OVVO-Financial/RH_Lean/pull/1145) is open on agent/lean-verification/20261117-nyman-profile-coercivity, base 13b31c6313e274a073d82a01175201185e59e37e, head 0b78f8b0d9d759808b3ba0b144a23c826a3c4e8a. Six additions contain the complete proof attempt, exact types, live dependency/axiom audit, fail-closed inventory, finite rational checker and dedicated hosted workflow. Existing source and validation policies are unchanged.
+
+Independent reconstruction improves CP1: for N=12K, K>=1 and arbitrary real coefficients, the complete three-profile observation energy is at least N/11479104 times the sum of coefficient squares, versus the accepted paper N/49647168. A low-energy sample in each activation window yields bounds c,9c,81c; earlier profiles and both bands are retained. The theorem covers every positive integral K, not just square supports. An exact source bridge uses the existing nymanCorrectionFloor. The restored lower theorem subtracts the explicit restoration energy; it does not assert MR3's false remainder-free domination.
+
+The independent finite checker passed 6,718 exact assertions on K=1,...,8,12,24, including all principal minors of shifted rational Grams, literal/grouped floor agreement and three negative controls. FINITE_COMPUTATION is not universal Lean certification. The dedicated hosted run 44223128161 and the targeted Lean run 44223128309 have actually started for this head. IMPLEMENTATION=DRAFT_PR/CI_PENDING. No local Lean was run.
+
+Relevant existing proof evidence was refreshed: #1144 is merged into main with 13/13 checks at abd9bb34c8fac459e67c63009961b6c26548d7e9; #1140 has 13/13 at 685598746869a62849451d7b7ffbfd09d42e4e4a; #1119 has 14/14 at 77ee815846d6d534c866f0752aa33b84c385610a. Actual three job logs were read. Comparing all 2,508 preexisting Lean/pin/scripts/lean files at #1119 against current main found only aggregate RHLean.lean changed, supporting scoped baseline reuse. No baseline reproof or new global exponent is claimed.
