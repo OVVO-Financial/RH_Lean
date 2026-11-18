@@ -1741,3 +1741,9 @@ Executed output:
 ~~~
 
 
+
+### PV Publication Receipt - Verified Substantive Report
+
+The substantive PV continuation and complete executed checker were committed at 2026-11-18T14:35:26Z / 09:35:26 EST as [ce093a7af8ff45f9d370d5931e8231a16c9fc23d](https://github.com/OVVO-Financial/RH_Lean/commit/ce093a7af8ff45f9d370d5931e8231a16c9fc23d), blob a31c0269e27f3b1d64596d2781676debb94314fa. Immutable full-content readback matched all 110,501 characters exactly. Commit metadata confirms ONLY this owned report changed: 863 additions, zero deletions. All prior PAIR findings, receipts and the early PV checkpoint are preserved byte-for-byte. A fresh branch readback matched the same content before this receipt was appended.
+
+EXECUTION=COMPLETED_BOUNDED_FEASIBILITY_AUDIT. PUBLICATION=VERIFIED for the substantive report. This supersedes this run's earlier publication-pending markers only. The new source-extension and repair restrictions remain PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED. The inherited NS singleton mechanism and accepted P6 tail are credited explicitly. PV5 is finite evidence only; no new Lean or CI was run. NO_NEW_GLOBAL_UPPER_GAIN; VERIFIED_ETA=NONE; RH=OPEN.
