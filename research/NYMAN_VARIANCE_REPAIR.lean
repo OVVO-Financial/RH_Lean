@@ -43,7 +43,6 @@ private theorem jordan_prime_power (p i : Nat) (hp : p.Prime) :
   rw [show 2*(i+1) = (i+1)*2 by omega, show 2*i = i*2 by omega]
   simp only [pow_mul, pow_succ]
   field_simp [hp0]
-  ring
 
 /-- The exact arithmetic divisor identity, with the unit divisor retained. -/
 theorem nyman_jordan_two_divisor_sum (n : Nat) :
@@ -123,7 +122,7 @@ private theorem jordan_nonneg (n : Nat) : 0 <= nymanJordanTwo n :=
   (by positivity : (0 : Real) <= (n : Real)^2/2).trans (nyman_jordan_two_lower n)
 
 private theorem kernel_divisor_sum (N k l : Nat)
-    (hk : k ∈ Icc 2 N) (hl : l ∈ Icc 2 N) :
+    (hk : k ∈ Icc 2 N) :
     ∑ d ∈ Icc 2 N, (if d ∣ k ∧ d ∣ l then nymanJordanTwo d else 0) =
       (Nat.gcd k l : Real)^2 - 1 := by
   have hk0 : 0 < k := by have := (Finset.mem_Icc.mp hk).1; omega
@@ -160,8 +159,8 @@ theorem nyman_covariance_divisor_squares (N : Nat) (a : Nat -> Real) :
   · apply Finset.sum_congr rfl
     intro k hk
     apply Finset.sum_congr rfl
-    intro l hl
-    rw [← kernel_divisor_sum N k l hk hl, Finset.mul_sum]
+    intro l _
+    rw [← kernel_divisor_sum N k l hk, Finset.mul_sum]
     apply Finset.sum_congr rfl
     intro d _
     by_cases hdk : d ∣ k <;> by_cases hdl : d ∣ l <;> simp [hdk, hdl]
