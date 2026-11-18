@@ -2685,3 +2685,705 @@ preregistered exact check, and append A-M findings with an immutable
 publication receipt. No unchanged wheel scan, local Lean run, source edit,
 proof branch/PR, other-role edit, merge, agent launch or schedule change is
 authorized or planned.
+
+
+## The First Lift-Error Interval Has No Cancellation At A Fixed Product
+### Final Research Synthesis - 20261118-wheel-1806-EST/LC
+
+### A. Most Important Structural Discovery
+
+**For the genuine truncated Mobius prefix, all nonzero factorizations of one integer in the first lift-error interval have the SAME sign. The complete coefficientwise absolute error there is at least a fixed multiple of B^k.** This rules out a specified absolute-error shortcut for continuing a k-th lift beyond its exact horizon.
+
+Let a_B(n)=mu(n)1_(n<B), let H_(B,k) be the existing signed higher-order lift, and put R_(B,k)=mu-H_(B,k). For every integer k>=1 and B>=384k^2,
+
+```text
+sum_(B^k<=n<2B^k) |R_(B,k)(n)| >= (B/(16k))^k.       (LC.1)
+```
+
+The proof uses unique factorization and an elementary squarefree count, not prime distribution, an assumed Mertens estimate, or finite extrapolation. For fixed 0<=r<k, this absolute bill cannot be at most C G(B) sqrt(2B^k) E(B)^r with subpower G, even on an arbitrary unbounded sequence. E is the ORIGINAL strict full-prefix Mertens budget.
+
+The sharp support horizon is also identified: if b is the least squarefree integer >=B, then H_(B,k) agrees with mu at EVERY n<b^k, but R_(B,k)(b^k)=mu(b)^k !=0. On b^k<=n<2b^k, the error equals lambda(n) times the number of ALL ordered squarefree k-factorizations of n with factors >=b. Shared primes between factors are retained. The first excluded endpoint has an exact cofactor correction.
+
+**Scope:** this is a restriction on the complete lift ERROR in a specified interval BEYOND the k-th lift's guaranteed prefix. It is NOT a lower bound on |M(X)|, NOT a disproof of MU-LIFT, and NOT an obstacle that every proof staying below B^k must face. Cancellation between different products or with the preceding lift is not excluded. That complete signed upper problem remains unpaid.
+
+LC1-LC3 below are PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING / NOT_FORMALIZED. LC4 is complete-return bookkeeping, not a new bound. LC5 is finite evidence: **1,030,836** main-checker assertions and **24** separately registered endpoint assertions passed. NO_NEW_GLOBAL_UPPER_GAIN; VERIFIED_ETA=NONE; RH=OPEN.
+
+### B. Current Authoritative Objective
+
+Actual trigger: 2026-11-18 18:06:01 EST / 23:06:01 UTC, America/New_York. PLATFORM_RUN_ID=UNAVAILABLE; LC is a descriptive label. Intake main: **935840aec9b1fcbc66fe4e0164061d661a8ca3b1**. Report intake: **e526c7b825d9c6a909227fd9af0dce659e26560c**.
+
+```text
+half_bootstrap_ack=BOOTSTRAP_TO_HALF_V1
+cross_route_ack=CROSS_ROUTE_SIGNED_RECOVERY_V1
+continuity_ack=LAST_ACTUAL_REPORT_CONTINUITY_V1
+high_attack_ack=COMPLETE_SIGNED_HIGH_ATTACK_V1 (retained safeguards)
+chain_ack=CANCELLATION_CHAIN_REUSE_V1 (unchanged-source reuse)
+finite_wheel_ack=FINITE_WHEEL_CENTERED_RH_V1 (not the superseding priority)
+```
+
+The canonical target remains VFCanonicalSquareVonKochStatement: one C>=0 before every R>=2 with |pi(R^2)-vfMidFinishedMass(R)-sqrt(2)|<=C R log R. The source-read riemannHypothesis_of_vfCanonicalSquare still explicitly takes ClassicalVonKochRHCriterion. Neither missing premise is supplied here.
+
+The protected MU-LIFT consumer is separate. The actual main declaration subcritical_subpower_gain_iff_mertens_half_of_lt says that, for fixed integer k>=1, real r<k and ANY integer sequence B_j->infinity, existence of an eventual subpower gain for the ENTIRE strict prefix E(B_j^k) is equivalent to MertensGrowthAtMost(1/2). The on-main mertens_half_iff_riemannHypothesis gives the terminal RH equivalence. These are paid interfaces, not arithmetic suppliers.
+
+PR #1135 is human-merged, superseding the amplification note's historical unmerged label. Tested head ac6dc46b70da962e70b18ea184451c225c1cd44a has 18 successful checks. Its [core proof log](https://github.com/OVVO-Financial/RH_Lean/actions/runs/43777334576/job/133006501690) was read: all 118 public declarations, exact types and standard terminal axioms passed. PR #954's original signed lift is also human-merged.
+
+The reused strongest applicable inspected comparator is native_mertens_near_uniform_window_error_closed, with MertensGrowthAtMost(7/8-7/(64*nearUniformSlotCount)). Every positive loss is retained; this is not a loss-free power bound at that exponent. Exact #1119 head 77ee815846d6d534c866f0752aa33b84c385610a has 14 successful checks. The [closure audit](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42552018910/job/128949473700) was read directly: standard terminal axioms propext, Classical.choice, Quot.sound; closure counts 35358, 35375, 35736, 35737, 35753. A nontruncated comparison of all 2,508 old Lean/pin/Lean-script entries found only RHLean.lean changed. This is reuse of unchanged dependency evidence, not a new analytic reproof or build.
+
+Current pins: Lean 4.34.1 and Mathlib d13f23b723b8a846827a245b89c10fc7d3f11612. Main has 10 successful checks. #1145/#1146 are human-merged Nyman lower-bound infrastructure. #1147 is OPEN, non-draft, unmerged at e77d049ff83809c13c52e3d90922f34ed032efac, with 13 successful checks. None supplies a complete signed upper estimate for LC. No local Lean or new hosted workflow ran.
+
+### C. Structural Mechanism Investigated
+
+Question: can multiplicative support advancement be continued cheaply through its first exposed interval by matching opposite-sign factorizations, then paying the remaining error absolutely?
+
+This is a bounded feasibility audit of a possible supplier, not a claim that an upstream report adopted it. A full-prefix bound E(2B_j^k)<=G_j E(B_j)^r, fixed r<k, would imply the certified E(B_j^k) criterion. The entire old lift would ALSO need a signed upper estimate. The collar is not asserted to be the only unpaid obligation.
+
+The exact inverseDefect, mobiusPrefix and heathBrownLift definitions, recursive/geometric forms and error theorem were read. The existing fresh_prime_defect_product already proves reinforcement for two unprocessed prime defects. LC asks about ALL factorizations in the first error interval, all k, repeated factors and the complete absolute bill. It does not repeat that two-prime example or the previous PM census.
+
+### D. Exact Statements And Carriers
+
+All functions are on positive integers. The operation * is Dirichlet convolution, eps its unit, zeta_0(n)=1. Fix integers B>=2 and k>=1. Write M(X)=sum_(1<=n<=X)mu(n), and E(B)=max_(1<=n<B)|M(n)|/sqrt(n). This is main's mertensPrefixBudget for B>=2. The strict prefix a_B below is exactly mobiusPrefix(B-1), not mobiusPrefix(B). Define
+
+```text
+a_B(n)=mu(n)1_(n<B),  t_B=mu-a_B,
+D_B=eps-a_B*zeta_0=t_B*zeta_0,
+H_(B,0)=0, H_(B,j+1)=a_B+D_B*H_(B,j),
+R_(B,k)=mu-H_(B,k), b=min{m>=B: mu(m)!=0},
+lambda(n)=(-1)^Omega(n), lambda(1)=1.
+R_(B,k)=mu*D_B^k=t_B^k*zeta_0^(k-1).                (LC.2)
+```
+
+LC.2's first equality is inherited from main; the second is finite convolution algebra. One error occurrence is an ORDERED tuple (m_1,...,m_k;u_1,...,u_(k-1)), with squarefree m_i>=B, positive u_i, product n, and weight product_i mu(m_i). At k=1 the cofactor list is empty. The tuple, not n, is its occurrence ID. Factors may share primes. Zero-weight terms alone are omitted. This is an exact interpretation of the genuine error, not a future-Mobius oracle supplied as an independent bound.
+
+**LC1 / sharp horizon.** For 1<=n<b^k the error is zero, and R_(B,k)(b^k)=mu(b)^k. Thus b^k is the first disagreement, including squareful B. For k>=2, H_(B,k)(b^k)=-mu(b)^k because mu(b^k)=0.
+
+**LC2 / product-fibre coherence and boundary.** Let A_(b,k)(n) count all ordered squarefree factors m_1,...,m_k>=b of n. For EVERY 1<=n<2b^k,
+
+```text
+R_(B,k)(n)=lambda(n) A_(b,k)(n),
+|R_(B,k)(n)|=A_(b,k)(n).                            (LC.3)
+```
+
+Each factor is automatically <2b. No opposite-sign pairing confined to one nonempty product fibre exists. A prime exponent greater than k in n forces A=0; this is a necessary, not sufficient, admission condition.
+
+At n_0=2b^k let A_full(n_0) count the same ordered factors, now allowing m_i=2b. The exact endpoint is
+
+```text
+R_(B,k)(2b^k)=lambda(2b^k) A_full(2b^k)
+                         +(k-1)mu(b)^k.           (LC.4)
+```
+
+**LC3 / uniform absolute obstruction.** LC.1 holds for every k>=1, B>=384k^2. Consequently for fixed k>=1, 0<=r<k, C>=0, any B_j->infinity and eventual G_j>=1 with log G_j/log B_j->0, the following fails for every sufficiently large j:
+
+```text
+sum_(B_j^k<=n<2B_j^k)|R_(B_j,k)(n)|
+ <= C G_j sqrt(2B_j^k) E(B_j)^r.                    (ABS)
+```
+
+Constants precede j. The extension to r<0 follows from E>=1, but is not needed here.
+
+**LC4 / full restoration.** For 1<=X<2b^k put S(X)=sum_(n<=X)H_(B,k)(n) and C(X)=sum_(b^k<=n<=X)lambda(n)A_(b,k)(n). Then
+
+```text
+M(X)=S(X)+C(X),
+M(X)^2=S(X)^2+2S(X)C(X)+C(X)^2,
+H_(B,k+1)(n)-H_(B,k)(n)=R_(B,k)(n), n<2b^k.        (LC.5)
+```
+
+The same a_B is used in both orders. Every prefix and cross term remains. LC4 is supporting bookkeeping, not a new upper bound. LC5 denotes the finite verification in H and N.
+
+### E. Mathematical Proof
+
+**Occurrence bridge.** The source theorem gives R=mu*D^k. Since D=t*zeta_0 and mu*zeta_0=eps, associativity gives R=t^k*zeta_0^(k-1). Its finite expansion is exactly the ordered carrier in D, with every distinct cofactor slot retained. No unordered or coprime replacement is made.
+
+**Sharp support.** Every nonzero t factor is >=b, so any error occurrence has n>=b^k. At equality all m_i=b and all u_i=1. Exactly one tuple survives, with nonzero weight mu(b)^k. This proves LC1. Existence of b follows from arbitrarily large primes, with no distribution estimate.
+
+**Entire first interval.** For n<2b^k a cofactor >=2 is impossible. All u_i=1 and all m_i<2b. For squarefree m_i, mu(m_i)=lambda(m_i); complete multiplicativity of lambda gives product_i mu(m_i)=lambda(n), including shared primes. This proves LC.3 for the COMPLETE fibre. A squarefree factor contributes at most one copy of each prime, proving the prime-exponent restriction.
+
+**Exact boundary.** At 2b^k the cofactor product is one or two. The former contributes lambda(n)A_full(n). In the latter all m_i=b and exactly one of the k-1 cofactor slots is two, contributing (k-1)mu(b)^k. This proves LC.4, including k=1's zero correction.
+
+**Elementary squarefree supply.** Set U=B+floor(B/(2k)), L=U-B+1>=B/(2k), and T={m in [B,U]: m squarefree}. Every nonsquarefree m has d^2 dividing it for some 2<=d<=sqrt(U). There are at most L/d^2+1 such multiples for each d. Counting composite d as well only enlarges this union bound. The decreasing-integral comparison gives
+
+```text
+sum_(d=2..infinity)1/d^2
+ < 1/4 + int_2^infinity x^-2 dx = 3/4,
+|T| >= L/4-sqrt(U) >= B/(8k)-sqrt(3B/2).
+```
+
+For B>=384k^2 the last square root is <=B/(16k), so |T|>=B/(16k). All rounding errors are retained; no squarefree-density asymptotic is imported.
+
+Every ordered tuple in T^k has product >=B^k and <=U^k. By the binomial theorem,
+
+```text
+(1+1/(2k))^k
+ =sum_(j=0..k)binom(k,j)/(2k)^j
+ <=sum_(j=0..k)2^-j <2.
+```
+
+Thus all products are STRICTLY below 2B^k. On this interval all complete error occurrences have only unit cofactors, even if b>B. Other tuples at a selected product have the same sign and cannot cancel the selected box. Summing absolute coefficients counts each ordered tuple once and gives LC.1. This lower-bound step would be invalid without the COMPLETE-fibre sign assertion.
+
+**Failure of ABS.** Directly from |M(n)|<=n and 1<=n<B, the strict budget obeys 1<=E(B)<=sqrt(B). Therefore
+
+```text
+sum_(B^k<=n<2B^k)|R_(B,k)(n)| / [sqrt(2B^k)E(B)^r]
+ >= B^((k-r)/2)/[sqrt(2)(16k)^k].                    (LC.6)
+```
+
+For C=0 the positive lower bound already contradicts ABS. For C>0, take epsilon=(k-r)/4 in G_j<=B_j^epsilon eventually. The ratio to C G_j tends to infinity. This proves LC3 on every unbounded sequence without a Mertens growth input. The theorem is fixed-k; its k-dependent constants and threshold do not automatically give a varying-k obstruction.
+
+**Complete return.** Sum mu=H+R and LC.3 to obtain LC.5. Since a_B=mu below b, the existing support theorem applies at b. Also 2b^k<=b^(k+1), so H_(B,k+1) is exact on the entire OPEN collar. Subtraction gives the increment identity. The full square includes all within-lift, within-error and cross contributions; it is not a sum-of-squares substitution.
+
+### F. Structural Consequence
+
+Unique factorization prohibits opposite-sign matching that preserves the product in this error interval. Repeated-prime incidences cannot be erased as exceptions. The first nonunit cofactor is admitted precisely at the doubled boundary and has an explicit contribution.
+
+The uniform mass statement excludes ABS even after combining all occurrences with the same product. It is stronger in scope than a single-prime or degree example, but still a method-specific obstruction. It does NOT make cancellation across different products impossible: B=5,k=3 has complete collar L1 mass 20 and signed correction ZERO through 249.
+
+The original Q_(B-1)(B^2-1)=2M(B-1)-M(B^2-1) is unaffected. Its endpoint lies strictly BEFORE the k=2 error interval. LC does not refute that exact identity, finite C, or the original E(B^k) target.
+
+### G. Signed And Quantitative Relevance
+
+The first irreversible loss in this attempted continuation is |sum R(n)|<=sum |R(n)| AFTER complete coefficient reconstruction. LC.6 quantifies the cost. Same-product cancellation cannot recover it; a useful estimate must retain interactions between products and/or with S(X).
+
+| Coordinate | Exact relationship and remaining barrier |
+| --- | --- |
+| Euler / FINITE-AC | k=2 is the original Newton lift; Q is its historical floor sum. LC is an exterior error theorem, not a new finite-C estimate. |
+| Square blocks / MU-LIFT | LC.5 restores every prefix in range. E is not K_B; main separately gives K_B<=4E(B)^2 and E(B)^2<=9K_B. These comparisons do not lower the open exponent. |
+| VF / actual primes | Canonical VF and its explicit classical interface are separate. No map to clipped #915 returned occurrences was proved. OPEN_BRIDGE for a quantitative transfer. |
+| NNS / OAI | The real quadratic equality is not an ideal-character source isometry. No proved transfer from Nyman coercivity or OAI marked moments pays the complete LC upper norm. |
+
+Paid-recovery test: the existing higher-order error and signed hyperbola identities restore terms but do not estimate their signed sum. Neither the amplification iteration nor the subcritical prefix consumer supplies its premises.
+
+Continuation capsule: existing every-loss baseline; proposed complete E(2B_j^k)<=G_j E(B_j)^r, fixed r<k; terminal implication through E(B_j^k); all old lift, intervening prefixes, collar and quadratic returns retained. ABS, one possible sufficient error payment, is REFUTED. A replacement source estimate and renewal are not proved.
+
+METHOD_STATUS=ABSOLUTE_COLLAR_PAYMENT_REFUTED. ROUTE_STATUS=PARKED_NO_HALF_CONTINUATION for this shortcut, not the entire MU-LIFT toolkit. NO_NEW_GLOBAL_UPPER_GAIN; VERIFIED_ETA=NONE; RH=OPEN.
+
+### H. Falsification And No-Circularity Review
+
+Current-main searches paired heathBrownLift/inverseDefect with collar, first, squarefree, Stirling/ordered factorizations and least squarefree. The related source declarations, signed-lift note, amplification budget, route catalog and relevant report derivations were inspected. No identical full-collar/LC.1 statement was found in that scope. This is not an exhaustive literature-novelty claim or a claim to have reread every historical report.
+
+Credit: convolution algebra, exact B^k agreement and fresh-prime reinforcement are inherited. LC1 is a sharp support corollary. The report-level increment is the complete all-k Liouville sign rule, boundary correction and whole-collar lower bound with its scoped no-go. The elementary squarefree union bound is not claimed as a new sieve theorem.
+
+- B=4,k=2: error zero at 16, first error at 25. The assertion that B^k is ALWAYS the first error is false.
+- B=2,k=2,n=8: true error +1, unit-only term zero. The uncorrected CLOSED-upper-endpoint version is false.
+- B=2,k=2,n=4: indispensable tuple (2,2), error +1. Coprime-only or squarefree-product-only reindexing omits an original occurrence.
+- B=5,k=2,n=30: both (5,6) and (6,5) have sign -1, giving -2. Unordered replacement loses multiplicity.
+- B=5,k=2: errors at 25 and 30 are +1 and -2. The whole interval need not have one sign.
+- B=5,k=3: L1=20 but signed correction zero through 249. Large L1 does not lower-bound the signed aggregate.
+- B=4,k=4: the nominal interval [256,512) has zero error; first failure is 625. LC3's large-B condition cannot simply be dropped.
+
+The last two diagnostics were observed within the registered main domain, not retroactively labeled preregistered. LC.4 was a proof-led extension registered separately after the initial pass. Both checkers passed on their first execution; no failed mathematical test or silent domain change is hidden.
+
+Main domain: 52 (B,k) cases, B=2..18 for k=2,3, B=2..10 for k=4, and B=2..10 for k=1. Every coefficient and prefix through 2b^k-1 is reconstructed by the ORIGINAL recursive lift and independently by ordered tuples; maximum complete cutoff is 20,000. The sieve mu/lambda values were independently trial-factorized through 27,200. Twenty-one larger cases check ONLY squarefree supply and box inequalities, not their huge full collars. The follow-up checks LC.4 for B=2..7, k=1..4. Syntax checks passed. No process remains running.
+
+The 1,030,836 plus 24 assertions are FINITE_COMPUTATION, not an infinite proof. Full executed code and registrations are embedded below.
+
+### I. Conceptual Interpretation
+
+Exact support propagation and norm contraction are different. The first is controlled by the least omitted NONZERO coefficient. Immediately afterward, size constraints force every free cofactor to be one and unique factorization forces same-product signs to agree. At the doubled endpoint the first free cofactor returns. A useful signed method must exploit different products or the full old/new combination, not assume that a factorization diagram alone creates cancellation.
+
+### J. Competing Structural Hypotheses
+
+| Mechanism | Disposition |
+| --- | --- |
+| Product-preserving opposite-sign pairing of the first error interval | REFUTED on each nonempty fibre. |
+| Absolute collar payment at the fixed subcritical scale | REFUTED by LC3. |
+| Extra exact precision when B is squareful | TRUE at exactly b^k; no summatory gain implied. |
+| Joint cross-product and old/error signed cancellation | OPEN, not excluded; no adequate supplier found. |
+| Increasing k without tracking its constants/range | No conclusion from the fixed-k theorem. |
+
+This is substantive bounded MU-LIFT work. FINITE-AC's prior PM and CORR4's unpaid mixed tail are not counted as fresh work or discharged. All nine independent toolkits and their source safeguards remain intact. No team-wide campaign change is proposed.
+
+### K. Specialist Handoffs
+
+These are asynchronous report handoffs, not agent launches.
+
+- Referee: independently check LC.2's occurrence expansion, the strict doubled endpoint, the squarefree supply and ABS's fixed-before-scale quantifiers. Most importantly, keep the error interval outside the licensed k-th prefix. LC has no independent verdict yet.
+- Coordinator: record the bounded MU-LIFT audit and reject only the absolute-collar shortcut. No new active half-bootstrap or exponent improvement is admitted.
+- Analytic: any successor must preserve the signed product sum and its interaction with S. A count of A cannot pay this. No smaller sufficient Type II premise is claimed established here.
+- Owner: squareful products such as b^k are genuine. A transfer must retain all ordered factors and actual admission masks; a raw-tail tuple is not automatically a #915 returned cell.
+- Census: use the small embedded controls for justified independent verification; do not automatically enlarge this completed scan. A successor needs a new full-source hypothesis.
+- Lean Verification: no implementation is commissioned. After independent acceptance and a concrete downstream need, LC2/LC3 may be considered as a scoped falsifier. Do not create a duplicate lift identity or conditional-small-error wrapper.
+
+### L. First Independently Missing Theorem
+
+The complete subcritical full-prefix gain for genuine arithmetic remains open. This audit did NOT isolate an independently smaller sufficient supplier or upper-bound S+C. A small collar alone would still leave the old lift and other prefixes unpaid. The location of useful new information is more precise: it must survive reassembly across product fibres and the old/error cross term. No independently proved quantitative mechanism accomplishing that was found. Park this completed shortcut instead of optimizing its constants.
+
+### M. Continuity And Next-Run Capsule
+
+The nontruncated report tree was searched without a calendar cap. All seven newest actual completed sections are November 18; complete November 17/18 files were retrieved and both complete Coordinator mirrors matched on both dates. The prior PM ledger was recovered, then newly relevant material consumed in publication order: own PM, Census PS, Referee FC, Lean VR, Owner GP, Analytic LW. Previous DAMP/HC/PV and November 17 resume capsules/needed derivations were read. This does not claim every historical appendix was reread or reproduced.
+
+The following ledger is pinned to intake e526c7b825d9c6a909227fd9af0dce659e26560c; paths are under research/agent_reports/2026-11-18/. Times are actual run labels in EST.
+
+| Role / path | LAST_CONSUMED -> LAST_VERIFIED and scope | Latest full file blob |
+| --- | --- | --- |
+| Coordinator 00/90 | DAMP -> DAMP 07:10, DAMP1-5; FC now accepts DAMP1-4 with scope | ee7b4ce6ff79ab0eaea4d8b74d95e3e78f398cb5 |
+| Owner 10-owner-payment.md | HC -> GP 16:15, GP1-4 SELF_AUDIT | a6345e177392d55db551650e8013581b89694623 |
+| Analytic 20-analytic-type-ii.md | PV -> LW 17:11, LW1-4 SELF_AUDIT; LW3 keeps fixed-Mertens premise | 065a94a6eb8f69b51641011296efbce3f96c87f5 |
+| Wheel 30-finite-wheel.md | FD/prior PM intake -> PM 10:12; PM1 inherited, PM2-5 SELF_AUDIT, then current LC | d7c5014b34183b6a377c0438cb6cae27ba35e401 |
+| Census 40-prime-census.md | PN -> PS 11:00, PS1-4 finite; H=18 refutes PN-S | 5d76c950c517712bbba138d7240d21ac4ccd6b93 |
+| Referee 50-adversarial-referee.md | DP -> FC 12:03; DAMP/PV scoped acceptances, own FC1-3 SELF_AUDIT | 91b57ce6a46693403cd8a5751c63aaf8335ab305 |
+| Lean 60-lean-verification.md | DUAL -> VR 13:14; five finite covariance theorems at #1147 head, unmerged | 2cd3263317a8afaae5e664f4b56d2c095059421c |
+
+For every role TODAY=AVAILABLE; YESTERDAY=CARRY_FORWARD at its actual scope; NEW_UNCONSUMED=NONE within relevant intake; GAP=NONE after PM. Earlier recorded silent dates remain NO_VERIFIED_REPORT, not inferred executions. CONTINUITY_COMPLETE means latest-real discovery and relevant backfill, not exhaustive historical review.
+
+RESUME by role: Coordinator, signed original-source recovery; Owner, amplitude-sensitive first-bad coupling; Analytic, complete prescribed weighted norm; Census, independent PS review; Referee, independent review of self-authored FC; Lean, #1147 status; Wheel, independent LC review or a different justified signed mechanism.
+
+Substantive publication receipts read in pinned reports, not independently replayed here:
+
+| Section | Substantive commit | Receipt's UTC commit time |
+| --- | --- | --- |
+| DAMP | d65eee462035ae5cb0522982501c097ea29abc06 | Nov18 12:32:33 |
+| PM | 4d861a6c2c51739a8bc82d662d07d3cb3da47eec | Nov18 15:38:13 |
+| PS | fc31d1442431f9ead1ea6b51edac1ca2cc8e2923 | Nov18 16:17:53 |
+| FC | 85220798b01156db6babe094a3a0a9aef8ede7b3 | Nov18 17:18:54 |
+| VR | 37f7fcdb18cd87747034f962f54d9dac13e103b1 | Receipt verified 18:44:03; commit time not re-queried |
+| GP | de88250d67c3e2dcdf12231a196a089afcd49e01 | Nov18 21:37:30 |
+| LW | a8fab7e4059ff06ac60a5d8e04d806986baba896 | Nov18 22:36:18 |
+
+PS's complete H=18 Q-P enclosure is [-0.000023551621,-0.000000304388]; the elementary certificate alone remains unresolved there. GP does not exclude first bad. LW's enlarged repair class is not the original unmodified two-band source. These results are not transferred to LC or promoted to Lean. The unchanged external inbox 7d63d434690d00dffce9c90335d41c4f62d85798 has no entry after October 18. EXT-20261018-PNT-1 and EXT-20261014-5 retain their root-boundary/cofactor and unconditional-versus-first-bad safeguards, not new execution status.
+
+```text
+RUN=20261118-wheel-1806-EST/LC; PLATFORM_RUN_ID=UNAVAILABLE
+MAIN=935840aec9b1fcbc66fe4e0164061d661a8ca3b1
+REPORT_INTAKE=e526c7b825d9c6a909227fd9af0dce659e26560c
+CHECKPOINT=bcaefb702b75ec377eedbd179a506de8afdee43b
+CHECKPOINT_BLOB=6935c780efe68bc2e1b64d2da8bd5fdc58dc5a40
+CHECKPOINT_READBACK=EXACT_MATCH; prior FD/PM history preserved
+ROUTE=MU-LIFT bounded original-arithmetic feasibility audit
+SOURCE=a_B,D_B,H_(B,k); all ordered factors and unit/cofactor returns
+START=reused every-positive-loss native strict-below-7/8 baseline
+TERMINAL=full subcritical E(B_j^k) gain -> Mertens half -> RH
+VALID_RANGE=LC1/2 B>=2,k>=1; LC3 B>=384k^2; fixed k,r in no-go
+NEW=LC1 sharp b^k; LC2 Liouville fibre rule and endpoint return;
+    LC3 complete-collar L1 lower bound and scoped ABS refutation
+RETURN=LC4 all prefixes, old source, correction and every quadratic cross
+FIRST_OPEN=independent complete signed amplification supplier
+NEXT=independent LC review or a different justified signed mechanism
+STATUS=BOUNDED_FEASIBILITY_COMPLETE; absolute shortcut REFUTED
+RENEWAL=NONE_NEW; ROUTE_ADMISSION=NO; VERIFIED_ETA=NONE; RH=OPEN
+MATH=LC1-LC3 PAPER_PROOF/SELF_AUDIT/INDEPENDENT_REVIEW_PENDING;
+     LC4 IDENTITY_ONLY; LC5 FINITE_COMPUTATION
+TESTS=1030836+24 exact assertions PASS; syntax PASS; no process running
+FORMALIZATION=NOT_REQUESTED; no new Lean or CI execution
+PUBLICATION=final immutable readback pending until subsequent receipt
+```
+
+Next actual run: refresh live authority and all handoffs. Do not repeat the collar scan, optimize 384 or 16, or make another conditional amplification wrapper. A successor requires genuinely new signed information surviving the complete source return.
+
+### N. Reproducibility And Source Appendix
+
+The following source ledger, registrations and complete executed checkers are included for reproducibility. They are embedded report content, not separate repository source edits. Run the main and boundary checkers in the same directory; importing the main checker does not rerun its census. Output summaries follow.
+
+
+#### N.1. Source Ledger
+
+All main paths below were read at 935840aec9b1fcbc66fe4e0164061d661a8ca3b1. Their blob identities were checked against its complete tree. A prepublication refresh found main unchanged and agent-reports still at this run's checkpoint, whose parent is the intake head; no intervening upstream report was missed.
+
+| Path | Blob SHA |
+| --- | --- |
+| AGENTS.md | c4f36b772f8a4b0c24fe566b90fafb646073c60f |
+| CURRENT_PROOF_CONTRACT.md | 95566e37c8eaeb99ee680660df4f9d2e06ea5038 |
+| docs/RHLEAN_REPORT_CONTINUITY_LAST_ACTUAL_20261111.md | 3e71820a4af722eae7098da6945bb5bcba50dd0d |
+| docs/RHLEAN_BOOTSTRAP_TO_HALF_20261116.md | 96ad4439ec458af6168f7d9cb3eef5dde291d37c |
+| docs/RHLEAN_CROSS_ROUTE_SIGNED_RECOVERY_20261110.md | e3ae4280438f591f1ffaddd754a1c3a6d35d0691 |
+| docs/DYNAMIC_RESEARCH_AGENTS.md | b76d595f09403fc54eca71d04bf9e0306e0a9c09 |
+| research/MERTENS_FINITE_PREFIX_EXTENSION.lean | 131e9af86207a42d4bf6488e3f64c9ce4f97e5df |
+| research/MERTENS_HEATH_BROWN_SIGNED.lean | af69b4811cf9f523eb7c96fb0ca836b2cdbd1180 |
+| research/MERTENS_SIGNED_HYPERBOLA.lean | d199571f19346797229a25b0fa53c6e80499999f |
+| research/EULER_SELF_DUAL_POINTWISE_20261027.lean | c327c556f39ee7014fd774b24d0f95a1ece050e0 |
+| research/EULER_SELF_DUAL_ENDPOINT_GATE_20261027.lean | e7ee8f77ffd59bccaa49dd6d74fbe0d7952c2d73 |
+| RHLean/Proof/AmplificationExponentIteration.lean | d78be4509e5dcc35b833c3786258b94fc6e71915 |
+| research/UNIVERSAL_ENVELOPE_MERTENS_MAX.lean | 9b25e34a988b0829c29f63df9863e964af600c3f |
+| research/UNIVERSAL_ENVELOPE_RH_BRIDGES.lean | 02a88cadc1eb984557b9dd7ee2e03e29bd3e5287 |
+| research/VF_CANONICAL_SQRT_TWO_VON_KOCH.lean | 79030d70e8d3e0d08eef9bac53fef95c36eca2fb |
+| research/oai_434/VF919WindowErrorClosure.lean | f629db1b2b65d6ec042ac9432397d4b6316200c6 |
+| research/MERTENS_HEATH_BROWN_SIGNED.md | f3a4cc1f73cce00983137328481e3cb41f446180 |
+| docs/MERTENS_AMPLIFICATION_BUDGET.md | 00937f5e2f00c77375ca7cca2e43498c09e568c5 |
+| docs/search/routes/MU-LIFT.md | f24edebd08cfc116ce9907c4ae1b084ae9a876fd |
+| lean-toolchain | ba8ebf2dbaf6a668cd2a0e086186d6d569b69ff5 |
+| lake-manifest.json | a34d142c3d75a602a8b0f8241a4fb504d5c7c5a4 |
+
+November 17 carry-forward blobs, pinned to the same report intake. The two Coordinator paths were compared in full and matched. This ledger preserves provenance, not a claim that these older results were newly proved today.
+
+| Role / November 17 path | Blob SHA |
+| --- | --- |
+| 00-coordinator-am.md | 125e55aa191083d9c0a982b6dc5a66267e4e4256 |
+| 10-owner-payment.md | 6516bf78b096471ccfd2fb8c215e94002544a594 |
+| 20-analytic-type-ii.md | d4bc53ac1b68f6dadabc4a04a2f5fc8c74f6625f |
+| 30-finite-wheel.md | 5c26771c0a266d5112e0b4a4b28aba0132e35ef7 |
+| 40-prime-census.md | 587b0bb3dd66834a18610ab86174f285f81c4b04 |
+| 50-adversarial-referee.md | 103ee17307ac799e20bd4ce17d97ff96101a9e5b |
+| 60-lean-verification.md | ee9ed0ace763bf99fea5812490f9541653917938 |
+
+#### N.2. Registered Main Test And Executed Checker
+
+Registration SHA256: `6b009b265632481aec2e06d6bce71ec42dff4bf6cc1eddfe1b3e20c3e608cdc0`.
+
+```text
+# LC Exact Verification Registration
+
+Registered before executing the checker, 2026-11-18.
+
+Source: main 935840aec9b1fcbc66fe4e0164061d661a8ca3b1;
+MERTENS_HEATH_BROWN_SIGNED.lean af69b4811cf9f523eb7c96fb0ca836b2cdbd1180.
+
+Question: for a genuine strict prefix a_B, is the first error at b^k,
+where b is the least squarefree integer >=B, and is the entire interval
+[b^k,2b^k) equal to Liouville(n) times the number of ordered squarefree
+k-factorizations with every factor >=b? Does an elementary box of those
+tuples force sum_[B^k,2B^k) |mu-H_k| >= (B/(16k))^k for B>=384k^2?
+
+Competing hypotheses to reject: cancellation within a fixed product;
+coprime-only or unordered tuple replacement; uniform positive sign for
+k=2; extending the formula to the upper endpoint; assuming B^k is the
+first failure when B is squareful; identifying large L1 mass with a large
+signed Mertens value.
+
+Exact domain: B=2..18 with k=2,3; B=2..10 with k=4; B=2..10 with k=1.
+For each case compute through 2b^k inclusive; the claimed interval ends
+strictly before it. Sieve mu and Liouville, independently check every
+integer through the maximum tested value by trial factorization. Compute
+H_j from its ORIGINAL recursive a+D*H_(j-1), not the proposed formula.
+Independently enumerate all ordered squarefree tuples in [b,2b) and compare
+every coefficient, every prefix, total absolute mass, H_(k+1) restoration,
+and every full quadratic cross term. Test the elementary density bound at
+B=384k^2, 384k^2+1, 400k^2, for k=2..8; these are density/box checks, not
+enumeration of their huge complete collars.
+
+Fixed negative controls: B=4,k=2 has first failure 25, not 16;
+B=2,k=2,n=8 invalidates the closed-upper-endpoint version;
+B=2,k=2,n=4 requires the repeated-prime tuple (2,2);
+B=5,k=2,n=30 requires both (5,6) and (6,5), error -2;
+B=5,k=2,n=25 has error +1, refuting a common sign across products.
+
+Stop after this domain. A failed identity requires diagnosis, not silent
+domain changes. No large wheel scan, random signs, numerical asymptotics,
+Lean execution, or infinite-theorem claim from finite tests.
+```
+
+Checker filename: `lc_check.py`. SHA256: `0e4a0066d2e636eb060a135cd03a9d05b26a7cd31b45a284cb662f79459565c0`.
+
+```python
+"""Exact, independently reconstructed checks for the MU-LIFT first collar."""
+
+import hashlib
+import json
+from collections import Counter
+from fractions import Fraction
+from math import isqrt
+from pathlib import Path
+
+
+COUNTS = Counter()
+
+
+def check(label, condition):
+    if not condition:
+        raise AssertionError(label)
+    COUNTS[label] += 1
+
+
+def trial(n):
+    value = n
+    omega = 0
+    squarefree = True
+    p = 2
+    while p * p <= value:
+        exponent = 0
+        while value % p == 0:
+            value //= p
+            exponent += 1
+        omega += exponent
+        squarefree &= exponent <= 1
+        p += 1
+    omega += value > 1
+    sign = (-1) ** omega
+    return sign if squarefree else 0, sign
+
+
+def arithmetic_sieve(limit):
+    mu = [1] * (limit + 1)
+    liouville = [1] * (limit + 1)
+    is_prime = [True] * (limit + 1)
+    mu[0] = liouville[0] = 0
+    for p in range(2, limit + 1):
+        if not is_prime[p]:
+            continue
+        for n in range(p, limit + 1, p):
+            is_prime[n] = False
+            mu[n] *= -1
+        for n in range(p * p, limit + 1, p * p):
+            mu[n] = 0
+        power = p
+        while power <= limit:
+            for n in range(power, limit + 1, power):
+                liouville[n] *= -1
+            power *= p
+    return mu, liouville
+
+
+def convolve(f, g):
+    limit = len(f) - 1
+    out = [0] * (limit + 1)
+    for a in range(1, limit + 1):
+        if f[a]:
+            for b in range(1, limit // a + 1):
+                if g[b]:
+                    out[a * b] += f[a] * g[b]
+    return out
+
+
+def lift_from_original(B, k, limit, mu):
+    a = [mu[n] if 1 <= n < B else 0 for n in range(limit + 1)]
+    defect = [0] * (limit + 1)
+    defect[1] = 1
+    for d in range(1, B):
+        for n in range(d, limit + 1, d):
+            defect[n] -= a[d]
+    h = [0] * (limit + 1)
+    for j in range(k + 1):
+        product = convolve(defect, h)
+        h = [a[n] + product[n] for n in range(limit + 1)]
+        if j + 1 == k:
+            original_h = h[:]
+    return original_h, h
+
+
+def tuples_by_product(b, k, limit, mu):
+    factors = [m for m in range(b, 2 * b) if mu[m]]
+    counts = [0] * (limit + 1)
+    signed = [0] * (limit + 1)
+
+    def visit(depth, value, sign):
+        if depth == k:
+            counts[value] += 1
+            signed[value] += sign
+            return
+        for m in factors:
+            new_value = value * m
+            if new_value * b ** (k - depth - 1) > limit:
+                break
+            visit(depth + 1, new_value, sign * mu[m])
+
+    visit(0, 1, 1)
+    return counts, signed
+
+
+def main():
+    cases = [(B, k) for k in (2, 3) for B in range(2, 19)]
+    cases += [(B, 4) for B in range(2, 11)]
+    cases += [(B, 1) for B in range(2, 11)]
+    trial_mu = {n: trial(n)[0] for n in range(1, 64)}
+    first = {B: next(n for n in range(B, 64) if trial_mu[n])
+             for B, _ in cases}
+    maximum = max(2 * first[B] ** k for B, k in cases)
+    density_limit = max(400 * k * k + (400 * k * k) // (2 * k)
+                        for k in range(2, 9))
+    mu, liouville = arithmetic_sieve(max(maximum, density_limit))
+    for n in range(1, len(mu)):
+        expected_mu, expected_lambda = trial(n)
+        check("independent_mu", mu[n] == expected_mu)
+        check("independent_liouville", liouville[n] == expected_lambda)
+
+    rows = []
+    witnesses = {}
+    for B, k in cases:
+        b = first[B]
+        limit = 2 * b ** k
+        h, next_h = lift_from_original(B, k, limit, mu)
+        multiplicity, signed = tuples_by_product(b, k, limit, mu)
+        first_bad = next(n for n in range(1, limit + 1) if mu[n] != h[n])
+        check("sharp_horizon", first_bad == b ** k)
+        check("first_coefficient", mu[b ** k] - h[b ** k] == mu[b] ** k)
+        absolute = 0
+        original_sum = 0
+        correction = 0
+        actual_m = 0
+        for n in range(1, limit):
+            error = mu[n] - h[n]
+            check("collar_coefficient", error == liouville[n] * multiplicity[n])
+            check("independent_tuple_sign", error == signed[n])
+            check("no_product_cancellation", abs(signed[n]) == multiplicity[n])
+            check("next_order_reconstruction", next_h[n] == mu[n])
+            check("next_order_increment", next_h[n] - h[n] == error)
+            original_sum += h[n]
+            correction += signed[n]
+            actual_m += mu[n]
+            absolute += abs(error)
+            check("all_prefix_return", actual_m == original_sum + correction)
+            check("all_quadratic_terms", actual_m ** 2 == original_sum ** 2
+                  + 2 * original_sum * correction + correction ** 2)
+        check("complete_absolute_mass", absolute == sum(multiplicity[:limit]))
+        original_collar_mass = sum(abs(mu[n] - h[n])
+                                   for n in range(B ** k, 2 * B ** k))
+        E2 = max(Fraction(sum(mu[1:n + 1]) ** 2, n) for n in range(1, B))
+        check("trivial_budget_lower", E2 >= 1)
+        check("trivial_budget_upper", E2 <= B)
+        rows.append({"B": B, "k": k, "b": b, "first_bad": first_bad,
+                     "collar_last": limit - 1, "L1": absolute,
+                     "original_B_collar_L1": original_collar_mass,
+                     "signed_correction": correction,
+                     "lift_prefix": original_sum, "M": actual_m})
+        if (B, k) == (2, 2):
+            check("negative_closed_endpoint", mu[8] - h[8] == 1
+                  and liouville[8] * multiplicity[8] == 0)
+            check("negative_coprime_only", mu[4] - h[4] == 1)
+            witnesses["upper_endpoint"] = {"B": 2, "k": 2, "n": 8,
+                                             "true_error": 1, "wrong_formula": 0}
+            witnesses["repeated_prime"] = {"B": 2, "k": 2, "n": 4,
+                                             "error": 1, "tuple": [2, 2]}
+        if (B, k) == (4, 2):
+            check("negative_unadjusted_first_failure", mu[16] - h[16] == 0
+                  and mu[25] - h[25] == 1)
+            witnesses["squareful_cutoff"] = {"B": 4, "k": 2, "first_bad": 25}
+        if (B, k) == (5, 2):
+            check("negative_unordered", mu[30] - h[30] == -2)
+            check("negative_common_sign", mu[25] - h[25] == 1)
+            witnesses["opposite_products"] = {"B": 5, "k": 2,
+                                               "error_at_25": 1, "error_at_30": -2}
+
+    density_rows = []
+    for k in range(2, 9):
+        for B in (384 * k * k, 384 * k * k + 1, 400 * k * k):
+            U = B + B // (2 * k)
+            length = U - B + 1
+            count = sum(bool(mu[n]) for n in range(B, U + 1))
+            union_bound = sum(U // (d * d) - (B - 1) // (d * d)
+                              for d in range(2, isqrt(U) + 1))
+            check("density_union_bound", count >= length - union_bound)
+            check("density_claimed_count", 16 * k * count >= B)
+            check("density_small_square_sum", sum(Fraction(1, d * d)
+                  for d in range(2, isqrt(U) + 1)) < Fraction(3, 4))
+            check("density_interval_length", 2 * k * length >= B)
+            check("density_sqrt_payment", (16 * k) ** 2 * U <= B ** 2)
+            check("box_strict_product", U ** k < 2 * B ** k)
+            check("box_count_lower", (16 * k * count) ** k >= B ** k)
+            density_rows.append({"B": B, "k": k, "U": U, "squarefree": count})
+
+    print(json.dumps({"status": "PASS", "counts": dict(sorted(COUNTS.items())),
+                      "assertions": sum(COUNTS.values()), "cases": rows,
+                      "max_complete_n": maximum,
+                      "arithmetic_verification_limit": len(mu) - 1,
+                      "density_only_cases": density_rows,
+                      "negative_controls": witnesses,
+                      "checker_sha256": hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
+                      "lean_executed": False,
+                      "new_global_upper_bound": False}, indent=2))
+
+
+if __name__ == "__main__":
+    main()
+```
+
+#### N.3. Registered Boundary Follow-Up And Executed Checker
+
+Registration SHA256: `74cae6e9a664ea867c36f154bb52edd3bba34a8fa4fd51fa87db027a425d6c80`.
+
+```text
+# LC Boundary Follow-Up Registration
+
+Proof-led follow-up after the initial 1,030,836 exact assertions passed.
+This does not alter the initial registered domain or reinterpret its pass.
+
+New proposed equality at the previously EXCLUDED endpoint n=2b^k:
+mu(n)-H_(B,k)(n) = lambda(n) A_full(n) + (k-1)mu(b)^k.
+Here A_full counts all ordered squarefree factors >=b, allowing 2b.
+The k-1 term counts which one of the original k-1 zeta cofactor slots is 2;
+all squarefree factors must then equal b. At k=1 this term is zero.
+
+Test B=2..7 and k=1..4 against the original recursive lift; enumerate
+the endpoint tuple carrier separately. Check that a closed-upper-endpoint
+claim without restoration is false at B=2,k=2.
+
+No rerun or enlargement of the main coefficient/prefix census is planned.
+```
+
+Checker filename: `lc_boundary_check.py`. SHA256: `83d4d2395318ca718a9b73a12f4ffce04959d45963cd60464f9911d661c17c59`.
+
+```python
+"""Focused check of the first nonunit-cofactor endpoint correction."""
+
+import hashlib
+import json
+from pathlib import Path
+
+from lc_check import arithmetic_sieve, lift_from_original, trial
+
+
+rows = []
+for B in range(2, 8):
+    b = next(n for n in range(B, 32) if trial(n)[0])
+    for k in range(1, 5):
+        n = 2 * b ** k
+        mu, liouville = arithmetic_sieve(n)
+        h, _ = lift_from_original(B, k, n, mu)
+
+        def count_factors(left, slots):
+            if slots == 0:
+                return int(left == 1)
+            return sum(count_factors(left // m, slots - 1)
+                       for m in range(b, 2 * b + 1)
+                       if mu[m] and left % m == 0)
+
+        count = count_factors(n, k)
+        restore = (k - 1) * mu[b] ** k
+        actual = mu[n] - h[n]
+        assert actual == liouville[n] * count + restore
+        rows.append({"B": B, "k": k, "b": b, "n": n,
+                     "A_full": count, "cofactor_restore": restore,
+                     "error": actual})
+
+print(json.dumps({"status": "PASS", "assertions": len(rows), "rows": rows,
+                  "checker_sha256": hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
+                  "lean_executed": False}, indent=2))
+```
+
+#### N.4. Recorded Results And Limitations
+
+The following is a condensed record of the successful outputs, not a claim that all assertions are mathematically independent. Execution used Python 3.12.13, standard library only. Both scripts passed their first mathematical execution and syntax checks. No silent correction, expanded main census or Lean execution occurred. The boundary registration followed the main pass and its separate proof derivation.
+
+| Main-checker assertion category | Count |
+| --- | ---: |
+| Original-prefix reconstruction | 139432 |
+| Complete quadratic identity | 139432 |
+| Error equals lambda times tuple multiplicity | 139432 |
+| Independently enumerated signed tuples | 139432 |
+| Next-order increment | 139432 |
+| Next-order reconstruction | 139432 |
+| No same-product cancellation | 139432 |
+| Independent mu values | 27200 |
+| Independent Liouville values | 27200 |
+| Complete absolute mass, sharp horizon, first coefficient, budget lower, budget upper | 52 each, 260 total |
+| Seven squarefree-supply/box checks | 21 each, 147 total |
+| Five fixed negative controls | 1 each, 5 total |
+| MAIN TOTAL | 1030836 |
+| Separate endpoint identities | 24 |
+| COMBINED TOTAL | 1030860 |
+
+Selected complete-interval outputs; last is the inclusive endpoint 2b^k-1, C is the signed correction, S the original lift prefix. All rows satisfy M=S+C.
+
+| B | k | b | First error | Last | Full L1 | C | S | M |
+| ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| 2 | 2 | 2 | 4 | 7 | 3 | 3 | -5 | -2 |
+| 5 | 2 | 5 | 25 | 49 | 9 | 1 | -4 | -3 |
+| 5 | 3 | 5 | 125 | 249 | 20 | 0 | -1 | -1 |
+| 6 | 2 | 6 | 36 | 71 | 10 | -2 | -1 | -3 |
+| 10 | 4 | 10 | 10000 | 19999 | 180 | -20 | 46 | 26 |
+| 18 | 3 | 19 | 6859 | 13717 | 214 | -18 | 22 | 4 |
+
+For B=18,k=3, the nominal B-based interval has L1=102, not 214; these are different endpoints. For B=4,k=4, the nominal [256,512) bill is zero and first error is 625. Maximum complete evaluation cutoff: 20,000; independent factor verification through 27,200. The 21 large-B cases verify ONLY the elementary supply and box conditions, not complete high-degree errors.
+
+Selected endpoint outputs demonstrate the restored term:
+
+| B | k | n=2b^k | A_full | Cofactor return | Actual error |
+| ---: | ---: | ---: | ---: | ---: | ---: |
+| 2 | 2 | 8 | 0 | 1 | 1 |
+| 2 | 3 | 16 | 0 | -2 | -2 |
+| 2 | 4 | 32 | 0 | 3 | 3 |
+| 3 | 3 | 54 | 3 | -2 | 1 |
+| 6 | 3 | 432 | 0 | 2 | 2 |
+
+Reproduction commands: `python -m py_compile lc_check.py lc_boundary_check.py`, then `python lc_check.py`, then `python lc_boundary_check.py`. Each script emits its full case rows and code SHA256. The SHA256 entries above bind the exact embedded executed sources and registrations.
+
+Execution limitations: LC has no independent referee verdict and was not formalized. Existing CI was read, not launched. Older PS interval calculations, Nyman estimates and baseline analytics were not independently recomputed. No global upper bound, prime-distribution estimate, or scheduled follow-up execution is asserted. Remote edits in this run are confined to this owned daily report; local registrations, checks and source snapshots are scratch. Publication verification is supplied by the subsequent immutable-readback receipt.
+
