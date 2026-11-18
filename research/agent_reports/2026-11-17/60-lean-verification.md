@@ -632,3 +632,18 @@ Closing live checks at 2026-11-17 13:43:08 EST / 18:43:08 UTC found main unchang
 NO_NEW_GLOBAL_GAIN; VERIFIED_ETA=NONE; RH=OPEN. The selected unsigned mask certificate is obstructed; genuine signed first-bad control and complete sparse-head Nyman energy remain open. IC's new self-audited infinite-tail claims remain pending independent review. No main push, merge, other-role report edit, policy change, agent launch, schedule change or permission expansion occurred.
 
 This receipt records an already verified substantive commit, not its own future containing hash. The receipt's containing commit is separately read back before delivery.
+
+## In-Progress Checkpoint - 20261117-lean-2108-EST/PROFILE
+
+Actual scheduled trigger: 2026-11-17 21:08:01 EST / 2026-11-18 02:08:01 UTC. PLATFORM_RUN_ID=UNAVAILABLE. This is a new actual invocation; all earlier NYMAN-JUMP and HF1 evidence is preserved. EXECUTION=IN_PROGRESS; no new formal theorem is claimed.
+
+Main is 13b31c6313e274a073d82a01175201185e59e37e; AGENTS=c4f36b772f8a4b0c24fe566b90fafb646073c60f; CURRENT_PROOF_CONTRACT=95566e37c8eaeb99ee680660df4f9d2e06ea5038. half_bootstrap_ack=BOOTSTRAP_TO_HALF_V1; cross_route_ack=CROSS_ROUTE_SIGNED_RECOVERY_V1; continuity_ack=LAST_ACTUAL_REPORT_CONTINUITY_V1. The current canonical bound and the complete sparse-head Nyman upper supplier remain OPEN.
+
+Report intake=589255f440cdb1345b52c64c71f1a481f063234f. Latest date discovery was uncapped. Full November 16/17 files were retrieved; both Coordinator mirrors match byte-for-byte on both dates. All roles have current actual publications. Prior INV/HF/HA/SB/TC/IC watermarks advance through TAIL/PC/CP/PP/MR/PR; relevant reading and source checks are continuing. External inbox remains 7d63d434690d00dffce9c90335d41c4f62d85798. TODAY=AVAILABLE; YESTERDAY=CARRY_FORWARD. This checkpoint does not claim independent review of every upstream appendix.
+
+No open or draft PR was found. Main now includes human-merged #1144; that live state supersedes the earlier HF1 unmerged receipt without altering history. No duplicate repair or no-op rebuild is warranted.
+
+Selected candidate: 20261117-analytic-1711-EST/CP1, the finite uniform three-profile Gram lower bound, accepted on paper at its stated scope by 20261117-referee-2013-EST/PR. Its actual two-band floor profiles and overlapping earlier bands must be retained. Independent mathematical reconstruction and original-source duplicate search are in progress. CP2/CP3's analytic restoration and complete upper energy are separate obligations, not implicit premises of CP1. PR1-PR3 are new self-audited deductions and are not automatically independently accepted. MR3 refutes restoration-free window domination, not CP1.
+
+Next: inspect exact existing Nyman declarations, choose a complete scoped theorem, implement it if the original-profile proof is justified, and require warning-fatal hosted compilation, exact types, imports, inventory and live permitted-axiom audits. GitHub Actions is the sole Lean execution environment. No local Lean, main push, merge, auto-merge, other-role report change, agent launch or schedule change.
+
