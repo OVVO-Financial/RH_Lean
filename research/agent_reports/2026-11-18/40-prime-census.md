@@ -3401,3 +3401,50 @@ The complete PS synthesis, proofs, code and machine records were published at co
 The closing verified main remains **935840aec9b1fcbc66fe4e0164061d661a8ca3b1**. No new upstream handoff intervened after the intake; Coordinator mirrors were fully byte-checked. All 249,135 main-checker assertions, four separate rational certificate inequalities, two interval precisions, independent full-prefix reconstructions, C++ compilation and syntax checks completed successfully. All code blocks match the executed sources and Markdown fences are balanced. No required process remains running.
 
 **PS1: PN-S is REFUTED at the smallest admissible H=18. PS2: H=24 is separately negative using the elementary tail certificate.** The new findings are not Lean-certified or independently referee-accepted. The original PAIR/DUAL results remain intact. NO_NEW_GLOBAL_GAIN; VERIFIED_ETA=NONE; RH=OPEN. Future work should review these complete certificates or supply a genuinely changed full-source arithmetic inequality, not repeat the completed head grid.
+
+
+## In-Progress Checkpoint - 20261118-census-1900-EST/ST
+
+Actual trigger: 2026-11-18 19:00:01 EST / 2026-11-19 00:00:01 UTC. PLATFORM_RUN_ID=UNAVAILABLE. Registration prepared 2026-11-19 00:05:37 UTC. ST is a research label. Earlier PN/PS findings and receipts are preserved. EXECUTION=IN_PROGRESS; new mathematical results=PENDING.
+
+half_bootstrap_ack=BOOTSTRAP_TO_HALF_V1
+cross_route_ack=CROSS_ROUTE_SIGNED_RECOVERY_V1
+continuity_ack=LAST_ACTUAL_REPORT_CONTINUITY_V1
+
+Authority: main 935840aec9b1fcbc66fe4e0164061d661a8ca3b1; AGENTS c4f36b772f8a4b0c24fe566b90fafb646073c60f; contract 95566e37c8eaeb99ee680660df4f9d2e06ea5038; half directive 96ad4439ec458af6168f7d9cb3eef5dde291d37c. Intake agent-reports ce2aa97ff97240d2d9eedf44ff5a8f4222055d13. Nontruncated full-tree discovery found all seven latest roles dated November 18, without a calendar cap. November 17 files were retrieved. Latest watermarks are DAMP / GP / LW / LC / PS / FC / VR; the new post-PS material is FC, VR, GP, LW and LC. Coordinator's complete November 18 mirrors agree. No missing current-day report is replaced by an invented run. Earlier claims retain their individual paper/formal scopes.
+
+The original flat-taper and residue definitions were read at main blobs 2d23721027ecc44e85b7add02fc632b482f03352 and 2da630c1d5fb9302e2097ec1e170cf41c2b40609. Main has 10 successful checks; the sole open PR #1147 is non-draft, unmerged, at e77d049ff83809c13c52e3d90922f34ed032efac with 13 successful checks. This is finite covariance infrastructure, not a complete energy bound.
+
+### Preregistered Mathematical Question
+
+LW disproves a coefficient-GENERIC early-tail estimate using a deliberately enlarged correction class, and supplies only a restricted genuine-coefficient projection. Does the UNCHANGED genuine-Mobius two-band family have a favorable location-sensitive tail relative to its own stationary reference?
+
+The exact exploratory claim ST-S is:
+for every integer H>=6 divisible by six, N=H^2,
+Tail_N(r_H) <= V_N(c_H)/(N+1).
+
+Here c_H, alpha, z, L=log H, both correction bands (N/2,2N/3] and (5N/6,N], genuine mu including squareful correction sites, and r_H(m)=1-sum_(2<=k<=N)c_H(k)(m mod k)/k are EXACTLY the original PN/PS source. Both moments sum c/k=1 and sum c=3 are imposed by the existing exact solver. Tail_N is the sum over EVERY integer m>N with weight 1/[m(m+1)], including the entire infinite tail. V is the COMPLETE ordered gcd covariance, not its diagonal. N+1 is fixed by the stationary identity sum_(m>N)1/[m(m+1)]=1/(N+1), not fitted to data. ST-S is Census's own testable strengthening, NOT an upstream asserted theorem.
+
+Competing predictions: genuine arithmetic may suppress the after-support energy below its stationary reference; alternatively, coherent output locations or correction cross terms may force an excess even in the unmodified family. A certified positive lower bound for Tail_N-V/(N+1) refutes ST-S. A certified negative upper bound gives only the finite case. An interval crossing zero is unresolved.
+
+### Domain, Restoration And Stopping Rule
+
+Discovery heads: H=6,12,18,24. Held-out observable heads: H=30,36,42,48,54,60, all fixed before computing this new statistic. Earlier appearances of a head on DIFFERENT observables are not claimed to be unseen arithmetic data. Initial finite output cutoff T=65536. A case unresolved after the first rigorous tail certificate may extend once to T=1048576. Stop there. Do not retune the constant or enlarge the head grid after outcomes.
+
+Also reconstruct E=zero head + sum_(H<m<=N)r(m)^2/[m(m+1)] + Tail_N. Full norms remain present; a tail estimate alone is not the missing complete upper theorem.
+
+For every discovery head, decompose the CENTERED residual into genuine-Mobius, first-band, and second-band signals using f_k(m)=(m mod k)/k-(k-1)/(2k). Retain all three squares and all three doubled mixed terms, both in V and in the same finite weighted tail. Verify exact recombination of the quantized vectors; enclose coefficient errors. This identifies whether forgetting cross terms changes the apparent sign. If ST-S fails, determine the smallest tested legal head and preserve a short rational certificate. No global minimum is claimed without checking every smaller legal H.
+
+Use rational logarithm enclosures at two fixed precisions, integer Mobius inversion, exact residue/divisor update reconstruction, and independent trial-factor/literal-residue C++ reconstruction. Reuse the published interval engine only after source-hash matching; do not credit its old PN/PS results as new. Compute V independently by the Jordan squares and ordered gcd formula on the discovery heads. Pointwise and inherited large-sieve tail bounds may certify the full tail; isolate any external analytic dependence explicitly. Include omitted-band and omitted-cross controls.
+
+### Named Half-Continuation
+
+ROUTE=NYMAN / bounded source-specific feasibility test.
+START=original exact-head source, complete covariance identity, paid fixed subunit Mertens comparator and inherited remote-tail bound.
+DIRECT_TERMINAL=one COMMON unbounded legal exact-head sequence with COMPLETE E_H=O_epsilon(H^epsilon) for every epsilon>0; the existing paper Mellin zero test excludes each fixed zero with real part >1/2.
+PRESENT_WORK -> test whether the true original source pays its after-support return already at T=N, where the coefficient-generic LW result does not apply.
+ALL_RETURNS=both moments, both correction bands, squareful sites, full finite middle, all cross terms, after-support output and infinite tail.
+FIRST_OPEN=independent complete signed location-sensitive upper estimate; no renewal or new exponent is supplied by this experiment.
+STATUS=ACTIVE_SUPPORT, not a newly admitted proof route. NO_NEW_GLOBAL_GAIN; RH=OPEN.
+
+Only this owned daily report will be written remotely. New source and full results will be appended after execution and checking. Publication is verified only after immutable commit/readback.
