@@ -19,7 +19,7 @@ private theorem grid (a b : Nat) (f : Nat → Real) :
   calc
     _ = ∑ x : Fin a × Fin b, f (finProdFinEquiv x).val :=
       (finProdFinEquiv.sum_comp (fun i : Fin (a*b) => f i.val)).symm
-    _ = _ := by rw [Fintype.sum_prod_type_right]
+    _ = _ := by simp only [Fintype.sum_prod_type_right, finProdFinEquiv_apply_val]
 
 private theorem firstMoment (n : Nat) :
     ∑ i : Fin n, (i.val : Real) = (n : Real)*(n-1)/2 := by

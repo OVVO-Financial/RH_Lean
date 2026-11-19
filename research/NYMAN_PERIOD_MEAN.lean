@@ -44,7 +44,7 @@ theorem nyman_period_residual_energy (N P : Nat) (c : Nat → Real)
         rw [sum_comm]; simp only [mul_sum]
       _ = _ := by
         unfold nymanCovariance
-        rw [← mul_assoc]; simp only [mul_sum]
+        conv_rhs => rw [← mul_assoc]; simp only [mul_sum]
         apply sum_congr rfl; intro k hk; apply sum_congr rfl; intro l hl
         have hk0 : 0<k := lt_of_lt_of_le (by decide : 0<2) (mem_Icc.mp hk).1
         have hl0 : 0<l := lt_of_lt_of_le (by decide : 0<2) (mem_Icc.mp hl).1
