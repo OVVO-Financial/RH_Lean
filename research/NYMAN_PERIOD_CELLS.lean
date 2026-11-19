@@ -1,6 +1,7 @@
 import «research.NYMAN_VARIANCE_REPAIR»
 import Mathlib.Data.Nat.ModEq
 import Mathlib.Data.Fintype.BigOperators
+import Mathlib.Data.Fintype.EquivFin
 import Mathlib.Logic.Equiv.Fin.Basic
 
 /-! Complete-period first and second moments of the actual residue numerators. -/
@@ -11,14 +12,14 @@ open scoped BigOperators
 namespace RHLean.Analysis
 
 /-- The unscaled centered numerator of the original Nyman residue. -/
-def nymanCellFluct (k m : Nat) : Real := (m % k : Nat) - ((k : Real)-1)/2
+def nymanCellFluct (k m : Nat) : Real := ((m % k : Nat) : Real) - ((k : Real)-1)/2
 
 private theorem grid (a b : Nat) (f : Nat → Real) :
     ∑ i : Fin (a*b), f i.val = ∑ r : Fin b, ∑ q : Fin a, f (r.val+b*q.val) := by
   calc
     _ = ∑ x : Fin a × Fin b, f (finProdFinEquiv x).val :=
       (finProdFinEquiv.sum_comp (fun i : Fin (a*b) => f i.val)).symm
-    _ = _ := by rw [Fintype.sum_prod_type_right]; rfl
+    _ = _ := by rw [Fintype.sum_prod_type_right]
 
 private theorem firstMoment (n : Nat) :
     ∑ i : Fin n, (i.val : Real) = (n : Real)*(n-1)/2 := by
@@ -36,7 +37,7 @@ private theorem secondMoment (n : Nat) :
 
 private theorem centeredMoment (g : Nat) :
     ∑ r : Fin g, ((r.val : Real)-((g : Real)-1)/2)^2 =
-      (g : Real)*(g^2-1)/12 := by
+      (g : Real)*((g : Real)^2-1)/12 := by
   let h := ((g : Real)-1)/2
   change (∑ r : Fin g, ((r.val : Real)-h)^2) = _
   simp_rw [show ∀ x : Real, (x-h)^2 = x^2-2*h*x+h^2 by intro x; ring]
@@ -45,8 +46,8 @@ private theorem centeredMoment (g : Nat) :
   dsimp [h]; ring
 
 private theorem row (a g r : Nat) :
-    ∑ u : Fin a, ((r : Real)+g*u.val-((a : Real)*g-1)/2) =
-      (a : Real)*(r-((g : Real)-1)/2) := by
+    ∑ u : Fin a, ((r : Real)+(g : Real)*u.val-((a : Real)*g-1)/2) =
+      (a : Real)*((r : Real)-((g : Real)-1)/2) := by
   rw [sum_sub_distrib, sum_add_distrib, ← mul_sum, firstMoment]
   simp only [sum_const, card_univ, Fintype.card_fin, nsmul_eq_mul]
   ring
@@ -58,14 +59,15 @@ private theorem residuesCRT (a b : Nat) (ha : 0<a) (hb : 0<b) (co : a.Coprime b)
   let e : Fin (a*b) → Fin a × Fin b := fun q =>
     (⟨q.val%a, Nat.mod_lt _ ha⟩, ⟨q.val%b, Nat.mod_lt _ hb⟩)
   have he : Function.Bijective e := by
-    apply (Fintype.bijective_iff_injective_and_card _).2
+    apply (Fintype.bijective_iff_injective_and_card e).2
     constructor
     · intro x y h
       apply Fin.ext
       have hx : Nat.ModEq a x.val y.val := congrArg (fun t : Fin a × Fin b => t.1.val) h
       have hy : Nat.ModEq b x.val y.val := congrArg (fun t : Fin a × Fin b => t.2.val) h
       have hh := (Nat.modEq_and_modEq_iff_modEq_mul co).1 ⟨hx, hy⟩
-      simpa only [Nat.ModEq, Nat.mod_eq_of_lt x.isLt, Nat.mod_eq_of_lt y.isLt] using hh
+      change x.val%(a*b) = y.val%(a*b) at hh
+      rwa [Nat.mod_eq_of_lt x.isLt, Nat.mod_eq_of_lt y.isLt] at hh
     · simp
   calc
     _ = ∑ t : Fin a × Fin b, F t.1.val * G t.2.val :=
@@ -74,7 +76,7 @@ private theorem residuesCRT (a b : Nat) (ha : 0<a) (hb : 0<b) (co : a.Coprime b)
 
 private theorem rowCell (a g q r : Nat) (ha : 0<a) (hr : r<g) :
     nymanCellFluct (a*g) (r+g*q) =
-      (r : Real) + g*(q%a : Nat) - ((a : Real)*g-1)/2 := by
+      (r : Real) + (g : Real)*((q%a : Nat) : Real) - ((a : Real)*g-1)/2 := by
   have hm : Nat.ModEq (a*g) (r+g*q) (r+g*(q%a)) := by
     simpa only [Nat.mul_comm g q, Nat.mul_comm g (q%a)] using
       (((Nat.mod_modEq q a).symm.mul_right' g).add_left r)
@@ -92,12 +94,16 @@ private theorem basePair (a b g : Nat) (ha : 0<a) (hb : 0<b) (co : a.Coprime b) 
   rw [grid (a*b) g (fun m => nymanCellFluct (a*g) m * nymanCellFluct (b*g) m)]
   calc
     _ = ∑ r : Fin g, ((a : Real)*b)*((r.val : Real)-((g : Real)-1)/2)^2 := by
-      apply sum_congr rfl; intro r _
+      apply sum_congr rfl
+      intro r _
       simp_rw [rowCell a g _ r.val ha r.isLt, rowCell b g _ r.val hb r.isLt]
-      rw [residuesCRT a b ha hb co
-        (fun u => (r.val : Real)+g*u-((a : Real)*g-1)/2)
-        (fun v => (r.val : Real)+g*v-((b : Real)*g-1)/2), row, row]
-      ring
+      calc
+        _ = (∑ u : Fin a, ((r.val : Real)+(g : Real)*u.val-((a : Real)*g-1)/2))*
+            (∑ v : Fin b, ((r.val : Real)+(g : Real)*v.val-((b : Real)*g-1)/2)) :=
+          residuesCRT a b ha hb co
+            (fun u => (r.val : Real)+(g : Real)*u-((a : Real)*g-1)/2)
+            (fun v => (r.val : Real)+(g : Real)*v-((b : Real)*g-1)/2)
+        _ = _ := by rw [row, row]; ring
     _ = _ := by rw [← mul_sum, centeredMoment]; push_cast; ring
 
 private theorem repeatSum (n P : Nat) (f : Nat → Real)
@@ -116,8 +122,10 @@ theorem nyman_period_cell_sum (P k : Nat) (hkP : k ∣ P) :
   obtain ⟨t, rfl⟩ := hkP
   rw [Nat.mul_comm k t, repeatSum t k _ (cellShift (dvd_refl k))]
   have hz : (∑ m : Fin k, nymanCellFluct k m.val) = 0 := by
-    simp only [nymanCellFluct, Nat.mod_eq_of_lt (Fin.isLt _), sum_sub_distrib,
-      firstMoment, sum_const, card_univ, Fintype.card_fin, nsmul_eq_mul]; ring
+    have hh (m : Fin k) : nymanCellFluct k m.val = (m.val : Real)-((k : Real)-1)/2 := by
+      rw [nymanCellFluct, Nat.mod_eq_of_lt m.isLt]
+    simp only [hh, sum_sub_distrib, firstMoment, sum_const, card_univ, Fintype.card_fin,
+      nsmul_eq_mul]; ring
   rw [hz, mul_zero]
 
 /-- Exact ordered pair sum, including shared divisors and diagonal pairs. -/
@@ -128,19 +136,22 @@ theorem nyman_period_cell_pair (P k l : Nat) (hk : 0<k) (hl : 0<l)
   let g := Nat.gcd k l
   have hg : 0<g := Nat.gcd_pos_of_pos_left l hk
   obtain ⟨a,b,co,hk',hl'⟩ := Nat.exists_coprime k l
-  change k = a*g at hk'; change l = b*g at hl'
-  have ha : 0<a := by by_contra! h; have : a=0 := by omega; simp [this] at hk'; omega
-  have hb : 0<b := by by_contra! h; have : b=0 := by omega; simp [this] at hl'; omega
+  change k = a*g at hk'
+  change l = b*g at hl'
+  have ha : 0<a := Nat.pos_of_ne_zero (fun hz => hk.ne' (hk'.trans (by rw [hz, Nat.zero_mul])))
+  have hb : 0<b := Nat.pos_of_ne_zero (fun hz => hl.ne' (hl'.trans (by rw [hz, Nat.zero_mul])))
   let B := a*b*g
   have hB : 0<B := Nat.mul_pos (Nat.mul_pos ha hb) hg
-  have hkB : k ∣ B := ⟨b, by dsimp [B]; rw [hk']; ring⟩
-  have hlB : l ∣ B := ⟨a, by dsimp [B]; rw [hl']; ring⟩
+  have hkB : k ∣ B := ⟨b, by change a*b*g=k*b; rw [hk']; ring⟩
+  have hlB : l ∣ B := ⟨a, by change a*b*g=l*a; rw [hl']; ring⟩
   let f := fun m => nymanCellFluct k m * nymanCellFluct l m
   have repeats (t L : Nat) (hkL : k ∣ L) (hlL : l ∣ L) :
       ∑ m : Fin (t*L), f m.val = (t : Real)*∑ m : Fin L, f m.val :=
     repeatSum t L f (by intro r q; simp only [f, cellShift hkL, cellShift hlL])
   have hbase : ∑ m : Fin B, f m.val = (B : Real)*((g : Real)^2-1)/12 := by
-    simpa only [f, hk', hl'] using basePair a b g ha hb co
+    change (∑ m : Fin (a*b*g), nymanCellFluct k m.val*nymanCellFluct l m.val) = _
+    rw [hk', hl']
+    exact basePair a b g ha hb co
   have hx : (B : Real)*(∑ m : Fin P, f m.val) = (P : Real)*(∑ m : Fin B, f m.val) := calc
     _ = ∑ m : Fin (B*P), f m.val := (repeats B P hkP hlP).symm
     _ = ∑ m : Fin (P*B), f m.val := by rw [Nat.mul_comm B P]
