@@ -47,7 +47,7 @@ private theorem weight_mass (s : Nat) (hs : 0<s) :
       rw [sum_range_succ, ih, Nat.add_succ, Nat.cast_succ]
       have hp : 0 < ((s+n:Nat):ℝ) := by exact_mod_cast (show 0<s+n by omega)
       unfold nymanWeight
-      field_simp <;> ring
+      field_simp; ring
   have ht : Tendsto (fun n : Nat => s+n) atTop atTop := by
     apply tendsto_atTop.2; intro b; filter_upwards [eventually_ge_atTop b] with n hn; omega
   have hz : Tendsto (fun n : Nat => 1/((s+n:Nat):ℝ)) atTop (𝓝 0) :=

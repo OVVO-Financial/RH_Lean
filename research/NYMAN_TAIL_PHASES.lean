@@ -98,7 +98,7 @@ theorem nyman_two_moment_tail_phases (N P : Nat) (c : Nat → ℝ) (hP : 0<P)
       rw [← sum_sub_distrib, sum_div]
       apply sum_congr rfl; intro k hk
       have hk' : (k:ℝ) ≠ 0 := by exact_mod_cast (show k ≠ 0 by have := (mem_Icc.mp hk).1; omega)
-      field_simp <;> ring
+      field_simp; ring
     unfold nymanPeriodBias; rw [he,h3,h1]; norm_num
   have out := nyman_tail_two_phases N P c hP hp ⟨0,1,by rw [r0,r1]; norm_num⟩
   simpa [nymanPeriodLevel, bias] using out
