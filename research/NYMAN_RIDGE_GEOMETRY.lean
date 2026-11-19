@@ -50,8 +50,14 @@ theorem nyman_ridge_gap (K : Nat) (hK : 0 < K) : 1/12 ≤ nymanRidgeGap K := by
       have hp := mul_le_mul hu (show (k:Real)+2*K ≤ 6*K by linarith) hq.le
         (show (0:Real) ≤ 4*K by positivity)
       push_cast
-      rw [div_sub_div hk0.ne' hq.ne', div_le_div_iff₀ (by positivity) (mul_pos hk0 hq)]
-      nlinarith only [hp]
+      calc
+        1 / (12*(K:Real)) ≤ (2*(K:Real)) / ((k:Real)*(k+2*(K:Real))) := by
+          apply (div_le_div_iff₀ (by positivity) (mul_pos hk0 hq)).2
+          nlinarith only [hp]
+        _ = _ := by
+          apply (div_eq_iff (mul_pos hk0 hq).ne').2
+          linear_combination -((k:Real)+2*K) * (div_mul_cancel₀ (1:Real) hk0.ne') +
+            (k:Real) * (div_mul_cancel₀ (1:Real) hq.ne')
 
 theorem nyman_ridge_residue_floor (a b m : Nat) :
     nymanRidgeG a b m = m * nymanRidgeS a b - (nymanBandCount a b m : Real) := by

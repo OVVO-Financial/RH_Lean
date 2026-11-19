@@ -37,15 +37,19 @@ private theorem weighted (K : Nat) (hK : 0 < K) (u v : Real) (f : Nat → Real) 
       (∑ k ∈ Icc 2 (6*K), (if k ∈ S then x else 0) * f k) = x * ∑ k ∈ S, f k := by
     rw [Finset.mul_sum]
     calc
-      _ = ∑ k ∈ S, (if k ∈ S then x else 0) * f k :=
-        (Finset.sum_subset hs (fun k _ hn => by simp [hn])).symm
+      _ = ∑ k ∈ S, (if k ∈ S then x else 0) * f k := by
+        symm
+        apply Finset.sum_subset hs
+        intro k _ hn
+        simp [hn]
       _ = _ := Finset.sum_congr rfl (fun k hk => by simp [hk])
   have inc (a b : Nat) (ha : 1 ≤ a) (hb : b ≤ 6*K) : Ioc a b ⊆ Icc 2 (6*K) := by
     intro k hk
     simp only [Finset.mem_Ioc, Finset.mem_Icc] at hk ⊢
     omega
   simp only [nymanRidgeRepair, add_mul, Finset.sum_add_distrib]
-  rw [single _ (inc _ _ (by omega) (by omega)), single _ (inc _ _ (by omega) (by omega))]
+  rw [single _ (inc (3*K) (4*K) (by omega) (by omega)),
+    single _ (inc (5*K) (6*K) (by omega) (by omega))]
 
 private theorem masses (K : Nat) (hK : 0 < K) (u v : Real) :
     nymanCorrectionMoment (6*K) (nymanRidgeRepair K u v) = u ∧
@@ -53,18 +57,22 @@ private theorem masses (K : Nat) (hK : 0 < K) (u v : Real) :
   have sol : nymanRidgeLeft K u v * nymanRidgeS (3*K) (4*K) +
       nymanRidgeRight K u v * nymanRidgeS (5*K) (6*K) = u ∧
       K * nymanRidgeLeft K u v + K * nymanRidgeRight K u v = v :=
-    nyman_two_band_moment_solver K _ _ u v (by exact_mod_cast hK.ne')
+    nyman_two_band_moment_solver K (nymanRidgeS (3*K) (4*K)) (nymanRidgeS (5*K) (6*K)) u v (by exact_mod_cast hK.ne')
       (sub_pos.mp (gap_pos K hK)).ne'
   constructor
   · calc
-      _ = _ := by
+      _ = nymanRidgeLeft K u v * nymanRidgeS (3*K) (4*K) +
+          nymanRidgeRight K u v * nymanRidgeS (5*K) (6*K) := by
         simpa only [nymanCorrectionMoment, nymanRidgeS, div_eq_mul_inv, one_mul] using
           weighted K hK u v (fun k => 1 / (k:Real))
       _ = u := sol.1
   · calc
       _ = (K:Real) * nymanRidgeLeft K u v + K * nymanRidgeRight K u v := by
-        simpa [Nat.card_Ioc, show 4*K-3*K=K by omega, show 6*K-5*K=K by omega, mul_comm] using
-          weighted K hK u v (fun _ => 1)
+        have hw := weighted K hK u v (fun _ => 1)
+        simp only [mul_one, Finset.sum_const, nsmul_eq_mul, Nat.card_Ioc,
+          show 4*K-3*K=K by omega, show 6*K-5*K=K by omega] at hw
+        rw [hw]
+        ring
       _ = v := sol.2
 
 theorem nyman_ridge_moments (K H : Nat) (hK : 0 < K) (hH : 1 ≤ H) (hHN : H < 6*K) :
