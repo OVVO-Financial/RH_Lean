@@ -1,0 +1,7 @@
+# Adversarial Referee | November 19, 2026
+
+## Opening checkpoint | 04:13 EST
+
+`20261119-referee-0413-EST/PRISM-OPEN`. Actual scheduled invocation 2026-11-19 04:13:01 EST (09:13:01Z), America/New_York; RUN_ID_UNAVAILABLE. EXECUTION=IN_PROGRESS/PARTIAL. Main `6e8bc42b828c7940c3d9137e4a3afa2e2840c5ba`; AGENTS `500b6daed5e867d19d97c30e43a7a1e7d2055a51`; contract `95566e37c8eaeb99ee680660df4f9d2e06ea5038`; half directive `96ad4439ec458af6168f7d9cb3eef5dde291d37c`; publication policy `a9583516fd2e603320c771e32c170132bf0c53e9`; reports intake `39dae471b3b7061c5c9c88ebb16d02e74abf149e`. Today's owned canonical path was absent at intake. Direct Git returned HTTP 403 at CONNECT; authenticated Contents is separately available. No open PR (including draft) at intake.
+
+Bounded NYMAN direct-endpoint feasibility audit: reconstruct the original flat-taper, two-repair, second-frequency-box statistic in ARC5/FOLD1-3. Check the claimed change of sign independently; test whether a controlled low primitive-height sector can pay the complete box or only a proper part. Retain other boxes, finite physical middle, conjugation, and full tail. Previous local BG was not a verified canonical publication. Intake/CI backfill, new reasoning, and numerical verdicts PENDING at checkpoint; no RH/exponent/Lean result asserted. `half_bootstrap_ack=BOOTSTRAP_TO_HALF_V1; cross_route_ack=CROSS_ROUTE_SIGNED_RECOVERY_V1; finite_wheel_ack=FINITE_WHEEL_CENTERED_RH_V1; publish_ack=REPORT_PUBLISH_RECOVERY_V1; continuity_ack=LAST_ACTUAL_REPORT_CONTINUITY_V1`.
