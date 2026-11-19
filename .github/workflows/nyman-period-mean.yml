@@ -53,7 +53,7 @@ jobs:
               python3 - <<'PY'
           import pathlib, re
           text = pathlib.Path('period-diagnostics.log').read_text()
-          for match in re.finditer(r'(?ms)^([^\n]+?\.lean):(\d+):(\d+): (?:error|warning): (.*?)(?=^[^\n]+?\.lean:\d+:\d+: |\Z)', text):
+          for match in re.finditer(r'(?ms)^([^\n]+?\.lean):(\d+):(\d+): (?:error|warning)(?:\([^)\n]+\))?: (.*?)(?=^[^\n]+?\.lean:\d+:\d+: |\Z)', text):
               path, line, col, body = match.groups()
               print(f'::error file={path},line={line},col={col}::' + body.strip().replace('%', '%25').replace('\n', '%0A')[:2800])
           PY

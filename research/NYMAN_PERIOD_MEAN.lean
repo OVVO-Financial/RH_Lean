@@ -65,7 +65,8 @@ theorem nyman_period_mean_eq_covariance_iff (N P : Nat) (hpos : 0<P)
   rw [mul_div_cancel_left₀ _ hn]
   constructor <;> intro h
   · have hs : (nymanPeriodBias N c)^2 = 0 := by linarith
-    exact pow_eq_zero hs
+    by_contra hb
+    exact (pow_ne_zero 2 hb) hs
   · simp [h]
 
 end RHLean.Analysis
