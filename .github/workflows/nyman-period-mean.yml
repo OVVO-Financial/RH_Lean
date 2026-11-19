@@ -1,0 +1,70 @@
+name: Nyman original-source period mean
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'research/NYMAN_PERIOD_CELLS.lean'
+      - 'research/NYMAN_PERIOD_MEAN.lean'
+      - 'scripts/lean/nyman_period_mean/**'
+      - 'scripts/nyman_period_mean_regression.py'
+      - '.github/workflows/nyman-period-mean.yml'
+permissions:
+  contents: read
+concurrency:
+  group: nyman-period-mean-${{ github.event.pull_request.head.sha }}
+  cancel-in-progress: true
+jobs:
+  nyman-period-mean-proof:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+      - name: Exact finite comparisons, public inventory, and pins
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = '${{ github.event.pull_request.head.sha }}'
+          test "$(cat lean-toolchain)" = 'leanprover/lean4:v4.34.1'
+          grep -q 'd13f23b723b8a846827a245b89c10fc7d3f11612' lakefile.lean
+          python3 scripts/nyman_period_mean_regression.py
+      - uses: ./.github/actions/lean-setup
+      - uses: ./.github/actions/lean-compiled-cache
+      - name: Warning-fatal proof and import closure
+        id: proof
+        uses: ./.github/actions/research-compile
+        with:
+          build-library: 'true'
+          targets: research/NYMAN_PERIOD_MEAN.lean
+      - name: Public exact types and per-theorem kernel axioms
+        id: audit
+        run: |
+          set -euo pipefail
+          lake env lean -DwarningAsError=true scripts/lean/nyman_period_mean/ExactTypes.lean
+          lake env lean -DwarningAsError=true --run scripts/lean/nyman_period_mean/Audit.lean | tee period-audit.log
+          test "$(grep -c '^PERIOD_AUDIT ' period-audit.log)" -eq 4
+      - name: Annotate failing proof diagnostics
+        if: failure() && (steps.proof.outcome == 'failure' || steps.audit.outcome == 'failure')
+        shell: bash
+        run: |
+          set -eu
+          for file in research/NYMAN_PERIOD_{CELLS,MEAN}.lean scripts/lean/nyman_period_mean/{ExactTypes,Audit}.lean; do
+            if ! lake env lean -DwarningAsError=true "$file" >period-diagnostics.log 2>&1; then
+              python3 - <<'PY'
+          import pathlib, re
+          text = pathlib.Path('period-diagnostics.log').read_text()
+          for match in re.finditer(r'(?ms)^([^\n]+?\.lean):(\d+):(\d+): (?:error|warning)(?:\([^)\n]+\))?: (.*?)(?=^[^\n]+?\.lean:\d+:\d+: |\Z)', text):
+              path, line, col, body = match.groups()
+              print(f'::error file={path},line={line},col={col}::' + body.strip().replace('%', '%25').replace('\n', '%0A')[:2800])
+          PY
+              break
+            fi
+          done
+      - uses: actions/upload-artifact@v4
+        if: always() && (steps.proof.outcome == 'failure' || steps.audit.outcome != 'skipped')
+        with:
+          name: nyman-period-mean-${{ github.event.pull_request.head.sha }}
+          path: |
+            period-audit.log
+            period-diagnostics.log
+          if-no-files-found: error
