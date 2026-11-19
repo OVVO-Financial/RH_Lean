@@ -3465,3 +3465,2598 @@ For the original correction signals -(alpha/L)S1 and -(z/L)S2, alpha*z<0 gives a
 This is a local-in-output geometric restriction with an explicit original coefficient multiplier, NOT a complete-source lower bound or a global failure of every C*V/N estimate. Preserve all three centered source components and the other outputs.
 
 Exact finite check: all K=6,...,128 and every integer in that chamber; independent direct residues versus closed floor formulas; verify harmonic and weighted bounds with Fraction. Independently reconstruct final main finite prefixes in C++ for H=6,12,18,24,36,60 at their registered final cutoffs. Recover a small H=6 finite-only violation certificate through the already-observed crossing at m=664, and verify the preceding cutoff 663. The latter certificate uses nonnegative omitted tails, so its refutation need not depend on a large-sieve theorem. Record failures rather than change constants after testing.
+
+
+## Completed Research - 20261118-census-1900-EST/ST
+
+Actual scheduled trigger: **2026-11-18 19:00:01 EST** / 2026-11-19 00:00:01 UTC. Reporting date: 2026-11-18, America/New_York. PLATFORM_RUN_ID=UNAVAILABLE; ST is a research label, not a platform identifier. Final source/PR refresh: 2026-11-19 00:18:22 UTC. This section preserves and supersedes only the execution-pending state of the earlier ST checkpoints; PN/PS history is unchanged.
+
+half_bootstrap_ack=BOOTSTRAP_TO_HALF_V1; cross_route_ack=CROSS_ROUTE_SIGNED_RECOVERY_V1; continuity_ack=LAST_ACTUAL_REPORT_CONTINUITY_V1. The previous high_attack, chain and finite_wheel acknowledgments retain their source safeguards, not their superseded task priorities.
+
+### A. What Changed
+
+**ST1: REFUTED, by certified FINITE_COMPUTATION.** The preregistered exploratory assertion that the original two-band Nyman residual always has after-support energy at most its stationary reference is false at the smallest legal head, H=6. A short rational certificate uses only outputs 37 through 664. No analytic estimate for the omitted infinite tail is needed to refute it. This is Census's own strengthened test, not an upstream asserted theorem or a counterexample to RH.
+
+**ST2: PAPER_PROOF, single-session self-audit; independent review PENDING.** An exact quotient-window calculation explains a sign reversal in the original correction bands. Under the explicit condition alpha*z<0, their mixed contribution is negative on average over a complete period but positive on every output in a specified after-support window. The window has an explicit positive weighted lower bound. The proof is for a proper contribution, not the complete residual, and is NOT_FORMALIZED.
+
+**ST3: FINITE_COMPUTATION.** All nine registered heads H=6,12,...,54 violate ST-S, including five held-out observable heads. H=60 remains PENDING/UNRESOLVED after its one registered cutoff extension. Both correction bands, the raw Mobius family, all six quadratic sectors, the finite middle, and the infinite tail were restored where stated below. No constant was retuned.
+
+**ST4: FINITE_COMPUTATION.** The primary suite completed 560,307 assertions; the independent/check-certificate suite completed 17,161. The first suite had an earlier validation-code failure, described in J. Independent C++ reconstruction agrees on six heads; rational literal-residue reconstruction independently verifies the short H=6 prefix. These are independent implementations within one session, not separate referee acceptance.
+
+**Quantitative proof impact:** no new global Mertens exponent, canonical VF estimate, or complete subpower-energy supplier. RH remains OPEN. A coefficient-sensitive, output-location estimate is still required. The new information is an actual-source falsifier and an exact local sign mechanism, not a larger table presented as a theorem.
+
+### B. Authority, Provenance And Continuity
+
+Repository: OVVO-Financial/RH_Lean. Latest main was fetched before substantive work and refreshed before publication; it remained **935840aec9b1fcbc66fe4e0164061d661a8ca3b1**. Intake agent-reports: **ce2aa97ff97240d2d9eedf44ff5a8f4222055d13**. Final prepublication tree: **daf7e3ab9dfc84978b34cb417057b1b18d74dc1e**, containing only this run's two additional checkpoints since intake.
+
+| Source read | Important blob SHA |
+| --- | --- |
+| main:AGENTS.md | c4f36b772f8a4b0c24fe566b90fafb646073c60f |
+| main:CURRENT_PROOF_CONTRACT.md | 95566e37c8eaeb99ee680660df4f9d2e06ea5038 |
+| docs/RHLEAN_BOOTSTRAP_TO_HALF_20261116.md | 96ad4439ec458af6168f7d9cb3eef5dde291d37c |
+| docs/RHLEAN_CROSS_ROUTE_SIGNED_RECOVERY_20261110.md | e3ae4280438f591f1ffaddd754a1c3a6d35d0691 |
+| docs/RHLEAN_REPORT_CONTINUITY_LAST_ACTUAL_20261111.md | 3e71820a4af722eae7098da6945bb5bcba50dd0d |
+| docs/DYNAMIC_RESEARCH_AGENTS.md | b76d595f09403fc54eca71d04bf9e0306e0a9c09 |
+| research/NYMAN_FLAT_TAPER_RETURN_20261104.lean | 2d23721027ecc44e85b7add02fc632b482f03352 |
+| research/NYMAN_HIGH_COEFFICIENT_INVARIANT_20261104.lean | 2da630c1d5fb9302e2097ec1e170cf41c2b40609 |
+| research/NYMAN_CORRECTION_ENERGY_20261105.lean | e5453cd32c3c4ebf9ebf41927bcb92e534b2ece7 |
+| research/NYMAN_ALL_PROFILE_COERCIVITY.lean | f287e70a500ce5dddf8f0ccf6f2d1da6ecc179ba |
+| research/oai_434/VF919WindowErrorClosure.lean | f629db1b2b65d6ec042ac9432397d4b6316200c6 |
+| research/VF_CANONICAL_SQRT_TWO_VON_KOCH.lean | 79030d70e8d3e0d08eef9bac53fef95c36eca2fb |
+| PR #1147: research/NYMAN_VARIANCE_REPAIR.lean | 92608fc013c26102ac12250558a850209028e6d8 |
+
+The public target remains `VFCanonicalSquareVonKochStatement`: there is C>=0 such that for every natural R>=2, |pi(R^2)-VF_can(R^2)|<=C R log R. The inspected `riemannHypothesis_of_vfCanonicalSquare` retains the explicit classical von Koch criterion and the open arithmetic input. An alternative Nyman terminal is used below without identifying the two coefficient carriers.
+
+The strongest applicable inspected comparator is `native_mertens_near_uniform_window_error_closed`, with `MertensGrowthAtMost (7/8-7/(64*nearUniformSlotCount))`. This means every positive exponent loss, not an exact fixed-power bound at that boundary. Its strict margin permits fixed b=7/8 when needed. No Mertens estimate is used in ST1. Existing transitive certification is reused from PS/VR, not replaced with a fresh local build. The exact [#1119 job log](https://github.com/OVVO-Financial/RH_Lean/actions/runs/42552018910/job/128949473700) was retrieved: closures 35358,35375,35736,35737,35753 use only propext, Classical.choice and Quot.sound; all 14 checks at 77ee815846d6d534c866f0752aa33b84c385610a were successful. No unpaid supplier was silently inserted into the inspected closed declaration.
+
+PRs #1145 and #1146 are merged, at 2026-11-18T15:13:06Z and 15:13:26Z, respectively. Their merge commits are 56590f2075e01d8d7ff2c792d8d41730b8b6dcf0 and current main. Main has 10/10 successful checks. The sole open PR is **#1147**, non-draft, unmerged, head **e77d049ff83809c13c52e3d90922f34ed032efac**, with 13/13 successful checks at the final refresh. Its [dedicated raw-head log](https://github.com/OVVO-Financial/RH_Lean/actions/runs/44371410914/job/135038879279) verifies five statements and six exact types with warning-fatal checks, closures 381,483,526,698,741 and only the standard three axioms. It certifies finite covariance repair at that PR head, not an infinite weighted upper bound and not a theorem already merged into main. No workflow was launched or rerun here.
+
+The full nontruncated reports tree was enumerated without a date cap. Latest actual sections and both November 17 and November 18 role files were retrieved. The previous own completed watermark is PS at 11:00 EST. Relevant new handoffs were consumed oldest-to-newest as FC, VR, GP, LW, LC; DAMP was unchanged. This is scoped relevant backfill, not a claim to have independently re-proved the entire historical corpus.
+
+| Role | Latest November 18 section / EST time | Latest blob at intake |
+| --- | --- | --- |
+| Coordinator, byte-identical complete 00/90 mirrors | DAMP / 07:10 | ee7b4ce6ff79ab0eaea4d8b74d95e3e78f398cb5 |
+| Owner Payment | GP / 16:15 | a6345e177392d55db551650e8013581b89694623 |
+| Analytic Type II | LW / 17:11 | 065a94a6eb8f69b51641011296efbce3f96c87f5 |
+| Finite Wheel | LC / 18:06 | 669ba135d05503c1cead5f04106977ff66887ed6 |
+| Prime Census | PS / 11:00 | 5d76c950c517712bbba138d7240d21ac4ccd6b93 |
+| Adversarial Referee | FC / 12:03 | 91b57ce6a46693403cd8a5751c63aaf8335ab305 |
+| Lean Verification | VR / 13:14 | 2cd3263317a8afaae5e664f4b56d2c095059421c |
+
+All paths are research/agent_reports/2026-11-18/{role-owned filename}. November 17 blobs in the same role order are 125e55aa191083d9c0a982b6dc5a66267e4e4256, 6516bf78b096471ccfd2fb8c215e94002544a594, d4bc53ac1b68f6dadabc4a04a2f5fc8c74f6625f, 5c26771c0a266d5112e0b4a4b28aba0132e35ef7, 587b0bb3dd66834a18610ab86174f285f81c4b04, 103ee17307ac799e20bd4ce17d97ff96101a9e5b, ee9ed0ace763bf99fea5812490f9541653917938. Relevant DUAL/PC/CP/PP/MR/PR/PROFILE capsules were carried forward. TODAY=AVAILABLE for all seven roles; YESTERDAY=CARRY_FORWARD where applicable. No new missing report is inferred; older unverified execution gaps are not invented away. CONTINUITY_COMPLETE is limited to latest discovery and relevant post-PS handoffs.
+
+EXTERNAL_HANDOFFS.md blob **7d63d434690d00dffce9c90335d41c4f62d85798** was read, unchanged, with no entry after October 18. EXT-20261018-PNT-1 retains its weighted prime-error/root-boundary obligation; EXT-20261014-5 concerns unconditional all-root scope, not a conditional first-bad refutation. Neither supplies a Nyman energy theorem.
+
+The early ST preregistration was committed and read back at **87f3220e3aec727fceb93fa1d30f9422c0ab115b**, content **1d8e78d871b4ec273da16c6ac98ac4c9393ec797**. The expressly post-discovery proof-led follow-up was committed and read back at **daf7e3ab9dfc84978b34cb417057b1b18d74dc1e**, content **28952d13b9c81cffb004c41ed0552ae1a3e9555b**, before its checks. These are observed publications, not promised background work.
+
+### C. Question, Rivals And Frozen Design
+
+LW's coefficient-generic tail saturation uses an enlarged moment-null correction class. It does not decide the original prescribed Mobius/two-band coefficients. The mystery here is whether that unchanged family suppresses its *after-support* weighted energy below the stationary reference, or whether output location and coherent signed components produce an excess.
+
+**ST-S, registered before computation:** for all integers H>=6 with 6 dividing H, N=H^2, the original source in D satisfies
+
+```text
+Tail_N(r_H) := sum_(m>N) r_H(m)^2/[m(m+1)] <= V_N(c_H)/(N+1).
+```
+
+The denominator N+1 is fixed by sum_(m>N)1/[m(m+1)]=1/(N+1), not chosen to flatten data. A positive certified lower bound for the difference refutes ST-S. A negative certified upper bound would support that one finite case only. An interval crossing zero remains unresolved. Either outcome is compatible with an unknown constant-C bound; no such C is fitted here.
+
+Discovery heads: 6,12,18,24. Held-out *observable* heads: 30,36,42,48,54,60. Some integers appeared in earlier experiments on different observables; they are not advertised as wholly unseen arithmetic. Initial T=65536; if unresolved, one extension to T=1048576; stop there. Two fixed interval grids, 10^-60 and 10^-75. All six quadratic sectors were required on discovery heads. No randomization or surrogate prime population was used.
+
+After discovering the band-band sign reversal, ST2's proof-led window and exact-check range K=6,...,128 were registered separately. This is post-discovery explanation, not a blind original prediction.
+
+### D. Literal Original Carrier And Complete Restoration
+
+For H>=6 divisible by six, set N=H^2=6K and L=log H. Use genuine Mobius values, with k=1 included in the moment solver and excluded from the residual coefficients:
+
+```text
+q_k = log(N/max(H,k)),
+u = sum_(k=1..N) mu(k)q_k/k,
+v = 2L + sum_(k=1..N) mu(k)q_k,
+I1 = {3K+1,...,4K}, I2 = {5K+1,...,6K},
+s1 = sum_(k in I1)1/k, s2 = sum_(k in I2)1/k,
+alpha = (u-s2*v/K)/(s1-s2), z = v/K-alpha,
+h_k = alpha*1_I1(k)+z*1_I2(k),
+c_k = (h_k-mu(k)q_k)/L,                   2<=k<=N,
+r(m) = 1-sum_(k=2..N)c_k(m mod k)/k.
+```
+
+The exact solver gives sum c_k/k=1 and sum c_k=3; Mobius inversion gives r(m)=0 for every 1<=m<=H. The original `nyman_flat_complete_return` preserves the correction floor and both logarithmic tails, not just a favorable truncated term. At H=6 the bands are (18,24] and (30,36], alpha in [0.167864514323,0.167864514324], z in [-0.135436013750,-0.135436013749]. Squareful sites in both bands remain present even when mu(k)=0. Every integer output has its own occurrence and exact weight 1/[m(m+1)]. No multiplicity is collapsed.
+
+Let f_k(m)=(m mod k)/k-(k-1)/(2k). The moments give r=-sum c_k f_k. Split c=c0+c1+c2, where c0=-mu*q/L, c1=alpha*1_I1/L and c2=z*1_I2/L; set r_i=-sum c_i f_k. Then
+
+```text
+r = r_0+r_1+r_2,
+r^2 = r_0^2+r_1^2+r_2^2+2r_0r_1+2r_0r_2+2r_1r_2,
+E_H = 0 + sum_(H<m<=N)r(m)^2/[m(m+1)] + Tail_N(r).
+```
+
+These are genuinely centered components of the same source, not three uncentered quantities incorrectly assigned separate finite norms. The arithmetic center is proved by the moments. It is **not** the repository's distinct NNS zero-target covariance definition.
+
+All endpoints, source admissions, signs, correction sites and weights are PRESERVED. Owner chronology, historical multiplicities and first-bad masks are NOT_APPLICABLE to this finite Nyman carrier; no conclusion is transferred to their carriers. Complete-square reconstruction is exact at each quantized cell, with separately enclosed coefficient error. Deleting either band fails the reciprocal-moment control; deleting all mixed terms changes the statistic.
+
+### E. Methods And Infinite-Tail Certificate
+
+For the complete stationary covariance, with every ordered pair present,
+
+```text
+V = sum_(i,j=2..N)c_i*c_j*(gcd(i,j)^2-1)/(12ij)
+  = (1/12)sum_(d=2..N)J_2(d)[sum_(d|k,2<=k<=N)c_k/k]^2.
+```
+
+Joint-period CRT gives mean(f_i f_j)=(gcd(i,j)^2-1)/(12ij). The Jordan formula follows from sum_(d|g)J_2(d)=g^2. These are reused covariance identities, not new ST theorems. The primary implementation computes Jordan values by divisor subtraction, Mobius by Dirichlet inversion, and checks Mobius independently by trial factorization. It computes both full Gram formulas on discovery heads, not merely a diagonal proxy.
+
+The residual is reconstructed using exact integer residue-increment arrays with a uniform coefficient-error bound. Rational logarithm bounds use log(a/b)=2 atanh((a-b)/(a+b)), reduction to 1<=a/b<=2, 100 exact rational terms and an explicit positive geometric remainder. All operations round outward on the two registered grids. Repeating at higher precision is a stability check in addition to, not instead of, the analytic remainder certificate.
+
+For a fixed centered source with denominators at most N, collect distinct rational Fourier frequencies; circular separation is at least N^-2 and Parseval mass is V. The classical dual large sieve gives each shifted J-term square sum at most (J+N^2)V. The complementary portion of a complete period gives the corresponding lower discrepancy. Abel summation with the exact weights therefore yields
+
+```text
+|Tail_T(r)-V/(T+1)| <= N^2*V/[(T+1)(T+2)].
+```
+
+Intersect this interval with 0<=Tail_T<=U^2/(T+1), where U=(1/2)sum |c_k|(1-1/k). The primary theorem and duality were checked in [Montgomery and Vaughan, Multiplicative Number Theory II, Theorem 19.4 and (19.7), printed pp. 152-153](https://personal.science.psu.edu/rcv4/571s25/montgomery-vaughanII.pdf). This is the inherited PS/PV fixed-source certificate; no new RH-scale discrepancy theorem is claimed. For the three component tails use their own variances and pointwise bounds. A mixed tail is bounded in absolute value by the square root of the two component square-tail upper bounds. All six tails are thus retained.
+
+The **ST1 refutation does not depend on this large-sieve input**: its finite prefix already exceeds the stationary reference and every omitted squared term is nonnegative. The large sieve is used for the displayed two-sided full-tail intervals and complete mixed-tail signs.
+
+### F. ST1: Minimal Exact Counterexample
+
+H=6 is the smallest integer in the prescribed domain H>=6, 6|H. Independent literal-residue interval calculation gives
+
+```text
+V_6 in [0.268513610996, 0.268513610997],
+V_6/37 in [0.007257124621, 0.007257124622],
+sum_(m=37..663) r_6(m)^2/[m(m+1)]
+  in [0.007256900471, 0.007256900472],
+sum_(m=37..664) r_6(m)^2/[m(m+1)]
+  in [0.007257160423, 0.007257160424].
+```
+
+The rounded certificate alone proves
+
+```text
+Tail_36(r_6) - V_6/37
+ >= 0.007257160423 - 0.268513610997/37
+  = 662327/18500000000000 > 0.
+```
+
+Because the finite square sums are nondecreasing and the sum through 663 is strictly below the reference, 664 is the first finite-prefix-only crossing, not merely the first sampled output. The full-tail interval is [0.007656384604,0.007656546645]; its ratio to the stationary reference is [1.055016277601,1.055038605970]. The finite middle is [0.012750920209,0.012750920210], so the complete E_6 lies in [0.020407304813,0.020407466854].
+
+**Scope:** this refutes the exact constant-one assertion on the unchanged genuine source. It does not refute Tail_N<=C V/(N+1) for an unspecified fixed C, a complete subpower-energy bound, the Nyman criterion, a fully hypothesized first-bad theorem, or RH. No converse implication from ST-S to RH is asserted: even a true tail bound would leave the finite middle unpaid.
+
+### G. ST2: Exact Output-Window Sign Mechanism
+
+This is a new paper derivation with explicit hypotheses, followed by exact finite regression. Let K be any integer >=6, define I1,I2,s1,s2 as in D, and
+
+```text
+S_i(m) = sum_(k in Ii) f_k(m),
+W_K = {m in Z : 6K<m<=floor(13K/2)}.
+```
+
+For m in W_K, the first-band floors are one or two, with sum floor(m/k)=floor(m/2)-2K. Every second-band floor is one. Hence, without an asymptotic approximation,
+
+```text
+S1(m) = (m+1/2)s1 + 3K/2 - floor(m/2),
+S2(m) = (m+1/2)s2 - 3K/2.
+```
+
+Cauchy's inequality and the exact sum of first-band denominators give s1>=2K/(7K+1)>=12/43. Therefore
+
+```text
+S1 >= (12/43-1/2)m +3K/2+6/43
+   >= 11K/172+6/43 >= K/16.
+```
+
+Also s2<=K/(5K+1), so
+
+```text
+S2 <= ((13K+1)/2)*K/(5K+1)-3K/2
+   = -K(K+1)/(5K+1) <= -K/5.
+```
+
+Thus S1*S2<=-K^2/80 on every cell. There are floor(K/2)>=K/3 cells, each with m(m+1)<=130K^2/3. Consequently
+
+```text
+sum_(m in W_K) S1(m)S2(m)/[m(m+1)] <= -K/10400.
+```
+
+For any L>0 and original band signals r1=-(alpha/L)S1, r2=-(z/L)S2, **assuming alpha*z<0**, multiplication reverses this inequality and proves
+
+```text
+2 sum_(m in W_K) r1(m)r2(m)/[m(m+1)]
+ >= |alpha*z| K/(5200 L^2) > 0.
+```
+
+Their stationary mixed contribution, however, is strictly negative:
+
+```text
+(2 alpha*z/L^2) sum_(i in I1,j in I2)(gcd(i,j)^2-1)/(12ij) < 0.
+```
+
+The kernel is nonnegative and the pair (4K,6K), with gcd=2K, makes the sum strictly positive. This proves a location-versus-period sign reversal, not independence of the bands. Alpha*z<0 was certified for all ten registered original heads, but is **not proved for every head**. The coefficient signs themselves reverse repeatedly across heads; their product remains negative in the tested set.
+
+Exact rational direct-residue checks verified both formulas and both pointwise bounds for every K=6,...,128 and all **4,090** window cells, plus the weighted bound for each K. This finite regression supports the written proof but does not replace independent review.
+
+The mechanism identifies the quotient pattern floor(m/k) as an informative hidden variable. It does not claim that the window alone explains all of ST1: the raw Mobius square and its two mixed interactions also change, and the remainder of the infinite output cannot be discarded. No local positive lower term is spent as a lower bound for the whole residual.
+
+### H. Full Finite Results And Exceptional Behavior
+
+All displayed decimals are outward-rounded rational enclosures, not uncertified floating signs. Final T=65536 except H=60, where T=1048576. The full-tail bounds may be deliberately wide at larger H; the stopping rule was honored.
+
+| H | V/(N+1) | Full after-support tail | Complete E_H | First finite crossing |
+| --- | --- | --- | --- | --- |
+| 6 | [0.007257124621, 0.007257124622] | [0.007656384604, 0.007656546645] | [0.020407304813, 0.020407466854] | 664 |
+| 12 | [0.004291740111, 0.004291740112] | [0.005044608088, 0.005050616736] | [0.014586835771, 0.014592844419] | 832 |
+| 18 | [0.003342046770, 0.003342046771] | [0.003536195220, 0.003579314966] | [0.012996866322, 0.013039986068] | 5110 |
+| 24 | [0.002843348140, 0.002843348141] | [0.003433915616, 0.003585676547] | [0.011947852152, 0.012099613083] | 2712 |
+| 30 | [0.002531049960, 0.002531049961] | [0.003333036118, 0.003797894609] | [0.011884144244, 0.012349002735] | 2670 |
+| 36 | [0.002305650192, 0.002305650193] | [0.003175610652, 0.004390641796] | [0.011143516486, 0.012358547630] | 3219 |
+| 42 | [0.002135491845, 0.002135491846] | [0.002561129310, 0.005349253325] | [0.010856802278, 0.013644926293] | 7255 |
+| 48 | [0.002002835298, 0.002002835299] | [0.002618996785, 0.008395039150] | [0.010221286876, 0.015997329241] | 6405 |
+| 54 | [0.001895951046, 0.001895951047] | [0.002056222999, 0.013089216768] | [0.010319746697, 0.021352740467] | 22533 |
+| 60 | [0.001806298850, 0.001806298851] | [0.001757256969, 0.001840128568] | [0.009771331153, 0.009854202751] | UNRESOLVED |
+
+Every H through 54 already has a finite-prefix certificate; its first crossing is recorded in the table. Only H=60 needed the registered extension and remains unresolved. Its full difference interval is [-0.000049041881,0.000033829718], so neither direction may be claimed there. The greatest guaranteed lower excess in the registered set is at H=36, at least 0.000869960460; this is **not** a ranking of the unknown exact full-tail excesses. The full intervals overlap too much for such a ranking.
+
+At H=6 the scan's largest weighted-cell lower endpoint occurs at m=40, with its cell contribution in [0.000514537836,0.000514537837]. Selected extreme cells for other heads occur at different quotient positions, not at a fixed normalized location. This is an extreme-location diagnostic, not a separate certified all-output maximization theorem; it motivates analysis of the exact floor partition.
+
+For H=6 all three squares and three doubled mixed terms are:
+
+| Sector | Stationary contribution divided by N+1 | Complete weighted tail contribution |
+| --- | --- | --- |
+| raw square | [0.007074056618, 0.007074056619] | [0.007739855851, 0.007740013804] |
+| 2 raw/first band | [0.000190669933, 0.000190669934] | [-0.000144068255, -0.000141940211] |
+| 2 raw/second band | [-0.000186664145, -0.000186664144] | [-0.000245078303, -0.000243370025] |
+| first-band square | [0.000120707243, 0.000120707244] | [0.000091162614, 0.000091165310] |
+| 2 first/second band | [-0.000019428810, -0.000019428809] | [0.000042157960, 0.000042381108] |
+| second-band square | [0.000077783780, 0.000077783781] | [0.000170333536, 0.000170335274] |
+
+These six contributions reconstruct the same complete statistic; the intervals need not sum as tightly as the direct full-square interval. The raw/first-band mixed term reverses from positive stationary to negative weighted, while the band/band term reverses the other way. The raw square contributes the largest positive stationary-reference difference. It would be incorrect to explain the entire excess by the two correction bands alone.
+
+The **complete infinite-output** band-band mixed tail, not just ST2's window, is positive in all four discovery heads:
+
+| H | Stationary doubled band-band reference | Complete doubled band-band tail |
+| --- | --- | --- |
+| 6 | [-0.000019428810, -0.000019428809] | [0.000042157960, 0.000042381108] |
+| 12 | [-0.000000021430, -0.000000021429] | [0.000000210868, 0.000000212152] |
+| 18 | [-0.000000099987, -0.000000099986] | [0.000002130812, 0.000002156151] |
+| 24 | [-0.000000018370, -0.000000018369] | [0.000000693545, 0.000000712788] |
+
+This is finite evidence for these exact heads, not a universal mixed-tail sign theorem. No complete three-family decomposition was computed in the primary held-out grid; those rows retain the full residual and complete variance. The independent C++ run computes extra component prefixes at H=36,60, but they are not silently promoted to two-sided certified component tails.
+
+### I. Independent Checks And Scoped Regressions
+
+The C++ implementation imports no Python coefficients, logs, Mobius table, or residual arrays. It trial-factors each input, evaluates fresh long-double logarithms, and uses literal residues at every output. It checked H=6,12,18,24,36 through T=65536 and H=60 through T=1048576. Full variance, finite tail, finite middle, moments 1 and 3, exact head up to floating residual tolerance, and discovery-head component prefixes agree within 1e-11. This is an independent numerical reconstruction, **not a second rigorous interval implementation**.
+
+The short H=6 certificate was recomputed with literal rational-interval residues, independently of the increment arrays, and with the ordered gcd Gram rather than the primary Jordan accumulation. It reuses the independently source-matched logarithm and coefficient routine; that shared component is disclosed. Both methods certify the same first crossing 664.
+
+PASS: genuine mu by inversion versus trial factorization for all inputs through N=3600; both moments; every registered head zero; endpoint probes; complete ordered covariance versus Jordan squares on discovery heads; all six quantized-sector recombinations; 60/75-grid enclosure nesting for mathematical quantities; either-band omission fails the moment; exact quotient-window formulas and weighted bound. The 577,468 count is the sum of the two instrumented final-suite counters, not a count of distinct mathematical theorems and not all interpreter assertions.
+
+REUSED, NOT_RERUN_AS_NEW: PN pairing noncontraction, PS phase-restoration counterexample, previous genuine source/finite-return bridges, paid baseline evidence. NOT_APPLICABLE to ST: historical-anchor NNS masks, raw A/B or A/H owner pairing, MU-LIFT exterior coverage, first-bad predicates, finite-AC denominators. Their known counterexamples are preserved, not claimed to have been rechecked on another carrier. No randomized control, prime-density model, local Lean build, or new hosted proof run was used.
+
+### J. Failures, Repairs And Reproducibility
+
+The first primary execution stopped at instrumented check **131335**, after H=6, because the cross-precision validator treated the stored pointwise upper bound U as a degenerate exact interval. The 60- and 75-grid U upper bounds need not be identical. A diagnostic rerun isolated U as the only mismatch. The repair changes only that validation to require the higher-precision upper bound to be nonincreasing. All mathematical enclosures retain their nesting checks. No source, cutoff, precision, hypothesis, coefficient, constant or sign rule changed. The aborted run is not credited as a completed pass. Its source SHA256 was 5eca5371d808bf2d649173b04cc4deaf95deda3498d55274a6fd599cacc0df81.
+
+Extracting the reused helper initially retained one extra final newline; it was removed before execution so the published helper's SHA256 matched exactly. This was a byte-reproduction correction, not a mathematical repair.
+
+Environment actually used: Python 3.12.13 and g++ 13.3.0. Primary completed run: **46.774463592 seconds**, 560,307 checks, 21 records. Independent/certificate/window suite: **25.975059835 seconds**, 17,161 checks. Wall timings exclude source intake, failed diagnostics, report assembly and compilation; they are not performance extrapolations. No seed applies.
+
+Executed commands, in the scratch directory containing the four source files:
+
+```bash
+g++ -O2 -std=c++17 -Wall -Wextra -Werror st_independent.cpp -o st_independent
+python -u st_cert.py
+python -u st_verify.py
+python -m py_compile st_cert.py st_verify.py pair_cert.py
+```
+
+Primary reconstruction is O(N log N + T log N), apart from the explicitly limited discovery-head O(N^2) Gram cross-checks; interval/log costs are additional. Memory is O(N+T) per component, with at most three components. The independent literal implementation is O(NT+N^2). No enormous common period was enumerated. Code and a compact final result extract are attached in N; exact scaled intervals can be regenerated. Runtime fields change on rerun, so generated JSON hashes below identify this execution, not invariant expected output hashes.
+
+| Executed source or output | SHA256 |
+| --- | --- |
+| st_cert.py | 5866d66c84af5b335516e08b91e59103d462c196505469058c86d9021330ee81 |
+| st_verify.py | c97a446e695892552eb8f7fe876ede7b6cf43b474dbc0f21fb153580113b4c2e |
+| st_independent.cpp | 37a15f0f98040a7d7b100fa71cb4562522b2ecc645d894b71770ed5f3079aad6 |
+| pair_cert.py | 5234a3acd122e817ddf25cbcb47532f3cac61222f603d29532756a2ca38bb339 |
+| st_results.json | 1a7859450e1398cfea2c23e33872738cecdc1786d7618e4be0afd4885a46a052 |
+| st_verification.json | b4baec6634de7fc52a24d0ebfdb41e598cad9cbc3fd0d15e64ac5e408e4ce115 |
+
+### K. Source, Loss, Recovery And Half-Continuation
+
+| Exact source and lost information | Available recovery | Consumer and remaining bill |
+| --- | --- | --- |
+| Complete original Nyman r^2 to stationary V/(N+1) | Full ordered gcd identity recovers periodic covariance, not output location; ST1 rejects automatic constant-one domination | A source-specific location-sensitive estimate must pay every output and mixed term |
+| Original two-band mixture to separate band signs | ST2 recovers exact floor-quotient dependence on W_K | Its proper-window lower term cannot replace full Mobius/band restoration |
+| Infinite output to finite prefix | Fixed-source interval large-sieve and pointwise certificates restore the uncomputed tail | Their N-dependent budgets are not automatically subpower at T=N |
+| Original correction profiles to isolated profile lower bounds | Main #1146 restores an explicit arbitrary-remainder penalty; #1147 gives finite covariance repair on its PR head | Neither supplies a complete upper energy estimate |
+| Euler/VF/NNS/square-block sources to this finite residue mixture | Shared mu or gcd syntax is not a coefficient-preserving theorem | OPEN_BRIDGE/NOT_EQUIVALENT at this norm level; no transfer of a local sign or bound is asserted |
+
+The original Euler square-clock physical/virtual compensation, VF historical prime source, NNS admitted ideal-character source, and square-block Mertens source remain distinct. Their complete-source identities and safeguards survive; this run neither forces them through Nyman nor uses them to erase an unpaid Nyman return. All nine authorized toolkits remain preserved.
+
+The inherited paper Mellin zero-functional consumer states that at each fixed actual nontrivial zero rho with sigma=Re(rho)>1/2, an exact head through H forces
+
+```text
+E_H >= (2sigma-1)(H+1)^(2sigma-1)/|rho|^2.
+```
+
+Thus one COMMON unbounded legal exact-head sequence with complete E_H<=C_epsilon H^epsilon for every epsilon>0 would contradict every such zero by choosing epsilon<2sigma-1. C_epsilon must precede the growing H and the same sequence must work for all epsilon. No zero attaining a supremum is needed. This is a reused PAPER_PROOF consumer, not newly formalized here; its independent complete upper supplier remains OPEN.
+
+The paid subunit Mertens input can feed the inherited variance estimate V=O(N/log^2 H), in its stated source regime. A proved constant-C after-support inequality could then be useful, but C=1 is false and the finite middle would still need independent control. Neither that open constant-C assertion nor the terminal subpower assertion is admitted as a new proved mechanism. Finite optimization of the constant, or a second unchanged grid, is not the next task.
+
+### L. Ranked Portfolio And Downstream Handoff
+
+| Rank / disposition | Exact question or result | Evidence, falsifier and next action |
+| --- | --- | --- |
+| 1 / retain for review | ST2's K>=6 quotient-window inequality with explicit alpha*z<0 | PAPER_PROOF, single-session self-audit; all K<=128 checked exactly. Referee should audit floor cases, harmonic bounds and the restriction to a proper output window. |
+| 2 / reject | ST-S: Tail_N<=V/(N+1) for all legal original heads | REFUTED at H=6 by the finite rational witness. Do not spend time formalizing or retuning this false statement. |
+| 3 / open research, no new admission | For the prescribed original coefficients, obtain a location-sensitive full-square discrepancy bound sufficient for complete subpower energy | Neither ST2 nor variance alone provides it. First require a genuinely changed signed estimate controlling raw/raw, both raw/band and band/band interactions, then preregister its smallest falsifier. |
+| 4 / unresolved finite question, parked | The sign of Tail_N-V/(N+1) at H=60 | Current interval straddles zero at the registered stop. No extra cutoff run authorized by this design; resume only for a new mathematical purpose. |
+
+Coordinator / Proof Architect: record ST1 as rejection of the constant-one actual-source shortcut and ST2 as scoped support. This is inside the current Nyman half-continuation feasibility task, not a silent campaign change. Do not list it as an exponent gain or a complete route supplier.
+
+Analytic Type II: the original source itself can exceed its stationary tail reference, so LW's enlarged-class obstruction is no longer the only caution. The exact quotient window gives a coefficient-bearing term a prospective upper proof must absorb. The raw square and both raw/band crosses remain essential; derive a new complete signed discrepancy mechanism before requesting a larger census.
+
+Owner Payment: GP's good-window saturation and this periodic/weighted sign reversal both warn against replacing the actual carrier by favorable local averages. No claim is transferred to your first-bad source; historical charges and masks remain mandatory.
+
+Finite Wheel: LC's exterior same-product coherence retains its exact horizon scope. ST2 is a separate quotient-window mechanism, not MU-LIFT recurrence evidence or an incidence bridge. No re-run of LC is requested.
+
+Adversarial Referee: the smallest decisive checks are the finite witness through output 664 and the short all-K paper proof in G. Independently verify each before accepting it; test that no local mixed lower bound is used as a whole-source lower bound. H=60 is deliberately not declared resolved.
+
+Lean Verification: reuse existing exact-source and covariance infrastructure. No immediate source or PR request is issued. If independent review accepts ST2 and names a necessary downstream use, formalization can target the floor-quotient identities and explicit bound with alpha*z<0 exposed. The infinite upper supplier is still open; #1147's green PR head does not supply it.
+
+### M. Continuation Capsule
+
+```text
+RUN=20261118-census-1900-EST/ST; PLATFORM_RUN_ID=UNAVAILABLE
+TRIGGER=2026-11-18T19:00:01-05:00; LAST_SOURCE_REFRESH=2026-11-19T00:18:22Z
+MAIN=935840aec9b1fcbc66fe4e0164061d661a8ca3b1
+POLICY=BOOTSTRAP_TO_HALF_V1; CROSS_ROUTE_SIGNED_RECOVERY_V1;
+       LAST_ACTUAL_REPORT_CONTINUITY_V1
+REPORT_WATERMARKS=DAMP / GP / LW / LC / PS->ST / FC / VR
+NEW_HANDOFFS_CONSUMED=FC,VR,GP,LW,LC; EXTERNAL=UNCHANGED
+ROUTE=NYMAN; STATUS=ACTIVE_SUPPORT, not a new admitted complete proof route
+ORIGINAL_SOURCE=prescribed genuine-Mobius flat taper, both bands, both moments
+START=exact-head identities, complete covariance, paid every-positive-loss comparator
+ADVANCE=smallest-source ST-S falsifier plus exact conditional-sign output window
+TERMINAL=one common unbounded legal sequence with complete E_H=O_epsilon(H^epsilon)
+ENDPOINT=each fixed actual zero sigma>1/2 contradicts epsilon<2sigma-1
+RENEWAL=direct endpoint consumer; no new exponent iteration claimed
+ALL_RETURNS=head,finite middle,raw family,both bands,all six sectors,infinite output
+CONSTANT_ORDER=C_epsilon fixed before H; no per-head fitted bound
+FIRST_OPEN=independent source-sensitive COMPLETE weighted upper estimate
+NEXT=independent ST1/ST2 review, then a changed complete signed discrepancy assertion
+DO_NOT_REPEAT=PN/PS tables,unchanged ST grid,constant optimization,extra H60 cutoff
+INVALIDATED=ST-S only; NOT_INVALIDATED=fixed-C tail possibility,subpower criterion,RH
+CI=main10/10; sole open PR1147 e77d049ff83809c13c52e3d90922f34ed032efac 13/13
+NEW_LEAN_RUN=NONE; NEW_REMOTE_SOURCE_EDIT=NONE
+MATH=REFUTED(ST-S); PAPER_PROOF(ST2,review pending); FINITE_COMPUTATION(ST1,3,4)
+EXECUTION=COMPLETED; PUBLICATION=verified only by the appended receipt
+```
+
+### N. Executed Sources And Compact Result Record
+
+The code blocks below are the actual executed final source bytes. The reused `pair_cert.py` is included for self-contained reproducibility and is not a new result. Only `st_cert.py` and `st_verify.py` were run for this experiment; the old helper's standalone experiment was not rerun. Output records omit long duplicate precision arrays and retain the final outward-rounded quantities, all discovery sectors, the independent summary and the short certificate. Complete 60/75-grid exact-scaled results are regenerated by the commands in J.
+
+#### st_cert.py
+
+```python
+"""Original Nyman stationary-tail test; rational enclosures throughout."""
+
+import hashlib
+import json
+import math
+import platform
+import time
+from pathlib import Path
+
+from pair_cert import Arithmetic, ceildiv, source
+
+
+CHECKS = 0
+
+
+def check(ok):
+    global CHECKS
+    CHECKS += 1
+    assert ok, CHECKS
+
+
+def overlap(a, b):
+    return max(a[0], b[0]) <= min(a[1], b[1])
+
+
+def trial_mu(n):
+    sign, p = 1, 2
+    while p * p <= n:
+        if n % p == 0:
+            n //= p
+            sign = -sign
+            if n % p == 0:
+                return 0
+        p += 1
+    return -sign if n > 1 else sign
+
+
+def jordan(N):
+    # Divisor subtraction is independent of the prime-product formula.
+    j = [n * n for n in range(N + 1)]
+    for d in range(1, N + 1):
+        for n in range(2 * d, N + 1, d):
+            j[n] -= j[d]
+    return j
+
+
+def variance(A, c, j):
+    result = A.exact(0)
+    N = len(c) - 1
+    for d in range(2, N + 1):
+        s = A.exact(0)
+        for k in range(d, N + 1, d):
+            s = A.add(s, A.scale(c[k], 1, k))
+        result = A.add(result, A.scale(A.square_weight(s, 1), j[d], 12))
+    return result
+
+
+def gcd_gram(A, c, b):
+    total = A.exact(0)
+    for i in range(2, len(c)):
+        for k in range(2, len(b)):
+            factor = math.gcd(i, k) ** 2 - 1
+            if factor:
+                total = A.add(total, A.scale(A.mul(c[i], b[k]), factor, 12 * i * k))
+    return total
+
+
+def tail_bounds(A, V, N, T, U):
+    mean = A.scale(V, 1, T + 1)
+    error = A.scale(V, N * N, (T + 1) * (T + 2))
+    point = ceildiv(U * U, A.S * (T + 1))
+    return max(0, mean[0] - error[1]), min(point, mean[1] + error[1])
+
+
+def make_model(H, digits, components):
+    A = Arithmetic(digits)
+    c, h, mu, logs, L, alpha, z = source(A, H)
+    N, K = H * H, H * H // 6
+    for k in range(1, N + 1):
+        check(mu[k] == trial_mu(k))
+    j = jordan(N)
+    V = variance(A, c, j)
+    check(V[0] > 0)
+    if components:
+        direct = gcd_gram(A, c, c)
+        check(overlap(V, direct))
+        groups = [[A.exact(0)] * (N + 1) for _ in range(3)]
+        for k in range(2, N + 1):
+            q = A.sub(logs[N], logs[max(H, k)])
+            groups[0][k] = A.exact(-mu[k]) if k <= H else A.div(A.scale(q, -mu[k]), L)
+            if 3 * K < k <= 4 * K:
+                groups[1][k] = A.div(alpha, L)
+            if 5 * K < k <= 6 * K:
+                groups[2][k] = A.div(z, L)
+            check(overlap(c[k], A.add(A.add(groups[0][k], groups[1][k]), groups[2][k])))
+        G = [[gcd_gram(A, x, y) for y in groups] for x in groups]
+        recombined = A.exact(0)
+        for row in G:
+            for term in row:
+                recombined = A.add(recombined, term)
+        check(overlap(V, recombined))
+    else:
+        groups = [c]
+        G = [[V]]
+    qgroups = [[A.scale(x, 1, k) if k else A.exact(0) for k, x in enumerate(g)] for g in groups]
+    dgroups = [[x[0] for x in g] for g in qgroups]
+    errors = [sum((k - 1) * (q[k][1] - q[k][0]) for k in range(2, N + 1)) for q in qgroups]
+    U = sum(ceildiv(max(abs(c[k][0]), abs(c[k][1])) * (k - 1), 2 * k) for k in range(2, N + 1))
+    Ug = [sum(ceildiv(max(abs(g[k][0]), abs(g[k][1])) * (k - 1), 2 * k) for k in range(2, N + 1)) for g in groups]
+    return A, c, groups, dgroups, errors, V, G, U, Ug, alpha, z
+
+
+def run(H, T, digits, components):
+    started = time.perf_counter()
+    A, c, groups, dgroups, errors, V, G, U, Ug, alpha, z = make_model(H, digits, components)
+    S, N, count = A.S, H * H, len(groups)
+    jumps = []
+    values = []
+    for d in dgroups:
+        row = [-2 * sum(d)] * (T + 1)
+        for k in range(2, N + 1):
+            if d[k]:
+                v = 2 * k * d[k]
+                for m in range(k, T + 1, k):
+                    row[m] += v
+        jumps.append(row)
+        values.append(sum((k - 1) * d[k] for k in range(2, N + 1)))
+    midpoint_sum = sum(values)
+    check(abs(midpoint_sum - 2 * S) <= sum(errors))
+    mid = A.exact(0)
+    weighted = A.exact(0)
+    matrix = [[A.exact(0) for _ in groups] for _ in groups]
+    probes = set(range(1, 2 * H + 1)) | {N // 2, 2 * N // 3, 5 * N // 6, N, N + 1, 2 * N, T}
+    first_prefix_excess = None
+    max_cell = (0, A.exact(0))
+    quartiles = [A.exact(0) for _ in range(4)]
+    for m in range(1, T + 1):
+        for i in range(count):
+            values[i] += jumps[i][m]
+        intervals = [((v - e) // 2, ceildiv(v + e, 2)) for v, e in zip(values, errors)]
+        total = ((sum(values) - sum(errors)) // 2, ceildiv(sum(values) + sum(errors), 2))
+        if m <= H:
+            check(total[0] <= 0 <= total[1])
+            total = A.exact(0)
+        if m in probes:
+            literal = A.exact(1)
+            for k in range(2, N + 1):
+                literal = A.sub(literal, A.scale(c[k], m % k, k))
+            check(overlap(literal, total))
+            for i, d in enumerate(dgroups):
+                direct = sum(d[k] * (k - 1 - 2 * (m % k)) for k in range(2, N + 1))
+                check(direct == values[i])
+        term = A.square_weight(total, m * (m + 1))
+        if m <= N:
+            mid = A.add(mid, term)
+            continue
+        weighted = A.add(weighted, term)
+        if term[0] > max_cell[1][0]:
+            max_cell = (m, term)
+        bucket = min(3, (m - 1) // N - 1)
+        quartiles[bucket] = A.add(quartiles[bucket], term)
+        if first_prefix_excess is None and weighted[0] > A.scale(V, 1, N + 1)[1]:
+            first_prefix_excess = m
+        if components:
+            check(sum(values) ** 2 == sum(x * x for x in values) + 2 * sum(values[i] * values[k] for i in range(count) for k in range(i + 1, count)))
+            for i in range(count):
+                for k in range(i, count):
+                    term = A.product_weight(intervals[i], intervals[k], m * (m + 1))
+                    matrix[i][k] = A.add(matrix[i][k], term)
+    tail = tail_bounds(A, V, N, T, U)
+    complete = A.add(weighted, tail)
+    stationary = A.scale(V, 1, N + 1)
+    difference = A.sub(complete, stationary)
+    full = A.add(mid, complete)
+    status = "REFUTED" if difference[0] > 0 else "FINITE_PASS" if difference[1] < 0 else "UNRESOLVED"
+    vals = dict(V=V, stationary=stationary, finite_tail=weighted, remote_tail=tail,
+                complete_tail=complete, difference=difference, finite_middle=mid, complete_energy=full,
+                ratio=A.div(complete, stationary), alpha=alpha, z=z, U=(U, U))
+    sectors = []
+    if components:
+        recombined = A.exact(0)
+        for i in range(count):
+            for k in range(i, count):
+                mult = 1 if i == k else 2
+                recombined = A.add(recombined, A.scale(matrix[i][k], mult))
+                Bi = tail_bounds(A, G[i][i], N, T, Ug[i])
+                Bj = tail_bounds(A, G[k][k], N, T, Ug[k])
+                if i == k:
+                    rem = Bi
+                else:
+                    upper = math.isqrt(Bi[1] * Bj[1]) + 1
+                    rem = (-upper, upper)
+                complete_sector = A.scale(A.add(matrix[i][k], rem), mult)
+                reference = A.scale(G[i][k], mult, N + 1)
+                sectors.append(dict(pair=[i, k], finite=A.display(A.scale(matrix[i][k], mult)),
+                                    complete=A.display(complete_sector), stationary=A.display(reference),
+                                    difference=A.display(A.sub(complete_sector, reference))))
+        check(overlap(recombined, weighted))
+        check(any(not (matrix[i][k][0] <= 0 <= matrix[i][k][1]) for i in range(count) for k in range(i + 1, count)))
+        for removed in (1, 2):
+            reciprocal = A.exact(0)
+            for k in range(2, N + 1):
+                reciprocal = A.add(reciprocal, A.scale(A.sub(c[k], groups[removed][k]), 1, k))
+            check(not (reciprocal[0] <= S <= reciprocal[1]))
+    return dict(H=H, N=N, T=T, digits=digits, status=status,
+                first_prefix_excess=first_prefix_excess,
+                max_weighted_cell=[max_cell[0], A.display(max_cell[1])],
+                output_bins=[A.display(v) for v in quartiles], sectors=sectors,
+                values={k: A.display(v) for k, v in vals.items()},
+                exact_scaled={k: [str(v[0]), str(v[1])] for k, v in vals.items()},
+                seconds=time.perf_counter() - started)
+
+
+def main():
+    check(hashlib.sha256(Path("pair_cert.py").read_bytes()).hexdigest() ==
+          "5234a3acd122e817ddf25cbcb47532f3cac61222f603d29532756a2ca38bb339")
+    result = dict(python=platform.python_version(), runs=[])
+    started = time.perf_counter()
+    for H in range(6, 61, 6):
+        first = run(H, 65536, 60, H <= 24)
+        result["runs"].append(first)
+        print(json.dumps({k: v for k, v in first.items() if k != "exact_scaled"}), flush=True)
+        T = 1048576 if first["status"] == "UNRESOLVED" else 65536
+        if T != 65536:
+            extended = run(H, T, 60, H <= 24)
+            result["runs"].append(extended)
+            print(json.dumps({k: v for k, v in extended.items() if k != "exact_scaled"}), flush=True)
+        precise = run(H, T, 75, H <= 24)
+        result["runs"].append(precise)
+        prior = result["runs"][-2]
+        for key, value in precise["exact_scaled"].items():
+            lo, hi = map(int, value)
+            p, q = map(int, prior["exact_scaled"][key])
+            if key == "U":
+                # U records a computed upper bound, not a degenerate enclosure.
+                check(0 <= lo == hi <= q * 10**15)
+            else:
+                check(p * 10**15 <= lo <= hi <= q * 10**15)
+        check(precise["status"] == prior["status"])
+        print(json.dumps({"H": H, "precision_check": "PASS", "status": precise["status"]}), flush=True)
+        result["assertions"] = CHECKS
+        result["seconds"] = time.perf_counter() - started
+        Path("st_results.json").write_text(json.dumps(result, indent=2) + "\n")
+    print(json.dumps({"assertions": CHECKS, "seconds": result["seconds"], "status": "PASS"}), flush=True)
+
+
+if __name__ == "__main__":
+    main()
+```
+
+#### st_verify.py
+
+```python
+"""Independent prefix checks and exact proof-led band-chamber regression."""
+
+import json
+import math
+import subprocess
+import time
+from fractions import Fraction as F
+from pathlib import Path
+
+from pair_cert import Arithmetic, source
+from st_cert import gcd_gram
+
+
+checks = 0
+
+
+def check(ok):
+    global checks
+    checks += 1
+    assert ok, checks
+
+
+def main():
+    started = time.perf_counter()
+    records = json.loads(Path("st_results.json").read_text())["runs"]
+    final = {r["H"]: r for r in records if r["digits"] == 75}
+    out = {"independent": []}
+    for H in (6, 12, 18, 24, 36, 60):
+        r = final[H]
+        p = subprocess.run(["./st_independent", str(H), str(r["T"])],
+                           check=True, capture_output=True, text=True)
+        got = json.loads(p.stdout)
+        for key in ("V", "finite_tail", "finite_middle"):
+            lo, hi = map(float, r["values"][key])
+            check(lo - 1e-11 <= got[key] <= hi + 1e-11)
+        check(abs(got["moment1"] - 1) < 1e-12)
+        check(abs(got["moment3"] - 3) < 1e-12)
+        check(got["max_head"] < 1e-12)
+        for expected, actual in zip(r["sectors"], got["sectors"]):
+            lo, hi = map(float, expected["finite"])
+            check(lo - 1e-11 <= actual <= hi + 1e-11)
+        out["independent"].append(got)
+        print(json.dumps({"independent_H": H, "T": r["T"], "status": "PASS"}), flush=True)
+
+    # This second interval reconstruction uses literal residues, not update arrays.
+    A = Arithmetic(75)
+    c = source(A, 6)[0]
+    V = gcd_gram(A, c, c)
+    reference = A.scale(V, 1, 37)
+    total = A.exact(0)
+    certificate = {}
+    for m in range(37, 665):
+        cell = A.exact(1)
+        for k in range(2, 37):
+            cell = A.sub(cell, A.scale(c[k], m % k, k))
+        total = A.add(total, A.square_weight(cell, m * (m + 1)))
+        if m in (663, 664):
+            difference = A.sub(total, reference)
+            check(difference[1] < 0 if m == 663 else difference[0] > 0)
+            certificate[str(m)] = dict(sum=A.display(total), difference=A.display(difference))
+    certificate["V"] = A.display(V)
+    certificate["stationary"] = A.display(reference)
+    lo = F(certificate["664"]["sum"][0])
+    vhi = F(certificate["V"][1])
+    check(lo > vhi / 37)
+    certificate["rounded_rational_margin"] = str(lo - vhi / 37)
+    out["minimal_prefix_certificate"] = certificate
+
+    cells = 0
+    for K in range(6, 129):
+        s1 = sum((F(1, k) for k in range(3 * K + 1, 4 * K + 1)), F())
+        s2 = sum((F(1, k) for k in range(5 * K + 1, 6 * K + 1)), F())
+        check(s1 >= F(2 * K, 7 * K + 1) >= F(12, 43))
+        check(s2 <= F(K, 5 * K + 1))
+        upper = 13 * K // 2
+        weighted = F()
+        for m in range(6 * K + 1, upper + 1):
+            a = sum((F(m % k, k) - F(k - 1, 2 * k) for k in range(3 * K + 1, 4 * K + 1)), F())
+            b = sum((F(m % k, k) - F(k - 1, 2 * k) for k in range(5 * K + 1, 6 * K + 1)), F())
+            check(a == (F(m) + F(1, 2)) * s1 + F(3 * K, 2) - m // 2)
+            check(b == (F(m) + F(1, 2)) * s2 - F(3 * K, 2))
+            check(a >= F(K, 16))
+            check(b <= -F(K, 5))
+            weighted += a * b / (m * (m + 1))
+            cells += 1
+        check(weighted <= -F(K, 10400))
+        check(upper - 6 * K >= F(K, 3))
+        check(upper * (upper + 1) <= F(130 * K * K, 3))
+        check(math.gcd(4 * K, 6 * K) > 1)
+    out["chamber"] = dict(K_min=6, K_max=128, cells=cells, status="PASS")
+    out["assertions"] = checks
+    out["seconds"] = time.perf_counter() - started
+    Path("st_verification.json").write_text(json.dumps(out, indent=2) + "\n")
+    print(json.dumps(out), flush=True)
+
+
+if __name__ == "__main__":
+    main()
+```
+
+#### st_independent.cpp
+
+```cpp
+#include <algorithm>
+#include <cmath>
+#include <cstdlib>
+#include <iomanip>
+#include <iostream>
+#include <numeric>
+#include <vector>
+
+int mu_trial(int n) {
+    int sign = 1;
+    for (int p = 2; p * p <= n; ++p) {
+        if (n % p == 0) {
+            n /= p;
+            sign = -sign;
+            if (n % p == 0) return 0;
+        }
+    }
+    return n > 1 ? -sign : sign;
+}
+
+int main(int argc, char **argv) {
+    if (argc != 3) return 2;
+    const int H = std::atoi(argv[1]), T = std::atoi(argv[2]);
+    const int N = H * H, K = N / 6;
+    const long double L = std::log(static_cast<long double>(H));
+    long double u = 0, v = 2 * L, s1 = 0, s2 = 0;
+    std::vector<long double> c(N + 1), raw(N + 1), band1(N + 1), band2(N + 1);
+    for (int k = 1; k <= N; ++k) {
+        const long double q = std::log(static_cast<long double>(N) / std::max(H, k));
+        u += mu_trial(k) * q / k;
+        v += mu_trial(k) * q;
+        if (3 * K < k && k <= 4 * K) s1 += 1.0L / k;
+        if (5 * K < k && k <= 6 * K) s2 += 1.0L / k;
+    }
+    const long double alpha = (u - s2 * v / K) / (s1 - s2), z = v / K - alpha;
+    long double reciprocal = 0, mass = 0, V = 0;
+    for (int k = 2; k <= N; ++k) {
+        raw[k] = -mu_trial(k) * std::log(static_cast<long double>(N) / std::max(H, k)) / L;
+        band1[k] = 3 * K < k && k <= 4 * K ? alpha / L : 0;
+        band2[k] = 5 * K < k && k <= 6 * K ? z / L : 0;
+        c[k] = raw[k] + band1[k] + band2[k];
+        reciprocal += c[k] / k;
+        mass += c[k];
+    }
+    for (int i = 2; i <= N; ++i) {
+        for (int k = 2; k <= N; ++k) {
+            long double d = std::gcd(i, k);
+            V += c[i] * c[k] * (d * d - 1) / (12.0L * i * k);
+        }
+    }
+    long double tail = 0, middle = 0, max_head = 0;
+    long double matrix[3][3] = {};
+    for (int m = 1; m <= T; ++m) {
+        long double r = 1, a[3] = {};
+        for (int k = 2; k <= N; ++k) {
+            const long double residue = static_cast<long double>(m % k) / k;
+            const long double centered = residue - (k - 1.0L) / (2 * k);
+            r -= c[k] * residue;
+            a[0] -= raw[k] * centered;
+            a[1] -= band1[k] * centered;
+            a[2] -= band2[k] * centered;
+        }
+        const long double weight = 1.0L / (static_cast<long double>(m) * (m + 1));
+        if (m <= H) max_head = std::max(max_head, std::abs(r));
+        if (m <= N) middle += r * r * weight;
+        else {
+            tail += r * r * weight;
+            for (int i = 0; i < 3; ++i)
+                for (int j = i; j < 3; ++j) matrix[i][j] += a[i] * a[j] * weight;
+        }
+    }
+    std::cout << std::setprecision(20) << "{\"H\":" << H << ",\"T\":" << T
+              << ",\"V\":" << V << ",\"finite_tail\":" << tail
+              << ",\"finite_middle\":" << middle << ",\"moment1\":" << reciprocal
+              << ",\"moment3\":" << mass << ",\"max_head\":" << max_head << ",\"sectors\":[";
+    bool first = true;
+    for (int i = 0; i < 3; ++i) for (int j = i; j < 3; ++j) {
+        if (!first) std::cout << ",";
+        first = false;
+        std::cout << matrix[i][j] * (i == j ? 1 : 2);
+    }
+    std::cout << "]}\n";
+}
+```
+
+#### pair_cert.py
+
+```python
+"""Certified original-source pairing census; all intervals are rational."""
+
+import argparse
+import json
+import platform
+import time
+from fractions import Fraction
+from pathlib import Path
+
+
+def ceildiv(a, b):
+    return -((-a) // b)
+
+
+class Arithmetic:
+    def __init__(self, digits):
+        self.S = 10**digits
+        self.digits = digits
+
+    def exact(self, n):
+        return n * self.S, n * self.S
+
+    def add(self, a, b):
+        return a[0] + b[0], a[1] + b[1]
+
+    def neg(self, a):
+        return -a[1], -a[0]
+
+    def sub(self, a, b):
+        return self.add(a, self.neg(b))
+
+    def scale(self, a, n, d=1):
+        lo, hi = sorted((a[0] * n, a[1] * n))
+        return lo // d, ceildiv(hi, d)
+
+    def mul(self, a, b):
+        v = [x * y for x in a for y in b]
+        return min(v) // self.S, ceildiv(max(v), self.S)
+
+    def div(self, a, b):
+        assert b[0] > 0
+        v = [Fraction(x * self.S, y) for x in a for y in b]
+        lo, hi = min(v), max(v)
+        return lo.numerator // lo.denominator, ceildiv(hi.numerator, hi.denominator)
+
+    def square_weight(self, a, denominator):
+        lo = 0 if a[0] <= 0 <= a[1] else min(a[0] ** 2, a[1] ** 2)
+        hi = max(a[0] ** 2, a[1] ** 2)
+        d = self.S * denominator
+        return lo // d, ceildiv(hi, d)
+
+    def product_weight(self, a, b, denominator):
+        v = [x * y for x in a for y in b]
+        d = self.S * denominator
+        return min(v) // d, ceildiv(max(v), d)
+
+    def log_reduced(self, a, b):
+        # log(a/b)=2 atanh((a-b)/(a+b)), with 1<=a/b<=2.
+        assert b <= a <= 2 * b
+        z = Fraction(a - b, a + b)
+        power, z2 = z, z * z
+        lo = hi = 0
+        for j in range(100):
+            term = 2 * self.S * power / (2 * j + 1)
+            lo += term.numerator // term.denominator
+            hi += ceildiv(term.numerator, term.denominator)
+            power *= z2
+        tail = 2 * self.S * power / (201 * (1 - z2))
+        hi += ceildiv(tail.numerator, tail.denominator)
+        return lo, hi
+
+    def logs(self, N):
+        l2 = self.log_reduced(2, 1)
+        out = [self.exact(0)] * (N + 1)
+        for n in range(1, N + 1):
+            e = n.bit_length() - 1
+            out[n] = self.add(self.scale(l2, e), self.log_reduced(n, 1 << e))
+        return out
+
+    def display(self, x, places=12):
+        unit = 10 ** (self.digits - places)
+        lo, hi = x[0] // unit, ceildiv(x[1], unit)
+
+        def fmt(v):
+            return ('-' if v < 0 else '') + str(abs(v) // 10**places) + '.' + str(abs(v) % 10**places).zfill(places)
+
+        return [fmt(lo), fmt(hi)]
+
+
+def mobius_inverse(N):
+    mu = [0] * (N + 1)
+    mu[1] = 1
+    for d in range(1, N + 1):
+        for m in range(2 * d, N + 1, d):
+            mu[m] -= mu[d]
+    assert all(x in (-1, 0, 1) for x in mu)
+    return mu
+
+
+def source(A, H):
+    N, K = H * H, H * H // 6
+    logs = A.logs(N)
+    mu = mobius_inverse(N)
+    L = logs[H]
+    q = [A.exact(0)] + [A.sub(logs[N], logs[max(H, k)]) for k in range(1, N + 1)]
+    u, v = A.exact(0), A.scale(L, 2)
+    for k in range(1, N + 1):
+        u = A.add(u, A.scale(q[k], mu[k], k))
+        v = A.add(v, A.scale(q[k], mu[k]))
+    s1 = sum((Fraction(1, k) for k in range(3 * K + 1, 4 * K + 1)), Fraction())
+    s2 = sum((Fraction(1, k) for k in range(5 * K + 1, 6 * K + 1)), Fraction())
+    t = A.sub(u, A.scale(v, s2.numerator, s2.denominator * K))
+    d = s1 - s2
+    alpha = A.scale(t, d.denominator, d.numerator)
+    z = A.sub(A.scale(v, 1, K), alpha)
+    c = [A.exact(0)] * (N + 1)
+    h = [A.exact(0)] * (N + 1)
+    for k in range(2, N + 1):
+        h[k] = alpha if 3 * K < k <= 4 * K else z if 5 * K < k <= 6 * K else A.exact(0)
+        c[k] = A.exact(-mu[k]) if k <= H else A.div(A.sub(h[k], A.scale(q[k], mu[k])), L)
+    reciprocal, mass = A.exact(0), A.exact(0)
+    for k in range(2, N + 1):
+        reciprocal = A.add(reciprocal, A.scale(c[k], 1, k))
+        mass = A.add(mass, c[k])
+    assert reciprocal[0] <= A.S <= reciprocal[1]
+    assert mass[0] <= 3 * A.S <= mass[1]
+    return c, h, mu, logs, L, alpha, z
+
+
+def run(H, T, digits):
+    started = time.perf_counter()
+    A = Arithmetic(digits)
+    S, N, M = A.S, H * H, 3 * T + 2
+    c, h, mu, logs, L, alpha, z = source(A, H)
+    # Quantize c_k/k downwards. This gives a uniform, non-growing residue error.
+    q = [A.scale(x, 1, k) if k else A.exact(0) for k, x in enumerate(c)]
+    d = [x[0] for x in q]
+    err = sum((k - 1) * (q[k][1] - q[k][0]) for k in range(2, N + 1))
+    slope = sum(d)
+    jumps = [-slope] * (M + 1)
+    for k in range(2, N + 1):
+        if d[k]:
+            v = k * d[k]
+            for m in range(k, M + 1, k):
+                jumps[m] += v
+    r = [0] * (M + 1)
+    value = S
+    for m in range(1, M + 1):
+        value += jumps[m]
+        r[m] = value
+
+    def cell(m):
+        if m <= H:
+            assert r[m] - err <= 0 <= r[m] if m else True
+            return 0, 0
+        return r[m] - err, r[m]
+
+    def doubled_pair(x, y):
+        return A.sub(A.scale(cell(x), 2), A.scale(cell(y), 3))
+
+    probes = sorted(set(range(1, min(4 * N, M) + 1)) | {M, N // 2, 2 * N // 3, 5 * N // 6, N, N + 1})
+    for m in probes:
+        exact_quantized = S - sum(d[k] * (m % k) for k in range(2, N + 1))
+        assert exact_quantized == r[m]
+        literal = A.exact(1)
+        for k in range(2, N + 1):
+            literal = A.sub(literal, A.scale(c[k], m % k, k))
+        assert max(literal[0], cell(m)[0]) <= min(literal[1], cell(m)[1])
+
+    E = P = Q = phase_square = phase_cross = A.exact(0)
+    first_local_minus = first_local_plus = None
+    omitted = [None, None, None]
+    for m in range(1, M + 1):
+        E = A.add(E, A.square_weight(cell(m), m * (m + 1)))
+    for k in range(1, T + 1):
+        den = [k * (3 * k + 1), (3 * k + 1) * (2 * k + 1), (2 * k + 1) * (3 * k + 2), (3 * k + 2) * (k + 1)]
+        d0 = doubled_pair(3 * k, 2 * k)
+        vals = [d0, doubled_pair(3 * k + 1, 2 * k), doubled_pair(3 * k + 1, 2 * k + 1), doubled_pair(3 * k + 2, 2 * k + 1)]
+        p = A.square_weight(d0, 4 * k * (k + 1))
+        qc = ec = cc = A.exact(0)
+        for j in range(4):
+            qc = A.add(qc, A.square_weight(vals[j], 4 * den[j]))
+            error = A.sub(vals[j], d0)
+            ec = A.add(ec, A.square_weight(error, 4 * den[j]))
+            cc = A.add(cc, A.product_weight(d0, error, 2 * den[j]))
+            if j and omitted[j - 1] is None:
+                difference = A.sub(A.square_weight(vals[j], 4 * den[j]), A.square_weight(d0, 4 * den[j]))
+                if difference[0] > 0 or difference[1] < 0:
+                    omitted[j - 1] = k
+        diff = A.sub(qc, p)
+        if diff[0] > 0 and first_local_plus is None:
+            first_local_plus = [k, A.display(diff)]
+        if diff[1] < 0 and first_local_minus is None:
+            first_local_minus = [k, A.display(diff)]
+        recombined = A.add(A.add(p, ec), cc)
+        assert max(qc[0], recombined[0]) <= min(qc[1], recombined[1])
+        P, Q = A.add(P, p), A.add(Q, qc)
+        phase_square, phase_cross = A.add(phase_square, ec), A.add(phase_cross, cc)
+    U = sum(ceildiv(max(abs(c[k][0]), abs(c[k][1])) * (k - 1), 2 * k) for k in range(2, N + 1))
+    etail = ceildiv(U * U, S * (M + 1))
+    pqtail = ceildiv(25 * U * U, 4 * S * (T + 1))
+    Ei, Pi, Qi = (E[0], E[1] + etail), (P[0], P[1] + pqtail), (Q[0], Q[1] + pqtail)
+    difference_pe, difference_qp = A.sub(Pi, Ei), A.sub(Qi, Pi)
+    B = max(max(abs(x[0]), abs(x[1])) for x in c)
+    one_plus_log = A.add(A.exact(1), logs[H])
+    log_cube = A.mul(A.mul(one_plus_log, one_plus_log), one_plus_log)
+    J_bound = A.scale(A.add(A.exact(2), A.scale(A.mul(A.square_weight((B, B), 1), log_cube), 64)), 1, H)
+    pair_lower_margin = A.add(A.sub(Pi, A.scale(Ei, 1, 16)), A.scale(J_bound, 111))
+    pair_upper_margin = A.sub(A.add(A.scale(Ei, 30), A.scale(J_bound, 222)), Pi)
+    assert pair_lower_margin[0] > 0 and pair_upper_margin[0] > 0
+    values = dict(E_prefix=E, P_prefix=P, Q_prefix=Q, E_complete=Ei, P_complete=Pi, Q_complete=Qi,
+                  P_minus_E=difference_pe, Q_minus_P=difference_qp, phase_square=phase_square,
+                  phase_cross=phase_cross, phase_difference=A.sub(Q, P),
+                  E_tail=(0, etail), PQ_tail=(0, pqtail), U=(U, U), alpha=alpha, z=z,
+                  PAIR_lower_margin=pair_lower_margin, PAIR_upper_margin=pair_upper_margin)
+    return dict(H=H, N=N, T=T, M=M, digits=digits, seconds=time.perf_counter()-started,
+                coefficient_error_scaled=str(err), literal_probes=len(probes),
+                first_local_Q_minus_P_positive=first_local_plus, first_local_Q_minus_P_negative=first_local_minus,
+                phase_omission_first_cells=omitted,
+                values={k:A.display(v) for k,v in values.items()},
+                exact_scaled={k:[str(v[0]),str(v[1])] for k,v in values.items()})
+
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--heads', type=int, nargs='+', default=[6, 12, 24])
+    parser.add_argument('--cutoff', type=int, default=65536)
+    parser.add_argument('--digits', type=int, default=60)
+    parser.add_argument('--output', required=True)
+    args = parser.parse_args()
+    result = {'python':platform.python_version(), 'runs':[]}
+    for H in args.heads:
+        result['runs'].append(run(H,args.cutoff,args.digits))
+        print(json.dumps(result['runs'][-1]), flush=True)
+    Path(args.output).write_text(json.dumps(result, indent=2) + '\n')
+
+
+if __name__ == '__main__':
+    main()
+```
+
+#### Final Result Extract
+
+```json
+{
+  "primary_assertions": 560307,
+  "primary_seconds": 46.77446359199996,
+  "python": "3.12.14",
+  "final_results": [
+    {
+      "H": 6,
+      "N": 36,
+      "T": 65536,
+      "digits": 75,
+      "status": "REFUTED",
+      "first_prefix_excess": 664,
+      "max_weighted_cell": [
+        40,
+        [
+          "0.000514537836",
+          "0.000514537837"
+        ]
+      ],
+      "output_bins": [
+        [
+          "0.003740961321",
+          "0.003740961322"
+        ],
+        [
+          "0.001322890895",
+          "0.001322890896"
+        ],
+        [
+          "0.000683358589",
+          "0.000683358590"
+        ],
+        [
+          "0.001905157687",
+          "0.001905157688"
+        ]
+      ],
+      "sectors": [
+        {
+          "pair": [
+            0,
+            0
+          ],
+          "finite": [
+            "0.007735941051",
+            "0.007735941052"
+          ],
+          "complete": [
+            "0.007739855851",
+            "0.007740013804"
+          ],
+          "stationary": [
+            "0.007074056618",
+            "0.007074056619"
+          ],
+          "difference": [
+            "0.000665799232",
+            "0.000665957185"
+          ]
+        },
+        {
+          "pair": [
+            0,
+            1
+          ],
+          "finite": [
+            "-0.000143004233",
+            "-0.000143004232"
+          ],
+          "complete": [
+            "-0.000144068255",
+            "-0.000141940211"
+          ],
+          "stationary": [
+            "0.000190669933",
+            "0.000190669934"
+          ],
+          "difference": [
+            "-0.000334738188",
+            "-0.000332610144"
+          ]
+        },
+        {
+          "pair": [
+            0,
+            2
+          ],
+          "finite": [
+            "-0.000244224164",
+            "-0.000244224163"
+          ],
+          "complete": [
+            "-0.000245078303",
+            "-0.000243370025"
+          ],
+          "stationary": [
+            "-0.000186664145",
+            "-0.000186664144"
+          ],
+          "difference": [
+            "-0.000058414158",
+            "-0.000056705880"
+          ]
+        },
+        {
+          "pair": [
+            1,
+            1
+          ],
+          "finite": [
+            "0.000091095815",
+            "0.000091095816"
+          ],
+          "complete": [
+            "0.000091162614",
+            "0.000091165310"
+          ],
+          "stationary": [
+            "0.000120707243",
+            "0.000120707244"
+          ],
+          "difference": [
+            "-0.000029544629",
+            "-0.000029541933"
+          ]
+        },
+        {
+          "pair": [
+            1,
+            2
+          ],
+          "finite": [
+            "0.000042269533",
+            "0.000042269534"
+          ],
+          "complete": [
+            "0.000042157960",
+            "0.000042381108"
+          ],
+          "stationary": [
+            "-0.000019428810",
+            "-0.000019428809"
+          ],
+          "difference": [
+            "0.000061586770",
+            "0.000061809917"
+          ]
+        },
+        {
+          "pair": [
+            2,
+            2
+          ],
+          "finite": [
+            "0.000170290490",
+            "0.000170290491"
+          ],
+          "complete": [
+            "0.000170333536",
+            "0.000170335274"
+          ],
+          "stationary": [
+            "0.000077783780",
+            "0.000077783781"
+          ],
+          "difference": [
+            "0.000092549755",
+            "0.000092551493"
+          ]
+        }
+      ],
+      "values": {
+        "V": [
+          "0.268513610996",
+          "0.268513610997"
+        ],
+        "stationary": [
+          "0.007257124621",
+          "0.007257124622"
+        ],
+        "finite_tail": [
+          "0.007652368494",
+          "0.007652368495"
+        ],
+        "remote_tail": [
+          "0.000004016110",
+          "0.000004178150"
+        ],
+        "complete_tail": [
+          "0.007656384604",
+          "0.007656546645"
+        ],
+        "difference": [
+          "0.000399259982",
+          "0.000399422023"
+        ],
+        "finite_middle": [
+          "0.012750920209",
+          "0.012750920210"
+        ],
+        "complete_energy": [
+          "0.020407304813",
+          "0.020407466854"
+        ],
+        "ratio": [
+          "1.055016277601",
+          "1.055038605970"
+        ],
+        "alpha": [
+          "0.167864514323",
+          "0.167864514324"
+        ],
+        "z": [
+          "-0.135436013750",
+          "-0.135436013749"
+        ],
+        "U": [
+          "4.427215618374",
+          "4.427215618375"
+        ]
+      }
+    },
+    {
+      "H": 12,
+      "N": 144,
+      "T": 65536,
+      "digits": 75,
+      "status": "REFUTED",
+      "first_prefix_excess": 832,
+      "max_weighted_cell": [
+        199,
+        [
+          "0.000139379765",
+          "0.000139379766"
+        ]
+      ],
+      "output_bins": [
+        [
+          "0.002905850145",
+          "0.002905850146"
+        ],
+        [
+          "0.000722388296",
+          "0.000722388297"
+        ],
+        [
+          "0.000386341481",
+          "0.000386341482"
+        ],
+        [
+          "0.001023537054",
+          "0.001023537055"
+        ]
+      ],
+      "sectors": [
+        {
+          "pair": [
+            0,
+            0
+          ],
+          "finite": [
+            "0.005000310796",
+            "0.005000310797"
+          ],
+          "complete": [
+            "0.005006800185",
+            "0.005012807238"
+          ],
+          "stationary": [
+            "0.004290601437",
+            "0.004290601438"
+          ],
+          "difference": [
+            "0.000716198748",
+            "0.000722205801"
+          ]
+        },
+        {
+          "pair": [
+            0,
+            1
+          ],
+          "finite": [
+            "0.000027436187",
+            "0.000027436188"
+          ],
+          "complete": [
+            "0.000027278693",
+            "0.000027593681"
+          ],
+          "stationary": [
+            "0.000000248674",
+            "0.000000248675"
+          ],
+          "difference": [
+            "0.000027030019",
+            "0.000027345006"
+          ]
+        },
+        {
+          "pair": [
+            0,
+            2
+          ],
+          "finite": [
+            "0.000009264484",
+            "0.000009264485"
+          ],
+          "complete": [
+            "0.000009162687",
+            "0.000009366282"
+          ],
+          "stationary": [
+            "0.000000669872",
+            "0.000000669873"
+          ],
+          "difference": [
+            "0.000008492814",
+            "0.000008696410"
+          ]
+        },
+        {
+          "pair": [
+            1,
+            1
+          ],
+          "finite": [
+            "0.000000294892",
+            "0.000000294893"
+          ],
+          "complete": [
+            "0.000000295150",
+            "0.000000295390"
+          ],
+          "stationary": [
+            "0.000000170376",
+            "0.000000170377"
+          ],
+          "difference": [
+            "0.000000124774",
+            "0.000000125013"
+          ]
+        },
+        {
+          "pair": [
+            1,
+            2
+          ],
+          "finite": [
+            "0.000000211510",
+            "0.000000211511"
+          ],
+          "complete": [
+            "0.000000210868",
+            "0.000000212152"
+          ],
+          "stationary": [
+            "-0.000000021430",
+            "-0.000000021429"
+          ],
+          "difference": [
+            "0.000000232297",
+            "0.000000233581"
+          ]
+        },
+        {
+          "pair": [
+            2,
+            2
+          ],
+          "finite": [
+            "0.000000599106",
+            "0.000000599107"
+          ],
+          "complete": [
+            "0.000000599214",
+            "0.000000599314"
+          ],
+          "stationary": [
+            "0.000000071179",
+            "0.000000071180"
+          ],
+          "difference": [
+            "0.000000528034",
+            "0.000000528134"
+          ]
+        }
+      ],
+      "values": {
+        "V": [
+          "0.622302316112",
+          "0.622302316113"
+        ],
+        "stationary": [
+          "0.004291740111",
+          "0.004291740112"
+        ],
+        "finite_tail": [
+          "0.005038116976",
+          "0.005038116977"
+        ],
+        "remote_tail": [
+          "0.000006491111",
+          "0.000012499759"
+        ],
+        "complete_tail": [
+          "0.005044608088",
+          "0.005050616736"
+        ],
+        "difference": [
+          "0.000752867977",
+          "0.000758876625"
+        ],
+        "finite_middle": [
+          "0.009542227683",
+          "0.009542227684"
+        ],
+        "complete_energy": [
+          "0.014586835771",
+          "0.014592844419"
+        ],
+        "ratio": [
+          "1.175422546098",
+          "1.176822595115"
+        ],
+        "alpha": [
+          "-0.008608667487",
+          "-0.008608667486"
+        ],
+        "z": [
+          "0.005610734280",
+          "0.005610734281"
+        ],
+        "U": [
+          "15.020122538907",
+          "15.020122538908"
+        ]
+      }
+    },
+    {
+      "H": 18,
+      "N": 324,
+      "T": 65536,
+      "digits": 75,
+      "status": "REFUTED",
+      "first_prefix_excess": 5110,
+      "max_weighted_cell": [
+        346,
+        [
+          "0.000062172518",
+          "0.000062172519"
+        ]
+      ],
+      "output_bins": [
+        [
+          "0.001767757407",
+          "0.001767757408"
+        ],
+        [
+          "0.000531781057",
+          "0.000531781058"
+        ],
+        [
+          "0.000260422658",
+          "0.000260422659"
+        ],
+        [
+          "0.000976234097",
+          "0.000976234098"
+        ]
+      ],
+      "sectors": [
+        {
+          "pair": [
+            0,
+            0
+          ],
+          "finite": [
+            "0.003435592628",
+            "0.003435592629"
+          ],
+          "complete": [
+            "0.003435592628",
+            "0.003478714850"
+          ],
+          "stationary": [
+            "0.003342238679",
+            "0.003342238680"
+          ],
+          "difference": [
+            "0.000093353949",
+            "0.000136476171"
+          ]
+        },
+        {
+          "pair": [
+            0,
+            1
+          ],
+          "finite": [
+            "0.000037904781",
+            "0.000037904782"
+          ],
+          "complete": [
+            "0.000036691187",
+            "0.000039118377"
+          ],
+          "stationary": [
+            "-0.000000633025",
+            "-0.000000633024"
+          ],
+          "difference": [
+            "0.000037324212",
+            "0.000039751401"
+          ]
+        },
+        {
+          "pair": [
+            0,
+            2
+          ],
+          "finite": [
+            "0.000051241017",
+            "0.000051241018"
+          ],
+          "complete": [
+            "0.000050340702",
+            "0.000052141334"
+          ],
+          "stationary": [
+            "-0.000000484912",
+            "-0.000000484911"
+          ],
+          "difference": [
+            "0.000050825614",
+            "0.000052626246"
+          ]
+        },
+        {
+          "pair": [
+            1,
+            1
+          ],
+          "finite": [
+            "0.000002419444",
+            "0.000002419445"
+          ],
+          "complete": [
+            "0.000002419444",
+            "0.000002427983"
+          ],
+          "stationary": [
+            "0.000000661793",
+            "0.000000661794"
+          ],
+          "difference": [
+            "0.000001757650",
+            "0.000001766190"
+          ]
+        },
+        {
+          "pair": [
+            1,
+            2
+          ],
+          "finite": [
+            "0.000002143481",
+            "0.000002143482"
+          ],
+          "complete": [
+            "0.000002130812",
+            "0.000002156151"
+          ],
+          "stationary": [
+            "-0.000000099987",
+            "-0.000000099986"
+          ],
+          "difference": [
+            "0.000002230798",
+            "0.000002256137"
+          ]
+        },
+        {
+          "pair": [
+            2,
+            2
+          ],
+          "finite": [
+            "0.000006893866",
+            "0.000006893867"
+          ],
+          "complete": [
+            "0.000006893866",
+            "0.000006898566"
+          ],
+          "stationary": [
+            "0.000000364220",
+            "0.000000364221"
+          ],
+          "difference": [
+            "0.000006529645",
+            "0.000006534346"
+          ]
+        }
+      ],
+      "values": {
+        "V": [
+          "1.086165200496",
+          "1.086165200497"
+        ],
+        "stationary": [
+          "0.003342046770",
+          "0.003342046771"
+        ],
+        "finite_tail": [
+          "0.003536195220",
+          "0.003536195221"
+        ],
+        "remote_tail": [
+          "0.000000000000",
+          "0.000043119746"
+        ],
+        "complete_tail": [
+          "0.003536195220",
+          "0.003579314966"
+        ],
+        "difference": [
+          "0.000194148449",
+          "0.000237268195"
+        ],
+        "finite_middle": [
+          "0.009460671101",
+          "0.009460671102"
+        ],
+        "complete_energy": [
+          "0.012996866322",
+          "0.013039986068"
+        ],
+        "ratio": [
+          "1.058092678864",
+          "1.070994875664"
+        ],
+        "alpha": [
+          "-0.019645316218",
+          "-0.019645316217"
+        ],
+        "z": [
+          "0.014717344022",
+          "0.014717344023"
+        ],
+        "U": [
+          "30.975010984197",
+          "30.975010984198"
+        ]
+      }
+    },
+    {
+      "H": 24,
+      "N": 576,
+      "T": 65536,
+      "digits": 75,
+      "status": "REFUTED",
+      "first_prefix_excess": 2712,
+      "max_weighted_cell": [
+        661,
+        [
+          "0.000025063122",
+          "0.000025063123"
+        ]
+      ],
+      "output_bins": [
+        [
+          "0.001598365447",
+          "0.001598365448"
+        ],
+        [
+          "0.000919046538",
+          "0.000919046539"
+        ],
+        [
+          "0.000204219908",
+          "0.000204219909"
+        ],
+        [
+          "0.000712283721",
+          "0.000712283722"
+        ]
+      ],
+      "sectors": [
+        {
+          "pair": [
+            0,
+            0
+          ],
+          "finite": [
+            "0.003431294443",
+            "0.003431294444"
+          ],
+          "complete": [
+            "0.003431294443",
+            "0.003583089843"
+          ],
+          "stationary": [
+            "0.002843993948",
+            "0.002843993949"
+          ],
+          "difference": [
+            "0.000587300495",
+            "0.000739095895"
+          ]
+        },
+        {
+          "pair": [
+            0,
+            1
+          ],
+          "finite": [
+            "-0.000009832021",
+            "-0.000009832020"
+          ],
+          "complete": [
+            "-0.000011666711",
+            "-0.000007997330"
+          ],
+          "stationary": [
+            "-0.000000484618",
+            "-0.000000484617"
+          ],
+          "difference": [
+            "-0.000011182093",
+            "-0.000007512712"
+          ]
+        },
+        {
+          "pair": [
+            0,
+            2
+          ],
+          "finite": [
+            "0.000008448197",
+            "0.000008448198"
+          ],
+          "complete": [
+            "0.000006856258",
+            "0.000010040137"
+          ],
+          "stationary": [
+            "-0.000000324887",
+            "-0.000000324886"
+          ],
+          "difference": [
+            "0.000007181144",
+            "0.000010365023"
+          ]
+        },
+        {
+          "pair": [
+            1,
+            1
+          ],
+          "finite": [
+            "0.000000666885",
+            "0.000000666886"
+          ],
+          "complete": [
+            "0.000000666885",
+            "0.000000672430"
+          ],
+          "stationary": [
+            "0.000000103866",
+            "0.000000103867"
+          ],
+          "difference": [
+            "0.000000563018",
+            "0.000000568563"
+          ]
+        },
+        {
+          "pair": [
+            1,
+            2
+          ],
+          "finite": [
+            "0.000000703166",
+            "0.000000703167"
+          ],
+          "complete": [
+            "0.000000693545",
+            "0.000000712788"
+          ],
+          "stationary": [
+            "-0.000000018370",
+            "-0.000000018369"
+          ],
+          "difference": [
+            "0.000000711915",
+            "0.000000731157"
+          ]
+        },
+        {
+          "pair": [
+            2,
+            2
+          ],
+          "finite": [
+            "0.000002634944",
+            "0.000002634945"
+          ],
+          "complete": [
+            "0.000002634944",
+            "0.000002639118"
+          ],
+          "stationary": [
+            "0.000000078199",
+            "0.000000078200"
+          ],
+          "difference": [
+            "0.000002556744",
+            "0.000002560919"
+          ]
+        }
+      ],
+      "values": {
+        "V": [
+          "1.640611877315",
+          "1.640611877316"
+        ],
+        "stationary": [
+          "0.002843348140",
+          "0.002843348141"
+        ],
+        "finite_tail": [
+          "0.003433915616",
+          "0.003433915617"
+        ],
+        "remote_tail": [
+          "0.000000000000",
+          "0.000151760930"
+        ],
+        "complete_tail": [
+          "0.003433915616",
+          "0.003585676547"
+        ],
+        "difference": [
+          "0.000590567475",
+          "0.000742328406"
+        ],
+        "finite_middle": [
+          "0.008513936535",
+          "0.008513936536"
+        ],
+        "complete_energy": [
+          "0.011947852152",
+          "0.012099613083"
+        ],
+        "ratio": [
+          "1.207701430370",
+          "1.261075453579"
+        ],
+        "alpha": [
+          "0.008555012227",
+          "0.008555012228"
+        ],
+        "z": [
+          "-0.007492497745",
+          "-0.007492497744"
+        ],
+        "U": [
+          "51.418843702066",
+          "51.418843702067"
+        ]
+      }
+    },
+    {
+      "H": 30,
+      "N": 900,
+      "T": 65536,
+      "digits": 75,
+      "status": "REFUTED",
+      "first_prefix_excess": 2670,
+      "max_weighted_cell": [
+        1421,
+        [
+          "0.000016767075",
+          "0.000016767076"
+        ]
+      ],
+      "output_bins": [
+        [
+          "0.002009095171",
+          "0.002009095172"
+        ],
+        [
+          "0.000532024304",
+          "0.000532024305"
+        ],
+        [
+          "0.000220585905",
+          "0.000220585906"
+        ],
+        [
+          "0.000571330736",
+          "0.000571330737"
+        ]
+      ],
+      "sectors": [],
+      "values": {
+        "V": [
+          "2.280476014403",
+          "2.280476014404"
+        ],
+        "stationary": [
+          "0.002531049960",
+          "0.002531049961"
+        ],
+        "finite_tail": [
+          "0.003333036118",
+          "0.003333036119"
+        ],
+        "remote_tail": [
+          "0.000000000000",
+          "0.000464858491"
+        ],
+        "complete_tail": [
+          "0.003333036118",
+          "0.003797894609"
+        ],
+        "difference": [
+          "0.000801986158",
+          "0.001266844649"
+        ],
+        "finite_middle": [
+          "0.008551108125",
+          "0.008551108126"
+        ],
+        "complete_energy": [
+          "0.011884144244",
+          "0.012349002735"
+        ],
+        "ratio": [
+          "1.316859078532",
+          "1.500521391605"
+        ],
+        "alpha": [
+          "-0.028215635094",
+          "-0.028215635093"
+        ],
+        "z": [
+          "0.027523343448",
+          "0.027523343449"
+        ],
+        "U": [
+          "76.743365812707",
+          "76.743365812708"
+        ]
+      }
+    },
+    {
+      "H": 36,
+      "N": 1296,
+      "T": 65536,
+      "digits": 75,
+      "status": "REFUTED",
+      "first_prefix_excess": 3219,
+      "max_weighted_cell": [
+        1422,
+        [
+          "0.000021618786",
+          "0.000021618787"
+        ]
+      ],
+      "output_bins": [
+        [
+          "0.002001593440",
+          "0.002001593441"
+        ],
+        [
+          "0.000454639631",
+          "0.000454639632"
+        ],
+        [
+          "0.000188500065",
+          "0.000188500066"
+        ],
+        [
+          "0.000530877515",
+          "0.000530877516"
+        ]
+      ],
+      "sectors": [],
+      "values": {
+        "V": [
+          "2.990428299137",
+          "2.990428299138"
+        ],
+        "stationary": [
+          "0.002305650192",
+          "0.002305650193"
+        ],
+        "finite_tail": [
+          "0.003175610652",
+          "0.003175610653"
+        ],
+        "remote_tail": [
+          "0.000000000000",
+          "0.001215031143"
+        ],
+        "complete_tail": [
+          "0.003175610652",
+          "0.004390641796"
+        ],
+        "difference": [
+          "0.000869960460",
+          "0.002084991604"
+        ],
+        "finite_middle": [
+          "0.007967905833",
+          "0.007967905834"
+        ],
+        "complete_energy": [
+          "0.011143516486",
+          "0.012358547630"
+        ],
+        "ratio": [
+          "1.377316760319",
+          "1.904296588689"
+        ],
+        "alpha": [
+          "0.020597948980",
+          "0.020597948981"
+        ],
+        "z": [
+          "-0.021881719211",
+          "-0.021881719210"
+        ],
+        "U": [
+          "105.730416526938",
+          "105.730416526939"
+        ]
+      }
+    },
+    {
+      "H": 42,
+      "N": 1764,
+      "T": 65536,
+      "digits": 75,
+      "status": "REFUTED",
+      "first_prefix_excess": 7255,
+      "max_weighted_cell": [
+        1971,
+        [
+          "0.000008636743",
+          "0.000008636744"
+        ]
+      ],
+      "output_bins": [
+        [
+          "0.001618006086",
+          "0.001618006087"
+        ],
+        [
+          "0.000249834383",
+          "0.000249834384"
+        ],
+        [
+          "0.000253500017",
+          "0.000253500018"
+        ],
+        [
+          "0.000439788822",
+          "0.000439788823"
+        ]
+      ],
+      "sectors": [],
+      "values": {
+        "V": [
+          "3.769143107495",
+          "3.769143107496"
+        ],
+        "stationary": [
+          "0.002135491845",
+          "0.002135491846"
+        ],
+        "finite_tail": [
+          "0.002561129310",
+          "0.002561129311"
+        ],
+        "remote_tail": [
+          "0.000000000000",
+          "0.002788124015"
+        ],
+        "complete_tail": [
+          "0.002561129310",
+          "0.005349253325"
+        ],
+        "difference": [
+          "0.000425637464",
+          "0.003213761479"
+        ],
+        "finite_middle": [
+          "0.008295672968",
+          "0.008295672969"
+        ],
+        "complete_energy": [
+          "0.010856802278",
+          "0.013644926293"
+        ],
+        "ratio": [
+          "1.199315893181",
+          "2.504928003156"
+        ],
+        "alpha": [
+          "-0.020000621771",
+          "-0.020000621770"
+        ],
+        "z": [
+          "0.018538350860",
+          "0.018538350861"
+        ],
+        "U": [
+          "138.993338362526",
+          "138.993338362527"
+        ]
+      }
+    },
+    {
+      "H": 48,
+      "N": 2304,
+      "T": 65536,
+      "digits": 75,
+      "status": "REFUTED",
+      "first_prefix_excess": 6405,
+      "max_weighted_cell": [
+        2656,
+        [
+          "0.000007192457",
+          "0.000007192458"
+        ]
+      ],
+      "output_bins": [
+        [
+          "0.001642948176",
+          "0.001642948177"
+        ],
+        [
+          "0.000428522645",
+          "0.000428522646"
+        ],
+        [
+          "0.000168762525",
+          "0.000168762526"
+        ],
+        [
+          "0.000378763438",
+          "0.000378763439"
+        ]
+      ],
+      "sectors": [],
+      "values": {
+        "V": [
+          "4.616535363138",
+          "4.616535363139"
+        ],
+        "stationary": [
+          "0.002002835298",
+          "0.002002835299"
+        ],
+        "finite_tail": [
+          "0.002618996785",
+          "0.002618996786"
+        ],
+        "remote_tail": [
+          "0.000000000000",
+          "0.005776042364"
+        ],
+        "complete_tail": [
+          "0.002618996785",
+          "0.008395039150"
+        ],
+        "difference": [
+          "0.000616161486",
+          "0.006392203851"
+        ],
+        "finite_middle": [
+          "0.007602290091",
+          "0.007602290092"
+        ],
+        "complete_energy": [
+          "0.010221286876",
+          "0.015997329241"
+        ],
+        "ratio": [
+          "1.307644611273",
+          "4.191577388018"
+        ],
+        "alpha": [
+          "-0.004574902919",
+          "-0.004574902918"
+        ],
+        "z": [
+          "0.005875429236",
+          "0.005875429237"
+        ],
+        "U": [
+          "175.519835237460",
+          "175.519835237461"
+        ]
+      }
+    },
+    {
+      "H": 54,
+      "N": 2916,
+      "T": 65536,
+      "digits": 75,
+      "status": "REFUTED",
+      "first_prefix_excess": 22533,
+      "max_weighted_cell": [
+        3298,
+        [
+          "0.000004912133",
+          "0.000004912134"
+        ]
+      ],
+      "output_bins": [
+        [
+          "0.001168268262",
+          "0.001168268263"
+        ],
+        [
+          "0.000421495061",
+          "0.000421495062"
+        ],
+        [
+          "0.000104936576",
+          "0.000104936577"
+        ],
+        [
+          "0.000361523099",
+          "0.000361523100"
+        ]
+      ],
+      "sectors": [],
+      "values": {
+        "V": [
+          "5.530489204013",
+          "5.530489204014"
+        ],
+        "stationary": [
+          "0.001895951046",
+          "0.001895951047"
+        ],
+        "finite_tail": [
+          "0.002056222999",
+          "0.002056223000"
+        ],
+        "remote_tail": [
+          "0.000000000000",
+          "0.011032993769"
+        ],
+        "complete_tail": [
+          "0.002056222999",
+          "0.013089216768"
+        ],
+        "difference": [
+          "0.000160271952",
+          "0.011193265721"
+        ],
+        "finite_middle": [
+          "0.008263523698",
+          "0.008263523699"
+        ],
+        "complete_energy": [
+          "0.010319746697",
+          "0.021352740467"
+        ],
+        "ratio": [
+          "1.084533802916",
+          "6.903773590969"
+        ],
+        "alpha": [
+          "0.011622186773",
+          "0.011622186774"
+        ],
+        "z": [
+          "-0.012820296678",
+          "-0.012820296677"
+        ],
+        "U": [
+          "216.813581533760",
+          "216.813581533761"
+        ]
+      }
+    },
+    {
+      "H": 60,
+      "N": 3600,
+      "T": 1048576,
+      "digits": 75,
+      "status": "UNRESOLVED",
+      "first_prefix_excess": null,
+      "max_weighted_cell": [
+        3948,
+        [
+          "0.000002545507",
+          "0.000002545508"
+        ]
+      ],
+      "output_bins": [
+        [
+          "0.000936957481",
+          "0.000936957482"
+        ],
+        [
+          "0.000251871637",
+          "0.000251871638"
+        ],
+        [
+          "0.000129606062",
+          "0.000129606063"
+        ],
+        [
+          "0.000438821788",
+          "0.000438821789"
+        ]
+      ],
+      "sectors": [],
+      "values": {
+        "V": [
+          "6.504482159456",
+          "6.504482159457"
+        ],
+        "stationary": [
+          "0.001806298850",
+          "0.001806298851"
+        ],
+        "finite_tail": [
+          "0.001757256969",
+          "0.001757256970"
+        ],
+        "remote_tail": [
+          "0.000000000000",
+          "0.000082871598"
+        ],
+        "complete_tail": [
+          "0.001757256969",
+          "0.001840128568"
+        ],
+        "difference": [
+          "-0.000049041881",
+          "0.000033829718"
+        ],
+        "finite_middle": [
+          "0.008014074183",
+          "0.008014074184"
+        ],
+        "complete_energy": [
+          "0.009771331153",
+          "0.009854202751"
+        ],
+        "ratio": [
+          "0.972849520246",
+          "1.018728748607"
+        ],
+        "alpha": [
+          "0.004296866260",
+          "0.004296866261"
+        ],
+        "z": [
+          "-0.002623095119",
+          "-0.002623095118"
+        ],
+        "U": [
+          "261.134024932249",
+          "261.134024932250"
+        ]
+      }
+    }
+  ],
+  "verification": {
+    "independent": [
+      {
+        "H": 6,
+        "T": 65536,
+        "V": 0.26851361099696575,
+        "finite_tail": 0.007652368494145792,
+        "finite_middle": 0.012750920209002658,
+        "moment1": 1.0,
+        "moment3": 3.0,
+        "max_head": 3.134021904840911e-20,
+        "sectors": [
+          0.007735941051486202,
+          -0.0001430042328538419,
+          -0.0002442241637518472,
+          9.109581506608432e-05,
+          4.226953362337709e-05,
+          0.00017029049057581724
+        ]
+      },
+      {
+        "H": 12,
+        "T": 65536,
+        "V": 0.6223023161126472,
+        "finite_tail": 0.0050381169769834555,
+        "finite_middle": 0.009542227683173806,
+        "moment1": 1.0,
+        "moment3": 3.0,
+        "max_head": 8.801201717564214e-20,
+        "sectors": [
+          0.005000310796019846,
+          2.743618721922024e-05,
+          9.264484245058546e-06,
+          2.948929906030275e-07,
+          2.1151013839660747e-07,
+          5.991063703301128e-07
+        ]
+      },
+      {
+        "H": 18,
+        "T": 65536,
+        "V": 1.0861652004960263,
+        "finite_tail": 0.0035361952205592907,
+        "finite_middle": 0.009460671101948145,
+        "moment1": 1.0,
+        "moment3": 3.0,
+        "max_head": 2.871971086784112e-19,
+        "sectors": [
+          0.0034355926284467156,
+          3.790478188060207e-05,
+          5.12410179040646e-05,
+          2.4194440615925937e-06,
+          2.143481587803541e-06,
+          6.893866678512254e-06
+        ]
+      },
+      {
+        "H": 24,
+        "T": 65536,
+        "V": 1.640611877315668,
+        "finite_tail": 0.0034339156168403024,
+        "finite_middle": 0.008513936535790157,
+        "moment1": 1.0,
+        "moment3": 3.0,
+        "max_head": 2.360773468226341e-19,
+        "sectors": [
+          0.003431294443511378,
+          -9.832020341141464e-06,
+          8.44819739270936e-06,
+          6.668856747928266e-07,
+          7.03166494133894e-07,
+          2.634944108429845e-06
+        ]
+      },
+      {
+        "H": 36,
+        "T": 65536,
+        "V": 2.99042829913705,
+        "finite_tail": 0.0031756106529965524,
+        "finite_middle": 0.007967905833957971,
+        "moment1": 1.0,
+        "moment3": 3.0,
+        "max_head": 3.3559710068011396e-19,
+        "sectors": [
+          0.0032048574752305955,
+          -5.6824098220225434e-05,
+          -2.788544803543552e-05,
+          6.8110514810976175e-06,
+          8.787105249810968e-06,
+          3.986456729070913e-05
+        ]
+      },
+      {
+        "H": 60,
+        "T": 1048576,
+        "V": 6.504482159456877,
+        "finite_tail": 0.0017572569698091616,
+        "finite_middle": 0.008014074183415877,
+        "moment1": 1.0,
+        "moment3": 3.0,
+        "max_head": 6.994854326707666e-19,
+        "sectors": [
+          0.0017211118649925255,
+          1.2900012714432265e-05,
+          2.0925925587291406e-05,
+          6.300071344792129e-07,
+          4.6857672397220187e-07,
+          1.220582656460877e-06
+        ]
+      }
+    ],
+    "minimal_prefix_certificate": {
+      "663": {
+        "sum": [
+          "0.007256900471",
+          "0.007256900472"
+        ],
+        "difference": [
+          "-0.000000224151",
+          "-0.000000224150"
+        ]
+      },
+      "664": {
+        "sum": [
+          "0.007257160423",
+          "0.007257160424"
+        ],
+        "difference": [
+          "0.000000035801",
+          "0.000000035802"
+        ]
+      },
+      "V": [
+        "0.268513610996",
+        "0.268513610997"
+      ],
+      "stationary": [
+        "0.007257124621",
+        "0.007257124622"
+      ],
+      "rounded_rational_margin": "662327/18500000000000"
+    },
+    "chamber": {
+      "K_min": 6,
+      "K_max": 128,
+      "cells": 4090,
+      "status": "PASS"
+    },
+    "assertions": 17161,
+    "seconds": 25.975059835000025
+  }
+}
+```
+
