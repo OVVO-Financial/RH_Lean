@@ -6060,3 +6060,13 @@ if __name__ == '__main__':
 }
 ```
 
+
+### ST Publication Receipt And Final Resume State
+
+Verified at **2026-11-19 00:23:32 UTC / 2026-11-18 19:23:32 EST**. The completed ST report was committed to the authorized agent-reports path at **73412899c499828f16391b7c7b0e813fda0e6235**, content blob **b8767c41a4a44c8091b497a196f3044f8d4a5eb7**. Immutable readback matched the complete intended content exactly. Commit inspection found only research/agent_reports/2026-11-18/40-prime-census.md changed: 2,595 additions, zero deletions. Every prior PN/PS/ST checkpoint byte was preserved.
+
+[Immutable completed report](https://github.com/OVVO-Financial/RH_Lean/blob/73412899c499828f16391b7c7b0e813fda0e6235/research/agent_reports/2026-11-18/40-prime-census.md#completed-research---20261118-census-1900-estst).
+
+The standalone current-run extract before this receipt has SHA256 **f84f126f2d519dbf93315b832e89bcc9c4bf9b75cc5e65d6f0aacb7a4ee8d99b**. Its code blocks match all four executed source files. Markdown section, table, fence, data-row and provenance checks passed; no PDF or Word layout was requested. This receipt records verification of the preceding substantive commit; it does not claim to contain its own future commit hash.
+
+EXECUTION=COMPLETED; PUBLICATION=VERIFIED for the substantive report. Mathematical state: ST-S REFUTED at H=6; ST2 PAPER_PROOF with independent review PENDING; H=60 finite sign PENDING/UNRESOLVED; complete upper supplier OPEN; RH OPEN. Next action is independent review of the short certificate and window proof, then a genuinely changed full-source estimate. No further scan, local Lean execution, source edit, PR, workflow, agent launch or schedule change was made or promised.
