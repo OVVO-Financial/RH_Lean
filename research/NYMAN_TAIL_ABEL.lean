@@ -31,7 +31,7 @@ theorem nyman_cutoff_primitive_periodic (N P : Nat) (c : Nat → ℝ)
   rw [Fin.sum_univ_eq_sum_range (fun i => nymanResidual N c i ^ 2) P] at he
   intro n
   induction n with
-  | zero => simp [nymanCutoffPrimitive, sum_sub_distrib, nsmul_eq_mul, he, nymanPeriodLevel]
+  | zero => simp [nymanCutoffPrimitive, sum_sub_distrib, nsmul_eq_mul, he, nymanPeriodLevel]; ring
   | succ n ih =>
     rw [show n+1+P = (n+P)+1 by omega]
     unfold nymanCutoffPrimitive at ih ⊢
@@ -49,11 +49,12 @@ private theorem weight_mass (s : Nat) (hs : 0<s) :
       unfold nymanWeight
       field_simp <;> ring
   have ht : Tendsto (fun n : Nat => s+n) atTop atTop := by
-    apply tendsto_atTop.2; intro b; filter_upwards [eventually_ge_atTop b] with n hn; dsimp; omega
+    apply tendsto_atTop.2; intro b; filter_upwards [eventually_ge_atTop b] with n hn; omega
+  have hz : Tendsto (fun n : Nat => 1/((s+n:Nat):ℝ)) atTop (𝓝 0) :=
+    (tendsto_one_div_atTop_nhds_zero_nat (𝕜 := ℝ)).comp ht
   apply (hasSum_iff_tendsto_nat_of_nonneg (fun n => nymanWeight_nonneg (s+n)) _).2
   simp_rw [partials]
-  simpa only [sub_zero] using (tendsto_const_nhds (x := 1/(s:ℝ))).sub
-    ((tendsto_one_div_atTop_nhds_zero_nat (𝕜 := ℝ)).comp ht)
+  simpa only [sub_zero] using (tendsto_const_nhds (x := 1/(s:ℝ))).sub hz
 
 private theorem bounded_abel (w u D : Nat → ℝ) (A M C : ℝ)
     (hw : HasSum w M) (hw0 : ∀ n, 0 ≤ w n) (hD : ∀ n, |D n| ≤ C)
@@ -95,6 +96,7 @@ theorem nyman_tail_abel (N P s : Nat) (c : Nat → ℝ) (hP : 0<P) (hs : 0<s)
     simp only [F, nymanCutoffPrimitive, ← Nat.add_assoc, sum_range_succ]; ring
   have h := bounded_abel (fun n => nymanWeight (s+n)) (fun n => nymanResidual N c (s+n)^2)
     (fun n => F (s+n)-F s) _ _ C (weight_mass s hs) (fun n => nymanWeight_nonneg _) hb (by simp) hd
-  simpa only [Nat.add_assoc, nymanPhysicalTail, F, one_div, div_eq_mul_inv, mul_comm (s:ℝ)⁻¹] using h
+  rw [show 1/(s:ℝ)*nymanPeriodLevel N c = nymanPeriodLevel N c/(s:ℝ) by ring] at h
+  simpa only [Nat.add_assoc, nymanPhysicalTail, F] using h
 
 end RHLean.Analysis

@@ -21,8 +21,8 @@ private theorem reaches (F : Nat → ℝ) (P : Nat) (hp : 0<P) (h : Function.Per
     have hl := Nat.mul_le_mul_left (s+1) (show 1 ≤ P by omega)
     simpa only [Nat.mul_one] using hl.trans (Nat.le_add_right _ t)
   refine ⟨(s+1)*P+t-(s+1), ?_⟩
-  rw [show s+((s+1)*P+t-(s+1))+1 = (s+1)*P+t by omega, ← h.map_mod_nat ((s+1)*P+t)]
-  simpa only [Nat.mul_add_mod] using h.map_mod_nat t
+  rw [show s+((s+1)*P+t-(s+1))+1 = (s+1)*P+t by omega, ← h.map_mod_nat ((s+1)*P+t), Nat.mul_add_mod']
+  exact h.map_mod_nat t
 
 private theorem sum_pos {f : Nat → ℝ} {z : ℝ} (h : HasSum f z) (hn : ∀ n, 0 ≤ f n)
     {j : Nat} (hj : 0 < f j) : 0 < z := by
@@ -98,7 +98,7 @@ theorem nyman_two_moment_tail_phases (N P : Nat) (c : Nat → ℝ) (hP : 0<P)
       rw [← sum_sub_distrib, sum_div]
       apply sum_congr rfl; intro k hk
       have hk' : (k:ℝ) ≠ 0 := by exact_mod_cast (show k ≠ 0 by have := (mem_Icc.mp hk).1; omega)
-      field_simp; ring
+      field_simp <;> ring
     unfold nymanPeriodBias; rw [he,h3,h1]; norm_num
   have out := nyman_tail_two_phases N P c hP hp ⟨0,1,by rw [r0,r1]; norm_num⟩
   simpa [nymanPeriodLevel, bias] using out
