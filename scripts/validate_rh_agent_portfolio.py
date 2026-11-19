@@ -91,6 +91,32 @@ def main() -> None:
     ), start=1):
         assert f"### Agent {i} — {role}" in prompts, f"missing Studio Agent {i}"
     assert prompts.count("### Agent ") == 7, "exactly seven role sections required"
+    # 2026-11-18 safeguard: seven copied role prompts and every live entrypoint
+    # must preserve the lossless report publication and recovery procedure.
+    publication_name = "RHLEAN_AGENT_REPORT_PUBLISH_RECOVERY_20261118.md"
+    publication_tag = "REPORT_PUBLISH_RECOVERY_V1"
+    publication = read("docs/" + publication_name)
+    for label, doc in (
+        ("AGENTS", agent_policy),
+        ("DYNAMIC", dynamic),
+        ("STUDIO PROMPTS", prompts),
+        ("SETUP", setup),
+        ("CONTINUITY", read("docs/RHLEAN_REPORT_CONTINUITY_LAST_ACTUAL_20261111.md")),
+    ):
+        assert publication_name in doc and publication_tag in doc, (
+            f"missing report-publication recovery route: {label}")
+    prompt_parts = prompts.split("### Agent ")[1:]
+    assert len(prompt_parts) == 7, "expected seven standalone role prompts"
+    for role_number, role_block in enumerate(prompt_parts, 1):
+        assert publication_name in role_block and publication_tag in role_block, (
+            f"role {role_number} lacks lossless publish instructions")
+        assert ".recovery-" in role_block and "COMPLETE" in role_block, (
+            f"role {role_number} risks incomplete replacement")
+    for needed in ("HTTP 403", "118,316", "CANONICAL_VERIFIED",
+                   "RECOVERY_VERIFIED", "NOT_PUBLISHED", "readback",
+                   "Coordinator", "agent-reports", "human-only"):
+        assert needed.lower() in publication.lower(), (
+            f"lost report-publishing safety condition: {needed}")
     assert "REFUTED" in portfolio and "R=549" in portfolio
     assert "human-only merge" in portfolio.lower()
     # The dated portfolio's old one/day phrase is not live cadence authority.
