@@ -119,3 +119,102 @@ Policy blobs: half `96ad4439ec458af6168f7d9cb3eef5dde291d37c`; cross `e3ae428043
 `20261119-owner-0809-EST/EXCHANGE-CHECK` | scheduled 2026-11-19 08:09:04 EST (13:09:04Z), America/New_York; RUN_ID_UNAVAILABLE. EXECUTION=IN_PROGRESS/PARTIAL. Resume AR1-4 and Coordinator RIDGE's Owner assignment. I will test a bounded factorial mask that stays one for the first five quotients. The question is whether its difference from the half carry pays a signed joint interior/no-carry quantity without the terminal value, after common sites and all prime powers have been restored. No first crossing, sign of an intersection, or endpoint bound is assumed. No new proof is claimed at checkpoint.
 
 Authority: main `6e8bc42b828c7940c3d9137e4a3afa2e2840c5ba`; AGENTS `500b6daed5e867d19d97c30e43a7a1e7d2055a51`; contract `95566e37c8eaeb99ee680660df4f9d2e06ea5038`; source signed seats `87a6654a4a4337b409fde69aa15d7264d8b721b6`, first bad `1163ae30b448b2fdd99fc4bfb4f13b36863a52a9`, canonical `79030d70e8d3e0d08eef9bac53fef95c36eca2fb`. Reports intake `4b1a75f41071abd98d4dec2627a57e799f8ec847`; all seven roles represented today, Lean partial. #1150 draft, dedicated proof check failed; not a main theorem. Direct Git tunnel 403; use authenticated Contents with guarded full history or verified owned recovery. `publish_ack=REPORT_PUBLISH_RECOVERY_V1; continuity_ack=LAST_ACTUAL_REPORT_CONTINUITY_V1; half_bootstrap_ack=BOOTSTRAP_TO_HALF_V1; cross_route_ack=CROSS_ROUTE_SIGNED_RECOVERY_V1`. RH and the canonical all-root upper bound remain open.
+
+## A. A signed exchange below the endpoint, and a sharp limit on all height-one masks
+
+`20261119-owner-0809-EST/EXCHANGE-FINAL`. Reopened the same daily report. Two disjoint sets of actual integers, both below half the endpoint, have log-prime discrepancies whose difference is `-0.19697685... sqrt(X)+O_b(sqrt(X)/log X)` without assuming any good roots. Thus their negative ordered cross term is at most of order X. But every normalized divisor-floor mask of range [0,1], even with real coefficients and arbitrarily many denominators, **misses every quotient divisible by six**. No such mask covers all of the first six quotient bands. At a hypothetical large first crossing a *different* pair of entirely historical sets must supply a negative cross term of order `X log^4 X`. These restrictions do not contradict each other and do not rule out a crossing.
+
+`EXCHANGE1,2=PAPER_PROOF; EXCHANGE3=CONDITIONAL (proved implication); EXCHANGE4=TARGET_EQUIVALENT (proved equivalence); SELF_AUDIT; INDEPENDENT_REVIEW=PENDING; NOT_FORMALIZED; NO_NEW_GLOBAL_GAIN`. Identifiers in this entry have prefix `20261119-owner-0809-EST/`.
+
+## B. Authority, objective and actual carrier
+
+Main and source SHAs in the 08:09 checkpoint are unchanged. Direct VF: one C>=0 before every integer B>=2, `|pi(B^2)-vfMidFinishedMass(B)-sqrt(2)| <= C B log B`. The classical von Koch criterion is explicit in the Lean consumer. FirstBad below is the **raw fixed-2** predicate, not the canonical existence statement. Use `X=B^2`, `L=log X`, `q=floor(X/n)`, `l(n)=1_Prime(n) log n-1`, `e(y)=theta(y)-floor(y)`. Each integer 1<=n<=X is counted once, including n=1, even integers and squareful composites. All logarithms natural. The earlier AR2 Abel/quadrature bridge is needed to return from log primes to the signed odd seats; these are not identical quadratic forms.
+
+## C. Two actual choices of quotient sites
+
+Write `[t]=floor(t)`, `A(t)=[t]-2[t/2]` (the real half split), and `C(t)=[t]-[t/2]-[t/3]-[t/5]+[t/30]` (the classical Chebyshev mask). Both are Boolean; on a period of length 30, C-A is +1 on {2,4,8,14}, -1 on {15,21,25,27}, zero elsewhere (residues of [t]). For `g_a(t)=[t]-[at]-[(1-a)t]` the exact second-split identity is `C-A=g_(1/3)(t/2)-g_(1/6)(t/5)`. The first child selects 2,4,5 modulo 6 and already touches both half-mask states. Subtract the second child at its actual location; common sites do not become independent copies. Classical mask provenance: Chebyshev, *Memoire sur les nombres premiers* (1852), pp. 366-390; J. Bober, arXiv:0709.1977, Theorem 1.1 and the discussion of (10). No historical novelty claim for C or the integer height-one classification.
+
+## D. Arithmetic proofs
+
+**EXCHANGE1 (two unit jumps).** Let `F(t)=sum_d c_d[t/d]` for a finite set of positive integer denominators, real c_d and F(1)=c_1=1. Suppose its range on all t>=0 has finite width W. With `M=lcm(d)` its jump `h(n)=sum_{d|n}c_d` depends only on gcd(n,M); at units it is 1. At q=6k, k>=1, choose m congruent to q modulo each prime power of M whose prime divides q, and congruent to 2 at all other prime powers. Those other primes are >=5. CRT and translation by M give m>=2 with the same gcd as q and both neighbors units. Hence `2+h(q)=F(m+1)-F(m-2)<=W`. If 0<=F<=1, this forces `F(6k-1)=1, F(6k)=0`. If F(5)=F(6)=1, W>=2. Both thresholds are sharp: C starts 1,1,1,1,1,0,1; `C(t)+A(t/6)` has range [0,2], starts with six ones, then two. In particular every normalized height-one mask is zero on `(X/7,X/6]` in the physical n-variable, an interval of prime log mass asymptotic to X/42 by ordinary PNT. This is not a bound for its **centered** discrepancy.
+
+**EXCHANGE2 (power-saving prefix and signed transfer).** Fix `1/2<b<4/7` before X, `U=X^b`, and let G,J be sums of l(n) over n>U with q in the plus, minus residue sets in C respectively, up to X. The latest possible sites are n<=X/2 for G and n<=X/15 for J. Then, as X tends to infinity,
+
+```
+G-J = -kappa sqrt(X)+O_b(sqrt(X)/log X),
+kappa = zeta(1/2)*(1/sqrt(2)-1/sqrt(3)-1/sqrt(5)+1/sqrt(30)) > 0.
+```
+
+For the untrimmed difference apply accepted AR1 at scales X/2 and X/5 to the two genuine carries in C. AR1 is uniform for 0<=a<=1; AR3 is not being extended to a=1/6. The two square coefficients simplify to kappa. Its sign follows from `zeta(1/2)<0` (alternating eta series) and `sqrt(10)+sqrt(6)>sqrt(15)+1` by squaring. AR1 uses the exact von Mangoldt factorial identity minus the count of all integer divisors; when returning to prime weights, squares and higher powers each enter with **log p**, not log(p^j). The square main term is retained. No value of e(X) is an input.
+
+The small sites need more than the earlier O_b(sqrt X) error to retain that coefficient. For **any fixed balanced F** (`sum c_d/d=0`) put `mu=-sum c_d/2`, `u(v)={v}-1/2` also at integers. Then `F(t)-mu=-sum c_d u(t/d)` and
+
+```
+sum_{n<=U} l(n)F(X/n) = mu*e(U)+O_{b,F}(X^(1/2-eta_b))
+```
+
+for some eta_b>0. Indeed for each T=X/d, split the von Mangoldt sawtooth sum into full descending dyadic intervals from U, leaving a prefix ending between `X^(25/52)` and `2X^(25/52)`. The latter costs `O(X^(25/52))` by Chebyshev. For the former `T^(6/13)<=D<=T^(2/3)` for all sufficiently large X (fixed denominators). Liu-Wu-Yang, *A variant of the prime number theorem*, arXiv:2105.10844, Prop. 4.1 (4.1),(4.3), delta=0, gives `O_eps((T^2 D^7)^(1/12) T^eps)`. Since `(2+7b)/12<1/2`, the log number of intervals and a fixed epsilon are absorbed. Removing prime powers costs `psi(U)-theta(U)<<sqrt(U)`.
+
+For the all-integer sawtooth set `m=[U], k=[T/m], S_z=sum_{j<=z}u(T/j)`, `H_z=sum_{j<=z}1/j`, `Div(T)=sum_{j<=T}[T/j]`. The exact hyperbola identity is `S_m+S_k=T(H_m+H_k)-Div(T)-mk-(m+k)/2`. Use `Div(T)=T log T+(2 gamma-1)T+O(T^(1/3))` (Huxley, doi:10.1112/S0024611503014485, with fixed loss), `H_j=log j+gamma+1/(2j)+O(1/j^2)`, and `|S_k|<=k/2`. For `r=T-mk<m`, `T log(mk/T)+r=O(r^2/T)`, and `T/m-k=r/m, T/k-m=r/k`. Thus `S_m=O(T^(1/3)+T/U+U^2/T+1)`; every exponent is strictly below 1/2. This proves the prefix claim, e.g. eta=1/216 is permissible at b=5/9. Both A and C have mu=1/2. Their difference loses the whole e(U) term without a first-crossing assumption, proving the displayed exchange.
+
+## E. What this pays, and what a crossing would force
+
+Unconditionally, with `z_+=max(0,z)`, `(-2GJ)_+ <= (G-J)^2/2 <= (kappa^2/2)X+O_b(X/log X)`; the leading constant is about 0.019400. This controls the negative ordered interaction of these two disjoint exchanged sets, not their individual sizes or the opposite sign of the interaction.
+
+**EXCHANGE3.** Suppose `|D_B|>2B log B` and all integer roots 2<=r<B are good, `D_B=pi(X)-vfMidFinishedMass(B)`, `s=sign(D_B)`. For large such B, AR2 gives `s e(X)>=B L^2-O(BL)` and for 2<=y<X, `|e(y)|<=sqrt(y) log^2(y)+O(sqrt(y) log(2y))`. In particular e(U)=o(B). Split the actual sites into five disjoint sums:
+
+| Sum | Sites (all sums use l(n)) |
+|---|---|
+| S | n<=U, both mask states |
+| H | X/6<n<=X |
+| I | U<n<=X/6 and C(X/n)=1; in fact n<=X/7 |
+| V | q=6, i.e. X/7<n<=X/6 |
+| O | n>U, C(X/n)=0, q>=10; n<=X/10 |
+
+Here U<X/10 eventually; C is one for q=1..5 and 7..9. Write `a=1-1/sqrt(6)`, `d=1-1/sqrt(6)-1/sqrt(7)>0`. From `H=e(X)-e(X/6)`, `sH>=a BL^2-O(BL)`. The full C sum is O(B) by AR1 and the untrimmed exchange, and its part in S is O_b(B) by the prefix formula. Consequently `-sI>=a BL^2-O_b(BL)`. The unselected sites above U have `s(V+O)>=BL^2-O_b(BL)`; the unselected part of S is O_b(B) as well. The two earlier endpoints give `|V|<=(1/sqrt(6)+1/sqrt(7)) BL^2+O(BL)`. Therefore `sO>=d BL^2-O_b(BL)` and
+
+```
+-2 I O >= 2 a d X L^4 - O_b(X L^3).
+```
+
+No crossing is asserted. The projection square is `sum Z^2+2 sum_{i<j}Z_i Z_j` over S,H,I,V,O, with all ten pairs. In the original AR half split the six mixed products are HI,HS,HO,IS,IO,SO in **that partition's** notation. In actual raw odd seats `Q=sum q_i`, the exact square is `D_a^2-2D_a Q+sum q_i^2+2 sum_{i<j}q_i q_j`; the centered square adds `-2sqrt(2)D_B+2`. The earlier anchor, both orientations and restoration price are unchanged (AR section B). The prefix and this conditional historical pair do not buy clipped #915 admission or bound the complete square.
+
+## F. Falsification and a target-equivalence trap
+
+**EXCHANGE4.** `|e(B^2/6)-e(B^2/7)| << B log^2(2B)` for *all integer B>=2* is equivalent to the all-root **existence** target in B, not to its fixed-2 version. The global theta envelope immediately bounds the difference. Conversely interpolate the difference to all real X by taking the square immediately below: moving each endpoint costs `O(sqrt(X)log(2X))` using the actual site weights. At X=6y telescope `e(y)-e(6y/7)` until the argument is bounded. The geometric series of square roots converges, giving `e(y)<<sqrt(y) log^2(2y)`. Partial summation in both directions and the source all-real O(1) Li2 quadrature identify this with the canonical existence schedule, extending square counts to real arguments with `O(sqrt(y))` count interpolation. This does not apply to a sparse test or a conditional earlier-root upper estimate. Imposing the global bound on V alone would hide the unsolved endpoint.
+
+`FINITE_COMPUTATION`. Independently reconstructed prime powers via integer products and floor-factorials, plus all-site divisor counts at 253 half-step arguments X=j/2, 4<=j<=256, for both masks (506 identities). Checked 1,093 exact rational hyperbola identities; 5,040 CRT witnesses (M=1..420, k=1..12); all 2,187 normalized Boolean jump-class candidates for M=30 give precisely three surviving masks, first missed quotients 2,3,6. Checked the doubled-height example over its period 60. For b=5/9 tested B=2..128,257,512 (129 squares), choosing the cutoff by `m^9<=X^5<(m+1)^9`. Reconstructed all five groups and every mixed term; 25,580 exact coefficients of the formal log-prime square checked at B=7,11,16,22,24,31. At X=p^2, a=1/X for p=7,11, exactly p,p^2 are selected, giving log(p)-2 of opposite signs. No fixed sign at all finite squares: G-J at B=22 lies in [2.866053943,2.866053944]; at B=31 in [-3.469841927,-3.469841926], U floored to 45, with (sites,primes)=(226,39),(4,1). At B=257 and 512 the differences are in [-46.723916688,-46.723916687] and [-49.778915341,-49.778915340]. Exact prime products and site counts, 48-digit logarithms, outward enclosures. No finite onset or actual first bad inferred. Verification script SHA-256 `27b61621df1611788647f1d4b110d2ff070f8efe1d95e0ffb197de51335325ea`.
+
+## G. Interpretation
+
+The proper signed exchange is small because its zero mean cancels the same physical small-prime prefix in both masks, not because residue classes are independent. A six-divisible quotient is different: two forced unit jumps elsewhere impose an exact range cost here. The gap has macroscopic prime mass; ordinary PNT gives no needed bound on its centered error. Neither argument is a no-go for nonnormalized or height-two masks, arbitrary non-divisor dilations, or general Nyman coefficients.
+
+## H. Competing mechanisms
+
+Continue the zero-mean two-mask transfer for proper disjoint interactions. Abandon the normalized height-one strategy of covering the first six quotient bands, and the unconditional single-band V envelope as an independent input. Retain the alternative of a joint upper bound for opposing historical blocks; EXCHANGE3 tests it without presuming the terminal sign. A higher mask covering q=6 must pay multiplicity somewhere (two at q=7 in the example); no gain has been demonstrated. The accepted native Mertens exponent and the nine separate half-line routes do not change.
+
+## I. Handoffs
+
+Coordinator: portfolio decision is to keep joint historical estimates, not to promote a single-band uniform wall. Analytic: test the adjacent product in J on the genuine log-prime increments with their common endpoint; do not bound the two intervals independently and call it a saving. Wheel: test whether a height-two correction has a provably controlled overlap after its double-counted sites are restored. Census: use b=5/9; evaluate the four signed products below with exact prime products and outward log bounds, starting at B=16..128 and recording both signs, before either enlarging the range or selecting an extremum. Referee: audit double-unit CRT with repeated prime powers, the hyperbola prefix error, and all ten restored products; EXCHANGE1-4 not yet independently accepted. Lean: after review, EXCHANGE1's jump lemma is the smallest formalizable statement; no request to implement a conjectural covariance bound or to open a PR here.
+
+## J. First independently missing test
+
+Fix b=5/9 and the constants a,d in E. Put `I0=e(X/7)-e(X/10)`, `O0=e(X/10)-e(X/11)` (the adjacent q=7..9 and q=10 bands), `I1=I-I0`, `O1=O-O0`; these are genuinely earlier sites for large X. Test whether for all sufficiently large integer B with all earlier raw walls good, **without assuming a bad terminal**, `(-I0 O0)_+ <= (ad/5) X L^4`. This is an unpaid proper-product hypothesis; the earlier pointwise envelope by triangles gives only leading constant `(1/sqrt(7)+1/sqrt(10))*(1/sqrt(10)+1/sqrt(11))`, larger than ad/5. A counterexample to this threshold rejects this allocation, not RH. Even success leaves I0O1, I1O0 and I1O1. If the same budget were independently obtained for all four, their sum would give at most `4ad/5` instead of the required leading `ad` from EXCHANGE3, excluding sufficiently large first crossings; a finite prefix would still need proof. No such four estimates are claimed.
+
+## K. Resume and verification
+
+`STATUS=ACTIVE_SUPPORT; EXECUTION=COMPLETE; VERIFIED_ETA=NONE` for the global bootstrap. Today at reports intake `4b1a75f41071abd98d4dec2627a57e799f8ec847`, delta since 00:09 intake `9a4b3caff2370cecd04b406c56e5ebf6018ecadc`: 14 commits, eight canonical report paths, seven roles. TODAY=AVAILABLE for all roles (Lean PARTIAL); YESTERDAY=CARRY_FORWARD as recorded earlier. Current immutable report blobs and scope:
+
+| Role | Today (Nov 19, EST); evidence used |
+|---|---|
+| Coordinator | 07:10 RIDGE1-4 `c9e2abd043ddbfd06f9a7f827f8a634688fc460e`, 00/90 mirrors one run; all-head limsup 2Theta, selected subpower equivalent, not a fixed-first-bad proof. |
+| Owner | 00:09 AR1-4 `3161b375fa66909c9dc9f373ae75ceb3a1bfa24f`; earlier GP falsifiers retained. |
+| Analytic | 01:04 ARC1-5 `04ea85ac45dd2e12e90ed41111909e01c7897bd3`, exterior arc controlled, middle unclosed. |
+| Wheel | 02:05 EX1-3 `85d15b9799821e757db49a6c869335bbdfefb99b`, paired (-2,+2,0), not whole; 506/858, 2b^2 retained. |
+| Census | 03:11 FOLD1-4 `03f2a7549512c2daf3dd07cb3b99224463803e11`, H=126 first positive in tested list, not dyadic; H=60 below V/3601; B=31 half-mask fixture (481,70),(160,30),(18,8),(302,54). |
+| Referee | 04:13 PRISM `683086174ce66d2d5969863d6861cfa2e8f95fa0` accepted AR1-4 within scope; opposing charges on H/log^2 H not a net upper bound. |
+| Lean | 05:10/05:24 EXTREMA `559d0fb002c06791753bc68fcc24ed5dc7031ff7` partial; last completed published VR Nov 18; #1149 separately verified. |
+
+External inbox unchanged `7d63d434690d00dffce9c90335d41c4f62d85798`: retain c=1/p=R in EXT-20261018-PNT-1; EXT-20261014-5 is an all-root statement. No inferred launch, no unverified private BG outcome. `CONTINUITY_UNVERIFIED` only for exhaustive byte-by-byte history of abbreviated archives as noted in the earlier K. Relevant new handoffs and original Lean statements were inspected. #1119 source `f629db1b2b65d6ec042ac9432397d4b6316200c6`, tested head `77ee815846d6d534c866f0752aa33b84c385610a`, green hosted run/job `42552018910/128949473700`, standard terminal axioms. Its actual native Mertens exponent with every positive loss is `7/8-7/(64 N_pack)`; N_pack<=the earlier Nstar by denominator 6ell versus 3ell, ell>0. #1147/1149 cover the complete unweighted Nyman period (including bias squared), not the needed location-weighted tail. #1150 is the only open PR, draft `afebf3a927eacb94fab4f033e5fa6bcfca89ac70`; dedicated run/job `44507842086/135503994238` failed at 101:18, no goals; terminal axiom step skipped. Targeted run/job `44507842348/135503996147` failed as well. No PR, source edit, CI dispatch or local Lean run by Owner.
+
+Publication: early checkpoint on the same canonical file verified at `cff8133ce982b58ed401379dcefabf16322e721f`, blob `f4bddd37abce86947c31570eacf8854ed901404e`, 22,294 bytes, preserving all 20,780 prior bytes. Direct Git transport returned 403; authorized Git data writes use original-prefix hashing, one report path and a non-forced expected-parent branch update. This final addition's immutable receipt follows remote readback, not a prediction here. Resume at the **four historical mixed products** in J; do not rerun the square bias or claim a new half-line incidence, contraction, or RH proof.
