@@ -144,3 +144,102 @@ CI reused, not rerun: #1119 head `77ee815846d6d534c866f0752aa33b84c385610a`, run
 `STATUS=ACTIVE_SUPPORT; EXECUTION=COMPLETED_BOUNDED_FEASIBILITY_AUDIT; INDEPENDENT_REVIEW=PENDING; VERIFIED_ETA=NONE`. The independently missing input is signed control on one common unbounded prescribed-head sequence inside `D_H`; assuming its entire norm is only a reformulation. Next narrower test: on the second frequency box defined in section J, bound the **positive part** of X12 by `C_eps N^eps` for each eps>0 on the fixed noncovering heads `H_j=6*2^j`, with C_eps independent of j, via even-denominator folding and the remaining odd-denominator layer. A positive certified X12 falsifies the sign-only shortcut, not the weaker upper budget. Even a subpower positive part leaves both self-energies, other boxes and any physical middle at T=N unpaid. Do not pass the three finite signs into an all-scale consumer, or demand the covering Vgap bound as a premise.
 
 Policy blobs: half `96ad4439ec458af6168f7d9cb3eef5dde291d37c`, cross `e3ae4280438f591f1ffaddd754a1c3a6d35d0691`, continuity `7eef0b36c7442be922d9bc99c6b35d853c4f1f4f`, publication `a9583516fd2e603320c771e32c170132bf0c53e9`. `finite_wheel_ack=FINITE_WHEEL_CENTERED_RH_V1; high_attack_ack=COMPLETE_SIGNED_HIGH_ATTACK_V1; chain_ack=CANCELLATION_CHAIN_REUSE_V1`. Opening checkpoint verified at `fb3fe9611e214caa09ccafef24bacfe85249ae09`, blob `4aab03699d6162352c85b02e24f999ce1fa40677`, 2140 bytes. The canonical update uses that complete unchanged prefix, a current-blob guard, and exact-commit readback; this body does not predict its own receipt. No other role's file, main, schedule, permission or PR was changed.
+
+## 09:09 EST | Compact Mellin band: opening checkpoint
+
+`20261119-analytic-0909-EST/BAND-CHECK`. Scheduled ChatGPT invocation, November 19, 2026 at 09:09:02 EST (14:09:02Z), America/New_York; RUN_ID_UNAVAILABLE. EXECUTION=IN_PROGRESS/PARTIAL. Investigate the Coordinator's RIDGE assignment on 1<=t<=2, retaining the original flat Mobius taper, unit, both exact two-band repairs and the specified crossing heads G. Test whether a zero term can be removed by the repairs as a function on the entire band, not at a single height. No new theorem or subpower bound is asserted at checkpoint.
+
+Main `93398824812269526c1ac8c00f43c7ccfe142751`; AGENTS `500b6daed5e867d19d97c30e43a7a1e7d2055a51`; contract `95566e37c8eaeb99ee680660df4f9d2e06ea5038`; reports intake `3920b7d8aacc794dadf50e6de66c33595ed45dfc`. Flat source `2d23721027ecc44e85b7add02fc632b482f03352`; canonical `79030d70e8d3e0d08eef9bac53fef95c36eca2fb`. All seven November 19 roles present; Lean daily entry partial, independently superseded on source status by human merge #1150 at 14:06:44Z, raw head `0a7d02dabffbb30d247120dd803d5b17afccfcd4`, dedicated run/job `44539205621/135612694340` green. Fixed-head opposite cutoff phases do not bound this growing-head band. Green CI is not evidence for this new work. Own ARC, EX, FOLD, PRISM, RIDGE and Owner EXCHANGE distinguished; endpoint and RH remain open.
+
+`half_bootstrap_ack=BOOTSTRAP_TO_HALF_V1; cross_route_ack=CROSS_ROUTE_SIGNED_RECOVERY_V1; continuity_ack=LAST_ACTUAL_REPORT_CONTINUITY_V1; publish_ack=REPORT_PUBLISH_RECOVERY_V1`. Prior canonical ARC `04ea85ac45dd2e12e90ed41111909e01c7897bd3`, 23,314 bytes. Direct Git tunnel HTTP 403; using authorized report-only GitHub API, exact prior-byte guard and immutable readback. This text does not certify its own publication.
+
+Recovery checkpoint for `research/agent_reports/2026-11-19/20-analytic-type-ii.md` on `agent-reports`. Local reconstruction of the full 23,314-byte prior blob matched GitHub. The independently staged replacement failed its byte check (a punctuation change in the prior CI line); it was never attached to the branch. Preserve the canonical original and publish this complete new checkpoint create-only. Resume: analyze the combined Dirichlet polynomial on the crossing set G, then attempt one byte-exact canonical consolidation. Recovery is not a canonical append.
+
+## 09:09 EST continuation | A fixed Mellin band detects the rightmost zero
+
+### A. Main result
+
+`20261119-analytic-0909-EST/BAND1-4`; PAPER_PROOF, SELF_AUDIT, independent referee PENDING, NOT_FORMALIZED. Let Theta be the supremum of real parts of nontrivial zeta zeros, I_H the squared Mellin residual integrated over 1<=t<=2, and G the Coordinator's crossing heads. **The logarithmic exponent of I_H on G is exactly 4 Theta - 2.** More precisely, log(1+I_H)/log H has liminf 4 Theta - 2 over all legal heads and limit 4 Theta - 2 on G. Thus an every-epsilon subpower bound on G is equivalent to RH; even one unbounded subpower subsequence forces RH. This is a restriction on the actual repaired residual, not a proof of RH, an improved Mertens exponent, or a sufficiency claim for finitely many heights. No off-line zero is assumed to exist. The independent new ingredient is propagation of a common polynomial growth bound for an entire, regularized cutoff error from a fixed segment to a fixed zero, including a multiple zero. BAND4 also isolates a weaker signed scalar to investigate.
+
+### B-D. Objective, mechanism, exact carrier
+
+Main `93398824812269526c1ac8c00f43c7ccfe142751`; instructions/contract blobs in opening. Ultimate open target: one C>=0 with |pi(R^2)-vfMidFinishedMass(R)-sqrt(2)|<=C R log R for every natural R>=2; its RH consumer explicitly requires `ClassicalVonKochRHCriterion`. Active BOOTSTRAP_TO_HALF task: improve the verified fixed b*=7/8-7/(64 N_pack), not just a variable exponent. #1119 gives every positive epsilon loss; #949 identifies the native Mertens growth exponent with Theta. Thus 1/2<=Theta<=b*<1 and for each fixed Theta<b<1, M(y)=sum_{k<=y}mu(k) is O_b(y^b) for real y>=1. Today's separate RIDGE assignment is the compact band on its prescribed G. No new fixed exponent or transfer to the canonical discrepancy is claimed.
+
+Legal H in 6N, H>=6; N=H^2=6K, L=log H. Put P_X(s)=sum_{k<=X}mu(k)k^(-s)log(X/k) (real X>=1), Q=P_N-P_H, S(x)=P_x(1), delta(x)=1-S(x). G comprises all legal H with delta(x)=0 for some |x-H|<=3; SS1/PHASE and rounding give unboundedness. Set p_k=log(N/max(H,k)) for 1<=k<=N. I_1=(3K,4K], I_2=(5K,6K] contain integers; B_i(s)=sum_{k in I_i} k^(-s), s_i=B_i(1), d=s_1-s_2>=1/20 by pairing. U=Q(1), v=2L+Q(0), alpha=(U-s_2 v/K)/d, z=v/K-alpha. Let h_k=alpha 1_{I_1}(k)+z 1_{I_2}(k), D=sum h_k k^(-s), and c_k=(h_k-mu(k)p_k)/L for 2<=k<=N. Exact moments sum c_k/k=1, sum c_k=3. Keep both repairs, the k=1 term of Q, and squareful mu(k)=0. Define r(m)=1-sum c_k(m mod k)/k and E_H=sum_{m>=1}r(m)^2/[m(m+1)]. For 0<Re s<1 its Mellin residual and band integral are
+
+```
+R_H(s) = integral_0^1 r(floor(1/x)) x^(s-1) dx = [1+zeta(s)(D(s)-Q(s))/L]/s,
+I_H = integral_1^2 |R_H(1/2+it)|^2 dt.                 (No 1/(2 pi) in I_H.)
+```
+
+Indeed {floor(1/x)/k}={1/(kx)}-{1/x}/k; the Mellin integral of {a/x} is a/(s-1)-a^s zeta(s)/s for 0<a<=1, giving the identity by cancellation and the reciprocal moment. Plancherel gives I_H<=2 pi E_H, not the reverse. No independent repair coefficients or surrogate prime sequence is substituted.
+
+### E. Derivation
+
+**BAND1 (regularization and common growth).** Set W(s)=(s-1)^2 and F_X(s;T)=W(s)X^s[zeta(s)^2(P_X(s)-T(s))-zeta(s)log X+zeta'(s)]. Write F_N=F_N(.;D), F_H=F_H(.;0). Both are entire; W removes the pole at 1. Exactly
+
+```
+H^(-s) F_H - N^(-s) F_N = W L zeta(s) s R_H(s).
+F_N^(m-1)(rho) = (rho-1)^2 N^rho zeta^(m)(rho) != 0
+```
+
+at each fixed nontrivial zero rho of multiplicity m; derivatives through m-2 vanish there. The second identity follows by Taylor expansion: the first nonzero coefficient comes solely from zeta'. Crucially, on EVERY fixed compact K0, sup |F_X|<=C_K0 X^3, with the SAME exponent for all compacts, all legal heads, both choices of T. For Re s<=2 use |X^s P_X|<=zeta(2) X^2 log X, the regularized zeta factors, and |X^s|<=X^2. For Re s>=2, the absolutely convergent differentiated Euler series gives
+
+```
+P_X - (log X)/zeta - (1/zeta)' = sum_{k>X} mu(k) k^(-s) log(k/X).
+```
+
+After multiplication by X^s its absolute dyadic blocks are O(X(j+1)2^(-j)), uniformly in Re s>=2. Only this half-plane uses the tail series. All disks: the elementary bounds on U,v,d give |alpha|+|z|=O((1+log N)^2); the support N/2<k<=N gives |N^s D|<=C_K0 N(1+log N)^2. This proves the common bound, without Mertens cancellation or any selected-head assumption.
+
+**BAND2 (segment extrapolation).** Let entire f_Y, Y>=2, satisfy sup_{|s|<=R}|f_Y|<=C_R Y^A for each fixed R, with ONE fixed finite A>=0. For every positive-length straight segment J, compact K0, fixed derivative j>=0 and eta>0,
+
+```
+sup_K0 |f_Y^(j)| <= C_{J,K0,j,eta} Y^eta (1+||f_Y||_{L2(J)}).
+```
+
+Constants may also depend on A and the disk constants. Affinely send J to [-1,1] and enclose K0 plus a unit collar in a disk of radius d0>=2. A degree-n polynomial p satisfies sup_{|z|<=d0}|p(z)|<=C_d0^(n+1)||p||_2: expand in Legendre polynomials, use their squared norm 2/(2j+1) and their three-term recurrence to bound |P_j(z)|<=(2d0+1)^j (here P_j denotes a Legendre polynomial only). Absorb polynomial factors, e.g. C_d0=8(d0+1). Choose c>0 with c log C_d0<eta/2, n=ceil(c log Y), then a FIXED R>2d0 with c log(R/d0)>A+2. Cauchy's estimate bounds the Taylor remainder throughout the smaller disk by 2 C_R Y^A(d0/R)^(n+1)=O(Y^-2); apply the polynomial inequality to the Taylor polynomial, then Cauchy's derivative bound on the collar. The affine map only changes fixed constants. No uniformity as J shrinks, j or the tested zero height grows. Reference for Legendre normalization and recurrence: NIST DLMF 18.3 and 18.9; zeta pole and Dirichlet series: DLMF 25.2.
+
+**BAND3 (sharp exponent).** For fixed Theta<b<1, on s=1/2+i[1,2], partial summation from M(y)=O_b(y^b) gives A(y,s)=sum_{k<=y}mu(k)k^(-s)=O_b(y^(b-1/2)), uniformly for y>=1. Hence P_X=integral_1^X A(y,s)dy/y=O_b(X^(b-1/2)). BAND1 and boundedness of the fixed-band zeta factors give, with no division by zeta,
+
+```
+||F_N||_2 <= C_b N^(1/2) [H^(b-1/2)+L(1+sqrt(I_H))].
+```
+
+If I_H=O(H^lambda), lambda>=0, along any unbounded legal subsequence, apply BAND2 with Y=N at each fixed rho and derivative m-1. Taking logarithms along that subsequence and eta down to zero gives Re rho<=max{(b+1/2)/2, 1/2+lambda/4}. Take the supremum over zeros AFTER the individual inequalities, then b down to Theta. If Theta>1/2 the first alternative is strictly less than Theta, so lambda>=4 Theta-2. For Theta=1/2 use log(1+I_H)>=0. A subsequence below the proposed liminf would give a violating fixed lambda. This proves the all-head lower exponent, even if no zero attains Theta.
+
+For the matching upper bound, a(y)=sum_{k<=y}mu(k)/k=O_b(y^(b-1)): partial summation gives convergence at 1, with sum 0 by the limit of 1/zeta(1+u). Since S'=a/y off integers, S tends to a finite limit; u integral_1^infty S(y)y^(-u-1)dy=1/[u zeta(1+u)] tends to 1. Thus delta(y)=O_b(y^(b-1)); on G integration from its nearby crossing improves delta(H) to O_b(H^(b-2)). Now U=delta(H)-delta(N)=O_b(N^(b-1)); v=2L+integral_H^N M(y)dy/y=O_b(N^b). Both exact repair amplitudes are O_b(N^(b-1)). Since B_i=O(N^(1/2)) on the band, the complete R gives sqrt(I_H)<=C_b(1+N^(b-1/2)/L) on G. Let b decrease to Theta in the logarithmic limsup; unbounded G also bounds the all-head liminf from above. This proves A. On G the same exponent follows for log(1+E_H)/log H IF using RIDGE4's separate full-norm upper bound; our band does not bound its complement. RH yields a subpower estimate, not convergence to zero.
+
+**BAND4 (first signed scalar).** Put D_1=sum_{k>=2} h_k log(N/k)/k (on the finite support), gamma=Euler's constant. Restoring s=1 in BAND1 gives the exact equalities
+
+```
+F_N(1) = -N delta(H),
+F_N'(1)/N = 2 integral_N^infty delta(y)dy/y - 2 gamma delta(H) - D_1.
+```
+
+For details, set A=P_N-D; then A(1)=S(H). Expanding zeta(1+u)=1/u+gamma+O(u) yields F_N'(1)/N=log N(A(1)-1)+2 gamma A(1)+A'(1)-log N. The finite identity sum_{k<=N}mu(k)log^2(N/k)/k=2 integral_1^N S(y)dy/y converts this to 2 gamma S(H)-2 integral_1^N delta(y)dy/y-D_1. Finally integral_1^infty delta(y)dy/y=gamma: its u-damped transform is 1/u-1/[u^2 zeta(1+u)], and dominated convergence is justified by b<1. All tails here are absolutely integrated. Thus the crossing controls |F_N(1)|=O_b(H^b), but in general the proved bound for F_N'(1) on G is just O_b(N^b). A subpower band on a selected subsequence would NECESSARILY give, for every fixed epsilon>0 on that same subsequence,
+
+```
+|2 integral_N^infty delta(y)dy/y - D_1| <= C_epsilon N^((b*+1/2)/2-1+epsilon).
+```
+
+Indeed BAND2 at 1 with j=1, the BAND3 norm inequality, and b just above b* give this bound after division by N; delta(H)=O_b(N^((b-2)/2)) is smaller. This scalar estimate has not been proved at the displayed saving, and success for this scalar alone is not known to imply band control. It can be evaluated using the exact finite integral instead of a numerical infinite tail.
+
+### F-I. Scale, bridge, falsification and interpretation
+
+The exponent is in the HEAD H, for the SQUARED integral. Losses are arbitrarily small fixed powers, not a uniform endpoint constant; constants are fixed before the head, and may depend on b, eta, segment, zero or derivative in the indicated steps. No zero sum, limiting height, termwise positivity of a covariance, or bound on a moving band is used. An estimate on a single ordinate is insufficient: Y times a polynomial vanishing at any specified finite list is an entire counterexample to replacing J by that list. Dropping the common exponent in BAND2 also fails (Y^s on a segment of the imaginary axis and at s=1). These are tests of the analytic lemma, not counterexamples on primes. The real arithmetic mechanism is the compact support of the two repairs at k comparable to N and exact Euler cancellation on the right of 2; it is not a rank-two independence or density assumption. The zero need not lie in the band. Full E and I_H are different observables. No equivalent compact-band proof was located in the inspected sources/handoffs; no literature priority claim. Treat the band's subpower target as TARGET_EQUIVALENT, not as a cheap bootstrap input.
+
+**Finite audit (diagnostic, not the proof).** Rebuilt mu both by a sieve and by exact divisor recursion for all n<=3600; 54 rational Taylor-germ tests (multiplicities 1 through 6). For H=6,12,18,30,60, genuine residual versus split polynomial versus regularized identity differed by <3.4e-14; 32- and 64-node Gauss-Legendre I_H agreed within 1e-12. Computed I_H respectively 0.00042787908203, 0.0000121002008501, 0.0000630637345628, 0.000210878656787, 0.0000141091652896. Crossing flags at 60 decimal digits: no/yes/yes/yes/yes (delta affine in log y per unit interval). BAND4 integral versus direct polynomial derivative differed by <9e-15. Floating checks are not interval certificates. Replay: integrate 1-delta's defining finite sum or delta on each [n,n+1] in log y, evaluate both Mellin formulas at Gauss-Legendre nodes on [1,2], retaining k=1 in Q only; checker SHA-256 `31e28359c8cb3cabe855607d55afe653c9a0f2f621adbb5d52d26b85b65d6761`.
+
+### J-L. Handoffs, first missing estimate, resume
+
+- Coordinator: classify RIDGE's compact-band subpower request as RH-equivalent on G, pending independent review; no new b<b* or all-R theorem. Recommend the strictly more limited BAND4 scalar as a test, not a campaign change.
+- Referee: check common exponent on arbitrarily large fixed disks, the L2-to-derivative loss, the two distinct cutoff powers, and the order of the zero supremum and b limit. BAND1-4 are new self-audits; PRISM did not review them.
+- Census: compare the TWO signed BAND4 terms at actual crossings and the neighboring legal heads; use the finite identity and high precision/intervals for cancellation. No request for a larger unguided scan.
+- Owner/Wheel: look for a factor-conditioned relation for D_1 and the signed integral with exactly these two amplitudes. EX/EXCHANGE concern different carriers; absence of a sixth-window cover supplies no sign for this difference. Lean: only after referee acceptance, start with finite jet algebra; do not assume the subpower assertion in a purported proof.
+- First independent input still missing: save any fixed positive power over the separate O_b(N^(b-1)) bounds for the signed BAND4 difference uniformly on a proved unbounded crossing subsequence, using actual arithmetic rather than a band/RH assumption. The displayed necessary exponent is the sharper benchmark. Neither a saving nor a bootstrap transfer from it is asserted. Next run: derive a signed summation kernel for this difference and test whether its leading contributions can be paired, or prove a precise obstruction.
+
+Continuity/receipts (Nov 18 -> Nov 19, America/New_York). Coordinator PHASE mirror `2e6bfc31f2796d47b426546eabf08783c35b3699` (one logical run), RIDGE `c9e2abd043ddbfd06f9a7f827f8a634688fc460e`; Owner GP `a6345e177392d55db551650e8013581b89694623`, AR `3161b375fa66909c9dc9f373ae75ceb3a1bfa24f`, EXCHANGE `9ba622ebb08e1a08697001d85b6010b1204d79f2`; Analytic LW `065a94a6eb8f69b51641011296efbce3f96c87f5`, ARC in canonical prefix unchanged; Wheel LC `669ba135d05503c1cead5f04106977ff66887ed6`, EX `85d15b9799821e757db49a6c869335bbdfefb99b`; Census ST `780b932540c38e61bb6f81f732e66c4c9b1180b0`, FOLD `03f2a7549512c2daf3dd07cb3b99224463803e11`; Referee FC `91b57ce6a46693403cd8a5751c63aaf8335ab305`, PRISM `683086174ce66d2d5969863d6861cfa2e8f95fa0` (ARC accepted within scope; BG NOT_PUBLISHED); Lean VR `2cd3263317a8afaae5e664f4b56d2c095059421c`, EXTREMA partial `559d0fb002c06791753bc68fcc24ed5dc7031ff7`. All seven TODAY present at intake, no inferred later run. Previous own intake `1b9543f94cdfc3ff40072e58fa9902c3ed02e683` to this intake 14 commits, eight Nov 19 paths; changed/latest sections checked. CONTINUITY_UNVERIFIED only for exhaustive bytewise retrieval of all historical previews. External handoffs unchanged `7d63d434690d00dffce9c90335d41c4f62d85798`; EXT-20261018-PNT-1 virtual complete Euler F-D=li-pi, c=1,p=R; EXT-20261014-5 demands every R. Native Mertens, actual-prime VF (#915), virtual Euler, NNS conjugate/HIGH, and repaired Nyman coefficients remain distinct. OAI/CODIV parked; no renewed signed prefix or half-crossing. No external handoff or central file edited.
+
+Source audit at stated main: `research/NYMAN_FLAT_TAPER_RETURN_20261104.lean` `2d23721027ecc44e85b7add02fc632b482f03352` (`nyman_flat_exact_head`, `nyman_two_band_moment_solver`); `NYMAN_HIGH_COEFFICIENT_INVARIANT_20261104.lean` `2da630c1d5fb9302e2097ec1e170cf41c2b40609`; `NYMAN_PERIOD_MEAN.lean` `e005dc717cd3af6b8697d6517acf6516987d3a7e`. #1149 period bias/covariance, #1150 fixed-head cutoff identity/opposite phases only. #1150 merged 14:06:44Z; Abel `619af08976af9aad42d8ef65ee25673e7dbe5bda`, phases `4967409ba4b71e5ddeb720aa502ac8b8e6ed89c8`, exact raw CI head and run/job in opening, 12 green workflows; dedicated log 454/661/741/763, standard axioms only. No open/draft PR at intake. #1119 `research/oai_434/VF919WindowErrorClosure.lean` `f629db1b2b65d6ec042ac9432397d4b6316200c6`, exact tested `77ee815846d6d534c866f0752aa33b84c385610a`, `42552018910/128949473700`; #949 `research/MERTENS_CONVERSE_IDENTIFICATION.lean` `768c8255850bf4074aff265c3fe17a1f5c43979b`, `growthAtMost_of_strip`, `strip_at_rightmost`, `growthExponent_eq_rightmost`, tested `982500b01f0f008b1164a172d06d28d14f8171d0`, `38741634035/116444547917`. Canonical source `research/VF_CANONICAL_SQRT_TWO_VON_KOCH.lean` `79030d70e8d3e0d08eef9bac53fef95c36eca2fb`. Earlier CI is not BAND evidence. No new Lean build, exponent claim, code change, PR, or schedule action.
+
+Resume key `20261119-analytic-0909-EST/BAND-FINAL`; RUN_ID_UNAVAILABLE. Research execution complete at paper level; independent audit pending. Opening recovery commit `14da84c644a92756f69a9c13651e4574cc555d52`, blob `34bca7e06c093da85060f46eec436d4a9f042b1a`. This report's publication is verified separately by immutable readback, not by its filename or status text.
