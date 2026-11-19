@@ -3448,3 +3448,20 @@ FIRST_OPEN=independent complete signed location-sensitive upper estimate; no ren
 STATUS=ACTIVE_SUPPORT, not a newly admitted proof route. NO_NEW_GLOBAL_GAIN; RH=OPEN.
 
 Only this owned daily report will be written remotely. New source and full results will be appended after execution and checking. Publication is verified only after immutable commit/readback.
+
+
+### ST Proof-Led Follow-Up Registration
+
+Prepared 2026-11-19 00:12:38 UTC, AFTER the completed primary grid (560307 checks). This is explicitly post-discovery, not an original blind prediction. The primary ST-S claim is refuted at H=6 and through H=54; H=60 remains UNRESOLVED after the registered extension. No further head or output-cutoff extension will be made.
+
+The complete band-band tail interaction is positive in all four discovery cases, whereas its stationary contribution is negative. Test the following exact quotient-chamber explanation, without promoting a proper window to the complete norm.
+
+For K>=6, N=6K, let s1=sum_(3K<k<=4K)1/k, s2=sum_(5K<k<=6K)1/k, and S_i(m)=sum_(k in Ii)[(m mod k)/k-(k-1)/(2k)]. For every integer 6K<m<=floor(13K/2), derive and check
+S1=(m+1/2)s1+3K/2-floor(m/2)>=K/16,
+S2=(m+1/2)s2-3K/2<=-K/5.
+Thus the complete window has sum S1*S2/[m(m+1)] <= -K/10400.
+For the original correction signals -(alpha/L)S1 and -(z/L)S2, alpha*z<0 gives a POSITIVE doubled mixed contribution >= |alpha*z|K/(5200 L^2). The complete period mixed contribution is NEGATIVE since its genuine gcd kernel has positive entries and at least one strict positive entry.
+
+This is a local-in-output geometric restriction with an explicit original coefficient multiplier, NOT a complete-source lower bound or a global failure of every C*V/N estimate. Preserve all three centered source components and the other outputs.
+
+Exact finite check: all K=6,...,128 and every integer in that chamber; independent direct residues versus closed floor formulas; verify harmonic and weighted bounds with Fraction. Independently reconstruct final main finite prefixes in C++ for H=6,12,18,24,36,60 at their registered final cutoffs. Recover a small H=6 finite-only violation certificate through the already-observed crossing at m=664, and verify the preceding cutoff 663. The latter certificate uses nonnegative omitted tails, so its refutation need not depend on a large-sieve theorem. Record failures rather than change constants after testing.
