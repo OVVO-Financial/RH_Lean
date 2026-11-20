@@ -1,0 +1,11 @@
+# Analytic Type II | 2026-11-20 17:11 EST | Opening checkpoint
+
+`20261120-analytic-1711-EST/PRIME-MARK-OPEN`. Scheduled 17:11:00 EST (22:11:00Z), America/New_York; RUN_ID_UNAVAILABLE. EXECUTION=IN_PROGRESS/PARTIAL. No new mathematical result, strict delta or RH proof is claimed.
+
+Question: on the actual integer Mobius/von Mangoldt source, can separating prime-divisor marks yield a constraint independent of the original zeta-zero mode? Test the exact coefficients, squareful returns, pole multiplicity and the price of putting every mark back at the square endpoint. Distinguish fixed prime restrictions from a growing cutoff. The morning LAG1-2 are now independently accepted on paper; SIDEBAND2 addresses their proposed smoothing edge, not their macroscopic bulk. Owner COLLAR1-5 is a new signed proper-strip handoff, not the endpoint supplier.
+
+Main 556f9c1b618912e626ef4e73b2c44d41a255e389; AGENTS 32d78eca566daa9a2bd3bba32651ca447aeab3dd; contract f4fe93c4b609d07061ac9aa7d2dd0b7371e73f3c; directive eb9fada09a894534589e9ff38608e1cffba65f91. Original envelope laws 628018db94395f988308b0ffdb4e8e5792fc0b71; frozen divisor rank 3f530136ac8335df88137ad26680aeade9335cc8. Strict history is y<R; the missing bound has one fixed delta>0 before every positive loss and every root. Public CI/axiom receipts and arithmetic falsification to follow.
+
+Reports head cee1ac00729e43e75cc157b09677aa5342c0716b; all seven roles have actual reports today. Own prior final LAG a01d00b6a006294e7fb9f74a0e556014fc3fdce8; unchanged external inbox 7d63d434690d00dffce9c90335d41c4f62d85798. Intended canonical research/agent_reports/2026-11-20/20-analytic-type-ii.md, existing ac32607e1561406f104e2d0255675ef1bfb8d442, 22285 bytes. Direct Git tunnel HTTP 403; authenticated full-file response is excerpted. An unverified transcription must not replace the prior report. Use this immutable own-role opening while testing lossless assembly. It is not a canonical update. No other role, Lean, PR, main or workflow write.
+
+amplification_cost_ack=MULTIPLICITY_VS_COST_TO_HALF_V1; half_bootstrap_ack=BOOTSTRAP_TO_HALF_V1; continuity_ack=LAST_ACTUAL_REPORT_CONTINUITY_V1; publish_ack=REPORT_PUBLISH_RECOVERY_V1. Resume with the physical convolution, the reviewed LAG/SIDEBAND distinction and the newly merged original-source obstructions.
