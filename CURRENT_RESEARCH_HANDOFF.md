@@ -1,6 +1,12 @@
 # Current RH_Lean research handoff
 
 
+## 2026-11-20 top-level research handoff: all-seven multiplicity-versus-cost investigation
+
+**Proposed priority upon reviewed human merge:** [MULTIPLICITY_VS_COST_TO_HALF_V1](docs/RHLEAN_MULTIPLICITY_VS_COST_TO_HALF_20261120.md) supersedes **research task selection only** in dated handoffs below. All seven roles investigate original-source amplification multiplicity versus **every** arithmetic/analytic/geometric cost, seeking a fixed `delta>0` in the still-open `EnvelopeBound (2-delta) 0` or a provably closed alternative continuation to 1/2. The #1135 merged envelope theorem is the **already-proved equivalence/consumer**; neither it nor the external unverified RH/GRH announcement supplies the missing source bound. Pull live main/DAG/theorem evidence and each role's latest real report before proceeding. Distinct role assignments, full terms, warnings about analogies, counterexamples, numerical falsifiers and exact source checks are in the new directive. This is not proof of RH, a fresh Lean run or a modification of saved Studio agents, schedules or privileges. Human-only merge and reporting safeguards remain.
+
+
+
 ## Active 2026-10-25 research handoff (authority upon human merge)
 
 **Resume state.** main `54564c00e4a5855bc303ad92e38e5e6285031012` (merge of #1024); `agent-reports` `488624466091f82500ab46c35d7fa0ba64b03665`; Lean `v4.34.1`. Start from the [proof-dependency DAG](docs/PROOF_DEPENDENCY_DAG.md) (registry [proof-obligations.json](docs/proof-obligations.json)) and [formalization milestones](docs/FORMALIZATION_MILESTONES.md); validate with `python3 scripts/proof_obligation_dag.py --check`.
