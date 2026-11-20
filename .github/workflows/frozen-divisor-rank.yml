@@ -34,10 +34,16 @@ jobs:
           python3 scripts/lean/frozen_rank/regression.py | tee frozen-rank-evidence/arithmetic.log
       - uses: ./.github/actions/lean-setup
       - uses: ./.github/actions/lean-compiled-cache
-      - name: Compile the original source closure with warnings fatal
+      - name: Compile the original historical source closure with warnings fatal
         uses: ./.github/actions/research-compile
         with:
-          targets: research/EULER_FROZEN_DIVISOR_RANK.lean
+          targets: research/EULER_DOUBLE_CENTERED_SOURCE_20261117.lean
+      - name: Compile and record the new leaf with warnings fatal
+        env:
+          RHLEAN_RESEARCH_TARGETS: research/EULER_FROZEN_DIVISOR_RANK.lean
+        run: |
+          set -euo pipefail
+          python3 scripts/compile_research_import_closure.py 2>&1 | tee frozen-rank-evidence/compile.log
       - name: Check exact public types and all transitive terminal axioms
         run: |
           set -euo pipefail
@@ -49,3 +55,9 @@ jobs:
           name: frozen-divisor-rank-${{ github.event.pull_request.head.sha }}
           path: frozen-rank-evidence/
           if-no-files-found: error
+      - name: Annotate proof diagnostics
+        if: ${{ failure() }}
+        run: |
+          if test -f frozen-rank-evidence/compile.log; then
+            awk '/\.lean:[0-9]+:[0-9]+: error:/ {print "::error::" $0}' frozen-rank-evidence/compile.log
+          fi

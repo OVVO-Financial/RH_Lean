@@ -23,7 +23,10 @@ theorem eulerFloorQ_of_root_divisors {R a b : ℕ} (hR : 0 < R)
       _ = ((R / a) * a) * ((R / b) * b) := by ring
       _ = _ := by rw [Nat.div_mul_cancel ha, Nat.div_mul_cancel hb, pow_two]
   have hp : 0 < (a * b) * k := by rw [hfac]; positivity
-  have hk : 1 ≤ k := Nat.pos_of_mul_pos_left hp
+  have hk : 1 ≤ k := by
+    by_contra h
+    have hk0 : k = 0 := by omega
+    simp [hk0] at hp
   have hquot : squareRootEndpoint R / (a * b) = k - 1 := by
     unfold squareRootEndpoint
     rw [← hfac]
@@ -56,7 +59,8 @@ theorem eulerFrozen_prime_minor {R p : ℕ} (hR : 0 < R) (hp : p.Prime) (hd : p 
   rw [eulerFloorQ_of_root_divisors hR (one_dvd _) (one_dvd _),
     eulerFloorQ_of_root_divisors hR hd hd, eulerFloorQ_of_root_divisors hR (one_dvd _) hd,
     eulerFloorQ_of_root_divisors hR hd (one_dvd _)]
-  simp [eulerMuQ, ArithmeticFunction.moebius_apply_prime hp] <;> ring
+  simp [eulerMuQ, ArithmeticFunction.moebius_apply_prime hp]
+  ring
 
 theorem eulerFrozen_rank_eq_two {R p : ℕ} (hR : 0 < R) (hp : p.Prime)
     (S : Finset ℕ) (hS : ∀ a ∈ S, a ∣ R) (h1 : 1 ∈ S) (hm : p ∈ S) :
@@ -70,8 +74,10 @@ theorem eulerFrozen_rank_eq_two {R p : ℕ} (hR : 0 < R) (hp : p.Prime)
   have hlt : ((R / p : ℕ) : ℚ) < (R : ℚ) := by exact_mod_cast Nat.div_lt_self hR hp.one_lt
   have hne : M.det ≠ 0 := by rw [hdet]; exact neg_ne_zero.mpr (pow_ne_zero _ (sub_ne_zero.mpr hlt.ne'))
   have hr : M.rank = 2 := by simpa using Matrix.rank_of_det_ne_zero hne
-  exact le_antisymm (eulerFrozen_rank_le_two hR S hS)
-    (hr ▸ (eulerFrozenMatrix R S).rank_submatrix_le i i)
+  refine le_antisymm (eulerFrozen_rank_le_two hR S hS) ?_
+  calc
+    2 = M.rank := hr.symm
+    _ ≤ (eulerFrozenMatrix R S).rank := (eulerFrozenMatrix R S).rank_submatrix_le i i
 
 /-- Probe with physical coefficients and weights (a,-b). Both mixed orientations are retained. -/
 def eulerTwoRowProbe (F : ℕ → ℕ → ℚ) (a b : ℕ) : ℚ :=
@@ -110,7 +116,8 @@ theorem eulerTwoRow_continuous_zero (R : ℕ) {p q : ℕ} (hp : p.Prime) (hq : q
   simp only [eulerContinuousQ]
   have h : (p : ℚ) ≠ 0 := by exact_mod_cast hp.ne_zero
   have k : (q : ℚ) ≠ 0 := by exact_mod_cast hq.ne_zero
-  field_simp [h,k] <;> ring
+  field_simp [h,k]
+  ring
 
 theorem eulerTwoRow_interior (R : ℕ) {p q : ℕ} (hp : p.Prime) (hq : q.Prime)
     (hdp : ¬p ∣ R-1) (hdq : ¬q ∣ R-1) :
@@ -120,12 +127,12 @@ theorem eulerTwoRow_interior (R : ℕ) {p q : ℕ} (hp : p.Prime) (hq : q.Prime)
   have hc := eulerTwoRow_continuous_zero R hp hq
   rw [prime_probe _ hp hq] at hc
   rw [prime_probe _ hp hq, prime_probe _ hp hq]
-  simp only [eulerDoubleCenteredInteriorKernelQ, hdp, hdq, or_self, if_false,
+  simp only [eulerDoubleCenteredInteriorKernelQ, hdp, hdq, or_self, ite_false,
     eulerDoubleCenteredKernelQ, eulerFractionQ]
   rw [eulerHistoricalFracQ_eq_mod_div R p hp.pos, eulerHistoricalFracQ_eq_mod_div R q hq.pos]
   have h : (p : ℚ) ≠ 0 := by exact_mod_cast hp.ne_zero
   have k : (q : ℚ) ≠ 0 := by exact_mod_cast hq.ne_zero
-  linear_combination (norm := (field_simp [h,k] <;> ring)) -hc
+  linear_combination (norm := (field_simp [h,k]; ring)) -hc
 
 /-- Common membership and the values of both literal quadratic forms. -/
 def eulerTwoRowWitness (R : ℕ) (v : ℚ) : Prop :=
