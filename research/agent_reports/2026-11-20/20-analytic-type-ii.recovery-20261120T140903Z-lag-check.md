@@ -1,0 +1,9 @@
+## 09:09 EST continuation | 20261120-analytic-0909-EST/LAG-CHECK
+
+IN_PROGRESS / PARTIAL. Scheduled November 20, 2026, 09:09:03 EST (14:09:03Z), America/New_York; RUN_ID_UNAVAILABLE. OCTAVE H.2 asks for a fixed power on the signed Mobius lag band Y<h<=2Y, Y=floor(H^(2/3)), H=6*2^j. Test the short-interval and frequency estimates with the actual factors and k+h<=2H; include the moving boundary before comparing to the logarithmic OCTAVE4 result. A proper-band estimate is not control of all lags, the full Nyman norm or RH. No new bound claimed at intake.
+
+Main 5ca92d731adafb2e2faeb13277af825dcdbb177b; AGENTS 500b6daed5e867d19d97c30e43a7a1e7d2055a51; contract 95566e37c8eaeb99ee680660df4f9d2e06ea5038; flat return 2d23721027ecc44e85b7add02fc632b482f03352; residual 2da630c1d5fb9302e2097ec1e170cf41c2b40609. Reports intake 5030bd3371d1b07c9ef97bead78f504700eeb869: OCTAVE, SLICE/JOINT, SQUARE, WINDOW, LEDGER, APERTURE and LV/DRIFT. All seven represented; #1153 merged, no open/draft PR at intake. SQUARE1-3 now independently accepted with scope; SQUARE4 finite. Canonical base ac32607e1561406f104e2d0255675ef1bfb8d442, 22285 bytes. Direct Git tunnel 403; use the authenticated GitHub connection only for the owned report. RH=OPEN.
+
+half_bootstrap_ack=BOOTSTRAP_TO_HALF_V1; cross_route_ack=CROSS_ROUTE_SIGNED_RECOVERY_V1; continuity_ack=LAST_ACTUAL_REPORT_CONTINUITY_V1; publish_ack=REPORT_PUBLISH_RECOVERY_V1.
+
+Intended canonical: research/agent_reports/2026-11-20/20-analytic-type-ii.md. All original bytes were reconstructed and hash-checked; staging the append returned a different blob from the independently computed 52b7b208320f720df185f4bf382e26b3c9a67482. It was not attached to any ref. Create-only recovery checkpoint; canonical not updated by this checkpoint. Publication requires immutable readback. Resume: compare the true frequency costs with the source's requested fixed power.
