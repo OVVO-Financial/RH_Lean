@@ -68,7 +68,7 @@ private theorem intervalMass (s n : ℕ) (hs : 0<s) :
     rw [sum_range_succ, ih, Nat.add_succ, Nat.cast_succ]
     have hp : 0 < ((s+n:ℕ):ℝ) := by exact_mod_cast (show 0<s+n by omega)
     unfold nymanWeight
-    field_simp <;> ring
+    field_simp; ring
 
 /-- Exact energy of the error of the surrogate, not a lower bound on the true energy. -/
 theorem nyman_witness_clip_energy (K H : ℕ) (hK : 0<K) :
@@ -101,7 +101,7 @@ theorem nyman_witness_clip_cost (K H : ℕ) (hK : 0<K) (hH : 0<H) (hHK : H ≤ 3
   push_cast
   have hs : 1/(9*(K:ℝ)+3) < 1/(9*(K:ℝ)) := one_div_lt_one_div_of_lt (by positivity) (by linarith)
   calc
-    _ = ((K:ℝ)*A)^2*(1/(8*(K:ℝ))-1/(9*(K:ℝ))) := by field_simp <;> ring
+    _ = ((K:ℝ)*A)^2*(1/(8*(K:ℝ))-1/(9*(K:ℝ))) := by field_simp; ring
     _ < _ := mul_lt_mul_of_pos_left (sub_lt_sub_left hs _) (by rw [mul_pow]; exact mul_pos (by positivity) hA)
 
 end RHLean.Analysis
