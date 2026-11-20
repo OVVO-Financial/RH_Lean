@@ -1,5 +1,6 @@
 import Mathlib
 import RHLean.Analysis.LargePrimeTTransport
+import RHLean.Analysis.NativePNTSignedSecondSelbergWheelFrontier
 
 /-!
 # A source-exact integral prime/cofactor minor at square endpoints
@@ -56,5 +57,48 @@ theorem alpogeSelectedHighPrimeSource_eq_lowerPrefix
     have hnle : ¬p i * q j ≤ R ^ 2 - 1 := by
       exact not_le.mpr ((hquot i).2.trans_le hmul)
     simp [alpogeSelectedHighPrimeSource, hji, hnle]
+
+/-- The signed *second* Selberg source, not the vanishing first von Mangoldt
+coefficient. Its nonzero mixed semiprime face retains the physical prefix. -/
+def alpogeSelectedSecondSelbergSource (R : ℕ) {m : ℕ}
+    (p q : Fin m → ℕ) : Matrix (Fin m) (Fin m) ℝ :=
+  fun i j =>
+    if p i * q j ≤ R ^ 2 - 1 then
+      nativePNTSignedSecondSelbergKernel (p i * q j)
+    else 0
+
+/-- **Exact live semiprime source.** Unlike the first-von-Mangoldt coefficient,
+the signed second Selberg kernel on two distinct primes equals
+`2 * log(p) * log(q)`, with the source mask unchanged.
+All complementary signed Selberg faces must still be returned in any
+full-source RH-strength estimate. -/
+theorem alpogeSelectedSecondSelbergSource_eq_weightedLowerPrefix
+    (R : ℕ) {m : ℕ} (p q : Fin m → ℕ)
+    (hp : ∀ i, (p i).Prime ∧ R < p i)
+    (hqPrime : ∀ j, (q j).Prime)
+    (hqlt : ∀ j, q j < R)
+    (hqmono : StrictMono q)
+    (hquot : ∀ i, p i * q i ≤ R ^ 2 - 1 ∧
+      R ^ 2 - 1 < p i * (q i + 1))
+    (i j : Fin m) :
+    alpogeSelectedSecondSelbergSource R p q i j =
+      if j ≤ i then 2 * Real.log (p i : ℝ) * Real.log (q j : ℝ) else 0 := by
+  have hneq : p i ≠ q j :=
+    ne_of_gt (lt_trans (hqlt j) (hp i).2)
+  by_cases hji : j ≤ i
+  · have hqji : q j ≤ q i := hqmono.monotone hji
+    have hmul : p i * q j ≤ p i * q i := Nat.mul_le_mul_left (p i) hqji
+    have hle : p i * q j ≤ R ^ 2 - 1 := hmul.trans (hquot i).1
+    simp [alpogeSelectedSecondSelbergSource, hji, hle,
+      nativePNTSignedSecondSelbergKernel_mul_distinct_primes
+        (p i) (q j) (hp i).1 (hqPrime j) hneq]
+  · have hij : i < j := lt_of_not_ge hji
+    have hqq : q i < q j := hqmono hij
+    have hqsucc : q i + 1 ≤ q j := Nat.succ_le_iff.mpr hqq
+    have hmul : p i * (q i + 1) ≤ p i * q j :=
+      Nat.mul_le_mul_left (p i) hqsucc
+    have hnle : ¬p i * q j ≤ R ^ 2 - 1 := by
+      exact not_le.mpr ((hquot i).2.trans_le hmul)
+    simp [alpogeSelectedSecondSelbergSource, hji, hnle]
 
 end RHLean.Analysis
