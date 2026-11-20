@@ -1,0 +1,61 @@
+name: Nyman prime witness and clipping cost
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'research/NYMAN_WITNESS_*.lean'
+      - 'scripts/lean/nyman_witness/**'
+      - 'scripts/nyman_witness_regression.py'
+      - '.github/workflows/nyman-prime-witness.yml'
+permissions:
+  contents: read
+concurrency:
+  group: nyman-witness-${{ github.event.pull_request.head.sha }}
+  cancel-in-progress: true
+jobs:
+  witness:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+      - name: Verify source revision, pins, inventory and rational controls
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = '${{ github.event.pull_request.head.sha }}'
+          test "$(cat lean-toolchain)" = 'leanprover/lean4:v4.34.1'
+          test "$(jq -r '.packages[] | select(.name=="mathlib") | .rev' lake-manifest.json)" = d13f23b723b8a846827a245b89c10fc7d3f11612
+          test "$(grep -h '^theorem ' research/NYMAN_WITNESS_*.lean | wc -l)" -eq 7
+          if grep -nE '\b(sorry|admit|axiom|native_decide|unsafe)\b' research/NYMAN_WITNESS_*.lean; then exit 1; fi
+          python3 scripts/nyman_witness_regression.py
+      - uses: ./.github/actions/lean-setup
+      - uses: ./.github/actions/lean-compiled-cache
+      - name: Warning-fatal original-source closure
+        id: proof
+        uses: ./.github/actions/research-compile
+        with:
+          targets: research/NYMAN_WITNESS_CLIP.lean
+      - name: Exact theorem types and kernel axioms
+        run: |
+          set -euo pipefail
+          lake env lean -DwarningAsError=true scripts/lean/nyman_witness/ExactTypes.lean
+          lake env lean -DwarningAsError=true --run scripts/lean/nyman_witness/Audit.lean | tee witness-audit.log
+          test "$(grep -c '^WITNESS_AUDIT ' witness-audit.log)" -eq 7
+      - name: Preserve the compiler diagnostics
+        if: failure() && steps.proof.outcome == 'failure'
+        run: |
+          for file in research/NYMAN_WITNESS_{PRIME,CLIP}.lean; do
+            if ! lake env lean -DwarningAsError=true "$file" >witness-errors.log 2>&1; then
+              head -c 9000 witness-errors.log
+              break
+            fi
+          done
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: nyman-witness-${{ github.event.pull_request.head.sha }}
+          path: |
+            witness-audit.log
+            witness-errors.log
+          if-no-files-found: warn
