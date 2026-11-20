@@ -85,24 +85,31 @@ def run(R):
             actual=sum(((-mu[c] if p*c<=X else 0)*
                         (-mu[d] if p*d<=X else 0)) for p in ps)
             assert actual==mu[c]*mu[d]*H[max(c,d)]
-    # The signed second Selberg semiprime face is +2 log(p) log(q).
-    # All active source cells in this *strict* dyadic band see E(X/(p*q))=E(1)=-1.
+    # This second-order test MUST use prime cofactors. The larger Mobius
+    # matrix also includes composite squarefree q, where K2(p*q) is NOT
+    # generally 2*log(p)*log(q).
     from math import log
+    prime_set = set(primes(R-1))
+    prime_selected = [(q,p) for q,p in selected if q in prime_set]
+    qpr = [q for q,p in prime_selected]
+    ppr = [p for q,p in prime_selected]
+    assert prime_selected
     total_negative = 0.0
-    for i,p in enumerate(pp):
-        for j,q in enumerate(qq):
+    for i,p in enumerate(ppr):
+        for j,q in enumerate(qpr):
             if j <= i:
                 assert X//(p*q)==1, (R,Q,i,j,X//(p*q))
-                # Independent coefficient derivation: (mu*log^2)(pq)
-                # = log(pq)^2 - log(p)^2 - log(q)^2.
+                # Independently expand (mu*log^2)(p*q) on its four divisors.
                 k2 = log(p*q)**2-log(p)**2-log(q)**2
                 assert abs(k2-2*log(p)*log(q)) < 1e-11
                 total_negative -= k2
             else:
                 assert p*q>X
-    weighted = -2*sum(log(p)*sum(log(q) for q in qq[:i+1]) for i,p in enumerate(pp))
+    weighted = -2*sum(log(p)*sum(log(q) for q in qpr[:i+1])
+                    for i,p in enumerate(ppr))
     assert abs(total_negative-weighted)<1e-9*max(1,abs(weighted))
     assert total_negative<0
+    print(f"  selected_prime_K2_minor={len(qpr)} negative_credit={total_negative:.3f}")
     # Sample the universal inverse-difference coercivity inequality.
     for seed in range(1,9):
         v=[(seed*(j+3)*17)%31-15 for j in range(len(qq))]
