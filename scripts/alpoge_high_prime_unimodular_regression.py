@@ -64,7 +64,7 @@ def run(R):
         if any(mu[c]!=0 for c in range(last+1,q+1)):
             rank+=1;last=q
     Q=max(1,int(R**.8))
-    selected=[(q,byq[q]) for q in range(Q,min(2*Q+1,R))
+    selected=[(q,byq[q]) for q in range(Q,min(2*Q,R))
               if q in byq and mu[q]!=0]
     assert selected
     qq=[q for q,p in selected];pp=[p for q,p in selected]
@@ -85,6 +85,24 @@ def run(R):
             actual=sum(((-mu[c] if p*c<=X else 0)*
                         (-mu[d] if p*d<=X else 0)) for p in ps)
             assert actual==mu[c]*mu[d]*H[max(c,d)]
+    # The signed second Selberg semiprime face is +2 log(p) log(q).
+    # All active source cells in this *strict* dyadic band see E(X/(p*q))=E(1)=-1.
+    from math import log
+    total_negative = 0.0
+    for i,p in enumerate(pp):
+        for j,q in enumerate(qq):
+            if j <= i:
+                assert X//(p*q)==1, (R,Q,i,j,X//(p*q))
+                # Independent coefficient derivation: (mu*log^2)(pq)
+                # = log(pq)^2 - log(p)^2 - log(q)^2.
+                k2 = log(p*q)**2-log(p)**2-log(q)**2
+                assert abs(k2-2*log(p)*log(q)) < 1e-11
+                total_negative -= k2
+            else:
+                assert p*q>X
+    weighted = -2*sum(log(p)*sum(log(q) for q in qq[:i+1]) for i,p in enumerate(pp))
+    assert abs(total_negative-weighted)<1e-9*max(1,abs(weighted))
+    assert total_negative<0
     # Sample the universal inverse-difference coercivity inequality.
     for seed in range(1,9):
         v=[(seed*(j+3)*17)%31-15 for j in range(len(qq))]
@@ -97,8 +115,8 @@ def run(R):
     return rank,len(qq)
 
 if __name__=="__main__":
-    expected={31:(15,3),100:(44,14),317:(131,35),
-              549:(222,65),1027:(395,103),3000:(1122,292)}
+    expected={31:(15,3),100:(44,13),317:(131,35),
+              549:(222,64),1027:(395,103),3000:(1122,292)}
     for R, value in expected.items():
         assert run(R)==value
     print("PASS: source masks, exact rank, determinant, Gram and coercivity checks")
