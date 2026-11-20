@@ -219,3 +219,65 @@ for `nativePNTSignedSecondSelbergKernel`, reusing the existing
 `nativePNTSignedSecondSelbergKernel_mul_distinct_primes` declaration.
 Compile status is governed only by exact-head CI; do not claim this new
 declaration Lean-certified until it passes.
+
+
+## 7. NEW ADVERSE PHYSICAL-RESPONSE RESULT: quotient-one collapse
+
+**Do not infer independent RH-strength Chebyshev-error observations from the
+integral determinant or the signed second-Selberg matrix.** The exact signed
+second-Selberg recurrence on main is
+\[
+E(X)(\log X)^2
+=S(X)\log X-\sum_d\Lambda(d)S(\lfloor X/d\rfloor)
+ + \sum_{n\le X} K_2(n) E(\lfloor X/n\rfloor)
+ - D_{\rm floor}(X),
+\quad E(y)=\psi(y)-y,
+\]
+the on-main theorem
+\`nativePNTError_mul_log_sq_eq_signedSecondSelberg\` in
+\`RHLean/Analysis/NativePNTSignedSecondSelberg.lean\`.
+
+For a selected prime/cofactor window, put \`Q<=q_i<2Q\` and
+\`q_i=floor(X/p_i)\`. If \`j<=i\` then
+\[
+1\le \frac{X}{p_i q_j}<\frac{q_i+1}{q_j}\le2,
+\qquad
+\lfloor X/(p_iq_j)\rfloor=1.
+\]
+This is not a heuristic but an exact integer consequence of the quotient
+windows. Since \`E(1)=-1\`, every active selected semiprime has **fixed
+negative response**
+\[
+K_2(p_iq_j)E(\lfloor X/(p_iq_j)\rfloor)
+ =-2\log p_i\log q_j,\quad j\le i.
+\]
+
+In fact the complete selected lower-prefix block contributes exactly
+\[
+\boxed{
+-\;2\sum_{i=1}^m (\log p_i)\sum_{j=1}^i \log q_j
+\;\le\;-m(m+1)\log R\log Q .
+}
+\]
+(Here the bound is an upper bound on a negative number; \`p_i>R\` and
+\`q_i>=Q>=2\`.) The signed **complementary** source must pay the rest.
+This is a concrete large negative credit, but its existence alone does not
+supply a global **upper bound** on \`E(X)\` or on Alpöge's \`Gz(X)\`.
+
+**Interpretation correction.** The unimodular/coercive matrix is a true
+property of the original *coefficient incidence*, and the semiprime K2
+weighting is truly present in the second arithmetic source. However at the
+selected square endpoint the operator is applied to the **constant error
+vector at quotient 1** (or, in the matrix notation, every active response is
+fixed). Therefore the rank \`m\` is *not an earned factor of independent
+response-data multiplicity*. In particular one must **not** divide Alpöge's
+error allowance by \`m\` on this basis. A new quantitative global theorem
+must bound the **signed complement** relative to the negative credit and
+all other Selberg terms, with the original source intact.
+
+The new Lean file adds
+\`alpogeSelectedDyadicReciprocalQuotient_eq_one\` and
+\`alpogeSelectedSecondSelbergErrorResponse_eq_negativePrefix\`.
+Both are proposed proof terms pending exact-head CI; the underlying arithmetic
+deduction is finite and unconditional. This correction supersedes any prose
+suggesting that the determinant alone pays the RH-strength upper error bound.
