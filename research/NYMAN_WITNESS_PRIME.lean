@@ -29,7 +29,7 @@ private theorem integralSum {p : ℕ} [Fact p.Prime] (s : Finset ℕ)
         padicValNat.eq_zero_of_not_dvd (h a (mem_insert_self a s))] <;> norm_num
     have h2 := ih (fun k hk => h k (mem_insert_of_mem hk))
     by_cases hz : 1/(a:ℚ) + (∑ k ∈ s, 1/(k:ℚ)) = 0
-    · simp [hz]
+    · rw [hz, padicValRat.zero]
     · exact (le_min h1 h2).trans (padicValRat.min_le_padicValRat_add hz)
 
 /-- An isolated prime denominator cannot give the arithmetic-mean equality K/p.
@@ -37,7 +37,7 @@ The extra condition for K=1 is needed only when the prime itself occurs. -/
 theorem nyman_witness_reciprocal (p K : ℕ) (s : Finset ℕ) (hp : p.Prime)
     (hK : 0 < K) (hKp : K < p) (hs : ∀ k ∈ s, 0 < k ∧ k < 2*p)
     (hunit : p ∈ s → 2 ≤ K) : (∑ k ∈ s, 1/(k:ℚ)) ≠ (K:ℚ)/p := by
-  letI : Fact p.Prime := ⟨hp⟩
+  let _ : Fact p.Prime := ⟨hp⟩
   have bad (t : ℕ) (ht : 0 < t) (htp : t < p) : padicValRat p ((t:ℚ)/p) = -1 := by
     rw [padicValRat.div (by positivity) (by exact_mod_cast hp.ne_zero), padicValRat.self hp.one_lt,
       padicValRat.of_nat, padicValNat.eq_zero_of_not_dvd (Nat.not_dvd_of_pos_of_lt ht htp)] <;> norm_num
@@ -115,11 +115,11 @@ private theorem trLog {p n : ℕ} (hp : p.Prime) (hn : 0 < n) (hlt : n < 2*p) :
 private theorem sourceCoordinates (K H p : ℕ) (hp : p.Prime) (hlo : 3*K < p) (hhi : p < 6*K)
     (hH : 0 < H) (hHp : H < p) :
     Tracks p (nymanFlatMoment (6*K) H) (1/(p:ℚ)) ∧ Tracks p (nymanRidgeV K H) 1 := by
-  letI : Fact p.Prime := ⟨hp⟩
+  let _ : Fact p.Prime := ⟨hp⟩
   have hn := trLog hp (n := 6*K) (by omega) (by omega)
   have hh := trLog hp hH (by omega)
-  rw [if_neg (by omega : 6*K ≠ p)] at hn
-  rw [if_neg hHp.ne] at hh
+  simp only [show 6*K ≠ p by omega, ite_false] at hn
+  simp only [hHp.ne, ite_false] at hh
   have kernel (k : ℕ) (hk : k ∈ Icc 1 (6*K)) :
       Tracks p (nymanFlatKernel (6*K) H k) (if k=p then 1 else 0) := by
     obtain ⟨hk0, hkN⟩ := mem_Icc.mp hk
@@ -153,7 +153,7 @@ private theorem massNe (K H p a b : ℕ) (hp : p.Prime) (hK : 0 < K) (hlo : 3*K 
     (hhi : p < 6*K) (hH : 0 < H) (hHp : H < p) (hb : b ≤ 6*K)
     (hunit : p ∈ Ioc a b → 2 ≤ K) :
     nymanFlatMoment (6*K) H - nymanRidgeS a b * nymanRidgeV K H / K ≠ 0 := by
-  letI : Fact p.Prime := ⟨hp⟩
+  let _ : Fact p.Prime := ⟨hp⟩
   let s : ℚ := ∑ k ∈ Ioc a b, 1/(k:ℚ)
   have hs : (s:ℝ) = nymanRidgeS a b := by simp [s, nymanRidgeS]
   have hn : s ≠ (K:ℚ)/p := nyman_witness_reciprocal p K _ hp hK (by omega)
