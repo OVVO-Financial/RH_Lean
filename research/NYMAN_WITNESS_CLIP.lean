@@ -18,7 +18,8 @@ def nymanWitnessClipped (K H m : ℕ) : ℝ :=
 def nymanWitnessError (K H m : ℕ) : ℝ :=
   nymanResidual (6*K) (nymanRidgeCoeff K H) m - nymanWitnessClipped K H m
 
-private theorem errorCounts (K H m : ℕ) (hK : 0<K) :
+/-- The two floor multiplicities in the original-minus-clipped residual. -/
+theorem nyman_witness_error_counts (K H m : ℕ) (hK : 0<K) :
     let u := nymanFlatMoment (6*K) H
     let v := nymanRidgeV K H
     nymanWitnessError K H m =
@@ -36,7 +37,7 @@ theorem nyman_witness_first_clip (K H : ℕ) (hK : 0<K) (hH : 0<H) (hHK : H ≤ 
     nymanWitnessError K H (6*K+2) = nymanRidgeLeft K (nymanFlatMoment (6*K) H) (nymanRidgeV K H) /
       nymanFlatScale (6*K) H ∧ nymanWitnessError K H (6*K+2) ≠ 0 := by
   obtain ⟨hc,he⟩ := nyman_ridge_first_double K hK
-  have eqn := errorCounts K H (6*K+2) hK
+  have eqn := nyman_witness_error_counts K H (6*K+2) hK
   dsimp only at eqn
   rw [hc,he] at eqn
   simp at eqn
@@ -57,7 +58,7 @@ theorem nyman_witness_clip_plateau (K H m : ℕ) (hK : 0<K) (hl : 8*K ≤ m) (hr
     obtain ⟨_, _⟩ := mem_Ioc.mp hk; exact Nat.div_eq_of_lt_le (by omega) (by omega))
   have he := counts (5*K) (6*K) 1 (fun k hk => by
     obtain ⟨_, _⟩ := mem_Ioc.mp hk; exact Nat.div_eq_of_lt_le (by omega) (by omega))
-  rw [errorCounts K H m hK, hc, he, show 4*K-3*K=K by omega, show 6*K-5*K=K by omega]
+  rw [nyman_witness_error_counts K H m hK, hc, he, show 4*K-3*K=K by omega, show 6*K-5*K=K by omega]
   push_cast; ring
 
 private theorem intervalMass (s n : ℕ) (hs : 0<s) :

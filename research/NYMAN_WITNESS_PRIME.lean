@@ -149,6 +149,18 @@ private theorem sourceCoordinates (K H p : ℕ) (hp : p.Prime) (hlo : 3*K < p) (
     rw [he] at hs
     simpa [nymanRidgeV, nymanFlatScale] using trAdd (trScale 2 (trSub hn hh)) hs
 
+/-- The isolated prime tests any rational relation of the two original source moments. -/
+theorem nyman_witness_relation_coordinate (K H p : ℕ) (hp : p.Prime) (hl : 3*K < p)
+    (hr : p < 6*K) (hH : 0 < H) (hHp : H < p) (x y : ℚ)
+    (h : (x:ℝ)*nymanFlatMoment (6*K) H + (y:ℝ)*nymanRidgeV K H = 0) :
+    x + (p:ℚ)*y = 0 := by
+  let _ : Fact p.Prime := ⟨hp⟩
+  obtain ⟨hu,hv⟩ := sourceCoordinates K H p hp hl hr hH hHp
+  have he := trDetect (trAdd (trScale x hu) (trScale y hv)) h
+  have hn : (p:ℚ) ≠ 0 := by exact_mod_cast hp.ne_zero
+  field_simp [hn] at he
+  linarith only [he]
+
 private theorem massNe (K H p a b : ℕ) (hp : p.Prime) (hK : 0 < K) (hlo : 3*K < p)
     (hhi : p < 6*K) (hH : 0 < H) (hHp : H < p) (hb : b ≤ 6*K)
     (hunit : p ∈ Ioc a b → 2 ≤ K) :

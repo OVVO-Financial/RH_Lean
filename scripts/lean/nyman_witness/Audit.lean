@@ -18,7 +18,7 @@ private partial def visit (env : Environment) (todo : List Name) (seen : NameSet
 def main (_ : List String) : IO UInt32 := do
   initSearchPath (← findSysroot)
   unsafe enableInitializersExecution
-  let env ← importModules #[{ module := Name.mkSimple "research.NYMAN_WITNESS_CLIP" }]
+  let env ← importModules #[{ module := Name.mkSimple "research.NYMAN_WITNESS_RANK" }]
     Options.empty 1024 (loadExts := true)
   let base := `RHLean.Analysis
   let roots := #[(`nyman_witness_reciprocal, #[`padicValRat]),
@@ -29,7 +29,14 @@ def main (_ : List String) : IO UInt32 := do
       base ++ `nyman_ridge_residual_profiles]),
     (`nyman_witness_clip_plateau, #[base ++ `nyman_ridge_floor_profiles, base ++ `nymanBandCount]),
     (`nyman_witness_clip_energy, #[base ++ `nyman_witness_clip_plateau, base ++ `nymanWeight]),
-    (`nyman_witness_clip_cost, #[base ++ `nyman_witness_clip_energy, base ++ `nyman_witness_amplitudes])]
+    (`nyman_witness_clip_cost, #[base ++ `nyman_witness_clip_energy, base ++ `nyman_witness_amplitudes]),
+    (`nyman_witness_relation_coordinate, #[base ++ `nymanFlatKernel_eq_original,
+      `ArithmeticFunction.moebius_apply_prime, `padicValRat]),
+    (`nyman_witness_error_counts, #[base ++ `nyman_ridge_floor_profiles, base ++ `nyman_ridge_residual_profiles]),
+    (`nyman_witness_two_amplitudes, #[base ++ `nyman_witness_relation_coordinate, base ++ `nyman_ridge_gap]),
+    (`nyman_witness_clip_fibres, #[base ++ `nyman_witness_two_amplitudes, base ++ `nyman_witness_error_counts]),
+    (`nyman_witness_clip_zero_iff, #[base ++ `nyman_witness_clip_fibres,
+      base ++ `nyman_ridge_first_layer, base ++ `nyman_ridge_first_double])]
   for (leaf, required) in roots do
     let n := base ++ leaf
     unless env.contains n do throw (IO.userError s!"missing public theorem {n}")
