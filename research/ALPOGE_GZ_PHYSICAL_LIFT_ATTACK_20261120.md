@@ -154,3 +154,68 @@ The separate direct square-source census (C program, not part of the proof) comp
 4. **Consumer**. Apply the existing external one-sided Landau result to a globally uniform square-block `Gz` bound, or supply an independent Lean bridge into `EnvelopeBound (2-delta) 0` on the original strict historical `K_R`; do not conflate `Gz` and Mertens's growth exponents without an analytic transfer.
 
 **This improves the concrete unconditional physical-source multiplicity theorem but DOES NOT yet improve RH_Lean's global Mertens exponent or prove RH.** Add as independently sourced rank/coercivity branch to the existing proof DAG only after exact-head Lean audit; preserve the November 20 seven-agent task and all source guards.
+
+## 6. **The essential signed-source correction: Lambda_2, not Lambda**
+
+The ordinary von Mangoldt function vanishes at every distinct semiprime `p*q`:
+`Lambda(p*q)=0`. Thus the highly independent `mu(p*q)` channel **does not survive** first-order `Lambda=mu*log` convolution. Treating the integer minor above as independent contributions to Alpöge's `Gz` would be a source violation; the ghost mass must be returned with its exact negative omitted-divisor compensator, giving zero.
+
+There is, however, an existing, certified *second-order* RH_Lean source in which precisely these semiprimes survive:
+
+- `RHLean/Analysis/LogWeightedPrimeExtensionEndpoint.lean`:
+  `nativeLambdaTwo_eq_logWeight_vonMangoldt_add_convolution` proves `Lambda_2 = Lambda*log + Lambda*Lambda`, with `Lambda_2=mu*log^2`.
+- `RHLean/Analysis/NativePNTSignedSecondSelbergWheelFrontier.lean`:
+  `nativeLambdaTwo_mul_distinct_primes` and
+  `nativePNTSignedSecondSelbergKernel_mul_distinct_primes` prove, for different primes,
+  `Lambda_2(p*q) = K_2(p*q) = 2 log p log q`, where
+  `K_2=Lambda*Lambda-Lambda*log`.
+  The same file certifies the **negative** prime-square diagonal
+  `K_2(p^2)=-(log p)^2`. The full signed source must keep both faces.
+
+Select now **prime** cofactors `q_i` rather than merely squarefree cofactors.
+The prime-gap-moment empty-band estimate is polynomially smaller than
+`Q/log Q` when `alpha<154/177`, while the PNT gives `>>Q/log Q` prime
+cofactors in `[Q,2Q]`. Thus for all large R, the actual physical source
+admits **m >>_alpha R^alpha/log R** matched *prime/prime* channels, with no
+additional conjecture and without assuming that every quotient band contains a prime.
+
+On the same selected rows and columns, define the **signed second Selberg
+source** matrix, retaining the literal endpoint mask:
+
+```
+C_ij = K_2(p_i*q_j) 1_(p_i*q_j <= X_R)
+     = 2*log(p_i)*log(q_j) * 1_(j<=i)
+     = diag(2*log(p_i)) * L * diag(log(q_j)).
+```
+
+This is a full coefficient of the actual Selberg source, not an invented
+positive weight. Because the row/column logarithms are positive, the
+normalised matrix is the *same integral unit-prefix matrix*. In particular,
+
+```
+||C v||_2 >= (min_i log p_i)*(min_j log q_j)*||v||_2
+         >= log(R)*log(Q)*||v||_2
+```
+
+for every real or complex selected vector, using `||L^(-1)||<=2`.
+The constant is **independent of m and the physical prime spacing**.
+
+This is a genuine second-order signed-source coercivity theorem on
+`m>>R^(154/177-o(1))/log R` channels, modulo the established external
+prime-gap-moment theorem for the count. It is not a new theorem about the
+complete first-order `Gz` error.
+
+**First unpaid estimate is now precise:** build a source-faithful quantitative
+upper response-energy estimate for the **complete signed second Selberg
+source** (including square diagonal, all other prime factors, LOW/HIGH and
+mixed masks, cutoff and geometric costs) that, together with this lower
+coercivity, forces Alpöge's **one-sided** `Gz(X_R)=O_epsilon(R^(1+epsilon))`
+or RH_Lean's verified historical `EnvelopeBound` consumer. Merely
+dividing by `m` in a separately bounded positive semiprime term is invalid:
+the diagonal and compensating pieces may cancel the gain.
+
+The new Lean module contains a selected-matrix prefix theorem directly
+for `nativePNTSignedSecondSelbergKernel`, reusing the existing
+`nativePNTSignedSecondSelbergKernel_mul_distinct_primes` declaration.
+Compile status is governed only by exact-head CI; do not claim this new
+declaration Lean-certified until it passes.
