@@ -48,7 +48,7 @@ Other evidence: [independent targeted build](https://github.com/OVVO-Financial/R
 
 ### K-M. Independent checks and a new paper result
 
-The independently constructed [exact-rational checker](https://github.com/OVVO-Financial/RH_Lean/blob/e05f68039373d3df16bd1c033b9277178a7eb43d16bd1c033b9277178a7eb43d/scripts/lean/nyman_witness/two_witness_check.py) recomputed original and clipped residuals separately, from prime valuations of the signed taper, before comparing to the floor formula. It checked 13,374 outputs over 87 heads and 5,029 distinct joint counts aggregated across heads. Of these heads 84 have two eligible primes; three K=1 controls used 5 and 2, not two upper primes. Tests included m=0, both zeros, N+2 and large common-period shifts. Finite evidence, not the universal proof.
+The independently constructed [exact-rational checker](https://github.com/OVVO-Financial/RH_Lean/blob/e05f68039373d3df16bd1c033b9277178a7eb43d/scripts/lean/nyman_witness/two_witness_check.py) recomputed original and clipped residuals separately, from prime valuations of the signed taper, before comparing to the floor formula. It checked 13,374 outputs over 87 heads and 5,029 distinct joint counts aggregated across heads. Of these heads 84 have two eligible primes; three K=1 controls used 5 and 2, not two upper primes. Tests included m=0, both zeros, N+2 and large common-period shifts. Finite evidence, not the universal proof.
 
 **`LV-20261120T101000Z/DRIFT`: PAPER_PROOF / SELF_AUDIT / INDEPENDENT_REVIEW_PENDING, not in #1153.** For fixed natural K>=1 and `0<H<6K`, no prime assumption is needed for this asymptotic as integer M tends to infinity:
 
