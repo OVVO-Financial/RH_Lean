@@ -110,7 +110,6 @@ This is the critical response-side restriction: high matrix rank alone does
 not produce independent values of the lower-scale Chebyshev error. -/
 theorem alpogeSelectedDyadicReciprocalQuotient_eq_one
     (R Q : ℕ) {m : ℕ} (p q : Fin m → ℕ)
-    (hp : ∀ i, (p i).Prime)
     (hqmono : StrictMono q)
     (hqband : ∀ i, Q ≤ q i ∧ q i < 2 * Q)
     (hquot : ∀ i, p i * q i ≤ R ^ 2 - 1 ∧
@@ -160,7 +159,7 @@ theorem alpogeSelectedSecondSelbergErrorResponse_eq_negativePrefix
     R p q hp hqPrime hqlt hqmono hquot i j
   by_cases hji : j ≤ i
   · have hdiv := alpogeSelectedDyadicReciprocalQuotient_eq_one
-      R Q p q (fun k => (hp k).1) hqmono hqband hquot i j hji
+      R Q p q hqmono hqband hquot i j hji
     simp [alpogeSelectedSecondSelbergErrorResponse, hsource, hdiv,
       nativePNTError, nativePsi, hji]
   · simp [alpogeSelectedSecondSelbergErrorResponse, hsource, hji]
