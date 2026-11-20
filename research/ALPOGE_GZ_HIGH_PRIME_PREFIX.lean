@@ -10,7 +10,7 @@ source. The selected prime rows and cofactor columns retain the sharp
 `p*c <= R^2-1` mask. When the cutoff quotient at a prime is its selected
 cofactor, the incidence matrix is the signed lower-prefix matrix.
 
-The determinant +/-1 and uniform l2 inverse bound (<=2) are elementary
+The unit determinant and uniform l2 inverse bound (<=2) are elementary
 consequences explained in `research/ALPOGE_GZ_PHYSICAL_LIFT_ATTACK_20261120.md`.
 The asymptotic rank count needs an external prime-gap theorem NOT in Lean;
 no RH, new Mertens exponent or automorphic-error inequality is asserted.
