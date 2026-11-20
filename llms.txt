@@ -1,5 +1,9 @@
 # RH_Lean
 
+
+> **NEWEST SEVEN-AGENT RESEARCH PRIORITY (2026-11-20, pending reviewed human merge):** [MULTIPLICITY_VS_COST_TO_HALF_V1](docs/RHLEAN_MULTIPLICITY_VS_COST_TO_HALF_20261120.md). Every role attacks the original-source **multiplicity-versus-total-cost** question needed for a fixed `EnvelopeBound (2-delta) 0` (`delta>0`) or a fully proved equivalent 1/2 continuation. Merged #1135 proves the exponent dictionary, **not** the RH-strength supplier. The external RH/GRH announcement is unverified and cannot be imported as a proof. Follow live [AGENTS.md](AGENTS.md), fixed role assignments, report continuity and human-only merge. A repo PR does not alter saved Studio prompts or trigger agents.
+
+
 > Lean 4 (v4.34.1) research repository on the Riemann Hypothesis. RH is NOT proved here. The repository formalizes reductions (for example the canonical VF form of von Koch's 1901 criterion), imports the unconditional OpenAI 7/8 zero-free theorem, and records ten open proof routes. One phenomenon — the square-root-scale fluctuation of pi - Li_2 and of the Mertens function M, governed by the zeta zeros — appears under many coordinate systems and names. Before treating any object as new, look it up in the coordinate atlas.
 
 Status and integrity rules: a compiled conditional theorem does not prove its premises; explicit interfaces such as `ClassicalVonKochRHCriterion` are hypotheses, not proofs; paper and numerical results are not Lean certificates; open-PR state must be read from GitHub.
