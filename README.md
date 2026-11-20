@@ -1,5 +1,9 @@
 # RH_Lean
 
+
+**New user-directed agent research priority (2026-11-20; proposed PR):** All seven roles target source-faithful **multiplicity versus total arithmetic/analytic cost**, seeking a fixed strict `EnvelopeBound (2-delta) 0` (`delta>0`) or an equivalent fully paid bootstrap to `1/2`. See [governing seven-role directive](docs/RHLEAN_MULTIPLICITY_VS_COST_TO_HALF_20261120.md), [AGENTS.md](AGENTS.md) and [merged #1135 universal-envelope dictionary](docs/UNIVERSAL_ENVELOPE_FORMALIZATION_20261115.md). The external 14-part RH/GRH announcement is a **hypothesis generator, not a verified proof**. No new exponent or RH theorem is claimed. This policy takes effect for repository-directed scheduled research only after human merge and subsequent actual agent consumption; it does not modify saved Studio prompts.
+
+
 **Current mathematical status — 2026-11-08, main 30c9fade:** The original OpenAI 1->7/8 Mertens cancellation is formally available and the native full-source argument now proves an explicit fixed-slot improvement to 7/8-1/(48*N_*), where N_*>0 is chosen once. The exact historical amplification A(X) satisfies a fixed power bound C*X^(3/4-1/(48*N_*)) and limsup log(1+A(X))/log X <= 3/4-1/(24*N_*). #1106-#1109 are merged; #1109 adds CORR4 off-ray cutoff multiplicity, not a signed mixed-tail bound. Uniform finite A, subpower A(X), an all-scale fractional owner contraction, and RH remain open.
 
 **Live navigation:** [November 8 all-route attack ledger](docs/RHLEAN_REPO_WIDE_PROOF_ATTACKS_20261108.md) | [generated proof DAG](docs/PROOF_DEPENDENCY_DAG.md) | [coordinate atlas](docs/COORDINATE_ATLAS.md) | [agent instructions](AGENTS.md). The October 26 status paragraph and older snapshots retained below are historical and must not override these merged results.

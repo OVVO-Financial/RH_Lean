@@ -1,5 +1,9 @@
 # Source-faithful continuation to one half — 2026-11-16
 
+
+**2026-11-20 research-selection update (effective after reviewed human merge):** The newest [multiplicity-versus-cost seven-role directive](RHLEAN_MULTIPLICITY_VS_COST_TO_HALF_20261120.md) chooses the *specific* source-faithful amplification-vs-total-cost problem for every role, with the candidate historical-power supplier `EnvelopeBound (2-delta) 0` for some **fixed** `delta>0`. This older document continues to govern the mathematical half-continuation gate and source-integrity tests, but no longer selects unrelated route tasks where its examples conflict. The #1135 envelope dictionary is a proved consumer, **not** the open strict bound. An external claimed Lean RH/GRH proof is unverified, and the proposed policy neither proves a theorem nor activates agents or schedules.
+
+
 **BOOTSTRAP_TO_HALF_V1 — user-directed research priority, effective for repository-directed scheduled work after review and human merge.** The current user instruction is: “Attack that seam, we need only work on paths with clear bootstraps to 1/2.”
 
 This directive governs research selection. Every active mathematical path must have an explicit, source-faithful continuation to the critical boundary 1/2, or a direct endpoint mechanism with an exact RH consumer. A finite improvement is eligible only as a named necessary step in such a continuation. Park finite endpoint optimization without that consumer.
