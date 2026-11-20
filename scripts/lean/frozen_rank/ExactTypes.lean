@@ -14,7 +14,7 @@ example (R : ℕ) : eulerFloorBilinearQ R = ∑ b ∈ Finset.Icc 1 (R-1),
   ring
 
 example {R : ℕ} (h : 0 < R) (S : Finset ℕ) (d : ∀ a ∈ S, a ∣ R) :
-    (fun (a b : S) => eulerMuQ a * eulerMuQ b * eulerFloorQ R a b : Matrix S S ℚ).rank ≤ 2 :=
+    Matrix.rank (show Matrix S S ℚ from fun a b => eulerMuQ a * eulerMuQ b * eulerFloorQ R a b) ≤ 2 :=
   eulerFrozen_rank_le_two h S d
 
 example {R p : ℕ} (h : 0 < R) (hp : p.Prime) (S : Finset ℕ) (d : ∀ a ∈ S, a ∣ R)
