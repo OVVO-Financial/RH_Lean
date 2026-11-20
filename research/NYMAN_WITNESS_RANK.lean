@@ -73,18 +73,12 @@ theorem nyman_witness_clip_fibres (K H p q : ℕ) (hH : 0 < H) (hp : p.Prime)
   constructor
   · intro he
     have hh := congrArg (fun w : ℝ => w * nymanFlatScale (6*K) H) he
-    dsimp only at hh
     rw [div_mul_cancel₀ _ hL, div_mul_cancel₀ _ hL] at hh
-    let c (i : ℕ) := nymanBandCount (3*K) (4*K) i
-    let e (i : ℕ) := nymanBandCount (5*K) (6*K) i
     have test := nyman_witness_two_amplitudes K H p q hH hp hq hpq lp up lq uq
-      ((c m:ℚ)-c n) ((e m:ℚ)-e n)
-    have hzero : ((c m:ℚ)-c n) = 0 ∧ ((e m:ℚ)-e n) = 0 := by
-      apply test.mp
-      push_cast
-      dsimp only [c,e]
-      linear_combination hh
-    exact ⟨by exact_mod_cast sub_eq_zero.mp hzero.1, by exact_mod_cast sub_eq_zero.mp hzero.2⟩
+      ((nymanBandCount (3*K) (4*K) m:ℚ)-nymanBandCount (3*K) (4*K) n)
+      ((nymanBandCount (5*K) (6*K) m:ℚ)-nymanBandCount (5*K) (6*K) n)
+    obtain ⟨h1,h2⟩ := test.mp (by push_cast; linear_combination hh)
+    exact ⟨by exact_mod_cast sub_eq_zero.mp h1, by exact_mod_cast sub_eq_zero.mp h2⟩
   · rintro ⟨hc,he⟩
     rw [hc,he]
 

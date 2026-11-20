@@ -29,6 +29,7 @@ jobs:
           test "$(grep -h '^theorem ' research/NYMAN_WITNESS_*.lean | wc -l)" -eq 12
           if grep -nE '\b(sorry|admit|axiom|native_decide|unsafe)\b' research/NYMAN_WITNESS_*.lean; then exit 1; fi
           python3 scripts/nyman_witness_regression.py
+          python3 scripts/lean/nyman_witness/two_witness_check.py
       - uses: ./.github/actions/lean-setup
       - uses: ./.github/actions/lean-compiled-cache
       - name: Warning-fatal original-source closure
