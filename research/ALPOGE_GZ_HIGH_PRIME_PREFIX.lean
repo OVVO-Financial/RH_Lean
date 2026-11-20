@@ -60,7 +60,7 @@ theorem alpogeSelectedHighPrimeSource_eq_lowerPrefix
 
 /-- The signed *second* Selberg source, not the vanishing first von Mangoldt
 coefficient. Its nonzero mixed semiprime face retains the physical prefix. -/
-def alpogeSelectedSecondSelbergSource (R : ℕ) {m : ℕ}
+noncomputable def alpogeSelectedSecondSelbergSource (R : ℕ) {m : ℕ}
     (p q : Fin m → ℕ) : Matrix (Fin m) (Fin m) ℝ :=
   fun i j =>
     if p i * q j ≤ R ^ 2 - 1 then
@@ -133,7 +133,7 @@ theorem alpogeSelectedDyadicReciprocalQuotient_eq_one
 
 /-- Exactly the selected term of the full second-Selberg error convolution,
 with its *actual* reciprocal quotient and no surrogate coefficients. -/
-def alpogeSelectedSecondSelbergErrorResponse (R : ℕ) {m : ℕ}
+noncomputable def alpogeSelectedSecondSelbergErrorResponse (R : ℕ) {m : ℕ}
     (p q : Fin m → ℕ) : Matrix (Fin m) (Fin m) ℝ :=
   fun i j => alpogeSelectedSecondSelbergSource R p q i j *
     nativePNTError ((R ^ 2 - 1) / (p i * q j))
