@@ -297,3 +297,25 @@ only, not for the quotient-one assertion. Strict-band tests separately
 validate that each active \`K2\` semiprime contributes
 \`-2 log(p_i)log(q_j)\` and that inactive positions are outside the physical
 cutoff. This correction is a scope refinement, not a new exponent gain.
+
+
+### Prime versus merely squarefree cofactor distinction
+
+The \`mu\` incidence and integer unimodular minors use **all squarefree**
+selected cofactors. The signed second-Selberg semiprime coefficient
+\`K2(p*q)=2 log(p)log(q)\` is valid only for **prime** \`q\` (with \`p\`
+a different prime). Therefore the valid second-Selberg selected subminor is
+the subset of those squarefree cofactors that are themselves prime, not the
+whole original squarefree minor. The corrected strict-band regression checks
+\`K2\` only on these original prime-cofactor columns.
+
+The finite actual-prime \`K2\` selected minor counts at
+\`R=31,100,317,549,1027,3000\` are respectively
+\`1,7,13,20,26,65\`, a strict subset of the
+squarefree-\`mu\` minor sizes \`3,13,35,64,103,292\`.
+The external unconditional analytic count
+\`m >> R^alpha/log R\` refers to these **prime-cofactor** rows/columns, not
+to every squarefree cofactor. The unconditional exponent threshold
+\`alpha<154/177\` is unaffected because the PNT supplies
+\`>>Q/log Q\` prime cofactors in the dyadic interval and the number of
+empty quotient bands is \`o(Q/log Q)\`.
