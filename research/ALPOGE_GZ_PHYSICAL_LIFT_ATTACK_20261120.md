@@ -281,3 +281,19 @@ The new Lean file adds
 Both are proposed proof terms pending exact-head CI; the underlying arithmetic
 deduction is finite and unconditional. This correction supersedes any prose
 suggesting that the determinant alone pays the RH-strength upper error bound.
+
+
+### Strict dyadic regression refinement
+
+The standalone exact-rank experiments originally included the right endpoint
+\`q=2Q\`, which is harmless for the **matrix determinant** but not admissible
+for the \`floor(X/(p_iq_j))=1\` dyadic-response lemma. The updated regression
+uses the mathematically correct strict band \`Q<=q<2Q\`. The full-matrix
+ranks remain \`15,44,131,222,395,1122\` at \`R=31,100,317,549,1027,3000\`;
+the corresponding selected strict-band minor sizes are
+\`3,13,35,64,103,292\`. Thus the previously stated \`14\` at \`R=100\`
+and \`65\` at \`R=549\` were valid for the **inclusive** determinant test
+only, not for the quotient-one assertion. Strict-band tests separately
+validate that each active \`K2\` semiprime contributes
+\`-2 log(p_i)log(q_j)\` and that inactive positions are outside the physical
+cutoff. This correction is a scope refinement, not a new exponent gain.
