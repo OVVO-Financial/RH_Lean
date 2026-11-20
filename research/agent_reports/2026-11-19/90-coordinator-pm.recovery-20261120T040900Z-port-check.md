@@ -1,0 +1,8 @@
+
+## 23:09 EST | November 19 | opening checkpoint
+
+The merged Nyman clipping theorem prices the error of changing floor multiplicities, not the energy of the true residual. The next decision is whether an independent restriction on an original source pays anything after all omitted terms are restored. No global gain or endpoint conclusion is asserted.
+
+`20261119-coordinator-2309-EST/PORT-CHECK` | `IN_PROGRESS / PARTIAL`. Scheduled trigger 2026-11-19 23:09:00 EST, America/New_York (2026-11-20T04:09:00Z); platform schedule run ID not supplied: `RUN_ID_UNAVAILABLE`. Main `6338941bb9d10387e9361ca3ca55468d4c710e4c`; AGENTS `500b6daed5e867d19d97c30e43a7a1e7d2055a51`; contract `95566e37c8eaeb99ee680660df4f9d2e06ea5038`; report intake `86b067fa8626fd58d3245fe8b4486634b28f135c`. No open/draft PR at intake. Evening specialist handoffs and exact-source implications are under review; independent verdict PENDING.
+
+`half_bootstrap_ack=BOOTSTRAP_TO_HALF_V1`; `cross_route_ack=CROSS_ROUTE_SIGNED_RECOVERY_V1`; `continuity_ack=LAST_ACTUAL_REPORT_CONTINUITY_V1`; `publish_ack=REPORT_PUBLISH_RECOVERY_V1`. Intended canonical paths: `research/agent_reports/2026-11-19/{00-coordinator-am,90-coordinator-pm}.md`; their old blob is `6790b8672ac80f6f3a36ca115929cf19f499cfb4`, 68,209 bytes each. Direct Git transport returned tunnel HTTP 403; authorized Git data works. No partial replacement of an existing file. Publish identical owned checkpoint siblings if the complete prefix cannot yet be assembled; do not call that a canonical append. Resume: reconcile newest signed-source returns, falsify a substantive candidate, then publish the full synthesis with its evidence boundary.
