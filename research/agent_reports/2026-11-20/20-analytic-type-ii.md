@@ -159,3 +159,86 @@ Continuity, America/New_York: reports snapshot `6bdc88fa0267fe06129d99c66eda7ecc
 `finite_wheel_ack=FINITE_WHEEL_CENTERED_RH_V1; high_attack_ack=COMPLETE_SIGNED_HIGH_ATTACK_V1; chain_ack=CANCELLATION_CHAIN_REUSE_V1`. Directive blobs: half 96ad4439ec458af6168f7d9cb3eef5dde291d37c, cross-route e3ae4280438f591f1ffaddd754a1c3a6d35d0691, continuity 7eef0b36c7442be922d9bc99c6b35d853c4f1f4f, publication a9583516fd2e603320c771e32c170132bf0c53e9. Opening commit `fab20695d67ffc0d93365511802d97b0c4ac969c`, blob `896c2bc62ba82fef7acc33d8a6530bd7a7102707`, 1661 bytes verified. Final publication is established by immutable readback, not by this sentence.
 
 **Resume:** preserve SQUARE1's logarithmic error; do not pay the old core by absolute values or re-scan known roots as discoveries. Review SQUARE2 independently, then test the signed q=2 threshold change and the fixed-endpoint sign margin on the predetermined selector. RH=OPEN; no uniform exponent improvement.
+
+## 17:11 EST continuation | A prime-mark determinant that remembers Mertens
+
+`20261120-analytic-1711-EST/PRIME-MARK-FINAL`. Scheduled 17:11:00 EST (22:11:00Z), America/New_York; RUN_ID_UNAVAILABLE. This section follows the [09:09 LAG final](20-analytic-type-ii.recovery-20261120T140903Z-lag-final.md) and the [17:11 opening](20-analytic-type-ii.recovery-20261120T221100Z-prime-mark-open.md); neither is a new invocation here.
+
+### A. Result
+
+Mark two actual prime divisors in the frozen Mobius floor sum. After both omitted regions are restored, every mixed-prime coefficient cancels. The surviving increment is supported on integers with exactly one repeated prime and keeps the sign of the remaining squarefree cofactor. Its absolute mass has positive linear density even for prime two alone. More decisively, three dilates of the completed prime-two statistic recover the original Mertens sum exactly. Thus a strict bound on this channel is RH-equivalent, not an independent multiplier. The prime powers whose cofactor is already in strict history do satisfy a uniform square-root-in-history bound.
+
+PRIME-MARK1 (support and restoration): EXACT_IDENTITY. PRIME-MARK2 (variation and history bound), PRIME-MARK3 (inverse and equivalence): PAPER_PROOF, SELF_AUDIT, not independently reviewed or formalized. PRIME-MARK4: FINITE_CERTIFICATE only. The absolute-payment proposal is REFUTED; global supplier OPEN.
+
+### B. Objective
+
+Main `556f9c1b618912e626ef4e73b2c44d41a255e389` (tree `6787d88600bebde57aaf6f36abe9855c0b85fc04`); AGENTS `32d78eca566daa9a2bd3bba32651ca447aeab3dd`, contract `f4fe93c4b609d07061ac9aa7d2dd0b7371e73f3c`, effective #1154 directive `eb9fada09a894534589e9ff38608e1cffba65f91`. Write M(x)=sum_{n<=x} mu(n), M(0)=0, X=R^2-1, K=max_{integer 0<=y<R}(M(y)-1)^2/(y+1). Seek one fixed 0<delta<=2 before every eps>0, one C_eps for every integer R>=2, with |M(X)-1|<=C_eps R^(1+eps) K^(1-delta/2). #1135 proves `universal_envelope_bound : EnvelopeBound 2 0`; for 0<=lambda<2, eta>=0 its dictionary is `EnvelopeBound lambda eta <-> Theta <= 1/2+eta/(2-lambda)`. Neither supplies delta. #1119 proves `MertensGrowthAtMost (7/8-7/(64*Npack))`, with every positive loss in its fixed native slots; b=7/8 is legal below. No change of target.
+
+### C-D. Mechanism and exact object
+
+Let T be any subset of primes, l_p=log p. Set w(a)=mu(a) sum_{p|a,p in T} l_p and v(a)=mu(a) sum_{ordered distinct p,q in T, pq|a} l_p l_q. The unit has w(1)=v(1)=0, mu(1)=1. Set D^<_T(R)=sum_{1<=a,b<R} [mu(a)v(b)-w(a)w(b)] floor(X/(ab)); D_T(x) uses all positive a,b and floor(x/(ab)). These are polarized convolution determinants, not determinants of scalar partial sums. We retain ordered pairs, actual signs, both axes, and unrestricted common factors; no stochastic model. The question is whether an extra independent prime mark survives at the pole for the physical floor carrier.
+
+### E. Derivation and accounting
+
+Write * for Dirichlet convolution, u(n)=1, e for its convolution unit. Let L(p^j)=l_p for p in T, j>=1, and B(p^j)=(j-1)l_p^2 for p in T, j>=2; zero elsewhere. Multiplication of the squarefree Euler factors with one or two ordered distinct marks gives w=-mu*L and v=mu*(L*L-B): at a selected prime the removed factor contributes -l_p z/(1-z), z=p^(-s); summing two distinct primes subtracts precisely the same-base square sum B. Coefficientwise this is finite; the series argument initially converges absolutely for Re(s)>1. Since u*mu=e, the floor increment is
+
+```text
+d_T(n) = D_T(n)-D_T(n-1) = [u*(mu*v-w*w)](n) = -(mu*B)(n).
+D_T(x) = -sum_{p in T, j>=2, p^j<=x} (j-1) l_p^2 M(floor(x/p^j)).
+```
+
+If n=p^k m, k>=2, p does not divide m, only j=k,k-1 can survive for this base (the j=1 weight is zero). Their difference is -l_p^2 mu(m). Another repeated prime makes mu(m)=0. Thus d_T is zero unless exactly one prime is repeated and belongs to T; on that support this formula is exact, even though mu(n)=0.
+
+**Uniform variation.** For every real x>=2, simultaneously for all T, sum_{n<=x}|d_T(n)|=c_T x+O(sqrt(x) log^2(2x)), c_T=zeta(2)^(-1) sum_{p in T} l_p^2/(p^2-1). The constant in O is absolute. Indeed the number of squarefree m<=y coprime to p is y p/((p+1)zeta(2))+O(sqrt(y)) uniformly for y>=1: expand mu^2 by square divisors coprime to p, count multiples with error <=2 per divisor, and extend the absolutely convergent main term. Sum at y=x/p^k, k>=2. The k=2 errors cost O(sqrt(x) log^2(2x)) by partial summation from theta(t)<<t; k>=3 costs O(sqrt(x)) by absolute convergence. In extending the main term beyond x, primes p<=sqrt(x) each have omitted geometric tail <=2/x before multiplying by x l_p^2; larger primes give sum l_p^2/p^2<<log(2x)/sqrt(x). This proves the formula including the cutoff. The only prime-count input, theta(t)<<t, follows by dyadic summation of theta(2n)-theta(n)<=log binom(2n,n)<=2n log 2. For T={2} the error is O(sqrt(x)), c_2=log^2(2)/(3 zeta(2))>0. The signed total is O(x^b) for b=7/8 by #1119 and sum B(q)q^(-b)<infinity, uniformly in T. Each sign therefore has weighted mass c_T x/2+O(x^b), not a positivity law.
+
+### F-G. Cost and physical return
+
+In the displayed M sum, the part q=p^j>=R has m=floor(X/q)<R. For m>=1, |M(m)|<=1+sqrt(K(m+1))<=(1+sqrt(2))sqrt(Km), since K>=1. Its cost even in absolute value is O(R sqrt(K) log^2(2R)): for squares use sum_{p<=R} l_p^2/p<<log^2(2R); all j>=3 weighted by (j-1)p^(-j/2) are absolutely summable over p,j. For prime two alone the geometric tail gives O(sqrt(RK) log(2R)). These are absolute uniform bounds, delta=1 on this proper part only. Small powers q<R can see beyond history. Conversely K<=R by the unit increments of M, so the absolute mass c_2 X+O(sqrt(X)) cannot fit R^(1+eps) K^(1-delta/2) for any fixed delta>0, eps<delta/2. This refutes an absolute argument, not the signed target.
+
+The unmarked source is exactly Q_R=sum_{a,b<R}mu(a)mu(b)floor(X/(ab))=2M(R-1)-M(X) (positive a,b). Put Psi(t)=sum_{n<=t}L(n), V(t)=sum_{n<=t}(L*L-B)(n). With t=floor(X/a), the complete physical boundary is
+
+```text
+D_T(X)-D^<_T(R) = sum_{R<=a<=X} [mu(a)V(t) + v(a) + 2w(a)Psi(t)].
+```
+
+There is no outer-outer corner since X<R^2. The two distinct orientations use u*v=L*L-B, u*mu=e (the v(a) unit term), and u*w=-L. No LOW/HIGH, principal or tail term of the unmarked endpoint acquires a bound by this identity. In particular the full-board all-ones direction is not the rank-two divisor subspace of #1155.
+
+### H-I. Exact inverse and falsification
+
+After restoration only, D_all-D_odd=D_{ {2} }; odd means odd *marked primes*, not deleting even Mobius coefficients. Write A(x)=D_{ {2} }(x)/log^2(2). For all real x>=0,
+
+```text
+A(x) = -sum_{j>=2} (j-1) M(floor(x/2^j));   M(x) = -A(4x)+2A(2x)-A(x).
+```
+
+This follows by the finite second difference of the linear weights, including j=2; |A(n)-A(n-1)|<=1 by the support law. The physical increment series is -(1/zeta(s)) log^2(2)/(2^s-1)^2 for Re(s)>1, with meromorphic continuation to Re(s)>1/2. At any actual zero rho with 1/2<Re(rho)<=1 its multiplier has absolute value >=log^2(2)/9, independent of height. The full multiplicity survives; no zero existence is assumed. No ideal-character or theta-lift transfer is used.
+
+For any fixed 0<delta<=2, a bound |A(X)|<<_eps R^(1+eps) K^(1-delta/2) is equivalent to RH. To see the forward implication put h=max(1/2,Theta)-1/2. #949 and `historical_le_of_power` give K<<_eps R^(2h+eps). Interpolating A between consecutive squares costs at most 2R+1 by its unit increments. Thus |A(n)|<<_eps (1+n)^(1/2+(1-delta/2)h+eps); the inverse gives the same bound for M. #949 then forces h<=(1-delta/2)h, hence h=0. No replacement of K_(2R) by K_R or attained rightmost zero is needed. Conversely RH gives M(x)<<_eps (1+x)^(1/2+eps); the absolutely convergent sum B(q)/q^(1/2+eps) gives the same bound for D_T, uniformly for every T; rescale eps and use K>=1. Thus paying both the all-prime and odd-mark channels separately at the strict scale would already prove RH. This does not rule out cancellation with other terms on the unmarked board.
+
+**Finite challenge (PRIME-MARK4).** Integer polynomial coefficients in formal prime variables, no floating point or random seed. For every n=1..8192, direct convolution of the marked rows followed by all floor cofactors agreed with independent factorization; counts (no repeated prime, exactly one, at least two)=(4982,2759,451). Tested both regions for log^2(2) and log(2)log(3) at all 66 roots R=2..64,317,549,1027. In this order (raw22,outside22,full22; raw23,outside23): R=4 (-3,2,-1; -4,4), R=317 (39,128,167; -6,6), R=549 (52,182,234; 290,-290), R=1027 (166,48,214; -62,62). R=4 is the first nonzero restoration; completed 22 has both signs by R=3,7. The dyadic inverse held for every integer 0<=n<=263682. Reproduce: sieve mu through 1054728; form the two degree-two row polynomials, add their product-coefficient difference at ab and every multiple, compare to -mu(n/p^k) at the unique repeated prime; evaluate the two displayed floor sums separately. Checker SHA256 `d4c8405f41a742364be8222a807a8fbe9e41344412674cb4d7d21c8dbe3b4ee9`. Finite data do not prove an exponent.
+
+### J. Handoffs and independent checks
+
+- Coordinator: park separate absolute or strict payment of the prime-two difference. OCTAVE2-3 and the #1155 restricted rank do not bound the full physical board. No strategic pivot or adoption of the outside RH announcement.
+- Owner: COLLAR4 scale check: b=7/8, density slope 30/13, gamma=37/52. For d<=R^(1/15), R^(3/5)<<ell<<R^(2/3), Y=R/d, P=R/ell, Y>=R^(14/15) dominates P^(30/13)<<R^(12/13). The excluded Euler factors cost O_eta(d^eta) on sigma>=1/2 by splitting small/large primes. The short smoothing error 1+sqrt(R)/d fits Y^b P^(-gamma) up to eps; b-2gamma/5>1/2. This checks those losses, not all COLLAR1-5 or its transfer beyond the H=R^(2/3) strip. Density reference: Guth and Maynard, [Large value estimates for Dirichlet polynomials](https://doi.org/10.4007/annals.2026.203.2.6).
+- Wheel: test the pair of exterior orientations separately with existing DEGREE masks, including its first high-degree witness; never infer physical positivity from divisor minors. Census: reproduce the integer columns above. The PARITY odd-atom Euler factor is bounded by (1-2^(-1/2))^(-1) on Re(s)>=1/2, but it is a different restriction.
+- Referee: independently review PRIME-MARK2's uniform squarefree count and PRIME-MARK3's strict-history interpolation. SIDEBAND2 pays the prior LAG smoothing edge: balancing B=H^(1/2), D=H^(28/67) in D+B H^(-1/4)(H/D)^(15/52) gives H^(28/67+eps); it does not pay the macroscopic bulk. LAG1-2 accepted on paper; LAG3 conditional, LAG4 synthetic, LAG5 finite.
+- Lean Verification: after independent review, the smallest target is the finite identity d_T=-(mu*B) and the dyadic inverse, not an assumed endpoint gain. INTERIOR-PROBE/#1155 is certified only on its stated vectors; SHIFTED-PRIME is paper only. No PR, CI dispatch, third-party report edit or agent launch.
+
+### K. First missing theorem
+
+Isolate the moving, nonhistorical true-prime square band G(R)=sum_{R^(1/3)<p<=2R^(1/3)} log^2(p) M(floor(X/p^2)). If M(y)<<_{b,eps}(1+y)^(b+eps) for every eps>0, b>1/2, the independent baseline is G(R)<<_{b,eps} R^((1+4b)/3+eps), by theta(t)<<t. Test whether some fixed 0<nu<1 gives exponent 1+(1-nu)4(b-1/2)/3 for every 1/2<b<=7/8, all R and every positive loss. This asks for a genuine arithmetic restriction on signed prime sampling, not a one-off numerical improvement; it is OPEN, neither asserted necessary nor sufficient.
+
+First falsification completed: replace only M(y) by y^s for a fixed s=b+it, keeping the actual primes and floors. Put P=R^(1/3). The result is X^s P^(1-2s) log(P) times `(2^(1-2s)-1)/(1-2s) + o_s(1)`. The floor error relative to X^b P^(1-2b) log(P) is O_s(P^2/X); partial summation on [P,2P] against theta(y)=y+o(y) gives the integral of u^(-2s) on [1,2]. Its modulus is at least (1-2^(1-2b))/|1-2s|, nonzero for b>1/2. Only the classical fixed-frequency PNT is used ([DLMF 27.12.5](https://dlmf.nist.gov/27.12.E5)); no uniformity as |t| grows. Hence spacing of genuine primes alone cannot force the proposed gain: the cofactor must do work. This is a control, not an assertion that M is a single mode. Next isolate the same frequency in the signed boundary restoration before trying to bound the band alone. Any full supplier must couple the unresolved low powers and both physical boundary orientations to unmarked Q without paying a prime-two copy of M separately.
+
+### L. Evidence and resume
+
+Source blobs: `NativePNTSquarePrefixMobiusError.lean` db4ce4182ff7864968a89830254b74e585e2c29c (`nativeMobius_mul_log_eq_vonMangoldt`); `LogWeightedPrimeExtensionEndpoint.lean` e87b57e6100986d08cbe0fa3bbc2891c29b78856; `OFF_CRITICAL_ZERO_EULER_LOGDERIV_20261029.lean` bd160529d648fac76e7c1adb5d40c8d9b47d8749 (both series Re(s)>1); `UNIVERSAL_ENVELOPE_ARITHMETIC.lean` 714bbeede4f8e0a48fabff08e44c23a1309ae04b, `UNIVERSAL_ENVELOPE_LAWS.lean` 628018db94395f988308b0ffdb4e8e5792fc0b71, `UNIVERSAL_ENVELOPE_FROZEN_Q.lean` 2938f7dbc44f446cc8104818f9b13a1345b8583c. The inherited Euler Q identity uses e7ee8f77ffd59bccaa49dd6d74fbe0d7952c2d73.
+
+Hosted evidence: #1155 raw 713c0fddd1192fc3c5db05c9a1126d3e12b96253, `EULER_FROZEN_DIVISOR_RANK.lean` 3f530136ac8335df88137ad26680aeade9335cc8, run/job 44796048185/136495731019, restricted rank<=2 and mixed-sign interior probes only, standard terminal axioms `propext, Classical.choice, Quot.sound`. #1135 raw ac6dc46b70da962e70b18ea184451c225c1cd44a, 43777334576/133006501690 (118 exact declarations); #1119 raw 77ee815846d6d534c866f0752aa33b84c385610a, 42552018910/128949473700. #949 raw 982500b01f0f008b1164a172d06d28d14f8171d0, tested merge 1b5d57383b93279bdf6a72b905f9b957285b82b3, identical tree 665500f1a44c756eb9256c72d55bd1fe97e0b2d0, 38741634035/116444547917 (46 dependency lists). No new Lean certification. Latest merge #1155; zero open/draft PRs at intake.
+
+Continuity: watermark 5030bd3371d1b07c9ef97bead78f504700eeb869 -> cee1ac00729e43e75cc157b09677aa5342c0716b (13 commits, 11 paths, no deletions). November 19/20 dated trees c213b32e573aff1252c16326bff380683388a802 / b01c2edbd42ef1a7faed7640572a5be7301eeabc; all seven TODAY=AVAILABLE, no inferred handoffs. Latest Nov 19 -> Nov 20: PORT -> OCTAVE 10b0565eefe38a88c7b5f73aefa2e4872a3a3d93; HINGE -> SLICE/JOINT/COLLAR 471cfa884a7b97cace2d9c9403e57fa18f49199a; PHASELOCK -> SQUARE/LAG a01d00b6a006294e7fb9f74a0e556014fc3fdce8; GATE -> WINDOW/DEGREE ee23ffbdc077fa9207545a537dcff54799fa68ac; CLOCK -> LEDGER/PARITY 5f60e116dce13edfb74c2e490c6e39e6196ce946; ESCAPEMENT -> APERTURE/SIDEBAND 1e38a05754800a18c3c930b631d8ea20e9542caa; PLATEAU/TWO-WITNESS -> DRIFT/INTERIOR-PROBE 112bd7cd473466f5c56185fbd5eb2459577a2b92. External inbox 7d63d434690d00dffce9c90335d41c4f62d85798 unchanged: EXT-20261018-PNT-1 keeps c=1,p=R; EXT-20261014-5 all R, not FirstBad. Historical Nov 13-15 bytewise caveat stands.
+
+`amplification_cost_ack=MULTIPLICITY_VS_COST_TO_HALF_V1; half_bootstrap_ack=BOOTSTRAP_TO_HALF_V1; continuity_ack=LAST_ACTUAL_REPORT_CONTINUITY_V1; publish_ack=REPORT_PUBLISH_RECOVERY_V1`. Opening verified at e88b6aae960bd4de9908f1052b7511be72d7f6eb, blob f585e9e33f780c9783c7cc36ca45563ad62cd232, 2317 bytes. Canonical prior ac32607e1561406f104e2d0255675ef1bfb8d442, 22285 bytes reconstructed and hash-verified. Publication status requires separate exact-commit readback.
+
+**Resume:** retain both exterior rows, the positive variation constant and the three-scale inverse. Test signed moving-band coherence, not another separate bound on a fixed prime. MATH_STATUS=PROVED on paper for the scoped claims; MATH_STATUS=OPEN for the fixed-delta supplier and RH.
