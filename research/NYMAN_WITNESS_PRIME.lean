@@ -26,7 +26,7 @@ private theorem integralSum {p : ℕ} [Fact p.Prime] (s : Finset ℕ)
     rw [sum_insert ha]
     have h1 : 0 ≤ padicValRat p (1/(a:ℚ)) := by
       rw [one_div, padicValRat.inv, padicValRat.of_nat,
-        padicValNat.eq_zero_of_not_dvd (h a (mem_insert_self a s))] <;> norm_num
+        padicValNat.eq_zero_of_not_dvd (h a (mem_insert_self a s))]; norm_num
     have h2 := ih (fun k hk => h k (mem_insert_of_mem hk))
     by_cases hz : 1/(a:ℚ) + (∑ k ∈ s, 1/(k:ℚ)) = 0
     · rw [hz, padicValRat.zero]
@@ -40,7 +40,7 @@ theorem nyman_witness_reciprocal (p K : ℕ) (s : Finset ℕ) (hp : p.Prime)
   let _ : Fact p.Prime := ⟨hp⟩
   have bad (t : ℕ) (ht : 0 < t) (htp : t < p) : padicValRat p ((t:ℚ)/p) = -1 := by
     rw [padicValRat.div (by positivity) (by exact_mod_cast hp.ne_zero), padicValRat.self hp.one_lt,
-      padicValRat.of_nat, padicValNat.eq_zero_of_not_dvd (Nat.not_dvd_of_pos_of_lt ht htp)] <;> norm_num
+      padicValRat.of_nat, padicValNat.eq_zero_of_not_dvd (Nat.not_dvd_of_pos_of_lt ht htp)]; norm_num
   intro he
   by_cases hm : p ∈ s
   · have h := integralSum (p := p) (s.erase p) (fun k hk =>
@@ -168,7 +168,7 @@ private theorem massNe (K H p a b : ℕ) (hp : p.Prime) (hK : 0 < K) (hlo : 3*K 
   apply hn
   have hpn : (p:ℚ) ≠ 0 := by exact_mod_cast hp.ne_zero
   have hKn : (K:ℚ) ≠ 0 := by exact_mod_cast hK.ne'
-  field_simp [hpn,hKn] at hc ⊢ <;> linarith
+  field_simp [hpn,hKn] at hc ⊢; linarith
 
 /-- The witness need only lie above H, not immediately above the lower half. -/
 theorem nyman_witness_amplitudes_of_prime (K H p : ℕ) (hp : p.Prime)
