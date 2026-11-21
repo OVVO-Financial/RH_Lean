@@ -50,7 +50,8 @@ theorem alpogeASKSharpCollarRemainder_eq_of_ref_lt
   unfold alpogeASKSharpCollarRemainder
     alpogeASKLinearWidthShift alpogeASKPos
   have hzc : 0 ≤ z - c := by linarith
-  rw [if_pos hcz, max_eq_left hzc]
+  simp only [hcz, ite_true]
+  rw [max_eq_left hzc]
   by_cases hwz : w ≤ z
   · have hzw : 0 ≤ z - w := by linarith
     have hwzz : w - z ≤ (0 : ℝ) := by linarith
@@ -71,7 +72,8 @@ theorem alpogeASKSharpCollarRemainder_eq_of_ref_ge
     alpogeASKLinearWidthShift alpogeASKPos
   have hcnot : ¬ c < z := not_lt_of_ge hzc
   have hzc0 : z - c ≤ (0 : ℝ) := by linarith
-  rw [if_neg hcnot, max_eq_right hzc0]
+  simp only [hcnot, ite_false]
+  rw [max_eq_right hzc0]
   ring
 
 /-- The unconditionally positive residual of the exact tangent split. -/
