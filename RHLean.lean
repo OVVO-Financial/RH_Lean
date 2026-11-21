@@ -14,6 +14,7 @@ import RHLean.Analysis.AlpogePhysicalCharacterHistory
 import RHLean.Analysis.AlpogePhysicalCharacterInterpolation
 import RHLean.Analysis.AlpogePhysicalTopExcess
 import RHLean.Analysis.AlpogePositivePrimeParentTransport
+import RHLean.Analysis.AlpogePrimitiveDirichletFull
 import RHLean.Analysis.AlpogeRealizedConductorBridge
 import RHLean.Analysis.AlpogeSharpASKCollar
 import RHLean.Analysis.BalancedPrimeBilinearCentering
