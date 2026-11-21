@@ -235,12 +235,6 @@ theorem alpogeNativeRealizedGPsi_eq_primitivePrimeSum
   rw [alpogeNativePrimVal_eq_primitive q d r ψ n hn0]
 
 
-/-- Entire native physical GPsi (same prime powers, conductor zeros,
-ramified inertia and exact additive L-derivative counterterm) IS the
-previously constructed native primitive Dirichlet-character Gchi
-at every REAL argument. This transfers any genuine uniform
-character bound with constant one, not merely up to triangle losses.
-There is no analytic bound assumed or asserted. -/
 /-- The correctly typed primitive Gchi of an actual modular host.
 The nonzero conductor witness is PROVED from the Dirichlet character,
 not a source hypothesis nor an imported GRH statement. -/
@@ -255,6 +249,9 @@ def alpogeNativeRealizedGchi
   exact alpogeNativeGchiArithmetic
     (alpogeNativeDirChar r ψ).primitiveCharacter ell y
 
+/-- Entire native physical GPsi with true prime powers and ramified
+zeros is the actual primitive Dirichlet-character Gchi at every
+real y. This transfers any genuine bound without extra loss. -/
 theorem alpogeNativeRealizedGPsi_eq_nativeGchi
     {N : ℕ} [NeZero N]
     {H : Type*} [AddCommGroup H] [Fintype H] [DecidableEq H]
@@ -267,7 +264,7 @@ theorem alpogeNativeRealizedGPsi_eq_nativeGchi
       (alpogeNativeCftData N q d r).inertia
       (alpogeNativeCftData N q d r).frob ell ψ y =
     alpogeNativeRealizedGchi r ψ (ell ψ) y := by
-  letI : NeZero (alpogeNativeDirChar r ψ).conductor :=
+  haveI : NeZero (alpogeNativeDirChar r ψ).conductor :=
     ⟨DirichletCharacter.conductor_ne_zero _⟩
   change alpogeNativeFrobInertiaGPsi
       (alpogeNativeCftData N q d r).inertia
