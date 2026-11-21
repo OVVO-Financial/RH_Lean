@@ -1,0 +1,50 @@
+name: Matched Selberg face proof
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'research/SELBERG_MATCHED_PRODUCT_FACE.lean'
+      - 'research/ALPOGE_SIGNED_SELBERG_INTEGRAL_SCHUR_20261120.lean'
+      - 'research/ALPOGE_STEPANOV_COST_REPLICATION_20261120.lean'
+      - 'scripts/lean/matched_face/**'
+      - 'scripts/audit_preservation_sources.py'
+      - '.github/workflows/selberg-matched-face.yml'
+      - 'lean-toolchain'
+      - 'lake-manifest.json'
+permissions:
+  contents: read
+jobs:
+  proof:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+      - name: Pin proof head and arithmetic dependencies
+        env:
+          EXPECTED_HEAD: ${{ github.event.pull_request.head.sha }}
+        run: |
+          set -euo pipefail
+          mkdir -p matched-face-evidence
+          git rev-parse HEAD | tee matched-face-evidence/head
+          test "$(git rev-parse HEAD)" = "$EXPECTED_HEAD"
+          test "$(cat lean-toolchain)" = 'leanprover/lean4:v4.34.1'
+          jq -e '.packages[] | select(.name=="mathlib") | .rev=="d13f23b723b8a846827a245b89c10fc7d3f11612"' lake-manifest.json
+      - uses: ./.github/actions/lean-setup
+      - uses: ./.github/actions/lean-compiled-cache
+      - name: Build both earlier cost sources and the matched-face proof
+        run: |
+          set -euo pipefail
+          python3 scripts/compile_research_import_closure.py --build-library --force research/ALPOGE_STEPANOV_COST_REPLICATION_20261120.lean research/SELBERG_MATCHED_PRODUCT_FACE.lean 2>&1 | tee matched-face-evidence/compile.log
+      - name: Verify the literal source types and transitive kernel axioms
+        run: |
+          set -euo pipefail
+          lake env lean -DwarningAsError=true scripts/lean/matched_face/ExactTypes.lean 2>&1 | tee matched-face-evidence/types.log
+          python3 scripts/lean/matched_face/audit.py
+      - uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
+        with:
+          name: matched-face-${{ github.event.pull_request.head.sha }}
+          path: matched-face-evidence/
+          if-no-files-found: error
