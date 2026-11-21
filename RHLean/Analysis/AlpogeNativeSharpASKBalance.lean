@@ -887,4 +887,74 @@ open Classical in theorem alpogeNativeColourKernel_primePower
     field_simp [hPhi, hS]
   · simp [h]
 
+
+/-- Exact native von Mangoldt source census: every nonzero Lambda
+coefficient is one and only one genuine prime power. This is the
+finite Fubini/reindex step in Alpoge's ASK expansion, not a
+probabilistic statement about prime positions. -/
+theorem alpogeNativeLambda_primePowerFubini
+    (N : ℕ) (X : ℕ → ℂ)
+    (hX : ∀ p i, p.Prime → 1 ≤ i → N < p ^ i → X (p ^ i) = 0) :
+    (∑ n ∈ Finset.Icc 1 N, (Λ n : ℂ) * X n) =
+      ∑ p ∈ (Finset.range (N + 1)).filter Nat.Prime,
+        ∑ i ∈ Finset.Icc 1 N,
+          (Real.log p : ℂ) * X (p ^ i) := by
+  classical
+  rw [← Finset.sum_product']
+  symm
+  refine Finset.sum_bij_ne_zero (fun x _ _ => x.1 ^ x.2) ?_ ?_ ?_ ?_
+  · intro x hx hne
+    rw [Finset.mem_product, Finset.mem_filter,
+      Finset.mem_range, Finset.mem_Icc] at hx
+    obtain ⟨⟨_, hp⟩, hi1, _⟩ := hx
+    have hle : x.1 ^ x.2 ≤ N := by
+      by_contra hn
+      exact hne (by rw [hX x.1 x.2 hp hi1 (not_le.mp hn), mul_zero])
+    show x.1 ^ x.2 ∈ Finset.Icc 1 N
+    rw [Finset.mem_Icc]
+    exact ⟨Nat.one_le_pow _ _ hp.pos, hle⟩
+  · intro x hx _ y hy _ hxy
+    rw [Finset.mem_product, Finset.mem_filter, Finset.mem_Icc] at hx hy
+    obtain ⟨⟨_, hp⟩, hi1, _⟩ := hx
+    obtain ⟨⟨_, hq⟩, hj1, _⟩ := hy
+    have hpq : x.1 = y.1 := by
+      have hd : x.1 ∣ y.1 ^ y.2 := by
+        rw [← hxy]
+        exact dvd_pow_self _ (by omega)
+      exact (Nat.prime_dvd_prime_iff_eq hp hq).mp (hp.dvd_of_dvd_pow hd)
+    have hij : x.2 = y.2 := by
+      rw [hpq] at hxy
+      exact Nat.pow_right_injective hq.two_le hxy
+    exact Prod.ext hpq hij
+  · intro n hn hne
+    rw [Finset.mem_Icc] at hn
+    have hΛ : Λ n ≠ 0 := by
+      intro hz
+      apply hne
+      show (Λ n : ℂ) * X n = 0
+      rw [hz]
+      simp
+    rw [ArithmeticFunction.vonMangoldt_ne_zero_iff,
+      isPrimePow_nat_iff] at hΛ
+    obtain ⟨p, k, hp, hk, rfl⟩ := hΛ
+    have hpN : p ≤ p ^ k := Nat.le_self_pow (by omega) p
+    have hkN : k < p ^ k := Nat.lt_pow_self hp.one_lt
+    refine ⟨(p, k), ?_, ?_, rfl⟩
+    · rw [Finset.mem_product, Finset.mem_filter,
+        Finset.mem_range, Finset.mem_Icc]
+      exact ⟨⟨Nat.lt_succ_of_le (hpN.trans hn.2), hp⟩,
+        hk, (hkN.trans_le hn.2).le⟩
+    · intro hzero
+      apply hne
+      show (Λ (p ^ k) : ℂ) * X (p ^ k) = 0
+      rw [ArithmeticFunction.vonMangoldt_apply_pow (by omega),
+        ArithmeticFunction.vonMangoldt_apply_prime hp]
+      exact hzero
+  · intro x hx _
+    rw [Finset.mem_product, Finset.mem_filter, Finset.mem_Icc] at hx
+    show (Real.log x.1 : ℂ) * X (x.1 ^ x.2) =
+      (Λ (x.1 ^ x.2) : ℂ) * X (x.1 ^ x.2)
+    rw [ArithmeticFunction.vonMangoldt_apply_pow (by omega),
+      ArithmeticFunction.vonMangoldt_apply_prime hx.1.2]
+
 end RHLean.Analysis
