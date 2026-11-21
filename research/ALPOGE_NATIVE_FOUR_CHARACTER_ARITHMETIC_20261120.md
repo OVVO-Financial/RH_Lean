@@ -93,3 +93,42 @@ and no library import of Alpoge external proof.
 
 CI with warningAsError on the exact head is necessary before
 calling the new native theorems Lean-certified.
+
+
+## Second actual finite proof layer: SHARP ASK, not another abstract hypothesis
+
+The companion native module
+RHLean/Analysis/AlpogeNativeSharpASKBalance.lean now reconstructs
+the key finite positive-part cutoff from external
+Formalism.SizeWindowBrackets.ChainSlopeWindows.StronglyIrreducible.
+It is proved FROM RHLean's own coefficients.
+
+For arbitrary actual complex arithmetic c(n), a>0, W>0 and
+N>=a/W, EXACTLY (not asymptotically):
+
+  sum_{n<=N} c(n)*max(a/n-W,0)
+      = W*sum_{n<=floor(a/W)} c(n)*(a/W/n-1).
+
+The proof uses Nat.floor, the true cutoff condition and a finite
+reindexing; no smooth approximation or character sum bound.
+
+Specializing c(n)=Lambda(n)*chi(n) for a genuine DirichletCharacter,
+then using the same native Gchi definition gives the native
+nonprincipal inner ASK balance
+
+  ASK_chi(N,a,W)
+    = W*Gchi(a/W) - a*ell_chi.
+
+For ANY finite family of moving physical weights w_j, the theorem
+sums this equality over all j exactly, so it reproduces the
+ASK-to-Gchi weighted family algebra with *no missing integer*.
+The original Alpoge formalism then adds Galois/Frobenius/inertia
+data to produce positive ASK and geometric/full error control.
+Those extra analytic/geometry costs remain genuine tasks;
+the native sharp ASK theorem does NOT declare their values.
+
+This is the precise next arithmetic component demanded by the
+original roadmap: genuine Gsig projector and sharp ASK balance
+joined to RHLean's complete signed second Selberg recurrence.
+The new module requires exact-head Lean compilation before
+it can be called kernel-certified.
