@@ -7,6 +7,7 @@ import RHLean.Analysis.AlpogeGzErdosReciprocalHistory
 import RHLean.Analysis.AlpogeMobiusLogLift
 import RHLean.Analysis.AlpogeMobiusPartialMoments
 import RHLean.Analysis.AlpogeNNSBandSchur
+import RHLean.Analysis.AlpogeNNSCohomologicalCRPayment
 import RHLean.Analysis.AlpogeNNSCompleteSelbergCovariance
 import RHLean.Analysis.AlpogeNNSMatchedSelbergKernel
 import RHLean.Analysis.AlpogeNativeFourCharacterArithmetic
