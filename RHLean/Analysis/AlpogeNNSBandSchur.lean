@@ -169,8 +169,8 @@ theorem alpogeNNSBandScaledSchur_le_range
   have hsum :
       (∑ i : Fin m, ell i - c) =
         S - (m : ℝ) * c := by
-    rw [Finset.sum_sub_distrib, alpogeNNSBand_sum_constant]
-    rfl
+    simp [S, Finset.sum_sub_distrib, alpogeNNSBand_sum_constant,
+      nsmul_eq_mul]
   have hsumSq :
       (∑ i : Fin m, (ell i - c) ^ 2) =
         Q - 2 * c * S + (m : ℝ) * c ^ 2 := by
@@ -183,7 +183,6 @@ theorem alpogeNNSBandScaledSchur_le_range
       _ = Q - 2 * c * S + (m : ℝ) * c ^ 2 := by
           rw [Finset.sum_add_distrib, Finset.sum_sub_distrib,
             ← Finset.mul_sum, alpogeNNSBand_sum_constant]
-          ring
   have hscaled :
       alpogeNNSBandScaledSchur m ell =
         (m : ℝ) * (∑ i : Fin m, (ell i - c) ^ 2) -
@@ -235,7 +234,7 @@ private theorem alpogeNNS_positivePart_add_nonneg_le
     · rw [max_eq_left hxv]
       linarith
     · rw [max_eq_right (le_of_not_ge hxv)]
-      exact hv
+      simpa using hv
 
 /-- The genuine one-sided Selberg/NNS CHARGE, with ALL positive
 centered covariance paid at O(m^2 * width^2). The only surviving
@@ -259,8 +258,8 @@ theorem alpogeNNSBandOneSidedCharge_le_principal_overshoot
   have hidentity :
       (m : ℝ) * (C + alpogeNNSBandCharge m ell) = H + V := by
     dsimp [H, V, S]
-    rw [alpogeNNSBandCharge_schur_decomposition]
-    ring
+    have h := alpogeNNSBandCharge_schur_decomposition m ell
+    nlinarith [h]
   have hVnonneg : 0 ≤ V := by
     dsimp [V]
     have hschur := alpogeNNSBandScaledSchur_nonneg m ell
