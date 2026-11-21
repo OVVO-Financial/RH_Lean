@@ -24,7 +24,7 @@ def alpogeNativeASKCollar (z b w : ℝ) : ℝ :=
 theorem alpogeNativeASKCollar_eq_above (z b w : ℝ) (hb : b < z) :
     alpogeNativeASKCollar z b w = max (w - z) 0 := by
   unfold alpogeNativeASKCollar
-  rw [if_pos hb, max_eq_left (by linarith : 0 ≤ z - b)]
+  rw [ite_eq_left hb, max_eq_left (by linarith : 0 ≤ z - b)]
   by_cases hzw : z ≤ w
   · rw [max_eq_right (by linarith : z - w ≤ 0),
         max_eq_left (by linarith : 0 ≤ w - z)]
@@ -37,7 +37,7 @@ theorem alpogeNativeASKCollar_eq_below
     (z b w : ℝ) (hzb : z ≤ b) (hbw : b ≤ w) :
     alpogeNativeASKCollar z b w = 0 := by
   unfold alpogeNativeASKCollar
-  rw [if_neg (not_lt_of_ge hzb),
+  rw [ite_eq_right (not_lt_of_ge hzb),
       max_eq_right (by linarith : z - w ≤ 0),
       max_eq_right (by linarith : z - b ≤ 0)]
   ring
@@ -53,12 +53,12 @@ theorem alpogeNativeASKCollar_nonneg_le_shell
     constructor
     · exact le_max_right _ _
     · by_cases hz : z ≤ b + h
-      · rw [if_pos (And.intro hbz hz)]
+      · rw [ite_eq_left (And.intro hbz hz)]
         exact max_le (by linarith) hh
       · have hnot : ¬ (b < z ∧ z ≤ b + h) := by
           intro h
           exact hz h.2
-        rw [if_neg hnot]
+        rw [ite_eq_right hnot]
         have hclosed : w - z ≤ 0 := by linarith
         rw [max_eq_right hclosed]
   · have hzb : z ≤ b := le_of_not_gt hbz
@@ -76,7 +76,7 @@ def alpogeNativeASKPrimeCollarMass (N : ℕ) (a b w : ℝ) : ℝ :=
 /-- All real von Mangoldt mass in the actual cutoff-crossing shell. -/
 def alpogeNativeASKPrimeShellMass (N : ℕ) (a b h : ℝ) : ℝ :=
   ∑ n ∈ (Finset.Icc 1 N).filter
-      (fun n => b < a / (n : ℝ) ∧ a / (n : ℝ) ≤ b + h), Λ n
+      (fun n : ℕ => b < a / (n : ℝ) ∧ a / (n : ℝ) ≤ b + h), Λ n
 
 /-- No lost prime powers or positive full-prefix charge. -/
 theorem alpogeNativeASKPrimeCollar_le_shell
@@ -107,25 +107,21 @@ theorem alpogeNativeASKPrimeCollar_le_shell
       _ = h * alpogeNativeASKPrimeShellMass N a b h := by
         unfold alpogeNativeASKPrimeShellMass
         rw [Finset.mul_sum, Finset.sum_filter]
-        apply Finset.sum_congr rfl
-        intro n _hn
-        by_cases hn : b < a / (n : ℝ) ∧ a / (n : ℝ) ≤ b + h
-        · simp [hn, mul_comm]
-        · simp [hn]
+        simp [mul_comm]
 
 /-- Physical shell weight is at most shell population times log N. -/
 theorem alpogeNativeASKPrimeShellMass_le_card_log
     (N : ℕ) (a b h : ℝ) :
     alpogeNativeASKPrimeShellMass N a b h ≤
       (((Finset.Icc 1 N).filter
-        (fun n => b < a / (n : ℝ) ∧ a / (n : ℝ) ≤ b + h)).card : ℝ) *
+        (fun n : ℕ => b < a / (n : ℝ) ∧ a / (n : ℝ) ≤ b + h)).card : ℝ) *
       Real.log (N : ℝ) := by
   unfold alpogeNativeASKPrimeShellMass
   calc
     (∑ n ∈ (Finset.Icc 1 N).filter
-        (fun n => b < a / (n : ℝ) ∧ a / (n : ℝ) ≤ b + h), Λ n) ≤
+        (fun n : ℕ => b < a / (n : ℝ) ∧ a / (n : ℝ) ≤ b + h), Λ n) ≤
       ∑ _n ∈ (Finset.Icc 1 N).filter
-        (fun n => b < a / (n : ℝ) ∧ a / (n : ℝ) ≤ b + h),
+        (fun n : ℕ => b < a / (n : ℝ) ∧ a / (n : ℝ) ≤ b + h),
         Real.log (N : ℝ) := by
           apply Finset.sum_le_sum
           intro n hn
@@ -146,13 +142,13 @@ theorem alpogeNativeASKPrimeCollar_le_card_log
     (hbw : b ≤ w) (hwh : w ≤ b + h) (hh : 0 ≤ h) :
     alpogeNativeASKPrimeCollarMass N a b w ≤
       h * (((Finset.Icc 1 N).filter
-        (fun n => b < a / (n : ℝ) ∧ a / (n : ℝ) ≤ b + h)).card : ℝ) *
+        (fun n : ℕ => b < a / (n : ℝ) ∧ a / (n : ℝ) ≤ b + h)).card : ℝ) *
       Real.log (N : ℝ) := by
   calc
     _ ≤ h * alpogeNativeASKPrimeShellMass N a b h :=
       (alpogeNativeASKPrimeCollar_le_shell N a b w h hbw hwh hh).2
     _ ≤ h * (((Finset.Icc 1 N).filter
-          (fun n => b < a / (n : ℝ) ∧ a / (n : ℝ) ≤ b + h)).card : ℝ) *
+          (fun n : ℕ => b < a / (n : ℝ) ∧ a / (n : ℝ) ≤ b + h)).card : ℝ) *
         Real.log (N : ℝ) := by
         have hm := mul_le_mul_of_nonneg_left
           (alpogeNativeASKPrimeShellMass_le_card_log N a b h) hh
