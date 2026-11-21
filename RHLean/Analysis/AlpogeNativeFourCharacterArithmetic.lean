@@ -139,9 +139,9 @@ theorem alpogeNativeFourGsig_eq_trace (q : ℕ) [NeZero q]
   unfold alpogeNativeFourGsig alpogeNativeGchiArithmetic
     alpogeNativeTwistedPrimeSum
   rw [alpogeNativeGzArithmetic_eq_principal]
+  push_cast
   rw [hprincipal]
   simp only [add_zero]
-  push_cast
   ring
 
 /-- Actual Dirichlet-character trace for any finite character family.
@@ -255,7 +255,8 @@ theorem alpogeNativeFourTrace_eq_selected_add_bad {q : ℕ} [NeZero q]
           (alpogeNativePrimePowerWeight x n : ℂ)) := by
     calc
       (∑ n ∈ S.filter good, f n) =
-          ∑ n ∈ S, if good n then f n else 0 := Finset.sum_filter
+          ∑ n ∈ S, if good n then f n else 0 := by
+        simp only [Finset.sum_filter]
       _ = ∑ n ∈ S, if good n ∧ χA n = -1 ∧ χB n = 1
           then 4 * (alpogeNativePrimePowerWeight x n : ℂ) else 0 := by
         apply Finset.sum_congr rfl
@@ -282,7 +283,6 @@ theorem alpogeNativeFourTrace_eq_selected_add_bad {q : ℕ} [NeZero q]
         intro n _hn
         by_cases hc : good n ∧ χA n = -1 ∧ χB n = 1
         · simp [hc]
-          ring
         · simp [hc]
   have hresult :
       (∑ n ∈ S, f n) =
@@ -404,7 +404,7 @@ def alpogeNativeRamifiedPrimePowerMass
     (q : ℕ) [NeZero q] (x : ℝ) : ℝ := by
   classical
   exact ∑ n ∈ (Finset.Icc 1 ⌊x⌋₊).filter
-    (fun n => ¬ IsUnit (n : ZMod q)),
+    (fun (n : ℕ) => ¬ IsUnit (n : ZMod q)),
     alpogeNativePrimePowerWeight x n
 
 /-- For quadratic characters the entire formerly opaque BAD_RETURN
@@ -420,18 +420,18 @@ theorem alpogeNativeFourBadReturn_eq_ramified
       (Finset.Icc 1 ⌊x⌋₊).filter
         (fun n => ¬ alpogeNativeGoodSite χA χB n) =
       (Finset.Icc 1 ⌊x⌋₊).filter
-        (fun n => ¬ IsUnit (n : ZMod q)) := by
+        (fun (n : ℕ) => ¬ IsUnit (n : ZMod q)) := by
     ext n
     simp [alpogeNativeQuadraticGood_iff_unit χA χB hA hB n]
   unfold alpogeNativeFourBadReturn alpogeNativeRamifiedPrimePowerMass
   rw [hs]
   calc
     (∑ n ∈ (Finset.Icc 1 ⌊x⌋₊).filter
-       (fun n => ¬ IsUnit (n : ZMod q)),
+       (fun (n : ℕ) => ¬ IsUnit (n : ZMod q)),
        (alpogeNativePrimePowerWeight x n : ℂ) *
           alpogeNativeFourCharacterKernel χA χB n) =
         ∑ n ∈ (Finset.Icc 1 ⌊x⌋₊).filter
-          (fun n => ¬ IsUnit (n : ZMod q)),
+          (fun (n : ℕ) => ¬ IsUnit (n : ZMod q)),
           (alpogeNativePrimePowerWeight x n : ℂ) := by
       apply Finset.sum_congr rfl
       intro n hn
@@ -439,7 +439,7 @@ theorem alpogeNativeFourBadReturn_eq_ramified
       rw [alpogeNativeFourKernel_at_nonunit χA χB n hnu]
       ring
     _ = (∑ n ∈ (Finset.Icc 1 ⌊x⌋₊).filter
-          (fun n => ¬ IsUnit (n : ZMod q)),
+          (fun (n : ℕ) => ¬ IsUnit (n : ZMod q)),
           alpogeNativePrimePowerWeight x n : ℝ) := by norm_cast
 
 /-- Completely arithmetic reconstruction of the signed character
@@ -499,20 +499,20 @@ theorem alpogeNativeRamifiedPrimePowerMass_le_reciprocal
   have hpoint (n : ℕ) :
       alpogeNativePrimePowerWeight x n ≤
         x * (Λ n / (n : ℝ)) := by
-    have hλ : 0 ≤ Λ n := ArithmeticFunction.vonMangoldt_nonneg
+    have hLambda : 0 ≤ Λ n := ArithmeticFunction.vonMangoldt_nonneg
     have heq : alpogeNativePrimePowerWeight x n =
         x * (Λ n / (n : ℝ)) - Λ n := by
       unfold alpogeNativePrimePowerWeight
       ring
     rw [heq]
-    linarith
+    linarith [hLambda]
   unfold alpogeNativeRamifiedPrimePowerMass
   calc
     (∑ n ∈ (Finset.Icc 1 ⌊x⌋₊).filter
-       (fun n => ¬ IsUnit (n : ZMod q)),
+       (fun (n : ℕ) => ¬ IsUnit (n : ZMod q)),
        alpogeNativePrimePowerWeight x n) ≤
         ∑ n ∈ (Finset.Icc 1 ⌊x⌋₊).filter
-          (fun n => ¬ IsUnit (n : ZMod q)),
+          (fun (n : ℕ) => ¬ IsUnit (n : ZMod q)),
           x * (Λ n / (n : ℝ)) := by
       apply Finset.sum_le_sum
       intro n _hn
@@ -546,8 +546,8 @@ theorem alpogeNativeFourTrace_quadratic_re_nonneg
       (Finset.mem_filter.mp hn).1
   have hr := alpogeNativeRamifiedPrimePowerMass_nonneg q x hx
   rw [alpogeNativeFourTrace_quadratic_exact χA χB hA hB]
-  simp only [Complex.add_re, Complex.mul_re, Complex.ofReal_re,
-    Complex.ofReal_im, zero_mul, sub_zero]
+  norm_num [Complex.add_re, Complex.mul_re, Complex.ofReal_re,
+    Complex.ofReal_im] at *
   linarith
 
 end RHLean.Analysis
