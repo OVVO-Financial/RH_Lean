@@ -56,7 +56,7 @@ theorem alpogeErdos_lambdaRecip_sub_psi_succ
         nativePsi n := by
   rw [nativeLambdaRecip_succ, nativePsi_succ]
   have hn : ((n + 1 : ℕ) : ℝ) ≠ 0 := by positivity
-  field_simp
+  field_simp [hn]
   ring
 
 /-- EXACT Gz/Erdős reciprocal-historical prefix identity, retaining
@@ -74,7 +74,7 @@ theorem alpogeErdosGz_succ_eq_history
   unfold alpogeErdosGz
   rw [hsource, hmass]
   have hn : ((n + 1 : ℕ) : ℝ) ≠ 0 := by positivity
-  field_simp
+  field_simp [hn]
   ring
 
 /-- **Alpöge's Gz equals the native signed reciprocal history times N,
