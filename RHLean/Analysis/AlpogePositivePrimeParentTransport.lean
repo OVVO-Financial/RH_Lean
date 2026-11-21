@@ -221,14 +221,14 @@ theorem alpogeFreshTwoWallUPM_sub_LPM (R : ℕ) :
     intro n hn
     have hn2 : 2 ≤ n := (Finset.mem_Icc.mp hn).1
     by_cases hroot : n < R
-    · simp only [if_pos hroot]
+    · simp only [ite_eq_left hroot]
       rw [alpogeFreshParentUPM_sub_LPM_eq_mu n hn2]
       simp [alpogeMobiusTwoWall, hroot]
-    · simp only [if_neg hroot]
+    · simp only [ite_eq_right hroot]
       have hmu := alpogeFreshParentUPM_sub_LPM_eq_mu n hn2
-      simp only [alpogeMobiusTwoWall, hroot, if_false]
+      simp only [alpogeMobiusTwoWall, hroot, ite_false]
       linarith
-  rw [← Finset.sum_sub_distrib] at hsum
+  rw [Finset.sum_sub_distrib] at hsum
   linarith
 
 /-- **Zero local sign variance:** every fresh-prime parent of a
