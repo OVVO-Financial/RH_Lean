@@ -56,8 +56,9 @@ theorem alpogeErdos_lambdaRecip_sub_psi_succ
         nativePsi n := by
   rw [nativeLambdaRecip_succ, nativePsi_succ]
   have hn : ((n + 1 : ℕ) : ℝ) ≠ 0 := by positivity
+  push_cast
   field_simp [hn]
-  ring
+  ring_nf
 
 /-- EXACT Gz/Erdős reciprocal-historical prefix identity, retaining
 the genuine harmonic centering (Euler's constant is not elided). -/
@@ -74,8 +75,9 @@ theorem alpogeErdosGz_succ_eq_history
   unfold alpogeErdosGz
   rw [hsource, hmass]
   have hn : ((n + 1 : ℕ) : ℝ) ≠ 0 := by positivity
+  push_cast
   field_simp [hn]
-  ring
+  ring_nf
 
 /-- **Alpöge's Gz equals the native signed reciprocal history times N,
 with no hypothesis, smoothing error, or dropped earlier source.** -/
@@ -114,7 +116,8 @@ theorem alpogeErdosGz_square_eq_history
       (((R ^ 2 - 1 : ℕ) : ℝ)) *
         alpogeErdosCenteredHistory (R ^ 2 - 1) := by
   apply alpogeErdosGz_eq_mul_history
-  nlinarith
+  have hsq : 4 ≤ R ^ 2 := by nlinarith
+  omega
 
 /-- The source-level first-moment UPM-LPM split of Gz at an actual
 nonzero integer endpoint. This does not posit or assert a bound. -/
