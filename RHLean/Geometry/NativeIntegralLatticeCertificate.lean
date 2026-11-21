@@ -472,7 +472,8 @@ theorem numberFieldCRLattice_mem_iff
   · intro hv
     rcases Submodule.mem_map.mp hv with ⟨w,hw,heq⟩
     have heq' : algebraicCR w = algebraicCR v := by
-      simpa only [algebraicCRLinear] using heq
+      change algebraicCR w = algebraicCR v at heq
+      exact heq
     have hsource := algebraicCR_injective heq'
     simpa [hsource] using hw
   · exact numberFieldCRLattice_mem K L v
