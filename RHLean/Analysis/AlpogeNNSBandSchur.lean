@@ -124,6 +124,11 @@ theorem alpogeNNSBandCharge_neg
   have h := alpogeNNSBandCharge_le_negative_principal
     m ell a hm ha.le hband
   have hmreal : (3 : ℝ) ≤ (m : ℝ) := by exact_mod_cast hm
-  nlinarith [sq_pos_of_pos ha]
+  have hmpos : (0 : ℝ) < (m : ℝ) := by linarith
+  have hgap : (0 : ℝ) < (m : ℝ) - 8 / 3 := by linarith
+  have hfactor :
+      0 < (m : ℝ) * ((m : ℝ) - 8 / 3) * a ^ 2 := by
+    positivity
+  exact lt_of_le_of_lt h (neg_lt_zero.mpr hfactor)
 
 end RHLean.Analysis
