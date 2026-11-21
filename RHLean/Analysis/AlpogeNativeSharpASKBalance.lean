@@ -1156,7 +1156,7 @@ theorem alpogeNativeSiteCut_zero_above
   have hupper : a / w ρ ≤ (N : ℝ) := hN ρ hρ
   have hlt : (N : ℝ) < (n : ℝ) := by exact_mod_cast hn
   have hn0 : (0 : ℝ) < n := by
-    have h0 := Nat.cast_nonneg (R := ℝ) N
+    have h0 : (0 : ℝ) ≤ (N : ℝ) := Nat.cast_nonneg N
     linarith
   have hprod : a < (n : ℝ) * w ρ := by
     apply (div_lt_iff₀ hW).mp
