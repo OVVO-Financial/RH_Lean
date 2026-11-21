@@ -1555,4 +1555,65 @@ theorem alpogeNativeConcreteHostASK_sub_MAIN_eq_De
   alpogeNativeFullASK_sub_MAIN_eq_De
     _ _ ell N a t w ha hw hN
 
+
+/-!
+## Direct arithmetic check of the concrete host's unramified sites
+
+For p prime not dividing the conductor modulus N, the local-unit
+kernel is literally trivial. This is proved from the native
+ZMod and modular-congruence definitions; no HostLocal witness is assumed.
+-/
+
+private theorem alpogeNativeCast_eqNatCast_iff
+    {N : ℕ} [NeZero N] (x : ZMod N) (c k : ℕ) :
+    (x.cast : ZMod c) = (k : ZMod c) ↔
+      x.val ≡ k [MOD c] := by
+  rw [← ZMod.natCast_val, ZMod.natCast_eq_natCast_iff]
+
+private theorem alpogeNativeCast_eq_one_iff
+    {N : ℕ} [NeZero N] (x : ZMod N) (c : ℕ) :
+    (x.cast : ZMod c) = 1 ↔
+      x.val ≡ 1 [MOD c] := by
+  rw [← alpogeNativeCast_eqNatCast_iff, Nat.cast_one]
+
+private theorem alpogeNativeUnitsMap_eq_one_iff
+    {N c : ℕ} [NeZero N] (hc : c ∣ N) (u : (ZMod N)ˣ) :
+    ZMod.unitsMap hc u = 1 ↔
+      (u : ZMod N).val ≡ 1 [MOD c] := by
+  rw [Units.ext_iff, ZMod.unitsMap_val,
+    Units.val_one, alpogeNativeCast_eq_one_iff]
+
+private theorem alpogeNativeUnits_ext_modEq
+    {N : ℕ} [NeZero N] {u v : (ZMod N)ˣ}
+    (h : (u : ZMod N).val ≡
+      (v : ZMod N).val [MOD N]) : u = v := by
+  apply Units.ext
+  have hh := (ZMod.natCast_eq_natCast_iff _ _ N).2 h
+  simpa using hh
+
+/-- An ordinary unramified prime has no additional local inertia.
+This is the first concrete HostLocal requirement proved, not postulated. -/
+theorem alpogeNativeLocalUnits_unramified
+    (N p : ℕ) [NeZero N]
+    (hp : p.Prime) (hpN : ¬ p ∣ N) :
+    alpogeNativeLocalUnits N p = ⊥ := by
+  have hcompl : ordCompl[p] N = N :=
+    (Nat.ordCompl_eq_self_iff_zero_or_not_dvd N hp).2
+      (Or.inr hpN)
+  rw [eq_bot_iff]
+  intro u hu
+  have hu' : (u : ZMod N).val ≡ 1 [MOD N] := by
+    have hk : ZMod.unitsMap (Nat.ordCompl_dvd N p) u = 1 :=
+      (MonoidHom.mem_ker).mp hu
+    exact hcompl ▸
+      (alpogeNativeUnitsMap_eq_one_iff
+        (Nat.ordCompl_dvd N p) u).mp hk
+  rw [Subgroup.mem_bot]
+  apply alpogeNativeUnits_ext_modEq
+  have hone : ((1 : (ZMod N)ˣ) : ZMod N).val ≡
+      1 [MOD N] := by
+    rw [← alpogeNativeCast_eq_one_iff]
+    simp
+  exact hu'.trans hone.symm
+
 end RHLean.Analysis
