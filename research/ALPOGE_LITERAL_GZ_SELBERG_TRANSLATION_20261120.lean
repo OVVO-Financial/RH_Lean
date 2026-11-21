@@ -149,6 +149,19 @@ theorem alpogeNativeCompleteSecondSelberg_eq_chebyshev (N : ℕ) :
   unfold alpogeNativeCompleteSecondSelberg
   exact (nativePNTError_mul_log_sq_eq_signedSecondSelberg N).symm
 
+/-- FULL real-x translation of the same external Gz:
+one literal reciprocal von Mangoldt channel, the exact scalar floor
+correction, and ALL native signed second-Selberg error terms. -/
+theorem alpogeNativeGzReal_mul_log_floor_sq (x : ℝ) :
+    alpogeNativeGzReal x * (Real.log (⌊x⌋₊ : ℝ)) ^ 2 =
+      (x * (nativeLambdaRecip ⌊x⌋₊ - Real.log x +
+        Real.eulerMascheroniConstant) + (x - (⌊x⌋₊ : ℝ))) *
+        (Real.log (⌊x⌋₊ : ℝ)) ^ 2 -
+      alpogeNativeCompleteSecondSelberg ⌊x⌋₊ := by
+  rw [alpogeNativeGzReal_eq_floor_error,
+    alpogeNativeCompleteSecondSelberg_eq_chebyshev]
+  ring
+
 /-- A genuine source-to-analytic observable bridge at every natural x. -/
 theorem alpogeNativeGzInteger_mul_log_sq (N : ℕ) :
     alpogeNativeGzInteger N * (Real.log (N : ℝ)) ^ 2 =
