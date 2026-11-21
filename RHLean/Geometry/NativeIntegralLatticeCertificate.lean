@@ -478,4 +478,80 @@ theorem numberFieldCRLattice_mem_iff
     simpa [hsource] using hw
   · exact numberFieldCRLattice_mem K L v
 
+/-!
+## Exact-source norm transport for Alpoge Rerealize
+
+These are exactly the source formulas vecAt/fcoord/normAt from the
+published HermitianLatticesTheory; equality after K-linear basis
+transport is proved for ALL infinite places and ALL Hermitian frames.
+
+The published Rerealize theorem consumes this specific norm equality,
+and transports height, slope, extremal slopes, covolume and quotient
+slope. This module does not import the external formalism or assume RH.
+-/
+
+def nativeAlpogeVecAt
+    {K V ι : Type*} [Field K] [NumberField K]
+    [AddCommGroup V] [Module K V]
+    (b : Basis ι K V) (v : InfinitePlace K) (x : V) : ι → ℂ :=
+  fun i => v.embedding (b.repr x i)
+
+def nativeAlpogeFcoord
+    {K V ι : Type*} [Field K] [NumberField K]
+    [AddCommGroup V] [Module K V] [Fintype ι] [DecidableEq ι]
+    (b : Basis ι K V) (X : InfinitePlace K → Matrix ι ι ℂ)
+    (v : InfinitePlace K) (x : V) : ι → ℂ :=
+  Matrix.mulVec (X v)⁻¹ (nativeAlpogeVecAt b v x)
+
+def nativeAlpogeNormAt
+    {K V ι : Type*} [Field K] [NumberField K]
+    [AddCommGroup V] [Module K V] [Fintype ι] [DecidableEq ι]
+    (b : Basis ι K V) (X : InfinitePlace K → Matrix ι ι ℂ)
+    (v : InfinitePlace K) (x : V) : ℝ :=
+  Real.sqrt (∑ i : ι, ‖nativeAlpogeFcoord b X v x i‖ ^ 2)
+
+/-- The exact original field coordinates are unchanged. -/
+theorem nativeAlpogeVecAt_map
+    {K V W ι : Type*} [Field K] [NumberField K]
+    [AddCommGroup V] [Module K V] [AddCommGroup W] [Module K W]
+    (b : Basis ι K V) (e : V ≃ₗ[K] W)
+    (v : InfinitePlace K) (x : V) :
+    nativeAlpogeVecAt (b.map e) v (e x) =
+      nativeAlpogeVecAt b v x := by
+  funext i
+  simp [nativeAlpogeVecAt]
+
+/-- Original place-frame coordinates agree exactly, with the SAME X. -/
+theorem nativeAlpogeFcoord_map
+    {K V W ι : Type*} [Field K] [NumberField K]
+    [AddCommGroup V] [Module K V] [AddCommGroup W] [Module K W]
+    [Fintype ι] [DecidableEq ι]
+    (b : Basis ι K V) (X : InfinitePlace K → Matrix ι ι ℂ)
+    (e : V ≃ₗ[K] W) (v : InfinitePlace K) (x : V) :
+    nativeAlpogeFcoord (b.map e) X v (e x) =
+      nativeAlpogeFcoord b X v x := by
+  simp [nativeAlpogeFcoord, nativeAlpogeVecAt_map]
+
+/-- Direct native proof of the entire Rerealize norm hypothesis. -/
+theorem nativeAlpogeNormAt_map
+    {K V W ι : Type*} [Field K] [NumberField K]
+    [AddCommGroup V] [Module K V] [AddCommGroup W] [Module K W]
+    [Fintype ι] [DecidableEq ι]
+    (b : Basis ι K V) (X : InfinitePlace K → Matrix ι ι ℂ)
+    (e : V ≃ₗ[K] W) (v : InfinitePlace K) (x : V) :
+    nativeAlpogeNormAt (b.map e) X v (e x) =
+      nativeAlpogeNormAt b X v x := by
+  simp [nativeAlpogeNormAt, nativeAlpogeFcoord_map]
+
+/-- No archimedean quadratic cost over all places, at any x. -/
+theorem nativeAlpogeAllPlaceNormCost_map
+    {K V W ι : Type*} [Field K] [NumberField K]
+    [AddCommGroup V] [Module K V] [AddCommGroup W] [Module K W]
+    [Fintype ι] [DecidableEq ι]
+    (b : Basis ι K V) (X : InfinitePlace K → Matrix ι ι ℂ)
+    (e : V ≃ₗ[K] W) (x : V) :
+    (∑ v : InfinitePlace K, (nativeAlpogeNormAt (b.map e) X v (e x)) ^ 2) =
+      ∑ v : InfinitePlace K, (nativeAlpogeNormAt b X v x) ^ 2 := by
+  simp only [nativeAlpogeNormAt_map]
+
 end RHLean.Geometry
