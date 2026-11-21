@@ -438,4 +438,43 @@ theorem numberFieldCRLattice_idealPow
   rw [← hEq]
   exact hp
 
+/-- In characteristic zero, this integral two-coordinate transform is
+injective over the WHOLE coefficient ring. In particular it cannot
+destroy any genuine number-field lattice relation. -/
+theorem algebraicCR_injective
+    {A : Type*} [CommRing A] [IsDomain A] [CharZero A] :
+    Function.Injective (algebraicCR (A := A)) := by
+  rintro ⟨a,b⟩ ⟨c,d⟩ h
+  have h1 : a - b = c - d := by
+    simpa only [algebraicCR] using congrArg Prod.fst h
+  have h2 : a + b = c + d := by
+    simpa only [algebraicCR] using congrArg Prod.snd h
+  have h2a : (2 : A) * a = 2 * c := by
+    linear_combination h1 + h2
+  have h2b : (2 : A) * b = 2 * d := by
+    linear_combination h2 - h1
+  have htwo : (2 : A) ≠ 0 := by norm_num
+  have ha : a = c := mul_left_cancel₀ htwo h2a
+  have hb : b = d := mul_left_cancel₀ htwo h2b
+  exact Prod.ext ha hb
+
+/-- A point of the SOURCE O_K lattice belongs to that lattice iff
+its transformed point belongs to the full TRANSPORTED image lattice.
+This prevents an ambient-index loss from being counted as real
+arithmetic information, and is not a claim about the theta-lift
+LIVING INSIDE that lattice. -/
+theorem numberFieldCRLattice_mem_iff
+    (K : Type*) [Field K] [NumberField K]
+    (L : Submodule (𝓞 K) ((𝓞 K) × (𝓞 K)))
+    (v : (𝓞 K) × (𝓞 K)) :
+    algebraicCR v ∈ numberFieldCRLattice K L ↔ v ∈ L := by
+  constructor
+  · intro hv
+    rcases Submodule.mem_map.mp hv with ⟨w,hw,heq⟩
+    have heq' : algebraicCR w = algebraicCR v := by
+      simpa only [algebraicCRLinear] using heq
+    have hsource := algebraicCR_injective heq'
+    simpa [hsource] using hw
+  · exact numberFieldCRLattice_mem K L v
+
 end RHLean.Geometry
