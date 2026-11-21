@@ -112,6 +112,11 @@ theorem nativeAlpogeGz_secondDifference_primePower (n : ℕ) :
   have hprev := nativeAlpogeGz_succ_sub n
   have hprime := nativeLambdaRecip_succ n
   push_cast at hnext hprev hprime ⊢
+  have hlog2 : Real.log ((n : ℝ) + 1 + 1) =
+      Real.log ((n : ℝ) + 2) := by
+    congr 1
+    ring
+  rw [hlog2] at hnext
   linear_combination hnext - hprev + hprime
 
 /-- Safe nonnegative upward slope for the original signed source. -/
