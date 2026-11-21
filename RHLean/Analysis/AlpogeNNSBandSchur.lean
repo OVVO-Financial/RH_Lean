@@ -131,4 +131,93 @@ theorem alpogeNNSBandCharge_neg
     positivity
   exact lt_of_le_of_lt h (neg_lt_zero.mpr hfactor)
 
+/-- A constant target has exactly the stated total mass on Fin m. -/
+private theorem alpogeNNSBand_sum_constant
+    (m : ℕ) (c : ℝ) :
+    (∑ _i : Fin m, c) = (m : ℝ) * c := by
+  simp [nsmul_eq_mul]
+
+/-- The target-invariant scalar Schur complement is at most one quarter
+of the squared range times the square of the sample count. This is the
+sharp deterministic Popoviciu inequality, not a probabilistic model.
+The proof works by choosing the MIDRANGE as an auxiliary NNS target:
+the Schur projection removes the *entire* first moment at no cost. -/
+theorem alpogeNNSBandScaledSchur_le_range
+    (m : ℕ) (ell : Fin m → ℝ) (a b : ℝ)
+    (hband : ∀ i : Fin m, a ≤ ell i ∧ ell i ≤ b) :
+    alpogeNNSBandScaledSchur m ell ≤
+      ((m : ℝ) ^ 2 / 4) * (b - a) ^ 2 := by
+  let S : ℝ := ∑ i : Fin m, ell i
+  let Q : ℝ := ∑ i : Fin m, (ell i) ^ 2
+  let c : ℝ := (a + b) / 2
+  have hpoint :
+      ∀ i : Fin m, (ell i - c) ^ 2 ≤ (b - a) ^ 2 / 4 := by
+    intro i
+    have hlo : 0 ≤ ell i - a := by linarith [(hband i).1]
+    have hhi : 0 ≤ b - ell i := by linarith [(hband i).2]
+    have hcross := mul_nonneg hlo hhi
+    dsimp [c]
+    nlinarith [hcross]
+  have hvariance :
+      (∑ i : Fin m, (ell i - c) ^ 2) ≤
+        (m : ℝ) * ((b - a) ^ 2 / 4) := by
+    have h := Finset.sum_le_sum
+      (s := (Finset.univ : Finset (Fin m)))
+      (fun i _hi => hpoint i)
+    rw [alpogeNNSBand_sum_constant] at h
+    exact h
+  have hsum :
+      (∑ i : Fin m, ell i - c) =
+        S - (m : ℝ) * c := by
+    rw [Finset.sum_sub_distrib, alpogeNNSBand_sum_constant]
+    rfl
+  have hsumSq :
+      (∑ i : Fin m, (ell i - c) ^ 2) =
+        Q - 2 * c * S + (m : ℝ) * c ^ 2 := by
+    calc
+      _ = ∑ i : Fin m,
+            ((ell i) ^ 2 - 2 * c * ell i + c ^ 2) := by
+          apply Finset.sum_congr rfl
+          intro i _hi
+          ring
+      _ = Q - 2 * c * S + (m : ℝ) * c ^ 2 := by
+          rw [Finset.sum_add_distrib, Finset.sum_sub_distrib,
+            ← Finset.mul_sum, alpogeNNSBand_sum_constant]
+          ring
+  have hscaled :
+      alpogeNNSBandScaledSchur m ell =
+        (m : ℝ) * (∑ i : Fin m, (ell i - c) ^ 2) -
+          (∑ i : Fin m, ell i - c) ^ 2 := by
+    unfold alpogeNNSBandScaledSchur
+    rw [hsumSq, hsum]
+    dsimp [S, Q]
+    ring
+  calc
+    alpogeNNSBandScaledSchur m ell =
+        (m : ℝ) * (∑ i : Fin m, (ell i - c) ^ 2) -
+          (∑ i : Fin m, ell i - c) ^ 2 := hscaled
+    _ ≤ (m : ℝ) * (∑ i : Fin m, (ell i - c) ^ 2) := by
+          nlinarith [sq_nonneg (∑ i : Fin m, ell i - c)]
+    _ ≤ (m : ℝ) * ((m : ℝ) * ((b - a) ^ 2 / 4)) :=
+          mul_le_mul_of_nonneg_left hvariance (by positivity)
+    _ = ((m : ℝ) ^ 2 / 4) * (b - a) ^ 2 := by ring
+
+/-- A sharper full-signed-source budget: the complete positive Schur
+correction costs only ONE HALF of the band size times the squared
+logarithmic width. All remaining large contribution is the explicit
+NEGATIVE principal mode, not an untracked covariance error.
+
+The statement is scaled by m so no arbitrary epsilon or denominator
+is introduced. The result holds for ANY narrow physical positive band. -/
+theorem alpogeNNSBandCharge_le_principal_plus_range
+    (m : ℕ) (ell : Fin m → ℝ) (a b : ℝ)
+    (hband : ∀ i : Fin m, a ≤ ell i ∧ ell i ≤ b) :
+    (m : ℝ) * alpogeNNSBandCharge m ell ≤
+      -((m : ℝ) - 2) * (∑ i : Fin m, ell i) ^ 2 +
+        ((m : ℝ) ^ 2 / 2) * (b - a) ^ 2 := by
+  have hschur := alpogeNNSBandScaledSchur_le_range
+    m ell a b hband
+  rw [alpogeNNSBandCharge_schur_decomposition]
+  nlinarith [hschur]
+
 end RHLean.Analysis
