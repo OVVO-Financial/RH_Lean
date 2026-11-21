@@ -97,7 +97,7 @@ Its eigenvalues are 2, 2, -1, so its singular-value condition number is 2.
 This is an exact formal coefficient lattice, NOT a p-adic bound on log p. -/
 theorem alpogeSelbergBandThree_det :
     (alpogeSelbergBandIntegerMatrix 3).det = (-4 : ℤ) := by
-  decide
+  norm_num [Matrix.det_fin_three, alpogeSelbergBandIntegerMatrix]
 
 /-- A rational, source-preserving prime interval: each owner lies in
 [3R/4, R). This band is populated at near-square-root multiplicity
