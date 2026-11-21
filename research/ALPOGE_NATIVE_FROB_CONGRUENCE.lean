@@ -69,7 +69,10 @@ theorem alpogeNativeFrobUnit_image_iff {G : Type*} [Group G] (N p i : ℕ)
     exact ⟨u / (alpogeNativeFrobUnit N p) ^ i, (alpogeNativeFrobUnit_coset_iff N p i hN hp u).2 hu,
       by rw [map_div, map_pow]⟩
 
-/-- The actual inertia kernel detects exactly the primes of the primitive conductor. -/
+/-- The actual inertia kernel detects exactly the primes of the primitive conductor.
+
+In Crossley’s example the quadratic characters of conductors 547 and 727 are each twisted by the four powers of an even quartic character modulo 16. This test selects two of the eight characters at 2 and four at each of 547 and 727. Evaluating the surviving primitive characters gives the Euler denominators `1 - T^2`, `1 - T^4` and `(1 - T^2)^2`, respectively. [Calculation at the ramified primes](https://github.com/leecrossley/theta-race-finite-euler-readout/blob/b01619cac6e661a66587a45af435413592d368d0/PROOF.md#L63) and [archived paper](https://doi.org/10.5281/zenodo.24413208).
+-/
 theorem alpogeNativeLocalUnits_le_ker_iff (N p : ℕ) (hN : N ≠ 0) (hp : p.Prime)
     (χ : DirichletCharacter ℂ N) :
     alpogeNativeLocalUnits N p ≤ χ.toUnitHom.ker ↔ ¬ p ∣ χ.conductor := by
