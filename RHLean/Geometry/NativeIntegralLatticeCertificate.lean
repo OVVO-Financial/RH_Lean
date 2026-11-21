@@ -385,4 +385,57 @@ theorem integralCRFrame_log_normalization_cancel (m : ℕ) :
   rw [integralCRFrame_log_two]
   ring
 
+/-! ## Transport a complete integral O_K-submodule
+
+The original number-field construction uses honest submodules over O_K,
+not merely independent scalar pairs. The following map transports the
+WHOLE submodule; image membership and ideal-depth preservation remain
+statements about actual arithmetic coefficients.
+-/
+
+/-- Matrix [[1,-1],[1,1]] as a linear map over every commutative ring. -/
+def algebraicCRLinear (A : Type*) [CommRing A] :
+    (A × A) →ₗ[A] (A × A) where
+  toFun := algebraicCR
+  map_add' := by
+    rintro ⟨a,b⟩ ⟨c,d⟩
+    apply Prod.ext <;> simp [algebraicCR] <;> ring
+  map_smul' := by
+    intro r v
+    rcases v with ⟨a,b⟩
+    apply Prod.ext <;> simp [algebraicCR] <;> ring
+
+/-- The image is a genuine O_K-submodule (no fake ambient lattice). -/
+def numberFieldCRLattice
+    (K : Type*) [Field K] [NumberField K]
+    (L : Submodule (𝓞 K) ((𝓞 K) × (𝓞 K))) :
+    Submodule (𝓞 K) ((𝓞 K) × (𝓞 K)) :=
+  L.map (algebraicCRLinear (𝓞 K))
+
+/-- Image membership uses a real SOURCE preimage in the original
+ring-of-integers lattice, not an arbitrary ambient coordinate pair. -/
+theorem numberFieldCRLattice_mem
+    (K : Type*) [Field K] [NumberField K]
+    (L : Submodule (𝓞 K) ((𝓞 K) × (𝓞 K)))
+    (v : (𝓞 K) × (𝓞 K)) (hv : v ∈ L) :
+    algebraicCR v ∈ numberFieldCRLattice K L := by
+  exact Submodule.mem_map_of_mem hv
+
+/-- On the whole image lattice, an I^k divisibility condition on
+each original coefficient remains an I^k condition after transport. -/
+theorem numberFieldCRLattice_idealPow
+    (K : Type*) [Field K] [NumberField K]
+    (L : Submodule (𝓞 K) ((𝓞 K) × (𝓞 K)))
+    (I : Ideal (𝓞 K)) (k : ℕ)
+    (hL : ∀ x : (𝓞 K) × (𝓞 K), x ∈ L →
+      x.1 ∈ I ^ k ∧ x.2 ∈ I ^ k)
+    (v : (𝓞 K) × (𝓞 K))
+    (hv : v ∈ numberFieldCRLattice K L) :
+    v.1 ∈ I ^ k ∧ v.2 ∈ I ^ k := by
+  obtain ⟨x, hx, hEq⟩ := Submodule.mem_map.mp hv
+  have hp := algebraicCR_idealPow_forward I k x (hL x hx).1 (hL x hx).2
+  change v = algebraicCR x at hEq
+  rw [hEq]
+  exact hp
+
 end RHLean.Geometry
