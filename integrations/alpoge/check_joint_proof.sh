@@ -45,15 +45,15 @@ git -C "$WORK_DIR" diff --exit-code HEAD -- src lakefile.toml lean-toolchain
   echo '== Upstream original Mathlib cache =='
   lake exe cache get
   echo '== Compiling the COMMON RHLean source with ORIGINAL Lean/Mathlib =='
-  lake env lean -o .lake/build/lib/lean/RHLean/AlpogeInterface.olean \
+  lake env lean -R src -o .lake/build/lib/lean/RHLean/AlpogeInterface.olean \
     src/RHLean/AlpogeInterface.lean
   echo '== Building ORIGINAL full Alpoge Main theorem dependency closure =='
   lake build Main
   echo '== Compiling THE ORIGINAL proof + RHLean identity in one Lean environment =='
-  lake env lean -o .lake/build/lib/lean/RHLean/AlpogeProofAdapter.olean \
+  lake env lean -R src -o .lake/build/lib/lean/RHLean/AlpogeProofAdapter.olean \
     src/RHLean/AlpogeProofAdapter.lean
   echo '== Kernel axiom audit on EXACT new RHLean RH and Dirichlet declarations =='
-  lake env lean src/RHLean/AlpogeAxiomAudit.lean | tee "$LOG_FILE"
+  lake env lean -R src src/RHLean/AlpogeAxiomAudit.lean | tee "$LOG_FILE"
 )
 
 python3 "$ROOT_DIR/integrations/alpoge/check_axioms.py" "$LOG_FILE"
