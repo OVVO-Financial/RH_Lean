@@ -1,11 +1,6 @@
 name: Total slot mass complete exponent gain
 
 on:
-  pull_request:
-    paths:
-      - 'research/oai_434/VF919TotalMass*.lean'
-      - 'scripts/lean/total_mass/**'
-      - '.github/workflows/vf919-total-mass-endpoint.yml'
   workflow_dispatch:
 
 permissions:

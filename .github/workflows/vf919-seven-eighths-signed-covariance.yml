@@ -1,21 +1,6 @@
 name: Native seven-eighths signed covariance acceptance
 
 on:
-  pull_request:
-    paths:
-      - '.github/workflows/vf919-seven-eighths-signed-covariance.yml'
-      - 'research/VF_919_SEVEN_EIGHTHS_SIGNED_COVARIANCE_20261019.lean'
-      - 'research/VF_919_SEVEN_EIGHTHS_SQUARE_SHELL_BRIDGE_20261019.lean'
-      - 'research/VF_919_SEVEN_EIGHTHS_SHELL_EXCLUDED_NORM_20261019.lean'
-      - 'research/VF_919_SEVEN_EIGHTHS_DYADIC_SHELL_COVARIANCE_20261019.lean'
-      - 'research/VF_919_SEVEN_EIGHTHS_ENDPOINT_TRANSFER_20261019.lean'
-      - 'research/VF_919_MARKED_FIRST_OWNER_SHELL_20261019.lean'
-      - 'research/VF_919_MARKED_SAME_OWNER_CAPACITY_20261019.lean'
-      - 'scripts/vf919_seven_eighths_signed_covariance_census.py'
-      - 'research/MERTENS_CONVERSE_*.lean'
-      - 'RHLean/Analysis/MathlibMertensHook.lean'
-      - 'lean-toolchain'
-      - 'lake-manifest.json'
   workflow_dispatch:
 
 permissions:

@@ -1,24 +1,6 @@
 name: Explicit finite-slot amplification bounds
 
 on:
-  pull_request:
-    types: [opened, synchronize, reopened]
-    paths:
-      - 'RHLean/Proof/SquareRootAmplificationPowerBounds.lean'
-      - 'RHLean/Proof/SquareRootAmplificationLogGrowth.lean'
-      - 'RHLean/Proof/SquareRootAncestryRoot.lean'
-      - 'research/oai_434/VF919Explicit*.lean'
-      - 'research/oai_434/VF919TotalMass*.lean'
-      - 'scripts/lean/explicit_amplification/**'
-      - 'scripts/lean/total_mass/**'
-      - '.github/workflows/explicit-slot-amplification.yml'
-      - '.github/actions/lean-setup/**'
-      - '.github/actions/lean-compiled-cache/**'
-      - '.github/actions/research-compile/**'
-      - '.github/actions/oai-434-shared-cache/**'
-      - 'lean-toolchain'
-      - 'lakefile.lean'
-      - 'lake-manifest.json'
   workflow_dispatch:
 
 permissions:

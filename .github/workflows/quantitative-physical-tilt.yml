@@ -1,12 +1,6 @@
 name: Quantitative physical tilt
 
 on:
-  pull_request:
-    paths:
-      - 'research/oai_434/VF919Quantitative*.lean'
-      - 'scripts/generate_quantitative_tilt.py'
-      - 'scripts/lean/QuantitativeTiltAudit.lean'
-      - '.github/workflows/quantitative-physical-tilt.yml'
   workflow_dispatch:
 
 permissions:

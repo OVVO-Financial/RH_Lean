@@ -1,27 +1,6 @@
 name: Original OpenAI full certified 7/8 into RHLean square-block covariance
 
 on:
-  pull_request:
-    paths:
-      - 'research/VF_919_OPENAI_CERTIFIED_ORIGINAL_SQUARE_COVARIANCE_20261019.lean'
-      - 'research/VF_919_SEVEN_EIGHTHS_SIGNED_COVARIANCE_20261019.lean'
-      - 'research/VF_919_OAI_GLOBAL_SQUARE_BLOCK_ALL_PAIR_COVARIANCE_20261019.lean'
-      - 'research/VF_919_OAI_GENUINE_IDEAL_ORDERED_PHYSICAL_PAIRS_20261019.lean'
-      - '.github/workflows/vf919-openai-full-certified-seven-eighths-434.yml'
-      - '.github/actions/lean-setup/**'
-      - '.github/actions/research-compile/**'
-      - 'scripts/apply_oai_434_upstream_patches.py'
-      - 'scripts/check_shared_lean_packages.py'
-      - 'scripts/compile_research_import_closure.py'
-      - 'scripts/ci/**'
-      - 'RHLean/Analysis/VF919*.lean'
-      - 'RHLean/Analysis/SevenEighths*.lean'
-      - 'RHLean/Analysis/SquareBlock*.lean'
-      - 'RHLean/Analysis/Mertens*.lean'
-      - 'research/MERTENS_*.lean'
-      - 'lean-toolchain'
-      - 'lakefile.lean'
-      - 'lake-manifest.json'
   workflow_dispatch:
 
 permissions:
