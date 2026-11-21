@@ -167,9 +167,9 @@ theorem alpogeNNSBandScaledSchur_le_range
     rw [alpogeNNSBand_sum_constant] at h
     exact h
   have hsum :
-      (∑ i : Fin m, ell i - c) =
+      (∑ i : Fin m, (ell i - c)) =
         S - (m : ℝ) * c := by
-    change (∑ i : Fin m, ell i - c) =
+    change (∑ i : Fin m, (ell i - c)) =
       (∑ i : Fin m, ell i) - (m : ℝ) * c
     simpa only [alpogeNNSBand_sum_constant] using
       (Finset.sum_sub_distrib (s := (Finset.univ : Finset (Fin m)))
@@ -189,7 +189,7 @@ theorem alpogeNNSBandScaledSchur_le_range
   have hscaled :
       alpogeNNSBandScaledSchur m ell =
         (m : ℝ) * (∑ i : Fin m, (ell i - c) ^ 2) -
-          (∑ i : Fin m, ell i - c) ^ 2 := by
+          (∑ i : Fin m, (ell i - c)) ^ 2 := by
     unfold alpogeNNSBandScaledSchur
     rw [hsumSq, hsum]
     dsimp [S, Q]
@@ -197,9 +197,9 @@ theorem alpogeNNSBandScaledSchur_le_range
   calc
     alpogeNNSBandScaledSchur m ell =
         (m : ℝ) * (∑ i : Fin m, (ell i - c) ^ 2) -
-          (∑ i : Fin m, ell i - c) ^ 2 := hscaled
+          (∑ i : Fin m, (ell i - c)) ^ 2 := hscaled
     _ ≤ (m : ℝ) * (∑ i : Fin m, (ell i - c) ^ 2) := by
-          nlinarith [sq_nonneg (∑ i : Fin m, ell i - c)]
+          nlinarith [sq_nonneg (∑ i : Fin m, (ell i - c))]
     _ ≤ (m : ℝ) * ((m : ℝ) * ((b - a) ^ 2 / 4)) :=
           mul_le_mul_of_nonneg_left hvariance (by positivity)
     _ = ((m : ℝ) ^ 2 / 4) * (b - a) ^ 2 := by ring
