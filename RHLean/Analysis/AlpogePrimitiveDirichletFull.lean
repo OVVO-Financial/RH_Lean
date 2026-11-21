@@ -194,4 +194,44 @@ theorem alpogeNativePrimVal_eq_primitive
   rw [alpogeNativeCosetMean_eq_primitive q d r ψ p _
     hpp hi, Nat.cast_pow, map_pow]
 
+
+/-!
+## Actual nonprincipal character *function*, all real arguments
+
+This is the complete character equality at every y, not just an
+equality of a few numerical samples or unramified prime coefficients.
+The correct primitive-conductor zeros remain inside the true Lambda
+prime-power weighted GPsi, including all exceptional terms.
+-/
+
+open scoped ArithmeticFunction.vonMangoldt
+
+theorem alpogeNativeRealizedGPsi_eq_primitivePrimeSum
+    {N : ℕ} [NeZero N]
+    {H : Type*} [AddCommGroup H] [Fintype H] [DecidableEq H]
+    (q d : ℕ)
+    (r : (ZMod N)ˣ →* Multiplicative (AlpogeNativeE0 × H))
+    (ell : AddChar (AlpogeNativeE0 × H) ℂ → ℂ)
+    (ψ : AddChar (AlpogeNativeE0 × H) ℂ) (hψ : ψ ≠ 0)
+    (y : ℝ) :
+    alpogeNativeFrobInertiaGPsi
+      (alpogeNativeCftData N q d r).inertia
+      (alpogeNativeCftData N q d r).frob ell ψ y =
+      (∑ n ∈ Finset.Icc 1 ⌊y⌋₊,
+        ((Λ n : ℝ) : ℂ) *
+          (alpogeNativeDirChar r ψ).primitiveCharacter
+            (n : ZMod (alpogeNativeDirChar r ψ).conductor) *
+          (((y / (n : ℝ) - 1 : ℝ)) : ℂ)) +
+        (y : ℂ) * ell ψ := by
+  rw [alpogeNativeFrobInertiaGPsi_nonprincipal
+    _ _ ell ψ y hψ]
+  unfold alpogeNativeFrobInertiaPrimeSum
+  congr 1
+  apply Finset.sum_congr rfl
+  intro n hn
+  have hn0 : n ≠ 0 := by
+    have h1 := (Finset.mem_Icc.mp hn).1
+    omega
+  rw [alpogeNativePrimVal_eq_primitive q d r ψ n hn0]
+
 end RHLean.Analysis
