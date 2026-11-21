@@ -163,3 +163,32 @@ return nor the fixed-point/root-scale contraction from this new
 recursive equation has been bounded. The witness-based Alpoge
 automorphic topExcess/height/covolume estimates also remain open.
 Exact-head CI required for this strengthened source decomposition.
+
+
+### Exact native square-to-root Gz recursion
+
+The companion Lean file now goes one substantive step beyond injecting the
+child error coordinates. Since each child t_p is itself a natural endpoint,
+the independently certified Alpoge Gz identity of PR #1162 says:
+
+    E(t_p) =
+       t_p*(LambdaRecip(t_p)-log(t_p)+gamma) - Gz(t_p).
+
+Substitute this into the previously exact COMPLETE signed Selberg
+partition; then E(X_R)*log²(X_R), and therefore Gz(X_R)*log²(X_R),
+is expressed as the finite weighted sum of the genuine distinct
+smaller-scale Gz(t_p), the exact reciprocal-Lambda channels and ALL
+original signed Selberg, prime-power, floor and off-family complement
+terms.
+
+The theorem alpogeDistinctNativeGzSquareRecursion formalizes this
+full finite functional recursion. It uses no randomization or
+character substitute, and preserves the original K2 coefficient
+2*log2*logp. This is a genuine algebraic source-to-consumer
+translation, not a rank-only matrix.
+
+The contraction is NOT proved. In particular, its signed off-family
+complement and reciprocal-Lambda returns can overwhelm the selected
+prime family. Transferring Alpoge's actual automorphic slopes,
+thick-set/witness geometry, covolume and height estimates remains a
+separate quantitative task. CI must pass the newest Lean file.
