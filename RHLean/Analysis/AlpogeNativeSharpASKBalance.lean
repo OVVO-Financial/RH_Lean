@@ -560,4 +560,245 @@ theorem alpogeNativeCosetCharacterOrthogonality_unramified
   simp only [alpogeNativeInertiaCosetMean_unramified]
   exact alpogeNativeCharacterDetector a g
 
+
+/-!
+## Physical two-bit colour host, partner bijection, and principal channel
+
+These definitions use the SAME group (Z/2)^2 × H, genuine additive
+characters, original site mask and translated partner as the published
+ASK/MAIN proof. No analytic/geometric estimate is being postulated.
+-/
+
+abbrev AlpogeNativeE0 := ZMod 2 × ZMod 2
+
+def alpogeNativeInPhi {H : Type*} (g : AlpogeNativeE0 × H) : Prop :=
+  g.1.1 = 0
+
+def alpogeNativePhiSet (H : Type*) [AddCommGroup H]
+    [Fintype H] [DecidableEq H] : Finset (AlpogeNativeE0 × H) := by
+  classical
+  exact Finset.univ.filter alpogeNativeInPhi
+
+def alpogeNativeCconj (H : Type*) [AddCommGroup H] :
+    AlpogeNativeE0 × H := ((1, 1), 0)
+
+def alpogeNativeTopPl {H : Type*} [AddCommGroup H] (t : H) :
+    AlpogeNativeE0 × H := ((0, 0), t)
+
+def alpogeNativePartner {H : Type*} [AddCommGroup H]
+    (t : H) (g : AlpogeNativeE0 × H) : AlpogeNativeE0 × H :=
+  alpogeNativeCconj H + g + alpogeNativeTopPl t
+
+/-- The actual quadratic class character, not an independent sign
+label: χC(g)=+1 for first-bit 0 and -1 for first-bit 1. -/
+def alpogeNativeChC (H : Type*) [AddCommGroup H]
+    [Fintype H] [DecidableEq H] :
+    AddChar (AlpogeNativeE0 × H) ℂ where
+  toFun g := if g.1.1 = 0 then 1 else -1
+  map_zero_eq_one' := by simp
+  map_add_eq_mul' a b := by
+    rcases a with ⟨⟨a1, a2⟩, ah⟩
+    rcases b with ⟨⟨b1, b2⟩, bh⟩
+    have key : ∀ x y : ZMod 2, (if x + y = 0 then (1 : ℂ) else -1) =
+        (if x = 0 then 1 else -1) * (if y = 0 then 1 else -1) := by
+      intro x y
+      have hc : ∀ z : ZMod 2, z = 0 ∨ z = 1 := by decide
+      have h11 : (1 : ZMod 2) + 1 = 0 := rfl
+      have h10 : (1 : ZMod 2) ≠ 0 := by decide
+      rcases hc x with rfl | rfl <;> rcases hc y with rfl | rfl <;>
+        simp [h11, h10]
+    exact key a1 b1
+
+section NativeColours
+variable {H : Type*} [AddCommGroup H] [Fintype H] [DecidableEq H]
+
+private theorem alpogeNativeNotPhi_iff (g : AlpogeNativeE0 × H) :
+    ¬ alpogeNativeInPhi g ↔ g.1.1 = 1 := by
+  change ¬ g.1.1 = 0 ↔ g.1.1 = 1
+  have hcase : ∀ z : ZMod 2, z = 0 ∨ z = 1 := by decide
+  rcases hcase g.1.1 with h | h <;> rw [h] <;> decide
+
+private theorem alpogeNativePartner_fst (t : H) (g : AlpogeNativeE0 × H) :
+    (alpogeNativePartner t g).1.1 = 1 + g.1.1 := by
+  simp [alpogeNativePartner, alpogeNativeCconj, alpogeNativeTopPl]
+
+private theorem alpogeNativePartner_inv_fst (t : H) (g : AlpogeNativeE0 × H) :
+    (g - alpogeNativeTopPl t - alpogeNativeCconj H).1.1 = g.1.1 - 1 := by
+  simp [alpogeNativeTopPl, alpogeNativeCconj]
+
+/-- Exact transport of every geometric width from the non-Phi
+character site to Phi. No lost sites, multiplicities, or weights. -/
+theorem alpogeNativeSumPartner {β : Type*} [AddCommMonoid β]
+    (t : H) (F : AlpogeNativeE0 × H → β) :
+    (∑ g ∈ (Finset.univ.filter (fun g : AlpogeNativeE0 × H =>
+        ¬ alpogeNativeInPhi g)), F (alpogeNativePartner t g)) =
+      ∑ ρ ∈ alpogeNativePhiSet H, F ρ := by
+  classical
+  refine Finset.sum_nbij'
+    (alpogeNativePartner t)
+    (fun ρ => ρ - alpogeNativeTopPl t - alpogeNativeCconj H)
+    ?_ ?_ ?_ ?_ ?_
+  · intro g hg
+    simp only [Finset.mem_filter, Finset.mem_univ, true_and] at hg
+    simp only [alpogeNativePhiSet, Finset.mem_filter, Finset.mem_univ, true_and]
+    change alpogeNativeInPhi (alpogeNativePartner t g)
+    change (alpogeNativePartner t g).1.1 = 0
+    rw [alpogeNativePartner_fst, (alpogeNativeNotPhi_iff g).mp hg]
+    decide
+  · intro ρ hρ
+    simp only [alpogeNativePhiSet, Finset.mem_filter, Finset.mem_univ, true_and] at hρ
+    simp only [Finset.mem_filter, Finset.mem_univ, true_and]
+    rw [alpogeNativeNotPhi_iff, alpogeNativePartner_inv_fst]
+    change ρ.1.1 = 0 at hρ
+    rw [hρ]
+    decide
+  · intro a _
+    simp only [alpogeNativePartner]
+    abel
+  · intro a _
+    simp only [alpogeNativePartner]
+    abel
+  · intro a _
+    rfl
+
+private theorem alpogeNativeCardNotPhi :
+    (Finset.univ.filter (fun g : AlpogeNativeE0 × H =>
+      ¬ alpogeNativeInPhi g)).card =
+        (alpogeNativePhiSet H).card := by
+  have h := alpogeNativeSumPartner (H := H) (β := ℕ) 0 (fun _ => 1)
+  simpa using h
+
+private theorem alpogeNativeCharStarNeg
+    (ψ : AddChar (AlpogeNativeE0 × H) ℂ) (g : AlpogeNativeE0 × H) :
+    starRingEnd ℂ (ψ g) = ψ (-g) := by
+  first
+  | exact (AddChar.map_neg_eq_conj ψ g).symm
+  | rw [AddChar.map_neg_eq_inv, Complex.inv_eq_conj (AddChar.norm_apply ψ g)]
+
+private theorem alpogeNativeChC_sq (g : AlpogeNativeE0 × H) :
+    alpogeNativeChC H g * alpogeNativeChC H g = 1 := by
+  change (if g.1.1 = 0 then (1 : ℂ) else -1) *
+      (if g.1.1 = 0 then 1 else -1) = 1
+  split_ifs <;> simp
+
+private theorem alpogeNativeChC_neg (g : AlpogeNativeE0 × H) :
+    alpogeNativeChC H (-g) = alpogeNativeChC H g := by
+  have h1 : (-g).1.1 = g.1.1 := by
+    simp only [Prod.fst_neg]
+    generalize g.1.1 = e
+    revert e
+    decide
+  simp only [alpogeNativeChC]
+  rw [h1]
+
+private theorem alpogeNativeChC_mul_self :
+    (alpogeNativeChC H) * (alpogeNativeChC H) = 0 := by
+  ext g
+  rw [AddChar.mul_apply, alpogeNativeChC_sq]
+  simp
+
+private theorem alpogeNativeMulChC_zero_iff
+    (ψ : AddChar (AlpogeNativeE0 × H) ℂ) :
+    ψ * alpogeNativeChC H = 0 ↔ ψ = alpogeNativeChC H := by
+  constructor
+  · intro h
+    ext g
+    have hh : ((ψ * alpogeNativeChC H) : AddChar (AlpogeNativeE0 × H) ℂ) g =
+        (0 : AddChar (AlpogeNativeE0 × H) ℂ) g := by rw [h]
+    rw [AddChar.mul_apply] at hh
+    simp only [AddChar.zero_apply] at hh
+    calc
+      ψ g = ψ g * (alpogeNativeChC H g * alpogeNativeChC H g) := by
+        rw [alpogeNativeChC_sq, mul_one]
+      _ = (ψ g * alpogeNativeChC H g) * alpogeNativeChC H g := by ring
+      _ = alpogeNativeChC H g := by rw [hh, one_mul]
+  · intro h
+    rw [h]
+    exact alpogeNativeChC_mul_self
+
+private theorem alpogeNativeChC_nontrivial :
+    alpogeNativeChC H ≠ 0 := by
+  intro h
+  have hh := congrArg (fun ψ : AddChar (AlpogeNativeE0 × H) ℂ =>
+      ψ (((1, 0), 0) : AlpogeNativeE0 × H)) h
+  change (-1 : ℂ) = 1 at hh
+  norm_num at hh
+
+private theorem alpogeNativePhiCard_ne_zero :
+    ((alpogeNativePhiSet H).card : ℂ) ≠ 0 := by
+  rw [Nat.cast_ne_zero]
+  apply Finset.card_ne_zero.mpr
+  exact ⟨0, by simp [alpogeNativePhiSet, alpogeNativeInPhi]⟩
+
+private theorem alpogeNativeCardDoublePhi :
+    (Fintype.card (AlpogeNativeE0 × H) : ℂ) =
+      2 * ((alpogeNativePhiSet H).card : ℂ) := by
+  have hn : Fintype.card (AlpogeNativeE0 × H) =
+      2 * (alpogeNativePhiSet H).card := by
+    rw [← Finset.card_univ,
+      ← Finset.filter_card_add_filter_neg_card_eq_card
+        (p := alpogeNativeInPhi)]
+    rw [alpogeNativeCardNotPhi]
+    simp only [alpogeNativePhiSet]
+    ring
+  exact_mod_cast hn
+
+/-- EXACT original ColourSum: the two physical first-bit cosets
+kill every off-principal additive character except χC. This is
+the MAIN correction, not a free cancellation bound. -/
+theorem alpogeNativeColourSum
+    (ψ : AddChar (AlpogeNativeE0 × H) ℂ) :
+    (∑ g ∈ (Finset.univ.filter (fun g : AlpogeNativeE0 × H =>
+      ¬ alpogeNativeInPhi g)), starRingEnd ℂ (ψ g)) =
+        if ψ = 0 then ((alpogeNativePhiSet H).card : ℂ)
+        else if ψ = alpogeNativeChC H then
+          -((alpogeNativePhiSet H).card : ℂ) else 0 := by
+  classical
+  have hneg (F : AlpogeNativeE0 × H → ℂ) :
+      (∑ g : AlpogeNativeE0 × H, F (-g)) =
+        ∑ g : AlpogeNativeE0 × H, F g :=
+    Fintype.sum_equiv (Equiv.neg _) _ _ (fun _ => rfl)
+  have hindicator (g : AlpogeNativeE0 × H) :
+      (if ¬ alpogeNativeInPhi g then (1 : ℂ) else 0) =
+        (1 - alpogeNativeChC H g) / 2 := by
+    change (if ¬ g.1.1 = 0 then (1 : ℂ) else 0) =
+      (1 - (if g.1.1 = 0 then (1 : ℂ) else -1)) / 2
+    by_cases hg : g.1.1 = 0 <;> simp [hg] <;> ring
+  have hterm (g : AlpogeNativeE0 × H) :
+      (if ¬ alpogeNativeInPhi g then starRingEnd ℂ (ψ g) else 0) =
+        (starRingEnd ℂ (ψ g) -
+          alpogeNativeChC H g * starRingEnd ℂ (ψ g)) / 2 := by
+    rw [← boole_mul, hindicator]
+    ring
+  have hA : (∑ g : AlpogeNativeE0 × H, starRingEnd ℂ (ψ g)) =
+      if ψ = 0 then (Fintype.card (AlpogeNativeE0 × H) : ℂ) else 0 := by
+    simp_rw [alpogeNativeCharStarNeg]
+    rw [hneg (⇑ψ), AddChar.sum_eq_ite]
+  have hB : (∑ g : AlpogeNativeE0 × H,
+      alpogeNativeChC H g * starRingEnd ℂ (ψ g)) =
+      if ψ = alpogeNativeChC H then
+        (Fintype.card (AlpogeNativeE0 × H) : ℂ) else 0 := by
+    have h4 (g : AlpogeNativeE0 × H) :
+        alpogeNativeChC H g * starRingEnd ℂ (ψ g) =
+          ((ψ * alpogeNativeChC H) : AddChar (AlpogeNativeE0 × H) ℂ) (-g) := by
+      rw [AddChar.mul_apply, alpogeNativeCharStarNeg, ← alpogeNativeChC_neg, mul_comm]
+    simp_rw [h4]
+    rw [hneg (⇑(ψ * alpogeNativeChC H : AddChar (AlpogeNativeE0 × H) ℂ)),
+      AddChar.sum_eq_ite]
+    simp only [alpogeNativeMulChC_zero_iff]
+  rw [Finset.sum_filter]
+  simp_rw [hterm]
+  rw [← Finset.sum_div, Finset.sum_sub_distrib, hA, hB, alpogeNativeCardDoublePhi]
+  by_cases h0 : ψ = 0
+  · have h1 : ψ ≠ alpogeNativeChC H := fun h => alpogeNativeChC_nontrivial (h ▸ h0)
+    simp only [if_pos h0, if_neg h1]
+    ring
+  · by_cases h1 : ψ = alpogeNativeChC H
+    · simp only [if_neg h0, if_pos h1]
+      ring
+    · simp only [if_neg h0, if_neg h1]
+      ring
+
+end NativeColours
+
 end RHLean.Analysis
