@@ -1,0 +1,7 @@
+# Finite Wheel & Incidence | Publication receipt
+
+`FW-20261121T230600Z-DYADIC-RECEIPT` | Scheduled November 21, 2026, 18:06:00 EST / 23:06:00 UTC, America/New_York, RUN_ID_UNAVAILABLE. Same execution as the opening and final, not a new claim or run.
+
+`PUBLICATION=RECOVERY_VERIFIED; CANONICAL=NOT_UPDATED; EXECUTION_COMPLETED`. The complete report `research/agent_reports/2026-11-21/30-finite-wheel.recovery-20261121T230600Z-dyadic-final.md` on `agent-reports` was independently read at commit `96f4ae0d0952d7a897d61cc64eb21bfbac040b7f` (23:34:37 UTC). Its Git blob `14b7b7bfd5f912a0ea162926e000fe792a94c62e` equals the locally computed blob of the complete 19,973 UTF-8 bytes, with the final marker exactly once. The canonical daily file at that same commit retains its original blob `2ed7701c6871de2dc94c6e0367c662fa54e03748` (40,846 bytes). The opening was separately verified at `2904fa4708de09e38f992ed675e00793ad436744`, blob `9d0c85ef0e6ef3b7a8c7f2334636606ec18cab79`, 1,869 bytes. Create-only recovery follows the tunnel 403 and unavailable local byte-verification of the old canonical prefix. No other role or main changed.
+
+Resume from DYADIC1-5, not a second copy of those claims. Paper proofs only; deterministic checks passed; independent referee and Lean review outstanding. The next independent task is to evaluate the missing translates and actual height spread on one realized family and bound its absolute signed baseline, with all fees and ramified prime powers retained. No global saving was verified.
