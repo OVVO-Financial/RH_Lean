@@ -258,4 +258,77 @@ theorem numberFieldIntegralFrame_log_two_cost (m d : ℕ) :
   push_cast
   ring
 
+/-! ## Local prime-ideal depth and complex-embedding cost
+
+The following theorems are valid in every commutative ring. In
+particular they apply directly to the original integral coefficient
+ring O_K, without interpreting Re/Im as integers.
+-/
+
+/-- The same integral matrix over any commutative ring. -/
+def algebraicCR {A : Type*} [CommRing A] (v : A × A) : A × A :=
+  (v.1 - v.2, v.1 + v.2)
+
+/-- Any ideal-power depth survives forward transport exactly. -/
+theorem algebraicCR_ideal_forward
+    {A : Type*} [CommRing A] (I : Ideal A) (v : A × A)
+    (h1 : v.1 ∈ I) (h2 : v.2 ∈ I) :
+    (algebraicCR v).1 ∈ I ∧ (algebraicCR v).2 ∈ I := by
+  change (v.1 - v.2 ∈ I) ∧ (v.1 + v.2 ∈ I)
+  exact ⟨I.sub_mem h1 h2, I.add_mem h1 h2⟩
+
+/-- Reverse transport can lose only the universal factor 2;
+this is the explicit local obstruction at prime ideals over 2. -/
+theorem algebraicCR_ideal_reverse_two
+    {A : Type*} [CommRing A] (I : Ideal A) (v : A × A)
+    (h1 : (algebraicCR v).1 ∈ I)
+    (h2 : (algebraicCR v).2 ∈ I) :
+    (2 : A) * v.1 ∈ I ∧ (2 : A) * v.2 ∈ I := by
+  change v.1 - v.2 ∈ I at h1
+  change v.1 + v.2 ∈ I at h2
+  have hs : (v.1 - v.2) + (v.1 + v.2) ∈ I :=
+    I.add_mem h1 h2
+  have ht : (v.1 + v.2) - (v.1 - v.2) ∈ I :=
+    I.sub_mem h2 h1
+  have hA : (v.1 - v.2) + (v.1 + v.2) = (2 : A) * v.1 := by ring
+  have hB : (v.1 + v.2) - (v.1 - v.2) = (2 : A) * v.2 := by ring
+  rw [hA] at hs
+  rw [hB] at ht
+  exact ⟨hs,ht⟩
+
+/-- The source-specific ideal can be a power of a ramified prime ideal.
+No local place or prime-power row is discarded. -/
+theorem algebraicCR_idealPow_forward
+    {A : Type*} [CommRing A] (I : Ideal A) (k : ℕ) (v : A × A)
+    (h1 : v.1 ∈ I ^ k) (h2 : v.2 ∈ I ^ k) :
+    (algebraicCR v).1 ∈ I ^ k ∧
+      (algebraicCR v).2 ∈ I ^ k :=
+  algebraicCR_ideal_forward (I ^ k) v h1 h2
+
+/-- The norm-square law of the integral matrix at a COMPLEX place.
+It is the exact parallelogram identity, with no triangle-inequality tax. -/
+theorem complexCR_normSq (a b : ℂ) :
+    Complex.normSq (a - b) + Complex.normSq (a + b) =
+      2 * (Complex.normSq a + Complex.normSq b) := by
+  simp only [Complex.normSq_apply, Complex.sub_re, Complex.sub_im,
+    Complex.add_re, Complex.add_im]
+  ring
+
+/-- The same exact Archimedean norm payment after any algebraic
+embedding into C, including every embedding of a number field. -/
+theorem algebraicCR_embedding_normSq
+    {A : Type*} [CommRing A] (σ : A →+* ℂ) (a b : A) :
+    Complex.normSq (σ (a - b)) + Complex.normSq (σ (a + b)) =
+      2 * (Complex.normSq (σ a) + Complex.normSq (σ b)) := by
+  simpa only [map_sub, map_add] using complexCR_normSq (σ a) (σ b)
+
+/-- Away from divisors of 2, scalar divisibility is reversible. -/
+theorem integralCR_div_reverse_coprime_two (d : ℤ) (v : ℤ × ℤ)
+    (hd : IsCoprime d (2 : ℤ))
+    (h1 : d ∣ (integralCR v).1)
+    (h2 : d ∣ (integralCR v).2) :
+    d ∣ v.1 ∧ d ∣ v.2 := by
+  obtain ⟨ha,hb⟩ := integralCR_div_reverse_two d v h1 h2
+  exact ⟨hd.dvd_of_dvd_mul_left ha, hd.dvd_of_dvd_mul_left hb⟩
+
 end RHLean.Geometry
