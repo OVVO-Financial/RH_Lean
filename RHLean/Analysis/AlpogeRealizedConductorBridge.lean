@@ -214,11 +214,11 @@ theorem alpogeNativeCosetMean_conductor_split
         if p ∣ (alpogeNativeDirChar r ψ).conductor then
           0 else ψ ((alpogeNativeCftData N q d r).frob p) ^ i := by
   by_cases h : p ∣ (alpogeNativeDirChar r ψ).conductor
-  · rw [if_pos h]
+  · rw [ite_eq_left h]
     exact alpogeNativeCosetMean_of_nontrivial _ _ _ (by
       intro ht
       exact (alpogeNativeInertiaConductor_iff q d r ψ p hp).mp ht h)
-  · rw [if_neg h]
+  · rw [ite_eq_right h]
     rw [alpogeNativeCosetMean_of_trivial _ _ _
       ((alpogeNativeInertiaConductor_iff q d r ψ p hp).mpr h)]
     exact AddChar.map_nsmul_eq_pow _ _ _
