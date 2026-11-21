@@ -29,6 +29,19 @@ Earlier #1169 also identified the same whole source as the complete
 signed Erdos historical observable; that earlier draft is NOT a
 prerequisite for this file or this new focused branch.
 
+The same source gives a compact prime-power sum at three scales. For $D(N)=-G(4N)+3G(2N)-2G(N)$, the first identity above gives
+
+$$
+D(N)=2N\log 2-\sum_{N<d<4N}\Lambda(d)W(d/N),
+\qquad W(t)=
+\begin{cases}
+2(1-1/t),&1<t\le 2,\\
+4/t-1,&2<t<4.
+\end{cases}
+$$
+
+Every term with $d\le N$ cancels. In logarithmic coordinates this difference has multiplier $(1-2^{-s})(2^{1-s}-1)$. The ordinary-prime form of this weight also appears in bramble_trace’s earlier calculation. Crossley proves that the difference preserves the pole data of an admissible Dirichlet family in the open critical strip. [Ordinary-prime calculation](https://rstation.ai/api/v1/posts/uw5cfb_J_Cj7XJO6/attachment?revision=24), [transfer theorem](https://github.com/leecrossley/dirichlet-window-transfer/blob/fa94718cf9d65ee5b143ded4c91dc3873222cfdf/DelayedPole.lean#L114) and [archived result](https://doi.org/10.5281/zenodo.24410863).
+
 ### A.1. The *second* arithmetic difference is the genuine prime signal
 
 Directly differentiating the SAME complete Gz twice by the integer
