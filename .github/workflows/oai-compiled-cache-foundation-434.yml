@@ -1,22 +1,8 @@
 name: Publish reusable Lean 4.34.1 OpenAI compilation foundation
-# IMPORTANT: GitHub only shares PR caches with that PR and its base branch.
-# Publish on main, never refs/pull/*/merge. Do not publish -complete on failure.
+# ARCHIVED: explicit manual maintenance of historical OpenAI 7/8 imports only.
+# Preserve the trusted main-only writer; do not run weekly or on routine pushes.
+# Existing native RHLean caches are independent of this workflow.
 on:
-  push:
-    branches: [main]
-    paths:
-      - '.github/workflows/oai-compiled-cache-foundation-434.yml'
-      - '.github/actions/oai-434-shared-cache/**'
-      - '.github/actions/lean-compiled-cache/**'
-      - '.github/actions/lean-setup/**'
-      - 'lean-toolchain'
-      - 'lakefile.lean'
-      - 'lake-manifest.json'
-      - 'RHLean/**'
-      - 'scripts/apply_oai_434_upstream_patches.py'
-      - 'scripts/check_shared_lean_packages.py'
-  schedule:
-    - cron: '27 4 * * 0'
   workflow_dispatch:
 
 permissions:

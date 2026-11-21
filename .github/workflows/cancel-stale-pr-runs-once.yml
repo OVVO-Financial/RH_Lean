@@ -1,0 +1,53 @@
+name: One-shot cancellation of stale PR checks during fast-cache CI cutover
+
+# Deliberately only fires when this file is first published/changed on main.
+# Never cancels push, scheduled, or workflow_dispatch jobs (including the trusted cache publisher).
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/cancel-stale-pr-runs-once.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: write
+
+concurrency:
+  group: ci-fast-cache-cutover-cancel-stale-pr-runs
+  cancel-in-progress: false
+
+jobs:
+  cancel-stale-pr-runs:
+    if: ${{ github.ref == 'refs/heads/main' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Cancel all queued and in-progress pull_request runs (not main-branch publishing)
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          ids="$(mktemp)"
+          for state in in_progress queued waiting requested pending; do
+            gh api --paginate \
+              "/repos/${GITHUB_REPOSITORY}/actions/runs?event=pull_request&status=${state}&per_page=100" \
+              --jq '.workflow_runs[] | .id' >> "$ids"
+          done
+          sort -u "$ids" -o "$ids"
+          echo "Found $(wc -l < "$ids") stale PR workflow runs"
+          cancelled=0
+          failed=0
+          while IFS= read -r run_id; do
+            [[ "$run_id" =~ ^[0-9]+$ ]] || continue
+            if gh api -X POST "/repos/${GITHUB_REPOSITORY}/actions/runs/${run_id}/cancel" > /dev/null; then
+              cancelled=$((cancelled+1))
+              echo "Cancelled PR run: ${run_id}"
+            else
+              # GitHub may have completed a run between list and cancellation.
+              failed=$((failed+1))
+              echo "::notice::Run ${run_id} was no longer cancellable"
+            fi
+          done < "$ids"
+          echo "Cancelled ${cancelled} PR runs; ${failed} completed/raced with cancellation." | tee -a "$GITHUB_STEP_SUMMARY"

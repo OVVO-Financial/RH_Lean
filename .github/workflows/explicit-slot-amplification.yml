@@ -1,32 +1,13 @@
 name: Explicit finite-slot amplification bounds
 
 on:
-  pull_request:
-    types: [opened, synchronize, reopened]
-    paths:
-      - 'RHLean/Proof/SquareRootAmplificationPowerBounds.lean'
-      - 'RHLean/Proof/SquareRootAmplificationLogGrowth.lean'
-      - 'RHLean/Proof/SquareRootAncestryRoot.lean'
-      - 'RHLean.lean'
-      - 'research/oai_434/VF919Explicit*.lean'
-      - 'research/oai_434/VF919TotalMass*.lean'
-      - 'scripts/lean/explicit_amplification/**'
-      - 'scripts/lean/total_mass/**'
-      - '.github/workflows/explicit-slot-amplification.yml'
-      - '.github/actions/lean-setup/**'
-      - '.github/actions/lean-compiled-cache/**'
-      - '.github/actions/research-compile/**'
-      - '.github/actions/oai-434-shared-cache/**'
-      - 'lean-toolchain'
-      - 'lakefile.lean'
-      - 'lake-manifest.json'
   workflow_dispatch:
 
 permissions:
   contents: read
 
 concurrency:
-  group: explicit-amplification-${{ github.head_ref || github.ref_name }}-${{ github.event.pull_request.head.sha || github.sha }}
+  group: explicit-amplification-${{ github.head_ref || github.ref_name }}
   cancel-in-progress: true
 
 jobs:
@@ -74,13 +55,16 @@ jobs:
       - name: Restore source-pinned original analytic shared cache
         id: oai_cache
         uses: ./.github/actions/oai-434-shared-cache
-      - name: Compile original analytic prerequisites on cache miss
-        if: ${{ steps.oai_cache.outputs.complete != 'true' }}
+        with:
+          complete-only: 'true'
+      - name: Require verified complete OpenAI cache from trusted main
         shell: bash
-        working-directory: oai-upstream/lean
         run: |
           set -euo pipefail
-          lake build OAI.NumberTheory.DirichletL.Detector.FinalAssemblyUnconditional
+          if [[ "${{ steps.oai_cache.outputs.complete }}" != true ]]; then
+            echo "::error::Complete pinned OpenAI cache unavailable. Run 'Publish reusable Lean 4.34.1 OpenAI compilation foundation' on main; PR checks never cold-build this DAG."
+            exit 1
+          fi
       - name: Verify shared package identity and original source
         shell: bash
         run: |
