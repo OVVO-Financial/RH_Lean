@@ -32,7 +32,6 @@ on:
     paths:
       - 'research/oai_434/**'
       - 'research/VF_919_*.lean'
-      - 'RHLean/**/*.lean'
       - 'lean-toolchain'
       - 'lakefile.lean'
       - 'lake-manifest.json'
@@ -102,6 +101,8 @@ jobs:
       - name: Restore original OAI compiled DAG, verifying source pins and patches
         id: oai_cache
         uses: ./.github/actions/oai-434-shared-cache
+        with:
+          complete-only: ${{ github.event_name == 'pull_request' }}
       - name: Report shared cache decisions
         run: |
           echo "RHLean native: ${{ steps.native_cache.outputs.native-matched-key }}"

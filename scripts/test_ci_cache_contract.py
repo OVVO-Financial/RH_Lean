@@ -44,6 +44,33 @@ class CacheContractTest(unittest.TestCase):
     def test_python_only_not_lean(self):
         self.assertEqual([], self.check_text("run: python3 foo.py\n"))
 
+    def test_pr_full_oai_cold_rebuild_is_forbidden(self):
+        problems = self.check_text(
+            "on: pull_request:\nrepository: openai/math\n"
+            "uses: ./.github/actions/lean-setup\n"
+            "uses: ./.github/actions/oai-434-shared-cache\n"
+            "lake build OAI.NumberTheory.DirichletL.Detector.FinalAssemblyUnconditional\n"
+        )
+        self.assertTrue(any("complete-only" in problem for problem in problems))
+
+    def test_heavy_oai_ci_no_longer_runs_on_every_alpoge_file(self):
+        root = Path(__file__).resolve().parent.parent
+        workflow_dir = root / ".github" / "workflows"
+        for name in ("vf919-oai-certified-core-434.yml",
+                     "vf919-openai-full-certified-seven-eighths-434.yml"):
+            source = (workflow_dir / name).read_text()
+            self.assertNotIn("      - 'RHLean/**'", source)
+            self.assertIn("complete-only: 'true'", source)
+            self.assertNotIn("lake build OAI.NumberTheory.DirichletL.Detector.FinalAssemblyUnconditional", source)
+
+    def test_amplification_concurrency_is_branch_scoped(self):
+        root = Path(__file__).resolve().parent.parent
+        source = (root / ".github" / "workflows" / "explicit-slot-amplification.yml").read_text()
+        self.assertIn("group: explicit-amplification-${{ github.head_ref || github.ref_name }}", source)
+        self.assertNotIn("group: explicit-amplification-${{ github.head_ref || github.ref_name }}-${{ github.event.pull_request.head.sha", source)
+        self.assertNotIn("      - 'RHLean.lean'", source)
+        self.assertIn("complete-only: 'true'", source)
+
 
 if __name__ == "__main__":
     unittest.main()

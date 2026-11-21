@@ -12,7 +12,6 @@ on:
       - 'lean-toolchain'
       - 'lakefile.lean'
       - 'lake-manifest.json'
-      - 'RHLean/**'
       - 'scripts/apply_oai_434_upstream_patches.py'
       - 'scripts/check_shared_lean_packages.py'
   schedule:
