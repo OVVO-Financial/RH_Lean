@@ -10,11 +10,11 @@ import RHLean.Analysis.AlpogeNNSCompleteSelbergCovariance
 import RHLean.Analysis.AlpogeNNSMatchedSelbergKernel
 import RHLean.Analysis.AlpogeNativeFourCharacterArithmetic
 import RHLean.Analysis.AlpogeNativeSharpASKBalance
-import RHLean.Analysis.AlpogeRealizedConductorBridge
 import RHLean.Analysis.AlpogePhysicalCharacterHistory
 import RHLean.Analysis.AlpogePhysicalCharacterInterpolation
 import RHLean.Analysis.AlpogePhysicalTopExcess
 import RHLean.Analysis.AlpogePositivePrimeParentTransport
+import RHLean.Analysis.AlpogeRealizedConductorBridge
 import RHLean.Analysis.AlpogeSharpASKCollar
 import RHLean.Analysis.BalancedPrimeBilinearCentering
 import RHLean.Analysis.BlockCovarianceDecomposition
