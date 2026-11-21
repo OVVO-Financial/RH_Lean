@@ -1,0 +1,9 @@
+# Finite Wheel & Incidence | Dyadic cost checkpoint
+
+`FW-20261121T230600Z-DYADIC-OPEN` | IN_PROGRESS, scheduled November 21, 2026, 18:06:00 EST (23:06:00 UTC), America/New_York; scheduler run ID unavailable. No theorem or saving claimed at opening.
+
+Question: when does the index at 2 in the integral change to plus/minus coordinates actually change a finite cokernel length? Compare the finite primitive prime-power fibres, the full signed ASK with its true masks, and the distinct twisted Galois cokernel discussed in draft #1177. Test repeated layers, the shared order-two elements, an interchanged pair and a non-invariant mask. Do not identify any of these carriers before proving a bridge. Check whether a length difference pays any part of the absolute dyadic sum or of topExcess.
+
+Main a983e08d17c858af3c57260825f5defaf9cd922b; AGENTS b9bfe9b60904f87b698628f8b771d476c19e933e; contract f4fe93c4b609d07061ac9aa7d2dd0b7371e73f3c; full-cost policy 1321c6e8e0f4d5b5248cecf651e69da873eb7463. Reports b8d433c1dce99380a60929cd8885c0e15f7f8dee. Previous Wheel ORBMIN; new MATCH, TRANSFER, FROB-CRT, LATTICE, VALUATION and BASE finals present, not inferred from schedules. Latest external index 7d63d434690d00dffce9c90335d41c4f62d85798. The full normalized geometric cost and the fixed strict-history improvement remain open.
+
+Intended canonical: research/agent_reports/2026-11-21/30-finite-wheel.md on agent-reports, existing blob 2ed7701c6871de2dc94c6e0367c662fa54e03748, 40846 bytes. Direct Git returned tunnel 403. The connector's complete-file and blob views are display-truncated, not a locally byte-verified prefix. Create-only own-role recovery, not a canonical append. Resume: prove the sign and size of the discrepancy, compare it to the physical cost, run exact regression, and publish the final findings separately. `publish_ack=REPORT_PUBLISH_RECOVERY_V1`.
