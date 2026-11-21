@@ -210,7 +210,7 @@ This is the actual arithmetic restriction-of-scalars map, not an
 assumption that Re/Im of an algebraic integer are ordinary integers. -/
 theorem integralCR_ringOfIntegers_basis
     (K : Type*) [Field K] [NumberField K]
-    (a b : 𝓞 K) (i : Free.ChooseBasisIndex ℤ (𝓞 K)) :
+    (a b : 𝓞 K) (i : Module.Free.ChooseBasisIndex ℤ (𝓞 K)) :
     (((RingOfIntegers.basis K).repr (a - b)) i,
       ((RingOfIntegers.basis K).repr (a + b)) i) =
       integralCR
@@ -232,7 +232,7 @@ integrality assertion is needed. -/
 def numberFieldIntegralFrame
     (K : Type*) [Field K] [NumberField K]
     {m : ℕ} (a b : Fin m → 𝓞 K)
-    (i : Free.ChooseBasisIndex ℤ (𝓞 K)) :
+    (i : Module.Free.ChooseBasisIndex ℤ (𝓞 K)) :
     Fin m → ℤ × ℤ :=
   fun j => (((RingOfIntegers.basis K).repr (a j)) i,
     ((RingOfIntegers.basis K).repr (b j)) i)
@@ -241,7 +241,7 @@ def numberFieldIntegralFrame
 theorem numberFieldIntegralFrame_CR
     (K : Type*) [Field K] [NumberField K]
     {m : ℕ} (a b : Fin m → 𝓞 K)
-    (i : Free.ChooseBasisIndex ℤ (𝓞 K)) :
+    (i : Module.Free.ChooseBasisIndex ℤ (𝓞 K)) :
     numberFieldIntegralFrame K
       (fun j => a j - b j) (fun j => a j + b j) i =
         integralCRFrame (numberFieldIntegralFrame K a b i) := by
@@ -383,5 +383,6 @@ HN covolume of a specific number-field lattice. -/
 theorem integralCRFrame_log_normalization_cancel (m : ℕ) :
     Real.log ((2 : ℝ) ^ m) - (m : ℝ) * Real.log 2 = 0 := by
   rw [integralCRFrame_log_two]
+  ring
 
 end RHLean.Geometry
