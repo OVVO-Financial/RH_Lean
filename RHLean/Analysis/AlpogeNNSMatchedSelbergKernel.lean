@@ -83,10 +83,7 @@ theorem alpogeNNSMatchedMass_full_eq_K2_sub_convolution
   unfold alpogeNNSMatchedMass alpogeNNSMatchedKernel
     nativePNTSignedSecondSelbergKernelErrorMass
     nativePNTLambdaConvolutionSignedErrorMass
-  rw [Finset.sum_sub_distrib]
-  apply Finset.sum_congr rfl
-  intro n _hn
-  ring
+  simp only [sub_mul, Finset.sum_sub_distrib]
 
 /-- THE COMPLETE source-level cancellation. This is the original E(N),
 not a K2-only sector. ALL physical prime powers, both signed lower
