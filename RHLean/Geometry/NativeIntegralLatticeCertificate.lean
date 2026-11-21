@@ -107,7 +107,8 @@ theorem integralCR_div_reverse_two (d : ℤ) (v : ℤ × ℤ)
 theorem integralCR_height_le (v : ℤ × ℤ) :
     integralHeight (integralCR v) ≤
       2 * integralHeight v := by
-  have h1 : |v.1 - v.2| ≤ |v.1| + |v.2| := abs_sub_le _ _
+  have h1 : |v.1 - v.2| ≤ |v.1| + |v.2| := by
+    simpa [sub_eq_add_neg] using (abs_add_le v.1 (-v.2))
   have h2 : |v.1 + v.2| ≤ |v.1| + |v.2| := abs_add_le _ _
   dsimp [integralHeight, integralCR]
   omega
@@ -162,7 +163,6 @@ description; the full quotient-index formalization is separate. -/
 theorem integralCRFrame_log_two (m : ℕ) :
     Real.log ((2 : ℝ) ^ m) = (m : ℝ) * Real.log 2 := by
   rw [Real.log_pow]
-  ring
 
 /-- One checked transport certificate. The source's integral divisor
 evidence is a REAL obligation, not an assumed theta-lift theorem. -/
