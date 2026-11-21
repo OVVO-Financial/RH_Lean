@@ -100,7 +100,7 @@ whose a/n ratio lies strictly between the two site widths. -/
 def alpogeASKPrimePowerCollarMass
     (N : ℕ) (a b B : ℝ) : ℝ :=
   ∑ n ∈ (Finset.Icc 2 N).filter
-    (fun n => b < a / (n : ℝ) ∧ a / (n : ℝ) < B),
+    (fun (n : ℕ) => b < a / (n : ℝ) ∧ a / (n : ℝ) < B),
     Λ n
 
 /-- A new unconditional arithmetic saving in the principal sharp ASK
@@ -140,7 +140,7 @@ theorem alpogeASKPrimePowerMidpointGap_le_collar
     have hmem : b < z ∧ z < B := by
       constructor <;> linarith
     simp only [z] at hmem
-    simp only [if_pos hmem]
+    simp only [ite_eq_left hmem]
     have hmul := mul_le_mul_of_nonneg_left
       (alpogeASKMidpointGap_nonneg_le_quarter
         (a / (n : ℝ)) b B hbB).2
@@ -196,7 +196,7 @@ theorem alpogeASKPrincipalBalance_midpoint_eq_signed_losses
             ((Λ n * alpogeASKPos (a / (n : ℝ)) b +
                Λ n * alpogeASKPos (a / (n : ℝ)) B) / 2 -
                Λ n * alpogeASKPos (a / (n : ℝ)) ((b + B) / 2)) := by
-            rw [Finset.sum_sub_distrib, Finset.sum_div,
+            rw [Finset.sum_sub_distrib, ← Finset.sum_div,
               Finset.sum_add_distrib]
       _ = _ := by
             apply Finset.sum_congr rfl
