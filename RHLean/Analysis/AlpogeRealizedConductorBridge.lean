@@ -155,7 +155,7 @@ theorem alpogeNativeCosetMean_of_nontrivial
     alpogeNativeInertiaCosetMean I g ψ = 0 := by
   classical
   unfold alpogeNativeInertiaCosetMean
-  push_neg at hI
+  push Not at hI
   obtain ⟨y, hy, hy1⟩ := hI
   have key :
       (∑ x ∈ Finset.univ.filter (fun x : G => x ∈ I), ψ (g+x)) = 0 := by
@@ -209,7 +209,7 @@ theorem alpogeNativeCosetMean_conductor_split
     (ψ : AddChar (AlpogeNativeE0 × H) ℂ) (p : ℕ)
     (hp : p.Prime) (i : ℕ) :
     alpogeNativeInertiaCosetMean
-      (alpogeNativeCftData N q d r).inertia p
+      ((alpogeNativeCftData N q d r).inertia p)
       (i • (alpogeNativeCftData N q d r).frob p) ψ =
         if p ∣ (alpogeNativeDirChar r ψ).conductor then
           0 else ψ ((alpogeNativeCftData N q d r).frob p) ^ i := by
