@@ -33,7 +33,6 @@ theorem alpogeNativeKernel_rescale
       W * (a / W / (n : ℝ) - 1) := by
   have hWa : W * (a / W) = a := by field_simp
   rw [mul_sub, mul_one, mul_div_assoc', hWa]
-  ring
 
 /-- Exact N-to-floor(a/W) cutoff with ANY complex arithmetic
 coefficient, including the von Mangoldt character prime-power source. -/
@@ -123,16 +122,32 @@ theorem alpogeNativeSharpASK_eq_weightedGchi
   have hwa : W * (a / W) = a := by field_simp
   have hwaC : (W : ℂ) * ((a / W : ℝ) : ℂ) = (a : ℂ) := by
     rw [← Complex.ofReal_mul, hwa]
-  unfold alpogeNativeSharpASK
   have hsource := alpogeNativeMaxCut_eq_weightedSource
-    (fun n => (Λ n : ℂ) * χ n) N a W ha hW hN
-  convert hsource using 1 <;> try { ring }
-  · apply Finset.sum_congr rfl
+    (fun n => ((Λ n : ℝ) : ℂ) * χ n) N a W ha hW hN
+  have htwist :
+      (∑ n ∈ Finset.Icc 1 ⌊a / W⌋₊,
+          ((Λ n : ℝ) : ℂ) * χ n *
+            (((a / W) / (n : ℝ) - 1 : ℝ) : ℂ)) =
+      alpogeNativeTwistedPrimeSum χ (a / W) := by
+    unfold alpogeNativeTwistedPrimeSum
+    apply Finset.sum_congr rfl
     intro n _hn
+    unfold alpogeNativePrimePowerWeight
+    push_cast
     ring
-  · unfold alpogeNativeGchiArithmetic alpogeNativeTwistedPrimeSum
-    rw [mul_add, ← mul_assoc, hwaC]
-    ring
+  calc
+    alpogeNativeSharpASK χ N a W =
+        (W : ℂ) * ∑ n ∈ Finset.Icc 1 ⌊a / W⌋₊,
+          ((Λ n : ℝ) : ℂ) * χ n *
+            (((a / W) / (n : ℝ) - 1 : ℝ) : ℂ) := by
+              simpa only [alpogeNativeSharpASK] using hsource
+    _ = (W : ℂ) * alpogeNativeTwistedPrimeSum χ (a / W) := by
+      rw [htwist]
+    _ = (W : ℂ) * alpogeNativeGchiArithmetic χ ell (a / W) -
+          (a : ℂ) * ell := by
+      unfold alpogeNativeGchiArithmetic
+      rw [mul_add, ← mul_assoc, hwaC]
+      ring
 
 /-- ASK averaged over any finite weighted physical owner group,
 with no independence, generic geometry or character error assumed. -/
@@ -144,8 +159,8 @@ theorem alpogeNativeSharpASK_family_eq_Gchi
     (hw : ∀ j ∈ S, 0 < w j)
     (hN : ∀ j ∈ S, a / w j ≤ (N : ℝ)) :
     (∑ j ∈ S, alpogeNativeSharpASK χ N a (w j)) =
-      ∑ j ∈ S, (w j : ℂ) * alpogeNativeGchiArithmetic χ ell (a / w j)
-        - (a : ℂ) * ell := by
+      ∑ j ∈ S, ((w j : ℂ) * alpogeNativeGchiArithmetic χ ell (a / w j)
+        - (a : ℂ) * ell) := by
   apply Finset.sum_congr rfl
   intro j hj
   exact alpogeNativeSharpASK_eq_weightedGchi
