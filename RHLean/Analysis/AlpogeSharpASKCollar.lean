@@ -1,5 +1,7 @@
 import Mathlib
 
+open scoped ArithmeticFunction.vonMangoldt BigOperators
+
 /-!
 # Sharp midpoint collar for Alpoge's genuine ASK positive-part kernel
 
@@ -83,5 +85,65 @@ theorem alpogeASKMidpointGap_nonneg_le_quarter
     unfold alpogeASKMidpointGap alpogeASKPos
     rw [max_eq_left h1, max_eq_right h2, max_eq_left h3]
     constructor <;> linarith
+
+/-- The full genuine principal von Mangoldt source incurs a Jensen
+cost at two widths only inside the sharp prime-power crossing collar.
+The ordinary principal character coefficient is 1 even at ramified
+prime powers. No nonprincipal estimate is asserted. -/
+def alpogeASKPrimePowerMidpointGap
+    (N : ℕ) (a b B : ℝ) : ℝ :=
+  ∑ n ∈ Finset.Icc 2 N,
+    Λ n * alpogeASKMidpointGap (a / (n : ℝ)) b B
+
+/-- The literal collider consists of precisely those prime powers
+whose a/n ratio lies strictly between the two site widths. -/
+def alpogeASKPrimePowerCollarMass
+    (N : ℕ) (a b B : ℝ) : ℝ :=
+  ∑ n ∈ (Finset.Icc 2 N).filter
+    (fun n => b < a / (n : ℝ) ∧ a / (n : ℝ) < B),
+    Λ n
+
+/-- A new unconditional arithmetic saving in the principal sharp ASK
+source. All n outside the *actual* prime-power crossing collar have
+exactly zero Jensen cost. Within the collar each mass pays at most
+(B-b)/4, not a global width-Lipschitz charge. -/
+theorem alpogeASKPrimePowerMidpointGap_le_collar
+    (N : ℕ) (a b B : ℝ) (hbB : b ≤ B) :
+    0 ≤ alpogeASKPrimePowerMidpointGap N a b B ∧
+    alpogeASKPrimePowerMidpointGap N a b B ≤
+      ((B - b) / 4) * alpogeASKPrimePowerCollarMass N a b B := by
+  constructor
+  · unfold alpogeASKPrimePowerMidpointGap
+    apply Finset.sum_nonneg
+    intro n hn
+    exact mul_nonneg ArithmeticFunction.vonMangoldt_nonneg
+      (alpogeASKMidpointGap_nonneg_le_quarter
+        (a / (n : ℝ)) b B hbB).1
+  · unfold alpogeASKPrimePowerMidpointGap
+      alpogeASKPrimePowerCollarMass
+    rw [Finset.mul_sum, Finset.sum_filter]
+    apply Finset.sum_le_sum
+    intro n hn
+    let z : ℝ := a / (n : ℝ)
+    by_cases hlo : z ≤ b
+    · have hz := alpogeASKMidpointGap_eq_zero_of_le z b B hbB hlo
+      have hnot : ¬(b < z ∧ z < B) := by
+        intro hh
+        linarith
+      simp [z, hz, hnot]
+    by_cases hhi : B ≤ z
+    · have hz := alpogeASKMidpointGap_eq_zero_of_ge z b B hbB hhi
+      have hnot : ¬(b < z ∧ z < B) := by
+        intro hh
+        linarith
+      simp [z, hz, hnot]
+    have hmem : b < z ∧ z < B := by
+      constructor <;> linarith
+    simp only [z] at hmem
+    simp only [if_pos hmem]
+    exact mul_le_mul_of_nonneg_left
+      (alpogeASKMidpointGap_nonneg_le_quarter
+        (a / (n : ℝ)) b B hbB).2
+      ArithmeticFunction.vonMangoldt_nonneg
 
 end RHLean.Analysis
