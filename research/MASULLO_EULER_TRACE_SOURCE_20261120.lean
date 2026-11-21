@@ -93,7 +93,7 @@ theorem masulloMoebius_divisor_sum_zero {m : ℕ} (hm : 1 < m) :
     (∑ d ∈ m.divisors, (((μ d : ℤ) : ℝ))) = 0 := by
   have h := sum_moebius_divisors_eq_one_or_zero m
   have hm1 : m ≠ 1 := ne_of_gt hm
-  rw [if_neg hm1] at h
+  simp [hm1] at h
   exact_mod_cast h
 
 /-- A *formal fibre model* of the retained low-prime-divisor log source.
