@@ -229,3 +229,88 @@ formula and the m-vs-covolume saving are NOT derived by this positivity.
 The finite result cannot be promoted to an RH theorem, nor can it be
 used to drop the principal x*log(x), logarithmic L-derivatives or the
 complete signed Selberg complement.
+
+
+## 2026-11-20/21 strict completeness and paid-cost audit
+
+### 1. New unconditional quantitative ramification theorem (paper proof, not yet Lean)
+
+For x>=1 and integer q>=1, the exact physical quadratic Dirichlet return
+on the nonunits of ZMod(q), with all prime powers included, is
+
+    Ram_q(x)
+      = sum_(p | q, p prime) log(p) *
+          sum_(k>=1, p^k<=floor(x)) (x/p^k - 1).
+
+This follows term by term from the definition of Lambda(n), its support on
+prime powers, and nonunit(p^k mod q) iff p|q. As the inner terms are
+nonnegative and sum_(k>=1) p^(-k)=1/(p-1),
+
+    0 <= Ram_q(x)
+       <= x * sum_(p | q prime) log(p)/(p-1)
+       <= x * sum_(p | q prime) log(p)
+       <= x * log(q).
+
+The last inequality follows from prod_(p|q, prime) p | q.
+
+But if p|q is ANY prime and x>=2p, the k=1 contribution yields
+
+    Ram_q(x) >= log(p)*(x/p - 1) >= x*log(p)/(2p).
+
+Hence a FIXED ramified prime forces an OMEGA(x) contribution. The
+upper bound is genuine arithmetic control of the finite return;
+it does NOT make that return an acceptable O(sqrt(x)) error.
+One must cancel/include it against the correct original MAIN and
+inertia/Frobenius channels; discarding it invalidates the claimed
+root-scale estimate.
+
+Lean status: exact definition, nonnegativity and weaker bound
+Ram_q(x)<=x*nativeLambdaRecip(floor x) are now in the native Lean
+source (check exact-head CI); the sharper x*log(q) statement and
+Omega(x) lower bound above are complete elementary mathematical
+proofs, not yet Lean declarations.
+
+### 2. IMPORTANT: ordinary Dirichlet characters are not the original
+automorphic/inertia values at ramified primes
+
+This project currently defines a TRUE Dirichlet-character arithmetic
+analogue of the weighted original Gsig character pattern. It does NOT
+yet identify the actual published ASK source.
+
+Published FirstPrimeNeSecondPrime.lean defines
+
+    primVal(D,psi,p^k)
+       = (1 / |inertia(p)|) *
+           sum_(u in inertia(p)) psi(k*frob(p)+u).
+
+For unramified p this reduces to the Frobenius character value.
+For RAMIFIED p, characters trivial on inertia can have NONZERO
+coset-mean values, whereas a Dirichlet character modulo q vanishes
+at every nonunit. Hence the published exceptional p=d and p=q1,2
+weights cannot be recovered merely by setting both Dirichlet
+values to zero. The native Dirichlet projector's ramified factor
+1 is correct for that arithmetic analogue only.
+
+The next physical identification must construct the actual
+Frobenius/inertia population, prove the coset character orthogonality,
+and pay the exceptional ramified prime-power differences against
+the original MAIN/ASK balance, before invoking geometric parameters
+or claiming equivalence to the original ArithData/HostFacts.
+
+### 3. The selected 2p multiplicity cancels in the MATCHED complete source
+
+Merged PR #1167 selbergMatched_oddChildren proves that, on any
+admitted 2p site for distinct primes p != 2, the signed second
+Selberg kernel K2 and the ORDERED Lambda*Lambda return cancel:
+
+    K2(2p) - (Lambda*Lambda)(2p) = -Lambda(2p)*log(2p) = 0.
+
+Therefore the growing distinct 2p child population constructed
+in PRs #1163/#1164 cannot be promoted into an m-fold gain by
+estimating the selected K2 sum alone: its actual matched coefficient
+is zero. A viable Alpoge analogue must amplify a SURVIVING part of
+the full matched source, account for the rank-one principal mode,
+and pay all geometric and arithmetic complements.
+
+These findings are actual source restrictions, not a claim of
+the global estimate Err/(T*m*b*delta)<<x^(1/2+epsilon).
