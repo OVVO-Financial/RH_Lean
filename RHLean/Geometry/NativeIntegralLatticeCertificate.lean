@@ -331,4 +331,57 @@ theorem integralCR_div_reverse_coprime_two (d : ℤ) (v : ℤ × ℤ)
   obtain ⟨ha,hb⟩ := integralCR_div_reverse_two d v h1 h2
   exact ⟨hd.dvd_of_dvd_mul_left ha, hd.dvd_of_dvd_mul_left hb⟩
 
+/-! ## Transport the lattice AND the metric: no artificial cost
+
+The ambient Euclidean lattice has index 2 per pair, but the image
+sublattice must keep its own pulled-back norm. Normalizing its Gram by
+one half removes the artificial coordinate determinant tax exactly.
+This is intrinsic to the coordinate map, and does not bypass the
+number-field theta-lift height/covolume hypotheses.
+-/
+
+/-- The full normalized REAL Gram pairing is EXACTLY unchanged. -/
+theorem integralCRFrame_normalized_isometry
+    (m : ℕ) (v w : Fin m → ℤ × ℤ) :
+    (((∑ i : Fin m,
+      integralDot (integralCR (v i)) (integralCR (w i))) : ℤ) : ℝ) / 2 =
+      (((∑ i : Fin m, integralDot (v i) (w i)) : ℤ) : ℝ) := by
+  rw [integralCRFrame_gram]
+  push_cast
+  ring
+
+/-- The oriented area of any transported two-frame is unchanged
+when the target volume form is normalized by the factor 2. -/
+theorem integralCR_normalized_wedge
+    (v w : ℤ × ℤ) :
+    (((integralWedge (integralCR v) (integralCR w) : ℤ) : ℝ) / 2) =
+      ((integralWedge v w : ℤ) : ℝ) := by
+  rw [integralCR_wedge]
+  push_cast
+  ring
+
+/-- Divisibility is EXACT when judged inside the proper transported
+integral lattice. The factor-2 reverse loss in ambient coordinates
+is a penalty for forgetting the parity-image condition, NOT a loss
+for the lattice and ideal transported together. -/
+theorem integralCR_divisible_iff_exact_image
+    (d : ℤ) (v : ℤ × ℤ) :
+    (d ∣ v.1 ∧ d ∣ v.2) ↔
+      ∃ w : ℤ × ℤ,
+        d ∣ w.1 ∧ d ∣ w.2 ∧ integralCR w = integralCR v := by
+  constructor
+  · rintro ⟨ha,hb⟩
+    exact ⟨v, ha, hb, rfl⟩
+  · rintro ⟨w,ha,hb,hw⟩
+    have h : w = v := integralCR_injective hw
+    subst w
+    exact ⟨ha,hb⟩
+
+/-- The apparent volume-index tax cancels its metric normalization.
+This is an algebraic log identity, not yet an equality to Alpoge's
+HN covolume of a specific number-field lattice. -/
+theorem integralCRFrame_log_normalization_cancel (m : ℕ) :
+    Real.log ((2 : ℝ) ^ m) - (m : ℝ) * Real.log 2 = 0 := by
+  rw [integralCRFrame_log_two]
+
 end RHLean.Geometry
