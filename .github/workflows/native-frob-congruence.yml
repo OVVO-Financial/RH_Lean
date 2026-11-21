@@ -1,0 +1,52 @@
+name: Native Frobenius congruence fibres
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'research/ALPOGE_NATIVE_FROB_CONGRUENCE.lean'
+      - 'RHLean/Analysis/AlpogeNative*.lean'
+      - 'scripts/lean/native_frob/**'
+      - 'scripts/audit_preservation_sources.py'
+      - 'scripts/compile_research_import_closure.py'
+      - '.github/workflows/native-frob-congruence.yml'
+      - 'lean-toolchain'
+      - 'lake-manifest.json'
+permissions:
+  contents: read
+jobs:
+  proof:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          persist-credentials: false
+      - name: Identify source and enumerate finite controls
+        env:
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          set -euo pipefail
+          mkdir -p native-frob-evidence
+          git rev-parse HEAD | tee native-frob-evidence/head
+          test "$(git rev-parse HEAD)" = "$HEAD_SHA"
+          cat lean-toolchain | tee native-frob-evidence/toolchain
+          jq -er '.packages[] | select(.name=="mathlib") | .rev' lake-manifest.json | tee native-frob-evidence/mathlib
+          python3 scripts/lean/native_frob/regression.py | tee native-frob-evidence/regression.log
+      - uses: ./.github/actions/lean-setup
+      - uses: ./.github/actions/lean-compiled-cache
+      - name: Compile the original host and force the research module
+        run: |
+          set -euo pipefail
+          python3 scripts/compile_research_import_closure.py --build-library --force research/ALPOGE_NATIVE_FROB_CONGRUENCE.lean 2>&1 | tee native-frob-evidence/build.log
+      - name: Verify exact types, mixed ramification, dependencies and axioms
+        run: |
+          set -euo pipefail
+          lake env lean -DwarningAsError=true scripts/lean/native_frob/ExactTypes.lean 2>&1 | tee native-frob-evidence/types.log
+          python3 scripts/lean/native_frob/audit.py
+      - uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
+        with:
+          name: native-frob-${{ github.event.pull_request.head.sha }}
+          path: native-frob-evidence/
+          if-no-files-found: error
