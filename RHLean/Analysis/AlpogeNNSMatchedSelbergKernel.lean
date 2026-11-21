@@ -158,4 +158,46 @@ theorem alpogeNNSBand_matchedScaledSchur_identity
   unfold alpogeNNSBandScaledSchur
   ring
 
+/-- The global matched prime-power source is exactly the NEGATIVE
+logarithmic Lambda-E channel, with no hidden semiprime source. -/
+theorem alpogeNNSMatchedMass_full_eq_neg_logError
+    (N : ℕ) :
+    alpogeNNSMatchedMass N (Finset.Icc 1 N) =
+      -nativePNTLambdaLogSignedErrorMass N := by
+  rw [alpogeNNSMatchedMass_eq_negativePrimePower]
+  unfold nativePNTLambdaLogSignedErrorMass
+  rfl
+
+/-- **Complete correction ledger.** The lower quotient logarithm,
+the floor-log defect, and the full signed prime-power match recombine
+EXACTLY to the first Selberg weighted error multiplied by log N.
+There is no unpaid independent rank-one prime-band mode left. -/
+theorem alpogeNNSMatchedLowerLogs_sub_primePower_eq_firstConvolution
+    (N : ℕ) :
+    nativePNTLambdaFloorLogSignedErrorMass N +
+      nativePNTLambdaFloorLogSignedDefectMass N -
+        alpogeNNSMatchedMass N (Finset.Icc 1 N) =
+      (∑ d ∈ Finset.Icc 1 N,
+        Λ d * nativePNTError (N / d)) * Real.log (N : ℝ) := by
+  have hsplit := nativePNTLambdaSignedErrorMass_mul_log_eq_components N
+  have hmatched := alpogeNNSMatchedMass_full_eq_neg_logError N
+  linarith [hsplit, hmatched]
+
+/-- **All-band source audit**: once the complete ordered convolution,
+the original lower-logarithm term and floor defects are restored, the
+second Selberg recurrence is exactly the FIRST Selberg recurrence
+multiplied by log N. This identity is a no-double-counting theorem,
+not a uniform bound on the original prime/composite error. -/
+theorem alpogeNNSSecondSelbergSource_eq_first_times_log
+    (N : ℕ) :
+    nativePNTSignedSelbergRemainder N * Real.log (N : ℝ) -
+      nativePNTLambdaFloorLogSignedErrorMass N -
+      nativePNTLambdaFloorLogSignedDefectMass N +
+        alpogeNNSMatchedMass N (Finset.Icc 1 N) =
+      (nativePNTSignedSelbergRemainder N -
+        ∑ d ∈ Finset.Icc 1 N, Λ d * nativePNTError (N / d)) *
+          Real.log (N : ℝ) := by
+  have h := alpogeNNSMatchedLowerLogs_sub_primePower_eq_firstConvolution N
+  linarith [h]
+
 end RHLean.Analysis
