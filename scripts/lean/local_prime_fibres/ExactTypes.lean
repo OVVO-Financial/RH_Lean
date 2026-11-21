@@ -26,3 +26,13 @@ example (v : ZMod 2 × ZMod 1 → ℂ) :
 example {S : Type*} [Fintype S] [DecidableEq S] (s : S) (v : S → ℝ) (w : ℝ)
     (hw : ∀ t, |v s - v t| ≤ w) : |v s - (∑ t, v t) / Fintype.card S| ≤
       (((Finset.univ.erase s).card : ℝ) / Fintype.card S) * w := locality_width s v w hw
+
+example (e q d k : ℕ) (hq : q.Prime) (hd : d.Prime)
+    (hQ : q.Coprime (2 ^ (e + 2))) (hD : d.Coprime (2 ^ (e + 2)))
+    [Fintype (LocalityDyadic e)] (a b c : ZMod 2 × LocalityDyadic e → ℂ) :
+    (Λ (2 ^ (k+1)) : ℂ) * localityFibre (fun h => ((0 : ZMod 2), ((k+1 : ℕ) : ZMod 2), h)) a +
+    (Λ (q ^ (k+1)) : ℂ) * localityFibre (fun s : ZMod 2 => ((0 : ZMod 2), s, (k+1) • localityClass e q hQ)) b +
+    (Λ (d ^ (k+1)) : ℂ) * localityFibre (fun s : ZMod 2 => (s, ((k+1 : ℕ) : ZMod 2), (k+1) • localityClass e d hD)) c =
+    -(Real.log 2 : ℂ) * localityMean a - (Real.log q : ℂ) * localityMean b +
+      (Real.log d : ℂ) * (c (((k+1 : ℕ) : ZMod 2), (k+1) • localityClass e d hD) - localityMean c) :=
+  locality_primePower e q d (k+1) hq hd (Nat.succ_ne_zero k) hQ hD a b c

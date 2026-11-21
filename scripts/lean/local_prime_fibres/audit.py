@@ -12,17 +12,18 @@ from audit_preservation_sources import FORBIDDEN, PUBLIC, audit_program, strip_l
 module = 'ALPOGE_LOCAL_PRIME_FIBRES'
 ns = 'RHLean.Analysis.'
 roots = ('localityOffPrincipal localityOffPrincipal_eq localityMean localityFibre locality_two '
-         'locality_q locality_d LocalityDyadic localityClass locality_primePower locality_width').split()
+         'locality_q locality_d LocalityDyadic localityClass locality_primePower locality_width locality_dSpike').split()
 files = [Path(f'research/{module}.lean'), Path(__file__).with_name('ExactTypes.lean')]
 src, types = (strip_lean_comments(p.read_text()) for p in files)
 assert not any(FORBIDDEN.search(s) for s in (src, types))
 assert [m['name'] for m in PUBLIC.finditer(src)] == roots
-assert len(re.findall(r'(?m)^example ', types)) == 4
+assert len(re.findall(r'(?m)^example ', types)) == 5
 assert os.environ.get('GITHUB_ACTIONS') == 'true'
 names = [ns + n for n in roots]
 deps = {ns + 'locality_primePower': [ns + n for n in ('locality_two', 'locality_q', 'locality_d',
         'localityClass', 'localityOffPrincipal_eq', 'localityOffPrincipal')] +
-        ['AddChar.sum_apply_eq_ite', 'ArithmeticFunction.vonMangoldt_apply_pow', 'ZMod.unitOfCoprime']}
+        ['AddChar.sum_apply_eq_ite', 'ArithmeticFunction.vonMangoldt_apply_pow', 'ZMod.unitOfCoprime'],
+        ns + 'locality_dSpike': [ns + 'locality_d', ns + 'localityOffPrincipal_eq']}
 out = Path('local-fibre-evidence')
 out.mkdir(exist_ok=True)
 probe = out / 'Audit.lean'

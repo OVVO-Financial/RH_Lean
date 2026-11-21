@@ -70,7 +70,7 @@ theorem locality_d (i : ℕ) (D : H) (v : ZMod 2 × H → ℂ) :
     (Fintype.card (ZMod 2) : ℂ))) / _ = v z - localityMean v
   have hc : (Fintype.card (ZMod 2 × H) : ℂ) ≠ 0 := Nat.cast_ne_zero.mpr Fintype.card_ne_zero
   simp only [h, mul_sub, mul_one, Finset.sum_sub_distrib, mul_ite, mul_zero,
-    Finset.sum_ite_eq, Finset.mem_univ, if_true, localityMean, sub_div, mul_div_cancel_right₀ _ hc]
+    Finset.sum_ite_eq, Finset.mem_univ, ite_true, localityMean, sub_div, mul_div_cancel_right₀ _ hc]
 
 /-- The physical dyadic unit class, before choosing a discrete-log coordinate. -/
 abbrev LocalityDyadic (e : ℕ) := Additive (((ZMod (2 ^ (e + 2)))ˣ) ⧸
@@ -102,7 +102,7 @@ theorem locality_width {S : Type*} [Fintype S] [DecidableEq S] (z : S) (v : S �
     |v z - (∑ s, v s) / Fintype.card S| ≤
       (((Finset.univ.erase z).card : ℝ) / Fintype.card S) * w := by
   classical
-  letI : Nonempty S := ⟨z⟩
+  let _ : Nonempty S := ⟨z⟩
   have hc : (0 : ℝ) < Fintype.card S := Nat.cast_pos.mpr Fintype.card_pos
   have he := Finset.sum_erase_add (Finset.univ : Finset S) (fun s => v z - v s) (Finset.mem_univ z)
   have hr : (∑ s ∈ Finset.univ.erase z, (v z - v s)) = (Fintype.card S : ℝ) * v z - ∑ s, v s := by
@@ -114,8 +114,19 @@ theorem locality_width {S : Type*} [Fintype S] [DecidableEq S] (z : S) (v : S �
       _ = _ := by simp [nsmul_eq_mul]
   rw [hr] at ha
   have hid : v z - (∑ s, v s) / Fintype.card S =
-      ((Fintype.card S : ℝ) * v z - ∑ s, v s) / Fintype.card S := by field_simp; ring
+      ((Fintype.card S : ℝ) * v z - ∑ s, v s) / Fintype.card S := by field_simp
   rw [hid, abs_div, abs_of_pos hc]
   simpa [div_mul_eq_mul_div] using div_le_div_of_nonneg_right ha hc.le
+
+/-- Positive two-level weights attain the movement factor on every d-fibre. -/
+theorem locality_dSpike [DecidableEq H] (i : ℕ) (D : H) :
+    localityFibre (fun b : ZMod 2 => (b, (i : ZMod 2), i • D))
+      (fun s => (1 : ℂ) + if ((i : ZMod 2), i • D) = s then 1 else 0) =
+        1 - 1 / (Fintype.card (ZMod 2 × H) : ℂ) := by
+  classical
+  have hc : (Fintype.card (ZMod 2 × H) : ℂ) ≠ 0 := Nat.cast_ne_zero.mpr Fintype.card_ne_zero
+  rw [locality_d]
+  simp only [if_pos rfl, localityMean, Finset.sum_add_distrib, Finset.sum_const, Finset.card_univ,
+    nsmul_eq_mul, mul_one, Finset.sum_ite_eq, Finset.mem_univ, ite_true, add_div, div_self hc] <;> ring
 
 end RHLean.Analysis
