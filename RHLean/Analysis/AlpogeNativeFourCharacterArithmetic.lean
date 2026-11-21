@@ -461,8 +461,11 @@ theorem alpogeNativePrimePowerWeight_nonneg
     (x : ℝ) (hx : 0 ≤ x) (n : ℕ)
     (hn : n ∈ Finset.Icc 1 ⌊x⌋₊) :
     0 ≤ alpogeNativePrimePowerWeight x n := by
-  have hn0 : (0 : ℝ) < n := by
-    exact_mod_cast (Finset.mem_Icc.mp hn).1
+  have hn0nat : 0 < n := by
+    have h1 := (Finset.mem_Icc.mp hn).1
+    omega
+  have hn0 : (0 : ℝ) < (n : ℝ) := by
+    exact_mod_cast hn0nat
   have hnx : (n : ℝ) ≤ x := by
     exact (by exact_mod_cast (Finset.mem_Icc.mp hn).2 : (n : ℝ) ≤ (⌊x⌋₊ : ℝ)).trans
       (Nat.floor_le hx)
