@@ -27,8 +27,7 @@ def alpogeNativeRealizedPrimitiveGPsi
     (ell : AddChar (AlpogeNativeE0 × H) ℂ → ℂ)
     (ψ : AddChar (AlpogeNativeE0 × H) ℂ) (y : ℝ) : ℂ :=
   if ψ = 0 then (alpogeNativeGzArithmetic y : ℂ)
-  else alpogeNativeGchiArithmetic
-    (alpogeNativeDirChar r ψ).primitiveCharacter (ell ψ) y
+  else alpogeNativeRealizedGchi r ψ (ell ψ) y
 
 /-- The entire Frobenius/inertia source is equal pointwise to the
 Dirichlet source, including the *exceptional principal* channel. -/
