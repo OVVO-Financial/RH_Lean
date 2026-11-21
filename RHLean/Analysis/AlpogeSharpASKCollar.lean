@@ -192,7 +192,7 @@ theorem alpogeASKPrincipalBalance_midpoint_eq_signed_losses
             ((Λ n * alpogeASKPos (a / (n : ℝ)) b +
                Λ n * alpogeASKPos (a / (n : ℝ)) B) / 2 -
                Λ n * alpogeASKPos (a / (n : ℝ)) ((b + B) / 2)) := by
-            rw [Finset.sum_sub_distrib, ← Finset.sum_div,
+            rw [Finset.sum_sub_distrib, Finset.sum_div,
               Finset.sum_add_distrib]
       _ = _ := by
             apply Finset.sum_congr rfl
