@@ -20,8 +20,10 @@ example (v : ZMod 2 × ZMod 1 → ℂ) :
 example (v : ZMod 2 × ZMod 1 → ℂ) :
     localityFibre (fun b : ZMod 2 => (b, (0 : ZMod 2), (0 : ZMod 1))) v =
       v (0, 0) - localityMean v := by
+  have h := locality_d 2 (0 : ZMod 1) v
   have he : ((2 : ℕ) : ZMod 2) = 0 := by decide
-  simpa [he] using locality_d 2 (0 : ZMod 1) v
+  rw [he] at h
+  simpa only [nsmul_zero] using h
 
 example {S : Type*} [Fintype S] [DecidableEq S] (s : S) (v : S → ℝ) (w : ℝ)
     (hw : ∀ t, |v s - v t| ≤ w) : |v s - (∑ t, v t) / Fintype.card S| ≤
