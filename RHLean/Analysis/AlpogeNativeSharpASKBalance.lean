@@ -498,6 +498,7 @@ theorem alpogeNativeCharacterDetector
 The distinguished output site survives iff g-a belongs to inertia.
 The normalizer is the TRUE cardinality of inertia, never an
 independent arbitrary coefficient or a missing bad-prime term. -/
+open Classical in
 theorem alpogeNativeCosetCharacterOrthogonality
     {G : Type*} [AddCommGroup G] [Fintype G] [DecidableEq G]
     (I : AddSubgroup G) (a g : G) :
@@ -533,8 +534,7 @@ theorem alpogeNativeCosetCharacterOrthogonality
           intro ψ _hψ
           unfold alpogeNativeInertiaCosetMean
           change ψ (-g) * ((∑ u ∈ S, ψ (a + u)) / (S.card : ℂ)) = _
-          rw [Finset.mul_sum]
-          ring
+          rw [mul_div_assoc', Finset.mul_sum]
     _ = (∑ u ∈ S, ∑ ψ : AddChar G ℂ, ψ (-g) * ψ (a + u)) /
           (S.card : ℂ) := by
           rw [← Finset.sum_div, Finset.sum_comm]
