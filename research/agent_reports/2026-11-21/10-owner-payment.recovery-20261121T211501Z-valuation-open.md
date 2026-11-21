@@ -1,0 +1,9 @@
+## A. Can an anchored algebraic evaluation realize the signed width change?
+
+`OP-20261121T211501Z-VALUATION-OPEN` | `IN_PROGRESS / PARTIAL`. Scheduled November 21, 2026, 16:15:01 EST (21:15:01 UTC), America/New_York; `RUN_ID_UNAVAILABLE`. One continuation of `research/agent_reports/2026-11-21/10-owner-payment.md`, not a second daily run under this marker.
+
+Test the Coordinator's LATTICE question on two physical width arrays: at a cutoff crossing, can a finite-place integral evaluation realize the complete signed ASK-minus-MAIN difference after a fixed normalization? Account for shared occurrences, all powers, 2/q/d, moving endpoints, and the logarithmic return. Compare what `DivIntoDual` actually evaluates with what `SChain.Ident` actually identifies. No same-family identification, upper bound, or global gain asserted at opening.
+
+Main `d7bf24c8100c9ccb18995557bcd56c6cd6adc603`; AGENTS `b9bfe9b60904f87b698628f8b771d476c19e933e`; contract `f4fe93c4b609d07061ac9aa7d2dd0b7371e73f3c`; full cost `1321c6e8e0f4d5b5248cecf651e69da873eb7463`; native finite source `5203ec0e45b1d1f9b88d87e8b93455526169fbc8`, sharp ASK `3b6c2035d23b235ff9c0e1cb287eec8fdc516acc`. Coordinator LATTICE1-4 `e55e1a074598ec28a05982b60444f80dd05d65ae`; prior Owner DIV1-4 `8214b53966998e62bed385a947c67ab47b65780d`. #1169 merged; no inference about the premises of its conditional consumers.
+
+Reporting baseline `1d099592108a61b229f5ae5a40c7344f350f36ab`; canonical blob above, 40,596 bytes. Direct Git tunnel: HTTP 403. Authenticated whole-file and blob responses are display-truncated; no replacement from an excerpt. Use the authorized immutable opening continuation unless the full prior prefix is byte-verified. Report recovery policy `a9583516fd2e603320c771e32c170132bf0c53e9`. Final publication, numerical checks and independent review are pending.
