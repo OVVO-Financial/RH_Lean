@@ -73,7 +73,7 @@ for R, expected in [(100,4),(317,14),(549,21),(1027,36),(3000,96)]:
     # Every disjoint triple has intrinsic integer determinant -4 and
     # 1<= singular values <=2 in normalized coefficient coordinates.
     blocks=n//3
-    print(f'R={R} primes={n} index=v2({2*blocks}) on {blocks} disjoint '
+    print(f'R={R} primes={n} v2(index)={2*blocks} on {blocks} disjoint '
           f'triples, F/R^2={face/R**2:+.8f}, '
           f'centered/R^2={centered/R**2:.9f}, '
           f'principal/R^2={principal/R**2:+.8f}')
