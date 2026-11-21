@@ -320,4 +320,231 @@ theorem alpogeNativeGz_mul_log_sq_eq_full_signed (x : ℝ) :
   unfold alpogeNativeGzArithmetic nativePNTError
   ring
 
+
+
+/-!
+## Native quadratic positivity and the FULL ramified arithmetic return
+
+This is a proved (not postulated) finite positivity step of the
+Stepanov/character argument. Algebraic quadraticity, \`chi^2=1\`,
+is all that is required. There is no hypothesis on prime
+distribution, zeta zeros, theta lifts or spectral bounds.
+-/
+
+/-- Every genuine quadratic Dirichlet character has signs ±1 on
+units. This is derived from the CHARACTER's square, not postulated
+independent prime labels. -/
+theorem alpogeNativeQuadraticCharacter_unit_values
+    {q : ℕ} [NeZero q]
+    (χ : DirichletCharacter ℂ q) (hχ : χ ^ 2 = 1)
+    (n : ℕ) (hn : IsUnit (n : ZMod q)) :
+    χ n = 1 ∨ χ n = -1 := by
+  have hpow : (χ n) ^ 2 = 1 := by
+    calc
+      (χ n) ^ 2 = (χ ^ 2) (n : ZMod q) := by
+        exact (MulChar.pow_apply' χ (by norm_num : (2 : ℕ) ≠ 0)
+          (n : ZMod q)).symm
+      _ = (1 : DirichletCharacter ℂ q) (n : ZMod q) := by
+        rw [hχ]
+      _ = 1 := MulChar.one_apply hn
+  exact sq_eq_one_iff.mp hpow
+
+/-- At a nonunit EVERY Dirichlet character modulo q vanishes.
+Therefore Alpoge's four-way kernel is EXACTLY one, independently of
+which two characters were selected. The ramified terms are not an
+uncontrolled complex phase. -/
+theorem alpogeNativeFourKernel_at_nonunit
+    {q : ℕ} [NeZero q]
+    (χA χB : DirichletCharacter ℂ q) (n : ℕ)
+    (hn : ¬ IsUnit (n : ZMod q)) :
+    alpogeNativeFourCharacterKernel χA χB n = 1 := by
+  have hA : χA n = 0 := MulChar.map_nonunit χA hn
+  have hB : χB n = 0 := MulChar.map_nonunit χB hn
+  simp [alpogeNativeFourCharacterKernel, hA, hB]
+
+/-- For GENUINE quadratic characters, the GOOD portion is precisely
+the unramified integer population. No site is classified by fiat. -/
+theorem alpogeNativeQuadraticGood_iff_unit
+    {q : ℕ} [NeZero q]
+    (χA χB : DirichletCharacter ℂ q)
+    (hA : χA ^ 2 = 1) (hB : χB ^ 2 = 1) (n : ℕ) :
+    alpogeNativeGoodSite χA χB n ↔ IsUnit (n : ZMod q) := by
+  constructor
+  · intro hg
+    by_contra hn
+    have hz : χA n = 0 := MulChar.map_nonunit χA hn
+    rcases hg.1 with hh | hh <;> simp [hz] at hh
+  · intro hn
+    exact ⟨alpogeNativeQuadraticCharacter_unit_values χA hA n hn,
+      alpogeNativeQuadraticCharacter_unit_values χB hB n hn⟩
+
+/-- The actual four-character projector is {0,4} on unramified
+sites, and exactly 1 on ramified sites. This makes the positive
+part of Alpoge's four-character/Fourier step arithmetic, not
+a conditional trace-interface claim. -/
+theorem alpogeNativeFourKernel_quadratic
+    {q : ℕ} [NeZero q]
+    (χA χB : DirichletCharacter ℂ q)
+    (hA : χA ^ 2 = 1) (hB : χB ^ 2 = 1) (n : ℕ) :
+    alpogeNativeFourCharacterKernel χA χB n =
+      if IsUnit (n : ZMod q) then
+        (if χA n = -1 ∧ χB n = 1 then 4 else 0)
+      else 1 := by
+  by_cases hu : IsUnit (n : ZMod q)
+  · simpa [hu, alpogeNativeFourCharacterKernel, alpogeNativeFourSign]
+      using alpogeNativeFourSign_binary (χA n) (χB n)
+        (alpogeNativeQuadraticCharacter_unit_values χA hA n hu)
+        (alpogeNativeQuadraticCharacter_unit_values χB hB n hu)
+  · simp [hu, alpogeNativeFourKernel_at_nonunit χA χB n hu]
+
+/-- The entire ORIGINAL prime-power source on ramified integers.
+Unlike a generic BAD_RETURN it is real, has a fixed positive sign,
+and contains every p^k with p dividing the conductor modulus. -/
+def alpogeNativeRamifiedPrimePowerMass
+    (q : ℕ) [NeZero q] (x : ℝ) : ℝ := by
+  classical
+  exact ∑ n ∈ (Finset.Icc 1 ⌊x⌋₊).filter
+    (fun n => ¬ IsUnit (n : ZMod q)),
+    alpogeNativePrimePowerWeight x n
+
+/-- For quadratic characters the entire formerly opaque BAD_RETURN
+is exactly the real ramified prime-power mass. -/
+theorem alpogeNativeFourBadReturn_eq_ramified
+    {q : ℕ} [NeZero q]
+    (χA χB : DirichletCharacter ℂ q)
+    (hA : χA ^ 2 = 1) (hB : χB ^ 2 = 1) (x : ℝ) :
+    alpogeNativeFourBadReturn χA χB x =
+      (alpogeNativeRamifiedPrimePowerMass q x : ℂ) := by
+  classical
+  have hs :
+      (Finset.Icc 1 ⌊x⌋₊).filter
+        (fun n => ¬ alpogeNativeGoodSite χA χB n) =
+      (Finset.Icc 1 ⌊x⌋₊).filter
+        (fun n => ¬ IsUnit (n : ZMod q)) := by
+    ext n
+    simp [alpogeNativeQuadraticGood_iff_unit χA χB hA hB n]
+  unfold alpogeNativeFourBadReturn alpogeNativeRamifiedPrimePowerMass
+  rw [hs]
+  calc
+    (∑ n ∈ (Finset.Icc 1 ⌊x⌋₊).filter
+       (fun n => ¬ IsUnit (n : ZMod q)),
+       (alpogeNativePrimePowerWeight x n : ℂ) *
+          alpogeNativeFourCharacterKernel χA χB n) =
+        ∑ n ∈ (Finset.Icc 1 ⌊x⌋₊).filter
+          (fun n => ¬ IsUnit (n : ZMod q)),
+          (alpogeNativePrimePowerWeight x n : ℂ) := by
+      apply Finset.sum_congr rfl
+      intro n hn
+      have hnu : ¬ IsUnit (n : ZMod q) := (Finset.mem_filter.mp hn).2
+      rw [alpogeNativeFourKernel_at_nonunit χA χB n hnu]
+      ring
+    _ = (∑ n ∈ (Finset.Icc 1 ⌊x⌋₊).filter
+          (fun n => ¬ IsUnit (n : ZMod q)),
+          alpogeNativePrimePowerWeight x n : ℝ) := by norm_cast
+
+/-- Completely arithmetic reconstruction of the signed character
+average: 4 times the selected unramified class, PLUS the exactly
+identified ramified source; not a discarded or assumed error. -/
+theorem alpogeNativeFourTrace_quadratic_exact
+    {q : ℕ} [NeZero q]
+    (χA χB : DirichletCharacter ℂ q)
+    (hA : χA ^ 2 = 1) (hB : χB ^ 2 = 1) (x : ℝ) :
+    alpogeNativeFourCharacterTrace χA χB x =
+      4 * alpogeNativeFourSelected χA χB x +
+        (alpogeNativeRamifiedPrimePowerMass q x : ℂ) := by
+  rw [alpogeNativeFourTrace_eq_selected_add_bad,
+    alpogeNativeFourBadReturn_eq_ramified χA χB hA hB]
+
+/-- The ACTUAL Λ(n)(x/n-1) signal is nonnegative at each physical
+integer under the sharp floor cutoff. -/
+theorem alpogeNativePrimePowerWeight_nonneg
+    (x : ℝ) (hx : 0 ≤ x) (n : ℕ)
+    (hn : n ∈ Finset.Icc 1 ⌊x⌋₊) :
+    0 ≤ alpogeNativePrimePowerWeight x n := by
+  have hn0 : (0 : ℝ) < n := by
+    exact_mod_cast (Finset.mem_Icc.mp hn).1
+  have hnx : (n : ℝ) ≤ x := by
+    exact (by exact_mod_cast (Finset.mem_Icc.mp hn).2 : (n : ℝ) ≤ (⌊x⌋₊ : ℝ)).trans
+      (Nat.floor_le hx)
+  have hdiv : 1 ≤ x / (n : ℝ) := by
+    apply (le_div_iff₀ hn0).2
+    simpa using hnx
+  unfold alpogeNativePrimePowerWeight
+  exact mul_nonneg ArithmeticFunction.vonMangoldt_nonneg (sub_nonneg.mpr hdiv)
+
+/-- The full ramified part has a proved POSITIVE sign, not an assumed
+divisibility/covolume saving. -/
+theorem alpogeNativeRamifiedPrimePowerMass_nonneg
+    (q : ℕ) [NeZero q] (x : ℝ) (hx : 0 ≤ x) :
+    0 ≤ alpogeNativeRamifiedPrimePowerMass q x := by
+  classical
+  unfold alpogeNativeRamifiedPrimePowerMass
+  apply Finset.sum_nonneg
+  intro n hn
+  exact alpogeNativePrimePowerWeight_nonneg x hx n
+    (Finset.mem_filter.mp hn).1
+
+/-- A FINITE paid upper bound on the ramified part. The bound is
+weak (the full reciprocal Λ mass), but fully unconditional and includes
+ALL prime powers. It must not be mistaken for the missing critical
+geometric/covolume bound. -/
+theorem alpogeNativeRamifiedPrimePowerMass_le_reciprocal
+    (q : ℕ) [NeZero q] (x : ℝ) (hx : 0 ≤ x) :
+    alpogeNativeRamifiedPrimePowerMass q x ≤
+      x * nativeLambdaRecip ⌊x⌋₊ := by
+  classical
+  have hpoint (n : ℕ) :
+      alpogeNativePrimePowerWeight x n ≤
+        x * (Λ n / (n : ℝ)) := by
+    have hλ : 0 ≤ Λ n := ArithmeticFunction.vonMangoldt_nonneg
+    have heq : alpogeNativePrimePowerWeight x n =
+        x * (Λ n / (n : ℝ)) - Λ n := by
+      unfold alpogeNativePrimePowerWeight
+      ring
+    rw [heq]
+    linarith
+  unfold alpogeNativeRamifiedPrimePowerMass
+  calc
+    (∑ n ∈ (Finset.Icc 1 ⌊x⌋₊).filter
+       (fun n => ¬ IsUnit (n : ZMod q)),
+       alpogeNativePrimePowerWeight x n) ≤
+        ∑ n ∈ (Finset.Icc 1 ⌊x⌋₊).filter
+          (fun n => ¬ IsUnit (n : ZMod q)),
+          x * (Λ n / (n : ℝ)) := by
+      apply Finset.sum_le_sum
+      intro n _hn
+      exact hpoint n
+    _ ≤ ∑ n ∈ Finset.Icc 1 ⌊x⌋₊,
+          x * (Λ n / (n : ℝ)) := by
+      apply Finset.sum_le_sum_of_subset_of_nonneg
+        (Finset.filter_subset _ _)
+      intro n _hn _hnot
+      exact mul_nonneg hx (div_nonneg
+        ArithmeticFunction.vonMangoldt_nonneg (by positivity))
+    _ = x * nativeLambdaRecip ⌊x⌋₊ := by
+      unfold nativeLambdaRecip
+      rw [Finset.mul_sum]
+
+/-- The upper-side character trace really has an unconditional
+positivity theorem on RHLean's original prime-power arithmetic. -/
+theorem alpogeNativeFourTrace_quadratic_re_nonneg
+    {q : ℕ} [NeZero q]
+    (χA χB : DirichletCharacter ℂ q)
+    (hA : χA ^ 2 = 1) (hB : χB ^ 2 = 1)
+    (x : ℝ) (hx : 0 ≤ x) :
+    0 ≤ (alpogeNativeFourCharacterTrace χA χB x).re := by
+  have hs : 0 ≤ (alpogeNativeFourSelected χA χB x).re := by
+    classical
+    unfold alpogeNativeFourSelected
+    simp only [Complex.re_sum, Complex.ofReal_re]
+    apply Finset.sum_nonneg
+    intro n hn
+    exact alpogeNativePrimePowerWeight_nonneg x hx n
+      (Finset.mem_filter.mp hn).1
+  have hr := alpogeNativeRamifiedPrimePowerMass_nonneg q x hx
+  rw [alpogeNativeFourTrace_quadratic_exact χA χB hA hB]
+  simp only [Complex.add_re, Complex.mul_re, Complex.ofReal_re,
+    Complex.ofReal_im, zero_mul, sub_zero]
+  linarith
+
 end RHLean.Analysis
