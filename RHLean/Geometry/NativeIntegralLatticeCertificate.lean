@@ -195,4 +195,67 @@ theorem NativeIntegralLatticeCertificate.height
       2 * ∑ i : Fin m, integralHeight (C.source i) :=
   integralCRFrame_height m C.source
 
+/-! ## Arithmetic coordinate transport over actual number fields
+
+The preceding integer certificate is not automatically a certificate for
+an arbitrary number-field embedding. The integral basis is the necessary
+restriction-of-scalars link. No unproved theta-lift or height theorem enters.
+-/
+
+open NumberField
+
+/-- Exact commutation of the integral-basis coefficient map with the
+same C-to-R transform, for the ring of integers of ANY number field K.
+This is the actual arithmetic restriction-of-scalars map, not an
+assumption that Re/Im of an algebraic integer are ordinary integers. -/
+theorem integralCR_ringOfIntegers_basis
+    (K : Type*) [Field K] [NumberField K]
+    (a b : 𝓞 K) (i : Free.ChooseBasisIndex ℤ (𝓞 K)) :
+    (((RingOfIntegers.basis K).repr (a - b)) i,
+      ((RingOfIntegers.basis K).repr (a + b)) i) =
+      integralCR
+        (((RingOfIntegers.basis K).repr a) i,
+          ((RingOfIntegers.basis K).repr b) i) := by
+  apply Prod.ext
+  · change ((RingOfIntegers.basis K).repr (a - b)) i =
+        ((RingOfIntegers.basis K).repr a) i -
+          ((RingOfIntegers.basis K).repr b) i
+    simp
+  · change ((RingOfIntegers.basis K).repr (a + b)) i =
+        ((RingOfIntegers.basis K).repr a) i +
+          ((RingOfIntegers.basis K).repr b) i
+    simp
+
+/-- Genuine m-slot number-field integral-basis frame.
+Each coefficient is integral by construction; no imaginary-part
+integrality assertion is needed. -/
+def numberFieldIntegralFrame
+    (K : Type*) [Field K] [NumberField K]
+    {m : ℕ} (a b : Fin m → 𝓞 K)
+    (i : Free.ChooseBasisIndex ℤ (𝓞 K)) :
+    Fin m → ℤ × ℤ :=
+  fun j => (((RingOfIntegers.basis K).repr (a j)) i,
+    ((RingOfIntegers.basis K).repr (b j)) i)
+
+/-- The full m-frame commutes with restriction of scalars coefficientwise. -/
+theorem numberFieldIntegralFrame_CR
+    (K : Type*) [Field K] [NumberField K]
+    {m : ℕ} (a b : Fin m → 𝓞 K)
+    (i : Free.ChooseBasisIndex ℤ (𝓞 K)) :
+    numberFieldIntegralFrame K
+      (fun j => a j - b j) (fun j => a j + b j) i =
+        integralCRFrame (numberFieldIntegralFrame K a b i) := by
+  funext j
+  exact integralCR_ringOfIntegers_basis K (a j) (b j) i
+
+/-- The exact logarithmic scale of the 2^(m*d) coefficient-index factor.
+It has NOT been identified with Alpoge's normalized number-field covolume
+until the source-specific rank and embedding metrics are verified. -/
+theorem numberFieldIntegralFrame_log_two_cost (m d : ℕ) :
+    Real.log ((2 : ℝ) ^ (m * d)) =
+      (m : ℝ) * (d : ℝ) * Real.log 2 := by
+  rw [Real.log_pow]
+  push_cast
+  ring
+
 end RHLean.Geometry
