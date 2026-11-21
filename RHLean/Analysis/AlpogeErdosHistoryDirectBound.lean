@@ -62,8 +62,8 @@ theorem alpogeErdosGz_succ_le
   have hstep := alpogeErdosGz_succ_sub n
   have hlog := nativeOne_le_succ_mul_log_succ_sub_log n hn
   have hrecip := (nativeLambdaRecip_sub_log_bounds n hn).2
+  simp only [Nat.cast_add, Nat.cast_one] at hstep
   unfold alpogeErdosUpperSlope
-  push_cast at hlog
   linarith
 
 /-- Direct uniform bound for every interval, with its actual length.
