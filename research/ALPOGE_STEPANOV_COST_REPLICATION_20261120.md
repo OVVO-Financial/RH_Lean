@@ -142,3 +142,20 @@ The unit-prefix source does not yet supply any of those gates.
 
 No genuine new RH/Mertens exponent is claimed and none of the new
 Lean declarations is certified until exact-head CI passes.
+
+
+### Correct right-endpoint interpolation for POSITIVE semivariance
+
+For the upper sign, unlike the old lower-sign argument, monotonicity of
+psi uses the RIGHT square endpoint. For X_R<=t<=X_(R+1),
+
+  E(t)=psi(t)-t <= psi(X_(R+1))-X_R
+      = E(X_(R+1)) + (X_(R+1)-X_R).
+
+Therefore E_+(t)<=E_+(X_(R+1))+(2R+1). Squaring and integrating yields
+an O(H*Q_+(H+boundary)+H^4) bound over each square-root-dyadic window,
+with one harmless endpoint/shift. Thus the critical H^(3+eps)
+upper semivariance transfers to the continuous upper semivariance
+needed for the -G tail estimate. It would be INCORRECT to use the
+left-endpoint inequality from the negative semivariance proof for
+the upper sign.
