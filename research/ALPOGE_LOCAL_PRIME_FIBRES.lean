@@ -65,7 +65,8 @@ theorem locality_d (i : ℕ) (D : H) (v : ZMod 2 × H → ℂ) :
       (Fintype.card (ZMod 2) : ℂ) = (if z = s then (Fintype.card (ZMod 2 × H) : ℂ) else 0) - 1 := by
     by_cases hz : z = s <;>
       simp [localityOffPrincipal_eq, Prod.mk.injEq, Finset.sum_sub_distrib, hz,
-        Fintype.card_prod, ZMod.card, nsmul_eq_mul] <;> ring
+        Fintype.card_prod, ZMod.card, nsmul_eq_mul]
+    all_goals ring
   change (∑ s, v s * ((∑ b : ZMod 2, localityOffPrincipal (b, z) (1, s)) /
     (Fintype.card (ZMod 2) : ℂ))) / _ = v z - localityMean v
   have hc : (Fintype.card (ZMod 2 × H) : ℂ) ≠ 0 := Nat.cast_ne_zero.mpr Fintype.card_ne_zero
@@ -98,8 +99,7 @@ theorem locality_primePower (e q d i : ℕ) (hq : q.Prime) (hd : d.Prime) (hi : 
 
 /-- Sharp movement of the distinguished point relative to the full mean. -/
 theorem locality_width {S : Type*} [Fintype S] [DecidableEq S] (z : S) (v : S → ℝ)
-    (w : ℝ) (hw : ∀ s, |v z - v s| ≤ w) :
-    |v z - (∑ s, v s) / Fintype.card S| ≤
+    (w : ℝ) (hw : ∀ s, |v z - v s| ≤ w) : |v z - (∑ s, v s) / Fintype.card S| ≤
       (((Finset.univ.erase z).card : ℝ) / Fintype.card S) * w := by
   classical
   let _ : Nonempty S := ⟨z⟩
@@ -126,7 +126,8 @@ theorem locality_dSpike [DecidableEq H] (i : ℕ) (D : H) :
   classical
   have hc : (Fintype.card (ZMod 2 × H) : ℂ) ≠ 0 := Nat.cast_ne_zero.mpr Fintype.card_ne_zero
   rw [locality_d]
-  simp only [if_pos rfl, localityMean, Finset.sum_add_distrib, Finset.sum_const, Finset.card_univ,
-    nsmul_eq_mul, mul_one, Finset.sum_ite_eq, Finset.mem_univ, ite_true, add_div, div_self hc] <;> ring
+  simp only [localityMean, Finset.sum_add_distrib, Finset.sum_const, Finset.card_univ,
+    nsmul_eq_mul, mul_one, Finset.sum_ite_eq, Finset.mem_univ, ite_true, add_div, div_self hc]
+  all_goals ring
 
 end RHLean.Analysis
