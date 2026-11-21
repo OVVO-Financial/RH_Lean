@@ -151,4 +151,83 @@ theorem alpogeNativeSharpASK_family_eq_Gchi
   exact alpogeNativeSharpASK_eq_weightedGchi
     χ ell N a (w j) ha (hw j hj) (hN j hj)
 
+
+
+/-!
+## Native complete positive ASK, not an abstract character interface
+
+The exact finite four-character projector is attached to Alpoge's
+SHARP ASK physical kernel at every integer. For genuine quadratic
+Dirichlet characters the WHOLE trace is proved nonnegative,
+including every ramified prime-power return.
+-/
+
+/-- Original positive-part ASK, retaining actual Λ on every prime
+power, actual multiplicative characters and the sharp a/n-W weight. -/
+def alpogeNativeFourSharpASK {q : ℕ} [NeZero q]
+    (χA χB : DirichletCharacter ℂ q)
+    (N : ℕ) (a W : ℝ) : ℂ :=
+  ∑ n ∈ Finset.Icc 1 N,
+    ((Λ n : ℝ) : ℂ) *
+      alpogeNativeFourCharacterKernel χA χB n *
+        ((max (a / (n : ℝ) - W) 0 : ℝ) : ℂ)
+
+/-- Every integer of the FULL native four-channel ASK is transported
+to the original unrounded Gsig prime-power source, with zero dropped
+prime powers or threshold endpoints. -/
+theorem alpogeNativeFourSharpASK_eq_weightedTrace
+    {q : ℕ} [NeZero q]
+    (χA χB : DirichletCharacter ℂ q)
+    (N : ℕ) (a W : ℝ)
+    (ha : 0 < a) (hW : 0 < W) (hN : a / W ≤ (N : ℝ)) :
+    alpogeNativeFourSharpASK χA χB N a W =
+      (W : ℂ) * alpogeNativeFourCharacterTrace χA χB (a / W) := by
+  have hbase := alpogeNativeMaxCut_eq_weightedSource
+    (fun n => ((Λ n : ℝ) : ℂ) *
+      alpogeNativeFourCharacterKernel χA χB n)
+    N a W ha hW hN
+  unfold alpogeNativeFourSharpASK
+  rw [hbase]
+  unfold alpogeNativeFourCharacterTrace
+  congr 1
+  apply Finset.sum_congr rfl
+  intro n _hn
+  unfold alpogeNativePrimePowerWeight
+  push_cast
+  ring
+
+/-- The actual quadratic sharp ASK has an unconditional fixed
+nonnegative sign. The proof uses the FULL source and a real positive
+physical weight, not a postulated ASK=MAIN or an assumed error bound. -/
+theorem alpogeNativeFourSharpASK_re_nonneg
+    {q : ℕ} [NeZero q]
+    (χA χB : DirichletCharacter ℂ q)
+    (hA : χA ^ 2 = 1) (hB : χB ^ 2 = 1)
+    (N : ℕ) (a W : ℝ)
+    (ha : 0 < a) (hW : 0 < W) (hN : a / W ≤ (N : ℝ)) :
+    0 ≤ (alpogeNativeFourSharpASK χA χB N a W).re := by
+  rw [alpogeNativeFourSharpASK_eq_weightedTrace χA χB N a W ha hW hN]
+  have hpos : 0 ≤
+      (alpogeNativeFourCharacterTrace χA χB (a / W)).re :=
+    alpogeNativeFourTrace_quadratic_re_nonneg χA χB hA hB (a / W)
+      (le_of_lt (div_pos ha hW))
+  simp only [Complex.mul_re, Complex.ofReal_re, Complex.ofReal_im,
+    zero_mul, sub_zero]
+  exact mul_nonneg (le_of_lt hW) hpos
+
+/-- The full, source-faithful positive ASK is 4 times its selected
+quadratic class plus the SAME paid ramified mass as the character
+trace. Nothing is discarded in the weight transport. -/
+theorem alpogeNativeFourSharpASK_eq_selected_plus_ramified
+    {q : ℕ} [NeZero q]
+    (χA χB : DirichletCharacter ℂ q)
+    (hA : χA ^ 2 = 1) (hB : χB ^ 2 = 1)
+    (N : ℕ) (a W : ℝ)
+    (ha : 0 < a) (hW : 0 < W) (hN : a / W ≤ (N : ℝ)) :
+    alpogeNativeFourSharpASK χA χB N a W =
+      (W : ℂ) * (4 * alpogeNativeFourSelected χA χB (a / W) +
+        (alpogeNativeRamifiedPrimePowerMass q (a / W) : ℂ)) := by
+  rw [alpogeNativeFourSharpASK_eq_weightedTrace χA χB N a W ha hW hN,
+    alpogeNativeFourTrace_quadratic_exact χA χB hA hB]
+
 end RHLean.Analysis
