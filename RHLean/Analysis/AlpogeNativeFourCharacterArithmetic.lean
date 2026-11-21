@@ -98,6 +98,27 @@ def alpogeNativeFourGsig {q : ℕ} [NeZero q]
         (χA n * χB n) + (0 : ℂ)) -
     (x : ℂ) * ellAB
 
+/-- The genuine 1+B-A-AB four-way finite source is EXACTLY one sum.
+No arithmetic coefficient or prime-power cross term is discarded. -/
+theorem alpogeNativeFourTrace_eq_four_sums
+    {q : ℕ} [NeZero q]
+    (χA χB : DirichletCharacter ℂ q) (x : ℝ) :
+    alpogeNativeFourCharacterTrace χA χB x =
+      (∑ n ∈ Finset.Icc 1 ⌊x⌋₊,
+        (alpogeNativePrimePowerWeight x n : ℂ)) +
+      (∑ n ∈ Finset.Icc 1 ⌊x⌋₊,
+        (alpogeNativePrimePowerWeight x n : ℂ) * χB n) -
+      (∑ n ∈ Finset.Icc 1 ⌊x⌋₊,
+        (alpogeNativePrimePowerWeight x n : ℂ) * χA n) -
+      (∑ n ∈ Finset.Icc 1 ⌊x⌋₊,
+        (alpogeNativePrimePowerWeight x n : ℂ) * (χA n * χB n)) := by
+  unfold alpogeNativeFourCharacterTrace alpogeNativeFourCharacterKernel
+  rw [← Finset.sum_add_distrib, ← Finset.sum_sub_distrib,
+      ← Finset.sum_sub_distrib]
+  apply Finset.sum_congr rfl
+  intro n _hn
+  ring
+
 /-- Exact four-channel algebra; the original principal logarithmic
 main term and ALL three analytic ell constants are returned. -/
 theorem alpogeNativeFourGsig_eq_trace (q : ℕ) [NeZero q]
@@ -108,16 +129,19 @@ theorem alpogeNativeFourGsig_eq_trace (q : ℕ) [NeZero q]
         (((-x * Real.log x +
           (1 + Real.eulerMascheroniConstant) * x : ℝ) : ℂ)) +
         (x : ℂ) * (ellB - ellA - ellAB) := by
+  have hprincipal :
+      (alpogeNativePrincipalPrimeSum x : ℂ) =
+        ∑ n ∈ Finset.Icc 1 ⌊x⌋₊,
+          (alpogeNativePrimePowerWeight x n : ℂ) := by
+    unfold alpogeNativePrincipalPrimeSum
+    norm_cast
+  rw [alpogeNativeFourTrace_eq_four_sums]
+  unfold alpogeNativeFourGsig alpogeNativeGchiArithmetic
+    alpogeNativeTwistedPrimeSum
   rw [alpogeNativeGzArithmetic_eq_principal]
-  unfold alpogeNativeFourGsig alpogeNativeFourCharacterTrace
-    alpogeNativeFourCharacterKernel
-    alpogeNativeGchiArithmetic alpogeNativeTwistedPrimeSum
-  unfold alpogeNativePrincipalPrimeSum
-  simp only [add_zero, Finset.sum_add_distrib]
-  rw [← Finset.sum_add_distrib, ← Finset.sum_sub_distrib]
-  -- Convert the four prime sums into a single full signed kernel.
-  -- The remaining principal and ell terms are a commutative-ring identity.
-  simp only [map_add, map_sub]
+  rw [hprincipal]
+  simp only [add_zero]
+  push_cast
   ring
 
 /-- Actual Dirichlet-character trace for any finite character family.
@@ -151,9 +175,9 @@ theorem alpogeNativeFiniteCharacterTrace_eq_source
           (alpogeNativePrimePowerWeight x n : ℂ) * χ n) =
         ∑ χ ∈ T, ∑ n ∈ Finset.Icc 1 ⌊x⌋₊,
           a χ * ((alpogeNativePrimePowerWeight x n : ℂ) * χ n) := by
-      rw [Finset.sum_congr rfl]
-      · intro χ _hχ
-        rw [Finset.mul_sum]
+      apply Finset.sum_congr rfl
+      intro χ _hχ
+      rw [Finset.mul_sum]
     _ = ∑ n ∈ Finset.Icc 1 ⌊x⌋₊, ∑ χ ∈ T,
           a χ * ((alpogeNativePrimePowerWeight x n : ℂ) * χ n) :=
       Finset.sum_comm
@@ -229,22 +253,46 @@ theorem alpogeNativeFourTrace_eq_selected_add_bad {q : ℕ} [NeZero q]
         4 * (∑ n ∈ S.filter
           (fun n => good n ∧ χA n = -1 ∧ χB n = 1),
           (alpogeNativePrimePowerWeight x n : ℂ)) := by
-    rw [Finset.mul_sum]
-    rw [← Finset.sum_filter]
-    apply Finset.sum_congr rfl
-    intro n hn
-    have hg : good n := (Finset.mem_filter.mp hn).2
-    have hp := alpogeNativeFourSign_binary (χA n) (χB n) hg.1 hg.2
-    unfold f alpogeNativeFourCharacterKernel
-    rw [show 1 + χB n - χA n - χA n * χB n =
-      alpogeNativeFourSign (χA n) (χB n) by rfl, hp]
-    by_cases hclass : χA n = -1 ∧ χB n = 1
-    · simp [hclass]; ring
-    · simp [hclass]
-  unfold alpogeNativeFourCharacterTrace
-    alpogeNativeFourSelected alpogeNativeFourBadReturn
-  simpa only [S, good, f] using hsplit.trans
-    (congrArg (fun z : ℂ => z + ∑ n ∈ S.filter (fun n => ¬ good n), f n) hgood)
+    calc
+      (∑ n ∈ S.filter good, f n) =
+          ∑ n ∈ S, if good n then f n else 0 := Finset.sum_filter
+      _ = ∑ n ∈ S, if good n ∧ χA n = -1 ∧ χB n = 1
+          then 4 * (alpogeNativePrimePowerWeight x n : ℂ) else 0 := by
+        apply Finset.sum_congr rfl
+        intro n _hn
+        by_cases hg : good n
+        · have hp := alpogeNativeFourSign_binary
+            (χA n) (χB n) hg.1 hg.2
+          have hkernel :
+              alpogeNativeFourCharacterKernel χA χB n =
+                if χA n = -1 ∧ χB n = 1 then 4 else 0 := by
+            exact hp
+          dsimp [f]
+          rw [hkernel]
+          by_cases hc : χA n = -1 ∧ χB n = 1
+          · simp [hg, hc]
+            ring
+          · simp [hg, hc]
+        · simp [hg]
+      _ = 4 * (∑ n ∈ S.filter
+          (fun n => good n ∧ χA n = -1 ∧ χB n = 1),
+          (alpogeNativePrimePowerWeight x n : ℂ)) := by
+        rw [Finset.sum_filter, Finset.mul_sum]
+        apply Finset.sum_congr rfl
+        intro n _hn
+        by_cases hc : good n ∧ χA n = -1 ∧ χB n = 1
+        · simp [hc]
+          ring
+        · simp [hc]
+  have hresult :
+      (∑ n ∈ S, f n) =
+      4 * (∑ n ∈ S.filter
+        (fun n => good n ∧ χA n = -1 ∧ χB n = 1),
+        (alpogeNativePrimePowerWeight x n : ℂ)) +
+      (∑ n ∈ S.filter (fun n => ¬ good n), f n) := by
+    rw [hsplit, hgood]
+  simpa [S, good, f, alpogeNativeFourCharacterTrace,
+    alpogeNativeFourSelected, alpogeNativeFourBadReturn] using hresult
 
 /-- Full signed Selberg source already proved unconditionally in RHLean.
 This is the complete K2+first-Selberg+floor contribution. -/
