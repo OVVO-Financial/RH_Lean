@@ -240,4 +240,99 @@ theorem alpogeDistinctResponseCompleteSignedSelberg
     alpogeDistinctResponseSource_eq_prime_sum R P hP] at h
   linear_combination h
 
+
+/-- Literal native copy of Alpoge Gz at any NATURAL endpoint; this is
+proved equivalent to the external source formula in independent PR #1162.
+Research modules must retain separate native-only import closures. -/
+def alpogeDistinctNativeGzInteger (N : ℕ) : ℝ :=
+  (N : ℝ) * nativeLambdaRecip N - nativePsi N -
+    (N : ℝ) * Real.log (N : ℝ) +
+    (1 + Real.eulerMascheroniConstant) * (N : ℝ)
+
+/-- Exact arithmetic transport of a CHILD Chebyshev error into the
+same-scale Alpoge Gz and reciprocal-Lambda channel. -/
+theorem alpogeDistinctNativeError_eq_reciprocal_sub_Gz (N : ℕ) :
+    nativePNTError N =
+      (N : ℝ) *
+        (nativeLambdaRecip N - Real.log (N : ℝ) +
+          Real.eulerMascheroniConstant) -
+        alpogeDistinctNativeGzInteger N := by
+  unfold alpogeDistinctNativeGzInteger nativePNTError
+  ring
+
+/-- The FULL selected K2 family now becomes a genuine recursive Gz
+input at DIFFERENT ancestral arguments t_p satisfying p<=t_p<R.
+The complete K2 complement and original Selberg remainder stay intact. -/
+theorem alpogeDistinctResponseCompleteSignedSelberg_Gz
+    (R : ℕ) (P : Finset ℕ) (hR : 4 ≤ R)
+    (hP : ∀ p ∈ P, alpogeDistinctResponsePrimeBand R p) :
+    nativePNTError (R ^ 2 - 1) *
+        (Real.log ((R ^ 2 - 1 : ℕ) : ℝ)) ^ 2 =
+      nativePNTSignedSelbergRemainder (R ^ 2 - 1) *
+          Real.log ((R ^ 2 - 1 : ℕ) : ℝ) -
+        nativePNTLambdaSignedSelbergRemainderMass (R ^ 2 - 1) +
+        (∑ p ∈ P, 2 * Real.log (2 : ℝ) * Real.log (p : ℝ) *
+          ((alpogeDistinctResponseQuotient R p : ℝ) *
+            (nativeLambdaRecip (alpogeDistinctResponseQuotient R p) -
+              Real.log (alpogeDistinctResponseQuotient R p : ℝ) +
+              Real.eulerMascheroniConstant) -
+            alpogeDistinctNativeGzInteger (alpogeDistinctResponseQuotient R p))) +
+        alpogeDistinctResponseOtherSource R P -
+        nativePNTLambdaFloorLogSignedDefectMass (R ^ 2 - 1) := by
+  have hsum :
+      (∑ p ∈ P, 2 * Real.log (2 : ℝ) * Real.log (p : ℝ) *
+        nativePNTError (alpogeDistinctResponseQuotient R p)) =
+      (∑ p ∈ P, 2 * Real.log (2 : ℝ) * Real.log (p : ℝ) *
+        ((alpogeDistinctResponseQuotient R p : ℝ) *
+          (nativeLambdaRecip (alpogeDistinctResponseQuotient R p) -
+            Real.log (alpogeDistinctResponseQuotient R p : ℝ) +
+            Real.eulerMascheroniConstant) -
+          alpogeDistinctNativeGzInteger (alpogeDistinctResponseQuotient R p))) := by
+    apply Finset.sum_congr rfl
+    intro p _hp
+    rw [alpogeDistinctNativeError_eq_reciprocal_sub_Gz]
+  rw [← hsum]
+  exact alpogeDistinctResponseCompleteSignedSelberg R P hR hP
+
+/-- An EXACT, source-faithful square-to-root functional recursion for
+Alpoge's Gz: the parent Gz(R²-1) is expressed via the signed finite
+sum of distinct Gz(t_p) at t_p<R, the reciprocal-Lambda terms, and
+ALL remaining original signed Selberg contributions.
+
+This is an identity, NOT a contraction estimate. The complementary
+source and arithmetic-geometric cost are still outstanding. -/
+theorem alpogeDistinctNativeGzSquareRecursion
+    (R : ℕ) (P : Finset ℕ) (hR : 4 ≤ R)
+    (hP : ∀ p ∈ P, alpogeDistinctResponsePrimeBand R p) :
+    alpogeDistinctNativeGzInteger (R ^ 2 - 1) *
+        (Real.log ((R ^ 2 - 1 : ℕ) : ℝ)) ^ 2 =
+      ((R ^ 2 - 1 : ℕ) : ℝ) *
+        (nativeLambdaRecip (R ^ 2 - 1) -
+          Real.log ((R ^ 2 - 1 : ℕ) : ℝ) +
+          Real.eulerMascheroniConstant) *
+        (Real.log ((R ^ 2 - 1 : ℕ) : ℝ)) ^ 2 -
+      (nativePNTSignedSelbergRemainder (R ^ 2 - 1) *
+          Real.log ((R ^ 2 - 1 : ℕ) : ℝ) -
+        nativePNTLambdaSignedSelbergRemainderMass (R ^ 2 - 1) +
+        (∑ p ∈ P, 2 * Real.log (2 : ℝ) * Real.log (p : ℝ) *
+          ((alpogeDistinctResponseQuotient R p : ℝ) *
+            (nativeLambdaRecip (alpogeDistinctResponseQuotient R p) -
+              Real.log (alpogeDistinctResponseQuotient R p : ℝ) +
+              Real.eulerMascheroniConstant) -
+            alpogeDistinctNativeGzInteger (alpogeDistinctResponseQuotient R p))) +
+        alpogeDistinctResponseOtherSource R P -
+        nativePNTLambdaFloorLogSignedDefectMass (R ^ 2 - 1)) := by
+  have herror := alpogeDistinctResponseCompleteSignedSelberg_Gz R P hR hP
+  have hG :
+      alpogeDistinctNativeGzInteger (R ^ 2 - 1) =
+        ((R ^ 2 - 1 : ℕ) : ℝ) *
+          (nativeLambdaRecip (R ^ 2 - 1) -
+            Real.log ((R ^ 2 - 1 : ℕ) : ℝ) +
+            Real.eulerMascheroniConstant) -
+        nativePNTError (R ^ 2 - 1) := by
+    unfold alpogeDistinctNativeGzInteger nativePNTError
+    ring
+  rw [hG]
+  linear_combination -herror
+
 end RHLean.Analysis
