@@ -60,7 +60,8 @@ theorem alpogeErdosHistorySquareIncrement_eq_Gz_diff
     have hs : 4 ≤ R ^ 2 := by nlinarith
     omega
   have hhigh : 1 ≤ (R + 1) ^ 2 - 1 := by
-    nlinarith
+    have hs : 4 ≤ (R + 1) ^ 2 := by nlinarith
+    omega
   unfold alpogeErdosHistorySquareIncrement
   rw [← alpogeErdosGz_eq_mul_history
        ((R + 1) ^ 2 - 1) hhigh,
