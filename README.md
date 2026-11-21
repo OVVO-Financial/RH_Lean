@@ -1,5 +1,7 @@
 # RH_Lean
 
+**DIRECT ALPÖGE PROOF INTEGRATION — 2026-11-20.** The priority is now the complete original proof term `rhOfAll` and a compiled shared Mathlib-level interface with RH_Lean, not a new surrogate geometric error bound. [Implementation, original proof pin and exact verifier](docs/ALPOGE_UNIFIED_PROOF_INTEGRATION_20261120.md). The original proof's Lean 4.33.1 and RH_Lean's 4.34.1 are compiled independently; no cross-version .olean import or unverified theorem is claimed. Human merge, CI and manual full-upstream verification remain required.
+
 **Newest seven-agent task (2026-11-20; active after human-reviewed merge):** [ALPOGE_FULL_ANALYTIC_GEOMETRIC_COST_V1](docs/RHLEAN_ALPOGE_FULL_COST_SEVEN_AGENTS_20261120.md) directs ALL seven RH_Lean agents to the exact unpaid theorem: show that the authentic signed-Selberg `2I-J` coefficient-lattice structure and near-square-root prime multiplicity reduce Alpöge's **complete analytic/geometric cost** while returning every mixed, prime-square, prime-power, principal, height, covolume and signed complementary term—or construct a rigorous falsifier and repair. Follow [AGENTS.md](AGENTS.md), [live PR #1160](https://github.com/OVVO-Financial/RH_Lean/pull/1160) and the [full-cost acceptance ledger](docs/RHLEAN_ALPOGE_FULL_COST_SEVEN_AGENTS_20261120.md); the RH-strength supplier remains OPEN. The PR does not automatically reconfigure or launch agents.
 
 
