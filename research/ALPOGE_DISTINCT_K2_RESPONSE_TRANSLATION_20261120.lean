@@ -87,6 +87,42 @@ theorem alpogeDistinctResponseQuotient_injective
       q p hq.1.pos hqp hN
     omega
 
+/-- These distinct sources are genuinely ANCESTRAL:
+their physical Chebyshev error arguments lie between the owner prime
+and the prior root R, not at the artificial constant quotient 1. -/
+theorem alpogeDistinctResponseQuotient_ancestral
+    (R p : ℕ) (hR : 4 ≤ R)
+    (hp : alpogeDistinctResponsePrimeBand R p) :
+    p ≤ alpogeDistinctResponseQuotient R p ∧
+      alpogeDistinctResponseQuotient R p < R := by
+  have hden : 0 < 2 * p := by
+    have hp2 : 2 < p := hp.2.1
+    omega
+  have hNp := alpogeDistinctResponse_product_le_square R p hR hp
+  have hRp : R ≤ 2 * p := hp.2.2.1
+  constructor
+  · unfold alpogeDistinctResponseQuotient
+    apply (Nat.le_div_iff_mul_le hden).2
+    nlinarith [hNp]
+  · unfold alpogeDistinctResponseQuotient
+    apply (Nat.div_lt_iff_lt_mul hden).2
+    have hm : R * R ≤ R * (2 * p) := Nat.mul_le_mul_left R hRp
+    nlinarith
+
+/-- Every selected K2 carrier 2*p is physically <= X_R=R²-1,
+so it can be removed and returned within the COMPLETE original K2 sum. -/
+theorem alpogeDistinctResponse_carrier_physical
+    (R p : ℕ) (hR : 4 ≤ R)
+    (hp : alpogeDistinctResponsePrimeBand R p) :
+    2 * p ≤ R ^ 2 - 1 := by
+  have hN := alpogeDistinctResponse_product_le_square R p hR hp
+  have hp1 : 1 ≤ p := by
+    have hp2 : 2 < p := hp.2.1
+    omega
+  have hle : 2 * p ≤ (2 * p) * p := by
+    simpa using Nat.mul_le_mul_left (2 * p) hp1
+  nlinarith [hle, hN]
+
 /-- Exact signed Selberg kernel on the selected distinct-prime carrier 2*p:
 the factor of TWO is physical, not borrowed from a proxy matrix. -/
 theorem alpogeDistinctResponse_K2_prime_two
