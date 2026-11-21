@@ -1098,4 +1098,122 @@ theorem alpogeNativeFullFourierASK_eq_kernel
       rw [Finset.sum_comm]
       simp_rw [Finset.mul_sum]
 
+
+/-!
+## Complete physical prime-power ASK census
+
+Not a model or bound: the following is the actual sharp nonnegative
+class mass for each physical prime p and power p^i. The site criterion
+is the TRUE Frobenius/inertia coset, with the exact coefficient
+2/|I(p)|, including every exceptional ramified prime.
+-/
+
+def alpogeNativePrimePowerCensusASK
+    {H : Type*} [AddCommGroup H] [Fintype H] [DecidableEq H]
+    (inertia : ℕ → AddSubgroup (AlpogeNativeE0 × H))
+    (frob : ℕ → AlpogeNativeE0 × H)
+    (N : ℕ) (a : ℝ) (t : H)
+    (w : AlpogeNativeE0 × H → ℝ) : ℂ := by
+  classical
+  exact ∑ p ∈ (Finset.range (N + 1)).filter Nat.Prime,
+    ∑ i ∈ Finset.Icc 1 N,
+      (Real.log p : ℂ) *
+        ∑ g ∈ Finset.univ.filter
+          (fun g : AlpogeNativeE0 × H => ¬ alpogeNativeInPhi g),
+          (if g - i • frob p ∈ inertia p then
+            (2 : ℂ) /
+              ((Finset.univ.filter
+                (fun u : AlpogeNativeE0 × H => u ∈ inertia p)).card : ℂ)
+            else 0) *
+              alpogeNativeSiteCut a w t (p ^ i) g
+
+private theorem alpogeNativePartner_inPhi
+    {H : Type*} [AddCommGroup H] [Fintype H] [DecidableEq H]
+    (t : H) (g : AlpogeNativeE0 × H)
+    (hg : ¬ alpogeNativeInPhi g) :
+    alpogeNativeInPhi (alpogeNativePartner t g) := by
+  change (alpogeNativePartner t g).1.1 = 0
+  rw [alpogeNativePartner_fst,
+    (alpogeNativeNotPhi_iff g).mp hg]
+  decide
+
+/-- The actual sharp cutoff is exactly zero beyond N whenever
+the physical site belongs to Phi and a/w <= N. This is the
+source condition required by genuine prime-power reindexing. -/
+theorem alpogeNativeSiteCut_zero_above
+    {H : Type*} [AddCommGroup H] [Fintype H] [DecidableEq H]
+    (N n : ℕ) (a : ℝ) (t : H)
+    (w : AlpogeNativeE0 × H → ℝ)
+    (hw : ∀ ρ, alpogeNativeInPhi ρ → 0 < w ρ)
+    (hN : ∀ ρ, alpogeNativeInPhi ρ → a / w ρ ≤ (N : ℝ))
+    (g : AlpogeNativeE0 × H)
+    (hg : ¬ alpogeNativeInPhi g) (hn : N < n) :
+    alpogeNativeSiteCut a w t n g = 0 := by
+  let ρ := alpogeNativePartner t g
+  have hρ : alpogeNativeInPhi ρ :=
+    alpogeNativePartner_inPhi t g hg
+  have hW : 0 < w ρ := hw ρ hρ
+  have hupper : a / w ρ ≤ (N : ℝ) := hN ρ hρ
+  have hlt : (N : ℝ) < (n : ℝ) := by exact_mod_cast hn
+  have hn0 : (0 : ℝ) < n := by
+    have h0 := Nat.cast_nonneg (R := ℝ) N
+    linarith
+  have hprod : a < (n : ℝ) * w ρ := by
+    apply (div_lt_iff₀ hW).mp
+    exact lt_of_le_of_lt hupper hlt
+  have hquot : a / (n : ℝ) < w ρ := by
+    apply (div_lt_iff₀ hn0).mpr
+    nlinarith [mul_comm (n : ℝ) (w ρ)]
+  unfold alpogeNativeSiteCut
+  rw [max_eq_right (by linarith : a / (n : ℝ) - w ρ ≤ 0)]
+  simp
+
+/-- The literal RHLean Lambda(n) physical ASK is exactly the complete
+finite Alpoge prime-power/inertia population, with zero truncated
+contributions rather than an assumed tail or randomized model. -/
+theorem alpogeNativeFullKernelASK_eq_primePowerCensus
+    {H : Type*} [AddCommGroup H] [Fintype H] [DecidableEq H]
+    (inertia : ℕ → AddSubgroup (AlpogeNativeE0 × H))
+    (frob : ℕ → AlpogeNativeE0 × H)
+    (N : ℕ) (a : ℝ) (t : H)
+    (w : AlpogeNativeE0 × H → ℝ)
+    (hw : ∀ ρ, alpogeNativeInPhi ρ → 0 < w ρ)
+    (hN : ∀ ρ, alpogeNativeInPhi ρ → a / w ρ ≤ (N : ℝ)) :
+    alpogeNativeFullKernelASK inertia frob N a t w =
+      alpogeNativePrimePowerCensusASK inertia frob N a t w := by
+  classical
+  let X : ℕ → ℂ := fun n =>
+    ∑ g ∈ Finset.univ.filter
+      (fun g : AlpogeNativeE0 × H => ¬ alpogeNativeInPhi g),
+        alpogeNativeColourKernel inertia frob n g *
+          alpogeNativeSiteCut a w t n g
+  have hX (p i : ℕ) (hp : p.Prime) (hi : 1 ≤ i)
+      (hlt : N < p ^ i) : X (p ^ i) = 0 := by
+    dsimp [X]
+    apply Finset.sum_eq_zero
+    intro g hg
+    have hgn : ¬ alpogeNativeInPhi g := (Finset.mem_filter.mp hg).2
+    rw [alpogeNativeSiteCut_zero_above N (p ^ i) a t w
+      hw hN g hgn hlt, mul_zero]
+  have hfubini := alpogeNativeLambda_primePowerFubini N X hX
+  unfold alpogeNativeFullKernelASK
+  change (∑ n ∈ Finset.Icc 1 N, (Λ n : ℂ) * X n) = _
+  calc
+    (∑ n ∈ Finset.Icc 1 N, (Λ n : ℂ) * X n) =
+      ∑ p ∈ (Finset.range (N + 1)).filter Nat.Prime,
+        ∑ i ∈ Finset.Icc 1 N,
+          (Real.log p : ℂ) * X (p ^ i) := hfubini
+    _ = alpogeNativePrimePowerCensusASK inertia frob N a t w := by
+      unfold alpogeNativePrimePowerCensusASK
+      apply Finset.sum_congr rfl
+      intro p hp
+      apply Finset.sum_congr rfl
+      intro i hi
+      congr 1
+      dsimp [X]
+      apply Finset.sum_congr rfl
+      intro g _hg
+      rw [alpogeNativeColourKernel_primePower inertia frob
+        p i (Finset.mem_filter.mp hp).2 (Finset.mem_Icc.mp hi).1 g]
+
 end RHLean.Analysis
