@@ -1,6 +1,7 @@
 import RHLean.Analysis.AffineExcursion
 import RHLean.Analysis.AlpogeASKTangentCovariance
 import RHLean.Analysis.AlpogeErdosHistoryDirectBound
+import RHLean.Analysis.AlpogeErdosHistoryIncrementNNS2
 import RHLean.Analysis.AlpogeGzErdosReciprocalHistory
 import RHLean.Analysis.AlpogeMobiusLogLift
 import RHLean.Analysis.AlpogeMobiusPartialMoments
