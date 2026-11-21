@@ -102,11 +102,18 @@ theorem alpogeNativeTwoWallSubpower_of_halfGrowth
         mul_le_mul_of_nonneg_left
           (Real.rpow_le_rpow (Nat.cast_nonneg _) hXR he) hC
       _ = C * Real.rpow (R : ℝ) (1 + ε / 2) := by
-        congr 1
-        rw [← Real.rpow_natCast (R : ℝ) 2,
-          ← Real.rpow_mul hRpos]
-        congr 1
-        ring
+        have htwo : Real.rpow (R : ℝ) (2 : ℝ) = (R : ℝ) ^ (2 : ℕ) :=
+          Real.rpow_natCast (R : ℝ) 2
+        have hpow :
+            Real.rpow ((R : ℝ) ^ 2) ((1 / 2 : ℝ) + ε / 4) =
+              Real.rpow (R : ℝ) (1 + ε / 2) := by
+          calc
+            _ = Real.rpow (Real.rpow (R : ℝ) 2)
+                ((1 / 2 : ℝ) + ε / 4) := by rw [htwo]
+            _ = Real.rpow (R : ℝ) (2 * ((1 / 2 : ℝ) + ε / 4)) :=
+                (Real.rpow_mul hRpos (2 : ℝ) ((1 / 2 : ℝ) + ε / 4)).symm
+            _ = _ := by congr 1; ring
+        rw [hpow]
       _ ≤ C * Real.rpow (R : ℝ) (1 + ε) :=
         mul_le_mul_of_nonneg_left
           (Real.rpow_le_rpow_of_exponent_le hRone he2) hC
@@ -129,7 +136,8 @@ theorem alpogeNativeTwoWallSubpower_of_halfGrowth
   have hKroot : (1 : ℝ) ≤ Real.sqrt K := by
     simpa using Real.sqrt_le_sqrt hKone
   have hQrhs : 0 ≤ 3 * C * Real.rpow (R : ℝ) (1 + ε) := by
-    positivity
+    exact mul_nonneg (mul_nonneg (by norm_num) hC)
+      (Real.rpow_nonneg hRpos _)
   calc
     ‖alpogeNativeTwoWallQ R‖ ≤
         3 * C * Real.rpow (R : ℝ) (1 + ε) := hQ
