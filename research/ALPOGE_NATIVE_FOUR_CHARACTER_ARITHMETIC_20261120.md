@@ -132,3 +132,73 @@ original roadmap: genuine Gsig projector and sharp ASK balance
 joined to RHLean's complete signed second Selberg recurrence.
 The new module requires exact-head Lean compilation before
 it can be called kernel-certified.
+
+
+## Quadratic projector POSITIVITY actually proved on the native source
+
+The original source now contains a **new proved arithmetic estimate**, not
+another \`HostFacts\`/RH-strength premise. It is conditional only on the
+elementary algebraic statement that two genuine Dirichlet characters
+modulo the SAME \`q\` satisfy \`chiA^2=chiB^2=1\`.
+Such characters genuinely exist (e.g. the two quadratic lifts mod 15).
+
+Write \`w_x(n)=Lambda(n)*(x/n-1)\` with \`1<=n<=floor(x)\`, \`x>=0\`.
+Then \`w_x(n)>=0\` (proved, no PNT used), and genuine quadratic characters
+satisfy the exact identity at EVERY integer n:
+
+    (1-chiA(n))*(1+chiB(n))
+       = 4          if n is a unit mod q, chiA(n)=-1, chiB(n)=1;
+       = 0          if n is a unit mod q, other character signs;
+       = 1          if n is NOT a unit mod q.
+
+The last line is important. Dirichlet characters both vanish on a
+nonunit; ramified prime powers have factor 1 and therefore **cannot**
+be treated as arbitrary complex errors. Their mass is literally
+
+    Ram_q(x) = sum_(1<=n<=floor x, not IsUnit(n mod q))
+                 Lambda(n)*(x/n-1) >= 0.
+
+Since Lambda is supported on prime powers, this support comprises
+exactly the prime powers p^k with p dividing q, without discarding any
+prime power. The corresponding full positive trace is
+
+    Trace_AB(x) = 4*Selected_AB(x) + Ram_q(x),
+    Re Trace_AB(x) >= 0.
+
+The Lean proofs derive binary values on units directly from \`chi^2=1\`
+and \`MulChar.pow_apply'\`, and derive ramified zero values directly
+from \`MulChar.map_nonunit\`. They then prove the positivity of the
+actual \`Lambda(n)\` weight under the sharp floor and the **paid,
+unconditional bound**
+
+    0 <= Ram_q(x) <= x*nativeLambdaRecip(floor x).
+
+This latter bound is not root-scale. It is already a genuine upper
+bound on the full actual ramified source, not an interface with an
+open estimate masquerading as a proof. It also makes clear why
+positivity alone does not prove the desired \`Gz=O(x^(1/2+eps))\`.
+
+An elementary refinement (mathematical argument, NOT YET Lean-certified)
+is \`Ram_q(x) <= x * sum_(p|q prime) log(p)/(p-1) <= x*log(q)\`,
+by splitting Lambda into its prime-power fibres and summing the
+geometric series. This highlights the conductor-growth cost of
+varying q; no unproved \`O(sqrt x)\` or square-root cancellation claim
+is attached to this refinement.
+
+### What is and is not reconstructed
+
+**Proved arithmetic mechanism:** exact quadratic Fourier projector,
+character-induced vanishing on nonunits, positive and quantitatively
+bounded complete ramified return, selected-class positivity,
+prime-power weights and floor endpoints, plus earlier exact ASK/Gchi
+and signed Selberg identities.
+
+**NOT proved:** that these true Dirichlet-character traces are the
+automorphic theta-lift periods in the published construction;
+positive relative trace formula \`ASK-MAIN=De\`; m-fold arithmetic
+multiplicity with a fixed-sign cost bound; Bost slope, p-adic
+divisibility, full covolume estimates, or the claimed numerical
+root-strength bound on the COMPLETE signed source. None of these
+are hidden in a new abstract predicate. This is a first **actual
+unconditional local inequality** on RHLean's original arithmetic,
+not a claimed completion of Alpoge's proof.
