@@ -1,6 +1,7 @@
 import RHLean.Analysis.AffineExcursion
 import RHLean.Analysis.AlpogeNativeFourCharacterArithmetic
 import RHLean.Analysis.AlpogeNativeSharpASKBalance
+import RHLean.Analysis.AlpogeNativeSharpShell
 import RHLean.Analysis.BalancedPrimeBilinearCentering
 import RHLean.Analysis.BlockCovarianceDecomposition
 import RHLean.Analysis.BlockCovarianceRefinement
