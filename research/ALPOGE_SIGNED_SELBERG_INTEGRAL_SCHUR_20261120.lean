@@ -183,7 +183,7 @@ theorem alpogeSelbergPrimeBandRealMatrix_eq_schur
       Real.log (p j : ℝ) := by
   by_cases hij : i = j
   · subst j
-    simp only [alpogeSelbergPrimeBandRealMatrix, ite_true]
+    simp only [alpogeSelbergPrimeBandRealMatrix, if_pos rfl]
     rw [alpogeSelbergPrimeBand_square_source R (p i) hR (hp i)]
     ring
   · have hpq : p i ≠ p j := fun heq => hij (hinj heq)
