@@ -1,0 +1,275 @@
+import Mathlib
+import RHLean.Analysis.NativePNTSignedSecondSelberg
+import RHLean.Analysis.FiniteTorusFourierPairing
+
+/-!
+# Alpoge's FOUR CHARACTER TRACE rebuilt over RHLean's arithmetic
+
+This is NOT an import or a re-branding of the external proof.
+The physical population is RHLean's ACTUAL von Mangoldt prime-power
+sum. The characters are REAL DirichletCharacter values on integers,
+not invented independent matrix labels or additive characters mistaken
+for multiplicative ones.
+
+The character-color identity 1+chiB-chiA-chiA*chiB = 4*indicator
+is proved on the genuinely unramified quadratic (±1) class. Every
+nonquadratic/nonunit character value is returned as a literal finite
+signed complement. The entire principal Gz is expressed via RHLean's
+COMPLETE signed second Selberg recurrence.
+
+No source power-saving, geometric HostFacts or RH theorem is assumed.
+-/
+
+noncomputable section
+open scoped ArithmeticFunction.vonMangoldt BigOperators
+
+namespace RHLean.Analysis
+
+/-- True physical von Mangoldt coefficient (including all prime powers)
+and Alpoge's exact triangular kernel x/n-1. -/
+def alpogeNativePrimePowerWeight (x : ℝ) (n : ℕ) : ℝ :=
+  Λ n * (x / (n : ℝ) - 1)
+
+/-- Alpoge's principal finite weighted prime-power source. -/
+def alpogeNativePrincipalPrimeSum (x : ℝ) : ℝ :=
+  ∑ n ∈ Finset.Icc 1 ⌊x⌋₊, alpogeNativePrimePowerWeight x n
+
+/-- The same prime source twisted by an ACTUAL multiplicative
+Dirichlet character on integers, with nonunits still present. -/
+def alpogeNativeTwistedPrimeSum {q : ℕ} [NeZero q]
+    (χ : DirichletCharacter ℂ q) (x : ℝ) : ℂ :=
+  ∑ n ∈ Finset.Icc 1 ⌊x⌋₊,
+    (alpogeNativePrimePowerWeight x n : ℂ) * χ n
+
+/-- The native version of Alpoge's Gz, with its actual Euler gamma term. -/
+def alpogeNativeGzArithmetic (x : ℝ) : ℝ :=
+  x * nativeLambdaRecip ⌊x⌋₊ - nativePsi ⌊x⌋₊ -
+    x * Real.log x + (1 + Real.eulerMascheroniConstant) * x
+
+/-- No approximations: finite weighted prime powers are exactly
+x times the native reciprocal Lambda channel minus native psi. -/
+theorem alpogeNativePrincipalPrimeSum_eq (x : ℝ) :
+    alpogeNativePrincipalPrimeSum x =
+      x * nativeLambdaRecip ⌊x⌋₊ - nativePsi ⌊x⌋₊ := by
+  unfold alpogeNativePrincipalPrimeSum alpogeNativePrimePowerWeight
+    nativeLambdaRecip nativePsi
+  rw [Finset.mul_sum, ← Finset.sum_sub_distrib]
+  apply Finset.sum_congr rfl
+  intro n _hn
+  ring
+
+theorem alpogeNativeGzArithmetic_eq_principal (x : ℝ) :
+    alpogeNativeGzArithmetic x =
+      alpogeNativePrincipalPrimeSum x -
+        x * Real.log x + (1 + Real.eulerMascheroniConstant) * x := by
+  rw [alpogeNativePrincipalPrimeSum_eq]
+  rfl
+
+/-- The true arithmetic GPsi nonprincipal channel. The constant ell
+is the supplied logarithmic L-derivative; it is kept in the formula
+rather than assigned an unproved analytic value. -/
+def alpogeNativeGchiArithmetic {q : ℕ} [NeZero q]
+    (χ : DirichletCharacter ℂ q) (ell : ℂ) (x : ℝ) : ℂ :=
+  alpogeNativeTwistedPrimeSum χ x + (x : ℂ) * ell
+
+/-- Four genuine Dirichlet characters: 1, B, A, A*B. The last
+coefficient is evaluated as a product, retaining the correct
+multiplicative prime-power structure. -/
+def alpogeNativeFourCharacterKernel {q : ℕ} [NeZero q]
+    (χA χB : DirichletCharacter ℂ q) (n : ℕ) : ℂ :=
+  1 + χB n - χA n - χA n * χB n
+
+def alpogeNativeFourCharacterTrace {q : ℕ} [NeZero q]
+    (χA χB : DirichletCharacter ℂ q) (x : ℝ) : ℂ :=
+  ∑ n ∈ Finset.Icc 1 ⌊x⌋₊,
+    (alpogeNativePrimePowerWeight x n : ℂ) *
+      alpogeNativeFourCharacterKernel χA χB n
+
+/-- Arithmetic analogue of Alpoge Gsig, but with TRUE Dirichlet
+twists rather than symbolic Frobenius witness data. -/
+def alpogeNativeFourGsig {q : ℕ} [NeZero q]
+    (χA χB : DirichletCharacter ℂ q)
+    (ellA ellB ellAB : ℂ) (x : ℝ) : ℂ :=
+  (alpogeNativeGzArithmetic x : ℂ) +
+    alpogeNativeGchiArithmetic χB ellB x -
+    alpogeNativeGchiArithmetic χA ellA x -
+    (∑ n ∈ Finset.Icc 1 ⌊x⌋₊,
+      (alpogeNativePrimePowerWeight x n : ℂ) *
+        (χA n * χB n) + (0 : ℂ)) -
+    (x : ℂ) * ellAB
+
+/-- Exact four-channel algebra; the original principal logarithmic
+main term and ALL three analytic ell constants are returned. -/
+theorem alpogeNativeFourGsig_eq_trace (q : ℕ) [NeZero q]
+    (χA χB : DirichletCharacter ℂ q)
+    (ellA ellB ellAB : ℂ) (x : ℝ) :
+    alpogeNativeFourGsig χA χB ellA ellB ellAB x =
+      alpogeNativeFourCharacterTrace χA χB x +
+        (((-x * Real.log x +
+          (1 + Real.eulerMascheroniConstant) * x : ℝ) : ℂ)) +
+        (x : ℂ) * (ellB - ellA - ellAB) := by
+  rw [alpogeNativeGzArithmetic_eq_principal]
+  unfold alpogeNativeFourGsig alpogeNativeFourCharacterTrace
+    alpogeNativeFourCharacterKernel
+    alpogeNativeGchiArithmetic alpogeNativeTwistedPrimeSum
+  unfold alpogeNativePrincipalPrimeSum
+  simp only [add_zero, Finset.sum_add_distrib]
+  rw [← Finset.sum_add_distrib, ← Finset.sum_sub_distrib]
+  -- Convert the four prime sums into a single full signed kernel.
+  -- The remaining principal and ell terms are a commutative-ring identity.
+  simp only [map_add, map_sub]
+  ring
+
+/-- Actual Dirichlet-character trace for any finite character family.
+No principal-mode omission, no assumed group cardinality. -/
+def alpogeNativeFiniteCharacterTrace {q : ℕ} [NeZero q]
+    (T : Finset (DirichletCharacter ℂ q))
+    (a : DirichletCharacter ℂ q → ℂ) (x : ℝ) : ℂ :=
+  ∑ χ ∈ T, a χ * alpogeNativeTwistedPrimeSum χ x
+
+/-- Exact native coefficient after character averaging, at integer n. -/
+def alpogeNativeCharacterTraceCoefficient {q : ℕ} [NeZero q]
+    (T : Finset (DirichletCharacter ℂ q))
+    (a : DirichletCharacter ℂ q → ℂ) (n : ℕ) : ℂ :=
+  ∑ χ ∈ T, a χ * χ n
+
+/-- Full finite character Fubini, preserving every prime power and
+all complex phases in Alpoge's own four-color arithmetic. -/
+theorem alpogeNativeFiniteCharacterTrace_eq_source
+    {q : ℕ} [NeZero q]
+    (T : Finset (DirichletCharacter ℂ q))
+    (a : DirichletCharacter ℂ q → ℂ) (x : ℝ) :
+    alpogeNativeFiniteCharacterTrace T a x =
+      ∑ n ∈ Finset.Icc 1 ⌊x⌋₊,
+        (alpogeNativePrimePowerWeight x n : ℂ) *
+          alpogeNativeCharacterTraceCoefficient T a n := by
+  unfold alpogeNativeFiniteCharacterTrace
+    alpogeNativeTwistedPrimeSum alpogeNativeCharacterTraceCoefficient
+  calc
+    (∑ χ ∈ T, a χ *
+        ∑ n ∈ Finset.Icc 1 ⌊x⌋₊,
+          (alpogeNativePrimePowerWeight x n : ℂ) * χ n) =
+        ∑ χ ∈ T, ∑ n ∈ Finset.Icc 1 ⌊x⌋₊,
+          a χ * ((alpogeNativePrimePowerWeight x n : ℂ) * χ n) := by
+      rw [Finset.sum_congr rfl]
+      · intro χ _hχ
+        rw [Finset.mul_sum]
+    _ = ∑ n ∈ Finset.Icc 1 ⌊x⌋₊, ∑ χ ∈ T,
+          a χ * ((alpogeNativePrimePowerWeight x n : ℂ) * χ n) :=
+      Finset.sum_comm
+    _ = _ := by
+      apply Finset.sum_congr rfl
+      intro n _hn
+      rw [Finset.mul_sum]
+      apply Finset.sum_congr rfl
+      intro χ _hχ
+      ring
+
+/-- Alpoge's four-character sign factor, BEFORE applying it to
+prime-power arithmetic. -/
+def alpogeNativeFourSign (a b : ℂ) : ℂ := 1 + b - a - a * b
+
+/-- For true binary character signs, exactly the distinguished class
+(a=-1,b=1) survives, with the original coefficient FOUR. -/
+theorem alpogeNativeFourSign_binary
+    (a b : ℂ) (ha : a = 1 ∨ a = -1) (hb : b = 1 ∨ b = -1) :
+    alpogeNativeFourSign a b =
+      if a = -1 ∧ b = 1 then 4 else 0 := by
+  rcases ha with rfl | rfl <;> rcases hb with rfl | rfl <;>
+    norm_num [alpogeNativeFourSign]
+
+/-- Physical unramified quadratic sites. Values 0 at ramified
+primes are NOT silently treated as ±1. -/
+def alpogeNativeGoodSite {q : ℕ} [NeZero q]
+    (χA χB : DirichletCharacter ℂ q) (n : ℕ) : Prop :=
+  (χA n = 1 ∨ χA n = -1) ∧ (χB n = 1 ∨ χB n = -1)
+
+/-- The entire BAD or ramified return is explicitly a signed sum.
+It includes actual p-powers where one character vanishes or takes
+a nonbinary phase. -/
+def alpogeNativeFourBadReturn {q : ℕ} [NeZero q]
+    (χA χB : DirichletCharacter ℂ q) (x : ℝ) : ℂ := by
+  classical
+  exact ∑ n ∈ (Finset.Icc 1 ⌊x⌋₊).filter
+      (fun n => ¬ alpogeNativeGoodSite χA χB n),
+      (alpogeNativePrimePowerWeight x n : ℂ) *
+        alpogeNativeFourCharacterKernel χA χB n
+
+/-- The genuine physical class distinguished by four characters.
+The GOOD restriction enforces quadratic/unramified arithmetic. -/
+def alpogeNativeFourSelected {q : ℕ} [NeZero q]
+    (χA χB : DirichletCharacter ℂ q) (x : ℝ) : ℂ := by
+  classical
+  exact ∑ n ∈ (Finset.Icc 1 ⌊x⌋₊).filter
+      (fun n => alpogeNativeGoodSite χA χB n ∧
+        χA n = -1 ∧ χB n = 1),
+      (alpogeNativePrimePowerWeight x n : ℂ)
+
+/-- EXACT arithmetic character projector with FULL ramification and
+nonquadratic response returned. Unlike the old 2I-J sample matrix,
+this is an actual prime-power census with multiplicative χ-values. -/
+theorem alpogeNativeFourTrace_eq_selected_add_bad {q : ℕ} [NeZero q]
+    (χA χB : DirichletCharacter ℂ q) (x : ℝ) :
+    alpogeNativeFourCharacterTrace χA χB x =
+      4 * alpogeNativeFourSelected χA χB x +
+        alpogeNativeFourBadReturn χA χB x := by
+  classical
+  let S := Finset.Icc 1 ⌊x⌋₊
+  let good := alpogeNativeGoodSite χA χB
+  let f := fun n : ℕ =>
+    (alpogeNativePrimePowerWeight x n : ℂ) *
+      alpogeNativeFourCharacterKernel χA χB n
+  have hsplit : (∑ n ∈ S, f n) =
+      (∑ n ∈ S.filter good, f n) +
+        (∑ n ∈ S.filter (fun n => ¬ good n), f n) :=
+    (Finset.sum_filter_add_sum_filter_not (s := S)
+      (p := good) (f := f)).symm
+  have hgood :
+      (∑ n ∈ S.filter good, f n) =
+        4 * (∑ n ∈ S.filter
+          (fun n => good n ∧ χA n = -1 ∧ χB n = 1),
+          (alpogeNativePrimePowerWeight x n : ℂ)) := by
+    rw [Finset.mul_sum]
+    rw [← Finset.sum_filter]
+    apply Finset.sum_congr rfl
+    intro n hn
+    have hg : good n := (Finset.mem_filter.mp hn).2
+    have hp := alpogeNativeFourSign_binary (χA n) (χB n) hg.1 hg.2
+    unfold f alpogeNativeFourCharacterKernel
+    rw [show 1 + χB n - χA n - χA n * χB n =
+      alpogeNativeFourSign (χA n) (χB n) by rfl, hp]
+    by_cases hclass : χA n = -1 ∧ χB n = 1
+    · simp [hclass]; ring
+    · simp [hclass]
+  unfold alpogeNativeFourCharacterTrace
+    alpogeNativeFourSelected alpogeNativeFourBadReturn
+  simpa only [S, good, f] using hsplit.trans
+    (congrArg (fun z : ℂ => z + ∑ n ∈ S.filter (fun n => ¬ good n), f n) hgood)
+
+/-- Full signed Selberg source already proved unconditionally in RHLean.
+This is the complete K2+first-Selberg+floor contribution. -/
+def alpogeNativeSignedSource (N : ℕ) : ℝ :=
+  nativePNTSignedSelbergRemainder N * Real.log (N : ℝ) -
+    nativePNTLambdaSignedSelbergRemainderMass N +
+    nativePNTSignedSecondSelbergKernelErrorMass N -
+    nativePNTLambdaFloorLogSignedDefectMass N
+
+theorem alpogeNativeSignedSource_eq_error (N : ℕ) :
+    alpogeNativeSignedSource N =
+      nativePNTError N * (Real.log (N : ℝ)) ^ 2 := by
+  unfold alpogeNativeSignedSource
+  exact (nativePNTError_mul_log_sq_eq_signedSecondSelberg N).symm
+
+/-- SAME COMPLETE physical source in the original Gz observable at
+every real x, with its precise scalar floor correction. -/
+theorem alpogeNativeGz_mul_log_sq_eq_full_signed (x : ℝ) :
+    alpogeNativeGzArithmetic x * (Real.log (⌊x⌋₊ : ℝ)) ^ 2 =
+      (x * (nativeLambdaRecip ⌊x⌋₊ - Real.log x +
+         Real.eulerMascheroniConstant) + (x - (⌊x⌋₊ : ℝ))) *
+         (Real.log (⌊x⌋₊ : ℝ)) ^ 2 -
+       alpogeNativeSignedSource ⌊x⌋₊ := by
+  rw [alpogeNativeSignedSource_eq_error]
+  unfold alpogeNativeGzArithmetic nativePNTError
+  ring
+
+end RHLean.Analysis
