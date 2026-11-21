@@ -153,4 +153,41 @@ theorem alpogeCoherentUnitFamily_exact
   simp
   ring
 
+
+/-- The ACTUAL simultaneous SizeWindows inequalities in the external
+Alpoge cost ledger force the host group size n to be at least sqrt(x):
+  x^(1/2-eps) <= m,  x*m <= k <= n²*x^(1/2-eps)
+imply x <= n², regardless of the saved signed Selberg mask.
+This arithmetic necessity is a proved restriction, not a host witness. -/
+theorem alpogeSizeWindows_forces_hostRoot
+    (x ε n m k : ℝ)
+    (hx : 0 < x)
+    (hm : x ^ ((1 : ℝ) / 2 - ε) ≤ m)
+    (hkl : x * m ≤ k)
+    (hku : k ≤ n ^ 2 * x ^ ((1 : ℝ) / 2 - ε)) :
+    x ≤ n ^ 2 := by
+  have hpow : 0 < x ^ ((1 : ℝ) / 2 - ε) :=
+    Real.rpow_pos_of_pos hx _
+  have hbound :
+      x * x ^ ((1 : ℝ) / 2 - ε) ≤
+        n ^ 2 * x ^ ((1 : ℝ) / 2 - ε) := by
+    calc
+      x * x ^ ((1 : ℝ) / 2 - ε) ≤ x * m :=
+        mul_le_mul_of_nonneg_left hm hx.le
+      _ ≤ k := hkl
+      _ ≤ n ^ 2 * x ^ ((1 : ℝ) / 2 - ε) := hku
+  exact le_of_mul_le_mul_right hbound hpow
+
+/-- No FIXED host cardinality n can meet these three original
+SizeWindows constraints at the explicit larger scale x=n²+1. -/
+theorem alpogeSizeWindows_fixed_host_obstruction
+    (n ε m k : ℝ)
+    (hm : (n ^ 2 + 1) ^ ((1 : ℝ) / 2 - ε) ≤ m)
+    (hkl : (n ^ 2 + 1) * m ≤ k)
+    (hku : k ≤ n ^ 2 * (n ^ 2 + 1) ^ ((1 : ℝ) / 2 - ε)) :
+    False := by
+  have h := alpogeSizeWindows_forces_hostRoot
+    (n ^ 2 + 1) ε n m k (by positivity) hm hkl hku
+  nlinarith
+
 end RHLean.Analysis
