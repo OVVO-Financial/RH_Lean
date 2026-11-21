@@ -434,8 +434,8 @@ theorem numberFieldCRLattice_idealPow
     v.1 ∈ I ^ k ∧ v.2 ∈ I ^ k := by
   obtain ⟨x, hx, hEq⟩ := Submodule.mem_map.mp hv
   have hp := algebraicCR_idealPow_forward I k x (hL x hx).1 (hL x hx).2
-  change v = algebraicCR x at hEq
-  rw [hEq]
+  change algebraicCR x = v at hEq
+  rw [← hEq]
   exact hp
 
 end RHLean.Geometry
