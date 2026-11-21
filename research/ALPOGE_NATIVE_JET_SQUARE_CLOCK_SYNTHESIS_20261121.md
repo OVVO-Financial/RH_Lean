@@ -29,6 +29,27 @@ Earlier #1169 also identified the same whole source as the complete
 signed Erdos historical observable; that earlier draft is NOT a
 prerequisite for this file or this new focused branch.
 
+### A.1. The *second* arithmetic difference is the genuine prime signal
+
+Directly differentiating the SAME complete Gz twice by the integer
+forward difference yields, at every n>=0, an **exact identity**:
+
+```
+G(n+2)-2G(n+1)+G(n)
+ = Lambda(n+1)/(n+1)
+   -[(n+2)log(n+2)-2(n+1)log(n+1)+n log n].
+```
+
+The first term is the real von Mangoldt prime-power impulse. The
+second is the explicit, convex deterministic `x log x` curvature
+(about 1/(n+1) at large n). There is NO Schur/PSD approximation here.
+This is the natural discrete analogue of a second derivative of the
+original prime signal; it avoids the misleading claim that whole
+numbers cannot be differentiated *as arithmetic data*. It also
+shows why an order-m difference is not by itself a source of
+Stepanov's p-adic vanishing. The Lean declaration is
+`nativeAlpogeGz_secondDifference_primePower` in the new root module.
+
 ## B. Exact one-sided discrete derivative and ALL-INTEGER interpolation
 
 On MAIN, `nativeLambdaRecip_sub_log_bounds` gives:
