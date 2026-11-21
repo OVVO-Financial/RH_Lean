@@ -231,4 +231,43 @@ theorem alpogeFreshTwoWallUPM_sub_LPM (R : ℕ) :
   rw [← Finset.sum_sub_distrib] at hsum
   linarith
 
+/-- **Zero local sign variance:** every fresh-prime parent of a
+squarefree child has the *same* opposite Mobius sign. The normalized
+probability-one parent averaging is therefore exact but cannot by
+itself produce a strict signed saving. The required mixing must be
+between DIFFERENT physical children or site-dependent weights. -/
+theorem alpogeFreshPrimeParent_signVariance_zero
+    (n : ℕ) (hs : Squarefree n) :
+    (∑ p ∈ n.primeFactors,
+      (moebiusReal (n / p) + moebiusReal n) ^ 2 *
+        Real.log p) = 0 := by
+  apply Finset.sum_eq_zero
+  intro p hp
+  rw [moebiusReal_div_prime_eq_neg hs hp]
+  ring
+
+/-- Even an arbitrary completely multiplicative complex Frobenius
+character does not create local parent-phase variance: after its
+fresh-prime factor is returned, EVERY parent has the same signed
+character value. This holds for ramified characters whose local
+coefficients vanish too. Genuine Alpoge gains must use nonlocal
+partner/height geometry, not simply prime-parent multiplicity. -/
+theorem alpogeFreshPrimeParent_twisted_coherent
+    (v : ℕ → ℂ)
+    (hv : ∀ a b : ℕ, v (a * b) = v a * v b)
+    {n p : ℕ} (hs : Squarefree n) (hp : p ∈ n.primeFactors) :
+    (moebiusReal (n / p) : ℂ) * v (n / p) * v p =
+      -(moebiusReal n : ℂ) * v n := by
+  have hpd : p ∣ n := Nat.dvd_of_mem_primeFactors hp
+  have hprod : p * (n / p) = n :=
+    Nat.mul_div_cancel' hpd
+  have hmul : v n = v (n / p) * v p := by
+    calc
+      v n = v (p * (n / p)) := by rw [hprod]
+      _ = v p * v (n / p) := hv p (n / p)
+      _ = v (n / p) * v p := by ring
+  rw [moebiusReal_div_prime_eq_neg hs hp, hmul]
+  push_cast
+  ring
+
 end RHLean.Analysis
