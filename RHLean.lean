@@ -2,6 +2,7 @@ import RHLean.Analysis.AffineExcursion
 import RHLean.Analysis.AlpogeASKTangentCovariance
 import RHLean.Analysis.AlpogeMobiusLogLift
 import RHLean.Analysis.AlpogeMobiusPartialMoments
+import RHLean.Analysis.AlpogeNNSBandSchur
 import RHLean.Analysis.AlpogePositivePrimeParentTransport
 import RHLean.Analysis.AlpogeSharpASKCollar
 import RHLean.Analysis.BalancedPrimeBilinearCentering
