@@ -264,7 +264,7 @@ theorem alpogeNativeRealizedGPsi_eq_nativeGchi
       (alpogeNativeCftData N q d r).inertia
       (alpogeNativeCftData N q d r).frob ell ψ y =
     alpogeNativeRealizedGchi r ψ (ell ψ) y := by
-  haveI : NeZero (alpogeNativeDirChar r ψ).conductor :=
+  have : NeZero (alpogeNativeDirChar r ψ).conductor :=
     ⟨DirichletCharacter.conductor_ne_zero _⟩
   change alpogeNativeFrobInertiaGPsi
       (alpogeNativeCftData N q d r).inertia
