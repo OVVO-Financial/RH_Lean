@@ -117,4 +117,47 @@ theorem alpogeNativeCftASK_sub_MAIN_eq_completePrimitiveDe
       alpogeNativeFullASK_sub_MAIN_eq_De _ _ ell M a t w ha hw hM
     _ = _ := alpogeNativeCftDe_eq_completePrimitiveDe q d r ell a t w
 
+/-! ## No symbolic ell: actual primitive Dirichlet logarithmic derivative
+
+Alpoge's An.logDerivativeAtOne is literally
+  (deriv (DirichletCharacter.LFunction chi)) 1 / LFunction chi 1.
+The chosen canonical ell below is exactly that expression for each
+conductor-reduced chi induced by the genuine modular-unit host.
+This closes the analytic DEFINITION of the centering channel; no
+estimate on L'/L, nonvanishing, or GRH is presumed.
+-/
+
+/-- The authentic logarithmic-derivative constant at the primitive
+conductor. The zero-character channel is not used by nonprincipal GPsi. -/
+def alpogeNativeCanonicalHostEll
+    {N : ℕ} [NeZero N]
+    {H : Type*} [AddCommGroup H] [Fintype H] [DecidableEq H]
+    (r : (ZMod N)ˣ →* Multiplicative (AlpogeNativeE0 × H))
+    (ψ : AddChar (AlpogeNativeE0 × H) ℂ) : ℂ := by
+  letI : NeZero (alpogeNativeDirChar r ψ).conductor :=
+    ⟨DirichletCharacter.conductor_ne_zero _⟩
+  let χ := (alpogeNativeDirChar r ψ).primitiveCharacter
+  exact deriv (DirichletCharacter.LFunction χ) 1 /
+    DirichletCharacter.LFunction χ 1
+
+/-- Completely specified SAME-host source: no arbitrary ell or
+fictional Frobenius/ramified coefficient remains in ASK-MAIN. -/
+theorem alpogeNativeCanonicalHostASK_sub_MAIN_eq_primitiveDe
+    {N : ℕ} [NeZero N]
+    {H : Type*} [AddCommGroup H] [Fintype H] [DecidableEq H]
+    (q d : ℕ)
+    (r : (ZMod N)ˣ →* Multiplicative (AlpogeNativeE0 × H))
+    (M : ℕ) (a : ℝ) (t : H) (w : AlpogeNativeE0 × H → ℝ)
+    (ha : 0 < a)
+    (hw : ∀ ρ, alpogeNativeInPhi ρ → 0 < w ρ)
+    (hM : ∀ ρ, alpogeNativeInPhi ρ → a / w ρ ≤ (M : ℝ)) :
+    alpogeNativeFullKernelASK
+      (alpogeNativeCftData N q d r).inertia
+      (alpogeNativeCftData N q d r).frob M a t w -
+    alpogeNativeMAIN (alpogeNativeCanonicalHostEll r) a w =
+    alpogeNativeCompletePrimitiveDe
+      r (alpogeNativeCanonicalHostEll r) a t w :=
+  alpogeNativeCftASK_sub_MAIN_eq_completePrimitiveDe
+    q d r (alpogeNativeCanonicalHostEll r) M a t w ha hw hM
+
 end RHLean.Analysis
