@@ -648,4 +648,45 @@ theorem algebraicCR_commutes_complete_matrix
       ∑ j : Fin m, S i j • (algebraicCRLinear A) (v j)
   simp
 
+/-! ## The exact native C-to-R equivalence, explicitly constructed
+
+This supplies the genuine isomorphism field for a pair of number-field
+coordinates. It is not a free assumption of an arithmetic cost theorem.
+-/
+
+/-- The integer matrix [[1,-1],[1,1]] becomes an invertible
+K-linear equivalence over ANY characteristic-zero field.
+The inverse is ((u+v)/2,(v-u)/2), including its dyadic denominator. -/
+def algebraicCRFieldEquiv (K : Type*) [Field K] [CharZero K] :
+    (K × K) ≃ₗ[K] (K × K) := by
+  apply LinearEquiv.ofBijective (algebraicCRLinear K)
+  constructor
+  · exact algebraicCR_injective
+  · rintro ⟨u,v⟩
+    refine ⟨((u+v)/2, (v-u)/2), ?_⟩
+    apply Prod.ext <;>
+      dsimp [algebraicCRLinear, algebraicCR] <;>
+      field_simp <;> ring
+
+/-- The explicit change of number-field basis is exactly the
+native C-to-R realification, not an arbitrary existential map. -/
+theorem algebraicCRFieldEquiv_apply
+    (K : Type*) [Field K] [CharZero K] (v : K × K) :
+    algebraicCRFieldEquiv K v = algebraicCR v := by
+  rfl
+
+/-- Apply the all-place Rerealize norm identity to the actual native
+C-to-R field equivalence. Same X, same physical source coefficients. -/
+theorem nativeAlpogeNormAt_algebraicCR
+    (K : Type*) [Field K] [NumberField K]
+    (ι : Type*) [Fintype ι] [DecidableEq ι]
+    (b : Module.Basis ι K (K × K))
+    (X : InfinitePlace K → Matrix ι ι ℂ)
+    (v : InfinitePlace K) (x : K × K) :
+    nativeAlpogeNormAt (b.map (algebraicCRFieldEquiv K)) X v
+      (algebraicCR x) =
+        nativeAlpogeNormAt b X v x := by
+  rw [← algebraicCRFieldEquiv_apply K x]
+  exact nativeAlpogeNormAt_map b X (algebraicCRFieldEquiv K) v x
+
 end RHLean.Geometry
