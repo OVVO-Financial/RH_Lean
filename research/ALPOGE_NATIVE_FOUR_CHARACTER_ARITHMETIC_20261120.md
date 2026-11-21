@@ -202,3 +202,30 @@ root-strength bound on the COMPLETE signed source. None of these
 are hidden in a new abstract predicate. This is a first **actual
 unconditional local inequality** on RHLean's original arithmetic,
 not a claimed completion of Alpoge's proof.
+
+
+### One further theorem: FULL positive sharp ASK (native source)
+
+`RHLean/Analysis/AlpogeNativeSharpASKBalance.lean` now forms the exact
+original positive-part character average (not a fabricated Gz interface)
+
+    ASK_AB(N,a,W) =
+      sum_(1<=n<=N) Lambda(n) *
+        (1 + chiB(n) - chiA(n) - chiA(n)*chiB(n))
+        * max(a/n-W, 0).
+
+For `a,W>0` and `a/W<=N` its Lean source proves EXACTLY
+
+    ASK_AB(N,a,W) = W * Trace_AB(a/W)
+      = W * (4*Selected_AB(a/W) + Ram_q(a/W)) >= 0
+
+for genuine quadratic chiA,chiB modulo q. The inequality applies to the
+real part (and the expressions are mathematically real in this case).
+This is genuine sharp ASK positivity, preserving every prime-power,
+integer cutoff, character twist, and conductor-ramified return.
+
+The full published ASK-minus-MAIN inequality, the geometric trace
+formula and the m-vs-covolume saving are NOT derived by this positivity.
+The finite result cannot be promoted to an RH theorem, nor can it be
+used to drop the principal x*log(x), logarithmic L-derivatives or the
+complete signed Selberg complement.
