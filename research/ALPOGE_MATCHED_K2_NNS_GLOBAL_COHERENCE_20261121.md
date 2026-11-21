@@ -75,7 +75,7 @@ Command:
 ```
 python3 scripts/alpoge_matched_full_primepower_census_20261121.py
 ```
-The script *independently enumerates* every actual prime and von Mangoldt prime power up to X_R, computes the full F(X_R), selected matched mass, and E(X_R)=psi(X_R)-X_R. It RECONSTRUCTS A(X_R) as Elog²-F using the Lean-certified exact formula; it does **not** claim an independent termwise evaluation of all S, floor and defect subchannels.
+The revised script **independently enumerates** every actual prime and von Mangoldt prime power up to X_R and evaluates the literal Selberg symmetry pair \(\psi(X)\log X+\sum_d\Lambda(d)\psi(\lfloor X/d\rfloor)\), the factorial term via \(\log\Gamma(X+1)\), the first Selberg remainder \(S(X)\), its weighted cofactor correlation \(T(X)=\sum\Lambda(d)E(X/d)\), the floor-log term, the exact signed floor defect, and the full prime-power matched \(F(X)\). It then constructs \(A=S\log X-L_{\rm floor}-Def\) **independently of the final \(E\log^2X\) identity**, and checks both the first and second exact Selberg recurrences to floating-point precision. This is a substantially stronger source-level regression than the original reconstructed-A diagnostic.
 
 | R | E(X_R) | full matched F | reconstructed A | selected matched | rest matched |
 |---:|---:|---:|---:|---:|---:|
@@ -84,7 +84,7 @@ The script *independently enumerates* every actual prime and von Mangoldt prime 
 | 549 | -285.257239 | +3,986,879.368 | -4,032,283.289 | +1,594.469 | +3,985,284.898 |
 | 1027 | -238.192404 | +15,523,584.594 | -15,569,399.338 | +3,330.913 | +15,520,253.680 |
 
-At R=317 the full A and F cancel by 99.9305% in absolute amplitude. R=1027 the cancellation is 99.8527%. The selected critical-square UPM2 paid term is a **small fraction** of full matched F: the remaining prime-power renewal and first remainder are jointly enormous. These are finite diagnostics, not evidence of a universal exponent or sign.
+Independent first-Selberg census at R=317 yields S=-116,094.763362 and T=-116,240.670584, so S-T=+145.907222 equals E(X)*log(X) within rounding. The independently computed A and F cancel by 99.9305% in absolute amplitude. R=1027 the cancellation is 99.8527%. The selected critical-square UPM2 paid term is a **small fraction** of full matched F: the remaining prime-power renewal and first remainder are jointly enormous. These are finite diagnostics, not evidence of a universal exponent or sign.
 
 ## 4. Exact unresolved quantitative inequality after the complete matching
 
