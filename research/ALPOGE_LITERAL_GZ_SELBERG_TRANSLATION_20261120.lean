@@ -225,6 +225,6 @@ theorem alpogeNativeGzSquare_le_of_fullSource
         M * (Real.log ((R ^ 2 - 1 : ℕ) : ℝ)) ^ 2 := by
     rw [alpogeNativeGzSquare_eq_fullSource]
     exact hpaid
-  exact (mul_le_mul_right hSq).mp hBound
+  exact le_of_mul_le_mul_right hBound hSq
 
 end RHLean.Analysis
