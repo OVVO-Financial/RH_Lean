@@ -90,7 +90,7 @@ theorem nativeNNSCohomologyLength_split
     ext ⟨x, hx⟩
     simp [toP, toQ, back]
     linear_combination (norm := module) hc • x
-  rw [(LinearEquiv.ofLinear (toP.prod toQ) back
+  rw [(LinearEquiv.ofLinearMap (toP.prod toQ) back
     h_forward h_backward).length_eq, Module.length_prod]
 
 /-- For every ODD prime, the NNS C-to-R change of variables pays
@@ -142,5 +142,37 @@ theorem nativeNNSCenteredSchur_cannot_pay_positive_lengths :
   rintro ⟨C, hC⟩
   have h := hC (fun _ : Fin 3 => 1) (by intro _; norm_num)
   norm_num [alpogeNNSBandScaledSchur] at h
+
+
+/-- An honest integral-cohomology cokernel has exactly the SAME length
+after a genuine invertible NNS C-to-R coordinate change.  This
+handles the complete image, not a selected matrix minor or an
+artificial scalar determinant. The formula applies in particular to
+an actual twisted Galois endomorphism once constructed in the native
+arithmetic: its desired cokernel length would then be unchanged. -/
+theorem nativeNNSCokernelLength_conjugation
+    {R M : Type*} [CommRing R] [AddCommGroup M] [Module R M]
+    (A : Module.End R M) (T : M ≃ₗ[R] M) :
+    Module.length R (M ⧸ LinearMap.range A) =
+      Module.length R
+        (M ⧸ LinearMap.range
+          ((T.toLinearMap.comp A).comp T.symm.toLinearMap)) := by
+  have hsurj : LinearMap.range T.symm.toLinearMap = ⊤ :=
+    LinearMap.range_eq_top_of_surjective _ T.symm.surjective
+  have hleft :
+      Submodule.map T.toLinearMap (LinearMap.range A) =
+        LinearMap.range (T.toLinearMap.comp A) :=
+    (LinearMap.range_comp _ _).symm
+  have hright :
+      LinearMap.range ((T.toLinearMap.comp A).comp T.symm.toLinearMap) =
+        LinearMap.range (T.toLinearMap.comp A) := by
+    rw [LinearMap.range_comp, hsurj]
+    simp
+  have htransport :
+      Submodule.map T.toLinearMap (LinearMap.range A) =
+        LinearMap.range
+          ((T.toLinearMap.comp A).comp T.symm.toLinearMap) :=
+    hleft.trans hright.symm
+  exact (Submodule.Quotient.equiv _ _ T htransport).length_eq
 
 end RHLean.Analysis
