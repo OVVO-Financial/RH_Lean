@@ -498,8 +498,7 @@ theorem alpogeNativeCharacterDetector
 The distinguished output site survives iff g-a belongs to inertia.
 The normalizer is the TRUE cardinality of inertia, never an
 independent arbitrary coefficient or a missing bad-prime term. -/
-open Classical in
-theorem alpogeNativeCosetCharacterOrthogonality
+open Classical in theorem alpogeNativeCosetCharacterOrthogonality
     {G : Type*} [AddCommGroup G] [Fintype G] [DecidableEq G]
     (I : AddSubgroup G) (a g : G) :
     (∑ ψ : AddChar G ℂ,
@@ -574,6 +573,9 @@ abbrev AlpogeNativeE0 := ZMod 2 × ZMod 2
 def alpogeNativeInPhi {H : Type*} (g : AlpogeNativeE0 × H) : Prop :=
   g.1.1 = 0
 
+instance {H : Type*} : DecidablePred (alpogeNativeInPhi (H := H)) :=
+  fun g => inferInstanceAs (Decidable (g.1.1 = 0))
+
 def alpogeNativePhiSet (H : Type*) [AddCommGroup H]
     [Fintype H] [DecidableEq H] : Finset (AlpogeNativeE0 × H) := by
   classical
@@ -612,16 +614,19 @@ def alpogeNativeChC (H : Type*) [AddCommGroup H]
 section NativeColours
 variable {H : Type*} [AddCommGroup H] [Fintype H] [DecidableEq H]
 
+omit [AddCommGroup H] [Fintype H] [DecidableEq H] in
 private theorem alpogeNativeNotPhi_iff (g : AlpogeNativeE0 × H) :
     ¬ alpogeNativeInPhi g ↔ g.1.1 = 1 := by
   change ¬ g.1.1 = 0 ↔ g.1.1 = 1
   have hcase : ∀ z : ZMod 2, z = 0 ∨ z = 1 := by decide
   rcases hcase g.1.1 with h | h <;> rw [h] <;> decide
 
+omit [Fintype H] [DecidableEq H] in
 private theorem alpogeNativePartner_fst (t : H) (g : AlpogeNativeE0 × H) :
     (alpogeNativePartner t g).1.1 = 1 + g.1.1 := by
   simp [alpogeNativePartner, alpogeNativeCconj, alpogeNativeTopPl]
 
+omit [Fintype H] [DecidableEq H] in
 private theorem alpogeNativePartner_inv_fst (t : H) (g : AlpogeNativeE0 × H) :
     (g - alpogeNativeTopPl t - alpogeNativeCconj H).1.1 = g.1.1 - 1 := by
   simp [alpogeNativeTopPl, alpogeNativeCconj]
@@ -639,11 +644,10 @@ theorem alpogeNativeSumPartner {β : Type*} [AddCommMonoid β]
     (fun ρ => ρ - alpogeNativeTopPl t - alpogeNativeCconj H)
     ?_ ?_ ?_ ?_ ?_
   · intro g hg
-    simp only [Finset.mem_filter, Finset.mem_univ, true_and] at hg
+    have hg' : ¬ alpogeNativeInPhi g := (Finset.mem_filter.mp hg).2
     simp only [alpogeNativePhiSet, Finset.mem_filter, Finset.mem_univ, true_and]
-    change alpogeNativeInPhi (alpogeNativePartner t g)
     change (alpogeNativePartner t g).1.1 = 0
-    rw [alpogeNativePartner_fst, (alpogeNativeNotPhi_iff g).mp hg]
+    rw [alpogeNativePartner_fst, (alpogeNativeNotPhi_iff g).mp hg']
     decide
   · intro ρ hρ
     simp only [alpogeNativePhiSet, Finset.mem_filter, Finset.mem_univ, true_and] at hρ
@@ -668,12 +672,14 @@ private theorem alpogeNativeCardNotPhi :
   have h := alpogeNativeSumPartner (H := H) (β := ℕ) 0 (fun _ => 1)
   simpa using h
 
+omit [DecidableEq H] in
 private theorem alpogeNativeCharStarNeg
     (ψ : AddChar (AlpogeNativeE0 × H) ℂ) (g : AlpogeNativeE0 × H) :
     starRingEnd ℂ (ψ g) = ψ (-g) := by
-  first
-  | exact (AddChar.map_neg_eq_conj ψ g).symm
-  | rw [AddChar.map_neg_eq_inv, Complex.inv_eq_conj (AddChar.norm_apply ψ g)]
+  exact (AddChar.map_neg_eq_conj ψ g).symm
+
+private theorem alpogeNativeChC_apply (g : AlpogeNativeE0 × H) :
+    alpogeNativeChC H g = if g.1.1 = 0 then 1 else -1 := rfl
 
 private theorem alpogeNativeChC_sq (g : AlpogeNativeE0 × H) :
     alpogeNativeChC H g * alpogeNativeChC H g = 1 := by
@@ -688,8 +694,7 @@ private theorem alpogeNativeChC_neg (g : AlpogeNativeE0 × H) :
     generalize g.1.1 = e
     revert e
     decide
-  simp only [alpogeNativeChC]
-  rw [h1]
+  rw [alpogeNativeChC_apply, alpogeNativeChC_apply, h1]
 
 private theorem alpogeNativeChC_mul_self :
     (alpogeNativeChC H) * (alpogeNativeChC H) = 0 := by
@@ -736,7 +741,7 @@ private theorem alpogeNativeCardDoublePhi :
   have hn : Fintype.card (AlpogeNativeE0 × H) =
       2 * (alpogeNativePhiSet H).card := by
     rw [← Finset.card_univ,
-      ← Finset.filter_card_add_filter_neg_card_eq_card
+      ← Finset.card_filter_add_card_filter_not
         (p := alpogeNativeInPhi)]
     rw [alpogeNativeCardNotPhi]
     simp only [alpogeNativePhiSet]
@@ -761,9 +766,10 @@ theorem alpogeNativeColourSum
   have hindicator (g : AlpogeNativeE0 × H) :
       (if ¬ alpogeNativeInPhi g then (1 : ℂ) else 0) =
         (1 - alpogeNativeChC H g) / 2 := by
-    change (if ¬ g.1.1 = 0 then (1 : ℂ) else 0) =
-      (1 - (if g.1.1 = 0 then (1 : ℂ) else -1)) / 2
-    by_cases hg : g.1.1 = 0 <;> simp [hg] <;> ring
+    by_cases hg : g.1.1 = 0
+    · simp [alpogeNativeInPhi, alpogeNativeChC_apply, hg]
+    · simp [alpogeNativeInPhi, alpogeNativeChC_apply, hg]
+      ring
   have hterm (g : AlpogeNativeE0 × H) :
       (if ¬ alpogeNativeInPhi g then starRingEnd ℂ (ψ g) else 0) =
         (starRingEnd ℂ (ψ g) -
