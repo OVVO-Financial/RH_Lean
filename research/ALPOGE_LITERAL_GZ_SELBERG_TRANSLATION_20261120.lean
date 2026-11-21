@@ -49,6 +49,37 @@ def alpogeLiteralGzInteger (N : ℕ) : ℝ :=
     (N : ℝ) * Real.log (N : ℝ) +
     (1 + Real.eulerMascheroniConstant) * (N : ℝ)
 
+
+/-- The COMPLETE external Gz function at an ARBITRARY REAL x, not just
+at square or natural endpoints. This definition is term-for-term
+the published Formalism.StatementOC.Gz in our RH_Lean environment. -/
+def alpogeLiteralGzReal (x : ℝ) : ℝ :=
+  (∑ n ∈ Finset.Icc 1 ⌊x⌋₊,
+    Λ n * (x / (n : ℝ) - 1)) -
+    x * Real.log x +
+    (1 + Real.eulerMascheroniConstant) * x
+
+/-- Exactly the same real-x function, now using native finite
+reciprocal-Lambda and psi sums at the integral floor. -/
+def alpogeNativeGzReal (x : ℝ) : ℝ :=
+  x * nativeLambdaRecip ⌊x⌋₊ - nativePsi ⌊x⌋₊ -
+    x * Real.log x + (1 + Real.eulerMascheroniConstant) * x
+
+/-- Term-by-term exact identity even for nonintegral x; no smoothing
+loss, jump convention, asymptotic, or Dirichlet character assumption. -/
+theorem alpogeNativeGzReal_eq_literal (x : ℝ) :
+    alpogeNativeGzReal x = alpogeLiteralGzReal x := by
+  have hsource :
+      x * nativeLambdaRecip ⌊x⌋₊ - nativePsi ⌊x⌋₊ =
+      ∑ n ∈ Finset.Icc 1 ⌊x⌋₊, Λ n * (x / (n : ℝ) - 1) := by
+    unfold nativeLambdaRecip nativePsi
+    rw [Finset.mul_sum, ← Finset.sum_sub_distrib]
+    apply Finset.sum_congr rfl
+    intro n _hn
+    ring
+  unfold alpogeNativeGzReal alpogeLiteralGzReal
+  rw [hsource]
+
 /-- The native representation of exactly the same integer Gz signal. -/
 def alpogeNativeGzInteger (N : ℕ) : ℝ :=
   (N : ℝ) * nativeLambdaRecip N - nativePsi N -
