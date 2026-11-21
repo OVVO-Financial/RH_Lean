@@ -1,5 +1,35 @@
 # ALPOGE_FULL_ANALYTIC_GEOMETRIC_COST_V1 — seven-agent full-source cost campaign (2026-11-20)
 
+**2026-11-20 SOURCE-FAITHFUL RETARGET UPDATE (review PR #1164):**
+* #1162 identifies the ENTIRE literal Alpöge Gz(x) as RH_Lean's real-x
+  Lambda reciprocal, Chebyshev and signed second-Selberg source, with
+  exact floor correction. This is a checked identity, NOT a bound.
+* #1163 replaces the collapsed E(1) prime-band face by physical K2(2p),
+  R/2<=p<=2R/3, with INJECTIVE smaller-scale errors E(t_p), p<=t_p<R.
+  Its full first-Selberg, other K2 and floor returns remain compulsory.
+* **#1164 attacks the actual missing quantitative step**. The selected
+  child source equals EXACTLY
+      sum_(n<=X) (Lambda(n)-1)*2log2*
+        sum_(p prime in [R/2,2R/3]:2pn<=X) log(p),
+  so it is one bilinear prime-counting source, NOT m independent
+  error-sign draws. At R=3000 and R=10000 ALL tested Gz(t_p)>0;
+  its selected sum/diagonal-L2 ratio is ~7.84 (m=64) and ~12.12
+  (m=190), near the coherent sqrt(m) limit. Do NOT infer the
+  original Alpöge analytic/geometric 1/m gain from distinctness.
+* The REAL upstream SizeWindows constraint forces n^2>=x
+  from m>=x^(1/2-eps), x*m<=k<=n^2*x^(1/2-eps), where
+  n=|H|. A fixed finite label/character group is inadmissible at
+  growing x. New #1164 Lean lemmas target this literal necessary gate.
+* All seven roles MUST now either derive a uniform same-source
+  bilinear+complement saving with all signs/cross-fibres returned,
+  or construct the ACTUAL growing H, HostFacts (Frobenius/inertia),
+  thick weights and full height/covolume/ThinScales/SizeWindows
+  witnesses. No generic "by Cauchy-Schwarz" or fictitious random
+  cancellation; reject any numerical exponent gain that does not
+  pay the original full error. Check live PR CI and do not certify
+  new Lean declarations until their exact-head checks are green.
+  All role permissions/schedules/human-only merges are unchanged.
+
 **User instruction / highest research-selection priority, once human-reviewed and merged.** All SEVEN existing RH_Lean roles must pursue the SINGLE specific task: **prove that the native signed-Selberg 2I-J lattice's multiplication/divisibility/coercivity advantage reduces Alpöge's COMPLETE analytic/geometric error, with every complementary term and quantified cost paid**, OR prove a source-faithful obstruction and repair the candidate. Neither a determinant nor a new conditional equivalent of RH counts as completion.
 
 **Activation boundary:** On the next REAL configured agent invocation after human merge, consume this directive and report the acknowledgement below. The PR does not launch/reconfigure Agent Studio, change schedules/model/permissions, write outside assigned role paths, or certify RH. Respect multiple daily runs, exact-head CI and HUMAN-ONLY merges. External saved prompts require separate human synchronization unless they reload live main. The source PR #1160 is OPEN at creation of this policy: always check its LIVE head, CI and merge state; do not label its novel Lean declarations verified until exact-head CI succeeds.
