@@ -34,7 +34,7 @@ example : alpogeNativeFrobUnit 12 2 = ZMod.unitOfCoprime 5 (by decide) := by
     rw [hB] at h
     omega
   constructor
-  · simpa only [ZMod.coe_unitOfCoprime, ZMod.cast_natCast (Nat.ordCompl_dvd 12 2), hB]
-      using (show (5 : ZMod 3) = 2 by decide)
-  · simpa only [ZMod.coe_unitOfCoprime, ZMod.cast_natCast (Nat.ordProj_dvd 12 2), hA]
-      using (show (5 : ZMod 4) = 1 by decide)
+  · rw [ZMod.coe_unitOfCoprime, ZMod.cast_natCast (Nat.ordCompl_dvd 12 2), hB]
+    decide
+  · rw [ZMod.coe_unitOfCoprime, ZMod.cast_natCast (Nat.ordProj_dvd 12 2), hA]
+    decide
