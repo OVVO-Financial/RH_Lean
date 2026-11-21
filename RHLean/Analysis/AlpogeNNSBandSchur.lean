@@ -220,4 +220,63 @@ theorem alpogeNNSBandCharge_le_principal_plus_range
   rw [alpogeNNSBandCharge_schur_decomposition]
   nlinarith [hschur]
 
+/-- Sharp, fixed-sign NNS positive-part subadditivity when the
+Schur variance error is nonnegative. This never replaces the original
+complete source by two separately bounded absolute masses. -/
+private theorem alpogeNNS_positivePart_add_nonneg_le
+    (x v : ℝ) (hv : 0 ≤ v) :
+    max (x + v) 0 ≤ max x 0 + v := by
+  by_cases hx : 0 ≤ x
+  · have hxv : 0 ≤ x + v := add_nonneg hx hv
+    rw [max_eq_left hxv, max_eq_left hx]
+  · have hxneg : x ≤ 0 := le_of_not_ge hx
+    rw [max_eq_right hxneg]
+    by_cases hxv : 0 ≤ x + v
+    · rw [max_eq_left hxv]
+      linarith
+    · rw [max_eq_right (le_of_not_ge hxv)]
+      exact hv
+
+/-- The genuine one-sided Selberg/NNS CHARGE, with ALL positive
+centered covariance paid at O(m^2 * width^2). The only surviving
+large dangerous quantity is the complete complement minus its
+explicit negative rank-one principal payment. This statement holds
+for an ARBITRARY signed complement C (no false sign assumed).
+
+An actual C is defined from the complete signed Selberg recurrence
+with the authentic band removed in the companion source bridge. -/
+theorem alpogeNNSBandOneSidedCharge_le_principal_overshoot
+    (m : ℕ) (ell : Fin m → ℝ) (C a b : ℝ)
+    (hband : ∀ i : Fin m, a ≤ ell i ∧ ell i ≤ b) :
+    max ((m : ℝ) * (C + alpogeNNSBandCharge m ell)) 0 ≤
+      max ((m : ℝ) * C -
+        ((m : ℝ) - 2) * (∑ i : Fin m, ell i) ^ 2) 0 +
+        ((m : ℝ) ^ 2 / 2) * (b - a) ^ 2 := by
+  let S : ℝ := ∑ i : Fin m, ell i
+  let H : ℝ := (m : ℝ) * C - ((m : ℝ) - 2) * S ^ 2
+  let V : ℝ := 2 * alpogeNNSBandScaledSchur m ell
+  let W : ℝ := ((m : ℝ) ^ 2 / 2) * (b - a) ^ 2
+  have hidentity :
+      (m : ℝ) * (C + alpogeNNSBandCharge m ell) = H + V := by
+    dsimp [H, V, S]
+    rw [alpogeNNSBandCharge_schur_decomposition]
+    ring
+  have hVnonneg : 0 ≤ V := by
+    dsimp [V]
+    have hschur := alpogeNNSBandScaledSchur_nonneg m ell
+    linarith
+  have hVbound : V ≤ W := by
+    have hschur := alpogeNNSBandScaledSchur_le_range
+      m ell a b hband
+    dsimp [V, W]
+    nlinarith
+  calc
+    max ((m : ℝ) * (C + alpogeNNSBandCharge m ell)) 0 =
+        max (H + V) 0 := by rw [hidentity]
+    _ ≤ max H 0 + V := alpogeNNS_positivePart_add_nonneg_le H V hVnonneg
+    _ ≤ max H 0 + W := by linarith [hVbound]
+    _ = max ((m : ℝ) * C -
+        ((m : ℝ) - 2) * (∑ i : Fin m, ell i) ^ 2) 0 +
+        ((m : ℝ) ^ 2 / 2) * (b - a) ^ 2 := rfl
+
 end RHLean.Analysis
