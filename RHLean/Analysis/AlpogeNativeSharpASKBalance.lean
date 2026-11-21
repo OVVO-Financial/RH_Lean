@@ -807,4 +807,84 @@ theorem alpogeNativeColourSum
 
 end NativeColours
 
+
+/-!
+## Actual native prime-power colour coefficients
+
+This is Alpoge's Kc, with original inertia mean, native Lambda(n)
+and the EXACT ratio |(Z/2)^2 × H|/|Phi| = 2. It is not an assumed
+square-root-saving character estimate.
+-/
+
+theorem alpogeNativePrimeValue_trivial
+    {G : Type*} [AddCommGroup G] [Fintype G] [DecidableEq G]
+    (inertia : ℕ → AddSubgroup G) (frob : ℕ → G) (n : ℕ) :
+    alpogeNativeFrobInertiaPrimeValue inertia frob
+      (0 : AddChar G ℂ) n = 1 := by
+  classical
+  unfold alpogeNativeFrobInertiaPrimeValue
+  apply Finset.prod_eq_one
+  intro p _hp
+  unfold alpogeNativeInertiaCosetMean
+  simp only [AddChar.zero_apply, Finset.sum_const, nsmul_eq_mul, mul_one]
+  refine div_self ?_
+  rw [Nat.cast_ne_zero]
+  exact Finset.card_ne_zero.mpr ⟨0, by simp⟩
+
+/-- Fourier-side coefficient at one genuine native integer n. -/
+def alpogeNativeColourKernel
+    {H : Type*} [AddCommGroup H] [Fintype H] [DecidableEq H]
+    (inertia : ℕ → AddSubgroup (AlpogeNativeE0 × H))
+    (frob : ℕ → AlpogeNativeE0 × H)
+    (n : ℕ) (g : AlpogeNativeE0 × H) : ℂ :=
+  (1 / ((alpogeNativePhiSet H).card : ℂ)) *
+    ∑ ψ : AddChar (AlpogeNativeE0 × H) ℂ,
+      starRingEnd ℂ (ψ g) *
+        alpogeNativeFrobInertiaPrimeValue inertia frob ψ n
+
+/-- Original ORTHO-RAM on the actual physical Lambda prime-power
+population. The factor 2 is earned from the EXACT two-bit host.
+Every ramified inertia coset is retained at its exact cardinality. -/
+open Classical in theorem alpogeNativeColourKernel_primePower
+    {H : Type*} [AddCommGroup H] [Fintype H] [DecidableEq H]
+    (inertia : ℕ → AddSubgroup (AlpogeNativeE0 × H))
+    (frob : ℕ → AlpogeNativeE0 × H)
+    (p i : ℕ) (hp : p.Prime) (hi : 0 < i)
+    (g : AlpogeNativeE0 × H) :
+    alpogeNativeColourKernel inertia frob (p ^ i) g =
+      if g - i • frob p ∈ inertia p then
+        2 / (((Finset.univ.filter
+            (fun u : AlpogeNativeE0 × H => u ∈ inertia p)).card : ℕ) : ℂ)
+      else 0 := by
+  classical
+  let S : Finset (AlpogeNativeE0 × H) :=
+    Finset.univ.filter (fun u => u ∈ inertia p)
+  have hS : (S.card : ℂ) ≠ 0 := by
+    rw [Nat.cast_ne_zero]
+    apply Finset.card_ne_zero.mpr
+    exact ⟨0, by simp [S]⟩
+  have hsum :
+      (∑ ψ : AddChar (AlpogeNativeE0 × H) ℂ,
+        starRingEnd ℂ (ψ g) *
+          alpogeNativeFrobInertiaPrimeValue inertia frob ψ (p ^ i)) =
+        if g - i • frob p ∈ inertia p then
+          (Fintype.card (AlpogeNativeE0 × H) : ℂ) / (S.card : ℂ)
+        else 0 := by
+    simp_rw [alpogeNativeFrobInertiaPrimeValue_primePower inertia frob
+      _ p i hp hi, alpogeNativeCharStarNeg]
+    simpa only [S] using
+      (alpogeNativeCosetCharacterOrthogonality
+        (inertia p) (i • frob p) g)
+  unfold alpogeNativeColourKernel
+  rw [hsum]
+  by_cases h : g - i • frob p ∈ inertia p
+  · simp only [if_pos h]
+    rw [alpogeNativeCardDoublePhi]
+    have hPhi := alpogeNativePhiCard_ne_zero (H := H)
+    change (1 / ((alpogeNativePhiSet H).card : ℂ)) *
+        (2 * ((alpogeNativePhiSet H).card : ℂ) / (S.card : ℂ)) =
+      2 / (S.card : ℂ)
+    field_simp [hPhi, hS]
+  · simp [h]
+
 end RHLean.Analysis
