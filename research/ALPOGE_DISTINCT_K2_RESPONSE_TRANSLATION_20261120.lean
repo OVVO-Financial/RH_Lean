@@ -107,7 +107,12 @@ theorem alpogeDistinctResponseQuotient_ancestral
   · unfold alpogeDistinctResponseQuotient
     apply (Nat.div_lt_iff_lt_mul hden).2
     have hm : R * R ≤ R * (2 * p) := Nat.mul_le_mul_left R hRp
-    nlinarith
+    have hsq : 1 ≤ R ^ 2 := by nlinarith
+    have hlt : R ^ 2 - 1 < R ^ 2 := by omega
+    calc
+      R ^ 2 - 1 < R ^ 2 := hlt
+      _ = R * R := by ring
+      _ ≤ R * (2 * p) := hm
 
 /-- Every selected K2 carrier 2*p is physically <= X_R=R²-1,
 so it can be removed and returned within the COMPLETE original K2 sum. -/
