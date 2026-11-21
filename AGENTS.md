@@ -1,5 +1,10 @@
 # RH_Lean research-agent instructions
 
+## 2026-11-20 TOP USER DIRECTIVE: pay Alpöge's COMPLETE analytic/geometric cost with the signed Selberg lattice
+
+**ALPOGE_FULL_ANALYTIC_GEOMETRIC_COST_V1 — newest seven-role research-selection priority (after human merge).** EVERY existing agent, on its next ACTUAL configured invocation, MUST read [the full seven-agent assignment and acceptance gate](docs/RHLEAN_ALPOGE_FULL_COST_SEVEN_AGENTS_20261120.md) before any generic multiplicity, finite-wheel, OAI, HIGH, 7/8 or dated NEXT-* task. The precise task is to PROVE, on the SAME complete source, that the authentic signed second-Selberg 2I-J coefficient-lattice and near-root prime multiplicity *pay for* Alpöge's full analytic/geometric error (including all height, lattice/congruence, movement, width, thin, principal and complementary signed costs), or rigorously falsify the proposed transfer and construct a new source-faithful replacement. A determinant/index, isolated negative prime-band credit or another conditional RH-equivalent semivariance statement alone does NOT discharge the task.
+
+The common physical checkpoint is merged #1157, pending [#1160 signed-Selberg lattice PR](https://github.com/OVVO-Financial/RH_Lean/pull/1160), the native full signed second Selberg recurrence, and the still-OPEN positive square semivariance of the COMPLETE complement C_R-B_R at exponent H^(3+epsilon). Explicitly distinguish normalized integer doubling from an actual p-adic/Hecke covolume gain; retain every cross-triple term and the rank-one principal mode. All seven roles have distinct duties in the new directive. Record alpoge_full_cost_ack=ALPOGE_FULL_ANALYTIC_GEOMETRIC_COST_V1 only after a REAL source-read/run and report the first unpaid quantitative estimate. This supersedes conflicting task-selection directives, NOT proven theorems, unrelated valid source safeguards, original role ownership, lost-report recovery, multiple-daily cadence, existing tool permissions, Studio settings, or HUMAN-ONLY merges. It neither launches agents nor changes saved prompts.
 
 ## 2026-11-20 governing priority: multiplicity-versus-cost amplification to one half
 
