@@ -153,3 +153,31 @@ D. Import external verified proof using toolchain-compatible kernel
 A success at (A) establishes a **literal exact arithmetic translation**
 that previously existed only in prose. It does NOT establish (B)-(D),
 nor a bound on Gz or RH.
+
+
+### New exact REAL-x version of the Gz identification (in this same PR)
+
+The Lean translation now reproduces the original Formalism.StatementOC definition
+for **every real x**, not only naturals. Let k=floor(x) to Nat.
+
+  Gz(x) = sum_(1<=n<=k) Lambda(n)*(x/n-1)
+          - x log(x) + (1+gamma)*x
+        = x*LambdaRecip(k) - psi(k)
+          - x log(x) + (1+gamma)*x.
+
+This equality is proved by an unconditionally valid finite sum rearrangement.
+The EXACT floor correction to the native natural Chebyshev error is
+
+  Gz(x) =
+    x*(LambdaRecip(k)-log(x)+gamma)
+    - E(k) + (x-k).
+
+Do not silently drop (x-k), and note that this expression continues to
+use the EXACT original jump convention k=floor(x). The proof holds at all
+real x including x<0 as an algebraic identity; standard root estimates
+and Landau are used only for large positive x.
+
+This closes the **real-function observable translation** in RH_Lean.
+It does NOT supply Alpoge's ThinScales, character, automorphic, height,
+covolume, complete signed complement power bound, or analytic endpoint
+implication. Those remain explicitly unproved.
