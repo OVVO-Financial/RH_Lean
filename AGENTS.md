@@ -1,3 +1,39 @@
+## 2026-11-21 USER PRIORITY OVERRIDE — ALPOGE NATIVE RHLEAN CERTIFICATE; RETIRE OAI 7/8
+
+**ACTIVE ROUTE: Alpöge's mechanism reconstructed entirely in RH_Lean's own arithmetic.**
+All seven agents must apply the already specified exact Euler/VF/NNS/square-block,
+Möbius, all-prime-power von Mangoldt, Selberg and ASK identities to the authentic
+integral-lattice multiplicity/cost proof. Treat Alpöge's source as the blueprint
+and prove each resulting quantitative cost and source estimate over the native
+RHLean coefficients. Preserve every signed term, geometric cost, and the physical
+Frobenius/inertia/height/covolume witnesses where applicable.
+
+**The original OpenAI 7/8 replay is retired from active RH proof selection.**
+Do not spend agent runs, CI minutes, review bandwidth, or proof-design effort
+rebuilding or improving that imported 7/8 analytic DAG. Those workflow runs are
+manual-only archival tests, not a prerequisite, and their absence must not
+block the native Alpöge project. Preserve past verified theorems, definitions,
+arithmetic identities, and sources verbatim for historical reproducibility.
+
+**Immediate native priorities:** resolve and kernel-check Alpöge PRs #1169
+(Möbius/two-wall), #1170 (square-clock/multiplicity), #1171 (sharp prime-power
+ASK cost), and #1173 (integral-lattice certificate); verify exact theorem
+dependencies and signed cost accounting; assemble the single final unconditional
+estimate in native RHLean arithmetic. No `sorry`, synthetic axioms, external
+`rhOfAll` import, assumption disguised as result, or equation-to-bound leap.
+An exact identity is not by itself the quantitative inequality; report the
+specific unpaid inequality precisely until its full Lean proof is complete.
+
+**CI:** normal PR validation = native `lake build RHLean`, static assumption/
+manifest audit, and the changed research import closure. Historical OpenAI
+7/8, Gaussian replay, total-slot amplification, and full-DAG cache publication
+are explicitly opt-in only. Do not re-enable them as automatic required checks
+without a new direct user instruction. Main-branch native Lean/PNT/Mathlib
+cache publication remains active. Preserve human-only merges and all agent
+schedules and operational safeguards.
+
+---
+
 ## PRIORITY CORRECTION (2026-11-20): ALPOGE PROOF IN RH_LEAN'S ARITHMETIC
 
 The user has REJECTED importing Alpoge's completed RH theorem as a solution:

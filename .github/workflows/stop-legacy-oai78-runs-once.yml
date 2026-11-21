@@ -1,0 +1,40 @@
+name: Stop legacy OpenAI 7/8 PR runs after Alpoge-only CI cutover
+# One-time cutover; only fires when this file itself is created/changed on main.
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/stop-legacy-oai78-runs-once.yml'
+
+permissions:
+  contents: read
+  actions: write
+
+jobs:
+  retire-pr-runs:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - name: Cancel only obsolete legacy proof replays, never native jobs or the main cache
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          ids="$(mktemp)"
+          for state in in_progress queued waiting requested pending; do
+            gh api --paginate "/repos/${GITHUB_REPOSITORY}/actions/runs?event=pull_request&status=${state}&per_page=100" \
+              --jq '.workflow_runs[] | select(.name == "OpenAI COMPLETE 7/8 theorem on original RHLean square-block covariance" or .name == "Original OpenAI full certified 7/8 into RHLean square-block covariance" or .name == "Explicit finite-slot amplification bounds" or .name == "Publish reusable Lean 4.34.1 OpenAI compilation foundation" or .name == "Original OAI GaussianSubset to RHLean NNS typecheck" or .name == "Native seven-eighths signed covariance acceptance" or .name == "VF seven-eighths analytic bridge" or .name == "Total slot mass complete exponent gain" or .name == "Quantitative physical tilt") | .id' >> "$ids"
+          done
+          sort -u "$ids" -o "$ids"
+          cancelled=0
+          while IFS= read -r id; do
+            [[ "$id" =~ ^[0-9]+$ ]] || continue
+            if gh api -X POST "/repos/${GITHUB_REPOSITORY}/actions/runs/${id}/cancel" >/dev/null; then
+              cancelled=$((cancelled+1))
+              echo "Cancelled obsolete OpenAI/7-8 PR run ${id}"
+            else
+              echo "::notice::Run ${id} was completed before cancellation"
+            fi
+          done < "$ids"
+          echo "Obsolete PR runs cancelled: ${cancelled}" >> "$GITHUB_STEP_SUMMARY"

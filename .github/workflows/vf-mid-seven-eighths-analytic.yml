@@ -1,39 +1,6 @@
 name: VF seven-eighths analytic bridge
 
 on:
-  pull_request:
-    branches: [main]
-    paths:
-      - research/VF_MID_SEVEN_EIGHTHS_ANALYTIC_BRIDGE.lean
-      - research/VF_MID_SEVEN_EIGHTHS_OWNER_ABEL.lean
-      - research/VF_MID_SEVEN_EIGHTHS_MELLIN_SQUARE_KERNEL.lean
-      - research/VF_MID_919_OAI_PARTIAL_MOMENT_TAILS.lean
-      - research/VF_MID_919_OAI_FERMAT_TWIST_PROJECTION.lean
-      - research/VF_MID_919_OAI_PHASE_ALIGNED_OWNER_COMPENSATION.lean
-      - research/VF_MID_919_OAI_OWNER_TWO_SIGNED_BOUNDARY.lean
-      - research/VF_MID_919_OAI_PRINCIPAL_COEFFICIENT_MAP.lean
-      - research/VF_MID_919_OAI_NATIVE_PRINCIPAL_WELD.lean
-      - research/VF_MID_919_OAI_RECTANGLE_RANK_OBSTRUCTION.lean
-      - scripts/vf919_rectangle_rank_check.py
-      - research/VF_MID_919_OAI_SHARP_SMOOTH_NO_GAP.lean
-      - research/VF_MID_919_OAI_INTEGRATED_SHARP_CHARACTER_STEP.lean
-      - research/VF_MID_919_OAI_R2K_ENDPOINT_LIMIT.lean
-      - research/VF_MID_919_OAI_QUADRATIC_NORM_EULER.lean
-      - research/VF_MID_919_OAI_OWNER_TWO_SIGNED_MERTENS_MOMENT.md
-      - research/GLOBAL_RETURNED_CORE_COMPENSATED_FOUR_CORNER.lean
-      - research/VF_MID_919_OAI_C_TO_R_CANCELLATION_WELD.md
-      - RHLean/Geometry/FermatCoordinates.lean
-      - RHLean/Geometry/ComplexSquareRecovery.lean
-      - RHLean/Analysis/PartialMomentSchurTarget.lean
-      - research/VF_MID_SEVEN_EIGHTHS_BIDIRECTIONAL_SYNTHESIS.md
-      - research/VF_MID_919_OPEN_UNIFORM_ANALYTIC_TARGET.md
-      - scripts/vf_919_prime_owner_abel_spectral_probe.py
-      - scripts/vf_919_original_weight_character_moment_probe.py
-      - scripts/vf_919_owner_two_signed_boundary_probe.py
-      - research/VF_MID_919_OAI_STAGE_SAVINGS_AND_BOOTSTRAP.md
-      - research/VF_MID_919_OAI_UPM_LPM_ASYMMETRIC_GAIN.md
-      - research/VF_MID_SEVEN_EIGHTHS_ANALYTIC_STATUS.md
-      - .github/workflows/vf-mid-seven-eighths-analytic.yml
   workflow_dispatch:
 
 permissions:
