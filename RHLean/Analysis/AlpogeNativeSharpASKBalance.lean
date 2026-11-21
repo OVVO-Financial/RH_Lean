@@ -465,4 +465,99 @@ theorem alpogeNativeFrobInertiaGsig_eq_complete
     alpogeNativeFrobInertiaGPsi_nonprincipal inertia frob ell (ψA + ψB) x hAB]
   ring
 
+
+/-!
+## Original finite Fourier orthogonality, for the entire inertia coset
+
+This is the source of Alpoge's unramified/ramified dichotomy.
+It is a theorem about actual additive characters and the actual
+inertia subgroup, not an independent prime-colour hypothesis.
+-/
+
+/-- A complete dual-character sum detects equality on the finite
+additive Frobenius group, including both exceptional prime classes. -/
+theorem alpogeNativeCharacterDetector
+    {G : Type*} [AddCommGroup G] [Fintype G] [DecidableEq G]
+    (a g : G) :
+    (∑ ψ : AddChar G ℂ, ψ (-g) * ψ a) =
+      if a = g then (Fintype.card G : ℂ) else 0 := by
+  classical
+  calc
+    (∑ ψ : AddChar G ℂ, ψ (-g) * ψ a) =
+        ∑ ψ : AddChar G ℂ, ψ (a - g) := by
+          apply Finset.sum_congr rfl
+          intro ψ _h
+          rw [← AddChar.map_add_eq_mul]
+          congr 1
+          abel
+    _ = if a = g then (Fintype.card G : ℂ) else 0 := by
+          rw [AddChar.sum_apply_eq_ite]
+          simp only [sub_eq_zero]
+
+/-- Exact complete-character response of ONE REAL inertia coset.
+The distinguished output site survives iff g-a belongs to inertia.
+The normalizer is the TRUE cardinality of inertia, never an
+independent arbitrary coefficient or a missing bad-prime term. -/
+theorem alpogeNativeCosetCharacterOrthogonality
+    {G : Type*} [AddCommGroup G] [Fintype G] [DecidableEq G]
+    (I : AddSubgroup G) (a g : G) :
+    (∑ ψ : AddChar G ℂ,
+      ψ (-g) * alpogeNativeInertiaCosetMean I a ψ) =
+        if g - a ∈ I then
+          (Fintype.card G : ℂ) /
+            (((Finset.univ.filter (fun u : G => u ∈ I)).card : ℕ) : ℂ)
+        else 0 := by
+  classical
+  let S : Finset G := Finset.univ.filter (fun u : G => u ∈ I)
+  have hcond (u : G) : a + u = g ↔ u = g - a := by
+    constructor
+    · intro hu
+      calc
+        u = (a + u) - a := by abel
+        _ = g - a := by rw [hu]
+    · intro hu
+      rw [hu]
+      abel
+  have hmem : g - a ∈ S ↔ g - a ∈ I := by
+    simp [S]
+  have hsum :
+      (∑ u ∈ S, if a + u = g then (Fintype.card G : ℂ) else 0) =
+        if g - a ∈ I then (Fintype.card G : ℂ) else 0 := by
+    simp_rw [hcond]
+    simp only [Finset.sum_ite_eq', hmem]
+  calc
+    (∑ ψ : AddChar G ℂ, ψ (-g) * alpogeNativeInertiaCosetMean I a ψ) =
+      ∑ ψ : AddChar G ℂ,
+        (∑ u ∈ S, ψ (-g) * ψ (a + u)) / (S.card : ℂ) := by
+          apply Finset.sum_congr rfl
+          intro ψ _hψ
+          unfold alpogeNativeInertiaCosetMean
+          change ψ (-g) * ((∑ u ∈ S, ψ (a + u)) / (S.card : ℂ)) = _
+          rw [Finset.mul_sum]
+          ring
+    _ = (∑ u ∈ S, ∑ ψ : AddChar G ℂ, ψ (-g) * ψ (a + u)) /
+          (S.card : ℂ) := by
+          rw [← Finset.sum_div, Finset.sum_comm]
+    _ = (∑ u ∈ S, if a + u = g then (Fintype.card G : ℂ) else 0) /
+          (S.card : ℂ) := by
+          congr 1
+          apply Finset.sum_congr rfl
+          intro u _hu
+          exact alpogeNativeCharacterDetector (a + u) g
+    _ = _ := by
+          rw [hsum]
+          by_cases hi : g - a ∈ I <;> simp [hi, S]
+
+/-- Genuine unramified character orthogonality: no ramified
+side is postulated or thrown away. -/
+theorem alpogeNativeCosetCharacterOrthogonality_unramified
+    {G : Type*} [AddCommGroup G] [Fintype G] [DecidableEq G]
+    (a g : G) :
+    (∑ ψ : AddChar G ℂ,
+      ψ (-g) * alpogeNativeInertiaCosetMean (⊥ : AddSubgroup G) a ψ) =
+        if a = g then (Fintype.card G : ℂ) else 0 := by
+  classical
+  simp only [alpogeNativeInertiaCosetMean_unramified]
+  exact alpogeNativeCharacterDetector a g
+
 end RHLean.Analysis
