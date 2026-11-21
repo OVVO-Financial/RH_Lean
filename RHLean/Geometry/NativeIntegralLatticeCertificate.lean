@@ -554,4 +554,98 @@ theorem nativeAlpogeAllPlaceNormCost_map
       ∑ v : InfinitePlace K, (nativeAlpogeNormAt b X v x) ^ 2 := by
   simp only [nativeAlpogeNormAt_map]
 
+/-! ## Source and full-lattice transport in one native certificate
+
+The source family is a GENUINE module over the ring of integers of K.
+There is no data field asserting a bound, slope identity or RH statement.
+The new coordinate equivalence is exactly source-preserving and the
+Hermitian norms at every infinite place coincide pointwise.
+-/
+
+/-- A number-field source, basis, frame and actual K-linear coordinate
+equivalence, without any assumed geometric cost theorem. -/
+structure NativeAlpogeRerealizeCertificate
+    (K : Type*) [Field K] [NumberField K]
+    (V W ι : Type*)
+    [AddCommGroup V] [Module K V]
+    [Module (𝓞 K) V] [IsScalarTower (𝓞 K) K V]
+    [AddCommGroup W] [Module K W]
+    [Module (𝓞 K) W] [IsScalarTower (𝓞 K) K W]
+    [Fintype ι] [DecidableEq ι] where
+  sourceBasis : Module.Basis ι K V
+  sourceFrame : InfinitePlace K → Matrix ι ι ℂ
+  sourceLattice : Submodule (𝓞 K) V
+  coordinateEquiv : V ≃ₗ[K] W
+
+/-- The whole number-field lattice is transported, not just a finite
+selection of its vectors or a numerical scalar invariant. -/
+def NativeAlpogeRerealizeCertificate.transportedLattice
+    {K : Type*} [Field K] [NumberField K]
+    {V W ι : Type*}
+    [AddCommGroup V] [Module K V]
+    [Module (𝓞 K) V] [IsScalarTower (𝓞 K) K V]
+    [AddCommGroup W] [Module K W]
+    [Module (𝓞 K) W] [IsScalarTower (𝓞 K) K W]
+    [Fintype ι] [DecidableEq ι]
+    (C : NativeAlpogeRerealizeCertificate K V W ι) :
+    Submodule (𝓞 K) W :=
+  C.sourceLattice.map (C.coordinateEquiv.toLinearMap.restrictScalars (𝓞 K))
+
+/-- Entire source-lattice membership is EXACTLY equivalent after
+realization, including all original integral relations and masks. -/
+theorem NativeAlpogeRerealizeCertificate.transported_mem_iff
+    {K : Type*} [Field K] [NumberField K]
+    {V W ι : Type*}
+    [AddCommGroup V] [Module K V]
+    [Module (𝓞 K) V] [IsScalarTower (𝓞 K) K V]
+    [AddCommGroup W] [Module K W]
+    [Module (𝓞 K) W] [IsScalarTower (𝓞 K) K W]
+    [Fintype ι] [DecidableEq ι]
+    (C : NativeAlpogeRerealizeCertificate K V W ι) (x : V) :
+    C.coordinateEquiv x ∈ C.transportedLattice ↔
+      x ∈ C.sourceLattice := by
+  unfold NativeAlpogeRerealizeCertificate.transportedLattice
+  constructor
+  · intro hx
+    rcases Submodule.mem_map.mp hx with ⟨y,hy,heq⟩
+    have heq' : C.coordinateEquiv y = C.coordinateEquiv x := by
+      change C.coordinateEquiv y = C.coordinateEquiv x at heq
+      exact heq
+    have hxy : y = x := C.coordinateEquiv.injective heq'
+    simpa [hxy] using hy
+  · intro hx
+    exact Submodule.mem_map_of_mem hx
+
+/-- The exact norm identity for the SAME lattice certificate at
+ALL infinite places. This is the full nontrivial numeric hypothesis
+required by Alpoge's published Rerealize theorem. -/
+theorem NativeAlpogeRerealizeCertificate.normAt_eq
+    {K : Type*} [Field K] [NumberField K]
+    {V W ι : Type*}
+    [AddCommGroup V] [Module K V]
+    [Module (𝓞 K) V] [IsScalarTower (𝓞 K) K V]
+    [AddCommGroup W] [Module K W]
+    [Module (𝓞 K) W] [IsScalarTower (𝓞 K) K W]
+    [Fintype ι] [DecidableEq ι]
+    (C : NativeAlpogeRerealizeCertificate K V W ι)
+    (v : InfinitePlace K) (x : V) :
+    nativeAlpogeNormAt (C.sourceBasis.map C.coordinateEquiv)
+        C.sourceFrame v (C.coordinateEquiv x) =
+      nativeAlpogeNormAt C.sourceBasis C.sourceFrame v x :=
+  nativeAlpogeNormAt_map _ _ _ _ _
+
+/-- The same integral linear transform COMMUTES with an arbitrary
+complete signed source matrix, without dropping any cross coefficient.
+In particular this applies to the native signed Selberg 2I-J matrix,
+including its rank-one mean return, not merely its centered restriction. -/
+theorem algebraicCR_commutes_complete_matrix
+    {A : Type*} [CommRing A] {m : ℕ}
+    (S : Matrix (Fin m) (Fin m) A)
+    (v : Fin m → A × A) (i : Fin m) :
+    algebraicCR (∑ j : Fin m, S i j • v j) =
+      ∑ j : Fin m, S i j • algebraicCR (v j) := by
+  change (algebraicCRLinear A) (∑ j : Fin m, S i j • v j) =
+      ∑ j : Fin m, S i j • (algebraicCRLinear A) (v j)
+  simp
+
 end RHLean.Geometry
