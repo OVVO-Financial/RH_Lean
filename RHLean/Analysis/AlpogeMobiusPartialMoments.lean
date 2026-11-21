@@ -92,9 +92,17 @@ theorem alpogeMobiusPartial_cross_square (R : ℕ) (P : ℕ → ℝ) :
         alpogeMobiusPartialLPM R P := by
   have hd := alpogeMobiusPartialUPM_sub_LPM R P
   have ht := alpogeMobiusPartialUPM_add_LPM R P
-  nlinarith [sq_nonneg
-    (alpogeMobiusPartialUPM R P -
-      alpogeMobiusPartialLPM R P)]
+  calc
+    (alpogeMobiusPartialSource R P) ^ 2 =
+        (alpogeMobiusPartialUPM R P -
+          alpogeMobiusPartialLPM R P) ^ 2 := by rw [hd]
+    _ = (alpogeMobiusPartialUPM R P +
+          alpogeMobiusPartialLPM R P) ^ 2 -
+        4 * alpogeMobiusPartialUPM R P *
+          alpogeMobiusPartialLPM R P := by ring
+    _ = (alpogeMobiusPartialTotal R P) ^ 2 -
+        4 * alpogeMobiusPartialUPM R P *
+          alpogeMobiusPartialLPM R P := by rw [ht]
 
 /-- The principal colour P=1 is precisely the native signed finite-C
 two-wall Mobius source, not an alternative target. -/
@@ -102,11 +110,7 @@ theorem alpogeMobiusPartial_principal_eq_twoWall (R : ℕ) :
     alpogeMobiusPartialSource R (fun _ => 1) =
       alpogeMobiusTwoWallSource R := by
   unfold alpogeMobiusPartialSource alpogeMobiusTwoWallSource
-  simp only [alpogeMobiusPartialAtom, mul_one, one_mul]
-  apply congrArg (fun z : ℝ => 1 + z)
-  apply Finset.sum_congr rfl
-  intro n _hn
-  ring
+  simp [alpogeMobiusPartialAtom]
 
 /-- Hence the actual principal UPM-LPM imbalance is exactly the
 complete Alpoge-to-native-mu*Lambda signed source. -/
