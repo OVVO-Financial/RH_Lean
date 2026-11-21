@@ -90,9 +90,9 @@ class CacheContractTest(unittest.TestCase):
             path = root / ".github" / "workflows" / name
             content = path.read_text(encoding="utf-8")
             # CI logic remains preserved in these manual-only workflows.
-            self.assertIn("on:\\n", content, name)
+            self.assertIn("on:\n", content, name)
             self.assertIn("  workflow_dispatch:", content, name)
-            trigger = content.split("\\non:\\n", 1)[1].split("\\npermissions:", 1)[0]
+            trigger = content.split("\non:\n", 1)[1].split("\npermissions:", 1)[0]
             for forbidden in ("  pull_request:", "  push:", "  schedule:"):
                 self.assertNotIn(forbidden, trigger, name)
 
