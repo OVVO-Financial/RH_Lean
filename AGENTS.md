@@ -1,3 +1,32 @@
+## PRIORITY CORRECTION (2026-11-20): ALPOGE PROOF IN RH_LEAN'S ARITHMETIC
+
+The user has REJECTED importing Alpoge's completed RH theorem as a solution:
+PR #1165 was closed unmerged. All seven research roles MUST rebuild
+Alpoge's algebra/analytic mechanism from ACTUAL RHLean arithmetic.
+Start with:
+  RHLean/Analysis/AlpogeNativeFourCharacterArithmetic.lean
+  RHLean/Analysis/AlpogeNativeSharpASKBalance.lean
+  research/ALPOGE_NATIVE_FOUR_CHARACTER_ARITHMETIC_20261120.md
+
+The correct physical input is Lambda(n) on ALL prime powers, with
+real weighted kernel x/n-1 and genuine multiplicative Dirichlet
+characters, not arbitrary independent sign labels. The original
+1+B-A-AB projector must retain ramified/nonquadratic returns.
+The exact ASK cutoff must retain all integer floor endpoints and
+log-derivative terms. The parent Gz must be represented via the
+COMPLETE original native signed K2*E, first-Selberg and floor source.
+
+The objective is an UNCONDITIONAL, all-scale one-sided bound that
+pays the entire original analytic/geometric cost and actually improves
+a certified exponent. Reuse native Fourier/Gauss and Selberg lemmas;
+do not assert their combination gives cancellation unless the
+full signed return is proved bounded. When directly translating
+another Alpoge theorem, give exact source declaration path and
+complete Lean input/output type, then prove it over RHLean data.
+Do not import rhOfAll or an external .olean; no sorry/axiom/hypothetical
+supplier disguised as completed theorem. Preserve previous permissions,
+agent schedules, reporting continuity and human-only merges.
+
 # RH_Lean research-agent instructions
 
 ## 2026-11-20 TOP USER DIRECTIVE: pay Alpöge's COMPLETE analytic/geometric cost with the signed Selberg lattice
