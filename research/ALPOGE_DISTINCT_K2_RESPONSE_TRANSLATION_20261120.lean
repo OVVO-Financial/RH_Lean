@@ -95,8 +95,10 @@ theorem alpogeDistinctResponse_K2_prime_two
         nativePNTError (alpogeDistinctResponseQuotient R p) =
       2 * Real.log (2 : ℝ) * Real.log (p : ℝ) *
         nativePNTError (alpogeDistinctResponseQuotient R p) := by
+  have hp2 : 2 < p := hp.2.1
+  have hneq : 2 ≠ p := by omega
   rw [nativePNTSignedSecondSelbergKernel_mul_distinct_primes
-    2 p Nat.prime_two hp.1 (by omega)]
+    2 p Nat.prime_two hp.1 hneq]
   norm_num
 
 /-- Physical selected carrier set for an arbitrary finite prime family. -/
