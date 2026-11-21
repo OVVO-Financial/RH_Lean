@@ -73,4 +73,17 @@ theorem gz_eq_vonMangoldtWeightedSum (x : ℝ) :
   unfold gz
   rw [hsource]
 
+
+/-- Exact all-real Gz/prime-error link, with the original scalar
+x - floor(x) term present. This is proved in the SAME shared Mathlib
+source that gets compiled in BOTH Lean environments. -/
+theorem gz_eq_reciprocal_sub_error (x : ℝ) :
+    gz x =
+      x * (lambdaRecip ⌊x⌋₊ - Real.log x +
+        Real.eulerMascheroniConstant) -
+        error ⌊x⌋₊ + (x - (⌊x⌋₊ : ℝ)) := by
+  unfold gz error
+  ring
+
+
 end RHLean.AlpogeInterface
