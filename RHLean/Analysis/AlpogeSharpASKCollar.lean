@@ -141,10 +141,14 @@ theorem alpogeASKPrimePowerMidpointGap_le_collar
       constructor <;> linarith
     simp only [z] at hmem
     simp only [if_pos hmem]
-    exact mul_le_mul_of_nonneg_left
+    have hmul := mul_le_mul_of_nonneg_left
       (alpogeASKMidpointGap_nonneg_le_quarter
         (a / (n : ℝ)) b B hbB).2
       ArithmeticFunction.vonMangoldt_nonneg
+    calc
+      Λ n * alpogeASKMidpointGap (a / (n : ℝ)) b B ≤
+          Λ n * ((B - b) / 4) := hmul
+      _ = ((B - b) / 4) * Λ n := by ring
 
 /-- Full original sharp principal ASK minus its logarithmic MAIN
 width correction, up to terms independent of the width. The plus
