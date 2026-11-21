@@ -957,4 +957,53 @@ theorem alpogeNativeLambda_primePowerFubini
     rw [ArithmeticFunction.vonMangoldt_apply_pow (by omega),
       ArithmeticFunction.vonMangoldt_apply_prime hx.1.2]
 
+
+/-- Native PRINCIPAL prime-power channel is literally the original
+weighted von Mangoldt source, including every ramified prime power.
+This does not use the nonprincipal Dirichlet analogue. -/
+theorem alpogeNativeFrobInertiaPrimeSum_principal
+    {G : Type*} [AddCommGroup G] [Fintype G] [DecidableEq G]
+    (inertia : ℕ → AddSubgroup G) (frob : ℕ → G)
+    (x : ℝ) :
+    alpogeNativeFrobInertiaPrimeSum inertia frob
+      (0 : AddChar G ℂ) x = (alpogeNativePrincipalPrimeSum x : ℂ) := by
+  classical
+  unfold alpogeNativeFrobInertiaPrimeSum alpogeNativePrincipalPrimeSum
+    alpogeNativePrimePowerWeight
+  rw [← Complex.ofReal_sum]
+  apply Finset.sum_congr rfl
+  intro n _hn
+  rw [alpogeNativePrimeValue_trivial inertia frob n]
+  push_cast
+  ring
+
+/-- Exact MAIN-correction for the principal GPsi channel on the
+FULL native physical source: no dropped constant, fractional
+boundary, prime power, or logarithm. -/
+theorem alpogeNativeFrobInertiaASK_principal
+    {G : Type*} [AddCommGroup G] [Fintype G] [DecidableEq G]
+    (inertia : ℕ → AddSubgroup G) (frob : ℕ → G)
+    (ell : AddChar G ℂ → ℂ)
+    (N : ℕ) (a W : ℝ)
+    (ha : 0 < a) (hW : 0 < W) (hN : a / W ≤ (N : ℝ)) :
+    alpogeNativeFrobInertiaASK inertia frob
+      (0 : AddChar G ℂ) N a W =
+      (W : ℂ) * alpogeNativeFrobInertiaGPsi inertia frob ell
+        0 (a / W) +
+      ((a * Real.log a - a * Real.log W -
+        (1 + Real.eulerMascheroniConstant) * a : ℝ) : ℂ) := by
+  rw [alpogeNativeFrobInertiaASK_eq_primeSum
+        inertia frob (0 : AddChar G ℂ) N a W ha hW hN,
+      alpogeNativeFrobInertiaGPsi_principal,
+      alpogeNativeFrobInertiaPrimeSum_principal,
+      alpogeNativeGzArithmetic_eq_principal]
+  have hwa : W * (a / W) = a := by field_simp
+  have hwaC : (W : ℂ) * ((a / W : ℝ) : ℂ) = (a : ℂ) := by
+    rw [← Complex.ofReal_mul, hwa]
+  rw [Real.log_div ha.ne' hW.ne']
+  push_cast
+  linear_combination
+    (((Real.log a - Real.log W -
+      (1 + Real.eulerMascheroniConstant) : ℝ) : ℂ)) * hwaC
+
 end RHLean.Analysis
