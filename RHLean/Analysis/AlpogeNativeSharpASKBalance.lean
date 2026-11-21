@@ -273,11 +273,10 @@ theorem alpogeNativeInertiaCosetMean_split
     {G : Type*} [AddCommGroup G] [Fintype G] [DecidableEq G]
     (I : AddSubgroup G) (a : G) (ψ : AddChar G ℂ) :
     alpogeNativeInertiaCosetMean I a ψ =
-      ψ a * ((∑ u ∈ (Finset.univ.filter (fun u : G => u ∈ I)),
-        ψ u) /
-          (((Finset.univ.filter (fun u : G => u ∈ I)).card : ℕ) : ℂ)) := by
+      ψ a * alpogeNativeInertiaCosetMean I 0 ψ := by
   classical
   unfold alpogeNativeInertiaCosetMean
+  simp only [zero_add]
   calc
     (∑ u ∈ (Finset.univ.filter (fun u : G => u ∈ I)),
         ψ (a + u)) /
@@ -299,7 +298,13 @@ theorem alpogeNativeInertiaCosetMean_unramified
     (a : G) (ψ : AddChar G ℂ) :
     alpogeNativeInertiaCosetMean (⊥ : AddSubgroup G) a ψ = ψ a := by
   classical
-  simp [alpogeNativeInertiaCosetMean]
+  have hset :
+      (Finset.univ.filter (fun u : G => u ∈ (⊥ : AddSubgroup G))) = {0} := by
+    ext u
+    simp
+  unfold alpogeNativeInertiaCosetMean
+  rw [hset]
+  simp
 
 /-- Reconstructed original primVal(D,ψ,n): the complete product of
 inertia-coset means on n's physical prime factors. -/
@@ -324,7 +329,7 @@ theorem alpogeNativeFrobInertiaPrimeValue_primePower
     rw [Nat.primeFactors_pow p hi.ne']
     simp [hp]
   simp [alpogeNativeFrobInertiaPrimeValue, hpf,
-    Nat.factorization_pow_self hp]
+    hp.factorization_self]
 
 /-- Physical prime-power GPsi source, before the L-derivative main
 term and before any geometric height or width bound is applied. -/
