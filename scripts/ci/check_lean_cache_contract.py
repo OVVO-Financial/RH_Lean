@@ -54,6 +54,10 @@ def audit(path: Path) -> list[str]:
         "./.github/actions/oai-434-shared-cache" not in src
     ):
         problems.append("mixed RHLean/OpenAI jobs must use the shared unpatched-PNT cache")
+    if ("pull_request:" in src and original_oai
+            and "OAI.NumberTheory.DirichletL.Detector.FinalAssemblyUnconditional" in src
+            and "complete-only: 'true'" not in src):
+        problems.append("PR full-OAI checks must require complete-only shared cache")
     return problems
 
 

@@ -1,15 +1,19 @@
 name: Restore original OpenAI 4.34.1 compiled DAG (shared unpatched PNT)
 description: Restore exact pinned OpenAI imports; never confuse a partial restore with a certified complete build.
+inputs:
+  complete-only:
+    description: PR consumers must restore the trusted complete baseline, never compile the full original OpenAI DAG.
+    default: 'false'
 outputs:
   cache-hit:
     description: Exact complete cache key matched
-    value: ${{ steps.restore.outputs.cache-hit }}
+    value: ${{ steps.exact.outputs.cache-hit || steps.restore.outputs.cache-hit }}
   cache-matched-key:
     description: Restored exact or partial cache key
-    value: ${{ steps.restore.outputs.cache-matched-key }}
+    value: ${{ steps.exact.outputs.cache-matched-key || steps.restore.outputs.cache-matched-key }}
   cache-primary-key:
     description: Immutable complete cache key to publish only after the full DAG is compiled
-    value: ${{ steps.restore.outputs.cache-primary-key }}
+    value: ${{ steps.exact.outputs.cache-primary-key || steps.restore.outputs.cache-primary-key }}
   complete:
     description: Exact complete cache with verified OpenAI prerequisite oleans present
     value: ${{ steps.probe.outputs.complete }}
@@ -23,8 +27,17 @@ runs:
         test "$(git -C oai-upstream rev-parse HEAD)" = "1581d4cbdd69a0faf34b2089614fe2a814316a6a"
         test "$(cat oai-upstream/lean/lean-toolchain)" = "leanprover/lean4:v4.34.1"
         test "$(cat lean-toolchain)" = "leanprover/lean4:v4.34.1"
+    - name: Restore exact complete OpenAI baseline for PR consumers
+      id: exact
+      if: ${{ inputs.complete-only == 'true' }}
+      uses: actions/cache/restore@v5
+      with:
+        path: oai-upstream/lean/.lake
+        key: oai-certified-434-pntnative-v3-${{ runner.os }}-${{ runner.arch }}-1581d4cbdd69a0faf34b2089614fe2a814316a6a-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'oai-upstream/lean/lean-toolchain', 'oai-upstream/lean/lakefile.lean', 'oai-upstream/lean/lake-manifest.json', 'oai-upstream/lean/patches/**', 'scripts/apply_oai_434_upstream_patches.py') }}-complete
+        fail-on-cache-miss: true
     - name: Restore source-pinned complete or progressive OpenAI imports
       id: restore
+      if: ${{ inputs.complete-only != 'true' }}
       uses: actions/cache/restore@v5
       with:
         path: oai-upstream/lean/.lake
@@ -36,10 +49,11 @@ runs:
           oai-certified-434-pntnative-v2-${{ runner.os }}-${{ runner.arch }}-1581d4cbdd69a0faf34b2089614fe2a814316a6a-${{ hashFiles('oai-upstream/lean/lean-toolchain', 'oai-upstream/lean/lakefile.lean', 'oai-upstream/lean/lake-manifest.json', 'oai-upstream/lean/patches/**', 'scripts/apply_oai_434_upstream_patches.py') }}-complete
           oai-certified-434-pntnative-v2-${{ runner.os }}-${{ runner.arch }}-1581d4cbdd69a0faf34b2089614fe2a814316a6a-${{ hashFiles('oai-upstream/lean/lean-toolchain', 'oai-upstream/lean/lakefile.lean', 'oai-upstream/lean/lake-manifest.json', 'oai-upstream/lean/patches/**', 'scripts/apply_oai_434_upstream_patches.py') }}-progress-
     - name: Get exact original Mathlib only if truly absent
+      if: ${{ inputs.complete-only != 'true' }}
       shell: bash
       working-directory: oai-upstream/lean
       env:
-        MATCHED: ${{ steps.restore.outputs.cache-matched-key }}
+        MATCHED: ${{ steps.exact.outputs.cache-matched-key || steps.restore.outputs.cache-matched-key }}
       run: |
         set -euo pipefail
         if [[ -z "$MATCHED" ]] || [[ ! -d .lake/packages/mathlib/Mathlib ]]; then
@@ -57,8 +71,8 @@ runs:
       id: probe
       shell: bash
       env:
-        EXACT: ${{ steps.restore.outputs.cache-hit }}
-        MATCHED: ${{ steps.restore.outputs.cache-matched-key }}
+        EXACT: ${{ steps.exact.outputs.cache-hit || steps.restore.outputs.cache-hit }}
+        MATCHED: ${{ steps.exact.outputs.cache-matched-key || steps.restore.outputs.cache-matched-key }}
       run: |
         set -euo pipefail
         root=oai-upstream/lean/.lake/build/lib/lean/OAI/NumberTheory/DirichletL
@@ -82,3 +96,9 @@ runs:
         done
         echo "complete=$ready" >> "$GITHUB_OUTPUT"
         echo "::notice::OpenAI cache exact=$EXACT complete=$ready restored=${MATCHED:-MISS}"
+    - name: Reject incomplete artifact in complete-only mode
+      if: ${{ inputs.complete-only == 'true' && steps.probe.outputs.complete != 'true' }}
+      shell: bash
+      run: |
+        echo '::error::Pinned complete OpenAI artifact is incomplete; repair the trusted main-branch cache before running PR checks.'
+        exit 1
