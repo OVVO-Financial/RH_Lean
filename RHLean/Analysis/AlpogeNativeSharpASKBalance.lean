@@ -1414,4 +1414,145 @@ theorem alpogeNativeFullASK_sub_MAIN_eq_De
   field_simp
   ring
 
+
+/-!
+## Literal concrete cyclotomic arithmetic host (no imported field theorem)
+
+The original geometry uses the modulus 2^(e+2) * q * d and an additive
+host ((Z/2)^2 × H_e), with H_e the dyadic units modulo the sign -1.
+We now construct the actual arithmetic map from modular units using
+quadratic characters at q,d and the true dyadic quotient. This is
+NOT an abstract new source bound or an external RH theorem.
+-/
+
+/-- Concrete dyadic local class: units modulo 2^(e+2), quotient -1. -/
+abbrev AlpogeNativeDyadicH (e : ℕ) : Type :=
+  Additive (((ZMod (2 ^ (e + 2)))ˣ) ⧸
+    Subgroup.zpowers (-1 : (ZMod (2 ^ (e + 2)))ˣ))
+
+instance (e : ℕ) : Fintype (AlpogeNativeDyadicH e) :=
+  Fintype.ofFinite _
+
+instance (e : ℕ) : DecidableEq (AlpogeNativeDyadicH e) :=
+  Classical.decEq _
+
+/-- Exactly Alpoge's conductor modulus. -/
+def alpogeNativeHostN (e q d : ℕ) : ℕ := 2 ^ (e + 2) * q * d
+
+theorem alpogeNativeD_dvd_hostN (e q d : ℕ) :
+    d ∣ alpogeNativeHostN e q d := by
+  unfold alpogeNativeHostN
+  exact dvd_mul_left d _
+
+theorem alpogeNativeQ_dvd_hostN (e q d : ℕ) :
+    q ∣ alpogeNativeHostN e q d := by
+  unfold alpogeNativeHostN
+  exact dvd_mul_of_dvd_left (dvd_mul_left q _) d
+
+theorem alpogeNativeTwo_dvd_hostN (e q d : ℕ) :
+    2 ^ (e + 2) ∣ alpogeNativeHostN e q d := by
+  unfold alpogeNativeHostN
+  exact dvd_mul_of_dvd_left (dvd_mul_right _ q) d
+
+/-- Physical quadratic sign of a ±1 unit, as an additive bit. -/
+def alpogeNativeSign2 : ℤˣ →* Multiplicative (ZMod 2) where
+  toFun s := Multiplicative.ofAdd (if s = 1 then 0 else 1)
+  map_one' := by simp
+  map_mul' := by decide
+
+/-- Genuine quadratic Dirichlet character on the mod-ell unit group. -/
+def alpogeNativeLegU (N ell : ℕ) [Fact ell.Prime]
+    (h : ell ∣ N) : (ZMod N)ˣ →* ℤˣ :=
+  (quadraticChar (ZMod ell)).toUnitHom.comp (ZMod.unitsMap h)
+
+/-- Actual arithmetic residue map of modular units to the complete
+two-bit-plus-dyadic additive host. Both sign bits are quadratic and
+the third component is a genuine quotient of local units. -/
+def alpogeNativeRecMap (e q d : ℕ)
+    [Fact q.Prime] [Fact d.Prime] :
+    (ZMod (alpogeNativeHostN e q d))ˣ →*
+      Multiplicative (AlpogeNativeE0 × AlpogeNativeDyadicH e) where
+  toFun u := Multiplicative.ofAdd
+    ((Multiplicative.toAdd
+        (alpogeNativeSign2
+          (alpogeNativeLegU _ d (alpogeNativeD_dvd_hostN e q d) u)),
+      Multiplicative.toAdd
+        (alpogeNativeSign2
+          (alpogeNativeLegU _ q (alpogeNativeQ_dvd_hostN e q d) u))),
+      Additive.ofMul
+        (QuotientGroup.mk
+          (ZMod.unitsMap (alpogeNativeTwo_dvd_hostN e q d) u)))
+  map_one' := by
+    simp only [map_one]
+    rfl
+  map_mul' u v := by
+    simp only [map_mul]
+    rfl
+
+/-- Original actual Frobenius choices on the residue classes, not
+free prime labels. This is exactly the arithmetic CRT construction;
+existence and uniqueness of the selected unit are separate properties. -/
+def alpogeNativeLocalUnits (N p : ℕ) :
+    Subgroup (ZMod N)ˣ :=
+  (ZMod.unitsMap (Nat.ordCompl_dvd N p)).ker
+
+def alpogeNativeIsFrobUnit (N p : ℕ) (u : (ZMod N)ˣ) : Prop :=
+  ((u : ZMod N).cast : ZMod (ordCompl[p] N)) =
+      (p : ZMod (ordCompl[p] N)) ∧
+  ((u : ZMod N).cast : ZMod (ordProj[p] N)) = 1
+
+def alpogeNativeFrobUnit (N p : ℕ) : (ZMod N)ˣ := by
+  classical
+  exact if h : ∃ u, alpogeNativeIsFrobUnit N p u then h.choose else 1
+
+/-- Actual complete finite arithmetic host data from modular units. -/
+structure AlpogeNativeArithData
+    (H : Type*) [AddCommGroup H] [Fintype H] [DecidableEq H] where
+  q1 : ℕ
+  d : ℕ
+  inertia : ℕ → AddSubgroup (AlpogeNativeE0 × H)
+  frob : ℕ → AlpogeNativeE0 × H
+
+def alpogeNativeCftData
+    {H : Type*} [AddCommGroup H] [Fintype H] [DecidableEq H]
+    (N q d : ℕ)
+    (r : (ZMod N)ˣ →* Multiplicative (AlpogeNativeE0 × H)) :
+    AlpogeNativeArithData H where
+  q1 := q
+  d := d
+  inertia p :=
+    Subgroup.toAddSubgroup' ((alpogeNativeLocalUnits N p).map r)
+  frob p := Multiplicative.toAdd (r (alpogeNativeFrobUnit N p))
+
+/-- No abstract Frobenius or inertia label remains in this data:
+both are computed from the same concrete modular-unit character map. -/
+def alpogeNativeHostData
+    (e q d : ℕ) [Fact q.Prime] [Fact d.Prime] :
+    AlpogeNativeArithData (AlpogeNativeDyadicH e) :=
+  alpogeNativeCftData (alpogeNativeHostN e q d) q d
+    (alpogeNativeRecMap e q d)
+
+/-- The full native physical ASK/MAIN theorem specialized to Alpoge's
+literal modular-unit host. There is no imported geometric theorem:
+only the already-proved finite arithmetic identity is used. -/
+theorem alpogeNativeConcreteHostASK_sub_MAIN_eq_De
+    (e q d : ℕ) [Fact q.Prime] [Fact d.Prime]
+    (ell : AddChar
+      (AlpogeNativeE0 × AlpogeNativeDyadicH e) ℂ → ℂ)
+    (N : ℕ) (a : ℝ) (t : AlpogeNativeDyadicH e)
+    (w : AlpogeNativeE0 × AlpogeNativeDyadicH e → ℝ)
+    (ha : 0 < a)
+    (hw : ∀ ρ, alpogeNativeInPhi ρ → 0 < w ρ)
+    (hN : ∀ ρ, alpogeNativeInPhi ρ → a / w ρ ≤ (N : ℝ)) :
+    alpogeNativeFullKernelASK
+      (alpogeNativeHostData e q d).inertia
+      (alpogeNativeHostData e q d).frob N a t w -
+      alpogeNativeMAIN ell a w =
+    alpogeNativeDe
+      (alpogeNativeHostData e q d).inertia
+      (alpogeNativeHostData e q d).frob
+      ell a t w :=
+  alpogeNativeFullASK_sub_MAIN_eq_De
+    _ _ ell N a t w ha hw hN
+
 end RHLean.Analysis
