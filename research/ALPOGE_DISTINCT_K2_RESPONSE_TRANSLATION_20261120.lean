@@ -97,6 +97,7 @@ theorem alpogeDistinctResponse_K2_prime_two
         nativePNTError (alpogeDistinctResponseQuotient R p) := by
   rw [nativePNTSignedSecondSelbergKernel_mul_distinct_primes
     2 p Nat.prime_two hp.1 (by omega)]
+  norm_num
 
 /-- Physical selected carrier set for an arbitrary finite prime family. -/
 def alpogeDistinctResponseSiteSet (P : Finset ℕ) : Finset ℕ :=
@@ -123,6 +124,7 @@ theorem alpogeDistinctResponseSource_eq_prime_sum
     simpa only [alpogeDistinctResponseQuotient] using
       alpogeDistinctResponse_K2_prime_two R p (hP p hp)
   · intro p _hp q _hq heq
+    change 2 * p = 2 * q at heq
     omega
 
 end RHLean.Analysis
