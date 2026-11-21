@@ -1,5 +1,6 @@
 import Mathlib
 import RHLean.Proof.FinitePartialMoments
+import RHLean.Analysis.NativePNTErrorMass
 
 /-!
 # Source-native Stepanov amplification stress test
@@ -110,5 +111,34 @@ theorem alpogeNativeCostBracket_normalize
   unfold alpogeNativeCostBracket
   field_simp
   ring
+
+
+/-- Actual-source UPM2 of the Chebyshev error at square endpoints. Its
+uniform critical H^3 bound would support the *opposite* Alpoge sign s0=-1:
+-Gz(x) <= O(x^(1/2+epsilon)). The estimate remains OPEN. -/
+def alpogeSquarePositiveSemivariance (H : ℕ) : ℝ :=
+  upperPartialMomentNat 2 (Finset.Ico H (2 * H))
+    (fun R => nativePNTError (R ^ 2 - 1))
+
+theorem alpogeSquarePositiveSemivariance_eq_source (H : ℕ) :
+    alpogeSquarePositiveSemivariance H =
+      ∑ R ∈ Finset.Ico H (2 * H),
+        (max (nativePsi (R ^ 2 - 1) - ((R ^ 2 - 1 : ℕ) : ℝ)) 0) ^ 2 := by
+  unfold alpogeSquarePositiveSemivariance upperPartialMomentNat
+  rfl
+
+theorem alpogeSquarePositiveSemivariance_nonneg (H : ℕ) :
+    0 ≤ alpogeSquarePositiveSemivariance H := by
+  unfold alpogeSquarePositiveSemivariance upperPartialMomentNat
+  exact Finset.sum_nonneg (fun R _hR =>
+    sq_nonneg (positivePart (nativePNTError (R ^ 2 - 1))))
+
+/-- The new opposite-sign RH-strength supplier, kept explicitly unproved. -/
+def AlpogeCriticalSquarePositiveSemivariance : Prop :=
+  ∀ epsilon : ℝ, 0 < epsilon →
+    ∃ C : ℝ, 0 ≤ C ∧
+      ∀ H : ℕ, 1 ≤ H →
+        alpogeSquarePositiveSemivariance H ≤
+          C * ((H : ℝ) ^ ((3 : ℝ) + epsilon))
 
 end RHLean.Analysis
