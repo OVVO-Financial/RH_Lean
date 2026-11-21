@@ -115,8 +115,8 @@ theorem alpogeBilinearFloor_iff_carrier
     n ≤ alpogeBilinearChild R p ↔ 2 * p * n ≤ R ^ 2 - 1 := by
   unfold alpogeBilinearChild
   have hden : 0 < 2 * p := by omega
-  simpa only [Nat.mul_comm] using
-    (Nat.le_div_iff_mul_le hden (m := n) (n := R ^ 2 - 1))
+  rw [Nat.le_div_iff_mul_le hden]
+  simp only [Nat.mul_comm]
 
 /-- Exact source-specific source/Fubini translation, with NO dropped
 prime power, no expectation and no square-root cancellation assumption. -/
