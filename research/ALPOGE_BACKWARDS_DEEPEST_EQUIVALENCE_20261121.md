@@ -191,3 +191,85 @@ a transport isometry alone cannot establish hTop.
 - https://github.com/CocoSgt/riemann-hypothesis-lean/blob/main/src/Formalism/SizeWindowBrackets/ChainSlopeWindows/PChain.lean
 - https://github.com/CocoSgt/riemann-hypothesis-lean/blob/main/src/Formalism/HarderNarasimhan/QuotRealize.lean
 - https://github.com/CocoSgt/riemann-hypothesis-lean/blob/main/src/Formalism/ZetaNonvanishing/ZetaLandau.lean
+
+## 6. CRITICAL backward-audit correction: the analytic gates DO NOT disappear
+
+The source-specific `hTop` inequality above is **not the only missing
+supplier**. The exact original `GrowthInequalityRemainingHyps` in
+`Formalism/SizeWindowBrackets/SChain.lean` additionally requires
+`ThinScales D ell X' theta` AND `ValuesAtX D ell x eps CL`.
+By definition in `GrowthBoundGivesRiemannHypothesis.lean`,
+`ValuesAtX` bounds all THREE nonzero characters psC, chC, chpsC:
+
+  ||GPsi D ell psi x|| <= x^(1/2+eps),
+
+plus bounds for ell. `ThinScales` controls ALL characters at y>=X'/3
+at a much smaller relative scale. Neither of these is inferred from
+`DataCompletion` or from the finite `ModelText.family` size-window
+construction.
+
+### Serious toy-host obstruction visible in literal original definitions
+
+The example `Model.DA` in `PChain.lean` has
+q1=11, d=7, `frob p = 0` for EVERY p and
+`inertia p = bot` except p=7, where inertia is {0, sgc0}.
+The character `psC` depends only on the second ZMod 2 coordinate and
+`sgc0=((1,0),0)`, hence `psC(sgc0)=1`.
+Therefore `psC` is trivial on ALL these inertia subgroups and on
+all Frobenius elements. By the literal definitions
+`cosetMean` and `primVal` in `FirstPrimeNeSecondPrime.lean`,
+
+  primVal Model.DA psC n = 1       for EVERY n>=1.
+
+The "text" host uses `ell = fun _ => 0`; `psC != 0`, so
+
+  GPsi Model.DA ell psC x
+    = sum_{1<=n<=floor x} Lambda(n) * (x/n-1)
+    = Sz(x)  (exact source algebra).
+
+For x>=2 all summands are nonnegative, and the n=2 term gives
+
+  Sz(x) >= (log 2) * (x/2 - 1).
+
+This is at least a constant multiple of x for all x>=4, while the
+required `ValuesAtX` bound for any fixed 0<eps<1/2 is
+`||GPsi psC x|| <= x^(1/2+eps)`.
+Thus the **particular synthetic Model.DA host with ell=0 CANNOT
+satisfy this analytic input eventually**. This follows by elementary
+growth comparison, not a numerical experiment or RH.
+
+**Status:** this is a complete direct source-level paper derivation;
+the specific impossibility statement has NOT been compiled as a Lean
+theorem in RH_Lean. It is a falsification of the synthetic model as a
+terminal ANALYTIC witness, not a flaw in the proven `VElim` or
+`DataCompletion` implications. In particular one must not claim
+`chain_sizes_eventually` provides all `ChainCore` conditions.
+
+This strengthens the proof-compression research direction: use
+`VElim`, `Rerealize`, and `DataCompletion` to DELETE auxiliary
+bookkeeping, but reconstruct the *actual physical Frobenius/Hecke*
+character source, genuine same-family full `hTop`, `ValuesAtX`,
+`ThinScales`, and the quantitative SizeWindows package without
+relying on the toy host. The terminal kernel route based on
+`UpperTheory.FinalTheorems.everyCharacter` is distinct and does not
+automatically pass through the synthetic model.
+
+### Tightest honest theorem frontier
+
+```
+  Actual prime-power ASK/MAIN + Frobenius/inertia source
+  + full hTop upper inequality (complete signed, paid)
+  + ValuesAtX (three genuine character signals)
+  + ThinScales (whole large-y character family)
+  + growth/width/multiplicity/size windows
+    =>
+  exists_data_completion / v_elimination (no geometric scaffolding)
+    =>
+  one-sided Gz(x) <= x^(1/2+O(eps))
+    =>
+  Landau => RH.
+```
+
+None of the geometric equivalences alone supplies the three analytic
+suppliers above. This is the exact mathematical frontier rather than
+a new hypothesis disguised as an equivalence.
