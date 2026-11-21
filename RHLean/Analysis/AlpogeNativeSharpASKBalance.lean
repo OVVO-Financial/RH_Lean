@@ -1304,7 +1304,7 @@ theorem alpogeNativeFullASK_sub_MAIN_eq_De
     · have hh := alpogeNativeFrobInertiaASK_eq_GPsi_nonprincipal
         inertia frob ell ψ N a (w (alpogeNativePartner t g))
         hψ ha (hw _ hρ) (hN _ hρ)
-      simpa [hψ] using hh
+      simpa only [ite_eq_right hψ, sub_eq_add_neg] using hh
   have hsum :
       (∑ g ∈ Finset.univ.filter
         (fun g : AlpogeNativeE0 × H => ¬ alpogeNativeInPhi g),
@@ -1390,8 +1390,7 @@ theorem alpogeNativeFullASK_sub_MAIN_eq_De
     rw [Finset.sum_comm,
       Finset.sum_congr rfl (fun ψ _ => hcorr ψ),
       Finset.sum_add_distrib]
-    simp only [Finset.sum_ite_eq', Finset.sum_ite_eq,
-      Finset.mem_univ, if_true]
+    simp only [Finset.sum_ite_eq', Finset.mem_univ, ite_true]
   have hC :
       (∑ g ∈ Finset.univ.filter
         (fun g : AlpogeNativeE0 × H => ¬ alpogeNativeInPhi g),
