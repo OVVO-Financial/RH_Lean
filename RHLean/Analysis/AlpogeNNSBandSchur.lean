@@ -169,11 +169,9 @@ theorem alpogeNNSBandScaledSchur_le_range
   have hsum :
       (∑ i : Fin m, ell i - c) =
         S - (m : ℝ) * c := by
-    calc
-      _ = (∑ i : Fin m, ell i) - (∑ _i : Fin m, c) := Finset.sum_sub_distrib
-      _ = S - (m : ℝ) * c := by
-        rw [alpogeNNSBand_sum_constant]
-        rfl
+    change (∑ i : Fin m, ell i - c) =
+      (∑ i : Fin m, ell i) - (m : ℝ) * c
+    rw [Finset.sum_sub_distrib, alpogeNNSBand_sum_constant]
   have hsumSq :
       (∑ i : Fin m, (ell i - c) ^ 2) =
         Q - 2 * c * S + (m : ℝ) * c ^ 2 := by
