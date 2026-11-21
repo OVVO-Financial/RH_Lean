@@ -1605,9 +1605,10 @@ theorem alpogeNativeLocalUnits_unramified
   have hu' : (u : ZMod N).val ≡ 1 [MOD N] := by
     have hk : ZMod.unitsMap (Nat.ordCompl_dvd N p) u = 1 :=
       (MonoidHom.mem_ker).mp hu
-    exact hcompl ▸
-      (alpogeNativeUnitsMap_eq_one_iff
-        (Nat.ordCompl_dvd N p) u).mp hk
+    have hv := (alpogeNativeUnitsMap_eq_one_iff
+      (Nat.ordCompl_dvd N p) u).mp hk
+    rw [hcompl] at hv
+    exact hv
   rw [Subgroup.mem_bot]
   apply alpogeNativeUnits_ext_modEq
   have hone : ((1 : (ZMod N)ˣ) : ZMod N).val ≡
