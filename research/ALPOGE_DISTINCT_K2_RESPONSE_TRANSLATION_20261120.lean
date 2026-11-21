@@ -165,4 +165,79 @@ theorem alpogeDistinctResponseSource_eq_prime_sum
     change 2 * p = 2 * q at heq
     omega
 
+
+/-- All carriers of the genuine near-root prime family actually lie in
+the original signed second-Selberg summation range [1, R²-1]. -/
+theorem alpogeDistinctResponseSiteSet_subset
+    (R : ℕ) (P : Finset ℕ) (hR : 4 ≤ R)
+    (hP : ∀ p ∈ P, alpogeDistinctResponsePrimeBand R p) :
+    alpogeDistinctResponseSiteSet P ⊆ Finset.Icc 1 (R ^ 2 - 1) := by
+  classical
+  intro n hn
+  rcases Finset.mem_image.mp hn with ⟨p, hpP, hpn⟩
+  subst n
+  have hp := hP p hpP
+  have hcarrier := alpogeDistinctResponse_carrier_physical R p hR hp
+  have hp2 : 2 < p := hp.2.1
+  exact Finset.mem_Icc.mpr ⟨by omega, hcarrier⟩
+
+/-- Full signed complementary K2 source, with EVERY non-selected
+prime square, prime power, off-band product and integer quotient retained. -/
+def alpogeDistinctResponseOtherSource (R : ℕ) (P : Finset ℕ) : ℝ := by
+  classical
+  exact ∑ n ∈ (Finset.Icc 1 (R ^ 2 - 1)).filter
+      (fun n => n ∉ alpogeDistinctResponseSiteSet P),
+    nativePNTSignedSecondSelbergKernel n *
+      nativePNTError ((R ^ 2 - 1) / n)
+
+/-- Exact finite partition of ALL K2*E terms into the DISTINCT
+ancestral responses and the FULL signed complement. -/
+theorem alpogeDistinctResponseK2_mass_partition
+    (R : ℕ) (P : Finset ℕ) (hR : 4 ≤ R)
+    (hP : ∀ p ∈ P, alpogeDistinctResponsePrimeBand R p) :
+    nativePNTSignedSecondSelbergKernelErrorMass (R ^ 2 - 1) =
+      alpogeDistinctResponseSource R P +
+        alpogeDistinctResponseOtherSource R P := by
+  classical
+  have hsub := alpogeDistinctResponseSiteSet_subset R P hR hP
+  have hfilter :
+      (Finset.Icc 1 (R ^ 2 - 1)).filter
+        (fun n => n ∈ alpogeDistinctResponseSiteSet P) =
+      alpogeDistinctResponseSiteSet P := by
+    ext n
+    simp only [Finset.mem_filter]
+    constructor
+    · intro hn
+      exact hn.2
+    · intro hn
+      exact ⟨hsub hn, hn⟩
+  have hpart := (Finset.sum_filter_add_sum_filter_not
+    (s := Finset.Icc 1 (R ^ 2 - 1))
+    (p := fun n => n ∈ alpogeDistinctResponseSiteSet P)
+    (f := fun n => nativePNTSignedSecondSelbergKernel n *
+      nativePNTError ((R ^ 2 - 1) / n))).symm
+  unfold nativePNTSignedSecondSelbergKernelErrorMass
+    alpogeDistinctResponseSource alpogeDistinctResponseOtherSource
+  simpa only [hfilter] using hpart
+
+/-- COMPLETE signed Selberg recurrence, now with an ACTUAL family of
+distinct prior-scale Chebyshev error arguments and every off-family
+term returned with its sign. No power estimate is assumed. -/
+theorem alpogeDistinctResponseCompleteSignedSelberg
+    (R : ℕ) (P : Finset ℕ) (hR : 4 ≤ R)
+    (hP : ∀ p ∈ P, alpogeDistinctResponsePrimeBand R p) :
+    nativePNTError (R ^ 2 - 1) *
+        (Real.log ((R ^ 2 - 1 : ℕ) : ℝ)) ^ 2 =
+      nativePNTSignedSelbergRemainder (R ^ 2 - 1) *
+          Real.log ((R ^ 2 - 1 : ℕ) : ℝ) -
+        nativePNTLambdaSignedSelbergRemainderMass (R ^ 2 - 1) +
+        (∑ p ∈ P, 2 * Real.log (2 : ℝ) * Real.log (p : ℝ) *
+          nativePNTError (alpogeDistinctResponseQuotient R p)) +
+        alpogeDistinctResponseOtherSource R P -
+        nativePNTLambdaFloorLogSignedDefectMass (R ^ 2 - 1) := by
+  have h := nativePNTError_mul_log_sq_eq_signedSecondSelberg (R ^ 2 - 1)
+  rw [alpogeDistinctResponseK2_mass_partition R P hR hP,
+    alpogeDistinctResponseSource_eq_prime_sum R P hP] at h
+  linear_combination h
+
 end RHLean.Analysis
