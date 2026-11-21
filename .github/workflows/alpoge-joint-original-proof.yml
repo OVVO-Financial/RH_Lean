@@ -1,0 +1,51 @@
+name: Alpoge original plus RHLean joint certificate (manual full proof)
+
+# The ORIGINAL 175187-module proof cannot realistically be rebuilt
+# on every RHLean PR. This manual workflow does the FULL source build
+# under Alpoge's original compiler and checks the shared RHLean bridge.
+on:
+  workflow_dispatch:
+    inputs:
+      runner:
+        description: "Runner label with sufficient disk/RAM for 175187 original Lean modules"
+        type: string
+        required: true
+        default: ubuntu-latest
+
+permissions:
+  contents: read
+
+concurrency:
+  group: alpoge-joint-certificate
+  cancel-in-progress: false
+
+jobs:
+  original-plus-rhlean:
+    name: Original Alpoge proof and literal RHLean interface in one kernel
+    runs-on: ${{ inputs.runner }}
+    timeout-minutes: 360
+    steps:
+      - name: Check out RHLean proof interface
+        uses: actions/checkout@v4
+
+      - name: Install elan and Lake (upstream version is pinned independently)
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl -fsSL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --no-modify-path
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+
+      - name: Build exact Alpoge source and compile shared RHLean proof adapter
+        shell: bash
+        run: |
+          set -euo pipefail
+          bash integrations/alpoge/check_joint_proof.sh
+
+      - name: Preserve kernel axiom audit
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: alpoge-rhlean-joint-axiom-audit
+          path: ${{ runner.temp }}/alpoge_rhlean_merged_tree/AlpogeAxiomAudit.log
+          if-no-files-found: warn
+          retention-days: 30
