@@ -1216,4 +1216,203 @@ theorem alpogeNativeFullKernelASK_eq_primePowerCensus
       rw [alpogeNativeColourKernel_primePower inertia frob
         p i (Finset.mem_filter.mp hp).2 (Finset.mem_Icc.mp hi).1 g]
 
+
+/-!
+## Exact published ASK - MAIN = De, on RHLean arithmetic
+
+The four channels here are the ACTUAL native Gz and additive-character
+Frobenius/inertia GPsi. In particular MAIN is not defined by setting
+the left side equal to De: it is the independently explicit closed
+logarithmic expression from Alpoge's original arithmetic. The proof
+uses the principal/nonprincipal sharp ASK formulas, the *proved*
+ColourSum, and the partner bijection.
+-/
+
+/-- Exact logarithmic MAIN term in the original two-bit physical
+character host. Every real width enters through the original Phi set. -/
+def alpogeNativeMAIN
+    {H : Type*} [AddCommGroup H] [Fintype H] [DecidableEq H]
+    (ell : AddChar (AlpogeNativeE0 × H) ℂ → ℂ)
+    (a : ℝ) (w : AlpogeNativeE0 × H → ℝ) : ℂ :=
+  (a : ℂ) * (((Real.log a - 1 -
+    Real.eulerMascheroniConstant : ℝ) : ℂ) +
+      ell (alpogeNativeChC H) -
+      (((1 / ((alpogeNativePhiSet H).card : ℝ)) *
+        ∑ ρ ∈ alpogeNativePhiSet H, Real.log (w ρ) : ℝ) : ℂ))
+
+/-- Original complete nonprincipal De, retaining all character
+coefficients and a/w(x) shifts. This is NOT an assumed upper bound. -/
+def alpogeNativeDe
+    {H : Type*} [AddCommGroup H] [Fintype H] [DecidableEq H]
+    (inertia : ℕ → AddSubgroup (AlpogeNativeE0 × H))
+    (frob : ℕ → AlpogeNativeE0 × H)
+    (ell : AddChar (AlpogeNativeE0 × H) ℂ → ℂ)
+    (a : ℝ) (t : H)
+    (w : AlpogeNativeE0 × H → ℝ) : ℂ := by
+  classical
+  exact (1 / ((alpogeNativePhiSet H).card : ℂ)) *
+    ∑ g ∈ Finset.univ.filter (fun g : AlpogeNativeE0 × H =>
+        ¬ alpogeNativeInPhi g),
+      ∑ ψ : AddChar (AlpogeNativeE0 × H) ℂ,
+        starRingEnd ℂ (ψ g) *
+          ((w (alpogeNativePartner t g) : ℝ) : ℂ) *
+            alpogeNativeFrobInertiaGPsi inertia frob ell ψ
+              (a / w (alpogeNativePartner t g))
+
+/-- Alpoge's original exact FINITE ASK/MAIN identity, carried through
+with native Lambda, physical inertia, all prime powers, and the
+original principal Gz. This theorem does not assert or assume any
+height, covolume or power-saving inequality. -/
+theorem alpogeNativeFullASK_sub_MAIN_eq_De
+    {H : Type*} [AddCommGroup H] [Fintype H] [DecidableEq H]
+    (inertia : ℕ → AddSubgroup (AlpogeNativeE0 × H))
+    (frob : ℕ → AlpogeNativeE0 × H)
+    (ell : AddChar (AlpogeNativeE0 × H) ℂ → ℂ)
+    (N : ℕ) (a : ℝ) (t : H)
+    (w : AlpogeNativeE0 × H → ℝ)
+    (ha : 0 < a)
+    (hw : ∀ ρ, alpogeNativeInPhi ρ → 0 < w ρ)
+    (hN : ∀ ρ, alpogeNativeInPhi ρ → a / w ρ ≤ (N : ℝ)) :
+    alpogeNativeFullKernelASK inertia frob N a t w -
+        alpogeNativeMAIN ell a w =
+      alpogeNativeDe inertia frob ell a t w := by
+  classical
+  rw [← alpogeNativeFullFourierASK_eq_kernel inertia frob N a t w]
+  unfold alpogeNativeFullFourierASK
+  have hinner :
+      ∀ g ∈ Finset.univ.filter
+          (fun g : AlpogeNativeE0 × H => ¬ alpogeNativeInPhi g),
+      ∀ ψ : AddChar (AlpogeNativeE0 × H) ℂ,
+        alpogeNativeFrobInertiaASK inertia frob ψ N a
+          (w (alpogeNativePartner t g)) =
+        ((w (alpogeNativePartner t g) : ℝ) : ℂ) *
+          alpogeNativeFrobInertiaGPsi inertia frob ell ψ
+            (a / w (alpogeNativePartner t g)) +
+          (if ψ = 0 then
+            ((a * Real.log a - a * Real.log
+              (w (alpogeNativePartner t g)) -
+                (1 + Real.eulerMascheroniConstant) * a : ℝ) : ℂ)
+          else -(a : ℂ) * ell ψ) := by
+    intro g hg ψ
+    have hg' : ¬ alpogeNativeInPhi g := (Finset.mem_filter.mp hg).2
+    have hρ := alpogeNativePartner_inPhi t g hg'
+    by_cases hψ : ψ = 0
+    · subst ψ
+      simpa using alpogeNativeFrobInertiaASK_principal
+        inertia frob ell N a (w (alpogeNativePartner t g))
+        ha (hw _ hρ) (hN _ hρ)
+    · have hh := alpogeNativeFrobInertiaASK_eq_GPsi_nonprincipal
+        inertia frob ell ψ N a (w (alpogeNativePartner t g))
+        hψ ha (hw _ hρ) (hN _ hρ)
+      simpa [hψ] using hh
+  have hsum :
+      (∑ g ∈ Finset.univ.filter
+        (fun g : AlpogeNativeE0 × H => ¬ alpogeNativeInPhi g),
+        ∑ ψ : AddChar (AlpogeNativeE0 × H) ℂ,
+          starRingEnd ℂ (ψ g) *
+            alpogeNativeFrobInertiaASK inertia frob ψ N a
+              (w (alpogeNativePartner t g))) =
+      (∑ g ∈ Finset.univ.filter
+        (fun g : AlpogeNativeE0 × H => ¬ alpogeNativeInPhi g),
+        ∑ ψ : AddChar (AlpogeNativeE0 × H) ℂ,
+          starRingEnd ℂ (ψ g) *
+            ((w (alpogeNativePartner t g) : ℝ) : ℂ) *
+              alpogeNativeFrobInertiaGPsi inertia frob ell ψ
+                (a / w (alpogeNativePartner t g))) +
+      (∑ g ∈ Finset.univ.filter
+        (fun g : AlpogeNativeE0 × H => ¬ alpogeNativeInPhi g),
+        ∑ ψ : AddChar (AlpogeNativeE0 × H) ℂ,
+          starRingEnd ℂ (ψ g) *
+          (if ψ = 0 then
+            ((a * Real.log a - a * Real.log
+              (w (alpogeNativePartner t g)) -
+                (1 + Real.eulerMascheroniConstant) * a : ℝ) : ℂ)
+          else -(a : ℂ) * ell ψ)) := by
+    rw [← Finset.sum_add_distrib]
+    refine Finset.sum_congr rfl (fun g hg => ?_)
+    rw [← Finset.sum_add_distrib]
+    refine Finset.sum_congr rfl (fun ψ _ => ?_)
+    rw [hinner g hg ψ]
+    ring
+  have hcorr :
+      ∀ ψ : AddChar (AlpogeNativeE0 × H) ℂ,
+      (∑ g ∈ Finset.univ.filter
+        (fun g : AlpogeNativeE0 × H => ¬ alpogeNativeInPhi g),
+        starRingEnd ℂ (ψ g) *
+          (if ψ = 0 then
+            ((a * Real.log a - a * Real.log
+              (w (alpogeNativePartner t g)) -
+                (1 + Real.eulerMascheroniConstant) * a : ℝ) : ℂ)
+          else -(a : ℂ) * ell ψ)) =
+      (if ψ = 0 then
+        ∑ g ∈ Finset.univ.filter
+          (fun g : AlpogeNativeE0 × H => ¬ alpogeNativeInPhi g),
+          ((a * Real.log a - a * Real.log
+            (w (alpogeNativePartner t g)) -
+              (1 + Real.eulerMascheroniConstant) * a : ℝ) : ℂ)
+       else 0) +
+      (if ψ = alpogeNativeChC H then
+        (a : ℂ) * ell (alpogeNativeChC H) *
+          ((alpogeNativePhiSet H).card : ℂ)
+       else 0) := by
+    intro ψ
+    by_cases h0 : ψ = 0
+    · have h1 : ψ ≠ alpogeNativeChC H :=
+        fun h => alpogeNativeChC_nontrivial (h ▸ h0)
+      simp only [ite_eq_left h0, ite_eq_right h1, add_zero]
+      refine Finset.sum_congr rfl (fun g _ => ?_)
+      simp [h0]
+    · simp only [ite_eq_right h0, zero_add]
+      rw [← Finset.sum_mul, alpogeNativeColourSum ψ]
+      simp only [ite_eq_right h0]
+      by_cases h1 : ψ = alpogeNativeChC H
+      · simp only [ite_eq_left h1]
+        rw [h1]
+        ring
+      · simp only [ite_eq_right h1, zero_mul]
+  have hB :
+      (∑ g ∈ Finset.univ.filter
+        (fun g : AlpogeNativeE0 × H => ¬ alpogeNativeInPhi g),
+        ∑ ψ : AddChar (AlpogeNativeE0 × H) ℂ,
+          starRingEnd ℂ (ψ g) *
+          (if ψ = 0 then
+            ((a * Real.log a - a * Real.log
+              (w (alpogeNativePartner t g)) -
+                (1 + Real.eulerMascheroniConstant) * a : ℝ) : ℂ)
+          else -(a : ℂ) * ell ψ)) =
+      (∑ g ∈ Finset.univ.filter
+        (fun g : AlpogeNativeE0 × H => ¬ alpogeNativeInPhi g),
+        ((a * Real.log a - a * Real.log
+          (w (alpogeNativePartner t g)) -
+            (1 + Real.eulerMascheroniConstant) * a : ℝ) : ℂ)) +
+        (a : ℂ) * ell (alpogeNativeChC H) *
+          ((alpogeNativePhiSet H).card : ℂ) := by
+    rw [Finset.sum_comm,
+      Finset.sum_congr rfl (fun ψ _ => hcorr ψ),
+      Finset.sum_add_distrib]
+    simp only [Finset.sum_ite_eq', Finset.sum_ite_eq,
+      Finset.mem_univ, if_true]
+  have hC :
+      (∑ g ∈ Finset.univ.filter
+        (fun g : AlpogeNativeE0 × H => ¬ alpogeNativeInPhi g),
+        (a * Real.log a - a * Real.log
+          (w (alpogeNativePartner t g)) -
+            (1 + Real.eulerMascheroniConstant) * a)) =
+      ((alpogeNativePhiSet H).card : ℝ) *
+        (a * Real.log a - (1 + Real.eulerMascheroniConstant) * a) -
+        a * ∑ ρ ∈ alpogeNativePhiSet H, Real.log (w ρ) := by
+    rw [Finset.sum_sub_distrib, Finset.sum_sub_distrib,
+      Finset.sum_const, Finset.sum_const,
+      ← Finset.mul_sum,
+      alpogeNativeSumPartner t (fun ρ => Real.log (w ρ)),
+      alpogeNativeCardNotPhi]
+    simp only [nsmul_eq_mul]
+    ring
+  rw [hsum, hB, ← Complex.ofReal_sum, hC]
+  have hPhi := alpogeNativePhiCard_ne_zero (H := H)
+  unfold alpogeNativeDe alpogeNativeMAIN
+  push_cast
+  field_simp
+  ring
+
 end RHLean.Analysis
