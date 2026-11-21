@@ -385,13 +385,13 @@ import RHLean.Geometry.LeastPrimeEndpoint
 import RHLean.Geometry.SquareMapConformality
 import RHLean.Geometry.TwoABDisplacement
 import RHLean.Kernel.FixedPackets
-import RHLean.Proof.AlpogeVerifiedRHSubpowerFiniteC
 import RHLean.Proof.AbstractEnergyRecurrence
 import RHLean.Proof.ActualForcingEstimates
 import RHLean.Proof.ActualResidualDecomposition
 import RHLean.Proof.ActualStartLocalSignedFrame
 import RHLean.Proof.ActualStartSignedFrame
 import RHLean.Proof.AdaptivePrimeMatching
+import RHLean.Proof.AlpogeVerifiedRHSubpowerFiniteC
 import RHLean.Proof.AlternatingSignMatchingParity
 import RHLean.Proof.AmplificationExponentIteration
 import RHLean.Proof.BalancedCanonicalGap
