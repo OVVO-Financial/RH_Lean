@@ -27,27 +27,71 @@ The historical wall swaps positive and negative Möbius contributions. Ordinary 
 
 The Lean file defines the full UPM1, LPM1, their signed difference, complete total mass and exact cross-square equality using existing `FinitePartialMoments.lean`. Its n=1 seed is handled separately because `log 1=0` in `mu*Lambda=-mu log`.
 
-## 2. Eight nonnegative channels, keeping ramified 2,q,d
+## 2. Eight nonnegative **joint Frobenius/inertia** channels, including 2,q,d
 
-Let `a(n),b(n)` be the two real quadratic character/inertia response coefficients of Alpöge's `primVal` (assume values in [-1,1], including zero at a locally nontrivial inertia restriction). For signs `s,t in {+1,-1}`, define
+**Ramification guard (essential).** For the actual Alpöge coefficient `primVal`, never replace
+`primVal_(psiA+psiB)(n)` by `primVal_psiA(n)*primVal_psiB(n)` at ramified prime powers.
+In general, averaging a PRODUCT over an inertia coset is **not** the product
+of the two separate coset averages. This distinction is exactly why all
+exceptional primes `2,q,d` must be kept.
 
-    P_st(n)=(1+s*a(n))*(1+t*b(n)) >= 0.
+Here is the correct finite construction. Let `G` be Alpöge's finite
+abelian Frobenius group and `psiA,psiB : G -> {+1,-1}` be two independent
+order-two characters. For each prime power `p^j`, let `nu_(p,j)` be the
+**uniform probability measure** on the actual coset `j*F_p + I_p`.
+For any n>=1, define `nu_n` as the additive convolution of these
+probability measures over all prime-power factors of n. Fourier
+multiplicativity gives, with no ramification assumptions,
 
-There is a **pointwise partition of unity** even when `a` or `b` is zero:
+    E_(g~nu_n) psi(g) = primVal_psi(n).
 
-    P_++ + P_+- + P_-+ + P_-- = 4.
+For `s,t in {+1,-1}`, define the *joint* four-quadrant weight
 
-Therefore every n contributes to the eight nonnegative populations
+    P_st(n) := E_(g~nu_n) (1+s*psiA(g))*(1+t*psiB(g))
+             = primVal_0(n) + s*primVal_psiA(n)
+               + t*primVal_psiB(n) + s*t*primVal_(psiA+psiB)(n).
 
-    P_st(n)*mu_+(n), P_st(n)*mu_-(n)
+Since `primVal_0(n)=1`, since the two characters take values +/-1
+on the underlying **group elements**, and since `nu_n` is a positive
+probability measure,
 
-and the complete original principal channel is EXACTLY recovered:
+    0 <= P_st(n) <= 4;
+    sum_(s,t) P_st(n) = 4.
 
-    4*Q_R = sum_(s,t) (U_st(R)-L_st(R)).
+This remains true at ramified primes. For example, `psiA` and
+`psiB` may each have average zero over a nontrivial inertia subgroup,
+while their product has average 1. **Using the separate marginals
+`(1+s*primVal_psiA(n))*(1+t*primVal_psiB(n))` would then give the WRONG
+ramified coefficient.** The present definition keeps the joint term.
 
-This is a formal algebraic partition, **not** an assertion that one selected colour suffices or that the abstract `a,b` have been identified with all concrete Frobenius/inertia choices in #1166. There is no dropped bad-prime coefficient: at `a=0`, the two a-sign weights both equal 1, and similarly at `b=0`. Such terms are counted with their actual soft weights, not declared absent.
+There are consequently eight nonnegative Möbius-parity populations
 
-The third parity bit is `lambda(n)=(-1)^Omega(n)` on squarefree n, with `mu(n)=mu(n)^2*lambda(n)`. Unlike the first two quadratic characters, `lambda` has no fixed finite conductor. Thus finite-coset orthogonality on the original Frobenius group does not automatically average away this parity bit.
+    U_st(R) := sum_(n<R) P_st(n)*mu_+(n)
+             + sum_(R<=n<=X_R) P_st(n)*mu_-(n),
+    L_st(R) := sum_(n<R) P_st(n)*mu_-(n)
+             + sum_(R<=n<=X_R) P_st(n)*mu_+(n).
+
+They reconstruct the actual principal **finite-C** source:
+
+    4*Q_R = sum_(s,t) (U_st(R)-L_st(R)),
+
+and restore the complete squarefree magnitude with no bad-prime deletion:
+
+    sum_(s,t) (U_st(R)+L_st(R)) = 4*sum_(n<=X_R)mu(n)^2.
+
+The third parity bit is `lambda(n)=(-1)^Omega(n)` on squarefree n,
+with `mu(n)=mu(n)^2*lambda(n)`. Unlike the two finite quadratic
+characters, `lambda` has no fixed finite conductor; the true
+signed cofactor/ancestor transfer is still required. The four
+positive Fourier quadrants do not automatically cancel that third bit.
+
+**Lean status:** finite-coset Fourier orthogonality and
+`primVal` are in PR #1166. The exact signed UPM/LPM
+reconstruction is in draft #1169. The new *joint-convolution probability
+measure and four-quadrant positivity* proof above is paper-level and
+remains to be formalized with the concrete inertia images and coset
+representatives. Do not equate this formula with the simplified
+unramified Dirichlet-product model.
 
 ## 3. Exact arithmetic of the new **one-sided finite-C criterion**
 
