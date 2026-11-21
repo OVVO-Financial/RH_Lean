@@ -234,4 +234,55 @@ theorem alpogeNativeRealizedGPsi_eq_primitivePrimeSum
     omega
   rw [alpogeNativePrimVal_eq_primitive q d r ψ n hn0]
 
+
+/-- Entire native physical GPsi (same prime powers, conductor zeros,
+ramified inertia and exact additive L-derivative counterterm) IS the
+previously constructed native primitive Dirichlet-character Gchi
+at every REAL argument. This transfers any genuine uniform
+character bound with constant one, not merely up to triangle losses.
+There is no analytic bound assumed or asserted. -/
+theorem alpogeNativeRealizedGPsi_eq_nativeGchi
+    {N : ℕ} [NeZero N]
+    {H : Type*} [AddCommGroup H] [Fintype H] [DecidableEq H]
+    (q d : ℕ)
+    (r : (ZMod N)ˣ →* Multiplicative (AlpogeNativeE0 × H))
+    (ell : AddChar (AlpogeNativeE0 × H) ℂ → ℂ)
+    (ψ : AddChar (AlpogeNativeE0 × H) ℂ) (hψ : ψ ≠ 0)
+    (y : ℝ) :
+    alpogeNativeFrobInertiaGPsi
+      (alpogeNativeCftData N q d r).inertia
+      (alpogeNativeCftData N q d r).frob ell ψ y =
+    alpogeNativeGchiArithmetic
+      (alpogeNativeDirChar r ψ).primitiveCharacter
+      (ell ψ) y := by
+  letI : NeZero (alpogeNativeDirChar r ψ).conductor :=
+    ⟨DirichletCharacter.conductor_ne_zero _⟩
+  rw [alpogeNativeRealizedGPsi_eq_primitivePrimeSum q d r ell ψ hψ y]
+  unfold alpogeNativeGchiArithmetic alpogeNativeTwistedPrimeSum
+    alpogeNativePrimePowerWeight
+  congr 1
+  apply Finset.sum_congr rfl
+  intro n _hn
+  push_cast
+  ring
+
+/-- Exact norm equality: every actually proved primitive Dirichlet
+character estimate transports to the SAME physical Frobenius/inertia
+GPsi estimate with no multiplicative tax or ramification exception. -/
+theorem alpogeNativeRealizedGPsi_norm_eq_nativeGchi_norm
+    {N : ℕ} [NeZero N]
+    {H : Type*} [AddCommGroup H] [Fintype H] [DecidableEq H]
+    (q d : ℕ)
+    (r : (ZMod N)ˣ →* Multiplicative (AlpogeNativeE0 × H))
+    (ell : AddChar (AlpogeNativeE0 × H) ℂ → ℂ)
+    (ψ : AddChar (AlpogeNativeE0 × H) ℂ) (hψ : ψ ≠ 0)
+    (y : ℝ) :
+    ‖alpogeNativeFrobInertiaGPsi
+      (alpogeNativeCftData N q d r).inertia
+      (alpogeNativeCftData N q d r).frob ell ψ y‖ =
+    ‖alpogeNativeGchiArithmetic
+      (alpogeNativeDirChar r ψ).primitiveCharacter
+      (ell ψ) y‖ := by
+  rw [alpogeNativeRealizedGPsi_eq_nativeGchi q d r ell ψ hψ y]
+
 end RHLean.Analysis
