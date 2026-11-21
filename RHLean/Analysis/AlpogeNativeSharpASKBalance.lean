@@ -1007,4 +1007,95 @@ theorem alpogeNativeFrobInertiaASK_principal
   field_simp [hWc]
   ring
 
+
+/-!
+## Native full finite ASK Fourier expansion (physical site source)
+
+The following is the actual untruncated von Mangoldt-weighted character
+sum on all non-Phi sites. Its target is the SAME source with each n
+carrying the *proved* inertia-coset kernel. Both sums are finite, with
+all prime powers and every width w(partner(t,g)) kept in place.
+-/
+
+def alpogeNativeSiteCut {H : Type*} [AddCommGroup H]
+    (a : ℝ) (w : AlpogeNativeE0 × H → ℝ) (t : H)
+    (n : ℕ) (g : AlpogeNativeE0 × H) : ℂ :=
+  ((max (a / (n : ℝ) - w (alpogeNativePartner t g)) 0 : ℝ) : ℂ)
+
+def alpogeNativeFullFourierASK
+    {H : Type*} [AddCommGroup H] [Fintype H] [DecidableEq H]
+    (inertia : ℕ → AddSubgroup (AlpogeNativeE0 × H))
+    (frob : ℕ → AlpogeNativeE0 × H)
+    (N : ℕ) (a : ℝ) (t : H)
+    (w : AlpogeNativeE0 × H → ℝ) : ℂ := by
+  classical
+  exact (1 / ((alpogeNativePhiSet H).card : ℂ)) *
+    ∑ g ∈ Finset.univ.filter (fun g : AlpogeNativeE0 × H =>
+        ¬ alpogeNativeInPhi g),
+      ∑ ψ : AddChar (AlpogeNativeE0 × H) ℂ,
+        starRingEnd ℂ (ψ g) *
+          alpogeNativeFrobInertiaASK inertia frob ψ
+            N a (w (alpogeNativePartner t g))
+
+/-- The SAME physical ASK with the actual Fourier coefficient at each
+prime-power source site n. This is not an assumed image of the original
+count: it is proved equal below by finite character Fubini. -/
+def alpogeNativeFullKernelASK
+    {H : Type*} [AddCommGroup H] [Fintype H] [DecidableEq H]
+    (inertia : ℕ → AddSubgroup (AlpogeNativeE0 × H))
+    (frob : ℕ → AlpogeNativeE0 × H)
+    (N : ℕ) (a : ℝ) (t : H)
+    (w : AlpogeNativeE0 × H → ℝ) : ℂ := by
+  classical
+  exact ∑ n ∈ Finset.Icc 1 N, (Λ n : ℂ) *
+    ∑ g ∈ Finset.univ.filter (fun g : AlpogeNativeE0 × H =>
+        ¬ alpogeNativeInPhi g),
+      alpogeNativeColourKernel inertia frob n g *
+        alpogeNativeSiteCut a w t n g
+
+/-- The exact native physical ASK expansion: every original
+von Mangoldt site and width is retained on both sides, and no
+independence or cancellation estimate is used. -/
+theorem alpogeNativeFullFourierASK_eq_kernel
+    {H : Type*} [AddCommGroup H] [Fintype H] [DecidableEq H]
+    (inertia : ℕ → AddSubgroup (AlpogeNativeE0 × H))
+    (frob : ℕ → AlpogeNativeE0 × H)
+    (N : ℕ) (a : ℝ) (t : H)
+    (w : AlpogeNativeE0 × H → ℝ) :
+    alpogeNativeFullFourierASK inertia frob N a t w =
+      alpogeNativeFullKernelASK inertia frob N a t w := by
+  classical
+  unfold alpogeNativeFullFourierASK alpogeNativeFullKernelASK
+    alpogeNativeFrobInertiaASK
+  change (1 / ((alpogeNativePhiSet H).card : ℂ)) *
+      ∑ g ∈ Finset.univ.filter (fun g : AlpogeNativeE0 × H =>
+          ¬ alpogeNativeInPhi g),
+        ∑ ψ : AddChar (AlpogeNativeE0 × H) ℂ,
+          starRingEnd ℂ (ψ g) *
+            (∑ n ∈ Finset.Icc 1 N,
+              ((Λ n : ℝ) : ℂ) *
+                alpogeNativeFrobInertiaPrimeValue inertia frob ψ n *
+                  alpogeNativeSiteCut a w t n g) =
+      ∑ n ∈ Finset.Icc 1 N,
+        (Λ n : ℂ) * ∑ g ∈ Finset.univ.filter
+          (fun g : AlpogeNativeE0 × H => ¬ alpogeNativeInPhi g),
+            alpogeNativeColourKernel inertia frob n g *
+              alpogeNativeSiteCut a w t n g
+  calc
+    _ = ∑ g ∈ Finset.univ.filter
+        (fun g : AlpogeNativeE0 × H => ¬ alpogeNativeInPhi g),
+      ∑ n ∈ Finset.Icc 1 N,
+        (Λ n : ℂ) * (alpogeNativeColourKernel inertia frob n g *
+          alpogeNativeSiteCut a w t n g) := by
+            rw [Finset.mul_sum]
+            refine Finset.sum_congr rfl (fun g _ => ?_)
+            simp only [alpogeNativeColourKernel, Finset.mul_sum, Finset.sum_mul]
+            rw [Finset.sum_comm]
+            refine Finset.sum_congr rfl
+              (fun n _ => Finset.sum_congr rfl (fun ψ _ => ?_))
+            ring
+    _ = _ := by
+      rw [Finset.sum_comm]
+      simp_rw [Finset.mul_sum]
+
 end RHLean.Analysis
