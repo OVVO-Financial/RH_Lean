@@ -44,11 +44,11 @@ git -C "$WORK_DIR" diff --exit-code HEAD -- src lakefile.toml lean-toolchain
   cd "$WORK_DIR"
   echo '== Upstream original Mathlib cache =='
   lake exe cache get
-  echo '== Building ORIGINAL full Alpoge Main theorem dependency closure =='
-  lake build Main
   echo '== Compiling the COMMON RHLean source with ORIGINAL Lean/Mathlib =='
   lake env lean -o .lake/build/lib/lean/RHLean/AlpogeInterface.olean \
     src/RHLean/AlpogeInterface.lean
+  echo '== Building ORIGINAL full Alpoge Main theorem dependency closure =='
+  lake build Main
   echo '== Compiling THE ORIGINAL proof + RHLean identity in one Lean environment =='
   lake env lean -o .lake/build/lib/lean/RHLean/AlpogeProofAdapter.olean \
     src/RHLean/AlpogeProofAdapter.lean
