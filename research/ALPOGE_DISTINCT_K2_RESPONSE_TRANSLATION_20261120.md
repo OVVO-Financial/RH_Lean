@@ -132,3 +132,34 @@ Related:
 - PR #1160 for complete square/semiprime 2I-J face,
 - PR #1162 for exact Alpöge Gz ↔ reciprocal Λ ↔ full signed
   Selberg source equation.
+
+
+## New exact COMPLETE-source recursion (later commit of this same PR)
+
+The Lean module now also proves:
+
+- all selected carriers 2*p actually belong to [1,X_R] for R>=4;
+- the quotient responses are **ancestral**, p<=t_p<R, not constant E(1);
+- the full ORIGINAL signed K2*E mass splits as selected source
+  plus its true complementary finite filter; no omitted site or sign;
+- the literal existing RH_Lean signed second-Selberg identity therefore
+  becomes the exact recursive source equality
+
+    E(X_R)*log(X_R)^2
+      = S(X_R)*log(X_R) - (Lambda*S)(X_R)
+        + 2*log(2)*sum_(p in P) log(p)*E(t_p)
+        + Other_K2(X_R,P)
+        - floorDefect(X_R),
+
+  for ANY finite P of genuine primes in [R/2,2R/3].
+
+This moves from a free-standing selected submatrix to an EXACT complete
+signed recurrence with injective smaller-scale error observations. It
+directly addresses RH_Lean's earlier "all carriers return E(1)"
+objection, and keeps every missing source term visible.
+
+**It is not yet an exponent gain:** neither the signed complementary
+return nor the fixed-point/root-scale contraction from this new
+recursive equation has been bounded. The witness-based Alpoge
+automorphic topExcess/height/covolume estimates also remain open.
+Exact-head CI required for this strengthened source decomposition.
