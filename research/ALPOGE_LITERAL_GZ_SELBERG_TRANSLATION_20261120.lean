@@ -80,6 +80,17 @@ theorem alpogeNativeGzReal_eq_literal (x : ℝ) :
   unfold alpogeNativeGzReal alpogeLiteralGzReal
   rw [hsource]
 
+/-- At arbitrary real x, the integer Chebyshev error at floor x
+recovers Gz with an EXACT scalar floor correction x-floor(x).
+This avoids silently identifying psi(x)-x with psi(floor x)-floor x. -/
+theorem alpogeNativeGzReal_eq_floor_error (x : ℝ) :
+    alpogeNativeGzReal x =
+      x * (nativeLambdaRecip ⌊x⌋₊ - Real.log x +
+        Real.eulerMascheroniConstant) -
+        nativePNTError ⌊x⌋₊ + (x - (⌊x⌋₊ : ℝ)) := by
+  unfold alpogeNativeGzReal nativePNTError
+  ring
+
 /-- The native representation of exactly the same integer Gz signal. -/
 def alpogeNativeGzInteger (N : ℕ) : ℝ :=
   (N : ℝ) * nativeLambdaRecip N - nativePsi N -
