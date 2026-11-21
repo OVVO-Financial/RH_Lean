@@ -67,7 +67,8 @@ theorem nativeAlpogeGz_eq_centeredHistory
       have hsrc := nativeAlpogeGz_primePowerEndpoint_cancel n
       have hmass := nativePNTWeightedErrorMass_eq n
       unfold nativeAlpogeGz nativeAlpogeCenteredHistory
-      simp only [Nat.succ_eq_add_one, Nat.add_sub_cancel_left]
+      have hsub : n + 1 - 1 = n := by omega
+      simp only [Nat.succ_eq_add_one, hsub]
       rw [hsrc, hmass]
       have hn : ((n + 1 : ℕ) : ℝ) ≠ 0 := by positivity
       field_simp [hn]
