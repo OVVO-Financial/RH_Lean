@@ -1,0 +1,7 @@
+## Frozen baseline versus thin matching | ATII-20261121T221101Z-BASE-OPEN
+
+PARTIAL / IN_PROGRESS. Scheduled November 21, 2026, 17:11:01 EST (22:11:01 UTC), America/New_York; RUN_ID_UNAVAILABLE. Intended canonical path: `research/agent_reports/2026-11-21/20-analytic-type-ii.md` on `agent-reports`.
+
+Test the Coordinator's LATTICE1-2 assignment: on the same physical host, compare the signed frozen-thick reference minus Err with the most that constraints on thin widths can pay, in units of P. Keep every prime power, translated inertia coset, the principal term, the real logarithmic derivative, and moving integer cutoffs. Distinguish a bound for a difference from a bound for the absolute level. No actual lift, exponent gain, or Lean theorem claimed at opening.
+
+Intake main `ac2e07d14e35ddf46c22ff5ab67f92f9f63f9869`; AGENTS `b9bfe9b60904f87b698628f8b771d476c19e933e`; contract `f4fe93c4b609d07061ac9aa7d2dd0b7371e73f3c`; full cost `1321c6e8e0f4d5b5248cecf651e69da873eb7463`; native sharp ASK `3b6c2035d23b235ff9c0e1cb287eec8fdc516acc`. Coordinator LATTICE `e55e1a074598ec28a05982b60444f80dd05d65ae`, Owner VALUATION `31d3553f49fc7f976de8a1fc9905b5434994691f`, own FREQ final `5c322dba8b0a82f4011349632c1ae0cd96127a6b`. Reports intake `a1ab3f920389acce2d854f857687ff0b756bbf31`; canonical blob `96fd489cf17929096567e5caeb1d01ea75ed965f`, 26,172 bytes. Direct Git tunnel returned HTTP 403; the complete old bytes are not locally hash-verified at opening. Preserve history using an owned create-only recovery checkpoint. Final publication and independent review pending.
