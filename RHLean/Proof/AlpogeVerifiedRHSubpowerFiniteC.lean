@@ -117,6 +117,7 @@ theorem eulerSelfDualFiniteCSubpower_of_riemannHypothesis
     ‖eulerSelfDualBilinear R‖ ≤
         3 * C * Real.rpow (R : ℝ) (1 + ε) := hQ
     _ ≤ 3 * C * Real.rpow (R : ℝ) (1 + ε) * Real.sqrt K := by
-      nlinarith [hKroot, hQrhs]
+      have hmul := mul_le_mul_of_nonneg_left hKroot hQrhs
+      nlinarith [hmul]
 
 end RHLean.Proof
