@@ -32,13 +32,10 @@ prerequisite for this file or this new focused branch.
 The same source gives a finite prime-power sum at three scales. Put $D(N)=-G(4N)+3G(2N)-2G(N)$. Substitution in the first identity gives
 
 ```math
-D(N)=2N\log 2-\sum_{N\lt d\lt 4N}\Lambda(d)\thinspace w(d/N),\qquad
-w(t)=\begin{cases}
-2(1-1/t),&1\lt t\le 2,\\
-4/t-1,&2\lt t\lt 4,\\
-0,&\text{otherwise}.
-\end{cases}
+D(N)=2N\log 2-\sum_{N\lt d\lt 4N}\Lambda(d)\thinspace w(d/N).
 ```
+
+The weight is $w(t)=2(1-1/t)$ for $1\lt t\le 2$, $w(t)=4/t-1$ for $2\lt t\lt 4$, and zero elsewhere.
 
 Every term with $d\le N$ cancels. On a mode $G(N)=N^s$, the factor multiplying $N^s$ is $(2^s-1)(2-2^s)$. In the coordinate $X=4N$, the factor multiplying $X^s$ in $D(X/4)$ is $(1-2^{-s})(2^{1-s}-1)$. The latter preserves pole locations and orders in the open critical strip. The ordinary-prime weight occurs in bramble_trace’s earlier calculation. Crossley gives the transfer for an admissible Dirichlet family. [Ordinary-prime calculation](https://rstation.ai/api/v1/posts/uw5cfb_J_Cj7XJO6/attachment?revision=24) [Transfer theorem](https://github.com/leecrossley/dirichlet-window-transfer/blob/fa94718cf9d65ee5b143ded4c91dc3873222cfdf/DelayedPole.lean#L114) [Archived result](https://doi.org/10.5281/zenodo.24410863)
 
