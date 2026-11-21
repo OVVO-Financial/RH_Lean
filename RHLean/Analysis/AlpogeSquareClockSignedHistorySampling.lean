@@ -53,8 +53,9 @@ theorem nativeAlpogeGz_primePowerEndpoint_cancel (n : ℕ) :
         nativePsi n := by
   rw [nativeLambdaRecip_succ, nativePsi_succ]
   have hn : ((n + 1 : ℕ) : ℝ) ≠ 0 := by positivity
+  push_cast
   field_simp [hn]
-  ring
+  ring_nf
 
 /-- Original Gz equals N times the entire native signed reciprocal
 history at EVERY integer endpoint N>=1; no analytic estimate occurs. -/
@@ -68,11 +69,12 @@ theorem nativeAlpogeGz_eq_centeredHistory
       have hmass := nativePNTWeightedErrorMass_eq n
       unfold nativeAlpogeGz nativeAlpogeCenteredHistory
       have hsub : n + 1 - 1 = n := by omega
-      simp only [Nat.succ_eq_add_one, hsub]
+      simp only [hsub]
       rw [hsrc, hmass]
       have hn : ((n + 1 : ℕ) : ℝ) ≠ 0 := by positivity
+      push_cast
       field_simp [hn]
-      ring
+      ring_nf
 
 /-- Exact original-source one-step first difference. -/
 theorem nativeAlpogeGz_succ_sub (n : ℕ) :
@@ -90,8 +92,8 @@ theorem nativeAlpogeGz_succ_sub (n : ℕ) :
     push_cast at hsource ⊢
     nlinarith only [hsource]
   unfold nativeAlpogeGz
-  push_cast
-  nlinarith only [hsrc]
+  push_cast at hsrc ⊢
+  linear_combination hsrc
 
 /-- **Direct arithmetic second derivative of the complete original Gz.**
 The discrete curvature is exactly the genuine prime-power spike
@@ -110,7 +112,7 @@ theorem nativeAlpogeGz_secondDifference_primePower (n : ℕ) :
   have hprev := nativeAlpogeGz_succ_sub n
   have hprime := nativeLambdaRecip_succ n
   push_cast at hnext hprev hprime ⊢
-  nlinarith only [hnext, hprev, hprime]
+  linear_combination hnext - hprev + hprime
 
 /-- Safe nonnegative upward slope for the original signed source. -/
 def nativeAlpogeSafeSlope : ℝ :=
@@ -196,7 +198,10 @@ theorem nativeOneSidedSquareClock_sampling
       ((2 * R + 1 : ℕ) : ℝ) := by
     exact_mod_cast hgap
   have hscale := mul_le_mul_of_nonneg_left hcast hL
-  exact h.trans (add_le_add_left hscale _)
+  calc
+    f N ≤ f (R ^ 2 - 1) + L * (((N - (R ^ 2 - 1) : ℕ) : ℝ)) := h
+    _ ≤ f (R ^ 2 - 1) + L * ((2 * R + 1 : ℕ) : ℝ) := by
+      linarith only [hscale]
 
 /-- Apply square-clock sampling to the ENTIRE genuine Gz, not a selected
 convolution band. Unconditional O(sqrt N) INTERPOLATION ERROR. -/
@@ -229,6 +234,10 @@ theorem nativeAlpogeGz_of_squareClock_bound
   have hR := (nativeSquareClock_anchor_gap N R hN hlo hhi).1
   have hsample := nativeAlpogeGz_squareClock_sampling N hN
   dsimp at hsample
-  exact hsample.trans (add_le_add_right (hU R hR) _)
+  calc
+    nativeAlpogeGz N ≤ nativeAlpogeGz (R ^ 2 - 1) +
+        nativeAlpogeSafeSlope * ((2 * R + 1 : ℕ) : ℝ) := hsample
+    _ ≤ U R + nativeAlpogeSafeSlope * ((2 * R + 1 : ℕ) : ℝ) := by
+      linarith only [hU R hR]
 
 end RHLean.Analysis
