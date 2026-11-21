@@ -72,5 +72,30 @@ class CacheContractTest(unittest.TestCase):
         self.assertIn("complete-only: 'true'", source)
 
 
+
+    def test_legacy_openai_seven_eighths_workflows_are_manual_only(self):
+        root = Path(__file__).resolve().parent.parent
+        names = [
+          "vf919-oai-certified-core-434.yml",
+          "vf919-openai-full-certified-seven-eighths-434.yml",
+          "explicit-slot-amplification.yml",
+          "oai-compiled-cache-foundation-434.yml",
+          "oai-gaussian-nns-typed-434.yml",
+          "vf919-seven-eighths-signed-covariance.yml",
+          "vf-mid-seven-eighths-analytic.yml",
+          "vf919-total-mass-endpoint.yml",
+          "quantitative-physical-tilt.yml"
+]
+        for name in names:
+            path = root / ".github" / "workflows" / name
+            content = path.read_text(encoding="utf-8")
+            # CI logic remains preserved in these manual-only workflows.
+            self.assertIn("on:\n", content, name)
+            self.assertIn("  workflow_dispatch:", content, name)
+            trigger = content.split("\non:\n", 1)[1].split("\npermissions:", 1)[0]
+            for forbidden in ("  pull_request:", "  push:", "  schedule:"):
+                self.assertNotIn(forbidden, trigger, name)
+
+
 if __name__ == "__main__":
     unittest.main()
