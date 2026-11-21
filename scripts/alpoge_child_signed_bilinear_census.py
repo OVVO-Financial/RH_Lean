@@ -105,8 +105,8 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--roots", type=int, nargs="+", default=[317, 549, 1027, 3000, 10000, 30000])
     args = parser.parse_args()
-    if any(R < 4 for R in args.roots):
-        parser.error("R must be >= 4")
+    if any(R < 8 for R in args.roots):
+        parser.error("R must be >= 8 for a nonempty child-prime band")
     print(json.dumps(census(args.roots), indent=2))
 
 
