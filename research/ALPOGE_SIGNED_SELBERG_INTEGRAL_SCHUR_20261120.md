@@ -197,9 +197,9 @@ into Alpoge's covolume theorem.
   entries, with the REAL source matrix D*(2I-J)*D.
 - scripts/alpoge_selberg_schur_lattice_regression.py validates all
   finite integer, logarithmic and quotient source claims.
-- independent local full convolution:
-  /mnt/data/alpoge_selberg_full_source_check.py was run in the
-  working environment and is NOT imported as a formal proof.
+- scripts/alpoge_selberg_complete_return_audit.py reconstructs the FULL
+  numerical prime-power K2*E convolution and verifies the selected face
+  term-by-term against all other K2 sources; it is NOT an analytic proof.
 
 Exact-head CI and adversarial review required. Do NOT classify
 this finite signed supplier as a proved RH-strength global exponent,
