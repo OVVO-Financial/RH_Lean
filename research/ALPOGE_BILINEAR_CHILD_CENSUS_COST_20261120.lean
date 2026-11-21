@@ -49,6 +49,7 @@ theorem alpogeWeightedError_eq_lambdaCenteredBilinear
     have hcard :
         (∑ n ∈ Finset.Icc 1 (t p), (1 : ℝ)) = (t p : ℝ) := by
       simp
+    have htN : t p ≤ N := ht p hp
     have hfilter :
         (Finset.Icc 1 N).filter (fun n => n ≤ t p) =
           Finset.Icc 1 (t p) := by
@@ -139,7 +140,7 @@ theorem alpogeBilinearSelectedSource_eq_primeCensus
   unfold alpogeBilinearPrimeIncidence alpogeBilinearChildCensus
   apply Finset.sum_congr rfl
   intro p hp
-  rw [alpogeBilinearFloor_iff_carrier R p n (hP p hp)]
+  simp only [alpogeBilinearFloor_iff_carrier R p n (hP p hp)]
 
 /-- Purely algebraic coherence counterexample: distinct labels do not
 supply square-root cancellation. A constant-sign vector has square
