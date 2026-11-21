@@ -1,7 +1,5 @@
 import Mathlib
 import RHLean.Analysis.NativePNTSignedSecondSelberg
-import research.MASULLO_EULER_TRACE_SOURCE_20261120
-import research.ALPOGE_SIGNED_SELBERG_INTEGRAL_SCHUR_20261120
 
 /-!
 # Literal Alpoge Gz -> native Euler -> full signed Selberg bridge
@@ -25,6 +23,23 @@ noncomputable section
 open scoped ArithmeticFunction.Moebius ArithmeticFunction.vonMangoldt BigOperators
 
 namespace RHLean.Analysis
+
+/-- The already-certified finite Euler/Moebius coefficient identity from
+PR #1156, reproduced under the native module boundary because this
+research closure cannot import flattened research.NAME oleans. -/
+theorem alpogeNativeMoebius_mul_log_eq_lambda :
+    (μ : ArithmeticFunction ℝ) * ArithmeticFunction.log = Λ := by
+  calc
+    (μ : ArithmeticFunction ℝ) * ArithmeticFunction.log =
+        (μ : ArithmeticFunction ℝ) *
+          (((ArithmeticFunction.zeta : ArithmeticFunction ℕ) : ArithmeticFunction ℝ) * Λ) := by
+            rw [ArithmeticFunction.zeta_mul_vonMangoldt]
+    _ = ((μ : ArithmeticFunction ℝ) *
+          ((ArithmeticFunction.zeta : ArithmeticFunction ℕ) : ArithmeticFunction ℝ)) * Λ := by
+            ring
+    _ = Λ := by
+      rw [ArithmeticFunction.coe_moebius_mul_coe_zeta]
+      simp
 
 /-- Literal published Gz at a natural endpoint; the finite source of
 Formalism.Gz in the RH_Lean mathlib environment. -/
@@ -65,7 +80,7 @@ theorem alpogeNativeGzInteger_eq_moebius (N : ℕ) :
           ((N : ℝ) / (n : ℝ) - 1)) -
         (N : ℝ) * Real.log (N : ℝ) +
         (1 + Real.eulerMascheroniConstant) * (N : ℝ) := by
-  rw [masulloMoebius_mul_log_eq_lambda]
+  rw [alpogeNativeMoebius_mul_log_eq_lambda]
   exact alpogeNativeGzInteger_eq_literal N
 
 /-- Gz equals the FULL reciprocal-Lambda channel minus the ACTUAL
@@ -104,11 +119,17 @@ theorem alpogeNativeGzInteger_mul_log_sq (N : ℕ) :
     alpogeNativeCompleteSecondSelberg_eq_chebyshev]
   ring
 
+/-- The exact native definition of PR #1160's 3R/4 <= p < R
+physical prime band. This is local because the research-closure cannot
+directly import flattened research oleans. -/
+def alpogeNativePrimeBand (R p : ℕ) : Prop :=
+  p.Prime ∧ 3 * R ≤ 4 * p ∧ p < R
+
 /-- Every selected site is an ACTUAL product of prime owners. -/
 def alpogeNativeBandSite (R n : ℕ) : Prop :=
   ∃ p q : ℕ,
-    AlpogeSelbergPrimeBand R p ∧
-    AlpogeSelbergPrimeBand R q ∧ n = p * q
+    alpogeNativePrimeBand R p ∧
+    alpogeNativePrimeBand R q ∧ n = p * q
 
 /-- Signed K2*E for the selected physical square+semiprime band. -/
 def alpogeNativeBandSecondSelberg (R : ℕ) : ℝ := by
