@@ -1,4 +1,6 @@
+import RHLean.AlpogeInterface
 import RHLean.Analysis.AffineExcursion
+import RHLean.Analysis.AlpogeUnifiedNativeBridge
 import RHLean.Analysis.BalancedPrimeBilinearCentering
 import RHLean.Analysis.BlockCovarianceDecomposition
 import RHLean.Analysis.BlockCovarianceRefinement
