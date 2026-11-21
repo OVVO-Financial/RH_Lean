@@ -31,6 +31,17 @@ theorem gz_eq_upstream_Alpoge_Gz (x : ℝ) :
   rw [gz_eq_vonMangoldtWeightedSum]
   rfl
 
+/-- ORIGINAL Alpöge Gz expressed in the true RHLean Chebyshev error
+coordinates, inside the very same kernel that imports his finished RH proof.
+This is the exact Gz-to-Selberg shared source hook. -/
+theorem originalAlpoge_Gz_eq_native_error (x : ℝ) :
+    Formalism.Gz x =
+      x * (lambdaRecip ⌊x⌋₊ - Real.log x +
+        Real.eulerMascheroniConstant) -
+        error ⌊x⌋₊ + (x - (⌊x⌋₊ : ℝ)) := by
+  rw [← gz_eq_upstream_Alpoge_Gz]
+  exact gz_eq_reciprocal_sub_error x
+
 /-- Literal cross-project Riemann Hypothesis theorem. The proof term
 is the ORIGINAL upstream rhOfAll, whose dependency tree contains
 UpperTheory.FinalTheorems.everyCharacter and all geometric inputs.
