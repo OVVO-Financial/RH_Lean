@@ -371,4 +371,98 @@ theorem alpogeNativeFrobInertiaASK_eq_primeSum
         alpogeNativeFrobInertiaPrimeValue inertia frob ψ n)
       N a W ha hW hN)
 
+
+/-- Native reconstruction of published GPsi: its principal mode is the
+literal native Gz, and its other modes retain the full Frobenius/inertia
+prime-power source plus their analytic logarithmic-derivative constant.
+No estimate on that constant is asserted. -/
+def alpogeNativeFrobInertiaGPsi
+    {G : Type*} [AddCommGroup G] [Fintype G] [DecidableEq G]
+    (inertia : ℕ → AddSubgroup G) (frob : ℕ → G)
+    (ell : AddChar G ℂ → ℂ) (ψ : AddChar G ℂ) (x : ℝ) : ℂ := by
+  classical
+  exact if ψ = 0 then (alpogeNativeGzArithmetic x : ℂ)
+    else alpogeNativeFrobInertiaPrimeSum inertia frob ψ x +
+      (x : ℂ) * ell ψ
+
+theorem alpogeNativeFrobInertiaGPsi_principal
+    {G : Type*} [AddCommGroup G] [Fintype G] [DecidableEq G]
+    (inertia : ℕ → AddSubgroup G) (frob : ℕ → G)
+    (ell : AddChar G ℂ → ℂ) (x : ℝ) :
+    alpogeNativeFrobInertiaGPsi inertia frob ell 0 x =
+      (alpogeNativeGzArithmetic x : ℂ) := by
+  classical
+  simp [alpogeNativeFrobInertiaGPsi]
+
+theorem alpogeNativeFrobInertiaGPsi_nonprincipal
+    {G : Type*} [AddCommGroup G] [Fintype G] [DecidableEq G]
+    (inertia : ℕ → AddSubgroup G) (frob : ℕ → G)
+    (ell : AddChar G ℂ → ℂ) (ψ : AddChar G ℂ) (x : ℝ)
+    (hψ : ψ ≠ 0) :
+    alpogeNativeFrobInertiaGPsi inertia frob ell ψ x =
+      alpogeNativeFrobInertiaPrimeSum inertia frob ψ x +
+        (x : ℂ) * ell ψ := by
+  classical
+  simp [alpogeNativeFrobInertiaGPsi, hψ]
+
+/-- The original ASK-to-GPsi identity, with the full Frobenius/inertia
+prime-power source and the exact ell correction, proved directly. -/
+theorem alpogeNativeFrobInertiaASK_eq_GPsi_nonprincipal
+    {G : Type*} [AddCommGroup G] [Fintype G] [DecidableEq G]
+    (inertia : ℕ → AddSubgroup G) (frob : ℕ → G)
+    (ell : AddChar G ℂ → ℂ) (ψ : AddChar G ℂ)
+    (N : ℕ) (a W : ℝ) (hψ : ψ ≠ 0)
+    (ha : 0 < a) (hW : 0 < W) (hN : a / W ≤ (N : ℝ)) :
+    alpogeNativeFrobInertiaASK inertia frob ψ N a W =
+      (W : ℂ) * alpogeNativeFrobInertiaGPsi inertia frob ell ψ (a / W) -
+        (a : ℂ) * ell ψ := by
+  have hWa : W * (a / W) = a := by field_simp
+  have hWaC : (W : ℂ) * ((a / W : ℝ) : ℂ) = (a : ℂ) := by
+    rw [← Complex.ofReal_mul, hWa]
+  calc
+    alpogeNativeFrobInertiaASK inertia frob ψ N a W =
+        (W : ℂ) * alpogeNativeFrobInertiaPrimeSum inertia frob ψ (a / W) :=
+      alpogeNativeFrobInertiaASK_eq_primeSum inertia frob ψ N a W ha hW hN
+    _ = (W : ℂ) * alpogeNativeFrobInertiaGPsi inertia frob ell ψ (a / W) -
+          (a : ℂ) * ell ψ := by
+      rw [alpogeNativeFrobInertiaGPsi_nonprincipal inertia frob ell ψ (a / W) hψ]
+      rw [mul_add, ← mul_assoc, hWaC]
+      ring
+
+/-- The exact four-character Gsig used in the published proof, now
+using original additive-character Frobenius/inertia values rather than
+ordinary Dirichlet characters at exceptional primes. -/
+def alpogeNativeFrobInertiaGsig
+    {G : Type*} [AddCommGroup G] [Fintype G] [DecidableEq G]
+    (inertia : ℕ → AddSubgroup G) (frob : ℕ → G)
+    (ell : AddChar G ℂ → ℂ)
+    (ψA ψB : AddChar G ℂ) (x : ℝ) : ℂ :=
+  alpogeNativeFrobInertiaGPsi inertia frob ell 0 x +
+    alpogeNativeFrobInertiaGPsi inertia frob ell ψB x -
+    alpogeNativeFrobInertiaGPsi inertia frob ell ψA x -
+    alpogeNativeFrobInertiaGPsi inertia frob ell (ψA + ψB) x
+
+/-- All FOUR actual character channels, including the principal Gz
+and every ramified Frobenius/inertia prime power, with the ell constants
+retained exactly rather than bounded or discarded. -/
+theorem alpogeNativeFrobInertiaGsig_eq_complete
+    {G : Type*} [AddCommGroup G] [Fintype G] [DecidableEq G]
+    (inertia : ℕ → AddSubgroup G) (frob : ℕ → G)
+    (ell : AddChar G ℂ → ℂ)
+    (ψA ψB : AddChar G ℂ) (x : ℝ)
+    (hA : ψA ≠ 0) (hB : ψB ≠ 0)
+    (hAB : ψA + ψB ≠ 0) :
+    alpogeNativeFrobInertiaGsig inertia frob ell ψA ψB x =
+      (alpogeNativeGzArithmetic x : ℂ) +
+        alpogeNativeFrobInertiaPrimeSum inertia frob ψB x -
+        alpogeNativeFrobInertiaPrimeSum inertia frob ψA x -
+        alpogeNativeFrobInertiaPrimeSum inertia frob (ψA + ψB) x +
+        (x : ℂ) * (ell ψB - ell ψA - ell (ψA + ψB)) := by
+  rw [alpogeNativeFrobInertiaGsig,
+    alpogeNativeFrobInertiaGPsi_principal,
+    alpogeNativeFrobInertiaGPsi_nonprincipal inertia frob ell ψB x hB,
+    alpogeNativeFrobInertiaGPsi_nonprincipal inertia frob ell ψA x hA,
+    alpogeNativeFrobInertiaGPsi_nonprincipal inertia frob ell (ψA + ψB) x hAB]
+  ring
+
 end RHLean.Analysis
