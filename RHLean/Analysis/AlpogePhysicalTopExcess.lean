@@ -42,7 +42,7 @@ def alpogePhysicalCompleteDeAverage
     (inertia : ℕ → AddSubgroup (AlpogeNativeE0 × H))
     (frob : ℕ → AlpogeNativeE0 × H)
     (ell : AddChar (AlpogeNativeE0 × H) ℂ → ℂ)
-    (N : ℕ) {m : ℕ} (TT : Finset H) (a : H → ℝ)
+    (_N : ℕ) {m : ℕ} (TT : Finset H) (a : H → ℝ)
     (w : H → Fin m → AlpogeNativeE0 × H → ℝ) : ℝ :=
   (1 / (Fintype.card H : ℝ)) *
     ∑ u : H, ∑ t ∈ TT, ∑ j : Fin m,
@@ -82,7 +82,7 @@ def alpogePhysicalCompleteDePositiveBudget
     (inertia : ℕ → AddSubgroup (AlpogeNativeE0 × H))
     (frob : ℕ → AlpogeNativeE0 × H)
     (ell : AddChar (AlpogeNativeE0 × H) ℂ → ℂ)
-    (N : ℕ) {m : ℕ} (TT : Finset H) (a : H → ℝ)
+    (_N : ℕ) {m : ℕ} (TT : Finset H) (a : H → ℝ)
     (w : H → Fin m → AlpogeNativeE0 × H → ℝ) : ℝ :=
   (1 / (Fintype.card H : ℝ)) *
     ∑ u : H, ∑ t ∈ TT, ∑ j : Fin m,
