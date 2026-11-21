@@ -18,7 +18,7 @@ private theorem frobValIff {N p : ℕ} [NeZero N] (u : (ZMod N)ˣ) :
 theorem alpogeNativeFrobUnit_spec (N p : ℕ) (hN : N ≠ 0) (hp : p.Prime) :
     alpogeNativeIsFrobUnit N p (alpogeNativeFrobUnit N p) ∧
       ∀ u, alpogeNativeIsFrobUnit N p u → u = alpogeNativeFrobUnit N p := by
-  letI : NeZero N := ⟨hN⟩
+  have : NeZero N := ⟨hN⟩
   have hB := Nat.coprime_ordCompl hp hN
   have hAB : (ordProj[p] N).Coprime (ordCompl[p] N) := hB.pow_left _
   let k := Nat.chineseRemainder hAB 1 p
@@ -59,13 +59,28 @@ theorem alpogeNativeFrobUnit_image_iff {G : Type*} [Group G] (N p i : ℕ)
     g / r (alpogeNativeFrobUnit N p) ^ i ∈ (alpogeNativeLocalUnits N p).map r ↔
       ∃ u : (ZMod N)ˣ, r u = g ∧
         ((u : ZMod N).cast : ZMod (ordCompl[p] N)) = (p : ZMod (ordCompl[p] N)) ^ i := by
+  rw [Subgroup.mem_map]
   constructor
   · rintro ⟨v, hv, he⟩
     refine ⟨v * (alpogeNativeFrobUnit N p) ^ i, ?_, (alpogeNativeFrobUnit_coset_iff N p i hN hp _).1 ?_⟩
     · rw [map_mul, map_pow, he, div_mul_cancel]
-    · simpa only [mul_div_cancel_right] using hv
+    · rwa [mul_div_cancel_right]
   · rintro ⟨u, rfl, hu⟩
     exact ⟨u / (alpogeNativeFrobUnit N p) ^ i, (alpogeNativeFrobUnit_coset_iff N p i hN hp u).2 hu,
       by rw [map_div, map_pow]⟩
+
+/-- The actual inertia kernel detects exactly the primes of the primitive conductor. -/
+theorem alpogeNativeLocalUnits_le_ker_iff (N p : ℕ) (hN : N ≠ 0) (hp : p.Prime)
+    (χ : DirichletCharacter ℂ N) :
+    alpogeNativeLocalUnits N p ≤ χ.toUnitHom.ker ↔ ¬ p ∣ χ.conductor := by
+  have : NeZero N := ⟨hN⟩
+  calc
+    alpogeNativeLocalUnits N p ≤ χ.toUnitHom.ker ↔ χ.FactorsThrough (ordCompl[p] N) :=
+      (DirichletCharacter.factorsThrough_iff_ker_unitsMap (χ := χ) (Nat.ordCompl_dvd N p)).symm
+    _ ↔ χ.conductor ∣ ordCompl[p] N :=
+      DirichletCharacter.mem_conductorSet_iff_conductor_dvd χ (Nat.ordCompl_dvd N p)
+    _ ↔ ¬ p ∣ χ.conductor :=
+      ⟨fun hd h => Nat.not_dvd_ordCompl hp hN (h.trans hd),
+       Nat.dvd_ordCompl_of_dvd_not_dvd χ.conductor_dvd_level⟩
 
 end RHLean.Analysis

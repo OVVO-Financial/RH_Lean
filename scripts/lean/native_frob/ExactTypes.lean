@@ -20,6 +20,10 @@ example {G : Type*} [Group G] (N p i : ℕ) (hn : N ≠ 0) (hp : p.Prime)
         ((u : ZMod N).cast : ZMod (ordCompl[p] N)) = (p : ZMod (ordCompl[p] N)) ^ i :=
   alpogeNativeFrobUnit_image_iff N p i hn hp r g
 
+example (N p : ℕ) (hn : N ≠ 0) (hp : p.Prime) (χ : DirichletCharacter ℂ N) :
+    alpogeNativeLocalUnits N p ≤ χ.toUnitHom.ker ↔ ¬ p ∣ χ.conductor :=
+  alpogeNativeLocalUnits_le_ker_iff N p hn hp χ
+
 example : alpogeNativeFrobUnit 12 2 = ZMod.unitOfCoprime 5 (by decide) := by
   symm
   apply (alpogeNativeFrobUnit_spec 12 2 (by decide) Nat.prime_two).2
