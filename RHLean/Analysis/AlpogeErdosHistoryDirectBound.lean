@@ -50,8 +50,8 @@ theorem alpogeErdosGz_succ_sub
     push_cast at hsource ⊢
     nlinarith only [hsource]
   unfold alpogeErdosGz
-  push_cast
-  nlinarith only [hsrc]
+  push_cast at hsrc ⊢
+  linear_combination hsrc
 
 /-- The correct-sign, one-step RH-critical movement bound on the
 COMPLETE signed prefix, proved directly from native Mertens 1. -/
