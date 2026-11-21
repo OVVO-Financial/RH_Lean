@@ -146,4 +146,60 @@ theorem alpogeASKPrimePowerMidpointGap_le_collar
         (a / (n : ℝ)) b B hbB).2
       ArithmeticFunction.vonMangoldt_nonneg
 
+/-- Full original sharp principal ASK minus its logarithmic MAIN
+width correction, up to terms independent of the width. The plus
+a*log(w) sign is essential: MAIN contains -a*log(w). -/
+def alpogeASKPrincipalWidthBalance
+    (N : ℕ) (a w : ℝ) : ℝ :=
+  (∑ n ∈ Finset.Icc 2 N,
+    Λ n * alpogeASKPos (a / (n : ℝ)) w) + a * Real.log w
+
+/-- The nonnegative Jensen loss from moving the logarithmic MAIN
+width to the midpoint. It is subtracted, not added, when ASK and
+MAIN are reunited in the original source. -/
+def alpogeASKMainLogJensenLoss
+    (a b B : ℝ) : ℝ :=
+  a * (Real.log ((b + B) / 2) -
+    (Real.log b + Real.log B) / 2)
+
+/-- **Exact source-level ASK-MAIN cancellation** at two widths.
+The positive von Mangoldt ASK collar and positive logarithmic MAIN
+Jensen loss enter with OPPOSITE SIGNS. This is not the result of
+separately estimating the pieces; the subtraction is an identity
+for the complete native prime-power source, including ramification.
+No assumption on the sizes of the positive losses is used. -/
+theorem alpogeASKPrincipalBalance_midpoint_eq_signed_losses
+    (N : ℕ) (a b B : ℝ) :
+    (alpogeASKPrincipalWidthBalance N a b +
+      alpogeASKPrincipalWidthBalance N a B) / 2 -
+      alpogeASKPrincipalWidthBalance N a ((b + B) / 2) =
+    alpogeASKPrimePowerMidpointGap N a b B -
+      alpogeASKMainLogJensenLoss a b B := by
+  unfold alpogeASKPrincipalWidthBalance
+    alpogeASKMainLogJensenLoss
+    alpogeASKPrimePowerMidpointGap
+  have hs :
+      ((∑ n ∈ Finset.Icc 2 N,
+           Λ n * alpogeASKPos (a / (n : ℝ)) b) +
+       (∑ n ∈ Finset.Icc 2 N,
+           Λ n * alpogeASKPos (a / (n : ℝ)) B)) / 2 -
+       (∑ n ∈ Finset.Icc 2 N,
+           Λ n * alpogeASKPos (a / (n : ℝ)) ((b + B) / 2)) =
+       ∑ n ∈ Finset.Icc 2 N,
+         Λ n * alpogeASKMidpointGap (a / (n : ℝ)) b B := by
+    calc
+      _ = ∑ n ∈ Finset.Icc 2 N,
+            ((Λ n * alpogeASKPos (a / (n : ℝ)) b +
+               Λ n * alpogeASKPos (a / (n : ℝ)) B) / 2 -
+               Λ n * alpogeASKPos (a / (n : ℝ)) ((b + B) / 2)) := by
+            rw [Finset.sum_sub_distrib, ← Finset.sum_div,
+              Finset.sum_add_distrib]
+      _ = _ := by
+            apply Finset.sum_congr rfl
+            intro n _hn
+            unfold alpogeASKMidpointGap
+            ring
+  rw [← hs]
+  ring
+
 end RHLean.Analysis
