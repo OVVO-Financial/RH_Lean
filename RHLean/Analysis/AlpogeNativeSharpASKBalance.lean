@@ -245,4 +245,125 @@ theorem alpogeNativeFourSharpASK_eq_selected_plus_ramified
   rw [alpogeNativeFourSharpASK_eq_weightedTrace χA χB N a W ha hW hN,
     alpogeNativeFourTrace_quadratic_exact χA χB hA hB]
 
+
+/-!
+## Original Frobenius/inertia character source (no external theorem imported)
+
+Alpoge's primVal is NOT an ordinary DirichletCharacter. It averages an
+additive character over the actual inertia subgroup of a finite
+Frobenius group, then multiplies these local means over n.primeFactors.
+The definitions below reconstruct precisely that arithmetic operation
+using the same native Lambda(n) and sharp a/n-W cutoff as above.
+-/
+
+/-- Original inertia-coset average, with the entire inertia subgroup
+retained even at ramified primes. -/
+def alpogeNativeInertiaCosetMean
+    {G : Type*} [AddCommGroup G] [Fintype G] [DecidableEq G]
+    (I : AddSubgroup G) (a : G) (ψ : AddChar G ℂ) : ℂ := by
+  classical
+  exact (∑ u ∈ (Finset.univ.filter (fun u : G => u ∈ I)),
+    ψ (a + u)) /
+      (((Finset.univ.filter (fun u : G => u ∈ I)).card : ℕ) : ℂ)
+
+/-- Exact Frobenius character times its full inertia projector.
+This identity does not assume the prime is unramified, and it does
+not silently turn a ramified character value into zero. -/
+theorem alpogeNativeInertiaCosetMean_split
+    {G : Type*} [AddCommGroup G] [Fintype G] [DecidableEq G]
+    (I : AddSubgroup G) (a : G) (ψ : AddChar G ℂ) :
+    alpogeNativeInertiaCosetMean I a ψ =
+      ψ a * ((∑ u ∈ (Finset.univ.filter (fun u : G => u ∈ I)),
+        ψ u) /
+          (((Finset.univ.filter (fun u : G => u ∈ I)).card : ℕ) : ℂ)) := by
+  classical
+  unfold alpogeNativeInertiaCosetMean
+  calc
+    (∑ u ∈ (Finset.univ.filter (fun u : G => u ∈ I)),
+        ψ (a + u)) /
+        (((Finset.univ.filter (fun u : G => u ∈ I)).card : ℕ) : ℂ) =
+      (ψ a * (∑ u ∈ (Finset.univ.filter (fun u : G => u ∈ I)),
+        ψ u)) /
+        (((Finset.univ.filter (fun u : G => u ∈ I)).card : ℕ) : ℂ) := by
+          congr 1
+          rw [Finset.mul_sum]
+          apply Finset.sum_congr rfl
+          intro u _hu
+          exact AddChar.map_add_eq_mul ψ a u
+    _ = _ := by ring
+
+/-- Unramified inertia is the zero subgroup; its character mean is
+the actual Frobenius value, not an additional character hypothesis. -/
+theorem alpogeNativeInertiaCosetMean_unramified
+    {G : Type*} [AddCommGroup G] [Fintype G] [DecidableEq G]
+    (a : G) (ψ : AddChar G ℂ) :
+    alpogeNativeInertiaCosetMean (⊥ : AddSubgroup G) a ψ = ψ a := by
+  classical
+  simp [alpogeNativeInertiaCosetMean]
+
+/-- Reconstructed original primVal(D,ψ,n): the complete product of
+inertia-coset means on n's physical prime factors. -/
+def alpogeNativeFrobInertiaPrimeValue
+    {G : Type*} [AddCommGroup G] [Fintype G] [DecidableEq G]
+    (inertia : ℕ → AddSubgroup G) (frob : ℕ → G)
+    (ψ : AddChar G ℂ) (n : ℕ) : ℂ :=
+  ∏ p ∈ n.primeFactors,
+    alpogeNativeInertiaCosetMean (inertia p)
+      (n.factorization p • frob p) ψ
+
+/-- On a genuine prime power, the multiplicative native valuation
+is exactly Alpoge's one Frobenius/inertia coset mean. -/
+theorem alpogeNativeFrobInertiaPrimeValue_primePower
+    {G : Type*} [AddCommGroup G] [Fintype G] [DecidableEq G]
+    (inertia : ℕ → AddSubgroup G) (frob : ℕ → G)
+    (ψ : AddChar G ℂ) (p i : ℕ)
+    (hp : p.Prime) (hi : 0 < i) :
+    alpogeNativeFrobInertiaPrimeValue inertia frob ψ (p ^ i) =
+      alpogeNativeInertiaCosetMean (inertia p) (i • frob p) ψ := by
+  have hpf : (p ^ i).primeFactors = {p} := by
+    rw [Nat.primeFactors_pow p hi.ne']
+    simp [hp]
+  simp [alpogeNativeFrobInertiaPrimeValue, hpf,
+    Nat.factorization_pow_self hp]
+
+/-- Physical prime-power GPsi source, before the L-derivative main
+term and before any geometric height or width bound is applied. -/
+def alpogeNativeFrobInertiaPrimeSum
+    {G : Type*} [AddCommGroup G] [Fintype G] [DecidableEq G]
+    (inertia : ℕ → AddSubgroup G) (frob : ℕ → G)
+    (ψ : AddChar G ℂ) (x : ℝ) : ℂ :=
+  ∑ n ∈ Finset.Icc 1 ⌊x⌋₊,
+    ((Λ n : ℝ) : ℂ) *
+      alpogeNativeFrobInertiaPrimeValue inertia frob ψ n *
+        (((x / (n : ℝ) - 1 : ℝ)) : ℂ)
+
+/-- The genuine sharp ASK over native von Mangoldt and Frobenius/
+inertia coset coefficients. No replaced Dirichlet projector. -/
+def alpogeNativeFrobInertiaASK
+    {G : Type*} [AddCommGroup G] [Fintype G] [DecidableEq G]
+    (inertia : ℕ → AddSubgroup G) (frob : ℕ → G)
+    (ψ : AddChar G ℂ) (N : ℕ) (a W : ℝ) : ℂ :=
+  ∑ n ∈ Finset.Icc 1 N,
+    (((Λ n : ℝ) : ℂ) *
+      alpogeNativeFrobInertiaPrimeValue inertia frob ψ n) *
+        (((max (a / (n : ℝ) - W) 0 : ℝ)) : ℂ)
+
+/-- Exact original Frobenius/inertia GPsi-to-ASK transport on the
+complete physical prime-power population, with no statistical
+cancellation, assumed geometry or imported theorem. -/
+theorem alpogeNativeFrobInertiaASK_eq_primeSum
+    {G : Type*} [AddCommGroup G] [Fintype G] [DecidableEq G]
+    (inertia : ℕ → AddSubgroup G) (frob : ℕ → G)
+    (ψ : AddChar G ℂ) (N : ℕ) (a W : ℝ)
+    (ha : 0 < a) (hW : 0 < W) (hN : a / W ≤ (N : ℝ)) :
+    alpogeNativeFrobInertiaASK inertia frob ψ N a W =
+      (W : ℂ) *
+        alpogeNativeFrobInertiaPrimeSum inertia frob ψ (a / W) := by
+  simpa only [alpogeNativeFrobInertiaASK,
+    alpogeNativeFrobInertiaPrimeSum, mul_assoc] using
+    (alpogeNativeMaxCut_eq_weightedSource
+      (fun n => ((Λ n : ℝ) : ℂ) *
+        alpogeNativeFrobInertiaPrimeValue inertia frob ψ n)
+      N a W ha hW hN)
+
 end RHLean.Analysis
