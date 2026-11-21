@@ -47,7 +47,7 @@ theorem alpogePhysicalCharacterWeightedReal_eq_affine
           intro n _hn
           ring
     _ = _ := by
-          rw [Finset.sum_sub_distrib, Finset.mul_sum]
+          rw [Finset.sum_sub_distrib, ← Finset.mul_sum]
           ring
 
 /-- Exact affine interpolation at the actual integer clock,
