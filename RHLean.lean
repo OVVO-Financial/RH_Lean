@@ -12,6 +12,7 @@ import RHLean.Analysis.AlpogeNativeFourCharacterArithmetic
 import RHLean.Analysis.AlpogeNativeSharpASKBalance
 import RHLean.Analysis.AlpogePositivePrimeParentTransport
 import RHLean.Analysis.AlpogeSharpASKCollar
+import RHLean.Analysis.AlpogeSquareClockSignedHistorySampling
 import RHLean.Analysis.BalancedPrimeBilinearCentering
 import RHLean.Analysis.BlockCovarianceDecomposition
 import RHLean.Analysis.BlockCovarianceRefinement
