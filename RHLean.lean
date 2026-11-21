@@ -11,6 +11,7 @@ import RHLean.Analysis.AlpogeNNSCompleteSelbergCovariance
 import RHLean.Analysis.AlpogeNNSMatchedSelbergKernel
 import RHLean.Analysis.AlpogeNativeFourCharacterArithmetic
 import RHLean.Analysis.AlpogeNativeSharpASKBalance
+import RHLean.Analysis.AlpogeNativeSharpShell
 import RHLean.Analysis.AlpogePhysicalCharacterHistory
 import RHLean.Analysis.AlpogePhysicalCharacterInterpolation
 import RHLean.Analysis.AlpogePhysicalTopExcess
@@ -18,6 +19,7 @@ import RHLean.Analysis.AlpogePositivePrimeParentTransport
 import RHLean.Analysis.AlpogePrimitiveDirichletFull
 import RHLean.Analysis.AlpogeRealizedConductorBridge
 import RHLean.Analysis.AlpogeSharpASKCollar
+import RHLean.Analysis.AlpogeSquareClockSignedHistorySampling
 import RHLean.Analysis.BalancedPrimeBilinearCentering
 import RHLean.Analysis.BlockCovarianceDecomposition
 import RHLean.Analysis.BlockCovarianceRefinement
@@ -399,6 +401,7 @@ import RHLean.Geometry.ComplexSquareFiber
 import RHLean.Geometry.ComplexSquareRecovery
 import RHLean.Geometry.FermatCoordinates
 import RHLean.Geometry.LeastPrimeEndpoint
+import RHLean.Geometry.NativeIntegralLatticeCertificate
 import RHLean.Geometry.SquareMapConformality
 import RHLean.Geometry.TwoABDisplacement
 import RHLean.Kernel.FixedPackets
