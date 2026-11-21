@@ -494,11 +494,12 @@ theorem alpogeNativeCharacterDetector
           rw [AddChar.sum_apply_eq_ite]
           simp only [sub_eq_zero]
 
+open Classical in
 /-- Exact complete-character response of ONE REAL inertia coset.
 The distinguished output site survives iff g-a belongs to inertia.
 The normalizer is the TRUE cardinality of inertia, never an
 independent arbitrary coefficient or a missing bad-prime term. -/
-open Classical in theorem alpogeNativeCosetCharacterOrthogonality
+theorem alpogeNativeCosetCharacterOrthogonality
     {G : Type*} [AddCommGroup G] [Fintype G] [DecidableEq G]
     (I : AddSubgroup G) (a g : G) :
     (∑ ψ : AddChar G ℂ,
@@ -769,7 +770,6 @@ theorem alpogeNativeColourSum
     by_cases hg : g.1.1 = 0
     · simp [alpogeNativeInPhi, alpogeNativeChC_apply, hg]
     · simp [alpogeNativeInPhi, alpogeNativeChC_apply, hg]
-      ring
   have hterm (g : AlpogeNativeE0 × H) :
       (if ¬ alpogeNativeInPhi g then starRingEnd ℂ (ψ g) else 0) =
         (starRingEnd ℂ (ψ g) -
@@ -797,12 +797,12 @@ theorem alpogeNativeColourSum
   rw [← Finset.sum_div, Finset.sum_sub_distrib, hA, hB, alpogeNativeCardDoublePhi]
   by_cases h0 : ψ = 0
   · have h1 : ψ ≠ alpogeNativeChC H := fun h => alpogeNativeChC_nontrivial (h ▸ h0)
-    simp only [if_pos h0, if_neg h1]
+    simp only [ite_eq_left h0, ite_eq_right h1]
     ring
   · by_cases h1 : ψ = alpogeNativeChC H
-    · simp only [if_neg h0, if_pos h1]
+    · simp only [ite_eq_right h0, ite_eq_left h1]
       ring
-    · simp only [if_neg h0, if_neg h1]
+    · simp only [ite_eq_right h0, ite_eq_right h1]
       ring
 
 end NativeColours
@@ -842,10 +842,11 @@ def alpogeNativeColourKernel
       starRingEnd ℂ (ψ g) *
         alpogeNativeFrobInertiaPrimeValue inertia frob ψ n
 
+open Classical in
 /-- Original ORTHO-RAM on the actual physical Lambda prime-power
 population. The factor 2 is earned from the EXACT two-bit host.
 Every ramified inertia coset is retained at its exact cardinality. -/
-open Classical in theorem alpogeNativeColourKernel_primePower
+theorem alpogeNativeColourKernel_primePower
     {H : Type*} [AddCommGroup H] [Fintype H] [DecidableEq H]
     (inertia : ℕ → AddSubgroup (AlpogeNativeE0 × H))
     (frob : ℕ → AlpogeNativeE0 × H)
@@ -878,7 +879,7 @@ open Classical in theorem alpogeNativeColourKernel_primePower
   unfold alpogeNativeColourKernel
   rw [hsum]
   by_cases h : g - i • frob p ∈ inertia p
-  · simp only [if_pos h]
+  · simp only [ite_eq_left h]
     rw [alpogeNativeCardDoublePhi]
     have hPhi := alpogeNativePhiCard_ne_zero (H := H)
     change (1 / ((alpogeNativePhiSet H).card : ℂ)) *
@@ -970,7 +971,7 @@ theorem alpogeNativeFrobInertiaPrimeSum_principal
   classical
   unfold alpogeNativeFrobInertiaPrimeSum alpogeNativePrincipalPrimeSum
     alpogeNativePrimePowerWeight
-  rw [← Complex.ofReal_sum]
+  rw [Complex.ofReal_sum]
   apply Finset.sum_congr rfl
   intro n _hn
   rw [alpogeNativePrimeValue_trivial inertia frob n]
@@ -1002,8 +1003,8 @@ theorem alpogeNativeFrobInertiaASK_principal
     rw [← Complex.ofReal_mul, hwa]
   rw [Real.log_div ha.ne' hW.ne']
   push_cast
-  linear_combination
-    (((Real.log a - Real.log W -
-      (1 + Real.eulerMascheroniConstant) : ℝ) : ℂ)) * hwaC
+  have hWc : (W : ℂ) ≠ 0 := by exact_mod_cast hW.ne'
+  field_simp [hWc]
+  ring
 
 end RHLean.Analysis
