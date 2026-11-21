@@ -10,6 +10,7 @@ import RHLean.Analysis.AlpogeNNSCompleteSelbergCovariance
 import RHLean.Analysis.AlpogeNNSMatchedSelbergKernel
 import RHLean.Analysis.AlpogeNativeFourCharacterArithmetic
 import RHLean.Analysis.AlpogeNativeSharpASKBalance
+import RHLean.Analysis.AlpogePhysicalCharacterHistory
 import RHLean.Analysis.AlpogePositivePrimeParentTransport
 import RHLean.Analysis.AlpogeSharpASKCollar
 import RHLean.Analysis.BalancedPrimeBilinearCentering
