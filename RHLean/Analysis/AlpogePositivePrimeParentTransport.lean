@@ -211,10 +211,10 @@ theorem alpogeFreshTwoWallUPM_sub_LPM (R : ℕ) :
     alpogeFreshTwoWallSource
   have hsum :
       (∑ n ∈ Finset.Icc 2 (R ^ 2 - 1),
-        (if n < R then alpogeFreshParentUPM n
+        ((if n < R then alpogeFreshParentUPM n
           else alpogeFreshParentLPM n) -
         (if n < R then alpogeFreshParentLPM n
-          else alpogeFreshParentUPM n)) =
+          else alpogeFreshParentUPM n))) =
       ∑ n ∈ Finset.Icc 2 (R ^ 2 - 1),
         alpogeMobiusTwoWall R n * moebiusReal n := by
     apply Finset.sum_congr rfl
