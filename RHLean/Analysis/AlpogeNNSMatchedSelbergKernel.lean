@@ -83,7 +83,7 @@ theorem alpogeNNSMatchedMass_full_eq_K2_sub_convolution
   unfold alpogeNNSMatchedMass alpogeNNSMatchedKernel
     nativePNTSignedSecondSelbergKernelErrorMass
     nativePNTLambdaConvolutionSignedErrorMass
-  rw [← Finset.sum_sub_distrib]
+  rw [Finset.sum_sub_distrib]
   apply Finset.sum_congr rfl
   intro n _hn
   ring
