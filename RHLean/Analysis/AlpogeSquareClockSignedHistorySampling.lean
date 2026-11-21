@@ -93,6 +93,25 @@ theorem nativeAlpogeGz_succ_sub (n : ℕ) :
   push_cast
   nlinarith only [hsrc]
 
+/-- **Direct arithmetic second derivative of the complete original Gz.**
+The discrete curvature is exactly the genuine prime-power spike
+Lambda(n+1)/(n+1) minus the deterministic second difference of x*log x.
+No Selberg partition, separate K2 estimate, or random covariance proxy
+is present. A high-order jet alone does not give a bound on its sum. -/
+theorem nativeAlpogeGz_secondDifference_primePower (n : ℕ) :
+    nativeAlpogeGz (n + 2) -
+        2 * nativeAlpogeGz (n + 1) + nativeAlpogeGz n =
+      Λ (n + 1) / ((n + 1 : ℕ) : ℝ) -
+        (((n + 2 : ℕ) : ℝ) * Real.log ((n + 2 : ℕ) : ℝ) -
+          2 * (((n + 1 : ℕ) : ℝ) *
+            Real.log ((n + 1 : ℕ) : ℝ)) +
+          (n : ℝ) * Real.log (n : ℝ)) := by
+  have hnext := nativeAlpogeGz_succ_sub (n + 1)
+  have hprev := nativeAlpogeGz_succ_sub n
+  have hprime := nativeLambdaRecip_succ n
+  push_cast at hnext hprev hprime ⊢
+  nlinarith only [hnext, hprev, hprime]
+
 /-- Safe nonnegative upward slope for the original signed source. -/
 def nativeAlpogeSafeSlope : ℝ :=
   Real.log (4 : ℝ) + 2 + |Real.eulerMascheroniConstant|
