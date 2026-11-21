@@ -28,7 +28,7 @@ def alpogeNativePrefixResponse (v : ℕ → ℝ) (i : ℕ) : ℝ :=
 
 /-- A constant negative source has cumulative response of magnitude i+1. -/
 theorem alpogeNativePrefix_negOne (n : ℕ) :
-    (∑ j ∈ Finset.range n, (-1 : ℝ)) = -(n : ℝ) := by
+    (∑ _j ∈ Finset.range n, (-1 : ℝ)) = -(n : ℝ) := by
   induction n with
   | zero => simp
   | succ n ih =>
@@ -49,11 +49,12 @@ theorem alpogeNativeNegativeSemivariance_eq_squares (m : ℕ) :
   unfold alpogeNativeNegativeSemivariance lowerPartialMomentNat
   apply Finset.sum_congr rfl
   intro i _hi
-  change (negativePart (∑ j ∈ Finset.range (i + 1), (-1 : ℝ))) ^ 2 =
+  change (negativePart (∑ _j ∈ Finset.range (i + 1), (-1 : ℝ))) ^ 2 =
     ((i : ℝ) + 1) ^ 2
   rw [alpogeNativePrefix_negOne]
-  have hc : (0 : ℝ) ≤ ((i + 1 : ℕ) : ℝ) := Nat.cast_nonneg _
-  simp [negativePart, max_eq_left hc, Nat.cast_add]
+  simp only [negativePart, neg_neg]
+  rw [max_eq_left (Nat.cast_nonneg (i + 1))]
+  norm_num [Nat.cast_add]
 
 /-- Conversely, the upper partial energy of this all-negative response is 0.
 A one-sided criterion must have its sign aligned with the actual source. -/
@@ -63,11 +64,11 @@ theorem alpogeNativePositiveSemivariance_eq_zero (m : ℕ) :
   unfold upperPartialMomentNat
   apply Finset.sum_eq_zero
   intro i _hi
-  change (positivePart (∑ j ∈ Finset.range (i + 1), (-1 : ℝ))) ^ 2 = 0
+  change (positivePart (∑ _j ∈ Finset.range (i + 1), (-1 : ℝ))) ^ 2 = 0
   rw [alpogeNativePrefix_negOne]
-  have hc : -(((i + 1 : ℕ) : ℝ)) ≤ 0 :=
-    neg_nonpos.mpr (Nat.cast_nonneg _)
-  simp [positivePart, max_eq_right hc]
+  simp only [positivePart]
+  rw [max_eq_right (neg_nonpos.mpr (Nat.cast_nonneg (i + 1)))]
+  norm_num
 
 /-- Elementary sum of the squares of the exact prefix amplitudes. -/
 theorem alpogeNativePrefixSumSquares (m : ℕ) :
