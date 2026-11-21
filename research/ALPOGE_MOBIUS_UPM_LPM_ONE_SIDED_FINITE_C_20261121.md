@@ -2,6 +2,25 @@
 
 **2026-11-21.** Mathematical status: unconditional finite algebra, classical published one-sided Landau lemma, and **NEW CONDITIONAL RH IMPLICATION**. The original one-sided arithmetic bound remains **OPEN**. Do not label RH proved, or infer an estimate from finite samples. The Lean reconstruction of the algebra is `RHLean/Analysis/AlpogeMobiusPartialMoments.lean` (PR #1169; exact-head CI required). The analytic one-sided Landau lemma is NOT imported into Lean.
 
+## 0. 2026-11-21 external proof verification and actual subpower arithmetic consequence
+
+There is a material mathematical status change **outside RH_Lean**. Andrew Sutherland (MIT) reports that Alpöge's published 175,187-module Lean 4.33.1 source built successfully, each headline theorem was accepted with only standard axioms, two independent kernels (nanoda, con-leche) accepted its full export, and an independent challenge matched the intended Mathlib `RiemannHypothesis` statement. Source and verification receipts: https://math.mit.edu/~drew/grh/ (record updated 2026-11-21 12:55 UTC). The human proof exposition and review are incomplete. Do not confuse this verified *external theorem* with a native RH_Lean proof from its own arithmetic.
+
+**Unconditional arithmetic conclusion if the externally kernel-verified theorem is accepted:** the original `Q_R` satisfies, for every fixed epsilon>0, one C_epsilon independent of R such that
+
+    |Q_R| <= C_epsilon * R^(1+epsilon) * sqrt(K_R), R>=2.
+
+**Proof (not an invented cancellation estimate).** Alpöge's independently checked full theorem gives Mathlib RH. The standard RH-to-Mertens implication, already formalized in RH_Lean as `mertens_half_iff_riemannHypothesis` (in `research/UNIVERSAL_ENVELOPE_RH_BRIDGES.lean`), gives for every delta>0 a C_delta with `|M(n)|<=C_delta*n^(1/2+delta)`. Take delta=epsilon/4; then
+
+    |Q_R| = |2*M(R-1)-M(R^2-1)|
+          <= 2*C_delta*R^(1/2+delta) + C_delta*R^(1+2delta)
+          <= 3*C_delta*R^(1+epsilon)
+          <= 3*C_delta*R^(1+epsilon)*sqrt(K_R),
+
+using R>=2 and K_R>=1. This is a proof of the **subpower form**, *not* the fixed constant `|Q_R|<=C*R*sqrt(K_R)`. The latter may be strictly stronger than RH; neither this argument nor the external RH theorem establishes it.
+
+The RH_Lean code `RHLean/Proof/AlpogeVerifiedRHSubpowerFiniteC.lean` records the precise `RiemannHypothesis -> original finite-C subpower` implication and keeps the assumption **visible**; it does not import or relabel Alpöge's finished theorem. The original request for a truly **native independent arithmetic proof from the intermediate Frobenius/UPM/LPM machinery** therefore remains a separate open problem. All research-status and endpoint claims must distinguish these two proofs.
+
 ## 1. Actual sign-split carriers and two physical walls
 
 For R>=2, X=R^2-1, strict historical `K_R=max_(0<=y<R) (M(y)-1)^2/(y+1)`, define `w_R(n)=1` below R and `-1` on [R,X]. Then
