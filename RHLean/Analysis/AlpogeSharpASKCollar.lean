@@ -141,10 +141,13 @@ theorem alpogeASKPrimePowerMidpointGap_le_collar
       constructor <;> linarith
     simp only [z] at hmem
     simp only [ite_eq_left hmem]
-    have hmul := mul_le_mul_of_nonneg_left
-      (alpogeASKMidpointGap_nonneg_le_quarter
-        (a / (n : ℝ)) b B hbB).2
-      ArithmeticFunction.vonMangoldt_nonneg
+    have hmul :
+        Λ n * alpogeASKMidpointGap (a / (n : ℝ)) b B ≤
+          Λ n * ((B - b) / 4) :=
+      mul_le_mul_of_nonneg_left
+        (alpogeASKMidpointGap_nonneg_le_quarter
+          (a / (n : ℝ)) b B hbB).2
+        (ArithmeticFunction.vonMangoldt_nonneg (n := n))
     calc
       Λ n * alpogeASKMidpointGap (a / (n : ℝ)) b B ≤
           Λ n * ((B - b) / 4) := hmul
