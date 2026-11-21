@@ -119,7 +119,7 @@ Of particular note, its SizeWindows includes simultaneously
    x^(1/2-eps) <= m,     x*m <= k,
    k <= n² * x^(1/2-eps).
 
-Combining these NECESSARILY gives n²>=x for large positive x.
+Combining these NECESSARILY gives n²>=x for every positive x where the three inequalities hold. The new Lean theorems alpogeSizeWindows_forces_hostRoot and alpogeSizeWindows_fixed_host_obstruction prove this quantitatively, including an explicit contradiction at x=n²+1 for any proposed fixed host.
 Thus an arbitrary *trivial* host group cannot pay Alpoge's window
 cost, even if m prime labels are available. The host group size
 has to grow at least on the order of sqrt(x); that is additional
