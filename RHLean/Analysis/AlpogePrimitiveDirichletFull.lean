@@ -104,7 +104,7 @@ theorem alpogeNativeFrobUnit_spec
   have hspec : alpogeNativeIsFrobUnit N p
       (alpogeNativeFrobUnit N p) := by
     unfold alpogeNativeFrobUnit
-    rw [dif_pos hex]
+    rw [dite_eq_left hex]
     exact hex.choose_spec
   refine ⟨hspec, fun w hw => ?_⟩
   rw [bridge_isFrobUnit_iff] at hspec hw
@@ -241,6 +241,20 @@ previously constructed native primitive Dirichlet-character Gchi
 at every REAL argument. This transfers any genuine uniform
 character bound with constant one, not merely up to triangle losses.
 There is no analytic bound assumed or asserted. -/
+/-- The correctly typed primitive Gchi of an actual modular host.
+The nonzero conductor witness is PROVED from the Dirichlet character,
+not a source hypothesis nor an imported GRH statement. -/
+def alpogeNativeRealizedGchi
+    {N : ℕ} [NeZero N]
+    {H : Type*} [AddCommGroup H] [Fintype H] [DecidableEq H]
+    (r : (ZMod N)ˣ →* Multiplicative (AlpogeNativeE0 × H))
+    (ψ : AddChar (AlpogeNativeE0 × H) ℂ)
+    (ell : ℂ) (y : ℝ) : ℂ := by
+  letI : NeZero (alpogeNativeDirChar r ψ).conductor :=
+    ⟨DirichletCharacter.conductor_ne_zero _⟩
+  exact alpogeNativeGchiArithmetic
+    (alpogeNativeDirChar r ψ).primitiveCharacter ell y
+
 theorem alpogeNativeRealizedGPsi_eq_nativeGchi
     {N : ℕ} [NeZero N]
     {H : Type*} [AddCommGroup H] [Fintype H] [DecidableEq H]
@@ -252,11 +266,14 @@ theorem alpogeNativeRealizedGPsi_eq_nativeGchi
     alpogeNativeFrobInertiaGPsi
       (alpogeNativeCftData N q d r).inertia
       (alpogeNativeCftData N q d r).frob ell ψ y =
-    alpogeNativeGchiArithmetic
-      (alpogeNativeDirChar r ψ).primitiveCharacter
-      (ell ψ) y := by
+    alpogeNativeRealizedGchi r ψ (ell ψ) y := by
   letI : NeZero (alpogeNativeDirChar r ψ).conductor :=
     ⟨DirichletCharacter.conductor_ne_zero _⟩
+  change alpogeNativeFrobInertiaGPsi
+      (alpogeNativeCftData N q d r).inertia
+      (alpogeNativeCftData N q d r).frob ell ψ y =
+    alpogeNativeGchiArithmetic
+      (alpogeNativeDirChar r ψ).primitiveCharacter (ell ψ) y
   rw [alpogeNativeRealizedGPsi_eq_primitivePrimeSum q d r ell ψ hψ y]
   unfold alpogeNativeGchiArithmetic alpogeNativeTwistedPrimeSum
     alpogeNativePrimePowerWeight
@@ -280,9 +297,7 @@ theorem alpogeNativeRealizedGPsi_norm_eq_nativeGchi_norm
     ‖alpogeNativeFrobInertiaGPsi
       (alpogeNativeCftData N q d r).inertia
       (alpogeNativeCftData N q d r).frob ell ψ y‖ =
-    ‖alpogeNativeGchiArithmetic
-      (alpogeNativeDirChar r ψ).primitiveCharacter
-      (ell ψ) y‖ := by
+    ‖alpogeNativeRealizedGchi r ψ (ell ψ) y‖ := by
   rw [alpogeNativeRealizedGPsi_eq_nativeGchi q d r ell ψ hψ y]
 
 end RHLean.Analysis
