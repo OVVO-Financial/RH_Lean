@@ -100,9 +100,14 @@ theorem alpogePhysicalCharacterHistory_eq_sum
         (alpogePhysicalCharacterRecip c j + ell) := by
   have h := alpogePhysicalCharacterHistory_difference_eq_history
     c ell 0 N (Nat.zero_le N)
-  simpa [alpogePhysicalCharacterHistory,
-    alpogePhysicalCharacterRecip, alpogePhysicalCharacterPsi,
-    Finset.Ico_zero_eq_range] using h
+  have hz : alpogePhysicalCharacterHistory c ell 0 = 0 := by
+    simp [alpogePhysicalCharacterHistory,
+      alpogePhysicalCharacterRecip, alpogePhysicalCharacterPsi]
+  have hs : Finset.Ico 0 N = Finset.range N := by
+    ext j
+    simp
+  rw [hz, sub_zero, hs] at h
+  exact h
 
 /-- The only unconditional bound introduced here is the correctly
 charged total variation of the COMPLETE centered reciprocal history.
@@ -133,7 +138,7 @@ theorem alpogePhysicalCharacterWeighted_eq_history
           intro n _hn
           ring
     _ = _ := by
-          rw [Finset.sum_sub_distrib, Finset.mul_sum]
+          simp only [Finset.sum_sub_distrib, mul_add, Finset.mul_sum]
           ring
 
 /-- The physical coefficient includes ALL Lambda prime powers and their
