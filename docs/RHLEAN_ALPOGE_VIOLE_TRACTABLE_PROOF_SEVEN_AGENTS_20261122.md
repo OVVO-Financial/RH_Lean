@@ -26,31 +26,21 @@ At x ~ R_V^2, the convenient native b = R_V and eta=1 do NOT satisfy the origina
 
 ## 2. Smallest proposed proof DAG — not yet a proved RH chain
 
-    [CONSTRUCT genuine finite root-lattice/theta witnesses:
-     growing host H, m_A, ranks, heights, covolume, original
-     ASK/De, complete Frobenius/inertia and actual widths]
-                        |
-                        v
-    [NEW signed arithmetic-geometric COERCIVITY theorem:
-     genuine multiplicity gain pays ALL source costs]
-                        |
-                        v
-    [one-sided complete Gm/De saving, or PROVED full reduction
-     paying every nonprincipal character to original native Gz]
-                        |
-                        v
-    [Gz(R_V^2-1) <= C_eps R_V^(1+eps) on all sufficiently
-     large roots, OR sufficient actual character-family windows]
-                        |
-                        v
-    [native square sampling + complete Landau / zero-free
-     transfer with all windows/eps costs]
-                        |
-                        v
-                [RIEMANN HYPOTHESIS]
-                        |
-                        v
-             [Independent mathematical corollary]
+```mermaid
+flowchart TD
+    W["Construct genuine finite lattice and theta witnesses"] --> C["Prove signed arithmetic–geometric coercivity"]
+    C --> Q["Prove the complete critical Gz bound or sufficient character windows"]
+    Q --> A["Square sampling and native Landau transfer"]
+    A --> RH["Riemann Hypothesis"]
+    C --> I["Prove an independent quantitative application"]
+```
+
+The witness construction includes the growing host H, m_A, ranks, heights,
+covolume, complete ASK/De, Frobenius/inertia and actual partner widths. The
+critical-estimate branch must pay every nonprincipal character in Gm/De before
+reducing to the original native Gz, and must retain all windows and epsilon
+costs. The independent-application branch follows from the central principle
+without using RH as an intermediate premise.
 
 The NEW theorem must be proved FROM constructed witnesses and complete signed arithmetic. Defining a proposition whose hypothesis already contains the entire RH-strength bound, a conditional equivalence, determinant-only analogy, a hypothetical p-adic multiplicity, or importing the completed external RH theorem does NOT pass. Alternative leaner routes qualify only with a precise original-source and cost audit and a genuinely new, independently useful theorem.
 
