@@ -3,6 +3,7 @@ import RHLean.Analysis.AlpogeASKTangentCovariance
 import RHLean.Analysis.AlpogeCompletePrimitiveASK
 import RHLean.Analysis.AlpogeErdosHistoryDirectBound
 import RHLean.Analysis.AlpogeErdosHistoryIncrementNNS2
+import RHLean.Analysis.AlpogeExactNNSGzBridge
 import RHLean.Analysis.AlpogeGzErdosReciprocalHistory
 import RHLean.Analysis.AlpogeMobiusLogLift
 import RHLean.Analysis.AlpogeMobiusPartialMoments
@@ -10,6 +11,7 @@ import RHLean.Analysis.AlpogeNNSBandSchur
 import RHLean.Analysis.AlpogeNNSCohomologicalCRPayment
 import RHLean.Analysis.AlpogeNNSCompleteSelbergCovariance
 import RHLean.Analysis.AlpogeNNSMatchedSelbergKernel
+import RHLean.Analysis.AlpogeNativeClassGroupNNSIntegral
 import RHLean.Analysis.AlpogeNativeFourCharacterArithmetic
 import RHLean.Analysis.AlpogeNativeSharpASKBalance
 import RHLean.Analysis.AlpogeNativeSharpShell
@@ -87,6 +89,7 @@ import RHLean.Analysis.MobiusRenewalTelescope
 import RHLean.Analysis.MobiusSynthesisBoundary
 import RHLean.Analysis.MobiusSynthesisBoundaryBridge
 import RHLean.Analysis.NNSDiscreteResolventIntegral
+import RHLean.Analysis.NNSFiniteSelmerFourierIntegral
 import RHLean.Analysis.NativePNTAxer
 import RHLean.Analysis.NativePNTBoundContraction
 import RHLean.Analysis.NativePNTChebyshev
