@@ -251,6 +251,62 @@ def main() -> None:
         assert "MY DISTINCT FIRST TASK" in role and "human-only merge" in role.lower()
     assert current_name in read(".github/workflows/rh-proof-portfolio-agent-instructions.yml")
 
+    # Concrete 2026-11-22 descent/payment assignment: check routing inside
+    # each copied role, not only a banner outside the copyable prompts.
+    descent_name = "RHLEAN_ALPOGE_NATIVE_DESCENT_PAYMENT_20261122.md"
+    descent_tag = "ALPOGE_NATIVE_DESCENT_PAYMENT_V1"
+    descent_doc = read("docs/" + descent_name)
+    for required in ("DescentFamily.descent", "mapsCore",
+                     "covering_descent_maps_compatible_alt", "rk_le_alt_alt",
+                     "lowAt_of_cover", "lcv_le", "CharacterBalanceMoves.core",
+                     "ch_top", "ch_core", "core_gm", "Q=T*m*b*Delta/2",
+                     "slope_sq", "ErrWindowsWeak", "Sigma_A",
+                     "SOURCE_INSPECTED", "PAPER_PROOF", "LEAN_VERIFIED_CONDITIONAL",
+                     "FIRST_UNPAID", "MAP_PAYMENT", "INDEPENDENT_APPLICATION",
+                     "REPORT_PUBLISH_RECOVERY_V1", "LAST_ACTUAL_REPORT_CONTINUITY_V1",
+                     "human-only merge", "no local Lean execution"):
+        assert required.lower() in descent_doc.lower(), (
+            f"descent/payment contract missing {required}")
+    descent_entries = (
+        "AGENTS.md", "CURRENT_PROOF_CONTRACT.md", "CURRENT_RESEARCH_HANDOFF.md",
+        "docs/DYNAMIC_RESEARCH_AGENTS.md",
+        "docs/RHLEAN_SEVEN_AGENT_RESEARCH_ENGINE_20261101.md",
+        "docs/RHLEAN_NATIVE_SQUARE_CLOCK_AGENT_DIRECTIVE_20261029.md",
+        "docs/RHLEAN_ALL_VECTOR_AGENT_PROMPTS_20261030.md",
+        "docs/CHATGPT_AGENT_STUDIO_RH_SETUP_2026_10_12.md",
+        "docs/DOCUMENTATION_INDEX.md", "README.md", "llms.txt",
+        "docs/AGENT_STUDIO_20261024_SEVEN_PROMPTS.md",
+    )
+    for entry in descent_entries:
+        data = read(entry)
+        assert descent_name in data and descent_tag in data, (
+            f"missing descent/payment routing: {entry}")
+    assert descent_name in new_doc, "standing T/C/P charter lost active assignment"
+    role_markers = {
+        "COORDINATOR": ("DescentFamily.descent", "cost ledger"),
+        "OWNER": ("ANCHOR3-4", "THIN1", "chC"),
+        "REFEREE": ("joint norm/rank", "SOURCE_INSPECTED", "PAPER_PROOF"),
+        "CENSUS": ("rank/injectivity", "prime powers"),
+        "ANALYTIC": ("CharacterBalanceMoves.core", "Sigma_A", "SELECT"),
+        "WHEEL": ("mapsCore", "joint injectivity", "rank saturation"),
+        "LEAN": ("DescentFamily.descent", "hosted GitHub Actions"),
+    }
+    assert len(blocks) == len(role_markers) == 7
+    for role_name, block in zip(role_markers, blocks):
+        assert f"DESCENT_ROLE={role_name}" in block, (
+            f"wrong copied role assignment: {role_name}")
+        assert descent_name in block and "descent_payment_ack=" + descent_tag in block
+        assert "MY DISTINCT FIRST TASK:" in block
+        match = re.search(r"## NEXT-" + role_name + r":[\s\S]*?(?=\n## |\Z)", role_prompts)
+        assert match, f"missing live role {role_name}"
+        live_role = match.group()
+        assert f"DESCENT_ROLE={role_name}" in live_role
+        assert descent_name in live_role and "descent_payment_ack=" + descent_tag in live_role
+        for marker in role_markers[role_name]:
+            assert marker in block and marker in live_role, (
+                f"incomplete {role_name} task: {marker}")
+    assert descent_name in read(".github/workflows/rh-proof-portfolio-agent-instructions.yml")
+
     # Preserve previous instruction bodies exactly; archives are not live queues.
     archives = {
         "AGENTS_BEFORE_RESEARCH_ENGINE_20261101.md": "59dc2c6d6ca06b2fae6fe7e18ad4ddf71a21e052",
@@ -307,7 +363,8 @@ def main() -> None:
         "docs/RHLEAN_NATIVE_SQUARE_CLOCK_AGENT_DIRECTIVE_20261029.md",
     ):
         assert (chr(92) + chr(96)) not in read(path), f"escaped Markdown backtick in {path}"
-    print("PASS: complete signed HIGH objective and independent nine-route routing for all seven agents; "
+    print("PASS: constructed descent/full-source payment routing and all seven distinct roles; "
+          "retained tractability/contribution/proof charter and historical route safeguards; "
           "optional OAI source-first specialist reference; historical archives; "
           "human-only merge, proof DAG/von Koch, no new arithmetic gain asserted")
 
