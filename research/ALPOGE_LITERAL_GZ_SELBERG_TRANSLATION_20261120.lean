@@ -1,5 +1,6 @@
 import Mathlib
 import RHLean.Analysis.NativePNTSignedSecondSelberg
+import RHLean.Analysis.AlpogeNegativeSelbergSemivariance
 
 /-!
 # Literal Alpoge Gz -> native Euler -> full signed Selberg bridge
@@ -281,5 +282,36 @@ theorem alpogeNativeGzSquare_le_of_fullSource
     rw [alpogeNativeGzSquare_eq_fullSource]
     exact hpaid
   exact le_of_mul_le_mul_right hBound hSq
+
+
+/-- Original band/complement bookkeeping equals the COMPLETELY matched
+Selberg representation. In particular, the selected negative rank-one
+Schur mode has not been double-counted as a free arithmetic credit. -/
+theorem alpogeNativeFullComplement_sub_band_eq_matched (R : ℕ) :
+    alpogeNativeFullComplement R - alpogeNativeBandCredit R =
+      alpogeFullMatchedSecondSelberg (R ^ 2 - 1) := by
+  calc
+    _ = nativePNTError (R ^ 2 - 1) *
+        (Real.log ((R ^ 2 - 1 : ℕ) : ℝ)) ^ 2 :=
+      (alpogeNativeError_square_eq_fullComplement_sub_credit R).symm
+    _ = _ := (alpogeFullMatchedSecondSelberg_eq_nativeError _).symm
+
+/-- The LPM2 of the genuine native Chebyshev error equals the user's
+requested (B_R-C_R)_+² / log⁴(X_R) sum ON THE COMPLETE original source.
+This is a theorem of finite arithmetic, not a quantitative RH bound. -/
+theorem alpogeNativeFullComplement_negativeMoment_eq_lpm2
+    (H : ℕ) (hH : 2 ≤ H) :
+    (∑ R ∈ Finset.Ico H (2 * H),
+      negativePart
+        (alpogeNativeFullComplement R - alpogeNativeBandCredit R) ^ 2 /
+        (Real.log ((R ^ 2 - 1 : ℕ) : ℝ)) ^ 4) =
+      alpogeNativeSquareNegativeLPM2 H := by
+  calc
+    _ = alpogeFullMatchedSquareNegativeLPM2 H := by
+      unfold alpogeFullMatchedSquareNegativeLPM2
+      apply Finset.sum_congr rfl
+      intro R _hR
+      rw [alpogeNativeFullComplement_sub_band_eq_matched]
+    _ = _ := alpogeFullMatchedSquareNegativeLPM2_eq_native H hH
 
 end RHLean.Analysis

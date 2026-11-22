@@ -15,8 +15,10 @@ import RHLean.Analysis.AlpogeNNSCompleteSelbergCovariance
 import RHLean.Analysis.AlpogeNNSMatchedSelbergKernel
 import RHLean.Analysis.AlpogeNativeClassGroupNNSIntegral
 import RHLean.Analysis.AlpogeNativeFourCharacterArithmetic
+import RHLean.Analysis.AlpogeNativeLPM2Endpoint
 import RHLean.Analysis.AlpogeNativeSharpASKBalance
 import RHLean.Analysis.AlpogeNativeSharpShell
+import RHLean.Analysis.AlpogeNegativeSelbergSemivariance
 import RHLean.Analysis.AlpogePhysicalCharacterHistory
 import RHLean.Analysis.AlpogePhysicalCharacterInterpolation
 import RHLean.Analysis.AlpogePhysicalTopExcess
