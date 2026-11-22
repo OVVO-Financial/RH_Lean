@@ -104,7 +104,16 @@ theorem alpogeGz_NNS_futureTail_oneSided_le
   rw [div_le_iff₀ hn] at hscaled
   have hunit : (1 / (N : Real)) * (N : Real) = 1 := by
     field_simp [ne_of_gt hn]
-  nlinarith [hscaled]
+  calc
+    alpogeErdosGz N <=
+        (alpogeErdosGz M / (M : Real) -
+          alpogeGzNativeNNSTail N M + 1 / (N : Real)) *
+          (N : Real) := hscaled
+    _ = (N : Real) *
+        (alpogeErdosGz M / (M : Real) -
+          alpogeGzNativeNNSTail N M) + 1 := by
+      rw [add_mul, hunit]
+      ring
 
 /-- A sharper TWO-SIDED finite enclosure retaining the terminal
 observable and the signed NNS source exactly. -/
