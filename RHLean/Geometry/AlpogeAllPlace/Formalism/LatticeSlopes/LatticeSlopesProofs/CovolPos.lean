@@ -26,14 +26,14 @@ theorem linearIndependent_coe_basis {E : Type*} [NormedAddCommGroup E] [InnerPro
       right_inv := fun _ => rfl
       map_add' := fun _ _ => rfl
       map_smul' := fun _ _ => rfl }
-  haveI : DiscreteTopology L' :=
+  have : DiscreteTopology L' :=
     DiscreteTopology.of_continuous_injective (f := fun y : L' => (⟨((y : V) : E), y.2⟩ : L))
       ((continuous_subtype_val.comp continuous_subtype_val).subtype_mk _)
       (by
         intro a c h
         have h' := congrArg Subtype.val h
         exact Subtype.ext (Subtype.ext h'))
-  haveI : IsZLattice ℝ L' := ⟨by
+  have : IsZLattice ℝ L' := ⟨by
     apply Submodule.map_injective_of_injective V.injective_subtype
     rw [Submodule.map_span, Submodule.map_top, Submodule.range_subtype]
     show Submodule.span ℝ _ = Submodule.span ℝ (L : Set E)
@@ -58,7 +58,7 @@ theorem linearIndependent_coe_basis {E : Type*} [NormedAddCommGroup E] [InnerPro
 
 theorem covol_pos' : CovolPos := by
   intro E _ _ _ L hL
-  haveI := hL
+  have := hL
   rw [covol_eq_gram E L (Fin (Module.finrank ℤ L)) (Module.finBasis ℤ L)]
   apply Real.sqrt_pos.2
   exact (Matrix.posDef_gram_of_linearIndependent (linearIndependent_coe_basis L _)).det_pos
@@ -89,20 +89,16 @@ theorem discreteTopology_span_singleton {E : Type*} [NormedAddCommGroup E]
 theorem covol_basic_properties : CovolBasic := by
   intro E _ _ _
   refine ⟨?_, ?_⟩
-  · haveI : DiscreteTopology (⊥ : Submodule ℤ E) := inferInstance
+  · have : DiscreteTopology (⊥ : Submodule ℤ E) := inferInstance
     rw [covol_eq_gram E ⊥ (Fin 0) (Module.Basis.empty _)]
     simp [Matrix.det_isEmpty]
   · intro v hv
-    haveI := discreteTopology_span_singleton hv
+    have := discreteTopology_span_singleton hv
     have hli : LinearIndependent ℤ (fun _ : Unit => v) := by
       have hR : LinearIndependent ℝ (fun _ : Unit => v) := by
         rw [linearIndependent_unique_iff]
-        first
-          | exact hv
-          | (intro r hr; exact (smul_eq_zero.1 hr).resolve_right hv)
-      first
-        | exact hR.restrict_scalars' ℤ
-        | exact hR.restrict_scalars (by intro a c h; simpa using h)
+        exact hv
+      exact hR.restrict_scalars' ℤ
     have hr : span ℤ (Set.range fun _ : Unit => v) = span ℤ ({v} : Set E) := by
       rw [Set.range_const]
     let b : Basis Unit ℤ (span ℤ ({v} : Set E)) := (Basis.span hli).map (LinearEquiv.ofEq _ _ hr)

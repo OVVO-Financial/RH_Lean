@@ -10,8 +10,8 @@ universe u_1 u_2
 namespace RHLean.Geometry.AlpogeAllPlace.Bl.general_b_fact_second''''''
 
 theorem goal1 :
-  ∀ {K : Type u_1} [inst : Field.{u_1} K] [NumberField.{u_1} K] {V : Type u_2} [inst_2 : AddCommGroup.{u_2} V]
-  [inst_3 : Module.{u_1, u_2} K V] [inst_4 : Module.{u_1, u_2} (NumberField.RingOfIntegers.{u_1} K) V]
+  ∀ {K : Type u_1} [_inst : Field.{u_1} K] [NumberField.{u_1} K] {V : Type u_2} [_inst_2 : AddCommGroup.{u_2} V]
+  [_inst_3 : Module.{u_1, u_2} K V] [_inst_4 : Module.{u_1, u_2} (NumberField.RingOfIntegers.{u_1} K) V]
   [IsScalarTower.{u_1, u_1, u_2} (NumberField.RingOfIntegers.{u_1} K) K V]
   (A : Submodule.{u_1, u_2} (NumberField.RingOfIntegers.{u_1} K) V) (x : V),
   Membership.mem.{u_2, u_2} (Submodule.span.{u_1, u_2} K (SetLike.coe.{u_2, u_2} A)) x →

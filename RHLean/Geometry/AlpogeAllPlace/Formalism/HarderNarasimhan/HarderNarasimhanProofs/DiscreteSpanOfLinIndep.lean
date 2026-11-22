@@ -122,7 +122,7 @@ theorem linIndep_real (b : Basis ι K V) (X : InfinitePlace K → Matrix ι ι �
     have h1 := congrFun (hV v) p.2
     simp only [smul_smul, vecAt_smul_basis, Finset.sum_apply, Pi.smul_apply, smul_eq_mul, Pi.zero_apply,
       Fintype.sum_prod_type, Pi.single_apply, mul_ite, mul_zero, Finset.sum_ite_eq', Finset.mem_univ,
-      if_true, map_mul] at h1
+      ite_true, map_mul] at h1
     have hc' : v.embedding c ≠ 0 := by simpa using hc
     have h2 : (∑ k, (t (k, p.2) : ℂ) * v.embedding (integralBasis K k)) * v.embedding c = 0 := by
       rw [Finset.sum_mul]

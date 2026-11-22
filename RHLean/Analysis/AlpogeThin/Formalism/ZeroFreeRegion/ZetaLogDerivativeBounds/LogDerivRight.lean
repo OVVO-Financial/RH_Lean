@@ -1,0 +1,64 @@
+import RHLean.Analysis.AlpogeThin.Formalism.ZeroFreeRegion.SmallHeightLogDeriv
+import RHLean.Analysis.AlpogeThin.Formalism.ZeroFreeRegion.ZetaLogDerivativeBounds.NormLogDerivLeLamF
+
+/-!
+# Reconstructed same-host thin-source dependency
+
+Mathematical source: Levent Alpöge (with Claude).
+Source: src/Formalism/ZeroFreeRegion/ZetaLogDerivativeBounds/LogDerivRight.lean.
+Pinned source: https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Formalism/ZeroFreeRegion/ZetaLogDerivativeBounds/LogDerivRight.lean
+
+This local proof reconstruction adapts the module/namespace boundary to native
+RH_Lean. No upstream compiled artifact or terminal RH theorem is imported.
+The source archive/mirror states no license; this notice preserves attribution
+without assigning a new license to source-derived material.
+-/
+
+set_option autoImplicit false
+set_option maxHeartbeats 4000000
+
+namespace RHLean.Analysis.AlpogeThin
+
+open Complex Filter Topology ArithmeticFunction LSeries
+open scoped LSeries.notation
+
+noncomputable section
+
+namespace Formalism.ZF
+
+theorem logDerivBoundRightHalfPlane : LogDerivRight := by
+  obtain ⟨B, hB⟩ := log_deriv_riemannZeta_add_inv_sub_bounded.bound
+  obtain ⟨ε, hε, hball⟩ := Metric.eventually_nhds_iff.mp (eventually_nhdsWithin_iff.mp hB)
+  refine ⟨max (max B 0) (lamF (1 + ε / 2)), le_max_of_le_left (le_max_right _ _),
+    fun s hs => (norm_logDeriv_le_lamF hs).trans ?_⟩
+  have hσ1 : 0 < s.re - 1 := sub_pos.mpr hs
+  have hpos : 0 < 1 / (s.re - 1) := by positivity
+  rcases lt_or_ge s.re (1 + ε / 2) with hlt | hge
+  · have hreal : ‖((s.re : ℂ) - 1)‖ = s.re - 1 := by
+      rw [← ofReal_one, ← ofReal_sub, Complex.norm_real, Real.norm_of_nonneg hσ1.le]
+    have hd : dist (s.re : ℂ) 1 < ε := by
+      rw [Complex.dist_eq, hreal]; linarith
+    have hne : (s.re : ℂ) ∈ ({1}ᶜ : Set ℂ) := by
+      simp only [Set.mem_compl_iff, Set.mem_singleton_iff, ofReal_eq_one]; exact hs.ne'
+    have hb := hball hd hne
+    simp only [norm_one, mul_one] at hb
+    have hL := LSeries_vonMangoldt_eq_deriv_riemannZeta_div (s := (s.re : ℂ)) (by simpa using hs)
+    rw [lamF_eq_norm hs, hL, neg_div, norm_neg]
+    have htri : ‖deriv riemannZeta (s.re : ℂ) / riemannZeta (s.re : ℂ)‖ ≤
+        ‖deriv riemannZeta (s.re : ℂ) / riemannZeta (s.re : ℂ) + ((s.re : ℂ) - 1)⁻¹‖ +
+          ‖((s.re : ℂ) - 1)⁻¹‖ := by
+      have := norm_sub_le (deriv riemannZeta (s.re : ℂ) / riemannZeta (s.re : ℂ) +
+        ((s.re : ℂ) - 1)⁻¹) (((s.re : ℂ) - 1)⁻¹)
+      simpa using this
+    rw [norm_inv, hreal] at htri
+    have : B ≤ max (max B 0) (lamF (1 + ε / 2)) :=
+      le_max_of_le_left (le_max_left _ _)
+    rw [one_div]
+    linarith
+  · have h1 : lamF s.re ≤ lamF (1 + ε / 2) := lamF_anti (by linarith) hge
+    have : lamF (1 + ε / 2) ≤ max (max B 0) (lamF (1 + ε / 2)) := le_max_right _ _
+    linarith
+
+end Formalism.ZF
+
+end RHLean.Analysis.AlpogeThin

@@ -1,0 +1,688 @@
+{
+  "upstream_commit": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
+  "status": "hosted_v2_repairs_applied_next_exact_head_compile_pending",
+  "module_prefix": "RHLean.Geometry.AlpogeAllPlace.",
+  "total_native_modules": 81,
+  "total_native_lines": 15872,
+  "entry_module": "RHLean.Geometry.NativeAllPlaceDescent",
+  "entry_theorem": "RHLean.Geometry.nativeAllPlaceDescent",
+  "axiom_targets": [
+    "RHLean.Geometry.nativeAllPlaceDescent",
+    "RHLean.Geometry.AlpogeAllPlace.GlobalTheory.DescentFamily.descent",
+    "RHLean.Geometry.AlpogeAllPlace.Formalism.ExtensionFiltration.descent_slope",
+    "RHLean.Geometry.AlpogeAllPlace.Formalism.ExtensionFiltration.span_min_slope",
+    "RHLean.Geometry.AlpogeAllPlace.Formalism.BranchingDeterminantCap.power_slope_mu"
+  ],
+  "pruning": [
+    "IsProbabilityMeasureMuPart: retain Gram section through slope_sq_eq",
+    "PDescentCutA: retain proofs; import only Mathlib and StatementPl; no linter suppression",
+    "HtMapLeOfPoints: replace reexport wrappers by descent_slope/span_min_slope",
+    "HtMapLeOfPoints: block matrix determinant from actual blockInv",
+    "HtMapLeOfPoints: positive rank from already imported ms_rkK_pos"
+  ],
+  "native_api_updates": [
+    "SpanMuMin: Finset.prod_le_prod to prod_le_prod₀, retaining both nonnegativity/comparison arguments",
+    "FinSup: WellFoundedGT.isSupFiniteCompact with implicit alpha; current Mathlib 4.34.1 API",
+    "FiniteSaturated: AddSubgroup.isClosed_of_discreteTopology with U binder",
+    "PlaceSplit: DistribSMul.toLinearMap replaces removed DistribMulAction.toLinearMap",
+    "PDescentCutA: explicit definitional Matrix.mulVec/toLp operator norm conversion, preserving joint norm bound",
+    "Hosted compiler-directed cleanup: Prop typeclass let/have, unused section-instance omission and unnamed binder cleanup, current deprecated aliases, unreachable alternatives and unused simp arguments removed; no linter suppression"
+  ],
+  "files": {
+    "RHLean/Geometry/AlpogeAllPlace/Development/AbelianVarietyTheory/Definitions/Foundations/IsProbabilityMeasureMuPart.lean": {
+      "upstream_path": "src/Development/AbelianVarietyTheory/Definitions/Foundations/IsProbabilityMeasureMuPart.lean",
+      "upstream_git_blob": "f1e1fb8777cb777df70d80ccc4dfdbad7c88024f",
+      "upstream_sha256": "3951bad4542aa62738d56c1f31d93348ca8578bffc940aaafba74e395973645d",
+      "native_sha256": "5b8ff9c64269da6901efb5f4a3f8f73629ef1844e587ecc19aedc582e509f019",
+      "native_lines": 127,
+      "kind": "source_body_pruning"
+    },
+    "RHLean/Geometry/AlpogeAllPlace/Development/AbelianVarietyTheory/Proofs/DivisorProofs/HtMapLeOfPoints.lean": {
+      "upstream_path": "src/Development/AbelianVarietyTheory/Proofs/DivisorProofs/HtMapLeOfPoints.lean",
+      "upstream_git_blob": "87a9932805b500be9ac51c3250f6dc314b5f3f25",
+      "upstream_sha256": "8e8e305e8ac618f3a093dbf872266ef4e92562b3d379a820b96aa2e657d85944",
+      "native_sha256": "f86eb866508b64c3863f259d18bf4520dcba8daa52a1ceb8ef8811b4faf7af64",
+      "native_lines": 150,
+      "kind": "source_body_pruning"
+    },
+    "RHLean/Geometry/AlpogeAllPlace/Formalism/BranchSandwichDivisors/BranchIsometryProofs/MapScale.lean": {
+      "upstream_path": "src/Formalism/BranchSandwichDivisors/BranchIsometryProofs/MapScale.lean",
+      "upstream_git_blob": "7eebe74e070d815bc27c29d7bb58c442a21933f9",
+      "upstream_sha256": "724ca22ad66e4d1d66cccb2529a09fb6f83c93a5d30b5582fe13bb291c236623",
+      "native_sha256": "676e3edda7f8fb0aee7c3270d38ee524191fbe4df327e64b66a6ea5a352b7181",
+      "native_lines": 296,
+      "kind": "namespace_and_options_only"
+    },
+    "RHLean/Geometry/AlpogeAllPlace/Formalism/BranchSandwichDivisors/BranchIsometryProofs/OrthSum.lean": {
+      "upstream_path": "src/Formalism/BranchSandwichDivisors/BranchIsometryProofs/OrthSum.lean",
+      "upstream_git_blob": "cbfcd7cd7fcdc6dda37f07abcf204944c548582b",
+      "upstream_sha256": "aac71e0459f04b737f75ca2e7c4905aaa7a045a4a85bd0ff1054c881cd528578",
+      "native_sha256": "b16e5354062f01968c7fd6aef7f067fdb9270f81146e70219f20ea7d87d5264a",
+      "native_lines": 324,
+      "kind": "namespace_and_options_only"
+    },
+    "RHLean/Geometry/AlpogeAllPlace/Formalism/BranchSandwichDivisors/StatementL.lean": {
+      "upstream_path": "src/Formalism/BranchSandwichDivisors/StatementL.lean",
+      "upstream_git_blob": "f5d118b2613fd65b2a756f81491709bf2148b107",
+      "upstream_sha256": "bd58653442e5a6b443087a9178c117c25b12eadde21b1064ecbaf1cfe2137488",
+      "native_sha256": "88e00d9c0762ea576a31b528500ff9b30ea36391efb0e57a956a6d79f20f8375",
+      "native_lines": 218,
+      "kind": "namespace_and_options_only"
+    },
+    "RHLean/Geometry/AlpogeAllPlace/Formalism/CorankShare/CorankShareProofs/LayerCakeFormula.lean": {
+      "upstream_path": "src/Formalism/CorankShare/CorankShareProofs/LayerCakeFormula.lean",
+      "upstream_git_blob": "1fe7141b704740a711c78e1ebbbf6f60624fad4c",
+      "upstream_sha256": "ecf23723a1779e201e39209e33f4379e634463476502dd164e5e9727489ba96c",
+      "native_sha256": "91c8c96aac3ac31fc0495c153dc2047ced4e2f288d7b25e2a4f39a5e3f3552e0",
+      "native_lines": 104,
+      "kind": "namespace_options_and_native_compatibility"
+    },
+    "RHLean/Geometry/AlpogeAllPlace/Formalism/CorankShare/CorankShareProofs/SumNormSqLeHilbertSchmidt.lean": {
+      "upstream_path": "src/Formalism/CorankShare/CorankShareProofs/SumNormSqLeHilbertSchmidt.lean",
+      "upstream_git_blob": "6e242d63c5e583842d8ac1a0f08c1a247fba3b3c",
+      "upstream_sha256": "8a45c25816d09d2610d1fc2c520cca015f4e6154a51ed98aa1443e786351c823",
+      "native_sha256": "8a2dfb482cc3527203820f477615a7d131ec9fd8fa00d8b10e75f7082ae1ed98",
+      "native_lines": 408,
+      "kind": "namespace_options_and_native_compatibility"
+    },
+    "RHLean/Geometry/AlpogeAllPlace/Formalism/CorankShare/StatementFR.lean": {
+      "upstream_path": "src/Formalism/CorankShare/StatementFR.lean",
+      "upstream_git_blob": "bbf952cfa32adb68933c8ab356ae87b6d7323976",
+      "upstream_sha256": "6a58077587c041d78925f57d3a6902e50dcc8ed42fccdc2327aff1e8205fd168",
+      "native_sha256": "b3a8560520377159e9f51a1727f3471595ade72cc2f66432c4edf84ff7391188",
+      "native_lines": 68,
+      "kind": "namespace_and_options_only"
+    },
+    "RHLean/Geometry/AlpogeAllPlace/Formalism/FockGram/StatementHerm.lean": {
+      "upstream_path": "src/Formalism/FockGram/StatementHerm.lean",
+      "upstream_git_blob": "579ba2c54cead9265fd1606095c0b41ddd5be730",
+      "upstream_sha256": "e43e12b8c437eee06a1d62f20fb8378ea04e5ff7f7ef16585ddfbbd13fa9fa87",
+      "native_sha256": "3b632a5e0d9251e3a3f37de71173a09e36bb8805a708e8893ccaac71f59bfc9a",
+      "native_lines": 43,
+      "kind": "namespace_and_options_only"
+    },
+    "RHLean/Geometry/AlpogeAllPlace/Formalism/FockGram/StatementLat.lean": {
+      "upstream_path": "src/Formalism/FockGram/StatementLat.lean",
+      "upstream_git_blob": "267918bf7d701ab87a59eaccacfad00b40ca537c",
+      "upstream_sha256": "87cfdae603278d7c9e502c093bdba25ede58ea6beb60eaede474b907c4a85724",
+      "native_sha256": "8666cc1401f81f8227477178a4cbca5fbf4cd5b008a5649301275a2845633600",
+      "native_lines": 85,
+      "kind": "namespace_and_options_only"
+    },
+    "RHLean/Geometry/AlpogeAllPlace/Formalism/GelfandTransference/EnergyIdentity.lean": {
+      "upstream_path": "src/Formalism/GelfandTransference/EnergyIdentity.lean",
+      "upstream_git_blob": "9753e05cea67dcbd2c232a2ba2a69811f9914772",
+      "upstream_sha256": "41563d75bbc37240058dbbc9ca05cc8b37bafaa086b0e9bd1de540fee6817628",
+      "native_sha256": "d99f26d7395a49b6b62c59507855220126a113a6a52567933cc9b83a3f743673",
+      "native_lines": 90,
+      "kind": "namespace_and_options_only"
+    },
+    "RHLean/Geometry/AlpogeAllPlace/Formalism/HarderNarasimhan/DefsPl.lean": {
+      "upstream_path": "src/Formalism/HarderNarasimhan/DefsPl.lean",
+      "upstream_git_blob": "b6defb458880711e79cbc4d87d40f6f2db7385d0",
+      "upstream_sha256": "4038efa1a9bdfcf181ec2faef8d0c10d8ee947c0f493ce9207688bcee7236b5b",
+      "native_sha256": "ddcc829da83586bd05b2a15f78c1d107cd167eba4522a115e8e2111de64d8278",
+      "native_lines": 46,
+      "kind": "namespace_and_options_only"
+    },
+    "RHLean/Geometry/AlpogeAllPlace/Formalism/HarderNarasimhan/DegSupermodZ.lean": {
+      "upstream_path": "src/Formalism/HarderNarasimhan/DegSupermodZ.lean",
+      "upstream_git_blob": "c6dd9d13b4ff818e34bce903c6583b568f732108",
+      "upstream_sha256": "0e3313c15208e0013ab41bb029c5f4251de89fb9978ed3489495235d40736997",
+      "native_sha256": "1c52164b60a180bd65b500353cdc952632d7dffb75f2ed4ac10a85545e2928f5",
+      "native_lines": 56,
+      "kind": "namespace_and_options_only"
+    },
+    "RHLean/Geometry/AlpogeAllPlace/Formalism/HarderNarasimhan/HarderNarasimhanProofs/DegSupermod.lean": {
+      "upstream_path": "src/Formalism/HarderNarasimhan/HarderNarasimhanProofs/DegSupermod.lean",
+      "upstream_git_blob": "e8a064f1e78bb08854f9688518417d07c66ea3f4",
+      "upstream_sha256": "3d1dc60f4301a2634d879eaee6254f77fdafb60491b3579ae43d29348bb25ece",
+      "native_sha256": "52e53d51ed9fcd29b82ece4dd2150fbf3efde130f794825baec9ba25c0ff7372",
+      "native_lines": 59,
+      "kind": "namespace_and_options_only"
+    },
+    "RHLean/Geometry/AlpogeAllPlace/Formalism/HarderNarasimhan/HarderNarasimhanProofs/DegSupermodZ.lean": {
+      "upstream_path": "src/Formalism/HarderNarasimhan/HarderNarasimhanProofs/DegSupermodZ.lean",
+      "upstream_git_blob": "3eaa8605e1f937ea00a6d25d0ca5d5fc8b9a895e",
+      "upstream_sha256": "12028baf0cb95112d4b8e9e8761bcb9702204c9bffcfcff08d638b56a278ff83",
+      "native_sha256": "bcfe1d6651997225a092a8f4ffdf5d216ac415cd00e65ad07334943fe61d4e50",
+      "native_lines": 289,
+      "kind": "namespace_and_options_only"
+    },
+    "RHLean/Geometry/AlpogeAllPlace/Formalism/HarderNarasimhan/HarderNarasimhanProofs/DiscreteSpanOfLinIndep.lean": {
+      "upstream_path": "src/Formalism/HarderNarasimhan/HarderNarasimhanProofs/DiscreteSpanOfLinIndep.lean",
+      "upstream_git_blob": "ac1300f441bf9a00421576deefe9b9cf9bb867a3",
+      "upstream_sha256": "940ebc3ac1adced50321a26d569d61eeb4bb6aa447da4eb3f14d566f188e9a8d",
+      "native_sha256": "70fc4decc569744c80628df67fb8a3a17609e28893f83bd8d6a538f8c1c27efe",
+      "native_lines": 331,
+      "kind": "namespace_options_and_native_compatibility"
+    },
+    "RHLean/Geometry/AlpogeAllPlace/Formalism/HarderNarasimhan/HarderNarasimhanProofs/DualPl.lean": {
+      "upstream_path": "src/Formalism/HarderNarasimhan/HarderNarasimhanProofs/DualPl.lean",
+      "upstream_git_blob": "87062eeec1a7cb76a77ec8799c89904538931d80",
+      "upstream_sha256": "5b87baf5b4c26c903a2e45757f24d8992dc45f93b72a8b87af617c3960d0157d",
+      "native_sha256": "009f76cb65c5c6511cd7cb19223c4b4a37eb9ea3d61947e76e9203e1c7afbc4c",
+      "native_lines": 1603,
+      "kind": "namespace_options_and_native_compatibility"
+    },
+    "RHLean/Geometry/AlpogeAllPlace/Formalism/HarderNarasimhan/HarderNarasimhanProofs/Duality.lean": {
+      "upstream_path": "src/Formalism/HarderNarasimhan/HarderNarasimhanProofs/Duality.lean",
+      "upstream_git_blob": "df7f75045c2c3775b243ec86a426790eaeb490b1",
+      "upstream_sha256": "e4239db5f5f40fcb9e687f8f0732697712dead35c6544753cd997e3c5c241bea",
+      "native_sha256": "b94ae79e5519ac0e2942205c2f982ccefd2b9a1f7d9d4e8e0d1dd068e7c57cc8",
+      "native_lines": 348,
+      "kind": "namespace_options_and_native_compatibility"
+    },
+    "RHLean/Geometry/AlpogeAllPlace/Formalism/HarderNarasimhan/HarderNarasimhanProofs/Example.lean": {
+      "upstream_path": "src/Formalism/HarderNarasimhan/HarderNarasimhanProofs/Example.lean",
+      "upstream_git_blob": "be89e0169ee473fd2ae7bf1d10017e7b36e35bec",
+      "upstream_sha256": "96cc3d514ff008e93a0f1a5dbda26cb2270059dfa78ea1fd7af244471988ff86",
+      "native_sha256": "2c8e1dd35c79efff70547df33c733d39418f47c4d8a803adb98a32dc760fd97e",
+      "native_lines": 362,
+      "kind": "namespace_options_and_native_compatibility"
+    },
+    "RHLean/Geometry/AlpogeAllPlace/Formalism/HarderNarasimhan/HarderNarasimhanProofs/ExistsSmulMemOfFinrankEq.lean": {
+      "upstream_path": "src/Formalism/HarderNarasimhan/HarderNarasimhanProofs/ExistsSmulMemOfFinrankEq.lean",
+      "upstream_git_blob": "2f54850a06e53b84e2864c3ce734035c0564556c",
+      "upstream_sha256": "afa741065141d511152545ca0f62821080d083c1976dda1c045600dc42381759",
+      "native_sha256": "c4aa36fc12818248835dd1cbaa1e8e1853ce0dcd3cac86176b9f83f2fc389a0c",
+      "native_lines": 95,
+      "kind": "namespace_and_options_only"
+    },
+    "RHLean/Geometry/AlpogeAllPlace/Formalism/HarderNarasimhan/HarderNarasimhanProofs/FinSup.lean": {
+      "upstream_path": "src/Formalism/HarderNarasimhan/HarderNarasimhanProofs/FinSup.lean",
+      "upstream_git_blob": "04d9c2c00f3d56ddd30cd5a335f3e343d5b4f125",
+      "upstream_sha256": "2910a49cbf2532d727abbe372ceb7826c8b77c54f7ef97b169f2ad1718f8423d",
+      "native_sha256": "062a2becc7a5bbcc277a26cb3869750c9ce7f0cb4fcdaf3d9fc04a4be0ee357d",
+      "native_lines": 71,
+      "kind": "namespace_options_and_native_compatibility"
+    },
+    "RHLean/Geometry/AlpogeAllPlace/Formalism/HarderNarasimhan/HarderNarasimhanProofs/FrameHermSharpB.lean": {
+      "upstream_path": "src/Formalism/HarderNarasimhan/HarderNarasimhanProofs/FrameHermSharpB.lean",
+      "upstream_git_blob": "21681e780a1592a469189fded4ac2effef8b89e2",
+      "upstream_sha256": "60ebe7d84ef88dd5c79e1e2088675fe6eade77ce960f5a8a089b40f5b11a8521",
+      "native_sha256": "c2ea36e55399319247f1c1d9357482f8bdc508d41179cd47a378eba77293f392",
+      "native_lines": 141,
+      "kind": "namespace_and_options_only"
+    },
+    "RHLean/Geometry/AlpogeAllPlace/Formalism/HarderNarasimhan/HarderNarasimhanProofs/FrameLinearAlgebraFirst.lean": {
+      "upstream_path": "src/Formalism/HarderNarasimhan/HarderNarasimhanProofs/FrameLinearAlgebraFirst.lean",
+      "upstream_git_blob": "7b95526eb3a09eb56d7d5536a495bc37ff542f0f",
+      "upstream_sha256": "852a55f0b5058c59677fec2c3efdaa6286e5cc36bcf0d6a6cb3a25d085fa8e7a",
+      "native_sha256": "e74cd27c2b0376eab55d2eec9304f86c3a56b71f40d588c40d9ea841d57a106e",
+      "native_lines": 228,
+      "kind": "namespace_options_and_native_compatibility"
+    },
+    "RHLean/Geometry/AlpogeAllPlace/Formalism/HarderNarasimhan/HarderNarasimhanProofs/GramBlock.lean": {
+      "upstream_path": "src/Formalism/HarderNarasimhan/HarderNarasimhanProofs/GramBlock.lean",
+      "upstream_git_blob": "76b0b0a6ecc5304106dc3a6bfeff284aebf331ef",
+      "upstream_sha256": "b3526951e6e82f16110c1ceb130ce2e679642477816368321e3b5ac913ce672a",
+      "native_sha256": "16425275ec0289d1df8a68ddef953bbb4629bcecda344b60abdaa78c3977a3e8",
+      "native_lines": 218,
+      "kind": "namespace_options_and_native_compatibility"
+    },
+    "RHLean/Geometry/AlpogeAllPlace/Formalism/HarderNarasimhan/HarderNarasimhanProofs/HNExtreme.lean": {
+      "upstream_path": "src/Formalism/HarderNarasimhan/HarderNarasimhanProofs/HNExtreme.lean",
+      "upstream_git_blob": "0b5f6144699cd23b33963e1a6bb2e6ae7b52560e",
+      "upstream_sha256": "b67164f72fb513ed06d3a8a4ca136f582a27d99912220d80b9d60c4dae20eadd",
+      "native_sha256": "3f7569512493542e7e8df671922b4fdd3b89c9f38ca61b493c0cb88180d52103",
+      "native_lines": 122,
+      "kind": "namespace_and_options_only"
+    },
+    "RHLean/Geometry/AlpogeAllPlace/Formalism/HarderNarasimhan/HarderNarasimhanProofs/HNSlopes.lean": {
+      "upstream_path": "src/Formalism/HarderNarasimhan/HarderNarasimhanProofs/HNSlopes.lean",
+      "upstream_git_blob": "4bf33837e1bbdc7941b5b0c0224dcf0877dc6de4",
+      "upstream_sha256": "d5f8d68abd4d70c41a59f968dcddffc86a7e8b18a9c81ed9bd2c957852b3adda",
+      "native_sha256": "78217153cfe45fadbd4a5c45ac4c5c5c470b9df92eceaf153197072de8809698",
+      "native_lines": 325,
+      "kind": "namespace_options_and_native_compatibility"
+    },
+    "RHLean/Geometry/AlpogeAllPlace/Formalism/HarderNarasimhan/HarderNarasimhanProofs/HNStep.lean": {
+      "upstream_path": "src/Formalism/HarderNarasimhan/HarderNarasimhanProofs/HNStep.lean",
+      "upstream_git_blob": "86838c8f233b764ce81cba39d76535874a4951c1",
+      "upstream_sha256": "a41fd5d1d57e538c3ca9348d5384824f6b021289dc77665e0d6782cc64c62eed",
+      "native_sha256": "2eb2aa59b63275d048444e0fa134b684bb843edd9266b7ac1d7ec0b63a879c64",
+      "native_lines": 162,
+      "kind": "namespace_and_options_only"
+    },
+    "RHLean/Geometry/AlpogeAllPlace/Formalism/HarderNarasimhan/HarderNarasimhanProofs/HtGram.lean": {
+      "upstream_path": "src/Formalism/HarderNarasimhan/HarderNarasimhanProofs/HtGram.lean",
+      "upstream_git_blob": "2d2b86ea27cfacd6dcb75579424c95375dc0bb8f",
+      "upstream_sha256": "1f2e311daebf78274f4e795d5ef52d39caf46554bb9af0f11b741f4dd9b22e15",
+      "native_sha256": "9e931b389f3534810d0e6c3e04a6c32b994e466e74de56e1b365a8a501af2eca",
+      "native_lines": 418,
+      "kind": "namespace_and_options_only"
+    },
+    "RHLean/Geometry/AlpogeAllPlace/Formalism/HarderNarasimhan/HarderNarasimhanProofs/HtImage.lean": {
+      "upstream_path": "src/Formalism/HarderNarasimhan/HarderNarasimhanProofs/HtImage.lean",
+      "upstream_git_blob": "3ebe7b186e60bc72c4d04804ad614c58c0a469c3",
+      "upstream_sha256": "c404203a98c398e18713498cfc5f20af21574a78e78bfd0b745685da0bf3aa63",
+      "native_sha256": "7ec0bbc86dd782f086432af141c6174c77eb54b2d340c5a4e3a926bb709fe65d",
+      "native_lines": 480,
+      "kind": "namespace_and_options_only"
+    },
+    "RHLean/Geometry/AlpogeAllPlace/Formalism/HarderNarasimhan/HarderNarasimhanProofs/MuChar.lean": {
+      "upstream_path": "src/Formalism/HarderNarasimhan/HarderNarasimhanProofs/MuChar.lean",
+      "upstream_git_blob": "6d9adec89a6c2185fdaee4964753d1e5f2c566b2",
+      "upstream_sha256": "c1f99bf36edcef1935f558913725040f6ca8c0f811704cdbc7e3d38992bdb84b",
+      "native_sha256": "10286dacb0dc4e395c65390cdd38a9b07f15e29c4ea9afc9fefe4bc523f0d2fa",
+      "native_lines": 180,
+      "kind": "namespace_and_options_only"
+    },
+    "RHLean/Geometry/AlpogeAllPlace/Formalism/HarderNarasimhan/HarderNarasimhanProofs/PiSumForallInsertOnly.lean": {
+      "upstream_path": "src/Formalism/HarderNarasimhan/HarderNarasimhanProofs/PiSumForallInsertOnly.lean",
+      "upstream_git_blob": "be74b50eb0abb15ba244986863812e8628fa9965",
+      "upstream_sha256": "4d03dd6f1e3e27b5480dbb5e63489c34410b5fbbf655c17bc24802725a531ea7",
+      "native_sha256": "3021c58482db1d567bbbecd4819ac99da3324096108922f1642d7bfc35cc6024",
+      "native_lines": 379,
+      "kind": "namespace_and_options_only"
+    },
+    "RHLean/Geometry/AlpogeAllPlace/Formalism/HarderNarasimhan/HarderNarasimhanProofs/PlaceSplit.lean": {
+      "upstream_path": "src/Formalism/HarderNarasimhan/HarderNarasimhanProofs/PlaceSplit.lean",
+      "upstream_git_blob": "f442f465a9116dde56cd94546e34f3f648bdcc15",
+      "upstream_sha256": "098b091cae2368fc3efcdd768ae0581657d625595acf66452d36bc8c2deb87c2",
+      "native_sha256": "69c1673401a2beef0788d0ef683b05e13a06ea8f8683cb64daf5fae090ac6d74",
+      "native_lines": 470,
+      "kind": "namespace_options_and_native_compatibility"
+    },
+    "RHLean/Geometry/AlpogeAllPlace/Formalism/HarderNarasimhan/HarderNarasimhanProofs/PolygonSlopeSum.lean": {
+      "upstream_path": "src/Formalism/HarderNarasimhan/HarderNarasimhanProofs/PolygonSlopeSum.lean",
+      "upstream_git_blob": "efb14ec2434435984db9836de484f2e064a9df8f",
+      "upstream_sha256": "cab6414e4917fedde006ed551863f86d3f21c38e13b6fc83dcbb53f9e4bdb341",
+      "native_sha256": "a93a978eb4d4dbf4a271418b7950c93e25cfa4c195975b46c5e0dbac5b86c2f7",
+      "native_lines": 266,
+      "kind": "namespace_and_options_only"
+    },
+    "RHLean/Geometry/AlpogeAllPlace/Formalism/HarderNarasimhan/HarderNarasimhanProofs/QuotRealize.lean": {
+      "upstream_path": "src/Formalism/HarderNarasimhan/HarderNarasimhanProofs/QuotRealize.lean",
+      "upstream_git_blob": "5578fe78497f8755fd44f580dd9a63b8e057721e",
+      "upstream_sha256": "3a04d5a0cd077e156690b7a0661899c7645cd77f085d78a5c954c4c1b520d49c",
+      "native_sha256": "bfb462e6d2663949bd8391577c51df1298f510c32285219b033e6149bcf8c9a8",
+      "native_lines": 489,
+      "kind": "namespace_options_and_native_compatibility"
+    },
+    "RHLean/Geometry/AlpogeAllPlace/Formalism/HarderNarasimhan/HarderNarasimhanProofs/RatioMax.lean": {
+      "upstream_path": "src/Formalism/HarderNarasimhan/HarderNarasimhanProofs/RatioMax.lean",
+      "upstream_git_blob": "6b3577a4f952c64f575098ccbf53b3e3c97c3091",
+      "upstream_sha256": "1a8fc6a557212f64d5c57dafc0adc584d96193cc62c27c792a2ed55fe6d664ba",
+      "native_sha256": "22d1d200ba499151de9b13c5c81f7844daf99b8752e2f1def525618ea9af8e6b",
+      "native_lines": 123,
+      "kind": "namespace_and_options_only"
+    },
+    "RHLean/Geometry/AlpogeAllPlace/Formalism/HarderNarasimhan/HarderNarasimhanProofs/Rerealize.lean": {
+      "upstream_path": "src/Formalism/HarderNarasimhan/HarderNarasimhanProofs/Rerealize.lean",
+      "upstream_git_blob": "934f5ae51c4c1b13011423c8cfa8a21f78c22c2c",
+      "upstream_sha256": "dbdcbc1dc48332936995d3e994cbec85d079cdb9c5042c2739587f24935c7b46",
+      "native_sha256": "55e3e3960454c6ec85f6ab52bba39d4f9189f83a5bf8a8996def670d57385bac",
+      "native_lines": 348,
+      "kind": "namespace_options_and_native_compatibility"
+    },
+    "RHLean/Geometry/AlpogeAllPlace/Formalism/HarderNarasimhan/HarderNarasimhanProofs/RescaleCovol.lean": {
+      "upstream_path": "src/Formalism/HarderNarasimhan/HarderNarasimhanProofs/RescaleCovol.lean",
+      "upstream_git_blob": "a97813696e34680382c52ee003b9471fd7e76115",
+      "upstream_sha256": "b8729c538051125cc327b87ece1ad0cde8f88798520717c1856eb32aa0a59d57",
+      "native_sha256": "e2e013328aa110f2e454ad0b7e931c23f8ce5143b09b4e8ef9f1bc6c5576732a",
+      "native_lines": 174,
+      "kind": "namespace_and_options_only"
+    },
+    "RHLean/Geometry/AlpogeAllPlace/Formalism/HarderNarasimhan/HarderNarasimhanProofs/SatBasic.lean": {
+      "upstream_path": "src/Formalism/HarderNarasimhan/HarderNarasimhanProofs/SatBasic.lean",
+      "upstream_git_blob": "d1bc25bb41981bb4a1d107b19630be97010c3a3b",
+      "upstream_sha256": "80a844101071eb3824e97e333e59c1565f1857ad7c077aec7b2bee8c5f04cc08",
+      "native_sha256": "ba621cfd7926bfdc6fb8dc01ad06a3ac691e4d0ff330465f11349f083ee6d0fe",
+      "native_lines": 116,
+      "kind": "namespace_and_options_only"
+    },
+    "RHLean/Geometry/AlpogeAllPlace/Formalism/HarderNarasimhan/HarderNarasimhanProofs/ShiftInvariance.lean": {
+      "upstream_path": "src/Formalism/HarderNarasimhan/HarderNarasimhanProofs/ShiftInvariance.lean",
+      "upstream_git_blob": "8d633427ec2f148a230aaa0b21aa259b1fb8c332",
+      "upstream_sha256": "268954d49f101d9a94af78733da2dc7a0cadd6541d31ae008a8d066cd150c936",
+      "native_sha256": "a8db032632ca3936f3fd410fe3163bbbedb5fd7f9c9cf6d659931f73e556b23b",
+      "native_lines": 191,
+      "kind": "namespace_options_and_native_compatibility"
+    },
+    "RHLean/Geometry/AlpogeAllPlace/Formalism/HarderNarasimhan/HarderNarasimhanProofs/SizeIneq.lean": {
+      "upstream_path": "src/Formalism/HarderNarasimhan/HarderNarasimhanProofs/SizeIneq.lean",
+      "upstream_git_blob": "3166c1589d908e5fde85e4cfcd20e8201bda91dd",
+      "upstream_sha256": "09b3f5b3996c58f45de29fcc47a51df0fff09d72250f1467b20a5a11f98cc13b",
+      "native_sha256": "298e4844c098f7da77dde8d00b5434dba31dab27d502c46854bd0c2106e6867a",
+      "native_lines": 174,
+      "kind": "namespace_and_options_only"
+    },
+    "RHLean/Geometry/AlpogeAllPlace/Formalism/HarderNarasimhan/HarderNarasimhanProofs/SizeMu.lean": {
+      "upstream_path": "src/Formalism/HarderNarasimhan/HarderNarasimhanProofs/SizeMu.lean",
+      "upstream_git_blob": "086bd6cb5940ecd807566c0ef83343551345fd8d",
+      "upstream_sha256": "1e92c71cc6d44b02c2b21e060d21eefefa980c3ce73cb9bc51a893ca4a837e94",
+      "native_sha256": "0e0a878a425a3d846dcd0cba5eff4bc9b33f2bbe57b8f1722ab99b3103b9624a",
+      "native_lines": 182,
+      "kind": "namespace_and_options_only"
+    },
+    "RHLean/Geometry/AlpogeAllPlace/Formalism/HarderNarasimhan/HarderNarasimhanProofs/SlopeIneq.lean": {
+      "upstream_path": "src/Formalism/HarderNarasimhan/HarderNarasimhanProofs/SlopeIneq.lean",
+      "upstream_git_blob": "8f0446fe0ee5419a6937268644609d9ce760e292",
+      "upstream_sha256": "7e1c5dade4bbbcf637b4ad14fc690824ca95519abcc859bdc238344e3d4da255",
+      "native_sha256": "731a6da2d1f78b3f2f691d6e851eded41d04f33dfa0155066b8d2dbbddebdc18",
+      "native_lines": 514,
+      "kind": "namespace_options_and_native_compatibility"
+    },
+    "RHLean/Geometry/AlpogeAllPlace/Formalism/HarderNarasimhan/HarderNarasimhanProofs/SlopeIneqMean.lean": {
+      "upstream_path": "src/Formalism/HarderNarasimhan/HarderNarasimhanProofs/SlopeIneqMean.lean",
+      "upstream_git_blob": "7525fb1fa80a8138efc88b5a2a26e4face840d5e",
+      "upstream_sha256": "9f5336ea186f3332c2d14f1844bc187019963dcb1f721d4cc30efbad4100cbab",
+      "native_sha256": "9098a94037a157a13bc794608785323201931232f8bbc39e5c70243f039203a7",
+      "native_lines": 258,
+      "kind": "namespace_and_options_only"
+    },
+    "RHLean/Geometry/AlpogeAllPlace/Formalism/HarderNarasimhan/HarderNarasimhanProofs/TheoremFSharp.lean": {
+      "upstream_path": "src/Formalism/HarderNarasimhan/HarderNarasimhanProofs/TheoremFSharp.lean",
+      "upstream_git_blob": "a8f8c3bf7560fbab8302f3127fcaf0f5d9eacff8",
+      "upstream_sha256": "c365ecf5a0125193a1217a8cfc34e12b548ea4967526d880424f49e2f83c3f1f",
+      "native_sha256": "69ce06226134058c55466f4b8d68c9221830c699484accc3924b75f9bca399d5",
+      "native_lines": 407,
+      "kind": "namespace_and_options_only"
+    },
+    "RHLean/Geometry/AlpogeAllPlace/Formalism/HarderNarasimhan/HarderNarasimhanProofs/TwistFinrankEq.lean": {
+      "upstream_path": "src/Formalism/HarderNarasimhan/HarderNarasimhanProofs/TwistFinrankEq.lean",
+      "upstream_git_blob": "0a1964f6fc60d02d10280fae2c8542204601533c",
+      "upstream_sha256": "b4d0d6aacb50951a2089d8dbbc9b0419b68f88f7cfbc4498925051adbed7f355",
+      "native_sha256": "2bf263ee1785d7f38d0dfc64976001f64ec83e93a6e6d7ed5be44c84554616ab",
+      "native_lines": 106,
+      "kind": "namespace_and_options_only"
+    },
+    "RHLean/Geometry/AlpogeAllPlace/Formalism/HarderNarasimhan/QuotRealize.lean": {
+      "upstream_path": "src/Formalism/HarderNarasimhan/QuotRealize.lean",
+      "upstream_git_blob": "e1ae88811f40f6fdccae2e773c4623e2328881b9",
+      "upstream_sha256": "047e0963e979b671975735ec0a422cb12891ad9f30c242aa1a9b90cd5709ae5b",
+      "native_sha256": "661c5f7412a5a64a7f34f1eb36f48992bca0995815259ea98001591bc8eb35b1",
+      "native_lines": 89,
+      "kind": "namespace_and_options_only"
+    },
+    "RHLean/Geometry/AlpogeAllPlace/Formalism/HarderNarasimhan/ShiftInvariance.lean": {
+      "upstream_path": "src/Formalism/HarderNarasimhan/ShiftInvariance.lean",
+      "upstream_git_blob": "95579d92ca3042890937c462b769cd5885a79868",
+      "upstream_sha256": "b6446ba242e53bcc131ebbc6ab586d543e979ceae2d372d32e4976952319f520",
+      "native_sha256": "d073f2c41ea52b0fcd6b379dbc98877382da63995e40cca42967ebcd4dbfd8f9",
+      "native_lines": 69,
+      "kind": "namespace_and_options_only"
+    },
+    "RHLean/Geometry/AlpogeAllPlace/Formalism/HarderNarasimhan/Statement.lean": {
+      "upstream_path": "src/Formalism/HarderNarasimhan/Statement.lean",
+      "upstream_git_blob": "7b4b0853ff8c38c8de7219dfbb6af4de49b67fb7",
+      "upstream_sha256": "2d5b72c777c27d48bf40a7a4adf902585ed3a41841ced2e95e6ec95c44c9a33e",
+      "native_sha256": "6480ac4771558aa03fe68233a70410840a55c37012bbfe644fb85fdc38f48883",
+      "native_lines": 171,
+      "kind": "namespace_and_options_only"
+    },
+    "RHLean/Geometry/AlpogeAllPlace/Formalism/HarderNarasimhan/StatementFrame.lean": {
+      "upstream_path": "src/Formalism/HarderNarasimhan/StatementFrame.lean",
+      "upstream_git_blob": "1a7aeee3ff3d7872c4525d7f6fb2a9289d006ed2",
+      "upstream_sha256": "d25a3dcf99cdd3a00a1d059ac181af9c5abedc1755c172f8047f1b3b4cd10a9f",
+      "native_sha256": "affd87ce951a848f4e2085de88b5d1c6964f7ee5d6aea153b6b4ae2ad46e42d4",
+      "native_lines": 91,
+      "kind": "namespace_and_options_only"
+    },
+    "RHLean/Geometry/AlpogeAllPlace/Formalism/HarderNarasimhan/StatementFrameF.lean": {
+      "upstream_path": "src/Formalism/HarderNarasimhan/StatementFrameF.lean",
+      "upstream_git_blob": "3f17f6e4ae975f00dbeafdc3fb9e8b66f8c60c1d",
+      "upstream_sha256": "ae794a2e9121b5baf91c46205565433073067ec464c3c341a8fc03dfbb06b2ea",
+      "native_sha256": "37507598a2c292c78bd9c788fc03ad38922d1f4c82dd866d2da99a8a6a301284",
+      "native_lines": 106,
+      "kind": "namespace_and_options_only"
+    },
+    "RHLean/Geometry/AlpogeAllPlace/Formalism/HarderNarasimhan/StatementMod.lean": {
+      "upstream_path": "src/Formalism/HarderNarasimhan/StatementMod.lean",
+      "upstream_git_blob": "6b9dc3eb1dcc624056748560316fd0175a65c86b",
+      "upstream_sha256": "49852317568471abf7e8f4dc5f19f96c7450a2ddea7b7983f9360e170fbb5b95",
+      "native_sha256": "042a89dd40ff1b2d8a21b196c250476a59994b9eb8eabd24fbeecb96909ee424",
+      "native_lines": 66,
+      "kind": "namespace_and_options_only"
+    },
+    "RHLean/Geometry/AlpogeAllPlace/Formalism/HarderNarasimhan/StatementPl.lean": {
+      "upstream_path": "src/Formalism/HarderNarasimhan/StatementPl.lean",
+      "upstream_git_blob": "0ef994d7e7998e4b46dfce96b8ccd24bebe4bda8",
+      "upstream_sha256": "16766730a8dd781538ca5035ff73ddf7612decae9f293bbd995679093d9adc39",
+      "native_sha256": "1e323fc75fa0c912e6ddd73584125f9807d85c2b3b77ecf577a4c71320321f6f",
+      "native_lines": 175,
+      "kind": "namespace_and_options_only"
+    },
+    "RHLean/Geometry/AlpogeAllPlace/Formalism/HermitianLattices/DefsCS.lean": {
+      "upstream_path": "src/Formalism/HermitianLattices/DefsCS.lean",
+      "upstream_git_blob": "3a64350dfc17288e6da1a086a3cf9a72fa112ba2",
+      "upstream_sha256": "eaa5e819f764b4cbc519bc4d95188bedf07939327c3b9824c31152531ba170a9",
+      "native_sha256": "363562a6aa05ffc01e74d446473f2ce9bf0a884b536e0f7d4c9ab64901884ba1",
+      "native_lines": 69,
+      "kind": "namespace_and_options_only"
+    },
+    "RHLean/Geometry/AlpogeAllPlace/Formalism/HermitianLattices/StatementLat.lean": {
+      "upstream_path": "src/Formalism/HermitianLattices/StatementLat.lean",
+      "upstream_git_blob": "4f84ca3c8738dca6ffab6b32fdf4ee309fed05c4",
+      "upstream_sha256": "38a4a07538f89db787edb0f968266e3e34732c459c662e1d48c4e3be6b2bd4e6",
+      "native_sha256": "d51a5ef2b7726eb430144fa4df1ac61a4083c3b04d717721a4591e1d7ef687ce",
+      "native_lines": 221,
+      "kind": "namespace_and_options_only"
+    },
+    "RHLean/Geometry/AlpogeAllPlace/Formalism/HermitianLattices/StatementMaj.lean": {
+      "upstream_path": "src/Formalism/HermitianLattices/StatementMaj.lean",
+      "upstream_git_blob": "57977ca7fb685ab8a250b62ad0fcfd64141c10dc",
+      "upstream_sha256": "d56af0897f9ebd764362be86cd2803d38d08f06c33caadf2e9d3dc0f18100d2a",
+      "native_sha256": "700bde57b72633dccf6c558332058ef633e243dc4b780c517413db52a89f5af3",
+      "native_lines": 211,
+      "kind": "namespace_options_and_native_compatibility"
+    },
+    "RHLean/Geometry/AlpogeAllPlace/Formalism/LatticeSlopes/CovolAntiSameRank.lean": {
+      "upstream_path": "src/Formalism/LatticeSlopes/CovolAntiSameRank.lean",
+      "upstream_git_blob": "bd42794e120bc3f2315bcb1099e6564e80378b40",
+      "upstream_sha256": "c142eef2ce50d1e0c517ae7494ad455d7cf2dd2c6eaf28eb207830cdaaf8c2a6",
+      "native_sha256": "81c553d6b2756bc92f1790f428fc501ce6df91cb5e280801f21e10a70e4c639d",
+      "native_lines": 41,
+      "kind": "namespace_and_options_only"
+    },
+    "RHLean/Geometry/AlpogeAllPlace/Formalism/LatticeSlopes/ExistsSaturatedSlopeEqMuMax.lean": {
+      "upstream_path": "src/Formalism/LatticeSlopes/ExistsSaturatedSlopeEqMuMax.lean",
+      "upstream_git_blob": "9eb08d2ce06ff2132fd21acce69ca8ba39316e3e",
+      "upstream_sha256": "d83c1d21c5191f6d5fe163a2f7c578db0f9f6bb684d36b0005f85372f724661c",
+      "native_sha256": "fe1f06cdca08908b942761a4a9ede004d535b1e2510f635b645f90c5d72f8cdf",
+      "native_lines": 56,
+      "kind": "namespace_and_options_only"
+    },
+    "RHLean/Geometry/AlpogeAllPlace/Formalism/LatticeSlopes/LatticeSlopesProofs/CovolEqCovolume.lean": {
+      "upstream_path": "src/Formalism/LatticeSlopes/LatticeSlopesProofs/CovolEqCovolume.lean",
+      "upstream_git_blob": "37b74aebd5c516293d2fd32b419443218bc8ce07",
+      "upstream_sha256": "7b230e048076a4c5212a8cf94ae9d061eeca9e10754fae088092f8dae9ff9cfc",
+      "native_sha256": "5f6aa1b4517751d60d70a8ac0e470d7073041d1bead5a88c039eca146542c611",
+      "native_lines": 48,
+      "kind": "namespace_options_and_native_compatibility"
+    },
+    "RHLean/Geometry/AlpogeAllPlace/Formalism/LatticeSlopes/LatticeSlopesProofs/CovolEqGram.lean": {
+      "upstream_path": "src/Formalism/LatticeSlopes/LatticeSlopesProofs/CovolEqGram.lean",
+      "upstream_git_blob": "dd73a28cf8d3a11bda18e2026e6a7a987055539f",
+      "upstream_sha256": "e1f9be4cf212e6e2c1fa088a6bb5877e8a3a723cecc597939ce25034c8b9665c",
+      "native_sha256": "9d6955a5c6ef62804baa92239c4da7b4b8c287fe4b3e3aaa5c73810e56300599",
+      "native_lines": 61,
+      "kind": "namespace_options_and_native_compatibility"
+    },
+    "RHLean/Geometry/AlpogeAllPlace/Formalism/LatticeSlopes/LatticeSlopesProofs/CovolPos.lean": {
+      "upstream_path": "src/Formalism/LatticeSlopes/LatticeSlopesProofs/CovolPos.lean",
+      "upstream_git_blob": "ba0abd72a25142ef97109f33c437a16839e343f0",
+      "upstream_sha256": "b9fd7ecf74b5d000081c1168d5897e1537a3acc16ee52cc3364ad85ddafbacde",
+      "native_sha256": "61c7f9d25890ae4bb0c1265353dcfaa79e3837f9b205bb2ff6030f0b5eae0556",
+      "native_lines": 111,
+      "kind": "namespace_options_and_native_compatibility"
+    },
+    "RHLean/Geometry/AlpogeAllPlace/Formalism/LatticeSlopes/LatticeSlopesProofs/DegQuot.lean": {
+      "upstream_path": "src/Formalism/LatticeSlopes/LatticeSlopesProofs/DegQuot.lean",
+      "upstream_git_blob": "4293b156ddced2f179c245027d45d314b7d317fa",
+      "upstream_sha256": "e71489e9a424c0fedb69aa80d7817314c055249a6d51677e423aa1bd9768ab7d",
+      "native_sha256": "d72475fa8d0fbb18f5f3c521116fd9d0303a13b4032334c732d3f45dce49ce7d",
+      "native_lines": 300,
+      "kind": "namespace_options_and_native_compatibility"
+    },
+    "RHLean/Geometry/AlpogeAllPlace/Formalism/LatticeSlopes/LatticeSlopesProofs/DiscreteTopologyOfLe.lean": {
+      "upstream_path": "src/Formalism/LatticeSlopes/LatticeSlopesProofs/DiscreteTopologyOfLe.lean",
+      "upstream_git_blob": "2673b513c4771c707673d18e79c5b3fcc57f21de",
+      "upstream_sha256": "8520fc28387e0d5f11ac49f44a4786c6565197fa38dd020b7950fbdfbcebc8c0",
+      "native_sha256": "31849ff983b3c248c32fe9fb662bb9221db7c7950e6ca7f86838c100cc65cf47",
+      "native_lines": 18,
+      "kind": "namespace_options_and_native_compatibility"
+    },
+    "RHLean/Geometry/AlpogeAllPlace/Formalism/LatticeSlopes/LatticeSlopesProofs/FiniteSaturated.lean": {
+      "upstream_path": "src/Formalism/LatticeSlopes/LatticeSlopesProofs/FiniteSaturated.lean",
+      "upstream_git_blob": "a29491ec10023ba13c74f4c005be90c310b2213d",
+      "upstream_sha256": "7b53fd96d3fb353e528acf8941fb1bb41e84412d604eabc6117b101b15aeab44",
+      "native_sha256": "251347139d6b1287f1832aaaea5f4ebc3d5931030a16f9106f60f8c1c458c137",
+      "native_lines": 170,
+      "kind": "namespace_options_and_native_compatibility"
+    },
+    "RHLean/Geometry/AlpogeAllPlace/Formalism/LatticeSlopes/LatticeSlopesProofs/GramDetLe.lean": {
+      "upstream_path": "src/Formalism/LatticeSlopes/LatticeSlopesProofs/GramDetLe.lean",
+      "upstream_git_blob": "0c69401a60ac25bfb6d6c1f406497db5e0f39ff5",
+      "upstream_sha256": "99483828a14d7aec28ce3fba4fb47626c13f1240a4cf4e032914ad8faceabaf6",
+      "native_sha256": "e5c522eed057b7e7fa0569949050e75120f1bdde70845d55710bc93956f804bc",
+      "native_lines": 195,
+      "kind": "namespace_options_and_native_compatibility"
+    },
+    "RHLean/Geometry/AlpogeAllPlace/Formalism/LatticeSlopes/LatticeSlopesProofs/MuMaxAttained.lean": {
+      "upstream_path": "src/Formalism/LatticeSlopes/LatticeSlopesProofs/MuMaxAttained.lean",
+      "upstream_git_blob": "b538d679f68656cbcb0164c9dc45ca10337694ab",
+      "upstream_sha256": "0d19b63baae38c72a4ba2a469c1187e989a412d3b348ad58d932e6073fe7a8d8",
+      "native_sha256": "d3710fc91732d98970a325c75ae260f055845c9742a81c0b673864d72af85c5a",
+      "native_lines": 27,
+      "kind": "namespace_options_and_native_compatibility"
+    },
+    "RHLean/Geometry/AlpogeAllPlace/Formalism/LatticeSlopes/LatticeSlopesProofs/MuMaxLeMin.lean": {
+      "upstream_path": "src/Formalism/LatticeSlopes/LatticeSlopesProofs/MuMaxLeMin.lean",
+      "upstream_git_blob": "e8bb0f695fc07e2a48325a7eab1c0b28f9fa8c4f",
+      "upstream_sha256": "59fc88b59fcfd755b4ea2bc5cbfaf742e1fa798a7546f8301b8446cc087aa704",
+      "native_sha256": "ce1bd2ab4cba4e7578d521beed2df8099f809ca23f8b3d6c8eda1304a3f139b4",
+      "native_lines": 45,
+      "kind": "namespace_options_and_native_compatibility"
+    },
+    "RHLean/Geometry/AlpogeAllPlace/Formalism/LatticeSlopes/LatticeSlopesProofs/OrthSum.lean": {
+      "upstream_path": "src/Formalism/LatticeSlopes/LatticeSlopesProofs/OrthSum.lean",
+      "upstream_git_blob": "ec67df53919db06e787ce109714e5a4257459383",
+      "upstream_sha256": "05be8d70faf779c99be10ae64bb01634f2db5f094b9b06a358bdc571c36a78fc",
+      "native_sha256": "6f36487921da9eb008c4355fcaf390f4b3d734724b00d8034b79f54e483549d1",
+      "native_lines": 223,
+      "kind": "namespace_options_and_native_compatibility"
+    },
+    "RHLean/Geometry/AlpogeAllPlace/Formalism/LatticeSlopes/LatticeSlopesProofs/SaturationProperties.lean": {
+      "upstream_path": "src/Formalism/LatticeSlopes/LatticeSlopesProofs/SaturationProperties.lean",
+      "upstream_git_blob": "06f7b62675729a91c197089abff07ba6c21c924b",
+      "upstream_sha256": "cbd0a2785ed74278d936ca0036157d713a38693e70a3d7fafaf1acd1fccc9d4c",
+      "native_sha256": "ccee87355ad74c386b4a3c1be25f54b6c1ef5ad2777505661f749caa845922af",
+      "native_lines": 123,
+      "kind": "namespace_options_and_native_compatibility"
+    },
+    "RHLean/Geometry/AlpogeAllPlace/Formalism/LatticeSlopes/LatticeSlopesProofs/ShortVector.lean": {
+      "upstream_path": "src/Formalism/LatticeSlopes/LatticeSlopesProofs/ShortVector.lean",
+      "upstream_git_blob": "452c424ec2239f898310cf3e4074978eac9ad6ba",
+      "upstream_sha256": "d5d43a3c1aedcec8725951a2f845bdd3718831441d894a4ee0a4186478c79ef2",
+      "native_sha256": "2450af01c346b5587b337ef1e2a63c84bd32458d077e9fcdc2701072e809dd6b",
+      "native_lines": 169,
+      "kind": "namespace_options_and_native_compatibility"
+    },
+    "RHLean/Geometry/AlpogeAllPlace/Formalism/LatticeSlopes/LatticeSlopesProofs/SlopeInequality.lean": {
+      "upstream_path": "src/Formalism/LatticeSlopes/LatticeSlopesProofs/SlopeInequality.lean",
+      "upstream_git_blob": "08b8c81f8273a2c9bf59f8ae34c269492753284b",
+      "upstream_sha256": "e004beada3d947be96ee4598e1c60bdc20bdb3d318b9b06b365622c2cb414422",
+      "native_sha256": "0316fb0c8f530b6acb3747ead2fb42efedd22f365da0115a99c36e3750f7cab4",
+      "native_lines": 198,
+      "kind": "namespace_options_and_native_compatibility"
+    },
+    "RHLean/Geometry/AlpogeAllPlace/Formalism/LatticeSlopes/LatticeSlopesProofs/SlopeLeMuMaxOf.lean": {
+      "upstream_path": "src/Formalism/LatticeSlopes/LatticeSlopesProofs/SlopeLeMuMaxOf.lean",
+      "upstream_git_blob": "98cbf70eb6e176617820d113b2cf25d30a7abeb1",
+      "upstream_sha256": "6c33e1f4e2f6279912475e28a0108b894e2531ae469d57dd737a484c6bc374a4",
+      "native_sha256": "854a4a63a21d2b444b55309d715c5da0e3deae7b07ab2dad148586b1f46c9b6e",
+      "native_lines": 22,
+      "kind": "namespace_and_options_only"
+    },
+    "RHLean/Geometry/AlpogeAllPlace/Formalism/LatticeSlopes/LatticeSlopesProofs/SlopesBdd.lean": {
+      "upstream_path": "src/Formalism/LatticeSlopes/LatticeSlopesProofs/SlopesBdd.lean",
+      "upstream_git_blob": "7fd5f6d227a7defc8de8bf6b33fea6c38923441f",
+      "upstream_sha256": "839b48569d4b8779ba23b3b8c91403af09abd06d380228d7bf8c7c9acbf1c9a6",
+      "native_sha256": "7b71e0223c536e3863c1331404bdb96f82e6127f360711d4e75bca378ce6d7b0",
+      "native_lines": 143,
+      "kind": "namespace_options_and_native_compatibility"
+    },
+    "RHLean/Geometry/AlpogeAllPlace/Formalism/LatticeSlopes/Statement.lean": {
+      "upstream_path": "src/Formalism/LatticeSlopes/Statement.lean",
+      "upstream_git_blob": "c059491136c61c9a2002764f252a729531738ef4",
+      "upstream_sha256": "47403840eb948e942a67eedcd09e82de9c1f5a32870b7bb52dc8253773e30f43",
+      "native_sha256": "2e6009084993dd7130f99b64553182af35a15e4f098fb94b8989262f91bd0b0a",
+      "native_lines": 109,
+      "kind": "namespace_and_options_only"
+    },
+    "RHLean/Geometry/AlpogeAllPlace/Formalism/LocalToGlobal/LatticeGeometry/OperatorNormFibers/PDescentCutA.lean": {
+      "upstream_path": "src/Formalism/LocalToGlobal/LatticeGeometry/OperatorNormFibers/PDescentCutA.lean",
+      "upstream_git_blob": "0cf83d822a64284fb81ff621bc6fcf53afad6aa8",
+      "upstream_sha256": "66868f65ae206270366b2e147f34b78f5545ebd648dd7560ea6cf6ce3b5b7340",
+      "native_sha256": "891ac96a201c714cd94c1f46a68e0a87be09a6287856149541ed50d055e52406",
+      "native_lines": 127,
+      "kind": "source_body_pruning"
+    },
+    "RHLean/Geometry/AlpogeAllPlace/Formalism/MeanHeightDescent/AverageDegreeBounds/DescentSlope.lean": {
+      "upstream_path": "src/Formalism/MeanHeightDescent/AverageDegreeBounds/DescentSlope.lean",
+      "upstream_git_blob": "9f3d73c4d6b4a63c0e4e64f71d1ec50c11262ee3",
+      "upstream_sha256": "bd484b6d2384e82969776b342eb81ca0311b47411ccde4e4062821a807a8822d",
+      "native_sha256": "884c6795c5ef094490f1a914decc74726b02208571735ea6d7fb4b41c89e2a14",
+      "native_lines": 185,
+      "kind": "namespace_and_options_only"
+    },
+    "RHLean/Geometry/AlpogeAllPlace/Formalism/MeanHeightDescent/AverageDegreeBounds/SpanMuMin.lean": {
+      "upstream_path": "src/Formalism/MeanHeightDescent/AverageDegreeBounds/SpanMuMin.lean",
+      "upstream_git_blob": "46c2d520373671bd2d053add7bf04f7a56fe59cf",
+      "upstream_sha256": "c863a92902b4897fe87b9380b09476772a75ba88c1cd3f609f1a83190a574066",
+      "native_sha256": "dabdd633e888097e4f27a65c8f63382fc3415a5e86407b83ab4faa1ed41af007",
+      "native_lines": 193,
+      "kind": "namespace_options_and_product_api"
+    },
+    "RHLean/Geometry/AlpogeAllPlace/Formalism/MeanHeightDescent/MuMaxMinkowski.lean": {
+      "upstream_path": "src/Formalism/MeanHeightDescent/MuMaxMinkowski.lean",
+      "upstream_git_blob": "72a1e7262756cd53f4370cc5554f71bae5340cff",
+      "upstream_sha256": "f3ad39d3bf8ea1b1e77466990d0dd8fae33be206ae382b086469458a9461f430",
+      "native_sha256": "a4639bd3fc4ef28b51ce07720fec1c63c586d7681368dab8e4c103f31bbd2ba4",
+      "native_lines": 92,
+      "kind": "namespace_and_options_only"
+    },
+    "RHLean/Geometry/AlpogeAllPlace/Formalism/QuotientMetricDivisors/Statement.lean": {
+      "upstream_path": "src/Formalism/QuotientMetricDivisors/Statement.lean",
+      "upstream_git_blob": "426f4ef59d7857df5adf0ec8d08768da0b1eea81",
+      "upstream_sha256": "502bb8bb725605949758d6a522266e35aaf1d3f5842ca6bf34bc0b22f98d4cf0",
+      "native_sha256": "a2714f1b4742da9dbc0d5e08bb270388fb07a6f4012a613b10e4c49cc559fb48",
+      "native_lines": 199,
+      "kind": "namespace_and_options_only"
+    },
+    "RHLean/Geometry/AlpogeAllPlace/Lemmata/GeneralBFactLeftForm/Imports.lean": {
+      "upstream_path": "src/Lemmata/GeneralBFactLeftForm/Imports.lean",
+      "upstream_git_blob": "a3d2cb613ce3149e5a87095a6d926e0b03eed2d0",
+      "upstream_sha256": "074e680aded5d21d2b46465861eb643b2992b3913f507c629940bd002ea55fc9",
+      "native_sha256": "d9ca5a35eefcebb0ca0dba7f9dca06611ccecf335d08f0183367bc2d3ee9a6d7",
+      "native_lines": 39,
+      "kind": "namespace_and_options_only"
+    },
+    "RHLean/Geometry/AlpogeAllPlace/Lemmata/GeneralBFactSecondTail/Imports.lean": {
+      "upstream_path": "src/Lemmata/GeneralBFactSecondTail/Imports.lean",
+      "upstream_git_blob": "b3f94ba059b834e70bdd67faa013580d5d33026e",
+      "upstream_sha256": "819957f0d3d0a10a904a3364f620e275082e1b3e6c38018252b3a500c8fdd6c9",
+      "native_sha256": "e80fb83e3d8e4a14ab701be67b16c47da6a89d9e88612f9195793881bdd59c41",
+      "native_lines": 47,
+      "kind": "namespace_options_and_native_compatibility"
+    },
+    "RHLean/Geometry/NativeAllPlaceDescent.lean": {
+      "kind": "explicit_native_alias",
+      "native_sha256": "e952f83b0cb619395c2e2e58cba49113ce7931ebe407f1430d93399a0e76d14e",
+      "native_lines": 19
+    }
+  },
+  "initial_unpruned_supplier_modules": 77,
+  "upstream_unpruned_supplier_lines": 15076,
+  "hosted_feedback": {
+    "head": "17c409dcacf852f8c73755051271446cf85595f5",
+    "run_id": 45052037181,
+    "job_id": 137299062612,
+    "observed_all_place_errors": 6,
+    "observed_all_place_warnings": 155,
+    "repair_verification": "source-only; next exact-head hosted compile required"
+  }
+}

@@ -20,22 +20,8 @@ theorem dense_emb {K : Type} [Field K] [NumberField K] (v : InfinitePlace K) (hv
   have h := hs.denseRange.comp (NumberField.InfinitePlace.Completion.denseRange_coe v) hc
   refine Dense.mono ?_ h
   rintro _ ⟨x, rfl⟩
-  first
-    | (refine ⟨WithAbs.equiv _ x, ?_⟩
-       first
-        | exact (NumberField.InfinitePlace.Completion.extensionEmbedding_coe v x).symm
-        | simp [NumberField.InfinitePlace.Completion.extensionEmbedding_coe]
-        | rfl)
-    | (refine ⟨WithAbs.ofAbs x, ?_⟩
-       first
-        | exact (NumberField.InfinitePlace.Completion.extensionEmbedding_coe v x).symm
-        | simp [NumberField.InfinitePlace.Completion.extensionEmbedding_coe]
-        | rfl)
-    | (refine ⟨x.1, ?_⟩
-       first
-        | exact (NumberField.InfinitePlace.Completion.extensionEmbedding_coe v x).symm
-        | simp [NumberField.InfinitePlace.Completion.extensionEmbedding_coe]
-        | rfl)
+  refine ⟨WithAbs.equiv _ x, ?_⟩
+  exact (NumberField.InfinitePlace.Completion.extensionEmbedding_coe v x).symm
 
 theorem dense_fcoord {K V ι : Type} [Field K] [NumberField K] [StarRing K] [IsTotallyComplex K]
     [AddCommGroup V] [Module K V] [Fintype ι] [DecidableEq ι] (b : Basis ι K V)
@@ -99,17 +85,21 @@ theorem opNormAt_le_of_points {K V ι W κ : Type} [Field K] [NumberField K] [St
       simp only [RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.fcoord, Matrix.mulVec_mulVec, Matrix.mul_nonsing_inv_cancel_right _ _ (hX v)]
       rw [vecAt_apply_linearMap b b' φ v f, Matrix.mulVec_mulVec]
     have h' := h f
-    simp only [LinearMap.coe_toContinuousLinearMap', Matrix.toEuclideanLin_toLp, Matrix.toLin'_apply, hm]
-    first
-      | exact h'
-      | (rw [hn, hn]; exact h')
+    change ‖(WithLp.toLp 2 (Matrix.mulVec
+      ((X' v)⁻¹ * (LinearMap.toMatrix b b' φ).map v.embedding * X v)
+      (RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.fcoord b X v f)) :
+      EuclideanSpace ℂ κ)‖ ≤ C * ‖(WithLp.toLp 2
+      (RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.fcoord b X v f) :
+      EuclideanSpace ℂ ι)‖
+    rw [hm, hn, hn]
+    exact h'
 
 theorem sq_sum_le {C Hb : Type} [AddCommGroup C] [Fintype Hb] (B : C →+ C →+ ℂ)
     (hpos : ∀ x, 0 ≤ (B x x).re) (y : Hb → C) :
     (B (∑ g, y g) (∑ g, y g)).re ≤ (Fintype.card Hb : ℝ) * ∑ g, (B (y g) (y g)).re := by
   classical
   have hS : (B (∑ g, y g) (∑ g, y g)).re = ∑ g, ∑ h, (B (y g) (y h)).re := by
-    simp only [map_sum, AddMonoidHom.finset_sum_apply, Complex.re_sum]
+    simp only [map_sum, AddMonoidHom.finsetSum_apply, Complex.re_sum]
     first
       | rfl
       | exact Finset.sum_comm

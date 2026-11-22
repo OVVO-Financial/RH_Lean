@@ -205,14 +205,14 @@ theorem ex_slopes (n : ℕ) (s : Fin n → ℝ) (hn : n = 2) (hanti : Antitone s
   have hle : ∀ j, s j ≤ 0 := by
     intro j
     by_contra h
-    push_neg at h
+    push Not at h
     have := hpos (s j) h
     rw [Finset.card_eq_zero, Finset.filter_eq_empty_iff] at this
     exact this (Finset.mem_univ j) le_rfl
   have h10 : s 1 ≤ s 0 := hanti (by decide)
   have hs1 : s 1 < 0 := by
     by_contra h
-    push_neg at h
+    push Not at h
     have hu : (Finset.univ.filter (fun j : Fin 2 => (0 : ℝ) ≤ s j)) = Finset.univ := by
       ext j
       fin_cases j <;> simp <;> linarith

@@ -149,7 +149,7 @@ theorem inner_realize_alt [IsTotallyComplex K] (b : Basis ι K V) (X : InfiniteP
   refine Finset.sum_congr rfl fun v _ => ?_
   rw [← ident_sum_fcoord b X hX v f x, Complex.re_sum, Finset.mul_sum]
   refine Finset.sum_congr rfl fun i _ => ?_
-  simp only [Complex.mul_re, if_true, show ¬ ((1 : Fin 2) = 0) from by decide, if_false]
+  simp only [Complex.mul_re, ite_true, show ¬ ((1 : Fin 2) = 0) from by decide, if_false]
   ring
 
 theorem ident_mem_zl {E : Type*} [NormedAddCommGroup E] [InnerProductSpace ℝ E] (ρ : V →+ E)
@@ -245,7 +245,7 @@ theorem dualZ_zl_eq [IsTotallyComplex K] (b : Basis ι K V) (X : InfinitePlace K
     have hc : ∀ j l, Algebra.trace ℚ K (integralBasis K l * c j) = (t j l : ℚ) := by
       intro j l
       simp only [c, Finset.mul_sum, mul_smul_comm, map_sum, map_smul, hω, smul_eq_mul, mul_ite,
-        mul_one, mul_zero, Finset.sum_ite_eq, Finset.mem_univ, if_true]
+        mul_one, mul_zero, Finset.sum_ite_eq, Finset.mem_univ, ite_true]
     have hsp' : ⊤ ≤ Submodule.span K (Set.range e) := by
       rw [show Set.range e = s from Subtype.range_coe, hspan, hsp]
     let eB : Basis s K V := Basis.mk hli hsp'
@@ -1555,14 +1555,14 @@ theorem dual_polygon_identity : DualPl := by
         unfold leastSize
         convert Real.sInf_empty
         ext t
-        simp only [Set.mem_setOf_eq, Set.mem_empty_iff_false, iff_false]
+        simp only [Set.mem_ofPred_eq, Set.mem_empty_iff_false, iff_false]
         rintro ⟨R, -, hR0, -⟩
         exact hR0 (eq_bot_iff.2 fun f _ => (Submodule.mem_bot _).2 (hdual f))
       have h2 : largestSize b X A = 0 := by
         unfold largestSize
         convert Real.sSup_empty
         ext t
-        simp only [Set.mem_setOf_eq, Set.mem_empty_iff_false, iff_false]
+        simp only [Set.mem_ofPred_eq, Set.mem_empty_iff_false, iff_false]
         rintro ⟨S, hS, hSA, -⟩
         exact hSA (le_antisymm hS.1 (by rw [hA0]; exact bot_le))
       rw [h1, h2, inv_zero]
@@ -1584,14 +1584,14 @@ theorem dual_polygon_identity : DualPl := by
         unfold largestSize
         convert Real.sSup_empty
         ext t
-        simp only [Set.mem_setOf_eq, Set.mem_empty_iff_false, iff_false]
+        simp only [Set.mem_ofPred_eq, Set.mem_empty_iff_false, iff_false]
         rintro ⟨S, -, hSA, -⟩
         exact hSA (by rw [hbot S, hbot (dualLat A)])
       have h2 : leastSize b X A = 0 := by
         unfold leastSize
         convert Real.sInf_empty
         ext t
-        simp only [Set.mem_setOf_eq, Set.mem_empty_iff_false, iff_false]
+        simp only [Set.mem_ofPred_eq, Set.mem_empty_iff_false, iff_false]
         rintro ⟨R, hR, hR0, -⟩
         exact hR0 (le_antisymm (by rw [← hA0]; exact hR) bot_le)
       rw [h1, h2, inv_zero]

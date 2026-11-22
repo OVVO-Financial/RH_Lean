@@ -23,9 +23,7 @@ theorem dense_comb (K : Type*) [Field K] [NumberField K] [IsTotallyComplex K]
     ⟨(0, fun w => t w.1), fun _ => rfl⟩
   refine ⟨fun k => (mixedEmbedding.latticeBasis K).repr y k, fun u => ?_⟩
   have hu : u.IsComplex := by
-    first
-      | exact IsTotallyComplex.isComplex u
-      | exact NumberField.IsTotallyComplex.isComplex u
+    exact IsTotallyComplex.isComplex u
   have hy := congrArg (fun z : mixedEmbedding.mixedSpace K => z.2 ⟨u, hu⟩)
     ((mixedEmbedding.latticeBasis K).sum_repr y)
   simp only [Prod.snd_sum, Finset.sum_apply, Prod.smul_snd, Pi.smul_apply,
@@ -44,19 +42,15 @@ theorem realize_apply (b : Basis ι K V) (X : InfinitePlace K → Matrix ι ι �
     (p : InfinitePlace K × ι × Fin 2) :
     RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.realize b X x p =
       if p.2.2 = 0 then (RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.fcoord b X p.1 x p.2.1).re else (RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.fcoord b X p.1 x p.2.1).im := by
-  first
-    | rfl
-    | simp [RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.realize]
-    | (unfold RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.realize; done)
+  rfl
 
+omit [NumberField K] [StarRing K] in
 theorem fcoord_smul (b : Basis ι K V) (X : InfinitePlace K → Matrix ι ι ℂ) (v : InfinitePlace K)
     (a : K) (x : V) : RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.fcoord b X v (a • x) = v.embedding a • RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.fcoord b X v x := by
   unfold RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.fcoord
   have hv : RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.vecAt b v (a • x) = v.embedding a • RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.vecAt b v x := by
-    first
-      | (funext i; simp [RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.vecAt, map_mul])
-      | (funext i; simp [RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.vecAt, Finsupp.smul_apply, map_mul])
-      | (unfold RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.vecAt; done)
+    funext i
+    simp [RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.vecAt, map_mul]
   rw [hv, Matrix.mulVec_smul]
 
 end
@@ -134,12 +128,15 @@ def psi (v : P) : (ι → ℂ) →ₗ[ℝ] EuclideanSpace ℝ (P × ι × Fin 2)
   map_add' x y := by ext p; by_cases h : p.1 = v <;> by_cases h' : p.2.2 = 0 <;> simp [h, h']
   map_smul' c x := by ext p; by_cases h : p.1 = v <;> by_cases h' : p.2.2 = 0 <;> simp [h, h']
 
+omit [Fintype P] [Fintype ι] in
 theorem prj_apply (v : P) (w : EuclideanSpace ℝ (P × ι × Fin 2)) (p : P × ι × Fin 2) :
     prj v w p = if p.1 = v then w p else 0 := rfl
 
+omit [Fintype P] [Fintype ι] in
 theorem psi_apply (v : P) (z : ι → ℂ) (p : P × ι × Fin 2) :
     psi v z p = if p.1 = v then (if p.2.2 = 0 then (z p.2.1).re else (z p.2.1).im) else 0 := rfl
 
+omit [Fintype P] [Fintype ι] in
 theorem psi_injective (v : P) : Function.Injective (psi (ι := ι) v) := by
   intro z z' h
   funext k
@@ -147,17 +144,15 @@ theorem psi_injective (v : P) : Function.Injective (psi (ι := ι) v) := by
   have h1 := congrArg (fun w => w (v, k, 1)) h
   exact Complex.ext (by simpa [psi_apply] using h0) (by simpa [psi_apply] using h1)
 
+omit [DecidableEq P] in
 theorem mem_placePart (v : P) (w : EuclideanSpace ℝ (P × ι × Fin 2)) :
     w ∈ placePart v ↔ ∀ p : P × ι × Fin 2, p.1 ≠ v → w p = 0 := by
-  first
-    | exact Iff.rfl
-    | simp [placePart]
-    | (unfold placePart; simp)
+  simp [placePart]
 
 theorem prj_mem (v : P) (w : EuclideanSpace ℝ (P × ι × Fin 2)) : prj v w ∈ placePart v := by
   rw [mem_placePart]
   intro p hp
-  rw [prj_apply, if_neg hp]
+  rw [prj_apply, ite_eq_right hp]
 
 theorem prj_of_mem (v : P) (w : EuclideanSpace ℝ (P × ι × Fin 2)) (hw : w ∈ placePart v) :
     prj v w = w := by
@@ -167,6 +162,7 @@ theorem prj_of_mem (v : P) (w : EuclideanSpace ℝ (P × ι × Fin 2)) (hw : w �
   · rfl
   · exact ((mem_placePart v w).1 hw p h).symm
 
+omit [Fintype ι] in
 theorem sum_prj (w : EuclideanSpace ℝ (P × ι × Fin 2)) : ∑ v, prj v w = w := by
   ext p
   first
@@ -183,12 +179,14 @@ variable {K V ι : Type*} [Field K] [NumberField K] [StarRing K] [IsTotallyCompl
   [AddCommGroup V] [Module K V] [Module (𝓞 K) V] [IsScalarTower (𝓞 K) K V]
   [Fintype ι] [DecidableEq ι]
 
+omit [IsTotallyComplex K] in
 theorem fcoord_osmul (b : Basis ι K V) (X : InfinitePlace K → Matrix ι ι ℂ) (v : InfinitePlace K)
     (a : 𝓞 K) (x : V) :
     RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.fcoord b X v (a • x) = v.embedding (a : K) • RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.fcoord b X v x := by
   rw [← algebraMap_smul K a x]
   exact fcoord_smul b X v _ x
 
+omit [IsTotallyComplex K] [Module (𝓞 K) V] [IsScalarTower (𝓞 K) K V] in
 theorem fcoord_lincomb (b : Basis ι K V) (X : InfinitePlace K → Matrix ι ι ℂ) (v : InfinitePlace K)
     {n : Type*} [Fintype n] (c : n → K) (y : n → V) :
     RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.fcoord b X v (∑ k, c k • y k) = ∑ k, v.embedding (c k) • RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.fcoord b X v (y k) := by
@@ -208,14 +206,12 @@ theorem fcoord_lincomb (b : Basis ι K V) (X : InfinitePlace K → Matrix ι ι 
   rw [map_sum]
   exact Finset.sum_congr rfl fun k _ => fcoord_smul b X v (c k) (y k)
 
+omit [IsTotallyComplex K] [IsScalarTower (𝓞 K) K V] in
 theorem realize_mem (b : Basis ι K V) (X : InfinitePlace K → Matrix ι ι ℂ) (N : Submodule (𝓞 K) V)
     {x : V} (hx : x ∈ N) :
     RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.realize b X x ∈ Submodule.span ℝ
       (zl (RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.realize b X) N : Set (EuclideanSpace ℝ (InfinitePlace K × ι × Fin 2))) := by
-  first
-    | exact Submodule.subset_span ⟨x, hx, rfl⟩
-    | exact Submodule.subset_span (AddSubgroup.mem_map.2 ⟨x, hx, rfl⟩)
-    | exact Submodule.subset_span (Set.mem_image_of_mem _ hx)
+  exact Submodule.subset_span ⟨x, hx, rfl⟩
 
 theorem re_comb {κ : Type*} [Fintype κ] (r : κ → ℝ) (c : κ → ℂ) (f : ℂ) :
     ∑ k, r k * (c k * f).re = ((∑ k, (r k : ℂ) * c k) * f).re := by
@@ -231,6 +227,7 @@ theorem im_comb {κ : Type*} [Fintype κ] (r : κ → ℝ) (c : κ → ℂ) (f :
 
 variable [DecidableEq (InfinitePlace K)]
 
+omit [IsTotallyComplex K] [Module (𝓞 K) V] [IsScalarTower (𝓞 K) K V] in
 theorem prj_realize (b : Basis ι K V) (X : InfinitePlace K → Matrix ι ι ℂ) (v : InfinitePlace K)
     (x : V) : prj v (RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.realize b X x) = psi v (RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.fcoord b X v x) := by
   ext p
@@ -308,7 +305,7 @@ theorem span_real_eq_complex (b : Basis ι K V) (X : InfinitePlace K → Matrix 
     intro c w hw
     have key : Submodule.span ℝ (RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.fcoord b X v '' (N : Set V)) ≤
         (Submodule.span ℝ (RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.fcoord b X v '' (N : Set V))).comap
-          (DistribMulAction.toLinearMap ℝ (ι → ℂ) (v.embedding (c : K))) := by
+          (DistribSMul.toLinearMap ℝ (ι → ℂ) (v.embedding (c : K))) := by
       rw [Submodule.span_le]
       rintro _ ⟨x, hx, rfl⟩
       show v.embedding (c : K) • RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.fcoord b X v x ∈
@@ -337,6 +334,7 @@ theorem span_real_eq_complex (b : Basis ι K V) (X : InfinitePlace K → Matrix 
     exact hle hw
   · exact Submodule.span_le_restrictScalars ℝ ℂ _
 
+omit [StarRing K] [IsTotallyComplex K] [IsScalarTower (𝓞 K) K V] in
 theorem finrank_span_complex (b : Basis ι K V) (X : InfinitePlace K → Matrix ι ι ℂ)
     (hX : ∀ v, IsUnit (X v).det) (N : Submodule (𝓞 K) V) (v : InfinitePlace K) :
     finrank ℂ (Submodule.span ℂ (RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.fcoord b X v '' (N : Set V))) = rkK N := by
@@ -350,12 +348,9 @@ theorem finrank_span_complex (b : Basis ι K V) (X : InfinitePlace K → Matrix 
     rw [Set.image_image]
     rfl
   rw [himg, ← Submodule.map_span, ← (Submodule.equivMapOfInjective _ hA _).finrank_eq]
-  haveI : Module.Finite K V := Module.Finite.of_basis b
+  have : Module.Finite K V := Module.Finite.of_basis b
   obtain ⟨t, htN, hspan, hli⟩ := exists_linearIndependent K (N : Set V)
-  haveI : Fintype t := by
-    first
-      | exact hli.setFinite.fintype
-      | exact @Fintype.ofFinite _ hli.finite
+  have : Fintype t := hli.setFinite.fintype
   have hadd : ∀ x y : V, RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.vecAt b v (x + y) =
       RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.vecAt b v x + RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.vecAt b v y := by
     intro x y
@@ -413,10 +408,7 @@ theorem finrank_span_complex (b : Basis ι K V) (X : InfinitePlace K → Matrix 
   unfold rkK
   rw [← hspan]
   have h3 := finrank_span_eq_card hli
-  first
-    | rw [Subtype.range_coe] at h3
-    | rw [Subtype.range_val] at h3
-    | simp only [Subtype.range_coe_subtype, Set.setOf_mem_eq] at h3
+  rw [Subtype.range_coe] at h3
   exact h3.symm
 
 theorem finrank_real_span (b : Basis ι K V) (X : InfinitePlace K → Matrix ι ι ℂ)

@@ -76,7 +76,7 @@ private theorem covol_eq_of_inner_preserving_equiv (L1 : Submodule ℤ E) (L2 : 
     RHLean.Geometry.AlpogeAllPlace.Formalism.F.covol L1 = RHLean.Geometry.AlpogeAllPlace.Formalism.F.covol L2 := by
   have hr : Module.finrank ℤ L1 = Module.finrank ℤ L2 := τ.finrank_eq
   unfold RHLean.Geometry.AlpogeAllPlace.Formalism.F.covol
-  rw [dif_pos ‹DiscreteTopology L1›, dif_pos ‹DiscreteTopology L2›]
+  rw [dite_eq_left ‹DiscreteTopology L1›, dite_eq_left ‹DiscreteTopology L2›]
   congr 1
   let B : Module.Basis (Fin (Module.finrank ℤ L2)) ℤ L2 :=
     ((Module.finBasis ℤ L1).map τ).reindex (finCongr hr)

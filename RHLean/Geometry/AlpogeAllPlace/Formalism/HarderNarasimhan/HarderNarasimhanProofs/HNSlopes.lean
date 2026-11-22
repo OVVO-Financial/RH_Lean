@@ -58,9 +58,9 @@ theorem sum_ite_val_lt_sub_mul_mono (n m₁ m₂ : ℕ) (h₁₂ : m₁ ≤ m₂
   by_cases h1 : (j : ℕ) < m₁
   · simp only [if_pos h1, if_pos (lt_of_lt_of_le h1 h₁₂), le_refl]
   · by_cases h2 : (j : ℕ) < m₂
-    · rw [if_neg h1, if_pos h2]
+    · rw [ite_eq_right h1, if_pos h2]
       linarith [hx j (not_lt.mp h1) h2]
-    · simp only [if_neg h1, if_neg h2, le_refl]
+    · simp only [ite_eq_right h1, ite_eq_right h2, le_refl]
 
 theorem sum_ite_val_lt_sub_mul_anti (n m₁ m₂ : ℕ) (h₁₂ : m₁ ≤ m₂) (h₂ : m₂ ≤ n) (x : Fin n → ℝ) (a : ℝ)
     (hx : ∀ j : Fin n, m₁ ≤ (j : ℕ) → (j : ℕ) < m₂ → x j ≤ a) :
@@ -72,9 +72,9 @@ theorem sum_ite_val_lt_sub_mul_anti (n m₁ m₂ : ℕ) (h₁₂ : m₁ ≤ m₂
   by_cases h1 : (j : ℕ) < m₁
   · simp only [if_pos h1, if_pos (lt_of_lt_of_le h1 h₁₂), le_refl]
   · by_cases h2 : (j : ℕ) < m₂
-    · rw [if_neg h1, if_pos h2]
+    · rw [ite_eq_right h1, if_pos h2]
       linarith [hx j (not_lt.mp h1) h2]
-    · simp only [if_neg h1, if_neg h2, le_refl]
+    · simp only [ite_eq_right h1, ite_eq_right h2, le_refl]
 
 theorem eq_zero_of_abs_le_mul (a : ℝ) (n : ℕ) (h : ∀ t : ℝ, 0 < t → |a| ≤ t * n) : a = 0 := by
   by_contra ha
@@ -153,7 +153,7 @@ theorem hnSlopes_of (h1 : HNStep.{u, v, w}) (h2 : MuChar.{u, v, w})
       hne_of θ₀ (lt_of_le_of_lt (Nat.zero_le j) (hbelow θ₀ hθ₀s))
     have hμ : s ≤ muMin ρ (hnStep ρ L θ₀) := by
       by_contra hlt
-      push_neg at hlt
+      push Not at hlt
       obtain ⟨θ, hθdef⟩ : ∃ θ, θ = max θ₀ ((muMin ρ (hnStep ρ L θ₀) + s) / 2) := ⟨_, rfl⟩
       have h1' : θ₀ ≤ θ := by rw [hθdef]; exact le_max_left _ _
       have h2' : θ < s := by rw [hθdef]; exact max_lt hθ₀s (by linarith)

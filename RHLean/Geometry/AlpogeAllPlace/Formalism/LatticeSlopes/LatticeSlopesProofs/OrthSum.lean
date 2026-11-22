@@ -30,7 +30,7 @@ theorem discreteTopology_span_range_and_covol {ι : Type*} [Fintype ι] [Decidab
       covol (span ℤ (Set.range u)) = Real.sqrt (Matrix.gram ℝ u).det := by
   have hd := discreteTopology_span_range_of_linearIndependent u hu
   refine ⟨hd, ?_⟩
-  haveI := hd
+  have := hd
   have hZ : LinearIndependent ℤ u := hu.restrict_scalars' ℤ
   rw [covol_eq_gram E (span ℤ (Set.range u)) ι (Basis.span hZ)]
   simp only [Basis.span_apply]
@@ -72,13 +72,13 @@ theorem discreteTopology_sup_and_covol_sup (L₁ L₂ : Submodule ℤ E) [Discre
 
 theorem degree_le_rank_mul_maxSlope (L N : Submodule ℤ E) (hL : DiscreteTopology L) (hNL : N ≤ L) :
     deg N ≤ rk N * muMax L := by
-  haveI := hL
+  have := hL
   by_cases hN : N = ⊥
   · subst hN
     have h0 : covol (⊥ : Submodule ℤ E) = 1 := (covol_basic_properties E).1
     have hr : rk (⊥ : Submodule ℤ E) = 0 := by simp [rk]
     simp [deg, h0, hr]
-  · haveI : DiscreteTopology N := discreteTopology_of_le hNL
+  · have : DiscreteTopology N := discreteTopology_of_le hNL
     have hs : slope N ≤ muMax L := slopeLeMuMax_of (slopesBdd_of gram_det_le) E L N hL hNL hN
     have hk : 0 < rk N := Module.finrank_pos_iff.mpr (Submodule.nontrivial_iff_ne_bot.mpr hN)
     have hk' : (0 : ℝ) < (rk N : ℝ) := by exact_mod_cast hk
@@ -89,7 +89,7 @@ theorem degree_le_rank_mul_maxSlope (L N : Submodule ℤ E) (hL : DiscreteTopolo
 theorem degree_le_rank_mul_maxSlope_of_injective (Q M : Submodule ℤ E) (hQ : DiscreteTopology Q)
     (hM : DiscreteTopology M) (ψ : Q →ₗ[ℤ] M) (hinj : Function.Injective ψ)
     (hψ : ∀ x : Q, ‖((ψ x : M) : E)‖ ≤ ‖(x : E)‖) : deg Q ≤ rk Q * muMax M := by
-  haveI := hQ
+  have := hQ
   by_cases hQ0 : Q = ⊥
   · subst hQ0
     have h0 : covol (⊥ : Submodule ℤ E) = 1 := (covol_basic_properties E).1
@@ -111,10 +111,10 @@ theorem slope_le_max_maxSlope (L₁ L₂ : Submodule ℤ E) (h1 : DiscreteTopolo
     (hd : DiscreteTopology (L₁ ⊔ L₂ : Submodule ℤ E))
     (N : Submodule ℤ E) (hN : N ≤ L₁ ⊔ L₂) (hN0 : N ≠ ⊥) :
     slope N ≤ max (muMax L₁) (muMax L₂) := by
-  haveI := h1
-  haveI := h2
-  haveI := hd
-  haveI hNd : DiscreteTopology N := discreteTopology_of_le hN
+  have := h1
+  have := h2
+  have := hd
+  have hNd : DiscreteTopology N := discreteTopology_of_le hN
 
   obtain ⟨P, hPdef⟩ : ∃ P : E →L[ℝ] E, P = (span ℝ (L₂ : Set E)).starProjection := ⟨_, rfl⟩
   have hortho : span ℝ (L₁ : Set E) ≤ (span ℝ (L₂ : Set E))ᗮ := by
@@ -201,8 +201,8 @@ end
 
 theorem orthogonal_sum_slope : OrthSum := by
   intro E _ _ _ L₁ L₂ h1 h2 h
-  haveI := h1
-  haveI := h2
+  have := h1
+  have := h2
   obtain ⟨hd, hc⟩ := discreteTopology_sup_and_covol_sup L₁ L₂ h
   refine ⟨hd, ?_, ?_⟩
   · have p1 := covol_pos_of_discrete L₁

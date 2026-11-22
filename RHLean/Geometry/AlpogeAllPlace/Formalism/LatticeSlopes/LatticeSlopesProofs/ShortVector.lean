@@ -83,7 +83,7 @@ theorem exists_short_vector_of_isZLattice (hC : CovolEqCovolume.{u}) {W : Type u
           · exact hy i
       _ = t := by rw [← add_mul, hac, one_mul]
   have hclosed : IsClosed S := by
-    rw [hS, Set.setOf_forall]
+    rw [hS, Set.ofPred_forall]
     exact isClosed_iInter fun i => isClosed_le (by fun_prop) continuous_const
   have hcpt : IsCompact S := by
     refine Metric.isCompact_of_isClosed_isBounded hclosed ?_
@@ -94,7 +94,7 @@ theorem exists_short_vector_of_isZLattice (hC : CovolEqCovolume.{u}) {W : Type u
   have hSeq : S = (WithLp.ofLp ∘ o.measurableEquiv) ⁻¹'
       Set.Icc (fun _ => -t) (fun _ => t) := by
     ext x
-    simp only [hS, Set.mem_setOf_eq, Set.mem_preimage, Function.comp_apply, Set.mem_Icc,
+    simp only [hS, Set.mem_ofPred_eq, Set.mem_preimage, Function.comp_apply, Set.mem_Icc,
       Pi.le_def, abs_le, forall_and]
     rfl
   have hvolS : MeasureTheory.volume S = ENNReal.ofReal (t - -t) ^ n := by
@@ -109,9 +109,9 @@ theorem exists_short_vector_of_isZLattice (hC : CovolEqCovolume.{u}) {W : Type u
     apply le_of_eq
     congr 1
     rw [show t - -t = 2 * t by ring, mul_pow, htn, mul_comm]
-  haveI : Nontrivial W := Module.nontrivial_of_finrank_pos hn
-  haveI hLc : Countable L := b.equivFun.injective.countable
-  haveI : Countable L.toAddSubgroup := hLc
+  have : Nontrivial W := Module.nontrivial_of_finrank_pos hn
+  have hLc : Countable L := b.equivFun.injective.countable
+  have : Countable L.toAddSubgroup := hLc
   obtain ⟨x, hx0, hxS⟩ :=
     MeasureTheory.exists_ne_zero_mem_lattice_of_measure_mul_two_pow_le_measure
       (L := L.toAddSubgroup) hfund hsymm hconv hcpt hmeas
@@ -122,7 +122,7 @@ theorem exists_short_vector_of_isZLattice (hC : CovolEqCovolume.{u}) {W : Type u
 theorem shortVector_of (hC : CovolEqCovolume.{u}) : ShortVector.{u} := by
   intro E _ _ _ L hL hne
   classical
-  haveI : DiscreteTopology L := hL
+  have : DiscreteTopology L := hL
 
   have hsub : ∀ x ∈ L, x ∈ Submodule.span ℝ (L : Set E) := fun x hx => Submodule.subset_span hx
   let L₀ : Submodule ℤ (Submodule.span ℝ (L : Set E)) :=
@@ -134,7 +134,7 @@ theorem shortVector_of (hC : CovolEqCovolume.{u}) : ShortVector.{u} := by
       map_smul' := fun _ _ => rfl
       left_inv := fun _ => rfl
       right_inv := fun _ => rfl }
-  haveI : DiscreteTopology L₀ := by
+  have : DiscreteTopology L₀ := by
     refine DiscreteTopology.of_continuous_injective (f := e.symm) ?_ e.symm.injective
     exact Continuous.subtype_mk (continuous_subtype_val.comp continuous_subtype_val) _
   have himg : (Submodule.span ℝ (L : Set E)).subtype '' (L₀ : Set _) = (L : Set E) := by
@@ -144,18 +144,18 @@ theorem shortVector_of (hC : CovolEqCovolume.{u}) : ShortVector.{u} := by
       exact hy
     · intro hx
       exact ⟨⟨x, hsub x hx⟩, hx, rfl⟩
-  haveI : IsZLattice ℝ L₀ := by
+  have : IsZLattice ℝ L₀ := by
     refine ⟨?_⟩
     apply Submodule.map_injective_of_injective (Submodule.span ℝ (L : Set E)).injective_subtype
     rw [Submodule.map_span, himg, Submodule.map_top, Submodule.range_subtype]
-  letI : MeasurableSpace (Submodule.span ℝ (L : Set E)) := borel _
-  haveI : BorelSpace (Submodule.span ℝ (L : Set E)) := ⟨rfl⟩
+  let : MeasurableSpace (Submodule.span ℝ (L : Set E)) := borel _
+  have : BorelSpace (Submodule.span ℝ (L : Set E)) := ⟨rfl⟩
   have hcov : covol L₀ = covol L :=
     covol_eq_of_linearEquiv_inner L L₀ e (fun _ _ => rfl)
   have hrk : finrank ℝ (Submodule.span ℝ (L : Set E)) = rk L := by
     rw [← ZLattice.rank ℝ L₀]
     exact e.finrank_eq.symm
-  haveI : Nontrivial L := Submodule.nontrivial_iff_ne_bot.mpr hne
+  have : Nontrivial L := Submodule.nontrivial_iff_ne_bot.mpr hne
   have hpos : 0 < finrank ℝ (Submodule.span ℝ (L : Set E)) := by
     rw [hrk]
     exact Module.finrank_pos

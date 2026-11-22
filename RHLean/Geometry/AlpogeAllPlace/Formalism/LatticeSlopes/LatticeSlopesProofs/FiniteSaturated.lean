@@ -25,7 +25,7 @@ variable {E : Type*} [NormedAddCommGroup E] [InnerProductSpace ℝ E] [FiniteDim
 theorem finite_mem_norm_le (L : Submodule ℤ E) [hL : DiscreteTopology L] (C : ℝ) :
     {v : E | v ∈ L ∧ ‖v‖ ≤ C}.Finite := by
   have hD : DiscreteTopology (L.toAddSubgroup) := hL
-  have hcl : IsClosed (L : Set E) := AddSubgroup.isClosed_of_discrete (H := L.toAddSubgroup)
+  have hcl : IsClosed (L : Set E) := AddSubgroup.isClosed_of_discreteTopology (U := L.toAddSubgroup)
   have hs : IsDiscrete (L : Set E) := isDiscrete_iff_discreteTopology.mpr hL
   refine (Metric.finite_isBounded_inter_isClosed hs (Metric.isBounded_closedBall (x := (0 : E)) (r := C))
     hcl).subset ?_
@@ -71,7 +71,7 @@ theorem finite_saturated_rank_le_covol_le (hS : ShortVector.{u}) {E : Type u} [N
     intro L hL X
     refine (Set.finite_singleton (⊥ : Submodule ℤ E)).subset ?_
     rintro N ⟨hN, hrk, -⟩
-    haveI : DiscreteTopology N := DiscreteTopology.of_subset (s := (L : Set E)) hL hN.1
+    have : DiscreteTopology N := DiscreteTopology.of_subset (s := (L : Set E)) hL hN.1
     rw [Set.mem_singleton_iff]
     by_contra hne
     obtain ⟨v, hv, hv0⟩ := (Submodule.ne_bot_iff _).mp hne
@@ -90,7 +90,7 @@ theorem finite_saturated_rank_le_covol_le (hS : ShortVector.{u}) {E : Type u} [N
       obtain ⟨hvL, -, hv0⟩ := hv
       have hspL : span ℤ ({v} : Set E) ≤ L := span_le.mpr (Set.singleton_subset_iff.mpr hvL)
       obtain ⟨sat1, hsp1, hrk1⟩ := saturation_properties E L _ hL hspL
-      haveI : DiscreteTopology (span ℤ ({v} : Set E)) := hdisc _ hspL
+      have : DiscreteTopology (span ℤ ({v} : Set E)) := hdisc _ hspL
       have hrksp : 0 < rk (span ℤ ({v} : Set E)) :=
         rk_pos_of_ne_zero_mem _ (mem_span_singleton_self v) hv0
       have dq := degree_quotient E L _ hL sat1
@@ -100,7 +100,7 @@ theorem finite_saturated_rank_le_covol_le (hS : ShortVector.{u}) {E : Type u} [N
       refine Set.Finite.of_finite_image (f := fun N => quot N (satur L (span ℤ ({v} : Set E))))
         (hfin.subset ?_) ?_
       · rintro _ ⟨N, ⟨hN, hrkN, hcov, h1⟩, rfl⟩
-        dsimp only [Set.mem_setOf_eq]
+        dsimp only [Set.mem_ofPred_eq]
         have hdN := hdisc N hN.1
         have satN1 : IsSaturated N (satur L (span ℤ ({v} : Set E))) :=
           ⟨h1, fun x hx hxs => sat1.2 x (hN.1 hx) hxs⟩

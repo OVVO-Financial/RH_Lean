@@ -19,6 +19,7 @@ section gen
 variable {E F : Type*} [NormedAddCommGroup E] [InnerProductSpace ℂ E] [FiniteDimensional ℂ E]
     [NormedAddCommGroup F] [InnerProductSpace ℂ F] [FiniteDimensional ℂ F]
 
+omit [FiniteDimensional ℂ E] in
 lemma norm_inner_swap (x y : E) : ‖⟪x, y⟫_ℂ‖ = ‖⟪y, x⟫_ℂ‖ := by
   exact norm_inner_symm x y
 
@@ -42,6 +43,7 @@ lemma sum_adj_eq {ι κ : Type*} [Fintype ι] [Fintype κ] (A : E →ₗ[ℂ] F)
   simp only [h1, h2]
   exact Finset.sum_comm
 
+omit [FiniteDimensional ℂ E] in
 private lemma trace_eq_sum_inner_orthonormalBasis {ι : Type*} [Fintype ι] [DecidableEq ι] (b : OrthonormalBasis ι ℂ E)
     (T : E →ₗ[ℂ] E) : trace ℂ E T = ∑ i, ⟪b i, T (b i)⟫_ℂ := by
   rw [LinearMap.trace_eq_matrix_trace ℂ b.toBasis, Matrix.trace]
@@ -190,7 +192,7 @@ lemma W_upper (B : V →ₗ[ℂ] H) (N : Submodule ℂ V) {κ : Type*} [Fintype 
 
 end wup
 
-lemma final_real (D R w e ε η t X tW : ℝ) (hD : 0 < D) (hR : 0 < R) (he0 : 0 ≤ e) (he : e ≤ 1/4)
+lemma final_real (D R w e ε η t X tW : ℝ) (hD : 0 < D) (hR : 0 < R) (_he0 : 0 ≤ e) (he : e ≤ 1/4)
     (hε : 0 ≤ ε) (hw0 : 0 ≤ w) (hwD : w ≤ D) (ht : R * (1 - √e) ≤ t) (hX0 : 0 ≤ X)
     (hX : X ≤ η * t ^ 2 / D) (hlow : t / D * w - √w * √X ≤ tW)
     (hup : tW ≤ ε * R + R * √(ε * e)) : w ≤ (2 * η + 4 * ε + 4 * √e) * D := by
@@ -209,14 +211,14 @@ lemma final_real (D R w e ε η t X tW : ℝ) (hD : 0 < D) (hR : 0 < R) (he0 : 0
   have hη : 0 ≤ η := by
     have h2 : 0 ≤ η * t ^ 2 := le_trans (mul_nonneg hX0 hD.le) hXD
     by_contra hc
-    push_neg at hc
+    push Not at hc
     have : η * t ^ 2 < 0 := mul_neg_of_neg_of_pos hc (by positivity)
     linarith
   by_cases hK : 1 ≤ 2 * η + 4 * ε + 4 * √e
   · calc w ≤ D := hwD
       _ = 1 * D := by ring
       _ ≤ _ := mul_le_mul_of_nonneg_right hK hD.le
-  push_neg at hK
+  push Not at hK
   have hε1 : ε ≤ 1 := by linarith
   have hsε : √ε ≤ 1 := by
     rw [← Real.sqrt_one]
@@ -242,12 +244,12 @@ lemma final_real (D R w e ε η t X tW : ℝ) (hD : 0 < D) (hR : 0 < R) (he0 : 0
     nlinarith
   by_cases hwη : w ≤ η * D
   · nlinarith [mul_nonneg (by positivity : 0 ≤ η + 4 * ε + 4 * √e) hD.le]
-  push_neg at hwη
+  push Not at hwη
   have h3 : R / 2 * (w - η * D) ≤ t * (w - η * D) := mul_le_mul_of_nonneg_right ht0 (by linarith)
   have h4 : R * ((w - η * D) - 4 * D * (ε + √ε * √e)) ≤ 0 := by nlinarith
   have h5 : (w - η * D) - 4 * D * (ε + √ε * √e) ≤ 0 := by
     by_contra hc2
-    push_neg at hc2
+    push Not at hc2
     have := mul_pos hR hc2
     linarith
   have h6 : √ε * √e ≤ √e := mul_le_of_le_one_left hs0 hsε
@@ -309,7 +311,7 @@ theorem frame_linear_algebra_bound : FrameLA := by
   have hDpos : 0 < (finrank ℂ H : ℝ) := by
     rcases Nat.eq_zero_or_pos (finrank ℂ H) with h0 | h0
     · exfalso
-      haveI : Subsingleton H := Module.finrank_zero_iff.mp h0
+      have : Subsingleton H := Module.finrank_zero_iff.mp h0
       have hQ0 : frQ c B = 0 := LinearMap.ext (fun x => Subsingleton.elim _ _)
       have h5 : (LinearMap.trace ℂ H (frQ c B)).re = 0 := by rw [hQ0, map_zero, Complex.zero_re]
       nlinarith
@@ -327,7 +329,7 @@ theorem frame_linear_algebra_bound : FrameLA := by
   have hε : 0 ≤ ε := by
     have h1 : 0 ≤ ∑ i, (finrank ℂ (Nτ i)ᗮ : ℝ) := Finset.sum_nonneg (fun i _ => Nat.cast_nonneg _)
     by_contra hc2
-    push_neg at hc2
+    push Not at hc2
     have := mul_neg_of_neg_of_pos hc2 hRpos
     linarith
 
@@ -356,7 +358,7 @@ theorem frame_linear_algebra_bound : FrameLA := by
       (stdOrthonormalBasis ℂ (Nτ i)ᗮ).orthonormal.comp_linearIsometry (Nτ i)ᗮ.subtypeₗᵢ
     have h2 := fam_bound (c i) (B i) ho
     rw [Fintype.card_fin] at h2
-    beta_reduce at h2
+
     have h3 := (abs_le.mp h2).2
     have h4 := mul_le_mul_of_nonneg_left h1 (hc i).le
     linarith

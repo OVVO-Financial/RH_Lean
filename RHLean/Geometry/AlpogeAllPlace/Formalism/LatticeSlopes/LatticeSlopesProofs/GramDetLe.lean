@@ -19,8 +19,8 @@ theorem normDet_le_pow_finrank {R F : Type*} [NormedAddCommGroup R] [InnerProduc
   split_ifs with h
   swap
   · positivity
-  letI : MeasurableSpace R := borel R
-  haveI : BorelSpace R := ⟨rfl⟩
+  let : MeasurableSpace R := borel R
+  have : BorelSpace R := ⟨rfl⟩
 
   let φ : LinearMap.range g ≃ₗᵢ[ℝ] R := h.some.repr.trans (stdOrthonormalBasis ℝ R).repr.symm
   let T : R →ₗ[ℝ] R := φ.toLinearEquiv.toLinearMap ∘ₗ g.rangeRestrict
@@ -89,7 +89,7 @@ theorem det_gram_eq_normDet_sq {E : Type*} [NormedAddCommGroup E] [InnerProductS
   have hv : v = fun i => linearCombinationMap v (EuclideanSpace.basisFun ι ℝ i) := by
     funext i
     rw [linearCombinationMap_apply]
-    simp [EuclideanSpace.basisFun_apply, EuclideanSpace.single_apply, ite_smul]
+    simp [EuclideanSpace.basisFun_apply, ite_smul]
   have h1 : (Matrix.gram ℝ v).det = LinearMap.det (LinearMap.adjoint (linearCombinationMap v).rangeRestrict ∘ₗ
       (linearCombinationMap v).rangeRestrict) := by
     conv_lhs => rw [hv]
@@ -139,7 +139,7 @@ theorem gram_det_le : GramDetLe := by
     · simp [Matrix.det_isEmpty]
     have hC0 : 0 ≤ C := by
       by_contra hneg
-      push_neg at hneg
+      push Not at hneg
       obtain ⟨i⟩ := hι
       have h1 := hvw (EuclideanSpace.single i 1)
       have h3 : ‖linearCombinationMap v (EuclideanSpace.single i 1)‖ ≤ 0 := by
@@ -154,7 +154,7 @@ theorem gram_det_le : GramDetLe := by
         E →ₗ[ℝ] LinearMap.range (linearCombinationMap v))
     have hP : ∀ y : LinearMap.range (linearCombinationMap v),
         (LinearMap.range (linearCombinationMap v)).orthogonalProjection (y : E) = y := fun y =>
-      Submodule.orthogonalProjection_mem_subspace_eq_self y
+      Submodule.orthogonalProjectionOnto_mem_subspace_eq_self y
     have hGf : G ∘ₗ linearCombinationMap v = linearCombinationMap w := by
       ext c
       have : linearCombinationMap v c = (e c : E) := (LinearEquiv.ofInjective_apply _ c).symm

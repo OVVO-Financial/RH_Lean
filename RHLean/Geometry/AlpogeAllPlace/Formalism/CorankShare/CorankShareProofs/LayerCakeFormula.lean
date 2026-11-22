@@ -75,7 +75,7 @@ theorem layer_cake_formula : LayerCake := by
     fun t1 t2 ht => Finset.sum_le_sum fun j _ => ind_anti (a - x j) ht
   have hint : ∫ τ in (0:ℝ)..HH, ∑ j, (if τ < a - x j then (1:ℝ) else 0) =
       ∑ j, ∫ τ in (0:ℝ)..HH, (if τ < a - x j then (1:ℝ) else 0) :=
-    intervalIntegral.integral_finset_sum fun j _ => (ind_anti (a - x j)).intervalIntegrable
+    intervalIntegral.integral_finsetSum fun j _ => (ind_anti (a - x j)).intervalIntegrable
   have hsum : ∑ j, (a - x j) ≤ ∑ j, ∫ τ in (0:ℝ)..HH, (if τ < a - x j then (1:ℝ) else 0) :=
     Finset.sum_le_sum fun j _ => ind_lb a (x j) HH (hx j) hHH
   have hL : ∑ j, (a - x j) = (D:ℝ) * a - ∑ j, x j := by

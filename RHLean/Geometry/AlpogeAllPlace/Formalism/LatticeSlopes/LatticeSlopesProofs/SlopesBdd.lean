@@ -29,7 +29,7 @@ private theorem finrank_int_eq_finrank_span_real {E : Type*} [NormedAddCommGroup
       map_smul' := fun _ _ => rfl
       left_inv := fun _ => rfl
       right_inv := fun _ => rfl }
-  haveI : DiscreteTopology L' :=
+  have : DiscreteTopology L' :=
     DiscreteTopology.of_continuous_injective
       (f := fun x : L' => (⟨((x : V) : E), x.2⟩ : L))
       ((continuous_subtype_val.comp continuous_subtype_val).subtype_mk _)
@@ -37,7 +37,7 @@ private theorem finrank_int_eq_finrank_span_real {E : Type*} [NormedAddCommGroup
         have h' := congrArg Subtype.val h
         simp only at h'
         exact Subtype.ext (Subtype.ext h'))
-  haveI : IsZLattice ℝ L' := ⟨Submodule.span_span_coe_preimage⟩
+  have : IsZLattice ℝ L' := ⟨Submodule.span_span_coe_preimage⟩
   exact φ.finrank_eq.symm.trans (ZLattice.rank ℝ L')
 
 theorem linearIndependent_coe_basis' {E : Type*} [NormedAddCommGroup E] [InnerProductSpace ℝ E]
@@ -60,7 +60,7 @@ theorem gram_intMatrix_eq_map {m : ℕ} {κ : Type*} [Fintype κ] [DecidableEq �
 
 theorem slopesBdd_of (hG : GramDetLe.{u, 0, 0}) : SlopesBdd.{u} := by
   intro E _ _ _ L hL
-  haveI := hL
+  have := hL
   let e := Module.finBasis ℤ L
   have he : LinearIndependent ℝ (fun i => (e i : E)) := linearIndependent_coe_basis' L e
 
@@ -78,7 +78,7 @@ theorem slopesBdd_of (hG : GramDetLe.{u, 0, 0}) : SlopesBdd.{u} := by
   have hKpos : (0 : ℝ) < K := hK0
   refine ⟨Real.log K, ?_⟩
   rintro t ⟨N, hNL, hN0, rfl⟩
-  haveI hN : DiscreteTopology N := DiscreteTopology.of_subset (s := (L : Set E)) hL hNL
+  have hN : DiscreteTopology N := DiscreteTopology.of_subset (s := (L : Set E)) hL hNL
   let f := Module.finBasis ℤ N
   let M : Matrix (Fin (Module.finrank ℤ L)) (Fin (Module.finrank ℤ N)) ℤ :=
     fun i j => e.repr ⟨(f j : E), hNL (f j).2⟩ i
@@ -119,13 +119,13 @@ theorem slopesBdd_of (hG : GramDetLe.{u, 0, 0}) : SlopesBdd.{u} := by
     have : (0 : ℤ) < (M.transpose * M).det := by exact_mod_cast hwpos
     exact_mod_cast this
   have hk : (0 : ℝ) < (Module.finrank ℤ N : ℝ) := by
-    haveI : Nontrivial N := Submodule.nontrivial_iff_ne_bot.mpr hN0
+    have : Nontrivial N := Submodule.nontrivial_iff_ne_bot.mpr hN0
     exact_mod_cast Module.finrank_pos
   set g := (Matrix.gram ℝ (fun j => (f j : E))).det with hg
   have hgK : 1 ≤ (K : ℝ) ^ (2 * Module.finrank ℤ N) * g := hd1.trans hdet
   have hgpos : 0 < g := by
     by_contra hneg
-    push_neg at hneg
+    push Not at hneg
     have : (K : ℝ) ^ (2 * Module.finrank ℤ N) * g ≤ 0 :=
       mul_nonpos_of_nonneg_of_nonpos (by positivity) hneg
     linarith
@@ -135,7 +135,7 @@ theorem slopesBdd_of (hG : GramDetLe.{u, 0, 0}) : SlopesBdd.{u} := by
     rw [Real.log_one, Real.log_mul (by positivity) hgpos.ne', Real.log_pow] at h1
     push_cast at h1
     linarith
-  have hcov : covol N = Real.sqrt g := by rw [covol, dif_pos hN]
+  have hcov : covol N = Real.sqrt g := by rw [covol, dite_eq_left hN]
   show -Real.log (covol N) / (Module.finrank ℤ N : ℝ) ≤ Real.log K
   rw [hcov, Real.log_sqrt hgpos.le, div_le_iff₀ hk]
   nlinarith

@@ -93,7 +93,7 @@ theorem shiftInv_count (c : ℝ) (k m : ℕ) :
     · rw [if_pos h, min_eq_right h.le, min_eq_right (show m + 1 ≤ k by omega)]
       push_cast
       ring
-    · rw [if_neg h]
+    · rw [ite_eq_right h]
       replace h := not_lt.mp h
       rw [min_eq_left h, min_eq_left (show k ≤ m + 1 by omega)]
       ring

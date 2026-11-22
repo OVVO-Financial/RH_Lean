@@ -113,7 +113,7 @@ theorem IsGram.hasGram {ι : Type} [Fintype ι] [DecidableEq ι] {b : Basis ι K
 theorem slope_sq_eq {ι : Type} [Fintype ι] [DecidableEq ι] {b : Basis ι K V} {X : InfinitePlace K → Matrix ι ι ℂ}
     {N : (K →+* ℂ) → V → ℝ} (h : IsGram b X N) {L : Submodule (𝓞 K) V} (hL : L.FG) :
     slope_sq N L = RHLean.Geometry.AlpogeAllPlace.Formalism.HN.muDef b X L := by
-  rw [slope_sq, dif_pos h.hasGram]
+  rw [slope_sq, dite_eq_left h.hasGram]
   show RHLean.Geometry.AlpogeAllPlace.Formalism.HN.muDef h.hasGram.some.2.1.1 h.hasGram.some.2.1.2 L = _
   obtain ⟨h1, h2⟩ := IsGram.rk_deg h.hasGram.some.2.2 h hL
   unfold RHLean.Geometry.AlpogeAllPlace.Formalism.HN.rk at h1

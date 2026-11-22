@@ -42,19 +42,19 @@ theorem exists_isShortGen_of_short_span : ∀ (K V : Type) [Field K] [NumberFiel
       n ≤ 2 * Module.finrank ℚ K * Module.finrank K V := by
   intro K V _ _ _ _ _ _ _ N L s A hLfg h0 hsm hadd hsL hsp hA
   classical
-  letI : Module ℚ V := Module.compHom V (algebraMap ℚ K)
-  haveI : IsScalarTower ℚ K V := ⟨fun q a x => by
+  let : Module ℚ V := Module.compHom V (algebraMap ℚ K)
+  have : IsScalarTower ℚ K V := ⟨fun q a x => by
     show (q • a) • x = (algebraMap ℚ K q) • (a • x)
     rw [Algebra.smul_def, mul_smul]⟩
 
   obtain ⟨t, hts, htsp, hti⟩ := exists_linearIndependent K s
   let vb : Basis t K V := Basis.mk hti (by rw [Subtype.range_coe, htsp, hsp])
-  haveI : Finite t := Module.Finite.finite_basis vb
-  haveI : Fintype t := Fintype.ofFinite t
+  have : Finite t := Module.Finite.finite_basis vb
+  have : Fintype t := Fintype.ofFinite t
   have hm : Fintype.card t = Module.finrank K V := by rw [finrank_eq_card_basis vb]
 
   obtain ⟨ω, hωi, hωb⟩ := exists_short_independent_integers K
-  haveI : Nonempty (Fin (finrank ℚ K)) := ⟨⟨0, Module.finrank_pos⟩⟩
+  have : Nonempty (Fin (finrank ℚ K)) := ⟨⟨0, Module.finrank_pos⟩⟩
   let ob : Basis (Fin (finrank ℚ K)) ℚ K := basisOfLinearIndependentOfCardEqFinrank hωi (by simp)
   have hob : ∀ k, ob k = (ω k : K) := fun k => by
     simp [ob, coe_basisOfLinearIndependentOfCardEqFinrank]
@@ -104,17 +104,17 @@ theorem exists_isShortGen_of_short_span : ∀ (K V : Type) [Field K] [NumberFiel
     rw [nsmul_eq_mul, Finset.card_univ, Fintype.card_prod, Fintype.card_fin, hm]
     push_cast; ring
 
-  haveI : NoZeroSMulDivisors ℤ V := ⟨fun {c x} h => by
+  have : NoZeroSMulDivisors ℤ V := ⟨fun {c x} h => by
     rw [← Int.cast_smul_eq_zsmul K] at h
     exact (smul_eq_zero.1 h).imp_left Int.cast_eq_zero.1⟩
   let Lz := L.restrictScalars ℤ
-  haveI : Module.Finite ℤ Lz := Module.Finite.iff_fg.2 hLfg.restrictScalars
-  haveI : Module.Free ℤ Lz := Module.free_of_finite_type_torsion_free'
+  have : Module.Finite ℤ Lz := Module.Finite.iff_fg.2 hLfg.restrictScalars
+  have : Module.Free ℤ Lz := Module.free_of_finite_type_torsion_free'
   let ZB := Module.Free.chooseBasis ℤ Lz
   let bZ : Module.Free.ChooseBasisIndex ℤ Lz → V := fun j => (ZB j : V)
   have hZq : LinearIndependent ℚ bZ := (LinearIndependent.iff_fractionRing ℤ ℚ).1
     (ZB.linearIndependent.map' Lz.subtype (Submodule.ker_subtype _))
-  haveI : Module.Finite ℚ V := Module.Finite.of_basis E
+  have : Module.Finite ℚ V := Module.Finite.of_basis E
   have hcardZ : Fintype.card (Module.Free.ChooseBasisIndex ℤ Lz) ≤ Fintype.card (Fin (finrank ℚ K) × t) := by
     rw [← finrank_eq_card_basis E]; exact hZq.fintype_card_le_finrank
   have hLz : Lz = Submodule.span ℤ (Set.range bZ) := by

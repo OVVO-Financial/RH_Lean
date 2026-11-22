@@ -261,6 +261,7 @@ theorem eq_zero_of_isIntegral_of_sum_abs_lt {x : F} (hx : IsIntegral ℤ x)
     (h : ∑ σ : F →+* ℝ, |σ x| < finrank ℚ F) : x = 0 :=
   eq_zero_of_isIntegral_of_sum_norm_lt hx (by rwa [← sum_abs_realEmbeddings])
 
+omit [NumberField F] [IsTotallyReal F] in
 theorem eq_zero_or_totallyPos {a : F} (ha : ∀ σ : F →+* ℝ, 0 ≤ σ a) :
     a = 0 ∨ ∀ σ : F →+* ℝ, 0 < σ a := by
   by_cases h0 : a = 0

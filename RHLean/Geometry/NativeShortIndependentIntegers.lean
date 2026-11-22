@@ -121,7 +121,7 @@ theorem _root_.RHLean.Geometry.NativeNumberFieldLattice.exists_short_independent
     have h := congrArg (fun v => inner ℝ v (ψ (β i))) hc
     simp only [sum_inner, inner_smul_left, hpair, hαβ, inner_zero_left] at h
     simpa [apply_ite (Rat.cast : ℚ → ℝ), mul_ite] using h
-  haveI : NeZero n := ⟨(Module.finrank_pos (R := ℚ) (M := K)).ne'⟩
+  have : NeZero n := ⟨(Module.finrank_pos (R := ℚ) (M := K)).ne'⟩
   have hcard : Fintype.card (Fin n) = Module.finrank ℝ (EuclideanSpace ℝ (Fin n)) := by simp
   let b := basisOfLinearIndependentOfCardEqFinrank hli hcard
   let bφ := basisOfLinearIndependentOfCardEqFinrank hliφ hcard
@@ -187,7 +187,7 @@ theorem _root_.RHLean.Geometry.NativeNumberFieldLattice.exists_short_independent
     intro i
     refine InnerProductSpace.ext_inner_right_basis b fun j => ?_
     rw [hm, coe_basisOfLinearIndependentOfCardEqFinrank, hpair, hω, Finset.sum_mul, map_sum]
-    simp [smul_mul_assoc, hαβ]
+    simp [hαβ]
   refine ⟨ω, ?_, ?_⟩
   · have h := hyli.restrict_scalars' ℚ
     rw [show y = fun k => φ (ω k) from funext hy] at h

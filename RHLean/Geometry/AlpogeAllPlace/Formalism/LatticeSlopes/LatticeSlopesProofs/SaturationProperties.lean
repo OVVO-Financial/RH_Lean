@@ -28,7 +28,7 @@ theorem rank_eq_finrank_span {E : Type*} [NormedAddCommGroup E] [InnerProductSpa
       map_smul' := fun _ _ => rfl
       left_inv := fun _ => rfl
       right_inv := fun _ => rfl }
-  haveI : DiscreteTopology N' :=
+  have : DiscreteTopology N' :=
     DiscreteTopology.of_continuous_injective
       (f := fun x : N' => (⟨((x : V) : E), x.2⟩ : N))
       ((continuous_subtype_val.comp continuous_subtype_val).subtype_mk _)
@@ -36,12 +36,12 @@ theorem rank_eq_finrank_span {E : Type*} [NormedAddCommGroup E] [InnerProductSpa
         have h' := congrArg Subtype.val h
         simp only at h'
         exact Subtype.ext (Subtype.ext h'))
-  haveI : IsZLattice ℝ N' := ⟨Submodule.span_span_coe_preimage⟩
+  have : IsZLattice ℝ N' := ⟨Submodule.span_span_coe_preimage⟩
   exact φ.finrank_eq.symm.trans (ZLattice.rank ℝ N')
 
 theorem saturation_properties : SaturProps := by
   intro E _ _ _ L N hL hNL
-  haveI := hL
+  have := hL
   have hSL : satur L N ≤ L := inf_le_left
   have hNS : N ≤ satur L N := fun x hx => ⟨hNL hx, Submodule.subset_span hx⟩
   have hspan : span ℝ (satur L N : Set E) = span ℝ (N : Set E) := by
@@ -52,8 +52,8 @@ theorem saturation_properties : SaturProps := by
   refine ⟨⟨hSL, fun x hx hxs => ⟨hx, ?_⟩⟩, hNS, ?_⟩
   · rw [hspan] at hxs
     exact hxs
-  · haveI : DiscreteTopology (satur L N) := DiscreteTopology.of_subset (s := (L : Set E)) hL hSL
-    haveI : DiscreteTopology N := DiscreteTopology.of_subset (s := (L : Set E)) hL hNL
+  · have : DiscreteTopology (satur L N) := DiscreteTopology.of_subset (s := (L : Set E)) hL hSL
+    have : DiscreteTopology N := DiscreteTopology.of_subset (s := (L : Set E)) hL hNL
     rw [rank_eq_finrank_span, rank_eq_finrank_span, hspan]
 
 private theorem linearIndependent_coe_basis_of_discrete {E : Type*} [NormedAddCommGroup E] [InnerProductSpace ℝ E]
@@ -70,8 +70,8 @@ private theorem linearIndependent_coe_basis_of_discrete {E : Type*} [NormedAddCo
 
 theorem covol_anti_same_rank : CovolAntiSameRank := by
   intro E _ _ _ N N' hN' hle hrk
-  haveI := hN'
-  haveI hN : DiscreteTopology N := DiscreteTopology.of_subset (s := (N' : Set E)) hN' hle
+  have := hN'
+  have hN : DiscreteTopology N := DiscreteTopology.of_subset (s := (N' : Set E)) hN' hle
   let e := Module.finBasis ℤ N'
   let f : Basis (Fin (Module.finrank ℤ N')) ℤ N := (Module.finBasis ℤ N).reindex (finCongr hrk)
   let M : Matrix (Fin (Module.finrank ℤ N')) (Fin (Module.finrank ℤ N')) ℤ :=
@@ -113,9 +113,9 @@ theorem covol_anti_same_rank : CovolAntiSameRank := by
       nlinarith
     exact_mod_cast h2
   have hcovN' : covol N' = Real.sqrt (Matrix.gram ℝ (fun i => (e i : E))).det := by
-    rw [covol, dif_pos hN']
+    rw [covol, dite_eq_left hN']
   have hcovN : covol N = Real.sqrt (Matrix.gram ℝ (fun j => (f j : E))).det := by
-    rw [covol, dif_pos hN, det_gram_basis_eq N (Module.finBasis ℤ N) f]
+    rw [covol, dite_eq_left hN, det_gram_basis_eq N (Module.finBasis ℤ N) f]
   rw [hcovN', hcovN, hdet]
   apply Real.sqrt_le_sqrt
   nlinarith

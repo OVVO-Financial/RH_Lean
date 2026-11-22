@@ -87,7 +87,7 @@ theorem nativeExists_allPlace_short_eigen
       ∀ x, (∀ h, st h x = ((χ h : Kˣ) : K) • x) →
         x ∈ Submodule.span K s' := by
   classical
-  letI := Fintype.ofFinite H
+  let := Fintype.ofFinite H
   have hN0 : ∀ σ, N σ 0 = 0 := fun σ => by simpa using hs σ 0 0
   have hsum : ∀ σ (T : Finset H) (f : H → V),
       N σ (∑ h ∈ T, f h) ≤ ∑ h ∈ T, N σ (f h) := by

@@ -53,6 +53,7 @@ def sgnAt (h : V →ₗ⋆[K] V →ₗ[K] K) (b : Module.Basis ι K V) (X : Infi
     (v : InfinitePlace K) (i : ι) : ℝ :=
   (((X v).conjTranspose * gramAt h b v * X v) i i).re
 
+omit [StarRing K] in
 theorem fcoord_add (b : Module.Basis ι K V) (X : InfinitePlace K → Matrix ι ι ℂ)
     (v : InfinitePlace K) (x y : V) : fcoord b X v (x + y) = fcoord b X v x + fcoord b X v y := by
   unfold fcoord
@@ -61,6 +62,7 @@ theorem fcoord_add (b : Module.Basis ι K V) (X : InfinitePlace K → Matrix ι 
   funext i
   simp [vecAt, map_add]
 
+omit [NumberField K] [StarRing K] in
 theorem fcoord_zero (b : Module.Basis ι K V) (X : InfinitePlace K → Matrix ι ι ℂ)
     (v : InfinitePlace K) : fcoord b X v 0 = 0 := by
   have h0 : vecAt b v 0 = 0 := by

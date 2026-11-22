@@ -35,10 +35,12 @@ theorem nativeRegular_of_component_evaluations {R : Type} [CommRing R]
       let p : minimalPrimes R := ⟨P, hP⟩
       have huP : u ∉ P := by
         intro hm
-        exact hu p ((RingHom.mem_ker (ev p)).mp (hcomponent p hm))
+        exact hu p (RingHom.mem_ker.mp (hcomponent p hm))
       have hprod : u * f ∈ P := hf ▸ P.zero_mem
-      exact ((Ideal.minimalPrimes_isPrime hP).mem_or_mem hprod).resolve_left huP
-    rw [minimalPrimes, Ideal.sInf_minimalPrimes, nilradical_eq_zero] at hmem
+      exact (hP.isPrime.mem_or_mem hprod).resolve_left huP
+    rw [minimalPrimes, Ideal.sInf_minimalPrimes] at hmem
+    change f ∈ nilradical R at hmem
+    rw [nilradical_eq_zero] at hmem
     exact (Ideal.mem_bot).mp hmem
   rw [mem_nonZeroDivisors_iff]
   exact ⟨hleft, fun f hf => hleft f (by rwa [mul_comm])⟩
@@ -54,7 +56,8 @@ theorem nativeMatrixDet_regular_of_component_evaluations
     A.det ∈ nonZeroDivisors R := by
   apply nativeRegular_of_component_evaluations F ev hcomponent A.det
   intro p
-  simpa only [RingHom.map_det] using hdet p
+  rw [RingHom.map_det, RingHom.mapMatrix_apply]
+  exact hdet p
 
 /-- Attach the regularity witness to the exact original character trace.
 The maps use the same section `u` whose component determinants were checked. -/

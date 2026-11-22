@@ -113,7 +113,7 @@ theorem inner_psi_psi (u v : P) (y z : ι → ℂ) :
       simp [PlaceDecomposition.psi, hw]
     · intro hu
       exact absurd (Finset.mem_univ u) hu
-  · rw [if_neg h]
+  · rw [ite_eq_right h]
     apply Finset.sum_eq_zero
     rintro ⟨w, i, k⟩ -
     by_cases hw : w = u

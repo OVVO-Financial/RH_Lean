@@ -39,8 +39,7 @@ private theorem alpogeNativeAddChar_descends
       _ = ψ y := by rw [h _ h0, mul_one]
   let s := Function.surjInv hπ
   have hs : ∀ q, π (s q) = q := Function.surjInv_eq hπ
-  refine ⟨{ toFun := fun q => ψ (s q),
-    map_zero_eq_one' := ?_, map_add_eq_mul' := ?_ }, ?_⟩
+  refine ⟨{ toFun := fun q => ψ (s q), map_zero_eq_one' := ?_, map_add_eq_mul' := ?_ }, ?_⟩
   · rw [wd (s 0) 0 (by rw [hs, map_zero]), AddChar.map_zero_eq_one]
   · intro a b
     rw [← AddChar.map_add_eq_mul,

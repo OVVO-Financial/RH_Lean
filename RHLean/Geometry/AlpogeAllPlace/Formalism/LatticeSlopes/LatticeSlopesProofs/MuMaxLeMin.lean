@@ -15,12 +15,12 @@ universe u
 
 theorem muMaxLeMin_of (hP : CovolPos.{u}) (hS : ShortVector.{u}) : MuMaxLeMin.{u} := by
   intro E _ _ _ L hL hL0 r hr hmin
-  haveI := hL
+  have := hL
   have hne : (slopes L).Nonempty := ⟨slope L, L, le_rfl, hL0, rfl⟩
   unfold muMax
   apply csSup_le hne
   rintro t ⟨N, hNL, hN0, rfl⟩
-  haveI : DiscreteTopology N := discreteTopology_of_le hNL
+  have : DiscreteTopology N := discreteTopology_of_le hNL
   have hk : 0 < rk N := att_rk_pos hN0
   have hkL : rk N ≤ rk L := att_rk_le hNL
   have hc : 0 < covol N := hP E N inferInstance

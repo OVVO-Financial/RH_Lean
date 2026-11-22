@@ -30,7 +30,7 @@ private theorem finrank_int_eq_finrank_real_span {E : Type*} [NormedAddCommGroup
       map_smul' := fun _ _ => rfl
       left_inv := fun _ => rfl
       right_inv := fun _ => rfl }
-  haveI : DiscreteTopology L₀ := by
+  have : DiscreteTopology L₀ := by
     refine DiscreteTopology.of_continuous_injective (f := e) ?_ e.injective
     exact Continuous.subtype_mk (continuous_subtype_val.comp continuous_subtype_val) _
   have himg : (Submodule.span ℝ (L : Set E)).subtype '' (L₀ : Set _) = (L : Set E) := by
@@ -40,7 +40,7 @@ private theorem finrank_int_eq_finrank_real_span {E : Type*} [NormedAddCommGroup
       exact hy
     · intro hx
       exact ⟨⟨x, hsub x hx⟩, hx, rfl⟩
-  haveI : IsZLattice ℝ L₀ := by
+  have : IsZLattice ℝ L₀ := by
     refine ⟨?_⟩
     apply Submodule.map_injective_of_injective (Submodule.span ℝ (L : Set E)).injective_subtype
     rw [Submodule.map_span, himg, Submodule.map_top, Submodule.range_subtype]
@@ -72,7 +72,7 @@ theorem covol_pos_of_discrete {E : Type*} [NormedAddCommGroup E]
     [InnerProductSpace ℝ E] [FiniteDimensional ℝ E] (L : Submodule ℤ E) [DiscreteTopology L] :
     0 < covol L := by
   classical
-  rw [covol, dif_pos (inferInstance : DiscreteTopology L)]
+  rw [covol, dite_eq_left (inferInstance : DiscreteTopology L)]
   exact Real.sqrt_pos.mpr (det_gram_basis_pos L _)
 
 theorem norm_sum_smul_le_of_int {E F : Type*} [NormedAddCommGroup E] [NormedSpace ℝ E]
@@ -122,9 +122,9 @@ theorem slopeInequality_of (h : SlopeLeMuMax.{v}) : SlopeInequality.{u, v} := by
   have hNM : N ≤ M := by
     rintro _ ⟨x, rfl⟩
     exact (φ x).2
-  haveI : DiscreteTopology L := hL
-  haveI : DiscreteTopology M := hM
-  haveI : DiscreteTopology N :=
+  have : DiscreteTopology L := hL
+  have : DiscreteTopology M := hM
+  have : DiscreteTopology N :=
     DiscreteTopology.of_continuous_injective (continuous_inclusion hNM)
       (Submodule.inclusion_injective hNM)
   let e : L ≃ₗ[ℤ] N := LinearEquiv.ofInjective g ginj
@@ -148,7 +148,7 @@ theorem slopeInequality_of (h : SlopeLeMuMax.{v}) : SlopeInequality.{u, v} := by
     have h2 : 0 < ‖((φ ⟨x, hxL⟩ : M) : F)‖ := norm_pos_iff.mpr hφx
     have h3 : 0 < ‖x‖ := norm_pos_iff.mpr hx0
     by_contra hc
-    push_neg at hc
+    push Not at hc
     nlinarith [mul_nonpos_of_nonpos_of_nonneg hc h3.le]
   have h1 : slope N ≤ muMax M := h F M N hM hNM hNne
 
@@ -157,7 +157,7 @@ theorem slopeInequality_of (h : SlopeLeMuMax.{v}) : SlopeInequality.{u, v} := by
   have hrkN : rk N = r := by
     show Module.finrank ℤ N = Module.finrank ℤ L
     exact e.finrank_eq.symm
-  haveI : Nontrivial L := Submodule.nontrivial_iff_ne_bot.mpr hne
+  have : Nontrivial L := Submodule.nontrivial_iff_ne_bot.mpr hne
   have hrpos : 0 < r := Module.finrank_pos
 
   let b := Module.finBasis ℤ L

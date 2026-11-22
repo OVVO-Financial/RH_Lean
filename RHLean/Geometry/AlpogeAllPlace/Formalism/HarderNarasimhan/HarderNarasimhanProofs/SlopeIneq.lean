@@ -22,7 +22,7 @@ variable {E F : Type*} [NormedAddCommGroup E] [InnerProductSpace ℝ E] [FiniteD
 private lemma le_of_forall_nat_mul_le_mul_add {a b K : ℝ}
     (h : ∀ n : ℕ, 0 < n → (n : ℝ) * a ≤ n * b + K) : a ≤ b := by
   by_contra hab
-  push_neg at hab
+  push Not at hab
   have hpos : 0 < a - b := sub_pos.mpr hab
   obtain ⟨n, hn⟩ := exists_nat_gt (K / (a - b))
   have h1 := h (n + 1) n.succ_pos
@@ -158,7 +158,7 @@ theorem norm_starProjection_le {G : Type*} [AddCommGroup G] (α : G →+ E) (β 
       have h2 := norm_nonneg (α g)
       exact norm_eq_zero.mp (le_antisymm (by nlinarith) h2)
     rw [hb g, ha, map_zero, map_zero, norm_zero, norm_zero, mul_zero]
-  push_neg at hC
+  push Not at hC
   have hw : α g - (span ℝ (α '' S))ᗮ.starProjection (α g) ∈ span ℝ (α '' S) := by
     first
     | exact (Submodule.orthogonal_orthogonal (span ℝ (α '' S))) ▸

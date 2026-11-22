@@ -1,3 +1,6 @@
+import RHLean.Analysis.AlpogeThin.NativePrincipalThin
+import RHLean.Geometry.NativeRegularCharacterSlopeDescent
+import RHLean.Analysis.AlpogeThin
 import RHLean.Geometry.NativeComponentRegularSection
 import RHLean.Geometry.NativeAllPlaceEigenGenerators
 import RHLean.Geometry.NativeAllPlaceDescent
@@ -113,3 +116,45 @@ info: 'RHLean.Geometry.nativeDescent_mainTermPayment' depends on axioms: [propex
 -/
 #guard_msgs in
 #print axioms RHLean.Geometry.nativeDescent_mainTermPayment
+
+/--
+info: 'RHLean.Analysis.alpogeNativeProjectionChars_card_index' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.alpogeNativeProjectionChars_card_index
+
+/--
+info: 'RHLean.Analysis.alpogeNativeProjectedSignal_top_eq_Gsig' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.alpogeNativeProjectedSignal_top_eq_Gsig
+
+/--
+info: 'RHLean.Geometry.nativeAllPlaceDescent_of_regular_character_section' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Geometry.nativeAllPlaceDescent_of_regular_character_section
+
+/--
+info: 'RHLean.Analysis.AlpogeThin.nativeSelectedPairThin' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeThin.nativeSelectedPairThin
+
+/--
+info: 'RHLean.Analysis.AlpogeThin.hostResponse_eq_nativeResponse' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeThin.hostResponse_eq_nativeResponse
+
+/--
+info: 'RHLean.Analysis.AlpogeThin.principalPair_uniform_noExc' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeThin.principalPair_uniform_noExc
+
+/--
+info: 'RHLean.Analysis.AlpogeThin.nativePrincipalSelectedPairThin' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeThin.nativePrincipalSelectedPairThin

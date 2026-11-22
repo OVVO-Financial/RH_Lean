@@ -1,0 +1,18 @@
+{
+  "upstream_git_commit": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
+  "archive_url": "https://github.com/CocoSgt/riemann-hypothesis-lean/releases/download/v2026-11-20/lean.tar.gz",
+  "archive_size": 239275554,
+  "archive_sha256": "9631b4f020199e580ba86178cb56c6e9b09f690c2369a80dc4334aa93f49c7fc",
+  "expected_archive_sha256": "9631b4f020199e580ba86178cb56c6e9b09f690c2369a80dc4334aa93f49c7fc",
+  "lean_source_files_compared": 175187,
+  "tracked_lean_count": 175187,
+  "tracked_lean_missing_from_archive": [],
+  "archive_lean_missing_from_git": [],
+  "different_blob_hashes": [],
+  "other_tracked_files_compared": [
+    "lake-manifest.json",
+    "lakefile.toml",
+    "lean-toolchain"
+  ],
+  "scope": "Byte identity only. No Lean execution."
+}

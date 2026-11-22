@@ -165,7 +165,7 @@ theorem poleData_char {N : ℕ} [NeZero N] (χ : DirichletCharacter ℂ N) (adm 
     set g : ℂ → ℂ := Function.update (fun s => (s - 1) * riemannZeta s) 1 1 with hg_def
     have hg_ne : ∀ w : ℂ, w ≠ 1 → g w = (w - 1) * riemannZeta w := by
       intro w hw
-      simp [g, Function.update_apply, hw]
+      simp [g, hw]
     have hg1 : g 1 = 1 := by simp [g]
     have hg : Differentiable ℂ g := by
       rw [← differentiableOn_univ,

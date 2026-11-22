@@ -18,7 +18,7 @@ private lemma finSup_mem_zl {R V E : Type*} [Ring R] [AddCommGroup V] [Module R 
 
 theorem finite_supremum_slopes : FinSup := by
   intro R V E _ _ _ _ _ _ ρ L S hL hS
-  haveI : DiscreteTopology (zl ρ L) := hL.2
+  have : DiscreteTopology (zl ρ L) := hL.2
   have hmono : ∀ A B : Submodule R V, A ≤ B → zl ρ A ≤ zl ρ B := by
     intro A B h x hx
     rw [finSup_mem_zl] at hx ⊢
@@ -45,8 +45,8 @@ theorem finite_supremum_slopes : FinSup := by
     have hm : (⟨x, hxL⟩ : zl ρ L) ∈ g B := hx
     rw [← heq] at hm
     exact hm
-  haveI : WellFoundedGT (Set.Iic L) := hg.wellFoundedGT
-  obtain ⟨t', ht', he⟩ := CompleteLattice.WellFoundedGT.isSupFiniteCompact (Set.Iic L)
+  have : WellFoundedGT (Set.Iic L) := hg.wellFoundedGT
+  obtain ⟨t', ht', he⟩ := WellFoundedGT.isSupFiniteCompact (α := Set.Iic L)
     {x | (x : Submodule R V) ∈ S}
   have hU : (t'.image Subtype.val).sup id ≤ L := by
     refine Finset.sup_le fun N hN => ?_

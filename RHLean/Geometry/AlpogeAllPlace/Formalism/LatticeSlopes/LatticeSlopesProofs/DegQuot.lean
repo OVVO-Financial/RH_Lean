@@ -47,7 +47,7 @@ theorem discreteTopology_span_range_of_linearIndependent {E : Type*} [NormedAddC
       exact Finset.sum_congr rfl fun i _ => Int.cast_smul_eq_zsmul ℝ (n i) (c i)
     obtain ⟨i, hi⟩ : ∃ i, n i ≠ 0 := by
       by_contra hcon
-      push_neg at hcon
+      push Not at hcon
       apply hx0
       simp [hcon]
     have h1 : (1 : ℝ) ≤ ‖(fun i => (n i : ℝ))‖ := by
@@ -82,8 +82,8 @@ theorem degree_quotient : DegQuot := by
   intro E _ _ _ L N hL hsat
   classical
   obtain ⟨hNL, hsat'⟩ := hsat
-  haveI := hL
-  haveI : DiscreteTopology N := discreteTopology_of_le hNL
+  have := hL
+  have : DiscreteTopology N := discreteTopology_of_le hNL
   let W : Submodule ℝ E := Submodule.span ℝ (N : Set E)
   let P : E →L[ℝ] E := Wᗮ.starProjection
   have hPmem : ∀ x : E, P x ∈ Wᗮ := fun x => by
@@ -95,10 +95,7 @@ theorem degree_quotient : DegQuot := by
     rwa [Submodule.orthogonal_orthogonal] at h
   have horth : ∀ u ∈ W, ∀ w ∈ Wᗮ, inner ℝ u w = 0 := by
     intro u hu w hw
-    first
-      | exact (Submodule.mem_orthogonal W w).1 hw u hu
-      | exact (Submodule.mem_orthogonal w).1 hw u hu
-      | exact Submodule.inner_right_of_mem_orthogonal hu hw
+    exact (Submodule.mem_orthogonal W w).1 hw u hu
   have hPW : ∀ x ∈ W, P x = 0 := by
     intro x hx
     have h2 : P x ∈ W := by
@@ -117,12 +114,10 @@ theorem degree_quotient : DegQuot := by
     show y ∈ L.map _ ↔ _
     rw [Submodule.mem_map]
     rfl
-  haveI : Module.Finite ℤ Q := by
+  have : Module.Finite ℤ Q := by
     show Module.Finite ℤ (L.map _)
-    first
-      | exact Module.Finite.map L _
-      | exact Module.Finite.iff_fg.mpr (Submodule.FG.map _ (Module.Finite.iff_fg.mp inferInstance))
-  haveI : Module.IsTorsionFree ℤ Q := Module.IsTorsionFree.mk fun r hr x y hxy => by
+    exact Module.Finite.map L _
+  have : Module.IsTorsionFree ℤ Q := Module.IsTorsionFree.mk fun r hr x y hxy => by
     have hr0 : r ≠ 0 := hr.ne_zero
     apply Subtype.ext
     have h : ((r • x : Q) : E) = ((r • y : Q) : E) := congrArg Subtype.val hxy
@@ -131,7 +126,7 @@ theorem degree_quotient : DegQuot := by
       rw [Int.cast_smul_eq_zsmul, Int.cast_smul_eq_zsmul]
       exact h
     exact smul_right_injective E (Int.cast_ne_zero.mpr hr0) h'
-  haveI : Module.Free ℤ Q := Module.free_of_finite_type_torsion_free'
+  have : Module.Free ℤ Q := Module.free_of_finite_type_torsion_free'
   let eQ := Module.Free.chooseBasis ℤ Q
   let bN := Module.Free.chooseBasis ℤ N
   have hlift : ∀ j, ∃ x ∈ L, P x = (eQ j : E) := fun j => (hQmem _).1 (eQ j).2
@@ -197,7 +192,7 @@ theorem degree_quotient : DegQuot := by
     refine ⟨Sum.elim s r, ?_⟩
     apply Subtype.ext
     simp only [Fintype.sum_sum_type, Sum.elim_inl, Sum.elim_inr, Submodule.coe_add,
-      Submodule.coe_sum, Submodule.coe_smul, v, Submodule.coe_mk]
+      Submodule.coe_sum, Submodule.coe_smul, v]
     rw [hs]
     abel
   let cB := Module.Basis.mk hli hsp
@@ -235,7 +230,7 @@ theorem degree_quotient : DegQuot := by
       exact neg_add_cancel _
     intro j
     exact Fintype.linearIndependent_iff.1 hindR _ hrel (Sum.inr j)
-  haveI hQd : DiscreteTopology Q := by
+  have hQd : DiscreteTopology Q := by
     have h := discreteTopology_span_range_of_linearIndependent (fun j => (eQ j : E)) heQ
     rwa [span_range_coe_basis' Q eQ] at h
   have hrk : rk L = rk N + rk Q := by
@@ -261,11 +256,11 @@ theorem degree_quotient : DegQuot := by
     | inl i0 =>
       simp only [M, v2, Matrix.fromBlocks_apply₁₁, Matrix.fromBlocks_apply₂₁, Sum.elim_inl,
         Sum.elim_inr, Matrix.zero_apply, zero_smul, Finset.sum_const_zero, add_zero,
-        Matrix.one_apply, ite_smul, one_smul, Finset.sum_ite_eq', Finset.mem_univ, if_true]
+        Matrix.one_apply, ite_smul, one_smul, Finset.sum_ite_eq', Finset.mem_univ, ite_true]
     | inr j0 =>
       simp only [M, v2, Matrix.fromBlocks_apply₁₂, Matrix.fromBlocks_apply₂₂, Sum.elim_inl,
         Sum.elim_inr, Matrix.of_apply, Matrix.one_apply, ite_smul, one_smul, zero_smul,
-        Finset.sum_ite_eq', Finset.mem_univ, if_true]
+        Finset.sum_ite_eq', Finset.mem_univ, ite_true]
       rw [hα, sub_add_cancel]
   have hdetM : M.det = 1 := by
     simp only [M]

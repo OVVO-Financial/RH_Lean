@@ -9,6 +9,7 @@ namespace RHLean.Geometry.AlpogeAllPlace.Formalism.F
 
 variable {E : Type*} [NormedAddCommGroup E] [InnerProductSpace ℝ E] [FiniteDimensional ℝ E]
 
+omit [InnerProductSpace ℝ E] [FiniteDimensional ℝ E] in
 theorem discreteTopology_of_le {L N : Submodule ℤ E} (h : N ≤ L) [hL : DiscreteTopology L] :
     DiscreteTopology N :=
   DiscreteTopology.of_continuous_injective (f := Submodule.inclusion h)

@@ -175,7 +175,7 @@ theorem duality_basic (L : Submodule ℤ E) [DiscreteTopology L] :
     by_cases h : k = i
     · subst h
       simp
-    · rw [if_neg (Ne.symm h), if_neg h]
+    · rw [ite_eq_right (Ne.symm h), ite_eq_right h]
   have hv' : ∀ i, v i ∈ span ℝ (Set.range w) := by
     intro i
     rw [duality_expand v w hw hvw (Submodule.subset_span (Set.mem_range_self i))]

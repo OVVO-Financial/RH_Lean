@@ -65,7 +65,7 @@ theorem nativeDescent_jointEnergy_le {q C z b E J : ℝ}
 the squared operator-height cost. The rank defect pays the generator height. -/
 theorem nativeDescent_slopeBudget {a N μ μA height μmin P Λ δ t : ℝ}
     (ha : 0 < a) (haN : a ≤ N) (hN : N ≤ (1 + δ) * a)
-    (hΛ : 0 ≤ Λ) (hδ : 0 ≤ δ) (hheight : height ≤ 2 * P)
+    (hΛ : 0 ≤ Λ) (_hδ : 0 ≤ δ) (hheight : height ≤ 2 * P)
     (hmin : -(2 * Λ) ≤ μmin) (ht : t ≤ μA - 2 * P)
     (hdescent : a * (μA - height) + (N - a) * μmin ≤ N * μ) :
     t - δ * (|t| + 2 * Λ) ≤ μ := by

@@ -71,7 +71,7 @@ theorem gram_block_determinant : GramBlock := by
       by_cases hij : i = j
       · simp [hij]
       · simp [hij]
-    · rw [if_neg (fun h => hvw (congrArg Sigma.fst h))]
+    · rw [ite_eq_right (fun h => hvw (congrArg Sigma.fst h))]
       exact hEv v w hvw _ (hfW ⟨v, i⟩).2 _ (hfW ⟨w, j⟩).2
   have hspanf : Submodule.span ℝ (Set.range f) = W := by
     apply le_antisymm
@@ -149,7 +149,7 @@ theorem gram_block_determinant : GramBlock := by
         exact norm_le_zero_iff.1 h1
       rw [Matrix.det_eq_zero_of_row_eq_zero a (fun j => by rw [Matrix.gram_apply, hz, inner_zero_left])]
       exact Finset.prod_nonneg fun _ _ => sq_nonneg _
-    · push_neg at h0
+    · push Not at h0
       have hpos : ∀ a : (Σ v, Fin (k v)), 0 < c a.1 := fun a => lt_of_le_of_ne (hc a.1) (h0 a).symm
       let w : (Σ v, Fin (k v)) → E' := fun a => (c a.1)⁻¹ • T (f a)
       have hgram : Matrix.gram ℝ (fun a => T (f a)) =
@@ -210,7 +210,7 @@ theorem gram_block_determinant : GramBlock := by
         subst hab
         rw [hiso v _ (hfW ⟨v, i⟩).2 _ (hfW ⟨v, j⟩).2, orthonormal_iff_ite.1 hfon]
         split_ifs <;> simp
-      · rw [if_neg (fun h => hab (congrArg Sigma.fst h))]
+      · rw [ite_eq_right (fun h => hab (congrArg Sigma.fst h))]
         exact hEv' _ _ hab _ (hTf a).1 _ (hTf b).1
     rw [hGT, hGu, hreidx, hdiag, Matrix.det_diagonal, hprod]
     ring
