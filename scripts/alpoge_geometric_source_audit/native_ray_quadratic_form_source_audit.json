@@ -109,8 +109,8 @@
       ],
       "native_path": "RHLean/Geometry/NativePlaneLatticeReduction.lean",
       "initial_attachment_sha256": "b4fc057b7a6b8c1e4c16d658237e60660de67152172598f32df99da9a3ec5d0a",
-      "native_sha256": "5d12ddf47e8fa9a7dd91dc2431b5c4a78239354273a74df9ebd22bb260f8ca95",
-      "native_lines": 121
+      "native_sha256": "9ccd8da1d917440b28b93c27b2b071819d8c86474261ef7d36a44ff145a15e65",
+      "native_lines": 123
     },
     {
       "module": "RHLean.Analysis.AlpogeThin.NativeRayQuadraticForm",

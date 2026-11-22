@@ -18,8 +18,8 @@
       ],
       "native_path": "RHLean/Geometry/NativeGeometricPeriods.lean",
       "initial_source_reconstruction_sha256": "d8b331bc2848fe7d7abd6af02dfeb793fb0c85e5194317a6d12223ab84d7135e",
-      "native_sha256": "832e490bb638ac7b9a2715807d7b786965e4df21395d398f1ee2a7c4f65cfec7",
-      "native_lines": 206
+      "native_sha256": "06008edf6701fc7b8eed29a05647b07c9ec232e8f83effa88dad091d8bb9056d",
+      "native_lines": 210
     },
     {
       "guards": [

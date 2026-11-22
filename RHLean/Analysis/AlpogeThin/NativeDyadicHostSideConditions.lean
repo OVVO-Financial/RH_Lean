@@ -105,7 +105,9 @@ theorem nativeDyadicArt_halfConductor_nontrivial
   · intro hArt
     change nativeDyadicFullHostEquiv e
       (alpogeNativeRecMap e q d (ZMod.unitOfCoprime (n + 1) haN)) = 1 at hArt
-    have hRec := (nativeDyadicFullHostEquiv e).map_eq_one_iff.mp hArt
+    have hRec := (MulEquiv.map_eq_one_iff
+      (M := Multiplicative (AlpogeNativeE0 × AlpogeNativeDyadicH e))
+      (N := (nativeDyadicFrame e).GG) (nativeDyadicFullHostEquiv e)).mp hArt
     have hclass := ((nativeDyadicRecMap_unitOfCoprime_eq_one_iff e q d (n + 1) haN).mp hRec).1
     rcases hclass with hpos | hneg
     · have hdiv : 2 ^ (e + 2) ∣ n :=

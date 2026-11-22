@@ -86,14 +86,18 @@ theorem exists_herm {g : ℕ} (B : LinearMap.BilinForm ℝ (Fin g → ℂ))
   have hsm : ∀ (c : ℂ) (x : Fin g → ℂ),
       c • x = c.re • x + c.im • (Complex.I • x) := fun c x => by
     funext k
-    apply Complex.ext <;> simp
+    apply Complex.ext
+    · simp [sub_eq_add_neg]
+    · simp
   let hl : (Fin g → ℂ) → ((Fin g → ℂ) →ₗ[ℂ] ℂ) := fun y =>
     { toFun := fun x => h x y
       map_add' := fun x x' => by simp [h]; ring
       map_smul' := fun c x => by
         simp only [h]
         rw [smul_comm Complex.I c x, hsm c x, hsm c (Complex.I • x), hII]
-        apply Complex.ext <;> simp }
+        apply Complex.ext
+        · simp [sub_eq_add_neg]
+        · simp }
   have hsum : ∀ x y, h x y = ∑ i, x i * h (Pi.single i 1) y := fun x y => by
     change hl y x = ∑ i, x i • hl y (Pi.single i 1)
     conv_lhs => rw [pi_eq_sum_univ' x]

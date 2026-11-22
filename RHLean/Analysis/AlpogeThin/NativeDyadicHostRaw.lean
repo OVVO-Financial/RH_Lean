@@ -283,8 +283,11 @@ theorem nativeDyadicHostRaw_kerChi
       alpogeNativeRecMap e q d (ZMod.unitOfCoprime a ha) = 1 := by
     change nativeDyadicFullHostEquiv e
       (alpogeNativeRecMap e q d (ZMod.unitOfCoprime a ha)) = 1 ↔ _
-    exact (nativeDyadicFullHostEquiv e).map_eq_one_iff
-  simpa only [hprincipal, true_and] using
+    exact MulEquiv.map_eq_one_iff
+      (M := Multiplicative (AlpogeNativeE0 × AlpogeNativeDyadicH e))
+      (N := (nativeDyadicFrame e).GG) (nativeDyadicFullHostEquiv e)
+  simpa only [hprincipal, true_and, nativeDyadicHostRaw_art,
+    nativeDyadicHostRaw_q, nativeDyadicHostRaw_d, nativeDyadicFrame_e] using
     hmap.trans (nativeDyadicRecMap_unitOfCoprime_eq_one_iff e q d a ha)
 
 /-- The same selected prime window already supplies the arithmetic HostHyp;

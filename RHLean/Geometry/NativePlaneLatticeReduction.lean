@@ -52,11 +52,13 @@ theorem plane_lattice_reduction_step (e₁ e₂ : ℂ)
       · rw [hx]
         exact Submodule.subset_span (by simp)
       · rw [hx]
+        change e₂ ∈ Submodule.span ℤ {e₂ - k • e₁, e₁}
         have hmem : (e₂ - k • e₁) + k • e₁ ∈
             Submodule.span ℤ {e₂ - k • e₁, e₁} :=
           Submodule.add_mem _ (Submodule.subset_span (by simp))
             (Submodule.smul_mem _ _ (Submodule.subset_span (by simp)))
-        simpa only [sub_add_cancel] using hmem
+        rw [sub_add_cancel] at hmem
+        exact hmem
   · have : ((starRingEnd ℂ) (e₂ - k • e₁) * e₁).im = -((starRingEnd ℂ) e₁ * e₂).im := by
       simp
       ring

@@ -97,8 +97,14 @@ theorem nativeSelectedDyadicCompleteProjection
     have := hG.pair.q_mod
     have := hG.pair.d_mod
     omega
-  exact hpaid x hx (AlpogeNativeDyadicH e) (e + 2)
+  dsimp only
+  intro A0 m TT T2 hTT hT2 hm hsubset a b h Amax beta w
+    hbeta hbetab hh ha hAmax hwbeta hwthick hwthin
+  have hsource := hpaid x hx (AlpogeNativeDyadicH e) (e + 2)
     (alpogeNativeHostN e q d) (dvd_refl _) hlog (alpogeNativeRecMap e q d)
     (alpogeNativeRecMap_surjective e q d hq2 hd2 hqd)
+    A0 m TT T2 hTT hT2 hm hsubset a b h Amax beta w
+    hbeta hbetab hh ha hAmax hwbeta hwthick hwthin
+  simpa only [alpogeNativeHostData] using hsource
 
 end RHLean.Analysis.AlpogeThin
