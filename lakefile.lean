@@ -14,9 +14,13 @@ require PrimeNumberTheoremAnd from git
 require mathlib from git
   "https://github.com/leanprover-community/mathlib4.git" @ "d13f23b723b8a846827a245b89c10fc7d3f11612"
 
--- Compile just the existing two verified VF_mid research modules as
--- dependencies of the native Alpoge Gz delta transfer. Do not glob
--- the research tree: it contains many exploratory and conditional files.
+-- The research closure uses FLAT historical names of the form
+-- `«research.NAME»` (a single Lean Name atom containing a dot).
+-- Lake's hierarchical `research.NAME` root writes research/NAME.olean,
+-- which cannot satisfy those quoted imports. The two tracked root-level
+-- symlinks research.NAME.lean point to the corresponding historical files,
+-- letting Lake build exactly the same flat module names and .olean paths
+-- as the dedicated warning-fatal research compiler. No research tree glob.
 lean_lib RHLean where
-  roots := #[`RHLean, `research.VF_MID_VON_KOCH_BRIDGE,
-    `research.VF_MID_LI_UNIFORM_QUADRATURE]
+  roots := #[`RHLean, `«research.VF_MID_VON_KOCH_BRIDGE»,
+    `«research.VF_MID_LI_UNIFORM_QUADRATURE»]

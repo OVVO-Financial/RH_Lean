@@ -1,6 +1,6 @@
 import Mathlib
-import research.VF_MID_VON_KOCH_BRIDGE
-import research.VF_MID_LI_UNIFORM_QUADRATURE
+import «research.VF_MID_VON_KOCH_BRIDGE»
+import «research.VF_MID_LI_UNIFORM_QUADRATURE»
 import RHLean.Analysis.AlpogeSignedSquareInterpolation
 
 /-!

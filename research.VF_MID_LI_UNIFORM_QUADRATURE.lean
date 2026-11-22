@@ -1,0 +1,1 @@
+research/VF_MID_LI_UNIFORM_QUADRATURE.lean

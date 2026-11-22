@@ -1,5 +1,5 @@
 import Mathlib
-import research.VF_MID_VON_KOCH_BRIDGE
+import «research.VF_MID_VON_KOCH_BRIDGE»
 
 /-!
 # Uniform VF / Li midpoint quadrature
