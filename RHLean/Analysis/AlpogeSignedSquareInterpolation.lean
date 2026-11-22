@@ -183,7 +183,7 @@ theorem nativeAlpogeGz_sub_squareChord_eq_signedCorrection
     alpogeSquarePrimePowerSource alpogeSquareLogMain
     alpogeSquareChord alpogeSquareSecantWeight at *
   unfold nativeAlpogeGz
-  linear_combination (1 + Real.eulerMascheroniConstant) * hlinear
+  linear_combination -(1 + Real.eulerMascheroniConstant) * hlinear
 
 /-- Purely algebraic signed error expressed as two endpoint differences. -/
 theorem alpogeSquareChord_error_rewrite
@@ -415,5 +415,6 @@ theorem nativeAlpogeCenteredHistory_all_of_square_lattice_critical
           Real.sqrt (N : ℝ) := by
       rw [← hrootSq]
       field_simp [ne_of_gt hroot]
+      ring
 
 end RHLean.Analysis
