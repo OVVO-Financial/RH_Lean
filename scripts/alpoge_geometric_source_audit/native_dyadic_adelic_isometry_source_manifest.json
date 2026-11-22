@@ -1,0 +1,102 @@
+{
+  "status": "IMPLEMENTED_STATIC_REVIEWED_HOSTED_VERIFICATION_PENDING",
+  "date_utc": "2026-11-22",
+  "source_repository": "CocoSgt/riemann-hypothesis-lean",
+  "source_pin": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
+  "mathlib_pin": "d13f23b723b8a846827a245b89c10fc7d3f11612",
+  "native_modules": [
+    {
+      "module": "RHLean.Geometry.NativeDyadicAdelicIsometry",
+      "path": "RHLean/Geometry/NativeDyadicAdelicIsometry.lean",
+      "source": [
+        {
+          "path": "src/Formalism/LocalRingCardinality/SpanPowerMembership/Spaces.lean",
+          "sha256": "61e48ccf177d09af97e448d881e337979df38429fc8298c7cbe5915eede64eac",
+          "declarations": [
+            "Formalism.BasicNotions.Examples₂.cT_diagonal",
+            "Formalism.BasicNotions.Examples₂.diag_congr",
+            "Formalism.BasicNotions.Examples₂.diagUnit"
+          ]
+        },
+        {
+          "path": "src/Formalism/LocalRingCardinality/SpanPowerMembership/BaseFormAnisotropicOrthogonalSingle.lean",
+          "sha256": "c354dde1601781d2fe4d4e48c36cbebd206c12769893795222a6f3ac76995e28",
+          "declarations": [
+            "Formalism.BasicNotions.Examples₂.dSpace_gram_map",
+            "Formalism.BasicNotions.Examples₂.dSpace_congr",
+            "Formalism.BasicNotions.Examples₂.spacesOfRanks.baseSpace_isometric_graded"
+          ]
+        },
+        {
+          "path": "src/Formalism/LocalRingCardinality/DataSpaces.lean",
+          "sha256": "4a2a530b7639a10052a905d17d27984a2a2765e2f9742112fa0c6901281ffa1b",
+          "declarations": [
+            "Formalism.BasicNotions.Spaces.baseSpace_isometric_graded"
+          ]
+        }
+      ],
+      "construction": "Constructs the actual diagonal GL matrix with entries 1 or canonical normMinusOne, and inverse entries 1 or minus its tensor conjugate. Proves exact mapped-Gram congruence for original base signs (m-0)/2 and existing prescribed W_j signs m-j at rank k+m-1. No norm or isometry input; no arbitrary field, lattice or signature replacement.",
+      "native_sha256": "ac05636cf14bb140b2ab0f7c46a1136f3c221ecdaaab3a440c4831fa78dbecce",
+      "native_lines": 197,
+      "initial_source_reconstruction_sha256": "aded96fd6e7dce8d26282c0c5906f599754303360c1b08ea4685c4b03f788c25"
+    }
+  ],
+  "axiom_guard_declarations": [
+    "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.prescribedBaseSpace",
+    "RHLean.Geometry.NativeDyadicAdelicIsometry.dSpace_gram_map",
+    "RHLean.Geometry.NativeDyadicAdelicIsometry.diagonalChange",
+    "RHLean.Geometry.NativeDyadicAdelicIsometry.diagonalChange_val",
+    "RHLean.Geometry.NativeDyadicAdelicIsometry.diagonalChange_inv_val",
+    "RHLean.Geometry.NativeDyadicAdelicIsometry.diagonalChange_congr",
+    "RHLean.Geometry.NativeDyadicAdelicIsometry.baseSpace_congr_prescribed",
+    "RHLean.Geometry.NativeDyadicAdelicIsometry.baseSpace_isometric_prescribed"
+  ],
+  "native_dependencies": [
+    {
+      "module": "RHLean.Geometry.NativeDyadicAdelicNorm",
+      "path": "RHLean/Geometry/NativeDyadicAdelicNorm.lean",
+      "initial_attachment_sha256": "3700b189b62820b4645ddbd3963e885baa7ca1b3a74ed1f43b40462976e34906",
+      "native_sha256": "3700b189b62820b4645ddbd3963e885baa7ca1b3a74ed1f43b40462976e34906"
+    },
+    {
+      "module": "RHLean.Geometry.NativePrescribedPolarizationLattice",
+      "path": "RHLean/Geometry/NativePrescribedPolarizationLattice.lean",
+      "initial_attachment_sha256": "e5a1316a3caf23ecdfa3fc4c4f764d8c1409f184fb1a5e161b0f85a8c32a4650",
+      "native_sha256": "e5a1316a3caf23ecdfa3fc4c4f764d8c1409f184fb1a5e161b0f85a8c32a4650"
+    }
+  ],
+  "pinned_apis": [
+    {
+      "path": "Mathlib/LinearAlgebra/Matrix/GeneralLinearGroup/Defs.lean",
+      "sha256": "7ebcb372b2e3d685522c7b191246ccce616c80150c86489c091fc4e7adac5f1e"
+    },
+    {
+      "path": "Mathlib/Data/Matrix/Mul.lean",
+      "sha256": "389814a6174e73b69048066a00d5f6429812c62d40b0da09086ca6b3ac2b6f66"
+    },
+    {
+      "path": "Mathlib/Data/Matrix/Basic.lean",
+      "sha256": "fd8cab9e5ab6568a12306feab85f74b81487d99b1b3fac6769e4cd06c1d7722c"
+    }
+  ],
+  "validation": {
+    "local_lean": "NOT_RUN_HOSTED_ONLY",
+    "hosted_build": "NOT_YET_RUN_FOR_THIS_FILE",
+    "ci_repair_independent_review": "PASS: exact inverse, scalar-conjugate Gram identity, same local StarRing as prescribedSpace, ranks and Equiv.refl reindex checked; no concrete math/API/warning defect.",
+    "root_independent_review": "PASS: full source read and mathematical review of the exact inverse, original base negative count m/2, prescribed negative count m-j, same-host Gram congruence and identity-coordinate witness. Hosted elaboration remains pending; no local Lean.",
+    "whitespace_checked": true,
+    "source_hashes_checked": true,
+    "guard_names_checked": true,
+    "new_proof_hole_or_override": false
+  },
+  "remaining_boundary": [
+    "This supplies the original finite-adelic Gram compatibility, not preservation of each integral lattice by the matrix at every place.",
+    "A complete original Spaces/D7/Datum object is not yet assembled by this module; the real complex structure and both trace identities are separately constructed on the same coefficient lattice by NativePrescribedPolarizationDomain.",
+    "No moduli, SAB, theta germ/chart, cusp-density or good-cover conclusion is asserted."
+  ],
+  "descent_payment_ack": "ALPOGE_NATIVE_DESCENT_PAYMENT_V1",
+  "tractability_ack": "ALPOGE_VIOLE_TRACTABLE_RH_V1",
+  "integration_adaptations": [
+    "Use an anonymous let for the proof-local StarRing instance, matching the exact letI style warning observed in the local-norm proof on head 3ad6422. The same instance, field, Gram form and theorem conclusion are retained."
+  ]
+}

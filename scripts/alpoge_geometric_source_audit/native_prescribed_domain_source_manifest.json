@@ -1,0 +1,245 @@
+{
+  "status": "IMPLEMENTED_STATIC_REVIEWED_HOSTED_VERIFICATION_PENDING",
+  "descent_payment_ack": "ALPOGE_NATIVE_DESCENT_PAYMENT_V1",
+  "tractability_ack": "ALPOGE_VIOLE_TRACTABLE_RH_V1",
+  "source_repository": "CocoSgt/riemann-hypothesis-lean",
+  "source_commit": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
+  "source_license": "Source archive/mirror states no license; attribution retained without assigning one.",
+  "files": [
+    {
+      "native_path": "RHLean/Geometry/NativePolarizationComplexCoordinates.lean",
+      "initial_source_reconstruction_sha256": "c8f0368069a7609cca87096c51d52645b6d6ae6d9b330021c9ba72b040034c9b",
+      "native_sha256": "c8f0368069a7609cca87096c51d52645b6d6ae6d9b330021c9ba72b040034c9b",
+      "native_lines": 228
+    },
+    {
+      "native_path": "RHLean/Geometry/NativePrescribedPolarizationDomain.lean",
+      "initial_source_reconstruction_sha256": "a072b2dd5d3cd03e20710e16e1d820be0028e25c71a3e4110764439c34ec7a30",
+      "native_sha256": "aaf3f8da955187927d834f0d1c92f9a50b48ed46ab1d93caf07d82c5fd343738",
+      "native_lines": 368
+    }
+  ],
+  "source_map": [
+    {
+      "path": "src/Formalism/LocalToGlobal/ProjectiveLattices/DatMat.lean",
+      "sha256": "72745e443c7fd21be01ff008e625f9b778f9d8276cff8322d28a6a66801be07e",
+      "declarations": [
+        "Formalism.L2.Pj.DatLin.blk",
+        "Formalism.L2.Pj.DatLin.blk_apply",
+        "Formalism.L2.Pj.DatLin.blk_comp",
+        "Formalism.L2.Pj.DatLin.blkC",
+        "Formalism.L2.Pj.DatLin.blk_eq_restrict",
+        "Formalism.L2.Pj.DatLin.trace_restrict_complex",
+        "Formalism.L2.Pj.DatLin.trace_blkC",
+        "Formalism.L2.Pj.DatLin.trace_blk",
+        "Formalism.L2.Pj.DatLin.star_dot_self_eq",
+        "Formalism.L2.Pj.DatLin.sum_normSq_pos",
+        "Formalism.L2.Pj.DatLin.cplx_str_core",
+        "Formalism.L2.Pj.DatLin.exists_cplx_str"
+      ]
+    },
+    {
+      "path": "src/Formalism/LocalToGlobal/ProjectiveLattices/SumEmbeddingsEq.lean",
+      "sha256": "237fc6a2765d248ed77c6c285c46e4c8fd6e8055eb64a46533c808e3f09fa166",
+      "declarations": [
+        "Formalism.L2.Pj.DatLin.trace_eq_sum_psi"
+      ]
+    },
+    {
+      "path": "src/Formalism/LocalToGlobal/ProjectiveLattices/DatProofs.lean",
+      "sha256": "2015bae181c76e7f989fed70ddd101e7e6bf91e26d06dc24658db58e8b942fb0",
+      "declarations": [
+        "Formalism.L2.Pj.emb_star",
+        "Formalism.L2.Pj.hT_emb",
+        "Formalism.L2.Pj.dot_smul_real",
+        "Formalism.L2.Pj.efR_formula",
+        "Formalism.L2.Pj.re_mul_negI",
+        "Formalism.L2.Pj.AW",
+        "Formalism.L2.Pj.thW_AW",
+        "Formalism.L2.Pj.AW_comm",
+        "Formalism.L2.Pj.trace_AW",
+        "Formalism.L2.Pj.trace_K_AW",
+        "Formalism.L2.Pj.term_pos",
+        "Formalism.L2.Pj.domFor_pm",
+        "Formalism.L2.Pj.datDom_holds"
+      ]
+    },
+    {
+      "path": "src/Formalism/LocalToGlobal/ProjectiveLattices/HalfOneAddSqrtNegIsIntegral.lean",
+      "sha256": "7e01749c88719a43459bd623783d0dd1078e229033a3ebf37b81a3dff6f7163e",
+      "declarations": [
+        "Formalism.L2.Pj.DomFor",
+        "Formalism.L2.Pj.sgnW",
+        "Formalism.L2.Pj.efW"
+      ]
+    },
+    {
+      "path": "src/Formalism/LocalRingCardinality/SpanPowerMembership/BaseFormAnisotropicOrthogonalSingle.lean",
+      "sha256": "c354dde1601781d2fe4d4e48c36cbebd206c12769893795222a6f3ac76995e28",
+      "declarations": [
+        "Formalism.BasicNotions.Examples₂.negTail",
+        "Formalism.BasicNotions.Examples₂.hasSig_tail",
+        "Formalism.BasicNotions.Examples₂.spacesOfRanks"
+      ]
+    }
+  ],
+  "native_dependencies": [
+    {
+      "path": "RHLean/Geometry/NativePrescribedPolarizationRealization.lean",
+      "declarations": [
+        "NativeRawHostPolarization.cmTypeFinset",
+        "NativeRawHostPolarization.cmTypeFinset_conjugate",
+        "NativeRawHostPolarization.twistedRealCoordinates",
+        "NativeRawHostPolarization.twistedRealCoordinates_tmul",
+        "NativeRawHostPolarization.twistedRealEquiv"
+      ],
+      "initial_attachment_sha256": "e6d6e219ef21890e4b73d898b442f33c7bcbbf9f2937e78e6a0833ce6a9973dd",
+      "native_sha256": "e6d6e219ef21890e4b73d898b442f33c7bcbbf9f2937e78e6a0833ce6a9973dd"
+    },
+    {
+      "path": "RHLean/Geometry/NativePrescribedPolarizationLattice.lean",
+      "declarations": [
+        "NativeRawHostPolarization.conjugationStar",
+        "NativeRawHostPolarization.twistedTraceForm",
+        "NativeRawHostPolarization.twistedTraceForm_cast",
+        "NativeRawHostPolarization.prescribedTraceForm",
+        "nativeDyadicHostRaw_prescribed_conj"
+      ],
+      "initial_attachment_sha256": "e5a1316a3caf23ecdfa3fc4c4f764d8c1409f184fb1a5e161b0f85a8c32a4650",
+      "native_sha256": "e5a1316a3caf23ecdfa3fc4c4f764d8c1409f184fb1a5e161b0f85a8c32a4650"
+    },
+    {
+      "path": "RHLean/Geometry/NativePrescribedHermitianSpaces.lean",
+      "declarations": [
+        "RHLean.Geometry.NativePrescribedHermitian.sgn_mul_self",
+        "RHLean.Geometry.NativePrescribedHermitian.map_sgn",
+        "RHLean.Geometry.NativePrescribedHermitian.star_sgn",
+        "RHLean.Geometry.NativePrescribedHermitian.diagForm",
+        "RHLean.Geometry.NativePrescribedHermitian.negTail",
+        "RHLean.Geometry.NativePrescribedHermitian.negTail_false",
+        "RHLean.Geometry.NativePrescribedHermitian.negTail_true"
+      ],
+      "initial_attachment_sha256": "b81aa4b415e087078e6947a172e9ade20e278ec020487369bd7e9169bdfc7ef3",
+      "native_sha256": "b81aa4b415e087078e6947a172e9ade20e278ec020487369bd7e9169bdfc7ef3"
+    },
+    {
+      "path": "RHLean/Geometry/NativeTraceDualDiscriminant.lean",
+      "declarations": [
+        "RHLean.Geometry.NativeNumberFieldLattice.trace_eq_sum_complexEmbeddings"
+      ],
+      "initial_attachment_sha256": "29643c7319077e51faa952d4a71a22cf30af83a75f035869399720c94ed96411",
+      "native_sha256": "29643c7319077e51faa952d4a71a22cf30af83a75f035869399720c94ed96411"
+    },
+    {
+      "path": "RHLean/Analysis/AlpogeThin/NativeDyadicHostPolarizationArithmetic.lean",
+      "declarations": [
+        "NativeRawHostPolarization.xi",
+        "NativeRawHostPolarization.xi_im_pos"
+      ],
+      "initial_attachment_sha256": "af4caf87fde6ffc82c21d1818b7f91d9ff16b498b9cc51a19fa99f165b54e6f7",
+      "native_sha256": "af4caf87fde6ffc82c21d1818b7f91d9ff16b498b9cc51a19fa99f165b54e6f7"
+    },
+    {
+      "path": "RHLean/Analysis/AlpogeThin/NativeDyadicHostCore.lean",
+      "declarations": [
+        "nativeDyadicHostRaw_cm"
+      ],
+      "initial_attachment_sha256": "b5282418eb6db5ba61f96622bccc7c896bab5c84b45c4bcc5cff0a18b27ed089",
+      "native_sha256": "b5282418eb6db5ba61f96622bccc7c896bab5c84b45c4bcc5cff0a18b27ed089"
+    },
+    {
+      "path": "RHLean/Analysis/AlpogeThin/NativeDyadicHostDifferent.lean",
+      "declarations": [
+        "nativeDyadicHostRaw_principal"
+      ],
+      "initial_attachment_sha256": "7446ac3ecf2f956e4e340a9f9dbf9972bbb33d3ef437234311d1532609ef6dc3",
+      "native_sha256": "7446ac3ecf2f956e4e340a9f9dbf9972bbb33d3ef437234311d1532609ef6dc3"
+    }
+  ],
+  "proof_construction": "The explicit diagonal K=diag(i*sgn) is transported through the proved same-lattice real equivalence. K^2=-1 and K^*GK=G are direct identities. K^*G=-i*I gives EF_R(Jx,x)=sum_tau 2*Im(tau(xi))*sum_i normSq(theta(x)(tau)(i)), strictly positive for nonzero x by theta injectivity and proved xi_im_pos. The original coefficient action intertwines with scalar diagonal blocks; real traces are twice real parts of complex traces, and exact negTail cardinality yields the source multiplicities. Native canonical conjugation discharges the helper embedding identity and a single actually constructed B serves all k,m,j.",
+  "source_adaptations": [
+    "Specialized the source generic Hermitian signature conjugation to the actual diagonal standard frame, with no assumed change-of-basis matrix.",
+    "Reused native trace_eq_sum_complexEmbeddings for the half-CM trace formula.",
+    "Removed unused Fintype of the outer index from purely pointwise block lemmas and retained it exactly on finite trace statements.",
+    "Fixed source sign epsilon=+1 using the existing proved native xi_im_pos, preserving the conjugate-first form and EF(Jx,x)>0 orientation.",
+    "Kept all original DomFor action-identification and exact trace-expression premises; they identify the arbitrary A and t and do not assume positivity or a geometric estimate.",
+    "The pinned Mathlib TensorProduct.inductionOn replaces the deprecated induction_on alias; its two tmul/add branches subsume the redundant zero case. The exact same warning was observed in the preceding real-coordinate supplier on hosted head 3ad6422. No induction hypothesis or theorem conclusion changes."
+  ],
+  "sign_convention": "hT conjugates the first argument. J=diag(i*sgn) gives EF(Jx,x)>0 and trace_R(JA)=-2*Im(t).",
+  "remaining": "The constructor-owned finite-adelic comparison and full original D7/Datum assembly are separate. This proves the complete real DomFor block on the same constructed lattice, without importing the original terminal geometry or RH theorem. The eleven original finite inputs of the signed slope comparison remain separately supplied; in particular this real block neither assumes nor establishes LossBounds.",
+  "checks": {
+    "local_lean_executed": false,
+    "shared_or_remote_writes": false,
+    "new_proof_budget_or_gate_changes": false,
+    "axiom_sorry_or_endpoint_premise": false,
+    "whitespace_diagnostics": []
+  },
+  "parent_head_at_freeze": "3ad6422a12ff6de1529ec2c5ae78f3d4083e4a5e",
+  "independent_reviews": [
+    {
+      "agent": "/root/ci_repair",
+      "scope": "NativePolarizationComplexCoordinates.lean",
+      "result": "PASS: source trace-half and real block trace factor2, diagonal signs and exact negative-tail count, pinned APIs and narrowed outer-index Fintype all checked; no concrete defect."
+    },
+    {
+      "agent": "/root/geometric_constructor",
+      "scope": "Both files, focusing NativePrescribedPolarizationDomain.lean",
+      "result": "PASS: exact baseChange_tmul/trace cast, SAME-lattice theta transport, source EF(Jx,x)>0 orientation, coefficient-action universal premise, 2 and -2 trace identities, dependent lets and native one-B endpoint checked; no concrete defect."
+    }
+  ],
+  "formal_limit": "No local Lean/Lake was executed. Independent source/API review is complete; hosted elaboration, dependency and axiom checks remain pending on the parent integration head.",
+  "source_and_native_declarations": [
+    "RHLean.Geometry.NativePolarizationComplexCoordinates.trace_eq_sum_psi",
+    "RHLean.Geometry.NativePolarizationComplexCoordinates.blk",
+    "RHLean.Geometry.NativePolarizationComplexCoordinates.blk_apply",
+    "RHLean.Geometry.NativePolarizationComplexCoordinates.blk_comp",
+    "RHLean.Geometry.NativePolarizationComplexCoordinates.blkC",
+    "RHLean.Geometry.NativePolarizationComplexCoordinates.blk_eq_restrict",
+    "RHLean.Geometry.NativePolarizationComplexCoordinates.trace_restrict_complex",
+    "RHLean.Geometry.NativePolarizationComplexCoordinates.trace_blkC",
+    "RHLean.Geometry.NativePolarizationComplexCoordinates.trace_blk",
+    "RHLean.Geometry.NativePolarizationComplexCoordinates.diagonalGram",
+    "RHLean.Geometry.NativePolarizationComplexCoordinates.diagonalJ",
+    "RHLean.Geometry.NativePolarizationComplexCoordinates.diagonalGram_apply",
+    "RHLean.Geometry.NativePolarizationComplexCoordinates.diagonalJ_apply",
+    "RHLean.Geometry.NativePolarizationComplexCoordinates.diagonalJ_sq",
+    "RHLean.Geometry.NativePolarizationComplexCoordinates.diagonalJ_isometry",
+    "RHLean.Geometry.NativePolarizationComplexCoordinates.star_dot_self_eq",
+    "RHLean.Geometry.NativePolarizationComplexCoordinates.sum_normSq_pos",
+    "RHLean.Geometry.NativePolarizationComplexCoordinates.diagonalJ_pairing",
+    "RHLean.Geometry.NativePolarizationComplexCoordinates.re_mul_negI",
+    "RHLean.Geometry.NativePolarizationComplexCoordinates.diagonalJ_term_pos",
+    "RHLean.Geometry.NativePolarizationComplexCoordinates.dot_smul_real",
+    "RHLean.Geometry.NativePolarizationComplexCoordinates.sum_sgn_negTail",
+    "RHLean.Geometry.NativePolarizationComplexCoordinates.diagonalJ_tail_trace",
+    "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.diagonalForm_embedding",
+    "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.twistedTraceForm_realFormula",
+    "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.twistedComplexStructure",
+    "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.twistedRealCoordinates_complexStructure",
+    "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.twistedComplexStructure_sq",
+    "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.twistedComplexStructure_isometry",
+    "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.twistedComplexStructure_pos",
+    "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.twistedCoordinateMultiplication",
+    "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.twistedRealCoordinates_mul",
+    "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.twistedCoordinateMultiplication_comm",
+    "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.twistedCoordinateMultiplication_trace",
+    "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.twistedCoordinateMultiplication_J_trace",
+    "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.prescribedComplexStructure",
+    "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.prescribedComplexStructure_properties",
+    "RHLean.Analysis.AlpogeThin.nativeDyadicHostRaw_prescribed_embedding_conj",
+    "RHLean.Analysis.AlpogeThin.nativeDyadicHostRaw_exists_prescribedDomain"
+  ],
+  "axiom_guard_declarations": [
+    "RHLean.Geometry.NativePolarizationComplexCoordinates.trace_eq_sum_psi",
+    "RHLean.Geometry.NativePolarizationComplexCoordinates.trace_restrict_complex",
+    "RHLean.Geometry.NativePolarizationComplexCoordinates.diagonalJ_term_pos",
+    "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.twistedTraceForm_realFormula",
+    "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.twistedComplexStructure_sq",
+    "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.twistedComplexStructure_isometry",
+    "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.twistedComplexStructure_pos",
+    "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.prescribedComplexStructure_properties",
+    "RHLean.Analysis.AlpogeThin.nativeDyadicHostRaw_prescribed_embedding_conj",
+    "RHLean.Analysis.AlpogeThin.nativeDyadicHostRaw_exists_prescribedDomain"
+  ],
+  "integration_review": "Full source and mathematical review complete. The literal source Geo.Tor.Datum can be assembled without a full D7; its original host-root CM filter and conjugation/trace-form transports remain explicit attachment obligations. The separate finite-adelic isometry is now constructed. No moduli, section-germ, metric or signed-loss supplier is inferred from these real-domain properties."
+}

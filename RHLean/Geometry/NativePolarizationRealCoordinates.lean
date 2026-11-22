@@ -166,8 +166,7 @@ theorem phiI_tmul (x : ℝ) (n : ι → 𝓞 E) :
 
 theorem phiI_eq [Fintype ι] [DecidableEq ι] (t : ℝ ⊗[ℤ] (ι → 𝓞 E)) (τ : Ψ) (i : ι) :
     phiI Ψ t τ i = phi1 Ψ (TensorProduct.piRight ℤ ℝ ℝ (fun _ : ι => 𝓞 E) t i) τ := by
-  induction t using TensorProduct.induction_on with
-  | zero => simp
+  induction t using TensorProduct.inductionOn with
   | tmul x n => simp [phiI_tmul, phi1_tmul, TensorProduct.piRightHom_tmul]
   | add x y hx hy => simp only [map_add, Pi.add_apply, hx, hy]
 

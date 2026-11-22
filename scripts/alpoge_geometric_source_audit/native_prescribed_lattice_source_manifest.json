@@ -222,12 +222,27 @@
     },
     {
       "manifest": "scripts/alpoge_geometric_source_audit/native_dyadic_adelic_norm_source_manifest.json",
-      "construction": "The same-host finite-adele tensor element with conjugate norm minus one; diagonal isometries remain next.",
+      "construction": "The same-host finite-adele tensor element with conjugate norm minus one.",
+      "status": "IMPLEMENTED_HOSTED_VERIFICATION_PENDING"
+    },
+    {
+      "manifest": "scripts/alpoge_geometric_source_audit/native_dyadic_adelic_isometry_source_manifest.json",
+      "construction": "Actual diagonal finite-adelic GL matrix and exact original base-to-prescribed Gram congruence.",
       "status": "IMPLEMENTED_HOSTED_VERIFICATION_PENDING"
     },
     {
       "manifest": "scripts/alpoge_geometric_source_audit/native_prescribed_realization_source_manifest.json",
-      "construction": "Actual real tensor embedding equivalence and pure-tensor formula; J/positivity/trace identities remain next.",
+      "construction": "Actual real tensor embedding equivalence and pure-tensor formula.",
+      "status": "IMPLEMENTED_HOSTED_VERIFICATION_PENDING"
+    },
+    {
+      "manifest": "scripts/alpoge_geometric_source_audit/native_prescribed_domain_source_manifest.json",
+      "construction": "Same-lattice complex structure, positive alternating form, coefficient-action compatibility and both exact real trace identities.",
+      "status": "IMPLEMENTED_HOSTED_VERIFICATION_PENDING"
+    },
+    {
+      "manifest": "scripts/alpoge_geometric_source_audit/native_prescribed_cm_data_source_manifest.json",
+      "construction": "Complete original four-field CMData, including integral separation at every maximal ideal and equality of the actual field/tensor involutions.",
       "status": "IMPLEMENTED_HOSTED_VERIFICATION_PENDING"
     }
   ]

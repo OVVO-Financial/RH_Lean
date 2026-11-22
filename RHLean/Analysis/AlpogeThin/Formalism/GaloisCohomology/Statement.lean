@@ -116,10 +116,11 @@ groups. Its type spells out the additive-group structure that the module
 quotient needs. The default `Pi.addCommMonoid`, built from
 `Submodule.Quotient.addCommMonoid`, does not unify with it during instance
 search, so the upstream quotient `_ ⧸ LinearMap.range (localH2 D e)` fails
-to elaborate. Both this range and its quotient explicitly register the same
-canonical pointwise module on the additive-group parent. This supplies the
-instance search expected by `range` and `hasQuotient`; the submodule and the
-quotient remain unchanged. -/
+to elaborate. Both this range and its quotient explicitly use the same canonical
+pointwise module on the additive-group parent. This supplies the
+instance search expected by `range`. The cokernel below also pins every
+ambient argument of `quotientRel`, and its canonical quotient group and module,
+before passing them to `Module.length`; the submodule and quotient are unchanged. -/
 def localH2Range (D : LData F Ω l) (e : ℤ) :
     @Submodule ℤ_[l] (∀ v : D.S, H2 ((zlTw D (e + 1)).comp (locFam D.S D.A v))) _
       AddCommGroup.toAddCommMonoid
@@ -134,15 +135,18 @@ def localH2Range (D : LData F Ω l) (e : ℤ) :
 
 set_option backward.isDefEq.respectTransparency false in
 def PTCokerAt (D : LData F Ω l) (e : ℤ) : Prop :=
-  letI : @Module ℤ_[l]
-      (∀ v : D.S, H2 ((zlTw D (e + 1)).comp (locFam D.S D.A v))) _
-      AddCommGroup.toAddCommMonoid :=
+  let M := ∀ v : D.S, H2 ((zlTw D (e + 1)).comp (locFam D.S D.A v))
+  let g : AddCommGroup M := inferInstance
+  let v : @Module ℤ_[l] M _ g.toAddCommMonoid :=
     @Pi.module D.S _ ℤ_[l] _ (fun _ => AddCommGroup.toAddCommMonoid)
       fun _ => Submodule.Quotient.module _
+  let Q := Quotient (@Submodule.quotientRel ℤ_[l] M _ g v (localH2Range D e))
+  let qg : AddCommGroup Q :=
+    @Submodule.Quotient.addCommGroup ℤ_[l] M _ g v (localH2Range D e)
+  let qv : @Module ℤ_[l] Q _ qg.toAddCommMonoid :=
+    @Submodule.Quotient.module ℤ_[l] M _ g v (localH2Range D e)
   PTCase F l →
-    Module.length ℤ_[l]
-        (Quotient (Submodule.quotientRel (localH2Range D e))) =
-      Module.length ℤ_[l] (H0 (qzTw D e))
+    @Module.length ℤ_[l] Q _ qg qv = Module.length ℤ_[l] (H0 (qzTw D e))
 
 def PTShaAt (D : LData F Ω l) (e : ℤ) : Prop :=
   PTCase F l → Module.length ℤ_[l] (Sha2Zl D e) = shaLen D e

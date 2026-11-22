@@ -59,13 +59,13 @@ theorem injective_liftedCMEmbeddings
     simp only [hτK] at he
     cases b <;> cases b'
     · exact he
-    · change τ x = Complex.conj (τ' x)
+    · change τ x = starRingEnd ℂ (τ' x)
       rw [← IsCMField.complexEmbedding_complexConj]
       exact he
-    · change Complex.conj (τ x) = τ' x
+    · change starRingEnd ℂ (τ x) = τ' x
       rw [← IsCMField.complexEmbedding_complexConj]
       exact he
-    · change Complex.conj (τ x) = Complex.conj (τ' x)
+    · change starRingEnd ℂ (τ x) = starRingEnd ℂ (τ' x)
       rw [← IsCMField.complexEmbedding_complexConj,
         ← IsCMField.complexEmbedding_complexConj]
       exact he
@@ -116,7 +116,8 @@ theorem exists_short_integral_HHa_spanning_family
         P.IsHomogeneous D ∧
         (∀ ν : K →+* ℂ, ∑ m ∈ P.support, ‖ν (P.coeff m)‖ ≤ B) ∧
         CoeffNorm.allEmbeddingNorm P ≤ Real.sqrt (Module.finrank ℚ K) * B) ∧
-      (Submodule.span K (S : Set _) : Set _) =
+      (Submodule.span K
+        (S : Set (MvPolynomial (RHLean.Geometry.NativeTheta.Letter ι dim n) K))).carrier =
         RHLean.Geometry.NativeTheta.HHa dim n K σ Ψ a ∧
       S.card ≤ (dg + 1) ^ (r * (2 * p + q)) := by
   classical

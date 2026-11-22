@@ -969,6 +969,7 @@ import RHLean.Geometry.NativeComponentRegularSection
 import RHLean.Geometry.NativeComponentRegularity
 import RHLean.Geometry.NativeDerivedGeometricHost
 import RHLean.Geometry.NativeDescentCostPayment
+import RHLean.Geometry.NativeDyadicAdelicIsometry
 import RHLean.Geometry.NativeDyadicAdelicNorm
 import RHLean.Geometry.NativeFiniteIntegralDescent
 import RHLean.Geometry.NativeFramedShortSectionConstruction
@@ -992,8 +993,11 @@ import RHLean.Geometry.NativeLatticeTransferenceB
 import RHLean.Geometry.NativeLocalQuadraticNorm
 import RHLean.Geometry.NativePeterssonMultiplication
 import RHLean.Geometry.NativePolarizationCoefficientLattice
+import RHLean.Geometry.NativePolarizationComplexCoordinates
 import RHLean.Geometry.NativePolarizationRealCoordinates
+import RHLean.Geometry.NativePrescribedCMData
 import RHLean.Geometry.NativePrescribedHermitianSpaces
+import RHLean.Geometry.NativePrescribedPolarizationDomain
 import RHLean.Geometry.NativePrescribedPolarizationLattice
 import RHLean.Geometry.NativePrescribedPolarizationRealization
 import RHLean.Geometry.NativeRegularCharacterSlopeDescent

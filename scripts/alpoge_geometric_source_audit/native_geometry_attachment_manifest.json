@@ -165,7 +165,7 @@
     },
     {
       "native_path": "RHLean/Geometry/NativeFramedShortSectionConstruction.lean",
-      "native_sha256": "85ff82fb3e4513710e9879ed63cbc05df04fb14d0cb4b4dbee848bfc360806e9",
+      "native_sha256": "0ee49bd81f436649df1f5535b71da9723b62b2674e6b121ec1025d7b3ae6b3e5",
       "declarations": [
         "RHLean.Geometry.nativeComponentFramedEvaluation_eq_zero",
         "RHLean.Geometry.nativeExists_framed_short_integral_injective_section"
@@ -822,7 +822,7 @@
     },
     {
       "native_path": "RHLean/Geometry/NativeThetaSpanningFamily.lean",
-      "native_sha256": "8bcde8a7384716ab296ef56e6914bdf2915b01c83c4f46c2e6c8681b67469838",
+      "native_sha256": "4070294733aa4d1d09d64b0d2c9d0bee2d1402ebdd42b24896fe3e92e6029dbd",
       "declarations": [
         "RHLean.Geometry.NativeTheta.Paired.injective_liftedCMEmbeddings",
         "RHLean.Geometry.NativeTheta.Paired.exists_short_integral_HHa_spanning_family"

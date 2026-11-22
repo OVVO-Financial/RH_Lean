@@ -76,7 +76,7 @@
     "native_path": "RHLean/Analysis/AlpogeNativeSignedSlopeComparison.lean",
     "native_sha256": "3a72d1e5a428eb2bcee15a5cbce021fe24c6666caa33d5edfb225f41be5fb5d5",
     "native_lines": 228,
-    "construction": "The literal native full ASK, MAIN, heights, widths and CM-type places replace only the arithmetic fields of Data; geometric entries including Ga remain unchanged. The original eleven geometric hypotheses, strong ErrWindows and actual B0/Nc bounds derive the signed physical comparison and its earned-divisor normalization.",
+    "construction": "The literal native full ASK, MAIN, heights, widths and CM-type places replace only the arithmetic fields of Data; geometric entries including Ga remain unchanged. The eleven original finite inputs, strong ErrWindows and actual B0/Nc bounds derive the signed physical comparison and its earned-divisor normalization.",
     "source_declarations": [
       "src/Development/AutomorphicArithmetic/DedekindLFunctions/LandauTheorems/ChTop.lean: ch_top_main_eq, ch_top",
       "src/Formalism/SizeWindowBrackets/ChainSlopeWindows/LevelOfCongruence.lean: uniform_bound_statement",

@@ -27,7 +27,7 @@
         "RHLean.Geometry.NativeLocalQuadraticNorm.henselian_quadratic_neg_one"
       ],
       "construction": "Constructs a representation s^2+T*s*t+N*t^2=d over every Henselian local ring with finite residue field, unit discriminant and unit d. Finite-field representation, both simple-derivative lifts and the split case are proved. The unused upstream StatementJac import is omitted.",
-      "native_sha256": "56060e930eab7ab6e140afa5f419b9ef756faa955c7c442ee2d19a36ee978bec",
+      "native_sha256": "ef523850cd49de1a3f43cbb9e42e800a700baa1fd86e0c91c82ddd7b2e3d2a03",
       "native_lines": 174,
       "initial_source_reconstruction_sha256": "56060e930eab7ab6e140afa5f419b9ef756faa955c7c442ee2d19a36ee978bec"
     },
@@ -57,8 +57,8 @@
         "RHLean.Geometry.NativeAdicQuadraticNorm.numberField_adicInt_exists_norm"
       ],
       "construction": "Proves maximal-ideal-adic completeness and Henselian structure of the literal Mathlib v.adicCompletionIntegers K. Reduction of the original R is surjective onto its residue field, so finiteness of R/v supplies finite residue. Constructs the original integral norm-minus-one solution for integer T,N at every prime excluding T^2-4N. Number-field specialization derives finite R/v from the actual maximal ideal.",
-      "native_sha256": "bbc585166dde68d6923686b300f6ee369853a4c6001d3e08a4963d431ebec353",
-      "native_lines": 263,
+      "native_sha256": "a2f9b4db3fcf1df470ebf228710205e989f09036c8a71cf1d02079b6f78b7f2e",
+      "native_lines": 268,
       "initial_source_reconstruction_sha256": "bbc585166dde68d6923686b300f6ee369853a4c6001d3e08a4963d431ebec353"
     }
   ],

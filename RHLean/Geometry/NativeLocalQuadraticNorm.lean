@@ -58,7 +58,7 @@ theorem split_quadratic (T N d r : S) (hr : r ^ 2 + T * r + N = 0)
 theorem finiteField_quadratic {k : Type*} [Field k] [Finite k] (T N d : k)
     (hD : T ^ 2 - 4 * N ≠ 0) : ∃ a b : k, a ^ 2 + T * a * b + N * b ^ 2 = d := by
   classical
-  letI : Fintype k := Fintype.ofFinite k
+  let : Fintype k := Fintype.ofFinite k
   rcases Nat.mod_two_eq_zero_or_one (Fintype.card k) with h | h
   · obtain ⟨c, hc⟩ := FiniteField.isSquare_of_char_two (FiniteField.even_card_iff_char_two.2 h) d
     exact ⟨c, 0, by rw [hc]; ring⟩

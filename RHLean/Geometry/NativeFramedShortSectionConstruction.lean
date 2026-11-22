@@ -89,12 +89,18 @@ theorem nativeComponentFramedEvaluation_eq_zero
   exact evalAt_eq_zero_of_chart pts mapR borR F genericPoint hL (Q.chart z) hf hz
     (Q.specialize z) (Q.middle z) (Q.point z) (Q.torus z) (Q.map_spec z) (Q.bor_spec z)
 
--- Register the canonical additive group directly: instance search does not
--- unfold the concrete rule-ring/subalgebra parents far enough when elaborating
--- `FiniteDimensional K U`. This is exactly the standard submodule group.
+-- Pin the ambient arguments of the canonical submodule instances: inference
+-- through the concrete rule-ring/subalgebra parents leaves them unresolved
+-- when elaborating `FiniteDimensional K U`. Both structures are unchanged.
 set_option backward.isDefEq.respectTransparency false in
 local instance (U : Submodule K Sec) : AddCommGroup U :=
-  Submodule.addCommGroup U
+  @Submodule.addCommGroup K Sec (inferInstance : Ring K)
+    (inferInstance : AddCommGroup Sec) (inferInstance : Module K Sec) U
+
+set_option backward.isDefEq.respectTransparency false in
+local instance (U : Submodule K Sec) : Module K U :=
+  @Submodule.module K Sec (inferInstance : Semiring K)
+    (inferInstance : AddCommMonoid Sec) (inferInstance : Module K Sec) U
 
 set_option backward.isDefEq.respectTransparency false in
 /-- Construct the same short integral section on the reduced-test rule

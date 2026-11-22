@@ -31,6 +31,12 @@ namespace RHLean.Analysis.NativeCyclotomicResidue
 
 abbrev Cyc (N : ℕ) := CyclotomicField N ℚ
 
+set_option backward.isDefEq.respectTransparency false in
+/-- Expose the existing cyclotomic instance through the local field abbreviation. -/
+@[instance] theorem cyc_isCyclotomicExtension (N : ℕ) :
+    IsCyclotomicExtension {N} ℚ (Cyc N) :=
+  inferInstanceAs (IsCyclotomicExtension {N} ℚ (CyclotomicField N ℚ))
+
 def zeta (N : ℕ) [NeZero N] : Cyc N :=
   IsCyclotomicExtension.zeta N ℚ (Cyc N)
 
@@ -122,6 +128,7 @@ theorem ringHom_ext_zO {R : Type*} [CommRing R] (f g : 𝓞 (Cyc N) →+* R) (h 
 
 variable (l : ℕ) [Fact l.Prime] (Q : Ideal (𝓞 (Cyc N))) [Q.IsPrime] [Q.LiesOver (span {(l : ℤ)})]
 
+omit [NeZero N] [Fact l.Prime] [Q.IsPrime] in
 theorem charP_quot : CharP (𝓞 (Cyc N) ⧸ Q) l := by
   constructor
   intro x

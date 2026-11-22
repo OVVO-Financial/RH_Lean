@@ -118,9 +118,12 @@ theorem nativeDyadicFrame_generator (e : ℕ) :
     nativeDyadicFrameEquiv e (nativeDyadicFrame e).a0 = nativeDyadicGenerator e :=
   (Fintype.equivFin (AlpogeNativeDyadicH e)).symm.apply_symm_apply _
 
+set_option backward.isDefEq.respectTransparency false in
 /-- The selected source generator has the full source frame order. -/
 theorem nativeDyadicFrame_n0 (e : ℕ) : (nativeDyadicFrame e).n0 = 2 ^ e := by
-  have h := (nativeDyadicFrameEquiv e).addOrderOf_eq (nativeDyadicFrame e).a0
+  have h := AddEquiv.addOrderOf_eq
+    (G := (nativeDyadicFrame e).A) (H := AlpogeNativeDyadicH e)
+    (nativeDyadicFrameEquiv e) (nativeDyadicFrame e).a0
   exact h.symm.trans
     ((congrArg (fun x : AlpogeNativeDyadicH e => addOrderOf x)
       (nativeDyadicFrame_generator e)).trans (nativeDyadicGenerator_order e))

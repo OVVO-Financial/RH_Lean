@@ -1,3 +1,7 @@
+import RHLean.Geometry.NativePrescribedCMData
+import RHLean.Geometry.NativePrescribedPolarizationDomain
+import RHLean.Geometry.NativePolarizationComplexCoordinates
+import RHLean.Geometry.NativeDyadicAdelicIsometry
 import RHLean.Geometry.NativeDyadicAdelicNorm
 import RHLean.Geometry.NativePrescribedPolarizationRealization
 import RHLean.Geometry.NativePolarizationRealCoordinates
@@ -1389,3 +1393,153 @@ info: 'RHLean.Geometry.NativeDyadicAdelicNorm.exists_adelic_neg_one' depends on 
 -/
 #guard_msgs in
 #print axioms RHLean.Geometry.NativeDyadicAdelicNorm.exists_adelic_neg_one
+
+/--
+info: 'RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.prescribedBaseSpace' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.prescribedBaseSpace
+
+/--
+info: 'RHLean.Geometry.NativeDyadicAdelicIsometry.dSpace_gram_map' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Geometry.NativeDyadicAdelicIsometry.dSpace_gram_map
+
+/--
+info: 'RHLean.Geometry.NativeDyadicAdelicIsometry.diagonalChange' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Geometry.NativeDyadicAdelicIsometry.diagonalChange
+
+/--
+info: 'RHLean.Geometry.NativeDyadicAdelicIsometry.diagonalChange_val' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Geometry.NativeDyadicAdelicIsometry.diagonalChange_val
+
+/--
+info: 'RHLean.Geometry.NativeDyadicAdelicIsometry.diagonalChange_inv_val' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Geometry.NativeDyadicAdelicIsometry.diagonalChange_inv_val
+
+/--
+info: 'RHLean.Geometry.NativeDyadicAdelicIsometry.diagonalChange_congr' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Geometry.NativeDyadicAdelicIsometry.diagonalChange_congr
+
+/--
+info: 'RHLean.Geometry.NativeDyadicAdelicIsometry.baseSpace_congr_prescribed' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Geometry.NativeDyadicAdelicIsometry.baseSpace_congr_prescribed
+
+/--
+info: 'RHLean.Geometry.NativeDyadicAdelicIsometry.baseSpace_isometric_prescribed' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Geometry.NativeDyadicAdelicIsometry.baseSpace_isometric_prescribed
+
+/--
+info: 'RHLean.Geometry.NativePolarizationComplexCoordinates.trace_eq_sum_psi' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Geometry.NativePolarizationComplexCoordinates.trace_eq_sum_psi
+
+/--
+info: 'RHLean.Geometry.NativePolarizationComplexCoordinates.trace_restrict_complex' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Geometry.NativePolarizationComplexCoordinates.trace_restrict_complex
+
+/--
+info: 'RHLean.Geometry.NativePolarizationComplexCoordinates.diagonalJ_term_pos' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Geometry.NativePolarizationComplexCoordinates.diagonalJ_term_pos
+
+/--
+info: 'RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.twistedTraceForm_realFormula' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.twistedTraceForm_realFormula
+
+/--
+info: 'RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.twistedComplexStructure_sq' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.twistedComplexStructure_sq
+
+/--
+info: 'RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.twistedComplexStructure_isometry' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.twistedComplexStructure_isometry
+
+/--
+info: 'RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.twistedComplexStructure_pos' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.twistedComplexStructure_pos
+
+/--
+info: 'RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.prescribedComplexStructure_properties' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.prescribedComplexStructure_properties
+
+/--
+info: 'RHLean.Analysis.AlpogeThin.nativeDyadicHostRaw_prescribed_embedding_conj' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeThin.nativeDyadicHostRaw_prescribed_embedding_conj
+
+/--
+info: 'RHLean.Analysis.AlpogeThin.nativeDyadicHostRaw_exists_prescribedDomain' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeThin.nativeDyadicHostRaw_exists_prescribedDomain
+
+/--
+info: 'RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.unram_at' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.unram_at
+
+/--
+info: 'RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.isCMUnram' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.isCMUnram
+
+/--
+info: 'RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.cmData' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.cmData
+
+/--
+info: 'RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.cmData_sig_apply' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.cmData_sig_apply
+
+/--
+info: 'RHLean.Analysis.AlpogeThin.nativeDyadicHostCMData' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeThin.nativeDyadicHostCMData
+
+/--
+info: 'RHLean.Analysis.AlpogeThin.nativeDyadicHostCMData_sig' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeThin.nativeDyadicHostCMData_sig
+
+/--
+info: 'RHLean.Analysis.AlpogeThin.nativeDyadicHostCMData_sigR' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeThin.nativeDyadicHostCMData_sigR

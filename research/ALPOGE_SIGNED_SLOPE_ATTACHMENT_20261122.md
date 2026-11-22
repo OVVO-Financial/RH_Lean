@@ -1,7 +1,7 @@
 # Native signed slope attachment and compiler repair checkpoint
 
 22 November 2026. Current repair parent:
-`a26fa375504cbd9d6bcbd0a32cf7b2f5c4daeb3d`.
+`3ad6422a12ff6de1529ec2c5ae78f3d4083e4a5e`.
 The preceding `baddf5a` signed-comparison checkpoint preserved contributor head
 `46fb310c6e22478ae2a2cc1795ed8793acc14d5c`.
 
@@ -14,12 +14,16 @@ This checkpoint implements the logarithmic forward-map reserve, the finite
 signed slope comparison and its original scalar-window consequence in the
 native namespace. It constructs the prescribed Hermitian spaces and full
 inverse-ideal lattices with perfect integral trace forms, and evaluates the
-short harmonic family using the literal lattice normalization.
+short harmonic family using the literal lattice normalization. The actual
+finite-adelic norm element now supplies the original Gram congruence, and
+the same lattice carries an explicit positive real complex structure with
+the two required trace identities.
 It does not prove unconditional cancellation or supply the remaining
-finite-adelic isometries, real complex structure, CM moduli, theta-cover,
-actual section-germ realization, and geometric slope/metric estimates.
-Hosted compilation of this complete repair batch is pending; both builds of
-the preceding `a26fa37` head failed as recorded below.
+CM moduli, theta-cover, actual section-germ realization, or compatible
+geometric and signed-arithmetic comparison inputs.
+Hosted compilation of the next complete repair batch is pending. Both completed
+builds of parent `3ad6422` failed with identical inventories of 20 errors and
+6 warnings, including cascading diagnostics.
 
 The source remains
 `CocoSgt/riemann-hypothesis-lean@7cbf7a0c32fca1badf05931879a37c3f8a2b03b4`.
@@ -94,8 +98,9 @@ two means. All geometric entries, including the finite-place gain `Ga`, remain
 unchanged. The finite comparison then bounds that literal physical excess.
 The original `B0` and `Nc` bounds give the full three-term bracket, and division
 uses the positive earned character divisor. The resulting bound retains all
-three native normalized geometric costs. These attachment proofs await hosted
-verification; construction of their geometric suppliers remains open.
+three native normalized geometric costs. The physical comparison module
+compiled on `a26fa37`; the full construction audit and dependency checks did
+not complete. Construction of the remaining compatible suppliers stays explicit.
 
 ## 3. The remaining suppliers have concrete source locations
 
@@ -113,7 +118,7 @@ polarized abelian scheme or canonical-connection section germs.
 
 ## 4. Repairs use complete hosted diagnostics
 
-Both hosted builds of the exact parent `a26fa37` completed with failure and
+Both hosted builds of the preceding `a26fa37` completed with failure and
 reported the same diagnostic multiset, including cascading diagnostics:
 
 | Build | Run | Job | Diagnostics |
@@ -139,9 +144,16 @@ That hosted build successfully compiled `NativeDescentCostPayment`,
 the concrete Galois equivalence timed out, the cohomology quotient and framed
 submodule still needed exact instance registration, and the prescribed
 Hermitian-space and short-family proofs reported further elaboration errors.
-The current repair batch addresses those exact failures. Its new local-norm
-and real-tensor constructions have independent static reviews and await their
-first hosted compilation.
+The published `3ad6422` repair cleared the concrete Galois-equivalence timeout.
+Its completed native build (run `45079414822`, job `137383962199`) and targeted
+build (run `45079414834`, job `137383962263`) report identical inventories of
+20 errors and 6 warnings, now including downstream cyclotomic-residue and
+quadratic-root files. Clean build receipts also confirm
+`NativePrescribedHermitianSpaces`, `NativeThetaShortLatticeFamily`, and
+`NativeGradedPeterssonConstruction`. The remaining diagnostics concern the exact additive
+equivalence instances, cohomology quotient, framed submodule, completion
+coercions, harmonic span, and deprecated API/style uses. The next repairs
+retain the original types, statements, proof budgets and warning-fatal gates.
 
 The earlier `46fb310` failures (44 errors and 36 warnings in each build),
 `baddf5a` failures (53 errors and 25 warnings), and their repairs remain in
@@ -149,8 +161,8 @@ the manifest history. Separate documentation,
 inventory, atlas, export, cold-only and effective-resonance checks passed on
 these preceding heads; that does not make their failed Lean builds successful.
 
-The root import manifest includes 1,486 native modules. The targeted
-construction audit has 221 standard-axiom guards, including the new finite
+The root import manifest includes 1,490 native modules. The targeted
+construction audit has 246 standard-axiom guards, including the new finite
 source, scalar, lattice and evaluated-family results. Hosted warning-fatal
 compilation remains the acceptance gate. Local Lean/Lake execution is not
 used.
@@ -270,13 +282,13 @@ ideal \(B\) using `nativeDyadicHostRaw_principal` and uses that same ideal for
 all \(j\). The ranks are \(k+m-1\) over \(\mathcal O_E\) and
 \((k+m-1)(4\cdot2^e)\) over \(\mathbb Z\).
 
-The source's `exists_adelic_neg_one` supplier is now constructed as described
-below. Its next consumer is `dSpace_congr` and the graded-space isometries.
-The separate `DomFor` supplier must construct the real
-complex structure on this same lattice, prove positivity and compatibility
-with every \(\mathcal O_E\) multiplication operator, and establish both
-embedding-trace identities. The integral form above is not silently
-identified with the source's later sign-selected form.
+The source's `exists_adelic_neg_one` supplier and its diagonal Gram-congruence
+consumer are now constructed as described below. The real complex structure,
+positivity, compatibility with every \(\mathcal O_E\) multiplication operator,
+and both embedding-trace identities are also constructed on this same lattice.
+The literal source `Datum` still needs the proved CM-filter and conjugation
+transports; the integral form above is not silently identified with the
+source's later sign-selected form.
 
 These constructions have source/hash manifests and independent static
 reviews. Their next hosted build is still the proof-validation gate.
@@ -312,7 +324,7 @@ y=\iota_{\mathbb A_f}(S)+\iota_E(\theta)\iota_{\mathbb A_f}(T)
 The scalar-extended involution is proved to be the same host conjugation,
 and \(y\) is proved to be a unit. This is a finite-adelic tensor element;
 it does not assert a global CM-field element with negative relative norm.
-The diagonal GL congruence using this element is the next consumer.
+The diagonal GL congruence using this element is constructed in Section 9.
 
 The real-coordinate construction proves the source's exact map
 
@@ -332,28 +344,83 @@ half-different ideal works for every prescribed rank. There is no independent
 spanning or real-realization assumption.
 
 The Hermitian convention is conjugate-linear in the first argument. The
-subsequent source complex structure must therefore prove
+constructed complex structure therefore proves
 \(\operatorname{EF}(Jx,x)>0\), and the second real trace identity has sign
 \(-2\operatorname{Im}(\cdot)\). This convention is retained explicitly.
-The real equivalence alone does not assert positivity or a completed `DomFor`.
+The complete same-lattice real properties are described next. Their attachment
+to the source's literal host-filtered `Datum` remains a separate proof step.
 
 The signed arithmetic input also remains distinct: `LossBounds` must come
 from the actual family and signed-loss estimates. The new scalar comparison
 does not manufacture that premise by changing `Ga`.
 
-## 9. Acceptance status and next construction
+## 9. Explicit isometry and positive complex structure
+
+`NativeDyadicAdelicIsometry.lean` constructs a diagonal invertible matrix
+whose entries are 1 where the two Gram signs agree and the actual element
+\(y\) above where they differ. The inverse entries are respectively 1 and
+\(-\overline y\), proved using \(\overline y y=-1\). The resulting exact
+Gram congruence compares the source's base space \(Y_0\), with rank
+\(k+m-1\) and \(\lfloor m/2\rfloor\) negative entries, to the same prescribed
+\(W_j\), with \(m-j\) negative entries. This is finite-adelic compatibility;
+it does not assert that the matrix preserves every integral lattice.
+
+`NativePolarizationComplexCoordinates.lean` and
+`NativePrescribedPolarizationDomain.lean` construct
+
+\[
+J=\theta^{-1}\operatorname{diag}(i\,\mathrm{sgn})\theta
+\]
+
+on the same real tensor lattice. They prove \(J^2=-1\), preservation of the
+existing alternating form, and
+
+\[
+\operatorname{EF}(Jx,x)
+=\sum_{\tau\in\Psi}2\operatorname{Im}(\tau\xi)
+  \sum_i\lvert\theta(x)_{\tau,i}\rvert^2>0
+\qquad(x\ne0).
+\]
+
+The inequality follows from the already-proved sign of \(\xi\) on the actual
+CM type and injectivity of the real realization. For every actual coefficient
+action, the proof retains the original multiplicities \(k+j-1\) and \(m-j\),
+commutation with \(J\), and the exact identities
+\(\operatorname{tr}_{\mathbb R}A=2\operatorname{Re}t\) and
+\(\operatorname{tr}_{\mathbb R}(JA)=-2\operatorname{Im}t\).
+The native endpoint discharges compatibility with complex conjugation and
+uses one constructed half-different ideal for every admissible rank.
+
+`NativePrescribedCMData.lean` constructs the source's complete four-field
+`CMData` record. Its full `IsCMUnram` premise is proved from the existing
+all-prime host unramifiedness: at each maximal ideal it produces integral
+elements distinguished by conjugation modulo that ideal. The actual maximal
+real subfield supplies total reality, relative degree two, and the exact
+fixed-field/range identity. The record's field involution and its tensor
+extension are proved equal to those used in the norm and isometry above.
+
+The source's complete `Geo.Tor.Datum` only packages the integral lattice,
+perfect alternating form, ranks, and this real-domain block. It does not
+require a full `D7`. Attaching it still requires identifying the CM type with
+the literal filter \(\tau(H.\mathrm{rt})=H.\mathrm{rt0}\), the host's integral
+conjugation, and the original form normalization. The much larger `Spaces`
+and `D7` objects have additional independent constraints: in particular their
+auxiliary prime and norm element must satisfy the same ray congruence and
+size window. An arbitrary Gauss-root choice cannot replace that supplier.
+
+## 10. Acceptance status and next construction
 
 ```text
 ROLE=Lean Verification
 SOURCE=complete native signed ASK-MAIN and same selected-host Gz mean
-WITNESS=actual CM host, prescribed W_j, literal AA*L0, integral trace form and real realization
+WITNESS=actual CM host, prescribed W_j, literal AA*L0, perfect integral form, adelic isometry and positive J
 MAP_PAYMENT=forward reserve implemented; actual geometric map suppliers remain open
 NORMALIZER=Q=T*m*b*Delta/2 with actual TT/T2 positivity and all three costs
 SIGNED_RECOMBINATION=physical signed gap retained; no inverse recovery weight used
-FIRST_UNPAID=diagonal finite-adelic isometries and full real DomFor construction
+FIRST_UNPAID=literal host-filtered Datum attachment; then actual moduli, sections, metrics and signed-loss suppliers
 EVIDENCE=source reconstruction and independent static review; next hosted build pending
 T_C_P=tractability progressed; mathematical novelty and unconditional proof not established
 INDEPENDENT_APPLICATION=conditional finite slope stability and perfect integral lattice construction
-FORMAL_STATUS=parent a26fa37 failed; signed comparison/reserve/cost windows compiled, full gate pending
-NEXT=use the constructed norm-minus-one unit for diagonal isometries and prove the real DomFor conditions
+FORMAL_STATUS=both parent 3ad6422 builds failed; concrete host timeout cleared, complete next gate pending
+NEXT=verify the repaired batch and attach the actual host-filtered source Datum
 ```

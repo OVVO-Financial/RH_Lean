@@ -31,7 +31,7 @@ open IsDedekindDomain HeightOneSpectrum IsLocalRing WithZero NumberField Filter 
 
 theorem wz_lt_one_iff (γ : ℤᵐ⁰) : γ < 1 ↔ γ ≤ exp (-1 : ℤ) := by
   rcases eq_or_ne γ 0 with rfl | hγ
-  · exact iff_of_true zero_lt_one zero_le'
+  · exact iff_of_true zero_lt_one zero_le
   · rw [← WithZero.exp_log hγ, ← WithZero.exp_zero, WithZero.exp_lt_exp,
       WithZero.exp_le_exp]
     omega
@@ -104,7 +104,7 @@ theorem adicCompl_isClosed_le (r : ℤᵐ⁰) :
   rw [← isOpen_compl_iff, isOpen_iff_mem_nhds]
   intro x hx
   have hx' : r < Valued.v x := not_le.mp hx
-  have hx0 : Valued.v x ≠ 0 := (lt_of_le_of_lt zero_le' hx').ne'
+  have hx0 : Valued.v x ≠ 0 := (lt_of_le_of_lt zero_le hx').ne'
   have hmem : {y : Kv | Valued.v y = Valued.v x} ∈ 𝓝 x :=
     Valued.locally_const hx0
   filter_upwards [hmem] with y hy
@@ -119,7 +119,8 @@ theorem adicInt_isAdicComplete : IsAdicComplete (maximalIdeal Ov) Ov := by
       x ≡ y [SMOD (maximalIdeal Ov ^ n • ⊤ : Submodule Ov Ov)] ↔
         Valued.v ((x : Kv) - y) ≤ exp (-(n : ℤ)) := by
     intro n x y
-    simpa only [smul_eq_mul, Ideal.mul_top, SModEq.sub_mem] using
+    simpa only [smul_eq_mul, Ideal.mul_top, SModEq.sub_mem,
+      AddSubgroupClass.coe_sub] using
       (adicInt_mem_pow_iff (K := K) v n (x - y))
   have h1 : IsHausdorff (maximalIdeal Ov) Ov := by
     refine ⟨fun x hx => ?_⟩
@@ -241,7 +242,11 @@ theorem adicInt_exists_norm [Finite (R ⧸ v.asIdeal)] (T N : ℤ)
   have hDu : IsUnit ((T : Ov) ^ 2 - 4 * (N : Ov)) := by
     have e : (T : Ov) ^ 2 - 4 * (N : Ov) =
         algebraMap R Ov ((T ^ 2 - 4 * N : ℤ) : R) := by
-      simp only [map_intCast, Int.cast_sub, Int.cast_pow, Int.cast_mul, Int.cast_ofNat]
+      calc
+        (T : Ov) ^ 2 - 4 * (N : Ov) = ((T ^ 2 - 4 * N : ℤ) : Ov) := by
+          simp only [Int.cast_sub, Int.cast_pow, Int.cast_mul, Int.cast_ofNat]
+        _ = algebraMap R Ov ((T ^ 2 - 4 * N : ℤ) : R) :=
+          (map_intCast (algebraMap R Ov) (T ^ 2 - 4 * N)).symm
     rw [e]
     exact adicInt_isUnit_of_not_mem v _ hD
   exact NativeLocalQuadraticNorm.henselian_quadratic_neg_one (T : Ov) (N : Ov) hDu

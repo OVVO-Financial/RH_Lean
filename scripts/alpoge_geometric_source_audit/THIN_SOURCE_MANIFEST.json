@@ -1298,7 +1298,7 @@
       "source": "src/Formalism/GaloisCohomology/Statement.lean",
       "source_pin": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
       "source_sha256": "67dc5835eb4b337dfbbbf7f0accd1198b59793ae70f5af34421a7c35410d632c",
-      "native_sha256": "d92fefd9242399e488fd2edf9aade6eae7bae31cfd8fea0950d1b828c37ab812"
+      "native_sha256": "243eeafaf9301d9c3e1a9a1770fb1a58ab613c52d31ec3762458d0d7b8c6a190"
     },
     {
       "native": "RHLean/Analysis/AlpogeThin/Formalism/HalfLinks/Statement.lean",
@@ -2616,7 +2616,7 @@
     "RHLean/Analysis/AlpogeThin.lean": "a758d62ca23ec24da0e7696b3ce26ccfa5ac4bc7561167dfa29539fddba9356f",
     "RHLean/Analysis/AlpogeThin/NativePrincipalThin.lean": "852128582446a93b9ee64e577e547879ed37de1e3314f786e83e377aaf6a6d2f",
     "RHLean/Analysis/AlpogeThin/NativeCftThin.lean": "259efbcb8423c5a8946860fed85704759dcd669dcb64877c88866747306c76fd",
-    "research/ALPOGE_GEOMETRIC_CONSTRUCTION_CLOSURE_AUDIT_20261122.lean": "6ce77aed7fc1f590edf1eb56a0936798b79007042bdcfcc39984f42d3ffa701b",
+    "research/ALPOGE_GEOMETRIC_CONSTRUCTION_CLOSURE_AUDIT_20261122.lean": "451e27f7706b75805ab7444c7a84a3015d8883f208ad710dd60c59c85d77d788",
     "RHLean/Analysis/AlpogeNativeReciprocitySurjective.lean": "7b7475d9f665fe3302391c4a776e1c5c0d1d0911df01520048e14883c7532681",
     "RHLean/Analysis/AlpogeNativeDyadicHostSize.lean": "b7d67fcb714d4d1cd4a4656905bbe7d3452dc5edbe9fc1bf6bb59af41793fff3",
     "RHLean/Analysis/AlpogeThin/NativeDyadicPayment.lean": "ff35b626752db9b31c28dc8879b8cb6ba5a890d595dc6dbcfae2f1ff33ffcc47",
@@ -2627,12 +2627,12 @@
     "RHLean/Analysis/AlpogeThin/NativeConstructedDyadicGzPayment.lean": "07d93eefece597b5eeb58af56ad98c3fb81c49d9dc03f6b6f07ab3c7492328b0",
     "RHLean/Analysis/AlpogeNativeCyclotomicHost.lean": "eb8652a38b7356af1a4e27c38ef7e226a1391c3c4984a37212671d3fe2624132",
     "RHLean/Analysis/AlpogeThin/NativeDyadicChiField.lean": "e3d55fc1f4e46bc3f8d21613e5255a9f875d6387ee892520b5b32f64346c02e4",
-    "RHLean/Analysis/AlpogeNativeQuadraticRoot.lean": "ffc24a2d2ef0dfa9eceb1910a3d01066fc2cd5482e36d1300c52a97263019192",
-    "RHLean/Analysis/AlpogeThin/NativeDyadicFrame.lean": "db789565ccc4d35eaa620d421ee6032940ebf910d785ed43299c1c79356fca0f",
+    "RHLean/Analysis/AlpogeNativeQuadraticRoot.lean": "bd63c884e18b7f88d68263dcbaa6ced041da433f8489fd25b4131e1a6486bbbb",
+    "RHLean/Analysis/AlpogeThin/NativeDyadicFrame.lean": "c7400e3e3be1e24a0183fd77b57acb3466256bae7949a50b71d51ea9768eec2a",
     "RHLean/Analysis/AlpogeThin/NativeDyadicHostRaw.lean": "d9f65d0eaa2c3934d1a8e1e8678c7b171681b1b69919881c54540ee7184bb848",
     "RHLean/Analysis/AlpogeNativeIntegralQuadraticRoot.lean": "4d063022db16f41440d4d202a318d38dd853a52064beef26bd6ed8ba541958bc",
     "RHLean/Analysis/AlpogeNativePrimeLift.lean": "2d99491be1641417a1bc41c4b3baad4d6aa82011d5213316151213e21028ac26",
-    "RHLean/Analysis/AlpogeNativeCyclotomicResidue.lean": "e238e5bdf87b3029e04e92522ed121f272415217e08da7df44531e37b9bb2639",
+    "RHLean/Analysis/AlpogeNativeCyclotomicResidue.lean": "988b5fc2377955b52f652f9dd9defb73ba77cc420f81f3ea34ed38d1fbf27844",
     "RHLean/Analysis/AlpogeNativeHostPrimes.lean": "9cbe3b0200aa5133a537dcf20ede968341bab71822009d5746c762eaa79c31d1",
     "RHLean/Analysis/AlpogeThin/NativeDyadicHostPrimes.lean": "3cc618cc1b3f2872ea6b2431c57036d5476d73525fcd6180ed35d1eadd9cf3cc",
     "RHLean/Analysis/AlpogeThin/NativeDyadicHostSideConditions.lean": "e90ff0c27287847c5c4f36847cfb076d335b1d4140448412fd1db58cca4582b9",
@@ -2692,7 +2692,8 @@
     "Exact-735 partial hosted errors/warnings: repair original quotient, dyadic frame and cyclotomic inference/transport, preserve the actual field and all theorem conclusions; exact API aliases and unused instance/simp cleanup. External bbcc8ca compatibility edits retained. No coercivity interface or new geometric premise introduced.",
     "Exact-46fb310 complete hosted diagnostics: preserve contributor changes; repair quotient instances and generic Galois composition, dyadic transports, one-based TFAE indexing, CM conjugation, cast normalization and warning-fatal cleanup. Existing concrete constructions and all theorem conclusions retained; no heartbeat increase or new geometric premise. Next hosted build pending.",
     "Exact-baddf5a complete hosted diagnostics: both builds reported the same 53 errors and 25 warnings including cascades. Repair canonical rational algebra and Pi.module instance inference, dyadic generator-order transport, explicit signed width-sum instantiation, local-notation field projections, inequality addition orientation, scalar normalization and cast residuals, and linear-map span coercions. Remove only reported redundant simplifiers and mark unused hypothesis names without dropping assumptions. Existing conclusions retained; no heartbeat increase or gate change. Next hosted build pending.",
-    "Exact-a26fa37 complete hosted diagnostics: both builds reported 20 errors and 18 warnings including cascades. The signed physical comparison and forward reserve now compile. Repair the concrete host equivalence elaboration timeout without increasing heartbeats, explicit dyadic hom inference, the remaining cohomology quotient and framed-submodule instances, prescribed Hermitian matrix notation/integrality/coercion proofs, the short-family discriminant cast, and reported unused section instances. The actual objects, theorem conclusions and validation gates are retained; next hosted build pending."
+    "Exact-a26fa37 complete hosted diagnostics: both builds reported 20 errors and 18 warnings including cascades. The signed physical comparison and forward reserve now compile. Repair the concrete host equivalence elaboration timeout without increasing heartbeats, explicit dyadic hom inference, the remaining cohomology quotient and framed-submodule instances, prescribed Hermitian matrix notation/integrality/coercion proofs, the short-family discriminant cast, and reported unused section instances. The actual objects, theorem conclusions and validation gates are retained; next hosted build pending.",
+    "Exact-3ad6422 complete hosted diagnostics: native and targeted builds reported identical 20-error/6-warning multisets including cascades. Concrete CyclotomicHost now compiles without a timeout; PrescribedHermitianSpaces, ThetaShortLatticeFamily and GradedPeterssonConstruction also have clean build receipts. Repair the newly reached cyclotomic-extension instances and quadratic-root coercions, exact dyadic additive-equivalence structures, cohomology quotient and framed-submodule instances, completion coercions, harmonic-span set carrier and deprecated API/style warnings. All actual objects, theorem conclusions, proof budgets and gates are retained; the complete next hosted build remains pending."
   ],
   "native_cost_payment_provenance": [
     {
@@ -2743,15 +2744,15 @@
     }
   ],
   "latest_hosted_feedback": {
-    "head": "a26fa375504cbd9d6bcbd0a32cf7b2f5c4daeb3d",
-    "native_run_id": 45078081203,
-    "native_job_id": 137379731321,
-    "targeted_run_id": 45078081282,
-    "targeted_job_id": 137379731509,
+    "head": "3ad6422a12ff6de1529ec2c5ae78f3d4083e4a5e",
+    "native_run_id": 45079414822,
+    "native_job_id": 137383962199,
+    "targeted_run_id": 45079414834,
+    "targeted_job_id": 137383962263,
     "native_errors": 20,
-    "native_warnings": 18,
+    "native_warnings": 6,
     "targeted_errors": 20,
-    "targeted_warnings": 18,
+    "targeted_warnings": 6,
     "run_conclusion": "failure",
     "complete_diagnostic_inventory": true,
     "status": "COMPLETE_FAILURE_REPAIRS_PREPARED_HOSTED_VERIFICATION_PENDING"
@@ -3237,6 +3238,20 @@
       "native_warnings": 25,
       "targeted_errors": 53,
       "targeted_warnings": 25,
+      "run_conclusion": "failure",
+      "complete_diagnostic_inventory": true,
+      "status": "COMPLETE_FAILURE_REPAIRS_PREPARED_HOSTED_VERIFICATION_PENDING"
+    },
+    {
+      "head": "a26fa375504cbd9d6bcbd0a32cf7b2f5c4daeb3d",
+      "native_run_id": 45078081203,
+      "native_job_id": 137379731321,
+      "targeted_run_id": 45078081282,
+      "targeted_job_id": 137379731509,
+      "native_errors": 20,
+      "native_warnings": 18,
+      "targeted_errors": 20,
+      "targeted_warnings": 18,
       "run_conclusion": "failure",
       "complete_diagnostic_inventory": true,
       "status": "COMPLETE_FAILURE_REPAIRS_PREPARED_HOSTED_VERIFICATION_PENDING"
