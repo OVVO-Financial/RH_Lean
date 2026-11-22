@@ -332,5 +332,11 @@ theorem alpogeLiteralHostASK_MAIN_le_iff_originalNNS
   rw [alpogeLiteralHostASK_MAIN_re_eq_originalNNS
     e q d M a t w ha hw hM]
 
+-- Kernel axiom audit of the exported map (recorded in the hosted build log).
+#print axioms RHLean.Analysis.alpogeActualCftASK_sub_MAIN_re_eq_originalNNS
+#print axioms RHLean.Analysis.alpogeActualCanonicalTopExcess_eq_NNS
+#print axioms RHLean.Analysis.alpogeActualCanonicalTopExcess_le_iff_NNS
+#print axioms RHLean.Analysis.alpogeLiteralHostASK_MAIN_re_eq_originalNNS
+#print axioms RHLean.Analysis.alpogeLiteralHostASK_MAIN_le_iff_originalNNS
 
 end RHLean.Analysis
