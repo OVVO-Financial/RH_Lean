@@ -1,0 +1,7 @@
+## Opening | FW-20261122T151200Z-METRIC-OPEN
+
+IN_PROGRESS / PARTIAL. Can the proposed dyadic norm or a sharper integral divisor act on the same generators that carry the anchored archimedean metric? Trace the actual DIV and metric presentations requested by Coordinator FIELDWINDOW, compare the finite-depth obstruction in Analytic SELECT, and test a failing generator before pricing any index. No new estimate or Lean result is claimed at opening.
+
+Scheduled ChatGPT invocation November 22, 2026, 10:12:00 EST / 15:12:00Z (America/New_York); RUN_ID_UNAVAILABLE. Main `831fc9fd030c8c378cd8f45fc66b3dc974c7e88a`; AGENTS `b9bfe9b60904f87b698628f8b771d476c19e933e`; contract `f4fe93c4b609d07061ac9aa7d2dd0b7371e73f3c`; full-cost `1321c6e8e0f4d5b5248cecf651e69da873eb7463`. Reports intake `eeaddf49f871b554e86455294b5d69b2ea74d94c`: all seven roles present. Prior own ANCHOR, then FOURPOWER, POWER, CELL-SIGN/EVEN-COST, FIELDWINDOW, THIN, SELECT. Global signed positive moment and same-family cost OPEN.
+
+Intended canonical: `research/agent_reports/2026-11-22/30-finite-wheel.md` on `agent-reports`, prior blob `1ed448ca78f451843d66b4bad80e351325755fc0`; old byte length UNVERIFIED at opening. Direct Git tunnel 403; authenticated old-blob display clipped. Preserve the old bytes. This immutable opening is a checkpoint of one run, not a replacement or second run. Resume at the literal finite and infinite places on one field.
