@@ -3,7 +3,7 @@
   "status": "native_434_scope_api_lint_repairs_hosted_recheck_pending",
   "module_prefix": "RHLean.Geometry.AlpogeAllPlace.",
   "total_native_modules": 81,
-  "total_native_lines": 15977,
+  "total_native_lines": 15990,
   "entry_module": "RHLean.Geometry.NativeAllPlaceDescent",
   "entry_theorem": "RHLean.Geometry.nativeAllPlaceDescent",
   "axiom_targets": [
@@ -21,7 +21,7 @@
     "HtMapLeOfPoints: positive rank from already imported ms_rkK_pos"
   ],
   "native_api_updates": [
-    "SpanMuMin: Finset.prod_le_prod to prod_le_prod\u2080, retaining both nonnegativity/comparison arguments",
+    "SpanMuMin: Finset.prod_le_prod to prod_le_prod₀, retaining both nonnegativity/comparison arguments",
     "FinSup: WellFoundedGT.isSupFiniteCompact with implicit alpha; current Mathlib 4.34.1 API",
     "FiniteSaturated: AddSubgroup.isClosed_of_discreteTopology with U binder",
     "PlaceSplit: DistribSMul.toLinearMap replaces removed DistribMulAction.toLinearMap",
@@ -36,8 +36,8 @@
       "upstream_path": "src/Development/AbelianVarietyTheory/Definitions/Foundations/IsProbabilityMeasureMuPart.lean",
       "upstream_git_blob": "f1e1fb8777cb777df70d80ccc4dfdbad7c88024f",
       "upstream_sha256": "3951bad4542aa62738d56c1f31d93348ca8578bffc940aaafba74e395973645d",
-      "native_sha256": "94bb308d114475a02e933e4147e4fe1802e0ebd57429808c0d997395d70c5f02",
-      "native_lines": 128,
+      "native_sha256": "41619001558b68bea26c80f5ca52f05ce064cda625bfa11fccfc1e6c18e43105",
+      "native_lines": 129,
       "kind": "source_body_pruning"
     },
     "RHLean/Geometry/AlpogeAllPlace/Development/AbelianVarietyTheory/Proofs/DivisorProofs/HtMapLeOfPoints.lean": {
@@ -52,16 +52,16 @@
       "upstream_path": "src/Formalism/BranchSandwichDivisors/BranchIsometryProofs/MapScale.lean",
       "upstream_git_blob": "7eebe74e070d815bc27c29d7bb58c442a21933f9",
       "upstream_sha256": "724ca22ad66e4d1d66cccb2529a09fb6f83c93a5d30b5582fe13bb291c236623",
-      "native_sha256": "9269775e60367f6afd4973d5c7ed9b21d2f8af0ea2313dd4847bb468178ea55c",
-      "native_lines": 292,
+      "native_sha256": "f74f441677aeefaa2cb3235ab8cb4db124e1787be06cc09ea361ad82acd5c9f4",
+      "native_lines": 294,
       "kind": "namespace_and_options_only"
     },
     "RHLean/Geometry/AlpogeAllPlace/Formalism/BranchSandwichDivisors/BranchIsometryProofs/OrthSum.lean": {
       "upstream_path": "src/Formalism/BranchSandwichDivisors/BranchIsometryProofs/OrthSum.lean",
       "upstream_git_blob": "cbfcd7cd7fcdc6dda37f07abcf204944c548582b",
       "upstream_sha256": "aac71e0459f04b737f75ca2e7c4905aaa7a045a4a85bd0ff1054c881cd528578",
-      "native_sha256": "ab156b660b8c9e760fa5a0a708a4f36e014bbc5ac7a14d99cf8dad11014c6139",
-      "native_lines": 335,
+      "native_sha256": "89ff329e1573d8a30234759c4e8ea09971612276991c1d38a3211b69401cc98f",
+      "native_lines": 340,
       "kind": "namespace_and_options_only"
     },
     "RHLean/Geometry/AlpogeAllPlace/Formalism/BranchSandwichDivisors/StatementL.lean": {
@@ -164,8 +164,8 @@
       "upstream_path": "src/Formalism/HarderNarasimhan/HarderNarasimhanProofs/DualPl.lean",
       "upstream_git_blob": "87062eeec1a7cb76a77ec8799c89904538931d80",
       "upstream_sha256": "5b87baf5b4c26c903a2e45757f24d8992dc45f93b72a8b87af617c3960d0157d",
-      "native_sha256": "afedf5cadd5ffeeb3a8f5f392f0f8381f816c266f747d26cdfdaf1a993321438",
-      "native_lines": 1657,
+      "native_sha256": "6d9b07024f04cd6812c5d610c9db50b97597c44bad82549ebaa0007e1fe182f9",
+      "native_lines": 1658,
       "kind": "namespace_options_and_native_compatibility"
     },
     "RHLean/Geometry/AlpogeAllPlace/Formalism/HarderNarasimhan/HarderNarasimhanProofs/Duality.lean": {
@@ -284,8 +284,8 @@
       "upstream_path": "src/Formalism/HarderNarasimhan/HarderNarasimhanProofs/PlaceSplit.lean",
       "upstream_git_blob": "f442f465a9116dde56cd94546e34f3f648bdcc15",
       "upstream_sha256": "098b091cae2368fc3efcdd768ae0581657d625595acf66452d36bc8c2deb87c2",
-      "native_sha256": "617ab7fef266a4adaedfb326ffa97748c7b669765bd38d42a824815a0e1daf15",
-      "native_lines": 480,
+      "native_sha256": "c79b5ce3f12cc3f505e6f6ff2bb941e0c3cfdeb7c623ebfe71e9cff5451e8310",
+      "native_lines": 482,
       "kind": "namespace_options_and_native_compatibility"
     },
     "RHLean/Geometry/AlpogeAllPlace/Formalism/HarderNarasimhan/HarderNarasimhanProofs/PolygonSlopeSum.lean": {
@@ -300,8 +300,8 @@
       "upstream_path": "src/Formalism/HarderNarasimhan/HarderNarasimhanProofs/QuotRealize.lean",
       "upstream_git_blob": "5578fe78497f8755fd44f580dd9a63b8e057721e",
       "upstream_sha256": "3a04d5a0cd077e156690b7a0661899c7645cd77f085d78a5c954c4c1b520d49c",
-      "native_sha256": "2a27d5db62c15666b6ddf2a0a153272f616ed53fb298d59c64f114c99309014e",
-      "native_lines": 496,
+      "native_sha256": "f2e10c5264f1141689a8fa81334ad2b513c351be0c86a808a9137d0fa82dfdbe",
+      "native_lines": 498,
       "kind": "namespace_options_and_native_compatibility"
     },
     "RHLean/Geometry/AlpogeAllPlace/Formalism/HarderNarasimhan/HarderNarasimhanProofs/RatioMax.lean": {

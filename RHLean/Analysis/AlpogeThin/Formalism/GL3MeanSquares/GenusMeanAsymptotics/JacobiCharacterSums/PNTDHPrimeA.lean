@@ -94,7 +94,6 @@ lemma dhpr_zetaMul_eq_sum {M : ℕ} (χ : DirichletCharacter ℂ M) (n : ℕ) :
   have hd0 : d ≠ 0 := Nat.ne_of_gt (Nat.pos_of_mem_divisors hd)
   first
     | exact ite_eq_right hd0
-    | simp only [LSeries.toArithmeticFunction, ArithmeticFunction.coe_mk, ite_eq_right hd0]
 
 lemma dhpr_zetaMul_prime_pow {M : ℕ} (χ : DirichletCharacter ℂ M) {p : ℕ} (hp : p.Prime)
     (a : ℕ) : zetaMul χ (p ^ a) = ∑ i ∈ range (a + 1), χ (p : ZMod M) ^ i := by
@@ -147,7 +146,7 @@ lemma dhpr_coef_le {M : ℕ} [NeZero M] (χ₁ : DirichletCharacter ℂ M) (h1 :
         have hre := congrArg Complex.re (hsum a)
         simp only [Complex.add_re, Complex.one_re] at hre
         have h2re : (2 * ∑ i ∈ range (a + 1), ((-1 : ℂ)) ^ i).re = 2 * (∑ i ∈ range (a + 1), ((-1 : ℂ)) ^ i).re := by
-          simp [Complex.mul_re] <;> split_ifs <;> simp
+          simp; split_ifs <;> simp
         rw [h2re] at hre
         simp only [Complex.one_re]
         linarith

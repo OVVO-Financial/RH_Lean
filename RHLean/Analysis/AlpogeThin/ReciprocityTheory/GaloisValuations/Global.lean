@@ -36,6 +36,7 @@ omit [NumberField F] in
 theorem mem_Dec {A : ValuationSubring (Ω)} {σ : G F Ω} :
     σ ∈ Dec (F := F) A ↔ σ • A = A := Iff.rfl
 
+omit [NumberField F] in
 theorem apply_mem_iff_of_mem_Dec {A : ValuationSubring (Ω)} {σ : G F Ω}
     (hσ : σ ∈ Dec (F := F) A) (x : Ω) : σ x ∈ A ↔ x ∈ A := by
   have h := mem_Dec.mp hσ
@@ -176,6 +177,7 @@ theorem continuous_toGS : Continuous (toGS Ω S) := by
 def locHom (A : ValuationSubring (Ω)) : Dec (F := F) A →* GS Ω S :=
   (toGS Ω S).comp (Dec (F := F) A).subtype
 
+omit [NumberField F] in
 theorem continuous_locHom (A : ValuationSubring (Ω)) :
     Continuous (locHom S A) := (continuous_toGS Ω S).comp continuous_subtype_val
 
@@ -394,6 +396,7 @@ theorem cycZ_of_isFrob [IsAlgClosure F Ω] {l : ℕ} [Fact l.Prime] {A : Valuati
   obtain ⟨-, hF⟩ := hσ
   exact PadicInt.ext_of_toZModPow.mp (cycZ_toZModPow_eq hl h hF)
 
+omit [NumberField F] in
 private theorem isClosed_setOf_apply_lemma [IsAlgClosure F Ω] (x : Ω) (P : Ω → Prop) :
     IsClosed {τ : G F Ω | P (τ x)} := by
   have hal : Algebra.IsAlgebraic F Ω := IsAlgClosure.isAlgebraic

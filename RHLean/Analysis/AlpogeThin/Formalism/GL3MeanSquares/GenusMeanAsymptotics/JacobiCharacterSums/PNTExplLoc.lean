@@ -99,7 +99,7 @@ private theorem exists_factor_zeros_differentiableOn_nonvanishing (f : ℂ → �
       simp [hρ]
     · have hwZ : w ∉ Z := by
         intro hwZ
-        exact hw1 (by simp [Finset.mem_erase, hwρ, hwZ])
+        exact hw1 (by simp [hwρ, hwZ])
       rw [hg]
       simp only [ite_eq_right hwZ]
       exact hw2 hwρ
@@ -192,7 +192,7 @@ theorem ex_landau_ord_core (f : ℂ → ℂ) (z₀ : ℂ) (r B : ℝ) (hr : 0 < 
   have hr3pos : 0 < r / 3 := by positivity
   have hPz₀ : ‖P z₀‖ ≤ (r / 3) ^ N := by
     rw [hP, norm_prod, hN, ← Finset.prod_pow_eq_pow_sum]
-    apply Finset.prod_le_prod
+    apply Finset.prod_le_prod₀
     · intro ρ _
       positivity
     · intro ρ hρ
@@ -205,7 +205,7 @@ theorem ex_landau_ord_core (f : ℂ → ℂ) (z₀ : ℂ) (r B : ℝ) (hr : 0 < 
     intro z hz
     have hzd : dist z z₀ = r := Metric.mem_sphere.mp hz
     rw [← mul_pow, hP, norm_prod, hN, ← Finset.prod_pow_eq_pow_sum]
-    apply Finset.prod_le_prod
+    apply Finset.prod_le_prod₀
     · intro ρ _
       positivity
     · intro ρ hρ

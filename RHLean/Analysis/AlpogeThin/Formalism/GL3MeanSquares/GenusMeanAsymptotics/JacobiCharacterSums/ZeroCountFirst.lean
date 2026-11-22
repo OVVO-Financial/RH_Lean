@@ -154,8 +154,7 @@ theorem zero_count_first : Count0 := by
     · calc 2 * (pYd M T * 2 ^ ij.2) ≤ 2 * (qd M T ^ 3 * 2 ^ pJd M T) := by
             unfold pYd
             gcongr
-            · norm_num
-            · omega
+            omega
         _ ≤ _ := hYN
     · intro p hp
       obtain ⟨a, ha, rfl⟩ := mem_image.1 (mem_filter.1 hp).1

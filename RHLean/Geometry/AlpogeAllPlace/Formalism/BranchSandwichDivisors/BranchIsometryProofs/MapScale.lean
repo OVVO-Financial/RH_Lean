@@ -41,6 +41,7 @@ theorem ms_nPl_pos : 0 < nPl K := by
   unfold RHLean.Geometry.AlpogeAllPlace.Formalism.HN.nPl
   exact Fintype.card_pos
 
+omit [StarRing K] [IsScalarTower (𝓞 K) K V] in
 theorem ms_htQ_bot (b : Basis ι K V) (X : InfinitePlace K → Matrix ι ι ℂ)
     (A : Submodule (𝓞 K) V) : htQ b X A ⊥ = ht b X A := by
   have hz : zl (RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.realize b X) (⊥ : Submodule (𝓞 K) V) = ⊥ := by
@@ -108,6 +109,7 @@ theorem ms_opNorm_nat [Nonempty ι] (b : Basis ι K V) (X : InfinitePlace K → 
   rw [hid, mul_one]
   simp
 
+omit [StarRing K] [Module (𝓞 K) V] [IsScalarTower (𝓞 K) K V] in
 theorem ms_htMap_nat [Nonempty ι] (b : Basis ι K V) (X : InfinitePlace K → Matrix ι ι ℂ)
     (hX : ∀ v, IsUnit (X v).det) (n : ℕ) :
     htMap b X b X ((n : K) • (LinearMap.id : V →ₗ[K] V)) = 2 * Real.log n := by

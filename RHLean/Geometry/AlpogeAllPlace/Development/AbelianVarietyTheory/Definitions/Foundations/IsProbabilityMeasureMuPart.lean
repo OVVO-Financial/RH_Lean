@@ -68,6 +68,7 @@ theorem norm_realize_sq {ι : Type} [Fintype ι] [DecidableEq ι] (b : Basis ι 
 
 omit [Module (𝓞 K) V] [IsScalarTower (𝓞 K) K V] in
 
+omit [StarRing K] in
 theorem IsGram.norm_realize {ι κ : Type} [Fintype ι] [DecidableEq ι] [Fintype κ] [DecidableEq κ] {b : Basis ι K V}
     {X : InfinitePlace K → Matrix ι ι ℂ} {b' : Basis κ K V} {X' : InfinitePlace K → Matrix κ κ ℂ}
     {N : (K →+* ℂ) → V → ℝ} (h : IsGram b X N) (h' : IsGram b' X' N) (x : V) :

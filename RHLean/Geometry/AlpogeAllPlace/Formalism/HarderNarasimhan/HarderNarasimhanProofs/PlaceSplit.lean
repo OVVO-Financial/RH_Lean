@@ -284,6 +284,7 @@ theorem prj_mem_span (b : Basis ι K V) (X : InfinitePlace K → Matrix ι ι �
     exact AddSubgroup.mem_map.2 ⟨_, N.smul_mem _ hx, rfl⟩
   exact key hw
 
+omit [StarRing K] in
 theorem split_eq (b : Basis ι K V) (X : InfinitePlace K → Matrix ι ι ℂ) (N : Submodule (𝓞 K) V) :
     Submodule.span ℝ (zl (RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.realize b X) N :
         Set (EuclideanSpace ℝ (InfinitePlace K × ι × Fin 2))) =
@@ -435,6 +436,7 @@ variable {K V ι : Type*} [Field K] [NumberField K] [StarRing K] [IsTotallyCompl
   [AddCommGroup V] [Module K V] [Module (𝓞 K) V] [IsScalarTower (𝓞 K) K V]
   [Fintype ι] [DecidableEq ι] [DecidableEq (InfinitePlace K)]
 
+omit [StarRing K] in
 theorem piece_eq_map (b : Basis ι K V) (X : InfinitePlace K → Matrix ι ι ℂ)
     (N : Submodule (𝓞 K) V) (v : InfinitePlace K) :
     Submodule.span ℝ (zl (RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.realize b X) N :

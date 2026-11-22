@@ -186,6 +186,7 @@ instance isPrime_primeBelow (A : ValuationSubring Ω) : (primeBelow (F := F) A).
     rw [this] at hab
     exact lt_irrefl _ hab
 
+omit [IsAlgClosure F Ω] in
 theorem under_primeBelow {A : ValuationSubring Ω} {v : HeightOneSpectrum (𝓞 F)}
     (hA : ∀ x : 𝓞 F, A.valuation (algebraMap F Ω (x : F)) < 1 ↔ x ∈ v.asIdeal) :
     (primeBelow (F := F) A).under (𝓞 F) = v.asIdeal := by
@@ -193,6 +194,7 @@ theorem under_primeBelow {A : ValuationSubring Ω} {v : HeightOneSpectrum (𝓞 
   rw [Ideal.under, Ideal.mem_comap, mem_primeBelow, ← hA x]
   rfl
 
+omit [IsAlgClosure F Ω] in
 theorem primeBelow_smul (g : Ω ≃ₐ[F] Ω) (A : ValuationSubring Ω) :
     primeBelow (F := F) (g • A) = g • primeBelow (F := F) A := by
   ext b

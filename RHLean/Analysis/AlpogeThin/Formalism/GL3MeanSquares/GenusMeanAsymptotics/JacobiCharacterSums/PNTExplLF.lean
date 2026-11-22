@@ -125,7 +125,7 @@ theorem exLF_prod_le (M : ℕ) [NeZero M] (s : ℂ) (hs : 1 / 2 ≤ s.re) :
     ‖∏ p ∈ M.primeFactors, (1 - (p : ℂ) ^ (-s))‖ ≤ M := by
   have h1 : ‖∏ p ∈ M.primeFactors, (1 - (p : ℂ) ^ (-s))‖ ≤ ∏ p ∈ M.primeFactors, (p : ℝ) := by
     rw [norm_prod]
-    refine Finset.prod_le_prod (fun _ _ => norm_nonneg _) (fun p hp => ?_)
+    refine Finset.prod_le_prod₀ (fun _ _ => norm_nonneg _) (fun p hp => ?_)
     have hp2 : 2 ≤ p := (Nat.prime_of_mem_primeFactors hp).two_le
     have hp0 : (0 : ℝ) < p := by exact_mod_cast (by omega : 0 < p)
     have hn : ‖(p : ℂ) ^ (-s)‖ ≤ 1 := by

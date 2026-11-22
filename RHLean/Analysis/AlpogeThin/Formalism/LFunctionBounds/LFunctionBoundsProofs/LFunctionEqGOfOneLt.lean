@@ -115,6 +115,7 @@ lemma natCast_add_one_eq (n : ℕ) : ((n : ℂ) + 1) = (((n : ℝ) + 1 : ℝ) : 
   push_cast
   ring
 
+omit [NeZero q] in
 lemma norm_dterm_le {B : ℝ} (hB : ∀ M, ‖Ap χ M‖ ≤ B) {s : ℂ} (hs : 0 < s.re) (n : ℕ) :
     ‖dterm χ s n‖ ≤ B * (‖s‖ * (n : ℝ) ^ (-s.re - 1)) := by
   have hB0 : 0 ≤ B := (norm_nonneg _).trans (hB 0)
@@ -148,6 +149,7 @@ lemma summable_norm_dterm {B : ℝ} (hB : ∀ M, ‖Ap χ M‖ ≤ B) {s : ℂ} 
 lemma summable_dterm {B : ℝ} (hB : ∀ M, ‖Ap χ M‖ ≤ B) {s : ℂ} (hs : 0 < s.re) :
     Summable (dterm χ s) := (summable_norm_dterm χ hB hs).of_norm
 
+omit [NeZero q] in
 lemma partial_identity (s : ℂ) (M : ℕ) :
     ∑ n ∈ Finset.range (M + 1), dterm χ s n + Ap χ M * ((M : ℂ) + 1) ^ (-s) =
       ∑ n ∈ Finset.Icc 1 M, χ (n : ZMod q) * (n : ℂ) ^ (-s) := by

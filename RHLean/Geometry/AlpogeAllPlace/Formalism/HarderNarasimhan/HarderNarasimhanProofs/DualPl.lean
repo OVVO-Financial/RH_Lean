@@ -1419,6 +1419,7 @@ theorem corr_R (b : Basis ι K V) (X : InfinitePlace K → Matrix ι ι ℂ)
   exact ⟨N, hN, hrk, (hSB'.2.1 R _ hRN inf_le_left).2 hrk⟩
 
 omit [IsTotallyComplex K] [DecidableEq ι] in
+omit [StarRing K] in
 theorem dual_ne_bot (b : Basis ι K V) (A : Submodule (𝓞 K) V) (hA : A.FG)
     (hsp : Submodule.span K (A : Set V) = ⊤) (hA0 : A ≠ ⊥) : dualLat A ≠ ⊥ := by
   have hfd : FiniteDimensional K V := Module.Finite.of_basis b

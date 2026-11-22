@@ -36,25 +36,17 @@ open RHLean.Geometry.AlpogeAllPlace.Formalism.HN (rkK)
 
 namespace RHLean.Geometry
 
-section GradedSection
-
-variable {I K R Z H : Type}
-  [Fintype I] [DecidableEq I] [Group H] [Fintype H] [DecidableEq H]
-  [Field K] [NumberField K] [IsTotallyComplex K]
-  [CommRing R] [Algebra K R] [Algebra (𝓞 K) R]
-  [IsScalarTower (𝓞 K) K R]
-  (W : (I → ℤ) → Submodule K R)
-  (hone : (1 : R) ∈ W 0)
-  (hprod : ∀ e e', W e * W e' ≤ W (e + e'))
-
-local notation "Sec" => nativeGradedSectionAlgebra W hone hprod
-
 /-- Transfer the determinant actually constructed at component points to the
 corresponding generic-point fields. The geometric input is precisely the
 forward direction of `GlobalTheory.CompHt.genVal_eq_zero_iff` on homogeneous
 sections; no identification between the point fields and generic fields is
 made. The determinant's homogeneous weight is proved here. -/
 theorem nativeGradedSection_groupDet_generic_nonzero_of_component_points
+    {I K R Z H : Type} [Field K] [CommRing R] [Algebra K R]
+    [Group H] [Fintype H] [DecidableEq H]
+    (W : (I → ℤ) → Submodule K R)
+    (hone : (1 : R) ∈ W 0)
+    (hprod : ∀ e e', W e * W e' ≤ W (e + e'))
     (F : Z → Type) [∀ z, CommRing (F z)]
     (generic : ∀ z, R →+* F z)
     (point : Z → R →+* ℂ)
@@ -74,6 +66,18 @@ theorem nativeGradedSection_groupDet_generic_nonzero_of_component_points
   have hpoint := hspecialize z (Fintype.card H • e) _ hmem hgeneric
   rw [RingHom.map_det, RingHom.mapMatrix_apply] at hpoint
   exact hdet z hpoint
+
+section GradedSection
+
+variable {I K R Z H : Type}
+  [Fintype I] [DecidableEq I] [Group H] [Fintype H] [DecidableEq H]
+  [Field K] [NumberField K] [IsTotallyComplex K]
+  [CommRing R] [Algebra K R]
+  (W : (I → ℤ) → Submodule K R)
+  (hone : (1 : R) ∈ W 0)
+  (hprod : ∀ e e', W e * W e' ≤ W (e + e'))
+
+local notation "Sec" => nativeGradedSectionAlgebra W hone hprod
 
 /-- Generic-frame nonvanishing supplies the determinant used by the same
 integral character maps, with the full all-place norm and rank costs. Neither

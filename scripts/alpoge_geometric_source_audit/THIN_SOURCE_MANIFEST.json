@@ -661,14 +661,14 @@
       "source": "src/Formalism/GL3MeanSquares/GenusMeanAsymptotics/JacobiCharacterSums/PNTDHHyperA.lean",
       "source_pin": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
       "source_sha256": "589fa9bea0d8ba6c6751577b1d9cea2cc65ab59fb5b1b1e5f2c3db142d3483ae",
-      "native_sha256": "8e610d2d4a0b4b229fab289ff2cc0ba8f1b1d543c7116e21dda2af654bf21984"
+      "native_sha256": "8dffe58019e2574da320bc2c7679d035314b3e0795dde0a4c84ee93637e7f22a"
     },
     {
       "native": "RHLean/Analysis/AlpogeThin/Formalism/GL3MeanSquares/GenusMeanAsymptotics/JacobiCharacterSums/PNTDHHyperB.lean",
       "source": "src/Formalism/GL3MeanSquares/GenusMeanAsymptotics/JacobiCharacterSums/PNTDHHyperB.lean",
       "source_pin": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
       "source_sha256": "97ab29d23dfd0d2f34eb99691f2c0a0a563afc70cac5b426f4bf4a5ae9c2223d",
-      "native_sha256": "c5db0a1c68e5ba95947c6785e942c0aa09be7d9ebe6494fcf07df96811f05dde"
+      "native_sha256": "6c8420276222f5b8a4966a3854a5e30b98414b40b90355ea155631bbcf86f022"
     },
     {
       "native": "RHLean/Analysis/AlpogeThin/Formalism/GL3MeanSquares/GenusMeanAsymptotics/JacobiCharacterSums/PNTDHHyperC.lean",
@@ -689,7 +689,7 @@
       "source": "src/Formalism/GL3MeanSquares/GenusMeanAsymptotics/JacobiCharacterSums/PNTDHIneqB.lean",
       "source_pin": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
       "source_sha256": "83a604b48f4148effa2f4ef52ae9f395748ab222aaee4121ce1d4e8de3c11860",
-      "native_sha256": "72e7ad7e9132d6c876e4e6e6699bfd103e64936b108cf168168dd1724e595931"
+      "native_sha256": "749384c67c1ea9a68beed8c478f4e1275379c8e180fe2859fd0f2ffbb92c8f2e"
     },
     {
       "native": "RHLean/Analysis/AlpogeThin/Formalism/GL3MeanSquares/GenusMeanAsymptotics/JacobiCharacterSums/PNTDHIneqF.lean",
@@ -717,7 +717,7 @@
       "source": "src/Formalism/GL3MeanSquares/GenusMeanAsymptotics/JacobiCharacterSums/PNTDHLocalA.lean",
       "source_pin": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
       "source_sha256": "6a3b4b57b13ecb692ac1bd3888fe0e273b681725d251e1c2d0d8c4bf0a26bd8f",
-      "native_sha256": "232a5f7a5eab383cc0b4890b500de7ffa17c8a189a872aa754966351302e44b7"
+      "native_sha256": "383b2b9838a41b666fe18e892893a5d09aae8fd9bcd0858c56929d9669e8635d"
     },
     {
       "native": "RHLean/Analysis/AlpogeThin/Formalism/GL3MeanSquares/GenusMeanAsymptotics/JacobiCharacterSums/PNTDHLocalB.lean",
@@ -738,14 +738,14 @@
       "source": "src/Formalism/GL3MeanSquares/GenusMeanAsymptotics/JacobiCharacterSums/PNTDHPrime.lean",
       "source_pin": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
       "source_sha256": "e829cac4f3dcdfbc82f1a6d9fc765bfcfd6ef0d09b44e61890213d2cf486e4cd",
-      "native_sha256": "0f84192e1d0271941d08acb559b238a73a70286f4d6e4efb37ea8fb90fc9e723"
+      "native_sha256": "a41c6898933d8fae3ed8a8f166e5d3d01298ee2feb39045df0d695e86cbb4de4"
     },
     {
       "native": "RHLean/Analysis/AlpogeThin/Formalism/GL3MeanSquares/GenusMeanAsymptotics/JacobiCharacterSums/PNTDHPrimeA.lean",
       "source": "src/Formalism/GL3MeanSquares/GenusMeanAsymptotics/JacobiCharacterSums/PNTDHPrimeA.lean",
       "source_pin": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
       "source_sha256": "bae5d60b985bcd7d713b53ffc86fbfdb0ddc1ad58e75f0b76734a67bc2a97ea3",
-      "native_sha256": "2e34a9b73138a5357434402b7058e962fe2e28cccb6296065bc90008053c9742"
+      "native_sha256": "7e2be68f017ba51cac2b785ffb53a835e5a80369a0600292b00f7d4c06b049a3"
     },
     {
       "native": "RHLean/Analysis/AlpogeThin/Formalism/GL3MeanSquares/GenusMeanAsymptotics/JacobiCharacterSums/PNTDHPrimeB.lean",
@@ -759,7 +759,7 @@
       "source": "src/Formalism/GL3MeanSquares/GenusMeanAsymptotics/JacobiCharacterSums/PNTDHPrimeC.lean",
       "source_pin": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
       "source_sha256": "4cf919ec0f9dceb1f85c6efea669b3ba277483c5e1983398be6a23b0b62d4af5",
-      "native_sha256": "23cd6bad10a39fcae00303cca16533556518d523bae3119cb1ad1830ddca0ac1"
+      "native_sha256": "55c8fb7879ccb7cf034b19bfd47e533f8c3c4753cdd939eaae012010f6d0483b"
     },
     {
       "native": "RHLean/Analysis/AlpogeThin/Formalism/GL3MeanSquares/GenusMeanAsymptotics/JacobiCharacterSums/PNTDHPrimeD.lean",
@@ -864,14 +864,14 @@
       "source": "src/Formalism/GL3MeanSquares/GenusMeanAsymptotics/JacobiCharacterSums/PNTExplLF.lean",
       "source_pin": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
       "source_sha256": "14324a5864f7cfb9e9809e4617859b8f86ee38fcb377754cfa078323b83d4fa2",
-      "native_sha256": "bfd215f8cdde8aa8792cea0bae3bb153353c77d33b074b112e96457f0998e4c6"
+      "native_sha256": "4231fa66dd3f5a4539ea5aeb5dace1c5fce81e824fdf70e1ce9b5b79923bd5a3"
     },
     {
       "native": "RHLean/Analysis/AlpogeThin/Formalism/GL3MeanSquares/GenusMeanAsymptotics/JacobiCharacterSums/PNTExplLoc.lean",
       "source": "src/Formalism/GL3MeanSquares/GenusMeanAsymptotics/JacobiCharacterSums/PNTExplLoc.lean",
       "source_pin": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
       "source_sha256": "bafb63819375e9b2c4fbe9a14544c4016e8173961c3b24b4e106a9fe9b4f4e76",
-      "native_sha256": "d943272279eccb997b47bfbb706053ecc1cd5e081667802929e22e752e4c826a"
+      "native_sha256": "0ba4fa1998d2b2aaee8ef6f12abfa7f114520ab84726fe69032218ba68d6ae7d"
     },
     {
       "native": "RHLean/Analysis/AlpogeThin/Formalism/GL3MeanSquares/GenusMeanAsymptotics/JacobiCharacterSums/PNTExplLocL.lean",
@@ -1039,7 +1039,7 @@
       "source": "src/Formalism/GL3MeanSquares/GenusMeanAsymptotics/JacobiCharacterSums/SecondBlockCount.lean",
       "source_pin": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
       "source_sha256": "45d89f99fd96b6dc0cc41ecb0a18af8383f170153fd4c8b129479667a4510df3",
-      "native_sha256": "90e438a2a01cdd2dc52da452ecfd8b4e158a003110bdecddd1a13f10931c267f"
+      "native_sha256": "f687661e5780e46ea37c0ea13a6776288a37946163a6a4c93f4335b15d4a2516"
     },
     {
       "native": "RHLean/Analysis/AlpogeThin/Formalism/GL3MeanSquares/GenusMeanAsymptotics/JacobiCharacterSums/TailBox.lean",
@@ -1144,7 +1144,7 @@
       "source": "src/Formalism/GL3MeanSquares/GenusMeanAsymptotics/JacobiCharacterSums/ZeroCountFirst.lean",
       "source_pin": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
       "source_sha256": "3860fecca57c4af7b326485306bc6ae0233555aeb23cdc6858455c40c4b132de",
-      "native_sha256": "ccb14d732daf791d33e03cb7f3a1c3eded8b2761b3f51286f8a5f480a145b085"
+      "native_sha256": "04570aca38c9b9e43c91df07b55acaf5d5bc2fcae7d07e008414fdf193aa26b3"
     },
     {
       "native": "RHLean/Analysis/AlpogeThin/Formalism/GL3MeanSquares/GenusMeanAsymptotics/JacobiCharacterSums/ZeroDetectionSecond.lean",
@@ -1200,7 +1200,7 @@
       "source": "src/Formalism/GL3MeanSquares/HookFormulaTorsion/PsiZeroIntegral.lean",
       "source_pin": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
       "source_sha256": "7e4011f0363044c06142377fa97150bf630cd7e60105405910d9223d78b8a3e5",
-      "native_sha256": "abe854f40b44cec67be0fad94e79484353fe97e1e4054625205680c793d91ed3"
+      "native_sha256": "7bf8cb53c97458eea8952fa4fc5cfe66e0c0677081a1501c392fcb93486c7ce0"
     },
     {
       "native": "RHLean/Analysis/AlpogeThin/Formalism/GL3MeanSquares/HookFormulaTorsion/SecondEstimateOfHypothesis.lean",
@@ -1298,7 +1298,7 @@
       "source": "src/Formalism/GaloisCohomology/Statement.lean",
       "source_pin": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
       "source_sha256": "67dc5835eb4b337dfbbbf7f0accd1198b59793ae70f5af34421a7c35410d632c",
-      "native_sha256": "59232e2f13b38ee7b83ad74c06ebe782cb6ebd3e013f6c67439ecdd5471a66bc"
+      "native_sha256": "5759bca25e2de48ddaa915064ffe3ee09c92eda0787d9efff5a76e1f9255d533"
     },
     {
       "native": "RHLean/Analysis/AlpogeThin/Formalism/HalfLinks/Statement.lean",
@@ -1340,7 +1340,7 @@
       "source": "src/Formalism/LFunctionBounds/LFunctionBoundsProofs/LFunctionEqGOfOneLt.lean",
       "source_pin": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
       "source_sha256": "a0de79a9a1b6321a3241295dbd5125083ea6ab0172c8789f798c3413ec2007cb",
-      "native_sha256": "87fd0053fded4664deef03222473c70ebc46b43c05a119225d508f726f5f6210"
+      "native_sha256": "db1e75c2d4940f87b2187b3647bfec0152f82a165e1a8d9d76fb37809d9e46de"
     },
     {
       "native": "RHLean/Analysis/AlpogeThin/Formalism/LFunctionBounds/LFunctionBoundsProofs/LPartialSum.lean",
@@ -1578,7 +1578,7 @@
       "source": "src/Formalism/LandauZeroFreeBounds/ExceptionalZeroBounds/PerronChi.lean",
       "source_pin": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
       "source_sha256": "a926a0fa0b33a67b3f5074ef0f1846fc1ed7d052052c353ac41685c24ee05209",
-      "native_sha256": "cacd4b664a62f44c5d68ef3aaac48bd7a7dced099d62d97ca1c7c88090d83852"
+      "native_sha256": "c6a55d198e6b773b7d209bec72ccc12af01b2837dad053314f5d2dd3ca4dafeb"
     },
     {
       "native": "RHLean/Analysis/AlpogeThin/Formalism/LandauZeroFreeBounds/ExceptionalZeroBounds/PerronHorizontalSegmentBound.lean",
@@ -2516,7 +2516,7 @@
       "source": "src/ReciprocityTheory/GaloisValuations/Global.lean",
       "source_pin": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
       "source_sha256": "c8e9465c22e48ca68c4e2cfec74c1f9407d8c471b2eb5e2440f11b910a6bfbd6",
-      "native_sha256": "72c5c2c019bcdb3daff57593d9b10a82dcb5f6e1cca30505506719e5ea9405e3"
+      "native_sha256": "2385153542ad68e8c5461dd44dec694033a4d87b343afe38ca4b51f2ade3b4b9"
     },
     {
       "native": "RHLean/Analysis/AlpogeThin/ReciprocityTheory/GaloisValuations/GlobalA.lean",
@@ -2530,7 +2530,7 @@
       "source": "src/ReciprocityTheory/GaloisValuations/GlobalB.lean",
       "source_pin": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
       "source_sha256": "99fe9063535e36b9eaa66cf69bc675aca4cd4ed270094bc6e2849ce3feae28cb",
-      "native_sha256": "75e91c2612a4e7c9ef5f2e2ecf788183b40a051bbd179f77e906f63b8be9f32d"
+      "native_sha256": "496eda62c6f82a935bb3d9d088188d806ea30c26e66763b241c1b48138f6cb5b"
     },
     {
       "native": "RHLean/Analysis/AlpogeThin/ReciprocityTheory/GaloisValuations/SeparatedDvrSecondCohomologyMem.lean",
@@ -2571,16 +2571,28 @@
     "RHLean/Analysis/AlpogeThin/NativeDyadicHostWindows.lean",
     "RHLean/Analysis/AlpogeThin/NativeConstructedDyadicGzPayment.lean",
     "RHLean/Analysis/AlpogeNativeCyclotomicHost.lean",
-    "RHLean/Analysis/AlpogeThin/NativeDyadicChiField.lean"
+    "RHLean/Analysis/AlpogeThin/NativeDyadicChiField.lean",
+    "RHLean/Analysis/AlpogeNativeQuadraticRoot.lean",
+    "RHLean/Analysis/AlpogeThin/NativeDyadicFrame.lean",
+    "RHLean/Analysis/AlpogeThin/NativeDyadicHostRaw.lean",
+    "RHLean/Analysis/AlpogeNativeIntegralQuadraticRoot.lean",
+    "RHLean/Analysis/AlpogeNativePrimeLift.lean",
+    "RHLean/Analysis/AlpogeNativeCyclotomicResidue.lean",
+    "RHLean/Analysis/AlpogeNativeHostPrimes.lean",
+    "RHLean/Analysis/AlpogeThin/NativeDyadicHostPrimes.lean",
+    "RHLean/Analysis/AlpogeThin/NativeDyadicHostSideConditions.lean",
+    "RHLean/Analysis/AlpogeNativeCMUnramified.lean",
+    "RHLean/Analysis/AlpogeNativePrimeDecomposition.lean",
+    "RHLean/Analysis/AlpogeThin/NativeDyadicHostDecomposition.lean"
   ],
   "native_addition_hashes": {
     "RHLean/Analysis/AlpogeThin/NativeHostThin.lean": "d5978898b0b9d660b4a4459ed85fa6391c28074576a0ca0a3fe286a5a02ed66b",
     "RHLean/Analysis/AlpogeThin.lean": "a758d62ca23ec24da0e7696b3ce26ccfa5ac4bc7561167dfa29539fddba9356f",
     "RHLean/Analysis/AlpogeThin/NativePrincipalThin.lean": "852128582446a93b9ee64e577e547879ed37de1e3314f786e83e377aaf6a6d2f",
     "RHLean/Analysis/AlpogeThin/NativeCftThin.lean": "259efbcb8423c5a8946860fed85704759dcd669dcb64877c88866747306c76fd",
-    "research/ALPOGE_GEOMETRIC_CONSTRUCTION_CLOSURE_AUDIT_20261122.lean": "35b75d99bc985abf201e7e764136dd734ec3ec193884eff6fd24ded8e6a94a2e",
+    "research/ALPOGE_GEOMETRIC_CONSTRUCTION_CLOSURE_AUDIT_20261122.lean": "dd7448108ac26302efad906ff61bed97f995bcdc64a35153594f0ea719d69f0f",
     "RHLean/Analysis/AlpogeNativeReciprocitySurjective.lean": "7b7475d9f665fe3302391c4a776e1c5c0d1d0911df01520048e14883c7532681",
-    "RHLean/Analysis/AlpogeNativeDyadicHostSize.lean": "10d1edc08d5b97b82e004683d871e0485b0e52c68e5fb5858bd5aecb01951b6b",
+    "RHLean/Analysis/AlpogeNativeDyadicHostSize.lean": "abe07678ddbe882c0979690fe5bd644fd2458c619be381b42dc484edb37114cb",
     "RHLean/Analysis/AlpogeThin/NativeDyadicPayment.lean": "ff35b626752db9b31c28dc8879b8cb6ba5a890d595dc6dbcfae2f1ff33ffcc47",
     "RHLean/Analysis/AlpogeThin/NativeDyadicThickCharacters.lean": "bcec6e3a1e230c66a7b3cb26a1053fdbedaa59f15a286892a8c7ca6f6780e845",
     "RHLean/Analysis/AlpogeThin/NativeDyadicGzPayment.lean": "be743bd80150cd1cd3fa05b9a433143894ad44c5a9d942d35765acd1706df207",
@@ -2588,7 +2600,19 @@
     "RHLean/Analysis/AlpogeThin/NativeDyadicHostWindows.lean": "c218d96c6ecdfa63c9139f1e6f4e5915f71dba85d0da200ab318eb0a2dad1b25",
     "RHLean/Analysis/AlpogeThin/NativeConstructedDyadicGzPayment.lean": "07d93eefece597b5eeb58af56ad98c3fb81c49d9dc03f6b6f07ab3c7492328b0",
     "RHLean/Analysis/AlpogeNativeCyclotomicHost.lean": "00698c3e96f91d2af52e2d16607a60fe8c4ccb3ecef8f54b2ce6b4a30371efba",
-    "RHLean/Analysis/AlpogeThin/NativeDyadicChiField.lean": "e3d55fc1f4e46bc3f8d21613e5255a9f875d6387ee892520b5b32f64346c02e4"
+    "RHLean/Analysis/AlpogeThin/NativeDyadicChiField.lean": "e3d55fc1f4e46bc3f8d21613e5255a9f875d6387ee892520b5b32f64346c02e4",
+    "RHLean/Analysis/AlpogeNativeQuadraticRoot.lean": "ffc24a2d2ef0dfa9eceb1910a3d01066fc2cd5482e36d1300c52a97263019192",
+    "RHLean/Analysis/AlpogeThin/NativeDyadicFrame.lean": "2b8181276addd7e0c6ca79cba5f630a27a9a80cabd42da881d47fd96426ab206",
+    "RHLean/Analysis/AlpogeThin/NativeDyadicHostRaw.lean": "d9f65d0eaa2c3934d1a8e1e8678c7b171681b1b69919881c54540ee7184bb848",
+    "RHLean/Analysis/AlpogeNativeIntegralQuadraticRoot.lean": "4d063022db16f41440d4d202a318d38dd853a52064beef26bd6ed8ba541958bc",
+    "RHLean/Analysis/AlpogeNativePrimeLift.lean": "2d99491be1641417a1bc41c4b3baad4d6aa82011d5213316151213e21028ac26",
+    "RHLean/Analysis/AlpogeNativeCyclotomicResidue.lean": "e238e5bdf87b3029e04e92522ed121f272415217e08da7df44531e37b9bb2639",
+    "RHLean/Analysis/AlpogeNativeHostPrimes.lean": "9cbe3b0200aa5133a537dcf20ede968341bab71822009d5746c762eaa79c31d1",
+    "RHLean/Analysis/AlpogeThin/NativeDyadicHostPrimes.lean": "3cc618cc1b3f2872ea6b2431c57036d5476d73525fcd6180ed35d1eadd9cf3cc",
+    "RHLean/Analysis/AlpogeThin/NativeDyadicHostSideConditions.lean": "e90ff0c27287847c5c4f36847cfb076d335b1d4140448412fd1db58cca4582b9",
+    "RHLean/Analysis/AlpogeNativeCMUnramified.lean": "0b656cb39916474170e25fa2437ba0d6bd1381f639cec0c19bd5e43a7d52bffd",
+    "RHLean/Analysis/AlpogeNativePrimeDecomposition.lean": "8e3bea6a061a1dae9c0f453500213f71666daeacd5099702823013e4988afe84",
+    "RHLean/Analysis/AlpogeThin/NativeDyadicHostDecomposition.lean": "91e68b576d58b5a073fd274e875dd6514acd1434fbb9db58154c63fbc10ae12e"
   },
   "shared_source_files": [
     {
@@ -2610,7 +2634,8 @@
     "Audit both selected-pair variants in the actual consolidated geometric-construction audit; remove nonexistent prototype audit paths from the source manifest.",
     "Continuation at base 792b6d7: repair all 28 observed native errors and 270 owned warning diagnostics; construct actual CRT surjectivity and dyadic host size, evaluate the thin bill, identify the three primitive thick twists, and compose the same-host scalar Gz source inequality. Hosted verification pending; no desired-bound assumption added.",
     "Continuation after e1fc20b: use the actual PageN exponent chooser to derive SizeN, polynomial host size and the selected-pair conductor bound; derive the source numerical cost windows and pay all analytic scalar remainders. Final nativeConstructedDyadicGzPayment retains only the literal top-excess term and original compatible height/width/density/window premises. ModelText.family is not used as a geometric witness. Hosted verification pending.",
-    "Repair exact e1fc20b hosted diagnostics without weakening gates: 11 errors across 5 files and 86 owned warnings (native/targeted identical). Actual reciprocity CRT map domains now retain the named conductor; port APIs, dependent quotient and regular-descent coercion/reindexing repaired. New kernel fixed field, Galois/degree/conjugation/CM and principal IsChiField construction use the same native modulus and map. Ideal inertia/Frobenius and actual theta-family closure remain explicit. Next hosted verification pending."
+    "Repair exact e1fc20b hosted diagnostics without weakening gates: 11 errors across 5 files and 86 owned warnings (native/targeted identical). Actual reciprocity CRT map domains now retain the named conductor; port APIs, dependent quotient and regular-descent coercion/reindexing repaired. New kernel fixed field, Galois/degree/conjugation/CM and principal IsChiField construction use the same native modulus and map. Ideal inertia/Frobenius and actual theta-family closure remain explicit. Next hosted verification pending.",
+    "Repair exact 07f5549 hosted feedback: both native and targeted reported 14 errors and 49 owned warnings. The 23-file source patch repairs 10 errors/48 warnings without changing declaration inventory or gates; the native host logarithm cast and graded point/generic determinant scope repairs address the remainder. Construct original raw host and its CoprimeFifteen/PsQ/Exact fields, integral quadratic elements, and genuine all-prime inertia/Frobenius correspondence to existing native hostData. Hosted compilation remains pending."
   ],
   "native_cost_payment_provenance": [
     {
@@ -2661,12 +2686,140 @@
     }
   ],
   "latest_hosted_feedback": {
-    "head": "e1fc20b0e946569b3b1d24680367de6b0516e03a",
-    "native_run_id": 45059668038,
-    "native_job_id": 137322546854,
-    "targeted_run_id": 45059667957,
-    "observed_owned_errors": 11,
-    "observed_owned_warnings": 86,
+    "head": "07f55498d6f93ae229ae4162be5a4fb0d5c4dcfd",
+    "native_run_id": 45061355465,
+    "native_job_id": 137327772625,
+    "targeted_run_id": 45061355484,
+    "targeted_job_id": 137327772809,
+    "observed_owned_errors": 14,
+    "observed_owned_warnings": 49,
     "status": "SOURCE_REPAIRED_NEXT_HOSTED_COMPILE_PENDING"
+  },
+  "native_raw_host_provenance": {
+    "status": "HOSTED_NATIVE_COMPILATION_PENDING",
+    "native_files": [
+      "RHLean/Analysis/AlpogeNativeQuadraticRoot.lean",
+      "RHLean/Analysis/AlpogeThin/NativeDyadicFrame.lean",
+      "RHLean/Analysis/AlpogeThin/NativeDyadicHostRaw.lean",
+      "RHLean/Analysis/AlpogeThin/NativeDyadicHostSideConditions.lean"
+    ],
+    "upstream_sources": [
+      {
+        "path": "src/Formalism/FrobeniusOrbits/FrobeniusOrbitsProofs/EqZeroOfNegEq.lean",
+        "sha256": "4f7fb8ac47f16ca59cf1c084c3923ef13d77609744ee6cf64e8dd2434b903e4f"
+      },
+      {
+        "path": "src/Formalism/SharpRestriction/RamificationFrobenius/TotientGaloisClasses/FrameCyclicGenerator.lean",
+        "sha256": "0a8a86d426ed6b8df1177f3c4a2a57a7ce17f2843b0388cd488973556371deaa"
+      },
+      {
+        "path": "src/Formalism/SharpRestriction/RamificationFrobenius/TotientGaloisClasses/ArtinMapSecondEqJacobiSym.lean",
+        "sha256": "8905239e529ac169f4fbfeb016dd570f744a78537ea3a2c07fe27143b02a4c9a"
+      },
+      {
+        "path": "src/Formalism/SharpRestriction/RamificationFrobenius/TotientGaloisClasses/InertiaGaloisSymmetry/OfChar.lean",
+        "sha256": "107de064195bb0f8cda2437d842161944cde4def5fbf2d6582bdf2ee66404b9d"
+      },
+      {
+        "path": "src/Formalism/SharpRestriction/RamificationFrobenius/TotientGaloisClasses/ConjEMemHostFIff.lean",
+        "sha256": "db32b7af86f38a66881c2345572c33156fdf027b2f0b2d6c64a6775f8e970647"
+      }
+    ],
+    "construction": [
+      "The actual class of 5 in the full native dyadic quotient has order 2^e; the source frame is a transported copy with index one.",
+      "The exact finite quadratic Gauss sum at zeta_N^(N/d) is fixed by the existing reciprocity kernel, giving sqrtD in the same native host field and its first-native-bit action.",
+      "The full-host equivalence explicitly changes native (d,q) bits into source (q,d) integer-unit signs.",
+      "The original HostRaw record is constructed from the same fixed field, frame, root, conductor and Artin map, including art_h/art_d/art_q and principal KerChi.",
+      "The same PageN and WinPair supply the arithmetic regime; no independent exponent-lower-bound, root or Artin-compatibility premise remains.",
+      "Prove original CoprimeFifteen and PsQ, and construct Exact using the actual unit 1+N/2 and its nontrivial dyadic class."
+    ],
+    "remaining": "HostDer discriminant and different fields, the actual CM moduli/theta-cover family, and complete physical top-excess payment remain to construct. Actual inertia/Frobenius and conjugation non-inertia are supplied by native_prime_ideal_provenance."
+  },
+  "native_integral_quadratic_provenance": {
+    "status": "HOSTED_NATIVE_COMPILATION_PENDING",
+    "native_files": [
+      "RHLean/Analysis/AlpogeNativeIntegralQuadraticRoot.lean"
+    ],
+    "upstream_sources": [
+      {
+        "path": "src/Formalism/FrobeniusOrbits/FrobeniusOrbitsProofs/Decomp.lean",
+        "sha256": "88ff2a5c66cad4a32e82a8697b1afc74973548612193e7187cbb134d557dbf38"
+      },
+      {
+        "path": "src/ReciprocityTheory/ReductiveGroups/ArithmeticGeometry/BirationalGeometry/ToroidalCompactification/TwoWeightEqOneAddRoot.lean",
+        "sha256": "3646386e9cd25287a50eb1ad82456c5b26316207741b8ed7298d46aa4f9d7826"
+      }
+    ],
+    "construction": [
+      "The canonical same-field Gauss root is integral; its half-root is integral by the explicit monic quadratic X^2-X+(d+1)/4.",
+      "The same actual cyclotomic conjugation gives the integral involution, its CM conjugation identity, and w0+bar(w0)=1."
+    ],
+    "remaining": "The native CM unramifiedness supplier is recorded separately below. Assembling the complete geometric Host with the same chosen complex signature is the next small integration step; the moduli remain unconstructed."
+  },
+  "native_prime_ideal_provenance": {
+    "status": "HOSTED_NATIVE_COMPILATION_PENDING",
+    "native_files": [
+      "RHLean/Analysis/AlpogeNativePrimeLift.lean",
+      "RHLean/Analysis/AlpogeNativeCyclotomicResidue.lean",
+      "RHLean/Analysis/AlpogeNativeHostPrimes.lean",
+      "RHLean/Analysis/AlpogeThin/NativeDyadicHostPrimes.lean",
+      "RHLean/Analysis/AlpogeNativePrimeDecomposition.lean",
+      "RHLean/Analysis/AlpogeThin/NativeDyadicHostDecomposition.lean"
+    ],
+    "upstream_sources": [
+      {
+        "path": "src/Formalism/SharpRestriction/RamificationFrobenius/TotientGaloisClasses/InertiaGaloisSymmetry/CycLift.lean",
+        "sha256": "e5766594a34a013dc5a055233e6cf41b705f2aedbbf4febc6a0d50ada4173490"
+      },
+      {
+        "path": "src/Formalism/SharpRestriction/RamificationFrobenius/TotientGaloisClasses/InertiaGaloisSymmetry/RootEqOfSubMem.lean",
+        "sha256": "34bc7d64d82a61d60ff96cdc743f1273e17a2b242fcaba5d5210319ad1b9fca7"
+      },
+      {
+        "path": "src/Formalism/SharpRestriction/RamificationFrobenius/TotientGaloisClasses/InertiaGaloisSymmetry/CycGrp.lean",
+        "sha256": "0c29b328d7be6db9601be665f6793c4814c76d263da48e09ed887b03a788bbfe"
+      },
+      {
+        "path": "src/Formalism/SharpRestriction/RamificationFrobenius/TotientGaloisClasses/InertiaGaloisSymmetry/CycBasic.lean",
+        "sha256": "5cc47b1f4efe246c59646bed22547d4d356d533ccb5e22b5b9ea71b5cb92b84d"
+      },
+      {
+        "path": "src/Formalism/FrobeniusOrbits/FrobeniusOrbitsProofs/Decomp.lean",
+        "sha256": "88ff2a5c66cad4a32e82a8697b1afc74973548612193e7187cbb134d557dbf38"
+      },
+      {
+        "path": "src/Formalism/SharpRestriction/RamificationFrobenius/TotientGaloisClasses/ConjEMemHostFIff.lean",
+        "sha256": "db32b7af86f38a66881c2345572c33156fdf027b2f0b2d6c64a6775f8e970647"
+      }
+    ],
+    "construction": [
+      "Choose actual upper primes and construct inertia lifts using prime transitivity and residue-automorphism surjectivity.",
+      "Prove exact prime-to-l residue order of the same integral cyclotomic root; derive actual inertia and arithmetic Frobenius at every prime, including ramified primes.",
+      "Identify the same fixed-field inertia with the literal pre-existing native hostData.inertia and its Frobenius coset with the original CRT representative.",
+      "Exclude actual conjugation from every finite inertia subgroup using at least one of the distinct q/d quadratic signs; transport to the exact original HostRaw signatures.",
+      "Prove every actual prime stabilizer acts on its finite residue field by a power of the SAME canonical Frobenius. Derive the exact original HostDer.decomp unit-power congruence, including ramified primes."
+    ],
+    "remaining": "This pays HostDer.inertia/frob_any/unramEF/decomp; the discriminant and different fields remain. The geometric Algebra.Unramified typeclass is now constructed separately below."
+  },
+  "native_cm_unramified_provenance": {
+    "status": "HOSTED_NATIVE_COMPILATION_PENDING",
+    "native_files": [
+      "RHLean/Analysis/AlpogeNativeCMUnramified.lean"
+    ],
+    "upstream_sources": [
+      {
+        "path": "src/Formalism/LocalToGlobal/ProjectiveLattices/UnramBridgeHolds.lean",
+        "sha256": "40c084035c2be4bc0dc7a9cee04630180d55c63d0ca4346f70679ed236e98b5c"
+      },
+      {
+        "path": "src/Formalism/LocalToGlobal/ProjectiveLattices/HalfOneAddSqrtNegIsIntegral.lean",
+        "sha256": "7e01749c88719a43459bd623783d0dd1078e229033a3ebf37b81a3dff6f7163e"
+      }
+    ],
+    "construction": [
+      "Use the actual all-prime conjugation non-inertia theorem to choose a separating algebraic integer at every maximal ideal.",
+      "The source quadratic minimal-polynomial derivative avoids the selected prime and belongs to the relative different, proving the exact Algebra.Unramified O(E^+) O(E) class.",
+      "Both fields are the original constructed native CM field and its actual maximal real subfield; no unramifiedness or different bound is assumed."
+    ]
   }
 }

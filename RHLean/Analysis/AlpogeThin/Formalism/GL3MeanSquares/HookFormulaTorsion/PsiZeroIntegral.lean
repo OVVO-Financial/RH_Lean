@@ -40,8 +40,6 @@ private lemma dom_integrableOn {a : ℝ} (ha : 1 < a) : IntegrableOn dom (Set.Io
     unfold dom
     first
       | (rw [neg_div, neg_neg, one_div, mul_inv, div_eq_mul_inv])
-      | (field_simp; done)
-      | (field_simp; ring)
   · intro x hx
     have hx1 : (1 : ℝ) < x := lt_trans ha hx
     unfold dom
@@ -236,7 +234,7 @@ private lemma zeta_logderiv_limit :
       (𝓝 (Real.eulerMascheroniConstant : ℂ)) := by
   obtain ⟨g, hg⟩ : ∃ g : ℂ → ℂ, g = Function.update (fun s => (s - 1) * riemannZeta s) 1 1 := ⟨_, rfl⟩
   have hgs : ∀ s : ℂ, s ≠ 1 → g s = (s - 1) * riemannZeta s := fun s hs => by
-    simp [hg, Function.update_apply, hs]
+    simp [hg, hs]
   have h1 : g 1 = 1 := by simp [hg]
   have hdiff : Differentiable ℂ g := by
     have hon : DifferentiableOn ℂ g (Set.univ \ {1}) := by
@@ -261,9 +259,7 @@ private lemma zeta_logderiv_limit :
       filter_upwards [self_mem_nhdsWithin] with s hs
       have hs1 : s - 1 ≠ 0 := sub_ne_zero.2 hs
       rw [slope_def_field, hgs s hs, h1]
-      first
-        | (field_simp; done)
-        | (field_simp; ring)
+      field_simp
     exact tendsto_nhds_unique h2 h3
   have hcd : ContinuousAt (deriv g) 1 := ((hdiff.analyticAt 1).deriv).continuousAt
   have hlim : Tendsto (fun s => deriv g s / g s) (𝓝[≠] 1) (𝓝 (Real.eulerMascheroniConstant : ℂ)) := by
@@ -423,7 +419,6 @@ private theorem logDerivSeries_main : Formalism.HermitianLattices.GL2a2.LogDeriv
     rw [← neg_div, ← hI, zero_sub, ← integral_neg]
     refine setIntegral_congr_fun measurableSet_Ioi (fun t ht => ?_)
     have ht0 : t ≠ 0 := (show (0 : ℝ) < t from lt_trans one_pos ht).ne'
-    beta_reduce
     rw [hdf t ht0, sum_Icc_zero hc0, show -(((1 : ℝ) : ℂ) + 1) = -((2 : ℕ) : ℂ) by norm_num,
       Complex.cpow_neg, Complex.cpow_natCast]
     simp only [rem, zero_mul, sub_zero]
@@ -431,7 +426,6 @@ private theorem logDerivSeries_main : Formalism.HermitianLattices.GL2a2.LogDeriv
     ring
   rw [hval] at hT
   refine hT.congr (fun N => ?_)
-  beta_reduce
   rw [sum_Icc_zero (b := fun k : ℕ => ((((k : ℝ))⁻¹ : ℝ) : ℂ) * (((Λ k : ℝ) : ℂ) * χ (k : ZMod q)))
     (by simp) N]
   refine Finset.sum_congr rfl (fun k _ => ?_)
@@ -444,7 +438,6 @@ private theorem psiZeroConst_main : Formalism.HermitianLattices.GL2a2.PsiZeroCon
   have hone : ∀ n : ℕ, (1 : DirichletCharacter ℂ 1) (n : ZMod 1) = 1 := fun n => by
     first
       | exact MulChar.one_apply (isUnit_of_subsingleton _)
-      | simp
   have h : RemBound (fun n : ℕ => ((Λ n : ℝ) : ℂ)) 1 := by
     have h0 := sw_bound 1 (1 : DirichletCharacter ℂ 1)
     rw [ite_eq_left rfl] at h0
@@ -465,7 +458,6 @@ private theorem psiZeroConst_main : Formalism.HermitianLattices.GL2a2.PsiZeroCon
     have hsum : LSeriesSummable (fun n : ℕ => ((Λ n : ℝ) : ℂ)) σ := by
       first
         | exact ArithmeticFunction.LSeriesSummable_vonMangoldt hre
-        | exact LSeriesSummable_vonMangoldt hre
     have hL := LSeries_eq_mul_integral (fun n : ℕ => ((Λ n : ℝ) : ℂ)) zero_le_one hre hsum (rem_bigO h)
     have key : LSeries (fun n : ℕ => ((Λ n : ℝ) : ℂ)) σ = -deriv riemannZeta σ / riemannZeta σ :=
       LSeries_vonMangoldt_eq_deriv_riemannZeta_div hre
@@ -530,7 +522,6 @@ private theorem psiZeroConst_main : Formalism.HermitianLattices.GL2a2.PsiZeroCon
         = ((∫ u in Set.Ioi (1 : ℝ), (Formalism.HermitianLattices.GL2PrimeSums.psumR (fun n => Λ n) u - u) / u ^ 2 : ℝ) : ℂ) := by
       first
         | exact integral_complex_ofReal
-        | exact integral_ofReal
     rw [← e0, e1, hlim]
     push_cast
     ring

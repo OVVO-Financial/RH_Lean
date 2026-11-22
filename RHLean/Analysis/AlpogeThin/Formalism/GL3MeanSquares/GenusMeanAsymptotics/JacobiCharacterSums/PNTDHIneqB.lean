@@ -28,7 +28,6 @@ theorem dhReBound (A P S : ℂ) (E : ℝ) (h : ‖A - P + S‖ ≤ E) : S.re ≤
   have h1 : (A - P + S).re ≤ ‖A - P + S‖ := by
     first
       | exact Complex.re_le_norm _
-      | exact Complex.re_le_abs _
   simp only [Complex.add_re, Complex.sub_re] at h1
   linarith
 

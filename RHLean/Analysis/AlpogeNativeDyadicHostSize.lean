@@ -61,7 +61,7 @@ theorem alpogeNativeHostN_log (e q d : ℕ) (hq : 0 < q) (hd : 0 < d) :
   have hq0 : (q : ℝ) ≠ 0 := by exact_mod_cast hq.ne'
   have hd0 : (d : ℝ) ≠ 0 := by exact_mod_cast hd.ne'
   have h20 : (2 : ℝ) ^ (e + 2) ≠ 0 := pow_ne_zero _ (by norm_num)
-  simp only [alpogeNativeHostN, Nat.cast_mul, Nat.cast_pow]
+  simp only [alpogeNativeHostN, Nat.cast_mul, Nat.cast_pow, Nat.cast_ofNat]
   rw [Real.log_mul (mul_ne_zero h20 hq0) hd0,
     Real.log_mul h20 hq0, Real.log_pow]
   push_cast

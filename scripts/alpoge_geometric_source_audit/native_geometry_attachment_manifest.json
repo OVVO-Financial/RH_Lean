@@ -2,7 +2,7 @@
   "schema_version": 1,
   "upstream_repository": "https://github.com/CocoSgt/riemann-hypothesis-lean",
   "upstream_commit": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
-  "scope": "Native reconstruction of jet order, graded regularity, constructed integral sections, and their Petersson multiplication/all-place descent. Actual theta/cover atlas, compatible geometric datum, ranks and physical top-excess payment remain uninstantiated.",
+  "scope": "Native reconstruction of jet order, reduced test-rule section algebras, atlas-to-faithfulness and homogeneous specialization, constructed integral sections, Petersson/all-place descent, and actual integral harmonic polynomials with all-embedding coefficient bounds. Actual CM moduli/atlas, theta short spanning family and cover, compatible geometric datum, ranks and physical top-excess payment remain uninstantiated.",
   "native_ports": [
     {
       "native_path": "RHLean/Geometry/NativeJetRankBudget.lean",
@@ -62,7 +62,7 @@
     },
     {
       "native_path": "RHLean/Geometry/NativeGradedCharacterSlopeDescent.lean",
-      "native_sha256": "dcf8156c4b1502c05f0382925b28df7c4fd83cd879c90b87528014163dd8e59e",
+      "native_sha256": "cf07c741368f840304157ee2c1f0ee6bbfb8ab9119b3b8329019b2f043844ff9",
       "declarations": [
         "RHLean.Geometry.nativeGradedSection_groupDet_generic_nonzero_of_component_points",
         "RHLean.Geometry.nativeAllPlaceDescent_of_graded_component_section"
@@ -130,6 +130,132 @@
       ],
       "status": "HOSTED_NATIVE_COMPILATION_PENDING",
       "construction": "Derive the literal finite section cost from the separate original degree, discriminant, rank, theta-span, Hodge-weight, comparison and translation-group scales. The all-place consumer uses this result directly; actual cover coefficient-field scale suppliers remain explicit."
+    },
+    {
+      "native_path": "RHLean/Geometry/NativeGenericFrameFaithfulness.lean",
+      "native_sha256": "ecd37a1179b4bbe2e247478a952b1d0c65bd030b7add964a242630d7c442d478",
+      "declarations": [
+        "RHLean.Geometry.NativeFramedRules.secZ_eq_zero_of_generic",
+        "RHLean.Geometry.NativeFramedRules.section_regular_of_atlas"
+      ],
+      "upstream_sources": [
+        {
+          "path": "src/Formalism/LocalToGlobal/ProjectiveLattices/AlgebraMapCAt.lean",
+          "sha256": "9bd5d736d09e07e1ae9f6f40433f7825208226cd2e1f455ce1f49c6ff02c9ac4"
+        },
+        {
+          "path": "src/Formalism/LocalToGlobal/ProjectiveLattices/AllTest.lean",
+          "sha256": "1493a4431d2eaf73419351d41a79942b8a10c177869e6652e68359ff9eb87bc9"
+        },
+        {
+          "path": "src/Development/AbelianVarietyTheory/Definitions/Foundations/IsProbabilityMeasureMuPart.lean",
+          "sha256": "3951bad4542aa62738d56c1f31d93348ca8578bffc940aaafba74e395973645d"
+        },
+        {
+          "path": "src/Development/AbelianVarietyTheory/Definitions/RegularCharts/Reframe.lean",
+          "sha256": "8b65ba5f8dc954a06ea3121fe3c59cef8034b28e568e18655e5e6d8c80a8c522"
+        },
+        {
+          "path": "src/Development/AbelianVarietyTheory/Proofs/DivisorProofs/SecZEqZeroOfGenVal.lean",
+          "sha256": "e61a1de0c49252c6b77b242bfcaf7f464d8cd4e58ed8a843cb9d36b423c32085"
+        }
+      ],
+      "status": "HOSTED_NATIVE_COMPILATION_PENDING",
+      "construction": "Construct the actual dependent rule ring and integer-weight spaces from reduced finite-type polynomial test rings. Derive homogeneous faithfulness using the original subalgebra charts and Jacobson reduction. Preserve the source AllTest restriction to reduced rings. Actual geometric points, evaluation/base-change laws and atlas remain to construct."
+    },
+    {
+      "native_path": "RHLean/Geometry/NativeFramedShortSectionConstruction.lean",
+      "native_sha256": "a32f1b2fe682b9526236ea3b5d73a0bbea49a41578d88824f8c4870746c46e02",
+      "declarations": [
+        "RHLean.Geometry.nativeComponentFramedEvaluation_eq_zero",
+        "RHLean.Geometry.nativeExists_framed_short_integral_injective_section"
+      ],
+      "upstream_sources": [
+        {
+          "path": "src/Development/AbelianVarietyTheory/Proofs/DivisorProofs/SecZEqZeroOfGenVal.lean",
+          "sha256": "e61a1de0c49252c6b77b242bfcaf7f464d8cd4e58ed8a843cb9d36b423c32085"
+        },
+        {
+          "path": "src/Development/AbelianVarietyTheory/Proofs/DivisorProofs/IntegerExponentSectionMulEqZeroImpEqZero.lean",
+          "sha256": "0af5b6a9ebe78fb6afc73d742e234ace14c614363cebb14a8721d534be189740"
+        },
+        {
+          "path": "src/Development/AbelianVarietyTheory/Proofs/DivisorProofs/CardLeOfDetEqZero.lean",
+          "sha256": "a03d646e53cc2bdc8bdaf0da14f0c8f6fd42a11fa225f5c20228b483994bb3f3"
+        }
+      ],
+      "status": "HOSTED_NATIVE_COMPILATION_PENDING",
+      "construction": "Apply the same actual reduced-rule atlas to the integral short-section constructor. Component point evaluation is coefficient-linear evaluation at the chosen framed point; its own chart derives specialization. Free hfaithful/hspecialize/hweight premises are removed, retaining the exact finite lattice norm, determinant and trace-injection conclusions. The actual theta short spans, moduli/atlas, translations and component data remain explicit."
+    },
+    {
+      "native_path": "RHLean/Geometry/NativeThetaPolynomialNorm.lean",
+      "native_sha256": "8c6e2e4730e517c46bc3b58a6ea9bdf68540ea32e0affcb4a8538c4672ca0fa4",
+      "declarations": [
+        "RHLean.Geometry.NativeTheta.CoeffNorm.allEmbeddingNorm_le_of_l1Bound"
+      ],
+      "upstream_sources": [
+        {
+          "path": "src/Development/AbelianVarietyTheory/Definitions/ThetaMetrics/SumFinsuppAntidiagProdPowDivMultiFactorial.lean",
+          "sha256": "d1db6c58d1525772387a7b11545d341c601386a154296c2a0c0eaae7b688c98e"
+        },
+        {
+          "path": "src/Development/AbelianVarietyTheory/Proofs/DivisorProofs/PolynomialCoefficientEmbeddingNormLeOfL1Bound.lean",
+          "sha256": "54af8da355e9aeeca64ea019d1597966c0a2476d26f5495461625769d6476254"
+        }
+      ],
+      "status": "HOSTED_NATIVE_COMPILATION_PENDING",
+      "construction": "Reconstruct finite coefficient l1 sum/product/power/determinant bounds and derive the joint all-embedding norm, retaining the exact sqrt([K:Q]) factor and independent coefficient field."
+    },
+    {
+      "native_path": "RHLean/Geometry/NativeThetaHarmonicPolynomials.lean",
+      "native_sha256": "31ae08921a70eb7c0a3cbb2f55d1f54f3d1108d27924168d4a1ddb426b274b76",
+      "declarations": [
+        "RHLean.Geometry.NativeTheta.exists_short_integral_harmonic_of_signature"
+      ],
+      "upstream_sources": [
+        {
+          "path": "src/Formalism/LocalToGlobal/ProjectiveLattices/RowDeg.lean",
+          "sha256": "5bfd910715a5fb61ac23df068f6e10106fa14c042cb3810fc1fc04003150ba9f"
+        },
+        {
+          "path": "src/Development/AbelianVarietyTheory/Proofs/JetHarmonics/MinorsDisjointColumnsHarmonic.lean",
+          "sha256": "b86ef4370344745ba21df7919d270373114bc29e63a46dcf0d0c63bc594ad006"
+        },
+        {
+          "path": "src/Development/AbelianVarietyTheory/Proofs/UnitaryExistence/ExistsLastEntryPosNotLastPos.lean",
+          "sha256": "eaaf4909fcca2ee3f07bfc0ef4ccc0748e596c92b2fd7e63b00bea68c47ba555"
+        },
+        {
+          "path": "src/Development/AbelianVarietyTheory/Proofs/CuspFormEvaluations/ExistsBlockProductMemIntegralHarmonic.lean",
+          "sha256": "835f2f3e9a25502c52e0c4f82023772bbb1377b3b1d67b94773576a42a58428c"
+        },
+        {
+          "path": "src/Development/AbelianVarietyTheory/Proofs/CuspFormEvaluations/ExistsIntegralHarmonicNeZeroAndIsHomogeneous.lean",
+          "sha256": "03173bdbf4f51bf67edf4e9b0da75bb4d83d22816ab023dff7293526f19dba7c"
+        }
+      ],
+      "status": "HOSTED_NATIVE_COMPILATION_PENDING",
+      "construction": "Construct literal products of leading minors with integral coefficients, nonzero identity-matrix evaluation, mixed-Laplacian harmonicity, lower-row invariance, prescribed row degree and total degree. Prove the source coefficient bound in the exact p+q<=n regime."
+    },
+    {
+      "native_path": "RHLean/Geometry/NativeHostThetaPolynomial.lean",
+      "native_sha256": "99b8788a2253d00db2857d41e96ba20e8da829230faed6726778caae2adff00f",
+      "declarations": [
+        "RHLean.Geometry.nativeDyadicThetaPositive_conjugate_not",
+        "RHLean.Geometry.nativeExists_host_short_integral_harmonic_polynomial"
+      ],
+      "upstream_sources": [
+        {
+          "path": "src/Development/AbelianVarietyTheory/Proofs/UnitaryExistence/ExistsLastEntryPosNotLastPos.lean",
+          "sha256": "eaaf4909fcca2ee3f07bfc0ef4ccc0748e596c92b2fd7e63b00bea68c47ba555"
+        },
+        {
+          "path": "src/Development/AbelianVarietyTheory/Proofs/CuspFormEvaluations/ExistsBlockProductMemIntegralHarmonic.lean",
+          "sha256": "835f2f3e9a25502c52e0c4f82023772bbb1377b3b1d67b94773576a42a58428c"
+        }
+      ],
+      "status": "HOSTED_NATIVE_COMPILATION_PENDING",
+      "construction": "Use the actual same-field Gauss root to separate conjugate embedding rows and instantiate the nonzero integral harmonic polynomial with its exact degree and all-embedding bound over independent K. This is one genuine polynomial, not yet the theta evaluation or a short spanning family."
     }
   ],
   "source_inspected_remaining_suppliers": [

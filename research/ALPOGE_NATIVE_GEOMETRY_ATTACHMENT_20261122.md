@@ -423,13 +423,190 @@ and primitive root. The fixed-subgroup criterion is exactly
 \]
 
 This is the original `CharData`/`CycBasic` mechanism reconstructed over the
-existing RH_Lean residue map. It does not assert that ideal-theoretic inertia
-and Frobenius already equal the finite modular-unit data, or that the CM
-abelian variety and its theta lattices have been constructed. The original
-cohomological `VAt` window estimate is also not a consequence of the field
-identification alone.
+existing RH_Lean residue map. Section 14 proves the additional ideal-theoretic
+inertia and Frobenius correspondences on that same field. The CM abelian
+variety and its theta lattices remain to construct; the original cohomological
+`VAt` window estimate is not a consequence of field identification alone.
 
-## 12. Exact remaining construction obligation
+## 12. Construct the original raw host on that same field
+
+`NativeDyadicFrame.lean` uses the literal class of the residue unit `5` in
+`H_e`. Its order is `2^e`: the pinned Mathlib theorem gives that order before
+taking the quotient by signs, and reduction modulo four proves that no power
+of `5` is `-1`. Transport through a finite equivalence constructs the original
+`Formalism.HC.Frame` with
+
+\[
+ \mathrm{ord}=\mathrm{n0}=2^e,\qquad A_0=A,\qquad o=1.
+\]
+
+The generator is the source generator, not an arbitrary element satisfying
+only the frame's weak projection interface. The full-host equivalence
+explicitly sends native `(d-bit,q-bit,h)` to source `(q-sign,d-sign,h)`.
+
+`AlpogeNativeQuadraticRoot.lean` constructs the finite quadratic Gauss sum
+at `zeta_N^(N/d)` in the actual cyclotomic field. The primitive-root square
+identity proves its square is `-d`; the multiplicative-shift identity proves
+its Galois action. The existing reciprocity kernel fixes it, so it descends
+to a named `alpogeNativeSqrtD` in the **same** native fixed field. Its action
+is exactly the first native sign bit, hence the source's `chD` after the
+explicit coordinate conversion. No square-root or action witness is a premise.
+
+`nativeDyadicHostRaw` constructs every field of the original `HostRaw`
+record from these objects and the original arithmetic `HostHyp`. In
+particular, `art_h`, `art_d` and `art_q` are proved from actual residue
+congruences. The conductor, embedding, primitive root, Galois equivalence
+and square root are the same data used in the native arithmetic comparison.
+The source's principal `KerChi` and `IsChiField` predicates are proved for
+this exact raw host.
+
+The selected `WinPair` supplies `HostHyp`, including the quadratic splitting
+condition from `q | d+1`. For `eps > 0` and `x >= 2`, the already-constructed
+`PageN` inequality gives `4 <= 2^e` and therefore `2 <= e`.
+`nativeDyadicHostRaw_of_pageN_winPair` consequently has no separate
+exponent-lower-bound, field, square-root, or Artin-compatibility premise.
+
+`NativeDyadicHostSideConditions.lean` proves the original `CoprimeFifteen`
+and `PsQ` predicates on this raw host. It also constructs the `Exact` witness:
+the actual residue unit `1+N/2` is one modulo `N/2` and its dyadic class is
+neither `1` nor `-1`. Its unit property and both exclusions are proved from
+the same odd prime pair and exponent. No Artin nontriviality premise is added.
+
+`AlpogeNativeIntegralQuadraticRoot.lean` supplies the integral elements for
+the geometric host. The canonical root gives `rt` in the actual ring of
+integers, and `w0=(1+rt)/2` is integral because it satisfies the explicit
+monic polynomial `X^2-X+(d+1)/4`. The same actual conjugation gives `bar`,
+with `bar(rt)=-rt`, `bar(w0)=1-w0` and `w0+bar(w0)=1`.
+Section 14 supplies the geometric host's relative unramified typeclass from
+the actual finite-prime calculation.
+
+The stronger `HostDer` record includes genuine prime-ideal, decomposition,
+discriminant and different statements. Section 14 supplies its actual
+inertia, Frobenius, decomposition and conjugation non-inertia fields.
+The discriminant and different fields remain a separate construction task.
+
+## 13. Derive section faithfulness from the original reduced-test atlas
+
+`NativeGenericFrameFaithfulness.lean` now constructs the source's test rings
+and actual rule ring:
+
+\[
+ p=(n,I,\ I\text{ radical}),\qquad
+ R_p=K[X_1,\ldots,X_n]/I,\qquad
+ \mathrm{Rules}=\prod_p(\mathrm{pts}(R_p)\to R_p).
+\]
+
+The integer-weight section spaces consist of natural rules satisfying the
+original torus transformation law. Their product law and unit construct
+the graded section algebra used by the determinant argument. Evaluation at
+a tested point is an actual coefficient-linear algebra homomorphism.
+
+The source's field-point atlas now proves homogeneous faithfulness. A chart
+has a subalgebra of its component's generic field and actual base-change
+and torus relations. Generic vanishing gives zero in that subalgebra, hence
+zero at every field point reached by the chart. Applying the complete
+atlas to the maximal-ideal residue fields of each test ring, the Jacobson
+property and the radical ideal condition give zero in every original test
+ring. This proves `secZ_eq_zero_of_generic`; faithfulness is not assumed.
+The `AllTest` input retains the source's exact restriction to **reduced**
+rings, rather than requiring the stronger and unused statement for arbitrary
+rings.
+
+`NativeFramedShortSectionConstruction.lean` connects this proof to the
+existing short integral section constructor. Component evaluations are
+actual evaluations at the chosen framed points. Each such point retains
+its own chart and component identity, so homogeneous specialization comes
+from the same chart. The constructor derives the former `hweight`,
+`hfaithful` and `hspecialize` inputs, then supplies the resulting regular
+determinant and joint trace injection for the SAME chosen integral `u`,
+with the exact previous norm and rank constants.
+
+The original CM moduli, framed points, evaluation/base-change laws, and
+covering atlas have not yet been constructed natively. The new proof closes
+the atlas-to-faithfulness implication on the actual source rule algebra;
+it does not substitute a model family for those geometric objects. Actual
+short theta spans, translations and component/orbit data also remain
+explicit inputs. All these new proof reconstructions await hosted Lean
+verification.
+
+## 14. Identify actual inertia and every arithmetic Frobenius coset
+
+`AlpogeNativePrimeLift.lean` chooses actual prime ideals in a number-field
+tower. It constructs an inertia lift by first fixing the chosen upper prime
+and then correcting its residue-field action. Arithmetic Frobenius descends
+along the same tower. These are ideal-theoretic statements, with no assumed
+identification between actual inertia and a finite modular subgroup.
+
+`AlpogeNativeCyclotomicResidue.lean` proves that the prime-to-`l` part of
+the actual integral cyclotomic root retains its exact order modulo every
+prime above `l`. It uses that root to generate the ring of integers, giving
+the actual inertia criterion and arithmetic Frobenius from residue-unit
+congruences. This includes primes dividing the conductor.
+
+`AlpogeNativeHostPrimes.lean` applies those results to the SAME native kernel
+fixed field. It identifies actual inertia with the literal pre-existing
+`alpogeNativeHostData.inertia l`, proves that the original CRT Frobenius
+representative is an arithmetic Frobenius, and identifies every such lift
+with its complete inertia coset. Ramified primes are retained. Conjugation
+is excluded from every finite inertia group because at least one of the two
+distinct quadratic characters is unramified at that prime.
+
+`NativeDyadicHostPrimes.lean` transports these results through the explicit
+native `(d,q)` to source `(q,d)` equivalence. The theorems have the exact
+original `HostDer.inertia`, `HostDer.frob_any` and `HostDer.unramEF`
+signatures on the already constructed `nativeDyadicHostRaw`. No replacement
+field or independent prime-ideal compatibility witness is introduced.
+
+`AlpogeNativePrimeDecomposition.lean` proves that a prime stabilizer acts on
+its actual finite residue field by a power of this same Frobenius. The
+remaining factor is in actual inertia. This derives the original unit-power
+congruence and `NativeDyadicHostDecomposition.lean` supplies the exact
+`HostDer.decomp` field, again including ramified primes.
+
+`unramEF` is the original assertion that conjugation is not in any nonzero
+prime's inertia group. `AlpogeNativeCMUnramified.lean` now promotes it to
+the geometric typeclass `Algebra.Unramified O(E⁺) O(E)`. At each maximal
+ideal, the proved non-inertia supplies an integral element separated from
+its conjugate. That element generates the quadratic extension; its
+minimal-polynomial derivative belongs to the relative different and avoids
+the chosen prime. The original local-to-global argument consequently
+proves the full unramifiedness class on the same CM field and its actual
+maximal real subfield. Neither an unramifiedness premise nor a bound on the
+different is assumed. The discriminant and different fields of `HostDer`
+still require their separate source suppliers.
+
+## 15. Construct an actual integral harmonic theta polynomial
+
+`NativeThetaHarmonicPolynomials.lean` constructs products of leading minors
+in the original row/column variables. Evaluation on an identity matrix
+proves that the polynomial is nonzero. Integer coefficients prove its
+integrality. Disjoint columns for conjugate rows make every mixed Laplacian
+zero; lower-row additions preserve the minors. Telescoping the adjacent
+dominant weights proves the prescribed row degrees and exact total degree.
+
+The construction retains the original range `pplus+pminus <= n`. It does
+not require disjoint columns for every pair of embedding rows. For total
+degree `D`, its coefficient sum at each embedding is at most
+`(pplus+pminus)^D`. `NativeThetaPolynomialNorm.lean` derives the full
+all-embedding bound
+
+\[
+ \|P\|_{\mathrm{all\ embeddings}}
+ \le \sqrt{[K:\mathbb Q]}\,(p_++p_-)^D.
+\]
+
+`NativeHostThetaPolynomial.lean` instantiates the signature using the SAME
+canonical Gauss root of the actual native host. The equation `rt^2=-d`
+separates conjugate embedding rows. The coefficient field `K` remains
+independent, so the later application can use the original `Y.d.c₂.F`
+without an unjustified identification with the arithmetic field `E`.
+
+This constructs one genuine nonzero integral harmonic polynomial with all
+its degree and coefficient estimates. The full finite harmonic spanning
+family, geometric theta evaluation, canonical connection, theta density,
+short cusp-section spans and cover still require their supplying proofs.
+
+## 16. Exact remaining construction obligation
 
 The reconstructed arithmetic comparison pays the cutoff, derived divisor,
 width movement, complete thin return and the three nonprincipal thick
@@ -437,8 +614,8 @@ characters. It does not yet supply an upper bound for the literal physical
 `alpogeNativePhysicalSubgroupTopExcess`, nor does it construct a theta-cover
 family whose actual heights and widths satisfy all the stated scale conditions.
 
-The next geometric suppliers remain the actual generic-frame atlas and
-homogeneous faithfulness, the short theta spanning family and its separate
+The next geometric suppliers remain the actual CM moduli, its framed-point
+atlas and evaluation laws, the short theta spanning family and its separate
 degree/discriminant/rank/theta size estimates, component jet upper ranks and lower shares, and the
 resulting slope/covolume comparison with the complete physical ASK-MAIN source.
 The Petersson multiplication mechanism is now derived on the constructed

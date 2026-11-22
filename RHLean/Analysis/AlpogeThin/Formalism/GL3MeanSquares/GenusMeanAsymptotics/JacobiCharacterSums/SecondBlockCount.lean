@@ -138,8 +138,7 @@ theorem zero_count_second : Count1 := by
     · calc 2 * (pYd M T * 2 ^ j) = qd M T ^ 3 * 2 ^ (j + 1) := by unfold pYd; ring
         _ ≤ qd M T ^ 3 * 2 ^ pJd M T := by
             gcongr
-            · norm_num
-            · omega
+            exact hjJ
         _ ≤ _ := hYN
     · intro p hp
       obtain ⟨-, h2, h3, h4, -⟩ := hS p (mem_filter.1 hp).1

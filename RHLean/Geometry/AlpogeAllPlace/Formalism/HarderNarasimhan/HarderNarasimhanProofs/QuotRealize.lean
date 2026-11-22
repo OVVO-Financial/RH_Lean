@@ -350,6 +350,7 @@ theorem sub_mem_of_lift (hc : ∀ k, U.mkQ (c k) = b'' k) (x : V) :
   exact (b''.sum_repr (U.mkQ x)).symm
 
 omit [DecidableEq κ] in
+omit [StarRing K] [IsTotallyComplex K] [Module (𝓞 K) V] [IsScalarTower (𝓞 K) K V] in
 theorem proj_eq_tv (hc : ∀ k, U.mkQ (c k) = b'' k) (v : InfinitePlace K) (x : V) :
     (pv b X U v)ᗮ.starProjection (WithLp.toLp 2 (RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.fcoord b X v x)) =
       tv b X U c v (fun k => v.embedding (b''.repr (U.mkQ x) k)) := by
@@ -370,6 +371,7 @@ theorem proj_eq_tv (hc : ∀ k, U.mkQ (c k) = b'' k) (v : InfinitePlace K) (x : 
   refine Finset.sum_congr rfl fun k _ => ?_
   rw [map_smul, hL]
 
+omit [DecidableEq κ] in
 theorem tv_injective (hX : ∀ v, IsUnit (X v).det) (hc : ∀ k, U.mkQ (c k) = b'' k)
     (v : InfinitePlace K) : Function.Injective (tv b X U c v) := by
   have : FiniteDimensional K V := Module.Finite.of_basis b

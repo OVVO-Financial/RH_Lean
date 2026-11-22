@@ -278,6 +278,7 @@ lemma mellin_chebyshev_character {w : ℂ} (hw : 1 < w.re) :
     have hx1 : x ≤ 1 := not_lt.mp hx.2
     simp [chebyshev_character_eq_zero_of_le_one χ hx1]
 
+omit [NeZero q] in
 lemma mellin_convergent_chebyshev_character {σ₀ : ℝ} (hσ : 1 < σ₀) :
     MellinConvergent (fun x : ℝ => Schi χ x) ((-σ₀ : ℝ) : ℂ) := by
   unfold MellinConvergent

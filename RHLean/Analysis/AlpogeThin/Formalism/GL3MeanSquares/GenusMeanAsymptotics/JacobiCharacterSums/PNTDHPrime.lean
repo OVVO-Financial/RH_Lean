@@ -73,7 +73,7 @@ lemma dhpr_partial {M : ℕ} [NeZero M] (χ₁ : DirichletCharacter ℂ M) (h1 :
 lemma dhpr_arith (k : ℕ) {CT CD CH C A ℓ lam η F E M v0 : ℝ}
     (hCT : 0 ≤ CT) (hCD : 0 ≤ CD) (hCH : 0 ≤ CH)
     (hC1 : 30 * CD ≤ C) (hC2 : 18 * CT + 9 ≤ C) (hC3 : 110 * CH ≤ C)
-    (hM0 : 0 < M) (hℓ1 : 1 ≤ ℓ) (hv00 : 0 ≤ v0) (hv0ℓ : v0 ≤ 9 * ℓ) (hA0 : 0 ≤ A)
+    (hM0 : 0 < M) (hℓ1 : 1 ≤ ℓ) (hv00 : 0 ≤ v0) (hv0ℓ : v0 ≤ 9 * ℓ) (_hA0 : 0 ≤ A)
     (hA : A ≤ CD * ℓ ^ 2 * lam) (hlam : 0 < lam) (hη : 0 < η) (hF : 0 < F) (hE0 : 0 ≤ E)
     (hexp : E ≤ 1 / M ^ 2) :
     2 * CT * v0 ^ (k + 1) +
