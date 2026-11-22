@@ -1,0 +1,8 @@
+
+## Square-window opening | CENSUS-20261122T000001Z-SQWIN-OPEN
+
+Scheduled November 21, 2026, 19:00:01 EST (November 22 00:00:01 UTC); RUN_ID_UNAVAILABLE. Main `a983e08d17c858af3c57260825f5defaf9cd922b`, AGENTS `b9bfe9b60904f87b698628f8b771d476c19e933e`, contract `f4fe93c4b609d07061ac9aa7d2dd0b7371e73f3c`, native square source `2fabf42ca73f934096cec5f3da4824fbf69ba906`; reports intake `20acbe7784b6a8a1f0cdc414322430031d14433e`. PARTIAL; no new estimate yet.
+
+The Coordinator requests an actual anchored width family. No same-pair native lattice with measured widths and paid height is identified in the inspected sources; do not manufacture one. New within-campaign test prompted by #1178: does the compact window survive on the literal square endpoints A=R^2-1, B=4R^2-1, C=16R^2-1? Compare -G(C)+5G(B)-4G(A) to a separately enumerated, signed, all-prime-power window. Test ordinary-prime versus all-power signs from R=2, square and higher-power bias, strict endpoints, and whether a one-sided local inequality returns an upper bound for G on every integer. Challenge unchecked dyadic boundary modes and odd roots. Use exact rational log coefficients on a fixed small range; separate holdout diagnostics, paper arguments, and global costs. Preserve the earlier ORBIT and immutable MATCH sections. The native geometric estimate and RH stay open.
+
+Intended canonical `research/agent_reports/2026-11-21/40-prime-census.md` on `agent-reports`; old 17,631 bytes verified at `a9409717836541bdae4c58315fb921dce561fff2`. A proposed new blob failed the pre-commit byte check; it was never attached to the branch. This opening is a create-only owned recovery checkpoint, not a canonical change. Resume with exact maps on 2<=R<=32, then hold out 33<=R<=512 and fixed larger anchors.
