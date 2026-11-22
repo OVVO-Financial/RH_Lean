@@ -426,3 +426,15 @@ theorem alpogeNativeChebyshevAdditiveWheel_noncrossing
   exact nativePNTError_succ_eq m
 
 end RHLean.Analysis
+
+/-! ## Explicit kernel axiom audit: expected only standard Lean axioms. -/
+#print axioms RHLean.Analysis.alpogeNativeForwardJet_error_two
+#print axioms RHLean.Analysis.alpogeNativeForwardJet_error_high
+#print axioms RHLean.Analysis.alpogeNativeForwardJet_abs_le_exp
+#print axioms RHLean.Analysis.alpogeSquareRootArithmeticJet_sharp
+#print axioms RHLean.Analysis.alpogeNativePrimeSevenDifference_not_divisible
+#print axioms RHLean.Analysis.alpogeNativeFreshPrime_product_commutator
+#print axioms RHLean.Analysis.alpogeNativeLiteralASK_freshPrime_characterDefect
+#print axioms RHLean.Analysis.alpogeNativeFloorPrimeFiber_card
+#print axioms RHLean.Analysis.alpogeNativeAdditiveWheel_noncrossing
+#print axioms RHLean.Analysis.alpogeNativeChebyshevAdditiveWheel_noncrossing
