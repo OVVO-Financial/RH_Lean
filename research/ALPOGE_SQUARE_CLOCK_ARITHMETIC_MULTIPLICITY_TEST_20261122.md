@@ -31,7 +31,7 @@ difference is only an algebraic candidate.
 
 Let Delta f(n)=f(n+1)-f(n), and define J_R(f)=Delta^R f(X_R).
 These are actual integer-clock differences on a root-length set of
-R+1 sites, entirely inside the next square interval.
+R+1 sites: the old endpoint X_R followed by R sites in the next square interval.
 
 The new Lean module
 RHLean/Analysis/AlpogeSquareRootArithmeticMultiplicity.lean
@@ -195,3 +195,55 @@ This strengthens the conclusion: the open geometric supplier is
 not merely "character Fourier covariance" but a **signed
 quotient-column/character/covolume estimate**.
 
+
+## 6. Direct mixed square-clock / prime-wheel test (ACTUAL Chebyshev input)
+
+This is the most source-specific translation obtained in the attempt.
+Write A f(n)=f(n+1)-f(n) and P_p f(n)=f(n)-f(floor(n/p)).
+Both operators are exactly present in the native RH_Lean arithmetic,
+but their commutator is NOT zero:
+
+    A(P_p f)(n)-P_p(A f)(n)
+       = f(floor(n/p)+1)-f(floor((n+1)/p)).          (M1)
+
+The fresh-prime floor-fibre theorem makes this completely explicit.
+For every p>=2, m>=0 and 0<=r<p-1, at n=p*m+r,
+
+    floor(n/p)=floor((n+1)/p)=m,
+
+so the mixed commutator is exactly
+
+    A(P_p f)(p*m+r)-P_p(A f)(p*m+r)
+       = f(m+1)-f(m).                              (M2)
+
+When the ACTUAL original Chebyshev source f=E=psi-x is inserted,
+
+    A(P_p E)(p*m+r)-P_p(A E)(p*m+r)
+       = Lambda(m+1)-1.                            (M3)
+
+M1-M3 are theorems in
+RHLean/Analysis/AlpogeSquareRootArithmeticMultiplicity.lean,
+with no RH hypothesis and no truncation of prime powers.
+
+This is a precise mathematical reason why an R-indexed additive
+difference cannot simply be interchanged with the Boolean prime
+differences to mimic Alpoge's theta multiplicity. There is an
+UNPAID arithmetic prime-power source on p-1 of every p residue
+classes. Notice that the same original signed Lambda-1 impulse
+also appears as the first derivative of E: it is NOT an unrelated
+error term invented in the translation.
+
+Combined with the previously proved physical colour commutator
+
+    P_p(c*f) = c*P_p f + [c(n)-c(floor(n/p))]*f(floor(n/p)),
+
+the next serious theorem must pay two interactions on the original
+square lattice, at once:
+(1) the additive/multiplicative **floor-boundary** commutator (M3),
+and (2) the **Frobenius/inertia character** multiplier commutator.
+Any global operator swap that assumes either vanishes is invalid.
+
+The square-clock measure can be retained, and the exact correction
+now has a uniform reusable statement. What remains unproved is
+a strict quantitative signed saving on the COMPLETE accumulated
+correction together with Alpoge's height/covolume data.
