@@ -233,3 +233,13 @@ mathematics, without globbing the exploratory research tree.
 Acceptance requires both the native hosted build and the research-closure
 checks to succeed. This is a compiler/import fix, not a new RH-strength
 arithmetic estimate.
+
+## Post-merge validation
+
+The branch has been synchronized with the current `main` proof and
+retains all three new signed Gz/VF/NNS root imports in the sorted root
+manifest. The full build must explicitly check both exact flat
+research-module imports and the new arithmetic modules. This merge
+resolved the former GitHub conflict; it does **not** supply the still
+open unconditional sharp Gz estimate. CI and the no-owned-warning
+audit remain the only acceptance criteria for this compiler repair.
