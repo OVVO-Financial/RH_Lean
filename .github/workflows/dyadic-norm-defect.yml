@@ -1,0 +1,50 @@
+name: Dyadic norm defect
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    branches: [main]
+    paths:
+      - 'research/ALPOGE_DYADIC_NORM_DEFECT.lean'
+      - 'RHLean/Analysis/AlpogeNNSCohomologicalCRPayment.lean'
+      - '.github/workflows/dyadic-norm-defect.yml'
+      - 'lean-toolchain'
+      - 'lake-manifest.json'
+permissions:
+  contents: read
+jobs:
+  proof:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          persist-credentials: false
+      - uses: ./.github/actions/lean-setup
+      - uses: ./.github/actions/lean-compiled-cache
+      - name: Force the proof on the exact source revision and inspect every root's axioms
+        env:
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          set -euo pipefail
+          git rev-parse HEAD
+          test "$(git rev-parse HEAD)" = "$HEAD_SHA"
+          cat lean-toolchain
+          jq -er '.packages[] | select(.name == "mathlib") | .rev' lake-manifest.json
+          python3 scripts/compile_research_import_closure.py --build-library --force research/ALPOGE_DYADIC_NORM_DEFECT.lean 2>&1 | tee dyadic.log
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+          log = Path('dyadic.log').read_text()
+          allowed = {'propext', 'Classical.choice', 'Quot.sound'}
+          for root in ('nativeDyadicNorm_length', 'nativeDyadicNorm_two_smul',
+                       'nativeDyadicNorm_fixedTorsion_bound', 'nativeDyadicModFour_witness'):
+              name = re.escape('RHLean.Analysis.' + root)
+              found = re.search(r"'" + name + r"' (?:depends on axioms:\s*\[([^]]*)\]|does not depend on any axioms)", log)
+              if not found:
+                  raise SystemExit(f'missing axiom evidence: {root}')
+              axioms = {axiom.strip() for axiom in (found[1] or '').split(',') if axiom.strip()}
+              if unexpected := axioms - allowed:
+                  raise SystemExit(f'{root}: unexpected {sorted(unexpected)}')
+              print(f'{root}: {sorted(axioms)}')
+          PY
