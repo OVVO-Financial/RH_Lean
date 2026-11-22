@@ -217,7 +217,7 @@ theorem isPerp_base (h : p + q ≤ n) :
     have := congrArg Fin.val e
     have := a.isLt; have := b.isLt
     simp only [Fin.val_castLE, Fin.val_rev] at *; omega
-  simp [baseCovec, baseVec, Pi.single_apply, this]
+  simp [baseCovec, baseVec, this]
 
 theorem linearIndependent_baseCovec (h : p + q ≤ n) : LinearIndependent R (baseCovec R h) := by
   have := (Pi.basisFun R (Fin n)).linearIndependent.comp _
@@ -286,12 +286,12 @@ theorem eval_basePoly :
     rw [yMinor, RingHom.map_det]
     refine (congrArg (fun A => det A ^ c' t i) (?_ : _ = (1 : Matrix _ _ R))).trans (by simp)
     ext a b
-    simp [eval_yForm, baseVec, Pi.single_apply, Matrix.one_apply, eq_comm]
+    simp [baseVec, Pi.single_apply, Matrix.one_apply, eq_comm]
   · intro i _
     rw [xMinor, RingHom.map_det]
     refine (congrArg (fun A => det A ^ c t i) (?_ : _ = (1 : Matrix _ _ R))).trans (by simp)
     ext a b
-    simp [eval_xForm, baseCovec, Pi.single_apply, Matrix.one_apply, eq_comm]
+    simp [baseCovec, Pi.single_apply, Matrix.one_apply, eq_comm]
 
 theorem basePoly_ne_zero [Nontrivial R] : basePoly R h c c' ≠ 0 := fun e => by
   have := eval_basePoly (R := R) h c c'
@@ -418,7 +418,6 @@ section RowHighestAction
 
 variable [Fintype κ]
 
-omit [Fintype κ] in
 theorem rowAdd_colSubst [Fintype κ'] (A : T → Matrix κ κ' R) (B : T → Matrix κ' κ R) (t : T)
     {r r' : Fin p ⊕ Fin q} (h : r.isLeft = r'.isLeft) (s : R) (P : Poly R T p q κ) :
     rowAdd t r r' s (colSubst A B P) = colSubst A B (rowAdd t r r' s P) := by
@@ -447,7 +446,9 @@ theorem colSubst_mem_rowHighest [Fintype κ'] [DecidableEq κ] {A : T → Matrix
   obtain ⟨h₁, h₂, h₃⟩ := mem_rowHighest_iff_rowAdd.1 hP
   exact mem_rowHighest_iff_rowAdd.2 ⟨h₁.colSubst h,
     fun t r => colSubst_isWeightedHomogeneous _ A B (h₂ t r),
-    fun t r r' hr s => by rw [rowAdd_colSubst A B t hr.isLeft_eq, h₃ t r r' hr]⟩
+    fun t r r' hr s =>
+      (rowAdd_colSubst A B t hr.isLeft_eq (s : R) P).trans
+        (congrArg (colSubst A B) (h₃ t r r' hr s))⟩
 
 theorem colAct_mem_rowHighest [DecidableEq κ] (g : T → GL κ R) (hP : P ∈ rowHighest R c c') :
     colAct R T p q κ g P ∈ rowHighest R c c' :=

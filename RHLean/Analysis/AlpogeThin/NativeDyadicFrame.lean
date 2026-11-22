@@ -57,7 +57,7 @@ theorem nativeDyadicGenerator_order (e : ℕ) :
     addOrderOf (nativeDyadicGenerator e) = 2 ^ e := by
   have hu : orderOf (u5 (e + 2)) = 2 ^ e := by
     rw [← orderOf_units]
-    simpa only [u5, ZMod.coe_unitOfCoprime] using ZMod.orderOf_five e
+    simpa only [u5, ZMod.coe_unitOfCoprime, Nat.cast_ofNat] using ZMod.orderOf_five e
   change orderOf (hcl e (u5 (e + 2))) = 2 ^ e
   rw [← hu]
   apply orderOf_eq_orderOf_iff.mpr
@@ -82,14 +82,16 @@ def nativeDyadicFrame (e : ℕ) : Formalism.HC.Frame :=
       AlpogeNativeDyadicH e := (Fintype.equivFin (AlpogeNativeDyadicH e)).symm
   let : AddCommGroup (Formalism.HC.Idx (Fintype.card (AlpogeNativeDyadicH e))) :=
     ε.addCommGroup
+  let εa : Formalism.HC.Idx (Fintype.card (AlpogeNativeDyadicH e)) ≃+
+      AlpogeNativeDyadicH e := ε.addEquiv
   { e := e
     ord := Fintype.card (AlpogeNativeDyadicH e)
     grp := ε.addCommGroup
-    h0 := ε.addEquiv.toAddMonoidHom
-    projection_surjective_field := ε.surjective
+    h0 := εa.toAddMonoidHom
+    projection_surjective_field := εa.surjective
     gen0 := ε.symm (nativeDyadicGenerator e)
     zsmul_generator_eq_zero_of_projection := fun _ hk =>
-      ε.addEquiv.injective (hk.trans (map_zero ε.addEquiv).symm) }
+      εa.injective (hk.trans (map_zero εa).symm) }
 
 /-- The coordinate transport is an additive equivalence, not only a count. -/
 def nativeDyadicFrameEquiv (e : ℕ) :
@@ -117,9 +119,10 @@ theorem nativeDyadicFrame_generator (e : ℕ) :
 
 /-- The selected source generator has the full source frame order. -/
 theorem nativeDyadicFrame_n0 (e : ℕ) : (nativeDyadicFrame e).n0 = 2 ^ e := by
-  change addOrderOf (nativeDyadicFrame e).a0 = _
-  rw [← (nativeDyadicFrameEquiv e).addOrderOf_eq,
-    nativeDyadicFrame_generator, nativeDyadicGenerator_order]
+  have h := addOrderOf_injective (nativeDyadicFrame e).h
+    (nativeDyadicFrame_h_injective e) (nativeDyadicFrame e).a0
+  rw [nativeDyadicFrame_h, nativeDyadicFrame_generator, nativeDyadicGenerator_order] at h
+  exact h.symm
 
 /-- The original distinguished cyclic subgroup is the complete dyadic frame. -/
 theorem nativeDyadicFrame_A0 (e : ℕ) : (nativeDyadicFrame e).A0 = ⊤ := by
@@ -177,7 +180,7 @@ theorem nativeDyadicSignEquiv_symm_val (b : ZMod 2) :
 /-- The two quadratic factors are explicitly swapped from native `(d,q)`
 bits into source `(q,d)` unit signs. -/
 def nativeDyadicTwoBitEquiv : Multiplicative AlpogeNativeE0 ≃* (ℤˣ × ℤˣ) :=
-  (MulEquiv.prodMultiplicative : Multiplicative (ZMod 2 × ZMod 2) ≃*
+  (MulEquiv.prodMultiplicative (ZMod 2) (ZMod 2) : Multiplicative (ZMod 2 × ZMod 2) ≃*
       Multiplicative (ZMod 2) × Multiplicative (ZMod 2)).trans
     ((MulEquiv.prodComm :
       Multiplicative (ZMod 2) × Multiplicative (ZMod 2) ≃*
@@ -188,7 +191,7 @@ def nativeDyadicTwoBitEquiv : Multiplicative AlpogeNativeE0 ≃* (ℤˣ × ℤˣ
 def nativeDyadicFullHostEquiv (e : ℕ) :
     Multiplicative (AlpogeNativeE0 × AlpogeNativeDyadicH e) ≃*
       (nativeDyadicFrame e).GG :=
-  (MulEquiv.prodMultiplicative :
+  (MulEquiv.prodMultiplicative AlpogeNativeE0 (AlpogeNativeDyadicH e) :
     Multiplicative (AlpogeNativeE0 × AlpogeNativeDyadicH e) ≃*
       Multiplicative AlpogeNativeE0 × Multiplicative (AlpogeNativeDyadicH e)).trans
     (nativeDyadicTwoBitEquiv.prodCongr
@@ -222,7 +225,7 @@ theorem nativeDyadicFullHostEquiv_cconj (e : ℕ) :
   change ((nativeDyadicSignEquiv.symm (Multiplicative.ofAdd (1 : ZMod 2)),
     nativeDyadicSignEquiv.symm (Multiplicative.ofAdd (1 : ZMod 2))),
       Multiplicative.ofAdd ((nativeDyadicFrameEquiv e).symm 0)) = ((-1, -1), 1)
-  simp only [nativeDyadicSignEquiv_symm_one, map_zero]
+  simp only [nativeDyadicSignEquiv_symm_one, map_zero, Multiplicative.ofAdd_zero]
 
 theorem nativeDyadicFullHostEquiv_mem_Psi_iff
     (e : ℕ) (g : Multiplicative (AlpogeNativeE0 × AlpogeNativeDyadicH e)) :

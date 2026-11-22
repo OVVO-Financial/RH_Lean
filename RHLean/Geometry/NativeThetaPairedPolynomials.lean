@@ -105,7 +105,7 @@ theorem yForm_apply (t : T) (b : Fin q) (φ : κ → R) :
 
 theorem rowForm_single [DecidableEq κ] (t : T) (r : Fin p ⊕ Fin q) (k : κ) :
     (rowForm t r (Pi.single k 1) : Poly R T p q κ) = X (t, r, k) := by
-  rw [rowForm_apply, Finset.sum_eq_single k] <;> simp +contextual [Pi.single_apply]
+  rw [rowForm_apply, Finset.sum_eq_single k] <;> simp +contextual
 
 @[simp] theorem xForm_single [DecidableEq κ] (t : T) (a : Fin p) (k : κ) :
     (xForm t a (Pi.single k 1) : Poly R T p q κ) = X (xVar t a k) := rowForm_single _ _ _
@@ -140,7 +140,7 @@ theorem laplacian_xForm_mul_yForm (t : T) (a : Fin p) (b : Fin q) (ε φ : κ �
     laplacian t a b (xForm t a ε * yForm t b φ : Poly R T p q κ) = C (ε ⬝ᵥ φ) := by
   classical
   have h1 (k : κ) : pderiv (yVar t b k) (xForm t a ε : Poly R T p q κ) = 0 := by
-    simp [xForm_apply, pderiv_X, Pi.single_apply]
+    simp [xForm_apply, pderiv_X]
   have h2 (k : κ) : pderiv (yVar t b k) (yForm t b φ : Poly R T p q κ) = C (φ k) := by
     simp [yForm_apply, pderiv_X, Pi.single_apply]
   have h3 (k : κ) : pderiv (xVar t a k) (xForm t a ε : Poly R T p q κ) = C (ε k) := by

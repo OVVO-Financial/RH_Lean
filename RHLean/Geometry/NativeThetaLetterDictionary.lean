@@ -148,8 +148,9 @@ theorem rowDeg_iff_rename {τ : ι} {i : Fin (dim τ)} {t : {τ // Ψ τ}} {r : 
   refine forall₂_congr fun m _ => ?_
   have hk : ∀ k : Fin n, (Finsupp.mapDomain (typeLetterEquiv hσ hΨ hp hq n) m) (t, r, k) =
       m ⟨τ, i, k⟩ := fun k => by
-    rw [← typeLetterEquiv_apply hσ hΨ hp hq h k,
-      Finsupp.mapDomain_apply (typeLetterEquiv hσ hΨ hp hq n).injective]
+    rw [← typeLetterEquiv_apply hσ hΨ hp hq h k]
+    exact Finsupp.mapDomain_apply_of_injective
+      (typeLetterEquiv hσ hΨ hp hq n).injective m ⟨τ, i, k⟩
   simp only [hk]
 
 theorem mem_HHa_iff_rename [CharZero K] (a : ι → ℕ → ℕ)
@@ -259,8 +260,8 @@ theorem mem_HHa_iff_rowHighest_of_antitone [CharZero K]
   rw [mem_HHa_iff_rename hσ hΨ hp hq a P, mem_rowHighest_iff_rowAdd]
   simp only [hx, hy]
 
-/-- The paired total degree is the literal sum of all native row weights. -/
 include hσ hΨ hp hq in
+/-- The paired total degree is the literal sum of all native row weights. -/
 theorem typeDegree_diffOf_eq [Fintype ι] [Fintype {τ // Ψ τ}]
     (a : ι → ℕ → ℕ)
     (ha : ∀ τ, Antitone fun i : Fin (dim τ) => a τ i) :
@@ -317,7 +318,9 @@ theorem allEmbeddingNorm_rename_of_injective
     {f : α → β} (hf : Function.Injective f) (P : MvPolynomial α K) :
     allEmbeddingNorm (rename f P) = allEmbeddingNorm P := by
   unfold allEmbeddingNorm
-  simp only [sum_coeff_rename_of_injective hf]
+  apply congrArg Real.sqrt
+  exact Finset.sum_congr rfl fun s _ =>
+    sum_coeff_rename_of_injective hf (fun x : K => ‖s x‖ ^ 2) P
 
 end RHLean.Geometry.NativeTheta.CoeffNorm
 

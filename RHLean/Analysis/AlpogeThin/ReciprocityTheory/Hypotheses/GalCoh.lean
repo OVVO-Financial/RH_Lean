@@ -130,7 +130,7 @@ theorem LocalTateDualityAt.restrict {rho : Representation (ZMod (l ^ r)) (G F Ω
     LocalTateDualityResAt rho A v :=
   fun hr hA hc => h hr hA (hc.comp' continuous_subtype_val)
 
-omit [IsAlgClosure F Ω] [Finite M] in
+omit [NumberField F] [IsAlgClosure F Ω] [Finite M] in
 theorem UnramifiedOrthogonalityAt.restrict {rho : Representation (ZMod (l ^ r)) (G F Ω) M}
     {A : ValuationSubring Ω} {v : HeightOneSpectrum (𝓞 F)}
     (h : UnramifiedOrthogonalityAt A (rho.comp (Dec (F := F) A).subtype) v) :

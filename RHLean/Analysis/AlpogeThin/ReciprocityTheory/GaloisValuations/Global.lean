@@ -85,11 +85,13 @@ def Ine (A : ValuationSubring (Ω)) : Subgroup (G F Ω) where
     rw [e, Valuation.map_neg]
     exact hσ' _ hy
 
+omit [NumberField F] in
 theorem mem_Ine {A : ValuationSubring (Ω)} {σ : G F Ω} :
     σ ∈ Ine (F := F) A ↔ σ ∈ Inertia (F := F) A := Iff.rfl
 
 theorem Ine_le_Dec (A : ValuationSubring (Ω)) : Ine (F := F) A ≤ Dec (F := F) A := fun _ h => (mem_Ine.mp h).1
 
+omit [NumberField F] in
 theorem conj_mem_Ine {A : ValuationSubring (Ω)} {g σ : G F Ω} (hg : g ∈ Dec (F := F) A)
     (hσ : σ ∈ Ine (F := F) A) : g * σ * g⁻¹ ∈ Ine (F := F) A := by
   refine ⟨(Dec (F := F) A).mul_mem ((Dec (F := F) A).mul_mem hg hσ.1) ((Dec (F := F) A).inv_mem hg), fun x hx => ?_⟩
@@ -434,6 +436,7 @@ theorem isClosed_Dec [IsAlgClosure F Ω] (A : ValuationSubring (Ω)) : IsClosed 
   rw [e]
   exact isClosed_iInter fun x => isClosed_setOf_apply_lemma x (fun y => y ∈ A ↔ x ∈ A)
 
+omit [NumberField F] in
 theorem isClosed_Ine [IsAlgClosure F Ω] (A : ValuationSubring (Ω)) : IsClosed (Ine (F := F) A : Set (G F Ω)) := by
   have e : (Ine (F := F) A : Set (G F Ω)) = (Dec (F := F) A : Set (G F Ω)) ∩
       ⋂ x : Ω, {τ : G F Ω | A.valuation x ≤ 1 → A.valuation (τ x - x) < 1} := by

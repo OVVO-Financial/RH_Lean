@@ -41,7 +41,7 @@ theorem card_gal : Nat.card (K ≃ₐ[K⁺] K) = 2 := by
 theorem aut_cases (g : K ≃ₐ[K⁺] K) : g = 1 ∨ g = IsCMField.complexConj K := by
   classical
   by_contra hne
-  push_neg at hne
+  push Not at hne
   have h2 := card_gal K
   let : Fintype (K ≃ₐ[K⁺] K) := Fintype.ofFinite _
   rw [Nat.card_eq_fintype_card] at h2
@@ -61,7 +61,7 @@ theorem split_or_inert [Algebra.Unramified (𝓞 K⁺) (𝓞 K)]
   obtain ⟨⟨P, hPp, hPl⟩⟩ : Nonempty (primesOver 𝔭 (𝓞 K)) := inferInstance
   have hP0 : P ≠ ⊥ := Ideal.ne_bot_of_liesOver_of_ne_bot h𝔭 P
   have hp0 : P.under (𝓞 K⁺) ≠ ⊥ :=
-    fun h0 => hP0 (Ideal.eq_bot_of_comap_eq_bot h0)
+    fun h0 => hP0 (Ideal.eq_bot_of_under_eq_bot h0)
   have : Finite ((𝓞 K⁺) ⧸ P.under (𝓞 K⁺)) :=
     Ideal.finiteQuotientOfFreeOfNeBot _ hp0
   have he : P.ramificationIdx (𝓞 K⁺) = 1 :=
@@ -89,7 +89,7 @@ theorem ncard_eq_two_iff (P : Ideal (𝓞 K)) [P.IsPrime] (hP0 : P ≠ ⊥) :
       IsCMField.complexConj K • P ≠ P := by
   classical
   have hp0 : P.under (𝓞 K⁺) ≠ ⊥ :=
-    fun h0 => hP0 (Ideal.eq_bot_of_comap_eq_bot h0)
+    fun h0 => hP0 (Ideal.eq_bot_of_under_eq_bot h0)
   have : Finite ((𝓞 K⁺) ⧸ P.under (𝓞 K⁺)) :=
     Ideal.finiteQuotientOfFreeOfNeBot _ hp0
   have h1 := Ideal.ncard_primesOver_mul_ramificationIdxIn_mul_inertiaDegIn

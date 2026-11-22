@@ -42,7 +42,7 @@ private theorem prime_mulEquiv_ideal_apply {S : Type*} [CommRing S] [IsDedekindD
     rw [Ideal.zero_eq_bot] at h ⊢
     rw [h, mulEquiv_ideal_bot_eq_bot f]
   · intro hu
-    apply hP.not_unit
+    apply hP.not_isUnit
     rw [isUnit_iff_eq_one] at hu ⊢
     apply f.injective
     rw [hu, map_one]
@@ -175,7 +175,7 @@ theorem not_dvd_different_of_trivial_inertia (M E : Type) [Field M] [NumberField
     apply differentIdeal_ne_bot (A := 𝓞 M) (B := 𝓞 E)
     rw [← Ideal.zero_eq_bot] at hdvd ⊢
     exact zero_dvd_iff.mp hdvd
-  · have hp0 : P.under (𝓞 M) ≠ ⊥ := fun h0 => hP (Ideal.eq_bot_of_comap_eq_bot h0)
+  · have hp0 : P.under (𝓞 M) ≠ ⊥ := fun h0 => hP (Ideal.eq_bot_of_under_eq_bot h0)
     have hmax : (P.under (𝓞 M)).IsMaximal := Ideal.IsPrime.isMaximal inferInstance hp0
     have hfin : Finite (P.under (𝓞 M)).ResidueField := by
       have : Finite ((𝓞 M) ⧸ P.under (𝓞 M)) := Ideal.finiteQuotientOfFreeOfNeBot _ hp0

@@ -178,7 +178,7 @@ theorem sum_sq_perpVec_le (τ : E →+* ℂ) (h : (Fin n → E) →ₗ[E] ((Fin 
     (he : ∀ a, ∑ k, ‖τ (e a k)‖ ^ 2 ≤ R ^ 2) (he' : ∀ a, ∑ k, ‖τ (e' a k)‖ ^ 2 ≤ R ^ 2)
     (hg : ∑ k, ‖τ (g k)‖ ^ 2 ≤ R ^ 2) :
     ∑ k, ‖τ (perpVec h e e' g k)‖ ^ 2 ≤ (((p + 1).factorial : ℝ) * R ^ (2 * p + 1)) ^ 2 := by
-  have hs : ∀ x, ‖τ (cc x)‖ = ‖τ x‖ := fun x => by
+  have hs : ∀ x, ‖τ (IsCMField.complexConj E x)‖ = ‖τ x‖ := fun x => by
     rw [IsCMField.complexEmbedding_complexConj, Complex.norm_conj]
   have key : ∀ u v, embLength τ u ≤ |R| → embLength τ v ≤ |R| → ‖τ (h u v)‖ ≤ |R| ^ 2 :=
     fun u v hu hv => by

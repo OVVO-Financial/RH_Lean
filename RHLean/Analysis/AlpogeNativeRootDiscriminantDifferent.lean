@@ -97,8 +97,8 @@ variable {N : ℕ} [NeZero N] {L : Type*} [Field L] [NumberField L] [IsCyclotomi
   (hζ : IsPrimitiveRoot ζ N) (E : Type*) [Field E] [NumberField E] [Algebra E L]
 include hζ
 
+omit [NumberField E] in
 set_option maxHeartbeats 800000 in
-
 theorem adjoin_top : Algebra.adjoin E {ζ} = ⊤ := by
   have h1 : Algebra.adjoin ℚ ({ζ} : Set L) = ⊤ := IsCyclotomicExtension.adjoin_primitive_root_eq_top hζ
   refine eq_top_iff.2 fun x hxt => ?_
@@ -116,7 +116,7 @@ theorem gal_inj : Function.Injective fun σ : L ≃ₐ[E] L => σ ζ := by
   intro σ τ h
   have := AlgHom.ext_of_adjoin_eq_top (adjoin_top hζ E)
     (φ₁ := (σ : L →ₐ[E] L)) (φ₂ := (τ : L →ₐ[E] L)) (by simpa using h)
-  exact AlgEquiv.coe_algHom_injective this
+  exact AlgEquiv.coe_toAlgHom_injective this
 
 theorem minpoly_map : (minpoly E ζ).map (algebraMap E L) = Lagrange.nodal Finset.univ fun σ : L ≃ₐ[E] L => σ ζ := by
   have : FiniteDimensional E L := Module.Finite.of_restrictScalars_finite ℚ E L

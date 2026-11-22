@@ -53,6 +53,7 @@ theorem mu_le_ram (p : ℕ) [hp : Fact p.Prime] (Q : Ideal (𝓞 L)) [Q.IsPrime]
     exact Ideal.IsPrime.ne_top ‹_›
   exact (FiniteMultiplicity.of_not_isUnit hQ hne).le_multiplicity_of_pow_dvd hdvd
 
+omit [NumberField L] in
 theorem mu_mem_pow (p : ℕ) [hp : Fact p.Prime] (Q : Ideal (𝓞 L)) [Q.IsPrime]
     [Q.LiesOver (span {(p : ℤ)})] (η : L) (hη : IsPrimitiveRoot η p) :
     ((p : ℤ) : 𝓞 L) ∈ Q ^ (p - 1) := by
@@ -107,6 +108,7 @@ theorem mu_card_le_two {G : Type*} [One G] (f : Gal(L/ℚ) → G) (hinj : Functi
     _ = ({1, t} : Set G).ncard := Nat.card_coe_set_eq _
     _ ≤ 2 := (Set.ncard_insert_le 1 {t}).trans (by simp)
 
+omit [NumberField L] in
 theorem intCast_mem_iff (p : ℕ) (P : Ideal (𝓞 L))
     [P.LiesOver (span {(p : ℤ)})] (n : ℤ) :
     (n : 𝓞 L) ∈ P ↔ (p : ℤ) ∣ n := by

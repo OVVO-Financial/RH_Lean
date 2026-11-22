@@ -72,7 +72,7 @@
     },
     {
       "native_path": "RHLean/Geometry/NativeGradedShortSectionConstruction.lean",
-      "native_sha256": "32fbe52e59ee3383bee9525564f12a4d3870b416fe2411dc24d5ce21ebc807bb",
+      "native_sha256": "02c1768a33b6f05e43a157dbaadb58e8d1511d0cb8804b56aa615bfd3f96faf1",
       "declarations": [
         "RHLean.Geometry.nativeExists_graded_short_integral_injective_section"
       ],
@@ -208,7 +208,7 @@
     },
     {
       "native_path": "RHLean/Geometry/NativeThetaHarmonicPolynomials.lean",
-      "native_sha256": "f88be7e3798788ef9edbb3cec1288f3f7aa1b51b3a5f00f8e966887497bda961",
+      "native_sha256": "8f2baf885ec61704e7ed358120019d16b0849dd2bdab7949d6b4d314bca35551",
       "declarations": [
         "RHLean.Geometry.NativeTheta.exists_short_integral_harmonic_of_signature"
       ],
@@ -319,7 +319,7 @@
     },
     {
       "native_path": "RHLean/Geometry/NativeHermitianShortVectors.lean",
-      "native_sha256": "b696ad95ae476806e255baf43a8e63898e8ffadd4941e0f9bedfb7d9e11815ee",
+      "native_sha256": "520d9e384413776362be5703d8e32f274d15e66685510aec187ff8c7af45188e",
       "declarations": [
         "RHLean.Geometry.NativeHermitianLattice.exists_short_vectors"
       ],
@@ -375,7 +375,7 @@
     },
     {
       "native_path": "RHLean/Geometry/NativeThetaCapelli.lean",
-      "native_sha256": "ceaf5842078637db8c045ac3269de84355f6f87039902ac5801bb4258e8a15c3",
+      "native_sha256": "1ef84bee604d198cdf4aedbabb70b76519e9104a709a7ca037d15b75c2fcf052",
       "declarations": [
         "RHLean.Geometry.NativeTheta.Capelli.mixedOp_lie",
         "RHLean.Geometry.NativeTheta.Capelli.casimir_mixedOp"
@@ -396,7 +396,7 @@
     },
     {
       "native_path": "RHLean/Geometry/NativeThetaColumnActions.lean",
-      "native_sha256": "c7b555e6e039aa1caa32265b42af382c2547bb8bfd182bb36352e53b1ba9f001",
+      "native_sha256": "358510db42eab61995b478a75c73165a5ea17fefc779892f02c5b58770d337b0",
       "declarations": [
         "RHLean.Geometry.NativeTheta.Paired.colAct",
         "RHLean.Geometry.NativeTheta.Paired.basePoly",
@@ -436,7 +436,7 @@
     },
     {
       "native_path": "RHLean/Geometry/NativeThetaColumnLie.lean",
-      "native_sha256": "28dfd88e36181dc896878655b247983958a7d4fb5c14049849b1255ebaab9aa5",
+      "native_sha256": "d71add9a4725d01ff42ae0c00bacadef14886949adf5ec03e94b96ccd58a7505",
       "declarations": [
         "RHLean.Geometry.NativeTheta.Paired.colLie",
         "RHLean.Geometry.NativeTheta.Paired.colLie_mem_of_colAct_mem",
@@ -522,7 +522,7 @@
     },
     {
       "native_path": "RHLean/Geometry/NativeThetaGridParametrization.lean",
-      "native_sha256": "a49173de3f643292197a05c8b52ea1e00eda57eeb5d1e49bfc8f6ca5508b3fda",
+      "native_sha256": "db95994a6c531379759242f24cc489693519838c7b5347656f3bffc48f854cd0",
       "declarations": [
         "RHLean.Geometry.NativeTheta.Paired.span_grid_perpVec_eq_span_range_coordProd"
       ],
@@ -541,7 +541,7 @@
     },
     {
       "native_path": "RHLean/Geometry/NativeThetaHighestMinor.lean",
-      "native_sha256": "91695a21e873100d493dc676fdeb49286d9286070c8ade6fdeef4460888f583d",
+      "native_sha256": "84138b835f99586c1804edf17fcbedc0009dcefdfefc0994a88c14457ced233f",
       "declarations": [
         "RHLean.Geometry.NativeTheta.Paired.HighestUnique.weight_eq_mixedWeight",
         "RHLean.Geometry.NativeTheta.Paired.exists_eq_smul_basePoly"
@@ -561,7 +561,7 @@
     },
     {
       "native_path": "RHLean/Geometry/NativeThetaHighestWeights.lean",
-      "native_sha256": "e32dc9ac43bcf65d93fd0f9565c8cc01c2ed200e03e471ca54ee4eca23c76049",
+      "native_sha256": "ab827137c207151f42fe74e8e34342617e757a403f28b718fc5037c784eb0439",
       "declarations": [
         "RHLean.Geometry.NativeTheta.highest_weight_antitone",
         "RHLean.Geometry.NativeTheta.exists_highest_vector"
@@ -588,7 +588,7 @@
     },
     {
       "native_path": "RHLean/Geometry/NativeThetaLatticeGridBounds.lean",
-      "native_sha256": "3f12d5d6dea46dd2ac9fb7b03f41635a07c67ebee913f3bab450dd6909f00fd3",
+      "native_sha256": "2e7a93819d71d7851773fe0cd299a2e36b61844d99e8926ed072bf26448e9125",
       "declarations": [
         "RHLean.Geometry.NativeTheta.GridBounds.sum_sq_perpVec_le",
         "RHLean.Geometry.NativeTheta.Paired.perpVec_hermPairing_mem"
@@ -612,7 +612,7 @@
     },
     {
       "native_path": "RHLean/Geometry/NativeThetaLetterDictionary.lean",
-      "native_sha256": "98357866381de291bb597d22ffab94e552e36ebd73513b4a2880941d626ac1ec",
+      "native_sha256": "43bb018ae8390fa2d139034c50cf6a063e9a82f11ba73f61624fbc110eb1f747",
       "declarations": [
         "RHLean.Geometry.NativeTheta.Paired.mem_HHa_iff_rowHighest_of_antitone"
       ],
@@ -688,7 +688,7 @@
     },
     {
       "native_path": "RHLean/Geometry/NativeThetaPairedPolynomials.lean",
-      "native_sha256": "40a7009464642baadaa8bee071fe0044d0817e4e94cfcb25c6bfa54e9d05fea4",
+      "native_sha256": "e9a826c84c57f8d7db050ee740f58aeb42c99899f6161494b9a9d1f75032b416",
       "declarations": [
         "RHLean.Geometry.NativeTheta.Paired.isHarmonic_minorProd",
         "RHLean.Geometry.NativeTheta.Paired.minorProd_isHomogeneous"
@@ -745,7 +745,7 @@
     },
     {
       "native_path": "RHLean/Geometry/NativeThetaRowDeterminants.lean",
-      "native_sha256": "3ff6de43a18ef7560422168c7593cdf971e7a627679b501f66972a4a0edff7e5",
+      "native_sha256": "52938916ad937c0b1de11acfa2f7834764505ef3993c07d6140d057d3faa8a22",
       "declarations": [
         "RHLean.Geometry.NativeTheta.Paired.casimir_value_strict",
         "RHLean.Geometry.NativeTheta.rowAdd_invariant_iff",
@@ -788,7 +788,7 @@
     },
     {
       "native_path": "RHLean/Geometry/NativeThetaRowHighest.lean",
-      "native_sha256": "d338dce8544364e015f4b68b9b6b1ad309fe662a8d15faae5a41cf89ce4a2963",
+      "native_sha256": "869d0d5e2e864e216328c034615a56778f8769b916e89c60efd3b66dcd91592d",
       "declarations": [
         "RHLean.Geometry.NativeTheta.Paired.minorProd_mem_rowHighest"
       ],

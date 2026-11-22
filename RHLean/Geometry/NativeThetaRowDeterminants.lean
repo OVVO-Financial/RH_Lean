@@ -203,7 +203,6 @@ theorem _root_.RHLean.Geometry.NativeTheta.Paired.casimir_value_mixedWeight {m p
   have h2 := _root_.RHLean.Geometry.NativeTheta.Paired.sum_dite_rev_lt hq
     (fun j : Fin q => (b j : ℤ) * (b j + m - 1 - 2 * (j : ℕ)))
   beta_reduce at h1 h2
-  simp only [Fin.val_mk] at h1 h2
   have hpt : ∀ k : Fin m, _root_.RHLean.Geometry.NativeTheta.Paired.mixedWeight m a b k *
         (_root_.RHLean.Geometry.NativeTheta.Paired.mixedWeight m a b k + m - 1 - 2 * (k : ℕ)) =
       (if h : (k : ℕ) < p then (a ⟨k, h⟩ : ℤ) * (a ⟨k, h⟩ + m - 1 - 2 * (k : ℕ)) else 0) +
@@ -964,7 +963,7 @@ theorem eq_mul_prod_minors {K σ : Type*} [Field K] [CharZero K] [DecidableEq σ
       have := (biInvariant_eval hz P hr hc x).eq_mul_prod c
         (eval_setBlock_diagonal hz P _ hrow x) _ h
       simpa only [hx] using this
-    · push_neg at h
+    · push Not at h
       obtain ⟨i, hi⟩ := h
       rw [Finset.prod_eq_zero (Finset.mem_univ i) hi, zero_mul, zero_mul]
 

@@ -71,8 +71,8 @@ theorem commutator_energy_on_annihilator (t : ℝ)
     squaredFrobenius (A * operator t - operator t * A) =
       t ^ 2 * (2 * ‖A 0 1‖ ^ 2 + ‖A 1 1‖ ^ 2) := by
   have h00 := (first_column_zero A hA).1
-  simp [squaredFrobenius, operator, Matrix.mul_apply, Fin.sum_univ_two,
-    h00, norm_mul, mul_pow, Complex.norm_real, Real.norm_eq_abs] <;> ring
+  simp [squaredFrobenius, operator, Matrix.mul_apply, Matrix.vecMul_apply_eq_sum,
+    Fin.sum_univ_two, h00, norm_mul, mul_pow, Complex.norm_real, Real.norm_eq_abs] <;> ring
 
 /-- A valid coercivity constant, with its complete parameter dependence. -/
 theorem coercive (t : ℝ) (ht : t ≠ 0)

@@ -173,7 +173,7 @@ theorem ncard_two (hd0 : 0 < d) (hb : b ^ 2 = -(d : L)) (p : ℕ) [Fact p.Prime]
     IsGaloisGroup.of_isFractionRing _ _ _ ℚ (Kd b)
   have hP : P ∈ primesOver (span {(p : ℤ)}) (𝓞 (Kd b)) := ⟨inferInstance, inferInstance⟩
   have hσP : σ • P ∈ primesOver (span {(p : ℤ)}) (𝓞 (Kd b)) :=
-    (σ • (⟨P, hP⟩ : primesOver (span {(p : ℤ)}) (𝓞 (Kd b)))).2
+    ⟨inferInstance, inferInstance⟩
   have hdvd : (primesOver (span {(p : ℤ)}) (𝓞 (Kd b))).ncard ∣ 2 := Dvd.intro _ hf
   have hle : (primesOver (span {(p : ℤ)}) (𝓞 (Kd b))).ncard ≤ 2 := Nat.le_of_dvd two_pos hdvd
   have hne1 : (primesOver (span {(p : ℤ)}) (𝓞 (Kd b))).ncard ≠ 1 := by

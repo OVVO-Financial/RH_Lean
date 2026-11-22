@@ -147,6 +147,7 @@ lemma summable_norm_dterm {B : ℝ} (hB : ∀ M, ‖Ap χ M‖ ≤ B) {s : ℂ} 
   refine Summable.of_nonneg_of_le (fun n => norm_nonneg _) (norm_dterm_le χ hB hs) ?_
   exact ((Real.summable_nat_rpow.mpr (by linarith)).mul_left ‖s‖).mul_left B
 
+omit [NeZero q] in
 lemma summable_dterm {B : ℝ} (hB : ∀ M, ‖Ap χ M‖ ≤ B) {s : ℂ} (hs : 0 < s.re) :
     Summable (dterm χ s) := (summable_norm_dterm χ hB hs).of_norm
 

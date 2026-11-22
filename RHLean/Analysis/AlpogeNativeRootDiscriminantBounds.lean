@@ -110,7 +110,7 @@ theorem log_index_le : Real.log U.index ≤ 2 * SS U := by
           have hmN : N / m ∣ N := Nat.div_dvd_of_dvd hm.1.1
           have hex' : ∃ u ∈ KK N (N / m), u ∉ U := by
             by_contra hcon
-            push_neg at hcon
+            push Not at hcon
             exact hm.2 (hcdvd _ hmN hcon)
           have h12 := half_le_rho U hmN hex'
           have hΛ : 0 ≤ vonMangoldt m := vonMangoldt_nonneg
@@ -247,7 +247,7 @@ theorem rho_two {e M i : ℕ} (hM : Nat.Coprime 2 M) (hN : 2 ^ (e + 2) * M ∣ N
           _ ≤ _ := Finset.card_union_le _ _
           _ ≤ _ := Nat.add_le_add_left Finset.card_image_le _
           _ = 2 * (KK N (2 ^ (e + 2) * M)).card := by ring
-      · push_neg at hw
+      · push Not at hw
         calc _ ≤ (KK N (2 ^ (e + 2) * M)).card := Finset.card_le_card (fun u hu => by
               rw [Finset.mem_filter] at hu
               rcases hU u hu.2 with h1 | h1

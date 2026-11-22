@@ -67,7 +67,7 @@
 
 - [catalog-research-lean-vf.jsonl](catalog-research-lean-vf.jsonl) — 226 records
 - [catalog-research-lean.jsonl](catalog-research-lean.jsonl) — 554 records
-- [catalog-research-notes.jsonl](catalog-research-notes.jsonl) — 274 records
+- [catalog-research-notes.jsonl](catalog-research-notes.jsonl) — 275 records
 - [catalog-library-proof.jsonl](catalog-library-proof.jsonl) — 450 records
 - [catalog-library-alpoge-thin.jsonl](catalog-library-alpoge-thin.jsonl) — 392 records
 - [catalog-library-geometry.jsonl](catalog-library-geometry.jsonl) — 147 records

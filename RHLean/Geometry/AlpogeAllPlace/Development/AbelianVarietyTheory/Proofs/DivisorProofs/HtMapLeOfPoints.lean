@@ -60,6 +60,7 @@ theorem htMap_le_of_points (b : Basis ι K V) (X : InfinitePlace K → Matrix ι
         mul_le_mul_of_nonneg_left h2 (by positivity)
     _ = 2 * P := by field_simp
 
+omit [NumberField K] [StarRing K] [IsTotallyComplex K] in
 theorem normAt_pi_sq [Module (𝓞 K) V] [IsScalarTower (𝓞 K) K V] (b : Basis ι K V)
     (X : InfinitePlace K → Matrix ι ι ℂ) (hX : ∀ v, IsUnit (X v).det) (n : ℕ) (v : InfinitePlace K)
     (x : Fin n → V) :

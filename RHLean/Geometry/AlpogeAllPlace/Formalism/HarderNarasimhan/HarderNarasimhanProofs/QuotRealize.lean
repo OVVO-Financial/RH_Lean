@@ -278,6 +278,7 @@ theorem pv_top (b : Basis ι K V) (X : InfinitePlace K → Matrix ι ι ℂ)
   rw [hz]
   exact Submodule.sum_mem _ fun j _ => Submodule.smul_mem _ _ (key j)
 
+omit [StarRing K] in
 theorem proj_norm_sq [DecidableEq (InfinitePlace K)] (b : Basis ι K V)
     (X : InfinitePlace K → Matrix ι ι ℂ) (S : Submodule (𝓞 K) V) (x : V) :
     ‖(Submodule.span ℝ (zl (RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.realize b X) S :

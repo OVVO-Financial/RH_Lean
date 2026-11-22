@@ -1,11 +1,11 @@
 {
   "schema": "rhlean-search-catalog/1",
   "generator": "scripts/search_catalog.py",
-  "input_fingerprint": "34d5bb537bea7e0c0933dbb124fdecda5268cb6afa3901150ce8c5428b1e0341",
+  "input_fingerprint": "0bf0137fdbbb08195ab162a39267d9b6fba885e148658557ebe3b3016c5b82e9",
   "counts": {
     "catalog-research-lean-vf.jsonl": 226,
     "catalog-research-lean.jsonl": 554,
-    "catalog-research-notes.jsonl": 274,
+    "catalog-research-notes.jsonl": 275,
     "catalog-library-proof.jsonl": 450,
     "catalog-library-alpoge-thin.jsonl": 392,
     "catalog-library-geometry.jsonl": 147,

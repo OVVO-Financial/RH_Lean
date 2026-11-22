@@ -38,6 +38,13 @@ namespace RHLean.Analysis
 abbrev AlpogeNativeCyclotomic (e q d : ℕ) :=
   CyclotomicField (alpogeNativeHostN e q d) ℚ
 
+set_option backward.isDefEq.respectTransparency false in
+/-- Expose Mathlib's cyclotomic instance through the native field abbreviation. -/
+@[instance] theorem alpogeNativeCyclotomic_isCyclotomicExtension (e q d : ℕ) :
+    IsCyclotomicExtension {alpogeNativeHostN e q d} ℚ (AlpogeNativeCyclotomic e q d) :=
+  inferInstanceAs (IsCyclotomicExtension {alpogeNativeHostN e q d} ℚ
+    (CyclotomicField (alpogeNativeHostN e q d) ℚ))
+
 @[instance] theorem alpogeNativeCyclotomic_isGalois (e q d : ℕ) :
     IsGalois ℚ (AlpogeNativeCyclotomic e q d) :=
   IsCyclotomicExtension.isGalois {alpogeNativeHostN e q d} ℚ _
@@ -79,18 +86,20 @@ theorem alpogeNativeHostField_numberField
   IsGalois.of_fixedField_normal_subgroup
     (alpogeNativeCyclotomicRecMap e q d).ker
 
+set_option maxHeartbeats 1000000 in
 /-- The Galois group of the constructed field is the full native host. -/
 def alpogeNativeHostGalEquiv
     (e q d : ℕ) [Fact q.Prime] [Fact d.Prime]
     (hq2 : q ≠ 2) (hd2 : d ≠ 2) (hqd : q ≠ d) :
     (alpogeNativeHostField e q d ≃ₐ[ℚ] alpogeNativeHostField e q d) ≃*
       Multiplicative (AlpogeNativeE0 × AlpogeNativeDyadicH e) :=
-  (IsGalois.normalAutEquivQuotient
+  (IsGalois.normalAutEquivQuotient (K := ℚ) (L := AlpogeNativeCyclotomic e q d)
     (alpogeNativeCyclotomicRecMap e q d).ker).symm.trans
       (QuotientGroup.quotientKerEquivOfSurjective
         (alpogeNativeCyclotomicRecMap e q d)
         (alpogeNativeCyclotomicRecMap_surjective e q d hq2 hd2 hqd))
 
+set_option maxHeartbeats 1000000 in
 /-- Restriction of a cyclotomic automorphism induces exactly the existing
 native reciprocity image, without replacing either map by a chosen bijection. -/
 theorem alpogeNativeHostGalEquiv_restrict
@@ -100,16 +109,18 @@ theorem alpogeNativeHostGalEquiv_restrict
     alpogeNativeHostGalEquiv e q d hq2 hd2 hqd
       (τ.restrictNormal (alpogeNativeHostField e q d)) =
         alpogeNativeRecMap e q d (alpogeNativeCyclotomicGalEquiv e q d τ) := by
-  have h : (IsGalois.normalAutEquivQuotient
+  have h : (IsGalois.normalAutEquivQuotient (K := ℚ) (L := AlpogeNativeCyclotomic e q d)
       (alpogeNativeCyclotomicRecMap e q d).ker).symm
         (τ.restrictNormal (alpogeNativeHostField e q d)) =
       (τ : (AlpogeNativeCyclotomic e q d ≃ₐ[ℚ] AlpogeNativeCyclotomic e q d) ⧸
         (alpogeNativeCyclotomicRecMap e q d).ker) :=
-    (MulEquiv.symm_apply_eq _).mpr rfl
+    (MulEquiv.symm_apply_eq _).mpr
+      (IsGalois.normalAutEquivQuotient_apply
+        (alpogeNativeCyclotomicRecMap e q d).ker τ).symm
   change QuotientGroup.quotientKerEquivOfSurjective
     (alpogeNativeCyclotomicRecMap e q d)
     (alpogeNativeCyclotomicRecMap_surjective e q d hq2 hd2 hqd)
-    ((IsGalois.normalAutEquivQuotient
+    ((IsGalois.normalAutEquivQuotient (K := ℚ) (L := AlpogeNativeCyclotomic e q d)
       (alpogeNativeCyclotomicRecMap e q d).ker).symm
         (τ.restrictNormal (alpogeNativeHostField e q d))) = _
   rw [h]
@@ -202,8 +213,10 @@ theorem alpogeNativeRecMap_neg_one
   · rw [nativeCyclotomic_legU_neg_one _ q hq4]
     change (if (-1 : ℤˣ) = 1 then (0 : ZMod 2) else 1) = 1
     exact ite_eq_right (by decide)
-  · change QuotientGroup.mk
-      (ZMod.unitsMap (alpogeNativeTwo_dvd_hostN e q d) (-1)) = 1
+  · change (QuotientGroup.mk
+      (ZMod.unitsMap (alpogeNativeTwo_dvd_hostN e q d) (-1)) :
+        (ZMod (2 ^ (e + 2)))ˣ ⧸
+          Subgroup.zpowers (-1 : (ZMod (2 ^ (e + 2)))ˣ)) = 1
     rw [nativeCyclotomic_unitsMap_neg_one, QuotientGroup.eq_one_iff]
     exact Subgroup.mem_zpowers (-1)
 
@@ -216,7 +229,8 @@ def alpogeNativeCyclotomicZeta (e q d : ℕ) [Fact q.Prime] [Fact d.Prime] :
 theorem alpogeNativeCyclotomicZeta_spec
     (e q d : ℕ) [Fact q.Prime] [Fact d.Prime] :
     IsPrimitiveRoot (alpogeNativeCyclotomicZeta e q d) (alpogeNativeHostN e q d) :=
-  IsCyclotomicExtension.zeta_spec _ _ _
+  IsCyclotomicExtension.zeta_spec
+    (alpogeNativeHostN e q d) ℚ (AlpogeNativeCyclotomic e q d)
 
 /-- The action on the primitive root uniquely determines the residue unit. -/
 theorem alpogeNativeCyclotomicGalEquiv_eq_of_zeta_pow

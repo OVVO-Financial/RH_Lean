@@ -3,7 +3,7 @@
   "status": "native_434_scope_api_lint_repairs_hosted_recheck_pending",
   "module_prefix": "RHLean.Geometry.AlpogeAllPlace.",
   "total_native_modules": 81,
-  "total_native_lines": 15994,
+  "total_native_lines": 15996,
   "entry_module": "RHLean.Geometry.NativeAllPlaceDescent",
   "entry_theorem": "RHLean.Geometry.nativeAllPlaceDescent",
   "axiom_targets": [
@@ -29,7 +29,8 @@
     "Hosted compiler-directed cleanup: Prop typeclass let/have, unused section-instance omission and unnamed binder cleanup, current deprecated aliases, unreachable alternatives and unused simp arguments removed; no linter suppression",
     "Second hosted diagnostic pass: current nonnegative-product comparisons; denominator-clearing proof for quotient linear independence; all remaining observed unused tactics, variables, simp arguments, and deprecated aliases repaired without suppressing linters.",
     "Hosted job 137306929672: corrected current APIs and compiler-reported warnings, retaining the exact original norm/rank/slope conclusions. Native recheck pending.",
-    "Exact e1fc20b hosted continuation: remove newly exposed owned port warnings and repair regular-descent subtype sum/reindexing. No theorem conclusion or warning/axiom gate weakened; next hosted verification pending."
+    "Exact e1fc20b hosted continuation: remove newly exposed owned port warnings and repair regular-descent subtype sum/reindexing. No theorem conclusion or warning/axiom gate weakened; next hosted verification pending.",
+    "Cancelled exact-735 hosted diagnostics: omit only compiler-reported unused section instances in normAt_pi_sq and proj_norm_sq; squared metric and descent conclusions unchanged; next hosted compilation pending."
   ],
   "files": {
     "RHLean/Geometry/AlpogeAllPlace/Development/AbelianVarietyTheory/Definitions/Foundations/IsProbabilityMeasureMuPart.lean": {
@@ -44,8 +45,8 @@
       "upstream_path": "src/Development/AbelianVarietyTheory/Proofs/DivisorProofs/HtMapLeOfPoints.lean",
       "upstream_git_blob": "87a9932805b500be9ac51c3250f6dc314b5f3f25",
       "upstream_sha256": "8e8e305e8ac618f3a093dbf872266ef4e92562b3d379a820b96aa2e657d85944",
-      "native_sha256": "d8071c51e5edec17afa9deb1d26a38083a477c86822f91ff6731115d05403a7c",
-      "native_lines": 150,
+      "native_sha256": "a844010248f39b43bbd32fc7763798023c816ce46085c6260e8e7f9b75afc90d",
+      "native_lines": 151,
       "kind": "source_body_pruning"
     },
     "RHLean/Geometry/AlpogeAllPlace/Formalism/BranchSandwichDivisors/BranchIsometryProofs/MapScale.lean": {
@@ -300,8 +301,8 @@
       "upstream_path": "src/Formalism/HarderNarasimhan/HarderNarasimhanProofs/QuotRealize.lean",
       "upstream_git_blob": "5578fe78497f8755fd44f580dd9a63b8e057721e",
       "upstream_sha256": "3a04d5a0cd077e156690b7a0661899c7645cd77f085d78a5c954c4c1b520d49c",
-      "native_sha256": "8e58e51d4545981671fa773920d0cd8a81d29a5894f0f0131ce55cd8de4ef815",
-      "native_lines": 499,
+      "native_sha256": "2c253b017a6767d8bb7c2c568576a867a11d0915f90024a18f06b7594c62de26",
+      "native_lines": 500,
       "kind": "namespace_options_and_native_compatibility"
     },
     "RHLean/Geometry/AlpogeAllPlace/Formalism/HarderNarasimhan/HarderNarasimhanProofs/RatioMax.lean": {
