@@ -424,6 +424,7 @@ import RHLean.Geometry.LeastPrimeEndpoint
 import RHLean.Geometry.NativeFiniteIntegralDescent
 import RHLean.Geometry.NativeIntegralCompletion
 import RHLean.Geometry.NativeIntegralLatticeCertificate
+import RHLean.Geometry.NativeNumberFieldIntegralDescent
 import RHLean.Geometry.NativeTwistedTraceDiagnostic
 import RHLean.Geometry.SquareMapConformality
 import RHLean.Geometry.TwoABDisplacement

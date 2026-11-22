@@ -16,31 +16,31 @@ namespace RHLean.Geometry
 
 section Selection
 
-variable {V : Type*} [AddCommGroup V] [Module ℝ V] [FiniteDimensional ℝ V]
+variable {K V : Type*} [Field K] [AddCommGroup V] [Module K V] [FiniteDimensional K V]
 
 /-- Extend an independent family using only members of an actual spanning
 set. Exactly the rank defect many additional vectors are selected. -/
-theorem nativeCompletionFromSpanningSet {r d : ℕ}
-    (v : Fin r → V) (hv : LinearIndependent ℝ v)
-    (hdim : finrank ℝ V = r + d)
-    (S : Set V) (hS : Submodule.span ℝ S = ⊤) :
-    ∃ (w : Fin d → V) (B : Basis (Fin r ⊕ Fin d) ℝ V),
+theorem nativeCompletionFromSpanningSetOver {r d : ℕ}
+    (v : Fin r → V) (hv : LinearIndependent K v)
+    (hdim : finrank K V = r + d)
+    (S : Set V) (hS : Submodule.span K S = ⊤) :
+    ∃ (w : Fin d → V) (B : Basis (Fin r ⊕ Fin d) K V),
       (∀ i : Fin r, B (Sum.inl i) = v i) ∧
       (∀ j : Fin d, B (Sum.inr j) = w j) ∧
       (∀ j : Fin d, w j ∈ S) := by
   classical
   let hs := hv.linearIndepOn_id
   have hst : Set.range v ⊆ Set.range v ∪ S := Set.subset_union_left
-  have htop : ⊤ ≤ Submodule.span ℝ (Set.range v ∪ S) := by
+  have htop : ⊤ ≤ Submodule.span K (Set.range v ∪ S) := by
     rw [← hS]
     exact Submodule.span_mono Set.subset_union_right
   let T : Set V := hs.extend hst
-  let B0 : Basis T ℝ V := Basis.extendLe hs hst htop
+  let B0 : Basis T K V := Basis.extendLe hs hst htop
   let W : Set V := T \ Set.range v
   let e : (Fin r ⊕ W) ≃ T :=
     (Equiv.sumCongr (Equiv.ofInjective v hv.injective) (Equiv.refl W)).trans
       (Equiv.Set.sumDiffSubset (hs.subset_extend hst))
-  let B : Basis (Fin r ⊕ W) ℝ V := B0.reindex e.symm
+  let B : Basis (Fin r ⊕ W) K V := B0.reindex e.symm
   let : Finite T := Module.Finite.finite_basis B0
   let incl : W → T := fun x => ⟨x.1, x.2.1⟩
   have hincl : Function.Injective incl := by
@@ -49,12 +49,12 @@ theorem nativeCompletionFromSpanningSet {r d : ℕ}
     exact congrArg (fun z : T => (z : V)) hxy
   let : Finite W := Finite.of_injective incl hincl
   let : Fintype W := Fintype.ofFinite W
-  have hc : r + Fintype.card W = finrank ℝ V := by
+  have hc : r + Fintype.card W = finrank K V := by
     simpa using (Module.finrank_eq_card_basis B).symm
   have hcard : Fintype.card W = d := by omega
   let eW : W ≃ Fin d := Fintype.equivFinOfCardEq hcard
   let w : Fin d → V := fun j => (eW.symm j).1
-  let B' : Basis (Fin r ⊕ Fin d) ℝ V :=
+  let B' : Basis (Fin r ⊕ Fin d) K V :=
     B.reindex (Equiv.sumCongr (Equiv.refl (Fin r)) eW)
   have hleft (i : Fin r) : B (Sum.inl i) = v i := by
     change (B0.reindex e.symm) (Sum.inl i) = v i
@@ -75,6 +75,22 @@ theorem nativeCompletionFromSpanningSet {r d : ℕ}
     simpa [B', w, Basis.reindex_apply] using hright (eW.symm j)
   · intro j
     exact (hs.extend_subset hst (eW.symm j).2.1).resolve_left (eW.symm j).2.2
+
+end Selection
+
+section IntegralSelection
+
+variable {V : Type*} [AddCommGroup V] [Module ℝ V] [FiniteDimensional ℝ V]
+
+theorem nativeCompletionFromSpanningSet {r d : ℕ}
+    (v : Fin r → V) (hv : LinearIndependent ℝ v)
+    (hdim : finrank ℝ V = r + d)
+    (S : Set V) (hS : Submodule.span ℝ S = ⊤) :
+    ∃ (w : Fin d → V) (B : Basis (Fin r ⊕ Fin d) ℝ V),
+      (∀ i : Fin r, B (Sum.inl i) = v i) ∧
+      (∀ j : Fin d, B (Sum.inr j) = w j) ∧
+      (∀ j : Fin d, w j ∈ S) :=
+  nativeCompletionFromSpanningSetOver v hv hdim S hS
 
 /-- Integrality of the original image and the actual spanning set produces
 a nonzero square INTEGER matrix. Nonsingularity is proved from the
@@ -125,7 +141,7 @@ theorem nativeIntegralCompletionFromSpanningSet {r d : ℕ}
     apply hdet
     simp [hz]
 
-end Selection
+end IntegralSelection
 
 section QuantitativeDescent
 
