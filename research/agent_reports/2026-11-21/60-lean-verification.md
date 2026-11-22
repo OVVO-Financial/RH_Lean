@@ -98,7 +98,7 @@ Draft [PR #1172](https://github.com/OVVO-Financial/RH_Lean/pull/1172) from main 
 
 ### Decision and native theorem
 
-`LV-20261121T181401Z/FROB-CRT`, arising from `REF-20261121T170300Z-TRANSFER4/5`. Base `17b4efc3181bbfadd94af19e9e1fd8fea87c11f3`, tree `4d85350c99822edc55dcd3f164722a4870ff6ccb`. The 13:14 EST invocation is distinct from the 05:10 EST section. The VF target and the two independent full-cost obligations in F above have not changed.
+`LV-20261121T181401Z/FROB-CRT`, arising from `REF-20261121T170300Z-TRANSFER4/5`. Base `17b4efc3181bbfadd94af19e9e1fd8fea87c11ba67bee9a447ba04ec043`, tree `4d85350c99822edc55dcd3f164722a4870ff6ccb`. The 13:14 EST invocation is distinct from the 05:10 EST section. The VF target and the two independent full-cost obligations in F above have not changed.
 
 For every natural N != 0 and prime p put A=p^v_p(N), B=N/A, U=(Z/NZ)^units, I=ker(U -> (Z/BZ)^units), F=alpogeNativeFrobUnit N p. These are the original definitions from `RHLean/Analysis/AlpogeNativeSharpASKBalance.lean`, blob `3b6c2035d23b235ff9c0e1cb287eec8fdc516acc`. In `RHLean.Analysis`:
 
@@ -143,3 +143,11 @@ The first local theorem still needed is identification of the actual host's aver
 The first independent quantitative obligation remains the all-epsilon whole-source square moment in F, or a growing geometric family with paid m>=x^(1/2-eps) and xm<=k<=n^2 x^(1/2-eps) on the same lifts, with topExcess<=Err, finite-place index, archimedean height, movement, thin, principal, restoration and signed cross costs all retained. The new equalities give neither a free 1/m nor a fixed strict-history saving. The finite ASK - MAIN = De identity of #1166 is not in doubt; its full signed uniform error bound, the VF residual bound, half exponent and RH remain OPEN. Recheck human review/main and reuse the exact certificate only if source and dependencies agree.
 
 Publication: the 15,966-byte earlier section and both current checkpoints were verified in full, including milestone blob `93a66e0a6737ad757391840a5b1f18151b04c710` at `c3addc8ec4737ebd54daedb937c126aebef93105` (18,555 bytes). Request-time acknowledgments: `alpoge_full_cost_ack=ALPOGE_FULL_ANALYTIC_GEOMETRIC_COST_V1`; `amplification_cost_ack=MULTIPLICITY_VS_COST_TO_HALF_V1`; `continuity_ack=LAST_ACTUAL_REPORT_CONTINUITY_V1`; `publish_ack=REPORT_PUBLISH_RECOVERY_V1`. `RUN_ID_UNAVAILABLE`. Final publication requires immutable readback of the prior prefix and new section.
+
+# Lean Verification | opening checkpoint
+
+LV-20261122T020800Z-OPEN. Actual scheduled invocation: November 21, 2026, 21:08 EST (November 22, 02:08 UTC), America/New_York; RUN_ID_UNAVAILABLE. PARTIAL / IN_PROGRESS. Intended canonical: research/agent_reports/2026-11-21/60-lean-verification.md on agent-reports.
+
+Main cc1108ccdda57e4d715df14477326f7f714a3a1f; AGENTS b9bfe9b60904f87b698628f8b771d476c19e933e; contract f4fe93c4b609d07061ac9aa7d2dd0b7371e73f3c; full-cost directive 1321c6e8e0f4d5b5248cecf651e69da873eb7463. Report baseline 4a76b9b43ce33bdf367dd2bc73f91731cfe87758; canonical a9d28685ca0051e3949c4c061319bd18645127f8, 30,205 bytes. The complete-file response is clipped and the direct Git tunnel returned HTTP 403; preserve the predecessor. This is a distinct opening section, not a canonical append or a verification claim.
+
+Queue: inspect the actual failure of the native Lean audit on #1180 at e28ca5d6db5ef79d155ff1f919a66f7d3124c29c (run 44974467057), the newly merged #1179 at this main, and the late Coordinator LATTICE and Referee GLUE handoffs. Compare proposed inequalities with actual signed arithmetic and physical costs. Neither an equality of observables nor a fixed matrix supplies the uniform bound. No new Lean theorem, green check or saving claimed at opening.
