@@ -25,6 +25,8 @@ import RHLean.Analysis.AlpogeNativeSignedWidthPayment
 import RHLean.Analysis.AlpogeNativeSubgroupProjection
 import RHLean.Analysis.AlpogeNativeThickFreezing
 import RHLean.Analysis.AlpogeNativeWidthRecombination
+import RHLean.Analysis.AlpogeNativeWindowLandau
+import RHLean.Analysis.AlpogeNativeWindowMellin
 import RHLean.Analysis.AlpogeNegativeSelbergSemivariance
 import RHLean.Analysis.AlpogePhysicalCharacterHistory
 import RHLean.Analysis.AlpogePhysicalCharacterInterpolation
@@ -38,6 +40,7 @@ import RHLean.Analysis.AlpogeSquareClockSharpCollar
 import RHLean.Analysis.AlpogeSquareClockSignedHistorySampling
 import RHLean.Analysis.AlpogeSquareRootArithmeticMultiplicity
 import RHLean.Analysis.AlpogeWidthExponentialDecay
+import RHLean.Analysis.AlpogeWindowLandauCriterion
 import RHLean.Analysis.BalancedPrimeBilinearCentering
 import RHLean.Analysis.BlockCovarianceDecomposition
 import RHLean.Analysis.BlockCovarianceRefinement

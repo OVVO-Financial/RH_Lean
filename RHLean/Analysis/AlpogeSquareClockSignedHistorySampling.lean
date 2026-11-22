@@ -245,4 +245,13 @@ theorem nativeAlpogeGz_of_squareClock_bound
     _ ≤ U R + nativeAlpogeSafeSlope * ((2 * R + 1 : ℕ) : ℝ) := by
       linarith only [hU R hR]
 
+/-- Only the square anchors between the two supplied radii enter the bound. -/
+theorem nativeAlpogeGz_window_of_squareClock_window (U : ℕ → ℝ) (R₀ R₁ : ℕ) (hR₀ : 2 ≤ R₀)
+    (hU : ∀ R, R₀ ≤ R → R ≤ R₁ → nativeAlpogeGz (R ^ 2 - 1) ≤ U R)
+    (N : ℕ) (hN : 4 ≤ N) (hlo : R₀ ≤ Nat.sqrt (N + 1)) (hhi : Nat.sqrt (N + 1) ≤ R₁) :
+    nativeAlpogeGz N ≤ U (Nat.sqrt (N + 1)) +
+      nativeAlpogeSafeSlope * ((2 * Nat.sqrt (N + 1) + 1 : ℕ) : ℝ) := by
+  obtain ⟨offset, rfl⟩ := Nat.exists_eq_add_of_le hR₀
+  exact (nativeAlpogeGz_squareClock_sampling N hN).trans (add_le_add_left (hU _ hlo hhi) _)
+
 end RHLean.Analysis
