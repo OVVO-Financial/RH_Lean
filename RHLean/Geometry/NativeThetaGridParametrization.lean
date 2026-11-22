@@ -90,11 +90,11 @@ theorem adjugate_isHomogeneous {σ : Type*} (M : Matrix (Fin p) (Fin p) (MvPolyn
     (fun i => if i = b then 0 else d) (fun i j => by
       by_cases hi : i = b
       · subst hi
-        rw [updateRow_self, if_pos rfl, Pi.single_apply]
+        rw [updateRow_self, ite_eq_left rfl, Pi.single_apply]
         split_ifs
         · exact isWeightedHomogeneous_one _ _
         · exact isWeightedHomogeneous_zero _ _ _
-      · rw [updateRow_ne hi, if_neg hi]; exact hM i j)
+      · rw [updateRow_ne hi, ite_eq_right hi]; exact hM i j)
   change IsWeightedHomogeneous 1 _ _
   convert this using 1
   rw [Finset.sum_ite, Finset.sum_const_zero, zero_add, Finset.sum_const, Finset.filter_ne',

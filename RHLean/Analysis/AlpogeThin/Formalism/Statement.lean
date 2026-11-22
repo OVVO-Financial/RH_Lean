@@ -39,7 +39,7 @@ def gammaF {N : ℕ} [NeZero N] (χ : DirichletCharacter ℂ N) : ℝ :=
 def G {N : ℕ} [NeZero N] (χ : DirichletCharacter ℂ N) (x : ℝ) : ℝ :=
   S χ x - x * Real.log x + (1 + gammaF χ) * x
 
-instance fact_prime_seven : Fact (Nat.Prime 7) := ⟨by norm_num⟩
+@[instance] theorem fact_prime_seven : Fact (Nat.Prime 7) := ⟨by norm_num⟩
 
 def quadraticCharFour : DirichletCharacter ℂ 4 := ZMod.χ₄.ringHomComp (Int.castRingHom ℂ)
 

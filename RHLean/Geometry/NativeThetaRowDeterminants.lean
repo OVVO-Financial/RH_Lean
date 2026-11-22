@@ -357,7 +357,7 @@ theorem eval_rowOps_eq {K σ : Type*} [Field K] [DecidableEq σ] {p n : ℕ} (z 
       rw [hy_def]
       simp only [add_eq_left]
       refine Finset.sum_eq_zero fun q' hq'T => Finset.sum_eq_zero fun k' _ => ?_
-      rw [if_neg]
+      rw [ite_eq_right]
       intro h
       have h2 := congrArg Prod.fst (hz h)
       have h3 := hT q' (Finset.mem_insert_of_mem hq'T)
@@ -418,8 +418,8 @@ theorem column_degree_le {K σ : Type*} [Field K] [CharZero K] [DecidableEq σ] 
       rw [hz.mem_finset_image]
       simp
     by_cases hk : k ∈ S
-    · rw [if_pos (hm.2 hk), if_pos hk]
-    · rw [if_neg (fun h => hk (hm.1 h)), if_neg hk]
+    · rw [ite_eq_left (hm.2 hk), ite_eq_left hk]
+    · rw [ite_eq_right (fun h => hk (hm.1 h)), ite_eq_right hk]
   have he : ∀ m : σ →₀ ℕ, ∑ s ∈ m.support, w s * m s = ∑ a, ∑ k ∈ S, m (z (a, k)) := by
     intro m
     have h1 : ∑ s ∈ m.support, w s * m s = ∑ s ∈ m.support, if s ∈ Z then m s else 0 := by
@@ -446,7 +446,7 @@ theorem column_degree_le {K σ : Type*} [Field K] [CharZero K] [DecidableEq σ] 
     have hmem : m0 ∈ P.support.filter (fun m => ∑ a, ∑ k ∈ S, m (z (a, k)) = j) :=
       Finset.mem_filter.2 ⟨hm0, rfl⟩
     simp only [R, coeff_sum, coeff_monomial]
-    rw [Finset.sum_ite_eq' _ _ _, if_pos hmem]
+    rw [Finset.sum_ite_eq' _ _ _, ite_eq_left hmem]
     exact mem_support_iff.1 hm0
   let top : Fin S.card → Fin p := Fin.castLE hpr.le
   have htop : Function.Injective top := Fin.castLE_injective _
@@ -473,9 +473,9 @@ theorem column_degree_le {K σ : Type*} [Field K] [CharZero K] [DecidableEq σ] 
       by_cases hab : a = b
       · subst hab
         simp only [x0]
-        exact if_pos ⟨a, rfl⟩
-      · simp only [x0, if_neg hab]
-        rw [if_neg]
+        exact ite_eq_left ⟨a, rfl⟩
+      · simp only [x0, ite_eq_right hab]
+        rw [ite_eq_right]
         rintro ⟨a', h⟩
         have h' := hz h
         simp only [Prod.mk.injEq] at h'
@@ -545,7 +545,7 @@ theorem column_degree_le {K σ : Type*} [Field K] [CharZero K] [DecidableEq σ] 
       simp only [op]
       rw [Finset.sum_congr rfl fun q _ => hinner q, Finset.sum_product]
       have hbB : b ∈ B := Finset.mem_filter.2 ⟨Finset.mem_univ _, hb⟩
-      simp only [Finset.sum_ite_eq, hbB, if_true]
+      simp only [Finset.sum_ite_eq, hbB, ite_true]
       rw [Finset.sum_image fun a _ a' _ h => htop h]
       have hc : ∀ a : Fin S.card, c (top a, b) = -(Matrix.vecMul (v b) M⁻¹) a := by
         intro a
@@ -686,7 +686,7 @@ theorem exists_clear_col (n : Fin p) (M : Matrix (Fin p) (Fin p) K) (hn : M n n 
       if b ∈ Finset.Ioi n then (- M b n / M n n) * M n k else 0, fun f hf => ?_, ?_, ?_, ?_⟩
   · exact hf.what₂ n (fun b => - M b n / M n n) M _ (by simp)
   · intro b hb
-    simp only [of_apply, Finset.mem_Ioi, hb, if_true]
+    simp only [of_apply, Finset.mem_Ioi, hb, ite_true]
     field_simp
     ring
   · intro b k hb

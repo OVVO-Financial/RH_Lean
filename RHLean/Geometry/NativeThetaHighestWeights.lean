@@ -33,14 +33,14 @@ theorem casimir_on_highest {K V : Type*} [CommRing K] [AddCommGroup V] [Module K
     · have h1 := congrArg (fun f : Module.End K V => f v) (he i j j i)
       simp only [LinearMap.sub_apply, Module.End.mul_apply, ↓reduceIte] at h1
       rw [hv i j h, map_zero, sub_zero, hκ, hκ] at h1
-      rw [h1, if_pos h]
+      rw [h1, ite_eq_left h]
       push_cast
       rw [sub_smul]
     · subst h
-      rw [if_neg (lt_irrefl i), if_pos rfl, hκ, map_smul, hκ, smul_smul]
+      rw [ite_eq_right (lt_irrefl i), ite_eq_left rfl, hκ, map_smul, hκ, smul_smul]
       push_cast
       rfl
-    · rw [hv j i h, map_zero, if_neg (lt_asymm h), if_neg h.ne']
+    · rw [hv j i h, map_zero, ite_eq_right (lt_asymm h), ite_eq_right h.ne']
       simp
   have hsum : (∑ i : Fin m, ∑ j : Fin m,
       (if i < j then κ i - κ j else if i = j then κ i * κ i else 0 : ℤ)) =
@@ -56,7 +56,7 @@ theorem casimir_on_highest {K V : Type*} [CommRing K] [AddCommGroup V] [Module K
     rw [Finset.sum_comm (f := fun i j => if i < j then κ j else 0)]
     rw [← Finset.sum_add_distrib, ← Finset.sum_sub_distrib]
     refine Finset.sum_congr rfl fun i _ => ?_
-    simp only [Finset.sum_ite_eq, Finset.mem_univ, if_true]
+    simp only [Finset.sum_ite_eq, Finset.mem_univ, ite_true]
     rw [← Finset.sum_filter, ← Finset.sum_filter, Finset.sum_const, Finset.sum_const,
       Finset.filter_lt_eq_Ioi, Finset.filter_gt_eq_Iio, Fin.card_Ioi, Fin.card_Iio,
       nsmul_eq_mul, nsmul_eq_mul]
@@ -158,7 +158,7 @@ theorem highest_weight_antitone {K V : Type*} [Field K] [CharZero K] [AddCommGro
     have hHF : (e a a - e b b) * e b a - e b a * (e a a - e b b) = -(e b a + e b a) := by
       have h1 := he a a b a
       have h2 := he b b b a
-      simp only [if_neg hne, ↓reduceIte, zero_sub, sub_zero] at h1 h2
+      simp only [ite_eq_right hne, ↓reduceIte, zero_sub, sub_zero] at h1 h2
       calc (e a a - e b b) * e b a - e b a * (e a a - e b b)
           = (e a a * e b a - e b a * e a a) - (e b b * e b a - e b a * e b b) := by
             rw [sub_mul, mul_sub]

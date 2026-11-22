@@ -332,7 +332,7 @@ theorem pderiv_xVar_colSubst (A : T → Matrix κ κ' R) (B : T → Matrix κ' �
         · refine (Finset.sum_eq_zero fun k _ => ?_).symm
           rw [pderiv_X_of_ne, map_zero, smul_zero]
           intro e'; simp only [Prod.mk.injEq] at e'; exact e ⟨e'.1, e'.2.1⟩
-      · rw [colSubst_X_yVar, yForm, pderiv_rowForm, if_neg (by simp)]
+      · rw [colSubst_X_yVar, yForm, pderiv_rowForm, ite_eq_right (by simp)]
         refine (Finset.sum_eq_zero fun k _ => ?_).symm
         rw [pderiv_X_of_ne (by simp), map_zero, smul_zero]
     simp only [map_mul, pderiv_mul, map_add, hP, this, smul_add, Finset.sum_add_distrib,
@@ -350,7 +350,7 @@ theorem pderiv_yVar_colSubst (A : T → Matrix κ κ' R) (B : T → Matrix κ' �
     have : pderiv (yVar t b l) (colSubst A B (X v : Poly R T p q κ)) =
         ∑ k : κ, B t l k • colSubst A B (pderiv (yVar t b k) (X v : Poly R T p q κ)) := by
       obtain ⟨t', a' | b', k'⟩ := v
-      · rw [colSubst_X_xVar, xForm, pderiv_rowForm, if_neg (by simp)]
+      · rw [colSubst_X_xVar, xForm, pderiv_rowForm, ite_eq_right (by simp)]
         refine (Finset.sum_eq_zero fun k _ => ?_).symm
         rw [pderiv_X_of_ne (by simp), map_zero, smul_zero]
       · rw [colSubst_X_yVar, yForm, pderiv_rowForm]

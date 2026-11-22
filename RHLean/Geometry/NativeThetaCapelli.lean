@@ -115,7 +115,7 @@ theorem commute_polar {u v w s : σ} (h₁ : v ≠ w) (h₂ : s ≠ u) :
     Commute (polar K u v) (polar K w s) := by
   classical
   have := polar_lie (K := K) u v w s
-  rw [if_neg h₁, if_neg h₂, sub_zero] at this
+  rw [ite_eq_right h₁, ite_eq_right h₂, sub_zero] at this
   exact sub_eq_zero.mp this
 
 theorem commute_colOp_colOp [Fintype I] [Fintype I'] (z : I × J → σ) (y : I' × J' → σ)
@@ -196,7 +196,7 @@ theorem cross_term {K σ : Type*} [CommRing K] {p q n : ℕ} (z : Fin p × Fin n
       ∑ a, ∑ b, (∑ k, X (z (a, k)) * X (y (b, k))) *
         ∑ l, pderiv (z (a, l)) (pderiv (y (b, l)) P) := by
   classical
-  simp only [map_sum, pderiv_X_mul', if_neg (hzy _ _), add_zero, Finset.mul_sum, Finset.sum_mul]
+  simp only [map_sum, pderiv_X_mul', ite_eq_right (hzy _ _), add_zero, Finset.mul_sum, Finset.sum_mul]
   calc _ = ∑ k, ∑ a, ∑ b, ∑ l, X (z (a, k)) * (X (y (b, k)) *
             pderiv (z (a, l)) (pderiv (y (b, l)) P)) := by
         refine Finset.sum_congr rfl fun k _ => ?_
@@ -235,7 +235,7 @@ theorem capelli_casimir {K σ : Type*} [CommRing K] [DecidableEq σ] {p n : ℕ}
   have h₁ : (∑ k, ∑ l, ∑ a, X (z (a, k)) * pderiv (z (a, l))
       (∑ b, X (z (b, l)) * pderiv (z (b, k)) P)) = S + (n : K) • E := by
     simp only [map_sum, pderiv_X_mul', hz.eq_iff, Prod.mk.injEq, and_true,
-      Finset.sum_add_distrib, Finset.sum_ite_eq, Finset.mem_univ, if_true, mul_add,
+      Finset.sum_add_distrib, Finset.sum_ite_eq, Finset.mem_univ, ite_true, mul_add,
       Finset.mul_sum]
     refine congrArg₂ (· + ·) ?_ ?_
     · calc _ = ∑ k, ∑ a, ∑ b, ∑ l, X (z (a, k)) * (X (z (b, l)) *
@@ -251,7 +251,7 @@ theorem capelli_casimir {K σ : Type*} [CommRing K] [DecidableEq σ] {p n : ℕ}
   have h₂ : (∑ a, ∑ b, ∑ k, X (z (a, k)) * pderiv (z (b, k))
       (∑ l, X (z (b, l)) * pderiv (z (a, l)) P)) = S + (p : K) • E := by
     simp only [map_sum, pderiv_X_mul', hz.eq_iff, Prod.mk.injEq, true_and,
-      Finset.sum_add_distrib, Finset.sum_ite_eq, Finset.mem_univ, if_true, mul_add,
+      Finset.sum_add_distrib, Finset.sum_ite_eq, Finset.mem_univ, ite_true, mul_add,
       Finset.mul_sum]
     refine congrArg₂ (· + ·) ?_ ?_
     · rw [hS]

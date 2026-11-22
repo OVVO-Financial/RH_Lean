@@ -169,7 +169,7 @@ omit [IsAlgClosure F Ω] in
 theorem mem_primeBelow {A : ValuationSubring Ω} {b : IntCl F Ω} :
     b ∈ primeBelow A ↔ A.valuation (b : Ω) < 1 := Iff.rfl
 
-instance isPrime_primeBelow (A : ValuationSubring Ω) : (primeBelow (F := F) A).IsPrime where
+instance (A : ValuationSubring Ω) : (primeBelow (F := F) A).IsPrime where
   ne_top' h := by
     have : (1 : IntCl F Ω) ∈ primeBelow A := h ▸ Submodule.mem_top
     rw [mem_primeBelow] at this

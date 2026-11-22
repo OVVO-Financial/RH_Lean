@@ -205,7 +205,7 @@ omit [IsTopologicalAddGroup M] [ContinuousConstSMul R M] in
 theorem continuous_mkQ : Continuous (Mplus.mkQ) := by
   exact continuous_quot_mk
 
-instance continuousConstSMul_quotient (N : Submodule R M) : ContinuousConstSMul R (M ⧸ N) :=
+instance (N : Submodule R M) : ContinuousConstSMul R (M ⧸ N) :=
   ⟨fun c => by
     rw [(Submodule.isQuotientMap_mkQ N).continuous_iff]
     exact (Submodule.isQuotientMap_mkQ N).continuous.comp (continuous_const_smul c)⟩

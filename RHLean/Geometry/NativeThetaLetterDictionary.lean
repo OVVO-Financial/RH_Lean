@@ -108,7 +108,7 @@ theorem rename_lap_one {τ : ι} (h : Ψ τ) (i : Fin (dim τ)) (j : Fin (dim (�
     fun b => typeLetterEquiv_apply hσ hΨ hp hq (halfRowEquiv_invol hσ hΨ hp hq h j) b
   rw [laplacian_apply]
   simp only [RHLean.Geometry.NativeTheta.lap, Matrix.one_apply, ite_smul, one_smul, zero_smul, Finset.sum_ite_eq,
-    Finset.mem_univ, if_true]
+    Finset.mem_univ, ite_true]
   simp only [LinearMap.sum_apply, LinearMap.comp_apply, Derivation.coeFn_coe, map_sum]
   refine Finset.sum_congr rfl fun b _ => ?_
   rw [← ex b, ← ey b, pderiv_rename (typeLetterEquiv hσ hΨ hp hq n).injective,

@@ -80,7 +80,7 @@ theorem rowAdd_X_of_ne {t t' : T} (r : Fin p ⊕ Fin q) {r' r'' : Fin p ⊕ Fin 
   classical
   rw [rowAdd_eq_bind₁, bind₁_X_right, Finset.sum_eq_zero, add_zero]
   intro l _
-  rw [if_neg]
+  rw [ite_eq_right]
   intro e; simp only [Prod.mk.injEq] at e; exact h ⟨e.1, e.2.1⟩
 
 theorem rowAdd_X [DecidableEq T] (t t' : T) (r r' r'' : Fin p ⊕ Fin q) (s : R) (k : κ) :
@@ -405,7 +405,7 @@ theorem rowHighest_le_homogeneousSubmodule [Fintype T] :
     rowHighest R c c' ≤ homogeneousSubmodule (Var T p q κ) R (typeDegree c c') :=
   fun _ => isHomogeneous_of_mem_rowHighest
 
-instance finite_rowHighest [Finite T] [IsNoetherianRing R] :
+instance [Finite T] [IsNoetherianRing R] :
     Module.Finite R (rowHighest R c c' : Submodule R (Poly R T p q κ)) := by
   cases nonempty_fintype T
   have : (rowHighest R c c' : Submodule R (Poly R T p q κ)) ≤

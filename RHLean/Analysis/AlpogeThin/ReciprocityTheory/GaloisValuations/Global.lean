@@ -101,7 +101,7 @@ theorem conj_mem_Ine {A : ValuationSubring (Ω)} {g σ : G F Ω} (hg : g ∈ Dec
   rw [e, valuation_apply_lt_one_iff hg]
   exact hσ.2 _ hy
 
-instance normal_Ine_subgroupOf (A : ValuationSubring (Ω)) :
+instance (A : ValuationSubring (Ω)) :
     ((Ine (F := F) A).subgroupOf (Dec (F := F) A)).Normal where
   conj_mem n hn g := by
     rw [Subgroup.mem_subgroupOf] at hn ⊢
@@ -154,7 +154,7 @@ def NS : Subgroup (G F Ω) :=
     (⋃ v ∈ Sᶜ, ⋃ A ∈ {A : ValuationSubring (Ω) | IsPlaceOver A v}, Inertia (F := F) A)
     ).topologicalClosure
 
-instance normal_NS : (NS Ω S).Normal := by
+instance : (NS Ω S).Normal := by
   unfold NS; exact Subgroup.is_normal_topologicalClosure _
 
 variable (Ω) in

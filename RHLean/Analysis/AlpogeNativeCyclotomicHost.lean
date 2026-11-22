@@ -38,7 +38,7 @@ namespace RHLean.Analysis
 abbrev AlpogeNativeCyclotomic (e q d : ℕ) :=
   CyclotomicField (alpogeNativeHostN e q d) ℚ
 
-instance alpogeNativeCyclotomic_isGalois (e q d : ℕ) :
+@[instance] theorem alpogeNativeCyclotomic_isGalois (e q d : ℕ) :
     IsGalois ℚ (AlpogeNativeCyclotomic e q d) :=
   IsCyclotomicExtension.isGalois {alpogeNativeHostN e q d} ℚ _
 
@@ -73,7 +73,7 @@ theorem alpogeNativeHostField_numberField
     (e q d : ℕ) [Fact q.Prime] [Fact d.Prime] :
     NumberField (alpogeNativeHostField e q d) := inferInstance
 
-instance alpogeNativeHostField_isGalois
+@[instance] theorem alpogeNativeHostField_isGalois
     (e q d : ℕ) [Fact q.Prime] [Fact d.Prime] :
     IsGalois ℚ (alpogeNativeHostField e q d) :=
   IsGalois.of_fixedField_normal_subgroup

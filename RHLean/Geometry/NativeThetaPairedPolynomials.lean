@@ -403,14 +403,14 @@ theorem isHarmonic_of_mem_adjoin_formSet {ε : T → ι → κ → R} {φ : T �
   refine isHarmonic_of_mem_adjoin ?_ ?_ hP
   · rintro _ (⟨t, a, c, rfl⟩ | ⟨t, a, c, rfl⟩) <;> exact isHarmonic_rowForm _ _ _
   · rintro t a b _ (⟨t₁, a₁, c₁, rfl⟩ | ⟨t₁, a₁, c₁, rfl⟩) _ (⟨t₂, a₂, c₂, rfl⟩ | ⟨t₂, a₂, c₂, rfl⟩)
-    · rw [xForm, xForm, cross_rowForm, if_neg (by simp)]
+    · rw [xForm, xForm, cross_rowForm, ite_eq_right (by simp)]
     · rw [xForm, yForm, cross_rowForm]
       split_ifs with e
       · obtain ⟨⟨rfl, -⟩, rfl, -⟩ := e
         rw [h, map_zero]
       · rfl
-    · rw [yForm, xForm, cross_rowForm, if_neg (by simp)]
-    · rw [yForm, yForm, cross_rowForm, if_neg (by simp)]
+    · rw [yForm, xForm, cross_rowForm, ite_eq_right (by simp)]
+    · rw [yForm, yForm, cross_rowForm, ite_eq_right (by simp)]
 
 theorem det_mem_of_forall_mem {A σ m : Type*} [CommRing A] [SetLike σ A] [SubringClass σ A]
     [Fintype m] [DecidableEq m] (s : σ) (M : Matrix m m A) (h : ∀ i j, M i j ∈ s) : M.det ∈ s := by

@@ -199,18 +199,18 @@ theorem rowShift_minor (σ : T) (i i' : Fin (r σ)) (hi : i' < i) (t : k) (σ' :
     · subst hx
       simp only [AlgHom.mapMatrix_apply, Matrix.map_apply, Matrix.of_apply, rowShift, aeval_X,
         Matrix.updateRow_self, Pi.add_apply, Pi.smul_apply, smul_eq_mul]
-      rw [if_pos ⟨_, rfl⟩]
+      rw [ite_eq_left ⟨_, rfl⟩]
       rfl
     · simp only [AlgHom.mapMatrix_apply, Matrix.map_apply, Matrix.of_apply, rowShift, aeval_X,
         Matrix.updateRow_ne hx]
-      rw [if_neg]
+      rw [ite_eq_right]
       rintro ⟨b, hb⟩
       have := eq_of_heq (Sigma.mk.inj_iff.1 hb).2
       exact hx (Fin.castLE_injective s.isLt (congrArg Prod.fst this))
   · congr 1
     ext1 x y
     simp only [AlgHom.mapMatrix_apply, Matrix.map_apply, Matrix.of_apply, rowShift, aeval_X]
-    rw [if_neg]
+    rw [ite_eq_right]
     rintro ⟨b, hb⟩
     obtain ⟨rfl, hb'⟩ := Sigma.mk.inj_iff.1 hb
     exact h ⟨x, by rw [show Fin.castLE s.isLt x = i from congrArg Prod.fst (eq_of_heq hb')]⟩
@@ -239,9 +239,9 @@ theorem gaps_sum (b : ℕ → ℕ) (hb : Antitone b) (N i : ℕ) (hi : i ≤ N) 
   induction N, hi using Nat.le_induction with
   | base =>
     rw [Nat.sub_self]
-    exact Finset.sum_eq_zero fun s hs => if_neg (by simpa using hs)
+    exact Finset.sum_eq_zero fun s hs => ite_eq_right (by simpa using hs)
   | succ N hN ih =>
-    rw [Finset.sum_range_succ, ih, if_pos hN]
+    rw [Finset.sum_range_succ, ih, ite_eq_left hN]
     have := hb hN
     have := hb (Nat.le_succ N)
     simp only [Nat.succ_eq_add_one] at this
@@ -275,7 +275,7 @@ theorem minorMonomial_rowDegree (a : T → ℕ → ℕ) (ha : ∀ σ, Antitone (
         · simp [w]
         · intro j _ hj
           simp only [w]
-          rw [if_neg]
+          rw [ite_eq_right]
           intro e
           have e' : Fin.castLE s.isLt j = i := eq_of_heq (Sigma.mk.inj_iff.1 e).2
           exact hj (Fin.ext (congrArg Fin.val e' :))
@@ -283,7 +283,7 @@ theorem minorMonomial_rowDegree (a : T → ℕ → ℕ) (ha : ∀ σ, Antitone (
       · rw [Finset.sum_eq_zero, smul_zero]
         intro j _
         simp only [w]
-        rw [if_neg]
+        rw [ite_eq_right]
         intro e
         have := congrArg Fin.val (eq_of_heq (Sigma.mk.inj_iff.1 e).2)
         have := j.isLt
@@ -343,7 +343,7 @@ def trunc (r : T → ℕ) (a : T → ℕ → ℕ) : T → ℕ → ℕ :=
   fun τ i => if i < r τ then a τ i else 0
 
 theorem trunc_row (r : T → ℕ) (a : T → ℕ → ℕ) (τ : T) (i : Fin (r τ)) :
-    trunc r a τ i = a τ i := if_pos i.isLt
+    trunc r a τ i = a τ i := ite_eq_left i.isLt
 
 theorem antitone_trunc (r : T → ℕ) (a : T → ℕ → ℕ)
     (ha : ∀ τ, Antitone (fun i : Fin (r τ) => a τ i)) (τ : T) :
@@ -376,8 +376,8 @@ theorem exists_short_integral_harmonic_of_signature
         ((p + q : ℕ) : ℝ) ^ (∑ τ, ∑ i : Fin (r τ), a τ i) := by
   classical
   let col : ∀ τ, Fin (r τ) → Fin n := fun τ i =>
-    if h : isX τ then ⟨i, by have := i.isLt; have := hr τ; rw [if_pos h] at this; omega⟩
-    else ⟨p + i, by have := i.isLt; have := hr τ; rw [if_neg h] at this; omega⟩
+    if h : isX τ then ⟨i, by have := i.isLt; have := hr τ; rw [ite_eq_left h] at this; omega⟩
+    else ⟨p + i, by have := i.isLt; have := hr τ; rw [ite_eq_right h] at this; omega⟩
   have hinj : ∀ τ, Function.Injective (col τ) := by
     intro τ i j hij
     have hval := congrArg Fin.val hij
@@ -392,13 +392,13 @@ theorem exists_short_integral_harmonic_of_signature
     simp only [col, dite_eq_left h, dite_eq_right (hcc τ h)] at hval
     have hi := i.isLt
     have hrow := hr τ
-    rw [if_pos h] at hrow
+    rw [ite_eq_left h] at hrow
     omega
   let b := trunc r a
   let P := minorsP r n col K b
   have hrow : RowDeg r n K a P := by
     have hb := minorMonomial_rowDegree r n K col b (antitone_trunc r a ha)
-      (fun τ => if_neg (lt_irrefl (r τ)))
+      (fun τ => ite_eq_right (lt_irrefl (r τ)))
     intro m hm τ i
     simpa only [b, trunc_row] using hb m hm τ i
   have hne : P ≠ 0 := minorMonomial_ne_zero r n K col hinj b

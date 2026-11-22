@@ -119,7 +119,7 @@ variable {φ : Frame} (H : HostRaw φ)
 theorem condN_pos : 0 < H.condN :=
   Nat.mul_pos (Nat.mul_pos H.QS_pos H.hyp.1.pos) H.hyp.2.1.pos
 
-instance condN_neZero : NeZero H.condN := ⟨H.condN_pos.ne'⟩
+@[instance] theorem condN_neZero : NeZero H.condN := ⟨H.condN_pos.ne'⟩
 
 def OddPrimesSplitBelow (z : ℝ) : Prop :=
   11 ≤ z ∧ ∀ p : ℕ, p.Prime → p ≠ 2 → (p : ℝ) ≤ z → jacobiSym (-(H.d : ℤ)) p = 1

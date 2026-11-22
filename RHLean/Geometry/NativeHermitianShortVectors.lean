@@ -101,7 +101,7 @@ theorem transference_rat {M : ℕ} (b : Basis (Fin M) ℚ V)
     intro g hg i
     have h := congrArg (fun z => inner ℝ z (φ (b i))) hg
     simp only [sum_inner, real_inner_smul_left, hd2, inner_zero_left, mul_ite, mul_one,
-      mul_zero, Finset.sum_ite_eq, Finset.mem_univ, if_true] at h
+      mul_zero, Finset.sum_ite_eq, Finset.mem_univ, ite_true] at h
     exact h
   let b' : Basis (Fin M) ℝ (EuclideanSpace ℝ (Fin M)) :=
     basisOfLinearIndependentOfCardEqFinrank' _ hli (by simp)
@@ -144,7 +144,7 @@ theorem transference_rat {M : ℕ} (b : Basis (Fin M) ℚ V)
     refine InnerProductSpace.ext_inner_right_basis b' fun k => ?_
     rw [hm, hb', map_sum, sum_inner]
     simp only [map_smul, ← Rat.cast_smul_eq_qsmul ℝ, real_inner_smul_left, hd3, mul_ite, mul_one,
-      mul_zero, Finset.sum_ite_eq', Finset.mem_univ, if_true, Rat.cast_intCast]
+      mul_zero, Finset.sum_ite_eq', Finset.mem_univ, ite_true, Rat.cast_intCast]
   refine ⟨fun i => ∑ j, (m i j : ℚ) • b j, fun i => ?_, ?_, fun i => ?_⟩
   · refine Submodule.sum_mem _ fun j _ => ?_
     rw [Int.cast_smul_eq_zsmul]

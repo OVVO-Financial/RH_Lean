@@ -210,7 +210,7 @@ theorem colLie_diag_comm [DecidableEq T] [DecidableEq κ] (t t' : T) (i k l : κ
           by_cases h3 : i = k <;> by_cases h4 : i = j <;> simp [h3, h4, eq_comm, sub_smul] <;>
             (try split_ifs) <;> simp_all
         · simp [h2, Ne.symm h2]
-      · simp only [if_neg h1, smul_zero, zero_sub, neg_eq_zero]
+      · simp only [ite_eq_right h1, smul_zero, zero_sub, neg_eq_zero]
         split_ifs with h2 h3
         · exact absurd ⟨h2.1.trans h3.1, h2.2.trans h3.2⟩ h1
         · rfl
@@ -224,7 +224,7 @@ theorem colLie_diag_comm [DecidableEq T] [DecidableEq κ] (t t' : T) (i k l : κ
           by_cases h3 : i = l <;> by_cases h4 : i = j <;> simp [h3, h4, eq_comm, sub_smul] <;>
             (try split_ifs) <;> simp_all
         · simp [h2, Ne.symm h2]
-      · simp only [if_neg h1, smul_zero, zero_sub, neg_eq_zero]
+      · simp only [ite_eq_right h1, smul_zero, zero_sub, neg_eq_zero]
         split_ifs with h2 h3
         · exact absurd ⟨h2.1.trans h3.1, h2.2.trans h3.2⟩ h1
         · simp

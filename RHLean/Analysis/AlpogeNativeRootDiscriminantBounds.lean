@@ -226,7 +226,7 @@ theorem rho_two {e M i : ℕ} (hM : Nat.Coprime 2 M) (hN : 2 ^ (e + 2) * M ∣ N
       unfold Nat.ModEq at h4'
       omega
     by_cases hi2 : i < 2
-    · rw [if_pos hi2]
+    · rw [ite_eq_left hi2]
       by_cases hw : ∃ w ∈ (KK N (2 ^ i * M)).filter (fun u => u ∈ U),
           ZMod.unitsMap h2 w = -1
       · obtain ⟨w, hwH, hw1⟩ := hw
@@ -254,7 +254,7 @@ theorem rho_two {e M i : ℕ} (hM : Nat.Coprime 2 M) (hN : 2 ^ (e + 2) * M ∣ N
               · exact hA u (hKM u hu.1) h1
               · exact absurd h1 (hw u (Finset.mem_filter.mpr hu)))
           _ ≤ 2 * _ := by omega
-    · rw [if_neg hi2]
+    · rw [ite_eq_right hi2]
       calc _ ≤ (KK N (2 ^ (e + 2) * M)).card := Finset.card_le_card (fun u hu => by
             rw [Finset.mem_filter] at hu
             rcases hU u hu.2 with h1 | h1
@@ -280,14 +280,14 @@ theorem rho_two {e M i : ℕ} (hM : Nat.Coprime 2 M) (hN : 2 ^ (e + 2) * M ∣ N
   have hkey : (((KK N (2 ^ i * M)).filter fun u => u ∈ U).card : ℝ) * (2 ^ i).totient
       ≤ (((2 ^ i).totient : ℝ) + if i < 2 then 1 else 0) * (KK N (2 ^ (e + 2) * M)).card := by
     by_cases hi2 : i < 2
-    · rw [if_pos hi2] at hcard ⊢
+    · rw [ite_eq_left hi2] at hcard ⊢
       have ht : (2 ^ i).totient = 1 := by interval_cases i <;> simp
       rw [ht]
       have : (((KK N (2 ^ i * M)).filter fun u => u ∈ U).card : ℝ)
           ≤ 2 * (KK N (2 ^ (e + 2) * M)).card := by exact_mod_cast hcard
       push_cast
       linarith
-    · rw [if_neg hi2] at hcard ⊢
+    · rw [ite_eq_right hi2] at hcard ⊢
       have : (((KK N (2 ^ i * M)).filter fun u => u ∈ U).card : ℝ)
           ≤ (KK N (2 ^ (e + 2) * M)).card := by
         have := hcard; rw [one_mul] at this; exact_mod_cast this
@@ -325,7 +325,7 @@ private theorem sum_range_ite_lt_two_eq_two (e : ℕ) :
     rw [Finset.sum_range_succ, Finset.sum_range_one]
     norm_num
   | succ k ih =>
-    rw [show k + 1 + 2 = k + 2 + 1 from rfl, Finset.sum_range_succ, ih, if_neg (by omega), add_zero]
+    rw [show k + 1 + 2 = k + 2 + 1 from rfl, Finset.sum_range_succ, ih, ite_eq_right (by omega), add_zero]
 
 theorem le_SS {e d : ℕ} (h2 : 2 ^ (e + 2) ∣ N) (hd : d.Prime) (hdN : d ∣ N) (hd2 : ¬ 2 ∣ d)
     (hU : ∀ u ∈ U, ZMod.unitsMap h2 u = 1 ∨ ZMod.unitsMap h2 u = -1) (rd : 1 / 2 ≤ rho U (N / d)) :

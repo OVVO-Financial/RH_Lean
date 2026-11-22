@@ -65,10 +65,10 @@ theorem eval_mul_prod_eq {J : Type*} [Fintype J] (B : J → Set σ)
       set x'' : σ → K := fun s => if ∃ i ∈ insert j S, s ∈ B i then x₀ s else x s with hx''
       have h₁ : eval x' (D j) = eval x (D j) := hD j _ _ fun s hs => by
         rw [hx']
-        exact if_neg fun ⟨i, hi, hs'⟩ => hB i j (fun e => hj (e ▸ hi)) s hs' hs
+        exact ite_eq_right fun ⟨i, hi, hs'⟩ => hB i j (fun e => hj (e ▸ hi)) s hs' hs
       have h₂ : eval x'' (D j) = eval x₀ (D j) := hD j _ _ fun s hs => by
         rw [hx'']
-        exact if_pos ⟨j, Finset.mem_insert_self _ _, hs⟩
+        exact ite_eq_left ⟨j, Finset.mem_insert_self _ _, hs⟩
       have h₃ : eval x'' Q = eval x' Q := eval_congr_vars fun s hs => by
         have : s ∉ B j := fun h => hQ s h hs
         simp [hx', hx'', this]
@@ -76,7 +76,7 @@ theorem eval_mul_prod_eq {J : Type*} [Fintype J] (B : J → Set σ)
       ring
   rw [key]
   congr 1
-  exact eval_congr_vars fun s hs => if_pos (by simpa using hv s hs)
+  exact eval_congr_vars fun s hs => ite_eq_left (by simpa using hv s hs)
 
 variable [CharZero K] {p q n : ℕ}
 
