@@ -267,7 +267,11 @@ theorem alpogeLiteralHostModulus_ne_zero
   unfold alpogeNativeHostN
   positivity
 
-instance alpogeLiteralHostModulus_neZero
+/-- `NeZero` is a `Prop`-valued class, so Lean elaborates this instance as
+a theorem.  It is declared with `theorem` (plus the instance attribute) so
+that the source proof inventory and the elaborated declaration graph agree
+on the named-proof count. -/
+@[instance] theorem alpogeLiteralHostModulus_neZero
     (e q d : ℕ) [Fact q.Prime] [Fact d.Prime] :
     NeZero (alpogeNativeHostN e q d) :=
   ⟨alpogeLiteralHostModulus_ne_zero e q d⟩
