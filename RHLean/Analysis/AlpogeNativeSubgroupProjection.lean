@@ -72,6 +72,7 @@ theorem alpogeNativeProjection_sum_phase (A0 : AddSubgroup H)
     intro u
     ext
     · norm_num [alpogeNativeProjectionE1, AlpogeNativeE0]
+      decide
     · simp [alpogeNativeProjectionE1]
     · simp [alpogeNativeProjectionE1]
       abel
@@ -142,7 +143,6 @@ theorem alpogeNativeFrozenThick_sum_subgroup
   unfold alpogeNativeProjectionDensity
   push_cast
   field_simp [hn]
-  <;> ring
 
 /-- All annihilator characters at all original top heights; no height is
 silently replaced by a common reference. -/
@@ -205,7 +205,6 @@ theorem alpogeNativeFrozenThick_average_eq_signal
   rw [hs]
   unfold alpogeNativeProjectionDivisor alpogeNativeProjectedSignal
   field_simp [ht, hu]
-  <;> ring
 
 /-- Retained characters keep their original phases and heights. -/
 def alpogeNativeRetainedSignal
@@ -225,9 +224,9 @@ def alpogeNativeExcludedCharacterMass
   (1 / (TT.card : ℝ)) * ∑ t ∈ TT,
     ∑ ψ ∈ alpogeNativeProjectionChars A0 \ Kp, ‖F ψ (a t / b)‖
 
+omit [DecidableEq H] in
 /-- A paid finite one-sided character inequality.  Only the excluded
 characters are charged by their norms; retained signed phases survive. -/
-omit [DecidableEq H] in
 theorem alpogeNativeRetained_sub_excluded_le_projected
     (A0 : AddSubgroup H)
     (F : AddChar (AlpogeNativeE0 × H) ℂ → ℝ → ℂ)
@@ -278,6 +277,7 @@ theorem alpogeNativeProjectionThick_partner (s u t : H) :
   ext
   · norm_num [alpogeNativePartner, alpogeNativeCconj, alpogeNativeTopPl,
       alpogeNativeProjectionE1, AlpogeNativeE0]
+    decide
   · simp [alpogeNativePartner, alpogeNativeCconj, alpogeNativeTopPl,
       alpogeNativeProjectionE1]
   · simp [alpogeNativePartner, alpogeNativeCconj, alpogeNativeTopPl,
@@ -289,8 +289,10 @@ theorem alpogeNativeProjectionThickColours_subset (T2 : Finset H) (u t : H) :
   classical
   intro g hg
   obtain ⟨s, _hs, rfl⟩ := Finset.mem_image.mp hg
-  norm_num [Finset.mem_filter, alpogeNativeProjectionE1, alpogeNativeInPhi,
-    AlpogeNativeE0]
+  apply Finset.mem_filter.mpr
+  refine ⟨Finset.mem_univ _, ?_⟩
+  change ¬ (1 : ZMod 2) = 0
+  decide
 
 /-- An original colour contribution, including every character and its
 own width-shifted response. -/
@@ -479,7 +481,6 @@ theorem alpogeNativePhysicalSubgroup_eq_projected_add_remainder
   unfold alpogeNativePhysicalSubgroupTopExcess
   rw [hsum, mul_add,
     alpogeNativeFrozenThick_average_eq_signal A0 F TT T2 hTT hT2 m a b]
-  rfl
 
 /-- The finite paid character/source inequality.  There is no analytic
 upper-bound hypothesis: the RHS is the complete original physical ASK.

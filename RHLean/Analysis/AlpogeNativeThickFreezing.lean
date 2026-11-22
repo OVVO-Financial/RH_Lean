@@ -83,8 +83,8 @@ theorem alpogeNativeFreezing_partner_inPhi (t : H) (g : AlpogeNativeE0 × H)
     rcases hcases g.1.1 with hz | hz
     · exact False.elim (hg hz)
     · exact hz
-  norm_num [alpogeNativeInPhi, alpogeNativePartner, alpogeNativeCconj,
-    alpogeNativeTopPl, AlpogeNativeE0, hbit]
+  change (1 : ZMod 2) + g.1.1 + 0 = 0
+  simpa only [hbit] using (show (1 : ZMod 2) + 1 + 0 = 0 by decide)
 
 /-- A lower-to-upper width change costs at most its displacement, and
 vanishes above the original lower-width cutoff. -/
@@ -451,7 +451,7 @@ theorem alpogeNativePhysicalSubgroup_freezing_paid
       exact_mod_cast Fintype.card_ne_zero
     simp only [Finset.sum_const, Finset.card_univ, Fintype.card_fin, nsmul_eq_mul]
     simp_rw [mul_assoc, ← Finset.mul_sum]
-    field_simp [hu] <;> ring
+    field_simp [hu]
   have hscaled := mul_le_mul_of_nonneg_left hs
     (show 0 ≤ 1 / (Fintype.card A0 : ℝ) by positivity)
   simp only [Finset.sum_add_distrib] at hscaled
@@ -498,6 +498,7 @@ theorem alpogeNativeRetained_freezing_paid
     (alpogeNativePhysicalSubgroup_freezing_paid A0 inertia frob ell N TT T2 hTT hT2
       a b h w hb hh ha hw hthick hN hNb)
 
+omit [DecidableEq H] in
 /-- The original divisor cancels the actual top and row multiplicities.
 If a_t/b <= X, the entire normalized freezing bill is at most
 4*h*(log 4+2)*X/(b*Delta). No host cardinal remains except the actual density. -/
@@ -543,7 +544,7 @@ theorem alpogeNativeFreezing_normalized_cost_le
       div_le_div_of_nonneg_right hnum hQ.le
     _ = _ := by
       unfold alpogeNativeProjectionDivisor
-      field_simp [ht, hmr, hb.ne', hd] <;> ring
+      field_simp [ht, hmr, hb.ne', hd]
 
 end
 

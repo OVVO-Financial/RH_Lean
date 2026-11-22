@@ -1,6 +1,7 @@
 import RHLean.Geometry.NativeIntegralCompletion
 import RHLean.Analysis.AlpogeNativeWidthRecombination
 import RHLean.Analysis.AlpogeNativeCompleteSourcePayment
+import RHLean.Analysis.AlpogeWidthExponentialDecay
 
 /-!
 # Kernel audit for the native descent and complete-source comparison
@@ -106,3 +107,27 @@ info: 'RHLean.Analysis.alpogeNativeCompleteCharacterSource_normalized_le' depend
 #guard_msgs in
 #print axioms RHLean.Analysis.alpogeNativeCompleteCharacterSource_normalized_le
 
+
+/--
+info: 'RHLean.Geometry.nativeIntegralDescent_from_generators' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Geometry.nativeIntegralDescent_from_generators
+
+/--
+info: 'RHLean.Geometry.nativeIntegralDescent_slope' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Geometry.nativeIntegralDescent_slope
+
+/--
+info: 'RHLean.Analysis.alpogeWidthExponentialCost_eventually_le_rpow' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.alpogeWidthExponentialCost_eventually_le_rpow

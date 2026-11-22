@@ -104,7 +104,7 @@ theorem alpogeNativeASKRealWeight_nonneg
   by_cases hn : Λ n = 0
   · simp [hn]
   · have hpow : IsPrimePow n := ArithmeticFunction.vonMangoldt_ne_zero_iff.mp hn
-    obtain ⟨p, k, hp, hk, rfl⟩ := isPrimePow_nat_iff.mp hpow
+    obtain ⟨p, k, hp, hk, rfl⟩ := (isPrimePow_nat_iff n).mp hpow
     apply mul_nonneg ArithmeticFunction.vonMangoldt_nonneg
     rw [alpogeNativeColourKernel_primePower inertia frob p k hp hk g]
     split_ifs
@@ -302,9 +302,9 @@ def alpogeAffineWidthRow (v : AlpogeNativeE0 × H → ℝ) (h₀ : ℝ)
     (j : ℕ) : AlpogeNativeE0 × H → ℝ :=
   fun ρ => v ρ + ((j : ℝ) + 1 / 2) * h₀
 
+omit [AddCommGroup H] [Fintype H] [DecidableEq H] in
 /-- Actual HC row pairs have a pointwise midpoint independent of the row.
 This is algebra on their widths, not a claim that a midpoint lattice exists. -/
-omit [AddCommGroup H] [Fintype H] [DecidableEq H] in
 theorem alpogeAffineWidthRow_pair_midpoint
     (v : AlpogeNativeE0 × H → ℝ) (h₀ : ℝ) (m j : ℕ) (hj : j < m) :
     alpogeWidthMidpoint (alpogeAffineWidthRow v h₀ j)

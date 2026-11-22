@@ -29,6 +29,7 @@ retained. Columns, rather than rows, are the resulting vectors. -/
 def nativeFrameCombination (v : I → E) (C : Matrix I J ℝ) (j : J) : E :=
   ∑ i : I, C i j • v i
 
+omit [Fintype J] in
 /-- Exact Gram transport, before any norm or determinant inequality. -/
 theorem nativeFrameCombination_gram (v : I → E) (C : Matrix I J ℝ) :
     Matrix.gram ℝ (nativeFrameCombination v C) =
@@ -114,9 +115,9 @@ theorem nativeGramDet_le_prod_norm_sq_fintype
       ∏ i : I, ‖v i‖ ^ 2 := e.prod_comp (fun i => ‖v i‖ ^ 2)
   simpa only [Function.comp_apply, hp] using h
 
+omit [FiniteDimensional ℝ V] in
 /-- Coordinates in an arbitrary lattice basis preserve its actual Gram
 determinant, rather than replacing that determinant by basis lengths. -/
-omit [FiniteDimensional ℝ V] in
 theorem nativeGramDet_basis_coordinates (b : Basis I ℝ V) (v : I → V) :
     (Matrix.gram ℝ v).det =
       (b.toMatrix v).det ^ 2 * (Matrix.gram ℝ (b : I → V)).det := by
@@ -125,9 +126,9 @@ theorem nativeGramDet_basis_coordinates (b : Basis I ℝ V) (v : I → V) :
     simp [nativeFrameCombination]
   simpa only [hv] using nativeFrameCombination_gram_det (b : I → V) (b.toMatrix v)
 
+omit [FiniteDimensional ℝ U] [FiniteDimensional ℝ V] in
 /-- The source metric enters through its full Gram determinant. This
 identity is valid before imposing any integrality or norm estimate. -/
-omit [FiniteDimensional ℝ U] [FiniteDimensional ℝ V] in
 theorem nativeMap_gramDet_source (a : Basis I ℝ U)
     (u : OrthonormalBasis I ℝ U) (f : U →ₗ[ℝ] V) :
     (Matrix.gram ℝ (fun i => f (a i))).det =
@@ -140,7 +141,7 @@ theorem nativeMap_gramDet_source (a : Basis I ℝ U)
     change (∑ i : I, M i j • f (u i)) = f (a j)
     have hs : (∑ i : I, M i j • u i) = a j := by
       change (∑ i : I, u.toBasis.toMatrix (a : I → U) i j • u.toBasis i) = a j
-      exact u.toBasis.sum_toMatrix_smul_self
+      exact u.toBasis.sum_toMatrix_smul_self (a : I → U) j
     calc
       (∑ i : I, M i j • f (u i)) = f (∑ i : I, M i j • u i) := by
         simp only [map_sum, map_smul]
@@ -156,11 +157,11 @@ theorem nativeMap_gramDet_source (a : Basis I ℝ U)
       (Matrix.gram ℝ (fun i => f (u i))).det at h
   rwa [← ha] at h
 
+omit [FiniteDimensional ℝ U] in
 /-- Quantitative integral-map theorem for arbitrary source and target
 metrics. The source covolume, target covolume and the exact integer index
 are all retained. Bounds are checked on an actual orthonormal frame.
 -/
-omit [FiniteDimensional ℝ U] in
 theorem nativeIntegralMap_gram_bound
     (a : Basis I ℝ U) (b : Basis I ℝ V)
     (u : OrthonormalBasis I ℝ U) (f : U →ₗ[ℝ] V)
@@ -211,6 +212,7 @@ def nativeCompletionMap {d : ℕ} (f : U →ₗ[ℝ] V) (w : Fin d → V) :
   (f.coprod ((EuclideanSpace.basisFun (Fin d) ℝ).toBasis.constr ℝ w)).comp
     (WithLp.linearEquiv 2 ℝ (U × EuclideanSpace ℝ (Fin d))).toLinearMap
 
+omit [FiniteDimensional ℝ U] [FiniteDimensional ℝ V] in
 theorem nativeCompletionMap_basis {r d : ℕ} (a : Basis (Fin r) ℝ U)
     (f : U →ₗ[ℝ] V) (w : Fin d → V) (i : Fin r ⊕ Fin d) :
     nativeCompletionMap f w (nativeCompletionBasis a i) =
@@ -218,6 +220,7 @@ theorem nativeCompletionMap_basis {r d : ℕ} (a : Basis (Fin r) ℝ U)
   cases i <;>
     simp [nativeCompletionMap, nativeCompletionBasis, Basis.prod_apply]
 
+omit [FiniteDimensional ℝ U] [FiniteDimensional ℝ V] in
 theorem nativeCompletionMap_orthonormal {r d : ℕ}
     (u : OrthonormalBasis (Fin r) ℝ U)
     (f : U →ₗ[ℝ] V) (w : Fin d → V) (i : Fin r ⊕ Fin d) :
@@ -226,6 +229,7 @@ theorem nativeCompletionMap_orthonormal {r d : ℕ}
   cases i <;>
     simp [nativeCompletionMap, OrthonormalBasis.prod_apply]
 
+omit [FiniteDimensional ℝ U] in
 /-- The auxiliary factor costs exactly zero logarithmic covolume.
 This follows from its actual orthogonal unit Gram matrix. -/
 theorem nativeCompletionBasis_gram_det {r d : ℕ}
@@ -238,7 +242,7 @@ theorem nativeCompletionBasis_gram_det {r d : ℕ}
     ext i j
     cases i <;> cases j <;>
       simp [Matrix.gram_apply, nativeCompletionBasis, Basis.prod_apply,
-        WithLp.prod_inner_apply, OrthonormalBasis.inner_eq_ite, Matrix.one_apply]
+        WithLp.prod_inner_apply, Matrix.one_apply, EuclideanSpace.inner_single_left]
   rw [hG, Matrix.det_fromBlocks_zero₂₁, Matrix.det_one, mul_one]
 
 /-- Finite integral-map descent with genuinely constructed completion.
