@@ -1,0 +1,7 @@
+# Owner Payment | November 22, 2026
+
+## A. Opening checkpoint | OP-20261122T050900Z-WIDTH-OPEN
+
+IN_PROGRESS / PARTIAL. Does centering the sharp widths on the literal square clock pay the complete-character ASK width change after the original Frobenius/inertia cosets and partner widths are restored? Test a single physical family first, including the MAIN change, then the normalization of topExcess. Separately inspect the Coordinator's requested matched Selberg endpoint row. No quantitative result is asserted at opening.
+
+Scheduled 2026-11-22 00:09:00 EST (05:09 UTC), America/New_York; RUN_ID_UNAVAILABLE. Main `5bcf45f118ce3723e392ecd6e124f0c21ad0517b`; AGENTS `b9bfe9b60904f87b698628f8b771d476c19e933e`; contract `f4fe93c4b609d07061ac9aa7d2dd0b7371e73f3c`; full-cost directive `1321c6e8e0f4d5b5248cecf651e69da873eb7463`; native sharp ASK `3b6c2035d23b235ff9c0e1cb287eec8fdc516acc`; full NNS map `8ee131a679e1535c650c47829ce870ef69c31b05`. Intake reports `3a4ff552e187a40c82aa5d0f972aa236728666fb`; no November 22 directory at intake: TODAY=PENDING, YESTERDAY=CARRY_FORWARD for upstream. Coordinator SHELL1-5 is paper evidence only; #1187 is a new draft, not main. The complete signed source, geometric return and strict historical saving remain OPEN. Early publication uses the authorized own canonical report on `agent-reports`; the final section will distinguish measured evidence from proof.
