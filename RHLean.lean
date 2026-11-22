@@ -960,6 +960,7 @@ import RHLean.Geometry.ComplexSquareFiber
 import RHLean.Geometry.ComplexSquareRecovery
 import RHLean.Geometry.FermatCoordinates
 import RHLean.Geometry.LeastPrimeEndpoint
+import RHLean.Geometry.NativeAdicQuadraticNorm
 import RHLean.Geometry.NativeAllPlaceDescent
 import RHLean.Geometry.NativeAllPlaceEigenGenerators
 import RHLean.Geometry.NativeAllPlaceShortGenerators
@@ -968,6 +969,7 @@ import RHLean.Geometry.NativeComponentRegularSection
 import RHLean.Geometry.NativeComponentRegularity
 import RHLean.Geometry.NativeDerivedGeometricHost
 import RHLean.Geometry.NativeDescentCostPayment
+import RHLean.Geometry.NativeDyadicAdelicNorm
 import RHLean.Geometry.NativeFiniteIntegralDescent
 import RHLean.Geometry.NativeFramedShortSectionConstruction
 import RHLean.Geometry.NativeGenericFrameFaithfulness
@@ -987,10 +989,13 @@ import RHLean.Geometry.NativeJetRankBudget
 import RHLean.Geometry.NativeLatticeTransference
 import RHLean.Geometry.NativeLatticeTransferenceA
 import RHLean.Geometry.NativeLatticeTransferenceB
+import RHLean.Geometry.NativeLocalQuadraticNorm
 import RHLean.Geometry.NativePeterssonMultiplication
 import RHLean.Geometry.NativePolarizationCoefficientLattice
+import RHLean.Geometry.NativePolarizationRealCoordinates
 import RHLean.Geometry.NativePrescribedHermitianSpaces
 import RHLean.Geometry.NativePrescribedPolarizationLattice
+import RHLean.Geometry.NativePrescribedPolarizationRealization
 import RHLean.Geometry.NativeRegularCharacterSlopeDescent
 import RHLean.Geometry.NativeRegularSectionSelection
 import RHLean.Geometry.NativeSectionCostAbsorption

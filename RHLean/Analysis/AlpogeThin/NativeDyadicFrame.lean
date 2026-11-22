@@ -120,10 +120,7 @@ theorem nativeDyadicFrame_generator (e : ℕ) :
 
 /-- The selected source generator has the full source frame order. -/
 theorem nativeDyadicFrame_n0 (e : ℕ) : (nativeDyadicFrame e).n0 = 2 ^ e := by
-  have h := addOrderOf_injective
-    (G := (nativeDyadicFrame e).A) (H := AlpogeNativeDyadicH e)
-    (nativeDyadicFrameEquiv e).toAddMonoidHom
-    (nativeDyadicFrameEquiv e).injective (nativeDyadicFrame e).a0
+  have h := (nativeDyadicFrameEquiv e).addOrderOf_eq (nativeDyadicFrame e).a0
   exact h.symm.trans
     ((congrArg (fun x : AlpogeNativeDyadicH e => addOrderOf x)
       (nativeDyadicFrame_generator e)).trans (nativeDyadicGenerator_order e))

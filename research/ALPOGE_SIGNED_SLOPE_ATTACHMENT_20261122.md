@@ -1,8 +1,8 @@
 # Native signed slope attachment and compiler repair checkpoint
 
 22 November 2026. Current repair parent:
-`baddf5afd886855a1c3600693573cd89dc85250e`.
-The preceding signed-comparison checkpoint preserved contributor head
+`a26fa375504cbd9d6bcbd0a32cf7b2f5c4daeb3d`.
+The preceding `baddf5a` signed-comparison checkpoint preserved contributor head
 `46fb310c6e22478ae2a2cc1795ed8793acc14d5c`.
 
 `descent_payment_ack=ALPOGE_NATIVE_DESCENT_PAYMENT_V1`
@@ -19,7 +19,7 @@ It does not prove unconditional cancellation or supply the remaining
 finite-adelic isometries, real complex structure, CM moduli, theta-cover,
 actual section-germ realization, and geometric slope/metric estimates.
 Hosted compilation of this complete repair batch is pending; both builds of
-the preceding `baddf5a` head failed as recorded below.
+the preceding `a26fa37` head failed as recorded below.
 
 The source remains
 `CocoSgt/riemann-hypothesis-lean@7cbf7a0c32fca1badf05931879a37c3f8a2b03b4`.
@@ -113,15 +113,15 @@ polarized abelian scheme or canonical-connection section germs.
 
 ## 4. Repairs use complete hosted diagnostics
 
-Both hosted builds of the exact parent `baddf5a` completed with failure and
+Both hosted builds of the exact parent `a26fa37` completed with failure and
 reported the same diagnostic multiset, including cascading diagnostics:
 
 | Build | Run | Job | Diagnostics |
 |---|---:|---:|---|
-| Native library | 45076126320 | 137373626091 | 53 errors, 25 warnings |
-| Targeted closure | 45076126308 | 137373625258 | 53 errors, 25 warnings |
+| Native library | 45078081203 | 137379731321 | 20 errors, 18 warnings |
+| Targeted closure | 45078081282 | 137379731509 | 20 errors, 18 warnings |
 
-The repairs preserve both intervening contributor commits. The current batch
+The repairs preserve both intervening contributor commits. The preceding batch
 uses the canonical rational algebra in the private Galois helpers, registers
 the exact existing `Pi.module` in the two cohomology definitions, and proves
 the dyadic generator order through the actual additive equivalence. The
@@ -131,15 +131,26 @@ normalization equality. Further repairs address real/integer casts and the
 algebra-homomorphism versus linear-map coercion in the harmonic span proof.
 Warning cleanup removes only reported redundant simplifiers and marks five
 unused binder names without removing any hypotheses. Existing construction
-statements are preserved, with no heartbeat increase or gate change.
+statements were preserved, with no heartbeat increase or gate change.
 
-The earlier `46fb310` failures (44 errors and 36 warnings in each build) and
-their repairs remain in the manifest history. Separate documentation,
+That hosted build successfully compiled `NativeDescentCostPayment`,
+`AlpogeNativeSignedSlopeComparison`, `NativeGeometricCostWindows`, and
+`NativeThetaJetEvaluation`. It did not complete the full construction audit:
+the concrete Galois equivalence timed out, the cohomology quotient and framed
+submodule still needed exact instance registration, and the prescribed
+Hermitian-space and short-family proofs reported further elaboration errors.
+The current repair batch addresses those exact failures. Its new local-norm
+and real-tensor constructions have independent static reviews and await their
+first hosted compilation.
+
+The earlier `46fb310` failures (44 errors and 36 warnings in each build),
+`baddf5a` failures (53 errors and 25 warnings), and their repairs remain in
+the manifest history. Separate documentation,
 inventory, atlas, export, cold-only and effective-resonance checks passed on
-`baddf5a`; that does not make its failed Lean builds successful.
+these preceding heads; that does not make their failed Lean builds successful.
 
-The root import manifest includes 1,481 native modules. The targeted
-construction audit has 193 standard-axiom guards, including the new finite
+The root import manifest includes 1,486 native modules. The targeted
+construction audit has 221 standard-axiom guards, including the new finite
 source, scalar, lattice and evaluated-family results. Hosted warning-fatal
 compilation remains the acceptance gate. Local Lean/Lake execution is not
 used.
@@ -227,7 +238,7 @@ inequality and, under these original size windows,
 \le x^{1/2+(e_{\rm Div}+e_{\rm Loss}+6)\varepsilon}.
 \]
 
-This is a conditional mean estimate. Its eleven physical geometric inputs,
+This is a conditional mean estimate. Its eleven original finite inputs,
 strong trace windows, and `B0`/`Nc` estimates remain explicit. Their compatible
 construction, a uniform choice of exponent constants before all subsequent
 scales, and the actual window/pointwise transfer are still needed for an
@@ -259,11 +270,9 @@ ideal \(B\) using `nativeDyadicHostRaw_principal` and uses that same ideal for
 all \(j\). The ranks are \(k+m-1\) over \(\mathcal O_E\) and
 \((k+m-1)(4\cdot2^e)\) over \(\mathbb Z\).
 
-The next finite-adelic supplier is the source's `exists_adelic_neg_one`:
-construct an element of \(E\otimes_F\mathbb A_f\) of relative norm \(-1\),
-then use it for `dSpace_congr` and the graded-space isometries. It requires
-actual local unit norm-solvability, completion instances and restricted
-product patching. The separate `DomFor` supplier must construct the real
+The source's `exists_adelic_neg_one` supplier is now constructed as described
+below. Its next consumer is `dSpace_congr` and the graded-space isometries.
+The separate `DomFor` supplier must construct the real
 complex structure on this same lattice, prove positivity and compatibility
 with every \(\mathcal O_E\) multiplication operator, and establish both
 embedding-trace identities. The integral form above is not silently
@@ -272,19 +281,79 @@ identified with the source's later sign-selected form.
 These constructions have source/hash manifests and independent static
 reviews. Their next hosted build is still the proof-validation gate.
 
-## 8. Acceptance status and next construction
+## 8. Actual local norm solvability and real tensor realization
+
+The local norm construction first proves representation of a unit by
+\(s^2+Tst+Nt^2\) over a Henselian local ring with finite residue field and
+unit discriminant. It proves the finite-field solution and both derivative
+lifting cases. The subsequent completion theorem uses the literal
+`v.adicCompletionIntegers K`: it derives maximal-ideal-adic completeness,
+the Henselian property, surjectivity of reduction from the original integer
+ring, and finiteness of the completion residue field. For a number field,
+the original nonzero prime ideal supplies the required finite quotient.
+Thus the endpoint constructs the norm-minus-one solution away from the
+quadratic discriminant without a separate norm-solution, Henselian, or
+finite-completion-residue premise.
+
+`NativeDyadicAdelicNorm.lean` completes the actual global patching step. It
+uses the same two Gauss roots and the same maximal real subfield. Outside
+the primes over \(d\), it solves the integral quadratic norm equation for
+\((1+\sqrt{-d})/2\). At primes over \(d\), coprimality makes \(q\) a unit;
+the proof solves the \(q\)-equation and transports its coordinates using
+\(\beta=\sqrt{-q}/\sqrt{-d}\) and \(\alpha=(1-\beta)/2\).
+The exceptional set is proved finite, so the selected coordinates are actual
+finite adeles \(S,T\). With the original integral half-root \(\theta\),
+
+\[
+y=\iota_{\mathbb A_f}(S)+\iota_E(\theta)\iota_{\mathbb A_f}(T)
+\quad\text{satisfies}\quad\overline y\,y=-1.
+\]
+
+The scalar-extended involution is proved to be the same host conjugation,
+and \(y\) is proved to be a unit. This is a finite-adelic tensor element;
+it does not assert a global CM-field element with negative relative norm.
+The diagonal GL congruence using this element is the next consumer.
+
+The real-coordinate construction proves the source's exact map
+
+\[
+\theta:\mathbb R\otimes_{\mathbb Z}(B^{-1})^N
+\longrightarrow\prod_{\tau\in\Psi}\mathbb C^N,
+\qquad
+\theta(a\otimes v)_{\tau,i}=a\,\tau(v_i),
+\]
+
+is bijective for the same native lattice and actual CM type. The canonical
+embedding basis and the conjugate-complement identity prove scalar
+bijectivity. The actual inclusion \(\mathcal O_E^N\subseteq(B^{-1})^N\)
+then proves surjectivity on this lattice, and the already-proved exact
+integer rank proves injectivity after real base change. One constructed
+half-different ideal works for every prescribed rank. There is no independent
+spanning or real-realization assumption.
+
+The Hermitian convention is conjugate-linear in the first argument. The
+subsequent source complex structure must therefore prove
+\(\operatorname{EF}(Jx,x)>0\), and the second real trace identity has sign
+\(-2\operatorname{Im}(\cdot)\). This convention is retained explicitly.
+The real equivalence alone does not assert positivity or a completed `DomFor`.
+
+The signed arithmetic input also remains distinct: `LossBounds` must come
+from the actual family and signed-loss estimates. The new scalar comparison
+does not manufacture that premise by changing `Ga`.
+
+## 9. Acceptance status and next construction
 
 ```text
 ROLE=Lean Verification
 SOURCE=complete native signed ASK-MAIN and same selected-host Gz mean
-WITNESS=actual CM host, prescribed W_j, literal AA*L0, exact integral trace form
+WITNESS=actual CM host, prescribed W_j, literal AA*L0, integral trace form and real realization
 MAP_PAYMENT=forward reserve implemented; actual geometric map suppliers remain open
 NORMALIZER=Q=T*m*b*Delta/2 with actual TT/T2 positivity and all three costs
 SIGNED_RECOMBINATION=physical signed gap retained; no inverse recovery weight used
-FIRST_UNPAID=finite-adelic norm-minus-one isometries and full real DomFor construction
+FIRST_UNPAID=diagonal finite-adelic isometries and full real DomFor construction
 EVIDENCE=source reconstruction and independent static review; next hosted build pending
 T_C_P=tractability progressed; mathematical novelty and unconditional proof not established
 INDEPENDENT_APPLICATION=conditional finite slope stability and perfect integral lattice construction
-FORMAL_STATUS=parent baddf5a failed; complete repairs prepared, standard-axiom gate retained
-NEXT=construct local unit norm solvability and the actual real-tensor complex structure
+FORMAL_STATUS=parent a26fa37 failed; signed comparison/reserve/cost windows compiled, full gate pending
+NEXT=use the constructed norm-minus-one unit for diagonal isometries and prove the real DomFor conditions
 ```

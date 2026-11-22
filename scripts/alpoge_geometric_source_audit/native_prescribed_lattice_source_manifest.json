@@ -55,8 +55,8 @@
         "RHLean.Geometry.NativePrescribedHermitian.W_hasSignature"
       ],
       "construction": "The source coordinate W_j of rank k+m-1 and signature (k+j-1,m-j), with nondegenerate Hermitian form, literal standard integral L0 and proved Hermitian self-duality. No finite-adelic isometry is asserted.",
-      "native_sha256": "a80778e36d88465df1ff8a4cb8c333e6373edf7153d0d3d58dde7c65c0a0b94e",
-      "native_lines": 362,
+      "native_sha256": "b81aa4b415e087078e6947a172e9ade20e278ec020487369bd7e9169bdfc7ef3",
+      "native_lines": 372,
       "initial_source_reconstruction_sha256": "a80778e36d88465df1ff8a4cb8c333e6373edf7153d0d3d58dde7c65c0a0b94e"
     },
     {
@@ -213,5 +213,22 @@
   "descent_payment_ack": "ALPOGE_NATIVE_DESCENT_PAYMENT_V1",
   "tractability_ack": "ALPOGE_VIOLE_TRACTABLE_RH_V1",
   "freeze_date_utc": "2026-11-22",
-  "base_repository_head": "baddf5afd886855a1c3600693573cd89dc85250e"
+  "base_repository_head": "baddf5afd886855a1c3600693573cd89dc85250e",
+  "followup_suppliers": [
+    {
+      "manifest": "scripts/alpoge_geometric_source_audit/native_local_quadratic_norm_source_manifest.json",
+      "construction": "Actual local norm solutions and derived Henselian/finite-residue completion instances.",
+      "status": "IMPLEMENTED_HOSTED_VERIFICATION_PENDING"
+    },
+    {
+      "manifest": "scripts/alpoge_geometric_source_audit/native_dyadic_adelic_norm_source_manifest.json",
+      "construction": "The same-host finite-adele tensor element with conjugate norm minus one; diagonal isometries remain next.",
+      "status": "IMPLEMENTED_HOSTED_VERIFICATION_PENDING"
+    },
+    {
+      "manifest": "scripts/alpoge_geometric_source_audit/native_prescribed_realization_source_manifest.json",
+      "construction": "Actual real tensor embedding equivalence and pure-tensor formula; J/positivity/trace identities remain next.",
+      "status": "IMPLEMENTED_HOSTED_VERIFICATION_PENDING"
+    }
+  ]
 }

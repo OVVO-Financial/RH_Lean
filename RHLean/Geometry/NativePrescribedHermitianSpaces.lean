@@ -38,7 +38,7 @@ namespace RHLean.Geometry.NativePrescribedHermitian
 namespace Signature
 
 def cT {A : Type} [CommRing A] (σ : A →+* A) {m p : Type}
-    (M : Matrix m p A) : Matrix p m A := (M.map σ)ᵀ
+    (M : Matrix m p A) : Matrix p m A := (M.map σ).transpose
 
 theorem cT_one {A n : Type} [CommRing A] [Fintype n] [DecidableEq n]
     (σ : A →+* A) : cT σ (1 : Matrix n n A) = 1 := by
@@ -190,12 +190,14 @@ variable {E : Type} [Field E] [NumberField E]
 def stdLat (N : ℕ) : Submodule (𝓞 E) (Fin N → E) :=
   Submodule.span (𝓞 E) (Set.range (Pi.basisFun E (Fin N)))
 
+omit [NumberField E] in
 theorem stdLat_isLattice (N : ℕ) : Submodule.IsLattice E (stdLat (E := E) N) where
   fg := Submodule.fg_span (Set.finite_range _)
   span_eq_top := by
     rw [stdLat, Submodule.span_span_of_tower]
     exact (Pi.basisFun E (Fin N)).span_eq
 
+omit [NumberField E] in
 /-- The chosen base lattice is literally the integral coordinate vectors. -/
 theorem mem_stdLat_iff (N : ℕ) (x : Fin N → E) :
     x ∈ stdLat N ↔ ∀ i, IsIntegral ℤ (x i) := by
@@ -206,7 +208,9 @@ theorem mem_stdLat_iff (N : ℕ) (x : Fin N → E) :
     | mem y hy =>
       obtain ⟨i, rfl⟩ := hy
       intro j
-      by_cases h : j = i <;> simp [Pi.basisFun_apply, Pi.single_apply, h]
+      by_cases h : j = i
+      · simpa [Pi.basisFun_apply, h] using (isIntegral_one : IsIntegral ℤ (1 : E))
+      · simpa [Pi.basisFun_apply, h] using (isIntegral_zero : IsIntegral ℤ (0 : E))
     | zero => intro i; exact isIntegral_zero
     | add x y _ _ hx hy => intro i; exact (hx i).add (hy i)
     | smul a x _ hx =>
@@ -217,7 +221,9 @@ theorem mem_stdLat_iff (N : ℕ) (x : Fin N → E) :
     have hrepr :
         ∑ i : Fin N, (⟨x i, hx i⟩ : 𝓞 E) • (Pi.basisFun E (Fin N)) i = x := by
       funext j
-      simp [Pi.basisFun_apply, Pi.single_apply, Algebra.smul_def]
+      simp only [Finset.sum_apply, Pi.smul_apply, Pi.basisFun_apply]
+      change (∑ i : Fin N, x i * (Pi.single i 1 : Fin N → E) j) = x j
+      simp [Pi.single_apply]
     rw [← hrepr]
     exact Submodule.sum_mem _ fun i _ =>
       Submodule.smul_mem _ _ (Submodule.subset_span ⟨i, rfl⟩)
@@ -230,8 +236,11 @@ theorem star_isIntegral (x : E) (hx : IsIntegral ℤ x) : IsIntegral ℤ (star x
 
 omit [NumberField E] [StarRing E] in
 theorem sgn_isIntegral (b : Bool) : IsIntegral ℤ (sgn b : E) := by
-  cases b <;> simp [sgn]
+  cases b with
+  | false => exact isIntegral_one
+  | true => exact isIntegral_one.neg
 
+omit [NumberField E] in
 /-- Actual Hermitian self-duality, proved by testing the coordinate vectors. -/
 theorem stdLat_unimod (N : ℕ) (neg : Fin N → Bool) :
     AlpogeAllPlace.Formalism.HermitianLatticesTheory.IsUnimodular
@@ -254,8 +263,9 @@ theorem stdLat_unimod (N : ℕ) (neg : Fin N → Bool) :
   · intro hx y hy
     have hxi := (mem_stdLat_iff N x).mp hx
     have hyi := (mem_stdLat_iff N y).mp hy
-    have hi : IsIntegral ℤ (diagForm N neg y x) :=
-      IsIntegral.sum _ fun i _ =>
+    have hi : IsIntegral ℤ (diagForm N neg y x) := by
+      rw [diagForm_apply]
+      exact IsIntegral.sum (s := Finset.univ) _ fun i _ =>
         ((star_isIntegral (y i) (hyi i)).mul (sgn_isIntegral (neg i))).mul (hxi i)
     exact ⟨⟨diagForm N neg y x, hi⟩, rfl⟩
 

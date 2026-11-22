@@ -1,0 +1,187 @@
+{
+  "status": "IMPLEMENTED_STATIC_REVIEWED_HOSTED_VERIFICATION_PENDING",
+  "parent_head_at_freeze": "a26fa375504cbd9d6bcbd0a32cf7b2f5c4daeb3d",
+  "descent_payment_ack": "ALPOGE_NATIVE_DESCENT_PAYMENT_V1",
+  "tractability_ack": "ALPOGE_VIOLE_TRACTABLE_RH_V1",
+  "source_repository": "CocoSgt/riemann-hypothesis-lean",
+  "source_commit": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
+  "source_license": "Source archive/mirror states no license; attribution retained without assigning one.",
+  "files": [
+    {
+      "native_path": "RHLean/Geometry/NativePolarizationRealCoordinates.lean",
+      "initial_source_reconstruction_sha256": "f21644d01ac100cc15ca8ddfcb28a3d4be189911d695066cfaad10f0ec5d0847",
+      "native_sha256": "f21644d01ac100cc15ca8ddfcb28a3d4be189911d695066cfaad10f0ec5d0847",
+      "native_lines": 196
+    },
+    {
+      "native_path": "RHLean/Geometry/NativePrescribedPolarizationRealization.lean",
+      "initial_source_reconstruction_sha256": "e6d6e219ef21890e4b73d898b442f33c7bcbbf9f2937e78e6a0833ce6a9973dd",
+      "native_sha256": "e6d6e219ef21890e4b73d898b442f33c7bcbbf9f2937e78e6a0833ce6a9973dd",
+      "native_lines": 180
+    }
+  ],
+  "source_map": [
+    {
+      "path": "src/Formalism/LocalToGlobal/ProjectiveLattices/DatTheta.lean",
+      "sha256": "144016b6ee427371bd43b9d9cb07ac87b51d1fea2b8a46caea3598cc818aee1f",
+      "declarations": [
+        "Formalism.L2.Pj.DatLin.embO",
+        "Formalism.L2.Pj.DatLin.phi1",
+        "Formalism.L2.Pj.DatLin.phi1_tmul",
+        "Formalism.L2.Pj.DatLin.conj_mem_iff",
+        "Formalism.L2.Pj.DatLin.li1",
+        "Formalism.L2.Pj.DatLin.two_card",
+        "Formalism.L2.Pj.DatLin.phi1_bijective",
+        "Formalism.L2.Pj.DatLin.coordO",
+        "Formalism.L2.Pj.DatLin.theta",
+        "Formalism.L2.Pj.DatLin.theta_tmul",
+        "Formalism.L2.Pj.DatLin.embI",
+        "Formalism.L2.Pj.DatLin.phiI",
+        "Formalism.L2.Pj.DatLin.phiI_tmul",
+        "Formalism.L2.Pj.DatLin.phiI_eq",
+        "Formalism.L2.Pj.DatLin.phiI_bijective",
+        "Formalism.L2.Pj.DatLin.theta_bijective"
+      ]
+    },
+    {
+      "path": "src/Lemmata/GeneralBFactThirdVariant/Imports.lean",
+      "sha256": "e3a98ace9e1462192ddac8049a4a442311e5135214d4d01d3570c112e2f704d5",
+      "declarations": [
+        "Bl.general_b_fact_third_variant.goal1"
+      ]
+    },
+    {
+      "path": "src/Formalism/LocalToGlobal/ProjectiveLattices/DatProofs.lean",
+      "sha256": "2015bae181c76e7f989fed70ddd101e7e6bf91e26d06dc24658db58e8b942fb0",
+      "declarations": [
+        "Formalism.L2.Pj.thW",
+        "Formalism.L2.Pj.thW_tmul",
+        "Formalism.L2.Pj.thW_bijective",
+        "Formalism.L2.Pj.domFor_pm"
+      ]
+    }
+  ],
+  "native_dependencies": [
+    {
+      "path": "RHLean/Geometry/NativePrescribedPolarizationLattice.lean",
+      "namespace": "RHLean.Analysis.AlpogeThin",
+      "declarations": [
+        "NativeRawHostPolarization.twistedLattice",
+        "NativeRawHostPolarization.mem_twistedLattice",
+        "NativeRawHostPolarization.twistedLattice_free_int",
+        "NativeRawHostPolarization.twistedLattice_finite_int",
+        "NativeRawHostPolarization.twistedLattice_rank_int",
+        "NativeRawHostPolarization.prescribedLattice"
+      ],
+      "initial_attachment_sha256": "e5a1316a3caf23ecdfa3fc4c4f764d8c1409f184fb1a5e161b0f85a8c32a4650",
+      "native_sha256": "e5a1316a3caf23ecdfa3fc4c4f764d8c1409f184fb1a5e161b0f85a8c32a4650"
+    },
+    {
+      "path": "RHLean/Geometry/NativePolarizationCoefficientLattice.lean",
+      "namespace": "RHLean.Analysis.AlpogeThin",
+      "declarations": [
+        "NativeRawHostPolarization.coefficientIdeal"
+      ],
+      "initial_attachment_sha256": "b087e174dd6a47e75a6fac7a84768a05177b198b06a8f06bfcdb7371318bf441",
+      "native_sha256": "b087e174dd6a47e75a6fac7a84768a05177b198b06a8f06bfcdb7371318bf441"
+    },
+    {
+      "path": "RHLean/Analysis/AlpogeThin/NativeDyadicHostPolarizationArithmetic.lean",
+      "namespace": "RHLean.Analysis.AlpogeThin",
+      "declarations": [
+        "NativeRawHostPolarization.halfDifferent_ne_zero"
+      ],
+      "initial_attachment_sha256": "af4caf87fde6ffc82c21d1818b7f91d9ff16b498b9cc51a19fa99f165b54e6f7",
+      "native_sha256": "af4caf87fde6ffc82c21d1818b7f91d9ff16b498b9cc51a19fa99f165b54e6f7"
+    },
+    {
+      "path": "RHLean/Analysis/AlpogeThin/NativeDyadicHostCore.lean",
+      "namespace": "RHLean.Analysis.AlpogeThin",
+      "declarations": [
+        "NativeRawHostCore.cmType_iff"
+      ],
+      "initial_attachment_sha256": "b5282418eb6db5ba61f96622bccc7c896bab5c84b45c4bcc5cff0a18b27ed089",
+      "native_sha256": "b5282418eb6db5ba61f96622bccc7c896bab5c84b45c4bcc5cff0a18b27ed089"
+    },
+    {
+      "path": "RHLean/Analysis/AlpogeThin/NativeDyadicHostDifferent.lean",
+      "namespace": "RHLean.Analysis.AlpogeThin",
+      "declarations": [
+        "nativeDyadicHostRaw_principal"
+      ],
+      "initial_attachment_sha256": "7446ac3ecf2f956e4e340a9f9dbf9972bbb33d3ef437234311d1532609ef6dc3",
+      "native_sha256": "7446ac3ecf2f956e4e340a9f9dbf9972bbb33d3ef437234311d1532609ef6dc3"
+    }
+  ],
+  "proof_construction": "The original real tensor embedding formula is proved bijective on the same literal inverse half-different product-span lattice. The actual inclusion O(E)^N into (B^-1)^N is proved via 1 in B^-1. Source finite-coordinate embedding bijectivity gives a tensor preimage; existing exact integer rank N*[E:Q], real base change and the proved half-embedding cardinality give injectivity. A single actually constructed B works for all prescribed ranks.",
+  "source_adaptations": [
+    "Replaced li1 fallback aliases with the full canonicalEmbedding.latticeBasis proof of GeneralBFactThirdVariant.goal1.",
+    "Localized NumberField/Fintype/DecidableEq assumptions to declarations that use them; removed unused ambient IsScalarTower from purely additive coordinate definitions.",
+    "Native theta bijectivity specializes to actual inverse integral ideal: surjectivity via integral inclusion plus already-proved exact rank, instead of importing generic denominator-clearing machinery."
+  ],
+  "independent_reviews": [
+    {
+      "agent": "/root",
+      "result": "Full math/source review passed; same formula and same lattice, no synthetic realization/spanning premise."
+    },
+    {
+      "agent": "/root/ci_repair",
+      "scope": "NativePolarizationRealCoordinates",
+      "result": "Pinned basis, liftBaseChange, piRight and dimension APIs checked; remove unused IsScalarTower recommendation applied."
+    },
+    {
+      "agent": "/root/geometric_constructor",
+      "scope": "NativePrescribedPolarizationRealization",
+      "result": "Actual inclusion, factorization, exact dimension, same-B endpoint and conjugate CM type checked; no concrete defect."
+    }
+  ],
+  "sign_convention": "Native hT conjugates the first argument. Subsequent source positivity is EF(Jx,x)>0 and trace_R(JA)=-2*Im(t); the realization does not alter these signs.",
+  "remaining": "The actual complex structure J, base-changed trace formula, positivity and both source multiplication-trace identities remain subsequent DomFor work. Finite-adelic comparison is separate and constructor-owned. No completed D7 Datum or RH conclusion.",
+  "checks": {
+    "local_lean_executed": false,
+    "shared_or_remote_writes": false,
+    "no_new_proof_budget_or_gate_changes": true,
+    "no_axiom_sorry_or_endpoint_premise": true
+  },
+  "source_and_native_declarations": [
+    "RHLean.Geometry.NativePolarizationRealCoordinates.embO",
+    "RHLean.Geometry.NativePolarizationRealCoordinates.phi1",
+    "RHLean.Geometry.NativePolarizationRealCoordinates.phi1_tmul",
+    "RHLean.Geometry.NativePolarizationRealCoordinates.conj_mem_iff",
+    "RHLean.Geometry.NativePolarizationRealCoordinates.li1",
+    "RHLean.Geometry.NativePolarizationRealCoordinates.two_card",
+    "RHLean.Geometry.NativePolarizationRealCoordinates.phi1_bijective",
+    "RHLean.Geometry.NativePolarizationRealCoordinates.coordO",
+    "RHLean.Geometry.NativePolarizationRealCoordinates.theta",
+    "RHLean.Geometry.NativePolarizationRealCoordinates.theta_tmul",
+    "RHLean.Geometry.NativePolarizationRealCoordinates.embI",
+    "RHLean.Geometry.NativePolarizationRealCoordinates.phiI",
+    "RHLean.Geometry.NativePolarizationRealCoordinates.phiI_tmul",
+    "RHLean.Geometry.NativePolarizationRealCoordinates.phiI_eq",
+    "RHLean.Geometry.NativePolarizationRealCoordinates.phiI_bijective",
+    "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.cmTypeFinset",
+    "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.mem_cmTypeFinset",
+    "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.cmTypeFinset_conjugate",
+    "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.integer_mem_coefficientIdeal",
+    "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.integralCoordinates",
+    "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.twistedRealCoordinates",
+    "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.twistedRealCoordinates_tmul",
+    "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.twistedRealCoordinates_integralCoordinates",
+    "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.twistedRealCoordinates_bijective",
+    "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.twistedRealEquiv",
+    "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.prescribedRealEquiv",
+    "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.prescribedRealEquiv_tmul",
+    "RHLean.Analysis.AlpogeThin.nativeDyadicHostRaw_exists_prescribedRealization"
+  ],
+  "axiom_guard_declarations": [
+    "RHLean.Geometry.NativePolarizationRealCoordinates.li1",
+    "RHLean.Geometry.NativePolarizationRealCoordinates.two_card",
+    "RHLean.Geometry.NativePolarizationRealCoordinates.phi1_bijective",
+    "RHLean.Geometry.NativePolarizationRealCoordinates.phiI_bijective",
+    "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.integer_mem_coefficientIdeal",
+    "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.twistedRealCoordinates_integralCoordinates",
+    "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.twistedRealCoordinates_bijective",
+    "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.prescribedRealEquiv_tmul",
+    "RHLean.Analysis.AlpogeThin.nativeDyadicHostRaw_exists_prescribedRealization"
+  ]
+}

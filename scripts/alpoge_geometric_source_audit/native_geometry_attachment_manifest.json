@@ -98,7 +98,7 @@
     },
     {
       "native_path": "RHLean/Geometry/NativeGradedPeterssonConstruction.lean",
-      "native_sha256": "fd8f7b1c1095dbbeb08f4d3aaf04ddbc038758bf9a5a3e0d158d8a66b6078cfc",
+      "native_sha256": "3b9c8c80db4a802f3cca147294026d16ce427c4d89ca664771a4ba41f5e95dd6",
       "declarations": [
         "RHLean.Geometry.nativeExists_graded_regular_petersson_multiplier",
         "RHLean.Geometry.nativeAllPlaceDescent_of_constructed_petersson_section"
@@ -165,7 +165,7 @@
     },
     {
       "native_path": "RHLean/Geometry/NativeFramedShortSectionConstruction.lean",
-      "native_sha256": "b8d58d6def02c30d98e9b8a23a98e7691ce39ee74cc2348a508ffd10ee594628",
+      "native_sha256": "85ff82fb3e4513710e9879ed63cbc05df04fb14d0cb4b4dbee848bfc360806e9",
       "declarations": [
         "RHLean.Geometry.nativeComponentFramedEvaluation_eq_zero",
         "RHLean.Geometry.nativeExists_framed_short_integral_injective_section"
@@ -803,7 +803,7 @@
     },
     {
       "native_path": "RHLean/Geometry/NativeThetaShortLatticeFamily.lean",
-      "native_sha256": "37fe954444714f4639257d023618145bce387a2e8e026ca11ef1c3fbfd50f70e",
+      "native_sha256": "2cca10e46950c149dfec3a799bceda8b0e2913ca559f46872ad2b9494c5c952a",
       "declarations": [
         "RHLean.Geometry.NativeTheta.Paired.exists_short_lattice_family"
       ],

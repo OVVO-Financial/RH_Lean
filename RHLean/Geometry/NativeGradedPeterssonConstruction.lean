@@ -185,6 +185,7 @@ theorem nativeExists_graded_regular_petersson_multiplier
     exact htarget σ ⟨f * (u : Sec), hp⟩
 
 
+omit [Algebra (𝓞 K) R] [IsScalarTower (𝓞 K) K R] in
 /-- Feed the SAME constructed section and its proved Petersson multiplier
 bound into all-place descent. The free section and free operator-norm premise
 are both removed. The complete finite section cost is derived from the

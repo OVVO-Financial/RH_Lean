@@ -1,3 +1,8 @@
+import RHLean.Geometry.NativeDyadicAdelicNorm
+import RHLean.Geometry.NativePrescribedPolarizationRealization
+import RHLean.Geometry.NativePolarizationRealCoordinates
+import RHLean.Geometry.NativeAdicQuadraticNorm
+import RHLean.Geometry.NativeLocalQuadraticNorm
 import RHLean.Analysis.AlpogeThin.NativeGeometricCostWindows
 import RHLean.Geometry.NativePrescribedPolarizationLattice
 import RHLean.Geometry.NativePrescribedHermitianSpaces
@@ -1216,3 +1221,171 @@ info: 'RHLean.Analysis.AlpogeThin.NativeGeometricCostWindows.normalizedCosts_add
 -/
 #guard_msgs in
 #print axioms RHLean.Analysis.AlpogeThin.NativeGeometricCostWindows.normalizedCosts_add_analytic_le
+
+/--
+info: 'RHLean.Geometry.NativeLocalQuadraticNorm.finiteField_quadratic' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Geometry.NativeLocalQuadraticNorm.finiteField_quadratic
+
+/--
+info: 'RHLean.Geometry.NativeLocalQuadraticNorm.henselian_quadratic_unit' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Geometry.NativeLocalQuadraticNorm.henselian_quadratic_unit
+
+/--
+info: 'RHLean.Geometry.NativeLocalQuadraticNorm.henselian_quadratic_neg_one' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Geometry.NativeLocalQuadraticNorm.henselian_quadratic_neg_one
+
+/--
+info: 'RHLean.Geometry.NativeAdicQuadraticNorm.adicInt_isAdicComplete' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Geometry.NativeAdicQuadraticNorm.adicInt_isAdicComplete
+
+/--
+info: 'RHLean.Geometry.NativeAdicQuadraticNorm.adicInt_henselian' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Geometry.NativeAdicQuadraticNorm.adicInt_henselian
+
+/--
+info: 'RHLean.Geometry.NativeAdicQuadraticNorm.adicInt_residue_surj' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Geometry.NativeAdicQuadraticNorm.adicInt_residue_surj
+
+/--
+info: 'RHLean.Geometry.NativeAdicQuadraticNorm.adicInt_residue_finite' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Geometry.NativeAdicQuadraticNorm.adicInt_residue_finite
+
+/--
+info: 'RHLean.Geometry.NativeAdicQuadraticNorm.adicInt_exists_norm' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Geometry.NativeAdicQuadraticNorm.adicInt_exists_norm
+
+/--
+info: 'RHLean.Geometry.NativeAdicQuadraticNorm.numberField_adicInt_exists_norm' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Geometry.NativeAdicQuadraticNorm.numberField_adicInt_exists_norm
+
+/--
+info: 'RHLean.Geometry.NativePolarizationRealCoordinates.li1' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Geometry.NativePolarizationRealCoordinates.li1
+
+/--
+info: 'RHLean.Geometry.NativePolarizationRealCoordinates.two_card' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Geometry.NativePolarizationRealCoordinates.two_card
+
+/--
+info: 'RHLean.Geometry.NativePolarizationRealCoordinates.phi1_bijective' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Geometry.NativePolarizationRealCoordinates.phi1_bijective
+
+/--
+info: 'RHLean.Geometry.NativePolarizationRealCoordinates.phiI_bijective' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Geometry.NativePolarizationRealCoordinates.phiI_bijective
+
+/--
+info: 'RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.integer_mem_coefficientIdeal' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.integer_mem_coefficientIdeal
+
+/--
+info: 'RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.twistedRealCoordinates_integralCoordinates' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.twistedRealCoordinates_integralCoordinates
+
+/--
+info: 'RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.twistedRealCoordinates_bijective' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.twistedRealCoordinates_bijective
+
+/--
+info: 'RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.prescribedRealEquiv_tmul' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.prescribedRealEquiv_tmul
+
+/--
+info: 'RHLean.Analysis.AlpogeThin.nativeDyadicHostRaw_exists_prescribedRealization' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeThin.nativeDyadicHostRaw_exists_prescribedRealization
+
+/--
+info: 'RHLean.Geometry.NativeDyadicAdelicNorm.conjugation_eq_host' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Geometry.NativeDyadicAdelicNorm.conjugation_eq_host
+
+/--
+info: 'RHLean.Geometry.NativeDyadicAdelicNorm.theta_eq_integralHalfRoot' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Geometry.NativeDyadicAdelicNorm.theta_eq_integralHalfRoot
+
+/--
+info: 'RHLean.Geometry.NativeDyadicAdelicNorm.alpha_beta_norm' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Geometry.NativeDyadicAdelicNorm.alpha_beta_norm
+
+/--
+info: 'RHLean.Geometry.NativeDyadicAdelicNorm.not_both' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Geometry.NativeDyadicAdelicNorm.not_both
+
+/--
+info: 'RHLean.Geometry.NativeDyadicAdelicNorm.local_solution' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Geometry.NativeDyadicAdelicNorm.local_solution
+
+/--
+info: 'RHLean.Geometry.NativeDyadicAdelicNorm.finite_primes_over_d' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Geometry.NativeDyadicAdelicNorm.finite_primes_over_d
+
+/--
+info: 'RHLean.Geometry.NativeDyadicAdelicNorm.adele_norm_equation' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Geometry.NativeDyadicAdelicNorm.adele_norm_equation
+
+/--
+info: 'RHLean.Geometry.NativeDyadicAdelicNorm.normMinusOne_spec' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Geometry.NativeDyadicAdelicNorm.normMinusOne_spec
+
+/--
+info: 'RHLean.Geometry.NativeDyadicAdelicNorm.normMinusOne_isUnit' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Geometry.NativeDyadicAdelicNorm.normMinusOne_isUnit
+
+/--
+info: 'RHLean.Geometry.NativeDyadicAdelicNorm.exists_adelic_neg_one' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Geometry.NativeDyadicAdelicNorm.exists_adelic_neg_one

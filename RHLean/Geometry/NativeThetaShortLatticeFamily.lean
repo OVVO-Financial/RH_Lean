@@ -46,7 +46,7 @@ theorem one_le_shortVectorRadius (E : Type) [Field E] [NumberField E] [IsCMField
   have hdisc : (1 : ℝ) ≤ |(discr E : ℝ)| := by
     exact_mod_cast Int.one_le_abs (discr_ne_zero E)
   have hrd : 1 ≤ rootDiscr E := by
-    rw [rootDiscr_def]
+    rw [rootDiscr_def, Int.cast_abs]
     exact Real.one_le_rpow hdisc (by positivity)
   have hpow : (1 : ℝ) ≤ (halfDegree E : ℝ) ^ ((3 : ℝ) / 2) :=
     Real.one_le_rpow hf1 (by norm_num)

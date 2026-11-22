@@ -121,12 +121,16 @@ def alpogeNativeHostGalEquiv
     (hq2 : q ≠ 2) (hd2 : d ≠ 2) (hqd : q ≠ d) :
     (alpogeNativeHostField e q d ≃ₐ[ℚ] alpogeNativeHostField e q d) ≃*
       Multiplicative (AlpogeNativeE0 × AlpogeNativeDyadicH e) := by
-  unfold alpogeNativeHostField
-  exact nativeQuotientGaloisEquiv
+  let ρ : (AlpogeNativeCyclotomic e q d ≃ₐ[ℚ] AlpogeNativeCyclotomic e q d) →*
+      Multiplicative (AlpogeNativeE0 × AlpogeNativeDyadicH e) :=
+    alpogeNativeCyclotomicRecMap e q d
+  have hρ : Function.Surjective ρ :=
+    alpogeNativeCyclotomicRecMap_surjective e q d hq2 hd2 hqd
+  -- Elaborate the abstract quotient before comparing its concrete fixed-field target.
+  let ε := nativeQuotientGaloisEquiv
     (L := AlpogeNativeCyclotomic e q d)
-    (G := Multiplicative (AlpogeNativeE0 × AlpogeNativeDyadicH e))
-    (alpogeNativeCyclotomicRecMap e q d)
-    (alpogeNativeCyclotomicRecMap_surjective e q d hq2 hd2 hqd)
+    (G := Multiplicative (AlpogeNativeE0 × AlpogeNativeDyadicH e)) ρ hρ
+  exact ε
 
 set_option maxHeartbeats 1000000 in
 /-- Restriction of a cyclotomic automorphism induces exactly the existing
@@ -137,12 +141,16 @@ theorem alpogeNativeHostGalEquiv_restrict
     (τ : AlpogeNativeCyclotomic e q d ≃ₐ[ℚ] AlpogeNativeCyclotomic e q d) :
     alpogeNativeHostGalEquiv e q d hq2 hd2 hqd
       (τ.restrictNormal (alpogeNativeHostField e q d)) =
-        alpogeNativeRecMap e q d (alpogeNativeCyclotomicGalEquiv e q d τ) :=
-  nativeQuotientGaloisEquiv_restrict
+        alpogeNativeRecMap e q d (alpogeNativeCyclotomicGalEquiv e q d τ) := by
+  let ρ : (AlpogeNativeCyclotomic e q d ≃ₐ[ℚ] AlpogeNativeCyclotomic e q d) →*
+      Multiplicative (AlpogeNativeE0 × AlpogeNativeDyadicH e) :=
+    alpogeNativeCyclotomicRecMap e q d
+  have hρ : Function.Surjective ρ :=
+    alpogeNativeCyclotomicRecMap_surjective e q d hq2 hd2 hqd
+  have h := nativeQuotientGaloisEquiv_restrict
     (L := AlpogeNativeCyclotomic e q d)
-    (G := Multiplicative (AlpogeNativeE0 × AlpogeNativeDyadicH e))
-    (alpogeNativeCyclotomicRecMap e q d)
-    (alpogeNativeCyclotomicRecMap_surjective e q d hq2 hd2 hqd) τ
+    (G := Multiplicative (AlpogeNativeE0 × AlpogeNativeDyadicH e)) ρ hρ τ
+  exact h
 
 /-- The field embedding intertwines the actual Galois quotient with the
 original cyclotomic action. This is the field-level `art_spec` identity. -/

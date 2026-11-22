@@ -141,7 +141,7 @@ def PTCokerAt (D : LData F Ω l) (e : ℤ) : Prop :=
       fun _ => Submodule.Quotient.module _
   PTCase F l →
     Module.length ℤ_[l]
-        ((∀ v : D.S, H2 ((zlTw D (e + 1)).comp (locFam D.S D.A v))) ⧸ localH2Range D e) =
+        (Quotient (Submodule.quotientRel (localH2Range D e))) =
       Module.length ℤ_[l] (H0 (qzTw D e))
 
 def PTShaAt (D : LData F Ω l) (e : ℤ) : Prop :=
