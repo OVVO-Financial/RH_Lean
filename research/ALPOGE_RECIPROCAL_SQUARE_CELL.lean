@@ -62,11 +62,11 @@ theorem alpogeNativeTail_cell_quadrature (a b : ℕ) (ha : 1 ≤ a) (hab : a ≤
     intro n hn
     have hn0 : 0 < n := ha.trans (Finset.mem_Ico.mp hn).1
     have hnR : (0 : ℝ) < n := by exact_mod_cast hn0
-    have hn1 : (0 : ℝ) < (n : ℝ) + 1 := by positivity
-    rw [Nat.cast_add, Nat.cast_one]
-    field_simp [hnR.ne', hn1.ne'] <;> ring
+    push_cast
+    field_simp <;> ring
   have e := alpogeCell_midpoint_jump nativePNTError (fun n => 1 / (n : ℝ)) a b hab
-  dsimp only at e
+  change (∑ n ∈ Finset.Ico a b, nativePNTError n *
+    (1 / (n : ℝ) - 1 / ((n + 1 : ℕ) : ℝ))) - _ = _ at e
   rw [he] at e
   simpa only [alpogeReciprocalCellSample, alpogeReciprocalCellJumps,
     alpogeReciprocalCellKernel, nativePNTError_succ_eq] using e
@@ -76,13 +76,18 @@ theorem alpogeNativeTail_square_quadrature (h l : ℕ) (hh : 2 ≤ h) (hl : h �
     alpogeGzNativeNNSTail (h ^ 2 - 1) (l ^ 2 - 1) -
         (∑ r ∈ Finset.Ico h l, alpogeReciprocalCellSample (r ^ 2 - 1) ((r + 1) ^ 2 - 1)) =
       ∑ r ∈ Finset.Ico h l, alpogeReciprocalCellJumps (r ^ 2 - 1) ((r + 1) ^ 2 - 1) := by
-  have e := Finset.sum_Ico_sub (fun r : ℕ => nativePNTWeightedErrorMass ((r ^ 2 - 1) - 1)) hl
+  have e : (∑ r ∈ Finset.Ico h l,
+      (nativePNTWeightedErrorMass (((r + 1) ^ 2 - 1) - 1) -
+        nativePNTWeightedErrorMass ((r ^ 2 - 1) - 1))) =
+      nativePNTWeightedErrorMass ((l ^ 2 - 1) - 1) -
+        nativePNTWeightedErrorMass ((h ^ 2 - 1) - 1) :=
+    Finset.sum_Ico_sub (fun r : ℕ => nativePNTWeightedErrorMass ((r ^ 2 - 1) - 1)) hl
   rw [alpogeGzNativeNNSTail_eq_prefix_diff, ← e, ← Finset.sum_sub_distrib]
   apply Finset.sum_congr rfl
   intro r hr
   have hr2 := hh.trans (Finset.mem_Ico.mp hr).1
-  have hs : 4 ≤ r ^ 2 := by nlinarith
-  have hm : r ^ 2 - 1 ≤ (r + 1) ^ 2 - 1 := by gcongr <;> omega
+  have hs : 4 ≤ r ^ 2 := Nat.pow_le_pow_left hr2 2
+  have hm := Nat.sub_le_sub_right (Nat.pow_le_pow_left (Nat.le_succ r) 2) 1
   simpa only [alpogeGzNativeNNSTail_eq_prefix_diff] using
     alpogeNativeTail_cell_quadrature (r ^ 2 - 1) ((r + 1) ^ 2 - 1) (by omega) hm
 
@@ -99,20 +104,20 @@ theorem alpogeSquareCell_kernel_sign (r k : ℕ) (hr : 2 ≤ r) (hk : 0 < k) :
   let K := alpogeReciprocalCellKernel (r ^ 2 - 1) ((r + 1) ^ 2 - 1) k
   have hrR : (2 : ℝ) ≤ r := by exact_mod_cast hr
   have hkR : (0 : ℝ) < k := by exact_mod_cast hk
-  have ha : 0 < a := by dsimp [a]; nlinarith
+  have ha : 0 < a := by dsimp [a]; nlinarith [sq_nonneg ((r : ℝ) - 1)]
   have hb : 0 < b := by dsimp [b]; nlinarith [sq_nonneg (r : ℝ)]
   have hd : 0 < 2 * a * b * (k : ℝ) := by positivity
   have hca : ((r ^ 2 - 1 : ℕ) : ℝ) = a := by
-    rw [Nat.cast_sub (by nlinarith : 1 ≤ r ^ 2)]
+    rw [Nat.cast_sub (Nat.one_le_pow 2 r (by omega))]
     simp [a]
   have hcb : (((r + 1) ^ 2 - 1 : ℕ) : ℝ) = b := by
-    rw [Nat.cast_sub (by nlinarith : 1 ≤ (r + 1) ^ 2)]
+    rw [Nat.cast_sub (Nat.one_le_pow 2 (r + 1) (by omega))]
     simp only [Nat.cast_pow, Nat.cast_add, Nat.cast_one, b]
     ring
   have he : 2 * a * b * (k : ℝ) * K = 2 * a * b - (a + b) * k := by
     dsimp only [K, alpogeReciprocalCellKernel]
     rw [hca, hcb]
-    field_simp [ha.ne', hb.ne', hkR.ne'] <;> ring
+    field_simp <;> ring
   have hp : 0 < 2 * a * b - (a + b) * (t - 2) := by
     dsimp [a, b, t]
     nlinarith [sq_nonneg (r : ℝ)]
@@ -120,14 +125,18 @@ theorem alpogeSquareCell_kernel_sign (r k : ℕ) (hr : 2 ≤ r) (hk : 0 < k) :
     dsimp [a, b, t]
     nlinarith [sq_nonneg (r : ℝ)]
   by_cases h : k + 2 ≤ r ^ 2 + r
-  · have h' : (k : ℝ) + 2 ≤ t := by exact_mod_cast h
+  · have h' : (k : ℝ) + 2 ≤ t := by dsimp only [t]; exact_mod_cast h
     have hbnd := mul_le_mul_of_nonneg_left (show (k : ℝ) ≤ t - 2 by linarith) (add_pos ha hb).le
-    have hK : 0 < K := (mul_pos_iff_of_pos_left hd).1 (by linarith only [he, hp, hbnd])
+    have hK : 0 < K := by
+      by_contra! bad
+      linarith only [he, hp, hbnd, mul_nonpos_of_nonneg_of_nonpos hd.le bad]
     exact ⟨iff_of_true hK h, iff_of_false (not_lt_of_ge hK.le) (by omega)⟩
   · have h' : r ^ 2 + r ≤ k + 1 := by omega
-    have hR : t ≤ (k : ℝ) + 1 := by exact_mod_cast h'
+    have hR : t ≤ (k : ℝ) + 1 := by dsimp only [t]; exact_mod_cast h'
     have hbnd := mul_le_mul_of_nonneg_left (show t - 1 ≤ (k : ℝ) by linarith) (add_pos ha hb).le
-    have hK : K < 0 := (mul_neg_iff_of_pos_left hd).1 (by linarith only [he, hn, hbnd])
+    have hK : K < 0 := by
+      by_contra! bad
+      linarith only [he, hn, hbnd, mul_nonneg hd.le bad]
     exact ⟨iff_of_false (not_lt_of_ge hK.le) h, iff_of_true hK h'⟩
 
 end RHLean.Analysis
