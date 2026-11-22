@@ -247,3 +247,69 @@ The square-clock measure can be retained, and the exact correction
 now has a uniform reusable statement. What remains unproved is
 a strict quantitative signed saving on the COMPLETE accumulated
 correction together with Alpoge's height/covolume data.
+
+
+## 7. New POSITIVE outcome: signed R-by-R commutator telescope
+
+The raw mixed commutator on one complete p-fibre is NOT
+an arbitrary error. The exact crossing r=p-1 contributes 0;
+every other residue contributes the SAME signed increment:
+
+    C_p f(pm+r) = Delta f(m),    0<=r<p-1,
+    C_p f(pm+p-1) = 0,
+
+where C_p=(A P_p - P_p A) and
+A f(n)=f(n+1)-f(n), P_p f(n)=f(n)-f(floor(n/p)).
+
+Therefore the entire ORIGINAL arithmetic p-by-M lattice
+TELESCOPES EXACTLY, for every f:
+
+    sum_{m=0}^{M-1} sum_{r=0}^{p-1} C_p f(pm+r)
+      = (p-1) sum_{m=0}^{M-1} (f(m+1)-f(m))
+      = (p-1)[f(M)-f(0)].                          (T1)
+
+The new root module attempts to kernel-certify the crossing,
+full-fibre equality and global telescope as
+alpogeNativeAdditiveWheel_crossing,
+alpogeNativeAdditiveWheel_fiber_sum and
+alpogeNativeAdditiveWheel_rectangular_telescope.
+
+**Original Chebyshev source and square-root scale.**
+For f=E=psi(n)-n, E(0)=0, choosing p=M=R gives a
+literal R-by-R integer square lattice with EXACT signed output:
+
+    sum_{m<R} sum_{r<R} C_R E(R*m+r)
+       = (R-1)E(R).                                (T2)
+
+This is the strongest genuinely positive SAME-SOURCE reduction
+found by the test. It transforms a signed sum over R^2 integer
+sites into the Chebyshev error at scale R, not scale R^2.
+All prime powers remain inside E; no unsigned counting occurs.
+It is an exact finite identity, not an RH-strength estimate.
+
+Two mandatory cautions:
+1. P_R is a floor-dilation operator for arbitrary R, but is a
+   **fresh-prime Möbius operation only if R is prime**. The R-by-R
+   specialization for composite R cannot be advertised as R
+   legal fresh-prime steps in the Euler wheel. For genuine prime p,
+   (T1) still holds; matching its endpoint to X_R requires a
+   terminal partial quotient fibre, which cannot be silently erased.
+2. The right side has multiplier R-1, not 1. Trivially bounding
+   E(R) charges O(R^2) on the raw sum. Dividing by R-1 to obtain
+   a root-scale *average* changes the original geometric
+   normalization and needs a true multiplicity/covolume witness.
+   T2 alone neither bounds E(R^2-1) nor Gz(R^2-1).
+
+**Research implication:** the correct object to compare with
+Alpoge's automorphic gain is a **normalized, signed
+root-quotient telescope** of the *physical* ASK coefficient and
+the complete Frobenius/inertia/partner commutator. The latter
+may have a nontrivial terminal/boundary return that prevents
+the same collapse. The exact Leibniz defect from the preceding
+section is already defined, but proving the global full-family
+geometry that pays it remains open.
+
+The next noncircular task is therefore to show how the
+telescoped source embeds into the actually constructed theta
+lattice with controlled determinant, height and multiplicity,
+without assuming the missing Gz or Chebyshev estimate.
