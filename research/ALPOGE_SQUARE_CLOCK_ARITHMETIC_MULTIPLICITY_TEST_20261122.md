@@ -1,4 +1,4 @@
-# Alpoge \u00d7 RH_Lean: can R square-clock differences replace geometric multiplicity?
+# Alpoge x RH_Lean: can R square-clock differences replace geometric multiplicity?
 
 **22 November 2026.** Independent arithmetic hypothesis test. This is NOT
 a new proof of RH or an assertion that Alpoge's theta multiplicity follows
@@ -171,3 +171,27 @@ criterion. No such quantitative bound is asserted here.
    Delta^R-polynomial annihilation alone.
 5. A proposed replacement must improve the complete GLOBAL
    power budget, not merely the number of local terms.
+
+
+### The quotient-column tax is exactly p, not one
+
+The fresh-prime operator shifts by floor(n/p), not by a formal
+first-order variable. The new Lean theorems
+alpogeNativeFloorPrimeFiber_card and
+alpogeNativeFloorPrimeFiber_div show for EVERY p>0 and m>=0:
+
+    card {n : p*m <= n < p*(m+1)} = p,
+    floor((p*m+r)/p) = m   for 0<=r<p.
+
+Thus a single genuine source atom at quotient m is seen by precisely
+p consecutive physical parent sites n under the floor dilation.
+This is the exact **column multiplicity** in the algebraic
+commutator. It can easily outweigh a multiplicity gain inferred from
+counting the number of prime coordinates. Only a proved cancellation
+over all p residues, with actual c(n) and original widths, could
+make the global cost small.
+
+This strengthens the conclusion: the open geometric supplier is
+not merely "character Fourier covariance" but a **signed
+quotient-column/character/covolume estimate**.
+
