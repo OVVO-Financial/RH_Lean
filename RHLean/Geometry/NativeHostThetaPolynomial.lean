@@ -35,16 +35,50 @@ namespace RHLean.Geometry
 
 open RHLean.Analysis
 
-/-- A complex embedding of the same actual native fixed field. -/
+/-- A complex embedding of the same actual native fixed field, oriented by
+the original positive imaginary quadratic root whenever its square is -d. -/
 def nativeDyadicThetaEmbedding (e q d : ℕ) [Fact q.Prime] [Fact d.Prime] :
-    alpogeNativeHostField e q d →+* ℂ :=
-  Classical.choice inferInstance
+    alpogeNativeHostField e q d →+* ℂ := by
+  classical
+  let τ : alpogeNativeHostField e q d →+* ℂ := Classical.choice inferInstance
+  exact if τ (alpogeNativeSqrtD e q d) = Complex.I * (Real.sqrt d : ℂ) then τ
+    else ComplexEmbedding.conjugate τ
+
+/-- The chosen embedding has the SAME orientation as the original raw-host
+CM type. It is constructed by conjugating an embedding when necessary. -/
+theorem nativeDyadicThetaEmbedding_sqrtD
+    (e q d : ℕ) [Fact q.Prime] [Fact d.Prime] (hd4 : d % 4 = 3) :
+    nativeDyadicThetaEmbedding e q d (alpogeNativeSqrtD e q d) =
+      Complex.I * (Real.sqrt d : ℂ) := by
+  classical
+  let τ : alpogeNativeHostField e q d →+* ℂ := Classical.choice inferInstance
+  have hs : ((Real.sqrt d : ℝ) : ℂ) ^ 2 = (d : ℂ) := by
+    rw [← Complex.ofReal_pow, Real.sq_sqrt (by positivity), Complex.ofReal_natCast]
+  have hroot : τ (alpogeNativeSqrtD e q d) = Complex.I * (Real.sqrt d : ℂ) ∨
+      τ (alpogeNativeSqrtD e q d) = -(Complex.I * (Real.sqrt d : ℂ)) := by
+    apply sq_eq_sq_iff_eq_or_eq_neg.mp
+    rw [← map_pow, alpogeNativeSqrtD_sq e q d hd4, map_neg, map_natCast,
+      mul_pow, Complex.I_sq, hs, neg_one_mul]
+  change (if τ (alpogeNativeSqrtD e q d) = Complex.I * (Real.sqrt d : ℂ)
+    then τ else ComplexEmbedding.conjugate τ) (alpogeNativeSqrtD e q d) = _
+  split_ifs with h
+  · exact h
+  · rw [ComplexEmbedding.conjugate_coe_eq, hroot.resolve_left h]
+    simp
 
 /-- The source's positive embedding rows, using the actual constructed root. -/
 def nativeDyadicThetaPositive (e q d : ℕ) [Fact q.Prime] [Fact d.Prime]
     (τ : alpogeNativeHostField e q d →+* ℂ) : Prop :=
   τ (alpogeNativeSqrtD e q d) =
     nativeDyadicThetaEmbedding e q d (alpogeNativeSqrtD e q d)
+
+theorem nativeDyadicThetaPositive_iff
+    (e q d : ℕ) [Fact q.Prime] [Fact d.Prime] (hd4 : d % 4 = 3)
+    (τ : alpogeNativeHostField e q d →+* ℂ) :
+    nativeDyadicThetaPositive e q d τ ↔
+      τ (alpogeNativeSqrtD e q d) = Complex.I * (Real.sqrt d : ℂ) := by
+  unfold nativeDyadicThetaPositive
+  rw [nativeDyadicThetaEmbedding_sqrtD e q d hd4]
 
 /-- Conjugation cannot preserve the chosen square-root value, because its
 square is the strictly negative real number -d. -/

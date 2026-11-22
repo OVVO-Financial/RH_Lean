@@ -382,14 +382,14 @@ theorem exists_short_integral_harmonic_of_signature
     intro τ i j hij
     have hval := congrArg Fin.val hij
     by_cases h : isX τ
-    · simp only [col, dif_pos h] at hval
+    · simp only [col, dite_eq_left h] at hval
       exact Fin.ext hval
-    · simp only [col, dif_neg h] at hval
+    · simp only [col, dite_eq_right h] at hval
       exact Fin.ext (by omega)
   have hdis : ∀ τ, isX τ → ∀ i j, col τ i ≠ col (cc τ) j := by
     intro τ h i j hij
     have hval := congrArg Fin.val hij
-    simp only [col, dif_pos h, dif_neg (hcc τ h)] at hval
+    simp only [col, dite_eq_left h, dite_eq_right (hcc τ h)] at hval
     have hi := i.isLt
     have hrow := hr τ
     rw [if_pos h] at hrow

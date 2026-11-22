@@ -187,7 +187,8 @@ theorem fcoord_pi (b : Basis ι K V) (X : InfinitePlace K → Matrix ι ι ℂ)
     simp [hk.symm]
   · simp
 
-omit [Module (𝓞 K) V] [IsScalarTower (𝓞 K) K V] in
+omit [Module (𝓞 K) V] [IsScalarTower (𝓞 K) K V]
+    [NumberField K] [StarRing K] [IsTotallyComplex K] in
 theorem majAt_pi (b : Basis ι K V) (X : InfinitePlace K → Matrix ι ι ℂ)
     (hX : ∀ v, IsUnit (X v).det) (n : ℕ) (v : InfinitePlace K) (x y : Fin n → V) :
     RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.majAt (Pi.basis fun _ : Fin n => b)
@@ -205,7 +206,8 @@ theorem majAt_zero_right (b : Basis ι K V) (X : InfinitePlace K → Matrix ι �
     (v : InfinitePlace K) (y : V) : RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.majAt b X v y 0 = 0 := by
   simp [RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.majAt, RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.fcoord_zero]
 
-omit [Module (𝓞 K) V] [IsScalarTower (𝓞 K) K V] in
+omit [Module (𝓞 K) V] [IsScalarTower (𝓞 K) K V]
+    [NumberField K] [StarRing K] [IsTotallyComplex K] in
 theorem normAt_single (b : Basis ι K V) (X : InfinitePlace K → Matrix ι ι ℂ)
     (hX : ∀ v, IsUnit (X v).det) (n : ℕ) (v : InfinitePlace K) (i : Fin n) (x : V) :
     RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.normAt (Pi.basis fun _ : Fin n => b)

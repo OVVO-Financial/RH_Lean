@@ -141,6 +141,7 @@ lemma norm_dterm_le' {B : ℝ} (hB : ∀ M, ‖Ap χ M‖ ≤ B) {s : ℂ} (hs :
   rw [norm_mul]
   exact mul_le_mul (hB n) key (norm_nonneg _) hB0
 
+omit [NeZero q] in
 lemma summable_norm_dterm {B : ℝ} (hB : ∀ M, ‖Ap χ M‖ ≤ B) {s : ℂ} (hs : 0 < s.re) :
     Summable (fun n => ‖dterm χ s n‖) := by
   refine Summable.of_nonneg_of_le (fun n => norm_nonneg _) (norm_dterm_le χ hB hs) ?_
@@ -162,6 +163,7 @@ lemma partial_identity (s : ℂ) (M : ℕ) :
     push_cast
     ring
 
+omit [NeZero q] in
 lemma G_differentiableOn {B : ℝ} (hB : ∀ M, ‖Ap χ M‖ ≤ B) :
     DifferentiableOn ℂ (G χ) {s : ℂ | 0 < s.re} := by
   intro s0 hs0

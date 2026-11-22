@@ -156,7 +156,7 @@ def locFam (S : Finset (HeightOneSpectrum (𝓞 F)))
     ∀ v : S, Dec (F := F) (Av v) →* GS Ω (S : Set (HeightOneSpectrum (𝓞 F))) :=
   fun v => locHom _ (Av v)
 
-omit [IsAlgClosure F Ω] in
+omit [IsAlgClosure F Ω] [NumberField F] in
 theorem continuous_locFam (S : Finset (HeightOneSpectrum (𝓞 F)))
     (Av : S → ValuationSubring Ω) (v : S) : Continuous (locFam S Av v) :=
   continuous_locHom _ _

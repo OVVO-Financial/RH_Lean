@@ -111,8 +111,10 @@ def PTCase (F : Type) [Field F] [NumberField F] (l : ℕ) : Prop :=
   l ≠ 2 ∨ InfinitePlace.nrRealPlaces F = 0
 
 def PTCokerAt (D : LData F Ω l) (e : ℤ) : Prop :=
+  let image := LinearMap.range (localH2 D e)
   PTCase F l →
-    Module.length ℤ_[l] (Quotient (Submodule.quotientRel (LinearMap.range (localH2 D e)))) =
+    Module.length ℤ_[l]
+      ((∀ v : D.S, H2 ((zlTw D (e + 1)).comp (locFam D.S D.A v))) ⧸ image) =
       Module.length ℤ_[l] (H0 (qzTw D e))
 
 def PTShaAt (D : LData F Ω l) (e : ℤ) : Prop :=

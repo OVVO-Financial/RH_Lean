@@ -81,7 +81,7 @@ theorem evalAt_one {S : Type} [CommRing S] [Algebra K S]
     (y : pts S) (hy : FromTest pts mapR y) :
     evalAt pts mapR (1 : Rules pts) y = 1 := by
   unfold evalAt
-  rw [dif_pos hy]
+  rw [dite_eq_left hy]
   simp
 
 theorem evalAt_add (f g : Rules pts) {S : Type} [CommRing S] [Algebra K S]
@@ -112,7 +112,7 @@ def evalAlgHom {S : Type} [CommRing S] [Algebra K S]
   commutes' a := by
     change evalAt pts mapR (algebraMap K (Rules pts) a) y = algebraMap K S a
     unfold evalAt
-    rw [dif_pos hy]
+    rw [dite_eq_left hy]
     exact hy.choose_spec.choose.commutes a
 
 /-- Equality of values arising from two presentations of the same point.
@@ -131,7 +131,7 @@ theorem evalAt_of_map (hW : EvalWD pts mapR)
     (hu : mapR φ u y) : evalAt pts mapR f y = φ (f p u) := by
   have hT : FromTest pts mapR y := ⟨p, φ, u, hu⟩
   unfold evalAt
-  rw [dif_pos hT]
+  rw [dite_eq_left hT]
   exact hW f hf S _ _ _ _ _ _ y hT.choose_spec.choose_spec.choose_spec hu
 
 variable [Fintype I]
@@ -272,7 +272,7 @@ theorem secZ_eq_zero_of_generic
   have hJ : p.I.jacobson = p.I := IsJacobsonRing.out' _ p.rad
   rw [← hJ, Ideal.jacobson, Submodule.mem_sInf]
   rintro m ⟨hIm, hm⟩
-  let : m.IsMaximal := hm
+  have : Ideal.IsMaximal m := hm
   let : Field (MvPolynomial (Fin p.n) K ⧸ m) := Ideal.Quotient.field m
   let φ : p.R →ₐ[K] MvPolynomial (Fin p.n) K ⧸ m :=
     Ideal.Quotient.factorₐ K hIm

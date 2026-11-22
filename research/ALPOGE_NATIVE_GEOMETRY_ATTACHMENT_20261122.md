@@ -10,6 +10,10 @@ suppliers:
 3. The graded short-section and Petersson constructors use one integral section for the determinant, trace injection, pointwise size, translated multiplication bounds and all-place descent.
 4. The actual dyadic reciprocity host, selected-prime character payments, constructed size/conductor windows and numerical cost windows compose into the complete native scalar inequality in section 9.
 5. The original cyclotomic kernel construction supplies a genuine CM host field, its Galois quotient, conjugation, degree and principal `IsChiField` identification.
+6. All thirty original `HostDer` fields are assembled on that same raw host, including actual quadratic splitting, ordinary primes, eta, the different, the discriminant and its original bounds, and root-of-unity norms.
+7. An actual integral self-dual Hermitian lattice supplies a short rational basis and a finite integral family spanning the full native harmonic space. The complete cardinality and coefficient bounds are retained; theta evaluation and geometric cover generation remain separate obligations.
+8. The complete arithmetic `Geo.Tor.Host` interface uses the same field, integral root, half-root, conjugation, unramified extension and positively oriented complex square root as the derived host and harmonic construction.
+9. The actual quadratic different and its tower formula supply the source principal polarization identity. The same inverse ideal is a projective rank-one `𝓞 E` module and a free integer lattice with a perfect alternating trace form and the original conjugate adjointness.
 
 These continuation statements are source-written and require hosted native Lean verification at their published commit. No local Lean execution was performed. The code introduces no proof admission, project axiom, external compiled artifact, or terminal RH import. The complete theta/cover instance, its source comparison and the unconditional critical estimate are **not** claimed here.
 
@@ -483,7 +487,8 @@ the actual finite-prime calculation.
 The stronger `HostDer` record includes genuine prime-ideal, decomposition,
 discriminant and different statements. Section 14 supplies its actual
 inertia, Frobenius, decomposition and conjugation non-inertia fields.
-The discriminant and different fields remain a separate construction task.
+Section 16 completes the remaining suppliers and assembles all thirty fields
+on this exact raw host.
 
 ## 13. Derive section faithfulness from the original reduced-test atlas
 
@@ -525,9 +530,11 @@ The original CM moduli, framed points, evaluation/base-change laws, and
 covering atlas have not yet been constructed natively. The new proof closes
 the atlas-to-faithfulness implication on the actual source rule algebra;
 it does not substitute a model family for those geometric objects. Actual
-short theta spans, translations and component/orbit data also remain
-explicit inputs. All these new proof reconstructions await hosted Lean
-verification.
+short theta sections, translations and component/orbit data also remain
+explicit inputs. Section 17 now constructs the full harmonic polynomial
+span from an actual self-dual lattice, but its geometric evaluation is
+still to be supplied. All these new proof reconstructions await hosted
+Lean verification.
 
 ## 14. Identify actual inertia and every arithmetic Frobenius coset
 
@@ -572,8 +579,8 @@ minimal-polynomial derivative belongs to the relative different and avoids
 the chosen prime. The original local-to-global argument consequently
 proves the full unramifiedness class on the same CM field and its actual
 maximal real subfield. Neither an unramifiedness premise nor a bound on the
-different is assumed. The discriminant and different fields of `HostDer`
-still require their separate source suppliers.
+different is assumed. Section 16 supplies the discriminant and different
+fields of `HostDer` using this same unramified extension.
 
 ## 15. Construct an actual integral harmonic theta polynomial
 
@@ -602,11 +609,180 @@ independent, so the later application can use the original `Y.d.c₂.F`
 without an unjustified identification with the arithmetic field `E`.
 
 This constructs one genuine nonzero integral harmonic polynomial with all
-its degree and coefficient estimates. The full finite harmonic spanning
-family, geometric theta evaluation, canonical connection, theta density,
-short cusp-section spans and cover still require their supplying proofs.
+its degree and coefficient estimates. Section 17 extends it to the full
+finite harmonic spanning family. Geometric theta evaluation, the canonical
+connection, theta density, short cusp-section spans and the cover still
+require their supplying proofs.
 
-## 16. Exact remaining construction obligation
+## 16. Assemble all thirty fields of the original derived host
+
+`NativeDyadicHostDer.lean` constructs `nativeDyadicHostDer` and
+`nativeDyadicHostAx` from the already constructed `nativeDyadicHostRaw`.
+The field order and types are the literal original `Formalism.HC.HostDer`
+record. Its forgetful map is definitionally the same raw host. No derived
+host, discriminant bound, different factorization or prime compatibility
+witness is supplied as a new premise.
+
+| Original fields | Native supplying construction |
+| --- | --- |
+| `art_surj`, `cm`, `conj_iff`, `finrank_E`, `finrank_F`, `mem_F`, `cmType`, `ps_root`, `art_ch`, `ps_d` | Actual reciprocity quotient, both Gauss roots, actual conjugation and the literal source CM type |
+| `frob`, `frob_any`, `inertia`, `decomp` | Actual cyclotomic residue order and full prime-ideal Frobenius/inertia/decomposition calculations |
+| `inertia_d`, `decomp_typeI`, `decompConj` | Actual CRT inertia and decomposition at the selected ramified primes |
+| `unramEF`, `splitK`, `ordinary`, `eta` | Actual unramified CM extension, splitting in the literal quadratic subfield, and the original three ordinary-prime/eta cases |
+| `diffSupport`, `principal`, `unimodular` | Relative different over the same quadratic subfield and the same conjugate-coprime half ideal `B` |
+| `discr_sq`, `discr_primes`, `rd_ge`, `rd_le`, `rd_sq_ge` | Unramified discriminant identity, actual ramification support and original conductor/discriminant estimates |
+| `norm_mu` | Actual inertia excludes the offending primitive root; conjugate automorphism pairs give the norm identity |
+
+The different calculation constructs the source half ideal `B` with its
+conjugation and CM-type conditions and proves that the SAME `B⁻¹` is
+trace-self-dual in the required relative pairing. The field name
+`principal` is the source's polarization/different condition; it does not
+assert that `B` is a principal ideal.
+
+For the original host parameters, the root-discriminant bounds retain
+their exact constants:
+
+\[
+ 2^{e+1-2^{-e}}\sqrt d\le\operatorname{rd}(E),\qquad
+ \operatorname{rd}(E)\le\frac{2^{e+2}}2\sqrt{qd},\qquad
+ 4\,\mathrm{Frame.ord}\le\operatorname{rd}(E)^2.
+\]
+
+`nativeDyadicHostAx_of_winPair` and
+`nativeDyadicHostAx_of_pageN_winPair` keep the SAME selected `e,q,d`
+and raw-host witnesses. The already derived `KerChi`, `CoprimeFifteen`,
+`PsQ` and `Exact` conditions compose with this host. These source-written
+proofs still require exact-head hosted kernel verification.
+
+### Construct the actual polarization coefficient lattice
+
+`AlpogeNativeQuadraticDifferent.lean` derives the quadratic discriminant
+and principal different from the squarefree radicand and integral basis
+`1,(1+sqrt(-d))/2`. `NativeDyadicHostPolarizationArithmetic.lean` applies
+this to the literal subfield `K=Q(sqd)` and the SAME selected root. With
+the source host constructor's choice `ccK=top`, let
+
+\[
+ \xi=-1/\mathrm{sqd},\qquad A=B^{-1}.
+\]
+
+The actual different tower formula gives
+
+\[
+ (\xi)A\overline A\,\mathfrak D_{E/\mathbb Q}=1,
+\]
+
+and `xi_im_pos` proves positivity on the literal original CM type.
+`NativePolarizationCoefficientLattice.lean` then constructs
+
+\[
+ E_A(x,y)=\operatorname{Tr}_{E/\mathbb Q}
+   (\xi\,\overline x\,y)
+\]
+
+as an integer-valued bilinear form on this SAME `A`. It proves alternation,
+the original `𝓞 E` conjugate-adjointness, and bijectivity of the induced
+map to the integral dual. The proof uses an actual rational trace-dual
+basis extending the integer basis of this nonzero fractional ideal.
+The module is finite/projective of rank one over `𝓞 E` and finite/free
+of rank `4*2^e` over `Z`.
+
+`nativeDyadicHostRaw_exists_polarizationCoefficientLattice` constructs
+the ideal witness internally while retaining its conjugate coprimality
+and `Psi` invariance. This supplies the coefficient lattice, not yet the
+prescribed `D7.sp.W_j` Hermitian spaces, their integral base lattices,
+signatures, finite-place compatibility or real complex structures.
+
+## 17. Construct a short family spanning the full harmonic space
+
+`NativeHermitianShortVectors.lean` begins with a finitely generated,
+integral, Hermitian-self-dual `𝓞 E` lattice `Λ` in `Eⁿ`. It proves full
+rational span, constructs the actual trace-pairing Euclidean model and
+uses the inverse-different lower bound and transference to obtain a
+short rational basis in the SAME lattice. Neither that short basis nor
+its spanning conclusion is an input.
+
+Write `f=[E:Q]/2` and `r=2fn`. Each of the `r` basis vectors has, at every
+embedding, Euclidean norm at most
+
+\[
+ \rho=2f^{3/2}n^2\operatorname{rd}(E).
+\]
+
+Here `n` is the ambient Hermitian lattice dimension, not the cardinality
+of the arithmetic host. For positive dominant total weight `D`,
+`p+q<=n`, and distinct positive/conjugate coefficient embeddings, the
+adjugate/perpendicular parameterization and bounded integer grid supply
+a finite integral polynomial family. Capelli/highest-weight generation,
+column Lie actions, the Fock pairing and the perpendicular orbit proof
+identify its span with the ENTIRE original harmonic row space.
+
+`exists_short_integral_HHa_spanning_family` in
+`NativeThetaSpanningFamily.lean` (namespace
+`RHLean.Geometry.NativeTheta.Paired`) transports this family
+through the literal row/letter variable equivalence. Its endpoint is
+
+\[
+ \operatorname{span}_K S=\mathrm{HHa},
+\]
+
+as equality of the actual sets in the native polynomial space. Every
+member is homogeneous of degree `D`, belongs to the lattice polynomial
+space of the SAME `Λ`, and retains all coefficient bounds. In the exact
+source notation for the grid costs, set
+
+\[
+ d_g=(2(p+q)+1)D,\quad R=r d_g\rho,\quad
+ B=\left((p+q)\sqrt n\,(p+q+1)!\,R^{2(p+q)+1}\right)^D.
+\]
+
+Then
+
+\[
+ |S|\le(d_g+1)^{r(2p+q)},\qquad
+ \sum_m|\nu(P_m)|\le B,\qquad
+ \|P\|_{\mathrm{all\ embeddings}}\le\sqrt{[K:\mathbb Q]}B.
+\]
+
+The coefficient field `K` remains independent of `E`; the later cover
+application uses `Y.d.c₂.F`. The positive/conjugate embedding injectivity
+is derived from actual complex realizations and a disjoint CM type by
+`injective_liftedCMEmbeddings` when those realizations are provided.
+
+This is a harmonic polynomial construction with an explicit self-dual
+lattice input. It does not yet construct the complete geometric datum's
+lattices, evaluate theta functions on moduli, prove cusp-section density,
+or build a good cover. The positive-degree branch is the endpoint here;
+the complete geometric application must also handle its actual zero-weight
+cases where needed.
+
+## 18. Preserve one geometric host and record verification accurately
+
+`NativeGeometricHost.lean` retains all twelve fields of the original
+arithmetic `Geo.Tor.Host`. `NativeDerivedGeometricHost.lean` assembles that
+interface on the SAME `HostAx`, using its CM instance. The root, half-root,
+integral conjugation and unramified extension are those already constructed.
+
+`nativeDyadicThetaEmbedding` chooses the complex embedding with
+
+\[
+ \tau(\mathrm{sqrtD})=i\sqrt d.
+\]
+
+Its orientation is proved, and `nativeDyadicThetaPositive_iff` identifies
+the theta-positive rows with the actual raw host's CM type. No lattice is
+replaced by its conjugate to repair a signature mismatch.
+
+The preceding published head `940460d0e61d55d01aebb3a73c0635093a1d661c`
+failed both the full native and targeted hosted builds with the same seven
+errors and twenty-six owned warnings. The current continuation repairs all
+reported diagnostics, retains their failed-build evidence, and adds the
+complete host and harmonic-generation constructions above. Independent
+source and mathematical review is not a substitute for the next hosted
+Lean 4.34.1 build and standard-terminal-axiom audit. No local Lean/Lake
+execution was performed.
+
+## 19. Exact remaining construction obligation
 
 The reconstructed arithmetic comparison pays the cutoff, derived divisor,
 width movement, complete thin return and the three nonprincipal thick
@@ -614,9 +790,11 @@ characters. It does not yet supply an upper bound for the literal physical
 `alpogeNativePhysicalSubgroupTopExcess`, nor does it construct a theta-cover
 family whose actual heights and widths satisfy all the stated scale conditions.
 
-The next geometric suppliers remain the actual CM moduli, its framed-point
-atlas and evaluation laws, the short theta spanning family and its separate
-degree/discriminant/rank/theta size estimates, component jet upper ranks and lower shares, and the
+The next geometric suppliers remain the prescribed Hermitian-space and
+integral base-lattice datum with its signature and finite-place compatibility,
+CM moduli, framed-point atlas and evaluation laws, the geometric
+short theta-section span and its separate degree/discriminant/rank/theta
+size estimates, component jet upper ranks and lower shares, and the
 resulting slope/covolume comparison with the complete physical ASK-MAIN source.
 The Petersson multiplication mechanism is now derived on the constructed
 section, but its actual weighted evaluations and invariant measure still

@@ -226,6 +226,7 @@ theorem pv_le (b : Basis ι K V) (X : InfinitePlace K → Matrix ι ι ℂ)
   | add x y _ _ hx hy => simpa using Submodule.add_mem _ hx hy
   | smul a x _ hx => simpa using Submodule.smul_mem _ a hx
 
+omit [StarRing K] in
 theorem psi_mem [DecidableEq (InfinitePlace K)] (b : Basis ι K V)
     (X : InfinitePlace K → Matrix ι ι ℂ) (S : Submodule (𝓞 K) V) (v : InfinitePlace K)
     (z : EuclideanSpace ℂ ι) (hz : z ∈ pv b X (Submodule.span K (S : Set V)) v) :
@@ -371,7 +372,7 @@ theorem proj_eq_tv (hc : ∀ k, U.mkQ (c k) = b'' k) (v : InfinitePlace K) (x : 
   refine Finset.sum_congr rfl fun k _ => ?_
   rw [map_smul, hL]
 
-omit [DecidableEq κ] in
+omit [DecidableEq κ] [StarRing K] [IsTotallyComplex K] in
 theorem tv_injective (hX : ∀ v, IsUnit (X v).det) (hc : ∀ k, U.mkQ (c k) = b'' k)
     (v : InfinitePlace K) : Function.Injective (tv b X U c v) := by
   have : FiniteDimensional K V := Module.Finite.of_basis b

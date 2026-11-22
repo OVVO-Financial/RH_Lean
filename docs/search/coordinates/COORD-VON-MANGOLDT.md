@@ -24,13 +24,16 @@
 
 | Score | File | Title |
 | --- | --- | --- |
+| 33 | [RHLean/Analysis/AlpogeNativeRootDiscriminantBounds.lean](../../../RHLean/Analysis/AlpogeNativeRootDiscriminantBounds.lean) | Original weighted conductor-density bounds |
 | 20 | [RHLean/Analysis/AlpogeThin/Formalism/GL3MeanSquares/GenusMeanAsymptotics/JacobiCharacterSums/MSqDiagA.lean](../../../RHLean/Analysis/AlpogeThin/Formalism/GL3MeanSquares/GenusMeanAsymptotics/JacobiCharacterSums/MSqDiagA.lean) | Reconstructed same-host thin-source dependency |
 | 14 | [RHLean/Analysis/AlpogeThin/Development/AutomorphicArithmetic/MeanSquareBounds/GIntegral.lean](../../../RHLean/Analysis/AlpogeThin/Development/AutomorphicArithmetic/MeanSquareBounds/GIntegral.lean) | Reconstructed same-host thin-source dependency |
 | 14 | [research/PNT_FIRST_LAMBDA_HYPERBOLA_ANCHOR_20261018.lean](../../../research/PNT_FIRST_LAMBDA_HYPERBOLA_ANCHOR_20261018.lean) | PNT-first seam: exact Λ-normalized compensation, historical density model, |
 | 12 | [RHLean/Analysis/AlpogeThin/Development/AutomorphicArithmetic/DedekindLFunctions/LandauTheorems/mertensUpper.lean](../../../RHLean/Analysis/AlpogeThin/Development/AutomorphicArithmetic/DedekindLFunctions/LandauTheorems/mertensUpper.lean) | Reconstructed same-host thin-source dependency |
+| 10 | [RHLean/Analysis/AlpogeNativeRootDiscriminantArithmetic.lean](../../../RHLean/Analysis/AlpogeNativeRootDiscriminantArithmetic.lean) | Finite unit-kernel densities for the actual conductor |
 | 10 | [docs/COORDINATE_ATLAS.md](../../../docs/COORDINATE_ATLAS.md) | Coordinate atlas: one phenomenon, many coordinates |
 | 8 | [RHLean/Analysis/AlpogeNativeSharpASKBalance.lean](../../../RHLean/Analysis/AlpogeNativeSharpASKBalance.lean) | Alpoge's ASK sharp cutoff rebuilt from NATIVE RHLean von Mangoldt |
 | 8 | [RHLean/Analysis/NativePNTErdosContraction.lean](../../../RHLean/Analysis/NativePNTErdosContraction.lean) | The generic Erdos cubic contraction |
+| 7 | [RHLean/Analysis/AlpogeNativeRootDiscriminantDifferent.lean](../../../RHLean/Analysis/AlpogeNativeRootDiscriminantDifferent.lean) | Cyclotomic different and the original log-discriminant formula |
 | 7 | [RHLean/Analysis/AlpogeThin/Development/AutomorphicArithmetic/MeanSquareBounds/kappaC.lean](../../../RHLean/Analysis/AlpogeThin/Development/AutomorphicArithmetic/MeanSquareBounds/kappaC.lean) | Reconstructed same-host thin-source dependency |
 | 7 | [RHLean/Analysis/LogWeightedPrimeExtensionEndpoint.lean](../../../RHLean/Analysis/LogWeightedPrimeExtensionEndpoint.lean) | Endpoint form of the log-weighted child-fiber identity |
 | 7 | [RHLean/Analysis/NativePNTErrorMass.lean](../../../RHLean/Analysis/NativePNTErrorMass.lean) | Bounded reciprocal mass of the Chebyshev error |
@@ -51,6 +54,3 @@
 | 4 | [research/MASULLO_FINITE_TRACE_GHOST_20261120.md](../../../research/MASULLO_FINITE_TRACE_GHOST_20261120.md) | Masullo x RH_Lean: exact high-prime restoration and finite-trace bypass |
 | 4 | [research/NYMAN_HIGH_COEFFICIENT_INVARIANT_20261104.lean](../../../research/NYMAN_HIGH_COEFFICIENT_INVARIANT_20261104.lean) | Finite arithmetic core of Coordinator C29, accepted with scope in |
 | 4 | [research/OFF_CRITICAL_ZERO_EULER_LOGDERIV_20261029.lean](../../../research/OFF_CRITICAL_ZERO_EULER_LOGDERIV_20261029.lean) | Actual Mobius HIGH: reciprocal Euler identity and log derivative algebra |
-| 3 | [RHLean/Analysis/AlpogeGzErdosReciprocalHistory.lean](../../../RHLean/Analysis/AlpogeGzErdosReciprocalHistory.lean) | Alpöge Gz is exactly RH_Lean's centered signed Erdős reciprocal history |
-| 3 | [RHLean/Analysis/AlpogeLandau/LandauTheorems/GchiGrowth.lean](../../../RHLean/Analysis/AlpogeLandau/LandauTheorems/GchiGrowth.lean) | Reconstructed analytic window dependency |
-| 3 | [RHLean/Analysis/AlpogeLandau/LandauTheorems/mellinGchiModOne.lean](../../../RHLean/Analysis/AlpogeLandau/LandauTheorems/mellinGchiModOne.lean) | Reconstructed analytic window dependency |

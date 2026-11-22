@@ -76,7 +76,8 @@ theorem nativeShortSectionCost_le_exp_of_source_scales
     rw [Real.log_rpow hdisc0]
     have h : Real.log |(NumberField.discr K : ℝ)| / d ≤ o :=
       (div_le_iff₀ hd).2 (by simpa only [mul_comm] using hdisc)
-    simpa only [one_div, div_eq_mul_inv, mul_comm] using h
+    rw [one_div]
+    simpa only [div_eq_mul_inv, mul_comm] using h
   have hrde : rd ≤ Real.exp (391 * z ^ 2) :=
     (Real.le_exp_log rd).trans (Real.exp_le_exp.2 (hrdlog.trans ho))
   have hre : (r : ℝ) ≤ Real.exp (Crank * z ^ 3) :=

@@ -78,7 +78,9 @@ theorem l1Norm_add_le (P Q : MvPolynomial σ K) : l1Norm (P + Q) ≤ l1Norm P + 
   rw [l1Norm_eq_sum_of_subset (s := P.support ∪ Q.support) support_add,
     l1Norm_eq_sum_of_subset (s := P.support ∪ Q.support) subset_union_left,
     l1Norm_eq_sum_of_subset (s := P.support ∪ Q.support) subset_union_right, ← sum_add_distrib]
-  exact sum_le_sum fun α _ ↦ by rw [coeff_add]; exact norm_add_le _ _
+  exact sum_le_sum fun α _ ↦ by
+    change ‖P.coeff α + Q.coeff α‖ ≤ ‖P.coeff α‖ + ‖Q.coeff α‖
+    exact norm_add_le _ _
 
 theorem l1Norm_sum_le {ι : Type*} (s : Finset ι) (f : ι → MvPolynomial σ K) :
     l1Norm (∑ i ∈ s, f i) ≤ ∑ i ∈ s, l1Norm (f i) :=
@@ -89,7 +91,7 @@ theorem l1Norm_mul_le (P Q : MvPolynomial σ K) : l1Norm (P * Q) ≤ l1Norm P * 
   refine (l1Norm_sum_le _ _).trans ?_
   rw [l1Norm, l1Norm, sum_mul_sum]
   refine sum_le_sum fun α _ ↦ (l1Norm_sum_le _ _).trans (sum_le_sum fun β _ ↦ ?_)
-  rw [monomial_mul, l1Norm_monomial]
+  rw [monomial_mul_monomial, l1Norm_monomial]
   exact norm_mul_le _ _
 
 theorem l1Norm_prod_le [NormOneClass K] {ι : Type*} (s : Finset ι) (f : ι → MvPolynomial σ K) :

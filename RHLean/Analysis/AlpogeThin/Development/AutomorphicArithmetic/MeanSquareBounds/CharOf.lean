@@ -39,10 +39,10 @@ private theorem char_of (N₀ q : ℕ) (hN : 0 < N₀) (hq : q.Prime) (h2 : q �
   have hqN : ¬ q ∣ N₀ := fun h => absurd (Nat.le_of_dvd hN h) (by omega)
   have hNq : 0 < N₀ * q := Nat.mul_pos hN hq.pos
   by_cases ha : a ≤ 1
-  · haveI : NeZero N₀ := ⟨by omega⟩
+  · have : NeZero N₀ := ⟨by omega⟩
     have hfpos : 0 < ξ.conductor := Nat.pos_of_ne_zero ξ.conductor_ne_zero
     have hfN : ξ.conductor ≤ N₀ := Nat.le_of_dvd hN ξ.conductor_dvd_level
-    haveI : NeZero ξ.conductor := ⟨by omega⟩
+    have : NeZero ξ.conductor := ⟨by omega⟩
     have key : ∀ n : ℕ, n.Coprime N₀ →
         ξ.primitiveCharacter (n : ZMod ξ.conductor) = ξ (n : ZMod N₀) := by
       intro n hn
@@ -83,9 +83,9 @@ theorem stage2 :
         (∀ d ∈ B, ¬ GoodD N₀ C τ Y (Y ^ K) (Y ^ (ε / 5)) z' q d) → (B.card : ℝ) ≤ η * (primeSetTwoBounds (Y ^ (ε / 5)) z' q).card := by
   obtain ⟨C, hC, hst⟩ := stage
   refine ⟨C, hC, fun ε τ K η N₀ hε hε52 hτ hK hη hN₀ => ?_⟩
-  haveI : NeZero N₀ := ⟨by omega⟩
+  have : NeZero N₀ := ⟨by omega⟩
   classical
-  letI : Fintype (DirichletCharacter ℂ N₀) := Fintype.ofFinite _
+  let : Fintype (DirichletCharacter ℂ N₀) := Fintype.ofFinite _
   obtain ⟨Y₀, hY₀⟩ := hst (6 * ε / 5) τ K η (Fintype.card (DirichletCharacter ℂ N₀) * 2)
     (by positivity) (by linarith) hτ hK hη
   have e1 := ev_log hε hK
@@ -184,7 +184,7 @@ theorem stage2 :
         rw [(Nat.prime_dvd_prime_iff_eq hp hqp).mp h]
         exact hqK
       · left
-        obtain ⟨r, hr, hpr⟩ := (Prime.dvd_finset_prod_iff hp.prime _).mp h
+        obtain ⟨r, hr, hpr⟩ := (Prime.dvd_finsetProd_iff hp.prime _).mp h
         simp only [Finset.mem_filter, Finset.mem_Icc] at hr
         have hpr' := (Nat.prime_dvd_prime_iff_eq hp hr.2).mp hpr
         subst hpr'

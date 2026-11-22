@@ -53,6 +53,7 @@ theorem valuation_lt_one_iff' (A : ValuationSubring (Ω)) (y : Ω) :
     simp only [hy, false_or]
     exact ⟨fun h => ⟨h.le, h⟩, fun h => h.2⟩
 
+omit [NumberField F] in
 theorem valuation_apply_lt_one_iff {A : ValuationSubring (Ω)} {σ : G F Ω}
     (hσ : σ ∈ Dec (F := F) A) (y : Ω) :
     A.valuation (σ y) < 1 ↔ A.valuation y < 1 := by
@@ -419,6 +420,7 @@ private theorem isClosed_setOf_apply_lemma [IsAlgClosure F Ω] (x : Ω) (P : Ω 
     rw [inv_mul_cancel]
     exact one_mem _
 
+omit [NumberField F] in
 theorem isClosed_Dec [IsAlgClosure F Ω] (A : ValuationSubring (Ω)) : IsClosed (Dec (F := F) A : Set (G F Ω)) := by
   have e : (Dec (F := F) A : Set (G F Ω)) = ⋂ x : Ω, {τ : G F Ω | τ x ∈ A ↔ x ∈ A} := by
     ext τ

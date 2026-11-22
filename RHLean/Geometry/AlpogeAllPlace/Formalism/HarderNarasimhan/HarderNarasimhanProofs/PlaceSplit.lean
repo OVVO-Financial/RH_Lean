@@ -463,6 +463,7 @@ theorem piece_eq_map (b : Basis ι K V) (X : InfinitePlace K → Matrix ι ι �
     rw [← prj_realize]
     exact Submodule.mem_inf.2 ⟨prj_mem_span b X N v _ (realize_mem b X N hx), prj_mem v _⟩
 
+omit [StarRing K] in
 theorem finrank_piece (b : Basis ι K V) (X : InfinitePlace K → Matrix ι ι ℂ)
     (hX : ∀ v, IsUnit (X v).det) (N : Submodule (𝓞 K) V) (v : InfinitePlace K) :
     Module.finrank ℝ (Submodule.span ℝ (zl (RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.realize b X) N :

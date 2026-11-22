@@ -3,7 +3,7 @@
   "status": "native_434_scope_api_lint_repairs_hosted_recheck_pending",
   "module_prefix": "RHLean.Geometry.AlpogeAllPlace.",
   "total_native_modules": 81,
-  "total_native_lines": 15990,
+  "total_native_lines": 15994,
   "entry_module": "RHLean.Geometry.NativeAllPlaceDescent",
   "entry_theorem": "RHLean.Geometry.nativeAllPlaceDescent",
   "axiom_targets": [
@@ -60,8 +60,8 @@
       "upstream_path": "src/Formalism/BranchSandwichDivisors/BranchIsometryProofs/OrthSum.lean",
       "upstream_git_blob": "cbfcd7cd7fcdc6dda37f07abcf204944c548582b",
       "upstream_sha256": "aac71e0459f04b737f75ca2e7c4905aaa7a045a4a85bd0ff1054c881cd528578",
-      "native_sha256": "89ff329e1573d8a30234759c4e8ea09971612276991c1d38a3211b69401cc98f",
-      "native_lines": 340,
+      "native_sha256": "fb6bd2fb9990cd126c51096ebe0cb9853331fe4fb84f8778b1e0be5dea3f310a",
+      "native_lines": 342,
       "kind": "namespace_and_options_only"
     },
     "RHLean/Geometry/AlpogeAllPlace/Formalism/BranchSandwichDivisors/StatementL.lean": {
@@ -284,8 +284,8 @@
       "upstream_path": "src/Formalism/HarderNarasimhan/HarderNarasimhanProofs/PlaceSplit.lean",
       "upstream_git_blob": "f442f465a9116dde56cd94546e34f3f648bdcc15",
       "upstream_sha256": "098b091cae2368fc3efcdd768ae0581657d625595acf66452d36bc8c2deb87c2",
-      "native_sha256": "c79b5ce3f12cc3f505e6f6ff2bb941e0c3cfdeb7c623ebfe71e9cff5451e8310",
-      "native_lines": 482,
+      "native_sha256": "3999f5b61a9af3ae5c71f1c63b471e0dfe79e7cf0c3f97af81d42798453d009a",
+      "native_lines": 483,
       "kind": "namespace_options_and_native_compatibility"
     },
     "RHLean/Geometry/AlpogeAllPlace/Formalism/HarderNarasimhan/HarderNarasimhanProofs/PolygonSlopeSum.lean": {
@@ -300,8 +300,8 @@
       "upstream_path": "src/Formalism/HarderNarasimhan/HarderNarasimhanProofs/QuotRealize.lean",
       "upstream_git_blob": "5578fe78497f8755fd44f580dd9a63b8e057721e",
       "upstream_sha256": "3a04d5a0cd077e156690b7a0661899c7645cd77f085d78a5c954c4c1b520d49c",
-      "native_sha256": "f2e10c5264f1141689a8fa81334ad2b513c351be0c86a808a9137d0fa82dfdbe",
-      "native_lines": 498,
+      "native_sha256": "8e58e51d4545981671fa773920d0cd8a81d29a5894f0f0131ce55cd8de4ef815",
+      "native_lines": 499,
       "kind": "namespace_options_and_native_compatibility"
     },
     "RHLean/Geometry/AlpogeAllPlace/Formalism/HarderNarasimhan/HarderNarasimhanProofs/RatioMax.lean": {

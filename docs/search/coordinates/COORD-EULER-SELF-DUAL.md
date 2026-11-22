@@ -40,6 +40,7 @@
 | 9 | [research/EULER_FRACTIONAL_COUPLED_20261027.lean](../../../research/EULER_FRACTIONAL_COUPLED_20261027.lean) | Exact original Möbius fractional Euler bilinear and divisor-row subtraction |
 | 8 | [research/MERTENS_FINITE_PREFIX_ACCEPTANCE.lean](../../../research/MERTENS_FINITE_PREFIX_ACCEPTANCE.lean) | Exact signatures of the finite-prefix lift and interval guard. |
 | 8 | [scripts/lean/preservation_sources/EulerExactTypes.lean](../../../scripts/lean/preservation_sources/EulerExactTypes.lean) | Independent public-type assertions for the complete original Euler source. |
+| 5 | [research/ALPOGE_NATIVE_GEOMETRY_ATTACHMENT_20261122.md](../../../research/ALPOGE_NATIVE_GEOMETRY_ATTACHMENT_20261122.md) | Native geometry attachment and complete scalar source payment |
 | 5 | [research/EULER_ADMISSIBLE_PRIME_POPULATION_CODIV_20261028.lean](../../../research/EULER_ADMISSIBLE_PRIME_POPULATION_CODIV_20261028.lean) | Genuine admissible Euler population, reciprocal prime bands and signed Co-Div |
 | 5 | [research/EULER_ADMISSIBLE_WEIGHTED_CODIV_20261028.lean](../../../research/EULER_ADMISSIBLE_WEIGHTED_CODIV_20261028.lean) | Actual weighted Euler Co-Div and admissible-prime population |
 | 4 | [docs/PRESERVATION_SOURCE_REDUCTIONS_20261117.md](../../../docs/PRESERVATION_SOURCE_REDUCTIONS_20261117.md) | Owner capacity and complete double-centering |
@@ -50,5 +51,7 @@
 | 4 | [research/EULER_DOUBLE_CENTERED_SOURCE_20261117.lean](../../../research/EULER_DOUBLE_CENTERED_SOURCE_20261117.lean) | Symmetric centering of the complete original frozen Euler source |
 | 4 | [research/UNIVERSAL_ENVELOPE_ACCEPTANCE.lean](../../../research/UNIVERSAL_ENVELOPE_ACCEPTANCE.lean) | Exact-type acceptance for the original arithmetic source. These examples |
 | 3 | [research/EULER_HYBRID_ABEL_AUDIT_20261027.md](../../../research/EULER_HYBRID_ABEL_AUDIT_20261027.md) | Euler self-dual one-sided Abel and truncated divisor annihilator (2026-10-27) |
+| 2 | [RHLean/Geometry/NativeHermitianLatticeSpan.lean](../../../RHLean/Geometry/NativeHermitianLatticeSpan.lean) | The actual Hermitian lattice spans the ambient vector space |
+| 2 | [RHLean/Geometry/NativeThetaSpanningFamily.lean](../../../RHLean/Geometry/NativeThetaSpanningFamily.lean) | A constructed short integral family spanning the full native harmonic space |
 | 2 | [research/EULER_SQUARE_WINDOW_BOUNDED_GATE_20261028.lean](../../../research/EULER_SQUARE_WINDOW_BOUNDED_GATE_20261028.lean) | Actual Euler historical square-window sampling, with bounded moving gate |
 | 2 | [research/MERTENS_HEATH_BROWN_SIGNED.lean](../../../research/MERTENS_HEATH_BROWN_SIGNED.lean) | Signed higher-order finite Mobius inversion |

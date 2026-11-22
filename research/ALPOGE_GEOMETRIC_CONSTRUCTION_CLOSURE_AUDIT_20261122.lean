@@ -1,3 +1,11 @@
+import RHLean.Analysis.AlpogePrimeFreeCommutatorConditioning
+import RHLean.Analysis.AlpogeSquareRootArithmeticMultiplicity
+import RHLean.Analysis.AlpogePrimeFreeForwardJet
+import RHLean.Geometry.NativePolarizationCoefficientLattice
+import RHLean.Geometry.NativeThetaLetterFamily
+import RHLean.Geometry.NativeThetaSpanningFamily
+import RHLean.Geometry.NativeDerivedGeometricHost
+import RHLean.Analysis.AlpogeThin.NativeDyadicHostDer
 import RHLean.Analysis.AlpogeNativeCMUnramified
 import RHLean.Analysis.AlpogeThin.NativeDyadicHostDecomposition
 import RHLean.Analysis.AlpogeNativeIntegralQuadraticRoot
@@ -591,3 +599,243 @@ info: 'RHLean.Analysis.AlpogeThin.nativeDyadicHostRaw_decomp' depends on axioms:
 -/
 #guard_msgs in
 #print axioms RHLean.Analysis.AlpogeThin.nativeDyadicHostRaw_decomp
+
+/--
+info: 'RHLean.Analysis.AlpogeThin.nativeDyadicHostDer' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeThin.nativeDyadicHostDer
+
+/--
+info: 'RHLean.Analysis.AlpogeThin.nativeDyadicHostAx' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeThin.nativeDyadicHostAx
+
+/--
+info: 'RHLean.Analysis.AlpogeThin.nativeDyadicHostAx_of_pageN_winPair' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeThin.nativeDyadicHostAx_of_pageN_winPair
+
+/--
+info: 'RHLean.Analysis.AlpogeThin.nativeDyadicHostAx_sideConditions' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeThin.nativeDyadicHostAx_sideConditions
+
+/--
+info: 'RHLean.Analysis.AlpogeThin.nativeDyadicHostAx_kerChi' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeThin.nativeDyadicHostAx_kerChi
+
+/--
+info: 'RHLean.Analysis.AlpogeThin.nativeDyadicHostRaw_exists_traceSelfDualIdeal' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeThin.nativeDyadicHostRaw_exists_traceSelfDualIdeal
+
+/--
+info: 'RHLean.Analysis.AlpogeThin.nativeDyadicHostRaw_rd_ge' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeThin.nativeDyadicHostRaw_rd_ge
+
+/--
+info: 'RHLean.Analysis.AlpogeThin.nativeDyadicHostRaw_rd_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeThin.nativeDyadicHostRaw_rd_le
+
+/--
+info: 'RHLean.Analysis.AlpogeThin.nativeDyadicHostRaw_rd_sq_ge' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeThin.nativeDyadicHostRaw_rd_sq_ge
+
+/--
+info: 'RHLean.Analysis.AlpogeThin.nativeDyadicHostRaw_splitK' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeThin.nativeDyadicHostRaw_splitK
+
+/--
+info: 'RHLean.Analysis.AlpogeThin.nativeDyadicHostRaw_ordinary' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeThin.nativeDyadicHostRaw_ordinary
+
+/--
+info: 'RHLean.Analysis.AlpogeThin.nativeDyadicHostRaw_eta' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeThin.nativeDyadicHostRaw_eta
+
+/--
+info: 'RHLean.Analysis.AlpogeThin.nativeDyadicHostRaw_norm_mu' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeThin.nativeDyadicHostRaw_norm_mu
+
+/--
+info: 'RHLean.Geometry.nativeDyadicGeometricHost' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Geometry.nativeDyadicGeometricHost
+
+/--
+info: 'RHLean.Geometry.nativeDyadicGeometricHostOfDerived' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Geometry.nativeDyadicGeometricHostOfDerived
+
+/--
+info: 'RHLean.Geometry.nativeDyadicGeometricHostOfDerived_inPsi' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Geometry.nativeDyadicGeometricHostOfDerived_inPsi
+
+/--
+info: 'RHLean.Geometry.nativeDyadicThetaEmbedding_sqrtD' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Geometry.nativeDyadicThetaEmbedding_sqrtD
+
+/--
+info: 'RHLean.Geometry.NativeHermitianLattice.span_eq_top' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Geometry.NativeHermitianLattice.span_eq_top
+
+/--
+info: 'RHLean.Geometry.NativeHermitianLattice.trace_dual_min' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Geometry.NativeHermitianLattice.trace_dual_min
+
+/--
+info: 'RHLean.Geometry.NativeHermitianLattice.exists_short_vectors' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Geometry.NativeHermitianLattice.exists_short_vectors
+
+/--
+info: 'RHLean.Geometry.NativeTheta.Paired.exists_short_lattice_family' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Geometry.NativeTheta.Paired.exists_short_lattice_family
+
+/--
+info: 'RHLean.Geometry.NativeTheta.Paired.exists_finite_integral_harmonic_family' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Geometry.NativeTheta.Paired.exists_finite_integral_harmonic_family
+
+/--
+info: 'RHLean.Geometry.NativeTheta.Paired.exists_finite_integral_HHa_family' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Geometry.NativeTheta.Paired.exists_finite_integral_HHa_family
+
+/--
+info: 'RHLean.Geometry.NativeTheta.Paired.rowHighest_orbitSpan_main' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Geometry.NativeTheta.Paired.rowHighest_orbitSpan_main
+
+/--
+info: 'RHLean.Geometry.NativeTheta.Paired.span_range_coordProd_eq_rowHighest' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Geometry.NativeTheta.Paired.span_range_coordProd_eq_rowHighest
+
+/--
+info: 'RHLean.Geometry.NativeTheta.Paired.injective_liftedCMEmbeddings' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Geometry.NativeTheta.Paired.injective_liftedCMEmbeddings
+
+/--
+info: 'RHLean.Geometry.NativeTheta.Paired.exists_short_integral_HHa_spanning_family' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Geometry.NativeTheta.Paired.exists_short_integral_HHa_spanning_family
+
+/--
+info: 'RHLean.Analysis.NativeQuadraticDifferent.different_eq_span_root' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.NativeQuadraticDifferent.different_eq_span_root
+
+/--
+info: 'RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.principalIdentity' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.principalIdentity
+
+/--
+info: 'RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.xi_im_pos' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.xi_im_pos
+
+/--
+info: 'RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.coefficientIdeal_projective' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.coefficientIdeal_projective
+
+/--
+info: 'RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.integralTraceForm_bijective' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.integralTraceForm_bijective
+
+/--
+info: 'RHLean.Analysis.AlpogeThin.nativeDyadicHostRaw_exists_principalPolarizationArithmetic' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeThin.nativeDyadicHostRaw_exists_principalPolarizationArithmetic
+
+/--
+info: 'RHLean.Analysis.AlpogeThin.nativeDyadicHostRaw_exists_polarizationCoefficientLattice' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeThin.nativeDyadicHostRaw_exists_polarizationCoefficientLattice
+
+/--
+info: 'RHLean.Analysis.alpogeNativeAlternatingSignal_even_window' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.alpogeNativeAlternatingSignal_even_window
+
+/--
+info: 'RHLean.Analysis.alpogeSquareRootArithmeticJet_sharp' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.alpogeSquareRootArithmeticJet_sharp
+
+/--
+info: 'RHLean.Analysis.alpogeNativeAdditiveWheel_rectangular_abs_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.alpogeNativeAdditiveWheel_rectangular_abs_le
+
+/--
+info: 'RHLean.Analysis.NativeCommutatorConditioning.joint_injective' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.NativeCommutatorConditioning.joint_injective
+
+/--
+info: 'RHLean.Analysis.NativeCommutatorConditioning.coercive' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.NativeCommutatorConditioning.coercive
+
+/--
+info: 'RHLean.Analysis.NativeCommutatorConditioning.exponential_constant_lower_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.NativeCommutatorConditioning.exponential_constant_lower_bound

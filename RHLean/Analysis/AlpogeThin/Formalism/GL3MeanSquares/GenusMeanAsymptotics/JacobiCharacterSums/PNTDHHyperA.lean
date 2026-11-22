@@ -81,6 +81,7 @@ theorem cF_eq (N : ℕ) :
   have hd0' : (d : ℂ) ≠ 0 := by exact_mod_cast hd0.ne'
   field_simp
 
+omit [NeZero q] in
 theorem cF_split (N U : ℕ) (hUN : U ≤ N) :
     cF χ N = ∑ b ∈ Ioc 0 U, χ (b : ZMod q) / (b : ℂ) * (hH (N / b) : ℂ) +
       ∑ a ∈ Ioc 0 N, ((a : ℂ))⁻¹ * ∑ b ∈ Ioc U (N / a), χ (b : ZMod q) / (b : ℂ) := by

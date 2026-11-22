@@ -133,7 +133,7 @@ theorem stage :
       have : (q : ℝ) ≤ ((ξ.1 + 1 : ℕ) : ℝ) := by exact_mod_cast Nat.le_of_dvd (Nat.succ_pos _) hd
       linarith
     obtain ⟨ψ, hψp, hψ1, hψ⟩ := twist_prim (ξ.1 + 1) q ξ.2 hξp hqp hq2' hnd
-    haveI hne : NeZero ((ξ.1 + 1) * q) := ⟨mul_ne_zero (Nat.succ_ne_zero _) hqp.ne_zero⟩
+    have hne : NeZero ((ξ.1 + 1) * q) := ⟨mul_ne_zero (Nat.succ_ne_zero _) hqp.ne_zero⟩
     have hlev : (((ξ.1 + 1) * q : ℕ) : ℝ) ≤ F * U := by
       rw [Nat.cast_mul]
       exact mul_le_mul hξF hq2 (Nat.cast_nonneg _) hF0.le

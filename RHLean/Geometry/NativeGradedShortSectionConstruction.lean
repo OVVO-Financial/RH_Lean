@@ -98,6 +98,7 @@ structure NativeGradedShortSectionData (U : Submodule K Sec)
 bound, and derive regularity and joint trace injection on the same graded
 section algebra. The chosen component fields and generic fields remain
 distinct and are joined only by homogeneous specialization. -/
+omit [Algebra (𝓞 K) R] [IsScalarTower (𝓞 K) K R] in
 theorem nativeExists_graded_short_integral_injective_section
     [Fintype I] [DecidableEq I]
     (U : Submodule K Sec) [FiniteDimensional K U]

@@ -32,7 +32,7 @@ private theorem stage1_succ (c : ℕ) (hc : c ≠ 0) (χ : DirichletCharacter �
 private theorem stage1_prim (N₀ : ℕ) (hN : 0 < N₀) (ξ : DirichletCharacter ℂ N₀) :
     ∃ ξ' : (Σ N : ℕ, DirichletCharacter ℂ (N + 1)), ξ'.2.IsPrimitive ∧ ξ'.1 + 1 ≤ N₀ ∧
       ∀ n : ℕ, n.Coprime N₀ → ξ'.2 (n : ZMod (ξ'.1 + 1)) = ξ (n : ZMod N₀) := by
-  haveI : NeZero N₀ := ⟨hN.ne'⟩
+  have : NeZero N₀ := ⟨hN.ne'⟩
   obtain ⟨ξ', h1, h2, h3⟩ := stage1_succ ξ.conductor (DirichletCharacter.conductor_ne_zero ξ)
     ξ.primitiveCharacter ξ.primitiveCharacter_isPrimitive
   refine ⟨ξ', h1, h2 ▸ Nat.le_of_dvd hN ξ.conductor_dvd_level, fun n hn => ?_⟩
@@ -58,8 +58,8 @@ theorem stage1 :
   classical
   obtain ⟨C, hC, hst⟩ := stage
   refine ⟨C, hC, fun ε τ K η N₀ hε hε' hτ hK hη hN => ?_⟩
-  haveI : NeZero N₀ := ⟨hN.ne'⟩
-  haveI : Fintype (DirichletCharacter ℂ N₀) := Fintype.ofFinite _
+  have : NeZero N₀ := ⟨hN.ne'⟩
+  have : Fintype (DirichletCharacter ℂ N₀) := Fintype.ofFinite _
   choose g hg1 hg2 hg3 using stage1_prim N₀ hN
   obtain ⟨Y₁, hY₁⟩ := hst ε τ K η (Fintype.card (DirichletCharacter ℂ N₀)) hε (by linarith) hτ hK hη
   obtain ⟨Y₂, hY₂⟩ := Filter.eventually_atTop.1 ((stage1_log hε).and

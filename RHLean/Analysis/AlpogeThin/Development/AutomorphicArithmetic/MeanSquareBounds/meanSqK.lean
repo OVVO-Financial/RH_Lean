@@ -40,7 +40,7 @@ private lemma ev_log (δ A : ℝ) (hδ : 0 < δ) (hA : 0 < A) :
   calc A * Real.log Y ≤ A * (1 / A * Y ^ δ) := mul_le_mul_of_nonneg_left h1 hA.le
     _ = Y ^ δ := by field_simp
 
-private lemma sizes (y w : ℝ) (hy : 1 ≤ y) (hw0 : 0 ≤ w) (hw : w ≤ y ^ (1 / 5 : ℝ)) :
+private lemma sizes (y w : ℝ) (hy : 1 ≤ y) (_hw0 : 0 ≤ w) (hw : w ≤ y ^ (1 / 5 : ℝ)) :
     Real.log y ≤ 2 * Real.sqrt y ∧ w * Real.log y ≤ 4 * Real.sqrt y := by
   have hy0 : 0 < y := by linarith
   have key : ∀ a : ℝ, 0 < a → a * Real.log y ≤ y ^ a := by
