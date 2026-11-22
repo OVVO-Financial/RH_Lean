@@ -289,7 +289,7 @@ theorem nativeAlpogeGz_square_lattice_signed_remainder
 
 /-- The signed square-lattice formula itself, with no discarded source. -/
 theorem nativeAlpogeGz_square_lattice_exact
-    (N : ℕ) (hN : 4 ≤ N) :
+    (N : ℕ) (_hN : 4 ≤ N) :
     let R := Nat.sqrt N
     nativeAlpogeGz N =
       alpogeSquareChord nativeAlpogeGz (R ^ 2) N ((R + 1) ^ 2) +
@@ -434,6 +434,5 @@ theorem nativeAlpogeCenteredHistory_all_of_square_lattice_critical
         _ = (2 * C + 3 * alpogeGzInterpolationSlope) /
               Real.sqrt (N : ℝ) := by
           field_simp [ne_of_gt hroot]
-          ring
 
 end RHLean.Analysis
