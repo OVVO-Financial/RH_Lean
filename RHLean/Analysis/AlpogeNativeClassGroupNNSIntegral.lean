@@ -74,6 +74,15 @@ theorem alpogeNativeClDualConstraint_zero_iff
       change theta (alpogeNativePrimeCl v.1) = 0
       exact h2 v.1 v.2
 
+/-
+`ClassGroup (𝓞 K)` is finite (`NumberField.RingOfIntegers.instFintypeClassGroup`)
+but carries no computable `DecidableEq`, so the finite function space
+`ClassGroup (𝓞 K) → ZMod q` is a `Fintype` only classically. The statements
+below therefore elaborate with classical decidability in scope; the `classical`
+tactic inside a proof comes too late for instances needed by the statement.
+-/
+
+open scoped Classical in
 /-- Exact NNS UPM1/LPM1 decomposition of this field's class characters. -/
 theorem alpogeNativeClDualNNS_exact
     (K : Type*) [Field K] [NumberField K]
@@ -94,6 +103,7 @@ theorem alpogeNativeClDualNNS_exact
   exact nnsFiniteRelationMass_eq_UPM_sub_LPM_target
     (alpogeNativeClDualConstraint K q S) target
 
+open scoped Classical in
 /-- Same field, same constraint: exactly complete character orthogonality. -/
 theorem alpogeNativeClDualFourier_exact
     (K : Type*) [Field K] [NumberField K]
@@ -115,15 +125,18 @@ theorem alpogeNativeClDualFourier_exact
     (alpogeNativeClDualConstraint K q S)
 
 /-- The ACTUAL finite character set from Alpöge's ClDual predicate.
-It is not an arbitrary finite-source certificate. -/
-def alpogeNativeClDualMembers
+It is not an arbitrary finite-source certificate.
+It lives in the universe of `K`, and is reducible so that instance search sees
+the underlying subtype (and hence its `Fintype` structure). -/
+abbrev alpogeNativeClDualMembers
     (K : Type*) [Field K] [NumberField K]
     (q : Nat) [NeZero q]
-    (S : Finset (HeightOneSpectrum (𝓞 K))) : Type :=
+    (S : Finset (HeightOneSpectrum (𝓞 K))) : Type _ :=
   {theta : ClassGroup (𝓞 K) -> ZMod q //
     (∀ a b, theta (a * b) = theta a + theta b) ∧
     (∀ v ∈ S, theta (alpogeNativePrimeCl v) = 0)}
 
+open scoped Classical in
 /-- The NNS relation integral counts EXACTLY the field-specific
 ClDual characters, not merely an unrelated Fourier witness.
 No determinant is used. -/
@@ -133,11 +146,12 @@ theorem alpogeNativeClDualMass_eq_char_card
     (S : Finset (HeightOneSpectrum (𝓞 K))) :
     nnsFiniteRelationMass (alpogeNativeClDualConstraint K q S) =
       (Fintype.card (alpogeNativeClDualMembers K q S) : Real) := by
-  classical
+  rw [Fintype.card_subtype, Finset.natCast_card_filter]
   unfold nnsFiniteRelationMass nnsFiniteRelationIndicator
-  simp_rw [alpogeNativeClDualConstraint_zero_iff]
-  rw [Finset.sum_boole]
-  simp only [alpogeNativeClDualMembers, Fintype.card_subtype]
+  refine Finset.sum_congr rfl fun theta _ => ?_
+  by_cases h : alpogeNativeClDualConstraint K q S theta = 0
+  · rw [if_pos h, if_pos ((alpogeNativeClDualConstraint_zero_iff K q S theta).1 h)]
+  · rw [if_neg h, if_neg (mt (alpogeNativeClDualConstraint_zero_iff K q S theta).2 h)]
 
 
 end RHLean.Analysis
