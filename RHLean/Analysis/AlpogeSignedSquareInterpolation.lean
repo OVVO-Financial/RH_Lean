@@ -80,7 +80,6 @@ theorem nativeAlpogeGz_succ_abs_le
       alpogeGzInterpolationSlope := by
   have hup := nativeAlpogeGz_succ_le n hn
   have hlow := nativeAlpogeGz_succ_ge_of_finiteMertens n hn
-  have hL : 0 ≤ (3 : ℝ) := by norm_num
   rw [abs_le]
   constructor
   · unfold alpogeGzInterpolationSlope at *
@@ -403,14 +402,18 @@ theorem nativeAlpogeCenteredHistory_all_of_square_lattice_critical
   have hroot : 0 < Real.sqrt (N : ℝ) := Real.sqrt_pos.2 hNpos
   have hrootSq := Real.sq_sqrt (le_of_lt hNpos)
   rw [abs_mul, abs_of_nonneg hNpos.le] at hG
-  apply (le_div_iff₀ hroot).2
-  have hrootNonzero : Real.sqrt (N : ℝ) ≠ 0 := ne_of_gt hroot
-  have hrewrite :
-      (N : ℝ) / Real.sqrt (N : ℝ) = Real.sqrt (N : ℝ) := by
-    rw [← hrootSq]
-    field_simp [hrootNonzero]
-  have hscaled := (div_le_div_iff₀ hNpos hroot).2 ?_
-  · exact hscaled
-  · convert hG using 1 <;> field_simp [hrootNonzero] <;> ring
+  have hDiv :
+      |nativeAlpogeCenteredHistory N| ≤
+        ((2 * C + 3 * alpogeGzInterpolationSlope) *
+          Real.sqrt (N : ℝ)) / (N : ℝ) := by
+    exact (le_div_iff₀ hNpos).2 hG
+  calc
+    |nativeAlpogeCenteredHistory N| ≤
+        ((2 * C + 3 * alpogeGzInterpolationSlope) *
+          Real.sqrt (N : ℝ)) / (N : ℝ) := hDiv
+    _ = (2 * C + 3 * alpogeGzInterpolationSlope) /
+          Real.sqrt (N : ℝ) := by
+      rw [← hrootSq]
+      field_simp [ne_of_gt hroot]
 
 end RHLean.Analysis
