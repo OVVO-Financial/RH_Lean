@@ -333,4 +333,31 @@ theorem alpogeNativeLiteralASK_freshPrime_characterDefect
     (fun k => alpogeNativeColourKernel inertia frob k g)
     (alpogeNativeLiteralASKSitePrimeAtom a t w g)
 
+
+/-!
+## Exact quotient-column multiplicity: a p-shift has p physical parents.
+
+The TRUE floor shift n |-> floor(n/p) is p-to-one over a complete
+positive quotient fibre, whereas Alpoge's geometric multiplicity
+is a paid vanishing order. Their dimensions are not interchangeable.
+-/
+
+/-- Every full literal p-quotient fibre has exactly p integer sites.
+This identifies a column-multiplicity tax that cannot be hidden in
+an absolute-value estimate of the signed character defect. -/
+theorem alpogeNativeFloorPrimeFiber_card (p m : ℕ) :
+    (Finset.Ico (p * m) (p * (m + 1))).card = p := by
+  rw [Nat.card_Ico]
+  have h : p * (m + 1) = p * m + p := by ring
+  rw [h]
+  omega
+
+/-- Every site in that complete p-fibre maps back to the SAME
+original quotient: no free independence arises from p new sites. -/
+theorem alpogeNativeFloorPrimeFiber_div
+    (p m r : ℕ) (hp : 0 < p) (hr : r < p) :
+    (p * m + r) / p = m := by
+  rw [Nat.mul_add_div hp, Nat.div_eq_of_lt hr]
+  omega
+
 end RHLean.Analysis
