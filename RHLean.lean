@@ -4,6 +4,7 @@ import RHLean.Analysis.AlpogeCompletePrimitiveASK
 import RHLean.Analysis.AlpogeErdosHistoryDirectBound
 import RHLean.Analysis.AlpogeErdosHistoryIncrementNNS2
 import RHLean.Analysis.AlpogeGzErdosReciprocalHistory
+import RHLean.Analysis.AlpogeGzNNSFutureTail
 import RHLean.Analysis.AlpogeMobiusLogLift
 import RHLean.Analysis.AlpogeMobiusPartialMoments
 import RHLean.Analysis.AlpogeNNSBandSchur
