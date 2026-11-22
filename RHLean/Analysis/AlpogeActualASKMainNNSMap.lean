@@ -249,4 +249,84 @@ theorem alpogeActualCanonicalTopExcess_le_iff_NNS
   rw [alpogeActualCanonicalTopExcess_eq_NNS
     q d r M TT a w ha hw hM]
 
+/-!
+## The literal Alpöge conductor and dyadic host
+
+This specialization eliminates arbitrary q,d,r parameters:
+  N = 2^(e+2)*q*d,
+  r = alpogeNativeRecMap e q d,
+  host = alpogeNativeHostData e q d.
+The q,d variables are ACTUAL primes, not free labels.
+-/
+
+theorem alpogeLiteralHostModulus_ne_zero
+    (e q d : ℕ) [Fact q.Prime] [Fact d.Prime] :
+    alpogeNativeHostN e q d ≠ 0 := by
+  have hq : 0 < q := (Fact.out : q.Prime).pos
+  have hd : 0 < d := (Fact.out : d.Prime).pos
+  unfold alpogeNativeHostN
+  positivity
+
+instance alpogeLiteralHostModulus_neZero
+    (e q d : ℕ) [Fact q.Prime] [Fact d.Prime] :
+    NeZero (alpogeNativeHostN e q d) :=
+  ⟨alpogeLiteralHostModulus_ne_zero e q d⟩
+
+/-- The ACTUAL host in Alpöge's notation, including both quadratic
+sign bits and the dyadic local unit quotient. The NNS source is an
+expression of the original host, not any newly invented Galois data. -/
+theorem alpogeLiteralHostASK_MAIN_re_eq_originalNNS
+    (e q d : ℕ) [Fact q.Prime] [Fact d.Prime]
+    (M : ℕ) (a : ℝ) (t : AlpogeNativeDyadicH e)
+    (w : AlpogeNativeE0 × AlpogeNativeDyadicH e → ℝ)
+    (ha : 0 < a)
+    (hw : ∀ ρ, alpogeNativeInPhi ρ → 0 < w ρ)
+    (hM : ∀ ρ, alpogeNativeInPhi ρ → a / w ρ ≤ (M : ℝ)) :
+    (alpogeNativeFullKernelASK
+       (alpogeNativeHostData e q d).inertia
+       (alpogeNativeHostData e q d).frob M a t w -
+     alpogeNativeMAIN
+       (alpogeNativeCanonicalHostEll (alpogeNativeRecMap e q d))
+       a w).re =
+      alpogeOriginalNNSColourUPM
+        (alpogeNativeRecMap e q d)
+        (alpogeNativeCanonicalHostEll (alpogeNativeRecMap e q d))
+        a t w -
+      alpogeOriginalNNSColourLPM
+        (alpogeNativeRecMap e q d)
+        (alpogeNativeCanonicalHostEll (alpogeNativeRecMap e q d))
+        a t w := by
+  simpa only [alpogeNativeHostData] using
+    (alpogeActualCanonicalASK_MAIN_re_eq_originalNNS
+      q d (alpogeNativeRecMap e q d) M a t w ha hw hM)
+
+/-- SAME-field, SAME-width, SAME-character family: a critical upper
+cost estimate on Alpöge's original ASK-MAIN is exactly equivalent
+to the NNS estimate on its complete Fourier color population. -/
+theorem alpogeLiteralHostASK_MAIN_le_iff_originalNNS
+    (e q d : ℕ) [Fact q.Prime] [Fact d.Prime]
+    (M : ℕ) (a : ℝ) (t : AlpogeNativeDyadicH e)
+    (w : AlpogeNativeE0 × AlpogeNativeDyadicH e → ℝ)
+    (ha : 0 < a)
+    (hw : ∀ ρ, alpogeNativeInPhi ρ → 0 < w ρ)
+    (hM : ∀ ρ, alpogeNativeInPhi ρ → a / w ρ ≤ (M : ℝ))
+    (B : ℝ) :
+    (alpogeNativeFullKernelASK
+       (alpogeNativeHostData e q d).inertia
+       (alpogeNativeHostData e q d).frob M a t w -
+     alpogeNativeMAIN
+       (alpogeNativeCanonicalHostEll (alpogeNativeRecMap e q d))
+       a w).re ≤ B ↔
+      alpogeOriginalNNSColourUPM
+        (alpogeNativeRecMap e q d)
+        (alpogeNativeCanonicalHostEll (alpogeNativeRecMap e q d))
+        a t w -
+      alpogeOriginalNNSColourLPM
+        (alpogeNativeRecMap e q d)
+        (alpogeNativeCanonicalHostEll (alpogeNativeRecMap e q d))
+        a t w ≤ B := by
+  rw [alpogeLiteralHostASK_MAIN_re_eq_originalNNS
+    e q d M a t w ha hw hM]
+
+
 end RHLean.Analysis
