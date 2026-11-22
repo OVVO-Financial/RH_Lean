@@ -61,25 +61,92 @@
     },
     {
       "native_path": "RHLean/Geometry/AlpogeSignedSlope/Formalism/SizeWindowBrackets/ChainSlopeWindows/StrongErrorBound.lean",
-      "native_sha256": "8e513c47d2e1f78302c6d6f15c129b80678d983a9320780dd1647b5e99d8e505",
+      "native_sha256": "a05ce9b145dfdadd0edc09a2f071e0bc8aca316dae9ebf42630c5524a5012946",
       "upstream_path": "src/Formalism/SizeWindowBrackets/ChainSlopeWindows/SubThreeMulLogTwoLe.lean",
       "upstream_sha256": "fd4d5681f52473477e8e04e8aed6dc14d81bc7daf63b354037a02d585dcdd00a",
       "transformations": [
         "Exact scalar proof prefix through error_sizes; source remainder excluded.",
-        "Do not copy source linter suppression; warnings remain fatal."
+        "Do not copy source linter suppression; warnings remain fatal.",
+        "Five compiler-reported unused hypothesis binder names are prefixed with underscores; all assumptions, order and proof retained."
       ],
       "native_lines": 330
     }
   ],
   "native_arithmetic_attachment": {
     "native_path": "RHLean/Analysis/AlpogeNativeSignedSlopeComparison.lean",
-    "native_sha256": "5a5a844540d712892ce1fa08a3b76b528e0080799b4edb0fd588abbc13d304f5",
-    "native_lines": 226,
+    "native_sha256": "3a72d1e5a428eb2bcee15a5cbce021fe24c6666caa33d5edfb225f41be5fb5d5",
+    "native_lines": 228,
     "construction": "The literal native full ASK, MAIN, heights, widths and CM-type places replace only the arithmetic fields of Data; geometric entries including Ga remain unchanged. The original eleven geometric hypotheses, strong ErrWindows and actual B0/Nc bounds derive the signed physical comparison and its earned-divisor normalization.",
     "source_declarations": [
       "src/Development/AutomorphicArithmetic/DedekindLFunctions/LandauTheorems/ChTop.lean: ch_top_main_eq, ch_top",
       "src/Formalism/SizeWindowBrackets/ChainSlopeWindows/LevelOfCongruence.lean: uniform_bound_statement",
       "src/Formalism/SizeWindowBrackets/ChainSlopeWindows/SubThreeMulLogTwoLe.lean: error_sizes"
     ]
+  },
+  "actual_selected_host_consumer": {
+    "base_commit": "baddf5afd886855a1c3600693573cd89dc85250e",
+    "descent_payment_ack": "ALPOGE_NATIVE_DESCENT_PAYMENT_V1",
+    "tractability_ack": "ALPOGE_VIOLE_TRACTABLE_RH_V1",
+    "new_file": true,
+    "source_pin": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
+    "sources": [
+      {
+        "path": "src/Development/AutomorphicArithmetic/DedekindLFunctions/LandauTheorems/ChTop.lean",
+        "sha256": "9be04f7335746cae6bbdf52a813ae6713a90bf2a555eefc56f538bfd96af954f"
+      },
+      {
+        "path": "src/Development/AutomorphicArithmetic/PrimitiveCosets/CoreGm.lean",
+        "sha256": "73abeaad38ed40bde0c2f974f53cae9d851e72d23ae389dea129b2bbddc58bc8"
+      },
+      {
+        "path": "src/Formalism/SizeWindowBrackets/ChainSlopeWindows/PChain.lean",
+        "sha256": "be3c0f0ead3ebf13bc147c927c79aa5470d45a67739249d3b04a40d17281bf0d"
+      }
+    ],
+    "native_provenance": [
+      {
+        "path": "RHLean/Analysis/AlpogeThin/NativeConstructedDyadicGzPayment.lean",
+        "declaration": "RHLean.Analysis.AlpogeThin.nativeConstructedDyadicGzPayment",
+        "initial_attachment_sha256": "07d93eefece597b5eeb58af56ad98c3fb81c49d9dc03f6b6f07ab3c7492328b0",
+        "native_sha256": "07d93eefece597b5eeb58af56ad98c3fb81c49d9dc03f6b6f07ab3c7492328b0"
+      },
+      {
+        "path": "RHLean/Analysis/AlpogeNativeSignedSlopeComparison.lean",
+        "declaration": "RHLean.Analysis.AlpogeNativeSignedSlope.physicalTopExcess_div_le_normalizedGeometricCosts",
+        "initial_attachment_sha256": "5a5a844540d712892ce1fa08a3b76b528e0080799b4edb0fd588abbc13d304f5",
+        "native_sha256": "3a72d1e5a428eb2bcee15a5cbce021fe24c6666caa33d5edfb225f41be5fb5d5"
+      },
+      {
+        "path": "RHLean/Analysis/AlpogeThin/NativeDyadicCostWindows.lean",
+        "declaration": "RHLean.Analysis.AlpogeThin.nativeSelectedDyadicGzPayment_of_size_regime",
+        "initial_attachment_sha256": "fc284219427bcd2269b900b9864d2fa71ffb6d7fdb696bfe1116999e888eb9d0",
+        "native_sha256": "fc284219427bcd2269b900b9864d2fa71ffb6d7fdb696bfe1116999e888eb9d0"
+      },
+      {
+        "path": "RHLean/Analysis/AlpogeNativeCostNormalization.lean",
+        "declaration": "RHLean.Analysis.alpogeNativeGeometricErrorBracket_div_projectionDivisor",
+        "initial_attachment_sha256": "fc42ad2e4634142ae46214ab306ad5a8edbb4089f775aee6ddfa22872ee7959c",
+        "native_sha256": "fc42ad2e4634142ae46214ab306ad5a8edbb4089f775aee6ddfa22872ee7959c"
+      }
+    ],
+    "independent_review": "/root/ci_repair: complete source witness order, dependent instances, scalar record-update and exact normalized comparison composition passed; no local Lean",
+    "validation": "static only; exact analytic prefix byte-equal to nativeConstructedDyadicGzPayment; hosted compilation pending",
+    "declarations": [
+      "RHLean.Analysis.AlpogeThin.nativeConstructedDyadicSignedSlopePayment"
+    ],
+    "status": "actual selected native mean Gz bounded by all three normalized geometric costs with x^(CErr*eps), plus paid x^(1/2+eps) analytic remainder; actual geometry predicates remain explicit",
+    "preserved_arithmetic": "one exponent function and one selected q,d,hG; same recMap/HostData/canonicalHostEll/cutoff/TT/T2/m/a/b/w at both source theorems",
+    "preserved_geometry": "Ds updates only scalar x,eps,b; physicalData then updates literal arithmetic entries; Ga and every geometric slope/trace field remain unchanged",
+    "initial_source_reconstruction_sha256": "6e2f5173d78239f9508c372da3b4a9fedf37bb532af3064a9f2367e1670e7d8a",
+    "native_path": "RHLean/Analysis/AlpogeThin/NativeConstructedDyadicSignedSlopePayment.lean",
+    "native_sha256": "ac2995ff20a8497b0f87bcfe415311f8be8383737904d48c16123780ec2abd10",
+    "native_lines": 157,
+    "scalar_window_followup": {
+      "manifest": "scripts/alpoge_geometric_source_audit/native_geometric_cost_windows_source_manifest.json",
+      "construction": "Under all original 15 meaningful scalar size windows, x^(C*eps)*complete native normalized geometric costs + x^(1/2+eps) <= x^(1/2+(C+3)*eps). Source error-budget premise is proved by reflexivity for the explicit bracket. The same constructed dyadic host theorem returns its prior full-cost inequality and the conditional original-window exponent bound.",
+      "witness_and_premise_prefix_preserved": true,
+      "remaining": "The eleven physical geometric slope hypotheses, strong trace-error windows, B0/Nc estimates, and compatible original size windows on the same constructed family remain explicit. No existence of those geometric witnesses, unconditional final epsilon bound, pointwise recovery from the mean, or RH conclusion is claimed.",
+      "status": "IMPLEMENTED_STATIC_REVIEWED_HOSTED_VERIFICATION_PENDING"
+    }
   }
 }

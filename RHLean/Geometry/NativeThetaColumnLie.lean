@@ -296,7 +296,8 @@ theorem exists_colAct_monomial (t : T) (k : κ) (u : Rˣ) :
       by_cases ht : t' = t
       · subst ht
         by_cases hj : j = k <;> by_cases hi : j = i <;>
-          (simp [g₀, diagonal_apply, Pi.single_apply, hj, hi, eq_comm]; simp_all [eq_comm])
+          simp [g₀, diagonal_apply, Pi.single_apply, hj, hi, eq_comm]
+        simp_all [eq_comm]
       · simp [Matrix.one_apply, Pi.single_apply, eq_comm, Ne.symm ht]
     · rw [colAct_apply, colSubst_X_yVar, ← yForm_single, ← map_smul, colWeight_single_yVar]
       congr 1; ext i

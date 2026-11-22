@@ -1,0 +1,280 @@
+{
+  "freeze_date_utc": "2026-11-22",
+  "source_repository": "CocoSgt/riemann-hypothesis-lean",
+  "source_pin": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
+  "mathlib_pin": "d13f23b723b8a846827a245b89c10fc7d3f11612",
+  "integration_base_observed": "baddf5afd886855a1c3600693573cd89dc85250e",
+  "status": "IMPLEMENTED_STATIC_REVIEWED_HOSTED_VERIFICATION_PENDING",
+  "scope": "Genuine source lattice/admissible-level and finite-index construction, followed by the source-exact finite formal-jet formula and transport of the SAME actually constructed short integral HHa family to its evaluation image. Independent coefficient field K, Lambda, S, signature, coefficient bounds, cardinality and all normalizing factors are retained. The image of HHa is not identified with geometric cusp sections. The constructed-family endpoint retains the dominant positive-degree branch and p+q<=n.",
+  "native_modules": [
+    {
+      "module": "RHLean.Geometry.NativeThetaLatticeNormalization",
+      "path": "RHLean/Geometry/NativeThetaLatticeNormalization.lean",
+      "source": [
+        {
+          "path": "src/Formalism/LocalToGlobal/ProjectiveLattices/ThShort.lean",
+          "declarations": [
+            "Formalism.L2.Pj.stdLat",
+            "Formalism.L2.Pj.GenLat.Ln",
+            "Formalism.L2.Pj.GenLat.LevOK",
+            "Formalism.L2.Pj.GenLat.Unimod",
+            "Formalism.L2.Pj.GenLat.mIdx",
+            "Formalism.L2.Pj.GenLat.zCard"
+          ],
+          "sha256": "910822e9773ea37f97728e494db9fffac2e9707478637452fa38b1c5e88df3b2"
+        },
+        {
+          "path": "src/Development/AbelianVarietyTheory/Proofs/SiegelThetaTransformation/FgOfSmulLe.lean",
+          "declarations": [
+            "GlobalTheory.Dict.GenLatCmp.mem_range_iff",
+            "GlobalTheory.Dict.GenLatCmp.mem_std",
+            "GlobalTheory.Dict.GenLatCmp.std_eq",
+            "GlobalTheory.Dict.GenLatCmp.span_smul_le",
+            "GlobalTheory.Dict.GenLatCmp.natCast_smul_mem",
+            "GlobalTheory.Dict.GenLatCmp.fg_of_smul_le",
+            "GlobalTheory.Dict.GenLatCmp.unimod_iff",
+            "GlobalTheory.Dict.GenLatCmp.smul_mem_std",
+            "GlobalTheory.Dict.GenLatCmp.genLat_vset"
+          ],
+          "sha256": "7071447118c090f9f364c0e9b3c31577b506f631ca2917b649aa44cc91641305"
+        },
+        {
+          "path": "src/Development/AbelianVarietyTheory/Proofs/CuspFormEvaluations/NormShortGeneratorEvalLeOrthonormalFrame.lean",
+          "declarations": [
+            "GlobalTheory.Dict.ShortPoint.index_Ln",
+            "GlobalTheory.Dict.ShortPoint.zCard_eq"
+          ],
+          "sha256": "24204cda96854f555054bf1c6fdcf80652ec108bf36596cf87b192aa844ef0c2"
+        },
+        {
+          "path": "src/Development/AbelianVarietyTheory/Proofs/CuspFormEvaluations/ShortThetaValueExistsUniqueNaturalOfLaws.lean",
+          "declarations": [
+            "GlobalTheory.ShortValue.finite_levelQuotient"
+          ],
+          "sha256": "d99da51a0389861b6c0b7edd45fc9c2e5bf5c9384b34e2e839dda9523013322d"
+        }
+      ],
+      "key_declarations": [
+        "RHLean.Geometry.NativeTheta.Lattice.standard_level",
+        "RHLean.Geometry.NativeTheta.Lattice.standard_unimodular",
+        "RHLean.Geometry.NativeTheta.Lattice.exists_odd_level",
+        "RHLean.Geometry.NativeTheta.Lattice.unimodular_iff",
+        "RHLean.Geometry.NativeTheta.Lattice.fg_of_level",
+        "RHLean.Geometry.NativeTheta.Lattice.exists_short_vectors_of_level",
+        "RHLean.Geometry.NativeTheta.Lattice.translationCount_eq",
+        "RHLean.Geometry.NativeTheta.Lattice.intersectionIndex_pos",
+        "RHLean.Geometry.NativeTheta.Lattice.normalizationIndex_pos",
+        "RHLean.Geometry.NativeTheta.Lattice.translationCount_pos",
+        "RHLean.Geometry.NativeTheta.Lattice.finite_lattice_levelQuotient",
+        "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.coefficientIdeal_finite_levelQuotient",
+        "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.coefficientIdeal_levelTuples_card_pos"
+      ],
+      "construction": "Literal source standard/intersection/level lattices; an admissible odd level N=s*M from the coprime denominator witness; finite generation and the existing genuine short-vector construction on the SAME unimodular Lambda; literal denominator and translation indices with their exact tower identity and positivity; actual finite level quotient of that Lambda and of the native inverse-ideal coefficient lattice. The original standard lattice is proved unimodular at every level. No full-geometric-genus claim is made.",
+      "native_sha256": "5fbc94cecf2ed7eb858123a9b207c799d5178eac69981e2fe0ecc468993bfde2",
+      "native_lines": 341,
+      "initial_source_reconstruction_sha256": "5fbc94cecf2ed7eb858123a9b207c799d5178eac69981e2fe0ecc468993bfde2"
+    },
+    {
+      "module": "RHLean.Geometry.NativeThetaJetEvaluation",
+      "source": [
+        {
+          "path": "src/ReciprocityTheory/ReductiveGroups/ArithmeticGeometry/BirationalGeometry/ToroidalCompactification/CocycleRightZeroThd.lean",
+          "declarations": [
+            "ReciprocityTheory.ChartRestriction.G.Geo.Tor.Germ.Dof",
+            "ReciprocityTheory.ChartRestriction.G.Geo.Tor.Germ.DmonOf",
+            "ReciprocityTheory.ChartRestriction.G.Geo.Tor.Germ.DpolyOf",
+            "ReciprocityTheory.ChartRestriction.G.Geo.Tor.Germ.FB.hL",
+            "ReciprocityTheory.ChartRestriction.G.Geo.Tor.Germ.FB.nabVal"
+          ],
+          "sha256": "a7b757dcc7fc3d9a15768a83e1bead2ad38c2d456c62308ac421d08c94643115"
+        },
+        {
+          "path": "src/Formalism/LocalToGlobal/ProjectiveLattices/IsThRule.lean",
+          "declarations": [
+            "Formalism.L2.Pj.colOf"
+          ],
+          "sha256": "d0570a0398b32df4c732c4b0d5051d27cda119195187e74377f4f0e40cfeb11e"
+        },
+        {
+          "path": "src/Formalism/LocalToGlobal/ProjectiveLattices/ThShort.lean",
+          "declarations": [
+            "Formalism.L2.Pj.ShortValAt"
+          ],
+          "sha256": "910822e9773ea37f97728e494db9fffac2e9707478637452fa38b1c5e88df3b2"
+        },
+        {
+          "path": "src/Development/AbelianVarietyTheory/Proofs/CuspFormEvaluations/ShortThetaValueLinearInPolynomial.lean",
+          "declarations": [
+            "GlobalTheory.ShortValueLinear.sum_support_eq_constr",
+            "GlobalTheory.ShortValueLinear.formula_linear"
+          ],
+          "sha256": "46c4ce8658ac311b7f88ea7e9b2729ccd14c02c1bed6a32e5d8438bdef21eb93"
+        }
+      ],
+      "key_declarations": [
+        "RHLean.Geometry.NativeTheta.JetEvaluation.formalNablaValue_eq_contraction",
+        "RHLean.Geometry.NativeTheta.JetEvaluation.rawShortValue_eq_source_formula",
+        "RHLean.Geometry.NativeTheta.JetEvaluation.rawShortValue_sum",
+        "RHLean.Geometry.NativeTheta.JetEvaluation.shortValueOfFormalGerms_eq_source_formula",
+        "RHLean.Geometry.NativeTheta.JetEvaluation.shortValueOfFormalGerms_sum"
+      ],
+      "path": "RHLean/Geometry/NativeThetaJetEvaluation.lean",
+      "construction": "The exact finite formal-jet formula: original formal-law directional derivatives, ordered iterates, gauge and N^2, coefficient contraction, all four ShortValAt normalizers and source finsum, with fixed-degree linearity including zero. Existence of the actual geometric chart and section germs is not asserted.",
+      "native_sha256": "9fd1db6f781dcfbcfd293c0e53a8f7308c6938c8d2020936c12f51c5c9721d89",
+      "native_lines": 312,
+      "initial_source_reconstruction_sha256": "9fd1db6f781dcfbcfd293c0e53a8f7308c6938c8d2020936c12f51c5c9721d89"
+    },
+    {
+      "module": "RHLean.Geometry.NativeThetaEvaluatedFamily",
+      "source": [
+        {
+          "path": "src/Development/AbelianVarietyTheory/Proofs/CuspFormEvaluations/ShortThetaRuleLinearInHarmonicPolynomial.lean",
+          "declarations": [
+            "GlobalTheory.ShortRuleLinear.eq_sum_of_isShortRule"
+          ],
+          "sha256": "e7edd9d5a8a6f826ebe08f2440de496a8e58d86caace7d24ec6e09c0382d2021"
+        },
+        {
+          "path": "src/Development/AbelianVarietyTheory/Proofs/DivisorProofs/PolynomialCoefficientEmbeddingNormLeOfL1Bound.lean",
+          "declarations": [
+            "GlobalTheory.CovGmin.PrismSpan.cusp_sub_span_short",
+            "GlobalTheory.CovGmin.PrismSpan.harm_short"
+          ],
+          "sha256": "54af8da355e9aeeca64ea019d1597966c0a2476d26f5495461625769d6476254"
+        }
+      ],
+      "key_declarations": [
+        "RHLean.Geometry.NativeTheta.JetEvaluation.span_rawShortValue_family",
+        "RHLean.Geometry.NativeTheta.JetEvaluation.span_shortValueOfFormalGerms_family",
+        "RHLean.Geometry.NativeTheta.JetEvaluation.norm_rawShortValue_le",
+        "RHLean.Geometry.NativeTheta.Paired.exists_short_integral_HHa_evaluation_family"
+      ],
+      "path": "RHLean/Geometry/NativeThetaEvaluatedFamily.lean",
+      "construction": "Construct the SAME short integral HHa spanning family from source unimodularity and an admissible level; derive its finite-generation/integrality/self-duality inputs; evaluate it using the SAME literal normalizationIndex and translationCount at p+q. The conclusion identifies only the span of the evaluation image with the image of HHa.",
+      "native_sha256": "f51112f4a4a6e402030aec7f07f59ea7e25f5fae163ff403dd530c2d715ab45a",
+      "native_lines": 185,
+      "initial_source_reconstruction_sha256": "f51112f4a4a6e402030aec7f07f59ea7e25f5fae163ff403dd530c2d715ab45a",
+      "constructor_input_change": "exists_short_integral_HHa_evaluation_family replaces hfg/hint/hdual, an arbitrary index, and an arbitrary translation type J with hU, N != 0, the original admissible inclusion, normalizationIndex Lambda N (p+q), and Fin (translationCount Lambda N (p+q)). Q, beta and the formal group/gauge/germs remain explicit pending the actual Datum and geometric rule."
+    }
+  ],
+  "source_file_sha256": {
+    "src/Formalism/LocalToGlobal/ProjectiveLattices/ThShort.lean": "910822e9773ea37f97728e494db9fffac2e9707478637452fa38b1c5e88df3b2",
+    "src/Development/AbelianVarietyTheory/Proofs/SiegelThetaTransformation/FgOfSmulLe.lean": "7071447118c090f9f364c0e9b3c31577b506f631ca2917b649aa44cc91641305",
+    "src/Development/AbelianVarietyTheory/Proofs/CuspFormEvaluations/NormShortGeneratorEvalLeOrthonormalFrame.lean": "24204cda96854f555054bf1c6fdcf80652ec108bf36596cf87b192aa844ef0c2",
+    "src/Development/AbelianVarietyTheory/Proofs/CuspFormEvaluations/ShortThetaValueExistsUniqueNaturalOfLaws.lean": "d99da51a0389861b6c0b7edd45fc9c2e5bf5c9384b34e2e839dda9523013322d",
+    "src/ReciprocityTheory/ReductiveGroups/ArithmeticGeometry/BirationalGeometry/ToroidalCompactification/CocycleRightZeroThd.lean": "a7b757dcc7fc3d9a15768a83e1bead2ad38c2d456c62308ac421d08c94643115",
+    "src/Formalism/LocalToGlobal/ProjectiveLattices/IsThRule.lean": "d0570a0398b32df4c732c4b0d5051d27cda119195187e74377f4f0e40cfeb11e",
+    "src/Development/AbelianVarietyTheory/Proofs/CuspFormEvaluations/ShortThetaValueLinearInPolynomial.lean": "46c4ce8658ac311b7f88ea7e9b2729ccd14c02c1bed6a32e5d8438bdef21eb93",
+    "src/Development/AbelianVarietyTheory/Proofs/CuspFormEvaluations/ShortThetaRuleLinearInHarmonicPolynomial.lean": "e7edd9d5a8a6f826ebe08f2440de496a8e58d86caace7d24ec6e09c0382d2021",
+    "src/Development/AbelianVarietyTheory/Proofs/DivisorProofs/PolynomialCoefficientEmbeddingNormLeOfL1Bound.lean": "54af8da355e9aeeca64ea019d1597966c0a2476d26f5495461625769d6476254",
+    "src/Development/AbelianVarietyTheory/Proofs/CuspFormEvaluations/ExistsBiextensionChartWithGermsFramedPoint.lean": "5298d899022ce3e0a9648422eb61f3437a4ea5d343f0d24d5cd7a7bf2fc9b97d",
+    "src/Development/AbelianVarietyTheory/Proofs/CuspFormEvaluations/ExistsFaithfullyFlatCoverShortThetaValueData.lean": "15bf042d950e35e9e7435ce811c64b50a8123af535bb15d6f8ae4f4e9d593af6",
+    "src/Development/AbelianVarietyTheory/Proofs/CuspFormEvaluations/ShortThetaSumEqOfWitnessesCommonAlgebra.lean": "be181121ee0871cf180e2e952f5a9850b4e00d669439f96d6ae68ec4f7632bd5",
+    "src/Development/AbelianVarietyTheory/Proofs/CuspFormEvaluations/ShortValTotOfPinned.lean": "857b05bb4fd2552a6c95574b109facac44052f21d8b29c1fddd0b7ff20a7d5fc",
+    "src/Development/AbelianVarietyTheory/Proofs/CuspFormEvaluations/ExistsIsChartGOfBasis.lean": "2adebe9c1ab062018683f104e1ad4ab8cff823313a3b5989488ddba507bbb882"
+  },
+  "axiom_guard_declarations": [
+    "RHLean.Geometry.NativeTheta.Lattice.standard_level",
+    "RHLean.Geometry.NativeTheta.Lattice.standard_unimodular",
+    "RHLean.Geometry.NativeTheta.Lattice.exists_odd_level",
+    "RHLean.Geometry.NativeTheta.Lattice.unimodular_iff",
+    "RHLean.Geometry.NativeTheta.Lattice.fg_of_level",
+    "RHLean.Geometry.NativeTheta.Lattice.exists_short_vectors_of_level",
+    "RHLean.Geometry.NativeTheta.Lattice.translationCount_eq",
+    "RHLean.Geometry.NativeTheta.Lattice.intersectionIndex_pos",
+    "RHLean.Geometry.NativeTheta.Lattice.normalizationIndex_pos",
+    "RHLean.Geometry.NativeTheta.Lattice.translationCount_pos",
+    "RHLean.Geometry.NativeTheta.Lattice.finite_lattice_levelQuotient",
+    "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.coefficientIdeal_finite_levelQuotient",
+    "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.coefficientIdeal_levelTuples_card_pos",
+    "RHLean.Geometry.NativeTheta.JetEvaluation.formalNablaValue_eq_contraction",
+    "RHLean.Geometry.NativeTheta.JetEvaluation.rawShortValue_eq_source_formula",
+    "RHLean.Geometry.NativeTheta.JetEvaluation.rawShortValue_sum",
+    "RHLean.Geometry.NativeTheta.JetEvaluation.shortValueOfFormalGerms_eq_source_formula",
+    "RHLean.Geometry.NativeTheta.JetEvaluation.shortValueOfFormalGerms_sum",
+    "RHLean.Geometry.NativeTheta.JetEvaluation.span_rawShortValue_family",
+    "RHLean.Geometry.NativeTheta.JetEvaluation.span_shortValueOfFormalGerms_family",
+    "RHLean.Geometry.NativeTheta.JetEvaluation.norm_rawShortValue_le",
+    "RHLean.Geometry.NativeTheta.Paired.exists_short_integral_HHa_evaluation_family"
+  ],
+  "next_actual_suppliers": [
+    {
+      "path": "src/Development/AbelianVarietyTheory/Proofs/CuspFormEvaluations/ExistsBiextensionChartWithGermsFramedPoint.lean",
+      "declaration": "GlobalTheory.ChartRing.exists_chartAt_with_germs",
+      "dependencies": [
+        "GlobalTheory.ChartData.exists_isChartG_of_basis",
+        "GlobalTheory.exists_frames_of_chart",
+        "GlobalTheory.FrameBiextId.fbId",
+        "GlobalTheory.canonGauge_exists",
+        "germSt_holds"
+      ],
+      "boundary": "Actual framed tangent basis, formal chart and biextension frame on the original universal polarized abelian scheme. No such scheme chart or section germ is constructed by the finite formula.",
+      "sha256": "5298d899022ce3e0a9648422eb61f3437a4ea5d343f0d24d5cd7a7bf2fc9b97d"
+    },
+    {
+      "path": "src/Development/AbelianVarietyTheory/Proofs/CuspFormEvaluations/ExistsFaithfullyFlatCoverShortThetaValueData.lean",
+      "declaration": "GlobalTheory.exists_cover_shortVal_data",
+      "dependencies": [
+        "GlobalTheory.T.exists_faithfullyFlat_nthRoots_of_torsion",
+        "GlobalTheory.T.exists_faithfullyFlat_split_isotropicGroup",
+        "GlobalTheory.exists_isVtOver_and_existsUnique_isUUOver"
+      ],
+      "boundary": "Actual faithfully flat torsion-root cover, the SAME lattice isotropic group, and actual translated sections. The native mIdx/zCard values are now supplied by the same lattice; their geometric torsion indexing and the level-function type Q still require the actual Datum/SAB.",
+      "sha256": "15bf042d950e35e9e7435ce811c64b50a8123af535bb15d6f8ae4f4e9d593af6"
+    },
+    {
+      "path": "src/Development/AbelianVarietyTheory/Proofs/CuspFormEvaluations/ShortThetaSumEqOfWitnessesCommonAlgebra.lean",
+      "declaration": "GlobalTheory.ShortCompare.shortSum_eq_of_witnesses",
+      "dependencies": [
+        "GlobalTheory.T.harmonicValue_baseChange_alt",
+        "GlobalTheory.T.isotropicSum_independent_of_choices_local"
+      ],
+      "boundary": "Actual harmonic chart independence and isotropic-sum independence, not arbitrary jet coefficient equality.",
+      "sha256": "be181121ee0871cf180e2e952f5a9850b4e00d669439f96d6ae68ec4f7632bd5"
+    },
+    {
+      "path": "src/Development/AbelianVarietyTheory/Proofs/CuspFormEvaluations/ShortThetaValueExistsUniqueNaturalOfLaws.lean",
+      "declaration": "GlobalTheory.shortThetaValue_existsUnique_natural",
+      "dependencies": [
+        "GlobalTheory.exists_cover_shortVal_data",
+        "GlobalTheory.ShortCompare.shortSum_eq_of_witnesses",
+        "GlobalTheory.existsUnique_preimage_of_faithfullyFlat"
+      ],
+      "boundary": "Unique actual value is obtained by effective faithfully flat descent of the constructed formula.",
+      "sha256": "d99da51a0389861b6c0b7edd45fc9c2e5bf5c9384b34e2e839dda9523013322d"
+    },
+    {
+      "path": "src/Development/AbelianVarietyTheory/Proofs/CuspFormEvaluations/ShortValTotOfPinned.lean",
+      "declaration": "GlobalTheory.shortValTot_of_pinned",
+      "dependencies": [
+        "GlobalTheory.CoverDescent.shortValue_descends",
+        "GlobalTheory.thetaValue_weight",
+        "GlobalTheory.T.framedPoints_lift_to_levelCover"
+      ],
+      "boundary": "Actual natural weighted geometric rule requires compatible level cover, pin/tie data, test-ring evaluation and lift independence.",
+      "sha256": "857b05bb4fd2552a6c95574b109facac44052f21d8b29c1fddd0b7ff20a7d5fc"
+    }
+  ],
+  "explicit_remaining_inputs": [
+    "Unimodularity/admissible denominator witness for the actual geometric lattice; proved here for the source standard lattice only, not for all genera.",
+    "Complete actual polarized Datum with the original W_j tensor coefficient-ideal lattice, prescribed signature and finite-place compatibility; the rank-one coefficient ideal is not identified with the full Datum lattice.",
+    "Actual level-function type Q and weights, actual beta/principal generator in the independent original coefficient field K.",
+    "Actual universal moduli/SAB, framed tangent basis, canonical chart/gauge and actual translated section germs.",
+    "Geometric interpretation of the literal finite translation index, choice independence and effective faithfully flat descent to ShortValTot.",
+    "Cusp density, full geometric theta span, theta supremum/Petersson estimates and good-cover construction."
+  ],
+  "validation": {
+    "local_lean": "NOT_RUN_HOSTED_ONLY",
+    "hosted_build": "NOT_YET_RUN_FOR_THESE_THREE_FILES",
+    "static_audit": "No sorry, admit, axiom declarations, linter/check suppressions, Prop haveI declarations or maxHeartbeats overrides in these three new files. Native RHLean imports only. This is a textual/static audit, not a Lean elaboration result.",
+    "independent_reviews": [
+      "closure_audit reviewed the original JetEvaluation/EvaluatedFamily formula, all normalizers, pinned finite-polynomial APIs and same-family image-span proof.",
+      "ci_repair reviewed the lattice finite-index, finite quotient and same-lattice short-vector source chain; its seven Prop haveI findings were replaced with anonymous have declarations.",
+      "closure_audit reviewed lattice normalization and the tightened evaluated-family endpoint; its three unused NumberField instance omissions and explicit coordinate sum reduction were applied.",
+      "closure_audit reviewed final standard_level/standard_unimodular concrete instantiation, including IsIntegral.sum and the conjugation/Pi.single simplification; no remaining concrete defect identified.",
+      "Root reviewed Jet/EvaluatedFamily scope and requested removal of proactive maxHeartbeats overrides; both overrides were removed, with no proof changes."
+    ]
+  },
+  "descent_payment_ack": "ALPOGE_NATIVE_DESCENT_PAYMENT_V1",
+  "tractability_ack": "ALPOGE_VIOLE_TRACTABLE_RH_V1"
+}

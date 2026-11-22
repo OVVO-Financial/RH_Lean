@@ -55,6 +55,7 @@ theorem nativeDescent_collectiveNorm_eq_exp {q C z : ℝ} (hq : 0 < q) :
       Real.exp (3 * Real.log q + 2 * C * z ^ 9) := by
   have hq3 : q ^ 3 = Real.exp (3 * Real.log q) := by
     rw [← Real.exp_log (pow_pos hq 3), Real.log_pow]
+    norm_num
   have he : Real.exp (C * z ^ 9) ^ 2 = Real.exp (2 * C * z ^ 9) := by
     rw [sq, ← Real.exp_add]
     congr 1

@@ -121,11 +121,12 @@ theorem nativeDyadicFrame_generator (e : ℕ) :
 /-- The selected source generator has the full source frame order. -/
 theorem nativeDyadicFrame_n0 (e : ℕ) : (nativeDyadicFrame e).n0 = 2 ^ e := by
   have h := addOrderOf_injective
-    (G := (nativeDyadicFrame e).A)
-    (H := Additive (HGrp (nativeDyadicFrame e).e)) (nativeDyadicFrame e).h
-    (nativeDyadicFrame_h_injective e) (nativeDyadicFrame e).a0
-  rw [nativeDyadicFrame_h, nativeDyadicFrame_generator, nativeDyadicGenerator_order] at h
-  exact h.symm
+    (G := (nativeDyadicFrame e).A) (H := AlpogeNativeDyadicH e)
+    (nativeDyadicFrameEquiv e).toAddMonoidHom
+    (nativeDyadicFrameEquiv e).injective (nativeDyadicFrame e).a0
+  exact h.symm.trans
+    ((congrArg (fun x : AlpogeNativeDyadicH e => addOrderOf x)
+      (nativeDyadicFrame_generator e)).trans (nativeDyadicGenerator_order e))
 
 /-- The original distinguished cyclic subgroup is the complete dyadic frame. -/
 theorem nativeDyadicFrame_A0 (e : ℕ) : (nativeDyadicFrame e).A0 = ⊤ := by

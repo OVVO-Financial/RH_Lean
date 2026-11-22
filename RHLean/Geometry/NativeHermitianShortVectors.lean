@@ -165,13 +165,13 @@ variable {E : Type} [Field E] [NumberField E] [IsCMField E]
 
 noncomputable def traceHerm (n : ℕ) : LinearMap.BilinForm ℚ (Fin n → E) :=
   LinearMap.mk₂ ℚ (fun x y => Algebra.trace ℚ E (hermPairing E n x y))
-    (fun x x' y => by simp [hermPairing_eq, add_mul, Finset.sum_add_distrib])
+    (fun x x' y => by simp [add_mul, Finset.sum_add_distrib])
     (fun c x y => by
-      rw [← map_smul]; congr 1; simp [hermPairing_eq, Finset.smul_sum])
-    (fun x y y' => by simp [hermPairing_eq, cc, mul_add, Finset.sum_add_distrib])
+      rw [← map_smul]; congr 1; simp [Finset.smul_sum])
+    (fun x y y' => by simp [mul_add, Finset.sum_add_distrib])
     (fun c x y => by
       rw [← map_smul]; congr 1
-      simp [hermPairing_eq, Finset.smul_sum, cc, Rat.smul_def, mul_left_comm])
+      simp [Finset.smul_sum, Rat.smul_def, mul_left_comm])
 
 theorem traceHerm_apply {n : ℕ} (x y : Fin n → E) :
     traceHerm n x y = Algebra.trace ℚ E (hermPairing E n x y) := rfl
@@ -326,7 +326,7 @@ theorem exists_short_vectors {n : ℕ} (Λ : Submodule (𝓞 E) (Fin n → E)) (
     have := Module.finrank_pos (R := ℚ) (M := E)
     omega
   have hrd : 0 < rootDiscr E := by
-    rw [rootDiscr_def]
+    rw [rootDiscr_def, Int.cast_abs]
     exact Real.rpow_pos_of_pos (abs_pos.mpr (Int.cast_ne_zero.mpr (NumberField.discr_ne_zero E))) _
   have hF0 : (0 : ℝ) < halfDegree E := by exact_mod_cast hf
   set lam : ℝ := Real.sqrt (2 * halfDegree E) / rootDiscr E with hlam_def

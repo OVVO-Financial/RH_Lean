@@ -454,6 +454,7 @@ import RHLean.Analysis.AlpogeThin.Formalism.ZetaNonvanishingGeneralWeights
 import RHLean.Analysis.AlpogeThin.Formalism.ZetaRealNonvanish
 import RHLean.Analysis.AlpogeThin.NativeCftThin
 import RHLean.Analysis.AlpogeThin.NativeConstructedDyadicGzPayment
+import RHLean.Analysis.AlpogeThin.NativeConstructedDyadicSignedSlopePayment
 import RHLean.Analysis.AlpogeThin.NativeDyadicChiField
 import RHLean.Analysis.AlpogeThin.NativeDyadicCostWindows
 import RHLean.Analysis.AlpogeThin.NativeDyadicFrame
@@ -478,6 +479,7 @@ import RHLean.Analysis.AlpogeThin.NativeDyadicHostSplitting
 import RHLean.Analysis.AlpogeThin.NativeDyadicHostWindows
 import RHLean.Analysis.AlpogeThin.NativeDyadicPayment
 import RHLean.Analysis.AlpogeThin.NativeDyadicThickCharacters
+import RHLean.Analysis.AlpogeThin.NativeGeometricCostWindows
 import RHLean.Analysis.AlpogeThin.NativeHostThin
 import RHLean.Analysis.AlpogeThin.NativePrincipalThin
 import RHLean.Analysis.AlpogeThin.NativeRawHostDifferent
@@ -987,6 +989,8 @@ import RHLean.Geometry.NativeLatticeTransferenceA
 import RHLean.Geometry.NativeLatticeTransferenceB
 import RHLean.Geometry.NativePeterssonMultiplication
 import RHLean.Geometry.NativePolarizationCoefficientLattice
+import RHLean.Geometry.NativePrescribedHermitianSpaces
+import RHLean.Geometry.NativePrescribedPolarizationLattice
 import RHLean.Geometry.NativeRegularCharacterSlopeDescent
 import RHLean.Geometry.NativeRegularSectionSelection
 import RHLean.Geometry.NativeSectionCostAbsorption
@@ -994,6 +998,7 @@ import RHLean.Geometry.NativeShortIndependentIntegers
 import RHLean.Geometry.NativeThetaCapelli
 import RHLean.Geometry.NativeThetaColumnActions
 import RHLean.Geometry.NativeThetaColumnLie
+import RHLean.Geometry.NativeThetaEvaluatedFamily
 import RHLean.Geometry.NativeThetaFiniteFamily
 import RHLean.Geometry.NativeThetaFock
 import RHLean.Geometry.NativeThetaGridInterpolation
@@ -1001,7 +1006,9 @@ import RHLean.Geometry.NativeThetaGridParametrization
 import RHLean.Geometry.NativeThetaHarmonicPolynomials
 import RHLean.Geometry.NativeThetaHighestMinor
 import RHLean.Geometry.NativeThetaHighestWeights
+import RHLean.Geometry.NativeThetaJetEvaluation
 import RHLean.Geometry.NativeThetaLatticeGridBounds
+import RHLean.Geometry.NativeThetaLatticeNormalization
 import RHLean.Geometry.NativeThetaLetterDictionary
 import RHLean.Geometry.NativeThetaLetterFamily
 import RHLean.Geometry.NativeThetaOrbitGeneration

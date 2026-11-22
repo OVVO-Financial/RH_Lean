@@ -229,7 +229,7 @@
     "RHLean/Analysis/AlpogeLandau/NativeGzConsumer.lean": "5e9e38b2483b584b0c246d80a30abdad25e1bd58508410539fe0c3ae80c0c957",
     "RHLean/Analysis/AlpogeLandau.lean": "c4327df43402b131515913b70a152c254d658b61f34a4659bc1970371107acd4",
     "RHLean/Analysis/AlpogeNativePrincipalProjection.lean": "da7533f747ac551c15573f51bacc4880de42f5168c95a5f9414ca6a12c461b16",
-    "research/ALPOGE_GEOMETRIC_CONSTRUCTION_CLOSURE_AUDIT_20261122.lean": "a58ae6e6804e89a425a97b9b680d8043e15035b1c30173c4941231cb2b4f6bd0"
+    "research/ALPOGE_GEOMETRIC_CONSTRUCTION_CLOSURE_AUDIT_20261122.lean": "cb6c0c483c8b1482c80fa46a58a2b0def18e0812e06423cf7d5fe4c47612d122"
   },
   "consolidated_audit_root": {
     "previous_planned_path": "research/ALPOGE_NATIVE_LANDAU_WINDOW_20261122.lean",

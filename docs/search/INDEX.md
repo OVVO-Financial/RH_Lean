@@ -34,9 +34,9 @@
 | [COORD-SQUARE-SHELL-MASS](coordinates/COORD-SQUARE-SHELL-MASS.md) | mobius-side | Square-shell Mobius mass | 52 |
 | [COORD-SAT-MERTENS](coordinates/COORD-SAT-MERTENS.md) | mobius-side | Signed smooth-minus-transport S = A - T | 62 |
 | [COORD-HECKE-A6](coordinates/COORD-HECKE-A6.md) | mobius-side | Excluded-six Hecke coefficient a6 and quotient kernel K | 129 |
-| [COORD-FINITE-AC](coordinates/COORD-FINITE-AC.md) | mobius-side | Finite A/C historical envelope | 331 |
+| [COORD-FINITE-AC](coordinates/COORD-FINITE-AC.md) | mobius-side | Finite A/C historical envelope | 332 |
 | [COORD-LEGAL-GRAM](coordinates/COORD-LEGAL-GRAM.md) | covariance-statistic | Legal live-packet ancestry Gram | 8 |
-| [COORD-EULER-SELF-DUAL](coordinates/COORD-EULER-SELF-DUAL.md) | mobius-side | Euler self-dual bilinear / Newton-lift double sum | 29 |
+| [COORD-EULER-SELF-DUAL](coordinates/COORD-EULER-SELF-DUAL.md) | mobius-side | Euler self-dual bilinear / Newton-lift double sum | 31 |
 | [COORD-CORR4-PARENT](coordinates/COORD-CORR4-PARENT.md) | mobius-side | CORR-4 rough correlation C_R | 93 |
 | [COORD-CORR4-DAUGHTERS](coordinates/COORD-CORR4-DAUGHTERS.md) | mobius-side | CORR-4 low q^2 daughters (E_R, U_R) | 83 |
 | [COORD-CORR4-REMAINDER](coordinates/COORD-CORR4-REMAINDER.md) | covariance-statistic | CORR-4 physical remainder B_R and first-owner Gram | 45 |
@@ -58,9 +58,9 @@
 | [BLOCK](routes/BLOCK.md) | 48 |
 | [OAI-NNS](routes/OAI-NNS.md) | 864 |
 | [JOH](routes/JOH.md) | 132 |
-| [FINITE-AC](routes/FINITE-AC.md) | 943 |
-| [CORR4](routes/CORR4.md) | 970 |
-| [MU-LIFT](routes/MU-LIFT.md) | 391 |
+| [FINITE-AC](routes/FINITE-AC.md) | 946 |
+| [CORR4](routes/CORR4.md) | 971 |
+| [MU-LIFT](routes/MU-LIFT.md) | 393 |
 | [NYMAN](routes/NYMAN.md) | 149 |
 
 ## Machine-readable shards
@@ -69,13 +69,13 @@
 - [catalog-research-lean.jsonl](catalog-research-lean.jsonl) — 554 records
 - [catalog-research-notes.jsonl](catalog-research-notes.jsonl) — 276 records
 - [catalog-library-proof.jsonl](catalog-library-proof.jsonl) — 450 records
-- [catalog-library-alpoge-thin.jsonl](catalog-library-alpoge-thin.jsonl) — 392 records
-- [catalog-library-geometry.jsonl](catalog-library-geometry.jsonl) — 153 records
+- [catalog-library-alpoge-thin.jsonl](catalog-library-alpoge-thin.jsonl) — 394 records
+- [catalog-library-geometry.jsonl](catalog-library-geometry.jsonl) — 158 records
 - [catalog-library-core.jsonl](catalog-library-core.jsonl) — 479 records
 - [catalog-docs.jsonl](catalog-docs.jsonl) — 155 records
 - [catalog-code.jsonl](catalog-code.jsonl) — 419 records
-- [rewrite-families-a-k.jsonl](rewrite-families-a-k.jsonl) — 373 records
+- [rewrite-families-a-k.jsonl](rewrite-families-a-k.jsonl) — 375 records
 - [rewrite-families-l.jsonl](rewrite-families-l.jsonl) — 345 records
-- [rewrite-families-m-r.jsonl](rewrite-families-m-r.jsonl) — 521 records
-- [rewrite-families-s.jsonl](rewrite-families-s.jsonl) — 434 records
-- [rewrite-families-t-z.jsonl](rewrite-families-t-z.jsonl) — 291 records
+- [rewrite-families-m-r.jsonl](rewrite-families-m-r.jsonl) — 523 records
+- [rewrite-families-s.jsonl](rewrite-families-s.jsonl) — 437 records
+- [rewrite-families-t-z.jsonl](rewrite-families-t-z.jsonl) — 293 records

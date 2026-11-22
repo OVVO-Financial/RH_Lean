@@ -87,7 +87,7 @@ theorem alpogeNativeHostField_numberField
     (alpogeNativeCyclotomicRecMap e q d).ker
 
 private def nativeQuotientGaloisEquiv
-    {L G : Type*} [Field L] [Algebra ℚ L] [FiniteDimensional ℚ L]
+    {L G : Type*} [Field L] [CharZero L] [FiniteDimensional ℚ L]
     [IsGalois ℚ L] [Group G]
     (ρ : (L ≃ₐ[ℚ] L) →* G) (hρ : Function.Surjective ρ) :
     (fixedField ρ.ker ≃ₐ[ℚ] fixedField ρ.ker) ≃* G :=
@@ -99,7 +99,7 @@ private def nativeQuotientGaloisEquiv
   ε.symm.trans η
 
 private theorem nativeQuotientGaloisEquiv_restrict
-    {L G : Type*} [Field L] [Algebra ℚ L] [FiniteDimensional ℚ L]
+    {L G : Type*} [Field L] [CharZero L] [FiniteDimensional ℚ L]
     [IsGalois ℚ L] [Group G]
     (ρ : (L ≃ₐ[ℚ] L) →* G) (hρ : Function.Surjective ρ) (τ : L ≃ₐ[ℚ] L) :
     nativeQuotientGaloisEquiv ρ hρ (τ.restrictNormal (fixedField ρ.ker)) = ρ τ := by
@@ -120,8 +120,9 @@ def alpogeNativeHostGalEquiv
     (e q d : ℕ) [Fact q.Prime] [Fact d.Prime]
     (hq2 : q ≠ 2) (hd2 : d ≠ 2) (hqd : q ≠ d) :
     (alpogeNativeHostField e q d ≃ₐ[ℚ] alpogeNativeHostField e q d) ≃*
-      Multiplicative (AlpogeNativeE0 × AlpogeNativeDyadicH e) :=
-  nativeQuotientGaloisEquiv
+      Multiplicative (AlpogeNativeE0 × AlpogeNativeDyadicH e) := by
+  unfold alpogeNativeHostField
+  exact nativeQuotientGaloisEquiv
     (L := AlpogeNativeCyclotomic e q d)
     (G := Multiplicative (AlpogeNativeE0 × AlpogeNativeDyadicH e))
     (alpogeNativeCyclotomicRecMap e q d)

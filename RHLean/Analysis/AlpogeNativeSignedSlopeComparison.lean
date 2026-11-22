@@ -85,8 +85,9 @@ theorem physicalData_main (u : A0) :
       (1 / (f : ℝ)) * ∑ ρ : Fin f, Real.log (w u j (eP ρ)))) = _
   rw [Finset.sum_comm, ← Finset.sum_coe_sort TT]
   refine Finset.sum_congr rfl fun t _ => Finset.sum_congr rfl fun j _ => ?_
-  simp only [hf, hsum, alpogeNativeMAIN, Complex.mul_re, Complex.add_re,
+  simp only [hf, alpogeNativeMAIN, Complex.mul_re, Complex.add_re,
     Complex.sub_re, Complex.ofReal_re, Complex.ofReal_im, zero_mul, sub_zero]
+  rw [hsum (fun ρ => Real.log (w u j ρ))]
 
 /-- Exact same-subgroup arithmetic identity before any inequality is used. -/
 theorem physicalTopExcess_eq_meanGap :
@@ -122,10 +123,10 @@ local notation "DP" => physicalData A0 TT D0 inertia frob ell N a w eP
 /-- Original finite signed-slope theorem attached to physical top excess.
 Every geometric source hypothesis is stated on the same constructed data. -/
 theorem physicalTopExcess_le_errorTerm
-    (hS : DP.HidaSetting C) (hDIV : DP.DIV C) (hE : EComp5 DP C)
-    (hH : DP.HComp C) (hCount : Count5 DP C) (hSl : DP.Slopes C)
+    (hS : (DP).HidaSetting C) (hDIV : (DP).DIV C) (hE : EComp5 DP C)
+    (hH : (DP).HComp C) (hCount : Count5 DP C) (hSl : (DP).Slopes C)
     (hSN : QuotientSlopeBoundsWith DP C Xpp) (hLoss : LossBounds DP C)
-    (hSI : DP.SlopeIneq) (hHH : DP.HHBound C) (hFP : DP.FParams) :
+    (hSI : (DP).SlopeIneq) (hHH : (DP).HHBound C) (hFP : (DP).FParams) :
     alpogeNativePhysicalSubgroupTopExcess A0 inertia frob ell N TT a w ≤
       errorTermWith DP C Xpp := by
   rw [physicalTopExcess_eq_meanGap A0 TT D0 inertia frob ell N a w eP]
@@ -137,10 +138,10 @@ theorem physicalTopExcess_le_errorTerm
 including the global trace-error term. The geometric hypotheses remain
 explicit; this theorem supplies no witness for them. -/
 theorem physicalTopExcess_le_strongWindowError
-    (hS : DP.HidaSetting C) (hDIV : DP.DIV C) (hE : EComp5 DP C)
-    (hH : DP.HComp C) (hCount : Count5 DP C) (hSl : DP.Slopes C)
+    (hS : (DP).HidaSetting C) (hDIV : (DP).DIV C) (hE : EComp5 DP C)
+    (hH : (DP).HComp C) (hCount : Count5 DP C) (hSl : (DP).Slopes C)
     (hSN : QuotientSlopeBoundsWith DP C Xpp) (hLoss : LossBounds DP C)
-    (hSI : DP.SlopeIneq) (hHH : DP.HHBound C) (hFP : DP.FParams)
+    (hSI : (DP).SlopeIneq) (hHH : (DP).HHBound C) (hFP : (DP).FParams)
     (eK K : ℝ) (hWin : ErrWindows DP C Xpp eK K)
     (hLarge : LargeX D0.x D0.ε K C.cHH eK) :
     alpogeNativePhysicalSubgroupTopExcess A0 inertia frob ell N TT a w ≤
@@ -159,10 +160,10 @@ theorem physicalTopExcess_le_strongWindowError
 projection divisor. Its positivity follows from the original finite counts
 and the positive source width in `HidaSetting`. -/
 theorem physicalTopExcess_div_le_strongWindowError
-    (hS : DP.HidaSetting C) (hDIV : DP.DIV C) (hE : EComp5 DP C)
-    (hH : DP.HComp C) (hCount : Count5 DP C) (hSl : DP.Slopes C)
+    (hS : (DP).HidaSetting C) (hDIV : (DP).DIV C) (hE : EComp5 DP C)
+    (hH : (DP).HComp C) (hCount : Count5 DP C) (hSl : (DP).Slopes C)
     (hSN : QuotientSlopeBoundsWith DP C Xpp) (hLoss : LossBounds DP C)
-    (hSI : DP.SlopeIneq) (hHH : DP.HHBound C) (hFP : DP.FParams)
+    (hSI : (DP).SlopeIneq) (hHH : (DP).HHBound C) (hFP : (DP).FParams)
     (eK K : ℝ) (hWin : ErrWindows DP C Xpp eK K)
     (hLarge : LargeX D0.x D0.ε K C.cHH eK)
     (T2 : Finset H) (hTT : TT.Nonempty) (hT2 : T2.Nonempty) (hm : 0 < m) :
@@ -182,10 +183,10 @@ theorem physicalTopExcess_div_le_strongWindowError
 /-- Source bounds on the two auxiliary geometric budgets give the original
 three costs after division by the actual thick-source divisor. -/
 theorem physicalTopExcess_div_le_normalizedGeometricCosts
-    (hS : DP.HidaSetting C) (hDIV : DP.DIV C) (hE : EComp5 DP C)
-    (hH : DP.HComp C) (hCount : Count5 DP C) (hSl : DP.Slopes C)
+    (hS : (DP).HidaSetting C) (hDIV : (DP).DIV C) (hE : EComp5 DP C)
+    (hH : (DP).HComp C) (hCount : Count5 DP C) (hSl : (DP).Slopes C)
     (hSN : QuotientSlopeBoundsWith DP C Xpp) (hLoss : LossBounds DP C)
-    (hSI : DP.SlopeIneq) (hHH : DP.HHBound C) (hFP : DP.FParams)
+    (hSI : (DP).SlopeIneq) (hHH : (DP).HHBound C) (hFP : (DP).FParams)
     (eK K : ℝ) (hWin : ErrWindows DP C Xpp eK K)
     (hLarge : LargeX D0.x D0.ε K C.cHH eK)
     (T2 : Finset H) (hTT : TT.Nonempty) (hT2 : T2.Nonempty) (hm : 0 < m)
@@ -204,8 +205,8 @@ theorem physicalTopExcess_div_le_normalizedGeometricCosts
         alpogeNativeGeometricErrorBracket TT.card T2.card (Fintype.card H) m
           D0.b D0.k D0.a (D0.x ^ D0.ε) := by
     unfold alpogeNativeGeometricErrorBracket
-    exact add_le_add_left
-      (mul_le_mul_of_nonneg_left (add_le_add hB0 hNc) (Nat.cast_nonneg m)) _
+    exact add_le_add le_rfl
+      (mul_le_mul_of_nonneg_left (add_le_add hB0 hNc) (Nat.cast_nonneg m))
   have hScaled :=
     (physicalTopExcess_le_strongWindowError A0 TT D0 inertia frob ell N a w eP
       C Xpp hS hDIV hE hH hCount hSl hSN hLoss hSI hHH hFP eK K hWin hLarge).trans
@@ -219,8 +220,9 @@ theorem physicalTopExcess_div_le_normalizedGeometricCosts
         alpogeNativeProjectionDivisor TT T2 m D0.b :=
       div_le_div_of_nonneg_right hScaled hQ.le
     _ = _ := by
-      rw [mul_div_assoc,
-        alpogeNativeGeometricErrorBracket_div_projectionDivisor TT T2 m
-          D0.b D0.k D0.a (D0.x ^ D0.ε) hTT hT2 hm hS.2.1]
+      rw [mul_div_assoc]
+      exact congrArg (fun z : ℝ => D0.x ^ (CErr C * D0.ε) * z)
+        (alpogeNativeGeometricErrorBracket_div_projectionDivisor TT T2 m
+          D0.b D0.k D0.a (D0.x ^ D0.ε) hTT hT2 hm hS.2.1)
 
 end RHLean.Analysis.AlpogeNativeSignedSlope

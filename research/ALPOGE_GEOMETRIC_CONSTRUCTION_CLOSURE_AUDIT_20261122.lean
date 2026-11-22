@@ -1,3 +1,10 @@
+import RHLean.Analysis.AlpogeThin.NativeGeometricCostWindows
+import RHLean.Geometry.NativePrescribedPolarizationLattice
+import RHLean.Geometry.NativePrescribedHermitianSpaces
+import RHLean.Analysis.AlpogeThin.NativeConstructedDyadicSignedSlopePayment
+import RHLean.Geometry.NativeThetaEvaluatedFamily
+import RHLean.Geometry.NativeThetaJetEvaluation
+import RHLean.Geometry.NativeThetaLatticeNormalization
 import RHLean.Analysis.AlpogeNativeSignedSlopeComparison
 import RHLean.Geometry.AlpogeSignedSlope.Formalism.SizeWindowBrackets.ChainSlopeWindows.StrongErrorBound
 import RHLean.Geometry.AlpogeSignedSlope.Formalism.SizeWindowBrackets.ChainSlopeWindows.LevelOfCongruence
@@ -945,3 +952,267 @@ info: 'RHLean.Analysis.AlpogeNativeSignedSlope.physicalTopExcess_div_le_normaliz
 -/
 #guard_msgs in
 #print axioms RHLean.Analysis.AlpogeNativeSignedSlope.physicalTopExcess_div_le_normalizedGeometricCosts
+
+/--
+info: 'RHLean.Geometry.NativeTheta.Lattice.standard_level' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Geometry.NativeTheta.Lattice.standard_level
+
+/--
+info: 'RHLean.Geometry.NativeTheta.Lattice.standard_unimodular' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Geometry.NativeTheta.Lattice.standard_unimodular
+
+/--
+info: 'RHLean.Geometry.NativeTheta.Lattice.exists_odd_level' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Geometry.NativeTheta.Lattice.exists_odd_level
+
+/--
+info: 'RHLean.Geometry.NativeTheta.Lattice.unimodular_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Geometry.NativeTheta.Lattice.unimodular_iff
+
+/--
+info: 'RHLean.Geometry.NativeTheta.Lattice.fg_of_level' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Geometry.NativeTheta.Lattice.fg_of_level
+
+/--
+info: 'RHLean.Geometry.NativeTheta.Lattice.exists_short_vectors_of_level' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Geometry.NativeTheta.Lattice.exists_short_vectors_of_level
+
+/--
+info: 'RHLean.Geometry.NativeTheta.Lattice.translationCount_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Geometry.NativeTheta.Lattice.translationCount_eq
+
+/--
+info: 'RHLean.Geometry.NativeTheta.Lattice.intersectionIndex_pos' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Geometry.NativeTheta.Lattice.intersectionIndex_pos
+
+/--
+info: 'RHLean.Geometry.NativeTheta.Lattice.normalizationIndex_pos' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Geometry.NativeTheta.Lattice.normalizationIndex_pos
+
+/--
+info: 'RHLean.Geometry.NativeTheta.Lattice.translationCount_pos' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Geometry.NativeTheta.Lattice.translationCount_pos
+
+/--
+info: 'RHLean.Geometry.NativeTheta.Lattice.finite_lattice_levelQuotient' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Geometry.NativeTheta.Lattice.finite_lattice_levelQuotient
+
+/--
+info: 'RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.coefficientIdeal_finite_levelQuotient' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.coefficientIdeal_finite_levelQuotient
+
+/--
+info: 'RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.coefficientIdeal_levelTuples_card_pos' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.coefficientIdeal_levelTuples_card_pos
+
+/--
+info: 'RHLean.Geometry.NativeTheta.JetEvaluation.formalNablaValue_eq_contraction' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Geometry.NativeTheta.JetEvaluation.formalNablaValue_eq_contraction
+
+/--
+info: 'RHLean.Geometry.NativeTheta.JetEvaluation.rawShortValue_eq_source_formula' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Geometry.NativeTheta.JetEvaluation.rawShortValue_eq_source_formula
+
+/--
+info: 'RHLean.Geometry.NativeTheta.JetEvaluation.rawShortValue_sum' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Geometry.NativeTheta.JetEvaluation.rawShortValue_sum
+
+/--
+info: 'RHLean.Geometry.NativeTheta.JetEvaluation.shortValueOfFormalGerms_eq_source_formula' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Geometry.NativeTheta.JetEvaluation.shortValueOfFormalGerms_eq_source_formula
+
+/--
+info: 'RHLean.Geometry.NativeTheta.JetEvaluation.shortValueOfFormalGerms_sum' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Geometry.NativeTheta.JetEvaluation.shortValueOfFormalGerms_sum
+
+/--
+info: 'RHLean.Geometry.NativeTheta.JetEvaluation.span_rawShortValue_family' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Geometry.NativeTheta.JetEvaluation.span_rawShortValue_family
+
+/--
+info: 'RHLean.Geometry.NativeTheta.JetEvaluation.span_shortValueOfFormalGerms_family' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Geometry.NativeTheta.JetEvaluation.span_shortValueOfFormalGerms_family
+
+/--
+info: 'RHLean.Geometry.NativeTheta.JetEvaluation.norm_rawShortValue_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Geometry.NativeTheta.JetEvaluation.norm_rawShortValue_le
+
+/--
+info: 'RHLean.Geometry.NativeTheta.Paired.exists_short_integral_HHa_evaluation_family' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Geometry.NativeTheta.Paired.exists_short_integral_HHa_evaluation_family
+
+/--
+info: 'RHLean.Analysis.AlpogeThin.nativeConstructedDyadicSignedSlopePayment' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeThin.nativeConstructedDyadicSignedSlopePayment
+
+/--
+info: 'RHLean.Geometry.NativePrescribedHermitian.diagForm_nondeg' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Geometry.NativePrescribedHermitian.diagForm_nondeg
+
+/--
+info: 'RHLean.Geometry.NativePrescribedHermitian.stdLat_isLattice' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Geometry.NativePrescribedHermitian.stdLat_isLattice
+
+/--
+info: 'RHLean.Geometry.NativePrescribedHermitian.stdLat_unimod' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Geometry.NativePrescribedHermitian.stdLat_unimod
+
+/--
+info: 'RHLean.Geometry.NativePrescribedHermitian.W_rank' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Geometry.NativePrescribedHermitian.W_rank
+
+/--
+info: 'RHLean.Geometry.NativePrescribedHermitian.W_hasSignature' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Geometry.NativePrescribedHermitian.W_hasSignature
+
+/--
+info: 'RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.twistedLattice_eq_pi' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.twistedLattice_eq_pi
+
+/--
+info: 'RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.twistedLattice_projective' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.twistedLattice_projective
+
+/--
+info: 'RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.twistedLattice_rank' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.twistedLattice_rank
+
+/--
+info: 'RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.twistedLattice_rank_int' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.twistedLattice_rank_int
+
+/--
+info: 'RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.twistedTraceForm_cast' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.twistedTraceForm_cast
+
+/--
+info: 'RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.twistedTraceForm_bijective' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.twistedTraceForm_bijective
+
+/--
+info: 'RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.twistedTraceForm_alternating' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.twistedTraceForm_alternating
+
+/--
+info: 'RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.twistedTraceForm_adjoint' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.twistedTraceForm_adjoint
+
+/--
+info: 'RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.prescribedLattice_eq_source' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.prescribedLattice_eq_source
+
+/--
+info: 'RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.prescribedTraceForm_cast' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.prescribedTraceForm_cast
+
+/--
+info: 'RHLean.Analysis.AlpogeThin.nativeDyadicHostRaw_prescribed_conj' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeThin.nativeDyadicHostRaw_prescribed_conj
+
+/--
+info: 'RHLean.Analysis.AlpogeThin.nativeDyadicHostRaw_exists_prescribedPolarizationLattices' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeThin.nativeDyadicHostRaw_exists_prescribedPolarizationLattices
+
+/--
+info: 'RHLean.Analysis.AlpogeThin.NativeGeometricCostWindows.proposition_size_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeThin.NativeGeometricCostWindows.proposition_size_bound
+
+/--
+info: 'RHLean.Analysis.AlpogeThin.NativeGeometricCostWindows.GeometricSizeWindows.sizeWindows' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeThin.NativeGeometricCostWindows.GeometricSizeWindows.sizeWindows
+
+/--
+info: 'RHLean.Analysis.AlpogeThin.NativeGeometricCostWindows.sourceErrorBracket_eq_native' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeThin.NativeGeometricCostWindows.sourceErrorBracket_eq_native
+
+/--
+info: 'RHLean.Analysis.AlpogeThin.NativeGeometricCostWindows.normalizedCosts_add_analytic_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeThin.NativeGeometricCostWindows.normalizedCosts_add_analytic_le

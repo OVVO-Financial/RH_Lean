@@ -1,0 +1,217 @@
+{
+  "source_repository": "CocoSgt/riemann-hypothesis-lean",
+  "source_pin": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
+  "mathlib_pin": "d13f23b723b8a846827a245b89c10fc7d3f11612",
+  "status": "IMPLEMENTED_STATIC_REVIEWED_HOSTED_VERIFICATION_PENDING",
+  "native_modules": [
+    {
+      "module": "RHLean.Geometry.NativePrescribedHermitianSpaces",
+      "path": "RHLean/Geometry/NativePrescribedHermitianSpaces.lean",
+      "source": [
+        {
+          "path": "src/Formalism/LocalRingCardinality/DataSpaces.lean",
+          "declarations": [
+            "Formalism.BasicNotions.HSpace",
+            "Formalism.BasicNotions.HSpace.SigOK"
+          ],
+          "sha256": "4a2a530b7639a10052a905d17d27984a2a2765e2f9742112fa0c6901281ffa1b"
+        },
+        {
+          "path": "src/Formalism/LocalRingCardinality/SpanPowerMembership/Spaces.lean",
+          "declarations": [
+            "Formalism.BasicNotions.Examples₂.sgn",
+            "Formalism.BasicNotions.Examples₂.sgn_mul_self",
+            "Formalism.BasicNotions.Examples₂.diagForm",
+            "Formalism.BasicNotions.Examples₂.stdLat",
+            "Formalism.BasicNotions.Examples₂.stdSpace"
+          ],
+          "sha256": "61e48ccf177d09af97e448d881e337979df38429fc8298c7cbe5915eede64eac"
+        },
+        {
+          "path": "src/Formalism/LocalRingCardinality/SpanPowerMembership/BaseFormAnisotropicOrthogonalSingle.lean",
+          "declarations": [
+            "Formalism.BasicNotions.Examples₂.negTail",
+            "Formalism.BasicNotions.Examples₂.hasSig_tail",
+            "Formalism.BasicNotions.Examples₂.dSpace",
+            "Formalism.BasicNotions.Examples₂.spacesOfRanks"
+          ],
+          "sha256": "c354dde1601781d2fe4d4e48c36cbebd206c12769893795222a6f3ac76995e28"
+        },
+        {
+          "path": "src/Formalism/SatakeDualWeyl/Statement.lean",
+          "declarations": [
+            "Formalism.UG.cT",
+            "Formalism.UG.Jpq",
+            "Formalism.UG.HasSignature"
+          ],
+          "sha256": "ff0b4971b2c44e6b9eeac44013ff35e5aeb7a126a87d7640d2fd72277147696c"
+        }
+      ],
+      "key_declarations": [
+        "RHLean.Geometry.NativePrescribedHermitian.diagForm_nondeg",
+        "RHLean.Geometry.NativePrescribedHermitian.stdLat_isLattice",
+        "RHLean.Geometry.NativePrescribedHermitian.stdLat_unimod",
+        "RHLean.Geometry.NativePrescribedHermitian.W_rank",
+        "RHLean.Geometry.NativePrescribedHermitian.W_hasSignature"
+      ],
+      "construction": "The source coordinate W_j of rank k+m-1 and signature (k+j-1,m-j), with nondegenerate Hermitian form, literal standard integral L0 and proved Hermitian self-duality. No finite-adelic isometry is asserted.",
+      "native_sha256": "a80778e36d88465df1ff8a4cb8c333e6373edf7153d0d3d58dde7c65c0a0b94e",
+      "native_lines": 362,
+      "initial_source_reconstruction_sha256": "a80778e36d88465df1ff8a4cb8c333e6373edf7153d0d3d58dde7c65c0a0b94e"
+    },
+    {
+      "module": "RHLean.Geometry.NativePrescribedPolarizationLattice",
+      "path": "RHLean/Geometry/NativePrescribedPolarizationLattice.lean",
+      "source": [
+        {
+          "path": "src/Formalism/LocalRingCardinality/SpanPowerMembership/BaseFormAnisotropicOrthogonalSingle.lean",
+          "declarations": [
+            "Formalism.BasicNotions.Examples₂.spacesOfRanks.W"
+          ],
+          "sha256": "c354dde1601781d2fe4d4e48c36cbebd206c12769893795222a6f3ac76995e28"
+        },
+        {
+          "path": "src/Formalism/LocalRingCardinality/DataHost.lean",
+          "declarations": [
+            "Formalism.BasicNotions.Host.cmStar",
+            "Formalism.BasicNotions.bridge_star"
+          ],
+          "sha256": "39252a17ac91969e59b2f1c89efe12b6ac0e7ea97bd462c1e250f8ea8b4c954f"
+        },
+        {
+          "path": "src/Formalism/LocalToGlobal/ProjectiveLattices/HalfOneAddSqrtNegIsIntegral.lean",
+          "declarations": [
+            "Formalism.L2.Pj.latW",
+            "Formalism.L2.Pj.efQ",
+            "Formalism.L2.Pj.efQ_alt",
+            "Formalism.L2.Pj.efQ_adj",
+            "Formalism.L2.Pj.latW_fin",
+            "Formalism.L2.Pj.latW_proj"
+          ],
+          "sha256": "7e01749c88719a43459bd623783d0dd1078e229033a3ebf37b81a3dff6f7163e"
+        },
+        {
+          "path": "src/Formalism/LocalToGlobal/ProjectiveLattices/HostInt.lean",
+          "declarations": [
+            "Formalism.L2.Pj.efQ_surj",
+            "Formalism.L2.Pj.efW_unimod_of"
+          ],
+          "sha256": "96b3e4c9e72cafaf9013c25550494484ced9985a16af3257df70b3de4e88e518"
+        },
+        {
+          "path": "src/Formalism/LocalToGlobal/ProjectiveLattices/HostRank.lean",
+          "declarations": [
+            "Formalism.L2.Pj.latW_isLocalized",
+            "Formalism.L2.Pj.latW_finrank",
+            "Formalism.L2.Pj.latW_rank"
+          ],
+          "sha256": "9a941ca5bb0b83cae80473d380a00c88dbc41823155825e900629db04f5d51f4"
+        }
+      ],
+      "key_declarations": [
+        "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.twistedLattice_eq_pi",
+        "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.twistedLattice_projective",
+        "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.twistedLattice_rank",
+        "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.twistedLattice_rank_int",
+        "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.twistedTraceForm_cast",
+        "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.twistedTraceForm_bijective",
+        "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.twistedTraceForm_alternating",
+        "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.twistedTraceForm_adjoint",
+        "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.prescribedLattice_eq_source",
+        "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.prescribedTraceForm_cast",
+        "RHLean.Analysis.AlpogeThin.nativeDyadicHostRaw_prescribed_conj",
+        "RHLean.Analysis.AlpogeThin.nativeDyadicHostRaw_exists_prescribedPolarizationLattices"
+      ],
+      "construction": "The same literal source product span AA*L0 is proved equal to the full product of the actual coefficient ideal B^-1. An explicit signed coordinate duality constructs its perfect alternating integral form with exact rational value Tr(xi*hT), plus finite projectivity, OE-rank k+m-1 and Z-rank (k+m-1)*(4*2^e). The native endpoint constructs one B and hB from nativeDyadicHostRaw_principal for all j. It assumes no isometry, complex structure or Datum.",
+      "native_sha256": "e5a1316a3caf23ecdfa3fc4c4f764d8c1409f184fb1a5e161b0f85a8c32a4650",
+      "native_lines": 403,
+      "initial_source_reconstruction_sha256": "e5a1316a3caf23ecdfa3fc4c4f764d8c1409f184fb1a5e161b0f85a8c32a4650"
+    }
+  ],
+  "axiom_guard_declarations": [
+    "RHLean.Geometry.NativePrescribedHermitian.diagForm_nondeg",
+    "RHLean.Geometry.NativePrescribedHermitian.stdLat_isLattice",
+    "RHLean.Geometry.NativePrescribedHermitian.stdLat_unimod",
+    "RHLean.Geometry.NativePrescribedHermitian.W_rank",
+    "RHLean.Geometry.NativePrescribedHermitian.W_hasSignature",
+    "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.twistedLattice_eq_pi",
+    "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.twistedLattice_projective",
+    "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.twistedLattice_rank",
+    "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.twistedLattice_rank_int",
+    "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.twistedTraceForm_cast",
+    "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.twistedTraceForm_bijective",
+    "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.twistedTraceForm_alternating",
+    "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.twistedTraceForm_adjoint",
+    "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.prescribedLattice_eq_source",
+    "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.prescribedTraceForm_cast",
+    "RHLean.Analysis.AlpogeThin.nativeDyadicHostRaw_prescribed_conj",
+    "RHLean.Analysis.AlpogeThin.nativeDyadicHostRaw_exists_prescribedPolarizationLattices"
+  ],
+  "next_actual_suppliers": [
+    {
+      "path": "src/Formalism/LocalRingCardinality/SpanPowerMembership/Adelic.lean",
+      "declarations": [
+        "Formalism.BasicNotions.Examples₂.adicInt_exists_norm",
+        "Formalism.BasicNotions.Examples₂.adel_local",
+        "Formalism.BasicNotions.Examples₂.exists_adelic_neg_one"
+      ],
+      "requirement": "Construct y in E tensor_F A_f with sigma(y)*y=-1, using local quadratic unit norm solvability and completion/restricted-product patching. The native same-field sqrt(-q) and sqrt(-d) already exist; the local/completion/adelic supplier is absent.",
+      "sha256": "a018acd7d268fd661d3a41d6876dd488b002621c167d1df902d00fd5a97918b3"
+    },
+    {
+      "path": "src/Formalism/HermitianLattices/HermitianLatticesProofs/UnimodUnramUnique.lean",
+      "declarations": [
+        "Formalism.HermitianLatticesTheory.unimodUnramUnique_quad"
+      ],
+      "requirement": "For a Henselian local ring S with finite residue field, a unit discriminant T^2-4N and unit d, construct s,t with s^2+T*s*t+N*t^2=d; specialize to d=-1 in each actual completion.",
+      "sha256": "e6f5eb07749a60a2bd449a92e04f35de42a52c8e6a27d91cfeb33b634c35a53c"
+    },
+    {
+      "path": "src/Formalism/LocalRingCardinality/SpanPowerMembership/BaseFormAnisotropicOrthogonalSingle.lean",
+      "declarations": [
+        "Formalism.BasicNotions.Examples₂.dSpace_congr",
+        "Formalism.BasicNotions.Examples₂.spacesOfRanks.baseSpace_isometric_graded"
+      ],
+      "requirement": "Use the constructed adelic norm-minus-one element to give the actual diagonal GL isometry from Y_0 to each W_j. L0 is already standard and does not require this comparison merely to be defined.",
+      "sha256": "c354dde1601781d2fe4d4e48c36cbebd206c12769893795222a6f3ac76995e28"
+    },
+    {
+      "path": "src/Formalism/LocalToGlobal/ProjectiveLattices/DatProofs.lean",
+      "declarations": [
+        "Formalism.L2.Pj.domFor_pm",
+        "Formalism.L2.Pj.datDom_holds"
+      ],
+      "requirement": "Construct the real-tensor J on the same actual lattice, prove J^2=-1, invariance and positivity, compatibility with all OE multiplication operators, and both exact traces tr_R(A)=2 Re(sum_CM(p*tau(a)+q*conj(tau(a)))) and tr_R(J*A)=-2 Im(the same sum). This is not concluded from the diagonal signature alone.",
+      "sha256": "2015bae181c76e7f989fed70ddd101e7e6bf91e26d06dc24658db58e8b942fb0"
+    },
+    {
+      "path": "src/Formalism/LocalToGlobal/ProjectiveLattices/DatumOfRecordSignature.lean",
+      "declarations": [
+        "Formalism.L2.Pj.datumOfRecord"
+      ],
+      "requirement": "The full original Datum can only be assembled after its actual real DomFor supplier and original host/record compatibilities. The constructed raw integral trace form is not silently identified with the source sign-selected EF.",
+      "sha256": "766973b39b5b194a4d950dcc7ec9165a70d835a609e7b0d762e80258da8e53ce"
+    }
+  ],
+  "scope_notes": [
+    "The original ccK=top and AA=B^-1 are the same arithmetic choice already proved by NativeDyadicHostPolarizationArithmetic.",
+    "The coefficient ring for later theta evaluation remains the independent cover field K. These arithmetic host-field constructions do not replace it by E.",
+    "No full geometric genera claim, finite-adelic isometry, real DomFor, completed Datum, SAB/moduli, chart/germ, cusp-density or theta-bound conclusion is added."
+  ],
+  "validation": {
+    "local_lean": "NOT_RUN_HOSTED_ONLY",
+    "hosted_build": "NOT_YET_RUN_FOR_THESE_FILES",
+    "static_audit": "No sorry/admit/axiom, check or linter suppressions, or maxHeartbeats override in either new module.",
+    "independent_review": {
+      "root": "Both complete modules independently reviewed; exact span, signatures, projectivity/localization/rank, perfect signed trace form and native constructed-B endpoint passed mathematical and pinned-API static review. No concrete defect found.",
+      "closure_audit": "Both modules independently reviewed against pinned APIs, including the literal product-span/Pi identification, common-denominator localization, rank directions, signed coordinate duality, exact trace formula and conjugate adjointness. No concrete defect; no local Lean.",
+      "constructor": "Checked all 17 guard declarations, all 12 distinct source hashes, and absence of active sorry/admit/axiom declarations, linter suppression and heartbeat override."
+    },
+    "source_hashes_checked": 12,
+    "guard_declarations_checked": 17
+  },
+  "descent_payment_ack": "ALPOGE_NATIVE_DESCENT_PAYMENT_V1",
+  "tractability_ack": "ALPOGE_VIOLE_TRACTABLE_RH_V1",
+  "freeze_date_utc": "2026-11-22",
+  "base_repository_head": "baddf5afd886855a1c3600693573cd89dc85250e"
+}

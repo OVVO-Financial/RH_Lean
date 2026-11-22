@@ -153,7 +153,12 @@ theorem exists_short_integral_HHa_spanning_family
         (fun c => ‖ν c‖) P).trans_le (hemb ν)
     · rw [CoeffNorm.allEmbeddingNorm_rename_of_injective e.symm.injective]
       exact hnorm
-  · rw [Finset.coe_image, ← Submodule.map_span (f := (rename (R := K) (⇑e.symm)).toLinearMap), hspan]
+  · have hmap : Submodule.span K ((rename (R := K) e.symm) '' (S : Set _)) =
+        Submodule.map (rename (R := K) e.symm).toLinearMap
+          (Submodule.span K (S : Set _)) := by
+      simpa only [AlgHom.coe_toLinearMap] using
+        (Submodule.map_span (rename (R := K) e.symm).toLinearMap (S : Set _)).symm
+    rw [Finset.coe_image, hmap, hspan]
     ext P
     rw [mem_HHa_iff_rowHighest_of_antitone hσ hΨ hp hq a ha]
     constructor

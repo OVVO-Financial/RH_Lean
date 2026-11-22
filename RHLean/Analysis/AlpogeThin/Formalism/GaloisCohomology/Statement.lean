@@ -116,16 +116,29 @@ groups. Its type spells out the additive-group structure that the module
 quotient needs. The default `Pi.addCommMonoid`, built from
 `Submodule.Quotient.addCommMonoid`, does not unify with it during instance
 search, so the upstream quotient `_ ⧸ LinearMap.range (localH2 D e)` fails
-to elaborate. The submodule is the same; only its elaborated type changes. -/
+to elaborate. Both this range and its quotient explicitly register the same
+canonical pointwise module on the additive-group parent. This supplies the
+instance search expected by `range` and `hasQuotient`; the submodule and the
+quotient remain unchanged. -/
 def localH2Range (D : LData F Ω l) (e : ℤ) :
     @Submodule ℤ_[l] (∀ v : D.S, H2 ((zlTw D (e + 1)).comp (locFam D.S D.A v))) _
       AddCommGroup.toAddCommMonoid
       (@Pi.module D.S _ ℤ_[l] _ (fun _ => AddCommGroup.toAddCommMonoid)
-        fun _ => Submodule.Quotient.module _) :=
-  LinearMap.range (localH2 D e)
+        fun _ => Submodule.Quotient.module _) := by
+  letI : @Module ℤ_[l]
+      (∀ v : D.S, H2 ((zlTw D (e + 1)).comp (locFam D.S D.A v))) _
+      AddCommGroup.toAddCommMonoid :=
+    @Pi.module D.S _ ℤ_[l] _ (fun _ => AddCommGroup.toAddCommMonoid)
+      fun _ => Submodule.Quotient.module _
+  exact LinearMap.range (localH2 D e)
 
 set_option backward.isDefEq.respectTransparency false in
 def PTCokerAt (D : LData F Ω l) (e : ℤ) : Prop :=
+  letI : @Module ℤ_[l]
+      (∀ v : D.S, H2 ((zlTw D (e + 1)).comp (locFam D.S D.A v))) _
+      AddCommGroup.toAddCommMonoid :=
+    @Pi.module D.S _ ℤ_[l] _ (fun _ => AddCommGroup.toAddCommMonoid)
+      fun _ => Submodule.Quotient.module _
   PTCase F l →
     Module.length ℤ_[l]
         ((∀ v : D.S, H2 ((zlTw D (e + 1)).comp (locFam D.S D.A v))) ⧸ localH2Range D e) =
