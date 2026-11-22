@@ -11,6 +11,7 @@ import RHLean.Analysis.AlpogeNNSCohomologicalCRPayment
 import RHLean.Analysis.AlpogeNNSCompleteSelbergCovariance
 import RHLean.Analysis.AlpogeNNSMatchedSelbergKernel
 import RHLean.Analysis.AlpogeNativeFourCharacterArithmetic
+import RHLean.Analysis.AlpogeNativeLPM2Endpoint
 import RHLean.Analysis.AlpogeNativeSharpASKBalance
 import RHLean.Analysis.AlpogeNativeSharpShell
 import RHLean.Analysis.AlpogeNegativeSelbergSemivariance
