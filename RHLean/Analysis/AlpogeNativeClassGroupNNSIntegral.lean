@@ -150,8 +150,8 @@ theorem alpogeNativeClDualMass_eq_char_card
   unfold nnsFiniteRelationMass nnsFiniteRelationIndicator
   refine Finset.sum_congr rfl fun theta _ => ?_
   by_cases h : alpogeNativeClDualConstraint K q S theta = 0
-  · rw [if_pos h, if_pos ((alpogeNativeClDualConstraint_zero_iff K q S theta).1 h)]
-  · rw [if_neg h, if_neg (mt (alpogeNativeClDualConstraint_zero_iff K q S theta).2 h)]
+  · rw [ite_eq_left h, ite_eq_left ((alpogeNativeClDualConstraint_zero_iff K q S theta).1 h)]
+  · rw [ite_eq_right h, ite_eq_right (mt (alpogeNativeClDualConstraint_zero_iff K q S theta).2 h)]
 
 
 end RHLean.Analysis
