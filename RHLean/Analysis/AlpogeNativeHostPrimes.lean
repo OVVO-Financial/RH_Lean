@@ -111,7 +111,8 @@ theorem alpogeNativeHostField_inertia_iff_hostData
       (alpogeNativeHostGalEquiv e q d hq2 hd2 hqd σ).toAdd ∈
         (alpogeNativeHostData e q d).inertia l := by
   rw [alpogeNativeHostField_inertia_iff e q d hq2 hd2 hqd l P σ]
-  change (∃ u, (u : ZMod (alpogeNativeHostN e q d)).val ≡
+  change (∃ u : (ZMod (alpogeNativeHostN e q d))ˣ,
+      (u : ZMod (alpogeNativeHostN e q d)).val ≡
       1 [MOD ordCompl[l] (alpogeNativeHostN e q d)] ∧
       alpogeNativeHostGalEquiv e q d hq2 hd2 hqd σ = alpogeNativeRecMap e q d u) ↔
     alpogeNativeHostGalEquiv e q d hq2 hd2 hqd σ ∈
@@ -191,10 +192,14 @@ theorem alpogeNativeHostField_frob_iff
     alpogeNativeHostField_inertia_iff e q d hq2 hd2 hqd l P,
     map_mul, map_inv, hFw] at hσ
   obtain ⟨u, hu, h1⟩ := hσ
-  refine ⟨u * w, ?_, by rw [map_mul, ← h1, inv_mul_cancel_right]⟩
-  rw [val_modEq_one_iff hM] at hu
-  rw [val_modEq_iff hM] at hw ⊢
-  rw [map_mul, hu, one_mul, hw]
+  refine ⟨u * w, ?_, ?_⟩
+  · rw [val_modEq_one_iff hM] at hu
+    rw [val_modEq_iff hM] at hw ⊢
+    rw [map_mul, hu, one_mul, hw]
+  · rw [map_mul, ← h1]
+    exact (_root_.inv_mul_cancel_right
+      (alpogeNativeHostGalEquiv e q d hq2 hd2 hqd σ)
+      (alpogeNativeRecMap e q d w)).symm
 
 /-- The actual Frobenius coset is precisely the additive coset already
 used in the native arithmetic source, with its existing CRT representative. -/
@@ -214,7 +219,7 @@ theorem alpogeNativeHostField_frob_iff_hostData
   rw [NativePrimeLift.frob_iff_inertia P F σ hF,
     alpogeNativeHostField_inertia_iff_hostData e q d hq2 hd2 hqd l P]
   simp only [map_mul, map_inv, F, MulEquiv.apply_symm_apply,
-    Multiplicative.toAdd_mul, Multiplicative.toAdd_inv, Multiplicative.toAdd_ofAdd,
+    toAdd_mul, toAdd_inv, toAdd_ofAdd,
     sub_eq_add_neg]
 
 /-- Complex conjugation is outside the actual inertia group at every
@@ -247,7 +252,7 @@ theorem alpogeNativeHostConj_not_inertia
       g.toAdd.1.2) hσ
     have hzero : (alpogeNativeRecMap e q d u).toAdd.1.2 = 0 := by
       change (alpogeNativeSign2 (alpogeNativeLegU _ q (alpogeNativeQ_dvd_hostN e q d) u)).toAdd = 0
-      simp only [alpogeNativeLegU, MonoidHom.comp_apply, hq, map_one]
+      simp only [alpogeNativeLegU, MonoidHom.comp_apply, hq, map_one, toAdd_one]
     change (1 : ZMod 2) = (alpogeNativeRecMap e q d u).toAdd.1.2 at hbit
     rw [hzero] at hbit
     exact one_ne_zero hbit
@@ -256,7 +261,7 @@ theorem alpogeNativeHostConj_not_inertia
       g.toAdd.1.1) hσ
     have hzero : (alpogeNativeRecMap e q d u).toAdd.1.1 = 0 := by
       change (alpogeNativeSign2 (alpogeNativeLegU _ d (alpogeNativeD_dvd_hostN e q d) u)).toAdd = 0
-      simp only [alpogeNativeLegU, MonoidHom.comp_apply, hd, map_one]
+      simp only [alpogeNativeLegU, MonoidHom.comp_apply, hd, map_one, toAdd_one]
     change (1 : ZMod 2) = (alpogeNativeRecMap e q d u).toAdd.1.1 at hbit
     rw [hzero] at hbit
     exact one_ne_zero hbit
@@ -268,7 +273,7 @@ theorem exists_prime_liesOver {M : Type} [Field M] [NumberField M]
     ∃ p : ℕ, p.Prime ∧ P.LiesOver (span {(p : ℤ)}) := by
   have hne : Ideal.comap (algebraMap ℤ (𝓞 M)) P ≠ ⊥ := by
     obtain ⟨x, hxP, hx0⟩ := Submodule.exists_mem_ne_zero_of_ne_bot h0
-    exact Ideal.comap_ne_bot_of_integral_mem hx0 hxP (Algebra.IsIntegral.isIntegral x)
+    exact Ideal.under_ne_bot_of_integral_mem hx0 hxP (Algebra.IsIntegral.isIntegral x)
   obtain ⟨g, hg⟩ : ∃ g : ℤ, Ideal.comap (algebraMap ℤ (𝓞 M)) P = Ideal.span {g} :=
     Submodule.IsPrincipal.principal (Ideal.comap (algebraMap ℤ (𝓞 M)) P)
   have hg0 : g ≠ 0 := by

@@ -45,11 +45,11 @@ theorem trace_eq_sum_psi (Ψ : Finset (E →+* ℂ))
   have hc : ∑ σ ∈ Ψᶜ, σ z = ∑ τ ∈ Ψ, conj (τ z) := by
     refine Finset.sum_nbij' ComplexEmbedding.conjugate ComplexEmbedding.conjugate ?_ ?_ ?_ ?_ ?_
     · intro σ hσ
-      simp only [Finset.mem_coe, Finset.mem_compl] at hσ ⊢
+      simp only [Finset.mem_compl] at hσ ⊢
       rw [hΨ, show ComplexEmbedding.conjugate (ComplexEmbedding.conjugate σ) = σ from star_star σ]
       exact hσ
     · intro τ hτ
-      simp only [Finset.mem_coe, Finset.mem_compl]
+      simp only [Finset.mem_compl]
       exact (hΨ τ).mp hτ
     · intro σ _; exact star_star σ
     · intro τ _; exact star_star τ
@@ -95,14 +95,14 @@ theorem trace_restrict_complex {M : Type} [AddCommGroup M] [Module ℂ M] [Modul
   let c := Module.Free.chooseBasis ℂ M
   rw [LinearMap.trace_eq_matrix_trace ℝ (Complex.basisOneI.smulTower c), LinearMap.trace_eq_matrix_trace ℂ c]
   simp only [Matrix.trace, Matrix.diag, LinearMap.toMatrix_apply, Module.Basis.smulTower_apply, Module.Basis.smulTower_repr,
-    Fintype.sum_prod_type, LinearMap.restrictScalars_apply, LinearMap.map_smul, map_smul, Finsupp.smul_apply,
+    Fintype.sum_prod_type, LinearMap.restrictScalars_apply, map_smul, Finsupp.smul_apply,
     smul_eq_mul, Complex.coe_basisOneI_repr, Complex.coe_basisOneI, Fin.sum_univ_two]
   simp [Complex.re_sum, Finset.mul_sum, Finset.sum_add_distrib, two_mul]
 
 theorem trace_blkC [Fintype ι] [DecidableEq ι] [DecidableEq n] (N : ι → Matrix n n ℂ) :
     LinearMap.trace ℂ _ (blkC N) = ∑ τ, (N τ).trace := by
   rw [LinearMap.trace_eq_matrix_trace ℂ (Pi.basis fun _ : ι => Pi.basisFun ℂ n)]
-  simp [Matrix.trace, LinearMap.toMatrix_apply, Fintype.sum_sigma, blkC, Matrix.mulVec_single_one]
+  simp [Matrix.trace, LinearMap.toMatrix_apply, Fintype.sum_sigma, blkC]
 
 theorem trace_blk [Fintype ι] [DecidableEq ι] [DecidableEq n] (N : ι → Matrix n n ℂ) :
     LinearMap.trace ℝ _ (blk N) = ∑ τ, 2 * (N τ).trace.re := by

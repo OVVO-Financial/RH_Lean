@@ -32,7 +32,7 @@ def VVle (E : Type) [Field E] [NumberField E] (t : ℕ) (B : ℝ) : Prop :=
     (∀ (p : ℕ) [Fact p.Prime] (e : ℕ), 0 < e → e < t → Formalism.GaloisCohomology.shaLen (ld p) (e : ℤ) ≠ ⊤) ∧
     ∀ S : Finset Nat.Primes,
       ∑ l ∈ S, Real.log (l : ℕ) *
-        ∑ e ∈ Finset.Ico 1 t, ((@Formalism.GaloisCohomology.shaLen E Ω _ _ _ _ _ l ⟨l.2⟩ (@ld l ⟨l.2⟩) (e : ℤ)).toNat : ℝ) ≤ B
+        ∑ e ∈ Finset.Ico 1 t, ((Formalism.GaloisCohomology.shaLen (@ld (l : ℕ) ⟨l.2⟩) (e : ℤ)).toNat : ℝ) ≤ B
 
 def IsChiField (ψ : PChar) (e q d : ℕ) (E : Type) [Field E] [NumberField E] : Prop :=
   ∃ (N : ℕ) (_ : NeZero N) (j : E →ₐ[ℚ] CyclotomicField N ℚ) (ζ : CyclotomicField N ℚ),
@@ -80,7 +80,7 @@ theorem VVle.mono {E : Type} [Field E] [NumberField E] {t t' : ℕ} {B B' : ℝ}
     simp only [Finset.mem_Ico] at he ⊢
     omega
   · intro e _ _
-    positivity
+    exact Nat.cast_nonneg _
 
 theorem exists_pageN (eps : ℝ) (he : 0 < eps) : ∃ e : ℝ → ℕ, ∀ x ≥ (1 : ℝ), PageN eps x (e x) := by
   have : ∀ x : ℝ, ∃ e : ℕ, x ≥ 1 → PageN eps x e := by

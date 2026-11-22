@@ -1,7 +1,7 @@
 # Native signed slope attachment and compiler repair checkpoint
 
 22 November 2026. Current repair parent:
-`3ad6422a12ff6de1529ec2c5ae78f3d4083e4a5e`.
+`f3d43c0c0d7fcd8cd440f07705b02e5210a30574`.
 The preceding `baddf5a` signed-comparison checkpoint preserved contributor head
 `46fb310c6e22478ae2a2cc1795ed8793acc14d5c`.
 
@@ -17,12 +17,14 @@ inverse-ideal lattices with perfect integral trace forms, and evaluates the
 short harmonic family using the literal lattice normalization. The actual
 finite-adelic norm element now supplies the original Gram congruence, and
 the same lattice carries an explicit positive real complex structure with
-the two required trace identities.
+the two required trace identities. All thirteen fields of the original
+geometric `Datum` are assembled with its literal host filter and original
+sign-selected form.
 It does not prove unconditional cancellation or supply the remaining
 CM moduli, theta-cover, actual section-germ realization, or compatible
 geometric and signed-arithmetic comparison inputs.
 Hosted compilation of the next complete repair batch is pending. Both completed
-builds of parent `3ad6422` failed with identical inventories of 20 errors and
+builds of parent `f3d43c0` failed with identical inventories of 12 errors and
 6 warnings, including cascading diagnostics.
 
 The source remains
@@ -155,14 +157,32 @@ equivalence instances, cohomology quotient, framed submodule, completion
 coercions, harmonic span, and deprecated API/style uses. The next repairs
 retain the original types, statements, proof budgets and warning-fatal gates.
 
+The completed `f3d43c0` native build (run `45080482293`, job `137387295969`)
+and targeted build (run `45080482302`, job `137387295788`) have identical
+inventories of 12 errors and 6 warnings. Explicit clean `Built` receipts
+confirm `NativeLocalQuadraticNorm`, `NativeAdicQuadraticNorm`,
+`NativePolarizationRealCoordinates`, `NativeFramedShortSectionConstruction`,
+`GaloisCohomology.Statement`, `NativeThetaSpanningFamily`, `NativeDyadicFrame`,
+and `AlpogeNativeCyclotomicResidue`. The remaining diagnostics are confined
+to four files. This batch makes the host-prime units binder and cancellation
+arguments explicit, uses the pinned global additive type-tag APIs and
+nondeprecated ideal lemma, proves the existing reciprocity map's first-bit
+identity by reflexivity, and infers `shaLen` parameters from the same actual
+`LData`. The literal natural-number cast is proved nonnegative directly.
+Four reported redundant simplifiers are removed from the complex-coordinate
+proofs. All mathematical witnesses, public statements, compiler budgets,
+and validation gates are retained. The downstream domain, isometry and
+CMData modules remained blocked in that run; their absence from its error
+list is not a clean compilation receipt.
+
 The earlier `46fb310` failures (44 errors and 36 warnings in each build),
 `baddf5a` failures (53 errors and 25 warnings), and their repairs remain in
 the manifest history. Separate documentation,
 inventory, atlas, export, cold-only and effective-resonance checks passed on
 these preceding heads; that does not make their failed Lean builds successful.
 
-The root import manifest includes 1,490 native modules. The targeted
-construction audit has 246 standard-axiom guards, including the new finite
+The root import manifest includes 1,493 native modules. The targeted
+construction audit has 266 standard-axiom guards, including the new finite
 source, scalar, lattice and evaluated-family results. Hosted warning-fatal
 compilation remains the acceptance gate. Local Lean/Lake execution is not
 used.
@@ -286,9 +306,9 @@ The source's `exists_adelic_neg_one` supplier and its diagonal Gram-congruence
 consumer are now constructed as described below. The real complex structure,
 positivity, compatibility with every \(\mathcal O_E\) multiplication operator,
 and both embedding-trace identities are also constructed on this same lattice.
-The literal source `Datum` still needs the proved CM-filter and conjugation
-transports; the integral form above is not silently identified with the
-source's later sign-selected form.
+The literal source `Datum` now uses proved CM-filter and conjugation
+transports. The source's later sign-selected form is proved equal to the
+existing integral form, as detailed in Section 10.
 
 These constructions have source/hash manifests and independent static
 reviews. Their next hosted build is still the proof-validation gate.
@@ -347,8 +367,8 @@ The Hermitian convention is conjugate-linear in the first argument. The
 constructed complex structure therefore proves
 \(\operatorname{EF}(Jx,x)>0\), and the second real trace identity has sign
 \(-2\operatorname{Im}(\cdot)\). This convention is retained explicitly.
-The complete same-lattice real properties are described next. Their attachment
-to the source's literal host-filtered `Datum` remains a separate proof step.
+The complete same-lattice real properties are described next. Section 10
+attaches them to the source's literal host-filtered `Datum`.
 
 The signed arithmetic input also remains distinct: `LossBounds` must come
 from the actual family and signed-loss estimates. The new scalar comparison
@@ -401,26 +421,101 @@ extension are proved equal to those used in the norm and isometry above.
 
 The source's complete `Geo.Tor.Datum` only packages the integral lattice,
 perfect alternating form, ranks, and this real-domain block. It does not
-require a full `D7`. Attaching it still requires identifying the CM type with
-the literal filter \(\tau(H.\mathrm{rt})=H.\mathrm{rt0}\), the host's integral
-conjugation, and the original form normalization. The much larger `Spaces`
+require a full `D7`. Its actual construction is described below. The much larger `Spaces`
 and `D7` objects have additional independent constraints: in particular their
 auxiliary prime and norm element must satisfy the same ray congruence and
 size window. An arbitrary Gauss-root choice cannot replace that supplier.
 
-## 10. Acceptance status and next construction
+## 10. The complete host-filtered geometric datum
+
+`NativeGeometricDatum.lean` reconstructs every original `Geo.Tor.Datum`
+field: the lattice and module structure, finite projectivity, the alternating
+perfect integer form, conjugate adjointness, signature ranks, and the entire
+real-domain condition. The latter retains the literal filter
+\(\tau(H.\mathrm{rt})=H.\mathrm{rt0}\) and both trace identities.
+
+`NativePrescribedGeometricDatum.lean` supplies all these fields on the same
+native inverse-half-different lattice. It proves that the literal host filter
+equals the arithmetic CM type and that the geometric host's integral
+involution equals the original Galois conjugation. No host-identification
+premise remains at the native endpoint.
+
+The form comparison preserves the source normalization. Its actual
+\(\mathrm{ccK}=\top\) choice gives \(\xi_0=-1/\sqrt{-d}\) and
+\(AA=B^{-1}\). The literal rational trace form is integral because the
+already-constructed perfect integer form has that exact rational formula.
+Injectivity of the integer-to-rational cast identifies every source choice
+of `intForm` with that same form. The constructed positive \(J\) then proves
+the source's conditional sign `sgnW` is \(+1\), so its final `efW` is equal
+to the existing native integer form.
+
+The endpoint chooses one actual half-different ideal before all admissible
+\(k,m,j\), and constructs a datum whose lattice, form, and positive/negative
+multiplicities are literally those already established. It assumes no
+separate polarization, positive domain, rank equality, or completed datum.
+
+This supplies the lattice input to the moduli construction. Actual levels,
+scheme-valued `SAB`/`Obj`/`Moduli`, period maps, charts, theta sections, and
+their metric/evaluation identifications remain distinct construction tasks.
+The source's moduli-existence theorem uses actual abelian-scheme laws,
+the cube theorem and theta uniformization; a completed lattice datum does
+not by itself instantiate those geometric suppliers.
+
+## 11. Same-host integral norm element and the level-prime boundary
+
+`NativeDyadicRayNorm.lean` connects the existing native `IsNormOne` predicate
+to the source's exact half-root coordinates. Under the actual host congruence
+\(d\equiv3\pmod4\), it proves the equivalence between
+
+\[
+p=u^2+uv+\frac{d+1}{4}v^2,\qquad M\mid u-1,\quad M\mid v
+\]
+
+and the original conditions
+
+\[
+A^2+dB^2=4p,\qquad M\mid B,\quad 2M\mid A-2-B.
+\]
+
+The change of coordinates is \(A=2u+v\), \(B=v\). The actual element
+\(\pi=u+v(1+\sqrt{-d})/2\) is constructed in the same host's ring of
+integers. It lies in the literal quadratic subfield, has norm
+\(\pi\overline\pi=p\) under the original host involution, and satisfies
+\(\pi-1\in(M)\). Its half-root is definitionally the canonical integral
+Gauss half-root already used by the native host. The congruence
+\(p\bmod M=1\bmod M\) comes from the existing native norm congruence.
+No primality premise is needed for this algebraic construction.
+
+The prime-existence input is still separate. Source inspection identifies
+`GlobalTheory.EX.levelPrime_unconditional`, through
+`UpperTheory.T3.levelPrimeN` and `shortNorm`, as the supplier for
+`GlobalTheory.EX.OB.exists_levCh_of_levelPrime`. The latter fixes its common
+threshold before the subsequent `PreCh`, host and word choices; it applies
+the level-prime theorem with modulus `condN*(g0*g1)^2` and calls
+`GlobalTheory.EX.normOne_host` on each selected prime. The distinguished word
+fixes the auxiliary prime used by `Spaces`, and `D7.sp_T` requires that
+literal equality. A separately chosen prime does not discharge this condition.
+
+The inspected unconditional short-interval count retains an explicit
+exceptional-zero loss in its conductor parameter. Its large-log-window
+regime is not the same as the existing native `IntervalHyp`; neither a
+qualitative unbounded-ray-prime property nor an empty-`TT` size model supplies
+the physical window. These are source-level findings, not a claim that the
+full prime-window dependency chain has been reconstructed or kernel-checked.
+
+## 12. Acceptance status and next construction
 
 ```text
 ROLE=Lean Verification
 SOURCE=complete native signed ASK-MAIN and same selected-host Gz mean
-WITNESS=actual CM host, prescribed W_j, literal AA*L0, perfect integral form, adelic isometry and positive J
+WITNESS=actual CM host, prescribed W_j, literal AA*L0, perfect integral form, adelic isometry, CMData, full Datum and same-host norm element
 MAP_PAYMENT=forward reserve implemented; actual geometric map suppliers remain open
 NORMALIZER=Q=T*m*b*Delta/2 with actual TT/T2 positivity and all three costs
 SIGNED_RECOMBINATION=physical signed gap retained; no inverse recovery weight used
-FIRST_UNPAID=literal host-filtered Datum attachment; then actual moduli, sections, metrics and signed-loss suppliers
+FIRST_UNPAID=actual compatible levels/moduli/sections and the metric/signed-loss suppliers
 EVIDENCE=source reconstruction and independent static review; next hosted build pending
 T_C_P=tractability progressed; mathematical novelty and unconditional proof not established
 INDEPENDENT_APPLICATION=conditional finite slope stability and perfect integral lattice construction
-FORMAL_STATUS=both parent 3ad6422 builds failed; concrete host timeout cleared, complete next gate pending
-NEXT=verify the repaired batch and attach the actual host-filtered source Datum
+FORMAL_STATUS=both parent f3d43c0 builds failed with 12 errors/6 warnings; complete next gate pending
+NEXT=verify the repaired batch and construct the actual period/level/moduli inputs and compatible prime supplier
 ```

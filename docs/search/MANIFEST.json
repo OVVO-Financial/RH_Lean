@@ -1,23 +1,23 @@
 {
   "schema": "rhlean-search-catalog/1",
   "generator": "scripts/search_catalog.py",
-  "input_fingerprint": "3c1f900fe23c76ad610ae89d3ba84fb97facece3d58d6318a7eae230c2982565",
+  "input_fingerprint": "df1f47514331dd41e99093108f498efa97fce0122db179f4b98a337106335c91",
   "counts": {
     "catalog-research-lean-vf.jsonl": 226,
     "catalog-research-lean.jsonl": 554,
     "catalog-research-notes.jsonl": 276,
     "catalog-library-proof.jsonl": 450,
-    "catalog-library-alpoge-thin.jsonl": 394,
-    "catalog-library-geometry.jsonl": 167,
+    "catalog-library-alpoge-thin.jsonl": 395,
+    "catalog-library-geometry.jsonl": 169,
     "catalog-library-core.jsonl": 479,
     "catalog-docs.jsonl": 155,
     "catalog-code.jsonl": 419,
-    "rewrite-families-a-k.jsonl": 378,
+    "rewrite-families-a-k.jsonl": 380,
     "rewrite-families-l.jsonl": 345,
-    "rewrite-families-m-r.jsonl": 524,
+    "rewrite-families-m-r.jsonl": 527,
     "rewrite-families-s.jsonl": 437,
-    "rewrite-families-t-z.jsonl": 294,
-    "rewrite_families": 1978,
-    "rewrite_theorems": 3485
+    "rewrite-families-t-z.jsonl": 295,
+    "rewrite_families": 1984,
+    "rewrite_theorems": 3491
   }
 }

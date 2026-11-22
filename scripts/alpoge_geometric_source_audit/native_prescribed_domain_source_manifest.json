@@ -9,7 +9,7 @@
     {
       "native_path": "RHLean/Geometry/NativePolarizationComplexCoordinates.lean",
       "initial_source_reconstruction_sha256": "c8f0368069a7609cca87096c51d52645b6d6ae6d9b330021c9ba72b040034c9b",
-      "native_sha256": "c8f0368069a7609cca87096c51d52645b6d6ae6d9b330021c9ba72b040034c9b",
+      "native_sha256": "99a38498c5f7459051184fcfaa6222eb65b8c0dd9a1f6e7eb5ab38c5cae30dc8",
       "native_lines": 228
     },
     {
@@ -241,5 +241,5 @@
     "RHLean.Analysis.AlpogeThin.nativeDyadicHostRaw_prescribed_embedding_conj",
     "RHLean.Analysis.AlpogeThin.nativeDyadicHostRaw_exists_prescribedDomain"
   ],
-  "integration_review": "Full source and mathematical review complete. The literal source Geo.Tor.Datum can be assembled without a full D7; its original host-root CM filter and conjugation/trace-form transports remain explicit attachment obligations. The separate finite-adelic isometry is now constructed. No moduli, section-germ, metric or signed-loss supplier is inferred from these real-domain properties."
+  "integration_review": "Full source and mathematical review complete. The original full thirteen-field Geo.Tor.Datum is now separately constructed, including the literal host-root CM filter, integral conjugation and sign-selected trace-form normalization; see native_prescribed_geometric_datum_source_manifest.json. No moduli, section-germ, metric or signed-loss supplier is inferred from the lattice datum alone."
 }

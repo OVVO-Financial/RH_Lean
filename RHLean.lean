@@ -478,6 +478,7 @@ import RHLean.Analysis.AlpogeThin.NativeDyadicHostSideConditions
 import RHLean.Analysis.AlpogeThin.NativeDyadicHostSplitting
 import RHLean.Analysis.AlpogeThin.NativeDyadicHostWindows
 import RHLean.Analysis.AlpogeThin.NativeDyadicPayment
+import RHLean.Analysis.AlpogeThin.NativeDyadicRayNorm
 import RHLean.Analysis.AlpogeThin.NativeDyadicThickCharacters
 import RHLean.Analysis.AlpogeThin.NativeGeometricCostWindows
 import RHLean.Analysis.AlpogeThin.NativeHostThin
@@ -974,6 +975,7 @@ import RHLean.Geometry.NativeDyadicAdelicNorm
 import RHLean.Geometry.NativeFiniteIntegralDescent
 import RHLean.Geometry.NativeFramedShortSectionConstruction
 import RHLean.Geometry.NativeGenericFrameFaithfulness
+import RHLean.Geometry.NativeGeometricDatum
 import RHLean.Geometry.NativeGeometricHost
 import RHLean.Geometry.NativeGradedCharacterSlopeDescent
 import RHLean.Geometry.NativeGradedPeterssonConstruction
@@ -996,6 +998,7 @@ import RHLean.Geometry.NativePolarizationCoefficientLattice
 import RHLean.Geometry.NativePolarizationComplexCoordinates
 import RHLean.Geometry.NativePolarizationRealCoordinates
 import RHLean.Geometry.NativePrescribedCMData
+import RHLean.Geometry.NativePrescribedGeometricDatum
 import RHLean.Geometry.NativePrescribedHermitianSpaces
 import RHLean.Geometry.NativePrescribedPolarizationDomain
 import RHLean.Geometry.NativePrescribedPolarizationLattice

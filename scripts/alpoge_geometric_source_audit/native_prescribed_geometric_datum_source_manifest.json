@@ -1,0 +1,320 @@
+{
+  "status": "IMPLEMENTED_STATIC_REVIEWED_HOSTED_VERIFICATION_PENDING",
+  "descent_payment_ack": "ALPOGE_NATIVE_DESCENT_PAYMENT_V1",
+  "tractability_ack": "ALPOGE_VIOLE_TRACTABLE_RH_V1",
+  "source_repository": "CocoSgt/riemann-hypothesis-lean",
+  "source_commit": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
+  "source_license": "Source archive/mirror states no license. Original attribution retained; none assigned.",
+  "files": [
+    {
+      "native_path": "RHLean/Geometry/NativeGeometricDatum.lean",
+      "initial_source_reconstruction_sha256": "44cf27e2e7807a32b7bec8a8c10dc97d901794b7371a8ce6b3be2f6266e1945f",
+      "native_sha256": "44cf27e2e7807a32b7bec8a8c10dc97d901794b7371a8ce6b3be2f6266e1945f",
+      "native_lines": 113
+    },
+    {
+      "native_path": "RHLean/Geometry/NativePrescribedGeometricDatum.lean",
+      "initial_source_reconstruction_sha256": "a7c21d5ca68675ddc210e34825c9d7af6e611921c697bec76424721eb2df7e66",
+      "native_sha256": "a7c21d5ca68675ddc210e34825c9d7af6e611921c697bec76424721eb2df7e66",
+      "native_lines": 335
+    }
+  ],
+  "source_map": [
+    {
+      "path": "src/ReciprocityTheory/ReductiveGroups/ArithmeticGeometry/BirationalGeometry/ToroidalCompactification/TwoWeightEqOneAddRoot.lean",
+      "sha256": "3646386e9cd25287a50eb1ad82456c5b26316207741b8ed7298d46aa4f9d7826",
+      "declarations": [
+        "ReciprocityTheory.ChartRestriction.G.Geo.Tor.Datum"
+      ]
+    },
+    {
+      "path": "src/Formalism/LocalToGlobal/ProjectiveLattices/HalfOneAddSqrtNegIsIntegral.lean",
+      "sha256": "7e01749c88719a43459bd623783d0dd1078e229033a3ebf37b81a3dff6f7163e",
+      "declarations": [
+        "Formalism.L2.Pj.latW",
+        "Formalism.L2.Pj.efQ",
+        "Formalism.L2.Pj.choose_cast",
+        "Formalism.L2.Pj.intForm",
+        "Formalism.L2.Pj.intForm_cast",
+        "Formalism.L2.Pj.DatInt",
+        "Formalism.L2.Pj.DomFor",
+        "Formalism.L2.Pj.sgnW",
+        "Formalism.L2.Pj.efW",
+        "Formalism.L2.Pj.datumOf"
+      ]
+    },
+    {
+      "path": "src/Formalism/LocalToGlobal/ProjectiveLattices/DatumOfRecordSignature.lean",
+      "sha256": "766973b39b5b194a4d950dcc7ec9165a70d835a609e7b0d762e80258da8e53ce",
+      "declarations": [
+        "Formalism.L2.Pj.DatDom",
+        "Formalism.L2.Pj.datumOfRecord"
+      ]
+    },
+    {
+      "path": "src/Formalism/LocalToGlobal/ProjectiveLattices/DatProofs.lean",
+      "sha256": "2015bae181c76e7f989fed70ddd101e7e6bf91e26d06dc24658db58e8b942fb0",
+      "declarations": [
+        "Formalism.L2.Pj.domFor_pm",
+        "Formalism.L2.Pj.datDom_holds"
+      ]
+    },
+    {
+      "path": "src/Formalism/LocalRingCardinality/DataHost.lean",
+      "sha256": "39252a17ac91969e59b2f1c89efe12b6ac0e7ea97bd462c1e250f8ea8b4c954f",
+      "declarations": [
+        "Formalism.BasicNotions.Host.sqrtMinusD",
+        "Formalism.BasicNotions.Host.xi0",
+        "Formalism.BasicNotions.Host.ccE",
+        "Formalism.BasicNotions.Host.AA0",
+        "Formalism.BasicNotions.Host.AA"
+      ]
+    },
+    {
+      "path": "src/Formalism/LocalRingCardinality/Params.lean",
+      "sha256": "1de4e5a1230e9d93b5ace3e4f7e112f65e3d5264d75db227476986d179881e17",
+      "declarations": [
+        "Formalism.BasicNotions.Ranks.r",
+        "Formalism.BasicNotions.Ranks.sigW"
+      ]
+    },
+    {
+      "path": "src/Development/AutomorphicArithmetic/PrimeDiscriminants/ExistsHost.lean",
+      "sha256": "558554498e34191aed654cfc107908f3c16e9834ac352bc7990c78f1e965d733",
+      "declarations": [
+        "UpperTheory.Host.withTop",
+        "UpperTheory.Host.exists_host_of_injective"
+      ]
+    }
+  ],
+  "native_dependencies": [
+    {
+      "path": "RHLean/Geometry/NativeGeometricHost.lean",
+      "declarations": [
+        "RHLean.Geometry.NativeGeometricHost",
+        "RHLean.Geometry.NativeGeometricHost.InPsi"
+      ],
+      "initial_attachment_sha256": "1c5781f8d72b522009b1cc642527f30e2abebb06df7e0018b95126486e3f1df1",
+      "native_sha256": "1c5781f8d72b522009b1cc642527f30e2abebb06df7e0018b95126486e3f1df1"
+    },
+    {
+      "path": "RHLean/Geometry/NativeDerivedGeometricHost.lean",
+      "declarations": [
+        "RHLean.Geometry.nativeDyadicGeometricHostOfDerived",
+        "RHLean.Geometry.nativeDyadicGeometricHostOfDerived_root",
+        "RHLean.Geometry.nativeDyadicGeometricHostOfDerived_bar",
+        "RHLean.Geometry.nativeDyadicGeometricHostOfDerived_inPsi"
+      ],
+      "initial_attachment_sha256": "3d3b3ecca674e2c4a4a29ca7de2aa15ea6b70b3bf6e01c4072fe842135efe23e",
+      "native_sha256": "3d3b3ecca674e2c4a4a29ca7de2aa15ea6b70b3bf6e01c4072fe842135efe23e"
+    },
+    {
+      "path": "RHLean/Geometry/NativePrescribedPolarizationDomain.lean",
+      "declarations": [
+        "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.prescribedComplexStructure_properties",
+        "RHLean.Analysis.AlpogeThin.nativeDyadicHostRaw_prescribed_embedding_conj"
+      ],
+      "initial_attachment_sha256": "aaf3f8da955187927d834f0d1c92f9a50b48ed46ab1d93caf07d82c5fd343738",
+      "native_sha256": "aaf3f8da955187927d834f0d1c92f9a50b48ed46ab1d93caf07d82c5fd343738"
+    },
+    {
+      "path": "RHLean/Geometry/NativePrescribedPolarizationRealization.lean",
+      "declarations": [
+        "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.cmTypeFinset",
+        "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.mem_cmTypeFinset"
+      ],
+      "initial_attachment_sha256": "e6d6e219ef21890e4b73d898b442f33c7bcbbf9f2937e78e6a0833ce6a9973dd",
+      "native_sha256": "e6d6e219ef21890e4b73d898b442f33c7bcbbf9f2937e78e6a0833ce6a9973dd"
+    },
+    {
+      "path": "RHLean/Geometry/NativePrescribedPolarizationLattice.lean",
+      "declarations": [
+        "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.conjugationStar",
+        "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.prescribedLattice",
+        "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.prescribedSpace",
+        "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.prescribedTraceForm",
+        "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.prescribedTraceForm_cast",
+        "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.twistedLattice_finite",
+        "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.twistedLattice_projective",
+        "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.twistedLattice_rank",
+        "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.twistedTraceForm_alternating",
+        "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.twistedTraceForm_bijective",
+        "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.twistedTraceForm_adjoint"
+      ],
+      "initial_attachment_sha256": "e5a1316a3caf23ecdfa3fc4c4f764d8c1409f184fb1a5e161b0f85a8c32a4650",
+      "native_sha256": "e5a1316a3caf23ecdfa3fc4c4f764d8c1409f184fb1a5e161b0f85a8c32a4650"
+    },
+    {
+      "path": "RHLean/Geometry/NativePolarizationCoefficientLattice.lean",
+      "declarations": [
+        "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.coefficientIdeal"
+      ],
+      "initial_attachment_sha256": "b087e174dd6a47e75a6fac7a84768a05177b198b06a8f06bfcdb7371318bf441",
+      "native_sha256": "b087e174dd6a47e75a6fac7a84768a05177b198b06a8f06bfcdb7371318bf441"
+    },
+    {
+      "path": "RHLean/Analysis/AlpogeThin/NativeDyadicHostPolarizationArithmetic.lean",
+      "declarations": [
+        "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.xi",
+        "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.xi_im_pos"
+      ],
+      "initial_attachment_sha256": "af4caf87fde6ffc82c21d1818b7f91d9ff16b498b9cc51a19fa99f165b54e6f7",
+      "native_sha256": "af4caf87fde6ffc82c21d1818b7f91d9ff16b498b9cc51a19fa99f165b54e6f7"
+    },
+    {
+      "path": "RHLean/Analysis/AlpogeThin/NativeDyadicHostDer.lean",
+      "declarations": [
+        "RHLean.Analysis.AlpogeThin.nativeDyadicHostAx"
+      ],
+      "initial_attachment_sha256": "dda04bba6282f298eba3a6c73b87d9643cef7366814abf43bb2044def2fb1650",
+      "native_sha256": "dda04bba6282f298eba3a6c73b87d9643cef7366814abf43bb2044def2fb1650"
+    },
+    {
+      "path": "RHLean/Analysis/AlpogeThin/NativeDyadicHostDifferent.lean",
+      "declarations": [
+        "RHLean.Analysis.AlpogeThin.nativeDyadicHostRaw_principal"
+      ],
+      "initial_attachment_sha256": "7446ac3ecf2f956e4e340a9f9dbf9972bbb33d3ef437234311d1532609ef6dc3",
+      "native_sha256": "7446ac3ecf2f956e4e340a9f9dbf9972bbb33d3ef437234311d1532609ef6dc3"
+    }
+  ],
+  "proof_construction": [
+    "Full 13-field source Datum, with dom abbreviation definitionally the exact original predicate and its root filter.",
+    "Literal source efQ on the same prescribedLattice; actual integrality from previously proved integer trace formula.",
+    "Source intForm equals the existing perfect alternating form for every integrality proof, by injectivity of integer-to-rational cast.",
+    "The constructed positive J supplies exact geometric DomFor after root-filter identification; consequently original sgnW=+1 and efW equals the existing integer form.",
+    "Actual integral host involution is proved equal to the raw Galois conjugation, supplying adjointness in the complete record.",
+    "Native endpoint chooses one genuine conjugate half of the relative different before all k,m,j; constructed datum has literal lattice/form/signature equations."
+  ],
+  "source_adaptations": [
+    "Namespace/module boundary reconstructed locally; no original compiled source or terminal RH import.",
+    "Full D7 is unnecessary for the exact Datum record: only its actual lattice/form/host/rank/domain components are used, and all are supplied here.",
+    "Original ccK=top choice is exposed by literal xi0/AA normalization equalities, not a changed coefficient or rescaling.",
+    "prescribedGeometricDatum has explicit primitive host-identification inputs in its general lemma; nativeDyadicPrescribedGeometricDatum discharges them on the actual host."
+  ],
+  "sign_convention": "Conjugate-first hT, xi=-1/sqd with Im(tau xi)>0 on the original CM type, J=i*sgn, EF(Jx,x)>0, trace(A)=2 Re(t), trace(JA)=-2 Im(t); original sgnW=+1 is proved.",
+  "field_inventory": {
+    "source": [
+      "La",
+      "acg",
+      "mod",
+      "fin",
+      "proj",
+      "EF",
+      "alt",
+      "unimod",
+      "adj",
+      "p",
+      "q",
+      "rank",
+      "dom"
+    ],
+    "native": [
+      "La",
+      "acg",
+      "mod",
+      "fin",
+      "proj",
+      "EF",
+      "alt",
+      "unimod",
+      "adj",
+      "p",
+      "q",
+      "rank",
+      "dom"
+    ],
+    "match": true
+  },
+  "exact_api_checks": [
+    {
+      "path": "Mathlib/RingTheory/Ideal/Maps.lean",
+      "sha256": "a6cde2f875c2c8b9ea1aa57cf3aa654d5fd80981349de49f28556c77b56d9c11",
+      "declaration": "Ideal.map_top",
+      "reason": "Image of top under the unital algebra map is top; no surjectivity hypothesis."
+    },
+    {
+      "path": "Mathlib/RingTheory/FractionalIdeal/Basic.lean",
+      "sha256": "db17ad9583578d002931b44016c7098ffe1684c331a06d6814fda5d2d6493d2a",
+      "declaration": "FractionalIdeal.coeIdeal_top",
+      "reason": "The coerced top ideal is 1 by rfl, and one_mul leaves the existing B inverse."
+    }
+  ],
+  "remaining": [
+    "Hosted elaboration/axiom verification of this pair and the complete dependency closure.",
+    "Actual compatible levels, scheme-valued SAB/Obj/Moduli, integral models and charts, theta sections and their geometric metric/evaluation identification.",
+    "Full source Spaces/D7 retains genuine auxiliary-prime ray-norm/level, member, period-map and coefficient obligations; this result does not construct that larger record.",
+    "The eleven original finite slope inputs and final physical geometric supplier chain remain open where not independently constructed; no endpoint analytic bound is assumed here."
+  ],
+  "checks": {
+    "source_field_inventory": "PASS",
+    "forbidden_proof_tokens": "NONE",
+    "new_global_options_or_budgets": "NONE",
+    "trailing_whitespace": "NONE",
+    "local_Lean_or_Lake_executed": false,
+    "shared_tree_edits": false,
+    "remote_writes": false
+  },
+  "parent_head_at_freeze": "f3d43c0c0d7fcd8cd440f07705b02e5210a30574",
+  "independent_reviews": [
+    {
+      "reviewer": "/root",
+      "status": "PASS",
+      "scope": "Complete pair, source record, sign normalization, actual host compatibility and same B."
+    },
+    {
+      "reviewer": "/root/ci_repair",
+      "status": "PASS",
+      "scope": "Complete source/API/math pass including all13 fields, source-exact efQ zsmul and intForm linearity, pinned Ideal.map_top and FractionalIdeal.coeIdeal_top, dependent La/EF/HostAx/HostRaw compatibility."
+    },
+    {
+      "reviewer": "/root/geometric_constructor",
+      "status": "PASS",
+      "scope": "Complete literal source record/efQ/intForm/DomFor/sgnW/efW, all13 fields, exact root filter/bar/sign/trace orientation, one B and native La/EF/p/q compatibility. Hosted elaboration remains pending."
+    }
+  ],
+  "formal_limit": "Source/API and independent mathematical reviews only. No local Lean/Lake execution; hosted compilation and full terminal-axiom audit remain pending.",
+  "source_and_native_declarations": [
+    "RHLean.Geometry.NativeGeometricDomain",
+    "RHLean.Geometry.NativeGeometricDatum",
+    "RHLean.Geometry.NativePolarizationIntegralForm.choose_cast",
+    "RHLean.Geometry.NativePolarizationIntegralForm.intForm",
+    "RHLean.Geometry.NativePolarizationIntegralForm.intForm_cast",
+    "RHLean.Geometry.NativePolarizationIntegralForm.intForm_eq_of_cast",
+    "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.xi_eq_source_top",
+    "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.coefficientIdeal_eq_source_top",
+    "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.prescribedRationalTraceForm",
+    "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.prescribedRationalTraceForm_apply",
+    "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.prescribedRationalTraceForm_integral",
+    "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.prescribedIntForm_eq",
+    "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.prescribedGeometricHost_filter",
+    "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.prescribedGeometricDomain",
+    "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.prescribedSign",
+    "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.prescribedSign_eq_one",
+    "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.prescribedSignedTraceForm",
+    "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.prescribedSignedTraceForm_eq",
+    "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.prescribedGeometricDatum",
+    "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.prescribedGeometricDatum_lattice",
+    "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.prescribedGeometricDatum_form",
+    "RHLean.Analysis.AlpogeThin.nativeDyadicGeometricHost_rootFilter",
+    "RHLean.Analysis.AlpogeThin.nativeDyadicGeometricHost_bar_eq",
+    "RHLean.Analysis.AlpogeThin.nativeDyadicPrescribedGeometricDatum",
+    "RHLean.Analysis.AlpogeThin.nativeDyadicPrescribedGeometricDatum_spec",
+    "RHLean.Analysis.AlpogeThin.nativeDyadicHost_exists_prescribedGeometricData"
+  ],
+  "axiom_guard_declarations": [
+    "RHLean.Geometry.NativePolarizationIntegralForm.intForm_eq_of_cast",
+    "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.xi_eq_source_top",
+    "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.coefficientIdeal_eq_source_top",
+    "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.prescribedRationalTraceForm_integral",
+    "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.prescribedIntForm_eq",
+    "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.prescribedGeometricDomain",
+    "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.prescribedSign_eq_one",
+    "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.prescribedSignedTraceForm_eq",
+    "RHLean.Analysis.AlpogeThin.nativeDyadicGeometricHost_rootFilter",
+    "RHLean.Analysis.AlpogeThin.nativeDyadicGeometricHost_bar_eq",
+    "RHLean.Analysis.AlpogeThin.nativeDyadicPrescribedGeometricDatum",
+    "RHLean.Analysis.AlpogeThin.nativeDyadicPrescribedGeometricDatum_spec",
+    "RHLean.Analysis.AlpogeThin.nativeDyadicHost_exists_prescribedGeometricData"
+  ]
+}

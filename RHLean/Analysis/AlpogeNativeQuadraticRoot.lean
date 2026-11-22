@@ -186,6 +186,11 @@ theorem alpogeNativeCyclotomicQuadraticRoot_d_apply
         then (1 : ℤ) else -1) : AlpogeNativeCyclotomic e q d) *
         alpogeNativeCyclotomicQuadraticRoot e q d d (alpogeNativeD_dvd_hostN e q d) := by
   rw [alpogeNativeCyclotomicQuadraticRoot_apply]
+  have hbit : (alpogeNativeCyclotomicRecMap e q d τ).toAdd.1.1 =
+      (alpogeNativeSign2
+        (alpogeNativeLegU (alpogeNativeHostN e q d) d (alpogeNativeD_dvd_hostN e q d)
+          (alpogeNativeCyclotomicGalEquiv e q d τ))).toAdd := rfl
+  rw [hbit]
   simpa only [apply_ite, Int.cast_one, Int.cast_neg] using
     congrArg (fun a : ℤ => (a : AlpogeNativeCyclotomic e q d) *
     alpogeNativeCyclotomicQuadraticRoot e q d d (alpogeNativeD_dvd_hostN e q d))
