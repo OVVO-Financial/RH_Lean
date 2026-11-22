@@ -193,4 +193,6 @@ theorem card_cls (m₀ s a : ℕ) (hcop : m₀.Coprime s) (hm : m₀ ≠ 0) (hs 
 
 end Formalism.HermitianLattices.Ext.LogarithmicIntegralBounds
 
+end
+
 end RHLean.Analysis.AlpogeThin

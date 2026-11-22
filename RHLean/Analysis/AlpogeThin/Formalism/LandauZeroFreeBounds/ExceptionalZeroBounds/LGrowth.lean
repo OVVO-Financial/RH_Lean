@@ -90,4 +90,6 @@ theorem lfunction_polynomial_growth : LGrowth := by
 
 end Formalism.ZeroFreeDirichlet
 
+end
+
 end RHLean.Analysis.AlpogeThin

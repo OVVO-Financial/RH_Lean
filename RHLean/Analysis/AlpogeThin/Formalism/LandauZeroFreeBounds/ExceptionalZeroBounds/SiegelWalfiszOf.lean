@@ -283,4 +283,6 @@ theorem siegel_walfisz_character_of : SiegelWalfiszOf := by
 
 end Formalism.ZeroFreeDirichlet
 
+end
+
 end RHLean.Analysis.AlpogeThin

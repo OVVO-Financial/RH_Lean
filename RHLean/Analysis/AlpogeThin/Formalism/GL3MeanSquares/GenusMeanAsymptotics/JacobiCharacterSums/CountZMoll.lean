@@ -210,4 +210,6 @@ theorem coefficient_square_bound : CoeffSqOf := by
 
 end Formalism.HermitianLattices.Ext.PrimitiveCharacterCasts.ZD
 
+end
+
 end RHLean.Analysis.AlpogeThin

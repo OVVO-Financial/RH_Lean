@@ -192,4 +192,6 @@ theorem core (c' C : ℝ) (A B : ℕ) (hc'0 : 0 < c') (hc'2 : c' ≤ 1 / 2) (hA1
 
 end Formalism.HermitianLattices.Ext.PrimesInProgressions.DHF
 
+end
+
 end RHLean.Analysis.AlpogeThin

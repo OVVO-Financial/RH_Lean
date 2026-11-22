@@ -56,9 +56,9 @@ theorem sum_ite_val_lt_sub_mul_mono (n m₁ m₂ : ℕ) (h₁₂ : m₁ ≤ m₂
   apply Finset.sum_le_sum
   intro j _
   by_cases h1 : (j : ℕ) < m₁
-  · simp only [if_pos h1, if_pos (lt_of_lt_of_le h1 h₁₂), le_refl]
+  · simp only [ite_eq_left h1, ite_eq_left (lt_of_lt_of_le h1 h₁₂), le_refl]
   · by_cases h2 : (j : ℕ) < m₂
-    · rw [ite_eq_right h1, if_pos h2]
+    · rw [ite_eq_right h1, ite_eq_left h2]
       linarith [hx j (not_lt.mp h1) h2]
     · simp only [ite_eq_right h1, ite_eq_right h2, le_refl]
 
@@ -70,9 +70,9 @@ theorem sum_ite_val_lt_sub_mul_anti (n m₁ m₂ : ℕ) (h₁₂ : m₁ ≤ m₂
   apply Finset.sum_le_sum
   intro j _
   by_cases h1 : (j : ℕ) < m₁
-  · simp only [if_pos h1, if_pos (lt_of_lt_of_le h1 h₁₂), le_refl]
+  · simp only [ite_eq_left h1, ite_eq_left (lt_of_lt_of_le h1 h₁₂), le_refl]
   · by_cases h2 : (j : ℕ) < m₂
-    · rw [ite_eq_right h1, if_pos h2]
+    · rw [ite_eq_right h1, ite_eq_left h2]
       linarith [hx j (not_lt.mp h1) h2]
     · simp only [ite_eq_right h1, ite_eq_right h2, le_refl]
 
@@ -264,7 +264,7 @@ theorem hnSlopes_of (h1 : HNStep.{u, v, w}) (h2 : MuChar.{u, v, w})
     have h := hpoly θ
     rw [hθ] at h
     rw [h, hP]
-    exact Finset.sum_congr rfl fun j _ => (if_pos j.2).symm
+    exact Finset.sum_congr rfl fun j _ => (ite_eq_left j.2).symm
 
   have hsubmax : ∀ θ (M : Submodule R V), M ≤ hnStep ρ L θ →
       deg ρ M - θ * rk ρ M ≤ deg ρ (hnStep ρ L θ) - θ * rk ρ (hnStep ρ L θ) := by

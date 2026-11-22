@@ -37,7 +37,7 @@ private theorem det_gram_le_one_of_norm_sum_sq_le {κ F : Type*} [Fintype κ] [D
     (Matrix.gram ℝ w).det ≤ 1 := by
   have hP := Matrix.posSemidef_gram ℝ w
   rw [hP.isHermitian.det_eq_prod_eigenvalues]
-  apply Finset.prod_le_one
+  apply Finset.prod_le_one₀
   · intro i _
     simpa using hP.eigenvalues_nonneg i
   · intro i _

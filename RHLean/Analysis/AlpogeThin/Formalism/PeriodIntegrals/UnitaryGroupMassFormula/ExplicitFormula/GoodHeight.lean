@@ -366,4 +366,6 @@ theorem truncChange_of {C : ℝ} (hC0 : 0 ≤ C) (hC : ZerosWindowWith C) : Trun
 
 end PI.EF
 
+end
+
 end RHLean.Analysis.AlpogeThin

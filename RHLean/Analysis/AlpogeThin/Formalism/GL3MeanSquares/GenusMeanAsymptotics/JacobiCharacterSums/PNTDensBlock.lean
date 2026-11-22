@@ -245,4 +245,6 @@ theorem dyadic_block_count : BlockCnt := by
 
 end Formalism.HermitianLattices.Ext.PrimesInProgressions.Dens
 
+end
+
 end RHLean.Analysis.AlpogeThin

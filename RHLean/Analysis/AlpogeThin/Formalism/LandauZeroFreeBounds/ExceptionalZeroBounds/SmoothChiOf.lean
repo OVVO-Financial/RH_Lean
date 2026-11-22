@@ -142,4 +142,6 @@ theorem smoothed_character_sum_of : SmoothChiOf := by
 
 end Formalism.ZeroFreeDirichlet
 
+end
+
 end RHLean.Analysis.AlpogeThin

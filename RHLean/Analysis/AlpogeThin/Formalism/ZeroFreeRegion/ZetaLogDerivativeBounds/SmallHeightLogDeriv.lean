@@ -83,4 +83,6 @@ theorem logDerivBoundedHeight : SmallHeightLogDeriv := by
 
 end Formalism.ZF
 
+end
+
 end RHLean.Analysis.AlpogeThin

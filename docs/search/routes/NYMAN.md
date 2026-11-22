@@ -8,57 +8,63 @@ Coordinates: [`ANCHOR-ZETA-ZEROS`](../coordinates/ANCHOR-ZETA-ZEROS.md), [`COORD
 
 | Score | File | Title |
 | --- | --- | --- |
-| 27 | [docs/PROOF_DEPENDENCY_DAG.md](../../../docs/PROOF_DEPENDENCY_DAG.md) | RH_Lean mathematical proof-dependency DAG |
+| 30 | [docs/PROOF_DEPENDENCY_DAG.md](../../../docs/PROOF_DEPENDENCY_DAG.md) | RH_Lean mathematical proof-dependency DAG |
+| 14 | [docs/AGENT_STUDIO_20261024_SEVEN_PROMPTS.md](../../../docs/AGENT_STUDIO_20261024_SEVEN_PROMPTS.md) | Seven complete RH_Lean Agent Studio instruction templates |
 | 9 | [docs/COORDINATE_ATLAS.md](../../../docs/COORDINATE_ATLAS.md) | Coordinate atlas: one phenomenon, many coordinates |
-| 8 | [AGENTS.md](../../../AGENTS.md) | RH_Lean research-agent instructions |
-| 7 | [docs/DYNAMIC_RESEARCH_AGENTS.md](../../../docs/DYNAMIC_RESEARCH_AGENTS.md) | RH_Lean dynamic seven-agent research protocol |
+| 8 | [AGENTS_BEFORE_RESEARCH_ENGINE_20261101.md](../../../AGENTS_BEFORE_RESEARCH_ENGINE_20261101.md) | RH_Lean research-agent instructions |
+| 8 | [docs/DYNAMIC_RESEARCH_AGENTS_BEFORE_RESEARCH_ENGINE_20261101.md](../../../docs/DYNAMIC_RESEARCH_AGENTS_BEFORE_RESEARCH_ENGINE_20261101.md) | RH_Lean dynamic seven-agent research protocol |
 | 7 | [docs/RH_PROOF_ATTACK_PORTFOLIO_20261024.md](../../../docs/RH_PROOF_ATTACK_PORTFOLIO_20261024.md) | RH proof attack portfolio and seven-agent operating contract — 2026-10-24 |
 | 6 | [CURRENT_PROOF_CONTRACT.md](../../../CURRENT_PROOF_CONTRACT.md) | RH_Lean current proof contract |
 | 5 | [docs/FACTOR_DEPTH_RESEARCH_BRIEF.md](../../../docs/FACTOR_DEPTH_RESEARCH_BRIEF.md) | Live research brief: factor-depth coupling and independent amplification |
+| 5 | [docs/RHLEAN_ALL_VECTOR_AGENT_PROMPTS_20261030.md](../../../docs/RHLEAN_ALL_VECTOR_AGENT_PROMPTS_20261030.md) | Seven-agent prompts: complete signed HIGH, independent native routes |
+| 5 | [docs/RHLEAN_ALL_VECTOR_AGENT_PROMPTS_BEFORE_CANCELLATION_CHAIN_20261107.md](../../../docs/RHLEAN_ALL_VECTOR_AGENT_PROMPTS_BEFORE_CANCELLATION_CHAIN_20261107.md) | Seven-agent all-vector prompt reference - persistent research edition |
+| 5 | [docs/RHLEAN_ALL_VECTOR_AGENT_PROMPTS_BEFORE_RESEARCH_ENGINE_20261101.md](../../../docs/RHLEAN_ALL_VECTOR_AGENT_PROMPTS_BEFORE_RESEARCH_ENGINE_20261101.md) | Seven-agent all-vector prompt reference - updated 2026-10-31 |
+| 5 | [docs/RHLEAN_BOOTSTRAP_TO_HALF_20261116.md](../../../docs/RHLEAN_BOOTSTRAP_TO_HALF_20261116.md) | Source-faithful continuation to one half — 2026-11-16 |
+| 4 | [AGENTS.md](../../../AGENTS.md) | 2026-11-22 — constructed lattice descent and complete signed payment |
 | 4 | [RESEARCH_ROUTE_REGISTRY.md](../../../RESEARCH_ROUTE_REGISTRY.md) | Research route registry |
+| 4 | [docs/RHLEAN_ALL_VECTOR_SYNTHESIS_AGENT_DIRECTIVE_20261030.md](../../../docs/RHLEAN_ALL_VECTOR_SYNTHESIS_AGENT_DIRECTIVE_20261030.md) | All-vector RH_Lean attack and same-source synthesis — 2026-10-30 |
+| 4 | [docs/external/2026-11-15/universal-envelope-law-handoff.md](../../../docs/external/2026-11-15/universal-envelope-law-handoff.md) | Universal envelope law for the frozen-root coordinates — status snapshot and external handoff, 2026-11-15 |
 | 4 | [research/NYMAN_BEURLING_POSITIVE_RESIDUE_ATTACK_2026_10_15.md](../../../research/NYMAN_BEURLING_POSITIVE_RESIDUE_ATTACK_2026_10_15.md) | Nyman–Beurling positive-residue attack — 2026-10-15 |
 | 3 | [CURRENT_RESEARCH_HANDOFF.md](../../../CURRENT_RESEARCH_HANDOFF.md) | Current RH_Lean research handoff |
+| 3 | [docs/RHLEAN_BROAD_SEARCH_UNTIL_ETA_20261031.md](../../../docs/RHLEAN_BROAD_SEARCH_UNTIL_ETA_20261031.md) | Broad RH_Lean mathematics until a verified positive exponent gain |
+| 3 | [docs/RHLEAN_COMPLETE_SIGNED_HIGH_ATTACK_20261107.md](../../../docs/RHLEAN_COMPLETE_SIGNED_HIGH_ATTACK_20261107.md) | Complete signed HIGH: common objective, independent proof routes |
+| 3 | [docs/RHLEAN_INDEPENDENT_MULTIFRONT_NO_PIGEONHOLING_20261104.md](../../../docs/RHLEAN_INDEPENDENT_MULTIFRONT_NO_PIGEONHOLING_20261104.md) | Independent multi-front RH_Lean research: NO_PIGEONHOLING_ROUTE_SELECTOR_V1 |
+| 3 | [docs/RHLEAN_REPO_WIDE_PROOF_ATTACKS_20261108.md](../../../docs/RHLEAN_REPO_WIDE_PROOF_ATTACKS_20261108.md) | RH_Lean all-route mathematical status and seven-agent handoff — 2026-11-08 |
+| 3 | [docs/RHLEAN_SEVEN_AGENT_RESEARCH_ENGINE_20261101.md](../../../docs/RHLEAN_SEVEN_AGENT_RESEARCH_ENGINE_20261101.md) | Seven-agent persistent research engine and next-run attack plan |
 | 3 | [docs/RH_PROOF_OVERLAP_AND_SEVEN_EIGHTHS_AUDIT_20261024.md](../../../docs/RH_PROOF_OVERLAP_AND_SEVEN_EIGHTHS_AUDIT_20261024.md) | Audit: route overlap versus independent 7/8-powered progress (2026-10-24) |
 | 3 | [scripts/test_coordinate_atlas.py](../../../scripts/test_coordinate_atlas.py) | Tests for the coordinate atlas and the static search corpus generator. |
-| 2 | [docs/AGENT_STUDIO_20261024_SEVEN_PROMPTS.md](../../../docs/AGENT_STUDIO_20261024_SEVEN_PROMPTS.md) | Seven current RH_Lean Agent Studio instruction overrides — 2026-10-24 |
+| 3 | [scripts/validate_rh_agent_portfolio.py](../../../scripts/validate_rh_agent_portfolio.py) | CI smoke checks for source routing and seven-agent instructions. |
+| 2 | [AGENTS_BEFORE_CANCELLATION_CHAIN_20261107.md](../../../AGENTS_BEFORE_CANCELLATION_CHAIN_20261107.md) | RH_Lean research-agent instructions |
+| 2 | [docs/AGENT_STUDIO_SEVEN_PROMPTS_BEFORE_RESEARCH_ENGINE_20261101.md](../../../docs/AGENT_STUDIO_SEVEN_PROMPTS_BEFORE_RESEARCH_ENGINE_20261101.md) | Seven current RH_Lean Agent Studio instruction overrides — 2026-10-24 |
 | 2 | [docs/CROSS_COORDINATE_LOW_QUOTIENT_RESEARCH_2026_10_17.md](../../../docs/CROSS_COORDINATE_LOW_QUOTIENT_RESEARCH_2026_10_17.md) | Cross-coordinate low-quotient program: complete seven-agent research instructions |
+| 2 | [docs/RHLEAN_ALL_SELECTED_INVERSE_SOURCE_ATTACK_20261104.md](../../../docs/RHLEAN_ALL_SELECTED_INVERSE_SOURCE_ATTACK_20261104.md) | All-selected original OAI LOW: optional Analytic and Referee attack (2026-11-04) |
+| 2 | [docs/RHLEAN_OAI_LOW_SOURCE_FIRST_AGENT_CONTRACT_20261103.md](../../../docs/RHLEAN_OAI_LOW_SOURCE_FIRST_AGENT_CONTRACT_20261103.md) | OAI 1 -> 7/8 source-first signed LOW research contract for all seven agents |
 | 2 | [experiments/nyman_beurling/certify_N96.cpp](../../../experiments/nyman_beurling/certify_N96.cpp) | Exact C++/unsigned-128 fixed-point Nyman–Beurling finite witness. |
 | 2 | [experiments/nyman_beurling/verify_certificate.py](../../../experiments/nyman_beurling/verify_certificate.py) | Integer-only upper certificate for a centered Nyman–Beurling approximation. |
-| 2 | [scripts/validate_rh_agent_portfolio.py](../../../scripts/validate_rh_agent_portfolio.py) | CI smoke checks for the ten-route/seven-agent research instructions. |
 | 1 | [FORMALIZATION_CHECKLIST.md](../../../FORMALIZATION_CHECKLIST.md) | RH_Lean formalization checklist |
 | 1 | [README.md](../../../README.md) | RH_Lean |
-| 1 | [RHLean/Analysis/K2RecipMomentAnalyticClosure.lean](../../../RHLean/Analysis/K2RecipMomentAnalyticClosure.lean) | Analytic closure of the reciprocal Mobius moments for centered K2 |
-| 1 | [RHLean/Analysis/MertensEnergyRHForward.lean](../../../RHLean/Analysis/MertensEnergyRHForward.lean) | The forward Mertens-energy implication to the Riemann hypothesis |
-| 1 | [RHLean/Analysis/MertensZetaIdentityContinuation.lean](../../../RHLean/Analysis/MertensZetaIdentityContinuation.lean) | Propagate the Mertens-zeta reciprocal identity to the critical half-plane |
-| 1 | [RHLean/Analysis/StrongMertensLogNineCorridor.lean](../../../RHLean/Analysis/StrongMertensLogNineCorridor.lean) | Shared log-nine corridor for the unconditional strong Mertens bridge |
-| 1 | [RHLean/Analysis/StrongMertensZetaKernel.lean](../../../RHLean/Analysis/StrongMertensZetaKernel.lean) | Reciprocal-zeta kernel for the unconditional strong Mertens route |
-| 1 | [RHLean/Analysis/ThreeSlotDegreeOneCriterion.lean](../../../RHLean/Analysis/ThreeSlotDegreeOneCriterion.lean) | Degree-one energy criterion for the three-slot route |
-| 1 | [RHLean/Proof/PhysicalQ2TerminalSynthesis.lean](../../../RHLean/Proof/PhysicalQ2TerminalSynthesis.lean) | Terminal synthesis for the physical q^2 route |
-| 1 | [RHLean/Proof/SquareRootCanonicalOrientedEpsilonBound.lean](../../../RHLean/Proof/SquareRootCanonicalOrientedEpsilonBound.lean) | The oriented seam at RH scale |
-| 1 | [RHLean/Proof/TerminalMertensForward.lean](../../../RHLean/Proof/TerminalMertensForward.lean) | Discharge the terminal forward Mertens criterion |
-| 1 | [docs/CHATGPT_AGENT_STUDIO_RH_SETUP_2026_10_12.md](../../../docs/CHATGPT_AGENT_STUDIO_RH_SETUP_2026_10_12.md) | Create RH_Lean research agents in **ChatGPT Agent Studio** (browser) |
-| 1 | [docs/QRH_SOURCE_ESTIMATE_EXECUTION_CONTRACT_20261026.md](../../../docs/QRH_SOURCE_ESTIMATE_EXECUTION_CONTRACT_20261026.md) | QRH source-estimate execution contract (26 October 2026) |
-| 1 | [docs/RESEARCH_FRONTIER_DAG.md](../../../docs/RESEARCH_FRONTIER_DAG.md) | Current research frontier and import DAG |
-| 1 | [docs/RHLEAN_NATIVE_FIRST_PROOF_ROUTING_20261026.md](../../../docs/RHLEAN_NATIVE_FIRST_PROOF_ROUTING_20261026.md) | RH_Lean-native-first mathematical proof routing (26 October 2026) |
-| 1 | [research/COMPRESSION_ESCAPE_DEFECT_NOGO.md](../../../research/COMPRESSION_ESCAPE_DEFECT_NOGO.md) | Compression-escape defect: diagnostic and no-go |
-| 1 | [research/HECKE_SPLIT_PRIME_CUTOFF_TRADEOFF_20261016.md](../../../research/HECKE_SPLIT_PRIME_CUTOFF_TRADEOFF_20261016.md) | Independent 7/8 Hecke cutoffs: from seven layers to an exact two-layer root-wall identity |
-| 1 | [research/INDEPENDENT_SEVEN_EIGHTHS_SQUARE_SHELL_ENERGY_20261016.md](../../../research/INDEPENDENT_SEVEN_EIGHTHS_SQUARE_SHELL_ENERGY_20261016.md) | Independent 7/8 programme: square-shell signed energy |
-| 1 | [research/MERTENS_AMPLITUDE_ACCEPTANCE.lean](../../../research/MERTENS_AMPLITUDE_ACCEPTANCE.lean) | Exact finite-amplitude statements, domain regressions and kernel audits. |
-| 1 | [research/MERTENS_AMPLITUDE_COMPLEX_STRIP.lean](../../../research/MERTENS_AMPLITUDE_COMPLEX_STRIP.lean) | Literal complex-strip realization of an amplitude band |
-| 1 | [research/MERTENS_AMPLITUDE_STRIP_MAP.lean](../../../research/MERTENS_AMPLITUDE_STRIP_MAP.lean) | Actual Mertens amplitudes in horizontal strip coordinates |
-| 1 | [research/MERTENS_AMPLITUDE_STRIP_MAP.md](../../../research/MERTENS_AMPLITUDE_STRIP_MAP.md) | Mertens amplitude band mapped to horizontal strip coordinates |
-| 1 | [research/MERTENS_CONVERSE_ACCEPTANCE.lean](../../../research/MERTENS_CONVERSE_ACCEPTANCE.lean) | Exact bidirectional Mertens map acceptance |
-| 1 | [research/MERTENS_CONVERSE_IDENTIFICATION.lean](../../../research/MERTENS_CONVERSE_IDENTIFICATION.lean) | Bidirectional identification of Mertens growth and zeta-zero confinement |
-| 1 | [research/MERTENS_CONVERSE_RECIPROCAL.lean](../../../research/MERTENS_CONVERSE_RECIPROCAL.lean) | Analytic reciprocal supplied by zero confinement |
-| 1 | [research/MERTENS_CONVERSE_SUBPOWER.lean](../../../research/MERTENS_CONVERSE_SUBPOWER.lean) | Reciprocal zeta has subpower growth inside a zero-free half-plane |
-| 1 | [research/MERTENS_CONVERSE_ZETA_BOUNDS.lean](../../../research/MERTENS_CONVERSE_ZETA_BOUNDS.lean) | Unconditional growth inputs for the Mertens converse |
-| 1 | [research/MERTENS_EXPONENT_DIAGNOSTICS.lean](../../../research/MERTENS_EXPONENT_DIAGNOSTICS.lean) | Endpoint regressions and the independent rightmost-zero coordinate |
-| 1 | [research/MERTENS_EXPONENT_STRIP_ACCEPTANCE.lean](../../../research/MERTENS_EXPONENT_STRIP_ACCEPTANCE.lean) | Acceptance imports the original arithmetic carrier and the complete forward |
-| 1 | [research/MERTENS_EXPONENT_STRIP_MAP.lean](../../../research/MERTENS_EXPONENT_STRIP_MAP.lean) | Direct Mertens exponent to zeta-strip map |
-| 1 | [research/MERTENS_EXPONENT_STRIP_MAP.md](../../../research/MERTENS_EXPONENT_STRIP_MAP.md) | Direct Mertens exponent-to-zero-strip formalization |
-| 1 | [research/MERTENS_WEIGHTED_COVARIANCE_RH.md](../../../research/MERTENS_WEIGHTED_COVARIANCE_RH.md) | Mertens weighted covariance and RH: exact mathematics and Lean scope |
-| 1 | [research/README.md](../../../research/README.md) | Research closeout map |
-| 1 | [research/VF_919_SEVEN_EIGHTHS_SIGNED_COVARIANCE_20261019.lean](../../../research/VF_919_SEVEN_EIGHTHS_SIGNED_COVARIANCE_20261019.lean) | The exact seven-eighths signed Mobius covariance threshold |
-| 1 | [scripts/VFMid925Spectral/compare_zero_truncation.py](../../../scripts/VFMid925Spectral/compare_zero_truncation.py) | EXPLORATORY genuine-factor vs finite zeta-zero square-band comparison. |
-| 1 | [scripts/coordinate_atlas.py](../../../scripts/coordinate_atlas.py) | Coordinate atlas: one phenomenon, many repository coordinates. |
-| 1 | [scripts/proof_obligation_dag.py](../../../scripts/proof_obligation_dag.py) | Validate and render the mathematical proof-obligation DAG. |
+| 1 | [RHLean/Analysis/AlpogeLandau/LandauTheorems/mellinGchiModOne.lean](../../../RHLean/Analysis/AlpogeLandau/LandauTheorems/mellinGchiModOne.lean) | Reconstructed analytic window dependency |
+| 1 | [RHLean/Analysis/AlpogeLandau/LandauTheorems/poleData.lean](../../../RHLean/Analysis/AlpogeLandau/LandauTheorems/poleData.lean) | Reconstructed analytic window dependency |
+| 1 | [RHLean/Analysis/AlpogeLandau/NativeGzConsumer.lean](../../../RHLean/Analysis/AlpogeLandau/NativeGzConsumer.lean) | The one-sided window consumer for the actual native Gz |
+| 1 | [RHLean/Analysis/AlpogeThin/Formalism/GL3MeanSquares/GenusMeanAsymptotics/JacobiCharacterSums/PNTDHLocalA.lean](../../../RHLean/Analysis/AlpogeThin/Formalism/GL3MeanSquares/GenusMeanAsymptotics/JacobiCharacterSums/PNTDHLocalA.lean) | Reconstructed same-host thin-source dependency |
+| 1 | [RHLean/Analysis/AlpogeThin/Formalism/GL3MeanSquares/GenusMeanAsymptotics/JacobiCharacterSums/PNTDensLs.lean](../../../RHLean/Analysis/AlpogeThin/Formalism/GL3MeanSquares/GenusMeanAsymptotics/JacobiCharacterSums/PNTDensLs.lean) | Reconstructed same-host thin-source dependency |
+| 1 | [RHLean/Analysis/AlpogeThin/Formalism/GL3MeanSquares/GenusMeanAsymptotics/JacobiCharacterSums/PNTDensSt.lean](../../../RHLean/Analysis/AlpogeThin/Formalism/GL3MeanSquares/GenusMeanAsymptotics/JacobiCharacterSums/PNTDensSt.lean) | Reconstructed same-host thin-source dependency |
+| 1 | [RHLean/Analysis/AlpogeThin/Formalism/GL3MeanSquares/GenusMeanAsymptotics/JacobiCharacterSums/PNTExplLF.lean](../../../RHLean/Analysis/AlpogeThin/Formalism/GL3MeanSquares/GenusMeanAsymptotics/JacobiCharacterSums/PNTExplLF.lean) | Reconstructed same-host thin-source dependency |
+| 1 | [RHLean/Analysis/AlpogeThin/Formalism/GL3MeanSquares/HookFormulaTorsion/PsiZeroIntegral.lean](../../../RHLean/Analysis/AlpogeThin/Formalism/GL3MeanSquares/HookFormulaTorsion/PsiZeroIntegral.lean) | Reconstructed same-host thin-source dependency |
+| 1 | [RHLean/Analysis/AlpogeThin/Formalism/HalfLinks/Statement.lean](../../../RHLean/Analysis/AlpogeThin/Formalism/HalfLinks/Statement.lean) | Reconstructed same-host thin-source dependency |
+| 1 | [RHLean/Analysis/AlpogeThin/Formalism/LFunctionBounds/Statement.lean](../../../RHLean/Analysis/AlpogeThin/Formalism/LFunctionBounds/Statement.lean) | Reconstructed same-host thin-source dependency |
+| 1 | [RHLean/Analysis/AlpogeThin/Formalism/LandauZeroFreeBounds/ExceptionalZeroBounds/BqEntire.lean](../../../RHLean/Analysis/AlpogeThin/Formalism/LandauZeroFreeBounds/ExceptionalZeroBounds/BqEntire.lean) | Reconstructed same-host thin-source dependency |
+| 1 | [RHLean/Analysis/AlpogeThin/Formalism/LandauZeroFreeBounds/ExceptionalZeroBounds/BqGrowth.lean](../../../RHLean/Analysis/AlpogeThin/Formalism/LandauZeroFreeBounds/ExceptionalZeroBounds/BqGrowth.lean) | Reconstructed same-host thin-source dependency |
+| 1 | [RHLean/Analysis/AlpogeThin/Formalism/LandauZeroFreeBounds/ExceptionalZeroBounds/EulerFactorLogDerivBound.lean](../../../RHLean/Analysis/AlpogeThin/Formalism/LandauZeroFreeBounds/ExceptionalZeroBounds/EulerFactorLogDerivBound.lean) | Reconstructed same-host thin-source dependency |
+| 1 | [RHLean/Analysis/AlpogeThin/Formalism/LandauZeroFreeBounds/ExceptionalZeroBounds/ZetaLogDerivLandauBound.lean](../../../RHLean/Analysis/AlpogeThin/Formalism/LandauZeroFreeBounds/ExceptionalZeroBounds/ZetaLogDerivLandauBound.lean) | Reconstructed same-host thin-source dependency |
+| 1 | [RHLean/Analysis/AlpogeThin/Formalism/LandauZeroFreeBounds/SameCharacterLFunctionOne.lean](../../../RHLean/Analysis/AlpogeThin/Formalism/LandauZeroFreeBounds/SameCharacterLFunctionOne.lean) | Reconstructed same-host thin-source dependency |
+| 1 | [RHLean/Analysis/AlpogeThin/Formalism/PeriodIntegrals/UnitaryGroupMassFormula/ExplicitFormula/LGrowthZeta.lean](../../../RHLean/Analysis/AlpogeThin/Formalism/PeriodIntegrals/UnitaryGroupMassFormula/ExplicitFormula/LGrowthZeta.lean) | Reconstructed same-host thin-source dependency |
+| 1 | [RHLean/Analysis/AlpogeThin/Formalism/PeriodIntegrals/UnitaryGroupMassFormula/ZeroWindow/RightOne.lean](../../../RHLean/Analysis/AlpogeThin/Formalism/PeriodIntegrals/UnitaryGroupMassFormula/ZeroWindow/RightOne.lean) | Reconstructed same-host thin-source dependency |
+| 1 | [RHLean/Analysis/AlpogeThin/Formalism/ProductFormula/StatementOCCM.lean](../../../RHLean/Analysis/AlpogeThin/Formalism/ProductFormula/StatementOCCM.lean) | Reconstructed same-host thin-source dependency |
+| 1 | [RHLean/Analysis/AlpogeThin/Formalism/Statement.lean](../../../RHLean/Analysis/AlpogeThin/Formalism/Statement.lean) | Reconstructed same-host thin-source dependency |
+| 1 | [RHLean/Analysis/AlpogeThin/Formalism/StatementFL.lean](../../../RHLean/Analysis/AlpogeThin/Formalism/StatementFL.lean) | Reconstructed same-host thin-source dependency |
+| 1 | [RHLean/Analysis/AlpogeThin/Formalism/StatementOC.lean](../../../RHLean/Analysis/AlpogeThin/Formalism/StatementOC.lean) | Reconstructed same-host thin-source dependency |
+| 1 | [RHLean/Analysis/AlpogeThin/Formalism/StatementU.lean](../../../RHLean/Analysis/AlpogeThin/Formalism/StatementU.lean) | Reconstructed same-host thin-source dependency |
+| 1 | [RHLean/Analysis/AlpogeThin/Formalism/ZeroFreeRegion/SmallHeightLogDeriv.lean](../../../RHLean/Analysis/AlpogeThin/Formalism/ZeroFreeRegion/SmallHeightLogDeriv.lean) | Reconstructed same-host thin-source dependency |
+| 1 | [RHLean/Analysis/AlpogeThin/Formalism/ZeroFreeRegion/Statement.lean](../../../RHLean/Analysis/AlpogeThin/Formalism/ZeroFreeRegion/Statement.lean) | Reconstructed same-host thin-source dependency |
+| 1 | [RHLean/Analysis/AlpogeThin/Formalism/ZeroFreeRegion/ZetaLogDerivativeBounds/AbsZetaPrimeSumErrorLeOfLarge.lean](../../../RHLean/Analysis/AlpogeThin/Formalism/ZeroFreeRegion/ZetaLogDerivativeBounds/AbsZetaPrimeSumErrorLeOfLarge.lean) | Reconstructed same-host thin-source dependency |

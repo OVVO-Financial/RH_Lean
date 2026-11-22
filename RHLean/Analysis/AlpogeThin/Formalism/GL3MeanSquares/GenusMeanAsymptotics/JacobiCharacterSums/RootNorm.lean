@@ -150,7 +150,7 @@ theorem avgLimit {n : ℕ} (y : Fin n → ℂ) (hy : ∀ i, ‖y i‖ ≠ 1) (j 
     exact le_of_mul_le_mul_left h2 hNpos
   have hlim : Tendsto (fun N : ℕ => ∑ i, y i ^ N / (1 - y i ^ N)) atTop
       (𝓝 (∑ i, if 1 < ‖y i‖ then (-1 : ℂ) else 0)) :=
-    tendsto_finset_sum _ (fun i _ => ratioLim (y i) (hy i))
+    tendsto_finsetSum _ (fun i _ => ratioLim (y i) (hy i))
   have hle : ‖∑ i, if 1 < ‖y i‖ then (-1 : ℂ) else 0‖ ≤ K := by
     apply le_of_tendsto hlim.norm
     rw [Filter.eventually_atTop]
@@ -162,5 +162,7 @@ theorem avgLimit {n : ℕ} (y : Fin n → ℂ) (hy : ∀ i, ‖y i‖ ≠ 1) (j 
   exact hle
 
 end Formalism.HermitianLattices.Ext.PrimesInProgressions.T2
+
+end
 
 end RHLean.Analysis.AlpogeThin

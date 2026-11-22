@@ -173,4 +173,6 @@ theorem final_step (a : ℕ) (E G : ℝ) (hE : 0 < E) (hG : 0 < G) (j : ℕ)
 
 end Formalism.HermitianLattices.Ext.PrimesInProgressions.TuranPowerSumBounds
 
+end
+
 end RHLean.Analysis.AlpogeThin

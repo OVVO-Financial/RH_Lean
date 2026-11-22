@@ -69,4 +69,6 @@ lemma lamF_anti {σ τ : ℝ} (hσ : 1 < σ) (h : σ ≤ τ) : lamF τ ≤ lamF 
 
 end Formalism.ZF
 
+end
+
 end RHLean.Analysis.AlpogeThin

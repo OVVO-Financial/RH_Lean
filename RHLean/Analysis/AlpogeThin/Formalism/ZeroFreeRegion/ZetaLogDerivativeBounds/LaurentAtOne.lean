@@ -108,4 +108,6 @@ theorem laurentExpansionAtOne : LaurentAtOne := by
 
 end Formalism.ZF
 
+end
+
 end RHLean.Analysis.AlpogeThin

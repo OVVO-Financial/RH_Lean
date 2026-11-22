@@ -54,4 +54,6 @@ theorem tail_shift_identity {N : ℕ} [NeZero N] (χ : DirichletCharacter ℂ N)
 
 end Formalism.HermitianLattices.Ext.BoxTail
 
+end
+
 end RHLean.Analysis.AlpogeThin

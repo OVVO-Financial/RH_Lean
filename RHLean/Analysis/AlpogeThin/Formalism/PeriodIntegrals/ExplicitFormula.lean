@@ -45,4 +45,6 @@ def ExplicitFormula : Prop := ∃ C : ℝ, 0 < C ∧ ExplicitFormulaWith C
 
 end PI
 
+end
+
 end RHLean.Analysis.AlpogeThin

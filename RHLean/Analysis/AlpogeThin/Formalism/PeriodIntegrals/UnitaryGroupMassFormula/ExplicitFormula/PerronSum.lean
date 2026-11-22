@@ -154,4 +154,6 @@ theorem rpow_cLine {u : ℝ} (hu : 2 ≤ u) : u ^ cLine u = Real.exp 1 * u := by
 
 end PI.EF
 
+end
+
 end RHLean.Analysis.AlpogeThin

@@ -258,4 +258,6 @@ theorem rectangle_contour_shift_character : RectShiftChi := by
 
 end Formalism.ZeroFreeDirichlet
 
+end
+
 end RHLean.Analysis.AlpogeThin

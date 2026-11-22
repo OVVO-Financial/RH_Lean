@@ -29,6 +29,7 @@ section
 variable {K V ι : Type} [Field K] [NumberField K] [StarRing K] [IsTotallyComplex K] [AddCommGroup V]
   [Module K V] [Module (𝓞 K) V] [IsScalarTower (𝓞 K) K V] [Fintype ι] [DecidableEq ι]
 
+omit [NumberField K] [StarRing K] [IsTotallyComplex K] [Module (𝓞 K) V] [IsScalarTower (𝓞 K) K V] in
 theorem majAt_self_re (b : Basis ι K V) (X : InfinitePlace K → Matrix ι ι ℂ) (v : InfinitePlace K)
     (x : V) : (RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.majAt b X v x x).re = RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.normAt b X v x ^ 2 := by
   unfold RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.majAt RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.normAt RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.cnorm
@@ -36,8 +37,9 @@ theorem majAt_self_re (b : Basis ι K V) (X : InfinitePlace K → Matrix ι ι �
   apply Finset.sum_congr rfl
   intro i _
   rw [Complex.sq_norm, Complex.normSq_apply]
-  simp [Complex.mul_re] <;> ring
+  simp [Complex.mul_re]
 
+omit [NumberField K] [StarRing K] [IsTotallyComplex K] in
 theorem rkK_span_singleton (x : V) (hx : x ≠ 0) :
     rkK (K := K) (Submodule.span (𝓞 K) ({x} : Set V)) = 1 := by
   unfold rkK
@@ -119,7 +121,7 @@ theorem muMin_line (b : Basis ι K V) (X : InfinitePlace K → Matrix ι ι ℂ)
         (Submodule.span (𝓞 K) ({x} : Set V)).subtype
       rwa [Submodule.map_comap_subtype, inf_eq_right.mpr hN] at h1
     obtain ⟨-, hrkN, -⟩ := RHLean.Geometry.AlpogeAllPlace.Formalism.HN.place_lattice_structure K V ι b X hX N hNFG
-    haveI : FiniteDimensional K V := Module.Finite.of_basis b
+    have : FiniteDimensional K V := Module.Finite.of_basis b
     have hkN : rkK (K := K) N = 1 := by
       have hle : Submodule.span K (N : Set V) ≤ Submodule.span K ({x} : Set V) := by
         rw [Submodule.span_le]

@@ -1,3 +1,6 @@
+import RHLean.Geometry.NativeGradedSectionRegularity
+import RHLean.Analysis.AlpogeThin.NativeCftThin
+import RHLean.Geometry.NativeJetRankBudget
 import RHLean.Analysis.AlpogeThin.NativePrincipalThin
 import RHLean.Geometry.NativeRegularCharacterSlopeDescent
 import RHLean.Analysis.AlpogeThin
@@ -158,3 +161,33 @@ info: 'RHLean.Analysis.AlpogeThin.nativePrincipalSelectedPairThin' depends on ax
 -/
 #guard_msgs in
 #print axioms RHLean.Analysis.AlpogeThin.nativePrincipalSelectedPairThin
+
+/--
+info: 'RHLean.Geometry.NativeJetRank.exists_jet_order' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Geometry.NativeJetRank.exists_jet_order
+
+/--
+info: 'RHLean.Geometry.NativeJetRank.rank_growth_of_component_jets' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Geometry.NativeJetRank.rank_growth_of_component_jets
+
+/--
+info: 'RHLean.Analysis.AlpogeThin.nativeCftGPsi_eq_nativeResponse' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeThin.nativeCftGPsi_eq_nativeResponse
+
+/--
+info: 'RHLean.Analysis.AlpogeThin.nativeSelectedCftThinReturn' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeThin.nativeSelectedCftThinReturn
+
+/--
+info: 'RHLean.Geometry.nativeGradedSection_groupDet_regular' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Geometry.nativeGradedSection_groupDet_regular

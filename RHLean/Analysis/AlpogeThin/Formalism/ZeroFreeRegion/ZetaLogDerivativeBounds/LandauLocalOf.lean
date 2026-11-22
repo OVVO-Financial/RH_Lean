@@ -199,4 +199,6 @@ theorem localZeroExpansionOfFactorization : LandauLocalOf := by
 
 end Formalism.ZF
 
+end
+
 end RHLean.Analysis.AlpogeThin

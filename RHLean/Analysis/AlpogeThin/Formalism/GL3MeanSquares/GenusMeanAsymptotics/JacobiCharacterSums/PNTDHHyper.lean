@@ -208,4 +208,6 @@ theorem deuring_heilbronn_hypergeometric : DHHyper := by
 
 end Formalism.HermitianLattices.Ext.PrimesInProgressions
 
+end
+
 end RHLean.Analysis.AlpogeThin

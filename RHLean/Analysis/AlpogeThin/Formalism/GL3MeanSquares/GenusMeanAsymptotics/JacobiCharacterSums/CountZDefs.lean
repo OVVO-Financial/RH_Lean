@@ -97,4 +97,6 @@ def FinalOf : Prop := CoeffSq → Detect → BlockCount → Num → ZeroDensityB
 
 end Formalism.HermitianLattices.Ext.PrimitiveCharacterCasts.ZD
 
+end
+
 end RHLean.Analysis.AlpogeThin

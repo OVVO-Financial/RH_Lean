@@ -101,4 +101,6 @@ theorem product_lfunction_growth_bound : BqGrowth := by
 
 end Formalism.ZeroFreeDirichlet
 
+end
+
 end RHLean.Analysis.AlpogeThin

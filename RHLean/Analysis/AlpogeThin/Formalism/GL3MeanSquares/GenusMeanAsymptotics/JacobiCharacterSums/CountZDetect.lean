@@ -181,4 +181,6 @@ theorem zero_detection : DetectOf := by
 
 end Formalism.HermitianLattices.Ext.PrimitiveCharacterCasts.ZD
 
+end
+
 end RHLean.Analysis.AlpogeThin

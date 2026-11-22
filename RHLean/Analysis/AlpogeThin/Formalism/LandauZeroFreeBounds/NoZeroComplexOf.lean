@@ -124,4 +124,6 @@ def ZFRDirichletOf : Prop :=
 
 end Formalism.ZeroFreeDirichlet
 
+end
+
 end RHLean.Analysis.AlpogeThin

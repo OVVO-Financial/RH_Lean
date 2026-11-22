@@ -24,18 +24,33 @@
 
 | Score | File | Title |
 | --- | --- | --- |
+| 20 | [RHLean/Analysis/AlpogeThin/Formalism/GL3MeanSquares/GenusMeanAsymptotics/JacobiCharacterSums/MSqDiagA.lean](../../../RHLean/Analysis/AlpogeThin/Formalism/GL3MeanSquares/GenusMeanAsymptotics/JacobiCharacterSums/MSqDiagA.lean) | Reconstructed same-host thin-source dependency |
+| 14 | [RHLean/Analysis/AlpogeThin/Development/AutomorphicArithmetic/MeanSquareBounds/GIntegral.lean](../../../RHLean/Analysis/AlpogeThin/Development/AutomorphicArithmetic/MeanSquareBounds/GIntegral.lean) | Reconstructed same-host thin-source dependency |
 | 14 | [research/PNT_FIRST_LAMBDA_HYPERBOLA_ANCHOR_20261018.lean](../../../research/PNT_FIRST_LAMBDA_HYPERBOLA_ANCHOR_20261018.lean) | PNT-first seam: exact Λ-normalized compensation, historical density model, |
+| 12 | [RHLean/Analysis/AlpogeThin/Development/AutomorphicArithmetic/DedekindLFunctions/LandauTheorems/mertensUpper.lean](../../../RHLean/Analysis/AlpogeThin/Development/AutomorphicArithmetic/DedekindLFunctions/LandauTheorems/mertensUpper.lean) | Reconstructed same-host thin-source dependency |
 | 10 | [docs/COORDINATE_ATLAS.md](../../../docs/COORDINATE_ATLAS.md) | Coordinate atlas: one phenomenon, many coordinates |
+| 8 | [RHLean/Analysis/AlpogeNativeSharpASKBalance.lean](../../../RHLean/Analysis/AlpogeNativeSharpASKBalance.lean) | Alpoge's ASK sharp cutoff rebuilt from NATIVE RHLean von Mangoldt |
 | 8 | [RHLean/Analysis/NativePNTErdosContraction.lean](../../../RHLean/Analysis/NativePNTErdosContraction.lean) | The generic Erdos cubic contraction |
+| 7 | [RHLean/Analysis/AlpogeThin/Development/AutomorphicArithmetic/MeanSquareBounds/kappaC.lean](../../../RHLean/Analysis/AlpogeThin/Development/AutomorphicArithmetic/MeanSquareBounds/kappaC.lean) | Reconstructed same-host thin-source dependency |
 | 7 | [RHLean/Analysis/LogWeightedPrimeExtensionEndpoint.lean](../../../RHLean/Analysis/LogWeightedPrimeExtensionEndpoint.lean) | Endpoint form of the log-weighted child-fiber identity |
 | 7 | [RHLean/Analysis/NativePNTErrorMass.lean](../../../RHLean/Analysis/NativePNTErrorMass.lean) | Bounded reciprocal mass of the Chebyshev error |
+| 6 | [RHLean/Analysis/AlpogeThin/Development/AutomorphicArithmetic/MeanSquareBounds/Kappa4Loglog.lean](../../../RHLean/Analysis/AlpogeThin/Development/AutomorphicArithmetic/MeanSquareBounds/Kappa4Loglog.lean) | Reconstructed same-host thin-source dependency |
+| 6 | [RHLean/Analysis/AlpogeThin/Development/AutomorphicArithmetic/MeanSquareBounds/SumCNLe.lean](../../../RHLean/Analysis/AlpogeThin/Development/AutomorphicArithmetic/MeanSquareBounds/SumCNLe.lean) | Reconstructed same-host thin-source dependency |
+| 6 | [RHLean/Analysis/AlpogeThin/Formalism/LandauZeroFreeBounds/ExceptionalZeroBounds/ZetaLogDerivLandauBound.lean](../../../RHLean/Analysis/AlpogeThin/Formalism/LandauZeroFreeBounds/ExceptionalZeroBounds/ZetaLogDerivLandauBound.lean) | Reconstructed same-host thin-source dependency |
+| 6 | [RHLean/Analysis/AlpogeThin/Formalism/PeriodIntegrals/UnitaryGroupMassFormula/ExplicitFormula/PerronSumBound.lean](../../../RHLean/Analysis/AlpogeThin/Formalism/PeriodIntegrals/UnitaryGroupMassFormula/ExplicitFormula/PerronSumBound.lean) | Reconstructed same-host thin-source dependency |
+| 6 | [RHLean/Analysis/AlpogeThin/Formalism/ZetaNonvanishing/MellinSgen.lean](../../../RHLean/Analysis/AlpogeThin/Formalism/ZetaNonvanishing/MellinSgen.lean) | Reconstructed same-host thin-source dependency |
 | 6 | [RHLean/Analysis/NativePNTSummatorySelberg.lean](../../../RHLean/Analysis/NativePNTSummatorySelberg.lean) | Summatory Selberg interface |
+| 5 | [RHLean/Analysis/AlpogeLandau/LandauTheorems/mellinGchiOfNeOne.lean](../../../RHLean/Analysis/AlpogeLandau/LandauTheorems/mellinGchiOfNeOne.lean) | Reconstructed analytic window dependency |
+| 5 | [RHLean/Analysis/AlpogeMobiusLogLift.lean](../../../RHLean/Analysis/AlpogeMobiusLogLift.lean) | Alpoge-to-finite-C exact signed von Mangoldt / Mobius source bridge |
+| 4 | [RHLean/Analysis/AlpogeThin/Formalism/LandauZeroFreeBounds/ExceptionalZeroBounds/SiegelWalfiszOf.lean](../../../RHLean/Analysis/AlpogeThin/Formalism/LandauZeroFreeBounds/ExceptionalZeroBounds/SiegelWalfiszOf.lean) | Reconstructed same-host thin-source dependency |
+| 4 | [RHLean/Analysis/AlpogeThin/Formalism/PeriodIntegrals/UnitaryGroupMassFormula/ExplicitFormula/GoodHeightExists.lean](../../../RHLean/Analysis/AlpogeThin/Formalism/PeriodIntegrals/UnitaryGroupMassFormula/ExplicitFormula/GoodHeightExists.lean) | Reconstructed same-host thin-source dependency |
+| 4 | [RHLean/Analysis/AlpogeThin/Formalism/PeriodIntegrals/UnitaryGroupMassFormula/ExplicitFormula/PerronTruncOf.lean](../../../RHLean/Analysis/AlpogeThin/Formalism/PeriodIntegrals/UnitaryGroupMassFormula/ExplicitFormula/PerronTruncOf.lean) | Reconstructed same-host thin-source dependency |
+| 4 | [RHLean/Analysis/AlpogeThin/Formalism/ZeroFreeRegion/ZetaLogDerivativeBounds/AbsZetaPrimeSumErrorLeOfOneLe.lean](../../../RHLean/Analysis/AlpogeThin/Formalism/ZeroFreeRegion/ZetaLogDerivativeBounds/AbsZetaPrimeSumErrorLeOfOneLe.lean) | Reconstructed same-host thin-source dependency |
 | 4 | [RHLean/Analysis/NativePNTSignedSecondSelbergReciprocal.lean](../../../RHLean/Analysis/NativePNTSignedSecondSelbergReciprocal.lean) | Reciprocal cancellation in the signed second Selberg kernel |
-| 3 | [RHLean/Analysis/NativePNTSelberg.lean](../../../RHLean/Analysis/NativePNTSelberg.lean) | Native Selberg preparation |
-| 2 | [RHLean/Analysis/NativePNTEvolvingTailObstruction.lean](../../../RHLean/Analysis/NativePNTEvolvingTailObstruction.lean) | Structural obstruction for the absolute evolving-tail state |
-| 2 | [RHLean/Analysis/NativePNTMertens.lean](../../../RHLean/Analysis/NativePNTMertens.lean) | Architecture-native Mertens layer for PNT |
-| 2 | [RHLean/Analysis/NativePNTSignedLogSquareSquareStage.lean](../../../RHLean/Analysis/NativePNTSignedLogSquareSquareStage.lean) | Square-stage realization of the signed log-square cells |
-| 2 | [RHLean/Analysis/NativePNTSignedSecondSelberg.lean](../../../RHLean/Analysis/NativePNTSignedSecondSelberg.lean) | Exact signed second Selberg recurrence |
-| 2 | [RHLean/Analysis/NativePNTSquarePrefixCompensated.lean](../../../RHLean/Analysis/NativePNTSquarePrefixCompensated.lean) | Fully rederived compensated Selberg recurrence |
-| 2 | [RHLean/Analysis/NativePNTSquarePrefixMobiusError.lean](../../../RHLean/Analysis/NativePNTSquarePrefixMobiusError.lean) | Möbius-native Selberg error mass on square prefixes |
-| 2 | [research/VF_MID_925_FACTOR_THETA_SPECTRAL_WELD.lean](../../../research/VF_MID_925_FACTOR_THETA_SPECTRAL_WELD.lean) | PR #925: actual factor-range theta forcing and the spectral input boundary |
+| 4 | [research/ALPOGE_GZ_PRIME_DELTA_ARITHMETIC_20261122.lean](../../../research/ALPOGE_GZ_PRIME_DELTA_ARITHMETIC_20261122.lean) | Alpoge Gz as the EXACT weighted delta(t) history in native arithmetic |
+| 4 | [research/MASULLO_FINITE_TRACE_GHOST_20261120.md](../../../research/MASULLO_FINITE_TRACE_GHOST_20261120.md) | Masullo x RH_Lean: exact high-prime restoration and finite-trace bypass |
+| 4 | [research/NYMAN_HIGH_COEFFICIENT_INVARIANT_20261104.lean](../../../research/NYMAN_HIGH_COEFFICIENT_INVARIANT_20261104.lean) | Finite arithmetic core of Coordinator C29, accepted with scope in |
+| 4 | [research/OFF_CRITICAL_ZERO_EULER_LOGDERIV_20261029.lean](../../../research/OFF_CRITICAL_ZERO_EULER_LOGDERIV_20261029.lean) | Actual Mobius HIGH: reciprocal Euler identity and log derivative algebra |
+| 3 | [RHLean/Analysis/AlpogeGzErdosReciprocalHistory.lean](../../../RHLean/Analysis/AlpogeGzErdosReciprocalHistory.lean) | Alpöge Gz is exactly RH_Lean's centered signed Erdős reciprocal history |
+| 3 | [RHLean/Analysis/AlpogeLandau/LandauTheorems/GchiGrowth.lean](../../../RHLean/Analysis/AlpogeLandau/LandauTheorems/GchiGrowth.lean) | Reconstructed analytic window dependency |
+| 3 | [RHLean/Analysis/AlpogeLandau/LandauTheorems/mellinGchiModOne.lean](../../../RHLean/Analysis/AlpogeLandau/LandauTheorems/mellinGchiModOne.lean) | Reconstructed analytic window dependency |

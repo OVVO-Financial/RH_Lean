@@ -324,4 +324,6 @@ theorem perron_formula_character : PerronChi := by
 
 end Formalism.ZeroFreeDirichlet
 
+end
+
 end RHLean.Analysis.AlpogeThin

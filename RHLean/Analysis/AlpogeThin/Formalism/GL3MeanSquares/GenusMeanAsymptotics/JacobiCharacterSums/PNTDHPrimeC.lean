@@ -146,4 +146,6 @@ lemma dhpr_hyper_simp (A CH x : ℝ) (v : ℕ) :
 
 end Formalism.HermitianLattices.Ext.PrimesInProgressions
 
+end
+
 end RHLean.Analysis.AlpogeThin

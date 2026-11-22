@@ -270,4 +270,6 @@ lemma norm_G_sub_partial_le {B : ℝ} (hB : ∀ M, ‖Ap f M‖ ≤ B) {s : ℂ}
 
 end Formalism.HermitianLattices.Ext.PrimesInProgressions.Dens.EtaPartialSums
 
+end
+
 end RHLean.Analysis.AlpogeThin

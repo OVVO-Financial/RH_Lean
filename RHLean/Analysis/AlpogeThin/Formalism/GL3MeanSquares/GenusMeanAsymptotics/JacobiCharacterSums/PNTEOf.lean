@@ -214,4 +214,6 @@ theorem eOf_char_sq (M : ℕ) [NeZero M] (χ₁ : DirichletCharacter ℂ M) (β�
 
 end Formalism.HermitianLattices.Ext.PrimesInProgressions
 
+end
+
 end RHLean.Analysis.AlpogeThin

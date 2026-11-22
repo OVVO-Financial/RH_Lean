@@ -208,4 +208,6 @@ theorem realCharZeroSmallHeightOfBounds : RealSmallTOf := by
 
 end Formalism.ZeroFreeDirichlet
 
+end
+
 end RHLean.Analysis.AlpogeThin

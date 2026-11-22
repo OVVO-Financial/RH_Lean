@@ -212,4 +212,6 @@ theorem zero_sum_bound_lossy : ZeroSumOfB := by
 
 end Formalism.HermitianLattices.Ext.PrimesInProgressions
 
+end
+
 end RHLean.Analysis.AlpogeThin

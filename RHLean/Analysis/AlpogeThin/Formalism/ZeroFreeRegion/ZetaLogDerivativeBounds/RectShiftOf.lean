@@ -107,4 +107,6 @@ theorem rectangleShiftOfResidue : RectShiftOf := by
 
 end Formalism.ZF
 
+end
+
 end RHLean.Analysis.AlpogeThin

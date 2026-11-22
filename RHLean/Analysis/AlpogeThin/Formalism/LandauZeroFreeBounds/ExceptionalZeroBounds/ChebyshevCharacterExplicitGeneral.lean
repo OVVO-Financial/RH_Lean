@@ -231,4 +231,6 @@ theorem chebyshev_character_explicit_general (hP : PerronChi) (hRS : RectShiftCh
 
 end Formalism.ZeroFreeDirichlet
 
+end
+
 end RHLean.Analysis.AlpogeThin

@@ -290,4 +290,6 @@ theorem tc_log_bound (Q : ℝ) (hQ : 2 ≤ Q) : Real.log (1 + 800 * (Q / 2)) ≤
 
 end Formalism.HermitianLattices.Ext.BoxTail
 
+end
+
 end RHLean.Analysis.AlpogeThin

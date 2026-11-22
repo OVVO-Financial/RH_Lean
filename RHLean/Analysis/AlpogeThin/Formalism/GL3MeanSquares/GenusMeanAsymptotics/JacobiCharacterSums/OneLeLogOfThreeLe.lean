@@ -149,4 +149,6 @@ theorem rpow_pos_exponent_bound (q U : ℕ) (x σ : ℝ) (hx : 0 < x) (hqx : (q 
 
 end Formalism.HermitianLattices.Ext.PrimesInProgressions.Dens
 
+end
+
 end RHLean.Analysis.AlpogeThin

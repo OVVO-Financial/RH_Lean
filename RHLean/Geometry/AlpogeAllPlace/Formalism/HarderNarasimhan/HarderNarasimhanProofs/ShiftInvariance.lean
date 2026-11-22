@@ -90,7 +90,7 @@ theorem shiftInv_count (c : ℝ) (k m : ℕ) :
   | succ m ih =>
     rw [Finset.sum_range_succ, ih]
     by_cases h : m < k
-    · rw [if_pos h, min_eq_right h.le, min_eq_right (show m + 1 ≤ k by omega)]
+    · rw [ite_eq_left h, min_eq_right h.le, min_eq_right (show m + 1 ≤ k by omega)]
       push_cast
       ring
     · rw [ite_eq_right h]

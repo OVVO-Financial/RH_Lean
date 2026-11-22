@@ -180,4 +180,6 @@ theorem deuring_heilbronn_prime_sum : DHPrimeOf := by
 
 end Formalism.HermitianLattices.Ext.PrimesInProgressions
 
+end
+
 end RHLean.Analysis.AlpogeThin

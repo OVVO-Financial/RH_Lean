@@ -74,4 +74,6 @@ def RR (c : ℕ → ℝ) (m₀ N : ℕ) : ℝ :=
 
 end Formalism.HermitianLattices.Ext.LogarithmicIntegralBounds
 
+end
+
 end RHLean.Analysis.AlpogeThin

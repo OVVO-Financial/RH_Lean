@@ -202,4 +202,6 @@ theorem siegel_product_character_inequality (hP : ProdCharExists) (hS : SameChar
 
 end Formalism.ZeroFreeDirichlet
 
+end
+
 end RHLean.Analysis.AlpogeThin

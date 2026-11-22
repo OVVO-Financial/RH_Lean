@@ -42,4 +42,6 @@ theorem trivial_log_deriv_bound : TrivLogDeriv := by
 
 end Formalism.ZeroFreeDirichlet
 
+end
+
 end RHLean.Analysis.AlpogeThin

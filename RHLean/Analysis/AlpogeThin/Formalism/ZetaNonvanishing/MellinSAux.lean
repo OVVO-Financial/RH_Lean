@@ -173,4 +173,6 @@ lemma integrable_tsum_of_nonneg {α : Type*} [MeasurableSpace α] {μ : Measure 
 
 end Formalism
 
+end
+
 end RHLean.Analysis.AlpogeThin

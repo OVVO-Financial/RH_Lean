@@ -120,4 +120,6 @@ theorem box_tail_bound : ∀ ε : ℝ, 0 < ε → ε ≤ 1 → ∃ C x₀ : ℝ,
 
 end Formalism.HermitianLattices.Ext.BoxTail
 
+end
+
 end RHLean.Analysis.AlpogeThin

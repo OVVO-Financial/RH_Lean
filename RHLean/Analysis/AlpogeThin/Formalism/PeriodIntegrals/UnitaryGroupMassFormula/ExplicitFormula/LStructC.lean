@@ -213,4 +213,6 @@ theorem regularPart : RegularPart := by
 
 end PI.EF
 
+end
+
 end RHLean.Analysis.AlpogeThin

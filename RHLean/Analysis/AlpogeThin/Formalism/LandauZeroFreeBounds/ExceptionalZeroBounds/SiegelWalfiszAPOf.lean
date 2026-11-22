@@ -59,4 +59,6 @@ lemma card_dirichletCharacter_eq_totient (q : ℕ) [NeZero q] :
 
 end Formalism.ZeroFreeDirichlet
 
+end
+
 end RHLean.Analysis.AlpogeThin

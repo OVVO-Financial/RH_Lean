@@ -30,4 +30,6 @@ theorem localZeroExpansionWithMultiplicity : LandauLocal2 := by
 
 end Formalism.ZeroFreeDirichlet
 
+end
+
 end RHLean.Analysis.AlpogeThin

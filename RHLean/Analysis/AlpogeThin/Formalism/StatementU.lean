@@ -64,4 +64,6 @@ def RiemannSumApprox : Prop :=
 
 end Formalism
 
+end
+
 end RHLean.Analysis.AlpogeThin

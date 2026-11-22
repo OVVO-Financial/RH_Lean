@@ -33,6 +33,7 @@ def cE : EuclideanSpace ℝ (InfinitePlace K × ι × Fin 2) →ₗ[ℝ]
       (if p.2.2 = 0 then (1 : ℝ) else -1) • LinearMap.proj p)) ∘ₗ
     (WithLp.linearEquiv 2 ℝ (InfinitePlace K × ι × Fin 2 → ℝ)).toLinearMap
 
+omit [NumberField K] [Fintype ι] [DecidableEq ι] in
 theorem cE_apply (w : EuclideanSpace ℝ (InfinitePlace K × ι × Fin 2))
     (p : InfinitePlace K × ι × Fin 2) :
     cE w p = (if p.2.2 = 0 then (1 : ℝ) else -1) * w p := by
@@ -104,11 +105,13 @@ section Assumptions
 variable {K V ι : Type} [Field K] [NumberField K] [StarRing K] [AddCommGroup V] [Module K V]
   [Module (𝓞 K) V] [IsScalarTower (𝓞 K) K V] [Fintype ι] [DecidableEq ι]
 
+omit [StarRing K] in
 theorem cE_cE (w : EuclideanSpace ℝ (InfinitePlace K × ι × Fin 2)) : cE (cE w) = w := by
   ext p
   rw [cE_apply, cE_apply]
   split_ifs <;> ring
 
+omit [StarRing K] in
 theorem inner_cE (w w' : EuclideanSpace ℝ (InfinitePlace K × ι × Fin 2)) :
     inner ℝ (cE w) (cE w') = inner ℝ w w' := by
   rw [PiLp.inner_apply, PiLp.inner_apply]
@@ -116,6 +119,7 @@ theorem inner_cE (w w' : EuclideanSpace ℝ (InfinitePlace K × ι × Fin 2)) :
   simp only [cE_apply, RCLike.inner_apply, conj_trivial]
   split_ifs <;> ring
 
+omit [NumberField K] [StarRing K] [Module (𝓞 K) V] [IsScalarTower (𝓞 K) K V] in
 theorem ident_fcoord_dual (b : Basis ι K V) (X : InfinitePlace K → Matrix ι ι ℂ)
     (hX : ∀ v, IsUnit (X v).det) (v : InfinitePlace K) (f : Module.Dual K V) :
     RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.fcoord b.dualBasis (dualFrame X) v f =
@@ -149,9 +153,10 @@ theorem inner_realize_alt [IsTotallyComplex K] (b : Basis ι K V) (X : InfiniteP
   refine Finset.sum_congr rfl fun v _ => ?_
   rw [← ident_sum_fcoord b X hX v f x, Complex.re_sum, Finset.mul_sum]
   refine Finset.sum_congr rfl fun i _ => ?_
-  simp only [Complex.mul_re, ite_true, show ¬ ((1 : Fin 2) = 0) from by decide, if_false]
+  simp only [Complex.mul_re, ite_true, show ¬ ((1 : Fin 2) = 0) from by decide, ite_false]
   ring
 
+omit [NumberField K] [StarRing K] [Module K V] [IsScalarTower (𝓞 K) K V] in
 theorem ident_mem_zl {E : Type*} [NormedAddCommGroup E] [InnerProductSpace ℝ E] (ρ : V →+ E)
     (N : Submodule (𝓞 K) V) (w : E) : w ∈ zl ρ N ↔ ∃ x ∈ N, ρ x = w :=
   Iff.rfl
@@ -516,6 +521,7 @@ variable {K W : Type} [Field K] [NumberField K]
     [AddCommGroup W] [Module K W] [Module (𝓞 K) W] [IsScalarTower (𝓞 K) K W]
     [FiniteDimensional K W]
 
+omit [NumberField K] [FiniteDimensional K W] in
 theorem twist_span_smul (X : Submodule (𝓞 K) W) (𝔞 : Ideal (𝓞 K)) (h : 𝔞 ≠ ⊥) :
     Submodule.span K ((𝔞 • X : Submodule (𝓞 K) W) : Set W) = Submodule.span K (X : Set W) := by
   apply le_antisymm
@@ -549,8 +555,8 @@ theorem twist_prime_le (X : Submodule (𝓞 K) W) (hX : X.FG) (𝔭 : Ideal (�
   have : Finite (X ⧸ (𝔭 • (⊤ : Submodule (𝓞 K) X))) := Module.finite_of_finite (𝓞 K ⧸ 𝔭)
   have hcard : Nat.card (X ⧸ (𝔭 • (⊤ : Submodule (𝓞 K) X))) =
       Nat.card (𝓞 K ⧸ 𝔭) ^ finrank (𝓞 K ⧸ 𝔭) (X ⧸ (𝔭 • (⊤ : Submodule (𝓞 K) X))) := by
-    haveI := Fintype.ofFinite (X ⧸ (𝔭 • (⊤ : Submodule (𝓞 K) X)))
-    haveI := Fintype.ofFinite (𝓞 K ⧸ 𝔭)
+    have := Fintype.ofFinite (X ⧸ (𝔭 • (⊤ : Submodule (𝓞 K) X)))
+    have := Fintype.ofFinite (𝓞 K ⧸ 𝔭)
     rw [Nat.card_eq_fintype_card, Nat.card_eq_fintype_card]
     exact Module.card_eq_pow_finrank
   have hN : Nat.card (𝓞 K ⧸ 𝔭) = Ideal.absNorm 𝔭 := by
@@ -567,8 +573,34 @@ theorem twist_prime_le (X : Submodule (𝓞 K) W) (hX : X.FG) (𝔭 : Ideal (�
   have hRS : RingHom.ker (algebraMap (𝓞 K) (𝓞 K ⧸ 𝔭)) ≠ ⊤ := by
     rw [Ideal.Quotient.algebraMap_eq, Ideal.mk_ker]
     exact h𝔭.ne_top
-  have hli2 := Ideal.FinrankQuotientMap.linearIndependent_of_nontrivial K hRS X.subtype
-    X.injective_subtype (Submodule.mkQ _) hli
+  -- Clear a hypothetical K-linear dependence by the Dedekind-domain
+  -- denominator theorem, retaining a coefficient outside the residue kernel.
+  -- This is the argument behind Mathlib's former
+  -- `FinrankQuotientMap.linearIndependent_of_nontrivial` API.
+  have hli2 : LinearIndependent K (X.subtype ∘ b') := by
+    classical
+    contrapose hli with hb
+    simp only [linearIndependent_iff', not_forall] at hb ⊢
+    obtain ⟨s, g, heq, j', hj's, hj'g⟩ := hb
+    use s
+    obtain ⟨a, hag, j, hjs, hgI⟩ :=
+      Ideal.exist_integer_multiples_notMem hRS s g hj's hj'g
+    choose g'' hg'' using hag
+    let g' i := if h : i ∈ s then g'' i h else 0
+    have hg' : ∀ i ∈ s, algebraMap (𝓞 K) K (g' i) = a * g i := by
+      intro i hi
+      exact (congr_arg _ (dite_eq_left hi)).trans (hg'' i hi)
+    have hgI' : algebraMap (𝓞 K) (𝓞 K ⧸ 𝔭) (g' j) ≠ 0 := by
+      simp only [FractionalIdeal.mem_coeIdeal, not_exists, not_and'] at hgI
+      exact hgI _ (hg' j hjs)
+    refine ⟨fun i => algebraMap (𝓞 K) (𝓞 K ⧸ 𝔭) (g' i), ?_, j, hjs, hgI'⟩
+    have heq' : X.subtype (∑ i ∈ s, g' i • b' i) = 0 := by
+      rw [map_sum, ← smul_zero a, ← heq, Finset.smul_sum]
+      refine Finset.sum_congr rfl fun i hi => ?_
+      rw [map_smul, ← IsScalarTower.algebraMap_smul K, hg' i hi, ← smul_assoc,
+        smul_eq_mul, Function.comp_apply]
+    simp only [IsScalarTower.algebraMap_smul, ← map_smul, ← map_sum,
+      (X.subtype.map_eq_zero_iff X.injective_subtype).mp heq', map_zero, (· ∘ ·)]
   let g : Fin _ → Submodule.span K (X : Set W) :=
     fun i => ⟨(b' i : W), Submodule.subset_span (b' i).2⟩
   have hg : LinearIndependent K g := by
@@ -589,7 +621,7 @@ theorem twist_le (𝔟 : Ideal (𝓞 K)) (h𝔟 : 𝔟 ≠ ⊥) : ∀ (X : Submo
   · intro a p ha hp ih _ X hX
     have hpb : p ≠ ⊥ := hp.ne_zero
     have hab : a ≠ ⊥ := ha
-    haveI : p.IsMaximal := (Ideal.isPrime_of_prime hp).isMaximal hpb
+    have : p.IsMaximal := (Ideal.isPrime_of_prime hp).isMaximal hpb
     rw [Submodule.mul_smul, ← AddSubgroup.relIndex_mul_relIndex (p • a • X).toAddSubgroup
       (a • X).toAddSubgroup X.toAddSubgroup ((Submodule.toAddSubgroup_le _ _).2 Submodule.smul_le_right)
       ((Submodule.toAddSubgroup_le _ _).2 Submodule.smul_le_right)]
@@ -601,6 +633,7 @@ theorem twist_le (𝔟 : Ideal (𝓞 K)) (h𝔟 : 𝔟 ≠ ⊥) : ∀ (X : Submo
 
 omit [FiniteDimensional K W] in
 include K in
+omit [Module (𝓞 K) W] [IsScalarTower (𝓞 K) K W] in
 theorem twist_torsionFree : IsAddTorsionFree W := ⟨fun n hn a c h => by
   have h' : (n : K) • a = (n : K) • c := by simpa [Nat.cast_smul_eq_nsmul] using h
   exact smul_right_injective W (Nat.cast_ne_zero.2 hn) h'⟩
@@ -636,6 +669,7 @@ theorem twist_finrank_int [StarRing K] (X : Submodule (𝓞 K) W) (hX : X.FG) :
   rw [h1]
   exact hrk
 
+omit [FiniteDimensional K W] in
 theorem twist_int (X : Submodule (𝓞 K) W) (hX : X.FG) (m : ℕ) (hm : m ≠ 0) :
     ((Ideal.span {(m : 𝓞 K)}) • X).toAddSubgroup.relIndex X.toAddSubgroup =
       m ^ finrank ℤ X := by
@@ -745,11 +779,13 @@ section Main
 variable {K V ι : Type} [Field K] [NumberField K] [StarRing K] [AddCommGroup V] [Module K V]
   [Module (𝓞 K) V] [IsScalarTower (𝓞 K) K V] [Fintype ι] [DecidableEq ι]
 
+omit [NumberField K] [StarRing K] in
 theorem dualFrame_unit (X : InfinitePlace K → Matrix ι ι ℂ) (hX : ∀ v, IsUnit (X v).det) :
     ∀ v, IsUnit (dualFrame X v).det := fun v => by
   unfold dualFrame
   exact Matrix.isUnit_nonsing_inv_det _ (by rw [Matrix.det_transpose]; exact hX v)
 
+omit [NumberField K] [StarRing K] in
 theorem dualFrame_dualFrame (X : InfinitePlace K → Matrix ι ι ℂ) (hX : ∀ v, IsUnit (X v).det) :
     dualFrame (dualFrame X) = X := by
   funext v
@@ -757,18 +793,20 @@ theorem dualFrame_dualFrame (X : InfinitePlace K → Matrix ι ι ℂ) (hX : ∀
   rw [Matrix.transpose_nonsing_inv, Matrix.transpose_transpose, Matrix.nonsing_inv_nonsing_inv _ (hX v)]
 
 omit [Fintype ι] [DecidableEq ι] in
+omit [NumberField K] [StarRing K] [IsScalarTower (𝓞 K) K V] in
 theorem exists_basis_in (A : Submodule (𝓞 K) V) [FiniteDimensional K V]
     (hsp : Submodule.span K (A : Set V) = ⊤) :
     ∃ (n : ℕ) (e : Basis (Fin n) K V), ∀ i, e i ∈ A := by
   obtain ⟨s, hsA, hspan, hli⟩ := exists_linearIndependent K (A : Set V)
   have hfin : s.Finite := hli.setFinite
-  haveI : Fintype s := hfin.fintype
+  have : Fintype s := hfin.fintype
   let e0 : Basis s K V := Basis.mk hli (by rw [Subtype.range_coe, hspan, hsp])
   refine ⟨Fintype.card s, e0.reindex (Fintype.equivFin s), fun i => ?_⟩
   rw [Basis.reindex_apply, Basis.mk_apply]
   exact hsA (Subtype.mem _)
 
 omit [Fintype ι] [DecidableEq ι] in
+omit [StarRing K] in
 theorem exists_int_smul_mem {n : ℕ} (A : Submodule (𝓞 K) V) (e : Basis (Fin n) K V)
     (he : ∀ i, e i ∈ A) (w : V) : ∃ c : ℤ, c ≠ 0 ∧ ((c : K)) • w ∈ A := by
   classical
@@ -789,6 +827,7 @@ theorem exists_int_smul_mem {n : ℕ} (A : Submodule (𝓞 K) V) (e : Basis (Fin
   exact Submodule.smul_mem _ _ (he i)
 
 omit [Fintype ι] [DecidableEq ι] in
+omit [NumberField K] [StarRing K] [IsScalarTower (𝓞 K) K V] in
 theorem dualLat_le_span {n : ℕ} (A : Submodule (𝓞 K) V) (e : Basis (Fin n) K V)
     (he : ∀ i, e i ∈ A) : dualLat A ≤ Submodule.span (𝓞 K) (Set.range e.dualBasis) := by
   intro f hf
@@ -827,9 +866,9 @@ theorem dualLat_span [FiniteDimensional K V] (A : Submodule (𝓞 K) V) (hA : A.
       obtain ⟨a, rfl⟩ := hz
       by_cases h : a = i
       · refine ⟨1, ?_⟩
-        simp [LinearMap.smul_apply, map_smul, Basis.dualBasis_apply_self, h, hyK]
+        simp [LinearMap.smul_apply, map_smul, h, hyK]
       · refine ⟨0, ?_⟩
-        simp [LinearMap.smul_apply, map_smul, Basis.dualBasis_apply_self, h]
+        simp [LinearMap.smul_apply, map_smul, h]
     | zero => exact ⟨0, by simp⟩
     | add z w _ _ hz hw =>
       obtain ⟨a, ha⟩ := hz
@@ -914,12 +953,12 @@ theorem key_lemma (b : Basis ι K V) (X : InfinitePlace K → Matrix ι ι ℂ)
   have hrkAd : rkK A = finrank K V := by unfold rkK; rw [hsp, finrank_top]
   set L := zl ρ A with hL
   set S := zl ρ N with hS
-  haveI hLd : DiscreteTopology L := hlatA.2
+  have hLd : DiscreteTopology L := hlatA.2
   have hSsat : RHLean.Geometry.AlpogeAllPlace.Formalism.F.IsSaturated L S := hN.2
   obtain ⟨hQd, hrkQ, hdegQ⟩ := RHLean.Geometry.AlpogeAllPlace.Formalism.F.degQuot _ L S hLd hSsat
-  haveI := hQd
+  have := hQd
   obtain ⟨hDd, hrkD, hdegD, -⟩ := duality_basic (RHLean.Geometry.AlpogeAllPlace.Formalism.F.quot L S)
-  haveI := hDd
+  have := hDd
   have hSL : S ≤ L := hSsat.1
   have hE1 := dualZ_inf_orth L S hSL
   have hE2 := dualZ_zl_eq b X hX A hA hsp N
@@ -940,7 +979,7 @@ theorem key_lemma (b : Basis ι K V) (X : InfinitePlace K → Matrix ι ι ℂ)
   obtain ⟨hM'd, hrkM', hcovM'⟩ :=
     covol_map_scaled φh ((1 : ℝ) / 2) (by norm_num) hφhi (dualZ (RHLean.Geometry.AlpogeAllPlace.Formalism.F.quot L S))
   rw [← hM'] at hM'd hrkM' hcovM'
-  haveI := hM'd
+  have := hM'd
   have hRRp : R ≤ Rp := by rw [hRdR]; exact Submodule.smul_le_right
   have hzlle : zl ρ' R ≤ M' := shiftInv_zl_mono ρ' hRRp
   have hn0 : 0 < finrank ℚ K := Module.finrank_pos
@@ -1047,9 +1086,9 @@ theorem ht_dual_ann (b : Basis ι K V) (X : InfinitePlace K → Matrix ι ι ℂ
   unfold ht
   rw [hrkAd, ← hdim, rpow_neg_half_nat_pow hD, rpow_neg_half_nat_pow hD, rpow_neg_half_nat_pow hD]
   rw [hn] at hcov
-  push_cast
   exact ht_alg (nPl K) _ _ _ _ _ _ _ (rpow_neg_half_sq_mul hD) hcov
 
+omit [StarRing K] [IsTotallyComplex K] [IsScalarTower (𝓞 K) K V] in
 theorem ht_bot (b : Basis ι K V) (X : InfinitePlace K → Matrix ι ι ℂ) :
     ht b X (⊥ : Submodule (𝓞 K) V) = 1 := by
   have h1 : rkK (⊥ : Submodule (𝓞 K) V) = 0 := by
@@ -1060,6 +1099,7 @@ theorem ht_bot (b : Basis ι K V) (X : InfinitePlace K → Matrix ι ι ℂ) :
   simp
 
 omit [StarRing K] [IsTotallyComplex K] [Fintype ι] [DecidableEq ι] in
+omit [NumberField K] [IsScalarTower (𝓞 K) K V] in
 theorem annO_bot : annO (⊥ : Submodule (𝓞 K) V) = ⊤ := by
   ext f
   simp only [Submodule.mem_top, iff_true]
@@ -1077,6 +1117,7 @@ theorem ht_dual (b : Basis ι K V) (X : InfinitePlace K → Matrix ι ι ℂ)
   have := ht_dual_ann b X hX A hA hsp ⊥ hsat
   rwa [annO_bot, inf_top_eq, ht_bot] at this
 
+omit [IsTotallyComplex K] [DecidableEq ι] in
 theorem rkK_dualLat (b : Basis ι K V) (A : Submodule (𝓞 K) V) (hA : A.FG)
     (hsp : Submodule.span K (A : Set V) = ⊤) : rkK (dualLat A) = finrank K V := by
   have hfd : FiniteDimensional K V := Module.Finite.of_basis b
@@ -1097,6 +1138,7 @@ variable {K V ι : Type} [Field K] [NumberField K] [StarRing K] [IsTotallyComple
   [AddCommGroup V] [Module K V] [Module (𝓞 K) V] [IsScalarTower (𝓞 K) K V] [Fintype ι]
   [DecidableEq ι]
 
+omit [IsTotallyComplex K] [Module (𝓞 K) V] [IsScalarTower (𝓞 K) K V] in
 theorem realize_eval (b : Basis ι K V) (X : InfinitePlace K → Matrix ι ι ℂ)
     (hX : ∀ v, IsUnit (X v).det) (x : V) :
     RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.realize b.dualBasis.dualBasis (dualFrame (dualFrame X)) (Module.Dual.eval K V x) =
@@ -1106,7 +1148,7 @@ theorem realize_eval (b : Basis ι K V) (X : InfinitePlace K → Matrix ι ι �
       RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.vecAt b v x := by
     intro v
     funext i
-    simp [RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.vecAt, Basis.dualBasis_repr, Basis.dualBasis_apply]
+    simp [RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.vecAt, Basis.dualBasis_repr]
   have hf : ∀ v, RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.fcoord b.dualBasis.dualBasis X v (Module.Dual.eval K V x) =
       RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.fcoord b X v x := by
     intro v
@@ -1187,7 +1229,7 @@ theorem dual_dual (b : Basis ι K V) (X : InfinitePlace K → Matrix ι ι ℂ)
     exact mul_left_cancel₀ hc.ne' hhtA2
   obtain ⟨hlat2, hrkz2, -⟩ := place_lattice_structure K V ι b X hX A2 hA2fg
   obtain ⟨hlat1, hrkz1, -⟩ := place_lattice_structure K V ι b X hX A hA
-  haveI := hlat2.2
+  have := hlat2.2
   have hrkeq : RHLean.Geometry.AlpogeAllPlace.Formalism.F.rk (zl (RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.realize b X) A) = RHLean.Geometry.AlpogeAllPlace.Formalism.F.rk (zl (RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.realize b X) A2) := by
     have h : RHLean.Geometry.AlpogeAllPlace.Formalism.HN.rk (RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.realize b X) A = RHLean.Geometry.AlpogeAllPlace.Formalism.HN.rk (RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.realize b X) A2 := by
       rw [hrkz1, hrkz2, hrkA, hrk2]
@@ -1226,6 +1268,7 @@ variable {K V ι : Type} [Field K] [NumberField K] [StarRing K] [IsTotallyComple
   [AddCommGroup V] [Module K V] [Module (𝓞 K) V] [IsScalarTower (𝓞 K) K V] [Fintype ι]
   [DecidableEq ι]
 
+omit [IsTotallyComplex K] in
 theorem sat_exists (b : Basis ι K V) (X : InfinitePlace K → Matrix ι ι ℂ)
     (hX : ∀ v, IsUnit (X v).det) (A : Submodule (𝓞 K) V) (hA : A.FG) (N : Submodule (𝓞 K) V)
     (hNA : N ≤ A) :
@@ -1241,6 +1284,7 @@ theorem sat_exists (b : Basis ι K V) (X : InfinitePlace K → Matrix ι ι ℂ)
   have hSB := saturation_basic_properties (𝓞 K) V _ (RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.realize b X) A hlat
   exact ⟨N', h1, ⟨h2, by rw [h3]; exact s1⟩, hrk, (hSB.2.1 N N' h1 h2).2 hrk.symm⟩
 
+omit [IsTotallyComplex K] in
 theorem sat_of_ann (b : Basis ι K V) (X : InfinitePlace K → Matrix ι ι ℂ)
     (hX : ∀ v, IsUnit (X v).det) (A : Submodule (𝓞 K) V) (hA : A.FG)
     (hsp : Submodule.span K (A : Set V) = ⊤) (R : Submodule (𝓞 K) (Module.Dual K V))
@@ -1374,7 +1418,7 @@ theorem dual_ne_bot (b : Basis ι K V) (A : Submodule (𝓞 K) V) (hA : A.FG)
   have h2 : rkK (⊥ : Submodule (𝓞 K) (Module.Dual K V)) = 0 := by unfold rkK; simp
   have hpos : 0 < finrank K V := by
     obtain ⟨x, -, hx0⟩ := Submodule.exists_mem_ne_zero_of_ne_bot hA0
-    haveI : Nontrivial V := ⟨⟨x, 0, hx0⟩⟩
+    have : Nontrivial V := ⟨⟨x, 0, hx0⟩⟩
     exact Module.finrank_pos
   omega
 

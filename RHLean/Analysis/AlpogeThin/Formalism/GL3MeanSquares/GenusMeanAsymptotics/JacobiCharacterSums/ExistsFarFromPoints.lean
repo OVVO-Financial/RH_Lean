@@ -45,7 +45,7 @@ theorem prodDist_step {ι : Type*} [DecidableEq ι] (t : ι → ℝ) (s S : Fins
   have hfar' : (r / 5) ^ (s \ S).card ≤ ∏ j ∈ s \ S, |ρ - t j| := by
     calc (r / 5) ^ (s \ S).card = ∏ _j ∈ s \ S, (r / 5) := (Finset.prod_const _).symm
       _ ≤ ∏ j ∈ s \ S, |ρ - t j| := by
-        apply Finset.prod_le_prod
+        apply Finset.prod_le_prod₀
         · intro i _
           positivity
         · intro i hi
@@ -139,5 +139,7 @@ theorem prodDist {ι : Type*} [DecidableEq ι] (t : ι → ℝ) (s : Finset ι) 
   exists_far_from_points t s.card s rfl c r hr
 
 end Formalism.HermitianLattices.Ext.PrimesInProgressions.T2
+
+end
 
 end RHLean.Analysis.AlpogeThin

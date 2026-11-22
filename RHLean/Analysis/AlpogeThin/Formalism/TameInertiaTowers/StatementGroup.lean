@@ -87,9 +87,9 @@ def GmRank : Prop :=
   ∀ n : ℕ, 1 ≤ n →
     Nat.card (GalL n ⧸ Subgroup.zpowers (JJ n)) = 2 ^ n ∧
     Nat.card ((GalL n ⧸ Subgroup.zpowers (JJ n)) ⧸
-      (powMonoidHom 2 : (GalL n ⧸ Subgroup.zpowers (JJ n)) →* _).range) ≤ 8 ∧
+      (powMonoidHom (α := GalL n ⧸ Subgroup.zpowers (JJ n)) 2).range) ≤ 8 ∧
     (3 ≤ n → Nat.card ((GalL n ⧸ Subgroup.zpowers (JJ n)) ⧸
-      (powMonoidHom 2 : (GalL n ⧸ Subgroup.zpowers (JJ n)) →* _).range) = 8)
+      (powMonoidHom (α := GalL n ⧸ Subgroup.zpowers (JJ n)) 2).range) = 8)
 
 def GensModel : Prop :=
   ∀ n : ℕ, 2 ≤ n →

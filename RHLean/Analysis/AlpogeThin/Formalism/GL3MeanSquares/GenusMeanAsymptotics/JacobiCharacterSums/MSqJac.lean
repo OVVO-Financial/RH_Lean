@@ -185,4 +185,6 @@ theorem jacobi_class (m₀ a₀ N : ℕ) (h8 : 8 ∣ m₀) (ha : a₀.Coprime m�
 
 end Formalism.HermitianLattices.Ext.LogarithmicIntegralBounds
 
+end
+
 end RHLean.Analysis.AlpogeThin

@@ -178,4 +178,6 @@ theorem lfunction_deriv_near_one : LDerivNearOne := by
 
 end Formalism.ZeroFreeDirichlet
 
+end
+
 end RHLean.Analysis.AlpogeThin

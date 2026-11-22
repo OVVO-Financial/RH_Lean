@@ -40,7 +40,7 @@ end
 
 theorem saturation_basic_properties : SatBasic := by
   intro R V E _ _ _ _ _ _ ρ L hL
-  haveI hLd : DiscreteTopology (zl ρ L) := hL.2
+  have hLd : DiscreteTopology (zl ρ L) := hL.2
   have hdisc : ∀ N : Submodule R V, N ≤ L → DiscreteTopology (zl ρ N) := fun N h =>
     RHLean.Geometry.AlpogeAllPlace.Formalism.F.discreteTopology_of_le (satBasic_zl_mono ρ h)
 
@@ -53,8 +53,8 @@ theorem saturation_basic_properties : SatBasic := by
   · intro N h
     exact ⟨hL.1.mono (fun x hx => h hx), hdisc N h⟩
   · intro A B hAB hBL
-    haveI := hdisc B hBL
-    haveI := hdisc A (hAB.trans hBL)
+    have := hdisc B hBL
+    have := hdisc A (hAB.trans hBL)
     refine ⟨RHLean.Geometry.AlpogeAllPlace.Formalism.F.att_rk_le (satBasic_zl_mono ρ hAB), fun hr => ?_⟩
     have hc := RHLean.Geometry.AlpogeAllPlace.Formalism.F.covolAntiSameRank E (zl ρ A) (zl ρ B) (hdisc B hBL)
       (satBasic_zl_mono ρ hAB) hr
@@ -63,7 +63,7 @@ theorem saturation_basic_properties : SatBasic := by
     have := Real.log_le_log hpB hc
     linarith
   · intro S N hS hSN hNL hr
-    haveI := hdisc N hNL
+    have := hdisc N hNL
     refine le_antisymm (hrev S N hS.1 hNL ?_) hSN
     intro x hx
     obtain ⟨a, ha, hax⟩ :=
@@ -76,7 +76,7 @@ theorem saturation_basic_properties : SatBasic := by
     rw [Int.cast_smul_eq_zsmul]
     exact hax
   · intro N hNL
-    haveI := hdisc N hNL
+    have := hdisc N hNL
     constructor
     · intro h0
       have h0' : RHLean.Geometry.AlpogeAllPlace.Formalism.F.rk (zl ρ N) = 0 := h0
@@ -103,7 +103,7 @@ theorem saturation_basic_properties : SatBasic := by
     simpa using hx
   · exact ⟨le_rfl, le_rfl, fun x hx _ => hx⟩
   · intro S hS
-    haveI := hdisc S hS.1
+    have := hdisc S hS.1
     obtain ⟨_, h2, h3⟩ := RHLean.Geometry.AlpogeAllPlace.Formalism.F.degQuot E (zl ρ L) (zl ρ S) hLd hS.2
     refine ⟨?_, ?_, ?_⟩
     · show _ = RHLean.Geometry.AlpogeAllPlace.Formalism.F.rk (zl ρ L) - RHLean.Geometry.AlpogeAllPlace.Formalism.F.rk (zl ρ S)

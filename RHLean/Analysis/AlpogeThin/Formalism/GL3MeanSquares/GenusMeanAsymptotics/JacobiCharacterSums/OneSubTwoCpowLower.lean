@@ -238,4 +238,6 @@ theorem zero_detection_first : Detect0 := by
 
 end Formalism.HermitianLattices.Ext.PrimesInProgressions.Dens
 
+end
+
 end RHLean.Analysis.AlpogeThin

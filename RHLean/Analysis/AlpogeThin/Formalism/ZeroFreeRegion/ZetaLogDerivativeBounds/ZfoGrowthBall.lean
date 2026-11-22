@@ -125,4 +125,6 @@ lemma zfo_M_bound (hG : ZetaGrowth) (hI : ZetaInvBound) {σ τ T : ℝ} (hσ1 : 
 
 end Formalism.ZF
 
+end
+
 end RHLean.Analysis.AlpogeThin

@@ -55,6 +55,8 @@ variable (rho : Representation R G M)
 
 def H0 : Submodule R M := rho.invariants
 
+omit [TopologicalSpace G] [TopologicalSpace M] [IsTopologicalAddGroup M]
+    [ContinuousConstSMul R M] in
 theorem mem_riemannRochSpace_iff_regularAt_everywhere (m : M) : m ∈ H0 rho ↔ ∀ g, rho g m = m := Iff.rfl
 
 def Z1 : Submodule R (G → M) where
@@ -70,10 +72,14 @@ theorem mem_Z1_iff_cocycle (f : G → M) :
 
 def d0 : M →ₗ[R] (G → M) := LinearMap.pi fun g => rho g - LinearMap.id
 
+omit [TopologicalSpace G] [TopologicalSpace M] [IsTopologicalAddGroup M]
+    [ContinuousConstSMul R M] in
 @[simp] theorem amitsur_d0_apply (m : M) (g : G) : d0 rho m g = rho g m - m := rfl
 
 def B1 : Submodule R (G → M) := LinearMap.range (d0 rho)
 
+omit [TopologicalSpace G] [TopologicalSpace M] [IsTopologicalAddGroup M]
+    [ContinuousConstSMul R M] in
 theorem mem_coboundaries1 (f : G → M) : f ∈ B1 rho ↔ ∃ m, ∀ g, f g = rho g m - m := by
   constructor
   · rintro ⟨m, rfl⟩
@@ -109,6 +115,8 @@ def d1 : (G → M) →ₗ[R] (G × G → M) where
   map_smul' r c := by
     funext p; simp only [Pi.smul_apply, map_smul, RingHom.id_apply, smul_sub, smul_add]
 
+omit [TopologicalSpace G] [TopologicalSpace M] [IsTopologicalAddGroup M]
+    [ContinuousConstSMul R M] in
 @[simp] theorem d1_apply (c : G → M) (g h : G) :
     d1 rho c (g, h) = rho g (c h) - c (g * h) + c g := rfl
 
@@ -131,6 +139,8 @@ def dn (n : ℕ) : ((Fin n → G) → M) →ₗ[R] ((Fin (n + 1) → G) → M) w
     funext g
     simp [Finset.smul_sum, ← smul_assoc, mul_comm r]
 
+omit [TopologicalSpace G] [TopologicalSpace M] [IsTopologicalAddGroup M]
+    [ContinuousConstSMul R M] in
 theorem dn_apply (n : ℕ) (f : (Fin n → G) → M) (g : Fin (n + 1) → G) :
     dn rho n f g = rho (g 0) (f fun i => g i.succ) + Finset.univ.sum fun j : Fin (n + 1) =>
       (-1 : R) ^ ((j : ℕ) + 1) • f (Fin.contractNth j (· * ·) g) := rfl

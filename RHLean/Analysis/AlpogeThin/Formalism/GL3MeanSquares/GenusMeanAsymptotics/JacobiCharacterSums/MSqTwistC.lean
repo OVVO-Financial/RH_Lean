@@ -249,4 +249,6 @@ theorem eventually_log_cube (K a : ℝ) (hK : 0 < K) (ha : 0 < a) :
 
 end Formalism.HermitianLattices.Ext.LogarithmicIntegralBounds
 
+end
+
 end RHLean.Analysis.AlpogeThin

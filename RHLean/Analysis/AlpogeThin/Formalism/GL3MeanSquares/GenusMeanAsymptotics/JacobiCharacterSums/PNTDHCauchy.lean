@@ -169,4 +169,6 @@ theorem deuring_heilbronn_cauchy : DHCauchy := by
 
 end Formalism.HermitianLattices.Ext.PrimesInProgressions
 
+end
+
 end RHLean.Analysis.AlpogeThin

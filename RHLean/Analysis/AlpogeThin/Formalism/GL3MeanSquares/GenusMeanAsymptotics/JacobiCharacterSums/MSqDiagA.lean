@@ -495,4 +495,6 @@ theorem RR_cN_le : ∃ C x₀ : ℝ, ∀ x : ℝ, x₀ ≤ x → ∀ (m₀ : ℕ
 
 end Formalism.HermitianLattices.Ext.LogarithmicIntegralBounds
 
+end
+
 end RHLean.Analysis.AlpogeThin

@@ -110,4 +110,6 @@ lemma landau_lemma_lfunction_zeros (hLL : LandauLocal3) {C : ℝ}
 
 end Formalism.ZeroFreeDirichlet
 
+end
+
 end RHLean.Analysis.AlpogeThin

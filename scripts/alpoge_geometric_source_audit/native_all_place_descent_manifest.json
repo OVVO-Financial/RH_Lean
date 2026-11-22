@@ -1,9 +1,9 @@
 {
   "upstream_commit": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
-  "status": "hosted_v2_repairs_applied_next_exact_head_compile_pending",
+  "status": "native_434_scope_api_lint_repairs_hosted_recheck_pending",
   "module_prefix": "RHLean.Geometry.AlpogeAllPlace.",
   "total_native_modules": 81,
-  "total_native_lines": 15872,
+  "total_native_lines": 15923,
   "entry_module": "RHLean.Geometry.NativeAllPlaceDescent",
   "entry_theorem": "RHLean.Geometry.nativeAllPlaceDescent",
   "axiom_targets": [
@@ -21,12 +21,13 @@
     "HtMapLeOfPoints: positive rank from already imported ms_rkK_pos"
   ],
   "native_api_updates": [
-    "SpanMuMin: Finset.prod_le_prod to prod_le_prod₀, retaining both nonnegativity/comparison arguments",
+    "SpanMuMin: Finset.prod_le_prod to prod_le_prod\u2080, retaining both nonnegativity/comparison arguments",
     "FinSup: WellFoundedGT.isSupFiniteCompact with implicit alpha; current Mathlib 4.34.1 API",
     "FiniteSaturated: AddSubgroup.isClosed_of_discreteTopology with U binder",
     "PlaceSplit: DistribSMul.toLinearMap replaces removed DistribMulAction.toLinearMap",
     "PDescentCutA: explicit definitional Matrix.mulVec/toLp operator norm conversion, preserving joint norm bound",
-    "Hosted compiler-directed cleanup: Prop typeclass let/have, unused section-instance omission and unnamed binder cleanup, current deprecated aliases, unreachable alternatives and unused simp arguments removed; no linter suppression"
+    "Hosted compiler-directed cleanup: Prop typeclass let/have, unused section-instance omission and unnamed binder cleanup, current deprecated aliases, unreachable alternatives and unused simp arguments removed; no linter suppression",
+    "Second hosted diagnostic pass: current nonnegative-product comparisons; denominator-clearing proof for quotient linear independence; all remaining observed unused tactics, variables, simp arguments, and deprecated aliases repaired without suppressing linters."
   ],
   "files": {
     "RHLean/Geometry/AlpogeAllPlace/Development/AbelianVarietyTheory/Definitions/Foundations/IsProbabilityMeasureMuPart.lean": {
@@ -137,7 +138,7 @@
       "upstream_path": "src/Formalism/HarderNarasimhan/HarderNarasimhanProofs/DegSupermod.lean",
       "upstream_git_blob": "e8a064f1e78bb08854f9688518417d07c66ea3f4",
       "upstream_sha256": "3d1dc60f4301a2634d879eaee6254f77fdafb60491b3579ae43d29348bb25ece",
-      "native_sha256": "52e53d51ed9fcd29b82ece4dd2150fbf3efde130f794825baec9ba25c0ff7372",
+      "native_sha256": "e6470cb8ea6aa55aa04700ea8b5210279b084e9694e0ae4ff81d4744f57200cd",
       "native_lines": 59,
       "kind": "namespace_and_options_only"
     },
@@ -145,40 +146,40 @@
       "upstream_path": "src/Formalism/HarderNarasimhan/HarderNarasimhanProofs/DegSupermodZ.lean",
       "upstream_git_blob": "3eaa8605e1f937ea00a6d25d0ca5d5fc8b9a895e",
       "upstream_sha256": "12028baf0cb95112d4b8e9e8761bcb9702204c9bffcfcff08d638b56a278ff83",
-      "native_sha256": "bcfe1d6651997225a092a8f4ffdf5d216ac415cd00e65ad07334943fe61d4e50",
-      "native_lines": 289,
+      "native_sha256": "785d1ea50e66edab7752d475ba3af1b12d05de80bcd5542d8e64701acb60aac0",
+      "native_lines": 286,
       "kind": "namespace_and_options_only"
     },
     "RHLean/Geometry/AlpogeAllPlace/Formalism/HarderNarasimhan/HarderNarasimhanProofs/DiscreteSpanOfLinIndep.lean": {
       "upstream_path": "src/Formalism/HarderNarasimhan/HarderNarasimhanProofs/DiscreteSpanOfLinIndep.lean",
       "upstream_git_blob": "ac1300f441bf9a00421576deefe9b9cf9bb867a3",
       "upstream_sha256": "940ebc3ac1adced50321a26d569d61eeb4bb6aa447da4eb3f14d566f188e9a8d",
-      "native_sha256": "70fc4decc569744c80628df67fb8a3a17609e28893f83bd8d6a538f8c1c27efe",
-      "native_lines": 331,
+      "native_sha256": "b96b2c0b11513314bda878db0f566033f7957b983fa4af5eaa2f6402a7deb58e",
+      "native_lines": 336,
       "kind": "namespace_options_and_native_compatibility"
     },
     "RHLean/Geometry/AlpogeAllPlace/Formalism/HarderNarasimhan/HarderNarasimhanProofs/DualPl.lean": {
       "upstream_path": "src/Formalism/HarderNarasimhan/HarderNarasimhanProofs/DualPl.lean",
       "upstream_git_blob": "87062eeec1a7cb76a77ec8799c89904538931d80",
       "upstream_sha256": "5b87baf5b4c26c903a2e45757f24d8992dc45f93b72a8b87af617c3960d0157d",
-      "native_sha256": "009f76cb65c5c6511cd7cb19223c4b4a37eb9ea3d61947e76e9203e1c7afbc4c",
-      "native_lines": 1603,
+      "native_sha256": "051e34b72d8e1db6e9477557eb11ca5439591f3a11f8241a273c8b7b23bae75e",
+      "native_lines": 1647,
       "kind": "namespace_options_and_native_compatibility"
     },
     "RHLean/Geometry/AlpogeAllPlace/Formalism/HarderNarasimhan/HarderNarasimhanProofs/Duality.lean": {
       "upstream_path": "src/Formalism/HarderNarasimhan/HarderNarasimhanProofs/Duality.lean",
       "upstream_git_blob": "df7f75045c2c3775b243ec86a426790eaeb490b1",
       "upstream_sha256": "e4239db5f5f40fcb9e687f8f0732697712dead35c6544753cd997e3c5c241bea",
-      "native_sha256": "b94ae79e5519ac0e2942205c2f982ccefd2b9a1f7d9d4e8e0d1dd068e7c57cc8",
-      "native_lines": 348,
+      "native_sha256": "86df507e2c139e3a77e5aaa8c72b0389ccdea270b600d0c433dcbd3f78ad20b0",
+      "native_lines": 353,
       "kind": "namespace_options_and_native_compatibility"
     },
     "RHLean/Geometry/AlpogeAllPlace/Formalism/HarderNarasimhan/HarderNarasimhanProofs/Example.lean": {
       "upstream_path": "src/Formalism/HarderNarasimhan/HarderNarasimhanProofs/Example.lean",
       "upstream_git_blob": "be89e0169ee473fd2ae7bf1d10017e7b36e35bec",
       "upstream_sha256": "96cc3d514ff008e93a0f1a5dbda26cb2270059dfa78ea1fd7af244471988ff86",
-      "native_sha256": "2c8e1dd35c79efff70547df33c733d39418f47c4d8a803adb98a32dc760fd97e",
-      "native_lines": 362,
+      "native_sha256": "a042dcc3e98d09ac2f2d37760ecd380a581fbccdc74f747ef39c13a454213f3d",
+      "native_lines": 363,
       "kind": "namespace_options_and_native_compatibility"
     },
     "RHLean/Geometry/AlpogeAllPlace/Formalism/HarderNarasimhan/HarderNarasimhanProofs/ExistsSmulMemOfFinrankEq.lean": {
@@ -217,7 +218,7 @@
       "upstream_path": "src/Formalism/HarderNarasimhan/HarderNarasimhanProofs/GramBlock.lean",
       "upstream_git_blob": "76b0b0a6ecc5304106dc3a6bfeff284aebf331ef",
       "upstream_sha256": "b3526951e6e82f16110c1ceb130ce2e679642477816368321e3b5ac913ce672a",
-      "native_sha256": "16425275ec0289d1df8a68ddef953bbb4629bcecda344b60abdaa78c3977a3e8",
+      "native_sha256": "5c1100b40394aee8810714ec5fd658fe1774cd9da51764d0e61e0d8f5941ddfd",
       "native_lines": 218,
       "kind": "namespace_options_and_native_compatibility"
     },
@@ -225,15 +226,15 @@
       "upstream_path": "src/Formalism/HarderNarasimhan/HarderNarasimhanProofs/HNExtreme.lean",
       "upstream_git_blob": "0b5f6144699cd23b33963e1a6bb2e6ae7b52560e",
       "upstream_sha256": "b67164f72fb513ed06d3a8a4ca136f582a27d99912220d80b9d60c4dae20eadd",
-      "native_sha256": "3f7569512493542e7e8df671922b4fdd3b89c9f38ca61b493c0cb88180d52103",
-      "native_lines": 122,
+      "native_sha256": "1d6ef195ebbf2354bfc54ca09498034dcf89db81c061848bc08b6e07af36f2cb",
+      "native_lines": 123,
       "kind": "namespace_and_options_only"
     },
     "RHLean/Geometry/AlpogeAllPlace/Formalism/HarderNarasimhan/HarderNarasimhanProofs/HNSlopes.lean": {
       "upstream_path": "src/Formalism/HarderNarasimhan/HarderNarasimhanProofs/HNSlopes.lean",
       "upstream_git_blob": "4bf33837e1bbdc7941b5b0c0224dcf0877dc6de4",
       "upstream_sha256": "d5f8d68abd4d70c41a59f968dcddffc86a7e8b18a9c81ed9bd2c957852b3adda",
-      "native_sha256": "78217153cfe45fadbd4a5c45ac4c5c5c470b9df92eceaf153197072de8809698",
+      "native_sha256": "6abbf4fb4ab257e522a0fa90594c429fab6c21d1717a90cefd2ed98f4c0d9405",
       "native_lines": 325,
       "kind": "namespace_options_and_native_compatibility"
     },
@@ -249,8 +250,8 @@
       "upstream_path": "src/Formalism/HarderNarasimhan/HarderNarasimhanProofs/HtGram.lean",
       "upstream_git_blob": "2d2b86ea27cfacd6dcb75579424c95375dc0bb8f",
       "upstream_sha256": "1f2e311daebf78274f4e795d5ef52d39caf46554bb9af0f11b741f4dd9b22e15",
-      "native_sha256": "9e931b389f3534810d0e6c3e04a6c32b994e466e74de56e1b365a8a501af2eca",
-      "native_lines": 418,
+      "native_sha256": "d420a9901be52474f89b94a7420a22cbea483dd0bcdd536df93d71dcc4bb8076",
+      "native_lines": 412,
       "kind": "namespace_and_options_only"
     },
     "RHLean/Geometry/AlpogeAllPlace/Formalism/HarderNarasimhan/HarderNarasimhanProofs/HtImage.lean": {
@@ -273,24 +274,24 @@
       "upstream_path": "src/Formalism/HarderNarasimhan/HarderNarasimhanProofs/PiSumForallInsertOnly.lean",
       "upstream_git_blob": "be74b50eb0abb15ba244986863812e8628fa9965",
       "upstream_sha256": "4d03dd6f1e3e27b5480dbb5e63489c34410b5fbbf655c17bc24802725a531ea7",
-      "native_sha256": "3021c58482db1d567bbbecd4819ac99da3324096108922f1642d7bfc35cc6024",
-      "native_lines": 379,
+      "native_sha256": "ad3d3622597acba2f3e2f596fce31cf83c487b05d0b3c449ebf4be6b4f8c2cd1",
+      "native_lines": 384,
       "kind": "namespace_and_options_only"
     },
     "RHLean/Geometry/AlpogeAllPlace/Formalism/HarderNarasimhan/HarderNarasimhanProofs/PlaceSplit.lean": {
       "upstream_path": "src/Formalism/HarderNarasimhan/HarderNarasimhanProofs/PlaceSplit.lean",
       "upstream_git_blob": "f442f465a9116dde56cd94546e34f3f648bdcc15",
       "upstream_sha256": "098b091cae2368fc3efcdd768ae0581657d625595acf66452d36bc8c2deb87c2",
-      "native_sha256": "69c1673401a2beef0788d0ef683b05e13a06ea8f8683cb64daf5fae090ac6d74",
-      "native_lines": 470,
+      "native_sha256": "3c2f8bd59caca5be90df755d05a7314c6124521ab8ba405d25f5c2324761c161",
+      "native_lines": 475,
       "kind": "namespace_options_and_native_compatibility"
     },
     "RHLean/Geometry/AlpogeAllPlace/Formalism/HarderNarasimhan/HarderNarasimhanProofs/PolygonSlopeSum.lean": {
       "upstream_path": "src/Formalism/HarderNarasimhan/HarderNarasimhanProofs/PolygonSlopeSum.lean",
       "upstream_git_blob": "efb14ec2434435984db9836de484f2e064a9df8f",
       "upstream_sha256": "cab6414e4917fedde006ed551863f86d3f21c38e13b6fc83dcbb53f9e4bdb341",
-      "native_sha256": "a93a978eb4d4dbf4a271418b7950c93e25cfa4c195975b46c5e0dbac5b86c2f7",
-      "native_lines": 266,
+      "native_sha256": "29df1d7a90934d2f8f49a9f93151c608181abc72f883ea248c52672b2102ce1c",
+      "native_lines": 270,
       "kind": "namespace_and_options_only"
     },
     "RHLean/Geometry/AlpogeAllPlace/Formalism/HarderNarasimhan/HarderNarasimhanProofs/QuotRealize.lean": {
@@ -329,7 +330,7 @@
       "upstream_path": "src/Formalism/HarderNarasimhan/HarderNarasimhanProofs/SatBasic.lean",
       "upstream_git_blob": "d1bc25bb41981bb4a1d107b19630be97010c3a3b",
       "upstream_sha256": "80a844101071eb3824e97e333e59c1565f1857ad7c077aec7b2bee8c5f04cc08",
-      "native_sha256": "ba621cfd7926bfdc6fb8dc01ad06a3ac691e4d0ff330465f11349f083ee6d0fe",
+      "native_sha256": "6bfebb5a67fb48e1fc1c5d2a2aace80594714b3e89e86d631e3c621b0cd8d618",
       "native_lines": 116,
       "kind": "namespace_and_options_only"
     },
@@ -337,7 +338,7 @@
       "upstream_path": "src/Formalism/HarderNarasimhan/HarderNarasimhanProofs/ShiftInvariance.lean",
       "upstream_git_blob": "8d633427ec2f148a230aaa0b21aa259b1fb8c332",
       "upstream_sha256": "268954d49f101d9a94af78733da2dc7a0cadd6541d31ae008a8d066cd150c936",
-      "native_sha256": "a8db032632ca3936f3fd410fe3163bbbedb5fd7f9c9cf6d659931f73e556b23b",
+      "native_sha256": "3e2145f646767267cca874df48935913adca79b2bfc8be3865546b88ae9b6159",
       "native_lines": 191,
       "kind": "namespace_options_and_native_compatibility"
     },
@@ -345,24 +346,24 @@
       "upstream_path": "src/Formalism/HarderNarasimhan/HarderNarasimhanProofs/SizeIneq.lean",
       "upstream_git_blob": "3166c1589d908e5fde85e4cfcd20e8201bda91dd",
       "upstream_sha256": "09b3f5b3996c58f45de29fcc47a51df0fff09d72250f1467b20a5a11f98cc13b",
-      "native_sha256": "298e4844c098f7da77dde8d00b5434dba31dab27d502c46854bd0c2106e6867a",
-      "native_lines": 174,
+      "native_sha256": "c1ce6e55e91c67e8b22a9d71ca95c2ca0045b7df72c07cfb49f59453632df391",
+      "native_lines": 176,
       "kind": "namespace_and_options_only"
     },
     "RHLean/Geometry/AlpogeAllPlace/Formalism/HarderNarasimhan/HarderNarasimhanProofs/SizeMu.lean": {
       "upstream_path": "src/Formalism/HarderNarasimhan/HarderNarasimhanProofs/SizeMu.lean",
       "upstream_git_blob": "086bd6cb5940ecd807566c0ef83343551345fd8d",
       "upstream_sha256": "1e92c71cc6d44b02c2b21e060d21eefefa980c3ce73cb9bc51a893ca4a837e94",
-      "native_sha256": "0e0a878a425a3d846dcd0cba5eff4bc9b33f2bbe57b8f1722ab99b3103b9624a",
-      "native_lines": 182,
+      "native_sha256": "14022b34fa25bbaa60d26767b5519ae01805d82cbbe22d700ab68f496b318b2f",
+      "native_lines": 180,
       "kind": "namespace_and_options_only"
     },
     "RHLean/Geometry/AlpogeAllPlace/Formalism/HarderNarasimhan/HarderNarasimhanProofs/SlopeIneq.lean": {
       "upstream_path": "src/Formalism/HarderNarasimhan/HarderNarasimhanProofs/SlopeIneq.lean",
       "upstream_git_blob": "8f0446fe0ee5419a6937268644609d9ce760e292",
       "upstream_sha256": "7e1c5dade4bbbcf637b4ad14fc690824ca95519abcc859bdc238344e3d4da255",
-      "native_sha256": "731a6da2d1f78b3f2f691d6e851eded41d04f33dfa0155066b8d2dbbddebdc18",
-      "native_lines": 514,
+      "native_sha256": "3defe8dee0f016c32424fbfbf5edc270a911b58f097c1a29294da116c87ca1ec",
+      "native_lines": 504,
       "kind": "namespace_options_and_native_compatibility"
     },
     "RHLean/Geometry/AlpogeAllPlace/Formalism/HarderNarasimhan/HarderNarasimhanProofs/SlopeIneqMean.lean": {
@@ -385,8 +386,8 @@
       "upstream_path": "src/Formalism/HarderNarasimhan/HarderNarasimhanProofs/TwistFinrankEq.lean",
       "upstream_git_blob": "0a1964f6fc60d02d10280fae2c8542204601533c",
       "upstream_sha256": "b4d0d6aacb50951a2089d8dbbc9b0419b68f88f7cfbc4498925051adbed7f355",
-      "native_sha256": "2bf263ee1785d7f38d0dfc64976001f64ec83e93a6e6d7ed5be44c84554616ab",
-      "native_lines": 106,
+      "native_sha256": "c3196f7b92dee8254d80f65b1a4a258d03e883215d6918c88f3aa00f8cc97067",
+      "native_lines": 104,
       "kind": "namespace_and_options_only"
     },
     "RHLean/Geometry/AlpogeAllPlace/Formalism/HarderNarasimhan/QuotRealize.lean": {
@@ -537,7 +538,7 @@
       "upstream_path": "src/Formalism/LatticeSlopes/LatticeSlopesProofs/GramDetLe.lean",
       "upstream_git_blob": "0c69401a60ac25bfb6d6c1f406497db5e0f39ff5",
       "upstream_sha256": "99483828a14d7aec28ce3fba4fb47626c13f1240a4cf4e032914ad8faceabaf6",
-      "native_sha256": "e5c522eed057b7e7fa0569949050e75120f1bdde70845d55710bc93956f804bc",
+      "native_sha256": "475d5ea55b8c84eb98c9bb0018d61a2cd2a2d109ac4c536fa635bda28eeb5327",
       "native_lines": 195,
       "kind": "namespace_options_and_native_compatibility"
     },
@@ -633,8 +634,8 @@
       "upstream_path": "src/Formalism/MeanHeightDescent/AverageDegreeBounds/SpanMuMin.lean",
       "upstream_git_blob": "46c2d520373671bd2d053add7bf04f7a56fe59cf",
       "upstream_sha256": "c863a92902b4897fe87b9380b09476772a75ba88c1cd3f609f1a83190a574066",
-      "native_sha256": "dabdd633e888097e4f27a65c8f63382fc3415a5e86407b83ab4faa1ed41af007",
-      "native_lines": 193,
+      "native_sha256": "e18d60596323a68bf81d1f563907356fdcfa286dcedbdce456d263e4f5e92a8e",
+      "native_lines": 195,
       "kind": "namespace_options_and_product_api"
     },
     "RHLean/Geometry/AlpogeAllPlace/Formalism/MeanHeightDescent/MuMaxMinkowski.lean": {

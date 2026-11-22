@@ -105,4 +105,6 @@ theorem tail_diff_schi {N : ℕ} (χ : DirichletCharacter ℂ N) (z h : ℝ) (hz
 
 end Formalism.HermitianLattices.Ext.BoxTail
 
+end
+
 end RHLean.Analysis.AlpogeThin

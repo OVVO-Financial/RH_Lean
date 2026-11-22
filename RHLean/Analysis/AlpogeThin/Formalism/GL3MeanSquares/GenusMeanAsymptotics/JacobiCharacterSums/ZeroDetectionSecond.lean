@@ -131,4 +131,6 @@ theorem zero_detection_second : Detect1 := by
 
 end Formalism.HermitianLattices.Ext.PrimesInProgressions.Dens
 
+end
+
 end RHLean.Analysis.AlpogeThin

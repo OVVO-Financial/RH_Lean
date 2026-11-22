@@ -198,4 +198,6 @@ theorem deuring_heilbronn_local : DHLocalOf := by
 
 end Formalism.HermitianLattices.Ext.PrimesInProgressions
 
+end
+
 end RHLean.Analysis.AlpogeThin

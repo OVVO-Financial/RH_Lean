@@ -148,4 +148,6 @@ theorem final_bound_of_assembly : FinalOf := by
 
 end Formalism.HermitianLattices.Ext.PrimitiveCharacterCasts.ZD
 
+end
+
 end RHLean.Analysis.AlpogeThin

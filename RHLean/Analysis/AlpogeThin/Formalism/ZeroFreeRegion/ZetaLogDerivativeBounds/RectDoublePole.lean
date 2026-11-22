@@ -168,4 +168,6 @@ theorem rectangle_double_pole : RectDoublePole := by
 
 end Formalism.ZF
 
+end
+
 end RHLean.Analysis.AlpogeThin

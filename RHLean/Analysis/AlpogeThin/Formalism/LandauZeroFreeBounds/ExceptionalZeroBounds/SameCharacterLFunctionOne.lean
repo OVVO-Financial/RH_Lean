@@ -163,4 +163,6 @@ theorem lfunction_one_same_character : SameCharacterLFunctionOne := by
 
 end Formalism.ZeroFreeDirichlet
 
+end
+
 end RHLean.Analysis.AlpogeThin

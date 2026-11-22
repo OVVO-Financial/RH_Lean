@@ -138,4 +138,6 @@ theorem tail_box_negLD (δ : ℝ) (hδ : 0 < δ) : ∃ K : ℝ, 0 ≤ K ∧
 
 end Formalism.HermitianLattices.Ext.BoxTail
 
+end
+
 end RHLean.Analysis.AlpogeThin

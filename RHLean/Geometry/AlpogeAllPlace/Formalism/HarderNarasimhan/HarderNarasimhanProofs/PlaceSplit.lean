@@ -38,6 +38,7 @@ theorem dense_comb (K : Type*) [Field K] [NumberField K] [IsTotallyComplex K]
 variable {K V ι : Type*} [Field K] [NumberField K] [StarRing K] [AddCommGroup V] [Module K V]
   [Fintype ι] [DecidableEq ι]
 
+omit [StarRing K] in
 theorem realize_apply (b : Basis ι K V) (X : InfinitePlace K → Matrix ι ι ℂ) (x : V)
     (p : InfinitePlace K × ι × Fin 2) :
     RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.realize b X x p =
@@ -180,6 +181,7 @@ variable {K V ι : Type*} [Field K] [NumberField K] [StarRing K] [IsTotallyCompl
   [Fintype ι] [DecidableEq ι]
 
 omit [IsTotallyComplex K] in
+omit [NumberField K] [StarRing K] in
 theorem fcoord_osmul (b : Basis ι K V) (X : InfinitePlace K → Matrix ι ι ℂ) (v : InfinitePlace K)
     (a : 𝓞 K) (x : V) :
     RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.fcoord b X v (a • x) = v.embedding (a : K) • RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.fcoord b X v x := by
@@ -187,6 +189,7 @@ theorem fcoord_osmul (b : Basis ι K V) (X : InfinitePlace K → Matrix ι ι �
   exact fcoord_smul b X v _ x
 
 omit [IsTotallyComplex K] [Module (𝓞 K) V] [IsScalarTower (𝓞 K) K V] in
+omit [StarRing K] in
 theorem fcoord_lincomb (b : Basis ι K V) (X : InfinitePlace K → Matrix ι ι ℂ) (v : InfinitePlace K)
     {n : Type*} [Fintype n] (c : n → K) (y : n → V) :
     RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.fcoord b X v (∑ k, c k • y k) = ∑ k, v.embedding (c k) • RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.fcoord b X v (y k) := by
@@ -207,6 +210,7 @@ theorem fcoord_lincomb (b : Basis ι K V) (X : InfinitePlace K → Matrix ι ι 
   exact Finset.sum_congr rfl fun k _ => fcoord_smul b X v (c k) (y k)
 
 omit [IsTotallyComplex K] [IsScalarTower (𝓞 K) K V] in
+omit [StarRing K] in
 theorem realize_mem (b : Basis ι K V) (X : InfinitePlace K → Matrix ι ι ℂ) (N : Submodule (𝓞 K) V)
     {x : V} (hx : x ∈ N) :
     RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.realize b X x ∈ Submodule.span ℝ
@@ -234,6 +238,7 @@ theorem prj_realize (b : Basis ι K V) (X : InfinitePlace K → Matrix ι ι ℂ
   rw [prj_apply, psi_apply, realize_apply]
   split_ifs with h1 h2 <;> (try subst h1) <;> rfl
 
+omit [IsTotallyComplex K] in
 theorem prj_realize_comb (b : Basis ι K V) (X : InfinitePlace K → Matrix ι ι ℂ)
     (v : InfinitePlace K) (r : Free.ChooseBasisIndex ℤ (𝓞 K) → ℝ)
     (hr : ∀ u : InfinitePlace K,

@@ -181,4 +181,6 @@ theorem localLemma_of (hI : PI.LInvRight) : GlueLocalLemma := by
 
 end PI.EF
 
+end
+
 end RHLean.Analysis.AlpogeThin

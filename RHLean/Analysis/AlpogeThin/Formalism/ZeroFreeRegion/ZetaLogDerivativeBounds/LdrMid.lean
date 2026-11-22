@@ -143,4 +143,6 @@ lemma ldr_mid {c₀ : ℝ}
 
 end Formalism.ZF
 
+end
+
 end RHLean.Analysis.AlpogeThin

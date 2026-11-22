@@ -11,20 +11,26 @@ Coordinates: [`ANCHOR-MERTENS`](../coordinates/ANCHOR-MERTENS.md), [`ANCHOR-ZETA
 | 26 | [research/VF_MID_FIRST_BAD_FINAL_AGGREGATE_CONTRACTION.lean](../../../research/VF_MID_FIRST_BAD_FINAL_AGGREGATE_CONTRACTION.lean) | First-bad final aggregate contraction |
 | 24 | [docs/COORDINATE_ATLAS.md](../../../docs/COORDINATE_ATLAS.md) | Coordinate atlas: one phenomenon, many coordinates |
 | 18 | [research/VF_MID_FIRST_BAD_PAYMENT_V2_PROOF_CONTRACT.md](../../../research/VF_MID_FIRST_BAD_PAYMENT_V2_PROOF_CONTRACT.md) | Minimal first-bad parity payment — production proof contract (v2) |
-| 13 | [docs/AGENT_STUDIO_20261024_SEVEN_PROMPTS.md](../../../docs/AGENT_STUDIO_20261024_SEVEN_PROMPTS.md) | Seven current RH_Lean Agent Studio instruction overrides — 2026-10-24 |
-| 13 | [docs/PROOF_DEPENDENCY_DAG.md](../../../docs/PROOF_DEPENDENCY_DAG.md) | RH_Lean mathematical proof-dependency DAG |
+| 16 | [docs/PROOF_DEPENDENCY_DAG.md](../../../docs/PROOF_DEPENDENCY_DAG.md) | RH_Lean mathematical proof-dependency DAG |
+| 15 | [docs/AGENT_STUDIO_20261024_SEVEN_PROMPTS.md](../../../docs/AGENT_STUDIO_20261024_SEVEN_PROMPTS.md) | Seven complete RH_Lean Agent Studio instruction templates |
+| 13 | [docs/AGENT_STUDIO_SEVEN_PROMPTS_BEFORE_RESEARCH_ENGINE_20261101.md](../../../docs/AGENT_STUDIO_SEVEN_PROMPTS_BEFORE_RESEARCH_ENGINE_20261101.md) | Seven current RH_Lean Agent Studio instruction overrides — 2026-10-24 |
 | 10 | [research/VF_919_PRIME_WHEEL_OAI_SIMULTANEOUS_COVARIANCE_20261021.md](../../../research/VF_919_PRIME_WHEEL_OAI_SIMULTANEOUS_COVARIANCE_20261021.md) | One simultaneous ledger: sequential prime wheel, OpenAI Hecke compensation, and unnormalized NNS covariance |
-| 9 | [docs/DYNAMIC_RESEARCH_AGENTS.md](../../../docs/DYNAMIC_RESEARCH_AGENTS.md) | RH_Lean dynamic seven-agent research protocol |
+| 9 | [docs/DYNAMIC_RESEARCH_AGENTS_BEFORE_RESEARCH_ENGINE_20261101.md](../../../docs/DYNAMIC_RESEARCH_AGENTS_BEFORE_RESEARCH_ENGINE_20261101.md) | RH_Lean dynamic seven-agent research protocol |
 | 9 | [docs/RH_PROOF_ATTACK_PORTFOLIO_20261024.md](../../../docs/RH_PROOF_ATTACK_PORTFOLIO_20261024.md) | RH proof attack portfolio and seven-agent operating contract — 2026-10-24 |
-| 8 | [AGENTS.md](../../../AGENTS.md) | RH_Lean research-agent instructions |
+| 8 | [AGENTS_BEFORE_RESEARCH_ENGINE_20261101.md](../../../AGENTS_BEFORE_RESEARCH_ENGINE_20261101.md) | RH_Lean research-agent instructions |
 | 8 | [docs/QRH_SOURCE_ESTIMATE_EXECUTION_CONTRACT_20261026.md](../../../docs/QRH_SOURCE_ESTIMATE_EXECUTION_CONTRACT_20261026.md) | QRH source-estimate execution contract (26 October 2026) |
 | 8 | [research/VF_MID_FIRST_BAD_PAYMENT_V2_KERNEL.lean](../../../research/VF_MID_FIRST_BAD_PAYMENT_V2_KERNEL.lean) | First-bad minimal payment — exact parity-compressed algebra |
+| 7 | [docs/RHLEAN_ALL_VECTOR_AGENT_PROMPTS_BEFORE_CANCELLATION_CHAIN_20261107.md](../../../docs/RHLEAN_ALL_VECTOR_AGENT_PROMPTS_BEFORE_CANCELLATION_CHAIN_20261107.md) | Seven-agent all-vector prompt reference - persistent research edition |
 | 7 | [research/VF_919_ACTUAL_WEIGHTED_NNS_COVARIANCE_KERNEL_20261021.lean](../../../research/VF_919_ACTUAL_WEIGHTED_NNS_COVARIANCE_KERNEL_20261021.lean) | The ACTUAL marked weighted Hecke kernel in unnormalized NNS covariance |
 | 7 | [research/VF_MID_FIRST_BAD_EXACT_BUDGET_CLOSE.lean](../../../research/VF_MID_FIRST_BAD_EXACT_BUDGET_CLOSE.lean) | Exact first-bad budget identities and conditional payment consumers |
+| 6 | [docs/RHLEAN_ALL_VECTOR_AGENT_PROMPTS_20261030.md](../../../docs/RHLEAN_ALL_VECTOR_AGENT_PROMPTS_20261030.md) | Seven-agent prompts: complete signed HIGH, independent native routes |
 | 6 | [research/OAI_ONE_PRIME_WEIGHTED_CODIV_RATE_AND_MULTIPLICITY_20261022.md](../../../research/OAI_ONE_PRIME_WEIGHTED_CODIV_RATE_AND_MULTIPLICITY_20261022.md) | Exact source-local Co-Div decay and finite ideal multiplicity |
 | 6 | [scripts/prime_wheel_oai_simultaneous_317_1027.py](../../../scripts/prime_wheel_oai_simultaneous_317_1027.py) | Exact integer-by-integer prime-comb wheel and independent sextic Phi/NNS audit. |
 | 5 | [docs/QRH_SATURATED_ACTUAL_FIBER_THEOREM_TARGET_20261026.md](../../../docs/QRH_SATURATED_ACTUAL_FIBER_THEOREM_TARGET_20261026.md) | Final-return near-saturated window-fiber count: exact unproved analytic target (2026-10-26) |
+| 5 | [docs/RHLEAN_BROAD_SEARCH_UNTIL_ETA_20261031.md](../../../docs/RHLEAN_BROAD_SEARCH_UNTIL_ETA_20261031.md) | Broad RH_Lean mathematics until a verified positive exponent gain |
 | 5 | [docs/RHLEAN_NATIVE_FIRST_PROOF_ROUTING_20261026.md](../../../docs/RHLEAN_NATIVE_FIRST_PROOF_ROUTING_20261026.md) | RH_Lean-native-first mathematical proof routing (26 October 2026) |
+| 5 | [docs/RHLEAN_OAI_LOW_SOURCE_FIRST_AGENT_CONTRACT_20261103.md](../../../docs/RHLEAN_OAI_LOW_SOURCE_FIRST_AGENT_CONTRACT_20261103.md) | OAI 1 -> 7/8 source-first signed LOW research contract for all seven agents |
+| 5 | [docs/RHLEAN_SEVEN_AGENT_RESEARCH_ENGINE_20261101.md](../../../docs/RHLEAN_SEVEN_AGENT_RESEARCH_ENGINE_20261101.md) | Seven-agent persistent research engine and next-run attack plan |
 | 5 | [research/EULER_ADMISSIBLE_SIGNED_RETURN_TELESCOPE_20261028.lean](../../../research/EULER_ADMISSIBLE_SIGNED_RETURN_TELESCOPE_20261028.lean) | Complete chronological admissible-prime signed energy and Co-Div seam |
 | 5 | [research/EULER_ADMISSIBLE_WEIGHTED_CODIV_20261028.lean](../../../research/EULER_ADMISSIBLE_WEIGHTED_CODIV_20261028.lean) | Actual weighted Euler Co-Div and admissible-prime population |
 | 5 | [research/FINITE_AC_CROSS_COORDINATE_DAG_CLOSURE_AUDIT_2026_10_12.md](../../../research/FINITE_AC_CROSS_COORDINATE_DAG_CLOSURE_AUDIT_2026_10_12.md) | Exhaustive cross-coordinate audit: finite A/C and actual-prime VF source |
@@ -36,6 +42,12 @@ Coordinates: [`ANCHOR-MERTENS`](../coordinates/ANCHOR-MERTENS.md), [`ANCHOR-ZETA
 | 5 | [research/oai_434/VF919OriginalGaussianIntegratedNNS.lean](../../../research/oai_434/VF919OriginalGaussianIntegratedNNS.lean) | OAI-typed, proof-authoritative Gaussian subset -> signed NNS |
 | 4 | [CURRENT_PROOF_CONTRACT.md](../../../CURRENT_PROOF_CONTRACT.md) | RH_Lean current proof contract |
 | 4 | [RESEARCH_ROUTE_REGISTRY.md](../../../RESEARCH_ROUTE_REGISTRY.md) | Research route registry |
+| 4 | [docs/RHLEAN_ALL_SELECTED_INVERSE_SOURCE_ATTACK_20261104.md](../../../docs/RHLEAN_ALL_SELECTED_INVERSE_SOURCE_ATTACK_20261104.md) | All-selected original OAI LOW: optional Analytic and Referee attack (2026-11-04) |
+| 4 | [docs/RHLEAN_ALL_VECTOR_AGENT_PROMPTS_BEFORE_RESEARCH_ENGINE_20261101.md](../../../docs/RHLEAN_ALL_VECTOR_AGENT_PROMPTS_BEFORE_RESEARCH_ENGINE_20261101.md) | Seven-agent all-vector prompt reference - updated 2026-10-31 |
+| 4 | [docs/RHLEAN_ALL_VECTOR_SYNTHESIS_AGENT_DIRECTIVE_20261030.md](../../../docs/RHLEAN_ALL_VECTOR_SYNTHESIS_AGENT_DIRECTIVE_20261030.md) | All-vector RH_Lean attack and same-source synthesis — 2026-10-30 |
+| 4 | [docs/RHLEAN_COMPLETE_SIGNED_HIGH_ATTACK_20261107.md](../../../docs/RHLEAN_COMPLETE_SIGNED_HIGH_ATTACK_20261107.md) | Complete signed HIGH: common objective, independent proof routes |
+| 4 | [docs/RHLEAN_CROSS_ROUTE_SIGNED_RECOVERY_20261110.md](../../../docs/RHLEAN_CROSS_ROUTE_SIGNED_RECOVERY_20261110.md) | CROSS_ROUTE_SIGNED_RECOVERY_V1 — seven-agent proof triage and triangulation (2026-11-10) |
+| 4 | [research/OAI_NATIVE_ONE_TO_SEVEN_EIGHTHS_SIGNED_SOURCE_DIFFERENTIAL_20261103.md](../../../research/OAI_NATIVE_ONE_TO_SEVEN_EIGHTHS_SIGNED_SOURCE_DIFFERENTIAL_20261103.md) | The original OAI 1 -> 7/8 mechanism in RH_Lean/NNS coordinates |
 | 4 | [research/QRH_TRACKER_LEADER_SOURCE_COVARIANCE_ATTACK_20261026.md](../../../research/QRH_TRACKER_LEADER_SOURCE_COVARIANCE_ATTACK_20261026.md) | The QRH leaderboard leader: precise NNS covariance entry point (October 26, 2026) |
 | 4 | [research/VF_919_FROZEN_COFACTOR_OAI_NNS_RESPONSE_20261023.md](../../../research/VF_919_FROZEN_COFACTOR_OAI_NNS_RESPONSE_20261023.md) | Applied bridge: fixed subroot Mobius coefficients to the ORIGINAL moving-prime response |
 | 4 | [research/VF_919_NNS_LOW_HIGH_GATE_SPARSE_EXTENSION_20261021.md](../../../research/VF_919_NNS_LOW_HIGH_GATE_SPARSE_EXTENSION_20261021.md) | Canonical low/high gate extension: weighted NNS and a uniform root boundary |
@@ -46,6 +58,7 @@ Coordinates: [`ANCHOR-MERTENS`](../coordinates/ANCHOR-MERTENS.md), [`ANCHOR-ZETA
 | 4 | [research/VF_MID_TWO_CHANNEL_SHELL_CODIV_GRAM_20261022.lean](../../../research/VF_MID_TWO_CHANNEL_SHELL_CODIV_GRAM_20261022.lean) | Complete fixed-wheel multi-shell conservation and Co-Div consumer |
 | 4 | [scripts/vf_mid_915_late_prefix_weighted_regression.py](../../../scripts/vf_mid_915_late_prefix_weighted_regression.py) | #915 actual physical VF late-owner inherited-prefix and half-scale probe. |
 | 4 | [scripts/vf_mid_915_two_owner_flux_regression.py](../../../scripts/vf_mid_915_two_owner_flux_regression.py) | #915: exact physical two-owner exit-return flux and positive-response curvature. |
+| 3 | [AGENTS.md](../../../AGENTS.md) | 2026-11-22 — constructed lattice descent and complete signed payment |
 | 3 | [RHLean/Analysis/BlockCovarianceDecomposition.lean](../../../RHLean/Analysis/BlockCovarianceDecomposition.lean) | Signed block covariance: partition the pair sum instead of counting atoms |
 | 3 | [RHLean/Analysis/DeterministicTGreenKuboComparison.lean](../../../RHLean/Analysis/DeterministicTGreenKuboComparison.lean) | Deterministic T-sector Green--Kubo comparison |
 | 3 | [RHLean/Analysis/FrozenSquareRunKernel.lean](../../../RHLean/Analysis/FrozenSquareRunKernel.lean) | Frozen square-run kernel |
@@ -55,16 +68,3 @@ Coordinates: [`ANCHOR-MERTENS`](../coordinates/ANCHOR-MERTENS.md), [`ANCHOR-ZETA
 | 3 | [RHLean/Analysis/SquareRootMatchedDegreeOneRecovery.lean](../../../RHLean/Analysis/SquareRootMatchedDegreeOneRecovery.lean) | Recover the Mertens-visible mode from matched transport |
 | 3 | [RHLean/Analysis/SquareRootMatchedTransport.lean](../../../RHLean/Analysis/SquareRootMatchedTransport.lean) | Matched born-smooth / transport cancellation |
 | 3 | [RHLean/Analysis/SquareRootMiddleSequentialCoherence.lean](../../../RHLean/Analysis/SquareRootMiddleSequentialCoherence.lean) | Sequential coherence of the square-root middle section |
-| 3 | [RHLean/Analysis/SquareRootPositiveSmoothCollapse.lean](../../../RHLean/Analysis/SquareRootPositiveSmoothCollapse.lean) | Positive-orientation smooth mass as a prime-indexed Mertens transform |
-| 3 | [RHLean/Analysis/SquareRootPostCrossingTail.lean](../../../RHLean/Analysis/SquareRootPostCrossingTail.lean) | The tail after a shallow reciprocal-packet crossing |
-| 3 | [RHLean/Analysis/SquareRootPrimeCountGap.lean](../../../RHLean/Analysis/SquareRootPrimeCountGap.lean) | Square-root middle versus inert prime-count gap |
-| 3 | [RHLean/Analysis/SquareRootSmoothParityClasses.lean](../../../RHLean/Analysis/SquareRootSmoothParityClasses.lean) | Parity classes of the complete smooth mass, and the residual gap to RH scale |
-| 3 | [RHLean/Analysis/SquareRootSmoothRenewalInstantiation.lean](../../../RHLean/Analysis/SquareRootSmoothRenewalInstantiation.lean) | Square-root smooth / prime-wheel renewal normalization |
-| 3 | [RHLean/Analysis/SquareRootTransportTopFibreNoGo.lean](../../../RHLean/Analysis/SquareRootTransportTopFibreNoGo.lean) | The transport transform carries an exactly same-sign top block |
-| 3 | [RHLean/Analysis/SquareRunEscapeCovariance.lean](../../../RHLean/Analysis/SquareRunEscapeCovariance.lean) | The run-level seam: escape covariance across square time |
-| 3 | [RHLean/Analysis/SquareRunTopEscapeClassification.lean](../../../RHLean/Analysis/SquareRunTopEscapeClassification.lean) | Square-run top-escape classification after global fresh-prime ownership |
-| 3 | [RHLean/Analysis/TwoABScaleTransfer.lean](../../../RHLean/Analysis/TwoABScaleTransfer.lean) | Exact 2ab scale transfer |
-| 3 | [RHLean/Proof/DyadicSurvivorMatchedSplice.lean](../../../RHLean/Proof/DyadicSurvivorMatchedSplice.lean) | Dyadic survivor splice into the matched square-root channel |
-| 3 | [RHLean/Proof/EndpointCubeAnalyticClosure.lean](../../../RHLean/Proof/EndpointCubeAnalyticClosure.lean) | Product packing as a square-root covariance power contraction |
-| 3 | [RHLean/Proof/FinalCompensatedParentReduction.lean](../../../RHLean/Proof/FinalCompensatedParentReduction.lean) | Final compensated parent reduction after the q^2 parent reassembly |
-| 3 | [RHLean/Proof/GlobalFirstJumpCriticalCorrelationBridge.lean](../../../RHLean/Proof/GlobalFirstJumpCriticalCorrelationBridge.lean) | Critical reciprocal-correlation bridge for the recombined defect |

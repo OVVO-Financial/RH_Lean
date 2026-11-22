@@ -98,4 +98,6 @@ theorem log_deriv_in_zero_free_region : LogDerivRegionChiOf := by
 
 end Formalism.ZeroFreeDirichlet
 
+end
+
 end RHLean.Analysis.AlpogeThin

@@ -125,4 +125,6 @@ theorem siegel_bound_same_character {N₀ : ℕ} (hN₀ : N₀ ≠ 0) {A₁ x ε
 
 end Formalism.ZeroFreeDirichlet
 
+end
+
 end RHLean.Analysis.AlpogeThin

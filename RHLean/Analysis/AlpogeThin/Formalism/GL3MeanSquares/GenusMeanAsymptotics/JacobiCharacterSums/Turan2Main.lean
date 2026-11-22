@@ -193,4 +193,6 @@ theorem turan2Main (n m : ℕ) (z : Fin n → ℂ) (hn : 1 ≤ n) (hz : ∀ i, �
 
 end Formalism.HermitianLattices.Ext.PrimesInProgressions.T2
 
+end
+
 end RHLean.Analysis.AlpogeThin

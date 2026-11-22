@@ -121,4 +121,6 @@ def GzPNTOf : Prop :=
 
 end Formalism.ZF
 
+end
+
 end RHLean.Analysis.AlpogeThin

@@ -8,20 +8,37 @@ Coordinates: [`ANCHOR-MERTENS`](../coordinates/ANCHOR-MERTENS.md), [`ANCHOR-ZETA
 
 | Score | File | Title |
 | --- | --- | --- |
+| 67 | [research/oai_434/VF919TiltedLowReflection.lean](../../../research/oai_434/VF919TiltedLowReflection.lean) | Complete reflected row energy at a shortened physical scale |
+| 51 | [scripts/lean/total_mass/ExactTypes.lean](../../../scripts/lean/total_mass/ExactTypes.lean) | Exact public types for the total-mass LOW endpoint |
+| 46 | [scripts/lean/total_mass/TotalMassAudit.lean](../../../scripts/lean/total_mass/TotalMassAudit.lean) | Read-only terminal audit for the total-slot-mass LOW return. |
+| 40 | [scripts/lean/NativeSevenEighthsReplayAudit.lean](../../../scripts/lean/NativeSevenEighthsReplayAudit.lean) | Compile the replay to an olean first, then run under |
+| 34 | [scripts/lean/principal_finite_response/Audit.lean](../../../scripts/lean/principal_finite_response/Audit.lean) | — |
+| 33 | [scripts/lean/explicit_amplification/ExactTypes.lean](../../../scripts/lean/explicit_amplification/ExactTypes.lean) | Exact quantified public types for the explicit amplification proof. |
+| 30 | [research/OAI_SHARP_ROOTGRID_HEIGHT_AUDIT_20261028.md](../../../research/OAI_SHARP_ROOTGRID_HEIGHT_AUDIT_20261028.md) | Pinned OpenAI moment vs sharp root-indexed Euler sampling: quantitative audit |
+| 29 | [docs/AGENT_STUDIO_20261024_SEVEN_PROMPTS.md](../../../docs/AGENT_STUDIO_20261024_SEVEN_PROMPTS.md) | Seven complete RH_Lean Agent Studio instruction templates |
+| 29 | [docs/PROOF_DEPENDENCY_DAG.md](../../../docs/PROOF_DEPENDENCY_DAG.md) | RH_Lean mathematical proof-dependency DAG |
 | 29 | [research/VF_919_OAI_NNS_INDEPENDENT_SIGNED_SAVING_20261022.md](../../../research/VF_919_OAI_NNS_INDEPENDENT_SIGNED_SAVING_20261022.md) | OpenAI high-row saving in signed NNS coordinates: exact closure target and independent finite payment |
 | 29 | [research/VF_MID_919_OAI_OWNER_TWO_SIGNED_MERTENS_MOMENT.md](../../../research/VF_MID_919_OAI_OWNER_TWO_SIGNED_MERTENS_MOMENT.md) | #919: OAI to native Sector Six — the exact owner-two signed-moment target |
+| 28 | [docs/RHLEAN_SEVEN_AGENT_RESEARCH_ENGINE_20261101.md](../../../docs/RHLEAN_SEVEN_AGENT_RESEARCH_ENGINE_20261101.md) | Seven-agent persistent research engine and next-run attack plan |
+| 27 | [research/oai_434/VF919OriginalLowTupleSignedGram.lean](../../../research/oai_434/VF919OriginalLowTupleSignedGram.lean) | Original OAI LOW physical tuple Gram, before the first triangle inequality |
 | 25 | [docs/COORDINATE_ATLAS.md](../../../docs/COORDINATE_ATLAS.md) | Coordinate atlas: one phenomenon, many coordinates |
+| 25 | [scripts/ci/slot_anchored/SlotAnchoredAudit.lean](../../../scripts/ci/slot_anchored/SlotAnchoredAudit.lean) | Exact endpoint type, terminal axiom, and live dependency audit. |
 | 23 | [research/VF_919_OAI_GAUSSIAN_SUBSET_EXACT_COEFFICIENT_NNS_20261021.md](../../../research/VF_919_OAI_GAUSSIAN_SUBSET_EXACT_COEFFICIENT_NNS_20261021.md) | Exact GaussianSubset coefficient correspondence → signed NNS source-moment seam |
-| 22 | [docs/PROOF_DEPENDENCY_DAG.md](../../../docs/PROOF_DEPENDENCY_DAG.md) | RH_Lean mathematical proof-dependency DAG |
+| 23 | [scripts/lean/principal_response_inversion/Audit.lean](../../../scripts/lean/principal_response_inversion/Audit.lean) | — |
 | 22 | [research/OAI_SEVEN_EIGHTHS_NATIVE_DECLARATION_CROSSWALK_20261019.md](../../../research/OAI_SEVEN_EIGHTHS_NATIVE_DECLARATION_CROSSWALK_20261019.md) | OpenAI 7/8 theorem → RH_Lean native declaration crosswalk |
 | 22 | [research/VF_919_OAI_EXACT_MARKED_RESCALED_LOCAL_20261019.lean](../../../research/VF_919_OAI_EXACT_MARKED_RESCALED_LOCAL_20261019.lean) | The actual OpenAI marked-minus-rescaled local Euler cancellation |
 | 22 | [research/VF_MID_919_OAI_C_TO_R_CANCELLATION_WELD.md](../../../research/VF_MID_919_OAI_C_TO_R_CANCELLATION_WELD.md) | #919 — Absorb OpenAI's compensated Hecke cancellation into actual VF C->R coordinates |
 | 22 | [research/oai_434/VF919OriginalGaussianIntegratedNNS.lean](../../../research/oai_434/VF919OriginalGaussianIntegratedNNS.lean) | OAI-typed, proof-authoritative Gaussian subset -> signed NNS |
-| 19 | [AGENTS.md](../../../AGENTS.md) | RH_Lean research-agent instructions |
+| 22 | [scripts/lean/QuantitativeTiltAudit.lean](../../../scripts/lean/QuantitativeTiltAudit.lean) | — |
+| 22 | [scripts/lean/slot_anchored/SlotAnchoredAudit.lean](../../../scripts/lean/slot_anchored/SlotAnchoredAudit.lean) | Runtime audit of the LOW-first endpoint. Requires compiled proof modules. |
+| 20 | [docs/RHLEAN_ALL_VECTOR_AGENT_PROMPTS_BEFORE_CANCELLATION_CHAIN_20261107.md](../../../docs/RHLEAN_ALL_VECTOR_AGENT_PROMPTS_BEFORE_CANCELLATION_CHAIN_20261107.md) | Seven-agent all-vector prompt reference - persistent research edition |
+| 20 | [scripts/lean/principal_all_delay_return/Audit.lean](../../../scripts/lean/principal_all_delay_return/Audit.lean) | — |
+| 19 | [AGENTS_BEFORE_RESEARCH_ENGINE_20261101.md](../../../AGENTS_BEFORE_RESEARCH_ENGINE_20261101.md) | RH_Lean research-agent instructions |
+| 19 | [docs/RH_PROOF_ATTACK_PORTFOLIO_20261024.md](../../../docs/RH_PROOF_ATTACK_PORTFOLIO_20261024.md) | RH proof attack portfolio and seven-agent operating contract — 2026-10-24 |
 | 19 | [research/VF_MID_919_OAI_UPM_LPM_ASYMMETRIC_GAIN.md](../../../research/VF_MID_919_OAI_UPM_LPM_ASYMMETRIC_GAIN.md) | Can NNS LPM/UPM sharpen OpenAI's asymmetric 7/8 moment bounds? |
 | 18 | [docs/NATIVE_SEVEN_EIGHTHS_REPLICATION_PROTOCOL_20261019.md](../../../docs/NATIVE_SEVEN_EIGHTHS_REPLICATION_PROTOCOL_20261019.md) | Independent reproduction of the seven-eighths *mechanism* — proof authority and execution contract |
 | 18 | [docs/OAI_COMPENSATED_ONE_PRIME_NNS_SEAM_20261022.md](../../../docs/OAI_COMPENSATED_ONE_PRIME_NNS_SEAM_20261022.md) | Original OAI compensated source and NNS signed payment (retained analytic lane) |
-| 18 | [docs/RH_PROOF_ATTACK_PORTFOLIO_20261024.md](../../../docs/RH_PROOF_ATTACK_PORTFOLIO_20261024.md) | RH proof attack portfolio and seven-agent operating contract — 2026-10-24 |
+| 18 | [research/OAI_PAIRED_SHARP_MOMENT_TRANSFER_20261028.md](../../../research/OAI_PAIRED_SHARP_MOMENT_TRANSFER_20261028.md) | OAI 7/8 -> genuine Euler three-part square-shell localization |
 | 18 | [research/VF_919_OAI_COMPENSATED_SEXTIC_THREE_GATES_20261022.md](../../../research/VF_919_OAI_COMPENSATED_SEXTIC_THREE_GATES_20261022.md) | Original OpenAI compensation → resonant fibers → sextic moment: three non-circular gates |
 | 17 | [docs/RHLEAN_NATIVE_FIRST_PROOF_ROUTING_20261026.md](../../../docs/RHLEAN_NATIVE_FIRST_PROOF_ROUTING_20261026.md) | RH_Lean-native-first mathematical proof routing (26 October 2026) |
 | 16 | [research/OAI_919_COMPENSATION_NNS_SIMULTANEOUS_CROSSWALK_20261021.md](../../../research/OAI_919_COMPENSATION_NNS_SIMULTANEOUS_CROSSWALK_20261021.md) | OpenAI compensation and NNS covariance: ONE mechanism, side-by-side |
@@ -29,11 +46,21 @@ Coordinates: [`ANCHOR-MERTENS`](../coordinates/ANCHOR-MERTENS.md), [`ANCHOR-ZETA
 | 16 | [research/OAI_REFINED_MARKED_NNS_ATTACK_20261021.md](../../../research/OAI_REFINED_MARKED_NNS_ATTACK_20261021.md) | Attack: real unnormalized NNS coordinates of OpenAI's ACTUAL refined marked fourth moment |
 | 16 | [research/VF_919_FROZEN_COFACTOR_OAI_NNS_RESPONSE_20261023.md](../../../research/VF_919_FROZEN_COFACTOR_OAI_NNS_RESPONSE_20261023.md) | Applied bridge: fixed subroot Mobius coefficients to the ORIGINAL moving-prime response |
 | 16 | [research/VF_919_PRIME_WHEEL_OAI_SIMULTANEOUS_COVARIANCE_20261021.md](../../../research/VF_919_PRIME_WHEEL_OAI_SIMULTANEOUS_COVARIANCE_20261021.md) | One simultaneous ledger: sequential prime wheel, OpenAI Hecke compensation, and unnormalized NNS covariance |
+| 16 | [research/oai_434/VF919OriginalGainComponentLedger.lean](../../../research/oai_434/VF919OriginalGainComponentLedger.lean) | The ACTUAL OAI 1 -> 7/8 cancellation path: first lost moment saving |
+| 16 | [scripts/lean/window_error_closure/WindowErrorClosureAudit.lean](../../../scripts/lean/window_error_closure/WindowErrorClosureAudit.lean) | — |
+| 15 | [AGENTS.md](../../../AGENTS.md) | 2026-11-22 — constructed lattice descent and complete signed payment |
+| 15 | [AGENTS_BEFORE_CANCELLATION_CHAIN_20261107.md](../../../AGENTS_BEFORE_CANCELLATION_CHAIN_20261107.md) | RH_Lean research-agent instructions |
+| 15 | [CURRENT_PROOF_CONTRACT.md](../../../CURRENT_PROOF_CONTRACT.md) | RH_Lean current proof contract |
+| 15 | [docs/RHLEAN_OAI_LOW_SOURCE_FIRST_AGENT_CONTRACT_20261103.md](../../../docs/RHLEAN_OAI_LOW_SOURCE_FIRST_AGENT_CONTRACT_20261103.md) | OAI 1 -> 7/8 source-first signed LOW research contract for all seven agents |
+| 15 | [docs/RHLEAN_PAID_BASELINE_EXACT_CONSUMER_20261106.md](../../../docs/RHLEAN_PAID_BASELINE_EXACT_CONSUMER_20261106.md) | Established baseline, exact consumer, genuinely new arithmetic |
+| 15 | [scripts/lean/physical_principal_response/Audit.lean](../../../scripts/lean/physical_principal_response/Audit.lean) | — |
 | 14 | [research/VF_919_OAI_COMPENSATED_TUPLE_SUBRATIO_AUDIT_20261021.md](../../../research/VF_919_OAI_COMPENSATED_TUPLE_SUBRATIO_AUDIT_20261021.md) | PR #1002: compensated-tuple subratios — exact source audit, not an assumed pointwise cancellation |
 | 14 | [research/VF_919_OAI_GAUSSIAN_SUBSET_EXACT_COEFFICIENT_NNS_20261021.lean](../../../research/VF_919_OAI_GAUSSIAN_SUBSET_EXACT_COEFFICIENT_NNS_20261021.lean) | Exact GaussianSubset coefficient splitting and original-sign NNS moment |
 | 14 | [research/oai_434/RHLeanActualEisensteinIdealSharpSquareBlock.lean](../../../research/oai_434/RHLeanActualEisensteinIdealSharpSquareBlock.lean) | OpenAI Lean 4.34.1: ACTUAL ideal-norm fiber = #919 norm source |
+| 14 | [scripts/lean/slot_anchored/ActualSlotMinAudit.lean](../../../scripts/lean/slot_anchored/ActualSlotMinAudit.lean) | Read-only audit of the true physical-slot minimum proof.  The actual |
 | 13 | [research/OAI_CUBIC_FREE_ROW_DEFAVERI_ADAPTER_AUDIT_20261022.md](../../../research/OAI_CUBIC_FREE_ROW_DEFAVERI_ADAPTER_AUDIT_20261022.md) | De Faveri cubic sieve adapter for actual OAI sixth-free rows |
-| 12 | [CURRENT_PROOF_CONTRACT.md](../../../CURRENT_PROOF_CONTRACT.md) | RH_Lean current proof contract |
+| 12 | [docs/RHLEAN_ALL_SELECTED_INVERSE_SOURCE_ATTACK_20261104.md](../../../docs/RHLEAN_ALL_SELECTED_INVERSE_SOURCE_ATTACK_20261104.md) | All-selected original OAI LOW: optional Analytic and Referee attack (2026-11-04) |
+| 12 | [docs/RHLEAN_BROAD_SEARCH_UNTIL_ETA_20261031.md](../../../docs/RHLEAN_BROAD_SEARCH_UNTIL_ETA_20261031.md) | Broad RH_Lean mathematics until a verified positive exponent gain |
 | 12 | [docs/SIGNED_MOBIUS_COVARIANCE_RH_SEAM_2026_10_17.md](../../../docs/SIGNED_MOBIUS_COVARIANCE_RH_SEAM_2026_10_17.md) | Seven-agent priority: independently pay the complete signed Möbius covariance |
 | 12 | [docs/ci_cache_architecture_434.md](../../../docs/ci_cache_architecture_434.md) | RHLean cache architecture (Lean 4.34.1) |
 | 12 | [research/OAI_THREE_QUARTERS_ACTUAL_CUBIC_ATTACK_20261022.md](../../../research/OAI_THREE_QUARTERS_ACTUAL_CUBIC_ATTACK_20261022.md) | Direct a=3/4 attack: original OpenAI compensated prime + cubic/sixth-free rows |
@@ -41,30 +68,3 @@ Coordinates: [`ANCHOR-MERTENS`](../coordinates/ANCHOR-MERTENS.md), [`ANCHOR-ZETA
 | 12 | [research/VF_919_FROZEN_COFACTOR_OAI_NNS_RESPONSE_20261023.lean](../../../research/VF_919_FROZEN_COFACTOR_OAI_NNS_RESPONSE_20261023.lean) | Frozen rational Mobius cofactors, actual moving prime availability, and OAI norm lift |
 | 12 | [research/VF_919_OPENAI_434_UNCONDITIONAL_SQUARE_BLOCK_COVARIANCE_20261019.lean](../../../research/VF_919_OPENAI_434_UNCONDITIONAL_SQUARE_BLOCK_COVARIANCE_20261019.lean) | Unconditional actual OpenAI certified 7/8 in RH_Lean's ORIGINAL square shells |
 | 12 | [research/oai_434/RHLeanActualEisensteinCompensatedSharpSquareBlock.lean](../../../research/oai_434/RHLeanActualEisensteinCompensatedSharpSquareBlock.lean) | True Eisenstein ideals AND actual OpenAI continued compensation |
-| 12 | [research/oai_434/VF919OriginalCubeFreeIdealAdapter.lean](../../../research/oai_434/VF919OriginalCubeFreeIdealAdapter.lean) | Original OAI true Eisenstein ideal base-3 adapter and canonical sextic |
-| 12 | [research/oai_434/VF919OriginalVariableExponentThreeQuarters.lean](../../../research/oai_434/VF919OriginalVariableExponentThreeQuarters.lean) | Original OAI local exponent down to 51/100; actual a=3/4 contour |
-| 11 | [docs/DYNAMIC_RESEARCH_AGENTS.md](../../../docs/DYNAMIC_RESEARCH_AGENTS.md) | RH_Lean dynamic seven-agent research protocol |
-| 10 | [RESEARCH_ROUTE_REGISTRY.md](../../../RESEARCH_ROUTE_REGISTRY.md) | Research route registry |
-| 10 | [research/CORR4_OAI_RELAXED_REMAINDER_20261024.md](../../../research/CORR4_OAI_RELAXED_REMAINDER_20261024.md) | CORR-4: OAI 7/8 guidepost and a genuinely relaxed physical remainder attack |
-| 10 | [research/CORR4_OAI_VARIABLE_SLOT_PERTURBATION_AUDIT_20261026.md](../../../research/CORR4_OAI_VARIABLE_SLOT_PERTURBATION_AUDIT_20261026.md) | Source-faithful OpenAI variable-slot perturbation attack (2026-10-26) |
-| 10 | [research/OAI_WEIGHTED_NNS_COVARIANCE_ATTACK_20261021.md](../../../research/OAI_WEIGHTED_NNS_COVARIANCE_ATTACK_20261021.md) | The missing NNS covariance layer INSIDE the actual OpenAI weighted marked kernel |
-| 10 | [research/VF_919_OAI_COMPENSATED_TUPLE_SUBRATIO_AUDIT_20261021.lean](../../../research/VF_919_OAI_COMPENSATED_TUPLE_SUBRATIO_AUDIT_20261021.lean) | OAI one-slot subratio audit, conditional reduction, and physical W0 obstruction |
-| 10 | [research/VF_919_OAI_EXACT_LABELED_NATIVE_SEATS_20261019.lean](../../../research/VF_919_OAI_EXACT_LABELED_NATIVE_SEATS_20261019.lean) | One physical occurrence at a time: OAI local compensation on native owner seats |
-| 10 | [research/VF_919_OPENAI_CERTIFIED_ORIGINAL_SQUARE_COVARIANCE_20261019.lean](../../../research/VF_919_OPENAI_CERTIFIED_ORIGINAL_SQUARE_COVARIANCE_20261019.lean) | Actual OpenAI certified 7/8 proof in ORIGINAL RHLean square-block covariance |
-| 10 | [research/VF_MID_919_OAI_RECTANGLE_ADMISSIBILITY_AUDIT.md](../../../research/VF_MID_919_OAI_RECTANGLE_ADMISSIBILITY_AUDIT.md) | Native owner-two coefficients and centered-row admissibility |
-| 10 | [research/VF_MID_919_OAI_STAGE_SAVINGS_AND_BOOTSTRAP.md](../../../research/VF_MID_919_OAI_STAGE_SAVINGS_AND_BOOTSTRAP.md) | #919: Exactly what saved 1 -> 11/12 -> 7/8, and what VF would need to improve it |
-| 10 | [research/VF_MID_SEVEN_EIGHTHS_BIDIRECTIONAL_SYNTHESIS.md](../../../research/VF_MID_SEVEN_EIGHTHS_BIDIRECTIONAL_SYNTHESIS.md) | Bidirectional synthesis of the OpenAI 7/8 zero-free result and genuine RH_Lean prime owners |
-| 10 | [research/oai_434/VF919OriginalDetectorSignedNNS.lean](../../../research/oai_434/VF919OriginalDetectorSignedNNS.lean) | Real OAI finite Hecke detector columns -> exact signed NNS covariance |
-| 9 | [research/OAI_POLARIZED_PARSEVAL_EULER_OBSTRUCTION_20261021.md](../../../research/OAI_POLARIZED_PARSEVAL_EULER_OBSTRUCTION_20261021.md) | PR #997: polarized NNS, Parseval resonance, and phase-correct Euler compensation |
-| 9 | [research/VF_919_SEVEN_EIGHTHS_COVARIANCE_MECHANISM_20261019.md](../../../research/VF_919_SEVEN_EIGHTHS_COVARIANCE_MECHANISM_20261019.md) | The exact 7/8 signed-covariance target and the 317/1027 square-shell route |
-| 9 | [research/oai_434/VF919ActualSexticLocalResonanceAndCompensation.lean](../../../research/oai_434/VF919ActualSexticLocalResonanceAndCompensation.lean) | ORIGINAL OAI local sextic character and exact compensation: no fictitious saving |
-| 9 | [research/oai_434/VF919OriginalDetectorSexticSectorDefect.lean](../../../research/oai_434/VF919OriginalDetectorSexticSectorDefect.lean) | OAI-typed finite Hecke ideal-pair sector defect |
-| 8 | [docs/FORMALIZATION_MILESTONES.md](../../../docs/FORMALIZATION_MILESTONES.md) | RH_Lean formalization milestones |
-| 8 | [docs/RH_PROOF_OVERLAP_AND_SEVEN_EIGHTHS_AUDIT_20261024.md](../../../docs/RH_PROOF_OVERLAP_AND_SEVEN_EIGHTHS_AUDIT_20261024.md) | Audit: route overlap versus independent 7/8-powered progress (2026-10-24) |
-| 8 | [research/CORR4_OAI_POWER_GUIDEPOST_20261024.lean](../../../research/CORR4_OAI_POWER_GUIDEPOST_20261024.lean) | OpenAI 7/8 is a GUIDEPOST, not a fixed exponent |
-| 8 | [research/OAI_ORIGINAL_SIGNED_SIXFREE_LOW_COMPLETION_20261022.md](../../../research/OAI_ORIGINAL_SIGNED_SIXFREE_LOW_COMPLETION_20261022.md) | Genuine signed sextic low-row cancellation: primary, sixth-free, smooth radial carrier |
-| 8 | [research/VF_919_ACTUAL_WEIGHTED_NNS_COVARIANCE_KERNEL_20261021.lean](../../../research/VF_919_ACTUAL_WEIGHTED_NNS_COVARIANCE_KERNEL_20261021.lean) | The ACTUAL marked weighted Hecke kernel in unnormalized NNS covariance |
-| 8 | [research/VF_919_NNS_LOW_HIGH_GATE_SPARSE_EXTENSION_20261021.md](../../../research/VF_919_NNS_LOW_HIGH_GATE_SPARSE_EXTENSION_20261021.md) | Canonical low/high gate extension: weighted NNS and a uniform root boundary |
-| 8 | [research/VF_919_NNS_NORM_FIBER_BOUNDARY_CORRESPONDENCE_20261021.md](../../../research/VF_919_NNS_NORM_FIBER_BOUNDARY_CORRESPONDENCE_20261021.md) | Genuine ideal-label norm-fiber boundary bridge, without a hidden OAI assumption |
-| 8 | [research/VF_919_OAI_ACTUAL_MARKED_FOURTH_REAL_NNS_20261021.lean](../../../research/VF_919_OAI_ACTUAL_MARKED_FOURTH_REAL_NNS_20261021.lean) | Real NNS version of OAI's actual refined marked fourth-moment rows |
-| 8 | [research/VF_919_OAI_NNS_INDEPENDENT_SIGNED_SAVING_20261022.lean](../../../research/VF_919_OAI_NNS_INDEPENDENT_SIGNED_SAVING_20261022.lean) | Original OAI signed moment: the saving demanded, and a genuinely |

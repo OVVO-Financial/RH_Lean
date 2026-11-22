@@ -118,4 +118,6 @@ theorem lGrowth_of (hB : PI.LBoundRight) {C : ℝ} (hZ : ZetaGrowth C) :
 
 end PI.EF
 
+end
+
 end RHLean.Analysis.AlpogeThin

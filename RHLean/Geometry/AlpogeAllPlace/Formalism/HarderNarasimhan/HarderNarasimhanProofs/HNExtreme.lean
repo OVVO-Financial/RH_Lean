@@ -25,7 +25,8 @@ universe u v w
 
 theorem hnExtreme_mem_iff {n : ℕ} (f : Fin n → ℝ) (hf : Antitone f) (θ : ℝ) (j : Fin n) :
     θ ≤ f j ↔ (j : ℕ) < (Finset.univ.filter (fun i => θ ≤ f i)).card := by
-  first | exact RHLean.Geometry.AlpogeAllPlace.Bl.general_b_fact_left_form.goal1 .. | (apply RHLean.Geometry.AlpogeAllPlace.Bl.general_b_fact_left_form.goal1 <;> assumption) | (intros; apply RHLean.Geometry.AlpogeAllPlace.Bl.general_b_fact_left_form.goal1 <;> assumption) | (apply @RHLean.Geometry.AlpogeAllPlace.Bl.general_b_fact_left_form.goal1 <;> assumption) | (intros; apply @RHLean.Geometry.AlpogeAllPlace.Bl.general_b_fact_left_form.goal1 <;> assumption) | (apply @RHLean.Geometry.AlpogeAllPlace.Bl.general_b_fact_left_form.goal1 <;> first | assumption | infer_instance)
+  apply RHLean.Geometry.AlpogeAllPlace.Bl.general_b_fact_left_form.goal1
+  assumption
 
 theorem hnExtreme_of (h1 : HNSlopes.{u, v, w}) (h2 : MuChar.{u, v, w}) (h3 : HNStep.{u, v, w})
     (h4 : SatBasic.{u, v, w}) : HNExtreme.{u, v, w} := by

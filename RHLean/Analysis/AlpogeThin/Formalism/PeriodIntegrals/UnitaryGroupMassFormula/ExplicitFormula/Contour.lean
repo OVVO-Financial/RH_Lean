@@ -147,4 +147,6 @@ theorem glueContour : GlueContour := by
 
 end PI.EF
 
+end
+
 end RHLean.Analysis.AlpogeThin

@@ -67,4 +67,6 @@ def RHofG {N : ℕ} [NeZero N] (χ : DirichletCharacter ℂ N) : Prop :=
 
 end Formalism
 
+end
+
 end RHLean.Analysis.AlpogeThin

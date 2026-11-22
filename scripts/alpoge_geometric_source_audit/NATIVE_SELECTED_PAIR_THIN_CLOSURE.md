@@ -68,7 +68,7 @@ conductor contains q or d.
 - If q or d divides its conductor, `RealBox H` supplies nonvanishing in the
   fixed real strip `beta > 1-1/400` for that exact host character.
 - Otherwise `QH.real_cond` proves that its conductor divides
-  `8*ordCompl[2](H.QS)`. The odd part is bounded by B, so `QH.small_zeros`
+  `8*ordCompl[2] H.QS`. The odd part is bounded by B, so `QH.small_zeros`
   supplies one positive exclusion width for the finite set of characters with
   conductor at most `8*floor(B)`. This latter proof uses continuity and the
   actual nonvanishing of L(1,chi), followed by finite minima.
@@ -81,10 +81,10 @@ constant before B, eps, x, the host, and the character.
 The reconstructed `UpperTheory.Top.realBox` supplies that box input from the
 same `PairGood M eps Y X H.q H.d`. Its `realSplit` proof writes each relevant
 real host character as a base real primitive character of conductor dividing
-`8*ordCompl[2](H.QS)` times one of the three nontrivial q,d twists. The
+`8*ordCompl[2] H.QS` times one of the three nontrivial q,d twists. The
 `PairGood.boxes` field applies to those actual twists. The required host
 conditions are that primes dividing H.QS divide 2*M and
-`ordCompl[2](H.QS)` divides M.
+`ordCompl[2] H.QS` divides M.
 
 `QH.pairEx` constructs q,d and the entire `PairGood` record. It invokes the
 actual pair-selection and character mean-square proofs, preserving both the

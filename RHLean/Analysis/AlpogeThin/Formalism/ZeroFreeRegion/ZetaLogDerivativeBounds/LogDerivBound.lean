@@ -139,4 +139,6 @@ theorem logDerivBoundOnBall : LogDerivBound := by
 
 end Formalism.ZF
 
+end
+
 end RHLean.Analysis.AlpogeThin

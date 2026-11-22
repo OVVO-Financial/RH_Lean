@@ -89,4 +89,6 @@ lemma prime_power_coefficient_nonneg {N N' M : ℕ} {χ : DirichletCharacter ℂ
 
 end Formalism.ZeroFreeDirichlet
 
+end
+
 end RHLean.Analysis.AlpogeThin

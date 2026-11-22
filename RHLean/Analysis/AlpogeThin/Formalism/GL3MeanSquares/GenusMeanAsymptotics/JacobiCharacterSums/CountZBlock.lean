@@ -185,4 +185,6 @@ theorem blockCountOf_statement : BlockCountOf := by
 
 end Formalism.HermitianLattices.Ext.PrimitiveCharacterCasts.ZD
 
+end
+
 end RHLean.Analysis.AlpogeThin

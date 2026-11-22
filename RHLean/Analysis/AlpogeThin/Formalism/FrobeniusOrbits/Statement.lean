@@ -275,4 +275,6 @@ def HostCMType : Prop :=
 
 end Formalism.FrobeniusOrbits
 
+end
+
 end RHLean.Analysis.AlpogeThin

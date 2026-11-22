@@ -257,4 +257,6 @@ theorem local_abstract (hDF : PI.DiscFactor) (hDL : PI.DiscLog) {r R' R : ℝ} (
 
 end PI.EF.Loc
 
+end
+
 end RHLean.Analysis.AlpogeThin

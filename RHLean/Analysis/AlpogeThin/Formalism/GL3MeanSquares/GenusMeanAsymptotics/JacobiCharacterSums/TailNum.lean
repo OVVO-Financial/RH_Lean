@@ -156,4 +156,6 @@ theorem tail_num (ε K : ℝ) (hε : 0 < ε) (hε1 : ε ≤ 1) (hK : 0 ≤ K) : 
 
 end Formalism.HermitianLattices.Ext.BoxTail
 
+end
+
 end RHLean.Analysis.AlpogeThin

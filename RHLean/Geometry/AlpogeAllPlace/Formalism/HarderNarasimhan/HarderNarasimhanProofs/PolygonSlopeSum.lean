@@ -21,6 +21,7 @@ section
 variable {R V E : Type*} [Ring R] [AddCommGroup V] [Module R V] [NormedAddCommGroup E]
     [InnerProductSpace ℝ E] (ρ : V →+ E)
 
+omit [InnerProductSpace ℝ E] in
 theorem hnSum_mem_zl (N : Submodule R V) (y : E) :
     y ∈ zl ρ N ↔ ∃ x ∈ N, ρ x = y :=
   Iff.rfl
@@ -42,9 +43,10 @@ theorem hnSum_zl_sup (A B : Submodule R V) : zl ρ (A ⊔ B) = zl ρ A ⊔ zl ρ
 
 variable [FiniteDimensional ℝ E]
 
+omit [FiniteDimensional ℝ E] in
 theorem hnSum_isLat_mono {L N : Submodule R V} (hL : IsLat ρ L) (h : N ≤ L) : IsLat ρ N := by
   refine ⟨hL.1.mono h, ?_⟩
-  haveI := hL.2
+  have := hL.2
   exact DiscreteTopology.of_continuous_injective
     (f := fun y : zl ρ N => (⟨y.1, hnSum_zl_mono ρ h y.2⟩ : zl ρ L))
     (continuous_subtype_val.subtype_mk _)
@@ -53,6 +55,7 @@ theorem hnSum_isLat_mono {L N : Submodule R V} (hL : IsLat ρ L) (h : N ≤ L) :
       simp only [Subtype.mk.injEq] at hab
       exact Subtype.ext hab)
 
+omit [FiniteDimensional ℝ E] in
 theorem hnSum_orth_zero {A : Submodule R V} (hA : IsLat ρ A) {x : V} (hx : x ∈ A)
     (h : inner ℝ (ρ x) (ρ x) = 0) : x = 0 := by
   have h0 : ρ x = 0 := inner_self_eq_zero.1 h
@@ -102,6 +105,7 @@ section
 variable {R : Type u} {V : Type v} {E : Type w} [Ring R] [AddCommGroup V] [Module R V]
     [NormedAddCommGroup E] [InnerProductSpace ℝ E] [FiniteDimensional ℝ E] (ρ : V →+ E)
 
+omit [FiniteDimensional ℝ E] in
 theorem hnSum_rk_bot : rk ρ (⊥ : Submodule R V) = 0 := by
   have e : zl ρ (⊥ : Submodule R V) = ⊥ := by
     ext y
@@ -197,7 +201,7 @@ private theorem muMin_sup_le_muMin_of_orthogonal {R : Type u} {V : Type v} {E : 
   rw [e]
   linarith
 
-theorem hnSum_of (h1 : DegSupermod.{u, v, w}) (h2 : MuChar.{u, v, w}) (h3 : SatBasic.{u, v, w}) :
+theorem hnSum_of (h1 : DegSupermod.{u, v, w}) (h2 : MuChar.{u, v, w}) (_h3 : SatBasic.{u, v, w}) :
     HNSum.{u, v, w, x} := by
   classical
   intro R V E _ _ _ _ _ _ ρ

@@ -39,10 +39,10 @@ theorem num_alg (M y C D Pt t lg lm : ℝ) (hM : 1 ≤ M) (hy : M ^ 5 ≤ y) (hC
         _ ≤ D * M ^ 2 * (169 * M ^ 2) := mul_le_mul_of_nonneg_left hlm2 (by positivity)
     calc lg * lm ^ 2 / M ^ 6 ≤ D * M ^ 2 * (169 * M ^ 2) / M ^ 6 :=
           div_le_div_of_nonneg_right h2 (by positivity)
-      _ = 169 * D * (M ^ 2)⁻¹ := by field_simp <;> ring
+      _ = 169 * D * (M ^ 2)⁻¹ := by field_simp
   have e1 : M * (4 * y * (C * (Pt + lg * lm ^ 2 / M ^ 12)) / (M ^ 5)⁻¹)
       = 4 * C * y * (M ^ 6 * Pt + lg * lm ^ 2 / M ^ 6) := by
-    field_simp <;> ring
+    field_simp
   have h1 : M * (4 * y * (C * (Pt + lg * lm ^ 2 / M ^ 12)) / (M ^ 5)⁻¹)
       ≤ 4 * C * y * ((M ^ 2)⁻¹ + 169 * D * (M ^ 2)⁻¹) := by
     rw [e1]; exact mul_le_mul_of_nonneg_left (add_le_add hA hB) (by positivity)
@@ -53,7 +53,7 @@ theorem num_alg (M y C D Pt t lg lm : ℝ) (hM : 1 ≤ M) (hy : M ^ 5 ≤ y) (hC
     have hc : 0 ≤ 4 * M * ((M ^ 5)⁻¹ * y + 1) := by positivity
     calc M * (4 * ((M ^ 5)⁻¹ * y + 1) * lg) = 4 * M * ((M ^ 5)⁻¹ * y + 1) * lg := by ring
       _ ≤ 4 * M * ((M ^ 5)⁻¹ * y + 1) * (D * M ^ 2) := mul_le_mul_of_nonneg_left hlg hc
-      _ = 4 * D * (y * (M ^ 2)⁻¹ + M ^ 3) := by field_simp <;> ring
+      _ = 4 * D * (y * (M ^ 2)⁻¹ + M ^ 3) := by field_simp
       _ ≤ 4 * D * (y * (M ^ 2)⁻¹ + y * (M ^ 2)⁻¹) :=
           mul_le_mul_of_nonneg_left (by linarith) (by positivity)
       _ = 8 * D * y * (M ^ 2)⁻¹ := by ring
@@ -89,7 +89,7 @@ theorem logy_lt {cA M y : ℝ} (hcA : 0 < cA) (hy : 2 ≤ y)
   calc cA ^ 2 * Real.log y = (cA * Real.sqrt (Real.log y)) ^ 2 := by rw [mul_pow, hs]
     _ < Real.log M ^ 2 := h2
 
-theorem inv_le_exp {cA c M y : ℝ} (hcA : 0 < cA) (hc : 0 < c) (hc' : c ≤ cA ^ 2) (hM : 8 ≤ M) (hy : 2 ≤ y)
+theorem inv_le_exp {cA c M y : ℝ} (hcA : 0 < cA) (_hc : 0 < c) (hc' : c ≤ cA ^ 2) (hM : 8 ≤ M) (hy : 2 ≤ y)
     (h : cA * Real.sqrt (Real.log y) < Real.log M) :
     M⁻¹ ≤ Real.exp (-(c * Real.log y / Real.log M)) := by
   have hM0 : 0 < M := by linarith
@@ -176,5 +176,7 @@ theorem num_main (cA κ C : ℝ) (hcA : 0 < cA) (hκ : 0 < κ) (hC : 0 < C) :
   ring
 
 end Formalism.HermitianLattices.Ext.PrimesInProgressions
+
+end
 
 end RHLean.Analysis.AlpogeThin

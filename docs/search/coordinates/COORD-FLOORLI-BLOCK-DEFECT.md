@@ -32,3 +32,4 @@
 | 10 | [research/VF_MID_FLOOR_LI_TRANSPORT_CANCELLATION.lean](../../../research/VF_MID_FLOOR_LI_TRANSPORT_CANCELLATION.lean) | Floor-Li event transport and quadratic cancellation |
 | 8 | [docs/PROOF_DEPENDENCY_DAG.md](../../../docs/PROOF_DEPENDENCY_DAG.md) | RH_Lean mathematical proof-dependency DAG |
 | 4 | [research/VF_MID_FLOOR_LI_TRANSPORT_MINING.md](../../../research/VF_MID_FLOOR_LI_TRANSPORT_MINING.md) | Floor-Li transport mining and cancellation note |
+| 2 | [docs/RHLEAN_REPO_WIDE_PROOF_ATTACKS_20261108.md](../../../docs/RHLEAN_REPO_WIDE_PROOF_ATTACKS_20261108.md) | RH_Lean all-route mathematical status and seven-agent handoff — 2026-11-08 |

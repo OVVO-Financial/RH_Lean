@@ -172,4 +172,6 @@ theorem one_char {M : ℕ} [NeZero M] (hM : 3 ≤ M) (e : Option (DirichletChara
 
 end Formalism.HermitianLattices.Ext.PrimesInProgressions
 
+end
+
 end RHLean.Analysis.AlpogeThin

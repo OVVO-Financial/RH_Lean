@@ -28,6 +28,7 @@ def piSum_emb (E : ι → Type*) [∀ i, NormedAddCommGroup (E i)] [∀ i, Inner
     (i : ι) : E i →ₗ[ℝ] PiLp 2 E :=
   (WithLp.linearEquiv 2 ℝ (∀ j, E j)).symm.toLinearMap.comp (LinearMap.single ℝ E i)
 
+omit [Fintype ι] in
 theorem piSum_emb_apply (i : ι) (v : E i) (j : ι) : (piSum_emb E i v) j = Pi.single i v j := rfl
 
 theorem piSum_emb_inner (i : ι) (u v : E i) :
@@ -39,6 +40,7 @@ theorem piSum_emb_inner (i : ι) (u v : E i) :
   · intro h
     exact absurd (Finset.mem_univ i) h
 
+omit [Fintype ι] in
 theorem piSum_emb_injective (i : ι) : Function.Injective (piSum_emb E i) := by
   intro u v h
   have h' := congrArg (fun x : PiLp 2 E => x i) h
@@ -46,9 +48,11 @@ theorem piSum_emb_injective (i : ι) : Function.Injective (piSum_emb E i) := by
 
 variable (ρ : ∀ i, V i →+ E i)
 
+omit [Fintype ι] [DecidableEq ι] [(i : ι) → InnerProductSpace ℝ (E i)] in
 private theorem piLp_ext {x y : PiLp 2 E} (h : ∀ j, x j = y j) : x = y := by
   exact PiLp.ext h
 
+omit [DecidableEq ι] in
 private theorem piReal_apply (ρ : ∀ i, V i →+ E i) (x : ∀ i, V i) (j : ι) :
     piReal ρ x j = ρ j (x j) := by
   rfl
@@ -136,6 +140,7 @@ def piSumS (L : ∀ i, Submodule R (V i)) (i : ι) : Submodule R (∀ i, V i) :=
 def piSumT (L : ∀ i, Submodule R (V i)) (s : Finset ι) : Submodule R (∀ i, V i) :=
   ⨆ i ∈ s, piSumS L i
 
+omit [Fintype ι] in
 private theorem linearMap_single_injective (i : ι) : Function.Injective (LinearMap.single R V i) := by
   intro a b h
   have h' := congrFun h i

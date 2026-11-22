@@ -151,4 +151,6 @@ lemma dhl_nontriv (hCau : DHCauchy) (C0 K : ℝ)
 
 end Formalism.HermitianLattices.Ext.PrimesInProgressions
 
+end
+
 end RHLean.Analysis.AlpogeThin

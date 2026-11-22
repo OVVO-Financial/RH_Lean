@@ -39,9 +39,7 @@ theorem exists_power_sum_lower_bound (C : ℝ) (a : ℕ) (hC : 0 < C)
     intro i
     have h1 := hu i
     have h2 : (u i).re ≤ ‖u i‖ := by
-      first
-        | exact Complex.re_le_norm (u i)
-        | exact Complex.re_le_abs (u i)
+      exact Complex.re_le_norm (u i)
     nlinarith [norm_nonneg (u i)]
   obtain ⟨i0, hi0⟩ := hi
 
@@ -53,9 +51,7 @@ theorem exists_power_sum_lower_bound (C : ℝ) (a : ℕ) (hC : 0 < C)
   have hr0 : 1 / 2 ≤ r := le_trans hi0 (Finset.le_sup' (fun i => ‖u i‖) hi0I)
   have hrpos : 0 < r := by linarith
   have hnr : ‖(r : ℂ)‖ = r := by
-    first
-      | rw [Complex.norm_real, Real.norm_of_nonneg hrpos.le]
-      | simp [abs_of_pos hrpos]
+    rw [Complex.norm_real, Real.norm_of_nonneg hrpos.le]
   set n := I.card with hn
   have hn1 : 1 ≤ n := Finset.card_pos.2 hIne
   let e : Fin n ≃ I := I.equivFin.symm
@@ -163,17 +159,13 @@ theorem fact_bound (x : ℝ) (hx : 0 ≤ x) (j : ℕ) (hj : 1 ≤ j) :
   have hP : (0 : ℝ) < (j : ℝ) ^ j := pow_pos hjpos j
   have hfact : ((j - 1).factorial : ℝ) * j = j.factorial := by
     have : j * (j - 1).factorial = j.factorial := by
-      first
-        | exact Nat.mul_factorial_pred (show j ≠ 0 by omega)
-        | exact Nat.mul_factorial_pred (show 0 < j by omega)
+      exact Nat.mul_factorial_pred (show j ≠ 0 by omega)
     rw [← this]
     push_cast
     ring
   have hkey : (j : ℝ) ^ j / j.factorial ≤ Real.exp 1 ^ j :=
     calc (j : ℝ) ^ j / j.factorial ≤ Real.exp j := by
-          first
-            | exact Real.pow_div_factorial_le_exp _ hjpos.le j
-            | exact Real.pow_div_factorial_le_exp hjpos.le j
+          exact Real.pow_div_factorial_le_exp _ hjpos.le j
       _ = Real.exp 1 ^ j := by rw [← Real.exp_nat_mul, mul_one]
   have h1 : 1 / (j.factorial : ℝ) ≤ Real.exp 1 ^ j / (j : ℝ) ^ j := by
     rw [div_le_div_iff₀ hF hP]
@@ -208,5 +200,7 @@ theorem log_sq_bound (M : ℝ) (hM : 1 ≤ M) : Real.log (3 * M) ^ 2 ≤ 32 * Re
     _ ≤ 32 * Real.sqrt M := by linarith
 
 end Formalism.HermitianLattices.Ext.PrimesInProgressions.TuranPowerSumBounds
+
+end
 
 end RHLean.Analysis.AlpogeThin

@@ -40,4 +40,6 @@ private lemma sP_nonneg (x : ℝ) (hx : 0 ≤ x) (p : ℕ) : 0 ≤ Formalism.Her
 
 end Formalism.HermitianLattices.P.JacobiSumIdentities
 
+end
+
 end RHLean.Analysis.AlpogeThin

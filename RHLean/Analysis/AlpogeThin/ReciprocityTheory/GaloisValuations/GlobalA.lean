@@ -30,7 +30,7 @@ variable {F Ω : Type*} [Field F] [Field Ω] [Algebra F Ω] [Algebra.IsIntegral 
 
 theorem isOpen_setOf_apply (x : Ω) (P : Ω → Prop) : IsOpen {τ : Ω ≃ₐ[F] Ω | P (τ x)} := by
   have hx : IsIntegral F x := Algebra.IsIntegral.isIntegral x
-  haveI : FiniteDimensional F (IntermediateField.adjoin F {x}) :=
+  have : FiniteDimensional F (IntermediateField.adjoin F {x}) :=
     IntermediateField.adjoin.finiteDimensional hx
   have hH : IsOpen ((IntermediateField.adjoin F {x}).fixingSubgroup : Set (Ω ≃ₐ[F] Ω)) :=
     IntermediateField.fixingSubgroup_isOpen _
@@ -158,7 +158,7 @@ theorem exists_valuationSubring_over (v : HeightOneSpectrum (𝓞 F)) :
   obtain ⟨B, hB⟩ := LocalSubring.exists_le_valuationSubring (LocalSubring.range f)
   rw [LocalSubring.le_def] at hB
   obtain ⟨hle, hloc⟩ := hB
-  haveI := hloc
+  have := hloc
   refine ⟨B, fun x => ?_⟩
   have hmem : φ x ∈ B := hle ⟨algebraMap (𝓞 F) (Localization.AtPrime v.asIdeal) x, hf x⟩
   let bx : B := ⟨φ x, hmem⟩
@@ -187,5 +187,7 @@ theorem exists_valuationSubring_over (v : HeightOneSpectrum (𝓞 F)) :
 end exists_place
 
 end ReciprocityTheory.Gal
+
+end
 
 end RHLean.Analysis.AlpogeThin

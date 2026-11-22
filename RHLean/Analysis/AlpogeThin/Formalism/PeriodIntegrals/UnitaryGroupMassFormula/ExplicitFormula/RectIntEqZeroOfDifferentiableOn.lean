@@ -173,7 +173,6 @@ theorem rectInt_inv_sub {z w p : ℂ} (hp : p ∈ rectOpen z w) :
   have e1 := log_sub_log_neg_of_im_pos (a := (z.re : ℂ) + w.im * I - p) (by simp; linarith)
   have e2 := log_neg_sub_log_of_im_neg (b := (z.re : ℂ) + z.im * I - p) (by simp; linarith)
   rw [neg_sub] at e1 e2
-  beta_reduce
   linear_combination e1 + e2
 
 lemma sides_integrable {f : ℂ → ℂ} {z w : ℂ} (hf : ContinuousOn f (rectBdry z w)) :
@@ -205,7 +204,6 @@ lemma rectInt_add {f g : ℂ → ℂ} {z w : ℂ} (hf : ContinuousOn f (rectBdry
   obtain ⟨f1, f2, f3, f4⟩ := sides_integrable hf
   obtain ⟨g1, g2, g3, g4⟩ := sides_integrable hg
   unfold rectInt
-  beta_reduce
   rw [intervalIntegral.integral_add f1 g1, intervalIntegral.integral_add f2 g2,
     intervalIntegral.integral_add f3 g3, intervalIntegral.integral_add f4 g4]
   simp only [smul_eq_mul]
@@ -214,7 +212,6 @@ lemma rectInt_add {f g : ℂ → ℂ} {z w : ℂ} (hf : ContinuousOn f (rectBdry
 lemma rectInt_const_mul (c : ℂ) (f : ℂ → ℂ) (z w : ℂ) :
     rectInt (fun s => c * f s) z w = c * rectInt f z w := by
   unfold rectInt
-  beta_reduce
   simp only [intervalIntegral.integral_const_mul, smul_eq_mul]
   ring
 
@@ -277,13 +274,13 @@ theorem rectInt_eq_zero_of_differentiableOn {f : ℂ → ℂ} {z w : ℂ} (hre :
 
 lemma continuousOn_div_sub {h : ℂ → ℂ} {z w p : ℂ} (hp : p ∈ rectOpen z w)
     (hh : ContinuousOn h (rectBdry z w)) : ContinuousOn (fun s => h s / (s - p)) (rectBdry z w) :=
-  hh.div (continuousOn_id.sub continuousOn_const) fun s hs =>
+  hh.div (continuousOn_id.sub continuousOn_const) fun _s hs =>
     sub_ne_zero.2 (ne_of_mem_bdry_of_mem_open hs hp)
 
 lemma continuousOn_div_sub_sq {h : ℂ → ℂ} {z w p : ℂ} (hp : p ∈ rectOpen z w)
     (hh : ContinuousOn h (rectBdry z w)) :
     ContinuousOn (fun s => h s / (s - p) ^ 2) (rectBdry z w) :=
-  hh.div ((continuousOn_id.sub continuousOn_const).pow 2) fun s hs =>
+  hh.div ((continuousOn_id.sub continuousOn_const).pow 2) fun _s hs =>
     pow_ne_zero 2 (sub_ne_zero.2 (ne_of_mem_bdry_of_mem_open hs hp))
 
 lemma continuousOn_bdry {h : ℂ → ℂ} {z w p : ℂ} (hp : p ∈ rectOpen z w)
@@ -415,10 +412,11 @@ theorem rect_residue {z w : ℂ} {H : ℂ → ℂ} (Z : Finset ℂ) (wt : ℂ �
   have hE : DifferentiableOn ℂ (fun s : ℂ => (u : ℂ) ^ s) (rectClosed z w) :=
     fun s _ => (hd s).differentiableAt.differentiableWithinAt
   rw [rect_residue_gen Z wt e h0 hH hE hZ]
-  beta_reduce
   rw [(hd 0).deriv, ofReal_log hu.le]
   simp only [cpow_zero, mul_one, one_mul]
 
 end PI.EF.Rect
+
+end
 
 end RHLean.Analysis.AlpogeThin

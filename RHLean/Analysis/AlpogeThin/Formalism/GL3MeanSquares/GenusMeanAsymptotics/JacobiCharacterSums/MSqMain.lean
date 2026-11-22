@@ -173,4 +173,6 @@ theorem meanSquareHypW_of_pnt (hP : PNTAPRelW) :
 
 end Formalism.HermitianLattices.Ext.LogarithmicIntegralBounds
 
+end
+
 end RHLean.Analysis.AlpogeThin

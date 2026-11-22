@@ -39,6 +39,7 @@
 | 23 | [research/VF_MID_915_SOURCE_PAYMENT_CONTENT_AUDIT.lean](../../../research/VF_MID_915_SOURCE_PAYMENT_CONTENT_AUDIT.lean) | Content audit of the #915 first-bad source-payment statement |
 | 22 | [docs/COORDINATE_ATLAS.md](../../../docs/COORDINATE_ATLAS.md) | Coordinate atlas: one phenomenon, many coordinates |
 | 20 | [research/VF_MID_FLOOR_LI_DISCRETE_BACKLOG.lean](../../../research/VF_MID_FLOOR_LI_DISCRETE_BACKLOG.lean) | Discrete floor-Li backlog on VF square blocks |
+| 16 | [research/SQUARE_ROOT_PRIME_PHASE_SIGNED_ENERGY_20261108.lean](../../../research/SQUARE_ROOT_PRIME_PHASE_SIGNED_ENERGY_20261108.lean) | Actual prime phases, floor-Li count transport and physical square-block energy |
 | 16 | [research/VF_MID_ALIGNED_STEP_GRAPH.lean](../../../research/VF_MID_ALIGNED_STEP_GRAPH.lean) | Aligned VF-mid step-graph crossing |
 | 16 | [research/VF_MID_FIRST_BAD_ACTUAL_ADMISSIBILITY_CERTIFICATE.lean](../../../research/VF_MID_FIRST_BAD_ACTUAL_ADMISSIBILITY_CERTIFICATE.lean) | Actual prime admissibility certificate: established structural rules |
 | 16 | [research/VF_MID_FIRST_BAD_EXACT_BUDGET_CLOSE.lean](../../../research/VF_MID_FIRST_BAD_EXACT_BUDGET_CLOSE.lean) | Exact first-bad budget identities and conditional payment consumers |
@@ -50,9 +51,8 @@
 | 8 | [research/VF_MID_915_MIDDLE_PRIME_COMPOSITE_CAPACITY.lean](../../../research/VF_MID_915_MIDDLE_PRIME_COMPOSITE_CAPACITY.lean) | #915: genuine historical-prime / current-odd-composite SOURCE capacity |
 | 7 | [research/VF_CANONICAL_SQRT_TWO.lean](../../../research/VF_CANONICAL_SQRT_TWO.lean) | CANONICAL VF: original square-band midpoint path + FIXED vertical sqrt(2) |
 | 6 | [PROOF_CONTRACT_HISTORY_2026_10_15.md](../../../PROOF_CONTRACT_HISTORY_2026_10_15.md) | RH_Lean current proof contract |
+| 6 | [research/OFF_CRITICAL_ZERO_HIGH_VF_BRIDGE_20261029.lean](../../../research/OFF_CRITICAL_ZERO_HIGH_VF_BRIDGE_20261029.lean) | Off-critical zero, canonical HIGH, and genuine-prime VF/theta coarsening |
 | 5 | [research/VF_MID_FLOOR_LI_TRANSPORT_CANCELLATION.lean](../../../research/VF_MID_FLOOR_LI_TRANSPORT_CANCELLATION.lean) | Floor-Li event transport and quadratic cancellation |
 | 4 | [research/VF_MID_915_GLOBAL_MOBIUS_PHYSICAL_WELD_20261021.lean](../../../research/VF_MID_915_GLOBAL_MOBIUS_PHYSICAL_WELD_20261021.lean) | Global Mobius-to-actual-VF physical owner weld, without proxy replacement |
 | 4 | [research/VF_MID_GLOBAL_PHASE_UNIFORMITY_BRIDGE.lean](../../../research/VF_MID_GLOBAL_PHASE_UNIFORMITY_BRIDGE.lean) | Global square-root prime phase to VF-mid square-block bias |
 | 4 | [research/VF_MID_ONE_BLOCK_SOURCE_TO_RANK_INLET.lean](../../../research/VF_MID_ONE_BLOCK_SOURCE_TO_RANK_INLET.lean) | Adjacent-block VF source-to-rank inlet |
-| 4 | [research/VF_MID_RECURSIVE_SCALE_DESCENT.lean](../../../research/VF_MID_RECURSIVE_SCALE_DESCENT.lean) | Well-founded descent of the recursive VF owner tree |
-| 3 | [research/VF_MID_925_FACTOR_THETA_SPECTRAL_WELD.lean](../../../research/VF_MID_925_FACTOR_THETA_SPECTRAL_WELD.lean) | PR #925: actual factor-range theta forcing and the spectral input boundary |

@@ -150,10 +150,10 @@ theorem gram_det_le : GramDetLe := by
       simp at h5
     let e := LinearEquiv.ofInjective (linearCombinationMap v) hinj
     let G : E →ₗ[ℝ] F := linearCombinationMap w ∘ₗ e.symm.toLinearMap ∘ₗ
-      ((LinearMap.range (linearCombinationMap v)).orthogonalProjection :
+      ((LinearMap.range (linearCombinationMap v)).orthogonalProjectionOnto :
         E →ₗ[ℝ] LinearMap.range (linearCombinationMap v))
     have hP : ∀ y : LinearMap.range (linearCombinationMap v),
-        (LinearMap.range (linearCombinationMap v)).orthogonalProjection (y : E) = y := fun y =>
+        (LinearMap.range (linearCombinationMap v)).orthogonalProjectionOnto (y : E) = y := fun y =>
       Submodule.orthogonalProjectionOnto_mem_subspace_eq_self y
     have hGf : G ∘ₗ linearCombinationMap v = linearCombinationMap w := by
       ext c

@@ -28,7 +28,7 @@ def tp (n : ℕ) (z : Fin n → ℂ) : ℂ[X] := ∏ i, (X - C (z i))
 
 theorem tp_natDeg (n : ℕ) (z : Fin n → ℂ) : (tp n z).natDegree ≤ n := by
   unfold tp
-  exact (natDegree_prod_le _ _).trans (by simp [natDegree_X_sub_C])
+  exact (natDegree_prod_le _ _).trans (by simp)
 
 theorem tp_eval (n : ℕ) (z : Fin n → ℂ) (x : ℂ) : (tp n z).eval x = ∏ i, (x - z i) := by
   simp [tp, eval_prod]
@@ -52,8 +52,9 @@ theorem tp_coeff_norm (n : ℕ) (z : Fin n → ℂ) (hz : ∀ i, ‖z i‖ ≤ 1
     | cons x t ih =>
       intro h
       rw [Multiset.prod_cons, norm_mul]
-      exact mul_le_one₀ (h x (Multiset.mem_cons_self x t)) (norm_nonneg _)
-        (ih fun y hy => h y (Multiset.mem_cons_of_mem hy))
+      exact (mul_le_of_le_one_left (norm_nonneg _)
+        (h x (Multiset.mem_cons_self x t))).trans
+          (ih fun y hy => h y (Multiset.mem_cons_of_mem hy))
   have hmem : ∀ t ∈ s, ‖t‖ ≤ 1 := by
     intro t ht
     rw [hs, Multiset.mem_map] at ht
@@ -94,5 +95,7 @@ theorem tp_root (n : ℕ) (z : Fin n → ℂ) (i : Fin n) :
   exact Finset.prod_eq_zero (Finset.mem_univ i) (sub_self _)
 
 end Formalism.HermitianLattices.Ext.PrimesInProgressions.T2
+
+end
 
 end RHLean.Analysis.AlpogeThin

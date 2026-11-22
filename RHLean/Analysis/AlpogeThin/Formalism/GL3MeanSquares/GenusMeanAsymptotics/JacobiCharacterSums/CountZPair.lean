@@ -120,4 +120,6 @@ theorem pair_sum_bound : PairSum := by
 
 end Formalism.HermitianLattices.Ext.PrimitiveCharacterCasts.ZD
 
+end
+
 end RHLean.Analysis.AlpogeThin

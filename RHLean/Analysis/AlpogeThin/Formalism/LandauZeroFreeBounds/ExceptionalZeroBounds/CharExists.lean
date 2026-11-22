@@ -75,4 +75,6 @@ theorem exists_real_nontrivial_character : RealCharExists :=
 
 end Formalism.ZeroFreeDirichlet
 
+end
+
 end RHLean.Analysis.AlpogeThin

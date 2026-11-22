@@ -47,4 +47,6 @@ def PrimePairOfBoxAndWeakMeanSquareHypotheses : Prop :=
 
 end Formalism.HermitianLattices.WeakMeanSquareEstimates
 
+end
+
 end RHLean.Analysis.AlpogeThin

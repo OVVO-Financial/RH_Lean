@@ -30,4 +30,6 @@ def ZeroDensityBox : Prop :=
 
 end Formalism.HermitianLattices.Ext.PrimitiveCharacterCasts
 
+end
+
 end RHLean.Analysis.AlpogeThin

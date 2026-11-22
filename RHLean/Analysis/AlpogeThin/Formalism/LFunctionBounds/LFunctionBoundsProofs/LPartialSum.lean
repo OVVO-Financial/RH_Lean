@@ -188,4 +188,6 @@ theorem l_function_partial_sum : LPartialSum := by
 
 end Formalism.FX
 
+end
+
 end RHLean.Analysis.AlpogeThin

@@ -179,4 +179,6 @@ theorem core2 (CT : ℝ) (a : ℕ) (hCT : 0 < CT) (ha : 1 ≤ a)
 
 end Formalism.HermitianLattices.Ext.PrimesInProgressions.TuranPowerSumBounds
 
+end
+
 end RHLean.Analysis.AlpogeThin

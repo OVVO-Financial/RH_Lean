@@ -124,7 +124,7 @@ theorem regAtZero_of {Cw Cl : ℝ} (hW : ZerosWindowWith Cw) (hL : LocalLemma Cl
     have h : Tendsto (fun ε : ℝ => ∑ ρ ∈ hB.toFinset,
         ((mult χ ρ : ℂ) / ρ + (mult χ ρ : ℂ) / ((ε : ℂ) - ρ))) (𝓝[>] 0)
         (𝓝 (∑ ρ ∈ hB.toFinset, ((mult χ ρ : ℂ) / ρ + (mult χ ρ : ℂ) / (0 - ρ)))) :=
-      tendsto_finset_sum _ fun ρ hρ => tendsto_const_nhds.add
+      tendsto_finsetSum _ fun ρ hρ => tendsto_const_nhds.add
         (tendsto_const_nhds.div (hofR.sub_const ρ) (by
           rw [zero_sub, neg_ne_zero]; exact hneB ρ (by simpa using hρ)))
     have h0 : (∑ ρ ∈ hB.toFinset, ((mult χ ρ : ℂ) / ρ + (mult χ ρ : ℂ) / (0 - ρ))) = 0 :=
@@ -139,7 +139,7 @@ theorem regAtZero_of {Cw Cl : ℝ} (hW : ZerosWindowWith Cw) (hL : LocalLemma Cl
       (𝓝[>] 0) (𝓝 ‖∑ ρ ∈ hZ0.toFinset, (mult χ ρ : ℂ) / (0 - ρ)‖) := by
     have h : Tendsto (fun ε : ℝ => ∑ ρ ∈ hZ0.toFinset, (mult χ ρ : ℂ) / ((ε : ℂ) - ρ))
         (𝓝[>] 0) (𝓝 (∑ ρ ∈ hZ0.toFinset, (mult χ ρ : ℂ) / (0 - ρ))) :=
-      tendsto_finset_sum _ fun ρ hρ => tendsto_const_nhds.div (hofR.sub_const ρ) (by
+      tendsto_finsetSum _ fun ρ hρ => tendsto_const_nhds.div (hofR.sub_const ρ) (by
         rw [zero_sub, neg_ne_zero]; exact hne0 ρ (by simpa using hρ))
     refine h.norm.congr fun ε => ?_
     rw [finsum_mem_eq_finite_toFinset_sum _ hZ0]
@@ -188,5 +188,7 @@ theorem regAtZero_of {Cw Cl : ℝ} (hW : ZerosWindowWith Cw) (hL : LocalLemma Cl
   linarith
 
 end PI.EF
+
+end
 
 end RHLean.Analysis.AlpogeThin

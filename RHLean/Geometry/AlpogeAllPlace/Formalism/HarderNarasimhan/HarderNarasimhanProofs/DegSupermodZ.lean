@@ -23,16 +23,17 @@ theorem cast_rank_eq_moduleRank (N : Submodule ℤ E) [DiscreteTopology N] :
   unfold rk
   exact Module.finrank_eq_rank ℤ N
 
+omit [InnerProductSpace ℝ E] [FiniteDimensional ℝ E] in
 private theorem discreteTopology_of_le_discrete (L A : Submodule ℤ E) [DiscreteTopology L] (h : A ≤ L) :
     DiscreteTopology A :=
   DiscreteTopology.of_subset (s := (L : Set E)) ‹_› h
 
 theorem rk_sup_add_rk_inf (L A B : Submodule ℤ E) [DiscreteTopology L] (hA : A ≤ L)
     (hB : B ≤ L) : rk (A ⊔ B) + rk (A ⊓ B) = rk A + rk B := by
-  haveI : DiscreteTopology A := discreteTopology_of_le_discrete L A hA
-  haveI : DiscreteTopology B := discreteTopology_of_le_discrete L B hB
-  haveI : DiscreteTopology ↥(A ⊔ B) := discreteTopology_of_le_discrete L _ (sup_le hA hB)
-  haveI : DiscreteTopology ↥(A ⊓ B) := discreteTopology_of_le_discrete L _ (inf_le_left.trans hA)
+  have : DiscreteTopology A := discreteTopology_of_le_discrete L A hA
+  have : DiscreteTopology B := discreteTopology_of_le_discrete L B hB
+  have : DiscreteTopology ↥(A ⊔ B) := discreteTopology_of_le_discrete L _ (sup_le hA hB)
+  have : DiscreteTopology ↥(A ⊓ B) := discreteTopology_of_le_discrete L _ (inf_le_left.trans hA)
   have h := Submodule.rank_sup_add_rank_inf_eq A B
   apply Nat.cast_injective (R := Cardinal)
   push_cast
@@ -45,14 +46,14 @@ theorem mem_span_inf_of_mem_span (L A B : Submodule ℤ E) [DiscreteTopology L] 
     b ∈ span ℝ ((A ⊓ B : Submodule ℤ E) : Set E) := by
   classical
   obtain ⟨-, hAAs, hrk⟩ := saturProps E L A ‹_› hA
-  haveI : DiscreteTopology (satur L A) := discreteTopology_of_le_discrete L _ inf_le_left
-  haveI : DiscreteTopology A := discreteTopology_of_le_discrete L A hA
+  have : DiscreteTopology (satur L A) := discreteTopology_of_le_discrete L _ inf_le_left
+  have : DiscreteTopology A := discreteTopology_of_le_discrete L A hA
   have hbAs : b ∈ satur L A := Submodule.mem_inf.2 ⟨hB hbB, hbA⟩
   let N : Submodule ℤ (satur L A) := A.comap (satur L A).subtype
   have hN : Module.finrank ℤ N = Module.finrank ℤ (satur L A) := by
     rw [(Submodule.comapSubtypeEquivOfLe hAAs).finrank_eq]
     exact hrk.symm
-  haveI := Submodule.finiteQuotientOfFreeOfRankEq N hN
+  have := Submodule.finiteQuotientOfFreeOfRankEq N hN
   have hn : 0 < Nat.card (satur L A ⧸ N) := Nat.card_pos
   have h0 : Nat.card (satur L A ⧸ N) • (Submodule.Quotient.mk ⟨b, hbAs⟩ : satur L A ⧸ N) = 0 :=
     card_nsmul_eq_zero'
@@ -69,7 +70,7 @@ theorem covol_eq_relIndex_mul_covol (N N' : Submodule ℤ E) [DiscreteTopology N
     (hrk : rk N = rk N') :
     covol N = (N.toAddSubgroup.relIndex N'.toAddSubgroup : ℝ) * covol N' := by
   classical
-  haveI : DiscreteTopology N := DiscreteTopology.of_subset (s := (N' : Set E)) ‹_› hle
+  have : DiscreteTopology N := DiscreteTopology.of_subset (s := (N' : Set E)) ‹_› hle
   let K : Submodule ℤ N' := N.comap N'.subtype
   let eK : K ≃ₗ[ℤ] N := Submodule.comapSubtypeEquivOfLe hle
   have hK : Module.finrank ℤ K = Module.finrank ℤ N' := by
@@ -157,23 +158,23 @@ open RHLean.Geometry.AlpogeAllPlace.Formalism.F RHLean.Geometry.AlpogeAllPlace.F
 
 theorem degree_supermodular_integral : DegSupermodZ := by
   intro E _ _ _ L A B hL hA hB
-  haveI := hL
+  have := hL
   refine ⟨rk_sup_add_rk_inf L A B hA hB, ?_⟩
   have dsc : ∀ N : Submodule ℤ E, N ≤ L → DiscreteTopology N := fun N h =>
     DiscreteTopology.of_subset (s := (L : Set E)) ‹_› h
   have hSL : A ⊔ B ≤ L := sup_le hA hB
-  haveI := dsc _ hSL
-  haveI := dsc A hA
-  haveI := dsc B hB
-  haveI := dsc (A ⊓ B) (inf_le_left.trans hA)
+  have := dsc _ hSL
+  have := dsc A hA
+  have := dsc B hB
+  have := dsc (A ⊓ B) (inf_le_left.trans hA)
   obtain ⟨hAsSat, hAAs, hrkAs⟩ := saturProps E (A ⊔ B) A ‹_› le_sup_left
   obtain ⟨hBsSat, hCBs, hrkBs⟩ := saturProps E B (A ⊓ B) ‹_› inf_le_right
-  haveI := dsc (satur (A ⊔ B) A) (inf_le_left.trans hSL)
-  haveI := dsc (satur B (A ⊓ B)) (inf_le_left.trans hB)
+  have := dsc (satur (A ⊔ B) A) (inf_le_left.trans hSL)
+  have := dsc (satur B (A ⊓ B)) (inf_le_left.trans hB)
   obtain ⟨hqS, -, -⟩ := degQuot E (A ⊔ B) (satur (A ⊔ B) A) ‹_› hAsSat
   obtain ⟨hqB, -, -⟩ := degQuot E B (satur B (A ⊓ B)) ‹_› hBsSat
-  haveI := hqS
-  haveI := hqB
+  have := hqS
+  have := hqB
   have hdS := deg_eq_deg_add_deg_quot hAsSat
   have hdB := deg_eq_deg_add_deg_quot hBsSat
 
@@ -269,11 +270,7 @@ theorem degree_supermodular_integral : DegSupermodZ := by
     refine covol_le_of_contraction _ _ φ
       ((span ℝ ((satur (A ⊔ B) A : Submodule ℤ E) : Set E))ᗮ.starProjection) (fun x => hg x) ?_
     intro v
-    first
-      | exact Submodule.norm_starProjection_apply_le _ v
-      | exact (span ℝ ((satur (A ⊔ B) A : Submodule ℤ E) : Set E))ᗮ.norm_starProjection_apply_le v
-      | exact ContinuousLinearMap.le_of_opNorm_le _ (Submodule.starProjection_norm_le _) v
-      | simpa using ContinuousLinearMap.le_of_opNorm_le _ (Submodule.starProjection_norm_le _) v
+    exact Submodule.norm_starProjection_apply_le _ v
   have k1 : Real.log (covol (quot (A ⊔ B) (satur (A ⊔ B) A))) ≤
       Real.log (covol (quot B (satur B (A ⊓ B)))) :=
     Real.log_le_log (covol_pos _) hcov

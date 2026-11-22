@@ -196,4 +196,6 @@ theorem trivial_bound : Triv := by
 
 end Formalism.HermitianLattices.Ext.PrimesInProgressions.Dens
 
+end
+
 end RHLean.Analysis.AlpogeThin

@@ -41,6 +41,7 @@ private lemma norm_sum_sub_round_smul_le_sum_norm {X : Type*} [NormedAddCommGrou
   have h3 := abs_nonneg (t i - (round (t i) : ℝ))
   nlinarith
 
+omit [FiniteDimensional ℝ E] [FiniteDimensional ℝ F] in
 private lemma norm_sum_smul_map_le_mul_of_bounded {A : Submodule ℤ E} {B : Submodule ℤ F} (e : A →ₗ[ℤ] B)
     (C : ℝ) (hC : 0 ≤ C) (h : ∀ y, ‖((e y : B) : F)‖ ≤ C * ‖(y : E)‖) {ι : Type*} [Fintype ι]
     (b : ι → A) (c : ι → ℝ) :
@@ -51,10 +52,10 @@ private lemma norm_sum_smul_map_le_mul_of_bounded {A : Submodule ℤ E} {B : Sub
 
   have hyE : (((∑ i, round ((n : ℝ) * c i) • b i : A)) : E) =
       ∑ i, ((round ((n : ℝ) * c i) : ℤ) : ℝ) • ((b i : A) : E) := by
-    simp [Submodule.coe_sum, Int.cast_smul_eq_zsmul]
+    simp [Int.cast_smul_eq_zsmul]
   have heF : ((e (∑ i, round ((n : ℝ) * c i) • b i) : B) : F) =
       ∑ i, ((round ((n : ℝ) * c i) : ℤ) : ℝ) • ((e (b i) : B) : F) := by
-    simp [map_sum, map_zsmul, Submodule.coe_sum, Int.cast_smul_eq_zsmul]
+    simp [map_sum, Int.cast_smul_eq_zsmul]
   have dF : (n : ℝ) • ∑ i, c i • ((e (b i) : B) : F) =
       ((e (∑ i, round ((n : ℝ) * c i) • b i) : B) : F) +
         ∑ i, ((n : ℝ) * c i - (round ((n : ℝ) * c i) : ℝ)) • ((e (b i) : B) : F) := by
@@ -160,16 +161,10 @@ theorem norm_starProjection_le {G : Type*} [AddCommGroup G] (α : G →+ E) (β 
     rw [hb g, ha, map_zero, map_zero, norm_zero, norm_zero, mul_zero]
   push Not at hC
   have hw : α g - (span ℝ (α '' S))ᗮ.starProjection (α g) ∈ span ℝ (α '' S) := by
-    first
-    | exact (Submodule.orthogonal_orthogonal (span ℝ (α '' S))) ▸
-        Submodule.sub_starProjection_mem_orthogonal (K := (span ℝ (α '' S))ᗮ) (α g)
-    | (have hd := Submodule.starProjection_add_starProjection_orthogonal
-          (K := span ℝ (α '' S)) (α g)
-       rw [sub_eq_of_eq_add hd.symm]
-       first
-       | exact Submodule.starProjection_apply_mem _ _
-       | exact ((span ℝ (α '' S)).orthogonalProjection (α g)).2
-       | simp)
+    have hd := Submodule.starProjection_add_starProjection_orthogonal
+      (K := span ℝ (α '' S)) (α g)
+    rw [sub_eq_of_eq_add hd.symm]
+    exact Submodule.starProjection_apply_mem _ _
   obtain ⟨n, c, gg, hf⟩ := Submodule.mem_span_set'.mp hw
   have hs : ∀ i, ∃ s ∈ S, α s = (gg i : E) := fun i => (gg i).2
   choose s hsS hsα using hs
@@ -220,6 +215,7 @@ theorem range_comp_eq_imageLattice {R V E G : Type*} [Ring R] [AddCommGroup V] [
     obtain ⟨g, rfl⟩ := (hj v).1 hv
     exact ⟨g, rfl⟩
 
+omit [FiniteDimensional ℝ E] in
 theorem map_range_toIntLinearMap {G : Type*} [AddCommGroup G] (α : G →+ E) (p : E →L[ℝ] E) :
     (LinearMap.range α.toIntLinearMap).map (p.toLinearMap.restrictScalars ℤ) =
       LinearMap.range ((p.toLinearMap.toAddMonoidHom.comp α).toIntLinearMap) := by
@@ -243,15 +239,9 @@ private lemma mem_of_starProjection_orthogonal_eq_zero {X : Type*} [NormedAddCom
     [FiniteDimensional ℝ X] (K : Submodule ℝ X) (x : X) (h : Kᗮ.starProjection x = 0) :
     x ∈ K := by
   have hw : x - Kᗮ.starProjection x ∈ K := by
-    first
-    | exact (Submodule.orthogonal_orthogonal K) ▸
-        Submodule.sub_starProjection_mem_orthogonal (K := Kᗮ) x
-    | (have hd := Submodule.starProjection_add_starProjection_orthogonal (K := K) x
-       rw [sub_eq_of_eq_add hd.symm]
-       first
-       | exact Submodule.starProjection_apply_mem _ _
-       | exact (K.orthogonalProjection x).2
-       | simp)
+    have hd := Submodule.starProjection_add_starProjection_orthogonal (K := K) x
+    rw [sub_eq_of_eq_add hd.symm]
+    exact Submodule.starProjection_apply_mem _ _
   rwa [h, sub_zero] at hw
 
 private theorem slopeIneq_of_lemma {R V W E F : Type*} [Ring R] [AddCommGroup V] [Module R V]
@@ -285,9 +275,9 @@ private theorem slopeIneq_of_lemma {R V W E F : Type*} [Ring R] [AddCommGroup V]
       exact ⟨g.1, g.2, rfl⟩
   have eA := range_comp_eq_imageLattice ρ N j hj
   have eB := range_comp_eq_imageLattice ρ' N' j' hj'
-  haveI : DiscreteTopology (LinearMap.range (ρ.comp j).toIntLinearMap) := by
+  have : DiscreteTopology (LinearMap.range (ρ.comp j).toIntLinearMap) := by
     rw [eA]; exact hN.2
-  haveI : DiscreteTopology (LinearMap.range (ρ'.comp j').toIntLinearMap) := by
+  have : DiscreteTopology (LinearMap.range (ρ'.comp j').toIntLinearMap) := by
     rw [eB]; exact hN'l.2
   have hz : ∀ g : ↥(N.comap L.subtype), ρ (j g) = 0 → g = 0 := by
     intro g hg
@@ -448,10 +438,10 @@ theorem slopeIneq_of (hmV : MuChar.{uR, uV, uE}) (hmW : MuChar.{uR, uW, uF})
         rfl
       have hsatQ := RHLean.Geometry.AlpogeAllPlace.Formalism.F.degQuot E (zl ρ L) (zl ρ N) hL.2 hsatN
       have hsatQ' := RHLean.Geometry.AlpogeAllPlace.Formalism.F.degQuot F (zl ρ' Im) (zl ρ' N'') hImLat.2 sp.1
-      haveI : DiscreteTopology
+      have : DiscreteTopology
           (LinearMap.range (pE.toLinearMap.toAddMonoidHom.comp α0).toIntLinearMap) := by
         rw [eQL]; exact hsatQ.1
-      haveI : DiscreteTopology
+      have : DiscreteTopology
           (LinearMap.range (pF.toLinearMap.toAddMonoidHom.comp β0).toIntLinearMap) := by
         rw [eQM]; exact hsatQ'.1
       have hR := rank_range_eq_and_degree_le (pE.toLinearMap.toAddMonoidHom.comp α0)

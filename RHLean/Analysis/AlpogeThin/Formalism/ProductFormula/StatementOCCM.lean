@@ -179,4 +179,6 @@ def DetGain : Prop :=
 
 end Formalism.B
 
+end
+
 end RHLean.Analysis.AlpogeThin

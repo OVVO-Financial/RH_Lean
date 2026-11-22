@@ -308,4 +308,6 @@ theorem pair_same_bound : PairSame := by
 
 end Formalism.HermitianLattices.Ext.PrimesInProgressions.Dens
 
+end
+
 end RHLean.Analysis.AlpogeThin

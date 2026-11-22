@@ -36,6 +36,7 @@ theorem duality_inner_sum_dual (v w : ι → E)
     inner ℝ (v k) (∑ i, c i • w i) = c k := by
   simp [inner_sum, real_inner_smul_right, hvw]
 
+omit [Fintype ι] [DecidableEq ι] in
 theorem duality_eq_zero_of_inner (v : ι → E) {z : E} (hz : z ∈ span ℝ (Set.range v))
     (h : ∀ k, inner ℝ (v k) z = 0) : z = 0 := by
   have hall : ∀ u ∈ span ℝ (Set.range v), inner ℝ u z = 0 := by
@@ -61,6 +62,7 @@ theorem duality_expand (v w : ι → E) (hw : ∀ i, w i ∈ span ℝ (Set.range
     exact h2.symm
   exact sub_eq_zero.mp h0
 
+omit [Fintype ι] [DecidableEq ι] in
 private theorem exists_int_inner_of_mem_span_int (v : ι → E) (y : E)
     (hy : ∀ k, ∃ n : ℤ, (n : ℝ) = inner ℝ (v k) y) {x : E} (hx : x ∈ span ℤ (Set.range v)) :
     ∃ n : ℤ, (n : ℝ) = inner ℝ x y := by
@@ -204,6 +206,7 @@ theorem duality_ne_bot (L : Submodule ℤ E) [DiscreteTopology L] (hL : L ≠ �
     simp [RHLean.Geometry.AlpogeAllPlace.Formalism.F.rk]
   omega
 
+omit [FiniteDimensional ℝ E] in
 private theorem starProjection_mem_and_sub_mem_orthogonal (K : Submodule ℝ E)
     [K.HasOrthogonalProjection] (x : E) :
     K.starProjection x ∈ K ∧ x - K.starProjection x ∈ Kᗮ := by
@@ -246,6 +249,7 @@ theorem duality_dualZ_quot_le (L T : Submodule ℤ E) (hT : T ≤ L) :
   rw [inner_sub_left, sub_eq_zero] at h0
   rw [hn, h0]
 
+omit [InnerProductSpace ℝ E] [FiniteDimensional ℝ E] in
 private theorem discreteTopology_of_le_of_discreteTopology {L N : Submodule ℤ E} (h : N ≤ L)
     [DiscreteTopology L] : DiscreteTopology N := by
   exact RHLean.Geometry.AlpogeAllPlace.Formalism.F.discreteTopology_of_le h
@@ -274,6 +278,7 @@ theorem duality_compl (L S : Submodule ℤ E) [hL : DiscreteTopology L] (hS : S 
       exact neg_le_neg (Real.log_le_log hpos hcov)
     linarith
 
+omit [FiniteDimensional ℝ E] in
 theorem duality_zl_id (N : Submodule ℤ E) : zl (AddMonoidHom.id E) N = N := by
   ext y
   rw [satR_mem_zl]

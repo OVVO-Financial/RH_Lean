@@ -260,4 +260,6 @@ theorem Gamma_decay {w : ℂ} (h1 : 1 / 2 ≤ w.re) (h2 : w.re ≤ 11 / 2) :
 
 end PI.EF
 
+end
+
 end RHLean.Analysis.AlpogeThin

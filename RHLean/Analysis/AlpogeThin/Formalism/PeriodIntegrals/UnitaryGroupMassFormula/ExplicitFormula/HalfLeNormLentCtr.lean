@@ -204,4 +204,6 @@ theorem Lent_disc_bound {A C : ℝ} (hA : 0 < A) (hC : 0 < C) (hG : LGrowth A C)
 
 end PI.EF
 
+end
+
 end RHLean.Analysis.AlpogeThin

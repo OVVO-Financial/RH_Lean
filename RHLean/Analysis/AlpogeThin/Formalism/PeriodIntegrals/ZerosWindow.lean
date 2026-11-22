@@ -35,4 +35,6 @@ def ZerosWindow : Prop := ∃ C : ℝ, 0 < C ∧ ZerosWindowWith C
 
 end PI
 
+end
+
 end RHLean.Analysis.AlpogeThin

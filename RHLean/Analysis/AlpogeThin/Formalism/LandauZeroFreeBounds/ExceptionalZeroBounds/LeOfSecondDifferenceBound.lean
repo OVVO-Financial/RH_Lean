@@ -26,7 +26,7 @@ set_option maxHeartbeats 800000 in
 
 lemma le_of_second_difference_bound {y c₀ C N eY ey h : ℝ} (hy : 2 ≤ y) (hc0 : 0 < c₀) (hc01 : c₀ ≤ 1) (hC : 0 ≤ C)
     (hh : h = Real.exp (-(c₀ / 2) * Real.sqrt (Real.log y)))
-    (hey0 : 0 ≤ ey) (heY0 : 0 ≤ eY) (hey : ey ≤ h ^ 2) (heY : eY ≤ h ^ 2)
+    (_hey0 : 0 ≤ ey) (_heY0 : 0 ≤ eY) (hey : ey ≤ h ^ 2) (heY : eY ≤ h ^ 2)
     (hmain : y * h * N ≤ (y * (1 + h) - y + 1) * ((y * (1 + h) - y) * Real.log (y * (1 + h)))
         + 2 * y ^ 2 * h ^ 2 + y * (C * (y * (1 + h)) * eY) + y * (1 + h) * (C * y * ey)) :
     N ≤ (128 / c₀ ^ 2 + 2 + 4 * C) * y * Real.exp (-(c₀ / 4) * Real.sqrt (Real.log y)) := by
@@ -76,7 +76,7 @@ lemma le_of_second_difference_bound {y c₀ C N eY ey h : ℝ} (hy : 2 ≤ y) (h
   have hA : c₀ ^ 2 * g * (L + 1) ≤ 33 := by
     have e : c₀ ^ 2 * g * (L + 1) = 16 * (g * (c₀ / 4 * s) ^ 2) + c₀ ^ 2 * g := by
       rw [← hss]; ring
-    have : c₀ ^ 2 * g ≤ 1 := mul_le_one₀ hc2 hg0.le hg1
+    have : c₀ ^ 2 * g ≤ 1 := (mul_le_of_le_one_left hg0.le hc2).trans hg1
     rw [e]; linarith
   have hA' : g * (L + 1) ≤ 33 / c₀ ^ 2 := by
     rw [le_div_iff₀ (by positivity)]
@@ -173,5 +173,7 @@ lemma mul_le_of_log_bounds {y c₀ K lq : ℝ} (hy : 2 ≤ y) (hc0 : 0 < c₀) (
   linarith
 
 end Formalism.ZeroFreeDirichlet
+
+end
 
 end RHLean.Analysis.AlpogeThin

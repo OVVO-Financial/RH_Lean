@@ -39,4 +39,6 @@ def explicitFormulaConstant {M : ℕ} [NeZero M] (χ : DirichletCharacter ℂ M)
 
 end Formalism.HermitianLattices.Ext.PrimesInProgressions
 
+end
+
 end RHLean.Analysis.AlpogeThin

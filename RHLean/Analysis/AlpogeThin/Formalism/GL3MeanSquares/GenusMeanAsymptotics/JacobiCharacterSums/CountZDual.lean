@@ -143,4 +143,6 @@ theorem duality_inequality : DualIneq := by
 
 end Formalism.HermitianLattices.Ext.PrimitiveCharacterCasts.ZD
 
+end
+
 end RHLean.Analysis.AlpogeThin

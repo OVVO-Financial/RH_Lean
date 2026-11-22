@@ -65,7 +65,7 @@ theorem discrete_of_le (N : Submodule ℤ E2) (hN : N ≤ Lx) : DiscreteTopology
   by_contra hne
   have hy0 : (y : E2) ≠ 0 := fun h => hne (Subtype.ext h)
   have := one_le_norm (hN y.2) hy0
-  rw [dist_zero_right, Submodule.coe_norm] at hy
+  rw [dist_zero_right, norm_coe] at hy
   linarith
 
 def vx : Fin 2 → E2 := ![e₀, (2 : ℝ) • e₁]
@@ -87,7 +87,7 @@ theorem Lx_eq : Lx = Submodule.span ℤ (Set.range vx) := by
   rw [Lx]
   congr 1
   ext x
-  simp [vx, Fin.exists_fin_two, eq_comm]
+  simp [vx]
   tauto
 
 theorem rk_Lx : RHLean.Geometry.AlpogeAllPlace.Formalism.F.rk Lx = 2 := by
@@ -95,7 +95,7 @@ theorem rk_Lx : RHLean.Geometry.AlpogeAllPlace.Formalism.F.rk Lx = 2 := by
   simp
 
 theorem covol_Lx : RHLean.Geometry.AlpogeAllPlace.Formalism.F.covol Lx = 2 := by
-  haveI := discrete_of_le Lx le_rfl
+  have := discrete_of_le Lx le_rfl
   let b : Basis (Fin 2) ℤ Lx := (Basis.span vx_li).map (LinearEquiv.ofEq _ _ Lx_eq.symm)
   have hb : ∀ i, (b i : E2) = vx i := fun i => by simp [b, Basis.span_apply]
   rw [RHLean.Geometry.AlpogeAllPlace.Formalism.F.covolEqGram E2 Lx (Fin 2) b]
@@ -103,7 +103,8 @@ theorem covol_Lx : RHLean.Geometry.AlpogeAllPlace.Formalism.F.covol Lx = 2 := by
     ext i j
     fin_cases i <;> fin_cases j <;>
       simp [Matrix.gram_apply, hb, vx, e₀, e₁, inner_smul_left, inner_smul_right,
-        EuclideanSpace.inner_single_left, norm_smul, EuclideanSpace.norm_single] <;> norm_num
+        EuclideanSpace.inner_single_left, norm_smul]
+      norm_num
   rw [hg, Matrix.det_fin_two_of, show (1 : ℝ) * 4 - 0 * 0 = 2 ^ 2 by norm_num,
     Real.sqrt_sq (by norm_num)]
 
@@ -147,9 +148,9 @@ theorem ex_isLat (N : Submodule ℤ E2) (hN : N ≤ Lx) : IsLat ρx N := ⟨fun 
 
 theorem ex_bounds (N : Submodule ℤ E2) (hN : N ≤ Lx) :
     RHLean.Geometry.AlpogeAllPlace.Formalism.F.rk N ≤ 2 ∧ RHLean.Geometry.AlpogeAllPlace.Formalism.F.deg N ≤ 0 ∧ (RHLean.Geometry.AlpogeAllPlace.Formalism.F.rk N = 2 → RHLean.Geometry.AlpogeAllPlace.Formalism.F.deg N ≤ - Real.log 2) := by
-  haveI hd : DiscreteTopology N := discrete_of_le N hN
-  haveI : DiscreteTopology Lx := discrete_of_le Lx le_rfl
-  haveI : Module.Finite ℤ Lx := by
+  have hd : DiscreteTopology N := discrete_of_le N hN
+  have : DiscreteTopology Lx := discrete_of_le Lx le_rfl
+  have : Module.Finite ℤ Lx := by
     rw [Lx]
     exact Module.Finite.span_of_finite ℤ (Set.toFinite _)
   have hrk : RHLean.Geometry.AlpogeAllPlace.Formalism.F.rk N ≤ 2 := by
@@ -313,7 +314,7 @@ theorem example_of (h1 : MuChar.{0, 0, 0}) (h2 : HNStep.{0, 0, 0}) (h3 : HNSlope
       exact Submodule.smul_mem _ m he₀P
     exfalso
     apply hrkS
-    haveI := discrete_of_le _ hSL
+    have := discrete_of_le _ hSL
     have hli : LinearIndependent ℤ
         ![(⟨e₀, hPS he₀P⟩ : hnStep ρx Lx 0), (⟨x, hx⟩ : hnStep ρx Lx 0)] := by
       apply LinearIndependent.of_comp (hnStep ρx Lx 0).subtype

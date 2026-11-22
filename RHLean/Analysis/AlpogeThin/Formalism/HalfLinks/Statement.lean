@@ -203,4 +203,6 @@ def Conflict2 : Prop :=
 
 end Formalism.CMTypeGaloisData
 
+end
+
 end RHLean.Analysis.AlpogeThin

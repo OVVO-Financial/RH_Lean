@@ -161,4 +161,6 @@ def SizeSpSq : Prop :=
 
 end Formalism.HermitianLattices.GL2a2
 
+end
+
 end RHLean.Analysis.AlpogeThin

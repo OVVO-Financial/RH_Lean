@@ -114,4 +114,6 @@ def LayerEFGTwo : Prop :=
 
 end Formalism.TwoAdicCyclotomicDecomposition
 
+end
+
 end RHLean.Analysis.AlpogeThin

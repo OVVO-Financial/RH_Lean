@@ -471,4 +471,6 @@ theorem sum_sP_sq_le : ∃ C x₀ : ℝ, ∀ x : ℝ, x₀ ≤ x →
 
 end Formalism.HermitianLattices.Ext.LogarithmicIntegralBounds
 
+end
+
 end RHLean.Analysis.AlpogeThin

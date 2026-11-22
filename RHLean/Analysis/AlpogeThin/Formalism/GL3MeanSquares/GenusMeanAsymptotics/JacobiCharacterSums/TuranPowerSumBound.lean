@@ -34,4 +34,6 @@ theorem turan_power_sum_bound : DHTuran2 := by
 
 end Formalism.HermitianLattices.Ext.PrimesInProgressions
 
+end
+
 end RHLean.Analysis.AlpogeThin

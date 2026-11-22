@@ -427,6 +427,7 @@ import RHLean.Analysis.AlpogeThin.Formalism.ZetaNonvanishing.MellinSgen
 import RHLean.Analysis.AlpogeThin.Formalism.ZetaNonvanishingChebyshevWeights
 import RHLean.Analysis.AlpogeThin.Formalism.ZetaNonvanishingGeneralWeights
 import RHLean.Analysis.AlpogeThin.Formalism.ZetaRealNonvanish
+import RHLean.Analysis.AlpogeThin.NativeCftThin
 import RHLean.Analysis.AlpogeThin.NativeHostThin
 import RHLean.Analysis.AlpogeThin.NativePrincipalThin
 import RHLean.Analysis.AlpogeThin.ReciprocityTheory.GaloisValuations.ContinuousConstSMulQuotient
@@ -908,9 +909,11 @@ import RHLean.Geometry.NativeComponentRegularSection
 import RHLean.Geometry.NativeComponentRegularity
 import RHLean.Geometry.NativeDescentCostPayment
 import RHLean.Geometry.NativeFiniteIntegralDescent
+import RHLean.Geometry.NativeGradedSectionRegularity
 import RHLean.Geometry.NativeGroupDeterminant
 import RHLean.Geometry.NativeIntegralCompletion
 import RHLean.Geometry.NativeIntegralLatticeCertificate
+import RHLean.Geometry.NativeJetRankBudget
 import RHLean.Geometry.NativeLatticeTransference
 import RHLean.Geometry.NativeLatticeTransferenceA
 import RHLean.Geometry.NativeLatticeTransferenceB

@@ -145,4 +145,6 @@ theorem deuring_heilbronn_dominant : DHDom := by
 
 end Formalism.HermitianLattices.Ext.PrimesInProgressions
 
+end
+
 end RHLean.Analysis.AlpogeThin
