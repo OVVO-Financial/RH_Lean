@@ -222,6 +222,35 @@ def main() -> None:
         assert "Multiple" in block or "multiple" in block, f"agent {index} lost multi-run policy"
     assert "GitHub Actions" in blocks[6] and "never local Lean" in blocks[6]
 
+    # 2026-11-22 user-directed short human proof + independent theorem retask.
+    # Policy/deployment routing validation only, not a claim of RH.
+    current_name = "RHLEAN_ALPOGE_VIOLE_TRACTABLE_PROOF_SEVEN_AGENTS_20261122.md"
+    current_tag = "ALPOGE_VIOLE_TRACTABLE_RH_V1"
+    new_doc = read("docs/" + current_name)
+    for required in ("tractability", "contribution", "unconditional", "Gm", "Gz",
+                     "CostWindows", "2^R", "1187", "1189", "Coordinator",
+                     "Owner Payment", "Analytic Type II", "Finite Wheel & Incidence",
+                     "Prime Census Laboratory", "Adversarial Referee", "Lean Verification",
+                     "REPORT_PUBLISH_RECOVERY_V1", "human-only merge"):
+        assert required.lower() in new_doc.lower(), f"charter missing {required}"
+    for entry in ("AGENTS.md", "CURRENT_PROOF_CONTRACT.md",
+                  "CURRENT_RESEARCH_HANDOFF.md", "docs/DYNAMIC_RESEARCH_AGENTS.md",
+                  "docs/RHLEAN_SEVEN_AGENT_RESEARCH_ENGINE_20261101.md",
+                  "docs/RHLEAN_NATIVE_SQUARE_CLOCK_AGENT_DIRECTIVE_20261029.md",
+                  "docs/RHLEAN_ALL_VECTOR_AGENT_PROMPTS_20261030.md",
+                  "docs/CHATGPT_AGENT_STUDIO_RH_SETUP_2026_10_12.md",
+                  "docs/DOCUMENTATION_INDEX.md", "README.md", "llms.txt",
+                  "docs/AGENT_STUDIO_20261024_SEVEN_PROMPTS.md"):
+        data = read(entry)
+        assert current_name in data and current_tag in data, f"missing routing: {entry}"
+    copied = read("docs/AGENT_STUDIO_20261024_SEVEN_PROMPTS.md").split("### Agent ")[1:]
+    assert len(copied) == 7
+    for i, role in enumerate(copied, 1):
+        assert current_name in role and "tractability_ack=" + current_tag in role, (
+            f"role {i} does not have the new standalone copyable instructions")
+        assert "MY DISTINCT FIRST TASK" in role and "human-only merge" in role.lower()
+    assert current_name in read(".github/workflows/rh-proof-portfolio-agent-instructions.yml")
+
     # Preserve previous instruction bodies exactly; archives are not live queues.
     archives = {
         "AGENTS_BEFORE_RESEARCH_ENGINE_20261101.md": "59dc2c6d6ca06b2fae6fe7e18ad4ddf71a21e052",
