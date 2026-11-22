@@ -1,4 +1,4 @@
-import research.ALPOGE_LITERAL_GZ_SELBERG_TRANSLATION_20261120
+import «research.ALPOGE_LITERAL_GZ_SELBERG_TRANSLATION_20261120»
 
 /-!
 # Kernel axiom audit for the research-closure LPM2 identities
