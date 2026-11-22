@@ -100,8 +100,12 @@ theorem nativeDyadicNorm_fixedTorsion_bound (f : Module.End R M)
         Module.length R (f.eigenspace (-1)) := add_le_add (add_le_add le_rfl him) le_rfl
     _ = _ := by
       rw [hm]
-      dsimp only [d, n]
-      ac_rfl
+      let a := Module.length R (LinearMap.ker d)
+      let b := Module.length R (LinearMap.range n)
+      let q := Module.length R (f.eigenspace (-1))
+      change (a + b) + q = (q + b) + a
+      exact (add_comm (a + b) q).trans
+        ((congrArg (q + ·) (add_comm a b)).trans (add_assoc q b a).symm)
 
 end Norm
 
