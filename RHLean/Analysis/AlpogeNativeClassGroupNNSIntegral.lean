@@ -114,4 +114,30 @@ theorem alpogeNativeClDualFourier_exact
   exact nnsFiniteRelation_fullCharacterDetector
     (alpogeNativeClDualConstraint K q S)
 
+/-- The ACTUAL finite character set from Alpöge's ClDual predicate.
+It is not an arbitrary finite-source certificate. -/
+def alpogeNativeClDualMembers
+    (K : Type*) [Field K] [NumberField K]
+    (q : Nat) [NeZero q]
+    (S : Finset (HeightOneSpectrum (𝓞 K))) : Type :=
+  {theta : ClassGroup (𝓞 K) -> ZMod q //
+    (∀ a b, theta (a * b) = theta a + theta b) ∧
+    (∀ v ∈ S, theta (alpogeNativePrimeCl v) = 0)}
+
+/-- The NNS relation integral counts EXACTLY the field-specific
+ClDual characters, not merely an unrelated Fourier witness.
+No determinant is used. -/
+theorem alpogeNativeClDualMass_eq_char_card
+    (K : Type*) [Field K] [NumberField K]
+    (q : Nat) [NeZero q]
+    (S : Finset (HeightOneSpectrum (𝓞 K))) :
+    nnsFiniteRelationMass (alpogeNativeClDualConstraint K q S) =
+      (Fintype.card (alpogeNativeClDualMembers K q S) : Real) := by
+  classical
+  unfold nnsFiniteRelationMass nnsFiniteRelationIndicator
+  simp_rw [alpogeNativeClDualConstraint_zero_iff]
+  rw [Finset.sum_boole]
+  simp only [alpogeNativeClDualMembers, Fintype.card_subtype]
+
+
 end RHLean.Analysis
