@@ -230,16 +230,18 @@ to all original non-Phi colours. -/
 def alpogeSquareColourSupport
     {H : Type*} [AddCommGroup H] [Fintype H] [DecidableEq H]
     (I : AddSubgroup (AlpogeNativeE0 × H)) (h : AlpogeNativeE0 × H) :
-    Finset (AlpogeNativeE0 × H) :=
-  (Finset.univ.filter (fun g => ¬ alpogeNativeInPhi g)).filter
+    Finset (AlpogeNativeE0 × H) := by
+  classical
+  exact (Finset.univ.filter (fun g => ¬ alpogeNativeInPhi g)).filter
     (fun g => g - h ∈ I)
 
 /-- Exactly the (finite) original inertia subgroup. -/
 def alpogeSquareInertiaCarrier
     {H : Type*} [AddCommGroup H] [Fintype H] [DecidableEq H]
     (I : AddSubgroup (AlpogeNativeE0 × H)) :
-    Finset (AlpogeNativeE0 × H) :=
-  Finset.univ.filter (fun u => u ∈ I)
+    Finset (AlpogeNativeE0 × H) := by
+  classical
+  exact Finset.univ.filter (fun u => u ∈ I)
 
 /-- The genuine original colour support injects into the ACTUAL
 inertia subgroup by translation. No missing unit classes. -/
@@ -252,13 +254,18 @@ theorem alpogeSquareColourSupport_card_le_inertia
   have hmap : ∀ g ∈ alpogeSquareColourSupport I h,
       g - h ∈ alpogeSquareInertiaCarrier I := by
     intro g hg
-    have hg' := (Finset.mem_filter.mp hg).2
-    simpa only [alpogeSquareInertiaCarrier,
-      Finset.mem_filter, Finset.mem_univ, true_and] using hg'
+    have hg0 : g ∈
+        (Finset.univ.filter (fun v : AlpogeNativeE0 × H =>
+          ¬ alpogeNativeInPhi v)).filter (fun v => v - h ∈ I) := hg
+    have hg' : g - h ∈ I := (Finset.mem_filter.mp hg0).2
+    change g - h ∈ Finset.univ.filter (fun u => u ∈ I)
+    simp only [Finset.mem_filter, Finset.mem_univ, true_and]
+    exact hg'
   have hinj : Set.InjOn (fun g : AlpogeNativeE0 × H => g - h)
       (alpogeSquareColourSupport I h : Set (AlpogeNativeE0 × H)) := by
     intro g _ k _ he
-    exact sub_right_cancel he
+    simpa only [sub_add_cancel] using
+      congrArg (fun z : AlpogeNativeE0 × H => z + h) he
   exact Finset.card_le_card_of_injOn (fun g => g - h) hmap hinj
 
 /-- The actual non-Phi normalized prime-power coefficient: the
@@ -279,7 +286,9 @@ theorem alpogeSquareColourCosetMass_nonneg_le_two
       alpogeSquareColourCosetMass I h ≤ 2 := by
   classical
   have h0 : (0 : AlpogeNativeE0 × H) ∈ alpogeSquareInertiaCarrier I := by
-    simp [alpogeSquareInertiaCarrier]
+    change (0 : AlpogeNativeE0 × H) ∈
+      Finset.univ.filter (fun u => u ∈ I)
+    simp
   have hsCard : 0 < (alpogeSquareInertiaCarrier I).card :=
     Finset.card_pos.mpr ⟨0, h0⟩
   have hs : (0 : ℝ) < ((alpogeSquareInertiaCarrier I).card : ℝ) := by
