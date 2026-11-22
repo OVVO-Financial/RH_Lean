@@ -425,6 +425,131 @@ theorem alpogeNativeChebyshevAdditiveWheel_noncrossing
   rw [alpogeNativeAdditiveWheel_noncrossing p m r hp hr]
   exact nativePNTError_succ_eq m
 
+
+/-!
+## A signed square-root descent that the separate unsigned estimates miss
+
+On each complete multiplicative p-quotient fibre, the additive/prime
+commutator has p-1 copies of the *same signed* quotient increment and
+one zero crossing. Summing over all quotient rows telescopes exactly.
+When p=M=R, the physical R-by-R rectangle has R^2 sites, but its
+FULL signed commutator collapses to the single original source value
+at R, multiplied by R-1. The multiplier is a genuine unpaid cost:
+it must NOT be silently divided away to claim a geometric lift.
+-/
+
+/-- The final residue r=p-1 crosses the quotient wall and pays ZERO
+in the mixed commutator. All r<p-1 are handled by the earlier lemma. -/
+theorem alpogeNativeAdditiveWheel_crossing
+    (p m : ℕ) (hp : 0 < p) (f : ℕ → ℝ) :
+    alpogeNativeAdditiveStep
+        (RHLean.Arithmetic.freshPrimeDifference p f)
+          (p * m + (p - 1)) -
+      RHLean.Arithmetic.freshPrimeDifference p
+        (alpogeNativeAdditiveStep f)
+          (p * m + (p - 1)) = 0 := by
+  rw [alpogeNativeAdditiveWheel_commutator]
+  have h0 : (p * m + (p - 1)) / p = m :=
+    alpogeNativeFloorPrimeFiber_div p m (p - 1) hp (by omega)
+  have hmul : p * m + (p - 1) + 1 = p * (m + 1) := by
+    calc
+      p * m + (p - 1) + 1 = p * m + p := by omega
+      _ = p * (m + 1) := by ring
+  have h1 : (p * m + (p - 1) + 1) / p = m + 1 := by
+    rw [hmul]
+    exact Nat.mul_div_cancel_left (m + 1) hp
+  rw [h0, h1, sub_self]
+
+/-- Every complete p-quotient row has EXACTLY p-1 copies of the
+original signed quotient difference, including its prime powers.
+This is a same-source equality, not a triangle bound. -/
+theorem alpogeNativeAdditiveWheel_fiber_sum
+    (p m : ℕ) (hp : 0 < p) (f : ℕ → ℝ) :
+    (∑ r ∈ Finset.range p,
+      (alpogeNativeAdditiveStep
+          (RHLean.Arithmetic.freshPrimeDifference p f)
+            (p * m + r) -
+        RHLean.Arithmetic.freshPrimeDifference p
+          (alpogeNativeAdditiveStep f)
+            (p * m + r))) =
+      ((p - 1 : ℕ) : ℝ) * (f (m + 1) - f m) := by
+  have hrange : Finset.range p = Finset.range ((p - 1) + 1) := by
+    congr 1
+    omega
+  rw [hrange, Finset.sum_range_succ]
+  have hprefix :
+      (∑ r ∈ Finset.range (p - 1),
+        (alpogeNativeAdditiveStep
+            (RHLean.Arithmetic.freshPrimeDifference p f)
+              (p * m + r) -
+          RHLean.Arithmetic.freshPrimeDifference p
+            (alpogeNativeAdditiveStep f)
+              (p * m + r))) =
+        ((p - 1 : ℕ) : ℝ) * (f (m + 1) - f m) := by
+    calc
+      _ = ∑ _r ∈ Finset.range (p - 1), (f (m + 1) - f m) := by
+        apply Finset.sum_congr rfl
+        intro r hr
+        exact alpogeNativeAdditiveWheel_noncrossing
+          p m r hp (by have h := Finset.mem_range.mp hr; omega) f
+      _ = ((p - 1 : ℕ) : ℝ) * (f (m + 1) - f m) := by
+        simp [nsmul_eq_mul]
+  rw [hprefix, alpogeNativeAdditiveWheel_crossing p m hp f]
+  ring
+
+/-- The ENTIRE physical p-by-M lattice of additive/Euler commutators
+telescopes in SIGNED form to the two original-source endpoints.
+The p-1 multiple persists, so no covolume/multiplicity saving is
+asserted. This statement is valid for any positive integer p as a
+floor-shift; it is a PRIME-WHEEL step only when p is prime. -/
+theorem alpogeNativeAdditiveWheel_rectangular_telescope
+    (p M : ℕ) (hp : 0 < p) (f : ℕ → ℝ) :
+    (∑ m ∈ Finset.range M, ∑ r ∈ Finset.range p,
+      (alpogeNativeAdditiveStep
+          (RHLean.Arithmetic.freshPrimeDifference p f)
+            (p * m + r) -
+        RHLean.Arithmetic.freshPrimeDifference p
+          (alpogeNativeAdditiveStep f)
+            (p * m + r))) =
+      ((p - 1 : ℕ) : ℝ) * (f M - f 0) := by
+  have htel :
+      (∑ m ∈ Finset.range M, (f (m + 1) - f m)) =
+        f M - f 0 := by
+    induction M with
+    | zero => simp
+    | succ m ih =>
+        rw [Finset.sum_range_succ, ih]
+        ring
+  calc
+    _ = ∑ m ∈ Finset.range M,
+        ((p - 1 : ℕ) : ℝ) * (f (m + 1) - f m) := by
+          apply Finset.sum_congr rfl
+          intro m _hm
+          exact alpogeNativeAdditiveWheel_fiber_sum p m hp f
+    _ = ((p - 1 : ℕ) : ℝ) * (f M - f 0) := by
+          rw [← Finset.mul_sum, htel]
+
+/-- The complete R-by-R square lattice: the original Chebyshev
+error at the ENTIRE R²-source collapses to the one root endpoint.
+This is a valid FLOOR-shift for every R>0; for composite R it is
+NOT the prime-wheel adjunction of a new prime. -/
+theorem alpogeNativeSquareClock_mixedWheel_signedTelescope
+    (R : ℕ) (hR : 1 ≤ R) :
+    (∑ m ∈ Finset.range R, ∑ r ∈ Finset.range R,
+      (alpogeNativeAdditiveStep
+          (RHLean.Arithmetic.freshPrimeDifference R nativePNTError)
+            (R * m + r) -
+        RHLean.Arithmetic.freshPrimeDifference R
+          (alpogeNativeAdditiveStep nativePNTError)
+            (R * m + r))) =
+      ((R - 1 : ℕ) : ℝ) * nativePNTError R := by
+  have h := alpogeNativeAdditiveWheel_rectangular_telescope
+    R R (by omega) nativePNTError
+  have hz : nativePNTError 0 = 0 := by
+    simp [nativePNTError, nativePsi]
+  simpa only [hz, sub_zero] using h
+
+
 end RHLean.Analysis
 
 /-! ## Explicit kernel axiom audit: expected only standard Lean axioms. -/
