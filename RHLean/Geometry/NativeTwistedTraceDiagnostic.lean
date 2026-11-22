@@ -44,7 +44,11 @@ theorem nativeTwoTrace_injective : Function.Injective nativeTwoTrace := by
   have h1 := congrFun hfg (1 : Fin 2)
   simp [nativeTwoTrace, nativeTwoTrace_matrix, Fin.sum_univ_succ] at h0 h1
   funext i
-  fin_cases i <;> linarith
+  fin_cases i
+  · change f 0 = g 0
+    linarith
+  · change f 1 = g 1
+    linarith
 
 /-- Squared multiplication norm at most `3^2`, in the stated source metric. -/
 theorem nativeTwoTrace_multiplication_energy (h : Fin 2) (f : Fin 2 → ℝ) :

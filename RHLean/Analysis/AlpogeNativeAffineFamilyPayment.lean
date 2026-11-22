@@ -114,12 +114,17 @@ theorem alpogeNativeSignedWidthSource_affine_rows_sum_le
     apply Fin.ext
     dsimp [rev]
     omega
+  let revEquiv : Fin m ≃ Fin m :=
+    { toFun := rev
+      invFun := rev
+      left_inv := hrev
+      right_inv := hrev }
   have hreverse :
       (∑ j : Fin m, alpogeNativeSignedWidthSource inertia frob ell N a t
         (alpogeAffineWidthRow v h₀ (m - 1 - j.val))) =
       ∑ j : Fin m, alpogeNativeSignedWidthSource inertia frob ell N a t
         (alpogeAffineWidthRow v h₀ j.val) := by
-    exact Fintype.sum_equiv (Equiv.ofInvolutive rev hrev) _ _ (fun _ => rfl)
+    exact Fintype.sum_equiv revEquiv _ _ (fun _ => rfl)
   have hpoint (j : Fin m) := alpogeNativeSignedWidthSource_affine_pair_le
     inertia frob ell N m j.val a beta h₀ t v j.isLt ha hbeta hh₀ hv
   have hsum := Finset.sum_le_sum (s := (Finset.univ : Finset (Fin m)))
@@ -127,7 +132,8 @@ theorem alpogeNativeSignedWidthSource_affine_rows_sum_le
   simp only [Finset.sum_add_distrib, ← Finset.sum_div,
     Finset.sum_const, nsmul_eq_mul, Finset.card_univ, Fintype.card_fin,
     hreverse] at hsum
-  nlinarith only [hsum]
+  convert hsum using 1
+  ring
 
 /-- The original positive normalizer, retaining frame count, actual theta-row
 count, thick base width and density separately. -/
@@ -202,7 +208,6 @@ theorem alpogeNativeHC_thin_minimum_payment
     A * d ^ 2 / (4 * b * (b / (n * Xprime)) ^ 2 * Delta) =
       A * d ^ 2 * n ^ 2 * Xprime ^ 2 / (4 * b ^ 3 * Delta) := by
   field_simp [hb, hn, hXprime, hDelta]
-  ring
 
 /-- The actual height window A <= 2*x*b pays the full-profile curvature at
 the explicit thin-scale cost. This still exposes every host/row factor. -/

@@ -10,21 +10,29 @@ The decisive arithmetic statement now has a more explicit form. Write:
 
 - $Z$ for the original subgroup average of the full physical ASK−MAIN over actual heights and rows;
 - $L_{\rm thin}$ for its literal signed complement after selecting the thick colours;
-- $Y_K$ for the retained character sum at the original heights $a_t/b$ and original phases;
-- $\Sigma_K$ for the explicitly defined norms of the excluded character terms;
+- $Y_{\rm full}$ for the complete annihilator-character sum at the original heights $a_t/b$ and original phases;
+- $Y_K$ and $\Sigma_K$ for an optional retained subset and its excluded-character norm charge;
 - $T=|TT|$, $n=|H|$, $\Delta=|T2|/n$, and $Q=Tmb\Delta/2>0$.
 
-If the actual thick widths lie in ([b,b+h]), all physical widths are positive, the original sharp cutoff is valid, and $a_t/b\le X$, the native theorem is
+If the actual thick widths lie in $[b,b+h]$, all physical widths are positive, the original sharp cutoff is valid, and $a_t/b\le X$, the native theorem is
 
 \[
-Y_K\le \frac{Z-L_{\rm thin}}{Q}+\Sigma_K
+Y_{\rm full}\le \frac{Z-L_{\rm thin}}{Q}
  +\frac{4h(\log4+2)X}{b\Delta}.
 \tag{1}
 \]
 
-The width term in (1) is paid from the actual all-prime-power arithmetic. The other terms are retained, not asserted to meet the critical exponent. The full annihilator projection is also available before any character is excluded; an absolute-value charge is optional and is not a replacement for signed recombination.
+The width term in (1) is paid from the actual all-prime-power arithmetic. The exact signed geometric/thin combination is retained, not asserted to meet the critical exponent. No character has been discarded or replaced by its norm in (1). For a chosen retained subset there is also the optional inequality
 
-The remaining global task is to construct and estimate **one common realized family** so that the entire right-hand side of (1), including the geometric source, the signed thin return and the character correction, has the required root-scale bound. The variable-height character signal must then be transferred to the appropriate analytic consumer. It is not silently identified with scalar $G_z(R^2-1)$.
+\[
+Y_K\le\frac{Z-L_{\rm thin}}Q+\Sigma_K
+ +\frac{4h(\log4+2)X}{b\Delta}.
+\tag{1a}
+\]
+
+The optional norm charge is not a demand to bound each omitted character at root scale, nor a replacement for the original signed completion in an analytic consumer.
+
+The remaining global task is to construct and estimate **one common realized family** so that the entire right-hand side of (1), including the geometric source and the signed thin return, has the required root-scale bound. If a smaller retained character family is used instead, its original signed completion must also be accounted for. The variable-height character signal must then be transferred to the appropriate analytic consumer. It is not silently identified with scalar $G_z(R^2-1)$.
 
 ## 1. An actual finite integral descent theorem
 
@@ -41,7 +49,7 @@ There is no slope or arithmetic-source estimate among these hypotheses.
 ### Construct the completion
 
 Extend the independent family $f(a_1),\ldots,f(a_r)$ to a real basis using vectors from
-\(\{f$a_i$\}\cup S\). Exactly $d$ additional vectors $w_1,\ldots,w_d\in S$ are needed. Their bounds survive unchanged. The theorem does not assume that $S$ contains a short integral basis.
+$\{f(a_i)\}\cup S$. Exactly $d$ additional vectors $w_1,\ldots,w_d\in S$ are needed. Their bounds survive unchanged. The theorem does not assume that $S$ contains a short integral basis.
 
 Express the whole completed frame in the original integral basis of $B$. Its coordinate matrix $C$ is integral and has nonzero determinant. Both the matrix and its nonsingularity are constructed from the supplied map, integrality and spanning set.
 
@@ -109,7 +117,7 @@ t\le\operatorname{slope}_{\rm sq}(A)-2P
 \ge t-\varepsilon_{\rm rk}(|t|+2\Lambda).
 \]
 
-Its actual map supplier is `mapsCore`: choose one integral cusp section $u$, use its translated multiplication maps and coordinate projections of `cuspPh), and take $q=|S|$. The same $u$ must have a level determinant that is a non-zero-divisor. The collective norm bill is
+Its actual map supplier is `mapsCore`: choose one integral cusp section $u$, use its translated multiplication maps and coordinate projections of `cuspPh`, and take $q=|S|$. The same $u$ must have a level determinant that is a non-zero-divisor. The collective norm bill is
 \[
 |S|^3 B^2\le e^{2b},
 \]
@@ -159,7 +167,7 @@ For the original affine row form
 \[
 w_j(\rho)=v(\rho)+(j+\tfrac12)h_0,
 \]
-pair (j) with (m-1-j). Their pointwise midpoint is $v(\rho)+mh_0/2$, and their complete linear responses cancel. This pairing works for odd $m$ as well. The reference still retains every sector and torsion-dependent base; it is not a constant-width profile or a presumed realized lattice.
+pair $j$ with $m-1-j$. Their pointwise midpoint is $v(\rho)+mh_0/2$, and their complete linear responses cancel. This pairing works for odd $m$ as well. The reference still retains every sector and torsion-dependent base; it is not a constant-width profile or a presumed realized lattice.
 
 Summing over the actual rows and a finite set of frames, allowing variable heights $a_t\le A$, then dividing by $Q=Tmb\Delta/2$, gives the explicit normalized price
 \[
@@ -181,7 +189,7 @@ The $n^2$ in (7) is retained. The fact that the ASK comparison itself has no hos
 
 The original `HCVal` and its explicit constructor have this affine form at every site. The physical widths use the `e_j` rows, with the correct shifted index in `wj`; a different shifted auxiliary width must not be substituted. The same-instance `RankVal`, `HostVal`, `HCVal` and geometric realization still need native construction.
 
-Finally, simultaneous positive scaling of every width and the height by \(\alpha\) scales the **complete** native source by \(\alpha\), preserves every ratio (a/w) and the cutoff, and preserves source divided by $Q$ when $Q$ scales too. This is an exact analytic normalization. It does not assert integrality or realization of a rescaled lattice.
+Finally, simultaneous positive scaling of every width and the height by $\alpha$ scales the **complete** native source by $\alpha$, preserves every ratio $a/w$ and the cutoff, and preserves source divided by $Q$ when $Q$ scales too. This is an exact analytic normalization. It does not assert integrality or realization of a rescaled lattice.
 
 ### Construct the complete physical cutoff
 
@@ -208,12 +216,12 @@ The full physical source is split into the chosen thick colours and their litera
 2hm\sum_{t\in TT}\psi(\lfloor a_t/b\rfloor).
 \]
 The native elementary bound
-\(\psi(N)\le$\log4+2$N\) pays this after dividing by $Q$:
+$\psi(N)\le(\log4+2)N$ pays this after dividing by $Q$:
 \[
 \frac{2hm\sum_t\psi(\lfloor a_t/b\rfloor)}{Q}
 \le\frac{4h(\log4+2)X}{b\Delta}.
 \]
-Combining the exact projection, the excluded-character charge and this genuine arithmetic inequality gives (1).
+Combining the exact full projection and this genuine arithmetic inequality gives (1), without an excluded-character norm. The optional subset deduction gives (1a).
 
 This is stronger than merely defining a width error and assuming it small. It still leaves the actual geometric source minus the signed thin return to be controlled.
 
@@ -221,7 +229,7 @@ This is stronger than merely defining a width error and assuming it small. It st
 
 See [AlpogeNativeCostNormalization.lean](../RHLean/Analysis/AlpogeNativeCostNormalization.lean).
 
-Set $e=x^\varepsilon$, $h_2=|T2|\$, and $\Delta=h_2/n$. The original three-term bracket, after writing $x^{-\varepsilon}=1/e$, is
+Set $e=x^\varepsilon$, $h_2=|T2|$, and $\Delta=h_2/n$. The original three-term bracket, after writing $x^{-\varepsilon}=1/e$, is
 \[
 E=T a_E\left(1+\frac{m^2}{k}\right)
  +m\left(2nmb e+
@@ -241,7 +249,7 @@ The original additive transport cost also has the exact normalization
 \]
 Equation (8) explains exactly where multiplication by $m$ helps and where it costs. A factor $x^{C\varepsilon}$ multiplying the original bracket multiplies every term in (8); it cannot be discarded.
 
-The native algebra proves these identities. It does **not** assert the geometric theorem $Z\le x^{C\varepsilon}E\$. The original `ch_top` obtains that from `IdentU`, eleven `SizeData₂` components, the strong `ErrWindows`, `BNBoundsU` and the large-parameter condition. Those are the next compatible constructor and estimate obligations.
+The native algebra proves these identities. It does **not** assert the geometric theorem $Z\le x^{C\varepsilon}E$. The original `ch_top` obtains that from `IdentU`, eleven `SizeData₂` components, the strong `ErrWindows`, `BNBoundsU` and the large-parameter condition. Those are the next compatible constructor and estimate obligations.
 
 ## 6. Verification and the next genuine construction
 

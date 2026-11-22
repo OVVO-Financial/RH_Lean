@@ -164,3 +164,11 @@ info: 'RHLean.Geometry.nativeTwoTrace_not_qSquared' depends on axioms: [propext,
 -/
 #guard_msgs in
 #print axioms RHLean.Geometry.nativeTwoTrace_not_qSquared
+
+/--
+info: 'RHLean.Analysis.alpogeNativeCompleteProjection_normalized_le' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.alpogeNativeCompleteProjection_normalized_le

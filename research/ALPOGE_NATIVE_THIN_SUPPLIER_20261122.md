@@ -95,10 +95,10 @@ Native `AlpogeNativeClassGroupNNSIntegral.lean` concerns integral class-group ch
 
 ## 4. Relation to the new finite paid step
 
-The new finite thick-freezing argument keeps the signed original thin return exactly. Its output is
+The new finite thick-freezing argument keeps the signed original thin return exactly. Its complete-character output is
 
 ```text
-Q*(retainedSignal - excludedCharacterMass) + signedThinAverage
+Q*fullAnnihilatorSignal + signedThinAverage
   <= originalPhysicalTopExcess
      + 2*h*m*sum_(t in TT) nativePsi(floor(a_t/b)),
 
@@ -112,6 +112,8 @@ Under `a_t/b<=X`, the normalized freezing charge is at most
 ```
 
 That cost is proved using the actual nonnegative inertia kernel with total mass at most two; no character-count factor or per-character bound is inserted there.
+
+The primary signal is the full signed annihilator-character sum, with all original phases and variable heights. The module additionally proves the optional finite inequality `retainedSignal - excludedCharacterMass <= fullAnnihilatorSignal`. Choosing that inequality incurs a norm charge for the discarded characters; it is not required to use the complete signed comparison, is not the definition of upstream `SigA`, and does not assert that the original `ChCore` requires every omitted response to have a separate root-scale norm bound. Original signed character completion and its later consumer remain distinct, explicit obligations.
 
 The original thin supplier acts only after the canonical response and thin-scale conditions are established. If all actual thin arguments `a_t/w` are at least `X'/3` and every full canonical response has norm at most `(a_t/w)*theta`, then `w*norm(GPsi(a_t/w))<=a_t*theta`. This cancellation uses the original width exactly. Summing the full finite character/colour source gives the original per-row bound `2*fPhi*a_t*theta`, where `fPhi=2*|H|`; with `a_t<=(x+1)b`, its normalized contribution is at most `4*fPhi*(x+1)*theta/Delta`. This is a deduction from the genuine analytic supplier, not a new unconditional theorem in the current PR. The all-character factor here is explicit and can be absorbed only with the original host-size and exponential-decay estimates.
 

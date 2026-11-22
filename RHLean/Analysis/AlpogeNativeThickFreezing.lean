@@ -51,7 +51,8 @@ theorem alpogeNativeASKRealWeight_sum_le_two_lambda
       · have heq :
             (2 / (((Finset.univ.filter
               (fun u : AlpogeNativeE0 × H => u ∈ inertia p)).card : ℕ) : ℂ)) =
-            (((2 : ℝ) / ((alpogeSquareInertiaCarrier (inertia p)).card : ℝ)) : ℂ) := by
+            Complex.ofReal ((2 : ℝ) /
+              ((alpogeSquareInertiaCarrier (inertia p)).card : ℝ)) := by
           simp only [alpogeSquareInertiaCarrier, Complex.ofReal_div,
             Complex.ofReal_ofNat, Complex.ofReal_natCast]
         rw [heq, Complex.ofReal_re]
