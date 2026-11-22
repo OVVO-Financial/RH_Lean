@@ -493,7 +493,8 @@ theorem alpogeNativeAdditiveWheel_fiber_sum
         exact alpogeNativeAdditiveWheel_noncrossing
           p m r hp (by have h := Finset.mem_range.mp hr; omega) f
       _ = ((p - 1 : ℕ) : ℝ) * (f (m + 1) - f m) := by
-        simp [nsmul_eq_mul] <;> ring
+        simp [nsmul_eq_mul]
+        ring
   rw [hprefix, alpogeNativeAdditiveWheel_crossing p m hp f]
   ring
 
