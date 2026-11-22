@@ -10,6 +10,7 @@ import RHLean.Analysis.AlpogeNNSBandSchur
 import RHLean.Analysis.AlpogeNNSCohomologicalCRPayment
 import RHLean.Analysis.AlpogeNNSCompleteSelbergCovariance
 import RHLean.Analysis.AlpogeNNSMatchedSelbergKernel
+import RHLean.Analysis.AlpogeNativeClassGroupNNSIntegral
 import RHLean.Analysis.AlpogeNativeFourCharacterArithmetic
 import RHLean.Analysis.AlpogeNativeSharpASKBalance
 import RHLean.Analysis.AlpogeNativeSharpShell
