@@ -117,23 +117,27 @@ def LocalEulerCharResAt (rho : Representation (ZMod (l ^ r)) (G F Ω) M)
       Nat.card (H1 (rho.comp (Dec (F := F) A).subtype)) = Nat.card (H0 (rho.comp (Dec (F := F) A).subtype)) *
         Nat.card (H2 (rho.comp (Dec (F := F) A).subtype)))
 
+omit [NumberField F] [IsAlgClosure F Ω] [Fact (Nat.Prime l)] [Finite M] in
 theorem LocalFinitenessAt.restrict {rho : Representation (ZMod (l ^ r)) (G F Ω) M}
     {A : ValuationSubring Ω} {v : HeightOneSpectrum (𝓞 F)}
     (h : LocalFinitenessAt A (rho.comp (Dec (F := F) A).subtype) v) : LocalFinitenessResAt rho A v :=
   fun hr hA hc => h hr hA (hc.comp' continuous_subtype_val)
 
+omit [NumberField F] [IsAlgClosure F Ω] [Finite M] in
 theorem LocalTateDualityAt.restrict {rho : Representation (ZMod (l ^ r)) (G F Ω) M}
     {A : ValuationSubring Ω} {v : HeightOneSpectrum (𝓞 F)}
     (h : LocalTateDualityAt A (rho.comp (Dec (F := F) A).subtype) v) :
     LocalTateDualityResAt rho A v :=
   fun hr hA hc => h hr hA (hc.comp' continuous_subtype_val)
 
+omit [IsAlgClosure F Ω] [Finite M] in
 theorem UnramifiedOrthogonalityAt.restrict {rho : Representation (ZMod (l ^ r)) (G F Ω) M}
     {A : ValuationSubring Ω} {v : HeightOneSpectrum (𝓞 F)}
     (h : UnramifiedOrthogonalityAt A (rho.comp (Dec (F := F) A).subtype) v) :
     UnramifiedOrthogonalityResAt rho A v :=
   fun hr hA hl hI hc => h hr hA hl (fun σ hσ => hI σ hσ) (hc.comp' continuous_subtype_val)
 
+omit [NumberField F] [IsAlgClosure F Ω] [Fact (Nat.Prime l)] [Finite M] in
 theorem LocalEulerCharAt.restrict {rho : Representation (ZMod (l ^ r)) (G F Ω) M}
     {A : ValuationSubring Ω} {v : HeightOneSpectrum (𝓞 F)}
     (h : LocalEulerCharAt A (rho.comp (Dec (F := F) A).subtype) v) : LocalEulerCharResAt rho A v :=
@@ -152,6 +156,7 @@ def locFam (S : Finset (HeightOneSpectrum (𝓞 F)))
     ∀ v : S, Dec (F := F) (Av v) →* GS Ω (S : Set (HeightOneSpectrum (𝓞 F))) :=
   fun v => locHom _ (Av v)
 
+omit [IsAlgClosure F Ω] in
 theorem continuous_locFam (S : Finset (HeightOneSpectrum (𝓞 F)))
     (Av : S → ValuationSubring Ω) (v : S) : Continuous (locFam S Av v) :=
   continuous_locHom _ _

@@ -1,3 +1,6 @@
+import RHLean.Analysis.AlpogeThin.NativeDyadicChiField
+import RHLean.Geometry.NativeGradedPeterssonConstruction
+import RHLean.Analysis.AlpogeThin.NativeConstructedDyadicGzPayment
 import RHLean.Geometry.NativeGradedCharacterSlopeDescent
 import RHLean.Geometry.NativeGradedShortSectionConstruction
 import RHLean.Analysis.AlpogeNativeReciprocitySurjective
@@ -268,3 +271,75 @@ info: 'RHLean.Analysis.AlpogeThin.nativeSelectedDyadicGzPayment' depends on axio
 -/
 #guard_msgs in
 #print axioms RHLean.Analysis.AlpogeThin.nativeSelectedDyadicGzPayment
+
+/--
+info: 'RHLean.Geometry.nativePeterssonNorm_mul_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Geometry.nativePeterssonNorm_mul_le
+
+/--
+info: 'RHLean.Geometry.nativeExists_graded_regular_petersson_multiplier' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Geometry.nativeExists_graded_regular_petersson_multiplier
+
+/--
+info: 'RHLean.Geometry.nativeAllPlaceDescent_of_constructed_petersson_section' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Geometry.nativeAllPlaceDescent_of_constructed_petersson_section
+
+/--
+info: 'RHLean.Geometry.nativeShortSectionCost_le_exp_of_source_scales' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Geometry.nativeShortSectionCost_le_exp_of_source_scales
+
+/--
+info: 'RHLean.Analysis.AlpogeThin.nativeDyadicHost_windows' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeThin.nativeDyadicHost_windows
+
+/--
+info: 'RHLean.Analysis.AlpogeThin.nativeDyadicAnalyticRemainder_eventually' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeThin.nativeDyadicAnalyticRemainder_eventually
+
+/--
+info: 'RHLean.Analysis.AlpogeThin.nativeConstructedDyadicGzPayment' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeThin.nativeConstructedDyadicGzPayment
+
+/--
+info: 'RHLean.Analysis.alpogeNativeHostField_finrank' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.alpogeNativeHostField_finrank
+
+/--
+info: 'RHLean.Analysis.alpogeNativeHostField_art_spec' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.alpogeNativeHostField_art_spec
+
+/--
+info: 'RHLean.Analysis.alpogeNativeHostGalEquiv_conj_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.alpogeNativeHostGalEquiv_conj_iff
+
+/--
+info: 'RHLean.Analysis.alpogeNativeHostField_isCMField' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.alpogeNativeHostField_isCMField
+
+/--
+info: 'RHLean.Analysis.AlpogeThin.nativeDyadicHostField_isChiField' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeThin.nativeDyadicHostField_isChiField

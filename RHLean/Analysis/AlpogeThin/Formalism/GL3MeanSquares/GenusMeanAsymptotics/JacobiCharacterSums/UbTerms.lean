@@ -40,11 +40,9 @@ theorem lb_part (a : ℕ) (D : ℝ) (m n j : ℕ) (T : ℝ) (hmj : m ≤ j)
     rw [hR, E0, mul_pow, Real.exp_sub, Real.exp_neg, mul_comm ((a : ℝ) + 1) (j : ℝ),
       Real.exp_nat_mul]
     rw [one_div (2 : ℝ)]
-    first
-    | ring1
-    | (field_simp; done)
-    | (field_simp)
-    | (field_simp; rw [← mul_pow]; norm_num)
+    field_simp
+    rw [← mul_pow]
+    norm_num
   rw [heq]
   exact (mul_le_mul_of_nonneg_left key (by positivity)).trans
     (mul_le_mul_of_nonneg_left hT (by positivity))

@@ -94,8 +94,6 @@ theorem evalPair_equiv (χ : Γ →* Rˣ) (rho : Representation R Γ M) (g : Γ)
   have e : rho g⁻¹ (rho g m) = m := by
     first
       | exact Representation.inv_self_apply rho g m
-      | rw [← Module.End.mul_apply, ← map_mul, inv_mul_cancel, map_one, Module.End.one_apply]
-      | rw [← LinearMap.mul_apply, ← map_mul, inv_mul_cancel, map_one, LinearMap.one_apply]
   rw [evalPair_apply, twDual_apply, charRep_apply, evalPair_apply, e]
 
 end Coeff
@@ -106,6 +104,7 @@ variable {R : Type*} [CommRing R] [TopologicalSpace R] [DiscreteTopology R]
   {Γ : Type*} [Group Γ] {M : Type*} [AddCommGroup M] [Module R M]
   [TopologicalSpace M] [DiscreteTopology M]
 
+omit [TopologicalSpace R] [DiscreteTopology R] [DiscreteTopology M] in
 theorem ContAction.comp' [TopologicalSpace Γ] {D : Type*} [Group D] [TopologicalSpace D]
     {rho : Representation R Γ M} (h : ContAction rho) {φ : D →* Γ} (hφ : Continuous φ) :
     ContAction (rho.comp φ) := by

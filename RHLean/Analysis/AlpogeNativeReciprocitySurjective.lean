@@ -93,25 +93,27 @@ theorem alpogeNativeRecMap_surjective
   obtain ⟨u12, h12two, h12q⟩ := nativeUnits_crt
     (N := 2 ^ (e + 2) * q) rfl h2q
     (dvd_mul_right _ _) (dvd_mul_left _ _) v2 vq
+  have h12N : 2 ^ (e + 2) * q ∣ alpogeNativeHostN e q d :=
+    dvd_mul_right (2 ^ (e + 2) * q) d
   obtain ⟨u, hu12, hud⟩ := nativeUnits_crt
     (N := alpogeNativeHostN e q d) rfl (h2d.mul_left hcqd)
-    (dvd_mul_right _ _) (alpogeNativeD_dvd_hostN e q d) u12 vd
+    h12N (alpogeNativeD_dvd_hostN e q d) u12 vd
   have hu2 : ZMod.unitsMap (alpogeNativeTwo_dvd_hostN e q d) u = v2 := by
     calc
       _ = ZMod.unitsMap (dvd_mul_right (2 ^ (e + 2)) q)
-          (ZMod.unitsMap (dvd_mul_right (2 ^ (e + 2) * q) d) u) := by
+          (ZMod.unitsMap h12N u) := by
         exact DFunLike.congr_fun
-          (ZMod.unitsMap_comp (dvd_mul_right (2 ^ (e + 2)) q)
-            (dvd_mul_right (2 ^ (e + 2) * q) d)).symm u
-      _ = v2 := by rw [hu12, h12two]
+          (ZMod.unitsMap_comp (dvd_mul_right (2 ^ (e + 2)) q) h12N).symm u
+      _ = v2 :=
+        (congrArg (ZMod.unitsMap (dvd_mul_right (2 ^ (e + 2)) q)) hu12).trans h12two
   have huq : ZMod.unitsMap (alpogeNativeQ_dvd_hostN e q d) u = vq := by
     calc
       _ = ZMod.unitsMap (dvd_mul_left q (2 ^ (e + 2)))
-          (ZMod.unitsMap (dvd_mul_right (2 ^ (e + 2) * q) d) u) := by
+          (ZMod.unitsMap h12N u) := by
         exact DFunLike.congr_fun
-          (ZMod.unitsMap_comp (dvd_mul_left q (2 ^ (e + 2)))
-            (dvd_mul_right (2 ^ (e + 2) * q) d)).symm u
-      _ = vq := by rw [hu12, h12q]
+          (ZMod.unitsMap_comp (dvd_mul_left q (2 ^ (e + 2))) h12N).symm u
+      _ = vq :=
+        (congrArg (ZMod.unitsMap (dvd_mul_left q (2 ^ (e + 2)))) hu12).trans h12q
   refine ⟨u, ?_⟩
   apply Multiplicative.ext
   apply Prod.ext

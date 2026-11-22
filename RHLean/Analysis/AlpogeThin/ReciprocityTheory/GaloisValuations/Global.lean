@@ -32,6 +32,7 @@ variable {F Ω : Type*} [Field F] [NumberField F] [Field Ω] [Algebra F Ω]
 
 def Dec (A : ValuationSubring (Ω)) : Subgroup (G F Ω) := A.decompositionSubgroup F
 
+omit [NumberField F] in
 theorem mem_Dec {A : ValuationSubring (Ω)} {σ : G F Ω} :
     σ ∈ Dec (F := F) A ↔ σ • A = A := Iff.rfl
 
@@ -57,6 +58,7 @@ theorem valuation_apply_lt_one_iff {A : ValuationSubring (Ω)} {σ : G F Ω}
   rw [valuation_lt_one_iff', valuation_lt_one_iff', (map_inv₀ σ y).symm, apply_mem_iff_of_mem_Dec hσ,
     apply_mem_iff_of_mem_Dec hσ, EmbeddingLike.map_eq_zero_iff]
 
+omit [NumberField F] in
 theorem mul_inv_apply {σ : G F Ω} (x : Ω) : σ ((σ⁻¹ : G F Ω) x) = x := by
   rw [← AlgEquiv.mul_apply, mul_inv_cancel, AlgEquiv.one_apply]
 
@@ -110,12 +112,14 @@ def cycZ (l : ℕ) [Fact l.Prime] : G F Ω →* ℤ_[l]ˣ :=
     (MulSemiringAction.toRingAut (G F Ω) (Ω))
 
 variable (F Ω) in
+omit [NumberField F] in
 theorem cyc_eq_map_cycZ (l : ℕ) [Fact l.Prime] (σ : G F Ω) :
     cyc F Ω l σ = Units.map ((algebraMap ℚ_[l] (PadicAlgCl l)).comp PadicInt.Coe.ringHom).toMonoidHom
       (cycZ F Ω l σ) := rfl
 
 variable (F Ω) in
 
+omit [NumberField F] in
 theorem continuous_cycZ (l : ℕ) [Fact l.Prime] : Continuous (cycZ F Ω l) :=
   cyclotomicCharacter.continuous l F Ω
 
@@ -152,6 +156,7 @@ instance normal_NS : (NS Ω S).Normal := by
   unfold NS; exact Subgroup.is_normal_topologicalClosure _
 
 variable (Ω) in
+omit [NumberField F] in
 theorem isClosed_NS : IsClosed (NS Ω S : Set (G F Ω)) := Subgroup.isClosed_topologicalClosure _
 
 variable (Ω) in
@@ -163,6 +168,7 @@ variable (Ω) in
 def toGS : G F Ω →* GS Ω S := QuotientGroup.mk' (NS Ω S)
 
 variable (Ω) in
+omit [NumberField F] in
 theorem continuous_toGS : Continuous (toGS Ω S) := by
   unfold toGS
   exact continuous_quot_mk
@@ -175,6 +181,7 @@ theorem continuous_locHom (A : ValuationSubring (Ω)) :
 
 def UnramOutside {H : Type*} [Group H] (ρ : G F Ω →* H) : Prop := ∀ σ ∈ NS Ω S, ρ σ = 1
 
+omit [NumberField F] in
 theorem unramOutside_iff {H : Type*} [Group H] [TopologicalSpace H] [T2Space H]
     (ρ : G F Ω →* H) (hρ : Continuous ρ) :
     UnramOutside S ρ ↔ ∀ v ∉ S, ∀ A, IsPlaceOver A v → ∀ σ ∈ Inertia (F := F) A, ρ σ = 1 := by
@@ -204,6 +211,7 @@ section Basic₃
 theorem valuation_natCast_le_one (A : ValuationSubring (Ω)) (n : ℕ) :
     A.valuation (n : Ω) ≤ 1 := (A.valuation_le_one_iff _).mpr (natCast_mem A n)
 
+omit [NumberField F] in
 theorem not_valuation_lt_one_of_isPlaceOver {l : ℕ} {A : ValuationSubring (Ω)}
     {v : HeightOneSpectrum (𝓞 F)} (hl : ((l : ℕ) : 𝓞 F) ∉ v.asIdeal) (h : IsPlaceOver A v)
     (n : ℕ) : ¬ A.valuation (((l ^ n : ℕ) : Ω)) < 1 := by
@@ -246,6 +254,7 @@ theorem cycZ_toZModPow_eq [IsAlgClosure F Ω] {l : ℕ} [Fact l.Prime] {A : Valu
     (MulSemiringAction.toRingAut (G F Ω) (Ω) σ) : ℤ_[l]).toZModPow n), ← hm]
   exact (ZMod.natCast_eq_natCast_iff _ _ _).mpr heq'
 
+omit [NumberField F] in
 theorem eq_of_isPlaceOver {A : ValuationSubring (Ω)} {v v' : HeightOneSpectrum (𝓞 F)}
     (h : IsPlaceOver A v) (h' : IsPlaceOver A v') : v = v' := by
   unfold Formalism.ConjugateSelfDual.IsPlaceOver at h h'
@@ -284,9 +293,9 @@ theorem exists_isPlaceOver (v : HeightOneSpectrum (𝓞 F)) :
     ∃ A : ValuationSubring (Ω), IsPlaceOver A v := by
   classical
   have hinj : Function.Injective (algebraMap F Ω) := (algebraMap F Ω).injective
-  haveI hV : IsLocalRing (v.valuation F).valuationSubring.toSubring :=
+  have hV : IsLocalRing (v.valuation F).valuationSubring.toSubring :=
     inferInstanceAs (IsLocalRing (v.valuation F).valuationSubring)
-  haveI hS : IsLocalRing ((v.valuation F).valuationSubring.toSubring.map (algebraMap F Ω)) :=
+  have hS : IsLocalRing ((v.valuation F).valuationSubring.toSubring.map (algebraMap F Ω)) :=
     IsLocalRing.of_surjective'
       ((v.valuation F).valuationSubring.toSubring.equivMapOfInjective (algebraMap F Ω) hinj).toRingHom
       ((v.valuation F).valuationSubring.toSubring.equivMapOfInjective (algebraMap F Ω) hinj).surjective

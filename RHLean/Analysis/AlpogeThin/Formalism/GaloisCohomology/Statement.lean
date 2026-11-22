@@ -112,8 +112,7 @@ def PTCase (F : Type) [Field F] [NumberField F] (l : ℕ) : Prop :=
 
 def PTCokerAt (D : LData F Ω l) (e : ℤ) : Prop :=
   PTCase F l →
-    Module.length ℤ_[l] ((∀ v : D.S, H2 ((zlTw D (e + 1)).comp (locFam D.S D.A v))) ⧸
-        LinearMap.range (localH2 D e)) =
+    Module.length ℤ_[l] (_ ⧸ LinearMap.range (localH2 D e)) =
       Module.length ℤ_[l] (H0 (qzTw D e))
 
 def PTShaAt (D : LData F Ω l) (e : ℤ) : Prop :=

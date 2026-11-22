@@ -37,6 +37,7 @@ theorem realize_apply1 (b : Basis ι K V) (X : InfinitePlace K → Matrix ι ι 
     (RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.realize b X x) (v, i, 1) = (RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.fcoord b X v x i).im := by
   simp [RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.realize, RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.realizeRaw]
 
+omit [StarRing K] in
 theorem norm_sq_realize (b : Basis ι K V) (X : InfinitePlace K → Matrix ι ι ℂ) (x : V) :
     ‖RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.realize b X x‖ ^ 2 = ∑ v, RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.normAt b X v x ^ 2 := by
   rw [EuclideanSpace.norm_eq, Real.sq_sqrt (Finset.sum_nonneg fun _ _ => by positivity)]
@@ -70,6 +71,7 @@ theorem fcoord_map (b : Basis ι K V) (X : InfinitePlace K → Matrix ι ι ℂ)
   simp only [RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.fcoord, hv, Matrix.mulVec_mulVec, Matrix.mul_assoc, Matrix.mul_nonsing_inv _ (hX v),
     Matrix.mul_one]
 
+omit [StarRing K] in
 theorem normAt_map_le (b : Basis ι K V) (X : InfinitePlace K → Matrix ι ι ℂ) (b' : Basis κ K W)
     (X' : InfinitePlace K → Matrix κ κ ℂ) (hX : ∀ v, IsUnit (X v).det) (v : InfinitePlace K)
     (φ : V →ₗ[K] W) (x : V) :

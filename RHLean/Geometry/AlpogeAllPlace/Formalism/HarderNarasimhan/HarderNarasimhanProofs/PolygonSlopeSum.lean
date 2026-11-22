@@ -32,6 +32,7 @@ theorem hnSum_zl_mono {A B : Submodule R V} (h : A ≤ B) : zl ρ A ≤ zl ρ B 
   obtain ⟨x, hx, rfl⟩ := (hnSum_mem_zl ρ A y).1 hy
   exact (hnSum_mem_zl ρ B _).2 ⟨x, h hx, rfl⟩
 
+omit [InnerProductSpace ℝ E] in
 theorem hnSum_zl_sup (A B : Submodule R V) : zl ρ (A ⊔ B) = zl ρ A ⊔ zl ρ B := by
   apply le_antisymm
   · intro y hy
@@ -45,6 +46,7 @@ theorem hnSum_zl_sup (A B : Submodule R V) : zl ρ (A ⊔ B) = zl ρ A ⊔ zl ρ
 variable [FiniteDimensional ℝ E]
 
 omit [FiniteDimensional ℝ E] in
+omit [InnerProductSpace ℝ E] in
 theorem hnSum_isLat_mono {L N : Submodule R V} (hL : IsLat ρ L) (h : N ≤ L) : IsLat ρ N := by
   refine ⟨hL.1.mono h, ?_⟩
   have := hL.2

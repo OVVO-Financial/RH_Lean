@@ -927,7 +927,7 @@
       "source": "src/Formalism/GL3MeanSquares/GenusMeanAsymptotics/JacobiCharacterSums/PNTExplRectA.lean",
       "source_pin": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
       "source_sha256": "b44de6a73314428264d00f7daf0fce865d54c7b5406e6749a8736ce03bb4b5c3",
-      "native_sha256": "f2b971a574cfd1e9d05cb73b33ef547dabca4c44c0c9da0dd244e5f3dd9a3cfa"
+      "native_sha256": "c08cc17659c27c0f6be8cad22ff755c220782ad4fd05d64afe2c28ec31c8def0"
     },
     {
       "native": "RHLean/Analysis/AlpogeThin/Formalism/GL3MeanSquares/GenusMeanAsymptotics/JacobiCharacterSums/PNTExplRectF.lean",
@@ -1137,7 +1137,7 @@
       "source": "src/Formalism/GL3MeanSquares/GenusMeanAsymptotics/JacobiCharacterSums/UbTerms.lean",
       "source_pin": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
       "source_sha256": "9a3641dee9074ca368dc8a6a26e1f854077214acb085439584ecce3335086f76",
-      "native_sha256": "30098cfa8e682f6875f174c8a48cd630e6a9006200a7e0dff5817ad48b938e76"
+      "native_sha256": "40d9a2eef46bfc04dff1e7505c47b80cbe44c902b7f79459d1501195460455c5"
     },
     {
       "native": "RHLean/Analysis/AlpogeThin/Formalism/GL3MeanSquares/GenusMeanAsymptotics/JacobiCharacterSums/ZeroCountFirst.lean",
@@ -1298,7 +1298,7 @@
       "source": "src/Formalism/GaloisCohomology/Statement.lean",
       "source_pin": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
       "source_sha256": "67dc5835eb4b337dfbbbf7f0accd1198b59793ae70f5af34421a7c35410d632c",
-      "native_sha256": "0cf106ebe7a08956bf9880c7886ce6b1798729ac2c97f2f9033f22eb800c5ec2"
+      "native_sha256": "59232e2f13b38ee7b83ad74c06ebe782cb6ebd3e013f6c67439ecdd5471a66bc"
     },
     {
       "native": "RHLean/Analysis/AlpogeThin/Formalism/HalfLinks/Statement.lean",
@@ -1340,7 +1340,7 @@
       "source": "src/Formalism/LFunctionBounds/LFunctionBoundsProofs/LFunctionEqGOfOneLt.lean",
       "source_pin": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
       "source_sha256": "a0de79a9a1b6321a3241295dbd5125083ea6ab0172c8789f798c3413ec2007cb",
-      "native_sha256": "a339c091007cda930a45355a791c49643c4639b630a04d45e8ebe0234cb471c9"
+      "native_sha256": "87fd0053fded4664deef03222473c70ebc46b43c05a119225d508f726f5f6210"
     },
     {
       "native": "RHLean/Analysis/AlpogeThin/Formalism/LFunctionBounds/LFunctionBoundsProofs/LPartialSum.lean",
@@ -1452,7 +1452,7 @@
       "source": "src/Formalism/LandauZeroFreeBounds/ExceptionalZeroBounds/ExistsLocalZeroExpansionOfBound.lean",
       "source_pin": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
       "source_sha256": "87179136a09e6f65d5cbf1b3c9cea5916df27cb16f66294411e6356f391be1e5",
-      "native_sha256": "8734d72e58b1ed92839b8d723ef30a13a4787005764f2a3a2f5da00177ba5906"
+      "native_sha256": "b6c861008f20df128314c9ad82c7b47fd46246081995eb3f9987817e40344b32"
     },
     {
       "native": "RHLean/Analysis/AlpogeThin/Formalism/LandauZeroFreeBounds/ExceptionalZeroBounds/ExpGainFromZeroFreeRegion.lean",
@@ -1578,7 +1578,7 @@
       "source": "src/Formalism/LandauZeroFreeBounds/ExceptionalZeroBounds/PerronChi.lean",
       "source_pin": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
       "source_sha256": "a926a0fa0b33a67b3f5074ef0f1846fc1ed7d052052c353ac41685c24ee05209",
-      "native_sha256": "7c8d90da8750a7f36b63478b7060d262a52b9bc84fa8d0874a63e21721fe1260"
+      "native_sha256": "cacd4b664a62f44c5d68ef3aaac48bd7a7dced099d62d97ca1c7c88090d83852"
     },
     {
       "native": "RHLean/Analysis/AlpogeThin/Formalism/LandauZeroFreeBounds/ExceptionalZeroBounds/PerronHorizontalSegmentBound.lean",
@@ -1928,7 +1928,7 @@
       "source": "src/Formalism/PeriodIntegrals/UnitaryGroupMassFormula/ExplicitFormula/LStructC.lean",
       "source_pin": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
       "source_sha256": "1ae3592f78ad8b4bcdcea6cae6259a27914c9a547e06a379e63f86797bc7179c",
-      "native_sha256": "01a2d6379c564d71c8df647ddfc3d0cff1f834180bc19fcaf364fac545cb93c5"
+      "native_sha256": "8be6b94b08687533ec78eb2b486dc283c6256e38cb7e50af278214ad4b9835ab"
     },
     {
       "native": "RHLean/Analysis/AlpogeThin/Formalism/PeriodIntegrals/UnitaryGroupMassFormula/ExplicitFormula/LocalAbstract.lean",
@@ -1970,7 +1970,7 @@
       "source": "src/Formalism/PeriodIntegrals/UnitaryGroupMassFormula/ExplicitFormula/LogWindowLe.lean",
       "source_pin": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
       "source_sha256": "4e94e888e0a1b01543b642f728904d652882e4be873236bdfe8b4696e7da498f",
-      "native_sha256": "af337097bb0cf41715085c86bebf4a82d05e4be7c851e527593a162febb18b49"
+      "native_sha256": "446a8db026b291e2bc39f5dc4979fdd4325a17fbeb6c960af2f8f6e0864a5f78"
     },
     {
       "native": "RHLean/Analysis/AlpogeThin/Formalism/PeriodIntegrals/UnitaryGroupMassFormula/ExplicitFormula/NormLogDerivReflLe.lean",
@@ -1984,7 +1984,7 @@
       "source": "src/Formalism/PeriodIntegrals/UnitaryGroupMassFormula/ExplicitFormula/NormSubCtrSq.lean",
       "source_pin": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
       "source_sha256": "c6879eb33c44922a41f74624e8426682405ffe22a91c4ba63b81e2be1ceffdb6",
-      "native_sha256": "f4a92e87bcc13ac87e2b11382904c07b40be89bbe9e1cf3e0c845b18bab0947c"
+      "native_sha256": "02816c89b8fe33112c24c3d53bddc0ea6b3d0c0f8e19c2406db2eb88baea8a51"
     },
     {
       "native": "RHLean/Analysis/AlpogeThin/Formalism/PeriodIntegrals/UnitaryGroupMassFormula/ExplicitFormula/PerronGlue.lean",
@@ -2516,7 +2516,7 @@
       "source": "src/ReciprocityTheory/GaloisValuations/Global.lean",
       "source_pin": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
       "source_sha256": "c8e9465c22e48ca68c4e2cfec74c1f9407d8c471b2eb5e2440f11b910a6bfbd6",
-      "native_sha256": "a2b7dc209b5e38d9a0fdc8d58f567312b52499118551b3d3f1c0b17b494452c8"
+      "native_sha256": "72c5c2c019bcdb3daff57593d9b10a82dcb5f6e1cca30505506719e5ea9405e3"
     },
     {
       "native": "RHLean/Analysis/AlpogeThin/ReciprocityTheory/GaloisValuations/GlobalA.lean",
@@ -2530,7 +2530,7 @@
       "source": "src/ReciprocityTheory/GaloisValuations/GlobalB.lean",
       "source_pin": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
       "source_sha256": "99fe9063535e36b9eaa66cf69bc675aca4cd4ed270094bc6e2849ce3feae28cb",
-      "native_sha256": "1be6af56df4b0f08e6bbf83f5bfa200a3eee45cda4e386804af8549f3536e248"
+      "native_sha256": "75e91c2612a4e7c9ef5f2e2ecf788183b40a051bbd179f77e906f63b8be9f32d"
     },
     {
       "native": "RHLean/Analysis/AlpogeThin/ReciprocityTheory/GaloisValuations/SeparatedDvrSecondCohomologyMem.lean",
@@ -2544,14 +2544,14 @@
       "source": "src/ReciprocityTheory/Hypotheses/GalCoh.lean",
       "source_pin": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
       "source_sha256": "8b5051953b0209402d9ef496c5877eec8b809d1b10fbd67877408876c36f30cd",
-      "native_sha256": "4a74ad1a4563e58e97228da812e8bec5c1a4227eea056615dd558a7993d211e2"
+      "native_sha256": "f8fb52afb95510fcfa4a9db34ccaf72843df4423e4a362d0811259b79082fbd8"
     },
     {
       "native": "RHLean/Analysis/AlpogeThin/ReciprocityTheory/Hypotheses/GalCohDefs.lean",
       "source": "src/ReciprocityTheory/Hypotheses/GalCohDefs.lean",
       "source_pin": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
       "source_sha256": "12342f816a027d1b70de377fa0057306bf64a2986b66b283fc099bb8efd78d31",
-      "native_sha256": "a2be26f5e8d33110c65cbb7ca29526194625f6da485d67c04d20f6ab9f6f793d"
+      "native_sha256": "df42c296d188e542bde17b7c72fa1a34d7223bc06434f1fe80b5d362e0e59467"
     }
   ],
   "no_local_lean_execution": true,
@@ -2566,19 +2566,29 @@
     "RHLean/Analysis/AlpogeNativeDyadicHostSize.lean",
     "RHLean/Analysis/AlpogeThin/NativeDyadicPayment.lean",
     "RHLean/Analysis/AlpogeThin/NativeDyadicThickCharacters.lean",
-    "RHLean/Analysis/AlpogeThin/NativeDyadicGzPayment.lean"
+    "RHLean/Analysis/AlpogeThin/NativeDyadicGzPayment.lean",
+    "RHLean/Analysis/AlpogeThin/NativeDyadicCostWindows.lean",
+    "RHLean/Analysis/AlpogeThin/NativeDyadicHostWindows.lean",
+    "RHLean/Analysis/AlpogeThin/NativeConstructedDyadicGzPayment.lean",
+    "RHLean/Analysis/AlpogeNativeCyclotomicHost.lean",
+    "RHLean/Analysis/AlpogeThin/NativeDyadicChiField.lean"
   ],
   "native_addition_hashes": {
     "RHLean/Analysis/AlpogeThin/NativeHostThin.lean": "d5978898b0b9d660b4a4459ed85fa6391c28074576a0ca0a3fe286a5a02ed66b",
     "RHLean/Analysis/AlpogeThin.lean": "a758d62ca23ec24da0e7696b3ce26ccfa5ac4bc7561167dfa29539fddba9356f",
     "RHLean/Analysis/AlpogeThin/NativePrincipalThin.lean": "852128582446a93b9ee64e577e547879ed37de1e3314f786e83e377aaf6a6d2f",
     "RHLean/Analysis/AlpogeThin/NativeCftThin.lean": "259efbcb8423c5a8946860fed85704759dcd669dcb64877c88866747306c76fd",
-    "research/ALPOGE_GEOMETRIC_CONSTRUCTION_CLOSURE_AUDIT_20261122.lean": "12bca117f3b45cf4cdf6b851e0a9d295b172180499a37fda93dbc2f6baab6096",
-    "RHLean/Analysis/AlpogeNativeReciprocitySurjective.lean": "f35180aab62ffc62b35ae28dc6b4b40d6cb5da309e01ec6bf64c1536a1342494",
+    "research/ALPOGE_GEOMETRIC_CONSTRUCTION_CLOSURE_AUDIT_20261122.lean": "35b75d99bc985abf201e7e764136dd734ec3ec193884eff6fd24ded8e6a94a2e",
+    "RHLean/Analysis/AlpogeNativeReciprocitySurjective.lean": "7b7475d9f665fe3302391c4a776e1c5c0d1d0911df01520048e14883c7532681",
     "RHLean/Analysis/AlpogeNativeDyadicHostSize.lean": "10d1edc08d5b97b82e004683d871e0485b0e52c68e5fb5858bd5aecb01951b6b",
     "RHLean/Analysis/AlpogeThin/NativeDyadicPayment.lean": "ff35b626752db9b31c28dc8879b8cb6ba5a890d595dc6dbcfae2f1ff33ffcc47",
     "RHLean/Analysis/AlpogeThin/NativeDyadicThickCharacters.lean": "bcec6e3a1e230c66a7b3cb26a1053fdbedaa59f15a286892a8c7ca6f6780e845",
-    "RHLean/Analysis/AlpogeThin/NativeDyadicGzPayment.lean": "be743bd80150cd1cd3fa05b9a433143894ad44c5a9d942d35765acd1706df207"
+    "RHLean/Analysis/AlpogeThin/NativeDyadicGzPayment.lean": "be743bd80150cd1cd3fa05b9a433143894ad44c5a9d942d35765acd1706df207",
+    "RHLean/Analysis/AlpogeThin/NativeDyadicCostWindows.lean": "fc284219427bcd2269b900b9864d2fa71ffb6d7fdb696bfe1116999e888eb9d0",
+    "RHLean/Analysis/AlpogeThin/NativeDyadicHostWindows.lean": "c218d96c6ecdfa63c9139f1e6f4e5915f71dba85d0da200ab318eb0a2dad1b25",
+    "RHLean/Analysis/AlpogeThin/NativeConstructedDyadicGzPayment.lean": "07d93eefece597b5eeb58af56ad98c3fb81c49d9dc03f6b6f07ab3c7492328b0",
+    "RHLean/Analysis/AlpogeNativeCyclotomicHost.lean": "00698c3e96f91d2af52e2d16607a60fe8c4ccb3ecef8f54b2ce6b4a30371efba",
+    "RHLean/Analysis/AlpogeThin/NativeDyadicChiField.lean": "e3d55fc1f4e46bc3f8d21613e5255a9f875d6387ee892520b5b32f64346c02e4"
   },
   "shared_source_files": [
     {
@@ -2598,6 +2608,65 @@
     "Compiler-directed unused tactic/simp removal, unused instance omission, and canonical deprecated aliases; all warning gates retained.",
     "NativeCftThin proves principal-character compatibility for the same onto unit map and attaches the constructed selected-pair estimate to the full native response and thin return.",
     "Audit both selected-pair variants in the actual consolidated geometric-construction audit; remove nonexistent prototype audit paths from the source manifest.",
-    "Continuation at base 792b6d7: repair all 28 observed native errors and 270 owned warning diagnostics; construct actual CRT surjectivity and dyadic host size, evaluate the thin bill, identify the three primitive thick twists, and compose the same-host scalar Gz source inequality. Hosted verification pending; no desired-bound assumption added."
-  ]
+    "Continuation at base 792b6d7: repair all 28 observed native errors and 270 owned warning diagnostics; construct actual CRT surjectivity and dyadic host size, evaluate the thin bill, identify the three primitive thick twists, and compose the same-host scalar Gz source inequality. Hosted verification pending; no desired-bound assumption added.",
+    "Continuation after e1fc20b: use the actual PageN exponent chooser to derive SizeN, polynomial host size and the selected-pair conductor bound; derive the source numerical cost windows and pay all analytic scalar remainders. Final nativeConstructedDyadicGzPayment retains only the literal top-excess term and original compatible height/width/density/window premises. ModelText.family is not used as a geometric witness. Hosted verification pending.",
+    "Repair exact e1fc20b hosted diagnostics without weakening gates: 11 errors across 5 files and 86 owned warnings (native/targeted identical). Actual reciprocity CRT map domains now retain the named conductor; port APIs, dependent quotient and regular-descent coercion/reindexing repaired. New kernel fixed field, Galois/degree/conjugation/CM and principal IsChiField construction use the same native modulus and map. Ideal inertia/Frobenius and actual theta-family closure remain explicit. Next hosted verification pending."
+  ],
+  "native_cost_payment_provenance": [
+    {
+      "path": "src/Formalism/SizeWindowBrackets/ChainSlopeWindows/PChain.lean",
+      "sha256": "be3c0f0ead3ebf13bc147c927c79aa5470d45a67739249d3b04a40d17281bf0d"
+    },
+    {
+      "path": "src/Formalism/SizeWindowBrackets/SChain.lean",
+      "sha256": "fbd9601bd93a72f7004d6de3f67737755a588631035c760f3e7f063c4c4a197f"
+    },
+    {
+      "path": "src/Formalism/SizeWindowBrackets/SlopesFromSizeAndCount.lean",
+      "sha256": "2f5d0e951f62844b5fa9529e1c35efe54c3936be1b916f5b286f186064489431"
+    },
+    {
+      "path": "src/Formalism/SharpRestriction/ElevenLe.lean",
+      "sha256": "65e8de4c64d63e9deb6c249289b357852279496fa8d14dd66a918a11989406db"
+    },
+    {
+      "path": "src/Development/AutomorphicArithmetic/CharacterBoxes/ExistsPageN.lean",
+      "sha256": "732c3347fb02e410cf9af8831afdbba1d230fc522c3dbbccdb4b708e5dde73db"
+    },
+    {
+      "path": "src/Development/AutomorphicArithmetic/AutomorphicVarieties/CMFieldExponentialBounds/LogConductorMulHeightLeOfPageN.lean",
+      "sha256": "2aad58f4fae8542a82dd7d7cd408018bd6124d46d794995638e8b6d6c71dead2"
+    }
+  ],
+  "native_cyclotomic_host_provenance": [
+    {
+      "path": "src/Formalism/SharpRestriction/RamificationFrobenius/TotientGaloisClasses/InertiaGaloisSymmetry/OfChar.lean",
+      "sha256": "107de064195bb0f8cda2437d842161944cde4def5fbf2d6582bdf2ee66404b9d"
+    },
+    {
+      "path": "src/Formalism/SharpRestriction/RamificationFrobenius/TotientGaloisClasses/InertiaGaloisSymmetry/CycBasic.lean",
+      "sha256": "5cc47b1f4efe246c59646bed22547d4d356d533ccb5e22b5b9ea71b5cb92b84d"
+    },
+    {
+      "path": "src/Formalism/SharpRestriction/RamificationFrobenius/TotientGaloisClasses/InertiaGaloisSymmetry/DvdDiscrOfInertia.lean",
+      "sha256": "70f2087f2a4830e6307b30389b52c08b9c88c1e0b428f571ad35824ea9a01806"
+    },
+    {
+      "path": "src/Formalism/SharpRestriction/RamificationFrobenius/TotientGaloisClasses/ArtinMapSecondEqJacobiSym.lean",
+      "sha256": "8905239e529ac169f4fbfeb016dd570f744a78537ea3a2c07fe27143b02a4c9a"
+    },
+    {
+      "path": "src/Development/AutomorphicArithmetic/CharacterBoxes/IsChiField.lean",
+      "sha256": "2b38c0083ca9d740508d050aca313960613d588df5ac2a9bd3303eec27f7e421"
+    }
+  ],
+  "latest_hosted_feedback": {
+    "head": "e1fc20b0e946569b3b1d24680367de6b0516e03a",
+    "native_run_id": 45059668038,
+    "native_job_id": 137322546854,
+    "targeted_run_id": 45059667957,
+    "observed_owned_errors": 11,
+    "observed_owned_warnings": 86,
+    "status": "SOURCE_REPAIRED_NEXT_HOSTED_COMPILE_PENDING"
+  }
 }

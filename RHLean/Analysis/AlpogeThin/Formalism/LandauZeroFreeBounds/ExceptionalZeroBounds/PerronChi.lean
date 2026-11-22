@@ -228,6 +228,7 @@ lemma summatory_function_continuousAt {a : ℕ → ℝ} (ha0 : a 0 = 0) (y : ℝ
   exact (Complex.continuous_ofReal.comp (continuous_finsetSum _
     (fun n _ => continuous_const.mul (Formalism.ZF.perron_continuous_mxS n)))).continuousAt
 
+omit [NeZero q] in
 lemma chebyshev_character_continuousAt (y : ℝ) : ContinuousAt (fun x => Schi χ x) y := by
   have h : (fun x => Schi χ x) =
       fun x => (Formalism.Sa (vonMangoldtCharRe χ) x : ℂ) + I * (Formalism.Sa (vonMangoldtCharIm χ) x : ℂ) :=
@@ -247,6 +248,7 @@ lemma summatory_rpow_integrableOn {a : ℕ → ℝ} (ha : ∀ n, |a n| ≤ 1 * �
     rw [norm_mul, norm_cpow_eq_rpow_re_of_pos hx0, Complex.norm_real, Real.norm_eq_abs]
     simp
 
+omit [NeZero q] in
 lemma chebyshev_character_integrableOn {w : ℂ} (hw : 1 < w.re) :
     IntegrableOn (fun x : ℝ => (x : ℂ) ^ (-w - 1) • Schi χ x) (Ioi 1) := by
   refine ((summatory_rpow_integrableOn (vonMangoldtCharRe_bound χ) hw).add

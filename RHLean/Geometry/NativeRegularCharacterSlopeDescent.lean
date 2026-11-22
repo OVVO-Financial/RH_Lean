@@ -45,7 +45,7 @@ def nativeWeightMultiply {H K R : Type} [Field K] [CommRing R] [Algebra K R]
     simp [add_mul]
   map_smul' a f := by
     apply Subtype.ext
-    simp [smul_mul_assoc]
+    simp
 
 def nativeEigenNorm {K R : Type} [Field K] [CommRing R] [Algebra K R]
     {V N : Submodule K R} (hNV : N ≤ V)
@@ -129,8 +129,12 @@ theorem nativeAllPlaceDescent_of_regular_groupDet
       Submodule.inclusion hNV (φH h f) =
         nativeCharacterTrace (nativeWeightAction st V hV) χ
           (nativeWeightMultiply st u Vm V hm h f) := by
+    rw [nativeCharacterTrace_apply]
     apply Subtype.ext
-    simp [φH, nativeCharacterTrace_apply, nativeWeightAction, nativeWeightMultiply]
+    exact (map_sum V.subtype
+      (fun g : H => (((χ g)⁻¹ : Kˣ) : K) •
+        nativeWeightAction st V hV g (nativeWeightMultiply st u Vm V hm h f))
+      Finset.univ).symm
   have hIntegral (h : H) (f : Vm) (hf : f ∈ A) :
       nativeWeightMultiply st u Vm V hm h f ∈ L := by
     obtain ⟨v, hv, heq⟩ := (Submodule.mem_map).1
@@ -179,8 +183,8 @@ theorem nativeAllPlaceDescent_of_regular_groupDet
     simpa only [φ, Equiv.apply_symm_apply] using hf (e.symm h)
   · intro σ f
     change (∑ i, nativeEigenNorm hNV NV σ (φH (e i) f) ^ 2) ≤ _
-    rw [e.sum_comp]
-    exact hφNorm σ f
+    exact (e.sum_comp
+      (fun h : H => nativeEigenNorm hNV NV σ (φH h f) ^ 2)).trans_le (hφNorm σ f)
 
 
 /-- The original reduced-ring component-evaluation specialization. All cost,

@@ -48,6 +48,7 @@ def transport (f : M →+ E) (g : M →+ F) (L1 : Submodule ℤ E) (L2 : Submodu
     rw [← map_add]
     exact eq_of_norm_eq f g hn (by rw [hs, map_add, hy, hz]; rfl)
 
+omit [InnerProductSpace ℝ E] [FiniteDimensional ℝ E] [InnerProductSpace ℝ F] [FiniteDimensional ℝ F] in
 theorem transport_apply (f : M →+ E) (g : M →+ F) (L1 : Submodule ℤ E) (L2 : Submodule ℤ F)
     (h1 : ∀ y, y ∈ L1 ↔ ∃ m, f m = y) (h2 : ∀ y, y ∈ L2 ↔ ∃ m, g m = y)
     (hn : ∀ m, ‖f m‖ = ‖g m‖) (y : L1) (m : M) (hm : f m = y) :
@@ -183,6 +184,7 @@ private theorem fcoord_smul_harder_narasimhan (b : Basis ι K V) (X : InfinitePl
     simp [RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.vecAt]
   simp only [RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.fcoord, h1, Matrix.mulVec_smul]
 
+omit [StarRing K] [IsTotallyComplex K] [Module (𝓞 K) V] [IsScalarTower (𝓞 K) K V] in
 private theorem fcoord_finset_sum_smul {κ : Type} (b : Basis ι K V) (X : InfinitePlace K → Matrix ι ι ℂ)
     (v : InfinitePlace K) (s : Finset κ) (r : κ → K) (c : κ → V) :
     RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.fcoord b X v (∑ k ∈ s, r k • c k) =
@@ -211,6 +213,7 @@ theorem fcoord_mem_span (b : Basis ι K V) (X : InfinitePlace K → Matrix ι ι
       rw [h2]
       exact Submodule.smul_mem _ _ hx
 
+omit [StarRing K] [IsTotallyComplex K] [IsScalarTower (𝓞 K) K V] in
 theorem pv_le (b : Basis ι K V) (X : InfinitePlace K → Matrix ι ι ℂ)
     (S : Submodule (𝓞 K) V) (v : InfinitePlace K) (z : EuclideanSpace ℂ ι)
     (hz : z ∈ pv b X (Submodule.span K (S : Set V)) v) :
@@ -346,6 +349,7 @@ theorem sub_mem_of_lift (hc : ∀ k, U.mkQ (c k) = b'' k) (x : V) :
   simp only [LinearMap.map_smul, hc]
   exact (b''.sum_repr (U.mkQ x)).symm
 
+omit [DecidableEq κ] in
 theorem proj_eq_tv (hc : ∀ k, U.mkQ (c k) = b'' k) (v : InfinitePlace K) (x : V) :
     (pv b X U v)ᗮ.starProjection (WithLp.toLp 2 (RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.fcoord b X v x)) =
       tv b X U c v (fun k => v.embedding (b''.repr (U.mkQ x) k)) := by

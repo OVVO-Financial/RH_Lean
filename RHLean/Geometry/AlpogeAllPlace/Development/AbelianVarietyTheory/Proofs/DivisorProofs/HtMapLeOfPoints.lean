@@ -18,7 +18,7 @@ namespace RHLean.Geometry.AlpogeAllPlace.GlobalTheory.DescentFamily
 open RHLean.Geometry.AlpogeAllPlace.Formalism.HN
 
 theorem numeric {a N mu muA ht mm P Λ ε t : ℝ} (ha : 0 < a) (haN : a ≤ N) (hN : N ≤ (1 + ε) * a)
-    (hΛ : 0 ≤ Λ) (hε : 0 ≤ ε) (hht : ht ≤ 2 * P) (hmm : -(2 * Λ) ≤ mm) (ht' : t ≤ muA - 2 * P)
+    (hΛ : 0 ≤ Λ) (_hε : 0 ≤ ε) (hht : ht ≤ 2 * P) (hmm : -(2 * Λ) ≤ mm) (ht' : t ≤ muA - 2 * P)
     (h : a * (muA - ht) + (N - a) * mm ≤ N * mu) : t - ε * (|t| + 2 * Λ) ≤ mu := by
   have hN0 : 0 < N := ha.trans_le haN
   have h1 : a * t ≤ a * (muA - ht) := mul_le_mul_of_nonneg_left (by linarith) ha.le
@@ -73,7 +73,7 @@ end
 
 theorem descent : ∀ (K V W : Type) [Field K] [NumberField K] [IsTotallyComplex K] [AddCommGroup V] [Module K V] [Module (𝓞 K) V] [IsScalarTower (𝓞 K) K V] [AddCommGroup W] [Module K W] [Module (𝓞 K) W] [IsScalarTower (𝓞 K) K W] (NA : (K →+* ℂ) → V → ℝ) (NB : (K →+* ℂ) → W → ℝ) (A : Submodule (𝓞 K) V) (B : Submodule (𝓞 K) W) (n : ℕ) (φ : Fin n → V →ₗ[K] W) (P Λ ε t : ℝ), HasGram NA → HasGram NB → A.FG → B.FG → A ≠ ⊥ → (∀ h, ∀ f ∈ A, φ h f ∈ B) → (∀ f, (∀ h, φ h f = 0) → f = 0) → (∀ σ f, ∑ h, NB σ (φ h f) ^ 2 ≤ Real.exp (2 * P) * NA σ f ^ 2) → (∃ s : Set W, s ⊆ (B : Set W) ∧ (∀ y ∈ s, ∀ σ, NB σ y ≤ Real.exp Λ) ∧ (B : Set W) ⊆ (Submodule.span K s : Set W)) → 0 ≤ Λ → 0 ≤ ε → (n : ℝ) * RHLean.Geometry.AlpogeAllPlace.Formalism.HN.rkK B ≤ (1 + ε) * RHLean.Geometry.AlpogeAllPlace.Formalism.HN.rkK A → t ≤ slope_sq NA A - 2 * P → t - ε * (|t| + 2 * Λ) ≤ slope_sq NB B := by
   intro K V W _ _ _ _ _ _ _ _ _ _ _ NA NB A B n φ P Λ ε t hA hB hAfg hBfg hA0 hint hinj hnorm hs hΛ hε hrk ht
-  letI : StarRing K := starRingOfComm
+  let : StarRing K := starRingOfComm
   obtain ⟨⟨p, ⟨b, X⟩, hGA⟩⟩ := hA
   obtain ⟨⟨q, ⟨b', X'⟩, hGB⟩⟩ := hB
   change IsGram b X NA at hGA
@@ -138,7 +138,7 @@ theorem descent : ∀ (K V W : Type) [Field K] [NumberField K] [IsTotallyComplex
   have hd := RHLean.Geometry.AlpogeAllPlace.Formalism.ExtensionFiltration.descent_slope K V _ (Fin n → W) _ b X bn Xn hX hXn Φ A Bn hAfg hBnfg hA0 hΦinj hΦle
   rw [p2] at hd
   have hle : rkK A ≤ rkK Bn := by
-    haveI : Module.Finite K (Fin n → W) := Module.Finite.of_basis bn
+    have : Module.Finite K (Fin n → W) := Module.Finite.of_basis bn
     rw [← RHLean.Geometry.AlpogeAllPlace.Formalism.BranchingDeterminantCap.OrthogonalSumAlt.rkK_map Φ hΦinj A]
     exact Submodule.finrank_mono (Submodule.span_mono hΦle)
   have hpos : 0 < rkK A := RHLean.Geometry.AlpogeAllPlace.Formalism.BranchingDeterminantCap.ms_rkK_pos b hA0

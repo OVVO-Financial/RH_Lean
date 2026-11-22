@@ -165,6 +165,7 @@ def primeBelow (A : ValuationSubring Ω) : Ideal (IntCl F Ω) where
           mul_le_mul_left (valuation_le_one_intCl A c) _
       _ < 1 := by rw [one_mul]; exact hb
 
+omit [IsAlgClosure F Ω] in
 theorem mem_primeBelow {A : ValuationSubring Ω} {b : IntCl F Ω} :
     b ∈ primeBelow A ↔ A.valuation (b : Ω) < 1 := Iff.rfl
 

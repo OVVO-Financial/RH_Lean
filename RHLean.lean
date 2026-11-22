@@ -49,6 +49,7 @@ import RHLean.Analysis.AlpogeNativeAffineFamilyPayment
 import RHLean.Analysis.AlpogeNativeClassGroupNNSIntegral
 import RHLean.Analysis.AlpogeNativeCompleteSourcePayment
 import RHLean.Analysis.AlpogeNativeCostNormalization
+import RHLean.Analysis.AlpogeNativeCyclotomicHost
 import RHLean.Analysis.AlpogeNativeDyadicHostSize
 import RHLean.Analysis.AlpogeNativeFourCharacterArithmetic
 import RHLean.Analysis.AlpogeNativeLPM2Endpoint
@@ -430,7 +431,11 @@ import RHLean.Analysis.AlpogeThin.Formalism.ZetaNonvanishingChebyshevWeights
 import RHLean.Analysis.AlpogeThin.Formalism.ZetaNonvanishingGeneralWeights
 import RHLean.Analysis.AlpogeThin.Formalism.ZetaRealNonvanish
 import RHLean.Analysis.AlpogeThin.NativeCftThin
+import RHLean.Analysis.AlpogeThin.NativeConstructedDyadicGzPayment
+import RHLean.Analysis.AlpogeThin.NativeDyadicChiField
+import RHLean.Analysis.AlpogeThin.NativeDyadicCostWindows
 import RHLean.Analysis.AlpogeThin.NativeDyadicGzPayment
+import RHLean.Analysis.AlpogeThin.NativeDyadicHostWindows
 import RHLean.Analysis.AlpogeThin.NativeDyadicPayment
 import RHLean.Analysis.AlpogeThin.NativeDyadicThickCharacters
 import RHLean.Analysis.AlpogeThin.NativeHostThin
@@ -915,6 +920,7 @@ import RHLean.Geometry.NativeComponentRegularity
 import RHLean.Geometry.NativeDescentCostPayment
 import RHLean.Geometry.NativeFiniteIntegralDescent
 import RHLean.Geometry.NativeGradedCharacterSlopeDescent
+import RHLean.Geometry.NativeGradedPeterssonConstruction
 import RHLean.Geometry.NativeGradedSectionRegularity
 import RHLean.Geometry.NativeGradedShortSectionConstruction
 import RHLean.Geometry.NativeGroupDeterminant
@@ -924,8 +930,10 @@ import RHLean.Geometry.NativeJetRankBudget
 import RHLean.Geometry.NativeLatticeTransference
 import RHLean.Geometry.NativeLatticeTransferenceA
 import RHLean.Geometry.NativeLatticeTransferenceB
+import RHLean.Geometry.NativePeterssonMultiplication
 import RHLean.Geometry.NativeRegularCharacterSlopeDescent
 import RHLean.Geometry.NativeRegularSectionSelection
+import RHLean.Geometry.NativeSectionCostAbsorption
 import RHLean.Geometry.NativeShortIndependentIntegers
 import RHLean.Geometry.NativeTraceDualDiscriminant
 import RHLean.Geometry.NativeTwistedTraceDescent

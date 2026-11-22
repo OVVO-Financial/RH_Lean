@@ -1,13 +1,17 @@
-# Native geometry attachment: constructed jets and the actual section algebra
+# Native geometry attachment and complete scalar source payment
 
 ## Status and scope
 
-This continuation of PR #1194 adds two source-derived mathematical suppliers:
+This continuation of PR #1194 reconstructs and connects these source-derived
+suppliers:
 
 1. `RHLean/Geometry/NativeJetRankBudget.lean` constructs the original integer jet order and derives its exact binomial rank budget.
 2. `RHLean/Geometry/NativeGradedSectionRegularity.lean` reconstructs the original generic-frame character-separation proof of regularity on the actual algebra of integer-weight sections.
+3. The graded short-section and Petersson constructors use one integral section for the determinant, trace injection, pointwise size, translated multiplication bounds and all-place descent.
+4. The actual dyadic reciprocity host, selected-prime character payments, constructed size/conductor windows and numerical cost windows compose into the complete native scalar inequality in section 9.
+5. The original cyclotomic kernel construction supplies a genuine CM host field, its Galois quotient, conjugation, degree and principal `IsChiField` identification.
 
-Both are source-written and require hosted native Lean verification. No local Lean execution was performed. The code introduces no proof admission, project axiom, external compiled artifact, or terminal RH import. The complete theta/cover instance, its source comparison and the unconditional critical estimate are **not** claimed here.
+These continuation statements are source-written and require hosted native Lean verification at their published commit. No local Lean execution was performed. The code introduces no proof admission, project axiom, external compiled artifact, or terminal RH import. The complete theta/cover instance, its source comparison and the unconditional critical estimate are **not** claimed here.
 
 Provenance is pinned to `CocoSgt/riemann-hypothesis-lean@7cbf7a0c32fca1badf05931879a37c3f8a2b03b4`. Exact source and native SHA-256 values and declaration names are in `scripts/alpoge_geometric_source_audit/native_geometry_attachment_manifest.json`.
 
@@ -260,7 +264,172 @@ membership of every `y_t` in `[Y,Y^A]`. No bound on `Egeom` or on the final
 right-hand side is a premise. This is a finite source inequality; its final
 geometric application is the remaining construction task.
 
-## 9. Exact remaining construction obligation
+## 9. Construct the host size family and pay every analytic remainder
+
+`nativeDyadicHost_windows` uses the existing source constructor
+`UpperTheory.Top.exists_pageN` once to choose an exponent `e(x)` at every
+scale. On the actual quotient host, it derives the original `SizeN` interval
+
+\[
+ x^{2+8\varepsilon-\varepsilon/100}
+ \le |H_{e(x)}|
+ \le x^{2+8\varepsilon+\varepsilon/100},
+ \qquad |H_{e(x)}|\le x^3
+\]
+
+eventually. For every original selected `WinPair` at `1 <= Y <= x`, it also
+derives the actual conductor bound
+
+\[
+ \log(2^{e(x)+2}qd)
+ \le 2x^{\varepsilon/5}\log^2x.
+\]
+
+The same exponent and prime pair appear in both the conductor and the source
+comparison. Neither a freely specified host cardinality nor an independent
+conductor bound remains a premise of `nativeConstructedDyadicGzPayment`.
+
+`NativeDyadicCostWindows.lean` reconstructs the numerical arguments of
+`ModelText.ev_rpow_le_exp`, `cost1` and `cost2` in the pinned source's
+`Formalism/SizeWindowBrackets/ChainSlopeWindows/PChain.lean`. It uses only
+those numerical proofs. It does not use `ModelText.family`, with its
+`Model.DA` and zero logarithmic derivative, as an actual geometric witness.
+
+For the original regime
+
+\[
+ b\ge e^{x^\varepsilon},\qquad
+ 0\le h\le e^{x^{\varepsilon/4}}+1,\qquad
+ A_{\max}/b\le x+1,\qquad \Delta\ge x^{-\varepsilon},
+\]
+
+the polynomial host bound derives the stronger numerical cost windows
+
+\[
+ 4n(x+1)e^{-x^{\varepsilon/8}}\le 1/x,
+ \qquad 12n(x+1)h\le b/x.
+\]
+
+They pay the thin and freezing terms together by `4/(Delta*x)`. The same
+selected pair pays the three thick characters by
+`6*x^(1/2+eps/2)`, retaining all varying `a_t/b`. The complete analytic sum is
+at most `x^(1/2+eps)` eventually. The combined native conclusion is therefore
+
+\[
+ \overline{G_z(a_t/b)}\le E_{\rm geom}/Q+x^{1/2+\varepsilon}.
+\]
+
+The actual positive-height, thick-width, thin-argument and character-window
+conditions remain explicit. This closes the analytic scalar remainder in
+that original regime; it does not construct a geometric family realizing it.
+
+## 10. The same short section pays the Petersson multiplication operators
+
+`NativePeterssonMultiplication.lean` reconstructs `petAt_mul_le` and
+`normW_mul_pull_le` from the pinned source's `CardLeOfDetEqZero.lean`.
+The metric is the actual weighted `eLpNorm` with exponent two. Its weight for
+a product is the product of the two pointwise factors. Finite source norm
+and measurable products are explicit, including the current Mathlib
+measurability requirement.
+
+`nativeExists_graded_regular_petersson_multiplier` consumes the SAME integral
+section constructed in section 5. Each realization is identified with
+weighted complex evaluation. The unchanged finite section cost
+
+\[
+ B=(2dr)q^2\beta
+   \max\{1,d^4r|\operatorname{Disc}K|^{1/d}A\}
+\]
+
+then supplies its pointwise size and proves
+`norm(f * st_h u) <= B * norm(f)` for every translated multiplication map.
+Here `q=|S|` is the number of level translations; it is not the arithmetic
+host cardinality `n`. Measure preservation, the evaluation identity and
+weight invariance derive the metric isometries. No multiplication-operator
+bound or norm-invariance conclusion is assumed.
+
+`nativeAllPlaceDescent_of_constructed_petersson_section` feeds this section
+and its derived multiplier estimate into the existing regular-determinant
+descent theorem. It removes the free section and free operator-bound
+premises.
+
+`nativeShortSectionCost_le_exp_of_source_scales` also removes a separate
+assumption that the displayed product `B` fits the descent budget. It uses
+the actual degree `d=[K:Q]`, discriminant, component-rank bound `r` and
+translation-group cardinality. The original separate scales are
+
+\[
+ \log d\le o,\quad \log|\operatorname{Disc}K|\le do,\quad o\le391z^2,
+ \quad \log r\le C_{\rm rank}z^3,
+\]
+
+\[
+ S\le z^5,\quad \log A\le C_{\theta}(z^3S+z^5),
+ \quad \beta\le e^{C_{\rm sup}z^3},\quad \log q\le120z^2.
+\]
+
+For `z >= 1` and nonnegative constants, these give
+
+\[
+ C_{\rm gen}=2000+C_{\rm rank}+C_{\theta},\qquad
+ B\le e^{C_0z^9},\qquad C_0=3C_{\rm gen}+240+C_{\rm sup}.
+\]
+
+The same descent endpoint now invokes this derived bound directly, with the
+source's original `2*C0+200 <= z` and `z^12 <= b` budget. Actual theta/component
+data and their separate size estimates, invariant measure, Gram norms,
+integral lattices, short target generators and the rank comparison remain
+geometric obligations.
+
+The coefficient field `K` here is the source's `Y.d.c₂.F`; its degree and
+discriminant estimates come from `Y.Good`. It must not be silently replaced
+by the cyclotomic arithmetic host field. A degree formula for that host
+does not establish the covering-coefficient estimates used by this theorem.
+
+## 11. Construct the genuine cyclotomic host field
+
+`AlpogeNativeCyclotomicHost.lean` defines the ambient field
+`L = CyclotomicField (alpogeNativeHostN e q d) Q` and the map
+
+\[
+ \operatorname{Gal}(L/\mathbb Q)
+ \xrightarrow{\mathrm{galEquivZMod}}(\mathbb Z/N\mathbb Z)^\times
+ \xrightarrow{\mathrm{nativeRecMap}}E_0\times H_e,
+ \qquad N=2^{e+2}qd.
+\]
+
+The actual host field is the fixed field of this map's kernel. Its number-field
+and Galois structures, quotient Galois equivalence, restriction map, and
+cyclotomic embedding specification are constructed. For distinct odd primes,
+
+\[
+ [E:\mathbb Q]=4\cdot2^e.
+\]
+
+The residue `-1` acts as complex conjugation in every complex embedding.
+Under the original prime congruences its native image is `((1,1),0)`, giving
+nontrivial conjugation, total complexity and the CM-field property. Native
+coordinate order is **d first, q second**; the proof does not silently coerce
+this host to a source frame with the opposite sign-coordinate order.
+
+`nativeDyadicHostField_isChiField` proves the original principal
+`UpperTheory.Top.IsChiField` predicate on that SAME field, modulus, embedding
+and primitive root. The fixed-subgroup criterion is exactly
+
+\[
+ (a\equiv1\pmod{2^{e+2}}\ \lor\ a+1\equiv0\pmod{2^{e+2}})
+ \ \land\ \left(\frac aq\right)=1
+ \ \land\ \left(\frac ad\right)=1.
+\]
+
+This is the original `CharData`/`CycBasic` mechanism reconstructed over the
+existing RH_Lean residue map. It does not assert that ideal-theoretic inertia
+and Frobenius already equal the finite modular-unit data, or that the CM
+abelian variety and its theta lattices have been constructed. The original
+cohomological `VAt` window estimate is also not a consequence of the field
+identification alone.
+
+## 12. Exact remaining construction obligation
 
 The reconstructed arithmetic comparison pays the cutoff, derived divisor,
 width movement, complete thin return and the three nonprincipal thick
@@ -269,12 +438,32 @@ characters. It does not yet supply an upper bound for the literal physical
 family whose actual heights and widths satisfy all the stated scale conditions.
 
 The next geometric suppliers remain the actual generic-frame atlas and
-homogeneous faithfulness, the same section's Petersson multiplication bound,
-component jet upper ranks and lower shares, and the resulting slope/covolume
-comparison with the complete physical ASK-MAIN source. The final window-to-RH
+homogeneous faithfulness, the short theta spanning family and its separate
+degree/discriminant/rank/theta size estimates, component jet upper ranks and lower shares, and the
+resulting slope/covolume comparison with the complete physical ASK-MAIN source.
+The Petersson multiplication mechanism is now derived on the constructed
+section, but its actual weighted evaluations and invariant measure still
+have to be instantiated from that family. The final window-to-RH
 consumer remains conditional until that compatible family and payment are
 proved. This status is a statement about this native proof chain, not a claim
 that those source mechanisms are absent from Alpöge's original development.
+
+More precisely, the native section data do not yet construct the common
+`D7`/rank datum and its `TT`, `T2`, `a`, `w`, scalar `SizeData₂` and `IdentU`
+identification. The original `CoreAtH` and `Deduction.ch_top` consume those
+data with **strong** `ErrWindows`, `BNBoundsU` and `LargeX`. The trace-error
+condition
+
+\[
+ (\mathrm{etaBar}+4\sqrt{\mathrm{eBar}})
+ (x^{c_{\mathrm{HH}}}b)
+ \le Kx^\varepsilon(n_Ta)
+\]
+
+cannot be replaced by `etaBar <= 1` and `eBar <= 1`. Nor can the translation
+group of the section constructor be identified with the arithmetic host
+merely by notation: the source derives `card_HA D` only for its common
+constructed geometric datum.
 
 All continuation statements require hosted Lean 4.34.1 compilation and the
 standard-terminal-axiom guards at their published commit. Source review and

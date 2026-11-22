@@ -55,6 +55,7 @@ variable [StarRing K]
 
 omit [Module (𝓞 K) V] [IsScalarTower (𝓞 K) K V] in
 
+omit [StarRing K] in
 theorem norm_realize_sq {ι : Type} [Fintype ι] [DecidableEq ι] (b : Basis ι K V)
     (X : InfinitePlace K → Matrix ι ι ℂ) (x : V) :
     ‖RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.realize b X x‖ ^ 2 = ∑ v, RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.normAt b X v x ^ 2 := by
@@ -82,8 +83,8 @@ theorem IsGram.rk_deg {ι κ : Type} [Fintype ι] [DecidableEq ι] [Fintype κ] 
   obtain ⟨h1, h2, -⟩ := RHLean.Geometry.AlpogeAllPlace.Formalism.HN.plLat K V ι b X (fun v => (h v).1) L hL
   obtain ⟨h1', h2', -⟩ := RHLean.Geometry.AlpogeAllPlace.Formalism.HN.plLat K V κ b' X' (fun v => (h' v).1) L hL
   refine ⟨h2.trans h2'.symm, ?_⟩
-  haveI := h1.2
-  haveI := h1'.2
+  have := h1.2
+  have := h1'.2
   unfold RHLean.Geometry.AlpogeAllPlace.Formalism.HN.deg RHLean.Geometry.AlpogeAllPlace.Formalism.F.deg
   rw [RHLean.Geometry.AlpogeAllPlace.Formalism.HN.QuotientRealization.covol_eq_of_norm_eq ((RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.realize b X).comp L.toAddSubgroup.subtype)
     ((RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.realize b' X').comp L.toAddSubgroup.subtype) (RHLean.Geometry.AlpogeAllPlace.Formalism.HN.zl (RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.realize b X) L)

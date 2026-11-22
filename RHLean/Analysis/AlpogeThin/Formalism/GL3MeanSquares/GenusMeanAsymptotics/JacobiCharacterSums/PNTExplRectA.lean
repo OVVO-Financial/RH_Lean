@@ -31,7 +31,7 @@ theorem exr_ord (f h : ℂ → ℂ) (Zb : Finset ℂ) (m : ℂ → ℕ) (S : Set
   have hne : ∀ ρ' ∈ Zb.erase ρ, (ρ - ρ') ^ m ρ' ≠ 0 := fun ρ' h' =>
     pow_ne_zero _ (sub_ne_zero.2 fun e => (Finset.ne_of_mem_erase h') e.symm)
   have hgD : DifferentiableOn ℂ (fun z => (∏ ρ' ∈ Zb.erase ρ, (z - ρ') ^ m ρ') * h z) S :=
-    (DifferentiableOn.fun_finset_prod fun ρ' _ => (differentiableOn_id.sub_const ρ').pow _).mul hh
+    (DifferentiableOn.fun_finsetProd fun ρ' _ => (differentiableOn_id.sub_const ρ').pow _).mul hh
   have hgA := hgD.analyticAt (hS.mem_nhds hρS)
   have hg0 : (∏ ρ' ∈ Zb.erase ρ, (ρ - ρ') ^ m ρ') * h ρ ≠ 0 :=
     mul_ne_zero (Finset.prod_ne_zero_iff.2 hne) hhρ

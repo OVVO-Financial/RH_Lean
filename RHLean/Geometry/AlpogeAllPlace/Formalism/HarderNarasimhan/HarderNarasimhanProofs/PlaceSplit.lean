@@ -260,6 +260,7 @@ theorem prj_realize_comb (b : Basis ι K V) (X : InfinitePlace K → Matrix ι �
     rw [im_comb, hr p.1]
     by_cases h1 : p.1 = v <;> simp [h1]
 
+omit [StarRing K] in
 theorem prj_mem_span (b : Basis ι K V) (X : InfinitePlace K → Matrix ι ι ℂ)
     (N : Submodule (𝓞 K) V) (v : InfinitePlace K)
     (w : EuclideanSpace ℝ (InfinitePlace K × ι × Fin 2))
@@ -419,6 +420,7 @@ theorem finrank_span_complex (b : Basis ι K V) (X : InfinitePlace K → Matrix 
   rw [Subtype.range_coe] at h3
   exact h3.symm
 
+omit [StarRing K] in
 theorem finrank_real_span (b : Basis ι K V) (X : InfinitePlace K → Matrix ι ι ℂ)
     (hX : ∀ v, IsUnit (X v).det) (N : Submodule (𝓞 K) V) (v : InfinitePlace K) :
     finrank ℝ (Submodule.span ℝ (RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.fcoord b X v '' (N : Set V))) = 2 * rkK N := by

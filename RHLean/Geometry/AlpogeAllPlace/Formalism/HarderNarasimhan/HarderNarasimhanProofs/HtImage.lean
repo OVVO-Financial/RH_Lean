@@ -238,6 +238,7 @@ theorem htImageCv_realize (b : Basis ι K V) (X : InfinitePlace K → Matrix ι 
   funext i
   apply Complex.ext <;> simp [htImageCv, RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.realize, RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.realizeRaw]
 
+omit [StarRing K] in
 theorem htImage_realize_eq_zero (b : Basis ι K V) (X : InfinitePlace K → Matrix ι ι ℂ)
     (hX : ∀ v, IsUnit (X v).det) {x : V} (h : RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.realize b X x = 0) : x = 0 := by
   obtain ⟨v⟩ : Nonempty (InfinitePlace K) := inferInstance
@@ -259,6 +260,7 @@ def htImageMat (b : Basis ι K V) (X : InfinitePlace K → Matrix ι ι ℂ) (b'
     Matrix κ ι ℂ :=
   (X' v)⁻¹ * (LinearMap.toMatrix b b' φ).map v.embedding * X v
 
+omit [StarRing K] in
 theorem htImage_map_realize (b : Basis ι K V) (X : InfinitePlace K → Matrix ι ι ℂ)
     (b' : Basis κ K W) (X' : InfinitePlace K → Matrix κ κ ℂ) (hX : ∀ v, IsUnit (X v).det)
     (φ : V →ₗ[K] W) (x : V) :

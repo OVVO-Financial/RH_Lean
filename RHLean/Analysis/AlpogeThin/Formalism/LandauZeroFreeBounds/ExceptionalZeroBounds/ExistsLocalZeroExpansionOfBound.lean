@@ -102,7 +102,7 @@ theorem exists_localZeroExpansion_of_bound (f : ℂ → ℂ) (z₀ : ℂ) (r M :
       2 ^ (∑ ρ ∈ Z, m ρ) * (r / 3) ^ (∑ ρ ∈ Z, m ρ) ≤ ‖∏ ρ ∈ Z, (w - ρ) ^ m ρ‖ := by
     intro w hw
     rw [← mul_pow, norm_prod, ← Finset.prod_pow_eq_pow_sum]
-    refine Finset.prod_le_prod (fun ρ _ => pow_nonneg (by linarith) _) fun ρ hρ => ?_
+    refine Finset.prod_le_prod₀ (fun ρ _ => pow_nonneg (by linarith) _) fun ρ hρ => ?_
     rw [norm_pow]
     have h1 := hZb ρ hρ
     rw [mem_closedBall] at h1
@@ -113,7 +113,7 @@ theorem exists_localZeroExpansion_of_bound (f : ℂ → ℂ) (z₀ : ℂ) (r M :
     exact pow_le_pow_left₀ (by linarith) h2 _
   have hup : ‖∏ ρ ∈ Z, (z₀ - ρ) ^ m ρ‖ ≤ (r / 3) ^ (∑ ρ ∈ Z, m ρ) := by
     rw [norm_prod, ← Finset.prod_pow_eq_pow_sum]
-    refine Finset.prod_le_prod (fun ρ _ => norm_nonneg _) fun ρ hρ => ?_
+    refine Finset.prod_le_prod₀ (fun ρ _ => norm_nonneg _) fun ρ hρ => ?_
     rw [norm_pow]
     have h1 := hZb ρ hρ
     rw [mem_closedBall, dist_eq_norm] at h1

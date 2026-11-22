@@ -32,6 +32,7 @@ theorem degSupermod_zl_sup (A B : Submodule R V) : zl ρ (A ⊔ B) = zl ρ A ⊔
   simp only [zl, Submodule.sup_toAddSubgroup, AddSubgroup.map_sup]
   exact SupHomClass.map_sup AddSubgroup.toIntSubmodule _ _
 
+omit [InnerProductSpace ℝ E] in
 theorem degSupermod_zl_inf {L A B : Submodule R V} (hinj : Set.InjOn ρ (L : Set V))
     (hA : A ≤ L) (hB : B ≤ L) : zl ρ (A ⊓ B) = zl ρ A ⊓ zl ρ B := by
   refine le_antisymm (le_inf (degSupermod_zl_mono ρ inf_le_left)

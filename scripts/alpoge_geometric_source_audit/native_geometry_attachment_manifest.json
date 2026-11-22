@@ -2,7 +2,7 @@
   "schema_version": 1,
   "upstream_repository": "https://github.com/CocoSgt/riemann-hypothesis-lean",
   "upstream_commit": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
-  "scope": "Native source reconstruction of the constructed jet-order budget and graded-section regularity supplier. Actual theta/cover and source-payment closure not asserted.",
+  "scope": "Native reconstruction of jet order, graded regularity, constructed integral sections, and their Petersson multiplication/all-place descent. Actual theta/cover atlas, compatible geometric datum, ranks and physical top-excess payment remain uninstantiated.",
   "native_ports": [
     {
       "native_path": "RHLean/Geometry/NativeJetRankBudget.lean",
@@ -53,7 +53,7 @@
     },
     {
       "native_path": "RHLean/Geometry/NativeRegularCharacterSlopeDescent.lean",
-      "native_sha256": "abe733b3f128dc311c8f93e68904308b7845837521be17b399dfe72683db2cb4",
+      "native_sha256": "80a4a7740839358a95d166428709f06cccec73e6fe7f9ee7722d8397cc0e8bec",
       "declarations": [
         "RHLean.Geometry.nativeAllPlaceDescent_of_regular_groupDet"
       ],
@@ -78,6 +78,58 @@
       ],
       "status": "HOSTED_NATIVE_COMPILATION_PENDING",
       "construction": "Composition of the recorded native section, determinant and all-place suppliers on the actual integer-weight algebra; geometric atlas and full physical payment remain explicit."
+    },
+    {
+      "native_path": "RHLean/Geometry/NativePeterssonMultiplication.lean",
+      "native_sha256": "5fbf29bb9a0583adfc0548c1a49af980cc22abcd41bdf5fb7e7d0c216b2a4df0",
+      "declarations": [
+        "RHLean.Geometry.nativePeterssonNorm_pull_eq",
+        "RHLean.Geometry.nativePeterssonNorm_mul_le",
+        "RHLean.Geometry.nativePeterssonNorm_mul_pull_le"
+      ],
+      "upstream_sources": [
+        {
+          "path": "src/Development/AbelianVarietyTheory/Proofs/DivisorProofs/CardLeOfDetEqZero.lean",
+          "sha256": "a03d646e53cc2bdc8bdaf0da14f0c8f6fd42a11fa225f5c20228b483994bb3f3"
+        }
+      ],
+      "status": "HOSTED_NATIVE_COMPILATION_PENDING",
+      "construction": "Use the same short integral section; identify its realization with weighted complex evaluation, derive Petersson multiplier and measure-preserving isometries, then supply the actual all-place descent operator bound. Geometric atlas, theta short spans, numerical section cost and rank/covolume realization remain explicit."
+    },
+    {
+      "native_path": "RHLean/Geometry/NativeGradedPeterssonConstruction.lean",
+      "native_sha256": "ce9ea3c3117c899c36873db08bc56a150ede971cca3f5e9a172eceff75eca76d",
+      "declarations": [
+        "RHLean.Geometry.nativeExists_graded_regular_petersson_multiplier",
+        "RHLean.Geometry.nativeAllPlaceDescent_of_constructed_petersson_section"
+      ],
+      "upstream_sources": [
+        {
+          "path": "src/Development/AbelianVarietyTheory/Proofs/DivisorProofs/CardLeOfDetEqZero.lean",
+          "sha256": "a03d646e53cc2bdc8bdaf0da14f0c8f6fd42a11fa225f5c20228b483994bb3f3"
+        }
+      ],
+      "status": "HOSTED_NATIVE_COMPILATION_PENDING",
+      "construction": "Construct the same integral section, derive the weighted Petersson multiplier and invariant metrics, and derive total section-cost absorption from original separate scales before applying all-place descent. Actual theta/atlas, coefficient-field bounds, Gram/integral data and rank/covolume realization remain explicit."
+    },
+    {
+      "native_path": "RHLean/Geometry/NativeSectionCostAbsorption.lean",
+      "native_sha256": "8f5d918dc1e1337f327f57682caa238f6cb3c3089a0c5af0e299c5885d296756",
+      "declarations": [
+        "RHLean.Geometry.nativeShortSectionCost_le_exp_of_source_scales"
+      ],
+      "upstream_sources": [
+        {
+          "path": "src/Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/HodgeBundleWeights/ShortGeneratorNormComparison.lean",
+          "sha256": "d1e7f666e978962174826b8a243ca7a11e1804d157d149ed5c8ce13d0f8238b2"
+        },
+        {
+          "path": "src/Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/HodgeBundleWeights/ExistsShortIntegralVectorOfDeterminantBound.lean",
+          "sha256": "eb7af1bb145afa4fb6983a472854b946a01badf4db3cb54e245110ef4c6710ce"
+        }
+      ],
+      "status": "HOSTED_NATIVE_COMPILATION_PENDING",
+      "construction": "Derive the literal finite section cost from the separate original degree, discriminant, rank, theta-span, Hodge-weight, comparison and translation-group scales. The all-place consumer uses this result directly; actual cover coefficient-field scale suppliers remain explicit."
     }
   ],
   "source_inspected_remaining_suppliers": [

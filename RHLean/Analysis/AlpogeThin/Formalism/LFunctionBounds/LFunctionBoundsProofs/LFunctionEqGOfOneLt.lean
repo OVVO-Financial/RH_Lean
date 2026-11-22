@@ -107,6 +107,7 @@ lemma Ap_succ (n : ℕ) : Ap χ (n + 1) = Ap χ n + χ ((n + 1 : ℕ) : ZMod q) 
   simp only [Ap]
   rw [Finset.sum_Icc_succ_top (by omega)]
 
+omit [NeZero q] in
 lemma dterm_zero (s : ℂ) : dterm χ s 0 = 0 := by
   simp [dterm, Ap_zero]
 

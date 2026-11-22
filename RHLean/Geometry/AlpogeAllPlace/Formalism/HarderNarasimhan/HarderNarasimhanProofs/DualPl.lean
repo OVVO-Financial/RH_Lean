@@ -145,6 +145,7 @@ theorem ident_sum_fcoord (b : Basis ι K V) (X : InfinitePlace K → Matrix ι �
   refine Finset.sum_congr rfl fun i _ => ?_
   ring
 
+omit [StarRing K] [Module (𝓞 K) V] [IsScalarTower (𝓞 K) K V] in
 theorem inner_realize_alt [IsTotallyComplex K] (b : Basis ι K V) (X : InfinitePlace K → Matrix ι ι ℂ)
     (hX : ∀ v, IsUnit (X v).det) (x : V) (f : Module.Dual K V) :
     inner ℝ (RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.realize b X x) ((2 : ℝ) • cE (RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.realize b.dualBasis (dualFrame X) f)) =
@@ -1124,6 +1125,7 @@ theorem ht_dual (b : Basis ι K V) (X : InfinitePlace K → Matrix ι ι ℂ)
   rwa [annO_bot, inf_top_eq, ht_bot] at this
 
 omit [IsTotallyComplex K] [DecidableEq ι] in
+omit [StarRing K] in
 theorem rkK_dualLat (b : Basis ι K V) (A : Submodule (𝓞 K) V) (hA : A.FG)
     (hsp : Submodule.span K (A : Set V) = ⊤) : rkK (dualLat A) = finrank K V := by
   have hfd : FiniteDimensional K V := Module.Finite.of_basis b
