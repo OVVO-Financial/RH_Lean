@@ -42,6 +42,22 @@ reducing to the original native Gz, and must retain all windows and epsilon
 costs. The independent-application branch follows from the central principle
 without using RH as an intermediate premise.
 
+For the direct scalar branch, the required consequence is explicitly ONE-SIDED:
+
+    forall eta > 0, exists C_eta >= 0, exists R_eta,
+    forall integer R_V >= max(2, R_eta):
+      Gz(R_V^2 - 1) <= C_eta * R_V^(1 + eta).
+
+Use the existing native `nativeAlpogeGz_of_squareClock_bound` consumer;
+its interpolation cost is `L_+*(2*R_V+1)`. Taking eta = 2*epsilon yields
+an integer exponent 1/2 + epsilon. An absolute-value bound with no
+positive exponent loss is a stronger optional target, not a prerequisite.
+The integer-to-real source identification/interpolation and one-sided
+Landau/RH argument must also be implemented and checked natively; the
+corresponding upstream source declarations alone do not close that native
+formalization obligation. An alternative character-family window route
+must prove its own full transfer and uniformity.
+
 The NEW theorem must be proved FROM constructed witnesses and complete signed arithmetic. Defining a proposition whose hypothesis already contains the entire RH-strength bound, a conditional equivalence, determinant-only analogy, a hypothetical p-adic multiplicity, or importing the completed external RH theorem does NOT pass. Alternative leaner routes qualify only with a precise original-source and cost audit and a genuinely new, independently useful theorem.
 
 ## 3. Mandatory quantitative ledger and acceptance gates
