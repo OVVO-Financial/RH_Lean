@@ -102,9 +102,9 @@ private theorem exists_real_pchar_twist_decomposition (N : ℕ) [NeZero N] (χ :
     · exact Or.inr (Or.inr ((Nat.prime_dvd_prime_iff_eq hp hd).1 h))
   obtain ⟨ξ, a, b, ha, hb, hξ⟩ :=
     QH.real_decomp _ q d N χ hsq hN₀ hq hd hq2 hd2 hqd hq8 hd8 hNdvd
-  haveI : NeZero (8 * ordCompl[2] S) := ⟨hN₀.ne'⟩
-  haveI : NeZero ξ.conductor := ⟨ξ.conductor_ne_zero⟩
-  haveI : NeZero (8 * ordCompl[2] S * q * d) :=
+  have : NeZero (8 * ordCompl[2] S) := ⟨hN₀.ne'⟩
+  have : NeZero ξ.conductor := ⟨ξ.conductor_ne_zero⟩
+  have : NeZero (8 * ordCompl[2] S * q * d) :=
     ⟨mul_ne_zero (mul_ne_zero hN₀.ne' hq.ne_zero) hd.ne_zero⟩
   have hprim : ∀ n : ℕ, n.Coprime (8 * ordCompl[2] S) → ξ n = ξ.primitiveCharacter n := by
     intro n hn
@@ -118,7 +118,7 @@ private theorem exists_real_pchar_twist_decomposition (N : ℕ) [NeZero N] (χ :
   obtain ⟨M1, ψ1, hM1, hψ1, hψ1eq⟩ := UpperTheory.Top.realSplit_step ξ.conductor q a
     ξ.primitiveCharacter ξ.primitiveCharacter_isPrimitive hq hq2 hqc ha
   subst hM1
-  haveI : NeZero (ξ.conductor * q ^ a) := ⟨mul_ne_zero (NeZero.ne _) (pow_ne_zero _ hq.ne_zero)⟩
+  have : NeZero (ξ.conductor * q ^ a) := ⟨mul_ne_zero (NeZero.ne _) (pow_ne_zero _ hq.ne_zero)⟩
   have hdc : ¬ d ∣ ξ.conductor * q ^ a := by
     intro h
     rcases (hd.dvd_mul).1 h with h | h
@@ -127,7 +127,7 @@ private theorem exists_real_pchar_twist_decomposition (N : ℕ) [NeZero N] (χ :
   obtain ⟨M2, ψ2, hM2, hψ2, hψ2eq⟩ :=
     UpperTheory.Top.realSplit_step (ξ.conductor * q ^ a) d b ψ1 hψ1 hd hd2 hdc hb
   subst hM2
-  haveI : NeZero (ξ.conductor * q ^ a * d ^ b) :=
+  have : NeZero (ξ.conductor * q ^ a * d ^ b) :=
     ⟨mul_ne_zero (NeZero.ne _) (pow_ne_zero _ hd.ne_zero)⟩
   have hbig : ξ.conductor ∣ 8 * ordCompl[2] S * q * d := hcN₀.trans (Dvd.intro (q * d) (by ring))
   have heq := QH.ind_unique N (ξ.conductor * q ^ a * d ^ b) (8 * ordCompl[2] S * q * d) χ ψ2

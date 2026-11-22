@@ -164,7 +164,7 @@ theorem alpogeNativeHostField_unramified
   have hP0 : P ≠ ⊥ := Ring.ne_bot_of_isMaximal_of_not_isField hP
     (RingOfIntegers.not_isField (alpogeNativeHostField e q d))
   have hnot := alpogeNativeHostConj_unramEF e q d hq2 hd2 hqd hq4 hd4 P hP.isPrime hP0
-  push_neg at hnot
+  push Not at hnot
   obtain ⟨θ, hθ⟩ := hnot
   have hconj :
       RingOfIntegers.mapRingEquiv

@@ -151,7 +151,7 @@ theorem pairEx :
     have hm := hR.q_mod
     rw [h2] at hm
     norm_num at hm
-  haveI : NeZero (8 * M) := ⟨by omega⟩
+  have : NeZero (8 * M) := ⟨by omega⟩
   have hM8 : M ∣ 8 * M := Dvd.intro_left 8 rfl
   refine ⟨q, d, ?_, ?_, ?_, ?_⟩
   · refine ⟨hR.q_prime, hR.q_mod, hR.q_gt, hR.q_le, hR.d_prime, hR.d_mod, hR.d_gt, hR.d_le, ?_, ?_⟩

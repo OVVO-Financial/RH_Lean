@@ -203,6 +203,7 @@ theorem _root_.RHLean.Geometry.NativeTheta.Paired.casimir_value_mixedWeight {m p
   have h2 := _root_.RHLean.Geometry.NativeTheta.Paired.sum_dite_rev_lt hq
     (fun j : Fin q => (b j : ℤ) * (b j + m - 1 - 2 * (j : ℕ)))
   beta_reduce at h1 h2
+  simp only at h1 h2
   have hpt : ∀ k : Fin m, _root_.RHLean.Geometry.NativeTheta.Paired.mixedWeight m a b k *
         (_root_.RHLean.Geometry.NativeTheta.Paired.mixedWeight m a b k + m - 1 - 2 * (k : ℕ)) =
       (if h : (k : ℕ) < p then (a ⟨k, h⟩ : ℤ) * (a ⟨k, h⟩ + m - 1 - 2 * (k : ℕ)) else 0) +
