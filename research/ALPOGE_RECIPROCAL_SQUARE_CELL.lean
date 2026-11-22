@@ -63,7 +63,8 @@ theorem alpogeNativeTail_cell_quadrature (a b : ℕ) (ha : 1 ≤ a) (hab : a ≤
     have hn0 : 0 < n := ha.trans (Finset.mem_Ico.mp hn).1
     have hnR : (0 : ℝ) < n := by exact_mod_cast hn0
     push_cast
-    field_simp <;> ring
+    field_simp
+    ring
   have e := alpogeCell_midpoint_jump nativePNTError (fun n => 1 / (n : ℝ)) a b hab
   change (∑ n ∈ Finset.Ico a b, nativePNTError n *
     (1 / (n : ℝ) - 1 / ((n + 1 : ℕ) : ℝ))) - _ = _ at e
@@ -117,7 +118,8 @@ theorem alpogeSquareCell_kernel_sign (r k : ℕ) (hr : 2 ≤ r) (hk : 0 < k) :
   have he : 2 * a * b * (k : ℝ) * K = 2 * a * b - (a + b) * k := by
     dsimp only [K, alpogeReciprocalCellKernel]
     rw [hca, hcb]
-    field_simp <;> ring
+    field_simp
+    ring
   have hp : 0 < 2 * a * b - (a + b) * (t - 2) := by
     dsimp [a, b, t]
     nlinarith [sq_nonneg (r : ℝ)]
@@ -141,7 +143,15 @@ theorem alpogeSquareCell_kernel_sign (r k : ℕ) (hr : 2 ≤ r) (hk : 0 < k) :
 
 end RHLean.Analysis
 
+/-- info: 'RHLean.Analysis.alpogeCell_midpoint_jump' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
 #print axioms RHLean.Analysis.alpogeCell_midpoint_jump
+/-- info: 'RHLean.Analysis.alpogeNativeTail_cell_quadrature' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
 #print axioms RHLean.Analysis.alpogeNativeTail_cell_quadrature
+/-- info: 'RHLean.Analysis.alpogeNativeTail_square_quadrature' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
 #print axioms RHLean.Analysis.alpogeNativeTail_square_quadrature
+/-- info: 'RHLean.Analysis.alpogeSquareCell_kernel_sign' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
 #print axioms RHLean.Analysis.alpogeSquareCell_kernel_sign

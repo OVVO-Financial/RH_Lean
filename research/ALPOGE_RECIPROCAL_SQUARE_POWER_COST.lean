@@ -29,7 +29,7 @@ theorem alpogeSquareCell_first_site_bound (r : ℕ) (hr : 2 ≤ r) :
       _ ≤ (1 / (r : ℝ) ^ 2 - 1 / ((r : ℝ) ^ 2 + 2 * r)) / 2 := by
         have he := one_div_le_one_div_of_le ha (show (r : ℝ) ^ 2 - 1 ≤ (r : ℝ) ^ 2 by linarith)
         linarith only [he]
-      _ = 1 / ((r : ℝ) * ((r : ℝ) ^ 2 + 2 * r)) := by field_simp <;> ring
+      _ = 1 / ((r : ℝ) * ((r : ℝ) ^ 2 + 2 * r)) := by field_simp; ring
       _ ≤ 1 / (r : ℝ) ^ 3 := by
         apply one_div_le_one_div_of_le (by positivity)
         nlinarith [sq_nonneg (r : ℝ)]
@@ -69,9 +69,13 @@ theorem alpogeSquareCell_dyadic_even_power_cost (h : ℕ) (hh : 2 ≤ h) :
       _ = (∑ r ∈ Finset.Ico h (2 * h), Λ r) * (1 / (h : ℝ) ^ 3) := (Finset.sum_mul ..).symm
       _ ≤ ((Real.log 4 + 2) * ((2 * h : ℕ) : ℝ)) * (1 / (h : ℝ) ^ 3) :=
         mul_le_mul_of_nonneg_right (hmass.trans (nativePsi_le_const_mul (2 * h))) (by positivity)
-      _ = _ := by push_cast; field_simp <;> ring
+      _ = _ := by push_cast; field_simp; ring
 
 end RHLean.Analysis
 
+/-- info: 'RHLean.Analysis.alpogeSquareCell_first_site_bound' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
 #print axioms RHLean.Analysis.alpogeSquareCell_first_site_bound
+/-- info: 'RHLean.Analysis.alpogeSquareCell_dyadic_even_power_cost' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
 #print axioms RHLean.Analysis.alpogeSquareCell_dyadic_even_power_cost
