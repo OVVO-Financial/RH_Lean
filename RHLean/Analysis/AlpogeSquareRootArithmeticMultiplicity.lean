@@ -360,4 +360,69 @@ theorem alpogeNativeFloorPrimeFiber_div
   rw [Nat.mul_add_div hp, Nat.div_eq_of_lt hr]
   omega
 
+
+/-!
+## New exact square-jet / prime-wheel mixed commutator
+
+An additive step at the R^2 lattice and the Euler floor shift are
+NOT interchangeable. The full signed compensation lives at the exact
+floor-boundary of the multiplicative prime fibre, before passing to
+any automorphic character or absolute-value majorant.
+-/
+
+/-- An actual one-site additive derivative on the original integer
+axis. Its iterates were defined as `alpogeNativeForwardJet` above. -/
+def alpogeNativeAdditiveStep (f : ℕ → ℝ) (n : ℕ) : ℝ :=
+  f (n + 1) - f n
+
+/-- EXACT additive-clock versus multiplicative-wheel commutator.
+No smooth-model or fibration assumption is imposed. -/
+theorem alpogeNativeAdditiveWheel_commutator
+    (p n : ℕ) (f : ℕ → ℝ) :
+    alpogeNativeAdditiveStep
+        (RHLean.Arithmetic.freshPrimeDifference p f) n -
+      RHLean.Arithmetic.freshPrimeDifference p
+        (alpogeNativeAdditiveStep f) n =
+      f (n / p + 1) - f ((n + 1) / p) := by
+  simp only [alpogeNativeAdditiveStep,
+    RHLean.Arithmetic.freshPrimeDifference_apply]
+  ring
+
+/-- At all NON-boundary residues 0 <= r < p-1, the exact
+commutator equals the first difference of the original quotient
+source. A p-step fibre therefore has p-1 unpaid residues,
+not just the exceptional crossing residue. -/
+theorem alpogeNativeAdditiveWheel_noncrossing
+    (p m r : ℕ) (hp : 0 < p) (hr : r + 1 < p)
+    (f : ℕ → ℝ) :
+    alpogeNativeAdditiveStep
+        (RHLean.Arithmetic.freshPrimeDifference p f) (p * m + r) -
+      RHLean.Arithmetic.freshPrimeDifference p
+        (alpogeNativeAdditiveStep f) (p * m + r) =
+      f (m + 1) - f m := by
+  rw [alpogeNativeAdditiveWheel_commutator]
+  have h0 : (p * m + r) / p = m :=
+    alpogeNativeFloorPrimeFiber_div p m r hp (by omega)
+  have h1 : (p * m + r + 1) / p = m := by
+    have hh : p * m + r + 1 = p * m + (r + 1) := by omega
+    rw [hh]
+    exact alpogeNativeFloorPrimeFiber_div p m (r + 1) hp hr
+  rw [h0, h1]
+
+/-- **GENUINE SOURCE:** the mixed additive-square / multiplicative-prime
+commutator on Chebyshev E=psi-x is exactly Lambda(m+1)-1 on every
+noncrossing integer residue. No prime-power term or sign is lost.
+This is an original-source boundary debt, not a geometric cost proof. -/
+theorem alpogeNativeChebyshevAdditiveWheel_noncrossing
+    (p m r : ℕ) (hp : 0 < p) (hr : r + 1 < p) :
+    alpogeNativeAdditiveStep
+        (RHLean.Arithmetic.freshPrimeDifference p nativePNTError)
+          (p * m + r) -
+      RHLean.Arithmetic.freshPrimeDifference p
+        (alpogeNativeAdditiveStep nativePNTError)
+          (p * m + r) =
+      Λ (m + 1) - 1 := by
+  rw [alpogeNativeAdditiveWheel_noncrossing p m r hp hr]
+  exact nativePNTError_succ_eq m
+
 end RHLean.Analysis
