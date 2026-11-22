@@ -29,6 +29,7 @@ import RHLean.Analysis.AlpogeSharpASKCollar
 import RHLean.Analysis.AlpogeSignedSquareInterpolation
 import RHLean.Analysis.AlpogeSquareClockSharpCollar
 import RHLean.Analysis.AlpogeSquareClockSignedHistorySampling
+import RHLean.Analysis.AlpogeSquareRootArithmeticMultiplicity
 import RHLean.Analysis.BalancedPrimeBilinearCentering
 import RHLean.Analysis.BlockCovarianceDecomposition
 import RHLean.Analysis.BlockCovarianceRefinement
