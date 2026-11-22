@@ -78,7 +78,7 @@ theorem alpogeNativeLambdaRamp_eq_prime_add_higher (N : ℕ) :
     alpogeNativeHigherPrimePowerRamp
   symm
   exact Finset.sum_filter_add_sum_filter_not
-    (Finset.Icc 1 N) Nat.Prime
+    (Finset.Icc 1 N) Nat.Prime (fun n => Λ n * ((N : ℝ) / (n : ℝ) - 1))
 
 /-- Prime part with actual log p weights, as mandated by Lambda(p)=log p. -/
 def alpogeOrdinaryPrimeRamp (N : ℕ) : ℝ :=
@@ -109,7 +109,7 @@ theorem alpogePrimeCountIncrement_eq_indicator (n : ℕ) :
       if Nat.Prime n then 1 else 0 := by
   cases n with
   | zero =>
-      simp [alpogePrimeCountIncrement]
+      simp [alpogePrimeCountIncrement, Nat.not_prime_zero]
   | succ k =>
       have hc : Nat.primeCounting (k + 1) =
           Nat.primeCounting k + (if Nat.Prime (k + 1) then 1 else 0) := by
@@ -118,7 +118,8 @@ theorem alpogePrimeCountIncrement_eq_indicator (n : ℕ) :
             (if Nat.Prime (k + 1) then 1 else 0)
         exact Nat.count_succ Nat.Prime (k + 1)
       unfold alpogePrimeCountIncrement
-      simp only [Nat.add_sub_cancel_left]
+      show (Nat.primeCounting (k + 1) : ℝ) - (Nat.primeCounting k : ℝ) =
+        if Nat.Prime (k + 1) then 1 else 0
       rw [hc]
       split_ifs <;> push_cast <;> ring
 
@@ -203,7 +204,6 @@ theorem nativeAlpogeGz_eq_delta_history_plus_primePowers
     alpogeNativeLambdaRamp_eq_prime_add_higher,
     alpogeNativePrimeRamp_eq_primeLogRamp,
     alpogeOrdinaryPrimeRamp_eq_delta_add_li]
-  ring
 
 /-- At every natural cutoff the real-coordinate delta exactly equals the
 native discrete delta. The continuum interpolation is NOT dropped. -/
@@ -269,7 +269,6 @@ theorem nativeAlpogeGz_eq_weightedVFMidDelta_and_primePowers
         (1 + Real.eulerMascheroniConstant) * (N : ℝ) := by
   rw [nativeAlpogeGz_eq_delta_history_plus_primePowers,
     alpogeDeltaFiniteAbelHistory_eq_vfMid_add_quadrature]
-  ring
 
 /-- If the genuine *whole* source just identified is O(R), then the
 square-lattice quantitative Gz premise is literally discharged.
