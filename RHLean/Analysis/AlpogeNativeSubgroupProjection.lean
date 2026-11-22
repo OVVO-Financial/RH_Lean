@@ -21,7 +21,7 @@ Development/AutomorphicArithmetic/DedekindLFunctions/LandauTheorems/ChCore.lean.
 -/
 
 noncomputable section
-open scoped BigOperators
+open scoped BigOperators Classical
 
 namespace RHLean.Analysis
 
@@ -38,6 +38,7 @@ def alpogeNativeProjectionChars (A0 : AddSubgroup H) :
   classical
   exact Finset.univ.filter (fun ψ => ∀ s ∈ A0, ψ (0, s) = 1)
 
+omit [DecidableEq H] in
 theorem alpogeNativeProjectionChars_mem (A0 : AddSubgroup H)
     (ψ : AddChar (AlpogeNativeE0 × H) ℂ) :
     ψ ∈ alpogeNativeProjectionChars A0 ↔ ∀ s ∈ A0, ψ (0, s) = 1 := by
@@ -70,7 +71,7 @@ theorem alpogeNativeProjection_sum_phase (A0 : AddSubgroup H)
         alpogeNativeProjectionE1 t + (0, -s) + (0, -(u : H)) := by
     intro u
     ext
-    · norm_num [alpogeNativeProjectionE1]
+    · norm_num [alpogeNativeProjectionE1, AlpogeNativeE0]
     · simp [alpogeNativeProjectionE1]
     · simp [alpogeNativeProjectionE1]
       abel
@@ -158,6 +159,7 @@ def alpogeNativeProjectionDivisor
     (TT T2 : Finset H) (m : ℕ) (b : ℝ) : ℝ :=
   (TT.card : ℝ) * m * b * alpogeNativeProjectionDensity T2 / 2
 
+omit [DecidableEq H] in
 theorem alpogeNativeProjectionDivisor_pos
     (TT T2 : Finset H) (hTT : TT.Nonempty) (hT2 : T2.Nonempty)
     (m : ℕ) (hm : 0 < m) (b : ℝ) (hb : 0 < b) :
@@ -225,6 +227,7 @@ def alpogeNativeExcludedCharacterMass
 
 /-- A paid finite one-sided character inequality.  Only the excluded
 characters are charged by their norms; retained signed phases survive. -/
+omit [DecidableEq H] in
 theorem alpogeNativeRetained_sub_excluded_le_projected
     (A0 : AddSubgroup H)
     (F : AddChar (AlpogeNativeE0 × H) ℂ → ℝ → ℂ)
@@ -274,7 +277,7 @@ theorem alpogeNativeProjectionThick_partner (s u t : H) :
       (((0, 1) : AlpogeNativeE0), s + u) := by
   ext
   · norm_num [alpogeNativePartner, alpogeNativeCconj, alpogeNativeTopPl,
-      alpogeNativeProjectionE1]
+      alpogeNativeProjectionE1, AlpogeNativeE0]
   · simp [alpogeNativePartner, alpogeNativeCconj, alpogeNativeTopPl,
       alpogeNativeProjectionE1]
   · simp [alpogeNativePartner, alpogeNativeCconj, alpogeNativeTopPl,
@@ -286,7 +289,8 @@ theorem alpogeNativeProjectionThickColours_subset (T2 : Finset H) (u t : H) :
   classical
   intro g hg
   obtain ⟨s, _hs, rfl⟩ := Finset.mem_image.mp hg
-  simp [alpogeNativeProjectionE1, alpogeNativeInPhi]
+  norm_num [Finset.mem_filter, alpogeNativeProjectionE1, alpogeNativeInPhi,
+    AlpogeNativeE0]
 
 /-- An original colour contribution, including every character and its
 own width-shifted response. -/
@@ -350,7 +354,9 @@ theorem alpogeNativeProjectionFull_eq_thick_add_thin
       (fun s : H => alpogeNativeProjectionE1 (s + u - t)) := by
     intro s s' h
     have h' : s + u - t = s' + u - t := congrArg Prod.snd h
-    exact add_right_cancel (sub_right_inj.mp h')
+    have h'' : s + u = s' + u := by
+      simpa only [sub_add_cancel] using congrArg (fun x : H => x + t) h'
+    exact add_right_cancel h''
   have hsum : (∑ g ∈ alpogeNativeProjectionThickColours T2 u t,
       alpogeNativeProjectionColourTerm F a t w g) =
       ∑ s ∈ T2, alpogeNativeProjectionColourTerm F a t w
@@ -501,7 +507,7 @@ theorem alpogeNativePhysicalSubgroup_pays_retained
       alpogeNativePhysicalSubgroupTopExcess A0 inertia frob ell N TT a w := by
   rw [alpogeNativePhysicalSubgroup_eq_projected_add_remainder
     A0 inertia frob ell N TT T2 hTT hT2 a b w ha hw hN]
-  apply add_le_add_right
+  apply add_le_add _ le_rfl
   apply mul_le_mul_of_nonneg_left
   · exact alpogeNativeRetained_sub_excluded_le_projected A0
       (alpogeNativeFrobInertiaGPsi inertia frob ell) Kp hKp TT a b

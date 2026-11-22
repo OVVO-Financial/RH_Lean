@@ -54,16 +54,16 @@ theorem alpogeWidthLogMidpointGap_nonneg_le
     rw [Real.log_div (pow_ne_zero 2 hc.ne') huv0.ne',
       Real.log_pow, Real.log_mul hu0.ne' hv0.ne']
     dsimp [alpogeWidthLogMidpointGap, c]
-    norm_num <;> ring
+    ring
   have hratio : (c ^ 2 / (u * v) - 1) / 2 =
       (u - v) ^ 2 / (8 * (u * v)) := by
     dsimp [c]
-    field_simp [hu0.ne', hv0.ne'] <;> ring
+    field_simp [hu0.ne', hv0.ne']
+    ring
   constructor
   · have h := Real.log_le_log huv0 hprod
     rw [Real.log_mul hu0.ne' hv0.ne', Real.log_pow] at h
     dsimp [alpogeWidthLogMidpointGap, c] at *
-    norm_num at h
     linarith
   · have ht := Real.log_le_sub_one_of_pos
       (div_pos (sq_pos_of_pos hc) huv0)
@@ -103,9 +103,8 @@ theorem alpogeNativeASKRealWeight_nonneg
   unfold alpogeNativeASKRealWeight
   by_cases hn : Λ n = 0
   · simp [hn]
-  · rw [ArithmeticFunction.vonMangoldt_ne_zero_iff,
-      isPrimePow_nat_iff] at hn
-    obtain ⟨p, k, hp, hk, rfl⟩ := hn
+  · have hpow : IsPrimePow n := ArithmeticFunction.vonMangoldt_ne_zero_iff.mp hn
+    obtain ⟨p, k, hp, hk, rfl⟩ := isPrimePow_nat_iff.mp hpow
     apply mul_nonneg ArithmeticFunction.vonMangoldt_nonneg
     rw [alpogeNativeColourKernel_primePower inertia frob p k hp hk g]
     split_ifs
@@ -115,7 +114,6 @@ theorem alpogeNativeASKRealWeight_nonneg
           (((2 : ℝ) / ((Finset.univ.filter
             (fun u : AlpogeNativeE0 × H => u ∈ inertia p)).card : ℝ)) : ℂ) := by
         push_cast
-        rfl
       rw [hcast, Complex.ofReal_re]
       positivity
     · simp
@@ -224,7 +222,7 @@ theorem alpogeNativeSignedWidthSource_midpoint_eq
     alpogeNativeMAIN alpogeWidthMidpoint
   simp only [Complex.sub_re, Complex.mul_re, Complex.add_re,
     Complex.ofReal_re, Complex.ofReal_im, zero_mul, sub_zero]
-  simp_rw [Finset.sum_sub_distrib, Finset.sum_div, Finset.sum_add_distrib]
+  simp_rw [Finset.sum_sub_distrib, ← Finset.sum_div, Finset.sum_add_distrib]
   ring
 
 /-- Uniform positive width and displacement give a complete explicit payment;
@@ -257,7 +255,7 @@ theorem alpogeNativeWidthLogPayment_nonneg_le
             exact Finset.sum_le_sum (fun ρ hρ => (hgap ρ hρ).2)
       _ = _ := by
         simp only [Finset.sum_const, nsmul_eq_mul]
-        field_simp [hcard.ne', hb.ne'] <;> ring
+        field_simp [hcard.ne', hb.ne']
 
 /-- Genuine quantitative one-sided width payment for the complete native
 source. Neither row average is assumed small, and no lattice is postulated at
@@ -306,6 +304,7 @@ def alpogeAffineWidthRow (v : AlpogeNativeE0 × H → ℝ) (h₀ : ℝ)
 
 /-- Actual HC row pairs have a pointwise midpoint independent of the row.
 This is algebra on their widths, not a claim that a midpoint lattice exists. -/
+omit [AddCommGroup H] [Fintype H] [DecidableEq H] in
 theorem alpogeAffineWidthRow_pair_midpoint
     (v : AlpogeNativeE0 × H → ℝ) (h₀ : ℝ) (m j : ℕ) (hj : j < m) :
     alpogeWidthMidpoint (alpogeAffineWidthRow v h₀ j)

@@ -36,8 +36,7 @@ theorem nativeFrameCombination_gram (v : I → E) (C : Matrix I J ℝ) :
   ext i j
   simp only [Matrix.gram_apply, nativeFrameCombination,
     sum_inner, inner_sum, real_inner_smul_left, real_inner_smul_right,
-    Matrix.mul_apply, Matrix.transpose_apply, Finset.sum_mul, Finset.mul_sum]
-  rw [Finset.sum_comm]
+    Matrix.mul_apply, Matrix.transpose_apply, Finset.sum_mul]
   apply Finset.sum_congr rfl
   intro a _ha
   apply Finset.sum_congr rfl
@@ -82,16 +81,17 @@ theorem nativeGramDet_le_prod_norm_sq {n : ℕ}
     InnerProductSpace.gramSchmidtOrthonormalBasis_det hdim v
   have hentry (i : Fin n) : |inner ℝ (u i) (v i)| ≤ ‖v i‖ := by
     simpa only [Real.norm_eq_abs, u.norm_eq_one, one_mul] using
-      (norm_inner_le_norm (u i) (v i))
+      (norm_inner_le_norm (𝕜 := ℝ) (u i) (v i))
   have hprod : |∏ i : Fin n, inner ℝ (u i) (v i)| ≤
       ∏ i : Fin n, ‖v i‖ := by
     rw [Finset.abs_prod]
-    exact Finset.prod_le_prod (fun _ _ => abs_nonneg _)
+    exact Finset.prod_le_prod₀ (fun _ _ => abs_nonneg _)
       (fun i _ => hentry i)
   have hp0 : 0 ≤ ∏ i : Fin n, ‖v i‖ :=
     Finset.prod_nonneg fun i _ => norm_nonneg _
   rw [hdet, hdiag, Finset.prod_pow]
-  nlinarith [sq_abs (∏ i : Fin n, inner ℝ (u i) (v i))]
+  nlinarith [sq_abs (∏ i : Fin n, inner ℝ (u i) (v i)),
+    abs_nonneg (∏ i : Fin n, inner ℝ (u i) (v i))]
 
 end Hadamard
 
@@ -116,6 +116,7 @@ theorem nativeGramDet_le_prod_norm_sq_fintype
 
 /-- Coordinates in an arbitrary lattice basis preserve its actual Gram
 determinant, rather than replacing that determinant by basis lengths. -/
+omit [FiniteDimensional ℝ V] in
 theorem nativeGramDet_basis_coordinates (b : Basis I ℝ V) (v : I → V) :
     (Matrix.gram ℝ v).det =
       (b.toMatrix v).det ^ 2 * (Matrix.gram ℝ (b : I → V)).det := by
@@ -126,6 +127,7 @@ theorem nativeGramDet_basis_coordinates (b : Basis I ℝ V) (v : I → V) :
 
 /-- The source metric enters through its full Gram determinant. This
 identity is valid before imposing any integrality or norm estimate. -/
+omit [FiniteDimensional ℝ U] [FiniteDimensional ℝ V] in
 theorem nativeMap_gramDet_source (a : Basis I ℝ U)
     (u : OrthonormalBasis I ℝ U) (f : U →ₗ[ℝ] V) :
     (Matrix.gram ℝ (fun i => f (a i))).det =
@@ -137,7 +139,8 @@ theorem nativeMap_gramDet_source (a : Basis I ℝ U)
     funext j
     change (∑ i : I, M i j • f (u i)) = f (a j)
     have hs : (∑ i : I, M i j • u i) = a j := by
-      simp [M]
+      change (∑ i : I, u.toBasis.toMatrix (a : I → U) i j • u.toBasis i) = a j
+      exact u.toBasis.sum_toMatrix_smul_self
     calc
       (∑ i : I, M i j • f (u i)) = f (∑ i : I, M i j • u i) := by
         simp only [map_sum, map_smul]
@@ -157,6 +160,7 @@ theorem nativeMap_gramDet_source (a : Basis I ℝ U)
 metrics. The source covolume, target covolume and the exact integer index
 are all retained. Bounds are checked on an actual orthonormal frame.
 -/
+omit [FiniteDimensional ℝ U] in
 theorem nativeIntegralMap_gram_bound
     (a : Basis I ℝ U) (b : Basis I ℝ V)
     (u : OrthonormalBasis I ℝ U) (f : U →ₗ[ℝ] V)
@@ -171,7 +175,7 @@ theorem nativeIntegralMap_gram_bound
   have hh := nativeGramDet_le_prod_norm_sq_fintype (Module.finrank_eq_card_basis b)
     (fun i => f (u i))
   have hp : (∏ i : I, ‖f (u i)‖ ^ 2) ≤ ∏ i : I, (H i) ^ 2 := by
-    apply Finset.prod_le_prod (fun _ _ => sq_nonneg _)
+    apply Finset.prod_le_prod₀ (fun _ _ => sq_nonneg _)
     intro i _hi
     have h0 := norm_nonneg (f (u i))
     have h1 := hH i
@@ -186,6 +190,110 @@ theorem nativeIntegralMap_gram_bound
     _ ≤ _ := mul_le_mul_of_nonneg_left (hh.trans hp) ha0
 
 end CoordinateDescent
+
+section Completion
+
+variable {U V : Type*} [NormedAddCommGroup U] [InnerProductSpace ℝ U]
+  [NormedAddCommGroup V] [InnerProductSpace ℝ V]
+  [FiniteDimensional ℝ U] [FiniteDimensional ℝ V]
+
+/-- The source is enlarged by a standard orthogonal integral lattice.
+Its auxiliary factor has covolume one in its stated metric. -/
+def nativeCompletionBasis {r d : ℕ} (a : Basis (Fin r) ℝ U) :
+    Basis (Fin r ⊕ Fin d) ℝ (WithLp 2 (U × EuclideanSpace ℝ (Fin d))) :=
+  (a.prod (EuclideanSpace.basisFun (Fin d) ℝ).toBasis).map
+    (WithLp.linearEquiv 2 ℝ (U × EuclideanSpace ℝ (Fin d))).symm
+
+/-- An explicitly constructed full map: the original map on the source
+and the supplied completion vectors on the auxiliary standard basis. -/
+def nativeCompletionMap {d : ℕ} (f : U →ₗ[ℝ] V) (w : Fin d → V) :
+    WithLp 2 (U × EuclideanSpace ℝ (Fin d)) →ₗ[ℝ] V :=
+  (f.coprod ((EuclideanSpace.basisFun (Fin d) ℝ).toBasis.constr ℝ w)).comp
+    (WithLp.linearEquiv 2 ℝ (U × EuclideanSpace ℝ (Fin d))).toLinearMap
+
+theorem nativeCompletionMap_basis {r d : ℕ} (a : Basis (Fin r) ℝ U)
+    (f : U →ₗ[ℝ] V) (w : Fin d → V) (i : Fin r ⊕ Fin d) :
+    nativeCompletionMap f w (nativeCompletionBasis a i) =
+      Sum.elim (fun j => f (a j)) w i := by
+  cases i <;>
+    simp [nativeCompletionMap, nativeCompletionBasis, Basis.prod_apply]
+
+theorem nativeCompletionMap_orthonormal {r d : ℕ}
+    (u : OrthonormalBasis (Fin r) ℝ U)
+    (f : U →ₗ[ℝ] V) (w : Fin d → V) (i : Fin r ⊕ Fin d) :
+    nativeCompletionMap f w (u.prod (EuclideanSpace.basisFun (Fin d) ℝ) i) =
+      Sum.elim (fun j => f (u j)) w i := by
+  cases i <;>
+    simp [nativeCompletionMap, OrthonormalBasis.prod_apply]
+
+/-- The auxiliary factor costs exactly zero logarithmic covolume.
+This follows from its actual orthogonal unit Gram matrix. -/
+theorem nativeCompletionBasis_gram_det {r d : ℕ}
+    (a : Basis (Fin r) ℝ U) :
+    (Matrix.gram ℝ (nativeCompletionBasis (d := d) a)).det =
+      (Matrix.gram ℝ (a : Fin r → U)).det := by
+  have hG : Matrix.gram ℝ (nativeCompletionBasis (d := d) a) =
+      Matrix.fromBlocks (Matrix.gram ℝ (a : Fin r → U))
+        (0 : Matrix (Fin r) (Fin d) ℝ) 0 1 := by
+    ext i j
+    cases i <;> cases j <;>
+      simp [Matrix.gram_apply, nativeCompletionBasis, Basis.prod_apply,
+        WithLp.prod_inner_apply, OrthonormalBasis.inner_eq_ite, Matrix.one_apply]
+  rw [hG, Matrix.det_fromBlocks_zero₂₁, Matrix.det_one, mul_one]
+
+/-- Finite integral-map descent with genuinely constructed completion.
+
+The source rank is `r`, the target rank is `r+d`. The full `r+d` square
+integer matrix is made from the image of the original source basis and
+the supplied `d` target completion vectors. Its determinant, the original
+source metric, the joint map norm and all completion costs remain visible.
+
+For a family of maps into `B`, apply this to their joint map into `B^q`.
+Producing short completion vectors and a nonzero integral determinant for
+the actual theta-lift source is a separate, concrete construction problem.
+-/
+theorem nativeIntegralDescent_with_completion {r d : ℕ}
+    (a : Basis (Fin r) ℝ U) (b : Basis (Fin r ⊕ Fin d) ℝ V)
+    (f : U →ₗ[ℝ] V) (w : Fin d → V)
+    (C : Matrix (Fin r ⊕ Fin d) (Fin r ⊕ Fin d) ℤ)
+    (hC : b.toMatrix (Sum.elim (fun i => f (a i)) w) =
+      C.map (fun z : ℤ => (z : ℝ)))
+    (P Λ : ℝ)
+    (hf : ∀ x : U, ‖f x‖ ≤ Real.exp P * ‖x‖)
+    (hw : ∀ j : Fin d, ‖w j‖ ≤ Real.exp Λ) :
+    (C.det : ℝ) ^ 2 * (Matrix.gram ℝ (b : (Fin r ⊕ Fin d) → V)).det ≤
+      (Matrix.gram ℝ (a : Fin r → U)).det *
+        Real.exp (2 * (r : ℝ) * P + 2 * (d : ℝ) * Λ) := by
+  let u := InnerProductSpace.gramSchmidtOrthonormalBasis
+    (Module.finrank_eq_card_basis a) (a : Fin r → U)
+  let H : (Fin r ⊕ Fin d) → ℝ :=
+    Sum.elim (fun _ : Fin r => Real.exp P) (fun _ : Fin d => Real.exp Λ)
+  have hcoords : b.toMatrix
+      (fun i => nativeCompletionMap f w (nativeCompletionBasis a i)) =
+      C.map (fun z : ℤ => (z : ℝ)) := by
+    simpa only [nativeCompletionMap_basis] using hC
+  have hnorm : ∀ i : Fin r ⊕ Fin d,
+      ‖nativeCompletionMap f w (u.prod (EuclideanSpace.basisFun (Fin d) ℝ) i)‖ ≤
+        H i := by
+    intro i
+    rw [nativeCompletionMap_orthonormal]
+    cases i with
+    | inl i => simpa [H] using hf (u i)
+    | inr j => exact hw j
+  have h := nativeIntegralMap_gram_bound (nativeCompletionBasis a) b
+    (u.prod (EuclideanSpace.basisFun (Fin d) ℝ)) (nativeCompletionMap f w)
+    C hcoords H hnorm
+  rw [nativeCompletionBasis_gram_det] at h
+  have hprod : (∏ i : Fin r ⊕ Fin d, (H i) ^ 2) =
+      Real.exp (2 * (r : ℝ) * P + 2 * (d : ℝ) * Λ) := by
+    simp only [Fintype.prod_sum_type, H, Sum.elim_inl, Sum.elim_inr,
+      Finset.prod_const, Finset.card_univ, Fintype.card_fin,
+      ← Real.exp_nat_mul, ← Real.exp_add]
+    congr 1
+    ring
+  rwa [hprod] at h
+
+end Completion
 
 section IntegralFrame
 
@@ -208,7 +316,7 @@ theorem nativeIntegralFrame_det_sq_mul_gram_le {n : ℕ}
   have h := nativeGramDet_le_prod_norm_sq (Module.finrank_eq_card_basis b)
     (nativeIntegralFrame b C)
   rw [nativeIntegralFrame, nativeFrameCombination_gram_det] at h
-  simpa only [← Int.cast_det] using h
+  simpa only [← Int.cast_det, nativeIntegralFrame] using h
 
 /-- A nonzero integral determinant is at least one in absolute value.
 This is where integrality enters the geometric inequality. -/
@@ -245,14 +353,14 @@ theorem nativeIntegralFrame_split_bound {r d : ℕ}
   have hi : (∏ i : Fin r,
       ‖nativeIntegralFrame b C (Fin.castAdd d i)‖ ^ 2) ≤
       ∏ _i : Fin r, (Real.exp P) ^ 2 := by
-    apply Finset.prod_le_prod (fun _ _ => sq_nonneg _)
+    apply Finset.prod_le_prod₀ (fun _ _ => sq_nonneg _)
     intro i _hi
     nlinarith [himage i, norm_nonneg (nativeIntegralFrame b C (Fin.castAdd d i)),
       Real.exp_pos P]
   have hc : (∏ j : Fin d,
       ‖nativeIntegralFrame b C (Fin.natAdd r j)‖ ^ 2) ≤
       ∏ _j : Fin d, (Real.exp Λ) ^ 2 := by
-    apply Finset.prod_le_prod (fun _ _ => sq_nonneg _)
+    apply Finset.prod_le_prod₀ (fun _ _ => sq_nonneg _)
     intro j _hj
     nlinarith [hcompletion j, norm_nonneg (nativeIntegralFrame b C (Fin.natAdd r j)),
       Real.exp_pos Λ]
