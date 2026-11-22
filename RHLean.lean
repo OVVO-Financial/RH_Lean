@@ -13,11 +13,18 @@ import RHLean.Analysis.AlpogeNNSBandSchur
 import RHLean.Analysis.AlpogeNNSCohomologicalCRPayment
 import RHLean.Analysis.AlpogeNNSCompleteSelbergCovariance
 import RHLean.Analysis.AlpogeNNSMatchedSelbergKernel
+import RHLean.Analysis.AlpogeNativeAffineFamilyPayment
 import RHLean.Analysis.AlpogeNativeClassGroupNNSIntegral
+import RHLean.Analysis.AlpogeNativeCompleteSourcePayment
+import RHLean.Analysis.AlpogeNativeCostNormalization
 import RHLean.Analysis.AlpogeNativeFourCharacterArithmetic
 import RHLean.Analysis.AlpogeNativeLPM2Endpoint
 import RHLean.Analysis.AlpogeNativeSharpASKBalance
 import RHLean.Analysis.AlpogeNativeSharpShell
+import RHLean.Analysis.AlpogeNativeSignedWidthPayment
+import RHLean.Analysis.AlpogeNativeSubgroupProjection
+import RHLean.Analysis.AlpogeNativeThickFreezing
+import RHLean.Analysis.AlpogeNativeWidthRecombination
 import RHLean.Analysis.AlpogeNegativeSelbergSemivariance
 import RHLean.Analysis.AlpogePhysicalCharacterHistory
 import RHLean.Analysis.AlpogePhysicalCharacterInterpolation
@@ -30,6 +37,7 @@ import RHLean.Analysis.AlpogeSignedSquareInterpolation
 import RHLean.Analysis.AlpogeSquareClockSharpCollar
 import RHLean.Analysis.AlpogeSquareClockSignedHistorySampling
 import RHLean.Analysis.AlpogeSquareRootArithmeticMultiplicity
+import RHLean.Analysis.AlpogeWidthExponentialDecay
 import RHLean.Analysis.BalancedPrimeBilinearCentering
 import RHLean.Analysis.BlockCovarianceDecomposition
 import RHLean.Analysis.BlockCovarianceRefinement
@@ -413,7 +421,10 @@ import RHLean.Geometry.ComplexSquareFiber
 import RHLean.Geometry.ComplexSquareRecovery
 import RHLean.Geometry.FermatCoordinates
 import RHLean.Geometry.LeastPrimeEndpoint
+import RHLean.Geometry.NativeFiniteIntegralDescent
+import RHLean.Geometry.NativeIntegralCompletion
 import RHLean.Geometry.NativeIntegralLatticeCertificate
+import RHLean.Geometry.NativeTwistedTraceDiagnostic
 import RHLean.Geometry.SquareMapConformality
 import RHLean.Geometry.TwoABDisplacement
 import RHLean.Kernel.FixedPackets
