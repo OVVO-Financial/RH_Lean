@@ -258,3 +258,189 @@ and the original all-place Gram metrics. Extending it from free coordinate
 lattices to the original projective O_K-submodules also requires actual
 ideal-index/covolume accounting. No such normalization theorem is claimed
 by the present drafts.
+
+## Extended native supplier audit at 608b5702
+
+The following are statement-level checks of additional native candidates,
+not an inference from filenames. None is being dismissed as merely formal:
+several retain genuinely useful signed arithmetic data. The missing item is
+their identification with the SAME original sectional lattice and metrics.
+
+* `RHLean/Proof/HeightShellGram.lean`, blob
+  `d2c418fec2b2176abc02fafae1dc60c5c20290c3`:
+  `RHLean.Analysis.energy_sum_heightShells` proves the exact diagonal plus
+  full signed off-diagonal energy identity for arbitrary Hilbert-space
+  vectors. It supplies neither integrality nor an estimate on those vectors.
+* `RHLean/Proof/HeightShellReconstruction.lean`, blob
+  `2cbd9c4316ecf77c5dbf44b1e6937e410b30f780`:
+  `finiteAmplitude_shell_reconstruction` and
+  `canonicalHighPrefix_shell_reconstruction` retain the actual canonical
+  high-sector Mobius atoms. `norm_finiteAmplitude_sq_le_of_shell_bounds`
+  explicitly takes diagonal, equal-height and each-shell bounds as inputs.
+  Its arithmetic height label is not yet identified with the height of a
+  theta section or with an all-place covolume.
+* `RHLean/Proof/JointGramControl.lean`, blob
+  `2307fe20a708375ff806cab6c07715954be53497`:
+  `actualResidual_energy_eq_jointGram` is an exact full signed identity for
+  the actual residual. The consumers
+  `actualResidual_energy_le_of_jointGram_control` and
+  `actualResidual_energy_le_of_jointGram_recurrence` take their quantitative
+  `hcontrol` as a hypothesis. Scalar coefficient interactions do not
+  construct the original higher-rank section lattice: their complex scalar
+  Gram has rank at most one if treated as a Gram of the scalar coefficients.
+* `RHLean/Analysis/NNSFiniteSelmerFourierIntegral.lean`, blob
+  `faa41438966e5e050eef5dd09e825a230638bb59`:
+  `nnsFiniteRelationMass_eq_UPM_sub_LPM_target` and
+  `nnsFiniteRelation_fullCharacterDetector` identify the exact finite kernel
+  count, including target mass and all additive characters. The constraint
+  map L is arbitrary, so these identities alone cannot give a nontrivial
+  rank or kernel-cardinality bound (L may be zero). A finite-level Sha
+  instance still needs its actual cochains and local coboundaries.
+* `RHLean/Analysis/AlpogeNativeClassGroupNNSIntegral.lean`, blob
+  `ee019037c16562fd7abf5ad0a16228c737850187`:
+  `alpogeNativePrimeCl`, `alpogeNativeClDualConstraint` and
+  `alpogeNativeClDualMass_eq_char_card` really use the number field K,
+  its ring of integers and selected prime ideal classes. Thus there IS
+  genuine field-specific native data. The exact character count does not
+  bound it, construct the missing Sha comparison, or give maps to the
+  K-vector spaces of theta sections used by the descent.
+* `RHLean/Analysis/AlpogeNNSBandSchur.lean`, blob
+  `d567392c73d134331d0ec99eebd3ee2f12c15ac7`:
+  `alpogeNNSBandCharge_le_negative_principal` proves actual negative payment
+  for the proper near-root prime band. The complete-source theorem
+  `alpogeNNSBandOneSidedCharge_le_principal_overshoot` keeps an arbitrary
+  signed complement C explicitly in the remaining positive-part expression.
+  The indefinite 2I-J signed kernel is not itself a positive lattice Gram.
+  This useful band payment supplies neither short section generators nor
+  the original rank comparison.
+* `RHLean/Analysis/PhysicalPartialMomentSchur.lean`, blob
+  `0044e47f4222544a5e8ff21e4d031de1b048571a`:
+  `q2RecoveredDegreeOneBulk_in_affineSynthesisRange` gives a genuine
+  three-residue incidence representation of the recovered degree-one bulk.
+  `q2RecoveredDegreeOneBulk_coefficientEnergy` pays exactly one half of the
+  residue energy through canonical rational half-split coefficients. These
+  are not an integral generator certificate for the original theta lattice;
+  clearing the denominator would have a real cost. The same file proves
+  `q2ExceptionalOwnerGram_three_sharp`, `q2CenteredToy_cross_eq_four` and
+  `q2GenericAlignedThirteenSeventeen_not_halfFrame`, so local centering or
+  reciprocal-square weights cannot simply be promoted to the needed joint
+  norm improvement for arbitrary transported fields.
+* `RHLean/Proof/ActualForcingEstimates.lean`, blob
+  `429e7fcda2d40a4e617103517c465b697837cc69`:
+  derives finite incidence/forcing sums from explicit separation, envelopes
+  and endpoint bounds stored in its input structures. It does not prove
+  those bounds for the original cover or sectional lattice.
+* `RHLean/Proof/AlpogeVerifiedRHSubpowerFiniteC.lean`, blob
+  `61c38007009d4f37187ec8c2ac17bfca97d3003d`:
+  `alpogeNativeTwoWallSubpower_of_halfGrowth` explicitly assumes the
+  RH-strength `AlpogeNativeMertensHalfGrowth`. This cannot supply the missing
+  independent descent estimate.
+
+A meaningful reverse-search target is now precise: construct a K-linear,
+integral coefficient realization of the ACTUAL section space for one fixed
+cover/character, prove its original all-place Gram comparison, then express
+the actual cusp multiplication/twisted-trace maps in those same arithmetic
+coordinates. Exact shell and joint Gram identities could preserve covariance
+through that comparison. Until the representation and norm comparison exist,
+native host cardinalities, scalar residual energies, and field-specific
+finite character counts are different quantities from the sectional rank
+and small-generator budgets in `MapsAt`, `RkAt` and `GminAt`.
+
+## A finite diagnostic for the q-cubed norm bill
+
+The following exact calculation explains why joint injection, integrality
+and rank saturation do not automatically remove the q-cubed operator-norm
+bill. It is a diagnostic function-algebra model, not a native theta instance
+and not an additional Lean-checked declaration in this patch.
+
+Let H be a finite abelian group of order q>0, act by translations on real
+functions on H, and use the normalized norm
+
+    ||f||^2 = (1/q) sum_g |f(g)|^2.
+
+Take the integral function u=L*1+delta_e, for a positive integer L, and the
+trivial character. The unnormalized traces of multiplication by translated
+u are constant functions whose constant values are
+
+    phi_h(f) = L * sum_g f(g) + f(h).
+
+The joint coordinate matrix is I+L*J. It is integral and injective, with
+determinant 1+q*L. The source rank is q, the invariant target rank is one,
+and q times the target rank equals the source rank. The group matrix of
+translated u is a permutation of I+L*J at every point of the function
+algebra, so its pointwise determinant is nonzero as well.
+
+Multiplication by any translated u has operator norm B=L+1. On the constant
+input f=1, the squared collective target norm is
+
+    sum_h ||phi_h(1)||^2 = q*(1+q*L)^2.
+
+In fact this is the squared joint operator norm: I+L*J has eigenvalues
+1+q*L on constants and 1 on their orthogonal complement, while the source
+norm is normalized by 1/q. The ratio to the original q^3*B^2 bound is
+
+    (1+q*L)^2 / (q^2*(L+1)^2),
+
+which tends to one as L tends to infinity. Thus a universal improvement
+from q^3 to q^2 or q cannot follow just from the finite group action,
+unnormalized character trace, integral nonsingularity and rank saturation.
+Extra quantitative structure of the actual theta sections, or actual
+determinant/singular-value credits retained jointly, is needed. This does
+not establish that the q^3 bound is sharp on Alpoge's particular sections.
+
+Here is a full finite proof, including the normalizations. Write the group
+additively and let (T_h u)(g)=u(g-h). The trivial-character unnormalized
+trace is the constant function Tr(v)=sum_g v(g). Thus
+
+    Tr(f*T_h u) = sum_g f(g)*(L+1_{g=h})
+                 = L*sum_g f(g)+f(h).
+
+Translation permutes H, hence preserves the integral function lattice and
+the normalized norm. Pointwise multiplication by T_h u is bounded by L+1,
+and equality is attained on delta_h, so B=L+1 is the exact operator norm.
+The target lattice of invariant functions is generated by the constant
+function 1, of norm one. Every trace coordinate is integral on integral f.
+
+Set c=(sum_g f(g))/q and f0=f-c*1. Then sum_g f0(g)=0 and
+
+    ||f||^2 = c^2+(1/q)*sum_g f0(g)^2,
+    phi_h(f) = (q*L+1)*c+f0(h).
+
+After summing over h the mixed term vanishes EXACTLY, giving
+
+    sum_h ||phi_h(f)||^2
+      = q*(q*L+1)^2*c^2+sum_h f0(h)^2
+      <= q*(q*L+1)^2*||f||^2.
+
+Equality holds for f=1. The joint matrix A=I+L*J acts by 1+q*L on the
+one-dimensional constant subspace and by 1 on its (q-1)-dimensional
+zero-sum complement, proving det A=1+q*L, joint injection, and the exact
+operator norm. The section-source rank analogue is q, and q copies of the
+one-dimensional invariant target have rank q: the rank defect is zero.
+
+The pointwise group determinant is also nonzero. At x in H its matrix has
+entries L+1_{x=h+k}. For each h there is exactly one such k, so this matrix
+is L*J+P_x for a permutation matrix P_x. Since P_x*J=J, it equals
+P_x*(I+L*J), with determinant det(P_x)*(1+q*L), which is nonzero. This is
+the actual finite translation/multiplication/trace model of the injection
+mechanism. No change of source or artificial multiplicity is involved
+inside this model; it remains distinct from the actual theta section ring.
+
+For a completely explicit diagnostic, take H=Z/2Z and L=2. Then
+
+    u=(3,2),  T_1 u=(2,3),
+    phi_0(x,y)=3x+2y,  phi_1(x,y)=2x+3y,
+    A=[[3,2],[2,3]],  det A=5.
+
+The normalized source energy of (1,1) is (1^2+1^2)/2=1. Its joint target
+energy is 5^2+5^2=50, while q^2*B^2=2^2*3^2=36. Therefore the proposed
+q-squared improvement fails even with a nonzero integer determinant and
+exact rank saturation. The q-cubed bound gives 72 and is valid. More
+precisely, for every real (x,y),
+
+    (3x+2y)^2+(2x+3y)^2
+      = 25*(x^2+y^2)-12*(x-y)^2
+      <= 50*((x^2+y^2)/2),
+
+with equality on constants. This also shows directly that the squared
+collective operator norm is exactly 50 in the stated original metric.

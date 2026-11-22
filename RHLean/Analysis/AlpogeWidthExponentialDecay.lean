@@ -32,9 +32,10 @@ theorem alpogeWidthExponentialCost_eventually_le_rpow
   have hdecay : Tendsto
       (fun x : ℝ => C * (x ^ (epsilon / 3)) ^ s *
         Real.exp (-(x ^ (epsilon / 3)))) atTop (𝓝 0) := by
+    have hbase :=
+      (tendsto_rpow_mul_exp_neg_mul_atTop_nhds_zero s 1 (by norm_num)).comp hy
     simpa only [Function.comp_def, neg_mul, one_mul, mul_zero, mul_assoc] using
-      (((tendsto_rpow_mul_exp_neg_mul_atTop_nhds_zero s 1 (by norm_num)).comp hy)
-        .const_mul C)
+      hbase.const_mul C
   filter_upwards [eventually_ge_atTop (1 : ℝ), hy.eventually_ge_atTop 2,
     hdecay.eventually_lt_const (by norm_num : (0 : ℝ) < 1)] with x hx hy2 hsmall
   have hx0 : 0 < x := lt_of_lt_of_le zero_lt_one hx

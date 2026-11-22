@@ -69,6 +69,15 @@ The `1/|Phi|` in MAIN cancels the cardinal of its own log sum. No host factor
 is erased from an unproved norm. In particular, no separate positive collar
 estimate is necessary in this direction.
 
+The finite comparison holds for any common cutoff `N`. Identifying that
+finite source with the existing complete native `De` still requires every
+ratio `a_t/w(rho)<=N`, for both actual rows and the reference profile.
+`N=Nat.ceil(A/beta)` is sufficient under the displayed positive width and
+height bounds. At the original thin minimum this is of size `x*n*X'`, so
+one cannot replace the full cutoff by `x=R_V^2-1` merely because the thick
+signal is evaluated near that square endpoint. The thin sector includes
+genuine larger prime powers. The native bridge preserves its cutoff premise.
+
 For an arbitrary positive reference profile, the separately drafted tangent
 identity uses the fixed orientation
 
@@ -151,11 +160,20 @@ gives normalized curvature price
 \frac{A(mh_0)^2}{4b\beta^2\Delta}.
 \]
 
-The original source has a host average `1/n` over translated frames `u`.
-In the generic finite-family theorem, take the index set to be `H x TT`.
-Its cardinal is `n*T`, its normalizer is `n*Q`, and its ratio is exactly
-the original averaged numerator divided by `Q`. No extra host-size cost is
-created by this reindexing.
+The native full-host `AlpogePhysicalCompleteTopExcess` uses an average
+`1/|H|` over translated frames `u in H`. For that special case, take the
+generic finite-family index set to be `H x TT`: its cardinal is `n*T`, its
+normalizer is `n*Q`, and its ratio is the full-host averaged numerator
+divided by `Q`.
+
+The actual upstream `CharacterBalanceMoves.core` and the new native subgroup
+projection instead average over `u in A0`, with factor `1/|A0|`. For that
+consumer, instantiate the generic family theorem with `A0 x TT`, cardinal
+`|A0|*T` and normalizer `|A0|*Q`. This gives the same width-payment constant.
+The ambient host cardinal `n=|H|` still occurs in the thin minimum and Delta.
+These two signed frame averages must not be identified without an additional
+theorem. The width result works for each of them separately and creates no
+extra frame-count factor.
 
 The actual smallest HC base is
 
@@ -225,11 +243,19 @@ not uniform as `epsilon` tends to zero.
 
 Further pinned sources:
 
-- [Scale.delta1](https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Formalism/LocalRingCardinality/DataParams₂.lean).
+- [Scale.L, b, a, X', b', w'', delta1; physical wj; SizeData₂.aT_win and typeDensity_eq_card_div](https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Formalism/LocalRingCardinality/DataParams₂.lean).
 - [J.delta1_pos; J.delta1_le_one](https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Formalism/SharpRestriction/AdmissibleParameterJoins/GandSa.lean).
 - [rank_basic_bounds](https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Development/AbelianVarietyTheory/Proofs/GlobalInterpolation/ExplicitRanksBasicBoundsLargeScale.lean).
 - [Alias explicitRanks_basic_bounds_large_scale](https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Development/AbelianVarietyTheory/Proofs/GlobalInterpolation/ExplicitRanksBasicBoundsLargeScaleStatement.lean).
 - [exists_ranks_rankVal_frame; exists_ranks_cyclic_frame](https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Development/AbelianVarietyTheory/Proofs/GlobalInterpolation/ExistsRanksRankValFrame.lean).
+
+The first file defines `L=x^epsilon`, `b=exp L`, `a=x*b`,
+`X'=exp(x^(epsilon/3))`, `b'=a/X'`, and `w'' n=b'/(x*n)`.
+Its `SizeData₂.aT_win` gives
+`a_t<=a+a/(k*x^(Scale.A/2))`, with `Scale.A=26`; for `k>=1,x>1`,
+this implies `a_t<=2*x*b`. Thus the `A` in the finite-family theorem is
+an upper bound on the actual variable heights, not an assumption that
+all those heights equal one constant chooser.
 
 ## Remaining mathematical obligation
 

@@ -74,6 +74,7 @@ theorem alpogeNativeASKRealWeight_sum_le_two_lambda
       (show 0 ≤ Λ (p ^ k) from ArithmeticFunction.vonMangoldt_nonneg)
     simpa [mul_comm] using h
 
+omit [Fintype H] [DecidableEq H] in
 /-- Every original non-Phi colour maps to a positive site. -/
 theorem alpogeNativeFreezing_partner_inPhi (t : H) (g : AlpogeNativeE0 × H)
     (hg : ¬ alpogeNativeInPhi g) :

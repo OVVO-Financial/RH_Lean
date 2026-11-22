@@ -58,6 +58,7 @@ theorem alpogeNativeProjectionPhi_card :
       (fun e => e.1 = 0)).card = 2 := by decide
   rw [hset, Finset.card_product, htwo, Finset.card_univ]
 
+omit [DecidableEq H] in
 /-- Exact annihilator projection.  The translate s must belong to the
 same subgroup over which the character is averaged. -/
 theorem alpogeNativeProjection_sum_phase (A0 : AddSubgroup H)
@@ -271,6 +272,7 @@ def alpogeNativeProjectionThickColours (T2 : Finset H) (u t : H) :
     Finset (AlpogeNativeE0 × H) :=
   T2.image (fun s => alpogeNativeProjectionE1 (s + u - t))
 
+omit [Fintype H] [DecidableEq H] in
 theorem alpogeNativeProjectionThick_partner (s u t : H) :
     alpogeNativePartner t (alpogeNativeProjectionE1 (s + u - t)) =
       (((0, 1) : AlpogeNativeE0), s + u) := by
@@ -481,6 +483,7 @@ theorem alpogeNativePhysicalSubgroup_eq_projected_add_remainder
   unfold alpogeNativePhysicalSubgroupTopExcess
   rw [hsum, mul_add,
     alpogeNativeFrozenThick_average_eq_signal A0 F TT T2 hTT hT2 m a b]
+  rfl
 
 /-- The finite paid character/source inequality.  There is no analytic
 upper-bound hypothesis: the RHS is the complete original physical ASK.

@@ -41,14 +41,14 @@ theorem nativeCompletionFromSpanningSet {r d : ℕ}
     (Equiv.sumCongr (Equiv.ofInjective v hv.injective) (Equiv.refl W)).trans
       (Equiv.Set.sumDiffSubset (hs.subset_extend hst))
   let B : Basis (Fin r ⊕ W) ℝ V := B0.reindex e.symm
-  letI : Finite T := Module.Finite.finite_basis B0
+  let : Finite T := Module.Finite.finite_basis B0
   let incl : W → T := fun x => ⟨x.1, x.2.1⟩
   have hincl : Function.Injective incl := by
     intro x y hxy
     apply Subtype.ext
-    exact congrArg Subtype.val hxy
-  letI : Finite W := Finite.of_injective incl hincl
-  letI : Fintype W := Fintype.ofFinite W
+    exact congrArg (fun z : T => (z : V)) hxy
+  let : Finite W := Finite.of_injective incl hincl
+  let : Fintype W := Fintype.ofFinite W
   have hc : r + Fintype.card W = finrank ℝ V := by
     simpa using (Module.finrank_eq_card_basis B).symm
   have hcard : Fintype.card W = d := by omega
@@ -57,11 +57,15 @@ theorem nativeCompletionFromSpanningSet {r d : ℕ}
   let B' : Basis (Fin r ⊕ Fin d) ℝ V :=
     B.reindex (Equiv.sumCongr (Equiv.refl (Fin r)) eW)
   have hleft (i : Fin r) : B (Sum.inl i) = v i := by
-    change B0 (e (Sum.inl i)) = v i
+    change (B0.reindex e.symm) (Sum.inl i) = v i
+    rw [Basis.reindex_apply]
+    change (Basis.extendLe hs hst htop) (e (Sum.inl i)) = v i
     rw [Basis.extendLe_apply_self]
     rfl
   have hright (j : W) : B (Sum.inr j) = (j : V) := by
-    change B0 (e (Sum.inr j)) = (j : V)
+    change (B0.reindex e.symm) (Sum.inr j) = (j : V)
+    rw [Basis.reindex_apply]
+    change (Basis.extendLe hs hst htop) (e (Sum.inr j)) = (j : V)
     rw [Basis.extendLe_apply_self]
     rfl
   refine ⟨w, B', ?_, ?_, ?_⟩

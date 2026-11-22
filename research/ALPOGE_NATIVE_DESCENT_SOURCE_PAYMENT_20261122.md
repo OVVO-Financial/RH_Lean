@@ -177,6 +177,16 @@ The original `HCVal` and its explicit constructor have this affine form at every
 
 Finally, simultaneous positive scaling of every width and the height by \(\alpha\) scales the **complete** native source by \(\alpha\), preserves every ratio (a/w) and the cutoff, and preserves source divided by $Q$ when $Q$ scales too. This is an exact analytic normalization. It does not assert integrality or realization of a rescaled lattice.
 
+### Construct the complete physical cutoff
+
+The midpoint comparison uses the same finite cutoff on both sides. To identify it with the full native De, every actual ratio must satisfy $a_t/w(\rho)\le N$. With $a_t\le A$ and $w(\rho)\ge\beta>0$, choose the actual integer
+
+\[
+N=\left\lceil A/\beta\right\rceil.
+\]
+
+The native finite-family lemma proves this cutoff for every original affine row and for its midpoint; the source identity is then proved at that constructed cutoff. For $\beta=b/(nX')$ and $A\asymp xb$, this cutoff is of order $xnX'$. It is different from the critical thick-response scale $x=R_V^2-1$. Replacing the full physical cutoff by $x$ would delete genuine thin-sector prime powers.
+
 ## 4. Derive the character divisor and pay the thick movement
 
 See [AlpogeNativeSubgroupProjection.lean](../RHLean/Analysis/AlpogeNativeSubgroupProjection.lean), [AlpogeNativeThickFreezing.lean](../RHLean/Analysis/AlpogeNativeThickFreezing.lean), and [AlpogeNativeCompleteSourcePayment.lean](../RHLean/Analysis/AlpogeNativeCompleteSourcePayment.lean).

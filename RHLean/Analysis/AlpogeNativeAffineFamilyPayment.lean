@@ -27,6 +27,71 @@ namespace RHLean.Analysis
 
 variable {H : Type*} [AddCommGroup H] [Fintype H] [DecidableEq H]
 
+/-- A common cutoff is constructed from the actual height envelope and true
+minimum width. This includes ratios from every thin-sector prime power. -/
+theorem alpogeWidthRatio_le_natCeil
+    (a A beta w : ℝ) (ha : 0 ≤ a) (haA : a ≤ A)
+    (hbeta : 0 < beta) (hw : beta ≤ w) :
+    a / w ≤ (Nat.ceil (A / beta) : ℝ) := by
+  calc
+    a / w ≤ a / beta := div_le_div_of_nonneg_left ha hbeta hw
+    _ ≤ A / beta := div_le_div_of_nonneg_right haA hbeta.le
+    _ ≤ (Nat.ceil (A / beta) : ℝ) := Nat.le_ceil _
+
+/-- Every actual affine row and its pointwise midpoint shares this explicitly
+constructed cutoff, even for variable heights. Positivity is supplied too. -/
+theorem alpogeAffineWidthFamily_constructed_cutoff
+    {ι : Type*} (T : Finset ι) (m : ℕ)
+    (a : ι → ℝ) (v : ι → AlpogeNativeE0 × H → ℝ)
+    (A beta h₀ : ℝ) (hbeta : 0 < beta) (hh₀ : 0 ≤ h₀)
+    (ha : ∀ r ∈ T, 0 ≤ a r) (haA : ∀ r ∈ T, a r ≤ A)
+    (hv : ∀ r ∈ T, ∀ ρ ∈ alpogeNativePhiSet H, beta ≤ v r ρ) :
+    ∀ r ∈ T,
+      (∀ j : Fin m, ∀ ρ ∈ alpogeNativePhiSet H,
+        0 < alpogeAffineWidthRow (v r) h₀ j.val ρ ∧
+          a r / alpogeAffineWidthRow (v r) h₀ j.val ρ ≤
+            (Nat.ceil (A / beta) : ℝ)) ∧
+      (∀ ρ ∈ alpogeNativePhiSet H,
+        0 < v r ρ + (m : ℝ) * h₀ / 2 ∧
+          a r / (v r ρ + (m : ℝ) * h₀ / 2) ≤
+            (Nat.ceil (A / beta) : ℝ)) := by
+  intro r hr
+  constructor
+  · intro j ρ hρ
+    have hwidth : beta ≤ alpogeAffineWidthRow (v r) h₀ j.val ρ := by
+      dsimp [alpogeAffineWidthRow]
+      have hstep : 0 ≤ ((j.val : ℝ) + 1 / 2) * h₀ := by positivity
+      linarith [hv r hr ρ hρ]
+    exact ⟨hbeta.trans_le hwidth, alpogeWidthRatio_le_natCeil
+      (a r) A beta _ (ha r hr) (haA r hr) hbeta hwidth⟩
+  · intro ρ hρ
+    have hwidth : beta ≤ v r ρ + (m : ℝ) * h₀ / 2 := by
+      have hstep : 0 ≤ (m : ℝ) * h₀ / 2 := by positivity
+      linarith [hv r hr ρ hρ]
+    exact ⟨hbeta.trans_le hwidth, alpogeWidthRatio_le_natCeil
+      (a r) A beta _ (ha r hr) (haA r hr) hbeta hwidth⟩
+
+/-- The constructed cutoff reaches the existing complete native De. Neither
+an arbitrary cutoff premise nor a truncated thin source is assumed. -/
+theorem alpogeNativeSignedWidthSource_eq_De_re_at_natCeil
+    (inertia : ℕ → AddSubgroup (AlpogeNativeE0 × H))
+    (frob : ℕ → AlpogeNativeE0 × H)
+    (ell : AddChar (AlpogeNativeE0 × H) ℂ → ℂ)
+    (a A beta : ℝ) (t : H) (w : AlpogeNativeE0 × H → ℝ)
+    (ha : 0 < a) (haA : a ≤ A) (hbeta : 0 < beta)
+    (hw : ∀ ρ ∈ alpogeNativePhiSet H, beta ≤ w ρ) :
+    alpogeNativeSignedWidthSource inertia frob ell (Nat.ceil (A / beta)) a t w =
+      (alpogeNativeDe inertia frob ell a t w).re := by
+  classical
+  have hwidth (ρ) (hρ : alpogeNativeInPhi ρ) : beta ≤ w ρ := by
+    apply hw ρ
+    simpa [alpogeNativePhiSet] using hρ
+  exact alpogeNativeSignedWidthSource_eq_De_re inertia frob ell
+    (Nat.ceil (A / beta)) a t w ha
+    (fun ρ hρ => hbeta.trans_le (hwidth ρ hρ))
+    (fun ρ hρ => alpogeWidthRatio_le_natCeil a A beta (w ρ)
+      ha.le haA hbeta (hwidth ρ hρ))
+
 /-- Every real HC row is counted once. Its genuine reflected partner supplies
 exact first-order cancellation; odd m includes the middle row without loss. -/
 theorem alpogeNativeSignedWidthSource_affine_rows_sum_le

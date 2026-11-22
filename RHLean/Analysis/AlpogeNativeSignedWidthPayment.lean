@@ -111,9 +111,9 @@ theorem alpogeNativeASKRealWeight_nonneg
     · have hcast :
           (2 / (((Finset.univ.filter
             (fun u : AlpogeNativeE0 × H => u ∈ inertia p)).card : ℕ) : ℂ)) =
-          (((2 : ℝ) / ((Finset.univ.filter
-            (fun u : AlpogeNativeE0 × H => u ∈ inertia p)).card : ℝ)) : ℂ) := by
-        push_cast
+          Complex.ofReal ((2 : ℝ) / ((Finset.univ.filter
+            (fun u : AlpogeNativeE0 × H => u ∈ inertia p)).card : ℝ)) := by
+        simp only [Complex.ofReal_div, Complex.ofReal_ofNat, Complex.ofReal_natCast]
       rw [hcast, Complex.ofReal_re]
       positivity
     · simp

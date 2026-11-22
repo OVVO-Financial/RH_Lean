@@ -131,3 +131,11 @@ info: 'RHLean.Analysis.alpogeWidthExponentialCost_eventually_le_rpow' depends on
 -/
 #guard_msgs in
 #print axioms RHLean.Analysis.alpogeWidthExponentialCost_eventually_le_rpow
+
+/--
+info: 'RHLean.Analysis.alpogeNativeSignedWidthSource_eq_De_re_at_natCeil' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.alpogeNativeSignedWidthSource_eq_De_re_at_natCeil
