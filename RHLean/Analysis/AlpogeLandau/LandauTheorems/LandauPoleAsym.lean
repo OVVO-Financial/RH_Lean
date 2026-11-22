@@ -13,6 +13,7 @@ artifact or terminal RH theorem. The source archive/mirror states no license;
 this provenance notice does not assign a new license to that source material.
 -/
 
+set_option autoImplicit false
 set_option maxHeartbeats 4000000
 
 
@@ -31,7 +32,7 @@ theorem landau_pole_asym_deriv (c ρ z : ℂ) (k : ℕ) :
   rw [e, iteratedDeriv_eq_iterate, show (fun t : ℂ => t⁻¹) = Inv.inv from rfl, iter_deriv_inv,
     show (-1 - k : ℤ) = -((k + 1 : ℕ) : ℤ) by push_cast; ring, zpow_neg, zpow_natCast]
 
-theorem landau_pole_asym {Φ : ℂ → ℂ} {z ρ c : ℂ} {r r' : ℝ} (hρ : ρ ∈ Metric.ball z r) (hne : ρ ≠ z)
+theorem landau_pole_asym {Φ : ℂ → ℂ} {z ρ c : ℂ} {r r' : ℝ} (_hρ : ρ ∈ Metric.ball z r) (hne : ρ ≠ z)
     (hd : DifferentiableOn ℂ Φ (Metric.ball z r \ {ρ}))
     (hp : ∃ h : ℂ → ℂ, AnalyticAt ℂ h ρ ∧ ∀ᶠ s in 𝓝[≠] ρ, Φ s = c / (s - ρ) + h s)
     (h0 : 0 < r') (h1 : r' < r) :
@@ -46,7 +47,7 @@ theorem landau_pole_asym {Φ : ℂ → ℂ} {z ρ c : ℂ} {r r' : ℝ} (hρ : �
     by_cases hsρ : s = ρ
     · rw [hsρ]
       simp [G]
-    · simp only [G, if_neg hsρ]
+    · simp only [G, ite_eq_right hsρ]
       rw [hs (Set.mem_compl_singleton_iff.mpr hsρ)]
       ring
   have hGd : DifferentiableOn ℂ G (Metric.ball z r) := by
@@ -59,7 +60,7 @@ theorem landau_pole_asym {Φ : ℂ → ℂ} {z ρ c : ℂ} {r r' : ℝ} (hρ : �
       have hloc : G =ᶠ[𝓝 s] fun t => Φ t - c / (t - ρ) := by
         filter_upwards [hopen.mem_nhds hmem] with t ht
         have htρ : t ≠ ρ := ht.2
-        simp only [G, if_neg htρ]
+        simp only [G, ite_eq_right htρ]
       have hd' : DifferentiableAt ℂ (fun t => Φ t - c / (t - ρ)) s :=
         hΦ.sub ((differentiableAt_const c).div
           (differentiableAt_id.sub (differentiableAt_const ρ)) (sub_ne_zero.mpr hsρ))
@@ -72,7 +73,7 @@ theorem landau_pole_asym {Φ : ℂ → ℂ} {z ρ c : ℂ} {r r' : ℝ} (hρ : �
   have hloc : Φ =ᶠ[𝓝 z] G + fun s => c * (s - ρ)⁻¹ := by
     filter_upwards [hopen.mem_nhds hmemz] with t ht
     have htρ : t ≠ ρ := ht.2
-    simp only [Pi.add_apply, G, if_neg htρ, div_eq_mul_inv]
+    simp only [Pi.add_apply, G, ite_eq_right htρ, div_eq_mul_inv]
     ring
   have hGc : ContDiffAt ℂ k G z :=
     (hGd.contDiffOn Metric.isOpen_ball).contDiffAt

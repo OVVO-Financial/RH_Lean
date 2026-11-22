@@ -13,6 +13,7 @@ artifact or terminal RH theorem. The source archive/mirror states no license;
 this provenance notice does not assign a new license to that source material.
 -/
 
+set_option autoImplicit false
 set_option maxHeartbeats 4000000
 
 
@@ -37,7 +38,7 @@ theorem eq_ofReal_sub_of_dist_le_of_le_sub_re {w : ℂ} {σ D : ℝ} (h1 : dist 
   · rw [Complex.ofReal_im]; exact him
 
 theorem landau_dichotomy {Z : Set ℂ} (hiso : ∀ z : ℂ, 0 < z.re → ∀ᶠ w in 𝓝[≠] z, w ∉ Z) {σ θ : ℝ}
-    (hle : ∀ ρ ∈ Z, ρ.re < σ) (hθ : 0 < θ) (hθσ : θ < σ) {ρ₀ : ℂ} (h₀ : ρ₀ ∈ Z) (hρ₀ : θ < ρ₀.re) :
+    (_hle : ∀ ρ ∈ Z, ρ.re < σ) (hθ : 0 < θ) (_hθσ : θ < σ) {ρ₀ : ℂ} (h₀ : ρ₀ ∈ Z) (hρ₀ : θ < ρ₀.re) :
     (∃ D : ℝ, D ≤ σ - θ ∧ (∀ w ∈ Z, w ∉ Metric.ball (σ : ℂ) D) ∧ ∃ ρ₁ ∈ Z, σ - ρ₁.re < D) ∨
     (∃ β : ℝ, (β : ℂ) ∈ Z ∧ θ < β ∧ ∃ r : ℝ, σ - β < r ∧ r ≤ σ - θ ∧
       ∀ w ∈ Z, w ∈ Metric.ball (σ : ℂ) r → w = β) := by
@@ -63,7 +64,7 @@ theorem landau_dichotomy {Z : Set ℂ} (hiso : ∀ z : ℂ, 0 < z.re → ∀ᶠ 
     · left
       exact ⟨dist ρs (σ : ℂ), hdle, hball, hex⟩
     · right
-      push_neg at hex
+      push Not at hex
       set d := dist ρs (σ : ℂ) with hd
       have hreal : ∀ w ∈ F, dist w (σ : ℂ) = d → w = ((σ - d : ℝ) : ℂ) :=
         fun w hw he => eq_ofReal_sub_of_dist_le_of_le_sub_re (le_of_eq he) (hex w hw.1)
@@ -88,7 +89,7 @@ theorem landau_dichotomy {Z : Set ℂ} (hiso : ∀ z : ℂ, 0 < z.re → ∀ᶠ 
           rw [hTe] at ht
           exact absurd ht (Set.notMem_empty t)
         · obtain ⟨t₀, ht₀, htmin⟩ := Set.exists_min_image (F \ {((σ - d : ℝ) : ℂ)})
-            (fun w => dist w (σ : ℂ)) (hfin.subset Set.diff_subset) hTne
+            (fun w => dist w (σ : ℂ)) (hfin.subset Set.sdiff_subset) hTne
           exact ⟨dist t₀ (σ : ℂ), hT t₀ ht₀, htmin⟩
       refine ⟨min r (σ - θ), ?_, min_le_right _ _, ?_⟩
       · rw [sub_sub_cancel]

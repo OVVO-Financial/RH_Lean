@@ -20,6 +20,7 @@ artifact or terminal RH theorem. The source archive/mirror states no license;
 this provenance notice does not assign a new license to that source material.
 -/
 
+set_option autoImplicit false
 set_option maxHeartbeats 4000000
 
 
@@ -385,7 +386,7 @@ theorem poleData (F : CharFamily) : ∃ Φ : ℂ → ℂ, PoleData (gm F) Φ (ze
         apply Complex.ext <;> simp [him]
       have hlt : ρ.re < 1 := by
         by_contra hge
-        push_neg at hge
+        push Not at hge
         rcases hi0 with h' | h'
         · exact charFamily_LFunction_ne_zero_of_one_le_re F i0 ρ hge h'
         · exact charFamily_LFunction_ne_zero_of_one_le_re F i0 _ (by simpa using hge) h'

@@ -1,5 +1,8 @@
 import Mathlib
 
+set_option autoImplicit false
+set_option maxHeartbeats 4000000
+
 /-!
 # Integral regular sections from bounded determinant avoidance
 
@@ -169,7 +172,7 @@ theorem nativeNatCombination_allPlace_norm_le
       rw [map_sum]
       refine (norm_sum_le _ _).trans (Finset.sum_le_sum fun i _ => ?_)
       rw [map_nsmul]
-      exact norm_nsmul_le _ _
+      exact norm_nsmul_le (n := n i) (a := ev p (w i))
     _ = ∑ i ∈ active p, (n i : ℝ) * ‖ev p (w i)‖ := by
       symm
       exact Finset.sum_subset (Finset.subset_univ _) fun i _ hi => by

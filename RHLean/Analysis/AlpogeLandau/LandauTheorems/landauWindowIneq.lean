@@ -13,6 +13,7 @@ artifact or terminal RH theorem. The source archive/mirror states no license;
 this provenance notice does not assign a new license to that source material.
 -/
 
+set_option autoImplicit false
 set_option maxHeartbeats 4000000
 
 
@@ -89,7 +90,7 @@ theorem landau_window_ineq {g R : ℝ → ℝ} (hg : Measurable g) {C₀ : ℝ}
     rw [this, integral_complex_ofReal, Complex.ofReal_re]
   have hI3 : IntegrableOn (fun u => |g u| * w u + g u * w u) (Ioi 0) := hI1.add hI2
   have hsub : Icc U V ⊆ Ioi (0 : ℝ) := fun u hu => lt_of_lt_of_le hU hu.1
-  have hsplit := integral_inter_add_diff (μ := volume) (s := Ioi (0 : ℝ)) (t := Icc U V)
+  have hsplit := integral_inter_add_sdiff (μ := volume) (s := Ioi (0 : ℝ)) (t := Icc U V)
     measurableSet_Icc hI3
   rw [inter_eq_right.2 hsub, integral_add hI1 hI2] at hsplit
   have hA : ∫ u in Icc U V, (|g u| * w u + g u * w u)
@@ -116,7 +117,7 @@ theorem landau_window_ineq {g R : ℝ → ℝ} (hg : Measurable g) {C₀ : ℝ}
   have hB : ∫ u in Ioi (0 : ℝ) \ Icc U V, (|g u| * w u + g u * w u)
       ≤ 2 * C₀ * ∫ u in Ioi (0 : ℝ) \ Icc U V, h u := by
     rw [← integral_const_mul]
-    refine setIntegral_mono_on (hI3.mono_set diff_subset) ((hhi.mono_set diff_subset).const_mul _)
+    refine setIntegral_mono_on (hI3.mono_set sdiff_subset) ((hhi.mono_set sdiff_subset).const_mul _)
       (measurableSet_Ioi.diff measurableSet_Icc) fun u hu => ?_
     have hu0 : 0 ≤ u := le_of_lt hu.1
     have h1 := hb u hu0

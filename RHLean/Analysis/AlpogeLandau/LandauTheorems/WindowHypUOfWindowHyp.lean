@@ -12,6 +12,7 @@ artifact or terminal RH theorem. The source archive/mirror states no license;
 this provenance notice does not assign a new license to that source material.
 -/
 
+set_option autoImplicit false
 set_option maxHeartbeats 4000000
 
 
@@ -41,7 +42,7 @@ theorem windowHypU_of_windowHyp_fun (R : ℝ → ℝ) (θ : ℝ) :
   congr 2
   ring
 
-theorem windowHypU_of_windowHyp (F : CharFamily) {θ δ : ℝ} (hδ : 0 < δ) (h : WindowHyp F θ δ) :
+theorem windowHypU_of_windowHyp (F : CharFamily) {θ δ : ℝ} (_hδ : 0 < δ) (h : WindowHyp F θ δ) :
     WindowHypU (gm F) θ δ := by
   intro η hη U₀
   obtain ⟨Y, hY, R, hint, hR, hbound⟩ := h η hη (Real.exp U₀)

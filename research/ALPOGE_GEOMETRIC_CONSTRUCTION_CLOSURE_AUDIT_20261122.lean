@@ -1,3 +1,10 @@
+import RHLean.Geometry.NativeComponentRegularSection
+import RHLean.Geometry.NativeAllPlaceEigenGenerators
+import RHLean.Geometry.NativeAllPlaceDescent
+import RHLean.Geometry.NativeCharacterTraceMaps
+import RHLean.Geometry.NativeComponentRegularity
+import RHLean.Geometry.NativeTwistedTraceRank
+import RHLean.Analysis.AlpogeNativePrincipalProjection
 import RHLean.Analysis.AlpogeLandau
 import RHLean.Geometry.NativeRegularSectionSelection
 import RHLean.Geometry.NativeGroupDeterminant
@@ -40,3 +47,69 @@ info: 'RHLean.Geometry.nativeExists_short_integral_group_section' depends on axi
 -/
 #guard_msgs in
 #print axioms RHLean.Geometry.nativeExists_short_integral_group_section
+
+/--
+info: 'RHLean.Geometry.NativeTransference.transference_dual' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Geometry.NativeTransference.transference_dual
+
+/--
+info: 'RHLean.Geometry.NativeNumberFieldLattice.exists_short_independent_integers' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Geometry.NativeNumberFieldLattice.exists_short_independent_integers
+
+/--
+info: 'RHLean.Geometry.NativeNumberFieldLattice.exists_isShortGen_of_short_span' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Geometry.NativeNumberFieldLattice.exists_isShortGen_of_short_span
+
+/--
+info: 'RHLean.Geometry.nativeExists_component_short_integral_group_section' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Geometry.nativeExists_component_short_integral_group_section
+
+/--
+info: 'RHLean.Geometry.nativeExists_allPlace_short_eigen' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Geometry.nativeExists_allPlace_short_eigen
+
+/--
+info: 'RHLean.Geometry.nativeAllPlaceDescent' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Geometry.nativeAllPlaceDescent
+
+/--
+info: 'RHLean.Geometry.nativeCharacterTrace_mem_lattice' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Geometry.nativeCharacterTrace_mem_lattice
+
+/--
+info: 'RHLean.Geometry.nativeCharacterTrace_jointNorm_paid' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Geometry.nativeCharacterTrace_jointNorm_paid
+
+/--
+info: 'RHLean.Geometry.NativeAlgebraicDescent.finrank_le_card_mul_finrank_eigenspace_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Geometry.NativeAlgebraicDescent.finrank_le_card_mul_finrank_eigenspace_le
+
+/--
+info: 'RHLean.Geometry.nativeTwistedTrace_injective_of_componentDet' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Geometry.nativeTwistedTrace_injective_of_componentDet
+
+/--
+info: 'RHLean.Geometry.nativeDescent_mainTermPayment' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Geometry.nativeDescent_mainTermPayment

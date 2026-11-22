@@ -13,6 +13,7 @@ artifact or terminal RH theorem. The source archive/mirror states no license;
 this provenance notice does not assign a new license to that source material.
 -/
 
+set_option autoImplicit false
 set_option maxHeartbeats 4000000
 
 
@@ -54,10 +55,10 @@ theorem Gchi_conj {N : ℕ} [NeZero N] (χ : DirichletCharacter ℂ N) (y : ℝ)
     (starRingEnd ℂ) (Gchi χ y) = Gchi χ⁻¹ y := by
   by_cases h1 : χ = 1
   · subst h1
-    simp only [Gchi, inv_one, if_true]
+    simp only [Gchi, inv_one, ite_true]
     rw [map_add, map_sub, Gchi_conj_ramp, inv_one, Complex.conj_ofReal, Complex.conj_ofReal]
   · have h2 : χ⁻¹ ≠ 1 := fun h => h1 (inv_eq_one.mp h)
-    simp only [Gchi, h1, h2, if_false]
+    simp only [Gchi, h1, h2, ite_false]
     have hL := Gchi_conj_LFunction χ
     have h1c : (starRingEnd ℂ) (1 : ℂ) = 1 := map_one _
     rw [map_add, map_mul, map_div₀, Gchi_conj_ramp, Complex.conj_ofReal, hL]

@@ -13,6 +13,7 @@ artifact or terminal RH theorem. The source archive/mirror states no license;
 this provenance notice does not assign a new license to that source material.
 -/
 
+set_option autoImplicit false
 set_option maxHeartbeats 4000000
 
 
@@ -98,7 +99,7 @@ theorem mellin_Gchi_of_ne_one_ramp (f : ℕ → ℂ) (s : ℂ) (hs : 1 < s.re)
     simp only [F]
     simp_rw [norm_mul (a (m + 1))]
     rw [integral_const_mul, mellin_Gchi_of_ne_one_norm (m + 1) (by omega) s hs,
-      LSeries.norm_term_eq, if_neg (by omega), Real.rpow_neg (Nat.cast_nonneg _)]
+      LSeries.norm_term_eq, ite_eq_right (by omega), Real.rpow_neg (Nat.cast_nonneg _)]
     ring
   have h := hasSum_integral_of_summable_integral_norm hint hsum
   have hF : ∀ y, ∑' n, F n y = ramp f y * (y : ℂ) ^ (-s - 1) + g y := by
@@ -107,7 +108,6 @@ theorem mellin_Gchi_of_ne_one_ramp (f : ℕ → ℂ) (s : ℂ) (hs : 1 < s.re)
       ((mellin_Gchi_of_ne_one_hasSum f y).mul_right ((y : ℂ) ^ (-s - 1)))
     have h2 : HasSum (fun n => F (n + 1) y) (ramp f y * (y : ℂ) ^ (-s - 1)) := by
       convert h1 using 1
-      · rfl
       · ext m
         simp only [F, ha]
         ring
@@ -118,7 +118,6 @@ theorem mellin_Gchi_of_ne_one_ramp (f : ℕ → ℂ) (s : ℂ) (hs : 1 < s.re)
   have h1 := (hasSum_nat_add_iff' 1).mpr (hf.hasSum.div_const (s * (s - 1)))
   have h2 : HasSum (fun n => ∫ y in Ioi (1 : ℝ), F (n + 1) y) (LSeries a s / (s * (s - 1))) := by
     convert h1 using 1
-    · rfl
     · ext m
       simp only [F]
       rw [integral_const_mul, mellin_ramp (m + 1) (by omega) s hs,
@@ -152,7 +151,7 @@ theorem mellin_Gchi_of_ne_one {N : ℕ} [NeZero N] (χ : DirichletCharacter ℂ 
     ring
   · intro y hy
     have hy0 : (y : ℂ) ≠ 0 := by exact_mod_cast (lt_trans one_pos hy).ne'
-    simp only [Gchi, if_neg hχ, ← hc]
+    simp only [Gchi, ite_eq_right hχ, ← hc]
     rw [cpow_sub _ _ hy0, cpow_one]
     field_simp
 

@@ -18,6 +18,7 @@ linear-independence data; the present theorem proves their finite consequence.
 -/
 
 set_option autoImplicit false
+set_option maxHeartbeats 4000000
 
 noncomputable section
 

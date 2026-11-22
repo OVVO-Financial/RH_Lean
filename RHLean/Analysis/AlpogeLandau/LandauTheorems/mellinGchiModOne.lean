@@ -13,6 +13,7 @@ artifact or terminal RH theorem. The source archive/mirror states no license;
 this provenance notice does not assign a new license to that source material.
 -/
 
+set_option autoImplicit false
 set_option maxHeartbeats 4000000
 
 
@@ -174,7 +175,7 @@ theorem mellin_Gchi_modOne (χ : DirichletCharacter ℂ 1) (s : ℂ) (hs : 1 < s
       field_simp
     beta_reduce
     rw [tsum_eq_sum (hz y)]
-    simp only [Gchi, if_pos h1, h2, ramp, T, E, h3, mul_one, ← mul_assoc,
+    simp only [Gchi, ite_eq_left h1, h2, ramp, T, E, h3, mul_one, ← mul_assoc,
       ← Finset.sum_mul]
     push_cast
     ring

@@ -12,6 +12,7 @@ artifact or terminal RH theorem. The source archive/mirror states no license;
 this provenance notice does not assign a new license to that source material.
 -/
 
+set_option autoImplicit false
 set_option maxHeartbeats 4000000
 
 
@@ -59,7 +60,7 @@ theorem Gchi_growth {N : ℕ} [NeZero N] (χ : DirichletCharacter ℂ N) :
     have hl : Real.log y ≤ y := Real.log_le_self hy0
     have hyy : y ≤ y ^ 2 := by nlinarith
     unfold Gchi
-    rw [if_pos h]
+    rw [ite_eq_left h]
     refine (norm_add_le _ _).trans ?_
     refine (add_le_add (norm_sub_le _ _) le_rfl).trans ?_
     rw [Complex.norm_real, Complex.norm_real, Real.norm_of_nonneg (mul_nonneg hy0 hl0),
@@ -73,7 +74,7 @@ theorem Gchi_growth {N : ℕ} [NeZero N] (χ : DirichletCharacter ℂ N) :
     have hy0 : 0 ≤ y := by linarith
     have hyy : y ≤ y ^ 2 := by nlinarith
     unfold Gchi
-    rw [if_neg h]
+    rw [ite_eq_right h]
     refine (norm_add_le _ _).trans ?_
     rw [norm_mul, Complex.norm_real, Real.norm_of_nonneg hy0]
     have h2 := mul_le_mul_of_nonneg_left hyy

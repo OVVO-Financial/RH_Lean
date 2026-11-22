@@ -13,6 +13,8 @@ implication needed by a geometric source proof, not an unconditional RH theorem.
 No terminal RH result, external compiled artifact, or retired proof DAG is used.
 -/
 
+set_option autoImplicit false
+
 noncomputable section
 
 open Complex
@@ -38,7 +40,8 @@ theorem ramp_one_re_eq_nativePrincipalPrimeSum (x : ℝ) (hx : 0 ≤ x) :
   apply Finset.sum_congr rfl
   intro n hn
   have hn1 : 1 ≤ n := (Finset.mem_Icc.mp hn).1
-  have hn0 : (0 : ℝ) < n := by exact_mod_cast hn1
+  have hn0 : (0 : ℝ) < n := by
+    exact_mod_cast (Nat.zero_lt_one.trans_le hn1)
   have hnx : (n : ℝ) ≤ x :=
     (Nat.cast_le.mpr (Finset.mem_Icc.mp hn).2).trans (Nat.floor_le hx)
   have hcut : 0 ≤ x / (n : ℝ) - 1 := by
@@ -73,7 +76,7 @@ theorem Gm_principalFamily_eq_G (x : ℝ) :
   change (∑ _ : Unit, 1 * (Gchi (1 : DirichletCharacter ℂ 1) x).re) = _
   rw [Fintype.sum_unique, one_mul]
   unfold Gchi
-  rw [if_pos rfl, hval]
+  rw [ite_eq_left rfl, hval]
   simp only [Complex.add_re, Complex.sub_re, Complex.ofReal_re]
   rfl
 

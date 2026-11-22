@@ -13,6 +13,7 @@ artifact or terminal RH theorem. The source archive/mirror states no license;
 this provenance notice does not assign a new license to that source material.
 -/
 
+set_option autoImplicit false
 set_option maxHeartbeats 4000000
 
 
@@ -69,7 +70,7 @@ theorem landau_nearest {Z : Set ℂ} (hiso : ∀ z : ℂ, 0 < z.re → ∀ᶠ w 
       ((σ - p.1.re) ^ 2 + p.1.im ^ 2 - (σ - p.2.re) ^ 2 - p.2.im ^ 2) / (2 * (p.1.im - p.2.im))) ''
       (F ×ˢ F) with hB
   have hBfin : B.Finite := (hF.prod hF).image _
-  obtain ⟨γ, hγI, hγB⟩ := ((Set.Ioo_infinite (show ρ₁.im - ε < ρ₁.im + ε by linarith)).diff hBfin).nonempty
+  obtain ⟨γ, hγI, hγB⟩ := ((Set.Ioo_infinite (show ρ₁.im - ε < ρ₁.im + ε by linarith)).sdiff hBfin).nonempty
   set c : ℂ := (σ : ℂ) + γ * I with hc
   have hγε : |γ - ρ₁.im| < ε := abs_sub_lt_iff.mpr ⟨by linarith [hγI.2], by linarith [hγI.1]⟩
   have hcc₀ : ‖c - c₀‖ = |γ - ρ₁.im| := by
@@ -108,7 +109,7 @@ theorem landau_nearest {Z : Set ℂ} (hiso : ∀ z : ℂ, 0 < z.re → ∀ᶠ w 
       rw [hTe] at ht
       exact absurd ht (Set.notMem_empty t)
     · obtain ⟨t₀, ht₀, htmin⟩ := Set.exists_min_image (F \ {ρ}) (fun w => ‖c - w‖)
-        (hF.subset Set.diff_subset) hTne
+        (hF.subset Set.sdiff_subset) hTne
       exact ⟨‖c - t₀‖, hT t₀ ht₀, htmin⟩
   refine ⟨γ, ρ, hρF.1, min r D, lt_min hr (by linarith), min_le_right _ _, ?_⟩
   intro w hw hb
