@@ -42,7 +42,6 @@ theorem alpogeSquareASKScale_div_R (R : ℕ) (hR : 1 ≤ R) :
     exact_mod_cast (show R ≠ 0 by omega)
   unfold alpogeSquareASKScale
   field_simp
-  ring
 
 /-- The second width makes the lower cutoff an *integer*:
 R*(R^2-1)/(R+1) = R*(R-1). -/
@@ -54,7 +53,6 @@ theorem alpogeSquareASKScale_div_succ (R : ℕ) :
   rw [show (R : ℝ) ^ 2 - 1 =
     ((R : ℝ) - 1) * ((R : ℝ) + 1) by ring]
   field_simp
-  ring
 
 theorem alpogeSquareASKScale_eq_natX (R : ℕ) (hR : 2 ≤ R) :
     alpogeSquareASKScale R =
@@ -108,10 +106,18 @@ theorem alpogeSquareASKCollar_iff (R n : ℕ)
         ((R + 1 : ℕ) : ℝ) * (n : ℝ) := by
       rw [← haLower]
       exact (div_lt_iff₀ hnpos).mp h2
-    have hlt : (n : ℝ) < ((R ^ 2 - 1 : ℕ) : ℝ) :=
-      (mul_lt_mul_left hrpos).mp h1'
-    have hgt : ((R * (R - 1) : ℕ) : ℝ) < (n : ℝ) :=
-      (mul_lt_mul_left hspos).mp h2'
+    have hlt : (n : ℝ) < ((R ^ 2 - 1 : ℕ) : ℝ) := by
+      by_contra h
+      have hle : ((R ^ 2 - 1 : ℕ) : ℝ) ≤ (n : ℝ) :=
+        le_of_not_gt h
+      have hm := mul_le_mul_of_nonneg_left hle hrpos.le
+      linarith
+    have hgt : ((R * (R - 1) : ℕ) : ℝ) < (n : ℝ) := by
+      by_contra h
+      have hle : (n : ℝ) ≤ ((R * (R - 1) : ℕ) : ℝ) :=
+        le_of_not_gt h
+      have hm := mul_le_mul_of_nonneg_left hle hspos.le
+      linarith
     exact ⟨by exact_mod_cast hgt, by exact_mod_cast hlt⟩
   · rintro ⟨hgt, hlt⟩
     have hgt' : ((R * (R - 1) : ℕ) : ℝ) < (n : ℝ) := by exact_mod_cast hgt
@@ -119,10 +125,14 @@ theorem alpogeSquareASKCollar_iff (R n : ℕ)
     constructor
     · apply (lt_div_iff₀ hnpos).mpr
       rw [haUpper]
-      exact (mul_lt_mul_left hrpos).mpr hlt'
+      have hdiff : 0 < (R : ℝ) * (((R ^ 2 - 1 : ℕ) : ℝ) - (n : ℝ)) :=
+        mul_pos hrpos (sub_pos.mpr hlt')
+      nlinarith only [hdiff]
     · apply (div_lt_iff₀ hnpos).mpr
       rw [haLower]
-      exact (mul_lt_mul_left hspos).mpr hgt'
+      have hdiff : 0 < (((R + 1 : ℕ) : ℝ)) * ((n : ℝ) - ((R * (R - 1) : ℕ) : ℝ)) :=
+        mul_pos hspos (sub_pos.mpr hgt')
+      nlinarith only [hdiff]
 
 theorem alpogeSquareASKCollar_filter_eq (R : ℕ) (hR : 2 ≤ R) :
     (Finset.Icc 2 (R ^ 2 - 1)).filter
@@ -137,7 +147,8 @@ theorem alpogeSquareASKCollar_filter_eq (R : ℕ) (hR : 2 ≤ R) :
     omega
   · intro hn
     have hR1 : 1 ≤ R - 1 := by omega
-    have hmul : R ≤ R * (R - 1) := Nat.mul_le_mul_left R hR1
+    have hmul : R ≤ R * (R - 1) := by
+      simpa only [mul_one] using Nat.mul_le_mul_left R hR1
     have hn2 : 2 ≤ n := by omega
     have h : R * (R - 1) < n ∧ n < R ^ 2 - 1 := by omega
     exact ⟨⟨hn2, by omega⟩,
