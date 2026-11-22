@@ -36,24 +36,24 @@ namespace TraceDualMin
 
 theorem herm_smul_left {n : ℕ} (a : E) (x y : Fin n → E) :
     hermPairing E n (a • x) y = a * hermPairing E n x y := by
-  simp [hermPairing_eq, Finset.mul_sum, mul_assoc]
+  simp [Finset.mul_sum, mul_assoc]
 
 theorem herm_smul_right {n : ℕ} (a : E) (x y : Fin n → E) :
     hermPairing E n x (a • y) = cc a * hermPairing E n x y := by
-  simp [hermPairing_eq, Finset.mul_sum, cc, mul_left_comm]
+  simp [Finset.mul_sum, cc, mul_left_comm]
 
 theorem cc_cc (a : E) : cc (cc a) = a := by
   simp [cc]
 
 theorem cc_herm_self {n : ℕ} (x : Fin n → E) : cc (hermPairing E n x x) = hermPairing E n x x := by
-  simp [hermPairing_eq, cc, mul_comm]
+  simp [cc, mul_comm]
 
 theorem trace_cc (a : E) : Algebra.trace ℚ E (cc a) = Algebra.trace ℚ E a :=
   Algebra.trace_eq_of_algEquiv ((IsCMField.complexConj E).restrictScalars ℚ) a
 
 theorem embedding_herm_self {n : ℕ} (σ : E →+* ℂ) (x : Fin n → E) :
     σ (hermPairing E n x x) = ((∑ k, ‖σ (x k)‖ ^ 2 : ℝ) : ℂ) := by
-  simp [hermPairing_eq, cc, IsCMField.complexEmbedding_complexConj, Complex.mul_conj']
+  simp [IsCMField.complexEmbedding_complexConj, Complex.mul_conj']
 
 omit [IsCMField E] in
 
@@ -135,6 +135,7 @@ theorem trace_dual_min {n : ℕ} (Λ : Submodule (𝓞 E) (Fin n → E))
   have h8 : (rootDiscr E ^ 2)⁻¹ = ((|(discr E : ℝ)|)⁻¹ * (|(discr E : ℝ)|)⁻¹) ^ ((Module.finrank ℚ E : ℝ)⁻¹) := by
     rw [Real.mul_rpow (inv_nonneg.mpr hd) (inv_nonneg.mpr hd), Real.inv_rpow hd, rootDiscr_def, sq,
       mul_inv]
+    rw [Int.cast_abs]
   rw [div_eq_mul_inv, h8]
   gcongr
 

@@ -137,7 +137,7 @@ theorem colDer_X_xVar [DecidableEq T] [DecidableEq κ] (t t' : T) (k l j : κ) (
     simp [pderiv_X, Pi.single_apply]
   · have (a' : Fin p) : (xVar t' a j : Var T p q κ) ≠ xVar t a' l := by
       intro e; simp only [Prod.mk.injEq] at e; exact h ⟨e.1, e.2.2⟩
-    simp [pderiv_X, Pi.single_apply, this]
+    simp [pderiv_X, this]
 
 theorem colDer_X_yVar [DecidableEq T] [DecidableEq κ] (t t' : T) (k l j : κ) (b : Fin q) :
     colDer R p q t k l (X (yVar t' b j)) = if t' = t ∧ j = k then -X (yVar t b l) else 0 := by
@@ -147,7 +147,7 @@ theorem colDer_X_yVar [DecidableEq T] [DecidableEq κ] (t t' : T) (k l j : κ) (
     simp [pderiv_X, Pi.single_apply]
   · have (b' : Fin q) : (yVar t' b j : Var T p q κ) ≠ yVar t b' k := by
       intro e; simp only [Prod.mk.injEq] at e; exact h ⟨e.1, e.2.2⟩
-    simp [pderiv_X, Pi.single_apply, this]
+    simp [pderiv_X, this]
 
 def colWeight (m : Var T p q κ →₀ ℕ) (t : T) (k : κ) : ℤ :=
   ∑ a, (m (xVar t a k) : ℤ) - ∑ b, (m (yVar t b k) : ℤ)
@@ -164,7 +164,7 @@ theorem colWeight_single_xVar [DecidableEq T] [DecidableEq κ] (t t' : T) (a : F
     simp [colWeight, Finsupp.single_apply]
   · have (a' : Fin p) : (xVar t' a j : Var T p q κ) ≠ xVar t a' k := by
       intro e; simp only [Prod.mk.injEq] at e; exact h ⟨e.1, e.2.2⟩
-    simp [colWeight, Finsupp.single_apply, this]
+    simp [colWeight, this]
 
 theorem colWeight_single_yVar [DecidableEq T] [DecidableEq κ] (t t' : T) (b : Fin q) (k j : κ) :
     colWeight (Finsupp.single (yVar t' b j : Var T p q κ) 1) t k =
@@ -174,7 +174,7 @@ theorem colWeight_single_yVar [DecidableEq T] [DecidableEq κ] (t t' : T) (b : F
     simp [colWeight, Finsupp.single_apply]
   · have (b' : Fin q) : (yVar t' b j : Var T p q κ) ≠ yVar t b' k := by
       intro e; simp only [Prod.mk.injEq] at e; exact h ⟨e.1, e.2.2⟩
-    simp [colWeight, Finsupp.single_apply, this]
+    simp [colWeight, this]
 
 theorem colLie_monomial (t : T) (k : κ) (m : Var T p q κ →₀ ℕ) (c : R) :
     colLie R p q t k k (monomial m c) = (colWeight m t k : R) • monomial m c := by
@@ -296,15 +296,15 @@ theorem exists_colAct_monomial (t : T) (k : κ) (u : Rˣ) :
       by_cases ht : t' = t
       · subst ht
         by_cases hj : j = k <;> by_cases hi : j = i <;>
-          simp [g₀, diagonal_apply, Pi.single_apply, hj, hi, eq_comm] <;> simp_all [eq_comm]
-      · simp [Pi.mulSingle_eq_of_ne ht, Matrix.one_apply, Pi.single_apply, eq_comm, Ne.symm ht]
+          (simp [g₀, diagonal_apply, Pi.single_apply, hj, hi, eq_comm]; simp_all [eq_comm])
+      · simp [Matrix.one_apply, Pi.single_apply, eq_comm, Ne.symm ht]
     · rw [colAct_apply, colSubst_X_yVar, ← yForm_single, ← map_smul, colWeight_single_yVar]
       congr 1; ext i
       by_cases ht : t' = t
       · subst ht
         by_cases hj : j = k <;> by_cases hi : j = i <;>
           simp [g₀, diagonal_apply, Pi.single_apply, hj, hi, eq_comm] <;> simp_all [eq_comm]
-      · simp [Pi.mulSingle_eq_of_ne ht, Matrix.one_apply, Pi.single_apply, eq_comm, Ne.symm ht]
+      · simp [Matrix.one_apply, Pi.single_apply, eq_comm, Ne.symm ht]
   have hpow (v : Var T p q κ) (e : ℕ) :
       colAct R T p q κ (Pi.mulSingle t g₀) (monomial (Finsupp.single v e) 1) =
         ((u ^ colWeight (Finsupp.single v e) t k : Rˣ) : R) • monomial (Finsupp.single v e) 1 := by

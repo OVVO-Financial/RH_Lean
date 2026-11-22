@@ -82,16 +82,17 @@ def nativeDyadicFrame (e : ℕ) : Formalism.HC.Frame :=
       AlpogeNativeDyadicH e := (Fintype.equivFin (AlpogeNativeDyadicH e)).symm
   let : AddCommGroup (Formalism.HC.Idx (Fintype.card (AlpogeNativeDyadicH e))) :=
     ε.addCommGroup
-  let εa : Formalism.HC.Idx (Fintype.card (AlpogeNativeDyadicH e)) ≃+
-      AlpogeNativeDyadicH e := ε.addEquiv
   { e := e
     ord := Fintype.card (AlpogeNativeDyadicH e)
     grp := ε.addCommGroup
-    h0 := εa.toAddMonoidHom
-    projection_surjective_field := εa.surjective
+    h0 :=
+      { toFun := ε
+        map_zero' := ε.apply_symm_apply 0
+        map_add' := fun x y => ε.apply_symm_apply (ε x + ε y) }
+    projection_surjective_field := ε.surjective
     gen0 := ε.symm (nativeDyadicGenerator e)
     zsmul_generator_eq_zero_of_projection := fun _ hk =>
-      εa.injective (hk.trans (map_zero εa).symm) }
+      ε.injective (hk.trans (ε.apply_symm_apply 0).symm) }
 
 /-- The coordinate transport is an additive equivalence, not only a count. -/
 def nativeDyadicFrameEquiv (e : ℕ) :
@@ -119,7 +120,9 @@ theorem nativeDyadicFrame_generator (e : ℕ) :
 
 /-- The selected source generator has the full source frame order. -/
 theorem nativeDyadicFrame_n0 (e : ℕ) : (nativeDyadicFrame e).n0 = 2 ^ e := by
-  have h := addOrderOf_injective (nativeDyadicFrame e).h
+  have h := addOrderOf_injective
+    (G := (nativeDyadicFrame e).A)
+    (H := Additive (HGrp (nativeDyadicFrame e).e)) (nativeDyadicFrame e).h
     (nativeDyadicFrame_h_injective e) (nativeDyadicFrame e).a0
   rw [nativeDyadicFrame_h, nativeDyadicFrame_generator, nativeDyadicGenerator_order] at h
   exact h.symm
@@ -191,11 +194,19 @@ def nativeDyadicTwoBitEquiv : Multiplicative AlpogeNativeE0 ≃* (ℤˣ × ℤˣ
 def nativeDyadicFullHostEquiv (e : ℕ) :
     Multiplicative (AlpogeNativeE0 × AlpogeNativeDyadicH e) ≃*
       (nativeDyadicFrame e).GG :=
+  let εH : Multiplicative (AlpogeNativeDyadicH e) ≃* (nativeDyadicFrame e).MA :=
+    AddEquiv.toMultiplicative
+      (G := AlpogeNativeDyadicH e) (H := (nativeDyadicFrame e).A)
+      (nativeDyadicFrameEquiv e).symm
+  let εP : Multiplicative AlpogeNativeE0 × Multiplicative (AlpogeNativeDyadicH e) ≃*
+      (ℤˣ × ℤˣ) × (nativeDyadicFrame e).MA :=
+    MulEquiv.prodCongr
+      (M := Multiplicative AlpogeNativeE0) (M' := ℤˣ × ℤˣ)
+      (N := Multiplicative (AlpogeNativeDyadicH e)) (N' := (nativeDyadicFrame e).MA)
+      nativeDyadicTwoBitEquiv εH
   (MulEquiv.prodMultiplicative AlpogeNativeE0 (AlpogeNativeDyadicH e) :
     Multiplicative (AlpogeNativeE0 × AlpogeNativeDyadicH e) ≃*
-      Multiplicative AlpogeNativeE0 × Multiplicative (AlpogeNativeDyadicH e)).trans
-    (nativeDyadicTwoBitEquiv.prodCongr
-      (AddEquiv.toMultiplicative (nativeDyadicFrameEquiv e).symm))
+      Multiplicative AlpogeNativeE0 × Multiplicative (AlpogeNativeDyadicH e)).trans εP
 
 theorem nativeDyadicFullHostEquiv_apply
     (e : ℕ) (g : Multiplicative (AlpogeNativeE0 × AlpogeNativeDyadicH e)) :
@@ -225,7 +236,7 @@ theorem nativeDyadicFullHostEquiv_cconj (e : ℕ) :
   change ((nativeDyadicSignEquiv.symm (Multiplicative.ofAdd (1 : ZMod 2)),
     nativeDyadicSignEquiv.symm (Multiplicative.ofAdd (1 : ZMod 2))),
       Multiplicative.ofAdd ((nativeDyadicFrameEquiv e).symm 0)) = ((-1, -1), 1)
-  simp only [nativeDyadicSignEquiv_symm_one, map_zero, Multiplicative.ofAdd_zero]
+  simp only [nativeDyadicSignEquiv_symm_one, map_zero, ofAdd_zero]
 
 theorem nativeDyadicFullHostEquiv_mem_Psi_iff
     (e : ℕ) (g : Multiplicative (AlpogeNativeE0 × AlpogeNativeDyadicH e)) :

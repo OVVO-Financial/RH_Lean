@@ -1,3 +1,7 @@
+import RHLean.Analysis.AlpogeNativeSignedSlopeComparison
+import RHLean.Geometry.AlpogeSignedSlope.Formalism.SizeWindowBrackets.ChainSlopeWindows.StrongErrorBound
+import RHLean.Geometry.AlpogeSignedSlope.Formalism.SizeWindowBrackets.ChainSlopeWindows.LevelOfCongruence
+import RHLean.Geometry.NativeDescentCostPayment
 import RHLean.Analysis.AlpogePrimeFreeCommutatorConditioning
 import RHLean.Analysis.AlpogeSquareRootArithmeticMultiplicity
 import RHLean.Analysis.AlpogePrimeFreeForwardJet
@@ -839,3 +843,105 @@ info: 'RHLean.Analysis.NativeCommutatorConditioning.exponential_constant_lower_b
 -/
 #guard_msgs in
 #print axioms RHLean.Analysis.NativeCommutatorConditioning.exponential_constant_lower_bound
+
+/--
+info: 'RHLean.Geometry.nativeDescent_collectiveLog_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Geometry.nativeDescent_collectiveLog_le
+
+/--
+info: 'RHLean.Geometry.nativeDescent_heightReserve_ge' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Geometry.nativeDescent_heightReserve_ge
+
+/--
+info: 'RHLean.Geometry.nativeDescent_collectiveNorm_eq_exp' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Geometry.nativeDescent_collectiveNorm_eq_exp
+
+/--
+info: 'RHLean.Geometry.nativeDescent_collectiveNormBudget_strong' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Geometry.nativeDescent_collectiveNormBudget_strong
+
+/--
+info: 'RHLean.Geometry.nativeDescent_collectiveNormBudget_withFactor' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Geometry.nativeDescent_collectiveNormBudget_withFactor
+
+/--
+info: 'RHLean.Geometry.nativeDescent_collectiveNormBudget_withFactor_of_log_le_b' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Geometry.nativeDescent_collectiveNormBudget_withFactor_of_log_le_b
+
+/--
+info: 'RHLean.Geometry.nativeDescent_collectiveNormBudget_fourPow' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Geometry.nativeDescent_collectiveNormBudget_fourPow
+
+/--
+info: 'RHLean.Geometry.nativeDescent_scaledJointEnergy_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Geometry.nativeDescent_scaledJointEnergy_le
+
+/--
+info: 'RHLean.Geometry.nativeDescent_scaledJointEnergy_fourPow_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Geometry.nativeDescent_scaledJointEnergy_fourPow_le
+
+/--
+info: 'RHLean.Geometry.AlpogeSignedSlope.Formalism.LFunctionChainParameters.WeightedSlopeBounds.uniform_bound_statement' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Geometry.AlpogeSignedSlope.Formalism.LFunctionChainParameters.WeightedSlopeBounds.uniform_bound_statement
+
+/--
+info: 'RHLean.Geometry.AlpogeSignedSlope.Formalism.LFunctionChainParameters.LErr.error_sizes' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Geometry.AlpogeSignedSlope.Formalism.LFunctionChainParameters.LErr.error_sizes
+
+/--
+info: 'RHLean.Analysis.AlpogeNativeSignedSlope.physicalData_main' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeNativeSignedSlope.physicalData_main
+
+/--
+info: 'RHLean.Analysis.AlpogeNativeSignedSlope.physicalTopExcess_eq_meanGap' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeNativeSignedSlope.physicalTopExcess_eq_meanGap
+
+/--
+info: 'RHLean.Analysis.AlpogeNativeSignedSlope.physicalTopExcess_le_errorTerm' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeNativeSignedSlope.physicalTopExcess_le_errorTerm
+
+/--
+info: 'RHLean.Analysis.AlpogeNativeSignedSlope.physicalTopExcess_le_strongWindowError' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeNativeSignedSlope.physicalTopExcess_le_strongWindowError
+
+/--
+info: 'RHLean.Analysis.AlpogeNativeSignedSlope.physicalTopExcess_div_le_strongWindowError' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeNativeSignedSlope.physicalTopExcess_div_le_strongWindowError
+
+/--
+info: 'RHLean.Analysis.AlpogeNativeSignedSlope.physicalTopExcess_div_le_normalizedGeometricCosts' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeNativeSignedSlope.physicalTopExcess_div_le_normalizedGeometricCosts

@@ -86,6 +86,34 @@ theorem alpogeNativeHostField_numberField
   IsGalois.of_fixedField_normal_subgroup
     (alpogeNativeCyclotomicRecMap e q d).ker
 
+private def nativeQuotientGaloisEquiv
+    {L G : Type*} [Field L] [Algebra ℚ L] [FiniteDimensional ℚ L]
+    [IsGalois ℚ L] [Group G]
+    (ρ : (L ≃ₐ[ℚ] L) →* G) (hρ : Function.Surjective ρ) :
+    (fixedField ρ.ker ≃ₐ[ℚ] fixedField ρ.ker) ≃* G :=
+  let ε : ((L ≃ₐ[ℚ] L) ⧸ ρ.ker) ≃*
+      (fixedField ρ.ker ≃ₐ[ℚ] fixedField ρ.ker) :=
+    IsGalois.normalAutEquivQuotient (K := ℚ) (L := L) ρ.ker
+  let η : ((L ≃ₐ[ℚ] L) ⧸ ρ.ker) ≃* G :=
+    QuotientGroup.quotientKerEquivOfSurjective (G := L ≃ₐ[ℚ] L) (H := G) ρ hρ
+  ε.symm.trans η
+
+private theorem nativeQuotientGaloisEquiv_restrict
+    {L G : Type*} [Field L] [Algebra ℚ L] [FiniteDimensional ℚ L]
+    [IsGalois ℚ L] [Group G]
+    (ρ : (L ≃ₐ[ℚ] L) →* G) (hρ : Function.Surjective ρ) (τ : L ≃ₐ[ℚ] L) :
+    nativeQuotientGaloisEquiv ρ hρ (τ.restrictNormal (fixedField ρ.ker)) = ρ τ := by
+  have h : (IsGalois.normalAutEquivQuotient (K := ℚ) (L := L) ρ.ker).symm
+      (τ.restrictNormal (fixedField ρ.ker)) =
+        (τ : (L ≃ₐ[ℚ] L) ⧸ ρ.ker) :=
+    (MulEquiv.symm_apply_eq _).mpr
+      (IsGalois.normalAutEquivQuotient_apply ρ.ker τ).symm
+  change QuotientGroup.quotientKerEquivOfSurjective ρ hρ
+    ((IsGalois.normalAutEquivQuotient (K := ℚ) (L := L) ρ.ker).symm
+      (τ.restrictNormal (fixedField ρ.ker))) = ρ τ
+  rw [h]
+  rfl
+
 set_option maxHeartbeats 1000000 in
 /-- The Galois group of the constructed field is the full native host. -/
 def alpogeNativeHostGalEquiv
@@ -93,11 +121,11 @@ def alpogeNativeHostGalEquiv
     (hq2 : q ≠ 2) (hd2 : d ≠ 2) (hqd : q ≠ d) :
     (alpogeNativeHostField e q d ≃ₐ[ℚ] alpogeNativeHostField e q d) ≃*
       Multiplicative (AlpogeNativeE0 × AlpogeNativeDyadicH e) :=
-  (IsGalois.normalAutEquivQuotient (K := ℚ) (L := AlpogeNativeCyclotomic e q d)
-    (alpogeNativeCyclotomicRecMap e q d).ker).symm.trans
-      (QuotientGroup.quotientKerEquivOfSurjective
-        (alpogeNativeCyclotomicRecMap e q d)
-        (alpogeNativeCyclotomicRecMap_surjective e q d hq2 hd2 hqd))
+  nativeQuotientGaloisEquiv
+    (L := AlpogeNativeCyclotomic e q d)
+    (G := Multiplicative (AlpogeNativeE0 × AlpogeNativeDyadicH e))
+    (alpogeNativeCyclotomicRecMap e q d)
+    (alpogeNativeCyclotomicRecMap_surjective e q d hq2 hd2 hqd)
 
 set_option maxHeartbeats 1000000 in
 /-- Restriction of a cyclotomic automorphism induces exactly the existing
@@ -108,23 +136,12 @@ theorem alpogeNativeHostGalEquiv_restrict
     (τ : AlpogeNativeCyclotomic e q d ≃ₐ[ℚ] AlpogeNativeCyclotomic e q d) :
     alpogeNativeHostGalEquiv e q d hq2 hd2 hqd
       (τ.restrictNormal (alpogeNativeHostField e q d)) =
-        alpogeNativeRecMap e q d (alpogeNativeCyclotomicGalEquiv e q d τ) := by
-  have h : (IsGalois.normalAutEquivQuotient (K := ℚ) (L := AlpogeNativeCyclotomic e q d)
-      (alpogeNativeCyclotomicRecMap e q d).ker).symm
-        (τ.restrictNormal (alpogeNativeHostField e q d)) =
-      (τ : (AlpogeNativeCyclotomic e q d ≃ₐ[ℚ] AlpogeNativeCyclotomic e q d) ⧸
-        (alpogeNativeCyclotomicRecMap e q d).ker) :=
-    (MulEquiv.symm_apply_eq _).mpr
-      (IsGalois.normalAutEquivQuotient_apply
-        (alpogeNativeCyclotomicRecMap e q d).ker τ).symm
-  change QuotientGroup.quotientKerEquivOfSurjective
+        alpogeNativeRecMap e q d (alpogeNativeCyclotomicGalEquiv e q d τ) :=
+  nativeQuotientGaloisEquiv_restrict
+    (L := AlpogeNativeCyclotomic e q d)
+    (G := Multiplicative (AlpogeNativeE0 × AlpogeNativeDyadicH e))
     (alpogeNativeCyclotomicRecMap e q d)
-    (alpogeNativeCyclotomicRecMap_surjective e q d hq2 hd2 hqd)
-    ((IsGalois.normalAutEquivQuotient (K := ℚ) (L := AlpogeNativeCyclotomic e q d)
-      (alpogeNativeCyclotomicRecMap e q d).ker).symm
-        (τ.restrictNormal (alpogeNativeHostField e q d))) = _
-  rw [h]
-  rfl
+    (alpogeNativeCyclotomicRecMap_surjective e q d hq2 hd2 hqd) τ
 
 /-- The field embedding intertwines the actual Galois quotient with the
 original cyclotomic action. This is the field-level `art_spec` identity. -/

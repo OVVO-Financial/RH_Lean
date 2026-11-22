@@ -247,11 +247,19 @@ theorem exists_finite_integral_harmonic_family
       fun t b k => τ t (IsCMField.complexConj E (s.2 b k))
   let τbar : T → E →+* K := fun t =>
     (τ t).comp (IsCMField.complexConj E : E →+* E)
+  have hτbar_apply (t : T) (x : E) :
+      τbar t x = τ t (IsCMField.complexConj E x) := rfl
+  have hτbar_conj (t : T) (x : E) :
+      τbar t (IsCMField.complexConj E x) = τ t x := by
+    change τ t (IsCMField.complexConj E (IsCMField.complexConj E x)) = τ t x
+    rw [IsCMField.complexConj_apply_apply]
   have hQ : ∀ s, minorProd c c'
       (fun t a k => τbar t (IsCMField.complexConj E (s.1 a k)))
       (fun t b k => τbar t (s.2 b k)) = Q s := by
     intro s
-    simp only [τbar, RingHom.comp_apply, IsCMField.complexConj_apply_apply, Q]
+    exact congrArg₂ (minorProd c c')
+      (funext fun t => funext fun a => funext fun k => hτbar_conj t (s.1 a k))
+      (funext fun t => funext fun b => funext fun k => hτbar_apply t (s.2 b k))
   refine ⟨S.image Q, ?_, ?_, Finset.card_image_le.trans hcard⟩
   · intro P hP
     obtain ⟨s, hs, rfl⟩ := Finset.mem_image.mp hP
@@ -260,22 +268,41 @@ theorem exists_finite_integral_harmonic_family
         (fun t b k => τ t (IsCMField.complexConj E (s.2 b k))) := by
       intro t a b
       have h := congrArg (τbar t) (hef a b)
-      simpa only [hermPairing_apply, τbar, RingHom.comp_apply, map_sum, map_mul,
-        IsCMField.complexConj_apply_apply, map_zero, dotProduct, mul_comm] using h
+      simp only [hermPairing_apply, map_sum, map_mul, map_zero] at h
+      change (∑ k, τ t (s.1 a k) * τ t (IsCMField.complexConj E (s.2 b k))) = 0
+      calc
+        _ = ∑ k, τbar t (s.2 b k) *
+            τbar t (IsCMField.complexConj E (s.1 a k)) := by
+          refine Finset.sum_congr rfl fun k _ => ?_
+          rw [hτbar_conj, hτbar_apply, mul_comm]
+        _ = 0 := h
     have hemb : ∀ σ : K →+* ℂ, ∑ m ∈ (Q s).support, ‖σ ((Q s).coeff m)‖ ≤ B := by
       intro σ
-      rw [← CoeffNorm.l1Norm_map]
-      have h := hnorm (fun t => σ.comp (τbar t)) s hs
-      simpa only [Q, map_minorProd, Function.comp_def, τbar,
-        RingHom.comp_apply, IsCMField.complexConj_apply_apply] using h
+      have hmap : MvPolynomial.map σ (Q s) = minorProd c c'
+          (fun t a k => (σ.comp (τbar t)) (IsCMField.complexConj E (s.1 a k)))
+          (fun t b k => (σ.comp (τbar t)) (s.2 b k)) := by
+        dsimp only [Q]
+        rw [map_minorProd]
+        apply congrArg₂ (minorProd c c')
+        · funext t a k
+          change σ (τ t (s.1 a k)) = σ (τbar t (IsCMField.complexConj E (s.1 a k)))
+          rw [hτbar_conj]
+        · funext t b k
+          change σ (τ t (IsCMField.complexConj E (s.2 b k))) = σ (τbar t (s.2 b k))
+          rw [hτbar_apply]
+      rw [← CoeffNorm.l1Norm_map, hmap]
+      exact hnorm (fun t => σ.comp (τbar t)) s hs
     exact ⟨minorProd_mem_rowHighest c c' hperp,
       minorProd_mem_latticePolynomials τ Λ c c' _ _ he hf,
       minorProd_isHomogeneous c c' _ _, hemb,
       CoeffNorm.allEmbeddingNorm_le_of_l1Bound (Q s) B hB hemb⟩
   · rw [Finset.coe_image]
     have h := hspan K τbar
-    simpa only [hQ, τbar, RingHom.comp_apply,
-      IsCMField.complexConj_apply_apply] using h
+    have hfun : (fun s => minorProd c c'
+        (fun t a k => τbar t (IsCMField.complexConj E (s.1 a k)))
+        (fun t b k => τbar t (s.2 b k))) = Q := funext hQ
+    rw [hfun] at h
+    simpa only [hτbar_apply, IsCMField.complexConj_apply_apply] using h
 
 end RHLean.Geometry.NativeTheta.Paired
 

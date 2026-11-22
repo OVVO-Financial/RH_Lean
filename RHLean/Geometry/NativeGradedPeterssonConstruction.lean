@@ -54,6 +54,7 @@ def nativeGradedWeightedRealize (U : Submodule K Sec)
   map_zero' := by simp
   map_add' f g := by simp [mul_add]
 
+omit [Algebra (𝓞 K) R] [IsScalarTower (𝓞 K) K R] in
 /-- The short regular section and every translated Petersson multiplication
 bound are constructed on the same witness, with the unchanged section cost. -/
 theorem nativeExists_graded_regular_petersson_multiplier

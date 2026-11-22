@@ -1,0 +1,85 @@
+{
+  "upstream_repository": "CocoSgt/riemann-hypothesis-lean",
+  "upstream_commit": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
+  "mathlib_commit": "d13f23b723b8a846827a245b89c10fc7d3f11612",
+  "status": "FINITE_SIGNED_COMPARISON_PORT_HOSTED_VERIFICATION_PENDING",
+  "scope": "Finite divisor/count/slope assembly and strong error-window proof. All original geometric hypotheses remain explicit. No terminal RH theorem, toy completion, or assumed physical top-excess bound is imported.",
+  "files": [
+    {
+      "native_path": "RHLean/Geometry/AlpogeSignedSlope/Formalism/RankGapBounds/MeanBoundSecondForm.lean",
+      "native_sha256": "f34de27106b27c320985c2e8eb54b1aeb1d378f079b216b67f21392a3f17d4cb",
+      "upstream_path": "src/Formalism/RankGapBounds/MeanBoundSecondForm.lean",
+      "upstream_sha256": "3e437728559aa38523941d029f892eeefed7f654d09dd5f4dae6bb0f278a4950",
+      "transformations": [
+        "Namespace/import prefix only; full source proof bodies and statement hypotheses retained."
+      ],
+      "native_lines": 241
+    },
+    {
+      "native_path": "RHLean/Geometry/AlpogeSignedSlope/Formalism/RankGapBounds/RankGapProofs/WeightedMeanData.lean",
+      "native_sha256": "a793a06087c00354e2d0e421d9b15e988f30b432b5801aa8b2d1f1ddc098064f",
+      "upstream_path": "src/Formalism/RankGapBounds/RankGapProofs/WeightedMeanData.lean",
+      "upstream_sha256": "09a43ceb6bb6c35febfb8d280b2e83c8d923733bd9152640789ded33153462f8",
+      "transformations": [
+        "Namespace/import prefix only; full source proof bodies and statement hypotheses retained.",
+        "Declaration-local omission of unused section instances for warning-fatal native builds."
+      ],
+      "native_lines": 239
+    },
+    {
+      "native_path": "RHLean/Geometry/AlpogeSignedSlope/Formalism/SizeWindowBrackets/QuotientSlopeBoundsWith.lean",
+      "native_sha256": "0e319feb469b21e38ad6fbb64bf53eb1aea097290016c93d3fd93c67a868241a",
+      "upstream_path": "src/Formalism/SizeWindowBrackets/QuotientSlopeBoundsWith.lean",
+      "upstream_sha256": "1bec3441ff655a4bf463b13dc317eec649852fe0b93e5d8dc9dd571cf1660857",
+      "transformations": [
+        "Namespace/import prefix only; full source proof bodies and statement hypotheses retained."
+      ],
+      "native_lines": 96
+    },
+    {
+      "native_path": "RHLean/Geometry/AlpogeSignedSlope/Formalism/SizeWindowBrackets/ChainSlopeWindows/LevelOfCongruence.lean",
+      "native_sha256": "360427dc9b08ea32c68d7219649d02bb00cb39098d351f36bed7602abad218da",
+      "upstream_path": "src/Formalism/SizeWindowBrackets/ChainSlopeWindows/LevelOfCongruence.lean",
+      "upstream_sha256": "b28d36820d558a77dd1b3d15fa0d8f13b130081b82f9439cc61bc676a137efd4",
+      "transformations": [
+        "Namespace/import prefix only; full source proof bodies and statement hypotheses retained.",
+        "Drop unused UniformMeanTopLine import and its unrelated toy data; no referenced declaration removed.",
+        "Declaration-local omission of unused section instances for warning-fatal native builds."
+      ],
+      "native_lines": 266
+    },
+    {
+      "native_path": "RHLean/Geometry/AlpogeSignedSlope/Formalism/SizeWindowBrackets/ErrorWindows.lean",
+      "native_sha256": "981417235a86365ed23cad29c1fc1170d520e97b5ae9892a54908078505be444",
+      "upstream_path": "src/Formalism/SizeWindowBrackets/ErrorFormsWeakWindowsFalse.lean",
+      "upstream_sha256": "8b8613a5e3934127fb8b52ba402e658414662f63bff8f0e9fb52bedddd1173f2",
+      "transformations": [
+        "Exact initial scalar definitions through ErrorFormsUnderWindows, including strong ErrWindows.",
+        "Drop unused GrowthBoundGivesRiemannHypothesis import; no terminal theorem or toy model is included."
+      ],
+      "native_lines": 73
+    },
+    {
+      "native_path": "RHLean/Geometry/AlpogeSignedSlope/Formalism/SizeWindowBrackets/ChainSlopeWindows/StrongErrorBound.lean",
+      "native_sha256": "8e513c47d2e1f78302c6d6f15c129b80678d983a9320780dd1647b5e99d8e505",
+      "upstream_path": "src/Formalism/SizeWindowBrackets/ChainSlopeWindows/SubThreeMulLogTwoLe.lean",
+      "upstream_sha256": "fd4d5681f52473477e8e04e8aed6dc14d81bc7daf63b354037a02d585dcdd00a",
+      "transformations": [
+        "Exact scalar proof prefix through error_sizes; source remainder excluded.",
+        "Do not copy source linter suppression; warnings remain fatal."
+      ],
+      "native_lines": 330
+    }
+  ],
+  "native_arithmetic_attachment": {
+    "native_path": "RHLean/Analysis/AlpogeNativeSignedSlopeComparison.lean",
+    "native_sha256": "5a5a844540d712892ce1fa08a3b76b528e0080799b4edb0fd588abbc13d304f5",
+    "native_lines": 226,
+    "construction": "The literal native full ASK, MAIN, heights, widths and CM-type places replace only the arithmetic fields of Data; geometric entries including Ga remain unchanged. The original eleven geometric hypotheses, strong ErrWindows and actual B0/Nc bounds derive the signed physical comparison and its earned-divisor normalization.",
+    "source_declarations": [
+      "src/Development/AutomorphicArithmetic/DedekindLFunctions/LandauTheorems/ChTop.lean: ch_top_main_eq, ch_top",
+      "src/Formalism/SizeWindowBrackets/ChainSlopeWindows/LevelOfCongruence.lean: uniform_bound_statement",
+      "src/Formalism/SizeWindowBrackets/ChainSlopeWindows/SubThreeMulLogTwoLe.lean: error_sizes"
+    ]
+  }
+}

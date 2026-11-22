@@ -215,6 +215,7 @@ lemma sum_Icc_eq_sum_range (f : ℕ → ℂ) (hf : f 0 = 0) (M : ℕ) :
     rw [Finset.sum_Icc_succ_top (by omega), ih]
     exact (Finset.sum_range_succ f (M + 1)).symm
 
+omit [NeZero q] in
 lemma partial_tendsto_G {B : ℝ} (hB : ∀ M, ‖Ap χ M‖ ≤ B) {s : ℂ} (hs : 0 < s.re) :
     Tendsto (fun M : ℕ => ∑ n ∈ Finset.Icc 1 M, χ (n : ZMod q) * (n : ℂ) ^ (-s)) atTop
       (𝓝 (G χ s)) := by

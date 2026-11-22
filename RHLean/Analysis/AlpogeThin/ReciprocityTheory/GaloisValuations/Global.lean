@@ -89,6 +89,7 @@ omit [NumberField F] in
 theorem mem_Ine {A : ValuationSubring (Ω)} {σ : G F Ω} :
     σ ∈ Ine (F := F) A ↔ σ ∈ Inertia (F := F) A := Iff.rfl
 
+omit [NumberField F] in
 theorem Ine_le_Dec (A : ValuationSubring (Ω)) : Ine (F := F) A ≤ Dec (F := F) A := fun _ h => (mem_Ine.mp h).1
 
 omit [NumberField F] in
@@ -268,6 +269,7 @@ theorem eq_of_isPlaceOver {A : ValuationSubring (Ω)} {v v' : HeightOneSpectrum 
     rw [← h x, ← h' x]
   exact IsDedekindDomain.HeightOneSpectrum.ext e
 
+omit [NumberField F] in
 theorem inv_mul_mem_Ine_of_isFrob {A : ValuationSubring (Ω)} {q : ℕ} {σ τ : G F Ω}
     (hσ : IsFrob A q σ) (hτ : IsFrob A q τ) : σ⁻¹ * τ ∈ Ine (F := F) A := by
   obtain ⟨hσD, hσF⟩ := hσ
@@ -281,6 +283,7 @@ theorem inv_mul_mem_Ine_of_isFrob {A : ValuationSubring (Ω)} {q : ℕ} {σ τ :
   rw [e]
   exact lt_of_le_of_lt (Valuation.map_sub _ _ _) (max_lt (hτF x hx) (hσF x hx))
 
+omit [NumberField F] in
 theorem isFrob_mul_of_mem_Ine {A : ValuationSubring (Ω)} {q : ℕ} {σ ι : G F Ω}
     (hσ : IsFrob A q σ) (hι : ι ∈ Ine (F := F) A) : IsFrob A q (σ * ι) := by
   obtain ⟨hσD, hσF⟩ := hσ

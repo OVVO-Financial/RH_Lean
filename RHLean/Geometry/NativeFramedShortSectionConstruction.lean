@@ -75,6 +75,7 @@ def nativeComponentFramedEvaluation
     Rules pts →ₐ[K] ℂ :=
   evalAlgHom pts mapR (Q.point z) (hL.test ℂ (Q.point z))
 
+omit [DecidableEq I] [NumberField K] [Fintype Z] [∀ z, CharZero (F z)] in
 /-- Homogeneous specialization follows from the common chart and its
 actual base-change/torus relations. -/
 theorem nativeComponentFramedEvaluation_eq_zero
@@ -88,6 +89,7 @@ theorem nativeComponentFramedEvaluation_eq_zero
   exact evalAt_eq_zero_of_chart pts mapR borR F genericPoint hL (Q.chart z) hf hz
     (Q.specialize z) (Q.middle z) (Q.point z) (Q.torus z) (Q.map_spec z) (Q.bor_spec z)
 
+set_option backward.isDefEq.respectTransparency false in
 /-- Construct the same short integral section on the reduced-test rule
 algebra, deriving generic faithfulness, weight transformation and component
 specialization from the supplied actual framed atlas. Every norm and rank

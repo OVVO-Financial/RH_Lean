@@ -84,7 +84,7 @@ theorem span_eq_top {n : ℕ} (Λ : Submodule (𝓞 E) (Fin n → E)) (hfg : Λ.
     rw [map_zero, mul_zero]
     exact isIntegral_zero
   have hw0 := eq_zero_of_line Λ hfg w hline
-  exact hf0 (LinearMap.ext fun u => by simp [hw u, hw0, hermPairing_eq, cc])
+  exact hf0 (LinearMap.ext fun u => by simp [hw u, hw0])
 
 end RHLean.Geometry.NativeHermitianLattice
 

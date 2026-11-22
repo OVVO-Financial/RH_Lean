@@ -124,7 +124,6 @@ theorem nativeShortSectionCost_le_exp_of_source_scales
     have hCrank39 := mul_le_mul_of_nonneg_left hz39 hCrank
     have hCrank90 : 0 ≤ Crank * z ^ 9 := mul_nonneg hCrank (pow_nonneg hz0 _)
     dsimp [Cgen]
-    push_cast
     nlinarith [pow_nonneg hz0 9]
   have hLambda0 : 0 ≤ max 1 (d ^ 4 * (r : ℝ) * rd * A) :=
     le_trans (by norm_num) (le_max_left _ _)

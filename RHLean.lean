@@ -76,6 +76,7 @@ import RHLean.Analysis.AlpogeNativeRootDiscriminantDifferent
 import RHLean.Analysis.AlpogeNativeRootOfUnityInertia
 import RHLean.Analysis.AlpogeNativeSharpASKBalance
 import RHLean.Analysis.AlpogeNativeSharpShell
+import RHLean.Analysis.AlpogeNativeSignedSlopeComparison
 import RHLean.Analysis.AlpogeNativeSignedWidthPayment
 import RHLean.Analysis.AlpogeNativeSubgroupProjection
 import RHLean.Analysis.AlpogeNativeThickFreezing
@@ -946,6 +947,12 @@ import RHLean.Geometry.AlpogeAllPlace.Formalism.MeanHeightDescent.MuMaxMinkowski
 import RHLean.Geometry.AlpogeAllPlace.Formalism.QuotientMetricDivisors.Statement
 import RHLean.Geometry.AlpogeAllPlace.Lemmata.GeneralBFactLeftForm.Imports
 import RHLean.Geometry.AlpogeAllPlace.Lemmata.GeneralBFactSecondTail.Imports
+import RHLean.Geometry.AlpogeSignedSlope.Formalism.RankGapBounds.MeanBoundSecondForm
+import RHLean.Geometry.AlpogeSignedSlope.Formalism.RankGapBounds.RankGapProofs.WeightedMeanData
+import RHLean.Geometry.AlpogeSignedSlope.Formalism.SizeWindowBrackets.ChainSlopeWindows.LevelOfCongruence
+import RHLean.Geometry.AlpogeSignedSlope.Formalism.SizeWindowBrackets.ChainSlopeWindows.StrongErrorBound
+import RHLean.Geometry.AlpogeSignedSlope.Formalism.SizeWindowBrackets.ErrorWindows
+import RHLean.Geometry.AlpogeSignedSlope.Formalism.SizeWindowBrackets.QuotientSlopeBoundsWith
 import RHLean.Geometry.CofactorParabolas
 import RHLean.Geometry.ComplexSquareFiber
 import RHLean.Geometry.ComplexSquareRecovery

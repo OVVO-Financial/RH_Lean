@@ -110,6 +110,7 @@ def sumLocalH0TwistLength (D : LData F Ω l) (e : ℤ) : ℕ∞ :=
 def PTCase (F : Type) [Field F] [NumberField F] (l : ℕ) : Prop :=
   l ≠ 2 ∨ InfinitePlace.nrRealPlaces F = 0
 
+set_option backward.isDefEq.respectTransparency false in
 /-- The range of `localH2`, as a submodule of the product of the local `H²`
 groups. Its type spells out the additive-group structure that the module
 quotient needs. The default `Pi.addCommMonoid`, built from
@@ -123,6 +124,7 @@ def localH2Range (D : LData F Ω l) (e : ℤ) :
         fun _ => Submodule.Quotient.module _) :=
   LinearMap.range (localH2 D e)
 
+set_option backward.isDefEq.respectTransparency false in
 def PTCokerAt (D : LData F Ω l) (e : ℤ) : Prop :=
   PTCase F l →
     Module.length ℤ_[l]

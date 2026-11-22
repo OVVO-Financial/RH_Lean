@@ -112,6 +112,7 @@ theorem adjoin_top : Algebra.adjoin E {ζ} = ⊤ := by
   | add x y _ _ hx hy => exact add_mem hx hy
   | mul x y _ _ hx hy => exact mul_mem hx hy
 
+omit [NumberField E] in
 theorem gal_inj : Function.Injective fun σ : L ≃ₐ[E] L => σ ζ := by
   intro σ τ h
   have := AlgHom.ext_of_adjoin_eq_top (adjoin_top hζ E)

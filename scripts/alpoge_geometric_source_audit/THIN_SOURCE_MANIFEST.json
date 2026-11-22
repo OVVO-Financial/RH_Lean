@@ -38,7 +38,7 @@
       "source": "src/Development/AutomorphicArithmetic/CharacterBoxes/RealSplit.lean",
       "source_pin": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
       "source_sha256": "ff804f146035d2657c2893098f82614250024ccefc3d049391930f88abb490d4",
-      "native_sha256": "40f4e3a3934a44d57041883e7100eb43aa70b9c6b7742b75574dfcf32a2c0a06"
+      "native_sha256": "a1b830ce4a9ad37d013c8590f46c6fe048e4435ef9a453e0889e5a4a7fa72055"
     },
     {
       "native": "RHLean/Analysis/AlpogeThin/Development/AutomorphicArithmetic/CharacterBoxes/TwistForm.lean",
@@ -276,7 +276,7 @@
       "source": "src/Development/AutomorphicArithmetic/MeanSquareBounds/pairEx.lean",
       "source_pin": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
       "source_sha256": "8af18345e99c599e185472a0221b84acf33455b19ea1d77fe5bed311236f9890",
-      "native_sha256": "816a632bfa684ca85b71ebc17a2f1411de408994643940b425427902d61065b5"
+      "native_sha256": "b25655186dd46b4141a4ee7276ea4d6370891584c660c7f351247280178452b8"
     },
     {
       "native": "RHLean/Analysis/AlpogeThin/Development/AutomorphicArithmetic/MeanSquareBounds/realCond.lean",
@@ -1298,7 +1298,7 @@
       "source": "src/Formalism/GaloisCohomology/Statement.lean",
       "source_pin": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
       "source_sha256": "67dc5835eb4b337dfbbbf7f0accd1198b59793ae70f5af34421a7c35410d632c",
-      "native_sha256": "db09726327c2d1a9f2bfa2b25e308494433af2fc77ef99e09fd7776c031e5c2b"
+      "native_sha256": "cc52c11e89c85417ecece172bc374228c4db7e62c8447f2f48e4482ad418fcd2"
     },
     {
       "native": "RHLean/Analysis/AlpogeThin/Formalism/HalfLinks/Statement.lean",
@@ -1340,7 +1340,7 @@
       "source": "src/Formalism/LFunctionBounds/LFunctionBoundsProofs/LFunctionEqGOfOneLt.lean",
       "source_pin": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
       "source_sha256": "a0de79a9a1b6321a3241295dbd5125083ea6ab0172c8789f798c3413ec2007cb",
-      "native_sha256": "5864ff56c05d41076c77a060dab26d03a997a64e0608b385b294665089d85015"
+      "native_sha256": "e599fdf6d9d5c5346a546e607a2006705f29d2660ae1d85e210fc8da048c606e"
     },
     {
       "native": "RHLean/Analysis/AlpogeThin/Formalism/LFunctionBounds/LFunctionBoundsProofs/LPartialSum.lean",
@@ -2516,7 +2516,7 @@
       "source": "src/ReciprocityTheory/GaloisValuations/Global.lean",
       "source_pin": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
       "source_sha256": "c8e9465c22e48ca68c4e2cfec74c1f9407d8c471b2eb5e2440f11b910a6bfbd6",
-      "native_sha256": "cd491fd9183b7ded4ec311085c63274c9ccf9ed8f25d046fd42c47f42131d61b"
+      "native_sha256": "a52cf60d5726498ce70e4e22d7faa6e205e62cf40b964e2b1e23042a56ebfb59"
     },
     {
       "native": "RHLean/Analysis/AlpogeThin/ReciprocityTheory/GaloisValuations/GlobalA.lean",
@@ -2616,7 +2616,7 @@
     "RHLean/Analysis/AlpogeThin.lean": "a758d62ca23ec24da0e7696b3ce26ccfa5ac4bc7561167dfa29539fddba9356f",
     "RHLean/Analysis/AlpogeThin/NativePrincipalThin.lean": "852128582446a93b9ee64e577e547879ed37de1e3314f786e83e377aaf6a6d2f",
     "RHLean/Analysis/AlpogeThin/NativeCftThin.lean": "259efbcb8423c5a8946860fed85704759dcd669dcb64877c88866747306c76fd",
-    "research/ALPOGE_GEOMETRIC_CONSTRUCTION_CLOSURE_AUDIT_20261122.lean": "03071898d718893604d5fe125a2baa22914dc785c5d86f7d316aaa31e429b9d2",
+    "research/ALPOGE_GEOMETRIC_CONSTRUCTION_CLOSURE_AUDIT_20261122.lean": "a58ae6e6804e89a425a97b9b680d8043e15035b1c30173c4941231cb2b4f6bd0",
     "RHLean/Analysis/AlpogeNativeReciprocitySurjective.lean": "7b7475d9f665fe3302391c4a776e1c5c0d1d0911df01520048e14883c7532681",
     "RHLean/Analysis/AlpogeNativeDyadicHostSize.lean": "b7d67fcb714d4d1cd4a4656905bbe7d3452dc5edbe9fc1bf6bb59af41793fff3",
     "RHLean/Analysis/AlpogeThin/NativeDyadicPayment.lean": "ff35b626752db9b31c28dc8879b8cb6ba5a890d595dc6dbcfae2f1ff33ffcc47",
@@ -2625,10 +2625,10 @@
     "RHLean/Analysis/AlpogeThin/NativeDyadicCostWindows.lean": "fc284219427bcd2269b900b9864d2fa71ffb6d7fdb696bfe1116999e888eb9d0",
     "RHLean/Analysis/AlpogeThin/NativeDyadicHostWindows.lean": "c218d96c6ecdfa63c9139f1e6f4e5915f71dba85d0da200ab318eb0a2dad1b25",
     "RHLean/Analysis/AlpogeThin/NativeConstructedDyadicGzPayment.lean": "07d93eefece597b5eeb58af56ad98c3fb81c49d9dc03f6b6f07ab3c7492328b0",
-    "RHLean/Analysis/AlpogeNativeCyclotomicHost.lean": "f443df48613b990c48b33158c723d525e3e48061590b78bdb23493dc8e6a6226",
+    "RHLean/Analysis/AlpogeNativeCyclotomicHost.lean": "7ab3f0f2e82dec258fc2f462fd04c176ef6aa72ca1f5a89408274f6866448986",
     "RHLean/Analysis/AlpogeThin/NativeDyadicChiField.lean": "e3d55fc1f4e46bc3f8d21613e5255a9f875d6387ee892520b5b32f64346c02e4",
     "RHLean/Analysis/AlpogeNativeQuadraticRoot.lean": "ffc24a2d2ef0dfa9eceb1910a3d01066fc2cd5482e36d1300c52a97263019192",
-    "RHLean/Analysis/AlpogeThin/NativeDyadicFrame.lean": "1fa89b894c2eaa4c8639d901e1c79e32f54d2c95dc1cfb051ddd07a0cda09f53",
+    "RHLean/Analysis/AlpogeThin/NativeDyadicFrame.lean": "2013ea45a0ad684120e4813bb425c8817fe58415774a903fa9cdd5fe89f88253",
     "RHLean/Analysis/AlpogeThin/NativeDyadicHostRaw.lean": "d9f65d0eaa2c3934d1a8e1e8678c7b171681b1b69919881c54540ee7184bb848",
     "RHLean/Analysis/AlpogeNativeIntegralQuadraticRoot.lean": "4d063022db16f41440d4d202a318d38dd853a52064beef26bd6ed8ba541958bc",
     "RHLean/Analysis/AlpogeNativePrimeLift.lean": "2d99491be1641417a1bc41c4b3baad4d6aa82011d5213316151213e21028ac26",
@@ -2636,7 +2636,7 @@
     "RHLean/Analysis/AlpogeNativeHostPrimes.lean": "9cbe3b0200aa5133a537dcf20ede968341bab71822009d5746c762eaa79c31d1",
     "RHLean/Analysis/AlpogeThin/NativeDyadicHostPrimes.lean": "3cc618cc1b3f2872ea6b2431c57036d5476d73525fcd6180ed35d1eadd9cf3cc",
     "RHLean/Analysis/AlpogeThin/NativeDyadicHostSideConditions.lean": "e90ff0c27287847c5c4f36847cfb076d335b1d4140448412fd1db58cca4582b9",
-    "RHLean/Analysis/AlpogeNativeCMUnramified.lean": "0b656cb39916474170e25fa2437ba0d6bd1381f639cec0c19bd5e43a7d52bffd",
+    "RHLean/Analysis/AlpogeNativeCMUnramified.lean": "fa1f266f8eb3ee2fe30e5306329ca0970bb278564bd86c44c15e5821c236adbf",
     "RHLean/Analysis/AlpogeNativePrimeDecomposition.lean": "8e3bea6a061a1dae9c0f453500213f71666daeacd5099702823013e4988afe84",
     "RHLean/Analysis/AlpogeThin/NativeDyadicHostDecomposition.lean": "91e68b576d58b5a073fd274e875dd6514acd1434fbb9db58154c63fbc10ae12e",
     "RHLean/Analysis/AlpogeNativeCMPrimeSplitting.lean": "4ed85652fb21f132cb392fbb8631c44d20b9a49d1bcc40b25b8082130600e191",
@@ -2648,7 +2648,7 @@
     "RHLean/Analysis/AlpogeNativeQuadraticSplitting.lean": "760da83523dea9dd6ab169b6bbfd37aeda14f45030f5b883ca337004bc3c482c",
     "RHLean/Analysis/AlpogeNativeRootDiscriminantArithmetic.lean": "caccda647880ddc9a9ab88f5accdcc8e893be0dcd09665bf38b89f89acb25b54",
     "RHLean/Analysis/AlpogeNativeRootDiscriminantBounds.lean": "d0b47ee382e24628a7ccdde3327bb61164f23c2b7f65f6c7d7143a86353f2c9f",
-    "RHLean/Analysis/AlpogeNativeRootDiscriminantDifferent.lean": "389023577fa43b40f8f1707dd5e3d9831066961500af38b51d87b39e8de55a9d",
+    "RHLean/Analysis/AlpogeNativeRootDiscriminantDifferent.lean": "dc14b8fc25487087dee475a6efa5f0e7a0053bfa21c7cd627017e56dba1232ef",
     "RHLean/Analysis/AlpogeNativeRootOfUnityInertia.lean": "1db2174c8a55a7248104c2795c382d43dfb31988d4b2e203d9e2f6045dd5156b",
     "RHLean/Analysis/AlpogeThin/NativeDyadicHostCore.lean": "b5282418eb6db5ba61f96622bccc7c896bab5c84b45c4bcc5cff0a18b27ed089",
     "RHLean/Analysis/AlpogeThin/NativeDyadicHostDer.lean": "dda04bba6282f298eba3a6c73b87d9643cef7366814abf43bb2044def2fb1650",
@@ -2689,7 +2689,8 @@
     "Repair exact e1fc20b hosted diagnostics without weakening gates: 11 errors across 5 files and 86 owned warnings (native/targeted identical). Actual reciprocity CRT map domains now retain the named conductor; port APIs, dependent quotient and regular-descent coercion/reindexing repaired. New kernel fixed field, Galois/degree/conjugation/CM and principal IsChiField construction use the same native modulus and map. Ideal inertia/Frobenius and actual theta-family closure remain explicit. Next hosted verification pending.",
     "Repair exact 07f5549 hosted feedback: both native and targeted reported 14 errors and 49 owned warnings. The 23-file source patch repairs 10 errors/48 warnings without changing declaration inventory or gates; the native host logarithm cast and graded point/generic determinant scope repairs address the remainder. Construct original raw host and its CoprimeFifteen/PsQ/Exact fields, integral quadratic elements, and genuine all-prime inertia/Frobenius correspondence to existing native hostData. Hosted compilation remains pending.",
     "Exact 940460d hosted native and targeted builds reported identical 7 errors and 26 owned warnings. The scoped 12-file source repair preserves the actual cohomological cokernel by elaborating its range first and specifying the quotient ambient module; all source warning repairs retain assumptions and enabled gates. Native coefficient APIs, the atlas maximal-ideal instance, conductor logarithm normalization and short-section cost normalization repair the remaining diagnostics. Complete actual HostDer and full harmonic-polynomial generation are source-written with independent mathematical/static review; next hosted compile pending.",
-    "Exact-735 partial hosted errors/warnings: repair original quotient, dyadic frame and cyclotomic inference/transport, preserve the actual field and all theorem conclusions; exact API aliases and unused instance/simp cleanup. External bbcc8ca compatibility edits retained. No coercivity interface or new geometric premise introduced."
+    "Exact-735 partial hosted errors/warnings: repair original quotient, dyadic frame and cyclotomic inference/transport, preserve the actual field and all theorem conclusions; exact API aliases and unused instance/simp cleanup. External bbcc8ca compatibility edits retained. No coercivity interface or new geometric premise introduced.",
+    "Exact-46fb310 complete hosted diagnostics: preserve contributor changes; repair quotient instances and generic Galois composition, dyadic transports, one-based TFAE indexing, CM conjugation, cast normalization and warning-fatal cleanup. Existing concrete constructions and all theorem conclusions retained; no heartbeat increase or new geometric premise. Next hosted build pending."
   ],
   "native_cost_payment_provenance": [
     {
@@ -2740,19 +2741,18 @@
     }
   ],
   "latest_hosted_feedback": {
-    "head": "735a85c0c2e64a723bcdc08ba59a4259ad6ed176",
-    "native_run_id": 45066710198,
-    "native_job_id": 137344395909,
-    "targeted_run_id": 45066710194,
-    "targeted_job_id": 137344394881,
-    "native_partial_errors": 21,
-    "native_partial_warnings": 88,
-    "targeted_partial_errors": 41,
-    "targeted_partial_warnings": 101,
-    "run_conclusion": "cancelled during compilation after an external branch advance",
-    "complete_diagnostic_inventory": false,
-    "preserved_external_parent": "bbcc8cabafc5766db4f1dad977b7a7345d51aa72",
-    "status": "PARTIAL_LOG_SOURCE_REPAIRS_PREPARED_HOSTED_VERIFICATION_PENDING"
+    "head": "46fb310c6e22478ae2a2cc1795ed8793acc14d5c",
+    "native_run_id": 45070010686,
+    "native_job_id": 137354713398,
+    "targeted_run_id": 45070010715,
+    "targeted_job_id": 137354728367,
+    "native_errors": 44,
+    "native_warnings": 36,
+    "targeted_errors": 44,
+    "targeted_warnings": 36,
+    "run_conclusion": "failure",
+    "complete_diagnostic_inventory": true,
+    "status": "COMPLETE_FAILURE_REPAIRS_PREPARED_HOSTED_VERIFICATION_PENDING"
   },
   "native_raw_host_provenance": {
     "status": "HOSTED_NATIVE_COMPILATION_PENDING",
@@ -3195,6 +3195,21 @@
       "observed_owned_warnings": 26,
       "targeted_only_diagnostics": 0,
       "status": "SOURCE_REPAIRED_NEXT_HOSTED_COMPILE_PENDING"
+    },
+    {
+      "head": "735a85c0c2e64a723bcdc08ba59a4259ad6ed176",
+      "native_run_id": 45066710198,
+      "native_job_id": 137344395909,
+      "targeted_run_id": 45066710194,
+      "targeted_job_id": 137344394881,
+      "native_partial_errors": 21,
+      "native_partial_warnings": 88,
+      "targeted_partial_errors": 41,
+      "targeted_partial_warnings": 101,
+      "run_conclusion": "cancelled during compilation after an external branch advance",
+      "complete_diagnostic_inventory": false,
+      "preserved_external_parent": "bbcc8cabafc5766db4f1dad977b7a7345d51aa72",
+      "status": "PARTIAL_LOG_SOURCE_REPAIRS_PREPARED_HOSTED_VERIFICATION_PENDING"
     }
   ]
 }

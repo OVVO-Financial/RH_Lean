@@ -117,7 +117,7 @@ theorem casimir_rows [DecidableEq σ] (z : Fin p × Fin n → σ) (hz : Function
   · intro a b hab
     rw [rowOp_apply]
     exact ((rowAdd_invariant_iff (fun k => z (a, k)) (fun k => z (b, k))
-      (fun k l e => hab.ne (congrArg Prod.fst (hz e))) P).out 1 2).1 (hinv a b hab)
+      (fun k l e => hab.ne (congrArg Prod.fst (hz e))) P).out 2 3).1 (hinv a b hab)
 
 theorem sum_filter_pad (hp : p ≤ n) (a : Fin p → ℕ) (i : ℕ) :
     ∑ k ∈ Finset.univ.filter (fun k : Fin n => (k : ℕ) < i),
@@ -281,13 +281,13 @@ theorem exists_eq_mul_prod_minors [DecidableEq σ] (z : Fin p × Fin n → σ)
     by_contra h0
     exact hv i k hk ((mem_vars_iff_mem_support _).2 ⟨m, hm, Finsupp.mem_support_iff.2 h0⟩)
   · have h₁ := ((rowAdd_invariant_iff (fun k => z (i, k)) (fun k => z (j, k))
-      (fun k l e => hij.ne (congrArg Prod.fst (hz e))) P).out 1 2).1 (hinv i j hij)
+      (fun k l e => hij.ne (congrArg Prod.fst (hz e))) P).out 2 3).1 (hinv i j hij)
     refine ((rowAdd_invariant_iff (fun k => z (i, e k)) (fun k => z (j, e k))
-      (fun k l e => hij.ne (congrArg Prod.fst (hz e))) P).out 2 1).1 (Eq.trans ?_ h₁)
+      (fun k l e => hij.ne (congrArg Prod.fst (hz e))) P).out 3 2).1 (Eq.trans ?_ h₁)
     refine Fintype.sum_of_injective e he _ _ (fun k hk => ?_) fun _ => rfl
     rw [pderiv_eq_zero_of_notMem_vars (hv j k hk), mul_zero]
   · exact ((rowAdd_invariant_iff (fun i => z (i, e k)) (fun i => z (i, e l))
-      (fun i j e => hkl.ne (he (congrArg Prod.snd (hz e)))) P).out 2 1).1
+      (fun i j e => hkl.ne (he (congrArg Prod.snd (hz e)))) P).out 3 2).1
       ((colOp_apply _ _ _ _).symm.trans (hcol k l hkl))
 
 end HighestUnique

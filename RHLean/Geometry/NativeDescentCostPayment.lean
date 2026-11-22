@@ -20,6 +20,87 @@ noncomputable section
 
 namespace RHLean.Geometry
 
+/-- The original size regime pays the full logarithmic collective bill already
+at `b`, before the descent consumer's allowance `2*b`. -/
+theorem nativeDescent_collectiveLog_le {q C z b : ℝ}
+    (hC : 0 ≤ C) (hqz : Real.log q ≤ 45 * z ^ 2)
+    (hz : 2 * C + 200 ≤ z) (hb : z ^ 12 ≤ b) :
+    3 * Real.log q + 2 * C * z ^ 9 ≤ b := by
+  have hz1 : 1 ≤ z := by linarith
+  have h29 : z ^ 2 ≤ z ^ 9 := pow_le_pow_right₀ hz1 (by norm_num)
+  have h1012 : z ^ 10 ≤ z ^ 12 := pow_le_pow_right₀ hz1 (by norm_num)
+  have hz9 : 0 ≤ z ^ 9 := pow_nonneg (by linarith) _
+  calc
+    3 * Real.log q + 2 * C * z ^ 9 ≤ 135 * z ^ 2 + 2 * C * z ^ 9 := by
+      linarith
+    _ ≤ (135 + 2 * C) * z ^ 9 := by nlinarith
+    _ ≤ z * z ^ 9 := mul_le_mul_of_nonneg_right (by linarith) hz9
+    _ = z ^ 10 := by ring
+    _ ≤ z ^ 12 := h1012
+    _ ≤ b := hb
+
+/-- The unused logarithmic height allowance is at least the original `b`.
+This is a reserve for the same forward maps, not an inverse-norm bound. -/
+theorem nativeDescent_heightReserve_ge {q C z b : ℝ}
+    (hC : 0 ≤ C) (hqz : Real.log q ≤ 45 * z ^ 2)
+    (hz : 2 * C + 200 ≤ z) (hb : z ^ 12 ≤ b) :
+    b ≤ 2 * b - (3 * Real.log q + 2 * C * z ^ 9) := by
+  have hcost := nativeDescent_collectiveLog_le hC hqz hz hb
+  linarith
+
+/-- Exact identification of the unnormalized collective square-norm bill
+with its logarithm; the cubic map count is retained. -/
+theorem nativeDescent_collectiveNorm_eq_exp {q C z : ℝ} (hq : 0 < q) :
+    q ^ 3 * Real.exp (C * z ^ 9) ^ 2 =
+      Real.exp (3 * Real.log q + 2 * C * z ^ 9) := by
+  have hq3 : q ^ 3 = Real.exp (3 * Real.log q) := by
+    rw [← Real.exp_log (pow_pos hq 3), Real.log_pow]
+  have he : Real.exp (C * z ^ 9) ^ 2 = Real.exp (2 * C * z ^ 9) := by
+    rw [sq, ← Real.exp_add]
+    congr 1
+    ring
+  rw [hq3, he, ← Real.exp_add]
+
+/-- The stronger collective bound supplied by the original size hypotheses. -/
+theorem nativeDescent_collectiveNormBudget_strong {q C z b : ℝ}
+    (hq : 0 < q) (hC : 0 ≤ C) (hqz : Real.log q ≤ 45 * z ^ 2)
+    (hz : 2 * C + 200 ≤ z) (hb : z ^ 12 ≤ b) :
+    q ^ 3 * Real.exp (C * z ^ 9) ^ 2 ≤ Real.exp b := by
+  rw [nativeDescent_collectiveNorm_eq_exp hq]
+  exact Real.exp_le_exp.mpr (nativeDescent_collectiveLog_le hC hqz hz hb)
+
+/-- An additional positive squared forward-map factor is paid by the exact
+remaining height allowance. This statement does not assert that an unrelated
+inverse or observable has that factor. -/
+theorem nativeDescent_collectiveNormBudget_withFactor {q C z b F : ℝ}
+    (hq : 0 < q) (hF : 0 < F)
+    (hlogF : Real.log F ≤ 2 * b - (3 * Real.log q + 2 * C * z ^ 9)) :
+    q ^ 3 * Real.exp (C * z ^ 9) ^ 2 * F ≤ Real.exp (2 * b) := by
+  rw [nativeDescent_collectiveNorm_eq_exp hq, ← Real.exp_log hF, ← Real.exp_add]
+  exact Real.exp_le_exp.mpr (by linarith)
+
+/-- The original size regime makes `log F ≤ b` a sufficient factor budget. -/
+theorem nativeDescent_collectiveNormBudget_withFactor_of_log_le_b
+    {q C z b F : ℝ}
+    (hq : 0 < q) (hC : 0 ≤ C) (hqz : Real.log q ≤ 45 * z ^ 2)
+    (hz : 2 * C + 200 ≤ z) (hb : z ^ 12 ≤ b)
+    (hF : 0 < F) (hlogF : Real.log F ≤ b) :
+    q ^ 3 * Real.exp (C * z ^ 9) ^ 2 * F ≤ Real.exp (2 * b) :=
+  nativeDescent_collectiveNormBudget_withFactor hq hF
+    (hlogF.trans (nativeDescent_heightReserve_ge hC hqz hz hb))
+
+/-- A `4^k` squared forward cost fits when `k*log 4 ≤ b`; this retains
+the natural order `k` and the original map-count and multiplier costs. -/
+theorem nativeDescent_collectiveNormBudget_fourPow {q C z b : ℝ} (k : ℕ)
+    (hq : 0 < q) (hC : 0 ≤ C) (hqz : Real.log q ≤ 45 * z ^ 2)
+    (hz : 2 * C + 200 ≤ z) (hb : z ^ 12 ≤ b)
+    (hk : (k : ℝ) * Real.log 4 ≤ b) :
+    q ^ 3 * Real.exp (C * z ^ 9) ^ 2 * (4 : ℝ) ^ k ≤ Real.exp (2 * b) := by
+  apply nativeDescent_collectiveNormBudget_withFactor_of_log_le_b
+    hq hC hqz hz hb (pow_pos (by norm_num) k)
+  rw [Real.log_pow]
+  exact hk
+
 /-- The actual `q^3 B^2` collective map bill, with `B = exp(C z^9)`, is
 absorbed by `exp(2b)` in the original size regime. No map-count factor is
 discarded. The natural map count can be cast to the real variable `q`. -/
@@ -59,6 +140,34 @@ theorem nativeDescent_jointEnergy_le {q C z b E J : ℝ}
     J ≤ Real.exp (2 * b) * E :=
   hJ.trans (mul_le_mul_of_nonneg_right
     (nativeDescent_collectiveNormBudget hq hC hqz hz hb) hE)
+
+/-- Apply a paid additional factor to the same joint energy already bounded
+by the constructed trace maps. No new bound on the source norm is assumed. -/
+theorem nativeDescent_scaledJointEnergy_le {q C z b F E J : ℝ}
+    (hq : 0 < q) (hC : 0 ≤ C) (hqz : Real.log q ≤ 45 * z ^ 2)
+    (hz : 2 * C + 200 ≤ z) (hb : z ^ 12 ≤ b)
+    (hF : 0 < F) (hlogF : Real.log F ≤ b) (hE : 0 ≤ E)
+    (hJ : J ≤ q ^ 3 * Real.exp (C * z ^ 9) ^ 2 * E) :
+    F * J ≤ Real.exp (2 * b) * E := by
+  calc
+    F * J ≤ F * (q ^ 3 * Real.exp (C * z ^ 9) ^ 2 * E) :=
+      mul_le_mul_of_nonneg_left hJ hF.le
+    _ = (q ^ 3 * Real.exp (C * z ^ 9) ^ 2 * F) * E := by ring
+    _ ≤ Real.exp (2 * b) * E := mul_le_mul_of_nonneg_right
+      (nativeDescent_collectiveNormBudget_withFactor_of_log_le_b
+        hq hC hqz hz hb hF hlogF) hE
+
+/-- The same source-energy payment for an additional `4^k` squared cost. -/
+theorem nativeDescent_scaledJointEnergy_fourPow_le {q C z b E J : ℝ} (k : ℕ)
+    (hq : 0 < q) (hC : 0 ≤ C) (hqz : Real.log q ≤ 45 * z ^ 2)
+    (hz : 2 * C + 200 ≤ z) (hb : z ^ 12 ≤ b)
+    (hk : (k : ℝ) * Real.log 4 ≤ b) (hE : 0 ≤ E)
+    (hJ : J ≤ q ^ 3 * Real.exp (C * z ^ 9) ^ 2 * E) :
+    (4 : ℝ) ^ k * J ≤ Real.exp (2 * b) * E := by
+  apply nativeDescent_scaledJointEnergy_le hq hC hqz hz hb
+    (pow_pos (by norm_num) k) ?_ hE hJ
+  rw [Real.log_pow]
+  exact hk
 
 /-- Numeric consequence of the actual determinant/slope descent comparison.
 `a` is the source rank, `N` is the rank of the joint target, and `height` is

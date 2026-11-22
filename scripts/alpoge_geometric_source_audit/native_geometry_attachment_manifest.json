@@ -98,7 +98,7 @@
     },
     {
       "native_path": "RHLean/Geometry/NativeGradedPeterssonConstruction.lean",
-      "native_sha256": "ce9ea3c3117c899c36873db08bc56a150ede971cca3f5e9a172eceff75eca76d",
+      "native_sha256": "fd8f7b1c1095dbbeb08f4d3aaf04ddbc038758bf9a5a3e0d158d8a66b6078cfc",
       "declarations": [
         "RHLean.Geometry.nativeExists_graded_regular_petersson_multiplier",
         "RHLean.Geometry.nativeAllPlaceDescent_of_constructed_petersson_section"
@@ -114,7 +114,7 @@
     },
     {
       "native_path": "RHLean/Geometry/NativeSectionCostAbsorption.lean",
-      "native_sha256": "77d8f7ac7b25edfcb3f87b09f7552060a52a1fa19e0c33f18001f5b3a28d246b",
+      "native_sha256": "8ccd034d170abce5e65ffa8298d97a1865eb24767fdd9450400f82d7b2c89cd3",
       "declarations": [
         "RHLean.Geometry.nativeShortSectionCost_le_exp_of_source_scales"
       ],
@@ -165,7 +165,7 @@
     },
     {
       "native_path": "RHLean/Geometry/NativeFramedShortSectionConstruction.lean",
-      "native_sha256": "a32f1b2fe682b9526236ea3b5d73a0bbea49a41578d88824f8c4870746c46e02",
+      "native_sha256": "b8d58d6def02c30d98e9b8a23a98e7691ce39ee74cc2348a508ffd10ee594628",
       "declarations": [
         "RHLean.Geometry.nativeComponentFramedEvaluation_eq_zero",
         "RHLean.Geometry.nativeExists_framed_short_integral_injective_section"
@@ -304,7 +304,7 @@
     },
     {
       "native_path": "RHLean/Geometry/NativeHermitianLatticeSpan.lean",
-      "native_sha256": "a36445a65e0a65c844724a7274717e3b7fb6f8ce048365b4918336440f1404a1",
+      "native_sha256": "73453154fd0edb88dfcb6cd188ac239c4639b603e0c9d9d30a02ec92cab90f5a",
       "declarations": [
         "RHLean.Geometry.NativeHermitianLattice.span_eq_top"
       ],
@@ -334,7 +334,7 @@
     },
     {
       "native_path": "RHLean/Geometry/NativeHermitianTraceMinimum.lean",
-      "native_sha256": "55d62360724416ac170934cf1dd724e7773ce6b557a51d6826b9eaffb0a2bf81",
+      "native_sha256": "51f266822505586b5107aff93b7b272fdcf5e83eb3aba400aa696cddb9503e55",
       "declarations": [
         "RHLean.Geometry.NativeHermitianLattice.trace_dual_min"
       ],
@@ -436,7 +436,7 @@
     },
     {
       "native_path": "RHLean/Geometry/NativeThetaColumnLie.lean",
-      "native_sha256": "d71add9a4725d01ff42ae0c00bacadef14886949adf5ec03e94b96ccd58a7505",
+      "native_sha256": "d803d0581342b793c4fe0ca0cd0b139203e32cf6b3ff37530b24732db65c3165",
       "declarations": [
         "RHLean.Geometry.NativeTheta.Paired.colLie",
         "RHLean.Geometry.NativeTheta.Paired.colLie_mem_of_colAct_mem",
@@ -458,7 +458,7 @@
     },
     {
       "native_path": "RHLean/Geometry/NativeThetaFiniteFamily.lean",
-      "native_sha256": "e0a68754c6645cf2403caf84f5df788b4d60f05870bd27f4a932cc683393369f",
+      "native_sha256": "5cb1dc101e36f5953d4660522c49127fd52656f1cb6fea799fbcae5aab3aa6e3",
       "declarations": [
         "RHLean.Geometry.NativeTheta.Paired.exists_integral_perpendicular_grid",
         "RHLean.Geometry.NativeTheta.Paired.exists_finite_integral_harmonic_family"
@@ -541,7 +541,7 @@
     },
     {
       "native_path": "RHLean/Geometry/NativeThetaHighestMinor.lean",
-      "native_sha256": "84138b835f99586c1804edf17fcbedc0009dcefdfefc0994a88c14457ced233f",
+      "native_sha256": "6907c3163e993053e016277660126ffb5cb77253d77a7202847057d8d2c37f30",
       "declarations": [
         "RHLean.Geometry.NativeTheta.Paired.HighestUnique.weight_eq_mixedWeight",
         "RHLean.Geometry.NativeTheta.Paired.exists_eq_smul_basePoly"
@@ -631,7 +631,7 @@
     },
     {
       "native_path": "RHLean/Geometry/NativeThetaLetterFamily.lean",
-      "native_sha256": "00489052290336821693c9510056aa8639a6b5b053888e29dd8c5921e4d1d904",
+      "native_sha256": "56c096ac382f47e8043bee3abe94c7408aad809bd4d434091906994c8ff7c83b",
       "declarations": [
         "RHLean.Geometry.NativeTheta.Paired.exists_finite_integral_HHa_family"
       ],
@@ -745,7 +745,7 @@
     },
     {
       "native_path": "RHLean/Geometry/NativeThetaRowDeterminants.lean",
-      "native_sha256": "52938916ad937c0b1de11acfa2f7834764505ef3993c07d6140d057d3faa8a22",
+      "native_sha256": "26ac3e164562eee4e743c0437f47fd6b2ac810a76c7201a835cffafa7d05545b",
       "declarations": [
         "RHLean.Geometry.NativeTheta.Paired.casimir_value_strict",
         "RHLean.Geometry.NativeTheta.rowAdd_invariant_iff",
@@ -822,7 +822,7 @@
     },
     {
       "native_path": "RHLean/Geometry/NativeThetaSpanningFamily.lean",
-      "native_sha256": "f1e1745f2abff6a721882862de378b1ee79369e9feb1e6680ee98f1076e4af13",
+      "native_sha256": "c90e8f4990ba060290d5ae6ffdfdf25d547d2f5d69388deca8acd298d7970f9c",
       "declarations": [
         "RHLean.Geometry.NativeTheta.Paired.injective_liftedCMEmbeddings",
         "RHLean.Geometry.NativeTheta.Paired.exists_short_integral_HHa_spanning_family"
