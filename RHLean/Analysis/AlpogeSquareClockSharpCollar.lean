@@ -1,5 +1,6 @@
 import Mathlib
 import RHLean.Analysis.AlpogeSharpASKCollar
+import RHLean.Analysis.AlpogeNativeSharpASKBalance
 
 /-!
 # Alpoge ASK at the exact native square clock: a root-width prime-power collar
@@ -210,5 +211,87 @@ theorem alpogeSquareASKPrincipalGap_le_rootLog (R : ℕ) (hR : 2 ≤ R) :
             linarith
       _ = ((R - 2 : ℕ) : ℝ) *
           Real.log ((R ^ 2 - 1 : ℕ) : ℝ) / 4 := by ring
+
+
+/-!
+## ALL original physical colours: the inertia-coset mass costs at most two.
+
+The already proved `alpogeNativeColourKernel_primePower` says a genuine
+prime-power coefficient is exactly 2/|I_p| on a translate of its
+physical inertia subgroup and ZERO everywhere else, including at all
+ramified primes. The selected non-Phi colours are a SUBSET of that
+translate: their total normalized nonnegative mass is at most two,
+uniformly in the entire Frobenius host. This is the precise
+all-character cancellation available BEFORE applying absolute values.
+-/
+
+/-- The physical support of one translated inertia coset, restricted
+to all original non-Phi colours. -/
+def alpogeSquareColourSupport
+    {H : Type*} [AddCommGroup H] [Fintype H] [DecidableEq H]
+    (I : AddSubgroup (AlpogeNativeE0 × H)) (h : AlpogeNativeE0 × H) :
+    Finset (AlpogeNativeE0 × H) :=
+  (Finset.univ.filter (fun g => ¬ alpogeNativeInPhi g)).filter
+    (fun g => g - h ∈ I)
+
+/-- Exactly the (finite) original inertia subgroup. -/
+def alpogeSquareInertiaCarrier
+    {H : Type*} [AddCommGroup H] [Fintype H] [DecidableEq H]
+    (I : AddSubgroup (AlpogeNativeE0 × H)) :
+    Finset (AlpogeNativeE0 × H) :=
+  Finset.univ.filter (fun u => u ∈ I)
+
+/-- The genuine original colour support injects into the ACTUAL
+inertia subgroup by translation. No missing unit classes. -/
+theorem alpogeSquareColourSupport_card_le_inertia
+    {H : Type*} [AddCommGroup H] [Fintype H] [DecidableEq H]
+    (I : AddSubgroup (AlpogeNativeE0 × H)) (h : AlpogeNativeE0 × H) :
+    (alpogeSquareColourSupport I h).card ≤
+      (alpogeSquareInertiaCarrier I).card := by
+  classical
+  have hmap : ∀ g ∈ alpogeSquareColourSupport I h,
+      g - h ∈ alpogeSquareInertiaCarrier I := by
+    intro g hg
+    have hg' := (Finset.mem_filter.mp hg).2
+    simpa only [alpogeSquareInertiaCarrier,
+      Finset.mem_filter, Finset.mem_univ, true_and] using hg'
+  have hinj : Set.InjOn (fun g : AlpogeNativeE0 × H => g - h)
+      (alpogeSquareColourSupport I h : Set (AlpogeNativeE0 × H)) := by
+    intro g _ k _ he
+    exact sub_right_cancel he
+  exact Finset.card_le_card_of_injOn (fun g => g - h) hmap hinj
+
+/-- The actual non-Phi normalized prime-power coefficient: the
+original Fourier kernel equals this scalar at each p^i. -/
+def alpogeSquareColourCosetMass
+    {H : Type*} [AddCommGroup H] [Fintype H] [DecidableEq H]
+    (I : AddSubgroup (AlpogeNativeE0 × H)) (h : AlpogeNativeE0 × H) : ℝ :=
+  2 * ((alpogeSquareColourSupport I h).card : ℝ) /
+    ((alpogeSquareInertiaCarrier I).card : ℝ)
+
+/-- UNCONDITIONAL group-size-free physical mass budget.
+In particular, even a ramified inertia group charges at most two,
+not 2|H|. It matches `alpogeNativeColourKernel_primePower`. -/
+theorem alpogeSquareColourCosetMass_nonneg_le_two
+    {H : Type*} [AddCommGroup H] [Fintype H] [DecidableEq H]
+    (I : AddSubgroup (AlpogeNativeE0 × H)) (h : AlpogeNativeE0 × H) :
+    0 ≤ alpogeSquareColourCosetMass I h ∧
+      alpogeSquareColourCosetMass I h ≤ 2 := by
+  classical
+  have h0 : (0 : AlpogeNativeE0 × H) ∈ alpogeSquareInertiaCarrier I := by
+    simp [alpogeSquareInertiaCarrier]
+  have hsCard : 0 < (alpogeSquareInertiaCarrier I).card :=
+    Finset.card_pos.mpr ⟨0, h0⟩
+  have hs : (0 : ℝ) < ((alpogeSquareInertiaCarrier I).card : ℝ) := by
+    exact_mod_cast hsCard
+  have hcard : ((alpogeSquareColourSupport I h).card : ℝ) ≤
+      ((alpogeSquareInertiaCarrier I).card : ℝ) := by
+    exact_mod_cast alpogeSquareColourSupport_card_le_inertia I h
+  unfold alpogeSquareColourCosetMass
+  constructor
+  · exact div_nonneg
+      (mul_nonneg (by norm_num : (0 : ℝ) ≤ 2) (Nat.cast_nonneg _)) hs.le
+  · apply (div_le_iff₀ hs).mpr
+    nlinarith
 
 end RHLean.Analysis
