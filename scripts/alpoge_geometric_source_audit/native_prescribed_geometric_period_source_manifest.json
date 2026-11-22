@@ -18,7 +18,7 @@
       ],
       "native_path": "RHLean/Geometry/NativeGeometricPeriods.lean",
       "initial_source_reconstruction_sha256": "d8b331bc2848fe7d7abd6af02dfeb793fb0c85e5194317a6d12223ab84d7135e",
-      "native_sha256": "6b3f8bc42ca4047f1a5724b9d6e204bc8104ad5a3ecba6fa94d7bb4b2f818cb3",
+      "native_sha256": "832e490bb638ac7b9a2715807d7b786965e4df21395d398f1ee2a7c4f65cfec7",
       "native_lines": 206
     },
     {
@@ -42,8 +42,8 @@
       ],
       "native_path": "RHLean/Geometry/NativePeriodTypeCoordinates.lean",
       "initial_source_reconstruction_sha256": "4fdba0e2ecc68d7d70d89117d4aa000c29636f4a7562db93bcea4372d66a33c3",
-      "native_sha256": "442f70c4bd78a4998bf7241b88bd2cdc7964864d0cb38bf2c224149b2fe4b234",
-      "native_lines": 217
+      "native_sha256": "9fdfe9c235c40761c20ae42bc1b26bb0bea4561d468a6bc576f0e10809f7db19",
+      "native_lines": 219
     },
     {
       "guards": [

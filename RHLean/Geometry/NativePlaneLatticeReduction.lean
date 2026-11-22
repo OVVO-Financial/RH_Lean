@@ -48,9 +48,11 @@ theorem plane_lattice_reduction_step (e₁ e₂ : ℂ)
     · rw [Submodule.span_le]
       intro x hx
       simp only [Set.mem_insert_iff, Set.mem_singleton_iff] at hx
-      rcases hx with rfl | rfl
-      · exact Submodule.subset_span (by simp)
-      · have hmem : (e₂ - k • e₁) + k • e₁ ∈
+      rcases hx with hx | hx
+      · rw [hx]
+        exact Submodule.subset_span (by simp)
+      · rw [hx]
+        have hmem : (e₂ - k • e₁) + k • e₁ ∈
             Submodule.span ℤ {e₂ - k • e₁, e₁} :=
           Submodule.add_mem _ (Submodule.subset_span (by simp))
             (Submodule.smul_mem _ _ (Submodule.subset_span (by simp)))

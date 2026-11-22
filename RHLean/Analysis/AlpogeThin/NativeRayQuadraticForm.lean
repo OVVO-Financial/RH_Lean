@@ -61,13 +61,13 @@ theorem exists_qForm (f₁ f₂ x₀ : ℂ) (N : ℝ) (hN : N ≠ 0) (hA : ((sta
   have e1 : ((starRingEnd ℂ) f₁ * f₂).re = f₁.re * f₂.re + f₁.im * f₂.im := by
     simp [Complex.mul_re]
   have e2 : ((starRingEnd ℂ) f₁ * f₂).im = f₁.re * f₂.im - f₁.im * f₂.re := by
-    simp [Complex.mul_im]
-    ring
+    simp only [Complex.mul_im, Complex.conj_re, Complex.conj_im, neg_mul,
+      sub_eq_add_neg]
   have e3 : ((starRingEnd ℂ) f₁ * x₀).re = f₁.re * x₀.re + f₁.im * x₀.im := by
     simp [Complex.mul_re]
   have e4 : ((starRingEnd ℂ) f₁ * x₀).im = f₁.re * x₀.im - f₁.im * x₀.re := by
-    simp [Complex.mul_im]
-    ring
+    simp only [Complex.mul_im, Complex.conj_re, Complex.conj_im, neg_mul,
+      sub_eq_add_neg]
   have e5 : ‖f₁‖ ^ 2 = f₁.re ^ 2 + f₁.im ^ 2 := by
     rw [Complex.sq_norm, Complex.normSq_apply]
     ring
@@ -154,8 +154,8 @@ theorem exists_basis_im {d : ℕ} (hp : d.Prime) (hd : d % 4 = 3) {x : K} (hx : 
       simp
     · right
       rw [hφw, h]
-      simp
-      ring
+      simp only [Complex.div_ofNat_im, Complex.add_im, Complex.one_im,
+        Complex.neg_im, Complex.I_mul_im, Complex.ofReal_re, zero_add, neg_div]
   have himne : (φ (w : K)).im ≠ 0 := by
     rcases him with h | h <;> rw [h] <;> [exact (by positivity); exact neg_ne_zero.mpr (by positivity)]
   have hli : LinearIndependent ℤ ![(1 : 𝓞 K), w] := by

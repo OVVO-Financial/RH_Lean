@@ -217,7 +217,8 @@ theorem nativeThinColourTerm_norm_le
     _ = (4 * (Fintype.card H : ℝ)) * a * θ := by
       simp only [Finset.sum_const, Finset.card_univ, nsmul_eq_mul,
         AddChar.card_eq, Fintype.card_prod]
-      norm_num [AlpogeNativeE0, Nat.cast_mul] <;> ring
+      norm_num [AlpogeNativeE0, Nat.cast_mul]
+      ring
 
 /-- Bound the literal complement, retaining its actual number of colours.
 All characters and original widths occur in the source on the left. -/
@@ -312,9 +313,16 @@ theorem nativeThinColourCount (T2 : Finset H) (u t : H) :
         (fun g : AlpogeNativeE0 × H => ¬ alpogeNativeInPhi g)) =
       ((Finset.univ : Finset AlpogeNativeE0).filter (fun e => e.1 ≠ 0)) ×ˢ
         (Finset.univ : Finset H) := by
-    ext g
-    simp only [Finset.mem_filter, Finset.mem_univ, Finset.mem_product,
-      true_and, and_true, alpogeNativeInPhi]
+    apply Finset.ext
+    intro g
+    constructor
+    · intro hg
+      exact Finset.mem_product.mpr
+        ⟨Finset.mem_filter.mpr ⟨Finset.mem_univ _, (Finset.mem_filter.mp hg).2⟩,
+          Finset.mem_univ _⟩
+    · intro hg
+      exact Finset.mem_filter.mpr
+        ⟨Finset.mem_univ _, (Finset.mem_filter.mp (Finset.mem_product.mp hg).1).2⟩
   have htwo : ((Finset.univ : Finset AlpogeNativeE0).filter
       (fun e => e.1 ≠ 0)).card = 2 := by decide
   have hcard : (Finset.univ.filter

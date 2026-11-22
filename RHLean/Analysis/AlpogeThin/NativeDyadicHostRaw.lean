@@ -91,7 +91,7 @@ private theorem nativeDyadicUnitsMap_eq_one
     (hu : (u : ZMod N).val ≡ 1 [MOD c]) : ZMod.unitsMap hc u = 1 := by
   apply Units.ext
   rw [ZMod.unitsMap_val, ZMod.cast_eq_val, Units.val_one]
-  exact (ZMod.natCast_eq_natCast_iff _ _ _).mpr hu
+  simpa only [Nat.cast_one] using (ZMod.natCast_eq_natCast_iff _ _ _).mpr hu
 
 private theorem nativeDyadicTransport_eq_one
     (e q d : ℕ) [Fact q.Prime] [Fact d.Prime]
@@ -124,7 +124,7 @@ theorem nativeDyadicArt_d
   rcases Int.units_eq_one_or
       (alpogeNativeLegU _ d (alpogeNativeD_dvd_hostN e q d) u) with hd | hd
   · left
-    simpa only [hd] using hshape
+    simpa only [hd, Prod.mk_one_one] using hshape
   · right
     simpa only [hd, Frame.iod] using hshape
 
@@ -172,7 +172,8 @@ theorem nativeDyadicFieldGal_sqrtD
       ((((nativeDyadicFieldGal e q d hq2 hd2 hqd σ).1.2 : ℤˣ) : ℤ) :
         alpogeNativeHostField e q d) * alpogeNativeSqrtD e q d := by
   rw [nativeDyadicFieldGal_apply, nativeDyadicFullHostEquiv_chD_val]
-  exact alpogeNativeSqrtD_galois_apply e q d hq2 hd2 hqd σ
+  simpa only [Int.cast_ite, Int.cast_one, Int.cast_neg] using
+    alpogeNativeSqrtD_galois_apply e q d hq2 hd2 hqd σ
 
 theorem nativeDyadicFieldGal_art_spec
     (e q d : ℕ) [Fact q.Prime] [Fact d.Prime]
@@ -279,8 +280,10 @@ theorem nativeDyadicHostRaw_kerChi
     change (1 : DirichletCharacter ℂ 1) (a : ZMod 1) = 1
     rw [show (a : ZMod 1) = 1 from Subsingleton.elim _ _, map_one]
   have hmap : nativeDyadicArt e q d (ZMod.unitOfCoprime a ha) = 1 ↔
-      alpogeNativeRecMap e q d (ZMod.unitOfCoprime a ha) = 1 :=
-    (nativeDyadicFullHostEquiv e).map_eq_one_iff
+      alpogeNativeRecMap e q d (ZMod.unitOfCoprime a ha) = 1 := by
+    change nativeDyadicFullHostEquiv e
+      (alpogeNativeRecMap e q d (ZMod.unitOfCoprime a ha)) = 1 ↔ _
+    exact (nativeDyadicFullHostEquiv e).map_eq_one_iff
   simpa only [hprincipal, true_and] using
     hmap.trans (nativeDyadicRecMap_unitOfCoprime_eq_one_iff e q d a ha)
 

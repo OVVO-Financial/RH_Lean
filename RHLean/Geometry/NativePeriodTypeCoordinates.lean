@@ -188,11 +188,13 @@ def negativeFiberEquiv (N q : ℕ) (hq : q ≤ N)
         apply Prod.ext
         · exact Subtype.ext ((rawType_eq_of_not_mem Ψ N q τ hτ s.1).mp s.2).1.symm
         · apply Fin.ext
+          change N - q + ((s.1.2 : ℕ) - (N - q)) = (s.1.2 : ℕ)
           have h1 := ((rawType_eq_of_not_mem Ψ N q τ hτ s.1).mp s.2).2
-          omega
+          exact Nat.add_sub_of_le h1
       right_inv := fun i => by
         apply Fin.ext
-        omega }
+        change N - q + (i : ℕ) - (N - q) = (i : ℕ)
+        exact Nat.add_sub_cancel_left _ _ }
 
 include hΨ in
 theorem typeFn_card_of_mem (N q : ℕ) (τ : E →+* ℂ) (hτ : τ ∈ Ψ) :
