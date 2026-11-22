@@ -1,3 +1,11 @@
+## 2026-11-22 TOP USER OVERRIDE — ALPOGE_VIOLE_TRACTABLE_RH_V1: TRACTABLE + NEW MATHEMATICS
+
+All seven existing agents follow [the new short-proof/contribution charter](docs/RHLEAN_ALPOGE_VIOLE_TRACTABLE_PROOF_SEVEN_AGENTS_20261122.md) after human-reviewed merge. Extract an independently PROVED minimal signed arithmetic-geometric coercivity theorem in native Viole square-block Euler/VF/NNS coordinates from Alpöge's actual theta multiplicity/host/height/covolume, yielding BOTH an understandable short RH proof and a reusable independently useful result. Require T tractability, C contribution, P unconditional proof. Keep full physical ASK-MAIN=De, Gm versus Gz, all prime powers, widths, Frobenius/inertia, exact signed commutators and complete CostWindows. R_V square clock ≠ Alpöge R_A/m_A; 2^R operator norm and (R-1) telescope are not geometric payments. The RH-strength estimate remains OPEN; neither this instruction change nor a conditional interface proves RH.
+
+At next REAL post-human-merge invocation read live main, this charter and actually published reports; write tractability_ack=ALPOGE_VIOLE_TRACTABLE_RH_V1, exact source/PR/CI, complete cost ledger, separate T/C/P status and first unpaid quantitative lemma to the OWN report. Preserve all valid source results, six report-only agent roles, Lean's existing non-main PR access, last-actual-report continuity with no date cutoff, safe report publishing, the multi-daily schedule only if actually configured, and human-only merge. GitHub edits do not launch agents, modify saved Studio instructions or change grants.
+
+---
+
 ## 2026-11-21 USER PRIORITY OVERRIDE — ALPOGE NATIVE RHLEAN CERTIFICATE; RETIRE OAI 7/8
 
 **ACTIVE ROUTE: Alpöge's mechanism reconstructed entirely in RH_Lean's own arithmetic.**
