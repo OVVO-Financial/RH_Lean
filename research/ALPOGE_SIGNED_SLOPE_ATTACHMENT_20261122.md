@@ -1,7 +1,7 @@
 # Native signed slope attachment and compiler repair checkpoint
 
 22 November 2026. Current repair parent:
-`f3d43c0c0d7fcd8cd440f07705b02e5210a30574`.
+`291e21aa788aaa2af9238b835dbd24a76d1b3717`.
 The preceding `baddf5a` signed-comparison checkpoint preserved contributor head
 `46fb310c6e22478ae2a2cc1795ed8793acc14d5c`.
 
@@ -19,13 +19,15 @@ finite-adelic norm element now supplies the original Gram congruence, and
 the same lattice carries an explicit positive real complex structure with
 the two required trace identities. All thirteen fields of the original
 geometric `Datum` are assembled with its literal host filter and original
-sign-selected form.
+sign-selected form. The same datum now has the full period construction,
+and the arithmetic side has an actual finite ray-class quotient and
+ideal-count logarithmic convolution.
 It does not prove unconditional cancellation or supply the remaining
 CM moduli, theta-cover, actual section-germ realization, or compatible
 geometric and signed-arithmetic comparison inputs.
 Hosted compilation of the next complete repair batch is pending. Both completed
-builds of parent `f3d43c0` failed with identical inventories of 12 errors and
-6 warnings, including cascading diagnostics.
+builds of parent `291e21a` failed with identical inventories of 5 errors and
+1 warning, including cascading diagnostics.
 
 The source remains
 `CocoSgt/riemann-hypothesis-lean@7cbf7a0c32fca1badf05931879a37c3f8a2b03b4`.
@@ -175,14 +177,24 @@ and validation gates are retained. The downstream domain, isometry and
 CMData modules remained blocked in that run; their absence from its error
 list is not a clean compilation receipt.
 
+Both completed `291e21a` builds again agree exactly: native run
+`45081587446`, job `137390725008`, and targeted run `45081587408`, job
+`137390724785`, report 5 errors and 1 warning. The quadratic-root,
+integral-root and complex-coordinate modules now have clean `Built`
+receipts. The remaining failures concern PageN's local prime instance,
+the newly reached second-coordinate quadratic sign root, and one explicit
+additive subtraction identity in the host-prime proof. These are repaired
+using the same witnesses and formulas. Later host-dependent constructions
+still await a completed build; that diagnostic inventory does not certify them.
+
 The earlier `46fb310` failures (44 errors and 36 warnings in each build),
 `baddf5a` failures (53 errors and 25 warnings), and their repairs remain in
 the manifest history. Separate documentation,
 inventory, atlas, export, cold-only and effective-resonance checks passed on
 these preceding heads; that does not make their failed Lean builds successful.
 
-The root import manifest includes 1,493 native modules. The targeted
-construction audit has 266 standard-axiom guards, including the new finite
+The root import manifest includes 1,498 native modules. The targeted
+construction audit has 285 standard-axiom guards, including the new finite
 source, scalar, lattice and evaluated-family results. Hosted warning-fatal
 compilation remains the acceptance gate. Local Lean/Lake execution is not
 used.
@@ -454,8 +466,9 @@ The endpoint chooses one actual half-different ideal before all admissible
 multiplicities are literally those already established. It assumes no
 separate polarization, positive domain, rank equality, or completed datum.
 
-This supplies the lattice input to the moduli construction. Actual levels,
-scheme-valued `SAB`/`Obj`/`Moduli`, period maps, charts, theta sections, and
+This supplies the lattice input to the moduli construction. Section 12
+constructs the periods on this same datum. Actual levels,
+scheme-valued `SAB`/`Obj`/`Moduli`, charts, theta sections, and
 their metric/evaluation identifications remain distinct construction tasks.
 The source's moduli-existence theorem uses actual abelian-scheme laws,
 the cube theorem and theta uniformization; a completed lattice datum does
@@ -503,19 +516,115 @@ qualitative unbounded-ray-prime property nor an empty-`TT` size model supplies
 the physical window. These are source-level findings, not a claim that the
 full prime-window dependency chain has been reconstructed or kernel-checked.
 
-## 12. Acceptance status and next construction
+## 12. Actual periods on the same datum
+
+The new period construction retains the source's entire `IsTypeFn` and
+`IsPeriod` predicates. The map composes the proved real tensor equivalence
+with conjugation in exactly the negative coordinates and one finite
+enumeration. That same enumeration defines the coefficient type. Explicit
+fiber equivalences prove its multiplicities \(k+j-1\) and \(m-j\) for the
+original host-root filter, and the actual coefficient action intertwines
+with this type.
+
+Conjugating the negative coordinates converts the previously constructed
+\(J=\operatorname{diag}(i\,\mathrm{sgn})\) to ordinary multiplication by
+\(i\). The integer basis maps to a real basis, so the period map is
+injective and its range is discrete and spans the full real vector space.
+For the transported alternating form \(B\), the proof constructs
+
+\[
+h(z,w)=B(iz,w)+iB(z,w).
+\]
+
+This is the source's first-linear Hermitian convention. Its real diagonal
+is positive by the already-proved \(\operatorname{EF}(Jx,x)>0\), and its
+imaginary part on the periods equals the same integer form exactly.
+The native endpoint supplies every compatibility and chooses one
+half-different before all ranks and signatures. No period, positivity,
+discreteness, full-span or completed-moduli premise is introduced.
+
+These are actual period data for the fixed lattice. The later abelian-scheme
+uniformization, levels, moduli, theta sections and their metric
+identifications remain separate obligations; a weak geometric placeholder
+does not supply them.
+
+## 13. Actual finite ray classes and ideal coefficients
+
+`NativeRayClassData.lean` constructs the original full `RayData` from
+nonzero integral ideals coprime to the same nonzero modulus. The equivalence
+relation retains the original nonzero multipliers congruent to one modulo
+that modulus. Its actual class-group/residue-ring injection proves
+finiteness and the quantitative bound
+
+\[
+\#G\le h_K M^{[K:\mathbb Q]},
+\]
+
+including the degree-two specialization \(\#G\le h_KM^2\). The construction
+proves invertibility of every quotient class, the principal ray criterion,
+and equality with the ordinary class number at modulus one.
+
+`NativeRayIdealCounts.lean` defines `aRay` as the cardinality of actual
+nonzero ideal-norm fibers and `lamRay` as the finite sum of the ideal
+prime-power logarithms on those fibers. The actual divisor/product
+bijection proves
+
+\[
+a_g(n)\log n=\sum_h\sum_{uv=n}\lambda_h(u)a_{g/h}(v).
+\]
+
+All positive prime powers and the exact class orientation are retained.
+The zero/one normalizations and nonnegativity are also proved. No target
+count, theta estimate, `LFam`, or short-window prime input is used to define
+these coefficients. The next arithmetic link is the actual ideal-fiber
+correspondence with a shifted integral plane lattice, followed by its
+quantitative count/theta bounds and the original common-threshold prime
+supplier. The class-number/discriminant estimate remains separate.
+
+The exact source declarations, hashes, current API references, independent
+review and eight selected axiom guards are recorded in
+[`native_ray_class_count_source_manifest.json`](../scripts/alpoge_geometric_source_audit/native_ray_class_count_source_manifest.json).
+
+## 14. Independent realization audit
+
+The [realization-boundary audit](ALPOGE_REALIZATION_BOUNDARY_AUDIT_20261122.md)
+records the user's challenge against the pinned source. It confirms
+`anyGeometry := True`, copied analytic seed data, reflexive `MjAre` and
+`LamAre`, and a weak geometric graft with zero section maps. It also
+confirms that `setDiv` assigns the scalar height label to `hExpl6`.
+None of those constructions is counted as the missing independent native
+section/metric realization.
+
+The audit distinguishes those facts from the stronger conclusion that
+the terminal analytic theorem is merely a self-equality. The source's
+displayed `EveryCharacter` and zeta-zero statements are actual analytic
+propositions. Its separate `ReadL`, `RowsT.InGeo`, measured `htMap`, metric
+transport and height-bound obligations are not discharged by the displayed
+reflexive equalities. Some interfaces still admit zero maps or coordinate
+copies, so their attachment to the actual nondegenerate data must be
+checked; their names alone do not establish completion.
+
+The native comparison keeps `Ga` and the geometric entries unchanged and
+retains all eleven finite inputs. The new lattice, period and ray-ideal
+constructions supply concrete prerequisites, while actual section maps,
+all-place metric identifications, measured-height bounds, signed losses,
+strong error windows and uniform analytic attachment remain explicit.
+The audit makes no verdict on the full upstream theorem's validity and
+no claim of unconditional native cancellation.
+
+## 15. Acceptance status and next construction
 
 ```text
 ROLE=Lean Verification
 SOURCE=complete native signed ASK-MAIN and same selected-host Gz mean
-WITNESS=actual CM host, prescribed W_j, literal AA*L0, perfect integral form, adelic isometry, CMData, full Datum and same-host norm element
+WITNESS=actual CM host, prescribed W_j, literal AA*L0, perfect integral form, adelic isometry, CMData, full Datum, period map, same-host norm element and actual ray-ideal coefficients
 MAP_PAYMENT=forward reserve implemented; actual geometric map suppliers remain open
 NORMALIZER=Q=T*m*b*Delta/2 with actual TT/T2 positivity and all three costs
 SIGNED_RECOMBINATION=physical signed gap retained; no inverse recovery weight used
 FIRST_UNPAID=actual compatible levels/moduli/sections and the metric/signed-loss suppliers
 EVIDENCE=source reconstruction and independent static review; next hosted build pending
 T_C_P=tractability progressed; mathematical novelty and unconditional proof not established
-INDEPENDENT_APPLICATION=conditional finite slope stability and perfect integral lattice construction
-FORMAL_STATUS=both parent f3d43c0 builds failed with 12 errors/6 warnings; complete next gate pending
-NEXT=verify the repaired batch and construct the actual period/level/moduli inputs and compatible prime supplier
+INDEPENDENT_APPLICATION=conditional finite slope stability, perfect integral lattice/period construction and actual ray-class cardinality/convolution
+FORMAL_STATUS=both parent 291e21a builds failed with 5 errors/1 warning; complete next gate pending
+NEXT=verify repaired batch and construct actual level/moduli inputs and compatible prime supplier, retaining the independent metric realization boundary
 ```

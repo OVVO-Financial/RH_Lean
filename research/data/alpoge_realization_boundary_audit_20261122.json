@@ -1,0 +1,950 @@
+{
+  "status": "SOURCE_INSPECTED_AND_NATIVE_BOUNDARY_REVIEW; NOT_GLOBAL_KERNEL_OR_REALIZATION_CLOSURE",
+  "date": "2026-11-22",
+  "upstream": {
+    "repository": "CocoSgt/riemann-hypothesis-lean",
+    "commit": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4"
+  },
+  "native_base_commit": "291e21aa788aaa2af9238b835dbd24a76d1b3717",
+  "report": {
+    "path": "research/ALPOGE_REALIZATION_BOUNDARY_AUDIT_20261122.md",
+    "sha256": "3548a09cd09dbd8b0668586d2dfb5a552823daf0f6fa0fd77f6ef12bac7bcc18"
+  },
+  "source_files": [
+    {
+      "id": "S01",
+      "relative_path": "src/Development/AbelianVarietyTheory/Definitions/AutomorphicMembership/OverIx.lean",
+      "sha256": "b9ba78e313f6c7a601d87a1672429122d7f976a0afdd8bae8e4efed68a7215df",
+      "declarations": [
+        {
+          "declaration_as_written": "GeoP",
+          "line": 13
+        },
+        {
+          "declaration_as_written": "geoOf",
+          "line": 15
+        },
+        {
+          "declaration_as_written": "anyGeometry",
+          "line": 18
+        },
+        {
+          "declaration_as_written": "OverIx",
+          "line": 28
+        },
+        {
+          "declaration_as_written": "LamAre",
+          "line": 32
+        },
+        {
+          "declaration_as_written": "OAt",
+          "line": 43
+        },
+        {
+          "declaration_as_written": "OX",
+          "line": 48
+        }
+      ]
+    },
+    {
+      "id": "S02",
+      "relative_path": "src/Development/AbelianVarietyTheory/Definitions/AutomorphicMembership/NotGeoClFalse.lean",
+      "sha256": "54dbd62bbacc19db2294f1c41fd28663522acf498a732f9328ed2086b08b9e38",
+      "declarations": [
+        {
+          "declaration_as_written": "coreS",
+          "line": 10
+        },
+        {
+          "declaration_as_written": "GeoCl",
+          "line": 20
+        },
+        {
+          "declaration_as_written": "geoCl",
+          "line": 25
+        },
+        {
+          "declaration_as_written": "geoCl_of",
+          "line": 27
+        }
+      ]
+    },
+    {
+      "id": "S03",
+      "relative_path": "src/Development/AbelianVarietyTheory/Definitions/AutomorphicMembership/ThetaChr.lean",
+      "sha256": "5f3ceefcb362546e864206ccef7dc7489c95316c04dabe77b1c08caffcdda31e",
+      "declarations": [
+        {
+          "declaration_as_written": "SExt.none",
+          "line": 21
+        },
+        {
+          "declaration_as_written": "Prm",
+          "line": 25
+        },
+        {
+          "declaration_as_written": "Prm.s",
+          "line": 33
+        },
+        {
+          "declaration_as_written": "BuiltE",
+          "line": 84
+        },
+        {
+          "declaration_as_written": "GoodE",
+          "line": 86
+        },
+        {
+          "declaration_as_written": "MemberE",
+          "line": 101
+        },
+        {
+          "declaration_as_written": "RecPinE",
+          "line": 107
+        },
+        {
+          "declaration_as_written": "prmR",
+          "line": 116
+        }
+      ]
+    },
+    {
+      "id": "S04",
+      "relative_path": "src/Development/AbelianVarietyTheory/Proofs/IwasawaDecomposition/TupPinsOfMuIsW.lean",
+      "sha256": "2680131c9999c7f44b5d30b410b7206e1d674f1b40165a7c58ec65700c708998",
+      "declarations": [
+        {
+          "declaration_as_written": "nonempty_ix",
+          "line": 29
+        },
+        {
+          "declaration_as_written": "labOf",
+          "line": 34
+        },
+        {
+          "declaration_as_written": "logLamOf",
+          "line": 44
+        },
+        {
+          "declaration_as_written": "lamAre_of_eq",
+          "line": 50
+        },
+        {
+          "declaration_as_written": "x0",
+          "line": 56
+        },
+        {
+          "declaration_as_written": "geoOver_stages",
+          "line": 154
+        },
+        {
+          "declaration_as_written": "mjAre_x0",
+          "line": 173
+        },
+        {
+          "declaration_as_written": "exists_divT",
+          "line": 177
+        },
+        {
+          "declaration_as_written": "lamAre_x0",
+          "line": 193
+        },
+        {
+          "declaration_as_written": "divEx_prov",
+          "line": 203
+        },
+        {
+          "declaration_as_written": "divEx_of_ox",
+          "line": 210
+        }
+      ]
+    },
+    {
+      "id": "S05",
+      "relative_path": "src/Development/AbelianVarietyTheory/Definitions/AutomorphicMembership/MapSeqIndAll.lean",
+      "sha256": "1bbc8e575e33b7644687bfd1f5a46378673404e92a8197c5db2b942765403f08",
+      "declarations": [
+        {
+          "declaration_as_written": "mjLat",
+          "line": 133
+        },
+        {
+          "declaration_as_written": "mjH",
+          "line": 136
+        },
+        {
+          "declaration_as_written": "jM",
+          "line": 138
+        },
+        {
+          "declaration_as_written": "mjH_good",
+          "line": 152
+        },
+        {
+          "declaration_as_written": "jM_basis",
+          "line": 157
+        },
+        {
+          "declaration_as_written": "jM_lat",
+          "line": 167
+        },
+        {
+          "declaration_as_written": "mjLat_sub",
+          "line": 175
+        },
+        {
+          "declaration_as_written": "jM_metric",
+          "line": 180
+        },
+        {
+          "declaration_as_written": "mjIds",
+          "line": 186
+        },
+        {
+          "declaration_as_written": "mjHTie_of_eq",
+          "line": 189
+        },
+        {
+          "declaration_as_written": "exists_mjHTie",
+          "line": 194
+        },
+        {
+          "declaration_as_written": "withMj",
+          "line": 198
+        }
+      ]
+    },
+    {
+      "id": "S06",
+      "relative_path": "src/Formalism/LocalToGlobal/LatticeGeometry/Inhabited.lean",
+      "sha256": "7a95297aa3205b6d5e033b4352eff0bb406b4cd11cb2e0fac5722c9b4aafde54",
+      "declarations": [
+        {
+          "declaration_as_written": "divXFl",
+          "line": 828
+        },
+        {
+          "declaration_as_written": "tiedX_fl",
+          "line": 867
+        }
+      ]
+    },
+    {
+      "id": "S07",
+      "relative_path": "src/Development/AbelianVarietyTheory/Definitions/AutomorphicMembership/GeoTiedPGraft.lean",
+      "sha256": "fd8ffe4dc4523cfaf349edd06275870a191c65f4a09239671b6957ef135d115c",
+      "declarations": [
+        {
+          "declaration_as_written": "graft",
+          "line": 11
+        },
+        {
+          "declaration_as_written": "Keeps",
+          "line": 23
+        },
+        {
+          "declaration_as_written": "Keeps.mjH",
+          "line": 36
+        },
+        {
+          "declaration_as_written": "Keeps.num",
+          "line": 39
+        },
+        {
+          "declaration_as_written": "GeoOver",
+          "line": 44
+        }
+      ]
+    },
+    {
+      "id": "S08",
+      "relative_path": "src/Formalism/LocalToGlobal/LatticeGeometry/GeoTiedP.lean",
+      "sha256": "0a1ea1663240f2e7e3efa8c1ce5439e5c8327a220fd47b48582f4b832fe65cc2",
+      "declarations": [
+        {
+          "declaration_as_written": "GeoTiedP",
+          "line": 123
+        },
+        {
+          "declaration_as_written": "GeoTiedPL",
+          "line": 129
+        },
+        {
+          "declaration_as_written": "famFlJ",
+          "line": 151
+        },
+        {
+          "declaration_as_written": "levInTie_famFlJ",
+          "line": 172
+        },
+        {
+          "declaration_as_written": "geoTiedP_satisfiable",
+          "line": 178
+        }
+      ]
+    },
+    {
+      "id": "S09",
+      "relative_path": "src/Development/AbelianVarietyTheory/Definitions/AutomorphicMembership/LargeFor.lean",
+      "sha256": "089549d7893cc91fd8ddb4c179fe873dbbb82fcc1a11be972135616e29ff9245",
+      "declarations": [
+        {
+          "declaration_as_written": "KitClass.Ex",
+          "line": 27
+        },
+        {
+          "declaration_as_written": "KitClass.Loc",
+          "line": 30
+        },
+        {
+          "declaration_as_written": "FamOver",
+          "line": 34
+        },
+        {
+          "declaration_as_written": "Reads",
+          "line": 65
+        },
+        {
+          "declaration_as_written": "IsGeoOf",
+          "line": 77
+        }
+      ]
+    },
+    {
+      "id": "S10",
+      "relative_path": "src/Development/AbelianVarietyTheory/Definitions/AutomorphicMembership/NonzeroPlacesOverPrimes.lean",
+      "sha256": "41563ec29f4fd3060f7f34377f50104b0694395d7cff3b48465010be6aebaccc",
+      "declarations": [
+        {
+          "declaration_as_written": "MjAre",
+          "line": 36
+        },
+        {
+          "declaration_as_written": "RowsT",
+          "line": 46
+        },
+        {
+          "declaration_as_written": "ObjT",
+          "line": 63
+        },
+        {
+          "declaration_as_written": "DatGood",
+          "line": 68
+        },
+        {
+          "declaration_as_written": "Lv4",
+          "line": 139
+        }
+      ]
+    },
+    {
+      "id": "S11",
+      "relative_path": "src/Development/AbelianVarietyTheory/Definitions/AutomorphicMembership/FieldValuesMemFixedField.lean",
+      "sha256": "4b61b343c928abb6bdc634b394dd14ec82042b50a64c21939945a7d261863417",
+      "declarations": [
+        {
+          "declaration_as_written": "Dat",
+          "line": 34
+        },
+        {
+          "declaration_as_written": "RowsAre",
+          "line": 61
+        }
+      ]
+    },
+    {
+      "id": "S12",
+      "relative_path": "src/Development/AbelianVarietyTheory/Definitions/AutomorphicMembership/JEvExists.lean",
+      "sha256": "8b6c8f1dedd3488f110834df650d0dca040f17c649b8ea3c8201e9a2b5d82e4b",
+      "declarations": [
+        {
+          "declaration_as_written": "MjTie",
+          "line": 49
+        },
+        {
+          "declaration_as_written": "GeoHalf",
+          "line": 106
+        },
+        {
+          "declaration_as_written": "InGeo",
+          "line": 118
+        }
+      ]
+    },
+    {
+      "id": "S13",
+      "relative_path": "src/Formalism/LocalToGlobal/IndefiniteReal/FWExist.lean",
+      "sha256": "d787f414953e14ead7347d86e3abf66c6ddad0f0f54f17f1693d7b5eb41955ea",
+      "declarations": [
+        {
+          "declaration_as_written": "JEvExists",
+          "line": 415
+        },
+        {
+          "declaration_as_written": "JEvBar",
+          "line": 425
+        },
+        {
+          "declaration_as_written": "DimMatch",
+          "line": 491
+        },
+        {
+          "declaration_as_written": "EvInj",
+          "line": 665
+        },
+        {
+          "declaration_as_written": "JUnif",
+          "line": 710
+        },
+        {
+          "declaration_as_written": "GeoAct",
+          "line": 720
+        },
+        {
+          "declaration_as_written": "LatFull",
+          "line": 722
+        }
+      ]
+    },
+    {
+      "id": "S14",
+      "relative_path": "src/Development/AbelianVarietyTheory/Definitions/AutomorphicMembership/StableIffCarrierEq.lean",
+      "sha256": "78e2633aab1796854588075bf06a25da073137da93b7e6af66fc518da32fa273",
+      "declarations": [
+        {
+          "declaration_as_written": "Read",
+          "line": 115
+        },
+        {
+          "declaration_as_written": "ReadL",
+          "line": 199
+        },
+        {
+          "declaration_as_written": "ReadC",
+          "line": 221
+        }
+      ]
+    },
+    {
+      "id": "S15",
+      "relative_path": "src/Development/AbelianVarietyTheory/Definitions/GlobalTwisting/APerTw.lean",
+      "sha256": "dfb4cb5771746446525133fecef22628a83929053134578cda051311a564488b",
+      "declarations": [
+        {
+          "declaration_as_written": "Hyps",
+          "line": 22
+        }
+      ]
+    },
+    {
+      "id": "S16",
+      "relative_path": "src/Development/AbelianVarietyTheory/Proofs/DivisorProofs/NonemptyHypsOfPublishedUE.lean",
+      "sha256": "5e5b726c75a4cb71c8004b161839d4fc27972ff6aad6aaceebd534e28759e411",
+      "declarations": [
+        {
+          "declaration_as_written": "nonempty_hyps_of_classicalTheoremsUE",
+          "line": 29
+        }
+      ]
+    },
+    {
+      "id": "S17",
+      "relative_path": "src/Formalism/LocalToGlobal/Divisibility/RowSideTie.lean",
+      "sha256": "70be3a1abe2c8178eef543bd00d231af7199a0f69658850d75c1e4ec1c946f3f",
+      "declarations": [
+        {
+          "declaration_as_written": "HLatTie",
+          "line": 18
+        },
+        {
+          "declaration_as_written": "HLat.ofCoord",
+          "line": 26
+        },
+        {
+          "declaration_as_written": "FormsTie",
+          "line": 34
+        },
+        {
+          "declaration_as_written": "OLatTie",
+          "line": 45
+        }
+      ]
+    },
+    {
+      "id": "S18",
+      "relative_path": "src/Formalism/LocalToGlobal/Divisibility/ConstantGeTwentyEight.lean",
+      "sha256": "4713087be5bc51d5a1a642f74ab5336d438e62a895b111be8f706ddcff42be5b",
+      "declarations": [
+        {
+          "declaration_as_written": "DivClausesR",
+          "line": 110
+        },
+        {
+          "declaration_as_written": "height_chain_atR",
+          "line": 122
+        },
+        {
+          "declaration_as_written": "divClausesR_of",
+          "line": 183
+        }
+      ]
+    },
+    {
+      "id": "S19",
+      "relative_path": "src/Formalism/LocalToGlobal/Divisibility/RecBridge.lean",
+      "sha256": "ba20a46a7a5132ecd646b85dfd4ec4df838e818543083930b34d2a11533e962b",
+      "declarations": [
+        {
+          "declaration_as_written": "WordFacts",
+          "line": 127
+        },
+        {
+          "declaration_as_written": "wordFacts_of",
+          "line": 134
+        },
+        {
+          "declaration_as_written": "htMap_le_of_bound",
+          "line": 160
+        },
+        {
+          "declaration_as_written": "wordFacts_of_clauses",
+          "line": 178
+        }
+      ]
+    },
+    {
+      "id": "S20",
+      "relative_path": "src/Development/AbelianVarietyTheory/Definitions/GlobalTwisting/SetUnipotentTranslate.lean",
+      "sha256": "52560bbc51e012b706fc6838bfa75eb15f2cf05f7e6f9ccde98d2d8b5c5c60df",
+      "declarations": [
+        {
+          "declaration_as_written": "setDiv",
+          "lines": [
+            25
+          ]
+        },
+        {
+          "declaration_as_written": "ht",
+          "lines": [
+            379
+          ]
+        },
+        {
+          "declaration_as_written": "pt",
+          "lines": [
+            381
+          ]
+        }
+      ]
+    },
+    {
+      "id": "S21",
+      "relative_path": "src/Formalism/LocalRingCardinality/DataArith.lean",
+      "sha256": "f9cd7b6481f0f48c1d914de7aa3cdb06e8d3548403e803d7f9a4d0e9a5b8e895",
+      "declarations": [
+        {
+          "declaration_as_written": "sFrame",
+          "lines": [
+            131
+          ]
+        },
+        {
+          "declaration_as_written": "DivData",
+          "lines": [
+            139
+          ]
+        }
+      ]
+    },
+    {
+      "id": "S22",
+      "relative_path": "src/Formalism/LocalRingCardinality/KernelPlaceMeanBound.lean",
+      "sha256": "22fdce18696511899e2818b3ea8b2868f97cb810b02b8f9b1fc1cbbd98f120af",
+      "declarations": [
+        {
+          "declaration_as_written": "hExpl6",
+          "lines": [
+            25
+          ]
+        }
+      ]
+    },
+    {
+      "id": "S23",
+      "relative_path": "src/Main.lean",
+      "sha256": "017645ca448f2fd1f6fd5c4c2cb2c6e96e472725be13f6e180ca6e1574360939",
+      "declarations": [
+        {
+          "declaration_as_written": "riemannHypothesis",
+          "lines": [
+            4
+          ]
+        },
+        {
+          "declaration_as_written": "riemannZeta_eq_zero_re",
+          "lines": [
+            6
+          ]
+        }
+      ]
+    },
+    {
+      "id": "S24",
+      "relative_path": "src/Statements.lean",
+      "sha256": "79ef7ca776e42abe1f46caee13ea09bd19f1e2d0b1620d8d5d200258f33b47bf",
+      "declarations": [
+        {
+          "declaration_as_written": "RiemannZetaZerosOnLine",
+          "lines": [
+            3
+          ]
+        },
+        {
+          "declaration_as_written": "DirichletLNonvanishingRightOfHalf",
+          "lines": [
+            6
+          ]
+        }
+      ]
+    },
+    {
+      "id": "S25",
+      "relative_path": "src/Development/AutomorphicArithmetic/CharacterBoxes/EveryCharacter.lean",
+      "sha256": "31f6e49936226cfc3d71b15685347bd2874db0aef384e5cf4fea7d09ba68dc71",
+      "declarations": [
+        {
+          "declaration_as_written": "UpperTheory.EveryCharacter",
+          "lines": [
+            13
+          ]
+        },
+        {
+          "declaration_as_written": "UpperTheory.Top.plugAll",
+          "lines": [
+            16
+          ]
+        }
+      ]
+    },
+    {
+      "id": "S26",
+      "relative_path": "src/Supplements/Kernels/MainTheorems.lean",
+      "sha256": "1e734200b9b6a6d2a968743bd0c433d614bd6606cf538ac6d4f0ff70044dde53",
+      "declarations": [
+        {
+          "declaration_as_written": "allChi",
+          "lines": [
+            7
+          ]
+        },
+        {
+          "declaration_as_written": "rhOfAll",
+          "lines": [
+            9
+          ]
+        }
+      ]
+    },
+    {
+      "id": "S27",
+      "relative_path": "src/Formalism/GammaFactorNonvanishing/CritLine.lean",
+      "sha256": "5b1552ac13442150f6900f37b9b44eff1491fad1bebe2ec07a959eecb9bcfe02",
+      "declarations": [
+        {
+          "declaration_as_written": "Formalism.VW.rh_of_every",
+          "lines": [
+            29
+          ]
+        }
+      ]
+    },
+    {
+      "id": "S28",
+      "relative_path": "src/Development/AutomorphicArithmetic/CharacterBoxes/MainConclusion.lean",
+      "sha256": "a5f71e107087e37b2c598709795b0f56c0a6741cf1e8ab99ee1f97e2fce0fe34",
+      "declarations": [
+        {
+          "declaration_as_written": "UpperTheory.FinalTheorems.everyCharacter_of_row",
+          "lines": [
+            7
+          ]
+        },
+        {
+          "declaration_as_written": "UpperTheory.FinalTheorems.everyCharacter",
+          "lines": [
+            10
+          ]
+        }
+      ]
+    }
+  ],
+  "native_files": [
+    {
+      "id": "N01",
+      "relative_path": "RHLean/Analysis/AlpogeNativeSignedSlopeComparison.lean",
+      "sha256": "3a72d1e5a428eb2bcee15a5cbce021fe24c6666caa33d5edfb225f41be5fb5d5",
+      "declarations": [
+        {
+          "declaration_as_written": "physicalData",
+          "line": 54
+        },
+        {
+          "declaration_as_written": "physicalData_Ga",
+          "line": 65
+        },
+        {
+          "declaration_as_written": "physicalData_main",
+          "line": 70
+        },
+        {
+          "declaration_as_written": "physicalTopExcess_eq_meanGap",
+          "line": 93
+        },
+        {
+          "declaration_as_written": "physicalTopExcess_le_errorTerm",
+          "line": 125
+        },
+        {
+          "declaration_as_written": "physicalTopExcess_div_le_normalizedGeometricCosts",
+          "line": 185
+        }
+      ]
+    },
+    {
+      "id": "N02",
+      "relative_path": "RHLean/Analysis/AlpogeThin/NativeConstructedDyadicSignedSlopePayment.lean",
+      "sha256": "ac2995ff20a8497b0f87bcfe415311f8be8383737904d48c16123780ec2abd10",
+      "declarations": [
+        {
+          "declaration_as_written": "nativeConstructedDyadicSignedSlopePayment",
+          "line": 50
+        }
+      ]
+    },
+    {
+      "id": "N03",
+      "relative_path": "RHLean/Geometry/NativeGeometricDatum.lean",
+      "sha256": "44cf27e2e7807a32b7bec8a8c10dc97d901794b7371a8ce6b3be2f6266e1945f",
+      "declarations": [
+        {
+          "declaration_as_written": "NativeGeometricDatum",
+          "lines": [
+            56
+          ]
+        }
+      ]
+    },
+    {
+      "id": "N04",
+      "relative_path": "RHLean/Geometry/NativePrescribedGeometricDatum.lean",
+      "sha256": "a7c21d5ca68675ddc210e34825c9d7af6e611921c697bec76424721eb2df7e66",
+      "declarations": [
+        {
+          "declaration_as_written": "nativeDyadicHost_exists_prescribedGeometricData",
+          "lines": [
+            314
+          ]
+        }
+      ]
+    },
+    {
+      "id": "N05",
+      "relative_path": "RHLean/Geometry/NativeGeometricPeriods.lean",
+      "sha256": "d8b331bc2848fe7d7abd6af02dfeb793fb0c85e5194317a6d12223ab84d7135e",
+      "declarations": [
+        {
+          "declaration_as_written": "periodOfRealEquiv_isPeriod",
+          "lines": [
+            143
+          ]
+        }
+      ]
+    },
+    {
+      "id": "N06",
+      "relative_path": "RHLean/Geometry/NativePrescribedGeometricPeriod.lean",
+      "sha256": "922fdb244db6d8ade158468618c9470931a784948304f974bfb6dda251123e08",
+      "declarations": [
+        {
+          "declaration_as_written": "nativeDyadicHost_exists_prescribedPeriods",
+          "lines": [
+            201
+          ]
+        }
+      ]
+    },
+    {
+      "id": "N07",
+      "relative_path": "RHLean/Analysis/AlpogeThin/NativeRayClassData.lean",
+      "sha256": "67ad141d5756587b3ac80474a0d132edee6efb5b916210b67676fe33b4edb98c",
+      "declarations": [
+        {
+          "declaration_as_written": "rayData",
+          "lines": [
+            245
+          ]
+        },
+        {
+          "declaration_as_written": "card_le_classNumber_mul_sq",
+          "lines": [
+            334
+          ]
+        }
+      ]
+    },
+    {
+      "id": "N08",
+      "relative_path": "RHLean/Analysis/AlpogeThin/NativeRayIdealCounts.lean",
+      "sha256": "0275b8d185c0d2a80bc58bc93c202ca2981d3a6ec1237e32b5eb8b03cb1abe5b",
+      "declarations": [
+        {
+          "declaration_as_written": "idealsIn",
+          "lines": [
+            40
+          ]
+        },
+        {
+          "declaration_as_written": "lamIdeal",
+          "lines": [
+            45
+          ]
+        },
+        {
+          "declaration_as_written": "aRay_mul_log",
+          "lines": [
+            162
+          ]
+        }
+      ]
+    }
+  ],
+  "confirmed_findings": [
+    "anyGeometry is the constant True predicate; GeoCl base/transport and prmR do not construct independent realization.",
+    "x0 copies existing analytic MjH/jM/logLam; the MjAre/LamAre copy identities are reflexive.",
+    "x0 already requires ReadL/Pins/Holds; its jM_metric and lattice/basis fields use their nontrivial suppliers.",
+    "geoOver_stages uses divXFl/geoDegenerate with zero iMj; weak GeoTiedP contains no joint-injectivity or metric-realization clause.",
+    "FamOver.Reads and IsGeoOf explicitly formulate stronger same-family realization, not supplied by the named seed/graft path.",
+    "RowsT.InGeo, Read/ReadL and the stated Hyps constructor retain substantial separate prerequisites.",
+    "HLatTie can be reflexive and DivClausesR admits zero B; record names alone do not certify nonvacuity.",
+    "wordFacts_of_clauses separately requires actual-map hBk, measured-height tHt and budget-label tH.",
+    "Native physicalData preserves Ga and requires all eleven original finite inputs; no analogous named bypass occurs in the scanned scope.",
+    "setDiv assigns DivData.h and the corresponding frame budget; LedPart.ht is hExpl6 and the resulting h_eq is reflexive.",
+    "DivData.h is a scalar field distinct from the actual HN.htMap; WordFacts requires a separate measured-map bound for a nonzero Bk.",
+    "wordFacts_of_face derives measured htMap and dual-slope transports from the actual metric/lattice ties, pairing identity and good frames.",
+    "The inspected terminal source includes an explicit proposition about zeros of riemannZeta; EveryCharacter is actual Dirichlet-L nonvanishing, not a self-equality proposition.",
+    "The native periods retain the full source IsPeriod contract; native ray coefficients count actual ideal fibers and prove their divisor convolution."
+  ],
+  "not_established": [
+    "global upstream invalidity",
+    "global strong-realization completeness",
+    "unconditional analytic RH from reflexivity",
+    "terminal axiom/kernel closure",
+    "complete native metric/geometric suppliers"
+  ],
+  "explicit_top_level_hyps_constructor_inputs": [
+    "S0.HypothesesUE",
+    "S0.RowRat",
+    "hL : Published.LocalLanglandsGL",
+    "cDep : Real",
+    "A : GroupRetwisting.AtP",
+    "EvLgG A",
+    "RL.At (prm1 hL cDep) of the displayed bound-at-two-and-three predicate",
+    "RL.At (prmR (NEa hL (HeightCounting.Up.NEo hL cDep) A) SExt.none (geoCl anyGeometry)) S0.FunctorialityCondition",
+    "RL.At on the same parameter package of S0.CovolumeBound'"
+  ],
+  "Hyps_field_inventory": [
+    "𝒜",
+    "σ",
+    "cT",
+    "hEx",
+    "hduty",
+    "hRB",
+    "hTw",
+    "hPA",
+    "hLamP",
+    "hDivG",
+    "hDcPtG",
+    "hTu",
+    "hn4",
+    "hLit",
+    "hWu",
+    "hRF",
+    "hTF",
+    "c30",
+    "hc30",
+    "sTy",
+    "sNG",
+    "sM",
+    "sLp",
+    "sO",
+    "h30",
+    "hInstR",
+    "selJ",
+    "jOn",
+    "hMt",
+    "rRows",
+    "aPt0",
+    "aPtTw",
+    "aPer0",
+    "aPerTw",
+    "aP10",
+    "aAtG",
+    "aC2",
+    "hServ",
+    "cIc",
+    "hcI",
+    "irrC",
+    "zL",
+    "tie",
+    "hU",
+    "hG",
+    "nRest"
+  ],
+  "native_scan": {
+    "pattern": "anyGeometry|GeoCl|MjAre|LamAre|prmR|setDiv|hExpl6",
+    "scope": [
+      "RHLean/Geometry/**/*.lean",
+      "RHLean/Analysis/AlpogeNative*.lean",
+      "RHLean/Analysis/AlpogeThin/Native*.lean"
+    ],
+    "file_count": 242,
+    "matches": [],
+    "limitation": "Literal name scan, not a semantic proof of complete realization."
+  },
+  "native_eleven_inputs": [
+    "HidaSetting",
+    "DIV",
+    "EComp5",
+    "HComp",
+    "Count5",
+    "Slopes",
+    "QuotientSlopeBoundsWith",
+    "LossBounds",
+    "SlopeIneq",
+    "HHBound",
+    "FParams"
+  ],
+  "verification": {
+    "local_lean_or_lake_run": false,
+    "shared_lean_edits": false,
+    "remote_writes": false,
+    "report_trailing_whitespace_clean": true
+  },
+  "attribution": "Levent Alpöge (with Claude); pinned archive/mirror states no license; none assigned.",
+  "descent_payment_ack": "ALPOGE_NATIVE_DESCENT_PAYMENT_V1",
+  "tractability_ack": "ALPOGE_VIOLE_TRACTABLE_RH_V1",
+  "initial_seed_audit_sha256": "5e8c28f483735816081e6ee58f9a1fcaffe0406d6b1f8fb8ff9a5c618d1dfc03",
+  "initial_seed_receipt_sha256": "647df1a374deccebe19f766d10cbef797d1a5a30f06c98d061d240e6530f85d7",
+  "acceptance_boundary": [
+    "Fix the actual integral lattices, all-place metrics, maps, original widths and complete signed observable before claiming a quantitative supplier.",
+    "A weak True/degenerate geometry witness, copied analytic record, or declared height label cannot replace independent proofs of the required actual maps, ranks, integral image and measured norm/height bound.",
+    "Transport must prove the actual lattice, metric and pairing identities on the same objects; ordinary reflexive coordinate bookkeeping is permitted.",
+    "Any operator modification retains kernel/rank/generator constraints and an observable comparison without an unpaid inverse-dual recovery factor.",
+    "All eleven signed-comparison inputs and the strong error-window/auxiliary bounds remain open until their compatible actual constructors are supplied.",
+    "Axiom audits, source inspection, hosted elaboration and mathematical witness completion are separate evidence categories."
+  ],
+  "reviews": {
+    "root": "PASS bounded source and mathematical review; no global proof claim",
+    "independent": "PASS ci_repair: all 28 source and 8 native hashes, measured-height transport, displayed analytic endpoints and actual period/ray contracts checked. Clarified per-row vol quantifier, nonzero modulus and finite shift index/order range."
+  }
+}

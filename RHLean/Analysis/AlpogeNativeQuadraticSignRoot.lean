@@ -34,7 +34,13 @@ theorem alpogeNativeCyclotomicQuadraticRoot_q_apply
         then (1 : ℤ) else -1) : AlpogeNativeCyclotomic e q d) *
         alpogeNativeCyclotomicQuadraticRoot e q d q (alpogeNativeQ_dvd_hostN e q d) := by
   rw [alpogeNativeCyclotomicQuadraticRoot_apply]
-  exact congrArg (fun a : ℤ => (a : AlpogeNativeCyclotomic e q d) *
+  have hbit : (alpogeNativeCyclotomicRecMap e q d τ).toAdd.1.2 =
+      (alpogeNativeSign2
+        (alpogeNativeLegU (alpogeNativeHostN e q d) q (alpogeNativeQ_dvd_hostN e q d)
+          (alpogeNativeCyclotomicGalEquiv e q d τ))).toAdd := rfl
+  rw [hbit]
+  simpa only [apply_ite, Int.cast_one, Int.cast_neg] using
+    congrArg (fun a : ℤ => (a : AlpogeNativeCyclotomic e q d) *
     alpogeNativeCyclotomicQuadraticRoot e q d q (alpogeNativeQ_dvd_hostN e q d))
     (NativeQuadraticRoot.sign2_decode
       (alpogeNativeLegU (alpogeNativeHostN e q d) q (alpogeNativeQ_dvd_hostN e q d)
@@ -94,12 +100,10 @@ theorem alpogeNativeSqrtQ_galois_apply
       τ (alpogeNativeSqrtQ e q d) at hrestrict
   rw [hτ, MulEquiv.symm_apply_apply] at hrestrict
   rw [hrestrict]
-  change τ (alpogeNativeCyclotomicQuadraticRoot e q d q
-      (alpogeNativeQ_dvd_hostN e q d)) =
-    ((if (alpogeNativeHostGalEquiv e q d hq2 hd2 hqd σ).toAdd.1.2 = 0
-      then (1 : ℤ) else -1) : AlpogeNativeCyclotomic e q d) *
-      alpogeNativeCyclotomicQuadraticRoot e q d q (alpogeNativeQ_dvd_hostN e q d)
-  rw [alpogeNativeCyclotomicQuadraticRoot_q_apply, hτ]
+  have hroot := alpogeNativeCyclotomicQuadraticRoot_q_apply e q d τ
+  rw [hτ] at hroot
+  by_cases hbit : (alpogeNativeHostGalEquiv e q d hq2 hd2 hqd σ).toAdd.1.2 = 0 <;>
+    simpa [alpogeNativeSqrtQ, hbit] using hroot
 
 end RHLean.Analysis
 

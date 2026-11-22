@@ -219,8 +219,13 @@ theorem alpogeNativeHostField_frob_iff_hostData
   rw [NativePrimeLift.frob_iff_inertia P F σ hF,
     alpogeNativeHostField_inertia_iff_hostData e q d hq2 hd2 hqd l P]
   simp only [map_mul, map_inv, F, MulEquiv.apply_symm_apply,
-    toAdd_mul, toAdd_inv, toAdd_ofAdd,
-    sub_eq_add_neg]
+    toAdd_mul, toAdd_inv, toAdd_ofAdd]
+  exact (congrArg
+    (fun z : AlpogeNativeE0 × AlpogeNativeDyadicH e =>
+      z ∈ (alpogeNativeHostData e q d).inertia l)
+    (_root_.sub_eq_add_neg
+      (alpogeNativeHostGalEquiv e q d hq2 hd2 hqd σ).toAdd
+      ((alpogeNativeHostData e q d).frob l))).symm.to_iff
 
 /-- Complex conjugation is outside the actual inertia group at every
 rational prime. One of the two distinct quadratic signs is unramified. -/

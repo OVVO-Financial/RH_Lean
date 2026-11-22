@@ -484,6 +484,8 @@ import RHLean.Analysis.AlpogeThin.NativeGeometricCostWindows
 import RHLean.Analysis.AlpogeThin.NativeHostThin
 import RHLean.Analysis.AlpogeThin.NativePrincipalThin
 import RHLean.Analysis.AlpogeThin.NativeRawHostDifferent
+import RHLean.Analysis.AlpogeThin.NativeRayClassData
+import RHLean.Analysis.AlpogeThin.NativeRayIdealCounts
 import RHLean.Analysis.AlpogeThin.ReciprocityTheory.GaloisValuations.ContinuousConstSMulQuotient
 import RHLean.Analysis.AlpogeThin.ReciprocityTheory.GaloisValuations.Global
 import RHLean.Analysis.AlpogeThin.ReciprocityTheory.GaloisValuations.GlobalA
@@ -977,6 +979,7 @@ import RHLean.Geometry.NativeFramedShortSectionConstruction
 import RHLean.Geometry.NativeGenericFrameFaithfulness
 import RHLean.Geometry.NativeGeometricDatum
 import RHLean.Geometry.NativeGeometricHost
+import RHLean.Geometry.NativeGeometricPeriods
 import RHLean.Geometry.NativeGradedCharacterSlopeDescent
 import RHLean.Geometry.NativeGradedPeterssonConstruction
 import RHLean.Geometry.NativeGradedSectionRegularity
@@ -993,12 +996,14 @@ import RHLean.Geometry.NativeLatticeTransference
 import RHLean.Geometry.NativeLatticeTransferenceA
 import RHLean.Geometry.NativeLatticeTransferenceB
 import RHLean.Geometry.NativeLocalQuadraticNorm
+import RHLean.Geometry.NativePeriodTypeCoordinates
 import RHLean.Geometry.NativePeterssonMultiplication
 import RHLean.Geometry.NativePolarizationCoefficientLattice
 import RHLean.Geometry.NativePolarizationComplexCoordinates
 import RHLean.Geometry.NativePolarizationRealCoordinates
 import RHLean.Geometry.NativePrescribedCMData
 import RHLean.Geometry.NativePrescribedGeometricDatum
+import RHLean.Geometry.NativePrescribedGeometricPeriod
 import RHLean.Geometry.NativePrescribedHermitianSpaces
 import RHLean.Geometry.NativePrescribedPolarizationDomain
 import RHLean.Geometry.NativePrescribedPolarizationLattice

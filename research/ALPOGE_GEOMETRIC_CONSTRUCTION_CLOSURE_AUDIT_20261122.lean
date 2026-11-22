@@ -1,3 +1,8 @@
+import RHLean.Analysis.AlpogeThin.NativeRayIdealCounts
+import RHLean.Analysis.AlpogeThin.NativeRayClassData
+import RHLean.Geometry.NativePrescribedGeometricPeriod
+import RHLean.Geometry.NativePeriodTypeCoordinates
+import RHLean.Geometry.NativeGeometricPeriods
 import RHLean.Analysis.AlpogeThin.NativeDyadicRayNorm
 import RHLean.Geometry.NativePrescribedGeometricDatum
 import RHLean.Geometry.NativeGeometricDatum
@@ -1666,3 +1671,117 @@ info: 'RHLean.Analysis.AlpogeThin.nativeDyadicHostRaw_exists_rayNormElement_of_c
 -/
 #guard_msgs in
 #print axioms RHLean.Analysis.AlpogeThin.nativeDyadicHostRaw_exists_rayNormElement_of_coordinates
+
+/--
+info: 'RHLean.Geometry.NativeGeometricPeriods.exists_herm' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Geometry.NativeGeometricPeriods.exists_herm
+
+/--
+info: 'RHLean.Geometry.NativeGeometricPeriods.periodOfRealEquiv_isPeriod' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Geometry.NativeGeometricPeriods.periodOfRealEquiv_isPeriod
+
+/--
+info: 'RHLean.Geometry.NativePeriodCoordinates.coordinates_mul' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Geometry.NativePeriodCoordinates.coordinates_mul
+
+/--
+info: 'RHLean.Geometry.NativePeriodCoordinates.coordinates_diagonalJ' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Geometry.NativePeriodCoordinates.coordinates_diagonalJ
+
+/--
+info: 'RHLean.Geometry.NativePeriodCoordinates.typeFn_card_of_mem' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Geometry.NativePeriodCoordinates.typeFn_card_of_mem
+
+/--
+info: 'RHLean.Geometry.NativePeriodCoordinates.typeFn_card_of_not_mem' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Geometry.NativePeriodCoordinates.typeFn_card_of_not_mem
+
+/--
+info: 'RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.twistedPeriodRealEquiv_complexStructure' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.twistedPeriodRealEquiv_complexStructure
+
+/--
+info: 'RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.prescribedPeriodType_isTypeFn' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.prescribedPeriodType_isTypeFn
+
+/--
+info: 'RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.prescribedPeriod_isPeriod' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.prescribedPeriod_isPeriod
+
+/--
+info: 'RHLean.Analysis.AlpogeThin.nativeDyadicPrescribedGeometricDatum_isPeriod' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeThin.nativeDyadicPrescribedGeometricDatum_isPeriod
+
+/--
+info: 'RHLean.Analysis.AlpogeThin.nativeDyadicHost_exists_prescribedPeriods' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeThin.nativeDyadicHost_exists_prescribedPeriods
+
+/--
+info: 'RHLean.Analysis.AlpogeThin.NativeRay.RayCl.exists_class_residue_embedding' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeThin.NativeRay.RayCl.exists_class_residue_embedding
+
+/--
+info: 'RHLean.Analysis.AlpogeThin.NativeRay.RayCl.exists_inv' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeThin.NativeRay.RayCl.exists_inv
+
+/--
+info: 'RHLean.Analysis.AlpogeThin.NativeRay.rayData' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeThin.NativeRay.rayData
+
+/--
+info: 'RHLean.Analysis.AlpogeThin.NativeRay.RayData.card_le_classNumber_mul_sq' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeThin.NativeRay.RayData.card_le_classNumber_mul_sq
+
+/--
+info: 'RHLean.Analysis.AlpogeThin.NativeRay.RayData.cls_span' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeThin.NativeRay.RayData.cls_span
+
+/--
+info: 'RHLean.Analysis.AlpogeThin.NativeRay.RayConv.sum_lamIdeal' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeThin.NativeRay.RayConv.sum_lamIdeal
+
+/--
+info: 'RHLean.Analysis.AlpogeThin.NativeRay.aRay_mul_log' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeThin.NativeRay.aRay_mul_log
+
+/--
+info: 'RHLean.Analysis.AlpogeThin.NativeRay.lamRay_nonneg' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeThin.NativeRay.lamRay_nonneg

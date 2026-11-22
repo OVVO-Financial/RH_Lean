@@ -8,7 +8,7 @@
 | --- | --- | --- | --- |
 | [ANCHOR-PRIME-DISCREPANCY](coordinates/ANCHOR-PRIME-DISCREPANCY.md) | anchor | Prime-counting discrepancy pi - Li_2 | 50 |
 | [ANCHOR-MERTENS](coordinates/ANCHOR-MERTENS.md) | anchor | Mertens function M | 321 |
-| [ANCHOR-ZETA-ZEROS](coordinates/ANCHOR-ZETA-ZEROS.md) | anchor | Nontrivial zeta zeros / rightmost real part | 108 |
+| [ANCHOR-ZETA-ZEROS](coordinates/ANCHOR-ZETA-ZEROS.md) | anchor | Nontrivial zeta zeros / rightmost real part | 109 |
 | [COORD-LI2-MODEL](coordinates/COORD-LI2-MODEL.md) | deterministic-model | Logarithmic integral model Li_2 | 49 |
 | [COORD-VF-MID](coordinates/COORD-VF-MID.md) | deterministic-model | Legacy midpoint VF (vfMid) | 79 |
 | [COORD-VF-CAN](coordinates/COORD-VF-CAN.md) | deterministic-model | Canonical VF (vfCanonical) | 30 |
@@ -34,7 +34,7 @@
 | [COORD-SQUARE-SHELL-MASS](coordinates/COORD-SQUARE-SHELL-MASS.md) | mobius-side | Square-shell Mobius mass | 52 |
 | [COORD-SAT-MERTENS](coordinates/COORD-SAT-MERTENS.md) | mobius-side | Signed smooth-minus-transport S = A - T | 62 |
 | [COORD-HECKE-A6](coordinates/COORD-HECKE-A6.md) | mobius-side | Excluded-six Hecke coefficient a6 and quotient kernel K | 129 |
-| [COORD-FINITE-AC](coordinates/COORD-FINITE-AC.md) | mobius-side | Finite A/C historical envelope | 337 |
+| [COORD-FINITE-AC](coordinates/COORD-FINITE-AC.md) | mobius-side | Finite A/C historical envelope | 338 |
 | [COORD-LEGAL-GRAM](coordinates/COORD-LEGAL-GRAM.md) | covariance-statistic | Legal live-packet ancestry Gram | 8 |
 | [COORD-EULER-SELF-DUAL](coordinates/COORD-EULER-SELF-DUAL.md) | mobius-side | Euler self-dual bilinear / Newton-lift double sum | 31 |
 | [COORD-CORR4-PARENT](coordinates/COORD-CORR4-PARENT.md) | mobius-side | CORR-4 rough correlation C_R | 93 |
@@ -52,30 +52,30 @@
 
 | Route | Tagged files |
 | --- | --- |
-| [VF-LOW](routes/VF-LOW.md) | 475 |
+| [VF-LOW](routes/VF-LOW.md) | 476 |
 | [SAT](routes/SAT.md) | 825 |
-| [CODIV](routes/CODIV.md) | 1150 |
+| [CODIV](routes/CODIV.md) | 1151 |
 | [BLOCK](routes/BLOCK.md) | 48 |
-| [OAI-NNS](routes/OAI-NNS.md) | 864 |
+| [OAI-NNS](routes/OAI-NNS.md) | 865 |
 | [JOH](routes/JOH.md) | 132 |
-| [FINITE-AC](routes/FINITE-AC.md) | 951 |
-| [CORR4](routes/CORR4.md) | 976 |
+| [FINITE-AC](routes/FINITE-AC.md) | 952 |
+| [CORR4](routes/CORR4.md) | 977 |
 | [MU-LIFT](routes/MU-LIFT.md) | 393 |
-| [NYMAN](routes/NYMAN.md) | 149 |
+| [NYMAN](routes/NYMAN.md) | 150 |
 
 ## Machine-readable shards
 
 - [catalog-research-lean-vf.jsonl](catalog-research-lean-vf.jsonl) — 226 records
 - [catalog-research-lean.jsonl](catalog-research-lean.jsonl) — 554 records
-- [catalog-research-notes.jsonl](catalog-research-notes.jsonl) — 276 records
+- [catalog-research-notes.jsonl](catalog-research-notes.jsonl) — 277 records
 - [catalog-library-proof.jsonl](catalog-library-proof.jsonl) — 450 records
-- [catalog-library-alpoge-thin.jsonl](catalog-library-alpoge-thin.jsonl) — 395 records
-- [catalog-library-geometry.jsonl](catalog-library-geometry.jsonl) — 169 records
+- [catalog-library-alpoge-thin.jsonl](catalog-library-alpoge-thin.jsonl) — 397 records
+- [catalog-library-geometry.jsonl](catalog-library-geometry.jsonl) — 172 records
 - [catalog-library-core.jsonl](catalog-library-core.jsonl) — 479 records
 - [catalog-docs.jsonl](catalog-docs.jsonl) — 155 records
 - [catalog-code.jsonl](catalog-code.jsonl) — 419 records
-- [rewrite-families-a-k.jsonl](rewrite-families-a-k.jsonl) — 380 records
-- [rewrite-families-l.jsonl](rewrite-families-l.jsonl) — 345 records
-- [rewrite-families-m-r.jsonl](rewrite-families-m-r.jsonl) — 527 records
+- [rewrite-families-a-k.jsonl](rewrite-families-a-k.jsonl) — 381 records
+- [rewrite-families-l.jsonl](rewrite-families-l.jsonl) — 346 records
+- [rewrite-families-m-r.jsonl](rewrite-families-m-r.jsonl) — 528 records
 - [rewrite-families-s.jsonl](rewrite-families-s.jsonl) — 437 records
 - [rewrite-families-t-z.jsonl](rewrite-families-t-z.jsonl) — 295 records

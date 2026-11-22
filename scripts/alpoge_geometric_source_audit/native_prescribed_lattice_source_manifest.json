@@ -249,6 +249,11 @@
       "manifest": "scripts/alpoge_geometric_source_audit/native_prescribed_geometric_datum_source_manifest.json",
       "construction": "Complete original thirteen-field Geo.Tor.Datum on the same lattice, with all host-filter/involution and source-form/sign compatibilities supplied.",
       "status": "IMPLEMENTED_HOSTED_VERIFICATION_PENDING"
+    },
+    {
+      "manifest": "scripts/alpoge_geometric_source_audit/native_prescribed_geometric_period_source_manifest.json",
+      "construction": "Actual same-Datum period map, exact coefficient-type multiplicities, discrete/full real range and positive Hermitian form with literal imaginary part EF.",
+      "status": "IMPLEMENTED_HOSTED_VERIFICATION_PENDING"
     }
   ]
 }

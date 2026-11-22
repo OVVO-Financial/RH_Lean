@@ -17,7 +17,7 @@
       "source": "src/Development/AutomorphicArithmetic/CharacterBoxes/ExistsPageN.lean",
       "source_pin": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
       "source_sha256": "732c3347fb02e410cf9af8831afdbba1d230fc522c3dbbccdb4b708e5dde73db",
-      "native_sha256": "27abbc43dbb20f150515ed14819e528d235c6ad9e68a23d11f146e4b34b5f8ff"
+      "native_sha256": "941a8ca11403715962c6d30d01d37e2dc8d090532b8136e3f8bf1e9e2967784d"
     },
     {
       "native": "RHLean/Analysis/AlpogeThin/Development/AutomorphicArithmetic/CharacterBoxes/PairGood.lean",
@@ -2616,7 +2616,7 @@
     "RHLean/Analysis/AlpogeThin.lean": "a758d62ca23ec24da0e7696b3ce26ccfa5ac4bc7561167dfa29539fddba9356f",
     "RHLean/Analysis/AlpogeThin/NativePrincipalThin.lean": "852128582446a93b9ee64e577e547879ed37de1e3314f786e83e377aaf6a6d2f",
     "RHLean/Analysis/AlpogeThin/NativeCftThin.lean": "259efbcb8423c5a8946860fed85704759dcd669dcb64877c88866747306c76fd",
-    "research/ALPOGE_GEOMETRIC_CONSTRUCTION_CLOSURE_AUDIT_20261122.lean": "2b1bfa94acf3766c26c094607810ed4570b66e83bc5ff3c54f6902150eaaf9f1",
+    "research/ALPOGE_GEOMETRIC_CONSTRUCTION_CLOSURE_AUDIT_20261122.lean": "d623fefeb785c1ec416a96b70c7dd87c6e4c86858c249392f769e51d951272b9",
     "RHLean/Analysis/AlpogeNativeReciprocitySurjective.lean": "7b7475d9f665fe3302391c4a776e1c5c0d1d0911df01520048e14883c7532681",
     "RHLean/Analysis/AlpogeNativeDyadicHostSize.lean": "b7d67fcb714d4d1cd4a4656905bbe7d3452dc5edbe9fc1bf6bb59af41793fff3",
     "RHLean/Analysis/AlpogeThin/NativeDyadicPayment.lean": "ff35b626752db9b31c28dc8879b8cb6ba5a890d595dc6dbcfae2f1ff33ffcc47",
@@ -2633,7 +2633,7 @@
     "RHLean/Analysis/AlpogeNativeIntegralQuadraticRoot.lean": "4d063022db16f41440d4d202a318d38dd853a52064beef26bd6ed8ba541958bc",
     "RHLean/Analysis/AlpogeNativePrimeLift.lean": "2d99491be1641417a1bc41c4b3baad4d6aa82011d5213316151213e21028ac26",
     "RHLean/Analysis/AlpogeNativeCyclotomicResidue.lean": "988b5fc2377955b52f652f9dd9defb73ba77cc420f81f3ea34ed38d1fbf27844",
-    "RHLean/Analysis/AlpogeNativeHostPrimes.lean": "70e65b82a344b67797a3540dcd45b406e9ccb1d00cc63f659a120c7934295018",
+    "RHLean/Analysis/AlpogeNativeHostPrimes.lean": "be9b994ab7fec1e3b4a8b984a98398973855f5439fb0d300842ff91fc860aac1",
     "RHLean/Analysis/AlpogeThin/NativeDyadicHostPrimes.lean": "3cc618cc1b3f2872ea6b2431c57036d5476d73525fcd6180ed35d1eadd9cf3cc",
     "RHLean/Analysis/AlpogeThin/NativeDyadicHostSideConditions.lean": "e90ff0c27287847c5c4f36847cfb076d335b1d4140448412fd1db58cca4582b9",
     "RHLean/Analysis/AlpogeNativeCMUnramified.lean": "fa1f266f8eb3ee2fe30e5306329ca0970bb278564bd86c44c15e5821c236adbf",
@@ -2644,7 +2644,7 @@
     "RHLean/Analysis/AlpogeNativeDiscriminant.lean": "b120e144cffed7ca61bde1cc74f7af8e62c7b4d03b2dec690bc6d4a3f2025031",
     "RHLean/Analysis/AlpogeNativeDiscriminantPrimes.lean": "31f2d0873da433834db5bb74ca127c92dc987107ecc3e2cd5562223022d637bd",
     "RHLean/Analysis/AlpogeNativeQuadraticPrimeSigns.lean": "31d7cd34cd1a36e36709627fb23adedbd75b33373a6d114423d5dc8cbb82a5ca",
-    "RHLean/Analysis/AlpogeNativeQuadraticSignRoot.lean": "9ea34c16b89f6f7bc7beba22ee2eaf5a9d6a654db464799809faec9bbccb3d88",
+    "RHLean/Analysis/AlpogeNativeQuadraticSignRoot.lean": "b55612474e3324ec77ef32e108c6c6a8742f2d1e757fecab77f4d7933c011136",
     "RHLean/Analysis/AlpogeNativeQuadraticSplitting.lean": "760da83523dea9dd6ab169b6bbfd37aeda14f45030f5b883ca337004bc3c482c",
     "RHLean/Analysis/AlpogeNativeRootDiscriminantArithmetic.lean": "caccda647880ddc9a9ab88f5accdcc8e893be0dcd09665bf38b89f89acb25b54",
     "RHLean/Analysis/AlpogeNativeRootDiscriminantBounds.lean": "d0b47ee382e24628a7ccdde3327bb61164f23c2b7f65f6c7d7143a86353f2c9f",
@@ -2694,7 +2694,8 @@
     "Exact-baddf5a complete hosted diagnostics: both builds reported the same 53 errors and 25 warnings including cascades. Repair canonical rational algebra and Pi.module instance inference, dyadic generator-order transport, explicit signed width-sum instantiation, local-notation field projections, inequality addition orientation, scalar normalization and cast residuals, and linear-map span coercions. Remove only reported redundant simplifiers and mark unused hypothesis names without dropping assumptions. Existing conclusions retained; no heartbeat increase or gate change. Next hosted build pending.",
     "Exact-a26fa37 complete hosted diagnostics: both builds reported 20 errors and 18 warnings including cascades. The signed physical comparison and forward reserve now compile. Repair the concrete host equivalence elaboration timeout without increasing heartbeats, explicit dyadic hom inference, the remaining cohomology quotient and framed-submodule instances, prescribed Hermitian matrix notation/integrality/coercion proofs, the short-family discriminant cast, and reported unused section instances. The actual objects, theorem conclusions and validation gates are retained; next hosted build pending.",
     "Exact-3ad6422 complete hosted diagnostics: native and targeted builds reported identical 20-error/6-warning multisets including cascades. Concrete CyclotomicHost now compiles without a timeout; PrescribedHermitianSpaces, ThetaShortLatticeFamily and GradedPeterssonConstruction also have clean build receipts. Repair the newly reached cyclotomic-extension instances and quadratic-root coercions, exact dyadic additive-equivalence structures, cohomology quotient and framed-submodule instances, completion coercions, harmonic-span set carrier and deprecated API/style warnings. All actual objects, theorem conclusions, proof budgets and gates are retained; the complete next hosted build remains pending.",
-    "Exact-f3d43c0 complete hosted diagnostics: native and targeted builds reported identical 12-error/6-warning multisets including cascades. Clean Built receipts confirm NativeLocalQuadraticNorm, NativeAdicQuadraticNorm, NativePolarizationRealCoordinates, NativeFramedShortSectionConstruction, GaloisCohomology.Statement, NativeThetaSpanningFamily, NativeDyadicFrame and AlpogeNativeCyclotomicResidue. Repair the exact host-prime units/cancellation/type-tag APIs, reciprocity first-bit projection, PageN LData inference and Nat-cast nonnegativity, plus four reported complex-coordinate simp warnings. All actual objects, theorem conclusions, proof budgets and gates are retained. Downstream domain, adelic isometry and CMData remained blocked; the complete next hosted build remains pending."
+    "Exact-f3d43c0 complete hosted diagnostics: native and targeted builds reported identical 12-error/6-warning multisets including cascades. Clean Built receipts confirm NativeLocalQuadraticNorm, NativeAdicQuadraticNorm, NativePolarizationRealCoordinates, NativeFramedShortSectionConstruction, GaloisCohomology.Statement, NativeThetaSpanningFamily, NativeDyadicFrame and AlpogeNativeCyclotomicResidue. Repair the exact host-prime units/cancellation/type-tag APIs, reciprocity first-bit projection, PageN LData inference and Nat-cast nonnegativity, plus four reported complex-coordinate simp warnings. All actual objects, theorem conclusions, proof budgets and gates are retained. Downstream domain, adelic isometry and CMData remained blocked; the complete next hosted build remains pending.",
+    "Exact-291e21a complete hosted diagnostics: native and targeted builds reported identical 5-error/1-warning multisets including cascades. Clean Built receipts confirm AlpogeNativeQuadraticRoot, AlpogeNativeIntegralQuadraticRoot and NativePolarizationComplexCoordinates. Remaining repairs supply PageN with the same prime Fact locally, normalize the q-root second reciprocity projection and subtype casts, and resolve the host-prime additive subtraction identity. All actual objects, theorem conclusions, proof budgets and gates are retained. The later host-dependent construction remained blocked; the complete next hosted build remains pending."
   ],
   "native_cost_payment_provenance": [
     {
@@ -2745,15 +2746,15 @@
     }
   ],
   "latest_hosted_feedback": {
-    "head": "f3d43c0c0d7fcd8cd440f07705b02e5210a30574",
-    "native_run_id": 45080482293,
-    "native_job_id": 137387295969,
-    "targeted_run_id": 45080482302,
-    "targeted_job_id": 137387295788,
-    "native_errors": 12,
-    "native_warnings": 6,
-    "targeted_errors": 12,
-    "targeted_warnings": 6,
+    "head": "291e21aa788aaa2af9238b835dbd24a76d1b3717",
+    "native_run_id": 45081587446,
+    "native_job_id": 137390725008,
+    "targeted_run_id": 45081587408,
+    "targeted_job_id": 137390724785,
+    "native_errors": 5,
+    "native_warnings": 1,
+    "targeted_errors": 5,
+    "targeted_warnings": 1,
     "run_conclusion": "failure",
     "complete_diagnostic_inventory": true,
     "status": "COMPLETE_FAILURE_REPAIRS_PREPARED_HOSTED_VERIFICATION_PENDING"
@@ -3266,6 +3267,20 @@
       "native_errors": 20,
       "native_warnings": 6,
       "targeted_errors": 20,
+      "targeted_warnings": 6,
+      "run_conclusion": "failure",
+      "complete_diagnostic_inventory": true,
+      "status": "COMPLETE_FAILURE_REPAIRS_PREPARED_HOSTED_VERIFICATION_PENDING"
+    },
+    {
+      "head": "f3d43c0c0d7fcd8cd440f07705b02e5210a30574",
+      "native_run_id": 45080482293,
+      "native_job_id": 137387295969,
+      "targeted_run_id": 45080482302,
+      "targeted_job_id": 137387295788,
+      "native_errors": 12,
+      "native_warnings": 6,
+      "targeted_errors": 12,
       "targeted_warnings": 6,
       "run_conclusion": "failure",
       "complete_diagnostic_inventory": true,

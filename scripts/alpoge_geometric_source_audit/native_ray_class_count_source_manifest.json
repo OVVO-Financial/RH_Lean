@@ -1,0 +1,50 @@
+{
+  "status": "IMPLEMENTED_STATIC_REVIEWED_HOSTED_VERIFICATION_PENDING",
+  "owner": "/root/geometric_constructor",
+  "native_base_commit": "291e21aa788aaa2af9238b835dbd24a76d1b3717",
+  "source_commit": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
+  "mathlib_commit": "d13f23b723b8a846827a245b89c10fc7d3f11612",
+  "descent_payment_ack": "ALPOGE_NATIVE_DESCENT_PAYMENT_V1",
+  "tractability_ack": "ALPOGE_VIOLE_TRACTABLE_RH_V1",
+  "source_audit": {
+    "path": "scripts/alpoge_geometric_source_audit/native_ray_class_count_source_audit.json",
+    "lines": 296,
+    "initial_receipt_sha256": "92be734405610007f8b8aeeff2f293baf9d68d62895c0ae45ab693dae1501e86"
+  },
+  "reviews": {
+    "self": "PASS static mathematical/source/API review",
+    "ci_repair": "PASS independent full source/API review including the extracted injection and quantitative card bound; no concrete defect; no edits or local Lean",
+    "closure_audit": "NOT_REQUESTED_FOR_FREEZE_AFTER_CI_REPAIR_PASS; occupied with parent priority source audit",
+    "hosted_lean": "PENDING; no local Lean/Lake execution",
+    "root": "PASS: full construction read; actual prime-to-modulus ideals, congruent-to-one multipliers, quotient injection/inverses, all-prime-power weights and exact divisor-product bijection retained. No analytic target value supplied as input."
+  },
+  "scope": "Actual finite ray quotient, ideal count/weight construction, exact cardinality and ideal-divisor convolution; no analytic estimate or short-window prime claimed.",
+  "validation": "Pinned source/API review and text-level integrity checks only. Hosted Lean is the sole compilation environment.",
+  "metadata_revision": "API provenance correction only: Con.eq is declared in Congruence/Defs.lean; both Lean modules unchanged.",
+  "native_modules": [
+    {
+      "module": "RHLean.Analysis.AlpogeThin.NativeRayClassData",
+      "native_path": "RHLean/Analysis/AlpogeThin/NativeRayClassData.lean",
+      "initial_source_reconstruction_sha256": "67ad141d5756587b3ac80474a0d132edee6efb5b916210b67676fe33b4edb98c",
+      "native_sha256": "67ad141d5756587b3ac80474a0d132edee6efb5b916210b67676fe33b4edb98c",
+      "native_lines": 425
+    },
+    {
+      "module": "RHLean.Analysis.AlpogeThin.NativeRayIdealCounts",
+      "native_path": "RHLean/Analysis/AlpogeThin/NativeRayIdealCounts.lean",
+      "initial_source_reconstruction_sha256": "0275b8d185c0d2a80bc58bc93c202ca2981d3a6ec1237e32b5eb8b03cb1abe5b",
+      "native_sha256": "0275b8d185c0d2a80bc58bc93c202ca2981d3a6ec1237e32b5eb8b03cb1abe5b",
+      "native_lines": 267
+    }
+  ],
+  "axiom_guard_declarations": [
+    "RHLean.Analysis.AlpogeThin.NativeRay.RayCl.exists_class_residue_embedding",
+    "RHLean.Analysis.AlpogeThin.NativeRay.RayCl.exists_inv",
+    "RHLean.Analysis.AlpogeThin.NativeRay.rayData",
+    "RHLean.Analysis.AlpogeThin.NativeRay.RayData.card_le_classNumber_mul_sq",
+    "RHLean.Analysis.AlpogeThin.NativeRay.RayData.cls_span",
+    "RHLean.Analysis.AlpogeThin.NativeRay.RayConv.sum_lamIdeal",
+    "RHLean.Analysis.AlpogeThin.NativeRay.aRay_mul_log",
+    "RHLean.Analysis.AlpogeThin.NativeRay.lamRay_nonneg"
+  ]
+}

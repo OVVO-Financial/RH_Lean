@@ -1,0 +1,371 @@
+{
+  "status": "IMPLEMENTED_STATIC_REVIEWED_HOSTED_VERIFICATION_PENDING",
+  "descent_payment_ack": "ALPOGE_NATIVE_DESCENT_PAYMENT_V1",
+  "tractability_ack": "ALPOGE_VIOLE_TRACTABLE_RH_V1",
+  "source_repository": "CocoSgt/riemann-hypothesis-lean",
+  "source_commit": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
+  "source_license": "The pinned source mirror states no license; attribution retained without assigning one.",
+  "files": [
+    {
+      "guards": [
+        "RHLean.Geometry.NativeGeometricPeriods.hermForm",
+        "RHLean.Geometry.NativeGeometricPeriods.IsTypeFn",
+        "RHLean.Geometry.NativeGeometricPeriods.IsPeriod",
+        "RHLean.Geometry.NativeGeometricPeriods.exists_herm",
+        "RHLean.Geometry.NativeGeometricPeriods.periodOfRealEquiv",
+        "RHLean.Geometry.NativeGeometricPeriods.periodOfRealEquiv_apply",
+        "RHLean.Geometry.NativeGeometricPeriods.periodOfRealEquiv_isPeriod"
+      ],
+      "native_path": "RHLean/Geometry/NativeGeometricPeriods.lean",
+      "initial_source_reconstruction_sha256": "d8b331bc2848fe7d7abd6af02dfeb793fb0c85e5194317a6d12223ab84d7135e",
+      "native_sha256": "d8b331bc2848fe7d7abd6af02dfeb793fb0c85e5194317a6d12223ab84d7135e",
+      "native_lines": 206
+    },
+    {
+      "guards": [
+        "RHLean.Geometry.NativePeriodCoordinates.conjIf",
+        "RHLean.Geometry.NativePeriodCoordinates.conjIf_involutive",
+        "RHLean.Geometry.NativePeriodCoordinates.conjIf_diagonalJ",
+        "RHLean.Geometry.NativePeriodCoordinates.indexEquiv",
+        "RHLean.Geometry.NativePeriodCoordinates.coordinates",
+        "RHLean.Geometry.NativePeriodCoordinates.coordinates_apply",
+        "RHLean.Geometry.NativePeriodCoordinates.rawType",
+        "RHLean.Geometry.NativePeriodCoordinates.typeFn",
+        "RHLean.Geometry.NativePeriodCoordinates.coordinates_mul",
+        "RHLean.Geometry.NativePeriodCoordinates.coordinates_diagonalJ",
+        "RHLean.Geometry.NativePeriodCoordinates.rawType_eq_of_mem",
+        "RHLean.Geometry.NativePeriodCoordinates.rawType_eq_of_not_mem",
+        "RHLean.Geometry.NativePeriodCoordinates.positiveFiberEquiv",
+        "RHLean.Geometry.NativePeriodCoordinates.negativeFiberEquiv",
+        "RHLean.Geometry.NativePeriodCoordinates.typeFn_card_of_mem",
+        "RHLean.Geometry.NativePeriodCoordinates.typeFn_card_of_not_mem"
+      ],
+      "native_path": "RHLean/Geometry/NativePeriodTypeCoordinates.lean",
+      "initial_source_reconstruction_sha256": "4fdba0e2ecc68d7d70d89117d4aa000c29636f4a7562db93bcea4372d66a33c3",
+      "native_sha256": "4fdba0e2ecc68d7d70d89117d4aa000c29636f4a7562db93bcea4372d66a33c3",
+      "native_lines": 210
+    },
+    {
+      "guards": [
+        "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.twistedPeriodRealEquiv",
+        "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.twistedPeriodRealEquiv_tmul",
+        "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.twistedPeriodRealEquiv_complexStructure",
+        "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.prescribedPeriodMap",
+        "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.prescribedPeriodType",
+        "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.prescribedPeriodMap_apply",
+        "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.prescribedPeriodMap_smul",
+        "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.prescribedPeriodType_isTypeFn",
+        "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.prescribedPeriod_isPeriod",
+        "RHLean.Analysis.AlpogeThin.nativeDyadicPrescribedGeometricDatum_isPeriod",
+        "RHLean.Analysis.AlpogeThin.nativeDyadicHost_exists_prescribedPeriods"
+      ],
+      "native_path": "RHLean/Geometry/NativePrescribedGeometricPeriod.lean",
+      "initial_source_reconstruction_sha256": "922fdb244db6d8ade158468618c9470931a784948304f974bfb6dda251123e08",
+      "native_sha256": "922fdb244db6d8ade158468618c9470931a784948304f974bfb6dda251123e08",
+      "native_lines": 225
+    }
+  ],
+  "source_map": [
+    {
+      "path": "src/ReciprocityTheory/ReductiveGroups/ArithmeticGeometry/BirationalGeometry/ToroidalCompactification/IsHolPeriods.lean",
+      "sha256": "9edfccbfe75f5c40e167fb1712f9e4edb17143833ea339b96f5d02d1df1cde9e",
+      "declarations": [
+        "ReciprocityTheory.ChartRestriction.G.Geo.Tor.IsTypeFn",
+        "ReciprocityTheory.ChartRestriction.G.Geo.Tor.IsPeriod"
+      ]
+    },
+    {
+      "path": "src/ReciprocityTheory/ReductiveGroups/ArithmeticGeometry/BirationalGeometry/ToroidalCompactification/ThetaUnifAV.lean",
+      "sha256": "c40b55e37dd8b6f3cc5267e13c956a37fcde3a4dc0951fa58d6d4c4fa295e7d1",
+      "declarations": [
+        "ReciprocityTheory.ChartRestriction.G.Geo.Tor.hermForm"
+      ]
+    },
+    {
+      "path": "src/Development/AbelianVarietyTheory/Proofs/ToricGeometry/ExistsEquivOfSumEq.lean",
+      "sha256": "73f9f337fe37f78c26eb78f37abf9cc5028034094b1240ae76027b9e5c669af5",
+      "declarations": [
+        "GlobalTheory.PeriodNonempty.exists_diag_real (explicit diagonal specialization)",
+        "GlobalTheory.PeriodNonempty.exists_herm",
+        "GlobalTheory.PeriodNonempty.exists_isPeriod (basis/range/Hermitian part)"
+      ]
+    },
+    {
+      "path": "src/Formalism/LocalRingCardinality/SpanPowerMembership/BaseFormAnisotropicOrthogonalSingle.lean",
+      "sha256": "c354dde1601781d2fe4d4e48c36cbebd206c12769893795222a6f3ac76995e28",
+      "declarations": [
+        "Formalism.BasicNotions.Examples₂.negTail",
+        "Formalism.BasicNotions.Examples₂.negTail_false",
+        "Formalism.BasicNotions.Examples₂.negTail_true",
+        "Formalism.BasicNotions.Examples₂.hasSig_tail"
+      ]
+    },
+    {
+      "path": "src/Formalism/LocalToGlobal/ProjectiveLattices/DatTheta.lean",
+      "sha256": "144016b6ee427371bd43b9d9cb07ac87b51d1fea2b8a46caea3598cc818aee1f",
+      "declarations": [
+        "Formalism.L2.Pj.DatLin.theta",
+        "Formalism.L2.Pj.DatLin.theta_tmul",
+        "Formalism.L2.Pj.DatLin.theta_bijective"
+      ]
+    },
+    {
+      "path": "src/Formalism/LocalToGlobal/ProjectiveLattices/DatProofs.lean",
+      "sha256": "2015bae181c76e7f989fed70ddd101e7e6bf91e26d06dc24658db58e8b942fb0",
+      "declarations": [
+        "Formalism.L2.Pj.thW",
+        "Formalism.L2.Pj.thW_tmul",
+        "Formalism.L2.Pj.thW_bijective",
+        "Formalism.L2.Pj.domFor_pm"
+      ]
+    },
+    {
+      "path": "src/ReciprocityTheory/ReductiveGroups/ArithmeticGeometry/BirationalGeometry/ToroidalCompactification/TwoWeightEqOneAddRoot.lean",
+      "sha256": "3646386e9cd25287a50eb1ad82456c5b26316207741b8ed7298d46aa4f9d7826",
+      "declarations": [
+        "ReciprocityTheory.ChartRestriction.G.Geo.Tor.Datum"
+      ]
+    }
+  ],
+  "native_dependencies": [
+    {
+      "path": "RHLean/Geometry/NativeGeometricHost.lean",
+      "initial_attachment_sha256": "1c5781f8d72b522009b1cc642527f30e2abebb06df7e0018b95126486e3f1df1",
+      "native_sha256": "1c5781f8d72b522009b1cc642527f30e2abebb06df7e0018b95126486e3f1df1"
+    },
+    {
+      "path": "RHLean/Geometry/NativeGeometricDatum.lean",
+      "initial_attachment_sha256": "44cf27e2e7807a32b7bec8a8c10dc97d901794b7371a8ce6b3be2f6266e1945f",
+      "native_sha256": "44cf27e2e7807a32b7bec8a8c10dc97d901794b7371a8ce6b3be2f6266e1945f"
+    },
+    {
+      "path": "RHLean/Geometry/NativePrescribedGeometricDatum.lean",
+      "initial_attachment_sha256": "a7c21d5ca68675ddc210e34825c9d7af6e611921c697bec76424721eb2df7e66",
+      "native_sha256": "a7c21d5ca68675ddc210e34825c9d7af6e611921c697bec76424721eb2df7e66"
+    },
+    {
+      "path": "RHLean/Geometry/NativeDerivedGeometricHost.lean",
+      "initial_attachment_sha256": "3d3b3ecca674e2c4a4a29ca7de2aa15ea6b70b3bf6e01c4072fe842135efe23e",
+      "native_sha256": "3d3b3ecca674e2c4a4a29ca7de2aa15ea6b70b3bf6e01c4072fe842135efe23e"
+    },
+    {
+      "path": "RHLean/Geometry/NativePrescribedPolarizationRealization.lean",
+      "initial_attachment_sha256": "e6d6e219ef21890e4b73d898b442f33c7bcbbf9f2937e78e6a0833ce6a9973dd",
+      "native_sha256": "e6d6e219ef21890e4b73d898b442f33c7bcbbf9f2937e78e6a0833ce6a9973dd"
+    },
+    {
+      "path": "RHLean/Geometry/NativePrescribedPolarizationDomain.lean",
+      "initial_attachment_sha256": "aaf3f8da955187927d834f0d1c92f9a50b48ed46ab1d93caf07d82c5fd343738",
+      "native_sha256": "aaf3f8da955187927d834f0d1c92f9a50b48ed46ab1d93caf07d82c5fd343738"
+    },
+    {
+      "path": "RHLean/Geometry/NativePolarizationComplexCoordinates.lean",
+      "initial_attachment_sha256": "99a38498c5f7459051184fcfaa6222eb65b8c0dd9a1f6e7eb5ab38c5cae30dc8",
+      "native_sha256": "99a38498c5f7459051184fcfaa6222eb65b8c0dd9a1f6e7eb5ab38c5cae30dc8"
+    },
+    {
+      "path": "RHLean/Geometry/NativePrescribedPolarizationLattice.lean",
+      "initial_attachment_sha256": "e5a1316a3caf23ecdfa3fc4c4f764d8c1409f184fb1a5e161b0f85a8c32a4650",
+      "native_sha256": "e5a1316a3caf23ecdfa3fc4c4f764d8c1409f184fb1a5e161b0f85a8c32a4650"
+    },
+    {
+      "path": "RHLean/Geometry/NativePrescribedHermitianSpaces.lean",
+      "initial_attachment_sha256": "b81aa4b415e087078e6947a172e9ade20e278ec020487369bd7e9169bdfc7ef3",
+      "native_sha256": "b81aa4b415e087078e6947a172e9ade20e278ec020487369bd7e9169bdfc7ef3"
+    },
+    {
+      "path": "RHLean/Geometry/NativePolarizationRealCoordinates.lean",
+      "initial_attachment_sha256": "5234bbe37b964b8e26da45a18b779a4127c10d49df3155164c01956ec193b349",
+      "native_sha256": "5234bbe37b964b8e26da45a18b779a4127c10d49df3155164c01956ec193b349"
+    },
+    {
+      "path": "RHLean/Analysis/AlpogeThin/NativeDyadicHostDifferent.lean",
+      "initial_attachment_sha256": "7446ac3ecf2f956e4e340a9f9dbf9972bbb33d3ef437234311d1532609ef6dc3",
+      "native_sha256": "7446ac3ecf2f956e4e340a9f9dbf9972bbb33d3ef437234311d1532609ef6dc3"
+    }
+  ],
+  "mathlib_pin": "d13f23b723b8a846827a245b89c10fc7d3f11612",
+  "exact_api_checks": [
+    {
+      "path": "Mathlib/Algebra/Module/ZLattice/Basic.lean",
+      "sha256": "8db68d3621f893d4e6778327e2bdd8ecd51b76db943bfe8ee9aefdd05dae7a87",
+      "declarations": [
+        "DiscreteTopology for the integer span of a finite real basis, including toAddSubgroup"
+      ]
+    },
+    {
+      "path": "Mathlib/LinearAlgebra/TensorProduct/Basis.lean",
+      "sha256": "3754f71740ada3143aa2de27735a6f7a03e562278666e54d5be6c3d2275ef263",
+      "declarations": [
+        "Module.Basis.baseChange",
+        "Module.Basis.baseChange_repr_tmul",
+        "Module.Basis.baseChange_apply"
+      ]
+    },
+    {
+      "path": "Mathlib/LinearAlgebra/BilinearForm/TensorProduct.lean",
+      "sha256": "c28e659a66e3f672b0bdac8de1f41bb9d0f587f3452ff2a494b72c8b51638776",
+      "declarations": [
+        "LinearMap.BilinForm.baseChange_tmul"
+      ]
+    },
+    {
+      "path": "Mathlib/LinearAlgebra/TensorProduct/Defs.lean",
+      "sha256": "f913156d8624ae39d74037e03175af48122444d57bd4105354da23c1f12ffffc",
+      "declarations": [
+        "TensorProduct.inductionOn, tmul/add branches only"
+      ]
+    },
+    {
+      "path": "Mathlib/LinearAlgebra/Complex/Module.lean",
+      "sha256": "c2148a34eea6e638af8f3b71340a58081e90eae4642aae72c32069a4e2c65221",
+      "declarations": [
+        "Complex.conjAe"
+      ]
+    },
+    {
+      "path": "Mathlib/NumberTheory/NumberField/InfinitePlace/Embeddings.lean",
+      "sha256": "1c387b8e514d0511c5a6164bc2c661d9de542114b6b56a67449626d8f2aa0634",
+      "declarations": [
+        "ComplexEmbedding.conjugate_coe_eq",
+        "ComplexEmbedding.involutive_conjugate"
+      ]
+    },
+    {
+      "path": "Mathlib/Logic/Equiv/Basic.lean",
+      "sha256": "7ecb0239b0db90f731ec3f8fdb73b12ba74229ccf4b3a30ae86a4af9e2529fcd",
+      "declarations": [
+        "Equiv.subtypeEquivOfSubtype"
+      ]
+    },
+    {
+      "path": "Mathlib/SetTheory/Cardinal/Finite.lean",
+      "sha256": "d0bb8f1f00469a940dcc8ca404a9d4f7157516c40a4d6aa0fbbc622e50c42e94",
+      "declarations": [
+        "Nat.card_congr",
+        "Nat.card_fin"
+      ]
+    },
+    {
+      "path": "Mathlib/Data/Fintype/Card.lean",
+      "sha256": "a77eb573a459ee525cfb4ac753dd05968ef2cc831d7549dc4e9036c7a90a1f00",
+      "declarations": [
+        "Fintype.card_congr"
+      ]
+    },
+    {
+      "path": "Mathlib/Data/Fintype/EquivFin.lean",
+      "sha256": "891fdb687fc067b1511701992301e28de0d4fd6ab53d74a96f51be39d5aa8f92",
+      "declarations": [
+        "Fintype.equivFin"
+      ]
+    }
+  ],
+  "proof_construction": [
+    "One actual half-different B is chosen before all ranks k,m and signatures j.",
+    "The same proved real tensor equivalence is followed by conjugation of precisely the original negative tail and a single finite enumeration shared with the coefficient type.",
+    "Explicit finite fiber equivalences give p=k+j-1 and q=m-j for the literal original host-root filter.",
+    "The coefficient action, complex structure, and normalized integer alternating form remain those of the SAME complete constructed Datum.",
+    "The period range equals the integer span of the transported actual integral basis; this proves injectivity, discreteness and full real span.",
+    "The source positive Hermitian matrix is constructed, with imaginary part exactly equal to the original EF; no rescaling or period conclusion is assumed."
+  ],
+  "source_adaptations": [
+    "NativeGeometricHost/Datum replace only the namespaces of already reconstructed complete source records.",
+    "The general spectral diagonalization is replaced by the explicit already constructed diagonal coordinates; its coefficient-type fiber counts are proved directly.",
+    "Only the source pure Hermitian and integral-basis range argument is retained from exists_isPeriod.",
+    "Pinned TensorProduct.inductionOn uses tmul/add branches and no obsolete zero branch.",
+    "Proof-local Prop classes use anonymous have/let per the pinned warning convention."
+  ],
+  "sign_convention": "Native field Hermitian form conjugates its FIRST argument; actual positivity is EF(Jx,x)>0. The source period Hermitian form is linear in its FIRST argument and is constructed as B(Ix,y)+i*B(x,y), so Im(hermForm(Px,Py))=EF(x,y) exactly.",
+  "period_field_inventory": [
+    "actual O(E) coefficient action",
+    "injective period map",
+    "DiscreteTopology of its range",
+    "full real span",
+    "positive Hermitian matrix",
+    "literal imaginary part equals source-normalized EF"
+  ],
+  "remaining": [
+    "The separate integral symplectic PID basis supplier required by downstream source consumers.",
+    "Actual analytic/algebraic uniformization and level/moduli existence (Out.Laws/Laws2, cube and ThetaUnifAV suppliers).",
+    "Geometric theta sections, charts and their metric/evaluation attachment.",
+    "Separate full Spaces/D7 auxiliary prime T and ray-congruence construction; not needed for this actual period datum."
+  ],
+  "checks": {
+    "whitespace": "PASS",
+    "forbidden_placeholders": "NONE",
+    "new_gate_or_execution_budget_overrides": "NONE",
+    "local_Lean_or_Lake_executed": false,
+    "shared_tree_edits": false,
+    "remote_writes": false,
+    "hosted_compilation": "PENDING_PARENT_PUBLICATION"
+  },
+  "parent_head_at_freeze": "291e21aa788aaa2af9238b835dbd24a76d1b3717",
+  "independent_reviews": [
+    {
+      "reviewer": "/root",
+      "status": "PASS",
+      "scope": "All three modules plus literal source predicates/hermForm, original basis range proof and pinned ZLattice/subtype APIs."
+    },
+    {
+      "reviewer": "/root/ci_repair",
+      "status": "PASS",
+      "scope": "NativeGeometricPeriods: exact source predicates, FIRST-linear Hermitian sign, integer-basis range, pinned discreteness/baseChange/induction APIs."
+    },
+    {
+      "reviewer": "/root/geometric_constructor",
+      "status": "PASS",
+      "scope": "NativePeriodTypeCoordinates and full NativePrescribedGeometricPeriod adapter: exact finite equivalences, coefficient/J action, same B/host/root/lattice and native endpoint."
+    }
+  ],
+  "formal_limit": "Static mathematical and API review only. These new modules have not been locally compiled; exact hosted elaboration remains required.",
+  "source_and_native_declarations": [
+    "RHLean.Geometry.NativeGeometricPeriods.hermForm",
+    "RHLean.Geometry.NativeGeometricPeriods.IsTypeFn",
+    "RHLean.Geometry.NativeGeometricPeriods.IsPeriod",
+    "RHLean.Geometry.NativeGeometricPeriods.exists_herm",
+    "RHLean.Geometry.NativeGeometricPeriods.periodOfRealEquiv",
+    "RHLean.Geometry.NativeGeometricPeriods.periodOfRealEquiv_apply",
+    "RHLean.Geometry.NativeGeometricPeriods.periodOfRealEquiv_isPeriod",
+    "RHLean.Geometry.NativePeriodCoordinates.conjIf",
+    "RHLean.Geometry.NativePeriodCoordinates.conjIf_involutive",
+    "RHLean.Geometry.NativePeriodCoordinates.conjIf_diagonalJ",
+    "RHLean.Geometry.NativePeriodCoordinates.indexEquiv",
+    "RHLean.Geometry.NativePeriodCoordinates.coordinates",
+    "RHLean.Geometry.NativePeriodCoordinates.coordinates_apply",
+    "RHLean.Geometry.NativePeriodCoordinates.rawType",
+    "RHLean.Geometry.NativePeriodCoordinates.typeFn",
+    "RHLean.Geometry.NativePeriodCoordinates.coordinates_mul",
+    "RHLean.Geometry.NativePeriodCoordinates.coordinates_diagonalJ",
+    "RHLean.Geometry.NativePeriodCoordinates.rawType_eq_of_mem",
+    "RHLean.Geometry.NativePeriodCoordinates.rawType_eq_of_not_mem",
+    "RHLean.Geometry.NativePeriodCoordinates.positiveFiberEquiv",
+    "RHLean.Geometry.NativePeriodCoordinates.negativeFiberEquiv",
+    "RHLean.Geometry.NativePeriodCoordinates.typeFn_card_of_mem",
+    "RHLean.Geometry.NativePeriodCoordinates.typeFn_card_of_not_mem",
+    "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.twistedPeriodRealEquiv",
+    "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.twistedPeriodRealEquiv_tmul",
+    "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.twistedPeriodRealEquiv_complexStructure",
+    "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.prescribedPeriodMap",
+    "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.prescribedPeriodType",
+    "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.prescribedPeriodMap_apply",
+    "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.prescribedPeriodMap_smul",
+    "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.prescribedPeriodType_isTypeFn",
+    "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.prescribedPeriod_isPeriod",
+    "RHLean.Analysis.AlpogeThin.nativeDyadicPrescribedGeometricDatum_isPeriod",
+    "RHLean.Analysis.AlpogeThin.nativeDyadicHost_exists_prescribedPeriods"
+  ],
+  "axiom_guard_declarations": [
+    "RHLean.Geometry.NativeGeometricPeriods.exists_herm",
+    "RHLean.Geometry.NativeGeometricPeriods.periodOfRealEquiv_isPeriod",
+    "RHLean.Geometry.NativePeriodCoordinates.coordinates_mul",
+    "RHLean.Geometry.NativePeriodCoordinates.coordinates_diagonalJ",
+    "RHLean.Geometry.NativePeriodCoordinates.typeFn_card_of_mem",
+    "RHLean.Geometry.NativePeriodCoordinates.typeFn_card_of_not_mem",
+    "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.twistedPeriodRealEquiv_complexStructure",
+    "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.prescribedPeriodType_isTypeFn",
+    "RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.prescribedPeriod_isPeriod",
+    "RHLean.Analysis.AlpogeThin.nativeDyadicPrescribedGeometricDatum_isPeriod",
+    "RHLean.Analysis.AlpogeThin.nativeDyadicHost_exists_prescribedPeriods"
+  ]
+}
