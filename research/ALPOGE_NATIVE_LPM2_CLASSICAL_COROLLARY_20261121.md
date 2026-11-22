@@ -19,7 +19,11 @@ analytic bridge is not yet discharged.** Three layers are kept separate:
    `NativeSquareDyadicChebyshevBound` (RH plus a quantitative RH-to-\(\psi\)
    bound against RH_Lean's own `nativePsi`), and the converse transfer of
    the "Converse" section. Until then the Lean growth theorem keeps that
-   supplier as an explicit premise.
+   supplier as an explicit premise. The premise-free target is recorded as
+   `AlpogeNativeSquareNegativeLPM2Endpoint` in
+   `RHLean/Analysis/AlpogeNativeLPM2Endpoint.lean`. It is stated, not proved.
+   A completed endpoint must prove exactly that statement, with no
+   `NativeSquareDyadicChebyshevBound` in its dependency closure.
 
 A *direct* derivation of the same LPM2 estimate from Alpöge's geometric
 lattice mechanism (last section) is a separate, independent research
