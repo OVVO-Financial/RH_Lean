@@ -563,3 +563,7 @@ end RHLean.Analysis
 #print axioms RHLean.Analysis.alpogeNativeFloorPrimeFiber_card
 #print axioms RHLean.Analysis.alpogeNativeAdditiveWheel_noncrossing
 #print axioms RHLean.Analysis.alpogeNativeChebyshevAdditiveWheel_noncrossing
+#print axioms RHLean.Analysis.alpogeNativeAdditiveWheel_crossing
+#print axioms RHLean.Analysis.alpogeNativeAdditiveWheel_fiber_sum
+#print axioms RHLean.Analysis.alpogeNativeAdditiveWheel_rectangular_telescope
+#print axioms RHLean.Analysis.alpogeNativeSquareClock_mixedWheel_signedTelescope
