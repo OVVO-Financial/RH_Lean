@@ -8,13 +8,13 @@ The native results implemented here are finite integral descent with constructed
 
 The decisive arithmetic statement now has a more explicit form. Write:
 
-- $Z$ for the original subgroup average of the full physical ASK−MAIN over actual heights and rows;
-- $L_{\rm thin}$ for its literal signed complement after selecting the thick colours;
-- $Y_{\rm full}$ for the complete annihilator-character sum at the original heights $a_t/b$ and original phases;
-- $Y_K$ and $\Sigma_K$ for an optional retained subset and its excluded-character norm charge;
+- $Z$ for the full physical ASK−MAIN, averaged over $A_0$ and summed over the actual heights $t\in TT$ and rows $j\in\mathrm{Fin}(m)$;
+- $L_{\rm thin}$ for its literal signed complement after selecting the thick colours, with the same subgroup average and height/row sums;
+- $Y_{\rm full}$ for the complete annihilator-character sum at the original heights $a_t/b$ and original phases, averaged over $t\in TT$ with the factor $1/|TT|$;
+- $Y_K$ and $\Sigma_K$ for an optional retained subset and its excluded-character norm charge, each with that same height average;
 - $T=|TT|$, $n=|H|$, $\Delta=|T2|/n$, and $Q=Tmb\Delta/2>0$.
 
-If the actual thick widths lie in $[b,b+h]$, all physical widths are positive, the original sharp cutoff is valid, and $a_t/b\le X$, the native theorem is
+If the actual thick widths lie in $[b,b+h]$, all physical widths are positive, the common sharp cutoff covers both the original profiles and the thick widths frozen at $b$, and $a_t/b\le X$, the native theorem is
 
 \[
 Y_{\rm full}\le \frac{Z-L_{\rm thin}}{Q}
@@ -201,6 +201,8 @@ N=\left\lceil A/\beta\right\rceil.
 
 The native finite-family lemma proves this cutoff for every original affine row and for its midpoint; the source identity is then proved at that constructed cutoff. For $\beta=b/(nX')$ and $A\asymp xb$, this cutoff is of order $xnX'$. It is different from the critical thick-response scale $x=R_V^2-1$. Replacing the full physical cutoff by $x$ would delete genuine thin-sector prime powers.
 
+For the complete character comparison, the corollary `alpogeNativeCompleteProjection_at_constructed_cutoff` also constructs the frozen-profile cutoff. With $\beta\le b$, all original widths at least $\beta$, and $a_t\le A$, the same $N=\lceil A/\beta\rceil$ covers every original ratio and every frozen ratio $a_t/b$. It also derives $X=A/b$ from the height envelope. Thus this corollary has neither an unconstructed cutoff premise nor an independent response-scale bound.
+
 ## 4. Derive the character divisor and pay the thick movement
 
 See [AlpogeNativeSubgroupProjection.lean](../RHLean/Analysis/AlpogeNativeSubgroupProjection.lean), [AlpogeNativeThickFreezing.lean](../RHLean/Analysis/AlpogeNativeThickFreezing.lean), and [AlpogeNativeCompleteSourcePayment.lean](../RHLean/Analysis/AlpogeNativeCompleteSourcePayment.lean).
@@ -209,7 +211,15 @@ Average over the actual subgroup $A_0\subseteq H$. Character orthogonality kills
 \[
 Q=Tmb\Delta/2.
 \]
-There is no inserted multiplicity in $G_z$, no unidentified proportionality constant, and no unproved normalization division.
+In these conventions the signal is explicitly
+\[
+Y_{\rm full}=\frac1T\sum_{t\in TT}\operatorname{Re}
+ \sum_{\psi\in\mathcal A(A_0)}
+ \psi(e_1(t))G_\psi(a_t/b),
+\qquad
+\mathcal A(A_0)=\{\psi:\psi(0,u)=1\text{ for every }u\in A_0\},
+\]
+with $e_1(t)=((1,0),t)$ in the native two-bit host. The geometric and thin quantities retain their sums over heights and rows. Thus the factor $T$ in $Q$ follows from the exact comparison of these normalizations. There is no inserted multiplicity in $G_z$ or unproved normalization division.
 
 The full physical source is split into the chosen thick colours and their literal finite complement. Freezing only the thick widths leaves the thin return **exactly unchanged**. The Fourier-inverted all-prime-power kernel has total colour mass at most two. The positive-part hinge is Lipschitz in width, and MAIN has the favorable sign for this lower-width comparison. Hence the total frozen-width bill before normalization is at most
 \[

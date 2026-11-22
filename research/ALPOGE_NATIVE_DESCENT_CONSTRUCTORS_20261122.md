@@ -7,10 +7,14 @@
 - Native mathlib: `leanprover-community/mathlib4@d13f23b723b8a846827a245b89c10fc7d3f11612`.
 - Native Lean: `leanprover/lean4:v4.34.1`.
 
-All source statements below were read at those pins. New native proofs have only
-been submitted to hosted checking; no local Lean process was run.
+All source statements below were read at those pins. The native finite-descent,
+constructed-completion and normalized-slope modules have passed hosted
+compilation during this PR. Acceptance of the delivered PR head is determined
+by its exact-head hosted checks. The additional two-point diagnostic also
+passed hosted module compilation; its observed axiom list contains only
+`propext`, `Classical.choice` and `Quot.sound`. No local Lean process was run.
 
-## Native finite theorem now drafted
+## Native finite theorem with constructed witnesses
 
 Let A and B be actual Euclidean integral lattices of ranks r and N=r+d. Their
 metrics are fixed before selecting the map. Let f be an injective real linear
@@ -235,7 +239,7 @@ specified coordinate equivalence. It does not construct the short cusp u,
 its level determinant, a short section spanning set or the geometric rank
 comparison. None was found among those native data.
 
-There is therefore a real native finite descent theorem under development,
+There is therefore an implemented, hosted-checked native finite descent theorem,
 but no identified native theta/cusp instance satisfying the complete supplier
 contract yet. A faithful instance must use one common original cover/host,
 section lattice and norm family for integrality, joint injection, rank and
@@ -257,7 +261,7 @@ determinant as an integer. That lemma must use one common K-basis completion
 and the original all-place Gram metrics. Extending it from free coordinate
 lattices to the original projective O_K-submodules also requires actual
 ideal-index/covolume accounting. No such normalization theorem is claimed
-by the present drafts.
+by these native modules.
 
 ## Extended native supplier audit at 608b5702
 
@@ -350,8 +354,12 @@ and small-generator budgets in `MapsAt`, `RkAt` and `GminAt`.
 
 The following exact calculation explains why joint injection, integrality
 and rank saturation do not automatically remove the q-cubed operator-norm
-bill. It is a diagnostic function-algebra model, not a native theta instance
-and not an additional Lean-checked declaration in this patch.
+bill. It is a diagnostic function-algebra model, not a native theta instance.
+The general-q argument below is a human proof. Its explicit two-point instance
+is formalized in `RHLean/Geometry/NativeTwistedTraceDiagnostic.lean`, included
+in the root manifest and guarded axiom audit. Hosted compilation of that module
+has passed. The general-q calculation remains a human derivation; the
+delivered PR's final checks also validate the guard-message expectations.
 
 Let H be a finite abelian group of order q>0, act by translations on real
 functions on H, and use the normalized norm

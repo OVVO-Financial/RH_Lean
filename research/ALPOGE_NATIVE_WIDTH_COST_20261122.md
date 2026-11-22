@@ -18,6 +18,14 @@ head passes compilation and the assumption audit. No local Lean execution
 was performed. The first hosted pass found two local proof-script errors and
 lint warnings; the current files repair those, but their next check is pending.
 
+A separate read-only mathematical/API audit by the character-transfer agent
+checked the oriented recombination, both curvature signs, actual row
+reflection, the cutoff construction, the factor `1/4`, host/thin-scale costs,
+positive scaling and the exponential-decay proof. Its one material scope
+correction was to distinguish full-host and actual subgroup frame averages;
+that distinction is incorporated below. This review is separate from the
+hosted kernel-check and does not certify the unresolved global source bound.
+
 This work proves a finite, quantitative upper-direction width comparison.
 It does not construct the entire original field/lattice/metric family,
 bound the surviving midpoint source, or prove the global critical estimate.

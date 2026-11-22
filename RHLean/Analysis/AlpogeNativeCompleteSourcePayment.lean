@@ -112,4 +112,40 @@ theorem alpogeNativeCompleteProjection_normalized_le
   rw [add_div] at hraw
   linarith
 
+/-- Construct a single cutoff for both the original profiles and their frozen
+thick part. The height envelope also supplies X; no cutoff or independent
+response-scale premise is left to the caller. -/
+theorem alpogeNativeCompleteProjection_at_constructed_cutoff
+    {H : Type*} [AddCommGroup H] [Fintype H] [DecidableEq H]
+    (A0 : AddSubgroup H)
+    (inertia : ℕ → AddSubgroup (AlpogeNativeE0 × H))
+    (frob : ℕ → AlpogeNativeE0 × H)
+    (ell : AddChar (AlpogeNativeE0 × H) ℂ → ℂ)
+    {m : ℕ} (TT T2 : Finset H)
+    (hTT : TT.Nonempty) (hT2ne : T2.Nonempty) (hm : 0 < m)
+    (hT2 : ∀ s ∈ T2, s ∈ A0) (a : H → ℝ) (b h A beta : ℝ)
+    (w : H → Fin m → AlpogeNativeE0 × H → ℝ)
+    (hbeta : 0 < beta) (hbetab : beta ≤ b) (hh : 0 ≤ h)
+    (ha : ∀ t ∈ TT, 0 < a t) (haA : ∀ t ∈ TT, a t ≤ A)
+    (hw : ∀ u j ρ, alpogeNativeInPhi ρ → beta ≤ w u j ρ)
+    (hthick : ∀ u j ρ, ρ ∈ alpogeNativeThickPositiveSites T2 u →
+      b ≤ w u j ρ ∧ w u j ρ ≤ b + h) :
+    alpogeNativeProjectedSignal A0 (alpogeNativeFrobInertiaGPsi inertia frob ell) TT a b ≤
+      (alpogeNativePhysicalSubgroupTopExcess A0 inertia frob ell
+          (Nat.ceil (A / beta)) TT a w -
+        alpogeNativeProjectionThinAverage A0 (alpogeNativeFrobInertiaGPsi inertia frob ell)
+          TT T2 a w) / alpogeNativeProjectionDivisor TT T2 m b +
+      4 * h * (Real.log 4 + 2) * (A / b) /
+        (b * alpogeNativeProjectionDensity T2) := by
+  have hb : 0 < b := hbeta.trans_le hbetab
+  exact alpogeNativeCompleteProjection_normalized_le A0 inertia frob ell
+    (Nat.ceil (A / beta)) TT T2 hTT hT2ne hm hT2 a b h (A / b) w
+    hb hh ha
+    (fun t ht => div_le_div_of_nonneg_right (haA t ht) hb.le)
+    (fun u j ρ hρ => hbeta.trans_le (hw u j ρ hρ)) hthick
+    (fun u j t ht ρ hρ => alpogeWidthRatio_le_natCeil
+      (a t) A beta (w u j ρ) (ha t ht).le (haA t ht) hbeta (hw u j ρ hρ))
+    (fun t ht => alpogeWidthRatio_le_natCeil
+      (a t) A beta b (ha t ht).le (haA t ht) hbeta hbetab)
+
 end RHLean.Analysis

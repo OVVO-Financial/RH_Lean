@@ -13,25 +13,19 @@ footprints do not construct the missing theta-lift family or prove RH.
 -/
 
 /--
-info: 'RHLean.Geometry.nativeIntegralMap_gram_bound' depends on axioms: [propext,
- Classical.choice,
- Quot.sound]
+info: 'RHLean.Geometry.nativeIntegralMap_gram_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
 -/
 #guard_msgs in
 #print axioms RHLean.Geometry.nativeIntegralMap_gram_bound
 
 /--
-info: 'RHLean.Geometry.nativeIntegralDescent_with_completion' depends on axioms: [propext,
- Classical.choice,
- Quot.sound]
+info: 'RHLean.Geometry.nativeIntegralDescent_with_completion' depends on axioms: [propext, Classical.choice, Quot.sound]
 -/
 #guard_msgs in
 #print axioms RHLean.Geometry.nativeIntegralDescent_with_completion
 
 /--
-info: 'RHLean.Geometry.nativeIntegralCompletionFromSpanningSet' depends on axioms: [propext,
- Classical.choice,
- Quot.sound]
+info: 'RHLean.Geometry.nativeIntegralCompletionFromSpanningSet' depends on axioms: [propext, Classical.choice, Quot.sound]
 -/
 #guard_msgs in
 #print axioms RHLean.Geometry.nativeIntegralCompletionFromSpanningSet
@@ -69,25 +63,19 @@ info: 'RHLean.Analysis.alpogeNativeSignedWidthSource_affine_family_normalized_le
 #print axioms RHLean.Analysis.alpogeNativeSignedWidthSource_affine_family_normalized_le
 
 /--
-info: 'RHLean.Analysis.alpogeNativePhysicalSubgroup_pays_retained' depends on axioms: [propext,
- Classical.choice,
- Quot.sound]
+info: 'RHLean.Analysis.alpogeNativePhysicalSubgroup_pays_retained' depends on axioms: [propext, Classical.choice, Quot.sound]
 -/
 #guard_msgs in
 #print axioms RHLean.Analysis.alpogeNativePhysicalSubgroup_pays_retained
 
 /--
-info: 'RHLean.Analysis.alpogeNativeRetained_freezing_paid' depends on axioms: [propext,
- Classical.choice,
- Quot.sound]
+info: 'RHLean.Analysis.alpogeNativeRetained_freezing_paid' depends on axioms: [propext, Classical.choice, Quot.sound]
 -/
 #guard_msgs in
 #print axioms RHLean.Analysis.alpogeNativeRetained_freezing_paid
 
 /--
-info: 'RHLean.Analysis.alpogeNativeFreezing_normalized_cost_le' depends on axioms: [propext,
- Classical.choice,
- Quot.sound]
+info: 'RHLean.Analysis.alpogeNativeFreezing_normalized_cost_le' depends on axioms: [propext, Classical.choice, Quot.sound]
 -/
 #guard_msgs in
 #print axioms RHLean.Analysis.alpogeNativeFreezing_normalized_cost_le
@@ -110,17 +98,13 @@ info: 'RHLean.Analysis.alpogeNativeCompleteCharacterSource_normalized_le' depend
 
 
 /--
-info: 'RHLean.Geometry.nativeIntegralDescent_from_generators' depends on axioms: [propext,
- Classical.choice,
- Quot.sound]
+info: 'RHLean.Geometry.nativeIntegralDescent_from_generators' depends on axioms: [propext, Classical.choice, Quot.sound]
 -/
 #guard_msgs in
 #print axioms RHLean.Geometry.nativeIntegralDescent_from_generators
 
 /--
-info: 'RHLean.Geometry.nativeIntegralDescent_slope' depends on axioms: [propext,
- Classical.choice,
- Quot.sound]
+info: 'RHLean.Geometry.nativeIntegralDescent_slope' depends on axioms: [propext, Classical.choice, Quot.sound]
 -/
 #guard_msgs in
 #print axioms RHLean.Geometry.nativeIntegralDescent_slope
@@ -142,25 +126,19 @@ info: 'RHLean.Analysis.alpogeNativeSignedWidthSource_eq_De_re_at_natCeil' depend
 #print axioms RHLean.Analysis.alpogeNativeSignedWidthSource_eq_De_re_at_natCeil
 
 /--
-info: 'RHLean.Geometry.nativeTwoTrace_injective' depends on axioms: [propext,
- Classical.choice,
- Quot.sound]
+info: 'RHLean.Geometry.nativeTwoTrace_injective' depends on axioms: [propext, Classical.choice, Quot.sound]
 -/
 #guard_msgs in
 #print axioms RHLean.Geometry.nativeTwoTrace_injective
 
 /--
-info: 'RHLean.Geometry.nativeTwoTrace_multiplication_norm' depends on axioms: [propext,
- Classical.choice,
- Quot.sound]
+info: 'RHLean.Geometry.nativeTwoTrace_multiplication_norm' depends on axioms: [propext, Classical.choice, Quot.sound]
 -/
 #guard_msgs in
 #print axioms RHLean.Geometry.nativeTwoTrace_multiplication_norm
 
 /--
-info: 'RHLean.Geometry.nativeTwoTrace_not_qSquared' depends on axioms: [propext,
- Classical.choice,
- Quot.sound]
+info: 'RHLean.Geometry.nativeTwoTrace_not_qSquared' depends on axioms: [propext, Classical.choice, Quot.sound]
 -/
 #guard_msgs in
 #print axioms RHLean.Geometry.nativeTwoTrace_not_qSquared
@@ -172,3 +150,11 @@ info: 'RHLean.Analysis.alpogeNativeCompleteProjection_normalized_le' depends on 
 -/
 #guard_msgs in
 #print axioms RHLean.Analysis.alpogeNativeCompleteProjection_normalized_le
+
+/--
+info: 'RHLean.Analysis.alpogeNativeCompleteProjection_at_constructed_cutoff' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.alpogeNativeCompleteProjection_at_constructed_cutoff
