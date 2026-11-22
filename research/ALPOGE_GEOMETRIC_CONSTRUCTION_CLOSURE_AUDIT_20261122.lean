@@ -1,5 +1,6 @@
 import RHLean.Analysis.AlpogeLandau
 import RHLean.Geometry.NativeRegularSectionSelection
+import RHLean.Geometry.NativeGroupDeterminant
 
 /-!
 # Axiom guards for the reconstructed geometric/analytic closure
@@ -33,3 +34,9 @@ info: 'RHLean.Analysis.AlpogeLandau.riemannHypothesis_of_nativeGz_windows' depen
 -/
 #guard_msgs in
 #print axioms RHLean.Analysis.AlpogeLandau.riemannHypothesis_of_nativeGz_windows
+
+/--
+info: 'RHLean.Geometry.nativeExists_short_integral_group_section' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Geometry.nativeExists_short_integral_group_section

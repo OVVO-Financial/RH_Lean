@@ -454,6 +454,7 @@ import RHLean.Geometry.ComplexSquareRecovery
 import RHLean.Geometry.FermatCoordinates
 import RHLean.Geometry.LeastPrimeEndpoint
 import RHLean.Geometry.NativeFiniteIntegralDescent
+import RHLean.Geometry.NativeGroupDeterminant
 import RHLean.Geometry.NativeIntegralCompletion
 import RHLean.Geometry.NativeIntegralLatticeCertificate
 import RHLean.Geometry.NativeRegularSectionSelection
