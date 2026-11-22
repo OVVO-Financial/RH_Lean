@@ -111,8 +111,11 @@ theorem nativeAlpogeGz_interval_abs_le
   have hdown := nativeOneSidedLipschitz_Icc
     (fun n => -nativeAlpogeGz n)
     alpogeGzInterpolationSlope hdownStep a b ha hab
+  have hdown' : -nativeAlpogeGz b ≤
+      -nativeAlpogeGz a +
+        alpogeGzInterpolationSlope * (((b - a : ℕ) : ℝ)) := hdown
   rw [abs_le]
-  constructor <;> dsimp at * <;> linarith
+  constructor <;> linarith
 
 /-- Barycentric coordinate of N between lattice endpoints a < b. -/
 def alpogeSquareSecantWeight (a N b : ℕ) : ℝ :=
@@ -267,7 +270,10 @@ theorem nativeAlpogeGz_square_lattice_signed_remainder
     by_contra h
     have hR1 : R ≤ 1 := by omega
     nlinarith
-  have hsq : R ^ 2 < (R + 1) ^ 2 := by nlinarith
+  have hsq : R ^ 2 < (R + 1) ^ 2 := by
+    calc
+      R ^ 2 < R ^ 2 + (2 * R + 1) := by omega
+      _ = (R + 1) ^ 2 := by ring
   have hone : 1 ≤ R ^ 2 := by nlinarith
   have hsource := nativeAlpogeGz_squareChord_error_abs_le
     (R ^ 2) N ((R + 1) ^ 2) hone hlo hhi.le hsq
@@ -290,7 +296,10 @@ theorem nativeAlpogeGz_square_lattice_exact
       alpogeSquareSignedCorrection (R ^ 2) N ((R + 1) ^ 2) := by
   dsimp
   let R := Nat.sqrt N
-  have hsq : R ^ 2 < (R + 1) ^ 2 := by nlinarith
+  have hsq : R ^ 2 < (R + 1) ^ 2 := by
+    calc
+      R ^ 2 < R ^ 2 + (2 * R + 1) := by omega
+      _ = (R + 1) ^ 2 := by ring
   have h := nativeAlpogeGz_sub_squareChord_eq_signedCorrection
     (R ^ 2) N ((R + 1) ^ 2) hsq
   linarith
@@ -313,7 +322,10 @@ theorem nativeAlpogeGz_all_of_square_lattice_critical
     by_contra h
     have hR1 : R ≤ 1 := by omega
     nlinarith
-  have hsq : R ^ 2 < (R + 1) ^ 2 := by nlinarith
+  have hsq : R ^ 2 < (R + 1) ^ 2 := by
+    calc
+      R ^ 2 < R ^ 2 + (2 * R + 1) := by omega
+      _ = (R + 1) ^ 2 := by ring
   have ht := alpogeSquareSecantWeight_mem_unit
     (R ^ 2) N ((R + 1) ^ 2) hlo hhi.le hsq
   let t := alpogeSquareSecantWeight (R ^ 2) N ((R + 1) ^ 2)
@@ -406,15 +418,22 @@ theorem nativeAlpogeCenteredHistory_all_of_square_lattice_critical
       |nativeAlpogeCenteredHistory N| ≤
         ((2 * C + 3 * alpogeGzInterpolationSlope) *
           Real.sqrt (N : ℝ)) / (N : ℝ) := by
-    exact (le_div_iff₀ hNpos).2 hG
+    apply (le_div_iff₀ hNpos).2
+    nlinarith [hG]
   calc
     |nativeAlpogeCenteredHistory N| ≤
         ((2 * C + 3 * alpogeGzInterpolationSlope) *
           Real.sqrt (N : ℝ)) / (N : ℝ) := hDiv
     _ = (2 * C + 3 * alpogeGzInterpolationSlope) /
           Real.sqrt (N : ℝ) := by
-      rw [← hrootSq]
-      field_simp [ne_of_gt hroot]
-      ring
+      calc
+        ((2 * C + 3 * alpogeGzInterpolationSlope) * Real.sqrt (N : ℝ)) /
+            (N : ℝ) =
+            ((2 * C + 3 * alpogeGzInterpolationSlope) * Real.sqrt (N : ℝ)) /
+              (Real.sqrt (N : ℝ)) ^ 2 := by rw [hrootSq]
+        _ = (2 * C + 3 * alpogeGzInterpolationSlope) /
+              Real.sqrt (N : ℝ) := by
+          field_simp [ne_of_gt hroot]
+          ring
 
 end RHLean.Analysis
