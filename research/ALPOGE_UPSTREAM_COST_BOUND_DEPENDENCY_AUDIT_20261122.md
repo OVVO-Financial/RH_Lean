@@ -4,8 +4,29 @@ Date: 2026-11-22. **Status: source-text dependency audit (no upstream build). No
 
 Upstream source audited: mirror `CocoSgt/riemann-hypothesis-lean` at commit
 `7cbf7a0c32fca1badf05931879a37c3f8a2b03b4` (byte copy of the alpo.ge archive; Lean `v4.33.1`;
-175,187 `.lean` files, about 17.4M lines). The mirror README states that, as of mirroring,
-no independent build or review has been published.
+175,187 `.lean` files, about 17.4M lines). The mirror README said that, as of mirroring
+(2026-11-20), no independent build or review had been published.
+
+**Update (2026-11-22): RH is now independently verified.**
+
+- The [Lean/Mathlib communities' joint statement](https://leanprover-community.github.io/blog/posts/riemann-hypothesis/)
+  (2026-11-21), endorsed by the Lean FRO and the Mathlib Initiative, certifies
+  that both the statement (Mathlib's `RiemannHypothesis`) and the proof are
+  correct.
+- [A. Sutherland's verification files](https://math.mit.edu/~drew/grh/) report:
+  - compilation of all modules;
+  - only the three standard axioms;
+  - kernel replay of every module;
+  - acceptance by independent kernels;
+  - statement matching.
+
+  At the page's 2026-11-22 04:35 UTC update, the end-to-end `lake comparator`
+  run and the Lean-kernel replay of the export were still in progress.
+
+This settles that RH is proved. It does not change the dependency findings
+below: they concern *which route* the proof takes. The Gz / `topExcess` route
+named for translation leaves its cost bound as a hypothesis; the exported
+theorem goes through `everyCharacter`.
 
 Method: every claim below was read from declaration text. Whether a theorem is *proved*
 means a `theorem`/`lemma` with that conclusion exists in the tree. Whether the
@@ -183,9 +204,11 @@ everyCharacter_of_row h := every_character_of_literature_of_vWin ⟨h, recTExist
 3. Any RH-strength content that upstream supplies lies in the `everyCharacter` route (theta
    lifts, Galois representations, local Langlands, abelian varieties). Moving it into NNS
    coordinates would mean porting that development, not changing coordinates.
-4. Upstream remains unverified. Before anything there is treated as proved, it needs:
-   - `lake build Main`, `#print axioms` on the five `Main` theorems and a `lean4checker`
-     replay, on a large machine;
-   - a non-vacuity audit of `GalStar.Row0b`, `IsRecT`, `GLq.Green`, `VWin` and `HypsAlt`. The
-     tree claims in-Lean proofs of results such as local Langlands existence and Galois
-     representations for polarized automorphic representations.
+4. *(Superseded 2026-11-22; see the update at the top.)* This item originally said upstream
+   was unverified. The headline theorems have since compiled, shown only the standard axioms,
+   passed kernel replay with independent kernels, and been statement-matched to Mathlib's
+   definitions, as reported by the community joint statement and Sutherland's verification
+   files. Since the final statement is Mathlib's own, intermediate definitions such as
+   `GalStar.Row0b` or `VWin` cannot make it vacuous. What remains open for RH_Lean is porting,
+   not trust: either a toolchain-compatible import of the verified theorem (Lean v4.33.1
+   versus RH_Lean's 4.34.1 pin), or a native re-derivation.
