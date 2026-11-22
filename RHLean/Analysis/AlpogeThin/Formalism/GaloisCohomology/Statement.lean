@@ -110,10 +110,23 @@ def sumLocalH0TwistLength (D : LData F Ω l) (e : ℤ) : ℕ∞ :=
 def PTCase (F : Type) [Field F] [NumberField F] (l : ℕ) : Prop :=
   l ≠ 2 ∨ InfinitePlace.nrRealPlaces F = 0
 
+/-- The range of `localH2`, as a submodule of the product of the local `H²`
+groups. Its type spells out the additive-group structure that the module
+quotient needs. The default `Pi.addCommMonoid`, built from
+`Submodule.Quotient.addCommMonoid`, does not unify with it during instance
+search, so the upstream quotient `_ ⧸ LinearMap.range (localH2 D e)` fails
+to elaborate. The submodule is the same; only its elaborated type changes. -/
+def localH2Range (D : LData F Ω l) (e : ℤ) :
+    @Submodule ℤ_[l] (∀ v : D.S, H2 ((zlTw D (e + 1)).comp (locFam D.S D.A v))) _
+      AddCommGroup.toAddCommMonoid
+      (@Pi.module D.S _ ℤ_[l] _ (fun _ => AddCommGroup.toAddCommMonoid)
+        fun _ => Submodule.Quotient.module _) :=
+  LinearMap.range (localH2 D e)
+
 def PTCokerAt (D : LData F Ω l) (e : ℤ) : Prop :=
-  let image := LinearMap.range (localH2 D e)
   PTCase F l →
-    Module.length ℤ_[l] (Quotient (Submodule.quotientRel image)) =
+    Module.length ℤ_[l]
+        ((∀ v : D.S, H2 ((zlTw D (e + 1)).comp (locFam D.S D.A v))) ⧸ localH2Range D e) =
       Module.length ℤ_[l] (H0 (qzTw D e))
 
 def PTShaAt (D : LData F Ω l) (e : ℤ) : Prop :=

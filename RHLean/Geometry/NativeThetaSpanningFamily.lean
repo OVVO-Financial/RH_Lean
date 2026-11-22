@@ -149,8 +149,8 @@ theorem exists_short_integral_HHa_spanning_family
     · rw [hre]
       exact hlat
     · intro ν
-      rw [CoeffNorm.sum_coeff_rename_of_injective e.symm.injective]
-      exact hemb ν
+      exact (CoeffNorm.sum_coeff_rename_of_injective e.symm.injective
+        (fun c => ‖ν c‖) P).trans_le (hemb ν)
     · rw [CoeffNorm.allEmbeddingNorm_rename_of_injective e.symm.injective]
       exact hnorm
   · rw [Finset.coe_image, ← Submodule.map_span (f := (rename (R := K) (⇑e.symm)).toLinearMap), hspan]

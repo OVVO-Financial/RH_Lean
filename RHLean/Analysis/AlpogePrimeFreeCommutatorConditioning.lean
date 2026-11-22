@@ -71,8 +71,31 @@ theorem commutator_energy_on_annihilator (t : ℝ)
     squaredFrobenius (A * operator t - operator t * A) =
       t ^ 2 * (2 * ‖A 0 1‖ ^ 2 + ‖A 1 1‖ ^ 2) := by
   have h00 := (first_column_zero A hA).1
-  simp [squaredFrobenius, operator, Matrix.mul_apply, Matrix.vecMul_apply_eq_sum,
-    Fin.sum_univ_two, h00, norm_mul, mul_pow, Complex.norm_real, Real.norm_eq_abs] <;> ring
+  have o00 : operator t 0 0 = 0 := rfl
+  have o01 : operator t 0 1 = 0 := rfl
+  have o10 : operator t 1 0 = (t : ℂ) := rfl
+  have o11 : operator t 1 1 = 0 := rfl
+  have c00 : (A * operator t - operator t * A) 0 0 = A 0 1 * t := by
+    rw [Matrix.sub_apply, Matrix.mul_apply, Matrix.mul_apply, Fin.sum_univ_two,
+      Fin.sum_univ_two, o00, o01, o10]
+    ring
+  have c01 : (A * operator t - operator t * A) 0 1 = 0 := by
+    rw [Matrix.sub_apply, Matrix.mul_apply, Matrix.mul_apply, Fin.sum_univ_two,
+      Fin.sum_univ_two, o00, o01, o11]
+    ring
+  have c10 : (A * operator t - operator t * A) 1 0 = A 1 1 * t := by
+    rw [Matrix.sub_apply, Matrix.mul_apply, Matrix.mul_apply, Fin.sum_univ_two,
+      Fin.sum_univ_two, o00, o10, o11, h00]
+    ring
+  have c11 : (A * operator t - operator t * A) 1 1 = -(A 0 1 * t) := by
+    rw [Matrix.sub_apply, Matrix.mul_apply, Matrix.mul_apply, Fin.sum_univ_two,
+      Fin.sum_univ_two, o01, o10, o11]
+    ring
+  unfold squaredFrobenius
+  rw [Fin.sum_univ_two, Fin.sum_univ_two, Fin.sum_univ_two, c00, c01, c10, c11]
+  simp only [norm_zero, norm_neg, norm_mul, Complex.norm_real, Real.norm_eq_abs, mul_pow,
+    sq_abs]
+  ring
 
 /-- A valid coercivity constant, with its complete parameter dependence. -/
 theorem coercive (t : ℝ) (ht : t ≠ 0)
