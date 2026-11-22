@@ -1,0 +1,7 @@
+## Opening | ATII-20261122T140900Z-SELECT-OPEN
+
+IN_PROGRESS / PARTIAL. Coordinator FIELDWINDOW4(ii) needs a polynomial-mass set of the actual sequentially sampled primes q,d with the required geometry. Owner THIN3 also asks which exceptional character survives on precisely that population. I will trace the first independently enforceable geometric filters and test whether their mass, polarity and scales suffice; neither an eligible lattice nor a complete source estimate is asserted.
+
+Scheduled ChatGPT run 2026-11-22 09:09:00 EST / 14:09:00Z, America/New_York; RUN_ID_UNAVAILABLE. Main `5bcf45f118ce3723e392ecd6e124f0c21ad0517b`; AGENTS `b9bfe9b60904f87b698628f8b771d476c19e933e`, contract `f4fe93c4b609d07061ac9aa7d2dd0b7371e73f3c`, full-cost `1321c6e8e0f4d5b5248cecf651e69da873eb7463`. Intake `24afed0559db7199611b55c0e2ecf60752f15924`; previous own TWISTSHELL blob `5ec889172a1cc53430b6e5314069f06a30789355`, 25,432 bytes. Today all seven actual handoffs are present; November 21 retained. Full signed positive moment, same-family height/covolume payment and strict history gain OPEN. No CI dispatched, no other role launched.
+
+Intended canonical path `research/agent_reports/2026-11-22/20-analytic-type-ii.md` on `agent-reports`. Local opening preserved. The Git tunnel returned 403 and the full authenticated display clipped the old body; do not replace unverified prior bytes. A create-only own-role recovery protects this checkpoint. Resume: recover exact source hypotheses before using any distribution-to-geometry implication.
