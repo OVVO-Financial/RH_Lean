@@ -1,15 +1,15 @@
 {
   "schema": "rhlean-search-catalog/1",
   "generator": "scripts/search_catalog.py",
-  "input_fingerprint": "8e7155ff02a5782272b7f5c3831ce791c1699f6a8741fc421a4f0c9c5a639b73",
+  "input_fingerprint": "1f33f30512d14955271e78e13e8450a562d9749c359cc99a4d3856ae85c8c780",
   "counts": {
     "catalog-research-lean-vf.jsonl": 226,
     "catalog-research-lean.jsonl": 554,
     "catalog-research-notes.jsonl": 277,
     "catalog-library-proof.jsonl": 450,
-    "catalog-library-alpoge-thin.jsonl": 397,
-    "catalog-library-geometry.jsonl": 172,
-    "catalog-library-core.jsonl": 479,
+    "catalog-library-alpoge-thin.jsonl": 399,
+    "catalog-library-geometry.jsonl": 175,
+    "catalog-library-core.jsonl": 480,
     "catalog-docs.jsonl": 155,
     "catalog-code.jsonl": 419,
     "rewrite-families-a-k.jsonl": 381,
@@ -18,6 +18,6 @@
     "rewrite-families-s.jsonl": 437,
     "rewrite-families-t-z.jsonl": 295,
     "rewrite_families": 1987,
-    "rewrite_theorems": 3495
+    "rewrite_theorems": 3496
   }
 }

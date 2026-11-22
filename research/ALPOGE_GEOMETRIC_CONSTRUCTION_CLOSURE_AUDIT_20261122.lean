@@ -1,3 +1,9 @@
+import RHLean.Analysis.AlpogeThin.NativeRayQuadraticForm
+import RHLean.Geometry.NativePlaneLatticeReduction
+import RHLean.Analysis.AlpogeThin.NativeRayIdealLattice
+import RHLean.Analysis.AlpogeNativeQuadraticIntegerBasis
+import RHLean.Geometry.NativeGeometricSymplecticBasis
+import RHLean.Geometry.NativeIntegralSymplecticBasis
 import RHLean.Analysis.AlpogeThin.NativeRayIdealCounts
 import RHLean.Analysis.AlpogeThin.NativeRayClassData
 import RHLean.Geometry.NativePrescribedGeometricPeriod
@@ -1785,3 +1791,99 @@ info: 'RHLean.Analysis.AlpogeThin.NativeRay.lamRay_nonneg' depends on axioms: [p
 -/
 #guard_msgs in
 #print axioms RHLean.Analysis.AlpogeThin.NativeRay.lamRay_nonneg
+
+/--
+info: 'RHLean.Geometry.NativeIntegralSymplectic.exists_pair_dvd_of_bilinForm' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Geometry.NativeIntegralSymplectic.exists_pair_dvd_of_bilinForm
+
+/--
+info: 'RHLean.Geometry.NativeIntegralSymplectic.exists_isSymplecticBasis_of_finrank' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Geometry.NativeIntegralSymplectic.exists_isSymplecticBasis_of_finrank
+
+/--
+info: 'RHLean.Geometry.NativeIntegralSymplectic.exists_equiv_stdSymp' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Geometry.NativeIntegralSymplectic.exists_equiv_stdSymp
+
+/--
+info: 'RHLean.Geometry.NativeGeometricSymplectic.finrank_int_eq_mul' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Geometry.NativeGeometricSymplectic.finrank_int_eq_mul
+
+/--
+info: 'RHLean.Geometry.NativeGeometricSymplectic.exists_isSympBasis' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Geometry.NativeGeometricSymplectic.exists_isSympBasis
+
+/--
+info: 'RHLean.Analysis.AlpogeThin.nativeDyadicPrescribedTraceForm_exists_symplecticBasis' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeThin.nativeDyadicPrescribedTraceForm_exists_symplecticBasis
+
+/--
+info: 'RHLean.Analysis.AlpogeThin.nativeDyadicPrescribedGeometricDatum_exists_symplecticBasis' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeThin.nativeDyadicPrescribedGeometricDatum_exists_symplecticBasis
+
+/--
+info: 'RHLean.Analysis.AlpogeThin.nativeDyadicHost_exists_prescribedSymplecticBases' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeThin.nativeDyadicHost_exists_prescribedSymplecticBases
+
+/--
+info: 'RHLean.Analysis.NativeQuadraticIntegers.exists_integer_generator_of_sq_eq_neg' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.NativeQuadraticIntegers.exists_integer_generator_of_sq_eq_neg
+
+/--
+info: 'RHLean.Analysis.NativeQuadraticIntegers.ringOfIntegers_sqrt_neg_three_mod_four' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.NativeQuadraticIntegers.ringOfIntegers_sqrt_neg_three_mod_four
+
+/--
+info: 'RHLean.Analysis.AlpogeThin.NativeRay.IdealLattice.gen_bij' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeThin.NativeRay.IdealLattice.gen_bij
+
+/--
+info: 'RHLean.Analysis.AlpogeThin.NativeRay.IdealLattice.lattice_bij' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeThin.NativeRay.IdealLattice.lattice_bij
+
+/--
+info: 'RHLean.Analysis.AlpogeThin.NativeRay.IdealLattice.unit_eq_one' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeThin.NativeRay.IdealLattice.unit_eq_one
+
+/--
+info: 'RHLean.Geometry.NativePlaneLattice.plane_lattice_short_basis' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Geometry.NativePlaneLattice.plane_lattice_short_basis
+
+/--
+info: 'RHLean.Analysis.AlpogeThin.NativeRay.QuadraticForm.exists_quadratic_norm_coordinates' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeThin.NativeRay.QuadraticForm.exists_quadratic_norm_coordinates
+
+/--
+info: 'RHLean.Analysis.AlpogeThin.NativeRay.QuadraticForm.aRay_eq_ncard_qForm' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeThin.NativeRay.QuadraticForm.aRay_eq_ncard_qForm

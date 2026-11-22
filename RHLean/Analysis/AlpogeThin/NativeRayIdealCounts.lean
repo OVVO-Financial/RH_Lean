@@ -57,7 +57,7 @@ theorem idealsIn_finite (g : D.G) (n : ℕ) : (idealsIn D g n).Finite :=
 theorem coe_aRay_eq_cnt (g : D.G) {n : ℕ} (hn : n ≠ 0) : (aRay D g n : ℂ) = D.cnt g n := by
   rw [D.cnt_of_ne_zero g hn, aRay, ← Nat.card_coe_set_eq]
   norm_cast
-  exact Nat.card_congr (Equiv.subtypeEquivRight fun I => by simp only [idealsIn, Set.mem_setOf_eq]; tauto)
+  exact Nat.card_congr (Equiv.subtypeEquivRight fun I => by simp only [idealsIn, Set.mem_ofPred_eq]; tauto)
 
 theorem aRay_eq_card (g : D.G) (n : ℕ) : aRay D g n = ((idealsIn_finite D g n).toFinset.card : ℝ) := by
   rw [aRay, Set.ncard_eq_toFinset_card _ (idealsIn_finite D g n)]
@@ -65,17 +65,14 @@ theorem aRay_eq_card (g : D.G) (n : ℕ) : aRay D g n = ((idealsIn_finite D g n)
 theorem lamRay_eq_sum (g : D.G) (n : ℕ) : lamRay D g n = ∑ I ∈ (idealsIn_finite D g n).toFinset, lamIdeal I :=
   finsum_mem_eq_finite_toFinset_sum _ (idealsIn_finite D g n)
 
-omit [NumberField K] in
 theorem lamIdeal_prime_pow (P : Ideal (𝓞 K)) (hP : P.IsPrime) (h0 : P ≠ ⊥) (k : ℕ) (hk : 1 ≤ k) :
     lamIdeal (P ^ k) = Real.log (Ideal.absNorm P) := by
-  rw [lamIdeal, if_pos ⟨P, k, hP, h0, hk, rfl⟩, Ideal.radical_pow _ (by omega), hP.radical]
+  rw [lamIdeal, ite_eq_left ⟨P, k, hP, h0, hk, rfl⟩, Ideal.radical_pow _ (by omega), hP.radical]
 
-omit [NumberField K] in
 theorem lamIdeal_of_not_prime_pow {I : Ideal (𝓞 K)}
     (h : ¬ ∃ (P : Ideal (𝓞 K)) (k : ℕ), P.IsPrime ∧ P ≠ ⊥ ∧ 1 ≤ k ∧ I = P ^ k) : lamIdeal I = 0 := by
-  rw [lamIdeal, if_neg h]
+  rw [lamIdeal, ite_eq_right h]
 
-omit [NumberField K] in
 theorem lamIdeal_unit : lamIdeal (⊤ : Ideal (𝓞 K)) = 0 := by
   unfold lamIdeal; split_ifs <;> simp
 
@@ -87,12 +84,11 @@ namespace RayConv
 
 variable {K : Type} [Field K] [NumberField K]
 
-omit [NumberField K] in
 theorem lamIdeal_pow {P : Ideal (𝓞 K)} (hP : Prime P) (k : ℕ) :
     lamIdeal (P ^ (k + 1)) = Real.log (Ideal.absNorm P) := by
   have h1 : P.IsPrime := Ideal.isPrime_of_prime hP
   unfold lamIdeal
-  rw [if_pos ⟨P, k + 1, h1, hP.ne_zero, by omega, rfl⟩, Ideal.radical_pow _ (by omega), h1.radical]
+  rw [ite_eq_left ⟨P, k + 1, h1, hP.ne_zero, by omega, rfl⟩, Ideal.radical_pow _ (by omega), h1.radical]
 
 theorem finite_dvd {I : Ideal (𝓞 K)} (hI : I ≠ 0) : {J : Ideal (𝓞 K) | J ∣ I}.Finite := by
   refine (Ideal.finite_setOfPred_absNorm_le (S := 𝓞 K) (Ideal.absNorm I)).subset fun J hJ => ?_
@@ -109,7 +105,7 @@ theorem sum_lamIdeal (I : Ideal (𝓞 K)) : I ≠ 0 → ∀ T : Finset (Ideal (�
     rw [map_one, Nat.cast_one, Real.log_one]
     refine Finset.sum_eq_zero fun J hJ => ?_
     unfold lamIdeal
-    rw [if_neg]
+    rw [ite_eq_right]
     rintro ⟨P, k, hP, hP0, hk, rfl⟩
     have := isUnit_of_dvd_one ((hT _).1 hJ)
     rw [isUnit_pow_iff (by omega), Ideal.isUnit_iff] at this
@@ -132,7 +128,7 @@ theorem sum_lamIdeal (I : Ideal (𝓞 K)) : I ≠ 0 → ∀ T : Finset (Ideal (�
     · intro J hJ hne
       rw [Finset.mem_sdiff, hT, hSm] at hJ
       unfold lamIdeal
-      rw [if_neg]
+      rw [ite_eq_right]
       rintro ⟨Q, k, hQ, hQ0, hk, rfl⟩
       have hQp : Prime Q := Ideal.prime_of_isPrime hQ0 hQ
       by_cases hQP : Q = P
@@ -215,7 +211,7 @@ theorem aRay_mul_log : ∀ (K : Type) [Field K] [NumberField K] (M : ℕ), 2 ≤
 
 section Nonnegativity
 
-variable {K : Type} [Field K]
+variable {K : Type} [Field K] [NumberField K]
 
 theorem lamIdeal_nonneg (I : Ideal (𝓞 K)) : 0 ≤ lamIdeal I := by
   unfold lamIdeal
@@ -223,7 +219,7 @@ theorem lamIdeal_nonneg (I : Ideal (𝓞 K)) : 0 ≤ lamIdeal I := by
   · exact Real.log_natCast_nonneg _
   · exact le_rfl
 
-variable [NumberField K] {M : ℕ} (D : RayData K M)
+variable {M : ℕ} (D : RayData K M)
 
 theorem aRay_nonneg (g : D.G) (n : ℕ) : 0 ≤ aRay D g n := Nat.cast_nonneg _
 

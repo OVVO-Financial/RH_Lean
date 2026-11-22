@@ -254,6 +254,11 @@
       "manifest": "scripts/alpoge_geometric_source_audit/native_prescribed_geometric_period_source_manifest.json",
       "construction": "Actual same-Datum period map, exact coefficient-type multiplicities, discrete/full real range and positive Hermitian form with literal imaginary part EF.",
       "status": "IMPLEMENTED_HOSTED_VERIFICATION_PENDING"
+    },
+    {
+      "manifest": "scripts/alpoge_geometric_source_audit/native_geometric_symplectic_basis_source_manifest.json",
+      "construction": "Actual symplectic integral basis of the same perfect alternating form, exact source standard sign, integer rank/freeness and one common half-different.",
+      "status": "IMPLEMENTED_HOSTED_VERIFICATION_PENDING"
     }
   ]
 }

@@ -65,8 +65,10 @@ def coordinates (N q : ℕ) :
     exact conjIf_involutive _ _
   right_inv v := by
     funext s
-    simp only [Equiv.apply_symm_apply]
-    exact conjIf_involutive _ _
+    calc
+      _ = v (indexEquiv Ψ N ((indexEquiv Ψ N).symm s)) :=
+        conjIf_involutive _ _
+      _ = v s := congrArg v ((indexEquiv Ψ N).apply_symm_apply s)
   map_add' u v := by
     funext s
     exact map_add (conjIf _) _ _
@@ -98,9 +100,9 @@ theorem coordinates_mul (N q : ℕ) (a : E) (u : Ψ → Fin N → ℂ)
     (if N - q ≤ (v.2 : ℕ) then ComplexEmbedding.conjugate v.1.1 else v.1.1) a *
       conjIf (negTail N q v.2) (u v.1 v.2)
   by_cases hi : N - q ≤ (v.2 : ℕ)
-  · rw [if_pos hi, negTail_true N q v.2 hi]
+  · rw [ite_eq_left hi, negTail_true N q v.2 hi]
     exact map_mul (starRingEnd ℂ) _ _
-  · rw [if_neg hi, negTail_false N q v.2 (lt_of_not_ge hi)]
+  · rw [ite_eq_right hi, negTail_false N q v.2 (lt_of_not_ge hi)]
     rfl
 
 theorem coordinates_diagonalJ (N q : ℕ) (u : Ψ → Fin N → ℂ) :
@@ -114,17 +116,18 @@ section Fibers
 
 variable (hΨ : ∀ τ : E →+* ℂ, τ ∈ Ψ ↔ ComplexEmbedding.conjugate τ ∉ Ψ)
 
+include hΨ in
 theorem rawType_eq_of_mem (N q : ℕ) (τ : E →+* ℂ) (hτ : τ ∈ Ψ)
     (s : Ψ × Fin N) :
     rawType Ψ N q s = τ ↔ s.1.1 = τ ∧ (s.2 : ℕ) < N - q := by
   by_cases hi : N - q ≤ (s.2 : ℕ)
-  · rw [rawType, if_pos hi]
+  · rw [rawType, ite_eq_left hi]
     constructor
     · intro h
       exact False.elim (((hΨ s.1.1).mp s.1.2) (h.symm ▸ hτ))
     · rintro ⟨_, hl⟩
       exact False.elim ((not_lt_of_ge hi) hl)
-  · rw [rawType, if_neg hi]
+  · rw [rawType, ite_eq_right hi]
     exact ⟨fun h => ⟨h, lt_of_not_ge hi⟩, And.left⟩
 
 theorem rawType_eq_of_not_mem (N q : ℕ) (τ : E →+* ℂ) (hτ : τ ∉ Ψ)
@@ -132,14 +135,14 @@ theorem rawType_eq_of_not_mem (N q : ℕ) (τ : E →+* ℂ) (hτ : τ ∉ Ψ)
     rawType Ψ N q s = τ ↔
       s.1.1 = ComplexEmbedding.conjugate τ ∧ N - q ≤ (s.2 : ℕ) := by
   by_cases hi : N - q ≤ (s.2 : ℕ)
-  · rw [rawType, if_pos hi]
+  · rw [rawType, ite_eq_left hi]
     constructor
     · intro h
       exact ⟨by simpa using congrArg ComplexEmbedding.conjugate h, hi⟩
     · rintro ⟨h, _⟩
       rw [h]
       exact ComplexEmbedding.involutive_conjugate E τ
-  · rw [rawType, if_neg hi]
+  · rw [rawType, ite_eq_right hi]
     constructor
     · intro h
       exact False.elim (hτ (h ▸ s.1.2))
@@ -177,7 +180,9 @@ def negativeFiberEquiv (N q : ℕ) (hq : q ≤ N)
           omega⟩
       invFun := fun i =>
         ⟨(⟨ComplexEmbedding.conjugate τ, hc⟩, ⟨N - q + i, by omega⟩),
-          (rawType_eq_of_not_mem Ψ N q τ hτ _).mpr ⟨rfl, by omega⟩⟩
+          (rawType_eq_of_not_mem Ψ N q τ hτ _).mpr ⟨rfl, by
+            change N - q ≤ N - q + (i : ℕ)
+            omega⟩⟩
       left_inv := fun s => by
         apply Subtype.ext
         apply Prod.ext
@@ -189,6 +194,7 @@ def negativeFiberEquiv (N q : ℕ) (hq : q ≤ N)
         apply Fin.ext
         omega }
 
+include hΨ in
 theorem typeFn_card_of_mem (N q : ℕ) (τ : E →+* ℂ) (hτ : τ ∈ Ψ) :
     Nat.card {i // typeFn Ψ N q i = τ} = N - q := by
   let e := (indexEquiv Ψ N).symm.subtypeEquivOfSubtype
@@ -196,6 +202,7 @@ theorem typeFn_card_of_mem (N q : ℕ) (τ : E →+* ℂ) (hτ : τ ∈ Ψ) :
   exact (Nat.card_congr (e.trans (positiveFiberEquiv Ψ hΨ N q τ hτ))).trans
     (Nat.card_fin (N - q))
 
+include hΨ in
 theorem typeFn_card_of_not_mem (N q : ℕ) (hq : q ≤ N)
     (τ : E →+* ℂ) (hτ : τ ∉ Ψ) :
     Nat.card {i // typeFn Ψ N q i = τ} = q := by

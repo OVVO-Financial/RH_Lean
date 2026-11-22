@@ -21,20 +21,23 @@
   "scope": "Actual finite ray quotient, ideal count/weight construction, exact cardinality and ideal-divisor convolution; no analytic estimate or short-window prime claimed.",
   "validation": "Pinned source/API review and text-level integrity checks only. Hosted Lean is the sole compilation environment.",
   "metadata_revision": "API provenance correction only: Con.eq is declared in Congruence/Defs.lean; both Lean modules unchanged.",
+  "integration_adaptations": [
+    "Exact29b repair restores the original NumberField instance scope required by the unchanged ideal norm and lamIdeal; retains all divisor/prime-power branches, and updates only current aliases and unused implicit binder names."
+  ],
   "native_modules": [
     {
       "module": "RHLean.Analysis.AlpogeThin.NativeRayClassData",
       "native_path": "RHLean/Analysis/AlpogeThin/NativeRayClassData.lean",
       "initial_source_reconstruction_sha256": "67ad141d5756587b3ac80474a0d132edee6efb5b916210b67676fe33b4edb98c",
-      "native_sha256": "67ad141d5756587b3ac80474a0d132edee6efb5b916210b67676fe33b4edb98c",
+      "native_sha256": "2809e4c6336d9d287acfb0eae7e8195bc2c794b85d132b07555a0c610618e123",
       "native_lines": 425
     },
     {
       "module": "RHLean.Analysis.AlpogeThin.NativeRayIdealCounts",
       "native_path": "RHLean/Analysis/AlpogeThin/NativeRayIdealCounts.lean",
       "initial_source_reconstruction_sha256": "0275b8d185c0d2a80bc58bc93c202ca2981d3a6ec1237e32b5eb8b03cb1abe5b",
-      "native_sha256": "0275b8d185c0d2a80bc58bc93c202ca2981d3a6ec1237e32b5eb8b03cb1abe5b",
-      "native_lines": 267
+      "native_sha256": "8f63154221bc9db0fd4341d80a77459e0771fe8de2ec1eb1b6fb685b340d6c73",
+      "native_lines": 263
     }
   ],
   "axiom_guard_declarations": [
@@ -46,5 +49,11 @@
     "RHLean.Analysis.AlpogeThin.NativeRay.RayConv.sum_lamIdeal",
     "RHLean.Analysis.AlpogeThin.NativeRay.aRay_mul_log",
     "RHLean.Analysis.AlpogeThin.NativeRay.lamRay_nonneg"
-  ]
+  ],
+  "followup_supplier": {
+    "manifest": "scripts/alpoge_geometric_source_audit/native_ray_quadratic_form_source_manifest.json",
+    "construction": "Actual same-class ideal/lattice equivalence, norm identity before count transport, coefficient lower bounds and exact alpha*gamma=d*M^4/4.",
+    "remaining": "Original100<=d and M>=3 premises remain explicit; actual count/theta estimates and compatible physical-window supplier remain separate.",
+    "status": "IMPLEMENTED_STATIC_REVIEWED_HOSTED_VERIFICATION_PENDING"
+  }
 }

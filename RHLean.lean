@@ -65,6 +65,7 @@ import RHLean.Analysis.AlpogeNativePrimeDecomposition
 import RHLean.Analysis.AlpogeNativePrimeLift
 import RHLean.Analysis.AlpogeNativePrincipalProjection
 import RHLean.Analysis.AlpogeNativeQuadraticDifferent
+import RHLean.Analysis.AlpogeNativeQuadraticIntegerBasis
 import RHLean.Analysis.AlpogeNativeQuadraticPrimeSigns
 import RHLean.Analysis.AlpogeNativeQuadraticRoot
 import RHLean.Analysis.AlpogeNativeQuadraticSignRoot
@@ -486,6 +487,8 @@ import RHLean.Analysis.AlpogeThin.NativePrincipalThin
 import RHLean.Analysis.AlpogeThin.NativeRawHostDifferent
 import RHLean.Analysis.AlpogeThin.NativeRayClassData
 import RHLean.Analysis.AlpogeThin.NativeRayIdealCounts
+import RHLean.Analysis.AlpogeThin.NativeRayIdealLattice
+import RHLean.Analysis.AlpogeThin.NativeRayQuadraticForm
 import RHLean.Analysis.AlpogeThin.ReciprocityTheory.GaloisValuations.ContinuousConstSMulQuotient
 import RHLean.Analysis.AlpogeThin.ReciprocityTheory.GaloisValuations.Global
 import RHLean.Analysis.AlpogeThin.ReciprocityTheory.GaloisValuations.GlobalA
@@ -980,6 +983,7 @@ import RHLean.Geometry.NativeGenericFrameFaithfulness
 import RHLean.Geometry.NativeGeometricDatum
 import RHLean.Geometry.NativeGeometricHost
 import RHLean.Geometry.NativeGeometricPeriods
+import RHLean.Geometry.NativeGeometricSymplecticBasis
 import RHLean.Geometry.NativeGradedCharacterSlopeDescent
 import RHLean.Geometry.NativeGradedPeterssonConstruction
 import RHLean.Geometry.NativeGradedSectionRegularity
@@ -991,6 +995,7 @@ import RHLean.Geometry.NativeHermitianTraceMinimum
 import RHLean.Geometry.NativeHostThetaPolynomial
 import RHLean.Geometry.NativeIntegralCompletion
 import RHLean.Geometry.NativeIntegralLatticeCertificate
+import RHLean.Geometry.NativeIntegralSymplecticBasis
 import RHLean.Geometry.NativeJetRankBudget
 import RHLean.Geometry.NativeLatticeTransference
 import RHLean.Geometry.NativeLatticeTransferenceA
@@ -998,6 +1003,7 @@ import RHLean.Geometry.NativeLatticeTransferenceB
 import RHLean.Geometry.NativeLocalQuadraticNorm
 import RHLean.Geometry.NativePeriodTypeCoordinates
 import RHLean.Geometry.NativePeterssonMultiplication
+import RHLean.Geometry.NativePlaneLatticeReduction
 import RHLean.Geometry.NativePolarizationCoefficientLattice
 import RHLean.Geometry.NativePolarizationComplexCoordinates
 import RHLean.Geometry.NativePolarizationRealCoordinates

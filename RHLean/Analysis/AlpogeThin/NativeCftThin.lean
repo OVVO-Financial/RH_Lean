@@ -173,9 +173,14 @@ theorem nativeSelectedDyadicHostThin
     have := hG.pair.q_mod
     have := hG.pair.d_mod
     omega
-  exact hthin x hx (AlpogeNativeDyadicH e) (e + 2)
+  have honto : Function.Surjective (alpogeNativeRecMap e q d) :=
+    alpogeNativeRecMap_surjective e q d hq2 hd2 hqd
+  have hbound := hthin x hx (AlpogeNativeDyadicH e) (e + 2)
     (alpogeNativeHostN e q d) (dvd_refl _) hlog (alpogeNativeRecMap e q d)
-    (alpogeNativeRecMap_surjective e q d hq2 hd2 hqd) ψ y hy
+    honto ψ y hy
+  simpa only [alpogeNativeHostData] using hbound
+
+omit [DecidableEq H] in
 
 /-- Every original width cancels against its own thin-response argument.
 The character count is the actual finite dual cardinal, not a multiplicity
@@ -201,7 +206,7 @@ theorem nativeThinColourTerm_norm_le
         w (alpogeNativePartner t g) *
           ((a / w (alpogeNativePartner t g)) * θ) :=
         mul_le_mul_of_nonneg_left (hF ψ) hw.le
-      _ = a * θ := by field_simp [hw.ne']; ring
+      _ = a * θ := by field_simp [hw.ne']
   unfold alpogeNativeProjectionColourTerm
   calc
     ‖∑ ψ : AddChar (AlpogeNativeE0 × H) ℂ,
@@ -308,7 +313,8 @@ theorem nativeThinColourCount (T2 : Finset H) (u t : H) :
       ((Finset.univ : Finset AlpogeNativeE0).filter (fun e => e.1 ≠ 0)) ×ˢ
         (Finset.univ : Finset H) := by
     ext g
-    simp [alpogeNativeInPhi]
+    simp only [Finset.mem_filter, Finset.mem_univ, Finset.mem_product,
+      true_and, and_true, alpogeNativeInPhi]
   have htwo : ((Finset.univ : Finset AlpogeNativeE0).filter
       (fun e => e.1 ≠ 0)).card = 2 := by decide
   have hcard : (Finset.univ.filter
@@ -483,7 +489,7 @@ theorem nativeSelectedCompleteProjection
     (alpogeNativeCftData N q d r).frob (alpogeNativeCanonicalHostEll r)
     TT T2 hTT hT2ne hm hT2 a b h Amax beta w hbeta hbetab hh ha haA hw hthick
   apply hbase.trans
-  apply add_le_add_right
+  refine add_le_add ?_ le_rfl
   apply div_le_div_of_nonneg_right
   · have hlow := (abs_le.mp hthinBill).1
     change -nativeThinBill A0 TT T2 m a (Real.exp (-(x ^ (eps / 8)))) ≤

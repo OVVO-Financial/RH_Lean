@@ -69,9 +69,9 @@
 - [catalog-research-lean.jsonl](catalog-research-lean.jsonl) — 554 records
 - [catalog-research-notes.jsonl](catalog-research-notes.jsonl) — 277 records
 - [catalog-library-proof.jsonl](catalog-library-proof.jsonl) — 450 records
-- [catalog-library-alpoge-thin.jsonl](catalog-library-alpoge-thin.jsonl) — 397 records
-- [catalog-library-geometry.jsonl](catalog-library-geometry.jsonl) — 172 records
-- [catalog-library-core.jsonl](catalog-library-core.jsonl) — 479 records
+- [catalog-library-alpoge-thin.jsonl](catalog-library-alpoge-thin.jsonl) — 399 records
+- [catalog-library-geometry.jsonl](catalog-library-geometry.jsonl) — 175 records
+- [catalog-library-core.jsonl](catalog-library-core.jsonl) — 480 records
 - [catalog-docs.jsonl](catalog-docs.jsonl) — 155 records
 - [catalog-code.jsonl](catalog-code.jsonl) — 419 records
 - [rewrite-families-a-k.jsonl](rewrite-families-a-k.jsonl) — 381 records

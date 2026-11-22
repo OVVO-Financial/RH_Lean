@@ -38,7 +38,7 @@ variable {K : Type} [Field K] [NumberField K]
 
 def primeTo (K : Type) [Field K] [NumberField K] (M : ℕ) : Submonoid (Ideal (𝓞 K)) where
   carrier := {I | IsCoprime I (Ideal.span {(M : 𝓞 K)}) ∧ I ≠ ⊥}
-  mul_mem' := fun {I J} hI hJ => ⟨hI.1.mul_left hJ.1, mul_ne_zero hI.2 hJ.2⟩
+  mul_mem' := fun {_I _J} hI hJ => ⟨hI.1.mul_left hJ.1, mul_ne_zero hI.2 hJ.2⟩
   one_mem' := ⟨isCoprime_one_left, one_ne_zero⟩
 
 theorem one_mul_mem {R : Type} [CommRing R] {A : Ideal R} {a b : R} (ha : a - 1 ∈ A) (hb : b - 1 ∈ A) : a * b - 1 ∈ A := by
@@ -377,9 +377,9 @@ theorem cnt_one (c : D.G) : D.cnt c 1 = if c = 1 then 1 else 0 := by
 
 theorem coef_one (χ : D.G →* ℂˣ) : D.coef χ 1 = 1 := by
   rw [coef, Finset.sum_eq_single (1 : D.G)]
-  · rw [D.cnt_one, if_pos rfl, map_one, Units.val_one, mul_one]
+  · rw [D.cnt_one, ite_eq_left rfl, map_one, Units.val_one, mul_one]
   · intro b _ hb
-    rw [D.cnt_one, if_neg hb, mul_zero]
+    rw [D.cnt_one, ite_eq_right hb, mul_zero]
   · intro h
     exact absurd (Finset.mem_univ _) h
 

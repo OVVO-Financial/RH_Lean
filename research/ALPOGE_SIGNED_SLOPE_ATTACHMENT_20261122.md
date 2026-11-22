@@ -1,7 +1,7 @@
 # Native signed slope attachment and compiler repair checkpoint
 
 22 November 2026. Current repair parent:
-`291e21aa788aaa2af9238b835dbd24a76d1b3717`.
+`29b0470bf581026e40e8a2e259909e84bc33653b`.
 The preceding `baddf5a` signed-comparison checkpoint preserved contributor head
 `46fb310c6e22478ae2a2cc1795ed8793acc14d5c`.
 
@@ -21,13 +21,15 @@ the two required trace identities. All thirteen fields of the original
 geometric `Datum` are assembled with its literal host filter and original
 sign-selected form. The same datum now has the full period construction,
 and the arithmetic side has an actual finite ray-class quotient and
-ideal-count logarithmic convolution.
+ideal-count logarithmic convolution. The next construction supplies an
+actual symplectic integral basis and an actual norm-preserving bijection
+between the ray-class ideals and a shifted plane lattice.
 It does not prove unconditional cancellation or supply the remaining
 CM moduli, theta-cover, actual section-germ realization, or compatible
 geometric and signed-arithmetic comparison inputs.
 Hosted compilation of the next complete repair batch is pending. Both completed
-builds of parent `291e21a` failed with identical inventories of 5 errors and
-1 warning, including cascading diagnostics.
+builds of parent `29b0470` failed with identical inventories of 19 errors and
+22 warnings, including cascading diagnostics.
 
 The source remains
 `CocoSgt/riemann-hypothesis-lean@7cbf7a0c32fca1badf05931879a37c3f8a2b03b4`.
@@ -187,14 +189,34 @@ additive subtraction identity in the host-prime proof. These are repaired
 using the same witnesses and formulas. Later host-dependent constructions
 still await a completed build; that diagnostic inventory does not certify them.
 
+Both completed `29b0470` builds agree exactly: native run `45082672956`,
+job `137394126455`, and targeted run `45082672950`, job `137394126157`,
+report 19 errors and 22 warnings including cascades. All three preceding
+repairs have explicit clean `Built` receipts. The newly reached clean
+modules include the CM unramifiedness, prime decomposition, discriminant
+prime support, geometric host, and complete generic geometric `Datum`.
+The new finite ray-class record and generic period map built with warnings;
+those are not clean acceptance receipts.
+
+The next repair restores the existing CM-complement variable where the
+period-coordinate proofs use it, explicitly composes the same index
+equivalence, and exposes a reducible finite-index inequality. The ray
+repair restores the source's `NumberField` context required by the
+unchanged ideal norm. The remaining native fixes select the actual
+quadratic factor in the degree tower, normalize a natural-number cast,
+stage the same selected-host thin bound, and preserve the additive
+movement cost using the appropriate inequality theorem. Reported aliases
+and style issues are repaired directly. The staged timeout repair still
+requires hosted verification; no compiler budget is increased.
+
 The earlier `46fb310` failures (44 errors and 36 warnings in each build),
 `baddf5a` failures (53 errors and 25 warnings), and their repairs remain in
 the manifest history. Separate documentation,
 inventory, atlas, export, cold-only and effective-resonance checks passed on
 these preceding heads; that does not make their failed Lean builds successful.
 
-The root import manifest includes 1,498 native modules. The targeted
-construction audit has 285 standard-axiom guards, including the new finite
+The root import manifest includes 1,504 native modules. The targeted
+construction audit has 301 standard-axiom guards, including the new finite
 source, scalar, lattice and evaluated-family results. Hosted warning-fatal
 compilation remains the acceptance gate. Local Lean/Lake execution is not
 used.
@@ -612,19 +634,107 @@ strong error windows and uniform analytic attachment remain explicit.
 The audit makes no verdict on the full upstream theorem's validity and
 no claim of unconditional native cancellation.
 
-## 15. Acceptance status and next construction
+## 15. Symplectic coordinates for the same integral form
+
+`NativeIntegralSymplecticBasis.lean` reconstructs the actual alternating-form
+basis argument over a principal ideal domain. A maximal principal pairing
+ideal splits off an orthogonal rank-two summand; rank induction gives the
+full basis. Surjectivity of the original perfect form makes each elementary
+pairing a unit. Rescaling basis vectors by those units produces pairings
+equal to one without replacing the form or the lattice.
+
+`NativeGeometricSymplecticBasis.lean` derives integer finiteness, freeness
+and rank from the existing finite projective module of the complete datum.
+The resulting coordinate equivalence has the source's exact standard
+pairing, with positive upper-right and negative lower-left blocks. On the
+native host the symplectic dimension is
+
+\[
+g=2\cdot2^e(k+m-1),\qquad \operatorname{rk}_{\mathbb Z}\mathrm{La}=2g.
+\]
+
+It is a basis of the existing `prescribedLattice` for the existing
+`prescribedTraceForm`. One actual half-different is selected before all
+admissible ranks and signatures. No separate integral basis, level,
+period, or moduli-existence premise is introduced.
+
+The next geometric supplier is the source's
+[`GlobalTheory.TorusTransfer.exists_siegel_coordinates`](https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Development/AbelianVarietyTheory/Proofs/ModuliProofs/EqZeroOfFderivEqZero.lean). It converts this
+actual period lattice and symplectic pairing to a symmetric matrix with
+positive definite imaginary part, retaining the exact lattice and
+Hermitian form. The source uses the symplectic basis of the negative form
+for its positive Siegel sign; that sign must be preserved. Reverse
+algebraization then passes through
+[`principalTorus_algebraic`](https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Development/AbelianVarietyTheory/Proofs/ModuliProofs/PrincipalTorusAlgebraic.lean) and the
+actual theta/projective-model construction. Those later proofs have not
+been reconstructed here.
+
+The nonemptiness requirement is also explicit. An inhabited moduli or
+family record need not give a complex point; the source's
+[`GoodClass`](https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Development/AbelianVarietyTheory/Definitions/ModuliSpaces/GoodClass.lean)
+permits an empty class. The intended attachment must carry an actual
+period-domain point to a positive-dimensional polarized object, with its
+actual dimension, integral action and Tate pairing. A zero-dimensional
+object or an empty family does not supply that application.
+
+## 16. Actual ideal-to-lattice norm correspondence
+
+The four new arithmetic modules construct the correspondence before any
+cardinality comparison. They first derive the full integral generator
+\((1+\sqrt{-d})/2\) in the actual degree-two field. For the same ray class
+and modulus, they choose an inverse-class ideal and prove the generator
+identity \((x)=IB\) with \(x\equiv1\pmod M\). The ideal/generator bijection
+retains its congruence-unit factor; that factor is proved trivial when
+\(M\ge3\), using the actual imaginary-quadratic norm.
+
+An actual integral basis parametrizes the affine ideal coset. Integral
+nearest-point row operations preserve its span and area and produce the
+required short plane basis. Composing these equivalences gives
+
+\[
+\Phi:\mathbb Z^2\simeq
+\{I\subseteq\mathcal O_K: I\text{ coprime to }M,\ [I]=g\},
+\]
+
+with every ideal nonzero, and a shifted form satisfying
+
+\[
+Q(v)=\alpha(v_1+\theta_1+\ell v_2)^2
+     +\gamma(v_2+\theta_2)^2
+     =\operatorname{absNorm}(\Phi(v)),
+\qquad
+\alpha,\gamma\ge1,\quad \alpha\gamma=\frac{dM^4}{4}.
+\]
+
+The exact count identity follows by transporting the actual norm fibers
+through this injective map. It does not define the lattice count to be the
+desired analytic coefficient. No count or theta estimate is assumed.
+
+The original input conditions remain visible: `d.Prime`, `d % 4 = 3`,
+`100 ≤ d`, an actual root whose square is `-d`, field degree two, and
+`3 ≤ M`. The literal native `H.K` already has the required degree and
+root, and its host congruence supplies `d % 4 = 3`. `HostHyp` alone does
+not imply `100 ≤ d`. The source's
+[`UpperTheory.T3.qdBig`](https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Development/AutomorphicArithmetic/ShortNorms/MulLogLeRpowEventually.lean) is the identified
+size supplier: with fixed epsilon and the size constant it chooses its
+threshold before the scale, ranks, window and primes, then derives the
+large-prime conditions from `RankVal`, `s.J ≤ C0`, `PairWin` and `WinPair`.
+The compatible native size/window construction remains separate. So do
+the Gaussian count/theta estimates and the analytic short-window argument.
+
+## 17. Acceptance status and next construction
 
 ```text
 ROLE=Lean Verification
 SOURCE=complete native signed ASK-MAIN and same selected-host Gz mean
-WITNESS=actual CM host, prescribed W_j, literal AA*L0, perfect integral form, adelic isometry, CMData, full Datum, period map, same-host norm element and actual ray-ideal coefficients
+WITNESS=actual CM host, prescribed W_j, literal AA*L0, perfect integral form, adelic isometry, CMData, full Datum, period map, symplectic basis, same-host norm element and actual ray-ideal/lattice norm correspondence
 MAP_PAYMENT=forward reserve implemented; actual geometric map suppliers remain open
 NORMALIZER=Q=T*m*b*Delta/2 with actual TT/T2 positivity and all three costs
 SIGNED_RECOMBINATION=physical signed gap retained; no inverse recovery weight used
 FIRST_UNPAID=actual compatible levels/moduli/sections and the metric/signed-loss suppliers
 EVIDENCE=source reconstruction and independent static review; next hosted build pending
 T_C_P=tractability progressed; mathematical novelty and unconditional proof not established
-INDEPENDENT_APPLICATION=conditional finite slope stability, perfect integral lattice/period construction and actual ray-class cardinality/convolution
-FORMAL_STATUS=both parent 291e21a builds failed with 5 errors/1 warning; complete next gate pending
-NEXT=verify repaired batch and construct actual level/moduli inputs and compatible prime supplier, retaining the independent metric realization boundary
+INDEPENDENT_APPLICATION=conditional finite slope stability, perfect integral lattice/period/basis construction and actual ray-class norm/count correspondence
+FORMAL_STATUS=both parent 29b0470 builds failed with 19 errors/22 warnings; complete next gate pending
+NEXT=verify repaired batch; construct actual Siegel/level/moduli inputs and compatible size/count/theta suppliers, retaining the independent metric realization boundary
 ```

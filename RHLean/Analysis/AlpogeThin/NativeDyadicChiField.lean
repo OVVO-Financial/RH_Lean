@@ -77,7 +77,8 @@ private theorem nativeDyadicClass_zero_iff_nat
   have hone : ZMod.unitsMap hN (ZMod.unitOfCoprime a ha) = 1 ↔
       a ≡ 1 [MOD 2 ^ (e + 2)] := by
     rw [Units.ext_iff, hval, Units.val_one]
-    exact ZMod.natCast_eq_natCast_iff a 1 (2 ^ (e + 2))
+    simpa only [Nat.cast_one] using
+      (ZMod.natCast_eq_natCast_iff a 1 (2 ^ (e + 2)))
   have hneg : ZMod.unitsMap hN (ZMod.unitOfCoprime a ha) = -1 ↔
       a + 1 ≡ 0 [MOD 2 ^ (e + 2)] := by
     rw [Units.ext_iff, hval, Units.val_neg, Units.val_one,

@@ -54,7 +54,7 @@
       ],
       "native_path": "RHLean/Analysis/AlpogeThin/NativeRayClassData.lean",
       "initial_source_reconstruction_sha256": "67ad141d5756587b3ac80474a0d132edee6efb5b916210b67676fe33b4edb98c",
-      "native_sha256": "67ad141d5756587b3ac80474a0d132edee6efb5b916210b67676fe33b4edb98c",
+      "native_sha256": "2809e4c6336d9d287acfb0eae7e8195bc2c794b85d132b07555a0c610618e123",
       "native_lines": 425
     },
     {
@@ -85,8 +85,8 @@
       ],
       "native_path": "RHLean/Analysis/AlpogeThin/NativeRayIdealCounts.lean",
       "initial_source_reconstruction_sha256": "0275b8d185c0d2a80bc58bc93c202ca2981d3a6ec1237e32b5eb8b03cb1abe5b",
-      "native_sha256": "0275b8d185c0d2a80bc58bc93c202ca2981d3a6ec1237e32b5eb8b03cb1abe5b",
-      "native_lines": 267
+      "native_sha256": "8f63154221bc9db0fd4341d80a77459e0771fe8de2ec1eb1b6fb685b340d6c73",
+      "native_lines": 263
     }
   ],
   "source_files": [

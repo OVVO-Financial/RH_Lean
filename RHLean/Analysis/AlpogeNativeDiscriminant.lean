@@ -37,7 +37,9 @@ theorem alpogeNativeHostReal_finrank
     alpogeNativeHostField_isCMField e q d hq2 hd2 hqd hq4 hd4
   have h := Module.finrank_mul_finrank ℚ
     (maximalRealSubfield (alpogeNativeHostField e q d)) (alpogeNativeHostField e q d)
-  rw [Algebra.IsQuadraticExtension.finrank_eq_two,
+  rw [Algebra.IsQuadraticExtension.finrank_eq_two
+      (maximalRealSubfield (alpogeNativeHostField e q d))
+      (alpogeNativeHostField e q d),
     alpogeNativeHostField_finrank e q d hq2 hd2 hqd] at h
   omega
 
