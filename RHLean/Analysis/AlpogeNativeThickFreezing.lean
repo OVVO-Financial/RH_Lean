@@ -39,9 +39,8 @@ theorem alpogeNativeASKRealWeight_sum_le_two_lambda
   classical
   by_cases hn : Λ n = 0
   · simp [alpogeNativeASKRealWeight, hn]
-  · rw [ArithmeticFunction.vonMangoldt_ne_zero_iff,
-      isPrimePow_nat_iff] at hn
-    obtain ⟨p, k, hp, hk, rfl⟩ := hn
+  · have hpow : IsPrimePow n := ArithmeticFunction.vonMangoldt_ne_zero_iff.mp hn
+    obtain ⟨p, k, hp, hk, rfl⟩ := (isPrimePow_nat_iff n).mp hpow
     have hreal : ∀ g : AlpogeNativeE0 × H,
         (alpogeNativeColourKernel inertia frob (p ^ k) g).re =
           if g - k • frob p ∈ inertia p then
@@ -53,9 +52,8 @@ theorem alpogeNativeASKRealWeight_sum_le_two_lambda
             (2 / (((Finset.univ.filter
               (fun u : AlpogeNativeE0 × H => u ∈ inertia p)).card : ℕ) : ℂ)) =
             (((2 : ℝ) / ((alpogeSquareInertiaCarrier (inertia p)).card : ℝ)) : ℂ) := by
-          unfold alpogeSquareInertiaCarrier
-          push_cast
-          rfl
+          simp only [alpogeSquareInertiaCarrier, Complex.ofReal_div,
+            Complex.ofReal_ofNat, Complex.ofReal_natCast]
         rw [heq, Complex.ofReal_re]
       · simp
     have hmass :
@@ -169,7 +167,7 @@ theorem alpogeNativeFullASK_lower_width_le
       simpa [mul_sub] using mul_le_mul_of_nonneg_left hs
         (alpogeNativeASKRealWeight_nonneg inertia frob n g)
     by_cases hc : n ≤ ⌊a / b⌋₊
-    · rw [if_pos hc] at hsum ⊢
+    · rw [ite_eq_left hc] at hsum ⊢
       have hm := mul_le_mul_of_nonneg_right
         (alpogeNativeASKRealWeight_sum_le_two_lambda inertia frob n) hh
       nlinarith
@@ -262,6 +260,7 @@ def alpogeNativeFreezeThick (T2 : Finset H) (u : H) (b : ℝ)
     (w : AlpogeNativeE0 × H → ℝ) : AlpogeNativeE0 × H → ℝ :=
   fun ρ => if ρ ∈ alpogeNativeThickPositiveSites T2 u then b else w ρ
 
+omit [Fintype H] in
 theorem alpogeNativeFreezing_partner_mem_iff
     (T2 : Finset H) (u t : H) (g : AlpogeNativeE0 × H) :
     alpogeNativePartner t g ∈ alpogeNativeThickPositiveSites T2 u ↔
@@ -298,7 +297,7 @@ theorem alpogeNativeProjectionActualThick_freeze
   have hmem : (((0, 1) : AlpogeNativeE0), s + u) ∈
       alpogeNativeThickPositiveSites T2 u := Finset.mem_image.mpr ⟨s, hs, rfl⟩
   simp only [alpogeNativeProjectionColourTerm,
-    alpogeNativeProjectionThick_partner, alpogeNativeFreezeThick, if_pos hmem]
+    alpogeNativeProjectionThick_partner, alpogeNativeFreezeThick, ite_eq_left hmem]
 
 /-- Exact preservation of the complete signed thin return. -/
 theorem alpogeNativeProjectionThinReturn_freeze
@@ -316,7 +315,7 @@ theorem alpogeNativeProjectionThinReturn_freeze
   have hnot : alpogeNativePartner t g ∉ alpogeNativeThickPositiveSites T2 u := by
     rw [alpogeNativeFreezing_partner_mem_iff]
     exact (Finset.mem_sdiff.mp hg).2
-  simp only [alpogeNativeProjectionColourTerm, alpogeNativeFreezeThick, if_neg hnot]
+  simp only [alpogeNativeProjectionColourTerm, alpogeNativeFreezeThick, ite_eq_right hnot]
 
 theorem alpogeNativeProjectionFullSource_freeze
     (F : AddChar (AlpogeNativeE0 × H) ℂ → ℝ → ℂ)
@@ -546,6 +545,7 @@ theorem alpogeNativeFreezing_normalized_cost_le
     _ = _ := by
       unfold alpogeNativeProjectionDivisor
       field_simp [ht, hmr, hb.ne', hd]
+      ring
 
 end
 

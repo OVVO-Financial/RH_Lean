@@ -290,7 +290,6 @@ theorem alpogeNativeSignedWidthSource_midpoint_normalized_le
           ha hb w₀ w₁ hw₀ hw₁ hd) hQ.le
     _ = _ := by
       field_simp [hQ.ne', hb.ne']
-      ring
 
 end Scaling
 

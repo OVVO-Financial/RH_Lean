@@ -444,3 +444,27 @@ precisely, for every real (x,y),
 
 with equality on constants. This also shows directly that the squared
 collective operator norm is exactly 50 in the stated original metric.
+
+There is a crucial distinction between this sharp OPERATOR norm and the
+VOLUME cost. In this same model the source orthonormal basis is sqrt(q)
+times the coordinate basis, so the exact image Gram determinant is
+
+    det G(F(ON_source)) = q^q * (1+q*L)^2.
+
+The large eigenvalue appears only once. Repeating the largest squared
+singular value once per dimension would instead give
+q^q*(1+q*L)^(2*q), which can be much larger. The exact identity
+`nativeMap_gramDet_source` retains the former quantity before any Hadamard
+or operator bound. Integer-index credit is likewise retained in
+`nativeIntegralMap_gram_bound` before its final corollary discards it.
+
+Thus this diagnostic does not rule out a substantially sharper JOINT
+determinant payment. A concrete candidate is to prove, on the original
+section source, that its map Gram has a controlled bulk plus an explicit
+correction of rank k, then pay only k log(1+lambda) for a correction with
+eigenvalue excess at most lambda. For example, a bound
+F*F <= exp(2P)*(I+lambda*Pi), with Pi an actual orthogonal projection of
+rank k, would cost 2rP+k*log(1+lambda) in log determinant, rather than
+r*(2P+log(1+lambda)). This requires a proved same-source Gram comparison;
+it is not supplied by arbitrary scalar centering. Its formalization and
+theta instantiation are not claimed in the present patch.

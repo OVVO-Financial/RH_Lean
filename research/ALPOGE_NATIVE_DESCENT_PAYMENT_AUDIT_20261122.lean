@@ -1,4 +1,5 @@
 import RHLean.Geometry.NativeIntegralCompletion
+import RHLean.Geometry.NativeTwistedTraceDiagnostic
 import RHLean.Analysis.AlpogeNativeWidthRecombination
 import RHLean.Analysis.AlpogeNativeCompleteSourcePayment
 import RHLean.Analysis.AlpogeWidthExponentialDecay
@@ -139,3 +140,27 @@ info: 'RHLean.Analysis.alpogeNativeSignedWidthSource_eq_De_re_at_natCeil' depend
 -/
 #guard_msgs in
 #print axioms RHLean.Analysis.alpogeNativeSignedWidthSource_eq_De_re_at_natCeil
+
+/--
+info: 'RHLean.Geometry.nativeTwoTrace_injective' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Geometry.nativeTwoTrace_injective
+
+/--
+info: 'RHLean.Geometry.nativeTwoTrace_multiplication_norm' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Geometry.nativeTwoTrace_multiplication_norm
+
+/--
+info: 'RHLean.Geometry.nativeTwoTrace_not_qSquared' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Geometry.nativeTwoTrace_not_qSquared

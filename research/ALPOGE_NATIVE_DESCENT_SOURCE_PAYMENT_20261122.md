@@ -130,6 +130,12 @@ Consequently $2\varepsilon_{\rm rk}\Lambda=2b$. This is the quantitative mechani
 
 The native CR/coefficient-basis certificates already transport exact arithmetic and metrics. They do not yet supply the same short cusp section, level determinant, short spanning set and geometric rank comparison. Constructing those compatible data remains necessary.
 
+### A concrete test of the multiplicity claim
+
+The constructor note also gives a finite translation/trace example showing why integrality, joint injectivity and exact rank saturation do not automatically improve the collective norm cost. On a two-point group, use the normalized source energy $(x^2+y^2)/2$ and the genuine integral section $u=(3,2)$. The two unnormalized trace maps are $(x,y)\mapsto3x+2y$ and $(x,y)\mapsto2x+3y$. Multiplication by either translate has norm at most $B=3$, the joint integer matrix has determinant $5$, and source and joint-target ranks are both two. Nevertheless the constant source $(1,1)$ has energy one and joint output energy $50$, exceeding the putative $q^2B^2=36$ budget.
+
+The general regular-function-algebra version makes the original $q^3$ collective operator bound asymptotically sharp. This does not mean every volume bound must repeat the largest singular value in every direction: the amplified mode in this example has rank one. The exact determinant theorem retains that information before Hadamard is applied. A useful improvement would prove the corresponding low-rank or determinant structure for the actual section maps, with the same integral-index and source-metric accounting. It cannot be inferred from character orthogonality alone.
+
 ## 3. The complete signed width payment
 
 See [AlpogeNativeSignedWidthPayment.lean](../RHLean/Analysis/AlpogeNativeSignedWidthPayment.lean), [AlpogeNativeWidthRecombination.lean](../RHLean/Analysis/AlpogeNativeWidthRecombination.lean), and [AlpogeNativeAffineFamilyPayment.lean](../RHLean/Analysis/AlpogeNativeAffineFamilyPayment.lean).

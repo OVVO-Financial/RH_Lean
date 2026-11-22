@@ -57,6 +57,10 @@ favorable for this upper bound. If every Phi width is at least `beta>0` and
 0\le J_{\log}\le\frac{a d^2}{8\beta^2}\quad(a\ge0).
 \]
 
+The hinge identities hold at equality thresholds too: no case
+`a/n=c`, `a/n=w0`, or `a/n=w1` is removed. Prime-power and square-clock
+boundary terms remain in the exact finite source.
+
 The scalar proof is
 
 \[
@@ -174,6 +178,13 @@ The ambient host cardinal `n=|H|` still occurs in the thin minimum and Delta.
 These two signed frame averages must not be identified without an additional
 theorem. The width result works for each of them separately and creates no
 extra frame-count factor.
+
+This subgroup scope was checked directly in the pinned
+[ChCore.lean](https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Development/AutomorphicArithmetic/DedekindLFunctions/LandauTheorems/ChCore.lean):
+`Deduction.CharacterBalanceMoves.sum_Th` sums over `u:A0` and retains
+`PsiA A0`; `Deduction.CharacterBalanceMoves.core` assumes its geometric
+`gapA<=Err` on `u0 in A0`. The width comparison does not replace that
+character-completed projection by the full-host four-character special case.
 
 The actual smallest HC base is
 

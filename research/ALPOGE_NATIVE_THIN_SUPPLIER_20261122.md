@@ -24,6 +24,8 @@ Here `NoExc c0 chi` means exactly that `LFunction chi beta != 0` for every real 
 
 The response scale `y >= exp(x^(eps/3))/3` is much larger than the critical thick-response scale of order `x`. This theorem is not a square-root bound at the critical scale.
 
+Pointwise PNT for each fixed character does not supply these quantifiers when the host changes with `x`. Nor can the stated conductor window simply be inserted into a Siegel--Walfisz hypothesis `N <= (log y)^A` with fixed `A`: the allowed `N` is exponential in `x^(eps/5)*log(x)^2`, whereas a fixed power of `log y` at the lower endpoint is only a power of `x`. The quantitative zero-free-region argument and its uniform real-zero exclusion are doing necessary work here.
+
 ### Its three actual analytic suppliers
 
 1. [`QH.psi_thin`](https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Development/AutomorphicArithmetic/MeanSquareBounds/PsiThin.lean): for fixed `c0>0`, it constructs constants `C,c>0`, uniform over primitive characters and `lam >= max(1,log N)`, subject to the same real-character `NoExc` premise, and proves
