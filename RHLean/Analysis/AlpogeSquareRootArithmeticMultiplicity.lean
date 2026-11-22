@@ -1,6 +1,7 @@
 import Mathlib
 import RHLean.Arithmetic.PrimeCombFiniteDifferenceFreshPrime
 import RHLean.Analysis.NativePNTErdosContraction
+import RHLean.Analysis.AlpogeNativeSharpASKBalance
 
 /-!
 # A genuine square-root-length arithmetic jet, tested against Alpoge multiplicity
@@ -257,5 +258,79 @@ theorem alpogeNativePrimeSevenDifference_not_divisible :
         ({7} : Finset ℕ) (fun n : ℕ => (n : ℤ)) 7 := by
   rw [alpogeNativePrimeSevenDifference_linear]
   norm_num
+
+
+/-!
+## The actual cross-representation correction: fresh-prime difference
+does NOT commute with the Frobenius/inertia colour multiplier.
+
+This is the finite algebraic coboundary that any attempted arithmetic
+replacement for the theta-lift chain MUST retain. Rather than
+postulating spectral cancellation, the term is carried in exactly
+the same original prime-power and ASK width coordinates.
+-/
+
+/-- Exact integer-floor Leibniz rule, in EVERY commutative coefficient
+ring: the defect is the change of c across the ORIGINAL p-quotient.
+When c is the physical colour coefficient this is not negligible
+for free, because Frobenius/inertia vary with the original integer. -/
+theorem alpogeNativeFreshPrime_product_commutator
+    {A : Type*} [CommRing A]
+    (p n : ℕ) (c f : ℕ → A) :
+    RHLean.Arithmetic.freshPrimeDifference p
+      (fun k => c k * f k) n =
+    c n * RHLean.Arithmetic.freshPrimeDifference p f n +
+      (c n - c (n / p)) * f (n / p) := by
+  simp only [RHLean.Arithmetic.freshPrimeDifference_apply]
+  ring
+
+/-- The precise condition for having NO cost when commuting the
+fresh-prime derivative past the physical multiplier. This invariance
+is NOT presumed for actual Frobenius/inertia coefficients. -/
+theorem alpogeNativeFreshPrime_product_commute_of_invariant
+    {A : Type*} [CommRing A]
+    (p n : ℕ) (c f : ℕ → A)
+    (h : c n = c (n / p)) :
+    RHLean.Arithmetic.freshPrimeDifference p
+      (fun k => c k * f k) n =
+    c n * RHLean.Arithmetic.freshPrimeDifference p f n := by
+  rw [alpogeNativeFreshPrime_product_commutator, h, sub_self,
+      zero_mul, add_zero]
+
+/-- An actual one-site source atom from the full, untruncated
+Alpoge ASK, with every Lambda prime power and site-dependent
+physical partner width retained. -/
+def alpogeNativeLiteralASKSitePrimeAtom
+    {H : Type*} [AddCommGroup H] [Fintype H] [DecidableEq H]
+    (a : ℝ) (t : H) (w : AlpogeNativeE0 × H → ℝ)
+    (g : AlpogeNativeE0 × H) (n : ℕ) : ℂ :=
+  ((Λ n : ℝ) : ℂ) * alpogeNativeSiteCut a w t n g
+
+/-- Complete SOURCE-IDENTICAL Frobenius/inertia Leibniz defect.
+Neither the character multiplier nor the quotient-terminal
+prime-power source is replaced by its absolute value. In particular,
+all ramified conductor zeros and their FULL return survive.
+
+A true arithmetic m-lift mechanism would have to pay the cumulative
+signed defect in this equation, plus the geometric lattice height.
+The equation itself is unconditional. -/
+theorem alpogeNativeLiteralASK_freshPrime_characterDefect
+    {H : Type*} [AddCommGroup H] [Fintype H] [DecidableEq H]
+    (inertia : ℕ → AddSubgroup (AlpogeNativeE0 × H))
+    (frob : ℕ → AlpogeNativeE0 × H)
+    (a : ℝ) (t : H) (w : AlpogeNativeE0 × H → ℝ)
+    (g : AlpogeNativeE0 × H) (p n : ℕ) :
+    RHLean.Arithmetic.freshPrimeDifference p
+      (fun k => alpogeNativeColourKernel inertia frob k g *
+        alpogeNativeLiteralASKSitePrimeAtom a t w g k) n =
+    alpogeNativeColourKernel inertia frob n g *
+      RHLean.Arithmetic.freshPrimeDifference p
+        (alpogeNativeLiteralASKSitePrimeAtom a t w g) n +
+      (alpogeNativeColourKernel inertia frob n g -
+        alpogeNativeColourKernel inertia frob (n / p) g) *
+        alpogeNativeLiteralASKSitePrimeAtom a t w g (n / p) := by
+  exact alpogeNativeFreshPrime_product_commutator p n
+    (fun k => alpogeNativeColourKernel inertia frob k g)
+    (alpogeNativeLiteralASKSitePrimeAtom a t w g)
 
 end RHLean.Analysis
