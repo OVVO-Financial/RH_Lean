@@ -127,7 +127,7 @@ theorem alpogeNativeSquareNegativeLPM2_le_uniform
       have hbound := le_trans hab (hpoint R hR)
       nlinarith
     _ = (H : ℝ) * M ^ 2 := by
-      rw [Finset.sum_const, Finset.card_Ico]
+      rw [Finset.sum_const, Nat.card_Ico]
       have hlen : 2 * H - H = H := by omega
       rw [hlen]
       simp only [nsmul_eq_mul]
@@ -169,7 +169,7 @@ theorem alpogeNativeSquareNegativeLPM2_of_dyadicChebyshev
       ((H : ℝ) ^ (1 + ε / 2)) ^ 2 = (H : ℝ) ^ (2 + ε) := by
     calc
       _ = ((H : ℝ) ^ (1 + ε / 2)) ^ (2 : ℝ) := by
-        rw [Real.rpow_natCast]
+        rw [Real.rpow_two]
       _ = (H : ℝ) ^ ((1 + ε / 2) * 2) :=
         (Real.rpow_mul hHnonneg (1 + ε / 2) 2).symm
       _ = (H : ℝ) ^ (2 + ε) := by
@@ -180,12 +180,9 @@ theorem alpogeNativeSquareNegativeLPM2_of_dyadicChebyshev
     calc
       _ = C ^ 2 * ((H : ℝ) * ((H : ℝ) ^ (1 + ε / 2)) ^ 2) := by ring
       _ = C ^ 2 * ((H : ℝ) ^ (1 : ℝ) * (H : ℝ) ^ (2 + ε)) := by
-        rw [hpow2]
-        ring
+        rw [hpow2, Real.rpow_one]
       _ = C ^ 2 * (H : ℝ) ^ (3 + ε) := by
-        rw [← Real.rpow_add hHpos]
-        congr 1
-        ring
+        rw [← Real.rpow_add hHpos, show (1 : ℝ) + (2 + ε) = 3 + ε by ring]
   calc
     alpogeNativeSquareNegativeLPM2 H ≤
         (H : ℝ) * (C * (H : ℝ) ^ (1 + ε / 2)) ^ 2 := hbase
