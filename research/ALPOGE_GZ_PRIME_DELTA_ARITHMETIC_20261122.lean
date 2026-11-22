@@ -1,5 +1,5 @@
 import Mathlib
-import RHLean.Analysis.AlpogeGzVFMidDeltaTransfer
+import «research.ALPOGE_GZ_VFMID_DELTA_TRANSFER_20261122»
 import RHLean.Analysis.NativePNTChebyshev
 
 /-!

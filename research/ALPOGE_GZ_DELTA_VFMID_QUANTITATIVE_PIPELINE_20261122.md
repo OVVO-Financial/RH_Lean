@@ -1,8 +1,10 @@
 # Alpöge Gz × VF_mid: the real delta(t) and native signed source
 
 **Implementation:** PR #1184; files
-\`RHLean/Analysis/AlpogeGzVFMidDeltaTransfer.lean\` and
-\`RHLean/Analysis/AlpogeGzPrimeDeltaArithmetic.lean\`.
+\`research/ALPOGE_GZ_VFMID_DELTA_TRANSFER_20261122.lean\` and
+\`research/ALPOGE_GZ_PRIME_DELTA_ARITHMETIC_20261122.lean\` (research
+closure, since they import the research VF_mid files), plus the native
+module \`RHLean/Analysis/AlpogeSignedSquareInterpolation.lean\`.
 **Audit principle:** An exact identity is not a power-saving bound;
 a proved theorem about RH is not automatically a proved Lean theorem
 \`RH -> Gz O(sqrt x)\`.
@@ -208,38 +210,40 @@ and verifying the exact dependencies.
 Never substitute the conditional \`CoreAt\` / \`ValuesAtX\`
 estimate or another \`topExcess\` condition as an unconditional theorem.
 
-## Build compatibility: native Lake roots versus historic research imports
+## Build layout: research imports stay in the research closure
 
-The two validated VF_mid sources under `research/` are used by both the
-research-closure runner and the native `RHLean` root build. The former has
-historically compiled these modules to **flat** output files
+The two validated VF_mid sources under `research/` are compiled by the
+research-closure runner to **flat** output files
 `.lake/build/lib/lean/research.VF_MID_*.olean`. Lean source therefore imports
 them as the quoted single-atom names `«research.VF_MID_*»`.
 
-A dotted Lake root such as `\`research.VF_MID_VON_KOCH_BRIDGE` instead
-selects a hierarchical output `research/VF_MID_VON_KOCH_BRIDGE.olean`,
-which **does not satisfy** the historic quoted import. This caused the
-November 22 hosted build failure before elaboration of the new theorems.
+Only research files can import them. A native `RHLean` module would need
+`lakefile.lean` to build research files as extra library roots. Every
+lakefile change invalidates all CI build caches, so each such PR rebuilds the
+whole library from cold: about 38 minutes, with the 30-minute research
+workflows timing out.
 
-The PR now registers exactly the two **quoted** Lake roots and includes two
-tracked symbolic links at the repository root:
-`research.VF_MID_VON_KOCH_BRIDGE.lean` and
-`research.VF_MID_LI_UNIFORM_QUADRATURE.lean`.
-They point to the original files in `research/`; the original research
-source and its import spelling remain unchanged. Lake and the research-closure
-compiler then produce the same module names and reuse the original
-mathematics, without globbing the exploratory research tree.
+Therefore the two modules that import the VF_mid files live under
+`research/`:
+- `ALPOGE_GZ_VFMID_DELTA_TRANSFER_20261122.lean`;
+- `ALPOGE_GZ_PRIME_DELTA_ARITHMETIC_20261122.lean`, which imports the
+  former as `«research.ALPOGE_GZ_VFMID_DELTA_TRANSFER_20261122»`.
+
+The research-closure check compiles them, warnings fatal. Declaration names
+(namespace `RHLean.Analysis`) are unchanged. `lakefile.lean` is unchanged
+from `main`. `AlpogeSignedSquareInterpolation`, which imports no research
+file, stays in the native library.
 
 Acceptance requires both the native hosted build and the research-closure
-checks to succeed. This is a compiler/import fix, not a new RH-strength
+checks to succeed. This is a build-layout choice, not a new RH-strength
 arithmetic estimate.
 
 ## Post-merge validation
 
-The branch has been synchronized with the current `main` proof and
-retains all three new signed Gz/VF/NNS root imports in the sorted root
-manifest. The full build must explicitly check both exact flat
-research-module imports and the new arithmetic modules. This merge
+The branch has been synchronized with the current `main` proof. The sorted
+root manifest imports the native `AlpogeSignedSquareInterpolation`. The two
+VF_mid-dependent modules are compiled by the research closure (see "Build
+layout"). This merge
 resolved the former GitHub conflict; it does **not** supply the still
 open unconditional sharp Gz estimate. CI and the no-owned-warning
 audit remain the only acceptance criteria for this compiler repair.
