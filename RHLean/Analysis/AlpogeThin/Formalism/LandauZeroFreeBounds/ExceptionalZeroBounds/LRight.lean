@@ -35,7 +35,7 @@ lemma norm_term_twist_moebius_le {q : ℕ} (χ : DirichletCharacter ℂ q) (s : 
   have h2 : ‖((μ n : ℤ) : ℂ)‖ ≤ 1 := by
     rw [Complex.norm_intCast]
     exact_mod_cast ArithmeticFunction.abs_moebius_le_one
-  exact mul_le_one₀ h1 (norm_nonneg _) h2
+  exact (mul_le_of_le_one_left (norm_nonneg _) h1).trans h2
 
 open Formalism.ZF.MoebiusInverseZetaBounds in
 theorem inverseBound : LInvBound := by

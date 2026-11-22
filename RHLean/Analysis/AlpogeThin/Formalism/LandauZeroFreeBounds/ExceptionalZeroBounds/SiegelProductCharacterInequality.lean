@@ -89,7 +89,7 @@ private theorem card_primeFactors_add_one_sq_le_rpow {ε : ℝ} (hε : 0 < ε) (
         rw [mul_pow, ← Real.rpow_natCast ((n : ℝ) ^ (ε / 2)) 2, ← Real.rpow_mul (by positivity)]
         norm_num
 
-private theorem div_le_mul_of_main_bound_caseA {σ ε C L₁ X Lψ Nk M Q Pc A : ℝ} (hε : 0 < ε) (h1σ : 0 < 1 - σ)
+private theorem div_le_mul_of_main_bound_caseA {σ ε C L₁ X Lψ Nk M Q Pc A : ℝ} (hε : 0 < ε) (_h1σ : 0 < 1 - σ)
     (hL₁ : 0 < L₁) (hX : 0 ≤ X) (hA : 0 < A) (hNk0 : 0 ≤ Nk) (hLψ0 : 0 ≤ Lψ) (hM0 : 0 ≤ M)
     (hmain : (1 - σ) / 2 ≤ C * (L₁ * X * Lψ) * Nk) (hLψ : Lψ ≤ A * (M / (ε / 2))) (hNk : Nk ≤ M)
     (hMM : M * M = Pc * Q) (hPc : 0 < Pc) :
@@ -112,7 +112,7 @@ private theorem div_le_mul_of_main_bound_caseA {σ ε C L₁ X Lψ Nk M Q Pc A :
   rw [div_le_iff₀ hden]
   linarith
 
-private theorem div_le_mul_of_chain_caseB {L₁ X W D Nε Pc Q : ℝ} (hL₁ : 0 < L₁) (hX : 0 ≤ X) (hD : 0 < D)
+private theorem div_le_mul_of_chain_caseB {L₁ X W D Nε Pc Q : ℝ} (_hL₁ : 0 < L₁) (hX : 0 ≤ X) (hD : 0 < D)
     (hPc : 0 < Pc) (hS : L₁ ≤ W * X) (hW : W ≤ D * Nε) (hN : Nε ≤ Pc * Q) :
     L₁ / (D * Pc) ≤ X * Q := by
   rw [div_le_iff₀ (mul_pos hD hPc)]

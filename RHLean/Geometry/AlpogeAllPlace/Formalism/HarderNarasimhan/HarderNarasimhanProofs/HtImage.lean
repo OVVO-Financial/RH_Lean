@@ -136,7 +136,7 @@ theorem span_quotient_lattice_eq {E : Type*} [NormedAddCommGroup E] [InnerProduc
       have h2 : Kᗮ.starProjection x = x - (x - Kᗮ.starProjection x) := by abel
       rw [h2]
       exact Submodule.sub_mem _ hx (hKU h1)
-    · exact (Kᗮ.orthogonalProjection x).2
+    · exact (Kᗮ.orthogonalProjectionOnto x).2
   · intro y hy
     obtain ⟨hyU, hyK⟩ := Submodule.mem_inf.1 hy
     exact ⟨y, hyU, Submodule.starProjection_eq_self_iff.2 hyK⟩
@@ -208,7 +208,7 @@ theorem htImage_norm_placePart {P ι : Type*} [Fintype P] [Fintype ι] {v : P}
     apply Finset.sum_congr rfl
     intro i _
     rw [Fin.sum_univ_two]
-    simp only [PiLp.toLp_apply, htImageCv, Complex.sq_norm, Complex.normSq_apply,
+    simp only [htImageCv, Complex.sq_norm, Complex.normSq_apply,
       Real.norm_eq_abs, sq_abs]
     ring
   · intro w _ hw
@@ -225,12 +225,13 @@ theorem htImage_map_norm {P ι κ : Type*} [Fintype P] [Fintype ι] [Fintype κ]
   rw [htImage_norm_placePart (htImage_map_mem M hy), htImage_norm_placePart hy, htImageCv_map]
   refine le_of_eq_of_le ?_
     ((LinearMap.toContinuousLinearMap (Matrix.toEuclideanLin (M v))).le_opNorm _)
-  simp [Matrix.toEuclideanLin_apply]
+  rfl
 
 variable {K : Type*} [Field K] [NumberField K] [StarRing K]
   {V ι : Type*} [AddCommGroup V] [Module K V] [Fintype ι] [DecidableEq ι]
   {W κ : Type*} [AddCommGroup W] [Module K W] [Fintype κ] [DecidableEq κ]
 
+omit [StarRing K] in
 theorem htImageCv_realize (b : Basis ι K V) (X : InfinitePlace K → Matrix ι ι ℂ) (x : V)
     (v : InfinitePlace K) :
     htImageCv (RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.realize b X x) v = RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.fcoord b X v x := by
@@ -324,11 +325,11 @@ theorem htImage_of (h1 : PlLat) (h2 : PlaceSplit) (h3 : GramBlock) : HtImage := 
   obtain ⟨hLatA, hrkA, -⟩ := h1 K V ι b X hX A hA
   obtain ⟨hLatA₀, hrkA₀, -⟩ := h1 K V ι b X hX A₀ hA₀fg
   obtain ⟨hLatI, hrkI, -⟩ := h1 K W κ b' X' hX' I hIfg
-  haveI hLd : DiscreteTopology L := hLatA.2
-  haveI hId : DiscreteTopology (zl ρ' I) := hLatI.2
+  have hLd : DiscreteTopology L := hLatA.2
+  have hId : DiscreteTopology (zl ρ' I) := hLatI.2
   obtain ⟨hQd, hrkQ, -⟩ := RHLean.Geometry.AlpogeAllPlace.Formalism.F.degQuot _ L N hLd hsat.2
   set Q := RHLean.Geometry.AlpogeAllPlace.Formalism.F.quot L N with hQ
-  haveI := hQd
+  have := hQd
 
   have hπU : ∀ y ∈ U, Uᗮ.starProjection y = 0 := by
     intro y hy

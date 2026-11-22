@@ -39,7 +39,6 @@ lemma zero_free_region_mono {c c' : ℝ} (h : c ≤ c') {q : ℕ} [NeZero q] {s 
   have h2 : c / Real.log (↑q * (|s.im| + 2)) ≤ c' / Real.log (↑q * (|s.im| + 2)) := by
     first
       | exact div_le_div_of_nonneg_right h hL.le
-      | exact (div_le_div_iff_of_pos_right hL).mpr h
   linarith
 
 lemma half_le_of_real_in_region {c₁ : ℝ} (h : c₁ ≤ 1 / 20) {q : ℕ} [NeZero q] {β : ℝ} (hs : InRegion c₁ q (β : ℂ)) :
@@ -170,7 +169,7 @@ lemma exceptional_zero_term_bound (x A q cE β : ℝ) (hx : 2 ≤ x) (hA : 0 < A
     nlinarith
   linarith [h5, h6]
 
-lemma bounded_of_exp_sqrt_lt_pow (A c : ℝ) (hA : 0 < A) (hc : 0 < c) :
+lemma bounded_of_exp_sqrt_lt_pow (A c : ℝ) (_hA : 0 < A) (hc : 0 < c) :
     ∃ U : ℝ, 0 ≤ U ∧ ∀ L : ℝ, 0 < L → Real.exp (c * Real.sqrt L) < L ^ A → L ≤ U := by
   have ho := (isLittleO_rpow_exp_pos_mul_atTop (2 * A) hc).comp_tendsto Real.tendsto_sqrt_atTop
   have hb := ho.bound (show (0:ℝ) < 1 / 2 by norm_num)

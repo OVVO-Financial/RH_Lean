@@ -49,7 +49,7 @@ theorem rdp_hasDerivAt_prim (a p w : ℂ) (hw : w ≠ p) :
   have hwp : w - p ≠ 0 := sub_ne_zero.2 hw
   have h := (((hasDerivAt_id' w).sub_const p).inv hwp).const_mul (-a)
   convert h using 1
-  all_goals first | rfl | ring | (field_simp; ring) | (simp; ring)
+  all_goals first | rfl | ring
 
 theorem rdp_horiz (a p : ℂ) (y x0 x1 : ℝ) (hy : y ≠ p.im) :
     ∫ x in x0..x1, a / ((x : ℂ) + y * I - p) ^ 2 =

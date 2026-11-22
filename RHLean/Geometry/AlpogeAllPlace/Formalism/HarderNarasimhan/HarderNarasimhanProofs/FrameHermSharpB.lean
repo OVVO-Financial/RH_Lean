@@ -90,25 +90,30 @@ section Herm
 variable {K V ι : Type} [Field K] [NumberField K] [StarRing K] [AddCommGroup V] [Module K V]
   [Module (𝓞 K) V] [IsScalarTower (𝓞 K) K V] [Fintype ι] [DecidableEq ι]
 
+omit [StarRing K] [IsScalarTower (𝓞 K) K V] in
 theorem frameB_muDef (b : Basis ι K V) (X : InfinitePlace K → Matrix ι ι ℂ) (L : Submodule (𝓞 K) V) :
     muDef b X L = 2 * slope (RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.realize b X) L + slopeNormalisingConstant K := by
   unfold muDef slopeNormalisingConstant; ring
 
+omit [StarRing K] [IsScalarTower (𝓞 K) K V] in
 theorem frameB_muMaxDef (b : Basis ι K V) (X : InfinitePlace K → Matrix ι ι ℂ)
     (L : Submodule (𝓞 K) V) :
     muMaxDef b X L = 2 * muMax (RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.realize b X) L + slopeNormalisingConstant K := by
   unfold muMaxDef slopeNormalisingConstant; ring
 
+omit [StarRing K] [IsScalarTower (𝓞 K) K V] in
 theorem frameB_muMinDef (b : Basis ι K V) (X : InfinitePlace K → Matrix ι ι ℂ)
     (L : Submodule (𝓞 K) V) :
     muMinDef b X L = 2 * muMin (RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.realize b X) L + slopeNormalisingConstant K := by
   unfold muMinDef slopeNormalisingConstant; ring
 
+omit [NumberField K] [StarRing K] [IsScalarTower (𝓞 K) K V] [DecidableEq ι] in
 theorem frameB_rkK_top (b : Basis ι K V) (L : Submodule (𝓞 K) V)
     (hL : Submodule.span K (L : Set V) = ⊤) : rkK L = Fintype.card ι := by
   unfold rkK
   rw [hL, finrank_top, Module.finrank_eq_card_basis b]
 
+omit [NumberField K] [StarRing K] [IsScalarTower (𝓞 K) K V] in
 theorem frameB_ne_bot [Nontrivial V] (L : Submodule (𝓞 K) V)
     (hL : Submodule.span K (L : Set V) = ⊤) : L ≠ ⊥ := by
   intro h0

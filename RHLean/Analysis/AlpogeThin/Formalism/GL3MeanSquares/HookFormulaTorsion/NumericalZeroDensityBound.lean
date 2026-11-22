@@ -265,12 +265,12 @@ private lemma qc_ne_one (q : ℕ) [Fact q.Prime] (hq : q ≠ 2) : qc q ≠ 1 := 
     rintro rfl
     simp at ha
   have h2 := congrArg (fun χ : DirichletCharacter ℂ q => χ a) h
-  simp [qc, MulChar.ringHomComp_apply, ha, MulChar.one_apply (Ne.isUnit ha0)] at h2 <;>
+  simp [qc, MulChar.ringHomComp_apply, ha, MulChar.one_apply (Ne.isUnit ha0)] at h2 ;
     norm_num at h2
 
 private lemma qc_prim (q : ℕ) [Fact q.Prime] (hq : q ≠ 2) : (qc q).IsPrimitive := by
   have hp : q.Prime := Fact.out
-  haveI : NeZero q := ⟨hp.ne_zero⟩
+  have : NeZero q := ⟨hp.ne_zero⟩
   rcases hp.eq_one_or_self_of_dvd _ (DirichletCharacter.conductor_dvd_level (qc q)) with h | h
   · exact absurd (DirichletCharacter.eq_one_iff_conductor_eq_one.mpr h) (qc_ne_one q hq)
   · exact h
@@ -325,9 +325,9 @@ private theorem twist_is_primitive : TwPrimitive := by
   have ht : t ≠ 0 := by
     rintro rfl
     exact hp.one_lt.ne' (by simpa using hc)
-  haveI : NeZero t := ⟨ht⟩
-  haveI : NeZero q := ⟨hp.ne_zero⟩
-  haveI : NeZero (t * q) := ⟨mul_ne_zero ht hp.ne_zero⟩
+  have : NeZero t := ⟨ht⟩
+  have : NeZero q := ⟨hp.ne_zero⟩
+  have : NeZero (t * q) := ⟨mul_ne_zero ht hp.ne_zero⟩
   have hA : (DirichletCharacter.changeLevel (Dvd.intro q rfl) θ).conductor = t := by
     rw [DirichletCharacter.conductor_changeLevel]
     exact hθ

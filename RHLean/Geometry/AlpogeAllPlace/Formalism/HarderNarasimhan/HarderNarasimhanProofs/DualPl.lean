@@ -106,12 +106,14 @@ variable {K V ι : Type} [Field K] [NumberField K] [StarRing K] [AddCommGroup V]
   [Module (𝓞 K) V] [IsScalarTower (𝓞 K) K V] [Fintype ι] [DecidableEq ι]
 
 omit [StarRing K] in
+omit [NumberField K] [Fintype ι] [DecidableEq ι] in
 theorem cE_cE (w : EuclideanSpace ℝ (InfinitePlace K × ι × Fin 2)) : cE (cE w) = w := by
   ext p
   rw [cE_apply, cE_apply]
   split_ifs <;> ring
 
 omit [StarRing K] in
+omit [DecidableEq ι] in
 theorem inner_cE (w w' : EuclideanSpace ℝ (InfinitePlace K × ι × Fin 2)) :
     inner ℝ (cE w) (cE w') = inner ℝ w w' := by
   rw [PiLp.inner_apply, PiLp.inner_apply]
@@ -129,6 +131,7 @@ theorem ident_fcoord_dual (b : Basis ι K V) (X : InfinitePlace K → Matrix ι 
     funext i; simp [RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.vecAt, Basis.dualBasis_repr]
   simp only [RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.fcoord, dualFrame, hv, Matrix.nonsing_inv_nonsing_inv _ hT]
 
+omit [StarRing K] [Module (𝓞 K) V] [IsScalarTower (𝓞 K) K V] in
 theorem ident_sum_fcoord (b : Basis ι K V) (X : InfinitePlace K → Matrix ι ι ℂ)
     (hX : ∀ v, IsUnit (X v).det) (v : InfinitePlace K) (f : Module.Dual K V) (x : V) :
     ∑ i, RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.fcoord b.dualBasis (dualFrame X) v f i * RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.fcoord b X v x i =
@@ -670,6 +673,7 @@ theorem twist_finrank_int [StarRing K] (X : Submodule (𝓞 K) W) (hX : X.FG) :
   exact hrk
 
 omit [FiniteDimensional K W] in
+omit [IsScalarTower (𝓞 K) K W] in
 theorem twist_int (X : Submodule (𝓞 K) W) (hX : X.FG) (m : ℕ) (hm : m ≠ 0) :
     ((Ideal.span {(m : 𝓞 K)}) • X).toAddSubgroup.relIndex X.toAddSubgroup =
       m ^ finrank ℤ X := by
@@ -841,12 +845,14 @@ theorem dualLat_le_span {n : ℕ} (A : Submodule (𝓞 K) V) (e : Basis (Fin n) 
   exact Submodule.sum_mem _ fun i _ => Submodule.smul_mem _ _ (Submodule.subset_span ⟨i, rfl⟩)
 
 omit [Fintype ι] [DecidableEq ι] in
+omit [StarRing K] [IsScalarTower (𝓞 K) K V] in
 theorem dualLat_fg [FiniteDimensional K V] (A : Submodule (𝓞 K) V)
     (hsp : Submodule.span K (A : Set V) = ⊤) : (dualLat A).FG := by
   obtain ⟨n, e, he⟩ := exists_basis_in A hsp
   exact Submodule.FG.of_le (Submodule.fg_span (Set.finite_range _)) (dualLat_le_span A e he)
 
 omit [Fintype ι] [DecidableEq ι] in
+omit [StarRing K] in
 theorem dualLat_span [FiniteDimensional K V] (A : Submodule (𝓞 K) V) (hA : A.FG)
     (hsp : Submodule.span K (A : Set V) = ⊤) :
     Submodule.span K (dualLat A : Set (Module.Dual K V)) = ⊤ := by
@@ -1139,6 +1145,7 @@ variable {K V ι : Type} [Field K] [NumberField K] [StarRing K] [IsTotallyComple
   [DecidableEq ι]
 
 omit [IsTotallyComplex K] [Module (𝓞 K) V] [IsScalarTower (𝓞 K) K V] in
+omit [StarRing K] in
 theorem realize_eval (b : Basis ι K V) (X : InfinitePlace K → Matrix ι ι ℂ)
     (hX : ∀ v, IsUnit (X v).det) (x : V) :
     RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.realize b.dualBasis.dualBasis (dualFrame (dualFrame X)) (Module.Dual.eval K V x) =
@@ -1409,6 +1416,7 @@ theorem corr_R (b : Basis ι K V) (X : InfinitePlace K → Matrix ι ι ℂ)
       _ = _ := r2.symm
   exact ⟨N, hN, hrk, (hSB'.2.1 R _ hRN inf_le_left).2 hrk⟩
 
+omit [IsTotallyComplex K] [DecidableEq ι] in
 theorem dual_ne_bot (b : Basis ι K V) (A : Submodule (𝓞 K) V) (hA : A.FG)
     (hsp : Submodule.span K (A : Set V) = ⊤) (hA0 : A ≠ ⊥) : dualLat A ≠ ⊥ := by
   have hfd : FiniteDimensional K V := Module.Finite.of_basis b

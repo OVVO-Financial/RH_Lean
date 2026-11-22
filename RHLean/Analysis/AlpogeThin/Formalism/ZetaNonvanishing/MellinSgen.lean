@@ -37,13 +37,7 @@ lemma Sa_measurable : Measurable (Sa a) := by
         first
           | exact measurable_from_prod_countable_right hk
           | exact measurable_from_prod_countable_left hk
-          | exact measurable_from_prod_countable hk
        exact hg.comp (measurable_id.prodMk Nat.measurable_floor))
-    | (have hg : Measurable (fun p : ℕ × ℝ => ∑ n ∈ Finset.Icc 1 p.1, a n * (p.2 / n - 1)) := by
-        first
-          | exact measurable_from_prod_countable_left hk
-          | exact measurable_from_prod_countable_right hk
-       exact hg.comp (Nat.measurable_floor.prodMk measurable_id))
 
 lemma a_mxS_eq_zero (ha0 : a 0 = 0) (x : ℝ) (n : ℕ) (hn : n ∉ Finset.Icc 1 ⌊x⌋₊) :
     a n * mxS n x = 0 := by

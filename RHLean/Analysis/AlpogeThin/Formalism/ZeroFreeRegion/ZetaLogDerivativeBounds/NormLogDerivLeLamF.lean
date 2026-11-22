@@ -48,7 +48,7 @@ lemma term_vonMangoldt_real (σ : ℝ) (n : ℕ) :
         Complex.ofReal_natCast]
     rw [h, Complex.norm_real, Real.norm_of_nonneg (div_nonneg vonMangoldt_nonneg (by positivity))]
 
-lemma lamF_eq_norm {σ : ℝ} (hσ : 1 < σ) : lamF σ = ‖L ↗Λ (σ : ℂ)‖ := by
+lemma lamF_eq_norm {σ : ℝ} (_hσ : 1 < σ) : lamF σ = ‖L ↗Λ (σ : ℂ)‖ := by
   have h : L ↗Λ (σ : ℂ) = ((lamF σ : ℝ) : ℂ) := by
     rw [LSeries, lamF, Complex.ofReal_tsum]
     exact tsum_congr fun n => term_vonMangoldt_real σ n

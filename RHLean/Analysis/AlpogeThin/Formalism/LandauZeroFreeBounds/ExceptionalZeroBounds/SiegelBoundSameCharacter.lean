@@ -80,7 +80,7 @@ theorem siegel_bound_key_rearrange {C A₁ CL x ℓ a K ε q₁ q : ℝ} (hε : 
   nlinarith
 
 theorem siegel_bound_same_character {N₀ : ℕ} (hN₀ : N₀ ≠ 0) {A₁ x ε q₁ q : ℝ} (hε : 0 < ε) (hq₁ : 1 ≤ q₁)
-    (hq : 1 ≤ q) (hNq : (N₀ : ℝ) = q₁ * q) (hA₁ : 0 < A₁) (hx : 0 ≤ x)
+    (hq : 1 ≤ q) (hNq : (N₀ : ℝ) = q₁ * q) (_hA₁ : 0 < A₁) (hx : 0 ≤ x)
     (hS : A₁ ≤ ((N₀.primeFactors.card : ℝ) + 1) ^ 2 * x) :
     A₁ / (4 / (ε * Real.log 2) ^ 2 * (2 : ℝ) ^ ε * q₁ ^ ε) * q ^ (-ε) ≤ x := by
   set ω := N₀.primeFactors.card with hω

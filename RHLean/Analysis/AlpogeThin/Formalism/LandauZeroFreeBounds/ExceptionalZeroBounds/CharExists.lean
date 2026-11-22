@@ -37,8 +37,6 @@ theorem isProdChar_changeLevel_mul {q₁ q₂ : ℕ} (χ₁ : DirichletCharacter
       congr 1
       first
         | exact ZMod.cast_natCast hq n
-        | exact ZMod.cast_natCast hq _ n
-        | exact ZMod.cast_nat_cast hq n
     rw [h1, h1]
   · rw [MulChar.map_nonunit _ h]
     rw [ZMod.isUnit_iff_coprime, Nat.coprime_mul_iff_right] at h
@@ -59,7 +57,6 @@ theorem characterModFour_apply (a : ZMod 4) :
 theorem characterModFour_sq : characterModFour ^ 2 = 1 := by
   first
     | exact (ZMod.isQuadratic_χ₄.comp _).sq_eq_one
-    | exact (ZMod.isQuadratic_χ₄.comp (Int.castRingHom ℂ)).sq_eq_one
 
 theorem characterModFour_ne_one : characterModFour ≠ 1 := by
   intro h

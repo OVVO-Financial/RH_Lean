@@ -75,7 +75,7 @@ private theorem pchar_mk_eq_of_changeLevel_eq_self_of_primitive {N d : ℕ} [NeZ
   rfl
 
 theorem PChar.of_self (ψ : PChar) : PChar.of ψ.χ = ψ := by
-  haveI : NeZero ψ.χ.conductor := ⟨ψ.χ.conductor_ne_zero⟩
+  have : NeZero ψ.χ.conductor := ⟨ψ.χ.conductor_ne_zero⟩
   exact pchar_mk_eq_of_changeLevel_eq_self_of_primitive ψ.χ ψ.χ.primitiveCharacter ψ.χ.conductor_dvd_level
     ψ.χ.changeLevel_primitiveCharacter ψ.χ.primitiveCharacter_isPrimitive ψ.prim ψ.prim
 
@@ -86,7 +86,7 @@ private theorem pchar_mk_eq_one_of_level_eq_one {d : ℕ} [NeZero d] (ψ : Diric
   rfl
 
 theorem PChar.of_one (M : ℕ) [NeZero M] : PChar.of (1 : DirichletCharacter ℂ M) = PChar.one := by
-  haveI : NeZero (1 : DirichletCharacter ℂ M).conductor :=
+  have : NeZero (1 : DirichletCharacter ℂ M).conductor :=
     ⟨(1 : DirichletCharacter ℂ M).conductor_ne_zero⟩
   exact pchar_mk_eq_one_of_level_eq_one _ _ DirichletCharacter.conductor_one
 
@@ -112,8 +112,8 @@ private theorem conductor_inv_eq_conductor {M : ℕ} [NeZero M] (χ : DirichletC
   simpa using conductor_inv_dvd_conductor χ⁻¹
 
 theorem PChar.of_inv {M : ℕ} [NeZero M] (χ : DirichletCharacter ℂ M) : PChar.of χ⁻¹ = (PChar.of χ).inv := by
-  haveI : NeZero χ.conductor := ⟨χ.conductor_ne_zero⟩
-  haveI : NeZero χ⁻¹.conductor := ⟨χ⁻¹.conductor_ne_zero⟩
+  have : NeZero χ.conductor := ⟨χ.conductor_ne_zero⟩
+  have : NeZero χ⁻¹.conductor := ⟨χ⁻¹.conductor_ne_zero⟩
   exact pchar_mk_eq_of_changeLevel_eq_of_level_eq χ⁻¹ χ⁻¹.primitiveCharacter χ.primitiveCharacter⁻¹ χ⁻¹.conductor_dvd_level
     χ.conductor_dvd_level (conductor_inv_eq_conductor χ) χ⁻¹.changeLevel_primitiveCharacter
     (by rw [map_inv, DirichletCharacter.changeLevel_primitiveCharacter]) _ _

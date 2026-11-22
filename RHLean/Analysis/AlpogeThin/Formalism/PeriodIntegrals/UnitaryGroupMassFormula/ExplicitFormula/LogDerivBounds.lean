@@ -85,7 +85,7 @@ theorem log_two_le_log {N : ℕ} [NeZero N] {x : ℝ} (hx : 2 ≤ x) : Real.log 
   have hN1 : (1 : ℝ) ≤ N := Nat.one_le_cast.mpr (Nat.pos_of_ne_zero (NeZero.ne N))
   exact Real.log_le_log (by norm_num) (by nlinarith)
 
-theorem logDerivLeft_of {Cw Cl : ℝ} (hCw : 0 ≤ Cw) (hCl : 0 ≤ Cl) (hW : ZerosWindowWith Cw)
+theorem logDerivLeft_of {Cw Cl : ℝ} (_hCw : 0 ≤ Cw) (_hCl : 0 ≤ Cl) (hW : ZerosWindowWith Cw)
     (hL : LocalLemma Cl) (hZ : ZeroLocus) : LogDerivLeft (Cl + 2 * Cw + 6) := by
   unfold PI.EF.LogDerivLeft PI.EF.ZeroLocus at *
   intro N _ χ hχ t

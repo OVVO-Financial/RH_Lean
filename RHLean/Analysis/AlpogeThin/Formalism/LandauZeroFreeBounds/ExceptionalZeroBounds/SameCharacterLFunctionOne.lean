@@ -64,7 +64,7 @@ theorem changeLevel_eq_of_agree_coprime {q₁ q : ℕ} [NeZero q₁] [NeZero q] 
     (h : ∀ n : ℕ, Nat.Coprime n (q₁ * q) → χ₁ (n : ZMod q₁) = χ (n : ZMod q)) :
     DirichletCharacter.changeLevel (dvd_mul_right q₁ q) χ₁ =
       DirichletCharacter.changeLevel (dvd_mul_left q q₁) χ := by
-  haveI : NeZero (q₁ * q) := ⟨mul_ne_zero (NeZero.ne q₁) (NeZero.ne q)⟩
+  have : NeZero (q₁ * q) := ⟨mul_ne_zero (NeZero.ne q₁) (NeZero.ne q)⟩
   ext a
   rw [DirichletCharacter.changeLevel_eq_cast_of_dvd, DirichletCharacter.changeLevel_eq_cast_of_dvd,
     ZMod.cast_eq_val, ZMod.cast_eq_val]
@@ -84,7 +84,7 @@ theorem euler_factor_term_norm_le {M : ℕ} (φ : DirichletCharacter ℂ M) (p :
 theorem euler_factor_product_upper {M : ℕ} (φ : DirichletCharacter ℂ M) (S : Finset ℕ) :
     ‖∏ p ∈ S, (1 - φ (p : ZMod M) * (p : ℂ) ^ (-(1 : ℂ)))‖ ≤ ∏ p ∈ S, (1 + 1 / (p : ℝ)) := by
   rw [norm_prod]
-  refine Finset.prod_le_prod (fun p _ => norm_nonneg _) fun p _ => ?_
+  refine Finset.prod_le_prod₀ (fun p _ => norm_nonneg _) fun p _ => ?_
   refine (norm_sub_le _ _).trans ?_
   rw [norm_one]
   linarith [euler_factor_term_norm_le φ p]
@@ -93,7 +93,7 @@ theorem euler_factor_product_lower {M : ℕ} (φ : DirichletCharacter ℂ M) (S 
     (hS : ∀ p ∈ S, 2 ≤ p) :
     ∏ p ∈ S, (1 - 1 / (p : ℝ)) ≤ ‖∏ p ∈ S, (1 - φ (p : ZMod M) * (p : ℂ) ^ (-(1 : ℂ)))‖ := by
   rw [norm_prod]
-  refine Finset.prod_le_prod (fun p hp => ?_) fun p hp => ?_
+  refine Finset.prod_le_prod₀ (fun p hp => ?_) fun p hp => ?_
   · have hp2 : (2 : ℝ) ≤ p := by exact_mod_cast hS p hp
     have h1 : (1 : ℝ) / p ≤ 1 := by rw [div_le_one (by linarith)]; linarith
     linarith
@@ -105,7 +105,7 @@ theorem euler_factor_product_lower {M : ℕ} (φ : DirichletCharacter ℂ M) (S 
 theorem prod_one_add_mul_one_sub_le_one (S : Finset ℕ) (hS : ∀ p ∈ S, 2 ≤ p) :
     (∏ p ∈ S, (1 + 1 / (p : ℝ))) * ∏ p ∈ S, (1 - 1 / (p : ℝ)) ≤ 1 := by
   rw [← Finset.prod_mul_distrib]
-  refine Finset.prod_le_one (fun p hp => ?_) fun p hp => ?_
+  refine Finset.prod_le_one₀ (fun p hp => ?_) fun p hp => ?_
   · have hp2 : (2 : ℝ) ≤ p := by exact_mod_cast hS p hp
     have h1 : (1 : ℝ) / p ≤ 1 := by rw [div_le_one (by linarith)]; linarith
     have h2 : (0 : ℝ) ≤ 1 / p := by positivity
@@ -115,7 +115,7 @@ theorem prod_one_add_mul_one_sub_le_one (S : Finset ℕ) (hS : ∀ p ∈ S, 2 �
 
 theorem lfunction_one_same_character : SameCharacterLFunctionOne := by
   intro q₁ q _ _ χ₁ χ hχ₁ hχ h
-  haveI : NeZero (q₁ * q) := ⟨mul_ne_zero (NeZero.ne q₁) (NeZero.ne q)⟩
+  have : NeZero (q₁ * q) := ⟨mul_ne_zero (NeZero.ne q₁) (NeZero.ne q)⟩
   have hS : ∀ p ∈ (q₁ * q).primeFactors, 2 ≤ p := fun p hp =>
     (Nat.prime_of_mem_primeFactors hp).two_le
   have hL₁ := DirichletCharacter.LFunction_changeLevel (dvd_mul_right q₁ q) χ₁ (s := 1)

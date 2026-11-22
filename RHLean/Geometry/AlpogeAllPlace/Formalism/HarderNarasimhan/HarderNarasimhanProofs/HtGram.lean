@@ -33,6 +33,7 @@ theorem realize_apply1 (b : Basis ι K V) (X : InfinitePlace K → Matrix ι ι 
     (RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.realize b X x) (v, i, 1) = (RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.fcoord b X v x i).im := by
   rfl
 
+omit [StarRing K] in
 theorem realize_injective (b : Basis ι K V) (X : InfinitePlace K → Matrix ι ι ℂ)
     (hX : ∀ v, IsUnit (X v).det) : Function.Injective (RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.realize b X) := by
   rw [injective_iff_map_eq_zero]
@@ -63,6 +64,7 @@ theorem fcoord_smul (b : Basis ι K V) (X : InfinitePlace K → Matrix ι ι ℂ
     simp [RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.vecAt]
   simp only [RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.fcoord, h, Matrix.mulVec_smul]
 
+omit [StarRing K] in
 theorem inner_realize (b : Basis ι K V) (X : InfinitePlace K → Matrix ι ι ℂ) (x y : V) :
     inner ℝ (RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.realize b X x) (RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.realize b X y) =
       ∑ v, (RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.majAt b X v x y).re := by
@@ -72,6 +74,7 @@ theorem inner_realize (b : Basis ι K V) (X : InfinitePlace K → Matrix ι ι �
   simp only [Complex.mul_re, Complex.star_def, Complex.conj_re, Complex.conj_im]
   ring
 
+omit [NumberField K] [StarRing K] in
 theorem majAt_smul (b : Basis ι K V) (X : InfinitePlace K → Matrix ι ι ℂ) (v : InfinitePlace K)
     (a a' : K) (x y : V) :
     RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.majAt b X v (a • x) (a' • y) =

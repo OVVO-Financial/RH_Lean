@@ -48,7 +48,6 @@ lemma logDeriv_local {f : ℂ → ℂ} {ρ : ℂ} (hf : AnalyticAt ℂ f ρ)
     rw [logDeriv_apply, deriv_sub_const, deriv_id'']
   rw [hld, logDeriv_fun_mul (f := fun w => (w - ρ) ^ analyticOrderNatAt f ρ) s hpow hgs (hd.pow _)
     hga.differentiableAt, logDeriv_fun_pow hd, hl, logDeriv_apply]
-  beta_reduce
   ring
 
 theorem exists_regular_part {f : ℂ → ℂ} {K : Set ℂ} (hf : AnalyticOnNhd ℂ f K) (Z : Finset ℂ)

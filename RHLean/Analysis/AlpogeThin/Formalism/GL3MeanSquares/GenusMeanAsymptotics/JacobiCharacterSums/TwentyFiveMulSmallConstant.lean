@@ -74,7 +74,7 @@ theorem kap_pos (a : ℕ) (ha : 1 ≤ a) (D : ℝ) (hD : 0 ≤ D) : 0 < kap a D 
   exact div_pos (mul_pos (th_pos a) (pow_pos (eps_pos a) 2))
     (mul_pos ha0 (by linarith))
 
-private theorem mul_kap_div_eps_sq_eq_th_div_succ (a : ℕ) (ha : 1 ≤ a) (D : ℝ) (hD : 0 ≤ D) :
+private theorem mul_kap_div_eps_sq_eq_th_div_succ (a : ℕ) (ha : 1 ≤ a) (D : ℝ) (_hD : 0 ≤ D) :
     (a : ℝ) * kap a D / eps a ^ 2 = th a / (D + 1) := by
   have ha0 : (a : ℝ) ≠ 0 := (Nat.cast_pos.mpr (by omega)).ne'
   have hi : eps a ^ 2 ≠ 0 := (pow_pos (eps_pos a) 2).ne'
@@ -143,7 +143,7 @@ private theorem succ_cube_le_eight_pow (j : ℕ) : (j + 1) ^ 3 ≤ 8 ^ j := by
       _ ≤ 8 * 8 ^ n := by gcongr
       _ = 8 ^ (n + 1) := by ring
 
-theorem final_step (a : ℕ) (E G : ℝ) (hE : 0 < E) (hG : 0 < G) (j : ℕ)
+theorem final_step (a : ℕ) (E G : ℝ) (hE : 0 < E) (_hG : 0 < G) (j : ℕ)
     (hj : E * G < j)
     (h : 1 / (E * (rr a / 8) ^ j) ≤ G * ((j : ℝ) + 1) ^ 2 / rr a ^ j) : False := by
   have hb := rr_pos' a

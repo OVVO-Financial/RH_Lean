@@ -66,7 +66,7 @@ theorem L_nontriv_growth (hB : PI.LBoundRight) {χ : DirichletCharacter ℂ N} (
         exfalso
         apply hχ1
         exact MulChar.ext fun a => by rw [Subsingleton.elim a 1]; simp
-      · haveI : Nontrivial (ZMod N) := ZMod.nontrivial_iff.2 hN1
+      · have : Nontrivial (ZMod N) := ZMod.nontrivial_iff.2 hN1
         exact χ.map_nonunit not_isUnit_zero
     have hw1 : 1 / 2 ≤ (1 - s).re := by simp only [Complex.sub_re, Complex.one_re]; linarith
     have hw2 : (1 - s).re ≤ 5 := by simp only [Complex.sub_re, Complex.one_re]; linarith

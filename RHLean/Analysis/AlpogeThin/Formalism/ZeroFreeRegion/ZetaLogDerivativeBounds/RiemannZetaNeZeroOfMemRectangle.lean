@@ -28,7 +28,7 @@ theorem norm_perronIntegrand (y : ℝ) (hy : 0 < y) (w : ℂ) :
     ‖Fy y w‖ = ‖deriv riemannZeta w / riemannZeta w‖ * y ^ w.re / (‖w‖ * ‖w - 1‖) := by
   simp only [Fy, norm_div, norm_mul, norm_neg, Complex.norm_cpow_eq_rpow_re_of_pos hy]
 
-theorem one_sub_div_log_le (c c' T v : ℝ) (hc : 0 < c) (hcc : c ≤ c') (hT : 0 ≤ T) (hv : |v| ≤ T) :
+theorem one_sub_div_log_le (c c' T v : ℝ) (hc : 0 < c) (hcc : c ≤ c') (_hT : 0 ≤ T) (hv : |v| ≤ T) :
     1 - c' / Real.log (|v| + 2) ≤ 1 - c / Real.log (T + 2) := by
   have h2 : (0:ℝ) < Real.log 2 := Real.log_pos (by norm_num)
   have hv0 : Real.log 2 ≤ Real.log (|v| + 2) :=

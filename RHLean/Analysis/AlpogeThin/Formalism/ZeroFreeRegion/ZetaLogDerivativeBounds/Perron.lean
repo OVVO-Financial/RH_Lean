@@ -116,7 +116,7 @@ lemma perron_Sz_continuousAt (y : ℝ) : ContinuousAt (fun x => (Formalism.Sz x 
     push_cast
     linarith
   have hg : Continuous (fun x : ℝ => ((∑ n ∈ Finset.range (⌊y⌋₊ + 2), Λ n * max (x / n - 1) 0 : ℝ) : ℂ)) :=
-    Complex.continuous_ofReal.comp (continuous_finset_sum _ fun n _ =>
+    Complex.continuous_ofReal.comp (continuous_finsetSum _ fun n _ =>
       continuous_const.mul (((continuous_id.div_const _).sub continuous_const).max continuous_const))
   refine hg.continuousAt.congr ?_
   filter_upwards [Iio_mem_nhds hyN] with x hx
@@ -236,7 +236,7 @@ lemma perron_mellin_Sz {w : ℂ} (hw : 1 < w.re) :
     have : t ≤ 1 := not_lt.1 ht.2
     rw [perron_Sz_eq_zero_of_le_one this]
     simp
-  rw [setIntegral_eq_of_subset_of_forall_diff_eq_zero measurableSet_Ioi (Ioi_subset_Ioi zero_le_one) hzero]
+  rw [setIntegral_eq_of_subset_of_forall_sdiff_eq_zero measurableSet_Ioi (Ioi_subset_Ioi zero_le_one) hzero]
   simp_rw [smul_eq_mul, mul_comm ((_ : ℂ) ^ (-w - 1))]
   rw [h1, ArithmeticFunction.LSeries_vonMangoldt_eq_deriv_riemannZeta_div hw]
   ring

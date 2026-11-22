@@ -65,7 +65,8 @@ theorem discrete_of_le (N : Submodule ℤ E2) (hN : N ≤ Lx) : DiscreteTopology
   by_contra hne
   have hy0 : (y : E2) ≠ 0 := fun h => hne (Subtype.ext h)
   have := one_le_norm (hN y.2) hy0
-  rw [dist_zero_right, norm_coe] at hy
+  rw [dist_zero_right] at hy
+  change ‖(y : E2)‖ < 1 at hy
   linarith
 
 def vx : Fin 2 → E2 := ![e₀, (2 : ℝ) • e₁]
@@ -102,9 +103,8 @@ theorem covol_Lx : RHLean.Geometry.AlpogeAllPlace.Formalism.F.covol Lx = 2 := by
   have hg : Matrix.gram ℝ (fun i => (b i : E2)) = !![1, 0; 0, 4] := by
     ext i j
     fin_cases i <;> fin_cases j <;>
-      simp [Matrix.gram_apply, hb, vx, e₀, e₁, inner_smul_left, inner_smul_right,
+      norm_num [Matrix.gram_apply, hb, vx, e₀, e₁, inner_smul_left, inner_smul_right,
         EuclideanSpace.inner_single_left, norm_smul]
-      norm_num
   rw [hg, Matrix.det_fin_two_of, show (1 : ℝ) * 4 - 0 * 0 = 2 ^ 2 by norm_num,
     Real.sqrt_sq (by norm_num)]
 

@@ -232,6 +232,7 @@ theorem im_comb {κ : Type*} [Fintype κ] (r : κ → ℝ) (c : κ → ℂ) (f :
 variable [DecidableEq (InfinitePlace K)]
 
 omit [IsTotallyComplex K] [Module (𝓞 K) V] [IsScalarTower (𝓞 K) K V] in
+omit [StarRing K] in
 theorem prj_realize (b : Basis ι K V) (X : InfinitePlace K → Matrix ι ι ℂ) (v : InfinitePlace K)
     (x : V) : prj v (RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.realize b X x) = psi v (RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.fcoord b X v x) := by
   ext p
@@ -239,6 +240,7 @@ theorem prj_realize (b : Basis ι K V) (X : InfinitePlace K → Matrix ι ι ℂ
   split_ifs with h1 h2 <;> (try subst h1) <;> rfl
 
 omit [IsTotallyComplex K] in
+omit [StarRing K] in
 theorem prj_realize_comb (b : Basis ι K V) (X : InfinitePlace K → Matrix ι ι ℂ)
     (v : InfinitePlace K) (r : Free.ChooseBasisIndex ℤ (𝓞 K) → ℝ)
     (hr : ∀ u : InfinitePlace K,
@@ -301,6 +303,7 @@ variable {K V ι : Type*} [Field K] [NumberField K] [StarRing K] [IsTotallyCompl
   [AddCommGroup V] [Module K V] [Module (𝓞 K) V] [IsScalarTower (𝓞 K) K V]
   [Fintype ι] [DecidableEq ι]
 
+omit [StarRing K] in
 theorem span_real_eq_complex (b : Basis ι K V) (X : InfinitePlace K → Matrix ι ι ℂ)
     (N : Submodule (𝓞 K) V) (v : InfinitePlace K) :
     (Submodule.span ℂ (RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.fcoord b X v '' (N : Set V))).restrictScalars ℝ =

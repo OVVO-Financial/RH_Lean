@@ -373,7 +373,7 @@ theorem count_a (hP : PNTAPRelW) (hE : Formalism.ZeroFreeDirichlet.ExcBound) (ε
   refine ⟨Real.exp (320 + 4 * |C₀| * (5 + ε / 5) + |4 * Real.log (4 * (|A₀| + 1)) / c₃|
     + |4 * Real.log (4 * (|A₀| + 1)) ^ 2 / c₃| + |Real.log (320 / min c0 1)|), ?_⟩
   intro x X m₀ a₀ hx hm0 h8 hcop h1 h6 h3
-  haveI : NeZero m₀ := ⟨hm0.ne'⟩
+  have : NeZero m₀ := ⟨hm0.ne'⟩
   have hxpos : 0 < x := lt_of_lt_of_le (Real.exp_pos _) hx
   have hlx : 320 + 4 * |C₀| * (5 + ε / 5) + |4 * Real.log (4 * (|A₀| + 1)) / c₃|
       + |4 * Real.log (4 * (|A₀| + 1)) ^ 2 / c₃| + |Real.log (320 / min c0 1)| ≤ Real.log x := by

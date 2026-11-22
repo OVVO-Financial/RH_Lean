@@ -44,11 +44,11 @@ theorem numeric_constants : Num := by
   rw [Real.norm_eq_abs, Real.norm_eq_abs, abs_of_nonneg (Real.rpow_nonneg hlog0 _),
     abs_of_nonneg (Real.rpow_nonneg hQ0.le _)] at hl3 hl2
   have hl3' : Real.log Q ^ 3 ≤ 1 / 32768 * Q ^ (7 / 100 : ℝ) := by
-    have e : Real.log Q ^ (3 : ℝ) = Real.log Q ^ 3 := by simpa using Real.rpow_natCast (Real.log Q) 3
+    have e : Real.log Q ^ (3 : ℝ) = Real.log Q ^ 3 := by simp
     rw [← e]
     exact hl3
   have hl2' : Real.log Q ^ 2 ≤ 1 / (65536 * (C + 1)) * Q ^ (47 / 50 : ℝ) := by
-    have e : Real.log Q ^ (2 : ℝ) = Real.log Q ^ 2 := by simpa using Real.rpow_natCast (Real.log Q) 2
+    have e : Real.log Q ^ (2 : ℝ) = Real.log Q ^ 2 := by simp
     rw [← e]
     exact hl2
   have hq1 : Q ≤ (q0 Q : ℝ) := by rw [q0]; exact Nat.le_ceil Q

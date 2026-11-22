@@ -68,7 +68,7 @@ lemma norm_disc_center_le (t : ℝ) : ‖(21 / 20 : ℂ) + t * I‖ ≤ 21 / 20 
     rw [norm_mul, Complex.norm_I, mul_one, Complex.norm_real, Real.norm_eq_abs]
   rw [h1, h2]
 
-lemma log_le_of_le_exp_log_conductor {A M L : ℝ} (hA : 1 ≤ A) (hM : 1 ≤ M) (hL : Real.log 2 ≤ L) (hX : 0 < Real.exp L)
+lemma log_le_of_le_exp_log_conductor {A M L : ℝ} (hA : 1 ≤ A) (hM : 1 ≤ M) (hL : Real.log 2 ≤ L) (_hX : 0 < Real.exp L)
     (hML : M ≤ 2 * A * Real.exp L) :
     Real.log M ≤ (Real.log (2 * A) / Real.log 2 + 1) * L := by
   have hA2 : 0 < 2 * A := by linarith

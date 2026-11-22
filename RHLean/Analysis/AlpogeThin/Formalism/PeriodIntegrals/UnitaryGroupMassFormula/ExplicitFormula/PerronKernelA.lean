@@ -171,26 +171,25 @@ lemma rectInt_ker (l a b c d : ℝ) (ha : a < 0) (hb : 0 < b) (hc : c < 0) (hd :
   have hbot : ∀ x : ℝ, (x : ℂ) + c * I ≠ 0 := by
     intro x h
     have := congrArg Complex.im h
-    simp at this <;> linarith
+    simp at this ; linarith
   have htop : ∀ x : ℝ, (x : ℂ) + d * I ≠ 0 := by
     intro x h
     have := congrArg Complex.im h
-    simp at this <;> linarith
+    simp at this ; linarith
   have hright : ∀ y : ℝ, (b : ℂ) + y * I ≠ 0 := by
     intro y h
     have := congrArg Complex.re h
-    simp at this <;> linarith
+    simp at this ; linarith
   have hleft : ∀ y : ℝ, (a : ℂ) + y * I ≠ 0 := by
     intro y h
     have := congrArg Complex.re h
-    simp at this <;> linarith
+    simp at this ; linarith
   have ftc : ∀ (G : ℂ → ℂ) (γ : ℝ → ℂ) (v : ℂ) (p q : ℝ), (∀ t, HasDerivAt γ v t) → Continuous γ →
       (∀ t, γ t ≠ 0) → (∀ t ∈ Set.uIcc p q, HasDerivAt G (1 / γ t) (γ t)) →
       ∫ t in p..q, v * (1 / (γ t - 0)) = G (γ q) - G (γ p) := by
     intro G γ v p q hγd hγc hne hG
     apply intervalIntegral.integral_eq_sub_of_hasDerivAt (f := fun t => G (γ t))
     · intro t ht
-      beta_reduce
       have := (hG t ht).comp t (hγd t)
       rw [sub_zero, mul_comm]
       exact this

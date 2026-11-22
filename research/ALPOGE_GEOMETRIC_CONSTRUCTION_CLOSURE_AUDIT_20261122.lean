@@ -1,3 +1,8 @@
+import RHLean.Geometry.NativeGradedCharacterSlopeDescent
+import RHLean.Geometry.NativeGradedShortSectionConstruction
+import RHLean.Analysis.AlpogeNativeReciprocitySurjective
+import RHLean.Analysis.AlpogeNativeDyadicHostSize
+import RHLean.Analysis.AlpogeThin.NativeDyadicGzPayment
 import RHLean.Geometry.NativeGradedSectionRegularity
 import RHLean.Analysis.AlpogeThin.NativeCftThin
 import RHLean.Geometry.NativeJetRankBudget
@@ -191,3 +196,75 @@ info: 'RHLean.Geometry.nativeGradedSection_groupDet_regular' depends on axioms: 
 -/
 #guard_msgs in
 #print axioms RHLean.Geometry.nativeGradedSection_groupDet_regular
+
+/--
+info: 'RHLean.Geometry.nativeAllPlaceDescent_of_regular_groupDet' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Geometry.nativeAllPlaceDescent_of_regular_groupDet
+
+/--
+info: 'RHLean.Geometry.nativeAllPlaceDescent_of_graded_component_section' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Geometry.nativeAllPlaceDescent_of_graded_component_section
+
+/--
+info: 'RHLean.Geometry.nativeExists_graded_short_integral_injective_section' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Geometry.nativeExists_graded_short_integral_injective_section
+
+/--
+info: 'RHLean.Analysis.alpogeNativeRecMap_surjective' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.alpogeNativeRecMap_surjective
+
+/--
+info: 'RHLean.Analysis.alpogeNativeDyadicH_card' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.alpogeNativeDyadicH_card
+
+/--
+info: 'RHLean.Analysis.AlpogeThin.nativeSelectedDyadicHostThin' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeThin.nativeSelectedDyadicHostThin
+
+/--
+info: 'RHLean.Analysis.AlpogeThin.nativeThinBill_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeThin.nativeThinBill_eq
+
+/--
+info: 'RHLean.Analysis.AlpogeThin.nativeThinBill_div_projectionDivisor' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeThin.nativeThinBill_div_projectionDivisor
+
+/--
+info: 'RHLean.Analysis.AlpogeThin.nativeSelectedDyadicCompleteProjection' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeThin.nativeSelectedDyadicCompleteProjection
+
+/--
+info: 'RHLean.Analysis.AlpogeThin.nativeDyadicTwoBitCharacter_induces' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeThin.nativeDyadicTwoBitCharacter_induces
+
+/--
+info: 'RHLean.Analysis.AlpogeThin.nativePairGood_dyadicGsig_sub_Gz_norm_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeThin.nativePairGood_dyadicGsig_sub_Gz_norm_le
+
+/--
+info: 'RHLean.Analysis.AlpogeThin.nativeSelectedDyadicGzPayment' depends on axioms: [propext, Classical.choice, Quot.sound]
+-/
+#guard_msgs in
+#print axioms RHLean.Analysis.AlpogeThin.nativeSelectedDyadicGzPayment

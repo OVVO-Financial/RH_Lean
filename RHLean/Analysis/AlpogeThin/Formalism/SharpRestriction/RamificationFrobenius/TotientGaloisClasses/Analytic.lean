@@ -59,11 +59,11 @@ private theorem heq_of_changeLevel_eq_of_level_eq {N N' L : ℕ} [NeZero L] (χ 
 
 theorem Induces.unique {ψ ψ' : PChar} {f : ℕ → ℂ} {M : ℕ} (hM : M ≠ 0) (h : Induces ψ.χ f M) (h' : Induces ψ'.χ f M) :
     ψ = ψ' := by
-  haveI := ψ.ne
-  haveI := ψ'.ne
+  have := ψ.ne
+  have := ψ'.ne
   have hN0 : ψ.N ≠ 0 := NeZero.ne _
   have hN0' : ψ'.N ≠ 0 := NeZero.ne _
-  haveI : NeZero (ψ.N * ψ'.N * M) := ⟨mul_ne_zero (mul_ne_zero hN0 hN0') hM⟩
+  have : NeZero (ψ.N * ψ'.N * M) := ⟨mul_ne_zero (mul_ne_zero hN0 hN0') hM⟩
   have d1 : ψ.N ∣ ψ.N * ψ'.N * M := ⟨ψ'.N * M, by ring⟩
   have d2 : ψ'.N ∣ ψ.N * ψ'.N * M := ⟨ψ.N * M, by ring⟩
   have heq : DirichletCharacter.changeLevel d1 ψ.χ = DirichletCharacter.changeLevel d2 ψ'.χ := by

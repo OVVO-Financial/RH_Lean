@@ -56,10 +56,6 @@ lemma LFunctionPartialSum.norm_tail_le {q : ℕ} [NeZero q] (χ : DirichletChara
         linear_combination -h
       first
       | exact hasDerivAt_ofReal_cpow_const ht0.ne' (neg_ne_zero.mpr hs0)
-      | (have h1 := hasDerivAt_ofReal_cpow_const ht0.ne' hr
-         have e : -s - 1 + 1 = -s := by ring
-         rw [e] at h1
-         exact h1)
     have hint : IntervalIntegrable (fun t : ℝ => (-s) * (t : ℂ) ^ (-s - 1)) MeasureTheory.volume x (x + 1) := by
       apply ContinuousOn.intervalIntegrable
       intro t ht
@@ -124,9 +120,6 @@ lemma LFunctionPartialSum.norm_tail_le {q : ℕ} [NeZero q] (χ : DirichletChara
       exact_mod_cast (show 0 < i + (N + 1) by omega)
     first
     | exact Real.rpow_le_rpow_of_nonpos hpos hle (by linarith)
-    | exact Real.rpow_le_rpow_of_exponent_nonpos hpos hle (by linarith)
-    | (rw [Real.rpow_neg hpos.le, Real.rpow_neg (hpos.le.trans hle)]
-       exact inv_anti₀ (Real.rpow_pos_of_pos hpos _) (Real.rpow_le_rpow hpos.le hle hs.le))
   have hpart : ∀ n : ℕ, ∑ i ∈ Finset.range n, B * (‖s‖ / s.re * ((((i + (N + 1) : ℕ) : ℝ)) ^ (-s.re) -
       (((i + 1 + (N + 1) : ℕ) : ℝ)) ^ (-s.re))) ≤ B * (‖s‖ / s.re) * ((N : ℝ) + 1) ^ (-s.re) := by
     intro n
@@ -147,7 +140,6 @@ lemma LFunctionPartialSum.norm_tail_le {q : ℕ} [NeZero q] (χ : DirichletChara
         (((i + 1 + (N + 1) : ℕ) : ℝ)) ^ (-s.re))) := by
       first
       | exact Summable.tsum_le_tsum hterm hsn hsf
-      | exact tsum_le_tsum hterm hsn hsf
     _ ≤ B * (‖s‖ / s.re) * ((N : ℝ) + 1) ^ (-s.re) := Real.tsum_le_of_sum_range_le hf0 hpart
 
 open LFunctionPartialSum in

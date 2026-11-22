@@ -31,6 +31,7 @@ theorem realize_apply1 (b : Basis ι K V) (X : InfinitePlace K → Matrix ι ι 
     (RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.realize b X x) (v, i, 1) = (RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.fcoord b X v x i).im := by
   simp [RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.realize, RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.realizeRaw]
 
+omit [StarRing K] in
 theorem realize_injective (b : Basis ι K V) (X : InfinitePlace K → Matrix ι ι ℂ)
     (hX : ∀ v, IsUnit (X v).det) : Function.Injective (RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.realize b X) := by
   rw [injective_iff_map_eq_zero]
@@ -91,6 +92,7 @@ namespace PlaceLattice
 variable {K : Type} [Field K] [NumberField K] [StarRing K]
   {V ι : Type} [AddCommGroup V] [Module K V] [Fintype ι] [DecidableEq ι]
 
+omit [StarRing K] in
 theorem linIndep_real (b : Basis ι K V) (X : InfinitePlace K → Matrix ι ι ℂ)
     (hX : ∀ v, IsUnit (X v).det) (c : K) (hc : c ≠ 0) :
     LinearIndependent ℝ (fun p : Free.ChooseBasisIndex ℤ (𝓞 K) × ι =>

@@ -24,18 +24,21 @@ section Lat
 variable {G E F : Type*} [AddCommGroup G] [NormedAddCommGroup E] [InnerProductSpace ℝ E]
   [FiniteDimensional ℝ E] [NormedAddCommGroup F] [InnerProductSpace ℝ F] [FiniteDimensional ℝ F]
 
+omit [InnerProductSpace ℝ E] [FiniteDimensional ℝ E] [InnerProductSpace ℝ F] [FiniteDimensional ℝ F] in
 theorem eq_of_eq (α : G →+ E) (β : G →+ F) (hn : ∀ g, ‖β g‖ = ‖α g‖) {x y : G}
     (h : α x = α y) : β x = β y := by
   have h0 : ‖β (x - y)‖ = 0 := by rw [hn, map_sub, h, sub_self, norm_zero]
   rw [norm_eq_zero, map_sub, sub_eq_zero] at h0
   exact h0
 
+omit [FiniteDimensional ℝ E] [FiniteDimensional ℝ F] in
 theorem inner_eq (α : G →+ E) (β : G →+ F) (hn : ∀ g, ‖β g‖ = ‖α g‖) (x y : G) :
     inner ℝ (β x) (β y) = inner ℝ (α x) (α y) := by
   rw [real_inner_eq_norm_add_mul_self_sub_norm_mul_self_sub_norm_mul_self_div_two,
     real_inner_eq_norm_add_mul_self_sub_norm_mul_self_sub_norm_mul_self_div_two,
     ← map_add, ← map_add, hn, hn, hn]
 
+omit [FiniteDimensional ℝ F] in
 private theorem det_gram_basis_eq' {ι : Type} [Fintype ι] [DecidableEq ι] (L : Submodule ℤ F)
     (C C' : Module.Basis ι ℤ L) :
     (Matrix.gram ℝ (fun i => ((C' i : L) : F))).det = (Matrix.gram ℝ (fun i => ((C i : L) : F))).det := by
@@ -51,19 +54,15 @@ private theorem det_gram_basis_eq' {ι : Type} [Fintype ι] [DecidableEq ι] (L 
       P.transpose * Matrix.gram ℝ (fun i => ((C i : L) : F)) * P := by
     ext i j
     simp only [Matrix.gram, Matrix.of_apply, Matrix.mul_apply, Matrix.transpose_apply, hC', sum_inner,
-      inner_sum, real_inner_smul_left, real_inner_smul_right, Finset.sum_mul, Finset.mul_sum]
+      inner_sum, real_inner_smul_left, real_inner_smul_right, Finset.sum_mul]
     first
       | (refine Finset.sum_congr rfl fun k _ => Finset.sum_congr rfl fun l _ => ?_; ring)
-      | (rw [Finset.sum_comm]; refine Finset.sum_congr rfl fun k _ => Finset.sum_congr rfl fun l _ => ?_; ring)
-      | (rw [Finset.sum_comm]; refine Finset.sum_congr rfl fun k _ => Finset.sum_congr rfl fun l _ => ?_;
-          rw [real_inner_comm]; ring)
   have hdet : (C.toMatrix C').det * (C'.toMatrix C).det = 1 := by
     rw [← Matrix.det_mul, Module.Basis.toMatrix_mul_toMatrix_flip, Matrix.det_one]
   have hPd : P.det = ((C.toMatrix C').det : ℝ) := by
     rw [hP]
     first
       | exact (Int.cast_det _).symm
-      | exact ((Int.castRingHom ℝ).map_det _).symm
   have hsq : P.det ^ 2 = 1 := by
     rw [hPd]
     rcases Int.eq_one_or_neg_one_of_mul_eq_one hdet with h | h <;> simp [h]
@@ -91,8 +90,8 @@ theorem covol_rk_eq (α : G →+ E) (β : G →+ F) (hn : ∀ g, ‖β g‖ = �
     (hβ : DiscreteTopology (H.map β).toIntSubmodule) :
     RHLean.Geometry.AlpogeAllPlace.Formalism.F.covol (H.map β).toIntSubmodule = RHLean.Geometry.AlpogeAllPlace.Formalism.F.covol (H.map α).toIntSubmodule ∧
       RHLean.Geometry.AlpogeAllPlace.Formalism.F.rk (H.map β).toIntSubmodule = RHLean.Geometry.AlpogeAllPlace.Formalism.F.rk (H.map α).toIntSubmodule := by
-  haveI := hα
-  haveI := hβ
+  have := hα
+  have := hβ
   have ex : ∀ y : (H.map α).toIntSubmodule, ∃ g ∈ H, α g = (y : E) := fun y =>
     AddSubgroup.mem_map.mp y.2
   let τf : (H.map α).toIntSubmodule →+ (H.map β).toIntSubmodule :=
@@ -142,7 +141,7 @@ variable {R V E E₂ : Type*} [Ring R] [AddCommGroup V] [Module R V] [NormedAddC
 theorem covol_eq_exp {E' : Type*} [NormedAddCommGroup E'] [InnerProductSpace ℝ E']
     [FiniteDimensional ℝ E'] (L : Submodule ℤ E') (h : DiscreteTopology L) :
     RHLean.Geometry.AlpogeAllPlace.Formalism.F.covol L = Real.exp (- RHLean.Geometry.AlpogeAllPlace.Formalism.F.deg L) := by
-  haveI := h
+  have := h
   rw [RHLean.Geometry.AlpogeAllPlace.Formalism.F.deg, neg_neg, Real.exp_log (RHLean.Geometry.AlpogeAllPlace.Formalism.F.covol_pos L)]
 
 theorem transfer (ρ : V →+ E) (ρ₂ : V →+ E₂) (hn : ∀ x, ‖ρ₂ x‖ = ‖ρ x‖) (L : Submodule R V)

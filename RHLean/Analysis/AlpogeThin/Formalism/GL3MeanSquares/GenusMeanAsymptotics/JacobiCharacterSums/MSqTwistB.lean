@@ -49,7 +49,7 @@ private theorem sum_clsB_mul_mod_eq_sum {M : Type*} [AddCommMonoid M] (m₀ s a�
     refine ⟨Nat.mod_lt _ hN, ?_, ?_⟩
     · rw [Nat.mod_mod_of_dvd _ (dvd_mul_right m₀ s), Nat.mul_mod, hb.2.1, hu1, ← Nat.mul_mod, mul_one]
     · rw [hcm, Nat.mod_mod_of_dvd _ (dvd_mul_left s m₀), ← hcm]
-      exact Nat.Coprime.mul hb.2.2 hus
+      exact Nat.Coprime.mul_left hb.2.2 hus
   have hinj : Set.InjOn (fun b => (b * u) % (m₀ * s)) (clsB m₀ s a₀) := by
     intro x hx y hy hxy
     simp only [Finset.mem_coe, clsB, Finset.mem_filter, Finset.mem_range] at hx hy
@@ -73,15 +73,15 @@ private theorem exists_jacobiSym_neg_one_in_residue_class (m₀ s : ℕ) (h1 : 1
     (hcop : m₀.Coprime s) :
     ∃ u : ℕ, u % m₀ = 1 % m₀ ∧ u.Coprime s ∧ jacobiSym (u : ℤ) s = -1 := by
   have hp : s.minFac.Prime := Nat.minFac_prime (by omega)
-  haveI := Fact.mk hp
-  haveI : NeZero s := ⟨by omega⟩
+  have := Fact.mk hp
+  have : NeZero s := ⟨by omega⟩
   obtain ⟨t, ht⟩ := Nat.minFac_dvd s
   have ht0 : t ≠ 0 := by
     rintro rfl
     rw [mul_zero] at ht
     omega
-  haveI : NeZero t := ⟨ht0⟩
-  haveI : NeZero s.minFac := ⟨hp.ne_zero⟩
+  have : NeZero t := ⟨ht0⟩
+  have : NeZero s.minFac := ⟨hp.ne_zero⟩
   have hp2 : s.minFac ≠ 2 := by
     intro h2
     rw [h2] at ht
@@ -93,7 +93,7 @@ private theorem exists_jacobiSym_neg_one_in_residue_class (m₀ s : ℕ) (h1 : 1
     have hu := hsq s.minFac ⟨v, by rw [mul_assoc, ← hv]; exact ht⟩
     exact hp.one_lt.ne' (Nat.isUnit_iff.mp hu)
   have hmp : (m₀ * t).Coprime s.minFac :=
-    Nat.Coprime.mul (Nat.Coprime.coprime_dvd_right (Nat.minFac_dvd s) hcop) hpt.symm
+    Nat.Coprime.mul_left (Nat.Coprime.coprime_dvd_right (Nat.minFac_dvd s) hcop) hpt.symm
   obtain ⟨g, hg⟩ := FiniteField.exists_nonsquare (F := ZMod s.minFac)
     (by rw [ZMod.ringChar_zmod_n]; exact hp2)
   let c := Nat.chineseRemainder hmp 1 g.val
@@ -122,12 +122,12 @@ private theorem exists_jacobiSym_neg_one_in_residue_class (m₀ s : ℕ) (h1 : 1
   rwa [Int.gcd_natCast_natCast] at hg1
 
 theorem sum_jac_cls_eq_zero (m₀ s a₀ : ℕ) [NeZero (m₀ * s)] (h1 : 1 < s) (hodd : Odd s)
-    (hsq : Squarefree s) (hcop : m₀.Coprime s) (ha : a₀.Coprime m₀) :
+    (hsq : Squarefree s) (hcop : m₀.Coprime s) (_ha : a₀.Coprime m₀) :
     ∑ b ∈ clsB m₀ s a₀, (jacobiSym (b : ℤ) s : ℝ) = 0 := by
   have hN : 0 < m₀ * s := Nat.pos_of_ne_zero (NeZero.ne _)
   obtain ⟨u, hu1, hus, hJu⟩ := exists_jacobiSym_neg_one_in_residue_class m₀ s h1 hodd hsq hcop
   have hre := sum_clsB_mul_mod_eq_sum m₀ s a₀ u hN hu1 hus (fun x => (jacobiSym (x : ℤ) s : ℝ))
-  simp only [jacobiSym_mul_mod_eq_mul, hJu, Int.cast_mul, Int.cast_neg, Int.cast_one, mul_neg, mul_one,
+  simp only [jacobiSym_mul_mod_eq_mul, hJu, Int.cast_neg, mul_neg, mul_one,
     Finset.sum_neg_distrib] at hre
   linarith
 
@@ -248,7 +248,6 @@ theorem twist_one (m₀ s a₀ : ℕ) [NeZero (m₀ * s)] (hm : 0 < m₀) (h1 : 
       (4 * r + 2 * |k|) * (((PPset m₀ a₀ X).card : ℝ) + X ^ (1 / 2 : ℝ)) + X ^ (1 / 2 : ℝ) := by
   have hs : 0 < s := by omega
   obtain ⟨hd, hsumabs⟩ := twist_decomp m₀ s a₀ X hm hs hX (fun b => mainAP e b X) k hk hb
-  beta_reduce at hd hsumabs
   have hmain := main_twist_bound m₀ s a₀ hm h1 hodd hsq hcop ha X r e hr0 hr hli hG
   have h2 : 2 * r * ∑ b ∈ clsB m₀ s a₀, |mainAP e b X| ≤
       2 * r * (2 * (((PPset m₀ a₀ X).card : ℝ) + X ^ (1 / 2 : ℝ))) :=

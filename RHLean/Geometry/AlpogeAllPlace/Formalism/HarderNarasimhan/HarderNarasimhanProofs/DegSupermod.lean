@@ -21,6 +21,7 @@ omit [InnerProductSpace ℝ E] in
 theorem degSupermod_mem_zl (N : Submodule R V) (y : E) :
     y ∈ zl ρ N ↔ ∃ x ∈ N, ρ x = y := Iff.rfl
 
+omit [InnerProductSpace ℝ E] in
 theorem degSupermod_zl_mono {A B : Submodule R V} (h : A ≤ B) : zl ρ A ≤ zl ρ B := by
   intro y hy
   obtain ⟨x, hx, rfl⟩ := (degSupermod_mem_zl ρ A y).mp hy

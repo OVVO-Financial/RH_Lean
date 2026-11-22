@@ -24,7 +24,7 @@ noncomputable section
 namespace Formalism.ZeroFreeDirichlet
 
 theorem perron_error_terms_sum_bound (C C₀ c₁ y T X L Pw Y ℓ : ℝ) (hc₁ : 0 < c₁) (hC : 0 ≤ C) (hC₀ : 0 ≤ C₀)
-    (hy0 : 0 < y) (hT1 : 1 ≤ T) (hTX : T * X = 1) (hL0 : 0 ≤ L) (hY : 0 ≤ Y)
+    (hy0 : 0 < y) (hT1 : 1 ≤ T) (hTX : T * X = 1) (_hL0 : 0 ≤ L) (hY : 0 ≤ Y)
     (hℓP : ℓ ≤ Pw) (hP1 : 1 ≤ Pw) (hL2P : L ^ 2 ≤ Pw) (hL3P : L ^ 3 ≤ Pw) (hLP : L ≤ Pw) :
     2 * Real.pi * ((ℓ + C₀) * (Real.exp 1 * y)) / T
         + (C * L ^ 2 + 1) * (Real.exp 1 * y) / T ^ 2 * 3

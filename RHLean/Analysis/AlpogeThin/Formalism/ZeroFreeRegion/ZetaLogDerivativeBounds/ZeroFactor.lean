@@ -92,7 +92,7 @@ theorem exists_factorization_of_sum_order (z₀ : ℂ) (r R₁ : ℝ) (hR : R₁
         have hl : AnalyticAt ℂ (fun z : ℂ => z - ρ₀) ρ₀ := analyticAt_id.sub analyticAt_const
         have h1 := (hl.analyticOrderAt_eq_natCast (n := 1)).mpr
           ⟨fun _ => 1, analyticAt_const, one_ne_zero, Filter.Eventually.of_forall fun z => by simp⟩
-        simpa using h1
+        simp
       · exact hla.analyticOrderAt_eq_zero.mpr (sub_ne_zero.mpr hρρ₀)
     have keyN : ∀ ρ ∈ Z,
         analyticOrderNatAt f ρ = (if ρ = ρ₀ then 1 else 0) + analyticOrderNatAt g ρ ∧

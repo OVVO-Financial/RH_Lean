@@ -26,7 +26,7 @@ namespace Formalism.HermitianLattices.ZeroFreeRegionGL2
 private lemma gl2b2_twoTors (e : ℕ) (he : 1 ≤ e) :
     (Finset.univ.filter (fun c : ZMod (2 ^ e) => c + c = 0)).card = 2 := by
   obtain ⟨k, rfl⟩ : ∃ k, e = k + 1 := ⟨e - 1, by omega⟩
-  haveI : NeZero (2 ^ (k + 1)) := ⟨by positivity⟩
+  have : NeZero (2 ^ (k + 1)) := ⟨by positivity⟩
   have hn : (2:ℕ) ^ (k + 1) = 2 ^ k + 2 ^ k := by ring
   have hpos : 0 < 2 ^ k := by positivity
   have hlt : 2 ^ k < 2 ^ (k + 1) := by omega
@@ -86,7 +86,7 @@ theorem numerical_nonvanishing_bound : Formalism.HermitianLattices.ZeroFreeRegio
     have h1 : ((4:ℝ) ^ (3 / ε)) ^ (ε / 3) ≤ x ^ (ε / 3) :=
       Real.rpow_le_rpow (by positivity) hx4 (by positivity)
     rw [← Real.rpow_mul (by norm_num : (0:ℝ) ≤ 4)] at h1
-    have h3 : 3 / ε * (ε / 3) = 1 := by field_simp <;> ring
+    have h3 : 3 / ε * (ε / 3) = 1 := by field_simp
     rw [h3, Real.rpow_one] at h1
     exact h1
   have hL : 0 < Real.log x := Real.log_pos (by linarith)
@@ -107,7 +107,7 @@ theorem numerical_nonvanishing_bound : Formalism.HermitianLattices.ZeroFreeRegio
     calc x ^ (2 * ε / 15) / (4 * Real.log x ^ 2) * lam
         ≤ x ^ (2 * ε / 15) / (4 * Real.log x ^ 2) * (2 * x ^ (ε / 5) * Real.log x ^ 2) :=
           mul_le_mul_of_nonneg_left hlamle (by positivity)
-      _ = x ^ (ε / 3) / 2 := by rw [hsplit]; field_simp <;> ring
+      _ = x ^ (ε / 3) / 2 := by rw [hsplit]; field_simp ; ring
       _ ≤ Real.log y := ha
   · have hsplit : x ^ (ε / 3) = x ^ (ε / 6) * x ^ (ε / 6) := by
       rw [← Real.rpow_add hx0]; congr 1; ring
@@ -423,7 +423,6 @@ theorem character_estimate_of_hypothesis : Formalism.HermitianLattices.ZeroFreeR
       first
         | exact MeasureTheory.integral_ofReal
         | exact integral_ofReal
-        | exact integral_complex_ofReal
     rw [hcast, Complex.norm_real, Real.norm_eq_abs] at h3
     exact h3
 

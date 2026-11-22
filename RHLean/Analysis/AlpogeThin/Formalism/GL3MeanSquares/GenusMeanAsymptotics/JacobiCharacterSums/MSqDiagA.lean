@@ -65,7 +65,7 @@ lemma dA_sum_vM_le (N : ℕ) : ∑ n ∈ Icc 1 N, vonMangoldt n ≤ dA_KC * N :=
     calc Real.log ((∏ n ∈ (Icc 1 M).filter Nat.Prime, n : ℕ) : ℝ) ≤ Real.log (primorial M : ℝ) :=
           Real.log_le_log (by exact_mod_cast hpos) (by exact_mod_cast hle)
       _ ≤ Real.log ((4:ℝ) ^ M) :=
-          Real.log_le_log (by exact_mod_cast primorial_pos M) (by exact_mod_cast primorial_le_4_pow M)
+          Real.log_le_log (by exact_mod_cast primorial_pos M) (by exact_mod_cast primorial_le_four_pow M)
       _ = M * Real.log 4 := Real.log_pow 4 M
   have hR : ∀ M : ℕ, ∑ n ∈ (Icc 1 M).filter (fun n => ¬ n.Prime), vonMangoldt n
       ≤ ∑ n ∈ Icc 1 (M / 2), vonMangoldt n := by
@@ -131,7 +131,7 @@ lemma dA_sum_vM_le (N : ℕ) : ∑ n ∈ Icc 1 N, vonMangoldt n ≤ dA_KC * N :=
   intro N ih
   rcases Nat.eq_zero_or_pos N with h0 | hpos
   · subst h0
-    simp [Finset.Icc_eq_empty_of_lt (show (0:ℕ) < 1 by norm_num)]
+    simp
   have hN2 : N / 2 < N := Nat.div_lt_self hpos (by norm_num)
   have ih2 := ih (N / 2) hN2
   have hcast : ((N / 2 : ℕ) : ℝ) ≤ (N : ℝ) / 2 := Nat.cast_div_le
@@ -148,7 +148,7 @@ lemma dA_vM_major (g : ℕ → ℝ) (hg0 : ∀ n, 0 ≤ g n) (hg : ∀ n, 1 ≤ 
       ≤ dA_KC * ((∑ n ∈ Icc 1 M, g n) - (M : ℝ) * g M) := by
     intro M
     induction M with
-    | zero => simp [Finset.Icc_eq_empty_of_lt (show (0:ℕ) < 1 by norm_num)]
+    | zero => simp
     | succ M ih =>
       rw [Finset.sum_Icc_succ_top (show 1 ≤ M + 1 by omega),
         Finset.sum_Icc_succ_top (show 1 ≤ M + 1 by omega),
@@ -157,7 +157,7 @@ lemma dA_vM_major (g : ℕ → ℝ) (hg0 : ∀ n, 0 ≤ g n) (hg : ∀ n, 1 ≤ 
           ≤ dA_KC * M * (g M - g (M + 1)) := by
         rcases Nat.eq_zero_or_pos M with h | h
         · subst h
-          simp [Finset.Icc_eq_empty_of_lt (show (0:ℕ) < 1 by norm_num)]
+          simp
         · exact mul_le_mul_of_nonneg_right (dA_sum_vM_le M) (by linarith [hg M h])
       push_cast
       linarith
@@ -186,7 +186,7 @@ lemma dA_sum_inv_le (N : ℕ) (hN : 1 ≤ N) : ∑ n ∈ Icc 1 N, (1 : ℝ) / n 
       push_cast
       linarith
 
-lemma dA_sum_split (u : ℕ → ℝ) (hu : ∀ n, 0 ≤ u n) (hu1 : ∀ n, u n ≤ 1) (T : ℕ) (B : ℝ)
+lemma dA_sum_split (u : ℕ → ℝ) (_hu : ∀ n, 0 ≤ u n) (hu1 : ∀ n, u n ≤ 1) (T : ℕ) (B : ℝ)
     (hB : ∀ M, T ≤ M → ∑ n ∈ Ioc T M, u n ≤ B) (M : ℕ) : ∑ n ∈ Icc 1 M, u n ≤ T + B := by
   have hcard : ∀ K : ℕ, ∑ n ∈ Icc 1 K, u n ≤ K := fun K => by
     calc ∑ n ∈ Icc 1 K, u n ≤ ∑ n ∈ Icc 1 K, (1:ℝ) := Finset.sum_le_sum (fun n _ => hu1 n)

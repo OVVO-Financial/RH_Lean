@@ -42,6 +42,7 @@ section
 variable {K V ι : Type} [Field K] [NumberField K] [StarRing K] [AddCommGroup V] [Module K V]
   [Fintype ι] [DecidableEq ι]
 
+omit [StarRing K] in
 theorem realize_smul_eq (b : Basis ι K V) (X : InfinitePlace K → Matrix ι ι ℂ)
     (c : InfinitePlace K → ℝ) (hX : ∀ v, IsUnit (X v).det) (hc : ∀ v, 0 < c v) (x : V) :
     RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.realize b (fun v => ((c v : ℂ)) • X v) x = rscMap c (RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.realize b X x) := by
@@ -56,8 +57,6 @@ theorem realize_smul_eq (b : Basis ι K V) (X : InfinitePlace K → Matrix ι ι
     simp only [RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.fcoord, hi]
     first
       | exact Matrix.smul_mulVec _ _ _
-      | exact Matrix.smul_mulVec_assoc _ _ _
-      | (funext i; simp [Matrix.mulVec, dotProduct, Finset.mul_sum, mul_assoc])
   ext p
   rw [rscMap_apply]
   by_cases h : p.2.2 = 0
@@ -67,14 +66,14 @@ theorem realize_smul_eq (b : Basis ι K V) (X : InfinitePlace K → Matrix ι ι
     have e2 : (RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.realize b X x) p = (RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.fcoord b X p.1 x p.2.1).re := by
       simp [RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.realize, RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.realizeRaw, h]
     rw [e1, e2, hf]
-    simp [← Complex.ofReal_inv, Complex.re_ofReal_mul]
+    simp [← Complex.ofReal_inv]
   · have e1 : (RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.realize b (fun v => ((c v : ℂ)) • X v) x) p =
         (RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.fcoord b (fun v => ((c v : ℂ)) • X v) p.1 x p.2.1).im := by
       simp [RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.realize, RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.realizeRaw, h]
     have e2 : (RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.realize b X x) p = (RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.fcoord b X p.1 x p.2.1).im := by
       simp [RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.realize, RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.realizeRaw, h]
     rw [e1, e2, hf]
-    simp [← Complex.ofReal_inv, Complex.im_ofReal_mul]
+    simp [← Complex.ofReal_inv]
 end
 
 theorem rescaleCovol_of (h1 : PlaceSplit) (h2 : GramBlock) (h3 : PlLat) : RescaleCovol := by

@@ -49,6 +49,7 @@ theorem piSum_emb_injective (i : ι) : Function.Injective (piSum_emb E i) := by
 variable (ρ : ∀ i, V i →+ E i)
 
 omit [Fintype ι] [DecidableEq ι] [(i : ι) → InnerProductSpace ℝ (E i)] in
+omit [(i : ι) → NormedAddCommGroup (E i)] in
 private theorem piLp_ext {x y : PiLp 2 E} (h : ∀ j, x j = y j) : x = y := by
   exact PiLp.ext h
 
@@ -146,6 +147,7 @@ private theorem linearMap_single_injective (i : ι) : Function.Injective (Linear
   have h' := congrFun h i
   simpa using h'
 
+omit [Fintype ι] in
 private theorem exists_eq_map_single_of_le_map_single {i : ι} {P : Submodule R (V i)} {N : Submodule R (∀ i, V i)}
     (h : N ≤ P.map (LinearMap.single R V i)) :
     ∃ N' : Submodule R (V i), N' ≤ P ∧ N = N'.map (LinearMap.single R V i) := by

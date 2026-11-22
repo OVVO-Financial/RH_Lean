@@ -77,7 +77,7 @@ theorem rectangleShiftOfResidue : RectShiftOf := by
       rw [hw']
       ring
   set U : Set ℂ := {w | ∀ᶠ z in 𝓝 w, DifferentiableAt ℂ G z} with hU
-  have hUo : IsOpen U := isOpen_setOf_eventually_nhds
+  have hUo : IsOpen U := isOpen_setOfPred_eventually_nhds
   have hUd : DifferentiableOn ℂ G U := fun w hw => (hw.self_of_nhds).differentiableWithinAt
   have h01 : ∀ᶠ z in 𝓝 (1 : ℂ), z ≠ 0 := eventually_ne_nhds one_ne_zero
   have hsub : (Set.uIcc σ₁ σ₀ ×ℂ Set.uIcc (-T) T) ⊆ U := by

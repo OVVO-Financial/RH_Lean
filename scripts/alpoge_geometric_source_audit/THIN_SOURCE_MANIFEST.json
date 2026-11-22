@@ -115,14 +115,14 @@
       "source": "src/Development/AutomorphicArithmetic/MeanSquareBounds/IndDrop.lean",
       "source_pin": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
       "source_sha256": "1c6ae71ee209d3afeca10c30367aaa9dcc54bf8a318caad80fef7a77d59cc372",
-      "native_sha256": "0f1e48610a9a5fabb9d22dd6753390bfe8ef1b80766f9b25245662765272a22f"
+      "native_sha256": "9102a91276e2f73a214c6f508f3972df4bb4464c36fd2960a601b741c53a1103"
     },
     {
       "native": "RHLean/Analysis/AlpogeThin/Development/AutomorphicArithmetic/MeanSquareBounds/IndUnique.lean",
       "source": "src/Development/AutomorphicArithmetic/MeanSquareBounds/IndUnique.lean",
       "source_pin": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
       "source_sha256": "1949452bc5818e1bfcb5f0244ca2897160dd92e493bc921afac3baf3e7ca79f1",
-      "native_sha256": "4660692e9480c7bea97a783d610b655406aeec5c00d32a166f9a59e7090f643c"
+      "native_sha256": "86c5773fa40f8132ded0f475ef119898ba9653b84ec044ff29f8279d57416cc9"
     },
     {
       "native": "RHLean/Analysis/AlpogeThin/Development/AutomorphicArithmetic/MeanSquareBounds/IntThin.lean",
@@ -143,7 +143,7 @@
       "source": "src/Development/AutomorphicArithmetic/MeanSquareBounds/LogOddM.lean",
       "source_pin": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
       "source_sha256": "9c52883f3c001dfbf6b417c0982283d01fd42dddfb2e8dfb5f461b3af70d0a84",
-      "native_sha256": "c6add08c7fed51abb1f2177440d88f7ead441e7339c5514c83150f083fc5736c"
+      "native_sha256": "61da9d91586a0d77f71e19e890f58a6e8bb2d577069ed6093327c402b8903c71"
     },
     {
       "native": "RHLean/Analysis/AlpogeThin/Development/AutomorphicArithmetic/MeanSquareBounds/MeanSqAbs.lean",
@@ -255,7 +255,7 @@
       "source": "src/Development/AutomorphicArithmetic/MeanSquareBounds/TwistPrim.lean",
       "source_pin": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
       "source_sha256": "473ad97521157ee3cc04047e2a7df19429307b136849d888ed4489ee1ec0428d",
-      "native_sha256": "59b69471b72d6639eb8c72a90e05d34ed7ebabde99f7f5a4ce480bfe90421d25"
+      "native_sha256": "ab0bdedbaa4eb7f842a1aedfbc528223052961d9dc9d9d3775f3373795f7d193"
     },
     {
       "native": "RHLean/Analysis/AlpogeThin/Development/AutomorphicArithmetic/MeanSquareBounds/kappaC.lean",
@@ -283,14 +283,14 @@
       "source": "src/Development/AutomorphicArithmetic/MeanSquareBounds/realCond.lean",
       "source_pin": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
       "source_sha256": "35c24cad6ef581c5cacc1b18a149f86dbac9a124f0dbcdc851cafa0a18a69ee0",
-      "native_sha256": "89c4851437b2bd6ea8e3205755c872b552c5a9aed19f825fffbdd3e6e96d1641"
+      "native_sha256": "90b9b67ab2b7c09ff64d1a342a16c883b251c3a8f0e0a01375014fe783debab9"
     },
     {
       "native": "RHLean/Analysis/AlpogeThin/Development/AutomorphicArithmetic/MeanSquareBounds/realDecomp.lean",
       "source": "src/Development/AutomorphicArithmetic/MeanSquareBounds/realDecomp.lean",
       "source_pin": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
       "source_sha256": "30a0bc333d6b2d488254c423f21249c52d8e3d8ac5d2e9f28b504099cc0ed1de",
-      "native_sha256": "80ddb66b1508d314aac83cdbb3a5462397f763db48be02787671d8100199228b"
+      "native_sha256": "8ffccf99b6b6e1e71682a85886690eb69f08979de19530a0f9ba202d0622e20a"
     },
     {
       "native": "RHLean/Analysis/AlpogeThin/Development/AutomorphicArithmetic/MeanSquareBounds/twistK.lean",
@@ -374,14 +374,14 @@
       "source": "src/Formalism/GL3MeanSquares/GenusMeanAsymptotics/JacobiCharacterSums/CountZMoll.lean",
       "source_pin": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
       "source_sha256": "0d23e54a14a89d975d14785c76d310b01e8e1070327a604fed1498b14b01af37",
-      "native_sha256": "7aebb1ec8458d799878e96dd57c59fac958c7fbb156f0cf73630cd3298ebabdd"
+      "native_sha256": "a004feb8f6304d14cf8a4d8278fc4723f5c59c161329a12b2bdd90e0d5af23e7"
     },
     {
       "native": "RHLean/Analysis/AlpogeThin/Formalism/GL3MeanSquares/GenusMeanAsymptotics/JacobiCharacterSums/CountZNum.lean",
       "source": "src/Formalism/GL3MeanSquares/GenusMeanAsymptotics/JacobiCharacterSums/CountZNum.lean",
       "source_pin": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
       "source_sha256": "ca4a4ad56d04bafb69a9f97bd21da6b706eee322c1d250c25ce262a8ff4cfaa9",
-      "native_sha256": "1af46a78461ca6ef87592c95d0c6a547244e9a340f630a447019a15436f1e3ad"
+      "native_sha256": "11cda5142a765ae2844825af8db7ebf2b25ea5a1725f4ceaf12771545d42662c"
     },
     {
       "native": "RHLean/Analysis/AlpogeThin/Formalism/GL3MeanSquares/GenusMeanAsymptotics/JacobiCharacterSums/CountZPair.lean",
@@ -458,28 +458,28 @@
       "source": "src/Formalism/GL3MeanSquares/GenusMeanAsymptotics/JacobiCharacterSums/MSqCount.lean",
       "source_pin": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
       "source_sha256": "32819b24d58802f1de325eee8e498bf68e7d2bf8ee7a9652e5611e89390659dd",
-      "native_sha256": "20f6071bdc8e626a0d60cb4c6dfb75c62a9ac3895b1d48cc3e323f39f423e588"
+      "native_sha256": "a5b46c1b25b9e584d03754d6d3a1ec7052a85de614acd69b05ce33c24f975bc4"
     },
     {
       "native": "RHLean/Analysis/AlpogeThin/Formalism/GL3MeanSquares/GenusMeanAsymptotics/JacobiCharacterSums/MSqDiagA.lean",
       "source": "src/Formalism/GL3MeanSquares/GenusMeanAsymptotics/JacobiCharacterSums/MSqDiagA.lean",
       "source_pin": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
       "source_sha256": "edfa61b6b186f4c02013914c92896d5504734c19581b86dc901a0ef6cfa83ba8",
-      "native_sha256": "42519050466ce39e08cbfdb659719faaddd767ee7a3f1c510392986ca0b9e85a"
+      "native_sha256": "1c79dde62cf4f780db28e47256edb2686de00fa09ec26ff74f3277bcb60421af"
     },
     {
       "native": "RHLean/Analysis/AlpogeThin/Formalism/GL3MeanSquares/GenusMeanAsymptotics/JacobiCharacterSums/MSqDiagB.lean",
       "source": "src/Formalism/GL3MeanSquares/GenusMeanAsymptotics/JacobiCharacterSums/MSqDiagB.lean",
       "source_pin": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
       "source_sha256": "4ba174273629dd73370c28f78d53595346a26c3d7022fd11009228eeba957118",
-      "native_sha256": "972464f877ef982b8a20440fbadbc3c2417c6f88cff27de67651ff9a860f35fa"
+      "native_sha256": "51f399e32089594142cff89dea3c5a2b3051bef7c2e67aad0228e49b73910e42"
     },
     {
       "native": "RHLean/Analysis/AlpogeThin/Formalism/GL3MeanSquares/GenusMeanAsymptotics/JacobiCharacterSums/MSqJac.lean",
       "source": "src/Formalism/GL3MeanSquares/GenusMeanAsymptotics/JacobiCharacterSums/MSqJac.lean",
       "source_pin": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
       "source_sha256": "1f2eac97c9e7a275febf7b9505eb54708798b8386d1b350fc5fffea94d2297d2",
-      "native_sha256": "6df97a270aa433c81048c1af36c1e58096889d164f3f9f299f9c5aecc9b3931b"
+      "native_sha256": "03ad49bb67995085f058cb82c3f8067fd8532b9c58414fcfd7212851fb3e5571"
     },
     {
       "native": "RHLean/Analysis/AlpogeThin/Formalism/GL3MeanSquares/GenusMeanAsymptotics/JacobiCharacterSums/MSqMain.lean",
@@ -507,14 +507,14 @@
       "source": "src/Formalism/GL3MeanSquares/GenusMeanAsymptotics/JacobiCharacterSums/MSqOrth.lean",
       "source_pin": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
       "source_sha256": "12175719a5a386feeaeeaf005fb30d6b4742032f12d5d0c8afef378b237a9c56",
-      "native_sha256": "692fbcf9193cebc90e9fc9d033191cc065e2daf41f9ad0e1d6a4eacc7a183a43"
+      "native_sha256": "0f53e2bc8a0905d05bfd35ebbbf785b6cab44e0bc28a4944644c6d0b016f3abd"
     },
     {
       "native": "RHLean/Analysis/AlpogeThin/Formalism/GL3MeanSquares/GenusMeanAsymptotics/JacobiCharacterSums/MSqPage.lean",
       "source": "src/Formalism/GL3MeanSquares/GenusMeanAsymptotics/JacobiCharacterSums/MSqPage.lean",
       "source_pin": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
       "source_sha256": "b27b703f7bb9526ac86dc9eaec58508f137c70eaeb3838343b1762a60243abef",
-      "native_sha256": "6fc1ad63b8f291b9026394cc474a0f807626d4b11624517bfc6a193ea9bd35bb"
+      "native_sha256": "7e4000acabc298eb299d235f538bc708c42c5681bd8ccd05d621f729b825480c"
     },
     {
       "native": "RHLean/Analysis/AlpogeThin/Formalism/GL3MeanSquares/GenusMeanAsymptotics/JacobiCharacterSums/MSqPairs.lean",
@@ -542,7 +542,7 @@
       "source": "src/Formalism/GL3MeanSquares/GenusMeanAsymptotics/JacobiCharacterSums/MSqTwistB.lean",
       "source_pin": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
       "source_sha256": "a5dc56d00f80f2635daf0fffe30bfb8284336931667338e608a820ba37113b09",
-      "native_sha256": "3737b739fb9b5b806196e63b4409715e837036e0ab8619c3378a22c015767e77"
+      "native_sha256": "afa6ed267a0f2a58ae5f43641eaa9a4c1708fb73207b60203cd10592d3426673"
     },
     {
       "native": "RHLean/Analysis/AlpogeThin/Formalism/GL3MeanSquares/GenusMeanAsymptotics/JacobiCharacterSums/MSqTwistC.lean",
@@ -1067,7 +1067,7 @@
       "source": "src/Formalism/GL3MeanSquares/GenusMeanAsymptotics/JacobiCharacterSums/TailContourB.lean",
       "source_pin": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
       "source_sha256": "207b697bc004f70dbe2969f3966fdb01f4ca02aa3bffcbc802b172612965ac83",
-      "native_sha256": "8714451bff423cfea339942899beead228a24e3c99831920ba09372c128fd25d"
+      "native_sha256": "c4a528b1fe5fd8ed9eb9e8f87da4a1785279b9ddafa39373af1815c35be46693"
     },
     {
       "native": "RHLean/Analysis/AlpogeThin/Formalism/GL3MeanSquares/GenusMeanAsymptotics/JacobiCharacterSums/TailDiff.lean",
@@ -1116,7 +1116,7 @@
       "source": "src/Formalism/GL3MeanSquares/GenusMeanAsymptotics/JacobiCharacterSums/Turan2Main.lean",
       "source_pin": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
       "source_sha256": "71b798c12622ee94f89bc88f4f101732df8ea6fd3cd46eeeabb3945270c045df",
-      "native_sha256": "b650fa4f64a81e91eecdb77e2d76297591137bf9551a3f02aa92c5ab74cb618a"
+      "native_sha256": "c6d301dc92b1e4f6befa1d8549b8d761ead04e445202e5f36845b708d09c0f2a"
     },
     {
       "native": "RHLean/Analysis/AlpogeThin/Formalism/GL3MeanSquares/GenusMeanAsymptotics/JacobiCharacterSums/TuranPowerSumBound.lean",
@@ -1130,14 +1130,14 @@
       "source": "src/Formalism/GL3MeanSquares/GenusMeanAsymptotics/JacobiCharacterSums/TwentyFiveMulSmallConstant.lean",
       "source_pin": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
       "source_sha256": "499ebb55c5d61eca397db3ed34bea8aed09789e49302e7399b97a8d74a39bcec",
-      "native_sha256": "d374a73be17c92cd509dfc2e231d2f3178302c42fcbc03adee53f83e7a2de369"
+      "native_sha256": "24766e32f928910b9a8473d76b3dc2474825bfde79a86adf40a3194831cfca57"
     },
     {
       "native": "RHLean/Analysis/AlpogeThin/Formalism/GL3MeanSquares/GenusMeanAsymptotics/JacobiCharacterSums/UbTerms.lean",
       "source": "src/Formalism/GL3MeanSquares/GenusMeanAsymptotics/JacobiCharacterSums/UbTerms.lean",
       "source_pin": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
       "source_sha256": "9a3641dee9074ca368dc8a6a26e1f854077214acb085439584ecce3335086f76",
-      "native_sha256": "38eaaabf5ecb813ace7d1753e642558ce7e7bfc3d9dd2901b8428e2a83c67335"
+      "native_sha256": "30098cfa8e682f6875f174c8a48cd630e6a9006200a7e0dff5817ad48b938e76"
     },
     {
       "native": "RHLean/Analysis/AlpogeThin/Formalism/GL3MeanSquares/GenusMeanAsymptotics/JacobiCharacterSums/ZeroCountFirst.lean",
@@ -1158,7 +1158,7 @@
       "source": "src/Formalism/GL3MeanSquares/HookFormulaTorsion/CharacterEstimateOfHypothesis.lean",
       "source_pin": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
       "source_sha256": "ffca3b7f8e85ec01994ed4c7a0732cffb50733f79cffcc50349596a118b93e5f",
-      "native_sha256": "893b522ef67c54e9dcfc1e999aac19362fae0011b33d308696f3e62d58106a96"
+      "native_sha256": "911ab231b082d566f079e8f7840870bae3b8ad77278406418a6a925a4248e290"
     },
     {
       "native": "RHLean/Analysis/AlpogeThin/Formalism/GL3MeanSquares/HookFormulaTorsion/ExpNegLeDivPowFour.lean",
@@ -1186,14 +1186,14 @@
       "source": "src/Formalism/GL3MeanSquares/HookFormulaTorsion/NumericalZeroDensityBound.lean",
       "source_pin": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
       "source_sha256": "d8f584e1e6e583d87ce324c899cfe15a2ee7f588eb4b6d40225b4f14599f3213",
-      "native_sha256": "bc5a87f9ac392d6aa96f9e0b5f64153df86e77547099ff9c1219e4b0b1962221"
+      "native_sha256": "dfbf5fb6232b8c9fdb9033615aa278e7ca1956e3d2ac8b5c0961bc27b0f05e58"
     },
     {
       "native": "RHLean/Analysis/AlpogeThin/Formalism/GL3MeanSquares/HookFormulaTorsion/PrimesInProgressionCountLowerBound.lean",
       "source": "src/Formalism/GL3MeanSquares/HookFormulaTorsion/PrimesInProgressionCountLowerBound.lean",
       "source_pin": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
       "source_sha256": "2f8c6f58f77b31f620463f9fa1e866961c87e9c0ff22f2e35e57228951801a1b",
-      "native_sha256": "49f1720ae2e9b092099068de0d65504424ebcd995bba10afa7b7914d1419e9f1"
+      "native_sha256": "293c6c1ba4215262b063f3e0ddcc4fefc57fef71c301caf06a017c0f3b61f4f1"
     },
     {
       "native": "RHLean/Analysis/AlpogeThin/Formalism/GL3MeanSquares/HookFormulaTorsion/PsiZeroIntegral.lean",
@@ -1256,7 +1256,7 @@
       "source": "src/Formalism/GL3MeanSquares/HookFormulaTorsion/WeightedVonMangoldtSumIdentity.lean",
       "source_pin": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
       "source_sha256": "6d9dba9ecff7a6def1f596fcdbfbbc0cc48486fb03cfb8a3797e7c29535de968",
-      "native_sha256": "ccf7dbffd61a6f5e88c889f601695d71efd56c274d97f1946287d7849f91d161"
+      "native_sha256": "c42be940304874dcf4a048af66dd0f24382747fed9f68c2e2b0e2bec35625a01"
     },
     {
       "native": "RHLean/Analysis/AlpogeThin/Formalism/GL3MeanSquares/PrimeCountAsymptoticInProgressions.lean",
@@ -1333,28 +1333,28 @@
       "source": "src/Formalism/LFunctionBounds/LFunctionBoundsProofs/DivisorBound.lean",
       "source_pin": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
       "source_sha256": "eb9c0a6549d5c28eac8def7e207e5ed593769fe833d09a96cdc1b80a2203f40a",
-      "native_sha256": "d23d40077fae41f9b505b02fae5bde2cd35bc79dbc67b6006328073a6a11c0b4"
+      "native_sha256": "61af51e5f77c6773884d73673676caf322e699dbef07dc2641248b80f6f3c69d"
     },
     {
       "native": "RHLean/Analysis/AlpogeThin/Formalism/LFunctionBounds/LFunctionBoundsProofs/LFunctionEqGOfOneLt.lean",
       "source": "src/Formalism/LFunctionBounds/LFunctionBoundsProofs/LFunctionEqGOfOneLt.lean",
       "source_pin": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
       "source_sha256": "a0de79a9a1b6321a3241295dbd5125083ea6ab0172c8789f798c3413ec2007cb",
-      "native_sha256": "ac392d4510a5c01c3a9dd8f69b51379eab2e82be143bb6130bd0761b230b54ee"
+      "native_sha256": "a339c091007cda930a45355a791c49643c4639b630a04d45e8ebe0234cb471c9"
     },
     {
       "native": "RHLean/Analysis/AlpogeThin/Formalism/LFunctionBounds/LFunctionBoundsProofs/LPartialSum.lean",
       "source": "src/Formalism/LFunctionBounds/LFunctionBoundsProofs/LPartialSum.lean",
       "source_pin": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
       "source_sha256": "b4048c955b1c27abda40dada8a5b9f8e1eeb160f58184a3f5895f4d8714d95a5",
-      "native_sha256": "fe50fd25a784dc2919b6be0715e8ada33dfe88e40394e604e4ae55a5991244b7"
+      "native_sha256": "96178df8a579be639a73b6f668d8b58151fbc449d7313fd8c3d948fc6e1bf985"
     },
     {
       "native": "RHLean/Analysis/AlpogeThin/Formalism/LFunctionBounds/LFunctionBoundsProofs/RectResidue.lean",
       "source": "src/Formalism/LFunctionBounds/LFunctionBoundsProofs/RectResidue.lean",
       "source_pin": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
       "source_sha256": "6c59f83bbbc599c71803603e4bcf3b909e756f180a2c2e978bc8f97f23c6fb8e",
-      "native_sha256": "2ce2f737b2e3e43b6b1619c94ac32a3b6a3495bced31c117d4717b6468ee18c2"
+      "native_sha256": "c9dc3791162f75bc771365916d52ca57176ba5a3caaafc57d8e9a323976b603b"
     },
     {
       "native": "RHLean/Analysis/AlpogeThin/Formalism/LFunctionBounds/PositivityBound.lean",
@@ -1410,7 +1410,7 @@
       "source": "src/Formalism/LandauZeroFreeBounds/ExceptionalZeroBounds/CharExists.lean",
       "source_pin": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
       "source_sha256": "2e1adb1750bd1beca9821bf77605f5d471d9c364ee6c4c379160e043822bcb2e",
-      "native_sha256": "7963321815a05001205704cd7fecdbbbebf85f71f30e16d23bc80139820acd6f"
+      "native_sha256": "5c1cc051f47727d87eca7d770dedab426b8c2cba54ab29a5158efa0c1dd6c17d"
     },
     {
       "native": "RHLean/Analysis/AlpogeThin/Formalism/LandauZeroFreeBounds/ExceptionalZeroBounds/ChebyshevCharacterExplicitGeneral.lean",
@@ -1431,7 +1431,7 @@
       "source": "src/Formalism/LandauZeroFreeBounds/ExceptionalZeroBounds/EulerFactorLogDerivBound.lean",
       "source_pin": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
       "source_sha256": "4f58a2f138551bcffe589e1a7fc269096bd2ae8f90241b1e7c2c2f0a883611b1",
-      "native_sha256": "8558531d1426b9d18313a4cfd933f6f2d8de8a23914606dd42733b3ceda1c98d"
+      "native_sha256": "aa3e3d223d7105dc727d263088195461d1ba66dd4f263678d4d341bfea835ae7"
     },
     {
       "native": "RHLean/Analysis/AlpogeThin/Formalism/LandauZeroFreeBounds/ExceptionalZeroBounds/ExcBoundOf.lean",
@@ -1459,7 +1459,7 @@
       "source": "src/Formalism/LandauZeroFreeBounds/ExceptionalZeroBounds/ExpGainFromZeroFreeRegion.lean",
       "source_pin": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
       "source_sha256": "c1e7a2c4621448b61436529973c8c8ecfa8d2f383702da71d640b7a6e2fdf46e",
-      "native_sha256": "993602366f1ca8e0ff46de52465c04ec04b49eed91b2f3e2544a30adc6fc0ae9"
+      "native_sha256": "358c465e78030b0ad9d3bfad0a98a5fc1361e67ab6a3b0a14e3fb0d993296e2a"
     },
     {
       "native": "RHLean/Analysis/AlpogeThin/Formalism/LandauZeroFreeBounds/ExceptionalZeroBounds/IteratedDerivInvSubOneAtTwo.lean",
@@ -1508,7 +1508,7 @@
       "source": "src/Formalism/LandauZeroFreeBounds/ExceptionalZeroBounds/LRight.lean",
       "source_pin": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
       "source_sha256": "45ec16b7324bbd7e8d784faf7e46750bedd52e5646e4367a8d1f320d67aff5cf",
-      "native_sha256": "6462d76406e40b1e5a11c9019a4eaf433437374a0f62edf7c5267a33c7f0ac9a"
+      "native_sha256": "af89711dfdd6f2839ad46ea1a2a20aa74bc11c11629f477fee0fb660a7f05a37"
     },
     {
       "native": "RHLean/Analysis/AlpogeThin/Formalism/LandauZeroFreeBounds/ExceptionalZeroBounds/LandauLemmaLfunctionZeros.lean",
@@ -1564,7 +1564,7 @@
       "source": "src/Formalism/LandauZeroFreeBounds/ExceptionalZeroBounds/LogTwoLeLogAnalyticConductor.lean",
       "source_pin": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
       "source_sha256": "25ad8cbeba871935e4e7ecda6dbc3d5e5b969b3242d89eededa2e2cb26c4b11a",
-      "native_sha256": "1700c80f893f4669ce8d3d87a2369e51a95e6803c06d902f080f9563e655cd34"
+      "native_sha256": "aed463a087343e06d436fdcc17f33d2772ca97cf228ee9afd872d19f8ac374c9"
     },
     {
       "native": "RHLean/Analysis/AlpogeThin/Formalism/LandauZeroFreeBounds/ExceptionalZeroBounds/NoZeroComplexOf.lean",
@@ -1578,7 +1578,7 @@
       "source": "src/Formalism/LandauZeroFreeBounds/ExceptionalZeroBounds/PerronChi.lean",
       "source_pin": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
       "source_sha256": "a926a0fa0b33a67b3f5074ef0f1846fc1ed7d052052c353ac41685c24ee05209",
-      "native_sha256": "8cab69455a214fa76bd22fb353c543a69cd5b440e9d8fc34fb3a7003738fa51c"
+      "native_sha256": "7c8d90da8750a7f36b63478b7060d262a52b9bc84fa8d0874a63e21721fe1260"
     },
     {
       "native": "RHLean/Analysis/AlpogeThin/Formalism/LandauZeroFreeBounds/ExceptionalZeroBounds/PerronHorizontalSegmentBound.lean",
@@ -1592,7 +1592,7 @@
       "source": "src/Formalism/LandauZeroFreeBounds/ExceptionalZeroBounds/Positivity.lean",
       "source_pin": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
       "source_sha256": "5718d75529d92af95bef71db6678aeea72814d22bbd38c2877ece12167ef5232",
-      "native_sha256": "aa102f50ec6c72c5633fde77fb5541ec5ed6c6934912c40d807eb0c973219a0d"
+      "native_sha256": "e62ac5ea44ab02fd589262829224ba0b77aafe7ae903daf642edc7b2cdb09990"
     },
     {
       "native": "RHLean/Analysis/AlpogeThin/Formalism/LandauZeroFreeBounds/ExceptionalZeroBounds/PsiChiBoundOf.lean",
@@ -1627,14 +1627,14 @@
       "source": "src/Formalism/LandauZeroFreeBounds/ExceptionalZeroBounds/SameCharacterLFunctionOne.lean",
       "source_pin": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
       "source_sha256": "d9a3ee3f136fee86025143198e26355849f76fbfc4e14b03187c136ebc9eaf05",
-      "native_sha256": "55bafcebcad7eb3a8b5864f6961f53c7e7e2ba5e99a42739dd6933247ea7706c"
+      "native_sha256": "12fa42580a048e6c66ffad9a53529dd19215b56cd3ad489970a01a4a8dbe71b6"
     },
     {
       "native": "RHLean/Analysis/AlpogeThin/Formalism/LandauZeroFreeBounds/ExceptionalZeroBounds/SiegelBoundSameCharacter.lean",
       "source": "src/Formalism/LandauZeroFreeBounds/ExceptionalZeroBounds/SiegelBoundSameCharacter.lean",
       "source_pin": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
       "source_sha256": "ee9b81306c3fa8e1d62841e38bfac8422105c351ce6a724cf8755198469220f2",
-      "native_sha256": "95c88895b94ea759f4b8a325f991d0876ba7f0f1a1c2bd92aca1c6050752ebce"
+      "native_sha256": "1c6aebeeb54bb7bb643742151d6e6a4f83a17c1971f39a06dfbe6cab615205f4"
     },
     {
       "native": "RHLean/Analysis/AlpogeThin/Formalism/LandauZeroFreeBounds/ExceptionalZeroBounds/SiegelOf.lean",
@@ -1648,7 +1648,7 @@
       "source": "src/Formalism/LandauZeroFreeBounds/ExceptionalZeroBounds/SiegelProductCharacterInequality.lean",
       "source_pin": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
       "source_sha256": "2564ec7195d0efdb46016a917e3ebdc5aab3cdc1da89e6de3431868967001396",
-      "native_sha256": "63dc1634b8b6143cb0a4085d4d8a1506d0ba90c3be41df64029e5dee192ba3d4"
+      "native_sha256": "0dc2a1ac90bcec77eabe3b5c4d2473feb86d7720f331b619033a38737f1ee70b"
     },
     {
       "native": "RHLean/Analysis/AlpogeThin/Formalism/LandauZeroFreeBounds/ExceptionalZeroBounds/SiegelWalfiszAPOf.lean",
@@ -1662,7 +1662,7 @@
       "source": "src/Formalism/LandauZeroFreeBounds/ExceptionalZeroBounds/SiegelWalfiszOf.lean",
       "source_pin": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
       "source_sha256": "d4244eda1a22c8af2e6a4dea5266f7f6b3cc94f3925251ae9e2f2f4aa6ef3496",
-      "native_sha256": "1753bebd716a300c9d0224dd574be95a4bf4776863f31dbb33672eee308fa059"
+      "native_sha256": "13e371c2e00d6d9a295b8b2c5515a4ae301531fe8a844e7f9ceb1aa28f617cd6"
     },
     {
       "native": "RHLean/Analysis/AlpogeThin/Formalism/LandauZeroFreeBounds/ExceptionalZeroBounds/SmoothChiOf.lean",
@@ -1900,7 +1900,7 @@
       "source": "src/Formalism/PeriodIntegrals/UnitaryGroupMassFormula/ExplicitFormula/LGrowthMain.lean",
       "source_pin": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
       "source_sha256": "4909a0f4048ca8ebdc66a4dce6dcc22461963d6628fd9d0f8d9cf9e4ab08f1a3",
-      "native_sha256": "eca603d14525dfbc4399b17153c1b6ca982091c870b75cead3d729309ab1c88d"
+      "native_sha256": "a24be221a7a6976b33bfee5a1465075c568674968783719aedc5e4347b0874a5"
     },
     {
       "native": "RHLean/Analysis/AlpogeThin/Formalism/PeriodIntegrals/UnitaryGroupMassFormula/ExplicitFormula/LGrowthZeta.lean",
@@ -1914,7 +1914,7 @@
       "source": "src/Formalism/PeriodIntegrals/UnitaryGroupMassFormula/ExplicitFormula/LStructA.lean",
       "source_pin": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
       "source_sha256": "bd4c669fa33ad429ea34628a0d394b99827f0e36c07d2a20dd18e1e6a320bd80",
-      "native_sha256": "8ac708d3e002691bf913079e16b24025786c80a4318f734cd995fdfaccdc1f24"
+      "native_sha256": "11b81debf183d48bcd5fee427dbf3811035c2ec66a91c8e86dd96bf916816ab8"
     },
     {
       "native": "RHLean/Analysis/AlpogeThin/Formalism/PeriodIntegrals/UnitaryGroupMassFormula/ExplicitFormula/LStructB.lean",
@@ -1928,14 +1928,14 @@
       "source": "src/Formalism/PeriodIntegrals/UnitaryGroupMassFormula/ExplicitFormula/LStructC.lean",
       "source_pin": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
       "source_sha256": "1ae3592f78ad8b4bcdcea6cae6259a27914c9a547e06a379e63f86797bc7179c",
-      "native_sha256": "dcab2d32ca08df3d05a8cd34131b77565f299b373335eaa6c989341b26062605"
+      "native_sha256": "01a2d6379c564d71c8df647ddfc3d0cff1f834180bc19fcaf364fac545cb93c5"
     },
     {
       "native": "RHLean/Analysis/AlpogeThin/Formalism/PeriodIntegrals/UnitaryGroupMassFormula/ExplicitFormula/LocalAbstract.lean",
       "source": "src/Formalism/PeriodIntegrals/UnitaryGroupMassFormula/ExplicitFormula/LocalAbstract.lean",
       "source_pin": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
       "source_sha256": "c90483c91a79de70412c602edbdaf2efb8f78e2ba499df5ae4d6ed5dd622883c",
-      "native_sha256": "819660ce4a7785c345bbb29becdb19db5df09d758b507348a890f9f51b011121"
+      "native_sha256": "27ccba8dc7581259358a5d0f8f362f41012a4b91bd163044f7ce0420c83e2776"
     },
     {
       "native": "RHLean/Analysis/AlpogeThin/Formalism/PeriodIntegrals/UnitaryGroupMassFormula/ExplicitFormula/LocalLemmaOfHelpers.lean",
@@ -1963,7 +1963,7 @@
       "source": "src/Formalism/PeriodIntegrals/UnitaryGroupMassFormula/ExplicitFormula/LogDerivBounds.lean",
       "source_pin": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
       "source_sha256": "8519866ac415ed65d55aacab99d1669496b1dd2108b2757add1546d43c2f5809",
-      "native_sha256": "1a3deed9aadbeef36585632c2b827c58b30bbf3be1263bb9d7e34cda2c022d39"
+      "native_sha256": "af153e29e29df92b3681ca04fd9a141e832e2fd9f8dfb6d8882febbfc13711f6"
     },
     {
       "native": "RHLean/Analysis/AlpogeThin/Formalism/PeriodIntegrals/UnitaryGroupMassFormula/ExplicitFormula/LogWindowLe.lean",
@@ -1998,7 +1998,7 @@
       "source": "src/Formalism/PeriodIntegrals/UnitaryGroupMassFormula/ExplicitFormula/PerronKernelA.lean",
       "source_pin": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
       "source_sha256": "b82be7cc7cd3c277bc485d1108641c64536ea661ebee12c3bb8761f281df336c",
-      "native_sha256": "f9d41e982d11b3d5b0f80f92cef9a554cc03d1b98f81e5eb00a963267e8cb135"
+      "native_sha256": "f6238fa7fd9bc151bb66a07dc0329e05542066b2ccdf27bf1140ce884deac39f"
     },
     {
       "native": "RHLean/Analysis/AlpogeThin/Formalism/PeriodIntegrals/UnitaryGroupMassFormula/ExplicitFormula/PerronKernelB.lean",
@@ -2012,7 +2012,7 @@
       "source": "src/Formalism/PeriodIntegrals/UnitaryGroupMassFormula/ExplicitFormula/PerronLOf.lean",
       "source_pin": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
       "source_sha256": "dd1634934924a847b5458bb176dce99087c2cbe73884f0c525efa3e308bc63b7",
-      "native_sha256": "011cfd968002119597692f14680d2d355306bab8247a2fd7a41e0a51f41d25ba"
+      "native_sha256": "b0063eba53c5bb550a90797f43ee5f14cd3bfee3a7107a17df2907b9c0d421b6"
     },
     {
       "native": "RHLean/Analysis/AlpogeThin/Formalism/PeriodIntegrals/UnitaryGroupMassFormula/ExplicitFormula/PerronSum.lean",
@@ -2026,7 +2026,7 @@
       "source": "src/Formalism/PeriodIntegrals/UnitaryGroupMassFormula/ExplicitFormula/PerronSumBound.lean",
       "source_pin": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
       "source_sha256": "7d04c70df5ef8f4a61ec147e805f90f2945391120538acd3a3efaa34438addeb",
-      "native_sha256": "e075e6f16222a9d89793588b39b570b47228d978e0a1b8d5a26919192d43f48f"
+      "native_sha256": "0ca7f934cabb5f500948df09d2c0852dcff26365ca6638f6d70db90aa37fe159"
     },
     {
       "native": "RHLean/Analysis/AlpogeThin/Formalism/PeriodIntegrals/UnitaryGroupMassFormula/ExplicitFormula/PerronTruncOf.lean",
@@ -2145,7 +2145,7 @@
       "source": "src/Formalism/SharpRestriction/RamificationFrobenius/TotientGaloisClasses/Analytic.lean",
       "source_pin": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
       "source_sha256": "52ef51f6acc3ac5bdc351912a0c2934b36b4bbffcc60aea8cc6cfcf886ac3a89",
-      "native_sha256": "02944f7ae02ed2b5e9ec83c66d57f2b721297ac82a41bbfdc725165776e5943d"
+      "native_sha256": "dc5d8e4b79cf0451764aa3c166f0d1e228f47a2cca66731a2393c654ce473425"
     },
     {
       "native": "RHLean/Analysis/AlpogeThin/Formalism/SharpRestriction/RamificationFrobenius/TotientGaloisClasses/ConjEMemHostFIff.lean",
@@ -2159,7 +2159,7 @@
       "source": "src/Formalism/SharpRestriction/RamificationFrobenius/TotientGaloisClasses/ExplicitFormulaErrorOfHostConditions.lean",
       "source_pin": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
       "source_sha256": "d6b12bcbdc15c1b717c33a712474f9fca18c577a65c41fff2b2937534e5447ba",
-      "native_sha256": "cdc2fa2d7ca89ad23cee6568e07d001647adfe1c9cf38b9629280f47c8735eb7"
+      "native_sha256": "a966937abb13f6cc4c57febc0a39f381abcc3f47cb2637671ce7a7ee0f4af4d0"
     },
     {
       "native": "RHLean/Analysis/AlpogeThin/Formalism/SharpRestriction/RamificationFrobenius/TotientGaloisClasses/PrimePairSizeCondition.lean",
@@ -2299,7 +2299,7 @@
       "source": "src/Formalism/ZeroFreeRegion/ZetaLogDerivativeBounds/LandauLocalOf.lean",
       "source_pin": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
       "source_sha256": "69e193fea77869a85e01187503d43df9e3b1fef42512e2a5c33d3d82be26e36a",
-      "native_sha256": "13584799cd9809514b5b4cb1ac5c7bfe349a3d62648c1d9ea16fb92439ff91a7"
+      "native_sha256": "f4d8775a380d67db5d0a2b167219096638b320ba27a36520509a0cc4ac399795"
     },
     {
       "native": "RHLean/Analysis/AlpogeThin/Formalism/ZeroFreeRegion/ZetaLogDerivativeBounds/LaurentAtOne.lean",
@@ -2362,35 +2362,35 @@
       "source": "src/Formalism/ZeroFreeRegion/ZetaLogDerivativeBounds/NormLogDerivLeLamF.lean",
       "source_pin": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
       "source_sha256": "f923e81d87bc69edf0906d87f671a971bfd8e9bc9051f1fee16212b575a741cf",
-      "native_sha256": "81a633f8f0a74a8792c80c2ae0ec0a18fddb2658047833bdf659c5a25e64c114"
+      "native_sha256": "a1fd13dcd70d5e7f0384b8741f2786050c282573e5f3a3ce473d16ee08e9f029"
     },
     {
       "native": "RHLean/Analysis/AlpogeThin/Formalism/ZeroFreeRegion/ZetaLogDerivativeBounds/Perron.lean",
       "source": "src/Formalism/ZeroFreeRegion/ZetaLogDerivativeBounds/Perron.lean",
       "source_pin": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
       "source_sha256": "3bebab1960873ccd20570dd1153e6ca0b0a18b70f762da0ff6ae91724ec59efa",
-      "native_sha256": "ae90d73f65308af61b3426b5260bc118e10c9d42ff6bdec9ceb668b4d25285c4"
+      "native_sha256": "2682b6643dc5bc8ac3d799dc1d9b7bc0fd99a99927ed044bf0e238a82b70df7b"
     },
     {
       "native": "RHLean/Analysis/AlpogeThin/Formalism/ZeroFreeRegion/ZetaLogDerivativeBounds/RectDoublePole.lean",
       "source": "src/Formalism/ZeroFreeRegion/ZetaLogDerivativeBounds/RectDoublePole.lean",
       "source_pin": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
       "source_sha256": "7aee32b7a4c8ec91845ca1e03d5837f1c062bba1101df7ed6a8563533dc56e26",
-      "native_sha256": "dd43436502609912f340d4e648215f18b63535de843de8d6448f8c64b37b37ee"
+      "native_sha256": "88d2ca4856851a2a271e2daa761009dd3014f79bd58be82c10c981af81071435"
     },
     {
       "native": "RHLean/Analysis/AlpogeThin/Formalism/ZeroFreeRegion/ZetaLogDerivativeBounds/RectShiftOf.lean",
       "source": "src/Formalism/ZeroFreeRegion/ZetaLogDerivativeBounds/RectShiftOf.lean",
       "source_pin": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
       "source_sha256": "4d9969c6d6c1fc5b3e727b605a341deb5ec42c2f09102a937dc6c07e9ec29c82",
-      "native_sha256": "832f03de60f7cf515f5abf55549da72aac09d9b692afc597b4255575618b19b2"
+      "native_sha256": "68673035602bebfed9f7f06b95bc068f7a081da4985605976311dd5e3faf9b2c"
     },
     {
       "native": "RHLean/Analysis/AlpogeThin/Formalism/ZeroFreeRegion/ZetaLogDerivativeBounds/RiemannZetaNeZeroOfMemRectangle.lean",
       "source": "src/Formalism/ZeroFreeRegion/ZetaLogDerivativeBounds/RiemannZetaNeZeroOfMemRectangle.lean",
       "source_pin": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
       "source_sha256": "b8b983b8f821ff12e8f3dcfa97a7f2f16e4b08f3616ad4ca79aa21a6586237bf",
-      "native_sha256": "db1af59a0e715ea8a620864b34f863c6e11f467afd28e5531ec8a6ea4a351dd9"
+      "native_sha256": "64e5e2310a84cc11260cde61d293ac0c480ef6be9268fa195aaf37fd94ff5ed1"
     },
     {
       "native": "RHLean/Analysis/AlpogeThin/Formalism/ZeroFreeRegion/ZetaLogDerivativeBounds/RiemannZetaOneEqOneSubOfRePos.lean",
@@ -2425,7 +2425,7 @@
       "source": "src/Formalism/ZeroFreeRegion/ZetaLogDerivativeBounds/ZeroFactor.lean",
       "source_pin": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
       "source_sha256": "9fca8780e5bfeef3bf3a851c95396a9608bc0a823b46d305b816988581ddf2e0",
-      "native_sha256": "803de3f9a4a255d4c22405852229a6bf5e699aa7e486218c14bc0a860f6896a2"
+      "native_sha256": "c11248805d3ee8551d69a20bf1ce14192cc3c89becdc6a2fe3e2c63c427f0aeb"
     },
     {
       "native": "RHLean/Analysis/AlpogeThin/Formalism/ZeroFreeRegion/ZetaLogDerivativeBounds/ZeroFreeOf.lean",
@@ -2474,14 +2474,14 @@
       "source": "src/Formalism/ZetaNonvanishing/MellinSAux.lean",
       "source_pin": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
       "source_sha256": "0cacb10e18ef0fd1cab68be9ae10d24d39d10794885c04ed8b090eaac16529df",
-      "native_sha256": "02cc19d84d762b6e5fab9080d59b064346a9a26ef24c60a8d3dc3ef7b9568e90"
+      "native_sha256": "61b38683b3eb39b22f59df5e88c690be77395977bc8f9ef94b815f1f54f8f11c"
     },
     {
       "native": "RHLean/Analysis/AlpogeThin/Formalism/ZetaNonvanishing/MellinSgen.lean",
       "source": "src/Formalism/ZetaNonvanishing/MellinSgen.lean",
       "source_pin": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
       "source_sha256": "556deef175e46fec4f7e9966d23040822a3664f02b441d0de4643267ac1c5e53",
-      "native_sha256": "9b5723bdc8e84e0fa7a582cbc8bc7bbff0c3d4ee065564384c15943f26a15387"
+      "native_sha256": "25ac7814e819dad3c01e4068a48a8b5e65d174a6f1231acfa4b86e9854e4ca94"
     },
     {
       "native": "RHLean/Analysis/AlpogeThin/Formalism/ZetaNonvanishingChebyshevWeights.lean",
@@ -2509,7 +2509,7 @@
       "source": "src/ReciprocityTheory/GaloisValuations/ContinuousConstSMulQuotient.lean",
       "source_pin": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
       "source_sha256": "610c38bcf79837ed06292f22f6ce7ccdb40dc8df503e0ed41a06e71e9224b55f",
-      "native_sha256": "098c9cbb695378122522c1eb4b5fccb0f8737a0f268cf3c85f588587192b138b"
+      "native_sha256": "4bdf019c7bd519d5d40133413b7af452c49d0b9c35d1d290d8eaddc063806683"
     },
     {
       "native": "RHLean/Analysis/AlpogeThin/ReciprocityTheory/GaloisValuations/Global.lean",
@@ -2530,7 +2530,7 @@
       "source": "src/ReciprocityTheory/GaloisValuations/GlobalB.lean",
       "source_pin": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
       "source_sha256": "99fe9063535e36b9eaa66cf69bc675aca4cd4ed270094bc6e2849ce3feae28cb",
-      "native_sha256": "420522289728c3a6a8e2e7bd6476bacb44cd57765857e44d0f690c923b7ec5ae"
+      "native_sha256": "1be6af56df4b0f08e6bbf83f5bfa200a3eee45cda4e386804af8549f3536e248"
     },
     {
       "native": "RHLean/Analysis/AlpogeThin/ReciprocityTheory/GaloisValuations/SeparatedDvrSecondCohomologyMem.lean",
@@ -2561,14 +2561,24 @@
     "RHLean/Analysis/AlpogeThin.lean",
     "RHLean/Analysis/AlpogeThin/NativePrincipalThin.lean",
     "RHLean/Analysis/AlpogeThin/NativeCftThin.lean",
-    "research/ALPOGE_GEOMETRIC_CONSTRUCTION_CLOSURE_AUDIT_20261122.lean"
+    "research/ALPOGE_GEOMETRIC_CONSTRUCTION_CLOSURE_AUDIT_20261122.lean",
+    "RHLean/Analysis/AlpogeNativeReciprocitySurjective.lean",
+    "RHLean/Analysis/AlpogeNativeDyadicHostSize.lean",
+    "RHLean/Analysis/AlpogeThin/NativeDyadicPayment.lean",
+    "RHLean/Analysis/AlpogeThin/NativeDyadicThickCharacters.lean",
+    "RHLean/Analysis/AlpogeThin/NativeDyadicGzPayment.lean"
   ],
   "native_addition_hashes": {
     "RHLean/Analysis/AlpogeThin/NativeHostThin.lean": "d5978898b0b9d660b4a4459ed85fa6391c28074576a0ca0a3fe286a5a02ed66b",
     "RHLean/Analysis/AlpogeThin.lean": "a758d62ca23ec24da0e7696b3ce26ccfa5ac4bc7561167dfa29539fddba9356f",
     "RHLean/Analysis/AlpogeThin/NativePrincipalThin.lean": "852128582446a93b9ee64e577e547879ed37de1e3314f786e83e377aaf6a6d2f",
-    "RHLean/Analysis/AlpogeThin/NativeCftThin.lean": "fe6d84eb2f2dad92a758918f8f14dfa48298d6b01f438a60c16a8fc7c2fdb642",
-    "research/ALPOGE_GEOMETRIC_CONSTRUCTION_CLOSURE_AUDIT_20261122.lean": "4840d3b0f638b4dd7e5cb8db2799da9621c29d60e68701b117484e6055c5f37c"
+    "RHLean/Analysis/AlpogeThin/NativeCftThin.lean": "259efbcb8423c5a8946860fed85704759dcd669dcb64877c88866747306c76fd",
+    "research/ALPOGE_GEOMETRIC_CONSTRUCTION_CLOSURE_AUDIT_20261122.lean": "12bca117f3b45cf4cdf6b851e0a9d295b172180499a37fda93dbc2f6baab6096",
+    "RHLean/Analysis/AlpogeNativeReciprocitySurjective.lean": "f35180aab62ffc62b35ae28dc6b4b40d6cb5da309e01ec6bf64c1536a1342494",
+    "RHLean/Analysis/AlpogeNativeDyadicHostSize.lean": "10d1edc08d5b97b82e004683d871e0485b0e52c68e5fb5858bd5aecb01951b6b",
+    "RHLean/Analysis/AlpogeThin/NativeDyadicPayment.lean": "ff35b626752db9b31c28dc8879b8cb6ba5a890d595dc6dbcfae2f1ff33ffcc47",
+    "RHLean/Analysis/AlpogeThin/NativeDyadicThickCharacters.lean": "bcec6e3a1e230c66a7b3cb26a1053fdbedaa59f15a286892a8c7ca6f6780e845",
+    "RHLean/Analysis/AlpogeThin/NativeDyadicGzPayment.lean": "be743bd80150cd1cd3fa05b9a433143894ad44c5a9d942d35765acd1706df207"
   },
   "shared_source_files": [
     {
@@ -2587,6 +2597,7 @@
     "Lean 4.34 current logDeriv_fun_mul/logDeriv_fun_prod, real nonnegative-product comparisons and typed powMonoidHom.",
     "Compiler-directed unused tactic/simp removal, unused instance omission, and canonical deprecated aliases; all warning gates retained.",
     "NativeCftThin proves principal-character compatibility for the same onto unit map and attaches the constructed selected-pair estimate to the full native response and thin return.",
-    "Audit both selected-pair variants in the actual consolidated geometric-construction audit; remove nonexistent prototype audit paths from the source manifest."
+    "Audit both selected-pair variants in the actual consolidated geometric-construction audit; remove nonexistent prototype audit paths from the source manifest.",
+    "Continuation at base 792b6d7: repair all 28 observed native errors and 270 owned warning diagnostics; construct actual CRT surjectivity and dyadic host size, evaluate the thin bill, identify the three primitive thick twists, and compose the same-host scalar Gz source inequality. Hosted verification pending; no desired-bound assumption added."
   ]
 }

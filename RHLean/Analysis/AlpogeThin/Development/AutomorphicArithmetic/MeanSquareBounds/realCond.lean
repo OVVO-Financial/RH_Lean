@@ -25,7 +25,7 @@ namespace QH
 private theorem conductor_le_of_quadratic_squares {N M : ℕ} [NeZero N] (χ : DirichletCharacter ℂ N) (hp : χ.IsPrimitive)
     (h2 : χ ^ 2 = 1) (hM : M ∣ N) (hM0 : M ≠ 0)
     (hsq : ∀ t : ℤ, ∃ v : ZMod N, v ^ 2 = 1 + (M : ZMod N) * (t : ZMod N)) : N ≤ M := by
-  haveI : NeZero M := ⟨hM0⟩
+  have : NeZero M := ⟨hM0⟩
   have hf : χ.FactorsThrough M := by
     rw [DirichletCharacter.factorsThrough_iff_ker_unitsMap hM]
     intro u hu

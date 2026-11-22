@@ -62,7 +62,7 @@ theorem page_across (hZ : Formalism.ZeroFreeDirichlet.ZFRDirichlet) :
   obtain ⟨c, hc, hzfr⟩ := hZ
   refine ⟨c / 3, by positivity, ?_⟩
   intro Z M₁ M₂ _ _ χ₁ χ₂ β₁ β₂ hZ3 hM₁ hM₂ _ _ hne₁ hne₂ hz₁ hz₂ hb₁ hb₂ _ _ n hn
-  haveI : NeZero (M₁ * M₂) := ⟨mul_ne_zero (NeZero.ne _) (NeZero.ne _)⟩
+  have : NeZero (M₁ * M₂) := ⟨mul_ne_zero (NeZero.ne _) (NeZero.ne _)⟩
   have hq1 : 1 ≤ M₁ * M₂ := Nat.one_le_iff_ne_zero.mpr (NeZero.ne _)
   have hqZ : ((M₁ * M₂ : ℕ) : ℝ) ≤ Z ^ 2 := by
     push_cast

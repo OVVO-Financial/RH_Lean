@@ -71,7 +71,7 @@ theorem rectInt_inv_sub (p : ℂ) (x0 x1 y0 y1 : ℝ) (h1 : x0 < p.re) (h2 : p.r
       log ((x1 : ℂ) + (y1 : ℂ) * I - p) - log ((x1 : ℂ) + (y0 : ℂ) * I - p) := by
     have h := rectRes_ftc_log (γ := fun y : ℝ => ((x1 : ℂ) - p) + (y : ℂ) * I) (d := I)
       (a := y0) (b := y1) (fun t => rectRes_hasDerivAt_vert _ t)
-      (fun t _ => Complex.mem_slitPlane_iff.2 (Or.inl (by simp <;> linarith)))
+      (fun t _ => Complex.mem_slitPlane_iff.2 (Or.inl (by simp ; linarith)))
     rw [← intervalIntegral.integral_const_mul]
     have e1 : (x1 : ℂ) + (y1 : ℂ) * I - p = ((x1 : ℂ) - p) + (y1 : ℂ) * I := by ring
     have e0 : (x1 : ℂ) + (y0 : ℂ) * I - p = ((x1 : ℂ) - p) + (y0 : ℂ) * I := by ring
@@ -85,7 +85,7 @@ theorem rectInt_inv_sub (p : ℂ) (x0 x1 y0 y1 : ℝ) (h1 : x0 < p.re) (h2 : p.r
       log (-((x0 : ℂ) + (y1 : ℂ) * I - p)) - log (-((x0 : ℂ) + (y0 : ℂ) * I - p)) := by
     have h := rectRes_ftc_log (γ := fun y : ℝ => -(((x0 : ℂ) - p) + (y : ℂ) * I)) (d := -I)
       (a := y0) (b := y1) (fun t => (rectRes_hasDerivAt_vert _ t).neg)
-      (fun t _ => Complex.mem_slitPlane_iff.2 (Or.inl (by simp <;> linarith)))
+      (fun t _ => Complex.mem_slitPlane_iff.2 (Or.inl (by simp ; linarith)))
     rw [← intervalIntegral.integral_const_mul]
     have e1 : (x0 : ℂ) + (y1 : ℂ) * I - p = ((x0 : ℂ) - p) + (y1 : ℂ) * I := by ring
     have e0 : (x0 : ℂ) + (y0 : ℂ) * I - p = ((x0 : ℂ) - p) + (y0 : ℂ) * I := by ring
@@ -96,9 +96,9 @@ theorem rectInt_inv_sub (p : ℂ) (x0 x1 y0 y1 : ℝ) (h1 : x0 < p.re) (h2 : p.r
     congr 1
     ring
   have P1 := rectRes_log_sub_log_neg_of_im_pos (z := (x0 : ℂ) + (y1 : ℂ) * I - p)
-    (by simp <;> linarith)
+    (by simp ; linarith)
   have P0 := rectRes_log_sub_log_neg_of_im_neg (z := (x0 : ℂ) + (y0 : ℂ) * I - p)
-    (by simp <;> linarith)
+    (by simp ; linarith)
   unfold rectInt
   beta_reduce
   rw [E1, E2, E3, E4]
@@ -124,7 +124,7 @@ theorem rectRes_edge (g G : ℂ → ℂ) (P : Finset ℂ) (b : ℂ → ℂ) (γ 
         rw [mul_one_div]
     _ = (∫ t in a..c, G (γ t)) + ∫ t in a..c, ∑ p ∈ P, b p * (1 / (γ t - p)) := by
         refine intervalIntegral.integral_add hG.intervalIntegrable ?_
-        exact (continuousOn_finset_sum P (fun p hp => continuousOn_const.mul (hcont p hp))).intervalIntegrable
+        exact (continuousOn_finsetSum P (fun p hp => continuousOn_const.mul (hcont p hp))).intervalIntegrable
     _ = (∫ t in a..c, G (γ t)) + ∑ p ∈ P, b p * ∫ t in a..c, 1 / (γ t - p) := by
         rw [intervalIntegral.integral_finsetSum]
         · simp_rw [intervalIntegral.integral_const_mul]

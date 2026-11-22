@@ -25,11 +25,13 @@ variable {K : Type} [Field K] [NumberField K] [StarRing K]
   {V ι : Type} [AddCommGroup V] [Module K V] [Fintype ι] [DecidableEq ι]
   {W κ : Type} [AddCommGroup W] [Module K W] [Fintype κ] [DecidableEq κ]
 
+omit [StarRing K] in
 theorem realize_apply0 (b : Basis ι K V) (X : InfinitePlace K → Matrix ι ι ℂ) (x : V)
     (v : InfinitePlace K) (i : ι) :
     (RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.realize b X x) (v, i, 0) = (RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.fcoord b X v x i).re := by
   simp [RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.realize, RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.realizeRaw]
 
+omit [StarRing K] in
 theorem realize_apply1 (b : Basis ι K V) (X : InfinitePlace K → Matrix ι ι ℂ) (x : V)
     (v : InfinitePlace K) (i : ι) :
     (RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.realize b X x) (v, i, 1) = (RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.fcoord b X v x i).im := by
@@ -47,9 +49,11 @@ theorem norm_sq_realize (b : Basis ι K V) (X : InfinitePlace K → Matrix ι ι
     sq_abs, Complex.sq_norm, Complex.normSq_apply]
   ring
 
+omit [DecidableEq κ] in
 theorem cnorm_eq (u : κ → ℂ) : RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.cnorm u = ‖(WithLp.toLp 2 u : EuclideanSpace ℂ κ)‖ := by
   simp [RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.cnorm, EuclideanSpace.norm_eq]
 
+omit [StarRing K] in
 theorem fcoord_map (b : Basis ι K V) (X : InfinitePlace K → Matrix ι ι ℂ) (b' : Basis κ K W)
     (X' : InfinitePlace K → Matrix κ κ ℂ) (hX : ∀ v, IsUnit (X v).det) (v : InfinitePlace K)
     (φ : V →ₗ[K] W) (x : V) :
@@ -63,7 +67,6 @@ theorem fcoord_map (b : Basis ι K V) (X : InfinitePlace K → Matrix ι ι ℂ)
     rw [← LinearMap.toMatrix_mulVec_repr b b' φ x]
     first
       | simp [Matrix.mulVec, dotProduct, map_sum, map_mul, RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.vecAt]
-      | simp [Matrix.mulVec, Matrix.dotProduct, map_sum, map_mul, RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.vecAt]
   simp only [RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.fcoord, hv, Matrix.mulVec_mulVec, Matrix.mul_assoc, Matrix.mul_nonsing_inv _ (hX v),
     Matrix.mul_one]
 
@@ -78,9 +81,8 @@ theorem normAt_map_le (b : Basis ι K V) (X : InfinitePlace K → Matrix ι ι �
   convert this using 1
   all_goals first
     | rfl
-    | simp [Matrix.toEuclideanLin_apply]
-    | (congr 1; simp [Matrix.toEuclideanLin_apply])
 
+omit [NumberField K] [StarRing K] in
 theorem opNormAt_smul (b : Basis ι K V) (X : InfinitePlace K → Matrix ι ι ℂ) (b' : Basis κ K W)
     (X' : InfinitePlace K → Matrix κ κ ℂ) (hX' : ∀ v, IsUnit (X' v).det) (c : InfinitePlace K → ℝ)
     (hc : ∀ v, 0 < c v) (v : InfinitePlace K) (φ : V →ₗ[K] W) :
@@ -93,8 +95,8 @@ theorem opNormAt_smul (b : Basis ι K V) (X : InfinitePlace K → Matrix ι ι �
   simp only [opNormAt, hi, Matrix.smul_mul, map_smul, norm_smul]
   first
     | rw [norm_inv, Complex.norm_real, Real.norm_of_nonneg (hc v).le]
-    | simp [norm_inv, abs_of_pos (hc v)]
 
+omit [NumberField K] [StarRing K] in
 theorem opNormAt_pos (b : Basis ι K V) (X : InfinitePlace K → Matrix ι ι ℂ) (b' : Basis κ K W)
     (X' : InfinitePlace K → Matrix κ κ ℂ) (hX : ∀ v, IsUnit (X v).det)
     (hX' : ∀ v, IsUnit (X' v).det) (v : InfinitePlace K) (φ : V →ₗ[K] W) (hφ : φ ≠ 0) :

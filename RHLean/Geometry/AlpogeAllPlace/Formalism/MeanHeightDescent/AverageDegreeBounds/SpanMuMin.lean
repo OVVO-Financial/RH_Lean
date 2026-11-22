@@ -89,6 +89,7 @@ theorem muDef_line (b : Basis ι K V) (X : InfinitePlace K → Matrix ι ι ℂ)
     nlinarith
   linarith
 
+omit [IsTotallyComplex K] in
 theorem muMin_line (b : Basis ι K V) (X : InfinitePlace K → Matrix ι ι ℂ)
     (hX : ∀ v, IsUnit (X v).det) (x : V) (hx : x ≠ 0) (θ : ℝ)
     (hθ : θ ≤ slope (RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.realize b X) (Submodule.span (𝓞 K) ({x} : Set V))) :

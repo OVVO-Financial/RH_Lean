@@ -129,6 +129,7 @@ section places
 
 variable {F Ω : Type*} [Field F] [NumberField F] [Field Ω] [Algebra F Ω] [IsAlgClosure F Ω]
 
+omit [NumberField F] [IsAlgClosure F Ω] in
 theorem smul_valuation_lt_one_iff (g : Ω ≃ₐ[F] Ω) (A : ValuationSubring Ω) (y : Ω) :
     (g • A).valuation y < 1 ↔ A.valuation ((g⁻¹ : Ω ≃ₐ[F] Ω) y) < 1 := by
   rw [← ValuationSubring.mem_nonunits_iff, ← ValuationSubring.mem_nonunits_iff,
@@ -146,6 +147,7 @@ variable (F Ω) in
 
 abbrev IntCl := integralClosure (𝓞 F) Ω
 
+omit [IsAlgClosure F Ω] in
 theorem valuation_le_one_intCl (A : ValuationSubring Ω) (b : IntCl F Ω) :
     A.valuation (b : Ω) ≤ 1 :=
   (A.valuation_le_one_iff _).mpr (mem_of_isIntegral_int A (isIntegral_int_of_isIntegral b.2))
@@ -205,6 +207,7 @@ variable {F Ω : Type*} [Field F] [NumberField F] [Field Ω] [Algebra F Ω] [IsA
 
 variable (F Ω) in
 
+omit [NumberField F] in
 theorem continuousSMul_intCl :
     @ContinuousSMul (Ω ≃ₐ[F] Ω) (IntCl F Ω) _ _ ⊥ := by
   letI : TopologicalSpace (IntCl F Ω) := ⊥
@@ -264,9 +267,11 @@ theorem exists_frob_over {A : ValuationSubring Ω} {v : HeightOneSpectrum (𝓞 
   set Q := primeBelow (F := F) A with hQ
   haveI : v.asIdeal.IsMaximal := v.isMaximal
   haveI : Q.LiesOver v.asIdeal := ⟨(under_primeBelow hA).symm⟩
-  haveI : Q.IsMaximal := Ideal.isMaximal_of_isIntegral_of_isMaximal_comap (R := 𝓞 F) Q
-    (by rw [show Ideal.comap (algebraMap (𝓞 F) (IntCl F Ω)) Q = v.asIdeal from
-      under_primeBelow hA]; exact v.isMaximal)
+  haveI : Q.IsMaximal := Ideal.isMaximal_of_isIntegral_of_isMaximal_under (R := 𝓞 F) Q
+    (by
+      change (Ideal.comap (algebraMap (𝓞 F) (IntCl F Ω)) Q).IsMaximal
+      rw [show Ideal.comap (algebraMap (𝓞 F) (IntCl F Ω)) Q = v.asIdeal from under_primeBelow hA]
+      exact v.isMaximal)
   letI : Field (IntCl F Ω ⧸ Q) := Ideal.Quotient.field Q
   letI : Field (𝓞 F ⧸ v.asIdeal) := Ideal.Quotient.field v.asIdeal
   letI : Fintype (𝓞 F ⧸ v.asIdeal) := Fintype.ofFinite _

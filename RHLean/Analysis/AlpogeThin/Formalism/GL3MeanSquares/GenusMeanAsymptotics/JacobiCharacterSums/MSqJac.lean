@@ -156,7 +156,7 @@ theorem jacobi_class_congr {m₀ N q q' : ℕ} (h8 : 8 ∣ m₀) (hN : 0 < N) (h
         hsq q hq hpq, hsq q' hq' hpq', one_pow, one_mul, one_mul]
       exact jacobi_prime_out h8 hpP hpm hq hq' hqq hpq hpq'
 
-theorem jacobi_class (m₀ a₀ N : ℕ) (h8 : 8 ∣ m₀) (ha : a₀.Coprime m₀) (hN : 0 < N) :
+theorem jacobi_class (m₀ a₀ N : ℕ) (h8 : 8 ∣ m₀) (_ha : a₀.Coprime m₀) (hN : 0 < N) :
     ∃ σ : ℤ, (σ = 1 ∨ σ = -1) ∧ ∀ q : ℕ, q.Prime → q % m₀ = a₀ % m₀ → N < q →
       jacobiSym (N : ℤ) q = σ * jacobiSym (q : ℤ) (soutPart m₀ N) := by
   have hcop1 : ∀ q : ℕ, q.Prime → N < q → (N : ℤ).gcd q = 1 := by

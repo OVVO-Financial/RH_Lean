@@ -47,8 +47,6 @@ theorem perronL_of {C : ℝ} (hC : 0 ≤ C) (h : PerronTrunc C) : PerronL C := b
     have hlog := Real.log_pos (show (1:ℝ) < u by linarith)
     first
       | (have := one_div_pos.mpr hlog; linarith)
-      | (norm_num; positivity)
-      | done
   have hΛ : ∀ n : ℕ, ‖((Λ n : ℝ) : ℂ) * χ (n : ZMod N)‖ ≤ Λ n := by
     intro n
     rw [norm_mul, Complex.norm_real, Real.norm_of_nonneg ArithmeticFunction.vonMangoldt_nonneg]

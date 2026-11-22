@@ -22,6 +22,7 @@ section Covol
 variable {E F M : Type*} [NormedAddCommGroup E] [InnerProductSpace ℝ E] [FiniteDimensional ℝ E]
   [NormedAddCommGroup F] [InnerProductSpace ℝ F] [FiniteDimensional ℝ F] [AddCommGroup M]
 
+omit [InnerProductSpace ℝ E] [FiniteDimensional ℝ E] [InnerProductSpace ℝ F] [FiniteDimensional ℝ F] in
 theorem eq_of_norm_eq (f : M →+ E) (g : M →+ F) (hn : ∀ m, ‖f m‖ = ‖g m‖) {m m' : M}
     (h : f m = f m') : g m = g m' := by
   have h0 : ‖g (m - m')‖ = 0 := by rw [← hn, map_sub, h, sub_self, norm_zero]
@@ -103,7 +104,7 @@ theorem inner_psi_psi (u v : P) (y z : ι → ℂ) :
   rw [PiLp.inner_apply]
   by_cases h : u = v
   · subst h
-    rw [if_pos rfl, PiLp.inner_apply, Complex.re_sum, Fintype.sum_prod_type, Finset.sum_eq_single u]
+    rw [ite_eq_left rfl, PiLp.inner_apply, Complex.re_sum, Fintype.sum_prod_type, Finset.sum_eq_single u]
     · rw [Fintype.sum_prod_type]
       refine Finset.sum_congr rfl (fun i _ => ?_)
       simp [PlaceDecomposition.psi, Fin.sum_univ_two, Complex.mul_re]
@@ -147,7 +148,7 @@ theorem exists_mat {κ ι : Type} [Fintype κ] [DecidableEq κ] [Fintype ι]
     e.toLinearEquiv.toLinearMap ∘ₗ T.rangeRestrict
   have hf : ∀ z, ‖(WithLp.toLp 2 (f z) : EuclideanSpace ℂ κ)‖ = ‖T z‖ := by
     intro z
-    simp [f, LinearIsometryEquiv.norm_map]
+    simp [f]
   have hinj : Function.Injective f := by
     intro z w hzw
     apply hT
@@ -173,6 +174,7 @@ def pv (b : Basis ι K V) (X : InfinitePlace K → Matrix ι ι ℂ) (U : Submod
     (v : InfinitePlace K) : Submodule ℂ (EuclideanSpace ℂ ι) :=
   Submodule.span ℂ ((fun y => (WithLp.equiv 2 (ι → ℂ)).symm (RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.fcoord b X v y)) '' (U : Set V))
 
+omit [NumberField K] [StarRing K] [IsTotallyComplex K] [Module (𝓞 K) V] [IsScalarTower (𝓞 K) K V] in
 private theorem fcoord_smul_harder_narasimhan (b : Basis ι K V) (X : InfinitePlace K → Matrix ι ι ℂ)
     (v : InfinitePlace K) (a : K) (x : V) :
     RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.fcoord b X v (a • x) = v.embedding a • RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.fcoord b X v x := by
@@ -191,6 +193,7 @@ private theorem fcoord_finset_sum_smul {κ : Type} (b : Basis ι K V) (X : Infin
   | insert a s ha ih =>
       rw [Finset.sum_insert ha, Finset.sum_insert ha, RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.fcoord_add, ih, fcoord_smul_harder_narasimhan]
 
+omit [StarRing K] [IsTotallyComplex K] [IsScalarTower (𝓞 K) K V] in
 theorem fcoord_mem_span (b : Basis ι K V) (X : InfinitePlace K → Matrix ι ι ℂ)
     (S : Submodule (𝓞 K) V) (v : InfinitePlace K) {y : V}
     (hy : y ∈ Submodule.span K (S : Set V)) :
@@ -232,6 +235,7 @@ theorem psi_mem [DecidableEq (InfinitePlace K)] (b : Basis ι K V)
   rw [← PlaceDecomposition.piece_eq_map b X S v] at h3
   exact (Submodule.mem_inf.1 h3).1
 
+omit [StarRing K] [IsTotallyComplex K] in
 theorem finrank_pv (b : Basis ι K V) (X : InfinitePlace K → Matrix ι ι ℂ)
     (hX : ∀ v, IsUnit (X v).det) (U : Submodule K V) (v : InfinitePlace K) :
     finrank ℂ (pv b X U v) = finrank K U := by
@@ -243,6 +247,7 @@ theorem finrank_pv (b : Basis ι K V) (X : InfinitePlace K → Matrix ι ι ℂ)
   rw [Submodule.coe_restrictScalars] at this
   rw [this, rkK, Submodule.coe_restrictScalars, Submodule.span_eq]
 
+omit [NumberField K] [StarRing K] [IsTotallyComplex K] [Module (𝓞 K) V] [IsScalarTower (𝓞 K) K V] in
 theorem pv_top (b : Basis ι K V) (X : InfinitePlace K → Matrix ι ι ℂ)
     (hX : ∀ v, IsUnit (X v).det) (v : InfinitePlace K) : pv b X ⊤ v = ⊤ := by
   have hf : ∀ j, RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.fcoord b X v (b j) = (X v)⁻¹ *ᵥ Pi.single j 1 := by
@@ -252,7 +257,7 @@ theorem pv_top (b : Basis ι K V) (X : InfinitePlace K → Matrix ι ι ℂ)
     funext i
     by_cases h : i = j
     · subst h; simp [RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.vecAt]
-    · simp [RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.vecAt, Finsupp.single_apply, Pi.single_apply, h, Ne.symm h]
+    · simp [RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.vecAt, h]
   have key : ∀ j, (WithLp.equiv 2 (ι → ℂ)).symm (RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.fcoord b X v (b j)) ∈ pv b X ⊤ v :=
     fun j => Submodule.subset_span ⟨b j, Submodule.mem_top, rfl⟩
   rw [eq_top_iff]
@@ -265,7 +270,7 @@ theorem pv_top (b : Basis ι K V) (X : InfinitePlace K → Matrix ι ι ℂ)
     funext i
     simp only [hf]
     conv_lhs => rw [WithLp.equiv_apply, e]
-    simp [Matrix.mulVec, dotProduct, Pi.single_apply, Finset.sum_apply, mul_comm]
+    simp [Matrix.mulVec, dotProduct, Finset.sum_apply, mul_comm]
   rw [hz]
   exact Submodule.sum_mem _ fun j _ => Submodule.smul_mem _ _ (key j)
 
@@ -332,6 +337,7 @@ def tv (v : InfinitePlace K) : (κ → ℂ) →ₗ[ℂ] EuclideanSpace ℂ ι :=
   Fintype.linearCombination ℂ
     (fun k => (pv b X U v)ᗮ.starProjection (WithLp.toLp 2 (RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.fcoord b X v (c k))))
 
+omit [NumberField K] [StarRing K] [IsTotallyComplex K] [Module (𝓞 K) V] [IsScalarTower (𝓞 K) K V] [DecidableEq κ] in
 theorem sub_mem_of_lift (hc : ∀ k, U.mkQ (c k) = b'' k) (x : V) :
     x - ∑ k, b''.repr (U.mkQ x) k • c k ∈ U := by
   apply (Submodule.Quotient.eq U).mp
@@ -353,9 +359,6 @@ theorem proj_eq_tv (hc : ∀ k, U.mkQ (c k) = b'' k) (v : InfinitePlace K) (x : 
     rw [hL]
     first
       | exact (Submodule.starProjection_apply_eq_zero_iff _).mpr (Submodule.le_orthogonal_orthogonal _ hm)
-      | exact (Submodule.starProjection_eq_zero_iff _).mpr (Submodule.le_orthogonal_orthogonal _ hm)
-      | simp [Submodule.le_orthogonal_orthogonal _ hm]
-      | simpa using Submodule.le_orthogonal_orthogonal _ hm
   have hsplit : RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.fcoord b X v x = RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.fcoord b X v (x - ∑ k, r k • c k) +
       ∑ k, v.embedding (r k) • RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.fcoord b X v (c k) := by
     rw [← fcoord_finset_sum_smul, ← RHLean.Geometry.AlpogeAllPlace.Formalism.HermitianLatticesTheory.fcoord_add, sub_add_cancel]

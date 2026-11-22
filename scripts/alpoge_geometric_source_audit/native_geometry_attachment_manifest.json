@@ -1,0 +1,143 @@
+{
+  "schema_version": 1,
+  "upstream_repository": "https://github.com/CocoSgt/riemann-hypothesis-lean",
+  "upstream_commit": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
+  "scope": "Native source reconstruction of the constructed jet-order budget and graded-section regularity supplier. Actual theta/cover and source-payment closure not asserted.",
+  "native_ports": [
+    {
+      "native_path": "RHLean/Geometry/NativeJetRankBudget.lean",
+      "native_sha256": "ceaa15133cc0b5421d9bed58154b3be7f7d9c52e6e82052572ac0bf92d4faef4",
+      "declarations": [
+        "RHLean.Geometry.NativeJetRank.exists_jet_order",
+        "RHLean.Geometry.NativeJetRank.rank_growth_of_component_jets"
+      ],
+      "upstream_sources": [
+        {
+          "path": "src/Development/AbelianVarietyTheory/Proofs/DivisorProofs/ChooseAddLePowMulChooseAdd.lean",
+          "sha256": "d712ad7d9ecbd0600a4549349eec28cfb9bf702ba37c22cb2323851275e66e86"
+        },
+        {
+          "path": "src/Development/AbelianVarietyTheory/Proofs/DivisorProofs/RankGrowthBoundSmallScale.lean",
+          "sha256": "3e388dc05f6e8ac9670d3d50a4339b9af989848f0c2f061922777199b379c1a1"
+        }
+      ],
+      "status": "HOSTED_NATIVE_COMPILATION_PENDING",
+      "transformations": [
+        "Native namespace and source-only Mathlib dependencies.",
+        "No original compiled artifacts, terminal RH theorem, or new axiom."
+      ]
+    },
+    {
+      "native_path": "RHLean/Geometry/NativeGradedSectionRegularity.lean",
+      "native_sha256": "145937def2b389c753778d10477f262727a6e6a33d4c9b333d3c892676e74322",
+      "declarations": [
+        "RHLean.Geometry.nativeWeightTorusCharacter_injective",
+        "RHLean.Geometry.nativeGradedSection_mul_eq_zero_imp_eq_zero",
+        "RHLean.Geometry.nativeGradedSection_groupDet_regular"
+      ],
+      "upstream_sources": [
+        {
+          "path": "src/Development/AbelianVarietyTheory/Proofs/DivisorProofs/IntegerExponentSectionMulEqZeroImpEqZero.lean",
+          "sha256": "0af5b6a9ebe78fb6afc73d742e234ace14c614363cebb14a8721d534be189740"
+        },
+        {
+          "path": "src/Development/AbelianVarietyTheory/Definitions/Divisors/MemLevEigenIffTransl.lean",
+          "sha256": "17f2d84763557b005a1d57482e00c51ba13ad91a9b065cb51df503f2799b2109"
+        }
+      ],
+      "status": "HOSTED_NATIVE_COMPILATION_PENDING",
+      "transformations": [
+        "Native namespace and source-only Mathlib dependencies.",
+        "No original compiled artifacts, terminal RH theorem, or new axiom."
+      ]
+    },
+    {
+      "native_path": "RHLean/Geometry/NativeRegularCharacterSlopeDescent.lean",
+      "native_sha256": "abe733b3f128dc311c8f93e68904308b7845837521be17b399dfe72683db2cb4",
+      "declarations": [
+        "RHLean.Geometry.nativeAllPlaceDescent_of_regular_groupDet"
+      ],
+      "status": "HOSTED_NATIVE_COMPILATION_PENDING",
+      "construction": "Composition of the recorded native section, determinant and all-place suppliers on the actual integer-weight algebra; geometric atlas and full physical payment remain explicit."
+    },
+    {
+      "native_path": "RHLean/Geometry/NativeGradedCharacterSlopeDescent.lean",
+      "native_sha256": "dcf8156c4b1502c05f0382925b28df7c4fd83cd879c90b87528014163dd8e59e",
+      "declarations": [
+        "RHLean.Geometry.nativeGradedSection_groupDet_generic_nonzero_of_component_points",
+        "RHLean.Geometry.nativeAllPlaceDescent_of_graded_component_section"
+      ],
+      "status": "HOSTED_NATIVE_COMPILATION_PENDING",
+      "construction": "Composition of the recorded native section, determinant and all-place suppliers on the actual integer-weight algebra; geometric atlas and full physical payment remain explicit."
+    },
+    {
+      "native_path": "RHLean/Geometry/NativeGradedShortSectionConstruction.lean",
+      "native_sha256": "a76a65b17c3cd849ea095b1a61831d9b23e9a1bd5ac8b5138e2c38cede2e4177",
+      "declarations": [
+        "RHLean.Geometry.nativeExists_graded_short_integral_injective_section"
+      ],
+      "status": "HOSTED_NATIVE_COMPILATION_PENDING",
+      "construction": "Composition of the recorded native section, determinant and all-place suppliers on the actual integer-weight algebra; geometric atlas and full physical payment remain explicit."
+    }
+  ],
+  "source_inspected_remaining_suppliers": [
+    {
+      "path": "src/Development/AbelianVarietyTheory/Definitions/Divisors/IsHomogeneousCompIdeal.lean",
+      "sha256": "869c29522255ffbe00e08da3fd346a808e7b1dfc2dddbb9718869517d8df5102",
+      "declarations": [
+        "GlobalTheory.CompHt.genVal"
+      ],
+      "native_status": "NOT_YET_ATTACHED"
+    },
+    {
+      "path": "src/Development/AbelianVarietyTheory/Proofs/DivisorProofs/SecZEqZeroOfGenVal.lean",
+      "sha256": "e61a1de0c49252c6b77b242bfcaf7f464d8cd4e58ed8a843cb9d36b423c32085",
+      "declarations": [
+        "GlobalTheory.CompHt.secZ_eq_zero_of_genVal",
+        "GlobalTheory.CompHt.genVal_eq_zero_iff"
+      ],
+      "native_status": "NOT_YET_ATTACHED"
+    },
+    {
+      "path": "src/Development/AbelianVarietyTheory/Proofs/GenericRegularity/EvaluationLawsGenericFramesAtlasHold.lean",
+      "sha256": "732c79af85eaeb78a6609256e19cae857e5a88002055dfec39fb4403a6036ea1",
+      "declarations": [
+        "GlobalTheory.Reg.evLaws_genFr_atlas"
+      ],
+      "native_status": "NOT_YET_ATTACHED"
+    },
+    {
+      "path": "src/Development/AbelianVarietyTheory/Proofs/GenericRegularity/GenFrExAndGenFromTest.lean",
+      "sha256": "0acca4b21c83fe9f64ece57ee498ea3f6e44a8594f1e2082b5ec064b066a97a5",
+      "declarations": [
+        "GlobalTheory.Reg.genFrEx_and_genFromTest"
+      ],
+      "native_status": "NOT_YET_ATTACHED"
+    },
+    {
+      "path": "src/Formalism/LocalToGlobal/ProjectiveLattices/GenFrPf.lean",
+      "sha256": "460f9aed938a904183752b019f179ddeea202e45e8182611e6ad5925cd3c970f",
+      "declarations": [
+        "Formalism.L2.Pj.genFrEx_of"
+      ],
+      "native_status": "NOT_YET_ATTACHED"
+    },
+    {
+      "path": "src/Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/HodgeBundleWeights/JetRankComplexLe.lean",
+      "sha256": "0c3a10e49869394921fb8a6eb3bb08bb89337f00e6faed0981d6cab884dc13d8",
+      "declarations": [
+        "GlobalTheory.JetRank.jet_bundle_rank_le",
+        "GlobalTheory.T.jet_rank_complex_le"
+      ],
+      "native_status": "NOT_YET_ATTACHED"
+    },
+    {
+      "path": "src/Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/ThirdPlaceSeries/RankGrowthBoundSmallScale.lean",
+      "sha256": "eefcc223647ac8c48cbd2541c09908e12bf796eac3a8be9c6f9b0c5f6e841470",
+      "declarations": [
+        "GlobalTheory.CovTop.HodgeSteps.rk_le_alt_alt"
+      ],
+      "native_status": "NOT_YET_ATTACHED"
+    }
+  ]
+}

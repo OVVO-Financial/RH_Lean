@@ -201,7 +201,7 @@ theorem rank_growth_of_component_jets
       mul_le_mul_of_nonneg_right hrank (hdegree z)
     _ ≤ ((1 + δ) * (((T - 1).choose d : ℕ) : ℝ)) * degree z :=
       mul_le_mul_of_nonneg_right
-        (mul_le_mul_of_nonneg_right (add_le_add_left hpaid 1) (Nat.cast_nonneg _))
+        (mul_le_mul_of_nonneg_right (by linarith : 1 + 7 * ((d : ℝ) ^ 2 / T + d * ρ) ≤ 1 + δ) (Nat.cast_nonneg _))
         (hdegree z)
     _ = (1 + δ) * ((((T - 1).choose d : ℕ) : ℝ) * degree z) := by ring
     _ ≤ (1 + δ) * (rMinus z : ℝ) :=

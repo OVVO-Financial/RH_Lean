@@ -62,10 +62,10 @@ theorem succ_le_pow_of_two_le (e : ℝ) (p k : ℕ) (hp : 2 ≤ (p : ℝ) ^ e) :
 
 theorem rpow_eq_prod_primeFactors (e : ℝ) {n : ℕ} (hn0 : n ≠ 0) :
     (n : ℝ) ^ e = ∏ p ∈ n.primeFactors, ((p : ℝ) ^ e) ^ (n.factorization p) := by
-  conv_lhs => rw [← Nat.factorization_prod_pow_eq_self hn0]
+  conv_lhs => rw [← Nat.prod_factorization_pow_eq_self hn0]
   rw [Finsupp.prod, Nat.support_factorization]
   push_cast
-  rw [← Real.finset_prod_rpow _ _ (fun p _ => by positivity)]
+  rw [← Real.finsetProd_rpow _ _ (fun p _ => by positivity)]
   refine Finset.prod_congr rfl fun p _ => ?_
   have hx : (0 : ℝ) ≤ p := p.cast_nonneg
   rw [← Real.rpow_natCast (p : ℝ) (n.factorization p), ← Real.rpow_mul hx,
@@ -98,7 +98,7 @@ theorem divisor_weight_bound : DivisorBound := by
         _ ≤ (p : ℝ) ^ e := Real.rpow_le_rpow (by positivity) h1 he.le
   calc ∏ p ∈ n.primeFactors, (((n.factorization p : ℕ) : ℝ) + 1)
       ≤ ∏ p ∈ n.primeFactors, ((if p < K then M else 1) * ((p : ℝ) ^ e) ^ (n.factorization p)) :=
-        Finset.prod_le_prod (fun p _ => by positivity) hfac
+        Finset.prod_le_prod₀ (fun p _ => by positivity) hfac
     _ = (∏ p ∈ n.primeFactors, (if p < K then M else 1)) *
           ∏ p ∈ n.primeFactors, ((p : ℝ) ^ e) ^ (n.factorization p) := Finset.prod_mul_distrib
     _ ≤ M ^ K * ∏ p ∈ n.primeFactors, ((p : ℝ) ^ e) ^ (n.factorization p) := by

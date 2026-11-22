@@ -29,9 +29,9 @@ theorem ind_unique :
   intro N N' M _ _ ψ ψ' hM hψ hψ' h
   have hN : N ≠ 0 := NeZero.ne N
   have hN' : N' ≠ 0 := NeZero.ne N'
-  haveI : NeZero (N * N' * M) := ⟨mul_ne_zero (mul_ne_zero hN hN') hM⟩
-  haveI : NeZero (N * N') := ⟨mul_ne_zero hN hN'⟩
-  haveI : NeZero (N' * N) := ⟨mul_ne_zero hN' hN⟩
+  have : NeZero (N * N' * M) := ⟨mul_ne_zero (mul_ne_zero hN hN') hM⟩
+  have : NeZero (N * N') := ⟨mul_ne_zero hN hN'⟩
+  have : NeZero (N' * N) := ⟨mul_ne_zero hN' hN⟩
   have hL1 : N ∣ N * N' * M := (Nat.dvd_mul_right N N').mul_right M
   have hL2 : N' ∣ N * N' * M := (Nat.dvd_mul_left N' N).mul_right M
   have hLM : M ∣ N * N' * M := Nat.dvd_mul_left M _

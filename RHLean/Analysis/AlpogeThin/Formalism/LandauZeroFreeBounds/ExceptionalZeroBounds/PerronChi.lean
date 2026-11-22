@@ -34,6 +34,7 @@ def vonMangoldtCharRe (n : ℕ) : ℝ := (Λ n : ℝ) * (χ (n : ZMod q)).re
 
 def vonMangoldtCharIm (n : ℕ) : ℝ := (Λ n : ℝ) * (χ (n : ZMod q)).im
 
+omit [NeZero q] in
 lemma vonMangoldtCharRe_bound (n : ℕ) : |vonMangoldtCharRe χ n| ≤ 1 * Λ n := by
   unfold vonMangoldtCharRe
   have hΛ : (0 : ℝ) ≤ Λ n := ArithmeticFunction.vonMangoldt_nonneg
@@ -42,8 +43,8 @@ lemma vonMangoldtCharRe_bound (n : ℕ) : |vonMangoldtCharRe χ n| ≤ 1 * Λ n 
   refine le_trans ?_ (DirichletCharacter.norm_le_one χ (n : ZMod q))
   first
   | exact Complex.abs_re_le_norm _
-  | exact Complex.abs_re_le_abs _
 
+omit [NeZero q] in
 lemma vonMangoldtCharIm_bound (n : ℕ) : |vonMangoldtCharIm χ n| ≤ 1 * Λ n := by
   unfold vonMangoldtCharIm
   have hΛ : (0 : ℝ) ≤ Λ n := ArithmeticFunction.vonMangoldt_nonneg
@@ -52,12 +53,14 @@ lemma vonMangoldtCharIm_bound (n : ℕ) : |vonMangoldtCharIm χ n| ≤ 1 * Λ n 
   refine le_trans ?_ (DirichletCharacter.norm_le_one χ (n : ZMod q))
   first
   | exact Complex.abs_im_le_norm _
-  | exact Complex.abs_im_le_abs _
 
+omit [NeZero q] in
 lemma vonMangoldtCharRe_zero : vonMangoldtCharRe χ 0 = 0 := by simp [vonMangoldtCharRe]
 
+omit [NeZero q] in
 lemma vonMangoldtCharIm_zero : vonMangoldtCharIm χ 0 = 0 := by simp [vonMangoldtCharIm]
 
+omit [NeZero q] in
 lemma chebyshev_character_re_im (x : ℝ) :
     Schi χ x = (Formalism.Sa (vonMangoldtCharRe χ) x : ℂ) + I * (Formalism.Sa (vonMangoldtCharIm χ) x : ℂ) := by
   unfold Schi Formalism.Sa vonMangoldtCharRe vonMangoldtCharIm
@@ -67,6 +70,7 @@ lemma chebyshev_character_re_im (x : ℝ) :
   conv_lhs => rw [← Complex.re_add_im (χ (n : ZMod q))]
   ring
 
+omit [NeZero q] in
 lemma chebyshev_character_eq_zero_of_le_one {x : ℝ} (hx : x ≤ 1) : Schi χ x = 0 := by
   unfold Schi
   apply Finset.sum_eq_zero
@@ -96,7 +100,6 @@ lemma lseries_summable_of_vonMangoldt_bound {a : ℕ → ℝ} (ha : ∀ n, |a n|
       simpa [Complex.norm_real, abs_of_nonneg h3] using h2
   first
   | exact Summable.of_norm_bounded hΛ.norm hb
-  | exact Summable.of_norm_bounded _ hΛ.norm hb
 
 lemma neg_log_deriv_eq_lseries_mul_vonMangoldt {w : ℂ} (hw : 1 < w.re) : negLD χ w = LSeries (↗χ * ↗Λ) w := by
   unfold negLD

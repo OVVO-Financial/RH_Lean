@@ -161,7 +161,7 @@ lemma integrable_tsum_of_nonneg {α : Type*} [MeasurableSpace α] {μ : Measure 
   have hm : ∀ n, AEMeasurable (fun x => ENNReal.ofReal (φ n x)) μ :=
     fun n => (hφ n).aemeasurable.ennreal_ofReal
   have hmeas : AEMeasurable (fun x => ∑' n, ENNReal.ofReal (φ n x)) μ :=
-    AEMeasurable.ennreal_tsum hm
+    AEMeasurable.tsum hm
   have hlin : ∫⁻ x, ∑' n, ENNReal.ofReal (φ n x) ∂μ = ENNReal.ofReal (∑' n, ∫ x, φ n x ∂μ) := by
     rw [lintegral_tsum hm,
       ENNReal.ofReal_tsum_of_nonneg (fun n => integral_nonneg_of_ae (h0 n)) hs]

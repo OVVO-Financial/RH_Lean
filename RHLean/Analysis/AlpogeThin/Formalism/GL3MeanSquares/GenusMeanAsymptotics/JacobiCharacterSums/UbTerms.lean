@@ -43,7 +43,7 @@ theorem lb_part (a : ℕ) (D : ℝ) (m n j : ℕ) (T : ℝ) (hmj : m ≤ j)
     first
     | ring1
     | (field_simp; done)
-    | (field_simp; ring1)
+    | (field_simp)
     | (field_simp; rw [← mul_pow]; norm_num)
   rw [heq]
   exact (mul_le_mul_of_nonneg_left key (by positivity)).trans
@@ -87,21 +87,17 @@ private theorem pow_mul_div_pow_succ_eq_div (η X : ℝ) (hη : η ≠ 0) (j : �
     η ^ j * (X / η ^ (j + 1)) = X / η := by
   first
   | rw [mul_div_assoc', pow_succ η j, mul_div_mul_left _ _ (pow_ne_zero j hη)]
-  | (field_simp; done)
-  | (field_simp; ring)
 
 private theorem pow_mul_div_mul_pow_eq_div (η M X : ℝ) (hη : η ≠ 0) (j : ℕ) :
     η ^ j * (X / (M * η ^ j)) = X / M := by
   first
   | rw [mul_div_assoc', mul_comm M (η ^ j), mul_div_mul_left _ _ (pow_ne_zero j hη)]
-  | (field_simp; done)
-  | (field_simp; ring)
 
 set_option maxHeartbeats 800000 in
 
 theorem ub_terms (a : ℕ) (CP CF cZ cS c₂ κ L ℓ lam η Mr K : ℝ) (j : ℕ) (hj : 1 ≤ j)
-    (hCP : 0 < CP) (hCF : 0 < CF) (hcZ : 0 < cZ) (hcS : 0 < cS) (hc₂ : 0 < c₂)
-    (hL : 1 ≤ L) (hℓ0 : 0 ≤ ℓ) (hℓ : ℓ ≤ 2 * L) (hlam : 0 < lam) (hη : 0 < η) (hMr : 0 < Mr) (hK : 0 < K)
+    (hCP : 0 < CP) (hCF : 0 < CF) (hcZ : 0 < cZ) (hcS : 0 < cS) (_hc₂ : 0 < c₂)
+    (hL : 1 ≤ L) (hℓ0 : 0 ≤ ℓ) (hℓ : ℓ ≤ 2 * L) (hlam : 0 < lam) (hη : 0 < η) (_hMr : 0 < Mr) (hK : 0 < K)
     (hlη1 : lam / η ≤ 2 * (lam * L) / cZ) (hM : ℓ ^ 2 / Mr ≤ 32 * lam / cS) (hηc : η ≤ c0 a)
     (hηL : η * L < c₂ * K) (h25c : 25 * CF * c₂ ≤ κ) (hκth : κ ≤ th a)
     (hc₂P : 2 * Real.exp 1 * CP * c₂ * rr a ≤ th a) (hjr : th a * K < j) :
@@ -162,16 +158,12 @@ theorem ub_terms (a : ℕ) (CP CF cZ cS c₂ κ L ℓ lam η Mr K : ℝ) (j : �
   have hy : Real.exp 1 * (CP * ℓ * η) / (j : ℝ) ≤ 1 / rr a := by
     first
     | (rw [div_le_div_iff₀ hJpos hRpos]; linarith)
-    | (rw [div_le_div_iff hJpos hRpos]; linarith)
-    | (rw [div_le_div_iff_of_pos hJpos hRpos]; linarith)
   have b2 : η ^ j * ((CP * ℓ) ^ j / ((j - 1).factorial : ℝ)) ≤ ((j : ℝ) + 1) ^ 2 / rr a ^ j := by
     calc η ^ j * ((CP * ℓ) ^ j / ((j - 1).factorial : ℝ)) = (CP * ℓ * η) ^ j / ((j - 1).factorial : ℝ) := by ring
       _ ≤ (j : ℝ) * (Real.exp 1 * (CP * ℓ * η) / j) ^ j := fact_bound _ hx0 j hj
       _ ≤ (j : ℝ) * (1 / rr a) ^ j := by
           first
           | exact mul_le_mul_of_nonneg_left (pow_le_pow_left₀ (by positivity) hy j) hJpos.le
-          | exact mul_le_mul_of_nonneg_left (pow_le_pow_left (by positivity) hy j) hJpos.le
-          | gcongr (j : ℝ) * ?_ ^ j
       _ = (j : ℝ) / rr a ^ j := by rw [one_div_pow, mul_one_div]
       _ ≤ ((j : ℝ) + 1) ^ 2 / rr a ^ j := by gcongr
   have b5 : η ^ j * (CF * L * 25 ^ j) ≤ rr a * (((j : ℝ) + 1) ^ 2 / rr a ^ j) := by
@@ -188,7 +180,6 @@ theorem ub_terms (a : ℕ) (CP CF cZ cS c₂ κ L ℓ lam η Mr K : ℝ) (j : �
       _ ≤ ((k + 1 : ℕ) : ℝ) * (1 / rr a) ^ k := by
           first
           | exact mul_le_mul hcl (pow_le_pow_left₀ (by positivity) h25 k) (by positivity) (by positivity)
-          | exact mul_le_mul hcl (pow_le_pow_left (by positivity) h25 k) (by positivity) (by positivity)
       _ = ((k + 1 : ℕ) : ℝ) / rr a ^ k := by rw [one_div_pow, mul_one_div]
       _ ≤ (((k + 1 : ℕ) : ℝ) + 1) ^ 2 / rr a ^ k := by gcongr
       _ = rr a * ((((k + 1 : ℕ) : ℝ) + 1) ^ 2 / rr a ^ (k + 1)) := by

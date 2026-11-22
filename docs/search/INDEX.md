@@ -67,15 +67,15 @@
 
 - [catalog-research-lean-vf.jsonl](catalog-research-lean-vf.jsonl) — 226 records
 - [catalog-research-lean.jsonl](catalog-research-lean.jsonl) — 554 records
-- [catalog-research-notes.jsonl](catalog-research-notes.jsonl) — 272 records
+- [catalog-research-notes.jsonl](catalog-research-notes.jsonl) — 273 records
 - [catalog-library-proof.jsonl](catalog-library-proof.jsonl) — 450 records
-- [catalog-library-alpoge-thin.jsonl](catalog-library-alpoge-thin.jsonl) — 366 records
-- [catalog-library-geometry.jsonl](catalog-library-geometry.jsonl) — 110 records
-- [catalog-library-core.jsonl](catalog-library-core.jsonl) — 454 records
+- [catalog-library-alpoge-thin.jsonl](catalog-library-alpoge-thin.jsonl) — 369 records
+- [catalog-library-geometry.jsonl](catalog-library-geometry.jsonl) — 112 records
+- [catalog-library-core.jsonl](catalog-library-core.jsonl) — 456 records
 - [catalog-docs.jsonl](catalog-docs.jsonl) — 155 records
 - [catalog-code.jsonl](catalog-code.jsonl) — 418 records
-- [rewrite-families-a-k.jsonl](rewrite-families-a-k.jsonl) — 358 records
+- [rewrite-families-a-k.jsonl](rewrite-families-a-k.jsonl) — 359 records
 - [rewrite-families-l.jsonl](rewrite-families-l.jsonl) — 344 records
-- [rewrite-families-m-r.jsonl](rewrite-families-m-r.jsonl) — 505 records
+- [rewrite-families-m-r.jsonl](rewrite-families-m-r.jsonl) — 506 records
 - [rewrite-families-s.jsonl](rewrite-families-s.jsonl) — 433 records
 - [rewrite-families-t-z.jsonl](rewrite-families-t-z.jsonl) — 290 records

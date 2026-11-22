@@ -55,9 +55,8 @@ lemma Lent_one_apply {χ : DirichletCharacter ℂ N} (h : χ = 1) {s : ℂ} (hs 
   unfold Lent
   rw [ite_eq_left rfl]
   first
-    | (rw [LFunctionTrivChar₁, Function.update_of_ne hs]; rfl)
+    | (rw [LFunctionTrivChar₁, Function.update_of_ne hs])
     | (simp [LFunctionTrivChar₁, Function.update_of_ne hs])
-    | (simp [LFunctionTrivChar₁, hs])
 
 lemma Lent_two_ne_zero (χ : DirichletCharacter ℂ N) : Lent χ 2 ≠ 0 := by
   have h2 : (2 : ℂ) ≠ 1 := by norm_num
@@ -117,7 +116,7 @@ lemma logDeriv_Lent (χ : DirichletCharacter ℂ N) {s : ℂ} (hs : s ≠ 1) (h0
     have h2 : logDeriv (fun z : ℂ => z - 1) s = 1 / (s - 1) := by
       simp [logDeriv_apply]
     have hdz : DifferentiableAt ℂ (fun z : ℂ => z - 1) s := differentiableAt_id.sub_const (1 : ℂ)
-    rw [h1, logDeriv_mul (f := fun z : ℂ => z - 1) (g := LFunction χ) s
+    rw [h1, logDeriv_fun_mul (f := fun z : ℂ => z - 1) (g := LFunction χ) s
       (sub_ne_zero.mpr hs) h0 hdz hd, h2]
     simp only [del1, ite_eq_left h]
     ring

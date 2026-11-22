@@ -114,6 +114,7 @@ def cupCocycleH0Z2 : H0 rho →ₗ[R] Z2 rho' →ₗ[R] Z2 rhoP :=
     (fun m f f' => Subtype.ext (funext fun p => by simp))
     (fun r m f => Subtype.ext (funext fun p => by simp))
 
+omit [IsTopologicalAddGroup M] [ContinuousConstSMul R M] in
 @[simp] theorem cupCocycleH0Z2_apply (m : H0 rho) (f : Z2 rho') (p : G × G) :
     (cupCocycleH0Z2 rho rho' rhoP b hb hbe m f).1 p = b m.1 (f.1 p) := rfl
 
@@ -146,6 +147,7 @@ def cupCocycleZ2H0 : Z2 rho →ₗ[R] H0 rho' →ₗ[R] Z2 rhoP :=
     (fun f m m' => Subtype.ext (funext fun p => by simp))
     (fun r f m => Subtype.ext (funext fun p => by simp))
 
+omit [IsTopologicalAddGroup M'] [ContinuousConstSMul R M'] in
 @[simp] theorem cupCocycleZ2H0_apply (f : Z2 rho) (m : H0 rho') (p : G × G) :
     (cupCocycleZ2H0 rho rho' rhoP b hb hbe f m).1 p = b (f.1 p) m.1 := rfl
 

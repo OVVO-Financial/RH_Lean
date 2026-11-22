@@ -30,7 +30,7 @@ private lemma pos_of_mem_uIcc_self_add_one {x t : ℝ} (hx : 0 < x) (ht : t ∈ 
   rw [Set.uIcc_of_le (by linarith)] at ht
   exact lt_of_lt_of_le hx ht.1
 
-lemma cpow_sub_eq_integral {x : ℝ} (hx : 0 < x) {s : ℂ} (hs : s ≠ 0) :
+lemma cpow_sub_eq_integral {x : ℝ} (hx : 0 < x) {s : ℂ} (_hs : s ≠ 0) :
     (x : ℂ) ^ (-s) - ((x + 1 : ℝ) : ℂ) ^ (-s) = s * ∫ t in x..(x + 1), (t : ℂ) ^ (-s - 1) := by
   have hderiv : ∀ t ∈ Set.uIcc x (x + 1),
       HasDerivAt (fun y : ℝ => (y : ℂ) ^ (-s)) (-s * (t : ℂ) ^ (-s - 1)) t := fun t ht =>
@@ -98,9 +98,11 @@ def dterm (s : ℂ) (n : ℕ) : ℂ := Ap χ n * ((n : ℂ) ^ (-s) - ((n : ℂ) 
 
 def G (s : ℂ) : ℂ := ∑' n, dterm χ s n
 
+omit [NeZero q] in
 lemma Ap_zero : Ap χ 0 = 0 := by
   simp [Ap]
 
+omit [NeZero q] in
 lemma Ap_succ (n : ℕ) : Ap χ (n + 1) = Ap χ n + χ ((n + 1 : ℕ) : ZMod q) := by
   simp only [Ap]
   rw [Finset.sum_Icc_succ_top (by omega)]
@@ -125,6 +127,7 @@ lemma norm_dterm_le {B : ℝ} (hB : ∀ M, ‖Ap χ M‖ ≤ B) {s : ℂ} (hs : 
     rw [norm_mul]
     exact mul_le_mul (hB n) key (norm_nonneg _) hB0
 
+omit [NeZero q] in
 lemma norm_dterm_le' {B : ℝ} (hB : ∀ M, ‖Ap χ M‖ ≤ B) {s : ℂ} (hs : 0 < s.re) {n : ℕ}
     (hn : 1 ≤ n) :
     ‖dterm χ s n‖ ≤ B * (‖s‖ / s.re * ((n : ℝ) ^ (-s.re) - ((n : ℝ) + 1) ^ (-s.re))) := by

@@ -100,7 +100,7 @@ theorem localZeroExpansionOfFactorization : LandauLocalOf := by
     intro h0; apply hf0; rw [hfz₀, h0, mul_zero]
   have hPz₀le : ‖∏ ρ ∈ Z, (z₀ - ρ) ^ m ρ‖ ≤ (r / 3) ^ (∑ ρ ∈ Z, m ρ) := by
     rw [norm_prod_sub_pow, ← Finset.prod_pow_eq_pow_sum]
-    refine Finset.prod_le_prod (fun ρ _ => pow_nonneg (norm_nonneg _) _) ?_
+    refine Finset.prod_le_prod₀ (fun ρ _ => pow_nonneg (norm_nonneg _) _) ?_
     intro ρ hρ
     have h1 : ‖z₀ - ρ‖ ≤ r / 3 := by rw [norm_sub_rev]; exact hZball ρ hρ
     exact pow_le_pow_left_of_nonneg_le (norm_nonneg _) h1 _
@@ -108,7 +108,7 @@ theorem localZeroExpansionOfFactorization : LandauLocalOf := by
       (2 * r / 3) ^ (∑ ρ ∈ Z, m ρ) ≤ ‖∏ ρ ∈ Z, (w - ρ) ^ m ρ‖ := by
     intro w hw
     rw [norm_prod_sub_pow, ← Finset.prod_pow_eq_pow_sum]
-    refine Finset.prod_le_prod (fun ρ _ => pow_nonneg (by linarith) _) ?_
+    refine Finset.prod_le_prod₀ (fun ρ _ => pow_nonneg (by linarith) _) ?_
     intro ρ hρ
     have h2 := hZball ρ hρ
     have h3 : ‖w - z₀‖ ≤ ‖w - ρ‖ + ‖ρ - z₀‖ := by

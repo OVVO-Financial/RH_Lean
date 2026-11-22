@@ -49,9 +49,11 @@ import RHLean.Analysis.AlpogeNativeAffineFamilyPayment
 import RHLean.Analysis.AlpogeNativeClassGroupNNSIntegral
 import RHLean.Analysis.AlpogeNativeCompleteSourcePayment
 import RHLean.Analysis.AlpogeNativeCostNormalization
+import RHLean.Analysis.AlpogeNativeDyadicHostSize
 import RHLean.Analysis.AlpogeNativeFourCharacterArithmetic
 import RHLean.Analysis.AlpogeNativeLPM2Endpoint
 import RHLean.Analysis.AlpogeNativePrincipalProjection
+import RHLean.Analysis.AlpogeNativeReciprocitySurjective
 import RHLean.Analysis.AlpogeNativeSharpASKBalance
 import RHLean.Analysis.AlpogeNativeSharpShell
 import RHLean.Analysis.AlpogeNativeSignedWidthPayment
@@ -428,6 +430,9 @@ import RHLean.Analysis.AlpogeThin.Formalism.ZetaNonvanishingChebyshevWeights
 import RHLean.Analysis.AlpogeThin.Formalism.ZetaNonvanishingGeneralWeights
 import RHLean.Analysis.AlpogeThin.Formalism.ZetaRealNonvanish
 import RHLean.Analysis.AlpogeThin.NativeCftThin
+import RHLean.Analysis.AlpogeThin.NativeDyadicGzPayment
+import RHLean.Analysis.AlpogeThin.NativeDyadicPayment
+import RHLean.Analysis.AlpogeThin.NativeDyadicThickCharacters
 import RHLean.Analysis.AlpogeThin.NativeHostThin
 import RHLean.Analysis.AlpogeThin.NativePrincipalThin
 import RHLean.Analysis.AlpogeThin.ReciprocityTheory.GaloisValuations.ContinuousConstSMulQuotient
@@ -909,7 +914,9 @@ import RHLean.Geometry.NativeComponentRegularSection
 import RHLean.Geometry.NativeComponentRegularity
 import RHLean.Geometry.NativeDescentCostPayment
 import RHLean.Geometry.NativeFiniteIntegralDescent
+import RHLean.Geometry.NativeGradedCharacterSlopeDescent
 import RHLean.Geometry.NativeGradedSectionRegularity
+import RHLean.Geometry.NativeGradedShortSectionConstruction
 import RHLean.Geometry.NativeGroupDeterminant
 import RHLean.Geometry.NativeIntegralCompletion
 import RHLean.Geometry.NativeIntegralLatticeCertificate

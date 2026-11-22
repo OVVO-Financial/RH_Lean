@@ -26,6 +26,7 @@ theorem hnSum_mem_zl (N : Submodule R V) (y : E) :
     y ∈ zl ρ N ↔ ∃ x ∈ N, ρ x = y :=
   Iff.rfl
 
+omit [InnerProductSpace ℝ E] in
 theorem hnSum_zl_mono {A B : Submodule R V} (h : A ≤ B) : zl ρ A ≤ zl ρ B := by
   intro y hy
   obtain ⟨x, hx, rfl⟩ := (hnSum_mem_zl ρ A y).1 hy
@@ -106,6 +107,7 @@ variable {R : Type u} {V : Type v} {E : Type w} [Ring R] [AddCommGroup V] [Modul
     [NormedAddCommGroup E] [InnerProductSpace ℝ E] [FiniteDimensional ℝ E] (ρ : V →+ E)
 
 omit [FiniteDimensional ℝ E] in
+omit [InnerProductSpace ℝ E] in
 theorem hnSum_rk_bot : rk ρ (⊥ : Submodule R V) = 0 := by
   have e : zl ρ (⊥ : Submodule R V) = ⊥ := by
     ext y

@@ -220,15 +220,20 @@
   "native_additions": [
     "RHLean/Analysis/AlpogeLandau/NativeGzConsumer.lean",
     "RHLean/Analysis/AlpogeLandau.lean",
-    "research/ALPOGE_NATIVE_LANDAU_WINDOW_20261122.lean",
-    "RHLean/Analysis/AlpogeNativePrincipalProjection.lean"
+    "RHLean/Analysis/AlpogeNativePrincipalProjection.lean",
+    "research/ALPOGE_GEOMETRIC_CONSTRUCTION_CLOSURE_AUDIT_20261122.lean"
   ],
   "no_local_lean_execution": true,
   "hosted_verification": "All 30 source-derived analytic modules, NativeGzConsumer and barrel compiled on PR1194 head17c409dcacf852f8c73755051271446cf85595f5. Principal parser repair and final axiom guards pending.",
   "native_addition_hashes": {
     "RHLean/Analysis/AlpogeLandau/NativeGzConsumer.lean": "5e9e38b2483b584b0c246d80a30abdad25e1bd58508410539fe0c3ae80c0c957",
     "RHLean/Analysis/AlpogeLandau.lean": "c4327df43402b131515913b70a152c254d658b61f34a4659bc1970371107acd4",
-    "research/ALPOGE_NATIVE_LANDAU_WINDOW_20261122.lean": "dadd5a62978e4c1ea831cc67b6f51f066a800b72e4e6232fca4e4efef9f67a3e",
-    "RHLean/Analysis/AlpogeNativePrincipalProjection.lean": "da7533f747ac551c15573f51bacc4880de42f5168c95a5f9414ca6a12c461b16"
+    "RHLean/Analysis/AlpogeNativePrincipalProjection.lean": "da7533f747ac551c15573f51bacc4880de42f5168c95a5f9414ca6a12c461b16",
+    "research/ALPOGE_GEOMETRIC_CONSTRUCTION_CLOSURE_AUDIT_20261122.lean": "12bca117f3b45cf4cdf6b851e0a9d295b172180499a37fda93dbc2f6baab6096"
+  },
+  "consolidated_audit_root": {
+    "previous_planned_path": "research/ALPOGE_NATIVE_LANDAU_WINDOW_20261122.lean",
+    "current_path": "research/ALPOGE_GEOMETRIC_CONSTRUCTION_CLOSURE_AUDIT_20261122.lean",
+    "reason": "The planned standalone Landau audit was consolidated into the published geometry/analytic axiom guard; record the real existing verification root."
   }
 }

@@ -658,7 +658,7 @@ private lemma gl2a4_log_le_exp {c L : ℝ} (hc : 0 < c) (hLc : 1600 / c ≤ L) (
   nlinarith
 
 set_option maxHeartbeats 800000 in
-private lemma gl2a4_count_core {C₀ Cr cr c : ℝ} (hC₀ : 0 < C₀) (hCr : 0 < Cr) (hcr : 0 < cr) (hc : 0 < c)
+private lemma gl2a4_count_core {C₀ Cr cr c : ℝ} (_hC₀ : 0 < C₀) (hCr : 0 < Cr) (hcr : 0 < cr) (hc : 0 < c)
     (hP : PrimesAPInterval C₀ Cr cr c) :
     ∃ K₀ L₀ : ℝ, 0 ≤ K₀ ∧ ∀ (m a : ℕ), 3 ≤ m → Nat.Coprime a m → ∀ X : ℝ, 0 < X →
       L₀ ≤ Real.log X → K₀ * Real.log (4 * (m : ℝ)) ≤ Real.log X →

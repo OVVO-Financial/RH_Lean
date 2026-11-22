@@ -164,7 +164,7 @@ theorem kb_le_nearB {u T : ℝ} (hu : 0 < u) (hT : 0 < T) {n : ℕ} (hn : 0 < n)
 def pTerm (u T : ℝ) (n : ℕ) : ℝ :=
   ArithmeticFunction.vonMangoldt n * (u / n) ^ cLine u * kb T (u / n)
 
-theorem pTerm_nonneg {u T : ℝ} (hu : 0 < u) (hT : 0 < T) (n : ℕ) : 0 ≤ pTerm u T n := by
+theorem pTerm_nonneg {u T : ℝ} (hu : 0 < u) (_hT : 0 < T) (n : ℕ) : 0 ≤ pTerm u T n := by
   unfold pTerm
   have hk : 0 ≤ kb T (u / n) := by
     unfold kb

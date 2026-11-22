@@ -1,5 +1,6 @@
 import RHLean.Analysis.AlpogeThin.NativePrincipalThin
 import RHLean.Analysis.AlpogeCompletePrimitiveASK
+import RHLean.Analysis.AlpogeNativeReciprocitySurjective
 import RHLean.Analysis.AlpogeNativeCompleteSourcePayment
 import Mathlib.Analysis.Fourier.FiniteAbelian.PontryaginDuality
 
@@ -18,8 +19,9 @@ definitions have different principal branches.
 
 The last theorem pays the literal finite thin return at its original widths.
 The source estimate is supplied by the selected-pair theorem, not assumed.
-The actual host/cover construction must still supply its onto unit map,
-modulus bound and thin-width scale. No bound on geometric ASK-MAIN is asserted.
+The actual dyadic reciprocity map is proved onto and then specialized below.
+The cover construction must still supply its modulus bound and thin-width
+scale. No bound on geometric ASK-MAIN is asserted.
 -/
 
 set_option autoImplicit false
@@ -88,7 +90,7 @@ theorem nativeCftGPsi_eq_nativeResponse
         (alpogeNativeCftData N q d r).frob
         (alpogeNativeCanonicalHostEll r) ψ y =
       nativeResponse (alpogeNativeDirChar r ψ).primitiveCharacter y := by
-  letI : NeZero (alpogeNativeDirChar r ψ).conductor :=
+  let : NeZero (alpogeNativeDirChar r ψ).conductor :=
     ⟨DirichletCharacter.conductor_ne_zero _⟩
   rw [alpogeNativeCftGPsi_eq_primitiveGPsi]
   unfold alpogeNativeRealizedPrimitiveGPsi nativeResponse
@@ -125,7 +127,7 @@ theorem nativeSelectedCftThin
   refine ⟨q, d, hG, ?_⟩
   intro x hx H _ _ _ k N _ hN hlog r hr ψ y hy
   let χ := alpogeNativeDirChar r ψ
-  letI : NeZero χ.conductor := ⟨DirichletCharacter.conductor_ne_zero _⟩
+  let : NeZero χ.conductor := ⟨DirichletCharacter.conductor_ne_zero _⟩
   have hcN : χ.conductor ∣ N := DirichletCharacter.conductor_dvd_level χ
   have hcpos : (0 : ℝ) < χ.conductor := by
     exact_mod_cast Nat.pos_of_ne_zero (DirichletCharacter.conductor_ne_zero χ)
@@ -138,6 +140,42 @@ theorem nativeSelectedCftThin
   exact hthin x hx k χ.conductor χ.primitiveCharacter
     (DirichletCharacter.primitiveCharacter_isPrimitive χ)
     (hcN.trans hN) hclog y hy
+
+/-- The actual dyadic host supplies the onto map. The same selected pair
+therefore pays every original physical character, uniformly in its dyadic
+exponent. No host-map or principal-identification premise remains. -/
+theorem nativeSelectedDyadicHostThin
+    (eps A : ℝ) (he : 0 < eps) (he52 : eps < 1 / 52) (hA : 1 ≤ A) :
+    ∃ Y₀ x₀ : ℝ, ∀ Y : ℝ, Y₀ ≤ Y →
+      ∃ (q d : ℕ) (hG : UpperTheory.Top.PairGood 1 eps Y (Y ^ A) q d),
+        letI : Fact q.Prime := ⟨hG.pair.q_prime⟩
+        letI : Fact d.Prime := ⟨hG.pair.d_prime⟩
+        ∀ x : ℝ, x₀ ≤ x → ∀ e : ℕ,
+          Real.log (alpogeNativeHostN e q d) ≤
+            2 * x ^ (eps / 5) * Real.log x ^ 2 →
+          ∀ (ψ : AddChar (AlpogeNativeE0 × AlpogeNativeDyadicH e) ℂ) (y : ℝ),
+            Real.exp (x ^ (eps / 3)) / 3 ≤ y →
+            ‖alpogeNativeFrobInertiaGPsi
+                (alpogeNativeHostData e q d).inertia
+                (alpogeNativeHostData e q d).frob
+                (alpogeNativeCanonicalHostEll (alpogeNativeRecMap e q d)) ψ y‖ ≤
+              y * Real.exp (-(x ^ (eps / 8))) := by
+  obtain ⟨Y₀, x₀, hpair⟩ := nativeSelectedCftThin eps A he he52 hA
+  refine ⟨Y₀, x₀, fun Y hY => ?_⟩
+  obtain ⟨q, d, hG, hthin⟩ := hpair Y hY
+  refine ⟨q, d, hG, ?_⟩
+  let : Fact q.Prime := ⟨hG.pair.q_prime⟩
+  let : Fact d.Prime := ⟨hG.pair.d_prime⟩
+  intro x hx e hlog ψ y hy
+  have hq2 : q ≠ 2 := by have := hG.pair.q_mod; omega
+  have hd2 : d ≠ 2 := by have := hG.pair.d_mod; omega
+  have hqd : q ≠ d := by
+    have := hG.pair.q_mod
+    have := hG.pair.d_mod
+    omega
+  exact hthin x hx (AlpogeNativeDyadicH e) (e + 2)
+    (alpogeNativeHostN e q d) (dvd_refl _) hlog (alpogeNativeRecMap e q d)
+    (alpogeNativeRecMap_surjective e q d hq2 hd2 hqd) ψ y hy
 
 /-- Every original width cancels against its own thin-response argument.
 The character count is the actual finite dual cardinal, not a multiplicity
@@ -258,6 +296,44 @@ theorem nativeSelectedCftThinReturn
     (fun g hg ψ => hthin x hx H k N hN hlog r hr ψ
       (a / w (alpogeNativePartner t g)) (hy g hg))
 
+/-- The original complementary colour count is fixed by the actual selected
+set. In particular it does not grow with the top index or subgroup translate. -/
+theorem nativeThinColourCount (T2 : Finset H) (u t : H) :
+    (((Finset.univ.filter
+        (fun g : AlpogeNativeE0 × H => ¬ alpogeNativeInPhi g)) \
+          alpogeNativeProjectionThickColours T2 u t).card : ℝ) =
+      2 * (Fintype.card H : ℝ) - T2.card := by
+  have hset : (Finset.univ.filter
+        (fun g : AlpogeNativeE0 × H => ¬ alpogeNativeInPhi g)) =
+      ((Finset.univ : Finset AlpogeNativeE0).filter (fun e => e.1 ≠ 0)) ×ˢ
+        (Finset.univ : Finset H) := by
+    ext g
+    simp [alpogeNativeInPhi]
+  have htwo : ((Finset.univ : Finset AlpogeNativeE0).filter
+      (fun e => e.1 ≠ 0)).card = 2 := by decide
+  have hcard : (Finset.univ.filter
+      (fun g : AlpogeNativeE0 × H => ¬ alpogeNativeInPhi g)).card =
+      2 * Fintype.card H := by
+    rw [hset, Finset.card_product, htwo, Finset.card_univ]
+  have hinj : Function.Injective
+      (fun s : H => alpogeNativeProjectionE1 (s + u - t)) := by
+    intro s s' h
+    have h' : s + u - t = s' + u - t := congrArg Prod.snd h
+    have h'' : s + u = s' + u := by
+      simpa only [sub_add_cancel] using congrArg (fun x : H => x + t) h'
+    exact add_right_cancel h''
+  have hthick : (alpogeNativeProjectionThickColours T2 u t).card = T2.card := by
+    exact Finset.card_image_of_injective _ hinj
+  have hsum := Finset.card_sdiff_add_card_eq_card
+    (alpogeNativeProjectionThickColours_subset T2 u t)
+  rw [hcard, hthick] at hsum
+  have hsum' :
+      (((Finset.univ.filter
+          (fun g : AlpogeNativeE0 × H => ¬ alpogeNativeInPhi g)) \
+            alpogeNativeProjectionThickColours T2 u t).card : ℝ) + T2.card =
+        2 * (Fintype.card H : ℝ) := by exact_mod_cast hsum
+  linarith
+
 /-- Explicit finite thin bill after every original width has cancelled. It
 keeps the true colour counts, the subgroup average, all top heights and m rows.
 It contains no response function, logarithmic derivative or unknown norm. -/
@@ -269,6 +345,60 @@ def nativeThinBill
         (fun g : AlpogeNativeE0 × H => ¬ alpogeNativeInPhi g)) \
           alpogeNativeProjectionThickColours T2 u t).card : ℝ) /
       (alpogeNativePhiSet H).card * ((4 * (Fintype.card H : ℝ)) * a t * θ)
+
+/-- Closed form of the complete thin bill. This is a derived count identity,
+including its favorable `-2*|T2|` contribution, not a chosen normalization. -/
+theorem nativeThinBill_eq
+    (A0 : AddSubgroup H) (TT T2 : Finset H) (m : ℕ)
+    (a : H → ℝ) (θ : ℝ) :
+    nativeThinBill A0 TT T2 m a θ =
+      (4 * (Fintype.card H : ℝ) - 2 * T2.card) * m * θ * ∑ t ∈ TT, a t := by
+  have hn : (Fintype.card H : ℝ) ≠ 0 := by
+    exact_mod_cast Fintype.card_ne_zero
+  have hA0 : (Fintype.card A0 : ℝ) ≠ 0 := by
+    exact_mod_cast Fintype.card_ne_zero
+  have hrow : ∀ (u : A0) t,
+      (((Finset.univ.filter
+          (fun g : AlpogeNativeE0 × H => ¬ alpogeNativeInPhi g)) \
+            alpogeNativeProjectionThickColours T2 u t).card : ℝ) /
+        (alpogeNativePhiSet H).card * ((4 * (Fintype.card H : ℝ)) * a t * θ) =
+      (4 * (Fintype.card H : ℝ) - 2 * T2.card) * a t * θ := by
+    intro u t
+    rw [nativeThinColourCount, alpogeNativeProjectionPhi_card]
+    push_cast
+    field_simp [hn]
+    ring
+  have hinner : (∑ t ∈ TT, (m : ℝ) *
+        ((4 * (Fintype.card H : ℝ) - 2 * T2.card) * a t * θ)) =
+      (4 * (Fintype.card H : ℝ) - 2 * T2.card) * m * θ * ∑ t ∈ TT, a t := by
+    rw [Finset.mul_sum]
+    exact Finset.sum_congr rfl (fun t _ => by ring)
+  unfold nativeThinBill
+  simp_rw [hrow]
+  simp only [Finset.sum_const, Finset.card_univ, Fintype.card_fin, nsmul_eq_mul]
+  rw [hinner]
+  field_simp [hA0]
+
+/-- Normalize by the divisor already earned from the same character source.
+The row multiplicity cancels only after its appearance on both sides has
+been proved. The genuine thick density and the mean of the actual heights
+remain, together with the favorable selected-colour correction. -/
+theorem nativeThinBill_div_projectionDivisor
+    (A0 : AddSubgroup H) (TT T2 : Finset H) (m : ℕ)
+    (a : H → ℝ) (b θ : ℝ)
+    (hTT : TT.Nonempty) (hT2 : T2.Nonempty) (hm : 0 < m) (hb : 0 < b) :
+    nativeThinBill A0 TT T2 m a θ / alpogeNativeProjectionDivisor TT T2 m b =
+      (8 * (Fintype.card H : ℝ) - 4 * T2.card) * θ *
+        ((∑ t ∈ TT, a t) / TT.card) / (b * alpogeNativeProjectionDensity T2) := by
+  have hT : (TT.card : ℝ) ≠ 0 := by exact_mod_cast hTT.card_pos.ne'
+  have hS : (T2.card : ℝ) ≠ 0 := by exact_mod_cast hT2.card_pos.ne'
+  have hn : (Fintype.card H : ℝ) ≠ 0 := by
+    exact_mod_cast Fintype.card_ne_zero
+  have hm' : (m : ℝ) ≠ 0 := by exact_mod_cast hm.ne'
+  rw [nativeThinBill_eq]
+  unfold alpogeNativeProjectionDivisor alpogeNativeProjectionDensity
+  field_simp [hT, hS, hn, hm', hb.ne']
+  ring
 
 /-- Direct attachment to the existing complete native source consumer.
 

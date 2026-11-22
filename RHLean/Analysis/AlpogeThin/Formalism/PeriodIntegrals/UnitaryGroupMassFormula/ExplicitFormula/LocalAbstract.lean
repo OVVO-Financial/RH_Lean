@@ -82,7 +82,7 @@ lemma gfun_bounds (hR' : 0 < R') (hR'R : R' < R)
     refine mul_le_mul_of_nonneg_right ?_ (norm_nonneg _)
     calc ∏ ρ ∈ Z, ‖(s₀ - ρ) ^ m ρ‖ = ∏ ρ ∈ Z, ‖s₀ - ρ‖ ^ m ρ := by simp only [norm_pow]
       _ ≤ ∏ ρ ∈ Z, R' ^ m ρ := by
-        refine Finset.prod_le_prod (fun ρ _ => by positivity) fun ρ hρ => ?_
+        refine Finset.prod_le_prod₀ (fun ρ _ => by positivity) fun ρ hρ => ?_
         have hρ' : ρ ∈ closedBall s₀ R' := ((hZ ρ).1 hρ).1
         rw [mem_closedBall, dist_eq_norm] at hρ'
         rw [norm_sub_rev]

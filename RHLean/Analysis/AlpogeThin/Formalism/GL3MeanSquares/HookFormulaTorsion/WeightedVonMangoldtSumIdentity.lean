@@ -175,7 +175,7 @@ theorem primorial_upper_bound : PrimorialBound := by
   unfold oddM
   have h1 : (∏ p ∈ (Icc 3 ⌊y⌋₊).filter Nat.Prime, p) ≤ primorial ⌊y⌋₊ := by
     unfold primorial
-    apply Finset.prod_le_prod_of_subset_of_one_le'
+    apply Finset.prod_le_prod_of_subset_of_one_le
     · intro p hp
       simp only [mem_filter, mem_Icc, mem_range] at hp ⊢
       exact ⟨by omega, hp.2⟩
@@ -376,10 +376,10 @@ theorem twist_evaluation_formula : TwEval := by
     rw [← hu', DirichletCharacter.changeLevel_eq_cast_of_dvd, DirichletCharacter.changeLevel_eq_cast_of_dvd, hu']
     have h1 : (ZMod.cast ((n : ZMod (t * q))) : ZMod t) = (n : ZMod t) := by
       have : (ZMod.castHom (Dvd.intro q rfl : t ∣ t * q) (ZMod t)) (n : ZMod (t*q)) = (n : ZMod t) := map_natCast _ n
-      simpa using this
+      simp
     have h2 : (ZMod.cast ((n : ZMod (t * q))) : ZMod q) = (n : ZMod q) := by
       have : (ZMod.castHom (Dvd.intro_left t rfl : q ∣ t * q) (ZMod q)) (n : ZMod (t*q)) = (n : ZMod q) := map_natCast _ n
-      simpa using this
+      simp
     rw [h1, h2]
     congr 1
     rw [← jacobiSym.legendreSym.to_jacobiSym]

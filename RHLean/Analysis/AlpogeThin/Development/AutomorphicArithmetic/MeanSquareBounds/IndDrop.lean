@@ -29,9 +29,9 @@ theorem ind_drop :
       Ind χ (fun n => ξ n * J q n) M → Ind χ (fun n => ξ n * J q n) (N₀ * q) := by
   intro N₀ q M ξ N _ χ hN₀ hq hq2 hqN₀ hM hχ
   obtain ⟨hχp, hind⟩ := hχ
-  haveI : NeZero N₀ := ⟨hN₀.ne'⟩
-  haveI : NeZero ξ.conductor := ⟨ξ.conductor_ne_zero⟩
-  haveI : NeZero q := ⟨hq.ne_zero⟩
+  have : NeZero N₀ := ⟨hN₀.ne'⟩
+  have : NeZero ξ.conductor := ⟨ξ.conductor_ne_zero⟩
+  have : NeZero q := ⟨hq.ne_zero⟩
   have hqf : ¬ q ∣ ξ.conductor := fun h => hqN₀ (h.trans ξ.conductor_dvd_level)
   obtain ⟨ψ, hψ, -, hψeq⟩ :=
     twist_prim ξ.conductor q ξ.primitiveCharacter ξ.primitiveCharacter_isPrimitive hq hq2 hqf
