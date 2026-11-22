@@ -207,3 +207,29 @@ and verifying the exact dependencies.
 
 Never substitute the conditional \`CoreAt\` / \`ValuesAtX\`
 estimate or another \`topExcess\` condition as an unconditional theorem.
+
+## Build compatibility: native Lake roots versus historic research imports
+
+The two validated VF_mid sources under `research/` are used by both the
+research-closure runner and the native `RHLean` root build. The former has
+historically compiled these modules to **flat** output files
+`.lake/build/lib/lean/research.VF_MID_*.olean`. Lean source therefore imports
+them as the quoted single-atom names `«research.VF_MID_*»`.
+
+A dotted Lake root such as `\`research.VF_MID_VON_KOCH_BRIDGE` instead
+selects a hierarchical output `research/VF_MID_VON_KOCH_BRIDGE.olean`,
+which **does not satisfy** the historic quoted import. This caused the
+November 22 hosted build failure before elaboration of the new theorems.
+
+The PR now registers exactly the two **quoted** Lake roots and includes two
+tracked symbolic links at the repository root:
+`research.VF_MID_VON_KOCH_BRIDGE.lean` and
+`research.VF_MID_LI_UNIFORM_QUADRATURE.lean`.
+They point to the original files in `research/`; the original research
+source and its import spelling remain unchanged. Lake and the research-closure
+compiler then produce the same module names and reuse the original
+mathematics, without globbing the exploratory research tree.
+
+Acceptance requires both the native hosted build and the research-closure
+checks to succeed. This is a compiler/import fix, not a new RH-strength
+arithmetic estimate.
