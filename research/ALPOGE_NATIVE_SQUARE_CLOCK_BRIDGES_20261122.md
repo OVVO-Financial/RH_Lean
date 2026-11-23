@@ -131,8 +131,9 @@ checks the public proof roots against the standard logical axioms only.
 Hosted native Lean compilation, the changed research import closure, source
 audits, and declaration-graph checks provide the verification gates.
 
-No external Lean project, theorem, compiled artifact, or additional dependency
-is imported. The existing dependency pins and CI workflows are unchanged.
+The proofs use existing RH_Lean and Mathlib declarations. No new external Lean
+project, terminal RH theorem, or precompiled artifact is imported. The existing
+dependency pins and CI workflows are unchanged.
 A checked conditional RH consumer establishes the implication, not its open
 quantitative premise. The complete signed geometric and analytic payment
 remains the substantive research task.
