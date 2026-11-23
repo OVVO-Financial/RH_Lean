@@ -32,6 +32,7 @@
 | 16 | [research/VF_MID_FLOOR_LI_CRITICAL_BALANCE.lean](../../../research/VF_MID_FLOOR_LI_CRITICAL_BALANCE.lean) | Floor-Li forcing split inside the proved Li fantasy dynamics |
 | 15 | [research/VF_MID_FLOOR_LI_TRANSPORT_MINING.md](../../../research/VF_MID_FLOOR_LI_TRANSPORT_MINING.md) | Floor-Li transport mining and cancellation note |
 | 14 | [research/VF_MID_915_PRIME_INTERVAL_LI_STRATIFICATION.md](../../../research/VF_MID_915_PRIME_INTERVAL_LI_STRATIFICATION.md) | #915 — Genuine prime intervals relative to √x, with exact discrete-Li matching |
+| 13 | [docs/PROOF_DEPENDENCY_DAG.md](../../../docs/PROOF_DEPENDENCY_DAG.md) | RH_Lean mathematical proof-dependency DAG |
 | 13 | [research/VF_MID_FLOOR_LI_TRANSPORT_CANCELLATION.lean](../../../research/VF_MID_FLOOR_LI_TRANSPORT_CANCELLATION.lean) | Floor-Li event transport and quadratic cancellation |
 | 10 | [research/FINITE_C_A_EULER_PARITY_FLOOR_LI_FREQUENCY_SYNTHESIS.md](../../../research/FINITE_C_A_EULER_PARITY_FLOOR_LI_FREQUENCY_SYNTHESIS.md) | Finite C/A: Euler parity, square endpoints, and actual-prime versus floor-Li frequency |
 | 10 | [research/VF_MID_915_PRIME_INTERVAL_LI_STRATIFICATION.lean](../../../research/VF_MID_915_PRIME_INTERVAL_LI_STRATIFICATION.lean) | #915 actual prime / floor-Li stratification into arbitrary x/c bands |
@@ -43,6 +44,7 @@
 | 7 | [FORMALIZATION_SEQUENCE.md](../../../FORMALIZATION_SEQUENCE.md) | Formalization inventory and sequence |
 | 7 | [research/VF_MID_915_TERMINAL_TOP_THIRD_TRANSPORT.lean](../../../research/VF_MID_915_TERMINAL_TOP_THIRD_TRANSPORT.lean) | #915: terminal top-third actual-prime / floor-Li transport |
 | 7 | [research/VF_MID_915_TERMINAL_TOP_THIRD_TRANSPORT.md](../../../research/VF_MID_915_TERMINAL_TOP_THIRD_TRANSPORT.md) | #915 — Full sqrt / half partition, parity owner-2 slice, and Li restoration |
+| 6 | [research/SQUARE_ROOT_PRIME_PHASE_SIGNED_ENERGY_FINDINGS_20261108.md](../../../research/SQUARE_ROOT_PRIME_PHASE_SIGNED_ENERGY_FINDINGS_20261108.md) | Actual primes' square-root phases versus original signed square-block energy |
 | 6 | [research/VF_MID_915_FLOOR_LI_TRANSPORT_BOUNDARY.lean](../../../research/VF_MID_915_FLOOR_LI_TRANSPORT_BOUNDARY.lean) | #915: actual owner census compressed into discrete-Li unmatched boundary |
 | 5 | [PROOF_CONTRACT_HISTORY_2026_10_15.md](../../../PROOF_CONTRACT_HISTORY_2026_10_15.md) | RH_Lean current proof contract |
 | 5 | [numerics/floor_li_discrete_meboot/README.md](../../../numerics/floor_li_discrete_meboot/README.md) | Floor-Li discrete backlog NNS.meboot numerics |
@@ -50,7 +52,5 @@
 | 5 | [research/FLOOR_LI_DISCRETE_MEBOOT_MONTE_CARLO.md](../../../research/FLOOR_LI_DISCRETE_MEBOOT_MONTE_CARLO.md) | Floor-Li discrete Monte Carlo note |
 | 5 | [research/LI_FAN_ONE_SIDED_WEIGHTED_COMPOSITE_RH_CONTRACT_20261022.md](../../../research/LI_FAN_ONE_SIDED_WEIGHTED_COMPOSITE_RH_CONTRACT_20261022.md) | One-sided Li-fan containment via weighted square-block composite removal |
 | 5 | [research/VF_MID_FIRST_BAD_ACTUAL_ADMISSIBILITY_CERTIFICATE.lean](../../../research/VF_MID_FIRST_BAD_ACTUAL_ADMISSIBILITY_CERTIFICATE.lean) | Actual prime admissibility certificate: established structural rules |
-| 4 | [docs/PROOF_DEPENDENCY_DAG.md](../../../docs/PROOF_DEPENDENCY_DAG.md) | RH_Lean mathematical proof-dependency DAG |
 | 4 | [research/SQUARE_ROOT_LEGAL_GRAM_ATTACK.md](../../../research/SQUARE_ROOT_LEGAL_GRAM_ATTACK.md) | Square-root legal-ancestry Gram attack |
-| 4 | [scripts/vf_mid_915_prime_interval_li_regression.py](../../../scripts/vf_mid_915_prime_interval_li_regression.py) | #915 actual prime cofactor intervals q>sqrt(X) and exact floor-Li matching. |
-| 3 | [CURRENT_PROOF_CONTRACT.md](../../../CURRENT_PROOF_CONTRACT.md) | RH_Lean current proof contract |
+| 4 | [research/SQUARE_ROOT_PRIME_PHASE_SIGNED_ENERGY_20261108.lean](../../../research/SQUARE_ROOT_PRIME_PHASE_SIGNED_ENERGY_20261108.lean) | Actual prime phases, floor-Li count transport and physical square-block energy |

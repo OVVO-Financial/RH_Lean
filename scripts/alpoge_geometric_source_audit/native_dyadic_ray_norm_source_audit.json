@@ -1,0 +1,300 @@
+{
+  "descent_payment_ack": "ALPOGE_NATIVE_DESCENT_PAYMENT_V1",
+  "tractability_ack": "ALPOGE_VIOLE_TRACTABLE_RH_V1",
+  "source_commit": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
+  "native_inspection_base": "f3d43c0c0d7fcd8cd440f07705b02e5210a30574",
+  "status": "SOURCE_INSPECTED; algebraic bridge implemented with independent static review; complete hosted verification and native prime-window closure pending.",
+  "new_module": "RHLean/Analysis/AlpogeThin/NativeDyadicRayNorm.lean",
+  "construction": {
+    "existing_predicate": "IsNormOne d M p := exists u v : Z, M | u-1 and M | v and p = u^2+u*v+((d+1)/4)*v^2.",
+    "literal_source_equivalence": "For d mod 4 = 3, equivalent to exists A B : Z, A^2+d*B^2=4*p and M|B and 2*M|A-2-B. Forward A=2*u+v, B=v; reverse u=1+M*a from A-2-B=2*M*a.",
+    "witness": "pi=u+v*omega in O(H.E), omega=(1+H.sqd)/2; on nativeDyadicHostRaw this omega is literally alpogeNativeIntegralHalfRoot.",
+    "proved_properties": "pi lies in literal H.K=Q(H.sqd); pi*H.conj(pi)=p; pi-1 lies in Ideal.span{M}; p mod M=1 mod M. H.conj is the actual HostRaw Galois involution.",
+    "not_assumed": "No integral pi, target norm/ray assertion, short-window prime existence, isometry, Datum, empty TT or vanishing Aj is an input."
+  },
+  "quantifier_order": {
+    "ShortNorm": "exists A,c,cprime>0 BEFORE all d,M,X,h. d prime,d mod4=3,d>=100,M>=3,X>=1,logB<=c*sqrt(logX),exp(-c*sqrt(logX))<=h<=1 imply cprime*h*X/(B^A*logX)<=card normPrimes, B=4*d*M^2.",
+    "levelPrimeN": "For eps,cs,CY fixed with 0<eps<1/52,cs>0,CY>0, choose x0 BEFORE x,N,d,g0,g1,m,V,Ts. Use M=N*(g0*g1)^2, h=1/V; m>=x^(1/3),1<=V<=x^12,cs*m*x^eps<=logTs.",
+    "LevelPrime": "For eps,c fixed choose x0 BEFORE Scale, Ranks, conductor N, d, g0,g1, Ts. RankVal/ModRow and gi<=b^9 supply the scalar prerequisites; V=f*k.",
+    "physical_LevCh": "exists_levCh_of_levelPrime chooses one threshold BEFORE PreCh P, its original host, word functions du and Ds. For each word u, Ts(u)=(Ds/du(u))^(1/(f*k))*GamS^(-2/(f*k)); choose T(u) in its prescribed interval with the SAME modulus, norm coordinates and excluded-prime conditions.",
+    "Spaces_tie": "D7.sp_T requires sp.T=(mem u0).A.T. Source hostSpacesOfNorm is instantiated at T(u0),pi(u0), not a separately chosen prime."
+  },
+  "analytic_dependency": {
+    "frontier": "Native normPrimes_short_interval_lower / ShortNorm is absent. The source theorem is genuine but not yet reconstructed natively.",
+    "actual_family": "exists_lFam_ray constructs a true quadratic-field ray class, actual ideal counts aRay and prime-power weights lamRay. It supplies count/theta, convolution positivity, card and residue bounds. Its auxiliary quadratic model outputs integer coordinates for the SAME d; no field replacement is needed in the native geometric host, because the bridge embeds those coordinates using its existing root.",
+    "first_construction_boundary": "exists_lFam_ray needs actual RayData and rayCountTheta, which reduce ideal classes to shifted binary quadratic lattices; neither LFam nor this actual family/theta supplier is present natively.",
+    "analytic_steps": "trivialClass_shortInterval uses the actual ray-family zero-free region, unique simple real exceptional zero, Perron psi estimate and polynomial exceptional gap. RealChar.norm_F_one_ge proves c/B^45 using theta bounds and the positive divisor convolution; real_zero_far_from_one then uses Cauchy derivative control. Prime powers are retained and subtracted explicitly before extracting prime cardinality.",
+    "circularity_scope": "No RH assumption, desired norm-prime lower bound, geometric D7, empty TT or zero Aj premise occurs in the inspected unconditional theorem signatures and supplying proof calls. This is not a claim that every transitive analytic declaration has been independently kernel checked.",
+    "IntervalHyp_mismatch": "Existing native second_estimate_of_hypothesis takes IntervalHyp as an argument. The unconditional ShortNorm theorem only works when logB<=c*sqrt(logX); it does not automatically prove the globally stronger IntervalHyp at all X>=B^C0. The original specific physical regime must be reconstructed, not the premise relabeled."
+  },
+  "rejected_shortcuts": [
+    "The qualitative Inhab.RayPrimes predicate contains no prescribed upper window; SizeDataAt assumes it rather than proving it.",
+    "sizeDataOfAjZero requires TT empty and all Aj zero; it does not supply the physical signed comparison.",
+    "exists_levCh_gt makes its window by selecting du=1, Gam=2, Dstar=4*p^(f*k) AFTER its prime. This reverses the required physical window quantifiers.",
+    "sqrt(-q) has norm q but does not meet the literal M-ray and same selected level-prime conditions."
+  ],
+  "sources": [
+    {
+      "path": "src/Development/AbelianVarietyTheory/Definitions/Foundations/RayPrimes.lean",
+      "sha256": "996ea76bcf67da5ded8d8bf2558d500e3dfdd6b3fc8dca8a94a4366688839723",
+      "declarations": [
+        "GlobalTheory.Mem.An.NormOne",
+        "GlobalTheory.Mem.An.normPrimes"
+      ],
+      "role": "Original A,B normalization and floor endpoints."
+    },
+    {
+      "path": "src/Formalism/LocalToGlobal/GlobalTheory/IsResidueClassZero.lean",
+      "sha256": "7b055c5bb583ff2ffc19c0891b468e05db7926f6039999f09a3d7615c90a171e",
+      "declarations": [
+        "Formalism.L2.GlobalTheoryTheory.Arith.CongOne"
+      ],
+      "role": "Literal congruence M|B and 2M|A−2−B."
+    },
+    {
+      "path": "src/Development/AbelianVarietyTheory/Proofs/IwasawaDecomposition/NormOneIffOfSqrt.lean",
+      "sha256": "460d8b149e13095c32ad8bbc0afd2e64e96540cb1ffe90dc23a75218993b0938",
+      "declarations": [
+        "GlobalTheory.Mem.An.normOne_iff_of_sqrt",
+        "GlobalTheory.Mem.An.normOne_iff_host"
+      ],
+      "role": "Forward integral-element construction reconstructed natively; reverse classification is not claimed by the new file."
+    },
+    {
+      "path": "src/Development/AbelianVarietyTheory/Proofs/GlobalInterpolation/NormOnePrimeElements.lean",
+      "sha256": "9dd284219fc3527d2b3b2d54bb00718e18fb24f5c8e59a60791db6e1c79ed06f",
+      "declarations": [
+        "GlobalTheory.EX.normOne_host"
+      ],
+      "role": "Integral K-membership, exact norm, ideal congruence and natural residue conclusion."
+    },
+    {
+      "path": "src/Development/AbelianVarietyTheory/Definitions/GlobalTwisting/LogCondLeThree.lean",
+      "sha256": "bfa0898844b7028f6f7729009be098cf17d36534e719ed057e03ef0f86d5895f",
+      "declarations": [
+        "GlobalTheory.EX.ModRow",
+        "GlobalTheory.EX.LevelPrime"
+      ],
+      "role": "Uniform physical short-window specification."
+    },
+    {
+      "path": "src/Development/AbelianVarietyTheory/Proofs/GlobalInterpolation/NormPrimesAndLevelPrimeUnconditional.lean",
+      "sha256": "9bf4fea2db587894304269d8425547d430cd22027f7a931675db1c163bbe79a2",
+      "declarations": [
+        "GlobalTheory.EX.levelPrime_unconditional"
+      ],
+      "role": "Actual unconditional source declaration, distinct from older levelPrime_of_quadratic."
+    },
+    {
+      "path": "src/Development/AutomorphicArithmetic/ShortNorms/ShortNorm.lean",
+      "sha256": "fda9787f3d4356710d828a90c17dfb71f1e6ce28915b3f5cce87016301b1baac",
+      "declarations": [
+        "UpperTheory.T3.ShortNorm"
+      ],
+      "role": "Uniform norm-prime count with explicit B^A loss and log-window hypotheses."
+    },
+    {
+      "path": "src/Development/AutomorphicArithmetic/ShortNorms/Primes.lean",
+      "sha256": "72822189c30c2430ce881e1d303294bdc397829b286a4e281b0ac451164b02e1",
+      "declarations": [
+        "UpperTheory.T3.shortNorm"
+      ],
+      "role": "Alias to actual proved short-interval lower bound."
+    },
+    {
+      "path": "src/Development/AutomorphicArithmetic/ShortNorms/levelPrimeN.lean",
+      "sha256": "89438ca09fb323df607ed819f70b32d2bc9ebfdad50e1cbf95860f6ae2e6636b",
+      "declarations": [
+        "UpperTheory.T3.levelPrimeN"
+      ],
+      "role": "Size absorption and positive-cardinality extraction at h=1/V."
+    },
+    {
+      "path": "src/Development/AbelianVarietyTheory/Proofs/GlobalInterpolation/NormPrimesImagQuadShortIntervalLowerBound.lean",
+      "sha256": "ce985d1f042b4398b5351b33f90cb2137c23146e8a14029bcce3046c0b8075b4",
+      "declarations": [
+        "GlobalTheory.Hk.sum_lam_zero_le_card_normPrimes",
+        "GlobalTheory.Hk.normPrimes_short_interval_lower"
+      ],
+      "role": "Actual ray-family prime-power sum, explicit prime-power correction and norm-prime count."
+    },
+    {
+      "path": "src/Development/AbelianVarietyTheory/Proofs/GlobalInterpolation/ExistsLFamRay.lean",
+      "sha256": "4b0ea61500c959d9b71937c0e630123c9f46a28cb391a506dd3f73a7535969bd",
+      "declarations": [
+        "GlobalTheory.Hk.exists_lFam_ray"
+      ],
+      "role": "Constructs LFam from a real quadratic-field ray class, not an LFam premise."
+    },
+    {
+      "path": "src/Development/AbelianVarietyTheory/Definitions/GlobalTwisting/LamIdealOfNotPrimePow.lean",
+      "sha256": "2f84dfd5e4b49e93f8062e23f3b9e1dea72222d429c83458a9538b5d1224b236",
+      "declarations": [
+        "GlobalTheory.Hk.LFam",
+        "GlobalTheory.Hk.aRay",
+        "GlobalTheory.Hk.lamRay"
+      ],
+      "role": "All actual ideal-count, theta, convolution and positivity fields retained."
+    },
+    {
+      "path": "src/Development/AbelianVarietyTheory/Proofs/GlobalInterpolation/RayCountThetaFibreCount.lean",
+      "sha256": "9d8b2e2f7e074933fbae729a5c06215490c503a2f4f08dde0b9c2f8274158654",
+      "declarations": [
+        "GlobalTheory.Hk.rayCountTheta"
+      ],
+      "role": "Actual ideal classes identified with shifted binary quadratic lattice; count/theta estimates."
+    },
+    {
+      "path": "src/Development/AbelianVarietyTheory/Proofs/GlobalInterpolation/TrivialClassShortInterval.lean",
+      "sha256": "27f3c9a54d1f432f01129143de10362788037d4955a75c3f6a5447891ca89afc",
+      "declarations": [
+        "GlobalTheory.Hk.ShortInt.zeros",
+        "GlobalTheory.Hk.ShortInt.trivialClass_shortInterval"
+      ],
+      "role": "Exceptional zero retained, with polynomial gap; exact character-average count."
+    },
+    {
+      "path": "src/Development/AbelianVarietyTheory/Proofs/GlobalInterpolation/RayClassFamilyPsiWithExceptionalZero.lean",
+      "sha256": "481eace3062478d1421f1ad70810cddc446922b9a54a8df61badc69aae968039",
+      "declarations": [
+        "GlobalTheory.Hk.PsiExc.psi_exceptional"
+      ],
+      "role": "Actual logarithmic-derivative/Perron contour source; no native port asserted."
+    },
+    {
+      "path": "src/Development/AbelianVarietyTheory/Proofs/GlobalInterpolation/ExistsRayClassLFunctionRealZeroFarFromOne.lean",
+      "sha256": "d53e5ce466d7c9704589ba176219e189e0744823cd9583daaeda655f7bac69ab",
+      "declarations": [
+        "GlobalTheory.Hk.LFam.norm_deriv_F_le_near_one",
+        "GlobalTheory.Hk.LFam.real_zero_far_from_one"
+      ],
+      "role": "Polynomial exceptional-zero gap from actual F(1) bound and Cauchy derivative bound."
+    },
+    {
+      "path": "src/Development/AbelianVarietyTheory/Proofs/GlobalInterpolation/NormRayClassFamilyFOneGeOfRealCharacter.lean",
+      "sha256": "12946fcffa0cdc2ce91991748d71cb321e5ff9edaeac484eea30642f016ce852",
+      "declarations": [
+        "GlobalTheory.Hk.RealChar.norm_F_one_ge"
+      ],
+      "role": "Actual real-character lower bound c/B^45, proved from LFam theta and convolution positivity."
+    },
+    {
+      "path": "src/Development/AbelianVarietyTheory/Proofs/GlobalInterpolation/ExistsLevChOfLevelPrime.lean",
+      "sha256": "ef02fb2772718c5b81ea3b9d41fe205c1c78cead16892e9cabffb2cd7fda3b98",
+      "declarations": [
+        "GlobalTheory.EX.OB.exists_levCh_of_levelPrime"
+      ],
+      "role": "Physical consumer on prescribed host/words/windows, with avoided-prime inequalities."
+    },
+    {
+      "path": "src/Development/AbelianVarietyTheory/Proofs/IwasawaDecomposition/ModEqOneOfNorm.lean",
+      "sha256": "382b9f8c089d7bfa8653ba3539f53c940bb3de933d5d221056d6ee95d2ec5b23",
+      "declarations": [
+        "GlobalTheory.Mem.LevelChoice.exists_levCh"
+      ],
+      "role": "Literal LevCh assembly retaining each selected pi,T and all prescribed du,Ds,Gam."
+    },
+    {
+      "path": "src/Formalism/LocalRingCardinality/RhoDetPrimeEqMuTildeMulChiPow.lean",
+      "sha256": "b31bcce565741e65c97db0341916d5fafcf416c19a1b02515143c9537ed11691",
+      "declarations": [
+        "Formalism.BasicNotions.D7.sp_T"
+      ],
+      "role": "Spaces.T tied to the distinguished word member auxiliary prime."
+    },
+    {
+      "path": "src/Formalism/LocalRingCardinality/SpanPowerMembership/RankRecordRowDimensionZero.lean",
+      "sha256": "9c5ebd2770729f568a791a03a33735347e6a7ea107d866aa973ca50db4e97831",
+      "declarations": [
+        "Formalism.BasicNotions.Examples₂.hostSpacesOfNorm"
+      ],
+      "role": "Generic Spaces specialization takes the selected T and its exact norm witness; not a source of that prime."
+    },
+    {
+      "path": "src/Formalism/SharpRestriction/InertJacobiLevels/RayPrimes.lean",
+      "sha256": "85ffaf82b49aa9246acb116770e71377cca195c894b7b787d8fd23692fa47c1c",
+      "declarations": [
+        "Formalism.MainNotions.Inhab.RayPrimes",
+        "Formalism.MainNotions.Inhab.TNorm"
+      ],
+      "role": "Qualitative prime hypothesis and exact ray-norm condition; no short-window bound."
+    },
+    {
+      "path": "src/Formalism/SharpRestriction/InertJacobiLevels/AsmRec.lean",
+      "sha256": "a82fb8d24ce704e24e3b8f4e32f95b9b7164ab4a949814ce3c87b923fbe5835a",
+      "declarations": [
+        "Formalism.MainNotions.Inhab.OkT"
+      ],
+      "role": "Standalone definition uses host2 B 0 emptyset; not the physical existence proof."
+    },
+    {
+      "path": "src/Formalism/SharpRestriction/InertJacobiLevels/SizeDataAt.lean",
+      "sha256": "4457760e238d0b0e74312cdb89ae4466e1500d0ee87e84007b0cf0d38844230c",
+      "declarations": [
+        "Formalism.MainNotions.Inhab.tnorm_of",
+        "Formalism.MainNotions.Inhab.sizeDataOfAjZero"
+      ],
+      "role": "Rejected physical shortcut: latter requires TT empty and every Aj zero."
+    },
+    {
+      "path": "src/Development/AbelianVarietyTheory/Proofs/IwasawaDecomposition/ExistsLevelCharactersLarge.lean",
+      "sha256": "c2eb2aeb8fd2ce25e31364b936d5a14d57f5e83cbf10fd590b7830b75eb7bb72",
+      "declarations": [
+        "GlobalTheory.Mem.LevelPrime.exists_levCh_gt"
+      ],
+      "role": "Qualitative level choice chooses Dstar/du/Gam after its prime; cannot solve prescribed physical windows."
+    }
+  ],
+  "existing_native": [
+    {
+      "path": "RHLean/Analysis/AlpogeThin/Formalism/GL3MeanSquares/SecondEstimateOfIntervalHypothesis.lean",
+      "sha256": "769e0d56c3a0289846275ab3334026d9fcfe287f76f540605960ffd8645f7c75",
+      "declarations": [
+        "RHLean.Analysis.AlpogeThin.Formalism.HermitianLattices.ZeroFreeRegionGL2.IsNormOne",
+        "RHLean.Analysis.AlpogeThin.Formalism.HermitianLattices.ZeroFreeRegionGL2.IntervalHyp",
+        "RHLean.Analysis.AlpogeThin.Formalism.HermitianLattices.ZeroFreeRegionGL2.SecondEstimateOfIntervalHypothesis"
+      ],
+      "role": "Existing norm-coordinate predicate and still-conditional prime-window consumer."
+    },
+    {
+      "path": "RHLean/Analysis/AlpogeThin/Formalism/GL3MeanSquares/HookFormulaTorsion/WeightedVonMangoldtSumIdentity.lean",
+      "sha256": "c42be940304874dcf4a048af66dd0f24382747fed9f68c2e2b0e2bec35625a01",
+      "declarations": [
+        "RHLean.Analysis.AlpogeThin.Formalism.HermitianLattices.ZeroFreeRegionGL2.is_norm_one_iff",
+        "RHLean.Analysis.AlpogeThin.Formalism.HermitianLattices.ZeroFreeRegionGL2.norm_one_congruence"
+      ],
+      "role": "Existing abstract QuadraticAlgebra iff and numeric ray congruence, reused without duplication."
+    },
+    {
+      "path": "RHLean/Analysis/AlpogeThin/Formalism/GL3MeanSquares/HookFormulaTorsion/SecondEstimateOfHypothesis.lean",
+      "sha256": "ad7756d4f5882a7a4c9371cdaa7277e98904624f3aa4b00f78bf7f32bcb94cf2",
+      "declarations": [
+        "RHLean.Analysis.AlpogeThin.Formalism.HermitianLattices.ZeroFreeRegionGL2.second_estimate_of_hypothesis"
+      ],
+      "role": "Uses hInt explicitly to obtain positive norm-prime count; does not prove IntervalHyp."
+    },
+    {
+      "path": "RHLean/Analysis/AlpogeNativeIntegralQuadraticRoot.lean",
+      "sha256": "4d063022db16f41440d4d202a318d38dd853a52064beef26bd6ed8ba541958bc",
+      "declarations": [
+        "RHLean.Analysis.NativeIntegralQuadratic.halfRoot_integral",
+        "RHLean.Analysis.alpogeNativeIntegralHalfRoot"
+      ],
+      "role": "Actual integral half-root, reused by the new construction."
+    },
+    {
+      "path": "RHLean/Analysis/AlpogeThin/NativeDyadicHostRaw.lean",
+      "sha256": "d9f65d0eaa2c3934d1a8e1e8678c7b171681b1b69919881c54540ee7184bb848",
+      "declarations": [
+        "RHLean.Analysis.AlpogeThin.nativeDyadicHostRaw"
+      ],
+      "role": "Same native field, distinguished Gauss root, Galois involution and quadratic subfield."
+    }
+  ],
+  "verification": {
+    "no_local_Lean_or_Lake": true,
+    "no_remote_writes": true,
+    "no_shared_edits": true,
+    "sibling_review": "PASS by /root/ci_repair, source/pinned-API/math review; /root full review PASS. Hosted elaboration pending."
+  }
+}

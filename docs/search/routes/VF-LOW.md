@@ -8,28 +8,42 @@ Coordinates: [`ANCHOR-PRIME-DISCREPANCY`](../coordinates/ANCHOR-PRIME-DISCREPANC
 
 | Score | File | Title |
 | --- | --- | --- |
-| 37 | [docs/PROOF_DEPENDENCY_DAG.md](../../../docs/PROOF_DEPENDENCY_DAG.md) | RH_Lean mathematical proof-dependency DAG |
+| 38 | [docs/PROOF_DEPENDENCY_DAG.md](../../../docs/PROOF_DEPENDENCY_DAG.md) | RH_Lean mathematical proof-dependency DAG |
 | 20 | [docs/COORDINATE_ATLAS.md](../../../docs/COORDINATE_ATLAS.md) | Coordinate atlas: one phenomenon, many coordinates |
+| 12 | [docs/AGENT_STUDIO_20261024_SEVEN_PROMPTS.md](../../../docs/AGENT_STUDIO_20261024_SEVEN_PROMPTS.md) | Seven complete RH_Lean Agent Studio instruction templates |
 | 10 | [docs/RH_PROOF_ATTACK_PORTFOLIO_20261024.md](../../../docs/RH_PROOF_ATTACK_PORTFOLIO_20261024.md) | RH proof attack portfolio and seven-agent operating contract — 2026-10-24 |
 | 8 | [RESEARCH_ROUTE_REGISTRY.md](../../../RESEARCH_ROUTE_REGISTRY.md) | Research route registry |
 | 7 | [research/VF_MID_FAN_ESCAPE_CAPACITY_BILLS.lean](../../../research/VF_MID_FAN_ESCAPE_CAPACITY_BILLS.lean) | Exact count-space escape bills for the solved radial fan |
 | 6 | [PROOF_CONTRACT_HISTORY_2026_10_15.md](../../../PROOF_CONTRACT_HISTORY_2026_10_15.md) | RH_Lean current proof contract |
+| 4 | [AGENTS_BEFORE_CANCELLATION_CHAIN_20261107.md](../../../AGENTS_BEFORE_CANCELLATION_CHAIN_20261107.md) | RH_Lean research-agent instructions |
+| 4 | [CURRENT_PROOF_CONTRACT.md](../../../CURRENT_PROOF_CONTRACT.md) | RH_Lean current proof contract |
 | 4 | [README.md](../../../README.md) | RH_Lean |
-| 4 | [docs/DYNAMIC_RESEARCH_AGENTS.md](../../../docs/DYNAMIC_RESEARCH_AGENTS.md) | RH_Lean dynamic seven-agent research protocol |
+| 4 | [docs/DYNAMIC_RESEARCH_AGENTS_BEFORE_RESEARCH_ENGINE_20261101.md](../../../docs/DYNAMIC_RESEARCH_AGENTS_BEFORE_RESEARCH_ENGINE_20261101.md) | RH_Lean dynamic seven-agent research protocol |
+| 4 | [docs/RHLEAN_ALL_VECTOR_AGENT_PROMPTS_20261030.md](../../../docs/RHLEAN_ALL_VECTOR_AGENT_PROMPTS_20261030.md) | Seven-agent prompts: complete signed HIGH, independent native routes |
+| 4 | [docs/RHLEAN_ALL_VECTOR_AGENT_PROMPTS_BEFORE_CANCELLATION_CHAIN_20261107.md](../../../docs/RHLEAN_ALL_VECTOR_AGENT_PROMPTS_BEFORE_CANCELLATION_CHAIN_20261107.md) | Seven-agent all-vector prompt reference - persistent research edition |
+| 4 | [docs/RHLEAN_ALL_VECTOR_SYNTHESIS_AGENT_DIRECTIVE_20261030.md](../../../docs/RHLEAN_ALL_VECTOR_SYNTHESIS_AGENT_DIRECTIVE_20261030.md) | All-vector RH_Lean attack and same-source synthesis — 2026-10-30 |
 | 4 | [docs/RHLEAN_NATIVE_FIRST_PROOF_ROUTING_20261026.md](../../../docs/RHLEAN_NATIVE_FIRST_PROOF_ROUTING_20261026.md) | RH_Lean-native-first mathematical proof routing (26 October 2026) |
+| 4 | [docs/RHLEAN_SEVEN_AGENT_RESEARCH_ENGINE_20261101.md](../../../docs/RHLEAN_SEVEN_AGENT_RESEARCH_ENGINE_20261101.md) | Seven-agent persistent research engine and next-run attack plan |
 | 4 | [research/VF_MID_CORNER_CHANNEL.lean](../../../research/VF_MID_CORNER_CHANNEL.lean) | VF-mid corner channels |
 | 4 | [research/VF_MID_FIRST_BAD_PAYMENT_V2_PROOF_CONTRACT.md](../../../research/VF_MID_FIRST_BAD_PAYMENT_V2_PROOF_CONTRACT.md) | Minimal first-bad parity payment — production proof contract (v2) |
 | 4 | [research/VF_MID_PROXY_ENERGY_PULL.lean](../../../research/VF_MID_PROXY_ENERGY_PULL.lean) | Proxy-renormalized square-theta energy pull |
 | 4 | [research/VF_MID_THIRTY_FACTOR_RANGE_LOWER_GATE.lean](../../../research/VF_MID_THIRTY_FACTOR_RANGE_LOWER_GATE.lean) | Pure factor-range formulation of the one-sided VF lower-channel gate |
-| 3 | [AGENTS.md](../../../AGENTS.md) | RH_Lean research-agent instructions |
-| 3 | [CURRENT_PROOF_CONTRACT.md](../../../CURRENT_PROOF_CONTRACT.md) | RH_Lean current proof contract |
-| 3 | [docs/AGENT_STUDIO_20261024_SEVEN_PROMPTS.md](../../../docs/AGENT_STUDIO_20261024_SEVEN_PROMPTS.md) | Seven current RH_Lean Agent Studio instruction overrides — 2026-10-24 |
-| 3 | [docs/FORMALIZATION_MILESTONES.md](../../../docs/FORMALIZATION_MILESTONES.md) | RH_Lean formalization milestones |
+| 4 | [scripts/validate_rh_agent_portfolio.py](../../../scripts/validate_rh_agent_portfolio.py) | CI smoke checks for source routing and seven-agent instructions. |
+| 3 | [AGENTS_BEFORE_RESEARCH_ENGINE_20261101.md](../../../AGENTS_BEFORE_RESEARCH_ENGINE_20261101.md) | RH_Lean research-agent instructions |
+| 3 | [docs/AGENT_STUDIO_SEVEN_PROMPTS_BEFORE_RESEARCH_ENGINE_20261101.md](../../../docs/AGENT_STUDIO_SEVEN_PROMPTS_BEFORE_RESEARCH_ENGINE_20261101.md) | Seven current RH_Lean Agent Studio instruction overrides — 2026-10-24 |
 | 3 | [docs/RESEARCH_FRONTIER_DAG.md](../../../docs/RESEARCH_FRONTIER_DAG.md) | Current research frontier and import DAG |
+| 3 | [docs/RHLEAN_ALL_VECTOR_AGENT_PROMPTS_BEFORE_RESEARCH_ENGINE_20261101.md](../../../docs/RHLEAN_ALL_VECTOR_AGENT_PROMPTS_BEFORE_RESEARCH_ENGINE_20261101.md) | Seven-agent all-vector prompt reference - updated 2026-10-31 |
+| 3 | [docs/RHLEAN_BROAD_SEARCH_UNTIL_ETA_20261031.md](../../../docs/RHLEAN_BROAD_SEARCH_UNTIL_ETA_20261031.md) | Broad RH_Lean mathematics until a verified positive exponent gain |
+| 3 | [docs/RHLEAN_COMPLETE_SIGNED_HIGH_ATTACK_20261107.md](../../../docs/RHLEAN_COMPLETE_SIGNED_HIGH_ATTACK_20261107.md) | Complete signed HIGH: common objective, independent proof routes |
+| 3 | [docs/RHLEAN_OAI_LOW_SOURCE_FIRST_AGENT_CONTRACT_20261103.md](../../../docs/RHLEAN_OAI_LOW_SOURCE_FIRST_AGENT_CONTRACT_20261103.md) | OAI 1 -> 7/8 source-first signed LOW research contract for all seven agents |
 | 3 | [docs/RH_PROOF_OVERLAP_AND_SEVEN_EIGHTHS_AUDIT_20261024.md](../../../docs/RH_PROOF_OVERLAP_AND_SEVEN_EIGHTHS_AUDIT_20261024.md) | Audit: route overlap versus independent 7/8-powered progress (2026-10-24) |
+| 3 | [docs/external/2026-11-15/universal-envelope-law-handoff.md](../../../docs/external/2026-11-15/universal-envelope-law-handoff.md) | Universal envelope law for the frozen-root coordinates — status snapshot and external handoff, 2026-11-15 |
 | 3 | [numerics/floor_li_discrete_meboot/README.md](../../../numerics/floor_li_discrete_meboot/README.md) | Floor-Li discrete backlog NNS.meboot numerics |
 | 3 | [numerics/floor_li_meboot/README.md](../../../numerics/floor_li_meboot/README.md) | Floor-Li discrete NNS.meboot stress numerics |
 | 3 | [numerics/four_fantasy_proxy_atlas/README.md](../../../numerics/four_fantasy_proxy_atlas/README.md) | Four fantasy proxy numerical atlas |
+| 3 | [research/ALPOGE_GZ_DELTA_VFMID_QUANTITATIVE_PIPELINE_20261122.md](../../../research/ALPOGE_GZ_DELTA_VFMID_QUANTITATIVE_PIPELINE_20261122.md) | Alpöge Gz × VF_mid: the real delta(t) and native signed source |
+| 3 | [research/ALPOGE_GZ_PRIME_DELTA_ARITHMETIC_20261122.lean](../../../research/ALPOGE_GZ_PRIME_DELTA_ARITHMETIC_20261122.lean) | Alpoge Gz as the EXACT weighted delta(t) history in native arithmetic |
+| 3 | [research/ALPOGE_GZ_VFMID_DELTA_TRANSFER_20261122.lean](../../../research/ALPOGE_GZ_VFMID_DELTA_TRANSFER_20261122.lean) | Alpoge Gz: the original real prime delta in VF_mid coordinates |
 | 3 | [research/CHATGPT_AGENT_STUDIO_FIRST_BAD_CAMPAIGN_2026_10_12.md](../../../research/CHATGPT_AGENT_STUDIO_FIRST_BAD_CAMPAIGN_2026_10_12.md) | ChatGPT Agent Studio research campaign: original VF first-bad owner payment |
 | 3 | [research/FOUR_FANTASY_PROXY_RH_CLOSURES.lean](../../../research/FOUR_FANTASY_PROXY_RH_CLOSURES.lean) | Four fantasy prime-count proxy closures |
 | 3 | [research/SIGNED_RENEWAL_TWO_SCALE_ATTACK_PLAN_20261018.md](../../../research/SIGNED_RENEWAL_TWO_SCALE_ATTACK_PLAN_20261018.md) | Two-scale signed renewal attack: from S = A - T to an independent arithmetic gain |
@@ -54,17 +68,3 @@ Coordinates: [`ANCHOR-PRIME-DISCREPANCY`](../coordinates/ANCHOR-PRIME-DISCREPANC
 | 3 | [research/VF_MID_ENDPOINT_TRIGGER_DICTIONARY.lean](../../../research/VF_MID_ENDPOINT_TRIGGER_DICTIONARY.lean) | Subdoubling VF / Mobius dictionary on the exact square-wheel carrier |
 | 3 | [research/VF_MID_FINAL_GOALPOST.md](../../../research/VF_MID_FINAL_GOALPOST.md) | VF-mid final goalpost contract |
 | 3 | [research/VF_MID_FIRST_BAD_ACTUAL_ADMISSIBILITY_CERTIFICATE.lean](../../../research/VF_MID_FIRST_BAD_ACTUAL_ADMISSIBILITY_CERTIFICATE.lean) | Actual prime admissibility certificate: established structural rules |
-| 3 | [research/VF_MID_FIRST_BAD_CORRELATION_DESCENT.lean](../../../research/VF_MID_FIRST_BAD_CORRELATION_DESCENT.lean) | First-bad correlation descent |
-| 3 | [research/VF_MID_FIRST_BAD_EXACT_BUDGET_CLOSE.lean](../../../research/VF_MID_FIRST_BAD_EXACT_BUDGET_CLOSE.lean) | Exact first-bad budget identities and conditional payment consumers |
-| 3 | [research/VF_MID_FIRST_BAD_FULL_PROOF_MECHANISM_AND_OPEN_PAYMENT.md](../../../research/VF_MID_FIRST_BAD_FULL_PROOF_MECHANISM_AND_OPEN_PAYMENT.md) | VF_mid, actual prime owners, PNT, and the first-bad signed payment |
-| 3 | [research/VF_MID_FIRST_BAD_HISTORY_COMPRESSION.lean](../../../research/VF_MID_FIRST_BAD_HISTORY_COMPRESSION.lean) | First-bad historical-anchor decompression |
-| 3 | [research/VF_MID_FIRST_BAD_NORMALIZED_PARTIAL_MOMENT.lean](../../../research/VF_MID_FIRST_BAD_NORMALIZED_PARTIAL_MOMENT.lean) | NNS-normalized first-bad partial-moment budget |
-| 3 | [research/VF_MID_FIRST_BAD_PAYMENT_V2_KERNEL.lean](../../../research/VF_MID_FIRST_BAD_PAYMENT_V2_KERNEL.lean) | First-bad minimal payment — exact parity-compressed algebra |
-| 3 | [research/VF_MID_FIRST_BAD_PAYMENT_V2_NATIVE_CONSUMER.lean](../../../research/VF_MID_FIRST_BAD_PAYMENT_V2_NATIVE_CONSUMER.lean) | Native first-bad v2 consumer: one exact missing arithmetic hypothesis |
-| 3 | [research/VF_MID_FLOOR_LI_DISCRETE_BACKLOG.lean](../../../research/VF_MID_FLOOR_LI_DISCRETE_BACKLOG.lean) | Discrete floor-Li backlog on VF square blocks |
-| 3 | [research/VF_MID_FLOOR_LI_MEBOOT_MONTE_CARLO.md](../../../research/VF_MID_FLOOR_LI_MEBOOT_MONTE_CARLO.md) | Floor-Li discrete mismatch / NNS.meboot note |
-| 3 | [research/VF_MID_FLOOR_LI_SIGNED_POPULATION_BALANCE.lean](../../../research/VF_MID_FLOOR_LI_SIGNED_POPULATION_BALANCE.lean) | Floor-Li signed population balance in the Mobius/Abel carrier |
-| 3 | [research/VF_MID_FLOOR_LI_TRANSPORT_CANCELLATION.lean](../../../research/VF_MID_FLOOR_LI_TRANSPORT_CANCELLATION.lean) | Floor-Li event transport and quadratic cancellation |
-| 3 | [research/VF_MID_FRACTIONAL_PRIME_CLUSTER.lean](../../../research/VF_MID_FRACTIONAL_PRIME_CLUSTER.lean) | VF-mid as a fractional prime cluster on the integer square lattice |
-| 3 | [research/VF_MID_INTEGER_BLOCK_CAPTURE.lean](../../../research/VF_MID_INTEGER_BLOCK_CAPTURE.lean) | Integer VF-mid square-block capture |
-| 3 | [research/VF_MID_LINEAR_INTERPOLATION_FANTASY.lean](../../../research/VF_MID_LINEAR_INTERPOLATION_FANTASY.lean) | Literal midpoint-to-midpoint interpolation of VF_mid |

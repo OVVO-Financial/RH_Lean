@@ -1,0 +1,50 @@
+[
+  {
+    "upstream_path": "src/ReciprocityTheory/ReductiveGroups/ArithmeticGeometry/HeightTheory/TransferenceA.lean",
+    "upstream_commit": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
+    "upstream_sha256": "e34eb78b237c5d1177be8ed12421c92cbde7dfba4ef37f72a1324ea4018014d2",
+    "native_path": "RHLean/Geometry/NativeLatticeTransferenceA.lean",
+    "native_sha256": "a86cb9ec7f8fae81a403ceeee6002147e87bea278c4b794a29c08555dae51539",
+    "status": "proof compiled at PR1194 head17c409dcacf852f8c73755051271446cf85595f5; warning cleanup pending hosted recheck"
+  },
+  {
+    "upstream_path": "src/ReciprocityTheory/ReductiveGroups/ArithmeticGeometry/HeightTheory/TransferenceB.lean",
+    "upstream_commit": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
+    "upstream_sha256": "41c70f990323496fad612f72f9dc0236a4f32a936b5b2f78c46325e1cf9bd7fa",
+    "native_path": "RHLean/Geometry/NativeLatticeTransferenceB.lean",
+    "native_sha256": "65f87bd5ce97e3128e30a47d2acff7499912f5f1ccdbac6dacdd766bf38679a5",
+    "status": "proof compiled at PR1194 head17c409dcacf852f8c73755051271446cf85595f5; warning cleanup pending hosted recheck"
+  },
+  {
+    "upstream_path": "src/ReciprocityTheory/ReductiveGroups/ArithmeticGeometry/HeightTheory/Transference.lean",
+    "upstream_commit": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
+    "upstream_sha256": "6dca678d8e4fcc26ae09fb7fc2a4334a685753f78cc1e390321f317917856ad6",
+    "native_path": "RHLean/Geometry/NativeLatticeTransference.lean",
+    "native_sha256": "67eac58004c90c4c0dff05d794094fe8b6c6d4370920ef9efc76d1dc895bab2d",
+    "status": "proof compiled at PR1194 head17c409dcacf852f8c73755051271446cf85595f5; warning cleanup pending hosted recheck"
+  },
+  {
+    "upstream_path": "src/Development/AbelianVarietyTheory/Proofs/CovolumeBounds/FinrankMulDiscrRpowLeSumSqOfMemTraceDual.lean",
+    "upstream_commit": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
+    "upstream_sha256": "57e8f0bb370e5278de43edbd440fca4eb62149192f9b0864d652035a0c27b06b",
+    "native_path": "RHLean/Geometry/NativeTraceDualDiscriminant.lean",
+    "native_sha256": "29643c7319077e51faa952d4a71a22cf30af83a75f035869399720c94ed96411",
+    "status": "proof compiled at PR1194 head17c409dcacf852f8c73755051271446cf85595f5; warning cleanup pending hosted recheck"
+  },
+  {
+    "upstream_path": "src/Development/AbelianVarietyTheory/Proofs/CuspFormEvaluations/ExistsShortIndependentIntegers.lean",
+    "upstream_commit": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
+    "upstream_sha256": "e89d798ac968fcb8436897eea086d208db06a1e2cec12f62dce3180dd2b485c5",
+    "native_path": "RHLean/Geometry/NativeShortIndependentIntegers.lean",
+    "native_sha256": "24efd4cb387295d01ccb903aed77a73b7501bf9ff048a2054f48d50cbd75c038",
+    "status": "proof compiled at PR1194 head17c409dcacf852f8c73755051271446cf85595f5; warning cleanup pending hosted recheck"
+  },
+  {
+    "upstream_path": "src/Development/AbelianVarietyTheory/Proofs/DivisorProofs/ExistsShortGeneratorsOfShortSpanningFamily.lean",
+    "upstream_commit": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
+    "upstream_sha256": "ab53152f591d194078d2fce7f5e80068035193befebf6ee564a498863d500fdc",
+    "native_path": "RHLean/Geometry/NativeAllPlaceShortGenerators.lean",
+    "native_sha256": "bbf3c75ff9b69a873e6dde2fd6b856511a6b028b3993b50275e879ac49bccfbc",
+    "status": "proof compiled at PR1194 head17c409dcacf852f8c73755051271446cf85595f5; warning cleanup pending hosted recheck"
+  }
+]

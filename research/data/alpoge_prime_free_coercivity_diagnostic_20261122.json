@@ -1,0 +1,558 @@
+{
+  "arithmetic": "exact integers and rational finite averages; no prime factorization",
+  "conclusions": {
+    "coercivity_theorem_refutation": false,
+    "complete_floor_commutator_telescope": "EXACT_LINEAR_BOUND_ON_THIS_DIFFERENT_OBSERVABLE",
+    "finite_dimensional_coercivity": "HOLDS_WITH_SHARP_PARAMETER_DEPENDENT_CONSTANT_4_TO_K",
+    "independent_sign_jet_second_moment": "EXACT_BINOMIAL_2K_K_RETAINS_EXPONENTIAL_COST",
+    "pointwise_uniform_polynomial_jet_bound": "REFUTED_BY_EXACT_ALTERNATING_CONTROL",
+    "rh_implication": false,
+    "theta_cover_hypotheses": "NOT_INSTANTIATED_BY_THIS_DIAGNOSTIC"
+  },
+  "density_control": "deterministic half-density circle-rotation mask; no claim to match the actual Gz weights",
+  "overlapping_jet_covariances": [
+    {
+      "k": 1,
+      "shift_covariances_0_through_k": [
+        2,
+        -1
+      ]
+    },
+    {
+      "k": 2,
+      "shift_covariances_0_through_k": [
+        6,
+        -4,
+        1
+      ]
+    },
+    {
+      "k": 4,
+      "shift_covariances_0_through_k": [
+        70,
+        -56,
+        28,
+        -8,
+        1
+      ]
+    },
+    {
+      "k": 8,
+      "shift_covariances_0_through_k": [
+        12870,
+        -11440,
+        8008,
+        -4368,
+        1820,
+        -560,
+        120,
+        -16,
+        1
+      ]
+    }
+  ],
+  "quadratic_rotation_nonmultiplicative_witness": {
+    "a": 2,
+    "b": 3,
+    "sign_a_times_sign_b": -1,
+    "sign_ab": 1
+  },
+  "schema": "alpoge-prime-free-coercivity-diagnostic-v1",
+  "squares": [
+    {
+      "L": 4,
+      "X_L": 15,
+      "coefficient_gcd": 1,
+      "coefficient_l1": 16,
+      "coefficient_squared_l2": 70,
+      "denominator_after_dividing_jet_by_2_to_k": 16,
+      "independent_sign_expected_total_response_energy": 840,
+      "input_length_including_halo": 20,
+      "interior_response_rows": 12,
+      "k": 4,
+      "masked_independent_sign_exact_point_jet_second_moment": 52,
+      "rotation_half_mask_active_sites": 8,
+      "signals": [
+        {
+          "absolute_point_jet_at_X_L": 16,
+          "exact_endpoint_expression": 0,
+          "max_absolute_L_window_sum_inside_square": 0,
+          "raw_square_sum": 0,
+          "signal": "alternating",
+          "signed_complete_commutator_rectangle": 0,
+          "signed_point_jet_at_X_L": -16
+        },
+        {
+          "absolute_point_jet_at_X_L": 0,
+          "exact_endpoint_expression": 0,
+          "max_absolute_L_window_sum_inside_square": 4,
+          "raw_square_sum": -2,
+          "signal": "quadratic_rotation_sqrt2",
+          "signed_complete_commutator_rectangle": 0,
+          "signed_point_jet_at_X_L": 0
+        },
+        {
+          "absolute_point_jet_at_X_L": 14,
+          "exact_endpoint_expression": 0,
+          "max_absolute_L_window_sum_inside_square": 2,
+          "raw_square_sum": 4,
+          "signal": "seeded_sign_sample",
+          "signed_complete_commutator_rectangle": 0,
+          "signed_point_jet_at_X_L": -14
+        },
+        {
+          "absolute_point_jet_at_X_L": 0,
+          "exact_endpoint_expression": 0,
+          "max_absolute_L_window_sum_inside_square": 4,
+          "raw_square_sum": 16,
+          "signal": "constant_nullmode_control",
+          "signed_complete_commutator_rectangle": 0,
+          "signed_point_jet_at_X_L": 0
+        },
+        {
+          "absolute_point_jet_at_X_L": 2,
+          "exact_endpoint_expression": -3,
+          "max_absolute_L_window_sum_inside_square": 2,
+          "raw_square_sum": -2,
+          "signal": "half_masked_quadratic_rotation",
+          "signed_complete_commutator_rectangle": -3,
+          "signed_point_jet_at_X_L": 2
+        },
+        {
+          "absolute_point_jet_at_X_L": 10,
+          "exact_endpoint_expression": -3,
+          "max_absolute_L_window_sum_inside_square": 2,
+          "raw_square_sum": 0,
+          "signal": "half_masked_seeded_sign_sample",
+          "signed_complete_commutator_rectangle": -3,
+          "signed_point_jet_at_X_L": -10
+        }
+      ],
+      "site_count": 16
+    },
+    {
+      "L": 8,
+      "X_L": 63,
+      "coefficient_gcd": 1,
+      "coefficient_l1": 256,
+      "coefficient_squared_l2": 12870,
+      "denominator_after_dividing_jet_by_2_to_k": 256,
+      "independent_sign_expected_total_response_energy": 720720,
+      "input_length_including_halo": 72,
+      "interior_response_rows": 56,
+      "k": 8,
+      "masked_independent_sign_exact_point_jet_second_moment": 8101,
+      "rotation_half_mask_active_sites": 33,
+      "signals": [
+        {
+          "absolute_point_jet_at_X_L": 256,
+          "exact_endpoint_expression": 0,
+          "max_absolute_L_window_sum_inside_square": 0,
+          "raw_square_sum": 0,
+          "signal": "alternating",
+          "signed_complete_commutator_rectangle": 0,
+          "signed_point_jet_at_X_L": -256
+        },
+        {
+          "absolute_point_jet_at_X_L": 12,
+          "exact_endpoint_expression": 0,
+          "max_absolute_L_window_sum_inside_square": 6,
+          "raw_square_sum": 12,
+          "signal": "quadratic_rotation_sqrt2",
+          "signed_complete_commutator_rectangle": 0,
+          "signed_point_jet_at_X_L": 12
+        },
+        {
+          "absolute_point_jet_at_X_L": 198,
+          "exact_endpoint_expression": 0,
+          "max_absolute_L_window_sum_inside_square": 6,
+          "raw_square_sum": -10,
+          "signal": "seeded_sign_sample",
+          "signed_complete_commutator_rectangle": 0,
+          "signed_point_jet_at_X_L": 198
+        },
+        {
+          "absolute_point_jet_at_X_L": 0,
+          "exact_endpoint_expression": 0,
+          "max_absolute_L_window_sum_inside_square": 8,
+          "raw_square_sum": 64,
+          "signal": "constant_nullmode_control",
+          "signed_complete_commutator_rectangle": 0,
+          "signed_point_jet_at_X_L": 0
+        },
+        {
+          "absolute_point_jet_at_X_L": 21,
+          "exact_endpoint_expression": -7,
+          "max_absolute_L_window_sum_inside_square": 4,
+          "raw_square_sum": 5,
+          "signal": "half_masked_quadratic_rotation",
+          "signed_complete_commutator_rectangle": -7,
+          "signed_point_jet_at_X_L": 21
+        },
+        {
+          "absolute_point_jet_at_X_L": 133,
+          "exact_endpoint_expression": 7,
+          "max_absolute_L_window_sum_inside_square": 4,
+          "raw_square_sum": -3,
+          "signal": "half_masked_seeded_sign_sample",
+          "signed_complete_commutator_rectangle": 7,
+          "signed_point_jet_at_X_L": 133
+        }
+      ],
+      "site_count": 64
+    },
+    {
+      "L": 16,
+      "X_L": 255,
+      "coefficient_gcd": 1,
+      "coefficient_l1": 65536,
+      "coefficient_squared_l2": 601080390,
+      "denominator_after_dividing_jet_by_2_to_k": 65536,
+      "independent_sign_expected_total_response_energy": 144259293600,
+      "input_length_including_halo": 272,
+      "interior_response_rows": 240,
+      "k": 16,
+      "masked_independent_sign_exact_point_jet_second_moment": 217721745,
+      "rotation_half_mask_active_sites": 128,
+      "signals": [
+        {
+          "absolute_point_jet_at_X_L": 65536,
+          "exact_endpoint_expression": 0,
+          "max_absolute_L_window_sum_inside_square": 0,
+          "raw_square_sum": 0,
+          "signal": "alternating",
+          "signed_complete_commutator_rectangle": 0,
+          "signed_point_jet_at_X_L": -65536
+        },
+        {
+          "absolute_point_jet_at_X_L": 14984,
+          "exact_endpoint_expression": 0,
+          "max_absolute_L_window_sum_inside_square": 10,
+          "raw_square_sum": 12,
+          "signal": "quadratic_rotation_sqrt2",
+          "signed_complete_commutator_rectangle": 0,
+          "signed_point_jet_at_X_L": -14984
+        },
+        {
+          "absolute_point_jet_at_X_L": 12662,
+          "exact_endpoint_expression": -30,
+          "max_absolute_L_window_sum_inside_square": 8,
+          "raw_square_sum": 4,
+          "signal": "seeded_sign_sample",
+          "signed_complete_commutator_rectangle": -30,
+          "signed_point_jet_at_X_L": 12662
+        },
+        {
+          "absolute_point_jet_at_X_L": 0,
+          "exact_endpoint_expression": 0,
+          "max_absolute_L_window_sum_inside_square": 16,
+          "raw_square_sum": 256,
+          "signal": "constant_nullmode_control",
+          "signed_complete_commutator_rectangle": 0,
+          "signed_point_jet_at_X_L": 0
+        },
+        {
+          "absolute_point_jet_at_X_L": 3421,
+          "exact_endpoint_expression": -15,
+          "max_absolute_L_window_sum_inside_square": 9,
+          "raw_square_sum": 18,
+          "signal": "half_masked_quadratic_rotation",
+          "signed_complete_commutator_rectangle": -15,
+          "signed_point_jet_at_X_L": -3421
+        },
+        {
+          "absolute_point_jet_at_X_L": 21539,
+          "exact_endpoint_expression": -15,
+          "max_absolute_L_window_sum_inside_square": 9,
+          "raw_square_sum": 14,
+          "signal": "half_masked_seeded_sign_sample",
+          "signed_complete_commutator_rectangle": -15,
+          "signed_point_jet_at_X_L": -21539
+        }
+      ],
+      "site_count": 256
+    },
+    {
+      "L": 32,
+      "X_L": 1023,
+      "coefficient_gcd": 1,
+      "coefficient_l1": 4294967296,
+      "coefficient_squared_l2": 1832624140942590534,
+      "denominator_after_dividing_jet_by_2_to_k": 4294967296,
+      "independent_sign_expected_total_response_energy": 1817963147815049809728,
+      "input_length_including_halo": 1056,
+      "interior_response_rows": 992,
+      "k": 32,
+      "masked_independent_sign_exact_point_jet_second_moment": 906943659661033553,
+      "rotation_half_mask_active_sites": 512,
+      "signals": [
+        {
+          "absolute_point_jet_at_X_L": 4294967296,
+          "exact_endpoint_expression": 0,
+          "max_absolute_L_window_sum_inside_square": 0,
+          "raw_square_sum": 0,
+          "signal": "alternating",
+          "signed_complete_commutator_rectangle": 0,
+          "signed_point_jet_at_X_L": -4294967296
+        },
+        {
+          "absolute_point_jet_at_X_L": 758560944,
+          "exact_endpoint_expression": 0,
+          "max_absolute_L_window_sum_inside_square": 14,
+          "raw_square_sum": -28,
+          "signal": "quadratic_rotation_sqrt2",
+          "signed_complete_commutator_rectangle": 0,
+          "signed_point_jet_at_X_L": 758560944
+        },
+        {
+          "absolute_point_jet_at_X_L": 1640648030,
+          "exact_endpoint_expression": 62,
+          "max_absolute_L_window_sum_inside_square": 14,
+          "raw_square_sum": -30,
+          "signal": "seeded_sign_sample",
+          "signed_complete_commutator_rectangle": 62,
+          "signed_point_jet_at_X_L": 1640648030
+        },
+        {
+          "absolute_point_jet_at_X_L": 0,
+          "exact_endpoint_expression": 0,
+          "max_absolute_L_window_sum_inside_square": 32,
+          "raw_square_sum": 1024,
+          "signal": "constant_nullmode_control",
+          "signed_complete_commutator_rectangle": 0,
+          "signed_point_jet_at_X_L": 0
+        },
+        {
+          "absolute_point_jet_at_X_L": 736148443,
+          "exact_endpoint_expression": 0,
+          "max_absolute_L_window_sum_inside_square": 11,
+          "raw_square_sum": 12,
+          "signal": "half_masked_quadratic_rotation",
+          "signed_complete_commutator_rectangle": 0,
+          "signed_point_jet_at_X_L": 736148443
+        },
+        {
+          "absolute_point_jet_at_X_L": 1062203965,
+          "exact_endpoint_expression": 62,
+          "max_absolute_L_window_sum_inside_square": 12,
+          "raw_square_sum": -28,
+          "signal": "half_masked_seeded_sign_sample",
+          "signed_complete_commutator_rectangle": 62,
+          "signed_point_jet_at_X_L": 1062203965
+        }
+      ],
+      "site_count": 1024
+    },
+    {
+      "L": 64,
+      "X_L": 4095,
+      "coefficient_gcd": 1,
+      "coefficient_l1": 18446744073709551616,
+      "coefficient_squared_l2": 23951146041928082866135587776380551750,
+      "denominator_after_dividing_jet_by_2_to_k": 18446744073709551616,
+      "independent_sign_expected_total_response_energy": 96571020841054030116258689914366384656000,
+      "input_length_including_halo": 4160,
+      "interior_response_rows": 4032,
+      "k": 64,
+      "masked_independent_sign_exact_point_jet_second_moment": 11406221788258050583084443047112152500,
+      "rotation_half_mask_active_sites": 2048,
+      "signals": [
+        {
+          "absolute_point_jet_at_X_L": 18446744073709551616,
+          "exact_endpoint_expression": 0,
+          "max_absolute_L_window_sum_inside_square": 0,
+          "raw_square_sum": 0,
+          "signal": "alternating",
+          "signed_complete_commutator_rectangle": 0,
+          "signed_point_jet_at_X_L": -18446744073709551616
+        },
+        {
+          "absolute_point_jet_at_X_L": 3723478184864557590,
+          "exact_endpoint_expression": 0,
+          "max_absolute_L_window_sum_inside_square": 26,
+          "raw_square_sum": -62,
+          "signal": "quadratic_rotation_sqrt2",
+          "signed_complete_commutator_rectangle": 0,
+          "signed_point_jet_at_X_L": -3723478184864557590
+        },
+        {
+          "absolute_point_jet_at_X_L": 624344946327859638,
+          "exact_endpoint_expression": 0,
+          "max_absolute_L_window_sum_inside_square": 32,
+          "raw_square_sum": 22,
+          "signal": "seeded_sign_sample",
+          "signed_complete_commutator_rectangle": 0,
+          "signed_point_jet_at_X_L": -624344946327859638
+        },
+        {
+          "absolute_point_jet_at_X_L": 0,
+          "exact_endpoint_expression": 0,
+          "max_absolute_L_window_sum_inside_square": 64,
+          "raw_square_sum": 4096,
+          "signal": "constant_nullmode_control",
+          "signed_complete_commutator_rectangle": 0,
+          "signed_point_jet_at_X_L": 0
+        },
+        {
+          "absolute_point_jet_at_X_L": 112569780083325710,
+          "exact_endpoint_expression": -63,
+          "max_absolute_L_window_sum_inside_square": 16,
+          "raw_square_sum": 28,
+          "signal": "half_masked_quadratic_rotation",
+          "signed_complete_commutator_rectangle": -63,
+          "signed_point_jet_at_X_L": 112569780083325710
+        },
+        {
+          "absolute_point_jet_at_X_L": 4173683785955471130,
+          "exact_endpoint_expression": -63,
+          "max_absolute_L_window_sum_inside_square": 17,
+          "raw_square_sum": 12,
+          "signal": "half_masked_seeded_sign_sample",
+          "signed_complete_commutator_rectangle": -63,
+          "signed_point_jet_at_X_L": -4173683785955471130
+        }
+      ],
+      "site_count": 4096
+    }
+  ],
+  "two_by_two_coercivity_conditioning": [
+    {
+      "cyclic_pair_determinant": "1/2",
+      "hs_commutator": "1/4",
+      "hs_witness": "1",
+      "k": 1,
+      "matrix_dimension": 2,
+      "matrix_entry_denominator": 2,
+      "sharp_norm_coercivity_constant": 2,
+      "sharp_squared_norm_coercivity_constant": 4,
+      "t": "1/2"
+    },
+    {
+      "cyclic_pair_determinant": "1/16",
+      "hs_commutator": "1/256",
+      "hs_witness": "1",
+      "k": 4,
+      "matrix_dimension": 2,
+      "matrix_entry_denominator": 16,
+      "sharp_norm_coercivity_constant": 16,
+      "sharp_squared_norm_coercivity_constant": 256,
+      "t": "1/16"
+    },
+    {
+      "cyclic_pair_determinant": "1/256",
+      "hs_commutator": "1/65536",
+      "hs_witness": "1",
+      "k": 8,
+      "matrix_dimension": 2,
+      "matrix_entry_denominator": 256,
+      "sharp_norm_coercivity_constant": 256,
+      "sharp_squared_norm_coercivity_constant": 65536,
+      "t": "1/256"
+    },
+    {
+      "cyclic_pair_determinant": "1/65536",
+      "hs_commutator": "1/4294967296",
+      "hs_witness": "1",
+      "k": 16,
+      "matrix_dimension": 2,
+      "matrix_entry_denominator": 65536,
+      "sharp_norm_coercivity_constant": 65536,
+      "sharp_squared_norm_coercivity_constant": 4294967296,
+      "t": "1/65536"
+    },
+    {
+      "cyclic_pair_determinant": "1/4294967296",
+      "hs_commutator": "1/18446744073709551616",
+      "hs_witness": "1",
+      "k": 32,
+      "matrix_dimension": 2,
+      "matrix_entry_denominator": 4294967296,
+      "sharp_norm_coercivity_constant": 4294967296,
+      "sharp_squared_norm_coercivity_constant": 18446744073709551616,
+      "t": "1/4294967296"
+    },
+    {
+      "cyclic_pair_determinant": "1/18446744073709551616",
+      "hs_commutator": "1/340282366920938463463374607431768211456",
+      "hs_witness": "1",
+      "k": 64,
+      "matrix_dimension": 2,
+      "matrix_entry_denominator": 18446744073709551616,
+      "sharp_norm_coercivity_constant": 18446744073709551616,
+      "sharp_squared_norm_coercivity_constant": 340282366920938463463374607431768211456,
+      "t": "1/18446744073709551616"
+    }
+  ],
+  "uniform_sign_cube": [
+    {
+      "binomial_2k_k": 2,
+      "exact_mean_square_jet": 2,
+      "k": 1,
+      "maximum_absolute_jet": 2,
+      "sign_assignments": 4
+    },
+    {
+      "binomial_2k_k": 6,
+      "exact_mean_square_jet": 6,
+      "k": 2,
+      "maximum_absolute_jet": 4,
+      "sign_assignments": 8
+    },
+    {
+      "binomial_2k_k": 20,
+      "exact_mean_square_jet": 20,
+      "k": 3,
+      "maximum_absolute_jet": 8,
+      "sign_assignments": 16
+    },
+    {
+      "binomial_2k_k": 70,
+      "exact_mean_square_jet": 70,
+      "k": 4,
+      "maximum_absolute_jet": 16,
+      "sign_assignments": 32
+    },
+    {
+      "binomial_2k_k": 252,
+      "exact_mean_square_jet": 252,
+      "k": 5,
+      "maximum_absolute_jet": 32,
+      "sign_assignments": 64
+    },
+    {
+      "binomial_2k_k": 924,
+      "exact_mean_square_jet": 924,
+      "k": 6,
+      "maximum_absolute_jet": 64,
+      "sign_assignments": 128
+    },
+    {
+      "binomial_2k_k": 3432,
+      "exact_mean_square_jet": 3432,
+      "k": 7,
+      "maximum_absolute_jet": 128,
+      "sign_assignments": 256
+    },
+    {
+      "binomial_2k_k": 12870,
+      "exact_mean_square_jet": 12870,
+      "k": 8,
+      "maximum_absolute_jet": 256,
+      "sign_assignments": 512
+    },
+    {
+      "binomial_2k_k": 48620,
+      "exact_mean_square_jet": 48620,
+      "k": 9,
+      "maximum_absolute_jet": 512,
+      "sign_assignments": 1024
+    },
+    {
+      "binomial_2k_k": 184756,
+      "exact_mean_square_jet": 184756,
+      "k": 10,
+      "maximum_absolute_jet": 1024,
+      "sign_assignments": 2048
+    }
+  ]
+}

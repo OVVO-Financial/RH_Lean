@@ -30,12 +30,13 @@
 | --- | --- | --- |
 | 52 | [research/VF_CANONICAL_SQRT_TWO.lean](../../../research/VF_CANONICAL_SQRT_TWO.lean) | CANONICAL VF: original square-band midpoint path + FIXED vertical sqrt(2) |
 | 36 | [research/VF_CANONICAL_SQRT_TWO_VON_KOCH.lean](../../../research/VF_CANONICAL_SQRT_TWO_VON_KOCH.lean) | Canonical sqrt2 VF preserves EXACTLY the classical von-Koch scale |
+| 32 | [research/OFF_CRITICAL_ZERO_HIGH_VF_BRIDGE_20261029.lean](../../../research/OFF_CRITICAL_ZERO_HIGH_VF_BRIDGE_20261029.lean) | Off-critical zero, canonical HIGH, and genuine-prime VF/theta coarsening |
 | 24 | [CURRENT_PROOF_CONTRACT.md](../../../CURRENT_PROOF_CONTRACT.md) | RH_Lean current proof contract |
 | 24 | [research/VF_MID_OPEN_INLET_TARGET_EQUIVALENCE.lean](../../../research/VF_MID_OPEN_INLET_TARGET_EQUIVALENCE.lean) | No-narrowing certificate for two named direct-VF inlets |
 | 21 | [docs/PROOF_DEPENDENCY_DAG.md](../../../docs/PROOF_DEPENDENCY_DAG.md) | RH_Lean mathematical proof-dependency DAG |
 | 16 | [PROOF_CONTRACT_HISTORY_2026_10_15.md](../../../PROOF_CONTRACT_HISTORY_2026_10_15.md) | RH_Lean current proof contract |
 | 14 | [docs/COORDINATE_ATLAS.md](../../../docs/COORDINATE_ATLAS.md) | Coordinate atlas: one phenomenon, many coordinates |
-| 12 | [AGENTS.md](../../../AGENTS.md) | RH_Lean research-agent instructions |
+| 12 | [AGENTS_BEFORE_RESEARCH_ENGINE_20261101.md](../../../AGENTS_BEFORE_RESEARCH_ENGINE_20261101.md) | RH_Lean research-agent instructions |
 | 12 | [AGENTS_POLICY_HISTORY_2026_10_15.md](../../../AGENTS_POLICY_HISTORY_2026_10_15.md) | RH_Lean research-agent instructions |
 | 12 | [README.md](../../../README.md) | RH_Lean |
 | 8 | [RESEARCH_ROUTE_REGISTRY.md](../../../RESEARCH_ROUTE_REGISTRY.md) | Research route registry |
@@ -57,4 +58,3 @@
 | 3 | [RHLean/Proof/StableFarRenewalDyadicTwoShell.lean](../../../RHLean/Proof/StableFarRenewalDyadicTwoShell.lean) | Global multiplicity-one transport of the renewal defect |
 | 3 | [export_mobius_synthesis/MODULES.md](../../../export_mobius_synthesis/MODULES.md) | Principal modules |
 | 2 | [RHLean/Proof/ComplexVerticalIntervalEulerBridge.lean](../../../RHLean/Proof/ComplexVerticalIntervalEulerBridge.lean) | Complex vertical-interval / Euler ledger bridge |
-| 2 | [RHLean/Proof/LowWheelCanonicalFrozenReduction.lean](../../../RHLean/Proof/LowWheelCanonicalFrozenReduction.lean) | Frozen canonical downcross carrier and external reassembly |

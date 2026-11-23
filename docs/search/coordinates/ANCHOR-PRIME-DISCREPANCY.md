@@ -45,8 +45,10 @@
 | 25 | [research/VF_CANONICAL_SQRT_TWO.lean](../../../research/VF_CANONICAL_SQRT_TWO.lean) | CANONICAL VF: original square-band midpoint path + FIXED vertical sqrt(2) |
 | 25 | [research/VF_MID_SEVEN_EIGHTHS_ANALYTIC_BRIDGE.lean](../../../research/VF_MID_SEVEN_EIGHTHS_ANALYTIC_BRIDGE.lean) | The seven-eighths zero-free result as a SEPARATE analytic input |
 | 24 | [research/VF_MID_SEVEN_EIGHTHS_OWNER_ABEL.lean](../../../research/VF_MID_SEVEN_EIGHTHS_OWNER_ABEL.lean) | A genuine arithmetic-analytic synthesis: owner-column Abel transport |
+| 16 | [research/ALPOGE_GZ_VFMID_DELTA_TRANSFER_20261122.lean](../../../research/ALPOGE_GZ_VFMID_DELTA_TRANSFER_20261122.lean) | Alpoge Gz: the original real prime delta in VF_mid coordinates |
 | 16 | [research/VF_MID_OSCILLATION_SCALE.lean](../../../research/VF_MID_OSCILLATION_SCALE.lean) | Native VF-mid oscillation scale transfer |
 | 15 | [research/VF_MID_915_FLOOR_LI_TRANSPORT_BOUNDARY.lean](../../../research/VF_MID_915_FLOOR_LI_TRANSPORT_BOUNDARY.lean) | #915: actual owner census compressed into discrete-Li unmatched boundary |
+| 14 | [research/ALPOGE_GZ_PRIME_DELTA_ARITHMETIC_20261122.lean](../../../research/ALPOGE_GZ_PRIME_DELTA_ARITHMETIC_20261122.lean) | Alpoge Gz as the EXACT weighted delta(t) history in native arithmetic |
 | 13 | [research/VF_MID_FIRST_BAD_FULL_PROOF_MECHANISM_AND_OPEN_PAYMENT.md](../../../research/VF_MID_FIRST_BAD_FULL_PROOF_MECHANISM_AND_OPEN_PAYMENT.md) | VF_mid, actual prime owners, PNT, and the first-bad signed payment |
 | 11 | [docs/FORMALIZATION_MILESTONES.md](../../../docs/FORMALIZATION_MILESTONES.md) | RH_Lean formalization milestones |
 | 11 | [research/VF_MID_SQRT_TWO_LI_HORIZONTAL.lean](../../../research/VF_MID_SQRT_TWO_LI_HORIZONTAL.lean) | Direct Li-to-VF horizontal error bridge at original square endpoints |
@@ -54,12 +56,10 @@
 | 8 | [research/VF_MID_FIRST_BAD_HISTORY_COMPRESSION.lean](../../../research/VF_MID_FIRST_BAD_HISTORY_COMPRESSION.lean) | First-bad historical-anchor decompression |
 | 7 | [README.md](../../../README.md) | RH_Lean |
 | 7 | [research/VF_CANONICAL_SQRT_TWO_AUTOPSY_2026_10_12.md](../../../research/VF_CANONICAL_SQRT_TWO_AUTOPSY_2026_10_12.md) | FULL VF AUTOPSY — ONE CANONICAL SQRT(2)-ALIGNED DEFINITION |
+| 6 | [CURRENT_PROOF_CONTRACT.md](../../../CURRENT_PROOF_CONTRACT.md) | RH_Lean current proof contract |
 | 6 | [PROOF_CONTRACT_HISTORY_2026_10_15.md](../../../PROOF_CONTRACT_HISTORY_2026_10_15.md) | RH_Lean current proof contract |
 | 6 | [research/PRIME_DENSITY_PACKET_OPERATOR.md](../../../research/PRIME_DENSITY_PACKET_OPERATOR.md) | Prime-Density Packet Operator: Corrected Exact-Activity Formulation |
 | 6 | [research/VF_MID_LI_PHASE_FAN.lean](../../../research/VF_MID_LI_PHASE_FAN.lean) | Uniform VF / Li phase-fan correspondence |
 | 5 | [RHLean/Analysis/PrimeSieveDyadicChordEnergy.lean](../../../RHLean/Analysis/PrimeSieveDyadicChordEnergy.lean) | Dyadic chord geometry of the reciprocal prime discrepancy |
 | 5 | [RHLean/Analysis/SquareRootPostCrossingRenewal.lean](../../../RHLean/Analysis/SquareRootPostCrossingRenewal.lean) | Renewal normal forms for the post-crossing tail |
-| 4 | [CURRENT_PROOF_CONTRACT.md](../../../CURRENT_PROOF_CONTRACT.md) | RH_Lean current proof contract |
 | 4 | [FORMALIZATION_CHECKLIST.md](../../../FORMALIZATION_CHECKLIST.md) | RH_Lean formalization checklist |
-| 4 | [FORMALIZATION_SEQUENCE.md](../../../FORMALIZATION_SEQUENCE.md) | Formalization inventory and sequence |
-| 4 | [docs/DOCUMENTATION_INDEX.md](../../../docs/DOCUMENTATION_INDEX.md) | Documentation index |

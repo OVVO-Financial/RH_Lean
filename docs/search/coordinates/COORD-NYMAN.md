@@ -22,14 +22,16 @@
 
 | Score | File | Title |
 | --- | --- | --- |
+| 19 | [docs/PROOF_DEPENDENCY_DAG.md](../../../docs/PROOF_DEPENDENCY_DAG.md) | RH_Lean mathematical proof-dependency DAG |
 | 16 | [research/NYMAN_BEURLING_POSITIVE_RESIDUE_ATTACK_2026_10_15.md](../../../research/NYMAN_BEURLING_POSITIVE_RESIDUE_ATTACK_2026_10_15.md) | Nyman–Beurling positive-residue attack — 2026-10-15 |
-| 15 | [docs/PROOF_DEPENDENCY_DAG.md](../../../docs/PROOF_DEPENDENCY_DAG.md) | RH_Lean mathematical proof-dependency DAG |
 | 6 | [docs/COORDINATE_ATLAS.md](../../../docs/COORDINATE_ATLAS.md) | Coordinate atlas: one phenomenon, many coordinates |
 | 6 | [docs/RH_PROOF_ATTACK_PORTFOLIO_20261024.md](../../../docs/RH_PROOF_ATTACK_PORTFOLIO_20261024.md) | RH proof attack portfolio and seven-agent operating contract — 2026-10-24 |
 | 5 | [docs/FACTOR_DEPTH_RESEARCH_BRIEF.md](../../../docs/FACTOR_DEPTH_RESEARCH_BRIEF.md) | Live research brief: factor-depth coupling and independent amplification |
-| 4 | [AGENTS.md](../../../AGENTS.md) | RH_Lean research-agent instructions |
+| 4 | [AGENTS_BEFORE_RESEARCH_ENGINE_20261101.md](../../../AGENTS_BEFORE_RESEARCH_ENGINE_20261101.md) | RH_Lean research-agent instructions |
 | 4 | [CURRENT_PROOF_CONTRACT.md](../../../CURRENT_PROOF_CONTRACT.md) | RH_Lean current proof contract |
-| 4 | [docs/DYNAMIC_RESEARCH_AGENTS.md](../../../docs/DYNAMIC_RESEARCH_AGENTS.md) | RH_Lean dynamic seven-agent research protocol |
+| 4 | [docs/DYNAMIC_RESEARCH_AGENTS_BEFORE_RESEARCH_ENGINE_20261101.md](../../../docs/DYNAMIC_RESEARCH_AGENTS_BEFORE_RESEARCH_ENGINE_20261101.md) | RH_Lean dynamic seven-agent research protocol |
+| 4 | [docs/external/2026-11-15/universal-envelope-law-handoff.md](../../../docs/external/2026-11-15/universal-envelope-law-handoff.md) | Universal envelope law for the frozen-root coordinates — status snapshot and external handoff, 2026-11-15 |
+| 3 | [docs/RHLEAN_REPO_WIDE_PROOF_ATTACKS_20261108.md](../../../docs/RHLEAN_REPO_WIDE_PROOF_ATTACKS_20261108.md) | RH_Lean all-route mathematical status and seven-agent handoff — 2026-11-08 |
 | 2 | [CURRENT_RESEARCH_HANDOFF.md](../../../CURRENT_RESEARCH_HANDOFF.md) | Current RH_Lean research handoff |
 | 2 | [RESEARCH_ROUTE_REGISTRY.md](../../../RESEARCH_ROUTE_REGISTRY.md) | Research route registry |
 | 2 | [docs/CROSS_COORDINATE_LOW_QUOTIENT_RESEARCH_2026_10_17.md](../../../docs/CROSS_COORDINATE_LOW_QUOTIENT_RESEARCH_2026_10_17.md) | Cross-coordinate low-quotient program: complete seven-agent research instructions |

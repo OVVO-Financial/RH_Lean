@@ -39,6 +39,8 @@ SHARDS = (
     ("research-lean", lambda p: p.startswith("research/") and p.endswith(".lean")),
     ("research-notes", lambda p: p.startswith("research/")),
     ("library-proof", lambda p: p.startswith("RHLean/Proof/")),
+    ("library-alpoge-thin", lambda p: p.startswith("RHLean/Analysis/AlpogeThin/")),
+    ("library-geometry", lambda p: p.startswith("RHLean/Geometry/")),
     ("library-core", lambda p: p.startswith("RHLean/")),
     ("docs", lambda p: p.endswith((".md", ".tex")) and not p.startswith(("scripts/", "experiments/", "numerics/"))),
     ("code", lambda p: p.startswith(("scripts/", "experiments/", "numerics/"))),

@@ -8,7 +8,7 @@
 - **Index:** real
 - **Measures:** Exponent bookkeeping of M; equals Theta (Lean).
 - **Routes:** CODIV, OAI-NNS, MU-LIFT
-- **Proof-DAG nodes:** MILESTONE-MERTENS-CONVERSE, OPEN-MERTENS-EXPONENT-BELOW-7-8
+- **Proof-DAG nodes:** MILESTONE-MERTENS-CONVERSE, MILESTONE-MERTENS-STRICT-EXPLICIT, OPEN-MERTENS-FURTHER-GAIN
 - **Search aliases:** `mertensGrowthExponent`, `growth exponent`, `MertensGrowthAtMost`, `growthAtMost`
 
 ## Crosswalks
@@ -30,9 +30,27 @@
 | 18 | [research/MERTENS_CONVERSE_IDENTIFICATION.lean](../../../research/MERTENS_CONVERSE_IDENTIFICATION.lean) | Bidirectional identification of Mertens growth and zeta-zero confinement |
 | 18 | [research/MERTENS_EXPONENT_STRIP_MAP.lean](../../../research/MERTENS_EXPONENT_STRIP_MAP.lean) | Direct Mertens exponent to zeta-strip map |
 | 9 | [research/MERTENS_EXPONENT_LOG_LIMSUP.lean](../../../research/MERTENS_EXPONENT_LOG_LIMSUP.lean) | The arithmetic infimum is the logarithmic Mertens growth exponent |
+| 9 | [research/UNIVERSAL_ENVELOPE_ACCEPTANCE.lean](../../../research/UNIVERSAL_ENVELOPE_ACCEPTANCE.lean) | Exact-type acceptance for the original arithmetic source. These examples |
 | 8 | [research/NATIVE_OWNER_PREFIX_MERTENS_20261021.lean](../../../research/NATIVE_OWNER_PREFIX_MERTENS_20261021.lean) | Original-source specialization of the conditional owner-prefix recurrence |
+| 8 | [research/oai_434/VF919FractionalOwnerContraction.lean](../../../research/oai_434/VF919FractionalOwnerContraction.lean) | Source-faithful fractional owner contraction: the exact missing bootstrap |
+| 8 | [research/oai_434/VF919OwnerBootstrapIteration.lean](../../../research/oai_434/VF919OwnerBootstrapIteration.lean) | Source-faithful owner bootstrap: exact quantitative ledger |
+| 7 | [research/UNIVERSAL_ENVELOPE_MERTENS_MAX.lean](../../../research/UNIVERSAL_ENVELOPE_MERTENS_MAX.lean) | The actual uncentered Mertens prefix budget |
+| 7 | [research/oai_434/VF919NativeStrictMertens.lean](../../../research/oai_434/VF919NativeStrictMertens.lean) | Strict native Mertens and complete signed-pair consequences |
 | 5 | [docs/COORDINATE_ATLAS.md](../../../docs/COORDINATE_ATLAS.md) | Coordinate atlas: one phenomenon, many coordinates |
+| 5 | [docs/PROOF_DEPENDENCY_DAG.md](../../../docs/PROOF_DEPENDENCY_DAG.md) | RH_Lean mathematical proof-dependency DAG |
 | 5 | [research/MERTENS_CONVERSE_ACCEPTANCE.lean](../../../research/MERTENS_CONVERSE_ACCEPTANCE.lean) | Exact bidirectional Mertens map acceptance |
+| 5 | [research/UNIVERSAL_ENVELOPE_ARITHMETIC.lean](../../../research/UNIVERSAL_ENVELOPE_ARITHMETIC.lean) | The exact historical envelope and its exponent consumer |
 | 4 | [research/MERTENS_EXPONENT_DIAGNOSTICS.lean](../../../research/MERTENS_EXPONENT_DIAGNOSTICS.lean) | Endpoint regressions and the independent rightmost-zero coordinate |
+| 4 | [research/UNIVERSAL_ENVELOPE_OWNER_EQUIVALENCE.lean](../../../research/UNIVERSAL_ENVELOPE_OWNER_EQUIVALENCE.lean) | Critical native-owner bounds and the Mertens half-exponent |
+| 4 | [research/UNIVERSAL_ENVELOPE_RH_BRIDGES.lean](../../../research/UNIVERSAL_ENVELOPE_RH_BRIDGES.lean) | Exact bridges to the repository energy criterion and Mathlib RH |
+| 4 | [research/half_bootstrap_20261116/native_renewal.md](../../../research/half_bootstrap_20261116/native_renewal.md) | Native envelope renewal: the exact mixed-term obstruction and supplier threshold |
+| 4 | [research/oai_434/VF919SlotAnchoredConsequences.lean](../../../research/oai_434/VF919SlotAnchoredConsequences.lean) | Actual Mertens and signed-energy consequences with the same constructed tilt |
+| 4 | [scripts/lean/NativeSevenEighthsReplayAudit.lean](../../../scripts/lean/NativeSevenEighthsReplayAudit.lean) | Compile the replay to an olean first, then run under |
 | 3 | [CURRENT_PROOF_CONTRACT.md](../../../CURRENT_PROOF_CONTRACT.md) | RH_Lean current proof contract |
+| 3 | [docs/external/2026-11-15/universal-envelope-law-handoff.md](../../../docs/external/2026-11-15/universal-envelope-law-handoff.md) | Universal envelope law for the frozen-root coordinates — status snapshot and external handoff, 2026-11-15 |
+| 3 | [research/TWOAB_RENEWAL_OAI_CONSUMER_20261108.lean](../../../research/TWOAB_RENEWAL_OAI_CONSUMER_20261108.lean) | Reuse ANY established Mertens exponent on a complete 2ab band |
+| 3 | [research/UNIVERSAL_ENVELOPE_ZERO_LOG.lean](../../../research/UNIVERSAL_ENVELOPE_ZERO_LOG.lean) | Zero logarithmic amplification is equivalent to the critical Mertens bound |
+| 3 | [scripts/lean/explicit_amplification/ExactTypes.lean](../../../scripts/lean/explicit_amplification/ExactTypes.lean) | Exact quantified public types for the explicit amplification proof. |
+| 2 | [docs/MERTENS_AMPLIFICATION_BUDGET.md](../../../docs/MERTENS_AMPLIFICATION_BUDGET.md) | Mertens amplification: subpower loss and subcritical budget dependence |
+| 2 | [docs/UNIVERSAL_ENVELOPE_FORMALIZATION_20261115.md](../../../docs/UNIVERSAL_ENVELOPE_FORMALIZATION_20261115.md) | Universal historical envelopes: formalization and exact route equivalences |
 | 2 | [experiments/three_slot_smooth_core_scale.py](../../../experiments/three_slot_smooth_core_scale.py) | Growth of the smooth-core channel H in the three-slot (R - 2H) decomposition. |

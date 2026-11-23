@@ -40,7 +40,7 @@
 | 3 | [research/VF_MID_915_HISTORICAL_COMPRESSION_CRT_FIXED_OWNER_SAVING.md](../../../research/VF_MID_915_HISTORICAL_COMPRESSION_CRT_FIXED_OWNER_SAVING.md) | #915: exact compression restoration and fixed-wheel historical cancellation |
 | 3 | [research/VF_MID_DIRECT_COMPOSITE_DESCENT.lean](../../../research/VF_MID_DIRECT_COMPOSITE_DESCENT.lean) | Direct composite descent for the VF-mid square-band error |
 | 3 | [research/VF_MID_FLOOR_LI_DISCRETE_BACKLOG.lean](../../../research/VF_MID_FLOOR_LI_DISCRETE_BACKLOG.lean) | Discrete floor-Li backlog on VF square blocks |
-| 2 | [AGENTS.md](../../../AGENTS.md) | RH_Lean research-agent instructions |
+| 2 | [AGENTS_BEFORE_RESEARCH_ENGINE_20261101.md](../../../AGENTS_BEFORE_RESEARCH_ENGINE_20261101.md) | RH_Lean research-agent instructions |
 | 2 | [CURRENT_RESEARCH_HANDOFF.md](../../../CURRENT_RESEARCH_HANDOFF.md) | Current RH_Lean research handoff |
 | 2 | [docs/RH_PROOF_OVERLAP_AND_SEVEN_EIGHTHS_AUDIT_20261024.md](../../../docs/RH_PROOF_OVERLAP_AND_SEVEN_EIGHTHS_AUDIT_20261024.md) | Audit: route overlap versus independent 7/8-powered progress (2026-10-24) |
 | 2 | [research/VF_MID_915_TERMINAL_TOP_THIRD_TRANSPORT.lean](../../../research/VF_MID_915_TERMINAL_TOP_THIRD_TRANSPORT.lean) | #915: terminal top-third actual-prime / floor-Li transport |

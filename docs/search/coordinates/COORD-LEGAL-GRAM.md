@@ -27,7 +27,7 @@
 | 43 | [RHLean/Proof/SquareRootLegalAncestryGramReduction.lean](../../../RHLean/Proof/SquareRootLegalAncestryGramReduction.lean) | Square-root legal-ancestry Gram reduction |
 | 22 | [RHLean/Proof/LowWheelAncestryCrossLedgerBridge.lean](../../../RHLean/Proof/LowWheelAncestryCrossLedgerBridge.lean) | Sequential low-wheel operator inside the ancestry cross ledger |
 | 15 | [docs/COORDINATE_ATLAS.md](../../../docs/COORDINATE_ATLAS.md) | Coordinate atlas: one phenomenon, many coordinates |
-| 10 | [docs/PROOF_DEPENDENCY_DAG.md](../../../docs/PROOF_DEPENDENCY_DAG.md) | RH_Lean mathematical proof-dependency DAG |
+| 11 | [docs/PROOF_DEPENDENCY_DAG.md](../../../docs/PROOF_DEPENDENCY_DAG.md) | RH_Lean mathematical proof-dependency DAG |
 | 8 | [RHLean/Proof/SquareRootMertensEndpointAmplification.lean](../../../RHLean/Proof/SquareRootMertensEndpointAmplification.lean) | Square-root Mertens endpoint amplification |
 | 5 | [RHLean/Proof/SquareRootAncestryParentFibres.lean](../../../RHLean/Proof/SquareRootAncestryParentFibres.lean) | Parent-fibre expansion of the square-root ancestry successor |
 | 2 | [research/CUMULATIVE_SQUARE_BLOCK_PRIME_COHORT_CLOCK_2026_10_11.md](../../../research/CUMULATIVE_SQUARE_BLOCK_PRIME_COHORT_CLOCK_2026_10_11.md) | Cumulative square blocks are the actual prime-family clock |

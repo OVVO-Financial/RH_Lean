@@ -22,11 +22,12 @@
 
 | Score | File | Title |
 | --- | --- | --- |
+| 9 | [AGENTS_BEFORE_RESEARCH_ENGINE_20261101.md](../../../AGENTS_BEFORE_RESEARCH_ENGINE_20261101.md) | RH_Lean research-agent instructions |
 | 9 | [docs/QRH_SOURCE_ESTIMATE_EXECUTION_CONTRACT_20261026.md](../../../docs/QRH_SOURCE_ESTIMATE_EXECUTION_CONTRACT_20261026.md) | QRH source-estimate execution contract (26 October 2026) |
-| 8 | [AGENTS.md](../../../AGENTS.md) | RH_Lean research-agent instructions |
-| 7 | [docs/DYNAMIC_RESEARCH_AGENTS.md](../../../docs/DYNAMIC_RESEARCH_AGENTS.md) | RH_Lean dynamic seven-agent research protocol |
+| 8 | [docs/DYNAMIC_RESEARCH_AGENTS_BEFORE_RESEARCH_ENGINE_20261101.md](../../../docs/DYNAMIC_RESEARCH_AGENTS_BEFORE_RESEARCH_ENGINE_20261101.md) | RH_Lean dynamic seven-agent research protocol |
+| 7 | [docs/external/2026-11-15/universal-envelope-law-handoff.md](../../../docs/external/2026-11-15/universal-envelope-law-handoff.md) | Universal envelope law for the frozen-root coordinates — status snapshot and external handoff, 2026-11-15 |
 | 5 | [docs/COORDINATE_ATLAS.md](../../../docs/COORDINATE_ATLAS.md) | Coordinate atlas: one phenomenon, many coordinates |
-| 4 | [docs/AGENT_STUDIO_20261024_SEVEN_PROMPTS.md](../../../docs/AGENT_STUDIO_20261024_SEVEN_PROMPTS.md) | Seven current RH_Lean Agent Studio instruction overrides — 2026-10-24 |
+| 4 | [docs/AGENT_STUDIO_SEVEN_PROMPTS_BEFORE_RESEARCH_ENGINE_20261101.md](../../../docs/AGENT_STUDIO_SEVEN_PROMPTS_BEFORE_RESEARCH_ENGINE_20261101.md) | Seven current RH_Lean Agent Studio instruction overrides — 2026-10-24 |
 | 4 | [docs/LEAN_4_34_1_TRACKER_MIGRATION.md](../../../docs/LEAN_4_34_1_TRACKER_MIGRATION.md) | Lean v4.34.1 migration for the Quasi-Riemann Tracker |
 | 4 | [docs/QRH_SATURATED_ACTUAL_FIBER_THEOREM_TARGET_20261026.md](../../../docs/QRH_SATURATED_ACTUAL_FIBER_THEOREM_TARGET_20261026.md) | Final-return near-saturated window-fiber count: exact unproved analytic target (2026-10-26) |
 | 4 | [research/FIVE_STAGE_JOINT_OWNER_PAYMENT_ATTACK_20261021.md](../../../research/FIVE_STAGE_JOINT_OWNER_PAYMENT_ATTACK_20261021.md) | Finite-history joint returned-owner attack: exact native obstruction and quantitative seam |
@@ -34,5 +35,7 @@
 | 3 | [research/VF_MID_919_OAI_STAGE_SAVINGS_AND_BOOTSTRAP.md](../../../research/VF_MID_919_OAI_STAGE_SAVINGS_AND_BOOTSTRAP.md) | #919: Exactly what saved 1 -> 11/12 -> 7/8, and what VF would need to improve it |
 | 2 | [CURRENT_PROOF_CONTRACT.md](../../../CURRENT_PROOF_CONTRACT.md) | RH_Lean current proof contract |
 | 2 | [docs/NATIVE_SEVEN_EIGHTHS_REPLICATION_PROTOCOL_20261019.md](../../../docs/NATIVE_SEVEN_EIGHTHS_REPLICATION_PROTOCOL_20261019.md) | Independent reproduction of the seven-eighths *mechanism* — proof authority and execution contract |
+| 2 | [docs/RHLEAN_BROAD_SEARCH_UNTIL_ETA_20261031.md](../../../docs/RHLEAN_BROAD_SEARCH_UNTIL_ETA_20261031.md) | Broad RH_Lean mathematics until a verified positive exponent gain |
+| 2 | [docs/UNIVERSAL_ENVELOPE_NUMERICAL_REVIEW_20261115.md](../../../docs/UNIVERSAL_ENVELOPE_NUMERICAL_REVIEW_20261115.md) | Universal envelope: numerical review and reproducible checks |
 | 2 | [research/QRH_LEADER_REPEATED_MARK_HARD_FACE_20261026.lean](../../../research/QRH_LEADER_REPEATED_MARK_HARD_FACE_20261026.lean) | QRH tracker leader: repeated-mark detector has a K-independent HARD face |
 | 2 | [research/VF_MID_919_OAI_RECTANGLE_ADMISSIBILITY_AUDIT.md](../../../research/VF_MID_919_OAI_RECTANGLE_ADMISSIBILITY_AUDIT.md) | Native owner-two coefficients and centered-row admissibility |

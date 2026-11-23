@@ -26,10 +26,11 @@
 | Score | File | Title |
 | --- | --- | --- |
 | 12 | [docs/COORDINATE_ATLAS.md](../../../docs/COORDINATE_ATLAS.md) | Coordinate atlas: one phenomenon, many coordinates |
+| 11 | [docs/PROOF_DEPENDENCY_DAG.md](../../../docs/PROOF_DEPENDENCY_DAG.md) | RH_Lean mathematical proof-dependency DAG |
 | 8 | [research/LI_FAN_ONE_SIDED_WEIGHTED_COMPOSITE_RH_CONTRACT_20261022.md](../../../research/LI_FAN_ONE_SIDED_WEIGHTED_COMPOSITE_RH_CONTRACT_20261022.md) | One-sided Li-fan containment via weighted square-block composite removal |
+| 7 | [docs/RHLEAN_REPO_WIDE_PROOF_ATTACKS_20261108.md](../../../docs/RHLEAN_REPO_WIDE_PROOF_ATTACKS_20261108.md) | RH_Lean all-route mathematical status and seven-agent handoff — 2026-11-08 |
 | 7 | [docs/RH_PROOF_ATTACK_PORTFOLIO_20261024.md](../../../docs/RH_PROOF_ATTACK_PORTFOLIO_20261024.md) | RH proof attack portfolio and seven-agent operating contract — 2026-10-24 |
-| 6 | [AGENTS.md](../../../AGENTS.md) | RH_Lean research-agent instructions |
-| 6 | [docs/PROOF_DEPENDENCY_DAG.md](../../../docs/PROOF_DEPENDENCY_DAG.md) | RH_Lean mathematical proof-dependency DAG |
+| 6 | [AGENTS_BEFORE_RESEARCH_ENGINE_20261101.md](../../../AGENTS_BEFORE_RESEARCH_ENGINE_20261101.md) | RH_Lean research-agent instructions |
 | 6 | [research/VF_MID_LOWER_CHANNEL_ALONE_RH_AND_FIRST_BAD_GATE.md](../../../research/VF_MID_LOWER_CHANNEL_ALONE_RH_AND_FIRST_BAD_GATE.md) | One-sided lower VF channel is sufficient for RH; exact first-bad arithmetic gate |
 | 5 | [RHLean/Analysis/PhysicalPartialMomentSchur.lean](../../../RHLean/Analysis/PhysicalPartialMomentSchur.lean) | Physical T-row partial moments and Schur target invariance |
 | 4 | [RHLean/Analysis/PartialMomentSchurTarget.lean](../../../RHLean/Analysis/PartialMomentSchurTarget.lean) | Arbitrary-target partial moments and target-invariant Schur covariance |
@@ -38,10 +39,13 @@
 | 3 | [research/VF_MID_925_FACTOR_SPECTRAL_LOWER_CHANNEL_CONTRACT.md](../../../research/VF_MID_925_FACTOR_SPECTRAL_LOWER_CHANNEL_CONTRACT.md) | #925 — Genuine factor-range square theta forcing and its zeta-zero spectrum |
 | 2 | [CURRENT_PROOF_CONTRACT.md](../../../CURRENT_PROOF_CONTRACT.md) | RH_Lean current proof contract |
 | 2 | [RESEARCH_ROUTE_REGISTRY.md](../../../RESEARCH_ROUTE_REGISTRY.md) | Research route registry |
+| 2 | [RHLean/Analysis/AlpogeNNSCohomologicalCRPayment.lean](../../../RHLean/Analysis/AlpogeNNSCohomologicalCRPayment.lean) | Native NNS C-to-R decomposition and the exact cohomology-length ledger |
 | 2 | [RHLean/Analysis/FinitePrimeHigherWeightOne.lean](../../../RHLean/Analysis/FinitePrimeHigherWeightOne.lean) | Exact weight-one layers at primes 13 and 17 |
 | 2 | [RHLean/Analysis/OutsidePrimeCompleteDeletionFirstMoment.lean](../../../RHLean/Analysis/OutsidePrimeCompleteDeletionFirstMoment.lean) | Complete and arbitrary-prefix q-owner deletion first-moment bounds |
 | 2 | [RHLean/Proof/RecursivePrimeReplacement.lean](../../../RHLean/Proof/RecursivePrimeReplacement.lean) | Recursive prime replacement at a square endpoint |
 | 2 | [docs/RH_PROOF_OVERLAP_AND_SEVEN_EIGHTHS_AUDIT_20261024.md](../../../docs/RH_PROOF_OVERLAP_AND_SEVEN_EIGHTHS_AUDIT_20261024.md) | Audit: route overlap versus independent 7/8-powered progress (2026-10-24) |
+| 2 | [docs/external/2026-11-15/universal-envelope-law-handoff.md](../../../docs/external/2026-11-15/universal-envelope-law-handoff.md) | Universal envelope law for the frozen-root coordinates — status snapshot and external handoff, 2026-11-15 |
+| 2 | [research/EULER_THREE_STRATUM_SQUARE_SAMPLING_20261028.md](../../../research/EULER_THREE_STRATUM_SQUARE_SAMPLING_20261028.md) | Three moving Euler prime strata sampled across square blocks |
 | 2 | [research/REPLACEMENT_FIBRE_DICTIONARY.md](../../../research/REPLACEMENT_FIBRE_DICTIONARY.md) | Replacement fibre dictionary |
 | 2 | [research/VF_919_ZERO_TARGET_DISCRETE_ABEL_GREEN_KUBO_20261020.lean](../../../research/VF_919_ZERO_TARGET_DISCRETE_ABEL_GREEN_KUBO_20261020.lean) | Finite exterior-spill Abel identity and NNS signed Green--Kubo energy |
 | 2 | [research/VF_MID_LI_PHASE_FAN.lean](../../../research/VF_MID_LI_PHASE_FAN.lean) | Uniform VF / Li phase-fan correspondence |

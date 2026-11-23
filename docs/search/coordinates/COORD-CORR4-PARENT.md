@@ -36,22 +36,22 @@
 | 22 | [RHLean/Proof/GlobalFirstJumpCriticalCorrelationBridge.lean](../../../RHLean/Proof/GlobalFirstJumpCriticalCorrelationBridge.lean) | Critical reciprocal-correlation bridge for the recombined defect |
 | 21 | [research/LOW_OWNER_PHYSICAL_AMPLITUDE_TRANSPORT.lean](../../../research/LOW_OWNER_PHYSICAL_AMPLITUDE_TRANSPORT.lean) | Exact physical amplitude transport and its full signed correction |
 | 19 | [research/CANONICAL_ROUGH_GLOBAL_BOUNDS.lean](../../../research/CANONICAL_ROUGH_GLOBAL_BOUNDS.lean) | Global bounds for the canonical rough correlation |
+| 16 | [docs/RH_PROOF_ATTACK_PORTFOLIO_20261024.md](../../../docs/RH_PROOF_ATTACK_PORTFOLIO_20261024.md) | RH proof attack portfolio and seven-agent operating contract — 2026-10-24 |
 | 16 | [research/GLOBAL_RETURNED_CORE_POST789_UNCONDITIONAL_GLOBAL_BOUND.lean](../../../research/GLOBAL_RETURNED_CORE_POST789_UNCONDITIONAL_GLOBAL_BOUND.lean) | Unconditional global bound for the post-#789 signed remainder |
 | 16 | [research/GLOBAL_RETURNED_CORE_STOKES_ENDPOINT_AMPLITUDE_IDENTIFICATION.lean](../../../research/GLOBAL_RETURNED_CORE_STOKES_ENDPOINT_AMPLITUDE_IDENTIFICATION.lean) | Final Stokes boundary as the exact endpoint Mertens amplitude |
 | 16 | [research/LOW_OWNER_PHYSICAL_CENSUS_ENERGY_TRANSFER.lean](../../../research/LOW_OWNER_PHYSICAL_CENSUS_ENERGY_TRANSFER.lean) | Energy transfer between LOW-A correlation and the physical far census |
-| 15 | [docs/RH_PROOF_ATTACK_PORTFOLIO_20261024.md](../../../docs/RH_PROOF_ATTACK_PORTFOLIO_20261024.md) | RH proof attack portfolio and seven-agent operating contract — 2026-10-24 |
+| 15 | [docs/DYNAMIC_RESEARCH_AGENTS_BEFORE_RESEARCH_ENGINE_20261101.md](../../../docs/DYNAMIC_RESEARCH_AGENTS_BEFORE_RESEARCH_ENGINE_20261101.md) | RH_Lean dynamic seven-agent research protocol |
 | 15 | [research/CORR4_FRAME_ONLY_INVERSE_20261026.lean](../../../research/CORR4_FRAME_ONLY_INVERSE_20261026.lean) | Sharp frame-only inverse obstruction for CORR-4 |
 | 15 | [scripts/test_coordinate_atlas.py](../../../scripts/test_coordinate_atlas.py) | Tests for the coordinate atlas and the static search corpus generator. |
+| 15 | [scripts/test_proof_obligation_dag.py](../../../scripts/test_proof_obligation_dag.py) | Structural and status-consistency tests for the proof-obligation DAG. |
 | 14 | [RESEARCH_ROUTE_REGISTRY.md](../../../RESEARCH_ROUTE_REGISTRY.md) | Research route registry |
-| 14 | [docs/DYNAMIC_RESEARCH_AGENTS.md](../../../docs/DYNAMIC_RESEARCH_AGENTS.md) | RH_Lean dynamic seven-agent research protocol |
+| 14 | [docs/AGENT_STUDIO_20261024_SEVEN_PROMPTS.md](../../../docs/AGENT_STUDIO_20261024_SEVEN_PROMPTS.md) | Seven complete RH_Lean Agent Studio instruction templates |
 | 14 | [research/CORR4_OAI_POWER_GUIDEPOST_20261024.lean](../../../research/CORR4_OAI_POWER_GUIDEPOST_20261024.lean) | OpenAI 7/8 is a GUIDEPOST, not a fixed exponent |
 | 14 | [research/CORRELATION_FOUR_TERMINAL_BRIDGE.lean](../../../research/CORRELATION_FOUR_TERMINAL_BRIDGE.lean) | CORR-4 to the subcritical q^2 terminal recurrence |
 | 13 | [research/CORR4_OAI_POWER_GRAM_EQUIVALENCE_20261025.lean](../../../research/CORR4_OAI_POWER_GRAM_EQUIVALENCE_20261025.lean) | CORR-4 power Gram: exact unconditional reverse direction |
 | 13 | [research/CORR4_OAI_POWER_RENEWAL_20261025.lean](../../../research/CORR4_OAI_POWER_RENEWAL_20261025.lean) | CORR4: power remainder -> exact nearest-square endpoint renewal |
-| 13 | [scripts/test_proof_obligation_dag.py](../../../scripts/test_proof_obligation_dag.py) | Structural and status-consistency tests for the proof-obligation DAG. |
 | 12 | [PROOF_CONTRACT_HISTORY_2026_10_15.md](../../../PROOF_CONTRACT_HISTORY_2026_10_15.md) | RH_Lean current proof contract |
 | 12 | [research/CANONICAL_ROUGH_Q2_TAIL_REDUCTION.lean](../../../research/CANONICAL_ROUGH_Q2_TAIL_REDUCTION.lean) | Global q^2 tail reduction for the canonical rough bound |
 | 12 | [research/LOW_OWNER_PHYSICAL_CENSUS_CORRELATION.lean](../../../research/LOW_OWNER_PHYSICAL_CENSUS_CORRELATION.lean) | Correlation-level physical census normal form |
 | 11 | [CURRENT_PROOF_CONTRACT.md](../../../CURRENT_PROOF_CONTRACT.md) | RH_Lean current proof contract |
 | 11 | [CURRENT_RESEARCH_HANDOFF.md](../../../CURRENT_RESEARCH_HANDOFF.md) | Current RH_Lean research handoff |
-| 11 | [RHLean/Proof/FrozenTopFarAdaptiveRawBridge.lean](../../../RHLean/Proof/FrozenTopFarAdaptiveRawBridge.lean) | Frozen/top/far residual on the adaptive zero-factor carrier |

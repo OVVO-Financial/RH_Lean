@@ -28,6 +28,7 @@
 | 43 | [research/VF_919_SEVEN_EIGHTHS_SQUARE_SHELL_BRIDGE_20261019.lean](../../../research/VF_919_SEVEN_EIGHTHS_SQUARE_SHELL_BRIDGE_20261019.lean) | Exact signed square-shell covariance at the 7/8 scale |
 | 26 | [docs/COORDINATE_ATLAS.md](../../../docs/COORDINATE_ATLAS.md) | Coordinate atlas: one phenomenon, many coordinates |
 | 18 | [research/VF_919_OAI_TRUE_IDEAL_NORM_SHARP_SQUARE_BLOCK_20261019.lean](../../../research/VF_919_OAI_TRUE_IDEAL_NORM_SHARP_SQUARE_BLOCK_20261019.lean) | ORIGINAL square-block terms = full (chi_-3 * a_F) norm-fiber terms |
+| 16 | [research/OAI_PAIRED_SHARP_EULER_SQUARE_LOCALIZATION_20261028.lean](../../../research/OAI_PAIRED_SHARP_EULER_SQUARE_LOCALIZATION_20261028.lean) | Exact original-sharp OAI localization into the moving Euler populations |
 | 15 | [research/VF_919_EULER_MOVING_COVARIANCE_GROWTH_20261019.lean](../../../research/VF_919_EULER_MOVING_COVARIANCE_GROWTH_20261019.lean) | Moving square-root low/high covariance; genuine shell prime/composite growth |
 | 15 | [research/VF_919_MARKED_FIRST_OWNER_SHELL_20261019.lean](../../../research/VF_919_MARKED_FIRST_OWNER_SHELL_20261019.lean) | Exact first-marked-prime allocation of the complete square-shell source |
 | 14 | [research/VF_919_OAI_GLOBAL_SQUARE_BLOCK_ALL_PAIR_COVARIANCE_20261019.lean](../../../research/VF_919_OAI_GLOBAL_SQUARE_BLOCK_ALL_PAIR_COVARIANCE_20261019.lean) | GLOBAL actual signed Green--Kubo covariance: ALL square-block cross terms |
@@ -36,21 +37,20 @@
 | 9 | [research/VF_919_OAI_SQUARE_BLOCK_ONE_SOURCE_FULL_NORM_GRAM_20261019.lean](../../../research/VF_919_OAI_SQUARE_BLOCK_ONE_SOURCE_FULL_NORM_GRAM_20261019.lean) | One principal Hecke norm coefficient, one ACTUAL square-shell weight |
 | 9 | [research/VF_919_OPENAI_434_UNCONDITIONAL_SQUARE_BLOCK_COVARIANCE_20261019.lean](../../../research/VF_919_OPENAI_434_UNCONDITIONAL_SQUARE_BLOCK_COVARIANCE_20261019.lean) | Unconditional actual OpenAI certified 7/8 in RH_Lean's ORIGINAL square shells |
 | 7 | [RHLean/Arithmetic/SquareBlockPrefixCombSweep.lean](../../../RHLean/Arithmetic/SquareBlockPrefixCombSweep.lean) | Square-block prefix-comb sweep: blocks 1 through 10 |
+| 7 | [docs/DYNAMIC_RESEARCH_AGENTS_BEFORE_RESEARCH_ENGINE_20261101.md](../../../docs/DYNAMIC_RESEARCH_AGENTS_BEFORE_RESEARCH_ENGINE_20261101.md) | RH_Lean dynamic seven-agent research protocol |
 | 7 | [research/INDEPENDENT_SEVEN_EIGHTHS_SQUARE_SHELL_ENERGY_20261016.md](../../../research/INDEPENDENT_SEVEN_EIGHTHS_SQUARE_SHELL_ENERGY_20261016.md) | Independent 7/8 programme: square-shell signed energy |
 | 7 | [research/SQUARE_SHELL_LONG_LAG_FIVE_SIXTHS_20261019.md](../../../research/SQUARE_SHELL_LONG_LAG_FIVE_SIXTHS_20261019.md) | A direct 5/6 route: endpoint telescope, long shell lags, and paid large gcd |
-| 6 | [docs/DYNAMIC_RESEARCH_AGENTS.md](../../../docs/DYNAMIC_RESEARCH_AGENTS.md) | RH_Lean dynamic seven-agent research protocol |
+| 6 | [AGENTS_BEFORE_RESEARCH_ENGINE_20261101.md](../../../AGENTS_BEFORE_RESEARCH_ENGINE_20261101.md) | RH_Lean research-agent instructions |
 | 6 | [research/VF_919_SEVEN_EIGHTHS_COVARIANCE_MECHANISM_20261019.md](../../../research/VF_919_SEVEN_EIGHTHS_COVARIANCE_MECHANISM_20261019.md) | The exact 7/8 signed-covariance target and the 317/1027 square-shell route |
-| 5 | [AGENTS.md](../../../AGENTS.md) | RH_Lean research-agent instructions |
 | 5 | [research/SQUARE_SHELL_INCIDENCE_COMPENSATION_20261017.md](../../../research/SQUARE_SHELL_INCIDENCE_COMPENSATION_20261017.md) | Exact square-shell prime-incidence compensation: what closes, and what remains |
+| 5 | [research/oai_434/VF919NativeSevenEighthsReplay.lean](../../../research/oai_434/VF919NativeSevenEighthsReplay.lean) | The complete original one-to-seven-eighths contraction through RHLean NNS |
+| 4 | [research/EULER_THREE_STRATUM_SQUARE_SAMPLING_20261028.md](../../../research/EULER_THREE_STRATUM_SQUARE_SAMPLING_20261028.md) | Three moving Euler prime strata sampled across square blocks |
 | 4 | [research/LOCALIZED_MOBIUS_MOVING_WINDOW_CENSUS_20261018.md](../../../research/LOCALIZED_MOBIUS_MOVING_WINDOW_CENSUS_20261018.md) | RH_Lean localized moving-window experiment — 2026-10-18 |
+| 4 | [research/SQUARE_ROOT_PRIME_PHASE_SIGNED_ENERGY_20261108.lean](../../../research/SQUARE_ROOT_PRIME_PHASE_SIGNED_ENERGY_20261108.lean) | Actual prime phases, floor-Li count transport and physical square-block energy |
 | 4 | [research/SQUARE_SHELL_INCIDENCE_COMPENSATION_LEAN.lean](../../../research/SQUARE_SHELL_INCIDENCE_COMPENSATION_LEAN.lean) | Finite square-shell prime-incidence compensation (universal algebra) |
 | 4 | [research/SQUARE_SHELL_TRAPEZOID_CORRECTED_20261018.lean](../../../research/SQUARE_SHELL_TRAPEZOID_CORRECTED_20261018.lean) | Exact trapezoidal square-shell smoothing: finite identities and energy budget |
 | 4 | [research/STABLE_FAR_OWNED_SMOOTH_SHELL_COMPLETION.lean](../../../research/STABLE_FAR_OWNED_SMOOTH_SHELL_COMPLETION.lean) | Completion: the owned terminal carrier is the full smooth square shell |
 | 4 | [research/VF_919_OAI_GENUINE_IDEAL_ORDERED_PHYSICAL_PAIRS_20261019.lean](../../../research/VF_919_OAI_GENUINE_IDEAL_ORDERED_PHYSICAL_PAIRS_20261019.lean) | EXACT original ordered square-block covariance on individual ideal norm fibers |
 | 4 | [research/VF_919_OAI_IDEAL_COFACTOR_TERM_BY_TERM_SHARP_FLOORS_20261019.lean](../../../research/VF_919_OAI_IDEAL_COFACTOR_TERM_BY_TERM_SHARP_FLOORS_20261019.lean) | The exact ORIGINAL physical square-block cutoff at EACH ideal norm |
 | 3 | [docs/FACTOR_DEPTH_RESEARCH_BRIEF.md](../../../docs/FACTOR_DEPTH_RESEARCH_BRIEF.md) | Live research brief: factor-depth coupling and independent amplification |
-| 3 | [research/HECKE_SPLIT_PRIME_CUTOFF_TRADEOFF_20261016.md](../../../research/HECKE_SPLIT_PRIME_CUTOFF_TRADEOFF_20261016.md) | Independent 7/8 Hecke cutoffs: from seven layers to an exact two-layer root-wall identity |
-| 3 | [research/LOW_OWNER_Q2_NEAREST_SQUARE_ENDPOINT.lean](../../../research/LOW_OWNER_Q2_NEAREST_SQUARE_ENDPOINT.lean) | Nearest-square reduction of the reciprocal q² daughter column |
-| 3 | [research/SQUARE_SHELL_TRAPEZOID_CORRECTED_20261018.md](../../../research/SQUARE_SHELL_TRAPEZOID_CORRECTED_20261018.md) | Exact square-shell trapezoid: corrected formalization and acceptance gate |
-| 2 | [CURRENT_PROOF_CONTRACT.md](../../../CURRENT_PROOF_CONTRACT.md) | RH_Lean current proof contract |
-| 2 | [RHLean/Proof/StableFarOwnedSmoothShellCompletion.lean](../../../RHLean/Proof/StableFarOwnedSmoothShellCompletion.lean) | The owned terminal carrier is the full smooth square shell |
+| 3 | [docs/RHLEAN_PAID_BASELINE_EXACT_CONSUMER_20261106.md](../../../docs/RHLEAN_PAID_BASELINE_EXACT_CONSUMER_20261106.md) | Established baseline, exact consumer, genuinely new arithmetic |

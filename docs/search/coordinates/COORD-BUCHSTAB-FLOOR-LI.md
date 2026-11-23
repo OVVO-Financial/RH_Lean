@@ -31,6 +31,7 @@
 | 8 | [research/VF_MID_TWO_CHANNEL_SHELL_CODIV_GRAM_20261022.lean](../../../research/VF_MID_TWO_CHANNEL_SHELL_CODIV_GRAM_20261022.lean) | Complete fixed-wheel multi-shell conservation and Co-Div consumer |
 | 4 | [research/DYADIC_BUCHSTAB_OTHELLO_GLIDER_WALL.lean](../../../research/DYADIC_BUCHSTAB_OTHELLO_GLIDER_WALL.lean) | Dyadic Buchstab/Othello splice: the joint packet is already an escape wall |
 | 3 | [RHLean/Arithmetic/SignedBuchstabRecursion.lean](../../../RHLean/Arithmetic/SignedBuchstabRecursion.lean) | The signed Buchstab recursion for the rough Möbius sum |
+| 3 | [docs/RHLEAN_CROSS_ROUTE_SIGNED_RECOVERY_20261110.md](../../../docs/RHLEAN_CROSS_ROUTE_SIGNED_RECOVERY_20261110.md) | CROSS_ROUTE_SIGNED_RECOVERY_V1 — seven-agent proof triage and triangulation (2026-11-10) |
 | 2 | [RHLean/Proof/ExceptionalContactFrameEnergyNoGo.lean](../../../RHLean/Proof/ExceptionalContactFrameEnergyNoGo.lean) | The six-contact frame constant is counting, not Mobius cancellation |
 | 2 | [RHLean/Proof/StableFarWallCrossingOwnerWindow.lean](../../../RHLean/Proof/StableFarWallCrossingOwnerWindow.lean) | Exact outer-owner window of the centered stable-far renewal |
 | 2 | [research/CORR4_CORRECTED_EXPONENT_OCTAVE_LEDGER_20261026.md](../../../research/CORR4_CORRECTED_EXPONENT_OCTAVE_LEDGER_20261026.md) | CORR-4 corrected exponent and octave-source ledger (2026-10-26) |

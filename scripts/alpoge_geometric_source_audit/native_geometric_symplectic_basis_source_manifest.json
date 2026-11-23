@@ -1,0 +1,331 @@
+{
+  "status": "IMPLEMENTED_STATIC_REVIEWED_HOSTED_VERIFICATION_PENDING",
+  "date": "2026-11-22",
+  "native_start_commit": "291e21aa788aaa2af9238b835dbd24a76d1b3717",
+  "native_head_observed_at_freeze": "29b0470bf581026e40e8a2e259909e84bc33653b",
+  "upstream_commit": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
+  "mathlib_commit": "d13f23b723b8a846827a245b89c10fc7d3f11612",
+  "descent_payment_ack": "ALPOGE_NATIVE_DESCENT_PAYMENT_V1",
+  "tractability_ack": "ALPOGE_VIOLE_TRACTABLE_RH_V1",
+  "files": [
+    {
+      "module": "RHLean.Geometry.NativeIntegralSymplecticBasis",
+      "declarations": [
+        {
+          "name": "RHLean.Geometry.NativeIntegralSymplectic.IsSymplecticFamily",
+          "line": 46
+        },
+        {
+          "name": "RHLean.Geometry.NativeIntegralSymplectic.IsSymplecticBasisOfType",
+          "line": 52
+        },
+        {
+          "name": "RHLean.Geometry.NativeIntegralSymplectic.IsSymplecticBasis",
+          "line": 56
+        },
+        {
+          "name": "RHLean.Geometry.NativeIntegralSymplectic.IsSymplecticFamily.left_right",
+          "line": 64
+        },
+        {
+          "name": "RHLean.Geometry.NativeIntegralSymplectic.IsSymplecticFamily.right_left",
+          "line": 70
+        },
+        {
+          "name": "RHLean.Geometry.NativeIntegralSymplectic.IsSymplecticFamily.apply_left_sum",
+          "line": 77
+        },
+        {
+          "name": "RHLean.Geometry.NativeIntegralSymplectic.IsSymplecticFamily.apply_sum_right",
+          "line": 82
+        },
+        {
+          "name": "RHLean.Geometry.NativeIntegralSymplectic.IsSymplecticFamily.linearIndependent",
+          "line": 87
+        },
+        {
+          "name": "RHLean.Geometry.NativeIntegralSymplectic.exists_pair_dvd_of_bilinForm",
+          "line": 114
+        },
+        {
+          "name": "RHLean.Geometry.NativeIntegralSymplectic.exists_isSymplecticFamily_span_eq",
+          "line": 142
+        },
+        {
+          "name": "RHLean.Geometry.NativeIntegralSymplectic.IsSymplecticBasisOfType.elim_eq",
+          "line": 253
+        },
+        {
+          "name": "RHLean.Geometry.NativeIntegralSymplectic.IsSymplecticBasisOfType.apply_left",
+          "line": 257
+        },
+        {
+          "name": "RHLean.Geometry.NativeIntegralSymplectic.IsSymplecticBasisOfType.apply_right",
+          "line": 263
+        },
+        {
+          "name": "RHLean.Geometry.NativeIntegralSymplectic.IsSymplecticBasisOfType.isUnit",
+          "line": 269
+        },
+        {
+          "name": "RHLean.Geometry.NativeIntegralSymplectic.IsSymplecticBasisOfType.finrank_eq",
+          "line": 277
+        },
+        {
+          "name": "RHLean.Geometry.NativeIntegralSymplectic.IsSymplecticBasis.left_left",
+          "line": 288
+        },
+        {
+          "name": "RHLean.Geometry.NativeIntegralSymplectic.IsSymplecticBasis.right_right",
+          "line": 291
+        },
+        {
+          "name": "RHLean.Geometry.NativeIntegralSymplectic.IsSymplecticBasis.left_right",
+          "line": 294
+        },
+        {
+          "name": "RHLean.Geometry.NativeIntegralSymplectic.IsSymplecticBasis.right_left",
+          "line": 298
+        },
+        {
+          "name": "RHLean.Geometry.NativeIntegralSymplectic.IsSymplecticFamily.exists_isSymplecticBasis",
+          "line": 305
+        },
+        {
+          "name": "RHLean.Geometry.NativeIntegralSymplectic.exists_isSymplecticBasis",
+          "line": 329
+        },
+        {
+          "name": "RHLean.Geometry.NativeIntegralSymplectic.exists_isSymplecticBasis_of_finrank",
+          "line": 336
+        },
+        {
+          "name": "RHLean.Geometry.NativeIntegralSymplectic.stdSymp",
+          "line": 346
+        },
+        {
+          "name": "RHLean.Geometry.NativeIntegralSymplectic.exists_equiv_stdSymp",
+          "line": 352
+        }
+      ],
+      "native_path": "RHLean/Geometry/NativeIntegralSymplecticBasis.lean",
+      "initial_source_reconstruction_sha256": "4edac67ee834714ff1b91acf525c5ef1b2f6fbebba479147fda2aea9358ef2b9",
+      "native_sha256": "d8882fa7a2c5346f0d88c4c8776079aabe1efd042a0019012992948d1b7f7fd1",
+      "native_lines": 384
+    },
+    {
+      "module": "RHLean.Geometry.NativeGeometricSymplecticBasis",
+      "declarations": [
+        {
+          "name": "RHLean.Geometry.NativeGeometricSymplectic.IsSympBasis",
+          "line": 41
+        },
+        {
+          "name": "RHLean.Geometry.NativeGeometricSymplectic.finrank_int_eq_mul",
+          "line": 46
+        },
+        {
+          "name": "RHLean.Geometry.NativeGeometricSymplectic.finrank_int_lattice",
+          "line": 75
+        },
+        {
+          "name": "RHLean.Geometry.NativeGeometricSymplectic.exists_isSympBasis",
+          "line": 81
+        },
+        {
+          "name": "RHLean.Analysis.AlpogeThin.nativeDyadicPrescribedTraceForm_exists_symplecticBasis",
+          "line": 102
+        },
+        {
+          "name": "RHLean.Analysis.AlpogeThin.nativeDyadicPrescribedGeometricDatum_exists_symplecticBasis",
+          "line": 130
+        },
+        {
+          "name": "RHLean.Analysis.AlpogeThin.nativeDyadicHost_exists_prescribedSymplecticBases",
+          "line": 149
+        }
+      ],
+      "native_path": "RHLean/Geometry/NativeGeometricSymplecticBasis.lean",
+      "initial_source_reconstruction_sha256": "d4ef2c6b481fe5716ed1fa79f36428bb9db01c0b2d86470a224e7177db3f26cf",
+      "native_sha256": "4cf963c2226843741d31cdb792dcecbe9f8849db2889ffc99637eabbd84a730a",
+      "native_lines": 171
+    }
+  ],
+  "source_provenance": [
+    {
+      "path": "src/Development/AbelianVarietyTheory/Proofs/CovolumeBounds/DualRestrictSurjectiveOfIsTorsionFreeQuotient.lean",
+      "sha256": "d41620ee29df61804c2999016b3defb4c06eb2ee396d9637a0f23cc79b4cd3a7",
+      "scope": "Retained exact PID pairing-ideal, symplectic-family rank induction and unit normalization; omitted unrelated standard-matrix, isotropic-quotient, swap and positive-divisor sections."
+    },
+    {
+      "path": "src/Development/AbelianVarietyTheory/Proofs/ModuliProofs/ExistsEquivStdSymp.lean",
+      "sha256": "9e97dd8b8ac1408a1e8e4fe6aeb65da0732606a95e84db80c48fe2509ddb2466",
+      "scope": "Exact finrank_int_eq_mul, finrank_int_lattice, exists_equiv_stdSymp and exists_isSympBasis; Host/Datum names replaced by reconstructed native equivalents."
+    },
+    {
+      "path": "src/ReciprocityTheory/ReductiveGroups/ArithmeticGeometry/ExtensionDescent/BaseOver.lean",
+      "sha256": "c2fb855dacc7ec9e7be19e65dbc6be2e01e85de1a006f760d863397863d4c71d",
+      "scope": "Literal Out.stdSymp equation only; no scheme/level declarations or imports."
+    },
+    {
+      "path": "src/Development/AbelianVarietyTheory/Definitions/ModuliSpaces/ExistsArBaseAway.lean",
+      "sha256": "d06b0f05b8acd339f99772c91f58c5f0585c3190646199d96f6f7038ba68076d",
+      "scope": "Literal IsSympBasis predicate only; no IsPEL/Moduli assumptions or imports."
+    }
+  ],
+  "native_dependencies": [
+    {
+      "path": "RHLean/Geometry/NativeGeometricDatum.lean",
+      "initial_attachment_sha256": "44cf27e2e7807a32b7bec8a8c10dc97d901794b7371a8ce6b3be2f6266e1945f",
+      "native_sha256": "44cf27e2e7807a32b7bec8a8c10dc97d901794b7371a8ce6b3be2f6266e1945f"
+    },
+    {
+      "path": "RHLean/Geometry/NativePrescribedGeometricDatum.lean",
+      "initial_attachment_sha256": "a7c21d5ca68675ddc210e34825c9d7af6e611921c697bec76424721eb2df7e66",
+      "native_sha256": "66437817e91625964da847856e2ee23d1b6640be10d3032769cab41dcb261c5e"
+    },
+    {
+      "path": "RHLean/Geometry/NativePrescribedPolarizationLattice.lean",
+      "initial_attachment_sha256": "e5a1316a3caf23ecdfa3fc4c4f764d8c1409f184fb1a5e161b0f85a8c32a4650",
+      "native_sha256": "f70983b1b2b53f91d59cf027eed856dca9742a481bf675bcd4ec8473ff1e4243"
+    },
+    {
+      "path": "RHLean/Analysis/AlpogeThin/NativeDyadicHostDifferent.lean",
+      "initial_attachment_sha256": "7446ac3ecf2f956e4e340a9f9dbf9972bbb33d3ef437234311d1532609ef6dc3",
+      "native_sha256": "38abd9e3d6e76807b3f22686a9a30c1ea5926af0b47c3e4d99e9d37c5b40fe50"
+    },
+    {
+      "path": "RHLean/Analysis/AlpogeThin/NativeDyadicHostCore.lean",
+      "initial_attachment_sha256": "b5282418eb6db5ba61f96622bccc7c896bab5c84b45c4bcc5cff0a18b27ed089",
+      "native_sha256": "8f2f2f04f94d4a9454e7ca51c7fe9331bc7237032845989696aa98e617af36de"
+    },
+    {
+      "path": "RHLean/Analysis/AlpogeThin/NativeDyadicFrame.lean",
+      "initial_attachment_sha256": "c7400e3e3be1e24a0183fd77b57acb3466256bae7949a50b71d51ea9768eec2a",
+      "native_sha256": "c7400e3e3be1e24a0183fd77b57acb3466256bae7949a50b71d51ea9768eec2a"
+    }
+  ],
+  "pinned_api_files": [
+    {
+      "path": "Mathlib/LinearAlgebra/Dimension/StrongRankCondition.lean",
+      "sha256": "1a273927c49a6cda836be02d282cb41326a5af969bce9dc07b97da9998b9bc36"
+    },
+    {
+      "path": "Mathlib/LinearAlgebra/Basis/SMul.lean",
+      "sha256": "1db34725139743d97915ed761cbd408d1d5025febb4583138ade307850696399"
+    },
+    {
+      "path": "Mathlib/LinearAlgebra/BilinearForm/Orthogonal.lean",
+      "sha256": "26a368d6a35b5a460cf9d119ec4cd0aabf5769fef5a9e149811d992e06f6e736"
+    },
+    {
+      "path": "Mathlib/LinearAlgebra/Dimension/Finite.lean",
+      "sha256": "6a43d6f27d70c5d68867072ed1873c20b2fe9b63db11128031cc1015aa12940b"
+    },
+    {
+      "path": "Mathlib/LinearAlgebra/Dimension/RankNullity.lean",
+      "sha256": "28293c24ecb9ccd12d4249c62526759f381ac0469145994c2fcfc27f4c37e15a"
+    },
+    {
+      "path": "Mathlib/LinearAlgebra/Dimension/Free.lean",
+      "sha256": "a25ac832cd9d5fca78efa749185580787553643a190b73d4f0fea95108c1c8c5"
+    },
+    {
+      "path": "Mathlib/LinearAlgebra/FreeModule/PID.lean",
+      "sha256": "8d598b47f02aed4241122a2f88c132fce6b3a26776f24086a5d1d5acb7795aff"
+    },
+    {
+      "path": "Mathlib/RingTheory/Algebraic/Basic.lean",
+      "sha256": "0f498726195e8d49b9ff7ca275881f08571c2a064ea0b17c3ee05132daeea406"
+    },
+    {
+      "path": "Mathlib/RingTheory/Flat/Stability.lean",
+      "sha256": "1dad8e5f4025254a465316240166d171a64e552c68074faaa810532d38b865ba"
+    },
+    {
+      "path": "Mathlib/NumberTheory/NumberField/InfinitePlace/TotallyRealComplex.lean",
+      "sha256": "ff3824921455594ba747cd0c5f807d6b6ba7776de4f21532afb5c1127293e5c2"
+    }
+  ],
+  "construction": [
+    "Choose the actual maximal principal pairing ideal and split the actual alternating form by rank induction over a PID.",
+    "Use actual perfectness/surjectivity to prove each elementary pairing is a unit; rescale only basis vectors to pair to1.",
+    "Derive integer finiteness and freeness from the complete Datum finite projective O(E)-module, and derive integer rank from its original O(E)-rank.",
+    "Produce the source standard-form integral equivalence on the same native prescribedLattice and prescribedTraceForm.",
+    "Use the proved native degree4*2^e to expose exact symplectic dimension2*2^e*(k+m-1).",
+    "Choose one actual half-different before all prescribed ranks/signatures in nativeDyadicHost_exists_prescribedSymplecticBases."
+  ],
+  "new_endpoint_premises": [],
+  "remaining_boundary": [
+    "actual level/Tate and uniformization constructions",
+    "scheme/moduli existence",
+    "same-data geometric metric and signed-slope suppliers"
+  ],
+  "independent_reviews": [
+    {
+      "reviewer": "/root/ci_repair",
+      "result": "PASS",
+      "scope": "Integral PID source trimming, principal ideal pair, current rank-induction/Basis APIs and exact standard-form sign."
+    },
+    {
+      "reviewer": "/root/geometric_constructor",
+      "result": "PASS",
+      "scope": "Generic integer rank/free proof, same native lattice/form, degree normalization, HostAx dependent lets and one-B witness order."
+    }
+  ],
+  "verification": {
+    "local_lean_or_lake_run": false,
+    "shared_edits": false,
+    "remote_writes": false,
+    "new_proof_budget_options": false,
+    "trailing_whitespace_clean": true
+  },
+  "attribution": "Levent Alpöge (with Claude); source archive/mirror states no license; none assigned.",
+  "integration_adaptations": [
+    "Use ite_eq_left/right in the final standard-form coordinate proof, replacing the aliases explicitly deprecated by the pinned compiler in exact29b. Original form, basis, proof and frozen source bytes preserved."
+  ],
+  "source_and_native_declarations": [
+    "RHLean.Geometry.NativeIntegralSymplectic.IsSymplecticFamily",
+    "RHLean.Geometry.NativeIntegralSymplectic.IsSymplecticBasisOfType",
+    "RHLean.Geometry.NativeIntegralSymplectic.IsSymplecticBasis",
+    "RHLean.Geometry.NativeIntegralSymplectic.IsSymplecticFamily.left_right",
+    "RHLean.Geometry.NativeIntegralSymplectic.IsSymplecticFamily.right_left",
+    "RHLean.Geometry.NativeIntegralSymplectic.IsSymplecticFamily.apply_left_sum",
+    "RHLean.Geometry.NativeIntegralSymplectic.IsSymplecticFamily.apply_sum_right",
+    "RHLean.Geometry.NativeIntegralSymplectic.IsSymplecticFamily.linearIndependent",
+    "RHLean.Geometry.NativeIntegralSymplectic.exists_pair_dvd_of_bilinForm",
+    "RHLean.Geometry.NativeIntegralSymplectic.exists_isSymplecticFamily_span_eq",
+    "RHLean.Geometry.NativeIntegralSymplectic.IsSymplecticBasisOfType.elim_eq",
+    "RHLean.Geometry.NativeIntegralSymplectic.IsSymplecticBasisOfType.apply_left",
+    "RHLean.Geometry.NativeIntegralSymplectic.IsSymplecticBasisOfType.apply_right",
+    "RHLean.Geometry.NativeIntegralSymplectic.IsSymplecticBasisOfType.isUnit",
+    "RHLean.Geometry.NativeIntegralSymplectic.IsSymplecticBasisOfType.finrank_eq",
+    "RHLean.Geometry.NativeIntegralSymplectic.IsSymplecticBasis.left_left",
+    "RHLean.Geometry.NativeIntegralSymplectic.IsSymplecticBasis.right_right",
+    "RHLean.Geometry.NativeIntegralSymplectic.IsSymplecticBasis.left_right",
+    "RHLean.Geometry.NativeIntegralSymplectic.IsSymplecticBasis.right_left",
+    "RHLean.Geometry.NativeIntegralSymplectic.IsSymplecticFamily.exists_isSymplecticBasis",
+    "RHLean.Geometry.NativeIntegralSymplectic.exists_isSymplecticBasis",
+    "RHLean.Geometry.NativeIntegralSymplectic.exists_isSymplecticBasis_of_finrank",
+    "RHLean.Geometry.NativeIntegralSymplectic.stdSymp",
+    "RHLean.Geometry.NativeIntegralSymplectic.exists_equiv_stdSymp",
+    "RHLean.Geometry.NativeGeometricSymplectic.IsSympBasis",
+    "RHLean.Geometry.NativeGeometricSymplectic.finrank_int_eq_mul",
+    "RHLean.Geometry.NativeGeometricSymplectic.finrank_int_lattice",
+    "RHLean.Geometry.NativeGeometricSymplectic.exists_isSympBasis",
+    "RHLean.Analysis.AlpogeThin.nativeDyadicPrescribedTraceForm_exists_symplecticBasis",
+    "RHLean.Analysis.AlpogeThin.nativeDyadicPrescribedGeometricDatum_exists_symplecticBasis",
+    "RHLean.Analysis.AlpogeThin.nativeDyadicHost_exists_prescribedSymplecticBases"
+  ],
+  "axiom_guard_declarations": [
+    "RHLean.Geometry.NativeIntegralSymplectic.exists_pair_dvd_of_bilinForm",
+    "RHLean.Geometry.NativeIntegralSymplectic.exists_isSymplecticBasis_of_finrank",
+    "RHLean.Geometry.NativeIntegralSymplectic.exists_equiv_stdSymp",
+    "RHLean.Geometry.NativeGeometricSymplectic.finrank_int_eq_mul",
+    "RHLean.Geometry.NativeGeometricSymplectic.exists_isSympBasis",
+    "RHLean.Analysis.AlpogeThin.nativeDyadicPrescribedTraceForm_exists_symplecticBasis",
+    "RHLean.Analysis.AlpogeThin.nativeDyadicPrescribedGeometricDatum_exists_symplecticBasis",
+    "RHLean.Analysis.AlpogeThin.nativeDyadicHost_exists_prescribedSymplecticBases"
+  ],
+  "root_review": "PASS full source/mathematical read: actual PID split and same-form unit normalization, original standard pairing, derived integer freeness/rank and one-B endpoint; no extra basis premise."
+}

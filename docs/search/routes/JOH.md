@@ -11,31 +11,47 @@ Coordinates: [`ANCHOR-PRIME-DISCREPANCY`](../coordinates/ANCHOR-PRIME-DISCREPANC
 | 61 | [docs/PROOF_DEPENDENCY_DAG.md](../../../docs/PROOF_DEPENDENCY_DAG.md) | RH_Lean mathematical proof-dependency DAG |
 | 38 | [docs/COORDINATE_ATLAS.md](../../../docs/COORDINATE_ATLAS.md) | Coordinate atlas: one phenomenon, many coordinates |
 | 15 | [docs/RH_PROOF_ATTACK_PORTFOLIO_20261024.md](../../../docs/RH_PROOF_ATTACK_PORTFOLIO_20261024.md) | RH proof attack portfolio and seven-agent operating contract — 2026-10-24 |
-| 11 | [docs/DYNAMIC_RESEARCH_AGENTS.md](../../../docs/DYNAMIC_RESEARCH_AGENTS.md) | RH_Lean dynamic seven-agent research protocol |
+| 12 | [docs/AGENT_STUDIO_20261024_SEVEN_PROMPTS.md](../../../docs/AGENT_STUDIO_20261024_SEVEN_PROMPTS.md) | Seven complete RH_Lean Agent Studio instruction templates |
+| 12 | [docs/DYNAMIC_RESEARCH_AGENTS_BEFORE_RESEARCH_ENGINE_20261101.md](../../../docs/DYNAMIC_RESEARCH_AGENTS_BEFORE_RESEARCH_ENGINE_20261101.md) | RH_Lean dynamic seven-agent research protocol |
 | 10 | [research/LI_FAN_ONE_SIDED_WEIGHTED_COMPOSITE_RH_CONTRACT_20261022.md](../../../research/LI_FAN_ONE_SIDED_WEIGHTED_COMPOSITE_RH_CONTRACT_20261022.md) | One-sided Li-fan containment via weighted square-block composite removal |
-| 8 | [AGENTS.md](../../../AGENTS.md) | RH_Lean research-agent instructions |
+| 8 | [AGENTS_BEFORE_RESEARCH_ENGINE_20261101.md](../../../AGENTS_BEFORE_RESEARCH_ENGINE_20261101.md) | RH_Lean research-agent instructions |
 | 7 | [RESEARCH_ROUTE_REGISTRY.md](../../../RESEARCH_ROUTE_REGISTRY.md) | Research route registry |
+| 7 | [docs/RHLEAN_REPO_WIDE_PROOF_ATTACKS_20261108.md](../../../docs/RHLEAN_REPO_WIDE_PROOF_ATTACKS_20261108.md) | RH_Lean all-route mathematical status and seven-agent handoff — 2026-11-08 |
 | 7 | [docs/RH_PROOF_OVERLAP_AND_SEVEN_EIGHTHS_AUDIT_20261024.md](../../../docs/RH_PROOF_OVERLAP_AND_SEVEN_EIGHTHS_AUDIT_20261024.md) | Audit: route overlap versus independent 7/8-powered progress (2026-10-24) |
 | 7 | [research/VF_MID_LOWER_CHANNEL_ALONE_RH_AND_FIRST_BAD_GATE.md](../../../research/VF_MID_LOWER_CHANNEL_ALONE_RH_AND_FIRST_BAD_GATE.md) | One-sided lower VF channel is sufficient for RH; exact first-bad arithmetic gate |
 | 5 | [CURRENT_PROOF_CONTRACT.md](../../../CURRENT_PROOF_CONTRACT.md) | RH_Lean current proof contract |
-| 5 | [docs/AGENT_STUDIO_20261024_SEVEN_PROMPTS.md](../../../docs/AGENT_STUDIO_20261024_SEVEN_PROMPTS.md) | Seven current RH_Lean Agent Studio instruction overrides — 2026-10-24 |
+| 5 | [docs/AGENT_STUDIO_SEVEN_PROMPTS_BEFORE_RESEARCH_ENGINE_20261101.md](../../../docs/AGENT_STUDIO_SEVEN_PROMPTS_BEFORE_RESEARCH_ENGINE_20261101.md) | Seven current RH_Lean Agent Studio instruction overrides — 2026-10-24 |
+| 5 | [docs/RHLEAN_ALL_VECTOR_AGENT_PROMPTS_BEFORE_CANCELLATION_CHAIN_20261107.md](../../../docs/RHLEAN_ALL_VECTOR_AGENT_PROMPTS_BEFORE_CANCELLATION_CHAIN_20261107.md) | Seven-agent all-vector prompt reference - persistent research edition |
+| 5 | [docs/RHLEAN_ALL_VECTOR_AGENT_PROMPTS_BEFORE_RESEARCH_ENGINE_20261101.md](../../../docs/RHLEAN_ALL_VECTOR_AGENT_PROMPTS_BEFORE_RESEARCH_ENGINE_20261101.md) | Seven-agent all-vector prompt reference - updated 2026-10-31 |
 | 4 | [CURRENT_RESEARCH_HANDOFF.md](../../../CURRENT_RESEARCH_HANDOFF.md) | Current RH_Lean research handoff |
+| 4 | [docs/RHLEAN_ALL_VECTOR_AGENT_PROMPTS_20261030.md](../../../docs/RHLEAN_ALL_VECTOR_AGENT_PROMPTS_20261030.md) | Seven-agent prompts: complete signed HIGH, independent native routes |
+| 4 | [docs/RHLEAN_ALL_VECTOR_SYNTHESIS_AGENT_DIRECTIVE_20261030.md](../../../docs/RHLEAN_ALL_VECTOR_SYNTHESIS_AGENT_DIRECTIVE_20261030.md) | All-vector RH_Lean attack and same-source synthesis — 2026-10-30 |
+| 4 | [docs/external/2026-11-15/universal-envelope-law-handoff.md](../../../docs/external/2026-11-15/universal-envelope-law-handoff.md) | Universal envelope law for the frozen-root coordinates — status snapshot and external handoff, 2026-11-15 |
 | 4 | [research/VF_MID_925_FACTOR_SPECTRAL_LOWER_CHANNEL_CONTRACT.md](../../../research/VF_MID_925_FACTOR_SPECTRAL_LOWER_CHANNEL_CONTRACT.md) | #925 — Genuine factor-range square theta forcing and its zeta-zero spectrum |
 | 4 | [scripts/proof_dag_falsifier_regressions.py](../../../scripts/proof_dag_falsifier_regressions.py) | Standard-library regressions for falsifiers recorded in the proof DAG. |
+| 3 | [AGENTS.md](../../../AGENTS.md) | 2026-11-22 — constructed lattice descent and complete signed payment |
+| 3 | [docs/RHLEAN_BROAD_SEARCH_UNTIL_ETA_20261031.md](../../../docs/RHLEAN_BROAD_SEARCH_UNTIL_ETA_20261031.md) | Broad RH_Lean mathematics until a verified positive exponent gain |
+| 3 | [docs/RHLEAN_COMPLETE_SIGNED_HIGH_ATTACK_20261107.md](../../../docs/RHLEAN_COMPLETE_SIGNED_HIGH_ATTACK_20261107.md) | Complete signed HIGH: common objective, independent proof routes |
+| 3 | [docs/RHLEAN_SEVEN_AGENT_RESEARCH_ENGINE_20261101.md](../../../docs/RHLEAN_SEVEN_AGENT_RESEARCH_ENGINE_20261101.md) | Seven-agent persistent research engine and next-run attack plan |
 | 3 | [research/VF_MID_FLOOR_LI_DISCRETE_BACKLOG.lean](../../../research/VF_MID_FLOOR_LI_DISCRETE_BACKLOG.lean) | Discrete floor-Li backlog on VF square blocks |
 | 3 | [research/VF_MID_FLOOR_LI_SIGNED_POPULATION_BALANCE.lean](../../../research/VF_MID_FLOOR_LI_SIGNED_POPULATION_BALANCE.lean) | Floor-Li signed population balance in the Mobius/Abel carrier |
-| 3 | [scripts/validate_rh_agent_portfolio.py](../../../scripts/validate_rh_agent_portfolio.py) | CI smoke checks for the ten-route/seven-agent research instructions. |
+| 3 | [scripts/validate_rh_agent_portfolio.py](../../../scripts/validate_rh_agent_portfolio.py) | CI smoke checks for source routing and seven-agent instructions. |
 | 2 | [FORMALIZATION_CHECKLIST.md](../../../FORMALIZATION_CHECKLIST.md) | RH_Lean formalization checklist |
 | 2 | [README.md](../../../README.md) | RH_Lean |
 | 2 | [RHLean/Analysis/PrimeSieveFiniteDifferenceModulus.lean](../../../RHLean/Analysis/PrimeSieveFiniteDifferenceModulus.lean) | Fiberwise affine moduli for the finite Möbius difference operator |
 | 2 | [docs/CHATGPT_AGENT_STUDIO_RH_SETUP_2026_10_12.md](../../../docs/CHATGPT_AGENT_STUDIO_RH_SETUP_2026_10_12.md) | Create RH_Lean research agents in **ChatGPT Agent Studio** (browser) |
+| 2 | [docs/RHLEAN_BOOTSTRAP_TO_HALF_20261116.md](../../../docs/RHLEAN_BOOTSTRAP_TO_HALF_20261116.md) | Source-faithful continuation to one half — 2026-11-16 |
+| 2 | [docs/RHLEAN_INDEPENDENT_MULTIFRONT_NO_PIGEONHOLING_20261104.md](../../../docs/RHLEAN_INDEPENDENT_MULTIFRONT_NO_PIGEONHOLING_20261104.md) | Independent multi-front RH_Lean research: NO_PIGEONHOLING_ROUTE_SELECTOR_V1 |
 | 2 | [docs/RHLEAN_NATIVE_FIRST_PROOF_ROUTING_20261026.md](../../../docs/RHLEAN_NATIVE_FIRST_PROOF_ROUTING_20261026.md) | RH_Lean-native-first mathematical proof routing (26 October 2026) |
+| 2 | [docs/RHLEAN_OAI_LOW_SOURCE_FIRST_AGENT_CONTRACT_20261103.md](../../../docs/RHLEAN_OAI_LOW_SOURCE_FIRST_AGENT_CONTRACT_20261103.md) | OAI 1 -> 7/8 source-first signed LOW research contract for all seven agents |
 | 2 | [numerics/floor_li_discrete_meboot/README.md](../../../numerics/floor_li_discrete_meboot/README.md) | Floor-Li discrete backlog NNS.meboot numerics |
 | 2 | [numerics/floor_li_meboot/README.md](../../../numerics/floor_li_meboot/README.md) | Floor-Li discrete NNS.meboot stress numerics |
 | 2 | [numerics/four_fantasy_proxy_atlas/README.md](../../../numerics/four_fantasy_proxy_atlas/README.md) | Four fantasy proxy numerical atlas |
+| 2 | [research/ALPOGE_GZ_PRIME_DELTA_ARITHMETIC_20261122.lean](../../../research/ALPOGE_GZ_PRIME_DELTA_ARITHMETIC_20261122.lean) | Alpoge Gz as the EXACT weighted delta(t) history in native arithmetic |
 | 2 | [research/FINITE_C_A_EULER_PARITY_FLOOR_LI_FREQUENCY_SYNTHESIS.md](../../../research/FINITE_C_A_EULER_PARITY_FLOOR_LI_FREQUENCY_SYNTHESIS.md) | Finite C/A: Euler parity, square endpoints, and actual-prime versus floor-Li frequency |
 | 2 | [research/FOUR_FANTASY_PROXY_RH_CLOSURES.lean](../../../research/FOUR_FANTASY_PROXY_RH_CLOSURES.lean) | Four fantasy prime-count proxy closures |
 | 2 | [research/LI_FLOOR_PRIME_COUNT_FANTASY.lean](../../../research/LI_FLOOR_PRIME_COUNT_FANTASY.lean) | Floored-Li fantasy prime-count closure |
+| 2 | [research/SQUARE_ROOT_PRIME_PHASE_SIGNED_ENERGY_FINDINGS_20261108.md](../../../research/SQUARE_ROOT_PRIME_PHASE_SIGNED_ENERGY_FINDINGS_20261108.md) | Actual primes' square-root phases versus original signed square-block energy |
 | 2 | [research/VF_CANONICAL_ALL_REAL_LI_O_ONE.lean](../../../research/VF_CANONICAL_ALL_REAL_LI_O_ONE.lean) | All-real uniform VF midpoint / Li_2 quadrature |
 | 2 | [research/VF_MID_915_FLOOR_LI_TRANSPORT_BOUNDARY.lean](../../../research/VF_MID_915_FLOOR_LI_TRANSPORT_BOUNDARY.lean) | #915: actual owner census compressed into discrete-Li unmatched boundary |
 | 2 | [research/VF_MID_FLOOR_LI_BUCHSTAB_EXACT_BRACKETS_20261022.lean](../../../research/VF_MID_FLOOR_LI_BUCHSTAB_EXACT_BRACKETS_20261022.lean) | Corrected floor-Li Buchstab brackets: ACTUAL Möbius source |
@@ -51,20 +67,4 @@ Coordinates: [`ANCHOR-PRIME-DISCREPANCY`](../coordinates/ANCHOR-PRIME-DISCREPANC
 | 2 | [research/VF_MID_SQRT_TWO_LI_HORIZONTAL.lean](../../../research/VF_MID_SQRT_TWO_LI_HORIZONTAL.lean) | Direct Li-to-VF horizontal error bridge at original square endpoints |
 | 2 | [scripts/li_fan_one_sided_weighted_owner_audit.py](../../../scripts/li_fan_one_sided_weighted_owner_audit.py) | One-sided integrated Li fan, TRUE prime/composite weighted-owner arithmetic. |
 | 2 | [scripts/proof_obligation_dag.py](../../../scripts/proof_obligation_dag.py) | Validate and render the mathematical proof-obligation DAG. |
-| 1 | [RHLean/Analysis/ElevenWeightOneFirstMoment.lean](../../../RHLean/Analysis/ElevenWeightOneFirstMoment.lean) | Exact first-moment action of the 11-layer on the T sector |
-| 1 | [RHLean/Analysis/FinitePrimeHigherWeightOne.lean](../../../RHLean/Analysis/FinitePrimeHigherWeightOne.lean) | Exact weight-one layers at primes 13 and 17 |
-| 1 | [RHLean/Analysis/OutsidePrimeCompleteDeletionFirstMoment.lean](../../../RHLean/Analysis/OutsidePrimeCompleteDeletionFirstMoment.lean) | Complete and arbitrary-prefix q-owner deletion first-moment bounds |
-| 1 | [RHLean/Analysis/PartialMomentSchurTarget.lean](../../../RHLean/Analysis/PartialMomentSchurTarget.lean) | Arbitrary-target partial moments and target-invariant Schur covariance |
-| 1 | [RHLean/Analysis/PhysicalPartialMomentSchur.lean](../../../RHLean/Analysis/PhysicalPartialMomentSchur.lean) | Physical T-row partial moments and Schur target invariance |
-| 1 | [RHLean/Analysis/PrimeSieveDyadicChordEnergy.lean](../../../RHLean/Analysis/PrimeSieveDyadicChordEnergy.lean) | Dyadic chord geometry of the reciprocal prime discrepancy |
-| 1 | [RHLean/Analysis/PrimeSieveLipschitzExcursion.lean](../../../RHLean/Analysis/PrimeSieveLipschitzExcursion.lean) | Lipschitz increments of the Abel face, and the pinned-to-windowed excursion |
-| 1 | [RHLean/Analysis/SquareRootPostCrossingRenewal.lean](../../../RHLean/Analysis/SquareRootPostCrossingRenewal.lean) | Renewal normal forms for the post-crossing tail |
-| 1 | [RHLean/Arithmetic/SignedBuchstabRecursion.lean](../../../RHLean/Arithmetic/SignedBuchstabRecursion.lean) | The signed Buchstab recursion for the rough Möbius sum |
-| 1 | [RHLean/Proof/ExceptionalContactFrameEnergyNoGo.lean](../../../RHLean/Proof/ExceptionalContactFrameEnergyNoGo.lean) | The six-contact frame constant is counting, not Mobius cancellation |
-| 1 | [RHLean/Proof/StableFarWallCrossingOwnerWindow.lean](../../../RHLean/Proof/StableFarWallCrossingOwnerWindow.lean) | Exact outer-owner window of the centered stable-far renewal |
-| 1 | [docs/DOCUMENTATION_INDEX.md](../../../docs/DOCUMENTATION_INDEX.md) | Documentation index |
-| 1 | [docs/FACTOR_DEPTH_RESEARCH_BRIEF.md](../../../docs/FACTOR_DEPTH_RESEARCH_BRIEF.md) | Live research brief: factor-depth coupling and independent amplification |
-| 1 | [docs/FORMALIZATION_MILESTONES.md](../../../docs/FORMALIZATION_MILESTONES.md) | RH_Lean formalization milestones |
-| 1 | [docs/PNT_FIRST_SIGNED_COFACTOR_SEAM_2026_10_18.md](../../../docs/PNT_FIRST_SIGNED_COFACTOR_SEAM_2026_10_18.md) | PNT-first signed cofactor / historical-return seam — seven-agent directive |
-| 1 | [docs/QRH_SOURCE_ESTIMATE_EXECUTION_CONTRACT_20261026.md](../../../docs/QRH_SOURCE_ESTIMATE_EXECUTION_CONTRACT_20261026.md) | QRH source-estimate execution contract (26 October 2026) |
-| 1 | [docs/REPOSITORY_SEARCH.md](../../../docs/REPOSITORY_SEARCH.md) | Repository search and import DAG |
+| 1 | [AGENTS_BEFORE_CANCELLATION_CHAIN_20261107.md](../../../AGENTS_BEFORE_CANCELLATION_CHAIN_20261107.md) | RH_Lean research-agent instructions |
