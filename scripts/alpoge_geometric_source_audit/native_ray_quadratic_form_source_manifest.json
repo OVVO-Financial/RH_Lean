@@ -1,0 +1,81 @@
+{
+  "status": "IMPLEMENTED_STATIC_REVIEWED_HOSTED_VERIFICATION_PENDING",
+  "owner": "/root/geometric_constructor",
+  "native_base_commit": "29b0470bf581026e40e8a2e259909e84bc33653b",
+  "upstream_commit": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
+  "mathlib_commit": "d13f23b723b8a846827a245b89c10fc7d3f11612",
+  "descent_payment_ack": "ALPOGE_NATIVE_DESCENT_PAYMENT_V1",
+  "tractability_ack": "ALPOGE_VIOLE_TRACTABLE_RH_V1",
+  "source_audit": {
+    "path": "scripts/alpoge_geometric_source_audit/native_ray_quadratic_form_source_audit.json",
+    "lines": 415,
+    "initial_receipt_sha256": "3bbf49ddd0ee57a4d0970132a599ed80960f7a36063c04f656c0ec22edc883e5"
+  },
+  "reviews": {
+    "self": "PASS static mathematics, exact source closure and pinned API review",
+    "ci_repair": "PASS NativePlaneLatticeReduction, NativeRayIdealLattice and NativeRayQuadraticForm; same Phi, unit factor, norm/area/coefficients and pinned APIs checked; no edits/local Lean",
+    "closure_audit": "PASS AlpogeNativeQuadraticIntegerBasis; actual basis/conjugation, squarefree denominator/parity and embedding orientation checked against source and pinned APIs; no edits/local Lean",
+    "root": "PASS full read/math review of all four files: actual unit-factor elimination, same affine ideal lattice, determinant/absNorm area, norm identity before ncard, exact alpha*gamma=d*M^4/4",
+    "hosted_lean": "PENDING; compilation is hosted only"
+  },
+  "scope": "Actual integral generator, same-class ideal/affine-lattice equivalence, integral lattice reduction, exact norm form and count identity. No count/theta estimate or short-window prime claimed.",
+  "metadata_revision": "Root PASS arrived after initial receipt generation; Lean bytes unchanged. This v2 records that final independent review.",
+  "integration_adaptations": [
+    "Use current ite_eq_right and Set.mem_ofPred_eq aliases in the two exact occurrences identified by the pinned compiler warnings in exact29b. All actual bijections, norms, bounds and original100<=d premise retained."
+  ],
+  "native_modules": [
+    {
+      "module": "RHLean.Analysis.AlpogeNativeQuadraticIntegerBasis",
+      "imports": [
+        "Mathlib"
+      ],
+      "native_path": "RHLean/Analysis/AlpogeNativeQuadraticIntegerBasis.lean",
+      "initial_source_reconstruction_sha256": "d9474ecd2eaedac5162a6edc56b92cb535ef8e200d91e062c56be4235caf1771",
+      "native_sha256": "d9474ecd2eaedac5162a6edc56b92cb535ef8e200d91e062c56be4235caf1771",
+      "native_lines": 238
+    },
+    {
+      "module": "RHLean.Analysis.AlpogeThin.NativeRayIdealLattice",
+      "imports": [
+        "RHLean.Analysis.AlpogeThin.NativeRayClassData"
+      ],
+      "native_path": "RHLean/Analysis/AlpogeThin/NativeRayIdealLattice.lean",
+      "initial_source_reconstruction_sha256": "a82bfd97a32e40eae09bd250a3f5c7849999a435094b92d4ed6a1c17f4142e1b",
+      "native_sha256": "dc2b005a8b8c14a5ba9fb3c30017ec9b830fe80a0ffbd9016bdac37b6f2528b4",
+      "native_lines": 256
+    },
+    {
+      "module": "RHLean.Geometry.NativePlaneLatticeReduction",
+      "imports": [
+        "Mathlib"
+      ],
+      "native_path": "RHLean/Geometry/NativePlaneLatticeReduction.lean",
+      "initial_source_reconstruction_sha256": "b4fc057b7a6b8c1e4c16d658237e60660de67152172598f32df99da9a3ec5d0a",
+      "native_sha256": "9ccd8da1d917440b28b93c27b2b071819d8c86474261ef7d36a44ff145a15e65",
+      "native_lines": 123
+    },
+    {
+      "module": "RHLean.Analysis.AlpogeThin.NativeRayQuadraticForm",
+      "imports": [
+        "RHLean.Analysis.AlpogeNativeQuadraticIntegerBasis",
+        "RHLean.Analysis.AlpogeThin.NativeRayIdealCounts",
+        "RHLean.Analysis.AlpogeThin.NativeRayIdealLattice",
+        "RHLean.Geometry.NativePlaneLatticeReduction"
+      ],
+      "native_path": "RHLean/Analysis/AlpogeThin/NativeRayQuadraticForm.lean",
+      "initial_source_reconstruction_sha256": "1b1904ead7d845c22c6550c40259735a3ea8edc8ff025d5404fc54d0e3e01522",
+      "native_sha256": "a6990002aed176b13839386b3608a120f32601671ba104f9c8b29be106983c41",
+      "native_lines": 410
+    }
+  ],
+  "axiom_guard_declarations": [
+    "RHLean.Analysis.NativeQuadraticIntegers.exists_integer_generator_of_sq_eq_neg",
+    "RHLean.Analysis.NativeQuadraticIntegers.ringOfIntegers_sqrt_neg_three_mod_four",
+    "RHLean.Analysis.AlpogeThin.NativeRay.IdealLattice.gen_bij",
+    "RHLean.Analysis.AlpogeThin.NativeRay.IdealLattice.lattice_bij",
+    "RHLean.Analysis.AlpogeThin.NativeRay.IdealLattice.unit_eq_one",
+    "RHLean.Geometry.NativePlaneLattice.plane_lattice_short_basis",
+    "RHLean.Analysis.AlpogeThin.NativeRay.QuadraticForm.exists_quadratic_norm_coordinates",
+    "RHLean.Analysis.AlpogeThin.NativeRay.QuadraticForm.aRay_eq_ncard_qForm"
+  ]
+}

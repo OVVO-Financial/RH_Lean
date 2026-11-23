@@ -1,0 +1,2764 @@
+{
+  "schema": "rhlean.alpoge.geometric-scalar-audit.v1",
+  "date": "2026-11-22",
+  "source_repository": "CocoSgt/riemann-hypothesis-lean",
+  "source_commit": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
+  "native_inspected_commit": "735a85c0c2e64a723bcdc08ba59a4259ad6ed176",
+  "verification": {
+    "source_inspected": true,
+    "paper_deduction_independently_reviewed": true,
+    "new_lean_declarations": false,
+    "local_lean_or_lake_executed": false,
+    "native_hosted_build_status_at_creation": "in_progress",
+    "static_native_audit_status_at_creation": "success"
+  },
+  "report": "research/ALPOGE_GEOMETRIC_SCALAR_AUDIT_20261122.md",
+  "key_equations": {
+    "reserve": "H = 2*b - 3*log(q_map) - 2*C*z^9 >= b",
+    "additional_squared_factor": "log(F_extra) <= H",
+    "factor_4k": "k*log(4) <= b suffices",
+    "theta_order_scope": "Only the auxiliary cZero-weight multiplier-section theta family: d_theta <= z^7",
+    "final_normalizer": "Q = |TT|*m*b*Delta/2"
+  },
+  "not_established": [
+    "A bound on arbitrary inverse commutator constants.",
+    "An identification of the diagnostic order with the actual theta degree or rank.",
+    "A same-map attachment of the proposed signed forward jet to MapsAt.",
+    "Unconditional closure of the actual host, cover, trace and full signed-source hypotheses.",
+    "Square-root cancellation or RH."
+  ],
+  "component_audit_hashes": [
+    {
+      "component": "height",
+      "artifact_name": "geometric-height-ledger-20261122.json",
+      "sha256": "3a8bfbe1b54ae459cd2d4e6c57cfdc97b95da4b74111d5eef58a946620bc7970"
+    },
+    {
+      "component": "theta",
+      "artifact_name": "theta-scalar-ledger-20261122.json",
+      "sha256": "6c70a00017b183badf63c70b0382d9980c8367a4228c4d18f752554c2b3c5d23"
+    },
+    {
+      "component": "windows",
+      "artifact_name": "width-cost-ledger-735.md",
+      "sha256": "b52e31ba9996cb8745eec13cfa3c8fc1b6b68bfd0921a9b1817d592c90705d74"
+    }
+  ],
+  "height_component": {
+    "schema": "alpoge_geometric_height_scalar_ledger_v1",
+    "frozen_date_utc": "2026-11-22",
+    "source_repository": "CocoSgt/riemann-hypothesis-lean",
+    "source_commit": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
+    "native_observed_head": "735a85c0c2e64a723bcdc08ba59a4259ad6ed176",
+    "verification": {
+      "source_read": true,
+      "independent_scalar_algebra": true,
+      "local_lean_run": false,
+      "remote_write": false,
+      "new_interface": false,
+      "full_geometric_closure_claimed": false
+    },
+    "report": {
+      "absolute_path": "/workspace/scratch/78f4e7beae10/closure-work/geometric-height-ledger-20261122.md",
+      "sha256": "90b57c73e349d09e5f1e168b2c4ed5cab4e9e22853540ab3828c3bf838c71813"
+    },
+    "critical_equations": {
+      "height": "ht=2^(s*r)*abs(discr K)^(-r/2)*covol_R",
+      "size_totally_complex": "size=ht^(1/(d_K*r)), d_K=2*s",
+      "slope": "mu_sq=-2*log(size)",
+      "covolume_per_rank": "lcv/r=-mu_sq, lcv=(2/d_K)*log(ht)",
+      "map_height": "htMap=(1/s)*sum_v log(opNormAt(v)^2)",
+      "joint_map_square_cost": "q_map^3*exp(C*z^9)^2",
+      "consumed_exponent": "E0=3*log(q_map)+2*C*z^9<=z^10<=z^12<=b",
+      "reserve": "H=2*b-E0>=b",
+      "additional_four_power_condition": "k*log(4)<=H; k*log(4)<=b is sufficient",
+      "theta_capacity": "For auxiliary cZero*hodgeWt multiplier section only: d_theta<=sizeK<=(1+r)*S+P0*(4*P0+5)<=2*P0^6<=z^7; P0=f*r>=800; S<=P0^5; d_theta*log(4)<=b. No arbitrary main-weight/jet bound claimed.",
+      "rank_generator_payment": "delta=b/(PP*kappa), Lambda=PP*kappa, delta*(2*Lambda)=2*b",
+      "character_divisor": "Qchar=T*m*b*Delta/2, Delta=h/n",
+      "normalized_geometric_cost": "2*aE/(m*b*Delta)*(1+m^2/k_rank)+4*n*m*e_x/(T*Delta)+2*k_rank*e_x^2/(n*T)"
+    },
+    "not_established": [
+      "An actual same-map additional coercivity loss <=4^k.",
+      "An identification of diagnostic k with source rank k, theta degree, or Hilbert-Samuel jet length.",
+      "A universal 4^(-k) covolume or determinant gain.",
+      "Actual complete moduli/cover/atlas/metric/rank inputs and physical ASK-MAIN bound."
+    ],
+    "commutator_consumer": {
+      "file_id": "S21",
+      "line": 119,
+      "literal": "obtain ⟨g, hg, -⟩ := hFr n ε d ε' d' e hG.fits hinjd hWd",
+      "effect": "The quantitative third Frame component is discarded by this occurrence consumer; the integral determinant descent engine is a separate construction."
+    },
+    "files": [
+      {
+        "id": "S01",
+        "kind": "source",
+        "relative_path": "src/Formalism/HarderNarasimhan/StatementPl.lean",
+        "absolute_path": "/workspace/scratch/847cedbb0d50/geometric-closure/audit/upstream-source/src/Formalism/HarderNarasimhan/StatementPl.lean",
+        "sha256": "16766730a8dd781538ca5035ff73ddf7612decae9f293bbd995679093d9adc39",
+        "line_count": 170,
+        "relevant_declarations": [
+          {
+            "name": "nPl",
+            "declaration_lines": [
+              21
+            ]
+          },
+          {
+            "name": "logDisc",
+            "declaration_lines": [
+              25
+            ]
+          },
+          {
+            "name": "rkK",
+            "declaration_lines": [
+              27
+            ]
+          },
+          {
+            "name": "ht",
+            "declaration_lines": [
+              29
+            ]
+          },
+          {
+            "name": "size",
+            "declaration_lines": [
+              33
+            ]
+          },
+          {
+            "name": "opNormAt",
+            "declaration_lines": [
+              55
+            ]
+          },
+          {
+            "name": "htMap",
+            "declaration_lines": [
+              60
+            ]
+          },
+          {
+            "name": "muDef",
+            "declaration_lines": [
+              64
+            ]
+          },
+          {
+            "name": "PlLat",
+            "declaration_lines": [
+              75
+            ]
+          },
+          {
+            "name": "HtGram",
+            "declaration_lines": [
+              83
+            ]
+          },
+          {
+            "name": "SizeMu",
+            "declaration_lines": [
+              93
+            ]
+          },
+          {
+            "name": "Twist",
+            "declaration_lines": [
+              133
+            ]
+          },
+          {
+            "name": "RescaleCovol",
+            "declaration_lines": [
+              161
+            ]
+          }
+        ]
+      },
+      {
+        "id": "S02",
+        "kind": "source",
+        "relative_path": "src/Formalism/QuotientMetricDivisors/Statement.lean",
+        "absolute_path": "/workspace/scratch/847cedbb0d50/geometric-closure/audit/upstream-source/src/Formalism/QuotientMetricDivisors/Statement.lean",
+        "sha256": "502bb8bb725605949758d6a522266e35aaf1d3f5842ca6bf34bc0b22f98d4cf0",
+        "line_count": 194,
+        "relevant_declarations": [
+          {
+            "name": "lw",
+            "declaration_lines": [
+              31
+            ]
+          },
+          {
+            "name": "lcv",
+            "declaration_lines": [
+              34
+            ]
+          },
+          {
+            "name": "meanLog",
+            "declaration_lines": [
+              93
+            ]
+          }
+        ]
+      },
+      {
+        "id": "S03",
+        "kind": "source",
+        "relative_path": "src/Formalism/MeanHeightDescent/AverageDegreeBounds/CovolumeAssemblyHolds.lean",
+        "absolute_path": "/workspace/scratch/847cedbb0d50/geometric-closure/audit/upstream-source/src/Formalism/MeanHeightDescent/AverageDegreeBounds/CovolumeAssemblyHolds.lean",
+        "sha256": "1546bb392d9165c2ea654bca9877e1ab1486e787fcb5cdddc4bc49d94ff3c339",
+        "line_count": 192,
+        "relevant_declarations": [
+          {
+            "name": "log_covolume_slope_mu",
+            "declaration_lines": [
+              12
+            ]
+          },
+          {
+            "name": "covolume_assembly_holds",
+            "declaration_lines": [
+              41
+            ]
+          }
+        ]
+      },
+      {
+        "id": "S04",
+        "kind": "source",
+        "relative_path": "src/Development/AbelianVarietyTheory/Proofs/DivisorProofs/HtMapLeOfPoints.lean",
+        "absolute_path": "/workspace/scratch/847cedbb0d50/geometric-closure/audit/upstream-source/src/Development/AbelianVarietyTheory/Proofs/DivisorProofs/HtMapLeOfPoints.lean",
+        "sha256": "8e8e305e8ac618f3a093dbf872266ef4e92562b3d379a820b96aa2e657d85944",
+        "line_count": 145,
+        "relevant_declarations": [
+          {
+            "name": "numeric",
+            "declaration_lines": [
+              15
+            ]
+          },
+          {
+            "name": "htMap_le_of_points",
+            "declaration_lines": [
+              34
+            ]
+          },
+          {
+            "name": "normAt_pi_sq",
+            "declaration_lines": [
+              58
+            ]
+          },
+          {
+            "name": "descent",
+            "declaration_lines": [
+              69
+            ]
+          }
+        ]
+      },
+      {
+        "id": "S05",
+        "kind": "source",
+        "relative_path": "src/Development/AbelianVarietyTheory/Proofs/DivisorProofs/MapsBoundOfDeepGood.lean",
+        "absolute_path": "/workspace/scratch/847cedbb0d50/geometric-closure/audit/upstream-source/src/Development/AbelianVarietyTheory/Proofs/DivisorProofs/MapsBoundOfDeepGood.lean",
+        "sha256": "38c3a23e14f36bef1ceff6a121d5ffc144815a1cf0ce19ea4e78cf7e29ebaaef",
+        "line_count": 193,
+        "relevant_declarations": [
+          {
+            "name": "mapsCore",
+            "declaration_lines": [
+              41
+            ]
+          },
+          {
+            "name": "maps",
+            "declaration_lines": [
+              95
+            ]
+          }
+        ]
+      },
+      {
+        "id": "S06",
+        "kind": "source",
+        "relative_path": "src/Development/AbelianVarietyTheory/Definitions/Divisors/CovolXOfCovol.lean",
+        "absolute_path": "/workspace/scratch/847cedbb0d50/geometric-closure/audit/upstream-source/src/Development/AbelianVarietyTheory/Definitions/Divisors/CovolXOfCovol.lean",
+        "sha256": "f40c762ed8c2b18311d604540c15613e4a5969b1395dcab59b2854584fb6d3ae",
+        "line_count": 294,
+        "relevant_declarations": [
+          {
+            "name": "kap",
+            "declaration_lines": [
+              36
+            ]
+          },
+          {
+            "name": "lenT",
+            "declaration_lines": [
+              42
+            ]
+          },
+          {
+            "name": "muCore",
+            "declaration_lines": [
+              51
+            ]
+          },
+          {
+            "name": "RecAt",
+            "declaration_lines": [
+              57
+            ]
+          },
+          {
+            "name": "CutAt",
+            "declaration_lines": [
+              61
+            ]
+          },
+          {
+            "name": "BadAt",
+            "declaration_lines": [
+              69
+            ]
+          },
+          {
+            "name": "SizeAt",
+            "declaration_lines": [
+              75
+            ]
+          },
+          {
+            "name": "CoreAt",
+            "declaration_lines": [
+              92
+            ]
+          },
+          {
+            "name": "LowAt",
+            "declaration_lines": [
+              96
+            ]
+          },
+          {
+            "name": "RingAt",
+            "declaration_lines": [
+              116
+            ]
+          },
+          {
+            "name": "MapsAt",
+            "declaration_lines": [
+              119
+            ]
+          },
+          {
+            "name": "RkAt",
+            "declaration_lines": [
+              125
+            ]
+          },
+          {
+            "name": "GminAt",
+            "declaration_lines": [
+              128
+            ]
+          },
+          {
+            "name": "FlatAt",
+            "declaration_lines": [
+              135
+            ]
+          },
+          {
+            "name": "UAt",
+            "declaration_lines": [
+              138
+            ]
+          }
+        ]
+      },
+      {
+        "id": "S07",
+        "kind": "source",
+        "relative_path": "src/Development/AbelianVarietyTheory/Proofs/DivisorProofs/LowerBoundOfAllEstimates.lean",
+        "absolute_path": "/workspace/scratch/847cedbb0d50/geometric-closure/audit/upstream-source/src/Development/AbelianVarietyTheory/Proofs/DivisorProofs/LowerBoundOfAllEstimates.lean",
+        "sha256": "111bbcfa0022d90c5aebb3d52247857c8f10ff9269cc369f5d2eaae8a76637d9",
+        "line_count": 125,
+        "relevant_declarations": [
+          {
+            "name": "numeric",
+            "declaration_lines": [
+              18
+            ]
+          },
+          {
+            "name": "lowAt_of_cover",
+            "declaration_lines": [
+              65
+            ]
+          },
+          {
+            "name": "low",
+            "declaration_lines": [
+              107
+            ]
+          }
+        ]
+      },
+      {
+        "id": "S08",
+        "kind": "source",
+        "relative_path": "src/Development/AbelianVarietyTheory/Proofs/DivisorProofs/CovolumeFromGramAndBounds.lean",
+        "absolute_path": "/workspace/scratch/847cedbb0d50/geometric-closure/audit/upstream-source/src/Development/AbelianVarietyTheory/Proofs/DivisorProofs/CovolumeFromGramAndBounds.lean",
+        "sha256": "840e9bdd6a0114433a9a8a7b42c52cc6f69cd5ab6604b3fa95750e3c580e90a7",
+        "line_count": 114,
+        "relevant_declarations": [
+          {
+            "name": "exists_loss_le",
+            "declaration_lines": [
+              25
+            ]
+          },
+          {
+            "name": "lcv_le",
+            "declaration_lines": [
+              39
+            ]
+          },
+          {
+            "name": "covolX_of_steps",
+            "declaration_lines": [
+              86
+            ]
+          }
+        ]
+      },
+      {
+        "id": "S09",
+        "kind": "source",
+        "relative_path": "src/Development/AbelianVarietyTheory/Proofs/DivisorProofs/CovolumePerRankLeNegSlopeScaled.lean",
+        "absolute_path": "/workspace/scratch/847cedbb0d50/geometric-closure/audit/upstream-source/src/Development/AbelianVarietyTheory/Proofs/DivisorProofs/CovolumePerRankLeNegSlopeScaled.lean",
+        "sha256": "520d85fada6d80b8e7a777649827653f5d7a9728981a6b1c4ece3e8080a3df4b",
+        "line_count": 138,
+        "relevant_declarations": [
+          {
+            "name": "lcv_div_le_neg_slope_sq",
+            "declaration_lines": [
+              58
+            ]
+          }
+        ]
+      },
+      {
+        "id": "S10",
+        "kind": "source",
+        "relative_path": "src/Formalism/LocalRingCardinality/DataParams₂.lean",
+        "absolute_path": "/workspace/scratch/847cedbb0d50/geometric-closure/audit/upstream-source/src/Formalism/LocalRingCardinality/DataParams₂.lean",
+        "sha256": "39d84d7e7db5196715f955ac44f45e61a23fcf4ebd5065ca41444f836efd3099",
+        "line_count": 274,
+        "relevant_declarations": [
+          {
+            "name": "L",
+            "declaration_lines": [
+              27
+            ]
+          },
+          {
+            "name": "b",
+            "declaration_lines": [
+              29
+            ]
+          }
+        ]
+      },
+      {
+        "id": "S11",
+        "kind": "source",
+        "relative_path": "src/Formalism/LocalRingCardinality/DataParamsT.lean",
+        "absolute_path": "/workspace/scratch/847cedbb0d50/geometric-closure/audit/upstream-source/src/Formalism/LocalRingCardinality/DataParamsT.lean",
+        "sha256": "905fe103410f43e08d318a15b56063b9f80b1c4d26d62c136bd65721017d5420",
+        "line_count": 148,
+        "relevant_declarations": [
+          {
+            "name": "zBase",
+            "declaration_lines": [
+              11
+            ]
+          }
+        ]
+      },
+      {
+        "id": "S12",
+        "kind": "source",
+        "relative_path": "src/Formalism/LocalRingCardinality/Params.lean",
+        "absolute_path": "/workspace/scratch/847cedbb0d50/geometric-closure/audit/upstream-source/src/Formalism/LocalRingCardinality/Params.lean",
+        "sha256": "1de4e5a1230e9d93b5ace3e4f7e112f65e3d5264d75db227476986d179881e17",
+        "line_count": 125,
+        "relevant_declarations": [
+          {
+            "name": "Ranks",
+            "declaration_lines": [
+              6
+            ]
+          },
+          {
+            "name": "n",
+            "declaration_lines": [
+              28
+            ]
+          },
+          {
+            "name": "f",
+            "declaration_lines": [
+              30
+            ]
+          },
+          {
+            "name": "r",
+            "declaration_lines": [
+              32
+            ]
+          }
+        ]
+      },
+      {
+        "id": "S13",
+        "kind": "source",
+        "relative_path": "src/Development/AbelianVarietyTheory/Proofs/DivisorProofs/ThetaWeightAndFlatExponentSizeBound.lean",
+        "absolute_path": "/workspace/scratch/847cedbb0d50/geometric-closure/audit/upstream-source/src/Development/AbelianVarietyTheory/Proofs/DivisorProofs/ThetaWeightAndFlatExponentSizeBound.lean",
+        "sha256": "51f40a524f21ecb0c72392cdcd6d752d734e22435290fb7d8ab5771a73782f81",
+        "line_count": 66,
+        "relevant_declarations": [
+          {
+            "name": "GlobalTheory.spanShortSize",
+            "declaration_lines": [
+              32
+            ]
+          }
+        ]
+      },
+      {
+        "id": "S14",
+        "kind": "source",
+        "relative_path": "src/Development/AbelianVarietyTheory/Proofs/DivisorProofs/NormPhiHatIndPhi.lean",
+        "absolute_path": "/workspace/scratch/847cedbb0d50/geometric-closure/audit/upstream-source/src/Development/AbelianVarietyTheory/Proofs/DivisorProofs/NormPhiHatIndPhi.lean",
+        "sha256": "0ef8d449759ce310c839d6332873738d6a623dfc92545011b713f051a395c43b",
+        "line_count": 341,
+        "relevant_declarations": [
+          {
+            "name": "sizeK_eq",
+            "declaration_lines": [
+              49
+            ]
+          }
+        ]
+      },
+      {
+        "id": "S15",
+        "kind": "source",
+        "relative_path": "src/Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/HodgeBundleWeights/ShortSpanCompositionClosed.lean",
+        "absolute_path": "/workspace/scratch/847cedbb0d50/geometric-closure/audit/upstream-source/src/Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/HodgeBundleWeights/ShortSpanCompositionClosed.lean",
+        "sha256": "d0d9dc65292b6ef784fb80c152ad85356334f1e0577e1d72981249f09b54aebc",
+        "line_count": 171,
+        "relevant_declarations": [
+          {
+            "name": "short_span_comp_mem",
+            "declaration_lines": [
+              24
+            ]
+          },
+          {
+            "name": "_root_.GlobalTheory.T.short_span_composition_closed",
+            "declaration_lines": [
+              169
+            ]
+          }
+        ]
+      },
+      {
+        "id": "S16",
+        "kind": "source",
+        "relative_path": "src/Development/AbelianVarietyTheory/Proofs/DivisorProofs/ExistsShortIntegralFlatLineTwistingSection.lean",
+        "absolute_path": "/workspace/scratch/847cedbb0d50/geometric-closure/audit/upstream-source/src/Development/AbelianVarietyTheory/Proofs/DivisorProofs/ExistsShortIntegralFlatLineTwistingSection.lean",
+        "sha256": "594d65a52c39f7fb650f09ea0de40cde595ab0dd15fbb1985fbbf98ab0a45ac4",
+        "line_count": 322,
+        "relevant_declarations": [
+          {
+            "name": "exists_short_elt",
+            "declaration_lines": [
+              203
+            ]
+          },
+          {
+            "name": "exists_short_flat_section",
+            "declaration_lines": [
+              297
+            ]
+          }
+        ]
+      },
+      {
+        "id": "S17",
+        "kind": "source",
+        "relative_path": "src/Formalism/SizeWindowBrackets/ErrorFormsWeakWindowsFalse.lean",
+        "absolute_path": "/workspace/scratch/847cedbb0d50/geometric-closure/audit/upstream-source/src/Formalism/SizeWindowBrackets/ErrorFormsWeakWindowsFalse.lean",
+        "sha256": "8b8613a5e3934127fb8b52ba402e658414662f63bff8f0e9fb52bedddd1173f2",
+        "line_count": 165,
+        "relevant_declarations": [
+          {
+            "name": "ErrText",
+            "declaration_lines": [
+              16
+            ]
+          },
+          {
+            "name": "ErrWindows",
+            "declaration_lines": [
+              43
+            ]
+          },
+          {
+            "name": "ErrorFormsUnderWindows",
+            "declaration_lines": [
+              54
+            ]
+          },
+          {
+            "name": "errorBracketSizeWindows",
+            "declaration_lines": [
+              133
+            ]
+          }
+        ]
+      },
+      {
+        "id": "S18",
+        "kind": "source",
+        "relative_path": "src/Formalism/SizeWindowBrackets/SChain.lean",
+        "absolute_path": "/workspace/scratch/847cedbb0d50/geometric-closure/audit/upstream-source/src/Formalism/SizeWindowBrackets/SChain.lean",
+        "sha256": "fbd9601bd93a72f7004d6de3f67737755a588631035c760f3e7f063c4c4a197f",
+        "line_count": 252,
+        "relevant_declarations": [
+          {
+            "name": "CostWindows",
+            "declaration_lines": [
+              50
+            ]
+          },
+          {
+            "name": "CoreTopEachSized",
+            "declaration_lines": [
+              177
+            ]
+          }
+        ]
+      },
+      {
+        "id": "S19",
+        "kind": "source",
+        "relative_path": "src/Formalism/SizeWindowBrackets/ChainSlopeWindows/PChain.lean",
+        "absolute_path": "/workspace/scratch/847cedbb0d50/geometric-closure/audit/upstream-source/src/Formalism/SizeWindowBrackets/ChainSlopeWindows/PChain.lean",
+        "sha256": "be3c0f0ead3ebf13bc147c927c79aa5470d45a67739249d3b04a40d17281bf0d",
+        "line_count": 1659,
+        "relevant_declarations": [
+          {
+            "name": "top_each_bound_sized",
+            "declaration_lines": [
+              674
+            ]
+          }
+        ]
+      },
+      {
+        "id": "S20",
+        "kind": "source",
+        "relative_path": "src/Development/WeilBound/RepresentationTheoryGL/HolomorphicDiscreteSeries/WeightOccurrence/OccSome.lean",
+        "absolute_path": "/workspace/scratch/847cedbb0d50/geometric-closure/audit/upstream-source/src/Development/WeilBound/RepresentationTheoryGL/HolomorphicDiscreteSeries/WeightOccurrence/OccSome.lean",
+        "sha256": "f806d802cc4379a49c57652e9fd4261749db0be930c141a797391e904bf42c5e",
+        "line_count": 122,
+        "relevant_declarations": [
+          {
+            "name": "Frame",
+            "declaration_lines": [
+              101
+            ]
+          }
+        ]
+      },
+      {
+        "id": "S21",
+        "kind": "source",
+        "relative_path": "src/Development/WeilBound/RepresentationTheoryGL/HolomorphicDiscreteSeries/HarishChandraDescent/IntegerLowerBounds/BaseOfFarModelsFrame.lean",
+        "absolute_path": "/workspace/scratch/847cedbb0d50/geometric-closure/audit/upstream-source/src/Development/WeilBound/RepresentationTheoryGL/HolomorphicDiscreteSeries/HarishChandraDescent/IntegerLowerBounds/BaseOfFarModelsFrame.lean",
+        "sha256": "ee02118f6f6195ae186be14e102637e2145bbb9e1df9af6373bb53e685054a2c",
+        "line_count": 262,
+        "relevant_declarations": [
+          {
+            "name": "base_of_far_models_frame",
+            "declaration_lines": [
+              63
+            ]
+          }
+        ]
+      },
+      {
+        "id": "S22",
+        "kind": "source",
+        "relative_path": "src/Development/WeilBound/RepresentationTheoryGL/HolomorphicDiscreteSeries/EmbeddedFrames/Assembly.lean",
+        "absolute_path": "/workspace/scratch/847cedbb0d50/geometric-closure/audit/upstream-source/src/Development/WeilBound/RepresentationTheoryGL/HolomorphicDiscreteSeries/EmbeddedFrames/Assembly.lean",
+        "sha256": "e83824ce213a6a7aea47934ae25f0d0fe9787a9d20a66ba4c313c3fe0f9e83c5",
+        "line_count": 132,
+        "relevant_declarations": [
+          {
+            "name": "frame",
+            "declaration_lines": [
+              44
+            ]
+          }
+        ]
+      },
+      {
+        "id": "S23",
+        "kind": "source",
+        "relative_path": "src/Development/WeilBound/RepresentationTheoryGL/HolomorphicDiscreteSeries/EmbeddedFrames/Imports.lean",
+        "absolute_path": "/workspace/scratch/847cedbb0d50/geometric-closure/audit/upstream-source/src/Development/WeilBound/RepresentationTheoryGL/HolomorphicDiscreteSeries/EmbeddedFrames/Imports.lean",
+        "sha256": "51feb84cc35f0ac689ded8736c393d482c9a14dd257200088f8a2e3e56d7df40",
+        "line_count": 7,
+        "relevant_declarations": [
+          {
+            "name": "frame",
+            "declaration_lines": [
+              5
+            ]
+          }
+        ]
+      },
+      {
+        "id": "S24",
+        "kind": "source",
+        "relative_path": "src/Development/WeilBound/RepresentationTheoryGL/HolomorphicDiscreteSeries/WeightOccurrence/Occ.lean",
+        "absolute_path": "/workspace/scratch/847cedbb0d50/geometric-closure/audit/upstream-source/src/Development/WeilBound/RepresentationTheoryGL/HolomorphicDiscreteSeries/WeightOccurrence/Occ.lean",
+        "sha256": "e0be2a209ae6f12fccca5b77b30543a09c32d9e03097582e136752ca8319a7e3",
+        "line_count": 15,
+        "relevant_declarations": [
+          {
+            "name": "occ",
+            "declaration_lines": [
+              10
+            ]
+          }
+        ]
+      },
+      {
+        "id": "S25",
+        "kind": "source",
+        "relative_path": "src/Development/AbelianVarietyTheory/Proofs/DivisorProofs/ExistsUniformHeightConstant.lean",
+        "absolute_path": "/workspace/scratch/847cedbb0d50/geometric-closure/audit/upstream-source/src/Development/AbelianVarietyTheory/Proofs/DivisorProofs/ExistsUniformHeightConstant.lean",
+        "sha256": "5af98b380e95e867749f162cf97353c8c51c5e71ae221b8135e588d03d6088cf",
+        "line_count": 167,
+        "relevant_declarations": [
+          {
+            "name": "exists_integral_short",
+            "declaration_lines": [
+              80
+            ]
+          }
+        ]
+      },
+      {
+        "id": "S26",
+        "kind": "source",
+        "relative_path": "src/Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/HodgeBundleWeights/ExistsShortIntegralVectorOfDeterminantBound.lean",
+        "absolute_path": "/workspace/scratch/847cedbb0d50/geometric-closure/audit/upstream-source/src/Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/HodgeBundleWeights/ExistsShortIntegralVectorOfDeterminantBound.lean",
+        "sha256": "eb7af1bb145afa4fb6983a472854b946a01badf4db3cb54e245110ef4c6710ce",
+        "line_count": 128,
+        "relevant_declarations": [
+          {
+            "name": "exists_short_integral_vector",
+            "declaration_lines": [
+              26
+            ]
+          }
+        ]
+      },
+      {
+        "id": "S27",
+        "kind": "source",
+        "relative_path": "src/Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/HodgeBundleWeights/ShortGeneratorNormComparison.lean",
+        "absolute_path": "/workspace/scratch/847cedbb0d50/geometric-closure/audit/upstream-source/src/Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/HodgeBundleWeights/ShortGeneratorNormComparison.lean",
+        "sha256": "d1e7f666e978962174826b8a243ca7a11e1804d157d149ed5c8ce13d0f8238b2",
+        "line_count": 119,
+        "relevant_declarations": [
+          {
+            "name": "short_generator_comparison",
+            "declaration_lines": [
+              23
+            ]
+          }
+        ]
+      },
+      {
+        "id": "N01",
+        "kind": "native",
+        "relative_path": "RHLean/Geometry/NativeDescentCostPayment.lean",
+        "absolute_path": "/workspace/scratch/78f4e7beae10/RH_Lean-1194/RHLean/Geometry/NativeDescentCostPayment.lean",
+        "sha256": "e153a22c87bc4845a0abe0c2a78762b29f88d768c55dd6572232c57698239d76",
+        "line_count": 141,
+        "relevant_declarations": [
+          {
+            "name": "nativeDescent_collectiveNormBudget",
+            "declaration_lines": [
+              26
+            ]
+          },
+          {
+            "name": "nativeDescent_jointEnergy_le",
+            "declaration_lines": [
+              55
+            ]
+          },
+          {
+            "name": "nativeDescent_slopeBudget",
+            "declaration_lines": [
+              66
+            ]
+          },
+          {
+            "name": "nativeDescent_rankDefectCost",
+            "declaration_lines": [
+              87
+            ]
+          },
+          {
+            "name": "nativeDescent_mainTermPayment",
+            "declaration_lines": [
+              94
+            ]
+          }
+        ]
+      },
+      {
+        "id": "N02",
+        "kind": "native",
+        "relative_path": "RHLean/Geometry/NativeCharacterTraceMaps.lean",
+        "absolute_path": "/workspace/scratch/78f4e7beae10/RH_Lean-1194/RHLean/Geometry/NativeCharacterTraceMaps.lean",
+        "sha256": "21a84efeec2e874c8b8dd67d6806ff0e70f87ffc65f61c10f7c472cb74a260c7",
+        "line_count": 133,
+        "relevant_declarations": [
+          {
+            "name": "nativeCharacterTrace_jointNorm_le",
+            "declaration_lines": [
+              85
+            ]
+          },
+          {
+            "name": "nativeCharacterTrace_jointNorm_paid",
+            "declaration_lines": [
+              111
+            ]
+          }
+        ]
+      },
+      {
+        "id": "N03",
+        "kind": "native",
+        "relative_path": "RHLean/Geometry/NativeRegularCharacterSlopeDescent.lean",
+        "absolute_path": "/workspace/scratch/78f4e7beae10/RH_Lean-1194/RHLean/Geometry/NativeRegularCharacterSlopeDescent.lean",
+        "sha256": "80a4a7740839358a95d166428709f06cccec73e6fe7f9ee7722d8397cc0e8bec",
+        "line_count": 251,
+        "relevant_declarations": [
+          {
+            "name": "nativeAllPlaceDescent_of_regular_groupDet",
+            "declaration_lines": [
+              65
+            ]
+          }
+        ]
+      },
+      {
+        "id": "N04",
+        "kind": "native",
+        "relative_path": "RHLean/Geometry/NativeAllPlaceDescent.lean",
+        "absolute_path": "/workspace/scratch/78f4e7beae10/RH_Lean-1194/RHLean/Geometry/NativeAllPlaceDescent.lean",
+        "sha256": "e952f83b0cb619395c2e2e58cba49113ce7931ebe407f1430d93399a0e76d14e",
+        "line_count": 19,
+        "relevant_declarations": [
+          {
+            "name": "nativeAllPlaceDescent",
+            "declaration_lines": [
+              16
+            ]
+          }
+        ]
+      },
+      {
+        "id": "N05",
+        "kind": "native",
+        "relative_path": "RHLean/Geometry/NativeSectionCostAbsorption.lean",
+        "absolute_path": "/workspace/scratch/78f4e7beae10/RH_Lean-1194/RHLean/Geometry/NativeSectionCostAbsorption.lean",
+        "sha256": "77d8f7ac7b25edfcb3f87b09f7552060a52a1fa19e0c33f18001f5b3a28d246b",
+        "line_count": 153,
+        "relevant_declarations": [
+          {
+            "name": "nativeShortSectionCost_le_exp_of_source_scales",
+            "declaration_lines": [
+              37
+            ]
+          }
+        ]
+      },
+      {
+        "id": "N06",
+        "kind": "native",
+        "relative_path": "RHLean/Geometry/NativeHermitianShortVectors.lean",
+        "absolute_path": "/workspace/scratch/78f4e7beae10/RH_Lean-1194/RHLean/Geometry/NativeHermitianShortVectors.lean",
+        "sha256": "b696ad95ae476806e255baf43a8e63898e8ffadd4941e0f9bedfb7d9e11815ee",
+        "line_count": 379,
+        "relevant_declarations": [
+          {
+            "name": "exists_short_vectors",
+            "declaration_lines": [
+              317
+            ]
+          }
+        ]
+      },
+      {
+        "id": "N07",
+        "kind": "native",
+        "relative_path": "RHLean/Geometry/NativeThetaShortLatticeFamily.lean",
+        "absolute_path": "/workspace/scratch/78f4e7beae10/RH_Lean-1194/RHLean/Geometry/NativeThetaShortLatticeFamily.lean",
+        "sha256": "37fe954444714f4639257d023618145bce387a2e8e026ca11ef1c3fbfd50f70e",
+        "line_count": 106,
+        "relevant_declarations": []
+      },
+      {
+        "id": "N08",
+        "kind": "native",
+        "relative_path": "RHLean/Geometry/NativeAllPlaceShortGenerators.lean",
+        "absolute_path": "/workspace/scratch/78f4e7beae10/RH_Lean-1194/RHLean/Geometry/NativeAllPlaceShortGenerators.lean",
+        "sha256": "bbf3c75ff9b69a873e6dde2fd6b856511a6b028b3993b50275e879ac49bccfbc",
+        "line_count": 172,
+        "relevant_declarations": [
+          {
+            "name": "exists_isShortGen_of_short_span",
+            "declaration_lines": [
+              34
+            ]
+          }
+        ]
+      },
+      {
+        "id": "N09",
+        "kind": "native",
+        "relative_path": "RHLean/Geometry/NativeGradedShortSectionConstruction.lean",
+        "absolute_path": "/workspace/scratch/78f4e7beae10/RH_Lean-1194/RHLean/Geometry/NativeGradedShortSectionConstruction.lean",
+        "sha256": "32fbe52e59ee3383bee9525564f12a4d3870b416fe2411dc24d5ce21ebc807bb",
+        "line_count": 178,
+        "relevant_declarations": [
+          {
+            "name": "nativeExists_graded_short_integral_injective_section",
+            "declaration_lines": [
+              102
+            ]
+          }
+        ]
+      },
+      {
+        "id": "N10",
+        "kind": "native",
+        "relative_path": "RHLean/Analysis/AlpogeNativeCostNormalization.lean",
+        "absolute_path": "/workspace/scratch/78f4e7beae10/RH_Lean-1194/RHLean/Analysis/AlpogeNativeCostNormalization.lean",
+        "sha256": "fc42ad2e4634142ae46214ab306ad5a8edbb4089f775aee6ddfa22872ee7959c",
+        "line_count": 94,
+        "relevant_declarations": [
+          {
+            "name": "alpogeNativeGeometricErrorBracket",
+            "declaration_lines": [
+              29
+            ]
+          },
+          {
+            "name": "alpogeNativeNormalizedGeometricCosts",
+            "declaration_lines": [
+              34
+            ]
+          },
+          {
+            "name": "alpogeNativeGeometricErrorBracket_div_projectionDivisor",
+            "declaration_lines": [
+              56
+            ]
+          },
+          {
+            "name": "alpogeNativeTransportCost_div_projectionDivisor",
+            "declaration_lines": [
+              76
+            ]
+          }
+        ]
+      },
+      {
+        "id": "N11",
+        "kind": "native",
+        "relative_path": "RHLean/Analysis/AlpogeNativeSubgroupProjection.lean",
+        "absolute_path": "/workspace/scratch/78f4e7beae10/RH_Lean-1194/RHLean/Analysis/AlpogeNativeSubgroupProjection.lean",
+        "sha256": "6ff1b57d7eaff02a8621e28c0bcff12ed92eaed564f0b4cfe2359040eb5e6197",
+        "line_count": 523,
+        "relevant_declarations": [
+          {
+            "name": "alpogeNativeProjectionDensity",
+            "declaration_lines": [
+              103
+            ]
+          },
+          {
+            "name": "alpogeNativeProjectionDivisor",
+            "declaration_lines": [
+              159
+            ]
+          }
+        ]
+      },
+      {
+        "id": "N12",
+        "kind": "native",
+        "relative_path": "RHLean/Analysis/AlpogeThin/NativeConstructedDyadicGzPayment.lean",
+        "absolute_path": "/workspace/scratch/78f4e7beae10/RH_Lean-1194/RHLean/Analysis/AlpogeThin/NativeConstructedDyadicGzPayment.lean",
+        "sha256": "07d93eefece597b5eeb58af56ad98c3fb81c49d9dc03f6b6f07ab3c7492328b0",
+        "line_count": 101,
+        "relevant_declarations": [
+          {
+            "name": "nativeConstructedDyadicGzPayment",
+            "declaration_lines": [
+              30
+            ]
+          }
+        ]
+      },
+      {
+        "id": "N13",
+        "kind": "native",
+        "relative_path": "RHLean/Geometry/AlpogeAllPlace/Development/AbelianVarietyTheory/Proofs/DivisorProofs/HtMapLeOfPoints.lean",
+        "absolute_path": "/workspace/scratch/78f4e7beae10/RH_Lean-1194/RHLean/Geometry/AlpogeAllPlace/Development/AbelianVarietyTheory/Proofs/DivisorProofs/HtMapLeOfPoints.lean",
+        "sha256": "d8071c51e5edec17afa9deb1d26a38083a477c86822f91ff6731115d05403a7c",
+        "line_count": 150,
+        "relevant_declarations": [
+          {
+            "name": "htMap_le_of_points",
+            "declaration_lines": [
+              39
+            ]
+          },
+          {
+            "name": "normAt_pi_sq",
+            "declaration_lines": [
+              63
+            ]
+          },
+          {
+            "name": "descent",
+            "declaration_lines": [
+              74
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "theta_component": {
+    "title": "Exact theta scalar ledger and the existing descent norm reserve",
+    "date": "2026-11-22",
+    "source_commit": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
+    "source_root": "/workspace/scratch/847cedbb0d50/geometric-closure/audit/upstream-source/src",
+    "native_root": "/workspace/scratch/78f4e7beae10/RH_Lean-1194",
+    "native_head_reported_by_root": "735a85c",
+    "status": "Read-only source analysis; no local Lean/Lake; no new geometric interface or assumed terminal bound.",
+    "conclusions": [
+      "No surviving exponential-in-order gain is supplied by the four ShortValAt denominators in the inspected theta-to-Petersson construction.",
+      "The beta-normalized and raw theta branches use the SAME lattice index. They are alternatives, so their index cancellations cannot be counted twice.",
+      "The real metric factor (pi*t)^(-d_theta/2), t=2*xiR, cancels the pi*t factor in the derivative bound and leaves (e*d_theta)^(d_theta/2) for positive d_theta.",
+      "The actual descent proof has positive logarithmic reserve: E0=3*log(q_map)+2*C*z^9 <= z^10 <= b, against a permitted squared-norm exponent 2*b.",
+      "The actual selected theta differential order satisfies d_theta <= 2*(f*r)^6 <= z^7, so d_theta*log(4) <= b. Therefore a separately justified additional squared cost 4^d_theta fits that reserve.",
+      "The source does not identify the diagnostic jet/conditioning parameter k with d_theta. A lower-bound example c >= 4^k is not an upper bound on any actual geometric coercivity constant.",
+      "Root separately traced the coercivity invocation through Assembly.frame and FrameF.frame to base_of_far_models_frame: the numerical coercivity witness is discarded on that path. That root finding is not an independently proved obligation of this theta ledger."
+    ],
+    "symbols": {
+      "E": "Actual CM host field.",
+      "K": "Independent coefficient field Y.d.c2.F; never substituted by E.",
+      "f": "[E:Q]/2 = D.R.f = #Psi.",
+      "r": "Dw.p+Dw.q = D.R.r, the relevant Hermitian/abelian rank.",
+      "n_theta": "Number of theta columns / rank of the self-dual lattice Lambda in E^n_theta.",
+      "d_theta": "DF Dw a = sum_tau sum_i a(tau,i); every supported monomial of an HHa polynomial has this total differential order.",
+      "K_theta": "sizeK Dw a n_theta; a real weight size, not the coefficient field K.",
+      "S": "sum_tau sum_i |la_tau_i| for the target weight la.",
+      "P_scale": "f*r (called P in the paper proof below, unrelated to a polynomial or prime).",
+      "z": "f*r*Lb, with Lb >= 1.",
+      "q_map": "Cardinality of grpHR fr used in the collective descent norm bound; unrelated to the arithmetic prime named q.",
+      "b": "Original scale parameter (Fm.L x iota).sc.b, satisfying z^12 <= b on the selected host.",
+      "I_Lambda": "((Lambda.Ln.toAddSubgroup.addSubgroupOf Lambda.La.toAddSubgroup).index), with Lambda.Ln=Lambda.La inf stdLat E n_theta.",
+      "J_Lambda": "(I_Lambda:Real)^r, the positive r-th power of that SAME lattice index.",
+      "m_index": "Lambda.mIdx N r = [Lambda.Ln : N*stdLat]^r.",
+      "z_card": "Lambda.zCard N r = [Lambda.La : N*stdLat]^r = m_index * I_Lambda^r.",
+      "Q_level": "Fin n_theta -> LevQ Dw l; the finite torsion-label set in ShortValAt.",
+      "beta_lattice": "Algebraic betaH with |sigma(beta_lattice)|^2=J_Lambda when BetaAbs holds.",
+      "beta_sup": "Bergman/pointwise-to-Petersson comparison constant in section construction; distinct from beta_lattice.",
+      "r_component": "Rank over K of the actual component cusp lattice; distinct from r and n_theta.",
+      "d_K": "[K:Q].",
+      "rd_K": "|discr(K)|^(1/d_K)."
+    },
+    "ledger": [
+      {
+        "stage": "Literal short theta value",
+        "equation": "v_beta = beta_lattice^(-1) * m_index^(-1) * |Q_level|^(-1) * N^(-d_theta) * sum_q w(q) * sum_i sum_m coeff_m * product_columns nab_(N^2)(F_qib,col_m_b).",
+        "qualifications": [
+          "For a nonzero homogeneous P, totalDegree(P)=d_theta. The zero polynomial gives zero and needs no degree identification.",
+          "Actual faithfully flat torsion witnesses, translated line-bundle sections and IsNab are part of ShortValAt."
+        ],
+        "refs": [
+          [
+            "Formalism/LocalToGlobal/ProjectiveLattices/ThShort.lean",
+            244,
+            "ShortValAt"
+          ],
+          [
+            "Formalism/LocalToGlobal/ProjectiveLattices/ThProps.lean",
+            28,
+            "DF"
+          ]
+        ]
+      },
+      {
+        "stage": "N^(-d_theta) is coordinate normalization",
+        "equation": "polyDeriv(P, theta(N*z))(0) = N^d_theta * polyDeriv(P,theta)(0), hence N^(-d_theta)*N^d_theta=1.",
+        "result": "No residual decay as the auxiliary torsion level N increases.",
+        "refs": [
+          [
+            "Development/AbelianVarietyTheory/Proofs/SiegelThetaTransformation/ShortThetaValueComplexPointEqClassicalTheta.lean",
+            143,
+            "sum_polyDeriv"
+          ],
+          [
+            "Development/AbelianVarietyTheory/Proofs/SiegelThetaTransformation/ShortThetaValueComplexPointEqClassicalTheta.lean",
+            260,
+            "hNc and final field_simp cancellation"
+          ]
+        ]
+      },
+      {
+        "stage": "Torsion-label average",
+        "equation": "| |Q_level|^(-1) * sum_q w(q)*theta_q | <= C*B if |w(q)|<=C and |theta_q|<=B.",
+        "result": "The |Q_level| denominator cancels the number of summands. It supplies an average, not a strict power saving.",
+        "refs": [
+          [
+            "Development/AbelianVarietyTheory/Proofs/CuspFormEvaluations/NormShortGeneratorEvalLeOrthonormalFrame.lean",
+            60,
+            "norm_mean_le"
+          ]
+        ]
+      },
+      {
+        "stage": "Same index, beta-normalized branch",
+        "equation": "z_card=m_index*J_Lambda; |sigma beta_lattice|=sqrt(J_Lambda); vacuum bound=B/sqrt(J_Lambda). Product J_Lambda^(-1/2) * m_index^(-1) * z_card * (B/J_Lambda^(1/2))=B.",
+        "result": "Complete cancellation, with no remaining inverse index.",
+        "refs": [
+          [
+            "Formalism/LocalToGlobal/ProjectiveLattices/ThShort.lean",
+            78,
+            "BetaAbs"
+          ],
+          [
+            "Development/AbelianVarietyTheory/Proofs/CuspFormEvaluations/NormShortGeneratorEvalLeOrthonormalFrame.lean",
+            80,
+            "index_Ln"
+          ],
+          [
+            "Development/AbelianVarietyTheory/Proofs/CuspFormEvaluations/NormShortGeneratorEvalLeOrthonormalFrame.lean",
+            88,
+            "zCard_eq"
+          ],
+          [
+            "Development/AbelianVarietyTheory/Proofs/CuspFormEvaluations/NormShortGeneratorEvalLeOrthonormalFrame.lean",
+            114,
+            "norm_index_cancellation_le_bound"
+          ],
+          [
+            "Development/AbelianVarietyTheory/Proofs/CuspFormEvaluations/NormShortGeneratorEvalLeOrthonormalFrame.lean",
+            193,
+            "hbeta_a and actual application at208"
+          ]
+        ]
+      },
+      {
+        "stage": "Same index, raw branch actually used by CovGmin",
+        "equation": "thLaValAt(...)=ShortValAt(...,beta=1,...); m_index^(-1)*z_card*(B/sqrt(J_Lambda))=sqrt(J_Lambda)*B.",
+        "result": "RawThetaSup.homN_raw_le retains precisely sqrt(J_Lambda). This is not a new field-order or covering-degree index.",
+        "refs": [
+          [
+            "Formalism/LocalToGlobal/ProjectiveLattices/ThClass.lean",
+            17,
+            "thLaValAt"
+          ],
+          [
+            "Development/AbelianVarietyTheory/Proofs/DivisorProofs/NormRawThetaSeriesIndexBoundLeSqrt.lean",
+            18,
+            "norm_rawThetaSeries_index_bound_le_sqrt"
+          ],
+          [
+            "Development/AbelianVarietyTheory/Proofs/DivisorProofs/NormRawThetaSeriesIndexBoundLeSqrt.lean",
+            54,
+            "norm_evR_le"
+          ],
+          [
+            "Development/AbelianVarietyTheory/Proofs/DivisorProofs/NormPhiHatIndPhi.lean",
+            208,
+            "homN_raw_le"
+          ]
+        ]
+      },
+      {
+        "stage": "Vacuum and derivative norm",
+        "equation": "B_theta = l1_sigma(P)*(pi*e*t*d_theta)^(d_theta/2)*sqrt(2)*(1 + 4*sqrt(2*f*r*n_theta)*rho_lat/(sqrt(pi)*lambda))^(f*r*n_theta), rho_lat=2*f^(3/2)*n_theta^2*rd(E).",
+        "qualifications": [
+          "t>0 and the actual orthonormal frame has all form scales equal to t.",
+          "lambda^2 is a proved lower bound for the same lattice's first minimum squared.",
+          "The beta-normalized DeltaDat variant also pays pd^(f*r*n_theta). The raw indicator-Fourier coefficients used in CovGmin have absolute value1 and no pd factor."
+        ],
+        "refs": [
+          [
+            "Development/AbelianVarietyTheory/Proofs/CuspFormEvaluations/JetTranslateProjectedVacuumLe.lean",
+            150,
+            "jet_projA_le"
+          ],
+          [
+            "Development/AbelianVarietyTheory/Proofs/CuspFormEvaluations/NormShortGeneratorEvalLeOrthonormalFrame.lean",
+            140,
+            "norm_evR_le"
+          ],
+          [
+            "Development/AbelianVarietyTheory/Proofs/DivisorProofs/NormPhiHatIndPhi.lean",
+            191,
+            "norm_phiHat_indPhi"
+          ]
+        ]
+      },
+      {
+        "stage": "Archimedean metric",
+        "equation": "lieFac=exp(-(d_theta/2)*log(2*pi*xiR)); t=2*xiR. For d_theta>0: lieFac*(pi*e*t*d_theta)^(d_theta/2)=(e*d_theta)^(d_theta/2).",
+        "result": "The pi and host polarization scale cancel the derivative scaling. No net exponential decay in d_theta is proved.",
+        "additional_exact_identity": "xiR=1/(absNorm(ccK)*sqrt(host.d)); the scalar itself need not be <=1.",
+        "refs": [
+          [
+            "Formalism/LocalToGlobal/ProjectiveLattices/NormsFree.lean",
+            116,
+            "lieFac"
+          ],
+          [
+            "Development/AbelianVarietyTheory/Definitions/Foundations/IsProbabilityMeasureMuPart.lean",
+            664,
+            "lieFacZ"
+          ],
+          [
+            "Development/AbelianVarietyTheory/Proofs/DivisorProofs/NormPhiHatIndPhi.lean",
+            299,
+            "t=2*xiR"
+          ],
+          [
+            "Development/AbelianVarietyTheory/Proofs/DivisorProofs/NormPhiHatIndPhi.lean",
+            306,
+            "hlie"
+          ],
+          [
+            "ReciprocityTheory/ReductiveGroups/ArithmeticGeometry/PullbackSections/HolomorphicFamilies/ModelDataX.lean",
+            13,
+            "xiR_facts"
+          ]
+        ]
+      },
+      {
+        "stage": "Gaussian volume and Petersson probability measure",
+        "equations": [
+          "MeanOne means integral_Fd |theta|^2 exp(-pi*h(z,z))/volume(Fd)=1.",
+          "muQ1=(muQ(univ))^(-1)*muQ in the nonzero finite-volume case.",
+          "petAt=||homN||_(L2,muQ1); therefore a pointwise B gives Petersson norm<=B."
+        ],
+        "result": "Inverse volume normalizes mass. The actual construction does not obtain a second volume-dependent contraction from this normalization.",
+        "refs": [
+          [
+            "Development/AbelianVarietyTheory/Definitions/SpanningFamilies/IsStabForm.lean",
+            38,
+            "MeanOne"
+          ],
+          [
+            "Formalism/LocalToGlobal/ProjectiveLattices/IsProbabilityMeasureAutQuotientNormalized.lean",
+            24,
+            "muQ1"
+          ],
+          [
+            "Development/AbelianVarietyTheory/Definitions/Foundations/IsProbabilityMeasureMuPart.lean",
+            745,
+            "petAt_eq"
+          ],
+          [
+            "Development/AbelianVarietyTheory/Proofs/DivisorProofs/EvenDomainWeightBound.lean",
+            36,
+            "petW_le_of_homN_le"
+          ]
+        ]
+      },
+      {
+        "stage": "Actual raw supremum and reflex-ideal scalar",
+        "equations": [
+          "homN(y_raw)<=sqrt(J_Lambda)*rho*exp(9000*z^2*K_theta).",
+          "There exists nonzero s in the actual inverse reflex ideal with |sigma s|^2*J_Lambda<=exp(fieldSz(K))^2 at every embedding.",
+          "Hence homN(s*y_raw)<=exp(fieldSz(K))*rho*exp(9000*z^2*K_theta).",
+          "fieldSz(K)=log(d_K)+log|disc(K)|/d_K, so exp(fieldSz(K))=d_K*rd_K."
+        ],
+        "result": "The small scalar cancels the raw sqrt(J_Lambda) loss, with a positive degree/discriminant cost.",
+        "refs": [
+          [
+            "Development/AbelianVarietyTheory/Proofs/DivisorProofs/NormPhiHatIndPhi.lean",
+            208,
+            "homN_raw_le; explicit constant9000"
+          ],
+          [
+            "Development/AbelianVarietyTheory/Proofs/DivisorProofs/NormPhiHatIndPhi.lean",
+            325,
+            "homN_smul_raw_le"
+          ],
+          [
+            "Development/AbelianVarietyTheory/Proofs/DivisorProofs/ExistsSmallScalarReflexIdealSelfDualLattice.lean",
+            29,
+            "exists_small_scalar"
+          ],
+          [
+            "Development/AbelianVarietyTheory/Definitions/Divisors/NormNegCmConstantEqAtAllEmbeddings.lean",
+            136,
+            "fieldSz"
+          ]
+        ]
+      },
+      {
+        "stage": "Minkowski exponential-looking factor",
+        "equation": "For c=[K:Q]/2, the volume test reduces to 2^c*sqrt(|disc K|)<pi^c*R^c. Taking c-th roots gives R>(2/pi)*rd_K.",
+        "qualification": "This sharper threshold is an algebraic reading of the source proof, not a newly kernel-checked theorem or a claimed actual sharpened supplier. Source chooses R=exp(2*fieldSz(K)).",
+        "result": "The apparent (2/pi)^c saving disappears when recovering a common per-embedding norm bound. It does not produce4^(-k).",
+        "refs": [
+          [
+            "Development/AbelianVarietyTheory/Proofs/DivisorProofs/ExistsSmallScalarReflexIdealSelfDualLattice.lean",
+            119,
+            "Minkowski mk_lt and volume comparison"
+          ]
+        ]
+      },
+      {
+        "stage": "Integral good-cover family",
+        "equations": [
+          "rho=exp(20000*z^2*K_theta) is sufficient for full theta span.",
+          "A positive integer Na with log(Na)<=C_int*z^2*K_theta makes Na*s*y_raw integral.",
+          "Norm of each resulting integral spanning section <=exp((20000+9000+C_int+391)*z^2*K_theta)."
+        ],
+        "qualifications": [
+          "Uses actual harmonic-to-theta span, canonical connection, good cover, same Lambda, actual reflex ideal and actual integral model.",
+          "These geometric hypotheses remain construction obligations in the current native endpoint; the finite evaluation-image result alone does not discharge them."
+        ],
+        "refs": [
+          [
+            "Development/AbelianVarietyTheory/Proofs/DivisorProofs/PolynomialCoefficientEmbeddingNormLeOfL1Bound.lean",
+            399,
+            "CovGmin.span_thFam"
+          ],
+          [
+            "Development/AbelianVarietyTheory/Proofs/DivisorProofs/ExistsBoundedIntegerGoodCoverThetaSeriesIntegralStatement.lean",
+            15,
+            "exists_bounded_integer_goodCover_thetaSeries_integral"
+          ],
+          [
+            "Development/AbelianVarietyTheory/Proofs/DivisorProofs/EvenDomainWeightBound.lean",
+            112,
+            "gmin_good_cover; exp_consts at102"
+          ]
+        ]
+      },
+      {
+        "stage": "Flat twists and final integral generators",
+        "equations": [
+          "log(t_key.cInf)<=2*(f*r)*(f*r+1)*log(2*pi).",
+          "log(t_flat.cInf)<=(|c1|+q_signature*lrd(E))*sum_tau|n0_tau|+logSum(bad)+log|disc(K)|/(2*d_K)+1.",
+          "A_span<=exp(C_theta*(z^3*S+z^5)).",
+          "N_gen<=2*d_K*r_component; Lambda_gen<=max(1,d_K^4*r_component*rd_K*A_span)."
+        ],
+        "qualifications": [
+          "The earlier generic short-flat-element proof retains -lineDeg, but the actual uniform short-span conclusion uses the displayed absolute-value upper bound.",
+          "A positive line degree could give a small scalar in another quantitative argument; no uniform positive-degree lower bound tied to diagnostic k is supplied here."
+        ],
+        "refs": [
+          [
+            "Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/HodgeBundleWeights/ShortSpanCompositionClosed.lean",
+            113,
+            "hc1, hc2, collected positive cost"
+          ],
+          [
+            "Development/AbelianVarietyTheory/Proofs/DivisorProofs/ExistsShortIntegralFlatLineTwistingSection.lean",
+            203,
+            "exists_short_elt retains -lineDeg"
+          ],
+          [
+            "Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/HodgeBundleWeights/ShortGeneratorNormComparison.lean",
+            23,
+            "short_generator_comparison"
+          ]
+        ]
+      },
+      {
+        "stage": "Actual Petersson multiplier and complete section cost",
+        "equations": [
+          "B_section = (2*d_K*r_component) * |H|^2 * beta_sup * max(1,d_K^4*r_component*rd_K*A_span).",
+          "||f*pull_h(u)||_Petersson <= B_section*||f||_Petersson for the SAME constructed integral regular section u.",
+          "B_section<=exp(C0*z^9), C0=3*(2000+C_rank+C_theta)+240+C_sup."
+        ],
+        "result": "This stage adds a controlled positive cost. It does not manufacture an inverse exponential multiplier.",
+        "refs": [
+          [
+            "Development/AbelianVarietyTheory/Proofs/DivisorProofs/CardLeOfDetEqZero.lean",
+            279,
+            "exists_short"
+          ],
+          [
+            "Development/AbelianVarietyTheory/Proofs/DivisorProofs/CardLeOfDetEqZero.lean",
+            339,
+            "normW_mul_pull_le"
+          ],
+          [
+            "Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/HodgeBundleWeights/ExistsShortIntegralVectorOfDeterminantBound.lean",
+            26,
+            "exists_short_integral_vector"
+          ],
+          [
+            "/workspace/scratch/78f4e7beae10/RH_Lean-1194/RHLean/Geometry/NativeSectionCostAbsorption.lean",
+            37,
+            "nativeShortSectionCost_le_exp_of_source_scales"
+          ]
+        ]
+      }
+    ],
+    "theta_order_and_budget_proof": {
+      "status": "Mathematical deduction from exact source equalities/inequalities; not presented as an already named native Lean theorem.",
+      "assumptions": [
+        "Use the special target weight la=cZero(D,j)*hodgeWt(Dw), with source f>=8,r>=100 and original good-cover/weight hypotheses.",
+        "Use the same theta exponent a chosen by ShortSpanCompositionClosed, not an arbitrary new polynomial weight.",
+        "Lb>=1, z=f*r*Lb, z>=2*C+200, C>=0.",
+        "q_map>=1 and log(q_map)<=45*z^2.",
+        "b>=z^12, as proved from the actual source host scale conditions."
+      ],
+      "steps": [
+        "Put P=f*r. Source gives #Psi=f, Dw.p+Dw.q=r, n_theta=8*(P+1), n_theta/2=4*(P+1).",
+        "RawThetaSup.sizeK_eq: K_theta=d_theta+(n_theta/2)*P, so 0<=d_theta<=K_theta.",
+        "spanShortSize for the SAME chosen a gives K_theta<=(1+r)*S+P*(4*P+5).",
+        "ExistsShortIntegralVectorOfDeterminantBound:55 gives S<=P^5. Since f>=8, r<=P and P>=800.",
+        "Thus d_theta<=P^6+P^5+4*P^2+5*P<=2*P^6.",
+        "Exact last inequality certificate: P^6-P^5-4*P^2-5*P = P*((P-2)*(P^4+P^3+2*P^2+4*P+4)+3)>=0 for P>=2.",
+        "Since P<=z and z>=2, 2*P^6<=2*z^6<=z^7.",
+        "Since log(4)<2, d_theta*log(4)<=2*z^7<=z^12<=b.",
+        "Let E0=3*log(q_map)+2*C*z^9. Then E0<=135*z^2+2*C*z^9<=(135+2*C)*z^9<=z^10<=z^12<=b.",
+        "Therefore E0+d_theta*log(4)<=2*b, equivalently q_map^3*exp(C*z^9)^2*4^d_theta<=exp(2*b)."
+      ],
+      "scope": [
+        "The reserve pays an additional factor4^d_theta IF an actual operation is separately proved to cost at most that factor.",
+        "It also pays4^k for any separately identified k with k*log(4)<=b, including any proved k<=z^7.",
+        "There is no claim that an arbitrary coercivity constant is bounded by4^d_theta.",
+        "There is no claimed identification of the diagnostic k, actual HHa differential order, theta lattice rank, number of evaluation sites, or original Hermitian rank.",
+        "The diagnostic commutator example has ambient matrix dimension2 for every k; dimension alone cannot identify or bound k."
+      ],
+      "refs": [
+        [
+          "Formalism/LocalToGlobal/ProjectiveLattices/ThProps.lean",
+          28,
+          "DF"
+        ],
+        [
+          "Development/AbelianVarietyTheory/Proofs/DivisorProofs/NormPhiHatIndPhi.lean",
+          49,
+          "sizeK_eq"
+        ],
+        [
+          "Development/AbelianVarietyTheory/Proofs/DivisorProofs/ThetaWeightAndFlatExponentSizeBound.lean",
+          32,
+          "GlobalTheory.spanShortSize"
+        ],
+        [
+          "Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/HodgeBundleWeights/ShortSpanCompositionClosed.lean",
+          47,
+          "actual m,n_theta,a,n0 choice"
+        ],
+        [
+          "Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/HodgeBundleWeights/ExistsShortIntegralVectorOfDeterminantBound.lean",
+          55,
+          "S<=P^5"
+        ],
+        [
+          "Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/HodgeBundleWeights/CoveringDescentMapsCompatible.lean",
+          69,
+          "z>=2C+200, b>=z^12, q_map^3 and squared multiplier budget"
+        ],
+        [
+          "/workspace/scratch/78f4e7beae10/RH_Lean-1194/RHLean/Analysis/AlpogePrimeFreeCommutatorConditioning.lean",
+          113,
+          "diagnostic exponential_constant_lower_bound"
+        ]
+      ]
+    },
+    "unchanged_frozen_evaluation_files": [
+      [
+        "RHLean/Geometry/NativeThetaJetEvaluation.lean",
+        "a7f7449195549c9b2d4c3768e3c5a218ea0c184a44e9cc7c59c13c9861b62bb9"
+      ],
+      [
+        "RHLean/Geometry/NativeThetaEvaluatedFamily.lean",
+        "970b4df9374e254dbe3af69ec4f5fab6321b801040d095d18f1aad92d843032c"
+      ]
+    ]
+  },
+  "width_component_markdown": "# Width, trace, and normalized error ledger\n\nSource audit for PR #1194 head `735a85c0c2e64a723bcdc08ba59a4259ad6ed176`.\nOriginal source pin: `CocoSgt/riemann-hypothesis-lean@7cbf7a0c32fca1badf05931879a37c3f8a2b03b4`.\nAll `src/` paths below are relative to `/workspace/scratch/847cedbb0d50/geometric-closure/audit/upstream-source`.\nThis is a static source and algebra review; no local Lean or Lake was executed.\n\n## Finding\n\nThe original geometric construction has a real, very large squared-norm allowance, `exp(2*b)`, with the SAME `b = exp(x^eps)` used by its weight windows. Its actual proof bounds the paid logarithm by `z^10 <= b`, so at least `b` remains inside the `2*b` allowance. An additional factor `4^j` on this same joint squared norm would fit whenever `j*log 4 <= b`, without enlarging the final slope allowance.\n\nThis is a conditional numerical entry point, not an attachment theorem for a signed commutator. The existing maps, source and target lattices, norms, injectivity, integral preservation, and target/source rank comparison all have to remain the ones in `MapsAt`. No source or native theorem inspected identifies the diagnostic jet order with this construction's rank parameters, or identifies the proposed R-fold commutator with these maps.\n\nThe width disappears when the FINAL arithmetic error is divided by its main coefficient. Consequently an exponential factor inserted only at that final stage is not paid by choosing a large width. Nor does the whole trace error have exponential slack: its chosen sampling contribution is polynomial, even though two of its primitive trace tolerances are stretched exponential.\n\n## 1. Actual parameters; distinguish the repeated names\n\n| Quantity | Exact source definition / condition | Declaration path |\n|---|---|---|\n| `x`, `eps` | `1 < x`, `0 < eps < 1/52` | `Formalism/LocalRingCardinality/DataParams₂.lean`, `Scale` |\n| `ez` | `eps/J`, with `1 <= J`; not automatically the same exponent as every later analytic epsilon | Same file, `Scale.ez` |\n| `L` | `x^eps` | Same file, `Scale.L` |\n| `b` | `exp L = exp(x^eps)` | Same file, `Scale.b` |\n| `a` | `x*b` | Same file, `Scale.a` |\n| `X'`, `b'` | `exp(x^(eps/3))`, `a/X'` | Same file, `Scale.X'`, `Scale.b'` |\n| `w''` | `b'/(x*n) = b/(n*X')` for positive `x,n` | Same file, `Scale.w''` |\n| `X''` | `a/w'' = x*n*X'` for positive `x,n` | Same file, `Scale.X''` |\n| `n`, `f`, `r` | `n=ord`, `f=2*n`, `r=k_source+m-1` | `Formalism/LocalRingCardinality/Params.lean`, `Ranks` |\n| `z` | `f*r*L`; all factors come from the SAME datum | `Formalism/LocalRingCardinality/DataParamsT.lean`, `zBase` |\n| `PP` | `CP*z^eP`, `1<=CP`, `12<=eP`; also explicit polynomial and room inequalities | Same file, `ParamsT` |\n| `kappa` | Sum of absolute values of actual `laOf` weights over CM embeddings and weight coordinates | `Development/AbelianVarietyTheory/Definitions/Divisors/NormNegCmConstantEqAtAllEmbeddings.lean`, `sizeK`; `CovolXOfCovol.lean`, `kap` |\n| `delta` in descent | `b/(PP*kappa)` | `Development/AbelianVarietyTheory/Proofs/DivisorProofs/LowerBoundOfAllEstimates.lean`, `lowAt_of_cover` |\n| `n_T` | Cardinality of the actual top set `TT`, proved by the equivalence `eT`; not a free averaging count | `Development/AutomorphicArithmetic/DedekindLFunctions/LandauTheorems/ChTop.lean`, `ch_top` |\n\n`Scale.delta1 = x^(-eps/8)` is an orbit/window density and is distinct from the descent rank defect `delta=b/(PP*kappa)` and the trace rank defect `delBar=E7`.\n\nThe analytic text-scale definitions `bTx`, `aTx`, `XpTx`, `bpTx`, `wppTx`, `XppTx` in `Formalism/SizeWindowBrackets/ErrorFormsWeakWindowsFalse.lean` have exactly the same formulas when their `x,epsilon` are identified. A full application still needs its explicit same-parameter and same-object identifications; equal-looking variable names do not supply those.\n\n## 2. Where the geometric cost is really paid\n\n`Development/AbelianVarietyTheory/Proofs/DivisorProofs/MapsBoundOfDeepGood.lean`, theorem `GlobalTheory.CovTop.DescentMaps.maps`, sets `z=zBase(L)` and derives\n\n\\[\n z\\ge 2C+200,\\qquad z^{12}\\le b,\\qquad\n \\log q_{\\rm map}\\le45z^2.\n\\]\n\nFor the actual group `grpHR fr`, the exact collective bill is\n\n\\[\n q_{\\rm map}^{3}\\exp(Cz^9)^2\n =\\exp(3\\log q_{\\rm map}+2Cz^9).\n\\]\n\nThe proof itself yields\n\n\\[\n 3\\log q_{\\rm map}+2Cz^9\n \\le135z^2+2Cz^9\n \\le(135+2C)z^9\n \\le z^{10}\\le z^{12}\\le b.\n\\]\n\nThe stated consumer only requires the weaker upper bound `exp(2*b)`. The native reconstruction is `RHLean/Geometry/NativeDescentCostPayment.lean`, `nativeDescent_collectiveNormBudget`, with hypotheses `q>0`, `C>=0`, `log q<=45*z^2`, `2*C+200<=z`, and `z^12<=b`.\n\nThus a factor `4^j` multiplying this SAME joint square-norm bill can be paid if\n\n\\[\n j\\log4\\le 2b-3\\log q_{\\rm map}-2Cz^9.\n\\]\n\nThe sufficient inequality `j*log 4 <= b` uses the existing proved slack. For example, the extra relation `j<=z` would suffice, because `log4<2`, `z>=200`, and `2z<=z^12<=b`. This relation is NOT currently proved for the diagnostic jet. For a physical choice `j=R` and `x` comparable to `R^2`, the numerical inequality is eventually compatible with `b=exp(x^eps)` for fixed positive `eps`; that asymptotic compatibility is also not the missing map/norm attachment.\n\nThe actual consumer is `MapsAt` in `CovolXOfCovol.lean`:\n\n\\[\n \\sum_h \\|\\phi_h(f)\\|_{\\sigma}^{2}\\le e^{2b}\\|f\\|_{\\sigma}^{2},\n\\]\n\nwith integral preservation, joint injectivity, and a bound on the full joint target rank. `RkAt` bounds that rank ratio by `1+b/(PP*kappa)`; `GminAt` supplies actual target generators with norm at most `exp(PP*kappa)`. The ensuing determinant argument uses\n\n\\[\n P=b,\\quad\\Lambda=PP\\kappa,\\quad\\delta=b/(PP\\kappa),\n \\qquad\\delta\\,(2\\Lambda)=2b.\n\\]\n\nThis is explicit rank-height payment. It is not a freely chosen rescaling. `SizeAt` additionally requires `1<=b<=unitE`, `|mainT|<=PP*kappa`, and `b<=PP*kappa`, among its other original conditions. `LowerBoundOfAllEstimates.lowAt_of_cover` then obtains\n\n\\[\n -\\operatorname{mainT}-(2(C_F+C_U)+9)\\operatorname{unitE}\\le\\mu_{\\rm core}.\n\\]\n\nAn inverse coercivity constant and an upper operator bound have different orientations. A proof that a commutator's inverse coercivity cost enters the displayed `MapsAt` upper square-norm bill is required before applying this available room to it.\n\n## 3. Trace tolerance and the strong error window\n\n`Formalism/SizeWindowBrackets/SlopesFromSizeAndCount.lean` defines\n\n\\[\n E_8=e^{-x^{\\epsilon/8}},\\quad E_7=e^{-x^{\\epsilon/7}},\\quad\n \\overline\\delta=E_7,\\quad\\overline\\eta=6x^{-c_{HH}},\\quad\n \\overline e=2E_8^2.\n\\]\n\nIts `FamC.TraceIn` requires the actual Hilbert--Schmidt `InputS`, integral row factorization, matrix/isometry identities, and\n\n\\[\n -1\\le\\eta_0\\le E_8,\\quad\\eta_1\\le E_8,\\quad\n 0\\le e_0,\\quad\\sqrt{e_0}\\le E_8,\n \\qquad(1-E_7)D_{\\rm all}\\le D.\n\\]\n\nThese are actual trace/matrix conditions, not consequences of merely setting `b`. The theorem `inputs_fourth_to_third` in `ChainSlopeWindows/AnalyticFirstToLatticeDiscriminant.lean` transfers them, plus `Inputs6d` and the original size conditions, to the strong window. In particular it proves `4*sqrt(2*E8^2)<=x^(-cHH)` and hence\n\n\\[\n (\\overline\\eta+4\\sqrt{\\overline e})x^{c_{HH}}b\n =\\left(6+4\\sqrt2\\,x^{c_{HH}}e^{-x^{\\epsilon/8}}\\right)b\n \\le7b.\n\\]\n\n`ErrWindows` requires\n\n\\[\n (\\overline\\eta+4\\sqrt{\\overline e})x^{c_{HH}}b\n \\le K x^\\epsilon n_T a.\n\\]\n\nThe full error contains this multiplied by `(1-delBar)^(-1)`, at most 2 under the original bounds. The source proves that the weaker conditions `etaBar<=1`, `eBar<=1` do not suffice: `ChainSlopeWindows/SubThreeMulLogTwoLe.lean`, `error_sizes_weak_false`.\n\nIf `4^j` multiplies the WHOLE trace contribution, its necessary numerical comparison after `a=xb` is\n\n\\[\n 4^j\\left(6+4\\sqrt2\\,x^{c_{HH}}e^{-x^{\\epsilon/8}}\\right)\n \\le K n_T x^{1+\\epsilon}.\n\\]\n\nThere is only polynomial room here when `n_T` is polynomial in `x`. If an added cost instead affects only a primitive exponentially small error, its norm convention matters. In particular, multiplying the SQUARED error `eBar` by `4^j` changes\n\n\\[\n 4\\sqrt{\\overline e}\\quad\\hbox{to}\\quad\n 4\\sqrt{4^j\\overline e}=4\\,2^j\\sqrt{\\overline e}.\n\\]\n\nFor the actual choice `eBar=2*E8^2`, this contribution, before multiplying by `b`, becomes\n\n\\[\n 4\\sqrt2\\exp\\left(j\\log2+c_{HH}\\log x-x^{\\epsilon/8}\\right).\n\\]\n\nKeeping the source's bound of this contribution by 1 would require\n`j*log 2 + cHH*log x + log(4*sqrt 2) <= x^(epsilon/8)`.\nBy contrast, multiplying an already-linear `E8` contribution by `4^j` requires the analogous comparison with `j*log4`. Multiplying the WHOLE trace expression by `4^j` also multiplies the nondecaying term 6 and is governed by the preceding polynomial comparison. None of these three operations is interchangeable, and no unused exponential margin at these trace entry points has been proved for the diagnostic jet. One cannot apply the stretched-exponential tolerance to the polynomial sampling term `6*x^(-cHH)`.\n\n## 4. Full normalized arithmetic error\n\nWrite `n=|H|`, `T=|TT|`, `U=|T2|`, and `Delta=U/n>0`. The source `BNBoundsU` in `DedekindLFunctions/SplitInertia.lean` retains\n\n\\[\n B_0\\le2nmbx^\\epsilon,\\qquad\n N_c\\le\\frac{Ukbx^\\epsilon}{n(nx^{-\\epsilon})}.\n\\]\n\n`ch_top` uses the SAME `IdentU` data and the eleven-part analytic `LChain.SizeData₂`, the strong `ErrWindows`, `BNBoundsU`, and `LargeX` to prove a uniform gap bound with\n\n\\[\n \\operatorname{Err}=x^{C\\epsilon}\n \\left[T a_E\\left(1+\\frac{m^2}{k_s}\\right)\n +m\\left(2nmbx^\\epsilon+\\frac{Uk_sbx^\\epsilon}{n(nx^{-\\epsilon})}\\right)\\right],\n \\qquad C=e_{Div}+e_{Loss}+3.\n\\]\n\n`CharacterBalanceMoves.core` in `LandauTheorems/ChCore.lean` proves the exact main coefficient\n\n\\[\n Q=Tmb\\frac{\\Delta}{2},\\qquad\n QY\\le\\operatorname{Err}+\\frac{2Tmb}{x}.\n\\]\n\nAfter division by positive `Q`, with every original density and factor retained,\n\n\\[\n Y\\le x^{C\\epsilon}\\left[\n \\frac{2a_E}{mb\\Delta}\\left(1+\\frac{m^2}{k_s}\\right)\n +\\frac{4nm x^\\epsilon}{T\\Delta}\n +\\frac{2k_sx^{2\\epsilon}}{nT}\\right]\n +\\frac4{\\Delta x}.\n\\]\n\nFor `a_E=xb`, the first coefficient becomes `2x/(m*Delta)`. Every `b` cancels. The weaker allowed bound `a_E<=2*x*b` increases that coefficient to at most `4x/(m*Delta)`; it does not leave decay in `b`.\n\nThe hypotheses retained by this step include actual `HostFactsS`, `SizesA`, `ThinScales`, `CostWindows`, containment `T2 subset A0`, a gap bound for every `u in A0`, and the actual retained-character lower bound. `IdentU` equates the same weight family, arithmetic ASK sums, Euler constant, and logarithmic derivative; it is not an abstract equivalence of numerical budgets. The eleven clauses in analytic `SizeData₂` are HidaSetting, DIV, EComp5, HComp, Count5, Slopes, QuotientSlopeBoundsWith, LossBounds, SlopeIneq, HHBound, and FParams.\n\nThe original remaining windows are\n\n\\[\n T\\ge\\tfrac12 n x^{-\\epsilon/8},\\quad\\Delta\\ge x^{-\\epsilon},\\quad\n x^{1/2-\\epsilon}\\le m\\le x^{1/2+\\epsilon/2},\\quad\n xm\\le k_s\\le n^2x^{1/2-\\epsilon},\n\\]\n\nplus an explicit polynomial upper bound on `k_s`. `CostWindows` retains both\n`2*f*(x+1)*theta <= 1/x` and `6*f*(x+1)*(eta+1) <= b/x`.\nNo relation in these formulas identifies `k_s` with the prime-free diagnostic jet order. The downstream character bound still contains the excluded-character sum `SigA`; it cannot be removed by width normalization.\n\n## 5. Exact scope of the conclusion\n\nThere is a genuine candidate geometric payment scalar: the unused logarithmic room in the original collective squared-norm budget, together with the exact rank-defect/height payment. There is no free exponential saving at the final `Err/Q` stage, and the whole trace term cannot absorb `4^j` merely from its chosen `E8` component. Whether the commutator test is already paid therefore depends on the actual consumer and norm orientation, not the size of the isolated diagnostic constant.\n\nThe next proof obligation is a same-object attachment or a demonstration that the finite-dimensional coercivity constant is discarded before every quantitative consumer. No new assumption or Lean interface was added by this audit.\n",
+  "source_links": [
+    {
+      "label": "height",
+      "url": "https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Formalism/HarderNarasimhan/StatementPl.lean",
+      "relative_path": "src/Formalism/HarderNarasimhan/StatementPl.lean",
+      "sha256": "16766730a8dd781538ca5035ff73ddf7612decae9f293bbd995679093d9adc39"
+    },
+    {
+      "label": "lcv",
+      "url": "https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Formalism/QuotientMetricDivisors/Statement.lean",
+      "relative_path": "src/Formalism/QuotientMetricDivisors/Statement.lean",
+      "sha256": "502bb8bb725605949758d6a522266e35aaf1d3f5842ca6bf34bc0b22f98d4cf0"
+    },
+    {
+      "label": "lcv-slope",
+      "url": "https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Formalism/MeanHeightDescent/AverageDegreeBounds/CovolumeAssemblyHolds.lean",
+      "relative_path": "src/Formalism/MeanHeightDescent/AverageDegreeBounds/CovolumeAssemblyHolds.lean",
+      "sha256": "1546bb392d9165c2ea654bca9877e1ab1486e787fcb5cdddc4bc49d94ff3c339"
+    },
+    {
+      "label": "all-place",
+      "url": "https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Development/AbelianVarietyTheory/Proofs/DivisorProofs/HtMapLeOfPoints.lean",
+      "relative_path": "src/Development/AbelianVarietyTheory/Proofs/DivisorProofs/HtMapLeOfPoints.lean",
+      "sha256": "8e8e305e8ac618f3a093dbf872266ef4e92562b3d379a820b96aa2e657d85944"
+    },
+    {
+      "label": "maps",
+      "url": "https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Development/AbelianVarietyTheory/Proofs/DivisorProofs/MapsBoundOfDeepGood.lean",
+      "relative_path": "src/Development/AbelianVarietyTheory/Proofs/DivisorProofs/MapsBoundOfDeepGood.lean",
+      "sha256": "38c3a23e14f36bef1ceff6a121d5ffc144815a1cf0ce19ea4e78cf7e29ebaaef"
+    },
+    {
+      "label": "scale",
+      "url": "https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Formalism/LocalRingCardinality/DataParams₂.lean",
+      "relative_path": "src/Formalism/LocalRingCardinality/DataParams₂.lean",
+      "sha256": "39d84d7e7db5196715f955ac44f45e61a23fcf4ebd5065ca41444f836efd3099"
+    },
+    {
+      "label": "covol-data",
+      "url": "https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Development/AbelianVarietyTheory/Definitions/Divisors/CovolXOfCovol.lean",
+      "relative_path": "src/Development/AbelianVarietyTheory/Definitions/Divisors/CovolXOfCovol.lean",
+      "sha256": "f40c762ed8c2b18311d604540c15613e4a5969b1395dcab59b2854584fb6d3ae"
+    },
+    {
+      "label": "lower-bound",
+      "url": "https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Development/AbelianVarietyTheory/Proofs/DivisorProofs/LowerBoundOfAllEstimates.lean",
+      "relative_path": "src/Development/AbelianVarietyTheory/Proofs/DivisorProofs/LowerBoundOfAllEstimates.lean",
+      "sha256": "111bbcfa0022d90c5aebb3d52247857c8f10ff9269cc369f5d2eaae8a76637d9"
+    },
+    {
+      "label": "theta-index",
+      "url": "https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Development/AbelianVarietyTheory/Proofs/CuspFormEvaluations/NormShortGeneratorEvalLeOrthonormalFrame.lean",
+      "relative_path": "src/Development/AbelianVarietyTheory/Proofs/CuspFormEvaluations/NormShortGeneratorEvalLeOrthonormalFrame.lean",
+      "sha256": "24204cda96854f555054bf1c6fdcf80652ec108bf36596cf87b192aa844ef0c2"
+    },
+    {
+      "label": "raw-index",
+      "url": "https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Development/AbelianVarietyTheory/Proofs/DivisorProofs/NormRawThetaSeriesIndexBoundLeSqrt.lean",
+      "relative_path": "src/Development/AbelianVarietyTheory/Proofs/DivisorProofs/NormRawThetaSeriesIndexBoundLeSqrt.lean",
+      "sha256": "8e932ada1f1d93500fd6a88debe766141b4f39fbc837e1c1bed6ffc6303c5679"
+    },
+    {
+      "label": "small-scalar",
+      "url": "https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Development/AbelianVarietyTheory/Proofs/DivisorProofs/ExistsSmallScalarReflexIdealSelfDualLattice.lean",
+      "relative_path": "src/Development/AbelianVarietyTheory/Proofs/DivisorProofs/ExistsSmallScalarReflexIdealSelfDualLattice.lean",
+      "sha256": "6eb2e5a9001ca0a5f40dbbe31757c6c7cbcee954b78f2346377a5289a33bed73"
+    },
+    {
+      "label": "lie-factor",
+      "url": "https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Formalism/LocalToGlobal/ProjectiveLattices/NormsFree.lean",
+      "relative_path": "src/Formalism/LocalToGlobal/ProjectiveLattices/NormsFree.lean",
+      "sha256": "017bdfc7dd4e7f6cf9d4166c80ac5cfbf920dba29d578f53b6282bfeef719e30"
+    },
+    {
+      "label": "raw-sup",
+      "url": "https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Development/AbelianVarietyTheory/Proofs/DivisorProofs/NormPhiHatIndPhi.lean",
+      "relative_path": "src/Development/AbelianVarietyTheory/Proofs/DivisorProofs/NormPhiHatIndPhi.lean",
+      "sha256": "0ef8d449759ce310c839d6332873738d6a623dfc92545011b713f051a395c43b"
+    },
+    {
+      "label": "weight-size",
+      "url": "https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Development/AbelianVarietyTheory/Proofs/DivisorProofs/ThetaWeightAndFlatExponentSizeBound.lean",
+      "relative_path": "src/Development/AbelianVarietyTheory/Proofs/DivisorProofs/ThetaWeightAndFlatExponentSizeBound.lean",
+      "sha256": "51f40a524f21ecb0c72392cdcd6d752d734e22435290fb7d8ab5771a73782f81"
+    },
+    {
+      "label": "short-span",
+      "url": "https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/HodgeBundleWeights/ShortSpanCompositionClosed.lean",
+      "relative_path": "src/Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/HodgeBundleWeights/ShortSpanCompositionClosed.lean",
+      "sha256": "d0d9dc65292b6ef784fb80c152ad85356334f1e0577e1d72981249f09b54aebc"
+    },
+    {
+      "label": "special-weight",
+      "url": "https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/HodgeBundleWeights/ExistsShortIntegralVectorOfDeterminantBound.lean",
+      "relative_path": "src/Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/HodgeBundleWeights/ExistsShortIntegralVectorOfDeterminantBound.lean",
+      "sha256": "eb7af1bb145afa4fb6983a472854b946a01badf4db3cb54e245110ef4c6710ce"
+    },
+    {
+      "label": "trace-input",
+      "url": "https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Formalism/SizeWindowBrackets/SlopesFromSizeAndCount.lean",
+      "relative_path": "src/Formalism/SizeWindowBrackets/SlopesFromSizeAndCount.lean",
+      "sha256": "2f5d0e951f62844b5fa9529e1c35efe54c3936be1b916f5b286f186064489431"
+    },
+    {
+      "label": "trace-transfer",
+      "url": "https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Formalism/SizeWindowBrackets/ChainSlopeWindows/AnalyticFirstToLatticeDiscriminant.lean",
+      "relative_path": "src/Formalism/SizeWindowBrackets/ChainSlopeWindows/AnalyticFirstToLatticeDiscriminant.lean",
+      "sha256": "4fa365102665032bd390e75f58e84fe6b4458b7e68a38eb16976cdd16e10d184"
+    },
+    {
+      "label": "bn-bounds",
+      "url": "https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Development/AutomorphicArithmetic/DedekindLFunctions/SplitInertia.lean",
+      "relative_path": "src/Development/AutomorphicArithmetic/DedekindLFunctions/SplitInertia.lean",
+      "sha256": "7cba3fb7f7bae39df7e93248dfcf9b4255c37e8c1ebc0cb6a821b506b3839563"
+    },
+    {
+      "label": "ch-top",
+      "url": "https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Development/AutomorphicArithmetic/DedekindLFunctions/LandauTheorems/ChTop.lean",
+      "relative_path": "src/Development/AutomorphicArithmetic/DedekindLFunctions/LandauTheorems/ChTop.lean",
+      "sha256": "9be04f7335746cae6bbdf52a813ae6713a90bf2a555eefc56f538bfd96af954f"
+    },
+    {
+      "label": "ch-core",
+      "url": "https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Development/AutomorphicArithmetic/DedekindLFunctions/LandauTheorems/ChCore.lean",
+      "relative_path": "src/Development/AutomorphicArithmetic/DedekindLFunctions/LandauTheorems/ChCore.lean",
+      "sha256": "80ceae1e3c5728267fe7e7848342ca2d754c5363e9b6d8ae2d628c70f26772e0"
+    },
+    {
+      "label": "frame",
+      "url": "https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Development/WeilBound/RepresentationTheoryGL/HolomorphicDiscreteSeries/EmbeddedFrames/Assembly.lean",
+      "relative_path": "src/Development/WeilBound/RepresentationTheoryGL/HolomorphicDiscreteSeries/EmbeddedFrames/Assembly.lean",
+      "sha256": "e83824ce213a6a7aea47934ae25f0d0fe9787a9d20a66ba4c313c3fe0f9e83c5"
+    },
+    {
+      "label": "frame-consumer",
+      "url": "https://github.com/CocoSgt/riemann-hypothesis-lean/blob/7cbf7a0c32fca1badf05931879a37c3f8a2b03b4/src/Development/WeilBound/RepresentationTheoryGL/HolomorphicDiscreteSeries/HarishChandraDescent/IntegerLowerBounds/BaseOfFarModelsFrame.lean",
+      "relative_path": "src/Development/WeilBound/RepresentationTheoryGL/HolomorphicDiscreteSeries/HarishChandraDescent/IntegerLowerBounds/BaseOfFarModelsFrame.lean",
+      "sha256": "ee02118f6f6195ae186be14e102637e2145bbb9e1df9af6373bb53e685054a2c"
+    }
+  ],
+  "files": [
+    {
+      "id": "N10",
+      "kind": "native",
+      "relative_path": "RHLean/Analysis/AlpogeNativeCostNormalization.lean",
+      "sha256": "fc42ad2e4634142ae46214ab306ad5a8edbb4089f775aee6ddfa22872ee7959c",
+      "line_count": 94,
+      "relevant_declarations": [
+        {
+          "name": "alpogeNativeGeometricErrorBracket",
+          "declaration_lines": [
+            29
+          ]
+        },
+        {
+          "name": "alpogeNativeNormalizedGeometricCosts",
+          "declaration_lines": [
+            34
+          ]
+        },
+        {
+          "name": "alpogeNativeGeometricErrorBracket_div_projectionDivisor",
+          "declaration_lines": [
+            56
+          ]
+        },
+        {
+          "name": "alpogeNativeTransportCost_div_projectionDivisor",
+          "declaration_lines": [
+            76
+          ]
+        }
+      ]
+    },
+    {
+      "id": "N11",
+      "kind": "native",
+      "relative_path": "RHLean/Analysis/AlpogeNativeSubgroupProjection.lean",
+      "sha256": "6ff1b57d7eaff02a8621e28c0bcff12ed92eaed564f0b4cfe2359040eb5e6197",
+      "line_count": 523,
+      "relevant_declarations": [
+        {
+          "name": "alpogeNativeProjectionDensity",
+          "declaration_lines": [
+            103
+          ]
+        },
+        {
+          "name": "alpogeNativeProjectionDivisor",
+          "declaration_lines": [
+            159
+          ]
+        }
+      ]
+    },
+    {
+      "id": "N12",
+      "kind": "native",
+      "relative_path": "RHLean/Analysis/AlpogeThin/NativeConstructedDyadicGzPayment.lean",
+      "sha256": "07d93eefece597b5eeb58af56ad98c3fb81c49d9dc03f6b6f07ab3c7492328b0",
+      "line_count": 101,
+      "relevant_declarations": [
+        {
+          "name": "nativeConstructedDyadicGzPayment",
+          "declaration_lines": [
+            30
+          ]
+        }
+      ]
+    },
+    {
+      "id": "N13",
+      "kind": "native",
+      "relative_path": "RHLean/Geometry/AlpogeAllPlace/Development/AbelianVarietyTheory/Proofs/DivisorProofs/HtMapLeOfPoints.lean",
+      "sha256": "d8071c51e5edec17afa9deb1d26a38083a477c86822f91ff6731115d05403a7c",
+      "line_count": 150,
+      "relevant_declarations": [
+        {
+          "name": "htMap_le_of_points",
+          "declaration_lines": [
+            39
+          ]
+        },
+        {
+          "name": "normAt_pi_sq",
+          "declaration_lines": [
+            63
+          ]
+        },
+        {
+          "name": "descent",
+          "declaration_lines": [
+            74
+          ]
+        }
+      ]
+    },
+    {
+      "id": "N04",
+      "kind": "native",
+      "relative_path": "RHLean/Geometry/NativeAllPlaceDescent.lean",
+      "sha256": "e952f83b0cb619395c2e2e58cba49113ce7931ebe407f1430d93399a0e76d14e",
+      "line_count": 19,
+      "relevant_declarations": [
+        {
+          "name": "nativeAllPlaceDescent",
+          "declaration_lines": [
+            16
+          ]
+        }
+      ]
+    },
+    {
+      "id": "N08",
+      "kind": "native",
+      "relative_path": "RHLean/Geometry/NativeAllPlaceShortGenerators.lean",
+      "sha256": "bbf3c75ff9b69a873e6dde2fd6b856511a6b028b3993b50275e879ac49bccfbc",
+      "line_count": 172,
+      "relevant_declarations": [
+        {
+          "name": "exists_isShortGen_of_short_span",
+          "declaration_lines": [
+            34
+          ]
+        }
+      ]
+    },
+    {
+      "id": "N02",
+      "kind": "native",
+      "relative_path": "RHLean/Geometry/NativeCharacterTraceMaps.lean",
+      "sha256": "21a84efeec2e874c8b8dd67d6806ff0e70f87ffc65f61c10f7c472cb74a260c7",
+      "line_count": 133,
+      "relevant_declarations": [
+        {
+          "name": "nativeCharacterTrace_jointNorm_le",
+          "declaration_lines": [
+            85
+          ]
+        },
+        {
+          "name": "nativeCharacterTrace_jointNorm_paid",
+          "declaration_lines": [
+            111
+          ]
+        }
+      ]
+    },
+    {
+      "id": "N01",
+      "kind": "native",
+      "relative_path": "RHLean/Geometry/NativeDescentCostPayment.lean",
+      "sha256": "e153a22c87bc4845a0abe0c2a78762b29f88d768c55dd6572232c57698239d76",
+      "line_count": 141,
+      "relevant_declarations": [
+        {
+          "name": "nativeDescent_collectiveNormBudget",
+          "declaration_lines": [
+            26
+          ]
+        },
+        {
+          "name": "nativeDescent_jointEnergy_le",
+          "declaration_lines": [
+            55
+          ]
+        },
+        {
+          "name": "nativeDescent_slopeBudget",
+          "declaration_lines": [
+            66
+          ]
+        },
+        {
+          "name": "nativeDescent_rankDefectCost",
+          "declaration_lines": [
+            87
+          ]
+        },
+        {
+          "name": "nativeDescent_mainTermPayment",
+          "declaration_lines": [
+            94
+          ]
+        }
+      ]
+    },
+    {
+      "id": "N09",
+      "kind": "native",
+      "relative_path": "RHLean/Geometry/NativeGradedShortSectionConstruction.lean",
+      "sha256": "32fbe52e59ee3383bee9525564f12a4d3870b416fe2411dc24d5ce21ebc807bb",
+      "line_count": 178,
+      "relevant_declarations": [
+        {
+          "name": "nativeExists_graded_short_integral_injective_section",
+          "declaration_lines": [
+            102
+          ]
+        }
+      ]
+    },
+    {
+      "id": "N06",
+      "kind": "native",
+      "relative_path": "RHLean/Geometry/NativeHermitianShortVectors.lean",
+      "sha256": "b696ad95ae476806e255baf43a8e63898e8ffadd4941e0f9bedfb7d9e11815ee",
+      "line_count": 379,
+      "relevant_declarations": [
+        {
+          "name": "exists_short_vectors",
+          "declaration_lines": [
+            317
+          ]
+        }
+      ]
+    },
+    {
+      "id": "N03",
+      "kind": "native",
+      "relative_path": "RHLean/Geometry/NativeRegularCharacterSlopeDescent.lean",
+      "sha256": "80a4a7740839358a95d166428709f06cccec73e6fe7f9ee7722d8397cc0e8bec",
+      "line_count": 251,
+      "relevant_declarations": [
+        {
+          "name": "nativeAllPlaceDescent_of_regular_groupDet",
+          "declaration_lines": [
+            65
+          ]
+        }
+      ]
+    },
+    {
+      "id": "N05",
+      "kind": "native",
+      "relative_path": "RHLean/Geometry/NativeSectionCostAbsorption.lean",
+      "sha256": "77d8f7ac7b25edfcb3f87b09f7552060a52a1fa19e0c33f18001f5b3a28d246b",
+      "line_count": 153,
+      "relevant_declarations": [
+        {
+          "name": "nativeShortSectionCost_le_exp_of_source_scales",
+          "declaration_lines": [
+            37
+          ]
+        }
+      ]
+    },
+    {
+      "id": "N07",
+      "kind": "native",
+      "relative_path": "RHLean/Geometry/NativeThetaShortLatticeFamily.lean",
+      "sha256": "37fe954444714f4639257d023618145bce387a2e8e026ca11ef1c3fbfd50f70e",
+      "line_count": 106,
+      "relevant_declarations": []
+    },
+    {
+      "id": "S06",
+      "kind": "source",
+      "relative_path": "src/Development/AbelianVarietyTheory/Definitions/Divisors/CovolXOfCovol.lean",
+      "sha256": "f40c762ed8c2b18311d604540c15613e4a5969b1395dcab59b2854584fb6d3ae",
+      "line_count": 294,
+      "relevant_declarations": [
+        {
+          "name": "kap",
+          "declaration_lines": [
+            36
+          ]
+        },
+        {
+          "name": "lenT",
+          "declaration_lines": [
+            42
+          ]
+        },
+        {
+          "name": "muCore",
+          "declaration_lines": [
+            51
+          ]
+        },
+        {
+          "name": "RecAt",
+          "declaration_lines": [
+            57
+          ]
+        },
+        {
+          "name": "CutAt",
+          "declaration_lines": [
+            61
+          ]
+        },
+        {
+          "name": "BadAt",
+          "declaration_lines": [
+            69
+          ]
+        },
+        {
+          "name": "SizeAt",
+          "declaration_lines": [
+            75
+          ]
+        },
+        {
+          "name": "CoreAt",
+          "declaration_lines": [
+            92
+          ]
+        },
+        {
+          "name": "LowAt",
+          "declaration_lines": [
+            96
+          ]
+        },
+        {
+          "name": "RingAt",
+          "declaration_lines": [
+            116
+          ]
+        },
+        {
+          "name": "MapsAt",
+          "declaration_lines": [
+            119
+          ]
+        },
+        {
+          "name": "RkAt",
+          "declaration_lines": [
+            125
+          ]
+        },
+        {
+          "name": "GminAt",
+          "declaration_lines": [
+            128
+          ]
+        },
+        {
+          "name": "FlatAt",
+          "declaration_lines": [
+            135
+          ]
+        },
+        {
+          "name": "UAt",
+          "declaration_lines": [
+            138
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "source",
+      "relative_path": "src/Development/AbelianVarietyTheory/Definitions/Divisors/NormNegCmConstantEqAtAllEmbeddings.lean",
+      "sha256": "d07c8d791d45bd5f9a8b4e9fd99192dd1a0b8fc61c0471e06c98fc5f96da98c1",
+      "line_count": 593
+    },
+    {
+      "kind": "source",
+      "relative_path": "src/Development/AbelianVarietyTheory/Definitions/Foundations/IsProbabilityMeasureMuPart.lean",
+      "sha256": "3951bad4542aa62738d56c1f31d93348ca8578bffc940aaafba74e395973645d",
+      "line_count": 830
+    },
+    {
+      "kind": "source",
+      "relative_path": "src/Development/AbelianVarietyTheory/Definitions/SpanningFamilies/IsStabForm.lean",
+      "sha256": "0286ee7c91889d44e2b4d3ab5ae845dbe2497937df026dd518898fffd8964bbb",
+      "line_count": 195
+    },
+    {
+      "kind": "source",
+      "relative_path": "src/Development/AbelianVarietyTheory/Proofs/CuspFormEvaluations/JetTranslateProjectedVacuumLe.lean",
+      "sha256": "2857e19f7098038e0017293eb2fb41b46dde8cc999a5a64295a9e43673cd5369",
+      "line_count": 288
+    },
+    {
+      "kind": "source",
+      "relative_path": "src/Development/AbelianVarietyTheory/Proofs/CuspFormEvaluations/NormShortGeneratorEvalLeOrthonormalFrame.lean",
+      "sha256": "24204cda96854f555054bf1c6fdcf80652ec108bf36596cf87b192aa844ef0c2",
+      "line_count": 214
+    },
+    {
+      "kind": "source",
+      "relative_path": "src/Development/AbelianVarietyTheory/Proofs/DivisorProofs/CardLeOfDetEqZero.lean",
+      "sha256": "a03d646e53cc2bdc8bdaf0da14f0c8f6fd42a11fa225f5c20228b483994bb3f3",
+      "line_count": 359
+    },
+    {
+      "id": "S08",
+      "kind": "source",
+      "relative_path": "src/Development/AbelianVarietyTheory/Proofs/DivisorProofs/CovolumeFromGramAndBounds.lean",
+      "sha256": "840e9bdd6a0114433a9a8a7b42c52cc6f69cd5ab6604b3fa95750e3c580e90a7",
+      "line_count": 114,
+      "relevant_declarations": [
+        {
+          "name": "exists_loss_le",
+          "declaration_lines": [
+            25
+          ]
+        },
+        {
+          "name": "lcv_le",
+          "declaration_lines": [
+            39
+          ]
+        },
+        {
+          "name": "covolX_of_steps",
+          "declaration_lines": [
+            86
+          ]
+        }
+      ]
+    },
+    {
+      "id": "S09",
+      "kind": "source",
+      "relative_path": "src/Development/AbelianVarietyTheory/Proofs/DivisorProofs/CovolumePerRankLeNegSlopeScaled.lean",
+      "sha256": "520d85fada6d80b8e7a777649827653f5d7a9728981a6b1c4ece3e8080a3df4b",
+      "line_count": 138,
+      "relevant_declarations": [
+        {
+          "name": "lcv_div_le_neg_slope_sq",
+          "declaration_lines": [
+            58
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "source",
+      "relative_path": "src/Development/AbelianVarietyTheory/Proofs/DivisorProofs/EvenDomainWeightBound.lean",
+      "sha256": "67806ff29567d60586b126a10fa9a25030574cedd53b24245ba2c0628b26d0cd",
+      "line_count": 151
+    },
+    {
+      "kind": "source",
+      "relative_path": "src/Development/AbelianVarietyTheory/Proofs/DivisorProofs/ExistsBoundedIntegerGoodCoverThetaSeriesIntegralStatement.lean",
+      "sha256": "80406aed93d1e0f33c120e42043d5073a76092a8a4ed58cf5f7e2b98dce5084d",
+      "line_count": 16
+    },
+    {
+      "id": "S16",
+      "kind": "source",
+      "relative_path": "src/Development/AbelianVarietyTheory/Proofs/DivisorProofs/ExistsShortIntegralFlatLineTwistingSection.lean",
+      "sha256": "594d65a52c39f7fb650f09ea0de40cde595ab0dd15fbb1985fbbf98ab0a45ac4",
+      "line_count": 322,
+      "relevant_declarations": [
+        {
+          "name": "exists_short_elt",
+          "declaration_lines": [
+            203
+          ]
+        },
+        {
+          "name": "exists_short_flat_section",
+          "declaration_lines": [
+            297
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "source",
+      "relative_path": "src/Development/AbelianVarietyTheory/Proofs/DivisorProofs/ExistsSmallScalarReflexIdealSelfDualLattice.lean",
+      "sha256": "6eb2e5a9001ca0a5f40dbbe31757c6c7cbcee954b78f2346377a5289a33bed73",
+      "line_count": 154
+    },
+    {
+      "id": "S25",
+      "kind": "source",
+      "relative_path": "src/Development/AbelianVarietyTheory/Proofs/DivisorProofs/ExistsUniformHeightConstant.lean",
+      "sha256": "5af98b380e95e867749f162cf97353c8c51c5e71ae221b8135e588d03d6088cf",
+      "line_count": 167,
+      "relevant_declarations": [
+        {
+          "name": "exists_integral_short",
+          "declaration_lines": [
+            80
+          ]
+        }
+      ]
+    },
+    {
+      "id": "S04",
+      "kind": "source",
+      "relative_path": "src/Development/AbelianVarietyTheory/Proofs/DivisorProofs/HtMapLeOfPoints.lean",
+      "sha256": "8e8e305e8ac618f3a093dbf872266ef4e92562b3d379a820b96aa2e657d85944",
+      "line_count": 145,
+      "relevant_declarations": [
+        {
+          "name": "numeric",
+          "declaration_lines": [
+            15
+          ]
+        },
+        {
+          "name": "htMap_le_of_points",
+          "declaration_lines": [
+            34
+          ]
+        },
+        {
+          "name": "normAt_pi_sq",
+          "declaration_lines": [
+            58
+          ]
+        },
+        {
+          "name": "descent",
+          "declaration_lines": [
+            69
+          ]
+        }
+      ]
+    },
+    {
+      "id": "S07",
+      "kind": "source",
+      "relative_path": "src/Development/AbelianVarietyTheory/Proofs/DivisorProofs/LowerBoundOfAllEstimates.lean",
+      "sha256": "111bbcfa0022d90c5aebb3d52247857c8f10ff9269cc369f5d2eaae8a76637d9",
+      "line_count": 125,
+      "relevant_declarations": [
+        {
+          "name": "numeric",
+          "declaration_lines": [
+            18
+          ]
+        },
+        {
+          "name": "lowAt_of_cover",
+          "declaration_lines": [
+            65
+          ]
+        },
+        {
+          "name": "low",
+          "declaration_lines": [
+            107
+          ]
+        }
+      ]
+    },
+    {
+      "id": "S05",
+      "kind": "source",
+      "relative_path": "src/Development/AbelianVarietyTheory/Proofs/DivisorProofs/MapsBoundOfDeepGood.lean",
+      "sha256": "38c3a23e14f36bef1ceff6a121d5ffc144815a1cf0ce19ea4e78cf7e29ebaaef",
+      "line_count": 193,
+      "relevant_declarations": [
+        {
+          "name": "mapsCore",
+          "declaration_lines": [
+            41
+          ]
+        },
+        {
+          "name": "maps",
+          "declaration_lines": [
+            95
+          ]
+        }
+      ]
+    },
+    {
+      "id": "S14",
+      "kind": "source",
+      "relative_path": "src/Development/AbelianVarietyTheory/Proofs/DivisorProofs/NormPhiHatIndPhi.lean",
+      "sha256": "0ef8d449759ce310c839d6332873738d6a623dfc92545011b713f051a395c43b",
+      "line_count": 341,
+      "relevant_declarations": [
+        {
+          "name": "sizeK_eq",
+          "declaration_lines": [
+            49
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "source",
+      "relative_path": "src/Development/AbelianVarietyTheory/Proofs/DivisorProofs/NormRawThetaSeriesIndexBoundLeSqrt.lean",
+      "sha256": "8e932ada1f1d93500fd6a88debe766141b4f39fbc837e1c1bed6ffc6303c5679",
+      "line_count": 118
+    },
+    {
+      "kind": "source",
+      "relative_path": "src/Development/AbelianVarietyTheory/Proofs/DivisorProofs/PolynomialCoefficientEmbeddingNormLeOfL1Bound.lean",
+      "sha256": "54af8da355e9aeeca64ea019d1597966c0a2476d26f5495461625769d6476254",
+      "line_count": 470
+    },
+    {
+      "id": "S13",
+      "kind": "source",
+      "relative_path": "src/Development/AbelianVarietyTheory/Proofs/DivisorProofs/ThetaWeightAndFlatExponentSizeBound.lean",
+      "sha256": "51f40a524f21ecb0c72392cdcd6d752d734e22435290fb7d8ab5771a73782f81",
+      "line_count": 66,
+      "relevant_declarations": [
+        {
+          "name": "GlobalTheory.spanShortSize",
+          "declaration_lines": [
+            32
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "source",
+      "relative_path": "src/Development/AbelianVarietyTheory/Proofs/SiegelThetaTransformation/ShortThetaValueComplexPointEqClassicalTheta.lean",
+      "sha256": "64c4ef7b64895c34e4f8304bc033bce34f441c8a34990cb73fcb6cde80980cdd",
+      "line_count": 264
+    },
+    {
+      "kind": "source",
+      "relative_path": "src/Development/AutomorphicArithmetic/DedekindLFunctions/LandauTheorems/ChCore.lean",
+      "sha256": "80ceae1e3c5728267fe7e7848342ca2d754c5363e9b6d8ae2d628c70f26772e0",
+      "line_count": 446
+    },
+    {
+      "kind": "source",
+      "relative_path": "src/Development/AutomorphicArithmetic/DedekindLFunctions/LandauTheorems/ChTop.lean",
+      "sha256": "9be04f7335746cae6bbdf52a813ae6713a90bf2a555eefc56f538bfd96af954f",
+      "line_count": 76
+    },
+    {
+      "kind": "source",
+      "relative_path": "src/Development/AutomorphicArithmetic/DedekindLFunctions/SplitInertia.lean",
+      "sha256": "7cba3fb7f7bae39df7e93248dfcf9b4255c37e8c1ebc0cb6a821b506b3839563",
+      "line_count": 104
+    },
+    {
+      "id": "S26",
+      "kind": "source",
+      "relative_path": "src/Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/HodgeBundleWeights/ExistsShortIntegralVectorOfDeterminantBound.lean",
+      "sha256": "eb7af1bb145afa4fb6983a472854b946a01badf4db3cb54e245110ef4c6710ce",
+      "line_count": 128,
+      "relevant_declarations": [
+        {
+          "name": "exists_short_integral_vector",
+          "declaration_lines": [
+            26
+          ]
+        }
+      ]
+    },
+    {
+      "id": "S27",
+      "kind": "source",
+      "relative_path": "src/Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/HodgeBundleWeights/ShortGeneratorNormComparison.lean",
+      "sha256": "d1e7f666e978962174826b8a243ca7a11e1804d157d149ed5c8ce13d0f8238b2",
+      "line_count": 119,
+      "relevant_declarations": [
+        {
+          "name": "short_generator_comparison",
+          "declaration_lines": [
+            23
+          ]
+        }
+      ]
+    },
+    {
+      "id": "S15",
+      "kind": "source",
+      "relative_path": "src/Development/AutomorphicArithmetic/ThetaCorrespondence/ThetaPairLifts/HodgeBundleWeights/ShortSpanCompositionClosed.lean",
+      "sha256": "d0d9dc65292b6ef784fb80c152ad85356334f1e0577e1d72981249f09b54aebc",
+      "line_count": 171,
+      "relevant_declarations": [
+        {
+          "name": "short_span_comp_mem",
+          "declaration_lines": [
+            24
+          ]
+        },
+        {
+          "name": "_root_.GlobalTheory.T.short_span_composition_closed",
+          "declaration_lines": [
+            169
+          ]
+        }
+      ]
+    },
+    {
+      "id": "S22",
+      "kind": "source",
+      "relative_path": "src/Development/WeilBound/RepresentationTheoryGL/HolomorphicDiscreteSeries/EmbeddedFrames/Assembly.lean",
+      "sha256": "e83824ce213a6a7aea47934ae25f0d0fe9787a9d20a66ba4c313c3fe0f9e83c5",
+      "line_count": 132,
+      "relevant_declarations": [
+        {
+          "name": "frame",
+          "declaration_lines": [
+            44
+          ]
+        }
+      ]
+    },
+    {
+      "id": "S23",
+      "kind": "source",
+      "relative_path": "src/Development/WeilBound/RepresentationTheoryGL/HolomorphicDiscreteSeries/EmbeddedFrames/Imports.lean",
+      "sha256": "51feb84cc35f0ac689ded8736c393d482c9a14dd257200088f8a2e3e56d7df40",
+      "line_count": 7,
+      "relevant_declarations": [
+        {
+          "name": "frame",
+          "declaration_lines": [
+            5
+          ]
+        }
+      ]
+    },
+    {
+      "id": "S21",
+      "kind": "source",
+      "relative_path": "src/Development/WeilBound/RepresentationTheoryGL/HolomorphicDiscreteSeries/HarishChandraDescent/IntegerLowerBounds/BaseOfFarModelsFrame.lean",
+      "sha256": "ee02118f6f6195ae186be14e102637e2145bbb9e1df9af6373bb53e685054a2c",
+      "line_count": 262,
+      "relevant_declarations": [
+        {
+          "name": "base_of_far_models_frame",
+          "declaration_lines": [
+            63
+          ]
+        }
+      ]
+    },
+    {
+      "id": "S24",
+      "kind": "source",
+      "relative_path": "src/Development/WeilBound/RepresentationTheoryGL/HolomorphicDiscreteSeries/WeightOccurrence/Occ.lean",
+      "sha256": "e0be2a209ae6f12fccca5b77b30543a09c32d9e03097582e136752ca8319a7e3",
+      "line_count": 15,
+      "relevant_declarations": [
+        {
+          "name": "occ",
+          "declaration_lines": [
+            10
+          ]
+        }
+      ]
+    },
+    {
+      "id": "S20",
+      "kind": "source",
+      "relative_path": "src/Development/WeilBound/RepresentationTheoryGL/HolomorphicDiscreteSeries/WeightOccurrence/OccSome.lean",
+      "sha256": "f806d802cc4379a49c57652e9fd4261749db0be930c141a797391e904bf42c5e",
+      "line_count": 122,
+      "relevant_declarations": [
+        {
+          "name": "Frame",
+          "declaration_lines": [
+            101
+          ]
+        }
+      ]
+    },
+    {
+      "id": "S01",
+      "kind": "source",
+      "relative_path": "src/Formalism/HarderNarasimhan/StatementPl.lean",
+      "sha256": "16766730a8dd781538ca5035ff73ddf7612decae9f293bbd995679093d9adc39",
+      "line_count": 170,
+      "relevant_declarations": [
+        {
+          "name": "nPl",
+          "declaration_lines": [
+            21
+          ]
+        },
+        {
+          "name": "logDisc",
+          "declaration_lines": [
+            25
+          ]
+        },
+        {
+          "name": "rkK",
+          "declaration_lines": [
+            27
+          ]
+        },
+        {
+          "name": "ht",
+          "declaration_lines": [
+            29
+          ]
+        },
+        {
+          "name": "size",
+          "declaration_lines": [
+            33
+          ]
+        },
+        {
+          "name": "opNormAt",
+          "declaration_lines": [
+            55
+          ]
+        },
+        {
+          "name": "htMap",
+          "declaration_lines": [
+            60
+          ]
+        },
+        {
+          "name": "muDef",
+          "declaration_lines": [
+            64
+          ]
+        },
+        {
+          "name": "PlLat",
+          "declaration_lines": [
+            75
+          ]
+        },
+        {
+          "name": "HtGram",
+          "declaration_lines": [
+            83
+          ]
+        },
+        {
+          "name": "SizeMu",
+          "declaration_lines": [
+            93
+          ]
+        },
+        {
+          "name": "Twist",
+          "declaration_lines": [
+            133
+          ]
+        },
+        {
+          "name": "RescaleCovol",
+          "declaration_lines": [
+            161
+          ]
+        }
+      ]
+    },
+    {
+      "id": "S11",
+      "kind": "source",
+      "relative_path": "src/Formalism/LocalRingCardinality/DataParamsT.lean",
+      "sha256": "905fe103410f43e08d318a15b56063b9f80b1c4d26d62c136bd65721017d5420",
+      "line_count": 148,
+      "relevant_declarations": [
+        {
+          "name": "zBase",
+          "declaration_lines": [
+            11
+          ]
+        }
+      ]
+    },
+    {
+      "id": "S10",
+      "kind": "source",
+      "relative_path": "src/Formalism/LocalRingCardinality/DataParams₂.lean",
+      "sha256": "39d84d7e7db5196715f955ac44f45e61a23fcf4ebd5065ca41444f836efd3099",
+      "line_count": 274,
+      "relevant_declarations": [
+        {
+          "name": "L",
+          "declaration_lines": [
+            27
+          ]
+        },
+        {
+          "name": "b",
+          "declaration_lines": [
+            29
+          ]
+        }
+      ]
+    },
+    {
+      "id": "S12",
+      "kind": "source",
+      "relative_path": "src/Formalism/LocalRingCardinality/Params.lean",
+      "sha256": "1de4e5a1230e9d93b5ace3e4f7e112f65e3d5264d75db227476986d179881e17",
+      "line_count": 125,
+      "relevant_declarations": [
+        {
+          "name": "Ranks",
+          "declaration_lines": [
+            6
+          ]
+        },
+        {
+          "name": "n",
+          "declaration_lines": [
+            28
+          ]
+        },
+        {
+          "name": "f",
+          "declaration_lines": [
+            30
+          ]
+        },
+        {
+          "name": "r",
+          "declaration_lines": [
+            32
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "source",
+      "relative_path": "src/Formalism/LocalToGlobal/ProjectiveLattices/IsProbabilityMeasureAutQuotientNormalized.lean",
+      "sha256": "a2ab73e80a322edfd46b9f680211373d126b285010367c9d9df123527329f9cb",
+      "line_count": 33
+    },
+    {
+      "kind": "source",
+      "relative_path": "src/Formalism/LocalToGlobal/ProjectiveLattices/NormsFree.lean",
+      "sha256": "017bdfc7dd4e7f6cf9d4166c80ac5cfbf920dba29d578f53b6282bfeef719e30",
+      "line_count": 167
+    },
+    {
+      "kind": "source",
+      "relative_path": "src/Formalism/LocalToGlobal/ProjectiveLattices/ThClass.lean",
+      "sha256": "c819c1596bfc9d8dd1470b66623d12de75c21bf314a5305450cb0319190461fe",
+      "line_count": 212
+    },
+    {
+      "kind": "source",
+      "relative_path": "src/Formalism/LocalToGlobal/ProjectiveLattices/ThProps.lean",
+      "sha256": "7b249bd6347f9dbeb5da999265903d2a657cd016794a65096b42af8dc11e8878",
+      "line_count": 53
+    },
+    {
+      "kind": "source",
+      "relative_path": "src/Formalism/LocalToGlobal/ProjectiveLattices/ThShort.lean",
+      "sha256": "910822e9773ea37f97728e494db9fffac2e9707478637452fa38b1c5e88df3b2",
+      "line_count": 355
+    },
+    {
+      "id": "S03",
+      "kind": "source",
+      "relative_path": "src/Formalism/MeanHeightDescent/AverageDegreeBounds/CovolumeAssemblyHolds.lean",
+      "sha256": "1546bb392d9165c2ea654bca9877e1ab1486e787fcb5cdddc4bc49d94ff3c339",
+      "line_count": 192,
+      "relevant_declarations": [
+        {
+          "name": "log_covolume_slope_mu",
+          "declaration_lines": [
+            12
+          ]
+        },
+        {
+          "name": "covolume_assembly_holds",
+          "declaration_lines": [
+            41
+          ]
+        }
+      ]
+    },
+    {
+      "id": "S02",
+      "kind": "source",
+      "relative_path": "src/Formalism/QuotientMetricDivisors/Statement.lean",
+      "sha256": "502bb8bb725605949758d6a522266e35aaf1d3f5842ca6bf34bc0b22f98d4cf0",
+      "line_count": 194,
+      "relevant_declarations": [
+        {
+          "name": "lw",
+          "declaration_lines": [
+            31
+          ]
+        },
+        {
+          "name": "lcv",
+          "declaration_lines": [
+            34
+          ]
+        },
+        {
+          "name": "meanLog",
+          "declaration_lines": [
+            93
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "source",
+      "relative_path": "src/Formalism/SizeWindowBrackets/ChainSlopeWindows/AnalyticFirstToLatticeDiscriminant.lean",
+      "sha256": "4fa365102665032bd390e75f58e84fe6b4458b7e68a38eb16976cdd16e10d184",
+      "line_count": 1074
+    },
+    {
+      "id": "S19",
+      "kind": "source",
+      "relative_path": "src/Formalism/SizeWindowBrackets/ChainSlopeWindows/PChain.lean",
+      "sha256": "be3c0f0ead3ebf13bc147c927c79aa5470d45a67739249d3b04a40d17281bf0d",
+      "line_count": 1659,
+      "relevant_declarations": [
+        {
+          "name": "top_each_bound_sized",
+          "declaration_lines": [
+            674
+          ]
+        }
+      ]
+    },
+    {
+      "id": "S17",
+      "kind": "source",
+      "relative_path": "src/Formalism/SizeWindowBrackets/ErrorFormsWeakWindowsFalse.lean",
+      "sha256": "8b8613a5e3934127fb8b52ba402e658414662f63bff8f0e9fb52bedddd1173f2",
+      "line_count": 165,
+      "relevant_declarations": [
+        {
+          "name": "ErrText",
+          "declaration_lines": [
+            16
+          ]
+        },
+        {
+          "name": "ErrWindows",
+          "declaration_lines": [
+            43
+          ]
+        },
+        {
+          "name": "ErrorFormsUnderWindows",
+          "declaration_lines": [
+            54
+          ]
+        },
+        {
+          "name": "errorBracketSizeWindows",
+          "declaration_lines": [
+            133
+          ]
+        }
+      ]
+    },
+    {
+      "id": "S18",
+      "kind": "source",
+      "relative_path": "src/Formalism/SizeWindowBrackets/SChain.lean",
+      "sha256": "fbd9601bd93a72f7004d6de3f67737755a588631035c760f3e7f063c4c4a197f",
+      "line_count": 252,
+      "relevant_declarations": [
+        {
+          "name": "CostWindows",
+          "declaration_lines": [
+            50
+          ]
+        },
+        {
+          "name": "CoreTopEachSized",
+          "declaration_lines": [
+            177
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "source",
+      "relative_path": "src/Formalism/SizeWindowBrackets/SlopesFromSizeAndCount.lean",
+      "sha256": "2f5d0e951f62844b5fa9529e1c35efe54c3936be1b916f5b286f186064489431",
+      "line_count": 845
+    },
+    {
+      "kind": "source",
+      "relative_path": "src/ReciprocityTheory/ReductiveGroups/ArithmeticGeometry/PullbackSections/HolomorphicFamilies/ModelDataX.lean",
+      "sha256": "24f93226d46ef93bba7644146666131eee53031b7755461a7342e79c01b760b0",
+      "line_count": 45
+    }
+  ],
+  "review_notes": {
+    "height": "Independent review found no error in reserve, height/size/lcv equations or rank payment. Euclidean and already-normalized ordinary slope conventions are now separately identified.",
+    "windows": "Independent review verified all B/Q constants and added positivity of Q, the analytic epsilon range, and the location of the inverse rank-defect factor.",
+    "coercivity": "Independent whole-source search found only the named theorem's Assembly call and the FrameF occurrence chain; the inverse-coercivity field is discarded at base_of_far_models_frame. It remains a formal proof dependency.",
+    "auxiliary_theta_scope": "The d_theta <= z^7 bound applies specifically to the auxiliary cZero*hodgeWt section supplying the multiplier M, not arbitrary main cusp weights, Hilbert-Samuel jets or diagnostic k."
+  },
+  "report_sha256": "6f118f4917e3f5e8ead56954673560e1d7ca0dbeb157fc781b27b603eb1ae2ac",
+  "subsequent_compiler_checkpoint": {
+    "preserved_external_commit": "bbcc8cabafc5766db4f1dad977b7a7345d51aa72",
+    "previous_builds": "cancelled during compilation; partial logs retained",
+    "repair_scope": "actual compiler errors and owned warnings; no new coercivity interface",
+    "hash_scope": "The inspected source/native file hashes describe the original audit snapshots, not later maintenance edits."
+  }
+}

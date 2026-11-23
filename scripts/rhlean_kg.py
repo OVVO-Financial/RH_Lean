@@ -68,7 +68,7 @@ DECL_NAME_RE = re.compile(
     r"^" + _ATTR_PREFIX + _MODIFIERS + r"(" + "|".join(DECL_KEYWORDS) + r")\s+([^\s(:{\[⦃]+)"
 )
 NAMESPACE_RE = re.compile(r"^namespace\s+([\w.'!?]+)")
-SECTION_RE = re.compile(r"^section\b\s*([\w.'!?]*)")
+SECTION_RE = re.compile(r"^(?:noncomputable\s+)?section\b\s*([\w.'!?]*)")
 END_RE = re.compile(r"^end\b\s*([\w.'!?]*)")
 OPEN_RE = re.compile(r"^open\b(.*)$")
 IMPORT_RE = re.compile(r"^\s*import\s+([A-Za-z0-9_'.]+)\s*$")
@@ -309,7 +309,10 @@ def parse_module(path: Path, text: str) -> list[Declaration]:
         statement, value = _statement_value_split(body)
         ns = str(pending["namespace"])
         short = str(pending["short"])
-        full = f"{ns}.{short}" if ns else short
+        # `_root_.` is Lean's absolute-name marker, not part of the name.
+        full = short.removeprefix("_root_.") if short.startswith("_root_.") else (
+            f"{ns}.{short}" if ns else short
+        )
         decls.append(
             Declaration(
                 name=full,
@@ -445,6 +448,9 @@ class NameTable:
 
     def candidates(self, token: str, decl: Declaration) -> list[str]:
         """Candidate full names for `token`, in Lean's resolution order."""
+
+        if token.startswith("_root_."):
+            return [token.removeprefix("_root_.")]
 
         out: list[str] = []
         ns_parts = decl.namespace.split(".") if decl.namespace else []

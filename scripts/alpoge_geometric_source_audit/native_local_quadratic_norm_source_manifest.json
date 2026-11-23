@@ -1,0 +1,142 @@
+{
+  "source_repository": "CocoSgt/riemann-hypothesis-lean",
+  "source_pin": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
+  "mathlib_pin": "d13f23b723b8a846827a245b89c10fc7d3f11612",
+  "status": "IMPLEMENTED_STATIC_REVIEWED_HOSTED_VERIFICATION_PENDING",
+  "freeze_date_utc": "2026-11-22",
+  "repository_head_at_freeze": "a26fa375504cbd9d6bcbd0a32cf7b2f5c4daeb3d",
+  "native_modules": [
+    {
+      "module": "RHLean.Geometry.NativeLocalQuadraticNorm",
+      "path": "RHLean/Geometry/NativeLocalQuadraticNorm.lean",
+      "source": [
+        {
+          "path": "src/Formalism/HermitianLattices/HermitianLatticesProofs/UnimodUnramUnique.lean",
+          "sha256": "e6f5eb07749a60a2bd449a92e04f35de42a52c8e6a27d91cfeb33b634c35a53c",
+          "declarations": [
+            "Formalism.HermitianLatticesTheory.unimodUnramUnique_lift",
+            "Formalism.HermitianLatticesTheory.unimodUnramUnique_split",
+            "Formalism.HermitianLatticesTheory.unimodUnramUnique_ff",
+            "Formalism.HermitianLatticesTheory.unimodUnramUnique_quad"
+          ]
+        }
+      ],
+      "key_declarations": [
+        "RHLean.Geometry.NativeLocalQuadraticNorm.finiteField_quadratic",
+        "RHLean.Geometry.NativeLocalQuadraticNorm.henselian_quadratic_unit",
+        "RHLean.Geometry.NativeLocalQuadraticNorm.henselian_quadratic_neg_one"
+      ],
+      "construction": "Constructs a representation s^2+T*s*t+N*t^2=d over every Henselian local ring with finite residue field, unit discriminant and unit d. Finite-field representation, both simple-derivative lifts and the split case are proved. The unused upstream StatementJac import is omitted.",
+      "native_sha256": "ef523850cd49de1a3f43cbb9e42e800a700baa1fd86e0c91c82ddd7b2e3d2a03",
+      "native_lines": 174,
+      "initial_source_reconstruction_sha256": "56060e930eab7ab6e140afa5f419b9ef756faa955c7c442ee2d19a36ee978bec"
+    },
+    {
+      "module": "RHLean.Geometry.NativeAdicQuadraticNorm",
+      "path": "RHLean/Geometry/NativeAdicQuadraticNorm.lean",
+      "source": [
+        {
+          "path": "src/Formalism/LocalRingCardinality/SpanPowerMembership/Adelic.lean",
+          "sha256": "a018acd7d268fd661d3a41d6876dd488b002621c167d1df902d00fd5a97918b3",
+          "declarations": [
+            "Formalism.BasicNotions.Examples₂.adicInt_isAdicComplete",
+            "Formalism.BasicNotions.Examples₂.adicInt_henselian",
+            "Formalism.BasicNotions.Examples₂.adicInt_residue_surj",
+            "Formalism.BasicNotions.Examples₂.adicInt_residue_finite",
+            "Formalism.BasicNotions.Examples₂.adicInt_isUnit_of_not_mem",
+            "Formalism.BasicNotions.Examples₂.adicInt_exists_norm"
+          ]
+        }
+      ],
+      "key_declarations": [
+        "RHLean.Geometry.NativeAdicQuadraticNorm.adicInt_isAdicComplete",
+        "RHLean.Geometry.NativeAdicQuadraticNorm.adicInt_henselian",
+        "RHLean.Geometry.NativeAdicQuadraticNorm.adicInt_residue_surj",
+        "RHLean.Geometry.NativeAdicQuadraticNorm.adicInt_residue_finite",
+        "RHLean.Geometry.NativeAdicQuadraticNorm.adicInt_exists_norm",
+        "RHLean.Geometry.NativeAdicQuadraticNorm.numberField_adicInt_exists_norm"
+      ],
+      "construction": "Proves maximal-ideal-adic completeness and Henselian structure of the literal Mathlib v.adicCompletionIntegers K. Reduction of the original R is surjective onto its residue field, so finiteness of R/v supplies finite residue. Constructs the original integral norm-minus-one solution for integer T,N at every prime excluding T^2-4N. Number-field specialization derives finite R/v from the actual maximal ideal.",
+      "native_sha256": "a2f9b4db3fcf1df470ebf228710205e989f09036c8a71cf1d02079b6f78b7f2e",
+      "native_lines": 268,
+      "initial_source_reconstruction_sha256": "bbc585166dde68d6923686b300f6ee369853a4c6001d3e08a4963d431ebec353"
+    }
+  ],
+  "axiom_guard_declarations": [
+    "RHLean.Geometry.NativeLocalQuadraticNorm.finiteField_quadratic",
+    "RHLean.Geometry.NativeLocalQuadraticNorm.henselian_quadratic_unit",
+    "RHLean.Geometry.NativeLocalQuadraticNorm.henselian_quadratic_neg_one",
+    "RHLean.Geometry.NativeAdicQuadraticNorm.adicInt_isAdicComplete",
+    "RHLean.Geometry.NativeAdicQuadraticNorm.adicInt_henselian",
+    "RHLean.Geometry.NativeAdicQuadraticNorm.adicInt_residue_surj",
+    "RHLean.Geometry.NativeAdicQuadraticNorm.adicInt_residue_finite",
+    "RHLean.Geometry.NativeAdicQuadraticNorm.adicInt_exists_norm",
+    "RHLean.Geometry.NativeAdicQuadraticNorm.numberField_adicInt_exists_norm"
+  ],
+  "pinned_mathlib_api_files": [
+    {
+      "path": "Mathlib/FieldTheory/Finite/Basic.lean",
+      "sha256": "5e92972b7030c2b6a27bf66ea79de25a7a24e7b2110a840f7fb877fb8c7268c5"
+    },
+    {
+      "path": "Mathlib/RingTheory/Henselian.lean",
+      "sha256": "364a54b24f7acd263f9704cca0e7ef6b602670db6c6749989279bca477219d06"
+    },
+    {
+      "path": "Mathlib/RingTheory/DedekindDomain/AdicValuation.lean",
+      "sha256": "75cd277c9c7b5bee8590324ad62c6d5011704a6b9c11254d8fc3bb7812a5fc8e"
+    },
+    {
+      "path": "Mathlib/RingTheory/AdicCompletion/Basic.lean",
+      "sha256": "ea71c61be774fd579bad7f9faa3477a8cbc637daa36832c0813d733fe02703ba"
+    },
+    {
+      "path": "Mathlib/Topology/Algebra/Valued/ValuationTopology.lean",
+      "sha256": "71bb9dfe9db1b9c9ddffb7d619979cea9db4d552c447f7fe62c1d7d2a2f87507"
+    },
+    {
+      "path": "Mathlib/NumberTheory/NumberField/Ideal/Basic.lean",
+      "sha256": "c79877df9084f4b6674c6f787a88f432427398d947997cc0008c8c4f017e7725"
+    }
+  ],
+  "validation": {
+    "local_lean": "NOT_RUN_HOSTED_ONLY",
+    "hosted_build": "NOT_YET_RUN_FOR_THESE_FILES",
+    "root_review": "Both complete modules independently read; Hensel branches, actual valuation completeness, residue surjectivity and unit-discriminant specialization mathematically consistent, no unproved supplier found.",
+    "ci_repair_review": "Both files independently reviewed against pinned APIs. Fixed explicit polynomial derivative sequencing and NumberField notation scope. No remaining concrete mathematical, API or instance defect found.",
+    "static_audit": "All nine guard declarations checked. No sorry/admit/axiom declaration, linter suppression, heartbeat override, upstream terminal theorem import, or assumed norm-minus-one solution."
+  },
+  "next_actual_suppliers": [
+    {
+      "path": "src/Formalism/LocalRingCardinality/SpanPowerMembership/Adelic.lean",
+      "sha256": "a018acd7d268fd661d3a41d6876dd488b002621c167d1df902d00fd5a97918b3",
+      "declarations": [
+        "Formalism.BasicNotions.Examples₂.adelBeta",
+        "Formalism.BasicNotions.Examples₂.adelAlpha",
+        "Formalism.BasicNotions.Examples₂.adelic_alpha_beta_norm",
+        "Formalism.BasicNotions.Examples₂.adel_not_both",
+        "Formalism.BasicNotions.Examples₂.adel_local"
+      ],
+      "requirement": "Use the SAME native q- and d-roots. Away from d, solve the d-form using the new local theorem. Above d, q is a unit; solve the q-form and transport by beta=sqrt(-q)/sqrt(-d) in the maximal real subfield and alpha=(1-beta)/2, retaining integrality away from the finite d-prime set."
+    },
+    {
+      "path": "src/Formalism/LocalRingCardinality/SpanPowerMembership/Adelic.lean",
+      "sha256": "a018acd7d268fd661d3a41d6876dd488b002621c167d1df902d00fd5a97918b3",
+      "declarations": [
+        "Formalism.BasicNotions.Examples₂.adel_finite_d",
+        "Formalism.BasicNotions.Examples₂.adelS",
+        "Formalism.BasicNotions.Examples₂.adelT",
+        "Formalism.BasicNotions.Examples₂.adel_key",
+        "Formalism.BasicNotions.Examples₂.exists_adelic_neg_one"
+      ],
+      "requirement": "Construct the actual restricted-product coordinates from the local witnesses, prove their global norm equation, then tensor with the same host field and use theta=(1+sqrt(-d))/2 and conjugation theta=1-theta to construct y with sigma(y)*y=-1."
+    }
+  ],
+  "scope_notes": [
+    "No finite-adelic element or Hermitian isometry is yet claimed by this frozen pair.",
+    "No new field, lattice, rank, signature, cover coefficient field or geometric Datum is selected.",
+    "The only residual input of the number-field local endpoint is non-membership of the actual quadratic discriminant in the chosen prime."
+  ],
+  "descent_payment_ack": "ALPOGE_NATIVE_DESCENT_PAYMENT_V1",
+  "tractability_ack": "ALPOGE_VIOLE_TRACTABLE_RH_V1"
+}

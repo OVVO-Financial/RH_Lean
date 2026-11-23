@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "scope": "Static source identity/import audit. No Lean execution; not proof acceptance.",
+  "upstream_commit": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
+  "src_tree": "b41b516b1f7baee4d83ced235ecc71fd43c97695",
+  "profile": "closed-short-constructor",
+  "roots": [
+    "AlpogeGeometryAxiomGuard"
+  ],
+  "status": "static_source_audit_passed",
+  "source_modules": 52223,
+  "local_modules": 3,
+  "source_bytes": 356643395,
+  "source_lines": 6265197,
+  "source_closure_sha256": "080e4c70ee452e1b945dfdfc949dd00ce521cdc2ac4774758064159b9b070be4",
+  "root_counts": {
+    "AlpogeGeometryAxiomGuard": {
+      "modules": 52226,
+      "bytes": 356643395,
+      "lines": 6265197
+    }
+  },
+  "configs": [
+    {
+      "path": "README.md",
+      "git_blob": "4d69d4001175b15d9b5659b5022d01e4a042f964"
+    },
+    {
+      "path": "lakefile.toml",
+      "git_blob": "07e85dc8afcf28b4885a8f092154c8b74c8cf800"
+    },
+    {
+      "path": "lake-manifest.json",
+      "git_blob": "b4d1ec31575a26b2159ec3a262b482bc051f3f6f"
+    },
+    {
+      "path": "lean-toolchain",
+      "git_blob": "a8afa7d1b02d96f0671eba854a8dc4b416beb473"
+    }
+  ],
+  "findings": [],
+  "external_import_roots": [
+    "Mathlib"
+  ],
+  "external_import_count": 90,
+  "metaprogram_inventory_count": 0,
+  "conditional_analytic_transfer_imports": [
+    "Formalism.SizeWindowBrackets.ChainSlopeWindows.RiemannHypothesisOfPowerBound",
+    "Formalism.SizeWindowBrackets.GrowthBoundGivesRiemannHypothesis",
+    "Formalism.SizeWindowBrackets.PowerBoundGivesRiemannHypothesis"
+  ],
+  "compiled_status": "Not compiled in this task; source-only audit. Fresh hosted guard is pending."
+}

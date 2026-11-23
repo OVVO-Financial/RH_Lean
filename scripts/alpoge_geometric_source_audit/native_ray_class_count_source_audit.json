@@ -1,0 +1,281 @@
+{
+  "owner": "/root/geometric_constructor",
+  "descent_payment_ack": "ALPOGE_NATIVE_DESCENT_PAYMENT_V1",
+  "tractability_ack": "ALPOGE_VIOLE_TRACTABLE_RH_V1",
+  "native_base_commit": "291e21aa788aaa2af9238b835dbd24a76d1b3717",
+  "upstream_commit": "7cbf7a0c32fca1badf05931879a37c3f8a2b03b4",
+  "mathlib_commit": "d13f23b723b8a846827a245b89c10fc7d3f11612",
+  "modules": [
+    {
+      "module": "RHLean.Analysis.AlpogeThin.NativeRayClassData",
+      "declaration_headers": [
+        "def primeTo (K : Type) [Field K] [NumberField K] (M : ℕ) : Submonoid (Ideal (𝓞 K)) where",
+        "theorem one_mul_mem {R : Type} [CommRing R] {A : Ideal R} {a b : R} (ha : a - 1 ∈ A) (hb : b - 1 ∈ A) : a * b - 1 ∈ A := by",
+        "def rayCon (K : Type) [Field K] [NumberField K] (M : ℕ) : Con (primeTo K M) where",
+        "theorem exists_beta {M : ℕ} {α : 𝓞 K} (h : IsCoprime (Ideal.span {α}) (Ideal.span {(M : 𝓞 K)})) :",
+        "def icl {M : ℕ} (I : primeTo K M) : ClassGroup (𝓞 K) :=",
+        "theorem exists_compl {M : ℕ} (I : primeTo K M) : ∃ L : primeTo K M, ∀ J : primeTo K M, icl J = icl I →",
+        "theorem finite_residue {M : ℕ} (hM : M ≠ 0) :",
+        "theorem exists_class_residue_embedding (M : ℕ) :",
+        "theorem finite_quot {M : ℕ} (hM : M ≠ 0) : Finite (rayCon K M).Quotient := by",
+        "theorem card_quot_le {M : ℕ} (hM : M ≠ 0) :",
+        "theorem exists_inv {M : ℕ} (q : (rayCon K M).Quotient) : IsUnit q := by",
+        "theorem ne_bot_of_cop {M : ℕ} (hM : 2 ≤ M) {I : Ideal (𝓞 K)} (h : IsCoprime I (Ideal.span {(M : 𝓞 K)})) : I ≠ ⊥ := by",
+        "def rcl (M : ℕ) (I : Ideal (𝓞 K)) : (rayCon K M).Quotient :=",
+        "theorem rcl_of {M : ℕ} {I : Ideal (𝓞 K)} (h : I ∈ primeTo K M) : rcl M I = (rayCon K M).mk' ⟨I, h⟩ := by",
+        "theorem rcl_mul {M : ℕ} {I J : Ideal (𝓞 K)} (h1 : I ∈ primeTo K M) (h2 : J ∈ primeTo K M) :",
+        "def RayGroup (K : Type) [Field K] [NumberField K] (M : ℕ) : Type := (RayCl.rayCon K M).Quotient",
+        "instance rayGroupCommGroup (K : Type) [Field K] [NumberField K] (M : ℕ) : CommGroup (RayGroup K M) :=",
+        "@[instance] theorem rayGroup_finite (K : Type) [Field K] [NumberField K] (M : ℕ) [NeZero M] : Finite (RayGroup K M) :=",
+        "structure RayData (K : Type) [Field K] [NumberField K] (M : ℕ) where",
+        "def rayData (K : Type) [Field K] [NumberField K] (M : ℕ) (hM : M ≠ 0) : RayData K M where",
+        "theorem nonempty_rayData_of_ne_zero (K : Type) [Field K] [NumberField K] (M : ℕ) (hM : M ≠ 0) : Nonempty (RayData K M) := ⟨rayData K M hM⟩",
+        "def cnt (c : D.G) (n : ℕ) : ℂ :=",
+        "def coef (χ : D.G →* ℂˣ) (n : ℕ) : ℂ := ∑ c : D.G, (χ c : ℂ) * D.cnt c n",
+        "def Pr (_D : RayData K M) : Type := {v : HeightOneSpectrum (𝓞 K) // IsCoprime v.asIdeal (Ideal.span {(M : 𝓞 K)})}",
+        "theorem cls_mul_of_two_le (hM : 2 ≤ M) {I J : Ideal (𝓞 K)} (hI : IsCoprime I (Ideal.span {(M : 𝓞 K)}))",
+        "theorem cls_one : D.cls 1 = 1 := by",
+        "theorem cls_top : D.cls ⊤ = 1 := by",
+        "theorem cls_eq_one_iff {I : Ideal (𝓞 K)} (hI : IsCoprime I (Ideal.span {(M : 𝓞 K)})) (hI' : I ≠ ⊥) :",
+        "theorem cls_span {a : 𝓞 K} (ha : a ≠ 0) (h : a - 1 ∈ Ideal.span {(M : 𝓞 K)}) : D.cls (Ideal.span {a}) = 1 := by",
+        "def clsHom : RayCl.primeTo K M →* D.G where",
+        "theorem clsHom_surjective : Function.Surjective D.clsHom := by",
+        "theorem ker_clsHom : Con.ker D.clsHom = RayCl.rayCon K M := by",
+        "def equivRayGroup : RayGroup K M ≃* D.G :=",
+        "theorem equivRayGroup_rcl {I : Ideal (𝓞 K)} (hI : IsCoprime I (Ideal.span {(M : 𝓞 K)})) (hI' : I ≠ ⊥) :",
+        "theorem card_le_classNumber_mul_pow (hM : M ≠ 0) :",
+        "theorem card_le_classNumber_mul_sq (hK : Module.finrank ℚ K = 2) (hM : M ≠ 0) :",
+        "theorem finite_cnt (c : D.G) (n : ℕ) :",
+        "theorem cnt_of_ne_zero (c : D.G) {n : ℕ} (hn : n ≠ 0) : D.cnt c n =",
+        "theorem cnt_zero (hM : 2 ≤ M) (c : D.G) : D.cnt c 0 = 0 := by",
+        "theorem cnt_one (c : D.G) : D.cnt c 1 = if c = 1 then 1 else 0 := by",
+        "theorem coef_one (χ : D.G →* ℂˣ) : D.coef χ 1 = 1 := by",
+        "theorem card_eq_classNumber (D : RayData K 1) : Fintype.card D.G = classNumber K := by"
+      ],
+      "native_path": "RHLean/Analysis/AlpogeThin/NativeRayClassData.lean",
+      "initial_source_reconstruction_sha256": "67ad141d5756587b3ac80474a0d132edee6efb5b916210b67676fe33b4edb98c",
+      "native_sha256": "2809e4c6336d9d287acfb0eae7e8195bc2c794b85d132b07555a0c610618e123",
+      "native_lines": 425
+    },
+    {
+      "module": "RHLean.Analysis.AlpogeThin.NativeRayIdealCounts",
+      "declaration_headers": [
+        "def idealsIn (g : D.G) (n : ℕ) : Set (Ideal (𝓞 K)) :=",
+        "def lamIdeal (I : Ideal (𝓞 K)) : ℝ :=",
+        "def aRay (g : D.G) (n : ℕ) : ℝ := ((idealsIn D g n).ncard : ℝ)",
+        "def lamRay (g : D.G) (n : ℕ) : ℝ := ∑ᶠ I ∈ idealsIn D g n, lamIdeal I",
+        "theorem idealsIn_finite (g : D.G) (n : ℕ) : (idealsIn D g n).Finite :=",
+        "theorem coe_aRay_eq_cnt (g : D.G) {n : ℕ} (hn : n ≠ 0) : (aRay D g n : ℂ) = D.cnt g n := by",
+        "theorem aRay_eq_card (g : D.G) (n : ℕ) : aRay D g n = ((idealsIn_finite D g n).toFinset.card : ℝ) := by",
+        "theorem lamRay_eq_sum (g : D.G) (n : ℕ) : lamRay D g n = ∑ I ∈ (idealsIn_finite D g n).toFinset, lamIdeal I :=",
+        "theorem lamIdeal_prime_pow (P : Ideal (𝓞 K)) (hP : P.IsPrime) (h0 : P ≠ ⊥) (k : ℕ) (hk : 1 ≤ k) :",
+        "theorem lamIdeal_of_not_prime_pow {I : Ideal (𝓞 K)}",
+        "theorem lamIdeal_unit : lamIdeal (⊤ : Ideal (𝓞 K)) = 0 := by",
+        "theorem lamIdeal_pow {P : Ideal (𝓞 K)} (hP : Prime P) (k : ℕ) :",
+        "theorem finite_dvd {I : Ideal (𝓞 K)} (hI : I ≠ 0) : {J : Ideal (𝓞 K) | J ∣ I}.Finite := by",
+        "theorem sum_lamIdeal (I : Ideal (𝓞 K)) : I ≠ 0 → ∀ T : Finset (Ideal (𝓞 K)), (∀ J, J ∈ T ↔ J ∣ I) →",
+        "theorem finite_idealsIn (g : D.G) (n : ℕ) : (idealsIn D g n).Finite :=",
+        "theorem aRay_mul_log : ∀ (K : Type) [Field K] [NumberField K] (M : ℕ), 2 ≤ M → ∀ (D : RayData K M) (g : D.G) (n : ℕ), aRay D g n * Real.log n = ∑ h : D.G, ∑ p ∈ n.divisorsAntidiagonal, lamRay D h p.1 * aRay D (g / h) p.2 := by",
+        "theorem lamIdeal_nonneg (I : Ideal (𝓞 K)) : 0 ≤ lamIdeal I := by",
+        "theorem aRay_nonneg (g : D.G) (n : ℕ) : 0 ≤ aRay D g n := Nat.cast_nonneg _",
+        "theorem lamRay_nonneg (g : D.G) (n : ℕ) : 0 ≤ lamRay D g n := by",
+        "theorem aRay_norm_zero (g : D.G) : aRay D g 0 = 0 := by",
+        "theorem aRay_one_norm_one : aRay D 1 1 = 1 := by",
+        "theorem aRay_norm_one_of_ne {g : D.G} (hg : g ≠ 1) : aRay D g 1 = 0 := by"
+      ],
+      "native_path": "RHLean/Analysis/AlpogeThin/NativeRayIdealCounts.lean",
+      "initial_source_reconstruction_sha256": "0275b8d185c0d2a80bc58bc93c202ca2981d3a6ec1237e32b5eb8b03cb1abe5b",
+      "native_sha256": "8f63154221bc9db0fd4341d80a77459e0771fe8de2ec1eb1b6fb685b340d6c73",
+      "native_lines": 263
+    }
+  ],
+  "source_files": [
+    {
+      "sha256": "dccc94c03e3de791557de631e642d185dca1f6eba892dd203f8881a55a2b673e",
+      "lines": 402,
+      "declarations": [
+        "GlobalTheory.Mem.RayCl",
+        "GlobalTheory.Mem.RayGroup",
+        "GlobalTheory.Mem.RayData",
+        "GlobalTheory.Mem.rayData",
+        "GlobalTheory.Mem.RayData.card_eq_classNumber"
+      ],
+      "path": "src/Development/AbelianVarietyTheory/Definitions/AutomorphicMembership/NonemptyRayDataOfNeZero.lean"
+    },
+    {
+      "sha256": "2f84dfd5e4b49e93f8062e23f3b9e1dea72222d429c83458a9538b5d1224b236",
+      "lines": 286,
+      "declarations": [
+        "GlobalTheory.Hk.idealsIn",
+        "GlobalTheory.Hk.lamIdeal",
+        "GlobalTheory.Hk.aRay",
+        "GlobalTheory.Hk.lamRay",
+        "GlobalTheory.Hk.RayCount"
+      ],
+      "path": "src/Development/AbelianVarietyTheory/Definitions/GlobalTwisting/LamIdealOfNotPrimePow.lean"
+    },
+    {
+      "sha256": "a3caa78f1274d8ae03190906192873d4623c55dd755672d62431a70a5030884f",
+      "lines": 136,
+      "declarations": [
+        "GlobalTheory.Hk.RayConv.sum_lamIdeal",
+        "GlobalTheory.Hk.aRay_mul_log"
+      ],
+      "path": "src/Development/AbelianVarietyTheory/Proofs/GlobalInterpolation/FiniteIdealsIn.lean"
+    },
+    {
+      "sha256": "4b0ea61500c959d9b71937c0e630123c9f46a28cb391a506dd3f73a7535969bd",
+      "lines": 130,
+      "declarations": [
+        "GlobalTheory.Hk.aRay_norm_zero",
+        "GlobalTheory.Hk.aRay_one_norm_one",
+        "GlobalTheory.Hk.aRay_norm_one_of_ne",
+        "GlobalTheory.Hk.exists_lFam_ray"
+      ],
+      "path": "src/Development/AbelianVarietyTheory/Proofs/GlobalInterpolation/ExistsLFamRay.lean"
+    },
+    {
+      "sha256": "6f342c3628ede8a5a82bb44c7666709ea1c64fe2a2215543f0ebac9a3714736c",
+      "lines": 172,
+      "declarations": [
+        "GlobalTheory.Hk.LamRay.lamIdeal_nonneg"
+      ],
+      "path": "src/Development/AbelianVarietyTheory/Proofs/GlobalInterpolation/SumLamIdealLe.lean"
+    },
+    {
+      "sha256": "e0f864a65bee165d83b6262a50665042280fe71921797b30589ba272c860e4dc",
+      "lines": 345,
+      "declarations": [
+        "GlobalTheory.Hk.RayForm.aRay_eq_ncard_qForm"
+      ],
+      "path": "src/Development/AbelianVarietyTheory/Proofs/GlobalInterpolation/RayClassIdealCountEqNcardShiftedBinaryForm.lean"
+    },
+    {
+      "sha256": "43df45099c3d61394e7d05c57ac86904d5f42a1c30bbe7d68649576905ace738",
+      "lines": 435,
+      "declarations": [
+        "GlobalTheory.Mem.PartialZeta.cls_iff",
+        "GlobalTheory.Mem.PartialZeta.lattice_bij",
+        "GlobalTheory.Mem.PartialZeta.gen_bij"
+      ],
+      "path": "src/Development/AbelianVarietyTheory/Proofs/IwasawaDecomposition/RayClassPartialZetaContinuation.lean"
+    },
+    {
+      "sha256": "9d8b2e2f7e074933fbae729a5c06215490c503a2f4f08dde0b9c2f8274158654",
+      "lines": 123,
+      "declarations": [
+        "GlobalTheory.Hk.rayCountTheta"
+      ],
+      "path": "src/Development/AbelianVarietyTheory/Proofs/GlobalInterpolation/RayCountThetaFibreCount.lean"
+    }
+  ],
+  "mathlib_api_files": [
+    {
+      "sha256": "b1189bcfd7c38d529d1b33054886c31816c791dd24b6c17c3263d27b3f1dc0e6",
+      "lines": 308,
+      "declarations": [
+        "Con.mk'_surjective",
+        "Con.lift_surjective_of_surjective"
+      ],
+      "path": "Mathlib/GroupTheory/Congruence/Hom.lean"
+    },
+    {
+      "sha256": "f35090c081e7903c719d1d77033bd1b443cc70a99ee4fb711dcaa2384508c77e",
+      "lines": 661,
+      "declarations": [
+        "commGroupOfIsUnit"
+      ],
+      "path": "Mathlib/Algebra/Group/Units/Defs.lean"
+    },
+    {
+      "sha256": "ddd6cfde14973b016ac30ff12ab03a1d7fa509c2ffaebf0cccf9107cb7ed7f44",
+      "lines": 499,
+      "declarations": [
+        "ClassGroup.mk0_eq_one_iff",
+        "ClassGroup.mk0_eq_mk0_iff",
+        "ClassGroup.mk0_surjective"
+      ],
+      "path": "Mathlib/RingTheory/ClassGroup/Basic.lean"
+    },
+    {
+      "sha256": "43379a45a522ec04015d65d2fec023067c1b62c0e15315c5b54c7340b6c61ce6",
+      "lines": 222,
+      "declarations": [
+        "NumberField.classNumber",
+        "NumberField.RingOfIntegers.instFintypeClassGroup"
+      ],
+      "path": "Mathlib/NumberTheory/NumberField/ClassNumber.lean"
+    },
+    {
+      "sha256": "c518f160f7bd751e562d4557480b4503c41b0fa35be4123d6734903c0f52bb29",
+      "lines": 578,
+      "declarations": [
+        "Ideal.absNorm_ne_zero_iff",
+        "Ideal.absNorm_span_natCast",
+        "Ideal.finite_setOfPred_absNorm_eq",
+        "Ideal.finite_setOfPred_absNorm_le"
+      ],
+      "path": "Mathlib/RingTheory/Ideal/Norm/AbsNorm.lean"
+    },
+    {
+      "sha256": "9df494cb1a689cd298ac9e9a8257ec412f06c99db32078d25fab978450f9de24",
+      "lines": 453,
+      "declarations": [
+        "NumberField.RingOfIntegers.rank"
+      ],
+      "path": "Mathlib/NumberTheory/NumberField/Basic.lean"
+    },
+    {
+      "sha256": "d0bb8f1f00469a940dcc8ca404a9d4f7157516c40a4d6aa0fbbc622e50c42e94",
+      "lines": 390,
+      "declarations": [
+        "Nat.card_le_card_of_injective",
+        "Nat.card_prod",
+        "Nat.card_eq_fintype_card"
+      ],
+      "path": "Mathlib/SetTheory/Cardinal/Finite.lean"
+    },
+    {
+      "sha256": "1647144bd76b4fb9115fbd86e3337282dd426ee934d227b668b4bcda479ebe02",
+      "lines": 755,
+      "declarations": [
+        "Con.eq"
+      ],
+      "path": "Mathlib/GroupTheory/Congruence/Defs.lean"
+    }
+  ],
+  "adaptations": [
+    "Native namespace RHLean.Analysis.AlpogeThin.NativeRay; no upstream imports or terminal theorem.",
+    "Complete RayData logical fields retained; optional tactic-generated nonzero proofs in cls_mul made explicit.",
+    "Source finite quotient proof factored into the actual class/residue injection, reused for finiteness and the new quantitative bound #G <= classNumber(K)*M^[K:Q].",
+    "Literal same-modulus primeTo/rayCon, quotient classes, nonzero and congruent-to-one multipliers retained, including M=1.",
+    "Real aRay is the ncard of actual nonzero prime-to-M ideal norm fibers; lamRay is the finsum of actual ideal prime-power logarithms.",
+    "Exact ideal divisor/product bijection proves source aRay_mul_log, including g/h orientation and every positive prime power.",
+    "Deprecated finite_setOf_absNorm aliases and dif_pos/dif_neg replaced by pinned current names; truly unused NumberField section instances omitted.",
+    "Proposition-valued finite ray-group instance expressed as an attributed theorem; no budgets, disabled linters, local Lean execution, axioms or placeholders."
+  ],
+  "proven_construction_scope": [
+    "Canonical full finite RayData for every number field K and nonzero modulus M.",
+    "Actual injection into ClassGroup(O_K) times O_K/(M), all quotient classes invertible, canonical principal congruence and quotient universal equivalence.",
+    "Exact bound #RayGroup <= classNumber(K)*M^[K:Q], degree-two specialization and equality with classNumber at M=1.",
+    "Actual finite ideal counts, nonnegative prime-power weights, zero/one coefficient normalization and exact logarithmic convolution."
+  ],
+  "substitution_audit": {
+    "finite_layer": "All coefficients and classes are constructed from actual ideals and their norm. No endpoint-valued input, seed data copy, geometric truth predicate or height overwrite appears.",
+    "next_source_correspondence": "RayForm.aRay_eq_ncard_qForm constructs an explicit equivalence Phi of Z^2 with actual ray-class ideals and proves qForm(v)=absNorm(Phi(v)); final equality is ncard of an actual image. Inspected source arithmetic, not native verification.",
+    "next_source_LFam": "ExistsLFamRay uses a:=aRay and lam:=lamRay. Count/theta are filled by rayCountTheta; they have not been reconstructed or accepted as new native assumptions here."
+  },
+  "first_remaining_dependencies": [
+    "Actual ray-class ideal fiber <-> shifted integral plane lattice (PartialZeta.cls_iff/gen_bij/lattice_bij and RayForm.aRay_eq_ncard_qForm).",
+    "Quantitative class-number/discriminant bound, original Gaussian lattice count/theta estimates, actual quadratic prime-power upper bound and real-character convolution positivity.",
+    "The unconditional LFam/Perron/exceptional-zero short-interval argument and common-x0 LevelPrime are still absent natively; the already published RayNorm bridge constructs the same-host integral pi only after genuine NormOne coordinates exist."
+  ],
+  "review": {
+    "self": "PASS static mathematical/source/API review",
+    "ci_repair": "PASS independent full source/API review including the extracted injection and quantitative card bound; no concrete defect; no edits or local Lean",
+    "closure_audit": "NOT_REQUESTED_FOR_FREEZE_AFTER_CI_REPAIR_PASS; occupied with parent priority source audit",
+    "hosted_lean": "PENDING; no local Lean/Lake execution"
+  },
+  "metadata_revision": "API provenance correction only: Con.eq is declared in Congruence/Defs.lean; both Lean modules unchanged.",
+  "status": "SOURCE_INSPECTED; finite quotient and convolution implemented; hosted verification and actual analytic count/theta bounds pending."
+}
