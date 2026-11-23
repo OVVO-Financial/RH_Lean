@@ -109,7 +109,7 @@ private theorem nativeDyadicRamp_eq_sum_cut (M B : ℕ) (hMB : M ≤ B) :
   exact nativeDyadicSum_extend _ M B hMB
 
 private theorem nativeDyadicRamp_coefficient
-    (N n : ℕ) (hn : 1 ≤ n) (hn4 : n ≤ 4 * N) :
+    (N n : ℕ) (_hn : 1 ≤ n) (hn4 : n ≤ 4 * N) :
     Λ n * (((4 * N : ℕ) : ℝ) / (n : ℝ) - 1) -
         3 * (if n ≤ 2 * N then
           Λ n * (((2 * N : ℕ) : ℝ) / (n : ℝ) - 1) else 0) +

@@ -77,8 +77,6 @@ theorem alpogeNativeUnitCellLogDefect_nonneg
     simp only [Set.mem_Ici]
     positivity
   have hconvex := Real.convexOn_mul_log.2
-    (x := (n : ℝ)) (y := (n : ℝ) + 1)
-    (a := 1 - (x - (n : ℝ))) (b := x - (n : ℝ))
     hnmem hnnextmem hweight (sub_nonneg.mpr hlo)
     (show (1 - (x - (n : ℝ))) + (x - (n : ℝ)) = 1 by ring)
   simp only [smul_eq_mul] at hconvex
