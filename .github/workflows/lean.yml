@@ -68,6 +68,9 @@ jobs:
       - name: Check paper / Analysis boundary
         run: bash scripts/check_paper_analysis_boundary.sh
 
+      - name: Check relative documentation links before Lean setup
+        run: python3 scripts/check_documentation.py
+
       - name: Audit unfinished proofs and axioms
         run: bash scripts/audit_assumptions.sh
 
