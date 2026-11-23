@@ -43,7 +43,7 @@ open scoped Topology in
 variable (L : PeriodPair) in
 theorem _root_.RHLean.Geometry.NativeCM.Weierstrass.latticePoint_of_mem {z : ℂ} (hz : z ∈ L.lattice) :
     _root_.RHLean.Geometry.NativeCM.Weierstrass.latticePoint L z = 0 := by
-  rw [_root_.RHLean.Geometry.NativeCM.Weierstrass.latticePoint, dif_pos hz]
+  rw [_root_.RHLean.Geometry.NativeCM.Weierstrass.latticePoint, dite_eq_left hz]
 
 open Filter PeriodPair WeierstrassCurve in
 open scoped Topology in
@@ -51,7 +51,7 @@ variable (L : PeriodPair) in
 theorem _root_.RHLean.Geometry.NativeCM.Weierstrass.latticePoint_of_notMem {z : ℂ} (hz : z ∉ L.lattice) :
     _root_.RHLean.Geometry.NativeCM.Weierstrass.latticePoint L z =
       .some (℘[L] z) (℘'[L] z / 2) (_root_.RHLean.Geometry.NativeCM.Weierstrass.latticeCurve_nonsingular L hz) := by
-  rw [_root_.RHLean.Geometry.NativeCM.Weierstrass.latticePoint, dif_neg hz]
+  rw [_root_.RHLean.Geometry.NativeCM.Weierstrass.latticePoint, dite_eq_right hz]
 
 open Filter PeriodPair WeierstrassCurve in
 open scoped Topology in
@@ -77,7 +77,8 @@ theorem _root_.RHLean.Geometry.NativeCM.Weierstrass.latticePoint_neg (z : ℂ) :
     rw [_root_.RHLean.Geometry.NativeCM.Weierstrass.latticePoint_of_notMem L hz, _root_.RHLean.Geometry.NativeCM.Weierstrass.latticePoint_of_notMem L hz',
       WeierstrassCurve.Affine.Point.neg_some]
     simp [weierstrassP_neg, derivWeierstrassP_neg, WeierstrassCurve.Affine.negY,
-      _root_.RHLean.Geometry.NativeCM.Weierstrass.latticeCurve] <;> ring
+      _root_.RHLean.Geometry.NativeCM.Weierstrass.latticeCurve]
+    ring
 
 open Filter PeriodPair WeierstrassCurve in
 open scoped Topology in
@@ -136,7 +137,7 @@ private theorem weierstrassP_add_and_deriv_add_of_ne {z w : ℂ} (hz : z ∉ L.l
     · rw [h2]
       field_simp
       ring
-  push_neg at hw' hz'
+  push Not at hw' hz'
   have h2w : w + w ∈ L.lattice := (_root_.RHLean.Geometry.NativeCM.Weierstrass.derivWeierstrassP_eq_zero_iff L hw).mp hw'
   have h2z : z + z ∈ L.lattice := (_root_.RHLean.Geometry.NativeCM.Weierstrass.derivWeierstrassP_eq_zero_iff L hz).mp hz'
   have hzw : z + w ∉ L.lattice := fun h => hne ((_root_.RHLean.Geometry.NativeCM.Weierstrass.weierstrassP_eq_iff L hz hw).mpr (Or.inr h))
@@ -250,9 +251,9 @@ theorem _root_.RHLean.Geometry.NativeCM.Weierstrass.latticePoint_add (z w : ℂ)
     obtain ⟨u, hu⟩ : ∃ u, u ∉ ({u : ℂ | u ∈ L.lattice} ∪ {u | u + u ∈ L.lattice} ∪
         {u | u + z ∈ L.lattice} ∪ {u | u + -z ∈ L.lattice}) := by
       by_contra h
-      push_neg at h
+      push Not at h
       exact not_countable_complex (hc.mono fun u _ => h u)
-    simp only [Set.mem_union, Set.mem_setOf_eq, not_or] at hu
+    simp only [Set.mem_union, Set.mem_ofPred_eq, not_or] at hu
     obtain ⟨⟨⟨hu1, hu2⟩, hu3⟩, hu4⟩ := hu
     have hzu : z + u ∉ L.lattice := by rw [add_comm]; exact hu3
     have hzmu : z + -u ∉ L.lattice := fun h => hu4 (by

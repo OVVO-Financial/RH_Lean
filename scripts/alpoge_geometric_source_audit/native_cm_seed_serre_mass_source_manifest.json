@@ -177,6 +177,11 @@
       "lines": 271
     },
     {
+      "path": "RHLean/Geometry/NativeCMOrderIdentification.lean",
+      "sha256": "ce855e299a7ac9ddaef2f4d91b46857e370ab1873696ca5a3dcc4a4ed95dec79",
+      "lines": 196
+    },
+    {
       "path": "RHLean/Geometry/NativeCMPeriodComparison.lean",
       "sha256": "f7fa763e8ef4f055bdba28010dd699da4b6b6f160e37bab94d7b93bcf5efab0e",
       "lines": 325
@@ -188,8 +193,13 @@
     },
     {
       "path": "RHLean/Geometry/NativeCMQuadraticOrder.lean",
-      "sha256": "1d4b6fd65fcebf8ab84a773e81cd661af434b9baab7c925c3939b601b9bd97e0",
+      "sha256": "733f7af3175fa83774c873e19c68c5f4dab0ffbc0c1d0ee40395ce5282f76913",
       "lines": 357
+    },
+    {
+      "path": "RHLean/Geometry/NativeCMSerreEquationPoints.lean",
+      "sha256": "de90d5ae6bba423c6cfeb3940c839a43d261045ae0e04ec64bf8036e33cb0609",
+      "lines": 248
     },
     {
       "path": "RHLean/Geometry/NativeCMSerreMixedPeriods.lean",
@@ -218,13 +228,13 @@
     },
     {
       "path": "RHLean/Geometry/NativeCMWeierstrassFiniteModel.lean",
-      "sha256": "1ae87493a6dd1e8f49f046faed8ab4220f56f851af5faf8a25cfcb9c224cebf4",
+      "sha256": "6f064762f74b8cffd4bb3128bdc702ede31609d588282be3afff0564ef09106a",
       "lines": 144
     },
     {
       "path": "RHLean/Geometry/NativeCMWeierstrassIntegralModel.lean",
-      "sha256": "8f3d925e1cb815cc2752cf2c9ab5a776119608bafedd5306bfa7e721b4a6257e",
-      "lines": 186
+      "sha256": "f53a1918f7891ce01b773cafc1d396f154e3d2a2a2a4fde0d90f1d104eb4a608",
+      "lines": 187
     },
     {
       "path": "RHLean/Geometry/NativeCMWeierstrassLatticeCurve.lean",
@@ -248,12 +258,12 @@
     },
     {
       "path": "RHLean/Geometry/NativeCMWeierstrassPointUniformization.lean",
-      "sha256": "473d907e00b08b7d4e33cb5db000bd635d86befa3b7ad66e2384d71e4bced886",
-      "lines": 355
+      "sha256": "bb735c3a1d0d699e19c2aaa6eab2a36cfb1d1fe7f36248249543decbf92056a8",
+      "lines": 356
     },
     {
       "path": "RHLean/Geometry/NativeCMWeierstrassQExpansion.lean",
-      "sha256": "14fa03bf6ce581e3a0eb0ae10d3759c1573f65d215389252b0c3f0b70daa7a58",
+      "sha256": "fbc4b23552abd2205c350c62f958db623c9d665c91da855b0ff52b595a4ed9c8",
       "lines": 165
     },
     {
@@ -278,27 +288,27 @@
     },
     {
       "path": "RHLean/Geometry/NativeMeasuredComponentDegree.lean",
-      "sha256": "188b5bbee40be30d8c2b64071910d937a1112ff2d52acf4bd36dc7d82015f371",
-      "lines": 462
+      "sha256": "4b87da8956905529b246849f5f2490a68cba14f286ade191ae062c92e371b3dd",
+      "lines": 465
     },
     {
       "path": "RHLean/Geometry/NativeMeasuredComponentNorm.lean",
-      "sha256": "13698eb8f776700afa87c47c67786097ea0d70561bf6ee2bd65eb8ff6e698922",
-      "lines": 375
+      "sha256": "65389e934737d3bb97301a17e59a309e8ca1350f9d04b46fa16e2c44b84cd529",
+      "lines": 380
     },
     {
       "path": "RHLean/Geometry/NativeThetaCuspHaar.lean",
-      "sha256": "1d1fe91f631b3375a6b6c2b52cbbca057d88415f885aae9d6b99c133f42f828a",
+      "sha256": "57dd67e0f8bf1c598fa5466ea63ebd9c6412278bf4903648ae38612ad63e9797",
       "lines": 178
     },
     {
       "path": "RHLean/Geometry/NativeThetaCuspInnerProduct.lean",
-      "sha256": "2703aa7861b65f038c11e58f9b40c4952d7263ea5407405aa4628c00a3a97368",
-      "lines": 237
+      "sha256": "ff1e3dc1c239f10646a2164f519c2be7479426cb7f022626ad3c021ffbbac7ff",
+      "lines": 236
     },
     {
       "path": "RHLean/Geometry/NativeThetaCuspNativeVacuum.lean",
-      "sha256": "285982b8684f0489959cb8a3fc7b64bccc831cb1ee41c19610c1a4d96d6fcefd",
+      "sha256": "c33acd0f6951c114c383472da70663f1fa42eb1cbc82b219fe487f2ab83d36a2",
       "lines": 261
     },
     {
@@ -308,12 +318,12 @@
     },
     {
       "path": "RHLean/Geometry/NativeThetaCuspSplitLevel.lean",
-      "sha256": "07c5b6a83519dd7fab161f6f90dfa96ae51b338058a80336f585fadf9fe539d2",
-      "lines": 243
+      "sha256": "cd4f67c8cdafa3e12fbf7e9bd6429b231e86133758c3c836813bb69adcaafcf4",
+      "lines": 242
     },
     {
       "path": "RHLean/Geometry/NativeThetaCuspVacuum.lean",
-      "sha256": "c04e74df7b9cc7476149993bd3f07b04e35310c305acc3e5c3a80dc48b951f11",
+      "sha256": "e4241edb9550ad1c930039d30b2ac4bef258850fb47528fbec72c847acf8d064",
       "lines": 421
     }
   ],
@@ -352,6 +362,11 @@
       "head": "4d1ebce91f43ea09f07702f42a08475c333a4da9",
       "run_id": 45267684469,
       "result": "PREFLIGHT_FATAL_WARNING_REPAIRED"
+    },
+    {
+      "head": "c7010b75778dd253fdf4a7b4d38e3349dc992332",
+      "run_id": 45269004032,
+      "result": "PREFLIGHT_FAILED_API_AND_WARNING_REPAIRS"
     }
   ]
 }

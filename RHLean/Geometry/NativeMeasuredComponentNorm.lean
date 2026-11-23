@@ -69,6 +69,7 @@ theorem measuredNorm_sq (μ : Measure X) (f : X → ℂ) :
     measuredNorm μ f ^ 2 = (∫⁻ x, squareMagnitude f x ∂μ).toReal :=
   Real.sq_sqrt ENNReal.toReal_nonneg
 
+omit [MeasurableSpace X] in
 theorem squareMagnitude_support {f : X → ℂ} {S : Set X}
     (hf : Function.support f ⊆ S) : Function.support (squareMagnitude f) ⊆ S := by
   intro x hx
@@ -164,6 +165,7 @@ section Nondegeneracy
 variable {K V : Type} [Field K] [NumberField K] [AddCommGroup V] [Module K V]
 
 /-- The original all-place Gram norm is nondegenerate at each infinite place. -/
+omit [NumberField K] in
 theorem eq_zero_of_hasGram_norm_zero {N : (K →+* ℂ) → V → ℝ}
     (h : HasGram N) (v : InfinitePlace K) {x : V} (hx : N v.embedding x = 0) :
     x = 0 := by
@@ -225,8 +227,11 @@ theorem componentMass_pos_of_rank
     (L : Submodule (𝓞 K) V)
     (hr : RHLean.Geometry.AlpogeAllPlace.Formalism.HN.rkK L ≠ 0)
     (σ : K →+* ℂ) : 0 < componentMass (μ σ) (S σ) := by
-  have hL : L ≠ ⊥ := fun h0 => hr (by simp [h0,
-    RHLean.Geometry.AlpogeAllPlace.Formalism.HN.rkK])
+  have hL : L ≠ ⊥ := by
+    intro h0
+    apply hr
+    rw [h0]
+    exact RHLean.Geometry.AlpogeAllPlace.Formalism.BranchingDeterminantCap.OrthogonalSumAlt.rkK_bot
   obtain ⟨f, _, hf⟩ := Submodule.exists_mem_ne_zero_of_ne_bot hL
   have hp := hasGram_pos hG (fun _ _ => measuredNorm_nonneg _ _) hc hf σ
   have h1 := mass_mul_normalizedNorm_sq (μ σ) (S σ) (F σ f) (hs σ f)
@@ -259,7 +264,7 @@ theorem degree_eq_componentDegree_sub_mass
       (fun σ f => normalizedNorm_eq (μ σ) (S σ) (F σ f) (hs σ f) (hpos σ))).2 L hL
     have hl : ∀ σ, Real.log (Real.sqrt (componentMass (μ σ) (S σ)))⁻¹ =
         -(Real.log (componentMass (μ σ) (S σ)) / 2) := fun σ => by
-      rw [Real.log_inv, Real.log_sqrt ENNReal.toReal_nonneg]
+      rw [Real.log_inv, Real.log_sqrt (le_of_lt (hpos σ))]
     simp only [hl, Finset.sum_neg_distrib, ← Finset.sum_div] at hsc
     rw [hsc]
     ring

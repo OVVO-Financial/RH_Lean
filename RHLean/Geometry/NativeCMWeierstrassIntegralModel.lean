@@ -87,6 +87,7 @@ theorem mem_range_of_quartic {x c₀ c₁ c₂ c₃ : K} (h₀ : c₀ ∈ (algeb
 variable [CharZero K] {L : Type*} [Field L] [Algebra K L] [IsAlgClosed L]
   {W : WeierstrassCurve K} [W.IsElliptic]
 
+omit [CharZero K] in
 theorem exists_integral_model_of_forms (hj : W.j ∈ (algebraMap A K).range) (hΔ : W.Δ = 1)
     {C₂ C₃ : VariableChange K} (hu₂ : C₂.u = 1) (hu₃ : C₃.u = 1) {P Q a b : K}
     (e₂ : C₂ • W = splitCurve P Q) (e₃ : C₃ • W = deuringCurve a b) :

@@ -31,6 +31,14 @@ GLOBAL_STATUS=OPEN
 field. It proves unique coordinates `a+b*w0`, the involution `w0 -> 1-w0`,
 the quadratic equation, integral closedness and the Dedekind property.
 
+`NativeCMOrderIdentification.lean` then proves that this literal subring is
+the full ring of integers of `Q(G.rt)`. For the constructed native host this
+is exactly `HostRaw.K = Q(sqd)`, the field in the relative different
+calculation. The ring equivalence commutes with the actual inclusion into
+`O_E`, maps `w0` to the integral half-root, and preserves its scalar action
+on every original `O_E` module. The proof uses the existing native quadratic
+integral-basis and degree-two theorems.
+
 For the original finite projective `O_E` module, restriction to `O_K`
 remains finite projective. Its rank is proved to be
 
@@ -190,6 +198,16 @@ Galois invariance, constructs the compatibility with the geometric host,
 and supplies this retraction, actual point tensor and exact rank together.
 The native coefficient rank is `2*2^e`, as required by its native field
 degree. It assumes no new tensor, frame or rank witness.
+
+`NativeCMSerreEquationPoints.lean` carries that same tensor and trace-frame
+idempotent to the actual point groups of the constructed integral
+Weierstrass equations. Its joint theorem selects one `B`, then the positive
+and conjugate seed equations and their coordinate changes, before all
+`k,m,j`. It retains both discriminant-one identities, both nontrivial
+`u^12*Delta(lattice)=1` period scales, the exact original mixed period
+kernel, and the full `O_E` action. The equations currently live in separate
+finite subfields of `C`; an arithmetic scheme construction must also place
+them in a common finite compositum.
 
 The point-module tensor still needs representability by the polarized
 abelian scheme and compatibility of its line bundle, Lie generator and
@@ -447,6 +465,16 @@ diagnostic pass after this audit's failed mandatory preflight. That pass
 always returns failure, writes no research certificate and leaves the full
 native build blocked. The existing warning-fatal check, process cleanup,
 cache identity and standard terminal-axiom checks remain the acceptance gates.
+
+The fifth snapshot `c7010b75778dd253fdf4a7b4d38e3349dc992332` passed the
+source audits. Hosted compilation verified the exact period-covolume file
+and the newly reconstructed modular-j/CM-integrality proof chain. The
+bounded diagnostic pass exposed independent current-Mathlib API and
+warning failures in the quadratic order, measured norm, Haar/inner-product
+and split-level branches. These are repaired in the next snapshot without
+weakening statements or disabling linters. The next snapshot also adds the
+quadratic-order identification and the actual equation-point tensor above.
+The combined closure and its terminal-axiom audit are not yet verified.
 
 ## Located continuation without inflated import closures
 

@@ -137,7 +137,7 @@ theorem rk_mul_mu_eq {K V ι : Type} [Field K] [NumberField K] [StarRing K] [IsT
 
 theorem degree_scale : ∀ (K V : Type) [Field K] [NumberField K] [IsTotallyComplex K] [AddCommGroup V] [Module K V] [Module (𝓞 K) V] [IsScalarTower (𝓞 K) K V] (N N' : (K →+* ℂ) → V → ℝ) (t : (K →+* ℂ) → ℝ), HasGram N → (∀ σ, 0 < t σ) → (∀ σ, t ((starRingEnd ℂ).comp σ) = t σ) → (∀ σ x, N' σ x = t σ * N σ x) → HasGram N' ∧ ∀ L : Submodule (𝓞 K) V, L.FG → deg N' L = deg N L - (RHLean.Geometry.AlpogeAllPlace.Formalism.HN.rkK L : ℝ) * ((∑ σ : K →+* ℂ, Real.log (t σ)) / (Module.finrank ℚ K : ℝ)) := by
   intro K V _ _ _ _ _ _ _ N N' t hN ht hc hN'
-  letI : StarRing K := starRingOfComm
+  let : StarRing K := starRingOfComm
   obtain ⟨⟨n, ⟨b, X⟩, hG⟩⟩ := hN
   set X' : InfinitePlace K → Matrix (Fin n) (Fin n) ℂ := fun v => ((t v.embedding : ℂ)⁻¹) • X v with hX'
   have htc : ∀ v : InfinitePlace K, (t v.embedding : ℂ) ≠ 0 := fun v => by
@@ -170,7 +170,7 @@ theorem degree_scale : ∀ (K V : Type) [Field K] [NumberField K] [IsTotallyComp
       t v.embedding ^ (2 * j) * (RHLean.Geometry.AlpogeAllPlace.Formalism.HN.gramPl b X v e).det.re := by
     intro v j e
     rw [hgram, Matrix.det_smul, Fintype.card_fin, ← Complex.ofReal_pow, Complex.re_ofReal_mul, ← pow_mul]
-  haveI : Module.Finite K V := Module.Finite.of_basis b
+  have : Module.Finite K V := Module.Finite.of_basis b
   obtain ⟨e, heL, hsp, he⟩ := Submodule.exists_fun_fin_finrank_span_eq K (L : Set V)
   have hj : RHLean.Geometry.AlpogeAllPlace.Formalism.HN.rkK L = Module.finrank K (Submodule.span K (L : Set V)) := rfl
   generalize Module.finrank K (Submodule.span K (L : Set V)) = j at e heL hsp he hj
@@ -208,6 +208,7 @@ namespace RHLean.Geometry.NativeMeasuredComponentDegree.OrthogonalSum
 
 variable {K V : Type} [Field K] [NumberField K] [AddCommGroup V] [Module K V]
 
+omit [NumberField K] in
 theorem gram_zero [StarRing K] {n : ℕ} {b : Module.Basis (Fin n) K V}
     {X : InfinitePlace K → Matrix (Fin n) (Fin n) ℂ} {N : (K →+* ℂ) → V → ℝ}
     (hG : RHLean.Geometry.AlpogeAllPlace.GlobalTheory.AllWt.IsGram b X N) (v : InfinitePlace K) : N v.embedding 0 = 0 := by
@@ -229,6 +230,7 @@ theorem inner_realize_eq_zero [StarRing K] {n : ℕ} {b : Module.Basis (Fin n) K
 
 variable [Module (𝓞 K) V] [IsScalarTower (𝓞 K) K V]
 
+omit [IsScalarTower (𝓞 K) K V] in
 theorem inner_pair [StarRing K] {n : ℕ} {b : Module.Basis (Fin n) K V}
     {X : InfinitePlace K → Matrix (Fin n) (Fin n) ℂ} {N : (K →+* ℂ) → V → ℝ}
     (hG : RHLean.Geometry.AlpogeAllPlace.GlobalTheory.AllWt.IsGram b X N) {ι : Type} [Fintype ι] [DecidableEq ι] (M : ι → Submodule (𝓞 K) V)
@@ -242,7 +244,7 @@ theorem inner_pair [StarRing K] {n : ℕ} {b : Module.Basis (Fin n) K V}
     intro k z hz l
     by_cases hl : l = k
     · subst hl; simpa using Submodule.subset_span hz
-    · simp [Pi.single_apply, hl]
+    · simp [hl]
   have h := hN v.embedding (Pi.single i x + Pi.single j y) fun l =>
     Submodule.add_mem _ (hmem i x hx l) (hmem j y hy l)
   have hsum : ∑ l, (Pi.single i x + Pi.single j y : ι → V) l = x + y := by
@@ -251,10 +253,10 @@ theorem inner_pair [StarRing K] {n : ℕ} {b : Module.Basis (Fin n) K V}
       (Pi.single i (N v.embedding x ^ 2) : ι → ℝ) l + (Pi.single j (N v.embedding y ^ 2) : ι → ℝ) l := by
     intro l
     by_cases hli : l = i
-    · subst hli; simp [Pi.single_apply, hij]
+    · subst hli; simp [hij]
     · by_cases hlj : l = j
-      · subst hlj; simp [Pi.single_apply, hli]
-      · simp [Pi.single_apply, hli, hlj, gram_zero hG v]
+      · subst hlj; simp [hli]
+      · simp [hli, hlj, gram_zero hG v]
   rw [hsum, Finset.sum_congr rfl fun l _ => hpt l, Finset.sum_add_distrib] at h
   simpa using h
 
@@ -339,7 +341,7 @@ theorem rkK_deg_iSup : ∀ (K V : Type) [Field K] [NumberField K] [IsTotallyComp
     RHLean.Geometry.AlpogeAllPlace.Formalism.HN.rkK (⨆ i, M i) = ∑ i, RHLean.Geometry.AlpogeAllPlace.Formalism.HN.rkK (M i) ∧ deg N (⨆ i, M i) = ∑ i, deg N (M i) := by
   intro K V _ _ _ _ _ _ _ ι _ N M hG hM hN
   classical
-  letI : StarRing K := starRingOfComm
+  let : StarRing K := starRingOfComm
   obtain ⟨⟨n, ⟨⟨b, X⟩, hbX⟩⟩⟩ := hG
   obtain ⟨hfg, hrk, hdeg⟩ := sum_finset hbX M hM hN Finset.univ
   have hu : (⨆ i ∈ (Finset.univ : Finset ι), M i) = ⨆ i, M i := by simp
@@ -391,14 +393,15 @@ theorem exists_unit_factor {n : ℕ} {A : Matrix (Fin n) (Fin n) ℂ} (hA : A.Po
   rw [hB, star_eq_conjTranspose, det_mul] at h1
   exact isUnit_iff_ne_zero.mpr (right_ne_zero_of_mul h1)
 
+omit [NumberField K] in
 theorem hasGram_of_injective {N : (K →+* ℂ) → V → ℝ} (h : HasGram N) (φ : W →ₗ[K] V) (hφ : Function.Injective φ)
     {N' : (K →+* ℂ) → W → ℝ} (t : InfinitePlace K → ℝ) (ht : ∀ v, 0 < t v)
     (hN : ∀ (v : InfinitePlace K) (x : W), N' v.embedding x = t v * N v.embedding (φ x)) : HasGram N' := by
   classical
   obtain ⟨n, ⟨b, X⟩, hX⟩ := h
   dsimp only at hX
-  haveI : FiniteDimensional K V := Module.Finite.of_basis b
-  haveI : FiniteDimensional K W := FiniteDimensional.of_injective φ hφ
+  have : FiniteDimensional K V := Module.Finite.of_basis b
+  have : FiniteDimensional K W := FiniteDimensional.of_injective φ hφ
   let b' := Module.finBasis K W
   let B : Matrix (Fin n) (Fin (finrank K W)) K := LinearMap.toMatrix b' b φ
   obtain ⟨g, hg⟩ := φ.exists_leftInverse_of_injective (LinearMap.ker_eq_bot.2 hφ)
@@ -440,7 +443,7 @@ theorem restrict_deg : ∀ (K V : Type) [Field K] [NumberField K] [IsTotallyComp
       (fun _ _ => (one_mul _).symm)
   refine ⟨hN', fun L hL => ?_⟩
   obtain ⟨⟨m, ⟨c, Y⟩, hG'⟩⟩ := hN'
-  letI : StarRing K := starRingOfComm
+  let : StarRing K := starRingOfComm
   have hr := RHLean.Geometry.AlpogeAllPlace.Formalism.HN.rerealize K W (Fin m) V (Fin n) c Y b X φ (fun v => (hG' v).1) (fun v => (hG v).1) hφ
     (fun v x => by rw [(hG v).2, (hG' v).2]) L hL
   have hrk : RHLean.Geometry.AlpogeAllPlace.Formalism.HN.rkK (L.map (φ.restrictScalars (𝓞 K))) = RHLean.Geometry.AlpogeAllPlace.Formalism.HN.rkK L := by

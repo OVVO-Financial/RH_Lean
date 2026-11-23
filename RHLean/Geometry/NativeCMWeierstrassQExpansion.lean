@@ -54,9 +54,9 @@ lemma exists_analytic (hh : 0 < h) (hf : HasQExpansion h f φ) :
   · have := h2.analyticOnNhd
     rwa [← ENNReal.coe_one, Metric.eball_coe] at this
   · rw [← h2.coeff_zero (fun _ ↦ 0)]
-    simp [hp, FormalMultilinearSeries.ofScalars_apply_eq']
+    simp [hp]
   · rw [FormalMultilinearSeries.sum, ← (hf τ).tsum_eq]
-    simp [hp, FormalMultilinearSeries.ofScalars_apply_eq', mul_comm]
+    simp [hp, mul_comm]
 
 lemma tendsto (hh : 0 < h) (hf : HasQExpansion h f φ) :
     Tendsto f atImInfty (𝓝 (coeff 0 φ)) := by

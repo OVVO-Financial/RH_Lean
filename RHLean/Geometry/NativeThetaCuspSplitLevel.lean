@@ -77,7 +77,7 @@ theorem five_prime_ne_conj
   have hpow : (hcl e (u5 (e + 2))) ^ k = 1 := by
     have hh := congrArg (fun a : (nativeDyadicFrame e).GG =>
       (nativeDyadicFrame e).hH a.2) hgal
-    simpa only [Prod.snd_pow, map_pow, hd, Frame.cc, map_one] using hh
+    simpa only [Prod.pow_snd, map_pow, hd, Frame.cc, map_one] using hh
   have hord : orderOf (hcl e (u5 (e + 2))) = 2 ^ e :=
     nativeDyadicGenerator_order e
   have hdiv : 2 ^ e ∣ k := hord ▸ orderOf_dvd_of_pow_eq_one hpow
@@ -86,7 +86,7 @@ theorem five_prime_ne_conj
   have hsign : (((H.gal F).1.2 : ℤˣ) : ℤ) ^ k = -1 := by
     have hs := congrArg (fun a : (nativeDyadicFrame e).GG =>
       ((a.1.2 : ℤˣ) : ℤ)) hgal
-    simpa only [Prod.fst_pow, Prod.snd_pow, Units.val_pow_eq_pow_val,
+    simpa only [Prod.pow_fst, Prod.pow_snd, Units.val_pow_eq_pow_val,
       Frame.cc, c0, Units.val_neg, Units.val_one] using hs
   rcases Int.units_eq_one_or (H.gal F).1.2 with hs | hs
   · simp [hs] at hsign
@@ -111,15 +111,15 @@ private theorem liesOver_five_of_dvd
   subst l
   exact hlo
 
-private theorem five_span_ne_top (M : Type) [Field M] [NumberField M] :
-    span {(5 : 𝓞 M)} ≠ ⊤ := by
+private theorem nat_span_ne_top (M : Type) [Field M] [NumberField M]
+    (n : ℕ) (hn : 2 ≤ n) : span {(n : 𝓞 M)} ≠ ⊤ := by
   intro htop
   have h1 := congrArg Ideal.absNorm htop
   rw [Ideal.absNorm_span_singleton, Ideal.absNorm_top,
-    ← map_natCast (algebraMap ℤ (𝓞 M)) 5,
+    ← map_natCast (algebraMap ℤ (𝓞 M)) n,
     Algebra.norm_algebraMap, Int.natAbs_pow, Int.natAbs_natCast] at h1
   rcases Nat.pow_eq_one.mp h1 with h | h
-  · norm_num at h
+  · omega
   · exact (Module.finrank_pos (R := ℤ) (M := 𝓞 M)).ne' h
 
 /-- Construct a genuine conjugate half of the original fixed five-level.
@@ -174,10 +174,9 @@ theorem exists_five_split_level
     rw [hprod, hm, Ideal.bot_mul]
   have hmtop : m ≠ ⊤ := by
     intro hm
-    apply five_span_ne_top H.E
+    apply nat_span_ne_top H.E 5 (by norm_num)
     rw [hprod, hm]
-    change (1 : Ideal (𝓞 H.E)) * (H.conj • (1 : Ideal (𝓞 H.E))) = 1
-    rw [smul_one, mul_one]
+    simp only [← Ideal.one_eq_top, smul_one, mul_one]
   have h5m : (5 : 𝓞 H.E) ∈ m := by
     apply (show span {(5 : 𝓞 H.E)} ≤ m from by
       rw [hprod]

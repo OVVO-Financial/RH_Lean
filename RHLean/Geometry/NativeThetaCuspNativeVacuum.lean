@@ -212,14 +212,14 @@ theorem exists_native_vacuum (n : ℕ) :
   classical
   have := D.fin
   have := D.proj
-  haveI : Module.Finite ℤ D.La := Module.Finite.trans (𝓞 E) D.La
-  haveI : Module.Flat ℤ D.La := Module.Flat.trans ℤ (𝓞 E) D.La
-  haveI : Module.Free ℤ D.La := inferInstance
+  have : Module.Finite ℤ D.La := Module.Finite.trans (𝓞 E) D.La
+  have : Module.Flat ℤ D.La := Module.Flat.trans ℤ (𝓞 E) D.La
+  have : Module.Free ℤ D.La := inferInstance
   obtain ⟨b, hb⟩ := exists_isSymplecticBasis_of_finrank D.alt D.unimod
     (finrank_int_lattice D)
   let A := (coordinates (κ := Fin n) b).range
   let ε := nativePhase D (κ := Fin n) b
-  haveI : AddGroup.FG (Fin n → D.La) := Module.Finite.iff_addGroup_fg.1 inferInstance
+  have : AddGroup.FG (Fin n → D.La) := Module.Finite.iff_addGroup_fg.1 inferInstance
   have hfg : A.FG := (AddGroup.fg_iff_addSubgroup_fg _).1
     (AddGroup.fg_range (coordinates (κ := Fin n) b))
   have hn : ∀ p ∈ A, ‖ε p‖ = 1 := by

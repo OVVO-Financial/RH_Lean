@@ -1022,9 +1022,11 @@ import RHLean.Geometry.NativeCMEllipticPolarization
 import RHLean.Geometry.NativeCMEllipticSeed
 import RHLean.Geometry.NativeCMFiniteDegreeCorrection
 import RHLean.Geometry.NativeCMHermitianForm
+import RHLean.Geometry.NativeCMOrderIdentification
 import RHLean.Geometry.NativeCMPeriodComparison
 import RHLean.Geometry.NativeCMPureBlockPositivity
 import RHLean.Geometry.NativeCMQuadraticOrder
+import RHLean.Geometry.NativeCMSerreEquationPoints
 import RHLean.Geometry.NativeCMSerreMixedPeriods
 import RHLean.Geometry.NativeCMSerrePeriods
 import RHLean.Geometry.NativeCMSerrePolarization

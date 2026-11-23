@@ -87,7 +87,7 @@ theorem finite_two_torsion : {P : W.toAffine.Point | 2 • P = 0}.Finite := by
   refine finite_points_of_root (W.Ψ₂Sq_ne_zero (by norm_num)) fun x y h hP => ?_
   have hy : y = W.toAffine.negY x y := by
     by_contra hy
-    rw [Set.mem_setOf_eq, two_nsmul, Point.add_self_of_Y_ne hy] at hP
+    rw [Set.mem_ofPred_eq, two_nsmul, Point.add_self_of_Y_ne hy] at hP
     exact Point.some_ne_zero _ hP
   have hE := (equation_iff ..).mp h.1
   rw [negY] at hy

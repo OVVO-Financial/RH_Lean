@@ -44,7 +44,7 @@ theorem finrank_int_eq_mul_of_finite {O M : Type*} [CommRing O] [IsDomain O] [Ch
   have hT : ∀ t ∈ T, t ≠ 0 := by
     rintro _ ⟨n, hn, rfl⟩
     simpa using nonZeroDivisors.ne_zero hn
-  haveI hTK : IsLocalization T K :=
+  have hTK : IsLocalization T K :=
     { map_units := fun t => IsLocalization.map_units K (M := O⁰)
         ⟨t, mem_nonZeroDivisors_of_ne_zero (hT t t.2)⟩
       surj := fun z => by
@@ -54,17 +54,17 @@ theorem finrank_int_eq_mul_of_finite {O M : Type*} [CommRing O] [IsDomain O] [Ch
         simp only [ht, map_mul] at hz ⊢
         rw [← hz]; ring
       exists_of_eq := fun {x y} h => ⟨1, by simpa using IsFractionRing.injective O K h⟩ }
-  haveI : IsLocalizedModule T f := by
+  have : IsLocalizedModule T f := by
     rw [isLocalizedModule_iff_isBaseChange T K, ← isLocalizedModule_iff_isBaseChange O⁰ K]
     infer_instance
-  haveI : IsLocalizedModule (nonZeroDivisors ℤ) (f.restrictScalars ℤ) :=
+  have : IsLocalizedModule (nonZeroDivisors ℤ) (f.restrictScalars ℤ) :=
     IsLocalizedModule.restrictScalars _ f
   have h1 : Module.finrank ℤ N = Module.finrank ℤ M :=
     IsLocalizedModule.finrank_eq _ (f.restrictScalars ℤ) le_rfl
   have h2 : Module.finrank O N = Module.finrank O M := IsLocalizedModule.finrank_eq O⁰ f le_rfl
   have h3 : Module.finrank K N = Module.finrank O N := IsLocalization.finrank_eq K O⁰ le_rfl
-  letI : Module ℚ N := Module.compHom N (algebraMap ℚ K)
-  haveI : IsScalarTower ℚ K N := ⟨fun q k n => by
+  let : Module ℚ N := Module.compHom N (algebraMap ℚ K)
+  have : IsScalarTower ℚ K N := ⟨fun q k n => by
     change (q • k) • n = (algebraMap ℚ K q) • (k • n)
     rw [Algebra.smul_def, mul_smul]⟩
   have h4 : Module.finrank ℚ N = Module.finrank ℤ N :=
@@ -197,7 +197,7 @@ theorem exists_coord (H : NativeGeometricHost E) {a : 𝓞 E} (ha : a ∈ OK H) 
     obtain ⟨u', v', rfl⟩ := hy
     refine ⟨u * u' - v * v' * ((1 + H.d) / 4 : ℕ),
       u * v' + v * u' + v * v', ?_⟩
-    push_cast
+    simp only [Int.cast_sub, Int.cast_add, Int.cast_mul, Int.cast_natCast]
     linear_combination (v * v' : 𝓞 E) * hsq
 
 theorem coord_eq_zero (H : NativeGeometricHost E) {u v : ℤ} (h : (u : 𝓞 E) + v * H.w0 = 0) : u = 0 ∧ v = 0 := by
@@ -300,8 +300,8 @@ def barOK (H : NativeGeometricHost E) : OK H ≃+* OK H where
   invFun a := ⟨H.bar a, bar_mem_adjoin H a.2⟩
   left_inv a := Subtype.ext (bar_bar H a)
   right_inv a := Subtype.ext (bar_bar H a)
-  map_mul' a b := Subtype.ext (map_mul H.bar _ _)
-  map_add' a b := Subtype.ext (map_add H.bar _ _)
+  map_mul' a b := Subtype.ext (map_mul H.bar a b)
+  map_add' a b := Subtype.ext (map_add H.bar a b)
 
 theorem two_mul_finrank_OK (H : NativeGeometricHost E) (M : Type) [AddCommGroup M] [Module (𝓞 E) M] [Module.Finite (𝓞 E) M] :
     2 * Module.finrank (OK H) M = Module.finrank ℚ E * Module.finrank (𝓞 E) M := by

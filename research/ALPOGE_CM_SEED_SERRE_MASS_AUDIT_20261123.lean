@@ -1,4 +1,5 @@
 import RHLean.Geometry.NativeCMQuadraticOrder
+import RHLean.Geometry.NativeCMOrderIdentification
 import RHLean.Geometry.NativeCMPeriodComparison
 import RHLean.Geometry.NativeCMEllipticPolarization
 import RHLean.Geometry.NativeCMHermitianForm
@@ -6,6 +7,7 @@ import RHLean.Geometry.NativeCMSerreTensor
 import RHLean.Geometry.NativeCMSerrePeriods
 import RHLean.Geometry.NativeCMSerrePolarization
 import RHLean.Geometry.NativeCMSerreMixedPeriods
+import RHLean.Geometry.NativeCMSerreEquationPoints
 import RHLean.Geometry.NativeCMFiniteDegreeCorrection
 import RHLean.Geometry.NativeCMWeierstrassSeedComparison
 import RHLean.Geometry.NativeCMWeierstrassSeedPoints
@@ -32,6 +34,10 @@ run_cmd do
     ``RHLean.Geometry.NativeCM.isDedekindDomain_OK,
     ``RHLean.Geometry.NativeCM.existsUnique_coord,
     ``RHLean.Geometry.NativeCM.OK_isDedekindDomain_and_projective,
+    ``RHLean.Geometry.NativeCM.orderIntegerRingEquiv_inclusion,
+    ``RHLean.Geometry.NativeCM.orderIntegerRingEquiv_generator,
+    ``RHLean.Analysis.AlpogeThin.nativeDyadicCMOrderEquiv_inclusion,
+    ``RHLean.Analysis.AlpogeThin.nativeDyadicCMOrderEquiv_generator,
     ``RHLean.Geometry.NativeCMPeriodComparison.volume_mul_det_eq_one_of_unimodular,
     ``RHLean.Geometry.NativeCMPeriodComparison.isPeriod_covolume_mul_det_eq_one,
     ``RHLean.Analysis.AlpogeThin.nativeDyadicPrescribedPeriod_exists_exact_covolume,
@@ -68,6 +74,9 @@ run_cmd do
     ``RHLean.Analysis.AlpogeThin.nativeDyadic_coefficientSerreMetric_im,
     ``RHLean.Analysis.AlpogeThin.nativeDyadic_coefficientSerreMetric,
     ``RHLean.Analysis.AlpogeThin.nativeDyadicHost_exists_mixedSerrePeriods,
+    ``RHLean.Geometry.NativeCM.EllipticSeed.equationTensorEquiv_smul,
+    ``RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.exists_prescribedEquationExponential,
+    ``RHLean.Analysis.AlpogeThin.nativeDyadicHost_exists_serreEquationPoints,
     ``RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.coefficientDifferent_eq_conjHalf,
     ``RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.coefficientDifferent_degree_correction,
     ``RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.coefficientDifferent_baseChange_logNorm,
