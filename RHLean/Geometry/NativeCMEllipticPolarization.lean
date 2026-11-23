@@ -143,7 +143,7 @@ theorem form_bijective : Function.Bijective (form H τ) := by
     ext y
     change coordinateForm (orientation H τ) (e.symm (e x)) (e.symm y) = f y
     rw [e.symm_apply_apply, hx]
-    simp
+    simp only [LinearMap.comp_apply, LinearEquiv.coe_coe, LinearEquiv.apply_symm_apply]
 
 theorem form_eq_hermitian_im (x y : OK H) :
     (form H τ x y : ℝ) = (hermitian H τ (period H τ x) (period H τ y)).im := by

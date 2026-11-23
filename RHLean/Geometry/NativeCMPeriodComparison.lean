@@ -290,6 +290,7 @@ open Formalism.HC Formalism.FrobeniusOrbits
 open RHLean.Geometry RHLean.Geometry.NativeGeometricPeriods
 open RHLean.Geometry.NativeCMPeriodComparison
 open NativeRawHostPolarization
+open scoped Pointwise
 
 /-- The exact covolume comparison for the SAME prescribed projective lattice,
 period map, and principal polarization. No period matrix comparison is assumed. -/

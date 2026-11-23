@@ -162,7 +162,7 @@ theorem coefficient_trace_halfRoot_pos
     · intro σ _
       positivity
     · refine ⟨τ, Finset.mem_univ _, ?_⟩
-      exact sq_pos_of_pos (norm_pos_iff.mpr (map_ne_zero τ hxE))
+      exact sq_pos_of_pos (norm_pos_iff.mpr ((map_ne_zero τ).mpr hxE))
   rw [← twice_coefficient_trace_halfRoot_eq_sum_sq H B hB hconj w hw x] at hs
   have hi : (0 : ℝ) < (integralTraceForm H B hB (w • x) x : ℝ) := by linarith
   exact_mod_cast hi
