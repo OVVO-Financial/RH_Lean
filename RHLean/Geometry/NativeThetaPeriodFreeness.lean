@@ -113,7 +113,9 @@ theorem quotientMap_unipotent_of_lattice (P : L →+ V) (hP : Function.Injective
     change (torsionParam P g hg (α l - l) : PeriodQuotient P) = _
     rw [map_sub]
     change (torsionParam P g hg (α l) : PeriodQuotient P) -
-      (torsionParam P g hg l : PeriodQuotient P) = _
+      (torsionParam P g hg l : PeriodQuotient P) =
+        quotientMap P F α hFP (torsionParam P g hg l : PeriodQuotient P) -
+          (torsionParam P g hg l : PeriodQuotient P)
     rw [quotientMap_torsionParam]
   intro x hx
   obtain ⟨l, hl⟩ := torsionParam_surjective P g hg (⟨x, hx⟩ : torsion P g)
@@ -217,10 +219,12 @@ theorem finite_order_unipotent_periodAction_eq_id
     rw [hFP, hα]
     rfl)
   refine ⟨hF, hα, ?_⟩
-  ext x
+  apply AddMonoidHom.ext
+  intro x
   obtain ⟨v, rfl⟩ := QuotientAddGroup.mk'_surjective P.range x
-  rw [quotientMap_mk, hF]
-  rfl
+  change QuotientAddGroup.mk' P.range (F v) = QuotientAddGroup.mk' P.range v
+  exact congrArg (QuotientAddGroup.mk' P.range)
+    (congrArg (fun f : V →ₗ[ℝ] V => f v) hF)
 
 end Action
 

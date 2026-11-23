@@ -85,10 +85,12 @@ theorem finite_order_unipotent_periodAction_eq_id_of_index [Module.Free ℤ L]
     rw [hFP, hα]
     rfl)
   refine ⟨hF, hα, ?_⟩
-  ext x
+  apply AddMonoidHom.ext
+  intro x
   obtain ⟨v, rfl⟩ := QuotientAddGroup.mk'_surjective P.range x
-  rw [quotientMap_mk, hF]
-  rfl
+  change QuotientAddGroup.mk' P.range (F v) = QuotientAddGroup.mk' P.range v
+  exact congrArg (QuotientAddGroup.mk' P.range)
+    (congrArg (fun f : V →ₗ[ℝ] V => f v) hF)
 
 /-- Full congruence has nilpotence index one. Every odd prime works,
 independently of the rank of the actual free integral lattice. -/
