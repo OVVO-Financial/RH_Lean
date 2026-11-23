@@ -152,7 +152,7 @@ theorem prescribedSign_eq_one (B : Ideal (𝓞 H.E))
     refine ⟨prescribedRationalTraceForm_integral H B hB k m j, ?_⟩
     rw [prescribedIntForm_eq H B hB]
     exact prescribedGeometricDomain H B hB G hΨ hconj k m j hk hj
-  simp only [prescribedSign, if_pos h]
+  simp only [prescribedSign, ite_eq_left h]
 
 /-- The original efW definition, including its sign-selection factor. -/
 def prescribedSignedTraceForm (G : NativeGeometricHost H.E)

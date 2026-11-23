@@ -286,8 +286,10 @@ theorem prescribedComplexStructure_properties (B : Ideal (𝓞 H.E))
   have ht' : t = ∑ τ : cmTypeFinset H,
       (((k + j - 1 : ℕ) : ℂ) * (τ : H.E →+* ℂ) (a : H.E) +
         ((m - j : ℕ) : ℂ) * conj ((τ : H.E →+* ℂ) (a : H.E))) := by
-    rw [Finset.sum_coe_sort]
-    exact ht
+    exact ht.trans (Finset.sum_coe_sort (cmTypeFinset H)
+      (fun τ : H.E →+* ℂ =>
+        ((k + j - 1 : ℕ) : ℂ) * τ (a : H.E) +
+          ((m - j : ℕ) : ℂ) * conj (τ (a : H.E)))).symm
   refine ⟨?_, ?_, ?_⟩
   · apply LinearMap.ext
     intro z
@@ -298,7 +300,7 @@ theorem prescribedComplexStructure_properties (B : Ideal (𝓞 H.E))
   · rw [htrA, twistedCoordinateMultiplication_trace, ht', Complex.re_sum, Finset.mul_sum]
     refine Finset.sum_congr rfl fun τ _ => ?_
     rw [hN]
-    simp only [Nat.cast_add, Complex.add_re, Complex.mul_re,
+    simp only [Nat.cast_add, Complex.add_re, Complex.add_im, Complex.mul_re,
       Complex.natCast_re, Complex.natCast_im, Complex.conj_re, Complex.conj_im]
     ring
   · change LinearMap.trace ℝ _ (J ∘ₗ A) = -2 * t.im
@@ -321,7 +323,7 @@ theorem nativeDyadicHostRaw_prescribed_embedding_conj
     (he : 2 ≤ e) (hH : HostHyp q d) :
     let H := nativeDyadicHostRaw e q d he hH
     ∀ (τ : H.E →+* ℂ) (x : H.E), τ (H.conj x) = conj (τ x) := by
-  let H := nativeDyadicHostRaw e q d he hH
+  intro H
   let _ : IsCMField H.E := nativeDyadicHostRaw_cm e q d he hH
   intro τ x
   have hc : H.conj x = IsCMField.complexConj H.E x :=

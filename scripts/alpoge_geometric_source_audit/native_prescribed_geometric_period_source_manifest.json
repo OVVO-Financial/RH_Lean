@@ -141,7 +141,7 @@
     {
       "path": "RHLean/Geometry/NativePrescribedGeometricDatum.lean",
       "initial_attachment_sha256": "a7c21d5ca68675ddc210e34825c9d7af6e611921c697bec76424721eb2df7e66",
-      "native_sha256": "a7c21d5ca68675ddc210e34825c9d7af6e611921c697bec76424721eb2df7e66"
+      "native_sha256": "8bc2fafac99b5f22fea86d409583039c9bd35bc6421425ca7fb50c800f9f1ffb"
     },
     {
       "path": "RHLean/Geometry/NativeDerivedGeometricHost.lean",
@@ -156,7 +156,7 @@
     {
       "path": "RHLean/Geometry/NativePrescribedPolarizationDomain.lean",
       "initial_attachment_sha256": "aaf3f8da955187927d834f0d1c92f9a50b48ed46ab1d93caf07d82c5fd343738",
-      "native_sha256": "aaf3f8da955187927d834f0d1c92f9a50b48ed46ab1d93caf07d82c5fd343738"
+      "native_sha256": "9688f661a9d11e1163e286a1585f7300e2d41cdc311da920709876aaac6af016"
     },
     {
       "path": "RHLean/Geometry/NativePolarizationComplexCoordinates.lean",

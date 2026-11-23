@@ -135,7 +135,7 @@ variable (e q d : ℕ) [Fact q.Prime] [Fact d.Prime]
 
 local notation "E" => alpogeNativeHostField e q d
 local notation "F" => maximalRealSubfield E
-local notation "Af" => FiniteAdeleRing (𝓞 F) F
+local notation "Af" => IsDedekindDomain.FiniteAdeleRing (𝓞 F) F
 
 /-- The native endpoint assumes only the original host prime conditions
 and exponent bound; every field of CMData is constructed on the SAME field. -/
