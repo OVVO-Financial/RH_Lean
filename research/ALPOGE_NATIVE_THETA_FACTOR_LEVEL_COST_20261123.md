@@ -1,4 +1,4 @@
-# Construct the native theta factor and pay the full-level marking cost
+# Construct nonzero native theta sections and pay the full-level marking cost
 
 ## Status and continuation
 
@@ -7,18 +7,24 @@ This continuation starts from main
 The previous native proof build and its theta-construction audit are preserved.
 The current complete native universal bound and RH conclusion remain **OPEN**.
 
-Two supplying constructions are added here, on the original native lattice:
+Three supplying constructions are added here, on the original native lattice:
 
 1. The canonical Appell--Humbert phase and automorphy factor, with its exactly
    invariant Gaussian Hermitian fiber metric.
-2. A coefficient-linear full-level marking count, including the fixed rational
+2. A locally normally convergent Gaussian periodization, proved holomorphic
+   and nonzero by the original perfect pairing and Fourier uniqueness.
+3. A coefficient-linear full-level marking count, including the fixed rational
    level-five logarithmic cost and the identification with actual period torsion.
 
-The files are `RHLean/Geometry/NativeThetaAppellHumbert.lean` and
+The files are `RHLean/Geometry/NativeThetaAppellHumbert.lean`,
+`RHLean/Geometry/NativeThetaGaussianSeries.lean`,
+`RHLean/Geometry/NativeThetaNonzeroSection.lean` and
 `RHLean/Geometry/NativeThetaFullLevelCost.lean`. The dedicated research audit is
 `research/ALPOGE_NATIVE_THETA_FACTOR_LEVEL_COST_20261123.lean`. Hosted compilation
 and its terminal-axiom audit are pending at the first publication of this report.
-No local Lean or Lake execution has been used.
+No local Lean or Lake execution has been used. Current hosted status is recorded
+on [PR #1200](https://github.com/OVVO-Financial/RH_Lean/pull/1200); the first
+published head was `8416870d3d99011f1493ad416a002ae5b14aecd6`.
 
 ```text
 descent_payment_ack=ALPOGE_NATIVE_DESCENT_PAYMENT_V1
@@ -94,9 +100,10 @@ The positive form, phase, cocycle and metric identities are not new hypotheses.
 The native host, the half-different ideal and the original admissible integer
 parameters remain explicit inputs, as in the previous prescribed-period theorem.
 
-This constructs analytic line-bundle automorphy data. It does **not** yet
-construct a nonzero holomorphic section, an algebraic or integral model,
-the moduli family, cusp spanning, or the Petersson norm of a global cusp form.
+This first module constructs analytic line-bundle automorphy data. The next
+construction below supplies a nonzero holomorphic section. An algebraic or
+integral model, the moduli family, cusp spanning and the Petersson norm of a
+global cusp form remain open.
 An invariant metric on one torus does not determine the measure of the
 arithmetic base over which the global Petersson norm is integrated.
 
@@ -115,6 +122,74 @@ The native proof derives the phase identity directly from the original
 native `EF`, `w0` and CM conjugation. No external compiled object or terminal
 RH theorem is imported. The source archive/mirror states no license;
 attribution is retained without assigning one.
+
+### 1.1. Nonzero theta is now constructed from the native period inputs
+
+`NativeThetaGaussianSeries.lean` reconstructs the needed analytic proofs:
+positive-matrix coercivity in the actual ambient norm, Gaussian summability
+on a discrete integral lattice, holomorphy of a locally normally convergent
+series, and uniqueness of absolutely convergent torus Fourier coefficients.
+It uses Mathlib and does not assume a theta section.
+
+For the same `D`, `P`, positive `H` and factor `j`, define the actual series
+
+\[
+\theta_w(z)=\sum_{a\in L}j(a,z)^{-1}
+                  e^{\pi H(z+Pa,w)}.
+\]
+
+The exact norm of its summand is
+
+\[
+\exp\!\left(\frac\pi2\operatorname{Re}(H(z,z)+H(w,w))\right)
+\exp\!\left(-\frac\pi2\operatorname{Re}H(Pa+z-w,Pa+z-w)\right).
+\]
+
+Positive definiteness supplies a genuine `c>0` with
+`c*norm(v)^2 <= Re H(v,v)` in the default native coordinate norm. Completing
+the square and the proved bounded-translate Gaussian estimate give a summable
+majorant on every sufficiently small neighborhood. Thus the series is
+holomorphic. Reindexing the original lattice and using the constructed cocycle
+gives `theta_w(z+Pa)=j(a,z)*theta_w(z)` and periodicity of its squared fiber norm.
+
+At the center,
+
+\[
+\theta_w(w)=e^{\pi H(w,w)}
+ \sum_{a\in L}c(a)e^{-2\pi i\operatorname{Im}H(w,Pa)},
+\qquad
+c(a)=\epsilon(a)^{-1}e^{-\pi H(Pa,Pa)/2},\quad c(0)=1.
+\]
+
+The actual integral basis and unimodular `EF` supply dual lattice vectors
+`d_j` with `EF(d_j,a)` equal to the corresponding integer coordinate of `a`.
+Taking `w=-sum_j t_j*P(d_j)` makes this the usual integer-frequency Fourier
+series. If all center values vanished, uniqueness would force `c(0)=0`,
+contradicting its exact value one. This proves an actual nonzero holomorphic
+section without a theta-existence assumption or a large tensor-power threshold.
+
+The strongest endpoint is
+`RHLean.Analysis.AlpogeThin.nativeDyadicHost_exists_nonzeroThetaSections`.
+It chooses one actual half-different ideal before all admissible `k,m,j`,
+preserves its coprimality and Galois invariance, and supplies the positive
+form, holomorphic section, nonvanishing, automorphy and invariant fiber metric
+on the original prescribed lattice. Its only starting host hypotheses are
+the already native prime/host conditions; it does not ask for a moduli object.
+
+This is qualitative analytic existence. The coercivity constant is proved
+positive, but no epsilon-uniform bound on it is asserted. The normalized
+torus measure used for Fourier uniqueness is an auxiliary analytic device;
+it is not the global automorphic Petersson measure. Neither point separation
+by a theta family nor global cusp spanning follows from this one nonzero
+section without further proof.
+
+The exact supplying source proofs are
+`Proofs/CovolumeBounds/SummableLatticeExpNegPiMulNormSqDiv.lean`,
+`Proofs/CovolumeBounds/DifferentiableOnOfTendstoLocallyUniformlyOn.lean`,
+`Proofs/TorusSplitting/CoeffEqZeroOfOrthonormal.lean` and
+`Proofs/ToricGeometry/ExistsThetaSeriesApplyNeZeroOfLargeForm.lean`, under the
+same pinned `Development/AbelianVarietyTheory` tree. The native proof uses
+the original coordinate norm and original perfect pairing explicitly.
 
 ## 2. Pay the full finite marking cost without an extra field-degree factor
 
@@ -153,7 +228,7 @@ For the prescribed lattice, `N=k+m-1` at every stage `j`, so
 
 \[
 \log |\operatorname{Aut}_{O_E}(L/5L)|
- \le [E:\mathbf Q](k+m-1)^2\log5.
+ \le [E:\mathbf Q]\cdot(k+m-1)^2\log5.
 \]
 
 The previous fixed-level result already proves that five is prime to the
@@ -231,6 +306,12 @@ existing scalar window theorem proves the corresponding precise exponent
 The fixed level-five improvement simplifies an auxiliary bill; it does not
 prove the signed-source inequality by itself.
 
+The actual source parameter construction has further conditions, including
+`x^4 <= k` and `k <= x^5` in `QuadraticLogDerivCongr.lean`. The lower
+scalar-window inequality `x*m <= k` alone does not license choosing `k`
+near `x*m` for that family. Any such optimization needs a proved replacement
+construction; the existing payment theorem retains its full upper window.
+
 The exponent also needs its original uniformity: `CErr=C.eDiv+C.eLoss+3`.
 The source chooses upper bounds for `eDiv` and `eLoss` before epsilon, while
 other geometric constants may depend on epsilon and be absorbed in the
@@ -260,13 +341,10 @@ polarized moduli object**, its multiplication maps and formal charts. The
 native faithfully flat descent and phase/chart agreement mechanisms are
 already proved; the missing work is instantiating those geometric inputs.
 
-An analytic next step is the Gaussian periodization construction of a
-nonzero theta section. The concrete source candidates are
-`ThetaExist.exists_sec_ne_zero` in `CoeffEqZeroOfOrthonormal.lean` and
-`ThetaLarge.exists_theta_apply_ne_zero` in
-`ExistsThetaSeriesApplyNeZeroOfLargeForm.lean`. The latter is directly phrased
-for a positive Hermitian matrix and a discrete period lattice. Its convergence,
-nonvanishing threshold and tensor-power cost must be retained when adapted.
+The Gaussian periodization and nonzero analytic theta step is implemented in
+this continuation as described above. The next construction must realize
+those sections and their jets on the actual family, prove the relevant
+cusp-span property, and supply the measured comparison and shifted-rank ratio.
 
 For the eventual slope substitution, the source's actual numeric data in
 `Formalism/SharpRestriction/GlobalSchurBounds/QuadraticLogDerivCongr.lean`
@@ -294,14 +372,29 @@ stabilizer freeness alone does not authorize replacing every such level by five.
 
 ## 5. Acceptance and verification
 
-The dedicated audit checks 30 construction roots, prints the native endpoint
+The dedicated audit checks 57 construction roots, prints the native endpoint
 types, and rejects any transitive terminal axiom outside `propext`,
-`Classical.choice` and `Quot.sound`. Both new modules are in the sorted root
+`Classical.choice` and `Quot.sound`. All four new modules are in the sorted root
 import manifest. Normal PR validation runs the changed research closure
 before the full native build and cancels further same-head work on failure.
-The retired OAI replay remains manual-only; no workflow change is made here.
+The retired OAI replay remains manual-only. A relative-link preflight is also
+added before Lean setup: the first hosted documentation check interpreted
+adjacent degree brackets and parentheses in a displayed formula as a file
+link. The formula is corrected with an explicit multiplication sign. Running
+the same existing link checker in the primary preflight makes such failures
+stop the proof pipeline before toolchain/cache setup, with the existing
+same-head cancellation of remaining runs.
 
-This provides two reusable non-RH constructions. Their verification status
+The first hosted proof run,
+[45247265647](https://github.com/OVVO-Financial/RH_Lean/actions/runs/45247265647),
+restored the trusted main dependency and native caches and reached the new
+proofs directly. It found three rewrite/exponential-normalization errors and
+one unnecessary tactic-sequencing lint in the Appell--Humbert file. The full
+build was skipped and the same-head cancellation job succeeded. Those exact
+proof errors are repaired without changing their statements or budgets;
+the next revision adds the Gaussian and nonzero-section constructions.
+
+This provides three reusable non-RH constructions. Their verification status
 will be updated from actual hosted evidence. Tractability of the complete
 critical estimate, a new central signed-cancellation contribution, and an
 unconditional RH proof remain separate unfulfilled acceptance gates.

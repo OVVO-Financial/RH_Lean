@@ -80,7 +80,7 @@ variable {H : NativeGeometricHost E} (D : NativeGeometricDatum H)
 
 theorem form_skew (x y : D.La) : D.EF y x = -D.EF x y := by
   have h := D.alt (x + y)
-  rw [map_add, LinearMap.add_apply, map_add, map_add, D.alt, D.alt] at h
+  simp only [map_add, LinearMap.add_apply, D.alt] at h
   omega
 
 /-- The integer quadratic refinement is constructed on the original lattice. -/
@@ -204,7 +204,7 @@ theorem factor_add (hH : Hm.IsHermitian)
           (Real.pi * (hermForm Hm z (P x) + hermForm Hm z (P y)) +
             Real.pi / 2 * ((hermForm Hm (P x) (P x) + hermForm Hm (P x) (P y)) +
               (hermForm Hm (P y) (P x) + hermForm Hm (P y) (P y))))) := by
-      rw [Complex.exp_add]
+      simp only [Complex.exp_add]
       ring
     _ = (phase D y * phase D x) * Complex.exp
         ((Real.pi * (hermForm Hm z (P y) + hermForm Hm (P x) (P y)) +
@@ -213,7 +213,7 @@ theorem factor_add (hH : Hm.IsHermitian)
       congr 2
       linear_combination -(Real.pi / 2 : ℂ) * hcross
     _ = _ := by
-      rw [Complex.exp_add]
+      simp only [Complex.exp_add]
       ring
 
 /-- The squared fiber norm retains the exact pi normalization. -/
@@ -224,7 +224,7 @@ theorem norm_factor (x : D.La) (z : Fin g → ℂ) :
     ‖factor D P Hm x z‖ = Real.exp
       (Real.pi * (hermForm Hm z (P x)).re + Real.pi / 2 * (hermForm Hm (P x) (P x)).re) := by
   have hcast : ((Real.pi / 2 : ℝ) : ℂ) = (Real.pi : ℂ) / 2 := by
-    push_cast <;> rfl
+    push_cast; rfl
   rw [factor, norm_mul, norm_phase, one_mul, Complex.norm_exp, ← hcast,
     Complex.add_re, Complex.re_ofReal_mul, Complex.re_ofReal_mul]
 
@@ -250,7 +250,7 @@ theorem fiberNormSq_translate (hH : Hm.IsHermitian)
         (Real.exp ((Real.pi * (hermForm Hm z (P x)).re + Real.pi / 2 * (hermForm Hm (P x) (P x)).re) +
           (Real.pi * (hermForm Hm z (P x)).re + Real.pi / 2 * (hermForm Hm (P x) (P x)).re)) *
           Real.exp (-Real.pi * (hermForm Hm (z + P x) (z + P x)).re)) := by
-      rw [Real.exp_add]
+      simp only [Real.exp_add]
       ring
     _ = _ := by rw [← Real.exp_add, hexp]
 

@@ -1,5 +1,7 @@
 import RHLean.Geometry.NativeThetaAppellHumbert
 import RHLean.Geometry.NativeThetaFullLevelCost
+import RHLean.Geometry.NativeThetaGaussianSeries
+import RHLean.Geometry.NativeThetaNonzeroSection
 import Lean.Util.CollectAxioms
 
 /-!
@@ -14,6 +16,11 @@ The second endpoint counts coefficient-linear markings of that same lattice
 modulo the rational integer five. The field degree occurs once. The finite
 quotient is identified with the already constructed period torsion.
 
+The Gaussian series is locally normally convergent and holomorphic. Its
+nonvanishing follows from Fourier uniqueness and the original perfect
+integral pairing. The final native theorem chooses the half-different once
+before all prescribed ranks; no theta-existence premise remains.
+
 These are supplying constructions, not a proof of the global cusp spanning,
 measured Petersson comparison or complete universal signed-source bound.
 -/
@@ -22,6 +29,8 @@ measured Petersson comparison or complete universal signed-source bound.
 #check RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.prescribedPeriod_fullLevel_marking_exists
 #check RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.prescribedLattice_fullLevelFive_log_le
 #check RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.twistedLattice_fourthLevelGroup_card_le
+#check RHLean.Analysis.AlpogeThin.nativeDyadicPrescribedPeriod_exists_nonzeroTheta
+#check RHLean.Analysis.AlpogeThin.nativeDyadicHost_exists_nonzeroThetaSections
 
 open Lean Elab Command in
 run_cmd do
@@ -56,7 +65,34 @@ run_cmd do
     ``RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.twistedLattice_fullLevelGroup_log_le,
     ``RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.prescribedLattice_fullLevelFive_log_le,
     ``RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.twistedLattice_fourthLevelGroup_card_le,
-    ``RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.prescribedPeriod_fullLevel_marking_exists]
+    ``RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.prescribedPeriod_fullLevel_marking_exists,
+    ``RHLean.Geometry.NativeTheta.GaussianSeries.continuous_form,
+    ``RHLean.Geometry.NativeTheta.GaussianSeries.exists_coercive,
+    ``RHLean.Geometry.NativeTheta.GaussianSeries.summable_gaussian,
+    ``RHLean.Geometry.NativeTheta.GaussianSeries.gaussian_translate_le,
+    ``RHLean.Geometry.NativeTheta.GaussianSeries.differentiableOn_of_tendstoLocallyUniformlyOn,
+    ``RHLean.Geometry.NativeTheta.GaussianSeries.differentiableOn_of_hasSumLocallyUniformlyOn,
+    ``RHLean.Geometry.NativeTheta.GaussianSeries.hasSumLocallyUniformlyOn_of_locally_normal,
+    ``RHLean.Geometry.NativeTheta.GaussianSeries.differentiableOn_tsum_of_locally_normal,
+    ``RHLean.Geometry.NativeTheta.GaussianSeries.coeff_eq_zero_of_fourier,
+    ``RHLean.Geometry.NativeTheta.NonzeroSection.periodizationTerm_eq,
+    ``RHLean.Geometry.NativeTheta.NonzeroSection.differentiable_periodizationTerm,
+    ``RHLean.Geometry.NativeTheta.NonzeroSection.periodizationTerm_translate,
+    ``RHLean.Geometry.NativeTheta.NonzeroSection.norm_periodizationTerm,
+    ``RHLean.Geometry.NativeTheta.NonzeroSection.summable_period_gaussian,
+    ``RHLean.Geometry.NativeTheta.NonzeroSection.exists_periodizationTerm_gaussian_bound,
+    ``RHLean.Geometry.NativeTheta.NonzeroSection.summable_periodizationTerm,
+    ``RHLean.Geometry.NativeTheta.NonzeroSection.differentiable_theta,
+    ``RHLean.Geometry.NativeTheta.NonzeroSection.theta_translate,
+    ``RHLean.Geometry.NativeTheta.NonzeroSection.theta_fiberNormSq_translate,
+    ``RHLean.Geometry.NativeTheta.NonzeroSection.coefficient_zero,
+    ``RHLean.Geometry.NativeTheta.NonzeroSection.norm_coefficient,
+    ``RHLean.Geometry.NativeTheta.NonzeroSection.summable_norm_coefficient,
+    ``RHLean.Geometry.NativeTheta.NonzeroSection.theta_centre,
+    ``RHLean.Geometry.NativeTheta.NonzeroSection.exists_theta_centre_ne_zero,
+    ``RHLean.Geometry.NativeTheta.NonzeroSection.exists_nonzero_theta,
+    ``RHLean.Analysis.AlpogeThin.nativeDyadicPrescribedPeriod_exists_nonzeroTheta,
+    ``RHLean.Analysis.AlpogeThin.nativeDyadicHost_exists_nonzeroThetaSections]
   let env ← getEnv
   for root in roots do
     unless env.contains root do
