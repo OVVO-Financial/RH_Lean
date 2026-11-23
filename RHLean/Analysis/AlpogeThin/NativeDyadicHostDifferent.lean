@@ -111,7 +111,7 @@ private theorem nativePrime_liesOver_dvd_of_mem
   obtain ⟨l, hl, hlo⟩ := NativePrimeLift.exists_prime_liesOver P hP0
   have hcast : (a : ℤ) ∈ P.under ℤ := by
     change algebraMap ℤ (𝓞 M) (a : ℤ) ∈ P
-    simpa only [map_intCast, Int.cast_natCast] using hm
+    simpa only [map_natCast] using hm
   rw [← hlo.over, Ideal.mem_span_singleton] at hcast
   exact ⟨l, hl, by exact_mod_cast hcast, hlo⟩
 
