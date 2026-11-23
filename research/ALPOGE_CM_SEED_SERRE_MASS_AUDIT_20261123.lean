@@ -1,22 +1,11 @@
-import RHLean.Geometry.NativeCMPeriodComparison
 import RHLean.Geometry.NativeCMSerreEquationPoints
-import RHLean.Geometry.NativeCMAllPlaceEigenlineDegree
-import RHLean.Geometry.NativeCMIsogenyDerivativeNorm
-import RHLean.Geometry.NativeCMWeierstrassOriginSymmetry
-import RHLean.Geometry.NativeCMWeierstrassOriginSections
-import RHLean.Geometry.NativeCMWeierstrassTranslationScheme
-import RHLean.Geometry.NativeCMSerreSchemeEigenline
-import RHLean.Geometry.NativeCMWeierstrassAnalyticTangent
-import RHLean.Geometry.NativeCMArithmeticPeriod
 import RHLean.Geometry.NativeMeasuredComponentNorm
-import RHLean.Geometry.NativeThetaCuspTensorVacua
-import RHLean.Geometry.NativeThetaCuspSeriesInjective
-import RHLean.Geometry.NativeThetaCuspHeisenberg
-import RHLean.Geometry.NativeCMWeierstrassPolarizedOrigin
-import RHLean.Geometry.NativeCMWeierstrassCMOpen
 import RHLean.Geometry.NativeCMIntegralClassPeriodMean
-import RHLean.Geometry.NativeThetaCuspSeriesHolomorphic
-import RHLean.Geometry.NativeThetaCuspWeil
+import RHLean.Geometry.NativeCMWeierstrassCMOrderAction
+import RHLean.Geometry.NativeCMSerreSchemeMetric
+import RHLean.Geometry.NativeCMWeierstrassThetaDescent
+import RHLean.Geometry.NativeThetaCuspFiniteLevelNorm
+import RHLean.Geometry.NativeThetaCuspQuotientAdjoint
 import Lean.Util.CollectAxioms
 
 /-!
@@ -24,7 +13,9 @@ import Lean.Util.CollectAxioms
 
 These roots retain the original projective module, actual integral seed
 scheme, periods, tensor points, pure-block signs, ranks and measured masses.
-They include the actual origin polarization and the arithmetic period-mean
+They include the actual origin polarization, global CM order action over
+a finite field extension, signed tensor-bundle Gram, explicit sigma frames,
+finite-level theta norms, quotient adjoint, and arithmetic period-mean
 calculation from genuine two-sided ideal-isogeny data. They do not assert
 that this integral ideal-isogeny family has been constructed, a represented
 polarized Serre scheme, the global cusp family, or the complete signed-source
@@ -210,7 +201,40 @@ run_cmd do
     ``RHLean.Geometry.NativeTheta.Cusp.TensorLattices.tens_relative_indices,
     ``RHLean.Geometry.NativeTheta.Cusp.TensorVacua.exists_native_tensor_vacua,
     ``RHLean.Geometry.NativeTheta.Cusp.SiegelSum.summable_norm_thetaTerm,
-    ``RHLean.Geometry.NativeTheta.Cusp.eq_of_thS_eq]
+    ``RHLean.Geometry.NativeTheta.Cusp.eq_of_thS_eq,
+    ``RHLean.Geometry.NativeCM.SchemeTheory.GeometricPoints.hom_ext_of_embedded_points,
+    ``RHLean.Geometry.NativeCM.Weierstrass.exists_numberField_point_off_denominator,
+    ``RHLean.Geometry.NativeCM.SchemeTheory.GeometricPoints.exists_hom_of_kernel_open,
+    ``RHLean.Geometry.NativeCM.SchemeTheory.WeierstrassCurve.exists_global_hom_of_rational_point_map,
+    ``RHLean.Geometry.NativeCM.Weierstrass.exists_cm_scheme_generator,
+    ``RHLean.Geometry.NativeCM.Weierstrass.schemeOrderAction_latticePoint,
+    ``RHLean.Geometry.NativeCM.Weierstrass.schemeOrderAction_wK,
+    ``RHLean.Geometry.NativeCM.Weierstrass.exists_cm_scheme_order_action,
+    ``RHLean.Geometry.NativeCM.TraceFrame.gram_eq_kLin,
+    ``RHLean.Geometry.NativeCM.TraceFrame.gram_pure,
+    ``RHLean.Geometry.NativeCM.SerreGram.gramForm_polar,
+    ``RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.coefficientSerreOriginBundle_isLB_and_rigidified,
+    ``RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.tensorOriginGram_eigen,
+    ``RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.coefficientLieProjection,
+    ``RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.coefficientLieBundleMap,
+    ``RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.coefficientLieEigen_signedGram_norm,
+    ``RHLean.Analysis.AlpogeThin.NativeRawHostPolarization.coefficientLieEigen_actualSigma_norm,
+    ``RHLean.Geometry.NativeCM.Weierstrass.legendre_relation,
+    ``RHLean.Geometry.NativeCM.Weierstrass.quasiPeriod_eq,
+    ``RHLean.Geometry.NativeCM.Weierstrass.weierstrassSigma_add,
+    ``RHLean.Geometry.NativeCM.Weierstrass.canonicalSigma_add,
+    ``RHLean.Geometry.NativeCM.Weierstrass.sigmaSign_add,
+    ``RHLean.Geometry.NativeCM.WeierstrassTheta.origin_section_factorization,
+    ``RHLean.Geometry.NativeCM.WeierstrassTheta.eval_originParam_of_affine,
+    ``RHLean.Geometry.NativeCM.WeierstrassTheta.fiberNormSq_multiplier,
+    ``RHLean.Geometry.NativeCM.WeierstrassTheta.automorphy_tangent_eq_placeProfile,
+    ``RHLean.Geometry.NativeCM.WeierstrassTheta.neg_log_automorphy_tangent,
+    ``RHLean.Geometry.NativeCM.WeierstrassTheta.globalOriginFrame_period,
+    ``RHLean.Geometry.NativeCM.WeierstrassTheta.globalOriginFrame_analytic_at_lattice,
+    ``RHLean.Geometry.NativeTheta.Cusp.FiniteLevelNorm.exists_full_level_theta,
+    ``RHLean.Geometry.NativeTheta.Cusp.FiniteLevelNorm.exists_native_full_level_family,
+    ``RHLean.Geometry.NativeTheta.Cusp.QuotientAdjoint.exists_adjoint_halves,
+    ``RHLean.Geometry.NativeTheta.Cusp.QuotientAdjoint.exists_native_five_adjoint]
   let env ← getEnv
   for root in roots do
     unless env.contains root do

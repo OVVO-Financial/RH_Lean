@@ -134,7 +134,8 @@ theorem zero_preimage_originOpen : zero W ⁻¹ᵁ originOpen W = ⊤ := by
 abbrev originValue : Γ(scheme W, originOpen W) →+* R :=
   evalPt (zero W) (originOpen W) (zero_preimage_originOpen W).ge
 
-theorem originValue_originParam : originValue W (originParam W) = 0 := evalPt_zero_ratioOn _ _ 0
+theorem originValue_originParam : originValue W (originParam W) = 0 :=
+  evalPt_zero_ratioOn W (originOpen_le W) (zero_preimage_originOpen W).ge 0
 
 variable {W} in
 

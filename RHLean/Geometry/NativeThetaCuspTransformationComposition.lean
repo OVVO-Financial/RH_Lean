@@ -60,6 +60,7 @@ theorem blocks {σ : Matrix (ι ⊕ ι) (ι ⊕ ι) ℚ} (h : σ ∈ Matrix.symp
   have h4 := congrArg Matrix.transpose h3
   simpa [Matrix.transpose_sub, Matrix.transpose_mul] using h4
 
+omit [DecidableEq ι] in
 theorem mul_block (σ σ' : Matrix (ι ⊕ ι) (ι ⊕ ι) ℚ) :
     (σ' * σ).toBlocks₂₁ = σ'.toBlocks₂₁ * σ.toBlocks₁₁ + σ'.toBlocks₂₂ * σ.toBlocks₂₁ := by
   ext i j

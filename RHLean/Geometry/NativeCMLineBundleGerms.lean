@@ -217,12 +217,12 @@ def gs (f : Y ⟶ X) (y : Y) (U : X.Opens) (a : Γ(X, U)) : Y.presheaf.stalk y :
 theorem gs_eq (f : Y ⟶ X) (y : Y) (U : X.Opens) (h : f y ∈ U) (a : Γ(X, U)) :
     gs f y U a = (Y.presheaf.germ (f ⁻¹ᵁ U) y h).hom ((f.app U).hom a) := by
   unfold gs
-  exact dif_pos h
+  exact dite_eq_left h
 
 theorem gs_unit (f : Y ⟶ X) (y : Y) (U : X.Opens) (h : f y ∈ U) (a : Γ(X, U)ˣ) : gs f y U a.val = (gm f y U a).val := by
   rw [gs_eq f y U h]
   unfold gm
-  rw [dif_pos h]
+  rw [dite_eq_left h]
   rfl
 
 theorem gs_mul (f : Y ⟶ X) (y : Y) (U : X.Opens) (h : f y ∈ U) (a b : Γ(X, U)) :
@@ -236,22 +236,19 @@ theorem gs_add (f : Y ⟶ X) (y : Y) (U : X.Opens) (h : f y ∈ U) (a b : Γ(X, 
 theorem gs_res (f : Y ⟶ X) (y : Y) {U V : X.Opens} (hle : V ≤ U) (h : f y ∈ V) (a : Γ(X, U)) :
     gs f y V ((X.presheaf.map (homOfLE hle).op).hom a) = gs f y U a := by
   rw [gs_eq f y V h, gs_eq f y U (hle h)]
-  first
-  | (rw [← CategoryTheory.comp_apply, ← CategoryTheory.comp_apply, ← CategoryTheory.comp_apply,
-      Scheme.Hom.naturality_assoc]
-     first
-     | (erw [TopCat.Presheaf.germ_res]; done)
-     | (simp only [TopCat.Presheaf.germ_res]; done))
-  | (rw [← CommRingCat.comp_apply, ← CommRingCat.comp_apply, ← CommRingCat.comp_apply,
-      Scheme.Hom.naturality_assoc]
-     erw [TopCat.Presheaf.germ_res])
+  rw [← CategoryTheory.comp_apply, ← CategoryTheory.comp_apply, ← CategoryTheory.comp_apply,
+    Scheme.Hom.naturality_assoc]
+  erw [TopCat.Presheaf.germ_res]
+
+theorem gs_resG (f : Y ⟶ X) (y : Y) {U V : X.Opens} (hle : V ≤ U)
+    (h : f y ∈ V) (a : Γ(X, U)) : gs f y V (resG X hle a) = gs f y U a :=
+  gs_res f y hle h a
 
 theorem gs_pull (f : Z ⟶ Y) (g : Y ⟶ X) (z : Z) (U : X.Opens) (h : g (f z) ∈ U) (a : Γ(X, U)) :
     gs f z (g ⁻¹ᵁ U) ((g.app U).hom a) = gs (f ≫ g) z U a := by
   have h' : (f ≫ g) z ∈ U := h
   rw [gs_eq f z (g ⁻¹ᵁ U) h, gs_eq (f ≫ g) z U h']
-  simp only [Scheme.Hom.comp_app, CommRingCat.comp_apply]
-  try rfl
+  rfl
 
 theorem fn_ext {V : X.Opens} {a b : Γ(X, V)} (h : ∀ x ∈ V, gs (𝟙 X) x V a = gs (𝟙 X) x V b) : a = b := by
   apply TopCat.Presheaf.section_ext X.sheaf V a b
@@ -267,36 +264,27 @@ private lemma germ_app_presheaf_map_eq_germ_app {A B : Scheme.{0}} (f : A ⟶ B)
   have nat := congrArg (fun g => g.hom a) (Scheme.Hom.naturality f (homOfLE hVU).op)
   simp only [CommRingCat.hom_comp, RingHom.comp_apply] at nat
   rw [nat]
-  first
-    | exact TopCat.Presheaf.germ_res_apply _ _ _ _ _
-    | exact TopCat.Presheaf.germ_res_apply _ _ _ _ _ _
-    | (erw [TopCat.Presheaf.germ_res_apply])
-    | (simp; done)
+  exact TopCat.Presheaf.germ_res_apply _ _ _ _ _
 
 private lemma germ_app_app_eq_germ_app_comp {A B C : Scheme.{0}} (r : A ⟶ B) (h : B ⟶ C) (y : A) (W : C.Opens)
     (hy : h (r y) ∈ W) (a : Γ(C, W)) :
     (A.presheaf.germ (r ⁻¹ᵁ h ⁻¹ᵁ W) y hy).hom ((r.app (h ⁻¹ᵁ W)).hom ((h.app W).hom a)) =
       (A.presheaf.germ ((r ≫ h) ⁻¹ᵁ W) y hy).hom (((r ≫ h).app W).hom a) := by
-  first
-    | rfl
-    | (simp only [Scheme.Hom.comp_app, CommRingCat.hom_comp, RingHom.comp_apply]; rfl)
-    | (simp [Scheme.Hom.comp_app]; done)
+  rfl
 
 theorem gs_appLE {Y : Scheme.{0}} (q : Y ⟶ X) (U : X.Opens) (W : Y.Opens) (e : W ≤ q ⁻¹ᵁ U) (r : Z ⟶ Y) (z : Z)
     (hz : r z ∈ W) (f : Γ(X, U)) : gs r z W ((q.appLE U W e).hom f) = gs (r ≫ q) z U f := by
   unfold gs
-  rw [dif_pos hz, dif_pos (show (r ≫ q) z ∈ U from e hz)]
+  rw [dite_eq_left hz, dite_eq_left (show (r ≫ q) z ∈ U from e hz)]
   simp only [Scheme.Hom.appLE, CommRingCat.hom_comp, RingHom.comp_apply]
   exact (germ_app_presheaf_map_eq_germ_app r z e hz _).trans (germ_app_app_eq_germ_app_comp r q z U (e hz) f)
 
 theorem gs_stalkMap (r : Z ⟶ X) (z : Z) (U : X.Opens) (h : r z ∈ U) (f : Γ(X, U)) :
     gs r z U f = (r.stalkMap z).hom (gs (𝟙 X) (r z) U f) := by
   unfold gs
-  rw [dif_pos h, dif_pos (show (𝟙 X : X ⟶ X) (r z) ∈ U from h)]
+  rw [dite_eq_left h, dite_eq_left (show (𝟙 X : X ⟶ X) (r z) ∈ U from h)]
   rw [← Scheme.Hom.germ_stalkMap_apply]
-  first
-  | rfl
-  | (congr 1; simp)
+  rfl
 
 theorem gs_compat {L : LB X} (s : L.Sec) (r : Z ⟶ X) (z : Z)
     {i j : L.ι} (hi : r z ∈ L.U i) (hj : r z ∈ L.U j) :

@@ -26,7 +26,7 @@ set_option relaxedAutoImplicit false
 noncomputable section
 
 open Complex NumberField
-open scoped Classical BigOperators nonZeroDivisors
+open scoped Classical BigOperators nonZeroDivisors ComplexConjugate
 
 namespace RHLean.Geometry.NativeCM
 

@@ -82,8 +82,8 @@ def powSecMk (n : ℕ) (f : ∀ i, Γ(X, L.U i))
   powSecOfGerm n (fun J => resG X (powChart_eq J).le (f (J PUnit.unit))) fun y J J' hJ hJ' => by
     have hy : y ∈ L.U (J PUnit.unit) ⊓ L.U (J' PUnit.unit) := ⟨mem_powChart.1 hJ, mem_powChart.1 hJ'⟩
     have e := congrArg (gs (𝟙 X) y _) (h (J PUnit.unit) (J' PUnit.unit))
-    rw [gs_res _ y _ hy, gs_mul _ y _ hy, gs_res _ y _ hy, gs_pow _ y _ hy, gs_unit _ y _ hy] at e
-    rw [gs_res _ y _ hJ, gs_res _ y _ hJ', e]
+    rw [gs_resG _ y _ hy, gs_mul _ y _ hy, gs_resG _ y _ hy, gs_pow _ y _ hy, gs_unit _ y _ hy] at e
+    rw [gs_resG _ y _ hJ, gs_resG _ y _ hJ', e]
 
 @[simp] theorem powFn_powSecMk (n : ℕ) (f : ∀ i, Γ(X, L.U i)) (h) (J : PUnit → L.ι) :
     powFn (powSecMk n f h) J = resG X (powChart_eq J).le (f (J PUnit.unit)) := rfl
@@ -93,13 +93,13 @@ theorem nonzeroLocus_powSecMk (n : ℕ) (f : ∀ i, Γ(X, L.U i)) (h) :
   refine nonzeroLocus_pow_eq_of _ _ (fun y hy => ?_) fun y J hJ => ?_
   · obtain ⟨i, hi⟩ := Opens.mem_iSup.1 hy
     exact ⟨fun _ => i, mem_powChart.2 (X.basicOpen_le _ hi)⟩
-  · rw [powFn_powSecMk, gs_res _ y _ hJ, isUnit_gs_iff (𝟙 X) y _ (mem_powChart.1 hJ), Opens.mem_iSup]
+  · rw [powFn_powSecMk, gs_resG _ y _ hJ, isUnit_gs_iff (𝟙 X) y _ (mem_powChart.1 hJ), Opens.mem_iSup]
     constructor
     · exact fun hy => ⟨_, hy⟩
     · rintro ⟨i, hi⟩
       have hy : y ∈ L.U i ⊓ L.U (J PUnit.unit) := ⟨X.basicOpen_le _ hi, mem_powChart.1 hJ⟩
       have e := congrArg (gs (𝟙 X) y _) (h i (J PUnit.unit))
-      rw [gs_res _ y _ hy, gs_mul _ y _ hy, gs_res _ y _ hy, gs_pow _ y _ hy, gs_unit _ y _ hy] at e
+      rw [gs_resG _ y _ hy, gs_mul _ y _ hy, gs_resG _ y _ hy, gs_pow _ y _ hy, gs_unit _ y _ hy] at e
       have hu := (isUnit_gs_iff (𝟙 X) y _ hy.1 (f i)).2 hi
       rw [e] at hu
       exact (isUnit_gs_iff (𝟙 X) y _ hy.2 _).1 (IsUnit.mul_iff.1 hu).2
@@ -112,9 +112,9 @@ theorem powSecFn_compat (s : (lbPow L n).Sec) (i j : L.ι) :
       (L.g i j).val ^ n * resG X (inf_le_right : L.U i ⊓ L.U j ≤ L.U j) (powSecFn s j) := fn_ext fun y hy => by
   have hi : y ∈ powChart L (fun _ => i) := mem_powChart.2 hy.1
   have hj : y ∈ powChart L (fun _ => j) := mem_powChart.2 hy.2
-  rw [gs_mul _ y _ hy, gs_pow _ y _ hy, gs_unit _ y _ hy, gs_res _ y _ hy, gs_res _ y _ hy]
+  rw [gs_mul _ y _ hy, gs_pow _ y _ hy, gs_unit _ y _ hy, gs_resG _ y _ hy, gs_resG _ y _ hy]
   unfold powSecFn
-  rw [gs_res _ y _ hy.1, gs_res _ y _ hy.2]
+  rw [gs_resG _ y _ hy.1, gs_resG _ y _ hy.2]
   exact gs_powFn_compat s (𝟙 X) y _ _ hi hj
 
 theorem nonzeroLocus_inf_powSecFn (s : (lbPow L n).Sec) (i : L.ι) :
@@ -125,7 +125,7 @@ theorem nonzeroLocus_inf_powSecFn (s : (lbPow L n).Sec) (i : L.ι) :
   · rintro ⟨hs, hy⟩
     refine (isUnit_gs_iff (𝟙 X) y _ hy (powSecFn s i)).1 ?_
     unfold powSecFn
-    rw [gs_res _ y _ hy]
+    rw [gs_resG _ y _ hy]
     exact (mem_nonzeroLocus_iff_powFn s (mem_powChart.2 hy)).1 hs
   · intro hy
     have hU : y ∈ L.U i := X.basicOpen_le _ hy
@@ -133,7 +133,7 @@ theorem nonzeroLocus_inf_powSecFn (s : (lbPow L n).Sec) (i : L.ι) :
     rw [mem_nonzeroLocus_iff_powFn s (J := fun _ => i) (mem_powChart.2 hU)]
     have hu := (isUnit_gs_iff (𝟙 X) y _ hU (powSecFn s i)).2 hy
     unfold powSecFn at hu
-    rwa [gs_res _ y _ hU] at hu
+    rwa [gs_resG _ y _ hU] at hu
 
 theorem wchart_le_const (L : LB X) (φ : Y ⟶ X) (n : ℕ) (k : Fin (n + 1) → L.ι) :
     LB.wchart L (fun _ : Fin (n + 1) => φ) k ≤
@@ -151,7 +151,7 @@ def finPowSec {L : LB X} (hL : L.IsLB) {n : ℕ} (s : (lbPow L (n + 1)).Sec) (φ
       have h₀' := (wchart_le_const L φ n k' hk').2
       have hy : φ y ∈ L.U (k 0) ⊓ L.U (k' 0) := ⟨Set.mem_iInter.1 hk 0, Set.mem_iInter.1 hk' 0⟩
       have e := congrArg (gs φ y _) (powSecFn_compat s (k 0) (k' 0))
-      rw [gs_res _ y _ hy, gs_mul _ y _ hy, gs_res _ y _ hy, gs_pow _ y _ hy, gs_unit _ y _ hy] at e
+      rw [gs_resG _ y _ hy, gs_mul _ y _ hy, gs_resG _ y _ hy, gs_pow _ y _ hy, gs_unit _ y _ hy] at e
       have e₀ := gm_linComb L (fun _ : Fin (n + 1) => φ) (fun _ => 1) (𝟙 Y) y _ _ h₀ h₀'
       rw [Finset.prod_const, Finset.card_univ, Fintype.card_fin, zpow_one, Category.id_comp] at e₀
       have c₁ := gm_cocycle hM (𝟙 Y) y hk h₀ h₀'

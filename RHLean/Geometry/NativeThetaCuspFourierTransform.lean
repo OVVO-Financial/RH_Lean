@@ -149,7 +149,9 @@ theorem fourierJ_transS [DecidableEq ι] (hκ : Even (Fintype.card κ))
   obtain ⟨p, hp⟩ := hκ
   obtain ⟨R, hR, hφ⟩ := hφ
   have hp2 : Fintype.card κ / 2 = p := by omega
-  simpa only [fourierJ, hp2] using trans_J hp hR hφ
+  unfold fourierJ
+  rw [hp2]
+  exact trans_J hp hR hφ
 
 
 end RHLean.Geometry.NativeTheta.Cusp.FourierJ

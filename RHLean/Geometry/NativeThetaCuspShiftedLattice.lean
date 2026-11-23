@@ -116,6 +116,11 @@ def bar : 𝓞 H.E →+* 𝓞 H.E :=
 @[simp] theorem bar_bar (a : 𝓞 H.E) : bar H (bar H a) = a :=
   Subtype.ext (conj_conj H (a : H.E))
 
+private theorem pair_adjoint_bar {N : ℕ} (neg : Fin N → Bool) (a : 𝓞 H.E)
+    (x y : Fin N → H.E) :
+    Ambient.pair H neg (a • x) y = Ambient.pair H neg x (bar H a • y) :=
+  Ambient.pair_adjoint_field H neg (a : H.E) x y
+
 theorem mem_conjugate {P : Ideal (𝓞 H.E)} {a : 𝓞 H.E} :
     a ∈ H.conj • P ↔ bar H a ∈ P := by
   have hc : H.conj⁻¹ = H.conj := by
@@ -150,13 +155,13 @@ theorem selfDual_idq {N : ℕ} (neg : Fin N → Bool)
   · obtain ⟨m, hm, m', hm', e⟩ := Ideal.isCoprime_iff_exists.1 hc
     have k1 : ∀ z ∈ P • L, ∃ k : ℤ, Ambient.pair H neg x z = k := fun z hz => by
       refine Submodule.smul_induction_on hz (fun a ha l hl => ?_) ?_
-      · rw [← bar_bar H a, ← Ambient.pair_adjoint]
+      · rw [← bar_bar H a, ← pair_adjoint_bar]
         exact (hL.2 _).1 (Submodule.smul_le_right (hx _ (hb ha))) l hl
       · rintro u v ⟨k, hk⟩ ⟨l, hl⟩
         exact ⟨k + l, by rw [Ambient.pair_add_right, hk, hl, Int.cast_add]⟩
     have k2 : ∀ z ∈ P • L, ∃ k : ℤ, Ambient.pair H neg z y = k := fun z hz => by
       refine Submodule.smul_induction_on hz (fun a ha l hl => ?_) ?_
-      · rw [Ambient.pair_adjoint]
+      · rw [pair_adjoint_bar]
         exact (hL.2 _).1 hl _ (Submodule.smul_le_right (hy _ (hb ha)))
       · rintro u v ⟨k, hk⟩ ⟨l, hl⟩
         exact ⟨k + l, by rw [Ambient.pair_add_left, hk, hl, Int.cast_add]⟩
@@ -164,10 +169,10 @@ theorem selfDual_idq {N : ℕ} (neg : Fin N → Bool)
     obtain ⟨l, hl⟩ := k2 _ (hx _ hm')
     refine ⟨k + l, ?_⟩
     rw [← one_smul (𝓞 H.E) x, ← e, add_smul, Ambient.pair_add_left,
-      Ambient.pair_adjoint, hk, hl, Int.cast_add]
+      pair_adjoint_bar, hk, hl, Int.cast_add]
   · have hm := (mem_conjugate H).1 hb'
     have hz : b • x ∈ L := (hL.2 _).2 fun l hl => by
-      rw [Ambient.pair_adjoint]
+      rw [pair_adjoint_bar]
       exact h _ (smul_le_idq _ _ _ (Submodule.smul_mem_smul hm hl))
     apply mem_of_coprime_multiple hz ht
     have hw : ((t : H.E) * b / p) • x ∈ L := (hL.2 _).2 fun l hl => by
@@ -228,11 +233,14 @@ theorem twisted_selfDual (B : Ideal (𝓞 H.E))
       intro j
       by_cases hj : j = i
       · subst j
-        simpa only [Pi.single_eq_same, Algebra.smul_def, map_sgn] using
+        rw [Pi.single_eq_same]
+        change (sgn (neg i) : H.E) * y ∈ (coefficientIdeal H B : Submodule (𝓞 H.E) H.E)
+        simpa only [Algebra.smul_def, map_sgn] using
           (coefficientIdeal H B : Submodule (𝓞 H.E) H.E).smul_mem
             (sgn (neg i) : 𝓞 H.E) hy
-      · simpa only [Pi.single_eq_of_ne hj] using
-          (coefficientIdeal H B : Submodule (𝓞 H.E) H.E).zero_mem
+      · rw [Pi.single_eq_of_ne hj]
+        change (0 : H.E) ∈ (coefficientIdeal H B : Submodule (𝓞 H.E) H.E)
+        exact (coefficientIdeal H B : Submodule (𝓞 H.E) H.E).zero_mem
     obtain ⟨z, hz⟩ := hx _ htest
     rw [pair_single_signed] at hz
     exact ⟨z, hz.symm⟩

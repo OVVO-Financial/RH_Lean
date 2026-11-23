@@ -49,7 +49,7 @@ theorem finsum_quot_le {V : Type} [AddCommGroup V] (S P : AddSubgroup V) (hle : 
   have h1 : (AddSubgroup.quotientEquivProdOfLE hle q).1 = (q.out : V ⧸ P) := by
     conv_lhs => rw [← q.out_eq']
     rfl
-  obtain ⟨y, hy⟩ := QuotientAddGroup.mk_out_eq_mul P q.out
+  obtain ⟨y, hy⟩ := QuotientAddGroup.mk_out_eq_add P q.out
   rw [h1, hy, hφ _ _ y.2]
 
 theorem finsum_quot_map {V : Type} [AddCommGroup V] (S : AddSubgroup V) (T : V ≃+ V)
@@ -61,7 +61,7 @@ theorem finsum_quot_map {V : Type} [AddCommGroup V] (S : AddSubgroup V) (T : V �
       = (T q.out : V ⧸ S.map T.toAddMonoidHom) := by
     conv_lhs => rw [← q.out_eq']
     rfl
-  obtain ⟨y, hy⟩ := QuotientAddGroup.mk_out_eq_mul (S.map T.toAddMonoidHom) (T q.out)
+  obtain ⟨y, hy⟩ := QuotientAddGroup.mk_out_eq_add (S.map T.toAddMonoidHom) (T q.out)
   rw [h1, hy, hφ _ _ y.2]
 
 variable {K : Type} [Field K] [NumberField K] {κ ι : Type} [Fintype κ] [Fintype ι]

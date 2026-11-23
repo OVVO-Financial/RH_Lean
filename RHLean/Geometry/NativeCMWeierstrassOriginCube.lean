@@ -93,8 +93,8 @@ theorem gs_coordFn {Z : Scheme.{0}} (r : Z ⟶ scheme W) (z : Z) {i : Fin 3} (j 
     gs r z _ (coordFn W j k) = gs r z _ (ratio W i j) * gs r z _ (coordFn W i k) := by
   have hm : r z ∈ coordOpen W i ⊓ (originLB W).U k := ⟨hi, hk⟩
   have e := congrArg (gs r z _) (resG_coordFn (i := i) inf_le_left j k inf_le_right)
-  rwa [gs_res _ z _ hm, gs_mul _ z _ hm, gs_res _ z _ hm, ← resG_ratioOn le_rfl inf_le_left,
-    gs_res _ z _ hm] at e
+  rwa [gs_resG _ z _ hm, gs_mul _ z _ hm, gs_resG _ z _ hm, ← resG_ratioOn le_rfl inf_le_left,
+    gs_resG _ z _ hm] at e
 
 end WeierstrassCurve
 

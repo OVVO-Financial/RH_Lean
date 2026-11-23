@@ -137,7 +137,7 @@ theorem exists_good (hL : L.IsLB) (z : Z) {K : Type} (ψ : K → (Z ⟶ X)) (j :
     · exact (hcov _).choose_spec
   · intro k
     dsimp only
-    rw [dif_pos ⟨k, rfl⟩]
+    rw [dite_eq_left ⟨k, rfl⟩]
     exact hc _ _ (Exists.choose_spec (⟨k, rfl⟩ : ∃ k', ψ k' = ψ k))
 
 variable {L} {K K' : Type} [Fintype K] [Fintype K']

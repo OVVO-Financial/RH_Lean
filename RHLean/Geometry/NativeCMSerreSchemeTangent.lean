@@ -187,7 +187,7 @@ def lieSubgroup (G : Over (Sp R)) [GrpObj G] : AddSubgroup (Additive (epsR R ⟶
   add_mem' {x y} hx hy := by
     change IsTangent (x.toMul * y.toMul)
     rw [isTangent_iff, MonObj.comp_mul,
-      (isTangent_iff _).mp hx, (isTangent_iff _).mp hy, mul_one]
+      (isTangent_iff _).mp hx, (isTangent_iff _).mp hy, _root_.mul_one]
   neg_mem' {x} hx := by
     change IsTangent x.toMul⁻¹
     rw [isTangent_iff, GrpObj.comp_inv, (isTangent_iff _).mp hx, inv_one]

@@ -316,6 +316,30 @@ formula on that image. The induced ample line bundle and identification
 of its metric with this period profile remain to be constructed before
 the source's polarized arithmetic CM-degree theorem applies.
 
+### The actual signed tensor bundle and its integral-eigenline Gram
+
+`NativeCMSerreGramForm` proves the original finite Hermitian-frame Gram
+expansion and its polarization identity. `NativeCMSerreSchemeBundle`
+constructs the actual bundle on the same represented tensor scheme from
+four origin-bundle pullbacks for each frame pair. If `p_i` is the actual
+projection and `g_ij=kLin(x_i,x_j)`, the two maps are `g_ij*p_i` and
+`w*p_j`; the sum, first, second and zero maps carry exponents `1,-1,-1,1`.
+The signed line-bundle atlas and unit rigidification are constructed.
+No free module replaces `B^-1` and no chosen Gram replaces its trace form.
+
+`NativeCMSerreBundleGram` computes these four signed contributions. The
+cross terms recombine using `w+conjugate(w)=1`, and the native trace formula
+turns their sum into the full root-fixing embedding norm of the actual
+integral tensor. `NativeCMSerreSchemeMetric` differentiates the actual
+projection maps and proves that their derivatives are the same integral
+pairing coordinates. On the literal Lie eigenmodule, this signed Gram is
+exactly the existing coordinate-line norm squared, with the coefficient
+coming from the actual sigma automorphy form at the same infinite place.
+This is an algebraic and differential comparison of the actual maps;
+identification with the globally descended bundle curvature, the cubical
+and Rosati identities, relative ampleness and trivial kernel of this
+tensor bundle still require their geometric proofs.
+
 ### Exact analytic Serre periods and the original polarization
 
 `NativeCMSerrePeriods.lean` proves that all embeddings in the selected
@@ -613,6 +637,37 @@ property on the original integral group scheme. These new proofs await
 hosted compilation. The CM scheme action and the analytic identification
 of the polarization metric are separate obligations.
 
+### Constructed sigma automorphy and the origin-section frames
+
+The native `Zeta`, `QuasiPeriod`, `Sigma` and `CanonicalTheta` leaves
+construct the Weierstrass zeta sum and sigma product on the original
+`PeriodPair`. They prove the Legendre relation, simple zeros exactly at
+the period lattice, and the canonical-sigma automorphy law with the
+actual Hermitian form
+
+\[
+H(z,w)=z\overline w/\operatorname{covol}(\Lambda).
+\]
+
+The semicharacter and every lattice multiplier are derived from this
+product. `NativeCMWeierstrassThetaFrame` compares it with the literal
+origin section `x/y`, whose integral dual-number value is `-epsilon`.
+Its analytic frame at zero has value `-u^-1`; no sign is changed to the
+opposite tangent convention. The affine frame is the inverse of sigma,
+and the proved overlap transition is the actual `x/y` transition.
+`NativeCMWeierstrassThetaDescent` extends the origin frame across every
+period using the actual nonzero sigma derivative, proves its multiplier
+law, and proves analytic regularity and nonvanishing on the stated opens.
+
+`NativeCMWeierstrassThetaMetric` proves the multipliers preserve
+`|v|^2 exp(-pi Re H(z,z))`. The norm of the actual canonical section is
+periodic, and the same integral tangent direction has exact squared
+length `pi |u|^2/covol(Lambda)`. This is the previously constructed
+`placeProfile` of the same integral equation; its negative logarithm is
+the native lattice period. Joining all these analytic frames to the whole
+algebraic origin atlas and certifying its curvature remains an explicit
+obligation. No height or class-group mean is assigned as a metric value.
+
 ### Actual shifted lattice and one common phase
 
 `NativeThetaCuspAmbient` identifies `Q tensor_Z La` with the original
@@ -675,6 +730,33 @@ bound and the split-five quotient basis do not supply those objects.
 Global theta/cusp realization, its span and geometric rank lower shares
 also remain open.
 
+### Explicit finite-level theta sums and their exact Haar norms
+
+`NativeThetaCuspFiniteLevel` and `NativeThetaCuspFiniteLevelNorm` construct
+the full general linear group of the literal split-five quotient, with
+`J=top` and trivial character. A single base vacuum is fixed before the
+auxiliary lattice varies. Bezout lifts put the actual quotient columns
+in `2*conjugate(P)*sL`; projectivity, self-duality and coprimality prove
+that distinct columns give orthogonal Heisenberg translates. The finite
+sum therefore has exact squared Haar norm `Nat.card J`, without an
+orthogonality or mass premise. For even auxiliary rank `n` with
+`k+m-1 <= n`, this gives nonzero holomorphic theta functions for every
+actual lattice in `Vset H n 5`, together with their rational Weil
+transforms and unchanged norms.
+
+`NativeThetaCuspQuotientAdjoint` constructs the actual anti-multiplicative
+adjoint between the quotients by `P` and `conjugate(P)` from the perfect
+integer trace pairing and projective lifting. Its representability and
+nondegeneracy, and the literal mod-five pairing divisibility equivalence,
+are proved for the prescribed native datum. This supplies the finite
+adjoint needed to transport a genuine coefficient character.
+
+This full finite group is a legitimate constructed analytic level family.
+The coefficient-matched subgroup/character from the geometric cover,
+its isotropic system and Fourier identity, global cusp realization,
+Petersson measure identification and geometric rank shares remain open.
+The finite Haar norm is not a Petersson mass.
+
 ### Exact arithmetic bridge identified by the source
 
 The source's `MeanLogCovolumeEqMeanClassGroup` compares the arithmetic and
@@ -717,11 +799,11 @@ ASK/MAIN recombination, finite-place gains and divisor
 
 | Supplier | Constructed here | Still required for the physical comparison |
 | --- | --- | --- |
-| CM seed | Actual quadratic order, polarized analytic quotient, integral smooth proper group scheme, exact tangent/invariant comparison, all four origin-polarization properties, actual rational CM morphism on its denominator open | Global and integral CM action, analytic polarization-metric identification, arithmetic Lie-period comparison |
-| Serre construction | Original projective module, perfect Hermitian form, trace-frame scheme equalizer and integral Lie tensor, full coefficient action, exact analytic period kernel and rank | Constructed seed scheme action and its derivative compatibility; induced polarization and arithmetic metric comparison |
+| CM seed | Actual quadratic order, polarized analytic quotient, integral smooth proper group scheme, exact tangent/invariant comparison, all four origin-polarization properties, actual full CM order action over a finite extension, explicit sigma automorphy and section frames | Integral CM action, full analytic polarization-metric identification, arithmetic Lie-period comparison |
+| Serre construction | Original projective module, perfect Hermitian form, trace-frame scheme equalizer and integral Lie tensor, full coefficient action, exact analytic period kernel and rank, literal signed origin-pullback bundle and intrinsic-eigenline Gram | Integral seed scheme action and its derivative compatibility; cubical/Rosati identities, tensor polarization and global arithmetic metric comparison |
 | CM degree | Original covolume, actual elliptic integral tangent scale, integral Lie-tensor comparison given the genuine seed action, exact eigenideal and finite correction, native analytic Chowla--Selberg class mean, derived double-sum arithmetic mean from actual isogeny data | Instantiation of the seed scheme action and its derivative, polarization metric identification, integral ideal-isogeny family and two-sided derivative integrality |
 | Component masses | Exact measured restriction and all-place degree correction | Actual global automorphic component spaces and Petersson measure/Gram identification |
-| Cusp family and ranks | Existing polynomial span retained, actual auxiliary projective tensor vacua with exact overlap, common phase, rational theta convergence/injectivity/holomorphy, genuine rational Weil covariance and Haar unitarity, split-five modulus and measured direct-sum rank | Finite subgroup and character, isotropic system, algebraic/integral theta realization, global cusp span, orbit separation and geometric jet lower shares |
+| Cusp family and ranks | Existing polynomial span retained, actual auxiliary projective tensor vacua with exact overlap, common phase, rational theta convergence/injectivity/holomorphy, genuine rational Weil covariance and Haar unitarity, split-five modulus, explicit full-level finite theta sums and exact Haar norms, quotient adjoint and measured direct-sum rank | Coefficient-matched subgroup and character, isotropic system, algebraic/integral theta realization, global cusp span, orbit separation and geometric jet lower shares |
 
 The source's genuine arithmetic period is
 
@@ -837,6 +919,21 @@ The full native build was skipped. The new polarization, arithmetic-mean
 and Weil cuts still require a successful hosted closure and terminal-axiom
 audit before being treated as verified native suppliers.
 
+The eleventh snapshot `2299ab167b210f28ba2c3f41bea7df82fdceee71`, Actions
+run `45279417852`, passed the source audits. The warning-fatal closure job
+`138059899523` failed, and full native compilation was skipped. Hosted
+diagnostics compiled the intrinsic integral tangent, Serre scheme action,
+ideal-isogeny covolume theorem, section-point evaluations and most of the
+Fourier/Poisson, rational theta and holomorphy chain cleanly. Remaining
+errors were localized to basis decomposition, semireducible section
+restriction, conjugation scope, one shadowed monoid identity, cusp
+coordinate rewrites and warning checks. The twelfth snapshot preserves
+the statements while repairing these errors. Its new global CM, explicit
+sigma, signed tensor-bundle and finite-level leaves still require hosted
+verification. The audit retains every prior declaration root; redundant
+direct imports are removed only when retained imports transitively cover
+them. No audit obligation or build gate is weakened.
+
 ## Located continuation without inflated import closures
 
 The CM-action branch now uses a smaller cut than the general division-polynomial
@@ -861,15 +958,27 @@ curve identity from the actual elliptic point formula.
 at the denominator and the actual scheme morphism with coordinates
 `A/D` and `alpha^-1*(A'D-AD')*y/D^2`.
 `NativeCMWeierstrassCMOpen` supplies those data for the same finite field,
-same normalized seed equation and original CM generator. Extending this
-map across the denominator-zero locus, and then over the integers,
-remains open; the denominator-open construction is not a global CM action.
+same normalized seed equation and original CM generator.
+`NativeCMWeierstrassGeometricPoints` proves detection of morphisms from
+actual embedded algebraic points. `OpenPoint`, `GeometricGlue` and
+`RationalGlobal` construct a finite-extension point outside the denominator
+kernel, cover by the open and its translate, and glue the actual rational
+map using the original group law. `NativeCMWeierstrassCMGlobal` thereby
+constructs a global monoid scheme endomorphism over a finite extension,
+retaining the exact open restriction, original complex-point CM formula
+and quadratic order relation. `NativeCMWeierstrassCMOrderAction` then
+constructs the full `SerreScheme.OAct (OK G)` through actual integer
+coordinates in `1,wK`; fixed-embedding geometric detection proves all
+ring laws and the exact all-element action on the same period lattice.
+Extension over the integers and compatibility with the original integral
+tangent remain open.
 
 For the cusp norm/overlap branch, the declaration cut now reaches the
 actual auxiliary tensor-lattice family, normalized vacua, exact relative-index
 power overlap, holomorphy/injectivity of its rational theta transform and
 the Fourier/Poisson proof of rational Weil covariance.
 It uses Heisenberg unitarity and cocycles, finite quotient projections,
-projective pseudobases and literal shifted self-duality. The finite level
-subgroup and character, global automorphic realization and measured
-geometric rank shares remain open.
+projective pseudobases and literal shifted self-duality. The explicit full-level theta sums now have their exact Haar norms and
+quotient adjoint. The coefficient-matched subgroup/character and geometric
+Fourier identity, global automorphic realization and measured geometric
+rank shares remain open.

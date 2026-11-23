@@ -121,8 +121,10 @@ theorem coordinateForm_bijective (s : ℤ) (hs : s = 1 ∨ s = -1) :
     intro x
     have hx : x = x.1 • (1, 0) + x.2 • (0, 1) := by ext <;> simp
     have hf : f x = x.1 * f (1, 0) + x.2 * f (0, 1) := by
-      conv_lhs => rw [hx]
-      simp
+      calc
+        f x = f (x.1 • (1, 0) + x.2 • (0, 1)) := congrArg f hx
+        _ = x.1 * f (1, 0) + x.2 * f (0, 1) := by
+          simp only [map_add, map_smul, smul_eq_mul]
     rcases hs with rfl | rfl <;> simp [coordinateForm, hf] <;> ring
 
 /-- The polarization is principal on the original integral order. -/
