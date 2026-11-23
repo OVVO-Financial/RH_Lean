@@ -1,6 +1,12 @@
 name: Targeted Lean iteration
 
 on:
+  workflow_call:
+    inputs:
+      targets:
+        description: Changed research entry points selected by the source audit
+        required: true
+        type: string
   workflow_dispatch:
     inputs:
       targets:
@@ -8,18 +14,6 @@ on:
         required: true
         default: research/VF_MID_LI_UNIFORM_QUADRATURE.lean
         type: string
-  pull_request:
-    types: [opened, synchronize, reopened]
-    paths:
-      # Compile new/modified research proof files on draft PRs.
-      - 'research/*.lean'
-      - 'research/**/*.lean'
-      - '.github/actions/**'
-      - '.github/workflows/research-iteration.yml'
-      - 'scripts/compile_research_import_closure.py'
-      - 'scripts/test_research_compile.py'
-      - 'scripts/repo_index.py'
-      - 'scripts/rhlean_kg.py'
 
 permissions:
   contents: read
@@ -34,48 +28,25 @@ jobs:
     timeout-minutes: 35
     steps:
       - uses: actions/checkout@v4
-      # Compute exact changed proof targets before expensive dependency setup.
-      - name: Choose changed research Lean targets
+      # PR target selection happens in the cheap parent audit. This workflow
+      # is reusable/manual so it cannot race the full build independently.
+      - name: Resolve research Lean targets
         id: targets
         shell: bash
         env:
-          EVENT_NAME: ${{ github.event_name }}
-          PR_BASE_SHA: ${{ github.event.pull_request.base.sha }}
-          MANUAL_TARGETS: ${{ inputs.targets }}
+          RHLEAN_RESEARCH_TARGETS: ${{ inputs.targets }}
         run: |
-          set -euo pipefail
-          if [[ "$EVENT_NAME" == pull_request ]]; then
-            if [[ ! "$PR_BASE_SHA" =~ ^[0-9a-f]{40}$ ]]; then
-              echo 'Missing valid PR base SHA.' >&2
-              exit 1
-            fi
-            if ! git cat-file -e "$PR_BASE_SHA^{commit}" 2>/dev/null; then
-              git fetch --no-tags --depth=1 origin "$PR_BASE_SHA"
-            fi
-            git diff --name-only --diff-filter=ACMR "$PR_BASE_SHA" HEAD -- research/ > /tmp/research-target-changes.txt
-            # These files import OAI from openai/math. They are kernel-checked
-            # in the mandatory certified-core, full-original-certificate, and
-            # real-ideal-fiber workflows, which install the upstream OAI DAG.
-            # They cannot compile in the generic native-only import closure.
-            # This exclusion is NOT proof acceptance for those dedicated gates.
-            # The two universal-envelope fractional leaves likewise run in
-            # universal-envelope-law.yml's mandatory fractional-owner-proof.
-            changed="$(grep -E '^research/.+[.]lean$' /tmp/research-target-changes.txt | grep -vE '^research/(oai_434/|VF_919_OPENAI_434_UNCONDITIONAL_SQUARE_BLOCK_COVARIANCE_20261019[.]lean$|VF_919_OPENAI_CERTIFIED_ORIGINAL_SQUARE_COVARIANCE_20261019[.]lean$|UNIVERSAL_ENVELOPE_(OWNER_FRACTIONAL|FRACTIONAL_ACCEPTANCE)[.]lean$)' | sort -u | paste -sd ' ' - || true)"
-            targets="$changed"
-            if [[ -z "$targets" ]]; then
-              targets="research/VF_MID_LI_UNIFORM_QUADRATURE.lean"
-            fi
-          else
-            targets="$MANUAL_TARGETS"
-          fi
-          if [[ -z "$targets" ]]; then
-            echo 'No research Lean target provided.' >&2
-            exit 1
-          fi
-          echo "targets=$targets" >> "$GITHUB_OUTPUT"
-          echo "Selected Lean research targets: $targets"
-          echo "### Research Lean targets" >> "$GITHUB_STEP_SUMMARY"
-          echo "$targets" >> "$GITHUB_STEP_SUMMARY"
+          python3 - <<'PY'
+          import os
+          targets = ' '.join(os.environ['RHLEAN_RESEARCH_TARGETS'].split())
+          if not targets:
+              raise SystemExit('No research Lean target provided.')
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as output:
+              output.write(f'targets={targets}\n')
+          with open(os.environ['GITHUB_STEP_SUMMARY'], 'a') as summary:
+              summary.write(f'### Research Lean targets\n{targets}\n')
+          print(f'Selected Lean research targets: {targets}')
+          PY
 
       - name: Check research cache regressions
         run: python3 -m unittest discover -s scripts -p test_research_compile.py -v
@@ -88,14 +59,17 @@ jobs:
             .lake/packages/PrimeNumberTheoremAnd/.lake/build
           key: pntplus-build-v1-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
       - name: Restore native library artifacts
+        id: preflightcache
         uses: actions/cache/restore@v5
         with:
           path: .lake/build
-          key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'RHLean.lean', 'RHLean/**/*.lean') }}
+          key: rhlean-preflight-build-v1-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'RHLean.lean', 'RHLean/**/*.lean') }}
           restore-keys: |
+            rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'RHLean.lean', 'RHLean/**/*.lean') }}
+            rhlean-preflight-build-v1-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-
             rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-
-            rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'RHLean.lean', 'RHLean/**/*.lean') }}
       - name: Compile selected research closure with warnings fatal
+        id: compile
         uses: ./.github/actions/research-compile
         with:
           targets: ${{ steps.targets.outputs.targets }}
@@ -110,3 +84,15 @@ jobs:
           touch "$first_target"
           python3 scripts/compile_research_import_closure.py | tee research-cache-smoke.log
           grep -q 'compiled=0 cached=' research-cache-smoke.log
+
+      # Preserve completed native prerequisites for both the next stage and
+      # a repair iteration. The key is distinct from a complete root build.
+      - name: Save completed native prerequisites
+        if: >-
+          !cancelled() && steps.preflightcache.outcome == 'success' &&
+          steps.compile.outcome != 'skipped' &&
+          steps.preflightcache.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v5
+        with:
+          path: .lake/build
+          key: ${{ steps.preflightcache.outputs.cache-primary-key }}

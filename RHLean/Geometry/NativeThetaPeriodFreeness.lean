@@ -250,7 +250,7 @@ variable {φ : Frame} (H : HostRaw φ)
 theorem prescribedPeriodMap_span (B : Ideal (𝓞 H.E))
     (hB : differentIdeal (𝓞 H.K) (𝓞 H.E) = B * (H.conj • B)) (k m j : ℕ) :
     Submodule.span ℝ (Set.range (prescribedPeriodMap H B hB k m j)) = ⊤ := by
-  letI := twistedLattice_free_int H B (k + m - 1)
+  let := twistedLattice_free_int H B (k + m - 1)
   exact periodOfRealEquiv_span (twistedPeriodRealEquiv H B hB (k + m - 1) (m - j))
 
 /-- Whole-torus finite-order freeness on the actual native prescribed
@@ -273,8 +273,8 @@ theorem prescribedPeriod_finite_order_unipotent_eq_id
     F = LinearMap.id ∧ α = AddMonoidHom.id (prescribedLattice H B k m) ∧
       quotientMap (prescribedPeriodMap H B hB k m j) F α hFP =
         AddMonoidHom.id (PeriodQuotient (prescribedPeriodMap H B hB k m j)) := by
-  letI := twistedLattice_free_int H B (k + m - 1)
-  letI := twistedLattice_finite_int H B (k + m - 1)
+  let := twistedLattice_free_int H B (k + m - 1)
+  let := twistedLattice_finite_int H B (k + m - 1)
   apply finite_order_unipotent_periodAction_eq_id
     (prescribedPeriodMap H B hB k m j) (prescribedPeriodMap_injective H B hB k m j)
     (prescribedPeriodMap_span H B hB k m j) F α hFP n g u hn hαn hg ?_ hu

@@ -135,7 +135,7 @@ theorem prescribedPeriod_finite_order_unipotent_eq_id_of_index
     F = LinearMap.id ∧ α = AddMonoidHom.id (prescribedLattice H B k m) ∧
       quotientMap (prescribedPeriodMap H B hB k m j) F α hFP =
         AddMonoidHom.id (PeriodQuotient (prescribedPeriodMap H B hB k m j)) := by
-  letI := twistedLattice_free_int H B (k + m - 1)
+  let := twistedLattice_free_int H B (k + m - 1)
   exact finite_order_unipotent_periodAction_eq_id_of_index
     (prescribedPeriodMap H B hB k m j) (prescribedPeriodMap_injective H B hB k m j)
     (prescribedPeriodMap_span H B hB k m j) F α hFP n g u hn hαn hg hgu hu
@@ -158,7 +158,7 @@ theorem prescribedPeriod_finite_order_congruent_five_eq_id
     F = LinearMap.id ∧ α = AddMonoidHom.id (prescribedLattice H B k m) ∧
       quotientMap (prescribedPeriodMap H B hB k m j) F α hFP =
         AddMonoidHom.id (PeriodQuotient (prescribedPeriodMap H B hB k m j)) := by
-  letI := twistedLattice_free_int H B (k + m - 1)
+  let := twistedLattice_free_int H B (k + m - 1)
   exact finite_order_congruent_periodAction_eq_id
     (prescribedPeriodMap H B hB k m j) (prescribedPeriodMap_injective H B hB k m j)
     (prescribedPeriodMap_span H B hB k m j) F α hFP n 5 hn hαn

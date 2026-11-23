@@ -28,7 +28,7 @@ set_option autoImplicit false
 
 noncomputable section
 
-open scoped BigOperators
+open scoped BigOperators Classical
 
 namespace RHLean.Analysis.AlpogeThin
 
@@ -47,9 +47,12 @@ theorem nativeDyadicDInvolution_ne_zero (e : ℕ) :
 theorem nativeDyadicFullHostEquiv_dInvolution (e : ℕ) :
     nativeDyadicFullHostEquiv e (Multiplicative.ofAdd (nativeDyadicDInvolution e)) =
       (nativeDyadicFrame e).iod := by
-  simp only [nativeDyadicFullHostEquiv_apply, nativeDyadicDInvolution,
-    nativeDyadicSignEquiv_symm_zero, nativeDyadicSignEquiv_symm_one,
-    map_zero, ofAdd_zero, Frame.iod]
+  rw [nativeDyadicFullHostEquiv_apply]
+  change ((nativeDyadicSignEquiv.symm (Multiplicative.ofAdd (0 : ZMod 2)),
+    nativeDyadicSignEquiv.symm (Multiplicative.ofAdd (1 : ZMod 2))),
+      Multiplicative.ofAdd ((nativeDyadicFrameEquiv e).symm 0)) = ((1, -1), 1)
+  simp only [nativeDyadicSignEquiv_symm_zero, nativeDyadicSignEquiv_symm_one,
+    map_zero, ofAdd_zero]
 
 private theorem nativePrimePowerLegU_of_modEq
     {N p a : ℕ} [NeZero N] [Fact p.Prime] (hp : p ∣ N)
@@ -78,11 +81,8 @@ theorem nativeDyadicHostData_inertia_unramified
     (e q d p : ℕ) [Fact q.Prime] [Fact d.Prime]
     (hp : p.Prime) (hpN : ¬ p ∣ alpogeNativeHostN e q d) :
     (alpogeNativeHostData e q d).inertia p = ⊥ := by
-  change Subgroup.toAddSubgroup'
-    ((alpogeNativeLocalUnits (alpogeNativeHostN e q d) p).map
-      (alpogeNativeRecMap e q d)) = ⊥
-  rw [alpogeNativeLocalUnits_unramified _ p hp hpN, Subgroup.map_bot]
-  rfl
+  simp [alpogeNativeHostData, alpogeNativeCftData,
+    alpogeNativeLocalUnits_unramified _ p hp hpN]
 
 /-- All elements of the literal native d-inertia subgroup, including both
 directions of the membership characterization. -/
@@ -109,12 +109,14 @@ theorem nativeDyadicHostData_mem_inertia_d
     · left
       apply Multiplicative.ofAdd.injective
       apply (nativeDyadicFullHostEquiv e).injective
-      simpa only [map_one, ← hug] using h
+      rw [← hug]
+      change nativeDyadicArt e q d u = 1
+      exact h
     · right
       apply Multiplicative.ofAdd.injective
       apply (nativeDyadicFullHostEquiv e).injective
-      rw [nativeDyadicFullHostEquiv_dInvolution]
-      simpa only [← hug] using h
+      rw [nativeDyadicFullHostEquiv_dInvolution, ← hug]
+      exact h
   · rintro (rfl | rfl)
     · exact Subgroup.one_mem _
     · obtain ⟨u, hu, hi⟩ := nativeDyadicArt_exists_iod e q d hd2 hqd hd4
@@ -158,7 +160,7 @@ theorem nativeDyadicHostData_frob_d_inPhi
     rw [hcompl] at hmul
     have hpos : 0 < 2 ^ (e + 2) * q :=
       mul_pos (pow_pos (by decide) _) (Fact.out : q.Prime).pos
-    unfold alpogeNativeHostN at hmul
+    unfold alpogeNativeHostN at hmul ⊢
     nlinarith
   have hu := (alpogeNativeFrobUnit_modEq (N := alpogeNativeHostN e q d)
     (Fact.out : d.Prime)).2
@@ -213,7 +215,9 @@ theorem nativeDyadicHostData_typeI
     have hu' := (val_modEq_one_iff
       (Nat.ordCompl_dvd (alpogeNativeHostN e q d) p) u).mpr hu
     have h := nativePrimePowerRec_inPhi_of_modEq_one e q d u (hu'.of_dvd hdM)
-    simpa only [hug] using h
+    rw [hug] at h
+    change alpogeNativeInPhi g at h
+    exact h
   · have hu := (alpogeNativeFrobUnit_modEq (N := alpogeNativeHostN e q d) hp).1
     have hleg := nativePrimePowerLegU_of_modEq (alpogeNativeD_dvd_hostN e q d)
       (alpogeNativeFrobUnit (alpogeNativeHostN e q d) p) (hu.of_dvd hdM)
@@ -308,12 +312,24 @@ theorem nativeDyadicHostPrimePowerWeight_unramified
       Odd i ∧ jacobiSym (-(d : ℤ)) p = -1 := by
     rw [nativeDyadic_not_inPhi_nsmul,
       nativeDyadicHostData_frob_not_inPhi_iff e q d p hH hp hpN]
-  unfold nativeDyadicHostPrimePowerWeight
-  simp only [hI, AddSubgroup.mem_bot, sub_eq_zero]
+  have hmem (g : AlpogeNativeE0 × AlpogeNativeDyadicH e) :
+      g - i • (alpogeNativeHostData e q d).frob p ∈
+        (alpogeNativeHostData e q d).inertia p ↔
+      g = i • (alpogeNativeHostData e q d).frob p := by
+    rw [hI, AddSubgroup.mem_bot]
+    exact sub_eq_zero
   have hc : (Finset.univ.filter (fun u : AlpogeNativeE0 × AlpogeNativeDyadicH e =>
-      u = 0)).card = 1 := by simp
+      u ∈ (alpogeNativeHostData e q d).inertia p)).card = 1 := by
+    have hs : Finset.univ.filter
+        (fun u : AlpogeNativeE0 × AlpogeNativeDyadicH e =>
+          u ∈ (alpogeNativeHostData e q d).inertia p) = {0} := by
+      ext u
+      simp only [Finset.mem_filter, Finset.mem_univ, true_and, hI,
+        AddSubgroup.mem_bot, Finset.mem_singleton]
+    rw [hs, Finset.card_singleton]
+  unfold nativeDyadicHostPrimePowerWeight
   rw [hc]
-  simp only [Nat.cast_one, div_one, ite_mul, zero_mul]
+  simp only [hmem, Nat.cast_one, div_one, ite_mul, zero_mul]
   by_cases h : Odd i ∧ jacobiSym (-(d : ℤ)) p = -1
   · rw [ite_eq_left h]
     have hm : i • (alpogeNativeHostData e q d).frob p ∈ Finset.univ.filter
@@ -379,10 +395,11 @@ theorem nativeDyadicHostPrimePowerWeight_d
   have hm (g : AlpogeNativeE0 × AlpogeNativeDyadicH e)
       (hg : ¬ alpogeNativeInPhi g) :
       g - g0 ∈ (alpogeNativeHostData e q d).inertia d ↔ g = g1 := by
-    rw [nativeDyadicHostData_mem_inertia_d e q d hH, sub_eq_zero]
+    rw [nativeDyadicHostData_mem_inertia_d e q d hH]
     constructor
     · rintro (h | h)
-      · subst g
+      · have heq : g = g0 := sub_eq_zero.mp h
+        subst g
         exact (hg hg0).elim
       · exact (sub_eq_iff_eq_add).mp h
     · intro h
@@ -474,7 +491,10 @@ private theorem nativeDyadicDPrimeASK_zero_of_lt
         i • ((alpogeNativeHostData e q d).frob d).1.1 ≠ 0
       rw [hf, smul_zero, add_zero]
       norm_num [nativeDyadicDInvolution]
-    · exact hNd.trans_le (Nat.le_self_pow (Finset.mem_Icc.mp hi).1 d)
+    · have hi0 : i ≠ 0 := by
+        have := (Finset.mem_Icc.mp hi).1
+        omega
+      exact hNd.trans_le (Nat.le_self_pow hi0 d)
   rw [hs, mul_zero]
 
 /-- The literal native full ASK is the sum of all original odd-power
@@ -509,7 +529,7 @@ theorem nativeDyadicHost_fullASK_eq_oddClassSums_add_dCorrection
       have hdN := alpogeNativeD_dvd_hostN e q d
       simp only [hdN, not_true_eq_false, false_and, ↓reduceIte, zero_add]
       simp only [nativeDyadicHostPrimePowerWeight_d e q d _ hH]
-      exact (Finset.mul_sum).symm
+      exact (Finset.mul_sum _ _ _).symm
     · rw [ite_eq_right hpd, add_zero]
       by_cases hpN : p ∣ alpogeNativeHostN e q d
       · have hpA : p ∣ 2 ^ (e + 2) * q := by
@@ -535,7 +555,8 @@ theorem nativeDyadicHost_fullASK_eq_oddClassSums_add_dCorrection
   have hodd : (∑ p ∈ P,
       if ¬ p ∣ alpogeNativeHostN e q d ∧ jacobiSym (-(d : ℤ)) p = -1 then A p else 0) =
       nativeDyadicOddClassASK e q d N a t w := by
-    exact (Finset.sum_filter).symm
+    exact (Finset.sum_filter (s := P)
+      (fun p => ¬ p ∣ alpogeNativeHostN e q d ∧ jacobiSym (-(d : ℤ)) p = -1) A).symm
   rw [hodd]
   congr 1
   by_cases hdP : d ∈ P
@@ -576,7 +597,7 @@ private theorem nativePrimePower_geom_positive
     ∑ i ∈ I, r ^ i ≤ r / (1 - r) := by
   have hsub : I ⊆ Finset.Ico 1 (I.sup id + 1) := by
     intro i hi
-    have := Finset.le_sup (f := id) hi
+    have hisup : i ≤ I.sup id := Finset.le_sup (f := id) hi
     exact Finset.mem_Ico.mpr ⟨hI i hi, by omega⟩
   have hsum := Finset.sum_le_sum_of_subset_of_nonneg hsub
     (fun i _ _ => pow_nonneg hr0 i)
@@ -701,7 +722,6 @@ theorem nativeDyadicDPrimeASK_normalized_le
   have hnorm : 0 < (T.card : ℝ) * (J.card : ℝ) * b * Delta / 2 := by positivity
   apply (div_le_div_of_nonneg_right hbound hnorm.le).trans_eq
   field_simp [hJpos.ne', hTpos.ne', hb.ne', hDelta.ne', hdpos.ne']
-  ring
 
 end RHLean.Analysis.AlpogeThin
 

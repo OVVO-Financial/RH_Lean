@@ -121,6 +121,42 @@ class ResearchCacheTests(unittest.TestCase):
         self.write('A', 'import research.B\ndef a := b\n')
         self.assertEqual(self.compile()[0], (1, 2))
 
+    def test_failed_dependency_stops_descendants_and_later_roots(self):
+        self.write('D', 'FAIL\n')
+        with self.assertRaises(subprocess.CalledProcessError):
+            self.compile(('A', 'C'))
+        self.assertEqual(self.calls, ['D'])
+        for name in ('D', 'B', 'A', 'C'):
+            self.assertFalse(self.artifact(name).exists())
+            self.assertFalse(self.artifact(name, '.olean.json').exists())
+
+    def test_failed_native_prerequisites_never_start_research_compilation(self):
+        closure = cc.Closure(self.root)
+        command = ['lake', 'build', 'RHLean.Native']
+        with patch.object(cc, 'ROOT', self.root), \
+             patch.object(cc, 'Closure', return_value=closure), \
+             patch.object(cc.sys, 'argv', ['compile_research_import_closure.py',
+                                          '--build-library', 'research/A.lean']), \
+             patch.object(cc, 'run_lake_build',
+                          side_effect=subprocess.CalledProcessError(1, command)) as build:
+            with self.assertRaises(subprocess.CalledProcessError):
+                cc.main()
+        build.assert_called_once_with(['RHLean.Native'], cwd=self.root)
+        self.assertEqual(self.calls, [])
+        self.assertFalse(self.artifact('D', '.olean.json').exists())
+
+    def test_successful_native_prerequisites_continue_to_research_compilation(self):
+        closure = cc.Closure(self.root)
+        with patch.object(cc, 'ROOT', self.root), \
+             patch.object(cc, 'Closure', return_value=closure), \
+             patch.object(cc.sys, 'argv', ['compile_research_import_closure.py',
+                                          '--build-library', 'research/A.lean']), \
+             patch.object(cc, 'run_lake_build') as build, \
+             contextlib.redirect_stdout(io.StringIO()):
+            cc.main()
+        build.assert_called_once_with(['RHLean.Native'], cwd=self.root)
+        self.assertEqual(self.calls, ['D', 'B', 'A'])
+
     def test_multiple_roots_share_one_traversal(self):
         result, plan = self.compile(('A', 'B', 'C', 'A'))
         self.assertEqual(result, (4, 0))

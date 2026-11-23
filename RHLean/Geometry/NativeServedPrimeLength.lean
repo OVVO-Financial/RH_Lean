@@ -369,7 +369,7 @@ theorem lengthPart2 {R X : Type} [CommRing R] [IsDomain R] [IsDiscreteValuationR
       ((τ * d + ∑ j ∈ Finset.range V, S * (C j).card : ℕ) : ℕ∞) := by
     rw [length_eq_length_add_length_quot A0, Nat.cast_add]
     exact (add_le_add (hA0.trans hE0) hQ).trans (le_of_eq (add_comm _ _))
-  obtain ⟨ℓ, hℓ⟩ := ENat.ne_top_iff_exists.mp (ne_top_of_le_ne_top (ENat.coe_ne_top _) hL)
+  obtain ⟨ℓ, hℓ⟩ := ENat.ne_top_iff_exists.mp (ne_top_of_le_ne_top (ENat.natCast_ne_top _) hL)
   refine ⟨ℓ, hℓ.symm, ?_⟩
   have hℓT : ℓ ≤ τ * d + ∑ j ∈ Finset.range V, S * (C j).card := by
     rw [← hℓ] at hL

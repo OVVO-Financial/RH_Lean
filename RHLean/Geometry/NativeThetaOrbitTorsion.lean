@@ -194,7 +194,7 @@ theorem prime_order {g : ℕ} (hg : g.Prime) (hprim : ∀ x : A, ∃ j : ℕ, g 
 theorem nil_index {g r : ℕ} (hg : g.Prime) (T : Finset A) (hT : T.card ≤ g ^ r)
     (hTA : ∀ x : A, g • x = 0 → x ∈ T) (N : AddMonoid.End A) (m : ℕ)
     (hm : ∀ x : A, g • x = 0 → (N ^ m) x = 0) : ∀ x : A, g • x = 0 → (N ^ r) x = 0 := by
-  letI := Fact.mk hg
+  let := Fact.mk hg
   let S : AddSubgroup A :=
     { carrier := {x | g • x = 0}
       add_mem' := fun {a b} ha hb => by
@@ -207,9 +207,9 @@ theorem nil_index {g r : ℕ} (hg : g.Prime) (T : Finset A) (hT : T.card ≤ g ^
   have hS : ∀ x : A, x ∈ S ↔ g • x = 0 := fun x => Iff.rfl
   obtain ⟨_⟩ : Nonempty (Module (ZMod g) S) := ⟨AddCommGroup.zmodModule (fun x => Subtype.ext (by
     simpa using (hS x.1).mp x.2))⟩
-  letI : Finite S := Finite.of_injective (fun x : S => (⟨x.1, hTA x.1 ((hS x.1).mp x.2)⟩ : T))
+  let : Finite S := Finite.of_injective (fun x : S => (⟨x.1, hTA x.1 ((hS x.1).mp x.2)⟩ : T))
     (by intro a b h; apply Subtype.ext; simpa using congrArg Subtype.val h)
-  letI : Module.Finite (ZMod g) S := Module.Finite.of_finite
+  let : Module.Finite (ZMod g) S := Module.Finite.of_finite
   have hcard : Nat.card S ≤ g ^ r := by
     have := Nat.card_le_card_of_injective (fun x : S => (⟨x.1, hTA x.1 ((hS x.1).mp x.2)⟩ : T))
       (by intro a b h; apply Subtype.ext; simpa using congrArg Subtype.val h)

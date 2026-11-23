@@ -15,24 +15,25 @@ The further batches add the actual period quotient and its finite-order
 freeness, a rank-independent fixed-level criterion, full formal-jet and
 descended-value triangular covariance, local chart descent, the exact
 prime-power decomposition with its paid ramified contribution, and the
-served-prime quotient-length estimate. Hosted Lean verification is blocked
-at this checkpoint. No local Lean is run,
+served-prime quotient-length estimate. Hosted Lean verification and compiler
+repairs are tracked on PR #1199. No local Lean is run,
 no proof budget is raised, and only propext, Classical.choice and Quot.sound
 are permitted terminal axioms. The companion research audit checks exact
 public types and rejects any other terminal axiom.
 
-Publication status: NOT_PUBLISHED. Automatic approval review rejected the
-branch push, and rejected a second attempt after the exact public repository,
-authenticated push permission, existing non-main authorization, and the
-mathematical-only payload had been checked. The second review requires
-explicit user approval of this particular payload before it is published.
-No alternative write path is used. Hosted CI therefore remains
-BLOCKED_CI_NOT_TRIGGERED; the new source and audit are uncompiled. The first
-two local commits are 63fe4cb35c5bfba247c698b1ae7f4b63c5c20c36 and
-d7695f1e58b7ca462c06158d5ec88f7100142c6b on
-research/alpoge-native-theta-realization-20261123; the completion commit
-contains this revised report. The destination is
-https://github.com/OVVO-Financial/RH_Lean, and no main update or merge is proposed.
+Publication status: PUBLISHED in
+[PR #1199](https://github.com/OVVO-Financial/RH_Lean/pull/1199), branch
+research/alpoge-native-theta-realization-20261123. The initial local
+checkpoint was blocked by automatic approval review. The user's subsequent
+instruction, "Put it on main!", explicitly authorized publication and merge.
+The shell transport had no GitHub credentials, so the connected GitHub writer
+published commit f9c7a64acd3a9a00827e58931c19a7a044d807db. Its tree
+064ae8c9988ee241392b59607d40d8d618530ed8 exactly matches local completion
+commit c12f95bdcfb9efb57f28e795706a7cd76394a0df, which preserves the preceding
+local commits 63fe4cb35c5bfba247c698b1ae7f4b63c5c20c36 and
+d7695f1e58b7ca462c06158d5ec88f7100142c6b. The published commit metadata differs;
+the file contents do not. Hosted checks are required before the authorized
+merge to main. This report will record their observed result.
 
 The complete native signed Gz bound and RH remain open. In particular, the
 construction below does not assert that an arbitrary formal theta germ has
@@ -362,12 +363,13 @@ The companion audit has sixty-two concrete declaration roots and is prepared
 to reject terminal axioms other than propext, Classical.choice and Quot.sound;
 it has not yet executed. No Lean or Lake command was run locally.
 
-The publication payload is precisely the nineteen mathematical modules,
-root import manifest, mathematical report and research audit. It contains
-no workflow, permission or agent-schedule change. Approval must cover this
-specific public payload before the branch can be pushed and a draft PR can
-trigger the required hosted checks. After those checks, repair actual
-compiler failures before treating any declaration here as verified.
+The initial publication payload is precisely the nineteen mathematical
+modules, root import manifest, mathematical report and research audit.
+The user's subsequent fail-fast request also adds the CI changes below.
+The explicit user authorization covers publication and merge; the required
+hosted checks run on PR #1199. Repair actual compiler failures before treating
+any declaration here as verified. Local static checks do not replace the
+hosted kernel audit.
 
 The first geometric supplying proof to instantiate next is
 `GlobalTheory.exists_cover_shortVal_data` in
@@ -393,7 +395,39 @@ open. No universal Gz bound or RH closure is claimed.
 descent_payment_ack=ALPOGE_NATIVE_DESCENT_PAYMENT_V1
 tractability_ack=ALPOGE_VIOLE_TRACTABLE_RH_V1
 MATHEMATICAL_STATUS=GENUINE_PARTIAL_SOURCE_REVIEWED
-FORMAL_STATUS=BLOCKED_CI_NOT_TRIGGERED
-PUBLICATION_STATUS=NOT_PUBLISHED
+FORMAL_STATUS=PENDING_HOSTED_CI
+PUBLICATION_STATUS=PUBLISHED_PR_1199
 GLOBAL_NATIVE_BOUND=OPEN
 ```
+
+## 11. Hosted repair and fail-fast CI
+
+The first published head f9c7a64acd3a9a00827e58931c19a7a044d807db failed both
+the native and targeted hosted builds. The diagnostics identified concrete
+elaboration/API issues in chart agreement, formal invariant derivatives,
+prime-power arithmetic and period torsion, plus owned-source warnings.
+The first repair preserves the theorem statements while supplying explicit
+finite-sum functions, host-tag and quotient coercions, formal substitutions,
+and current Mathlib API names. No proof budget or linter is weakened. The
+sixty-two-root audit cannot run until its native prerequisites compile.
+
+The user requested that CI fail faster and stop further runs after earlier
+failures. The pipeline now orders the cheap source audit, changed research
+closure, and full native build. The research workflow is reusable/manual,
+so a PR no longer starts an independent duplicate research build. An earlier
+failure skips the later build; a metadata-only job cancels still-active
+workflows associated with the same PR number, head SHA, branch and repository.
+It cannot cancel the current workflow or a different revision or PR.
+
+Pinned Lake v4.34.1 has no fail-fast CLI flag. The new Python process monitor
+streams its output and stops its own process group on a compiler failure or
+RHLean-owned warning. Dependency warnings retain their existing treatment.
+Controlled subprocess tests cover termination and resistant children, and
+research-cache tests verify that failed prerequisites cannot start later
+proofs. No local Lean process is used for those tests.
+
+Completed native prerequisites are saved under a distinct preflight cache
+key for the full build and repair iterations; they cannot masquerade as a
+complete native-root cache hit. Obsolete preflight entries are trimmed to
+avoid evicting the dependency caches. All source, type, declaration-graph,
+warning and transitive-axiom acceptance checks remain in force.

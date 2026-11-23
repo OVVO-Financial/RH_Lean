@@ -178,7 +178,8 @@ theorem T_symm (b i j : Fin d) :
 def co (v : Fin d → k) : Fin 1 × Fin d → PS k 1 d := fun p => ∑ i, C (v i) * Jac G p.2 i
 
 theorem dof_vf (v : Fin d → k) (g : PS k 1 d) : JetEvaluation.directionalDerivative G.F v g = vf (co G v) g := by
-  simp only [JetEvaluation.directionalDerivative, vf, co, Fintype.sum_prod_type, Fin.sum_univ_one, Jac]
+  simp only [JetEvaluation.directionalDerivative, vf, co, Fintype.sum_prod_type,
+    Fin.sum_univ_one, Jac, ev, pt]
 
 theorem vf_co_jac (u : Fin d → k) (j i : Fin d) :
     vf (co G u) (Jac G j i) = ∑ b, C (u b) * ∑ c, Jac G c b * pderiv ((0 : Fin 1), c) (Jac G j i) := by

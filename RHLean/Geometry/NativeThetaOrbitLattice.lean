@@ -41,7 +41,7 @@ theorem natCard_quot_maximal_smul_top_eq
     (P : Ideal R) [P.IsMaximal] :
     Nat.card (M ⧸ (P • (⊤ : Submodule R M))) =
       Nat.card (R ⧸ P) ^ Module.finrank R M := by
-  letI := Ideal.Quotient.field P
+  let := Ideal.Quotient.field P
   let e : ((R ⧸ P) ⊗[R] M) ≃ₗ[R] M ⧸ (P • (⊤ : Submodule R M)) :=
     TensorProduct.quotTensorEquivQuotSMul M P
   rw [← Nat.card_congr e.toEquiv, Module.natCard_eq_pow_finrank (K := R ⧸ P)]
@@ -74,8 +74,8 @@ theorem twistedLattice_residue_card
     Nat.card (twistedLattice H B N ⧸
       (I • (⊤ : Submodule (𝓞 H.E) (twistedLattice H B N)))) =
         Ideal.absNorm I ^ N := by
-  letI := twistedLattice_finite H B N
-  letI := twistedLattice_projective H B N
+  let := twistedLattice_finite H B N
+  let := twistedLattice_projective H B N
   rw [natCard_quot_maximal_smul_top_eq,
     twistedLattice_rank H B hB N, Ideal.absNorm_apply, Submodule.cardQuot_apply]
 
@@ -88,8 +88,8 @@ theorem twistedLattice_integer_level_card
     Nat.card (twistedLattice H B N ⧸
       (nsmulAddMonoidHom (α := twistedLattice H B N) g).range) =
         g ^ (N * Module.finrank ℚ H.E) := by
-  letI := twistedLattice_free_int H B N
-  letI := twistedLattice_finite_int H B N
+  let := twistedLattice_free_int H B N
+  let := twistedLattice_finite_int H B N
   change (nsmulAddMonoidHom (α := twistedLattice H B N) g).range.index = _
   rw [AddSubgroup.index_range_nsmul, twistedLattice_rank_int H B hB N]
 

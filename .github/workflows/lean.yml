@@ -13,8 +13,12 @@ on:
       - 'scripts/rhlean_kg.py'           # source metadata/status semantics
       - 'scripts/compile_research_import_closure.py'
       - 'scripts/test_research_compile.py'
+      - 'scripts/lake_build_fail_fast.py'
+      - 'scripts/test_lake_build_fail_fast.py'
+      - 'scripts/repo_index.py'
       - '.github/actions/**'
       - '.github/workflows/lean.yml'     # changes to this audit workflow
+      - '.github/workflows/research-iteration.yml'
   pull_request:
     # Deliberately no `edited`.  That type fires on every PR title and body
     # revision, which agents rewrite constantly, and each one queued a fresh
@@ -35,8 +39,12 @@ on:
       - 'scripts/rhlean_kg.py'           # source metadata/status semantics
       - 'scripts/compile_research_import_closure.py'
       - 'scripts/test_research_compile.py'
+      - 'scripts/lake_build_fail_fast.py'
+      - 'scripts/test_lake_build_fail_fast.py'
+      - 'scripts/repo_index.py'
       - '.github/actions/**'
       - '.github/workflows/lean.yml'     # changes to this audit workflow
+      - '.github/workflows/research-iteration.yml'
   workflow_dispatch:
 
 permissions:
@@ -47,13 +55,12 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  # Runs alongside the build rather than gating it.  The audit finishes in
-  # about ten seconds, so gating only pushed the expensive job back by the
-  # runner hand-off; both jobs still report independently, so a failed audit
-  # still fails the PR.
+  # Reject inexpensive source/configuration failures before starting Lean.
   audit:
     runs-on: ubuntu-latest
     timeout-minutes: 10
+    outputs:
+      research-targets: ${{ steps.targets.outputs.targets }}
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -70,8 +77,7 @@ jobs:
       # where reaching the check first cost a Lean install, a Mathlib restore
       # and a mk_all build -- about twenty seconds of every run, ninety
       # seconds into it.  The property is a directory listing against a list
-      # of imports, so it belongs here, where it costs a second and runs in
-      # parallel with the build.  mk_all is still the generator; see the
+      # of imports, so it belongs here, where it runs before the build.  mk_all is still the generator; see the
       # script's docstring.
       - name: Check Lean root import manifest
         run: python3 scripts/check_root_manifest.py
@@ -79,8 +85,50 @@ jobs:
       - name: Check research cache invalidation regressions
         run: python3 -m unittest discover -s scripts -p test_research_compile.py -v
 
+      - name: Check first-failure process cleanup
+        run: python3 -m unittest discover -s scripts -p test_lake_build_fail_fast.py -v
+
+      - name: Choose changed research Lean targets
+        id: targets
+        if: github.event_name == 'pull_request'
+        shell: bash
+        env:
+          PR_BASE_SHA: ${{ github.event.pull_request.base.sha }}
+        run: |
+          set -euo pipefail
+          if [[ ! "$PR_BASE_SHA" =~ ^[0-9a-f]{40}$ ]]; then
+            echo 'Missing valid PR base SHA.' >&2
+            exit 1
+          fi
+          if ! git cat-file -e "$PR_BASE_SHA^{commit}" 2>/dev/null; then
+            git fetch --no-tags --depth=1 origin "$PR_BASE_SHA"
+          fi
+          git diff --name-only --diff-filter=ACMR "$PR_BASE_SHA" HEAD > /tmp/lean-source-changes.txt
+          # Dedicated OAI/fractional-owner workflows retain their own gates.
+          # Their exclusion here does not certify those sources.
+          targets="$(grep -E '^research/.+[.]lean$' /tmp/lean-source-changes.txt | grep -vE '^research/(oai_434/|VF_919_OPENAI_434_UNCONDITIONAL_SQUARE_BLOCK_COVARIANCE_20261019[.]lean$|VF_919_OPENAI_CERTIFIED_ORIGINAL_SQUARE_COVARIANCE_20261019[.]lean$|UNIVERSAL_ENVELOPE_(OWNER_FRACTIONAL|FRACTIONAL_ACCEPTANCE)[.]lean$)' | sort -u | paste -sd ' ' - || true)"
+          if [[ -z "$targets" ]] && grep -Eq '^([.]github/(actions/|workflows/(lean|research-iteration)[.]yml$)|scripts/(compile_research_import_closure|test_research_compile|lake_build_fail_fast|test_lake_build_fail_fast|repo_index|rhlean_kg)[.]py$)' /tmp/lean-source-changes.txt; then
+            targets='research/VF_MID_LI_UNIFORM_QUADRATURE.lean'
+          fi
+          echo "targets=$targets" >> "$GITHUB_OUTPUT"
+          echo "Changed research targets: ${targets:-none}"
+
+  # The changed closure catches new proof failures before a full native
+  # build. Reusing the workflow avoids a second independent PR run.
+  research:
+    name: Changed research closure
+    needs: audit
+    if: needs.audit.outputs.research-targets != ''
+    uses: ./.github/workflows/research-iteration.yml
+    with:
+      targets: ${{ needs.audit.outputs.research-targets }}
+
   build:
     name: Hosted Lean build
+    needs: [audit, research]
+    if: >-
+      !cancelled() && needs.audit.result == 'success' &&
+      (needs.research.result == 'success' || needs.research.result == 'skipped')
     runs-on: ubuntu-latest
     # A wedged proof search used to hold a runner for the six hour default.
     # The slowest healthy build on record is under twenty minutes.
@@ -114,7 +162,7 @@ jobs:
           key: pntplus-build-v1-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
 
       - name: Prebuild PNT+ StrongPNT dependency
-        run: lake build PrimeNumberTheoremAnd.StrongPNT
+        run: python3 scripts/lake_build_fail_fast.py PrimeNumberTheoremAnd.StrongPNT
 
       # A missing PNT+ cache otherwise makes every proof-repair commit rebuild
       # the same upstream dependency, even after it succeeded on the prior run.
@@ -143,13 +191,40 @@ jobs:
           path: .lake/build
           key: rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'RHLean.lean', 'RHLean/**/*.lean') }}
           restore-keys: |
+            rhlean-preflight-build-v1-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'RHLean.lean', 'RHLean/**/*.lean') }}
             rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}-
             rhlean-build-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json', 'RHLean.lean', 'RHLean/**/*.lean') }}
 
       - name: Build Lean project
         id: directbuild
-        continue-on-error: true
-        run: lake build RHLean > lean-build.log 2>&1
+        run: python3 scripts/lake_build_fail_fast.py RHLean > lean-build.log 2>&1
+
+      # Keep warning-as-error strict for repository-owned Lean without making
+      # RHLean responsible for linter churn in PNT+ or Mathlib.
+      # Lean and Lake have emitted both `warning: path` and
+      # `path:line:column: warning:` forms over time, so match the owned path
+      # anywhere on a warning line rather than depending on one formatter.
+      - name: Fail on RHLean-owned Lean warnings
+        id: rhlean_warnings
+        if: steps.directbuild.outcome == 'success'
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+
+          owned_path = re.compile(r"(?:^|[\s:])(?:\./)*RHLean(?:\.lean|/)")
+          lines = Path("lean-build.log").read_text(errors="replace").splitlines()
+          owned = [
+              line for line in lines
+              if "warning:" in line.lower() and owned_path.search(line)
+          ]
+          if owned:
+              print("RHLean-owned Lean warnings found:")
+              print("\n".join(owned))
+              raise SystemExit(1)
+          print("No RHLean-owned Lean warnings found.")
+          PY
 
       # The source graph is the fast navigation index. This step is the
       # authoritative dependency graph: constants actually recorded by the
@@ -197,34 +272,6 @@ jobs:
             decl-graph-compare.txt
             exact-proof-inventory.json
 
-      # Keep warning-as-error strict for repository-owned Lean without making
-      # RHLean responsible for linter churn in PNT+ or Mathlib.
-      # Lean and Lake have emitted both `warning: path` and
-      # `path:line:column: warning:` forms over time, so match the owned path
-      # anywhere on a warning line rather than depending on one formatter.
-      - name: Fail on RHLean-owned Lean warnings
-        id: rhlean_warnings
-        if: steps.directbuild.outcome == 'success'
-        continue-on-error: true
-        shell: bash
-        run: |
-          python3 - <<'PY'
-          from pathlib import Path
-          import re
-
-          owned_path = re.compile(r"(?:^|[\s:])(?:\./)*RHLean(?:\.lean|/)")
-          lines = Path("lean-build.log").read_text(errors="replace").splitlines()
-          owned = [
-              line for line in lines
-              if "warning:" in line.lower() and owned_path.search(line)
-          ]
-          if owned:
-              print("RHLean-owned Lean warnings found:")
-              print("\n".join(owned))
-              raise SystemExit(1)
-          print("No RHLean-owned Lean warnings found.")
-          PY
-
       # Saved on a red build on purpose, so the next compiler iteration resumes
       # instead of recompiling; but not on a cancelled one, where .lake/build
       # may not exist yet and the save only emits a path-validation warning.
@@ -256,7 +303,7 @@ jobs:
           set -euo pipefail
           gh api --paginate \
             "/repos/${GITHUB_REPOSITORY}/actions/caches?ref=${CACHE_REF}&per_page=100" \
-            --jq '.actions_caches[] | select(.key | startswith("rhlean-build-")) | [.created_at, (.id|tostring), .key] | @tsv' \
+            --jq '.actions_caches[] | select((.key | startswith("rhlean-build-")) or (.key | startswith("rhlean-preflight-build-v1-"))) | [.created_at, (.id|tostring), .key] | @tsv' \
             > caches.tsv || : > caches.tsv
           # Newest first, keep row one, delete the rest.
           sort -r caches.tsv | tail -n +2 | while IFS=$'\t' read -r created id key; do
@@ -286,8 +333,51 @@ jobs:
         shell: bash
         run: python3 scripts/lean_diagnostic_inventory.py lean-build.log
 
-      - name: Fail if Lean build failed or owned sources emitted warnings
-        if: >-
-          steps.directbuild.outcome == 'failure' ||
-          steps.rhlean_warnings.outcome == 'failure'
-        run: exit 1
+  cancel_dependents:
+    name: Stop remaining checks after failure
+    needs: [audit, research, build]
+    if: >-
+      always() && github.event_name == 'pull_request' &&
+      github.event.pull_request.head.repo.full_name == github.repository &&
+      contains(needs.*.result, 'failure')
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      actions: write
+    steps:
+      # Metadata only: never check out or execute PR code with this token.
+      - name: Cancel queued and running workflows for this exact PR revision
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const pr = context.payload.pull_request;
+            const runs = await github.paginate(github.rest.actions.listWorkflowRunsForRepo, {
+              ...context.repo, head_sha: pr.head.sha, event: 'pull_request', per_page: 100
+            });
+            for (const run of runs) {
+              if (run.id === context.runId || run.status === 'completed' ||
+                  run.head_sha !== pr.head.sha || run.head_branch !== pr.head.ref ||
+                  run.head_repository?.full_name !== pr.head.repo.full_name ||
+                  !run.pull_requests?.some(p => p.number === pr.number)) continue;
+              try {
+                await github.rest.actions.cancelWorkflowRun({...context.repo, run_id: run.id});
+                core.info(`Cancelled ${run.name} (${run.id}) after a prerequisite failed.`);
+              } catch (error) {
+                if (error.status === 409) core.info(`${run.id} finished before cancellation.`);
+                else throw error;
+              }
+            }
+            // A failed preflight still saves its completed prerequisites.
+            // Keep only the latest such cache for this PR, alongside its
+            // previous complete build, so repair rounds do not evict Mathlib.
+            const caches = await github.paginate('GET /repos/{owner}/{repo}/actions/caches', {
+              ...context.repo, ref: `refs/pull/${pr.number}/merge`, per_page: 100
+            });
+            const preflights = caches.filter(c => c.key.startsWith('rhlean-preflight-build-v1-'))
+              .sort((a, b) => b.created_at.localeCompare(a.created_at));
+            for (const cache of preflights.slice(1)) {
+              await github.request('DELETE /repos/{owner}/{repo}/actions/caches/{cache_id}', {
+                ...context.repo, cache_id: cache.id
+              });
+              core.info(`Removed superseded preflight cache ${cache.id}.`);
+            }

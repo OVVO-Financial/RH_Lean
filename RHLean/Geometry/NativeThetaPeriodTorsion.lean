@@ -69,10 +69,15 @@ period vector divided by `g`. -/
 def torsionParam (P : L →+ V) (g : ℕ) (hg : g ≠ 0) : L →+ torsion P g where
   toFun x := ⟨QuotientAddGroup.mk' P.range ((g : ℝ)⁻¹ • P x), by
     change g • QuotientAddGroup.mk' P.range ((g : ℝ)⁻¹ • P x) = 0
-    rw [← map_nsmul, nsmul_inv_smul g hg, QuotientAddGroup.eq_zero_iff]
-    exact ⟨x, rfl⟩⟩
+    rw [← map_nsmul, nsmul_inv_smul g hg]
+    exact (QuotientAddGroup.eq_zero_iff _).mpr ⟨x, rfl⟩⟩
   map_zero' := Subtype.ext (by simp)
-  map_add' x y := Subtype.ext (by simp only [map_add, smul_add])
+  map_add' x y := by
+    apply Subtype.ext
+    change QuotientAddGroup.mk' P.range ((g : ℝ)⁻¹ • P (x + y)) =
+      QuotientAddGroup.mk' P.range ((g : ℝ)⁻¹ • P x) +
+        QuotientAddGroup.mk' P.range ((g : ℝ)⁻¹ • P y)
+    simp only [map_add, smul_add]
 
 /-- The only lattice vectors producing zero torsion are the genuine
 multiples of `g` in the same lattice. -/
@@ -85,8 +90,8 @@ theorem torsionParam_ker (P : L →+ V) (hP : Function.Injective P)
     change torsionParam P g hg (g • y) = 0
     apply Subtype.ext
     change QuotientAddGroup.mk' P.range ((g : ℝ)⁻¹ • P (g • y)) = 0
-    rw [map_nsmul, inv_smul_nsmul g hg, QuotientAddGroup.eq_zero_iff]
-    exact ⟨y, rfl⟩
+    rw [map_nsmul, inv_smul_nsmul g hg]
+    exact (QuotientAddGroup.eq_zero_iff _).mpr ⟨y, rfl⟩
   · intro hx
     change torsionParam P g hg x = 0 at hx
     have hx' := congrArg Subtype.val hx
@@ -103,6 +108,7 @@ theorem torsionParam_surjective (P : L →+ V) (g : ℕ) (hg : g ≠ 0) :
   obtain ⟨v, hv⟩ := QuotientAddGroup.mk'_surjective P.range x.1
   have hmem : g • v ∈ P.range := by
     apply (QuotientAddGroup.eq_zero_iff _).mp
+    change QuotientAddGroup.mk' P.range (g • v) = 0
     rw [map_nsmul, hv]
     exact x.2
   obtain ⟨l, hl⟩ := hmem
@@ -151,14 +157,16 @@ theorem primary_divisible (P : L →+ V) (g : ℕ) (hg : g ≠ 0) :
 
 /-- Every first-layer torsion point lies in the same primary tower. -/
 def torsionToPrimary (P : L →+ V) (g : ℕ) : torsion P g →+ primary P g where
-  toFun x := ⟨x.1, ⟨1, by simpa only [pow_one] using x.2⟩⟩
+  toFun x := ⟨x.1, ⟨1, by
+    simpa only [pow_one] using (show g • x.1 = 0 from x.2)⟩⟩
   map_zero' := rfl
   map_add' _ _ := rfl
 
 theorem torsionToPrimary_injective (P : L →+ V) (g : ℕ) :
     Function.Injective (torsionToPrimary P g) := by
   intro x y h
-  exact Subtype.ext (congrArg Subtype.val h)
+  apply Subtype.ext
+  exact congrArg (fun z : primary P g => (z : PeriodQuotient P)) h
 
 /-- The original quotient count supplies the finite set required by the
 finite-order theorem on the actual primary group. -/
@@ -167,8 +175,8 @@ theorem primary_small_torsion_set [Module.Free ℤ L] [Module.Finite ℤ L]
     ∃ T : Finset (primary P g), T.card ≤ g ^ Module.finrank ℤ L ∧
       ∀ x : primary P g, g • x = 0 → x ∈ T := by
   classical
-  letI := finite_torsion P hP g hg
-  letI := Fintype.ofFinite (torsion P g)
+  let := finite_torsion P hP g hg
+  let := Fintype.ofFinite (torsion P g)
   let e : torsion P g ↪ primary P g :=
     ⟨torsionToPrimary P g, torsionToPrimary_injective P g⟩
   refine ⟨Finset.univ.map e, ?_, ?_⟩
@@ -188,6 +196,7 @@ def primaryMap (P : L →+ V) (g : ℕ) (β : PeriodQuotient P →+ PeriodQuotie
   map_zero' := Subtype.ext (map_zero β)
   map_add' x y := Subtype.ext (map_add β x.1 y.1)
 
+omit [Module ℝ V] in
 theorem primaryMap_iterate (P : L →+ V) (g : ℕ)
     (β : PeriodQuotient P →+ PeriodQuotient P) (n : ℕ) (x : primary P g) :
     ((primaryMap P g β)^[n] x : PeriodQuotient P) = β^[n] x.1 := by
@@ -198,6 +207,7 @@ theorem primaryMap_iterate (P : L →+ V) (g : ℕ)
     change β (((primaryMap P g β)^[n] x : primary P g) : PeriodQuotient P) = _
     rw [ih]
 
+omit [Module ℝ V] in
 theorem primaryMap_sub_iterate (P : L →+ V) (g : ℕ)
     (β : PeriodQuotient P →+ PeriodQuotient P) (n : ℕ) (x : primary P g) :
     (((fun z => primaryMap P g β z - z)^[n] x : primary P g) : PeriodQuotient P) =
@@ -262,7 +272,7 @@ variable {φ : Frame} (H : HostRaw φ)
 theorem prescribedPeriodMap_injective (B : Ideal (𝓞 H.E))
     (hB : differentIdeal (𝓞 H.K) (𝓞 H.E) = B * (H.conj • B)) (k m j : ℕ) :
     Function.Injective (prescribedPeriodMap H B hB k m j) := by
-  letI := twistedLattice_free_int H B (k + m - 1)
+  let := twistedLattice_free_int H B (k + m - 1)
   exact periodOfRealEquiv_injective (twistedPeriodRealEquiv H B hB (k + m - 1) (m - j))
 
 /-- Exact torsion count on the actual prescribed complex period quotient. -/
@@ -271,8 +281,8 @@ theorem prescribedPeriodTorsion_card (B : Ideal (𝓞 H.E))
     (k m j g : ℕ) (hg : g ≠ 0) :
     Nat.card (torsion (prescribedPeriodMap H B hB k m j) g) =
       g ^ ((k + m - 1) * Module.finrank ℚ H.E) := by
-  letI := twistedLattice_free_int H B (k + m - 1)
-  letI := twistedLattice_finite_int H B (k + m - 1)
+  let := twistedLattice_free_int H B (k + m - 1)
+  let := twistedLattice_finite_int H B (k + m - 1)
   rw [natCard_torsion _ (prescribedPeriodMap_injective H B hB k m j) g hg,
     twistedLattice_rank_int H B hB]
 
@@ -287,8 +297,8 @@ theorem prescribedPeriod_primary_fixed (B : Ideal (𝓞 H.E))
     (hrg : (k + m - 1) * Module.finrank ℚ H.E + 2 ≤ g)
     (hu : ∀ x, g • x = 0 → (fun z => β z - z)^[u] x = 0) :
     ∀ x, (∃ a : ℕ, g ^ a • x = 0) → β x = x := by
-  letI := twistedLattice_free_int H B (k + m - 1)
-  letI := twistedLattice_finite_int H B (k + m - 1)
+  let := twistedLattice_free_int H B (k + m - 1)
+  let := twistedLattice_finite_int H B (k + m - 1)
   apply finite_order_unipotent_primary_eq_id
     (prescribedPeriodMap H B hB k m j) (prescribedPeriodMap_injective H B hB k m j)
     β n g u hn hβ hg ?_ hu

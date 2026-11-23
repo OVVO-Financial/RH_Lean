@@ -120,7 +120,9 @@ theorem rawShortValue_eq_of_permuted_phases
       intro m _
       rw [Finset.prod_congr rfl (fun b _ => hjet q j b (columnExponent m b)),
         Finset.prod_mul_distrib, hphase q j, one_mul]
-    _ = _ := (ρ q).sum_comp _
+    _ = _ := (ρ q).sum_comp (fun j : J =>
+      ∑ m ∈ P.support, algebraMap K S (P.coeff m) *
+        ∏ b, jet₁ q j b (columnExponent m b))
 
 /-- In the original comparison the product-one relation is derived from
 odd torsion and isotropy; it is not a chart-agreement premise. -/

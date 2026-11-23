@@ -91,14 +91,14 @@ theorem pderiv_subst [Fintype σ] {a : σ → MvPowerSeries τ S} (ha : HasSubst
     (f : MvPowerSeries σ R) (j : τ) :
     pderiv j (subst a f) = ∑ i, subst a (pderiv i f) * pderiv j (a i) := by
   classical
-  letI : UniformSpace R := ⊥
-  letI : UniformSpace S := ⊥
+  let : UniformSpace R := ⊥
+  let : UniformSpace S := ⊥
   have hc := continuous_subst (R := R) ha
   refine congr_fun (DenseRange.equalizer (denseRange_toMvPowerSeries (σ := σ) (R := R))
     (g := fun f => pderiv j (subst a f))
     (h := fun f => ∑ i, subst a (pderiv i f) * pderiv j (a i))
     ((continuous_pderiv j).comp hc)
-    (continuous_finset_sum _ fun i _ => (hc.comp (continuous_pderiv i)).mul continuous_const)
+    (continuous_finsetSum _ fun i _ => (hc.comp (continuous_pderiv i)).mul continuous_const)
     ?_) f
   funext p
   simp only [Function.comp_apply]
@@ -271,7 +271,7 @@ theorem coeff_ev_zero_left (h : PS k 2 d) (x : Fin 1 × Fin d →₀ ℕ) :
     · simp
     · intro hm
       have h1 := congrArg (fun g => g ((0 : Fin 2), i)) hm
-      rw [Finsupp.embDomain_notin_range _ _ _ (hnr i), Finsupp.single_eq_same] at h1
+      rw [Finsupp.embDomain_of_notMem_range _ _ _ (hnr i), Finsupp.single_eq_same] at h1
       exact zero_ne_one h1
   · show X ((0 : Fin 1), i) = killCompl (eZ d) (X ((1 : Fin 2), i))
     exact (killCompl_X (e := eZ d) ((0 : Fin 1), i)).symm
@@ -293,7 +293,7 @@ theorem coeff_ev_zero_right (h : PS k 2 d) (x : Fin 1 × Fin d →₀ ℕ) :
     · simp
     · intro hm
       have h1 := congrArg (fun g => g ((1 : Fin 2), i)) hm
-      rw [Finsupp.embDomain_notin_range _ _ _ (hnr i), Finsupp.single_eq_same] at h1
+      rw [Finsupp.embDomain_of_notMem_range _ _ _ (hnr i), Finsupp.single_eq_same] at h1
       exact zero_ne_one h1
 
 def swE (d : ℕ) : Fin 2 × Fin d ↪ Fin 2 × Fin d := ⟨fun p => (Fin.rev p.1, p.2), fun p q h => by

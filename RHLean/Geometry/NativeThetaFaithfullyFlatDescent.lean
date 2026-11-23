@@ -57,10 +57,10 @@ theorem exists_faithfullyFlat_pushout (K S S₁ S₂ : Type) [Field K]
       (ψ₁ : S₁ →ₐ[K] T) (ψ₂ : S₂ →ₐ[K] T),
       ψ₁.comp φ₁ = ψ₂.comp φ₂ ∧
       ψ₁.toRingHom.FaithfullyFlat ∧ Function.Injective ψ₁ := by
-  letI : Algebra S S₁ := φ₁.toRingHom.toAlgebra
-  letI : Algebra S S₂ := φ₂.toRingHom.toAlgebra
+  let : Algebra S S₁ := φ₁.toRingHom.toAlgebra
+  let : Algebra S S₂ := φ₂.toRingHom.toAlgebra
   have : Module.FaithfullyFlat S S₂ := RingHom.faithfullyFlat_algebraMap_iff.1 h
-  letI : Algebra K (S₁ ⊗[S] S₂) :=
+  let : Algebra K (S₁ ⊗[S] S₂) :=
     ((Algebra.TensorProduct.includeLeftRingHom : S₁ →+* S₁ ⊗[S] S₂).comp
       (algebraMap K S₁)).toAlgebra
   have hff : (algebraMap S₁ (S₁ ⊗[S] S₂)).FaithfullyFlat :=
@@ -83,9 +83,9 @@ theorem existsUnique_preimage_of_faithfullyFlat (K S B : Type) [Field K]
     (φ : S →ₐ[K] B) (h : φ.toRingHom.FaithfullyFlat) (w : B)
     (hw : ∀ (T : Type) [CommRing T] [Algebra K T] (ψ₁ ψ₂ : B →ₐ[K] T),
       ψ₁.comp φ = ψ₂.comp φ → ψ₁ w = ψ₂ w) : ∃! v : S, φ v = w := by
-  letI : Algebra S B := φ.toRingHom.toAlgebra
+  let : Algebra S B := φ.toRingHom.toAlgebra
   have : Module.FaithfullyFlat S B := RingHom.faithfullyFlat_algebraMap_iff.1 h
-  letI : Algebra K (B ⊗[S] B) :=
+  let : Algebra K (B ⊗[S] B) :=
     ((Algebra.TensorProduct.includeLeftRingHom : B →+* B ⊗[S] B).comp
       (algebraMap K B)).toAlgebra
   let ψ₁ : B →ₐ[K] B ⊗[S] B :=
