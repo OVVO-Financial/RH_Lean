@@ -70,6 +70,8 @@ theorem nativeDyadicHostRaw_eta
     intro x
     change IsCMField.complexConj H.E x = H.conj x
     rw [nativeDyadicHostRaw_conj e q d he hH]
+    let : IsCMField (alpogeNativeHostField e q d) :=
+      nativeDyadicHostRaw_cm e q d he hH
     exact alpogeNativeHostConj_complexConj e q d x
   have hsm : ∀ P : Ideal (𝓞 H.E), IsCMField.complexConj H.E • P = H.conj • P :=
     fun P => by

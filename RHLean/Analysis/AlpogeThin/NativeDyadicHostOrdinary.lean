@@ -84,7 +84,8 @@ theorem nativeDyadicHostRaw_ordinary
     have htwo : 2 ∣ H.QS := (dvd_pow_self 2 (by omega)).trans H.tower_dvd
     exact h1 (htwo.mul_right _)
   by_cases hpd : p = H.d
-  · subst hpd
+  · let : P.LiesOver (span {(H.d : ℤ)}) := by
+      simpa only [hpd] using hPl
     refine iff_of_false (fun h => ?_) ?_
     · obtain ⟨σ, hσ⟩ := H.gal.surjective (nativeDyadicFrame e).iod
       have h3 := h σ (nativeStabOfInertia σ P ((nativeDyadicHostRaw_inertia_d e q d he hH P σ).mpr (Or.inr hσ)))
@@ -92,10 +93,11 @@ theorem nativeDyadicHostRaw_ordinary
       exact NativeRawHostDifferent.iod_not_mem_Psi h3
     · rintro (h | ⟨-, h⟩)
       · exact hp2 h
-      · have : NeZero H.d := ⟨hp.ne_zero⟩
+      · let : NeZero H.d := ⟨H.hyp.2.1.ne_zero⟩
         have h0 : jacobiSym (-(H.d : ℤ)) H.d = 0 :=
-          jacobiSym.eq_zero_iff_not_coprime.mpr (by simpa using hp.ne_one)
-        omega
+          jacobiSym.eq_zero_iff_not_coprime.mpr (by simpa using H.hyp.2.1.ne_one)
+        rw [hpd, h0] at h
+        exact zero_ne_one h
   · have hN : ¬ p ∣ H.condN := fun h => by
       rcases hp.dvd_mul.mp h with h3 | h3
       · exact h1 h3

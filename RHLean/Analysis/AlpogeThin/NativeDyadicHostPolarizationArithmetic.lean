@@ -98,6 +98,7 @@ theorem mapped_quadratic_different :
         spanSingleton (𝓞 H.E)⁰ H.sqd := by
   simp only [quadratic_different, Ideal.map_span, Set.image_singleton,
     coeIdeal_span_singleton]
+  rfl
 
 /-- The original imaginary generator for the constructed choice `ccK = ⊤`. -/
 def xi : H.E := -1 / H.sqd
