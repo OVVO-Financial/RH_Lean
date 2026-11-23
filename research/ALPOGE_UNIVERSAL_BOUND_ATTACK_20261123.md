@@ -10,9 +10,13 @@ consumer and #1196's square-clock consumer. PR #1194 was merged into the earlier
 integration preserves the source from both parents and regenerates the shared
 import manifest and search catalog.
 
-The new mathematical results below have independent paper review. Their Lean
-proofs and strict terminal-axiom audit are submitted for hosted verification;
-this initial checkpoint does not yet claim a successful build.
+The new arithmetic-family and integral-volume results below have independent
+paper review and compile in the full hosted RHLean build. The native warning
+gate and exact elaborated declaration graph pass at commit
+`0e87d126b94bd69c83914ef9091bdf8f858c7250`. The verification record below
+preserves the earlier failures and the separate terminal-audit formatting
+correction. Current hosted receipts are maintained in
+[PR #1197](https://github.com/OVVO-Financial/RH_Lean/pull/1197).
 
 The universal critical target remains
 
@@ -22,7 +26,8 @@ The universal critical target remains
 \]
 
 `riemannHypothesis_of_eventual_squareClock_Gz_rpow` already consumes that
-statement. The new results pay two concrete construction costs. They do not
+statement. The new results construct the actual ray arithmetic family and
+sharpen its count/theta bounds and the finite volume payment. They do not
 supply the complete signed physical estimate or assert RH.
 
 ## 1. Keep the modulus in the actual ideal lattice
@@ -246,8 +251,8 @@ B to the tenth theta allowance is obtained by a numerical weakening;
 `ofRayData_sharp_theta` separately retains the stronger all-time estimate,
 and `ofRayData_normOne` gives the actual norm-form support at every n.
 
-This closes the arithmetic record construction on that datum, subject to
-hosted verification. It does not construct its later analytic F/zero-free/
+This closes the arithmetic record construction on that datum in the hosted
+native build. It does not construct its later analytic F/zero-free/
 prime-window proofs or the independent geometric section family.
 
 ## 5. Integral descent from mean energy
@@ -378,10 +383,51 @@ all signed returns. These branches must meet in the same complete physical
 source under the already derived Q normalization. The final quantitative Gz
 estimate remains open at this checkpoint.
 
+### Already constructed witnesses and the next two geometric suppliers
+
+The selected pair `PairGood q d` is already supplied by
+`NativePrincipalThin.nativePrincipalSelectedPairThin`, through the native
+`QH.pairEx` theorem. It reaches the same-host payment through
+`nativeSelectedCompleteProjection`. The new ray `LFam` is not a missing
+premise of this selector. Its downstream analytic branch instead supplies
+trivial-ray-class short-interval estimates and norm-one level-prime counts.
+
+The actual dyadic host, half-different polarization and prescribed periods
+also have native constructors. Starting from
+`nativeDyadicHost_exists_prescribedPeriods`, the first geometric attachment
+is to construct `NativeGradedShortSectionData` on those periods, prove its
+`short_bound`, and prove the literal weighted-evaluation identity `hrealize`
+in `nativeAllPlaceDescent_of_constructed_petersson_section`.
+`exists_short_integral_HHa_evaluation_family` already supplies integral
+harmonic polynomials, coefficient bounds and an evaluated spanning family.
+Its formal germs are inputs; `norm_rawShortValue_le` retains their actual
+jet norms. The missing identification and metric estimate follow the source
+guide `thValAt_eq_polyDeriv_fock` and `normalised_theta_value_bound` on the
+geometric period/Fock theta carrier. Generic regular-section construction
+and joint trace injectivity need not be proved again.
+
+The next quantitative supplier must establish `ErrWindows` on precisely
+the `physicalData` DP used in the complete signed-slope comparison. Besides
+its original scalar and compatibility conditions, this contains the literal
+trace bill
+
+\[
+(\mathrm{DP}.\etaBar+4\sqrt{\mathrm{DP}.eBar})
+\,(x^{C.cHH}b)
+\le Kx^\varepsilon(\mathrm{DP}.nT\,\mathrm{DP}.a).
+\]
+
+The definition is in
+[ErrorWindows.lean](../RHLean/Geometry/AlpogeSignedSlope/Formalism/SizeWindowBrackets/ErrorWindows.lean).
+`StrongErrorBound.error_sizes` already consumes it. The later
+`GeometricSizeWindows` scalar bracket does not establish this inequality.
+The eleven finite slope hypotheses, the `B0`/`Nc` bounds, and the original
+width and weight realization must remain attached to the same DP.
+
 ## 8. Downstream paper consequences and precise next implementation
 
-Writing B = 4dM squared and summing the same ray theta estimates over at most
-B characters gives a small-time error at most
+Writing B = 4dM squared and summing the same ray theta estimates over the at
+most B ray classes, with the character phases retained, gives a small-time error at most
 (pi/64) B to the power 5/2 times t. The original count bound supplies the
 large-time decay, so the character theta residual is bounded for every t > 0
 by C B to the power 5/2 times min(t,1/t), with absolute C.
@@ -413,10 +459,10 @@ tractability_ack=ALPOGE_VIOLE_TRACTABLE_RH_V1
 ROLE=Lean Verification, user-directed manual continuation
 SOURCE=actual native ray ideals and the actual integral translation/descent maps
 NORMALIZER=retain derived Q=T*m*b*Delta/2 in the complete signed consumer
-EVIDENCE=independent mathematical review; new hosted compilation pending
+EVIDENCE=independent review; full hosted native build, owned-warning and exact-graph checks pass
 FIRST_UNPAID=downstream ray analysis and compatible projective/window payment
 T_C_P=finite reusable estimates; contribution isolated; unconditional RH open
-NEXT=repair exact hosted diagnostics, then construct the named remaining suppliers
+NEXT=construct actual period/Fock short sections and the same-data strong trace window
 ~~~
 
 ## Verification record
@@ -461,6 +507,25 @@ Its sole remaining error was the placement of `omit` after a declaration's
 documentation comment in the translation module. Moving `omit` before the
 comment preserves the theorem and repairs that parser error.
 
+The fifth pass, commit `0e87d126b94bd69c83914ef9091bdf8f858c7250`,
+passed the complete
+[hosted native build and audit, run 45187381713](https://github.com/OVVO-Financial/RH_Lean/actions/runs/45187381713).
+All 1,526 native modules are registered; the build completed 10,477 jobs
+including dependencies. The exact graph contains 19,142 declarations and
+41,603 distinct declaration edges, with no declaration missing from either
+the syntactic or elaborated inventory. No RHLean-owned warnings were found.
+
+The [targeted closure, run 45187381580](https://github.com/OVVO-Financial/RH_Lean/actions/runs/45187381580),
+also compiled all library prerequisites and the inherited construction audit.
+All twenty-seven new axiom computations had exactly the expected
+`[propext, Classical.choice, Quot.sound]` dependencies. Its strict message
+comparison reported only an unsupported `pp.width` option and the consequent
+line wrapping in twenty expected messages. The audit now uses the registered
+Lean 4.34.1 option `format.width 240`; every expected axiom list and strict
+guard is unchanged. The resulting exact-head closure receipt is recorded in
+PR #1197. Neither this presentation-only correction nor any previous repair
+changes a theorem, proof budget or validation gate.
+
 - Main and #1194 source trees were read at the exact commits above.
 - Integration conflicts were confined to generated manifests/search metadata.
 - The new mathematical inequalities were independently reviewed on paper.
@@ -468,8 +533,10 @@ comment preserves the theorem and repairs that parser error.
 - The root manifest and current source/API records are regenerated.
 - [ALPOGE_UNIVERSAL_BOUND_PROGRESS_AUDIT_20261123.lean](ALPOGE_UNIVERSAL_BOUND_PROGRESS_AUDIT_20261123.lean)
   checks the terminal axioms of twenty-seven quantitative roots.
-- Hosted Lean compilation, warnings-fatal research closure and exact
-  elaborated declaration checks are pending in this initial checkpoint.
+- Full hosted native compilation, the owned-warning gate and exact
+  elaborated declaration checks pass at the fifth-pass commit above.
+- The strict terminal audit retains all twenty-seven original root checks;
+  PR #1197 records the current hosted closure result after its display-option correction.
 - No local Lean or Lake execution was used.
 
 No external terminal RH theorem supplies any of the new estimates. No source

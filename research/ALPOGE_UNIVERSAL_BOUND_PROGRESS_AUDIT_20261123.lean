@@ -13,7 +13,7 @@ These guards inspect the actual quantitative theorems. No conditional RH
 consumer is used to supply a source estimate.
 -/
 
-set_option pp.width 240
+set_option format.width 240
 
 /-- info: 'RHLean.Geometry.NumberFieldDescent.gram_det_le_power_of_mean_energy' depends on axioms: [propext, Classical.choice, Quot.sound] -/
 #guard_msgs in

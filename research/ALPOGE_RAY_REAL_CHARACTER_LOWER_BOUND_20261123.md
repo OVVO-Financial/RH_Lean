@@ -2,8 +2,9 @@
 
 Status: **PAPER_PROOF, NOT COMPILED**. This is an independent derivation from
 the actual ray-family coefficients and explicitly listed LFam inputs.
-The companion native arithmetic modules now contain proof drafts for all
-these inputs and their same-datum assembly; hosted verification is pending.
+The companion native arithmetic modules and their same-datum assembly compile
+in the full hosted build at commit `0e87d126b94bd69c83914ef9091bdf8f858c7250`,
+[run 45187381713](https://github.com/OVVO-Financial/RH_Lean/actions/runs/45187381713).
 The analytic integral argument below is not yet formalized. It proves no
 G_z estimate, new RH exponent, or RH. No local Lean execution was used.
 
@@ -16,7 +17,7 @@ the SAME coefficients a_c(n)=aRay(D,c,n). Let H=card(D.G), and set
     kappa=2*pi/(sqrt(d)*M^2),
     C0=(3*pi/8)*d*sqrt(d)*M^2.
 
-The native count/theta candidates provide nonnegativity, a_c(0)=0,
+The native count/theta theorems provide nonnegativity, a_c(0)=0,
 a_c(1)=1 if c is the identity and 0 otherwise, and
 
     |sum_{1<=n<=floor(x)} a_c(n)-kappa*x| <=10*sqrt(x)   (x>=1),
@@ -24,11 +25,11 @@ a_c(1)=1 if c is the identity and 0 otherwise, and
 
 The first bound follows from the sharper native 4sqrt(x)/M+1 bound; the
 second is the new all-time theorem. Retain these *literal* coefficients.
-Assume the remaining actual arithmetic LFam inputs:
+Use the following actual arithmetic LFam inputs and the original analytic definition:
 
 1. H<=B and 1/B<=kappa<=4. The latter numerical bounds follow from the
    displayed kappa and the admissible d,M; H<=B requires the actual ray
-   class-number bound, now supplied in the companion `NativeRayClassBound` draft.
+   class-number bound, supplied in the compiled companion `NativeRayClassBound`.
 2. For every real character chi of D.G, put
    A_n=sum_c a_c(n) and b_n=sum_c chi(c)a_c(n), with chi(c) in {1,-1}.
    For every integer k>=1, retain the actual convolution positivity
@@ -37,10 +38,10 @@ Assume the remaining actual arithmetic LFam inputs:
 
    This is exactly the first half of the source `LFam.sq` field, supplied
    there by `ConvRealChar.conv_real_char`. The companion native
-   `NativeRayRealCharacter.conv_real_addChar` draft proves both halves;
-   it remains subject to hosted verification. The second half of sq, the log convolution and
-   von Mangoldt mass are not needed for the lemma proved below, although
-   they remain obligations in assembling the full original LFam.
+   `NativeRayRealCharacter.conv_real_addChar` proves both halves in the
+   hosted build. The second half of sq, the log convolution and von Mangoldt
+   mass are not needed for the lemma proved below; the compiled native
+   constructor supplies them as well.
 3. Define the SAME F_chi by the source LFam Mellin formula. Equivalently,
    for nontrivial chi, the exact identity established below is
 
@@ -248,7 +249,7 @@ Inspected Alpöge source mirror pin:
 * `Development/AbelianVarietyTheory/Proofs/GlobalInterpolation/NormRayClassFamilyFOneGeOfRealCharacter.lean`:
   besW, hasSum_pairs, besW_le_integral, integral_le, norm_F_one_ge.
 
-Native suppliers used as candidates, pending hosted verification:
+Native suppliers compiled in the full hosted build cited above:
 `RHLean/Analysis/AlpogeThin/NativeRayIdealCounts.lean`,
 `NativeRayQuadraticForm.lean`, `NativeRayCountTheta.lean`,
 `NativeRayRealCharacter.lean`, `NativeIdealClassBound.lean`, and
