@@ -1018,6 +1018,8 @@ import RHLean.Geometry.NativeAdicQuadraticNorm
 import RHLean.Geometry.NativeAllPlaceDescent
 import RHLean.Geometry.NativeAllPlaceEigenGenerators
 import RHLean.Geometry.NativeAllPlaceShortGenerators
+import RHLean.Geometry.NativeCMPeriodComparison
+import RHLean.Geometry.NativeCMQuadraticOrder
 import RHLean.Geometry.NativeCharacterTraceMaps
 import RHLean.Geometry.NativeComponentRegularSection
 import RHLean.Geometry.NativeComponentRegularity
