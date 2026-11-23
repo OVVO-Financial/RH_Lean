@@ -112,7 +112,7 @@ theorem isRegularFn_of_locally {U : X.Opens} {a : Γ(X, U)}
 theorem isRegularFn_iff_of_isAffineOpen {U : X.Opens} (hU : IsAffineOpen U) {a : Γ(X, U)} :
     IsRegularFn a ↔ a ∈ nonZeroDivisors Γ(X, U) := by
   refine ⟨IsRegularFn.mem, fun ha => isRegularFn_iff_germ.2 fun x hx => ?_⟩
-  letI : Algebra Γ(X, U) (X.presheaf.stalk x) := X.presheaf.algebra_section_stalk ⟨x, hx⟩
+  let : Algebra Γ(X, U) (X.presheaf.stalk x) := X.presheaf.algebra_section_stalk ⟨x, hx⟩
   have := hU.isLocalization_stalk ⟨x, hx⟩
   exact IsLocalization.nonZeroDivisors_le_comap (hU.primeIdealOf ⟨x, hx⟩).asIdeal.primeCompl
     (X.presheaf.stalk x) ha

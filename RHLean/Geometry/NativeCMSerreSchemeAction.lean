@@ -95,6 +95,7 @@ theorem IsLinearHom.act (a : OAct O G) (c : O) : IsLinearHom a a (a.act c) :=
 variable [IsCommMonObj G] [IsCommMonObj H] [IsCommMonObj K]
 
 /-- The action on points is composition with the actual scheme morphism. -/
+@[instance_reducible]
 def pointsModule (a : OAct O G) (T : Over S) : Module O (Additive (T ⟶ G)) where
   smul c x := Additive.ofMul (x.toMul ≫ a.act c)
   one_smul x := by
@@ -132,21 +133,21 @@ def mk (a : OAct O G) : (T ⟶ G) ≃ Pts a T := Additive.ofMul
 
 def hom (x : Pts a T) : T ⟶ G := Additive.toMul x
 
-@[simp] theorem hom_mk (x : T ⟶ G) : (mk a x).hom = x := rfl
+@[simp] theorem hom_mk (x : T ⟶ G) : hom (mk a x) = x := rfl
 
-@[simp] theorem mk_hom (x : Pts a T) : mk a x.hom = x := rfl
+@[simp] theorem mk_hom (x : Pts a T) : mk a (hom x) = x := rfl
 
-@[ext] theorem ext {x y : Pts a T} (h : x.hom = y.hom) : x = y := h
+@[ext] theorem ext {x y : Pts a T} (h : hom x = hom y) : x = y := h
 
-@[simp] theorem hom_zero : (0 : Pts a T).hom = 1 := rfl
+@[simp] theorem hom_zero : hom (0 : Pts a T) = 1 := rfl
 
-@[simp] theorem hom_add (x y : Pts a T) : (x + y).hom = x.hom * y.hom := rfl
+@[simp] theorem hom_add (x y : Pts a T) : hom (x + y) = hom x * hom y := rfl
 
-@[simp] theorem hom_neg (x : Pts a T) : (-x).hom = x.hom⁻¹ := rfl
+@[simp] theorem hom_neg (x : Pts a T) : hom (-x) = (hom x)⁻¹ := rfl
 
-@[simp] theorem hom_sub (x y : Pts a T) : (x - y).hom = x.hom / y.hom := rfl
+@[simp] theorem hom_sub (x y : Pts a T) : hom (x - y) = hom x / hom y := rfl
 
-@[simp] theorem hom_smul (r : O) (x : Pts a T) : (r • x).hom = x.hom ≫ a.act r := rfl
+@[simp] theorem hom_smul (r : O) (x : Pts a T) : hom (r • x) = hom x ≫ a.act r := rfl
 
 theorem mk_one : mk a (1 : T ⟶ G) = 0 := rfl
 
@@ -155,45 +156,49 @@ theorem mk_mul (x y : T ⟶ G) : mk a (x * y) = mk a x + mk a y := rfl
 theorem mk_comp_act (x : T ⟶ G) (r : O) : mk a (x ≫ a.act r) = r • mk a x := rfl
 
 def pre (a : OAct O G) (u : T' ⟶ T) : Pts a T →ₗ[O] Pts a T' where
-  toFun x := mk a (u ≫ x.hom)
-  map_add' x y := ext (MonObj.comp_mul u x.hom y.hom)
-  map_smul' r x := ext (Category.assoc u x.hom (a.act r)).symm
+  toFun x := mk a (u ≫ hom x)
+  map_add' x y := ext (MonObj.comp_mul u (hom x) (hom y))
+  map_smul' r x := ext (Category.assoc u (hom x) (a.act r)).symm
 
-@[simp] theorem hom_pre (u : T' ⟶ T) (x : Pts a T) : (pre a u x).hom = u ≫ x.hom := rfl
+@[simp] theorem hom_pre (u : T' ⟶ T) (x : Pts a T) : hom (pre a u x) = u ≫ hom x := rfl
 
 @[simp] theorem pre_id : pre a (𝟙 T) = LinearMap.id := by
-  ext x
-  simp
+  apply LinearMap.ext
+  intro x
+  apply Pts.ext
+  simp only [hom_pre, LinearMap.id_apply, Category.id_comp]
 
 theorem pre_comp (v : T'' ⟶ T') (u : T' ⟶ T) : pre a (v ≫ u) = pre a v ∘ₗ pre a u := by
-  ext x
-  simp
+  apply LinearMap.ext
+  intro x
+  apply Pts.ext
+  simp only [hom_pre, LinearMap.comp_apply, Category.assoc]
 
 def post {f : G ⟶ H} (hf : IsLinearHom a b f) (T : Over S) : Pts a T →ₗ[O] Pts b T where
-  toFun x := mk b (x.hom ≫ f)
-  map_add' x y := ext (by have := hf.1; exact MonObj.mul_comp x.hom y.hom f)
+  toFun x := mk b (hom x ≫ f)
+  map_add' x y := ext (by have := hf.1; exact MonObj.mul_comp (hom x) (hom y) f)
   map_smul' _ _ := ext (by simp [hf.comm])
 
 @[simp] theorem hom_post {f : G ⟶ H} (hf : IsLinearHom a b f) (x : Pts a T) :
-    (post hf T x).hom = x.hom ≫ f := rfl
+    hom (post hf T x) = hom x ≫ f := rfl
 
 theorem pre_post {f : G ⟶ H} (hf : IsLinearHom a b f) (u : T' ⟶ T) (x : Pts a T) :
     pre b u (post hf T x) = post hf T' (pre a u x) := by
-  ext
-  simp
+  apply Pts.ext
+  simp only [hom_pre, hom_post, Category.assoc]
 
 section Yoneda
 
 variable (φ : ∀ T : Over S, Pts a T →ₗ[O] Pts b T)
 
 /-- The actual scheme morphism extracted from a natural linear point map. -/
-def homOfNat : G ⟶ H := (φ G (mk a (𝟙 G))).hom
+def homOfNat : G ⟶ H := hom (φ G (mk a (𝟙 G)))
 
 variable (hφ : ∀ {T T' : Over S} (u : T' ⟶ T) (x : Pts a T),
   φ T' (pre a u x) = pre b u (φ T x))
 include hφ
 
-theorem comp_homOfNat (x : T ⟶ G) : x ≫ homOfNat φ = (φ T (mk a x)).hom := by
+theorem comp_homOfNat (x : T ⟶ G) : x ≫ homOfNat φ = hom (φ T (mk a x)) := by
   have h := congrArg hom (hφ x (mk a (𝟙 G)))
   rw [hom_pre] at h
   rw [homOfNat, ← h]

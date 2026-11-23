@@ -62,8 +62,13 @@ variable {R : Type} [CommRing R] (W : WeierstrassCurve R)
 
 theorem equation_inr (c : R) : (W.map (algebraMap R (DualNumber R))).toProjective.Equation
     ![TrivSqZeroExt.inr c, -1, 0] := by
+  have h₂ : (TrivSqZeroExt.inr c : DualNumber R) ^ 2 = 0 := by
+    rw [pow_two, TrivSqZeroExt.inr_mul_inr]
+  have h₃ : (TrivSqZeroExt.inr c : DualNumber R) ^ 3 = 0 := by
+    rw [pow_succ, h₂, zero_mul]
   rw [equation_origin_iff]
-  simp [pow_succ, TrivSqZeroExt.inr_mul_inr]
+  simp only [h₃, zero_pow (by decide : 2 ≠ 0), zero_pow (by decide : 3 ≠ 0),
+    mul_zero, add_zero]
 
 def vec (c : R) : Spec (.of (DualNumber R)) ⟶ scheme W :=
   ptHom W (algebraMap R (DualNumber R)) ![TrivSqZeroExt.inr c, -1, 0]
@@ -92,7 +97,7 @@ theorem fst_vec (c : R) :
   refine (SpecMap_ptHom W _ _ _ (TrivSqZeroExt.fstHom R R R).toRingHom).trans ?_
   rw [zero, ← pt_smul W (A := R) _ _ isUnit_one.neg]
   refine ptHom_congr W _ _ _ ?_ ?_ _
-  · ext a; simp [TrivSqZeroExt.algebraMap_eq_inl]
+  · ext a; simp
   · ext1 j
     fin_cases j <;> simp
 

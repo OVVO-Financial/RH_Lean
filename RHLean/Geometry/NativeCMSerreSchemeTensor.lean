@@ -62,11 +62,11 @@ theorem natural_symm (u : T' ⟶ T) (y : Pts b T) :
     (h.equiv T').symm (Pts.pre b u y) = (Pts.pre a u).lTensor M ((h.equiv T).symm y) := by
   rw [LinearEquiv.symm_apply_eq, h.natural, LinearEquiv.apply_symm_apply]
 
-def tmul (m : M) : G ⟶ H := (h.equiv G (m ⊗ₜ[O] Pts.mk a (𝟙 G))).hom
+def tmul (m : M) : G ⟶ H := Pts.hom (h.equiv G (m ⊗ₜ[O] Pts.mk a (𝟙 G)))
 
 @[simp] theorem hom_equiv_tmul (m : M) (x : Pts a T) :
-    (h.equiv T (m ⊗ₜ[O] x)).hom = x.hom ≫ h.tmul m := by
-  have e := congrArg Pts.hom (h.natural x.hom (m ⊗ₜ[O] Pts.mk a (𝟙 G)))
+    Pts.hom (h.equiv T (m ⊗ₜ[O] x)) = Pts.hom x ≫ h.tmul m := by
+  have e := congrArg Pts.hom (h.natural (Pts.hom x) (m ⊗ₜ[O] Pts.mk a (𝟙 G)))
   rw [Pts.hom_pre, LinearMap.lTensor_tmul] at e
   rw [tmul, ← e]
   congr 3
@@ -90,7 +90,7 @@ theorem hom_ext {K : Over S} [GrpObj K] {f g : H ⟶ K} [IsMonHom f] [IsMonHom g
     (e : ∀ m : M, h.tmul m ≫ f = h.tmul m ≫ g) : f = g := by
   obtain ⟨z, hz⟩ := (h.equiv H).surjective (Pts.mk b (𝟙 H))
   have heq : ∀ z : M ⊗[O] Pts a H,
-      (h.equiv H z).hom ≫ f = (h.equiv H z).hom ≫ g := by
+      Pts.hom (h.equiv H z) ≫ f = Pts.hom (h.equiv H z) ≫ g := by
     intro z
     induction z using TensorProduct.inductionOn with
     | tmul m x => simp only [hom_equiv_tmul, Category.assoc, e]
@@ -124,10 +124,10 @@ instance isMonHom_mapLeft (φ : M →ₗ[O] M') : IsMonHom (h.mapLeft h' φ) :=
   (h.isLinearHom_mapLeft h' φ).isMonHom
 
 theorem hom_equiv_comp_mapLeft (φ : M →ₗ[O] M') (z : M ⊗[O] Pts a T) :
-    (h.equiv T z).hom ≫ h.mapLeft h' φ = (h'.equiv T (φ.rTensor (Pts a T) z)).hom := by
+    Pts.hom (h.equiv T z) ≫ h.mapLeft h' φ = Pts.hom (h'.equiv T (φ.rTensor (Pts a T) z)) := by
   rw [mapLeft, Pts.comp_homOfNat _ (h.mapLeftPoints_natural h' φ)]
-  change (h'.equiv T (φ.rTensor (Pts a T)
-    ((h.equiv T).symm (Pts.mk b (h.equiv T z).hom)))).hom = _
+  change Pts.hom (h'.equiv T (φ.rTensor (Pts a T)
+    ((h.equiv T).symm (Pts.mk b (Pts.hom (h.equiv T z)))))) = _
   rw [Pts.mk_hom, LinearEquiv.symm_apply_apply]
 
 @[reassoc (attr := simp)]
@@ -250,7 +250,7 @@ variable [IsCommMonObj G] [IsCommMonObj G']
 def Pts.powEquiv {n : ℕ} (p : IsPowGrp G' G n) (a : OAct O G) (T : Over S) :
     Pts (powAct p a) T ≃ₗ[O] (Fin n → Pts a T) where
   __ := LinearMap.pi fun i => Pts.post (isLinearHom_pr p a i) T
-  invFun y := Pts.mk _ (powLift p fun i => (y i).hom)
+  invFun y := Pts.mk _ (powLift p fun i => Pts.hom (y i))
   left_inv _ := Pts.ext (pow_hom_ext p fun _ => by simp)
   right_inv _ := by ext; simp
 

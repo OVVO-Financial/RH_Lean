@@ -12,6 +12,11 @@ import RHLean.Geometry.NativeMeasuredComponentNorm
 import RHLean.Geometry.NativeThetaCuspTensorVacua
 import RHLean.Geometry.NativeThetaCuspSeriesInjective
 import RHLean.Geometry.NativeThetaCuspHeisenberg
+import RHLean.Geometry.NativeCMWeierstrassPolarizedOrigin
+import RHLean.Geometry.NativeCMWeierstrassCMOpen
+import RHLean.Geometry.NativeCMIntegralClassPeriodMean
+import RHLean.Geometry.NativeThetaCuspSeriesHolomorphic
+import RHLean.Geometry.NativeThetaCuspWeil
 import Lean.Util.CollectAxioms
 
 /-!
@@ -19,9 +24,11 @@ import Lean.Util.CollectAxioms
 
 These roots retain the original projective module, actual integral seed
 scheme, periods, tensor points, pure-block signs, ranks and measured masses.
-They do not assert a represented polarized Serre scheme, the arithmetic
-Lie-to-class-group mean comparison, the global cusp family, or the complete
-signed-source inequality.
+They include the actual origin polarization and the arithmetic period-mean
+calculation from genuine two-sided ideal-isogeny data. They do not assert
+that this integral ideal-isogeny family has been constructed, a represented
+polarized Serre scheme, the global cusp family, or the complete signed-source
+inequality.
 -/
 
 open Lean Elab Command in
@@ -163,6 +170,25 @@ run_cmd do
     ``RHLean.Geometry.NativeCM.SchemeTheory.WeierstrassCurve.originLB_rigidified,
     ``RHLean.Geometry.NativeCM.SchemeTheory.WeierstrassCurve.originLB_inversion_isomorphic,
     ``RHLean.Geometry.NativeCM.SchemeTheory.WeierstrassCurve.existsUnique_eq_const_mul_originSec,
+    ``RHLean.Geometry.NativeCM.SchemeTheory.LBGerm.gs_compat,
+    ``RHLean.Geometry.NativeCM.SchemeTheory.nonzeroLocus_finPowSec,
+    ``RHLean.Geometry.NativeCM.SchemeTheory.WeierstrassCurve.nonzeroLocus_coordSec,
+    ``RHLean.Geometry.NativeCM.SchemeTheory.WeierstrassCurve.relAmple_originLB,
+    ``RHLean.Geometry.NativeCM.SchemeTheory.WeierstrassCurve.existsUnique_eq_appLE_mul_secPull,
+    ``RHLean.Geometry.NativeCM.SchemeTheory.WeierstrassCurve.originLB_polarisation,
+    ``RHLean.Geometry.NativeCM.Weierstrass.rationalIdentity_of_point_formula,
+    ``RHLean.Geometry.NativeCM.SchemeTheory.WeierstrassCurve.rationalOpenHom_fieldPoint,
+    ``RHLean.Geometry.NativeCM.Weierstrass.exists_cm_rational_scheme_open,
+    ``RHLean.Geometry.NativeCM.IdealIsogenyPeriods.lattice_cm_eq_ideal_and_covolume,
+    ``RHLean.Geometry.NativeCM.PeriodMean.latticeNormDisc_conjPeriods,
+    ``RHLean.Geometry.NativeCM.PeriodMean.mean_log_covolume_eq_mean_classGroup,
+    ``RHLean.Geometry.NativeCM.PeriodMean.mean_log_covolume_sub_log_pi_eq_class_period,
+    ``RHLean.Geometry.NativeCM.exists_integralIdealClassPeriods_with_seed,
+    ``RHLean.Geometry.NativeTheta.Cusp.ThetaHol.differentiable_thS,
+    ``RHLean.Geometry.NativeTheta.Cusp.ThetaHol.holomorphic_nonzero_of_vacuum,
+    ``RHLean.Geometry.NativeTheta.Cusp.FourierJ.fourierJ_transS,
+    ``RHLean.Geometry.NativeTheta.Cusp.FourierJ.ft_ip,
+    ``RHLean.Geometry.NativeTheta.Cusp.exists_weil_of_symplectic,
     ``RHLean.Geometry.NativeCM.Weierstrass.rescaled_model_defined_over_same_field,
     ``RHLean.Geometry.NativeCM.Weierstrass.normalized_change_defined_over_same_field,
     ``RHLean.Geometry.NativeCM.EllipticSeed.normalizedEquationPointEquiv_eq,

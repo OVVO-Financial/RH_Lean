@@ -45,7 +45,7 @@ theorem summable_pi_prod {J A : Type} [Fintype J] (f : J → A → ℝ) (h0 : �
     _ = ∏ j : J, ∑ a ∈ s.image (fun n : J → A => n j), f j a :=
         (Finset.prod_univ_sum (fun j : J => s.image (fun n : J → A => n j)) f).symm
     _ ≤ ∏ j : J, ∑' a, f j a := by
-        apply Finset.prod_le_prod
+        apply Finset.prod_le_prod₀
         · intro j _
           exact Finset.sum_nonneg fun a _ => h0 j a
         · intro j _

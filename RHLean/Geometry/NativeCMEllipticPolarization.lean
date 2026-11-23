@@ -77,6 +77,7 @@ theorem hermitian_coordinates_im (x y : ℤ × ℤ) :
     ring
   rw [hcalc, inv_abs_mul_im]
   push_cast
+  rfl
 
 /-- The perfect determinant form in actual integral coordinates. -/
 def coordinateForm (s : ℤ) : LinearMap.BilinForm ℤ (ℤ × ℤ) :=
@@ -116,7 +117,8 @@ theorem coordinateForm_bijective (s : ℤ) (hs : s = 1 ∨ s = -1) :
     · rcases hs with rfl | rfl <;> simpa [coordinateForm] using h2
   · intro f
     refine ⟨(-s * f (0, 1), s * f (1, 0)), ?_⟩
-    ext x
+    apply LinearMap.ext
+    intro x
     have hx : x = x.1 • (1, 0) + x.2 • (0, 1) := by ext <;> simp
     have hf : f x = x.1 * f (1, 0) + x.2 * f (0, 1) := by
       conv_lhs => rw [hx]
@@ -132,7 +134,8 @@ theorem form_bijective : Function.Bijective (form H τ) := by
   · intro x y h
     apply e.symm.injective
     apply hcoord.1
-    ext z
+    apply LinearMap.ext
+    intro z
     have hz := congrArg (fun f : OK H →ₗ[ℤ] ℤ => f (e z)) h
     change coordinateForm (orientation H τ) (e.symm x) (e.symm (e z)) =
       coordinateForm (orientation H τ) (e.symm y) (e.symm (e z)) at hz
@@ -140,7 +143,8 @@ theorem form_bijective : Function.Bijective (form H τ) := by
   · intro f
     obtain ⟨x, hx⟩ := hcoord.2 (f.comp e.toLinearMap)
     refine ⟨e x, ?_⟩
-    ext y
+    apply LinearMap.ext
+    intro y
     change coordinateForm (orientation H τ) (e.symm (e x)) (e.symm y) = f y
     rw [e.symm_apply_apply, hx]
     simp only [LinearMap.comp_apply, LinearEquiv.coe_coe, LinearEquiv.apply_symm_apply]
@@ -152,7 +156,7 @@ theorem form_eq_hermitian_im (x y : OK H) :
   rw [form_coordinates, hermitian_coordinates_im]
 
 theorem embed_bar (a : OK H) : embed H τ (barOK H a) = conj (embed H τ a) := by
-  change τ ((H.bar a : 𝓞 E) : E) = conj (τ (a : E))
+  change τ ((H.bar (a : 𝓞 E) : 𝓞 E) : E) = conj (τ ((a : 𝓞 E) : E))
   rw [H.bar_eq, IsCMField.complexEmbedding_complexConj]
 
 /-- Complex multiplication is adjoint to the actual CM conjugation for the

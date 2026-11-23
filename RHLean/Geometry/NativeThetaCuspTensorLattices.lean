@@ -303,7 +303,7 @@ theorem span_of_selfDual {neg : Fin r → Bool} {L : Lt H.E r}
         sgn (neg i) * y i) = H.conj c * herm H y z := by
       rw [herm, Finset.mul_sum]
       refine Finset.sum_congr rfl fun i _ => ?_
-      rw [map_mul, map_mul, map_sgn H.conj.toRingHom]
+      rw [map_mul, map_mul, Ambient.conj_sgn H]
       calc
         _ = H.conj c * ((sgn (neg i) : H.E) * sgn (neg i)) * (y i * H.conj (z i)) := by ring
         _ = _ := by rw [sgn_mul_self, mul_one]

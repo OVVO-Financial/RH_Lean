@@ -66,15 +66,15 @@ def multiples (a : OAct O G) {v : epsR R ⟶ G} (hv : IsTangent v)
 
 theorem hom_multiples (a : OAct O G) {v : epsR R ⟶ G} (hv : IsTangent v)
     (ha : ∀ c, v ≫ a.act c = epsScale (algebraMap O R c) ≫ v) (r : R) :
-    (multiples a hv ha r).hom = epsScale r ≫ v := rfl
+    Pts.hom (multiples a hv ha r) = epsScale r ≫ v := rfl
 
 omit [Algebra O R] in
 theorem pre_eq_zero_iff (a : OAct O G) (x : Pts a (epsR R)) :
-    Pts.pre a (toUnit (epsR R) ≫ epsZero R) x = 0 ↔ IsTangent x.hom := by
+    Pts.pre a (toUnit (epsR R) ≫ epsZero R) x = 0 ↔ IsTangent (Pts.hom x) := by
   rw [isTangent_iff]
   constructor
   · intro h
-    have h1 : (toUnit (epsR R) ≫ epsZero R) ≫ x.hom = 1 := congrArg Pts.hom h
+    have h1 : (toUnit (epsR R) ≫ epsZero R) ≫ Pts.hom x = 1 := congrArg Pts.hom h
     have h2 := congrArg (epsZero R ≫ ·) h1
     simp only [← Category.assoc, MonObj.comp_one] at h2
     rwa [toUnit_unique (epsZero R ≫ toUnit _) (𝟙 _), Category.id_comp] at h2
@@ -83,7 +83,7 @@ theorem pre_eq_zero_iff (a : OAct O G) (x : Pts a (epsR R)) :
 
 omit [Algebra O R] in
 theorem isTangent_sub_pre (a : OAct O G) (x : Pts a (epsR R)) :
-    IsTangent (x - Pts.pre a (toUnit (epsR R) ≫ epsZero R) x).hom := by
+    IsTangent (Pts.hom (x - Pts.pre a (toUnit (epsR R) ≫ epsZero R) x)) := by
   rw [← pre_eq_zero_iff, map_sub, sub_eq_zero]
   apply Pts.ext
   simp only [Pts.hom_pre, ← Category.assoc]
@@ -138,9 +138,9 @@ theorem exists_lie_tensor
   set j := multiples a (hv.1 0) ha with hj
   let Ψ : R ⊗[O] M →ₗ[O] Pts b (epsR R) :=
     (t.equiv _).toLinearMap ∘ₗ j.lTensor M ∘ₗ (TensorProduct.comm O R M).toLinearMap
-  have hΨ : ∀ (r : R) (m : M), (Ψ (r ⊗ₜ[O] m)).hom = epsScale r ≫ v ≫ t.tmul m :=
+  have hΨ : ∀ (r : R) (m : M), Pts.hom (Ψ (r ⊗ₜ[O] m)) = epsScale r ≫ v ≫ t.tmul m :=
     fun _ _ => by simp [Ψ, hj, hom_multiples]
-  refine ⟨fun y => (Ψ y).hom, fun y z h => ?_, fun x => ⟨fun hx => ?_, ?_⟩,
+  refine ⟨fun y => Pts.hom (Ψ y), fun y z h => ?_, fun x => ⟨fun hx => ?_, ?_⟩,
     fun _ _ => ?_, fun c y => ?_, fun _ => ?_, fun φ y => ?_⟩
   · have h' : j.lTensor M (TensorProduct.comm O R M y) =
         j.lTensor M (TensorProduct.comm O R M z) := (t.equiv _).injective (Pts.ext h)

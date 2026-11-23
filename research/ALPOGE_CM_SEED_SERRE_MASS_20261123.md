@@ -597,8 +597,21 @@ integral group scheme and constructs a unit generator along the zero
 section. `NativeCMWeierstrassOriginSections` uses explicit pole orders in
 the affine coordinate ring to prove every global section is a unique base
 scalar times the canonical origin section, over any commutative base ring.
-Relative ampleness and the principal translation kernel still require
-proof; symmetry and rigidification alone are not a principal polarization.
+The next native cut supplies the remaining two polarization properties.
+`NativeCMWeierstrassOriginCube` constructs three sections of the cube of
+this same bundle; their nonzero loci are exactly the three projective
+coordinate opens, and their ratios are the actual coordinate ratios.
+`NativeCMWeierstrassOriginAmple` proves relative ampleness on every affine
+base restriction, including surjectivity of the section-algebra evaluation
+map. `NativeCMWeierstrassOriginBaseChange` proves the unique-section result
+after arbitrary affine base change. The actual sheaf gluing and section
+transport in `NativeCMLineBundleTransport` and `NativeCMLineBundleKernel`
+then prove the trivial translation kernel on arbitrary test schemes.
+`NativeCMWeierstrassPolarizedOrigin.originLB_polarisation` joins
+rigidification, inversion symmetry, relative ampleness and this kernel
+property on the original integral group scheme. These new proofs await
+hosted compilation. The CM scheme action and the analytic identification
+of the polarization metric are separate obligations.
 
 ### Actual shifted lattice and one common phase
 
@@ -645,9 +658,19 @@ to the auxiliary rank. No compatible vacuum family is assumed.
 `NativeThetaCuspSeries` proves absolute convergence of the literal rational
 Schwartz theta transform. `NativeThetaCuspSeriesInjective` proves its
 injectivity by the already native Fourier uniqueness theorem. These are
-analytic inputs for constructing Weil covariance; they do not assume a
-Weil representation or a global cusp form. The finite subgroup `J` and its
-character still need construction: the existing full-level cardinality
+analytic inputs for Weil covariance. `NativeThetaCuspSeriesHolomorphic`
+proves local normal convergence, holomorphy and nonvanishing for the actual
+normalized vacuum. The fourteen-module cut ending in `NativeThetaCuspWeil`
+constructs the Fourier operator from finite Fourier sums, proves its Haar
+unitarity, and derives the standard symplectic-J theta law from Gaussian
+lattice Poisson summation. Explicit parabolic operators, their exact Haar
+change of variables, transformation composition and a proved symplectic
+factorization yield an operator for every rational symplectic matrix in
+even coefficient dimension. Its Schwartz preservation, literal `TransS`
+law and original Haar inner product are proved, not supplied as premises.
+This cut awaits hosted compilation.
+The finite level subgroup `J` and its character still need construction:
+the existing full-level cardinality
 bound and the split-five quotient basis do not supply those objects.
 Global theta/cusp realization, its span and geometric rank lower shares
 also remain open.
@@ -670,12 +693,21 @@ b_C O_F=(\beta_C),\qquad
 \]
 
 This is a derived arithmetic norm identity; the genuine derivative
-integrality remains a geometric obligation. In the source, the fixed-class
-row sum follows from this identity and the discriminant product formula;
-the fixed-embedding column sum follows from the permutation of ideal
-classes and scale/conjugation invariance of the period expression. Fubini
-then equates the means. A separate Galois equidistribution assertion is not
-required by this source route.
+integrality remains a geometric obligation. `NativeCMIdealIsogenyPeriods`
+now derives the actual CM ideal-class representation and covolume identity
+from the two-sided lattice inclusions. `NativeCMPeriodNormInvariant` proves
+scale and conjugation invariance of
+`covolume(Lambda)^6 * norm(discriminant(Lambda))`.
+`NativeCMIsogenyPeriodMean` proves both sums: the fixed-class row follows
+from the derivative norm and discriminant product formula, while the
+fixed-embedding column follows from the permutation of ideal classes.
+Fubini then gives the arithmetic mean. `NativeCMIntegralClassPeriodMean`
+expresses that conclusion in the exact native `latticeLogPeriod`
+normalization and constructs integral ideal representatives with the
+principal class equal to the original seed. These new calculations await
+hosted compilation. The integral ideal-isogeny family and derivative
+integrality are still explicit geometric inputs; no desired mean or
+separate Galois equidistribution assertion is assumed.
 
 ## 7. Exact next substitutions into the existing signed-slope comparison
 
@@ -685,11 +717,11 @@ ASK/MAIN recombination, finite-place gains and divisor
 
 | Supplier | Constructed here | Still required for the physical comparison |
 | --- | --- | --- |
-| CM seed | Actual quadratic order, polarized analytic quotient, integral smooth proper group scheme, exact tangent/invariant comparison, regular origin section, rigidification and inversion symmetry | Integral CM action, origin-bundle relative ampleness and principal kernel, arithmetic Lie-period comparison |
+| CM seed | Actual quadratic order, polarized analytic quotient, integral smooth proper group scheme, exact tangent/invariant comparison, all four origin-polarization properties, actual rational CM morphism on its denominator open | Global and integral CM action, analytic polarization-metric identification, arithmetic Lie-period comparison |
 | Serre construction | Original projective module, perfect Hermitian form, trace-frame scheme equalizer and integral Lie tensor, full coefficient action, exact analytic period kernel and rank | Constructed seed scheme action and its derivative compatibility; induced polarization and arithmetic metric comparison |
-| CM degree | Original covolume, actual elliptic integral tangent scale, integral Lie-tensor comparison given the genuine seed action, exact eigenideal and finite correction, native analytic Chowla--Selberg class mean | Instantiation of the seed scheme action and its derivative, polarization metric identification, integral ideal-isogeny family and double-sum class-mean comparison |
+| CM degree | Original covolume, actual elliptic integral tangent scale, integral Lie-tensor comparison given the genuine seed action, exact eigenideal and finite correction, native analytic Chowla--Selberg class mean, derived double-sum arithmetic mean from actual isogeny data | Instantiation of the seed scheme action and its derivative, polarization metric identification, integral ideal-isogeny family and two-sided derivative integrality |
 | Component masses | Exact measured restriction and all-place degree correction | Actual global automorphic component spaces and Petersson measure/Gram identification |
-| Cusp family and ranks | Existing polynomial span retained, actual auxiliary projective tensor vacua with exact overlap, common phase, rational theta convergence/injectivity, split-five modulus and measured direct-sum rank | Finite subgroup and character, Weil covariance and isotropic system, algebraic/integral theta realization, global cusp span, orbit separation and geometric jet lower shares |
+| Cusp family and ranks | Existing polynomial span retained, actual auxiliary projective tensor vacua with exact overlap, common phase, rational theta convergence/injectivity/holomorphy, genuine rational Weil covariance and Haar unitarity, split-five modulus and measured direct-sum rank | Finite subgroup and character, isotropic system, algebraic/integral theta realization, global cusp span, orbit separation and geometric jet lower shares |
 
 The source's genuine arithmetic period is
 
@@ -793,6 +825,18 @@ was skipped. The next snapshot carries the repairs and the newly
 constructed scheme tensor, origin-bundle properties and auxiliary vacuum
 family; their combined Lean closure is not yet certified.
 
+The tenth snapshot `f6ec76b52baa9201710cc9c7a3d8f99ddf4f3407`, Actions
+run `45277725658`, passed the source audits. Hosted diagnostics compiled
+the elliptic seed, projective group law, line-bundle atlas, regular-section
+isomorphism, origin bundle, quadratic-zeta/class-period chain, projective
+pseudobasis and finite vacuum-overlap theorem cleanly. The closure failed
+on tangent/polarization elaboration, Serre point-module projections and
+rational theta coordinates, plus a warning in the regular-section file.
+The next snapshot repairs those exact errors without weakening statements.
+The full native build was skipped. The new polarization, arithmetic-mean
+and Weil cuts still require a successful hosted closure and terminal-axiom
+audit before being treated as verified native suppliers.
+
 ## Located continuation without inflated import closures
 
 The CM-action branch now uses a smaller cut than the general division-polynomial
@@ -811,14 +855,21 @@ coordinate change uses the algebraic coefficients `-a1/2`, `-b2/12`, and
 `(a1*b2-12*a3)/24`. No transcendental period is adjoined to that field.
 `NativeCMWeierstrassTranslationScheme` constructs the actual triangular
 projective scheme isomorphism and its inverse, matching the prior point
-comparison. The generic CM scheme morphism and its extension over the
-integers still require proof; rational point formulas and a model
-isomorphism do not discharge those obligations.
+comparison. `NativeCMWeierstrassRationalIdentity` now proves the polynomial
+curve identity from the actual elliptic point formula.
+`NativeCMWeierstrassRationalSchemeOpen` constructs the literal localization
+at the denominator and the actual scheme morphism with coordinates
+`A/D` and `alpha^-1*(A'D-AD')*y/D^2`.
+`NativeCMWeierstrassCMOpen` supplies those data for the same finite field,
+same normalized seed equation and original CM generator. Extending this
+map across the denominator-zero locus, and then over the integers,
+remains open; the denominator-open construction is not a global CM action.
 
 For the cusp norm/overlap branch, the declaration cut now reaches the
 actual auxiliary tensor-lattice family, normalized vacua, exact relative-index
-power overlap, and convergence/injectivity of its rational theta transform.
+power overlap, holomorphy/injectivity of its rational theta transform and
+the Fourier/Poisson proof of rational Weil covariance.
 It uses Heisenberg unitarity and cocycles, finite quotient projections,
-projective pseudobases and literal shifted self-duality. The next analytic
-cut is the genuine Fourier/Poisson generator of Weil covariance; its global
-automorphic realization and measured geometric rank shares remain open.
+projective pseudobases and literal shifted self-duality. The finite level
+subgroup and character, global automorphic realization and measured
+geometric rank shares remain open.

@@ -106,8 +106,7 @@ theorem pair_smul_left {N : ℕ} (neg : Fin N → Bool) (q : ℚ)
     (xi H * ∑ i, H.conj (q • x i) * sgn (neg i) * y i) =
       q * Algebra.trace ℚ H.E (xi H * ∑ i, H.conj (x i) * sgn (neg i) * y i)
   have hc : ∀ z : H.E, H.conj (q • z) = q • H.conj z := fun z => by
-    change H.conj ((q : H.E) * z) = (q : H.E) * H.conj z
-    rw [map_mul, map_ratCast]
+    simp only [Rat.smul_def, map_mul, map_ratCast]
   simp only [hc, smul_mul_assoc, ← Finset.smul_sum, mul_smul_comm, map_smul,
     smul_eq_mul]
 
@@ -134,6 +133,9 @@ theorem pair_adjoint {N : ℕ} (neg : Fin N → Bool) (a : 𝓞 H.E)
     pair H neg (a • x) y = pair H neg x ((H.conj • a) • y) :=
   pair_adjoint_field H neg (a : H.E) x y
 
+theorem conj_sgn (b : Bool) : H.conj (sgn b : H.E) = sgn b := by
+  cases b <;> simp [sgn]
+
 theorem pair_self {N : ℕ} (neg : Fin N → Bool) (x : Fin N → H.E) :
     pair H neg x x = 0 := by
   have he : H.conj (diagForm N neg x x) = diagForm N neg x x := by
@@ -141,7 +143,7 @@ theorem pair_self {N : ℕ} (neg : Fin N → Bool) (x : Fin N → H.E) :
       ∑ i, H.conj (x i) * sgn (neg i) * x i
     rw [map_sum]
     exact Finset.sum_congr rfl fun i _ => by
-      rw [map_mul, map_mul, conj_conj, map_sgn H.conj.toRingHom]
+      rw [map_mul, map_mul, conj_conj, conj_sgn H]
       ring
   have ht := Algebra.trace_eq_of_algEquiv H.conj (xi H * diagForm N neg x x)
   rw [map_mul, conj_xi, he, neg_mul, map_neg] at ht
