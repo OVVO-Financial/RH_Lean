@@ -31,7 +31,7 @@ set_option relaxedAutoImplicit false
 noncomputable section
 
 open NumberField
-open scoped Classical BigOperators
+open scoped Classical BigOperators Pointwise
 
 namespace RHLean.Geometry.NativeGeometricSymplectic
 
@@ -94,7 +94,7 @@ namespace RHLean.Analysis.AlpogeThin
 
 open RHLean.Geometry RHLean.Geometry.NativeIntegralSymplectic
 open RHLean.Geometry.NativeGeometricSymplectic
-open Formalism.HC
+open Formalism.HC Formalism.FrobeniusOrbits
 open NativeRawHostPolarization
 
 /-- Explicit symplectic coordinates on the SAME native inverse-ideal

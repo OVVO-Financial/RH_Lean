@@ -111,7 +111,7 @@ theorem isCMUnram :
 theorem cmData :
     @CMData H.F H.E _ _ _ _ (conjugationStar H.toHostRaw) _ := by
   have : IsCMField H.E := H.der.cm
-  letI : StarRing H.E := conjugationStar H.toHostRaw
+  let : StarRing H.E := conjugationStar H.toHostRaw
   refine
     { cmUnram := isCMUnram H
       totReal := inferInstance
@@ -153,7 +153,8 @@ theorem nativeDyadicHostCMData_sig (he : 2 ≤ e) (hH : HostHyp q d) :
     @CMData.sig F E _ _ _ _ (conjugationStar (nativeDyadicHostRaw e q d he hH)) _
         (nativeDyadicHostCMData e q d he hH) =
       NativeDyadicAdelicNorm.conjugation e q d he hH := by
-  ext x
+  apply AlgHom.ext
+  intro x
   change (nativeDyadicHostRaw e q d he hH).conj x =
     NativeDyadicAdelicNorm.conjugation e q d he hH x
   exact (NativeDyadicAdelicNorm.conjugation_eq_host e q d he hH x).symm

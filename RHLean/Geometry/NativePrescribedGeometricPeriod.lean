@@ -148,8 +148,12 @@ theorem prescribedPeriod_isPeriod (B : Ideal (𝓞 H.E))
     (k m j : ℕ) (hk : m + 3 ≤ k) (hj : j ≤ m) :
     IsPeriod (prescribedGeometricDatum H B hB G hΨ hconj hbar k m j hk hj)
       (prescribedPeriodType H k m j) (prescribedPeriodMap H B hB k m j) := by
-  have := twistedLattice_free_int H B (k + m - 1)
-  have := twistedLattice_finite_int H B (k + m - 1)
+  let : Module.Free ℤ
+      (prescribedGeometricDatum H B hB G hΨ hconj hbar k m j hk hj).La :=
+    twistedLattice_free_int H B (k + m - 1)
+  let : Module.Finite ℤ
+      (prescribedGeometricDatum H B hB G hΨ hconj hbar k m j hk hj).La :=
+    twistedLattice_finite_int H B (k + m - 1)
   refine periodOfRealEquiv_isPeriod
     (prescribedGeometricDatum H B hB G hΨ hconj hbar k m j hk hj)
     (prescribedPeriodType H k m j)
