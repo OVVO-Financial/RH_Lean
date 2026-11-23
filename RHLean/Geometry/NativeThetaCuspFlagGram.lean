@@ -18,7 +18,7 @@ set_option autoImplicit false
 set_option relaxedAutoImplicit false
 set_option maxHeartbeats 4000000
 
-open NumberField Complex
+open NumberField Complex Matrix
 open scoped ComplexConjugate
 
 namespace RHLean.Geometry.NativeTheta.Cusp.FlagDomain

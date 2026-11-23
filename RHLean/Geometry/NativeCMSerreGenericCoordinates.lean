@@ -61,8 +61,9 @@ theorem genericSeedExponential_ker (z : ℂ) :
     Additive.toMul (genericSeedExponential G τ V C hVC z) = 1 ↔ z ∈ lattice G τ := by
   change genericTorusPointEquiv G τ V C hVC
     (QuotientAddGroup.mk' (period G τ).range z) = 0 ↔ _
-  rw [AddEquiv.map_eq_zero_iff, QuotientAddGroup.eq_zero_iff]
-  rfl
+  rw [AddEquiv.map_eq_zero_iff]
+  change (z : ℂ ⧸ (period G τ).range) = 0 ↔ z ∈ (period G τ).range
+  exact QuotientAddGroup.eq_zero_iff
 
 variable (a : OAct (OK G) (schemeOver V))
     (hact : ∀ c : OK G, ∀ z : ℂ,

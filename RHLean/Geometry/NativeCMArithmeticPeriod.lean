@@ -37,6 +37,8 @@ namespace RHLean.Geometry.NativeCM
 variable {E : Type} [Field E] [NumberField E] [IsCMField E]
     (G : NativeGeometricHost E) (τ : E →+* ℂ)
 
+instance nativeHost_discriminant_neZero : NeZero G.d := ⟨G.d_prime.ne_zero⟩
+
 theorem quadraticField_discr : discr (quadraticField G) = -(G.d : ℤ) :=
   PeriodArithmetic.discr_eq_neg_of_sq_eq (quadraticField_finrank G)
     G.d_prime.squarefree (by have := G.d_mod; omega) (quadraticFieldRoot_sq G)
@@ -119,7 +121,6 @@ theorem exists_idealClassPeriods_with_seed :
         (Real.eulerMascheroniConstant + Real.log (2 * Real.pi / Real.sqrt G.d) : ℝ) -
           deriv (periodCharacter G).LFunction 1 / (periodCharacter G).LFunction 1 := by
   classical
-  have : NeZero G.d := ⟨G.d_prime.ne_zero⟩
   have hd : 4 < G.d := by have := G.d_mod; omega
   have hrep : ∀ c : ClassGroup (𝓞 (quadraticField G)),
       ∃ (A : (FractionalIdeal (𝓞 (quadraticField G))⁰ (quadraticField G))ˣ)

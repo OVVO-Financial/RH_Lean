@@ -83,7 +83,7 @@ lemma exists_diag {n : ℕ} (B : Matrix (Fin n) (Fin n) ℂ) (hH : B.IsHermitian
   let F : Matrix (Fin n) (Fin n) ℂ := Matrix.of fun c j => y j c
   have hFt : F.BlockTriangular id := fun c j h => hy0 j c h
   have hFd : F.det = 1 := by
-    rw [Matrix.det_of_upperTriangular hFt]
+    rw [Matrix.det_of_isUpperTriangular hFt]
     exact Finset.prod_eq_one fun i _ => hy1 i
   have hup : ∀ i j, i < j → (Fᴴ * B * F) i j = 0 := by
     intro i j hij

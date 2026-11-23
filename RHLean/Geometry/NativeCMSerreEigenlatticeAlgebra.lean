@@ -192,6 +192,8 @@ theorem coefficient_kLin_sum
     (x y : (coefficientIdeal H B : Submodule (𝓞 H.E) H.E)) :
     (((kLin (coefficientTraceLattice H G hbar B hB) 1 x y : OK G) : 𝓞 H.E) : H.E) =
       ∑ σ : RootAut G, σ.1 ((x : H.E) * H.conj (y : H.E)) := by
+  set v : H.E := (((kLin (coefficientTraceLattice H G hbar B hB) 1 x y : OK G) :
+    𝓞 H.E) : H.E)
   have := H.galois
   have hEF (u v : (coefficientIdeal H B : Submodule (𝓞 H.E) H.E)) :
       (integralTraceForm H B hB u v : H.E) =
@@ -207,10 +209,10 @@ theorem coefficient_kLin_sum
     exact ht
   have hk := congrArg (algebraMap (𝓞 H.E) H.E)
     (coefficient_kFun_formula H G hbar B hB 1 x y)
-  simp only [map_add, map_mul, map_intCast, Int.cast_sub, one_mul] at hk
-  dsimp only [coefficientTraceLattice] at hk ⊢
+  change v = _ at hk
+  simp only [map_add, map_mul, map_intCast, Units.val_one, one_mul, Int.cast_sub] at hk
   rw [hEF, hEF] at hk
-  change _ =
+  change v =
     (Algebra.trace ℚ H.E (((G.w0 : H.E) * x) * H.conj (y : H.E) / G.rt) : ℚ) -
       (Algebra.trace ℚ H.E ((x : H.E) * H.conj (y : H.E) / G.rt) : ℚ) +
       (Algebra.trace ℚ H.E ((x : H.E) * H.conj (y : H.E) / G.rt) : ℚ) *

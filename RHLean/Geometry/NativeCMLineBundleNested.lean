@@ -70,13 +70,22 @@ theorem lcg_nested (j j' : J → K → L.ι) :
         ∏ b, u b k ^ δ b := by
     exact res_lcg L (fun b => ψ b ≫ φ k) δ
       (fun b => j b k) (fun b => j' b k) _
-  change (∏ b, (res _ (pullU (ψ b) _ ((LinComb L φ ε).g (j b) (j' b)))) ^ δ b) = _
-  dsimp only [LinComb] at *
-  simp_rw [hleft, hright, Finset.prod_zpow]
-  rw [Finset.prod_comm]
-  refine Finset.prod_congr rfl fun k _ => ?_
-  refine Finset.prod_congr rfl fun b _ => ?_
-  rw [← zpow_mul, ← zpow_mul, mul_comm]
+  calc
+    _ = ∏ b, (∏ k, u b k ^ ε k) ^ δ b := by
+      change (∏ b, (res _ (pullU (ψ b) _ ((LinComb L φ ε).g (j b) (j' b)))) ^ δ b) = _
+      exact Finset.prod_congr rfl fun b _ => congrArg (· ^ δ b) (hleft b)
+    _ = ∏ b, ∏ k, (u b k ^ ε k) ^ δ b := by
+      refine Finset.prod_congr rfl fun _ _ => ?_
+      rw [Finset.prod_zpow]
+    _ = ∏ k, ∏ b, (u b k ^ δ b) ^ ε k := by
+      rw [Finset.prod_comm]
+      refine Finset.prod_congr rfl fun k _ => ?_
+      refine Finset.prod_congr rfl fun b _ => ?_
+      rw [← zpow_mul, ← zpow_mul, mul_comm]
+    _ = _ := by
+      refine Finset.prod_congr rfl fun k _ => ?_
+      rw [← Finset.prod_zpow]
+      exact congrArg (· ^ ε k) (hright k).symm
 
 /-- An explicit generator on the nested atlas, formed from the given
 generators on every original signed pullback. -/
@@ -90,8 +99,7 @@ theorem isGen_nestedGen
     (t : ∀ k, Gen (LinComb L (fun b => ψ b ≫ φ k) δ))
     (ht : ∀ k, (t k).IsGen) :
     (nestedGen L φ ε ψ δ t).IsGen := by
-  intro j j'
-  dsimp only [LinComb] at j j'
+  refine (isGen_iff (LinComb L φ ε) _).2 fun j j' => ?_
   have htrans := lcg_nested L φ ε ψ δ j j'
   change res (inf_le_left : wchart (LinComb L φ ε) ψ j ⊓
       wchart (LinComb L φ ε) ψ j' ≤ wchart (LinComb L φ ε) ψ j)
@@ -102,12 +110,22 @@ theorem isGen_nestedGen
         wchart (LinComb L φ ε) ψ j' ≤ wchart (LinComb L φ ε) ψ j')
         (∏ k, (res (wchart_nested_le L φ ε ψ j' k)
         ((t k).s (fun b => j' b k))) ^ ε k)
-  dsimp only [LinComb] at *
-  rw [htrans, map_prod, map_prod, ← Finset.prod_mul_distrib]
+  rw [htrans]
+  have hl := map_prod
+    (res (inf_le_left : wchart (LinComb L φ ε) ψ j ⊓
+      wchart (LinComb L φ ε) ψ j' ≤ wchart (LinComb L φ ε) ψ j))
+    (fun k => (res (wchart_nested_le L φ ε ψ j k)
+      ((t k).s (fun b => j b k))) ^ ε k) Finset.univ
+  have hr := map_prod
+    (res (inf_le_right : wchart (LinComb L φ ε) ψ j ⊓
+      wchart (LinComb L φ ε) ψ j' ≤ wchart (LinComb L φ ε) ψ j'))
+    (fun k => (res (wchart_nested_le L φ ε ψ j' k)
+      ((t k).s (fun b => j' b k))) ^ ε k) Finset.univ
+  rw [hl, hr, ← Finset.prod_mul_distrib]
   refine Finset.prod_congr rfl fun k _ => ?_
   rw [map_zpow, map_zpow, ← mul_zpow, res_res, res_res]
   have h := congrArg (res (wchart_nested_inter_le L φ ε ψ j j' k))
-    (ht k (fun b => j b k) (fun b => j' b k))
+    ((isGen_iff L (t k)).mp (ht k) (fun b => j b k) (fun b => j' b k))
   simp only [map_mul, res_res] at h
   exact congrArg (· ^ ε k) h
 

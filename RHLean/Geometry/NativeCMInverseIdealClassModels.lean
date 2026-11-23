@@ -1,0 +1,149 @@
+import RHLean.Geometry.NativeCMIdealClassModels
+
+/-!
+# Integral models of the literal inverse-ideal periods
+
+The analytic class mean uses the periods of the integral representatives b.
+The arithmetic ideal-isogeny family uses b⁻¹. This file constructs those
+inverse-ideal periods and actual discriminant-one models over one common
+finite field, preserving the original principal seed and comparison. The
+two period-inclusion directions are proved on the literal fractional ideals.
+
+Source: Levent Alpöge (with Claude),
+CocoSgt/riemann-hypothesis-lean@7cbf7a0c32fca1badf05931879a37c3f8a2b03b4,
+src/Development/AbelianVarietyTheory/Proofs/CubicalLineBundles/ExistsCmCurvesOfWeierstrassCurves.lean.
+The native construction uses the preceding actual equation constructor,
+without an abstract polarized-variety supplier. The source archive states
+no license; attribution is retained without assigning one. Integral
+isogeny morphisms and their derivative integrality remain separate proofs.
+-/
+
+set_option autoImplicit false
+set_option relaxedAutoImplicit false
+
+noncomputable section
+
+open NumberField PeriodPair
+open scoped Classical nonZeroDivisors
+
+namespace RHLean.Geometry.NativeCM
+
+theorem inverseIdeal_mem_iff {K : Type} [Field K] [NumberField K]
+    (b : (Ideal (𝓞 K))⁰) (x : K) :
+    x ∈ ((FractionalIdeal.mk0 K b)⁻¹).1 ↔
+      ∀ y ∈ (b : Ideal (𝓞 K)), IsIntegral ℤ (x * (y : K)) := by
+  have hn : ((FractionalIdeal.mk0 K b : (FractionalIdeal (𝓞 K)⁰ K)ˣ) :
+      FractionalIdeal (𝓞 K)⁰ K) ≠ 0 := Units.ne_zero _
+  rw [Units.val_inv_eq_inv_val, FractionalIdeal.mem_inv_iff hn, FractionalIdeal.coe_mk0]
+  constructor
+  · intro h y hy
+    obtain ⟨a, ha⟩ := (FractionalIdeal.mem_one_iff _).mp
+      (h _ ((FractionalIdeal.mem_coeIdeal _).mpr ⟨y, hy, rfl⟩))
+    have hi : IsIntegral ℤ (algebraMap (𝓞 K) K a) := a.isIntegral_coe
+    rwa [ha] at hi
+  · intro h y hy
+    obtain ⟨a, ha, rfl⟩ := (FractionalIdeal.mem_coeIdeal _).mp hy
+    exact (FractionalIdeal.mem_one_iff _).mpr ⟨⟨_, h a ha⟩, rfl⟩
+
+variable {E : Type} [Field E] [NumberField E] [IsCMField E]
+    (G : NativeGeometricHost E) (τ : E →+* ℂ)
+
+theorem fractionalIdealPeriod_j_integral
+    (I : (FractionalIdeal (𝓞 (quadraticField G))⁰ (quadraticField G))ˣ)
+    (L : PeriodPair)
+    (hL : (L.lattice : Set ℂ) = quadraticEmbedding G τ '' I.1) :
+    IsIntegral ℤ (Weierstrass.latticeCurve L).j := by
+  apply Weierstrass.latticeCurve_j_integral_of_order_stable
+    (quadraticField_finrank G) (quadraticEmbedding G τ)
+  intro a z hz
+  change z ∈ (L.lattice : Set ℂ) at hz
+  rw [hL] at hz
+  obtain ⟨x, hx, rfl⟩ := hz
+  change _ ∈ (L.lattice : Set ℂ)
+  rw [hL]
+  refine ⟨(a : quadraticField G) * x, ?_, map_mul _ _ _⟩
+  simpa only [Algebra.smul_def] using
+    Submodule.smul_mem (I.1 : Submodule (𝓞 (quadraticField G)) (quadraticField G)) a hx
+
+/-- The arithmetic targets are models of the actual inverse ideals. The
+original integral seed is retained at the principal index. -/
+theorem exists_inverseIdealClassModels_preserving_seed
+    (b : ClassGroup (𝓞 (quadraticField G)) → (Ideal (𝓞 (quadraticField G)))⁰)
+    (hb₁ : b 1 = 1)
+    (M : IntermediateField ℚ ℂ) [NumberField M]
+    (W₀ : _root_.WeierstrassCurve (𝓞 M)) (hΔ₀ : W₀.Δ = 1)
+    (C₀ : _root_.WeierstrassCurve.VariableChange ℂ)
+    (hC₀ : C₀ • W₀.baseChange ℂ = Weierstrass.latticeCurve (EllipticSeed.periodPair G τ)) :
+    ∃ (L : ClassGroup (𝓞 (quadraticField G)) → PeriodPair)
+      (F : IntermediateField ℚ ℂ) (_ : NumberField F) (hMF : M ≤ F)
+      (W : ClassGroup (𝓞 (quadraticField G)) → _root_.WeierstrassCurve (𝓞 F))
+      (C : ClassGroup (𝓞 (quadraticField G)) → _root_.WeierstrassCurve.VariableChange ℂ),
+      (∀ c, ((L c).lattice : Set ℂ) = quadraticEmbedding G τ ''
+        ((FractionalIdeal.mk0 (quadraticField G) (b c))⁻¹).1) ∧
+      L 1 = EllipticSeed.periodPair G τ ∧
+      (∀ c, (W c).Δ = 1) ∧
+      (∀ c, C c • (W c).baseChange ℂ = Weierstrass.latticeCurve (L c)) ∧
+      W 1 = W₀.map (Weierstrass.integerFieldInclusion hMF) ∧ C 1 = C₀ := by
+  have hp : ∀ c : ClassGroup (𝓞 (quadraticField G)), ∃ L : PeriodPair,
+      (L.lattice : Set ℂ) = quadraticEmbedding G τ ''
+        ((FractionalIdeal.mk0 (quadraticField G) (b c))⁻¹).1 ∧
+      (c = 1 → L = EllipticSeed.periodPair G τ) := by
+    intro c
+    by_cases hc : c = 1
+    · subst c
+      exact ⟨EllipticSeed.periodPair G τ, by
+        simpa only [hb₁, map_one, inv_one, Units.val_one] using seedPeriod_eq_image_one G τ,
+        fun _ => rfl⟩
+    · obtain ⟨L, hL⟩ := PeriodArithmetic.QuadraticZeta.exists_periodPair
+        (quadraticField_finrank G) (quadraticField_discr G) (quadraticEmbedding G τ)
+        (FractionalIdeal.mk0 (quadraticField G) (b c))⁻¹
+      exact ⟨L, hL, fun h => (hc h).elim⟩
+  choose L hL hOne using hp
+  have hL₁ := hOne 1 rfl
+  have hcomp : C₀ • W₀.baseChange ℂ = Weierstrass.latticeCurve (L 1) := by
+    rw [hL₁]
+    exact hC₀
+  obtain ⟨F, hF, hMF, W, C, hΔ, hC, hW₁, hC₁⟩ :=
+    Weierstrass.exists_common_integral_models_preserving_seed 1 L M W₀ hΔ₀ C₀ hcomp
+      (fun c => fractionalIdealPeriod_j_integral G τ _ _ (hL c))
+  exact ⟨L, F, hF, hMF, W, C, hL, hL₁, hΔ, hC, hW₁, hC₁⟩
+
+/-- The forward ideal inclusion on the actual unscaled periods. -/
+theorem inverseIdealPeriod_forward
+    (b : (Ideal (𝓞 (quadraticField G)))⁰) (L : PeriodPair)
+    (hL : (L.lattice : Set ℂ) = quadraticEmbedding G τ ''
+      ((FractionalIdeal.mk0 (quadraticField G) b)⁻¹).1)
+    (x : quadraticField G)
+    (hx : ∀ y ∈ (b : Ideal (𝓞 (quadraticField G))), IsIntegral ℤ (x * (y : quadraticField G)))
+    (z : ℂ) (hz : z ∈ (EllipticSeed.periodPair G τ).lattice) :
+    quadraticEmbedding G τ x * z ∈ L.lattice := by
+  change z ∈ ((EllipticSeed.periodPair G τ).lattice : Set ℂ) at hz
+  rw [seedPeriod_eq_image_one] at hz
+  obtain ⟨y, hy, rfl⟩ := hz
+  obtain ⟨a, rfl⟩ := (FractionalIdeal.mem_one_iff _).mp hy
+  have hx' := (inverseIdeal_mem_iff b x).mpr hx
+  change _ ∈ (L.lattice : Set ℂ)
+  rw [hL]
+  refine ⟨x * (a : quadraticField G), ?_, map_mul _ _ _⟩
+  simpa only [Algebra.smul_def, mul_comm] using
+    Submodule.smul_mem (((FractionalIdeal.mk0 (quadraticField G) b)⁻¹).1 :
+      Submodule (𝓞 (quadraticField G)) (quadraticField G)) a hx'
+
+/-- The reverse inclusion uses the same ideal and the same lattice. -/
+theorem inverseIdealPeriod_reverse
+    (b : (Ideal (𝓞 (quadraticField G)))⁰) (L : PeriodPair)
+    (hL : (L.lattice : Set ℂ) = quadraticEmbedding G τ ''
+      ((FractionalIdeal.mk0 (quadraticField G) b)⁻¹).1)
+    (a : 𝓞 (quadraticField G)) (ha : a ∈ (b : Ideal (𝓞 (quadraticField G))))
+    (z : ℂ) (hz : z ∈ L.lattice) :
+    quadraticEmbedding G τ (a : quadraticField G) * z ∈ (EllipticSeed.periodPair G τ).lattice := by
+  change z ∈ (L.lattice : Set ℂ) at hz
+  rw [hL] at hz
+  obtain ⟨x, hx, rfl⟩ := hz
+  have hi := (inverseIdeal_mem_iff b x).mp hx a ha
+  change _ ∈ ((EllipticSeed.periodPair G τ).lattice : Set ℂ)
+  rw [seedPeriod_eq_image_one]
+  refine ⟨x * (a : quadraticField G), (FractionalIdeal.mem_one_iff _).mpr ⟨⟨_, hi⟩, rfl⟩, ?_⟩
+  rw [map_mul, mul_comm]
+
+end RHLean.Geometry.NativeCM

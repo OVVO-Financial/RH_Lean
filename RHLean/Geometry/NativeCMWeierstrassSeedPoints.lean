@@ -61,15 +61,28 @@ def equationPointEquiv : Torus H τ ≃+ W.toAffine.Point :=
 
 /-- The order module structure on the actual curve points, transported from
 the proved CM action on the exact same quotient. -/
+@[instance_reducible]
 def equationModule : Module (OK H) W.toAffine.Point :=
   let e := equationPointEquiv H τ W C hC
   { smul a P := e (a • e.symm P)
-    one_smul P := by simp
-    mul_smul a b P := by simp [mul_smul]
-    smul_zero a := by simp
-    smul_add a P Q := by simp [smul_add]
-    add_smul a b P := by simp [add_smul]
-    zero_smul P := by simp }
+    one_smul P := by
+      change e ((1 : OK H) • e.symm P) = P
+      rw [one_smul, AddEquiv.apply_symm_apply]
+    mul_smul a b P := by
+      change e ((a * b) • e.symm P) = e (a • e.symm (e (b • e.symm P)))
+      rw [AddEquiv.symm_apply_apply, mul_smul]
+    smul_zero a := by
+      change e (a • e.symm 0) = 0
+      rw [map_zero, smul_zero, map_zero]
+    smul_add a P Q := by
+      change e (a • e.symm (P + Q)) = e (a • e.symm P) + e (a • e.symm Q)
+      rw [map_add, smul_add, map_add]
+    add_smul a b P := by
+      change e ((a + b) • e.symm P) = e (a • e.symm P) + e (b • e.symm P)
+      rw [add_smul, map_add]
+    zero_smul P := by
+      change e ((0 : OK H) • e.symm P) = 0
+      rw [zero_smul, map_zero] }
 
 /-- The equivalence is linear for this actual transported order action. -/
 def equationPointLinearEquiv :
@@ -104,8 +117,9 @@ theorem equationExponential_ker (z : ℂ) :
   have hz : e (QuotientAddGroup.mk' (period H τ).range z) = 0 ↔
       QuotientAddGroup.mk' (period H τ).range z = 0 :=
     ⟨fun h => e.injective (h.trans e.map_zero.symm), fun h => h ▸ e.map_zero⟩
-  rw [hz, QuotientAddGroup.eq_zero_iff]
-  rfl
+  rw [hz]
+  change (z : ℂ ⧸ (period H τ).range) = 0 ↔ z ∈ (period H τ).range
+  exact QuotientAddGroup.eq_zero_iff
 
 theorem equationExponential_coordinates {z : ℂ} (hz : z ∉ lattice H τ) :
     ∃ h : W.toAffine.Nonsingular

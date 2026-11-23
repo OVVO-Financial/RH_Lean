@@ -77,7 +77,7 @@ theorem quotientLinear_surjective : Function.Surjective (quotientLinear G τ hem
 
 theorem quotientLinear_ker (z : ℂ) :
     quotientLinear G τ hemb z = 0 ↔ z ∈ Set.range (algebraMap (OK G) ℂ) := by
-  change QuotientAddGroup.mk' (period G τ).range z = 0 ↔ _
+  change (z : ℂ ⧸ (period G τ).range) = 0 ↔ _
   rw [QuotientAddGroup.eq_zero_iff]
   change (∃ a, embed G τ a = z) ↔ ∃ a, algebraMap (OK G) ℂ a = z
   rw [hemb]
@@ -150,9 +150,9 @@ def purePeriodLinear (hcompat : ∀ τ : cmTypeFinset H,
   map_smul' a x := by
     ext τ i
     simp only [RingHom.id_apply, Submodule.coe_smul_of_tower, Pi.smul_apply]
-    change (τ : H.E →+* ℂ) (((a : 𝓞 H.E) : H.E) * x.1 i) =
-      algebraMap (OK G) ℂ a * (τ : H.E →+* ℂ) (x.1 i)
-    rw [map_mul]
+    have hs : a • x.1 i = ((a : 𝓞 H.E) : H.E) * x.1 i :=
+      Algebra.smul_def (a : 𝓞 H.E) (x.1 i)
+    rw [hs, Algebra.smul_def, map_mul]
     change embed G (τ : H.E →+* ℂ) a * _ = _
     rw [hcompat τ]
 
@@ -216,8 +216,9 @@ theorem pureSerrePeriod_bijective (B : Ideal (𝓞 H.E))
   have := hproj
   have hdim : Module.finrank ℂ (ℂ ⊗[OK G] twistedLattice H B N) =
       Module.finrank ℂ (cmTypeFinset H → Fin N → ℂ) := by
-    rw [pureSerrePeriod_finrank H G B hB N]
-    simp
+    rw [pureSerrePeriod_finrank H G B hB N, Module.finrank_pi_fintype]
+    simp only [Module.finrank_fin_fun, Finset.sum_const, Finset.card_univ,
+      Fintype.card_coe, smul_eq_mul]
   have hsurj := pureSerrePeriod_surjective H G hcompat B hB N
   exact ⟨(LinearMap.injective_iff_surjective_of_finrank_eq_finrank hdim).mpr hsurj,
     hsurj⟩
@@ -296,8 +297,11 @@ def purePeriodQuotientEquiv (B : Ideal (𝓞 H.E))
     ((cmTypeFinset H → Fin N → ℂ) ⧸ (purePeriodLinear H G hcompat B N).range)
       ≃ₗ[OK G] twistedLattice H B N ⊗[OK G]
         EllipticSeed.Torus G (τ₀ : H.E →+* ℂ) :=
-  (Submodule.quotEquivOfEq _ _ (by
+  (Submodule.quotEquivOfEq (purePeriodLinear H G hcompat B N).range
+    (LinearMap.ker (pureSerreExponential H G hcompat B hB N τ₀)) (by
     ext v
+    change v ∈ (purePeriodLinear H G hcompat B N).range ↔
+      pureSerreExponential H G hcompat B hB N τ₀ v = 0
     exact (pureSerreExponential_ker H G hcompat B hB N τ₀ v).symm)).trans
       ((pureSerreExponential H G hcompat B hB N τ₀).quotKerEquivOfSurjective
         (pureSerreExponential_surjective H G hcompat B hB N τ₀))

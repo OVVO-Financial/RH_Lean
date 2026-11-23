@@ -952,6 +952,76 @@ proves that this denominator suffices. This flag record does not identify
 the geometric coefficient tie, an algebraic theta section, or the physical
 Petersson measure and its lower-rank shares.
 
+### Exact independence of the comparison and actual ideal-class equations
+
+`NativeCMWeierstrassPeriodUniqueness` reconstructs lattice determination
+from the actual Weierstrass invariants. If `C` and `C'` compare the same
+equation with `L` and `L'`, the forced homothety is exactly `C'.u / C.u`.
+Consequently
+
+\[
+\frac{\pi |u'|^2}{\operatorname{covol}(L')}
+=\frac{\pi |u|^2}{\operatorname{covol}(L)}.
+\]
+
+This proves that both the actual integral tangent length and its logarithmic
+period are independent of the auxiliary uniformization choice. The arbitrary
+comparison is joined to the existing place profile on the same equation.
+
+`NativeCMIdealClassModels` proves integrality of the actual `j` invariant
+of every order-stable ideal period, then constructs discriminant-one integral
+equations for all actual class periods in a common finite field containing
+the original seed field. The principal equation is fixed before descent:
+it remains exactly the scalar extension of the original `W`, and its
+comparison remains exactly the original `C`.
+
+`NativeCMInverseIdealClassModels` separately constructs the arithmetic
+targets on the literal fractional ideals `b_C^-1`. Their forward and reverse
+period inclusions follow from inverse-ideal membership and multiplication
+in the original order. This keeps the arithmetic inverse-ideal family
+distinct from the integral-ideal periods used in the analytic class mean.
+The integral scheme isogenies, their common-field derivatives and two-sided
+derivative integrality still have to be proved. The construction does not
+claim that the class mean is the arithmetic tangent mean.
+
+### Actual flat closure of the generic graph
+
+`NativeCMWeierstrassGenericFaithful` proves generic-fibre detection of maps
+from a flat scheme and descent of a factorization through an actual closed
+immersion. `NativeCMWeierstrassGraphClosure` constructs the schematic image
+of the generic graph, proves its flatness over the valuation base, and
+identifies its generic fibre and both generic projections. These are actual
+scheme constructions without a homomorphism-extension premise. The finite
+geometric kernel and isomorphism of the first projection remain required
+before an integral CM action can be asserted.
+
+### Holomorphic periods throughout the actual signed flag domain
+
+The five `NativeThetaCuspFlagHermitian`, `FlagElimination`, `FlagFramePeriod`,
+`NativeFlagPeriods` and `FlagHolomorphic` leaves construct an `IsPeriod`
+at every frame of the actual nonempty signed domain. Upper Gram elimination
+and explicit diagonal coordinates prove positivity. The native real period
+equivalence proves discreteness and full real span on the literal
+`(B^-1)^(k+m-1)` lattice. Its imaginary trace pairing is exactly `+EF`, with
+type `p=k+j-1`, `q=m-j`; the reversed flag convention is retained.
+
+The signed domain is proved open, and the actual additive period map is
+holomorphic there for every lattice element. This is a varying family of
+polarized complex tori. Algebraic moduli realization, the geometric theta
+coefficient identification and physical Petersson measure are subsequent
+obligations, not fields assumed by this family theorem.
+
+`NativeThetaCuspFiniteFourier` and `FiniteFourierCoefficients` adjoin the
+canonical fifth root of unity to the actual coefficient field while
+preserving the original nontrivial character, spanning support, normalized
+nonzero coefficient, integrality and all-embedding bound. The sixth
+coefficient is the literal finite Fourier sum formed with the same `EF`,
+`cHalf` and quotient representatives. Its integrality, exact cardinality
+norm cost at every embedding and inverse-adjoint character covariance are
+proved. The label ideal is retained separately, so the coefficient is
+defined at the larger cover level. Identification with the actual cover
+section and its geometric character component remains open.
+
 ## 7. Exact next substitutions into the existing signed-slope comparison
 
 The existing physical comparison remains unchanged, including its signed
@@ -960,11 +1030,11 @@ ASK/MAIN recombination, finite-place gains and divisor
 
 | Supplier | Constructed here | Still required for the physical comparison |
 | --- | --- | --- |
-| CM seed | Actual quadratic order, integral smooth proper elliptic group scheme, all four origin-polarization properties, full generic CM order action with proved tangent character, all-point holomorphic regular sections, actual sigma frames/metric, exact all-place Appell--Humbert tangent and logarithmic period comparison | Integral extension of the CM scheme action; integral ideal-isogeny family and arithmetic class mean |
+| CM seed | Actual quadratic order, integral smooth proper elliptic group scheme, all four origin-polarization properties, full generic CM order action with proved tangent character, all-point holomorphic regular sections, actual sigma frames/metric, exact all-place Appell--Humbert tangent and logarithmic period comparison with proved independence of comparison; actual flat generic graph closure | Integral extension of the CM scheme action; integral ideal-isogeny family and arithmetic class mean |
 | Serre construction | Original projective module and perfect trace form, actual trace-frame scheme and integral Lie tensor, full coefficient action, same-witness generic seed with original periods/rank and geometric properties, actual symmetric signed bundle, descended sigma product metric and its derived trace Gram | Integral seed scheme action; cubical/Rosati identities, principal tensor polarization, mixed-signature scheme assembly and global arithmetic metric integration |
-| CM degree | Original covolume, actual elliptic integral tangent scale, integral Lie-tensor comparison given the genuine seed action, exact eigenideal and finite correction, native analytic Chowla--Selberg class mean, derived double-sum arithmetic mean from actual isogeny data | Instantiation of the seed scheme action and its derivative, polarization metric identification, integral ideal-isogeny family and two-sided derivative integrality |
+| CM degree | Original covolume, actual elliptic integral tangent scale, integral Lie-tensor comparison given the genuine seed action, exact eigenideal and finite correction, native analytic Chowla--Selberg class mean, actual common-field integral models for both ideal-period directions preserving the seed, derived double-sum arithmetic mean from actual isogeny data | Instantiation of the seed scheme action and its derivative, polarization metric identification, integral ideal-isogeny morphisms and two-sided derivative integrality |
 | Component masses | Exact measured restriction and all-place degree correction | Actual global automorphic component spaces and Petersson measure/Gram identification |
-| Cusp family and ranks | Actual projective tensor vacua and exact overlap, common phase, rational theta holomorphy/injectivity and Weil covariance, split-five coefficients and Haar norms, clopen-section cuts and measured ranks, actual flag datum with correct trace sign/signature, finite-index free congruence action and explicit integral transvections | Geometric coefficient tie, isotropic system, algebraic/integral theta realization, global cusp span, orbit separation and geometric jet lower shares |
+| Cusp family and ranks | Actual projective tensor vacua and exact overlap, common phase, rational theta holomorphy/injectivity and Weil covariance, split-five coefficients and Haar norms, clopen-section cuts and measured ranks, actual flag datum with correct trace sign/signature, finite-index free congruence action and explicit integral transvections; full holomorphic periods at every signed flag frame | Geometric coefficient tie, isotropic system, algebraic/integral theta realization, global cusp span, orbit separation and geometric jet lower shares |
 
 The source's genuine arithmetic period is
 
@@ -1122,7 +1192,24 @@ scheme tensor, Serre period parameters and component/adjoint cuts.
 The fourteenth snapshot repairs these exact diagnostics and includes the
 new all-point analytic/tangent, generic Serre metric and actual flag
 constructions above. Neither the combined closure nor the transitive
-274-root terminal-axiom audit is yet certified.
+274-root terminal-axiom audit was certified in that snapshot.
+
+The fourteenth snapshot `ad289cc41d53170cb4021b861b1bf8e86d3ecfe1`, Actions
+run `45284803897`, passed all source audits. Required closure job
+`138078496457` failed, so no integrated certification was produced.
+Diagnostics compiled the repaired origin symmetry, quasi-period, sigma,
+canonical theta, seed invariant comparison, scheme tensor, line-bundle
+kernel, component sections, quotient adjoint, finite character and finite
+coefficients. The first flag-domain, bounded-lattice, lattice-torsion and
+congruence-index leaves also compiled. Further errors were reached in
+nested line bundles, origin base change, the arithmetic character instance,
+transported seed-point module, Serre eigenlattice/period/geometry/Lie
+interfaces and flag transpose notation; two additional warning fixes
+were required. The fifteenth snapshot repairs these reached diagnostics
+and adds the exact comparison, ideal-family models, flat graph and
+holomorphic flag periods and actual finite Fourier coefficients above.
+Its retained and extended **309-root**
+terminal-axiom audit remains subject to a successful hosted run.
 
 ## Located continuation without inflated import closures
 
@@ -1160,8 +1247,10 @@ and quadratic order relation. `NativeCMWeierstrassCMOrderAction` then
 constructs the full `SerreScheme.OAct (OK G)` through actual integer
 coordinates in `1,wK`; fixed-embedding geometric detection proves all
 ring laws and the exact all-element action on the same period lattice.
-Extension over the integers and compatibility with the original integral
-tangent remain open.
+The actual generic action has now been transported back to the original
+equation, and its tangent character is proved integral-valued. Extension
+of the scheme action over the integers remains open; the flat graph is
+constructed, but its first projection has not yet been proved an isomorphism.
 
 For the cusp norm/overlap branch, the declaration cut now reaches the
 actual auxiliary tensor-lattice family, normalized vacua, exact relative-index

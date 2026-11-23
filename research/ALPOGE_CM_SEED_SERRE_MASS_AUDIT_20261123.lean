@@ -1,15 +1,15 @@
 import RHLean.Geometry.NativeCMSerreEquationPoints
 import RHLean.Geometry.NativeMeasuredComponentNorm
-import RHLean.Geometry.NativeCMIntegralClassPeriodMean
 import RHLean.Geometry.NativeCMSerreSchemeMetric
 import RHLean.Geometry.NativeThetaCuspFiniteLevelNorm
 import RHLean.Geometry.NativeThetaCuspComponentSections
-import RHLean.Geometry.NativeThetaCuspFiniteCoefficients
-import RHLean.Geometry.NativeCMAllPlaceAppellHumbert
 import RHLean.Geometry.NativeCMSerreGenericModel
 import RHLean.Geometry.NativeCMSerreSigmaMetric
-import RHLean.Geometry.NativeThetaCuspNativeFlag
 import RHLean.Geometry.NativeCMWeierstrassOriginalAction
+import RHLean.Geometry.NativeCMInverseIdealClassModels
+import RHLean.Geometry.NativeCMWeierstrassGraphClosure
+import RHLean.Geometry.NativeThetaCuspFlagHolomorphic
+import RHLean.Geometry.NativeThetaCuspFiniteFourierCoefficients
 import Lean.Util.CollectAxioms
 
 /-!
@@ -303,7 +303,42 @@ run_cmd do
     ``RHLean.Geometry.NativeCM.SchemeTheory.WeierstrassCurve.vec_translation,
     ``RHLean.Geometry.NativeCM.Weierstrass.shortModelSchemeIso_isMonHom,
     ``RHLean.Geometry.NativeCM.Weierstrass.originalOrderAction_period,
-    ``RHLean.Geometry.NativeCM.Weierstrass.exists_original_cm_scheme_action]
+    ``RHLean.Geometry.NativeCM.Weierstrass.exists_original_cm_scheme_action,
+    ``RHLean.Geometry.NativeCM.Weierstrass.lattice_eq_of_g₂_eq_of_g₃_eq,
+    ``RHLean.Geometry.NativeCM.Weierstrass.equation_comparison_homothety,
+    ``RHLean.Geometry.NativeCM.Weierstrass.equation_comparison_tangent_length,
+    ``RHLean.Geometry.NativeCM.Weierstrass.equation_comparison_logarithmic_period,
+    ``RHLean.Geometry.NativeCM.AllPlaceTangentPeriod.comparison_tangent_eq_placeProfile,
+    ``RHLean.Geometry.NativeCM.AllPlaceTangentPeriod.comparison_neg_log_tangent,
+    ``RHLean.Geometry.NativeCM.Weierstrass.latticeCurve_j_integral_of_order_stable,
+    ``RHLean.Geometry.NativeCM.Weierstrass.exists_common_integral_models_preserving_seed,
+    ``RHLean.Geometry.NativeCM.idealClassPeriod_j_integral,
+    ``RHLean.Geometry.NativeCM.exists_integralIdealClassModels_preserving_seed,
+    ``RHLean.Geometry.NativeCM.inverseIdeal_mem_iff,
+    ``RHLean.Geometry.NativeCM.fractionalIdealPeriod_j_integral,
+    ``RHLean.Geometry.NativeCM.exists_inverseIdealClassModels_preserving_seed,
+    ``RHLean.Geometry.NativeCM.inverseIdealPeriod_forward,
+    ``RHLean.Geometry.NativeCM.inverseIdealPeriod_reverse,
+    ``RHLean.Geometry.NativeCM.SchemeTheory.IntegralExtension.fractionField_map_injective,
+    ``RHLean.Geometry.NativeCM.SchemeTheory.IntegralExtension.existsUnique_lift_of_flat,
+    ``RHLean.Geometry.NativeCM.SchemeTheory.IntegralExtension.exists_flat_closure,
+    ``RHLean.Geometry.NativeCM.SchemeTheory.IntegralExtension.exists_flat_graph,
+    ``RHLean.Geometry.NativeTheta.Cusp.FlagFramePeriod.exists_upper_diag,
+    ``RHLean.Geometry.NativeTheta.Cusp.FlagFramePeriod.exists_loc,
+    ``RHLean.Geometry.NativeTheta.Cusp.FlagFramePeriod.allPer_bijective,
+    ``RHLean.Geometry.NativeTheta.Cusp.FlagFramePeriod.isPeriod_frame,
+    ``RHLean.Geometry.NativeTheta.Cusp.NativeFlagPeriods.domain_nonempty,
+    ``RHLean.Geometry.NativeTheta.Cusp.NativeFlagPeriods.prescribed_frame_periods,
+    ``RHLean.Geometry.NativeTheta.Cusp.NativeFlagPeriods.native_frame_periods,
+    ``RHLean.Geometry.NativeTheta.Cusp.FlagHolomorphic.isOpen_domain,
+    ``RHLean.Geometry.NativeTheta.Cusp.FlagHolomorphic.periodMap_holomorphic,
+    ``RHLean.Geometry.NativeTheta.Cusp.FlagHolomorphic.native_holomorphic_period_family,
+    ``RHLean.Geometry.NativeTheta.Cusp.FiniteFourier.exists_root_extension,
+    ``RHLean.Geometry.NativeTheta.Cusp.FiniteFourier.transform_integral,
+    ``RHLean.Geometry.NativeTheta.Cusp.FiniteFourier.transform_norm_le,
+    ``RHLean.Geometry.NativeTheta.Cusp.FiniteFourier.transform_adjoint,
+    ``RHLean.Geometry.NativeTheta.Cusp.FiniteFourierCoefficients.exists_five_fourier_coefficients,
+    ``RHLean.Geometry.NativeTheta.Cusp.FiniteFourierCoefficients.exists_native_five_fourier_coefficients]
   let env ← getEnv
   for root in roots do
     unless env.contains root do

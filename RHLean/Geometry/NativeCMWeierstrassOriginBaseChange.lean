@@ -52,8 +52,12 @@ theorem pull_g (L : LB X) (φ : Y ⟶ X) (j j' : PUnit → L.ι) :
 def secPull {L : LB X} (s : L.Sec) (φ : Y ⟶ X) : (L.pull φ).Sec where
   f j := resG Y (pull_U L φ j).le ((φ.app _).hom (s.f (j ⟨⟩)))
   compat j j' := by
+    change PUnit → L.ι at j j'
+    have hs : resG X inf_le_left (s.f (j ⟨⟩)) =
+        (L.g (j ⟨⟩) (j' ⟨⟩) : Γ(X, L.U (j ⟨⟩) ⊓ L.U (j' ⟨⟩))) *
+          resG X inf_le_right (s.f (j' ⟨⟩)) := s.compat (j ⟨⟩) (j' ⟨⟩)
     have e := congrArg (fun a => resG Y (LB.wchart_inter_le L (fun _ => φ) j j' ⟨⟩)
-      ((φ.app _).hom a)) (s.compat (j ⟨⟩) (j' ⟨⟩))
+      ((φ.app _).hom a)) hs
     simp only [map_mul] at e
     rw [app_resG, app_resG, resG_resG, resG_resG] at e
     refine (resG_resG _ _ _).trans (e.trans ?_)

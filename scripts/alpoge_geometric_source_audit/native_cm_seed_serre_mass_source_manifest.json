@@ -99,6 +99,10 @@
       "sha256": "75a397838f4379c63cb4d0f59fc8831b462892da5f36a8eb979e6fd3a2349371"
     },
     {
+      "path": "src/Development/AbelianVarietyTheory/Proofs/CubicalLineBundles/ExistsCmCurvesOfWeierstrassCurves.lean",
+      "sha256": "5e4826bfc9d08e1191d98f81882650a32984d2291126a866799d8f60d17a6ef5"
+    },
+    {
       "path": "src/Development/AbelianVarietyTheory/Proofs/CubicalLineBundles/ExistsCmEllipticCurveIntegersWithPeriod.lean",
       "sha256": "b7a835d24db9d2b174731907fc3742aaae0e7eb8ba178befd1ce96e19883a240"
     },
@@ -157,6 +161,10 @@
     {
       "path": "src/Development/AbelianVarietyTheory/Proofs/CubicalLineBundles/LatticeCmEqIdealAndCovolume.lean",
       "sha256": "a691ca26ad25eab19658c2a945ace7ab21b5c1846dc0ba0a6929eebcdd4d296e"
+    },
+    {
+      "path": "src/Development/AbelianVarietyTheory/Proofs/CubicalLineBundles/LatticeDeterminedByInvariants.lean",
+      "sha256": "37f7475cfb58bbe6b96f29f6633842781cb641c83332b9147c91697da8299f80"
     },
     {
       "path": "src/Development/AbelianVarietyTheory/Proofs/CubicalLineBundles/MeanLogCovolumeEqMeanClassGroup.lean",
@@ -379,8 +387,16 @@
       "sha256": "61f53bd9ba9d16a653863877c3218fb6b36117acf7630147f4cd84f5a05824cc"
     },
     {
+      "path": "src/Development/AbelianVarietyTheory/Proofs/SiegelThetaTransformation/CmHostUnitAddConjEqOne.lean",
+      "sha256": "b4ada1e04aac296021e9861753f5e01d3a7ffcf447e391efc1e68d848606901f"
+    },
+    {
       "path": "src/Development/AbelianVarietyTheory/Proofs/SiegelThetaTransformation/CuspFormsLeSpanShortThetaSeries.lean",
       "sha256": "8a21b3840a1b5baadaf7f057f79b78cc22e8d5c084678a05c43ea939c971949d"
+    },
+    {
+      "path": "src/Development/AbelianVarietyTheory/Proofs/SiegelThetaTransformation/DatEqOfPhiHat.lean",
+      "sha256": "d37ea055da04e63f087b4e801aba32184f2b6b0c6a04964a73b6a8eecbcc1bb7"
     },
     {
       "path": "src/Development/AbelianVarietyTheory/Proofs/SiegelThetaTransformation/EchEqOneIff.lean",
@@ -527,6 +543,10 @@
       "sha256": "7723379370c7fc2631ec177bd7d5d711b80e609e296b6440a07fd0b247251c27"
     },
     {
+      "path": "src/Development/AbelianVarietyTheory/Proofs/UnitaryExistence/DetOfTriangular.lean",
+      "sha256": "5cadbacfefa823f3e50c1c206ad99903b5557e65f1e6551b2b43a69318e0c618"
+    },
+    {
       "path": "src/Development/AbelianVarietyTheory/Proofs/UnitaryExistence/ExistsCoeffFieldIdempotentCuttingPeriodSpaces.lean",
       "sha256": "03250ab7116b610bd84581d6cd4fa569d9f00f68e4539e03725f54e971b24183"
     },
@@ -543,16 +563,36 @@
       "sha256": "fe74d163baa6ae173f65f9709a1951382e27f596615f4ee6c8159d514035be38"
     },
     {
+      "path": "src/Development/AbelianVarietyTheory/Proofs/UnitaryExistence/ExistsFramePeriods.lean",
+      "sha256": "d975d7d5396e3f56914d8e1ffcd6d7f228529e493c9a14d9b86e64586ee3f4c3"
+    },
+    {
+      "path": "src/Development/AbelianVarietyTheory/Proofs/UnitaryExistence/ExistsLiftOfSchemeTheoreticallyDominant.lean",
+      "sha256": "c32752a88f21d13b556abb03158574394a393a6f923ac4cd67ed695ada0985a1"
+    },
+    {
       "path": "src/Development/AbelianVarietyTheory/Proofs/UnitaryExistence/ExistsSmulMemOfMemSpanFraction.lean",
       "sha256": "ceebfd0ea991e81e7df4c51b193bbf64b2c10a2c07fd059880dfc796e9c47f2e"
+    },
+    {
+      "path": "src/Development/AbelianVarietyTheory/Proofs/UnitaryExistence/ExistsUniqueHomExtensionSemiAbelianDvr.lean",
+      "sha256": "07a532953dc980f00489360b151af10806489b5215d2c28c5676c1e1479223c5"
     },
     {
       "path": "src/Development/AbelianVarietyTheory/Proofs/UnitaryExistence/FinrankEqOfInjectiveOfSpan.lean",
       "sha256": "3431e35a217db39093d992f7f21cb77be7635f322963e9f1d5550dde790b1c81"
     },
     {
+      "path": "src/Development/AbelianVarietyTheory/Proofs/UnitaryExistence/FlatOfIsSchemeTheoreticallyDominantOfFractionRing.lean",
+      "sha256": "3b6334699a72e0e374de416561eeafbb2816f5645ed4448c6961fbba00e4e5dc"
+    },
+    {
       "path": "src/Development/AbelianVarietyTheory/Proofs/UnitaryExistence/HalvesFreeAndAdjoint.lean",
       "sha256": "52ef749f1347e87f65d90a10f25baeb7bc314e3d072be69b85a654c0cd5ab7ec"
+    },
+    {
+      "path": "src/Development/AbelianVarietyTheory/Proofs/UnitaryExistence/HermFormConjDiag.lean",
+      "sha256": "bba4d7bd27ca885c8328e8036767fb52b048d2b16d0d21688c8069387faaf041"
     },
     {
       "path": "src/Development/AbelianVarietyTheory/Proofs/UnitaryExistence/HomExtOfGeometric.lean",
@@ -627,12 +667,20 @@
       "sha256": "f1337622dee3f524773fd92e2cd46276efa1f356b413dbbe9796e4a6209ff594"
     },
     {
+      "path": "src/ReciprocityTheory/ReductiveGroups/ArithmeticGeometry/ExtensionDescent/LinCombTrivG.lean",
+      "sha256": "06de7109c5f74ab2611b52527c014ea654ab16d5d55ac5a4a95df7e66a588bfa"
+    },
+    {
       "path": "src/ReciprocityTheory/ReductiveGroups/ArithmeticGeometry/ExtensionDescent/NonzeroLocus.lean",
       "sha256": "0fb85f490332679f3fef1154ef93d5b1038be586871a9c493882150d57966cbf"
     },
     {
       "path": "src/ReciprocityTheory/ReductiveGroups/ArithmeticGeometry/FundamentalDomains/DetSubUpper.lean",
       "sha256": "f054ae5511d63716b7d6706575733d8567510d093d78a5a95f5ea7d5c9d755d4"
+    },
+    {
+      "path": "src/ReciprocityTheory/ReductiveGroups/ArithmeticGeometry/FundamentalDomains/FourierCoefficientDomain.lean",
+      "sha256": "c864508055e2f688c41328ef48ab53f82be9f634b60fd028417294c533600e7b"
     },
     {
       "path": "src/ReciprocityTheory/ReductiveGroups/ArithmeticGeometry/FundamentalDomains/IsIntegralCc.lean",
@@ -643,8 +691,16 @@
       "sha256": "c1860d88b7ebb92cdfa72524bad79d69b4a6627f2fead7cd77e10a38924c78a8"
     },
     {
+      "path": "src/ReciprocityTheory/ReductiveGroups/ArithmeticGeometry/FundamentalDomains/ProdCastLESucc.lean",
+      "sha256": "c10484b86313af06d52eab8045917c3db2271a7b253a302f9216f0fedb868710"
+    },
+    {
       "path": "src/ReciprocityTheory/ReductiveGroups/ArithmeticGeometry/FundamentalDomains/Signature.lean",
       "sha256": "a8b8f634c2368fd1bb369faebdc6d40cf11005747d4b16feda5dd1dabe11c054"
+    },
+    {
+      "path": "src/ReciprocityTheory/ReductiveGroups/ArithmeticGeometry/FundamentalDomains/UMatUpper.lean",
+      "sha256": "a1b46275a60e237df41675d6a6edcb0af1d5e63d6b2ef7b0ecf6d3836aaa690e"
     },
     {
       "path": "src/ReciprocityTheory/ReductiveGroups/ArithmeticGeometry/SemiabelianSchemes/CubicalStructures/CubeSymmetricSwapFirst.lean",
@@ -681,8 +737,8 @@
     },
     {
       "path": "RHLean/Geometry/NativeCMArithmeticPeriod.lean",
-      "sha256": "49c30baee8e40291aa6d9b390b369e5e798b5b5e01f3f3bbcb9ad397ffa94647",
-      "lines": 148
+      "sha256": "cf370564f0defad22f350cb4f64d1f30b860fb80ce732e438993dadc49149066",
+      "lines": 149
     },
     {
       "path": "RHLean/Geometry/NativeCMChowlaSelberg.lean",
@@ -710,6 +766,11 @@
       "lines": 274
     },
     {
+      "path": "RHLean/Geometry/NativeCMIdealClassModels.lean",
+      "sha256": "f60b273c5449185dd298f42c2859aaf55448bfec53efed01658d431179871dfe",
+      "lines": 229
+    },
+    {
       "path": "RHLean/Geometry/NativeCMIdealClassPeriods.lean",
       "sha256": "96a7ab42c31b47c3e76b84a542a098adaa74a98c24484e9add33490510a8dec5",
       "lines": 304
@@ -723,6 +784,11 @@
       "path": "RHLean/Geometry/NativeCMIntegralClassPeriodMean.lean",
       "sha256": "eb17fff0cffdd41bb54fb18f239cbf5d56da05050a867220b0dd5a17621a8689",
       "lines": 157
+    },
+    {
+      "path": "RHLean/Geometry/NativeCMInverseIdealClassModels.lean",
+      "sha256": "aa1a08017f7427a8063ad572caf80da676e0d47c489c14183dfa908db2b402b2",
+      "lines": 149
     },
     {
       "path": "RHLean/Geometry/NativeCMIsogenyDerivativeNorm.lean",
@@ -761,8 +827,8 @@
     },
     {
       "path": "RHLean/Geometry/NativeCMLineBundleNested.lean",
-      "sha256": "a6f2c48e8cc1e58af39ae7e318bef728b34c463e775f4961e24b5fe11229d2f2",
-      "lines": 122
+      "sha256": "74f1364dce242a14495c739a8b6742701a50127b60aa74ca299e1134cccf276b",
+      "lines": 140
     },
     {
       "path": "RHLean/Geometry/NativeCMLineBundlePowers.lean",
@@ -846,8 +912,8 @@
     },
     {
       "path": "RHLean/Geometry/NativeCMSerreEigenlatticeAlgebra.lean",
-      "sha256": "6729a1f6946619582a838c47dcb83ce7fb8e7f35caabd8caf1f2013e2705d693",
-      "lines": 223
+      "sha256": "1911e856b7fea6cd8f9c4c6ac4d7f50ddd37b859bd73bee7b520601a2c5c8345",
+      "lines": 225
     },
     {
       "path": "RHLean/Geometry/NativeCMSerreEigenlatticeDegree.lean",
@@ -861,8 +927,8 @@
     },
     {
       "path": "RHLean/Geometry/NativeCMSerreGenericCoordinates.lean",
-      "sha256": "1da742d0da9654c94a6028d317ffd5346467cda9a40801cb3c210828e373d6f2",
-      "lines": 197
+      "sha256": "8333cecc9a0338a22c388c33bd10fa8c1214e2c9ba09f38145f624643064c4f6",
+      "lines": 198
     },
     {
       "path": "RHLean/Geometry/NativeCMSerreGenericModel.lean",
@@ -891,8 +957,8 @@
     },
     {
       "path": "RHLean/Geometry/NativeCMSerrePeriods.lean",
-      "sha256": "34dfc6749d4d373641bc7954f46dd0b1e9a69b61f74dd8ad241dfd978e4a95b7",
-      "lines": 412
+      "sha256": "3122619023c510e7108139c0be7bbc88a24bab0c8daf38ae18ba21489aab571d",
+      "lines": 416
     },
     {
       "path": "RHLean/Geometry/NativeCMSerrePolarization.lean",
@@ -916,13 +982,13 @@
     },
     {
       "path": "RHLean/Geometry/NativeCMSerreSchemeGeometry.lean",
-      "sha256": "25c3bc9d6c5cf11b4f92347ba09672283131fb6406958a19d7f3df6297b5d0b2",
-      "lines": 128
+      "sha256": "a317dad67f48289d78eab6b855e48fdd1cf9b65f1cad68ee13ea98ef105e4521",
+      "lines": 139
     },
     {
       "path": "RHLean/Geometry/NativeCMSerreSchemeLie.lean",
-      "sha256": "19c9059ee41236376a880b500714ca097553c3231b08d5d9c21c81247bb90fb7",
-      "lines": 253
+      "sha256": "38fe06dc1410ff06aeeebf2cfbfc4ea064e79586b7d46064f92300d80676f093",
+      "lines": 252
     },
     {
       "path": "RHLean/Geometry/NativeCMSerreSchemeMetric.lean",
@@ -1020,14 +1086,24 @@
       "lines": 144
     },
     {
+      "path": "RHLean/Geometry/NativeCMWeierstrassGenericFaithful.lean",
+      "sha256": "c2b84c98340a086089fea737daf4f4e9f36701f9dc98253f95d56150e5b5fde7",
+      "lines": 168
+    },
+    {
       "path": "RHLean/Geometry/NativeCMWeierstrassGeometricGlue.lean",
-      "sha256": "feaa36e4ef49dd9296297f032ac142674382d47706147ab7fb662b18d832c5fe",
-      "lines": 251
+      "sha256": "3b515da70403831cba41d4a6d0d1c4bcfc3e4467f6af15950b55711cc8a3455c",
+      "lines": 252
     },
     {
       "path": "RHLean/Geometry/NativeCMWeierstrassGeometricPoints.lean",
       "sha256": "3bbc63df73ffdf6464f1cb38e981110b2a9a267264708474e7bf5628fc28a81e",
       "lines": 129
+    },
+    {
+      "path": "RHLean/Geometry/NativeCMWeierstrassGraphClosure.lean",
+      "sha256": "ae1db2ed16906603be0db0a3a9f883c78edff7a223f990fc7589c9e78732c59d",
+      "lines": 178
     },
     {
       "path": "RHLean/Geometry/NativeCMWeierstrassGroupFromPoints.lean",
@@ -1086,8 +1162,8 @@
     },
     {
       "path": "RHLean/Geometry/NativeCMWeierstrassOriginBaseChange.lean",
-      "sha256": "0c23cef2695fbc45ce672a14c4ab8e4e4c83d4f4ad650dce31c4d15fa22d80e9",
-      "lines": 275
+      "sha256": "95510b6363c19aadfe689dc5bd45f9676157b07bce3adeea7f1dc75f3287b019",
+      "lines": 279
     },
     {
       "path": "RHLean/Geometry/NativeCMWeierstrassOriginBundle.lean",
@@ -1128,6 +1204,11 @@
       "path": "RHLean/Geometry/NativeCMWeierstrassPeriodScaling.lean",
       "sha256": "7de78e014395663c7c484a9287e6e7bc1275ab347522527a25dc93f5185c32ad",
       "lines": 102
+    },
+    {
+      "path": "RHLean/Geometry/NativeCMWeierstrassPeriodUniqueness.lean",
+      "sha256": "1d6b3ae10775f24c738af668bc964db43e80684df89a342348d974c9f849b062",
+      "lines": 157
     },
     {
       "path": "RHLean/Geometry/NativeCMWeierstrassPointChange.lean",
@@ -1231,8 +1312,8 @@
     },
     {
       "path": "RHLean/Geometry/NativeCMWeierstrassSeedPoints.lean",
-      "sha256": "ace391ff5fb9b22fce2eca6e776038f6f450a36089a4b6ad255b2e03db81bbaa",
-      "lines": 193
+      "sha256": "34c74b3052d67f209c497936c374a2d65ba38915232b13391fe54b043daeee8f",
+      "lines": 207
     },
     {
       "path": "RHLean/Geometry/NativeCMWeierstrassSigma.lean",
@@ -1321,7 +1402,7 @@
     },
     {
       "path": "RHLean/Geometry/NativeThetaCuspBoundedTriangular.lean",
-      "sha256": "ce24dda3b52cd6899900447195b0827e208a6701c7c4afd365995f17331daa7c",
+      "sha256": "6eb355fbdb3a39c2d70c2f541a15f97dfe585f26a973692cfa61ec138b15c6b3",
       "lines": 229
     },
     {
@@ -1343,6 +1424,16 @@
       "path": "RHLean/Geometry/NativeThetaCuspFiniteCoefficients.lean",
       "sha256": "32d6f5a726aebf51cada39965f1b7152404138d24976ad491d7c3c596feddb7d",
       "lines": 311
+    },
+    {
+      "path": "RHLean/Geometry/NativeThetaCuspFiniteFourier.lean",
+      "sha256": "e0c46547603b541a66e444402ba06f87c25c4aeb9bfb8a13382492673dce1e4f",
+      "lines": 156
+    },
+    {
+      "path": "RHLean/Geometry/NativeThetaCuspFiniteFourierCoefficients.lean",
+      "sha256": "be66e6092a574d137c4d916034b7da4281bc1148a62d625d5ce93058722764f9",
+      "lines": 204
     },
     {
       "path": "RHLean/Geometry/NativeThetaCuspFiniteLevel.lean",
@@ -1370,14 +1461,34 @@
       "lines": 179
     },
     {
+      "path": "RHLean/Geometry/NativeThetaCuspFlagElimination.lean",
+      "sha256": "ba5fb0d35162fd8ed55b38db0f02264622cc94b3a70224d9fa58adab0666410e",
+      "lines": 163
+    },
+    {
+      "path": "RHLean/Geometry/NativeThetaCuspFlagFramePeriod.lean",
+      "sha256": "8d359ea6b79c353e0c9002c191e824899d12776ae7876b1aaa4310a4f7e9a28c",
+      "lines": 512
+    },
+    {
       "path": "RHLean/Geometry/NativeThetaCuspFlagFree.lean",
       "sha256": "f518e41fe8c80e9aa14357f4763105d18f8fd59aba6b5edd65aafa4576861127",
       "lines": 152
     },
     {
       "path": "RHLean/Geometry/NativeThetaCuspFlagGram.lean",
-      "sha256": "6dc27cf4658e8ab23320d84204f89e979a158930318c165b7ae847f2d0a57c3d",
+      "sha256": "f9210b535c3029fe8669a860ef66f022a6eaebca7b24b8d31cda74e560d540c6",
       "lines": 66
+    },
+    {
+      "path": "RHLean/Geometry/NativeThetaCuspFlagHermitian.lean",
+      "sha256": "8290e5032337c83dc75205043869f2ca61125996cb75e6d937bfe5f7e9f5dee7",
+      "lines": 104
+    },
+    {
+      "path": "RHLean/Geometry/NativeThetaCuspFlagHolomorphic.lean",
+      "sha256": "27f03a119d76d8765f6ebc993d82a45e7f5531efdf9616ab65e253a1b850256f",
+      "lines": 183
     },
     {
       "path": "RHLean/Geometry/NativeThetaCuspFourier.lean",
@@ -1443,6 +1554,11 @@
       "path": "RHLean/Geometry/NativeThetaCuspNativeFlag.lean",
       "sha256": "ca30a0193a373bee3dac27a8ab1d0517c833541b7df5c673df7279e2c899447d",
       "lines": 334
+    },
+    {
+      "path": "RHLean/Geometry/NativeThetaCuspNativeFlagPeriods.lean",
+      "sha256": "cfeb74b102277bf97b1277740b2649e08d398dce034a110aea628c8ca8e16b08",
+      "lines": 182
     },
     {
       "path": "RHLean/Geometry/NativeThetaCuspNativeVacuum.lean",
@@ -1556,11 +1672,11 @@
     }
   ],
   "unproved_suppliers": [
-    "Integral extension of the CM scheme action; the full generic order action and its actual integral-valued tangent character are constructed but unverified",
+    "Integral extension of the CM scheme action; actual generic faithfulness, closed lifting and flat graph closure are constructed, but finite kernel and graph-projection isomorphism remain open",
     "Hosted validation and consumer integration of the constructed all-point holomorphic origin atlas, all-regular-section tangent comparison and exact all-place Appell-Humbert Lie length",
-    "Integral CM ideal-isogeny family with genuine two-sided derivative integrality; the exact double-sum comparison is constructed and its leaf compiled, but has no verified integrated closure",
+    "Integral ideal-isogeny morphisms and two-sided derivative integrality; actual common-field models for the integral and inverse ideal-period families preserve the original seed, but the arithmetic class mean still lacks its geometric supplier",
     "Integral seed action and mixed-signature scheme assembly; cubical/Rosati identities, relative ampleness and trivial kernel of the actual symmetric signed tensor bundle; the actual generic sigma product metric and derived trace Gram are constructed but unverified",
-    "Geometric coefficient tie and cover finite-Fourier identity, isotropic system and global cusp realization/span; actual flag datum, congruence index, free action and transvection denominator are constructed on the unchanged trace lattice but unverified",
+    "Geometric cover finite-Fourier and character-section tie, isotropic system and global cusp realization/span; full holomorphic signed-flag periods and actual sixth-clause finite coefficients with all-embedding bounds are constructed but unverified",
     "Actual Petersson Gram component data, moduli/period component indexing and geometric lower-rank shares",
     "Complete signed-slope hypotheses on one physical source"
   ],
@@ -1649,6 +1765,13 @@
       "run_id": 45282880070,
       "preflight_job_id": 138071839238,
       "result": "PREFLIGHT_FAILED_NESTED_BUNDLE_GLUE_PERIOD_PARAMETERS_EIGENLATTICE_AND_COMPONENT_REPAIRS",
+      "full_native_build": "SKIPPED_AFTER_PREFLIGHT_FAILURE"
+    },
+    {
+      "head": "ad289cc41d53170cb4021b861b1bf8e86d3ecfe1",
+      "run_id": 45284803897,
+      "preflight_job_id": 138078496457,
+      "result": "PREFLIGHT_FAILED_ATLAS_BASE_CHANGE_SEED_MODULE_SERRE_INTERFACES_AND_FLAG_REPAIRS",
       "full_native_build": "SKIPPED_AFTER_PREFLIGHT_FAILURE"
     }
   ]

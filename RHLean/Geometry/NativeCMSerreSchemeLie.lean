@@ -236,8 +236,7 @@ theorem coefficientSerreScheme_exists_integralLie
       (∀ m, Lie.hom (e (1 ⊗ₜ[OK G] m)) =
         integralVector W ≫ (coefficientSerreSchemeTensor H G hbar B hB 1 a).tmul m) ∧
       ∀ (c : 𝓞 H.E) y,
-        Lie.hom (e ((TraceFrame.moduleScalar (coefficientTraceLattice H G hbar B hB) c).
-          baseChange R y)) =
+        Lie.hom (e ((TraceFrame.moduleScalar (coefficientTraceLattice H G hbar B hB) c).baseChange R y)) =
         Lie.hom (e y) ≫ (coefficientSerreSchemeFullAction H G hbar B hB 1 a).act c := by
   obtain ⟨e, hone, hnat⟩ := LieTensor.exists_lie_equiv R (schemeOver W) (OK G)
     (coefficientIdeal H B : Submodule (𝓞 H.E) H.E)

@@ -19,6 +19,10 @@ Source: Levent Alpöge (with Claude),
 the already constructed native trace frame replaces the source's generic
 choice of summand. The archive states no license; attribution is retained
 without assigning one.
+
+The identity-fibre proof is the declaration `geomConn_id` from
+`src/ReciprocityTheory/ReductiveGroups/ArithmeticGeometry/ExtensionDescent/`
+`LinCombTrivG.lean` at the same pinned source.
 -/
 
 set_option autoImplicit false
@@ -45,7 +49,14 @@ theorem powObj_property (P : MorphismProperty Scheme.{0}) [P.IsStableUnderCompos
 
 theorem powObj_geometricallyConnected (G : Over S) [UniversallyOpen G.hom]
     [GeometricallyConnected G.hom] : ∀ n : ℕ, GeometricallyConnected (powObj G n).hom
-  | 0 => inferInstanceAs (GeometricallyConnected (𝟙 S))
+  | 0 => by
+    change GeometricallyConnected (𝟙 S)
+    rw [geometricallyConnected_iff]
+    intro K _ y Z fst snd h
+    have h' : IsPullback y (𝟙 _) (𝟙 S) y := IsPullback.of_vert_isIso ⟨by simp⟩
+    let e : Z ≅ Spec (CommRingCat.of K) := h.isoIsPullback _ _ h'
+    exact (Scheme.homeoOfIso e.symm).surjective.connectedSpace
+      (Scheme.homeoOfIso e.symm).continuous
   | n + 1 => by
     have := powObj_geometricallyConnected G n
     have : UniversallyOpen (powObj G n).hom :=
