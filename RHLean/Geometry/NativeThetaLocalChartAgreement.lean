@@ -168,6 +168,7 @@ theorem valueOfLocalPhases_triangular
           hN hphase P := by
   classical
   apply hφ.injective
+  change φ _ = φ _
   rw [map_mul, valueOfLocalPhases_spec, valueOfLocalPhases_spec]
   change shortValueOfFormalGerms β index N w G.F actW0 h u' germ P =
     φ (∏ l : Row T r, cf l.1 l.2 l.2 ^ a l.1 l.2) *

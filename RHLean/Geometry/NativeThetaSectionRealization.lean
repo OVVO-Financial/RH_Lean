@@ -98,6 +98,7 @@ def valueLinear (D : ℕ) : homogeneousSubmodule (Letter T r n) K D →ₗ[K] S 
   toFun P := value φ hφ β index N w jet hN hphase P
   map_add' P P' := by
     apply hφ.injective
+    change φ _ = φ _
     rw [map_add, value_spec, value_spec, value_spec]
     rw [rawShortValue_eq_linear_of_homogeneous β index N D w jet _ (P + P').property,
       rawShortValue_eq_linear_of_homogeneous β index N D w jet _ P.property,
@@ -105,6 +106,7 @@ def valueLinear (D : ℕ) : homogeneousSubmodule (Letter T r n) K D →ₗ[K] S 
     exact map_add _ _ _
   map_smul' c P := by
     apply hφ.injective
+    change φ _ = φ _
     rw [map_smul φ, value_spec, value_spec]
     rw [rawShortValue_eq_linear_of_homogeneous β index N D w jet _ (c • P).property,
       rawShortValue_eq_linear_of_homogeneous β index N D w jet _ P.property]
