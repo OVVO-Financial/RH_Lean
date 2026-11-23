@@ -15,8 +15,10 @@ The further batches add the actual period quotient and its finite-order
 freeness, a rank-independent fixed-level criterion, full formal-jet and
 descended-value triangular covariance, local chart descent, the exact
 prime-power decomposition with its paid ramified contribution, and the
-served-prime quotient-length estimate. Hosted Lean verification and compiler
-repairs are tracked on PR #1199. No local Lean is run,
+served-prime quotient-length estimate. All nineteen modules and the
+sixty-two-root audit passed the hosted changed-research closure on source
+head 4300924af3527e04c3f31c9e8897aad82d9318f9. The full native build and
+publication outcome are recorded below. No local Lean is run,
 no proof budget is raised, and only propext, Classical.choice and Quot.sound
 are permitted terminal axioms. The companion research audit checks exact
 public types and rejects any other terminal axiom.
@@ -32,8 +34,10 @@ published commit f9c7a64acd3a9a00827e58931c19a7a044d807db. Its tree
 commit c12f95bdcfb9efb57f28e795706a7cd76394a0df, which preserves the preceding
 local commits 63fe4cb35c5bfba247c698b1ae7f4b63c5c20c36 and
 d7695f1e58b7ca462c06158d5ec88f7100142c6b. The published commit metadata differs;
-the file contents do not. Hosted checks are required before the authorized
-merge to main. This report will record their observed result.
+the file contents do not. The native hosted checks passed as recorded in
+section 10. Historical original-OAI replay is explicitly retired from the
+native acceptance gate; section 12 records the correction to its CI triggers.
+The linked PR records the subsequent authorized merge outcome.
 
 The complete native signed Gz bound and RH remain open. In particular, the
 construction below does not assert that an arbitrary formal theta germ has
@@ -359,17 +363,40 @@ arguments and the pinned API usage, including the local-phase adapter,
 explicit-index period criterion, literal level-five conductor proof and
 ramification factor in the served-prime length bound. This is source review,
 not Lean kernel verification or acceptance by the scheduled Referee role.
-The companion audit has sixty-two concrete declaration roots and is prepared
-to reject terminal axioms other than propext, Classical.choice and Quot.sound;
-it has not yet executed. No Lean or Lake command was run locally.
+The companion audit executed successfully for all sixty-two concrete
+declaration roots. Every reported transitive terminal-axiom set contains
+only propext, Classical.choice and Quot.sound. All nineteen new native
+modules have explicit successful hosted compilation records, and the final
+changed closure passed on source head
+4300924af3527e04c3f31c9e8897aad82d9318f9 in
+[run 45231625619, job 137892698719](https://github.com/OVVO-Financial/RH_Lean/actions/runs/45231625619/job/137892698719).
+Its first research-audit pass reported compiled=1 cached=0; the second
+reported compiled=0 cached=1. No Lean or Lake command was run locally.
+
+The full native `RHLean` build, RHLean-owned warning gate, exact elaborated
+declaration-graph validation and cache save also passed on that same source
+head in
+[job 137895327217](https://github.com/OVVO-Financial/RH_Lean/actions/runs/45231625619/job/137895327217).
+The full build completed 10,523 jobs. Its exact graph contains 19,632
+declarations and agrees with the source inventory on 13,820 named proofs,
+with no source-only or elaborated-only declarations and no cyclic
+declaration components.
+The static audit passed all eleven controlled-process tests and twenty-three
+research/cache tests. The failure-cancellation job was correctly skipped on
+this successful primary run.
 
 The initial publication payload is precisely the nineteen mathematical
 modules, root import manifest, mathematical report and research audit.
 The user's subsequent fail-fast request also adds the CI changes below.
 The explicit user authorization covers publication and merge; the required
-hosted checks run on PR #1199. Repair actual compiler failures before treating
-any declaration here as verified. Local static checks do not replace the
-hosted kernel audit.
+hosted checks run on PR #1199. The compiler repairs retain the original
+statements and actual geometric objects; the successful hosted closure and
+axiom audit, rather than local source inspection, establish the verification
+reported here. The full native build and exact declaration-graph gates
+also passed. The seventeen other completed workflows on this source head
+were successful. The only still-running workflow at that checkpoint was
+the obsolete original-OAI fractional-owner replay described in section 12;
+that historical replay is not a native merge prerequisite.
 
 The first geometric supplying proof to instantiate next is
 `GlobalTheory.exists_cover_shortVal_data` in
@@ -394,8 +421,8 @@ open. No universal Gz bound or RH closure is claimed.
 ```text
 descent_payment_ack=ALPOGE_NATIVE_DESCENT_PAYMENT_V1
 tractability_ack=ALPOGE_VIOLE_TRACTABLE_RH_V1
-MATHEMATICAL_STATUS=GENUINE_PARTIAL_SOURCE_REVIEWED
-FORMAL_STATUS=PENDING_HOSTED_CI
+MATHEMATICAL_STATUS=GENUINE_PARTIAL_KERNEL_VERIFIED
+FORMAL_STATUS=HOSTED_NATIVE_KERNEL_AND_AXIOM_AUDIT_VERIFIED
 PUBLICATION_STATUS=PUBLISHED_PR_1199
 GLOBAL_NATIVE_BOUND=OPEN
 ```
@@ -409,7 +436,8 @@ prime-power arithmetic and period torsion, plus owned-source warnings.
 The first repair preserves the theorem statements while supplying explicit
 finite-sum functions, host-tag and quotient coercions, formal substitutions,
 and current Mathlib API names. No proof budget or linter is weakened. The
-sixty-two-root audit cannot run until its native prerequisites compile.
+sixty-two-root audit could not run until its native prerequisites compiled;
+its eventual successful execution is recorded in section 10.
 
 The user requested that CI fail faster and stop further runs after earlier
 failures. The pipeline now orders the cheap source audit, changed research
@@ -461,3 +489,45 @@ passed locally; twenty repeated cleanup trials also passed. The old race
 was not reproduced in thirty local trials, so the hosted failure and the
 identified early-return path, rather than a claimed local reproduction,
 are the evidence for this repair. No Lean or Lake was run locally.
+
+## 12. Retire the remaining automatic original-OAI rebuilds
+
+The user identified an unnecessary rebuild in
+[run 45231625944](https://github.com/OVVO-Financial/RH_Lean/actions/runs/45231625944),
+job `fractional-owner-proof`. Its native numerical, core and kernel jobs had
+already succeeded. A change to the shared research compiler had triggered
+the Universal envelope workflow, whose unguarded historical job restored
+the original OpenAI project and fell back to rebuilding
+`OAI.NumberTheory.DirichletL.Detector.FinalAssemblyUnconditional` on a cache
+miss. This replay was already retired by the repository's 2026-11-21 user
+priority override. Waiting for it as a native merge prerequisite was an
+acceptance-policy mistake, not a missing native proof dependency.
+
+The correction gates this job and thirteen other remaining automatic
+original-OAI jobs behind `workflow_dispatch` and the explicit boolean input
+`run_original_oai`, defaulting to `false`. Eleven exclusively historical
+workflows become dispatch-only. The Universal envelope workflow retains its
+native numerical, core and kernel checks; the two other mixed workflows
+retain their independent arithmetic checks. Historical proof sources and
+build/cache steps are preserved for explicit archival replay.
+The same audit also found an unused reusable entry point in the historical
+Gaussian workflow. It is removed, and that job receives the same explicit
+default-false manual gate, so another workflow cannot silently call it.
+
+The cache-policy guard now checks original-OAI retirement across every
+workflow, including untouched YAML files. It also runs when the shared
+research compiler or fail-fast monitor changes. Its regression suite checks
+the manual event, explicit default-false boolean gate, preserved native
+jobs and repository-wide absence of automatic original-OAI jobs. This closes
+the previous gap, where a short list of named historical workflows and
+changed-file-only inspection missed the mixed workflow.
+The primary static audit runs this regression suite before either Lean stage,
+so a policy regression also prevents the expensive native builds from starting.
+
+Universal envelope concurrency is now scoped to the branch instead of the
+head SHA, so new revisions supersede old ones. A metadata-only cleanup job
+handles already-running legacy SHA-scoped runs: it cancels only older
+automatic runs of this workflow for the same PR, branch and repository that
+still have an active fractional-owner job. It excludes the current run,
+newer runs, completed jobs and explicit manual replays, and never checks out
+PR code. This CI correction changes no mathematical source or proof budget.

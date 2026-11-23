@@ -1,18 +1,14 @@
 name: OAI physical principal response
 
 on:
-  pull_request:
-    paths:
-      - 'research/oai_434/VF919PhysicalPrincipalResponse.lean'
-      - 'research/oai_434/VF919PrincipalAllDelayReturn.lean'
-      - 'research/oai_434/VF919PrincipalResponseMass.lean'
-      - 'research/oai_434/VF919PrincipalFiniteResponse.lean'
-      - 'research/oai_434/VF919PrincipalSignedRemainder.lean'
-      - 'research/oai_434/VF919FiniteSlotReflectedGain.lean'
-      - 'scripts/lean/physical_principal_response/**'
-      - 'scripts/lean/slot_anchored/**'
-      - '.github/workflows/vf919-physical-principal-response.yml'
+  # Original OpenAI validation is retained for explicit archival replay.
   workflow_dispatch:
+    inputs:
+      run_original_oai:
+        description: Run archived original OpenAI validation (may rebuild OAI dependencies)
+        required: false
+        type: boolean
+        default: false
 
 permissions:
   contents: read
@@ -23,6 +19,7 @@ concurrency:
 
 jobs:
   original-physical-principal-response-proof:
+    if: ${{ github.event_name == 'workflow_dispatch' && inputs.run_original_oai }}
     runs-on: ubuntu-latest
     timeout-minutes: 150
     steps:

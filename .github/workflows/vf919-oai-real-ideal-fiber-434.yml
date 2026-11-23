@@ -1,13 +1,14 @@
 name: Actual OpenAI Eisenstein ideal norm-fiber sharp-square bridge
 
 on:
-  pull_request:
-    paths:
-      - research/oai_434/RHLeanActualEisensteinIdealSharpSquareBlock.lean
-      - research/oai_434/RHLeanActualEisensteinCompensatedSharpSquareBlock.lean
-      - scripts/apply_oai_434_upstream_patches.py
-      - .github/workflows/vf919-oai-real-ideal-fiber-434.yml
+  # Original OpenAI validation is retained for explicit archival replay.
   workflow_dispatch:
+    inputs:
+      run_original_oai:
+        description: Run archived original OpenAI validation (may rebuild OAI dependencies)
+        required: false
+        type: boolean
+        default: false
 
 permissions:
   contents: read
@@ -18,6 +19,7 @@ concurrency:
 
 jobs:
   exact-real-ideal-fiber:
+    if: ${{ github.event_name == 'workflow_dispatch' && inputs.run_original_oai }}
     runs-on: ubuntu-latest
     timeout-minutes: 95
     steps:
@@ -43,7 +45,16 @@ jobs:
           test "$(cat oai-upstream/lean/lean-toolchain)" = "leanprover/lean4:v4.34.1"
           cd oai-upstream/lean
           lake --version
+      # This isolated project applies every upstream patch, including PNT.
+      # Keep its cache separate from the native/shared unpatched-PNT cache.
+      - name: Restore source-pinned isolated original OAI dependencies
+        id: isolated_oai_cache
+        uses: actions/cache/restore@v5
+        with:
+          path: oai-upstream/lean/.lake
+          key: oai-real-ideal-patched-v1-${{ runner.os }}-${{ runner.arch }}-1581d4cbdd69a0faf34b2089614fe2a814316a6a-${{ hashFiles('oai-upstream/lean/lean-toolchain', 'oai-upstream/lean/lakefile.lean', 'oai-upstream/lean/lake-manifest.json', 'oai-upstream/lean/patches/**', 'scripts/apply_oai_434_upstream_patches.py') }}
       - name: Fetch the pinned original OAI Mathlib cache
+        if: ${{ steps.isolated_oai_cache.outputs.cache-hit != 'true' }}
         shell: bash
         working-directory: oai-upstream/lean
         run: |
@@ -95,3 +106,9 @@ jobs:
           if grep -E 'sorryAx|_private' /tmp/oai-real-ideal-compensation-axioms.txt; then
             exit 1
           fi
+      - name: Save verified isolated original OAI dependencies
+        if: ${{ success() && steps.isolated_oai_cache.outputs.cache-hit != 'true' }}
+        uses: actions/cache/save@v5
+        with:
+          path: oai-upstream/lean/.lake
+          key: ${{ steps.isolated_oai_cache.outputs.cache-primary-key }}

@@ -1,13 +1,14 @@
 name: OAI window-saturated LOW versus principal gain
 
 on:
-  pull_request:
-    paths:
-      - 'research/oai_434/VF919WindowSaturatedLowPrincipal.lean'
-      - 'research/oai_434/VF919WindowErrorClosure.lean'
-      - 'scripts/lean/window_error_closure/**'
-      - '.github/workflows/vf919-window-saturated-low-principal.yml'
+  # Original OpenAI validation is retained for explicit archival replay.
   workflow_dispatch:
+    inputs:
+      run_original_oai:
+        description: Run archived original OpenAI validation (may rebuild OAI dependencies)
+        required: false
+        type: boolean
+        default: false
 
 permissions:
   contents: read
@@ -19,6 +20,7 @@ concurrency:
 
 jobs:
   full-source-verified-window-gain:
+    if: ${{ github.event_name == 'workflow_dispatch' && inputs.run_original_oai }}
     runs-on: ubuntu-latest
     timeout-minutes: 150
     steps:

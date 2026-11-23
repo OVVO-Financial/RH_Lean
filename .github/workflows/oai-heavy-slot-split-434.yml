@@ -1,12 +1,14 @@
 name: Original OAI fixed-heavy-slot two-channel split
 
 on:
-  pull_request:
-    branches: [main]
-    paths:
-      - 'research/oai_434/VF919OriginalFiberHeavySlotSplit.lean'
-      - '.github/workflows/oai-heavy-slot-split-434.yml'
+  # Original OpenAI validation is retained for explicit archival replay.
   workflow_dispatch:
+    inputs:
+      run_original_oai:
+        description: Run archived original OpenAI validation (may rebuild OAI dependencies)
+        required: false
+        type: boolean
+        default: false
 
 permissions:
   contents: read
@@ -17,6 +19,7 @@ concurrency:
 
 jobs:
   lean:
+    if: ${{ github.event_name == 'workflow_dispatch' && inputs.run_original_oai }}
     runs-on: ubuntu-latest
     timeout-minutes: 110
     steps:

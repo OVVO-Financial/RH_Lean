@@ -82,6 +82,9 @@ jobs:
       - name: Check Lean root import manifest
         run: python3 scripts/check_root_manifest.py
 
+      - name: Keep original OpenAI replay behind explicit manual gates
+        run: python3 -m unittest scripts/test_ci_cache_contract.py -v
+
       - name: Check research cache invalidation regressions
         run: python3 -m unittest discover -s scripts -p test_research_compile.py -v
 

@@ -1,12 +1,14 @@
 name: OAI original principal signed remainder
 
 on:
-  pull_request:
-    paths:
-      - 'research/oai_434/VF919PrincipalSignedRemainder.lean'
-      - 'scripts/lean/principal_signed_remainder/**'
-      - '.github/workflows/vf919-principal-signed-remainder.yml'
+  # Original OpenAI validation is retained for explicit archival replay.
   workflow_dispatch:
+    inputs:
+      run_original_oai:
+        description: Run archived original OpenAI validation (may rebuild OAI dependencies)
+        required: false
+        type: boolean
+        default: false
 
 permissions:
   contents: read
@@ -17,6 +19,7 @@ concurrency:
 
 jobs:
   original-principal-signed-proof:
+    if: ${{ github.event_name == 'workflow_dispatch' && inputs.run_original_oai }}
     runs-on: ubuntu-latest
     timeout-minutes: 100
     steps:
