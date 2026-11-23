@@ -160,7 +160,7 @@ theorem nativeDyadicHostRaw_rd_ge
     apply half_le_rho H.art.ker (dvd_mul_right _ _)
     obtain ⟨u, hu, hArt⟩ := nativeDyadicArt_exists_iod e q d hd2 hqd hd4
     refine ⟨u, mem_KK.mpr hu, ?_⟩
-    rw [MonoidHom.mem_ker]
+    change nativeDyadicArt e q d u ≠ 1
     intro h
     have hsign := congrArg (fun g : (nativeDyadicFrame e).GG => g.1.2)
       (hArt.symm.trans h)

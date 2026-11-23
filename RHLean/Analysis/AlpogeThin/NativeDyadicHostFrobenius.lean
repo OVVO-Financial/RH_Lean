@@ -114,17 +114,21 @@ theorem nativeDyadicHostRaw_frob
   · rw [hg]
     unfold HostRaw.psAt
     rw [dite_eq_left hcop]
-  · rw [hg, nativeDyadicHostRaw_art_ch e q d he hH, hu0, ZMod.val_natCast,
-      nativeFrobeniusJacobi hpodd hd4,
-      jacobiSym.mod_left ((p % H.condN : ℕ) : ℤ), jacobiSym.mod_left (p : ℤ)]
-    congr 1
-    push_cast
-    exact Int.emod_emod_of_dvd _ (dvd_mul_left _ _)
+  · rw [hg, nativeDyadicHostRaw_art_ch e q d he hH, hu0, ZMod.val_natCast]
+    change jacobiSym ((p % alpogeNativeHostN e q d : ℕ) : ℤ) d =
+      jacobiSym (-(d : ℤ)) p
+    rw [nativeFrobeniusJacobi hpodd hd4]
+    apply jacobiSym.mod_left'
+    rw [Int.natCast_mod]
+    exact Int.emod_emod_of_dvd _ (Int.natCast_dvd_natCast.mpr
+      (alpogeNativeD_dvd_hostN e q d))
   · have hc2 : Nat.Coprime p (2 ^ (e + 2)) :=
       Nat.Coprime.pow_right _ ((Nat.coprime_primes hp Nat.prime_two).mpr hp2)
     refine ⟨ZMod.unitOfCoprime p hc2, ZMod.coe_unitOfCoprime _ _, ?_⟩
     rw [hg]
     apply H.art_h
+    change (ZMod.unitOfCoprime p hc2 : ZMod (2 ^ (e + 2))) =
+      (((ZMod.unitOfCoprime p hcop : ZMod H.condN).val : ℕ) : ZMod (2 ^ (e + 2)))
     simp only [ZMod.coe_unitOfCoprime]
     rw [ZMod.val_natCast, ZMod.natCast_eq_natCast_iff]
     exact ((Nat.mod_modEq p H.condN).of_dvd htwo).symm

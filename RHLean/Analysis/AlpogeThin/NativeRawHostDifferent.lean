@@ -74,7 +74,7 @@ theorem kc_mem_dual_iff (y : H.E) :
   have key : ∀ w : H.E, Algebra.trace H.K H.E w ∈ (algebraMap (𝓞 H.K) H.K).range ↔
       IsIntegral ℤ (∑ τ : H.E ≃ₐ[H.K] H.E, τ w) := by
     intro w
-    rw [← trace_eq_sum_automorphisms, isIntegral_algebraMap_iff (algebraMap H.K H.E).injective]
+    rw [← trace_eq_sum_automorphisms, isIntegral_algebraMap_iff]
     constructor
     · rintro ⟨a, ha⟩
       rw [← ha]
@@ -98,7 +98,7 @@ theorem kc_mem_diff_iff (z : 𝓞 H.E) :
       ∀ y : H.E, (∀ x : 𝓞 H.E, IsIntegral ℤ (∑ τ : H.E ≃ₐ[H.K] H.E, τ (y * x))) →
         IsIntegral ℤ ((z : H.E) * y) := by
   have hd : FractionalIdeal.dual (𝓞 H.K) H.K (1 : FractionalIdeal (𝓞 H.E)⁰ H.E) ≠ 0 := by
-    simpa [FractionalIdeal.dual_eq_zero_iff] using kc_one_ne H
+    simp [FractionalIdeal.dual_eq_zero_iff]
   have e1 : z ∈ differentIdeal (𝓞 H.K) (𝓞 H.E) ↔
       (z : H.E) ∈ ((differentIdeal (𝓞 H.K) (𝓞 H.E) : Ideal (𝓞 H.E)) : FractionalIdeal (𝓞 H.E)⁰ H.E) := by
     rw [FractionalIdeal.mem_coeIdeal]
@@ -174,7 +174,7 @@ theorem kc_smul_ne_bot (σ : H.E ≃ₐ[ℚ] H.E) (B : Ideal (𝓞 H.E))
   apply hB
   rw [← inv_smul_smul σ B, h]
   ext x
-  simp [Ideal.mem_pointwise_smul_iff_inv_smul_mem]
+  simp
 
 theorem kc_mem_inv_smul (σ : H.E ≃ₐ[ℚ] H.E) (B : Ideal (𝓞 H.E))
     (hB : B ≠ ⊥) (y : H.E) :

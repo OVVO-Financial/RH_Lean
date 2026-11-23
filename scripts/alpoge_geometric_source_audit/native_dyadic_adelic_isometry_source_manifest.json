@@ -56,7 +56,7 @@
       "module": "RHLean.Geometry.NativeDyadicAdelicNorm",
       "path": "RHLean/Geometry/NativeDyadicAdelicNorm.lean",
       "initial_attachment_sha256": "3700b189b62820b4645ddbd3963e885baa7ca1b3a74ed1f43b40462976e34906",
-      "native_sha256": "3700b189b62820b4645ddbd3963e885baa7ca1b3a74ed1f43b40462976e34906"
+      "native_sha256": "dbc0ee0514d00182c90fefcaa6433bba3b6692a279b4c00271e0d54f104a7573"
     },
     {
       "module": "RHLean.Geometry.NativePrescribedPolarizationLattice",

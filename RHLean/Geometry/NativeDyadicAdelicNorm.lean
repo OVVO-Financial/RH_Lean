@@ -85,7 +85,9 @@ theorem conjugation_apply (he : 2 ≤ e) (hH : HostHyp q d) (x : E) :
 
 theorem conjugation_eq_host (he : 2 ≤ e) (hH : HostHyp q d) (x : E) :
     conjugation e q d he hH x = (nativeDyadicHostRaw e q d he hH).conj x := by
-  simpa only [nativeDyadicHostRaw_conj] using (conjugation_apply e q d he hH x)
+  have hconj := congrArg (fun σ : E ≃ₐ[ℚ] E => σ x)
+    (nativeDyadicHostRaw_conj e q d he hH)
+  exact (conjugation_apply e q d he hH x).trans hconj.symm
 
 /-- The ratio of the SAME two Gauss roots lies in the actual real subfield. -/
 def beta (he : 2 ≤ e) (hH : HostHyp q d) : F :=
@@ -220,7 +222,7 @@ theorem finite_primes_over_d :
   refine (Ideal.finite_factors (I := Ideal.span {((d : ℤ) : 𝓞 F)}) ?_).subset ?_
   · rwa [ne_eq, Ideal.zero_eq_bot, Ideal.span_singleton_eq_bot]
   · intro v hv
-    rw [Set.mem_setOf_eq, Ideal.dvd_iff_le, Ideal.span_singleton_le_iff_mem]
+    rw [Set.mem_ofPred_eq, Ideal.dvd_iff_le, Ideal.span_singleton_le_iff_mem]
     exact hv
 
 def localS (he : 2 ≤ e) (hH : HostHyp q d) (v : HeightOneSpectrum (𝓞 F)) :
@@ -255,7 +257,9 @@ theorem adele_norm_equation (he : 2 ≤ e) (hH : HostHyp q d) :
     adeleS e q d he hH * adeleS e q d he hH +
       adeleS e q d he hH * adeleT e q d he hH +
       (quarterPlusOne d : Af) * (adeleT e q d he hH * adeleT e q d he hH) = -1 := by
-  refine RestrictedProduct.ext (fun v => ?_)
+  refine RestrictedProduct.ext
+    (fun v : HeightOneSpectrum (𝓞 F) => v.adicCompletion F)
+    (fun v => (v.adicCompletionIntegers F : Set (v.adicCompletion F))) (fun v => ?_)
   change localS e q d he hH v * localS e q d he hH v +
     localS e q d he hH v * localT e q d he hH v +
     (quarterPlusOne d : v.adicCompletion F) *
@@ -311,15 +315,26 @@ theorem normMinusOne_spec (he : 2 ≤ e) (hH : HostHyp q d) :
   have hτu : tensorConjugation e q d he hH
       ((Algebra.TensorProduct.includeLeftRingHom : E →+* E ⊗[F] Af) (theta e q d)) =
       1 - (Algebra.TensorProduct.includeLeftRingHom : E →+* E ⊗[F] Af) (theta e q d) := by
-    rw [hL, conjugation_apply, theta_conj e q d hH, map_sub, map_one]
-  exact norm_of_quad _ _ _ _ _ (hR _) (hR _) hτu hu hk
+    let L : E →+* E ⊗[F] Af := Algebra.TensorProduct.includeLeftRingHom
+    have htheta : conjugation e q d he hH (theta e q d) = 1 - theta e q d :=
+      (conjugation_apply e q d he hH (theta e q d)).trans (theta_conj e q d hH)
+    have hmap : L (1 - theta e q d) = 1 - L (theta e q d) :=
+      (map_sub L 1 (theta e q d)).trans
+        (congrArg (fun z : E ⊗[F] Af => z - L (theta e q d)) (map_one L))
+    exact (hL (theta e q d)).trans ((congrArg L htheta).trans hmap)
+  have hnorm := norm_of_quad (B := E ⊗[F] Af) (tensorConjugation e q d he hH)
+    ((Algebra.TensorProduct.includeRight : Af →ₐ[F] E ⊗[F] Af) (adeleS e q d he hH))
+    ((Algebra.TensorProduct.includeRight : Af →ₐ[F] E ⊗[F] Af) (adeleT e q d he hH))
+    ((Algebra.TensorProduct.includeLeftRingHom : E →+* E ⊗[F] Af) (theta e q d))
+    (quarterPlusOne d) (hR (adeleS e q d he hH)) (hR (adeleT e q d he hH)) hτu hu hk
+  simpa only [normMinusOne] using hnorm
 
 theorem normMinusOne_isUnit (he : 2 ≤ e) (hH : HostHyp q d) :
     IsUnit (normMinusOne e q d he hH) := by
   apply isUnit_of_mul_isUnit_right
     (x := tensorConjugation e q d he hH (normMinusOne e q d he hH))
   rw [normMinusOne_spec]
-  exact isUnit_one.neg
+  exact (isUnit_one : IsUnit (1 : E ⊗[F] Af)).neg
 
 /-- The genuine finite-adelic supplier, with the element already constructed above. -/
 theorem exists_adelic_neg_one (he : 2 ≤ e) (hH : HostHyp q d) :

@@ -38,8 +38,8 @@
         }
       ],
       "construction": "Constructs the real-field algebra conjugation from actual raw-host fixedness, uses the canonical native q- and d-Gauss roots, constructs both local norm branches and exact integrality away from d, then genuine restricted-product S/T and the explicit tensor element y=includeRight(S)+includeLeft((1+sqrtD)/2)*includeRight(T). Proves conjugate(y)*y=-1 and IsUnit y. No isometry, norm solution or complete Host/Ranks input is assumed.",
-      "native_sha256": "3700b189b62820b4645ddbd3963e885baa7ca1b3a74ed1f43b40462976e34906",
-      "native_lines": 333,
+      "native_sha256": "dbc0ee0514d00182c90fefcaa6433bba3b6692a279b4c00271e0d54f104a7573",
+      "native_lines": 348,
       "initial_source_reconstruction_sha256": "3700b189b62820b4645ddbd3963e885baa7ca1b3a74ed1f43b40462976e34906"
     }
   ],
