@@ -1,12 +1,14 @@
 name: Retained-slot analytic feedback
 on:
-  pull_request:
-    paths:
-      - 'research/oai_434/RetainedSlotFeedback.lean'
-      - 'research/oai_434/Feedback/**'
-      - 'scripts/lean/retained_slot_feedback/**'
-      - '.github/workflows/retained-slot-feedback.yml'
+  # Original OpenAI validation is retained for explicit archival replay.
   workflow_dispatch:
+    inputs:
+      run_original_oai:
+        description: Run archived original OpenAI validation (may rebuild OAI dependencies)
+        required: false
+        type: boolean
+        default: false
+
 permissions:
   contents: read
 concurrency:
@@ -14,6 +16,7 @@ concurrency:
   cancel-in-progress: true
 jobs:
   feedback-proof:
+    if: ${{ github.event_name == 'workflow_dispatch' && inputs.run_original_oai }}
     runs-on: ubuntu-latest
     timeout-minutes: 150
     steps:

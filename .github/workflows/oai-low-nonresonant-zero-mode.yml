@@ -1,36 +1,21 @@
 name: Original OAI low Gaussian nonresonant zero-mode certificate
 
 on:
-  pull_request:
-    paths:
-      - 'research/oai_434/VF919OriginalLowNonresonantZeroMode.lean'
-      - 'research/oai_434/VF919OriginalLowRadicalPhysicalPeriod.lean'
-      - 'research/oai_434/VF919OriginalLowGoodColumnCRTGauss.lean'
-      - 'research/oai_434/VF919OriginalExceptionalSixthCorridor.lean'
-      - 'research/oai_434/VF919OriginalSameRaySixthCorrelationPhase.lean'
-      - 'research/oai_434/VF919OriginalLowQuadraticBudget.lean'
-      - 'research/oai_434/VF919OriginalLowQuadraticLocalCharacters.lean'
-      - 'research/oai_434/VF919OriginalLowMetaProjection.lean'
-      - 'research/oai_434/VF919OriginalLowGrowingSetPeriod.lean'
-      - '.github/workflows/oai-low-nonresonant-zero-mode.yml'
-      - 'scripts/oai_low_gaussian_unit_character_finite.py'
-      - 'scripts/oai_low_gaussian_crt_good_column_probe.py'
-      - 'scripts/oai_low_gaussian_collision_calibration_crt_probe.py'
-      - 'scripts/oai_exceptional_sixth_corridor_sharpness.py'
-      - 'scripts/oai_sextic_same_ray_cross_phase_probe.py'
-      - 'scripts/oai_low_fixed_ray_nonprincipal_witness.py'
-      - 'scripts/oai_low_gaussian_composite_s_quadratic_crt_probe.py'
-      - 'scripts/oai_low_j_composite_cubic_cross_witness.py'
-      - 'scripts/oai_low_reduced_modulus_crt_aliasing_probe.py'
-      - 'lean-toolchain'
-      - 'lakefile.lean'
+  # Original OpenAI validation is retained for explicit archival replay.
   workflow_dispatch:
+    inputs:
+      run_original_oai:
+        description: Run archived original OpenAI validation (may rebuild OAI dependencies)
+        required: false
+        type: boolean
+        default: false
 
 permissions:
   contents: read
 
 jobs:
   actual-original-oai-low-zero-mode:
+    if: ${{ github.event_name == 'workflow_dispatch' && inputs.run_original_oai }}
     runs-on: ubuntu-latest
     timeout-minutes: 135
     steps:

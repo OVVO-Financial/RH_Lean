@@ -5,6 +5,9 @@ on:
       - '.github/workflows/**'
       - '.github/actions/**'
       - 'scripts/ci/check_lean_cache_contract.py'
+      - 'scripts/test_ci_cache_contract.py'
+      - 'scripts/compile_research_import_closure.py'
+      - 'scripts/lake_build_fail_fast.py'
   workflow_dispatch:
 permissions:
   contents: read

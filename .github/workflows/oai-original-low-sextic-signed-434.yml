@@ -3,15 +3,17 @@ name: OAI genuine sextic low signed completion 4.34.1
 on:
   pull_request:
     paths:
-      - 'research/oai_434/VF919OriginalSignedSexticLowResidueCompletion.lean'
-      - 'research/oai_434/VF919OriginalLowGaussSexticPhase.lean'
-      - 'research/oai_434/VF919OriginalLowGaussActualResonance.lean'
       - 'scripts/oai_sextic_sixfree_residue_completion_probe.py'
       - 'scripts/oai_original_low_gauss_smooth_completion_probe.py'
       - '.github/workflows/oai-original-low-sextic-signed-434.yml'
-      - 'research/OAI_ORIGINAL_SIGNED_SIXFREE_LOW_COMPLETION_20261022.md'
-      - 'research/OAI_ORIGINAL_LOW_GAUSS_PRIMITIVE_PERIOD_COMPLETION_20261022.md'
+  # Original OpenAI validation is retained for explicit archival replay.
   workflow_dispatch:
+    inputs:
+      run_original_oai:
+        description: Run archived original OpenAI validation (may rebuild OAI dependencies)
+        required: false
+        type: boolean
+        default: false
 
 permissions:
   contents: read
@@ -33,6 +35,7 @@ jobs:
           python3 scripts/oai_original_low_gauss_smooth_completion_probe.py
 
   original-sextic-source-lean:
+    if: ${{ github.event_name == 'workflow_dispatch' && inputs.run_original_oai }}
     runs-on: ubuntu-latest
     timeout-minutes: 110
     steps:

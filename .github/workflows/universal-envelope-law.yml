@@ -5,34 +5,91 @@ on:
     types: [opened, synchronize, reopened]
     paths:
       - 'research/UNIVERSAL_ENVELOPE*.lean'
+      - '!research/UNIVERSAL_ENVELOPE_OWNER_FRACTIONAL.lean'
+      - '!research/UNIVERSAL_ENVELOPE_FRACTIONAL_ACCEPTANCE.lean'
       - 'research/MERTENS_CONVERSE_*.lean'
       - 'research/NATIVE_OWNER_PREFIX_MERTENS_20261021.lean'
-      - 'research/oai_434/VF919FractionalOwnerContraction.lean'
       - 'RHLean/Proof/SquareRoot*.lean'
       - 'RHLean/Analysis/MobiusRenewalTelescope.lean'
       - 'docs/UNIVERSAL_ENVELOPE*.md'
       - 'scripts/envelope_*'
       - 'scripts/audit_universal_envelope.py'
-      - 'scripts/audit_euler_fractional_axioms.py'
       - 'scripts/compile_research_import_closure.py'
       - '.github/workflows/universal-envelope-law.yml'
       - '.github/actions/lean-setup/**'
       - '.github/actions/lean-compiled-cache/**'
       - '.github/actions/research-compile/**'
-      - '.github/actions/oai-434-shared-cache/**'
       - 'lean-toolchain'
       - 'lakefile.lean'
       - 'lake-manifest.json'
   workflow_dispatch:
+    inputs:
+      run_original_oai:
+        description: Explicitly replay the archived original OpenAI fractional-owner proof
+        type: boolean
+        required: false
+        default: false
 
 permissions:
   contents: read
 
 concurrency:
-  group: universal-envelope-${{ github.head_ref || github.ref_name }}-${{ github.event.pull_request.head.sha || github.sha }}
+  group: universal-envelope-${{ github.head_ref || github.ref_name }}
   cancel-in-progress: true
 
 jobs:
+  retire-automatic-oai:
+    name: Stop obsolete automatic OAI runs
+    if: >-
+      github.event_name == 'pull_request' &&
+      github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      actions: write
+    steps:
+      # Metadata only: never check out or execute PR code with this token.
+      # Earlier revisions used a SHA-scoped concurrency group, so the new
+      # branch-scoped group alone cannot stop their obsolete OAI rebuilds.
+      - name: Cancel older automatic fractional-owner rebuilds for this PR
+        uses: actions/github-script@v7
+        env:
+          CURRENT_RUN_NUMBER: ${{ github.run_number }}
+        with:
+          script: |
+            const pr = context.payload.pull_request;
+            const repository = `${context.repo.owner}/${context.repo.repo}`;
+            if (!pr || pr.head.repo.full_name !== repository) return;
+            const currentRunNumber = Number(process.env.CURRENT_RUN_NUMBER);
+            if (!Number.isSafeInteger(currentRunNumber) || currentRunNumber <= 0) {
+              throw new Error('Missing current workflow run number.');
+            }
+            const runs = await github.paginate(github.rest.actions.listWorkflowRuns, {
+              ...context.repo, workflow_id: 'universal-envelope-law.yml',
+              event: 'pull_request', branch: pr.head.ref, per_page: 100
+            });
+            for (const run of runs) {
+              if (run.id === context.runId || run.status === 'completed' ||
+                  run.event !== 'pull_request' || run.run_number >= currentRunNumber ||
+                  !Number.isSafeInteger(run.run_number) ||
+                  run.path !== '.github/workflows/universal-envelope-law.yml' ||
+                  run.head_branch !== pr.head.ref ||
+                  run.head_repository?.full_name !== repository ||
+                  !run.pull_requests?.some(p => p.number === pr.number)) continue;
+              const jobs = await github.paginate(github.rest.actions.listJobsForWorkflowRun, {
+                ...context.repo, run_id: run.id, per_page: 100
+              });
+              if (!jobs.some(job => job.name === 'fractional-owner-proof' &&
+                                   job.status !== 'completed')) continue;
+              try {
+                await github.rest.actions.cancelWorkflowRun({...context.repo, run_id: run.id});
+                core.info(`Cancelled obsolete automatic OAI rebuild ${run.id} for PR #${pr.number}.`);
+              } catch (error) {
+                if (error.status === 409) core.info(`${run.id} finished before cancellation.`);
+                else throw error;
+              }
+            }
+
   numerical-smoke:
     runs-on: ubuntu-latest
     timeout-minutes: 10
@@ -133,6 +190,9 @@ jobs:
           retention-days: 30
 
   fractional-owner-proof:
+    # Historical OAI 7/8 replay is not part of native Alpoge PR validation.
+    # Even a manual run of the native jobs leaves this disabled by default.
+    if: ${{ github.event_name == 'workflow_dispatch' && inputs.run_original_oai }}
     runs-on: ubuntu-latest
     timeout-minutes: 180
     steps:

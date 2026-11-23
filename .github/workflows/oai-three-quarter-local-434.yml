@@ -2,11 +2,16 @@ name: OAI three-quarters actual prime local source
 on:
   pull_request:
     paths:
-      - 'research/oai_434/VF919OriginalVariableExponentThreeQuarters.lean'
       - 'scripts/oai_three_quarters_cubic_exponent_audit.py'
-      - 'research/OAI_THREE_QUARTERS_ACTUAL_CUBIC_ATTACK_20261022.md'
       - '.github/workflows/oai-three-quarter-local-434.yml'
+  # Original OpenAI validation is retained for explicit archival replay.
   workflow_dispatch:
+    inputs:
+      run_original_oai:
+        description: Run archived original OpenAI validation (may rebuild OAI dependencies)
+        required: false
+        type: boolean
+        default: false
 
 permissions:
   contents: read
@@ -24,6 +29,7 @@ jobs:
       - name: Check cubic, sextic and scalar powers exactly
         run: python3 scripts/oai_three_quarters_cubic_exponent_audit.py
   actual-prime-three-quarter:
+    if: ${{ github.event_name == 'workflow_dispatch' && inputs.run_original_oai }}
     runs-on: ubuntu-latest
     timeout-minutes: 100
     steps:

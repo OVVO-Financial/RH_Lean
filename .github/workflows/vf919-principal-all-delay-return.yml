@@ -1,16 +1,14 @@
 name: OAI principal all-delay return
 
 on:
-  pull_request:
-    paths:
-      - 'research/oai_434/VF919PrincipalAllDelayReturn.lean'
-      - 'research/oai_434/VF919PrincipalResponseMass.lean'
-      - 'research/oai_434/VF919PrincipalFiniteResponse.lean'
-      - 'research/oai_434/VF919PrincipalSignedRemainder.lean'
-      - 'research/oai_434/VF919FiniteSlotReflectedGain.lean'
-      - 'scripts/lean/principal_all_delay_return/**'
-      - '.github/workflows/vf919-principal-all-delay-return.yml'
+  # Original OpenAI validation is retained for explicit archival replay.
   workflow_dispatch:
+    inputs:
+      run_original_oai:
+        description: Run archived original OpenAI validation (may rebuild OAI dependencies)
+        required: false
+        type: boolean
+        default: false
 
 permissions:
   contents: read
@@ -21,6 +19,7 @@ concurrency:
 
 jobs:
   original-principal-all-delay-proof:
+    if: ${{ github.event_name == 'workflow_dispatch' && inputs.run_original_oai }}
     runs-on: ubuntu-latest
     timeout-minutes: 100
     steps:

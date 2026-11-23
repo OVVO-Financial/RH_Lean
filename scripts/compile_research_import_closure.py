@@ -21,6 +21,7 @@ import sys
 # Some existing workflows load this file with importlib from the repo root.
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from repo_index import imports_from
+from lake_build_fail_fast import run_lake_build
 
 ROOT = Path(__file__).resolve().parents[1]
 BUILD = ROOT / ".lake" / "build" / "lib" / "lean"
@@ -34,7 +35,8 @@ def digest(raw: bytes) -> str:
 
 PRODUCERS = [(p.name, digest(p.read_bytes())) for p in
              [Path(__file__), Path(__file__).with_name('repo_index.py'),
-              Path(__file__).with_name('rhlean_kg.py')]]
+              Path(__file__).with_name('rhlean_kg.py'),
+              Path(__file__).with_name('lake_build_fail_fast.py')]]
 
 
 def source_for(module: str, root: Path = ROOT) -> Path:
@@ -197,7 +199,7 @@ def main() -> None:
         print(f"[research-closure] planned {len(plan['modules'])} modules, {len(plan['library'])} library targets")
         return
     if (args.build_library or args.library_only) and plan["library"]:
-        subprocess.run(["lake", "build", *plan["library"]], cwd=ROOT, check=True)
+        run_lake_build(plan["library"], cwd=ROOT)
     if args.library_only:
         print(f"[research-closure] built {len(plan['library'])} library targets; research not compiled")
         return
