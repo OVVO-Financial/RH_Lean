@@ -162,6 +162,7 @@ def torsionToPrimary (P : L →+ V) (g : ℕ) : torsion P g →+ primary P g whe
   map_zero' := rfl
   map_add' _ _ := rfl
 
+omit [Module ℝ V] in
 theorem torsionToPrimary_injective (P : L →+ V) (g : ℕ) :
     Function.Injective (torsionToPrimary P g) := by
   intro x y h
