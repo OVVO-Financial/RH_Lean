@@ -153,14 +153,17 @@ theorem columnJet_triangular
   let φ : K →+* (⨂[S] _ : Fin n, Algebra.adjoin S s) :=
     (algebraMap S (⨂[S] _ : Fin n, Algebra.adjoin S s)).comp (algebraMap K S)
   have hpull : ∀ (z : S) (t : ⨂[S] _ : Fin n, Algebra.adjoin S s),
-      prodForm lam (algebraMap S _ z * t) = z * prodForm lam t := by
+      prodForm (S := S) (A := Algebra.adjoin S s) (n := n) lam
+          (algebraMap S _ z * t) =
+        z * prodForm (S := S) (A := Algebra.adjoin S s) (n := n) lam t := by
     intro z t
     rw [← Algebra.smul_def, map_smul, smul_eq_mul]
   have hval : ∀ (U : Row Ty r → Fin d → S) (X : Row Ty r → Algebra.adjoin S s),
       (∀ l, (Algebra.adjoin S s).val (X l) = dEnd G.F (U l)) →
       ∑ m ∈ P.support, algebraMap K S (P.coeff m) *
           ∏ b, formalColumnJet G.F actW0 h k (f b) U (columnExponent m b) =
-        prodForm lam (MvPolynomial.eval₂Hom φ (fun l : Letter Ty r n =>
+        prodForm (S := S) (A := Algebra.adjoin S s) (n := n) lam
+          (MvPolynomial.eval₂Hom φ (fun l : Letter Ty r n =>
           PiTensorProduct.singleAlgHom (R := S)
             (A := fun _ : Fin n => Algebra.adjoin S s) l.2.2 (X ⟨l.1, l.2.1⟩)) P) := by
     intro U X hX
@@ -172,10 +175,11 @@ theorem columnJet_triangular
     have e1 : ∀ b, formalColumnJet G.F actW0 h k (f b) U (columnExponent m b) =
         lam b (∏ l, X l ^ (columnExponent m b) l) := by
       intro b
-      rw [formalColumnJet, dmon_eq G.F (Algebra.adjoin S s).val U X hX]
+      rw [formalColumnJet,
+        dmon_eq (S := S) (A := Algebra.adjoin S s) G.F (Algebra.adjoin S s).val U X hX]
       rfl
     simp only [e1]
-    rw [← prodForm_prod]
+    rw [← prodForm_prod (S := S) (A := Algebra.adjoin S s) (n := n) lam]
     congr 1
     simp only [map_prod, map_pow]
     rw [Finset.prod_comm, Fintype.prod_sigma, Fintype.prod_sigma]
@@ -208,7 +212,7 @@ theorem columnJet_triangular
     (fun l : Letter Ty r n => PiTensorProduct.singleAlgHom (R := S)
       (A := fun _ : Fin n => Algebra.adjoin S s) l.2.2 (X ⟨l.1, l.2.1⟩))
   rw [hY]
-  refine (congrArg (prodForm lam) h3).trans ?_
+  refine (congrArg (prodForm (S := S) (A := Algebra.adjoin S s) (n := n) lam) h3).trans ?_
   rw [← hpull]
   congr 2
   simp [map_prod, map_pow]
