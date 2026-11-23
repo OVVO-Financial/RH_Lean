@@ -172,13 +172,19 @@ def build_graph_from_lean(jsonl: Path, include_docs: bool = True) -> dict[str, o
         entry["signature_constants"] = sig_constants
         entry["shape"] = kg.statement_shape(decl.statement)
         entry["shape_full"] = kg.statement_shape(decl.statement, conclusion_only=False)
+        entry["conclusion_form"] = kg.statement_conclusion_form(decl.statement)
         # The environment dump does not distinguish hypothesis from conclusion,
-        # so the conclusion split comes from source and is intersected with the
-        # exact statement references.
+        # so both positional splits come independently from source and are
+        # intersected with the exact statement references. Never subtract the
+        # conclusion: `(h : P) : P` has P in both positions.
+        entry["hypothesis_refs"] = [
+            r for r in decl.hypothesis_refs if r in stmt_refs_set
+        ]
         entry["conclusion_refs"] = [
             r for r in decl.conclusion_refs if r in stmt_refs_set
         ]
         entry["has_raw_hypothesis"] = kg.has_raw_hypothesis(decl.statement)
+        entry["has_unclassified_hypothesis"] = kg.has_unclassified_hypothesis(decl, table)
         entry["statement_preview"] = _preview(decl.statement, STATEMENT_PREVIEW)
         if include_docs and decl.doc:
             entry["doc"] = _preview(decl.doc, DOC_PREVIEW)
@@ -259,13 +265,16 @@ def build_graph(include_docs: bool = True) -> dict[str, object]:
             "line": decl.line,
             "namespace": decl.namespace,
             "statement_refs": decl.statement_refs,
+            "hypothesis_refs": decl.hypothesis_refs,
             "conclusion_refs": decl.conclusion_refs,
             "proof_refs": decl.proof_refs,
             "signature": kg.normalized_signature_parts(decl, table)[0],
             "signature_constants": kg.normalized_signature_parts(decl, table)[1],
             "shape": kg.statement_shape(decl.statement),
             "shape_full": kg.statement_shape(decl.statement, conclusion_only=False),
+            "conclusion_form": kg.statement_conclusion_form(decl.statement),
             "has_raw_hypothesis": kg.has_raw_hypothesis(decl.statement),
+            "has_unclassified_hypothesis": kg.has_unclassified_hypothesis(decl, table),
             "statement_preview": _preview(decl.statement, STATEMENT_PREVIEW),
         }
         if include_docs and decl.doc:

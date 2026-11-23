@@ -11,6 +11,7 @@ on:
       - 'scripts/proof_inventory.py'     # exact-graph count cross-check
       - 'scripts/decl_graph.py'          # exact graph ingestion/validation
       - 'scripts/rhlean_kg.py'           # source metadata/status semantics
+      - 'scripts/test_decl_graph.py'     # proof-status and graph regressions
       - 'scripts/compile_research_import_closure.py'
       - 'scripts/test_research_compile.py'
       - 'scripts/lake_build_fail_fast.py'
@@ -37,6 +38,7 @@ on:
       - 'scripts/proof_inventory.py'     # exact-graph count cross-check
       - 'scripts/decl_graph.py'          # exact graph ingestion/validation
       - 'scripts/rhlean_kg.py'           # source metadata/status semantics
+      - 'scripts/test_decl_graph.py'     # proof-status and graph regressions
       - 'scripts/compile_research_import_closure.py'
       - 'scripts/test_research_compile.py'
       - 'scripts/lake_build_fail_fast.py'
@@ -93,6 +95,9 @@ jobs:
 
       - name: Check first-failure process cleanup
         run: python3 -m unittest discover -s scripts -p test_lake_build_fail_fast.py -v
+
+      - name: Reject self-certifying proof-status regressions
+        run: python3 -m unittest discover -s scripts -p test_decl_graph.py -v
 
       - name: Choose changed research Lean targets
         id: targets
