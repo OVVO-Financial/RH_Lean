@@ -76,6 +76,7 @@ variable {S B : Type} [CommRing S] [CommRing B] [Algebra K S] [Algebra K B]
   (hphase : ∀ (A : Type) [CommRing A] [Algebra K A] (ψ₁ ψ₂ : B →ₐ[K] A),
     ψ₁.comp φ = ψ₂.comp φ → PhaseTransport N ψ₁ ψ₂ jet jet)
 
+include hφ hN hphase in
 /-- The original-base value is constructed by effective descent, with its
 equalizer condition proved by the finite odd-phase calculation. -/
 theorem existsUnique_value (P : MvPolynomial (Letter T r n) K) :
@@ -104,7 +105,7 @@ def valueLinear (D : ℕ) : homogeneousSubmodule (Letter T r n) K D →ₗ[K] S 
     exact map_add _ _ _
   map_smul' c P := by
     apply hφ.injective
-    rw [map_smul, value_spec, value_spec]
+    rw [map_smul φ, value_spec, value_spec]
     rw [rawShortValue_eq_linear_of_homogeneous β index N D w jet _ (c • P).property,
       rawShortValue_eq_linear_of_homogeneous β index N D w jet _ P.property]
     exact map_smul _ _ _

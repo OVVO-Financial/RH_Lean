@@ -87,6 +87,7 @@ variable {S B : Type} [CommRing S] [CommRing B] [Algebra K S] [Algebra K B]
   (hphase : ∀ (A : Type) [CommRing A] [Algebra K A] (ψ₁ ψ₂ : B →ₐ[K] A),
     ψ₁.comp φ = ψ₂.comp φ → LocalPhaseTransport N ψ₁ ψ₂ jet jet)
 
+include hφ hN hphase in
 /-- Effective descent with the source-compatible local phase input. -/
 theorem existsUnique_value_of_local_phases (P : MvPolynomial (Letter T r n) K) :
     ∃! v : S, φ v = rawShortValue β index N w jet P := by
