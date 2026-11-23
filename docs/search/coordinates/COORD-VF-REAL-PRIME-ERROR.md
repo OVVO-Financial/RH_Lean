@@ -48,6 +48,7 @@
 | 8 | [research/VF_MID_FLOOR_LI_DISCRETE_BACKLOG.lean](../../../research/VF_MID_FLOOR_LI_DISCRETE_BACKLOG.lean) | Discrete floor-Li backlog on VF square blocks |
 | 8 | [research/VF_MID_OWNER_ADMISSIBLE_ESCAPE_CLASS.lean](../../../research/VF_MID_OWNER_ADMISSIBLE_ESCAPE_CLASS.lean) | Structural owner-admissible escape class for the direct VF route |
 | 8 | [research/VF_MID_PHI_DIAGONAL_TRANSFER.lean](../../../research/VF_MID_PHI_DIAGONAL_TRANSFER.lean) | Diagonal transfer identity for the VF-mid dyadic increment |
+| 6 | [research/ALPOGE_GZ_VFMID_DELTA_TRANSFER_20261122.lean](../../../research/ALPOGE_GZ_VFMID_DELTA_TRANSFER_20261122.lean) | Alpoge Gz: the original real prime delta in VF_mid coordinates |
 | 4 | [docs/PROOF_DEPENDENCY_DAG.md](../../../docs/PROOF_DEPENDENCY_DAG.md) | RH_Lean mathematical proof-dependency DAG |
 | 4 | [research/VF_CANONICAL_SQRT_TWO_AUTOPSY_2026_10_12.md](../../../research/VF_CANONICAL_SQRT_TWO_AUTOPSY_2026_10_12.md) | FULL VF AUTOPSY — ONE CANONICAL SQRT(2)-ALIGNED DEFINITION |
 | 4 | [research/VF_MID_915_SOURCE_PAYMENT_CONTENT_AUDIT.lean](../../../research/VF_MID_915_SOURCE_PAYMENT_CONTENT_AUDIT.lean) | Content audit of the #915 first-bad source-payment statement |

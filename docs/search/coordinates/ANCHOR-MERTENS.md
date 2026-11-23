@@ -45,22 +45,22 @@
 | 136 | [RHLean/Analysis/ThreeSlotDegreeOneCriterion.lean](../../../RHLean/Analysis/ThreeSlotDegreeOneCriterion.lean) | Degree-one energy criterion for the three-slot route |
 | 132 | [research/NATIVE_OWNER_SWAP_RENEWAL_20261021.lean](../../../research/NATIVE_OWNER_SWAP_RENEWAL_20261021.lean) | Original-owner swap and exact renewal correspondence |
 | 130 | [RHLean/Proof/LowWheelSurvivorFloorExpansion.lean](../../../RHLean/Proof/LowWheelSurvivorFloorExpansion.lean) | Floor expansion of low-wheel survivor frequencies |
+| 128 | [research/CORR4_SQUARE_CLOCK_SAMPLING_20261106.lean](../../../research/CORR4_SQUARE_CLOCK_SAMPLING_20261106.lean) | Source-faithful CORR4 square-clock sampling |
 | 124 | [research/EULER_ASYMMETRIC_CORNER_SIGNED_GRAM_20261028.lean](../../../research/EULER_ASYMMETRIC_CORNER_SIGNED_GRAM_20261028.lean) | Asymmetric two-cutoff Euler floor identity and its signed Gram transport |
 | 118 | [RHLean/Proof/SignedTransportAmplificationAudit.lean](../../../RHLean/Proof/SignedTransportAmplificationAudit.lean) | Signed transport and square-endpoint amplification audit |
+| 116 | [research/UNIVERSAL_ENVELOPE_HISTORY.lean](../../../research/UNIVERSAL_ENVELOPE_HISTORY.lean) | From the endpoint maximum back to the complete historical maximum |
 | 112 | [RHLean/Analysis/PrimorialWheelMertensTransfer.lean](../../../RHLean/Analysis/PrimorialWheelMertensTransfer.lean) | A global Mertens-energy bound immediately controls every synchronized |
 | 112 | [research/LOW_OWNER_Q2_NEAREST_SQUARE_WHEEL_SHELL.lean](../../../research/LOW_OWNER_Q2_NEAREST_SQUARE_WHEEL_SHELL.lean) | Physical nearest-square shells as finite wheel frequency arcs |
+| 104 | [research/UNIVERSAL_ENVELOPE_ARITHMETIC.lean](../../../research/UNIVERSAL_ENVELOPE_ARITHMETIC.lean) | The exact historical envelope and its exponent consumer |
 | 100 | [research/CORR4_OAI_BUFFERED_INDUCTION_CORE_20261025.lean](../../../research/CORR4_OAI_BUFFERED_INDUCTION_CORE_20261025.lean) | Buffered all-integer CORR-4 induction: original sharp daughter cutoff |
 | 93 | [research/EULER_SELF_DUAL_ENDPOINT_GATE_20261027.lean](../../../research/EULER_SELF_DUAL_ENDPOINT_GATE_20261027.lean) | Original finite-C to critical-energy amplification handoff |
 | 92 | [RHLean/Proof/PrimeWheelProperSubwheelDepthTwo.lean](../../../RHLean/Proof/PrimeWheelProperSubwheelDepthTwo.lean) | Cubic proper-subwheel decomposition |
 | 88 | [RHLean/Proof/PhysicalQ2ExceptionalTerminalSynthesis.lean](../../../RHLean/Proof/PhysicalQ2ExceptionalTerminalSynthesis.lean) | Exceptional-owner terminal synthesis |
+| 80 | [research/OAI78_ABEl_HYPERBOLA_DRIFT_PAYMENT_20261028.lean](../../../research/OAI78_ABEl_HYPERBOLA_DRIFT_PAYMENT_20261028.lean) | Exact hyperbola recombination of the original Abel historical drift |
 | 79 | [RHLean/Analysis/SquareRootPostCrossingTail.lean](../../../RHLean/Analysis/SquareRootPostCrossingTail.lean) | The tail after a shallow reciprocal-packet crossing |
 | 76 | [RHLean/Analysis/SquareRootMatchedDegreeOneRecovery.lean](../../../RHLean/Analysis/SquareRootMatchedDegreeOneRecovery.lean) | Recover the Mertens-visible mode from matched transport |
 | 76 | [research/CORR4_OAI_SQUARE_ENDPOINT_BOOTSTRAP_20261025.lean](../../../research/CORR4_OAI_SQUARE_ENDPOINT_BOOTSTRAP_20261025.lean) | CORR-4: true daughter-to-square rounding and all-integer interpolation |
 | 76 | [research/MERTENS_AMPLITUDE_STRIP_MAP.lean](../../../research/MERTENS_AMPLITUDE_STRIP_MAP.lean) | Actual Mertens amplitudes in horizontal strip coordinates |
 | 72 | [RHLean/Analysis/MobiusRenewalTelescope.lean](../../../RHLean/Analysis/MobiusRenewalTelescope.lean) | The Möbius renewal telescope |
 | 72 | [RHLean/Proof/StableFarPrimeWallTransport.lean](../../../RHLean/Proof/StableFarPrimeWallTransport.lean) | The stable far-prime wall, after the #646 witness |
-| 70 | [RHLean/Analysis/NearestSquareEndpointDomination.lean](../../../RHLean/Analysis/NearestSquareEndpointDomination.lean) | Nearest-square endpoint domination |
-| 68 | [RHLean/Analysis/SquareRootMiddleSequentialCoherence.lean](../../../RHLean/Analysis/SquareRootMiddleSequentialCoherence.lean) | Sequential coherence of the square-root middle section |
-| 68 | [RHLean/Proof/LargePrimeTerminalFlipLayers.lean](../../../RHLean/Proof/LargePrimeTerminalFlipLayers.lean) | Large-prime terminal flip layers |
-| 68 | [research/PROPER_SUBWHEEL_DEPTH_TWO_REASSEMBLY.lean](../../../research/PROPER_SUBWHEEL_DEPTH_TWO_REASSEMBLY.lean) | Proper-subwheel depth-two reassembly |
-| 64 | [RHLean/Proof/MiddlePrimeFibreCollapse.lean](../../../RHLean/Proof/MiddlePrimeFibreCollapse.lean) | Exact middle-prime fibre collapse |
+| 72 | [research/OAI78_CORR4_OWNER_TAIL_PAID_20261028.lean](../../../research/OAI78_CORR4_OWNER_TAIL_PAID_20261028.lean) | Actual q²-owner tail paid by a supplied all-integer Mertens power bound |

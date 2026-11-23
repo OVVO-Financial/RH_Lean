@@ -35,6 +35,7 @@
 | 52 | [research/VF_919_EULER_PRIME_DENSITY_LEDGER_20261019.lean](../../../research/VF_919_EULER_PRIME_DENSITY_LEDGER_20261019.lean) | Chronological Euler prime arrivals and a symbolic prime-density baseline |
 | 48 | [research/VF_919_EXACT_INTEGER_NATIVE_COVARIANCE_BRIDGE_20261019.lean](../../../research/VF_919_EXACT_INTEGER_NATIVE_COVARIANCE_BRIDGE_20261019.lean) | Exact finite site ledger is the ORIGINAL native signed Mertens pair carrier |
 | 36 | [research/SQUARE_BLOCK_EULER_ANCESTRY_COVARIANCE_20261017.lean](../../../research/SQUARE_BLOCK_EULER_ANCESTRY_COVARIANCE_20261017.lean) | Fixed-square-wheel Möbius parity, density, and complete pair ancestry |
+| 32 | [research/oai_434/VF919NativeSevenEighthsReplay.lean](../../../research/oai_434/VF919NativeSevenEighthsReplay.lean) | The complete original one-to-seven-eighths contraction through RHLean NNS |
 | 28 | [RHLean/Analysis/MathlibMertensHook.lean](../../../RHLean/Analysis/MathlibMertensHook.lean) | Exact Möbius-zero covariance threshold |
 | 28 | [RHLean/Proof/PostRootCovarianceGlobalExponentTransfer.lean](../../../RHLean/Proof/PostRootCovarianceGlobalExponentTransfer.lean) | The global exponent is exactly twice the Mertens exponent |
 | 28 | [RHLean/Proof/PostRootCovarianceRowEnergy.lean](../../../RHLean/Proof/PostRootCovarianceRowEnergy.lean) | Individual post-root covariance rows and their lower-prefix energy |
@@ -50,10 +51,9 @@
 | 19 | [docs/COORDINATE_ATLAS.md](../../../docs/COORDINATE_ATLAS.md) | Coordinate atlas: one phenomenon, many coordinates |
 | 17 | [research/VF_919_OPENAI_CERTIFIED_ORIGINAL_SQUARE_COVARIANCE_20261019.lean](../../../research/VF_919_OPENAI_CERTIFIED_ORIGINAL_SQUARE_COVARIANCE_20261019.lean) | Actual OpenAI certified 7/8 proof in ORIGINAL RHLean square-block covariance |
 | 16 | [research/GLOBAL_RETURNED_CORE_Q2_DAUGHTER_FIRST_OWNER_GRAM.lean](../../../research/GLOBAL_RETURNED_CORE_Q2_DAUGHTER_FIRST_OWNER_GRAM.lean) | q² daughter energy in first-separation Gram currency |
+| 16 | [research/oai_434/VF919SlotAnchoredConsequences.lean](../../../research/oai_434/VF919SlotAnchoredConsequences.lean) | Actual Mertens and signed-energy consequences with the same constructed tilt |
 | 13 | [research/VF_919_OAI_SQUARE_BLOCK_FOUR_INDEX_COVARIANCE_20261019.lean](../../../research/VF_919_OAI_SQUARE_BLOCK_FOUR_INDEX_COVARIANCE_20261019.lean) | EXACT covariance weld, each original physical pair and both Hecke divisors |
 | 12 | [RHLean/Analysis/SquareRunEscapeCovariance.lean](../../../RHLean/Analysis/SquareRunEscapeCovariance.lean) | The run-level seam: escape covariance across square time |
 | 12 | [RHLean/Proof/PostRootCovarianceUnconditionalDecayScratch.lean](../../../RHLean/Proof/PostRootCovarianceUnconditionalDecayScratch.lean) | Unconditional decay pulled back onto the post-root remainder carrier |
 | 12 | [research/VF_919_EULER_MOVING_COVARIANCE_GROWTH_20261019.lean](../../../research/VF_919_EULER_MOVING_COVARIANCE_GROWTH_20261019.lean) | Moving square-root low/high covariance; genuine shell prime/composite growth |
 | 11 | [research/VF_MID_FIRST_BAD_PAYMENT_V2_PROOF_CONTRACT.md](../../../research/VF_MID_FIRST_BAD_PAYMENT_V2_PROOF_CONTRACT.md) | Minimal first-bad parity payment — production proof contract (v2) |
-| 9 | [research/VF_919_OAI_GLOBAL_SQUARE_BLOCK_ALL_PAIR_COVARIANCE_20261019.lean](../../../research/VF_919_OAI_GLOBAL_SQUARE_BLOCK_ALL_PAIR_COVARIANCE_20261019.lean) | GLOBAL actual signed Green--Kubo covariance: ALL square-block cross terms |
-| 8 | [RHLean/Proof/PostRootCovariancePowerEnvelope.lean](../../../RHLean/Proof/PostRootCovariancePowerEnvelope.lean) | New-record one-step innovation |

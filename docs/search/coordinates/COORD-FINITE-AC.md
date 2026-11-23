@@ -28,9 +28,9 @@
 
 | Score | File | Title |
 | --- | --- | --- |
-| 74 | [docs/PROOF_DEPENDENCY_DAG.md](../../../docs/PROOF_DEPENDENCY_DAG.md) | RH_Lean mathematical proof-dependency DAG |
+| 92 | [docs/PROOF_DEPENDENCY_DAG.md](../../../docs/PROOF_DEPENDENCY_DAG.md) | RH_Lean mathematical proof-dependency DAG |
 | 66 | [RHLean/Proof/PhysicalQ2ExceptionalTerminalSynthesis.lean](../../../RHLean/Proof/PhysicalQ2ExceptionalTerminalSynthesis.lean) | Exceptional-owner terminal synthesis |
-| 48 | [docs/COORDINATE_ATLAS.md](../../../docs/COORDINATE_ATLAS.md) | Coordinate atlas: one phenomenon, many coordinates |
+| 49 | [docs/COORDINATE_ATLAS.md](../../../docs/COORDINATE_ATLAS.md) | Coordinate atlas: one phenomenon, many coordinates |
 | 36 | [research/GLOBAL_RETURNED_CORE_POST789_DIAGONAL_SUBTRACTED_CONTROL.lean](../../../research/GLOBAL_RETURNED_CORE_POST789_DIAGONAL_SUBTRACTED_CONTROL.lean) | Post-#789 diagonal-subtracted quantitative target |
 | 35 | [research/SQUARE_ENDPOINT_STEP_POLYLOG_STRENGTH.lean](../../../research/SQUARE_ENDPOINT_STEP_POLYLOG_STRENGTH.lean) | Strength of the packaged square-endpoint recurrence |
 | 29 | [RHLean/Proof/SignedTransportAmplificationAudit.lean](../../../RHLean/Proof/SignedTransportAmplificationAudit.lean) | Signed transport and square-endpoint amplification audit |
@@ -39,6 +39,7 @@
 | 26 | [RHLean/Proof/SquareRootCrossRegionAmplification.lean](../../../RHLean/Proof/SquareRootCrossRegionAmplification.lean) | Cross-region sufficient targets for square-root amplification |
 | 25 | [research/FINITE_A_C_VF_ALIGNMENT_2026_10_11.md](../../../research/FINITE_A_C_VF_ALIGNMENT_2026_10_11.md) | Finite A / finite C alignment with the direct VF proof contract |
 | 24 | [RESEARCH_ROUTE_REGISTRY.md](../../../RESEARCH_ROUTE_REGISTRY.md) | Research route registry |
+| 24 | [docs/external/2026-11-15/universal-envelope-law-handoff.md](../../../docs/external/2026-11-15/universal-envelope-law-handoff.md) | Universal envelope law for the frozen-root coordinates — status snapshot and external handoff, 2026-11-15 |
 | 22 | [CURRENT_PROOF_CONTRACT.md](../../../CURRENT_PROOF_CONTRACT.md) | RH_Lean current proof contract |
 | 22 | [RHLean/Proof/SquareRootMertensEndpointAmplification.lean](../../../RHLean/Proof/SquareRootMertensEndpointAmplification.lean) | Square-root Mertens endpoint amplification |
 | 22 | [research/GLOBAL_RETURNED_CORE_STOKES_PHYSICAL_FRAME_BRIDGE.lean](../../../research/GLOBAL_RETURNED_CORE_STOKES_PHYSICAL_FRAME_BRIDGE.lean) | Physical Stokes boundary -> natural prime-period frame interface |
@@ -48,13 +49,12 @@
 | 20 | [research/CANONICAL_ROUGH_Q2_TAIL_REDUCTION.lean](../../../research/CANONICAL_ROUGH_Q2_TAIL_REDUCTION.lean) | Global q^2 tail reduction for the canonical rough bound |
 | 20 | [research/GLOBAL_RETURNED_CORE_ROOT_PREFIX_FIRST_OWNER_ENERGY.lean](../../../research/GLOBAL_RETURNED_CORE_ROOT_PREFIX_FIRST_OWNER_ENERGY.lean) | Root prefix in the same first-owner energy currency as the q² prefix |
 | 19 | [FORMALIZATION_SEQUENCE.md](../../../FORMALIZATION_SEQUENCE.md) | Formalization inventory and sequence |
+| 17 | [RHLean/Proof/SquareRootAmplificationLogGrowth.lean](../../../RHLean/Proof/SquareRootAmplificationLogGrowth.lean) | The original historical amplification and its logarithmic growth target |
 | 17 | [research/EULER_SELF_DUAL_ENDPOINT_GATE_20261027.lean](../../../research/EULER_SELF_DUAL_ENDPOINT_GATE_20261027.lean) | Original finite-C to critical-energy amplification handoff |
 | 17 | [research/MOBIUS_DENSITY_PRESERVING_MULTIPLICATIVE_GRAM_2026_10_11.md](../../../research/MOBIUS_DENSITY_PRESERVING_MULTIPLICATIVE_GRAM_2026_10_11.md) | Exact density-preserving multiplicative Möbius correlations (all prime dilations) |
+| 17 | [research/UNIVERSAL_ENVELOPE_SQUARED_DICTIONARY.lean](../../../research/UNIVERSAL_ENVELOPE_SQUARED_DICTIONARY.lean) | The squared historical-envelope dictionary and the finite-constant target |
+| 16 | [research/ALPOGE_MOBIUS_UPM_LPM_ONE_SIDED_FINITE_C_20261121.md](../../../research/ALPOGE_MOBIUS_UPM_LPM_ONE_SIDED_FINITE_C_20261121.md) | Alpöge four-colour ASK + Möbius UPM/LPM: a one-sided terminal criterion |
 | 16 | [research/CUMULATIVE_SQUARE_BLOCK_PRIME_COHORT_CLOCK_2026_10_11.md](../../../research/CUMULATIVE_SQUARE_BLOCK_PRIME_COHORT_CLOCK_2026_10_11.md) | Cumulative square blocks are the actual prime-family clock |
 | 16 | [research/GLOBAL_RETURNED_CORE_INHERITED_RECIPROCAL_ENVELOPE.lean](../../../research/GLOBAL_RETURNED_CORE_INHERITED_RECIPROCAL_ENVELOPE.lean) | The sufficient reciprocal envelope lives on inherited gate energy |
 | 15 | [CURRENT_RESEARCH_HANDOFF.md](../../../CURRENT_RESEARCH_HANDOFF.md) | Current RH_Lean research handoff |
 | 15 | [RHLean/Proof/SquareRootAmplificationClosure.lean](../../../RHLean/Proof/SquareRootAmplificationClosure.lean) | Fixed square-root amplification closes the Mertens energy exponent |
-| 15 | [research/EULER_PRODUCT_SQUARE_ROOT_FINITE_C_A.md](../../../research/EULER_PRODUCT_SQUARE_ROOT_FINITE_C_A.md) | Euler product and the finite-C / finite-A square-root target |
-| 15 | [research/GLOBAL_RETURNED_CORE_ENDPOINT_AMPLIFICATION_POST789_TRANSFER.lean](../../../research/GLOBAL_RETURNED_CORE_ENDPOINT_AMPLIFICATION_POST789_TRANSFER.lean) | Endpoint amplification closes the post-789 finite-bound target explicitly |
-| 14 | [docs/RH_PROOF_OVERLAP_AND_SEVEN_EIGHTHS_AUDIT_20261024.md](../../../docs/RH_PROOF_OVERLAP_AND_SEVEN_EIGHTHS_AUDIT_20261024.md) | Audit: route overlap versus independent 7/8-powered progress (2026-10-24) |
-| 14 | [research/ABSOLUTE_A_ALL_SCALE_SIGNED_ESTIMATE_AUDIT.md](../../../research/ABSOLUTE_A_ALL_SCALE_SIGNED_ESTIMATE_AUDIT.md) | Absolute-A signed estimate: exact audit and an all-scale restriction |

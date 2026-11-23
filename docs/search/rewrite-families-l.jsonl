@@ -31,6 +31,7 @@
 {"defined_in": ["RHLean/Analysis/PrimeWheelLocalSpectrum.lean"], "definition": "localPrimeMultipleCharacterSum", "rewrites": {"RHLean/Analysis/PrimeWheelLocalSpectrum.lean": ["localPrimeMultipleCharacterSum_eq"]}}
 {"defined_in": ["RHLean/Proof/GeometricRHReduction.lean"], "definition": "localSequenceEnergy", "rewrites": {"RHLean/Proof/CanonicalHighSectorCovariance.lean": ["localSequenceEnergy_eq_coherentMean_add_centeredCovariance"]}}
 {"defined_in": ["RHLean/Analysis/PrimeWheelLocalSpectrum.lean"], "definition": "localSquareMultipleCharacterSum", "rewrites": {"RHLean/Analysis/PrimeWheelLocalSpectrum.lean": ["localSquareMultipleCharacterSum_eq_one"]}}
+{"defined_in": ["research/ALPOGE_LOCAL_PRIME_FIBRES.lean"], "definition": "localityOffPrincipal", "rewrites": {"research/ALPOGE_LOCAL_PRIME_FIBRES.lean": ["localityOffPrincipal_eq"]}}
 {"defined_in": ["RHLean/Analysis/LogWeightedPrimeExtensionFiber.lean"], "definition": "logFreshChildFiberMass", "rewrites": {"RHLean/Analysis/LogWeightedPrimeExtensionFiber.lean": ["logFreshChildFiberMass_eq_neg_logWeightedBlock"]}}
 {"defined_in": ["RHLean/Analysis/LogWeightedPrimeExtensionFiber.lean"], "definition": "logFreshExtensionPairSet", "rewrites": {"RHLean/Analysis/LogWeightedPrimeExtensionFiber.lean": ["logFreshExtensionPairSet_sum_eq_childPairSet_sum"]}}
 {"defined_in": ["RHLean/Analysis/LogWeightedPrimeExtension.lean"], "definition": "logFreshPrimeExtensionMass", "rewrites": {"RHLean/Analysis/LogWeightedPrimeExtensionFiber.lean": ["logFreshPrimeExtensionMass_eq_sourcePairSum"]}}

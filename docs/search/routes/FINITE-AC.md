@@ -8,32 +8,47 @@ Coordinates: [`ANCHOR-MERTENS`](../coordinates/ANCHOR-MERTENS.md), [`COORD-SQUAR
 
 | Score | File | Title |
 | --- | --- | --- |
-| 33 | [docs/COORDINATE_ATLAS.md](../../../docs/COORDINATE_ATLAS.md) | Coordinate atlas: one phenomenon, many coordinates |
-| 33 | [docs/PROOF_DEPENDENCY_DAG.md](../../../docs/PROOF_DEPENDENCY_DAG.md) | RH_Lean mathematical proof-dependency DAG |
+| 40 | [docs/PROOF_DEPENDENCY_DAG.md](../../../docs/PROOF_DEPENDENCY_DAG.md) | RH_Lean mathematical proof-dependency DAG |
+| 34 | [docs/COORDINATE_ATLAS.md](../../../docs/COORDINATE_ATLAS.md) | Coordinate atlas: one phenomenon, many coordinates |
+| 22 | [docs/external/2026-11-15/universal-envelope-law-handoff.md](../../../docs/external/2026-11-15/universal-envelope-law-handoff.md) | Universal envelope law for the frozen-root coordinates — status snapshot and external handoff, 2026-11-15 |
 | 16 | [RESEARCH_ROUTE_REGISTRY.md](../../../RESEARCH_ROUTE_REGISTRY.md) | Research route registry |
 | 14 | [CURRENT_PROOF_CONTRACT.md](../../../CURRENT_PROOF_CONTRACT.md) | RH_Lean current proof contract |
+| 14 | [docs/AGENT_STUDIO_20261024_SEVEN_PROMPTS.md](../../../docs/AGENT_STUDIO_20261024_SEVEN_PROMPTS.md) | Seven complete RH_Lean Agent Studio instruction templates |
 | 13 | [FORMALIZATION_CHECKLIST.md](../../../FORMALIZATION_CHECKLIST.md) | RH_Lean formalization checklist |
-| 12 | [docs/RH_PROOF_ATTACK_PORTFOLIO_20261024.md](../../../docs/RH_PROOF_ATTACK_PORTFOLIO_20261024.md) | RH proof attack portfolio and seven-agent operating contract — 2026-10-24 |
+| 13 | [docs/RH_PROOF_ATTACK_PORTFOLIO_20261024.md](../../../docs/RH_PROOF_ATTACK_PORTFOLIO_20261024.md) | RH proof attack portfolio and seven-agent operating contract — 2026-10-24 |
 | 12 | [research/FINITE_AC_CROSS_COORDINATE_DAG_CLOSURE_AUDIT_2026_10_12.md](../../../research/FINITE_AC_CROSS_COORDINATE_DAG_CLOSURE_AUDIT_2026_10_12.md) | Exhaustive cross-coordinate audit: finite A/C and actual-prime VF source |
 | 12 | [research/FINITE_A_C_VF_ALIGNMENT_2026_10_11.md](../../../research/FINITE_A_C_VF_ALIGNMENT_2026_10_11.md) | Finite A / finite C alignment with the direct VF proof contract |
 | 11 | [PROOF_CONTRACT_HISTORY_2026_10_15.md](../../../PROOF_CONTRACT_HISTORY_2026_10_15.md) | RH_Lean current proof contract |
 | 11 | [docs/RH_PROOF_OVERLAP_AND_SEVEN_EIGHTHS_AUDIT_20261024.md](../../../docs/RH_PROOF_OVERLAP_AND_SEVEN_EIGHTHS_AUDIT_20261024.md) | Audit: route overlap versus independent 7/8-powered progress (2026-10-24) |
 | 11 | [research/MOBIUS_DENSITY_PRESERVING_MULTIPLICATIVE_GRAM_2026_10_11.md](../../../research/MOBIUS_DENSITY_PRESERVING_MULTIPLICATIVE_GRAM_2026_10_11.md) | Exact density-preserving multiplicative Möbius correlations (all prime dilations) |
-| 8 | [AGENTS.md](../../../AGENTS.md) | RH_Lean research-agent instructions |
+| 9 | [docs/DYNAMIC_RESEARCH_AGENTS_BEFORE_RESEARCH_ENGINE_20261101.md](../../../docs/DYNAMIC_RESEARCH_AGENTS_BEFORE_RESEARCH_ENGINE_20261101.md) | RH_Lean dynamic seven-agent research protocol |
+| 9 | [docs/FORMALIZATION_MILESTONES.md](../../../docs/FORMALIZATION_MILESTONES.md) | RH_Lean formalization milestones |
+| 8 | [AGENTS.md](../../../AGENTS.md) | 2026-11-22 — constructed lattice descent and complete signed payment |
+| 8 | [AGENTS_BEFORE_RESEARCH_ENGINE_20261101.md](../../../AGENTS_BEFORE_RESEARCH_ENGINE_20261101.md) | RH_Lean research-agent instructions |
 | 8 | [AGENTS_POLICY_HISTORY_2026_10_15.md](../../../AGENTS_POLICY_HISTORY_2026_10_15.md) | RH_Lean research-agent instructions |
 | 8 | [CURRENT_RESEARCH_HANDOFF.md](../../../CURRENT_RESEARCH_HANDOFF.md) | Current RH_Lean research handoff |
 | 8 | [research/CUMULATIVE_SQUARE_BLOCK_PRIME_COHORT_CLOCK_2026_10_11.md](../../../research/CUMULATIVE_SQUARE_BLOCK_PRIME_COHORT_CLOCK_2026_10_11.md) | Cumulative square blocks are the actual prime-family clock |
-| 7 | [docs/DYNAMIC_RESEARCH_AGENTS.md](../../../docs/DYNAMIC_RESEARCH_AGENTS.md) | RH_Lean dynamic seven-agent research protocol |
+| 8 | [scripts/test_proof_obligation_dag.py](../../../scripts/test_proof_obligation_dag.py) | Structural and status-consistency tests for the proof-obligation DAG. |
+| 7 | [README.md](../../../README.md) | RH_Lean |
 | 7 | [scripts/finite_ac_coordinate_dag_audit.py](../../../scripts/finite_ac_coordinate_dag_audit.py) | Full-source cross-coordinate audit for the finite-A/C and actual-VF seams. |
-| 6 | [README.md](../../../README.md) | RH_Lean |
 | 6 | [docs/FACTOR_DEPTH_RESEARCH_BRIEF.md](../../../docs/FACTOR_DEPTH_RESEARCH_BRIEF.md) | Live research brief: factor-depth coupling and independent amplification |
+| 6 | [docs/RHLEAN_ALL_VECTOR_AGENT_PROMPTS_20261030.md](../../../docs/RHLEAN_ALL_VECTOR_AGENT_PROMPTS_20261030.md) | Seven-agent prompts: complete signed HIGH, independent native routes |
+| 6 | [docs/RHLEAN_ALL_VECTOR_AGENT_PROMPTS_BEFORE_CANCELLATION_CHAIN_20261107.md](../../../docs/RHLEAN_ALL_VECTOR_AGENT_PROMPTS_BEFORE_CANCELLATION_CHAIN_20261107.md) | Seven-agent all-vector prompt reference - persistent research edition |
+| 6 | [docs/RHLEAN_ALL_VECTOR_AGENT_PROMPTS_BEFORE_RESEARCH_ENGINE_20261101.md](../../../docs/RHLEAN_ALL_VECTOR_AGENT_PROMPTS_BEFORE_RESEARCH_ENGINE_20261101.md) | Seven-agent all-vector prompt reference - updated 2026-10-31 |
 | 6 | [research/EULER_PRODUCT_SQUARE_ROOT_FINITE_C_A.md](../../../research/EULER_PRODUCT_SQUARE_ROOT_FINITE_C_A.md) | Euler product and the finite-C / finite-A square-root target |
 | 6 | [research/VF_CANONICAL_SQRT_TWO_AUTOPSY_2026_10_12.md](../../../research/VF_CANONICAL_SQRT_TWO_AUTOPSY_2026_10_12.md) | FULL VF AUTOPSY — ONE CANONICAL SQRT(2)-ALIGNED DEFINITION |
-| 6 | [scripts/test_proof_obligation_dag.py](../../../scripts/test_proof_obligation_dag.py) | Structural and status-consistency tests for the proof-obligation DAG. |
+| 5 | [docs/FROZEN_ROOT_PRIME_TWO_ALL_AGENTS_20261108.md](../../../docs/FROZEN_ROOT_PRIME_TWO_ALL_AGENTS_20261108.md) | FROZEN ROOT / PRIME-TWO: seven-agent theorem campaign (2026-11-08) |
 | 5 | [docs/RESEARCH_FRONTIER_DAG.md](../../../docs/RESEARCH_FRONTIER_DAG.md) | Current research frontier and import DAG |
+| 5 | [docs/RHLEAN_ALL_VECTOR_SYNTHESIS_AGENT_DIRECTIVE_20261030.md](../../../docs/RHLEAN_ALL_VECTOR_SYNTHESIS_AGENT_DIRECTIVE_20261030.md) | All-vector RH_Lean attack and same-source synthesis — 2026-10-30 |
+| 5 | [docs/RHLEAN_REPO_WIDE_PROOF_ATTACKS_20261108.md](../../../docs/RHLEAN_REPO_WIDE_PROOF_ATTACKS_20261108.md) | RH_Lean all-route mathematical status and seven-agent handoff — 2026-11-08 |
 | 5 | [research/EULER_SELF_DUAL_ENDPOINT_GATE_20261027.lean](../../../research/EULER_SELF_DUAL_ENDPOINT_GATE_20261027.lean) | Original finite-C to critical-energy amplification handoff |
 | 5 | [research/README.md](../../../research/README.md) | Research closeout map |
 | 4 | [docs/PNT_FIRST_SIGNED_COFACTOR_SEAM_2026_10_18.md](../../../docs/PNT_FIRST_SIGNED_COFACTOR_SEAM_2026_10_18.md) | PNT-first signed cofactor / historical-return seam — seven-agent directive |
+| 4 | [docs/PRESERVATION_SOURCE_REDUCTIONS_20261117.md](../../../docs/PRESERVATION_SOURCE_REDUCTIONS_20261117.md) | Owner capacity and complete double-centering |
+| 4 | [docs/RHLEAN_BROAD_SEARCH_UNTIL_ETA_20261031.md](../../../docs/RHLEAN_BROAD_SEARCH_UNTIL_ETA_20261031.md) | Broad RH_Lean mathematics until a verified positive exponent gain |
+| 4 | [docs/RHLEAN_COMPLETE_SIGNED_HIGH_ATTACK_20261107.md](../../../docs/RHLEAN_COMPLETE_SIGNED_HIGH_ATTACK_20261107.md) | Complete signed HIGH: common objective, independent proof routes |
+| 4 | [docs/RHLEAN_INDEPENDENT_MULTIFRONT_NO_PIGEONHOLING_20261104.md](../../../docs/RHLEAN_INDEPENDENT_MULTIFRONT_NO_PIGEONHOLING_20261104.md) | Independent multi-front RH_Lean research: NO_PIGEONHOLING_ROUTE_SELECTOR_V1 |
+| 4 | [docs/UNIVERSAL_ENVELOPE_FORMALIZATION_20261115.md](../../../docs/UNIVERSAL_ENVELOPE_FORMALIZATION_20261115.md) | Universal historical envelopes: formalization and exact route equivalences |
 | 4 | [research/FINITE_C_A_EULER_PARITY_FLOOR_LI_FREQUENCY_SYNTHESIS.md](../../../research/FINITE_C_A_EULER_PARITY_FLOOR_LI_FREQUENCY_SYNTHESIS.md) | Finite C/A: Euler parity, square endpoints, and actual-prime versus floor-Li frequency |
 | 4 | [research/PRIME_PERRON_STAGGERED_PHASE_FINITE_C_EXPERIMENT_2026_10_11.md](../../../research/PRIME_PERRON_STAGGERED_PHASE_FINITE_C_EXPERIMENT_2026_10_11.md) | Prime-frequency staggering, square-endpoint CRT selection, and finite-C amplification |
 | 4 | [research/SEQUENTIAL_EULER_SQUARE_BLOCK_FINITE_C_A_RESEARCH_NOTE.md](../../../research/SEQUENTIAL_EULER_SQUARE_BLOCK_FINITE_C_A_RESEARCH_NOTE.md) | Sequential Euler Prime Insertion, Mobius Densities, Square-Block CRT, and the Finite-C / Finite-A Criterion for RH |
@@ -47,24 +62,9 @@ Coordinates: [`ANCHOR-MERTENS`](../coordinates/ANCHOR-MERTENS.md), [`COORD-SQUAR
 | 3 | [RHLean/Proof/PhysicalQ2ExceptionalTerminalSynthesis.lean](../../../RHLean/Proof/PhysicalQ2ExceptionalTerminalSynthesis.lean) | Exceptional-owner terminal synthesis |
 | 3 | [RHLean/Proof/SignedTransportAmplificationAudit.lean](../../../RHLean/Proof/SignedTransportAmplificationAudit.lean) | Signed transport and square-endpoint amplification audit |
 | 3 | [RHLean/Proof/SquareRootAmplificationClosure.lean](../../../RHLean/Proof/SquareRootAmplificationClosure.lean) | Fixed square-root amplification closes the Mertens energy exponent |
+| 3 | [RHLean/Proof/SquareRootAmplificationLogGrowth.lean](../../../RHLean/Proof/SquareRootAmplificationLogGrowth.lean) | The original historical amplification and its logarithmic growth target |
 | 3 | [RHLean/Proof/SquareRootCrossRegionAmplification.lean](../../../RHLean/Proof/SquareRootCrossRegionAmplification.lean) | Cross-region sufficient targets for square-root amplification |
 | 3 | [RHLean/Proof/SquareRootLegalAncestryGramReduction.lean](../../../RHLean/Proof/SquareRootLegalAncestryGramReduction.lean) | Square-root legal-ancestry Gram reduction |
 | 3 | [RHLean/Proof/SquareRootMertensEndpointAmplification.lean](../../../RHLean/Proof/SquareRootMertensEndpointAmplification.lean) | Square-root Mertens endpoint amplification |
-| 3 | [docs/AGENT_STUDIO_20261024_SEVEN_PROMPTS.md](../../../docs/AGENT_STUDIO_20261024_SEVEN_PROMPTS.md) | Seven current RH_Lean Agent Studio instruction overrides — 2026-10-24 |
+| 3 | [docs/AGENT_STUDIO_SEVEN_PROMPTS_BEFORE_RESEARCH_ENGINE_20261101.md](../../../docs/AGENT_STUDIO_SEVEN_PROMPTS_BEFORE_RESEARCH_ENGINE_20261101.md) | Seven current RH_Lean Agent Studio instruction overrides — 2026-10-24 |
 | 3 | [docs/DOCUMENTATION_INDEX.md](../../../docs/DOCUMENTATION_INDEX.md) | Documentation index |
-| 3 | [export_mobius_synthesis/CURRENT_PROOF_ROUTE.md](../../../export_mobius_synthesis/CURRENT_PROOF_ROUTE.md) | Current proof route |
-| 3 | [export_mobius_synthesis/MODULES.md](../../../export_mobius_synthesis/MODULES.md) | Principal modules |
-| 3 | [export_mobius_synthesis/README.md](../../../export_mobius_synthesis/README.md) | Möbius Synthesis |
-| 3 | [export_mobius_synthesis/SEAMS.md](../../../export_mobius_synthesis/SEAMS.md) | Exact seams between the proof layers |
-| 3 | [research/ALL_SCALE_LI_DISPLACEMENT_REDUCTION.lean](../../../research/ALL_SCALE_LI_DISPLACEMENT_REDUCTION.lean) | All-scale Li allocation and the exact prime-displacement remainder |
-| 3 | [research/EULER_ADMISSIBLE_PRIME_POPULATION_CODIV_20261028.lean](../../../research/EULER_ADMISSIBLE_PRIME_POPULATION_CODIV_20261028.lean) | Genuine admissible Euler population, reciprocal prime bands and signed Co-Div |
-| 3 | [research/EULER_ASYMMETRIC_CORNER_SIGNED_GRAM_20261028.lean](../../../research/EULER_ASYMMETRIC_CORNER_SIGNED_GRAM_20261028.lean) | Asymmetric two-cutoff Euler floor identity and its signed Gram transport |
-| 3 | [research/EULER_FRACTIONAL_COUPLED_20261027.lean](../../../research/EULER_FRACTIONAL_COUPLED_20261027.lean) | Exact original Möbius fractional Euler bilinear and divisor-row subtraction |
-| 3 | [research/EULER_HYBRID_ABEL_GRAM_20261027.lean](../../../research/EULER_HYBRID_ABEL_GRAM_20261027.lean) | Euler square-root bilinear form: one-sided historical Abel transport |
-| 3 | [research/EULER_HYBRID_TRIANGULAR_GRAM_20261027.lean](../../../research/EULER_HYBRID_TRIANGULAR_GRAM_20261027.lean) | The triangular signed historical Gram of the exact Euler hyperbola |
-| 3 | [research/GLOBAL_RETURNED_CORE_ENDPOINT_AMPLIFICATION_POST789_TRANSFER.lean](../../../research/GLOBAL_RETURNED_CORE_ENDPOINT_AMPLIFICATION_POST789_TRANSFER.lean) | Endpoint amplification closes the post-789 finite-bound target explicitly |
-| 3 | [research/GLOBAL_RETURNED_CORE_ROOT_PREFIX_FIRST_OWNER_ENERGY.lean](../../../research/GLOBAL_RETURNED_CORE_ROOT_PREFIX_FIRST_OWNER_ENERGY.lean) | Root prefix in the same first-owner energy currency as the q² prefix |
-| 3 | [research/MERTENS_FINITE_PREFIX_EXTENSION.md](../../../research/MERTENS_FINITE_PREFIX_EXTENSION.md) | Finite Mertens computation plus a proved extension rule |
-| 3 | [research/PRIME_SCALE_CONDITIONAL_BLOCK_DEPENDENCE_2026_10_11.md](../../../research/PRIME_SCALE_CONDITIONAL_BLOCK_DEPENDENCE_2026_10_11.md) | Prime-conditioned moving-lag dependence versus near-zero block correlations |
-| 3 | [research/SEQUENTIAL_PRIME_POPULATION_CUTOFF_AND_ANCESTRY_2026_10_11.md](../../../research/SEQUENTIAL_PRIME_POPULATION_CUTOFF_AND_ANCESTRY_2026_10_11.md) | Fixed-endpoint sequential prime-population cutoff and shared ancestry |
-| 3 | [research/SQUARE_ENDPOINT_STEP_POLYLOG_STRENGTH.lean](../../../research/SQUARE_ENDPOINT_STEP_POLYLOG_STRENGTH.lean) | Strength of the packaged square-endpoint recurrence |

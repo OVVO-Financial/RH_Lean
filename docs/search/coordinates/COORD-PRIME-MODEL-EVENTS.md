@@ -30,7 +30,7 @@
 | 69 | [research/VF_MID_FLOOR_LI_SIGNED_POPULATION_BALANCE.lean](../../../research/VF_MID_FLOOR_LI_SIGNED_POPULATION_BALANCE.lean) | Floor-Li signed population balance in the Mobius/Abel carrier |
 | 33 | [research/VF_MID_915_FLOOR_LI_TRANSPORT_BOUNDARY.lean](../../../research/VF_MID_915_FLOOR_LI_TRANSPORT_BOUNDARY.lean) | #915: actual owner census compressed into discrete-Li unmatched boundary |
 | 18 | [docs/COORDINATE_ATLAS.md](../../../docs/COORDINATE_ATLAS.md) | Coordinate atlas: one phenomenon, many coordinates |
-| 4 | [docs/PROOF_DEPENDENCY_DAG.md](../../../docs/PROOF_DEPENDENCY_DAG.md) | RH_Lean mathematical proof-dependency DAG |
+| 5 | [docs/PROOF_DEPENDENCY_DAG.md](../../../docs/PROOF_DEPENDENCY_DAG.md) | RH_Lean mathematical proof-dependency DAG |
 | 2 | [numerics/floor_li_discrete_meboot/README.md](../../../numerics/floor_li_discrete_meboot/README.md) | Floor-Li discrete backlog NNS.meboot numerics |
 | 2 | [numerics/floor_li_meboot/README.md](../../../numerics/floor_li_meboot/README.md) | Floor-Li discrete NNS.meboot stress numerics |
 | 2 | [research/FINITE_C_A_EULER_PARITY_FLOOR_LI_FREQUENCY_SYNTHESIS.md](../../../research/FINITE_C_A_EULER_PARITY_FLOOR_LI_FREQUENCY_SYNTHESIS.md) | Finite C/A: Euler parity, square endpoints, and actual-prime versus floor-Li frequency |

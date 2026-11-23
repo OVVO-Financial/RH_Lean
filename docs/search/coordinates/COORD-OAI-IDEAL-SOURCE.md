@@ -27,32 +27,32 @@
 | Score | File | Title |
 | --- | --- | --- |
 | 78 | [research/oai_434/RHLeanActualEisensteinIdealSharpSquareBlock.lean](../../../research/oai_434/RHLeanActualEisensteinIdealSharpSquareBlock.lean) | OpenAI Lean 4.34.1: ACTUAL ideal-norm fiber = #919 norm source |
+| 25 | [docs/PROOF_DEPENDENCY_DAG.md](../../../docs/PROOF_DEPENDENCY_DAG.md) | RH_Lean mathematical proof-dependency DAG |
+| 24 | [docs/FORMALIZATION_MILESTONES.md](../../../docs/FORMALIZATION_MILESTONES.md) | RH_Lean formalization milestones |
 | 15 | [docs/COORDINATE_ATLAS.md](../../../docs/COORDINATE_ATLAS.md) | Coordinate atlas: one phenomenon, many coordinates |
 | 14 | [research/OAI_919_COMPENSATION_NNS_SIMULTANEOUS_CROSSWALK_20261021.md](../../../research/OAI_919_COMPENSATION_NNS_SIMULTANEOUS_CROSSWALK_20261021.md) | OpenAI compensation and NNS covariance: ONE mechanism, side-by-side |
 | 13 | [research/VF_919_PRIME_WHEEL_OAI_SIMULTANEOUS_COVARIANCE_20261021.md](../../../research/VF_919_PRIME_WHEEL_OAI_SIMULTANEOUS_COVARIANCE_20261021.md) | One simultaneous ledger: sequential prime wheel, OpenAI Hecke compensation, and unnormalized NNS covariance |
-| 9 | [docs/PROOF_DEPENDENCY_DAG.md](../../../docs/PROOF_DEPENDENCY_DAG.md) | RH_Lean mathematical proof-dependency DAG |
+| 11 | [scripts/generate_quantitative_tilt.py](../../../scripts/generate_quantitative_tilt.py) | Generate reviewable Lean extensions; never modify the pinned input files. |
 | 9 | [research/OAI_REFINED_MARKED_NNS_ATTACK_20261021.md](../../../research/OAI_REFINED_MARKED_NNS_ATTACK_20261021.md) | Attack: real unnormalized NNS coordinates of OpenAI's ACTUAL refined marked fourth moment |
 | 9 | [research/OAI_SEVEN_EIGHTHS_NATIVE_DECLARATION_CROSSWALK_20261019.md](../../../research/OAI_SEVEN_EIGHTHS_NATIVE_DECLARATION_CROSSWALK_20261019.md) | OpenAI 7/8 theorem → RH_Lean native declaration crosswalk |
 | 9 | [research/VF_919_OAI_EXACT_MARKED_RESCALED_LOCAL_20261019.lean](../../../research/VF_919_OAI_EXACT_MARKED_RESCALED_LOCAL_20261019.lean) | The actual OpenAI marked-minus-rescaled local Euler cancellation |
 | 9 | [research/VF_919_OAI_NNS_INDEPENDENT_SIGNED_SAVING_20261022.md](../../../research/VF_919_OAI_NNS_INDEPENDENT_SIGNED_SAVING_20261022.md) | OpenAI high-row saving in signed NNS coordinates: exact closure target and independent finite payment |
 | 9 | [research/VF_MID_919_OAI_C_TO_R_CANCELLATION_WELD.md](../../../research/VF_MID_919_OAI_C_TO_R_CANCELLATION_WELD.md) | #919 — Absorb OpenAI's compensated Hecke cancellation into actual VF C->R coordinates |
 | 9 | [research/VF_MID_SEVEN_EIGHTHS_BIDIRECTIONAL_SYNTHESIS.md](../../../research/VF_MID_SEVEN_EIGHTHS_BIDIRECTIONAL_SYNTHESIS.md) | Bidirectional synthesis of the OpenAI 7/8 zero-free result and genuine RH_Lean prime owners |
-| 8 | [AGENTS.md](../../../AGENTS.md) | RH_Lean research-agent instructions |
+| 8 | [AGENTS_BEFORE_RESEARCH_ENGINE_20261101.md](../../../AGENTS_BEFORE_RESEARCH_ENGINE_20261101.md) | RH_Lean research-agent instructions |
 | 8 | [research/CORR4_OAI_VARIABLE_SLOT_PERTURBATION_AUDIT_20261026.md](../../../research/CORR4_OAI_VARIABLE_SLOT_PERTURBATION_AUDIT_20261026.md) | Source-faithful OpenAI variable-slot perturbation attack (2026-10-26) |
-| 7 | [docs/FORMALIZATION_MILESTONES.md](../../../docs/FORMALIZATION_MILESTONES.md) | RH_Lean formalization milestones |
+| 7 | [docs/RHLEAN_BOOTSTRAP_TO_HALF_20261116.md](../../../docs/RHLEAN_BOOTSTRAP_TO_HALF_20261116.md) | Source-faithful continuation to one half — 2026-11-16 |
+| 7 | [docs/RHLEAN_REUSE_CANCELLATION_CHAIN_20261107.md](../../../docs/RHLEAN_REUSE_CANCELLATION_CHAIN_20261107.md) | Reuse the 1-to-7/8 cancellation chain; improve its complete consumers |
 | 7 | [research/OAI_CUBIC_FREE_ROW_DEFAVERI_ADAPTER_AUDIT_20261022.md](../../../research/OAI_CUBIC_FREE_ROW_DEFAVERI_ADAPTER_AUDIT_20261022.md) | De Faveri cubic sieve adapter for actual OAI sixth-free rows |
 | 7 | [research/VF_MID_919_OAI_OWNER_TWO_SIGNED_MERTENS_MOMENT.md](../../../research/VF_MID_919_OAI_OWNER_TWO_SIGNED_MERTENS_MOMENT.md) | #919: OAI to native Sector Six — the exact owner-two signed-moment target |
+| 7 | [scripts/ci/slot_anchored/prepare_anchored.py](../../../scripts/ci/slot_anchored/prepare_anchored.py) | Generate additive anchored HIGH modules from immutable source commits. |
+| 7 | [scripts/lean/slot_anchored/prepare_anchored.py](../../../scripts/lean/slot_anchored/prepare_anchored.py) | Generate additive anchored HIGH modules from immutable source commits. |
 | 6 | [docs/RHLEAN_NATIVE_FIRST_PROOF_ROUTING_20261026.md](../../../docs/RHLEAN_NATIVE_FIRST_PROOF_ROUTING_20261026.md) | RH_Lean-native-first mathematical proof routing (26 October 2026) |
+| 6 | [docs/RHLEAN_PAID_BASELINE_EXACT_CONSUMER_20261106.md](../../../docs/RHLEAN_PAID_BASELINE_EXACT_CONSUMER_20261106.md) | Established baseline, exact consumer, genuinely new arithmetic |
 | 6 | [docs/ci_cache_architecture_434.md](../../../docs/ci_cache_architecture_434.md) | RHLean cache architecture (Lean 4.34.1) |
 | 6 | [research/OAI_SEVEN_EIGHTHS_IDEAL_LIFT_DERIVATION_AUDIT_20261019.md](../../../research/OAI_SEVEN_EIGHTHS_IDEAL_LIFT_DERIVATION_AUDIT_20261019.md) | Independent mathematical audit: proposed \(\mathcal I_K^{(6)}\) lift of OpenAI's \(7/8\) proof |
 | 6 | [research/VF_919_OPENAI_434_UNCONDITIONAL_SQUARE_BLOCK_COVARIANCE_20261019.lean](../../../research/VF_919_OPENAI_434_UNCONDITIONAL_SQUARE_BLOCK_COVARIANCE_20261019.lean) | Unconditional actual OpenAI certified 7/8 in RH_Lean's ORIGINAL square shells |
+| 6 | [research/half_bootstrap_20261116/euler_response.md](../../../research/half_bootstrap_20261116/euler_response.md) | Euler correction and complete signed response: audit of a bootstrap to one half |
+| 5 | [docs/RHLEAN_TRUE_SLOT_MINIMUM_GAIN_20261103.md](../../../docs/RHLEAN_TRUE_SLOT_MINIMUM_GAIN_20261103.md) | Recovering the true finite-slot minimum in the proved 1 -> 7/8 contraction |
 | 5 | [research/OAI_HEAVY_SLOT_RESONANCE_POWER_SAVING_AUDIT_20261025.md](../../../research/OAI_HEAVY_SLOT_RESONANCE_POWER_SAVING_AUDIT_20261025.md) | Heavy-slot resonance: corrected minimal-power-saving gate |
 | 5 | [research/VF_919_FROZEN_COFACTOR_OAI_NNS_RESPONSE_20261023.md](../../../research/VF_919_FROZEN_COFACTOR_OAI_NNS_RESPONSE_20261023.md) | Applied bridge: fixed subroot Mobius coefficients to the ORIGINAL moving-prime response |
-| 5 | [research/VF_919_OAI_COMPENSATED_TUPLE_SUBRATIO_AUDIT_20261021.md](../../../research/VF_919_OAI_COMPENSATED_TUPLE_SUBRATIO_AUDIT_20261021.md) | PR #1002: compensated-tuple subratios — exact source audit, not an assumed pointwise cancellation |
-| 5 | [research/VF_MID_919_OAI_STAGE_SAVINGS_AND_BOOTSTRAP.md](../../../research/VF_MID_919_OAI_STAGE_SAVINGS_AND_BOOTSTRAP.md) | #919: Exactly what saved 1 -> 11/12 -> 7/8, and what VF would need to improve it |
-| 5 | [research/VF_MID_SEVEN_EIGHTHS_ANALYTIC_STATUS.md](../../../research/VF_MID_SEVEN_EIGHTHS_ANALYTIC_STATUS.md) | PR #919 — OpenAI 7/8 spectral experiment, conditional in RH_Lean |
-| 4 | [CURRENT_PROOF_CONTRACT.md](../../../CURRENT_PROOF_CONTRACT.md) | RH_Lean current proof contract |
-| 4 | [research/CORR4_OAI_POWER_GUIDEPOST_20261024.lean](../../../research/CORR4_OAI_POWER_GUIDEPOST_20261024.lean) | OpenAI 7/8 is a GUIDEPOST, not a fixed exponent |
-| 4 | [research/OAI_EXCEPTIONAL_SIXTH_CORRIDOR_SHARP_COUNT_SIGNED_GATE_20261025.md](../../../research/OAI_EXCEPTIONAL_SIXTH_CORRIDOR_SHARP_COUNT_SIGNED_GATE_20261025.md) | Original low-Gaussian bottleneck: signed exceptional sixth-power Gram |
-| 4 | [research/OAI_LOW_GAUSSIAN_J_ONE_METAPLECTIC_RESIDUE_AUDIT_20261025.md](../../../research/OAI_LOW_GAUSSIAN_J_ONE_METAPLECTIC_RESIDUE_AUDIT_20261025.md) | J=1 metaplectic residue closure: source audit, algebraic falsifiers and proof gate |
-| 4 | [research/OAI_ORIGINAL_LOW_GAUSS_PRIMITIVE_PERIOD_COMPLETION_20261022.md](../../../research/OAI_ORIGINAL_LOW_GAUSS_PRIMITIVE_PERIOD_COMPLETION_20261022.md) | TRUE ORIGINAL LOW Gaussian sextic: period-cell cancellation in O=Z[omega] |

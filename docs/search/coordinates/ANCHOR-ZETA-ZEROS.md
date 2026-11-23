@@ -27,33 +27,33 @@
 
 | Score | File | Title |
 | --- | --- | --- |
+| 61 | [research/UNIVERSAL_ENVELOPE_LAWS.lean](../../../research/UNIVERSAL_ENVELOPE_LAWS.lean) | The all-scale historical envelope and its exact exponent dictionary |
 | 32 | [research/MERTENS_CONVERSE_IDENTIFICATION.lean](../../../research/MERTENS_CONVERSE_IDENTIFICATION.lean) | Bidirectional identification of Mertens growth and zeta-zero confinement |
+| 31 | [RHLean/Analysis/AlpogeNativeWindowLandau.lean](../../../RHLean/Analysis/AlpogeNativeWindowLandau.lean) | Zeta zeros from one-sided windows of the native signed prime-power sum |
+| 31 | [research/OFF_CRITICAL_ZERO_EULER_LOGDERIV_20261029.lean](../../../research/OFF_CRITICAL_ZERO_EULER_LOGDERIV_20261029.lean) | Actual Mobius HIGH: reciprocal Euler identity and log derivative algebra |
+| 29 | [docs/external/2026-11-15/universal-envelope-law-handoff.md](../../../docs/external/2026-11-15/universal-envelope-law-handoff.md) | Universal envelope law for the frozen-root coordinates — status snapshot and external handoff, 2026-11-15 |
+| 24 | [research/UNIVERSAL_ENVELOPE_ARITHMETIC.lean](../../../research/UNIVERSAL_ENVELOPE_ARITHMETIC.lean) | The exact historical envelope and its exponent consumer |
+| 21 | [research/UNIVERSAL_ENVELOPE_ACCEPTANCE.lean](../../../research/UNIVERSAL_ENVELOPE_ACCEPTANCE.lean) | Exact-type acceptance for the original arithmetic source. These examples |
 | 20 | [research/MERTENS_EXPONENT_STRIP_MAP.md](../../../research/MERTENS_EXPONENT_STRIP_MAP.md) | Direct Mertens exponent-to-zero-strip formalization |
 | 17 | [research/MERTENS_EXPONENT_DIAGNOSTICS.lean](../../../research/MERTENS_EXPONENT_DIAGNOSTICS.lean) | Endpoint regressions and the independent rightmost-zero coordinate |
+| 16 | [research/UNIVERSAL_ENVELOPE_OWNER_EQUIVALENCE.lean](../../../research/UNIVERSAL_ENVELOPE_OWNER_EQUIVALENCE.lean) | Critical native-owner bounds and the Mertens half-exponent |
 | 13 | [RHLean/Analysis/K2RecipMomentAnalyticClosure.lean](../../../RHLean/Analysis/K2RecipMomentAnalyticClosure.lean) | Analytic closure of the reciprocal Mobius moments for centered K2 |
 | 8 | [research/MERTENS_CONVERSE_ACCEPTANCE.lean](../../../research/MERTENS_CONVERSE_ACCEPTANCE.lean) | Exact bidirectional Mertens map acceptance |
 | 8 | [research/MERTENS_EXPONENT_STRIP_ACCEPTANCE.lean](../../../research/MERTENS_EXPONENT_STRIP_ACCEPTANCE.lean) | Acceptance imports the original arithmetic carrier and the complete forward |
+| 7 | [docs/PROOF_DEPENDENCY_DAG.md](../../../docs/PROOF_DEPENDENCY_DAG.md) | RH_Lean mathematical proof-dependency DAG |
 | 7 | [research/GLOBAL_RETURNED_CORE_POST789_DIAGONAL_SUBTRACTED_CONTROL.lean](../../../research/GLOBAL_RETURNED_CORE_POST789_DIAGONAL_SUBTRACTED_CONTROL.lean) | Post-#789 diagonal-subtracted quantitative target |
 | 7 | [research/MERTENS_EXPONENT_STRIP_MAP.lean](../../../research/MERTENS_EXPONENT_STRIP_MAP.lean) | Direct Mertens exponent to zeta-strip map |
+| 7 | [research/OFF_CRITICAL_ZERO_HIGH_POLE_ORDER_20261029.lean](../../../research/OFF_CRITICAL_ZERO_HIGH_POLE_ORDER_20261029.lean) | Canonical HIGH carries the zeta reciprocal's meromorphic pole ORDER |
 | 6 | [RHLean/Analysis/MertensEnergyRHForward.lean](../../../RHLean/Analysis/MertensEnergyRHForward.lean) | The forward Mertens-energy implication to the Riemann hypothesis |
-| 6 | [docs/PROOF_DEPENDENCY_DAG.md](../../../docs/PROOF_DEPENDENCY_DAG.md) | RH_Lean mathematical proof-dependency DAG |
 | 6 | [research/MERTENS_CONVERSE_ZETA_BOUNDS.lean](../../../research/MERTENS_CONVERSE_ZETA_BOUNDS.lean) | Unconditional growth inputs for the Mertens converse |
+| 6 | [research/UNIVERSAL_ENVELOPE_RH_BRIDGES.lean](../../../research/UNIVERSAL_ENVELOPE_RH_BRIDGES.lean) | Exact bridges to the repository energy criterion and Mathlib RH |
+| 5 | [RHLean/Analysis/AlpogeNativeWindowMellin.lean](../../../RHLean/Analysis/AlpogeNativeWindowMellin.lean) | Mellin transform of the native weighted prime-power sum |
+| 5 | [RHLean/Analysis/AlpogeNativeZetaWindowRHBridge.lean](../../../RHLean/Analysis/AlpogeNativeZetaWindowRHBridge.lean) | End-to-end native window-witness reduction to the Riemann Hypothesis |
 | 5 | [docs/COORDINATE_ATLAS.md](../../../docs/COORDINATE_ATLAS.md) | Coordinate atlas: one phenomenon, many coordinates |
+| 5 | [docs/UNIVERSAL_ENVELOPE_FORMALIZATION_20261115.md](../../../docs/UNIVERSAL_ENVELOPE_FORMALIZATION_20261115.md) | Universal historical envelopes: formalization and exact route equivalences |
+| 5 | [research/UNIVERSAL_ENVELOPE_ZERO_FORCED.lean](../../../research/UNIVERSAL_ENVELOPE_ZERO_FORCED.lean) | A zeta zero forces the actual historical envelope |
+| 4 | [docs/PRESERVATION_SOURCE_REDUCTIONS_20261117.md](../../../docs/PRESERVATION_SOURCE_REDUCTIONS_20261117.md) | Owner capacity and complete double-centering |
 | 4 | [research/GLOBAL_RETURNED_CORE_STOKES_PHYSICAL_FRAME_BRIDGE.lean](../../../research/GLOBAL_RETURNED_CORE_STOKES_PHYSICAL_FRAME_BRIDGE.lean) | Physical Stokes boundary -> natural prime-period frame interface |
 | 4 | [research/MERTENS_AMPLITUDE_ACCEPTANCE.lean](../../../research/MERTENS_AMPLITUDE_ACCEPTANCE.lean) | Exact finite-amplitude statements, domain regressions and kernel audits. |
 | 4 | [research/MERTENS_AMPLITUDE_STRIP_MAP.lean](../../../research/MERTENS_AMPLITUDE_STRIP_MAP.lean) | Actual Mertens amplitudes in horizontal strip coordinates |
 | 4 | [research/MERTENS_AMPLITUDE_STRIP_MAP.md](../../../research/MERTENS_AMPLITUDE_STRIP_MAP.md) | Mertens amplitude band mapped to horizontal strip coordinates |
-| 4 | [research/MERTENS_CONVERSE_RECIPROCAL.lean](../../../research/MERTENS_CONVERSE_RECIPROCAL.lean) | Analytic reciprocal supplied by zero confinement |
-| 3 | [RHLean/Analysis/MertensZetaIdentityContinuation.lean](../../../RHLean/Analysis/MertensZetaIdentityContinuation.lean) | Propagate the Mertens-zeta reciprocal identity to the critical half-plane |
-| 3 | [RHLean/Analysis/ThreeSlotDegreeOneCriterion.lean](../../../RHLean/Analysis/ThreeSlotDegreeOneCriterion.lean) | Degree-one energy criterion for the three-slot route |
-| 3 | [RHLean/Proof/PhysicalQ2ExceptionalTerminalSynthesis.lean](../../../RHLean/Proof/PhysicalQ2ExceptionalTerminalSynthesis.lean) | Exceptional-owner terminal synthesis |
-| 3 | [research/EULER_LI_PHYSICAL_CLOSURE_ROUTE.lean](../../../research/EULER_LI_PHYSICAL_CLOSURE_ROUTE.lean) | Euler/Li physical closure route |
-| 3 | [research/GLOBAL_RETURNED_CORE_SIGNED_POLARIZATION_GLOBAL_TELESCOPE.lean](../../../research/GLOBAL_RETURNED_CORE_SIGNED_POLARIZATION_GLOBAL_TELESCOPE.lean) | Post-#791 closure in the existing unique-owner polarization currency |
-| 3 | [research/MERTENS_CONVERSE_SUBPOWER.lean](../../../research/MERTENS_CONVERSE_SUBPOWER.lean) | Reciprocal zeta has subpower growth inside a zero-free half-plane |
-| 3 | [research/PRIME_FLIP_SECOND_ORDER_PNT_CLOSURE.lean](../../../research/PRIME_FLIP_SECOND_ORDER_PNT_CLOSURE.lean) | Final conditional closure from a second-order PNT discrepancy hypothesis |
-| 3 | [research/VF_919_SEVEN_EIGHTHS_SIGNED_COVARIANCE_20261019.lean](../../../research/VF_919_SEVEN_EIGHTHS_SIGNED_COVARIANCE_20261019.lean) | The exact seven-eighths signed Mobius covariance threshold |
-| 2 | [FORMALIZATION_SEQUENCE.md](../../../FORMALIZATION_SEQUENCE.md) | Formalization inventory and sequence |
-| 2 | [RHLean/Analysis/SquareRootMatchedDegreeOneRecovery.lean](../../../RHLean/Analysis/SquareRootMatchedDegreeOneRecovery.lean) | Recover the Mertens-visible mode from matched transport |
-| 2 | [RHLean/Analysis/StrongMertensLogNineCorridor.lean](../../../RHLean/Analysis/StrongMertensLogNineCorridor.lean) | Shared log-nine corridor for the unconditional strong Mertens bridge |
-| 2 | [RHLean/Analysis/StrongMertensZetaKernel.lean](../../../RHLean/Analysis/StrongMertensZetaKernel.lean) | Reciprocal-zeta kernel for the unconditional strong Mertens route |
-| 2 | [RHLean/Proof/PhysicalQ2TerminalSynthesis.lean](../../../RHLean/Proof/PhysicalQ2TerminalSynthesis.lean) | Terminal synthesis for the physical q^2 route |

@@ -31,28 +31,28 @@
 | 33 | [docs/COORDINATE_ATLAS.md](../../../docs/COORDINATE_ATLAS.md) | Coordinate atlas: one phenomenon, many coordinates |
 | 33 | [research/VF_MID_919_OAI_OWNER_TWO_SIGNED_BOUNDARY.lean](../../../research/VF_MID_919_OAI_OWNER_TWO_SIGNED_BOUNDARY.lean) | #919: retain the actual owner-two signed clipped/returned cross term |
 | 26 | [docs/CROSS_COORDINATE_LOW_QUOTIENT_RESEARCH_2026_10_17.md](../../../docs/CROSS_COORDINATE_LOW_QUOTIENT_RESEARCH_2026_10_17.md) | Cross-coordinate low-quotient program: complete seven-agent research instructions |
-| 21 | [AGENTS.md](../../../AGENTS.md) | RH_Lean research-agent instructions |
-| 21 | [CURRENT_PROOF_CONTRACT.md](../../../CURRENT_PROOF_CONTRACT.md) | RH_Lean current proof contract |
+| 22 | [CURRENT_PROOF_CONTRACT.md](../../../CURRENT_PROOF_CONTRACT.md) | RH_Lean current proof contract |
+| 21 | [AGENTS_BEFORE_RESEARCH_ENGINE_20261101.md](../../../AGENTS_BEFORE_RESEARCH_ENGINE_20261101.md) | RH_Lean research-agent instructions |
 | 18 | [research/VF_QUOTIENT_VARIATION_FIRSTBAD_ATTACK.lean](../../../research/VF_QUOTIENT_VARIATION_FIRSTBAD_ATTACK.lean) | Arithmetic attack: exact square-hyperbola separation of sharp quotient mass |
 | 16 | [research/HECKE_SPLIT_PRIME_CUTOFF_TRADEOFF_20261016.md](../../../research/HECKE_SPLIT_PRIME_CUTOFF_TRADEOFF_20261016.md) | Independent 7/8 Hecke cutoffs: from seven layers to an exact two-layer root-wall identity |
 | 16 | [research/VF_MID_919_OAI_OWNER_TWO_SIGNED_MERTENS_MOMENT.md](../../../research/VF_MID_919_OAI_OWNER_TWO_SIGNED_MERTENS_MOMENT.md) | #919: OAI to native Sector Six — the exact owner-two signed-moment target |
 | 14 | [research/CORR4_FIXED_HYPERBOLA_DOUBLE_ABEL_20261026.lean](../../../research/CORR4_FIXED_HYPERBOLA_DOUBLE_ABEL_20261026.lean) | CORR-4: exact fixed-owner hyperbola and second quotient Abel transport |
-| 13 | [docs/DYNAMIC_RESEARCH_AGENTS.md](../../../docs/DYNAMIC_RESEARCH_AGENTS.md) | RH_Lean dynamic seven-agent research protocol |
+| 13 | [docs/DYNAMIC_RESEARCH_AGENTS_BEFORE_RESEARCH_ENGINE_20261101.md](../../../docs/DYNAMIC_RESEARCH_AGENTS_BEFORE_RESEARCH_ENGINE_20261101.md) | RH_Lean dynamic seven-agent research protocol |
 | 13 | [research/OAI_SEVEN_EIGHTHS_NATIVE_DECLARATION_CROSSWALK_20261019.md](../../../research/OAI_SEVEN_EIGHTHS_NATIVE_DECLARATION_CROSSWALK_20261019.md) | OpenAI 7/8 theorem → RH_Lean native declaration crosswalk |
+| 12 | [docs/RHLEAN_OAI_LOW_SOURCE_FIRST_AGENT_CONTRACT_20261103.md](../../../docs/RHLEAN_OAI_LOW_SOURCE_FIRST_AGENT_CONTRACT_20261103.md) | OAI 1 -> 7/8 source-first signed LOW research contract for all seven agents |
 | 11 | [docs/FACTOR_DEPTH_RESEARCH_BRIEF.md](../../../docs/FACTOR_DEPTH_RESEARCH_BRIEF.md) | Live research brief: factor-depth coupling and independent amplification |
+| 9 | [docs/AGENT_STUDIO_20261024_SEVEN_PROMPTS.md](../../../docs/AGENT_STUDIO_20261024_SEVEN_PROMPTS.md) | Seven complete RH_Lean Agent Studio instruction templates |
 | 8 | [research/VF_919_OAI_SQUARE_BLOCK_FOUR_INDEX_COVARIANCE_20261019.lean](../../../research/VF_919_OAI_SQUARE_BLOCK_FOUR_INDEX_COVARIANCE_20261019.lean) | EXACT covariance weld, each original physical pair and both Hecke divisors |
 | 8 | [research/VF_919_PRIME_WHEEL_OAI_SIMULTANEOUS_COVARIANCE_20261021.md](../../../research/VF_919_PRIME_WHEEL_OAI_SIMULTANEOUS_COVARIANCE_20261021.md) | One simultaneous ledger: sequential prime wheel, OpenAI Hecke compensation, and unnormalized NNS covariance |
 | 7 | [research/CORR4_QUOTIENT_BUCKET_HYPERBOLA_PILOT_20261026.md](../../../research/CORR4_QUOTIENT_BUCKET_HYPERBOLA_PILOT_20261026.md) | CORR-4: exact quotient-bucket Abel pilot and the moving hyperbola diagonal (2026-10-26) |
 | 7 | [research/VF_QUOTIENT_VARIATION_FIRSTBAD_ATTACK.md](../../../research/VF_QUOTIENT_VARIATION_FIRSTBAD_ATTACK.md) | Arithmetic attack B — square-hyperbola quotient variation and first badness |
 | 6 | [docs/NATIVE_SEVEN_EIGHTHS_REPLICATION_PROTOCOL_20261019.md](../../../docs/NATIVE_SEVEN_EIGHTHS_REPLICATION_PROTOCOL_20261019.md) | Independent reproduction of the seven-eighths *mechanism* — proof authority and execution contract |
 | 6 | [research/OAI_SEVEN_EIGHTHS_IDEAL_LIFT_DERIVATION_AUDIT_20261019.md](../../../research/OAI_SEVEN_EIGHTHS_IDEAL_LIFT_DERIVATION_AUDIT_20261019.md) | Independent mathematical audit: proposed \(\mathcal I_K^{(6)}\) lift of OpenAI's \(7/8\) proof |
+| 6 | [research/OAI_SHARP_ROOTGRID_HEIGHT_AUDIT_20261028.md](../../../research/OAI_SHARP_ROOTGRID_HEIGHT_AUDIT_20261028.md) | Pinned OpenAI moment vs sharp root-indexed Euler sampling: quantitative audit |
 | 6 | [research/VF_919_NATIVE_SEXTIC_FOUR_CASES_AND_OWNER_WELD_20261019.md](../../../research/VF_919_NATIVE_SEXTIC_FOUR_CASES_AND_OWNER_WELD_20261019.md) | Native varying sextic Hecke characters at x=317/1027 and R=317/1027 |
 | 6 | [research/VF_919_OAI_SQUARE_BLOCK_ONE_SOURCE_FULL_NORM_GRAM_20261019.lean](../../../research/VF_919_OAI_SQUARE_BLOCK_ONE_SOURCE_FULL_NORM_GRAM_20261019.lean) | One principal Hecke norm coefficient, one ACTUAL square-shell weight |
 | 6 | [research/VF_MID_919_OAI_C_TO_R_CANCELLATION_WELD.md](../../../research/VF_MID_919_OAI_C_TO_R_CANCELLATION_WELD.md) | #919 — Absorb OpenAI's compensated Hecke cancellation into actual VF C->R coordinates |
+| 6 | [scripts/test_ci_cache_contract.py](../../../scripts/test_ci_cache_contract.py) | Fast regression checks for the CI cache contract. |
 | 5 | [docs/QRH_SATURATED_ACTUAL_FIBER_THEOREM_TARGET_20261026.md](../../../docs/QRH_SATURATED_ACTUAL_FIBER_THEOREM_TARGET_20261026.md) | Final-return near-saturated window-fiber count: exact unproved analytic target (2026-10-26) |
-| 5 | [research/CORR4_CORRECTED_EXPONENT_OCTAVE_LEDGER_20261026.md](../../../research/CORR4_CORRECTED_EXPONENT_OCTAVE_LEDGER_20261026.md) | CORR-4 corrected exponent and octave-source ledger (2026-10-26) |
-| 5 | [research/OAI_THREE_QUARTERS_ACTUAL_CUBIC_ATTACK_20261022.md](../../../research/OAI_THREE_QUARTERS_ACTUAL_CUBIC_ATTACK_20261022.md) | Direct a=3/4 attack: original OpenAI compensated prime + cubic/sixth-free rows |
-| 5 | [research/VF_919_OAI_NNS_INDEPENDENT_SIGNED_SAVING_20261022.md](../../../research/VF_919_OAI_NNS_INDEPENDENT_SIGNED_SAVING_20261022.md) | OpenAI high-row saving in signed NNS coordinates: exact closure target and independent finite payment |
-| 5 | [research/VF_MID_919_OAI_STAGE_SAVINGS_AND_BOOTSTRAP.md](../../../research/VF_MID_919_OAI_STAGE_SAVINGS_AND_BOOTSTRAP.md) | #919: Exactly what saved 1 -> 11/12 -> 7/8, and what VF would need to improve it |
-| 4 | [docs/OAI_COMPENSATED_ONE_PRIME_NNS_SEAM_20261022.md](../../../docs/OAI_COMPENSATED_ONE_PRIME_NNS_SEAM_20261022.md) | Original OAI compensated source and NNS signed payment (retained analytic lane) |
-| 4 | [docs/RHLEAN_NATIVE_FIRST_PROOF_ROUTING_20261026.md](../../../docs/RHLEAN_NATIVE_FIRST_PROOF_ROUTING_20261026.md) | RH_Lean-native-first mathematical proof routing (26 October 2026) |
+| 5 | [docs/RHLEAN_ALL_VECTOR_AGENT_PROMPTS_BEFORE_CANCELLATION_CHAIN_20261107.md](../../../docs/RHLEAN_ALL_VECTOR_AGENT_PROMPTS_BEFORE_CANCELLATION_CHAIN_20261107.md) | Seven-agent all-vector prompt reference - persistent research edition |
+| 5 | [docs/RHLEAN_SEVEN_AGENT_RESEARCH_ENGINE_20261101.md](../../../docs/RHLEAN_SEVEN_AGENT_RESEARCH_ENGINE_20261101.md) | Seven-agent persistent research engine and next-run attack plan |
