@@ -52,9 +52,9 @@ theorem nativeDyadicGeometricHostOfDerived_bar
     let _ : IsCMField H.E := H.der.cm
     (((nativeDyadicGeometricHostOfDerived e q d he hH).bar a : 𝓞 H.E) : H.E) =
       H.conj (a : H.E) := by
-  change alpogeNativeHostConj e q d (a : alpogeNativeHostField e q d) =
-    (nativeDyadicHostRaw e q d he hH).conj (a : alpogeNativeHostField e q d)
-  rw [nativeDyadicHostRaw_conj e q d he hH]
+  exact (congrArg (fun σ : alpogeNativeHostField e q d ≃ₐ[ℚ]
+      alpogeNativeHostField e q d => σ a.1)
+    (nativeDyadicHostRaw_conj e q d he hH)).symm
 
 /-- The geometric positive rows and the arithmetic CM type coincide exactly. -/
 theorem nativeDyadicGeometricHostOfDerived_inPsi

@@ -74,6 +74,8 @@ theorem coefficientIdeal_isLocalized (B : Ideal (𝓞 H.E))
       FractionalIdeal.one_mem_inv_coe_ideal
         (coeIdeal_ne_zero.mp (halfDifferent_ne_zero H B hB).1)
     have ha : (a : H.E) ∈ coefficientIdeal H B := by
+      change algebraMap (𝓞 H.E) H.E a ∈
+        (coefficientIdeal H B : Submodule (𝓞 H.E) H.E)
       simpa only [Algebra.smul_def, mul_one] using
         (coefficientIdeal H B : Submodule (𝓞 H.E) H.E).smul_mem a h1
     refine ⟨(⟨(a : H.E), ha⟩, s), ?_⟩
@@ -100,7 +102,9 @@ theorem coefficientIdeal_rank (B : Ideal (𝓞 H.E))
   let I : (FractionalIdeal (𝓞 H.E)⁰ H.E)ˣ :=
     Units.mk0 (coefficientIdeal H B) (inv_ne_zero (halfDifferent_ne_zero H B hB).1)
   have h := NumberField.fractionalIdeal_rank H.E I
-  simpa only [RingOfIntegers.rank] using h
+  change Module.finrank ℤ (coefficientIdeal H B) = Module.finrank ℤ (𝓞 H.E) at h
+  rw [RingOfIntegers.rank] at h
+  exact h
 
 theorem conj_conj (x : H.E) : H.conj (H.conj x) = x := by
   have h := congrArg (fun σ : H.E ≃ₐ[ℚ] H.E => σ x) (NativeRawHostDifferent.conj_sq H)
@@ -185,7 +189,7 @@ theorem integralTraceForm_alternating (B : Ideal (𝓞 H.E))
 
 theorem integralTraceForm_adjoint (B : Ideal (𝓞 H.E))
     (hB : differentIdeal (𝓞 H.K) (𝓞 H.E) = B * (H.conj • B))
-    (a : 𝓞 H.E) (x y : coefficientIdeal H B) :
+    (a : 𝓞 H.E) (x y : (coefficientIdeal H B : Submodule (𝓞 H.E) H.E)) :
     integralTraceForm H B hB (a • x) y =
       integralTraceForm H B hB x ((H.conj • a) • y) := by
   apply Int.cast_injective (α := ℚ)
@@ -274,7 +278,7 @@ private theorem trace_represents (I : (FractionalIdeal (𝓞 H.E)⁰ H.E)ˣ)
   let fQ : (I : FractionalIdeal (𝓞 H.E)⁰ H.E) →ₗ[ℤ] ℚ :=
     { toFun := fun y => (f y : ℚ)
       map_add' := by intro x y; simp
-      map_smul' := by intro c y; simp [smul_eq_mul] }
+      map_smul' := by intro c y; simp }
   have heq : tr = fQ := bZ.ext fun k => by
     change Algebra.trace ℚ H.E (z * (bZ k : H.E)) = (f (bZ k) : ℚ)
     rw [show (bZ k : H.E) = bQ k from
@@ -296,8 +300,12 @@ theorem integralTraceForm_bijective (B : Ideal (𝓞 H.E))
     intro x hx
     have hz : xi H * H.conj (x : H.E) = 0 :=
       trace_separates H I _ fun y => by
-        have hval := congrArg (fun f : coefficientIdeal H B →ₗ[ℤ] ℤ => (f y : ℚ)) hx
-        simpa only [integralTraceForm_cast, LinearMap.zero_apply, Int.cast_zero] using hval
+        have hval : integralTraceForm H B hB x y = 0 := LinearMap.congr_fun hx y
+        calc
+          Algebra.trace ℚ H.E (xi H * H.conj (x : H.E) * y) =
+              ((integralTraceForm H B hB x y : ℤ) : ℚ) :=
+            (integralTraceForm_cast H B hB x y).symm
+          _ = 0 := by rw [hval, Int.cast_zero]
     have hx0 : H.conj (x : H.E) = 0 := (mul_eq_zero.mp hz).resolve_left (xi_ne_zero H)
     apply Subtype.ext
     exact H.conj.injective (hx0.trans (map_zero H.conj).symm)
@@ -305,10 +313,11 @@ theorem integralTraceForm_bijective (B : Ideal (𝓞 H.E))
     obtain ⟨z, hz⟩ := trace_represents H I f
     let x : H.E := H.conj.symm ((xi H)⁻¹ * z)
     have hx : xi H * H.conj x = z := by
-      rw [x, AlgEquiv.apply_symm_apply, ← mul_assoc, mul_inv_cancel₀ (xi_ne_zero H), one_mul]
+      dsimp only [x]
+      rw [AlgEquiv.apply_symm_apply, ← mul_assoc, mul_inv_cancel₀ (xi_ne_zero H), one_mul]
     have hxA : x ∈ coefficientIdeal H B := (mem_coefficientIdeal_iff H B hB x).mpr fun y hy => by
       rw [hx, hz ⟨y, hy⟩]
-      exact ⟨f ⟨y, hy⟩, by simp⟩
+      exact ⟨f ⟨y, hy⟩, rfl⟩
     refine ⟨⟨x, hxA⟩, ?_⟩
     ext y
     apply Int.cast_injective (α := ℚ)
