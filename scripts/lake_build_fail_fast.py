@@ -63,6 +63,52 @@ def group_exists(process: subprocess.Popen) -> bool:
         return False
 
 
+def live_group_members(process: subprocess.Popen) -> list[int]:
+    """Find non-exited members of our dedicated group on the Linux runner."""
+    members = []
+    for entry in Path("/proc").iterdir():
+        if not entry.name.isdecimal():
+            continue
+        try:
+            # comm can contain spaces and parentheses, so split after its
+            # final closing parenthesis. The next fields are state, ppid, pgrp.
+            fields = (entry / "stat").read_text().rsplit(")", 1)[1].split()
+            if int(fields[2]) == process.pid and fields[0] not in {"Z", "X"}:
+                members.append(int(entry.name))
+        except (FileNotFoundError, ProcessLookupError):
+            pass  # The process exited while /proc was being read.
+    return members
+
+
+def wait_group_stopped(process: subprocess.Popen, timeout: float = 1.0) -> None:
+    """Confirm actual descendant exit after KILL, rather than signal delivery.
+
+    Linux pidfds become readable on process exit, including an orphan which
+    is waiting for PID 1 to reap it. This avoids both a scheduling race after
+    killpg and an indefinite wait for unrelated PID 1 reaping.
+    """
+    deadline = time.monotonic() + timeout
+    while members := live_group_members(process):
+        remaining = deadline - time.monotonic()
+        if remaining <= 0:
+            raise TimeoutError(f"build process group still running after KILL: {members}")
+        descriptors = []
+        with selectors.DefaultSelector() as exits:
+            try:
+                for pid in members:
+                    try:
+                        descriptor = os.pidfd_open(pid)
+                    except ProcessLookupError:
+                        continue
+                    descriptors.append(descriptor)
+                    exits.register(descriptor, selectors.EVENT_READ)
+                if descriptors:
+                    exits.select(timeout=remaining)
+            finally:
+                for descriptor in descriptors:
+                    os.close(descriptor)
+
+
 def run_fail_fast(command: Sequence[str], *, cwd: Path | None = None,
                   output: BinaryIO | None = None, diagnostic_grace: float = 0.2,
                   terminate_grace: float = 2.0) -> None:
@@ -119,6 +165,8 @@ def run_fail_fast(command: Sequence[str], *, cwd: Path | None = None,
                 # An escaped process must not keep our pipe open indefinitely.
                 break
         returncode = process.wait(timeout=max(1.0, terminate_grace))
+        if kill_at is not None:
+            wait_group_stopped(process)
     except BaseException:
         signal_group(process, signal.SIGTERM)
         try:
@@ -126,7 +174,8 @@ def run_fail_fast(command: Sequence[str], *, cwd: Path | None = None,
         except subprocess.TimeoutExpired:
             pass
         signal_group(process, signal.SIGKILL)
-        process.wait()
+        process.wait(timeout=1.0)
+        wait_group_stopped(process)
         raise
     finally:
         selector.close()

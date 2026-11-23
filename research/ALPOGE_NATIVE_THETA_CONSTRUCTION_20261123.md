@@ -441,3 +441,23 @@ the full native build was skipped. The cancellation job succeeded and stopped
 eight other same-revision PR workflows. The remaining source diagnostics in
 that pass concern explicit group types, map-one normalization and finite-set
 cardinality applications; they do not establish a mathematical counterexample.
+
+The static-audit failure path was also observed on head
+bc0c9b5f67786194273296ef42a01f77a72119cc, run
+[45226956388](https://github.com/OVVO-Financial/RH_Lean/actions/runs/45226956388).
+A process-cleanup regression test failed before Lean setup. Both the changed
+research closure and full native build were skipped, the cancellation job
+succeeded, and fourteen other workflows for that revision were cancelled.
+This is evidence for the static-audit gate, not a Lean compilation result.
+
+Source inspection identified an early-return race: dispatching SIGKILL did
+not confirm that a descendant had completed its asynchronous exit. The
+monitor now uses Linux pidfds to confirm exit of remaining live members of
+its own process group within a one-second bound. It does not wait for PID 1
+to reap zombies. The immediate non-running-child assertion is retained,
+and a second test covers a TERM-resistant child that has closed stdout.
+All eleven controlled-process tests and twenty-three research/cache tests
+passed locally; twenty repeated cleanup trials also passed. The old race
+was not reproduced in thirty local trials, so the hosted failure and the
+identified early-return path, rather than a claimed local reproduction,
+are the evidence for this repair. No Lean or Lake was run locally.

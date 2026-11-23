@@ -81,12 +81,13 @@ class LakeFailFastTests(unittest.TestCase):
         self.assertEqual(failure.exception.returncode, 7)
 
     @unittest.skipUnless(os.name == "posix" and Path("/proc").is_dir(), "Linux process-group test")
-    def test_term_ignoring_child_is_killed_with_parent_group(self):
+    def check_term_ignoring_child(self, close_output=False):
         with tempfile.TemporaryDirectory() as directory:
             pid_file = Path(directory) / "child.pid"
             later = Path(directory) / "child-later"
             child = ("import os, pathlib, signal, sys, time\n"
                      "signal.signal(signal.SIGTERM, signal.SIG_IGN)\n"
+                     + ("os.close(1); os.close(2)\n" if close_output else "") +
                      "pathlib.Path(sys.argv[1]).write_text(str(os.getpid()))\n"
                      "time.sleep(10)\n"
                      "pathlib.Path(sys.argv[2]).write_text('must not run')\n")
@@ -103,7 +104,19 @@ class LakeFailFastTests(unittest.TestCase):
             child_pid = int(pid_file.read_text())
             status = Path(f"/proc/{child_pid}/stat")
             # A killed orphan can briefly remain a zombie until PID 1 reaps it.
-            self.assertTrue(not status.exists() or status.read_text().split()[2] == "Z")
+            try:
+                state = status.read_text().rsplit(")", 1)[1].split()[0]
+            except FileNotFoundError:
+                state = "gone"
+            self.assertIn(state, {"gone", "Z", "X"})
+
+    @unittest.skipUnless(os.name == "posix" and Path("/proc").is_dir(), "Linux process-group test")
+    def test_term_ignoring_child_is_killed_with_parent_group(self):
+        self.check_term_ignoring_child()
+
+    @unittest.skipUnless(os.name == "posix" and Path("/proc").is_dir(), "Linux process-group test")
+    def test_closed_output_child_is_stopped_before_wrapper_returns(self):
+        self.check_term_ignoring_child(close_output=True)
 
     def test_build_targets_are_arguments_without_shell_interpolation(self):
         with patch.object(ff, "run_fail_fast") as run:
