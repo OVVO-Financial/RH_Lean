@@ -151,8 +151,8 @@
       ],
       "path": "RHLean/Geometry/NativeThetaEvaluatedFamily.lean",
       "construction": "Construct the SAME short integral HHa spanning family from source unimodularity and an admissible level; derive its finite-generation/integrality/self-duality inputs; evaluate it using the SAME literal normalizationIndex and translationCount at p+q. The conclusion identifies only the span of the evaluation image with the image of HHa.",
-      "native_sha256": "61c2c2522586c5ff7e50caa2b9940b80045eecd13b3b4f078f03a918d3f59061",
-      "native_lines": 188,
+      "native_sha256": "48f3f5c48e9b4d3f94932310a15fe20009549d2358545bc2108c249470dd7bd1",
+      "native_lines": 191,
       "initial_source_reconstruction_sha256": "f51112f4a4a6e402030aec7f07f59ea7e25f5fae163ff403dd530c2d715ab45a",
       "constructor_input_change": "exists_short_integral_HHa_evaluation_family replaces hfg/hint/hdual, an arbitrary index, and an arbitrary translation type J with hU, N != 0, the original admissible inclusion, normalizationIndex Lambda N (p+q), and Fin (translationCount Lambda N (p+q)). Q, beta and the formal group/gauge/germs remain explicit pending the actual Datum and geometric rule."
     }

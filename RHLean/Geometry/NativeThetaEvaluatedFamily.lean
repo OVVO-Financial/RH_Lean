@@ -70,7 +70,10 @@ theorem span_rawShortValue_family
   have hH : rawShortValue β index N w jet '' HHa r n K cc isX a =
       L '' HHa r n K cc isX a := Set.image_congr hL
   rw [hS, hH, ← Submodule.map_span L (S : Set _),
-    ← Submodule.map_span L (HHa r n K cc isX a), ← hspan, Submodule.span_eq]
+    ← Submodule.map_span L (HHa r n K cc isX a), ← hspan]
+  exact congrArg (Submodule.map L)
+    (Submodule.span_eq (Submodule.span K
+      (S : Set (MvPolynomial (Letter T r n) K)))).symm
 
 theorem span_shortValueOfFormalGerms_family [Algebra ℚ A] {d : ℕ}
     (cc : T → T) (isX : T → Prop) (a : T → ℕ → ℕ)

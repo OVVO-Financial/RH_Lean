@@ -69,6 +69,8 @@ theorem integer_mem_coefficientIdeal (B : Ideal (𝓞 H.E))
   have h1 : (1 : H.E) ∈ coefficientIdeal H B :=
     FractionalIdeal.one_mem_inv_coe_ideal
       (FractionalIdeal.coeIdeal_ne_zero.mp (halfDifferent_ne_zero H B hB).1)
+  change algebraMap (𝓞 H.E) H.E a ∈
+    (coefficientIdeal H B : Submodule (𝓞 H.E) H.E)
   simpa only [Algebra.smul_def, mul_one] using
     (coefficientIdeal H B : Submodule (𝓞 H.E) H.E).smul_mem a h1
 
@@ -101,12 +103,12 @@ theorem twistedRealCoordinates_integralCoordinates (B : Ideal (𝓞 H.E))
     twistedRealCoordinates H B N
         (LinearMap.baseChange ℝ (integralCoordinates H B hB N).toIntLinearMap t) =
       phiI (ι := Fin N) (cmTypeFinset H) t := by
-  induction t using TensorProduct.induction_on with
-  | zero => simp only [map_zero]
+  induction t using TensorProduct.inductionOn with
   | add t u ht hu => rw [map_add, map_add, ht, hu, map_add]
   | tmul a v =>
     simp only [LinearMap.baseChange_tmul, twistedRealCoordinates_tmul, phiI_tmul,
       AddMonoidHom.coe_toIntLinearMap, integralCoordinates]
+    rfl
 
 /-- Surjectivity is constructed through the actual integral lattice; its
 exact rank then proves injectivity on the same real tensor product. -/
@@ -124,7 +126,8 @@ theorem twistedRealCoordinates_bijective (B : Ideal (𝓞 H.E))
       Module.finrank ℝ (cmTypeFinset H → Fin N → ℂ) := by
     rw [Module.finrank_baseChange, twistedLattice_rank_int H B hB N]
     simp only [Module.finrank_pi_fintype, Complex.finrank_real_complex,
-      Finset.sum_const, Finset.card_univ, Fintype.card_fin, Fintype.card_coe, nsmul_eq_mul]
+      Finset.sum_const, Finset.card_univ, Fintype.card_fin, Fintype.card_coe,
+      nsmul_eq_mul, Nat.cast_id]
     rw [← two_card (cmTypeFinset_conjugate H)]
     ring
   exact ⟨(LinearMap.injective_iff_surjective_of_finrank_eq_finrank hdim).mpr hsurj, hsurj⟩
@@ -161,7 +164,7 @@ theorem nativeDyadicHostRaw_exists_prescribedRealization
     (he : 2 ≤ e) (hH : HostHyp q d) :
     let H := nativeDyadicHostRaw e q d he hH
     ∃ (B : Ideal (𝓞 H.E))
-      (hB : differentIdeal (𝓞 H.K) (𝓞 H.E) = B * (H.conj • B)),
+      (_hB : differentIdeal (𝓞 H.K) (𝓞 H.E) = B * (H.conj • B)),
       B ⊔ H.conj • B = ⊤ ∧
       (∀ σ : H.E ≃ₐ[ℚ] H.E, H.gal σ ∈ (nativeDyadicFrame e).Psi → σ • B = B) ∧
       ∀ k m : ℕ, ∃ θ : (ℝ ⊗[ℤ] prescribedLattice H B k m) ≃ₗ[ℝ]

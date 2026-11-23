@@ -54,6 +54,8 @@ namespace RHLean.Geometry.NativeDyadicAdelicIsometry
 open RHLean.Analysis RHLean.Analysis.AlpogeThin Formalism.FrobeniusOrbits
 open NativePrescribedHermitian NativeRawHostPolarization NativeDyadicAdelicNorm
 
+attribute [local instance] conjugationStar
+
 private theorem cT_diagonal {n A : Type} [DecidableEq n] [CommRing A]
     (σ : A →+* A) (v : n → A) :
     Signature.cT σ (Matrix.diagonal v) = Matrix.diagonal (fun i => σ (v i)) := by
@@ -100,10 +102,10 @@ section Host
 
 variable (e q d : ℕ) [Fact q.Prime] [Fact d.Prime]
 
-local notation "E" => alpogeNativeHostField e q d
-local notation "F" => maximalRealSubfield E
-local notation "Af" => FiniteAdeleRing (𝓞 F) F
-local notation "A" => E ⊗[F] Af
+local notation "EH" => alpogeNativeHostField e q d
+local notation "F" => maximalRealSubfield EH
+local notation "Af" => IsDedekindDomain.FiniteAdeleRing (𝓞 F) F
+local notation "A" => EH ⊗[F] Af
 
 /-- The explicit invertible sign-change matrix, constructed from the SAME
 native adelic norm element and its proved inverse. -/
@@ -116,8 +118,8 @@ def diagonalChange (he : 2 ≤ e) (hH : HostHyp q d) (N a b : ℕ) :
     (by
       intro i
       by_cases h : negTail N a i = negTail N b i
-      · simp only [if_pos h, one_mul]
-      · simp only [if_neg h]
+      · simp only [ite_eq_left h, one_mul]
+      · simp only [ite_eq_right h]
         rw [mul_neg, mul_comm, normMinusOne_spec, neg_neg])
 
 theorem diagonalChange_val (he : 2 ≤ e) (hH : HostHyp q d) (N a b : ℕ) :
@@ -139,8 +141,8 @@ theorem diagonalChange_congr (he : 2 ≤ e) (hH : HostHyp q d) (N a b : ℕ) :
   simp only [diagonalChange_val]
   refine diagonal_congr _ _ _ _ (fun i => ?_)
   by_cases h : negTail N a i = negTail N b i
-  · simp only [if_pos h, map_one, one_mul, mul_one, h]
-  · simp only [if_neg h]
+  · simp only [ite_eq_left h, map_one, one_mul, mul_one, h]
+  · simp only [ite_eq_right h]
     have hs : (sgn (negTail N b i) : A) = -sgn (negTail N a i) := by
       cases h₁ : negTail N a i <;> cases h₂ : negTail N b i <;> simp_all [sgn]
     rw [hs, mul_right_comm, normMinusOne_spec]
@@ -154,20 +156,20 @@ theorem baseSpace_congr_prescribed (he : 2 ≤ e) (hH : HostHyp q d) (k m j : �
     Signature.cT (tensorConjugation e q d he hH)
         (g : Matrix (Fin (k + m - 1)) (Fin (k + m - 1)) A) *
       ((prescribedBaseSpace H k m).gram.map
-        (Algebra.TensorProduct.includeLeftRingHom : E →+* A)) *
+        (Algebra.TensorProduct.includeLeftRingHom : EH →+* A)) *
         (g : Matrix (Fin (k + m - 1)) (Fin (k + m - 1)) A) =
       (prescribedSpace H k m j).gram.map
-        (Algebra.TensorProduct.includeLeftRingHom : E →+* A) := by
-  let : StarRing E := conjugationStar (nativeDyadicHostRaw e q d he hH)
+        (Algebra.TensorProduct.includeLeftRingHom : EH →+* A) := by
+  let : StarRing EH := conjugationStar (nativeDyadicHostRaw e q d he hH)
   change Signature.cT (tensorConjugation e q d he hH)
       (diagonalChange e q d he hH (k + m - 1) ((m - 0) / 2) (m - j) :
         Matrix (Fin (k + m - 1)) (Fin (k + m - 1)) A) *
-    ((dSpace (E := E) (k + m - 1) ((m - 0) / 2)).gram.map
-      (Algebra.TensorProduct.includeLeftRingHom : E →+* A)) *
+    ((dSpace (E := EH) (k + m - 1) ((m - 0) / 2)).gram.map
+      (Algebra.TensorProduct.includeLeftRingHom : EH →+* A)) *
       (diagonalChange e q d he hH (k + m - 1) ((m - 0) / 2) (m - j) :
         Matrix (Fin (k + m - 1)) (Fin (k + m - 1)) A) =
-    (dSpace (E := E) (k + m - 1) (m - j)).gram.map
-      (Algebra.TensorProduct.includeLeftRingHom : E →+* A)
+    (dSpace (E := EH) (k + m - 1) (m - j)).gram.map
+      (Algebra.TensorProduct.includeLeftRingHom : EH →+* A)
   rw [dSpace_gram_map, dSpace_gram_map]
   exact diagonalChange_congr e q d he hH _ _ _
 
@@ -181,11 +183,11 @@ theorem baseSpace_isometric_prescribed (he : 2 ≤ e) (hH : HostHyp q d) (k m j 
             (g : Matrix (Fin (prescribedSpace H k m j).rank)
               (Fin (prescribedSpace H k m j).rank) A) *
           (((prescribedBaseSpace H k m).gram.reindex ε ε).map
-            (Algebra.TensorProduct.includeLeftRingHom : E →+* A)) *
+            (Algebra.TensorProduct.includeLeftRingHom : EH →+* A)) *
             (g : Matrix (Fin (prescribedSpace H k m j).rank)
               (Fin (prescribedSpace H k m j).rank) A) =
           (prescribedSpace H k m j).gram.map
-            (Algebra.TensorProduct.includeLeftRingHom : E →+* A) := by
+            (Algebra.TensorProduct.includeLeftRingHom : EH →+* A) := by
   refine ⟨Equiv.refl _,
     diagonalChange e q d he hH (k + m - 1) ((m - 0) / 2) (m - j), ?_⟩
   exact baseSpace_congr_prescribed e q d he hH k m j

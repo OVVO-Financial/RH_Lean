@@ -36,8 +36,8 @@
         }
       ],
       "construction": "Constructs the actual diagonal GL matrix with entries 1 or canonical normMinusOne, and inverse entries 1 or minus its tensor conjugate. Proves exact mapped-Gram congruence for original base signs (m-0)/2 and existing prescribed W_j signs m-j at rank k+m-1. No norm or isometry input; no arbitrary field, lattice or signature replacement.",
-      "native_sha256": "ac05636cf14bb140b2ab0f7c46a1136f3c221ecdaaab3a440c4831fa78dbecce",
-      "native_lines": 197,
+      "native_sha256": "aca1b62a475d52b5a701df0c4b2140e6114902b9683f0f9686994c29aab5590a",
+      "native_lines": 199,
       "initial_source_reconstruction_sha256": "aded96fd6e7dce8d26282c0c5906f599754303360c1b08ea4685c4b03f788c25"
     }
   ],
