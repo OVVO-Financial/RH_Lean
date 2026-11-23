@@ -27,6 +27,8 @@ import RHLean.Analysis.AlpogeNativeThickFreezing
 import RHLean.Analysis.AlpogeNativeWidthRecombination
 import RHLean.Analysis.AlpogeNativeWindowLandau
 import RHLean.Analysis.AlpogeNativeWindowMellin
+import RHLean.Analysis.AlpogeNativeZetaBalance
+import RHLean.Analysis.AlpogeNativeZetaWindowWitness
 import RHLean.Analysis.AlpogeNegativeSelbergSemivariance
 import RHLean.Analysis.AlpogePhysicalCharacterHistory
 import RHLean.Analysis.AlpogePhysicalCharacterInterpolation
