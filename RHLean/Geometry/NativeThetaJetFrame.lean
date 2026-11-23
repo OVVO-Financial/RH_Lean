@@ -145,6 +145,11 @@ theorem columnJet_triangular
       (fun e' => by simp [Pi.single_apply])]
     exact Subalgebra.sum_mem _ fun e _ =>
       Subalgebra.smul_mem _ (Algebra.subset_adjoin (Set.mem_range_self e)) _
+  -- Fix the bundled ring structures before constructing the tensor-valued maps.
+  let : CommRing (Algebra.adjoin S s) := inferInstance
+  let : CommRing (⨂[S] _ : Fin n, Algebra.adjoin S s) :=
+    PiTensorProduct.instCommRing (R := S)
+      (A := fun _ : Fin n => Algebra.adjoin S s)
   let lam : Fin n → Algebra.adjoin S s →ₗ[S] S := fun b =>
     { toFun := fun z => MvPowerSeries.constantCoeff
         ((z : Module.End S (PS S 1 d)) (gaugedGerm actW0 h k (f b)))
