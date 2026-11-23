@@ -223,7 +223,8 @@ theorem nativeDyadicAnalyticRemainder_le_of_costWindows
         mul_le_mul_of_nonneg_left (Finset.sum_le_sum hpoint) (by positivity)
       _ = _ := by
         rw [Finset.sum_const, nsmul_eq_mul]
-        field_simp [hT.ne'] <;> ring
+        field_simp [hT.ne']
+        ring
   rw [hdensity]
   change (8 * n - 4 * T2.card) * θ * μ / (b * δ) +
       4 * h * (Real.log 4 + 2) * (Amax / b) / (b * δ) +

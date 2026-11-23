@@ -107,7 +107,7 @@ theorem cmType {φ : Frame} (H : HostRaw φ)
       constructor
       · intro h
         refine ⟨_, (cmType_iff H ((starRingEnd ℂ).comp ψ)).mpr ?_, hinv ψ⟩
-        rwa [hinv ψ]
+        exact (hinv ψ).symm ▸ h
       · rintro ⟨χ, hχ, rfl⟩
         exact (cmType_iff H χ).mp hχ
     have hcard := Set.ncard_add_ncard_compl H.cmType
@@ -177,10 +177,14 @@ theorem nativeDyadicHostRaw_mem_F
     let H := nativeDyadicHostRaw e q d he hH
     ∀ x : H.E, x ∈ H.F ↔ H.conj x = x := by
   dsimp only
-  intro x
+  rw [nativeDyadicHostRaw_conj e q d he hH]
+  change ∀ x : alpogeNativeHostField e q d,
+    x ∈ maximalRealSubfield (alpogeNativeHostField e q d) ↔
+      alpogeNativeHostConj e q d x = x
   let _ : IsCMField (alpogeNativeHostField e q d) :=
     nativeDyadicHostRaw_cm e q d he hH
-  rw [nativeDyadicHostRaw_conj, ← alpogeNativeHostConj_complexConj]
+  intro x
+  rw [← alpogeNativeHostConj_complexConj e q d x]
   exact (IsCMField.complexConj_eq_self_iff (alpogeNativeHostField e q d) x).symm
 
 theorem nativeDyadicHostRaw_cmType
@@ -212,13 +216,15 @@ theorem nativeDyadicHostRaw_ps_root
   have hq2 : q ≠ 2 := by omega
   have hd2 : d ≠ 2 := by omega
   have hqd : q ≠ d := by omega
+  change ∃ a : alpogeNativeHostField e q d, a ≠ 0 ∧
+    ∀ σ : alpogeNativeHostField e q d ≃ₐ[ℚ] alpogeNativeHostField e q d,
+      σ a = ((((nativeDyadicFieldGal e q d hq2 hd2 hqd σ).1.1 : ℤˣ) : ℤ) :
+        alpogeNativeHostField e q d) * a
   refine ⟨alpogeNativeSqrtQ e q d, alpogeNativeSqrtQ_ne_zero e q d (by omega), ?_⟩
   intro σ
-  change σ (alpogeNativeSqrtQ e q d) =
-    ((((nativeDyadicFieldGal e q d hq2 hd2 hqd σ).1.1 : ℤˣ) : ℤ) :
-      alpogeNativeHostField e q d) * alpogeNativeSqrtQ e q d
   rw [nativeDyadicFieldGal_apply, nativeDyadicFullHostEquiv_chQ_val]
-  exact alpogeNativeSqrtQ_galois_apply e q d hq2 hd2 hqd σ
+  simpa only [Int.cast_ite, Int.cast_one, Int.cast_neg] using
+    alpogeNativeSqrtQ_galois_apply e q d hq2 hd2 hqd σ
 
 theorem nativeDyadicHostRaw_art_ch
     (e q d : ℕ) [Fact q.Prime] [Fact d.Prime]
@@ -226,10 +232,10 @@ theorem nativeDyadicHostRaw_art_ch
     let H := nativeDyadicHostRaw e q d he hH
     ∀ u : (ZMod H.condN)ˣ,
       (((H.art u).1.2 : ℤˣ) : ℤ) = jacobiSym (((u : ZMod H.condN).val : ℕ) : ℤ) H.d := by
-  dsimp only
+  change ∀ u : (ZMod (alpogeNativeHostN e q d))ˣ,
+    (((nativeDyadicArt e q d u).1.2 : ℤˣ) : ℤ) =
+      jacobiSym (((u : ZMod (alpogeNativeHostN e q d)).val : ℕ) : ℤ) d
   intro u
-  change (((nativeDyadicArt e q d u).1.2 : ℤˣ) : ℤ) =
-    jacobiSym (((u : ZMod (alpogeNativeHostN e q d)).val : ℕ) : ℤ) d
   rw [nativeDyadicArt_apply, NativeQuadraticRoot.legU_val,
     ← jacobiSym.legendreSym.to_jacobiSym]
   simp only [legendreSym, Int.cast_natCast]
@@ -240,7 +246,9 @@ theorem nativeDyadicHostRaw_ps_d
     let H := nativeDyadicHostRaw e q d he hH
     ∀ u : (ZMod H.condN)ˣ, (u : ZMod H.condN).val ≡ H.d [MOD H.QS * H.q] →
       (H.art u).1.1 = -1 := by
-  dsimp only
+  change ∀ u : (ZMod (alpogeNativeHostN e q d))ˣ,
+    (u : ZMod (alpogeNativeHostN e q d)).val ≡ d [MOD 2 ^ (e + 2) * q] →
+      (nativeDyadicArt e q d u).1.1 = -1
   intro u hu
   have hqmod := hH.2.2.1
   have hq4 : q % 4 = 3 := by omega

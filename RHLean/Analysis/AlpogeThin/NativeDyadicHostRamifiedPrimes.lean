@@ -98,8 +98,12 @@ theorem nativeDyadicArt_exists_iod
   have hcop : (d - 1).Coprime d :=
     ((Nat.Prime.coprime_iff_not_dvd hd).mpr
       (Nat.not_dvd_of_pos_of_lt (by have := hd.two_le; omega) (by omega))).symm
-  obtain ⟨u, hu1, hu2⟩ := nativeRamifiedUnits_crt
-    (nativeRamifiedCoprime e q d hd2 hqd) 1 (d - 1) (Nat.coprime_one_left _) hcop
+  obtain ⟨u, hu1, hu2⟩ :
+      ∃ u : (ZMod (alpogeNativeHostN e q d))ˣ,
+        (u : ZMod (alpogeNativeHostN e q d)).val ≡ 1 [MOD 2 ^ (e + 2) * q] ∧
+        (u : ZMod (alpogeNativeHostN e q d)).val ≡ d - 1 [MOD d] :=
+    nativeRamifiedUnits_crt
+      (nativeRamifiedCoprime e q d hd2 hqd) 1 (d - 1) (Nat.coprime_one_left _) hcop
   refine ⟨u, hu1, ?_⟩
   have hval : (((u : ZMod (alpogeNativeHostN e q d)).val : ℕ) : ZMod d) = -1 := by
     rw [(ZMod.natCast_eq_natCast_iff _ _ _).mpr hu2, Nat.cast_sub hd1]
@@ -126,14 +130,19 @@ theorem nativeDyadicHostRaw_inertia_d
       (∀ x : 𝓞 H.E, σ • x - x ∈ P) ↔
         (H.gal σ = 1 ∨ H.gal σ = (nativeDyadicFrame e).iod) := by
   dsimp only
-  intro P _ _ σ
+  simp only [nativeDyadicHostRaw_d]
+  intro P hP hPl σ
   have hqmod := hH.2.2.1
   have hdmod := hH.2.2.2.1
   have hd2 : d ≠ 2 := by omega
   have hqd : q ≠ d := by omega
   have hd4 : d % 4 = 3 := by omega
   have hmod := nativeDyadicOrdCompl_d e q d hd2 hqd
-  rw [nativeDyadicHostRaw_inertia e q d he hH d P σ]
+  rw [@nativeDyadicHostRaw_inertia e q d _ _ he hH d inferInstance P hP hPl σ]
+  change (∃ u : (ZMod (alpogeNativeHostN e q d))ˣ,
+    (u : ZMod (alpogeNativeHostN e q d)).val ≡ 1
+      [MOD ordCompl[d] (alpogeNativeHostN e q d)] ∧
+      (nativeDyadicHostRaw e q d he hH).gal σ = nativeDyadicArt e q d u) ↔ _
   constructor
   · rintro ⟨u, hu, hσ⟩
     rw [hmod] at hu
@@ -169,7 +178,8 @@ private theorem nativeRamifiedJacobi_typeI
   · have hl2' : l = 2 :=
       (Nat.prime_dvd_prime_iff_eq hl Nat.prime_two).mp (hl.dvd_of_dvd_pow hl2)
     subst l
-    rw [jacobiSym.at_two (Nat.odd_iff.mpr (by omega)), ZMod.χ₈_nat_eq_if_mod_eight]
+    rw [Nat.cast_ofNat, jacobiSym.at_two (b := d) (Nat.odd_iff.mpr (by omega)),
+      ZMod.χ₈_nat_eq_if_mod_eight]
     norm_num [hd8]
   · have hlq' : l = q := (Nat.prime_dvd_prime_iff_eq hl hH.1).mp hlq
     subst l
@@ -199,7 +209,11 @@ theorem nativeDyadicHostRaw_decomp_typeI
     hl.one_lt.ne' (Nat.Coprime.eq_one_of_dvd (Nat.Coprime.coprime_dvd_left hlA hc) h)
   have hdM : d ∣ ordCompl[l] (alpogeNativeHostN e q d) :=
     Nat.dvd_ordCompl_of_dvd_not_dvd (alpogeNativeD_dvd_hostN e q d) hlnd
-  obtain ⟨u, k, hu, hσu⟩ :=
+  obtain ⟨u, k, hu, hσu⟩ :
+      ∃ (u : (ZMod (alpogeNativeHostN e q d))ˣ) (k : ℕ),
+        (u : ZMod (alpogeNativeHostN e q d)).val ≡ l ^ k
+          [MOD ordCompl[l] (alpogeNativeHostN e q d)] ∧
+        (nativeDyadicHostRaw e q d he hH).gal σ = nativeDyadicArt e q d u :=
     (nativeDyadicHostRaw_decomp e q d he hH l P σ).mp hσ
   show ((nativeDyadicHostRaw e q d he hH).gal σ).1.2 = 1
   rw [hσu, nativeDyadicArt_apply]
@@ -238,7 +252,11 @@ theorem nativeDyadicHostRaw_decompConj
   have hdmod := hH.2.2.2.1
   have hd2 : d ≠ 2 := by omega
   have hqd : q ≠ d := by omega
-  obtain ⟨u, k, hu, hσu⟩ :=
+  obtain ⟨u, k, hu, hσu⟩ :
+      ∃ (u : (ZMod (alpogeNativeHostN e q d))ˣ) (k : ℕ),
+        (u : ZMod (alpogeNativeHostN e q d)).val ≡ d ^ k
+          [MOD ordCompl[d] (alpogeNativeHostN e q d)] ∧
+        H.gal H.conj = nativeDyadicArt e q d u :=
     (nativeDyadicHostRaw_decomp e q d he hH d P H.conj).mp hσ
   rw [nativeDyadicOrdCompl_d e q d hd2 hqd] at hu
   have hcc : nativeDyadicArt e q d u = (nativeDyadicFrame e).cc :=

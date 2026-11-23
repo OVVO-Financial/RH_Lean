@@ -120,7 +120,7 @@
         "path": "RHLean/Analysis/AlpogeThin/NativeDyadicCostWindows.lean",
         "declaration": "RHLean.Analysis.AlpogeThin.nativeSelectedDyadicGzPayment_of_size_regime",
         "initial_attachment_sha256": "fc284219427bcd2269b900b9864d2fa71ffb6d7fdb696bfe1116999e888eb9d0",
-        "native_sha256": "13a398e7535feda2267710727834ebdbbcd82f4b4e9a240aff76737d6a07261b"
+        "native_sha256": "4b9631b16682b29ad60f1f35c4b1f7d2d3177182ddd022837184cea3b369da07"
       },
       {
         "path": "RHLean/Analysis/AlpogeNativeCostNormalization.lean",
@@ -139,8 +139,8 @@
     "preserved_geometry": "Ds updates only scalar x,eps,b; physicalData then updates literal arithmetic entries; Ga and every geometric slope/trace field remain unchanged",
     "initial_source_reconstruction_sha256": "6e2f5173d78239f9508c372da3b4a9fedf37bb532af3064a9f2367e1670e7d8a",
     "native_path": "RHLean/Analysis/AlpogeThin/NativeConstructedDyadicSignedSlopePayment.lean",
-    "native_sha256": "f13d855952c5197a0fd70a17e8e2b8b6d84d4ce8222ca3c4ccf7af3e5fd29d73",
-    "native_lines": 157,
+    "native_sha256": "25756e53f9e74810c6b43a8013d9912bad27c75d055c2b2e98857b53d267d5b9",
+    "native_lines": 156,
     "scalar_window_followup": {
       "manifest": "scripts/alpoge_geometric_source_audit/native_geometric_cost_windows_source_manifest.json",
       "construction": "Under all original 15 meaningful scalar size windows, x^(C*eps)*complete native normalized geometric costs + x^(1/2+eps) <= x^(1/2+(C+3)*eps). Source error-budget premise is proved by reflexivity for the explicit bracket. The same constructed dyadic host theorem returns its prior full-cost inequality and the conditional original-window exponent bound.",
